@@ -38,7 +38,16 @@
 - Live production auth/storage smoke against `https://www.mais.hk` passed 3/3 register -> login -> `/api/me` probes with same-user verification.
 - Redacted US West `app_state` evidence: production `POSTGRES_URL` row hash changed from `ef3048a1385102b0` before the smoke to `6e4e984f2fd3f644` after the smoke, and the target row contained the `a22-runtime-smoke-` prefix after the live writes.
 - This proves the redeployed Production runtime is writing to the current Vercel Production `POSTGRES_URL`, which A19 separately verified as Neon `aws-us-west-2`.
-- Caveat: this redeploy rebuilt the previous production source at `cef544e09`; Vercel inspect still showed generated functions in `iad1`. It proves env pickup and durable US West DB writes, but not deployment of this branch's new `vercel.json` `pdx1` function-region policy.
+
+## Function Region Deployment Status
+
+- A22 updated the Vercel project-level `serverlessFunctionRegion` from `iad1` to `pdx1` through the official Vercel project API and verified `resourceConfig.functionDefaultRegions: ["pdx1"]`.
+- Direct Production deploy from the clean branch commit `5994e5b0d` failed before publish because the current branch still has baseline missing-module build drift: `VisualizationLabBackToTopButton`, `data/mathVirusBlaster`, `data/mightyTankBattle`, `data/usCaliforniaHighSchoolLessonIllustrations`, and then `@/lib/server/aiGovernance`.
+- A22 then redeployed the last known-good Production source again after the project-level region update.
+- Second redeploy: `dpl_EpthhHmZA498xrCVxeu5ctDimfKs`, URL `https://mais-3xuha98ni-peter-dongpin-hu-s-projects.vercel.app`, aliased to `https://www.mais.hk`, status `Ready`, created `2026-06-29 18:41:40 HKT`.
+- Vercel inspect for the second redeploy still showed generated functions in `iad1`; JSON inspect did not expose function-region fields.
+- Therefore Production env/runtime pickup is proven, Vercel project default is now `pdx1`, and the branch carries `vercel.json` `regions: ["pdx1"]`, but live Production function placement is not yet proven as `pdx1`.
+- Remaining A22/A10 release blocker: integrate or slice the missing-module/build fixes before deploying this branch's `pdx1` config, then inspect the resulting deployment for `pdx1`.
 
 ## Guardrail
 
@@ -56,9 +65,14 @@
 - Production redeploy inspect: status `Ready`; aliases include `https://www.mais.hk`; generated functions still showed `iad1` because the redeployed source predated this branch's `vercel.json`.
 - Production auth/storage smoke: passed 3/3 register -> login -> `/api/me` probes with same-user verification.
 - Production `POSTGRES_URL` target hash check: changed after smoke and contained the smoke prefix, proving live writes hit the current Production `POSTGRES_URL`.
+- Vercel project API setting update: `serverlessFunctionRegion: "pdx1"` and `resourceConfig.functionDefaultRegions: ["pdx1"]`.
+- Direct clean-branch Production deploy: failed before publish on baseline missing modules; no alias was promoted from the failed deployment.
+- Second known-good-source Production redeploy after project setting update: status `Ready`, alias restored to `https://www.mais.hk`; inspect text still showed functions in `iad1`.
+- Final live Production auth/storage smoke after second redeploy: warmed one-user register -> login -> `/api/me` passed with same-user verification.
+- Final redacted `POSTGRES_URL` target hash moved to `d3cef03e72431f41` with `a22-runtime-smoke-warm-` prefix present, proving the current alias still writes to the US West target.
 - `git diff --check`: passed.
 - `npm run type-check`: failed on the clean baseline with broad pre-existing missing-module/missing-export/type drift outside this slice, including `@/lib/server/aiGovernance`, `@/lib/difficulty`, teacher operations/review lesson exports, visualization lab type drift, and userStore API drift. This slice only adds JSON, a Node guard script, and coordination markdown.
-- `npm run build`: not run because the full type-check gate is already red.
+- `npm run build`: failed on missing modules, starting with `@/lib/server/aiGovernance`, after the direct Vercel deploy exposed earlier missing data/component modules.
 
 ## Sources Checked
 

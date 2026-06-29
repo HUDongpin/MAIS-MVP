@@ -13,7 +13,8 @@
 3. Record A22/A19/A07/A12 handoff notes for Neon/Postgres and AI Tutor region ownership. Completed in `coordination/reports/2026-06-29-A22-us-region-alignment.md`.
 4. Fold in A19 US West `POSTGRES_URL` completion evidence and verify app runtime usage of legacy DB variables. Completed; app runtime uses `POSTGRES_URL`, so legacy DB env family was not migrated.
 5. Redeploy Production to pick up the updated Vercel env and prove live writes hit the current `POSTGRES_URL`. Completed with redacted smoke/hash evidence.
-6. Run focused guard test and type-check/build checks as feasible. Completed with focused guard green, full type-check red from baseline drift.
+6. Set project-level default Function region to `pdx1` and attempt to deploy the branch region config. Partially completed; Vercel project setting is `pdx1`, but clean-branch Production deploy is blocked by baseline missing modules and live inspect still shows `iad1`.
+7. Run focused guard test and type-check/build checks as feasible. Completed with focused guard green, full type-check/build red from baseline drift.
 
 ## Intended Write Scope
 
@@ -37,6 +38,10 @@
 - Production live auth/storage smoke passed 3/3 register -> login -> `/api/me` same-user probes.
 - Production `POSTGRES_URL` target hash changed from `ef3048a1385102b0` to `6e4e984f2fd3f644` after the smoke and contained the `a22-runtime-smoke-` prefix, proving live writes hit the current Production `POSTGRES_URL`.
 - Vercel inspect for the redeployed previous production source still showed functions in `iad1`; this proves env pickup but not deployment of this branch's `pdx1` `vercel.json`.
+- Vercel project API was updated and verified as `serverlessFunctionRegion: "pdx1"` / `resourceConfig.functionDefaultRegions: ["pdx1"]`.
+- Direct clean-branch Production deploy from `5994e5b0d` failed before publish on baseline missing modules; no alias was promoted from the failed deployment.
+- After the project setting update, A22 redeployed the known-good production source as `dpl_EpthhHmZA498xrCVxeu5ctDimfKs`; it is Ready and aliased to `https://www.mais.hk`, but inspect text still shows generated functions in `iad1`.
+- Final warmed live auth/storage smoke passed 1/1 after the second redeploy; final `POSTGRES_URL` target hash is `d3cef03e72431f41` and contains the `a22-runtime-smoke-warm-` prefix.
 - A07 dirty worktree AI Tutor route pins were narrowed by removing `preferredRegion = "hkg1"` from route, status, and resolve routes; no provider behavior was changed.
 
 ## Verification
@@ -47,6 +52,9 @@
 - Vercel Production redeploy inspect returned status `Ready` and production aliases.
 - Live Production auth/storage smoke passed 3/3 same-user probes.
 - Redacted Production `POSTGRES_URL` target hash/prefix check confirmed live writes landed in the current US West target.
+- Vercel project API setting check passed for `pdx1`.
+- Direct clean-branch Vercel deploy failed on missing modules, so this branch's `vercel.json` `pdx1` config is not yet live.
+- Second known-good-source Production redeploy passed; final warmed live Production auth/storage smoke passed 1/1, but inspect text still showed `iad1`.
 - `git diff --check` passed.
 - `npm run type-check` failed before build on broad baseline drift unrelated to this slice. Representative failures included missing `@/lib/server/aiGovernance`, missing `@/lib/difficulty`, userStore export drift, teacher operations/review lesson type drift, and visualization lab type drift.
-- `npm run build` not run after the type-check blocker.
+- `npm run build` failed on baseline missing modules, starting with `@/lib/server/aiGovernance`.
