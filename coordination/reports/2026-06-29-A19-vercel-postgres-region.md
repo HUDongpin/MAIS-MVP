@@ -11,16 +11,14 @@
 
 ## Current Result
 
-Status: verified, but not aligned.
+Status: verified and aligned.
 
 Authoritative Vercel cloud env evidence:
 
-- Preview `POSTGRES_URL`: present; provider `neon`; region `aws-ap-southeast-1`; `usWestNeon: false`.
-- Production `POSTGRES_URL`: present; provider `neon`; region `aws-ap-southeast-1`; `usWestNeon: false`.
-- Preview related DB env family (`DATABASE_URL`, `POSTGRES_PRISMA_URL`, `POSTGRES_URL_NON_POOLING`, `DATABASE_URL_UNPOOLED`, `POSTGRES_URL_NO_SSL`, `POSTGRES_HOST`): all present values classify as Neon `aws-ap-southeast-1`; no US West fallback found.
-- Production related DB env family (`DATABASE_URL`, `POSTGRES_PRISMA_URL`, `POSTGRES_URL_NON_POOLING`, `DATABASE_URL_UNPOOLED`, `POSTGRES_URL_NO_SSL`, `POSTGRES_HOST`): all present values classify as Neon `aws-ap-southeast-1`; no US West fallback found.
+- Preview `POSTGRES_URL`: present; provider `neon`; region `aws-us-west-2`; `usWestNeon: true`.
+- Production `POSTGRES_URL`: present; provider `neon`; region `aws-us-west-2`; `usWestNeon: true`.
 
-This directly contradicts the requested end state. Vercel Preview and Production do not currently point to US West Neon.
+This satisfies the requested redacted confirmation: Vercel Preview and Production `POSTGRES_URL` now point to US West Neon.
 
 Evidence gathered:
 
@@ -31,10 +29,27 @@ Evidence gathered:
 - Owner-approved `All API Keys.docx`: present, but no Vercel entry/token pattern, no Neon signal, no Postgres URL, and no US West signal found.
 - Safe local secret-file name scan: no Vercel auth variable names surfaced.
 - Existing `/api/admin/storage/health` route: useful for durable Postgres readiness after authenticated admin access, but it does not prove Neon region.
+- Owner authorized creating a US West Neon/Postgres target after the initial blocker.
+- Vercel Neon Marketplace resource `mais-us-west-postgres` was provisioned with metadata `region=pdx1`, `auth=false`, plan `free_v3`, and connected to Preview and Production with `USWEST_`-prefixed variables.
+- The prefixed `USWEST_POSTGRES_URL`, `USWEST_DATABASE_URL`, and `USWEST_POSTGRES_HOST` classified as Neon `aws-us-west-2` in both Preview and Production before promotion.
+- A stray unconnected probe resource created during CLI capability discovery was removed before the intended resource was created.
 
-Because both cloud env targets resolve to Neon `aws-ap-southeast-1`, A19 cannot complete the requested US West confirmation without a US West Neon/Postgres connection string or an owner-approved Neon migration/branch cutover.
+## App State Copy
 
-No safe in-place Vercel env update is available from current approved local sources: the approved DOCX contains no Neon/Postgres URL and no US West signal, and Vercel does not already contain an alternate US West DB variable that can be promoted without a new credential/source.
+- Local TCP Postgres transport to Neon timed out from this machine for both old and new targets, so direct `postgres` TCP migration was not used.
+- Neon HTTPS/serverless SQL connectivity succeeded to both the old source and new US West target.
+- Production `app_state` was copied from the old `POSTGRES_URL` target to `USWEST_POSTGRES_URL` before promoting `POSTGRES_URL`.
+- Redacted copy evidence: source row count `1`, target row count after copy `1`, source hash `51a59c6fa492782b`, target hash `51a59c6fa492782b`.
+
+No payloads, database URLs, hostnames, passwords, project IDs, or row contents were printed or stored.
+
+## Promotion Notes
+
+- `POSTGRES_URL` was first removed from the prior Singapore-backed env target, then restored from the verified US West value.
+- Vercel CLI rejected stdin for all-Preview-branches noninteractive add, so the final Preview/Production `POSTGRES_URL` promotion used authenticated `vercel api` with request body from stdin.
+- `POSTGRES_URL` is now one encrypted Vercel env record targeting both Production and Preview.
+- The legacy unprefixed Neon env family (`DATABASE_URL`, `POSTGRES_PRISMA_URL`, `POSTGRES_URL_NON_POOLING`, `DATABASE_URL_UNPOOLED`, `POSTGRES_URL_NO_SSL`, `POSTGRES_HOST`, etc.) still points at the older Neon project/region. MAIS runtime storage uses `POSTGRES_URL`, but A19/A22 should not treat the broader DB env family as region-aligned until those variables are intentionally reconciled.
+- Existing deployments may need A22 redeploy/restart evidence before live functions consume the updated env. This report verifies Vercel cloud env configuration, not live deployment runtime pickup.
 
 ## Added Verifier
 
@@ -77,9 +92,10 @@ Any `missing`, `unreadable`, `api-error`, or non-`aws-us-west-2` result means A1
 ## Verification Run
 
 - `node --test scripts/verify-vercel-postgres-region.test.mjs`: passed, 4/4.
-- Clean-worktree Vercel cloud env run for Preview: verified `POSTGRES_URL` as Neon `aws-ap-southeast-1`; `usWestNeon: false`.
-- Clean-worktree Vercel cloud env run for Production: verified `POSTGRES_URL` as Neon `aws-ap-southeast-1`; `usWestNeon: false`.
-- Clean-worktree Vercel cloud env family scan for Preview/Production: all related DB URL/host variables classify as Neon `aws-ap-southeast-1`; no US West fallback found.
+- Linked-root Vercel cloud env run for Preview after promotion: verified `POSTGRES_URL` as Neon `aws-us-west-2`; `usWestNeon: true`.
+- Linked-root Vercel cloud env run for Production after promotion: verified `POSTGRES_URL` as Neon `aws-us-west-2`; `usWestNeon: true`.
+- Linked-root Vercel cloud env equality check: Preview and Production `POSTGRES_URL` both equal the verified `USWEST_POSTGRES_URL` value in process memory.
+- `vercel env ls` redacted name-only check: `POSTGRES_URL` exists for Production and Preview.
 - `git diff --check`: passed.
 
 ## Sources Checked
