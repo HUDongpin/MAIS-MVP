@@ -44,5 +44,5 @@
 
 ## Follow-Up
 
-- A22 should redeploy or otherwise verify live function runtime pickup of the updated env.
+- A22 redeployed Production and verified live function runtime pickup with auth/storage smoke plus redacted US West `POSTGRES_URL` target hash evidence.
 - Legacy non-`POSTGRES_URL` Neon env variables still point to the older region and should be reconciled only if an owning session confirms they are used by runtime code.

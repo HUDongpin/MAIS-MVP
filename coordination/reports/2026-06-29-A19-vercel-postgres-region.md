@@ -49,7 +49,7 @@ No payloads, database URLs, hostnames, passwords, project IDs, or row contents w
 - Vercel CLI rejected stdin for all-Preview-branches noninteractive add, so the final Preview/Production `POSTGRES_URL` promotion used authenticated `vercel api` with request body from stdin.
 - `POSTGRES_URL` is now one encrypted Vercel env record targeting both Production and Preview.
 - The legacy unprefixed Neon env family (`DATABASE_URL`, `POSTGRES_PRISMA_URL`, `POSTGRES_URL_NON_POOLING`, `DATABASE_URL_UNPOOLED`, `POSTGRES_URL_NO_SSL`, `POSTGRES_HOST`, etc.) still points at the older Neon project/region. MAIS runtime storage uses `POSTGRES_URL`, but A19/A22 should not treat the broader DB env family as region-aligned until those variables are intentionally reconciled.
-- Existing deployments may need A22 redeploy/restart evidence before live functions consume the updated env. This report verifies Vercel cloud env configuration, not live deployment runtime pickup.
+- A22 later redeployed Production and confirmed live production auth/storage writes landed in the current Production `POSTGRES_URL` target. See `coordination/reports/2026-06-29-A22-us-region-alignment.md` for deployment and runtime pickup evidence.
 
 ## Added Verifier
 

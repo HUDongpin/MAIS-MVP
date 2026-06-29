@@ -1,5 +1,5 @@
 import assert from "node:assert/strict";
-import { existsSync, readFileSync } from "node:fs";
+import { existsSync, readdirSync, readFileSync } from "node:fs";
 import path from "node:path";
 import test from "node:test";
 
@@ -29,6 +29,17 @@ function readProjectText(relativePath) {
   return readFileSync(path.join(projectRoot, relativePath), "utf8");
 }
 
+function routeFilesUnder(relativeDirectory) {
+  const absoluteDirectory = path.join(projectRoot, relativeDirectory);
+  if (!existsSync(absoluteDirectory)) return [];
+
+  return readdirSync(absoluteDirectory, { withFileTypes: true }).flatMap((entry) => {
+    const relativePath = path.join(relativeDirectory, entry.name);
+    if (entry.isDirectory()) return routeFilesUnder(relativePath);
+    return entry.isFile() && entry.name === "route.ts" ? [relativePath] : [];
+  });
+}
+
 test("Vercel Node functions default to the US West Postgres-adjacent region", () => {
   assert.equal(existsSync(vercelConfigPath), true, "vercel.json must define the deployment region");
   const config = JSON.parse(readFileSync(vercelConfigPath, "utf8"));
@@ -48,6 +59,20 @@ test("core classroom APIs stay Node runtime and do not pin US traffic to Hong Ko
       source,
       /export const preferredRegion\s*=\s*["']hkg1["'];/,
       `${route} must not override US classroom traffic to hkg1`
+    );
+  }
+});
+
+test("AI Tutor routes do not pin US classroom traffic to Hong Kong", () => {
+  const aiTutorRoutes = routeFilesUnder("app/api/ai-tutor");
+  assert.ok(aiTutorRoutes.length > 0, "AI Tutor route files should be present for region guard coverage");
+
+  for (const route of aiTutorRoutes) {
+    const source = readProjectText(route);
+    assert.doesNotMatch(
+      source,
+      /export const preferredRegion\s*=\s*["']hkg1["'];/,
+      `${route} must not hard-pin US classroom AI Tutor traffic to hkg1`
     );
   }
 });

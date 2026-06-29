@@ -17,15 +17,28 @@
 
 ## AI Tutor Handoff
 
-- Dirty root currently reports `preferredRegion = "hkg1"` in A07-owned AI Tutor routes, including `app/api/ai-tutor/route.ts`, `app/api/ai-tutor/status/route.ts`, and the untracked `app/api/ai-tutor/resolve/route.ts`.
-- This A22 slice does not change AI Tutor provider behavior or route semantics.
-- A07 should separately decide whether US classroom AI Tutor requests should remain Hong Kong-pinned, become `auto`, or use a US-region resolver path. Next.js route segment `preferredRegion` is per-route and can override inherited/default placement, so AI Tutor must be evaluated independently from core classroom APIs.
+- Current committed branch state has no `preferredRegion = "hkg1"` in `app/api/ai-tutor/`.
+- A07 dirty worktree route pins were also narrowed in place by removing `preferredRegion = "hkg1"` from `app/api/ai-tutor/route.ts`, `app/api/ai-tutor/status/route.ts`, and `app/api/ai-tutor/resolve/route.ts`.
+- This does not change AI Tutor provider behavior, prompts, model choice, or quota semantics.
+- Added guard coverage so committed AI Tutor routes fail the release check if a hard Hong Kong pin is reintroduced.
 
 ## A19 Database/Env Handoff
 
-- A19 should verify, without exposing secrets, that Vercel Preview and Production `POSTGRES_URL` values point at the intended Neon US West project/branch before release.
-- If the current Neon project is not in AWS US West Oregon, A19 should create or request the appropriate Neon target and migrate data rather than assuming `pdx1` compute alone solves the cross-region path.
+- A19 verified, without exposing secrets, that Vercel Preview and Production `POSTGRES_URL` now point at Neon `aws-us-west-2`.
+- A19 created `mais-us-west-postgres`, copied `app_state`, and promoted the verified US West value to Preview and Production `POSTGRES_URL`.
+- Runtime code usage scan found app durable storage reads `process.env.POSTGRES_URL` in `lib/server/userStore.ts`; no app runtime code directly reads the legacy non-`POSTGRES_URL` Neon env family.
+- Therefore the legacy non-`POSTGRES_URL` DB variables were left untouched for now; they should be reconciled only if an owning session proves a runtime dependency.
 - Do not expose database URLs in reports or logs; record only redacted present/missing status and region/provider names.
+
+## Production Runtime Pickup
+
+- Latest pre-update Production deployment was older than the A19 `POSTGRES_URL` promotion.
+- A22 redeployed the latest ready Production deployment with Vercel `redeploy`, target `production`, scope `peter-dongpin-hu-s-projects`.
+- New Production deployment: `dpl_AUAo4JFVMhWRpyM2sTCKHQ5tom9n`, URL `https://mais-7gqsmkz5w-peter-dongpin-hu-s-projects.vercel.app`, aliased to `https://www.mais.hk` and related production aliases, status `Ready`, created `2026-06-29 18:24:45 HKT`.
+- Live production auth/storage smoke against `https://www.mais.hk` passed 3/3 register -> login -> `/api/me` probes with same-user verification.
+- Redacted US West `app_state` evidence: production `POSTGRES_URL` row hash changed from `ef3048a1385102b0` before the smoke to `6e4e984f2fd3f644` after the smoke, and the target row contained the `a22-runtime-smoke-` prefix after the live writes.
+- This proves the redeployed Production runtime is writing to the current Vercel Production `POSTGRES_URL`, which A19 separately verified as Neon `aws-us-west-2`.
+- Caveat: this redeploy rebuilt the previous production source at `cef544e09`; Vercel inspect still showed generated functions in `iad1`. It proves env pickup and durable US West DB writes, but not deployment of this branch's new `vercel.json` `pdx1` function-region policy.
 
 ## Guardrail
 
@@ -34,10 +47,15 @@
   - `vercel.json` exists and defaults Vercel Functions to `["pdx1"]`.
   - selected core classroom APIs remain `runtime = "nodejs"`.
   - selected core classroom APIs do not export `preferredRegion = "hkg1"`.
+  - committed AI Tutor routes do not export `preferredRegion = "hkg1"`.
 
 ## Verification
 
-- `node --test scripts/vercel-region-config.test.mjs`: passed, 2/2 tests.
+- `node --test scripts/vercel-region-config.test.mjs`: passed, 3/3 tests.
+- A07 worktree check: `rg "preferredRegion\\s*=\\s*[\\\"']hkg1|hkg1" app/api/ai-tutor next.config.ts` returned no matches.
+- Production redeploy inspect: status `Ready`; aliases include `https://www.mais.hk`; generated functions still showed `iad1` because the redeployed source predated this branch's `vercel.json`.
+- Production auth/storage smoke: passed 3/3 register -> login -> `/api/me` probes with same-user verification.
+- Production `POSTGRES_URL` target hash check: changed after smoke and contained the smoke prefix, proving live writes hit the current Production `POSTGRES_URL`.
 - `git diff --check`: passed.
 - `npm run type-check`: failed on the clean baseline with broad pre-existing missing-module/missing-export/type drift outside this slice, including `@/lib/server/aiGovernance`, `@/lib/difficulty`, teacher operations/review lesson exports, visualization lab type drift, and userStore API drift. This slice only adds JSON, a Node guard script, and coordination markdown.
 - `npm run build`: not run because the full type-check gate is already red.
