@@ -11,19 +11,26 @@
 
 ## Current Result
 
-Status: owner-action required; confirmation not proven yet.
+Status: verified, but not aligned.
+
+Authoritative Vercel cloud env evidence:
+
+- Preview `POSTGRES_URL`: present; provider `neon`; region `aws-ap-southeast-1`; `usWestNeon: false`.
+- Production `POSTGRES_URL`: present; provider `neon`; region `aws-ap-southeast-1`; `usWestNeon: false`.
+
+This directly contradicts the requested end state. Vercel Preview and Production do not currently point to US West Neon.
 
 Evidence gathered:
 
 - Local Vercel project link: present in the dirty root checkout.
-- Shell `VERCEL_TOKEN`: missing.
-- Shell `VERCEL_ORG_ID` / `VERCEL_PROJECT_ID`: missing.
-- Local Vercel auth file: missing.
-- Owner-approved `All API Keys.docx`: present, but no Vercel entry/token pattern found.
+- Vercel CLI auth: present.
+- Shell `VERCEL_TOKEN`: missing, but CLI auth was sufficient for cloud env reads.
+- Shell `VERCEL_ORG_ID` / `VERCEL_PROJECT_ID`: missing; linked root `.vercel/project.json` supplied project targeting to the child process without printing IDs.
+- Owner-approved `All API Keys.docx`: present, but no Vercel entry/token pattern, no Neon signal, no Postgres URL, and no US West signal found.
 - Safe local secret-file name scan: no Vercel auth variable names surfaced.
 - Existing `/api/admin/storage/health` route: useful for durable Postgres readiness after authenticated admin access, but it does not prove Neon region.
 
-Because no Vercel auth source is available, I could not read the Preview/Production `POSTGRES_URL` values, even in redacted form. Therefore the requested confirmation is incomplete.
+Because both cloud env targets resolve to Neon `aws-ap-southeast-1`, A19 cannot complete the requested US West confirmation without a US West Neon/Postgres connection string or an owner-approved Neon migration/branch cutover.
 
 ## Added Verifier
 
@@ -66,7 +73,8 @@ Any `missing`, `unreadable`, `api-error`, or non-`aws-us-west-2` result means A1
 ## Verification Run
 
 - `node --test scripts/verify-vercel-postgres-region.test.mjs`: passed, 4/4.
-- `node /Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A19-vercel-postgres-region/scripts/verify-vercel-postgres-region.mjs` from linked root: failed safely with token missing and project present; no secret values printed.
+- Clean-worktree Vercel cloud env run for Preview: verified `POSTGRES_URL` as Neon `aws-ap-southeast-1`; `usWestNeon: false`.
+- Clean-worktree Vercel cloud env run for Production: verified `POSTGRES_URL` as Neon `aws-ap-southeast-1`; `usWestNeon: false`.
 - `git diff --check`: passed.
 
 ## Sources Checked

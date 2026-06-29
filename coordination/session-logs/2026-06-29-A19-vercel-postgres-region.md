@@ -16,18 +16,20 @@
 
 - Vercel CLI installed.
 - Root project link present.
-- No shell Vercel token/project env vars.
-- No local Vercel auth file.
+- No shell Vercel token/project env vars, but Vercel CLI auth is present.
 - No Vercel entry/token pattern in approved DOCX.
+- No Neon/Postgres URL or US West signal in approved DOCX.
+- Cloud Preview `POSTGRES_URL` verified as Neon `aws-ap-southeast-1`, not US West.
+- Cloud Production `POSTGRES_URL` verified as Neon `aws-ap-southeast-1`, not US West.
 - Existing admin storage health route does not prove Neon region.
 
 ## Verification
 
 - Red test: verifier test initially failed because implementation file was missing.
 - Green test: `node --test scripts/verify-vercel-postgres-region.test.mjs` passed, 4/4.
-- Safe missing-auth run from linked root returned token missing / project present.
+- Safe Vercel cloud env run from clean A19 worktree returned no secrets and classified both Preview and Production as Neon `aws-ap-southeast-1`.
 - `git diff --check` passed.
 
 ## Stop Condition
 
-The requested confirmation cannot be proven until the owner makes a Vercel token available to the process or authenticates Vercel CLI locally. Do not ask the owner to paste a token into chat; use runtime-only injection or local CLI auth.
+The requested US West confirmation cannot be true until the owner provides or provisions a US West Neon/Postgres target, then authorizes A19 to update Vercel Preview/Production `POSTGRES_URL` without logging the value.
