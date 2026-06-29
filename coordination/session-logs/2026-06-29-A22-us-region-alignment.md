@@ -55,6 +55,12 @@
 - Vercel project API setting check passed for `pdx1`.
 - Direct clean-branch Vercel deploy failed on missing modules, so this branch's `vercel.json` `pdx1` config is not yet live.
 - Second known-good-source Production redeploy passed; final warmed live Production auth/storage smoke passed 1/1, but inspect text still showed `iad1`.
+- Dirty-root `pdx1` package `a22-us-west-region-20260629T1111` was deployed and inspected as `[pdx1]`, but live registration returned `503`; A22 rolled it back immediately to `dpl_EpthhHmZA498xrCVxeu5ctDimfKs`.
+- A22 copied the older stable pruned package `.tmp/vercel-staging/20260628-www-mais` to `.tmp/vercel-staging/a22-stable-us-west-20260629T1138` and applied only the `vercel.json` `pdx1` default plus AI Tutor `hkg1` pin removals.
+- Stable-source Production deployment `dpl_CtyFaCuufrFmU971k2nN8ZTFPKMQ` is now live on `https://www.mais.hk`; inspect shows generated functions in `[pdx1]`.
+- Live auth/storage smoke on the stable-source `pdx1` deployment passed: registration `200`, login `200`, `/api/me` `200`, same-user hash match.
+- Dashboard UI smoke passed with ready time `3242ms`; warmed dashboard API latency smoke passed with dashboard p95 `3711ms`.
+- A19 converted non-secret `HK_MATH_STORAGE_PROVIDER=postgres` to readable encrypted env form for Production and Preview after CLI deployments missed the old sensitive provider flag.
 - `git diff --check` passed.
 - `npm run type-check` failed before build on broad baseline drift unrelated to this slice. Representative failures included missing `@/lib/server/aiGovernance`, missing `@/lib/difficulty`, userStore export drift, teacher operations/review lesson type drift, and visualization lab type drift.
 - `npm run build` failed on baseline missing modules, starting with `@/lib/server/aiGovernance`.

@@ -48,6 +48,7 @@ No payloads, database URLs, hostnames, passwords, project IDs, or row contents w
 - `POSTGRES_URL` was first removed from the prior Singapore-backed env target, then restored from the verified US West value.
 - Vercel CLI rejected stdin for all-Preview-branches noninteractive add, so the final Preview/Production `POSTGRES_URL` promotion used authenticated `vercel api` with request body from stdin.
 - `POSTGRES_URL` is now one encrypted Vercel env record targeting both Production and Preview.
+- The non-secret runtime provider flag `HK_MATH_STORAGE_PROVIDER=postgres` was converted from old sensitive records to readable encrypted env records for Production and Preview so CLI-created deployments can pick it up consistently; no credential values were involved.
 - The legacy unprefixed Neon env family (`DATABASE_URL`, `POSTGRES_PRISMA_URL`, `POSTGRES_URL_NON_POOLING`, `DATABASE_URL_UNPOOLED`, `POSTGRES_URL_NO_SSL`, `POSTGRES_HOST`, etc.) still points at the older Neon project/region. MAIS runtime storage uses `POSTGRES_URL`, but A19/A22 should not treat the broader DB env family as region-aligned until those variables are intentionally reconciled.
 - A22 later redeployed Production and confirmed live production auth/storage writes landed in the current Production `POSTGRES_URL` target. See `coordination/reports/2026-06-29-A22-us-region-alignment.md` for deployment and runtime pickup evidence.
 
@@ -94,6 +95,9 @@ Any `missing`, `unreadable`, `api-error`, or non-`aws-us-west-2` result means A1
 - `node --test scripts/verify-vercel-postgres-region.test.mjs`: passed, 4/4.
 - Linked-root Vercel cloud env run for Preview after promotion: verified `POSTGRES_URL` as Neon `aws-us-west-2`; `usWestNeon: true`.
 - Linked-root Vercel cloud env run for Production after promotion: verified `POSTGRES_URL` as Neon `aws-us-west-2`; `usWestNeon: true`.
+- Linked-root Vercel cloud env run after the stable-source `pdx1` deployment: Preview and Production `POSTGRES_URL` still verify as Neon `aws-us-west-2`; `usWestNeon: true`.
+- Linked-root Vercel cloud env run: Preview and Production `HK_MATH_STORAGE_PROVIDER` are present and equal to `postgres`.
+- A22 final live deployment `dpl_CtyFaCuufrFmU971k2nN8ZTFPKMQ` passed production auth/storage smoke on `https://www.mais.hk`: registration, login, and `/api/me` all returned `200` with same-user verification.
 - Linked-root Vercel cloud env equality check: Preview and Production `POSTGRES_URL` both equal the verified `USWEST_POSTGRES_URL` value in process memory.
 - `vercel env ls` redacted name-only check: `POSTGRES_URL` exists for Production and Preview.
 - `git diff --check`: passed.

@@ -74,6 +74,18 @@
 - `npm run type-check`: failed on the clean baseline with broad pre-existing missing-module/missing-export/type drift outside this slice, including `@/lib/server/aiGovernance`, `@/lib/difficulty`, teacher operations/review lesson exports, visualization lab type drift, and userStore API drift. This slice only adds JSON, a Node guard script, and coordination markdown.
 - `npm run build`: failed on missing modules, starting with `@/lib/server/aiGovernance`, after the direct Vercel deploy exposed earlier missing data/component modules.
 
+## Final Live PDX1 Update
+
+- A22 tested the dirty-root `a22-us-west-region-20260629T1111` package first; it inspected as `[pdx1]`, but live registration returned `503`, so A22 rolled back immediately to `dpl_EpthhHmZA498xrCVxeu5ctDimfKs`.
+- A22 then copied the older stable pruned package `.tmp/vercel-staging/20260628-www-mais` to `.tmp/vercel-staging/a22-stable-us-west-20260629T1138` and applied only the region-policy delta: added `vercel.json` with `regions: ["pdx1"]` and removed `preferredRegion = "hkg1"` from the three AI Tutor routes.
+- Stable-source Production deployment `dpl_CtyFaCuufrFmU971k2nN8ZTFPKMQ`, URL `https://mais-iu4g07g4l-peter-dongpin-hu-s-projects.vercel.app`, is now live on `https://www.mais.hk`.
+- Vercel inspect for `dpl_CtyFaCuufrFmU971k2nN8ZTFPKMQ` shows generated functions in `[pdx1]`.
+- Live production auth/storage smoke passed: disposable `a22-stable-pdx-smoke-` registration `200`, login `200`, `/api/me` `200`, and same-user hash match.
+- Dashboard UI loading smoke passed: ready in `3242ms` under the `12000ms` threshold.
+- Warmed dashboard latency smoke passed: `/api/me`, `/api/dashboard?grade=P1`, `/api/assignments`, `/api/gamification/summary`, and `/api/rewards` all returned `200`; dashboard p95 was `3711ms` under the `6000ms` threshold.
+- A19 redacted env checks after this release verified Preview and Production `POSTGRES_URL` as Neon `aws-us-west-2`, and Preview/Production `HK_MATH_STORAGE_PROVIDER` as present and equal to `postgres`.
+- Runtime code scan in the deployed stable package found DB env reads only at `lib/server/userStore.ts` and `lib/server/practiceAttemptStore.ts`, both using `process.env.POSTGRES_URL`; the legacy non-`POSTGRES_URL` DB env variables remain present but are not used by the classroom runtime path, so they were left unmigrated.
+
 ## Sources Checked
 
 - Vercel Functions region configuration: https://vercel.com/docs/functions/configuring-functions/region

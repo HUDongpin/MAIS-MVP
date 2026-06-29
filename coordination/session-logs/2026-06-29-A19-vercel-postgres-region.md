@@ -30,6 +30,8 @@
 - Promoted US West value to Vercel `POSTGRES_URL` for both Preview and Production.
 - Final cloud Preview `POSTGRES_URL` verified as Neon `aws-us-west-2`.
 - Final cloud Production `POSTGRES_URL` verified as Neon `aws-us-west-2`.
+- Converted non-secret `HK_MATH_STORAGE_PROVIDER=postgres` to readable encrypted env records for Production and Preview after CLI-created deployments missed the old sensitive provider flag.
+- A22 final stable-source `pdx1` deployment `dpl_CtyFaCuufrFmU971k2nN8ZTFPKMQ` passed live auth/storage smoke on `https://www.mais.hk`.
 - Existing admin storage health route does not prove Neon region.
 
 ## Verification
@@ -39,6 +41,7 @@
 - Safe Vercel cloud env run from clean A19 worktree returned no secrets and classified both Preview and Production as Neon `aws-ap-southeast-1`.
 - Safe Vercel cloud env family scan returned no secrets and found no US West DB variable to promote.
 - Safe final Vercel cloud env run through the linked root returned no secrets and classified both Preview and Production `POSTGRES_URL` as Neon `aws-us-west-2`.
+- Safe final Vercel cloud env run confirmed Preview and Production `HK_MATH_STORAGE_PROVIDER` are present and equal to `postgres`.
 - Safe final equality check confirmed Preview and Production `POSTGRES_URL` equals `USWEST_POSTGRES_URL` in the Vercel target env.
 - `git diff --check` passed.
 
