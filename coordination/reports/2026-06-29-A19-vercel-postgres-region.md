@@ -17,6 +17,8 @@ Authoritative Vercel cloud env evidence:
 
 - Preview `POSTGRES_URL`: present; provider `neon`; region `aws-ap-southeast-1`; `usWestNeon: false`.
 - Production `POSTGRES_URL`: present; provider `neon`; region `aws-ap-southeast-1`; `usWestNeon: false`.
+- Preview related DB env family (`DATABASE_URL`, `POSTGRES_PRISMA_URL`, `POSTGRES_URL_NON_POOLING`, `DATABASE_URL_UNPOOLED`, `POSTGRES_URL_NO_SSL`, `POSTGRES_HOST`): all present values classify as Neon `aws-ap-southeast-1`; no US West fallback found.
+- Production related DB env family (`DATABASE_URL`, `POSTGRES_PRISMA_URL`, `POSTGRES_URL_NON_POOLING`, `DATABASE_URL_UNPOOLED`, `POSTGRES_URL_NO_SSL`, `POSTGRES_HOST`): all present values classify as Neon `aws-ap-southeast-1`; no US West fallback found.
 
 This directly contradicts the requested end state. Vercel Preview and Production do not currently point to US West Neon.
 
@@ -31,6 +33,8 @@ Evidence gathered:
 - Existing `/api/admin/storage/health` route: useful for durable Postgres readiness after authenticated admin access, but it does not prove Neon region.
 
 Because both cloud env targets resolve to Neon `aws-ap-southeast-1`, A19 cannot complete the requested US West confirmation without a US West Neon/Postgres connection string or an owner-approved Neon migration/branch cutover.
+
+No safe in-place Vercel env update is available from current approved local sources: the approved DOCX contains no Neon/Postgres URL and no US West signal, and Vercel does not already contain an alternate US West DB variable that can be promoted without a new credential/source.
 
 ## Added Verifier
 
@@ -75,6 +79,7 @@ Any `missing`, `unreadable`, `api-error`, or non-`aws-us-west-2` result means A1
 - `node --test scripts/verify-vercel-postgres-region.test.mjs`: passed, 4/4.
 - Clean-worktree Vercel cloud env run for Preview: verified `POSTGRES_URL` as Neon `aws-ap-southeast-1`; `usWestNeon: false`.
 - Clean-worktree Vercel cloud env run for Production: verified `POSTGRES_URL` as Neon `aws-ap-southeast-1`; `usWestNeon: false`.
+- Clean-worktree Vercel cloud env family scan for Preview/Production: all related DB URL/host variables classify as Neon `aws-ap-southeast-1`; no US West fallback found.
 - `git diff --check`: passed.
 
 ## Sources Checked
