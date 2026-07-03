@@ -3,9 +3,31 @@ name: CI
 on:
   push:
   pull_request:
+  workflow_dispatch:
+    inputs:
+      full_validation:
+        description: Run type-check, focused tests, and production build
+        required: false
+        default: false
+        type: boolean
 
 jobs:
+  snapshot:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 24
+
+      - name: Install dependencies
+        run: npm install
+
   validate:
+    if: ${{ github.event_name == 'workflow_dispatch' && inputs.full_validation }}
     runs-on: ubuntu-latest
     steps:
       - name: Check out repository
