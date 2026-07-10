@@ -1,0 +1,489 @@
+{
+  "version": 2,
+  "frozenAt": "2026-07-11",
+  "frozenBy": ["A25", "A10", "A22"],
+  "policy": {
+    "rootReleaseFrozen": true,
+    "dirtyMapMaxAgeMinutes": 60,
+    "forbidGitAddDot": true,
+    "unmappedOwnerRule": "Strict release intake requires zero unmapped owner entries.",
+    "allowedReleaseSources": [
+      "clean-worktree",
+      "clean-clone",
+      "reviewed-clean-slice",
+      "owner-approved-pruned-staging"
+    ]
+  },
+  "packages": [
+    {
+      "id": "A25-release-intake",
+      "owner": "A25",
+      "role": "Git hygiene and release intake",
+      "slice": "docs/coordination evidence",
+      "pathspecs": ["coordination/release-intake/**", "scripts/refresh-dirty-tree-map.mjs"]
+    },
+    {
+      "id": "A22-dev-isolation",
+      "owner": "A22",
+      "role": "Production reliability and isolated development",
+      "coordinatesWith": ["A10", "A11"],
+      "slice": "release hygiene tooling/config",
+      "pathspecs": [".claude/launch.json", "scripts/dev-isolated.mjs", "scripts/kill-port.mjs"]
+    },
+    {
+      "id": "A22-release-source-gates",
+      "owner": "A22",
+      "role": "Production release-source and worktree lifecycle gates",
+      "coordinatesWith": ["A10", "A25"],
+      "slice": "release hygiene tooling/config",
+      "pathspecs": [
+        "coordination/release-intake/assert-release-source-clean.mjs",
+        "coordination/release-intake/assert-worktree-lifecycle.mjs"
+      ]
+    },
+    {
+      "id": "A22-import-target-gates",
+      "owner": "A22",
+      "role": "Production reliability import-target gates",
+      "coordinatesWith": ["A10"],
+      "slice": "release hygiene tooling/config",
+      "pathspecs": ["scripts/check-import-targets*.mjs"]
+    },
+    {
+      "id": "A22-release-hygiene-tooling",
+      "owner": "A22",
+      "role": "Production reliability and release engineering",
+      "coordinatesWith": ["A10", "A11"],
+      "slice": "release hygiene tooling/config",
+      "pathspecs": [
+        ".vercelignore",
+        "playwright.config.ts",
+        "tsconfig.next.json",
+        "scripts/release-*.mjs",
+        "scripts/deploy-vercel-*.mjs",
+        "scripts/prepare-vercel-staging.mjs",
+        "scripts/cleanup-generated-artifacts.mjs",
+        "scripts/next-clean-build.mjs",
+        "scripts/resend-local-smoke.mjs"
+      ]
+    },
+    {
+      "id": "A04-hjb-question-localization",
+      "owner": "A04",
+      "role": "Practice question localization",
+      "coordinatesWith": ["A18", "A09", "A05"],
+      "slice": "runtime app/API/data/public",
+      "pathspecs": ["data/hjbQuestionLocalization.ts"]
+    },
+    {
+      "id": "A24-question-figure-source-contract",
+      "owner": "A24",
+      "role": "Deterministic question-figure exact layer",
+      "coordinatesWith": ["A04", "A08", "A18", "A11", "A12"],
+      "slice": "runtime app/API/data/public",
+      "pathspecs": ["lib/questionFigure.ts"]
+    },
+    {
+      "id": "A24-question-figure-test-contract",
+      "owner": "A24",
+      "role": "Deterministic question-figure regression contract",
+      "coordinatesWith": ["A04", "A08", "A18", "A11"],
+      "slice": "tests/regression evidence",
+      "pathspecs": ["lib/questionFigure.test.ts"]
+    },
+    {
+      "id": "A10-competitive-analysis-report",
+      "owner": "A10",
+      "role": "Tooling, docs, and report",
+      "coordinatesWith": ["A16"],
+      "slice": "docs/coordination evidence",
+      "pathspecs": ["MAIS_Competitive_Analysis_K12_Math.docx"]
+    },
+    {
+      "id": "A18-california-content-qa-report",
+      "owner": "A18",
+      "role": "Curriculum and content QA report",
+      "coordinatesWith": ["A10", "A16"],
+      "slice": "generated/content/RAG backlog",
+      "pathspecs": ["MAIS_CA-Math_K-5_Content_QA_Report.docx"]
+    },
+    {
+      "id": "A11-teacher-console-qa-report",
+      "owner": "A11",
+      "role": "QA and release quality report",
+      "coordinatesWith": ["A10", "A13"],
+      "slice": "tests/regression evidence",
+      "pathspecs": ["MAIS_Teacher_Console_Bug_Detection_Report.docx"]
+    },
+    {
+      "id": "A23-promotion-gate",
+      "owner": "A23",
+      "role": "Candidate-to-live promotion planning",
+      "slice": "docs/coordination evidence",
+      "pathspecs": ["coordination/integration/**"]
+    },
+    {
+      "id": "A24-content-exact-layer",
+      "owner": "A24",
+      "role": "Deterministic illustration exact-layer overlays",
+      "slice": "generated/content/RAG backlog",
+      "pathspecs": [
+        "public/question-illustrations/**",
+        "public/lesson-illustrations/**",
+        "coordination/content-qa/**/*illustration*",
+        "coordination/content-qa/**/*exact*",
+        "coordination/content-qa/**/*overlay*"
+      ]
+    },
+    {
+      "id": "A18-content-qa",
+      "owner": "A18",
+      "role": "Curriculum QA and independent content acceptance",
+      "coordinatesWith": ["A21"],
+      "slice": "generated/content/RAG backlog",
+      "pathspecs": ["coordination/content-qa/**", "lib/californiaGradeAware.test.ts", "data/usCaliforniaKnowledgePoints.ts"]
+    },
+    {
+      "id": "A21-content-rag-candidates",
+      "owner": "A21",
+      "role": "Content pipeline and RAG candidate operations",
+      "slice": "generated/content/RAG backlog",
+      "pathspecs": [
+        "data/generated-content/**",
+        "data/rag/**",
+        "lib/rag/**",
+        ".local/rag/**",
+        "scripts/build-*.py",
+        "scripts/build-*.mjs",
+        "scripts/audit-mainland-*",
+        "scripts/query-us-ca-private*",
+        "scripts/storage-admin*"
+      ]
+    },
+    {
+      "id": "A16-research",
+      "owner": "A16",
+      "role": "Learning-science research and evaluation design",
+      "slice": "docs/coordination evidence",
+      "pathspecs": ["coordination/research/**"]
+    },
+    {
+      "id": "A11-regression-evidence",
+      "owner": "A11",
+      "role": "QA and release quality",
+      "slice": "tests/regression evidence",
+      "pathspecs": ["tests/e2e/**", "lib/mvpReadiness.test.ts"]
+    },
+    {
+      "id": "A07-ai-tutor",
+      "owner": "A07",
+      "role": "AI tutor and provider integration",
+      "slice": "runtime app/API/data/public",
+      "pathspecs": [
+        "app/api/ai-tutor/**",
+        "components/ai/**",
+        "lib/server/llmProvider.ts",
+        "scripts/ai-tutor-live-latency-smoke.mjs"
+      ]
+    },
+    {
+      "id": "A19-api-environment-contract",
+      "owner": "A19",
+      "role": "API configuration and deployment environment contract",
+      "coordinatesWith": ["A07", "A15", "A22"],
+      "slice": "release hygiene tooling/config",
+      "pathspecs": [".env.local.example"]
+    },
+    {
+      "id": "A15-adaptive-engine",
+      "owner": "A15",
+      "role": "Adaptive engine and recommendation quality",
+      "slice": "runtime app/API/data/public",
+      "pathspecs": [
+        "app/api/adaptive-learning/**",
+        "app/adaptive-learning/**",
+        "app/personalized-learning/**",
+        "lib/adaptiveLearning.ts",
+        "lib/adaptiveLearning.test.ts",
+        "lib/curriculumProfile.ts"
+      ]
+    },
+    {
+      "id": "A12-backend-api-storage",
+      "owner": "A12",
+      "role": "Backend/API platform and storage contract",
+      "slice": "runtime app/API/data/public",
+      "pathspecs": [
+        "app/api/**",
+        "lib/server/**",
+        "middleware.ts",
+        "app/forum/**",
+        "components/forum/**",
+        "data/forum.ts",
+        "lib/forum.ts",
+        "public/forum-assets/**"
+      ]
+    },
+    {
+      "id": "A13-teacher-console",
+      "owner": "A13",
+      "role": "Teacher console UI and workflows",
+      "slice": "runtime app/API/data/public",
+      "pathspecs": ["app/teacher/**", "components/teacher/**"]
+    },
+    {
+      "id": "A14-parent-console",
+      "owner": "A14",
+      "role": "Parent console UI and guardian experience",
+      "slice": "runtime app/API/data/public",
+      "pathspecs": ["app/parent/**", "components/parent/**", "app/messages/**", "lib/parentConstraints.ts"]
+    },
+    {
+      "id": "A20-game-based-learning",
+      "owner": "A20",
+      "role": "Educational games and game loops",
+      "slice": "runtime app/API/data/public",
+      "pathspecs": [
+        "app/games/**",
+        "app/student/practice/games/**",
+        "components/games/**",
+        "data/gameBasedLearning.ts",
+        "data/mathVirusBlaster.ts",
+        "data/mightyTankBattle.ts",
+        "lib/gameBasedLearning.ts",
+        "lib/gameBasedLearning.test.ts",
+        "components/gamification/FishingGame.tsx",
+        "components/gamification/AdventureIslandGame.tsx",
+        "components/gamification/QuadraticBonusGame.tsx",
+        "app/practice/fishing-game/**",
+        "app/practice/quadratic-bonus/**",
+        "app/practice/adventure-island/**",
+        "app/practice/super-platformer-like/**",
+        "public/games/**"
+      ]
+    },
+    {
+      "id": "A17-gamification",
+      "owner": "A17",
+      "role": "Gamification and reward economy",
+      "slice": "runtime app/API/data/public",
+      "pathspecs": ["components/gamification/**", "data/gamification.ts", "lib/gamification.ts", "lib/gamification.test.ts"]
+    },
+    {
+      "id": "A04-practice",
+      "owner": "A04",
+      "role": "Practice Arena, Mistake Book, and question data",
+      "slice": "runtime app/API/data/public",
+      "pathspecs": [
+        "app/practice/**",
+        "app/mistake-book/**",
+        "components/practice/**",
+        "data/questions.ts",
+        "data/*Questions.ts",
+        "data/hongKongEasePracticeQuestions.ts",
+        "lib/*QuestionBank.test.ts",
+        "lib/fullQuestionBankSolvability.test.ts",
+        "lib/questionBankSolvability.ts",
+        "lib/mainlandPepQuestionAssets.ts",
+        "public/practice/**"
+      ]
+    },
+    {
+      "id": "A05-lessons",
+      "owner": "A05",
+      "role": "Lesson pages and lesson content modules",
+      "slice": "runtime app/API/data/public",
+      "pathspecs": [
+        "app/lesson/**",
+        "app/student/lessons/**",
+        "components/lesson/**",
+        "data/lessons.ts",
+        "data/*Lessons.ts",
+        "data/*LessonIllustrations.ts",
+        "data/usCaliforniaLessons.test.ts",
+        "data/productionLessonsNearTransfer.test.ts",
+        "lib/guestLessonLinks.ts",
+        "lib/lessonLinks.ts",
+        "public/audio/lessons/**",
+        "scripts/generate-us-ca-lesson-audio.mjs"
+      ]
+    },
+    {
+      "id": "A06-visualization-runtime",
+      "owner": "A06",
+      "role": "Visualization Lab and interactive math runtime",
+      "slice": "runtime app/API/data/public",
+      "pathspecs": [
+        "app/visualization-lab/**",
+        "app/student/tools/visualizations/**",
+        "components/visualizations/**",
+        "data/visualizationLabs.ts",
+        "lib/math.ts"
+      ]
+    },
+    {
+      "id": "A03-roadmap",
+      "owner": "A03",
+      "role": "Curriculum roadmap and grade/topic structure",
+      "slice": "runtime app/API/data/public",
+      "pathspecs": [
+        "app/learning-path/**",
+        "app/secondary-roadmap/**",
+        "app/primary-roadmap/**",
+        "app/student/roadmap/**",
+        "components/learning/**",
+        "components/ui/CurriculumTrackSelector.tsx",
+        "components/ui/GradeSelector.tsx",
+        "data/grades.ts",
+        "data/topics.ts",
+        "data/*Topics.ts",
+        "data/*Roadmap.ts"
+      ]
+    },
+    {
+      "id": "A02-dashboard",
+      "owner": "A02",
+      "role": "Dashboard, progress, assessment, and analytics display UI",
+      "slice": "runtime app/API/data/public",
+      "pathspecs": [
+        "app/dashboard/**",
+        "app/progress/**",
+        "app/assessment/**",
+        "app/student/assessments/**",
+        "app/student/assignments/**",
+        "components/dashboard/**",
+        "components/cards/**",
+        "data/progress.ts",
+        "data/learningAnalytics.ts",
+        "scripts/dashboard-*.mjs"
+      ]
+    },
+    {
+      "id": "A09-copy-i18n-accessibility",
+      "owner": "A09",
+      "role": "Copy, i18n, and accessibility",
+      "slice": "runtime app/API/data/public",
+      "pathspecs": ["lib/i18n.ts", "data/hkChineseExceptions.ts", "data/hkChineseGlossary.ts", "components/math/**"]
+    },
+    {
+      "id": "A08-shared-state-types",
+      "owner": "A08",
+      "role": "Shared provider state, analytics, and app-wide types",
+      "slice": "runtime app/API/data/public",
+      "pathspecs": [
+        "components/providers/**",
+        "lib/learningAnalytics.ts",
+        "lib/learningAnalytics.test.ts",
+        "lib/utils.ts",
+        "lib/difficulty.ts",
+        "lib/difficulty.test.ts",
+        "types/**",
+        "scripts/run-analytics-tests.mjs",
+        "tsconfig.analytics.json"
+      ]
+    },
+    {
+      "id": "A01-app-shell",
+      "owner": "A01",
+      "role": "Home, layout, navigation, auth shell, and theme surface",
+      "slice": "runtime app/API/data/public",
+      "pathspecs": [
+        "app/layout.tsx",
+        "app/page.tsx",
+        "app/login/**",
+        "app/register/**",
+        "app/forgot-password/**",
+        "app/reset-password/**",
+        "app/change-password/**",
+        "app/about/**",
+        "app/not-found.tsx",
+        "app/icon.*",
+        "components/layout/**",
+        "components/home/**",
+        "components/background/**",
+        "components/ui/**",
+        "lib/loginRedirect.test.ts",
+        "public/auth/**",
+        "public/robots.txt"
+      ]
+    },
+    {
+      "id": "A10-tooling-docs-config",
+      "owner": "A10",
+      "role": "Tooling, docs, report, and coordination contract",
+      "slice": "docs/coordination evidence",
+      "pathspecs": [
+        "AGENTS.md",
+        "README.md",
+        ".gitignore",
+        "package.json",
+        "package-lock.json",
+        "next.config.ts",
+        "tsconfig.json",
+        "tailwind.config.ts",
+        "postcss.config.mjs",
+        "app/globals.css",
+        "next-env.d.ts",
+        "design-qa.md",
+        "docs/**",
+        "Technical-Review/**",
+        "video-plan/**",
+        "coordination/reports/**",
+        "coordination/session-logs/**",
+        "coordination/blockers/**",
+        "coordination/decisions/**",
+        "coordination/**",
+        "scripts/bug-triage.js",
+        "scripts/**"
+      ]
+    },
+    {
+      "id": "local-generated-quarantine",
+      "owner": "A25",
+      "role": "Local/generated quarantine inventory only",
+      "slice": "local/generated quarantine",
+      "pathspecs": [
+        ".env*",
+        ".local/**",
+        ".tmp/**",
+        ".next/**",
+        "node_modules/**",
+        "private/**",
+        "Users/**",
+        "tmp/**",
+        "temp/**",
+        "output/**",
+        "outputs/**",
+        "coverage/**",
+        "playwright-report/**",
+        "test-results/**",
+        "*.log",
+        "*.tsbuildinfo",
+        "All API Keys.docx",
+        "default accounts.md"
+      ],
+      "secretQuarantine": true
+    }
+  ],
+  "resolutionChecks": [
+    { "path": "coordination/release-intake/example.json", "expectedOwner": "A25" },
+    { "path": "coordination/content-qa/example.md", "expectedOwner": "A18" },
+    { "path": "coordination/content-qa/example-exact-overlay.svg", "expectedOwner": "A24" },
+    { "path": "coordination/integration/example.md", "expectedOwner": "A23" },
+    { "path": "coordination/reports/example.md", "expectedOwner": "A10" },
+    { "path": "coordination/release-intake/assert-release-source-clean.mjs", "expectedOwner": "A22" },
+    { "path": "coordination/release-intake/assert-worktree-lifecycle.mjs", "expectedOwner": "A22" },
+    { "path": "scripts/release-env-guard.mjs", "expectedOwner": "A22" },
+    { "path": "scripts/bug-triage.js", "expectedOwner": "A10" },
+    { "path": "app/api/ai-tutor/route.ts", "expectedOwner": "A07" },
+    { "path": "app/api/adaptive-learning/route.ts", "expectedOwner": "A15" },
+    { "path": "app/api/users/route.ts", "expectedOwner": "A12" },
+    { "path": "components/gamification/FishingGame.tsx", "expectedOwner": "A20" },
+    { "path": "components/gamification/BadgeShelf.tsx", "expectedOwner": "A17" },
+    { "path": "components/ui/GradeSelector.tsx", "expectedOwner": "A03" },
+    { "path": "components/ui/ThemeToggle.tsx", "expectedOwner": "A01" },
+    { "path": ".env.local.example", "expectedOwner": "A19" },
+    { "path": ".env.local", "expectedOwner": "A25" }
+  ],
+  "unmappedBlockers": []
+}

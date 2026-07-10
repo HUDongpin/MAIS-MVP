@@ -5,6 +5,7 @@ node_modules/
 
 # Next.js / React build output
 .next/
+.next-*/
 out/
 dist/
 build/
@@ -13,6 +14,7 @@ build/
 # TypeScript and compiler cache
 *.tsbuildinfo
 tsconfig.tsbuildinfo
+tsconfig.*.tmp.json
 
 # Test, coverage, and temporary output
 coverage/
@@ -20,6 +22,7 @@ coverage/
 playwright-report/
 test-results/
 .playwright-cli/
+.s??-*/
 .tmp/
 tmp/
 temp/
@@ -27,6 +30,17 @@ temp/
 .local/
 output/
 outputs/
+var/
+
+# Local report/render scratch output
+bug-fix-log.json
+bug-triage-report.md
+coordination/reports/*-render/
+coordination/session-logs/*-failures/
+**/lo-profile/
+~$*.docx
+~$*.pptx
+~$*.xlsx
 
 # Logs
 *.log
@@ -43,6 +57,7 @@ lerna-debug.log*
 !.env.example
 !.env.local.example
 default accounts.md
+All API Keys.docx
 
 # Vercel local state
 .vercel/
@@ -85,3 +100,8 @@ __pycache__/
 # Local package/export artifacts
 *.tgz
 *.tar.gz
+
+# Local nested checkouts / release scratch copies
+.worktrees/
+MAIS-MVP-*/
+Users/

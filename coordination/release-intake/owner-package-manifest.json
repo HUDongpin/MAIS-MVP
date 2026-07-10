@@ -1,0 +1,117 @@
+{
+  "version": 2,
+  "updatedAt": "2026-07-11",
+  "policy": {
+    "allowedFinalStates": [
+      "reviewed commit",
+      "owner-approved discard",
+      "evidence archive",
+      "blocker report"
+    ],
+    "forbiddenStagingCommand": "git add .",
+    "p0DirtyMapGate": "npm run release:dirty-map -- --assert-current --max-age-minutes 60"
+  },
+  "packages": [
+    {
+      "id": "foundation-governance-A25-A10",
+      "owner": "A25/A10",
+      "objective": "Freeze owner pathspecs, strict dirty-map ownership, package final states, and pathspec-only staging.",
+      "pathspecs": [
+        "coordination/release-intake/owner-pathspecs.json",
+        "coordination/release-intake/owner-package-manifest.json",
+        "scripts/refresh-dirty-tree-map.mjs",
+        "scripts/release-package-gate.mjs",
+        "scripts/release-governance.test.mjs",
+        "package.json",
+        "AGENTS.md"
+      ],
+      "checks": [
+        "npm run test:release-governance",
+        "npm run release:package-gate -- --json",
+        "npm run release:dirty-map -- --assert-current --max-age-minutes 60"
+      ],
+      "finalState": "reviewed commit"
+    },
+    {
+      "id": "foundation-release-hygiene-A22-A10",
+      "owner": "A22/A10",
+      "objective": "Freeze canonical-root release and require an approved clean source kind or pruned staging.",
+      "pathspecs": [
+        ".claude/launch.json",
+        ".gitignore",
+        "coordination/release-intake/assert-release-source-clean.mjs",
+        "coordination/release-intake/assert-worktree-lifecycle.mjs",
+        "scripts/release-env-guard.mjs",
+        "package.json",
+        "package-lock.json",
+        "next.config.ts"
+      ],
+      "checks": [
+        "npm run test:release-governance",
+        "npm run type-check",
+        "npm audit --audit-level=high"
+      ],
+      "finalState": "reviewed commit"
+    },
+    {
+      "id": "root-capture-owner-routing",
+      "owner": "A04/A24/A22/A10",
+      "objective": "Record exact primary and coordination ownership for the previously unmapped root-capture files.",
+      "pathspecs": [
+        "data/hjbQuestionLocalization.ts",
+        "lib/questionFigure.ts",
+        "lib/questionFigure.test.ts",
+        ".claude/launch.json",
+        "scripts/dev-isolated.mjs",
+        "scripts/kill-port.mjs",
+        "scripts/check-import-targets*.mjs",
+        "MAIS_Competitive_Analysis_K12_Math.docx"
+      ],
+      "checks": ["npm run test:release-governance", "strict dirty-map unmapped count equals zero"],
+      "finalState": "reviewed commit"
+    },
+    {
+      "id": "runtime-storage-contract-A12",
+      "owner": "A12",
+      "objective": "Keep backend/API/storage work in its independent owner package.",
+      "pathspecs": ["lib/server/**", "app/api/**", "middleware.ts"],
+      "checks": ["npm run test:backend", "npm run type-check"],
+      "finalState": "blocker report",
+      "blocker": "Not included in the governance guardrail commit; requires an A12-owned runtime slice."
+    },
+    {
+      "id": "runtime-visualization-A06",
+      "owner": "A06",
+      "objective": "Keep Visualization Lab runtime work in its independent owner package.",
+      "pathspecs": ["app/visualization-lab/**", "app/student/tools/visualizations/**", "components/visualizations/**"],
+      "checks": ["visualization unit tests", "npm run type-check"],
+      "finalState": "blocker report",
+      "blocker": "Not included in the governance guardrail commit; requires an A06-owned runtime slice."
+    },
+    {
+      "id": "regression-evidence-routing-A11",
+      "owner": "A11",
+      "objective": "Route regression evidence by owner instead of one broad regression commit.",
+      "pathspecs": ["tests/e2e/**", "coordination/reports/**"],
+      "checks": ["targeted Playwright commands per owner route"],
+      "finalState": "blocker report",
+      "blocker": "A11 must slice feature regression evidence after governance guardrails land."
+    },
+    {
+      "id": "content-rag-candidate-chain",
+      "owner": "A21/A18/A24/A23/A04/A05/A11/A22",
+      "objective": "Keep content/RAG and content-QA work in the candidate chain before live integration.",
+      "pathspecs": [
+        "coordination/content-qa/**",
+        "data/generated-content/**",
+        "data/rag/**",
+        "lib/rag/**",
+        "public/question-illustrations/**",
+        "coordination/integration/**"
+      ],
+      "checks": ["A21 candidate generation", "A18 independent QA", "A23 promotion gate", "A11 regression", "A22 clean release"],
+      "finalState": "blocker report",
+      "blocker": "Candidate chain must complete before live data/source promotion."
+    }
+  ]
+}

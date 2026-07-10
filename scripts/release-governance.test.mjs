@@ -1,0 +1,1378 @@
+import assert from "node:assert/strict";
+import { chmod, copyFile, mkdir, mkdtemp, readFile, realpath, rm, symlink, writeFile } from "node:fs/promises";
+import { tmpdir } from "node:os";
+import path from "node:path";
+import { fileURLToPath, pathToFileURL } from "node:url";
+import { spawn, spawnSync } from "node:child_process";
+import { setTimeout as delay } from "node:timers/promises";
+import test from "node:test";
+
+const repoRoot = path.resolve(fileURLToPath(new URL("..", import.meta.url)));
+const p0BaselineCommit = "ce2ae5258013ca5bd79dd0cc56e7b1681d5cd411";
+
+function runNode(args, options = {}) {
+  return spawnSync(process.execPath, args, {
+    cwd: repoRoot,
+    encoding: "utf8",
+    env: {
+      ...process.env,
+      MAIS_RELEASE_MIN_FREE_GB: "1",
+      ...options.env
+    }
+  });
+}
+
+function runNodeAt(cwd, args, options = {}) {
+  return spawnSync(process.execPath, args, {
+    cwd,
+    encoding: "utf8",
+    timeout: options.timeout,
+    env: {
+      ...process.env,
+      ...options.env
+    }
+  });
+}
+
+async function createDevIsolatedFixture() {
+  const root = await mkdtemp(path.join(tmpdir(), "mais-dev-isolated-"));
+  const scriptDir = path.join(root, "scripts");
+  const nextBinDir = path.join(root, "node_modules", "next", "dist", "bin");
+  const scriptPath = path.join(scriptDir, "dev-isolated.mjs");
+  const nextBin = path.join(nextBinDir, "next.js");
+  const markerPath = path.join(root, "fake-next.jsonl");
+  await mkdir(scriptDir, { recursive: true });
+  await mkdir(nextBinDir, { recursive: true });
+  await mkdir(path.join(root, ".tmp"), { recursive: true });
+  await copyFile(path.join(repoRoot, "scripts", "dev-isolated.mjs"), scriptPath);
+  await writeFile(
+    path.join(root, "node_modules", "next", "package.json"),
+    `${JSON.stringify({ name: "next", version: "0.0.0" }, null, 2)}\n`
+  );
+  await writeFile(
+    nextBin,
+    `
+const fs = require("node:fs");
+const marker = process.env.FAKE_NEXT_MARKER;
+const record = (event, extra = {}) => fs.appendFileSync(marker, JSON.stringify({ event, pid: process.pid, ...extra }) + "\\n");
+record("start", { argv: process.argv.slice(2), distDir: process.env.NEXT_DIST_DIR });
+const behavior = process.env.FAKE_NEXT_BEHAVIOR || "exit-zero";
+if (behavior === "ignore-signals" || behavior === "cooperative") {
+  for (const signal of ["SIGINT", "SIGTERM", "SIGHUP"]) {
+    process.on(signal, () => {
+      record("signal", { signal });
+      if (behavior === "cooperative") process.exit(signal === "SIGINT" ? 130 : 143);
+    });
+  }
+}
+
+if (behavior === "exit-23") process.exit(23);
+else if (behavior === "self-sigterm") process.kill(process.pid, "SIGTERM");
+else if (behavior === "ignore-signals" || behavior === "cooperative") setInterval(() => {}, 1000);
+else process.exit(0);
+`
+  );
+  return { root, scriptPath, markerPath };
+}
+
+async function createFakeLsofFixture() {
+  const root = await mkdtemp(path.join(tmpdir(), "mais-kill-port-"));
+  const binDir = path.join(root, "bin");
+  const lsofPath = path.join(binDir, "lsof");
+  const argsPath = path.join(root, "lsof-args.txt");
+  const countPath = path.join(root, "lsof-count.txt");
+  await mkdir(binDir, { recursive: true });
+  await writeFile(
+    lsofPath,
+    `#!/bin/sh
+printf '%s\\n' '--call--' >> "$FAKE_LSOF_ARGS"
+for arg in "$@"; do printf '%s\\n' "$arg" >> "$FAKE_LSOF_ARGS"; done
+count=0
+if [ -f "$FAKE_LSOF_COUNT" ]; then count=$(cat "$FAKE_LSOF_COUNT"); fi
+count=$((count + 1))
+printf '%s\\n' "$count" > "$FAKE_LSOF_COUNT"
+if [ "$count" -le "\${FAKE_LSOF_VISIBLE_CALLS:-0}" ] && [ -n "$FAKE_LISTENER_PID" ]; then
+  printf '%s\\n' "$FAKE_LISTENER_PID"
+  exit 0
+fi
+exit 1
+`
+  );
+  await chmod(lsofPath, 0o755);
+  return { root, binDir, argsPath, countPath };
+}
+
+async function waitFor(predicate, timeoutMs = 3000) {
+  const deadline = Date.now() + timeoutMs;
+  while (Date.now() < deadline) {
+    const value = await predicate();
+    if (value) return value;
+    await delay(20);
+  }
+  throw new Error(`Timed out after ${timeoutMs} ms`);
+}
+
+function waitForExit(child, timeoutMs = 3000) {
+  if (child.exitCode !== null || child.signalCode !== null) {
+    return Promise.resolve({ code: child.exitCode, signal: child.signalCode });
+  }
+  return new Promise((resolve, reject) => {
+    const timer = setTimeout(() => reject(new Error(`Child did not exit within ${timeoutMs} ms`)), timeoutMs);
+    child.once("error", (error) => {
+      clearTimeout(timer);
+      reject(error);
+    });
+    child.once("exit", (code, signal) => {
+      clearTimeout(timer);
+      resolve({ code, signal });
+    });
+  });
+}
+
+function processIsAlive(pid) {
+  try {
+    process.kill(pid, 0);
+    return true;
+  } catch (error) {
+    if (error?.code === "ESRCH") return false;
+    throw error;
+  }
+}
+
+function runGit(args, cwd) {
+  return spawnSync("git", args, {
+    cwd,
+    encoding: "utf8"
+  });
+}
+
+async function createDirtyMapFixtureRepo() {
+  const root = await realpath(await mkdtemp(path.join(tmpdir(), "mais-dirty-map-repo-")));
+  const scriptsDir = path.join(root, "scripts");
+  const releaseIntakeDir = path.join(root, "coordination", "release-intake");
+  await mkdir(scriptsDir, { recursive: true });
+  await mkdir(releaseIntakeDir, { recursive: true });
+  await copyFile(
+    path.join(repoRoot, "scripts", "refresh-dirty-tree-map.mjs"),
+    path.join(scriptsDir, "refresh-dirty-tree-map.mjs")
+  );
+  await copyFile(
+    path.join(repoRoot, "scripts", "release-package-gate.mjs"),
+    path.join(scriptsDir, "release-package-gate.mjs")
+  );
+  await copyFile(
+    path.join(repoRoot, "coordination", "release-intake", "owner-pathspecs.json"),
+    path.join(releaseIntakeDir, "owner-pathspecs.json")
+  );
+
+  const init = runGit(["init", "--quiet", "--initial-branch=main"], root);
+  assert.equal(init.status, 0, combinedOutput(init));
+  const add = runGit([
+    "add",
+    "--",
+    "scripts/refresh-dirty-tree-map.mjs",
+    "scripts/release-package-gate.mjs",
+    "coordination/release-intake/owner-pathspecs.json"
+  ], root);
+  assert.equal(add.status, 0, combinedOutput(add));
+  const commit = runGit([
+    "-c",
+    "user.name=Release Governance Test",
+    "-c",
+    "user.email=release-governance@example.invalid",
+    "commit",
+    "--quiet",
+    "-m",
+    "fixture"
+  ], root);
+  assert.equal(commit.status, 0, combinedOutput(commit));
+
+  return {
+    root,
+    refreshScript: path.join(scriptsDir, "refresh-dirty-tree-map.mjs"),
+    latestJson: path.join(releaseIntakeDir, "latest-A25-dirty-tree-map.json")
+  };
+}
+
+function runDirtyMapFixture(fixture, args) {
+  return runNodeAt(fixture.root, [fixture.refreshScript, ...args]);
+}
+
+function readGitObjectJson(objectPath) {
+  const result = runGit(["show", objectPath], repoRoot);
+  assert.equal(result.status, 0, `Unable to read Git object ${objectPath}\n${combinedOutput(result)}`);
+  return JSON.parse(result.stdout);
+}
+
+function assertTrackedInIndex(filePath) {
+  const tracked = runGit(["ls-files", "--error-unmatch", "--", filePath], repoRoot);
+  assert.equal(tracked.status, 0, `${filePath} must be tracked in the Git index\n${combinedOutput(tracked)}`);
+
+  const object = runGit(["show", `:${filePath}`], repoRoot);
+  assert.equal(object.status, 0, `${filePath} must resolve to a Git index object\n${combinedOutput(object)}`);
+}
+
+async function readJson(filePath) {
+  return JSON.parse(await readFile(filePath, "utf8"));
+}
+
+function combinedOutput(result) {
+  return `${result.stdout}\n${result.stderr}`;
+}
+
+function packageWithExactPathspec(manifest, pathspec) {
+  return manifest.packages.find((pkg) => pkg.pathspecs?.includes(pathspec));
+}
+
+function assertOwnerMapping(manifest, pathspec, owner, coordinatesWith) {
+  const pkg = packageWithExactPathspec(manifest, pathspec);
+  assert.ok(pkg, `Missing exact owner pathspec: ${pathspec}`);
+  assert.equal(pkg.owner, owner, `${pathspec} primary owner`);
+  assert.deepEqual(
+    [...(pkg.coordinatesWith ?? [])].sort(),
+    [...coordinatesWith].sort(),
+    `${pathspec} coordination owners`
+  );
+}
+
+test("dirty map preserves NUL-delimited paths with spaces, Unicode, quotes, and newlines", async () => {
+  const fixture = await createDirtyMapFixtureRepo();
+  const relativeFixture = 'coordination/release-intake/zz governance 路径 "quoted"\nline.tmpx';
+  const fixturePath = path.join(fixture.root, relativeFixture);
+
+  try {
+    await writeFile(fixturePath, "NUL-safe dirty-map fixture\n");
+    const refresh = runDirtyMapFixture(fixture, [
+      "--latest-json",
+      fixture.latestJson,
+      "--no-report",
+      "--json",
+      "--reason",
+      "NUL-safe path regression"
+    ]);
+    assert.equal(refresh.status, 0, combinedOutput(refresh));
+
+    const map = await readJson(fixture.latestJson);
+    const matches = map.entries.filter((entry) => entry.path === relativeFixture);
+    assert.equal(matches.length, 1, "entries[].path must contain the decoded real Unicode path exactly once");
+    assert.equal(matches[0].status, "??");
+    assert.ok(
+      map.entries.every((entry) => !entry.path.startsWith('"')),
+      "entries[].path must not retain Git C-style quoted paths"
+    );
+  } finally {
+    await rm(fixture.root, { recursive: true, force: true });
+  }
+});
+
+test("content QA is classified before broad coordination evidence", async () => {
+  const fixture = await createDirtyMapFixtureRepo();
+  const relativeFixture = "coordination/content-qa/zz-release-governance-content.fixture";
+  const fixturePath = path.join(fixture.root, relativeFixture);
+
+  try {
+    await mkdir(path.dirname(fixturePath), { recursive: true });
+    await writeFile(fixturePath, "content QA routing fixture\n");
+    const refresh = runDirtyMapFixture(fixture, [
+      "--latest-json",
+      fixture.latestJson,
+      "--no-report",
+      "--json",
+      "--reason",
+      "content QA slice ordering regression"
+    ]);
+    assert.equal(refresh.status, 0, combinedOutput(refresh));
+
+    const map = await readJson(fixture.latestJson);
+    const entry = map.entries.find((candidate) => candidate.path === relativeFixture);
+    assert.ok(entry, `Missing dirty-map fixture entry: ${relativeFixture}`);
+    assert.equal(entry.slice, "generated/content/RAG backlog");
+    assert.match(entry.ownerId, /A18|A21/);
+  } finally {
+    await rm(fixture.root, { recursive: true, force: true });
+  }
+});
+
+test("dirty map assert-current enforces a 60 minute freshness window", async () => {
+  const fixture = await createDirtyMapFixtureRepo();
+
+  try {
+    const refresh = runDirtyMapFixture(fixture, [
+      "--latest-json",
+      fixture.latestJson,
+      "--no-report",
+      "--json",
+      "--reason",
+      "release governance test"
+    ]);
+    assert.equal(refresh.status, 0, combinedOutput(refresh));
+
+    const pass = runDirtyMapFixture(fixture, [
+      "--assert-current",
+      "--latest-json",
+      fixture.latestJson,
+      "--max-age-minutes",
+      "60",
+      "--json"
+    ]);
+    assert.equal(pass.status, 0, combinedOutput(pass));
+
+    const staleMap = await readJson(fixture.latestJson);
+    staleMap.generatedAt = new Date(Date.now() - 61 * 60 * 1000).toISOString();
+    await writeFile(fixture.latestJson, `${JSON.stringify(staleMap, null, 2)}\n`);
+
+    const fail = runDirtyMapFixture(fixture, [
+      "--assert-current",
+      "--latest-json",
+      fixture.latestJson,
+      "--max-age-minutes",
+      "60",
+      "--json"
+    ]);
+    assert.notEqual(fail.status, 0);
+    assert.match(combinedOutput(fail), /older than 60 minutes/i);
+  } finally {
+    await rm(fixture.root, { recursive: true, force: true });
+  }
+});
+
+test("dirty map assert-current blocks strict unmapped owner entries", async () => {
+  const fixture = await createDirtyMapFixtureRepo();
+  const fixturePath = path.join(fixture.root, "zz-release-unmapped-fixture.tmpx");
+
+  try {
+    await writeFile(fixturePath, "temporary unmapped owner fixture\n");
+    const refresh = runDirtyMapFixture(fixture, [
+      "--latest-json",
+      fixture.latestJson,
+      "--no-report",
+      "--json",
+      "--reason",
+      "strict unmapped owner regression"
+    ]);
+    assert.equal(refresh.status, 0, combinedOutput(refresh));
+
+    const result = runDirtyMapFixture(fixture, [
+      "--assert-current",
+      "--latest-json",
+      fixture.latestJson,
+      "--max-age-minutes",
+      "60",
+      "--json"
+    ]);
+
+    assert.notEqual(result.status, 0);
+    assert.match(combinedOutput(result), /unmapped owner/i);
+  } finally {
+    await rm(fixture.root, { recursive: true, force: true });
+  }
+});
+
+test("package gate rejects dot staging and invalid final states", async () => {
+  const tempDir = await mkdtemp(path.join(tmpdir(), "mais-package-gate-"));
+  const manifestPath = path.join(tempDir, "owner-package-manifest.json");
+
+  try {
+    await writeFile(
+      manifestPath,
+      `${JSON.stringify({
+        packages: [
+          {
+            id: "bad-package",
+            owner: "A10",
+            pathspecs: ["."],
+            checks: ["npm run type-check"],
+            finalState: "maybe"
+          }
+        ]
+      }, null, 2)}\n`
+    );
+
+    const result = runNode([
+      "scripts/release-package-gate.mjs",
+      "--manifest",
+      manifestPath,
+      "--json"
+    ]);
+
+    assert.notEqual(result.status, 0);
+    assert.match(combinedOutput(result), /git add \./i);
+    assert.match(combinedOutput(result), /final state/i);
+  } finally {
+    await rm(tempDir, { recursive: true, force: true });
+  }
+});
+
+test("package gate rejects normalized full-tree staging equivalents", async () => {
+  const tempDir = await mkdtemp(path.join(tmpdir(), "mais-full-tree-gate-"));
+  const manifestPath = path.join(tempDir, "owner-package-manifest.json");
+  const forbidden = [
+    ".",
+    "./",
+    ":/",
+    "*",
+    "**",
+    "./*",
+    "./**",
+    "./**/*",
+    "**/*",
+    ":(top)*",
+    ":(glob)*",
+    ":(top,glob)**",
+    ":(glob,top)**/*",
+    ":(top)**/*"
+  ];
+
+  try {
+    await writeFile(
+      manifestPath,
+      `${JSON.stringify({
+        packages: [
+          {
+            id: "full-tree-package",
+            owner: "A10",
+            pathspecs: forbidden,
+            checks: ["npm run type-check"],
+            finalState: "reviewed commit"
+          }
+        ]
+      }, null, 2)}\n`
+    );
+
+    const result = runNode([
+      "scripts/release-package-gate.mjs",
+      "--manifest",
+      manifestPath,
+      "--json"
+    ]);
+    assert.notEqual(result.status, 0);
+    const output = combinedOutput(result);
+    for (const pathspec of forbidden) {
+      assert.ok(output.includes(`pathspec \\\"${pathspec}\\\" is forbidden`), `must reject ${pathspec}`);
+    }
+  } finally {
+    await rm(tempDir, { recursive: true, force: true });
+  }
+});
+
+test("default package gate and exact owner mappings are valid", async () => {
+  const pathspecManifest = await readJson(
+    path.join(repoRoot, "coordination/release-intake/owner-pathspecs.json")
+  );
+  const packageManifest = await readJson(
+    path.join(repoRoot, "coordination/release-intake/owner-package-manifest.json")
+  );
+
+  assertOwnerMapping(pathspecManifest, "data/hjbQuestionLocalization.ts", "A04", ["A18", "A09", "A05"]);
+  assertOwnerMapping(pathspecManifest, "lib/questionFigure.ts", "A24", ["A04", "A08", "A18", "A11", "A12"]);
+  assertOwnerMapping(pathspecManifest, "lib/questionFigure.test.ts", "A24", ["A04", "A08", "A18", "A11"]);
+  assertOwnerMapping(pathspecManifest, ".claude/launch.json", "A22", ["A10", "A11"]);
+  assertOwnerMapping(pathspecManifest, "scripts/dev-isolated.mjs", "A22", ["A10", "A11"]);
+  assertOwnerMapping(pathspecManifest, "scripts/kill-port.mjs", "A22", ["A10", "A11"]);
+  assertOwnerMapping(pathspecManifest, "coordination/release-intake/assert-release-source-clean.mjs", "A22", ["A10", "A25"]);
+  assertOwnerMapping(pathspecManifest, "coordination/release-intake/assert-worktree-lifecycle.mjs", "A22", ["A10", "A25"]);
+  assertOwnerMapping(pathspecManifest, "MAIS_Competitive_Analysis_K12_Math.docx", "A10", ["A16"]);
+  assertOwnerMapping(pathspecManifest, ".env.local.example", "A19", ["A07", "A15", "A22"]);
+
+  const importTargetPackage = packageWithExactPathspec(pathspecManifest, "scripts/check-import-targets*.mjs");
+  assert.ok(importTargetPackage, "scripts/check-import-targets*.mjs must have a durable owner mapping");
+  assert.equal(importTargetPackage.owner, "A22");
+  assert.deepEqual([...(importTargetPackage.coordinatesWith ?? [])].sort(), ["A10"].sort());
+
+  const nextConfigReleasePackage = packageWithExactPathspec(packageManifest, "next.config.ts");
+  assert.ok(nextConfigReleasePackage, "next.config.ts must be explicit in the P0 release-hygiene package");
+  assert.equal(nextConfigReleasePackage.id, "foundation-release-hygiene-A22-A10");
+
+  assert.deepEqual(packageManifest.policy.allowedFinalStates, [
+    "reviewed commit",
+    "owner-approved discard",
+    "evidence archive",
+    "blocker report"
+  ]);
+
+  const gate = runNode(["scripts/release-package-gate.mjs", "--json"]);
+  assert.equal(gate.status, 0, combinedOutput(gate));
+  const result = JSON.parse(gate.stdout);
+  assert.equal(result.valid, true);
+  assert.ok(result.packageCount > 0);
+});
+
+test("shared owner resolver selects one most-specific owner across overlapping pathspecs", async () => {
+  const gateModule = await import("./release-package-gate.mjs");
+  assert.equal(typeof gateModule.compileOwnerPathspecManifest, "function");
+  assert.equal(typeof gateModule.resolveOwnerPath, "function");
+
+  const manifest = await readJson(
+    path.join(repoRoot, "coordination/release-intake/owner-pathspecs.json")
+  );
+  const resolver = gateModule.compileOwnerPathspecManifest(manifest);
+  const cases = [
+    ["coordination/release-intake/example.json", "A25"],
+    ["coordination/content-qa/example.md", "A18"],
+    ["coordination/content-qa/example-exact-overlay.svg", "A24"],
+    ["coordination/integration/example.md", "A23"],
+    ["coordination/reports/example.md", "A10"],
+    ["coordination/release-intake/assert-release-source-clean.mjs", "A22"],
+    ["coordination/release-intake/assert-worktree-lifecycle.mjs", "A22"],
+    ["scripts/release-env-guard.mjs", "A22"],
+    ["scripts/bug-triage.js", "A10"],
+    ["app/api/ai-tutor/route.ts", "A07"],
+    ["app/api/adaptive-learning/route.ts", "A15"],
+    ["app/api/users/route.ts", "A12"],
+    ["components/gamification/FishingGame.tsx", "A20"],
+    ["components/gamification/BadgeShelf.tsx", "A17"],
+    ["components/ui/GradeSelector.tsx", "A03"],
+    ["components/ui/ThemeToggle.tsx", "A01"],
+    [".env.local.example", "A19"],
+    [".env.local", "A25"]
+  ];
+
+  for (const [filePath, expectedOwner] of cases) {
+    const resolution = gateModule.resolveOwnerPath(filePath, resolver);
+    assert.equal(resolution.status, "resolved", `${filePath} resolution status`);
+    assert.deepEqual(resolution.finalOwners, [expectedOwner], `${filePath} final owner`);
+    assert.equal(resolution.ownerId, expectedOwner, `${filePath} selected owner`);
+  }
+});
+
+test("package gate rejects ambiguous final owner precedence", async () => {
+  const tempDir = await mkdtemp(path.join(tmpdir(), "mais-owner-overlap-"));
+  const ownerPathspecs = path.join(tempDir, "owner-pathspecs.json");
+
+  try {
+    await writeFile(
+      ownerPathspecs,
+      `${JSON.stringify({
+        version: 1,
+        packages: [
+          { id: "owner-a", owner: "A01", role: "first", pathspecs: ["same/path.ts"] },
+          { id: "owner-b", owner: "A02", role: "second", pathspecs: ["same/path.ts"] }
+        ],
+        resolutionChecks: [{ path: "same/path.ts", expectedOwner: "A01" }]
+      }, null, 2)}\n`
+    );
+
+    const result = runNode([
+      "scripts/release-package-gate.mjs",
+      "--owner-pathspecs",
+      ownerPathspecs,
+      "--json"
+    ]);
+    assert.notEqual(result.status, 0);
+    assert.match(combinedOutput(result), /ambiguous|exactly one final owner/i);
+  } finally {
+    await rm(tempDir, { recursive: true, force: true });
+  }
+});
+
+test("package gate requires every package wildcard to have one exact owner route", async () => {
+  const tempDir = await mkdtemp(path.join(tmpdir(), "mais-wildcard-routing-"));
+  const packageManifest = path.join(tempDir, "owner-package-manifest.json");
+  const missingOwnerPathspecs = path.join(tempDir, "missing-owner-pathspecs.json");
+  const ambiguousOwnerPathspecs = path.join(tempDir, "ambiguous-owner-pathspecs.json");
+
+  try {
+    await writeFile(
+      packageManifest,
+      `${JSON.stringify({
+        packages: [
+          {
+            id: "wildcard-package",
+            owner: "A10",
+            pathspecs: ["shared/**"],
+            checks: ["npm run type-check"],
+            finalState: "reviewed commit"
+          }
+        ]
+      }, null, 2)}\n`
+    );
+    await writeFile(
+      missingOwnerPathspecs,
+      `${JSON.stringify({
+        packages: [{ id: "other", owner: "A10", role: "other", pathspecs: ["other/**"] }],
+        resolutionChecks: [{ path: "other/example.ts", expectedOwner: "A10" }]
+      }, null, 2)}\n`
+    );
+    await writeFile(
+      ambiguousOwnerPathspecs,
+      `${JSON.stringify({
+        packages: [
+          { id: "shared-a", owner: "A10", role: "first", pathspecs: ["shared/**"] },
+          { id: "shared-b", owner: "A22", role: "second", pathspecs: ["shared/**"] }
+        ],
+        resolutionChecks: [{ path: "shared/example.ts", expectedOwner: "A10" }]
+      }, null, 2)}\n`
+    );
+
+    const missing = runNode([
+      "scripts/release-package-gate.mjs",
+      "--manifest",
+      packageManifest,
+      "--owner-pathspecs",
+      missingOwnerPathspecs,
+      "--json"
+    ]);
+    assert.notEqual(missing.status, 0);
+    assert.match(combinedOutput(missing), /wildcard.*shared\/\*\*.*exact owner pathspec/i);
+
+    const ambiguous = runNode([
+      "scripts/release-package-gate.mjs",
+      "--manifest",
+      packageManifest,
+      "--owner-pathspecs",
+      ambiguousOwnerPathspecs,
+      "--json"
+    ]);
+    assert.notEqual(ambiguous.status, 0);
+    assert.match(combinedOutput(ambiguous), /ambiguous|exactly one final owner/i);
+  } finally {
+    await rm(tempDir, { recursive: true, force: true });
+  }
+});
+
+test("dirty map records exactly one final owner for every resolved capture entry", async () => {
+  const fixture = await createDirtyMapFixtureRepo();
+  const ownerFixtures = [
+    ["coordination/release-intake/example.json", "A25"],
+    ["coordination/content-qa/example.md", "A18"],
+    ["app/api/users/fixture.ts", "A12"],
+    ["components/gamification/BadgeShelf.tsx", "A17"],
+    ["public/question-illustrations/fixture.svg", "A24"],
+    ["next.config.ts", "A10"]
+  ];
+
+  try {
+    for (const [relativePath] of ownerFixtures) {
+      const filePath = path.join(fixture.root, relativePath);
+      await mkdir(path.dirname(filePath), { recursive: true });
+      await writeFile(filePath, `owner fixture: ${relativePath}\n`);
+    }
+
+    const refresh = runDirtyMapFixture(fixture, [
+      "--latest-json",
+      fixture.latestJson,
+      "--no-report",
+      "--json",
+      "--reason",
+      "unique final owner regression"
+    ]);
+    assert.equal(refresh.status, 0, combinedOutput(refresh));
+
+    const map = await readJson(fixture.latestJson);
+    assert.equal(map.statusCounts.unmappedEntries, 0);
+    assert.equal(map.statusCounts.ambiguousOwnerEntries, 0);
+    assert.equal(map.sliceBuckets["unmapped/manual"] ?? 0, 0);
+    for (const [relativePath, expectedOwner] of ownerFixtures) {
+      const entry = map.entries.find((candidate) => candidate.path === relativePath);
+      assert.ok(entry, `Missing isolated owner fixture: ${relativePath}`);
+      assert.equal(entry.ownerId, expectedOwner, relativePath);
+    }
+    for (const entry of map.entries) {
+      assert.equal(entry.ownerResolution.status, "resolved", entry.path);
+      assert.equal(entry.ownerResolution.finalOwners.length, 1, entry.path);
+      assert.equal(entry.ownerResolution.finalOwners[0], entry.ownerId, entry.path);
+    }
+  } finally {
+    await rm(fixture.root, { recursive: true, force: true });
+  }
+});
+
+test("mais-dev launch uses the isolated dev wrapper and keeps fixture-only env", async () => {
+  const launch = await readJson(path.join(repoRoot, ".claude/launch.json"));
+  const maisDev = launch.configurations.find((configuration) => configuration.name === "mais-dev");
+  assert.ok(maisDev, "mais-dev launch configuration is required");
+
+  const npmIndex = maisDev.runtimeArgs.indexOf("npm");
+  assert.notEqual(npmIndex, -1);
+  assert.deepEqual(maisDev.runtimeArgs.slice(npmIndex), [
+    "npm",
+    "run",
+    "dev:isolated",
+    "--",
+    "--port",
+    "3000",
+    "--dist",
+    ".tmp/mais-dev/next-dist"
+  ]);
+  assert.ok(maisDev.runtimeArgs.includes("AI_TUTOR_PROVIDER_PROFILE=offline-fixture"));
+  assert.ok(maisDev.runtimeArgs.includes("OPENAI_API_KEY="));
+  assert.ok(maisDev.runtimeArgs.includes("ANTHROPIC_API_KEY="));
+});
+
+test("isolated launch helper dependencies are coherent and Git tracked", async () => {
+  const packageJson = await readJson(path.join(repoRoot, "package.json"));
+  const launch = await readJson(path.join(repoRoot, ".claude/launch.json"));
+  const helpers = ["scripts/dev-isolated.mjs", "scripts/kill-port.mjs"];
+
+  assert.equal(packageJson.scripts["dev:isolated"], "node scripts/dev-isolated.mjs");
+  assert.equal(packageJson.scripts["kill-port"], "node scripts/kill-port.mjs");
+  assert.ok(
+    launch.configurations.find((configuration) => configuration.name === "mais-dev")
+      .runtimeArgs.includes("dev:isolated")
+  );
+
+  for (const helper of helpers) {
+    const tracked = runGit(["ls-files", "--error-unmatch", helper], repoRoot);
+    assert.equal(tracked.status, 0, `${helper} must be Git-tracked\n${combinedOutput(tracked)}`);
+    const syntax = runNode(["--check", helper]);
+    assert.equal(syntax.status, 0, combinedOutput(syntax));
+  }
+});
+
+test("dev-isolated rejects every invalid port before spawning Next", async () => {
+  const fixture = await createDevIsolatedFixture();
+  const invalidArgs = [
+    ["--port", "abc", "--dist", ".tmp/dev"],
+    ["--port", "1.5", "--dist", ".tmp/dev"],
+    ["--port", "0", "--dist", ".tmp/dev"],
+    ["--port", "-1", "--dist", ".tmp/dev"],
+    ["--port", "65536", "--dist", ".tmp/dev"],
+    ["--port", "--dist", ".tmp/dev"]
+  ];
+
+  try {
+    for (const args of invalidArgs) {
+      await rm(fixture.markerPath, { force: true });
+      const result = runNodeAt(fixture.root, [fixture.scriptPath, ...args], {
+        timeout: 2000,
+        env: { FAKE_NEXT_MARKER: fixture.markerPath }
+      });
+      assert.notEqual(result.status, 0, `invalid args must fail: ${args.join(" ")}`);
+      assert.match(combinedOutput(result), /port.*(?:integer.*1.*65535|requires a value)/i);
+      const marker = await readFile(fixture.markerPath, "utf8").catch(() => "");
+      assert.equal(marker, "", "invalid port must fail before child spawn");
+    }
+  } finally {
+    await rm(fixture.root, { recursive: true, force: true });
+  }
+});
+
+test("dev-isolated requires a lexical and canonical proper descendant of repo .tmp", async () => {
+  const fixture = await createDevIsolatedFixture();
+  const outsideDir = path.join(fixture.root, "outside");
+  const escapeLink = path.join(fixture.root, ".tmp", "escape-link");
+  await mkdir(outsideDir, { recursive: true });
+  await symlink(outsideDir, escapeLink, "dir");
+  const unsafeDists = [
+    ".tmp",
+    ".next",
+    ".next/subdir",
+    ".tmp/../.next/subdir",
+    ".tmp-sibling/build",
+    "app/build",
+    outsideDir,
+    ".tmp/escape-link/build"
+  ];
+
+  try {
+    for (const dist of unsafeDists) {
+      await rm(fixture.markerPath, { force: true });
+      const result = runNodeAt(
+        fixture.root,
+        [fixture.scriptPath, "--port", "3200", "--dist", dist],
+        { timeout: 2000, env: { FAKE_NEXT_MARKER: fixture.markerPath } }
+      );
+      assert.notEqual(result.status, 0, `unsafe dist must fail: ${dist}`);
+      assert.match(combinedOutput(result), /dist.*proper descendant.*\.tmp|dist.*symlink.*escape/i);
+      const marker = await readFile(fixture.markerPath, "utf8").catch(() => "");
+      assert.equal(marker, "", `unsafe dist must fail before child spawn: ${dist}`);
+    }
+
+    const safe = runNodeAt(
+      fixture.root,
+      [fixture.scriptPath, "--port", "3200", "--dist", ".tmp/safe/next-dist"],
+      { timeout: 2000, env: { FAKE_NEXT_MARKER: fixture.markerPath } }
+    );
+    assert.equal(safe.status, 0, combinedOutput(safe));
+    const start = JSON.parse((await readFile(fixture.markerPath, "utf8")).trim());
+    assert.equal(start.distDir, ".tmp/safe/next-dist");
+
+    await rm(path.join(fixture.root, ".tmp"), { recursive: true, force: true });
+    await symlink(outsideDir, path.join(fixture.root, ".tmp"), "dir");
+    await rm(fixture.markerPath, { force: true });
+    const escapedTmpRoot = runNodeAt(
+      fixture.root,
+      [fixture.scriptPath, "--port", "3200", "--dist", ".tmp/root-escape"],
+      { timeout: 2000, env: { FAKE_NEXT_MARKER: fixture.markerPath } }
+    );
+    assert.notEqual(escapedTmpRoot.status, 0, "repo .tmp itself must not be a symlink escape");
+    assert.match(combinedOutput(escapedTmpRoot), /dist.*symlink.*escape/i);
+  } finally {
+    await rm(fixture.root, { recursive: true, force: true });
+  }
+});
+
+test("dev-isolated reports child spawn errors without an unhandled error event", async () => {
+  const fixture = await createDevIsolatedFixture();
+  try {
+    const result = runNodeAt(
+      fixture.root,
+      [fixture.scriptPath, "--port", "3200", "--dist", ".tmp/dev"],
+      {
+        timeout: 2000,
+        env: {
+          NODE_ENV: "test",
+          DEV_ISOLATED_ALLOW_TEST_OVERRIDES: "1",
+          DEV_ISOLATED_RUNTIME_BIN: path.join(fixture.root, "missing-runtime"),
+          FAKE_NEXT_MARKER: fixture.markerPath
+        }
+      }
+    );
+    assert.equal(result.status, 1, combinedOutput(result));
+    assert.match(combinedOutput(result), /failed to start.*ENOENT/i);
+    assert.doesNotMatch(combinedOutput(result), /Unhandled 'error' event/i);
+  } finally {
+    await rm(fixture.root, { recursive: true, force: true });
+  }
+});
+
+test("dev-isolated preserves nonzero child exit and signal semantics", async () => {
+  const fixture = await createDevIsolatedFixture();
+  const baseArgs = [fixture.scriptPath, "--port", "3200", "--dist", ".tmp/dev"];
+
+  try {
+    const nonzero = runNodeAt(fixture.root, baseArgs, {
+      timeout: 2000,
+      env: { FAKE_NEXT_MARKER: fixture.markerPath, FAKE_NEXT_BEHAVIOR: "exit-23" }
+    });
+    assert.equal(nonzero.status, 23, combinedOutput(nonzero));
+
+    await rm(fixture.markerPath, { force: true });
+    const signaled = runNodeAt(fixture.root, baseArgs, {
+      timeout: 2000,
+      env: { FAKE_NEXT_MARKER: fixture.markerPath, FAKE_NEXT_BEHAVIOR: "self-sigterm" }
+    });
+    assert.notEqual(signaled.status, 0, "signaled child must never map to wrapper success");
+    assert.ok(signaled.status === 143 || signaled.signal === "SIGTERM", combinedOutput(signaled));
+  } finally {
+    await rm(fixture.root, { recursive: true, force: true });
+  }
+});
+
+test("dev-isolated forwards SIGTERM and escalates so the child cannot be orphaned", async () => {
+  const fixture = await createDevIsolatedFixture();
+  let wrapper;
+  let fakePid;
+
+  try {
+    wrapper = spawn(
+      process.execPath,
+      [fixture.scriptPath, "--port", "3200", "--dist", ".tmp/dev"],
+      {
+        cwd: fixture.root,
+        stdio: ["ignore", "pipe", "pipe"],
+        env: {
+          ...process.env,
+          FAKE_NEXT_MARKER: fixture.markerPath,
+          FAKE_NEXT_BEHAVIOR: "ignore-signals",
+          DEV_ISOLATED_SHUTDOWN_GRACE_MS: "100"
+        }
+      }
+    );
+    const start = await waitFor(async () => {
+      const marker = await readFile(fixture.markerPath, "utf8").catch(() => "");
+      const events = marker.trim().split("\n").filter(Boolean).map((line) => JSON.parse(line));
+      return events.find((event) => event.event === "start");
+    });
+    fakePid = start.pid;
+    wrapper.kill("SIGTERM");
+    await waitForExit(wrapper, 3000);
+    const events = (await readFile(fixture.markerPath, "utf8"))
+      .trim()
+      .split("\n")
+      .filter(Boolean)
+      .map((line) => JSON.parse(line));
+    assert.ok(events.some((event) => event.event === "signal" && event.signal === "SIGTERM"));
+    await waitFor(() => !processIsAlive(fakePid), 1000);
+    assert.equal(processIsAlive(fakePid), false, "fake Next child must be gone after wrapper exits");
+  } finally {
+    if (wrapper?.pid && processIsAlive(wrapper.pid)) process.kill(wrapper.pid, "SIGKILL");
+    if (fakePid && processIsAlive(fakePid)) process.kill(fakePid, "SIGKILL");
+    await rm(fixture.root, { recursive: true, force: true });
+  }
+});
+
+test("kill-port validates the complete port list before invoking lsof", async () => {
+  const fixture = await createFakeLsofFixture();
+  try {
+    const result = runNode(["scripts/kill-port.mjs", "3200", "not-a-port"], {
+      env: {
+        PATH: `${fixture.binDir}:${process.env.PATH}`,
+        FAKE_LSOF_ARGS: fixture.argsPath,
+        FAKE_LSOF_COUNT: fixture.countPath,
+        FAKE_LSOF_VISIBLE_CALLS: "0"
+      }
+    });
+    assert.equal(result.status, 1, combinedOutput(result));
+    assert.match(combinedOutput(result), /port.*integer.*1.*65535/i);
+    const lsofArgs = await readFile(fixture.argsPath, "utf8").catch(() => "");
+    assert.equal(lsofArgs, "", "invalid input must prevent every lsof query");
+  } finally {
+    await rm(fixture.root, { recursive: true, force: true });
+  }
+});
+
+test("kill-port queries only TCP listeners", async () => {
+  const fixture = await createFakeLsofFixture();
+  try {
+    const result = runNode(["scripts/kill-port.mjs", "4567"], {
+      env: {
+        PATH: `${fixture.binDir}:${process.env.PATH}`,
+        FAKE_LSOF_ARGS: fixture.argsPath,
+        FAKE_LSOF_COUNT: fixture.countPath,
+        FAKE_LSOF_VISIBLE_CALLS: "0"
+      }
+    });
+    assert.equal(result.status, 0, combinedOutput(result));
+    assert.deepEqual((await readFile(fixture.argsPath, "utf8")).trim().split("\n"), [
+      "--call--",
+      "-nP",
+      "-t",
+      "-iTCP:4567",
+      "-sTCP:LISTEN"
+    ]);
+  } finally {
+    await rm(fixture.root, { recursive: true, force: true });
+  }
+});
+
+test("kill-port sends SIGTERM and confirms the listener released before returning", async () => {
+  const fixture = await createFakeLsofFixture();
+  const readyPath = path.join(fixture.root, "listener-ready.txt");
+  let listener;
+
+  try {
+    listener = spawn(process.execPath, ["-e", `require("node:fs").writeFileSync(${JSON.stringify(readyPath)}, "ready"); setInterval(() => {}, 1000);`], {
+      stdio: "ignore"
+    });
+    await waitFor(() => readFile(readyPath, "utf8").then(() => true).catch(() => false));
+    const result = runNode(["scripts/kill-port.mjs", "4567"], {
+      env: {
+        PATH: `${fixture.binDir}:${process.env.PATH}`,
+        FAKE_LSOF_ARGS: fixture.argsPath,
+        FAKE_LSOF_COUNT: fixture.countPath,
+        FAKE_LSOF_VISIBLE_CALLS: "1",
+        FAKE_LISTENER_PID: String(listener.pid),
+        KILL_PORT_GRACE_MS: "50"
+      }
+    });
+    assert.equal(result.status, 0, combinedOutput(result));
+    const exit = await waitForExit(listener, 1000);
+    assert.equal(exit.signal, "SIGTERM", combinedOutput(result));
+    assert.match(combinedOutput(result), /terminated pid .*SIGTERM/i);
+    assert.doesNotMatch(combinedOutput(result), /SIGKILL|force-killed/i);
+  } finally {
+    if (listener?.pid && processIsAlive(listener.pid)) process.kill(listener.pid, "SIGKILL");
+    await rm(fixture.root, { recursive: true, force: true });
+  }
+});
+
+test("kill-port uses SIGKILL only after a controlled SIGTERM grace fallback", async () => {
+  const fixture = await createFakeLsofFixture();
+  const readyPath = path.join(fixture.root, "sticky-ready.txt");
+  const signalPath = path.join(fixture.root, "sticky-signals.txt");
+  let listener;
+
+  try {
+    listener = spawn(
+      process.execPath,
+      [
+        "-e",
+        `const fs=require("node:fs"); process.on("SIGTERM",()=>fs.appendFileSync(${JSON.stringify(signalPath)},"SIGTERM\\n")); fs.writeFileSync(${JSON.stringify(readyPath)},"ready"); setInterval(()=>{},1000);`
+      ],
+      { stdio: "ignore" }
+    );
+    await waitFor(() => readFile(readyPath, "utf8").then(() => true).catch(() => false));
+    const result = runNode(["scripts/kill-port.mjs", "4567"], {
+      env: {
+        PATH: `${fixture.binDir}:${process.env.PATH}`,
+        FAKE_LSOF_ARGS: fixture.argsPath,
+        FAKE_LSOF_COUNT: fixture.countPath,
+        FAKE_LSOF_VISIBLE_CALLS: "2",
+        FAKE_LISTENER_PID: String(listener.pid),
+        KILL_PORT_GRACE_MS: "50"
+      }
+    });
+    assert.equal(result.status, 0, combinedOutput(result));
+    const exit = await waitForExit(listener, 1000);
+    assert.equal(exit.signal, "SIGKILL", combinedOutput(result));
+    const observedSignals = await readFile(signalPath, "utf8").catch(() => "");
+    assert.match(observedSignals, /SIGTERM/);
+    assert.match(combinedOutput(result), /force-killed pid .*after SIGTERM grace/i);
+  } finally {
+    if (listener?.pid && processIsAlive(listener.pid)) process.kill(listener.pid, "SIGKILL");
+    await rm(fixture.root, { recursive: true, force: true });
+  }
+});
+
+test("Git-index Next config honors only the P0 NEXT_DIST_DIR hook", async () => {
+  const configObject = runGit(["show", ":next.config.ts"], repoRoot);
+  assert.equal(configObject.status, 0, combinedOutput(configObject));
+  assert.doesNotMatch(configObject.stdout, /redirects\s*\(|transpilePackages|devIndicators|NEXT_TSCONFIG_PATH/);
+  const tempDir = await mkdtemp(path.join(tmpdir(), "mais-next-config-object-"));
+  const configPath = path.join(tempDir, "next.config.ts");
+  const previousDistDir = process.env.NEXT_DIST_DIR;
+
+  try {
+    await writeFile(configPath, configObject.stdout);
+    process.env.NEXT_DIST_DIR = ".tmp/object-proof/next-dist";
+    const imported = await import(`${pathToFileURL(configPath).href}?proof=${Date.now()}`);
+    assert.equal(imported.default.distDir, ".tmp/object-proof/next-dist");
+  } finally {
+    if (previousDistDir === undefined) delete process.env.NEXT_DIST_DIR;
+    else process.env.NEXT_DIST_DIR = previousDistDir;
+    await rm(tempDir, { recursive: true, force: true });
+  }
+});
+
+test("P0 package delta and default release gates are self-contained in Git objects", () => {
+  const baseline = readGitObjectJson(`${p0BaselineCommit}:package.json`);
+  const current = readGitObjectJson(":package.json");
+  const packageLock = readGitObjectJson(":package-lock.json");
+  const expectedP0Scripts = {
+    "dev:isolated": "node scripts/dev-isolated.mjs",
+    "kill-port": "node scripts/kill-port.mjs",
+    "release:dirty-map": "node scripts/refresh-dirty-tree-map.mjs",
+    "release:package-gate": "node scripts/release-package-gate.mjs",
+    "release:preflight": "node scripts/release-env-guard.mjs",
+    "release:env-preflight": "node scripts/release-env-guard.mjs env",
+    "release:runtime-preflight": "node scripts/release-env-guard.mjs runtime-release",
+    "release:publish-preflight": "node scripts/release-env-guard.mjs publish",
+    "release:staged-publish-preflight": "node scripts/release-env-guard.mjs staged-publish",
+    "release:root-deploy-preflight": "node scripts/release-env-guard.mjs root-deploy",
+    "test:release-governance": "node --test --test-concurrency=1 scripts/release-governance.test.mjs"
+  };
+  const allowedScriptChanges = new Set(Object.keys(expectedP0Scripts));
+  const allScriptNames = new Set([
+    ...Object.keys(baseline.scripts ?? {}),
+    ...Object.keys(current.scripts ?? {})
+  ]);
+  const changedScriptNames = [...allScriptNames]
+    .filter((name) => baseline.scripts?.[name] !== current.scripts?.[name])
+    .sort();
+
+  assert.deepEqual(
+    changedScriptNames,
+    [...allowedScriptChanges].sort(),
+    "Only P0-owned commands may differ from the frozen baseline"
+  );
+  for (const [name, command] of Object.entries(expectedP0Scripts)) {
+    assert.equal(current.scripts[name], command, `${name} command`);
+    const localTarget = command.split(/\s+/).find((token) => /\.(?:c?js|mjs)$/.test(token));
+    assert.ok(localTarget, `${name} must resolve one local Node target`);
+    assertTrackedInIndex(localTarget);
+  }
+
+  assert.deepEqual(current.dependencies, {
+    ...baseline.dependencies,
+    next: "15.5.20"
+  });
+  assert.deepEqual(current.devDependencies, {
+    ...baseline.devDependencies,
+    postcss: "8.5.16"
+  });
+  assert.deepEqual(current.overrides, {
+    ...(baseline.overrides ?? {}),
+    postcss: "8.5.16"
+  });
+  assert.deepEqual(packageLock.packages[""].dependencies, current.dependencies);
+  assert.deepEqual(packageLock.packages[""].devDependencies, current.devDependencies);
+  assert.equal(packageLock.packages["node_modules/next"].version, "15.5.20");
+  assert.equal(packageLock.packages["node_modules/postcss"].version, "8.5.16");
+
+  const releaseGuard = runGit(["show", ":scripts/release-env-guard.mjs"], repoRoot);
+  assert.equal(releaseGuard.status, 0, combinedOutput(releaseGuard));
+  const gateConstants = ["RELEASE_SOURCE_CLEAN_GATE", "WORKTREE_LIFECYCLE_GATE"];
+  for (const constant of gateConstants) {
+    const gatePath = releaseGuard.stdout.match(
+      new RegExp(`const\\s+${constant}\\s*=\\s*"([^"]+)"`)
+    )?.[1];
+    assert.ok(gatePath, `Missing default gate constant ${constant}`);
+    assertTrackedInIndex(gatePath);
+  }
+});
+
+test("default release-source gates accept clean sources, reject dirty sources, and leave no evidence dirt", async () => {
+  const tempDir = await mkdtemp(path.join(tmpdir(), "mais-default-release-gates-"));
+  const cleanGate = path.join(repoRoot, "coordination/release-intake/assert-release-source-clean.mjs");
+  const lifecycleGate = path.join(repoRoot, "coordination/release-intake/assert-worktree-lifecycle.mjs");
+
+  try {
+    const init = runGit(["init", "--quiet", "--initial-branch=main"], tempDir);
+    assert.equal(init.status, 0, combinedOutput(init));
+    await mkdir(path.join(tempDir, "coordination", "release-intake"), { recursive: true });
+    await writeFile(path.join(tempDir, "README.md"), "clean release source fixture\n");
+    const add = runGit(["add", "README.md"], tempDir);
+    assert.equal(add.status, 0, combinedOutput(add));
+    const commit = runGit([
+      "-c",
+      "user.name=Release Governance Test",
+      "-c",
+      "user.email=release-governance@example.invalid",
+      "commit",
+      "--quiet",
+      "-m",
+      "fixture"
+    ], tempDir);
+    assert.equal(commit.status, 0, combinedOutput(commit));
+
+    const clean = runNodeAt(tempDir, [cleanGate]);
+    assert.equal(clean.status, 0, combinedOutput(clean));
+    const lifecycle = runNodeAt(tempDir, [lifecycleGate, "--strict", "--json"]);
+    assert.equal(lifecycle.status, 0, combinedOutput(lifecycle));
+    const afterGates = runGit(["status", "--porcelain=v1", "-z", "-uall"], tempDir);
+    assert.equal(afterGates.status, 0, combinedOutput(afterGates));
+    assert.equal(afterGates.stdout, "", "default gates must not dirty a clean release source");
+
+    await writeFile(path.join(tempDir, "dirty.txt"), "dirty release source fixture\n");
+    const dirty = runNodeAt(tempDir, [cleanGate]);
+    assert.notEqual(dirty.status, 0);
+    assert.match(combinedOutput(dirty), /release source is dirty/i);
+    const dirtyLifecycle = runNodeAt(tempDir, [lifecycleGate, "--strict", "--json"]);
+    assert.notEqual(dirtyLifecycle.status, 0);
+    assert.match(combinedOutput(dirtyLifecycle), /dirty|open lifecycle decision/i);
+  } finally {
+    await rm(tempDir, { recursive: true, force: true });
+  }
+});
+
+test("worktree lifecycle fails closed when main divergence is indeterminate", async () => {
+  const tempDir = await mkdtemp(path.join(tmpdir(), "mais-lifecycle-indeterminate-"));
+  const lifecycleGate = path.join(repoRoot, "coordination/release-intake/assert-worktree-lifecycle.mjs");
+
+  try {
+    const init = runGit(["init", "--quiet", "--initial-branch=trunk"], tempDir);
+    assert.equal(init.status, 0, combinedOutput(init));
+    await writeFile(path.join(tempDir, "README.md"), "trunk-only lifecycle fixture\n");
+    assert.equal(runGit(["add", "README.md"], tempDir).status, 0);
+    const commit = runGit([
+      "-c",
+      "user.name=Release Governance Test",
+      "-c",
+      "user.email=release-governance@example.invalid",
+      "commit",
+      "--quiet",
+      "-m",
+      "fixture"
+    ], tempDir);
+    assert.equal(commit.status, 0, combinedOutput(commit));
+
+    const result = runNodeAt(tempDir, [lifecycleGate, "--json"]);
+    assert.notEqual(result.status, 0, "missing main must fail even without --strict");
+    const payload = JSON.parse(result.stdout);
+    const worktree = payload.worktrees.find((entry) => entry.branch === "trunk");
+    assert.ok(worktree, "trunk fixture worktree must be reported");
+    assert.equal(worktree.state, "indeterminate-error");
+    assert.ok(worktree.errors.some((error) => error.operation === "rev-list-main-divergence"));
+    for (const error of worktree.errors) {
+      assert.equal(typeof error.exitCode, "number");
+      assert.ok(!JSON.stringify(error).includes(tempDir), "error metadata must not expose absolute worktree paths");
+    }
+    assert.match(result.stderr, /indeterminate-error|indeterminate lifecycle/i);
+  } finally {
+    await rm(tempDir, { recursive: true, force: true });
+  }
+});
+
+test("default preflight all invokes dirty-map, release-source, and strict lifecycle gates", async () => {
+  const tempDir = await mkdtemp(path.join(tmpdir(), "mais-preflight-all-"));
+  const sourceRoot = path.join(tempDir, "clean-source");
+  const markerPath = path.join(tempDir, "gate-marker.txt");
+  const dirtyMapStub = path.join(tempDir, "dirty-map-stub.mjs");
+  const releaseSourceStub = path.join(tempDir, "release-source-stub.mjs");
+  const lifecycleStub = path.join(tempDir, "lifecycle-stub.mjs");
+
+  const stubSource = (label, jsonOutput = false) => `
+import fs from "node:fs";
+fs.appendFileSync(process.env.MAIS_GATE_MARKER, ${JSON.stringify(label)} + "\\n");
+if (process.env.MAIS_FAIL_GATE === ${JSON.stringify(label)}) {
+  console.error(${JSON.stringify(label)} + " stub failure");
+  process.exit(37);
+}
+${jsonOutput ? 'console.log(JSON.stringify({ gate: "dirty-map", result: "pass" }));' : 'console.log("gate passed");'}
+`;
+
+  try {
+    await mkdir(sourceRoot, { recursive: true });
+    const init = runGit(["init", "--quiet", "--initial-branch=main"], sourceRoot);
+    assert.equal(init.status, 0, combinedOutput(init));
+    await writeFile(path.join(sourceRoot, "README.md"), "clean preflight source\n");
+    assert.equal(runGit(["add", "README.md"], sourceRoot).status, 0);
+    const commit = runGit([
+      "-c",
+      "user.name=Release Governance Test",
+      "-c",
+      "user.email=release-governance@example.invalid",
+      "commit",
+      "--quiet",
+      "-m",
+      "fixture"
+    ], sourceRoot);
+    assert.equal(commit.status, 0, combinedOutput(commit));
+    await writeFile(dirtyMapStub, stubSource("dirty-map", true));
+    await writeFile(releaseSourceStub, stubSource("release-source"));
+    await writeFile(lifecycleStub, stubSource("lifecycle"));
+
+    const baseEnv = {
+      NODE_ENV: "test",
+      MAIS_RELEASE_GUARD_ALLOW_TEST_STUBS: "1",
+      MAIS_RELEASE_SOURCE_ROOT: sourceRoot,
+      MAIS_CANONICAL_RELEASE_ROOT: repoRoot,
+      MAIS_RELEASE_SOURCE_KIND: "clean-worktree",
+      MAIS_GATE_MARKER: markerPath,
+      MAIS_DIRTY_TREE_MAP_GATE: dirtyMapStub,
+      MAIS_RELEASE_SOURCE_CLEAN_GATE: releaseSourceStub,
+      MAIS_WORKTREE_LIFECYCLE_GATE: lifecycleStub
+    };
+
+    const pass = runNode(["scripts/release-env-guard.mjs", "--json"], { env: baseEnv });
+    assert.equal(pass.status, 0, combinedOutput(pass));
+    const markerContents = await readFile(markerPath, "utf8").catch(() => "");
+    assert.deepEqual(markerContents.trim().split("\n").filter(Boolean), [
+      "dirty-map",
+      "release-source",
+      "lifecycle"
+    ]);
+    const payload = JSON.parse(pass.stdout);
+    assert.equal(payload.mode, "all");
+    assert.ok(payload.dirtyTreeMap, "default all must include dirty-map currentness evidence");
+    assert.equal(payload.releaseSource.releaseSourceClean.passed, true);
+    assert.equal(payload.releaseSource.strictWorktreeLifecycle.passed, true);
+
+    for (const failingGate of ["dirty-map", "release-source", "lifecycle"]) {
+      await rm(markerPath, { force: true });
+      const fail = runNode(["scripts/release-env-guard.mjs", "--json"], {
+        env: { ...baseEnv, MAIS_FAIL_GATE: failingGate }
+      });
+      assert.notEqual(fail.status, 0, `${failingGate} failure must fail default preflight`);
+      assert.match(combinedOutput(fail), new RegExp(`${failingGate} stub failure`, "i"));
+    }
+  } finally {
+    await rm(tempDir, { recursive: true, force: true });
+  }
+});
+
+test("package and coordination contracts preserve security versions and closure rules", async () => {
+  const packageJson = await readJson(path.join(repoRoot, "package.json"));
+  const packageLock = await readJson(path.join(repoRoot, "package-lock.json"));
+  const gitignore = await readFile(path.join(repoRoot, ".gitignore"), "utf8");
+  const agents = await readFile(path.join(repoRoot, "AGENTS.md"), "utf8");
+
+  assert.equal(packageJson.dependencies.next, "15.5.20");
+  assert.equal(packageJson.devDependencies.postcss, "8.5.16");
+  assert.equal(packageJson.overrides.postcss, "8.5.16");
+  assert.equal(packageLock.packages["node_modules/next"].version, "15.5.20");
+  assert.equal(packageLock.packages["node_modules/postcss"].version, "8.5.16");
+  assert.equal(packageJson.scripts["release:package-gate"], "node scripts/release-package-gate.mjs");
+  assert.equal(
+    packageJson.scripts["test:release-governance"],
+    "node --test --test-concurrency=1 scripts/release-governance.test.mjs"
+  );
+  assert.match(gitignore, /^Users\/$/m);
+  assert.match(agents, /git add \./i);
+  assert.match(agents, /owner-pathspecs\.json/i);
+  assert.match(agents, /reviewed commit/i);
+  assert.match(agents, /owner-approved discard/i);
+  assert.match(agents, /evidence archive/i);
+  assert.match(agents, /blocker report/i);
+});
+
+test("release source preflight freezes canonical root for source and root-deploy modes", async () => {
+  const tempDir = await mkdtemp(path.join(tmpdir(), "mais-release-source-gates-"));
+  const passingGate = path.join(tempDir, "passing-gate.mjs");
+  await writeFile(passingGate, 'console.log("test gate passed");\n');
+
+  const sharedEnv = {
+    NODE_ENV: "test",
+    MAIS_RELEASE_GUARD_ALLOW_TEST_STUBS: "1",
+    MAIS_RELEASE_SOURCE_CLEAN_GATE: passingGate,
+    MAIS_WORKTREE_LIFECYCLE_GATE: passingGate,
+    MAIS_RELEASE_SOURCE_ROOT: repoRoot,
+    MAIS_CANONICAL_RELEASE_ROOT: repoRoot,
+    MAIS_RELEASE_SOURCE_KIND: "root"
+  };
+
+  try {
+    for (const mode of ["source", "root-deploy"]) {
+      const blocked = runNode(["scripts/release-env-guard.mjs", mode, "--json"], { env: sharedEnv });
+      assert.notEqual(blocked.status, 0, `${mode} must fail for the canonical root`);
+      assert.match(combinedOutput(blocked), /root release is frozen/i);
+    }
+  } finally {
+    await rm(tempDir, { recursive: true, force: true });
+  }
+});
+
+test("canonical realpath stays frozen for approved pruned staging and symlink aliases", async () => {
+  const tempDir = await mkdtemp(path.join(tmpdir(), "mais-canonical-realpath-"));
+  const aliasRoot = path.join(tempDir, "canonical-alias");
+  const passingGate = path.join(tempDir, "passing-gate.mjs");
+  await symlink(repoRoot, aliasRoot, "dir");
+  await writeFile(passingGate, 'console.log("test gate passed");\n');
+
+  try {
+    for (const sourceRoot of [repoRoot, aliasRoot]) {
+      for (const mode of ["source", "root-deploy"]) {
+        const blocked = runNode(["scripts/release-env-guard.mjs", mode, "--json"], {
+          env: {
+            NODE_ENV: "test",
+            MAIS_RELEASE_GUARD_ALLOW_TEST_STUBS: "1",
+            MAIS_RELEASE_SOURCE_CLEAN_GATE: passingGate,
+            MAIS_WORKTREE_LIFECYCLE_GATE: passingGate,
+            MAIS_RELEASE_SOURCE_ROOT: sourceRoot,
+            MAIS_CANONICAL_RELEASE_ROOT: repoRoot,
+            MAIS_RELEASE_SOURCE_KIND: "pruned-staging",
+            MAIS_OWNER_APPROVED_PRUNED_STAGING: "1"
+          }
+        });
+        assert.notEqual(blocked.status, 0, `${mode} must reject canonical identity ${sourceRoot}`);
+        assert.match(combinedOutput(blocked), /root release is frozen/i);
+      }
+    }
+  } finally {
+    await rm(tempDir, { recursive: true, force: true });
+  }
+});
+
+test("release source kinds require clean Git sources or explicitly approved pruned staging", async () => {
+  const tempDir = await mkdtemp(path.join(tmpdir(), "mais-release-source-kind-"));
+  const cleanSource = path.join(tempDir, "clean-source");
+  const init = runGit(["init", "--quiet", cleanSource], tempDir);
+  assert.equal(init.status, 0, combinedOutput(init));
+
+  try {
+    const clean = runNode(["scripts/release-env-guard.mjs", "source", "--json"], {
+      env: {
+        MAIS_RELEASE_SOURCE_ROOT: cleanSource,
+        MAIS_CANONICAL_RELEASE_ROOT: repoRoot,
+        MAIS_RELEASE_SOURCE_KIND: "clean-worktree"
+      }
+    });
+    assert.equal(clean.status, 0, combinedOutput(clean));
+    assert.equal(JSON.parse(clean.stdout).source.kind, "clean-worktree");
+
+    const unapproved = runNode(["scripts/release-env-guard.mjs", "source", "--json"], {
+      env: {
+        MAIS_RELEASE_SOURCE_ROOT: tempDir,
+        MAIS_CANONICAL_RELEASE_ROOT: repoRoot,
+        MAIS_RELEASE_SOURCE_KIND: "pruned-staging",
+        MAIS_OWNER_APPROVED_PRUNED_STAGING: "0"
+      }
+    });
+    assert.notEqual(unapproved.status, 0);
+    assert.match(combinedOutput(unapproved), /owner-approved pruned staging/i);
+
+    const approved = runNode(["scripts/release-env-guard.mjs", "source", "--json"], {
+      env: {
+        MAIS_RELEASE_SOURCE_ROOT: tempDir,
+        MAIS_CANONICAL_RELEASE_ROOT: repoRoot,
+        MAIS_RELEASE_SOURCE_KIND: "pruned-staging",
+        MAIS_OWNER_APPROVED_PRUNED_STAGING: "1"
+      }
+    });
+    assert.equal(approved.status, 0, combinedOutput(approved));
+    assert.equal(JSON.parse(approved.stdout).source.kind, "owner-approved-pruned-staging");
+  } finally {
+    await rm(tempDir, { recursive: true, force: true });
+  }
+});
