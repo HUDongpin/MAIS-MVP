@@ -1030,6 +1030,7 @@ test("P0 package delta and default release gates are self-contained in Git objec
   const current = readGitObjectJson(":package.json");
   const packageLock = readGitObjectJson(":package-lock.json");
   const expectedP0Scripts = {
+    "check:imports": "node scripts/check-import-targets.mjs",
     "dev:isolated": "node scripts/dev-isolated.mjs",
     "kill-port": "node scripts/kill-port.mjs",
     "release:dirty-map": "node scripts/refresh-dirty-tree-map.mjs",
@@ -1040,7 +1041,8 @@ test("P0 package delta and default release gates are self-contained in Git objec
     "release:publish-preflight": "node scripts/release-env-guard.mjs publish",
     "release:staged-publish-preflight": "node scripts/release-env-guard.mjs staged-publish",
     "release:root-deploy-preflight": "node scripts/release-env-guard.mjs root-deploy",
-    "test:release-governance": "node --test --test-concurrency=1 scripts/release-governance.test.mjs"
+    "test:release-governance": "node --test --test-concurrency=1 scripts/release-governance.test.mjs",
+    "test:imports": "node --test scripts/check-import-targets.test.mjs"
   };
   const allowedScriptChanges = new Set(Object.keys(expectedP0Scripts));
   const allScriptNames = new Set([
@@ -1054,7 +1056,7 @@ test("P0 package delta and default release gates are self-contained in Git objec
   assert.deepEqual(
     changedScriptNames,
     [...allowedScriptChanges].sort(),
-    "Only P0-owned commands may differ from the frozen baseline"
+    "Only P0/P1-owned commands may differ from the frozen baseline"
   );
   for (const [name, command] of Object.entries(expectedP0Scripts)) {
     assert.equal(current.scripts[name], command, `${name} command`);
