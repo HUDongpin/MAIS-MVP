@@ -13,6 +13,26 @@
   },
   "packages": [
     {
+      "id": "external-worktree-evidence-A25-A22",
+      "owner": "A25/A22",
+      "objective": "Keep binary/status/inventory/patch/tar worktree evidence outside Git under a marker-bound, tamper-checked v2 archive set.",
+      "pathspecs": [
+        "coordination/release-intake/evidence-archive-lib.mjs",
+        "coordination/release-intake/refresh-linked-worktree-archive-evidence.mjs",
+        "coordination/release-intake/assert-linked-worktree-archive-evidence-current.mjs",
+        "coordination/release-intake/refresh-linked-worktree-archive-evidence.test.mjs",
+        "scripts/release-governance.test.mjs",
+        "package.json",
+        "package-lock.json"
+      ],
+      "checks": [
+        "npm run test:release-evidence",
+        "npm run test:release-governance",
+        "npm run release:package-gate -- --json"
+      ],
+      "finalState": "reviewed commit"
+    },
+    {
       "id": "foundation-governance-A25-A10",
       "owner": "A25/A10",
       "objective": "Freeze owner pathspecs, strict dirty-map ownership, package final states, and pathspec-only staging.",

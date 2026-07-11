@@ -473,6 +473,7 @@ test("default package gate and exact owner mappings are valid", async () => {
   assertOwnerMapping(pathspecManifest, "coordination/release-intake/assert-worktree-lifecycle.mjs", "A22", ["A10", "A25"]);
   assertOwnerMapping(pathspecManifest, "MAIS_Competitive_Analysis_K12_Math.docx", "A10", ["A16"]);
   assertOwnerMapping(pathspecManifest, ".env.local.example", "A19", ["A07", "A15", "A22"]);
+  assertOwnerMapping(pathspecManifest, "package-lock.json", "A10", []);
 
   const importTargetPackage = packageWithExactPathspec(pathspecManifest, "scripts/check-import-targets*.mjs");
   assert.ok(importTargetPackage, "scripts/check-import-targets*.mjs must have a durable owner mapping");
@@ -482,6 +483,18 @@ test("default package gate and exact owner mappings are valid", async () => {
   const nextConfigReleasePackage = packageWithExactPathspec(packageManifest, "next.config.ts");
   assert.ok(nextConfigReleasePackage, "next.config.ts must be explicit in the P0 release-hygiene package");
   assert.equal(nextConfigReleasePackage.id, "foundation-release-hygiene-A22-A10");
+
+  const evidencePackage = packageManifest.packages.find((pkg) => pkg.id === "external-worktree-evidence-A25-A22");
+  assert.ok(evidencePackage, "external worktree evidence package must remain explicit");
+  assert.deepEqual(evidencePackage.pathspecs, [
+    "coordination/release-intake/evidence-archive-lib.mjs",
+    "coordination/release-intake/refresh-linked-worktree-archive-evidence.mjs",
+    "coordination/release-intake/assert-linked-worktree-archive-evidence-current.mjs",
+    "coordination/release-intake/refresh-linked-worktree-archive-evidence.test.mjs",
+    "scripts/release-governance.test.mjs",
+    "package.json",
+    "package-lock.json"
+  ]);
 
   assert.deepEqual(packageManifest.policy.allowedFinalStates, [
     "reviewed commit",
@@ -1042,6 +1055,7 @@ test("P0 package delta and default release gates are self-contained in Git objec
     "release:staged-publish-preflight": "node scripts/release-env-guard.mjs staged-publish",
     "release:root-deploy-preflight": "node scripts/release-env-guard.mjs root-deploy",
     "test:release-governance": "node --test --test-concurrency=1 scripts/release-governance.test.mjs",
+    "test:release-evidence": "node --test --test-concurrency=1 coordination/release-intake/refresh-linked-worktree-archive-evidence.test.mjs",
     "test:imports": "node --test scripts/check-import-targets.test.mjs"
   };
   const allowedScriptChanges = new Set(Object.keys(expectedP0Scripts));
@@ -1071,7 +1085,8 @@ test("P0 package delta and default release gates are self-contained in Git objec
   });
   assert.deepEqual(current.devDependencies, {
     ...baseline.devDependencies,
-    postcss: "8.5.16"
+    postcss: "8.5.16",
+    yaml: "2.9.0"
   });
   assert.deepEqual(current.overrides, {
     ...(baseline.overrides ?? {}),
@@ -1081,6 +1096,9 @@ test("P0 package delta and default release gates are self-contained in Git objec
   assert.deepEqual(packageLock.packages[""].devDependencies, current.devDependencies);
   assert.equal(packageLock.packages["node_modules/next"].version, "15.5.20");
   assert.equal(packageLock.packages["node_modules/postcss"].version, "8.5.16");
+  assert.equal(packageLock.packages["node_modules/yaml"].version, "2.9.0");
+  assert.equal(packageLock.packages["node_modules/yaml"].dev, true);
+  assert.match(packageLock.packages["node_modules/yaml"].integrity, /^sha512-/u);
 
   const releaseGuard = runGit(["show", ":scripts/release-env-guard.mjs"], repoRoot);
   assert.equal(releaseGuard.status, 0, combinedOutput(releaseGuard));
@@ -1262,9 +1280,14 @@ test("package and coordination contracts preserve security versions and closure 
 
   assert.equal(packageJson.dependencies.next, "15.5.20");
   assert.equal(packageJson.devDependencies.postcss, "8.5.16");
+  assert.equal(packageJson.devDependencies.yaml, "2.9.0");
   assert.equal(packageJson.overrides.postcss, "8.5.16");
   assert.equal(packageLock.packages["node_modules/next"].version, "15.5.20");
   assert.equal(packageLock.packages["node_modules/postcss"].version, "8.5.16");
+  assert.equal(packageLock.packages[""].devDependencies.yaml, "2.9.0");
+  assert.equal(packageLock.packages["node_modules/yaml"].version, "2.9.0");
+  assert.equal(packageLock.packages["node_modules/yaml"].dev, true);
+  assert.match(packageLock.packages["node_modules/yaml"].integrity, /^sha512-/u);
   assert.equal(packageJson.scripts["release:package-gate"], "node scripts/release-package-gate.mjs");
   assert.equal(
     packageJson.scripts["test:release-governance"],

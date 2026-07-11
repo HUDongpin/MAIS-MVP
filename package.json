@@ -60,6 +60,7 @@
     "release:root-deploy-preflight": "node scripts/release-env-guard.mjs root-deploy",
     "test:backend": "playwright test tests/e2e/backend-api.spec.ts --project=desktop-chrome",
     "test:release-governance": "node --test --test-concurrency=1 scripts/release-governance.test.mjs",
+    "test:release-evidence": "node --test --test-concurrency=1 coordination/release-intake/refresh-linked-worktree-archive-evidence.test.mjs",
     "test:imports": "node --test scripts/check-import-targets.test.mjs",
     "test:e2e": "playwright test",
     "test:question-bank": "rm -rf .tmp/question-bank-tests .tmp/question-bank-db && tsc -p tsconfig.json --outDir .tmp/question-bank-tests --noEmit false --incremental false --module commonjs --moduleResolution node && mkdir -p .tmp/question-bank-tests/node_modules/@ && ln -s ../../data .tmp/question-bank-tests/node_modules/@/data && ln -s ../../lib .tmp/question-bank-tests/node_modules/@/lib && HK_MATH_DB_DIR=.tmp/question-bank-db node --test .tmp/question-bank-tests/lib/mainlandPepHighQuestionBank.test.js .tmp/question-bank-tests/lib/mainlandPepPrimaryQuestionBank.test.js .tmp/question-bank-tests/lib/mainlandPepJuniorQuestionBank.test.js .tmp/question-bank-tests/lib/mainlandBnuPrimaryQuestionBank.test.js .tmp/question-bank-tests/lib/mainlandBnuJuniorQuestionBank.test.js .tmp/question-bank-tests/lib/fullQuestionBankSolvability.test.js && rm -rf .tmp/question-bank-tests .tmp/question-bank-db",
@@ -91,6 +92,7 @@
     "autoprefixer": "^10.4.21",
     "postcss": "8.5.16",
     "tailwindcss": "^3.4.17",
-    "typescript": "5.8.3"
+    "typescript": "5.8.3",
+    "yaml": "2.9.0"
   }
 }

@@ -16,6 +16,19 @@
   },
   "packages": [
     {
+      "id": "A25-A22-external-evidence-archive",
+      "owner": "A25",
+      "role": "Marker-bound external worktree evidence and currentness gate",
+      "coordinatesWith": ["A22", "A10"],
+      "slice": "release hygiene tooling/config",
+      "pathspecs": [
+        "coordination/release-intake/evidence-archive-lib.mjs",
+        "coordination/release-intake/refresh-linked-worktree-archive-evidence.mjs",
+        "coordination/release-intake/assert-linked-worktree-archive-evidence-current.mjs",
+        "coordination/release-intake/refresh-linked-worktree-archive-evidence.test.mjs"
+      ]
+    },
+    {
       "id": "A25-release-intake",
       "owner": "A25",
       "role": "Git hygiene and release intake",
@@ -475,6 +488,7 @@
     { "path": "coordination/release-intake/assert-worktree-lifecycle.mjs", "expectedOwner": "A22" },
     { "path": "scripts/release-env-guard.mjs", "expectedOwner": "A22" },
     { "path": "scripts/bug-triage.js", "expectedOwner": "A10" },
+    { "path": "package-lock.json", "expectedOwner": "A10" },
     { "path": "app/api/ai-tutor/route.ts", "expectedOwner": "A07" },
     { "path": "app/api/adaptive-learning/route.ts", "expectedOwner": "A15" },
     { "path": "app/api/users/route.ts", "expectedOwner": "A12" },
