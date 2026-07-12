@@ -4,13 +4,20 @@ import { createContext, useCallback, useContext, useEffect, useMemo, useRef, use
 import type { ReactNode } from "react";
 import { usePathname, useRouter } from "next/navigation";
 import { isValidGradeId } from "@/data/grades";
+import { isImmersiveStudentPracticeGamePath } from "@/lib/gameBasedLearning";
 import { dictionary, isValidLanguage, localeForLanguage, textForLanguage } from "@/lib/i18n";
 import { curriculumProfileForTrack, curriculumTrackForProfile, normalizeCurriculumProfile } from "@/lib/curriculumProfile";
+import { isStudentLessonPath, studentLessonsPath } from "@/lib/lessonLinks";
+import { isLegacyRoadmapPath, isStudentRoadmapPath } from "@/lib/roadmapRoutes";
 import {
+  coalesceLearningAnalyticsEvents,
   createLearningAnalyticsEvent,
+  isHighFrequencyLearningAnalyticsEvent,
   learningAnalyticsUpdatedEventName,
-  maxStoredLearningAnalyticsEvents
+  maxStoredLearningAnalyticsEvents,
+  throttledLearningAnalyticsFlushMs
 } from "@/lib/learningAnalytics";
+import { isVisualizationLabPath } from "@/lib/visualizationRoutes";
 import type {
   CurriculumTrack,
   CurriculumProfile,
@@ -34,7 +41,7 @@ export const demoStudentAccount = {
 } as const;
 
 export const demoMainlandStudentAccount = {
-  username: "Mainland Student Ludwig",
+  username: "Student Peter",
   password: "12345"
 } as const;
 
@@ -44,7 +51,7 @@ export const demoHongKongTeacherAccount = {
 } as const;
 
 export const demoMainlandTeacherAccount = {
-  username: "Mainland Teacher Phoebe",
+  username: "Teacher Phoebe",
   password: "12345"
 } as const;
 
@@ -81,6 +88,7 @@ type SettingsContextValue = {
   changePassword: (currentPassword: string, password: string) => Promise<AuthActionResult>;
   updateProfile: (input: ProfileUpdateInput) => Promise<AuthActionResult>;
   logout: () => Promise<void>;
+  revalidateSession: () => Promise<void>;
   mistakeRecords: MistakeRecord[];
   learningAnalyticsEvents: LearningAnalyticsEvent[];
   refreshMistakeRecordsAfterAttempt: () => void;
@@ -95,6 +103,16 @@ type SettingsContextValue = {
 
 const SettingsContext = createContext<SettingsContextValue | null>(null);
 
+function isFirstPaintSensitiveStudentPath(pathname: string) {
+  return (
+    pathname === "/personalized-learning" ||
+    pathname === "/practice" ||
+    pathname.startsWith("/practice/") ||
+    pathname === "/student/assignments" ||
+    pathname.startsWith("/student/assignments/")
+  );
+}
+
 type AuthSessionResponse = {
   user: StudentSession;
   settings: {
@@ -106,7 +124,7 @@ type AuthSessionResponse = {
 };
 
 type RegisterInput = {
-  role?: "student" | "parent";
+  role?: "student" | "teacher" | "parent";
   name: string;
   username?: string;
   email?: string;
@@ -134,10 +152,24 @@ type AuthActionResult = {
   reason?: "duplicate" | "invalid" | "setup" | "error" | "requires-curriculum-track";
 };
 
+async function readAuthErrorCode(response: Response) {
+  try {
+    const body = await response.clone().json() as { code?: unknown } | null;
+    return typeof body?.code === "string" ? body.code : "";
+  } catch {
+    return "";
+  }
+}
+
+async function unavailableAuthReason(response: Response): Promise<AuthActionResult["reason"]> {
+  return (await readAuthErrorCode(response)) === "session-secret-missing" ? "setup" : "error";
+}
+
 const isGrade = isValidGradeId;
 const validAvatarIds = new Set<StudentAvatarId>(["delta", "pi", "sigma", "theta", "function", "radical"]);
 const maxAvatarImageDataUrlLength = 900_000;
 const avatarImageDataUrlPattern = /^data:image\/(?:jpeg|jpg|png|webp);base64,[A-Za-z0-9+/]+=*$/;
+const avatarMediaObjectUrlPattern = /^\/api\/media-objects\/[A-Za-z0-9._~!$&'()*+,;=:@%/-]+$/;
 
 function readAvatarId(value: unknown): StudentAvatarId {
   return validAvatarIds.has(value as StudentAvatarId) ? (value as StudentAvatarId) : "delta";
@@ -145,6 +177,7 @@ function readAvatarId(value: unknown): StudentAvatarId {
 
 function readAvatarImageDataUrl(value: unknown) {
   if (typeof value !== "string") return undefined;
+  if (avatarMediaObjectUrlPattern.test(value)) return value;
   if (value.length > maxAvatarImageDataUrlLength) return undefined;
   return avatarImageDataUrlPattern.test(value) ? value : undefined;
 }
@@ -154,7 +187,7 @@ function readLessonEntryTarget(value: unknown): LessonEntryTarget | null {
 
   if (
     typeof target?.href !== "string" ||
-    !target.href.startsWith("/lesson/") ||
+    !target.href.startsWith(`${studentLessonsPath}/`) ||
     typeof target.slug !== "string" ||
     !target.slug ||
     !isGrade(target.grade) ||
@@ -211,7 +244,7 @@ function readAuthSession(value: unknown): AuthSessionResponse | null {
     typeof user?.name !== "string" ||
     typeof user?.username !== "string" ||
     !isGrade(user?.grade) ||
-    (curriculumTrack !== "HK" && curriculumTrack !== "MAINLAND_PEP_HIGH" && curriculumTrack !== "US_CA_MATH" && curriculumTrack !== "US_NC_MATH") ||
+    (curriculumTrack !== "HK" && curriculumTrack !== "MAINLAND_PEP_HIGH" && curriculumTrack !== "US_CA_MATH" && curriculumTrack !== "US_NC_MATH" && curriculumTrack !== "US_AR_MATH" && curriculumTrack !== "US_FL_MATH") ||
     !["student", "teacher", "parent", "admin"].includes(user?.role ?? "") ||
     !isValidLanguage(settingsLanguage) ||
     (settings?.theme !== "dark" && settings?.theme !== "light") ||
@@ -279,14 +312,15 @@ function readMistakeRecords(value: unknown): MistakeRecord[] {
 }
 
 function analyticsSourceForPath(pathname: string): LearningAnalyticsEventSource {
+  if (pathname.startsWith("/personalized-learning")) return "adaptive-learning";
   if (pathname.startsWith("/adaptive-learning")) return "adaptive-learning";
   if (pathname.startsWith("/dashboard")) return "dashboard";
-  if (pathname.startsWith("/practice")) return "practice";
+  if (pathname.startsWith("/practice") || isImmersiveStudentPracticeGamePath(pathname)) return "practice";
   if (pathname.startsWith("/progress")) return "progress";
-  if (pathname.startsWith("/lesson")) return "lesson";
+  if (isStudentLessonPath(pathname)) return "lesson";
   if (pathname.startsWith("/mistake-book")) return "mistake-book";
-  if (pathname.startsWith("/visualization-lab")) return "visualization-lab";
-  if (pathname.startsWith("/learning-path") || pathname.startsWith("/primary-roadmap") || pathname.startsWith("/secondary-roadmap")) return "learning-path";
+  if (isVisualizationLabPath(pathname)) return "visualization-lab";
+  if (isStudentRoadmapPath(pathname) || isLegacyRoadmapPath(pathname)) return "learning-path";
   return "navigation";
 }
 
@@ -302,6 +336,22 @@ function persistedSettingsKey(userId: string, language: Language, theme: ThemeMo
   return `${userId}:${language}:${theme}:${selectedGrade}`;
 }
 
+const sessionSyncStorageKey = "hk-math-session-sync";
+
+function broadcastSessionChange(userId: string | null) {
+  try {
+    window.localStorage.setItem(sessionSyncStorageKey, JSON.stringify({ userId, at: Date.now() }));
+  } catch {
+    // Cross-tab session sync is best-effort only.
+  }
+}
+
+const roleProtectedPathPrefixes = ["/teacher", "/parent", "/dashboard", "/progress", "/mistake-book", "/messages", "/assessment", "/resource"];
+
+function isRoleProtectedPath(pathname: string) {
+  return roleProtectedPathPrefixes.some((prefix) => pathname === prefix || pathname.startsWith(`${prefix}/`));
+}
+
 export function AppProviders({ children }: { children: ReactNode }) {
   const pathname = usePathname();
   const router = useRouter();
@@ -315,18 +365,69 @@ export function AppProviders({ children }: { children: ReactNode }) {
   const [pendingLearningEvents, setPendingLearningEvents] = useState<LearningAnalyticsEvent[]>([]);
   const [settingsReady, setSettingsReady] = useState(false);
   const analyticsFlushGenerationRef = useRef(0);
+  const pendingLearningEventsRef = useRef<LearningAnalyticsEvent[]>([]);
+  const highFrequencyLearningEventsRef = useRef<LearningAnalyticsEvent[]>([]);
+  const highFrequencyFlushHandleRef = useRef<number | null>(null);
   const lessonEntryRequestKeyRef = useRef<string | null>(null);
   const persistedSettingsKeyRef = useRef<string | null>(null);
+  const skipGlobalStudentWarmups = currentUser?.role === "student" && isFirstPaintSensitiveStudentPath(pathname);
   const studentLessonHref = currentUser?.role === "student"
-    ? lessonEntryTargetForGrade(lessonEntryTarget, currentUser.grade)?.href ?? null
+    ? lessonEntryTargetForGrade(lessonEntryTarget, selectedGrade)?.href ?? null
     : null;
+  const clearHighFrequencyFlushHandle = useCallback(() => {
+    if (highFrequencyFlushHandleRef.current === null) return;
+    window.clearTimeout(highFrequencyFlushHandleRef.current);
+    highFrequencyFlushHandleRef.current = null;
+  }, []);
+  const appendLearningEventsToQueues = useCallback((events: LearningAnalyticsEvent[]) => {
+    if (events.length === 0) return;
+    const coalescedEvents = coalesceLearningAnalyticsEvents(events);
+
+    setLearningAnalyticsEvents((current) =>
+      coalesceLearningAnalyticsEvents([...current, ...coalescedEvents]).slice(-maxStoredLearningAnalyticsEvents)
+    );
+    setPendingLearningEvents((current) => {
+      const nextEvents = coalesceLearningAnalyticsEvents([...current, ...coalescedEvents]).slice(-maxStoredLearningAnalyticsEvents);
+      pendingLearningEventsRef.current = nextEvents;
+      return nextEvents;
+    });
+  }, []);
+  const takeBufferedHighFrequencyLearningEvents = useCallback(() => {
+    clearHighFrequencyFlushHandle();
+    if (highFrequencyLearningEventsRef.current.length === 0) return [];
+
+    const events = coalesceLearningAnalyticsEvents(highFrequencyLearningEventsRef.current).slice(-maxStoredLearningAnalyticsEvents);
+    highFrequencyLearningEventsRef.current = [];
+    return events;
+  }, [clearHighFrequencyFlushHandle]);
+  const flushBufferedHighFrequencyLearningEvents = useCallback(() => {
+    const events = takeBufferedHighFrequencyLearningEvents();
+    appendLearningEventsToQueues(events);
+    return events;
+  }, [appendLearningEventsToQueues, takeBufferedHighFrequencyLearningEvents]);
+  const scheduleHighFrequencyLearningEventFlush = useCallback(() => {
+    if (highFrequencyFlushHandleRef.current !== null) return;
+
+    highFrequencyFlushHandleRef.current = window.setTimeout(() => {
+      highFrequencyFlushHandleRef.current = null;
+      flushBufferedHighFrequencyLearningEvents();
+    }, throttledLearningAnalyticsFlushMs);
+  }, [flushBufferedHighFrequencyLearningEvents]);
   const recordLearningEvent = useCallback((event: LearningAnalyticsInput) => {
-    if (!settingsReady || !currentUser) return;
+    if (!settingsReady || !currentUser || currentUser.role !== "student") return;
 
     const analyticsEvent = createLearningAnalyticsEvent(event, selectedGrade);
-    setLearningAnalyticsEvents((events) => [...events, analyticsEvent].slice(-maxStoredLearningAnalyticsEvents));
-    setPendingLearningEvents((events) => [...events, analyticsEvent].slice(-maxStoredLearningAnalyticsEvents));
-  }, [currentUser?.id, selectedGrade, settingsReady]);
+    if (isHighFrequencyLearningAnalyticsEvent(analyticsEvent)) {
+      highFrequencyLearningEventsRef.current = coalesceLearningAnalyticsEvents([
+        ...highFrequencyLearningEventsRef.current,
+        analyticsEvent
+      ]);
+      scheduleHighFrequencyLearningEventFlush();
+      return;
+    }
+
+    appendLearningEventsToQueues([analyticsEvent]);
+  }, [appendLearningEventsToQueues, currentUser?.id, currentUser?.role, scheduleHighFrequencyLearningEventFlush, selectedGrade, settingsReady]);
   const refreshMistakeRecords = useCallback(async () => {
     if (!currentUser) {
       setMistakeRecords([]);
@@ -348,7 +449,7 @@ export function AppProviders({ children }: { children: ReactNode }) {
       return;
     }
 
-    const targetGrade = grade ?? currentUser.grade;
+    const targetGrade = grade ?? selectedGrade;
     const requestKey = `${currentUser.id}:${targetGrade}`;
     if (lessonEntryRequestKeyRef.current === requestKey) return;
     lessonEntryRequestKeyRef.current = requestKey;
@@ -367,7 +468,7 @@ export function AppProviders({ children }: { children: ReactNode }) {
         lessonEntryRequestKeyRef.current = null;
       }
     }
-  }, [currentUser]);
+  }, [currentUser, selectedGrade]);
 
   useEffect(() => {
     let cancelled = false;
@@ -385,16 +486,16 @@ export function AppProviders({ children }: { children: ReactNode }) {
       window.localStorage.removeItem("hk-math-mistakes");
 
       try {
-        const response = await fetch("/api/me", { cache: "no-store" });
+        const response = await fetch("/api/me?includeLessonEntry=false", { cache: "no-store" });
         if (response.ok) {
           const session = readAuthSession(await response.json());
           if (session && !cancelled) {
-            const sessionSelectedGrade = session.user.role === "student" ? session.user.grade : session.settings.selectedGrade;
+            const sessionSelectedGrade = session.settings.selectedGrade;
             const storedLessonEntryTarget = session.user.role === "student"
-              ? readStoredLessonEntryTarget(session.user.id, session.user.grade)
+              ? readStoredLessonEntryTarget(session.user.id, sessionSelectedGrade)
               : null;
             const sessionLessonEntryTarget = session.user.role === "student"
-              ? lessonEntryTargetForGrade(session.lessonEntryTarget, session.user.grade) ?? storedLessonEntryTarget
+              ? lessonEntryTargetForGrade(session.lessonEntryTarget, sessionSelectedGrade) ?? storedLessonEntryTarget
               : null;
             setCurrentUser(session.user);
             setLessonEntryTarget(sessionLessonEntryTarget);
@@ -447,7 +548,7 @@ export function AppProviders({ children }: { children: ReactNode }) {
       "content",
       textForLanguage(
         {
-          en: "An adaptive interactive mathematics learning platform for Hong Kong P1-S6 students.",
+          en: "A personalized interactive mathematics learning platform for Hong Kong P1-S6 students.",
           zh: "為香港小一至中六學生而設的數學適性互動學習平台。"
         },
         language
@@ -485,14 +586,9 @@ export function AppProviders({ children }: { children: ReactNode }) {
   }, [pathname, theme, language, selectedGrade, currentUser?.id, settingsReady]);
 
   useEffect(() => {
-    if (!settingsReady || currentUser?.role !== "student" || selectedGrade === currentUser.grade) return;
-    setSelectedGradeState(currentUser.grade);
-  }, [currentUser?.grade, currentUser?.role, selectedGrade, settingsReady]);
-
-  useEffect(() => {
-    if (!settingsReady) return;
+    if (!settingsReady || skipGlobalStudentWarmups) return;
     void refreshMistakeRecords();
-  }, [refreshMistakeRecords, settingsReady]);
+  }, [refreshMistakeRecords, settingsReady, skipGlobalStudentWarmups]);
 
   useEffect(() => {
     if (studentLessonHref) {
@@ -511,26 +607,98 @@ export function AppProviders({ children }: { children: ReactNode }) {
     if (
       !settingsReady ||
       currentUser?.role !== "student" ||
-      lessonEntryTargetForGrade(lessonEntryTarget, currentUser.grade)
+      lessonEntryTargetForGrade(lessonEntryTarget, selectedGrade)
     ) return;
-    const storedTarget = readStoredLessonEntryTarget(currentUser.id, currentUser.grade);
+    const storedTarget = readStoredLessonEntryTarget(currentUser.id, selectedGrade);
     if (storedTarget) setLessonEntryTarget(storedTarget);
-  }, [currentUser?.grade, currentUser?.id, currentUser?.role, lessonEntryTarget, settingsReady]);
+  }, [currentUser?.id, currentUser?.role, lessonEntryTarget, selectedGrade, settingsReady]);
 
   useEffect(() => {
     if (
       !settingsReady ||
       currentUser?.role !== "student" ||
-      lessonEntryTargetForGrade(lessonEntryTarget, currentUser.grade)
+      skipGlobalStudentWarmups ||
+      lessonEntryTargetForGrade(lessonEntryTarget, selectedGrade)
     ) return;
-    void refreshLessonEntryTarget(currentUser.grade);
-  }, [currentUser?.grade, currentUser?.role, lessonEntryTarget, refreshLessonEntryTarget, settingsReady]);
+    void refreshLessonEntryTarget(selectedGrade);
+  }, [currentUser?.role, lessonEntryTarget, refreshLessonEntryTarget, selectedGrade, settingsReady, skipGlobalStudentWarmups]);
 
   useEffect(() => {
     analyticsFlushGenerationRef.current += 1;
+    pendingLearningEventsRef.current = [];
+    highFrequencyLearningEventsRef.current = [];
+    clearHighFrequencyFlushHandle();
     setLearningAnalyticsEvents([]);
     setPendingLearningEvents([]);
-  }, [currentUser?.id]);
+  }, [clearHighFrequencyFlushHandle, currentUser?.id]);
+
+  useEffect(() => {
+    pendingLearningEventsRef.current = pendingLearningEvents;
+  }, [pendingLearningEvents]);
+
+  const sendLearningEventsDuringPageExit = useCallback((events: LearningAnalyticsEvent[]) => {
+    if (events.length === 0) return;
+
+    for (let index = 0; index < events.length; index += 100) {
+      const payload = JSON.stringify({ events: events.slice(index, index + 100) });
+      if (typeof navigator.sendBeacon === "function") {
+        const queued = navigator.sendBeacon("/api/learning-events", new Blob([payload], { type: "application/json" }));
+        if (queued) continue;
+      }
+
+      void fetch("/api/learning-events", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: payload,
+        keepalive: true
+      }).catch(() => {
+        // The page is leaving; the regular queue will retry only if the page stays alive.
+      });
+    }
+  }, []);
+
+  const flushLearningAnalyticsOnPageExit = useCallback((event?: Event) => {
+    if (event?.type === "visibilitychange" && document.visibilityState !== "hidden") return;
+    if (!settingsReady || !currentUser || currentUser.role !== "student") return;
+
+    const bufferedEvents = takeBufferedHighFrequencyLearningEvents();
+    const events = coalesceLearningAnalyticsEvents([
+      ...pendingLearningEventsRef.current,
+      ...bufferedEvents
+    ]);
+    if (events.length === 0) return;
+
+    const eventIds = new Set(events.map((item) => item.id));
+    setPendingLearningEvents((current) => {
+      const nextEvents = current.filter((item) => !eventIds.has(item.id));
+      pendingLearningEventsRef.current = nextEvents;
+      return nextEvents;
+    });
+    sendLearningEventsDuringPageExit(events);
+  }, [
+    currentUser?.id,
+    currentUser?.role,
+    sendLearningEventsDuringPageExit,
+    settingsReady,
+    takeBufferedHighFrequencyLearningEvents
+  ]);
+
+  useEffect(() => {
+    if (!settingsReady || currentUser?.role !== "student") return;
+
+    document.addEventListener("visibilitychange", flushLearningAnalyticsOnPageExit);
+    window.addEventListener("pagehide", flushLearningAnalyticsOnPageExit);
+    window.addEventListener("beforeunload", flushLearningAnalyticsOnPageExit);
+
+    return () => {
+      flushLearningAnalyticsOnPageExit();
+      document.removeEventListener("visibilitychange", flushLearningAnalyticsOnPageExit);
+      window.removeEventListener("pagehide", flushLearningAnalyticsOnPageExit);
+      window.removeEventListener("beforeunload", flushLearningAnalyticsOnPageExit);
+    };
+  }, [currentUser?.role, flushLearningAnalyticsOnPageExit, settingsReady]);
 
   useEffect(() => {
     if (!settingsReady || !currentUser || pendingLearningEvents.length === 0) return;
@@ -539,7 +707,11 @@ export function AppProviders({ children }: { children: ReactNode }) {
       const flushGeneration = analyticsFlushGenerationRef.current;
       const events = pendingLearningEvents.slice(0, 100);
       const eventIds = new Set(events.map((event) => event.id));
-      setPendingLearningEvents((current) => current.filter((event) => !eventIds.has(event.id)));
+      setPendingLearningEvents((current) => {
+        const nextEvents = current.filter((event) => !eventIds.has(event.id));
+        pendingLearningEventsRef.current = nextEvents;
+        return nextEvents;
+      });
 
       void fetch("/api/learning-events", {
         method: "POST",
@@ -554,6 +726,9 @@ export function AppProviders({ children }: { children: ReactNode }) {
               analyticsFlushGenerationRef.current += 1;
               setCurrentUser(null);
               setLessonEntryTarget(null);
+              pendingLearningEventsRef.current = [];
+              highFrequencyLearningEventsRef.current = [];
+              clearHighFrequencyFlushHandle();
               setLearningAnalyticsEvents([]);
               setPendingLearningEvents([]);
             }
@@ -570,20 +745,19 @@ export function AppProviders({ children }: { children: ReactNode }) {
           setPendingLearningEvents((current) => {
             const currentIds = new Set(current.map((event) => event.id));
             const missedEvents = events.filter((event) => !currentIds.has(event.id));
-            return [...missedEvents, ...current].slice(-maxStoredLearningAnalyticsEvents);
+            const nextEvents = coalesceLearningAnalyticsEvents([...missedEvents, ...current]).slice(-maxStoredLearningAnalyticsEvents);
+            pendingLearningEventsRef.current = nextEvents;
+            return nextEvents;
           });
         });
     }, 1000);
 
     return () => window.clearTimeout(handle);
-  }, [currentUser?.id, pendingLearningEvents, settingsReady]);
+  }, [clearHighFrequencyFlushHandle, currentUser?.id, pendingLearningEvents, settingsReady]);
 
   const setSelectedGrade = useCallback((grade: GradeId) => {
-    setSelectedGradeState((currentGrade) => {
-      if (currentUser?.role === "student") return currentUser.grade;
-      return grade;
-    });
-  }, [currentUser?.grade, currentUser?.role]);
+    setSelectedGradeState(grade);
+  }, []);
 
   useEffect(() => {
     const source = analyticsSourceForPath(pathname);
@@ -632,12 +806,12 @@ export function AppProviders({ children }: { children: ReactNode }) {
   }, [pathname, recordLearningEvent]);
 
   const applyAuthSession = useCallback((session: AuthSessionResponse) => {
-    const sessionSelectedGrade = session.user.role === "student" ? session.user.grade : session.settings.selectedGrade;
+    const sessionSelectedGrade = session.settings.selectedGrade;
     const storedLessonEntryTarget = session.user.role === "student"
-      ? readStoredLessonEntryTarget(session.user.id, session.user.grade)
+      ? readStoredLessonEntryTarget(session.user.id, sessionSelectedGrade)
       : null;
     const sessionLessonEntryTarget = session.user.role === "student"
-      ? lessonEntryTargetForGrade(session.lessonEntryTarget, session.user.grade) ?? storedLessonEntryTarget
+      ? lessonEntryTargetForGrade(session.lessonEntryTarget, sessionSelectedGrade) ?? storedLessonEntryTarget
       : null;
     analyticsFlushGenerationRef.current += 1;
     lessonEntryRequestKeyRef.current = null;
@@ -660,6 +834,7 @@ export function AppProviders({ children }: { children: ReactNode }) {
     if (sessionLessonEntryTarget?.href) {
       router.prefetch(sessionLessonEntryTarget.href);
     }
+    broadcastSessionChange(session.user.id);
   }, [router]);
 
   const login = useCallback(async (identifier: string, password: string, grade: GradeId, curriculumProfile?: CurriculumProfile): Promise<AuthActionResult> => {
@@ -672,7 +847,7 @@ export function AppProviders({ children }: { children: ReactNode }) {
     });
 
     if (!response.ok) {
-      if (response.status === 503) return { ok: false, reason: "setup" };
+      if (response.status === 503) return { ok: false, reason: await unavailableAuthReason(response) };
       if (response.status === 400 || response.status === 401) return { ok: false, reason: "invalid" };
       return { ok: false, reason: "error" };
     }
@@ -727,7 +902,7 @@ export function AppProviders({ children }: { children: ReactNode }) {
     if (!response.ok) {
       if (response.status === 409) return { ok: false, reason: "duplicate" };
       if (response.status === 400) return { ok: false, reason: "invalid" };
-      if (response.status === 503) return { ok: false, reason: "setup" };
+      if (response.status === 503) return { ok: false, reason: await unavailableAuthReason(response) };
       return { ok: false, reason: "error" };
     }
 
@@ -748,7 +923,14 @@ export function AppProviders({ children }: { children: ReactNode }) {
     });
 
     if (!response.ok) {
-      return { ok: false, reason: response.status === 400 ? "invalid" : response.status === 503 ? "setup" : "error" };
+      return {
+        ok: false,
+        reason: response.status === 400
+          ? "invalid"
+          : response.status === 503
+            ? await unavailableAuthReason(response)
+            : "error"
+      };
     }
 
     const session = readAuthSession(await response.json());
@@ -799,12 +981,7 @@ export function AppProviders({ children }: { children: ReactNode }) {
     return { ok: true, role: session.user.role };
   }, [applyAuthSession]);
 
-  const logout = useCallback(async () => {
-    try {
-      await fetch("/api/auth/logout", { method: "POST" });
-    } catch {
-      // The browser state should still clear if the network request fails.
-    }
+  const clearLocalSession = useCallback(() => {
     analyticsFlushGenerationRef.current += 1;
     lessonEntryRequestKeyRef.current = null;
     persistedSettingsKeyRef.current = null;
@@ -813,6 +990,94 @@ export function AppProviders({ children }: { children: ReactNode }) {
     setLearningAnalyticsEvents([]);
     setPendingLearningEvents([]);
   }, []);
+
+  const logout = useCallback(async () => {
+    try {
+      await fetch("/api/auth/logout", { method: "POST" });
+    } catch {
+      // The browser state should still clear if the network request fails.
+    }
+    clearLocalSession();
+    broadcastSessionChange(null);
+  }, [clearLocalSession]);
+
+  const currentUserRef = useRef<StudentSession | null>(null);
+
+  useEffect(() => {
+    currentUserRef.current = currentUser;
+  }, [currentUser]);
+
+  const sessionRevalidationInFlightRef = useRef(false);
+
+  // Reconciles the in-memory session with the server cookie. Without this, a tab
+  // keeps rendering a stale identity after the session cookie is replaced in
+  // another tab (or dropped), and every protected API call fails with 401/403.
+  const revalidateSession = useCallback(async () => {
+    if (sessionRevalidationInFlightRef.current) return;
+    sessionRevalidationInFlightRef.current = true;
+    try {
+      const response = await fetch("/api/me?includeLessonEntry=false", { cache: "no-store" });
+      const previousUser = currentUserRef.current;
+
+      if (response.status === 401) {
+        if (previousUser) {
+          clearLocalSession();
+          const pathname = window.location.pathname;
+          if (isRoleProtectedPath(pathname)) {
+            router.replace(`/login?next=${encodeURIComponent(pathname)}`);
+          }
+        }
+        return;
+      }
+      if (!response.ok) return;
+
+      const session = readAuthSession(await response.json());
+      if (!session) return;
+
+      if (session.user.id !== previousUser?.id) {
+        applyAuthSession(session);
+      }
+
+      const pathname = window.location.pathname;
+      const canUseTeacherArea = session.user.role === "teacher" || session.user.role === "admin";
+      const canUseParentArea = session.user.role === "parent" || session.user.role === "admin";
+      if (pathname.startsWith("/teacher") && !canUseTeacherArea) {
+        router.replace(`/login?next=${encodeURIComponent(pathname)}&reason=teacher-account-required`);
+      } else if (pathname.startsWith("/parent") && !canUseParentArea) {
+        router.replace(`/login?next=${encodeURIComponent(pathname)}`);
+      }
+    } catch {
+      // Keep the current state when the session check is unavailable.
+    } finally {
+      sessionRevalidationInFlightRef.current = false;
+    }
+  }, [applyAuthSession, clearLocalSession, router]);
+
+  useEffect(() => {
+    if (!settingsReady) return;
+
+    const handleStorage = (event: StorageEvent) => {
+      if (event.key !== sessionSyncStorageKey || !event.newValue) return;
+      void revalidateSession();
+    };
+
+    let lastCheckAt = Date.now();
+    const handleVisibility = () => {
+      if (document.visibilityState !== "visible") return;
+      if (Date.now() - lastCheckAt < 15_000) return;
+      lastCheckAt = Date.now();
+      void revalidateSession();
+    };
+
+    window.addEventListener("storage", handleStorage);
+    window.addEventListener("focus", handleVisibility);
+    document.addEventListener("visibilitychange", handleVisibility);
+    return () => {
+      window.removeEventListener("storage", handleStorage);
+      window.removeEventListener("focus", handleVisibility);
+      document.removeEventListener("visibilitychange", handleVisibility);
+    };
+  }, [revalidateSession, settingsReady]);
 
   const refreshMistakeRecordsAfterAttempt = useCallback(() => {
     void refreshMistakeRecords();
@@ -869,6 +1134,7 @@ export function AppProviders({ children }: { children: ReactNode }) {
       changePassword,
       updateProfile,
       logout,
+      revalidateSession,
       mistakeRecords,
       learningAnalyticsEvents,
       refreshMistakeRecordsAfterAttempt,
@@ -898,6 +1164,7 @@ export function AppProviders({ children }: { children: ReactNode }) {
       refreshMistakeRecordsAfterAttempt,
       removeMistake,
       refreshMistakeRecords,
+      revalidateSession,
       selectedGrade,
       setSelectedGrade,
       settingsReady,

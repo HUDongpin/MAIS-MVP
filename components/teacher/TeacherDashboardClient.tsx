@@ -40,15 +40,22 @@ function TeacherDashboardSkeleton() {
   );
 }
 
-export function TeacherDashboardClient() {
-  const { t } = useSettings();
-  const [dashboard, setDashboard] = useState<TeacherDashboardData | null>(null);
-  const [isLoading, setIsLoading] = useState(true);
+export function TeacherDashboardClient({ initialDashboard = null }: { initialDashboard?: TeacherDashboardData | null }) {
+  const { revalidateSession, t } = useSettings();
+  const [dashboard, setDashboard] = useState<TeacherDashboardData | null>(initialDashboard);
+  const [isLoading, setIsLoading] = useState(!initialDashboard);
   const [loadError, setLoadError] = useState("");
   const [reloadKey, setReloadKey] = useState(0);
   const errorCopy = t({ en: "Could not load teacher dashboard data.", zh: "暫時無法載入教師儀表板資料。" });
+  const sessionChangedCopy = t({
+    en: "Your sign-in changed in another tab. Checking the current session...",
+    zh: "你的登入狀態已在其他分頁變更，正在重新確認目前工作階段...",
+    zhHans: "你的登录状态已在其他标签页变更，正在重新确认当前会话..."
+  });
 
   useEffect(() => {
+    if (initialDashboard) return;
+
     const controller = new AbortController();
 
     async function loadDashboard() {
@@ -60,6 +67,14 @@ export function TeacherDashboardClient() {
           cache: "no-store",
           signal: controller.signal
         });
+        if (response.status === 401 || response.status === 403) {
+          // The cookie no longer belongs to a teacher (session expired or replaced
+          // in another tab). Reconcile the client session instead of retrying.
+          setDashboard(null);
+          setLoadError(sessionChangedCopy);
+          void revalidateSession();
+          return;
+        }
         const nextDashboard = readDashboard(await response.json());
         if (!response.ok || !nextDashboard) throw new Error(errorCopy);
         setDashboard(nextDashboard);
@@ -76,7 +91,7 @@ export function TeacherDashboardClient() {
     loadDashboard();
 
     return () => controller.abort();
-  }, [errorCopy, reloadKey]);
+  }, [errorCopy, initialDashboard, reloadKey, revalidateSession, sessionChangedCopy]);
 
   if (dashboard) return <TeacherDashboardView dashboard={dashboard} />;
 

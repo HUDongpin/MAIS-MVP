@@ -1,7 +1,9 @@
+import { revalidateTag } from "next/cache";
 import { NextResponse } from "next/server";
 import { isValidGradeId } from "@/data/grades";
 import { canAccessTeacherArea, requireAuthenticatedUser } from "@/lib/server/auth";
-import { createTeacherClass, getTeacherClasses } from "@/lib/server/userStore";
+import { createTeacherClass, ensureExampleTeacherProvisioned, getTeacherClasses } from "@/lib/server/userStore";
+import { teacherWorkspaceCacheTag } from "@/app/teacher/getTeacherFoundation";
 import type { GradeId } from "@/types";
 
 export const runtime = "nodejs";
@@ -31,17 +33,32 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: "Invalid class payload." }, { status: 400 });
   }
 
-  const result = await createTeacherClass({
+  const createInput = {
     teacherId: authenticated.user.id,
     name: body.name,
     grade,
     academicYear: body.academicYear,
     description: typeof body.description === "string" ? body.description : ""
-  });
+  };
+  let result = await createTeacherClass(createInput);
+
+  if (result.status === "forbidden") {
+    // The session authenticated through the storage-free example-account fallback,
+    // but the mutable database has no user row for it yet. Provision the example
+    // account and retry once so seeded teacher accounts can create classes.
+    const provisioned = await ensureExampleTeacherProvisioned(authenticated.user.id);
+    if (provisioned) {
+      result = await createTeacherClass(createInput);
+    }
+  }
 
   if (result.status !== "created") {
     return NextResponse.json({ error: result.status }, { status: result.status === "forbidden" ? 403 : 400 });
   }
+
+  // The teacher shell/foundation caches list the teacher's classes; drop them so
+  // the new class shows up immediately instead of after the revalidate window.
+  revalidateTag(teacherWorkspaceCacheTag);
 
   return NextResponse.json({ class: result.class }, { status: 201 });
 }

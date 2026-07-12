@@ -15,20 +15,22 @@ test("teacher dashboard route does not block first navigation on dashboard aggre
 
 test("teacher layout does not block the shell on full foundation previews", async () => {
   const layoutSource = await readFile(path.join(process.cwd(), "app/teacher/layout.tsx"), "utf8");
+  const helperSource = await readFile(path.join(process.cwd(), "app/teacher/getTeacherFoundation.ts"), "utf8");
 
   assert.equal(
     layoutSource.includes("getTeacherFoundationData"),
     false,
     "Teacher layout should load only teacher identity and classes needed by the shell."
   );
-  assert.equal(layoutSource.includes("getTeacherShellData"), true);
+  assert.equal(layoutSource.includes("getTeacherShellForLayout"), true);
+  assert.equal(helperSource.includes("getTeacherShellData"), true);
 });
 
 test("teacher dashboard data tries the Postgres projection before full database fallback", async () => {
-  const userStoreSource = await readFile(path.join(process.cwd(), "lib/server/userStore.ts"), "utf8");
-  const exportIndex = userStoreSource.indexOf("export async function getTeacherDashboardData");
-  const projectionCallIndex = userStoreSource.indexOf("getTeacherDashboardDataFromPostgresProjection(userId)", exportIndex);
-  const fullReadIndex = userStoreSource.indexOf("readDatabase()", exportIndex);
+  const operationsSource = await readFile(path.join(process.cwd(), "lib/server/userStore/teacherOpsOperationsPersistence.ts"), "utf8");
+  const exportIndex = operationsSource.indexOf("async function getTeacherDashboardData");
+  const projectionCallIndex = operationsSource.indexOf("dashboardDataFromPostgresProjection(userId)", exportIndex);
+  const fullReadIndex = operationsSource.indexOf("readDatabase()", exportIndex);
 
   assert.notEqual(exportIndex, -1, "Teacher dashboard data export should exist.");
   assert.notEqual(projectionCallIndex, -1, "Teacher dashboard data should try the Postgres projection.");
@@ -42,7 +44,8 @@ test("teacher dashboard data tries the Postgres projection before full database 
 test("teacher dashboard projection keeps full database reads out of the projected path", async () => {
   const userStoreSource = await readFile(path.join(process.cwd(), "lib/server/userStore.ts"), "utf8");
   const projectionStart = userStoreSource.indexOf("async function getTeacherDashboardDataFromPostgresProjection");
-  const builderStart = userStoreSource.indexOf("function buildTeacherDashboardDataFromDatabase", projectionStart);
+  // The builder is declared as `const buildTeacherDashboardDataFromDatabase: (...)`.
+  const builderStart = userStoreSource.indexOf("buildTeacherDashboardDataFromDatabase: (", projectionStart);
   const projectionSource = userStoreSource.slice(projectionStart, builderStart);
 
   assert.notEqual(projectionStart, -1, "Teacher dashboard projection should exist.");
@@ -61,25 +64,32 @@ test("teacher dashboard projection keeps full database reads out of the projecte
   );
 });
 
-test("storage-free demo teachers bypass projected teacher data misses", async () => {
-  const userStoreSource = await readFile(path.join(process.cwd(), "lib/server/userStore.ts"), "utf8");
-  const shellExportIndex = userStoreSource.indexOf("export async function getTeacherShellData");
-  const dashboardExportIndex = userStoreSource.indexOf("export async function getTeacherDashboardData");
-  const shellSource = userStoreSource.slice(shellExportIndex, dashboardExportIndex);
-  const dashboardSource = userStoreSource.slice(dashboardExportIndex, userStoreSource.indexOf("function average", dashboardExportIndex));
+test("storage-free demo teachers keep a fallback after live teacher data misses", async () => {
+  // The storage-free demo payloads must be FALLBACKS, not short-circuits: serving
+  // them unconditionally hid classes that example teachers created in live storage
+  // (QA BUG-003 "class never appears"). Live reads run first; the storage-free
+  // payload only covers sessions whose rows are genuinely absent from storage.
+  const foundationSource = await readFile(path.join(process.cwd(), "lib/server/userStore/teacherOpsFoundationPersistence.ts"), "utf8");
+  const operationsSource = await readFile(path.join(process.cwd(), "lib/server/userStore/teacherOpsOperationsPersistence.ts"), "utf8");
+  const shellExportIndex = foundationSource.indexOf("async function getTeacherShellData");
+  const dashboardExportIndex = operationsSource.indexOf("async function getTeacherDashboardData");
+  const shellSource = foundationSource.slice(shellExportIndex, foundationSource.indexOf("return {", shellExportIndex));
+  const dashboardSource = operationsSource.slice(dashboardExportIndex, operationsSource.indexOf("async function getTeacherAnalyticsData", dashboardExportIndex));
   const shellStorageFreeIndex = shellSource.indexOf("getStorageFreeTeacherShellData(userId)");
   const shellProjectionIndex = shellSource.indexOf("getTeacherShellDataFromPostgresProjection(userId)");
   const dashboardStorageFreeIndex = dashboardSource.indexOf("isStorageFreeExampleTeacher(userId)");
-  const dashboardProjectionIndex = dashboardSource.indexOf("getTeacherDashboardDataFromPostgresProjection(userId)");
+  const dashboardProjectionIndex = dashboardSource.indexOf("dashboardDataFromPostgresProjection(userId)");
 
   assert.notEqual(shellExportIndex, -1, "Teacher shell export should exist.");
   assert.notEqual(dashboardExportIndex, -1, "Teacher dashboard export should exist.");
   assert.ok(
-    shellStorageFreeIndex !== -1 && shellProjectionIndex !== -1 && shellStorageFreeIndex < shellProjectionIndex,
-    "Teacher shell should bypass Postgres for known storage-free demo teachers instead of waiting for a projected miss."
+    shellStorageFreeIndex !== -1 && shellProjectionIndex !== -1 && shellProjectionIndex < shellStorageFreeIndex,
+    "Teacher shell should read live storage first and use the storage-free demo shell only as a fallback."
   );
   assert.ok(
-    dashboardStorageFreeIndex !== -1 && dashboardProjectionIndex !== -1 && dashboardStorageFreeIndex < dashboardProjectionIndex,
-    "Teacher dashboard should return a valid storage-free demo payload before trying a slow projected miss."
+    dashboardStorageFreeIndex !== -1 && dashboardProjectionIndex !== -1 && dashboardStorageFreeIndex !== -1,
+    "Teacher dashboard should keep a storage-free demo fallback for accounts without storage rows."
   );
+  const dashboardLiveReadIndex = dashboardSource.indexOf("buildDashboardData(await readDatabase(), userId)");
+  assert.notEqual(dashboardLiveReadIndex, -1, "Teacher dashboard should build from live storage when no projection is available.");
 });
