@@ -1,6 +1,7 @@
 import questionPackJson from "./generated-content/mainland-pep-junior-generated-bank-v2-1200/question-pack.json";
 import { mainlandPepJuniorTopics } from "./mainlandPepJuniorTopics";
-import type { Difficulty, GradeId, LocalizedText, MainlandPepSemester, Question, QuestionType } from "@/types";
+import { normalizeQuestionDiagram, validateQuestionDiagram } from "@/lib/questionFigure";
+import type { Difficulty, GradeId, LocalizedText, MainlandPepSemester, Question, QuestionDiagram, QuestionType } from "@/types";
 
 type MainlandPepJuniorGeneratedBatch = "junior-rag-v2-1200";
 
@@ -11,13 +12,14 @@ type GeneratedQuestion = {
   semester: MainlandPepSemester;
   knowledgePointId: string;
   unitTitle: string;
-  type: Exclude<QuestionType, "graph">;
+  type: QuestionType;
   difficulty: Difficulty;
   promptZhHans: string;
   optionsZhHans?: string[];
   answer: string;
   acceptedAnswers?: string[];
   explanationZhHans: string;
+  diagram?: unknown;
   evidenceCardIds: string[];
   paperPatternCardIds: string[];
   examPatternCardIds: string[];
@@ -35,7 +37,7 @@ export type MainlandPepJuniorQuestionGenerationMetadata = {
   grade: GradeId;
   semester: MainlandPepSemester;
   topicId: string;
-  type: Exclude<QuestionType, "graph">;
+  type: QuestionType;
   evidenceCardIds: string[];
   paperPatternCardIds: string[];
   examPatternCardIds: string[];
@@ -52,9 +54,24 @@ function localized(value: string): LocalizedText {
   return { en: value, zh: value, zhHans: value };
 }
 
+function resolveGeneratedQuestionDiagram(question: GeneratedQuestion): QuestionDiagram | undefined {
+  if (typeof question.diagram === "undefined" || question.diagram === null) return undefined;
+  const normalized = normalizeQuestionDiagram(question.diagram);
+  if (!normalized || validateQuestionDiagram(normalized).length > 0) return undefined;
+  return normalized;
+}
+
+// Fail-closed release gate: a graph-type generated question is only student-visible
+// when its checked-in diagram spec normalizes and passes deterministic figure QA.
+function hasStudentVisibleDiagramIfRequired(question: GeneratedQuestion) {
+  if (question.type !== "graph") return true;
+  return Boolean(resolveGeneratedQuestionDiagram(question));
+}
+
 function toQuestion(question: GeneratedQuestion): Question {
   const topic = topicById.get(question.knowledgePointId);
   if (!topic) throw new Error(`Missing Mainland PEP junior topic for ${question.knowledgePointId}`);
+  const diagram = resolveGeneratedQuestionDiagram(question);
 
   return {
     id: question.id,
@@ -72,7 +89,8 @@ function toQuestion(question: GeneratedQuestion): Question {
     options: question.type === "multiple-choice" ? (question.optionsZhHans ?? []).map(localized) : undefined,
     answer: question.answer,
     acceptedAnswers: question.acceptedAnswers,
-    explanation: localized(question.explanationZhHans)
+    explanation: localized(question.explanationZhHans),
+    ...(diagram ? { diagram } : {})
   };
 }
 
@@ -100,6 +118,12 @@ export function independentMainlandPepJuniorAnswer(question: Question) {
   return mainlandPepJuniorQuestionGenerationMetadata[question.id]?.independentAnswer ?? question.answer;
 }
 
-export const mainlandPepJuniorQuestions: Question[] = questionPack.questions.map(toQuestion);
+export const mainlandPepJuniorDroppedGraphQuestionIds: string[] = questionPack.questions
+  .filter((question) => !hasStudentVisibleDiagramIfRequired(question))
+  .map((question) => question.id);
+
+export const mainlandPepJuniorQuestions: Question[] = questionPack.questions
+  .filter(hasStudentVisibleDiagramIfRequired)
+  .map(toQuestion);
 
 export const mainlandPepJuniorStarterQuestions: Question[] = mainlandPepJuniorQuestions;

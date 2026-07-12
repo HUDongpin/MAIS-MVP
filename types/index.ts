@@ -1417,7 +1417,7 @@ export type Topic = {
 
 export type QuestionType = "multiple-choice" | "fill-in" | "short-answer" | "graph";
 
-export type QuestionDiagram = {
+export type CoordinateGridQuestionDiagram = {
   kind: "coordinate-grid";
   xRange: [number, number];
   yRange: [number, number];
@@ -1434,6 +1434,99 @@ export type QuestionDiagram = {
     }[];
   }[];
 };
+
+export type PlaneFigurePoint = {
+  id: string;
+  x: number;
+  y: number;
+  label?: string;
+};
+
+export type PlaneFigureSegment = {
+  from: string;
+  to: string;
+  style?: "solid" | "dashed";
+  tickMarks?: number;
+  parallelMarks?: number;
+  label?: LocalizedText;
+};
+
+export type PlaneFigurePolygon = {
+  vertexIds: string[];
+  shaded?: boolean;
+};
+
+export type PlaneFigureCircle = {
+  centerId: string;
+  radius: number;
+  showCenter?: boolean;
+  radiusToId?: string;
+  label?: LocalizedText;
+};
+
+export type PlaneFigureAngleMark = {
+  vertexId: string;
+  fromId: string;
+  toId: string;
+  rightAngle?: boolean;
+  arcs?: number;
+  label?: LocalizedText;
+};
+
+export type PlaneFigureQuestionDiagram = {
+  kind: "plane-figure";
+  points: PlaneFigurePoint[];
+  segments?: PlaneFigureSegment[];
+  polygons?: PlaneFigurePolygon[];
+  circles?: PlaneFigureCircle[];
+  angleMarks?: PlaneFigureAngleMark[];
+};
+
+export type NumberLinePoint = {
+  value: number;
+  label?: string;
+  marker?: "closed" | "open";
+};
+
+export type NumberLineHighlight = {
+  from: number;
+  to: number;
+  label?: LocalizedText;
+};
+
+export type NumberLineQuestionDiagram = {
+  kind: "number-line";
+  range: [number, number];
+  tickInterval?: number;
+  points?: NumberLinePoint[];
+  highlights?: NumberLineHighlight[];
+};
+
+export type SolidFigureShape = "cuboid" | "cube" | "cylinder" | "cone" | "sphere";
+
+export type SolidFigureDimensionLabels = {
+  width?: LocalizedText;
+  depth?: LocalizedText;
+  height?: LocalizedText;
+  radius?: LocalizedText;
+};
+
+export type SolidFigureQuestionDiagram = {
+  kind: "solid-figure";
+  shape: SolidFigureShape;
+  width?: number;
+  depth?: number;
+  height?: number;
+  radius?: number;
+  size?: number;
+  labels?: SolidFigureDimensionLabels;
+};
+
+export type QuestionDiagram =
+  | CoordinateGridQuestionDiagram
+  | PlaneFigureQuestionDiagram
+  | NumberLineQuestionDiagram
+  | SolidFigureQuestionDiagram;
 
 export type Question = {
   id: string;
@@ -3004,4 +3097,35 @@ export type TeacherReportsData = {
   assessments: TeacherReportTarget[];
   reportHistory: TeacherReport[];
   defaultPreview: TeacherReportPreview | null;
+};
+
+export type AssessmentPaperItemSource = "question-bank" | "manual" | "ai-generated" | "mistake";
+
+export type AssessmentEmbeddedQuestion = {
+  type: QuestionType | "manual";
+  prompt: LocalizedText;
+  options?: LocalizedText[];
+  answer: string;
+  acceptedAnswers?: string[];
+  explanation?: LocalizedText;
+  topicId?: string;
+  difficulty?: Difficulty;
+  diagram?: QuestionDiagram;
+};
+
+export type AssessmentPaperItem = {
+  id: string;
+  source: AssessmentPaperItemSource;
+  questionId?: string;
+  embeddedQuestion?: AssessmentEmbeddedQuestion;
+  points: number;
+  order: number;
+};
+
+export type AssessmentPaperSection = {
+  id: string;
+  title: LocalizedText;
+  instructions?: LocalizedText;
+  order: number;
+  items: AssessmentPaperItem[];
 };

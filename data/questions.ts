@@ -1404,6 +1404,88 @@ const graphQuestionBlueprints: Record<string, QuestionBlueprint[]> = {
         ]
       }
     }
+  ],
+  "p4-angles": [
+    {
+      id: "graph-p4-angles-straight-line",
+      difficulty: "Core",
+      type: "graph",
+      prompt: {
+        en: `In the figure, AOB is a straight line and ${math("\\angle AOC = 130^\\circ")}. Find the angle ${math("x")}.`,
+        zh: `圖中 AOB 是直線，${math("\\angle AOC = 130^\\circ")}。求角 ${math("x")}。`
+      },
+      answer: "50°",
+      acceptedAnswers: ["50", "50 degrees", "50度"],
+      explanation: {
+        en: `Angles on a straight line add to ${math("180^\\circ")}, so ${math("x = 180 - 130 = 50^\\circ")}.`,
+        zh: `直線上的鄰角和為 ${math("180^\\circ")}，所以 ${math("x = 180 - 130 = 50^\\circ")}。`
+      },
+      diagram: {
+        kind: "plane-figure",
+        points: [
+          { id: "A", x: -4, y: 0, label: "A" },
+          { id: "O", x: 0, y: 0, label: "O" },
+          { id: "B", x: 4, y: 0, label: "B" },
+          { id: "C", x: 2.25, y: 2.681, label: "C" }
+        ],
+        segments: [
+          { from: "A", to: "B" },
+          { from: "O", to: "C" }
+        ],
+        angleMarks: [
+          { vertexId: "O", fromId: "A", toId: "C", label: { en: "130°", zh: "130°" } },
+          { vertexId: "O", fromId: "C", toId: "B", arcs: 2, label: { en: "x", zh: "x" } }
+        ]
+      }
+    }
+  ],
+  "p4-decimals": [
+    {
+      id: "graph-p4-decimals-number-line",
+      difficulty: "Foundation",
+      type: "graph",
+      prompt: {
+        en: "The number line shows point P between 3 and 4. Each small tick is 0.1. What decimal does P represent?",
+        zh: "數線上點 P 在 3 和 4 之間，每小格是 0.1。P 代表哪個小數？"
+      },
+      answer: "3.7",
+      explanation: {
+        en: `Each tick is ${math("0.1")}. P is ${math("7")} ticks after ${math("3")}, so P ${math("= 3.7")}.`,
+        zh: `每小格是 ${math("0.1")}。P 在 ${math("3")} 之後第 ${math("7")} 格，所以 P ${math("= 3.7")}。`
+      },
+      diagram: {
+        kind: "number-line",
+        range: [3, 4],
+        tickInterval: 0.1,
+        points: [
+          { value: 3.7, label: "P" }
+        ]
+      }
+    }
+  ],
+  "p5-volume": [
+    {
+      id: "graph-p5-volume-cube",
+      difficulty: "Core",
+      type: "graph",
+      prompt: {
+        en: "The figure shows a cube. Every edge has the length marked in the figure. Find its volume.",
+        zh: "圖中顯示一個正方體，每條棱長如圖所示。求它的體積。"
+      },
+      answer: "27 cm^3",
+      explanation: {
+        en: `Every edge of the cube is ${math("3")} cm, so the volume ${math("= 3 \\times 3 \\times 3 = 27")} cubic centimetres.`,
+        zh: `正方體每條棱長都是 ${math("3")} 厘米，所以體積 ${math("= 3 \\times 3 \\times 3 = 27")} 立方厘米。`
+      },
+      diagram: {
+        kind: "solid-figure",
+        shape: "cube",
+        size: 3,
+        labels: {
+          width: { en: "3 cm", zh: "3 厘米" }
+        }
+      }
+    }
   ]
 };
 

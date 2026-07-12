@@ -2,6 +2,7 @@ import assert from "node:assert/strict";
 import { existsSync, readFileSync } from "node:fs";
 import path from "node:path";
 import test from "node:test";
+import { normalizeQuestionDiagram, validateQuestionDiagram } from "./questionFigure";
 import { productionLessonSeeds } from "../data/lessons";
 import { grades } from "../data/grades";
 import {
@@ -66,6 +67,9 @@ const graphFriendlyTopicIds = new Set([
   "functions",
   "quadratic-patterns",
   "data-handling",
+  "p4-angles",
+  "p4-decimals",
+  "p5-volume",
   "p6-speed",
   "trigonometry-s5",
   "statistics-s1",
@@ -185,6 +189,17 @@ test("practice graph questions use suitable topics and valid coordinate ranges",
       issues.push(`${question.id}: missing diagram`);
       return issues;
     }
+
+    const normalizedDiagram = normalizeQuestionDiagram(question.diagram);
+    if (!normalizedDiagram) {
+      issues.push(`${question.id}: diagram does not conform to the question figure spec`);
+      return issues;
+    }
+    validateQuestionDiagram(normalizedDiagram).forEach((issue) => {
+      issues.push(`${question.id}: ${issue}`);
+    });
+
+    if (question.diagram.kind !== "coordinate-grid") return issues;
 
     const [xMin, xMax] = question.diagram.xRange;
     const [yMin, yMax] = question.diagram.yRange;

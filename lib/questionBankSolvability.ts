@@ -1,5 +1,13 @@
 import { questions } from "../data/questions";
 import {
+  normalizeQuestionDiagram,
+  numberLinePointValue,
+  planeFigureAngleDegrees,
+  solidFigureCuboidVolume,
+  solidFigureUnitText,
+  validateQuestionDiagram
+} from "./questionFigure";
+import {
   independentMainlandBnuHighAnswer,
   mainlandBnuHighQuestionGenerationMetadata
 } from "../data/mainlandBnuHighQuestions";
@@ -182,7 +190,9 @@ export type AliasKind =
   | "ratio"
   | "time";
 
-export const expectedHkQuestionCount = 285;
+// 288 = 285 legacy questions + 3 figure-based graph questions added with the
+// question-figure spec rollout (plane-figure, number-line, solid-figure).
+export const expectedHkQuestionCount = 288;
 export const expectedMainlandPepPrimaryQuestionCount = 1200;
 export const expectedMainlandPepJuniorQuestionCount = 1200;
 export const expectedMainlandPepHighQuestionCount = 4800;
@@ -309,6 +319,9 @@ graph-functions-zero	2
 graph-coordinate-geometry-gradient	1/2
 graph-coordinate-geometry-midpoint	(1, 1)
 graph-data-handling-highest-value	8
+graph-p4-angles-straight-line	50°
+graph-p4-decimals-number-line	3.7
+graph-p5-volume-cube	27 cm^3
 supp-p1-counting-number-bonds-first-step	Count on or count back from the known number
 supp-p1-counting-number-bonds-key-fact	5
 supp-p1-counting-number-bonds-guided-example	15
@@ -649,12 +662,16 @@ function formatPoint(x: number, y: number) {
   return `(${formatNumber(x)}, ${formatNumber(y)})`;
 }
 
+function coordinateGridDiagramFor(question: Question) {
+  return question.diagram?.kind === "coordinate-grid" ? question.diagram : null;
+}
+
 function pointByLabel(question: Question, label: string) {
-  return question.diagram?.points?.find((point) => point.label === label) ?? null;
+  return coordinateGridDiagramFor(question)?.points?.find((point) => point.label === label) ?? null;
 }
 
 function firstLine(question: Question) {
-  return question.diagram?.lines?.[0] ?? null;
+  return coordinateGridDiagramFor(question)?.lines?.[0] ?? null;
 }
 
 function quadrantFor(x: number, y: number) {
@@ -742,6 +759,23 @@ export function deriveGraphAnswer(question: Question) {
   if (question.id === "graph-data-handling-highest-value") {
     const values = firstLine(question)?.points.map((point) => point.y) ?? [];
     return values.length ? formatNumber(Math.max(...values)) : null;
+  }
+
+  if (question.id === "graph-p4-angles-straight-line" && question.diagram.kind === "plane-figure") {
+    const angle = planeFigureAngleDegrees(question.diagram, "O", "C", "B");
+    return angle === null ? null : `${Math.round(angle)}°`;
+  }
+
+  if (question.id === "graph-p4-decimals-number-line" && question.diagram.kind === "number-line") {
+    const value = numberLinePointValue(question.diagram, "P");
+    return value === null ? null : formatNumber(value);
+  }
+
+  if (question.id === "graph-p5-volume-cube" && question.diagram.kind === "solid-figure") {
+    const volume = solidFigureCuboidVolume(question.diagram);
+    if (volume === null) return null;
+    const unit = solidFigureUnitText(question.diagram);
+    return unit ? `${formatNumber(volume)} ${unit}^3` : formatNumber(volume);
   }
 
   return null;
@@ -1227,6 +1261,18 @@ function auditQuestion(
   };
 
   if (!hasCoreFields(question)) mark("content-error", "Question is missing a required prompt/answer/explanation/topic/grade/type field.");
+
+  if (question.diagram) {
+    const normalizedDiagram = normalizeQuestionDiagram(question.diagram);
+    if (!normalizedDiagram) {
+      mark("content-error", "Diagram payload does not conform to the question figure spec.");
+    } else {
+      const diagramIssues = validateQuestionDiagram(normalizedDiagram);
+      if (diagramIssues.length) {
+        mark("content-error", `Diagram failed deterministic figure QA: ${diagramIssues.join("; ")}.`);
+      }
+    }
+  }
 
   const solver = independentAnswerFor(question, hkAnswers);
   const independentAnswer = solver.answer ?? "";
