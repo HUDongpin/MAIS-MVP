@@ -1,0 +1,23 @@
+{
+  "extends": "../../../tsconfig.json",
+  "compilerOptions": {
+    "outDir": "../../../.tmp/qa-fullbank-audit",
+    "noEmit": false,
+    "incremental": false,
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "rootDir": "../../..",
+    "plugins": []
+  },
+  "include": [
+    "../../../scripts/audit-full-question-bank-solvability.ts",
+    "../../../lib/**/*.ts",
+    "../../../data/**/*.ts",
+    "../../../types/**/*.ts"
+  ],
+  "exclude": [
+    "../../../node_modules",
+    "../../../lib/**/*.test.ts",
+    "../../../data/**/*.test.ts"
+  ]
+}

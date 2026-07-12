@@ -1,4 +1,6 @@
 import type { Question } from "@/types";
+import { withResolvedMainlandPepQuestionAssets } from "@/lib/mainlandPepQuestionAssets";
+import { hongKongEasePracticeQuestions } from "./hongKongEasePracticeQuestions";
 import { mainlandBnuHighQuestions } from "./mainlandBnuHighQuestions";
 import { mainlandBnuJuniorQuestions } from "./mainlandBnuJuniorQuestions";
 import { mainlandBnuPrimaryQuestions } from "./mainlandBnuPrimaryQuestions";
@@ -9,6 +11,10 @@ import { mainlandPepHighQuestions } from "./mainlandPepHighQuestions";
 import { mainlandPepJuniorQuestions } from "./mainlandPepJuniorQuestions";
 import { mainlandPepPrimaryRagV1Questions } from "./mainlandPepPrimaryQuestions";
 import { topics } from "./topics";
+import { usArkansasQuestions } from "./usArkansasQuestions";
+import { usCaliforniaQuestions } from "./usCaliforniaQuestions";
+import { usFloridaMiddleSchoolQuestions } from "./usFloridaMiddleSchoolQuestions";
+import { usMathLiveQuestions } from "./usMathQuestions";
 
 const math = (expression: string) => `\\(${expression}\\)`;
 type HongKongQuestionSeed = Omit<Question, "curriculumTrack">;
@@ -19,7 +25,7 @@ const coreQuestions: HongKongQuestionSeed[] = [
     grade: "S1",
     topicId: "integers",
     topic: { en: "Integers", zh: "整數" },
-    difficulty: "Foundation",
+    difficulty: "Low",
     type: "multiple-choice",
     prompt: { en: `Which expression equals ${math("-3 + 8")}?`, zh: `哪一個算式等於 ${math("-3 + 8")}？` },
     options: [
@@ -36,7 +42,7 @@ const coreQuestions: HongKongQuestionSeed[] = [
     grade: "S1",
     topicId: "algebra-basics",
     topic: { en: "Algebra Basics", zh: "代數基礎" },
-    difficulty: "Foundation",
+    difficulty: "Low",
     type: "fill-in",
     prompt: { en: `Simplify: ${math("3x + 2x")}`, zh: `化簡：${math("3x + 2x")}` },
     answer: "5x",
@@ -48,7 +54,7 @@ const coreQuestions: HongKongQuestionSeed[] = [
     grade: "S2",
     topicId: "coordinates",
     topic: { en: "Coordinates", zh: "坐標" },
-    difficulty: "Core",
+    difficulty: "Medium",
     type: "multiple-choice",
     prompt: { en: `Point A is at ${math("(2, -3)")}. Which quadrant is it in?`, zh: `點 A 位於 ${math("(2, -3)")}，它在哪一象限？` },
     options: [
@@ -65,7 +71,7 @@ const coreQuestions: HongKongQuestionSeed[] = [
     grade: "S2",
     topicId: "linear-equations",
     topic: { en: "Linear Equations", zh: "一次方程" },
-    difficulty: "Core",
+    difficulty: "Medium",
     type: "fill-in",
     prompt: { en: `Solve: ${math("2x + 5 = 13")}`, zh: `解方程：${math("2x + 5 = 13")}` },
     answer: "4",
@@ -76,7 +82,7 @@ const coreQuestions: HongKongQuestionSeed[] = [
     grade: "S3",
     topicId: "quadratic-patterns",
     topic: { en: "Quadratic Patterns", zh: "二次規律" },
-    difficulty: "Challenge",
+    difficulty: "High",
     type: "multiple-choice",
     prompt: { en: `For ${math("y = x^2 - 4x + 3")}, what is the axis of symmetry?`, zh: `對於 ${math("y = x^2 - 4x + 3")}，對稱軸是甚麼？` },
     options: [
@@ -96,7 +102,7 @@ const coreQuestions: HongKongQuestionSeed[] = [
     grade: "S3",
     topicId: "trigonometry-basics",
     topic: { en: "Trigonometry Basics", zh: "三角比基礎" },
-    difficulty: "Challenge",
+    difficulty: "High",
     type: "short-answer",
     prompt: { en: `In a right triangle, opposite ${math("= 3")} and hypotenuse ${math("= 5")}. What is ${math(String.raw`\sin\theta`)}?`, zh: `在直角三角形中，對邊 ${math("= 3")}，斜邊 ${math("= 5")}。${math(String.raw`\sin\theta`)} 是多少？` },
     answer: "3/5",
@@ -107,7 +113,7 @@ const coreQuestions: HongKongQuestionSeed[] = [
     grade: "S4",
     topicId: "functions",
     topic: { en: "Functions", zh: "函數" },
-    difficulty: "Core",
+    difficulty: "Medium",
     type: "multiple-choice",
     prompt: { en: `If ${math("f(x) = 2x - 1")}, what is ${math("f(4)")}?`, zh: `若 ${math("f(x) = 2x - 1")}，${math("f(4)")} 是多少？` },
     options: [
@@ -124,7 +130,7 @@ const coreQuestions: HongKongQuestionSeed[] = [
     grade: "S4",
     topicId: "coordinate-geometry",
     topic: { en: "Coordinate Geometry", zh: "坐標幾何" },
-    difficulty: "Challenge",
+    difficulty: "High",
     type: "short-answer",
     prompt: { en: `Find the gradient of the line through ${math("(1, 2)")} and ${math("(3, 8)")}.`, zh: `求通過 ${math("(1, 2)")} 和 ${math("(3, 8)")} 的直線斜率。` },
     answer: "3",
@@ -135,7 +141,7 @@ const coreQuestions: HongKongQuestionSeed[] = [
     grade: "S5",
     topicId: "probability-s5",
     topic: { en: "Probability", zh: "概率" },
-    difficulty: "Challenge",
+    difficulty: "High",
     type: "multiple-choice",
     prompt: { en: `A fair die is rolled once. What is ${math(String.raw`P(\text{rolling an even number})`)}?`, zh: `擲一次公平骰子，${math(String.raw`P(\text{擲出偶數})`)} 是多少？` },
     options: [
@@ -152,7 +158,7 @@ const coreQuestions: HongKongQuestionSeed[] = [
     grade: "S5",
     topicId: "differentiation-intro",
     topic: { en: "Differentiation Intro", zh: "微分入門" },
-    difficulty: "Exam",
+    difficulty: "High",
     type: "short-answer",
     prompt: { en: `Differentiate ${math("y = x^2")} with respect to ${math("x")}.`, zh: `對 ${math("y = x^2")} 關於 ${math("x")} 求導。` },
     answer: "2x",
@@ -163,7 +169,7 @@ const coreQuestions: HongKongQuestionSeed[] = [
     grade: "S6",
     topicId: "calculus",
     topic: { en: "Calculus", zh: "微積分" },
-    difficulty: "Exam",
+    difficulty: "High",
     type: "multiple-choice",
     prompt: { en: `If ${math("f'(x)")} changes from positive to negative at ${math("x = 2")}, what may occur at ${math("x = 2")}?`, zh: `若 ${math("f'(x)")} 在 ${math("x = 2")} 由正變負，${math("x = 2")} 可能出現甚麼？` },
     options: [
@@ -180,7 +186,7 @@ const coreQuestions: HongKongQuestionSeed[] = [
 	    grade: "S6",
     topicId: "statistics-s6",
     topic: { en: "Statistics", zh: "統計" },
-    difficulty: "Exam",
+    difficulty: "High",
     type: "fill-in",
     prompt: { en: `A normal distribution has mean ${math("50")} and standard deviation ${math("10")}. What is the ${math("z")}-score for ${math("x = 70")}?`, zh: `某常態分佈平均數為 ${math("50")}，標準差為 ${math("10")}。${math("x = 70")} 的 ${math("z")} 分數是多少？` },
 	    answer: "2",
@@ -191,7 +197,7 @@ const coreQuestions: HongKongQuestionSeed[] = [
 	    grade: "S1",
 	    topicId: "angles",
 	    topic: { en: "Angles", zh: "角" },
-	    difficulty: "Core",
+	    difficulty: "Medium",
 	    type: "multiple-choice",
 	    prompt: { en: `Two angles on a straight line include ${math("65^\\circ")}. What is the other angle?`, zh: `一直線上的兩個角，其中一個是 ${math("65^\\circ")}。另一個角是多少？` },
 	    options: [
@@ -208,7 +214,7 @@ const coreQuestions: HongKongQuestionSeed[] = [
 	    grade: "S1",
 	    topicId: "ratios",
 	    topic: { en: "Ratios", zh: "比與率" },
-	    difficulty: "Foundation",
+	    difficulty: "Low",
 	    type: "short-answer",
 	    prompt: { en: `Simplify the ratio ${math("12:18")}.`, zh: `化簡比 ${math("12:18")}。` },
 	    answer: "2:3",
@@ -219,7 +225,7 @@ const coreQuestions: HongKongQuestionSeed[] = [
 	    grade: "S1",
 	    topicId: "statistics-s1",
 	    topic: { en: "Statistics", zh: "統計" },
-	    difficulty: "Core",
+	    difficulty: "Medium",
 	    type: "short-answer",
 	    prompt: { en: `Find the mean of ${math("4, 7, 10")}.`, zh: `求 ${math("4, 7, 10")} 的平均數。` },
 	    answer: "7",
@@ -230,7 +236,7 @@ const coreQuestions: HongKongQuestionSeed[] = [
 	    grade: "S2",
 	    topicId: "transformations",
 	    topic: { en: "Transformations", zh: "變換" },
-	    difficulty: "Core",
+	    difficulty: "Medium",
 	    type: "multiple-choice",
 	    prompt: { en: `Point ${math("(3, -2)")} is reflected in the ${math("y")}-axis. What is the image?`, zh: `點 ${math("(3, -2)")} 關於 ${math("y")} 軸反射，影像點是甚麼？` },
 	    options: [
@@ -247,7 +253,7 @@ const coreQuestions: HongKongQuestionSeed[] = [
 	    grade: "S2",
 	    topicId: "probability-s2",
 	    topic: { en: "Probability", zh: "概率" },
-	    difficulty: "Core",
+	    difficulty: "Medium",
 	    type: "multiple-choice",
 	    prompt: { en: `A bag has ${math("2")} red balls and ${math("3")} blue balls. What is ${math(String.raw`P(\text{red})`)}?`, zh: `袋中有 ${math("2")} 個紅球和 ${math("3")} 個藍球。${math(String.raw`P(\text{紅球})`)} 是多少？` },
 	    options: [
@@ -264,7 +270,7 @@ const coreQuestions: HongKongQuestionSeed[] = [
 	    grade: "S3",
 	    topicId: "polynomials",
 	    topic: { en: "Polynomials", zh: "多項式" },
-	    difficulty: "Core",
+	    difficulty: "Medium",
 	    type: "short-answer",
 	    prompt: { en: `Expand: ${math("(x + 3)(x + 2)")}.`, zh: `展開：${math("(x + 3)(x + 2)")}。` },
 	    answer: "x^2 + 5x + 6",
@@ -275,7 +281,7 @@ const coreQuestions: HongKongQuestionSeed[] = [
 	    grade: "S3",
 	    topicId: "circles",
 	    topic: { en: "Circles", zh: "圓" },
-	    difficulty: "Challenge",
+	    difficulty: "High",
 	    type: "multiple-choice",
 	    prompt: { en: `The angle at the centre is ${math("100^\\circ")}. What is the angle at the circumference standing on the same arc?`, zh: `圓心角是 ${math("100^\\circ")}。同弧上的圓周角是多少？` },
 	    options: [
@@ -292,7 +298,7 @@ const coreQuestions: HongKongQuestionSeed[] = [
 	    grade: "S4",
 	    topicId: "more-algebra",
 	    topic: { en: "More Algebra", zh: "進階代數" },
-	    difficulty: "Challenge",
+	    difficulty: "High",
 	    type: "short-answer",
 	    prompt: { en: `Simplify: ${math(String.raw`x^3 / x`)}.`, zh: `化簡：${math(String.raw`x^3 / x`)}。` },
 	    answer: "x^2",
@@ -303,7 +309,7 @@ const coreQuestions: HongKongQuestionSeed[] = [
 	    grade: "S4",
 	    topicId: "data-handling",
 	    topic: { en: "Data Handling", zh: "數據處理" },
-	    difficulty: "Core",
+	    difficulty: "Medium",
 	    type: "short-answer",
 	    prompt: { en: `Find the median of ${math("3, 9, 4, 6, 8")}.`, zh: `求 ${math("3, 9, 4, 6, 8")} 的中位數。` },
 	    answer: "6",
@@ -314,7 +320,7 @@ const coreQuestions: HongKongQuestionSeed[] = [
 	    grade: "S5",
 	    topicId: "advanced-functions",
 	    topic: { en: "Advanced Functions", zh: "進階函數" },
-	    difficulty: "Exam",
+	    difficulty: "High",
 	    type: "multiple-choice",
 	    prompt: { en: `For ${math("f(x) = x^2 + 1")}, what is ${math("f(-2)")}?`, zh: `若 ${math("f(x) = x^2 + 1")}，${math("f(-2)")} 是多少？` },
 	    options: [
@@ -331,7 +337,7 @@ const coreQuestions: HongKongQuestionSeed[] = [
 	    grade: "S5",
 	    topicId: "trigonometry-s5",
 	    topic: { en: "Trigonometry", zh: "三角學" },
-	    difficulty: "Exam",
+	    difficulty: "High",
 	    type: "short-answer",
 	    prompt: { en: `If ${math(String.raw`\sin\theta = \frac{1}{2}`)} for an acute angle ${math(String.raw`\theta`)}, find ${math(String.raw`\theta`)}.`, zh: `若銳角 ${math(String.raw`\theta`)} 滿足 ${math(String.raw`\sin\theta = \frac{1}{2}`)}，求 ${math(String.raw`\theta`)}。` },
 	    answer: "30°",
@@ -342,7 +348,7 @@ const coreQuestions: HongKongQuestionSeed[] = [
 	    grade: "S6",
 	    topicId: "exam-revision",
 	    topic: { en: "Exam Revision", zh: "考試溫習" },
-	    difficulty: "Exam",
+	    difficulty: "High",
 	    type: "multiple-choice",
 	    prompt: { en: `A ${math("10")}-mark question should take about ${math("15")} minutes. How many minutes per mark is that?`, zh: `一題 ${math("10")} 分題目建議用約 ${math("15")} 分鐘。平均每分應用多少分鐘？` },
 	    options: [
@@ -359,7 +365,7 @@ const coreQuestions: HongKongQuestionSeed[] = [
 	    grade: "S6",
 	    topicId: "mixed-problem-solving",
 	    topic: { en: "Mixed Problem Solving", zh: "綜合解難" },
-	    difficulty: "Exam",
+	    difficulty: "High",
 	    type: "multiple-choice",
 	    prompt: { en: "A problem combines a graph and an equation. What is usually the safest first step?", zh: "一道題同時包含圖像和方程。通常最安全的第一步是甚麼？" },
 	    options: [
@@ -376,7 +382,7 @@ const coreQuestions: HongKongQuestionSeed[] = [
 	    grade: "S2",
 	    topicId: "coordinates",
 	    topic: { en: "Coordinates", zh: "坐標" },
-	    difficulty: "Foundation",
+	    difficulty: "Low",
 	    type: "fill-in",
 	    prompt: { en: `Fill in the missing coordinate: ${math("A(3, \\square)")} has ${math("y = -2")}.`, zh: `填上缺少的坐標：${math("A(3, \\square)")} 的 ${math("y = -2")}。` },
 	    answer: "-2",
@@ -387,7 +393,7 @@ const coreQuestions: HongKongQuestionSeed[] = [
 	    grade: "S2",
 	    topicId: "transformations",
 	    topic: { en: "Transformations", zh: "變換" },
-	    difficulty: "Core",
+	    difficulty: "Medium",
 	    type: "short-answer",
 	    prompt: { en: `In one sentence, what changes when ${math("(x, y)")} is reflected in the ${math("y")}-axis?`, zh: `用一句話說明：${math("(x, y)")} 關於 ${math("y")} 軸反射時，甚麼會改變？` },
 	    answer: "x coordinate changes sign",
@@ -409,7 +415,7 @@ const coreQuestions: HongKongQuestionSeed[] = [
 	    grade: "S2",
 	    topicId: "coordinates",
 	    topic: { en: "Coordinates", zh: "坐標" },
-	    difficulty: "Core",
+	    difficulty: "Medium",
 	    type: "graph",
 	    prompt: { en: "The diagram shows line AB. What is the gradient of AB?", zh: "圖中顯示直線 AB。AB 的斜率是多少？" },
 	    answer: "1",
@@ -442,7 +448,7 @@ const primaryQuestionBlueprints: Record<string, QuestionBlueprint[]> = {
   "p1-counting-number-bonds": [
     {
       id: "pq-p1-counting-number-bonds-1",
-      difficulty: "Foundation",
+      difficulty: "Low",
       type: "multiple-choice",
       prompt: { en: `What number makes ${math("7 + \\square = 10")}?`, zh: `${math("7 + \\square = 10")} 中，方格應填甚麼數？` },
       options: [
@@ -456,7 +462,7 @@ const primaryQuestionBlueprints: Record<string, QuestionBlueprint[]> = {
     },
     {
       id: "pq-p1-counting-number-bonds-2",
-      difficulty: "Foundation",
+      difficulty: "Low",
       type: "short-answer",
       prompt: { en: `Write the number after ${math("18")}.`, zh: `寫出 ${math("18")} 之後的數。` },
       answer: "19",
@@ -466,7 +472,7 @@ const primaryQuestionBlueprints: Record<string, QuestionBlueprint[]> = {
   "p1-addition-subtraction": [
     {
       id: "pq-p1-addition-subtraction-1",
-      difficulty: "Foundation",
+      difficulty: "Low",
       type: "multiple-choice",
       prompt: { en: `Mia has ${math("9")} stickers and gives away ${math("4")}. How many are left?`, zh: `Mia 有 ${math("9")} 張貼紙，送出 ${math("4")} 張，還剩多少張？` },
       options: [
@@ -480,7 +486,7 @@ const primaryQuestionBlueprints: Record<string, QuestionBlueprint[]> = {
     },
     {
       id: "pq-p1-addition-subtraction-2",
-      difficulty: "Foundation",
+      difficulty: "Low",
       type: "short-answer",
       prompt: { en: `Find ${math("6 + 8")}.`, zh: `計算 ${math("6 + 8")}。` },
       answer: "14",
@@ -490,7 +496,7 @@ const primaryQuestionBlueprints: Record<string, QuestionBlueprint[]> = {
   "p1-shapes-patterns": [
     {
       id: "pq-p1-shapes-patterns-1",
-      difficulty: "Foundation",
+      difficulty: "Low",
       type: "multiple-choice",
       prompt: { en: "Which shape has 3 sides?", zh: "哪一個圖形有 3 條邊？" },
       options: [
@@ -504,7 +510,7 @@ const primaryQuestionBlueprints: Record<string, QuestionBlueprint[]> = {
     },
     {
       id: "pq-p1-shapes-patterns-2",
-      difficulty: "Foundation",
+      difficulty: "Low",
       type: "multiple-choice",
       prompt: { en: "Continue the pattern: circle, square, circle, square, ?", zh: "延續規律：圓形、正方形、圓形、正方形、？" },
       options: [
@@ -520,7 +526,7 @@ const primaryQuestionBlueprints: Record<string, QuestionBlueprint[]> = {
   "p1-measurement-time": [
     {
       id: "pq-p1-measurement-time-1",
-      difficulty: "Foundation",
+      difficulty: "Low",
       type: "multiple-choice",
       prompt: { en: "Which object is usually longer?", zh: "哪一件物件通常較長？" },
       options: [
@@ -534,7 +540,7 @@ const primaryQuestionBlueprints: Record<string, QuestionBlueprint[]> = {
     },
     {
       id: "pq-p1-measurement-time-2",
-      difficulty: "Foundation",
+      difficulty: "Low",
       type: "short-answer",
       prompt: { en: `What time is shown by a clock with the hour hand at ${math("3")} and the minute hand at ${math("12")}?`, zh: `時針指向 ${math("3")}、分針指向 ${math("12")} 是甚麼時間？` },
       answer: "3 o'clock",
@@ -544,7 +550,7 @@ const primaryQuestionBlueprints: Record<string, QuestionBlueprint[]> = {
   "p2-place-value": [
     {
       id: "pq-p2-place-value-1",
-      difficulty: "Foundation",
+      difficulty: "Low",
       type: "multiple-choice",
       prompt: { en: `In ${math("482")}, what digit is in the tens place?`, zh: `在 ${math("482")} 中，十位數字是甚麼？` },
       options: [
@@ -558,7 +564,7 @@ const primaryQuestionBlueprints: Record<string, QuestionBlueprint[]> = {
     },
     {
       id: "pq-p2-place-value-2",
-      difficulty: "Foundation",
+      difficulty: "Low",
       type: "short-answer",
       prompt: { en: `Write ${math("300 + 40 + 6")} as one number.`, zh: `把 ${math("300 + 40 + 6")} 寫成一個數。` },
       answer: "346",
@@ -568,7 +574,7 @@ const primaryQuestionBlueprints: Record<string, QuestionBlueprint[]> = {
   "p2-multiplication-foundations": [
     {
       id: "pq-p2-multiplication-foundations-1",
-      difficulty: "Foundation",
+      difficulty: "Low",
       type: "multiple-choice",
       prompt: { en: `Which expression matches ${math("4 + 4 + 4")}?`, zh: `哪個算式表示 ${math("4 + 4 + 4")}？` },
       options: [
@@ -582,7 +588,7 @@ const primaryQuestionBlueprints: Record<string, QuestionBlueprint[]> = {
     },
     {
       id: "pq-p2-multiplication-foundations-2",
-      difficulty: "Foundation",
+      difficulty: "Low",
       type: "short-answer",
       prompt: { en: `Find ${math("5 \\times 2")}.`, zh: `計算 ${math("5 \\times 2")}。` },
       answer: "10",
@@ -592,7 +598,7 @@ const primaryQuestionBlueprints: Record<string, QuestionBlueprint[]> = {
   "p2-money-time": [
     {
       id: "pq-p2-money-time-1",
-      difficulty: "Core",
+      difficulty: "Medium",
       type: "multiple-choice",
       prompt: { en: `A snack costs HK$${math("8")}. You pay HK$${math("10")}. How much change do you get?`, zh: `小食售港幣 ${math("8")} 元，你付港幣 ${math("10")} 元，應找回多少？` },
       options: [
@@ -606,7 +612,7 @@ const primaryQuestionBlueprints: Record<string, QuestionBlueprint[]> = {
     },
     {
       id: "pq-p2-money-time-2",
-      difficulty: "Foundation",
+      difficulty: "Low",
       type: "short-answer",
       prompt: { en: `Thirty minutes after ${math("4:00")} is what time?`, zh: `${math("4:00")} 之後三十分鐘是甚麼時間？` },
       answer: "4:30",
@@ -616,7 +622,7 @@ const primaryQuestionBlueprints: Record<string, QuestionBlueprint[]> = {
   "p2-length-data": [
     {
       id: "pq-p2-length-data-1",
-      difficulty: "Foundation",
+      difficulty: "Low",
       type: "short-answer",
       prompt: { en: `A ribbon is ${math("18")} cm long. You cut off ${math("5")} cm. How many cm remain?`, zh: `一條絲帶長 ${math("18")} 厘米，剪去 ${math("5")} 厘米，還剩多少厘米？` },
       answer: "13 cm",
@@ -624,7 +630,7 @@ const primaryQuestionBlueprints: Record<string, QuestionBlueprint[]> = {
     },
     {
       id: "pq-p2-length-data-2",
-      difficulty: "Core",
+      difficulty: "Medium",
       type: "multiple-choice",
       prompt: { en: `A bar chart shows ${math("6")} apples and ${math("4")} bananas. How many fruits are shown?`, zh: `棒形圖顯示 ${math("6")} 個蘋果和 ${math("4")} 隻香蕉，共有多少水果？` },
       options: [
@@ -640,7 +646,7 @@ const primaryQuestionBlueprints: Record<string, QuestionBlueprint[]> = {
   "p3-multiplication-division": [
     {
       id: "pq-p3-multiplication-division-1",
-      difficulty: "Core",
+      difficulty: "Medium",
       type: "short-answer",
       prompt: { en: `Find ${math("7 \\times 6")}.`, zh: `計算 ${math("7 \\times 6")}。` },
       answer: "42",
@@ -648,7 +654,7 @@ const primaryQuestionBlueprints: Record<string, QuestionBlueprint[]> = {
     },
     {
       id: "pq-p3-multiplication-division-2",
-      difficulty: "Foundation",
+      difficulty: "Low",
       type: "multiple-choice",
       prompt: { en: `${math("24")} sweets are shared equally among ${math("4")} children. How many does each child get?`, zh: `${math("24")} 粒糖平均分給 ${math("4")} 個小朋友，每人有多少粒？` },
       options: [
@@ -664,7 +670,7 @@ const primaryQuestionBlueprints: Record<string, QuestionBlueprint[]> = {
   "p3-fractions-intro": [
     {
       id: "pq-p3-fractions-intro-1",
-      difficulty: "Foundation",
+      difficulty: "Low",
       type: "multiple-choice",
       prompt: { en: `Which fraction means one out of four equal parts?`, zh: `哪個分數表示四等份中的一份？` },
       options: [
@@ -678,7 +684,7 @@ const primaryQuestionBlueprints: Record<string, QuestionBlueprint[]> = {
     },
     {
       id: "pq-p3-fractions-intro-2",
-      difficulty: "Core",
+      difficulty: "Medium",
       type: "short-answer",
       prompt: { en: `Write an equivalent fraction for ${math("1/2")} with denominator ${math("4")}.`, zh: `寫出一個與 ${math("1/2")} 等值而分母為 ${math("4")} 的分數。` },
       answer: "2/4",
@@ -688,7 +694,7 @@ const primaryQuestionBlueprints: Record<string, QuestionBlueprint[]> = {
   "p3-measurement": [
     {
       id: "pq-p3-measurement-1",
-      difficulty: "Foundation",
+      difficulty: "Low",
       type: "multiple-choice",
       prompt: { en: `Which unit is suitable for the length of a pencil?`, zh: `量度鉛筆長度，哪個單位較合適？` },
       options: [
@@ -702,7 +708,7 @@ const primaryQuestionBlueprints: Record<string, QuestionBlueprint[]> = {
     },
     {
       id: "pq-p3-measurement-2",
-      difficulty: "Core",
+      difficulty: "Medium",
       type: "short-answer",
       prompt: { en: `A bottle has ${math("1")} L of water. That is how many mL?`, zh: `一個水樽有 ${math("1")} 公升水，即是多少毫升？` },
       answer: "1000 mL",
@@ -712,7 +718,7 @@ const primaryQuestionBlueprints: Record<string, QuestionBlueprint[]> = {
   "p3-geometry-patterns": [
     {
       id: "pq-p3-geometry-patterns-1",
-      difficulty: "Core",
+      difficulty: "Medium",
       type: "multiple-choice",
       prompt: { en: "Which angle is a right angle?", zh: "哪一個角是直角？" },
       options: [
@@ -726,7 +732,7 @@ const primaryQuestionBlueprints: Record<string, QuestionBlueprint[]> = {
     },
     {
       id: "pq-p3-geometry-patterns-2",
-      difficulty: "Foundation",
+      difficulty: "Low",
       type: "short-answer",
       prompt: { en: `Continue the pattern: ${math("3, 6, 9, 12, \\square")}.`, zh: `延續規律：${math("3, 6, 9, 12, \\square")}。` },
       answer: "15",
@@ -736,7 +742,7 @@ const primaryQuestionBlueprints: Record<string, QuestionBlueprint[]> = {
   "p4-large-numbers": [
     {
       id: "pq-p4-large-numbers-1",
-      difficulty: "Core",
+      difficulty: "Medium",
       type: "multiple-choice",
       prompt: { en: `Which number is greater than ${math("12,450")}?`, zh: `哪個數大於 ${math("12,450")}？` },
       options: [
@@ -750,7 +756,7 @@ const primaryQuestionBlueprints: Record<string, QuestionBlueprint[]> = {
     },
     {
       id: "pq-p4-large-numbers-2",
-      difficulty: "Foundation",
+      difficulty: "Low",
       type: "short-answer",
       prompt: { en: `Round ${math("3,684")} to the nearest hundred.`, zh: `把 ${math("3,684")} 取近似值至最接近的百位。` },
       answer: "3,700",
@@ -760,7 +766,7 @@ const primaryQuestionBlueprints: Record<string, QuestionBlueprint[]> = {
   "p4-decimals": [
     {
       id: "pq-p4-decimals-1",
-      difficulty: "Core",
+      difficulty: "Medium",
       type: "multiple-choice",
       prompt: { en: `Which decimal is greater: ${math("0.6")} or ${math("0.56")}?`, zh: `${math("0.6")} 和 ${math("0.56")}，哪個小數較大？` },
       options: [
@@ -774,7 +780,7 @@ const primaryQuestionBlueprints: Record<string, QuestionBlueprint[]> = {
     },
     {
       id: "pq-p4-decimals-2",
-      difficulty: "Foundation",
+      difficulty: "Low",
       type: "short-answer",
       prompt: { en: `Find ${math("2.3 + 1.4")}.`, zh: `計算 ${math("2.3 + 1.4")}。` },
       answer: "3.7",
@@ -784,7 +790,7 @@ const primaryQuestionBlueprints: Record<string, QuestionBlueprint[]> = {
   "p4-angles": [
     {
       id: "pq-p4-angles-1",
-      difficulty: "Core",
+      difficulty: "Medium",
       type: "multiple-choice",
       prompt: { en: `An angle of ${math("120^\\circ")} is what type?`, zh: `${math("120^\\circ")} 是哪一類角？` },
       options: [
@@ -798,7 +804,7 @@ const primaryQuestionBlueprints: Record<string, QuestionBlueprint[]> = {
     },
     {
       id: "pq-p4-angles-2",
-      difficulty: "Core",
+      difficulty: "Medium",
       type: "short-answer",
       prompt: { en: `Two angles on a straight line include ${math("75^\\circ")}. Find the other angle.`, zh: `一直線上的兩個角，其中一個是 ${math("75^\\circ")}。求另一個角。` },
       answer: "105°",
@@ -808,7 +814,7 @@ const primaryQuestionBlueprints: Record<string, QuestionBlueprint[]> = {
   "p4-perimeter-area": [
     {
       id: "pq-p4-perimeter-area-1",
-      difficulty: "Core",
+      difficulty: "Medium",
       type: "short-answer",
       prompt: { en: `A rectangle has length ${math("8")} cm and width ${math("3")} cm. Find its perimeter.`, zh: `長方形長 ${math("8")} 厘米、闊 ${math("3")} 厘米。求周界。` },
       answer: "22 cm",
@@ -816,7 +822,7 @@ const primaryQuestionBlueprints: Record<string, QuestionBlueprint[]> = {
     },
     {
       id: "pq-p4-perimeter-area-2",
-      difficulty: "Foundation",
+      difficulty: "Low",
       type: "multiple-choice",
       prompt: { en: `A rectangle is ${math("5")} cm by ${math("4")} cm. What is its area?`, zh: `長方形長 ${math("5")} 厘米、闊 ${math("4")} 厘米，面積是多少？` },
       options: [
@@ -832,7 +838,7 @@ const primaryQuestionBlueprints: Record<string, QuestionBlueprint[]> = {
   "p5-fractions-operations": [
     {
       id: "pq-p5-fractions-operations-1",
-      difficulty: "Core",
+      difficulty: "Medium",
       type: "short-answer",
       prompt: { en: `Find ${math("1/4 + 2/4")}.`, zh: `計算 ${math("1/4 + 2/4")}。` },
       answer: "3/4",
@@ -840,7 +846,7 @@ const primaryQuestionBlueprints: Record<string, QuestionBlueprint[]> = {
     },
     {
       id: "pq-p5-fractions-operations-2",
-      difficulty: "Foundation",
+      difficulty: "Low",
       type: "multiple-choice",
       prompt: { en: `Simplify ${math("6/8")}.`, zh: `約簡 ${math("6/8")}。` },
       options: [
@@ -856,7 +862,7 @@ const primaryQuestionBlueprints: Record<string, QuestionBlueprint[]> = {
   "p5-volume": [
     {
       id: "pq-p5-volume-1",
-      difficulty: "Core",
+      difficulty: "Medium",
       type: "short-answer",
       prompt: { en: `A cuboid is ${math("4")} cm by ${math("3")} cm by ${math("2")} cm. Find its volume.`, zh: `長方體長 ${math("4")} 厘米、闊 ${math("3")} 厘米、高 ${math("2")} 厘米。求體積。` },
       answer: "24 cm^3",
@@ -864,7 +870,7 @@ const primaryQuestionBlueprints: Record<string, QuestionBlueprint[]> = {
     },
     {
       id: "pq-p5-volume-2",
-      difficulty: "Foundation",
+      difficulty: "Low",
       type: "multiple-choice",
       prompt: { en: `Which unit is used for volume?`, zh: `哪個單位用於體積？` },
       options: [
@@ -880,7 +886,7 @@ const primaryQuestionBlueprints: Record<string, QuestionBlueprint[]> = {
   "p5-rates": [
     {
       id: "pq-p5-rates-1",
-      difficulty: "Core",
+      difficulty: "Medium",
       type: "short-answer",
       prompt: { en: `A pack of ${math("4")} pens costs HK$${math("20")}. What is the cost per pen?`, zh: `${math("4")} 支筆售港幣 ${math("20")} 元，每支多少元？` },
       answer: "HK$5",
@@ -888,7 +894,7 @@ const primaryQuestionBlueprints: Record<string, QuestionBlueprint[]> = {
     },
     {
       id: "pq-p5-rates-2",
-      difficulty: "Core",
+      difficulty: "Medium",
       type: "multiple-choice",
       prompt: { en: `A car travels ${math("60")} km in ${math("2")} hours. What is its speed?`, zh: `汽車 ${math("2")} 小時行 ${math("60")} 公里，速率是多少？` },
       options: [
@@ -904,7 +910,7 @@ const primaryQuestionBlueprints: Record<string, QuestionBlueprint[]> = {
   "p5-charts-averages": [
     {
       id: "pq-p5-charts-averages-1",
-      difficulty: "Core",
+      difficulty: "Medium",
       type: "short-answer",
       prompt: { en: `Find the mean of ${math("6, 8, 10")}.`, zh: `求 ${math("6, 8, 10")} 的平均數。` },
       answer: "8",
@@ -912,7 +918,7 @@ const primaryQuestionBlueprints: Record<string, QuestionBlueprint[]> = {
     },
     {
       id: "pq-p5-charts-averages-2",
-      difficulty: "Foundation",
+      difficulty: "Low",
       type: "multiple-choice",
       prompt: { en: `A chart shows ${math("12")} sunny days and ${math("8")} rainy days. How many days are shown?`, zh: `圖表顯示 ${math("12")} 天晴天和 ${math("8")} 天雨天，共顯示多少天？` },
       options: [
@@ -928,7 +934,7 @@ const primaryQuestionBlueprints: Record<string, QuestionBlueprint[]> = {
   "p6-percentages": [
     {
       id: "pq-p6-percentages-1",
-      difficulty: "Core",
+      difficulty: "Medium",
       type: "multiple-choice",
       prompt: { en: `What is ${math("50\\%")} of ${math("80")}?`, zh: `${math("80")} 的 ${math("50\\%")} 是多少？` },
       options: [
@@ -942,7 +948,7 @@ const primaryQuestionBlueprints: Record<string, QuestionBlueprint[]> = {
     },
     {
       id: "pq-p6-percentages-2",
-      difficulty: "Foundation",
+      difficulty: "Low",
       type: "short-answer",
       prompt: { en: `Write ${math("0.25")} as a percentage.`, zh: `把 ${math("0.25")} 寫成百分數。` },
       answer: "25%",
@@ -952,7 +958,7 @@ const primaryQuestionBlueprints: Record<string, QuestionBlueprint[]> = {
   "p6-ratio-proportion": [
     {
       id: "pq-p6-ratio-proportion-1",
-      difficulty: "Core",
+      difficulty: "Medium",
       type: "short-answer",
       prompt: { en: `Share ${math("30")} in the ratio ${math("2:3")}. What is the larger share?`, zh: `把 ${math("30")} 按 ${math("2:3")} 分配。較大的一份是多少？` },
       answer: "18",
@@ -960,7 +966,7 @@ const primaryQuestionBlueprints: Record<string, QuestionBlueprint[]> = {
     },
     {
       id: "pq-p6-ratio-proportion-2",
-      difficulty: "Foundation",
+      difficulty: "Low",
       type: "multiple-choice",
       prompt: { en: `Which ratio is equivalent to ${math("3:4")}?`, zh: `哪個比與 ${math("3:4")} 等值？` },
       options: [
@@ -976,7 +982,7 @@ const primaryQuestionBlueprints: Record<string, QuestionBlueprint[]> = {
   "p6-speed": [
     {
       id: "pq-p6-speed-1",
-      difficulty: "Core",
+      difficulty: "Medium",
       type: "short-answer",
       prompt: { en: `A train travels ${math("90")} km in ${math("3")} hours. Find its speed.`, zh: `火車 ${math("3")} 小時行 ${math("90")} 公里。求速率。` },
       answer: "30 km/h",
@@ -984,7 +990,7 @@ const primaryQuestionBlueprints: Record<string, QuestionBlueprint[]> = {
     },
     {
       id: "pq-p6-speed-2",
-      difficulty: "Core",
+      difficulty: "Medium",
       type: "multiple-choice",
       prompt: { en: `At ${math("5")} km/h, how far do you walk in ${math("2")} hours?`, zh: `以每小時 ${math("5")} 公里步行 ${math("2")} 小時，路程是多少？` },
       options: [
@@ -1000,7 +1006,7 @@ const primaryQuestionBlueprints: Record<string, QuestionBlueprint[]> = {
   "p6-pre-secondary-problem-solving": [
     {
       id: "pq-p6-pre-secondary-problem-solving-1",
-      difficulty: "Core",
+      difficulty: "Medium",
       type: "multiple-choice",
       prompt: { en: "What is the best first step for a long word problem?", zh: "處理較長文字題時，最好先做甚麼？" },
       options: [
@@ -1014,7 +1020,7 @@ const primaryQuestionBlueprints: Record<string, QuestionBlueprint[]> = {
     },
     {
       id: "pq-p6-pre-secondary-problem-solving-2",
-      difficulty: "Core",
+      difficulty: "Medium",
       type: "short-answer",
       prompt: { en: `A box has ${math("6")} rows of ${math("8")} tiles. ${math("10")} tiles are removed. How many remain?`, zh: `盒內有 ${math("6")} 行、每行 ${math("8")} 塊瓷磚，取走 ${math("10")} 塊，還剩多少塊？` },
       answer: "38",
@@ -1049,7 +1055,7 @@ const graphQuestionBlueprints: Record<string, QuestionBlueprint[]> = {
   "quadratic-patterns": [
     {
       id: "graph-quadratic-patterns-vertex",
-      difficulty: "Foundation",
+      difficulty: "Low",
       type: "graph",
       prompt: { en: "The graph shows a parabola. What is the vertex?", zh: "圖中顯示一條拋物線。頂點是甚麼？" },
       answer: "(1, -4)",
@@ -1078,7 +1084,7 @@ const graphQuestionBlueprints: Record<string, QuestionBlueprint[]> = {
     },
     {
       id: "graph-quadratic-patterns-axis",
-      difficulty: "Foundation",
+      difficulty: "Low",
       type: "graph",
       prompt: { en: "Use the symmetry of the parabola. What is the axis of symmetry?", zh: "利用拋物線的對稱性。對稱軸是甚麼？" },
       answer: "x = -2",
@@ -1107,7 +1113,7 @@ const graphQuestionBlueprints: Record<string, QuestionBlueprint[]> = {
     },
     {
       id: "graph-quadratic-patterns-y-intercept",
-      difficulty: "Foundation",
+      difficulty: "Low",
       type: "graph",
       prompt: { en: "Where does the parabola meet the y-axis?", zh: "拋物線在哪一點與 y 軸相交？" },
       answer: "(0, -4)",
@@ -1138,7 +1144,7 @@ const graphQuestionBlueprints: Record<string, QuestionBlueprint[]> = {
     },
     {
       id: "graph-quadratic-patterns-roots",
-      difficulty: "Foundation",
+      difficulty: "Low",
       type: "graph",
       prompt: { en: "Read the graph. What are the two x-intercepts?", zh: "閱讀圖像。兩個 x 截距是甚麼？" },
       answer: "x = 1 and x = 3",
@@ -1168,7 +1174,7 @@ const graphQuestionBlueprints: Record<string, QuestionBlueprint[]> = {
     },
     {
       id: "graph-quadratic-patterns-opening",
-      difficulty: "Foundation",
+      difficulty: "Low",
       type: "graph",
       prompt: { en: "Does this parabola open upward or downward?", zh: "這條拋物線開口向上還是向下？" },
       answer: "downward",
@@ -1201,7 +1207,7 @@ const graphQuestionBlueprints: Record<string, QuestionBlueprint[]> = {
   coordinates: [
     {
       id: "graph-coordinates-read-point",
-      difficulty: "Foundation",
+      difficulty: "Low",
       type: "graph",
       prompt: { en: "Read the coordinate of point C.", zh: "讀出點 C 的坐標。" },
       answer: "(-3, 2)",
@@ -1218,7 +1224,7 @@ const graphQuestionBlueprints: Record<string, QuestionBlueprint[]> = {
     },
     {
       id: "graph-coordinates-quadrant",
-      difficulty: "Core",
+      difficulty: "Medium",
       type: "graph",
       prompt: { en: "Which quadrant contains point P?", zh: "點 P 位於哪一象限？" },
       answer: "II",
@@ -1237,7 +1243,7 @@ const graphQuestionBlueprints: Record<string, QuestionBlueprint[]> = {
   functions: [
     {
       id: "graph-functions-read-output",
-      difficulty: "Core",
+      difficulty: "Medium",
       type: "graph",
       prompt: { en: `The graph shows ${math("y = f(x)")}. What is ${math("f(2)")}?`, zh: `圖像顯示 ${math("y = f(x)")}。${math("f(2)")} 是多少？` },
       answer: "5",
@@ -1264,7 +1270,7 @@ const graphQuestionBlueprints: Record<string, QuestionBlueprint[]> = {
     },
     {
       id: "graph-functions-zero",
-      difficulty: "Core",
+      difficulty: "Medium",
       type: "graph",
       prompt: { en: `For the graph of ${math("y = f(x)")}, what value of ${math("x")} makes ${math("f(x)=0")}?`, zh: `對於 ${math("y = f(x)")} 的圖像，哪個 ${math("x")} 值令 ${math("f(x)=0")}？` },
       answer: "2",
@@ -1293,7 +1299,7 @@ const graphQuestionBlueprints: Record<string, QuestionBlueprint[]> = {
   "coordinate-geometry": [
     {
       id: "graph-coordinate-geometry-gradient",
-      difficulty: "Core",
+      difficulty: "Medium",
       type: "graph",
       prompt: { en: "Line AB is shown. What is the gradient of AB?", zh: "圖中顯示直線 AB。AB 的斜率是多少？" },
       answer: "1/2",
@@ -1320,7 +1326,7 @@ const graphQuestionBlueprints: Record<string, QuestionBlueprint[]> = {
     },
     {
       id: "graph-coordinate-geometry-midpoint",
-      difficulty: "Core",
+      difficulty: "Medium",
       type: "graph",
       prompt: { en: "A and B are endpoints of a line segment. What is the midpoint?", zh: "A 和 B 是線段的端點。中點是甚麼？" },
       answer: "(1, 1)",
@@ -1349,7 +1355,7 @@ const graphQuestionBlueprints: Record<string, QuestionBlueprint[]> = {
   "data-handling": [
     {
       id: "graph-data-handling-highest-value",
-      difficulty: "Core",
+      difficulty: "Medium",
       type: "graph",
       prompt: { en: "The line graph shows five quiz scores. What is the highest score?", zh: "折線圖顯示五次測驗分數。最高分是多少？" },
       answer: "8",
@@ -1379,7 +1385,7 @@ const graphQuestionBlueprints: Record<string, QuestionBlueprint[]> = {
   "p6-speed": [
     {
       id: "graph-p6-speed-distance",
-      difficulty: "Core",
+      difficulty: "Medium",
       type: "graph",
       prompt: { en: "The distance-time graph shows a journey. How far had the student travelled after 2 hours?", zh: "距離-時間圖顯示一段旅程。2 小時後學生走了多遠？" },
       answer: "6 km",
@@ -1402,6 +1408,88 @@ const graphQuestionBlueprints: Record<string, QuestionBlueprint[]> = {
             ]
           }
         ]
+      }
+    }
+  ],
+  "p4-angles": [
+    {
+      id: "graph-p4-angles-straight-line",
+      difficulty: "Medium",
+      type: "graph",
+      prompt: {
+        en: `In the figure, AOB is a straight line and ${math("\\angle AOC = 130^\\circ")}. Find the angle ${math("x")}.`,
+        zh: `圖中 AOB 是直線，${math("\\angle AOC = 130^\\circ")}。求角 ${math("x")}。`
+      },
+      answer: "50°",
+      acceptedAnswers: ["50", "50 degrees", "50度"],
+      explanation: {
+        en: `Angles on a straight line add to ${math("180^\\circ")}, so ${math("x = 180 - 130 = 50^\\circ")}.`,
+        zh: `直線上的鄰角和為 ${math("180^\\circ")}，所以 ${math("x = 180 - 130 = 50^\\circ")}。`
+      },
+      diagram: {
+        kind: "plane-figure",
+        points: [
+          { id: "A", x: -4, y: 0, label: "A" },
+          { id: "O", x: 0, y: 0, label: "O" },
+          { id: "B", x: 4, y: 0, label: "B" },
+          { id: "C", x: 2.25, y: 2.681, label: "C" }
+        ],
+        segments: [
+          { from: "A", to: "B" },
+          { from: "O", to: "C" }
+        ],
+        angleMarks: [
+          { vertexId: "O", fromId: "A", toId: "C", label: { en: "130°", zh: "130°" } },
+          { vertexId: "O", fromId: "C", toId: "B", arcs: 2, label: { en: "x", zh: "x" } }
+        ]
+      }
+    }
+  ],
+  "p4-decimals": [
+    {
+      id: "graph-p4-decimals-number-line",
+      difficulty: "Low",
+      type: "graph",
+      prompt: {
+        en: "The number line shows point P between 3 and 4. Each small tick is 0.1. What decimal does P represent?",
+        zh: "數線上點 P 在 3 和 4 之間，每小格是 0.1。P 代表哪個小數？"
+      },
+      answer: "3.7",
+      explanation: {
+        en: `Each tick is ${math("0.1")}. P is ${math("7")} ticks after ${math("3")}, so P ${math("= 3.7")}.`,
+        zh: `每小格是 ${math("0.1")}。P 在 ${math("3")} 之後第 ${math("7")} 格，所以 P ${math("= 3.7")}。`
+      },
+      diagram: {
+        kind: "number-line",
+        range: [3, 4],
+        tickInterval: 0.1,
+        points: [
+          { value: 3.7, label: "P" }
+        ]
+      }
+    }
+  ],
+  "p5-volume": [
+    {
+      id: "graph-p5-volume-cube",
+      difficulty: "Medium",
+      type: "graph",
+      prompt: {
+        en: "The figure shows a cube. Every edge has the length marked in the figure. Find its volume.",
+        zh: "圖中顯示一個正方體，每條棱長如圖所示。求它的體積。"
+      },
+      answer: "27 cm^3",
+      explanation: {
+        en: `Every edge of the cube is ${math("3")} cm, so the volume ${math("= 3 \\times 3 \\times 3 = 27")} cubic centimetres.`,
+        zh: `正方體每條棱長都是 ${math("3")} 厘米，所以體積 ${math("= 3 \\times 3 \\times 3 = 27")} 立方厘米。`
+      },
+      diagram: {
+        kind: "solid-figure",
+        shape: "cube",
+        size: 3,
+        labels: {
+          width: { en: "3 cm", zh: "3 厘米" }
+        }
       }
     }
   ]
@@ -1971,7 +2059,7 @@ function supplementalQuestionsForTopic(topic: (typeof topics)[number]): HongKong
       grade: topic.grade,
       topicId: topic.id,
       topic: topicLabel,
-      difficulty: "Foundation",
+      difficulty: "Low",
       type: "short-answer",
       prompt: drill.keyFactPrompt,
       answer: drill.keyFactAnswer,
@@ -1993,7 +2081,7 @@ function supplementalQuestionsForTopic(topic: (typeof topics)[number]): HongKong
       grade: topic.grade,
       topicId: topic.id,
       topic: topicLabel,
-      difficulty: "Core",
+      difficulty: "Medium",
       type: "multiple-choice",
       prompt: {
         en: `Which check best avoids a common ${topicLabel.en} mistake?`,
@@ -2043,7 +2131,22 @@ function generatedAnswerAliases(answer: string) {
   const trimmed = answer.trim();
   const compact = trimmed.replace(/\s+/g, "");
 
-  addAlias(aliases, trimmed, compact);
+  const mixedNumber = trimmed.match(/^(-?\d+)\s+(\d+)\/(\d+)$/);
+  if (mixedNumber) {
+    // "1 3/7" must not alias to the collapsed "13/7" — that is a different
+    // value. Alias the true improper-fraction and decimal forms instead.
+    const numerator = Number(mixedNumber[2]);
+    const denominator = Number(mixedNumber[3]);
+    if (denominator > 0 && numerator < denominator) {
+      const negative = mixedNumber[1].startsWith("-");
+      const improperNumerator = Math.abs(Number(mixedNumber[1])) * denominator + numerator;
+      addAlias(aliases, trimmed, `${negative ? "-" : ""}${improperNumerator}/${denominator}`);
+      const decimal = terminatingDecimalAlias(negative ? -improperNumerator : improperNumerator, denominator);
+      if (decimal) addAlias(aliases, trimmed, decimal);
+    }
+  } else {
+    addAlias(aliases, trimmed, compact);
+  }
   cjkAnswerAliases[trimmed.toLowerCase()]?.forEach((alias) => addAlias(aliases, trimmed, alias));
 
   const commaNumber = trimmed.match(/^-?\d{1,3}(?:,\d{3})+(?:\.\d+)?$/);
@@ -2187,6 +2290,7 @@ const curatedQuestions: Question[] = [
   ...primaryQuestions.map(withHongKongTrack),
   ...graphQuestions.map(withHongKongTrack),
   ...topics.filter((topic) => topic.curriculumTrack === "HK").flatMap(supplementalQuestionsForTopic).map(withHongKongTrack),
+  ...hongKongEasePracticeQuestions,
   ...mainlandPepPrimaryRagV1Questions,
   ...mainlandPepJuniorQuestions,
   ...mainlandPepHighQuestions,
@@ -2195,7 +2299,13 @@ const curatedQuestions: Question[] = [
   ...mainlandBnuHighQuestions,
   ...mainlandHjbJuniorQuestions,
   ...mainlandHjbPrimaryQuestions,
-  ...mainlandHjbHighQuestions
+  ...mainlandHjbHighQuestions,
+  ...usArkansasQuestions,
+  ...usFloridaMiddleSchoolQuestions,
+  ...usMathLiveQuestions.filter((question) => question.curriculumTrack !== "US_CA_MATH"),
+  ...usCaliforniaQuestions
 ];
 
-export const questions: Question[] = curatedQuestions.map(withGeneratedAnswerAliases);
+export const questions: Question[] = curatedQuestions
+  .map(withResolvedMainlandPepQuestionAssets)
+  .map(withGeneratedAnswerAliases);

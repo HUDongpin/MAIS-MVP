@@ -732,7 +732,11 @@ function normalizeAlias(value: string) {
     .replace(/[−–—]/g, "-")
     .replace(/\s+/g, "")
     .replace(/[，。；：、]/g, "")
-    .replace(/[,.。]/g, "");
+    // Strip sentence punctuation but never a digit-internal separator:
+    // "1.5厘米" vs "15厘米" (or "…等于 1.2" vs "…等于 12") are different
+    // answers — collapsing them let decimal-shift distractors join
+    // acceptedAnswers as "localization variants" of the key.
+    .replace(/(?<!\d)[,.]|[,.](?!\d)/g, "");
 }
 
 function uniqueNonEmpty(values: string[]) {
