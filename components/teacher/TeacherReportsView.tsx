@@ -3,8 +3,9 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { useSettings } from "@/components/providers/AppProviders";
 import { TeacherReportsBackToTopButton } from "@/components/teacher/TeacherReportsBackToTopButton";
-import { localeForLanguage, textForLanguage } from "@/lib/i18n";
-import type { LocalizedText, TeacherReportLanguage, TeacherReportPreview, TeacherReportType, TeacherReportsData } from "@/types";
+import { textForLanguage } from "@/lib/i18n";
+import { formatDateInHongKong } from "@/lib/utils";
+import type { LocalizedText, TeacherReport, TeacherReportLanguage, TeacherReportPreview, TeacherReportType, TeacherReportsData } from "@/types";
 
 const reportTypes: TeacherReportType[] = ["student", "class", "assignment", "assessment", "parent-summary"];
 
@@ -72,7 +73,7 @@ function ReportPreview({ preview }: { preview: TeacherReportPreview }) {
           <p className="mt-1 text-sm font-bold text-slate-500 dark:text-slate-400 print:text-slate-600">{preview.subtitle}</p>
         </div>
         <p className="rounded-full border border-slate-200/80 bg-white/75 px-4 py-2 text-xs font-black text-slate-500 dark:border-white/10 dark:bg-white/[0.07] dark:text-slate-300 print:border-slate-300 print:text-slate-600">
-          {new Intl.DateTimeFormat(localeForLanguage(preview.language), { dateStyle: "medium" }).format(new Date(preview.generatedAt))}
+          {formatDateInHongKong(preview.generatedAt, preview.language, { dateStyle: "medium" })}
         </p>
       </div>
 
@@ -112,8 +113,11 @@ function ReportList({ title, items }: { title: string; items: string[] }) {
 }
 
 export function TeacherReportsView({ reports }: { reports: TeacherReportsData }) {
-  const { language: appLanguage, t, text } = useSettings();
+  const { currentUser, language: appLanguage, t, text } = useSettings();
   const appReportLanguage = reportLanguageForApp(appLanguage);
+  const reportsHeading = currentUser?.curriculumProfile?.region === "US"
+    ? { en: "Learning reports", zh: "學習報告" }
+    : { en: "Bilingual learning reports", zh: "學習報告" };
   const [type, setType] = useState<TeacherReportType>(reports.defaultPreview?.type ?? "class");
   const [language, setLanguage] = useState<TeacherReportLanguage>(appReportLanguage);
   const [classId, setClassId] = useState(reports.classes.find((teacherClass) => teacherClass.studentCount > 0)?.id ?? reports.classes[0]?.id ?? "");
@@ -122,12 +126,25 @@ export function TeacherReportsView({ reports }: { reports: TeacherReportsData })
   const [assessmentId, setAssessmentId] = useState(reports.assessments[0]?.assessmentId ?? "");
   const [remarks, setRemarks] = useState("");
   const [preview, setPreview] = useState<TeacherReportPreview | null>(reports.defaultPreview?.language === appReportLanguage ? reports.defaultPreview : null);
-  const [isLoading, setIsLoading] = useState(reports.defaultPreview?.language !== appReportLanguage);
+  const [isLoading, setIsLoading] = useState(false);
   const [isSaving, setIsSaving] = useState(false);
   const [saveMessage, setSaveMessage] = useState("");
+  const [reportHistory, setReportHistory] = useState(reports.reportHistory);
+  const [latestSavedReportId, setLatestSavedReportId] = useState<string | null>(null);
   const previousAppReportLanguageRef = useRef(appReportLanguage);
   const reportLanguageOptions = useMemo(() => reportLanguageOptionsForApp(appReportLanguage), [appReportLanguage]);
   const visiblePreview = preview?.language === language ? preview : null;
+
+  const selectedClassHasStudents = classId
+    ? (reports.classes.find((teacherClass) => teacherClass.id === classId)?.studentCount ?? 0) > 0
+    : false;
+  // Exports need the same target selection as previews; without one, the export
+  // links must be disabled with an explanation instead of silently doing nothing.
+  const hasExportTarget =
+    (type === "class" && Boolean(classId) && selectedClassHasStudents) ||
+    ((type === "student" || type === "parent-summary") && Boolean(studentId)) ||
+    (type === "assignment" && Boolean(assignmentId)) ||
+    (type === "assessment" && Boolean(assessmentId));
 
   const csvUrl = useMemo(() => {
     const params = new URLSearchParams({ type, language, remarks });
@@ -135,7 +152,8 @@ export function TeacherReportsView({ reports }: { reports: TeacherReportsData })
     if (studentId) params.set("studentId", studentId);
     if (assignmentId) params.set("assignmentId", assignmentId);
     if (assessmentId) params.set("assessmentId", assessmentId);
-    return `/api/teacher/reports/export?${params.toString()}`;
+    params.set("format", "csv");
+    return `/api/teacher/report-exports?${params.toString()}`;
   }, [assessmentId, assignmentId, classId, language, remarks, studentId, type]);
   const pdfUrl = useMemo(() => {
     const params = new URLSearchParams({ type, language, remarks });
@@ -143,23 +161,27 @@ export function TeacherReportsView({ reports }: { reports: TeacherReportsData })
     if (studentId) params.set("studentId", studentId);
     if (assignmentId) params.set("assignmentId", assignmentId);
     if (assessmentId) params.set("assessmentId", assessmentId);
-    return `/api/teacher/reports/pdf?${params.toString()}`;
+    params.set("format", "pdf");
+    return `/api/teacher/report-exports?${params.toString()}`;
   }, [assessmentId, assignmentId, classId, language, remarks, studentId, type]);
 
   async function saveReport() {
     setIsSaving(true);
     setSaveMessage("");
-    const response = await fetch("/api/teacher/reports/save", {
+    const response = await fetch("/api/teacher/saved-reports", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ type, language, classId, studentId, assignmentId, assessmentId, remarks })
     });
+    const payload = await response.json().catch(() => null) as { report?: TeacherReport } | null;
     setIsSaving(false);
-    setSaveMessage(
-      response.ok
-        ? t({ en: "Report saved to history.", zh: "報告已儲存到紀錄。" })
-        : t({ en: "Could not save this report yet.", zh: "暫時未能儲存此報告。" })
-    );
+    if (response.ok && payload?.report) {
+      setReportHistory((current) => [payload.report!, ...current.filter((report) => report.id !== payload.report!.id)].slice(0, 12));
+      setLatestSavedReportId(payload.report.id);
+      setSaveMessage(t({ en: "Report saved and added to history.", zh: "報告已儲存並加入紀錄。" }));
+      return;
+    }
+    setSaveMessage(t({ en: "Could not save this report yet.", zh: "暫時未能儲存此報告。" }));
   }
 
   useEffect(() => {
@@ -171,6 +193,21 @@ export function TeacherReportsView({ reports }: { reports: TeacherReportsData })
 
   useEffect(() => {
     const controller = new AbortController();
+    const selectedClassHasStudents = classId
+      ? (reports.classes.find((teacherClass) => teacherClass.id === classId)?.studentCount ?? 0) > 0
+      : false;
+    const hasPreviewTarget =
+      (type === "class" && Boolean(classId) && selectedClassHasStudents) ||
+      ((type === "student" || type === "parent-summary") && Boolean(studentId)) ||
+      (type === "assignment" && Boolean(assignmentId)) ||
+      (type === "assessment" && Boolean(assessmentId));
+
+    if (!hasPreviewTarget) {
+      setPreview(null);
+      setIsLoading(false);
+      return () => controller.abort();
+    }
+
     async function loadPreview() {
       setIsLoading(true);
       const params = new URLSearchParams({ type, language, remarks });
@@ -179,7 +216,7 @@ export function TeacherReportsView({ reports }: { reports: TeacherReportsData })
       if (assignmentId) params.set("assignmentId", assignmentId);
       if (assessmentId) params.set("assessmentId", assessmentId);
       try {
-        const response = await fetch(`/api/teacher/reports/preview?${params.toString()}`, {
+        const response = await fetch(`/api/teacher/report-previews?${params.toString()}`, {
           cache: "no-store",
           signal: controller.signal
         });
@@ -194,16 +231,19 @@ export function TeacherReportsView({ reports }: { reports: TeacherReportsData })
       }
     }
 
-    loadPreview();
-    return () => controller.abort();
-  }, [assessmentId, assignmentId, classId, language, remarks, studentId, type]);
+    const previewTimer = window.setTimeout(loadPreview, reports.defaultPreview ? 0 : 200);
+    return () => {
+      window.clearTimeout(previewTimer);
+      controller.abort();
+    };
+  }, [assessmentId, assignmentId, classId, language, remarks, reports.classes, reports.defaultPreview, studentId, type]);
 
   return (
     <div className="grid gap-7">
       <section className="glass-panel p-6 sm:p-8 print:hidden">
         <p className="text-sm font-black uppercase tracking-[0.24em] text-cyan-600 dark:text-cyan-300">{t({ en: "Reports", zh: "報告與溝通" })}</p>
         <h1 className="mt-3 text-4xl font-black tracking-tight text-slate-950 dark:text-white sm:text-5xl">
-          {t({ en: "Bilingual learning reports", zh: "學習報告" })}
+          {t(reportsHeading)}
         </h1>
       </section>
 
@@ -257,18 +297,40 @@ export function TeacherReportsView({ reports }: { reports: TeacherReportsData })
           <textarea value={remarks} onChange={(event) => setRemarks(event.target.value)} rows={3} className="focus-ring rounded-2xl border border-slate-200/80 bg-white/80 px-4 py-3 text-sm font-semibold dark:border-white/10 dark:bg-white/[0.06]" />
         </label>
         <div className="mt-4 flex flex-wrap gap-3">
-          <a href={pdfUrl} className="focus-ring rounded-full bg-slate-950 px-5 py-3 text-sm font-black text-white dark:bg-white dark:text-slate-950">
-            {t({ en: "Export PDF", zh: "匯出 PDF" })}
-          </a>
-          <a href={csvUrl} className="focus-ring rounded-full border border-slate-200/80 bg-white/75 px-5 py-3 text-sm font-black dark:border-white/10 dark:bg-white/[0.07]">
-            {t({ en: "Export CSV", zh: "匯出 CSV" })}
-          </a>
-          <button type="button" onClick={saveReport} disabled={isSaving} className="focus-ring rounded-full border border-slate-200/80 bg-white/75 px-5 py-3 text-sm font-black disabled:opacity-50 dark:border-white/10 dark:bg-white/[0.07]">
+          {hasExportTarget ? (
+            <>
+              <a href={pdfUrl} className="focus-ring rounded-full bg-slate-950 px-5 py-3 text-sm font-black text-white dark:bg-white dark:text-slate-950">
+                {t({ en: "Export PDF", zh: "匯出 PDF" })}
+              </a>
+              <a href={csvUrl} className="focus-ring rounded-full border border-slate-200/80 bg-white/75 px-5 py-3 text-sm font-black dark:border-white/10 dark:bg-white/[0.07]">
+                {t({ en: "Export CSV", zh: "匯出 CSV" })}
+              </a>
+            </>
+          ) : (
+            <>
+              <button type="button" disabled className="focus-ring cursor-not-allowed rounded-full bg-slate-950 px-5 py-3 text-sm font-black text-white opacity-50 dark:bg-white dark:text-slate-950">
+                {t({ en: "Export PDF", zh: "匯出 PDF" })}
+              </button>
+              <button type="button" disabled className="focus-ring cursor-not-allowed rounded-full border border-slate-200/80 bg-white/75 px-5 py-3 text-sm font-black opacity-50 dark:border-white/10 dark:bg-white/[0.07]">
+                {t({ en: "Export CSV", zh: "匯出 CSV" })}
+              </button>
+            </>
+          )}
+          <button type="button" onClick={saveReport} disabled={isSaving || isLoading || !hasExportTarget} className="focus-ring rounded-full border border-slate-200/80 bg-white/75 px-5 py-3 text-sm font-black disabled:opacity-50 dark:border-white/10 dark:bg-white/[0.07]">
             {isSaving ? t({ en: "Saving", zh: "儲存中" }) : t({ en: "Save report", zh: "儲存報告" })}
           </button>
           {isLoading ? <span className="self-center text-sm font-bold text-cyan-700 dark:text-cyan-200">{t({ en: "Updating", zh: "更新中" })}</span> : null}
         </div>
-        {saveMessage ? <p className="mt-3 text-sm font-bold text-cyan-700 dark:text-cyan-200">{saveMessage}</p> : null}
+        {!hasExportTarget ? (
+          <p className="mt-3 text-sm font-bold text-amber-700 dark:text-amber-200">
+            {t({
+              en: "Select a class with students (or a student, assignment, or assessment) to enable exports.",
+              zh: "請先選擇有學生的班級（或學生、作業、測驗），才可匯出報告。",
+              zhHans: "请先选择有学生的班级（或学生、作业、测验），才可导出报告。"
+            })}
+          </p>
+        ) : null}
+        {saveMessage ? <p role="status" className="mt-3 text-sm font-bold text-cyan-700 dark:text-cyan-200">{saveMessage}</p> : null}
       </section>
 
       {visiblePreview ? <ReportPreview preview={visiblePreview} /> : (
@@ -280,14 +342,22 @@ export function TeacherReportsView({ reports }: { reports: TeacherReportsData })
       <section className="glass-panel p-5 sm:p-6 print:hidden">
         <h2 className="text-2xl font-black text-slate-950 dark:text-white">{t({ en: "Saved reports", zh: "已儲存報告" })}</h2>
         <div className="mt-4 grid gap-3 md:grid-cols-2 xl:grid-cols-3">
-          {reports.reportHistory.slice(0, 6).map((report) => (
+          {reportHistory.slice(0, 6).map((report) => (
             <article key={report.id} className="soft-panel p-4">
-              <p className="text-sm font-black text-slate-950 dark:text-white">{text(report.title)}</p>
-              <p className="mt-1 text-xs font-bold uppercase tracking-[0.12em] text-cyan-700 dark:text-cyan-200">{text(reportTypeLabel(report.type))}</p>
-              <p className="mt-2 text-xs text-slate-500 dark:text-slate-400">{new Intl.DateTimeFormat(localeForLanguage(language), { dateStyle: "medium", timeStyle: "short" }).format(new Date(report.generatedAt))}</p>
+              <div className="flex min-w-0 flex-wrap items-start justify-between gap-2">
+                <p className="min-w-0 break-words text-sm font-black text-slate-950 dark:text-white">{text(report.title)}</p>
+                {report.id === latestSavedReportId ? (
+                  <span className="shrink-0 rounded-full border border-emerald-300/60 bg-emerald-300/12 px-3 py-1 text-[0.65rem] font-black uppercase tracking-[0.12em] text-emerald-800 dark:text-emerald-100">
+                    {t({ en: "Saved", zh: "已儲存" })}
+                  </span>
+                ) : null}
+              </div>
+              <p className="mt-1 break-words text-xs font-bold uppercase tracking-[0.12em] text-cyan-700 dark:text-cyan-200">{text(reportTypeLabel(report.type))}</p>
+              <p className="mt-3 line-clamp-3 break-words text-sm font-semibold leading-6 text-slate-600 dark:text-slate-300">{text(report.summary)}</p>
+              <p className="mt-2 text-xs text-slate-500 dark:text-slate-400">{formatDateInHongKong(report.generatedAt, language, { dateStyle: "medium", timeStyle: "short" })}</p>
             </article>
           ))}
-          {!reports.reportHistory.length ? <p className="text-sm font-bold text-slate-500 dark:text-slate-400">{t({ en: "Saved reports will appear here.", zh: "已儲存報告會顯示在這裡。" })}</p> : null}
+          {!reportHistory.length ? <p className="text-sm font-bold text-slate-500 dark:text-slate-400">{t({ en: "Saved reports will appear here.", zh: "已儲存報告會顯示在這裡。" })}</p> : null}
         </div>
       </section>
       <TeacherReportsBackToTopButton />

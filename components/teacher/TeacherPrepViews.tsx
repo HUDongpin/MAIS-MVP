@@ -151,11 +151,25 @@ function LessonKitPublishReadyPanel({
   );
 }
 
+function lessonKitRegionForClasses(classes: TeacherLessonKitListData["classes"], fallbackRegion?: string) {
+  return classes.find((teacherClass) => teacherClass.curriculumProfile?.region)?.curriculumProfile?.region ?? fallbackRegion ?? "MAINLAND";
+}
+
+const lessonKitRegionNotice = {
+  en: "Lesson kit authoring currently covers Mainland (PEP / BNU) textbook chapters. Kits for your course's textbooks are on the roadmap.",
+  zh: "備課包目前僅涵蓋中國內地（人教版／北師大版）教材章節。你課程對應教材的備課包正在規劃中。",
+  zhHans: "备课包目前仅涵盖中国大陆（人教版／北师大版）教材章节。你课程对应教材的备课包正在规划中。"
+} as const;
+
 export function TeacherPrepListView({ data }: { data: TeacherLessonKitListData }) {
-  const { language, text, t } = useSettings();
+  const { currentUser, language, text, t } = useSettings();
   const [classId, setClassId] = useState("all");
   const [publisher, setPublisher] = useState("all");
   const [status, setStatus] = useState("all");
+  // The center's labels must follow the teacher's course region instead of being
+  // hard-coded to Mainland China branding for every account.
+  const region = lessonKitRegionForClasses(data.classes, currentUser?.curriculumProfile?.region);
+  const isMainlandRegion = region === "MAINLAND";
 
   const kits = data.kits.filter((kit) =>
     (classId === "all" || kit.classId === classId) &&
@@ -166,7 +180,12 @@ export function TeacherPrepListView({ data }: { data: TeacherLessonKitListData }
     { label: t({ en: "Lesson kits", zh: "備課包", zhHans: "备课包" }), value: data.totals.kits },
     { label: t({ en: "Needs review", zh: "待審核", zhHans: "待审核" }), value: data.totals.needsReview },
     { label: t({ en: "Published", zh: "已發佈", zhHans: "已发布" }), value: data.totals.published },
-    { label: t({ en: "Mainland chapters", zh: "內地章節", zhHans: "内地章节" }), value: data.totals.mainlandTopics }
+    {
+      label: isMainlandRegion
+        ? t({ en: "Mainland chapters", zh: "內地章節", zhHans: "内地章节" })
+        : t({ en: "Textbook chapters", zh: "教材章節", zhHans: "教材章节" }),
+      value: data.totals.mainlandTopics
+    }
   ];
 
   return (
@@ -174,13 +193,22 @@ export function TeacherPrepListView({ data }: { data: TeacherLessonKitListData }
       <section className="glass-panel min-w-0 overflow-hidden p-5">
         <div className="flex flex-wrap items-start justify-between gap-4">
           <div className="min-w-0">
-            <p className="break-words text-xs font-black uppercase tracking-[0.14em] text-cyan-600 dark:text-cyan-300 sm:tracking-[0.22em]">Mainland teacher prep</p>
+            <p className="break-words text-xs font-black uppercase tracking-[0.14em] text-cyan-600 dark:text-cyan-300 sm:tracking-[0.22em]">
+              {isMainlandRegion
+                ? t({ en: "Mainland teacher prep", zh: "內地教師備課", zhHans: "大陆教师备课" })
+                : t({ en: "Teacher prep", zh: "教師備課", zhHans: "教师备课" })}
+            </p>
             <h1 className="mt-2 break-words text-2xl font-black text-slate-950 dark:text-white">{t({ en: "Lesson Kit Center", zh: "備課中心", zhHans: "备课中心" })}</h1>
           </div>
           <Link href="/teacher/lesson-kits/new" className="focus-ring rounded-2xl bg-slate-950 px-5 py-3 text-sm font-black text-white shadow-lg shadow-slate-900/10 transition hover:-translate-y-0.5 dark:bg-white dark:text-slate-950">
             {t({ en: "New lesson kit", zh: "新建備課包", zhHans: "新建备课包" })}
           </Link>
         </div>
+        {!isMainlandRegion ? (
+          <p className="mt-4 rounded-2xl border border-amber-300/55 bg-amber-400/10 px-4 py-3 text-sm font-semibold leading-6 text-amber-800 dark:border-amber-300/25 dark:text-amber-100">
+            {t(lessonKitRegionNotice)}
+          </p>
+        ) : null}
         <div className="mt-5 grid min-w-0 gap-3 md:grid-cols-4">
           {metricCards.map(({ label, value }) => (
             <div key={label} className="soft-panel min-w-0 p-4">
@@ -192,7 +220,7 @@ export function TeacherPrepListView({ data }: { data: TeacherLessonKitListData }
       </section>
 
       <section className="glass-panel min-w-0 overflow-hidden p-4">
-        <div className="grid min-w-0 gap-3 md:grid-cols-3">
+        <div className={cn("grid min-w-0 gap-3", isMainlandRegion ? "md:grid-cols-3" : "md:grid-cols-2")}>
           <select value={classId} onChange={(event) => setClassId(event.target.value)} className="focus-ring h-11 min-w-0 w-full rounded-2xl border border-slate-200 bg-white/80 px-3 text-sm font-bold dark:border-white/10 dark:bg-white/[0.06] dark:text-white">
             <option value="all">{t({ en: "All classes", zh: "全部班級", zhHans: "全部班级" })}</option>
             {data.classes.map((teacherClass) => (
@@ -201,11 +229,13 @@ export function TeacherPrepListView({ data }: { data: TeacherLessonKitListData }
               </option>
             ))}
           </select>
-          <select value={publisher} onChange={(event) => setPublisher(event.target.value)} className="focus-ring h-11 min-w-0 w-full rounded-2xl border border-slate-200 bg-white/80 px-3 text-sm font-bold dark:border-white/10 dark:bg-white/[0.06] dark:text-white">
-            <option value="all">{t({ en: "All textbooks", zh: "全部教材", zhHans: "全部教材" })}</option>
-            <option value="MAINLAND_PEP">{text(publisherLabels.MAINLAND_PEP)}</option>
-            <option value="MAINLAND_BNU">{text(publisherLabels.MAINLAND_BNU)}</option>
-          </select>
+          {isMainlandRegion ? (
+            <select value={publisher} onChange={(event) => setPublisher(event.target.value)} className="focus-ring h-11 min-w-0 w-full rounded-2xl border border-slate-200 bg-white/80 px-3 text-sm font-bold dark:border-white/10 dark:bg-white/[0.06] dark:text-white">
+              <option value="all">{t({ en: "All textbooks", zh: "全部教材", zhHans: "全部教材" })}</option>
+              <option value="MAINLAND_PEP">{text(publisherLabels.MAINLAND_PEP)}</option>
+              <option value="MAINLAND_BNU">{text(publisherLabels.MAINLAND_BNU)}</option>
+            </select>
+          ) : null}
           <select value={status} onChange={(event) => setStatus(event.target.value)} className="focus-ring h-11 min-w-0 w-full rounded-2xl border border-slate-200 bg-white/80 px-3 text-sm font-bold dark:border-white/10 dark:bg-white/[0.06] dark:text-white">
             <option value="all">{t({ en: "All statuses", zh: "全部狀態", zhHans: "全部状态" })}</option>
             <option value="draft">{text(statusLabels.draft)}</option>
@@ -243,8 +273,10 @@ export function TeacherPrepListView({ data }: { data: TeacherLessonKitListData }
 
 export function TeacherPrepNewView({ data }: { data: TeacherLessonKitCreateData }) {
   const router = useRouter();
-  const { language, text, t } = useSettings();
+  const { currentUser, language, text, t } = useSettings();
   const firstClass = data.classes[0];
+  const region = lessonKitRegionForClasses(data.classes, currentUser?.curriculumProfile?.region);
+  const isMainlandRegion = region === "MAINLAND";
   const [classId, setClassId] = useState(firstClass?.id ?? "");
   const [publisher, setPublisher] = useState<TextbookPublisher>("MAINLAND_PEP");
   const [topicId, setTopicId] = useState("");
@@ -286,9 +318,14 @@ export function TeacherPrepNewView({ data }: { data: TeacherLessonKitCreateData 
   return (
     <form onSubmit={submit} className="glass-panel grid min-w-0 max-w-full gap-5 overflow-hidden p-5">
       <div className="min-w-0">
-        <p className="break-words text-xs font-black uppercase tracking-[0.14em] text-cyan-600 dark:text-cyan-300 sm:tracking-[0.22em]">New lesson kit</p>
+        <p className="break-words text-xs font-black uppercase tracking-[0.14em] text-cyan-600 dark:text-cyan-300 sm:tracking-[0.22em]">{t({ en: "New lesson kit", zh: "新建備課包", zhHans: "新建备课包" })}</p>
         <h1 className="mt-2 break-words text-2xl font-black text-slate-950 dark:text-white">{t({ en: "New lesson kit", zh: "新建備課包", zhHans: "新建备课包" })}</h1>
       </div>
+      {!isMainlandRegion ? (
+        <p className="rounded-2xl border border-amber-300/55 bg-amber-400/10 px-4 py-3 text-sm font-semibold leading-6 text-amber-800 dark:border-amber-300/25 dark:text-amber-100">
+          {t(lessonKitRegionNotice)}
+        </p>
+      ) : null}
       <div className="grid min-w-0 gap-4 md:grid-cols-2">
         <label className="grid min-w-0 gap-2 text-sm font-black text-slate-700 dark:text-slate-200">
           {t({ en: "Class", zh: "班級", zhHans: "班级" })}
@@ -316,6 +353,15 @@ export function TeacherPrepNewView({ data }: { data: TeacherLessonKitCreateData 
               </option>
             ))}
           </select>
+          {!topicOptions.length ? (
+            <span className="text-xs font-semibold text-amber-700 dark:text-amber-200">
+              {t({
+                en: "No chapters are available for this class and textbook yet, so a lesson kit cannot be created.",
+                zh: "此班級與教材暫無可用章節，因此暫時無法建立備課包。",
+                zhHans: "此班级与教材暂无可用章节，因此暂时无法创建备课包。"
+              })}
+            </span>
+          ) : null}
         </label>
         <label className="grid min-w-0 gap-2 text-sm font-black text-slate-700 dark:text-slate-200">
           {t({ en: "Period", zh: "課時", zhHans: "课时" })}
