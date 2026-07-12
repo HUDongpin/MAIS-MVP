@@ -5,6 +5,7 @@ import { AnimatePresence, motion } from "@/components/ui/Motion";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { PracticeQuestionCard } from "@/components/practice/PracticeQuestionCard";
 import { dictionary, useSettings } from "@/components/providers/AppProviders";
+import { completedPracticeRoundStorageKey, practiceAdventureRoundStorageKey } from "@/lib/gameBasedLearning";
 import { formatGradeLabel } from "@/lib/i18n";
 import { cn } from "@/lib/utils";
 import type { AttemptFeedback, LocalizedText, PublicQuestion } from "@/types";
@@ -13,6 +14,7 @@ type AdventureRoundPayload = {
   topicId: string;
   roundQuestionIds: string[];
   correctRoundQuestionIds: string[];
+  roundQuestions?: PublicQuestion[];
   accuracyPercent: number;
   roundKey: string;
 };
@@ -54,10 +56,12 @@ type GameStats = {
 };
 
 type GamePhase = "loading" | "locked" | "welcome" | "ready" | "challenge" | "submitting" | "cleared" | "game-over";
+type ResourceLoadState = "idle" | "loading" | "ready" | "failed";
 
 type GameControl = {
   resolveChallenge: (correct: boolean) => void;
   restart: () => void;
+  resume: () => void;
 };
 
 type MovementControls = {
@@ -68,9 +72,10 @@ type MovementControls = {
 };
 
 const adventureIslandApiPath = "/api/gamification/adventure-island";
-const adventureRoundStorageKey = "hk-math-practice-adventure-round";
+const adventureRoundStorageKey = practiceAdventureRoundStorageKey;
 const trophyRequiredDefeats = 3;
 const targetGameDurationSeconds = 120;
+const resourceLoadTimeoutMs = 12_000;
 const levelWidth = 4200;
 const levelHeight = 620;
 const maxHeroHp = 2;
@@ -122,18 +127,34 @@ function readAdventureRoundPayload(value: string | null) {
 
     const roundQuestionIds = payload.roundQuestionIds.filter((item): item is string => typeof item === "string");
     const correctRoundQuestionIds = payload.correctRoundQuestionIds.filter((item): item is string => typeof item === "string");
+    const roundQuestions = Array.isArray(payload.roundQuestions)
+      ? payload.roundQuestions.filter((item): item is PublicQuestion => {
+          const question = item as Partial<PublicQuestion> | null;
+          return typeof question?.id === "string" && typeof question.topicId === "string";
+        })
+      : [];
     if (payload.accuracyPercent < 80 || roundQuestionIds.length !== 5 || correctRoundQuestionIds.length < 4) return null;
 
     return {
       topicId: payload.topicId,
       roundQuestionIds,
       correctRoundQuestionIds,
+      ...(roundQuestions.length ? { roundQuestions } : {}),
       accuracyPercent: payload.accuracyPercent,
       roundKey: payload.roundKey
     };
   } catch {
     return null;
   }
+}
+
+function readAdventureRoundQuestions(payload: AdventureRoundPayload | null) {
+  if (!payload?.roundQuestions?.length) return [];
+
+  const roundQuestionIdSet = new Set(payload.roundQuestionIds);
+  return payload.roundQuestions
+    .filter((question) => roundQuestionIdSet.has(question.id) && question.topicId === payload.topicId)
+    .slice(0, payload.roundQuestionIds.length);
 }
 
 function adventureRoundSearchParams(payload: AdventureRoundPayload) {
@@ -149,6 +170,21 @@ function adventureRoundSearchParams(payload: AdventureRoundPayload) {
 function readQuestions(value: unknown) {
   const payload = value as { questions?: unknown } | null;
   return Array.isArray(payload?.questions) ? payload.questions as PublicQuestion[] : [];
+}
+
+async function importPhaserWithTimeout() {
+  let timeout: number | null = null;
+
+  try {
+    return await Promise.race([
+      import("phaser"),
+      new Promise<never>((_, reject) => {
+        timeout = window.setTimeout(() => reject(new Error("Phaser import timed out.")), resourceLoadTimeoutMs);
+      })
+    ]);
+  } finally {
+    if (timeout) window.clearTimeout(timeout);
+  }
 }
 
 function completionMessage(status: string | undefined) {
@@ -256,7 +292,7 @@ function HeartIcon({ filled }: { filled: boolean }) {
 }
 
 export function AdventureIslandGame() {
-  const { currentUser, language, t, text } = useSettings();
+  const { currentUser, language, selectedGrade, t, text } = useSettings();
   const gameRootRef = useRef<HTMLDivElement | null>(null);
   const gameControlRef = useRef<GameControl | null>(null);
   const questionsRef = useRef<PublicQuestion[]>([]);
@@ -272,6 +308,8 @@ export function AdventureIslandGame() {
   const [roundPayload, setRoundPayload] = useState<AdventureRoundPayload | null>(null);
   const [questions, setQuestions] = useState<PublicQuestion[]>([]);
   const [loadError, setLoadError] = useState("");
+  const [loadErrorCode, setLoadErrorCode] = useState("");
+  const [rendererLoadState, setRendererLoadState] = useState<ResourceLoadState>("idle");
   const [challenge, setChallenge] = useState<Challenge | null>(null);
   const [stats, setStats] = useState<GameStats>(defaultStats);
   const [phase, setPhase] = useState<GamePhase>("loading");
@@ -280,7 +318,7 @@ export function AdventureIslandGame() {
   const [runBootKey, setRunBootKey] = useState(0);
 
   const canPlay = Boolean(eligibility?.eligible || eligibility?.alreadyCompleted);
-  const currentGradeLabel = currentUser ? formatGradeLabel(currentUser.grade, language, true) : "";
+  const currentGradeLabel = currentUser ? formatGradeLabel(selectedGrade, language, true) : "";
   const topicTitle = eligibility?.topicTitle ? text(eligibility.topicTitle) : "";
   const questTitle = topicTitle
     ? t({ en: `${topicTitle} Adventure`, zh: `${topicTitle} 探险任務` })
@@ -321,21 +359,34 @@ export function AdventureIslandGame() {
   }, []);
 
   const nextChallengeQuestion = useCallback(() => {
-    const available = questionsRef.current.filter((question) => !usedChallengeQuestionIdsRef.current.has(question.id));
-    const nextQuestion = available[0] ?? questionsRef.current[0] ?? null;
-    if (nextQuestion) usedChallengeQuestionIdsRef.current.add(nextQuestion.id);
+    const allQuestions = questionsRef.current;
+    if (!allQuestions.length) return null;
+    // Once every question has been served, start a fresh cycle instead of
+    // repeating the first question forever. Within a cycle, prefer questions
+    // not yet answered correctly: the reward API verifies distinct correct
+    // answers, so re-serving a solved question would let axe defeats outrun
+    // the verifiable answer count.
+    let available = allQuestions.filter((question) => !usedChallengeQuestionIdsRef.current.has(question.id));
+    if (!available.length) {
+      usedChallengeQuestionIdsRef.current = new Set();
+      available = allQuestions;
+    }
+    const nextQuestion = available.find((question) => !correctQuestionIdsRef.current.has(question.id)) ?? available[0];
+    usedChallengeQuestionIdsRef.current.add(nextQuestion.id);
     return nextQuestion;
   }, []);
 
   const submitCompletion = useCallback(async (nextStats: GameStats) => {
     const latestPayload = roundPayloadRef.current;
-    if (submittingRef.current || !latestPayload) return;
+    if (submittingRef.current || !latestPayload) return false;
     submittingRef.current = true;
     setGamePhase("submitting");
     setStatusMessage("");
 
     try {
-      const durationSeconds = Math.max(30, Math.round((Date.now() - runStartedAtRef.current) / 1000));
+      // The reward API accepts runs between 30 seconds and 20 minutes; clamp
+      // so a slow, careful run (or an idle tab) is not voided as invalid.
+      const durationSeconds = Math.min(20 * 60, Math.max(30, Math.round((Date.now() - runStartedAtRef.current) / 1000)));
       const response = await fetch(adventureIslandApiPath, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -349,17 +400,24 @@ export function AdventureIslandGame() {
       });
       const payload = await response.json().catch(() => null) as { status?: string; reward?: { xp?: number; rewardPoints?: number } } | null;
       setStatusMessage(t(completionMessage(payload?.status)));
-      if (response.ok) {
+      // A replay of an already-completed topic returns 409 "duplicate"; the
+      // run itself still cleared, so it must land on the cleared screen, not
+      // strand the player at the trophy inside a paused physics world.
+      if (response.ok || payload?.status === "duplicate") {
         setGamePhase("cleared");
         await refreshEligibility(latestPayload);
-      } else {
-        setShowTrophyCelebration(false);
-        setGamePhase("ready");
+        return true;
       }
+      setShowTrophyCelebration(false);
+      gameControlRef.current?.resume();
+      setGamePhase("ready");
+      return false;
     } catch {
       setShowTrophyCelebration(false);
+      gameControlRef.current?.resume();
       setGamePhase("ready");
       setStatusMessage(t({ en: "Could not submit the trophy clear yet.", zh: "暫時未能提交獎盃通關紀錄。" }));
+      return false;
     } finally {
       submittingRef.current = false;
     }
@@ -416,17 +474,26 @@ export function AdventureIslandGame() {
     let cancelled = false;
 
     async function loadAdventureIslandGame() {
-      const nextPayload = readAdventureRoundPayload(window.sessionStorage.getItem(adventureRoundStorageKey));
+      const sessionPayload = readAdventureRoundPayload(window.sessionStorage.getItem(adventureRoundStorageKey));
+      const localPayload = sessionPayload ? null : readAdventureRoundPayload(window.localStorage.getItem(completedPracticeRoundStorageKey(currentUser?.id)));
+      if (!sessionPayload && localPayload) {
+        window.sessionStorage.setItem(adventureRoundStorageKey, JSON.stringify(localPayload));
+      }
+      const nextPayload = sessionPayload ?? localPayload;
       setRoundPayload(nextPayload);
       roundPayloadRef.current = nextPayload;
 
       if (!currentUser) {
+        setRendererLoadState("idle");
+        setLoadErrorCode("auth");
         setGamePhase("locked");
         setLoadError(translateRef.current({ en: "Log in to use the Adventure Island game.", zh: "登入後才可使用探险岛遊戲。" }));
         return;
       }
 
       if (!nextPayload) {
+        setRendererLoadState("idle");
+        setLoadErrorCode("eligibility");
         setGamePhase("locked");
         setLoadError(translateRef.current({
           en: "Complete a same-topic 5-question Practice Arena round at 80%+ first.",
@@ -437,17 +504,27 @@ export function AdventureIslandGame() {
 
       try {
         setLoadError("");
-        const [nextEligibility, topicQuestionResponse] = await Promise.all([
-          refreshEligibility(nextPayload),
-          fetch(`/api/questions?topicId=${encodeURIComponent(nextPayload.topicId)}&curriculumTrack=${encodeURIComponent(currentUser.curriculumTrack)}`, { cache: "no-store" })
-        ]);
-        const nextQuestions = readQuestions(await topicQuestionResponse.json().catch(() => null));
-        if (!topicQuestionResponse.ok || nextQuestions.length < trophyRequiredDefeats) throw new Error("Could not load practice questions.");
+        setLoadErrorCode("");
+        setRendererLoadState("idle");
+        const payloadQuestions = readAdventureRoundQuestions(nextPayload);
+        const nextEligibility = await refreshEligibility(nextPayload);
+        let topicQuestionResponse: Response | null = null;
+        let topicQuestionPayload: unknown = null;
+        if (payloadQuestions.length < trophyRequiredDefeats) {
+          topicQuestionResponse = await fetch(`/api/questions?topicId=${encodeURIComponent(nextPayload.topicId)}&curriculumTrack=${encodeURIComponent(currentUser.curriculumTrack)}`, { cache: "no-store" });
+          topicQuestionPayload = await topicQuestionResponse.json().catch(() => null);
+        }
+        const nextQuestions = payloadQuestions.length >= trophyRequiredDefeats
+          ? payloadQuestions
+          : readQuestions(topicQuestionPayload);
+        if ((payloadQuestions.length < trophyRequiredDefeats && !topicQuestionResponse?.ok) || nextQuestions.length < trophyRequiredDefeats) throw new Error("Could not load practice questions.");
         if (cancelled) return;
         setQuestions(nextQuestions);
         setGamePhase(nextEligibility.eligible || nextEligibility.alreadyCompleted ? "welcome" : "locked");
       } catch {
         if (!cancelled) {
+          setRendererLoadState("idle");
+          setLoadErrorCode("questions");
           setGamePhase("locked");
           setLoadError(translateRef.current({ en: "Could not prepare this topic's Adventure Island game.", zh: "暫時未能準備本課題探险岛遊戲。" }));
         }
@@ -467,7 +544,22 @@ export function AdventureIslandGame() {
     let game: Phaser.Game | null = null;
 
     async function bootGame() {
-      const loaded = await import("phaser");
+      let loaded: Awaited<ReturnType<typeof importPhaserWithTimeout>>;
+      try {
+        setRendererLoadState("loading");
+        setLoadErrorCode("");
+        setLoadError("");
+        loaded = await importPhaserWithTimeout();
+      } catch {
+        if (!destroyed) {
+          setRendererLoadState("failed");
+          setLoadErrorCode("phaser-timeout");
+          setLoadError(translateRef.current({ en: "Could not start the Adventure Island renderer.", zh: "暫時未能啟動探险岛畫面。" }));
+          setGamePhase("welcome");
+          if (gameRootRef.current) gameRootRef.current.dataset.phase = "welcome";
+        }
+        return;
+      }
       if (destroyed || !gameRootRef.current) return;
       const Phaser = ((loaded as { default?: typeof import("phaser") }).default ?? loaded) as typeof import("phaser");
       const root = gameRootRef.current;
@@ -503,6 +595,7 @@ export function AdventureIslandGame() {
         private contactCooldownUntil = 0;
         private throwCooldownUntil = 0;
         private trophyNoticeUntil = 0;
+        private trophySubmitCooldownUntil = 0;
         private upperCoinsCollected = 0;
         private localStats: GameStats = { ...defaultStats };
 
@@ -622,6 +715,10 @@ export function AdventureIslandGame() {
             restart: () => {
               this.resetInputState();
               this.scene.restart();
+            },
+            resume: () => {
+              this.resetInputState();
+              this.physics.world.resume();
             }
           };
         }
@@ -1046,6 +1143,7 @@ export function AdventureIslandGame() {
 
         private handleTrophyTouch() {
           if (phaseRef.current === "submitting" || phaseRef.current === "cleared" || submittingRef.current) return;
+          if (this.time.now < this.trophySubmitCooldownUntil) return;
           if (this.localStats.defeatedEnemies < trophyRequiredDefeats) {
             if (this.time.now > this.trophyNoticeUntil) {
               this.trophyNoticeUntil = this.time.now + 1800;
@@ -1064,29 +1162,50 @@ export function AdventureIslandGame() {
           this.physics.world.pause();
           setGamePhase("submitting");
           root.dataset.phase = "submitting";
-          void submitCompletionRef.current(this.localStats);
+          void submitCompletionRef.current(this.localStats).then((succeeded) => {
+            if (succeeded || !this.player?.active) return;
+            // The failed submit resumed the world with the player still on the
+            // trophy; step back briefly so the overlap does not instantly
+            // re-fire and the retry stays a deliberate walk back in.
+            this.trophySubmitCooldownUntil = this.time.now + 2500;
+            this.player.setVelocity(-200, -140);
+          });
         }
       }
 
-      game = new Phaser.Game({
-        type: Phaser.AUTO,
-        parent: root,
-        width: 960,
-        height: 540,
-        backgroundColor: "#e0f7ff",
-        physics: {
-          default: "arcade",
-          arcade: {
-            gravity: { x: 0, y: 980 },
-            debug: false
-          }
-        },
-        scale: {
-          mode: Phaser.Scale.FIT,
-          autoCenter: Phaser.Scale.CENTER_BOTH
-        },
-        scene: QuadraticQuestScene
-      });
+      try {
+        game = new Phaser.Game({
+          type: Phaser.AUTO,
+          parent: root,
+          width: 960,
+          height: 540,
+          backgroundColor: "#e0f7ff",
+          physics: {
+            default: "arcade",
+            arcade: {
+              gravity: { x: 0, y: 980 },
+              debug: false
+            }
+          },
+          scale: {
+            mode: Phaser.Scale.FIT,
+            autoCenter: Phaser.Scale.CENTER_BOTH
+          },
+          scene: QuadraticQuestScene
+        });
+        if (!destroyed) setRendererLoadState("ready");
+      } catch {
+        if (!destroyed) {
+          setRendererLoadState("failed");
+          setLoadErrorCode("phaser-runtime");
+          setLoadError(translateRef.current({ en: "Could not start the Adventure Island renderer.", zh: "暫時未能啟動探险岛畫面。" }));
+          setGamePhase("welcome");
+          root.dataset.phase = "welcome";
+          gameControlRef.current = null;
+          game?.destroy(true);
+          game = null;
+        }
+      }
     }
 
     void bootGame();
@@ -1231,7 +1350,12 @@ export function AdventureIslandGame() {
         <section className="glass-panel overflow-hidden p-4 sm:p-5">
           {phase !== "welcome" ? (
             <div className="mb-4 flex justify-end">
-              <button type="button" onClick={restartRun} className="focus-ring rounded-full border border-slate-200/80 bg-white px-4 py-2 text-sm font-black text-slate-700 dark:border-white/10 dark:bg-white/[0.07] dark:text-white">
+              <button
+                type="button"
+                onClick={restartRun}
+                disabled={phase === "submitting"}
+                className="focus-ring rounded-full border border-slate-200/80 bg-white px-4 py-2 text-sm font-black text-slate-700 disabled:cursor-not-allowed disabled:opacity-50 dark:border-white/10 dark:bg-white/[0.07] dark:text-white"
+              >
                 {t({ en: "Restart", zh: "重新開始" })}
               </button>
             </div>
@@ -1247,6 +1371,8 @@ export function AdventureIslandGame() {
               data-lives={stats.lives}
               data-phase={phase}
               data-challenge-kind={challenge?.kind ?? ""}
+              data-renderer-load={rendererLoadState}
+              data-load-error={loadErrorCode}
               className={cn("min-h-[360px] w-full sm:min-h-[420px]", phase === "challenge" || phase === "submitting" ? "opacity-70" : "opacity-100")}
             />
             {phase === "welcome" ? (
