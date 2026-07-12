@@ -1,0 +1,642 @@
+{
+  "generatedAt": "2026-07-08T12:21:17.671Z",
+  "repoRoot": "/Users/dongpinhu/Desktop/MAIS-MVP",
+  "dirtyMapStatusSignature": "340f99c33d2a1dfd0015d1dc67b58b838156a600307de07438c1189d27ac7b16",
+  "expandedStatusEntries": 6116,
+  "sourceArtifacts": {
+    "dirtyMap": {
+      "key": "dirtyMap",
+      "path": "coordination/release-intake/latest-A25-dirty-tree-map.json",
+      "generatedAt": "2026-07-08T12:20:05.311Z",
+      "dirtyMapStatusSignature": "340f99c33d2a1dfd0015d1dc67b58b838156a600307de07438c1189d27ac7b16",
+      "expandedStatusEntries": 6116
+    },
+    "cleanSourceCandidatePromotion": {
+      "key": "cleanSourceCandidatePromotion",
+      "path": "coordination/release-intake/latest-A22-clean-source-candidate-promotion-packet.json",
+      "generatedAt": "2026-07-08T12:20:56.023Z",
+      "dirtyMapStatusSignature": "340f99c33d2a1dfd0015d1dc67b58b838156a600307de07438c1189d27ac7b16",
+      "expandedStatusEntries": 6116
+    },
+    "topCleanCandidateFocusedSmoke": {
+      "key": "topCleanCandidateFocusedSmoke",
+      "path": "coordination/release-intake/latest-A22-top-clean-candidate-focused-smoke.json",
+      "generatedAt": "2026-07-08T12:20:56.344Z",
+      "dirtyMapStatusSignature": "340f99c33d2a1dfd0015d1dc67b58b838156a600307de07438c1189d27ac7b16",
+      "expandedStatusEntries": 6116
+    },
+    "topCleanCandidateTypeCheck": {
+      "key": "topCleanCandidateTypeCheck",
+      "path": "coordination/release-intake/latest-A22-top-clean-candidate-typecheck.json",
+      "generatedAt": "2026-07-08T12:21:05.826Z",
+      "dirtyMapStatusSignature": "340f99c33d2a1dfd0015d1dc67b58b838156a600307de07438c1189d27ac7b16",
+      "expandedStatusEntries": 6116
+    },
+    "topCleanCandidateBuildSnapshot": {
+      "key": "topCleanCandidateBuildSnapshot",
+      "path": "coordination/release-intake/latest-A22-top-clean-candidate-build-snapshot.json",
+      "generatedAt": "2026-07-08T12:21:15.268Z",
+      "dirtyMapStatusSignature": "340f99c33d2a1dfd0015d1dc67b58b838156a600307de07438c1189d27ac7b16",
+      "expandedStatusEntries": 6116
+    },
+    "topCleanCandidateBuildBlockerRouting": {
+      "key": "topCleanCandidateBuildBlockerRouting",
+      "path": "coordination/release-intake/latest-A22-top-clean-candidate-build-blocker-routing.json",
+      "generatedAt": "2026-07-08T12:21:15.526Z",
+      "dirtyMapStatusSignature": "340f99c33d2a1dfd0015d1dc67b58b838156a600307de07438c1189d27ac7b16",
+      "expandedStatusEntries": 6116
+    },
+    "topCleanCandidateRootParityExtractionPlan": {
+      "key": "topCleanCandidateRootParityExtractionPlan",
+      "path": "coordination/release-intake/latest-A22-top-clean-candidate-root-parity-extraction-plan.json",
+      "generatedAt": "2026-07-08T12:21:15.665Z",
+      "dirtyMapStatusSignature": "340f99c33d2a1dfd0015d1dc67b58b838156a600307de07438c1189d27ac7b16",
+      "expandedStatusEntries": 6116
+    },
+    "topCleanCandidateRootParityExtractionInstructionRequest": {
+      "key": "topCleanCandidateRootParityExtractionInstructionRequest",
+      "path": "coordination/release-intake/latest-A22-top-clean-candidate-root-parity-extraction-instruction-request.json",
+      "generatedAt": "2026-07-08T12:21:15.826Z",
+      "dirtyMapStatusSignature": "340f99c33d2a1dfd0015d1dc67b58b838156a600307de07438c1189d27ac7b16",
+      "expandedStatusEntries": 6116
+    },
+    "topCleanCandidateRootParityExtractionInstructionIntake": {
+      "key": "topCleanCandidateRootParityExtractionInstructionIntake",
+      "path": "coordination/release-intake/latest-A22-top-clean-candidate-root-parity-extraction-instruction-intake.json",
+      "generatedAt": "2026-07-08T12:21:16.003Z",
+      "dirtyMapStatusSignature": "340f99c33d2a1dfd0015d1dc67b58b838156a600307de07438c1189d27ac7b16",
+      "expandedStatusEntries": 6116
+    },
+    "topCleanCandidateRootParityExtractionInstructionRecording": {
+      "key": "topCleanCandidateRootParityExtractionInstructionRecording",
+      "path": "coordination/release-intake/latest-A22-top-clean-candidate-root-parity-extraction-instruction-recording-dry-run.json",
+      "generatedAt": "2026-07-08T12:21:16.195Z",
+      "dirtyMapStatusSignature": "340f99c33d2a1dfd0015d1dc67b58b838156a600307de07438c1189d27ac7b16",
+      "expandedStatusEntries": 6116
+    },
+    "topCleanCandidateRootParityGuardedExtraction": {
+      "key": "topCleanCandidateRootParityGuardedExtraction",
+      "path": "coordination/release-intake/latest-A22-top-clean-candidate-root-parity-guarded-extraction-dry-run.json",
+      "generatedAt": "2026-07-08T12:21:16.461Z",
+      "dirtyMapStatusSignature": "340f99c33d2a1dfd0015d1dc67b58b838156a600307de07438c1189d27ac7b16",
+      "expandedStatusEntries": 6116
+    },
+    "topCleanCandidateRootParityOwnerActionPacket": {
+      "key": "topCleanCandidateRootParityOwnerActionPacket",
+      "path": "coordination/release-intake/latest-A22-top-clean-candidate-root-parity-owner-action-packet.json",
+      "generatedAt": "2026-07-08T12:21:17.175Z",
+      "dirtyMapStatusSignature": "340f99c33d2a1dfd0015d1dc67b58b838156a600307de07438c1189d27ac7b16",
+      "expandedStatusEntries": 6116
+    },
+    "topCleanCandidateRootParityOwnerActionAcceptanceDocket": {
+      "key": "topCleanCandidateRootParityOwnerActionAcceptanceDocket",
+      "path": "coordination/release-intake/latest-A22-top-clean-candidate-root-parity-owner-action-acceptance-docket.json",
+      "generatedAt": "2026-07-08T12:21:17.409Z",
+      "dirtyMapStatusSignature": "340f99c33d2a1dfd0015d1dc67b58b838156a600307de07438c1189d27ac7b16",
+      "expandedStatusEntries": 6116
+    },
+    "cleanReleaseSourceRunway": {
+      "key": "cleanReleaseSourceRunway",
+      "path": "coordination/release-intake/latest-A22-clean-release-source-runway.json",
+      "generatedAt": "2026-07-08T12:20:55.907Z",
+      "dirtyMapStatusSignature": "340f99c33d2a1dfd0015d1dc67b58b838156a600307de07438c1189d27ac7b16",
+      "expandedStatusEntries": 6116
+    },
+    "cleanDivergedManifest": {
+      "key": "cleanDivergedManifest",
+      "path": "coordination/release-intake/archive/2026-06-30-A25-clean-diverged-branch-archive-manifest.json",
+      "generatedAt": "2026-07-08T12:17:49.941Z",
+      "dirtyMapStatusSignature": "340f99c33d2a1dfd0015d1dc67b58b838156a600307de07438c1189d27ac7b16",
+      "expandedStatusEntries": 6116
+    },
+    "validateToMergeExitCriteria": {
+      "key": "validateToMergeExitCriteria",
+      "path": "coordination/release-intake/latest-A25-validate-to-merge-exit-criteria.json",
+      "generatedAt": "2026-07-08T12:20:55.580Z",
+      "dirtyMapStatusSignature": "340f99c33d2a1dfd0015d1dc67b58b838156a600307de07438c1189d27ac7b16",
+      "expandedStatusEntries": 6116
+    }
+  },
+  "sourceCurrentnessFailures": [],
+  "packetStatus": "git-evidence-ready-promotion-blocked",
+  "topCandidate": {
+    "branch": "codex/A22-us-region-alignment",
+    "path": "/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A22-us-region-alignment",
+    "head": "80b8546af59def9ea4c91fa4b8a892973874504d",
+    "promotionRank": 1,
+    "promotionLane": "clean-diverged-slice-review",
+    "divergence": {
+      "behind": 2,
+      "ahead": 1
+    },
+    "archiveKind": "clean-diverged-branch",
+    "statusEntries": 0,
+    "untrackedEntries": 0,
+    "releaseSourceSelected": false,
+    "promotionEligibleNow": false
+  },
+  "archiveEvidence": {
+    "manifestPath": "coordination/release-intake/archive/2026-06-30-A25-clean-diverged-branch-archive-manifest.json",
+    "manifestEntryFound": true,
+    "prefix": "coordination/release-intake/archive/codex-A22-us-region-alignment.clean-diverged",
+    "patchSha256": "b21e56dd5723447214b25d83cd3e8063760acde936e3434c24e30d70c7436fb0",
+    "patchBytes": 9102,
+    "evidenceFiles": [
+      {
+        "key": "status",
+        "path": "coordination/release-intake/archive/codex-A22-us-region-alignment.clean-diverged.status.txt",
+        "exists": true,
+        "bytes": 6,
+        "lines": 1,
+        "sha256": "2e22da2ab13713309ac75219e525b8e06ed02f3f1963b8feef203fa25827f93d",
+        "expectedSha256": "",
+        "shaMatchesExpected": null,
+        "preview": [
+          "clean"
+        ]
+      },
+      {
+        "key": "aheadLog",
+        "path": "coordination/release-intake/archive/codex-A22-us-region-alignment.clean-diverged.ahead-log.txt",
+        "exists": true,
+        "bytes": 101,
+        "lines": 1,
+        "sha256": "9048a1fa1fc285ac9def61de3e4b30401b3bfb3dc5100cee365c34b4be596719",
+        "expectedSha256": "",
+        "shaMatchesExpected": null,
+        "preview": [
+          "80b8546af (HEAD -> codex/A22-us-region-alignment) chore(release): align US classroom function region"
+        ]
+      },
+      {
+        "key": "nameStatus",
+        "path": "coordination/release-intake/archive/codex-A22-us-region-alignment.clean-diverged.name-status.txt",
+        "exists": true,
+        "bytes": 181,
+        "lines": 4,
+        "sha256": "de28b4b68e79e6ae980b6b46945f53fdbfe9e4bb0f58e6c918a255ec6df07626",
+        "expectedSha256": "",
+        "shaMatchesExpected": null,
+        "preview": [
+          "A\tcoordination/reports/2026-06-29-A22-us-region-alignment.md",
+          "A\tcoordination/session-logs/2026-06-29-A22-us-region-alignment.md",
+          "A\tscripts/vercel-region-config.test.mjs",
+          "A\tvercel.json"
+        ]
+      },
+      {
+        "key": "diffstat",
+        "path": "coordination/release-intake/archive/codex-A22-us-region-alignment.clean-diverged.diffstat.txt",
+        "exists": true,
+        "bytes": 327,
+        "lines": 5,
+        "sha256": "a005287f1f2741eddec9532be563c480eea86fa145d16bff2f866c24768d256c",
+        "expectedSha256": "",
+        "shaMatchesExpected": null,
+        "preview": [
+          ".../reports/2026-06-29-A22-us-region-alignment.md  | 50 ++++++++++++++++++++",
+          " .../2026-06-29-A22-us-region-alignment.md          | 39 ++++++++++++++++",
+          " scripts/vercel-region-config.test.mjs              | 53 ++++++++++++++++++++++",
+          " vercel.json                                        |  4 ++",
+          " 4 files changed, 146 insertions(+)"
+        ]
+      },
+      {
+        "key": "patch",
+        "path": "coordination/release-intake/archive/codex-A22-us-region-alignment.clean-diverged.patch",
+        "exists": true,
+        "bytes": 9102,
+        "lines": 170,
+        "sha256": "b21e56dd5723447214b25d83cd3e8063760acde936e3434c24e30d70c7436fb0",
+        "expectedSha256": "b21e56dd5723447214b25d83cd3e8063760acde936e3434c24e30d70c7436fb0",
+        "shaMatchesExpected": true,
+        "preview": [
+          "diff --git a/coordination/reports/2026-06-29-A22-us-region-alignment.md b/coordination/reports/2026-06-29-A22-us-region-alignment.md",
+          "new file mode 100644",
+          "index 000000000..372779294",
+          "--- /dev/null",
+          "+++ b/coordination/reports/2026-06-29-A22-us-region-alignment.md",
+          "@@ -0,0 +1,50 @@",
+          "+# 2026-06-29 A22 US Region Alignment",
+          "+"
+        ]
+      },
+      {
+        "key": "untracked",
+        "path": "coordination/release-intake/archive/codex-A22-us-region-alignment.clean-diverged.untracked.txt",
+        "exists": true,
+        "bytes": 5,
+        "lines": 1,
+        "sha256": "fcf33dfbe13c2354bf0e1b063f9fb422747a46cee00b7420bceff2b81457b345",
+        "expectedSha256": "",
+        "shaMatchesExpected": null,
+        "preview": [
+          "none"
+        ]
+      },
+      {
+        "key": "metadata",
+        "path": "coordination/release-intake/archive/codex-A22-us-region-alignment.clean-diverged.metadata.json",
+        "exists": true,
+        "bytes": 1106,
+        "lines": 20,
+        "sha256": "f01c00c2527e2fac89b5b247a40e899ad5d64374a92a199408c52ad0ca2ef5ef",
+        "expectedSha256": "",
+        "shaMatchesExpected": null,
+        "preview": [
+          "{",
+          "  \"branch\": \"codex/A22-us-region-alignment\",",
+          "  \"path\": \"/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A22-us-region-alignment\",",
+          "  \"archiveKind\": \"clean-diverged-branch\",",
+          "  \"head\": \"80b8546af59def9ea4c91fa4b8a892973874504d\",",
+          "  \"divergence\": {",
+          "    \"behind\": 2,",
+          "    \"ahead\": 1"
+        ]
+      }
+    ]
+  },
+  "changedFiles": [
+    {
+      "status": "A",
+      "path": "coordination/reports/2026-06-29-A22-us-region-alignment.md"
+    },
+    {
+      "status": "A",
+      "path": "coordination/session-logs/2026-06-29-A22-us-region-alignment.md"
+    },
+    {
+      "status": "A",
+      "path": "scripts/vercel-region-config.test.mjs"
+    },
+    {
+      "status": "A",
+      "path": "vercel.json"
+    }
+  ],
+  "validationRows": [
+    {
+      "id": "git-archive-evidence",
+      "owner": "A25 git hygiene and release intake",
+      "status": "passed",
+      "passed": true,
+      "detail": "Top clean candidate has archived status, ahead-log, name-status, diffstat, patch, and untracked evidence.",
+      "evidence": [
+        "coordination/release-intake/archive/codex-A22-us-region-alignment.clean-diverged.status.txt",
+        "coordination/release-intake/archive/codex-A22-us-region-alignment.clean-diverged.ahead-log.txt",
+        "coordination/release-intake/archive/codex-A22-us-region-alignment.clean-diverged.name-status.txt",
+        "coordination/release-intake/archive/codex-A22-us-region-alignment.clean-diverged.diffstat.txt",
+        "coordination/release-intake/archive/codex-A22-us-region-alignment.clean-diverged.patch",
+        "coordination/release-intake/archive/codex-A22-us-region-alignment.clean-diverged.untracked.txt",
+        "coordination/release-intake/archive/codex-A22-us-region-alignment.clean-diverged.metadata.json"
+      ]
+    },
+    {
+      "id": "resync-review",
+      "owner": "A22 production reliability and release engineering",
+      "status": "blocked",
+      "passed": false,
+      "detail": "Top candidate is behind main by 2 commit(s); review or resync is required before promotion.",
+      "evidence": [
+        "behind=2",
+        "ahead=1"
+      ]
+    },
+    {
+      "id": "candidate-change-scope-review",
+      "owner": "A22 production reliability and release engineering",
+      "status": "ready-for-human-review",
+      "passed": true,
+      "detail": "4 changed file(s) are captured for human review; this does not validate runtime behavior.",
+      "evidence": [
+        "A coordination/reports/2026-06-29-A22-us-region-alignment.md",
+        "A coordination/session-logs/2026-06-29-A22-us-region-alignment.md",
+        "A scripts/vercel-region-config.test.mjs",
+        "A vercel.json"
+      ]
+    },
+    {
+      "id": "candidate-type-check",
+      "owner": "A22 production reliability and release engineering",
+      "status": "failed",
+      "passed": false,
+      "detail": "Candidate-specific npm run type-check failed with 652 TypeScript error line(s).",
+      "evidence": [
+        "coordination/release-intake/latest-A22-top-clean-candidate-typecheck.json",
+        "exitStatus=2",
+        "errorLineCount=652",
+        "mutationDetected=false",
+        "tsbuildInfoPresentAfter=false",
+        "nextBuildDirPresentAfter=true"
+      ]
+    },
+    {
+      "id": "candidate-build",
+      "owner": "A22 production reliability and release engineering",
+      "status": "failed",
+      "passed": false,
+      "detail": "Candidate-specific npm run build failed with 5/5 confirmed module-resolution blocker row(s).",
+      "evidence": [
+        "coordination/release-intake/latest-A22-top-clean-candidate-build-snapshot.json",
+        "exitStatus=1",
+        "failureCategory=webpack-module-not-found",
+        "confirmedModuleBlockerRows=5",
+        "moduleBlockerRows=5",
+        "nextDirPresent=true",
+        "cleanupAuthorizedRows=0"
+      ]
+    },
+    {
+      "id": "candidate-build-blocker-routing",
+      "owner": "A25 git hygiene and release intake, coordinating A22 build blockers",
+      "status": "passed",
+      "passed": true,
+      "detail": "A22 build blockers are routed to 3 owner group(s); routing remains non-executable.",
+      "evidence": [
+        "coordination/release-intake/latest-A22-top-clean-candidate-build-blocker-routing.json",
+        "moduleBlockerRows=5",
+        "confirmedModuleBlockerRows=5",
+        "routeGroupRows=3",
+        "rootParitySourceRows=5",
+        "cleanupAuthorizedRows=0",
+        "executableRows=0"
+      ]
+    },
+    {
+      "id": "candidate-root-parity-extraction-plan",
+      "owner": "A25 git hygiene and release intake, coordinating A06/A20/A05 owner extraction review",
+      "status": "passed",
+      "passed": true,
+      "detail": "Root parity extraction plan covers 5 blocker row(s) across 4 owner-reviewed extraction unit(s).",
+      "evidence": [
+        "coordination/release-intake/latest-A22-top-clean-candidate-root-parity-extraction-plan.json",
+        "planStatus=reviewable-non-executable",
+        "blockerRowsCovered=5",
+        "extractionUnitRows=4",
+        "rootSourcesAvailable=4",
+        "candidateTargetsMissing=4",
+        "cleanupAuthorizedRows=0",
+        "executableRows=0"
+      ]
+    },
+    {
+      "id": "candidate-root-parity-extraction-instruction-request",
+      "owner": "A25 git hygiene and release intake, coordinating A22/A06/A20/A05 extraction instruction review",
+      "status": "passed",
+      "passed": true,
+      "detail": "Root-parity extraction instruction request prepares 4 owner instruction row(s), still non-executable.",
+      "evidence": [
+        "coordination/release-intake/latest-A22-top-clean-candidate-root-parity-extraction-instruction-request.json",
+        "requestStatus=waiting-for-owner-execution-instruction",
+        "instructionRows=4",
+        "readyForOwnerInstructionRows=4",
+        "blockerRowsCovered=5",
+        "cleanupAuthorizedRows=0",
+        "executableRows=0"
+      ]
+    },
+    {
+      "id": "candidate-root-parity-extraction-instruction-intake",
+      "owner": "A25 git hygiene and release intake, coordinating A22 owner input readiness",
+      "status": "passed",
+      "passed": true,
+      "detail": "Owner input validates 4 extraction instruction row(s), still not recorded or executed.",
+      "evidence": [
+        "coordination/release-intake/latest-A22-top-clean-candidate-root-parity-extraction-instruction-intake.json",
+        "intakeStatus=ready-to-record-extraction-instruction-rows",
+        "ownerInputBlank=false",
+        "expectedRows=4",
+        "proposedInstructionRows=4",
+        "recordsExtractionInstructionRows=0",
+        "modifiesCandidateRows=0",
+        "cleanupAuthorizedRows=0",
+        "executableRows=0"
+      ]
+    },
+    {
+      "id": "candidate-root-parity-extraction-instruction-recording",
+      "owner": "A25 git hygiene and release intake, coordinating A22 extraction instruction recording",
+      "status": "passed",
+      "passed": true,
+      "detail": "Recording dry-run is fail-closed at already-recorded with 0 recorded row(s).",
+      "evidence": [
+        "coordination/release-intake/latest-A22-top-clean-candidate-root-parity-extraction-instruction-recording-dry-run.json",
+        "recorderStatus=already-recorded",
+        "intakeStatus=ready-to-record-extraction-instruction-rows",
+        "expectedRows=4",
+        "proposedInstructionRows=4",
+        "recordsExtractionInstructionRows=0",
+        "modifiesCandidateRows=0",
+        "cleanupAuthorizedRows=0",
+        "executableRows=0"
+      ]
+    },
+    {
+      "id": "candidate-root-parity-guarded-extraction",
+      "owner": "A25 git hygiene and release intake, coordinating A22 guarded extraction preflight",
+      "status": "passed",
+      "passed": true,
+      "detail": "Guarded extraction preflight sees 4 recorded instruction row(s); explicit owner apply remains separate.",
+      "evidence": [
+        "coordination/release-intake/latest-A22-top-clean-candidate-root-parity-guarded-extraction-dry-run.json",
+        "executorStatus=dry-run-ready-requires-explicit-apply",
+        "recordedInstructionRows=4",
+        "candidateTargetsMissing=4",
+        "candidateGitStatusRows=0",
+        "rootCopyRows=0",
+        "candidateMutationRows=0",
+        "cleanupAuthorizedRows=0",
+        "executableRows=0"
+      ]
+    },
+    {
+      "id": "candidate-root-parity-owner-action-packet",
+      "owner": "A25 git hygiene and release intake, coordinating A22/A06/A20/A05 owner action focus",
+      "status": "passed",
+      "passed": true,
+      "detail": "Owner action packet status is ready-for-guarded-extraction with 0 candidate mutation row(s).",
+      "evidence": [
+        "coordination/release-intake/latest-A22-top-clean-candidate-root-parity-owner-action-packet.json",
+        "focusStatus=ready-for-guarded-extraction",
+        "focusRows=4",
+        "recommendedActionRows=4",
+        "ownerInputBlank=false",
+        "recordedInstructionRows=0",
+        "rootCopyRows=0",
+        "candidateMutationRows=0",
+        "cleanupAuthorizedRows=0",
+        "executableRows=0"
+      ]
+    },
+    {
+      "id": "candidate-root-parity-owner-action-acceptance-docket",
+      "owner": "A25 git hygiene and release intake, coordinating A22 owner action acceptance validation",
+      "status": "passed",
+      "passed": true,
+      "detail": "Owner action acceptance docket status is ready-for-guarded-extraction with 4 accepted row(s).",
+      "evidence": [
+        "coordination/release-intake/latest-A22-top-clean-candidate-root-parity-owner-action-acceptance-docket.json",
+        "acceptanceStatus=ready-for-guarded-extraction",
+        "acceptanceRows=4",
+        "acceptedRows=4",
+        "ownerInputBlank=false",
+        "recordedInstructionRows=0",
+        "rootCopyRows=0",
+        "candidateMutationRows=0",
+        "cleanupAuthorizedRows=0",
+        "executableRows=0"
+      ]
+    },
+    {
+      "id": "candidate-focused-regression",
+      "owner": "A11 QA and A22 production reliability",
+      "status": "passed",
+      "passed": true,
+      "detail": "Focused Vercel region smoke passed in the top clean candidate worktree without dirtying it.",
+      "evidence": [
+        "coordination/release-intake/latest-A22-top-clean-candidate-focused-smoke.json",
+        "tests=2",
+        "pass=2",
+        "fail=0",
+        "mutationDetected=false"
+      ]
+    },
+    {
+      "id": "clean-source-promotion-instruction",
+      "owner": "Owner",
+      "status": "not-authorized",
+      "passed": false,
+      "detail": "No explicit owner instruction selects this candidate as the clean release source.",
+      "evidence": [
+        "promotionEligibleNow=false"
+      ]
+    },
+    {
+      "id": "merge-instruction",
+      "owner": "Owner",
+      "status": "not-authorized",
+      "passed": false,
+      "detail": "No separate owner merge instruction is recorded.",
+      "evidence": [
+        "readyForMerge=false"
+      ]
+    }
+  ],
+  "requiredNextEvidenceBeforePromotion": [
+    "A22 resync/review decision for the branch being behind main",
+    "candidate-specific npm run type-check evidence",
+    "candidate-specific npm run build green evidence after module blockers are fixed",
+    "A22 build-blocker owner routing evidence stays current until the module blockers are fixed",
+    "A22 root-parity extraction plan stays current until owners apply or reject each parity unit",
+    "A22 root-parity extraction instruction request stays current until owners approve or reject each extraction unit",
+    "A22 root-parity extraction instruction intake stays current until owner input is recorded and separately applied",
+    "A22 root-parity extraction instruction recording dry-run stays current until owner input is complete and separately applied",
+    "A22 root-parity guarded extraction dry-run stays current until recorded instructions exist and a separate owner apply is authorized",
+    "A22 root-parity owner action packet stays current until the owner approves, rejects, or edits each selectedAction preview",
+    "A22 root-parity owner action acceptance docket stays current until owner input is accepted into a separate recording dry-run",
+    "candidate-specific focused regression smoke evidence",
+    "explicit owner clean-source promotion instruction",
+    "A22 clean-source selection record",
+    "separate owner merge instruction"
+  ],
+  "safeValidationCommands": [
+    "npm run release:dirty-map -- --assert-current --max-age-minutes 60",
+    "node coordination/release-intake/assert-a22-clean-source-candidate-promotion-packet-current.mjs",
+    "node coordination/release-intake/assert-a22-top-clean-candidate-typecheck-current.mjs",
+    "node coordination/release-intake/assert-a22-top-clean-candidate-build-snapshot-current.mjs",
+    "node coordination/release-intake/assert-a22-top-clean-candidate-build-blocker-routing-current.mjs",
+    "node coordination/release-intake/assert-a22-top-clean-candidate-root-parity-extraction-plan-current.mjs",
+    "node coordination/release-intake/assert-a22-top-clean-candidate-root-parity-extraction-instruction-request-current.mjs",
+    "node coordination/release-intake/assert-a22-top-clean-candidate-root-parity-extraction-instruction-intake-current.mjs",
+    "node coordination/release-intake/assert-a22-top-clean-candidate-root-parity-extraction-instruction-recording-current.mjs",
+    "node coordination/release-intake/assert-a22-top-clean-candidate-root-parity-guarded-extraction-current.mjs",
+    "node coordination/release-intake/assert-a22-top-clean-candidate-root-parity-owner-action-packet-current.mjs",
+    "node coordination/release-intake/assert-a22-top-clean-candidate-root-parity-owner-action-acceptance-docket-current.mjs",
+    "node coordination/release-intake/assert-a22-top-clean-candidate-review-packet-current.mjs"
+  ],
+  "summary": {
+    "gitArchiveEvidenceReady": true,
+    "promotionEligibleNow": false,
+    "releaseSourceSelected": false,
+    "changedFiles": 4,
+    "evidenceFiles": 7,
+    "existingEvidenceFiles": 7,
+    "validationRows": 16,
+    "passedValidationRows": 11,
+    "missingPromotionGateRows": 5,
+    "focusedSmokePassed": true,
+    "typeCheckPassed": false,
+    "typeCheckErrorLineCount": 652,
+    "buildPassed": false,
+    "buildExitStatus": 1,
+    "buildFailureCategory": "webpack-module-not-found",
+    "buildConfirmedModuleBlockerRows": 5,
+    "buildModuleBlockerRows": 5,
+    "buildBlockersRouted": true,
+    "buildBlockerRouteGroupRows": 3,
+    "buildBlockerRootParitySourceRows": 5,
+    "rootParityExtractionPlanStatus": "reviewable-non-executable",
+    "rootParityExtractionUnits": 4,
+    "rootParityBlockerRowsCovered": 5,
+    "rootParitySourcesAvailable": 4,
+    "rootParityCandidateTargetsMissing": 4,
+    "rootParityInstructionRequestStatus": "waiting-for-owner-execution-instruction",
+    "rootParityInstructionRows": 4,
+    "rootParityReadyForOwnerInstructionRows": 4,
+    "rootParityInstructionIntakeStatus": "ready-to-record-extraction-instruction-rows",
+    "rootParityOwnerInputBlank": false,
+    "rootParityIntakeProposedInstructionRows": 4,
+    "rootParityIntakeWaitingOwnerInputChecks": 0,
+    "rootParityInstructionRecordingStatus": "already-recorded",
+    "rootParityRecordingProposedInstructionRows": 4,
+    "rootParityRecordingRecordedInstructionRows": 0,
+    "rootParityGuardedExtractionStatus": "dry-run-ready-requires-explicit-apply",
+    "rootParityGuardedRecordedInstructionRows": 4,
+    "rootParityGuardedCandidateTargetsMissing": 4,
+    "rootParityGuardedCandidateGitStatusRows": 0,
+    "rootParityGuardedRootCopyRows": 0,
+    "rootParityGuardedCandidateMutationRows": 0,
+    "rootParityOwnerActionPacketStatus": "ready-for-guarded-extraction",
+    "rootParityOwnerActionRows": 4,
+    "rootParityOwnerActionRecommendedRows": 4,
+    "rootParityOwnerActionOwnerInputBlank": false,
+    "rootParityOwnerActionRecordedInstructionRows": 0,
+    "rootParityOwnerActionRootCopyRows": 0,
+    "rootParityOwnerActionCandidateMutationRows": 0,
+    "rootParityOwnerActionAcceptanceDocketStatus": "ready-for-guarded-extraction",
+    "rootParityOwnerActionAcceptanceRows": 4,
+    "rootParityOwnerActionAcceptedRows": 4,
+    "rootParityOwnerActionAcceptanceOwnerInputBlank": false,
+    "rootParityOwnerActionAcceptanceRecordedInstructionRows": 0,
+    "rootParityOwnerActionAcceptanceRootCopyRows": 0,
+    "rootParityOwnerActionAcceptanceCandidateMutationRows": 0,
+    "buildNextDirPresent": true,
+    "buildNextDirSizeMiB": 948,
+    "pendingCanonicalAuthorizationRows": 39,
+    "directFailedMergeChecks": 4,
+    "cleanupAuthorizedRows": 0,
+    "executableRows": 0,
+    "sourceCurrentnessFailures": 0
+  },
+  "boundary": {
+    "evidenceOnly": true,
+    "readsArchiveEvidenceOnly": true,
+    "createsClone": false,
+    "createsWorktree": false,
+    "selectsReleaseSource": false,
+    "recordsOwnerApproval": false,
+    "recordsExecutionInstruction": false,
+    "runsTypeCheck": false,
+    "runsBuild": false,
+    "runsRegression": false,
+    "stagesFiles": false,
+    "commits": false,
+    "merges": false,
+    "pushes": false,
+    "deploys": false,
+    "cleanupAuthorized": false,
+    "executableNow": false,
+    "destructiveGitAuthorized": false,
+    "physicalLifecycleCleanupAuthorized": false
+  }
+}

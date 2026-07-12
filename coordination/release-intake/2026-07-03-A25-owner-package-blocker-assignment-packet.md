@@ -1,0 +1,666 @@
+# A25 Owner Package Blocker Assignment Packet
+
+Generated: 2026-07-03T08:38:45.989Z
+
+Dirty map signature: `c01ea98a87118c49adfca945884588d4008699e1175537903861425d2ff30ffc`
+
+Expanded dirty entries: 4023
+
+Source routing generated: 2026-07-03T08:38:45.944Z
+
+This is assignment evidence only. It does not authorize staging, committing, discarding, tagging, pushing, pruning, deploying, branch deletion, reset, clean, restore, worktree removal, file deletion, feature fixes, or any physical cleanup.
+
+## Summary
+
+- Assignments: 11
+- Source routing rows: 15
+- Source blocked matrix rows: 15
+- Package row links: 54
+- Read-scope file links: 152
+- Unique read files: 30
+- Write-scope candidates: 20
+- Coordination-required file links: 32
+- Cleanup-authorized rows: 0
+- Executable rows: 0
+
+| Agent | Role | Package rows | Read links | Write candidates | Coordination required | Cleanup authorized | Executable |
+| --- | --- | ---: | ---: | ---: | ---: | --- | --- |
+| A06 | Visualization lead | 14 | 44 | 6 | 5 | no | no |
+| A13 | Teacher console lead | 13 | 69 | 6 | 6 | no | no |
+| A18 | Curriculum QA and content quality lead | 4 | 10 | 0 | 6 | no | no |
+| A03 | Curriculum roadmap lead | 3 | 8 | 1 | 5 | no | no |
+| A04 | Practice lead | 2 | 2 | 1 | 1 | no | no |
+| A20 | Game design and game-based learning lead | 8 | 9 | 2 | 2 | no | no |
+| A25 | Git hygiene and release intake lead | 4 | 4 | 0 | 4 | no | no |
+| A15 | Adaptive engine lead | 2 | 2 | 1 | 1 | no | no |
+| A11 | QA and release quality lead | 1 | 1 | 1 | 0 | no | no |
+| A12 | Backend/API platform lead | 2 | 2 | 1 | 2 | no | no |
+| A07 | AI tutor/provider integration lead | 1 | 1 | 1 | 0 | no | no |
+
+## A06 Visualization lead
+
+- Objective: Resolve or formally block the owner-package blockers routed to A06 without widening beyond AGENTS.md owner scope.
+- Recommended worktree: `/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A06-visualization-closure`
+- Package rows:
+  - `wave-01-governance-release-hygiene:wave-01-governance-release-hygiene`: A25/A10/A22 governance and release hygiene; failed checks: typeCheck
+  - `wave-02-shared-contracts:wave-02-shared-contracts`: A08/A12 shared contracts and storage/API stability; failed checks: testAnalytics, testBackend, typeCheck, build
+  - `wave-03-shell-dashboard-roadmap:a01-app-shell`: A01 app shell; failed checks: typeCheck, appShellPlaywright
+  - `wave-03-shell-dashboard-roadmap:a02-a15-dashboard-adaptive`: A02/A15 dashboard adaptive; failed checks: testAnalytics, typeCheck, dashboardAdaptivePlaywright
+  - `wave-03-shell-dashboard-roadmap:a03-roadmap`: A03 roadmap; failed checks: typeCheck, roadmapPlaywright
+  - `wave-04-practice-lesson-content:a04-practice`: A04 practice; failed checks: testQuestionBank, typeCheck, practicePlaywright
+  - `wave-04-practice-lesson-content:a05-lesson`: A05 lesson; failed checks: typeCheck, lessonPlaywright
+  - `wave-04-practice-lesson-content:a18-a21-a23-a24-content-evidence`: A18/A21/A23/A24 content evidence; failed checks: testRag, testQuestionBank, typeCheck
+  - `wave-05-visualization-ai-runtime:a06-visualization`: A06 visualization; failed checks: typeCheck, visualizationNodeTests, visualizationPlaywright
+  - `wave-05-visualization-ai-runtime:a07-ai-tutor`: A07 AI tutor; failed checks: typeCheck, aiTutorPlaywright
+  - `wave-05-visualization-ai-runtime:a09-copy-i18n-accessibility`: A09 copy/i18n/accessibility; failed checks: typeCheck
+  - `wave-05-visualization-ai-runtime:a11-regression-evidence`: A11 regression evidence; failed checks: typeCheck, regressionPlaywright
+  - `wave-05-visualization-ai-runtime:a13-a14-console`: A13/A14 console; failed checks: typeCheck, consolePlaywright
+  - `wave-05-visualization-ai-runtime:a17-a20-game-motivation`: A17/A20 games and motivation; failed checks: typeCheck, gameMotivationPlaywright
+- Read scope:
+  - `components/visualizations/three/manim/MathSceneRuntime.tsx` (12 errors) from `wave-02-shared-contracts:wave-02-shared-contracts`; route: cross-owner-blocker
+  - `components/visualizations/three/manim/MathSceneRuntime.tsx` (25 errors) from `wave-05-visualization-ai-runtime:a06-visualization`; route: package-owner
+  - `components/visualizations/three/manim/MathSceneRuntime.tsx` (12 errors) from `wave-05-visualization-ai-runtime:a09-copy-i18n-accessibility`; route: cross-owner-blocker
+  - `components/visualizations/three/manim/MathSceneRuntime.tsx` (12 errors) from `wave-05-visualization-ai-runtime:a17-a20-game-motivation`; route: cross-owner-blocker
+  - `components/visualizations/three/scenes/TemplatePrimitiveScene.tsx` (206 errors) from `wave-02-shared-contracts:wave-02-shared-contracts`; route: cross-owner-blocker
+  - `components/visualizations/three/scenes/TemplatePrimitiveScene.tsx` (206 errors) from `wave-03-shell-dashboard-roadmap:a01-app-shell`; route: cross-owner-blocker
+  - `components/visualizations/three/scenes/TemplatePrimitiveScene.tsx` (206 errors) from `wave-03-shell-dashboard-roadmap:a02-a15-dashboard-adaptive`; route: cross-owner-blocker
+  - `components/visualizations/three/scenes/TemplatePrimitiveScene.tsx` (206 errors) from `wave-03-shell-dashboard-roadmap:a03-roadmap`; route: cross-owner-blocker
+  - `components/visualizations/three/scenes/TemplatePrimitiveScene.tsx` (206 errors) from `wave-04-practice-lesson-content:a04-practice`; route: cross-owner-blocker
+  - `components/visualizations/three/scenes/TemplatePrimitiveScene.tsx` (206 errors) from `wave-04-practice-lesson-content:a05-lesson`; route: cross-owner-blocker
+  - `components/visualizations/three/scenes/TemplatePrimitiveScene.tsx` (206 errors) from `wave-04-practice-lesson-content:a18-a21-a23-a24-content-evidence`; route: cross-owner-blocker
+  - `components/visualizations/three/scenes/TemplatePrimitiveScene.tsx` (216 errors) from `wave-05-visualization-ai-runtime:a06-visualization`; route: package-owner
+  - `components/visualizations/three/scenes/TemplatePrimitiveScene.tsx` (206 errors) from `wave-05-visualization-ai-runtime:a07-ai-tutor`; route: cross-owner-blocker
+  - `components/visualizations/three/scenes/TemplatePrimitiveScene.tsx` (206 errors) from `wave-05-visualization-ai-runtime:a09-copy-i18n-accessibility`; route: cross-owner-blocker
+  - `components/visualizations/three/scenes/TemplatePrimitiveScene.tsx` (206 errors) from `wave-05-visualization-ai-runtime:a11-regression-evidence`; route: cross-owner-blocker
+  - `components/visualizations/three/scenes/TemplatePrimitiveScene.tsx` (206 errors) from `wave-05-visualization-ai-runtime:a13-a14-console`; route: cross-owner-blocker
+  - `components/visualizations/three/scenes/TemplatePrimitiveScene.tsx` (206 errors) from `wave-05-visualization-ai-runtime:a17-a20-game-motivation`; route: cross-owner-blocker
+  - `components/visualizations/three/ThreeDGraphCanvas.tsx` (21 errors) from `wave-02-shared-contracts:wave-02-shared-contracts`; route: cross-owner-blocker
+  - `components/visualizations/three/ThreeDGraphCanvas.tsx` (21 errors) from `wave-03-shell-dashboard-roadmap:a01-app-shell`; route: cross-owner-blocker
+  - `components/visualizations/three/ThreeDGraphCanvas.tsx` (21 errors) from `wave-03-shell-dashboard-roadmap:a02-a15-dashboard-adaptive`; route: cross-owner-blocker
+  - `components/visualizations/three/ThreeDGraphCanvas.tsx` (21 errors) from `wave-03-shell-dashboard-roadmap:a03-roadmap`; route: cross-owner-blocker
+  - `components/visualizations/three/ThreeDGraphCanvas.tsx` (21 errors) from `wave-04-practice-lesson-content:a04-practice`; route: cross-owner-blocker
+  - `components/visualizations/three/ThreeDGraphCanvas.tsx` (21 errors) from `wave-04-practice-lesson-content:a05-lesson`; route: cross-owner-blocker
+  - `components/visualizations/three/ThreeDGraphCanvas.tsx` (21 errors) from `wave-04-practice-lesson-content:a18-a21-a23-a24-content-evidence`; route: cross-owner-blocker
+- Write scope candidates:
+  - `components/visualizations/three/manim/MathSceneRuntime.tsx`
+  - `components/visualizations/three/scenes/TemplatePrimitiveScene.tsx`
+  - `components/visualizations/three/ThreeDGraphCanvas.tsx`
+  - `components/visualizations/three/ThreeDLabCanvas.tsx`
+  - `components/visualizations/three/threeDSceneMath.catalog.test.ts`
+  - `components/visualizations/VisualizationLabPage.tsx`
+- Coordination required:
+  - `components/visualizations/three/manim/MathSceneRuntime.tsx`: cross-owner blocker; coordinate with package owner before editing
+  - `components/visualizations/three/scenes/TemplatePrimitiveScene.tsx`: cross-owner blocker; coordinate with package owner before editing
+  - `components/visualizations/three/ThreeDGraphCanvas.tsx`: cross-owner blocker; coordinate with package owner before editing
+  - `components/visualizations/three/threeDSceneMath.catalog.test.ts`: cross-owner blocker; coordinate with package owner before editing
+  - `components/visualizations/VisualizationLabPage.tsx`: cross-owner blocker; coordinate with package owner before editing
+- Forbidden scope:
+  - RoadmapVisualizationSuite.tsx unless coordinated with A03
+  - AI route
+  - provider state
+  - curriculum/content final signoff without A18
+- Acceptance criteria:
+  - Every routed package row is either fixed inside this owner's allowed write scope or covered by an owner-routed blocker report.
+  - Files outside this owner's AGENTS.md write scope stay read-only unless the owner explicitly expands scope.
+  - Cross-owner files are coordinated with the package owner before edits.
+  - No dirty-root deploy, broad staging, physical cleanup, branch deletion, reset, clean, restore, or worktree removal is performed.
+  - A25 can rerun owner-package readiness, blocker routing, assignment packet currentness, and aggregate currentness after handoff.
+- Checks:
+  - `npm run type-check -- --pretty false`
+  - `npm run test:analytics`
+  - `npm run test:backend`
+  - `npm run build`
+  - `npx playwright test tests/e2e/app-shell-auth.spec.ts tests/e2e/home-functional.spec.ts --project=desktop-chrome`
+  - `npx playwright test tests/e2e/student-smoke.spec.ts tests/e2e/adaptive-llm-smoke.spec.ts --project=desktop-chrome`
+  - `npx playwright test tests/e2e/mainland-hjb-roadmaps.spec.ts tests/e2e/mainland-pep-roadmaps.spec.ts --project=desktop-chrome`
+  - `npm run test:question-bank`
+  - `npx playwright test tests/e2e/practice-pager.spec.ts tests/e2e/student-smoke.spec.ts --project=desktop-chrome`
+  - `npx playwright test tests/e2e/lesson-all.spec.ts tests/e2e/mainland-pep-high-lessons.spec.ts tests/e2e/california-k5-textbook-lessons.spec.ts --project=desktop-chrome`
+  - `npm run test:rag`
+  - `node --test components/visualizations/configuredVisualizationLabRegressions.test.ts components/visualizations/three/threeDCanvasContract.test.ts components/visualizations/visualizationDiagnostics.test.ts`
+  - `npx playwright test tests/e2e/visualization-values.spec.ts tests/e2e/visualization-overlap.spec.ts --project=desktop-chrome`
+  - `npx playwright test tests/e2e/ai-tutor-deepseek.spec.ts tests/e2e/ai-tutor-live-text.spec.ts --project=desktop-chrome`
+  - `npx playwright test tests/e2e/student-smoke.spec.ts tests/e2e/backend-api.spec.ts --project=desktop-chrome`
+  - `npx playwright test tests/e2e/teacher-workspace.spec.ts tests/e2e/parent-console.spec.ts tests/e2e/class-forum.spec.ts --project=desktop-chrome`
+  - `npx playwright test tests/e2e/adventure-island.spec.ts tests/e2e/fishing-game.spec.ts tests/e2e/gamification.spec.ts --project=desktop-chrome`
+  - `node coordination/release-intake/generate-owner-package-readiness-blocker-matrix.mjs`
+  - `node coordination/release-intake/assert-owner-package-blocker-routing-current.mjs`
+  - `node coordination/release-intake/assert-owner-package-blocker-assignment-packet-current.mjs`
+  - `node coordination/release-intake/assert-dirty-worktree-remediation-current.mjs`
+- Stop conditions:
+  - Stop if the fix requires adding/removing package dependencies without A10/A22 approval.
+  - Stop if the fix requires shared type/schema changes without A08 coordination.
+  - Stop if a routed file is outside this owner's write scope and no explicit scope expansion exists.
+  - Stop if the assignment needs owner-approved Git operations; A25 evidence alone is not authorization.
+  - Stop if the work would expose or edit real secrets.
+
+## A13 Teacher console lead
+
+- Objective: Resolve or formally block the owner-package blockers routed to A13 without widening beyond AGENTS.md owner scope.
+- Recommended worktree: `/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A13-teacher-console-closure`
+- Package rows:
+  - `wave-01-governance-release-hygiene:wave-01-governance-release-hygiene`: A25/A10/A22 governance and release hygiene; failed checks: typeCheck
+  - `wave-03-shell-dashboard-roadmap:a01-app-shell`: A01 app shell; failed checks: typeCheck, appShellPlaywright
+  - `wave-03-shell-dashboard-roadmap:a02-a15-dashboard-adaptive`: A02/A15 dashboard adaptive; failed checks: testAnalytics, typeCheck, dashboardAdaptivePlaywright
+  - `wave-03-shell-dashboard-roadmap:a03-roadmap`: A03 roadmap; failed checks: typeCheck, roadmapPlaywright
+  - `wave-04-practice-lesson-content:a04-practice`: A04 practice; failed checks: testQuestionBank, typeCheck, practicePlaywright
+  - `wave-04-practice-lesson-content:a05-lesson`: A05 lesson; failed checks: typeCheck, lessonPlaywright
+  - `wave-04-practice-lesson-content:a18-a21-a23-a24-content-evidence`: A18/A21/A23/A24 content evidence; failed checks: testRag, testQuestionBank, typeCheck
+  - `wave-05-visualization-ai-runtime:a06-visualization`: A06 visualization; failed checks: typeCheck, visualizationNodeTests, visualizationPlaywright
+  - `wave-05-visualization-ai-runtime:a07-ai-tutor`: A07 AI tutor; failed checks: typeCheck, aiTutorPlaywright
+  - `wave-05-visualization-ai-runtime:a09-copy-i18n-accessibility`: A09 copy/i18n/accessibility; failed checks: typeCheck
+  - `wave-05-visualization-ai-runtime:a11-regression-evidence`: A11 regression evidence; failed checks: typeCheck, regressionPlaywright
+  - `wave-05-visualization-ai-runtime:a13-a14-console`: A13/A14 console; failed checks: typeCheck, consolePlaywright
+  - `wave-05-visualization-ai-runtime:a17-a20-game-motivation`: A17/A20 games and motivation; failed checks: typeCheck, gameMotivationPlaywright
+- Read scope:
+  - `app/api/teacher/review-lessons/[reviewLessonId]/route.ts` (9 errors) from `wave-01-governance-release-hygiene:wave-01-governance-release-hygiene`; route: cross-owner-blocker
+  - `components/teacher/TeacherLiveView.tsx` (36 errors) from `wave-05-visualization-ai-runtime:a13-a14-console`; route: package-owner
+  - `components/teacher/TeacherManagementViews.tsx` (31 errors) from `wave-05-visualization-ai-runtime:a13-a14-console`; route: package-owner
+  - `components/teacher/TeacherOperationsView.tsx` (32 errors) from `wave-01-governance-release-hygiene:wave-01-governance-release-hygiene`; route: cross-owner-blocker
+  - `components/teacher/TeacherOperationsView.tsx` (32 errors) from `wave-03-shell-dashboard-roadmap:a01-app-shell`; route: cross-owner-blocker
+  - `components/teacher/TeacherOperationsView.tsx` (32 errors) from `wave-03-shell-dashboard-roadmap:a02-a15-dashboard-adaptive`; route: cross-owner-blocker
+  - `components/teacher/TeacherOperationsView.tsx` (32 errors) from `wave-03-shell-dashboard-roadmap:a03-roadmap`; route: cross-owner-blocker
+  - `components/teacher/TeacherOperationsView.tsx` (32 errors) from `wave-04-practice-lesson-content:a04-practice`; route: cross-owner-blocker
+  - `components/teacher/TeacherOperationsView.tsx` (32 errors) from `wave-04-practice-lesson-content:a05-lesson`; route: cross-owner-blocker
+  - `components/teacher/TeacherOperationsView.tsx` (32 errors) from `wave-04-practice-lesson-content:a18-a21-a23-a24-content-evidence`; route: cross-owner-blocker
+  - `components/teacher/TeacherOperationsView.tsx` (32 errors) from `wave-05-visualization-ai-runtime:a06-visualization`; route: cross-owner-blocker
+  - `components/teacher/TeacherOperationsView.tsx` (32 errors) from `wave-05-visualization-ai-runtime:a07-ai-tutor`; route: cross-owner-blocker
+  - `components/teacher/TeacherOperationsView.tsx` (32 errors) from `wave-05-visualization-ai-runtime:a09-copy-i18n-accessibility`; route: cross-owner-blocker
+  - `components/teacher/TeacherOperationsView.tsx` (32 errors) from `wave-05-visualization-ai-runtime:a11-regression-evidence`; route: cross-owner-blocker
+  - `components/teacher/TeacherOperationsView.tsx` (32 errors) from `wave-05-visualization-ai-runtime:a13-a14-console`; route: package-owner
+  - `components/teacher/TeacherOperationsView.tsx` (32 errors) from `wave-05-visualization-ai-runtime:a17-a20-game-motivation`; route: cross-owner-blocker
+  - `components/teacher/TeacherPrepViews.tsx` (36 errors) from `wave-01-governance-release-hygiene:wave-01-governance-release-hygiene`; route: cross-owner-blocker
+  - `components/teacher/TeacherPrepViews.tsx` (36 errors) from `wave-03-shell-dashboard-roadmap:a01-app-shell`; route: cross-owner-blocker
+  - `components/teacher/TeacherPrepViews.tsx` (36 errors) from `wave-03-shell-dashboard-roadmap:a02-a15-dashboard-adaptive`; route: cross-owner-blocker
+  - `components/teacher/TeacherPrepViews.tsx` (36 errors) from `wave-03-shell-dashboard-roadmap:a03-roadmap`; route: cross-owner-blocker
+  - `components/teacher/TeacherPrepViews.tsx` (36 errors) from `wave-04-practice-lesson-content:a04-practice`; route: cross-owner-blocker
+  - `components/teacher/TeacherPrepViews.tsx` (36 errors) from `wave-04-practice-lesson-content:a05-lesson`; route: cross-owner-blocker
+  - `components/teacher/TeacherPrepViews.tsx` (36 errors) from `wave-04-practice-lesson-content:a18-a21-a23-a24-content-evidence`; route: cross-owner-blocker
+  - `components/teacher/TeacherPrepViews.tsx` (36 errors) from `wave-05-visualization-ai-runtime:a06-visualization`; route: cross-owner-blocker
+- Write scope candidates:
+  - `components/teacher/TeacherLiveView.tsx`
+  - `components/teacher/TeacherManagementViews.tsx`
+  - `components/teacher/TeacherOperationsView.tsx`
+  - `components/teacher/TeacherPrepViews.tsx`
+  - `components/teacher/TeacherResourceAssessmentViews.tsx`
+  - `components/teacher/TeacherReviewLessonView.tsx`
+- Coordination required:
+  - `app/api/teacher/review-lessons/[reviewLessonId]/route.ts`: outside this owner's AGENTS.md write scope
+  - `components/teacher/TeacherOperationsView.tsx`: cross-owner blocker; coordinate with package owner before editing
+  - `components/teacher/TeacherPrepViews.tsx`: cross-owner blocker; coordinate with package owner before editing
+  - `components/teacher/TeacherReviewLessonView.tsx`: cross-owner blocker; coordinate with package owner before editing
+  - `lib/teacherReviewLesson.ts`: outside this owner's AGENTS.md write scope
+  - `lib/teacherReviewLessonPptx.ts`: outside this owner's AGENTS.md write scope
+- Forbidden scope:
+  - general API implementation
+  - parent/student UI
+  - AI Tutor
+  - adaptive engine
+  - shared types/i18n except coordinated copy-only edits
+- Acceptance criteria:
+  - Every routed package row is either fixed inside this owner's allowed write scope or covered by an owner-routed blocker report.
+  - Files outside this owner's AGENTS.md write scope stay read-only unless the owner explicitly expands scope.
+  - Cross-owner files are coordinated with the package owner before edits.
+  - No dirty-root deploy, broad staging, physical cleanup, branch deletion, reset, clean, restore, or worktree removal is performed.
+  - A25 can rerun owner-package readiness, blocker routing, assignment packet currentness, and aggregate currentness after handoff.
+- Checks:
+  - `npm run type-check -- --pretty false`
+  - `npx playwright test tests/e2e/app-shell-auth.spec.ts tests/e2e/home-functional.spec.ts --project=desktop-chrome`
+  - `npm run test:analytics`
+  - `npx playwright test tests/e2e/student-smoke.spec.ts tests/e2e/adaptive-llm-smoke.spec.ts --project=desktop-chrome`
+  - `npx playwright test tests/e2e/mainland-hjb-roadmaps.spec.ts tests/e2e/mainland-pep-roadmaps.spec.ts --project=desktop-chrome`
+  - `npm run test:question-bank`
+  - `npx playwright test tests/e2e/practice-pager.spec.ts tests/e2e/student-smoke.spec.ts --project=desktop-chrome`
+  - `npx playwright test tests/e2e/lesson-all.spec.ts tests/e2e/mainland-pep-high-lessons.spec.ts tests/e2e/california-k5-textbook-lessons.spec.ts --project=desktop-chrome`
+  - `npm run test:rag`
+  - `node --test components/visualizations/configuredVisualizationLabRegressions.test.ts components/visualizations/three/threeDCanvasContract.test.ts components/visualizations/visualizationDiagnostics.test.ts`
+  - `npx playwright test tests/e2e/visualization-values.spec.ts tests/e2e/visualization-overlap.spec.ts --project=desktop-chrome`
+  - `npx playwright test tests/e2e/ai-tutor-deepseek.spec.ts tests/e2e/ai-tutor-live-text.spec.ts --project=desktop-chrome`
+  - `npx playwright test tests/e2e/student-smoke.spec.ts tests/e2e/backend-api.spec.ts --project=desktop-chrome`
+  - `npx playwright test tests/e2e/teacher-workspace.spec.ts tests/e2e/parent-console.spec.ts tests/e2e/class-forum.spec.ts --project=desktop-chrome`
+  - `npx playwright test tests/e2e/adventure-island.spec.ts tests/e2e/fishing-game.spec.ts tests/e2e/gamification.spec.ts --project=desktop-chrome`
+  - `node coordination/release-intake/generate-owner-package-readiness-blocker-matrix.mjs`
+  - `node coordination/release-intake/assert-owner-package-blocker-routing-current.mjs`
+  - `node coordination/release-intake/assert-owner-package-blocker-assignment-packet-current.mjs`
+  - `node coordination/release-intake/assert-dirty-worktree-remediation-current.mjs`
+- Stop conditions:
+  - Stop if the fix requires adding/removing package dependencies without A10/A22 approval.
+  - Stop if the fix requires shared type/schema changes without A08 coordination.
+  - Stop if a routed file is outside this owner's write scope and no explicit scope expansion exists.
+  - Stop if the assignment needs owner-approved Git operations; A25 evidence alone is not authorization.
+  - Stop if the work would expose or edit real secrets.
+
+## A18 Curriculum QA and content quality lead
+
+- Objective: Resolve or formally block the owner-package blockers routed to A18 without widening beyond AGENTS.md owner scope.
+- Recommended worktree: `/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A18-content-qa-closure`
+- Package rows:
+  - `wave-02-shared-contracts:wave-02-shared-contracts`: A08/A12 shared contracts and storage/API stability; failed checks: testAnalytics, testBackend, typeCheck, build
+  - `wave-03-shell-dashboard-roadmap:a03-roadmap`: A03 roadmap; failed checks: typeCheck, roadmapPlaywright
+  - `wave-04-practice-lesson-content:a04-practice`: A04 practice; failed checks: testQuestionBank, typeCheck, practicePlaywright
+  - `wave-04-practice-lesson-content:a05-lesson`: A05 lesson; failed checks: typeCheck, lessonPlaywright
+- Read scope:
+  - `data/mainlandPepHighTopics.ts` (22 errors) from `wave-02-shared-contracts:wave-02-shared-contracts`; route: cross-owner-blocker
+  - `data/mainlandPepHighTopics.ts` (22 errors) from `wave-03-shell-dashboard-roadmap:a03-roadmap`; route: cross-owner-blocker
+  - `data/mainlandPepPrimaryTopics.ts` (24 errors) from `wave-02-shared-contracts:wave-02-shared-contracts`; route: cross-owner-blocker
+  - `data/mainlandPepPrimaryTopics.ts` (24 errors) from `wave-03-shell-dashboard-roadmap:a03-roadmap`; route: cross-owner-blocker
+  - `data/questions.ts` (91 errors) from `wave-02-shared-contracts:wave-02-shared-contracts`; route: cross-owner-blocker
+  - `data/questions.ts` (91 errors) from `wave-04-practice-lesson-content:a04-practice`; route: cross-owner-blocker
+  - `data/topics.ts` (49 errors) from `wave-02-shared-contracts:wave-02-shared-contracts`; route: cross-owner-blocker
+  - `data/topics.ts` (49 errors) from `wave-03-shell-dashboard-roadmap:a03-roadmap`; route: cross-owner-blocker
+  - `data/usCaliforniaLessons.test.ts` (15 errors) from `wave-04-practice-lesson-content:a05-lesson`; route: cross-owner-blocker
+  - `data/usCaliforniaLessons.ts` (20 errors) from `wave-04-practice-lesson-content:a05-lesson`; route: cross-owner-blocker
+- Write scope candidates:
+  - none until owner scope is expanded
+- Coordination required:
+  - `data/mainlandPepHighTopics.ts`: outside this owner's AGENTS.md write scope
+  - `data/mainlandPepPrimaryTopics.ts`: outside this owner's AGENTS.md write scope
+  - `data/questions.ts`: outside this owner's AGENTS.md write scope
+  - `data/topics.ts`: outside this owner's AGENTS.md write scope
+  - `data/usCaliforniaLessons.test.ts`: outside this owner's AGENTS.md write scope
+  - `data/usCaliforniaLessons.ts`: outside this owner's AGENTS.md write scope
+- Forbidden scope:
+  - content generation pipeline ownership
+  - large direct edits to question/topic/lesson source files without assignment
+  - adaptive implementation
+  - practice/lesson UI rewrites
+- Acceptance criteria:
+  - Every routed package row is either fixed inside this owner's allowed write scope or covered by an owner-routed blocker report.
+  - Files outside this owner's AGENTS.md write scope stay read-only unless the owner explicitly expands scope.
+  - Cross-owner files are coordinated with the package owner before edits.
+  - No dirty-root deploy, broad staging, physical cleanup, branch deletion, reset, clean, restore, or worktree removal is performed.
+  - A25 can rerun owner-package readiness, blocker routing, assignment packet currentness, and aggregate currentness after handoff.
+- Checks:
+  - `npm run test:analytics`
+  - `npm run test:backend`
+  - `npm run type-check -- --pretty false`
+  - `npm run build`
+  - `npx playwright test tests/e2e/mainland-hjb-roadmaps.spec.ts tests/e2e/mainland-pep-roadmaps.spec.ts --project=desktop-chrome`
+  - `npm run test:question-bank`
+  - `npx playwright test tests/e2e/practice-pager.spec.ts tests/e2e/student-smoke.spec.ts --project=desktop-chrome`
+  - `npx playwright test tests/e2e/lesson-all.spec.ts tests/e2e/mainland-pep-high-lessons.spec.ts tests/e2e/california-k5-textbook-lessons.spec.ts --project=desktop-chrome`
+  - `node coordination/release-intake/generate-owner-package-readiness-blocker-matrix.mjs`
+  - `node coordination/release-intake/assert-owner-package-blocker-routing-current.mjs`
+  - `node coordination/release-intake/assert-owner-package-blocker-assignment-packet-current.mjs`
+  - `node coordination/release-intake/assert-dirty-worktree-remediation-current.mjs`
+- Stop conditions:
+  - Stop if the fix requires adding/removing package dependencies without A10/A22 approval.
+  - Stop if the fix requires shared type/schema changes without A08 coordination.
+  - Stop if a routed file is outside this owner's write scope and no explicit scope expansion exists.
+  - Stop if the assignment needs owner-approved Git operations; A25 evidence alone is not authorization.
+  - Stop if the work would expose or edit real secrets.
+
+## A03 Curriculum roadmap lead
+
+- Objective: Resolve or formally block the owner-package blockers routed to A03 without widening beyond AGENTS.md owner scope.
+- Recommended worktree: `/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A03-roadmap-closure`
+- Package rows:
+  - `wave-02-shared-contracts:wave-02-shared-contracts`: A08/A12 shared contracts and storage/API stability; failed checks: testAnalytics, testBackend, typeCheck, build
+  - `wave-03-shell-dashboard-roadmap:a03-roadmap`: A03 roadmap; failed checks: typeCheck, roadmapPlaywright
+  - `wave-04-practice-lesson-content:a05-lesson`: A05 lesson; failed checks: typeCheck, lessonPlaywright
+- Read scope:
+  - `data/mainlandPepHighTopics.ts` (22 errors) from `wave-02-shared-contracts:wave-02-shared-contracts`; route: cross-owner-blocker
+  - `data/mainlandPepHighTopics.ts` (22 errors) from `wave-03-shell-dashboard-roadmap:a03-roadmap`; route: package-owner
+  - `data/mainlandPepPrimaryTopics.ts` (24 errors) from `wave-02-shared-contracts:wave-02-shared-contracts`; route: cross-owner-blocker
+  - `data/mainlandPepPrimaryTopics.ts` (24 errors) from `wave-03-shell-dashboard-roadmap:a03-roadmap`; route: package-owner
+  - `data/topics.ts` (49 errors) from `wave-02-shared-contracts:wave-02-shared-contracts`; route: cross-owner-blocker
+  - `data/topics.ts` (49 errors) from `wave-03-shell-dashboard-roadmap:a03-roadmap`; route: package-owner
+  - `data/usCaliforniaLessons.test.ts` (15 errors) from `wave-04-practice-lesson-content:a05-lesson`; route: cross-owner-blocker
+  - `data/usCaliforniaLessons.ts` (20 errors) from `wave-04-practice-lesson-content:a05-lesson`; route: cross-owner-blocker
+- Write scope candidates:
+  - `data/topics.ts`
+- Coordination required:
+  - `data/mainlandPepHighTopics.ts`: outside this owner's AGENTS.md write scope
+  - `data/mainlandPepPrimaryTopics.ts`: outside this owner's AGENTS.md write scope
+  - `data/topics.ts`: cross-owner blocker; coordinate with package owner before editing
+  - `data/usCaliforniaLessons.test.ts`: outside this owner's AGENTS.md write scope
+  - `data/usCaliforniaLessons.ts`: outside this owner's AGENTS.md write scope
+- Forbidden scope:
+  - practice question bank
+  - AI route
+  - shared provider state
+  - global config
+- Acceptance criteria:
+  - Every routed package row is either fixed inside this owner's allowed write scope or covered by an owner-routed blocker report.
+  - Files outside this owner's AGENTS.md write scope stay read-only unless the owner explicitly expands scope.
+  - Cross-owner files are coordinated with the package owner before edits.
+  - No dirty-root deploy, broad staging, physical cleanup, branch deletion, reset, clean, restore, or worktree removal is performed.
+  - A25 can rerun owner-package readiness, blocker routing, assignment packet currentness, and aggregate currentness after handoff.
+- Checks:
+  - `npm run test:analytics`
+  - `npm run test:backend`
+  - `npm run type-check -- --pretty false`
+  - `npm run build`
+  - `npx playwright test tests/e2e/mainland-hjb-roadmaps.spec.ts tests/e2e/mainland-pep-roadmaps.spec.ts --project=desktop-chrome`
+  - `npx playwright test tests/e2e/lesson-all.spec.ts tests/e2e/mainland-pep-high-lessons.spec.ts tests/e2e/california-k5-textbook-lessons.spec.ts --project=desktop-chrome`
+  - `node coordination/release-intake/generate-owner-package-readiness-blocker-matrix.mjs`
+  - `node coordination/release-intake/assert-owner-package-blocker-routing-current.mjs`
+  - `node coordination/release-intake/assert-owner-package-blocker-assignment-packet-current.mjs`
+  - `node coordination/release-intake/assert-dirty-worktree-remediation-current.mjs`
+- Stop conditions:
+  - Stop if the fix requires adding/removing package dependencies without A10/A22 approval.
+  - Stop if the fix requires shared type/schema changes without A08 coordination.
+  - Stop if a routed file is outside this owner's write scope and no explicit scope expansion exists.
+  - Stop if the assignment needs owner-approved Git operations; A25 evidence alone is not authorization.
+  - Stop if the work would expose or edit real secrets.
+
+## A04 Practice lead
+
+- Objective: Resolve or formally block the owner-package blockers routed to A04 without widening beyond AGENTS.md owner scope.
+- Recommended worktree: `/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A04-practice-closure`
+- Package rows:
+  - `wave-02-shared-contracts:wave-02-shared-contracts`: A08/A12 shared contracts and storage/API stability; failed checks: testAnalytics, testBackend, typeCheck, build
+  - `wave-04-practice-lesson-content:a04-practice`: A04 practice; failed checks: testQuestionBank, typeCheck, practicePlaywright
+- Read scope:
+  - `data/questions.ts` (91 errors) from `wave-02-shared-contracts:wave-02-shared-contracts`; route: cross-owner-blocker
+  - `data/questions.ts` (91 errors) from `wave-04-practice-lesson-content:a04-practice`; route: package-owner
+- Write scope candidates:
+  - `data/questions.ts`
+- Coordination required:
+  - `data/questions.ts`: cross-owner blocker; coordinate with package owner before editing
+- Forbidden scope:
+  - roadmap data
+  - visualization modules
+  - AI route
+  - global config
+- Acceptance criteria:
+  - Every routed package row is either fixed inside this owner's allowed write scope or covered by an owner-routed blocker report.
+  - Files outside this owner's AGENTS.md write scope stay read-only unless the owner explicitly expands scope.
+  - Cross-owner files are coordinated with the package owner before edits.
+  - No dirty-root deploy, broad staging, physical cleanup, branch deletion, reset, clean, restore, or worktree removal is performed.
+  - A25 can rerun owner-package readiness, blocker routing, assignment packet currentness, and aggregate currentness after handoff.
+- Checks:
+  - `npm run test:analytics`
+  - `npm run test:backend`
+  - `npm run type-check -- --pretty false`
+  - `npm run build`
+  - `npm run test:question-bank`
+  - `npx playwright test tests/e2e/practice-pager.spec.ts tests/e2e/student-smoke.spec.ts --project=desktop-chrome`
+  - `node coordination/release-intake/generate-owner-package-readiness-blocker-matrix.mjs`
+  - `node coordination/release-intake/assert-owner-package-blocker-routing-current.mjs`
+  - `node coordination/release-intake/assert-owner-package-blocker-assignment-packet-current.mjs`
+  - `node coordination/release-intake/assert-dirty-worktree-remediation-current.mjs`
+- Stop conditions:
+  - Stop if the fix requires adding/removing package dependencies without A10/A22 approval.
+  - Stop if the fix requires shared type/schema changes without A08 coordination.
+  - Stop if a routed file is outside this owner's write scope and no explicit scope expansion exists.
+  - Stop if the assignment needs owner-approved Git operations; A25 evidence alone is not authorization.
+  - Stop if the work would expose or edit real secrets.
+
+## A20 Game design and game-based learning lead
+
+- Objective: Resolve or formally block the owner-package blockers routed to A20 without widening beyond AGENTS.md owner scope.
+- Recommended worktree: `/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A17-A20-game-motivation-closure`
+- Package rows:
+  - `wave-01-governance-release-hygiene:wave-01-governance-release-hygiene`: A25/A10/A22 governance and release hygiene; failed checks: typeCheck
+  - `wave-02-shared-contracts:wave-02-shared-contracts`: A08/A12 shared contracts and storage/API stability; failed checks: testAnalytics, testBackend, typeCheck, build
+  - `wave-03-shell-dashboard-roadmap:a01-app-shell`: A01 app shell; failed checks: typeCheck, appShellPlaywright
+  - `wave-04-practice-lesson-content:a18-a21-a23-a24-content-evidence`: A18/A21/A23/A24 content evidence; failed checks: testRag, testQuestionBank, typeCheck
+  - `wave-05-visualization-ai-runtime:a06-visualization`: A06 visualization; failed checks: typeCheck, visualizationNodeTests, visualizationPlaywright
+  - `wave-05-visualization-ai-runtime:a07-ai-tutor`: A07 AI tutor; failed checks: typeCheck, aiTutorPlaywright
+  - `wave-05-visualization-ai-runtime:a09-copy-i18n-accessibility`: A09 copy/i18n/accessibility; failed checks: typeCheck
+  - `wave-05-visualization-ai-runtime:a11-regression-evidence`: A11 regression evidence; failed checks: typeCheck, regressionPlaywright
+- Read scope:
+  - `components/games/MathVirusBlasterGame.tsx` (13 errors) from `wave-01-governance-release-hygiene:wave-01-governance-release-hygiene`; route: cross-owner-blocker
+  - `components/games/MathVirusBlasterGame.tsx` (13 errors) from `wave-02-shared-contracts:wave-02-shared-contracts`; route: cross-owner-blocker
+  - `components/games/MathVirusBlasterGame.tsx` (13 errors) from `wave-03-shell-dashboard-roadmap:a01-app-shell`; route: cross-owner-blocker
+  - `components/games/MathVirusBlasterGame.tsx` (13 errors) from `wave-04-practice-lesson-content:a18-a21-a23-a24-content-evidence`; route: cross-owner-blocker
+  - `components/games/MathVirusBlasterGame.tsx` (13 errors) from `wave-05-visualization-ai-runtime:a06-visualization`; route: cross-owner-blocker
+  - `components/games/MathVirusBlasterGame.tsx` (13 errors) from `wave-05-visualization-ai-runtime:a07-ai-tutor`; route: cross-owner-blocker
+  - `components/games/MathVirusBlasterGame.tsx` (13 errors) from `wave-05-visualization-ai-runtime:a09-copy-i18n-accessibility`; route: cross-owner-blocker
+  - `components/games/MathVirusBlasterGame.tsx` (13 errors) from `wave-05-visualization-ai-runtime:a11-regression-evidence`; route: cross-owner-blocker
+  - `components/games/MightyTankBattleGame.tsx` (10 errors) from `wave-01-governance-release-hygiene:wave-01-governance-release-hygiene`; route: cross-owner-blocker
+- Write scope candidates:
+  - `components/games/MathVirusBlasterGame.tsx`
+  - `components/games/MightyTankBattleGame.tsx`
+- Coordination required:
+  - `components/games/MathVirusBlasterGame.tsx`: cross-owner blocker; coordinate with package owner before editing
+  - `components/games/MightyTankBattleGame.tsx`: cross-owner blocker; coordinate with package owner before editing
+- Forbidden scope:
+  - reward economy
+  - badges/streaks/leaderboards
+  - broad gamification storage/API
+  - curriculum correctness without A18
+  - question-bank edits without A04/A18
+- Acceptance criteria:
+  - Every routed package row is either fixed inside this owner's allowed write scope or covered by an owner-routed blocker report.
+  - Files outside this owner's AGENTS.md write scope stay read-only unless the owner explicitly expands scope.
+  - Cross-owner files are coordinated with the package owner before edits.
+  - No dirty-root deploy, broad staging, physical cleanup, branch deletion, reset, clean, restore, or worktree removal is performed.
+  - A25 can rerun owner-package readiness, blocker routing, assignment packet currentness, and aggregate currentness after handoff.
+- Checks:
+  - `npm run type-check -- --pretty false`
+  - `npm run test:analytics`
+  - `npm run test:backend`
+  - `npm run build`
+  - `npx playwright test tests/e2e/app-shell-auth.spec.ts tests/e2e/home-functional.spec.ts --project=desktop-chrome`
+  - `npm run test:rag`
+  - `npm run test:question-bank`
+  - `node --test components/visualizations/configuredVisualizationLabRegressions.test.ts components/visualizations/three/threeDCanvasContract.test.ts components/visualizations/visualizationDiagnostics.test.ts`
+  - `npx playwright test tests/e2e/visualization-values.spec.ts tests/e2e/visualization-overlap.spec.ts --project=desktop-chrome`
+  - `npx playwright test tests/e2e/ai-tutor-deepseek.spec.ts tests/e2e/ai-tutor-live-text.spec.ts --project=desktop-chrome`
+  - `npx playwright test tests/e2e/student-smoke.spec.ts tests/e2e/backend-api.spec.ts --project=desktop-chrome`
+  - `node coordination/release-intake/generate-owner-package-readiness-blocker-matrix.mjs`
+  - `node coordination/release-intake/assert-owner-package-blocker-routing-current.mjs`
+  - `node coordination/release-intake/assert-owner-package-blocker-assignment-packet-current.mjs`
+  - `node coordination/release-intake/assert-dirty-worktree-remediation-current.mjs`
+- Stop conditions:
+  - Stop if the fix requires adding/removing package dependencies without A10/A22 approval.
+  - Stop if the fix requires shared type/schema changes without A08 coordination.
+  - Stop if a routed file is outside this owner's write scope and no explicit scope expansion exists.
+  - Stop if the assignment needs owner-approved Git operations; A25 evidence alone is not authorization.
+  - Stop if the work would expose or edit real secrets.
+
+## A25 Git hygiene and release intake lead
+
+- Objective: Resolve or formally block the owner-package blockers routed to A25 without widening beyond AGENTS.md owner scope.
+- Recommended worktree: `/Users/dongpinhu/Desktop/MAIS-MVP`
+- Package rows:
+  - `wave-03-shell-dashboard-roadmap:a01-app-shell`: A01 app shell; failed checks: typeCheck, appShellPlaywright
+  - `wave-03-shell-dashboard-roadmap:a02-a15-dashboard-adaptive`: A02/A15 dashboard adaptive; failed checks: testAnalytics, typeCheck, dashboardAdaptivePlaywright
+  - `wave-04-practice-lesson-content:a04-practice`: A04 practice; failed checks: testQuestionBank, typeCheck, practicePlaywright
+  - `wave-04-practice-lesson-content:a18-a21-a23-a24-content-evidence`: A18/A21/A23/A24 content evidence; failed checks: testRag, testQuestionBank, typeCheck
+- Read scope:
+  - `app/login/page.tsx` (17 errors) from `wave-03-shell-dashboard-roadmap:a01-app-shell`; route: cross-owner-blocker
+  - `lib/curriculumProfile.ts` (19 errors) from `wave-03-shell-dashboard-roadmap:a02-a15-dashboard-adaptive`; route: cross-owner-blocker
+  - `lib/mainlandPepHighQuestionBank.test.ts` (27 errors) from `wave-04-practice-lesson-content:a04-practice`; route: cross-owner-blocker
+  - `lib/rag/hongKongMath.ts` (14 errors) from `wave-04-practice-lesson-content:a18-a21-a23-a24-content-evidence`; route: cross-owner-blocker
+- Write scope candidates:
+  - none until owner scope is expanded
+- Coordination required:
+  - `app/login/page.tsx`: outside this owner's AGENTS.md write scope
+  - `lib/curriculumProfile.ts`: outside this owner's AGENTS.md write scope
+  - `lib/mainlandPepHighQuestionBank.test.ts`: outside this owner's AGENTS.md write scope
+  - `lib/rag/hongKongMath.ts`: outside this owner's AGENTS.md write scope
+- Forbidden scope:
+  - staging
+  - committing
+  - branching
+  - merging
+  - rebasing
+  - pushing
+  - deleting
+  - resetting
+  - reverting
+  - feature code edits
+  - secrets
+- Acceptance criteria:
+  - Every routed package row is either fixed inside this owner's allowed write scope or covered by an owner-routed blocker report.
+  - Files outside this owner's AGENTS.md write scope stay read-only unless the owner explicitly expands scope.
+  - Cross-owner files are coordinated with the package owner before edits.
+  - No dirty-root deploy, broad staging, physical cleanup, branch deletion, reset, clean, restore, or worktree removal is performed.
+  - A25 can rerun owner-package readiness, blocker routing, assignment packet currentness, and aggregate currentness after handoff.
+- Checks:
+  - `npm run type-check -- --pretty false`
+  - `npx playwright test tests/e2e/app-shell-auth.spec.ts tests/e2e/home-functional.spec.ts --project=desktop-chrome`
+  - `npm run test:analytics`
+  - `npx playwright test tests/e2e/student-smoke.spec.ts tests/e2e/adaptive-llm-smoke.spec.ts --project=desktop-chrome`
+  - `npm run test:question-bank`
+  - `npx playwright test tests/e2e/practice-pager.spec.ts tests/e2e/student-smoke.spec.ts --project=desktop-chrome`
+  - `npm run test:rag`
+  - `node coordination/release-intake/generate-owner-package-readiness-blocker-matrix.mjs`
+  - `node coordination/release-intake/assert-owner-package-blocker-routing-current.mjs`
+  - `node coordination/release-intake/assert-owner-package-blocker-assignment-packet-current.mjs`
+  - `node coordination/release-intake/assert-dirty-worktree-remediation-current.mjs`
+- Stop conditions:
+  - Stop if the fix requires adding/removing package dependencies without A10/A22 approval.
+  - Stop if the fix requires shared type/schema changes without A08 coordination.
+  - Stop if a routed file is outside this owner's write scope and no explicit scope expansion exists.
+  - Stop if the assignment needs owner-approved Git operations; A25 evidence alone is not authorization.
+  - Stop if the work would expose or edit real secrets.
+
+## A15 Adaptive engine lead
+
+- Objective: Resolve or formally block the owner-package blockers routed to A15 without widening beyond AGENTS.md owner scope.
+- Recommended worktree: `/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A15-adaptive-engine-closure`
+- Package rows:
+  - `wave-02-shared-contracts:wave-02-shared-contracts`: A08/A12 shared contracts and storage/API stability; failed checks: testAnalytics, testBackend, typeCheck, build
+  - `wave-03-shell-dashboard-roadmap:a02-a15-dashboard-adaptive`: A02/A15 dashboard adaptive; failed checks: testAnalytics, typeCheck, dashboardAdaptivePlaywright
+- Read scope:
+  - `lib/adaptiveLearning.ts` (24 errors) from `wave-02-shared-contracts:wave-02-shared-contracts`; route: cross-owner-blocker
+  - `lib/adaptiveLearning.ts` (20 errors) from `wave-03-shell-dashboard-roadmap:a02-a15-dashboard-adaptive`; route: package-owner
+- Write scope candidates:
+  - `lib/adaptiveLearning.ts`
+- Coordination required:
+  - `lib/adaptiveLearning.ts`: cross-owner blocker; coordinate with package owner before editing
+- Forbidden scope:
+  - AI Tutor chat API
+  - global LLM provider changes without A07
+  - dashboard/practice/lesson layout rewrites
+  - shared types without A08 coordination
+- Acceptance criteria:
+  - Every routed package row is either fixed inside this owner's allowed write scope or covered by an owner-routed blocker report.
+  - Files outside this owner's AGENTS.md write scope stay read-only unless the owner explicitly expands scope.
+  - Cross-owner files are coordinated with the package owner before edits.
+  - No dirty-root deploy, broad staging, physical cleanup, branch deletion, reset, clean, restore, or worktree removal is performed.
+  - A25 can rerun owner-package readiness, blocker routing, assignment packet currentness, and aggregate currentness after handoff.
+- Checks:
+  - `npm run test:analytics`
+  - `npm run test:backend`
+  - `npm run type-check -- --pretty false`
+  - `npm run build`
+  - `npx playwright test tests/e2e/student-smoke.spec.ts tests/e2e/adaptive-llm-smoke.spec.ts --project=desktop-chrome`
+  - `node coordination/release-intake/generate-owner-package-readiness-blocker-matrix.mjs`
+  - `node coordination/release-intake/assert-owner-package-blocker-routing-current.mjs`
+  - `node coordination/release-intake/assert-owner-package-blocker-assignment-packet-current.mjs`
+  - `node coordination/release-intake/assert-dirty-worktree-remediation-current.mjs`
+- Stop conditions:
+  - Stop if the fix requires adding/removing package dependencies without A10/A22 approval.
+  - Stop if the fix requires shared type/schema changes without A08 coordination.
+  - Stop if a routed file is outside this owner's write scope and no explicit scope expansion exists.
+  - Stop if the assignment needs owner-approved Git operations; A25 evidence alone is not authorization.
+  - Stop if the work would expose or edit real secrets.
+
+## A11 QA and release quality lead
+
+- Objective: Resolve or formally block the owner-package blockers routed to A11 without widening beyond AGENTS.md owner scope.
+- Recommended worktree: `/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A11-regression-closure`
+- Package rows:
+  - `wave-05-visualization-ai-runtime:a11-regression-evidence`: A11 regression evidence; failed checks: typeCheck, regressionPlaywright
+- Read scope:
+  - `lib/mvpReadiness.test.ts` (30 errors) from `wave-05-visualization-ai-runtime:a11-regression-evidence`; route: package-owner
+- Write scope candidates:
+  - `lib/mvpReadiness.test.ts`
+- Coordination required:
+  - none
+- Forbidden scope:
+  - feature implementation in app/components/lib/data unless explicitly assigned
+  - real production write tests without approval
+- Acceptance criteria:
+  - Every routed package row is either fixed inside this owner's allowed write scope or covered by an owner-routed blocker report.
+  - Files outside this owner's AGENTS.md write scope stay read-only unless the owner explicitly expands scope.
+  - Cross-owner files are coordinated with the package owner before edits.
+  - No dirty-root deploy, broad staging, physical cleanup, branch deletion, reset, clean, restore, or worktree removal is performed.
+  - A25 can rerun owner-package readiness, blocker routing, assignment packet currentness, and aggregate currentness after handoff.
+- Checks:
+  - `npm run type-check -- --pretty false`
+  - `npx playwright test tests/e2e/student-smoke.spec.ts tests/e2e/backend-api.spec.ts --project=desktop-chrome`
+  - `node coordination/release-intake/generate-owner-package-readiness-blocker-matrix.mjs`
+  - `node coordination/release-intake/assert-owner-package-blocker-routing-current.mjs`
+  - `node coordination/release-intake/assert-owner-package-blocker-assignment-packet-current.mjs`
+  - `node coordination/release-intake/assert-dirty-worktree-remediation-current.mjs`
+- Stop conditions:
+  - Stop if the fix requires adding/removing package dependencies without A10/A22 approval.
+  - Stop if the fix requires shared type/schema changes without A08 coordination.
+  - Stop if a routed file is outside this owner's write scope and no explicit scope expansion exists.
+  - Stop if the assignment needs owner-approved Git operations; A25 evidence alone is not authorization.
+  - Stop if the work would expose or edit real secrets.
+
+## A12 Backend/API platform lead
+
+- Objective: Resolve or formally block the owner-package blockers routed to A12 without widening beyond AGENTS.md owner scope.
+- Recommended worktree: `/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A12-backend-api-closure`
+- Package rows:
+  - `wave-01-governance-release-hygiene:wave-01-governance-release-hygiene`: A25/A10/A22 governance and release hygiene; failed checks: typeCheck
+  - `wave-05-visualization-ai-runtime:a07-ai-tutor`: A07 AI tutor; failed checks: typeCheck, aiTutorPlaywright
+- Read scope:
+  - `app/api/ai-tutor/resolve/route.ts` (12 errors) from `wave-05-visualization-ai-runtime:a07-ai-tutor`; route: cross-owner-blocker
+  - `app/api/teacher/review-lessons/[reviewLessonId]/route.ts` (9 errors) from `wave-01-governance-release-hygiene:wave-01-governance-release-hygiene`; route: cross-owner-blocker
+- Write scope candidates:
+  - `app/api/teacher/review-lessons/[reviewLessonId]/route.ts`
+- Coordination required:
+  - `app/api/ai-tutor/resolve/route.ts`: outside this owner's AGENTS.md write scope
+  - `app/api/teacher/review-lessons/[reviewLessonId]/route.ts`: cross-owner blocker; coordinate with package owner before editing
+- Forbidden scope:
+  - app/api/ai-tutor/
+  - app/api/adaptive-learning/
+  - feature UI pages
+  - real .env*
+  - LLM prompt/provider behavior without A07/A15 coordination
+- Acceptance criteria:
+  - Every routed package row is either fixed inside this owner's allowed write scope or covered by an owner-routed blocker report.
+  - Files outside this owner's AGENTS.md write scope stay read-only unless the owner explicitly expands scope.
+  - Cross-owner files are coordinated with the package owner before edits.
+  - No dirty-root deploy, broad staging, physical cleanup, branch deletion, reset, clean, restore, or worktree removal is performed.
+  - A25 can rerun owner-package readiness, blocker routing, assignment packet currentness, and aggregate currentness after handoff.
+- Checks:
+  - `npm run type-check -- --pretty false`
+  - `npx playwright test tests/e2e/ai-tutor-deepseek.spec.ts tests/e2e/ai-tutor-live-text.spec.ts --project=desktop-chrome`
+  - `node coordination/release-intake/generate-owner-package-readiness-blocker-matrix.mjs`
+  - `node coordination/release-intake/assert-owner-package-blocker-routing-current.mjs`
+  - `node coordination/release-intake/assert-owner-package-blocker-assignment-packet-current.mjs`
+  - `node coordination/release-intake/assert-dirty-worktree-remediation-current.mjs`
+- Stop conditions:
+  - Stop if the fix requires adding/removing package dependencies without A10/A22 approval.
+  - Stop if the fix requires shared type/schema changes without A08 coordination.
+  - Stop if a routed file is outside this owner's write scope and no explicit scope expansion exists.
+  - Stop if the assignment needs owner-approved Git operations; A25 evidence alone is not authorization.
+  - Stop if the work would expose or edit real secrets.
+
+## A07 AI tutor/provider integration lead
+
+- Objective: Resolve or formally block the owner-package blockers routed to A07 without widening beyond AGENTS.md owner scope.
+- Recommended worktree: `/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A07-ai-tutor-closure`
+- Package rows:
+  - `wave-05-visualization-ai-runtime:a07-ai-tutor`: A07 AI tutor; failed checks: typeCheck, aiTutorPlaywright
+- Read scope:
+  - `app/api/ai-tutor/resolve/route.ts` (12 errors) from `wave-05-visualization-ai-runtime:a07-ai-tutor`; route: package-owner
+- Write scope candidates:
+  - `app/api/ai-tutor/resolve/route.ts`
+- Coordination required:
+  - none
+- Forbidden scope:
+  - real .env* secret files
+  - visualization logic
+  - analytics test logic
+  - global config unless approved
+- Acceptance criteria:
+  - Every routed package row is either fixed inside this owner's allowed write scope or covered by an owner-routed blocker report.
+  - Files outside this owner's AGENTS.md write scope stay read-only unless the owner explicitly expands scope.
+  - Cross-owner files are coordinated with the package owner before edits.
+  - No dirty-root deploy, broad staging, physical cleanup, branch deletion, reset, clean, restore, or worktree removal is performed.
+  - A25 can rerun owner-package readiness, blocker routing, assignment packet currentness, and aggregate currentness after handoff.
+- Checks:
+  - `npm run type-check -- --pretty false`
+  - `npx playwright test tests/e2e/ai-tutor-deepseek.spec.ts tests/e2e/ai-tutor-live-text.spec.ts --project=desktop-chrome`
+  - `node coordination/release-intake/generate-owner-package-readiness-blocker-matrix.mjs`
+  - `node coordination/release-intake/assert-owner-package-blocker-routing-current.mjs`
+  - `node coordination/release-intake/assert-owner-package-blocker-assignment-packet-current.mjs`
+  - `node coordination/release-intake/assert-dirty-worktree-remediation-current.mjs`
+- Stop conditions:
+  - Stop if the fix requires adding/removing package dependencies without A10/A22 approval.
+  - Stop if the fix requires shared type/schema changes without A08 coordination.
+  - Stop if a routed file is outside this owner's write scope and no explicit scope expansion exists.
+  - Stop if the assignment needs owner-approved Git operations; A25 evidence alone is not authorization.
+  - Stop if the work would expose or edit real secrets.
+

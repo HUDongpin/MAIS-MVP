@@ -1,0 +1,47 @@
+{
+  "generatedAt": "2026-07-09T14:10:16.357Z",
+  "dirtyMap": {
+    "latestJson": "coordination/release-intake/latest-A25-dirty-tree-map.json",
+    "generatedAt": "2026-07-09T14:09:40.148Z",
+    "statusSignature": "b3d232fd2b9ef81d4efc95903d2e3b316db664d6e9ec6ab366181395b3966be7"
+  },
+  "sourceOwner": "Unmapped/manual owner needed",
+  "sourceCount": 2,
+  "proposalBuckets": {
+    "A13 teacher console lead": 1,
+    "A18 curriculum QA and content quality lead": 1
+  },
+  "confidenceBuckets": {
+    "high": 2
+  },
+  "proposals": [
+    {
+      "status": "??",
+      "path": "MAIS_CA-Math_K-5_Content_QA_Report.docx",
+      "owner": "Unmapped/manual owner needed",
+      "slice": "unmapped/manual",
+      "proposedOwner": "A18 curriculum QA and content quality lead",
+      "coordination": [
+        "A21 content pipeline and RAG operations",
+        "A10 tooling, docs, and report",
+        "A25 git hygiene and release intake"
+      ],
+      "confidence": "high",
+      "rationale": "California K-5 math content QA evidence belongs to A18 curriculum/content-quality review, with A21 content-pipeline and A10/A25 report/release-intake coordination."
+    },
+    {
+      "status": "??",
+      "path": "MAIS_Teacher_Console_Bug_Detection_Report.docx",
+      "owner": "Unmapped/manual owner needed",
+      "slice": "unmapped/manual",
+      "proposedOwner": "A13 teacher console lead",
+      "coordination": [
+        "A10 tooling, docs, and report",
+        "A11 QA and release quality",
+        "A25 git hygiene and release intake"
+      ],
+      "confidence": "high",
+      "rationale": "Teacher Console bug-detection report should be reviewed by A13 for product ownership, with A10/A11/A25 coordinating report evidence and release intake."
+    }
+  ]
+}

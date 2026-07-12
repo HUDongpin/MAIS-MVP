@@ -24,10 +24,9 @@ const englishTitles: Record<string, string> = {
 };
 
 function difficultyFromBand(band: MainlandPepDifficultyBand | undefined): Difficulty {
-  if (band === "foundation") return "Foundation";
-  if (band === "exam") return "Exam";
-  if (band === "challenge") return "Challenge";
-  return "Core";
+  if (band === "foundation") return "Low";
+  if (band === "exam" || band === "challenge") return "High";
+  return "Medium";
 }
 
 function minutesFromBand(band: MainlandPepDifficultyBand | undefined) {

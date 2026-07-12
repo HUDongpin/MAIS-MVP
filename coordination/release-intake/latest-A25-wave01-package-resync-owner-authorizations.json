@@ -1,0 +1,22 @@
+{
+  "generatedAt": "2026-07-10T17:09:02.461Z",
+  "scaffoldManaged": true,
+  "scaffoldKind": "wave01-package-resync-owner-authorizations",
+  "note": "A25 scaffold only. Rows in draftAuthorizationsDoNotAuthorize are not owner authorizations until copied into authorizations with approvedBy, approvedAt, evidenceReviewed, and notes.",
+  "dirtyMapStatusSignature": "e30d647e1b51432945713f42ac78b0a2466fcb17192de0235a801ac877a0801f",
+  "expandedStatusEntries": 7636,
+  "sourceTemplateGeneratedAt": "2026-07-10T17:09:02.279Z",
+  "sourceExecutionPacketGeneratedAt": "2026-07-10T17:09:02.103Z",
+  "cleanupAuthorized": false,
+  "executableNow": false,
+  "authorizations": [],
+  "draftAuthorizationsDoNotAuthorize": [],
+  "boundary": {
+    "evidenceOnly": true,
+    "createsExecutableRows": false,
+    "cleanupAuthorized": false,
+    "executableNow": false,
+    "destructiveGitAuthorized": false,
+    "deployAuthorized": false
+  }
+}

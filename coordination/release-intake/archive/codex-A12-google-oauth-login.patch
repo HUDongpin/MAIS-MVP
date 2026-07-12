@@ -1,0 +1,379 @@
+diff --git a/.env.local.example b/.env.local.example
+index 2385914d3..941611836 100644
+--- a/.env.local.example
++++ b/.env.local.example
+@@ -29,6 +29,17 @@ AI_TUTOR_VISION_API_URL=
+ # Required for `next start` and production deployments.
+ AUTH_SESSION_SECRET=
+ 
++# Google OAuth / OpenID Connect sign-in.
++# Keep client secret and state secret server-only. Configure exact redirect URIs
++# in Google Cloud for each local, preview, staging, and production environment.
++# Must be explicitly true to activate Google sign-in.
++GOOGLE_OAUTH_ENABLED=false
++GOOGLE_OAUTH_CLIENT_ID=
++GOOGLE_OAUTH_CLIENT_SECRET=
++GOOGLE_OAUTH_REDIRECT_URI=http://localhost:3000/api/auth/google/callback
++# Optional override. Defaults to AUTH_SESSION_SECRET/NEXTAUTH_SECRET when unset.
++GOOGLE_OAUTH_STATE_SECRET=
++
+ # SQLite persistence. Defaults to .local/hk-math-db.sqlite for local development.
+ # On Vercel without HK_MATH_DB_PATH, the app uses writable but ephemeral /tmp storage.
+ # Use an absolute path for a mounted persistent volume in a single-node pilot.
+diff --git a/app/login/page.tsx b/app/login/page.tsx
+index 9eb2c2846..53c9bd6e0 100644
+--- a/app/login/page.tsx
++++ b/app/login/page.tsx
+@@ -45,9 +45,37 @@ const authLinkCopy = {
+     en: "Use the account issued by your school, family registration, or administrator.",
+     zh: "請使用學校、家庭註冊或管理員開通的正式帳戶。",
+     zhHans: "请使用学校、家庭注册或管理员开通的正式帐户。"
++  },
++  googleDivider: { en: "or", zh: "或", zhHans: "或" },
++  googleAction: { en: "Continue with Google", zh: "使用 Google 繼續", zhHans: "使用 Google 继续" },
++  googleRoleLabel: { en: "Google account type", zh: "Google 帳戶類型", zhHans: "Google 账号类型" },
++  googleErrors: {
++    setup: {
++      en: "Google sign-in is not configured for this environment yet.",
++      zh: "此環境尚未設定 Google 登入。",
++      zhHans: "此环境尚未设置 Google 登录。"
++    },
++    teacherInviteRequired: {
++      en: "Teacher Google sign-in requires a school invitation or an existing MAIS teacher account.",
++      zh: "教師 Google 登入需要學校邀請或現有 MAIS 教師帳戶。",
++      zhHans: "教师 Google 登录需要学校邀请或现有 MAIS 教师账号。"
++    },
++    generic: {
++      en: "Google sign-in could not be verified. Try again.",
++      zh: "未能驗證 Google 登入，請再試一次。",
++      zhHans: "未能验证 Google 登录，请再试一次。"
++    }
+   }
+ } as const;
+ 
++type GoogleLoginRole = "student" | "parent" | "teacher";
++
++const googleLoginRoles = [
++  { key: "student", label: { en: "Student", zh: "學生", zhHans: "学生" } },
++  { key: "parent", label: { en: "Parent", zh: "家長", zhHans: "家长" } },
++  { key: "teacher", label: { en: "Teacher", zh: "教師", zhHans: "教师" } }
++] as const satisfies readonly { key: GoogleLoginRole; label: { en: string; zh: string; zhHans: string } }[];
++
+ const curriculumCopy = {
+   title: {
+     en: "1. Curriculum",
+@@ -202,15 +230,17 @@ const futureExpansionCopy = {
+ } as const;
+ 
+ export default function LoginPage() {
+-  const { currentUser, language, login, logout, selectedGrade, setSelectedGrade, settingsReady, t } = useSettings();
++  const { currentUser, language, login, logout, selectedGrade, setSelectedGrade, settingsReady, t, theme } = useSettings();
+   const [identifier, setIdentifier] = useState("");
+   const [password, setPassword] = useState("");
++  const [googleRole, setGoogleRole] = useState<GoogleLoginRole>("student");
+   const [selectedCurriculumProfile, setSelectedCurriculumProfile] = useState<CurriculumProfile>(defaultLoginCurriculumProfile);
+   const [curriculumSelectorProfile, setCurriculumSelectorProfile] = useState<CurriculumProfile>(defaultLoginCurriculumProfile);
+   const [curriculumNoticeProfile, setCurriculumNoticeProfile] = useState<CurriculumProfile | null>(null);
+   const [pendingCurriculumUser, setPendingCurriculumUser] = useState<{ name: string; username: string; grade: GradeId } | null>(null);
+-  const [loginSelectedGrade, setLoginSelectedGrade] = useState<GradeId>(selectedGrade);
++  const [loginSelectedGrade, setLoginSelectedGrade] = useState<GradeId>(defaultLoginGrade);
+   const [error, setError] = useState("");
++  const [googleError, setGoogleError] = useState("");
+   const [nextTarget, setNextTarget] = useState("");
+   const [isSubmitting, setIsSubmitting] = useState(false);
+   const redirectNotice =
+@@ -229,10 +259,27 @@ export default function LoginPage() {
+   const displayedCurriculumProfile = registeredStudentProfile?.curriculumProfile ?? curriculumSelectorProfile;
+   const displayedCurriculumTrack = curriculumTrackForProfile(displayedCurriculumProfile);
+   const displayedLoginGrade = registeredStudentProfile?.grade ?? loginSelectedGrade;
++  const googleLoginParams = new URLSearchParams({ role: googleRole, language, theme });
++  if (nextTarget) googleLoginParams.set("next", nextTarget);
++  if (googleRole === "student") {
++    googleLoginParams.set("grade", displayedLoginGrade);
++    googleLoginParams.set("curriculumTrack", displayedCurriculumTrack);
++  }
++  const googleLoginHref = `/api/auth/google/start?${googleLoginParams.toString()}`;
++  const googleErrorMessage =
++    googleError === "setup"
++      ? t(authLinkCopy.googleErrors.setup)
++      : googleError === "teacher_invite_required"
++        ? t(authLinkCopy.googleErrors.teacherInviteRequired)
++        : googleError
++          ? t(authLinkCopy.googleErrors.generic)
++          : "";
+ 
+   useEffect(() => {
+-    const nextPath = new URLSearchParams(window.location.search).get("next") ?? "";
++    const params = new URLSearchParams(window.location.search);
++    const nextPath = params.get("next") ?? "";
+     setNextTarget(nextPath);
++    setGoogleError(params.get("googleError") ?? "");
+ 
+     if (!settingsReady) return;
+     if (currentUser && nextPath) {
+@@ -468,6 +515,12 @@ export default function LoginPage() {
+               </p>
+             ) : null}
+ 
++            {googleErrorMessage ? (
++              <p role="alert" className="rounded-2xl border border-rose-300/60 bg-rose-500/10 px-4 py-3 text-sm font-semibold text-rose-700 dark:text-rose-200">
++                {googleErrorMessage}
++              </p>
++            ) : null}
++
+             <button
+               type="submit"
+               disabled={isSubmitting}
+@@ -476,6 +529,49 @@ export default function LoginPage() {
+               {isSubmitting ? t(dictionary.login.signingIn) : pendingCurriculumUser ? t({ en: "Save curriculum and log in", zh: "保存課程並登入", zhHans: "保存课程并登录" }) : t(dictionary.login.submit)}
+             </button>
+ 
++            <div className="grid gap-3">
++              <div className="flex items-center gap-3 text-xs font-black uppercase tracking-[0.18em] text-slate-400">
++                <span className="h-px flex-1 bg-slate-200 dark:bg-white/10" />
++                <span>{t(authLinkCopy.googleDivider)}</span>
++                <span className="h-px flex-1 bg-slate-200 dark:bg-white/10" />
++              </div>
++
++              <div className="grid gap-2">
++                <p className="text-sm font-bold text-slate-700 dark:text-slate-200">{t(authLinkCopy.googleRoleLabel)}</p>
++                <div className="grid grid-cols-3 gap-2" role="radiogroup" aria-label={t(authLinkCopy.googleRoleLabel)}>
++                  {googleLoginRoles.map((role) => {
++                    const selected = googleRole === role.key;
++                    return (
++                      <button
++                        key={role.key}
++                        type="button"
++                        role="radio"
++                        aria-checked={selected}
++                        onClick={() => setGoogleRole(role.key)}
++                        className={`focus-ring min-h-11 rounded-full border px-3 py-2 text-sm font-black transition ${
++                          selected
++                            ? "border-slate-950 bg-slate-950 text-white dark:border-white dark:bg-white dark:text-slate-950"
++                            : "border-slate-200/80 bg-white/75 text-slate-600 hover:bg-white dark:border-white/10 dark:bg-white/[0.06] dark:text-slate-200"
++                        }`}
++                      >
++                        {t(role.label)}
++                      </button>
++                    );
++                  })}
++                </div>
++              </div>
++
++              <Link
++                href={googleLoginHref}
++                className="focus-ring inline-flex min-h-12 w-full items-center justify-center gap-3 rounded-full border border-slate-200/80 bg-white px-5 py-3 font-black text-slate-950 shadow-sm shadow-slate-900/5 transition hover:-translate-y-0.5 hover:shadow-md dark:border-white/10 dark:bg-white dark:text-slate-950"
++              >
++                <span aria-hidden="true" className="grid size-6 place-items-center rounded-full border border-slate-200 text-sm font-black text-blue-600">
++                  G
++                </span>
++                {t(authLinkCopy.googleAction)}
++              </Link>
++            </div>
++
+             <div className="rounded-2xl border border-cyan-300/40 bg-cyan-400/10 px-4 py-3 text-sm font-semibold text-slate-700 dark:border-cyan-300/20 dark:text-slate-200">
+               <span>{t(authLinkCopy.registerPrompt)} </span>
+               <Link href="/register" className="focus-ring rounded-full px-2 py-1 font-black text-cyan-700 underline-offset-4 transition hover:bg-cyan-400/10 hover:underline dark:text-cyan-200">
+diff --git a/lib/server/userStore.ts b/lib/server/userStore.ts
+index fa7ed0e8a..171c63993 100644
+--- a/lib/server/userStore.ts
++++ b/lib/server/userStore.ts
+@@ -231,6 +231,15 @@ export type UserRecord = {
+   created_at: string;
+ };
+ 
++export type AuthIdentityRecord = {
++  provider: "google";
++  provider_subject: string;
++  user_id: string;
++  email_at_link: string;
++  created_at: string;
++  last_login_at: string;
++};
++
+ export type StudentProfileRecord = {
+   user_id: string;
+   name: string;
+@@ -787,6 +796,7 @@ export type RewardCampaignRecord = {
+ 
+ type Database = {
+   users: UserRecord[];
++  auth_identities: AuthIdentityRecord[];
+   student_profiles: StudentProfileRecord[];
+   user_settings: UserSettingsRecord[];
+   schools: SchoolRecord[];
+@@ -2589,6 +2599,7 @@ function createInitialDatabase(): Database {
+ 
+   return {
+     users: demoUser,
++    auth_identities: [],
+     student_profiles: demoProfile,
+     user_settings: demoSettings,
+     schools: [],
+@@ -2894,6 +2905,22 @@ function normalizeDatabase(database: Partial<Database>) {
+       ...(avatarImageDataUrl ? { avatar_image_data_url: avatarImageDataUrl } : {})
+     };
+   });
++  const authIdentities = (database.auth_identities ?? [])
++    .filter((identity): identity is AuthIdentityRecord =>
++      identity?.provider === "google" &&
++      typeof identity.provider_subject === "string" &&
++      Boolean(identity.provider_subject.trim()) &&
++      typeof identity.user_id === "string" &&
++      Boolean(identity.user_id.trim())
++    )
++    .map((identity): AuthIdentityRecord => ({
++      provider: "google",
++      provider_subject: identity.provider_subject.trim(),
++      user_id: identity.user_id,
++      email_at_link: typeof identity.email_at_link === "string" ? identity.email_at_link.trim().toLowerCase() : "",
++      created_at: identity.created_at ?? now,
++      last_login_at: identity.last_login_at ?? identity.created_at ?? now
++    }));
+   const userSettings = database.user_settings ?? [];
+ 
+   syncDemoAccounts(users, studentProfiles, userSettings, now);
+@@ -2913,6 +2940,7 @@ function normalizeDatabase(database: Partial<Database>) {
+ 
+   return {
+     users,
++    auth_identities: authIdentities,
+     student_profiles: studentProfiles,
+     user_settings: userSettings,
+     schools: (database.schools ?? []).map((school): SchoolRecord => ({
+@@ -3155,6 +3183,7 @@ async function readLegacyDatabase() {
+ function databaseNeedsPersistenceSync(parsed: Partial<Database>, database: Database) {
+   return (
+     !Array.isArray(parsed.questions) ||
++    !Array.isArray(parsed.auth_identities) ||
+     !Array.isArray(parsed.schools) ||
+     !Array.isArray(parsed.school_memberships) ||
+     !Array.isArray(parsed.provisioning_batches) ||
+@@ -5836,6 +5865,127 @@ export async function createParentUser({
+   });
+ }
+ 
++export async function authenticateGoogleIdentityForLogin({
++  providerSubject,
++  email,
++  emailVerified,
++  displayName,
++  requestedRole,
++  grade,
++  curriculumProfile,
++  language,
++  theme
++}: {
++  providerSubject: string;
++  email: string;
++  emailVerified: boolean;
++  displayName?: string;
++  requestedRole?: "student" | "parent" | "teacher";
++  grade?: GradeId;
++  curriculumProfile?: CurriculumProfile;
++  language?: Language;
++  theme?: ThemeMode;
++}) {
++  const subject = providerSubject.trim();
++  const normalizedEmail = normalizeEmail(email);
++  const trimmedEmail = email.trim().toLowerCase();
++  const role = requestedRole === "parent" || requestedRole === "teacher" ? requestedRole : "student";
++  const name = cleanStudentProfileName(displayName || trimmedEmail.split("@")[0] || "Google User");
++
++  if (!subject || !emailVerified || !trimmedEmail || !isLikelyEmail(trimmedEmail) || !name) {
++    return { status: "invalid" as const };
++  }
++
++  return mutateDatabase((database) => {
++    database.auth_identities ??= [];
++    const now = new Date().toISOString();
++    const existingIdentity = database.auth_identities.find((identity) =>
++      identity.provider === "google" && identity.provider_subject === subject
++    );
++    if (existingIdentity) {
++      existingIdentity.last_login_at = now;
++      existingIdentity.email_at_link = trimmedEmail;
++      const user = database.users.find((candidate) => candidate.id === existingIdentity.user_id);
++      const session = user ? toAuthenticatedUser(database, user) : null;
++      return session ? { status: "authenticated" as const, session } : { status: "invalid" as const };
++    }
++
++    const existingEmailUser = database.users.find((candidate) => candidate.normalized_email === normalizedEmail);
++    if (existingEmailUser) {
++      database.auth_identities.push({
++        provider: "google",
++        provider_subject: subject,
++        user_id: existingEmailUser.id,
++        email_at_link: trimmedEmail,
++        created_at: now,
++        last_login_at: now
++      });
++      const session = toAuthenticatedUser(database, existingEmailUser);
++      return session ? { status: "linked" as const, session } : { status: "invalid" as const };
++    }
++
++    if (role === "teacher") {
++      return { status: "teacher-invite-required" as const };
++    }
++
++    const hashedPassword = hashPassword(`google:${subject}:${randomUUID()}:${randomBytes(16).toString("hex")}`);
++    const userId = `${role}-${randomUUID()}`;
++    const user: UserRecord = {
++      id: userId,
++      username: trimmedEmail,
++      normalized_username: normalizeUsername(trimmedEmail),
++      email: trimmedEmail,
++      normalized_email: normalizedEmail,
++      password_hash: hashedPassword.hash,
++      password_salt: hashedPassword.salt,
++      password_must_change: false,
++      role,
++      created_at: now
++    };
++
++    const effectiveCurriculumProfile = role === "student" && curriculumProfile
++      ? normalizeStoredCurriculumProfile({ region: curriculumProfile.region, publisher: curriculumProfile.publisher })
++      : curriculumProfileForTrack(defaultCurriculumTrack);
++    const effectiveCurriculumTrack = curriculumTrackForProfile(effectiveCurriculumProfile) ?? defaultCurriculumTrack;
++    const selectedGrade = role === "student" && grade && validGrades.has(grade) ? grade : "S3";
++    if (role === "student" && (!grade || !validGrades.has(grade) || !curriculumProfile)) {
++      return { status: "invalid" as const };
++    }
++
++    database.users.push(user);
++    database.auth_identities.push({
++      provider: "google",
++      provider_subject: subject,
++      user_id: userId,
++      email_at_link: trimmedEmail,
++      created_at: now,
++      last_login_at: now
++    });
++    database.student_profiles.push({
++      user_id: userId,
++      name,
++      grade: selectedGrade,
++      curriculum_track: effectiveCurriculumTrack,
++      curriculum_region: effectiveCurriculumProfile.region,
++      textbook_publisher: effectiveCurriculumProfile.publisher,
++      avatar_id: role === "parent" ? "theta" : defaultStudentAvatarId
++    });
++    database.user_settings.push({
++      user_id: userId,
++      language: language && validLanguages.has(language) ? language : effectiveCurriculumProfile.region === "MAINLAND" ? "zh-Hans" : "en",
++      theme: theme && validThemes.has(theme) ? theme : "dark",
++      selected_grade: selectedGrade,
++      updated_at: now
++    });
++    if (role === "student") {
++      database.lesson_progress.push(...emptyLessonProgressRecords(userId, now));
++    }
++
++    const session = toAuthenticatedUser(database, user);
++    return session ? { status: "created" as const, session } : { status: "invalid" as const };
++  });
++}
++
+ export async function completeStudentCurriculumTrackSelection({
+   username,
+   password,

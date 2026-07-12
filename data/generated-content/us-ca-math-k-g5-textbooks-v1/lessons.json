@@ -1,0 +1,3687 @@
+{
+  "packageId": "us-ca-math-k-g5-textbooks-v1",
+  "schemaVersion": "mais-content-package.v1",
+  "generatedAt": "2026-06-19",
+  "generator": "Codex S21 deterministic template generator using $mais-content-generation-workflow",
+  "sessionId": "S21",
+  "curriculumTrack": "US_CA_MATH",
+  "state": "CA",
+  "scope": {
+    "contentType": "lesson-package",
+    "gradeSpan": [
+      "K",
+      "P1",
+      "P2",
+      "P3",
+      "P4",
+      "P5"
+    ],
+    "usGradeLabels": [
+      "Kindergarten",
+      "Grade 1",
+      "Grade 2",
+      "Grade 3",
+      "Grade 4",
+      "Grade 5"
+    ],
+    "intendedReleaseSurface": "candidate package for future California K-5 textbook/live lesson integration"
+  },
+  "languageVariant": "en-primary",
+  "sourceEvidencePolicy": "public-standards-structure-only-generated-original",
+  "sourcePolicy": {
+    "officialSourcesChecked": [
+      "California Department of Education Mathematics Framework page, last reviewed 2026-04-08",
+      "CDE Common Core State Standards for Mathematics PDF link, 2013 modified publication version"
+    ],
+    "copiedOfficialStandardProseAllowed": false,
+    "copiedIxlTextAllowed": false,
+    "rawCorpusAllowed": false
+  },
+  "packageStatus": "approved-for-review",
+  "reviewStatus": "generator-validation-complete-s18-human-sampling-required",
+  "integrationStatus": "candidate-only",
+  "nextOwner": "S18 curriculum QA",
+  "claimsNotAllowed": [
+    "complete California curriculum",
+    "official California course",
+    "fully launched California K-5 lessons",
+    "IXL-equivalent exercises"
+  ],
+  "lessons": [
+    {
+      "id": "us-ca-k-g5-tx-v1-k-k-cc-count-sequence",
+      "packageId": "us-ca-math-k-g5-textbooks-v1",
+      "reviewStatus": "auto-validated-ready-for-s18-sampling",
+      "integrationStatus": "candidate-only",
+      "metadata": {
+        "curriculumTrack": "US_CA_MATH",
+        "state": "CA",
+        "grade": "K",
+        "usGradeLabel": "Kindergarten",
+        "topicId": "us-ca-math-k-k-cc-count-sequence",
+        "domainId": "K.CC",
+        "domainTitle": "Counting and Cardinality",
+        "clusterId": "K.CC.count-sequence",
+        "clusterTitle": "Count Sequence",
+        "standardIds": [
+          "K.CC.1",
+          "K.CC.2",
+          "K.CC.3"
+        ],
+        "difficulty": "Low",
+        "estimatedMinutes": 35,
+        "languageVariant": "en-primary",
+        "sourceSafetyStatus": "MAIS-authored-original-from-public-standards-structure",
+        "evidenceCardIds": [
+          "ca-ccss-structure-k-cc-count-sequence"
+        ],
+        "competencyTags": [
+          "visual collections",
+          "ten frames",
+          "charts",
+          "number choice",
+          "misconception:skipping number words",
+          "misconception:counting objects twice"
+        ]
+      },
+      "studentLesson": {
+        "en": {
+          "title": "Kindergarten Counting and Cardinality: Count Sequence",
+          "learningGoals": [
+            "Use models and words to reason about connect number words, written numerals, and ordered counts from small sets toward 100.",
+            "Show each step with a drawing, equation, table, or verbal check.",
+            "Check whether the answer makes sense in the story."
+          ],
+          "launch": "Mia lines up six shells on a table and whispers one number word for each shell: one, two, three, four, five, six.",
+          "conceptExplanation": "Counting is a careful matching game. Each object gets exactly one number word, and no object gets counted twice. The last number you say is the size of the whole group. A written numeral is the short mark for that count, so 6 means Mia stopped at six shells.",
+          "workedExample": {
+            "prompt": "There are 4 blue counters and 2 green counters. How many counters are there in all?",
+            "answer": "6",
+            "reasoning": "4 + 2 = 6, so the total is 6 counters."
+          },
+          "guidedPractice": [
+            {
+              "prompt": "There are 4 blue counters and 2 green counters. How many counters are there in all?",
+              "expectedMove": "Name the quantities, choose a representation, solve, and check the units or labels."
+            }
+          ],
+          "independentPractice": [
+            "Create one similar problem with different numbers or objects.",
+            "Swap with a partner and explain the checking step."
+          ],
+          "commonPitfalls": [
+            {
+              "pitfall": "skipping number words",
+              "repairMove": "Return to the model, label each quantity, and compare the result with the question."
+            },
+            {
+              "pitfall": "counting objects twice",
+              "repairMove": "Return to the model, label each quantity, and compare the result with the question."
+            }
+          ],
+          "exitTicket": "In one sentence, explain how today's representation helped you solve a counting and cardinality problem."
+        }
+      },
+      "answerKey": {
+        "workedExample": {
+          "answer": "6",
+          "acceptedAnswers": [
+            "6"
+          ],
+          "solutionSteps": [
+            "4 + 2 = 6, so the total is 6 counters."
+          ]
+        },
+        "guidedPractice": {
+          "acceptedEvidence": [
+            "correct representation",
+            "correct computation",
+            "reasonableness check"
+          ]
+        }
+      },
+      "validation": {
+        "deterministicChecks": [
+          {
+            "check": "worked-example-answer",
+            "status": "pass",
+            "kind": "sum",
+            "values": {
+              "left": 4,
+              "right": 2
+            },
+            "answer": "6"
+          }
+        ],
+        "unresolvedRisks": []
+      },
+      "illustration": {
+        "visualPolicy": "text-only-v1",
+        "plannedAssets": [],
+        "notes": "No answer-critical bitmap or diagram is required for this candidate. Future manipulatives, coordinate grids, or geometry figures must be rendered as deterministic SVG/math-svg assets before live visual release."
+      },
+      "review": {
+        "sourceDistanceStatus": "passed-local-source-policy",
+        "mathQaStatus": "passed-deterministic-check",
+        "languageQaStatus": "plain-english-en-primary",
+        "pedagogyNotes": "Lesson follows concrete-to-representational-to-check sequence for K-5 learners."
+      },
+      "approval": {
+        "status": "approved-for-review",
+        "reviewer": "S21 generator local deterministic validation",
+        "nextOwner": "S18 curriculum QA"
+      }
+    },
+    {
+      "id": "us-ca-k-g5-tx-v1-k-k-cc-cardinality-compare",
+      "packageId": "us-ca-math-k-g5-textbooks-v1",
+      "reviewStatus": "auto-validated-ready-for-s18-sampling",
+      "integrationStatus": "candidate-only",
+      "metadata": {
+        "curriculumTrack": "US_CA_MATH",
+        "state": "CA",
+        "grade": "K",
+        "usGradeLabel": "Kindergarten",
+        "topicId": "us-ca-math-k-k-cc-cardinality-compare",
+        "domainId": "K.CC",
+        "domainTitle": "Counting and Cardinality",
+        "clusterId": "K.CC.cardinality-compare",
+        "clusterTitle": "Cardinality Compare",
+        "standardIds": [
+          "K.CC.4",
+          "K.CC.5",
+          "K.CC.6",
+          "K.CC.7"
+        ],
+        "difficulty": "Low",
+        "estimatedMinutes": 35,
+        "languageVariant": "en-primary",
+        "sourceSafetyStatus": "MAIS-authored-original-from-public-standards-structure",
+        "evidenceCardIds": [
+          "ca-ccss-structure-k-cc-cardinality-compare"
+        ],
+        "competencyTags": [
+          "object matching",
+          "same/more/fewer",
+          "count and compare",
+          "misconception:last count word not linked to total",
+          "misconception:comparing by visual spread"
+        ]
+      },
+      "studentLesson": {
+        "en": {
+          "title": "Kindergarten Counting and Cardinality: Cardinality Compare",
+          "learningGoals": [
+            "Use models and words to reason about use one-to-one correspondence to answer how many and compare quantities.",
+            "Show each step with a drawing, equation, table, or verbal check.",
+            "Check whether the answer makes sense in the story."
+          ],
+          "launch": "Two towers can look different when one is spread out and one is squeezed together, so Jay matches cubes one by one before deciding which group has more.",
+          "conceptExplanation": "Cardinality means the count tells how many are in a group, even if the objects move around. To compare fairly, count both groups or make pairs between them. If one group still has extra unmatched objects, that group has more. If a group runs out first, it has fewer.",
+          "workedExample": {
+            "prompt": "There are 6 blue counters and 2 green counters. Which group has more? How many more?",
+            "answer": "The blue group has 4 more counters.",
+            "reasoning": "Match 2 green counters with 2 blue counters. There are 4 blue counters left unmatched, so the blue group has 4 more."
+          },
+          "guidedPractice": [
+            {
+              "prompt": "There are 5 red counters and 3 yellow counters. Which group has more? How many more?",
+              "expectedMove": "Match the counters one by one, name the group with unmatched counters, and count the extras."
+            }
+          ],
+          "independentPractice": [
+            "Create one similar problem with different numbers or objects.",
+            "Swap with a partner and explain the checking step."
+          ],
+          "commonPitfalls": [
+            {
+              "pitfall": "last count word not linked to total",
+              "repairMove": "Return to the model, label each quantity, and compare the result with the question."
+            },
+            {
+              "pitfall": "comparing by visual spread",
+              "repairMove": "Return to the model, label each quantity, and compare the result with the question."
+            }
+          ],
+          "exitTicket": "In one sentence, explain how today's representation helped you solve a counting and cardinality problem."
+        }
+      },
+      "answerKey": {
+        "workedExample": {
+          "answer": "The blue group has 4 more counters.",
+          "acceptedAnswers": [
+            "blue has 4 more",
+            "blue group has 4 more counters",
+            "4 more blue counters"
+          ],
+          "solutionSteps": [
+            "Match 2 green counters with 2 blue counters.",
+            "Count the 4 blue counters left unmatched.",
+            "The blue group has 4 more counters."
+          ]
+        },
+        "guidedPractice": {
+          "acceptedEvidence": [
+            "correct representation",
+            "correct computation",
+            "reasonableness check"
+          ]
+        }
+      },
+      "validation": {
+        "deterministicChecks": [
+          {
+            "check": "worked-example-answer",
+            "status": "pass",
+            "kind": "sum",
+            "values": {
+              "left": 6,
+              "right": 2
+            },
+            "answer": "8"
+          }
+        ],
+        "unresolvedRisks": []
+      },
+      "illustration": {
+        "visualPolicy": "text-only-v1",
+        "plannedAssets": [],
+        "notes": "No answer-critical bitmap or diagram is required for this candidate. Future manipulatives, coordinate grids, or geometry figures must be rendered as deterministic SVG/math-svg assets before live visual release."
+      },
+      "review": {
+        "sourceDistanceStatus": "passed-local-source-policy",
+        "mathQaStatus": "passed-deterministic-check",
+        "languageQaStatus": "plain-english-en-primary",
+        "pedagogyNotes": "Lesson follows concrete-to-representational-to-check sequence for K-5 learners."
+      },
+      "approval": {
+        "status": "approved-for-review",
+        "reviewer": "S21 generator local deterministic validation",
+        "nextOwner": "S18 curriculum QA"
+      }
+    },
+    {
+      "id": "us-ca-k-g5-tx-v1-k-k-oa-compose-decompose",
+      "packageId": "us-ca-math-k-g5-textbooks-v1",
+      "reviewStatus": "auto-validated-ready-for-s18-sampling",
+      "integrationStatus": "candidate-only",
+      "metadata": {
+        "curriculumTrack": "US_CA_MATH",
+        "state": "CA",
+        "grade": "K",
+        "usGradeLabel": "Kindergarten",
+        "topicId": "us-ca-math-k-k-oa-compose-decompose",
+        "domainId": "K.OA",
+        "domainTitle": "Operations and Algebraic Thinking",
+        "clusterId": "K.OA.compose-decompose",
+        "clusterTitle": "Compose Decompose",
+        "standardIds": [
+          "K.OA.1",
+          "K.OA.2",
+          "K.OA.3",
+          "K.OA.4",
+          "K.OA.5"
+        ],
+        "difficulty": "Low",
+        "estimatedMinutes": 35,
+        "languageVariant": "en-primary",
+        "sourceSafetyStatus": "MAIS-authored-original-from-public-standards-structure",
+        "evidenceCardIds": [
+          "ca-ccss-structure-k-oa-compose-decompose"
+        ],
+        "competencyTags": [
+          "story mats",
+          "part-part-whole frames",
+          "make 10",
+          "misconception:operation sign as decoration",
+          "misconception:missing part-whole relationship"
+        ]
+      },
+      "studentLesson": {
+        "en": {
+          "title": "Kindergarten Operations and Algebraic Thinking: Compose Decompose",
+          "learningGoals": [
+            "Use models and words to reason about represent joining, separating, and decomposing within 10 with objects, drawings, and equations.",
+            "Show each step with a drawing, equation, table, or verbal check.",
+            "Check whether the answer makes sense in the story."
+          ],
+          "launch": "Nora has a train of 7 cubes. She breaks it into 4 cubes and 3 cubes, then snaps the parts back together.",
+          "conceptExplanation": "A whole number can be built from parts and broken back into parts. Joining 4 and 3 makes the whole 7, and splitting 7 can reveal 4 and 3 again. Counters, fingers, drawings, and equations can all tell that same within 10 story. The parts may move, but the whole stays connected to them.",
+          "workedExample": {
+            "prompt": "Lena has 6 stickers and gets 2 more. How many stickers does Lena have now?",
+            "answer": "8",
+            "reasoning": "6 + 2 = 8, so Lena has 8 stickers. The whole 8 can also be broken into 6 and 2."
+          },
+          "guidedPractice": [
+            {
+              "prompt": "Lena has 6 stickers and gets 2 more. How many stickers does Lena have now?",
+              "expectedMove": "Name the quantities, choose a representation, solve, and check the units or labels."
+            }
+          ],
+          "independentPractice": [
+            "Create one similar problem with different numbers or objects.",
+            "Swap with a partner and explain the checking step."
+          ],
+          "commonPitfalls": [
+            {
+              "pitfall": "operation sign as decoration",
+              "repairMove": "Return to the model, label each quantity, and compare the result with the question."
+            },
+            {
+              "pitfall": "missing part-whole relationship",
+              "repairMove": "Return to the model, label each quantity, and compare the result with the question."
+            }
+          ],
+          "exitTicket": "In one sentence, explain how today's representation helped you solve a operations and algebraic thinking problem."
+        }
+      },
+      "answerKey": {
+        "workedExample": {
+          "answer": "8",
+          "acceptedAnswers": [
+            "8"
+          ],
+          "solutionSteps": [
+            "6 + 2 = 8, so Lena has 8 stickers. The whole 8 can also be broken into 6 and 2."
+          ]
+        },
+        "guidedPractice": {
+          "acceptedEvidence": [
+            "correct representation",
+            "correct computation",
+            "reasonableness check"
+          ]
+        }
+      },
+      "validation": {
+        "deterministicChecks": [
+          {
+            "check": "worked-example-answer",
+            "status": "pass",
+            "kind": "sum",
+            "values": {
+              "left": 6,
+              "right": 2
+            },
+            "answer": "8"
+          }
+        ],
+        "unresolvedRisks": []
+      },
+      "illustration": {
+        "visualPolicy": "text-only-v1",
+        "plannedAssets": [],
+        "notes": "No answer-critical bitmap or diagram is required for this candidate. Future manipulatives, coordinate grids, or geometry figures must be rendered as deterministic SVG/math-svg assets before live visual release."
+      },
+      "review": {
+        "sourceDistanceStatus": "passed-local-source-policy",
+        "mathQaStatus": "passed-deterministic-check",
+        "languageQaStatus": "plain-english-en-primary",
+        "pedagogyNotes": "Lesson follows concrete-to-representational-to-check sequence for K-5 learners."
+      },
+      "approval": {
+        "status": "approved-for-review",
+        "reviewer": "S21 generator local deterministic validation",
+        "nextOwner": "S18 curriculum QA"
+      }
+    },
+    {
+      "id": "us-ca-k-g5-tx-v1-k-k-nbt-teen-numbers",
+      "packageId": "us-ca-math-k-g5-textbooks-v1",
+      "reviewStatus": "auto-validated-ready-for-s18-sampling",
+      "integrationStatus": "candidate-only",
+      "metadata": {
+        "curriculumTrack": "US_CA_MATH",
+        "state": "CA",
+        "grade": "K",
+        "usGradeLabel": "Kindergarten",
+        "topicId": "us-ca-math-k-k-nbt-teen-numbers",
+        "domainId": "K.NBT",
+        "domainTitle": "Number and Operations in Base Ten",
+        "clusterId": "K.NBT.teen-numbers",
+        "clusterTitle": "Teen Numbers",
+        "standardIds": [
+          "K.NBT.1"
+        ],
+        "difficulty": "Low",
+        "estimatedMinutes": 35,
+        "languageVariant": "en-primary",
+        "sourceSafetyStatus": "MAIS-authored-original-from-public-standards-structure",
+        "evidenceCardIds": [
+          "ca-ccss-structure-k-nbt-teen-numbers"
+        ],
+        "competencyTags": [
+          "ten-frame plus extras",
+          "base-ten drawings",
+          "misconception:reading teen digits in reverse"
+        ]
+      },
+      "studentLesson": {
+        "en": {
+          "title": "Kindergarten Number and Operations in Base Ten: Teen Numbers",
+          "learningGoals": [
+            "Use models and words to reason about treat teen numbers as ten ones and extra ones.",
+            "Show each step with a drawing, equation, table, or verbal check.",
+            "Check whether the answer makes sense in the story."
+          ],
+          "launch": "A ten-frame bus fills all 10 seats, and 4 more students wait beside it. That picture helps the class see 14.",
+          "conceptExplanation": "Teen numbers are a full ten plus some extra ones. In 14, the 1 means one ten, and the 4 means four ones. Seeing the ten first keeps the number from feeling like a long count of loose objects. Ten and extras makes teen numbers easier to build, read, and write.",
+          "workedExample": {
+            "prompt": "A ten-frame is full and 7 more counters are beside it. What teen number is shown?",
+            "answer": "17",
+            "reasoning": "One ten and 7 ones make 17."
+          },
+          "guidedPractice": [
+            {
+              "prompt": "A ten-frame is full and 7 more counters are beside it. Explain what teen number is shown?",
+              "expectedMove": "Name the quantities, choose a representation, solve, and check the units or labels."
+            }
+          ],
+          "independentPractice": [
+            "Create one similar problem with different numbers or objects.",
+            "Swap with a partner and explain the checking step."
+          ],
+          "commonPitfalls": [
+            {
+              "pitfall": "reading teen digits in reverse",
+              "repairMove": "Return to the model, label each quantity, and compare the result with the question."
+            }
+          ],
+          "exitTicket": "In one sentence, explain how today's representation helped you solve a number and operations in base ten problem."
+        }
+      },
+      "answerKey": {
+        "workedExample": {
+          "answer": "17",
+          "acceptedAnswers": [
+            "17"
+          ],
+          "solutionSteps": [
+            "One ten and 7 ones make 17."
+          ]
+        },
+        "guidedPractice": {
+          "acceptedEvidence": [
+            "correct representation",
+            "correct computation",
+            "reasonableness check"
+          ]
+        }
+      },
+      "validation": {
+        "deterministicChecks": [
+          {
+            "check": "worked-example-answer",
+            "status": "pass",
+            "kind": "teen-number",
+            "values": {
+              "ones": 7
+            },
+            "answer": "17"
+          }
+        ],
+        "unresolvedRisks": []
+      },
+      "illustration": {
+        "visualPolicy": "text-only-v1",
+        "plannedAssets": [],
+        "notes": "No answer-critical bitmap or diagram is required for this candidate. Future manipulatives, coordinate grids, or geometry figures must be rendered as deterministic SVG/math-svg assets before live visual release."
+      },
+      "review": {
+        "sourceDistanceStatus": "passed-local-source-policy",
+        "mathQaStatus": "passed-deterministic-check",
+        "languageQaStatus": "plain-english-en-primary",
+        "pedagogyNotes": "Lesson follows concrete-to-representational-to-check sequence for K-5 learners."
+      },
+      "approval": {
+        "status": "approved-for-review",
+        "reviewer": "S21 generator local deterministic validation",
+        "nextOwner": "S18 curriculum QA"
+      }
+    },
+    {
+      "id": "us-ca-k-g5-tx-v1-k-k-md-attributes-data",
+      "packageId": "us-ca-math-k-g5-textbooks-v1",
+      "reviewStatus": "auto-validated-ready-for-s18-sampling",
+      "integrationStatus": "candidate-only",
+      "metadata": {
+        "curriculumTrack": "US_CA_MATH",
+        "state": "CA",
+        "grade": "K",
+        "usGradeLabel": "Kindergarten",
+        "topicId": "us-ca-math-k-k-md-attributes-data",
+        "domainId": "K.MD",
+        "domainTitle": "Measurement and Data",
+        "clusterId": "K.MD.attributes-data",
+        "clusterTitle": "Attributes Data",
+        "standardIds": [
+          "K.MD.1",
+          "K.MD.2",
+          "K.MD.3"
+        ],
+        "difficulty": "Low",
+        "estimatedMinutes": 35,
+        "languageVariant": "en-primary",
+        "sourceSafetyStatus": "MAIS-authored-original-from-public-standards-structure",
+        "evidenceCardIds": [
+          "ca-ccss-structure-k-md-attributes-data"
+        ],
+        "competencyTags": [
+          "sort by attribute",
+          "longer/shorter",
+          "classify objects",
+          "misconception:confusing length with count",
+          "misconception:single-attribute sorting only"
+        ]
+      },
+      "studentLesson": {
+        "en": {
+          "title": "Kindergarten Measurement and Data: Attributes Data",
+          "learningGoals": [
+            "Use models and words to reason about describe, compare, and classify measurable attributes.",
+            "Show each step with a drawing, equation, table, or verbal check.",
+            "Check whether the answer makes sense in the story."
+          ],
+          "launch": "At the art table, a pencil is longer than an eraser, but the eraser feels heavier in your hand.",
+          "conceptExplanation": "Measurement starts by choosing one attribute to notice. Length, height, weight, and color answer different questions, so you compare only one kind of thing at a time. Measuring works best when the same unit or rule is used for every object. Then your data tells a fair story about what is longer, heavier, taller, or shorter.",
+          "workedExample": {
+            "prompt": "A pencil is 11 cubes long. An eraser is 8 cubes long. Which object is longer?",
+            "answer": "pencil",
+            "reasoning": "11 is greater than 8, so the pencil is longer."
+          },
+          "guidedPractice": [
+            {
+              "prompt": "A pencil is 11 cubes long. An eraser is 8 cubes long. Which object is longer?",
+              "expectedMove": "Name the quantities, choose a representation, solve, and check the units or labels."
+            }
+          ],
+          "independentPractice": [
+            "Create one similar problem with different numbers or objects.",
+            "Swap with a partner and explain the checking step."
+          ],
+          "commonPitfalls": [
+            {
+              "pitfall": "confusing length with count",
+              "repairMove": "Return to the model, label each quantity, and compare the result with the question."
+            },
+            {
+              "pitfall": "single-attribute sorting only",
+              "repairMove": "Return to the model, label each quantity, and compare the result with the question."
+            }
+          ],
+          "exitTicket": "In one sentence, explain how today's representation helped you solve a measurement and data problem."
+        }
+      },
+      "answerKey": {
+        "workedExample": {
+          "answer": "pencil",
+          "acceptedAnswers": [
+            "pencil"
+          ],
+          "solutionSteps": [
+            "11 is greater than 8, so the pencil is longer."
+          ]
+        },
+        "guidedPractice": {
+          "acceptedEvidence": [
+            "correct representation",
+            "correct computation",
+            "reasonableness check"
+          ]
+        }
+      },
+      "validation": {
+        "deterministicChecks": [
+          {
+            "check": "worked-example-answer",
+            "status": "pass",
+            "kind": "longer-object",
+            "values": {
+              "pencil": 11,
+              "eraser": 8
+            },
+            "answer": "pencil"
+          }
+        ],
+        "unresolvedRisks": []
+      },
+      "illustration": {
+        "visualPolicy": "text-only-v1",
+        "plannedAssets": [],
+        "notes": "No answer-critical bitmap or diagram is required for this candidate. Future manipulatives, coordinate grids, or geometry figures must be rendered as deterministic SVG/math-svg assets before live visual release."
+      },
+      "review": {
+        "sourceDistanceStatus": "passed-local-source-policy",
+        "mathQaStatus": "passed-deterministic-check",
+        "languageQaStatus": "plain-english-en-primary",
+        "pedagogyNotes": "Lesson follows concrete-to-representational-to-check sequence for K-5 learners."
+      },
+      "approval": {
+        "status": "approved-for-review",
+        "reviewer": "S21 generator local deterministic validation",
+        "nextOwner": "S18 curriculum QA"
+      }
+    },
+    {
+      "id": "us-ca-k-g5-tx-v1-k-k-g-shapes-position",
+      "packageId": "us-ca-math-k-g5-textbooks-v1",
+      "reviewStatus": "auto-validated-ready-for-s18-sampling",
+      "integrationStatus": "candidate-only",
+      "metadata": {
+        "curriculumTrack": "US_CA_MATH",
+        "state": "CA",
+        "grade": "K",
+        "usGradeLabel": "Kindergarten",
+        "topicId": "us-ca-math-k-k-g-shapes-position",
+        "domainId": "K.G",
+        "domainTitle": "Geometry",
+        "clusterId": "K.G.shapes-position",
+        "clusterTitle": "Shapes Position",
+        "standardIds": [
+          "K.G.1",
+          "K.G.2",
+          "K.G.3",
+          "K.G.4",
+          "K.G.5",
+          "K.G.6"
+        ],
+        "difficulty": "Low",
+        "estimatedMinutes": 35,
+        "languageVariant": "en-primary",
+        "sourceSafetyStatus": "MAIS-authored-original-from-public-standards-structure",
+        "evidenceCardIds": [
+          "ca-ccss-structure-k-g-shapes-position"
+        ],
+        "competencyTags": [
+          "shape sort",
+          "compose shapes",
+          "position words",
+          "misconception:prototype-only shape recognition",
+          "misconception:2D/3D confusion"
+        ]
+      },
+      "studentLesson": {
+        "en": {
+          "title": "Kindergarten Geometry: Shapes Position",
+          "learningGoals": [
+            "Use models and words to reason about name, compare, compose, and position two- and three-dimensional shapes.",
+            "Show each step with a drawing, equation, table, or verbal check.",
+            "Check whether the answer makes sense in the story."
+          ],
+          "launch": "A paper triangle is still a triangle when you turn it sideways, slide it under a book, or color it green.",
+          "conceptExplanation": "A shape gets its name from its attributes. A triangle has three straight sides, and a rectangle has four square corners, no matter which way it faces. Position words tell where the shape is, not what the shape is. Words like above, below, beside, and inside help you describe the scene clearly.",
+          "workedExample": {
+            "prompt": "Which shape has 3 straight sides?",
+            "answer": "triangle",
+            "reasoning": "A triangle has 3 straight sides."
+          },
+          "guidedPractice": [
+            {
+              "prompt": "Which shape has 3 straight sides?",
+              "expectedMove": "Name the quantities, choose a representation, solve, and check the units or labels."
+            }
+          ],
+          "independentPractice": [
+            "Create one similar problem with different numbers or objects.",
+            "Swap with a partner and explain the checking step."
+          ],
+          "commonPitfalls": [
+            {
+              "pitfall": "prototype-only shape recognition",
+              "repairMove": "Return to the model, label each quantity, and compare the result with the question."
+            },
+            {
+              "pitfall": "2D/3D confusion",
+              "repairMove": "Return to the model, label each quantity, and compare the result with the question."
+            }
+          ],
+          "exitTicket": "In one sentence, explain how today's representation helped you solve a geometry problem."
+        }
+      },
+      "answerKey": {
+        "workedExample": {
+          "answer": "triangle",
+          "acceptedAnswers": [
+            "triangle"
+          ],
+          "solutionSteps": [
+            "A triangle has 3 straight sides."
+          ]
+        },
+        "guidedPractice": {
+          "acceptedEvidence": [
+            "correct representation",
+            "correct computation",
+            "reasonableness check"
+          ]
+        }
+      },
+      "validation": {
+        "deterministicChecks": [
+          {
+            "check": "worked-example-answer",
+            "status": "pass",
+            "kind": "shape-name",
+            "values": {
+              "sides": 3,
+              "answer": "triangle"
+            },
+            "answer": "triangle"
+          }
+        ],
+        "unresolvedRisks": []
+      },
+      "illustration": {
+        "visualPolicy": "text-only-v1",
+        "plannedAssets": [],
+        "notes": "No answer-critical bitmap or diagram is required for this candidate. Future manipulatives, coordinate grids, or geometry figures must be rendered as deterministic SVG/math-svg assets before live visual release."
+      },
+      "review": {
+        "sourceDistanceStatus": "passed-local-source-policy",
+        "mathQaStatus": "passed-deterministic-check",
+        "languageQaStatus": "plain-english-en-primary",
+        "pedagogyNotes": "Lesson follows concrete-to-representational-to-check sequence for K-5 learners."
+      },
+      "approval": {
+        "status": "approved-for-review",
+        "reviewer": "S21 generator local deterministic validation",
+        "nextOwner": "S18 curriculum QA"
+      }
+    },
+    {
+      "id": "us-ca-k-g5-tx-v1-p1-1-oa-add-subtract",
+      "packageId": "us-ca-math-k-g5-textbooks-v1",
+      "reviewStatus": "auto-validated-ready-for-s18-sampling",
+      "integrationStatus": "candidate-only",
+      "metadata": {
+        "curriculumTrack": "US_CA_MATH",
+        "state": "CA",
+        "grade": "P1",
+        "usGradeLabel": "Grade 1",
+        "topicId": "us-ca-math-p1-1-oa-add-subtract",
+        "domainId": "1.OA",
+        "domainTitle": "Operations and Algebraic Thinking",
+        "clusterId": "1.OA.add-subtract",
+        "clusterTitle": "Add Subtract",
+        "standardIds": [
+          "1.OA.1",
+          "1.OA.2",
+          "1.OA.3",
+          "1.OA.4",
+          "1.OA.5",
+          "1.OA.6",
+          "1.OA.7",
+          "1.OA.8"
+        ],
+        "difficulty": "Low",
+        "estimatedMinutes": 35,
+        "languageVariant": "en-primary",
+        "sourceSafetyStatus": "MAIS-authored-original-from-public-standards-structure",
+        "evidenceCardIds": [
+          "ca-ccss-structure-1-oa-add-subtract"
+        ],
+        "competencyTags": [
+          "number bonds",
+          "unknown-position equations",
+          "make-ten strategies",
+          "misconception:keyword-only operation choice",
+          "misconception:equals sign as answer cue"
+        ]
+      },
+      "studentLesson": {
+        "en": {
+          "title": "Grade 1 Operations and Algebraic Thinking: Add Subtract",
+          "learningGoals": [
+            "Use models and words to reason about solve addition/subtraction situations, understand properties, and build fluency within 20.",
+            "Show each step with a drawing, equation, table, or verbal check.",
+            "Check whether the answer makes sense in the story."
+          ],
+          "launch": "Lena has 8 blue stickers on her desk, then a friend gives her 3 green stickers. She draws the desk before writing any numbers so each number has a job in the story.",
+          "conceptExplanation": "Addition is the story of parts joining to make a whole, so Lena can show 8 + 3 = 11. Subtraction is the story of a whole changing, being compared, or being split to find a missing part. The equals sign means both sides have the same value, so 11 = 8 + 3 is true too. Counters, ten-frames, number lines, and equations are different ways to prove the answer fits within 20.",
+          "workedExample": {
+            "prompt": "Lena has 7 stickers and gets 4 more. How many stickers does Lena have now?",
+            "answer": "11",
+            "reasoning": "7 + 4 = 11, so Lena has 11 stickers. The equation 11 = 7 + 4 is also true because both sides have the same value."
+          },
+          "guidedPractice": [
+            {
+              "prompt": "Lena has 7 stickers and gets 4 more. How many stickers does Lena have now?",
+              "expectedMove": "Name the quantities, choose a representation, solve, and check the units or labels."
+            }
+          ],
+          "independentPractice": [
+            "Create one similar problem with different numbers or objects.",
+            "Swap with a partner and explain the checking step."
+          ],
+          "commonPitfalls": [
+            {
+              "pitfall": "keyword-only operation choice",
+              "repairMove": "Return to the model, label each quantity, and compare the result with the question."
+            },
+            {
+              "pitfall": "equals sign as answer cue",
+              "repairMove": "Return to the model, label each quantity, and compare the result with the question."
+            }
+          ],
+          "exitTicket": "In one sentence, explain how today's representation helped you solve a operations and algebraic thinking problem."
+        }
+      },
+      "answerKey": {
+        "workedExample": {
+          "answer": "11",
+          "acceptedAnswers": [
+            "11"
+          ],
+          "solutionSteps": [
+            "7 + 4 = 11, so Lena has 11 stickers. The equation 11 = 7 + 4 is also true because both sides have the same value."
+          ]
+        },
+        "guidedPractice": {
+          "acceptedEvidence": [
+            "correct representation",
+            "correct computation",
+            "reasonableness check"
+          ]
+        }
+      },
+      "validation": {
+        "deterministicChecks": [
+          {
+            "check": "worked-example-answer",
+            "status": "pass",
+            "kind": "sum",
+            "values": {
+              "left": 7,
+              "right": 4
+            },
+            "answer": "11"
+          }
+        ],
+        "unresolvedRisks": []
+      },
+      "illustration": {
+        "visualPolicy": "text-only-v1",
+        "plannedAssets": [],
+        "notes": "No answer-critical bitmap or diagram is required for this candidate. Future manipulatives, coordinate grids, or geometry figures must be rendered as deterministic SVG/math-svg assets before live visual release."
+      },
+      "review": {
+        "sourceDistanceStatus": "passed-local-source-policy",
+        "mathQaStatus": "passed-deterministic-check",
+        "languageQaStatus": "plain-english-en-primary",
+        "pedagogyNotes": "Lesson follows concrete-to-representational-to-check sequence for K-5 learners."
+      },
+      "approval": {
+        "status": "approved-for-review",
+        "reviewer": "S21 generator local deterministic validation",
+        "nextOwner": "S18 curriculum QA"
+      }
+    },
+    {
+      "id": "us-ca-k-g5-tx-v1-p1-1-nbt-place-value",
+      "packageId": "us-ca-math-k-g5-textbooks-v1",
+      "reviewStatus": "auto-validated-ready-for-s18-sampling",
+      "integrationStatus": "candidate-only",
+      "metadata": {
+        "curriculumTrack": "US_CA_MATH",
+        "state": "CA",
+        "grade": "P1",
+        "usGradeLabel": "Grade 1",
+        "topicId": "us-ca-math-p1-1-nbt-place-value",
+        "domainId": "1.NBT",
+        "domainTitle": "Number and Operations in Base Ten",
+        "clusterId": "1.NBT.place-value",
+        "clusterTitle": "Place Value",
+        "standardIds": [
+          "1.NBT.1",
+          "1.NBT.2",
+          "1.NBT.3",
+          "1.NBT.4",
+          "1.NBT.5",
+          "1.NBT.6"
+        ],
+        "difficulty": "Low",
+        "estimatedMinutes": 35,
+        "languageVariant": "en-primary",
+        "sourceSafetyStatus": "MAIS-authored-original-from-public-standards-structure",
+        "evidenceCardIds": [
+          "ca-ccss-structure-1-nbt-place-value"
+        ],
+        "competencyTags": [
+          "base-ten blocks",
+          "hundred chart",
+          "expanded tens/ones",
+          "misconception:digit value versus digit name",
+          "misconception:subtracting larger digit from smaller"
+        ]
+      },
+      "studentLesson": {
+        "en": {
+          "title": "Grade 1 Number and Operations in Base Ten: Place Value",
+          "learningGoals": [
+            "Use models and words to reason about count, compare, and operate with two-digit numbers using tens and ones.",
+            "Show each step with a drawing, equation, table, or verbal check.",
+            "Check whether the answer makes sense in the story."
+          ],
+          "launch": "The classroom library has 5 bundles of ten bookmarks and 4 single bookmarks waiting in a cup.",
+          "conceptExplanation": "Place value tells what a digit is worth because of where it sits. In 54, the 5 means five tens, and the 4 means four ones. Bundles keep the tens from getting mixed with loose ones. When you compare, add, or subtract two-digit numbers, keep tens with tens and ones with ones so the story stays organized.",
+          "workedExample": {
+            "prompt": "A number has 6 tens and 2 ones. What is the number?",
+            "answer": "62",
+            "reasoning": "6 tens and 2 ones make 62."
+          },
+          "guidedPractice": [
+            {
+              "prompt": "A number has 6 tens and 2 ones. Explain what is the number?",
+              "expectedMove": "Name the quantities, choose a representation, solve, and check the units or labels."
+            }
+          ],
+          "independentPractice": [
+            "Create one similar problem with different numbers or objects.",
+            "Swap with a partner and explain the checking step."
+          ],
+          "commonPitfalls": [
+            {
+              "pitfall": "digit value versus digit name",
+              "repairMove": "Return to the model, label each quantity, and compare the result with the question."
+            },
+            {
+              "pitfall": "subtracting larger digit from smaller",
+              "repairMove": "Return to the model, label each quantity, and compare the result with the question."
+            }
+          ],
+          "exitTicket": "In one sentence, explain how today's representation helped you solve a number and operations in base ten problem."
+        }
+      },
+      "answerKey": {
+        "workedExample": {
+          "answer": "62",
+          "acceptedAnswers": [
+            "62"
+          ],
+          "solutionSteps": [
+            "6 tens and 2 ones make 62."
+          ]
+        },
+        "guidedPractice": {
+          "acceptedEvidence": [
+            "correct representation",
+            "correct computation",
+            "reasonableness check"
+          ]
+        }
+      },
+      "validation": {
+        "deterministicChecks": [
+          {
+            "check": "worked-example-answer",
+            "status": "pass",
+            "kind": "tens-ones",
+            "values": {
+              "tens": 6,
+              "ones": 2
+            },
+            "answer": "62"
+          }
+        ],
+        "unresolvedRisks": []
+      },
+      "illustration": {
+        "visualPolicy": "text-only-v1",
+        "plannedAssets": [],
+        "notes": "No answer-critical bitmap or diagram is required for this candidate. Future manipulatives, coordinate grids, or geometry figures must be rendered as deterministic SVG/math-svg assets before live visual release."
+      },
+      "review": {
+        "sourceDistanceStatus": "passed-local-source-policy",
+        "mathQaStatus": "passed-deterministic-check",
+        "languageQaStatus": "plain-english-en-primary",
+        "pedagogyNotes": "Lesson follows concrete-to-representational-to-check sequence for K-5 learners."
+      },
+      "approval": {
+        "status": "approved-for-review",
+        "reviewer": "S21 generator local deterministic validation",
+        "nextOwner": "S18 curriculum QA"
+      }
+    },
+    {
+      "id": "us-ca-k-g5-tx-v1-p1-1-md-measure-data",
+      "packageId": "us-ca-math-k-g5-textbooks-v1",
+      "reviewStatus": "auto-validated-ready-for-s18-sampling",
+      "integrationStatus": "candidate-only",
+      "metadata": {
+        "curriculumTrack": "US_CA_MATH",
+        "state": "CA",
+        "grade": "P1",
+        "usGradeLabel": "Grade 1",
+        "topicId": "us-ca-math-p1-1-md-measure-data",
+        "domainId": "1.MD",
+        "domainTitle": "Measurement and Data",
+        "clusterId": "1.MD.measure-data",
+        "clusterTitle": "Measure Data",
+        "standardIds": [
+          "1.MD.1",
+          "1.MD.2",
+          "1.MD.3",
+          "1.MD.4"
+        ],
+        "difficulty": "Low",
+        "estimatedMinutes": 35,
+        "languageVariant": "en-primary",
+        "sourceSafetyStatus": "MAIS-authored-original-from-public-standards-structure",
+        "evidenceCardIds": [
+          "ca-ccss-structure-1-md-measure-data"
+        ],
+        "competencyTags": [
+          "unit iteration",
+          "clock reading",
+          "picture graph",
+          "misconception:gaps/overlaps in units",
+          "misconception:counting tick marks instead of intervals"
+        ]
+      },
+      "studentLesson": {
+        "en": {
+          "title": "Grade 1 Measurement and Data: Measure Data",
+          "learningGoals": [
+            "Use models and words to reason about compare lengths, measure by iterating units, tell time, and interpret simple data.",
+            "Show each step with a drawing, equation, table, or verbal check.",
+            "Check whether the answer makes sense in the story."
+          ],
+          "launch": "Sofia measures a ribbon with paper clips. If the clips overlap or leave gaps, the ribbon seems to change length even though it did not move.",
+          "conceptExplanation": "A measurement number needs both a unit and an object. Length tells how long something is, and a fair measure repeats the same unit from end to end. You can compare two lengths, count spaces on a ruler or number line, and sort data to answer questions. The label tells what the number is counting.",
+          "workedExample": {
+            "prompt": "A ribbon is 13 units long. A string is 8 units long. How many units longer is the ribbon?",
+            "answer": "5",
+            "reasoning": "13 - 8 = 5, so the ribbon is 5 units longer."
+          },
+          "guidedPractice": [
+            {
+              "prompt": "A ribbon is 13 units long. A string is 8 units long. How many units longer is the ribbon?",
+              "expectedMove": "Name the quantities, choose a representation, solve, and check the units or labels."
+            }
+          ],
+          "independentPractice": [
+            "Create one similar problem with different numbers or objects.",
+            "Swap with a partner and explain the checking step."
+          ],
+          "commonPitfalls": [
+            {
+              "pitfall": "gaps/overlaps in units",
+              "repairMove": "Return to the model, label each quantity, and compare the result with the question."
+            },
+            {
+              "pitfall": "counting tick marks instead of intervals",
+              "repairMove": "Return to the model, label each quantity, and compare the result with the question."
+            }
+          ],
+          "exitTicket": "In one sentence, explain how today's representation helped you solve a measurement and data problem."
+        }
+      },
+      "answerKey": {
+        "workedExample": {
+          "answer": "5",
+          "acceptedAnswers": [
+            "5"
+          ],
+          "solutionSteps": [
+            "13 - 8 = 5, so the ribbon is 5 units longer."
+          ]
+        },
+        "guidedPractice": {
+          "acceptedEvidence": [
+            "correct representation",
+            "correct computation",
+            "reasonableness check"
+          ]
+        }
+      },
+      "validation": {
+        "deterministicChecks": [
+          {
+            "check": "worked-example-answer",
+            "status": "pass",
+            "kind": "length-difference",
+            "values": {
+              "long": 13,
+              "short": 8
+            },
+            "answer": "5"
+          }
+        ],
+        "unresolvedRisks": []
+      },
+      "illustration": {
+        "visualPolicy": "text-only-v1",
+        "plannedAssets": [],
+        "notes": "No answer-critical bitmap or diagram is required for this candidate. Future manipulatives, coordinate grids, or geometry figures must be rendered as deterministic SVG/math-svg assets before live visual release."
+      },
+      "review": {
+        "sourceDistanceStatus": "passed-local-source-policy",
+        "mathQaStatus": "passed-deterministic-check",
+        "languageQaStatus": "plain-english-en-primary",
+        "pedagogyNotes": "Lesson follows concrete-to-representational-to-check sequence for K-5 learners."
+      },
+      "approval": {
+        "status": "approved-for-review",
+        "reviewer": "S21 generator local deterministic validation",
+        "nextOwner": "S18 curriculum QA"
+      }
+    },
+    {
+      "id": "us-ca-k-g5-tx-v1-p1-1-g-shape-reasoning",
+      "packageId": "us-ca-math-k-g5-textbooks-v1",
+      "reviewStatus": "auto-validated-ready-for-s18-sampling",
+      "integrationStatus": "candidate-only",
+      "metadata": {
+        "curriculumTrack": "US_CA_MATH",
+        "state": "CA",
+        "grade": "P1",
+        "usGradeLabel": "Grade 1",
+        "topicId": "us-ca-math-p1-1-g-shape-reasoning",
+        "domainId": "1.G",
+        "domainTitle": "Geometry",
+        "clusterId": "1.G.shape-reasoning",
+        "clusterTitle": "Shape Reasoning",
+        "standardIds": [
+          "1.G.1",
+          "1.G.2",
+          "1.G.3"
+        ],
+        "difficulty": "Low",
+        "estimatedMinutes": 35,
+        "languageVariant": "en-primary",
+        "sourceSafetyStatus": "MAIS-authored-original-from-public-standards-structure",
+        "evidenceCardIds": [
+          "ca-ccss-structure-1-g-shape-reasoning"
+        ],
+        "competencyTags": [
+          "shape composition",
+          "equal shares",
+          "attribute sort",
+          "misconception:non-defining attribute sorting",
+          "misconception:unequal partitions named as halves"
+        ]
+      },
+      "studentLesson": {
+        "en": {
+          "title": "Grade 1 Geometry: Shape Reasoning",
+          "learningGoals": [
+            "Use models and words to reason about compose, partition, and reason about defining attributes of shapes.",
+            "Show each step with a drawing, equation, table, or verbal check.",
+            "Check whether the answer makes sense in the story."
+          ],
+          "launch": "A folded paper napkin can become two equal shares, but only if both pieces are the same size.",
+          "conceptExplanation": "Shape reasoning begins with attributes that must be true. A rectangle stays a rectangle when it is big, small, tilted, or blue because it still has the needed sides and square corners. Equal shares are about fairness: each part must match in size. That is when words like halves and fourths make sense.",
+          "workedExample": {
+            "prompt": "A rectangle is split into 2 equal shares. What are the shares called?",
+            "answer": "halves",
+            "reasoning": "Two equal shares of one whole are called halves."
+          },
+          "guidedPractice": [
+            {
+              "prompt": "A rectangle is split into 2 equal shares. Explain what are the shares called?",
+              "expectedMove": "Name the quantities, choose a representation, solve, and check the units or labels."
+            }
+          ],
+          "independentPractice": [
+            "Create one similar problem with different numbers or objects.",
+            "Swap with a partner and explain the checking step."
+          ],
+          "commonPitfalls": [
+            {
+              "pitfall": "non-defining attribute sorting",
+              "repairMove": "Return to the model, label each quantity, and compare the result with the question."
+            },
+            {
+              "pitfall": "unequal partitions named as halves",
+              "repairMove": "Return to the model, label each quantity, and compare the result with the question."
+            }
+          ],
+          "exitTicket": "In one sentence, explain how today's representation helped you solve a geometry problem."
+        }
+      },
+      "answerKey": {
+        "workedExample": {
+          "answer": "halves",
+          "acceptedAnswers": [
+            "halves"
+          ],
+          "solutionSteps": [
+            "Two equal shares of one whole are called halves."
+          ]
+        },
+        "guidedPractice": {
+          "acceptedEvidence": [
+            "correct representation",
+            "correct computation",
+            "reasonableness check"
+          ]
+        }
+      },
+      "validation": {
+        "deterministicChecks": [
+          {
+            "check": "worked-example-answer",
+            "status": "pass",
+            "kind": "equal-shares",
+            "values": {
+              "shares": 2,
+              "answer": "halves"
+            },
+            "answer": "halves"
+          }
+        ],
+        "unresolvedRisks": []
+      },
+      "illustration": {
+        "visualPolicy": "text-only-v1",
+        "plannedAssets": [],
+        "notes": "No answer-critical bitmap or diagram is required for this candidate. Future manipulatives, coordinate grids, or geometry figures must be rendered as deterministic SVG/math-svg assets before live visual release."
+      },
+      "review": {
+        "sourceDistanceStatus": "passed-local-source-policy",
+        "mathQaStatus": "passed-deterministic-check",
+        "languageQaStatus": "plain-english-en-primary",
+        "pedagogyNotes": "Lesson follows concrete-to-representational-to-check sequence for K-5 learners."
+      },
+      "approval": {
+        "status": "approved-for-review",
+        "reviewer": "S21 generator local deterministic validation",
+        "nextOwner": "S18 curriculum QA"
+      }
+    },
+    {
+      "id": "us-ca-k-g5-tx-v1-p2-2-oa-fluency-arrays",
+      "packageId": "us-ca-math-k-g5-textbooks-v1",
+      "reviewStatus": "auto-validated-ready-for-s18-sampling",
+      "integrationStatus": "candidate-only",
+      "metadata": {
+        "curriculumTrack": "US_CA_MATH",
+        "state": "CA",
+        "grade": "P2",
+        "usGradeLabel": "Grade 2",
+        "topicId": "us-ca-math-p2-2-oa-fluency-arrays",
+        "domainId": "2.OA",
+        "domainTitle": "Operations and Algebraic Thinking",
+        "clusterId": "2.OA.fluency-arrays",
+        "clusterTitle": "Fluency Arrays",
+        "standardIds": [
+          "2.OA.1",
+          "2.OA.2",
+          "2.OA.3",
+          "2.OA.4"
+        ],
+        "difficulty": "Medium",
+        "estimatedMinutes": 35,
+        "languageVariant": "en-primary",
+        "sourceSafetyStatus": "MAIS-authored-original-from-public-standards-structure",
+        "evidenceCardIds": [
+          "ca-ccss-structure-2-oa-fluency-arrays"
+        ],
+        "competencyTags": [
+          "bar models",
+          "array drawing",
+          "fluency choices",
+          "misconception:single-step answer to two-step context",
+          "misconception:even/odd judged by last spoken number only"
+        ]
+      },
+      "studentLesson": {
+        "en": {
+          "title": "Grade 2 Operations and Algebraic Thinking: Fluency Arrays",
+          "learningGoals": [
+            "Use models and words to reason about solve one- and two-step addition/subtraction problems, build fluency, and represent equal groups with arrays.",
+            "Show each step with a drawing, equation, table, or verbal check.",
+            "Check whether the answer makes sense in the story."
+          ],
+          "launch": "At snack time, plates are set in rows. Some stories ask how many snacks are added, and some ask how many are in equal rows.",
+          "conceptExplanation": "Addition and subtraction tell change, comparison, and part-whole stories. Arrays show equal groups because every row or column has the same amount. Fluency means you can choose a strategy that fits the story, not just rush to an answer. A quick check asks whether the equation matches the picture, rows, or words.",
+          "workedExample": {
+            "prompt": "4 teams each collect 4 stickers. How many stickers do the teams collect altogether?",
+            "answer": "16",
+            "reasoning": "4 equal groups of 4 make 4 x 4 = 16."
+          },
+          "guidedPractice": [
+            {
+              "prompt": "4 teams each collect 4 stickers. How many stickers do the teams collect altogether?",
+              "expectedMove": "Name the quantities, choose a representation, solve, and check the units or labels."
+            }
+          ],
+          "independentPractice": [
+            "Create one similar problem with different numbers or objects.",
+            "Swap with a partner and explain the checking step."
+          ],
+          "commonPitfalls": [
+            {
+              "pitfall": "single-step answer to two-step context",
+              "repairMove": "Return to the model, label each quantity, and compare the result with the question."
+            },
+            {
+              "pitfall": "even/odd judged by last spoken number only",
+              "repairMove": "Return to the model, label each quantity, and compare the result with the question."
+            }
+          ],
+          "exitTicket": "In one sentence, explain how today's representation helped you solve a operations and algebraic thinking problem."
+        }
+      },
+      "answerKey": {
+        "workedExample": {
+          "answer": "16",
+          "acceptedAnswers": [
+            "16"
+          ],
+          "solutionSteps": [
+            "4 equal groups of 4 make 4 x 4 = 16."
+          ]
+        },
+        "guidedPractice": {
+          "acceptedEvidence": [
+            "correct representation",
+            "correct computation",
+            "reasonableness check"
+          ]
+        }
+      },
+      "validation": {
+        "deterministicChecks": [
+          {
+            "check": "worked-example-answer",
+            "status": "pass",
+            "kind": "product",
+            "values": {
+              "groups": 4,
+              "size": 4
+            },
+            "answer": "16"
+          }
+        ],
+        "unresolvedRisks": []
+      },
+      "illustration": {
+        "visualPolicy": "text-only-v1",
+        "plannedAssets": [],
+        "notes": "No answer-critical bitmap or diagram is required for this candidate. Future manipulatives, coordinate grids, or geometry figures must be rendered as deterministic SVG/math-svg assets before live visual release."
+      },
+      "review": {
+        "sourceDistanceStatus": "passed-local-source-policy",
+        "mathQaStatus": "passed-deterministic-check",
+        "languageQaStatus": "plain-english-en-primary",
+        "pedagogyNotes": "Lesson follows concrete-to-representational-to-check sequence for K-5 learners."
+      },
+      "approval": {
+        "status": "approved-for-review",
+        "reviewer": "S21 generator local deterministic validation",
+        "nextOwner": "S18 curriculum QA"
+      }
+    },
+    {
+      "id": "us-ca-k-g5-tx-v1-p2-2-nbt-three-digit-place-value",
+      "packageId": "us-ca-math-k-g5-textbooks-v1",
+      "reviewStatus": "auto-validated-ready-for-s18-sampling",
+      "integrationStatus": "candidate-only",
+      "metadata": {
+        "curriculumTrack": "US_CA_MATH",
+        "state": "CA",
+        "grade": "P2",
+        "usGradeLabel": "Grade 2",
+        "topicId": "us-ca-math-p2-2-nbt-three-digit-place-value",
+        "domainId": "2.NBT",
+        "domainTitle": "Number and Operations in Base Ten",
+        "clusterId": "2.NBT.three-digit-place-value",
+        "clusterTitle": "Three Digit Place Value",
+        "standardIds": [
+          "2.NBT.1",
+          "2.NBT.2",
+          "2.NBT.3",
+          "2.NBT.4",
+          "2.NBT.5",
+          "2.NBT.6",
+          "2.NBT.7",
+          "2.NBT.8",
+          "2.NBT.9"
+        ],
+        "difficulty": "Medium",
+        "estimatedMinutes": 35,
+        "languageVariant": "en-primary",
+        "sourceSafetyStatus": "MAIS-authored-original-from-public-standards-structure",
+        "evidenceCardIds": [
+          "ca-ccss-structure-2-nbt-three-digit-place-value"
+        ],
+        "competencyTags": [
+          "place-value charts",
+          "expanded form",
+          "open number lines",
+          "misconception:regrouping as arbitrary digit movement",
+          "misconception:hundreds/tens/ones misalignment"
+        ]
+      },
+      "studentLesson": {
+        "en": {
+          "title": "Grade 2 Number and Operations in Base Ten: Three Digit Place Value",
+          "learningGoals": [
+            "Use models and words to reason about represent, compare, and add/subtract within 1000 using base-ten reasoning.",
+            "Show each step with a drawing, equation, table, or verbal check.",
+            "Check whether the answer makes sense in the story."
+          ],
+          "launch": "A school store records 145 pencils as 1 full box of hundreds, 4 packs of tens, and 5 loose pencils.",
+          "conceptExplanation": "Three-digit place value is a packing system for hundreds, tens, and ones. In 145, each digit names a different kind of unit. Regrouping is a trade, such as 10 ones for 1 ten or 10 tens for 1 hundred, without changing the total. Line up matching places so hundreds talk to hundreds, tens to tens, and ones to ones.",
+          "workedExample": {
+            "prompt": "A number has 2 hundreds, 3 tens, and 6 ones. What is the number?",
+            "answer": "236",
+            "reasoning": "2 hundreds, 3 tens, and 6 ones make 236."
+          },
+          "guidedPractice": [
+            {
+              "prompt": "A number has 2 hundreds, 3 tens, and 6 ones. Explain what is the number?",
+              "expectedMove": "Name the quantities, choose a representation, solve, and check the units or labels."
+            }
+          ],
+          "independentPractice": [
+            "Create one similar problem with different numbers or objects.",
+            "Swap with a partner and explain the checking step."
+          ],
+          "commonPitfalls": [
+            {
+              "pitfall": "regrouping as arbitrary digit movement",
+              "repairMove": "Return to the model, label each quantity, and compare the result with the question."
+            },
+            {
+              "pitfall": "hundreds/tens/ones misalignment",
+              "repairMove": "Return to the model, label each quantity, and compare the result with the question."
+            }
+          ],
+          "exitTicket": "In one sentence, explain how today's representation helped you solve a number and operations in base ten problem."
+        }
+      },
+      "answerKey": {
+        "workedExample": {
+          "answer": "236",
+          "acceptedAnswers": [
+            "236"
+          ],
+          "solutionSteps": [
+            "2 hundreds, 3 tens, and 6 ones make 236."
+          ]
+        },
+        "guidedPractice": {
+          "acceptedEvidence": [
+            "correct representation",
+            "correct computation",
+            "reasonableness check"
+          ]
+        }
+      },
+      "validation": {
+        "deterministicChecks": [
+          {
+            "check": "worked-example-answer",
+            "status": "pass",
+            "kind": "place-value",
+            "values": {
+              "hundreds": 2,
+              "tens": 3,
+              "ones": 6
+            },
+            "answer": "236"
+          }
+        ],
+        "unresolvedRisks": []
+      },
+      "illustration": {
+        "visualPolicy": "text-only-v1",
+        "plannedAssets": [],
+        "notes": "No answer-critical bitmap or diagram is required for this candidate. Future manipulatives, coordinate grids, or geometry figures must be rendered as deterministic SVG/math-svg assets before live visual release."
+      },
+      "review": {
+        "sourceDistanceStatus": "passed-local-source-policy",
+        "mathQaStatus": "passed-deterministic-check",
+        "languageQaStatus": "plain-english-en-primary",
+        "pedagogyNotes": "Lesson follows concrete-to-representational-to-check sequence for K-5 learners."
+      },
+      "approval": {
+        "status": "approved-for-review",
+        "reviewer": "S21 generator local deterministic validation",
+        "nextOwner": "S18 curriculum QA"
+      }
+    },
+    {
+      "id": "us-ca-k-g5-tx-v1-p2-2-md-measure-data-money-time",
+      "packageId": "us-ca-math-k-g5-textbooks-v1",
+      "reviewStatus": "auto-validated-ready-for-s18-sampling",
+      "integrationStatus": "candidate-only",
+      "metadata": {
+        "curriculumTrack": "US_CA_MATH",
+        "state": "CA",
+        "grade": "P2",
+        "usGradeLabel": "Grade 2",
+        "topicId": "us-ca-math-p2-2-md-measure-data-money-time",
+        "domainId": "2.MD",
+        "domainTitle": "Measurement and Data",
+        "clusterId": "2.MD.measure-data-money-time",
+        "clusterTitle": "Measure Data Money Time",
+        "standardIds": [
+          "2.MD.1",
+          "2.MD.2",
+          "2.MD.3",
+          "2.MD.4",
+          "2.MD.5",
+          "2.MD.6",
+          "2.MD.7",
+          "2.MD.8",
+          "2.MD.9",
+          "2.MD.10"
+        ],
+        "difficulty": "Medium",
+        "estimatedMinutes": 35,
+        "languageVariant": "en-primary",
+        "sourceSafetyStatus": "MAIS-authored-original-from-public-standards-structure",
+        "evidenceCardIds": [
+          "ca-ccss-structure-2-md-measure-data-money-time"
+        ],
+        "competencyTags": [
+          "ruler tasks",
+          "line plots",
+          "money combinations",
+          "misconception:unit mismatch",
+          "misconception:coin value counted as coin count"
+        ]
+      },
+      "studentLesson": {
+        "en": {
+          "title": "Grade 2 Measurement and Data: Measure Data Money Time",
+          "learningGoals": [
+            "Use models and words to reason about measure and estimate lengths, connect measurement to number lines, tell time, count money, and display data.",
+            "Show each step with a drawing, equation, table, or verbal check.",
+            "Check whether the answer makes sense in the story."
+          ],
+          "launch": "Field day has jump distances, coin collections, clock times, and class votes. The numbers only make sense when their units come along.",
+          "conceptExplanation": "A unit tells what kind of quantity a number describes. Length can be shown on a number line, money is counted by coin values, time uses hours and minutes, and data displays help compare answers. Keeping the unit with the number stops mix-ups. Then you know whether to count, add, subtract, or read from a graph.",
+          "workedExample": {
+            "prompt": "A ribbon is 14 units long. A string is 8 units long. How many units longer is the ribbon?",
+            "answer": "6",
+            "reasoning": "14 - 8 = 6, so the ribbon is 6 units longer."
+          },
+          "guidedPractice": [
+            {
+              "prompt": "A ribbon is 14 units long. A string is 8 units long. How many units longer is the ribbon?",
+              "expectedMove": "Name the quantities, choose a representation, solve, and check the units or labels."
+            }
+          ],
+          "independentPractice": [
+            "Create one similar problem with different numbers or objects.",
+            "Swap with a partner and explain the checking step."
+          ],
+          "commonPitfalls": [
+            {
+              "pitfall": "unit mismatch",
+              "repairMove": "Return to the model, label each quantity, and compare the result with the question."
+            },
+            {
+              "pitfall": "coin value counted as coin count",
+              "repairMove": "Return to the model, label each quantity, and compare the result with the question."
+            }
+          ],
+          "exitTicket": "In one sentence, explain how today's representation helped you solve a measurement and data problem."
+        }
+      },
+      "answerKey": {
+        "workedExample": {
+          "answer": "6",
+          "acceptedAnswers": [
+            "6"
+          ],
+          "solutionSteps": [
+            "14 - 8 = 6, so the ribbon is 6 units longer."
+          ]
+        },
+        "guidedPractice": {
+          "acceptedEvidence": [
+            "correct representation",
+            "correct computation",
+            "reasonableness check"
+          ]
+        }
+      },
+      "validation": {
+        "deterministicChecks": [
+          {
+            "check": "worked-example-answer",
+            "status": "pass",
+            "kind": "length-difference",
+            "values": {
+              "long": 14,
+              "short": 8
+            },
+            "answer": "6"
+          }
+        ],
+        "unresolvedRisks": []
+      },
+      "illustration": {
+        "visualPolicy": "text-only-v1",
+        "plannedAssets": [],
+        "notes": "No answer-critical bitmap or diagram is required for this candidate. Future manipulatives, coordinate grids, or geometry figures must be rendered as deterministic SVG/math-svg assets before live visual release."
+      },
+      "review": {
+        "sourceDistanceStatus": "passed-local-source-policy",
+        "mathQaStatus": "passed-deterministic-check",
+        "languageQaStatus": "plain-english-en-primary",
+        "pedagogyNotes": "Lesson follows concrete-to-representational-to-check sequence for K-5 learners."
+      },
+      "approval": {
+        "status": "approved-for-review",
+        "reviewer": "S21 generator local deterministic validation",
+        "nextOwner": "S18 curriculum QA"
+      }
+    },
+    {
+      "id": "us-ca-k-g5-tx-v1-p2-2-g-partition-shapes",
+      "packageId": "us-ca-math-k-g5-textbooks-v1",
+      "reviewStatus": "auto-validated-ready-for-s18-sampling",
+      "integrationStatus": "candidate-only",
+      "metadata": {
+        "curriculumTrack": "US_CA_MATH",
+        "state": "CA",
+        "grade": "P2",
+        "usGradeLabel": "Grade 2",
+        "topicId": "us-ca-math-p2-2-g-partition-shapes",
+        "domainId": "2.G",
+        "domainTitle": "Geometry",
+        "clusterId": "2.G.partition-shapes",
+        "clusterTitle": "Partition Shapes",
+        "standardIds": [
+          "2.G.1",
+          "2.G.2",
+          "2.G.3"
+        ],
+        "difficulty": "Medium",
+        "estimatedMinutes": 35,
+        "languageVariant": "en-primary",
+        "sourceSafetyStatus": "MAIS-authored-original-from-public-standards-structure",
+        "evidenceCardIds": [
+          "ca-ccss-structure-2-g-partition-shapes"
+        ],
+        "competencyTags": [
+          "array partition",
+          "equal-share shading",
+          "shape attribute selection",
+          "misconception:area partition not equal",
+          "misconception:rows and columns swapped"
+        ]
+      },
+      "studentLesson": {
+        "en": {
+          "title": "Grade 2 Geometry: Partition Shapes",
+          "learningGoals": [
+            "Use models and words to reason about recognize shape attributes, partition rectangles and circles, and describe equal shares.",
+            "Show each step with a drawing, equation, table, or verbal check.",
+            "Check whether the answer makes sense in the story."
+          ],
+          "launch": "Ava cuts a brownie pan for friends and also arranges square tiles in neat rows and columns.",
+          "conceptExplanation": "Partitioning means splitting one whole into equal shares. Halves, thirds, and fourths name how many equal pieces fill the whole, not how big the drawing looks. Rows and columns are another equal-size structure. When rectangles are tiled evenly, you can count groups instead of counting every square one at a time.",
+          "workedExample": {
+            "prompt": "Which shape name matches a polygon with 4 sides?",
+            "answer": "quadrilateral",
+            "reasoning": "A polygon with 4 sides is a quadrilateral."
+          },
+          "guidedPractice": [
+            {
+              "prompt": "Which shape name matches a polygon with 4 sides?",
+              "expectedMove": "Name the quantities, choose a representation, solve, and check the units or labels."
+            }
+          ],
+          "independentPractice": [
+            "Create one similar problem with different numbers or objects.",
+            "Swap with a partner and explain the checking step."
+          ],
+          "commonPitfalls": [
+            {
+              "pitfall": "area partition not equal",
+              "repairMove": "Return to the model, label each quantity, and compare the result with the question."
+            },
+            {
+              "pitfall": "rows and columns swapped",
+              "repairMove": "Return to the model, label each quantity, and compare the result with the question."
+            }
+          ],
+          "exitTicket": "In one sentence, explain how today's representation helped you solve a geometry problem."
+        }
+      },
+      "answerKey": {
+        "workedExample": {
+          "answer": "quadrilateral",
+          "acceptedAnswers": [
+            "quadrilateral"
+          ],
+          "solutionSteps": [
+            "A polygon with 4 sides is a quadrilateral."
+          ]
+        },
+        "guidedPractice": {
+          "acceptedEvidence": [
+            "correct representation",
+            "correct computation",
+            "reasonableness check"
+          ]
+        }
+      },
+      "validation": {
+        "deterministicChecks": [
+          {
+            "check": "worked-example-answer",
+            "status": "pass",
+            "kind": "shape-name",
+            "values": {
+              "sides": 4,
+              "answer": "quadrilateral"
+            },
+            "answer": "quadrilateral"
+          }
+        ],
+        "unresolvedRisks": []
+      },
+      "illustration": {
+        "visualPolicy": "text-only-v1",
+        "plannedAssets": [],
+        "notes": "No answer-critical bitmap or diagram is required for this candidate. Future manipulatives, coordinate grids, or geometry figures must be rendered as deterministic SVG/math-svg assets before live visual release."
+      },
+      "review": {
+        "sourceDistanceStatus": "passed-local-source-policy",
+        "mathQaStatus": "passed-deterministic-check",
+        "languageQaStatus": "plain-english-en-primary",
+        "pedagogyNotes": "Lesson follows concrete-to-representational-to-check sequence for K-5 learners."
+      },
+      "approval": {
+        "status": "approved-for-review",
+        "reviewer": "S21 generator local deterministic validation",
+        "nextOwner": "S18 curriculum QA"
+      }
+    },
+    {
+      "id": "us-ca-k-g5-tx-v1-p3-3-oa-mult-div",
+      "packageId": "us-ca-math-k-g5-textbooks-v1",
+      "reviewStatus": "auto-validated-ready-for-s18-sampling",
+      "integrationStatus": "candidate-only",
+      "metadata": {
+        "curriculumTrack": "US_CA_MATH",
+        "state": "CA",
+        "grade": "P3",
+        "usGradeLabel": "Grade 3",
+        "topicId": "us-ca-math-p3-3-oa-mult-div",
+        "domainId": "3.OA",
+        "domainTitle": "Operations and Algebraic Thinking",
+        "clusterId": "3.OA.mult-div",
+        "clusterTitle": "Mult Div",
+        "standardIds": [
+          "3.OA.1",
+          "3.OA.2",
+          "3.OA.3",
+          "3.OA.4",
+          "3.OA.5",
+          "3.OA.6",
+          "3.OA.7",
+          "3.OA.8",
+          "3.OA.9"
+        ],
+        "difficulty": "Medium",
+        "estimatedMinutes": 35,
+        "languageVariant": "en-primary",
+        "sourceSafetyStatus": "MAIS-authored-original-from-public-standards-structure",
+        "evidenceCardIds": [
+          "ca-ccss-structure-3-oa-mult-div"
+        ],
+        "competencyTags": [
+          "arrays",
+          "equal groups",
+          "fact families",
+          "pattern tables",
+          "misconception:multiplication as only repeated addition",
+          "misconception:division context mismatch"
+        ]
+      },
+      "studentLesson": {
+        "en": {
+          "title": "Grade 3 Operations and Algebraic Thinking: Mult Div",
+          "learningGoals": [
+            "Use models and words to reason about interpret multiplication/division, solve problem situations, use properties, and identify patterns.",
+            "Show each step with a drawing, equation, table, or verbal check.",
+            "Check whether the answer makes sense in the story."
+          ],
+          "launch": "A garden has equal rows of seedlings. Once you know what one row means, the whole garden becomes easier to describe.",
+          "conceptExplanation": "Multiplication is a shortcut for equal groups that repeat. Division reverses the story by asking how many groups there are or how many items are in each group. Arrays, skip-counting, number lines, and related facts all show the same equal groups idea. The equation should match the group size, number of groups, and total.",
+          "workedExample": {
+            "prompt": "5 teams each collect 4 stickers. How many stickers do the teams collect altogether?",
+            "answer": "20",
+            "reasoning": "5 equal groups of 4 make 5 x 4 = 20."
+          },
+          "guidedPractice": [
+            {
+              "prompt": "5 teams each collect 4 stickers. How many stickers do the teams collect altogether?",
+              "expectedMove": "Name the quantities, choose a representation, solve, and check the units or labels."
+            }
+          ],
+          "independentPractice": [
+            "Create one similar problem with different numbers or objects.",
+            "Swap with a partner and explain the checking step."
+          ],
+          "commonPitfalls": [
+            {
+              "pitfall": "multiplication as only repeated addition",
+              "repairMove": "Return to the model, label each quantity, and compare the result with the question."
+            },
+            {
+              "pitfall": "division context mismatch",
+              "repairMove": "Return to the model, label each quantity, and compare the result with the question."
+            }
+          ],
+          "exitTicket": "In one sentence, explain how today's representation helped you solve a operations and algebraic thinking problem."
+        }
+      },
+      "answerKey": {
+        "workedExample": {
+          "answer": "20",
+          "acceptedAnswers": [
+            "20"
+          ],
+          "solutionSteps": [
+            "5 equal groups of 4 make 5 x 4 = 20."
+          ]
+        },
+        "guidedPractice": {
+          "acceptedEvidence": [
+            "correct representation",
+            "correct computation",
+            "reasonableness check"
+          ]
+        }
+      },
+      "validation": {
+        "deterministicChecks": [
+          {
+            "check": "worked-example-answer",
+            "status": "pass",
+            "kind": "product",
+            "values": {
+              "groups": 5,
+              "size": 4
+            },
+            "answer": "20"
+          }
+        ],
+        "unresolvedRisks": []
+      },
+      "illustration": {
+        "visualPolicy": "text-only-v1",
+        "plannedAssets": [],
+        "notes": "No answer-critical bitmap or diagram is required for this candidate. Future manipulatives, coordinate grids, or geometry figures must be rendered as deterministic SVG/math-svg assets before live visual release."
+      },
+      "review": {
+        "sourceDistanceStatus": "passed-local-source-policy",
+        "mathQaStatus": "passed-deterministic-check",
+        "languageQaStatus": "plain-english-en-primary",
+        "pedagogyNotes": "Lesson follows concrete-to-representational-to-check sequence for K-5 learners."
+      },
+      "approval": {
+        "status": "approved-for-review",
+        "reviewer": "S21 generator local deterministic validation",
+        "nextOwner": "S18 curriculum QA"
+      }
+    },
+    {
+      "id": "us-ca-k-g5-tx-v1-p3-3-nbt-arithmetic",
+      "packageId": "us-ca-math-k-g5-textbooks-v1",
+      "reviewStatus": "auto-validated-ready-for-s18-sampling",
+      "integrationStatus": "candidate-only",
+      "metadata": {
+        "curriculumTrack": "US_CA_MATH",
+        "state": "CA",
+        "grade": "P3",
+        "usGradeLabel": "Grade 3",
+        "topicId": "us-ca-math-p3-3-nbt-arithmetic",
+        "domainId": "3.NBT",
+        "domainTitle": "Number and Operations in Base Ten",
+        "clusterId": "3.NBT.arithmetic",
+        "clusterTitle": "Arithmetic",
+        "standardIds": [
+          "3.NBT.1",
+          "3.NBT.2",
+          "3.NBT.3"
+        ],
+        "difficulty": "Medium",
+        "estimatedMinutes": 35,
+        "languageVariant": "en-primary",
+        "sourceSafetyStatus": "MAIS-authored-original-from-public-standards-structure",
+        "evidenceCardIds": [
+          "ca-ccss-structure-3-nbt-arithmetic"
+        ],
+        "competencyTags": [
+          "rounding number lines",
+          "area model multiplication",
+          "misconception:rounding to nearest digit not place",
+          "misconception:partial products misread"
+        ]
+      },
+      "studentLesson": {
+        "en": {
+          "title": "Grade 3 Number and Operations in Base Ten: Arithmetic",
+          "learningGoals": [
+            "Use models and words to reason about round and compute with multi-digit numbers using place-value strategies.",
+            "Show each step with a drawing, equation, table, or verbal check.",
+            "Check whether the answer makes sense in the story."
+          ],
+          "launch": "A ticket counter has hundreds, tens, and ones windows. The clerk estimates first so the final count has a sensible size.",
+          "conceptExplanation": "Rounding uses place value to choose a nearby friendly number. Multi-digit addition, subtraction, and multiplication work because each digit keeps its own place. Hundreds combine with hundreds, tens with tens, and ones with ones. An estimate is like a reasonableness spotlight: it helps catch answers that are far too large or too small.",
+          "workedExample": {
+            "prompt": "A number has 2 hundreds, 4 tens, and 6 ones. What is the number?",
+            "answer": "246",
+            "reasoning": "2 hundreds, 4 tens, and 6 ones make 246."
+          },
+          "guidedPractice": [
+            {
+              "prompt": "A number has 2 hundreds, 4 tens, and 6 ones. Explain what is the number?",
+              "expectedMove": "Name the quantities, choose a representation, solve, and check the units or labels."
+            }
+          ],
+          "independentPractice": [
+            "Create one similar problem with different numbers or objects.",
+            "Swap with a partner and explain the checking step."
+          ],
+          "commonPitfalls": [
+            {
+              "pitfall": "rounding to nearest digit not place",
+              "repairMove": "Return to the model, label each quantity, and compare the result with the question."
+            },
+            {
+              "pitfall": "partial products misread",
+              "repairMove": "Return to the model, label each quantity, and compare the result with the question."
+            }
+          ],
+          "exitTicket": "In one sentence, explain how today's representation helped you solve a number and operations in base ten problem."
+        }
+      },
+      "answerKey": {
+        "workedExample": {
+          "answer": "246",
+          "acceptedAnswers": [
+            "246"
+          ],
+          "solutionSteps": [
+            "2 hundreds, 4 tens, and 6 ones make 246."
+          ]
+        },
+        "guidedPractice": {
+          "acceptedEvidence": [
+            "correct representation",
+            "correct computation",
+            "reasonableness check"
+          ]
+        }
+      },
+      "validation": {
+        "deterministicChecks": [
+          {
+            "check": "worked-example-answer",
+            "status": "pass",
+            "kind": "place-value",
+            "values": {
+              "hundreds": 2,
+              "tens": 4,
+              "ones": 6
+            },
+            "answer": "246"
+          }
+        ],
+        "unresolvedRisks": []
+      },
+      "illustration": {
+        "visualPolicy": "text-only-v1",
+        "plannedAssets": [],
+        "notes": "No answer-critical bitmap or diagram is required for this candidate. Future manipulatives, coordinate grids, or geometry figures must be rendered as deterministic SVG/math-svg assets before live visual release."
+      },
+      "review": {
+        "sourceDistanceStatus": "passed-local-source-policy",
+        "mathQaStatus": "passed-deterministic-check",
+        "languageQaStatus": "plain-english-en-primary",
+        "pedagogyNotes": "Lesson follows concrete-to-representational-to-check sequence for K-5 learners."
+      },
+      "approval": {
+        "status": "approved-for-review",
+        "reviewer": "S21 generator local deterministic validation",
+        "nextOwner": "S18 curriculum QA"
+      }
+    },
+    {
+      "id": "us-ca-k-g5-tx-v1-p3-3-nf-fraction-meaning",
+      "packageId": "us-ca-math-k-g5-textbooks-v1",
+      "reviewStatus": "auto-validated-ready-for-s18-sampling",
+      "integrationStatus": "candidate-only",
+      "metadata": {
+        "curriculumTrack": "US_CA_MATH",
+        "state": "CA",
+        "grade": "P3",
+        "usGradeLabel": "Grade 3",
+        "topicId": "us-ca-math-p3-3-nf-fraction-meaning",
+        "domainId": "3.NF",
+        "domainTitle": "Number and Operations - Fractions",
+        "clusterId": "3.NF.fraction-meaning",
+        "clusterTitle": "Fraction Meaning",
+        "standardIds": [
+          "3.NF.1",
+          "3.NF.2",
+          "3.NF.3"
+        ],
+        "difficulty": "Medium",
+        "estimatedMinutes": 35,
+        "languageVariant": "en-primary",
+        "sourceSafetyStatus": "MAIS-authored-original-from-public-standards-structure",
+        "evidenceCardIds": [
+          "ca-ccss-structure-3-nf-fraction-meaning"
+        ],
+        "competencyTags": [
+          "number line fractions",
+          "area models",
+          "equivalent partitions",
+          "misconception:larger denominator means larger fraction",
+          "misconception:whole not fixed"
+        ]
+      },
+      "studentLesson": {
+        "en": {
+          "title": "Grade 3 Number and Operations - Fractions: Fraction Meaning",
+          "learningGoals": [
+            "Use models and words to reason about understand fractions as numbers, locate them on number lines, and reason about equivalence/comparison.",
+            "Show each step with a drawing, equation, table, or verbal check.",
+            "Check whether the answer makes sense in the story."
+          ],
+          "launch": "A class shares same-size granola bars and marks the pieces on a number line so the pieces become numbers, not just snacks.",
+          "conceptExplanation": "A fraction names equal parts of one whole. The denominator tells how many equal parts make the whole, and the numerator tells how many parts are being counted. The whole must stay the same size when fractions are compared. On a number line, equivalent fractions land on the same point even if their names look different.",
+          "workedExample": {
+            "prompt": "Which is greater, 1/4 or 1/5?",
+            "answer": "1/4",
+            "reasoning": "For unit fractions, the smaller denominator makes the larger piece, so 1/4 is greater than 1/5."
+          },
+          "guidedPractice": [
+            {
+              "prompt": "Which is greater, 1/4 or 1/5?",
+              "expectedMove": "Name the quantities, choose a representation, solve, and check the units or labels."
+            }
+          ],
+          "independentPractice": [
+            "Create one similar problem with different numbers or objects.",
+            "Swap with a partner and explain the checking step."
+          ],
+          "commonPitfalls": [
+            {
+              "pitfall": "larger denominator means larger fraction",
+              "repairMove": "Return to the model, label each quantity, and compare the result with the question."
+            },
+            {
+              "pitfall": "whole not fixed",
+              "repairMove": "Return to the model, label each quantity, and compare the result with the question."
+            }
+          ],
+          "exitTicket": "In one sentence, explain how today's representation helped you solve a number and operations - fractions problem."
+        }
+      },
+      "answerKey": {
+        "workedExample": {
+          "answer": "1/4",
+          "acceptedAnswers": [
+            "1/4"
+          ],
+          "solutionSteps": [
+            "For unit fractions, the smaller denominator makes the larger piece, so 1/4 is greater than 1/5."
+          ]
+        },
+        "guidedPractice": {
+          "acceptedEvidence": [
+            "correct representation",
+            "correct computation",
+            "reasonableness check"
+          ]
+        }
+      },
+      "validation": {
+        "deterministicChecks": [
+          {
+            "check": "worked-example-answer",
+            "status": "pass",
+            "kind": "unit-fraction-compare",
+            "values": {
+              "leftDenominator": 4,
+              "rightDenominator": 5
+            },
+            "answer": "1/4"
+          }
+        ],
+        "unresolvedRisks": []
+      },
+      "illustration": {
+        "visualPolicy": "text-only-v1",
+        "plannedAssets": [],
+        "notes": "No answer-critical bitmap or diagram is required for this candidate. Future manipulatives, coordinate grids, or geometry figures must be rendered as deterministic SVG/math-svg assets before live visual release."
+      },
+      "review": {
+        "sourceDistanceStatus": "passed-local-source-policy",
+        "mathQaStatus": "passed-deterministic-check",
+        "languageQaStatus": "plain-english-en-primary",
+        "pedagogyNotes": "Lesson follows concrete-to-representational-to-check sequence for K-5 learners."
+      },
+      "approval": {
+        "status": "approved-for-review",
+        "reviewer": "S21 generator local deterministic validation",
+        "nextOwner": "S18 curriculum QA"
+      }
+    },
+    {
+      "id": "us-ca-k-g5-tx-v1-p3-3-md-time-data-area-perimeter",
+      "packageId": "us-ca-math-k-g5-textbooks-v1",
+      "reviewStatus": "auto-validated-ready-for-s18-sampling",
+      "integrationStatus": "candidate-only",
+      "metadata": {
+        "curriculumTrack": "US_CA_MATH",
+        "state": "CA",
+        "grade": "P3",
+        "usGradeLabel": "Grade 3",
+        "topicId": "us-ca-math-p3-3-md-time-data-area-perimeter",
+        "domainId": "3.MD",
+        "domainTitle": "Measurement and Data",
+        "clusterId": "3.MD.time-data-area-perimeter",
+        "clusterTitle": "Time Data Area Perimeter",
+        "standardIds": [
+          "3.MD.1",
+          "3.MD.2",
+          "3.MD.3",
+          "3.MD.4",
+          "3.MD.5",
+          "3.MD.6",
+          "3.MD.7",
+          "3.MD.8"
+        ],
+        "difficulty": "Medium",
+        "estimatedMinutes": 35,
+        "languageVariant": "en-primary",
+        "sourceSafetyStatus": "MAIS-authored-original-from-public-standards-structure",
+        "evidenceCardIds": [
+          "ca-ccss-structure-3-md-time-data-area-perimeter"
+        ],
+        "competencyTags": [
+          "grid area",
+          "elapsed time lines",
+          "scaled bars",
+          "misconception:area and perimeter conflated",
+          "misconception:scaled graph count ignored"
+        ]
+      },
+      "studentLesson": {
+        "en": {
+          "title": "Grade 3 Measurement and Data: Time Data Area Perimeter",
+          "learningGoals": [
+            "Use models and words to reason about solve elapsed-time, measurement, graphing, area, and perimeter problems.",
+            "Show each step with a drawing, equation, table, or verbal check.",
+            "Check whether the answer makes sense in the story."
+          ],
+          "launch": "A park map shows a garden bed, a walking path around it, a clock for the visit, and a chart of favorite flowers.",
+          "conceptExplanation": "Area measures how many square units cover a region, while perimeter measures the distance around it. Elapsed time tells how much time passes from start to finish. Graphs organize data so comparisons are easier to see. Naming the quantity first helps you choose whether to add, subtract, multiply, or read a scale.",
+          "workedExample": {
+            "prompt": "A rectangle is 12 units long and 3 units wide. What is its area?",
+            "answer": "36 square units",
+            "reasoning": "Area is length x width, so 12 x 3 = 36 square units."
+          },
+          "guidedPractice": [
+            {
+              "prompt": "A rectangle is 12 units long and 3 units wide. Explain what is its area?",
+              "expectedMove": "Name the quantities, choose a representation, solve, and check the units or labels."
+            }
+          ],
+          "independentPractice": [
+            "Create one similar problem with different numbers or objects.",
+            "Swap with a partner and explain the checking step."
+          ],
+          "commonPitfalls": [
+            {
+              "pitfall": "area and perimeter conflated",
+              "repairMove": "Return to the model, label each quantity, and compare the result with the question."
+            },
+            {
+              "pitfall": "scaled graph count ignored",
+              "repairMove": "Return to the model, label each quantity, and compare the result with the question."
+            }
+          ],
+          "exitTicket": "In one sentence, explain how today's representation helped you solve a measurement and data problem."
+        }
+      },
+      "answerKey": {
+        "workedExample": {
+          "answer": "36 square units",
+          "acceptedAnswers": [
+            "36 square units"
+          ],
+          "solutionSteps": [
+            "Area is length x width, so 12 x 3 = 36 square units."
+          ]
+        },
+        "guidedPractice": {
+          "acceptedEvidence": [
+            "correct representation",
+            "correct computation",
+            "reasonableness check"
+          ]
+        }
+      },
+      "validation": {
+        "deterministicChecks": [
+          {
+            "check": "worked-example-answer",
+            "status": "pass",
+            "kind": "rectangle-area",
+            "values": {
+              "length": 12,
+              "width": 3
+            },
+            "answer": "36 square units"
+          }
+        ],
+        "unresolvedRisks": []
+      },
+      "illustration": {
+        "visualPolicy": "text-only-v1",
+        "plannedAssets": [],
+        "notes": "No answer-critical bitmap or diagram is required for this candidate. Future manipulatives, coordinate grids, or geometry figures must be rendered as deterministic SVG/math-svg assets before live visual release."
+      },
+      "review": {
+        "sourceDistanceStatus": "passed-local-source-policy",
+        "mathQaStatus": "passed-deterministic-check",
+        "languageQaStatus": "plain-english-en-primary",
+        "pedagogyNotes": "Lesson follows concrete-to-representational-to-check sequence for K-5 learners."
+      },
+      "approval": {
+        "status": "approved-for-review",
+        "reviewer": "S21 generator local deterministic validation",
+        "nextOwner": "S18 curriculum QA"
+      }
+    },
+    {
+      "id": "us-ca-k-g5-tx-v1-p3-3-g-categories",
+      "packageId": "us-ca-math-k-g5-textbooks-v1",
+      "reviewStatus": "auto-validated-ready-for-s18-sampling",
+      "integrationStatus": "candidate-only",
+      "metadata": {
+        "curriculumTrack": "US_CA_MATH",
+        "state": "CA",
+        "grade": "P3",
+        "usGradeLabel": "Grade 3",
+        "topicId": "us-ca-math-p3-3-g-categories",
+        "domainId": "3.G",
+        "domainTitle": "Geometry",
+        "clusterId": "3.G.categories",
+        "clusterTitle": "Categories",
+        "standardIds": [
+          "3.G.1",
+          "3.G.2"
+        ],
+        "difficulty": "Medium",
+        "estimatedMinutes": 35,
+        "languageVariant": "en-primary",
+        "sourceSafetyStatus": "MAIS-authored-original-from-public-standards-structure",
+        "evidenceCardIds": [
+          "ca-ccss-structure-3-g-categories"
+        ],
+        "competencyTags": [
+          "Venn sort",
+          "fractional shape partition",
+          "misconception:category overlap missed",
+          "misconception:non-equal fraction shares"
+        ]
+      },
+      "studentLesson": {
+        "en": {
+          "title": "Grade 3 Geometry: Categories",
+          "learningGoals": [
+            "Use models and words to reason about classify shapes by attributes and partition shapes into fractional areas.",
+            "Show each step with a drawing, equation, table, or verbal check.",
+            "Check whether the answer makes sense in the story."
+          ],
+          "launch": "In a shape museum, one quadrilateral can wear more than one label if it has all the needed properties.",
+          "conceptExplanation": "Polygons are classified by sides, angles, and special properties. A quadrilateral has four sides, and some quadrilaterals are also rectangles, rhombuses, or squares. Categories can overlap because one shape may satisfy several rules at once. When a shape is split into equal areas, the fraction name depends on equal parts of the same whole.",
+          "workedExample": {
+            "prompt": "Which shape name matches a polygon with 5 sides?",
+            "answer": "pentagon",
+            "reasoning": "A polygon with 5 sides is a pentagon."
+          },
+          "guidedPractice": [
+            {
+              "prompt": "Which shape name matches a polygon with 5 sides?",
+              "expectedMove": "Name the quantities, choose a representation, solve, and check the units or labels."
+            }
+          ],
+          "independentPractice": [
+            "Create one similar problem with different numbers or objects.",
+            "Swap with a partner and explain the checking step."
+          ],
+          "commonPitfalls": [
+            {
+              "pitfall": "category overlap missed",
+              "repairMove": "Return to the model, label each quantity, and compare the result with the question."
+            },
+            {
+              "pitfall": "non-equal fraction shares",
+              "repairMove": "Return to the model, label each quantity, and compare the result with the question."
+            }
+          ],
+          "exitTicket": "In one sentence, explain how today's representation helped you solve a geometry problem."
+        }
+      },
+      "answerKey": {
+        "workedExample": {
+          "answer": "pentagon",
+          "acceptedAnswers": [
+            "pentagon"
+          ],
+          "solutionSteps": [
+            "A polygon with 5 sides is a pentagon."
+          ]
+        },
+        "guidedPractice": {
+          "acceptedEvidence": [
+            "correct representation",
+            "correct computation",
+            "reasonableness check"
+          ]
+        }
+      },
+      "validation": {
+        "deterministicChecks": [
+          {
+            "check": "worked-example-answer",
+            "status": "pass",
+            "kind": "shape-name",
+            "values": {
+              "sides": 5,
+              "answer": "pentagon"
+            },
+            "answer": "pentagon"
+          }
+        ],
+        "unresolvedRisks": []
+      },
+      "illustration": {
+        "visualPolicy": "text-only-v1",
+        "plannedAssets": [],
+        "notes": "No answer-critical bitmap or diagram is required for this candidate. Future manipulatives, coordinate grids, or geometry figures must be rendered as deterministic SVG/math-svg assets before live visual release."
+      },
+      "review": {
+        "sourceDistanceStatus": "passed-local-source-policy",
+        "mathQaStatus": "passed-deterministic-check",
+        "languageQaStatus": "plain-english-en-primary",
+        "pedagogyNotes": "Lesson follows concrete-to-representational-to-check sequence for K-5 learners."
+      },
+      "approval": {
+        "status": "approved-for-review",
+        "reviewer": "S21 generator local deterministic validation",
+        "nextOwner": "S18 curriculum QA"
+      }
+    },
+    {
+      "id": "us-ca-k-g5-tx-v1-p4-4-oa-factors-patterns",
+      "packageId": "us-ca-math-k-g5-textbooks-v1",
+      "reviewStatus": "auto-validated-ready-for-s18-sampling",
+      "integrationStatus": "candidate-only",
+      "metadata": {
+        "curriculumTrack": "US_CA_MATH",
+        "state": "CA",
+        "grade": "P4",
+        "usGradeLabel": "Grade 4",
+        "topicId": "us-ca-math-p4-4-oa-factors-patterns",
+        "domainId": "4.OA",
+        "domainTitle": "Operations and Algebraic Thinking",
+        "clusterId": "4.OA.factors-patterns",
+        "clusterTitle": "Factors Patterns",
+        "standardIds": [
+          "4.OA.1",
+          "4.OA.2",
+          "4.OA.3",
+          "4.OA.4",
+          "4.OA.5"
+        ],
+        "difficulty": "High",
+        "estimatedMinutes": 35,
+        "languageVariant": "en-primary",
+        "sourceSafetyStatus": "MAIS-authored-original-from-public-standards-structure",
+        "evidenceCardIds": [
+          "ca-ccss-structure-4-oa-factors-patterns"
+        ],
+        "competencyTags": [
+          "comparison diagrams",
+          "factor lists",
+          "input-output patterns",
+          "misconception:additive comparison used for multiplicative comparison",
+          "misconception:factor versus multiple"
+        ]
+      },
+      "studentLesson": {
+        "en": {
+          "title": "Grade 4 Operations and Algebraic Thinking: Factors Patterns",
+          "learningGoals": [
+            "Use models and words to reason about use multiplication comparison, multi-step operations, factors, multiples, primes, composites, and patterns.",
+            "Show each step with a drawing, equation, table, or verbal check.",
+            "Check whether the answer makes sense in the story."
+          ],
+          "launch": "A bracelet maker counts beads in repeated groups and notices that some group sizes build the total exactly.",
+          "conceptExplanation": "Multiplicative comparison tells how many times as many, while additive comparison tells how many more. Factors are numbers that make a product exactly, and multiples are products of a number. Patterns can reveal a hidden rule across steps. In multi-step problems, each equation should answer one part of the situation before the next step begins.",
+          "workedExample": {
+            "prompt": "Which number is a factor of 24: 5, 6, or 7?",
+            "answer": "6",
+            "reasoning": "6 is a factor of 24 because 6 x 4 = 24."
+          },
+          "guidedPractice": [
+            {
+              "prompt": "Which number is a factor of 24: 5, 6, or 7?",
+              "expectedMove": "Name the quantities, choose a representation, solve, and check the units or labels."
+            }
+          ],
+          "independentPractice": [
+            "Create one similar problem with different numbers or objects.",
+            "Swap with a partner and explain the checking step."
+          ],
+          "commonPitfalls": [
+            {
+              "pitfall": "additive comparison used for multiplicative comparison",
+              "repairMove": "Return to the model, label each quantity, and compare the result with the question."
+            },
+            {
+              "pitfall": "factor versus multiple",
+              "repairMove": "Return to the model, label each quantity, and compare the result with the question."
+            }
+          ],
+          "exitTicket": "In one sentence, explain how today's representation helped you solve a operations and algebraic thinking problem."
+        }
+      },
+      "answerKey": {
+        "workedExample": {
+          "answer": "6",
+          "acceptedAnswers": [
+            "6"
+          ],
+          "solutionSteps": [
+            "6 is a factor of 24 because 6 x 4 = 24."
+          ]
+        },
+        "guidedPractice": {
+          "acceptedEvidence": [
+            "correct representation",
+            "correct computation",
+            "reasonableness check"
+          ]
+        }
+      },
+      "validation": {
+        "deterministicChecks": [
+          {
+            "check": "worked-example-answer",
+            "status": "pass",
+            "kind": "factor",
+            "values": {
+              "number": 24,
+              "answer": "6"
+            },
+            "answer": "6"
+          }
+        ],
+        "unresolvedRisks": []
+      },
+      "illustration": {
+        "visualPolicy": "text-only-v1",
+        "plannedAssets": [],
+        "notes": "No answer-critical bitmap or diagram is required for this candidate. Future manipulatives, coordinate grids, or geometry figures must be rendered as deterministic SVG/math-svg assets before live visual release."
+      },
+      "review": {
+        "sourceDistanceStatus": "passed-local-source-policy",
+        "mathQaStatus": "passed-deterministic-check",
+        "languageQaStatus": "plain-english-en-primary",
+        "pedagogyNotes": "Lesson follows concrete-to-representational-to-check sequence for K-5 learners."
+      },
+      "approval": {
+        "status": "approved-for-review",
+        "reviewer": "S21 generator local deterministic validation",
+        "nextOwner": "S18 curriculum QA"
+      }
+    },
+    {
+      "id": "us-ca-k-g5-tx-v1-p4-4-nbt-multi-digit",
+      "packageId": "us-ca-math-k-g5-textbooks-v1",
+      "reviewStatus": "auto-validated-ready-for-s18-sampling",
+      "integrationStatus": "candidate-only",
+      "metadata": {
+        "curriculumTrack": "US_CA_MATH",
+        "state": "CA",
+        "grade": "P4",
+        "usGradeLabel": "Grade 4",
+        "topicId": "us-ca-math-p4-4-nbt-multi-digit",
+        "domainId": "4.NBT",
+        "domainTitle": "Number and Operations in Base Ten",
+        "clusterId": "4.NBT.multi-digit",
+        "clusterTitle": "Multi Digit",
+        "standardIds": [
+          "4.NBT.1",
+          "4.NBT.2",
+          "4.NBT.3",
+          "4.NBT.4",
+          "4.NBT.5",
+          "4.NBT.6"
+        ],
+        "difficulty": "High",
+        "estimatedMinutes": 35,
+        "languageVariant": "en-primary",
+        "sourceSafetyStatus": "MAIS-authored-original-from-public-standards-structure",
+        "evidenceCardIds": [
+          "ca-ccss-structure-4-nbt-multi-digit"
+        ],
+        "competencyTags": [
+          "standard/expanded form",
+          "area model",
+          "partial quotients",
+          "misconception:place-value shift as adding zero",
+          "misconception:division remainder interpretation"
+        ]
+      },
+      "studentLesson": {
+        "en": {
+          "title": "Grade 4 Number and Operations in Base Ten: Multi Digit",
+          "learningGoals": [
+            "Use models and words to reason about generalize place value and perform multi-digit operations.",
+            "Show each step with a drawing, equation, table, or verbal check.",
+            "Check whether the answer makes sense in the story."
+          ],
+          "launch": "A city counter reads 34,628 visitors. Each digit has a place, and each place is ten times the place to its right.",
+          "conceptExplanation": "Place value is the engine for multi-digit numbers. It helps you read, compare, round, add, subtract, multiply, and divide because every digit carries a unit. Moving one place left makes a value ten times as large; moving right makes it one tenth as large. Algorithms make sense when you can explain the trades behind them.",
+          "workedExample": {
+            "prompt": "A number has 3 hundreds, 4 tens, and 7 ones. What is the number?",
+            "answer": "347",
+            "reasoning": "3 hundreds, 4 tens, and 7 ones make 347."
+          },
+          "guidedPractice": [
+            {
+              "prompt": "A number has 3 hundreds, 4 tens, and 7 ones. Explain what is the number?",
+              "expectedMove": "Name the quantities, choose a representation, solve, and check the units or labels."
+            }
+          ],
+          "independentPractice": [
+            "Create one similar problem with different numbers or objects.",
+            "Swap with a partner and explain the checking step."
+          ],
+          "commonPitfalls": [
+            {
+              "pitfall": "place-value shift as adding zero",
+              "repairMove": "Return to the model, label each quantity, and compare the result with the question."
+            },
+            {
+              "pitfall": "division remainder interpretation",
+              "repairMove": "Return to the model, label each quantity, and compare the result with the question."
+            }
+          ],
+          "exitTicket": "In one sentence, explain how today's representation helped you solve a number and operations in base ten problem."
+        }
+      },
+      "answerKey": {
+        "workedExample": {
+          "answer": "347",
+          "acceptedAnswers": [
+            "347"
+          ],
+          "solutionSteps": [
+            "3 hundreds, 4 tens, and 7 ones make 347."
+          ]
+        },
+        "guidedPractice": {
+          "acceptedEvidence": [
+            "correct representation",
+            "correct computation",
+            "reasonableness check"
+          ]
+        }
+      },
+      "validation": {
+        "deterministicChecks": [
+          {
+            "check": "worked-example-answer",
+            "status": "pass",
+            "kind": "place-value",
+            "values": {
+              "hundreds": 3,
+              "tens": 4,
+              "ones": 7
+            },
+            "answer": "347"
+          }
+        ],
+        "unresolvedRisks": []
+      },
+      "illustration": {
+        "visualPolicy": "text-only-v1",
+        "plannedAssets": [],
+        "notes": "No answer-critical bitmap or diagram is required for this candidate. Future manipulatives, coordinate grids, or geometry figures must be rendered as deterministic SVG/math-svg assets before live visual release."
+      },
+      "review": {
+        "sourceDistanceStatus": "passed-local-source-policy",
+        "mathQaStatus": "passed-deterministic-check",
+        "languageQaStatus": "plain-english-en-primary",
+        "pedagogyNotes": "Lesson follows concrete-to-representational-to-check sequence for K-5 learners."
+      },
+      "approval": {
+        "status": "approved-for-review",
+        "reviewer": "S21 generator local deterministic validation",
+        "nextOwner": "S18 curriculum QA"
+      }
+    },
+    {
+      "id": "us-ca-k-g5-tx-v1-p4-4-nf-fraction-decimal",
+      "packageId": "us-ca-math-k-g5-textbooks-v1",
+      "reviewStatus": "auto-validated-ready-for-s18-sampling",
+      "integrationStatus": "candidate-only",
+      "metadata": {
+        "curriculumTrack": "US_CA_MATH",
+        "state": "CA",
+        "grade": "P4",
+        "usGradeLabel": "Grade 4",
+        "topicId": "us-ca-math-p4-4-nf-fraction-decimal",
+        "domainId": "4.NF",
+        "domainTitle": "Number and Operations - Fractions",
+        "clusterId": "4.NF.fraction-decimal",
+        "clusterTitle": "Fraction Decimal",
+        "standardIds": [
+          "4.NF.1",
+          "4.NF.2",
+          "4.NF.3",
+          "4.NF.4",
+          "4.NF.5",
+          "4.NF.6",
+          "4.NF.7"
+        ],
+        "difficulty": "High",
+        "estimatedMinutes": 35,
+        "languageVariant": "en-primary",
+        "sourceSafetyStatus": "MAIS-authored-original-from-public-standards-structure",
+        "evidenceCardIds": [
+          "ca-ccss-structure-4-nf-fraction-decimal"
+        ],
+        "competencyTags": [
+          "fraction strips",
+          "number lines",
+          "decimal grids",
+          "misconception:same numerator comparison overgeneralized",
+          "misconception:decimal digits compared as whole numbers"
+        ]
+      },
+      "studentLesson": {
+        "en": {
+          "title": "Grade 4 Number and Operations - Fractions: Fraction Decimal",
+          "learningGoals": [
+            "Use models and words to reason about use equivalence, comparison, addition/subtraction, multiplication by whole numbers, and decimal notation.",
+            "Show each step with a drawing, equation, table, or verbal check.",
+            "Check whether the answer makes sense in the story."
+          ],
+          "launch": "Two measuring cups can hold the same amount even when one is marked in fractions and the other is marked in decimals.",
+          "conceptExplanation": "Equivalent fractions name the same quantity with different-sized pieces. To add or subtract fractions, the pieces must be the same unit fraction first. Decimals also use place value, so tenths line up with tenths and hundredths with hundredths. Models, number lines, and equations should all point to the same quantity.",
+          "workedExample": {
+            "prompt": "Mia shades 2/6 of a strip and then shades 2/6 more. What fraction is shaded?",
+            "answer": "4/6",
+            "reasoning": "The denominators match, so add the numerators: 2/6 + 2/6 = 4/6."
+          },
+          "guidedPractice": [
+            {
+              "prompt": "Mia shades 2/6 of a strip and then shades 2/6 more. Explain what fraction is shaded?",
+              "expectedMove": "Name the quantities, choose a representation, solve, and check the units or labels."
+            }
+          ],
+          "independentPractice": [
+            "Create one similar problem with different numbers or objects.",
+            "Swap with a partner and explain the checking step."
+          ],
+          "commonPitfalls": [
+            {
+              "pitfall": "same numerator comparison overgeneralized",
+              "repairMove": "Return to the model, label each quantity, and compare the result with the question."
+            },
+            {
+              "pitfall": "decimal digits compared as whole numbers",
+              "repairMove": "Return to the model, label each quantity, and compare the result with the question."
+            }
+          ],
+          "exitTicket": "In one sentence, explain how today's representation helped you solve a number and operations - fractions problem."
+        }
+      },
+      "answerKey": {
+        "workedExample": {
+          "answer": "4/6",
+          "acceptedAnswers": [
+            "4/6"
+          ],
+          "solutionSteps": [
+            "The denominators match, so add the numerators: 2/6 + 2/6 = 4/6."
+          ]
+        },
+        "guidedPractice": {
+          "acceptedEvidence": [
+            "correct representation",
+            "correct computation",
+            "reasonableness check"
+          ]
+        }
+      },
+      "validation": {
+        "deterministicChecks": [
+          {
+            "check": "worked-example-answer",
+            "status": "pass",
+            "kind": "same-denominator-fraction",
+            "values": {
+              "left": 2,
+              "right": 2,
+              "denominator": 6
+            },
+            "answer": "4/6"
+          }
+        ],
+        "unresolvedRisks": []
+      },
+      "illustration": {
+        "visualPolicy": "text-only-v1",
+        "plannedAssets": [],
+        "notes": "No answer-critical bitmap or diagram is required for this candidate. Future manipulatives, coordinate grids, or geometry figures must be rendered as deterministic SVG/math-svg assets before live visual release."
+      },
+      "review": {
+        "sourceDistanceStatus": "passed-local-source-policy",
+        "mathQaStatus": "passed-deterministic-check",
+        "languageQaStatus": "plain-english-en-primary",
+        "pedagogyNotes": "Lesson follows concrete-to-representational-to-check sequence for K-5 learners."
+      },
+      "approval": {
+        "status": "approved-for-review",
+        "reviewer": "S21 generator local deterministic validation",
+        "nextOwner": "S18 curriculum QA"
+      }
+    },
+    {
+      "id": "us-ca-k-g5-tx-v1-p4-4-md-conversion-angles",
+      "packageId": "us-ca-math-k-g5-textbooks-v1",
+      "reviewStatus": "auto-validated-ready-for-s18-sampling",
+      "integrationStatus": "candidate-only",
+      "metadata": {
+        "curriculumTrack": "US_CA_MATH",
+        "state": "CA",
+        "grade": "P4",
+        "usGradeLabel": "Grade 4",
+        "topicId": "us-ca-math-p4-4-md-conversion-angles",
+        "domainId": "4.MD",
+        "domainTitle": "Measurement and Data",
+        "clusterId": "4.MD.conversion-angles",
+        "clusterTitle": "Conversion Angles",
+        "standardIds": [
+          "4.MD.1",
+          "4.MD.2",
+          "4.MD.3",
+          "4.MD.4",
+          "4.MD.5",
+          "4.MD.6",
+          "4.MD.7"
+        ],
+        "difficulty": "High",
+        "estimatedMinutes": 35,
+        "languageVariant": "en-primary",
+        "sourceSafetyStatus": "MAIS-authored-original-from-public-standards-structure",
+        "evidenceCardIds": [
+          "ca-ccss-structure-4-md-conversion-angles"
+        ],
+        "competencyTags": [
+          "conversion tables",
+          "protractor reads",
+          "angle decomposition",
+          "misconception:unit conversion direction",
+          "misconception:angle size tied to ray length"
+        ]
+      },
+      "studentLesson": {
+        "en": {
+          "title": "Grade 4 Measurement and Data: Conversion Angles",
+          "learningGoals": [
+            "Use models and words to reason about convert units, solve measurement problems, use line plots, and measure/add angles.",
+            "Show each step with a drawing, equation, table, or verbal check.",
+            "Check whether the answer makes sense in the story."
+          ],
+          "launch": "A robot travels across a mat, changes units on its distance card, and turns through two connected angles.",
+          "conceptExplanation": "A conversion renames a measurement in different units without changing the actual size. Angle measure tells how much turn there is, and connected angles can be added or subtracted when they share a vertex without overlapping. Line plots organize measurement data. Checking units helps you decide whether the operation and final answer make sense.",
+          "workedExample": {
+            "prompt": "Two smaller angles measure 50° and 32°. What is their combined angle measure?",
+            "answer": "82°",
+            "reasoning": "Add the angle measures: 50° + 32° = 82°."
+          },
+          "guidedPractice": [
+            {
+              "prompt": "Two smaller angles measure 50° and 32°. Explain what is their combined angle measure?",
+              "expectedMove": "Name the quantities, choose a representation, solve, and check the units or labels."
+            }
+          ],
+          "independentPractice": [
+            "Create one similar problem with different numbers or objects.",
+            "Swap with a partner and explain the checking step."
+          ],
+          "commonPitfalls": [
+            {
+              "pitfall": "unit conversion direction",
+              "repairMove": "Return to the model, label each quantity, and compare the result with the question."
+            },
+            {
+              "pitfall": "angle size tied to ray length",
+              "repairMove": "Return to the model, label each quantity, and compare the result with the question."
+            }
+          ],
+          "exitTicket": "In one sentence, explain how today's representation helped you solve a measurement and data problem."
+        }
+      },
+      "answerKey": {
+        "workedExample": {
+          "answer": "82°",
+          "acceptedAnswers": [
+            "82°"
+          ],
+          "solutionSteps": [
+            "Add the angle measures: 50° + 32° = 82°."
+          ]
+        },
+        "guidedPractice": {
+          "acceptedEvidence": [
+            "correct representation",
+            "correct computation",
+            "reasonableness check"
+          ]
+        }
+      },
+      "validation": {
+        "deterministicChecks": [
+          {
+            "check": "worked-example-answer",
+            "status": "pass",
+            "kind": "angle-sum",
+            "values": {
+              "first": 50,
+              "second": 32
+            },
+            "answer": "82°"
+          }
+        ],
+        "unresolvedRisks": []
+      },
+      "illustration": {
+        "visualPolicy": "text-only-v1",
+        "plannedAssets": [],
+        "notes": "No answer-critical bitmap or diagram is required for this candidate. Future manipulatives, coordinate grids, or geometry figures must be rendered as deterministic SVG/math-svg assets before live visual release."
+      },
+      "review": {
+        "sourceDistanceStatus": "passed-local-source-policy",
+        "mathQaStatus": "passed-deterministic-check",
+        "languageQaStatus": "plain-english-en-primary",
+        "pedagogyNotes": "Lesson follows concrete-to-representational-to-check sequence for K-5 learners."
+      },
+      "approval": {
+        "status": "approved-for-review",
+        "reviewer": "S21 generator local deterministic validation",
+        "nextOwner": "S18 curriculum QA"
+      }
+    },
+    {
+      "id": "us-ca-k-g5-tx-v1-p4-4-g-lines-shapes",
+      "packageId": "us-ca-math-k-g5-textbooks-v1",
+      "reviewStatus": "auto-validated-ready-for-s18-sampling",
+      "integrationStatus": "candidate-only",
+      "metadata": {
+        "curriculumTrack": "US_CA_MATH",
+        "state": "CA",
+        "grade": "P4",
+        "usGradeLabel": "Grade 4",
+        "topicId": "us-ca-math-p4-4-g-lines-shapes",
+        "domainId": "4.G",
+        "domainTitle": "Geometry",
+        "clusterId": "4.G.lines-shapes",
+        "clusterTitle": "Lines Shapes",
+        "standardIds": [
+          "4.G.1",
+          "4.G.2",
+          "4.G.3"
+        ],
+        "difficulty": "High",
+        "estimatedMinutes": 35,
+        "languageVariant": "en-primary",
+        "sourceSafetyStatus": "MAIS-authored-original-from-public-standards-structure",
+        "evidenceCardIds": [
+          "ca-ccss-structure-4-g-lines-shapes"
+        ],
+        "competencyTags": [
+          "line marking",
+          "shape classification",
+          "symmetry folds",
+          "misconception:parallel/perpendicular visual orientation only",
+          "misconception:symmetry guessed by appearance"
+        ]
+      },
+      "studentLesson": {
+        "en": {
+          "title": "Grade 4 Geometry: Lines Shapes",
+          "learningGoals": [
+            "Use models and words to reason about identify lines, angles, symmetry, and classify shapes.",
+            "Show each step with a drawing, equation, table, or verbal check.",
+            "Check whether the answer makes sense in the story."
+          ],
+          "launch": "On a map, some streets never meet, some cross in square corners, and a folded design has two matching halves.",
+          "conceptExplanation": "Parallel lines stay the same distance apart, and perpendicular lines meet at right angles. An angle measures the amount of turn, not the length of the rays. A line of symmetry splits a figure into matching halves. Classifying shapes means trusting these properties even when the drawing is tilted or unusual.",
+          "workedExample": {
+            "prompt": "Which shape name matches a polygon with 6 sides?",
+            "answer": "hexagon",
+            "reasoning": "A polygon with 6 sides is a hexagon."
+          },
+          "guidedPractice": [
+            {
+              "prompt": "Which shape name matches a polygon with 6 sides?",
+              "expectedMove": "Name the quantities, choose a representation, solve, and check the units or labels."
+            }
+          ],
+          "independentPractice": [
+            "Create one similar problem with different numbers or objects.",
+            "Swap with a partner and explain the checking step."
+          ],
+          "commonPitfalls": [
+            {
+              "pitfall": "parallel/perpendicular visual orientation only",
+              "repairMove": "Return to the model, label each quantity, and compare the result with the question."
+            },
+            {
+              "pitfall": "symmetry guessed by appearance",
+              "repairMove": "Return to the model, label each quantity, and compare the result with the question."
+            }
+          ],
+          "exitTicket": "In one sentence, explain how today's representation helped you solve a geometry problem."
+        }
+      },
+      "answerKey": {
+        "workedExample": {
+          "answer": "hexagon",
+          "acceptedAnswers": [
+            "hexagon"
+          ],
+          "solutionSteps": [
+            "A polygon with 6 sides is a hexagon."
+          ]
+        },
+        "guidedPractice": {
+          "acceptedEvidence": [
+            "correct representation",
+            "correct computation",
+            "reasonableness check"
+          ]
+        }
+      },
+      "validation": {
+        "deterministicChecks": [
+          {
+            "check": "worked-example-answer",
+            "status": "pass",
+            "kind": "shape-name",
+            "values": {
+              "sides": 6,
+              "answer": "hexagon"
+            },
+            "answer": "hexagon"
+          }
+        ],
+        "unresolvedRisks": []
+      },
+      "illustration": {
+        "visualPolicy": "text-only-v1",
+        "plannedAssets": [],
+        "notes": "No answer-critical bitmap or diagram is required for this candidate. Future manipulatives, coordinate grids, or geometry figures must be rendered as deterministic SVG/math-svg assets before live visual release."
+      },
+      "review": {
+        "sourceDistanceStatus": "passed-local-source-policy",
+        "mathQaStatus": "passed-deterministic-check",
+        "languageQaStatus": "plain-english-en-primary",
+        "pedagogyNotes": "Lesson follows concrete-to-representational-to-check sequence for K-5 learners."
+      },
+      "approval": {
+        "status": "approved-for-review",
+        "reviewer": "S21 generator local deterministic validation",
+        "nextOwner": "S18 curriculum QA"
+      }
+    },
+    {
+      "id": "us-ca-k-g5-tx-v1-p5-5-oa-expressions-patterns",
+      "packageId": "us-ca-math-k-g5-textbooks-v1",
+      "reviewStatus": "auto-validated-ready-for-s18-sampling",
+      "integrationStatus": "candidate-only",
+      "metadata": {
+        "curriculumTrack": "US_CA_MATH",
+        "state": "CA",
+        "grade": "P5",
+        "usGradeLabel": "Grade 5",
+        "topicId": "us-ca-math-p5-5-oa-expressions-patterns",
+        "domainId": "5.OA",
+        "domainTitle": "Operations and Algebraic Thinking",
+        "clusterId": "5.OA.expressions-patterns",
+        "clusterTitle": "Expressions Patterns",
+        "standardIds": [
+          "5.OA.1",
+          "5.OA.2",
+          "5.OA.3"
+        ],
+        "difficulty": "High",
+        "estimatedMinutes": 35,
+        "languageVariant": "en-primary",
+        "sourceSafetyStatus": "MAIS-authored-original-from-public-standards-structure",
+        "evidenceCardIds": [
+          "ca-ccss-structure-5-oa-expressions-patterns"
+        ],
+        "competencyTags": [
+          "expression matching",
+          "tables",
+          "coordinate pattern graph",
+          "misconception:order of operations as left-to-right only",
+          "misconception:pattern rule inferred from one pair"
+        ]
+      },
+      "studentLesson": {
+        "en": {
+          "title": "Grade 5 Operations and Algebraic Thinking: Expressions Patterns",
+          "learningGoals": [
+            "Use models and words to reason about write/evaluate numerical expressions and analyze related patterns.",
+            "Show each step with a drawing, equation, table, or verbal check.",
+            "Check whether the answer makes sense in the story."
+          ],
+          "launch": "A game machine gives points by following a rule. Parentheses on the score card tell which part of the rule happens first.",
+          "conceptExplanation": "A numerical expression is a plan for calculations, not just an answer waiting at the end. The order of operations tells how to read that plan: grouping symbols first, then multiplication or division, then addition or subtraction. Patterns can be tracked in tables because each input-output pair follows the same rule. The expression should explain the rule you see.",
+          "workedExample": {
+            "prompt": "Evaluate (7 + 2) x 4.",
+            "answer": "36",
+            "reasoning": "First add inside the parentheses: 7 + 2 = 9. Then multiply: 9 x 4 = 36."
+          },
+          "guidedPractice": [
+            {
+              "prompt": "Evaluate (7 + 2) x 4.",
+              "expectedMove": "Name the quantities, choose a representation, solve, and check the units or labels."
+            }
+          ],
+          "independentPractice": [
+            "Create one similar problem with different numbers or objects.",
+            "Swap with a partner and explain the checking step."
+          ],
+          "commonPitfalls": [
+            {
+              "pitfall": "order of operations as left-to-right only",
+              "repairMove": "Return to the model, label each quantity, and compare the result with the question."
+            },
+            {
+              "pitfall": "pattern rule inferred from one pair",
+              "repairMove": "Return to the model, label each quantity, and compare the result with the question."
+            }
+          ],
+          "exitTicket": "In one sentence, explain how today's representation helped you solve a operations and algebraic thinking problem."
+        }
+      },
+      "answerKey": {
+        "workedExample": {
+          "answer": "36",
+          "acceptedAnswers": [
+            "36"
+          ],
+          "solutionSteps": [
+            "First add inside the parentheses: 7 + 2 = 9. Then multiply: 9 x 4 = 36."
+          ]
+        },
+        "guidedPractice": {
+          "acceptedEvidence": [
+            "correct representation",
+            "correct computation",
+            "reasonableness check"
+          ]
+        }
+      },
+      "validation": {
+        "deterministicChecks": [
+          {
+            "check": "worked-example-answer",
+            "status": "pass",
+            "kind": "expression",
+            "values": {
+              "left": 7,
+              "right": 2,
+              "multiplier": 4
+            },
+            "answer": "36"
+          }
+        ],
+        "unresolvedRisks": []
+      },
+      "illustration": {
+        "visualPolicy": "text-only-v1",
+        "plannedAssets": [],
+        "notes": "No answer-critical bitmap or diagram is required for this candidate. Future manipulatives, coordinate grids, or geometry figures must be rendered as deterministic SVG/math-svg assets before live visual release."
+      },
+      "review": {
+        "sourceDistanceStatus": "passed-local-source-policy",
+        "mathQaStatus": "passed-deterministic-check",
+        "languageQaStatus": "plain-english-en-primary",
+        "pedagogyNotes": "Lesson follows concrete-to-representational-to-check sequence for K-5 learners."
+      },
+      "approval": {
+        "status": "approved-for-review",
+        "reviewer": "S21 generator local deterministic validation",
+        "nextOwner": "S18 curriculum QA"
+      }
+    },
+    {
+      "id": "us-ca-k-g5-tx-v1-p5-5-nbt-decimals",
+      "packageId": "us-ca-math-k-g5-textbooks-v1",
+      "reviewStatus": "auto-validated-ready-for-s18-sampling",
+      "integrationStatus": "candidate-only",
+      "metadata": {
+        "curriculumTrack": "US_CA_MATH",
+        "state": "CA",
+        "grade": "P5",
+        "usGradeLabel": "Grade 5",
+        "topicId": "us-ca-math-p5-5-nbt-decimals",
+        "domainId": "5.NBT",
+        "domainTitle": "Number and Operations in Base Ten",
+        "clusterId": "5.NBT.decimals",
+        "clusterTitle": "Decimals",
+        "standardIds": [
+          "5.NBT.1",
+          "5.NBT.2",
+          "5.NBT.3",
+          "5.NBT.4",
+          "5.NBT.5",
+          "5.NBT.6",
+          "5.NBT.7"
+        ],
+        "difficulty": "High",
+        "estimatedMinutes": 35,
+        "languageVariant": "en-primary",
+        "sourceSafetyStatus": "MAIS-authored-original-from-public-standards-structure",
+        "evidenceCardIds": [
+          "ca-ccss-structure-5-nbt-decimals"
+        ],
+        "competencyTags": [
+          "decimal grids",
+          "place-value charts",
+          "standard algorithms with explanation",
+          "misconception:decimal place shift direction",
+          "misconception:aligning digits instead of place values"
+        ]
+      },
+      "studentLesson": {
+        "en": {
+          "title": "Grade 5 Number and Operations in Base Ten: Decimals",
+          "learningGoals": [
+            "Use models and words to reason about understand decimal place value and perform multi-digit/decimal operations.",
+            "Show each step with a drawing, equation, table, or verbal check.",
+            "Check whether the answer makes sense in the story."
+          ],
+          "launch": "A science scale shows 3.248 grams. The decimal point is the doorway between whole units and smaller parts of one unit.",
+          "conceptExplanation": "Decimals extend place value to tenths, hundredths, and thousandths. Each place is one tenth of the place to its left, so alignment matters when you compare or compute. Do not line numbers up by their last digit; line them up by place value. Estimation helps decide where the decimal point belongs in the answer.",
+          "workedExample": {
+            "prompt": "What is 5.4 + 1.2?",
+            "answer": "6.6",
+            "reasoning": "Align decimal place values: 5.4 + 1.2 = 6.6."
+          },
+          "guidedPractice": [
+            {
+              "prompt": "Explain what is 5.4 + 1.2?",
+              "expectedMove": "Name the quantities, choose a representation, solve, and check the units or labels."
+            }
+          ],
+          "independentPractice": [
+            "Create one similar problem with different numbers or objects.",
+            "Swap with a partner and explain the checking step."
+          ],
+          "commonPitfalls": [
+            {
+              "pitfall": "decimal place shift direction",
+              "repairMove": "Return to the model, label each quantity, and compare the result with the question."
+            },
+            {
+              "pitfall": "aligning digits instead of place values",
+              "repairMove": "Return to the model, label each quantity, and compare the result with the question."
+            }
+          ],
+          "exitTicket": "In one sentence, explain how today's representation helped you solve a number and operations in base ten problem."
+        }
+      },
+      "answerKey": {
+        "workedExample": {
+          "answer": "6.6",
+          "acceptedAnswers": [
+            "6.6"
+          ],
+          "solutionSteps": [
+            "Align decimal place values: 5.4 + 1.2 = 6.6."
+          ]
+        },
+        "guidedPractice": {
+          "acceptedEvidence": [
+            "correct representation",
+            "correct computation",
+            "reasonableness check"
+          ]
+        }
+      },
+      "validation": {
+        "deterministicChecks": [
+          {
+            "check": "worked-example-answer",
+            "status": "pass",
+            "kind": "decimal-sum",
+            "values": {
+              "value": 5.4,
+              "addOn": 1.2,
+              "total": 6.6000000000000005
+            },
+            "answer": "6.6"
+          }
+        ],
+        "unresolvedRisks": []
+      },
+      "illustration": {
+        "visualPolicy": "text-only-v1",
+        "plannedAssets": [],
+        "notes": "No answer-critical bitmap or diagram is required for this candidate. Future manipulatives, coordinate grids, or geometry figures must be rendered as deterministic SVG/math-svg assets before live visual release."
+      },
+      "review": {
+        "sourceDistanceStatus": "passed-local-source-policy",
+        "mathQaStatus": "passed-deterministic-check",
+        "languageQaStatus": "plain-english-en-primary",
+        "pedagogyNotes": "Lesson follows concrete-to-representational-to-check sequence for K-5 learners."
+      },
+      "approval": {
+        "status": "approved-for-review",
+        "reviewer": "S21 generator local deterministic validation",
+        "nextOwner": "S18 curriculum QA"
+      }
+    },
+    {
+      "id": "us-ca-k-g5-tx-v1-p5-5-nf-operations",
+      "packageId": "us-ca-math-k-g5-textbooks-v1",
+      "reviewStatus": "auto-validated-ready-for-s18-sampling",
+      "integrationStatus": "candidate-only",
+      "metadata": {
+        "curriculumTrack": "US_CA_MATH",
+        "state": "CA",
+        "grade": "P5",
+        "usGradeLabel": "Grade 5",
+        "topicId": "us-ca-math-p5-5-nf-operations",
+        "domainId": "5.NF",
+        "domainTitle": "Number and Operations - Fractions",
+        "clusterId": "5.NF.operations",
+        "clusterTitle": "Operations",
+        "standardIds": [
+          "5.NF.1",
+          "5.NF.2",
+          "5.NF.3",
+          "5.NF.4",
+          "5.NF.5",
+          "5.NF.6",
+          "5.NF.7"
+        ],
+        "difficulty": "High",
+        "estimatedMinutes": 35,
+        "languageVariant": "en-primary",
+        "sourceSafetyStatus": "MAIS-authored-original-from-public-standards-structure",
+        "evidenceCardIds": [
+          "ca-ccss-structure-5-nf-operations"
+        ],
+        "competencyTags": [
+          "area models",
+          "tape diagrams",
+          "division by unit fractions",
+          "misconception:adding denominators",
+          "misconception:fraction multiplication always makes larger"
+        ]
+      },
+      "studentLesson": {
+        "en": {
+          "title": "Grade 5 Number and Operations - Fractions: Operations",
+          "learningGoals": [
+            "Use models and words to reason about add/subtract unlike fractions and multiply/divide fractions in contextual models.",
+            "Show each step with a drawing, equation, table, or verbal check.",
+            "Check whether the answer makes sense in the story."
+          ],
+          "launch": "A recipe card asks for fractional cups of oats and sugar. The cook first asks what one whole cup means.",
+          "conceptExplanation": "Unlike fractions need common units before they can be added or subtracted. Multiplying by a fraction can mean taking part of a quantity, like half of a batch. Dividing with fractions can ask how many groups fit or how large each share is. A model helps check whether the result should grow, shrink, or stay between the starting numbers.",
+          "workedExample": {
+            "prompt": "Mia walks 1/2 mile in the morning and 1/4 mile after lunch. How many miles does she walk altogether?",
+            "answer": "3/4",
+            "reasoning": "Rename 1/2 as 2/4, then add 2/4 + 1/4 = 3/4."
+          },
+          "guidedPractice": [
+            {
+              "prompt": "Mia walks 1/2 mile in the morning and 1/4 mile after lunch. How many miles does she walk altogether?",
+              "expectedMove": "Name the quantities, choose a representation, solve, and check the units or labels."
+            }
+          ],
+          "independentPractice": [
+            "Create one similar problem with different numbers or objects.",
+            "Swap with a partner and explain the checking step."
+          ],
+          "commonPitfalls": [
+            {
+              "pitfall": "adding denominators",
+              "repairMove": "Return to the model, label each quantity, and compare the result with the question."
+            },
+            {
+              "pitfall": "fraction multiplication always makes larger",
+              "repairMove": "Return to the model, label each quantity, and compare the result with the question."
+            }
+          ],
+          "exitTicket": "In one sentence, explain how today's representation helped you solve a number and operations - fractions problem."
+        }
+      },
+      "answerKey": {
+        "workedExample": {
+          "answer": "3/4",
+          "acceptedAnswers": [
+            "3/4"
+          ],
+          "solutionSteps": [
+            "Rename 1/2 as 2/4, then add 2/4 + 1/4 = 3/4."
+          ]
+        },
+        "guidedPractice": {
+          "acceptedEvidence": [
+            "correct representation",
+            "correct computation",
+            "reasonableness check"
+          ]
+        }
+      },
+      "validation": {
+        "deterministicChecks": [
+          {
+            "check": "worked-example-answer",
+            "status": "pass",
+            "kind": "unlike-fraction-sum",
+            "values": {
+              "leftNumerator": 1,
+              "leftDenominator": 2,
+              "rightNumerator": 1,
+              "rightDenominator": 4,
+              "answerNumerator": 3,
+              "answerDenominator": 4
+            },
+            "answer": "3/4"
+          }
+        ],
+        "unresolvedRisks": []
+      },
+      "illustration": {
+        "visualPolicy": "text-only-v1",
+        "plannedAssets": [],
+        "notes": "No answer-critical bitmap or diagram is required for this candidate. Future manipulatives, coordinate grids, or geometry figures must be rendered as deterministic SVG/math-svg assets before live visual release."
+      },
+      "review": {
+        "sourceDistanceStatus": "passed-local-source-policy",
+        "mathQaStatus": "passed-deterministic-check",
+        "languageQaStatus": "plain-english-en-primary",
+        "pedagogyNotes": "Lesson follows concrete-to-representational-to-check sequence for K-5 learners."
+      },
+      "approval": {
+        "status": "approved-for-review",
+        "reviewer": "S21 generator local deterministic validation",
+        "nextOwner": "S18 curriculum QA"
+      }
+    },
+    {
+      "id": "us-ca-k-g5-tx-v1-p5-5-md-volume-data",
+      "packageId": "us-ca-math-k-g5-textbooks-v1",
+      "reviewStatus": "auto-validated-ready-for-s18-sampling",
+      "integrationStatus": "candidate-only",
+      "metadata": {
+        "curriculumTrack": "US_CA_MATH",
+        "state": "CA",
+        "grade": "P5",
+        "usGradeLabel": "Grade 5",
+        "topicId": "us-ca-math-p5-5-md-volume-data",
+        "domainId": "5.MD",
+        "domainTitle": "Measurement and Data",
+        "clusterId": "5.MD.volume-data",
+        "clusterTitle": "Volume Data",
+        "standardIds": [
+          "5.MD.1",
+          "5.MD.2",
+          "5.MD.3",
+          "5.MD.4",
+          "5.MD.5"
+        ],
+        "difficulty": "High",
+        "estimatedMinutes": 35,
+        "languageVariant": "en-primary",
+        "sourceSafetyStatus": "MAIS-authored-original-from-public-standards-structure",
+        "evidenceCardIds": [
+          "ca-ccss-structure-5-md-volume-data"
+        ],
+        "competencyTags": [
+          "unit cube builds",
+          "volume decomposition",
+          "line plots",
+          "misconception:volume as surface area",
+          "misconception:unit cube count not linked to formula"
+        ]
+      },
+      "studentLesson": {
+        "en": {
+          "title": "Grade 5 Measurement and Data: Volume Data",
+          "learningGoals": [
+            "Use models and words to reason about convert units, represent fractional data, and understand volume as additive cubic-unit measure.",
+            "Show each step with a drawing, equation, table, or verbal check.",
+            "Check whether the answer makes sense in the story."
+          ],
+          "launch": "A display box is filled with unit cubes, layer by layer, until the inside space is packed without gaps.",
+          "conceptExplanation": "Volume counts cubic units inside a solid figure, not square units on its surface. For a rectangular prism, multiplying length, width, and height works because one layer has length times width cubes and the height counts the layers. Unit conversions and data displays still need labels. The final answer should name the kind of quantity measured.",
+          "workedExample": {
+            "prompt": "A rectangular prism is 8 units long, 4 units wide, and 2 units high. What is its volume?",
+            "answer": "64 cubic units",
+            "reasoning": "Volume is length x width x height, so 8 x 4 x 2 = 64 cubic units."
+          },
+          "guidedPractice": [
+            {
+              "prompt": "A rectangular prism is 8 units long, 4 units wide, and 2 units high. Explain what is its volume?",
+              "expectedMove": "Name the quantities, choose a representation, solve, and check the units or labels."
+            }
+          ],
+          "independentPractice": [
+            "Create one similar problem with different numbers or objects.",
+            "Swap with a partner and explain the checking step."
+          ],
+          "commonPitfalls": [
+            {
+              "pitfall": "volume as surface area",
+              "repairMove": "Return to the model, label each quantity, and compare the result with the question."
+            },
+            {
+              "pitfall": "unit cube count not linked to formula",
+              "repairMove": "Return to the model, label each quantity, and compare the result with the question."
+            }
+          ],
+          "exitTicket": "In one sentence, explain how today's representation helped you solve a measurement and data problem."
+        }
+      },
+      "answerKey": {
+        "workedExample": {
+          "answer": "64 cubic units",
+          "acceptedAnswers": [
+            "64 cubic units"
+          ],
+          "solutionSteps": [
+            "Volume is length x width x height, so 8 x 4 x 2 = 64 cubic units."
+          ]
+        },
+        "guidedPractice": {
+          "acceptedEvidence": [
+            "correct representation",
+            "correct computation",
+            "reasonableness check"
+          ]
+        }
+      },
+      "validation": {
+        "deterministicChecks": [
+          {
+            "check": "worked-example-answer",
+            "status": "pass",
+            "kind": "rectangular-prism-volume",
+            "values": {
+              "length": 8,
+              "width": 4,
+              "height": 2
+            },
+            "answer": "64 cubic units"
+          }
+        ],
+        "unresolvedRisks": []
+      },
+      "illustration": {
+        "visualPolicy": "text-only-v1",
+        "plannedAssets": [],
+        "notes": "No answer-critical bitmap or diagram is required for this candidate. Future manipulatives, coordinate grids, or geometry figures must be rendered as deterministic SVG/math-svg assets before live visual release."
+      },
+      "review": {
+        "sourceDistanceStatus": "passed-local-source-policy",
+        "mathQaStatus": "passed-deterministic-check",
+        "languageQaStatus": "plain-english-en-primary",
+        "pedagogyNotes": "Lesson follows concrete-to-representational-to-check sequence for K-5 learners."
+      },
+      "approval": {
+        "status": "approved-for-review",
+        "reviewer": "S21 generator local deterministic validation",
+        "nextOwner": "S18 curriculum QA"
+      }
+    },
+    {
+      "id": "us-ca-k-g5-tx-v1-p5-5-g-coordinate-shapes",
+      "packageId": "us-ca-math-k-g5-textbooks-v1",
+      "reviewStatus": "auto-validated-ready-for-s18-sampling",
+      "integrationStatus": "candidate-only",
+      "metadata": {
+        "curriculumTrack": "US_CA_MATH",
+        "state": "CA",
+        "grade": "P5",
+        "usGradeLabel": "Grade 5",
+        "topicId": "us-ca-math-p5-5-g-coordinate-shapes",
+        "domainId": "5.G",
+        "domainTitle": "Geometry",
+        "clusterId": "5.G.coordinate-shapes",
+        "clusterTitle": "Coordinate Shapes",
+        "standardIds": [
+          "5.G.1",
+          "5.G.2",
+          "5.G.3",
+          "5.G.4"
+        ],
+        "difficulty": "High",
+        "estimatedMinutes": 35,
+        "languageVariant": "en-primary",
+        "sourceSafetyStatus": "MAIS-authored-original-from-public-standards-structure",
+        "evidenceCardIds": [
+          "ca-ccss-structure-5-g-coordinate-shapes"
+        ],
+        "competencyTags": [
+          "coordinate plotting",
+          "shape hierarchy sort",
+          "misconception:x/y coordinate reversal",
+          "misconception:hierarchical categories missed"
+        ]
+      },
+      "studentLesson": {
+        "en": {
+          "title": "Grade 5 Geometry: Coordinate Shapes",
+          "learningGoals": [
+            "Use models and words to reason about graph points and classify two-dimensional figures by properties.",
+            "Show each step with a drawing, equation, table, or verbal check.",
+            "Check whether the answer makes sense in the story."
+          ],
+          "launch": "A treasure map uses an ordered pair to tell you where to go: move across first, then move up.",
+          "conceptExplanation": "An ordered pair (x, y) gives directions from the origin. The x-axis move is horizontal, and the y-axis move is vertical. Accurate points can show patterns, shapes, and relationships on a graph. Shape categories have a hierarchy too: every square is a rectangle and a rhombus because it carries the properties of both families.",
+          "workedExample": {
+            "prompt": "Point A is 6 steps right from the origin and 7 steps up. What ordered pair names point A?",
+            "answer": "(6, 7)",
+            "reasoning": "The first coordinate is the horizontal move and the second coordinate is the vertical move, so A is (6, 7)."
+          },
+          "guidedPractice": [
+            {
+              "prompt": "Point A is 6 steps right from the origin and 7 steps up. Explain what ordered pair names point A?",
+              "expectedMove": "Name the quantities, choose a representation, solve, and check the units or labels."
+            }
+          ],
+          "independentPractice": [
+            "Create one similar problem with different numbers or objects.",
+            "Swap with a partner and explain the checking step."
+          ],
+          "commonPitfalls": [
+            {
+              "pitfall": "x/y coordinate reversal",
+              "repairMove": "Return to the model, label each quantity, and compare the result with the question."
+            },
+            {
+              "pitfall": "hierarchical categories missed",
+              "repairMove": "Return to the model, label each quantity, and compare the result with the question."
+            }
+          ],
+          "exitTicket": "In one sentence, explain how today's representation helped you solve a geometry problem."
+        }
+      },
+      "answerKey": {
+        "workedExample": {
+          "answer": "(6, 7)",
+          "acceptedAnswers": [
+            "(6, 7)"
+          ],
+          "solutionSteps": [
+            "The first coordinate is the horizontal move and the second coordinate is the vertical move, so A is (6, 7)."
+          ]
+        },
+        "guidedPractice": {
+          "acceptedEvidence": [
+            "correct representation",
+            "correct computation",
+            "reasonableness check"
+          ]
+        }
+      },
+      "validation": {
+        "deterministicChecks": [
+          {
+            "check": "worked-example-answer",
+            "status": "pass",
+            "kind": "coordinate",
+            "values": {
+              "x": 6,
+              "y": 7
+            },
+            "answer": "(6, 7)"
+          }
+        ],
+        "unresolvedRisks": []
+      },
+      "illustration": {
+        "visualPolicy": "text-only-v1",
+        "plannedAssets": [],
+        "notes": "No answer-critical bitmap or diagram is required for this candidate. Future manipulatives, coordinate grids, or geometry figures must be rendered as deterministic SVG/math-svg assets before live visual release."
+      },
+      "review": {
+        "sourceDistanceStatus": "passed-local-source-policy",
+        "mathQaStatus": "passed-deterministic-check",
+        "languageQaStatus": "plain-english-en-primary",
+        "pedagogyNotes": "Lesson follows concrete-to-representational-to-check sequence for K-5 learners."
+      },
+      "approval": {
+        "status": "approved-for-review",
+        "reviewer": "S21 generator local deterministic validation",
+        "nextOwner": "S18 curriculum QA"
+      }
+    }
+  ]
+}

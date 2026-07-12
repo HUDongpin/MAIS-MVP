@@ -1,0 +1,2593 @@
+{
+  "generatedAt": "2026-07-10T15:54:29.065Z",
+  "dirtyMapStatusSignature": "37c9d353a7710b8e92d3d766006b7230936ca194044a47770a99ab12d7c6cef1",
+  "expandedStatusEntries": 7221,
+  "sourceStarterGeneratedAt": "2026-07-10T15:54:28.808Z",
+  "cleanupAuthorized": false,
+  "executableNow": false,
+  "summary": {
+    "starterRows": 11,
+    "recordedReports": 11,
+    "pendingReports": 0,
+    "cleanupAuthorizedRows": 0,
+    "executableRows": 0,
+    "agents": [
+      "A06",
+      "A13",
+      "A18",
+      "A03",
+      "A04",
+      "A20",
+      "A25",
+      "A15",
+      "A11",
+      "A12",
+      "A07"
+    ]
+  },
+  "reports": [
+    {
+      "reportId": "owner-package-blocker-report-a06",
+      "reportFingerprint": "d3d34b528dbc558eefedc4d769f4ee5c6428d8602b16679f30c57d4c949e29bc",
+      "assignmentId": "owner-package-blocker-a06",
+      "agentId": "A06",
+      "owner": "A06 visualization lead",
+      "role": "Visualization lead",
+      "objective": "Resolve or formally block the owner-package blockers routed to A06 without widening beyond AGENTS.md owner scope.",
+      "recommendedWorktree": "/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A06-visualization-closure",
+      "packageRows": [
+        {
+          "matrixId": "wave-01-governance-release-hygiene:wave-01-governance-release-hygiene",
+          "waveId": "wave-01-governance-release-hygiene",
+          "packageId": "wave-01-governance-release-hygiene",
+          "packageName": "A25/A10/A22 governance and release hygiene",
+          "packageOwnerIds": [
+            "A25",
+            "A22",
+            "A10"
+          ],
+          "blockingReasons": [
+            "npm run type-check failed"
+          ],
+          "failedCheckNames": [
+            "typeCheck"
+          ],
+          "failedChecks": [
+            {
+              "name": "typeCheck",
+              "command": "npm run type-check -- --pretty false",
+              "status": 2
+            }
+          ]
+        },
+        {
+          "matrixId": "wave-02-shared-contracts:wave-02-shared-contracts",
+          "waveId": "wave-02-shared-contracts",
+          "packageId": "wave-02-shared-contracts",
+          "packageName": "A08/A12 shared contracts and storage/API stability",
+          "packageOwnerIds": [
+            "A08",
+            "A12"
+          ],
+          "blockingReasons": [
+            "1 dirty entries are outside the A08/A12 pathspec union",
+            "testAnalytics failed",
+            "testBackend failed",
+            "typeCheck failed",
+            "build failed"
+          ],
+          "failedCheckNames": [
+            "testAnalytics",
+            "testBackend",
+            "typeCheck",
+            "build"
+          ],
+          "failedChecks": [
+            {
+              "name": "testAnalytics",
+              "command": "npm run test:analytics",
+              "status": 2
+            },
+            {
+              "name": "testBackend",
+              "command": "npm run test:backend",
+              "status": 1
+            },
+            {
+              "name": "typeCheck",
+              "command": "npm run type-check -- --pretty false",
+              "status": 2
+            },
+            {
+              "name": "build",
+              "command": "npm run build",
+              "status": 1
+            }
+          ]
+        },
+        {
+          "matrixId": "wave-03-shell-dashboard-roadmap:a01-app-shell",
+          "waveId": "wave-03-shell-dashboard-roadmap",
+          "packageId": "a01-app-shell",
+          "packageName": "A01 app shell",
+          "packageOwnerIds": [
+            "A01"
+          ],
+          "blockingReasons": [
+            "A01 app shell typeCheck failed",
+            "A01 app shell appShellPlaywright failed"
+          ],
+          "failedCheckNames": [
+            "typeCheck",
+            "appShellPlaywright"
+          ],
+          "failedChecks": [
+            {
+              "name": "typeCheck",
+              "command": "npm run type-check -- --pretty false",
+              "status": 2
+            },
+            {
+              "name": "appShellPlaywright",
+              "command": "npx playwright test tests/e2e/app-shell-auth.spec.ts tests/e2e/home-functional.spec.ts --project=desktop-chrome",
+              "status": 1
+            }
+          ]
+        },
+        {
+          "matrixId": "wave-03-shell-dashboard-roadmap:a02-a15-dashboard-adaptive",
+          "waveId": "wave-03-shell-dashboard-roadmap",
+          "packageId": "a02-a15-dashboard-adaptive",
+          "packageName": "A02/A15 dashboard adaptive",
+          "packageOwnerIds": [
+            "A02",
+            "A15"
+          ],
+          "blockingReasons": [
+            "A02/A15 dashboard adaptive testAnalytics failed",
+            "A02/A15 dashboard adaptive typeCheck failed",
+            "A02/A15 dashboard adaptive dashboardAdaptivePlaywright failed"
+          ],
+          "failedCheckNames": [
+            "testAnalytics",
+            "typeCheck",
+            "dashboardAdaptivePlaywright"
+          ],
+          "failedChecks": [
+            {
+              "name": "testAnalytics",
+              "command": "npm run test:analytics",
+              "status": 1
+            },
+            {
+              "name": "typeCheck",
+              "command": "npm run type-check -- --pretty false",
+              "status": 2
+            },
+            {
+              "name": "dashboardAdaptivePlaywright",
+              "command": "npx playwright test tests/e2e/student-smoke.spec.ts tests/e2e/adaptive-llm-smoke.spec.ts --project=desktop-chrome",
+              "status": 1
+            }
+          ]
+        },
+        {
+          "matrixId": "wave-03-shell-dashboard-roadmap:a03-roadmap",
+          "waveId": "wave-03-shell-dashboard-roadmap",
+          "packageId": "a03-roadmap",
+          "packageName": "A03 roadmap",
+          "packageOwnerIds": [
+            "A03"
+          ],
+          "blockingReasons": [
+            "A03 roadmap typeCheck failed",
+            "A03 roadmap roadmapPlaywright failed"
+          ],
+          "failedCheckNames": [
+            "typeCheck",
+            "roadmapPlaywright"
+          ],
+          "failedChecks": [
+            {
+              "name": "typeCheck",
+              "command": "npm run type-check -- --pretty false",
+              "status": 2
+            },
+            {
+              "name": "roadmapPlaywright",
+              "command": "npx playwright test tests/e2e/mainland-hjb-roadmaps.spec.ts tests/e2e/mainland-pep-roadmaps.spec.ts --project=desktop-chrome",
+              "status": 1
+            }
+          ]
+        },
+        {
+          "matrixId": "wave-04-practice-lesson-content:a04-practice",
+          "waveId": "wave-04-practice-lesson-content",
+          "packageId": "a04-practice",
+          "packageName": "A04 practice",
+          "packageOwnerIds": [
+            "A04"
+          ],
+          "blockingReasons": [
+            "A04 practice testQuestionBank failed",
+            "A04 practice typeCheck failed",
+            "A04 practice practicePlaywright failed"
+          ],
+          "failedCheckNames": [
+            "testQuestionBank",
+            "typeCheck",
+            "practicePlaywright"
+          ],
+          "failedChecks": [
+            {
+              "name": "testQuestionBank",
+              "command": "npm run test:question-bank",
+              "status": 2
+            },
+            {
+              "name": "typeCheck",
+              "command": "npm run type-check -- --pretty false",
+              "status": 2
+            },
+            {
+              "name": "practicePlaywright",
+              "command": "npx playwright test tests/e2e/practice-pager.spec.ts tests/e2e/student-smoke.spec.ts --project=desktop-chrome",
+              "status": 1
+            }
+          ]
+        },
+        {
+          "matrixId": "wave-04-practice-lesson-content:a05-lesson",
+          "waveId": "wave-04-practice-lesson-content",
+          "packageId": "a05-lesson",
+          "packageName": "A05 lesson",
+          "packageOwnerIds": [
+            "A05"
+          ],
+          "blockingReasons": [
+            "A05 lesson typeCheck failed",
+            "A05 lesson lessonPlaywright failed"
+          ],
+          "failedCheckNames": [
+            "typeCheck",
+            "lessonPlaywright"
+          ],
+          "failedChecks": [
+            {
+              "name": "typeCheck",
+              "command": "npm run type-check -- --pretty false",
+              "status": 2
+            },
+            {
+              "name": "lessonPlaywright",
+              "command": "npx playwright test tests/e2e/lesson-all.spec.ts tests/e2e/mainland-pep-high-lessons.spec.ts tests/e2e/california-k5-textbook-lessons.spec.ts --project=desktop-chrome",
+              "status": 1
+            }
+          ]
+        },
+        {
+          "matrixId": "wave-04-practice-lesson-content:a18-a21-a23-a24-content-evidence",
+          "waveId": "wave-04-practice-lesson-content",
+          "packageId": "a18-a21-a23-a24-content-evidence",
+          "packageName": "A18/A21/A23/A24 content evidence",
+          "packageOwnerIds": [
+            "A18",
+            "A21",
+            "A23",
+            "A24"
+          ],
+          "blockingReasons": [
+            "A18/A21/A23/A24 content evidence has 110 dirty entries outside its pathspec union",
+            "A18/A21/A23/A24 content evidence testRag failed",
+            "A18/A21/A23/A24 content evidence testQuestionBank failed",
+            "A18/A21/A23/A24 content evidence typeCheck failed"
+          ],
+          "failedCheckNames": [
+            "testRag",
+            "testQuestionBank",
+            "typeCheck"
+          ],
+          "failedChecks": [
+            {
+              "name": "testRag",
+              "command": "npm run test:rag",
+              "status": 2
+            },
+            {
+              "name": "testQuestionBank",
+              "command": "npm run test:question-bank",
+              "status": 2
+            },
+            {
+              "name": "typeCheck",
+              "command": "npm run type-check -- --pretty false",
+              "status": 2
+            }
+          ]
+        },
+        {
+          "matrixId": "wave-05-visualization-ai-runtime:a06-visualization",
+          "waveId": "wave-05-visualization-ai-runtime",
+          "packageId": "a06-visualization",
+          "packageName": "A06 visualization",
+          "packageOwnerIds": [
+            "A06"
+          ],
+          "blockingReasons": [
+            "A06 visualization typeCheck failed",
+            "A06 visualization visualizationNodeTests failed",
+            "A06 visualization visualizationPlaywright failed"
+          ],
+          "failedCheckNames": [
+            "typeCheck",
+            "visualizationNodeTests",
+            "visualizationPlaywright"
+          ],
+          "failedChecks": [
+            {
+              "name": "typeCheck",
+              "command": "npm run type-check -- --pretty false",
+              "status": 2
+            },
+            {
+              "name": "visualizationNodeTests",
+              "command": "node --test components/visualizations/configuredVisualizationLabRegressions.test.ts components/visualizations/three/threeDCanvasContract.test.ts components/visualizations/visualizationDiagnostics.test.ts",
+              "status": 1
+            },
+            {
+              "name": "visualizationPlaywright",
+              "command": "npx playwright test tests/e2e/visualization-values.spec.ts tests/e2e/visualization-overlap.spec.ts --project=desktop-chrome",
+              "status": 1
+            }
+          ]
+        },
+        {
+          "matrixId": "wave-05-visualization-ai-runtime:a07-ai-tutor",
+          "waveId": "wave-05-visualization-ai-runtime",
+          "packageId": "a07-ai-tutor",
+          "packageName": "A07 AI tutor",
+          "packageOwnerIds": [
+            "A07"
+          ],
+          "blockingReasons": [
+            "A07 AI tutor typeCheck failed",
+            "A07 AI tutor aiTutorPlaywright failed"
+          ],
+          "failedCheckNames": [
+            "typeCheck",
+            "aiTutorPlaywright"
+          ],
+          "failedChecks": [
+            {
+              "name": "typeCheck",
+              "command": "npm run type-check -- --pretty false",
+              "status": 2
+            },
+            {
+              "name": "aiTutorPlaywright",
+              "command": "npx playwright test tests/e2e/ai-tutor-deepseek.spec.ts tests/e2e/ai-tutor-live-text.spec.ts --project=desktop-chrome",
+              "status": 1
+            }
+          ]
+        },
+        {
+          "matrixId": "wave-05-visualization-ai-runtime:a09-copy-i18n-accessibility",
+          "waveId": "wave-05-visualization-ai-runtime",
+          "packageId": "a09-copy-i18n-accessibility",
+          "packageName": "A09 copy/i18n/accessibility",
+          "packageOwnerIds": [
+            "A09"
+          ],
+          "blockingReasons": [
+            "A09 copy/i18n/accessibility typeCheck failed"
+          ],
+          "failedCheckNames": [
+            "typeCheck"
+          ],
+          "failedChecks": [
+            {
+              "name": "typeCheck",
+              "command": "npm run type-check -- --pretty false",
+              "status": 2
+            }
+          ]
+        },
+        {
+          "matrixId": "wave-05-visualization-ai-runtime:a11-regression-evidence",
+          "waveId": "wave-05-visualization-ai-runtime",
+          "packageId": "a11-regression-evidence",
+          "packageName": "A11 regression evidence",
+          "packageOwnerIds": [
+            "A11"
+          ],
+          "blockingReasons": [
+            "A11 regression evidence typeCheck failed",
+            "A11 regression evidence regressionPlaywright failed"
+          ],
+          "failedCheckNames": [
+            "typeCheck",
+            "regressionPlaywright"
+          ],
+          "failedChecks": [
+            {
+              "name": "typeCheck",
+              "command": "npm run type-check -- --pretty false",
+              "status": 2
+            },
+            {
+              "name": "regressionPlaywright",
+              "command": "npx playwright test tests/e2e/student-smoke.spec.ts tests/e2e/backend-api.spec.ts --project=desktop-chrome",
+              "status": 1
+            }
+          ]
+        },
+        {
+          "matrixId": "wave-05-visualization-ai-runtime:a13-a14-console",
+          "waveId": "wave-05-visualization-ai-runtime",
+          "packageId": "a13-a14-console",
+          "packageName": "A13/A14 console",
+          "packageOwnerIds": [
+            "A13",
+            "A14"
+          ],
+          "blockingReasons": [
+            "A13/A14 console typeCheck failed",
+            "A13/A14 console consolePlaywright failed"
+          ],
+          "failedCheckNames": [
+            "typeCheck",
+            "consolePlaywright"
+          ],
+          "failedChecks": [
+            {
+              "name": "typeCheck",
+              "command": "npm run type-check -- --pretty false",
+              "status": 2
+            },
+            {
+              "name": "consolePlaywright",
+              "command": "npx playwright test tests/e2e/teacher-workspace.spec.ts tests/e2e/parent-console.spec.ts tests/e2e/class-forum.spec.ts --project=desktop-chrome",
+              "status": 1
+            }
+          ]
+        },
+        {
+          "matrixId": "wave-05-visualization-ai-runtime:a17-a20-game-motivation",
+          "waveId": "wave-05-visualization-ai-runtime",
+          "packageId": "a17-a20-game-motivation",
+          "packageName": "A17/A20 games and motivation",
+          "packageOwnerIds": [
+            "A17",
+            "A20"
+          ],
+          "blockingReasons": [
+            "A17/A20 games and motivation typeCheck failed",
+            "A17/A20 games and motivation gameMotivationPlaywright failed"
+          ],
+          "failedCheckNames": [
+            "typeCheck",
+            "gameMotivationPlaywright"
+          ],
+          "failedChecks": [
+            {
+              "name": "typeCheck",
+              "command": "npm run type-check -- --pretty false",
+              "status": 2
+            },
+            {
+              "name": "gameMotivationPlaywright",
+              "command": "npx playwright test tests/e2e/adventure-island.spec.ts tests/e2e/fishing-game.spec.ts tests/e2e/gamification.spec.ts --project=desktop-chrome",
+              "status": 1
+            }
+          ]
+        }
+      ],
+      "uniqueReadFiles": [
+        "components/visualizations/three/manim/MathSceneRuntime.tsx",
+        "components/visualizations/three/scenes/TemplatePrimitiveScene.tsx",
+        "components/visualizations/three/ThreeDGraphCanvas.tsx",
+        "components/visualizations/three/ThreeDLabCanvas.tsx",
+        "components/visualizations/three/threeDSceneMath.catalog.test.ts",
+        "components/visualizations/VisualizationLabPage.tsx"
+      ],
+      "writeScope": [
+        "components/visualizations/three/manim/MathSceneRuntime.tsx",
+        "components/visualizations/three/scenes/TemplatePrimitiveScene.tsx",
+        "components/visualizations/three/ThreeDGraphCanvas.tsx",
+        "components/visualizations/three/ThreeDLabCanvas.tsx",
+        "components/visualizations/three/threeDSceneMath.catalog.test.ts",
+        "components/visualizations/VisualizationLabPage.tsx"
+      ],
+      "coordinationRequired": [
+        {
+          "file": "components/visualizations/three/manim/MathSceneRuntime.tsx",
+          "reason": "cross-owner blocker; coordinate with package owner before editing"
+        },
+        {
+          "file": "components/visualizations/three/scenes/TemplatePrimitiveScene.tsx",
+          "reason": "cross-owner blocker; coordinate with package owner before editing"
+        },
+        {
+          "file": "components/visualizations/three/ThreeDGraphCanvas.tsx",
+          "reason": "cross-owner blocker; coordinate with package owner before editing"
+        },
+        {
+          "file": "components/visualizations/three/threeDSceneMath.catalog.test.ts",
+          "reason": "cross-owner blocker; coordinate with package owner before editing"
+        },
+        {
+          "file": "components/visualizations/VisualizationLabPage.tsx",
+          "reason": "cross-owner blocker; coordinate with package owner before editing"
+        }
+      ],
+      "checks": [
+        "npm run type-check -- --pretty false",
+        "npm run test:analytics",
+        "npm run test:backend",
+        "npm run build",
+        "npx playwright test tests/e2e/app-shell-auth.spec.ts tests/e2e/home-functional.spec.ts --project=desktop-chrome",
+        "npx playwright test tests/e2e/student-smoke.spec.ts tests/e2e/adaptive-llm-smoke.spec.ts --project=desktop-chrome",
+        "npx playwright test tests/e2e/mainland-hjb-roadmaps.spec.ts tests/e2e/mainland-pep-roadmaps.spec.ts --project=desktop-chrome",
+        "npm run test:question-bank",
+        "npx playwright test tests/e2e/practice-pager.spec.ts tests/e2e/student-smoke.spec.ts --project=desktop-chrome",
+        "npx playwright test tests/e2e/lesson-all.spec.ts tests/e2e/mainland-pep-high-lessons.spec.ts tests/e2e/california-k5-textbook-lessons.spec.ts --project=desktop-chrome",
+        "npm run test:rag",
+        "node --test components/visualizations/configuredVisualizationLabRegressions.test.ts components/visualizations/three/threeDCanvasContract.test.ts components/visualizations/visualizationDiagnostics.test.ts",
+        "npx playwright test tests/e2e/visualization-values.spec.ts tests/e2e/visualization-overlap.spec.ts --project=desktop-chrome",
+        "npx playwright test tests/e2e/ai-tutor-deepseek.spec.ts tests/e2e/ai-tutor-live-text.spec.ts --project=desktop-chrome",
+        "npx playwright test tests/e2e/student-smoke.spec.ts tests/e2e/backend-api.spec.ts --project=desktop-chrome",
+        "npx playwright test tests/e2e/teacher-workspace.spec.ts tests/e2e/parent-console.spec.ts tests/e2e/class-forum.spec.ts --project=desktop-chrome",
+        "npx playwright test tests/e2e/adventure-island.spec.ts tests/e2e/fishing-game.spec.ts tests/e2e/gamification.spec.ts --project=desktop-chrome",
+        "node coordination/release-intake/generate-owner-package-readiness-blocker-matrix.mjs",
+        "node coordination/release-intake/assert-owner-package-blocker-routing-current.mjs",
+        "node coordination/release-intake/assert-owner-package-blocker-assignment-packet-current.mjs",
+        "node coordination/release-intake/assert-dirty-worktree-remediation-current.mjs"
+      ],
+      "stopConditions": [
+        "Stop if the fix requires adding/removing package dependencies without A10/A22 approval.",
+        "Stop if the fix requires shared type/schema changes without A08 coordination.",
+        "Stop if a routed file is outside this owner's write scope and no explicit scope expansion exists.",
+        "Stop if the assignment needs owner-approved Git operations; A25 evidence alone is not authorization.",
+        "Stop if the work would expose or edit real secrets."
+      ],
+      "dirtyStateFinalAction": "pending owner reviewed commit, owner-routed blocker, evidence archive, or exact owner-approved final state",
+      "worktreeLifecycleAction": "retain isolated worktree until owner handoff is reviewed",
+      "reportStatus": "recorded-owner-blocker",
+      "reportedBy": "A06 via Codex",
+      "reportedAt": "2026-07-03T17:56:00.938Z",
+      "blockerSummary": "A06 visualization package is blocked before code-level remediation because the recommended A06 worktree is behind the root dependency baseline: package.json lacks @react-three/drei, @react-three/fiber, three, pptxgenjs, and tsx while A06 visualization files import the React Three stack. Type-check therefore emits module-resolution and JSX intrinsic element errors before the A06 component fixes can be isolated. Package dependency resync requires A10/A22 coordination and is outside A06 write scope.",
+      "ownerDecision": "blocked-pending-a10-a22-package-baseline-resync",
+      "evidenceReviewed": [
+        "coordination/release-intake/latest-A25-owner-package-blocker-report-starter.json",
+        "coordination/release-intake/latest-A25-pending-owner-blocker-report-a06.md",
+        "/tmp/a06-visualization-typecheck.log",
+        "/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A06-visualization-closure/package.json",
+        "/Users/dongpinhu/Desktop/MAIS-MVP/package.json"
+      ],
+      "nextAction": "Route package baseline resync to A10/A22, then rerun npm install in the A06 worktree and repeat npm run type-check -- --pretty false before attempting A06 component-level remediation.",
+      "notes": "A06 blocker record only. No package edit, cleanup, worktree removal, branch deletion, stage, commit, merge, push, or deploy is authorized.",
+      "cleanupAuthorized": false,
+      "executableNow": false
+    },
+    {
+      "reportId": "owner-package-blocker-report-a13",
+      "reportFingerprint": "1f461ad9cc76946c2d79fe33a3a146df7182d47ee8b5d9e108c8354656731627",
+      "assignmentId": "owner-package-blocker-a13",
+      "agentId": "A13",
+      "owner": "A13 teacher console lead",
+      "role": "Teacher console lead",
+      "objective": "Resolve or formally block the owner-package blockers routed to A13 without widening beyond AGENTS.md owner scope.",
+      "recommendedWorktree": "/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A13-A14-console-closure",
+      "packageRows": [
+        {
+          "matrixId": "wave-01-governance-release-hygiene:wave-01-governance-release-hygiene",
+          "waveId": "wave-01-governance-release-hygiene",
+          "packageId": "wave-01-governance-release-hygiene",
+          "packageName": "A25/A10/A22 governance and release hygiene",
+          "packageOwnerIds": [
+            "A25",
+            "A22",
+            "A10"
+          ],
+          "blockingReasons": [
+            "npm run type-check failed"
+          ],
+          "failedCheckNames": [
+            "typeCheck"
+          ],
+          "failedChecks": [
+            {
+              "name": "typeCheck",
+              "command": "npm run type-check -- --pretty false",
+              "status": 2
+            }
+          ]
+        },
+        {
+          "matrixId": "wave-03-shell-dashboard-roadmap:a01-app-shell",
+          "waveId": "wave-03-shell-dashboard-roadmap",
+          "packageId": "a01-app-shell",
+          "packageName": "A01 app shell",
+          "packageOwnerIds": [
+            "A01"
+          ],
+          "blockingReasons": [
+            "A01 app shell typeCheck failed",
+            "A01 app shell appShellPlaywright failed"
+          ],
+          "failedCheckNames": [
+            "typeCheck",
+            "appShellPlaywright"
+          ],
+          "failedChecks": [
+            {
+              "name": "typeCheck",
+              "command": "npm run type-check -- --pretty false",
+              "status": 2
+            },
+            {
+              "name": "appShellPlaywright",
+              "command": "npx playwright test tests/e2e/app-shell-auth.spec.ts tests/e2e/home-functional.spec.ts --project=desktop-chrome",
+              "status": 1
+            }
+          ]
+        },
+        {
+          "matrixId": "wave-03-shell-dashboard-roadmap:a02-a15-dashboard-adaptive",
+          "waveId": "wave-03-shell-dashboard-roadmap",
+          "packageId": "a02-a15-dashboard-adaptive",
+          "packageName": "A02/A15 dashboard adaptive",
+          "packageOwnerIds": [
+            "A02",
+            "A15"
+          ],
+          "blockingReasons": [
+            "A02/A15 dashboard adaptive testAnalytics failed",
+            "A02/A15 dashboard adaptive typeCheck failed",
+            "A02/A15 dashboard adaptive dashboardAdaptivePlaywright failed"
+          ],
+          "failedCheckNames": [
+            "testAnalytics",
+            "typeCheck",
+            "dashboardAdaptivePlaywright"
+          ],
+          "failedChecks": [
+            {
+              "name": "testAnalytics",
+              "command": "npm run test:analytics",
+              "status": 1
+            },
+            {
+              "name": "typeCheck",
+              "command": "npm run type-check -- --pretty false",
+              "status": 2
+            },
+            {
+              "name": "dashboardAdaptivePlaywright",
+              "command": "npx playwright test tests/e2e/student-smoke.spec.ts tests/e2e/adaptive-llm-smoke.spec.ts --project=desktop-chrome",
+              "status": 1
+            }
+          ]
+        },
+        {
+          "matrixId": "wave-03-shell-dashboard-roadmap:a03-roadmap",
+          "waveId": "wave-03-shell-dashboard-roadmap",
+          "packageId": "a03-roadmap",
+          "packageName": "A03 roadmap",
+          "packageOwnerIds": [
+            "A03"
+          ],
+          "blockingReasons": [
+            "A03 roadmap typeCheck failed",
+            "A03 roadmap roadmapPlaywright failed"
+          ],
+          "failedCheckNames": [
+            "typeCheck",
+            "roadmapPlaywright"
+          ],
+          "failedChecks": [
+            {
+              "name": "typeCheck",
+              "command": "npm run type-check -- --pretty false",
+              "status": 2
+            },
+            {
+              "name": "roadmapPlaywright",
+              "command": "npx playwright test tests/e2e/mainland-hjb-roadmaps.spec.ts tests/e2e/mainland-pep-roadmaps.spec.ts --project=desktop-chrome",
+              "status": 1
+            }
+          ]
+        },
+        {
+          "matrixId": "wave-04-practice-lesson-content:a04-practice",
+          "waveId": "wave-04-practice-lesson-content",
+          "packageId": "a04-practice",
+          "packageName": "A04 practice",
+          "packageOwnerIds": [
+            "A04"
+          ],
+          "blockingReasons": [
+            "A04 practice testQuestionBank failed",
+            "A04 practice typeCheck failed",
+            "A04 practice practicePlaywright failed"
+          ],
+          "failedCheckNames": [
+            "testQuestionBank",
+            "typeCheck",
+            "practicePlaywright"
+          ],
+          "failedChecks": [
+            {
+              "name": "testQuestionBank",
+              "command": "npm run test:question-bank",
+              "status": 2
+            },
+            {
+              "name": "typeCheck",
+              "command": "npm run type-check -- --pretty false",
+              "status": 2
+            },
+            {
+              "name": "practicePlaywright",
+              "command": "npx playwright test tests/e2e/practice-pager.spec.ts tests/e2e/student-smoke.spec.ts --project=desktop-chrome",
+              "status": 1
+            }
+          ]
+        },
+        {
+          "matrixId": "wave-04-practice-lesson-content:a05-lesson",
+          "waveId": "wave-04-practice-lesson-content",
+          "packageId": "a05-lesson",
+          "packageName": "A05 lesson",
+          "packageOwnerIds": [
+            "A05"
+          ],
+          "blockingReasons": [
+            "A05 lesson typeCheck failed",
+            "A05 lesson lessonPlaywright failed"
+          ],
+          "failedCheckNames": [
+            "typeCheck",
+            "lessonPlaywright"
+          ],
+          "failedChecks": [
+            {
+              "name": "typeCheck",
+              "command": "npm run type-check -- --pretty false",
+              "status": 2
+            },
+            {
+              "name": "lessonPlaywright",
+              "command": "npx playwright test tests/e2e/lesson-all.spec.ts tests/e2e/mainland-pep-high-lessons.spec.ts tests/e2e/california-k5-textbook-lessons.spec.ts --project=desktop-chrome",
+              "status": 1
+            }
+          ]
+        },
+        {
+          "matrixId": "wave-04-practice-lesson-content:a18-a21-a23-a24-content-evidence",
+          "waveId": "wave-04-practice-lesson-content",
+          "packageId": "a18-a21-a23-a24-content-evidence",
+          "packageName": "A18/A21/A23/A24 content evidence",
+          "packageOwnerIds": [
+            "A18",
+            "A21",
+            "A23",
+            "A24"
+          ],
+          "blockingReasons": [
+            "A18/A21/A23/A24 content evidence has 110 dirty entries outside its pathspec union",
+            "A18/A21/A23/A24 content evidence testRag failed",
+            "A18/A21/A23/A24 content evidence testQuestionBank failed",
+            "A18/A21/A23/A24 content evidence typeCheck failed"
+          ],
+          "failedCheckNames": [
+            "testRag",
+            "testQuestionBank",
+            "typeCheck"
+          ],
+          "failedChecks": [
+            {
+              "name": "testRag",
+              "command": "npm run test:rag",
+              "status": 2
+            },
+            {
+              "name": "testQuestionBank",
+              "command": "npm run test:question-bank",
+              "status": 2
+            },
+            {
+              "name": "typeCheck",
+              "command": "npm run type-check -- --pretty false",
+              "status": 2
+            }
+          ]
+        },
+        {
+          "matrixId": "wave-05-visualization-ai-runtime:a06-visualization",
+          "waveId": "wave-05-visualization-ai-runtime",
+          "packageId": "a06-visualization",
+          "packageName": "A06 visualization",
+          "packageOwnerIds": [
+            "A06"
+          ],
+          "blockingReasons": [
+            "A06 visualization typeCheck failed",
+            "A06 visualization visualizationNodeTests failed",
+            "A06 visualization visualizationPlaywright failed"
+          ],
+          "failedCheckNames": [
+            "typeCheck",
+            "visualizationNodeTests",
+            "visualizationPlaywright"
+          ],
+          "failedChecks": [
+            {
+              "name": "typeCheck",
+              "command": "npm run type-check -- --pretty false",
+              "status": 2
+            },
+            {
+              "name": "visualizationNodeTests",
+              "command": "node --test components/visualizations/configuredVisualizationLabRegressions.test.ts components/visualizations/three/threeDCanvasContract.test.ts components/visualizations/visualizationDiagnostics.test.ts",
+              "status": 1
+            },
+            {
+              "name": "visualizationPlaywright",
+              "command": "npx playwright test tests/e2e/visualization-values.spec.ts tests/e2e/visualization-overlap.spec.ts --project=desktop-chrome",
+              "status": 1
+            }
+          ]
+        },
+        {
+          "matrixId": "wave-05-visualization-ai-runtime:a07-ai-tutor",
+          "waveId": "wave-05-visualization-ai-runtime",
+          "packageId": "a07-ai-tutor",
+          "packageName": "A07 AI tutor",
+          "packageOwnerIds": [
+            "A07"
+          ],
+          "blockingReasons": [
+            "A07 AI tutor typeCheck failed",
+            "A07 AI tutor aiTutorPlaywright failed"
+          ],
+          "failedCheckNames": [
+            "typeCheck",
+            "aiTutorPlaywright"
+          ],
+          "failedChecks": [
+            {
+              "name": "typeCheck",
+              "command": "npm run type-check -- --pretty false",
+              "status": 2
+            },
+            {
+              "name": "aiTutorPlaywright",
+              "command": "npx playwright test tests/e2e/ai-tutor-deepseek.spec.ts tests/e2e/ai-tutor-live-text.spec.ts --project=desktop-chrome",
+              "status": 1
+            }
+          ]
+        },
+        {
+          "matrixId": "wave-05-visualization-ai-runtime:a09-copy-i18n-accessibility",
+          "waveId": "wave-05-visualization-ai-runtime",
+          "packageId": "a09-copy-i18n-accessibility",
+          "packageName": "A09 copy/i18n/accessibility",
+          "packageOwnerIds": [
+            "A09"
+          ],
+          "blockingReasons": [
+            "A09 copy/i18n/accessibility typeCheck failed"
+          ],
+          "failedCheckNames": [
+            "typeCheck"
+          ],
+          "failedChecks": [
+            {
+              "name": "typeCheck",
+              "command": "npm run type-check -- --pretty false",
+              "status": 2
+            }
+          ]
+        },
+        {
+          "matrixId": "wave-05-visualization-ai-runtime:a11-regression-evidence",
+          "waveId": "wave-05-visualization-ai-runtime",
+          "packageId": "a11-regression-evidence",
+          "packageName": "A11 regression evidence",
+          "packageOwnerIds": [
+            "A11"
+          ],
+          "blockingReasons": [
+            "A11 regression evidence typeCheck failed",
+            "A11 regression evidence regressionPlaywright failed"
+          ],
+          "failedCheckNames": [
+            "typeCheck",
+            "regressionPlaywright"
+          ],
+          "failedChecks": [
+            {
+              "name": "typeCheck",
+              "command": "npm run type-check -- --pretty false",
+              "status": 2
+            },
+            {
+              "name": "regressionPlaywright",
+              "command": "npx playwright test tests/e2e/student-smoke.spec.ts tests/e2e/backend-api.spec.ts --project=desktop-chrome",
+              "status": 1
+            }
+          ]
+        },
+        {
+          "matrixId": "wave-05-visualization-ai-runtime:a13-a14-console",
+          "waveId": "wave-05-visualization-ai-runtime",
+          "packageId": "a13-a14-console",
+          "packageName": "A13/A14 console",
+          "packageOwnerIds": [
+            "A13",
+            "A14"
+          ],
+          "blockingReasons": [
+            "A13/A14 console typeCheck failed",
+            "A13/A14 console consolePlaywright failed"
+          ],
+          "failedCheckNames": [
+            "typeCheck",
+            "consolePlaywright"
+          ],
+          "failedChecks": [
+            {
+              "name": "typeCheck",
+              "command": "npm run type-check -- --pretty false",
+              "status": 2
+            },
+            {
+              "name": "consolePlaywright",
+              "command": "npx playwright test tests/e2e/teacher-workspace.spec.ts tests/e2e/parent-console.spec.ts tests/e2e/class-forum.spec.ts --project=desktop-chrome",
+              "status": 1
+            }
+          ]
+        },
+        {
+          "matrixId": "wave-05-visualization-ai-runtime:a17-a20-game-motivation",
+          "waveId": "wave-05-visualization-ai-runtime",
+          "packageId": "a17-a20-game-motivation",
+          "packageName": "A17/A20 games and motivation",
+          "packageOwnerIds": [
+            "A17",
+            "A20"
+          ],
+          "blockingReasons": [
+            "A17/A20 games and motivation typeCheck failed",
+            "A17/A20 games and motivation gameMotivationPlaywright failed"
+          ],
+          "failedCheckNames": [
+            "typeCheck",
+            "gameMotivationPlaywright"
+          ],
+          "failedChecks": [
+            {
+              "name": "typeCheck",
+              "command": "npm run type-check -- --pretty false",
+              "status": 2
+            },
+            {
+              "name": "gameMotivationPlaywright",
+              "command": "npx playwright test tests/e2e/adventure-island.spec.ts tests/e2e/fishing-game.spec.ts tests/e2e/gamification.spec.ts --project=desktop-chrome",
+              "status": 1
+            }
+          ]
+        }
+      ],
+      "uniqueReadFiles": [
+        "app/api/teacher/review-lessons/[reviewLessonId]/route.ts",
+        "components/teacher/TeacherLiveView.tsx",
+        "components/teacher/TeacherManagementViews.tsx",
+        "components/teacher/TeacherOperationsView.tsx",
+        "components/teacher/TeacherPrepViews.tsx",
+        "components/teacher/TeacherResourceAssessmentViews.tsx",
+        "components/teacher/TeacherReviewLessonView.tsx",
+        "lib/teacherReviewLesson.ts",
+        "lib/teacherReviewLessonPptx.ts"
+      ],
+      "writeScope": [
+        "components/teacher/TeacherLiveView.tsx",
+        "components/teacher/TeacherManagementViews.tsx",
+        "components/teacher/TeacherOperationsView.tsx",
+        "components/teacher/TeacherPrepViews.tsx",
+        "components/teacher/TeacherResourceAssessmentViews.tsx",
+        "components/teacher/TeacherReviewLessonView.tsx"
+      ],
+      "coordinationRequired": [
+        {
+          "file": "app/api/teacher/review-lessons/[reviewLessonId]/route.ts",
+          "reason": "outside this owner's AGENTS.md write scope"
+        },
+        {
+          "file": "components/teacher/TeacherOperationsView.tsx",
+          "reason": "cross-owner blocker; coordinate with package owner before editing"
+        },
+        {
+          "file": "components/teacher/TeacherPrepViews.tsx",
+          "reason": "cross-owner blocker; coordinate with package owner before editing"
+        },
+        {
+          "file": "components/teacher/TeacherReviewLessonView.tsx",
+          "reason": "cross-owner blocker; coordinate with package owner before editing"
+        },
+        {
+          "file": "lib/teacherReviewLesson.ts",
+          "reason": "outside this owner's AGENTS.md write scope"
+        },
+        {
+          "file": "lib/teacherReviewLessonPptx.ts",
+          "reason": "outside this owner's AGENTS.md write scope"
+        }
+      ],
+      "checks": [
+        "npm run type-check -- --pretty false",
+        "npx playwright test tests/e2e/app-shell-auth.spec.ts tests/e2e/home-functional.spec.ts --project=desktop-chrome",
+        "npm run test:analytics",
+        "npx playwright test tests/e2e/student-smoke.spec.ts tests/e2e/adaptive-llm-smoke.spec.ts --project=desktop-chrome",
+        "npx playwright test tests/e2e/mainland-hjb-roadmaps.spec.ts tests/e2e/mainland-pep-roadmaps.spec.ts --project=desktop-chrome",
+        "npm run test:question-bank",
+        "npx playwright test tests/e2e/practice-pager.spec.ts tests/e2e/student-smoke.spec.ts --project=desktop-chrome",
+        "npx playwright test tests/e2e/lesson-all.spec.ts tests/e2e/mainland-pep-high-lessons.spec.ts tests/e2e/california-k5-textbook-lessons.spec.ts --project=desktop-chrome",
+        "npm run test:rag",
+        "node --test components/visualizations/configuredVisualizationLabRegressions.test.ts components/visualizations/three/threeDCanvasContract.test.ts components/visualizations/visualizationDiagnostics.test.ts",
+        "npx playwright test tests/e2e/visualization-values.spec.ts tests/e2e/visualization-overlap.spec.ts --project=desktop-chrome",
+        "npx playwright test tests/e2e/ai-tutor-deepseek.spec.ts tests/e2e/ai-tutor-live-text.spec.ts --project=desktop-chrome",
+        "npx playwright test tests/e2e/student-smoke.spec.ts tests/e2e/backend-api.spec.ts --project=desktop-chrome",
+        "npx playwright test tests/e2e/teacher-workspace.spec.ts tests/e2e/parent-console.spec.ts tests/e2e/class-forum.spec.ts --project=desktop-chrome",
+        "npx playwright test tests/e2e/adventure-island.spec.ts tests/e2e/fishing-game.spec.ts tests/e2e/gamification.spec.ts --project=desktop-chrome",
+        "node coordination/release-intake/generate-owner-package-readiness-blocker-matrix.mjs",
+        "node coordination/release-intake/assert-owner-package-blocker-routing-current.mjs",
+        "node coordination/release-intake/assert-owner-package-blocker-assignment-packet-current.mjs",
+        "node coordination/release-intake/assert-dirty-worktree-remediation-current.mjs"
+      ],
+      "stopConditions": [
+        "Stop if the fix requires adding/removing package dependencies without A10/A22 approval.",
+        "Stop if the fix requires shared type/schema changes without A08 coordination.",
+        "Stop if a routed file is outside this owner's write scope and no explicit scope expansion exists.",
+        "Stop if the assignment needs owner-approved Git operations; A25 evidence alone is not authorization.",
+        "Stop if the work would expose or edit real secrets."
+      ],
+      "dirtyStateFinalAction": "pending owner reviewed commit, owner-routed blocker, evidence archive, or exact owner-approved final state",
+      "worktreeLifecycleAction": "retain isolated worktree until owner handoff is reviewed",
+      "reportStatus": "recorded-owner-blocker",
+      "reportedBy": "A13 via Codex/A25 intake",
+      "reportedAt": "2026-07-03T18:05:58.104Z",
+      "blockerSummary": "A13/A14 console package is blocked before owner-local remediation can be safely isolated. The actual linked worktree is /Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A13-A14-console-closure and has 43 dirty entries. npm run type-check -- --pretty false in that worktree exits 2 with 909 log lines across 113 files: the largest blockers include A06 visualization TypeScript errors, missing shared API/userStore/type exports, missing formatDateInHongKong/shared utilities, and A13/A14 console component errors that depend on those shared contracts. Package.json in the worktree also lacks @react-three/drei, @react-three/fiber, three, pptxgenjs, and tsx compared with the root baseline. Resolving this requires A08/A12 shared-contract and A10/A22 package-baseline coordination before A13 can reduce its own teacher-console errors without widening scope.",
+      "ownerDecision": "blocked-pending-a08-a12-shared-contract-and-a10-a22-package-baseline-resync",
+      "evidenceReviewed": [
+        "coordination/release-intake/latest-A25-owner-package-blocker-report-starter.json",
+        "coordination/release-intake/latest-A25-pending-owner-blocker-report-a13.md",
+        "coordination/release-intake/latest-A25-wave01-typecheck-owner-assignment-packet.json",
+        "/tmp/a13-console-typecheck.log",
+        "/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A13-A14-console-closure/package.json",
+        "/Users/dongpinhu/Desktop/MAIS-MVP/package.json"
+      ],
+      "nextAction": "Route shared contract/export gaps to A08/A12 and package baseline resync to A10/A22, then rerun npm run type-check -- --pretty false in the A13/A14 worktree before attempting A13/A14 console-local remediation.",
+      "notes": "A13 blocker record only. No package edit, feature-code edit, cleanup, worktree removal, branch deletion, stage, commit, merge, push, or deploy is authorized.",
+      "cleanupAuthorized": false,
+      "executableNow": false
+    },
+    {
+      "reportId": "owner-package-blocker-report-a18",
+      "reportFingerprint": "7748b9ac79a2d073bfd0e90f55d4c8ee4000a27d6a50ea541381ed3b5c6b4af7",
+      "assignmentId": "owner-package-blocker-a18",
+      "agentId": "A18",
+      "owner": "A18 curriculum QA and content quality lead",
+      "role": "Curriculum QA and content quality lead",
+      "objective": "Resolve or formally block the owner-package blockers routed to A18 without widening beyond AGENTS.md owner scope.",
+      "recommendedWorktree": "/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A18-A21-content-evidence-closure",
+      "packageRows": [
+        {
+          "matrixId": "wave-02-shared-contracts:wave-02-shared-contracts",
+          "waveId": "wave-02-shared-contracts",
+          "packageId": "wave-02-shared-contracts",
+          "packageName": "A08/A12 shared contracts and storage/API stability",
+          "packageOwnerIds": [
+            "A08",
+            "A12"
+          ],
+          "blockingReasons": [
+            "1 dirty entries are outside the A08/A12 pathspec union",
+            "testAnalytics failed",
+            "testBackend failed",
+            "typeCheck failed",
+            "build failed"
+          ],
+          "failedCheckNames": [
+            "testAnalytics",
+            "testBackend",
+            "typeCheck",
+            "build"
+          ],
+          "failedChecks": [
+            {
+              "name": "testAnalytics",
+              "command": "npm run test:analytics",
+              "status": 2
+            },
+            {
+              "name": "testBackend",
+              "command": "npm run test:backend",
+              "status": 1
+            },
+            {
+              "name": "typeCheck",
+              "command": "npm run type-check -- --pretty false",
+              "status": 2
+            },
+            {
+              "name": "build",
+              "command": "npm run build",
+              "status": 1
+            }
+          ]
+        },
+        {
+          "matrixId": "wave-03-shell-dashboard-roadmap:a03-roadmap",
+          "waveId": "wave-03-shell-dashboard-roadmap",
+          "packageId": "a03-roadmap",
+          "packageName": "A03 roadmap",
+          "packageOwnerIds": [
+            "A03"
+          ],
+          "blockingReasons": [
+            "A03 roadmap typeCheck failed",
+            "A03 roadmap roadmapPlaywright failed"
+          ],
+          "failedCheckNames": [
+            "typeCheck",
+            "roadmapPlaywright"
+          ],
+          "failedChecks": [
+            {
+              "name": "typeCheck",
+              "command": "npm run type-check -- --pretty false",
+              "status": 2
+            },
+            {
+              "name": "roadmapPlaywright",
+              "command": "npx playwright test tests/e2e/mainland-hjb-roadmaps.spec.ts tests/e2e/mainland-pep-roadmaps.spec.ts --project=desktop-chrome",
+              "status": 1
+            }
+          ]
+        },
+        {
+          "matrixId": "wave-04-practice-lesson-content:a04-practice",
+          "waveId": "wave-04-practice-lesson-content",
+          "packageId": "a04-practice",
+          "packageName": "A04 practice",
+          "packageOwnerIds": [
+            "A04"
+          ],
+          "blockingReasons": [
+            "A04 practice testQuestionBank failed",
+            "A04 practice typeCheck failed",
+            "A04 practice practicePlaywright failed"
+          ],
+          "failedCheckNames": [
+            "testQuestionBank",
+            "typeCheck",
+            "practicePlaywright"
+          ],
+          "failedChecks": [
+            {
+              "name": "testQuestionBank",
+              "command": "npm run test:question-bank",
+              "status": 2
+            },
+            {
+              "name": "typeCheck",
+              "command": "npm run type-check -- --pretty false",
+              "status": 2
+            },
+            {
+              "name": "practicePlaywright",
+              "command": "npx playwright test tests/e2e/practice-pager.spec.ts tests/e2e/student-smoke.spec.ts --project=desktop-chrome",
+              "status": 1
+            }
+          ]
+        },
+        {
+          "matrixId": "wave-04-practice-lesson-content:a05-lesson",
+          "waveId": "wave-04-practice-lesson-content",
+          "packageId": "a05-lesson",
+          "packageName": "A05 lesson",
+          "packageOwnerIds": [
+            "A05"
+          ],
+          "blockingReasons": [
+            "A05 lesson typeCheck failed",
+            "A05 lesson lessonPlaywright failed"
+          ],
+          "failedCheckNames": [
+            "typeCheck",
+            "lessonPlaywright"
+          ],
+          "failedChecks": [
+            {
+              "name": "typeCheck",
+              "command": "npm run type-check -- --pretty false",
+              "status": 2
+            },
+            {
+              "name": "lessonPlaywright",
+              "command": "npx playwright test tests/e2e/lesson-all.spec.ts tests/e2e/mainland-pep-high-lessons.spec.ts tests/e2e/california-k5-textbook-lessons.spec.ts --project=desktop-chrome",
+              "status": 1
+            }
+          ]
+        }
+      ],
+      "uniqueReadFiles": [
+        "data/mainlandPepHighTopics.ts",
+        "data/mainlandPepPrimaryTopics.ts",
+        "data/questions.ts",
+        "data/topics.ts",
+        "data/usCaliforniaLessons.test.ts",
+        "data/usCaliforniaLessons.ts"
+      ],
+      "writeScope": [],
+      "coordinationRequired": [
+        {
+          "file": "data/mainlandPepHighTopics.ts",
+          "reason": "outside this owner's AGENTS.md write scope"
+        },
+        {
+          "file": "data/mainlandPepPrimaryTopics.ts",
+          "reason": "outside this owner's AGENTS.md write scope"
+        },
+        {
+          "file": "data/questions.ts",
+          "reason": "outside this owner's AGENTS.md write scope"
+        },
+        {
+          "file": "data/topics.ts",
+          "reason": "outside this owner's AGENTS.md write scope"
+        },
+        {
+          "file": "data/usCaliforniaLessons.test.ts",
+          "reason": "outside this owner's AGENTS.md write scope"
+        },
+        {
+          "file": "data/usCaliforniaLessons.ts",
+          "reason": "outside this owner's AGENTS.md write scope"
+        }
+      ],
+      "checks": [
+        "npm run test:analytics",
+        "npm run test:backend",
+        "npm run type-check -- --pretty false",
+        "npm run build",
+        "npx playwright test tests/e2e/mainland-hjb-roadmaps.spec.ts tests/e2e/mainland-pep-roadmaps.spec.ts --project=desktop-chrome",
+        "npm run test:question-bank",
+        "npx playwright test tests/e2e/practice-pager.spec.ts tests/e2e/student-smoke.spec.ts --project=desktop-chrome",
+        "npx playwright test tests/e2e/lesson-all.spec.ts tests/e2e/mainland-pep-high-lessons.spec.ts tests/e2e/california-k5-textbook-lessons.spec.ts --project=desktop-chrome",
+        "node coordination/release-intake/generate-owner-package-readiness-blocker-matrix.mjs",
+        "node coordination/release-intake/assert-owner-package-blocker-routing-current.mjs",
+        "node coordination/release-intake/assert-owner-package-blocker-assignment-packet-current.mjs",
+        "node coordination/release-intake/assert-dirty-worktree-remediation-current.mjs"
+      ],
+      "stopConditions": [
+        "Stop if the fix requires adding/removing package dependencies without A10/A22 approval.",
+        "Stop if the fix requires shared type/schema changes without A08 coordination.",
+        "Stop if a routed file is outside this owner's write scope and no explicit scope expansion exists.",
+        "Stop if the assignment needs owner-approved Git operations; A25 evidence alone is not authorization.",
+        "Stop if the work would expose or edit real secrets."
+      ],
+      "dirtyStateFinalAction": "pending owner reviewed commit, owner-routed blocker, evidence archive, or exact owner-approved final state",
+      "worktreeLifecycleAction": "retain isolated worktree until owner handoff is reviewed",
+      "reportStatus": "recorded-owner-blocker",
+      "reportedBy": "A18 via Codex/A25 intake",
+      "reportedAt": "2026-07-03T18:12:21.770Z",
+      "blockerSummary": "A18 curriculum QA/content package is blocked before owner-local remediation because the A18 pending assignment has no write-scope files and its routed failures are cross-owner build/runtime gates. The original recommended worktree path was stale and pointed to a non-existent A18-content-qa-closure; A25 routing was corrected to the actual linked worktree /Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A18-A21-content-evidence-closure. That worktree has 123 dirty entries, mostly content/RAG/QA assets. npm run test:analytics exits 2 with 802 log lines across 117 files; the largest failures are outside A18 scope, including A06 visualization TypeScript errors, A08/A12 shared type and userStore/API export gaps, teacher console contracts, game data modules, and RAG tests. A18 should not widen into shared contracts, API routes, visualization runtime, games, or package baseline work.",
+      "ownerDecision": "blocked-pending-a08-a12-shared-contract-a06-visualization-and-content-promotion-routing",
+      "evidenceReviewed": [
+        "coordination/release-intake/latest-A25-owner-package-blocker-report-starter.json",
+        "coordination/release-intake/latest-A25-pending-owner-blocker-report-a18.md",
+        "coordination/release-intake/latest-A25-owner-package-blocker-assignment-packet.json",
+        "/tmp/a18-content-test-analytics.log",
+        "/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A18-A21-content-evidence-closure"
+      ],
+      "nextAction": "Route shared type/API/storage failures to A08/A12, visualization blockers to A06, and content/RAG promotion readiness to A18/A21/A23 after shared gates are current; then rerun npm run test:analytics and content-specific tests in the A18/A21 worktree before any candidate-to-live promotion.",
+      "notes": "A18 blocker record only. No package edit, feature-code edit, generated-content promotion, cleanup, worktree removal, branch deletion, stage, commit, merge, push, or deploy is authorized.",
+      "cleanupAuthorized": false,
+      "executableNow": false
+    },
+    {
+      "reportId": "owner-package-blocker-report-a03",
+      "reportFingerprint": "012a37246d9b8f460dad741f7b92c7bba0755f74e00cb95c7caffd8e8ed8c3c9",
+      "assignmentId": "owner-package-blocker-a03",
+      "agentId": "A03",
+      "owner": "A03 curriculum roadmap lead",
+      "role": "Curriculum roadmap lead",
+      "objective": "Resolve or formally block the owner-package blockers routed to A03 without widening beyond AGENTS.md owner scope.",
+      "recommendedWorktree": "/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A03-roadmap-closure",
+      "packageRows": [
+        {
+          "matrixId": "wave-02-shared-contracts:wave-02-shared-contracts",
+          "waveId": "wave-02-shared-contracts",
+          "packageId": "wave-02-shared-contracts",
+          "packageName": "A08/A12 shared contracts and storage/API stability",
+          "packageOwnerIds": [
+            "A08",
+            "A12"
+          ],
+          "blockingReasons": [
+            "1 dirty entries are outside the A08/A12 pathspec union",
+            "testAnalytics failed",
+            "testBackend failed",
+            "typeCheck failed",
+            "build failed"
+          ],
+          "failedCheckNames": [
+            "testAnalytics",
+            "testBackend",
+            "typeCheck",
+            "build"
+          ],
+          "failedChecks": [
+            {
+              "name": "testAnalytics",
+              "command": "npm run test:analytics",
+              "status": 2
+            },
+            {
+              "name": "testBackend",
+              "command": "npm run test:backend",
+              "status": 1
+            },
+            {
+              "name": "typeCheck",
+              "command": "npm run type-check -- --pretty false",
+              "status": 2
+            },
+            {
+              "name": "build",
+              "command": "npm run build",
+              "status": 1
+            }
+          ]
+        },
+        {
+          "matrixId": "wave-03-shell-dashboard-roadmap:a03-roadmap",
+          "waveId": "wave-03-shell-dashboard-roadmap",
+          "packageId": "a03-roadmap",
+          "packageName": "A03 roadmap",
+          "packageOwnerIds": [
+            "A03"
+          ],
+          "blockingReasons": [
+            "A03 roadmap typeCheck failed",
+            "A03 roadmap roadmapPlaywright failed"
+          ],
+          "failedCheckNames": [
+            "typeCheck",
+            "roadmapPlaywright"
+          ],
+          "failedChecks": [
+            {
+              "name": "typeCheck",
+              "command": "npm run type-check -- --pretty false",
+              "status": 2
+            },
+            {
+              "name": "roadmapPlaywright",
+              "command": "npx playwright test tests/e2e/mainland-hjb-roadmaps.spec.ts tests/e2e/mainland-pep-roadmaps.spec.ts --project=desktop-chrome",
+              "status": 1
+            }
+          ]
+        },
+        {
+          "matrixId": "wave-04-practice-lesson-content:a05-lesson",
+          "waveId": "wave-04-practice-lesson-content",
+          "packageId": "a05-lesson",
+          "packageName": "A05 lesson",
+          "packageOwnerIds": [
+            "A05"
+          ],
+          "blockingReasons": [
+            "A05 lesson typeCheck failed",
+            "A05 lesson lessonPlaywright failed"
+          ],
+          "failedCheckNames": [
+            "typeCheck",
+            "lessonPlaywright"
+          ],
+          "failedChecks": [
+            {
+              "name": "typeCheck",
+              "command": "npm run type-check -- --pretty false",
+              "status": 2
+            },
+            {
+              "name": "lessonPlaywright",
+              "command": "npx playwright test tests/e2e/lesson-all.spec.ts tests/e2e/mainland-pep-high-lessons.spec.ts tests/e2e/california-k5-textbook-lessons.spec.ts --project=desktop-chrome",
+              "status": 1
+            }
+          ]
+        }
+      ],
+      "uniqueReadFiles": [
+        "data/mainlandPepHighTopics.ts",
+        "data/mainlandPepPrimaryTopics.ts",
+        "data/topics.ts",
+        "data/usCaliforniaLessons.test.ts",
+        "data/usCaliforniaLessons.ts"
+      ],
+      "writeScope": [
+        "data/topics.ts"
+      ],
+      "coordinationRequired": [
+        {
+          "file": "data/mainlandPepHighTopics.ts",
+          "reason": "outside this owner's AGENTS.md write scope"
+        },
+        {
+          "file": "data/mainlandPepPrimaryTopics.ts",
+          "reason": "outside this owner's AGENTS.md write scope"
+        },
+        {
+          "file": "data/topics.ts",
+          "reason": "cross-owner blocker; coordinate with package owner before editing"
+        },
+        {
+          "file": "data/usCaliforniaLessons.test.ts",
+          "reason": "outside this owner's AGENTS.md write scope"
+        },
+        {
+          "file": "data/usCaliforniaLessons.ts",
+          "reason": "outside this owner's AGENTS.md write scope"
+        }
+      ],
+      "checks": [
+        "npm run test:analytics",
+        "npm run test:backend",
+        "npm run type-check -- --pretty false",
+        "npm run build",
+        "npx playwright test tests/e2e/mainland-hjb-roadmaps.spec.ts tests/e2e/mainland-pep-roadmaps.spec.ts --project=desktop-chrome",
+        "npx playwright test tests/e2e/lesson-all.spec.ts tests/e2e/mainland-pep-high-lessons.spec.ts tests/e2e/california-k5-textbook-lessons.spec.ts --project=desktop-chrome",
+        "node coordination/release-intake/generate-owner-package-readiness-blocker-matrix.mjs",
+        "node coordination/release-intake/assert-owner-package-blocker-routing-current.mjs",
+        "node coordination/release-intake/assert-owner-package-blocker-assignment-packet-current.mjs",
+        "node coordination/release-intake/assert-dirty-worktree-remediation-current.mjs"
+      ],
+      "stopConditions": [
+        "Stop if the fix requires adding/removing package dependencies without A10/A22 approval.",
+        "Stop if the fix requires shared type/schema changes without A08 coordination.",
+        "Stop if a routed file is outside this owner's write scope and no explicit scope expansion exists.",
+        "Stop if the assignment needs owner-approved Git operations; A25 evidence alone is not authorization.",
+        "Stop if the work would expose or edit real secrets."
+      ],
+      "dirtyStateFinalAction": "pending owner reviewed commit, owner-routed blocker, evidence archive, or exact owner-approved final state",
+      "worktreeLifecycleAction": "retain isolated worktree until owner handoff is reviewed",
+      "reportStatus": "recorded-owner-blocker",
+      "reportedBy": "A03 via Codex/A25 intake",
+      "reportedAt": "2026-07-03T18:14:33.490Z",
+      "blockerSummary": "A03 roadmap package is blocked before owner-local remediation can be safely isolated. The A03 worktree exists at /Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A03-roadmap-closure on codex/A03-roadmap-closure with 28 dirty entries, but npm run type-check -- --pretty false exits 2 with 909 log lines across 118 files. A03-scoped files contribute 184 errors, mostly because shared schema/helper baselines are missing or out of sync: TextbookPublisher lacks US_AR_MATH, US_FL_MATH, and HK_MODERN_EDUCATIONAL_RESEARCH_SOCIETY; GradeId lacks K; Difficulty rejects Low/Medium/High values; lib/difficulty and DifficultyRecord are missing; and formatUnitedStatesGradeLabel is missing from lib/i18n. The worktree package baseline also lacks @react-three/drei, @react-three/fiber, three, pptxgenjs, and tsx. Fixing this requires A08 shared type/schema and A09/i18n plus A10/A22 package-baseline coordination before A03 can safely reduce roadmap-local errors.",
+      "ownerDecision": "blocked-pending-a08-shared-schema-a09-i18n-and-a10-a22-package-baseline-resync",
+      "evidenceReviewed": [
+        "coordination/release-intake/latest-A25-owner-package-blocker-report-starter.json",
+        "coordination/release-intake/latest-A25-pending-owner-blocker-report-a03.md",
+        "coordination/release-intake/latest-A25-owner-package-blocker-assignment-packet.json",
+        "/tmp/a03-roadmap-typecheck.log",
+        "/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A03-roadmap-closure/package.json",
+        "/Users/dongpinhu/Desktop/MAIS-MVP/package.json"
+      ],
+      "nextAction": "Route shared curriculum/schema gaps to A08, grade/copy helper gaps to A09, and package baseline resync to A10/A22; then rerun npm run type-check -- --pretty false in the A03 worktree before attempting roadmap-local remediation or Playwright reruns.",
+      "notes": "A03 blocker record only. No data migration, package edit, feature-code edit, cleanup, worktree removal, branch deletion, stage, commit, merge, push, or deploy is authorized.",
+      "cleanupAuthorized": false,
+      "executableNow": false
+    },
+    {
+      "reportId": "owner-package-blocker-report-a04",
+      "reportFingerprint": "698a62fa1674a3eedd6d23e07d60cc75a53871e7bea201c7b90715b2d3398b89",
+      "assignmentId": "owner-package-blocker-a04",
+      "agentId": "A04",
+      "owner": "A04 practice lead",
+      "role": "Practice lead",
+      "objective": "Resolve or formally block the owner-package blockers routed to A04 without widening beyond AGENTS.md owner scope.",
+      "recommendedWorktree": "/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A04-practice-closure",
+      "packageRows": [
+        {
+          "matrixId": "wave-02-shared-contracts:wave-02-shared-contracts",
+          "waveId": "wave-02-shared-contracts",
+          "packageId": "wave-02-shared-contracts",
+          "packageName": "A08/A12 shared contracts and storage/API stability",
+          "packageOwnerIds": [
+            "A08",
+            "A12"
+          ],
+          "blockingReasons": [
+            "1 dirty entries are outside the A08/A12 pathspec union",
+            "testAnalytics failed",
+            "testBackend failed",
+            "typeCheck failed",
+            "build failed"
+          ],
+          "failedCheckNames": [
+            "testAnalytics",
+            "testBackend",
+            "typeCheck",
+            "build"
+          ],
+          "failedChecks": [
+            {
+              "name": "testAnalytics",
+              "command": "npm run test:analytics",
+              "status": 2
+            },
+            {
+              "name": "testBackend",
+              "command": "npm run test:backend",
+              "status": 1
+            },
+            {
+              "name": "typeCheck",
+              "command": "npm run type-check -- --pretty false",
+              "status": 2
+            },
+            {
+              "name": "build",
+              "command": "npm run build",
+              "status": 1
+            }
+          ]
+        },
+        {
+          "matrixId": "wave-04-practice-lesson-content:a04-practice",
+          "waveId": "wave-04-practice-lesson-content",
+          "packageId": "a04-practice",
+          "packageName": "A04 practice",
+          "packageOwnerIds": [
+            "A04"
+          ],
+          "blockingReasons": [
+            "A04 practice testQuestionBank failed",
+            "A04 practice typeCheck failed",
+            "A04 practice practicePlaywright failed"
+          ],
+          "failedCheckNames": [
+            "testQuestionBank",
+            "typeCheck",
+            "practicePlaywright"
+          ],
+          "failedChecks": [
+            {
+              "name": "testQuestionBank",
+              "command": "npm run test:question-bank",
+              "status": 2
+            },
+            {
+              "name": "typeCheck",
+              "command": "npm run type-check -- --pretty false",
+              "status": 2
+            },
+            {
+              "name": "practicePlaywright",
+              "command": "npx playwright test tests/e2e/practice-pager.spec.ts tests/e2e/student-smoke.spec.ts --project=desktop-chrome",
+              "status": 1
+            }
+          ]
+        }
+      ],
+      "uniqueReadFiles": [
+        "data/questions.ts"
+      ],
+      "writeScope": [
+        "data/questions.ts"
+      ],
+      "coordinationRequired": [
+        {
+          "file": "data/questions.ts",
+          "reason": "cross-owner blocker; coordinate with package owner before editing"
+        }
+      ],
+      "checks": [
+        "npm run test:analytics",
+        "npm run test:backend",
+        "npm run type-check -- --pretty false",
+        "npm run build",
+        "npm run test:question-bank",
+        "npx playwright test tests/e2e/practice-pager.spec.ts tests/e2e/student-smoke.spec.ts --project=desktop-chrome",
+        "node coordination/release-intake/generate-owner-package-readiness-blocker-matrix.mjs",
+        "node coordination/release-intake/assert-owner-package-blocker-routing-current.mjs",
+        "node coordination/release-intake/assert-owner-package-blocker-assignment-packet-current.mjs",
+        "node coordination/release-intake/assert-dirty-worktree-remediation-current.mjs"
+      ],
+      "stopConditions": [
+        "Stop if the fix requires adding/removing package dependencies without A10/A22 approval.",
+        "Stop if the fix requires shared type/schema changes without A08 coordination.",
+        "Stop if a routed file is outside this owner's write scope and no explicit scope expansion exists.",
+        "Stop if the assignment needs owner-approved Git operations; A25 evidence alone is not authorization.",
+        "Stop if the work would expose or edit real secrets."
+      ],
+      "dirtyStateFinalAction": "pending owner reviewed commit, owner-routed blocker, evidence archive, or exact owner-approved final state",
+      "worktreeLifecycleAction": "retain isolated worktree until owner handoff is reviewed",
+      "reportStatus": "recorded-owner-blocker",
+      "reportedBy": "A04 via Codex/A25 intake",
+      "reportedAt": "2026-07-03T18:17:53.179Z",
+      "blockerSummary": "A04 practice package is blocked before owner-local remediation can be safely isolated. The A04 worktree exists at /Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A04-practice-closure on codex/A04-practice-closure with 37 dirty entries, but the A04 assignment write scope only lists data/questions.ts while actual dirty scope includes practice pages, practice components, question bank data, question-bank tests, public/practice assets, and helper libraries. npm run test:question-bank exits 2 during TypeScript compilation before the Node question-bank assertions run; the log has 943 lines across 125 files. A04-scoped files contribute 235 errors, including data/questions.ts difficulty values, missing lib/difficulty and DifficultyRecord, missing QuestionAsset/questionAssets fields, missing gameBasedLearning storage-key exports, missing lessonLinks helpers, and GradeId K incompatibilities. The same run also reports A08/A12 shared API/userStore/type gaps, A06 visualization errors, A05 lesson generated-data gaps, and A17/A20 game data gaps. The A04 package baseline also lacks @react-three/drei, @react-three/fiber, three, pptxgenjs, and tsx versus root.",
+      "ownerDecision": "blocked-pending-a08-shared-schema-a12-api-a10-a22-package-baseline-and-a04-a17-a20-practice-contract-routing",
+      "evidenceReviewed": [
+        "coordination/release-intake/latest-A25-owner-package-blocker-report-starter.json",
+        "coordination/release-intake/latest-A25-pending-owner-blocker-report-a04.md",
+        "coordination/release-intake/latest-A25-owner-package-blocker-assignment-packet.json",
+        "/tmp/a04-practice-test-question-bank.log",
+        "/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A04-practice-closure/package.json",
+        "/Users/dongpinhu/Desktop/MAIS-MVP/package.json"
+      ],
+      "nextAction": "Route shared difficulty/question asset/GradeId contracts to A08, API/storage gaps to A12, package baseline resync to A10/A22, game/practice-adventure contract gaps to A17/A20 with A04 coordination, then rerun npm run test:question-bank and npm run type-check -- --pretty false in the A04 worktree before attempting A04-local fixes.",
+      "notes": "A04 blocker record only. No question-bank data migration, package edit, feature-code edit, cleanup, worktree removal, branch deletion, stage, commit, merge, push, or deploy is authorized.",
+      "cleanupAuthorized": false,
+      "executableNow": false
+    },
+    {
+      "reportId": "owner-package-blocker-report-a20",
+      "reportFingerprint": "8fe0e7c8f70012a8dbaa4507477f5ce46744dc5af2d920391ae2b3cf3fcba8a1",
+      "assignmentId": "owner-package-blocker-a20",
+      "agentId": "A20",
+      "owner": "A20 game design and game-based learning lead",
+      "role": "Game design and game-based learning lead",
+      "objective": "Resolve or formally block the owner-package blockers routed to A20 without widening beyond AGENTS.md owner scope.",
+      "recommendedWorktree": "/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A17-A20-game-motivation-closure",
+      "packageRows": [
+        {
+          "matrixId": "wave-01-governance-release-hygiene:wave-01-governance-release-hygiene",
+          "waveId": "wave-01-governance-release-hygiene",
+          "packageId": "wave-01-governance-release-hygiene",
+          "packageName": "A25/A10/A22 governance and release hygiene",
+          "packageOwnerIds": [
+            "A25",
+            "A22",
+            "A10"
+          ],
+          "blockingReasons": [
+            "npm run type-check failed"
+          ],
+          "failedCheckNames": [
+            "typeCheck"
+          ],
+          "failedChecks": [
+            {
+              "name": "typeCheck",
+              "command": "npm run type-check -- --pretty false",
+              "status": 2
+            }
+          ]
+        },
+        {
+          "matrixId": "wave-02-shared-contracts:wave-02-shared-contracts",
+          "waveId": "wave-02-shared-contracts",
+          "packageId": "wave-02-shared-contracts",
+          "packageName": "A08/A12 shared contracts and storage/API stability",
+          "packageOwnerIds": [
+            "A08",
+            "A12"
+          ],
+          "blockingReasons": [
+            "1 dirty entries are outside the A08/A12 pathspec union",
+            "testAnalytics failed",
+            "testBackend failed",
+            "typeCheck failed",
+            "build failed"
+          ],
+          "failedCheckNames": [
+            "testAnalytics",
+            "testBackend",
+            "typeCheck",
+            "build"
+          ],
+          "failedChecks": [
+            {
+              "name": "testAnalytics",
+              "command": "npm run test:analytics",
+              "status": 2
+            },
+            {
+              "name": "testBackend",
+              "command": "npm run test:backend",
+              "status": 1
+            },
+            {
+              "name": "typeCheck",
+              "command": "npm run type-check -- --pretty false",
+              "status": 2
+            },
+            {
+              "name": "build",
+              "command": "npm run build",
+              "status": 1
+            }
+          ]
+        },
+        {
+          "matrixId": "wave-03-shell-dashboard-roadmap:a01-app-shell",
+          "waveId": "wave-03-shell-dashboard-roadmap",
+          "packageId": "a01-app-shell",
+          "packageName": "A01 app shell",
+          "packageOwnerIds": [
+            "A01"
+          ],
+          "blockingReasons": [
+            "A01 app shell typeCheck failed",
+            "A01 app shell appShellPlaywright failed"
+          ],
+          "failedCheckNames": [
+            "typeCheck",
+            "appShellPlaywright"
+          ],
+          "failedChecks": [
+            {
+              "name": "typeCheck",
+              "command": "npm run type-check -- --pretty false",
+              "status": 2
+            },
+            {
+              "name": "appShellPlaywright",
+              "command": "npx playwright test tests/e2e/app-shell-auth.spec.ts tests/e2e/home-functional.spec.ts --project=desktop-chrome",
+              "status": 1
+            }
+          ]
+        },
+        {
+          "matrixId": "wave-04-practice-lesson-content:a18-a21-a23-a24-content-evidence",
+          "waveId": "wave-04-practice-lesson-content",
+          "packageId": "a18-a21-a23-a24-content-evidence",
+          "packageName": "A18/A21/A23/A24 content evidence",
+          "packageOwnerIds": [
+            "A18",
+            "A21",
+            "A23",
+            "A24"
+          ],
+          "blockingReasons": [
+            "A18/A21/A23/A24 content evidence has 110 dirty entries outside its pathspec union",
+            "A18/A21/A23/A24 content evidence testRag failed",
+            "A18/A21/A23/A24 content evidence testQuestionBank failed",
+            "A18/A21/A23/A24 content evidence typeCheck failed"
+          ],
+          "failedCheckNames": [
+            "testRag",
+            "testQuestionBank",
+            "typeCheck"
+          ],
+          "failedChecks": [
+            {
+              "name": "testRag",
+              "command": "npm run test:rag",
+              "status": 2
+            },
+            {
+              "name": "testQuestionBank",
+              "command": "npm run test:question-bank",
+              "status": 2
+            },
+            {
+              "name": "typeCheck",
+              "command": "npm run type-check -- --pretty false",
+              "status": 2
+            }
+          ]
+        },
+        {
+          "matrixId": "wave-05-visualization-ai-runtime:a06-visualization",
+          "waveId": "wave-05-visualization-ai-runtime",
+          "packageId": "a06-visualization",
+          "packageName": "A06 visualization",
+          "packageOwnerIds": [
+            "A06"
+          ],
+          "blockingReasons": [
+            "A06 visualization typeCheck failed",
+            "A06 visualization visualizationNodeTests failed",
+            "A06 visualization visualizationPlaywright failed"
+          ],
+          "failedCheckNames": [
+            "typeCheck",
+            "visualizationNodeTests",
+            "visualizationPlaywright"
+          ],
+          "failedChecks": [
+            {
+              "name": "typeCheck",
+              "command": "npm run type-check -- --pretty false",
+              "status": 2
+            },
+            {
+              "name": "visualizationNodeTests",
+              "command": "node --test components/visualizations/configuredVisualizationLabRegressions.test.ts components/visualizations/three/threeDCanvasContract.test.ts components/visualizations/visualizationDiagnostics.test.ts",
+              "status": 1
+            },
+            {
+              "name": "visualizationPlaywright",
+              "command": "npx playwright test tests/e2e/visualization-values.spec.ts tests/e2e/visualization-overlap.spec.ts --project=desktop-chrome",
+              "status": 1
+            }
+          ]
+        },
+        {
+          "matrixId": "wave-05-visualization-ai-runtime:a07-ai-tutor",
+          "waveId": "wave-05-visualization-ai-runtime",
+          "packageId": "a07-ai-tutor",
+          "packageName": "A07 AI tutor",
+          "packageOwnerIds": [
+            "A07"
+          ],
+          "blockingReasons": [
+            "A07 AI tutor typeCheck failed",
+            "A07 AI tutor aiTutorPlaywright failed"
+          ],
+          "failedCheckNames": [
+            "typeCheck",
+            "aiTutorPlaywright"
+          ],
+          "failedChecks": [
+            {
+              "name": "typeCheck",
+              "command": "npm run type-check -- --pretty false",
+              "status": 2
+            },
+            {
+              "name": "aiTutorPlaywright",
+              "command": "npx playwright test tests/e2e/ai-tutor-deepseek.spec.ts tests/e2e/ai-tutor-live-text.spec.ts --project=desktop-chrome",
+              "status": 1
+            }
+          ]
+        },
+        {
+          "matrixId": "wave-05-visualization-ai-runtime:a09-copy-i18n-accessibility",
+          "waveId": "wave-05-visualization-ai-runtime",
+          "packageId": "a09-copy-i18n-accessibility",
+          "packageName": "A09 copy/i18n/accessibility",
+          "packageOwnerIds": [
+            "A09"
+          ],
+          "blockingReasons": [
+            "A09 copy/i18n/accessibility typeCheck failed"
+          ],
+          "failedCheckNames": [
+            "typeCheck"
+          ],
+          "failedChecks": [
+            {
+              "name": "typeCheck",
+              "command": "npm run type-check -- --pretty false",
+              "status": 2
+            }
+          ]
+        },
+        {
+          "matrixId": "wave-05-visualization-ai-runtime:a11-regression-evidence",
+          "waveId": "wave-05-visualization-ai-runtime",
+          "packageId": "a11-regression-evidence",
+          "packageName": "A11 regression evidence",
+          "packageOwnerIds": [
+            "A11"
+          ],
+          "blockingReasons": [
+            "A11 regression evidence typeCheck failed",
+            "A11 regression evidence regressionPlaywright failed"
+          ],
+          "failedCheckNames": [
+            "typeCheck",
+            "regressionPlaywright"
+          ],
+          "failedChecks": [
+            {
+              "name": "typeCheck",
+              "command": "npm run type-check -- --pretty false",
+              "status": 2
+            },
+            {
+              "name": "regressionPlaywright",
+              "command": "npx playwright test tests/e2e/student-smoke.spec.ts tests/e2e/backend-api.spec.ts --project=desktop-chrome",
+              "status": 1
+            }
+          ]
+        }
+      ],
+      "uniqueReadFiles": [
+        "components/games/MathVirusBlasterGame.tsx",
+        "components/games/MightyTankBattleGame.tsx"
+      ],
+      "writeScope": [
+        "components/games/MathVirusBlasterGame.tsx",
+        "components/games/MightyTankBattleGame.tsx"
+      ],
+      "coordinationRequired": [
+        {
+          "file": "components/games/MathVirusBlasterGame.tsx",
+          "reason": "cross-owner blocker; coordinate with package owner before editing"
+        },
+        {
+          "file": "components/games/MightyTankBattleGame.tsx",
+          "reason": "cross-owner blocker; coordinate with package owner before editing"
+        }
+      ],
+      "checks": [
+        "npm run type-check -- --pretty false",
+        "npm run test:analytics",
+        "npm run test:backend",
+        "npm run build",
+        "npx playwright test tests/e2e/app-shell-auth.spec.ts tests/e2e/home-functional.spec.ts --project=desktop-chrome",
+        "npm run test:rag",
+        "npm run test:question-bank",
+        "node --test components/visualizations/configuredVisualizationLabRegressions.test.ts components/visualizations/three/threeDCanvasContract.test.ts components/visualizations/visualizationDiagnostics.test.ts",
+        "npx playwright test tests/e2e/visualization-values.spec.ts tests/e2e/visualization-overlap.spec.ts --project=desktop-chrome",
+        "npx playwright test tests/e2e/ai-tutor-deepseek.spec.ts tests/e2e/ai-tutor-live-text.spec.ts --project=desktop-chrome",
+        "npx playwright test tests/e2e/student-smoke.spec.ts tests/e2e/backend-api.spec.ts --project=desktop-chrome",
+        "node coordination/release-intake/generate-owner-package-readiness-blocker-matrix.mjs",
+        "node coordination/release-intake/assert-owner-package-blocker-routing-current.mjs",
+        "node coordination/release-intake/assert-owner-package-blocker-assignment-packet-current.mjs",
+        "node coordination/release-intake/assert-dirty-worktree-remediation-current.mjs"
+      ],
+      "stopConditions": [
+        "Stop if the fix requires adding/removing package dependencies without A10/A22 approval.",
+        "Stop if the fix requires shared type/schema changes without A08 coordination.",
+        "Stop if a routed file is outside this owner's write scope and no explicit scope expansion exists.",
+        "Stop if the assignment needs owner-approved Git operations; A25 evidence alone is not authorization.",
+        "Stop if the work would expose or edit real secrets."
+      ],
+      "dirtyStateFinalAction": "pending owner reviewed commit, owner-routed blocker, evidence archive, or exact owner-approved final state",
+      "worktreeLifecycleAction": "retain isolated worktree until owner handoff is reviewed",
+      "reportStatus": "recorded-owner-blocker",
+      "reportedBy": "A20 via Codex/A25 intake",
+      "reportedAt": "2026-07-03T18:20:46.196Z",
+      "blockerSummary": "A20 game design/game-based learning package is blocked before owner-local remediation can be safely isolated. The A17/A20 worktree exists at /Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A17-A20-game-motivation-closure on codex/A17-A20-game-motivation-closure with 15 dirty entries across app/practice game routes, components/gamification games, lib/gameBasedLearning, data/gameBasedLearning, data/mathVirusBlaster, data/mightyTankBattle, and public/games. The pending A20 report write scope only lists components/games/MathVirusBlasterGame.tsx and components/games/MightyTankBattleGame.tsx, while the actual dirty work is mainly in gamification/gameBasedLearning paths. The owner-package assignment also has a routing/package-row mismatch: the blocker matrix contains wave-05-visualization-ai-runtime:a17-a20-game-motivation, but the current A20 pending report packageRows list other shared/runtime packages instead of the A17/A20 package. npm run type-check -- --pretty false exits 2 with 669 log lines across 96 files; A17/A20 scoped error extraction found 0 scoped errors because the gate is blocked earlier by shared API/type/storage, A06 visualization, A05 lesson/content, A13/A14 teacher, and package-baseline failures. The worktree package baseline also lacks @react-three/drei, @react-three/fiber, three, pptxgenjs, and tsx versus root.",
+      "ownerDecision": "blocked-pending-a25-routing-repair-a08-a12-shared-gates-a06-visualization-and-a10-a22-package-baseline-resync",
+      "evidenceReviewed": [
+        "coordination/release-intake/latest-A25-owner-package-blocker-report-starter.json",
+        "coordination/release-intake/latest-A25-pending-owner-blocker-report-a20.md",
+        "coordination/release-intake/latest-A25-owner-package-blocker-assignment-packet.json",
+        "coordination/release-intake/latest-A25-owner-package-readiness-blocker-matrix.json",
+        "/tmp/a20-game-typecheck.log",
+        "/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A17-A20-game-motivation-closure/package.json",
+        "/Users/dongpinhu/Desktop/MAIS-MVP/package.json"
+      ],
+      "nextAction": "Repair A25 owner-package routing so the A17/A20 game-motivation package is explicitly surfaced in the A20/A17 blocker reports, route shared API/type/storage gates to A08/A12, package baseline resync to A10/A22, and visualization blockers to A06; then rerun npm run type-check -- --pretty false and the game-motivation Playwright package in the A17/A20 worktree before attempting A20-local game fixes.",
+      "notes": "A20 blocker record only. No game-code edit, package edit, cleanup, worktree removal, branch deletion, stage, commit, merge, push, or deploy is authorized.",
+      "cleanupAuthorized": false,
+      "executableNow": false
+    },
+    {
+      "reportId": "owner-package-blocker-report-a25",
+      "reportFingerprint": "e4817bbe9731de2066268c292930f01bd28b5739573bc17b850338403a1ee865",
+      "assignmentId": "owner-package-blocker-a25",
+      "agentId": "A25",
+      "owner": "A25 git hygiene and release intake lead",
+      "role": "Git hygiene and release intake lead",
+      "objective": "Resolve or formally block the owner-package blockers routed to A25 without widening beyond AGENTS.md owner scope.",
+      "recommendedWorktree": "/Users/dongpinhu/Desktop/MAIS-MVP",
+      "packageRows": [
+        {
+          "matrixId": "wave-03-shell-dashboard-roadmap:a01-app-shell",
+          "waveId": "wave-03-shell-dashboard-roadmap",
+          "packageId": "a01-app-shell",
+          "packageName": "A01 app shell",
+          "packageOwnerIds": [
+            "A01"
+          ],
+          "blockingReasons": [
+            "A01 app shell typeCheck failed",
+            "A01 app shell appShellPlaywright failed"
+          ],
+          "failedCheckNames": [
+            "typeCheck",
+            "appShellPlaywright"
+          ],
+          "failedChecks": [
+            {
+              "name": "typeCheck",
+              "command": "npm run type-check -- --pretty false",
+              "status": 2
+            },
+            {
+              "name": "appShellPlaywright",
+              "command": "npx playwright test tests/e2e/app-shell-auth.spec.ts tests/e2e/home-functional.spec.ts --project=desktop-chrome",
+              "status": 1
+            }
+          ]
+        },
+        {
+          "matrixId": "wave-03-shell-dashboard-roadmap:a02-a15-dashboard-adaptive",
+          "waveId": "wave-03-shell-dashboard-roadmap",
+          "packageId": "a02-a15-dashboard-adaptive",
+          "packageName": "A02/A15 dashboard adaptive",
+          "packageOwnerIds": [
+            "A02",
+            "A15"
+          ],
+          "blockingReasons": [
+            "A02/A15 dashboard adaptive testAnalytics failed",
+            "A02/A15 dashboard adaptive typeCheck failed",
+            "A02/A15 dashboard adaptive dashboardAdaptivePlaywright failed"
+          ],
+          "failedCheckNames": [
+            "testAnalytics",
+            "typeCheck",
+            "dashboardAdaptivePlaywright"
+          ],
+          "failedChecks": [
+            {
+              "name": "testAnalytics",
+              "command": "npm run test:analytics",
+              "status": 1
+            },
+            {
+              "name": "typeCheck",
+              "command": "npm run type-check -- --pretty false",
+              "status": 2
+            },
+            {
+              "name": "dashboardAdaptivePlaywright",
+              "command": "npx playwright test tests/e2e/student-smoke.spec.ts tests/e2e/adaptive-llm-smoke.spec.ts --project=desktop-chrome",
+              "status": 1
+            }
+          ]
+        },
+        {
+          "matrixId": "wave-04-practice-lesson-content:a04-practice",
+          "waveId": "wave-04-practice-lesson-content",
+          "packageId": "a04-practice",
+          "packageName": "A04 practice",
+          "packageOwnerIds": [
+            "A04"
+          ],
+          "blockingReasons": [
+            "A04 practice testQuestionBank failed",
+            "A04 practice typeCheck failed",
+            "A04 practice practicePlaywright failed"
+          ],
+          "failedCheckNames": [
+            "testQuestionBank",
+            "typeCheck",
+            "practicePlaywright"
+          ],
+          "failedChecks": [
+            {
+              "name": "testQuestionBank",
+              "command": "npm run test:question-bank",
+              "status": 2
+            },
+            {
+              "name": "typeCheck",
+              "command": "npm run type-check -- --pretty false",
+              "status": 2
+            },
+            {
+              "name": "practicePlaywright",
+              "command": "npx playwright test tests/e2e/practice-pager.spec.ts tests/e2e/student-smoke.spec.ts --project=desktop-chrome",
+              "status": 1
+            }
+          ]
+        },
+        {
+          "matrixId": "wave-04-practice-lesson-content:a18-a21-a23-a24-content-evidence",
+          "waveId": "wave-04-practice-lesson-content",
+          "packageId": "a18-a21-a23-a24-content-evidence",
+          "packageName": "A18/A21/A23/A24 content evidence",
+          "packageOwnerIds": [
+            "A18",
+            "A21",
+            "A23",
+            "A24"
+          ],
+          "blockingReasons": [
+            "A18/A21/A23/A24 content evidence has 110 dirty entries outside its pathspec union",
+            "A18/A21/A23/A24 content evidence testRag failed",
+            "A18/A21/A23/A24 content evidence testQuestionBank failed",
+            "A18/A21/A23/A24 content evidence typeCheck failed"
+          ],
+          "failedCheckNames": [
+            "testRag",
+            "testQuestionBank",
+            "typeCheck"
+          ],
+          "failedChecks": [
+            {
+              "name": "testRag",
+              "command": "npm run test:rag",
+              "status": 2
+            },
+            {
+              "name": "testQuestionBank",
+              "command": "npm run test:question-bank",
+              "status": 2
+            },
+            {
+              "name": "typeCheck",
+              "command": "npm run type-check -- --pretty false",
+              "status": 2
+            }
+          ]
+        }
+      ],
+      "uniqueReadFiles": [
+        "app/login/page.tsx",
+        "lib/curriculumProfile.ts",
+        "lib/mainlandPepHighQuestionBank.test.ts",
+        "lib/rag/hongKongMath.ts"
+      ],
+      "writeScope": [],
+      "coordinationRequired": [
+        {
+          "file": "app/login/page.tsx",
+          "reason": "outside this owner's AGENTS.md write scope"
+        },
+        {
+          "file": "lib/curriculumProfile.ts",
+          "reason": "outside this owner's AGENTS.md write scope"
+        },
+        {
+          "file": "lib/mainlandPepHighQuestionBank.test.ts",
+          "reason": "outside this owner's AGENTS.md write scope"
+        },
+        {
+          "file": "lib/rag/hongKongMath.ts",
+          "reason": "outside this owner's AGENTS.md write scope"
+        }
+      ],
+      "checks": [
+        "npm run type-check -- --pretty false",
+        "npx playwright test tests/e2e/app-shell-auth.spec.ts tests/e2e/home-functional.spec.ts --project=desktop-chrome",
+        "npm run test:analytics",
+        "npx playwright test tests/e2e/student-smoke.spec.ts tests/e2e/adaptive-llm-smoke.spec.ts --project=desktop-chrome",
+        "npm run test:question-bank",
+        "npx playwright test tests/e2e/practice-pager.spec.ts tests/e2e/student-smoke.spec.ts --project=desktop-chrome",
+        "npm run test:rag",
+        "node coordination/release-intake/generate-owner-package-readiness-blocker-matrix.mjs",
+        "node coordination/release-intake/assert-owner-package-blocker-routing-current.mjs",
+        "node coordination/release-intake/assert-owner-package-blocker-assignment-packet-current.mjs",
+        "node coordination/release-intake/assert-dirty-worktree-remediation-current.mjs"
+      ],
+      "stopConditions": [
+        "Stop if the fix requires adding/removing package dependencies without A10/A22 approval.",
+        "Stop if the fix requires shared type/schema changes without A08 coordination.",
+        "Stop if a routed file is outside this owner's write scope and no explicit scope expansion exists.",
+        "Stop if the assignment needs owner-approved Git operations; A25 evidence alone is not authorization.",
+        "Stop if the work would expose or edit real secrets."
+      ],
+      "dirtyStateFinalAction": "pending owner reviewed commit, owner-routed blocker, evidence archive, or exact owner-approved final state",
+      "worktreeLifecycleAction": "retain isolated worktree until owner handoff is reviewed",
+      "reportStatus": "recorded-owner-blocker",
+      "reportedBy": "A25",
+      "reportedAt": "2026-07-10T15:54:29.064Z",
+      "blockerSummary": "A25 cannot resolve these routed owner-package failures inside A25 write scope. The starter row has no A25 write-scope files; affected package owners must handle A01 app shell, A02/A15 dashboard adaptive, A04 practice, A18/A21/A23/A24 content evidence, and the coordination-required files are app/login/page.tsx, lib/curriculumProfile.ts, lib/mainlandPepHighQuestionBank.test.ts, lib/rag/hongKongMath.ts.",
+      "ownerDecision": "owner-routed-blocker",
+      "evidenceReviewed": [
+        "coordination/release-intake/latest-A25-owner-package-blocker-report-starter.json",
+        "coordination/release-intake/latest-A25-owner-package-blocker-assignment-packet.json",
+        "coordination/release-intake/latest-A25-owner-package-readiness-blocker-matrix.json",
+        "coordination/release-intake/latest-A25-owner-closure-work-order-a25.md"
+      ],
+      "nextAction": "Route the package rows to the owning sessions (A01, A02, A04, A15, A18, A21, A23, A24) for scoped fixes or owner-authored blocker reports, then rerun A25 refresh/currentness gates.",
+      "notes": "A25 records this blocker report as release-intake evidence only; no cleanup or feature-code action is authorized.",
+      "cleanupAuthorized": false,
+      "executableNow": false
+    },
+    {
+      "reportId": "owner-package-blocker-report-a15",
+      "reportFingerprint": "b255d05302f68e03fb12f8644a5cb7fbd0ee3c7c298880627ba0962f0ff4bc5d",
+      "assignmentId": "owner-package-blocker-a15",
+      "agentId": "A15",
+      "owner": "A15 adaptive engine lead",
+      "role": "Adaptive engine lead",
+      "objective": "Resolve or formally block the owner-package blockers routed to A15 without widening beyond AGENTS.md owner scope.",
+      "recommendedWorktree": "/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A02-A15-dashboard-adaptive-closure",
+      "packageRows": [
+        {
+          "matrixId": "wave-02-shared-contracts:wave-02-shared-contracts",
+          "waveId": "wave-02-shared-contracts",
+          "packageId": "wave-02-shared-contracts",
+          "packageName": "A08/A12 shared contracts and storage/API stability",
+          "packageOwnerIds": [
+            "A08",
+            "A12"
+          ],
+          "blockingReasons": [
+            "1 dirty entries are outside the A08/A12 pathspec union",
+            "testAnalytics failed",
+            "testBackend failed",
+            "typeCheck failed",
+            "build failed"
+          ],
+          "failedCheckNames": [
+            "testAnalytics",
+            "testBackend",
+            "typeCheck",
+            "build"
+          ],
+          "failedChecks": [
+            {
+              "name": "testAnalytics",
+              "command": "npm run test:analytics",
+              "status": 2
+            },
+            {
+              "name": "testBackend",
+              "command": "npm run test:backend",
+              "status": 1
+            },
+            {
+              "name": "typeCheck",
+              "command": "npm run type-check -- --pretty false",
+              "status": 2
+            },
+            {
+              "name": "build",
+              "command": "npm run build",
+              "status": 1
+            }
+          ]
+        },
+        {
+          "matrixId": "wave-03-shell-dashboard-roadmap:a02-a15-dashboard-adaptive",
+          "waveId": "wave-03-shell-dashboard-roadmap",
+          "packageId": "a02-a15-dashboard-adaptive",
+          "packageName": "A02/A15 dashboard adaptive",
+          "packageOwnerIds": [
+            "A02",
+            "A15"
+          ],
+          "blockingReasons": [
+            "A02/A15 dashboard adaptive testAnalytics failed",
+            "A02/A15 dashboard adaptive typeCheck failed",
+            "A02/A15 dashboard adaptive dashboardAdaptivePlaywright failed"
+          ],
+          "failedCheckNames": [
+            "testAnalytics",
+            "typeCheck",
+            "dashboardAdaptivePlaywright"
+          ],
+          "failedChecks": [
+            {
+              "name": "testAnalytics",
+              "command": "npm run test:analytics",
+              "status": 1
+            },
+            {
+              "name": "typeCheck",
+              "command": "npm run type-check -- --pretty false",
+              "status": 2
+            },
+            {
+              "name": "dashboardAdaptivePlaywright",
+              "command": "npx playwright test tests/e2e/student-smoke.spec.ts tests/e2e/adaptive-llm-smoke.spec.ts --project=desktop-chrome",
+              "status": 1
+            }
+          ]
+        }
+      ],
+      "uniqueReadFiles": [
+        "lib/adaptiveLearning.ts"
+      ],
+      "writeScope": [
+        "lib/adaptiveLearning.ts"
+      ],
+      "coordinationRequired": [
+        {
+          "file": "lib/adaptiveLearning.ts",
+          "reason": "cross-owner blocker; coordinate with package owner before editing"
+        }
+      ],
+      "checks": [
+        "npm run test:analytics",
+        "npm run test:backend",
+        "npm run type-check -- --pretty false",
+        "npm run build",
+        "npx playwright test tests/e2e/student-smoke.spec.ts tests/e2e/adaptive-llm-smoke.spec.ts --project=desktop-chrome",
+        "node coordination/release-intake/generate-owner-package-readiness-blocker-matrix.mjs",
+        "node coordination/release-intake/assert-owner-package-blocker-routing-current.mjs",
+        "node coordination/release-intake/assert-owner-package-blocker-assignment-packet-current.mjs",
+        "node coordination/release-intake/assert-dirty-worktree-remediation-current.mjs"
+      ],
+      "stopConditions": [
+        "Stop if the fix requires adding/removing package dependencies without A10/A22 approval.",
+        "Stop if the fix requires shared type/schema changes without A08 coordination.",
+        "Stop if a routed file is outside this owner's write scope and no explicit scope expansion exists.",
+        "Stop if the assignment needs owner-approved Git operations; A25 evidence alone is not authorization.",
+        "Stop if the work would expose or edit real secrets."
+      ],
+      "dirtyStateFinalAction": "pending owner reviewed commit, owner-routed blocker, evidence archive, or exact owner-approved final state",
+      "worktreeLifecycleAction": "retain isolated worktree until owner handoff is reviewed",
+      "reportStatus": "recorded-owner-blocker",
+      "reportedBy": "A15 via Codex/A25 intake",
+      "reportedAt": "2026-07-03T18:24:11.361Z",
+      "blockerSummary": "A15 adaptive engine package is blocked before owner-local remediation can be safely isolated. A25 routing was corrected from the non-existent /Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A15-adaptive-engine-closure to the actual /Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A02-A15-dashboard-adaptive-closure worktree. That worktree has 28 dirty entries across adaptive pages/API routes, dashboard adaptive UI, lib/adaptiveLearning, lib/curriculumProfile, student assignment/assessment routes, and dashboard smoke scripts. npm run test:analytics exits 2 during TypeScript compilation before analytics/adaptive Node tests run; the log has 799 lines across 109 files. A02/A15 scoped extraction found 50 errors, including app/api/adaptive-learning/next missing getAdaptiveContentUnavailableForCurriculum in userStore, dashboard missing formatUnitedStatesGradeLabel and studentLessonsPath helpers, SubmissionStatus/correctionRequest contract drift, GradeId K/curriculum-track drift, lib/adaptiveLearning/test Difficulty Low/Medium/High schema mismatch, and qwen not assignable to LLMProviderName. The same run is also blocked by A08/A12 shared API/type/storage gaps, A06 visualization errors, teacher console contracts, lesson/content gaps, and A17/A20 game data. The worktree package baseline also lacks @react-three/drei, @react-three/fiber, three, pptxgenjs, and tsx versus root.",
+      "ownerDecision": "blocked-pending-a08-shared-schema-a12-storage-a09-copy-helper-a07-provider-and-a10-a22-package-baseline-resync",
+      "evidenceReviewed": [
+        "coordination/release-intake/latest-A25-owner-package-blocker-report-starter.json",
+        "coordination/release-intake/latest-A25-pending-owner-blocker-report-a15.md",
+        "coordination/release-intake/latest-A25-owner-package-blocker-assignment-packet.json",
+        "/tmp/a15-adaptive-test-analytics.log",
+        "/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A02-A15-dashboard-adaptive-closure/package.json",
+        "/Users/dongpinhu/Desktop/MAIS-MVP/package.json"
+      ],
+      "nextAction": "Route Difficulty/GradeId/curriculum-track shared schema to A08, storage/API exports to A12, dashboard copy/path helpers to A09/A10 as appropriate, qwen provider-name alignment to A07/A15 coordination, and package baseline resync to A10/A22; then rerun npm run test:analytics and npm run type-check -- --pretty false in the A02/A15 worktree before attempting A15-local adaptive-engine fixes.",
+      "notes": "A15 blocker record only. No adaptive-engine edit, shared-schema edit, package edit, cleanup, worktree removal, branch deletion, stage, commit, merge, push, or deploy is authorized.",
+      "cleanupAuthorized": false,
+      "executableNow": false
+    },
+    {
+      "reportId": "owner-package-blocker-report-a11",
+      "reportFingerprint": "330641baeee479ebfda3a0bfbdaa021b0b7dd4704c3647a696b89c51806df0fc",
+      "assignmentId": "owner-package-blocker-a11",
+      "agentId": "A11",
+      "owner": "A11 QA and release quality lead",
+      "role": "QA and release quality lead",
+      "objective": "Resolve or formally block the owner-package blockers routed to A11 without widening beyond AGENTS.md owner scope.",
+      "recommendedWorktree": "/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A11-regression-evidence-closure",
+      "packageRows": [
+        {
+          "matrixId": "wave-05-visualization-ai-runtime:a11-regression-evidence",
+          "waveId": "wave-05-visualization-ai-runtime",
+          "packageId": "a11-regression-evidence",
+          "packageName": "A11 regression evidence",
+          "packageOwnerIds": [
+            "A11"
+          ],
+          "blockingReasons": [
+            "A11 regression evidence typeCheck failed",
+            "A11 regression evidence regressionPlaywright failed"
+          ],
+          "failedCheckNames": [
+            "typeCheck",
+            "regressionPlaywright"
+          ],
+          "failedChecks": [
+            {
+              "name": "typeCheck",
+              "command": "npm run type-check -- --pretty false",
+              "status": 2
+            },
+            {
+              "name": "regressionPlaywright",
+              "command": "npx playwright test tests/e2e/student-smoke.spec.ts tests/e2e/backend-api.spec.ts --project=desktop-chrome",
+              "status": 1
+            }
+          ]
+        }
+      ],
+      "uniqueReadFiles": [
+        "lib/mvpReadiness.test.ts"
+      ],
+      "writeScope": [
+        "lib/mvpReadiness.test.ts"
+      ],
+      "coordinationRequired": [],
+      "checks": [
+        "npm run type-check -- --pretty false",
+        "npx playwright test tests/e2e/student-smoke.spec.ts tests/e2e/backend-api.spec.ts --project=desktop-chrome",
+        "node coordination/release-intake/generate-owner-package-readiness-blocker-matrix.mjs",
+        "node coordination/release-intake/assert-owner-package-blocker-routing-current.mjs",
+        "node coordination/release-intake/assert-owner-package-blocker-assignment-packet-current.mjs",
+        "node coordination/release-intake/assert-dirty-worktree-remediation-current.mjs"
+      ],
+      "stopConditions": [
+        "Stop if the fix requires adding/removing package dependencies without A10/A22 approval.",
+        "Stop if the fix requires shared type/schema changes without A08 coordination.",
+        "Stop if a routed file is outside this owner's write scope and no explicit scope expansion exists.",
+        "Stop if the assignment needs owner-approved Git operations; A25 evidence alone is not authorization.",
+        "Stop if the work would expose or edit real secrets."
+      ],
+      "dirtyStateFinalAction": "pending owner reviewed commit, owner-routed blocker, evidence archive, or exact owner-approved final state",
+      "worktreeLifecycleAction": "retain isolated worktree until owner handoff is reviewed",
+      "reportStatus": "recorded-owner-blocker",
+      "reportedBy": "A11 via Codex/A25 intake",
+      "reportedAt": "2026-07-03T18:57:58.487Z",
+      "blockerSummary": "A11 regression evidence package is blocked before owner-local remediation can be safely isolated. The actual worktree /Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A11-regression-evidence-closure exists on codex/A11-regression-evidence-closure with 62 dirty entries, but the current owner assignment write scope is only lib/mvpReadiness.test.ts. Fresh npm run type-check -- --pretty false exits 2 with 697 TypeScript error lines; only 45 are in A11/QA-scoped files and 30 are in lib/mvpReadiness.test.ts. The first A11-scoped failures are missing generated/live lesson data modules, worked-example illustration metadata, Arkansas/Florida/California lesson/topic modules, and CurriculumTrack values such as US_AR_MATH. The top failures are still outside the A11 assignment scope, including A06 visualization, A13 teacher review/operations, shared userStore/aiGovernance exports, and A20 game files. The regression Playwright row remains blocked because type-check fails before a reviewed A11-only package can be isolated.",
+      "ownerDecision": "blocked-pending-a18-a21-content-module-promotion-a08-shared-curriculum-types-a06-a13-a20-upstream-errors-and-a11-scope-expansion",
+      "evidenceReviewed": [
+        "coordination/release-intake/latest-A25-owner-package-blocker-report-starter.json",
+        "coordination/release-intake/latest-A25-pending-owner-blocker-report-a11.md",
+        "/tmp/mais-a11-typecheck-20260704.log",
+        "/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A11-regression-evidence-closure",
+        "coordination/release-intake/latest-A25-owner-package-blocker-assignment-packet.json"
+      ],
+      "nextAction": "Route missing generated lesson/content modules and curriculum-track constants to A18/A21/A08 as appropriate, keep A06/A13/A20 top-file errors with their owners, and decide whether A11 may expand from lib/mvpReadiness.test.ts into tests/e2e before rerunning npm run type-check -- --pretty false and the student/backend Playwright regression package.",
+      "notes": "A11 blocker record only. No cleanup, worktree removal, branch deletion, stage, commit, merge, push, or deploy is authorized.",
+      "cleanupAuthorized": false,
+      "executableNow": false
+    },
+    {
+      "reportId": "owner-package-blocker-report-a12",
+      "reportFingerprint": "e1c89560728ccbe9860c6a3b9b15d67a219a70ced84841525b406b536d231749",
+      "assignmentId": "owner-package-blocker-a12",
+      "agentId": "A12",
+      "owner": "A12 backend/API platform lead",
+      "role": "Backend/API platform lead",
+      "objective": "Resolve or formally block the owner-package blockers routed to A12 without widening beyond AGENTS.md owner scope.",
+      "recommendedWorktree": "/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A08-A12-shared-contract-closure",
+      "packageRows": [
+        {
+          "matrixId": "wave-01-governance-release-hygiene:wave-01-governance-release-hygiene",
+          "waveId": "wave-01-governance-release-hygiene",
+          "packageId": "wave-01-governance-release-hygiene",
+          "packageName": "A25/A10/A22 governance and release hygiene",
+          "packageOwnerIds": [
+            "A25",
+            "A22",
+            "A10"
+          ],
+          "blockingReasons": [
+            "npm run type-check failed"
+          ],
+          "failedCheckNames": [
+            "typeCheck"
+          ],
+          "failedChecks": [
+            {
+              "name": "typeCheck",
+              "command": "npm run type-check -- --pretty false",
+              "status": 2
+            }
+          ]
+        },
+        {
+          "matrixId": "wave-05-visualization-ai-runtime:a07-ai-tutor",
+          "waveId": "wave-05-visualization-ai-runtime",
+          "packageId": "a07-ai-tutor",
+          "packageName": "A07 AI tutor",
+          "packageOwnerIds": [
+            "A07"
+          ],
+          "blockingReasons": [
+            "A07 AI tutor typeCheck failed",
+            "A07 AI tutor aiTutorPlaywright failed"
+          ],
+          "failedCheckNames": [
+            "typeCheck",
+            "aiTutorPlaywright"
+          ],
+          "failedChecks": [
+            {
+              "name": "typeCheck",
+              "command": "npm run type-check -- --pretty false",
+              "status": 2
+            },
+            {
+              "name": "aiTutorPlaywright",
+              "command": "npx playwright test tests/e2e/ai-tutor-deepseek.spec.ts tests/e2e/ai-tutor-live-text.spec.ts --project=desktop-chrome",
+              "status": 1
+            }
+          ]
+        }
+      ],
+      "uniqueReadFiles": [
+        "app/api/ai-tutor/resolve/route.ts",
+        "app/api/teacher/review-lessons/[reviewLessonId]/route.ts"
+      ],
+      "writeScope": [
+        "app/api/teacher/review-lessons/[reviewLessonId]/route.ts"
+      ],
+      "coordinationRequired": [
+        {
+          "file": "app/api/ai-tutor/resolve/route.ts",
+          "reason": "outside this owner's AGENTS.md write scope"
+        },
+        {
+          "file": "app/api/teacher/review-lessons/[reviewLessonId]/route.ts",
+          "reason": "cross-owner blocker; coordinate with package owner before editing"
+        }
+      ],
+      "checks": [
+        "npm run type-check -- --pretty false",
+        "npx playwright test tests/e2e/ai-tutor-deepseek.spec.ts tests/e2e/ai-tutor-live-text.spec.ts --project=desktop-chrome",
+        "node coordination/release-intake/generate-owner-package-readiness-blocker-matrix.mjs",
+        "node coordination/release-intake/assert-owner-package-blocker-routing-current.mjs",
+        "node coordination/release-intake/assert-owner-package-blocker-assignment-packet-current.mjs",
+        "node coordination/release-intake/assert-dirty-worktree-remediation-current.mjs"
+      ],
+      "stopConditions": [
+        "Stop if the fix requires adding/removing package dependencies without A10/A22 approval.",
+        "Stop if the fix requires shared type/schema changes without A08 coordination.",
+        "Stop if a routed file is outside this owner's write scope and no explicit scope expansion exists.",
+        "Stop if the assignment needs owner-approved Git operations; A25 evidence alone is not authorization.",
+        "Stop if the work would expose or edit real secrets."
+      ],
+      "dirtyStateFinalAction": "pending owner reviewed commit, owner-routed blocker, evidence archive, or exact owner-approved final state",
+      "worktreeLifecycleAction": "retain isolated worktree until owner handoff is reviewed",
+      "reportStatus": "recorded-owner-blocker",
+      "reportedBy": "A12 via Codex/A25 intake",
+      "reportedAt": "2026-07-03T18:57:58.487Z",
+      "blockerSummary": "A12 backend/API package is blocked at routing before owner-local remediation. The recommended worktree in the generated assignment, /Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A12-backend-api-closure, does not exist. Existing A12-linked worktrees are A08-A12-shared-contract-closure, A12-google-oauth-login, and A12-userstore-storage-contract, none of which matches the assignment path. The assignment also mixes an A07-owned ai-tutor resolve route into A12 coordination and marks app/api/teacher/review-lessons/[reviewLessonId]/route.ts as cross-owner. Because the target worktree is missing and the routed package includes files outside A12 scope, A12 cannot safely run the assigned fix/verification cycle without A25/A10 routing repair.",
+      "ownerDecision": "blocked-pending-a25-routing-repair-and-a07-a12-cross-owner-split",
+      "evidenceReviewed": [
+        "coordination/release-intake/latest-A25-owner-package-blocker-report-starter.json",
+        "coordination/release-intake/latest-A25-pending-owner-blocker-report-a12.md",
+        "coordination/release-intake/latest-A25-owner-package-blocker-assignment-packet.json",
+        "git worktree list --porcelain evidence showing A12-userstore-storage-contract A12-google-oauth-login A08-A12-shared-contract-closure and missing A12-backend-api-closure"
+      ],
+      "nextAction": "Repair A12 recommendedWorktree to an actual owner-approved A12 worktree or split the assignment so A07 owns app/api/ai-tutor/resolve/route.ts and A12 only owns the teacher review API route, then regenerate the blocker assignment packet and rerun current gates before any A12-local remediation.",
+      "notes": "A12 blocker record only. No cleanup, worktree removal, branch deletion, stage, commit, merge, push, or deploy is authorized.",
+      "cleanupAuthorized": false,
+      "executableNow": false
+    },
+    {
+      "reportId": "owner-package-blocker-report-a07",
+      "reportFingerprint": "bef4602d8502a7f0b0e266abce4d3cb22e9bba55480ef8aee50b934302fad967",
+      "assignmentId": "owner-package-blocker-a07",
+      "agentId": "A07",
+      "owner": "A07 AI tutor lead",
+      "role": "AI tutor/provider integration lead",
+      "objective": "Resolve or formally block the owner-package blockers routed to A07 without widening beyond AGENTS.md owner scope.",
+      "recommendedWorktree": "/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A07-ai-tutor-closure",
+      "packageRows": [
+        {
+          "matrixId": "wave-05-visualization-ai-runtime:a07-ai-tutor",
+          "waveId": "wave-05-visualization-ai-runtime",
+          "packageId": "a07-ai-tutor",
+          "packageName": "A07 AI tutor",
+          "packageOwnerIds": [
+            "A07"
+          ],
+          "blockingReasons": [
+            "A07 AI tutor typeCheck failed",
+            "A07 AI tutor aiTutorPlaywright failed"
+          ],
+          "failedCheckNames": [
+            "typeCheck",
+            "aiTutorPlaywright"
+          ],
+          "failedChecks": [
+            {
+              "name": "typeCheck",
+              "command": "npm run type-check -- --pretty false",
+              "status": 2
+            },
+            {
+              "name": "aiTutorPlaywright",
+              "command": "npx playwright test tests/e2e/ai-tutor-deepseek.spec.ts tests/e2e/ai-tutor-live-text.spec.ts --project=desktop-chrome",
+              "status": 1
+            }
+          ]
+        }
+      ],
+      "uniqueReadFiles": [
+        "app/api/ai-tutor/resolve/route.ts"
+      ],
+      "writeScope": [
+        "app/api/ai-tutor/resolve/route.ts"
+      ],
+      "coordinationRequired": [],
+      "checks": [
+        "npm run type-check -- --pretty false",
+        "npx playwright test tests/e2e/ai-tutor-deepseek.spec.ts tests/e2e/ai-tutor-live-text.spec.ts --project=desktop-chrome",
+        "node coordination/release-intake/generate-owner-package-readiness-blocker-matrix.mjs",
+        "node coordination/release-intake/assert-owner-package-blocker-routing-current.mjs",
+        "node coordination/release-intake/assert-owner-package-blocker-assignment-packet-current.mjs",
+        "node coordination/release-intake/assert-dirty-worktree-remediation-current.mjs"
+      ],
+      "stopConditions": [
+        "Stop if the fix requires adding/removing package dependencies without A10/A22 approval.",
+        "Stop if the fix requires shared type/schema changes without A08 coordination.",
+        "Stop if a routed file is outside this owner's write scope and no explicit scope expansion exists.",
+        "Stop if the assignment needs owner-approved Git operations; A25 evidence alone is not authorization.",
+        "Stop if the work would expose or edit real secrets."
+      ],
+      "dirtyStateFinalAction": "pending owner reviewed commit, owner-routed blocker, evidence archive, or exact owner-approved final state",
+      "worktreeLifecycleAction": "retain isolated worktree until owner handoff is reviewed",
+      "reportStatus": "recorded-owner-blocker",
+      "reportedBy": "A07 via Codex/A25 intake",
+      "reportedAt": "2026-07-03T18:57:58.487Z",
+      "blockerSummary": "A07 AI tutor package is blocked before owner-local remediation can be safely isolated. The worktree /Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A07-ai-tutor-closure exists with 12 dirty entries across ai-tutor API routes, components/ai, tutor voice helpers, and .env.local.example. Fresh npm run type-check -- --pretty false exits 2 with 680 TypeScript error lines; 28 are A07/AI-scoped. app/api/ai-tutor/resolve/route.ts has 12 errors caused by missing shared exports from lib/server/userStore, missing lib/server/aiGovernance, and missing llmProvider helpers such as createLLMProviderCircuitBreaker, fetchLLMProviderResponse, readAITutorProviderProfile, and selectAvailableLLMProviderConfig. Additional A07-scoped errors remain in NovaLensGlobalOverlay, AITutorProvider, speech/voice routes, and status route. The top global failures still include A06 visualization, A13 teacher, and shared storage/API contract errors, so A07 cannot make the package reviewable without A12/A08/A07 provider-contract coordination.",
+      "ownerDecision": "blocked-pending-a12-userstore-ai-governance-exports-a07-llm-provider-contract-and-a08-shared-types",
+      "evidenceReviewed": [
+        "coordination/release-intake/latest-A25-owner-package-blocker-report-starter.json",
+        "coordination/release-intake/latest-A25-pending-owner-blocker-report-a07.md",
+        "/tmp/mais-a07-typecheck-20260704.log",
+        "/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A07-ai-tutor-closure",
+        "coordination/release-intake/latest-A25-owner-package-blocker-assignment-packet.json"
+      ],
+      "nextAction": "Route missing userStore and aiGovernance exports to A12, provider helper contract alignment to A07 with A08/A15 coordination where shared types are involved, then rerun npm run type-check -- --pretty false followed by the ai-tutor Playwright package in A07-ai-tutor-closure.",
+      "notes": "A07 blocker record only. No cleanup, worktree removal, branch deletion, stage, commit, merge, push, or deploy is authorized.",
+      "cleanupAuthorized": false,
+      "executableNow": false
+    }
+  ]
+}

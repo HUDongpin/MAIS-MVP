@@ -53,11 +53,11 @@
           "ragCardIds": [
             "pep-high-sets-logic",
             "pep-high-logic-quantifiers-conditions",
+            "pep-high-teacher-resources-compulsory-1",
+            "pep-high-teacher-resources-compulsory-2",
             "pep-high-quadratic-inequalities",
             "pep-high-function-concepts-properties",
-            "pep-high-exponential-logarithmic-functions",
-            "pep-high-trigonometric-functions",
-            "pep-high-solid-geometry-intro"
+            "pep-high-exponential-logarithmic-functions"
           ],
           "examPatternCardIds": [
             "pep-high-exam-trigonometric-graphs",
@@ -74,27 +74,33 @@
             "quantifiers",
             "propositions",
             "proof-language",
+            "basic-inequality",
+            "discrete-distributions",
+            "exponential-functions",
+            "function-definition",
+            "function-zero",
+            "line-equations",
+            "logarithmic-functions",
+            "plane-vectors",
             "quadratic-functions",
+            "sine-cosine-theorem",
+            "trigonometric-functions",
+            "trigonometric-identities",
+            "complex-numbers",
+            "correlation",
+            "independence-test",
+            "permutations-combinations",
+            "probability-foundations",
+            "solid-geometry",
+            "statistics",
             "quadratic-equations",
             "quadratic-inequalities",
-            "basic-inequality",
-            "function-definition",
             "domain-range",
             "monotonicity",
             "parity",
             "function-applications",
-            "exponential-functions",
-            "logarithmic-functions",
             "inverse-functions",
-            "function-modeling",
-            "unit-circle",
-            "trigonometric-functions",
-            "trigonometric-graphs",
-            "trigonometric-identities",
-            "solid-geometry",
-            "spatial-lines-planes",
-            "parallel-perpendicular",
-            "surface-volume"
+            "function-modeling"
           ],
           "competencyTags": [
             "数学抽象",
@@ -107,10 +113,10 @@
           "itemTypeTags": [
             "概念辨析",
             "证明推理",
-            "计算求解",
-            "函数图像",
-            "综合压轴题",
-            "建模应用"
+            "课堂导入",
+            "概念讲解",
+            "例题讲评",
+            "分层练习"
           ],
           "generationGuidance": [
             "Create tasks that ask students to classify membership, subset relations, union, intersection, complement, and empty-set edge cases.",
@@ -119,8 +125,8 @@
             "Generate new statement-classification tasks that require students to identify truth value, negation, and quantifier scope.",
             "Use fresh algebraic, geometric, or everyday predicates instead of source examples.",
             "Ask learners to justify whether a condition is sufficient, necessary, both, or neither.",
-            "Generate original coefficient sets and ask learners to connect discriminant, roots, sign intervals, and graph position.",
-            "Include comparison tasks where a quadratic model determines a valid range, threshold, or optimization condition."
+            "Use this teacher-resource layer to calibrate lesson sequence, explanation depth, classroom pacing, board-work structure, formative checks, and review transitions.",
+            "Prefer newly authored worked examples and checkpoint questions that match the observed chapter coverage but use fresh values, contexts, diagrams, and solution paths."
           ]
         }
       },
@@ -278,8 +284,8 @@
       },
       "teacherReviewerNotes": {
         "curriculumAlignment": {
-          "zhHans": "围绕集合与常用逻辑用语生成，证据来自安全 RAG 卡 pep-high-sets-logic、pep-high-logic-quantifiers-conditions、pep-high-quadratic-inequalities、pep-high-function-concepts-properties、pep-high-exponential-logarithmic-functions、pep-high-trigonometric-functions、pep-high-solid-geometry-intro。",
-          "en": "Generated around 集合与常用逻辑用语 using safe RAG cards pep-high-sets-logic, pep-high-logic-quantifiers-conditions, pep-high-quadratic-inequalities, pep-high-function-concepts-properties, pep-high-exponential-logarithmic-functions, pep-high-trigonometric-functions, pep-high-solid-geometry-intro."
+          "zhHans": "围绕集合与常用逻辑用语生成，证据来自安全 RAG 卡 pep-high-sets-logic、pep-high-logic-quantifiers-conditions、pep-high-teacher-resources-compulsory-1、pep-high-teacher-resources-compulsory-2、pep-high-quadratic-inequalities、pep-high-function-concepts-properties、pep-high-exponential-logarithmic-functions。",
+          "en": "Generated around 集合与常用逻辑用语 using safe RAG cards pep-high-sets-logic, pep-high-logic-quantifiers-conditions, pep-high-teacher-resources-compulsory-1, pep-high-teacher-resources-compulsory-2, pep-high-quadratic-inequalities, pep-high-function-concepts-properties, pep-high-exponential-logarithmic-functions."
         },
         "misconceptionTargets": [
           "confusing element and subset",
@@ -370,13 +376,13 @@
           },
           "ragCardIds": [
             "pep-high-quadratic-inequalities",
+            "pep-high-teacher-resources-compulsory-1",
+            "pep-high-teacher-resources-compulsory-2",
             "pep-high-basic-inequality-optimization",
             "pep-high-sets-logic",
             "pep-high-function-concepts-properties",
             "pep-high-exponential-logarithmic-functions",
-            "pep-high-trigonometric-functions",
-            "pep-high-solid-geometry-intro",
-            "pep-high-probability"
+            "pep-high-trigonometric-functions"
           ],
           "examPatternCardIds": [
             "pep-high-exam-basic-inequality-optimization",
@@ -391,60 +397,64 @@
             "quadratic-equations",
             "quadratic-inequalities",
             "basic-inequality",
+            "discrete-distributions",
+            "exponential-functions",
+            "function-definition",
+            "function-zero",
+            "line-equations",
+            "logarithmic-functions",
+            "logic-conditions",
+            "plane-vectors",
+            "quantifiers",
+            "sets",
+            "sine-cosine-theorem",
+            "trigonometric-functions",
+            "trigonometric-identities",
+            "complex-numbers",
+            "correlation",
+            "independence-test",
+            "permutations-combinations",
+            "probability-foundations",
+            "solid-geometry",
+            "statistics",
             "inequality-properties",
             "optimization",
             "algebraic-transformations",
-            "sets",
             "set-operations",
-            "logic-conditions",
-            "quantifiers",
-            "function-definition",
             "domain-range",
             "monotonicity",
             "parity",
             "function-applications",
-            "exponential-functions",
-            "logarithmic-functions",
             "inverse-functions",
             "function-modeling",
             "unit-circle",
-            "trigonometric-functions",
-            "trigonometric-graphs",
-            "trigonometric-identities",
-            "solid-geometry",
-            "spatial-lines-planes",
-            "parallel-perpendicular",
-            "surface-volume",
-            "probability-foundations",
-            "random-events",
-            "probability-operations",
-            "simulation"
+            "trigonometric-graphs"
           ],
           "competencyTags": [
             "数学运算",
             "逻辑推理",
             "直观想象",
-            "数学建模",
             "数学抽象",
-            "数学语言"
+            "数学建模",
+            "数据分析"
           ],
           "itemTypeTags": [
             "计算求解",
             "函数图像",
             "综合压轴题",
-            "建模应用",
-            "概念辨析",
-            "证明推理"
+            "课堂导入",
+            "概念讲解",
+            "例题讲评"
           ],
           "generationGuidance": [
             "Generate original coefficient sets and ask learners to connect discriminant, roots, sign intervals, and graph position.",
             "Include comparison tasks where a quadratic model determines a valid range, threshold, or optimization condition.",
             "For exam-style items, combine parameter constraints with interval reasoning, but keep the algebraic structure newly authored.",
-            "Create original expressions where students must check positivity, equality conditions, and transformation validity.",
-            "Use new area, cost, distance, or product-sum contexts for optimization questions.",
-            "Require explanations to state why the inequality condition applies before using the formula.",
-            "Create tasks that ask students to classify membership, subset relations, union, intersection, complement, and empty-set edge cases.",
-            "Use new mathematical or everyday categories instead of textbook examples."
+            "Use this teacher-resource layer to calibrate lesson sequence, explanation depth, classroom pacing, board-work structure, formative checks, and review transitions.",
+            "Prefer newly authored worked examples and checkpoint questions that match the observed chapter coverage but use fresh values, contexts, diagrams, and solution paths.",
+            "Treat the dominant resource mix (lesson-plan、guided-learning-sheet、courseware、lecture-notes、practice-set) as a planning signal only; do not reuse source lesson wording or slide layout.",
+            "When generating lessons, separate teacher-facing pedagogy from student-facing concise explanations, and run normal S18/S09/S05 review before release.",
+            "Treat the dominant resource mix (lecture-notes、courseware、lesson-plan、guided-learning-sheet、practice-set) as a planning signal only; do not reuse source lesson wording or slide layout."
           ]
         }
       },
@@ -460,7 +470,7 @@
             "能识别至少两个常见误区，并用检验步骤修正答案。"
           ],
           "prerequisiteWarmUp": "用 3 分钟写出本节的已知对象、限制条件和目标。把方程的根、函数图像和不等式解集连成同一张图。",
-          "conceptExplanation": "二次不等式的关键是先看 \\(ax^2+bx+c=0\\) 的根，再利用开口方向判断函数值在 \\(x\\) 轴上方还是下方。 本节重点素养：数学运算、逻辑推理、直观想象、数学建模、数学抽象、数学语言。",
+          "conceptExplanation": "二次不等式的关键是先看 \\(ax^2+bx+c=0\\) 的根，再利用开口方向判断函数值在 \\(x\\) 轴上方还是下方。 本节重点素养：数学运算、逻辑推理、直观想象、数学抽象、数学建模、数据分析。",
           "workedExamples": [
             {
               "title": "例 1",
@@ -515,7 +525,7 @@
             "Identify at least two common pitfalls and use checking steps to correct answers."
           ],
           "prerequisiteWarmUp": "Spend 3 minutes writing the mathematical objects, restrictions, and target for the lesson. Connect roots, graphs, and inequality solution intervals in one picture.",
-          "conceptExplanation": "For a quadratic inequality, first locate the roots of \\(ax^2+bx+c=0\\), then use the opening direction to decide where the graph is above or below the \\(x\\)-axis. Competency focus: mathematical operations, logical reasoning, spatial and visual reasoning, mathematical modeling, mathematical abstraction, mathematical language.",
+          "conceptExplanation": "For a quadratic inequality, first locate the roots of \\(ax^2+bx+c=0\\), then use the opening direction to decide where the graph is above or below the \\(x\\)-axis. Competency focus: mathematical operations, logical reasoning, spatial and visual reasoning, mathematical abstraction, mathematical modeling, data analysis.",
           "workedExamples": [
             {
               "title": "Example 1",
@@ -582,8 +592,8 @@
           },
           {
             "section": "concept",
-            "zhHans": "二次不等式的关键是先看 \\(ax^2+bx+c=0\\) 的根，再利用开口方向判断函数值在 \\(x\\) 轴上方还是下方。 本节重点素养：数学运算、逻辑推理、直观想象、数学建模、数学抽象、数学语言。",
-            "en": "For a quadratic inequality, first locate the roots of \\(ax^2+bx+c=0\\), then use the opening direction to decide where the graph is above or below the \\(x\\)-axis. Competency focus: mathematical operations, logical reasoning, spatial and visual reasoning, mathematical modeling, mathematical abstraction, mathematical language."
+            "zhHans": "二次不等式的关键是先看 \\(ax^2+bx+c=0\\) 的根，再利用开口方向判断函数值在 \\(x\\) 轴上方还是下方。 本节重点素养：数学运算、逻辑推理、直观想象、数学抽象、数学建模、数据分析。",
+            "en": "For a quadratic inequality, first locate the roots of \\(ax^2+bx+c=0\\), then use the opening direction to decide where the graph is above or below the \\(x\\)-axis. Competency focus: mathematical operations, logical reasoning, spatial and visual reasoning, mathematical abstraction, mathematical modeling, data analysis."
           },
           {
             "section": "worked-example-1",
@@ -614,16 +624,16 @@
       },
       "teacherReviewerNotes": {
         "curriculumAlignment": {
-          "zhHans": "围绕一元二次函数、方程和不等式生成，证据来自安全 RAG 卡 pep-high-quadratic-inequalities、pep-high-basic-inequality-optimization、pep-high-sets-logic、pep-high-function-concepts-properties、pep-high-exponential-logarithmic-functions、pep-high-trigonometric-functions、pep-high-solid-geometry-intro、pep-high-probability。",
-          "en": "Generated around 一元二次函数、方程和不等式 using safe RAG cards pep-high-quadratic-inequalities, pep-high-basic-inequality-optimization, pep-high-sets-logic, pep-high-function-concepts-properties, pep-high-exponential-logarithmic-functions, pep-high-trigonometric-functions, pep-high-solid-geometry-intro, pep-high-probability."
+          "zhHans": "围绕一元二次函数、方程和不等式生成，证据来自安全 RAG 卡 pep-high-quadratic-inequalities、pep-high-teacher-resources-compulsory-1、pep-high-teacher-resources-compulsory-2、pep-high-basic-inequality-optimization、pep-high-sets-logic、pep-high-function-concepts-properties、pep-high-exponential-logarithmic-functions、pep-high-trigonometric-functions。",
+          "en": "Generated around 一元二次函数、方程和不等式 using safe RAG cards pep-high-quadratic-inequalities, pep-high-teacher-resources-compulsory-1, pep-high-teacher-resources-compulsory-2, pep-high-basic-inequality-optimization, pep-high-sets-logic, pep-high-function-concepts-properties, pep-high-exponential-logarithmic-functions, pep-high-trigonometric-functions."
         },
         "misconceptionTargets": [
           "sign chart interval endpoint error",
           "discriminant interpretation error",
           "treating inequality like equation only",
-          "equality condition omitted",
-          "positive condition unchecked",
-          "inequality direction changed incorrectly"
+          "lesson sequence too close to source package",
+          "example wording copied instead of re-authored",
+          "teacher-only activity exposed as student answer text"
         ],
         "verificationChecklist": [
           {
@@ -708,13 +718,12 @@
           },
           "ragCardIds": [
             "pep-high-function-concepts-properties",
+            "pep-high-teacher-resources-compulsory-1",
+            "pep-high-teacher-resources-compulsory-2",
             "pep-high-sets-logic",
             "pep-high-quadratic-inequalities",
             "pep-high-exponential-logarithmic-functions",
-            "pep-high-trigonometric-functions",
-            "pep-high-plane-vectors",
-            "pep-high-solid-geometry-intro",
-            "pep-high-probability"
+            "pep-high-trigonometric-functions"
           ],
           "examPatternCardIds": [
             "pep-high-exam-functions-parameters",
@@ -730,60 +739,60 @@
             "monotonicity",
             "parity",
             "function-applications",
-            "sets",
-            "set-operations",
+            "basic-inequality",
+            "discrete-distributions",
+            "exponential-functions",
+            "function-zero",
+            "line-equations",
+            "logarithmic-functions",
             "logic-conditions",
-            "quantifiers",
+            "plane-vectors",
             "quadratic-functions",
+            "quantifiers",
+            "sets",
+            "sine-cosine-theorem",
+            "trigonometric-functions",
+            "trigonometric-identities",
+            "complex-numbers",
+            "correlation",
+            "independence-test",
+            "permutations-combinations",
+            "probability-foundations",
+            "solid-geometry",
+            "statistics",
+            "set-operations",
             "quadratic-equations",
             "quadratic-inequalities",
-            "basic-inequality",
-            "exponential-functions",
-            "logarithmic-functions",
             "inverse-functions",
             "function-modeling",
             "unit-circle",
-            "trigonometric-functions",
-            "trigonometric-graphs",
-            "trigonometric-identities",
-            "plane-vectors",
-            "vector-operations",
-            "dot-product",
-            "vector-applications",
-            "solid-geometry",
-            "spatial-lines-planes",
-            "parallel-perpendicular",
-            "surface-volume",
-            "probability-foundations",
-            "random-events",
-            "probability-operations",
-            "simulation"
+            "trigonometric-graphs"
           ],
           "competencyTags": [
             "数学抽象",
             "直观想象",
             "数学建模",
             "逻辑推理",
-            "数学语言",
-            "数学运算"
+            "数学运算",
+            "数据分析"
           ],
           "itemTypeTags": [
             "概念辨析",
             "函数图像",
             "建模应用",
-            "证明推理",
-            "计算求解",
-            "综合压轴题"
+            "课堂导入",
+            "概念讲解",
+            "例题讲评"
           ],
           "generationGuidance": [
             "Ask students to justify whether a relation is a function and identify its valid domain from a new expression or context.",
             "Create graph-reading tasks for increasing and decreasing intervals, symmetry, maximum or minimum behavior, and value comparison.",
             "Use fresh contexts for application modeling, such as pricing, distance, area, or resource change.",
-            "Create tasks that ask students to classify membership, subset relations, union, intersection, complement, and empty-set edge cases.",
-            "Use new mathematical or everyday categories instead of textbook examples.",
-            "For logic questions, require students to distinguish sufficient, necessary, necessary and sufficient, and neither.",
-            "Generate original coefficient sets and ask learners to connect discriminant, roots, sign intervals, and graph position.",
-            "Include comparison tasks where a quadratic model determines a valid range, threshold, or optimization condition."
+            "Use this teacher-resource layer to calibrate lesson sequence, explanation depth, classroom pacing, board-work structure, formative checks, and review transitions.",
+            "Prefer newly authored worked examples and checkpoint questions that match the observed chapter coverage but use fresh values, contexts, diagrams, and solution paths.",
+            "Treat the dominant resource mix (lesson-plan、guided-learning-sheet、courseware、lecture-notes、practice-set) as a planning signal only; do not reuse source lesson wording or slide layout.",
+            "When generating lessons, separate teacher-facing pedagogy from student-facing concise explanations, and run normal S18/S09/S05 review before release.",
+            "Treat the dominant resource mix (lecture-notes、courseware、lesson-plan、guided-learning-sheet、practice-set) as a planning signal only; do not reuse source lesson wording or slide layout."
           ]
         }
       },
@@ -799,7 +808,7 @@
             "能识别至少两个常见误区，并用检验步骤修正答案。"
           ],
           "prerequisiteWarmUp": "用 3 分钟写出本节的已知对象、限制条件和目标。函数学习的第一步，是把“能不能输入”和“输出怎样变化”分开看。",
-          "conceptExplanation": "函数是一种对应关系。研究函数时，先确定定义域，再观察值域、单调性、奇偶性和图像特征。 本节重点素养：数学抽象、直观想象、数学建模、逻辑推理、数学语言、数学运算。",
+          "conceptExplanation": "函数是一种对应关系。研究函数时，先确定定义域，再观察值域、单调性、奇偶性和图像特征。 本节重点素养：数学抽象、直观想象、数学建模、逻辑推理、数学运算、数据分析。",
           "workedExamples": [
             {
               "title": "例 1",
@@ -848,7 +857,7 @@
             "Identify at least two common pitfalls and use checking steps to correct answers."
           ],
           "prerequisiteWarmUp": "Spend 3 minutes writing the mathematical objects, restrictions, and target for the lesson. The first step in functions is separating valid inputs from how outputs change.",
-          "conceptExplanation": "A function is a correspondence. Study it by first fixing the domain, then examining range, monotonicity, parity, and graph behavior. Competency focus: mathematical abstraction, spatial and visual reasoning, mathematical modeling, logical reasoning, mathematical language, mathematical operations.",
+          "conceptExplanation": "A function is a correspondence. Study it by first fixing the domain, then examining range, monotonicity, parity, and graph behavior. Competency focus: mathematical abstraction, spatial and visual reasoning, mathematical modeling, logical reasoning, mathematical operations, data analysis.",
           "workedExamples": [
             {
               "title": "Example 1",
@@ -909,8 +918,8 @@
           },
           {
             "section": "concept",
-            "zhHans": "函数是一种对应关系。研究函数时，先确定定义域，再观察值域、单调性、奇偶性和图像特征。 本节重点素养：数学抽象、直观想象、数学建模、逻辑推理、数学语言、数学运算。",
-            "en": "A function is a correspondence. Study it by first fixing the domain, then examining range, monotonicity, parity, and graph behavior. Competency focus: mathematical abstraction, spatial and visual reasoning, mathematical modeling, logical reasoning, mathematical language, mathematical operations."
+            "zhHans": "函数是一种对应关系。研究函数时，先确定定义域，再观察值域、单调性、奇偶性和图像特征。 本节重点素养：数学抽象、直观想象、数学建模、逻辑推理、数学运算、数据分析。",
+            "en": "A function is a correspondence. Study it by first fixing the domain, then examining range, monotonicity, parity, and graph behavior. Competency focus: mathematical abstraction, spatial and visual reasoning, mathematical modeling, logical reasoning, mathematical operations, data analysis."
           },
           {
             "section": "worked-example-1",
@@ -941,16 +950,16 @@
       },
       "teacherReviewerNotes": {
         "curriculumAlignment": {
-          "zhHans": "围绕函数的概念与性质生成，证据来自安全 RAG 卡 pep-high-function-concepts-properties、pep-high-sets-logic、pep-high-quadratic-inequalities、pep-high-exponential-logarithmic-functions、pep-high-trigonometric-functions、pep-high-plane-vectors、pep-high-solid-geometry-intro、pep-high-probability。",
-          "en": "Generated around 函数的概念与性质 using safe RAG cards pep-high-function-concepts-properties, pep-high-sets-logic, pep-high-quadratic-inequalities, pep-high-exponential-logarithmic-functions, pep-high-trigonometric-functions, pep-high-plane-vectors, pep-high-solid-geometry-intro, pep-high-probability."
+          "zhHans": "围绕函数的概念与性质生成，证据来自安全 RAG 卡 pep-high-function-concepts-properties、pep-high-teacher-resources-compulsory-1、pep-high-teacher-resources-compulsory-2、pep-high-sets-logic、pep-high-quadratic-inequalities、pep-high-exponential-logarithmic-functions、pep-high-trigonometric-functions。",
+          "en": "Generated around 函数的概念与性质 using safe RAG cards pep-high-function-concepts-properties, pep-high-teacher-resources-compulsory-1, pep-high-teacher-resources-compulsory-2, pep-high-sets-logic, pep-high-quadratic-inequalities, pep-high-exponential-logarithmic-functions, pep-high-trigonometric-functions."
         },
         "misconceptionTargets": [
           "domain restriction omitted",
           "confusing increasing interval with positive value",
           "parity checked on invalid domain",
-          "confusing element and subset",
-          "forgetting universe set",
-          "reversing sufficient and necessary conditions"
+          "lesson sequence too close to source package",
+          "example wording copied instead of re-authored",
+          "teacher-only activity exposed as student answer text"
         ],
         "verificationChecklist": [
           {
@@ -1033,13 +1042,12 @@
           },
           "ragCardIds": [
             "pep-high-exponential-logarithmic-functions",
+            "pep-high-teacher-resources-compulsory-1",
+            "pep-high-teacher-resources-compulsory-2",
             "pep-high-function-zero-modeling",
             "pep-high-sets-logic",
             "pep-high-quadratic-inequalities",
-            "pep-high-function-concepts-properties",
-            "pep-high-trigonometric-functions",
-            "pep-high-solid-geometry-intro",
-            "pep-high-probability"
+            "pep-high-trigonometric-functions"
           ],
           "examPatternCardIds": [
             "pep-high-exam-function-zero-models",
@@ -1054,60 +1062,59 @@
             "logarithmic-functions",
             "inverse-functions",
             "function-modeling",
+            "basic-inequality",
+            "discrete-distributions",
+            "function-definition",
             "function-zero",
+            "line-equations",
+            "logic-conditions",
+            "plane-vectors",
+            "quadratic-functions",
+            "quantifiers",
+            "sets",
+            "sine-cosine-theorem",
+            "trigonometric-functions",
+            "trigonometric-identities",
+            "complex-numbers",
+            "correlation",
+            "independence-test",
+            "permutations-combinations",
+            "probability-foundations",
+            "solid-geometry",
+            "statistics",
             "bisection-method",
             "growth-comparison",
-            "sets",
             "set-operations",
-            "logic-conditions",
-            "quantifiers",
-            "quadratic-functions",
             "quadratic-equations",
             "quadratic-inequalities",
-            "basic-inequality",
-            "function-definition",
-            "domain-range",
-            "monotonicity",
-            "parity",
-            "function-applications",
             "unit-circle",
-            "trigonometric-functions",
-            "trigonometric-graphs",
-            "trigonometric-identities",
-            "solid-geometry",
-            "spatial-lines-planes",
-            "parallel-perpendicular",
-            "surface-volume",
-            "probability-foundations",
-            "random-events",
-            "probability-operations",
-            "simulation"
+            "trigonometric-graphs"
           ],
           "competencyTags": [
             "数学抽象",
             "数学运算",
             "数学建模",
-            "直观想象",
             "逻辑推理",
-            "数学语言"
+            "直观想象",
+            "数据分析"
           ],
           "itemTypeTags": [
             "计算求解",
             "函数图像",
             "建模应用",
-            "概念辨析",
-            "证明推理",
-            "综合压轴题"
+            "课堂导入",
+            "概念讲解",
+            "例题讲评"
           ],
           "generationGuidance": [
             "Build original tasks that convert between exponential and logarithmic forms and compare function values through monotonicity.",
             "Use newly designed growth, decay, scale, or information contexts for model interpretation.",
             "For challenge items, combine domain restrictions, parameter ranges, and inverse-function reasoning.",
-            "Use newly authored growth, threshold, or intersection contexts with clear variables and units.",
-            "Ask students to connect sign change, graph behavior, and solution interval before approximation.",
-            "For challenge tasks, combine model choice with zero-location or growth-rate comparison.",
-            "Create tasks that ask students to classify membership, subset relations, union, intersection, complement, and empty-set edge cases.",
-            "Use new mathematical or everyday categories instead of textbook examples."
+            "Use this teacher-resource layer to calibrate lesson sequence, explanation depth, classroom pacing, board-work structure, formative checks, and review transitions.",
+            "Prefer newly authored worked examples and checkpoint questions that match the observed chapter coverage but use fresh values, contexts, diagrams, and solution paths.",
+            "Treat the dominant resource mix (lesson-plan、guided-learning-sheet、courseware、lecture-notes、practice-set) as a planning signal only; do not reuse source lesson wording or slide layout.",
+            "When generating lessons, separate teacher-facing pedagogy from student-facing concise explanations, and run normal S18/S09/S05 review before release.",
+            "Treat the dominant resource mix (lecture-notes、courseware、lesson-plan、guided-learning-sheet、practice-set) as a planning signal only; do not reuse source lesson wording or slide layout."
           ]
         }
       },
@@ -1123,7 +1130,7 @@
             "能识别至少两个常见误区，并用检验步骤修正答案。"
           ],
           "prerequisiteWarmUp": "用 3 分钟写出本节的已知对象、限制条件和目标。指数和对数是一对互逆语言：一个说增长，一个说需要多少次方。",
-          "conceptExplanation": "指数函数和对数函数的单调性由底数决定。对数式必须先检查真数大于零，底数大于零且不等于 \\(1\\)。 本节重点素养：数学抽象、数学运算、数学建模、直观想象、逻辑推理、数学语言。",
+          "conceptExplanation": "指数函数和对数函数的单调性由底数决定。对数式必须先检查真数大于零，底数大于零且不等于 \\(1\\)。 本节重点素养：数学抽象、数学运算、数学建模、逻辑推理、直观想象、数据分析。",
           "workedExamples": [
             {
               "title": "例 1",
@@ -1178,7 +1185,7 @@
             "Identify at least two common pitfalls and use checking steps to correct answers."
           ],
           "prerequisiteWarmUp": "Spend 3 minutes writing the mathematical objects, restrictions, and target for the lesson. Exponential and logarithmic forms are inverse languages: one describes growth, the other asks for an exponent.",
-          "conceptExplanation": "The base controls monotonicity for exponential and logarithmic functions. A logarithm requires a positive argument and a positive base not equal to \\(1\\). Competency focus: mathematical abstraction, mathematical operations, mathematical modeling, spatial and visual reasoning, logical reasoning, mathematical language.",
+          "conceptExplanation": "The base controls monotonicity for exponential and logarithmic functions. A logarithm requires a positive argument and a positive base not equal to \\(1\\). Competency focus: mathematical abstraction, mathematical operations, mathematical modeling, logical reasoning, spatial and visual reasoning, data analysis.",
           "workedExamples": [
             {
               "title": "Example 1",
@@ -1245,8 +1252,8 @@
           },
           {
             "section": "concept",
-            "zhHans": "指数函数和对数函数的单调性由底数决定。对数式必须先检查真数大于零，底数大于零且不等于 \\(1\\)。 本节重点素养：数学抽象、数学运算、数学建模、直观想象、逻辑推理、数学语言。",
-            "en": "The base controls monotonicity for exponential and logarithmic functions. A logarithm requires a positive argument and a positive base not equal to \\(1\\). Competency focus: mathematical abstraction, mathematical operations, mathematical modeling, spatial and visual reasoning, logical reasoning, mathematical language."
+            "zhHans": "指数函数和对数函数的单调性由底数决定。对数式必须先检查真数大于零，底数大于零且不等于 \\(1\\)。 本节重点素养：数学抽象、数学运算、数学建模、逻辑推理、直观想象、数据分析。",
+            "en": "The base controls monotonicity for exponential and logarithmic functions. A logarithm requires a positive argument and a positive base not equal to \\(1\\). Competency focus: mathematical abstraction, mathematical operations, mathematical modeling, logical reasoning, spatial and visual reasoning, data analysis."
           },
           {
             "section": "worked-example-1",
@@ -1277,16 +1284,16 @@
       },
       "teacherReviewerNotes": {
         "curriculumAlignment": {
-          "zhHans": "围绕指数函数与对数函数生成，证据来自安全 RAG 卡 pep-high-exponential-logarithmic-functions、pep-high-function-zero-modeling、pep-high-sets-logic、pep-high-quadratic-inequalities、pep-high-function-concepts-properties、pep-high-trigonometric-functions、pep-high-solid-geometry-intro、pep-high-probability。",
-          "en": "Generated around 指数函数与对数函数 using safe RAG cards pep-high-exponential-logarithmic-functions, pep-high-function-zero-modeling, pep-high-sets-logic, pep-high-quadratic-inequalities, pep-high-function-concepts-properties, pep-high-trigonometric-functions, pep-high-solid-geometry-intro, pep-high-probability."
+          "zhHans": "围绕指数函数与对数函数生成，证据来自安全 RAG 卡 pep-high-exponential-logarithmic-functions、pep-high-teacher-resources-compulsory-1、pep-high-teacher-resources-compulsory-2、pep-high-function-zero-modeling、pep-high-sets-logic、pep-high-quadratic-inequalities、pep-high-trigonometric-functions。",
+          "en": "Generated around 指数函数与对数函数 using safe RAG cards pep-high-exponential-logarithmic-functions, pep-high-teacher-resources-compulsory-1, pep-high-teacher-resources-compulsory-2, pep-high-function-zero-modeling, pep-high-sets-logic, pep-high-quadratic-inequalities, pep-high-trigonometric-functions."
         },
         "misconceptionTargets": [
           "logarithm domain ignored",
           "base range forgotten",
           "inverse relationship overgeneralized",
-          "sign change condition overstated",
-          "model domain ignored",
-          "approximation interval not updated"
+          "lesson sequence too close to source package",
+          "example wording copied instead of re-authored",
+          "teacher-only activity exposed as student answer text"
         ],
         "verificationChecklist": [
           {
@@ -1369,13 +1376,12 @@
           },
           "ragCardIds": [
             "pep-high-trigonometric-functions",
+            "pep-high-teacher-resources-compulsory-1",
             "pep-high-trigonometric-identities-transformations",
+            "pep-high-teacher-resources-compulsory-2",
             "pep-high-sets-logic",
             "pep-high-quadratic-inequalities",
-            "pep-high-function-concepts-properties",
-            "pep-high-exponential-logarithmic-functions",
-            "pep-high-solid-geometry-intro",
-            "pep-high-probability"
+            "pep-high-exponential-logarithmic-functions"
           ],
           "examPatternCardIds": [
             "pep-high-exam-trigonometric-graphs",
@@ -1390,60 +1396,60 @@
             "trigonometric-functions",
             "trigonometric-graphs",
             "trigonometric-identities",
+            "basic-inequality",
+            "discrete-distributions",
+            "exponential-functions",
+            "function-definition",
+            "function-zero",
+            "line-equations",
+            "logarithmic-functions",
+            "logic-conditions",
+            "plane-vectors",
+            "quadratic-functions",
+            "quantifiers",
+            "sets",
+            "sine-cosine-theorem",
             "angle-sum-formulas",
             "double-angle-formulas",
             "trigonometric-transformations",
-            "sets",
+            "complex-numbers",
+            "correlation",
+            "independence-test",
+            "permutations-combinations",
+            "probability-foundations",
+            "solid-geometry",
+            "statistics",
             "set-operations",
-            "logic-conditions",
-            "quantifiers",
-            "quadratic-functions",
             "quadratic-equations",
             "quadratic-inequalities",
-            "basic-inequality",
-            "function-definition",
-            "domain-range",
-            "monotonicity",
-            "parity",
-            "function-applications",
-            "exponential-functions",
-            "logarithmic-functions",
             "inverse-functions",
-            "function-modeling",
-            "solid-geometry",
-            "spatial-lines-planes",
-            "parallel-perpendicular",
-            "surface-volume",
-            "probability-foundations",
-            "random-events",
-            "probability-operations",
-            "simulation"
+            "function-modeling"
           ],
           "competencyTags": [
             "直观想象",
             "数学运算",
             "逻辑推理",
             "数学抽象",
-            "数学语言",
-            "数学建模"
+            "数学建模",
+            "数据分析"
           ],
           "itemTypeTags": [
             "函数图像",
             "计算求解",
             "综合压轴题",
-            "概念辨析",
-            "证明推理",
-            "建模应用"
+            "课堂导入",
+            "概念讲解",
+            "例题讲评"
           ],
           "generationGuidance": [
             "Generate graph tasks involving amplitude, period, phase shift, symmetry, and value reading from newly authored parameters.",
             "Use unit-circle reasoning to connect signs, special angles, and identities.",
             "For exam practice, combine graph transformation with equation solving or parameter identification.",
-            "Generate new angle combinations and expression forms that require choosing an identity strategically.",
-            "Pair symbolic transformation with interval, sign, or graph interpretation.",
-            "Avoid source formula-layout patterns by varying the target expression and required reasoning.",
-            "Create tasks that ask students to classify membership, subset relations, union, intersection, complement, and empty-set edge cases.",
-            "Use new mathematical or everyday categories instead of textbook examples."
+            "Use this teacher-resource layer to calibrate lesson sequence, explanation depth, classroom pacing, board-work structure, formative checks, and review transitions.",
+            "Prefer newly authored worked examples and checkpoint questions that match the observed chapter coverage but use fresh values, contexts, diagrams, and solution paths.",
+            "Treat the dominant resource mix (lesson-plan、guided-learning-sheet、courseware、lecture-notes、practice-set) as a planning signal only; do not reuse source lesson wording or slide layout.",
+            "When generating lessons, separate teacher-facing pedagogy from student-facing concise explanations, and run normal S18/S09/S05 review before release.",
+            "Generate new angle combinations and expression forms that require choosing an identity strategically."
           ]
         }
       },
@@ -1459,7 +1465,7 @@
             "能识别至少两个常见误区，并用检验步骤修正答案。"
           ],
           "prerequisiteWarmUp": "用 3 分钟写出本节的已知对象、限制条件和目标。三角函数把角度、单位圆坐标和周期图像连接起来。",
-          "conceptExplanation": "学习三角函数图像时，要同时看振幅、周期、相位移动和对称性。例如 \\(y=A\\sin(\\omega x+\\varphi)+b\\) 的周期是 \\(\\frac{2\\pi}{|\\omega|}\\)。 本节重点素养：直观想象、数学运算、逻辑推理、数学抽象、数学语言、数学建模。",
+          "conceptExplanation": "学习三角函数图像时，要同时看振幅、周期、相位移动和对称性。例如 \\(y=A\\sin(\\omega x+\\varphi)+b\\) 的周期是 \\(\\frac{2\\pi}{|\\omega|}\\)。 本节重点素养：直观想象、数学运算、逻辑推理、数学抽象、数学建模、数据分析。",
           "workedExamples": [
             {
               "title": "例 1",
@@ -1508,7 +1514,7 @@
             "Identify at least two common pitfalls and use checking steps to correct answers."
           ],
           "prerequisiteWarmUp": "Spend 3 minutes writing the mathematical objects, restrictions, and target for the lesson. Trigonometric functions connect angle measure, unit-circle coordinates, and periodic graphs.",
-          "conceptExplanation": "When studying trigonometric graphs, track amplitude, period, phase shift, and symmetry. For \\(y=A\\sin(\\omega x+\\varphi)+b\\), the period is \\(\\frac{2\\pi}{|\\omega|}\\). Competency focus: spatial and visual reasoning, mathematical operations, logical reasoning, mathematical abstraction, mathematical language, mathematical modeling.",
+          "conceptExplanation": "When studying trigonometric graphs, track amplitude, period, phase shift, and symmetry. For \\(y=A\\sin(\\omega x+\\varphi)+b\\), the period is \\(\\frac{2\\pi}{|\\omega|}\\). Competency focus: spatial and visual reasoning, mathematical operations, logical reasoning, mathematical abstraction, mathematical modeling, data analysis.",
           "workedExamples": [
             {
               "title": "Example 1",
@@ -1569,8 +1575,8 @@
           },
           {
             "section": "concept",
-            "zhHans": "学习三角函数图像时，要同时看振幅、周期、相位移动和对称性。例如 \\(y=A\\sin(\\omega x+\\varphi)+b\\) 的周期是 \\(\\frac{2\\pi}{|\\omega|}\\)。 本节重点素养：直观想象、数学运算、逻辑推理、数学抽象、数学语言、数学建模。",
-            "en": "When studying trigonometric graphs, track amplitude, period, phase shift, and symmetry. For \\(y=A\\sin(\\omega x+\\varphi)+b\\), the period is \\(\\frac{2\\pi}{|\\omega|}\\). Competency focus: spatial and visual reasoning, mathematical operations, logical reasoning, mathematical abstraction, mathematical language, mathematical modeling."
+            "zhHans": "学习三角函数图像时，要同时看振幅、周期、相位移动和对称性。例如 \\(y=A\\sin(\\omega x+\\varphi)+b\\) 的周期是 \\(\\frac{2\\pi}{|\\omega|}\\)。 本节重点素养：直观想象、数学运算、逻辑推理、数学抽象、数学建模、数据分析。",
+            "en": "When studying trigonometric graphs, track amplitude, period, phase shift, and symmetry. For \\(y=A\\sin(\\omega x+\\varphi)+b\\), the period is \\(\\frac{2\\pi}{|\\omega|}\\). Competency focus: spatial and visual reasoning, mathematical operations, logical reasoning, mathematical abstraction, mathematical modeling, data analysis."
           },
           {
             "section": "worked-example-1",
@@ -1601,16 +1607,16 @@
       },
       "teacherReviewerNotes": {
         "curriculumAlignment": {
-          "zhHans": "围绕三角函数生成，证据来自安全 RAG 卡 pep-high-trigonometric-functions、pep-high-trigonometric-identities-transformations、pep-high-sets-logic、pep-high-quadratic-inequalities、pep-high-function-concepts-properties、pep-high-exponential-logarithmic-functions、pep-high-solid-geometry-intro、pep-high-probability。",
-          "en": "Generated around 三角函数 using safe RAG cards pep-high-trigonometric-functions, pep-high-trigonometric-identities-transformations, pep-high-sets-logic, pep-high-quadratic-inequalities, pep-high-function-concepts-properties, pep-high-exponential-logarithmic-functions, pep-high-solid-geometry-intro, pep-high-probability."
+          "zhHans": "围绕三角函数生成，证据来自安全 RAG 卡 pep-high-trigonometric-functions、pep-high-teacher-resources-compulsory-1、pep-high-trigonometric-identities-transformations、pep-high-teacher-resources-compulsory-2、pep-high-sets-logic、pep-high-quadratic-inequalities、pep-high-exponential-logarithmic-functions。",
+          "en": "Generated around 三角函数 using safe RAG cards pep-high-trigonometric-functions, pep-high-teacher-resources-compulsory-1, pep-high-trigonometric-identities-transformations, pep-high-teacher-resources-compulsory-2, pep-high-sets-logic, pep-high-quadratic-inequalities, pep-high-exponential-logarithmic-functions."
         },
         "misconceptionTargets": [
           "degree-radian confusion",
           "period formula error",
           "phase shift sign reversed",
-          "identity applied with wrong sign",
-          "angle range ignored",
-          "graph transformation separated from algebra"
+          "lesson sequence too close to source package",
+          "example wording copied instead of re-authored",
+          "teacher-only activity exposed as student answer text"
         ],
         "verificationChecklist": [
           {
@@ -1694,12 +1700,11 @@
           "ragCardIds": [
             "pep-high-plane-vectors",
             "pep-high-sine-cosine-theorems",
+            "pep-high-teacher-resources-compulsory-1",
+            "pep-high-teacher-resources-compulsory-2",
             "pep-high-sets-logic",
             "pep-high-quadratic-inequalities",
-            "pep-high-function-concepts-properties",
-            "pep-high-exponential-logarithmic-functions",
-            "pep-high-trigonometric-functions",
-            "pep-high-solid-geometry-intro"
+            "pep-high-exponential-logarithmic-functions"
           ],
           "examPatternCardIds": [
             "pep-high-exam-sine-cosine-vector-applications",
@@ -1717,31 +1722,32 @@
             "sine-theorem",
             "cosine-theorem",
             "triangle-modeling",
-            "sets",
-            "set-operations",
+            "basic-inequality",
+            "discrete-distributions",
+            "exponential-functions",
+            "function-definition",
+            "function-zero",
+            "line-equations",
+            "logarithmic-functions",
             "logic-conditions",
-            "quantifiers",
             "quadratic-functions",
+            "quantifiers",
+            "sets",
+            "sine-cosine-theorem",
+            "trigonometric-functions",
+            "trigonometric-identities",
+            "complex-numbers",
+            "correlation",
+            "independence-test",
+            "permutations-combinations",
+            "probability-foundations",
+            "solid-geometry",
+            "statistics",
+            "set-operations",
             "quadratic-equations",
             "quadratic-inequalities",
-            "basic-inequality",
-            "function-definition",
-            "domain-range",
-            "monotonicity",
-            "parity",
-            "function-applications",
-            "exponential-functions",
-            "logarithmic-functions",
             "inverse-functions",
-            "function-modeling",
-            "unit-circle",
-            "trigonometric-functions",
-            "trigonometric-graphs",
-            "trigonometric-identities",
-            "solid-geometry",
-            "spatial-lines-planes",
-            "parallel-perpendicular",
-            "surface-volume"
+            "function-modeling"
           ],
           "competencyTags": [
             "直观想象",
@@ -1749,15 +1755,15 @@
             "数学建模",
             "数学抽象",
             "逻辑推理",
-            "数学语言"
+            "数据分析"
           ],
           "itemTypeTags": [
             "计算求解",
             "证明推理",
             "建模应用",
-            "概念辨析",
-            "函数图像",
-            "综合压轴题"
+            "课堂导入",
+            "概念讲解",
+            "例题讲评"
           ],
           "generationGuidance": [
             "Create original coordinate-vector tasks requiring decomposition, dot product, angle, projection, or collinearity checks.",
@@ -1766,8 +1772,8 @@
             "Create original triangle configurations with new side, angle, bearing, height, or distance constraints.",
             "Ask students to choose between sine theorem, cosine theorem, vector reasoning, or area relation.",
             "Include a short interpretation step when the problem is embedded in a measurement context.",
-            "Create tasks that ask students to classify membership, subset relations, union, intersection, complement, and empty-set edge cases.",
-            "Use new mathematical or everyday categories instead of textbook examples."
+            "Use this teacher-resource layer to calibrate lesson sequence, explanation depth, classroom pacing, board-work structure, formative checks, and review transitions.",
+            "Prefer newly authored worked examples and checkpoint questions that match the observed chapter coverage but use fresh values, contexts, diagrams, and solution paths."
           ]
         }
       },
@@ -1783,7 +1789,7 @@
             "能识别至少两个常见误区，并用检验步骤修正答案。"
           ],
           "prerequisiteWarmUp": "用 3 分钟写出本节的已知对象、限制条件和目标。向量同时记录长度和方向，适合把几何关系变成运算。",
-          "conceptExplanation": "平面向量可以用坐标表示。数量积 \\(\\vec a\\cdot\\vec b=|\\vec a||\\vec b|\\cos\\theta\\) 连接角度、投影和垂直关系。 本节重点素养：直观想象、数学运算、数学建模、数学抽象、逻辑推理、数学语言。",
+          "conceptExplanation": "平面向量可以用坐标表示。数量积 \\(\\vec a\\cdot\\vec b=|\\vec a||\\vec b|\\cos\\theta\\) 连接角度、投影和垂直关系。 本节重点素养：直观想象、数学运算、数学建模、数学抽象、逻辑推理、数据分析。",
           "workedExamples": [
             {
               "title": "例 1",
@@ -1832,7 +1838,7 @@
             "Identify at least two common pitfalls and use checking steps to correct answers."
           ],
           "prerequisiteWarmUp": "Spend 3 minutes writing the mathematical objects, restrictions, and target for the lesson. Vectors record both magnitude and direction, turning geometric relations into computation.",
-          "conceptExplanation": "Plane vectors can be represented by coordinates. The dot product \\(\\vec a\\cdot\\vec b=|\\vec a||\\vec b|\\cos\\theta\\) connects angles, projections, and perpendicularity. Competency focus: spatial and visual reasoning, mathematical operations, mathematical modeling, mathematical abstraction, logical reasoning, mathematical language.",
+          "conceptExplanation": "Plane vectors can be represented by coordinates. The dot product \\(\\vec a\\cdot\\vec b=|\\vec a||\\vec b|\\cos\\theta\\) connects angles, projections, and perpendicularity. Competency focus: spatial and visual reasoning, mathematical operations, mathematical modeling, mathematical abstraction, logical reasoning, data analysis.",
           "workedExamples": [
             {
               "title": "Example 1",
@@ -1893,8 +1899,8 @@
           },
           {
             "section": "concept",
-            "zhHans": "平面向量可以用坐标表示。数量积 \\(\\vec a\\cdot\\vec b=|\\vec a||\\vec b|\\cos\\theta\\) 连接角度、投影和垂直关系。 本节重点素养：直观想象、数学运算、数学建模、数学抽象、逻辑推理、数学语言。",
-            "en": "Plane vectors can be represented by coordinates. The dot product \\(\\vec a\\cdot\\vec b=|\\vec a||\\vec b|\\cos\\theta\\) connects angles, projections, and perpendicularity. Competency focus: spatial and visual reasoning, mathematical operations, mathematical modeling, mathematical abstraction, logical reasoning, mathematical language."
+            "zhHans": "平面向量可以用坐标表示。数量积 \\(\\vec a\\cdot\\vec b=|\\vec a||\\vec b|\\cos\\theta\\) 连接角度、投影和垂直关系。 本节重点素养：直观想象、数学运算、数学建模、数学抽象、逻辑推理、数据分析。",
+            "en": "Plane vectors can be represented by coordinates. The dot product \\(\\vec a\\cdot\\vec b=|\\vec a||\\vec b|\\cos\\theta\\) connects angles, projections, and perpendicularity. Competency focus: spatial and visual reasoning, mathematical operations, mathematical modeling, mathematical abstraction, logical reasoning, data analysis."
           },
           {
             "section": "worked-example-1",
@@ -1925,8 +1931,8 @@
       },
       "teacherReviewerNotes": {
         "curriculumAlignment": {
-          "zhHans": "围绕平面向量及其应用生成，证据来自安全 RAG 卡 pep-high-plane-vectors、pep-high-sine-cosine-theorems、pep-high-sets-logic、pep-high-quadratic-inequalities、pep-high-function-concepts-properties、pep-high-exponential-logarithmic-functions、pep-high-trigonometric-functions、pep-high-solid-geometry-intro。",
-          "en": "Generated around 平面向量及其应用 using safe RAG cards pep-high-plane-vectors, pep-high-sine-cosine-theorems, pep-high-sets-logic, pep-high-quadratic-inequalities, pep-high-function-concepts-properties, pep-high-exponential-logarithmic-functions, pep-high-trigonometric-functions, pep-high-solid-geometry-intro."
+          "zhHans": "围绕平面向量及其应用生成，证据来自安全 RAG 卡 pep-high-plane-vectors、pep-high-sine-cosine-theorems、pep-high-teacher-resources-compulsory-1、pep-high-teacher-resources-compulsory-2、pep-high-sets-logic、pep-high-quadratic-inequalities、pep-high-exponential-logarithmic-functions。",
+          "en": "Generated around 平面向量及其应用 using safe RAG cards pep-high-plane-vectors, pep-high-sine-cosine-theorems, pep-high-teacher-resources-compulsory-1, pep-high-teacher-resources-compulsory-2, pep-high-sets-logic, pep-high-quadratic-inequalities, pep-high-exponential-logarithmic-functions."
         },
         "misconceptionTargets": [
           "vector direction ignored",
@@ -2017,13 +2023,13 @@
           },
           "ragCardIds": [
             "pep-high-complex-numbers",
+            "pep-high-teacher-resources-compulsory-2",
             "pep-high-sets-logic",
             "pep-high-quadratic-inequalities",
             "pep-high-function-concepts-properties",
             "pep-high-exponential-logarithmic-functions",
             "pep-high-trigonometric-functions",
-            "pep-high-solid-geometry-intro",
-            "pep-high-probability"
+            "pep-high-solid-geometry-intro"
           ],
           "examPatternCardIds": [
             "pep-high-exam-trigonometric-graphs",
@@ -2038,61 +2044,66 @@
             "complex-operations",
             "complex-plane",
             "complex-roots",
-            "sets",
-            "set-operations",
+            "basic-inequality",
+            "correlation",
+            "discrete-distributions",
+            "exponential-functions",
+            "function-definition",
+            "independence-test",
+            "line-equations",
+            "logarithmic-functions",
             "logic-conditions",
-            "quantifiers",
+            "permutations-combinations",
+            "plane-vectors",
+            "probability-foundations",
             "quadratic-functions",
+            "sets",
+            "sine-cosine-theorem",
+            "solid-geometry",
+            "statistics",
+            "trigonometric-functions",
+            "set-operations",
+            "quantifiers",
             "quadratic-equations",
             "quadratic-inequalities",
-            "basic-inequality",
-            "function-definition",
             "domain-range",
             "monotonicity",
             "parity",
             "function-applications",
-            "exponential-functions",
-            "logarithmic-functions",
             "inverse-functions",
             "function-modeling",
             "unit-circle",
-            "trigonometric-functions",
             "trigonometric-graphs",
             "trigonometric-identities",
-            "solid-geometry",
             "spatial-lines-planes",
             "parallel-perpendicular",
-            "surface-volume",
-            "probability-foundations",
-            "random-events",
-            "probability-operations",
-            "simulation"
+            "surface-volume"
           ],
           "competencyTags": [
             "数学抽象",
             "数学运算",
             "直观想象",
             "逻辑推理",
-            "数学语言",
-            "数学建模"
+            "数学建模",
+            "数据分析"
           ],
           "itemTypeTags": [
             "概念辨析",
             "计算求解",
-            "证明推理",
-            "函数图像",
-            "综合压轴题",
-            "建模应用"
+            "课堂导入",
+            "概念讲解",
+            "例题讲评",
+            "分层练习"
           ],
           "generationGuidance": [
             "Ask learners to identify real and imaginary parts, perform operations, and interpret points on the complex plane.",
             "Use fresh values for conjugate, modulus, argument, and equation-root tasks.",
             "Connect algebraic simplification with geometric meaning without reusing textbook diagrams.",
-            "Create tasks that ask students to classify membership, subset relations, union, intersection, complement, and empty-set edge cases.",
-            "Use new mathematical or everyday categories instead of textbook examples.",
-            "For logic questions, require students to distinguish sufficient, necessary, necessary and sufficient, and neither.",
-            "Generate original coefficient sets and ask learners to connect discriminant, roots, sign intervals, and graph position.",
-            "Include comparison tasks where a quadratic model determines a valid range, threshold, or optimization condition."
+            "Use this teacher-resource layer to calibrate lesson sequence, explanation depth, classroom pacing, board-work structure, formative checks, and review transitions.",
+            "Prefer newly authored worked examples and checkpoint questions that match the observed chapter coverage but use fresh values, contexts, diagrams, and solution paths.",
+            "Treat the dominant resource mix (lecture-notes、courseware、lesson-plan、guided-learning-sheet、practice-set) as a planning signal only; do not reuse source lesson wording or slide layout.",
+            "When generating lessons, separate teacher-facing pedagogy from student-facing concise explanations, and run normal S18/S09/S05 review before release.",
+            "Create tasks that ask students to classify membership, subset relations, union, intersection, complement, and empty-set edge cases."
           ]
         }
       },
@@ -2108,7 +2119,7 @@
             "能识别至少两个常见误区，并用检验步骤修正答案。"
           ],
           "prerequisiteWarmUp": "用 3 分钟写出本节的已知对象、限制条件和目标。复数把数轴扩展成平面，运算也能看成几何移动。",
-          "conceptExplanation": "复数 \\(z=a+bi\\) 的实部是 \\(a\\)，虚部是 \\(b\\)；模为 \\(|z|=\\sqrt{a^2+b^2}\\)，共轭为 \\(\\bar z=a-bi\\)。 本节重点素养：数学抽象、数学运算、直观想象、逻辑推理、数学语言、数学建模。",
+          "conceptExplanation": "复数 \\(z=a+bi\\) 的实部是 \\(a\\)，虚部是 \\(b\\)；模为 \\(|z|=\\sqrt{a^2+b^2}\\)，共轭为 \\(\\bar z=a-bi\\)。 本节重点素养：数学抽象、数学运算、直观想象、逻辑推理、数学建模、数据分析。",
           "workedExamples": [
             {
               "title": "例 1",
@@ -2157,7 +2168,7 @@
             "Identify at least two common pitfalls and use checking steps to correct answers."
           ],
           "prerequisiteWarmUp": "Spend 3 minutes writing the mathematical objects, restrictions, and target for the lesson. Complex numbers extend the number line to a plane, where operations can also carry geometric meaning.",
-          "conceptExplanation": "For \\(z=a+bi\\), the real part is \\(a\\), the imaginary part is \\(b\\), the modulus is \\(|z|=\\sqrt{a^2+b^2}\\), and the conjugate is \\(\\bar z=a-bi\\). Competency focus: mathematical abstraction, mathematical operations, spatial and visual reasoning, logical reasoning, mathematical language, mathematical modeling.",
+          "conceptExplanation": "For \\(z=a+bi\\), the real part is \\(a\\), the imaginary part is \\(b\\), the modulus is \\(|z|=\\sqrt{a^2+b^2}\\), and the conjugate is \\(\\bar z=a-bi\\). Competency focus: mathematical abstraction, mathematical operations, spatial and visual reasoning, logical reasoning, mathematical modeling, data analysis.",
           "workedExamples": [
             {
               "title": "Example 1",
@@ -2218,8 +2229,8 @@
           },
           {
             "section": "concept",
-            "zhHans": "复数 \\(z=a+bi\\) 的实部是 \\(a\\)，虚部是 \\(b\\)；模为 \\(|z|=\\sqrt{a^2+b^2}\\)，共轭为 \\(\\bar z=a-bi\\)。 本节重点素养：数学抽象、数学运算、直观想象、逻辑推理、数学语言、数学建模。",
-            "en": "For \\(z=a+bi\\), the real part is \\(a\\), the imaginary part is \\(b\\), the modulus is \\(|z|=\\sqrt{a^2+b^2}\\), and the conjugate is \\(\\bar z=a-bi\\). Competency focus: mathematical abstraction, mathematical operations, spatial and visual reasoning, logical reasoning, mathematical language, mathematical modeling."
+            "zhHans": "复数 \\(z=a+bi\\) 的实部是 \\(a\\)，虚部是 \\(b\\)；模为 \\(|z|=\\sqrt{a^2+b^2}\\)，共轭为 \\(\\bar z=a-bi\\)。 本节重点素养：数学抽象、数学运算、直观想象、逻辑推理、数学建模、数据分析。",
+            "en": "For \\(z=a+bi\\), the real part is \\(a\\), the imaginary part is \\(b\\), the modulus is \\(|z|=\\sqrt{a^2+b^2}\\), and the conjugate is \\(\\bar z=a-bi\\). Competency focus: mathematical abstraction, mathematical operations, spatial and visual reasoning, logical reasoning, mathematical modeling, data analysis."
           },
           {
             "section": "worked-example-1",
@@ -2250,16 +2261,16 @@
       },
       "teacherReviewerNotes": {
         "curriculumAlignment": {
-          "zhHans": "围绕复数生成，证据来自安全 RAG 卡 pep-high-complex-numbers、pep-high-sets-logic、pep-high-quadratic-inequalities、pep-high-function-concepts-properties、pep-high-exponential-logarithmic-functions、pep-high-trigonometric-functions、pep-high-solid-geometry-intro、pep-high-probability。",
-          "en": "Generated around 复数 using safe RAG cards pep-high-complex-numbers, pep-high-sets-logic, pep-high-quadratic-inequalities, pep-high-function-concepts-properties, pep-high-exponential-logarithmic-functions, pep-high-trigonometric-functions, pep-high-solid-geometry-intro, pep-high-probability."
+          "zhHans": "围绕复数生成，证据来自安全 RAG 卡 pep-high-complex-numbers、pep-high-teacher-resources-compulsory-2、pep-high-sets-logic、pep-high-quadratic-inequalities、pep-high-function-concepts-properties、pep-high-exponential-logarithmic-functions、pep-high-trigonometric-functions、pep-high-solid-geometry-intro。",
+          "en": "Generated around 复数 using safe RAG cards pep-high-complex-numbers, pep-high-teacher-resources-compulsory-2, pep-high-sets-logic, pep-high-quadratic-inequalities, pep-high-function-concepts-properties, pep-high-exponential-logarithmic-functions, pep-high-trigonometric-functions, pep-high-solid-geometry-intro."
         },
         "misconceptionTargets": [
           "imaginary unit power cycle error",
           "conjugate sign error",
           "modulus confused with real part",
-          "confusing element and subset",
-          "forgetting universe set",
-          "reversing sufficient and necessary conditions"
+          "lesson sequence too close to source package",
+          "example wording copied instead of re-authored",
+          "teacher-only activity exposed as student answer text"
         ],
         "verificationChecklist": [
           {
@@ -2342,13 +2353,13 @@
           },
           "ragCardIds": [
             "pep-high-solid-geometry-intro",
+            "pep-high-teacher-resources-compulsory-2",
             "pep-high-sets-logic",
             "pep-high-quadratic-inequalities",
             "pep-high-function-concepts-properties",
             "pep-high-exponential-logarithmic-functions",
             "pep-high-trigonometric-functions",
-            "pep-high-probability",
-            "pep-high-function-zero-modeling"
+            "pep-high-probability"
           ],
           "examPatternCardIds": [
             "pep-high-exam-trigonometric-graphs",
@@ -2363,60 +2374,66 @@
             "spatial-lines-planes",
             "parallel-perpendicular",
             "surface-volume",
-            "sets",
-            "set-operations",
+            "basic-inequality",
+            "complex-numbers",
+            "correlation",
+            "discrete-distributions",
+            "exponential-functions",
+            "function-definition",
+            "independence-test",
+            "line-equations",
+            "logarithmic-functions",
             "logic-conditions",
-            "quantifiers",
+            "permutations-combinations",
+            "plane-vectors",
+            "probability-foundations",
             "quadratic-functions",
+            "sets",
+            "sine-cosine-theorem",
+            "statistics",
+            "trigonometric-functions",
+            "set-operations",
+            "quantifiers",
             "quadratic-equations",
             "quadratic-inequalities",
-            "basic-inequality",
-            "function-definition",
             "domain-range",
             "monotonicity",
             "parity",
             "function-applications",
-            "exponential-functions",
-            "logarithmic-functions",
             "inverse-functions",
             "function-modeling",
             "unit-circle",
-            "trigonometric-functions",
             "trigonometric-graphs",
             "trigonometric-identities",
-            "probability-foundations",
             "random-events",
             "probability-operations",
-            "simulation",
-            "function-zero",
-            "bisection-method",
-            "growth-comparison"
+            "simulation"
           ],
           "competencyTags": [
             "直观想象",
             "逻辑推理",
             "数学运算",
             "数学抽象",
-            "数学语言",
-            "数学建模"
+            "数学建模",
+            "数据分析"
           ],
           "itemTypeTags": [
             "证明推理",
             "计算求解",
             "函数图像",
-            "概念辨析",
-            "综合压轴题",
-            "建模应用"
+            "课堂导入",
+            "概念讲解",
+            "例题讲评"
           ],
           "generationGuidance": [
             "Generate new solids or line-plane configurations for parallel, perpendicular, angle, distance, surface-area, or volume reasoning.",
             "Ask students to explain why a spatial relation follows from definitions or known criteria.",
             "For visual tasks, describe diagrams in original language and avoid source page figures.",
-            "Create tasks that ask students to classify membership, subset relations, union, intersection, complement, and empty-set edge cases.",
-            "Use new mathematical or everyday categories instead of textbook examples.",
-            "For logic questions, require students to distinguish sufficient, necessary, necessary and sufficient, and neither.",
-            "Generate original coefficient sets and ask learners to connect discriminant, roots, sign intervals, and graph position.",
-            "Include comparison tasks where a quadratic model determines a valid range, threshold, or optimization condition."
+            "Use this teacher-resource layer to calibrate lesson sequence, explanation depth, classroom pacing, board-work structure, formative checks, and review transitions.",
+            "Prefer newly authored worked examples and checkpoint questions that match the observed chapter coverage but use fresh values, contexts, diagrams, and solution paths.",
+            "Treat the dominant resource mix (lecture-notes、courseware、lesson-plan、guided-learning-sheet、practice-set) as a planning signal only; do not reuse source lesson wording or slide layout.",
+            "When generating lessons, separate teacher-facing pedagogy from student-facing concise explanations, and run normal S18/S09/S05 review before release.",
+            "Create tasks that ask students to classify membership, subset relations, union, intersection, complement, and empty-set edge cases."
           ]
         }
       },
@@ -2432,7 +2449,7 @@
             "能识别至少两个常见误区，并用检验步骤修正答案。"
           ],
           "prerequisiteWarmUp": "用 3 分钟写出本节的已知对象、限制条件和目标。立体几何不能只相信图像，要把空间关系用判定定理说清楚。",
-          "conceptExplanation": "空间中的平行、垂直、角和距离需要借助线面关系、平面性质和几何体结构来判断。计算表面积和体积时要先识别底面与高。 本节重点素养：直观想象、逻辑推理、数学运算、数学抽象、数学语言、数学建模。",
+          "conceptExplanation": "空间中的平行、垂直、角和距离需要借助线面关系、平面性质和几何体结构来判断。计算表面积和体积时要先识别底面与高。 本节重点素养：直观想象、逻辑推理、数学运算、数学抽象、数学建模、数据分析。",
           "workedExamples": [
             {
               "title": "例 1",
@@ -2481,7 +2498,7 @@
             "Identify at least two common pitfalls and use checking steps to correct answers."
           ],
           "prerequisiteWarmUp": "Spend 3 minutes writing the mathematical objects, restrictions, and target for the lesson. In solid geometry, diagrams are clues, but spatial relations must be justified by criteria.",
-          "conceptExplanation": "Parallelism, perpendicularity, angles, and distances in space rely on line-plane relations, plane properties, and solid structure. For surface area and volume, identify the base and height first. Competency focus: spatial and visual reasoning, logical reasoning, mathematical operations, mathematical abstraction, mathematical language, mathematical modeling.",
+          "conceptExplanation": "Parallelism, perpendicularity, angles, and distances in space rely on line-plane relations, plane properties, and solid structure. For surface area and volume, identify the base and height first. Competency focus: spatial and visual reasoning, logical reasoning, mathematical operations, mathematical abstraction, mathematical modeling, data analysis.",
           "workedExamples": [
             {
               "title": "Example 1",
@@ -2542,8 +2559,8 @@
           },
           {
             "section": "concept",
-            "zhHans": "空间中的平行、垂直、角和距离需要借助线面关系、平面性质和几何体结构来判断。计算表面积和体积时要先识别底面与高。 本节重点素养：直观想象、逻辑推理、数学运算、数学抽象、数学语言、数学建模。",
-            "en": "Parallelism, perpendicularity, angles, and distances in space rely on line-plane relations, plane properties, and solid structure. For surface area and volume, identify the base and height first. Competency focus: spatial and visual reasoning, logical reasoning, mathematical operations, mathematical abstraction, mathematical language, mathematical modeling."
+            "zhHans": "空间中的平行、垂直、角和距离需要借助线面关系、平面性质和几何体结构来判断。计算表面积和体积时要先识别底面与高。 本节重点素养：直观想象、逻辑推理、数学运算、数学抽象、数学建模、数据分析。",
+            "en": "Parallelism, perpendicularity, angles, and distances in space rely on line-plane relations, plane properties, and solid structure. For surface area and volume, identify the base and height first. Competency focus: spatial and visual reasoning, logical reasoning, mathematical operations, mathematical abstraction, mathematical modeling, data analysis."
           },
           {
             "section": "worked-example-1",
@@ -2574,16 +2591,16 @@
       },
       "teacherReviewerNotes": {
         "curriculumAlignment": {
-          "zhHans": "围绕立体几何初步生成，证据来自安全 RAG 卡 pep-high-solid-geometry-intro、pep-high-sets-logic、pep-high-quadratic-inequalities、pep-high-function-concepts-properties、pep-high-exponential-logarithmic-functions、pep-high-trigonometric-functions、pep-high-probability、pep-high-function-zero-modeling。",
-          "en": "Generated around 立体几何初步 using safe RAG cards pep-high-solid-geometry-intro, pep-high-sets-logic, pep-high-quadratic-inequalities, pep-high-function-concepts-properties, pep-high-exponential-logarithmic-functions, pep-high-trigonometric-functions, pep-high-probability, pep-high-function-zero-modeling."
+          "zhHans": "围绕立体几何初步生成，证据来自安全 RAG 卡 pep-high-solid-geometry-intro、pep-high-teacher-resources-compulsory-2、pep-high-sets-logic、pep-high-quadratic-inequalities、pep-high-function-concepts-properties、pep-high-exponential-logarithmic-functions、pep-high-trigonometric-functions、pep-high-probability。",
+          "en": "Generated around 立体几何初步 using safe RAG cards pep-high-solid-geometry-intro, pep-high-teacher-resources-compulsory-2, pep-high-sets-logic, pep-high-quadratic-inequalities, pep-high-function-concepts-properties, pep-high-exponential-logarithmic-functions, pep-high-trigonometric-functions, pep-high-probability."
         },
         "misconceptionTargets": [
           "plane relation inferred from drawing only",
           "parallel criterion incomplete",
           "surface and volume formula mixed",
-          "confusing element and subset",
-          "forgetting universe set",
-          "reversing sufficient and necessary conditions"
+          "lesson sequence too close to source package",
+          "example wording copied instead of re-authored",
+          "teacher-only activity exposed as student answer text"
         ],
         "verificationChecklist": [
           {
@@ -2985,9 +3002,9 @@
             "pep-high-probability-event-operations",
             "pep-high-statistics",
             "pep-high-statistics-sampling-estimation",
+            "pep-high-teacher-resources-compulsory-2",
             "pep-high-sets-logic",
-            "pep-high-quadratic-inequalities",
-            "pep-high-exponential-logarithmic-functions"
+            "pep-high-quadratic-inequalities"
           ],
           "examPatternCardIds": [
             "pep-high-exam-probability-statistics",
@@ -3011,18 +3028,28 @@
             "stratified-sampling",
             "percentiles",
             "mean-variance",
-            "sets",
-            "set-operations",
-            "logic-conditions",
-            "quantifiers",
-            "quadratic-functions",
-            "quadratic-equations",
-            "quadratic-inequalities",
             "basic-inequality",
+            "complex-numbers",
+            "correlation",
+            "discrete-distributions",
             "exponential-functions",
+            "function-definition",
+            "independence-test",
+            "line-equations",
             "logarithmic-functions",
-            "inverse-functions",
-            "function-modeling"
+            "logic-conditions",
+            "permutations-combinations",
+            "plane-vectors",
+            "quadratic-functions",
+            "sets",
+            "sine-cosine-theorem",
+            "solid-geometry",
+            "statistics",
+            "trigonometric-functions",
+            "set-operations",
+            "quantifiers",
+            "quadratic-equations",
+            "quadratic-inequalities"
           ],
           "competencyTags": [
             "数据分析",
@@ -3030,15 +3057,15 @@
             "数学建模",
             "应用意识",
             "数学抽象",
-            "数学语言"
+            "数学运算"
           ],
           "itemTypeTags": [
             "统计概率情境题",
             "计算求解",
             "概念辨析",
             "建模应用",
-            "证明推理",
-            "函数图像"
+            "课堂导入",
+            "概念讲解"
           ],
           "generationGuidance": [
             "Design new random experiments and ask for sample space, event relation, probability, or frequency interpretation.",
@@ -3064,7 +3091,7 @@
             "能识别至少两个常见误区，并用检验步骤修正答案。"
           ],
           "prerequisiteWarmUp": "用 3 分钟写出本节的已知对象、限制条件和目标。概率帮助我们把随机事件的可能性用可计算的方式表达出来。",
-          "conceptExplanation": "概率题先列样本空间，再判断事件关系。互斥事件不能同时发生，对立事件既互斥又覆盖整个样本空间。 本节重点素养：数据分析、逻辑推理、数学建模、应用意识、数学抽象、数学语言。",
+          "conceptExplanation": "概率题先列样本空间，再判断事件关系。互斥事件不能同时发生，对立事件既互斥又覆盖整个样本空间。 本节重点素养：数据分析、逻辑推理、数学建模、应用意识、数学抽象、数学运算。",
           "workedExamples": [
             {
               "title": "例 1",
@@ -3113,7 +3140,7 @@
             "Identify at least two common pitfalls and use checking steps to correct answers."
           ],
           "prerequisiteWarmUp": "Spend 3 minutes writing the mathematical objects, restrictions, and target for the lesson. Probability gives a computable language for uncertainty in random events.",
-          "conceptExplanation": "Start probability items by listing the sample space, then classify event relations. Mutually exclusive events cannot happen together; complementary events are mutually exclusive and cover the whole sample space. Competency focus: data analysis, logical reasoning, mathematical modeling, application awareness, mathematical abstraction, mathematical language.",
+          "conceptExplanation": "Start probability items by listing the sample space, then classify event relations. Mutually exclusive events cannot happen together; complementary events are mutually exclusive and cover the whole sample space. Competency focus: data analysis, logical reasoning, mathematical modeling, application awareness, mathematical abstraction, mathematical operations.",
           "workedExamples": [
             {
               "title": "Example 1",
@@ -3174,8 +3201,8 @@
           },
           {
             "section": "concept",
-            "zhHans": "概率题先列样本空间，再判断事件关系。互斥事件不能同时发生，对立事件既互斥又覆盖整个样本空间。 本节重点素养：数据分析、逻辑推理、数学建模、应用意识、数学抽象、数学语言。",
-            "en": "Start probability items by listing the sample space, then classify event relations. Mutually exclusive events cannot happen together; complementary events are mutually exclusive and cover the whole sample space. Competency focus: data analysis, logical reasoning, mathematical modeling, application awareness, mathematical abstraction, mathematical language."
+            "zhHans": "概率题先列样本空间，再判断事件关系。互斥事件不能同时发生，对立事件既互斥又覆盖整个样本空间。 本节重点素养：数据分析、逻辑推理、数学建模、应用意识、数学抽象、数学运算。",
+            "en": "Start probability items by listing the sample space, then classify event relations. Mutually exclusive events cannot happen together; complementary events are mutually exclusive and cover the whole sample space. Competency focus: data analysis, logical reasoning, mathematical modeling, application awareness, mathematical abstraction, mathematical operations."
           },
           {
             "section": "worked-example-1",
@@ -3206,8 +3233,8 @@
       },
       "teacherReviewerNotes": {
         "curriculumAlignment": {
-          "zhHans": "围绕概率生成，证据来自安全 RAG 卡 pep-high-probability、pep-high-probability-event-operations、pep-high-statistics、pep-high-statistics-sampling-estimation、pep-high-sets-logic、pep-high-quadratic-inequalities、pep-high-exponential-logarithmic-functions。",
-          "en": "Generated around 概率 using safe RAG cards pep-high-probability, pep-high-probability-event-operations, pep-high-statistics, pep-high-statistics-sampling-estimation, pep-high-sets-logic, pep-high-quadratic-inequalities, pep-high-exponential-logarithmic-functions."
+          "zhHans": "围绕概率生成，证据来自安全 RAG 卡 pep-high-probability、pep-high-probability-event-operations、pep-high-statistics、pep-high-statistics-sampling-estimation、pep-high-teacher-resources-compulsory-2、pep-high-sets-logic、pep-high-quadratic-inequalities。",
+          "en": "Generated around 概率 using safe RAG cards pep-high-probability, pep-high-probability-event-operations, pep-high-statistics, pep-high-statistics-sampling-estimation, pep-high-teacher-resources-compulsory-2, pep-high-sets-logic, pep-high-quadratic-inequalities."
         },
         "misconceptionTargets": [
           "frequency equals exact probability",
@@ -3298,6 +3325,7 @@
           },
           "ragCardIds": [
             "pep-high-space-vectors-solid-geometry",
+            "pep-high-teacher-resources-selective-1",
             "pep-high-lines-circles",
             "pep-high-conic-sections"
           ],
@@ -3311,36 +3339,46 @@
             "spatial-coordinate-system",
             "line-plane-angle",
             "distance-in-space",
-            "analytic-geometry",
-            "line-equations",
+            "basic-inequality",
             "circle-equations",
-            "coordinate-method",
+            "conic-geometry",
+            "derivatives",
             "ellipse",
+            "function-definition",
             "hyperbola",
+            "line-equations",
+            "mathematical-induction",
             "parabola-conic",
-            "conic-geometry"
+            "quadratic-functions",
+            "sequences",
+            "solid-geometry",
+            "analytic-geometry",
+            "coordinate-method"
           ],
           "competencyTags": [
             "直观想象",
             "数学运算",
             "逻辑推理",
-            "数学抽象"
+            "数学抽象",
+            "数学建模"
           ],
           "itemTypeTags": [
             "证明推理",
             "计算求解",
             "综合压轴题",
-            "函数图像"
+            "课堂导入",
+            "概念讲解",
+            "例题讲评"
           ],
           "generationGuidance": [
             "Create original three-dimensional coordinate tasks involving direction vectors, normal vectors, angle, distance, and projection.",
             "Ask learners to translate a spatial diagram into vector equations before computing.",
             "Use new prism, pyramid, or coordinate configurations rather than textbook figures.",
-            "Generate new coordinate conditions for line slope, intercept, distance, tangent, chord, or circle center-radius reasoning.",
-            "Ask students to choose an equation form that fits the information given.",
-            "For integrated items, combine line-circle position with parameter constraints.",
-            "Create original conic tasks with newly chosen foci, directrix, eccentricity, chord, tangent, or parameter constraints.",
-            "Require students to connect definition, equation, graph features, and algebraic solution."
+            "Use this teacher-resource layer to calibrate lesson sequence, explanation depth, classroom pacing, board-work structure, formative checks, and review transitions.",
+            "Prefer newly authored worked examples and checkpoint questions that match the observed chapter coverage but use fresh values, contexts, diagrams, and solution paths.",
+            "Treat the dominant resource mix (lecture-notes、lesson-plan、courseware、guided-learning-sheet、practice-set) as a planning signal only; do not reuse source lesson wording or slide layout.",
+            "When generating lessons, separate teacher-facing pedagogy from student-facing concise explanations, and run normal S18/S09/S05 review before release.",
+            "Generate new coordinate conditions for line slope, intercept, distance, tangent, chord, or circle center-radius reasoning."
           ]
         }
       },
@@ -3356,7 +3394,7 @@
             "能识别至少两个常见误区，并用检验步骤修正答案。"
           ],
           "prerequisiteWarmUp": "用 3 分钟写出本节的已知对象、限制条件和目标。空间向量把看不清的立体关系变成坐标和方程。",
-          "conceptExplanation": "空间向量常用方向向量、法向量和数量积解决线线角、线面角、面面角与距离问题。 本节重点素养：直观想象、数学运算、逻辑推理、数学抽象。",
+          "conceptExplanation": "空间向量常用方向向量、法向量和数量积解决线线角、线面角、面面角与距离问题。 本节重点素养：直观想象、数学运算、逻辑推理、数学抽象、数学建模。",
           "workedExamples": [
             {
               "title": "例 1",
@@ -3405,7 +3443,7 @@
             "Identify at least two common pitfalls and use checking steps to correct answers."
           ],
           "prerequisiteWarmUp": "Spend 3 minutes writing the mathematical objects, restrictions, and target for the lesson. Space vectors turn hard-to-see spatial relations into coordinates and equations.",
-          "conceptExplanation": "Space vectors use direction vectors, normal vectors, and dot products to solve line-line angles, line-plane angles, dihedral angles, and distances. Competency focus: spatial and visual reasoning, mathematical operations, logical reasoning, mathematical abstraction.",
+          "conceptExplanation": "Space vectors use direction vectors, normal vectors, and dot products to solve line-line angles, line-plane angles, dihedral angles, and distances. Competency focus: spatial and visual reasoning, mathematical operations, logical reasoning, mathematical abstraction, mathematical modeling.",
           "workedExamples": [
             {
               "title": "Example 1",
@@ -3466,8 +3504,8 @@
           },
           {
             "section": "concept",
-            "zhHans": "空间向量常用方向向量、法向量和数量积解决线线角、线面角、面面角与距离问题。 本节重点素养：直观想象、数学运算、逻辑推理、数学抽象。",
-            "en": "Space vectors use direction vectors, normal vectors, and dot products to solve line-line angles, line-plane angles, dihedral angles, and distances. Competency focus: spatial and visual reasoning, mathematical operations, logical reasoning, mathematical abstraction."
+            "zhHans": "空间向量常用方向向量、法向量和数量积解决线线角、线面角、面面角与距离问题。 本节重点素养：直观想象、数学运算、逻辑推理、数学抽象、数学建模。",
+            "en": "Space vectors use direction vectors, normal vectors, and dot products to solve line-line angles, line-plane angles, dihedral angles, and distances. Competency focus: spatial and visual reasoning, mathematical operations, logical reasoning, mathematical abstraction, mathematical modeling."
           },
           {
             "section": "worked-example-1",
@@ -3498,16 +3536,16 @@
       },
       "teacherReviewerNotes": {
         "curriculumAlignment": {
-          "zhHans": "围绕空间向量与立体几何生成，证据来自安全 RAG 卡 pep-high-space-vectors-solid-geometry、pep-high-lines-circles、pep-high-conic-sections。",
-          "en": "Generated around 空间向量与立体几何 using safe RAG cards pep-high-space-vectors-solid-geometry, pep-high-lines-circles, pep-high-conic-sections."
+          "zhHans": "围绕空间向量与立体几何生成，证据来自安全 RAG 卡 pep-high-space-vectors-solid-geometry、pep-high-teacher-resources-selective-1、pep-high-lines-circles、pep-high-conic-sections。",
+          "en": "Generated around 空间向量与立体几何 using safe RAG cards pep-high-space-vectors-solid-geometry, pep-high-teacher-resources-selective-1, pep-high-lines-circles, pep-high-conic-sections."
         },
         "misconceptionTargets": [
           "normal vector chosen incorrectly",
           "angle complement error",
           "point-to-plane distance formula misuse",
-          "slope undefined case ignored",
-          "circle radius squared error",
-          "tangent distance condition missed"
+          "lesson sequence too close to source package",
+          "example wording copied instead of re-authored",
+          "teacher-only activity exposed as student answer text"
         ],
         "verificationChecklist": [
           {
@@ -3590,6 +3628,7 @@
           },
           "ragCardIds": [
             "pep-high-lines-circles",
+            "pep-high-teacher-resources-selective-1",
             "pep-high-space-vectors-solid-geometry",
             "pep-high-conic-sections"
           ],
@@ -3603,36 +3642,46 @@
             "line-equations",
             "circle-equations",
             "coordinate-method",
+            "basic-inequality",
+            "conic-geometry",
+            "derivatives",
+            "ellipse",
+            "function-definition",
+            "hyperbola",
+            "mathematical-induction",
+            "parabola-conic",
+            "quadratic-functions",
+            "sequences",
+            "solid-geometry",
             "space-vectors",
             "spatial-coordinate-system",
             "line-plane-angle",
-            "distance-in-space",
-            "ellipse",
-            "hyperbola",
-            "parabola-conic",
-            "conic-geometry"
+            "distance-in-space"
           ],
           "competencyTags": [
             "数学运算",
             "直观想象",
             "逻辑推理",
-            "数学抽象"
+            "数学抽象",
+            "数学建模"
           ],
           "itemTypeTags": [
             "计算求解",
             "函数图像",
             "证明推理",
-            "综合压轴题"
+            "课堂导入",
+            "概念讲解",
+            "例题讲评"
           ],
           "generationGuidance": [
             "Generate new coordinate conditions for line slope, intercept, distance, tangent, chord, or circle center-radius reasoning.",
             "Ask students to choose an equation form that fits the information given.",
             "For integrated items, combine line-circle position with parameter constraints.",
-            "Create original three-dimensional coordinate tasks involving direction vectors, normal vectors, angle, distance, and projection.",
-            "Ask learners to translate a spatial diagram into vector equations before computing.",
-            "Use new prism, pyramid, or coordinate configurations rather than textbook figures.",
-            "Create original conic tasks with newly chosen foci, directrix, eccentricity, chord, tangent, or parameter constraints.",
-            "Require students to connect definition, equation, graph features, and algebraic solution."
+            "Use this teacher-resource layer to calibrate lesson sequence, explanation depth, classroom pacing, board-work structure, formative checks, and review transitions.",
+            "Prefer newly authored worked examples and checkpoint questions that match the observed chapter coverage but use fresh values, contexts, diagrams, and solution paths.",
+            "Treat the dominant resource mix (lecture-notes、lesson-plan、courseware、guided-learning-sheet、practice-set) as a planning signal only; do not reuse source lesson wording or slide layout.",
+            "When generating lessons, separate teacher-facing pedagogy from student-facing concise explanations, and run normal S18/S09/S05 review before release.",
+            "Create original three-dimensional coordinate tasks involving direction vectors, normal vectors, angle, distance, and projection."
           ]
         }
       },
@@ -3648,7 +3697,7 @@
             "能识别至少两个常见误区，并用检验步骤修正答案。"
           ],
           "prerequisiteWarmUp": "用 3 分钟写出本节的已知对象、限制条件和目标。解析几何的核心，是把图形位置变成方程约束。",
-          "conceptExplanation": "直线可由斜率、点斜式、一般式表示；圆的标准方程 \\((x-a)^2+(y-b)^2=r^2\\) 表示圆心和半径。 本节重点素养：数学运算、直观想象、逻辑推理、数学抽象。",
+          "conceptExplanation": "直线可由斜率、点斜式、一般式表示；圆的标准方程 \\((x-a)^2+(y-b)^2=r^2\\) 表示圆心和半径。 本节重点素养：数学运算、直观想象、逻辑推理、数学抽象、数学建模。",
           "workedExamples": [
             {
               "title": "例 1",
@@ -3697,7 +3746,7 @@
             "Identify at least two common pitfalls and use checking steps to correct answers."
           ],
           "prerequisiteWarmUp": "Spend 3 minutes writing the mathematical objects, restrictions, and target for the lesson. Analytic geometry turns geometric position into equation constraints.",
-          "conceptExplanation": "A line can be represented by slope form, point-slope form, or general form. The circle equation \\((x-a)^2+(y-b)^2=r^2\\) gives center and radius. Competency focus: mathematical operations, spatial and visual reasoning, logical reasoning, mathematical abstraction.",
+          "conceptExplanation": "A line can be represented by slope form, point-slope form, or general form. The circle equation \\((x-a)^2+(y-b)^2=r^2\\) gives center and radius. Competency focus: mathematical operations, spatial and visual reasoning, logical reasoning, mathematical abstraction, mathematical modeling.",
           "workedExamples": [
             {
               "title": "Example 1",
@@ -3758,8 +3807,8 @@
           },
           {
             "section": "concept",
-            "zhHans": "直线可由斜率、点斜式、一般式表示；圆的标准方程 \\((x-a)^2+(y-b)^2=r^2\\) 表示圆心和半径。 本节重点素养：数学运算、直观想象、逻辑推理、数学抽象。",
-            "en": "A line can be represented by slope form, point-slope form, or general form. The circle equation \\((x-a)^2+(y-b)^2=r^2\\) gives center and radius. Competency focus: mathematical operations, spatial and visual reasoning, logical reasoning, mathematical abstraction."
+            "zhHans": "直线可由斜率、点斜式、一般式表示；圆的标准方程 \\((x-a)^2+(y-b)^2=r^2\\) 表示圆心和半径。 本节重点素养：数学运算、直观想象、逻辑推理、数学抽象、数学建模。",
+            "en": "A line can be represented by slope form, point-slope form, or general form. The circle equation \\((x-a)^2+(y-b)^2=r^2\\) gives center and radius. Competency focus: mathematical operations, spatial and visual reasoning, logical reasoning, mathematical abstraction, mathematical modeling."
           },
           {
             "section": "worked-example-1",
@@ -3790,16 +3839,16 @@
       },
       "teacherReviewerNotes": {
         "curriculumAlignment": {
-          "zhHans": "围绕直线和圆的方程生成，证据来自安全 RAG 卡 pep-high-lines-circles、pep-high-space-vectors-solid-geometry、pep-high-conic-sections。",
-          "en": "Generated around 直线和圆的方程 using safe RAG cards pep-high-lines-circles, pep-high-space-vectors-solid-geometry, pep-high-conic-sections."
+          "zhHans": "围绕直线和圆的方程生成，证据来自安全 RAG 卡 pep-high-lines-circles、pep-high-teacher-resources-selective-1、pep-high-space-vectors-solid-geometry、pep-high-conic-sections。",
+          "en": "Generated around 直线和圆的方程 using safe RAG cards pep-high-lines-circles, pep-high-teacher-resources-selective-1, pep-high-space-vectors-solid-geometry, pep-high-conic-sections."
         },
         "misconceptionTargets": [
           "slope undefined case ignored",
           "circle radius squared error",
           "tangent distance condition missed",
-          "normal vector chosen incorrectly",
-          "angle complement error",
-          "point-to-plane distance formula misuse"
+          "lesson sequence too close to source package",
+          "example wording copied instead of re-authored",
+          "teacher-only activity exposed as student answer text"
         ],
         "verificationChecklist": [
           {
@@ -3884,6 +3933,7 @@
           },
           "ragCardIds": [
             "pep-high-conic-sections",
+            "pep-high-teacher-resources-selective-1",
             "pep-high-lines-circles",
             "pep-high-space-vectors-solid-geometry"
           ],
@@ -3899,11 +3949,18 @@
             "line-conic-intersection",
             "analytic-geometry",
             "conic-geometry",
-            "line-equations",
+            "basic-inequality",
             "circle-equations",
-            "coordinate-method",
+            "derivatives",
+            "function-definition",
+            "line-equations",
+            "mathematical-induction",
+            "quadratic-functions",
+            "sequences",
+            "solid-geometry",
             "space-vectors",
             "spatial-coordinate-system",
+            "coordinate-method",
             "line-plane-angle",
             "distance-in-space"
           ],
@@ -3911,23 +3968,26 @@
             "数学抽象",
             "直观想象",
             "数学运算",
-            "逻辑推理"
+            "逻辑推理",
+            "数学建模"
           ],
           "itemTypeTags": [
             "函数图像",
             "计算求解",
             "综合压轴题",
-            "证明推理"
+            "课堂导入",
+            "概念讲解",
+            "例题讲评"
           ],
           "generationGuidance": [
             "Create original conic tasks with newly chosen foci, directrix, eccentricity, chord, tangent, or parameter constraints.",
             "Require students to connect definition, equation, graph features, and algebraic solution.",
             "For high-difficulty practice, combine conics with line intersections, area, range, or optimization.",
-            "Generate new coordinate conditions for line slope, intercept, distance, tangent, chord, or circle center-radius reasoning.",
-            "Ask students to choose an equation form that fits the information given.",
-            "For integrated items, combine line-circle position with parameter constraints.",
-            "Create original three-dimensional coordinate tasks involving direction vectors, normal vectors, angle, distance, and projection.",
-            "Ask learners to translate a spatial diagram into vector equations before computing."
+            "Use this teacher-resource layer to calibrate lesson sequence, explanation depth, classroom pacing, board-work structure, formative checks, and review transitions.",
+            "Prefer newly authored worked examples and checkpoint questions that match the observed chapter coverage but use fresh values, contexts, diagrams, and solution paths.",
+            "Treat the dominant resource mix (lecture-notes、lesson-plan、courseware、guided-learning-sheet、practice-set) as a planning signal only; do not reuse source lesson wording or slide layout.",
+            "When generating lessons, separate teacher-facing pedagogy from student-facing concise explanations, and run normal S18/S09/S05 review before release.",
+            "Generate new coordinate conditions for line slope, intercept, distance, tangent, chord, or circle center-radius reasoning."
           ]
         }
       },
@@ -3943,7 +4003,7 @@
             "能识别至少两个常见误区，并用检验步骤修正答案。"
           ],
           "prerequisiteWarmUp": "用 3 分钟写出本节的已知对象、限制条件和目标。圆锥曲线题看似复杂，入口通常是定义、标准方程和判别式。",
-          "conceptExplanation": "椭圆、双曲线、抛物线都有定义和标准方程。直线与圆锥曲线联立后，常用判别式、韦达定理和弦长关系分析。 本节重点素养：数学抽象、直观想象、数学运算、逻辑推理。",
+          "conceptExplanation": "椭圆、双曲线、抛物线都有定义和标准方程。直线与圆锥曲线联立后，常用判别式、韦达定理和弦长关系分析。 本节重点素养：数学抽象、直观想象、数学运算、逻辑推理、数学建模。",
           "workedExamples": [
             {
               "title": "例 1",
@@ -3992,7 +4052,7 @@
             "Identify at least two common pitfalls and use checking steps to correct answers."
           ],
           "prerequisiteWarmUp": "Spend 3 minutes writing the mathematical objects, restrictions, and target for the lesson. Conic items look complex, but the entry points are definitions, standard equations, and discriminants.",
-          "conceptExplanation": "Ellipses, hyperbolas, and parabolas each have definitions and standard equations. Intersect a line with a conic, then use discriminants, Vieta's formulas, and chord relations. Competency focus: mathematical abstraction, spatial and visual reasoning, mathematical operations, logical reasoning.",
+          "conceptExplanation": "Ellipses, hyperbolas, and parabolas each have definitions and standard equations. Intersect a line with a conic, then use discriminants, Vieta's formulas, and chord relations. Competency focus: mathematical abstraction, spatial and visual reasoning, mathematical operations, logical reasoning, mathematical modeling.",
           "workedExamples": [
             {
               "title": "Example 1",
@@ -4053,8 +4113,8 @@
           },
           {
             "section": "concept",
-            "zhHans": "椭圆、双曲线、抛物线都有定义和标准方程。直线与圆锥曲线联立后，常用判别式、韦达定理和弦长关系分析。 本节重点素养：数学抽象、直观想象、数学运算、逻辑推理。",
-            "en": "Ellipses, hyperbolas, and parabolas each have definitions and standard equations. Intersect a line with a conic, then use discriminants, Vieta's formulas, and chord relations. Competency focus: mathematical abstraction, spatial and visual reasoning, mathematical operations, logical reasoning."
+            "zhHans": "椭圆、双曲线、抛物线都有定义和标准方程。直线与圆锥曲线联立后，常用判别式、韦达定理和弦长关系分析。 本节重点素养：数学抽象、直观想象、数学运算、逻辑推理、数学建模。",
+            "en": "Ellipses, hyperbolas, and parabolas each have definitions and standard equations. Intersect a line with a conic, then use discriminants, Vieta's formulas, and chord relations. Competency focus: mathematical abstraction, spatial and visual reasoning, mathematical operations, logical reasoning, mathematical modeling."
           },
           {
             "section": "worked-example-1",
@@ -4085,16 +4145,16 @@
       },
       "teacherReviewerNotes": {
         "curriculumAlignment": {
-          "zhHans": "围绕圆锥曲线的方程生成，证据来自安全 RAG 卡 pep-high-conic-sections、pep-high-lines-circles、pep-high-space-vectors-solid-geometry。",
-          "en": "Generated around 圆锥曲线的方程 using safe RAG cards pep-high-conic-sections, pep-high-lines-circles, pep-high-space-vectors-solid-geometry."
+          "zhHans": "围绕圆锥曲线的方程生成，证据来自安全 RAG 卡 pep-high-conic-sections、pep-high-teacher-resources-selective-1、pep-high-lines-circles、pep-high-space-vectors-solid-geometry。",
+          "en": "Generated around 圆锥曲线的方程 using safe RAG cards pep-high-conic-sections, pep-high-teacher-resources-selective-1, pep-high-lines-circles, pep-high-space-vectors-solid-geometry."
         },
         "misconceptionTargets": [
           "a-b-c relation confused",
           "focus position swapped",
           "parameter range not checked",
-          "slope undefined case ignored",
-          "circle radius squared error",
-          "tangent distance condition missed"
+          "lesson sequence too close to source package",
+          "example wording copied instead of re-authored",
+          "teacher-only activity exposed as student answer text"
         ],
         "verificationChecklist": [
           {
@@ -4176,6 +4236,7 @@
             "intent": "exam-practice"
           },
           "ragCardIds": [
+            "pep-high-teacher-resources-selective-1",
             "pep-high-space-vectors-solid-geometry",
             "pep-high-lines-circles",
             "pep-high-conic-sections"
@@ -4190,40 +4251,50 @@
             "geometric-sequences",
             "recursion",
             "summation",
+            "basic-inequality",
+            "circle-equations",
+            "conic-geometry",
+            "derivatives",
+            "ellipse",
+            "function-definition",
+            "hyperbola",
+            "line-equations",
+            "mathematical-induction",
+            "parabola-conic",
+            "quadratic-functions",
+            "sequences",
+            "solid-geometry",
             "space-vectors",
             "spatial-coordinate-system",
             "line-plane-angle",
             "distance-in-space",
             "analytic-geometry",
-            "line-equations",
-            "circle-equations",
-            "coordinate-method",
-            "ellipse",
-            "hyperbola",
-            "parabola-conic",
-            "conic-geometry"
+            "coordinate-method"
           ],
           "competencyTags": [
-            "直观想象",
-            "数学运算",
+            "数学抽象",
             "逻辑推理",
-            "数学抽象"
+            "数学运算",
+            "直观想象",
+            "数学建模"
           ],
           "itemTypeTags": [
-            "证明推理",
-            "计算求解",
-            "综合压轴题",
-            "函数图像"
+            "课堂导入",
+            "概念讲解",
+            "例题讲评",
+            "分层练习",
+            "复习总结",
+            "错因诊断"
           ],
           "generationGuidance": [
+            "Use this teacher-resource layer to calibrate lesson sequence, explanation depth, classroom pacing, board-work structure, formative checks, and review transitions.",
+            "Prefer newly authored worked examples and checkpoint questions that match the observed chapter coverage but use fresh values, contexts, diagrams, and solution paths.",
+            "Treat the dominant resource mix (lecture-notes、lesson-plan、courseware、guided-learning-sheet、practice-set) as a planning signal only; do not reuse source lesson wording or slide layout.",
+            "When generating lessons, separate teacher-facing pedagogy from student-facing concise explanations, and run normal S18/S09/S05 review before release.",
             "Create original three-dimensional coordinate tasks involving direction vectors, normal vectors, angle, distance, and projection.",
             "Ask learners to translate a spatial diagram into vector equations before computing.",
             "Use new prism, pyramid, or coordinate configurations rather than textbook figures.",
-            "Generate new coordinate conditions for line slope, intercept, distance, tangent, chord, or circle center-radius reasoning.",
-            "Ask students to choose an equation form that fits the information given.",
-            "For integrated items, combine line-circle position with parameter constraints.",
-            "Create original conic tasks with newly chosen foci, directrix, eccentricity, chord, tangent, or parameter constraints.",
-            "Require students to connect definition, equation, graph features, and algebraic solution."
+            "Generate new coordinate conditions for line slope, intercept, distance, tangent, chord, or circle center-radius reasoning."
           ]
         }
       },
@@ -4239,7 +4310,7 @@
             "能识别至少两个常见误区，并用检验步骤修正答案。"
           ],
           "prerequisiteWarmUp": "用 3 分钟写出本节的已知对象、限制条件和目标。数列是按顺序排列的数，关键是看相邻项怎样变化。",
-          "conceptExplanation": "等差数列看公差，等比数列看公比。通项公式和前 \\(n\\) 项和是解决数列题的两条主线。 本节重点素养：直观想象、数学运算、逻辑推理、数学抽象。",
+          "conceptExplanation": "等差数列看公差，等比数列看公比。通项公式和前 \\(n\\) 项和是解决数列题的两条主线。 本节重点素养：数学抽象、逻辑推理、数学运算、直观想象、数学建模。",
           "workedExamples": [
             {
               "title": "例 1",
@@ -4288,7 +4359,7 @@
             "Identify at least two common pitfalls and use checking steps to correct answers."
           ],
           "prerequisiteWarmUp": "Spend 3 minutes writing the mathematical objects, restrictions, and target for the lesson. A sequence is an ordered list; the key is how neighboring terms change.",
-          "conceptExplanation": "Arithmetic sequences use a common difference, while geometric sequences use a common ratio. General terms and partial sums are the two main tools. Competency focus: spatial and visual reasoning, mathematical operations, logical reasoning, mathematical abstraction.",
+          "conceptExplanation": "Arithmetic sequences use a common difference, while geometric sequences use a common ratio. General terms and partial sums are the two main tools. Competency focus: mathematical abstraction, logical reasoning, mathematical operations, spatial and visual reasoning, mathematical modeling.",
           "workedExamples": [
             {
               "title": "Example 1",
@@ -4349,8 +4420,8 @@
           },
           {
             "section": "concept",
-            "zhHans": "等差数列看公差，等比数列看公比。通项公式和前 \\(n\\) 项和是解决数列题的两条主线。 本节重点素养：直观想象、数学运算、逻辑推理、数学抽象。",
-            "en": "Arithmetic sequences use a common difference, while geometric sequences use a common ratio. General terms and partial sums are the two main tools. Competency focus: spatial and visual reasoning, mathematical operations, logical reasoning, mathematical abstraction."
+            "zhHans": "等差数列看公差，等比数列看公比。通项公式和前 \\(n\\) 项和是解决数列题的两条主线。 本节重点素养：数学抽象、逻辑推理、数学运算、直观想象、数学建模。",
+            "en": "Arithmetic sequences use a common difference, while geometric sequences use a common ratio. General terms and partial sums are the two main tools. Competency focus: mathematical abstraction, logical reasoning, mathematical operations, spatial and visual reasoning, mathematical modeling."
           },
           {
             "section": "worked-example-1",
@@ -4381,16 +4452,16 @@
       },
       "teacherReviewerNotes": {
         "curriculumAlignment": {
-          "zhHans": "围绕数列生成，证据来自安全 RAG 卡 pep-high-space-vectors-solid-geometry、pep-high-lines-circles、pep-high-conic-sections。",
-          "en": "Generated around 数列 using safe RAG cards pep-high-space-vectors-solid-geometry, pep-high-lines-circles, pep-high-conic-sections."
+          "zhHans": "围绕数列生成，证据来自安全 RAG 卡 pep-high-teacher-resources-selective-1、pep-high-space-vectors-solid-geometry、pep-high-lines-circles、pep-high-conic-sections。",
+          "en": "Generated around 数列 using safe RAG cards pep-high-teacher-resources-selective-1, pep-high-space-vectors-solid-geometry, pep-high-lines-circles, pep-high-conic-sections."
         },
         "misconceptionTargets": [
+          "lesson sequence too close to source package",
+          "example wording copied instead of re-authored",
+          "teacher-only activity exposed as student answer text",
+          "review handout treated as answer key",
           "normal vector chosen incorrectly",
-          "angle complement error",
-          "point-to-plane distance formula misuse",
-          "slope undefined case ignored",
-          "circle radius squared error",
-          "tangent distance condition missed"
+          "angle complement error"
         ],
         "verificationChecklist": [
           {
@@ -4472,6 +4543,7 @@
             "intent": "exam-practice"
           },
           "ragCardIds": [
+            "pep-high-teacher-resources-selective-1",
             "pep-high-space-vectors-solid-geometry",
             "pep-high-lines-circles",
             "pep-high-conic-sections"
@@ -4486,40 +4558,49 @@
             "monotonicity-extrema",
             "optimization",
             "function-inequalities",
+            "basic-inequality",
+            "circle-equations",
+            "conic-geometry",
+            "ellipse",
+            "function-definition",
+            "hyperbola",
+            "line-equations",
+            "mathematical-induction",
+            "parabola-conic",
+            "quadratic-functions",
+            "sequences",
+            "solid-geometry",
             "space-vectors",
             "spatial-coordinate-system",
             "line-plane-angle",
             "distance-in-space",
             "analytic-geometry",
-            "line-equations",
-            "circle-equations",
-            "coordinate-method",
-            "ellipse",
-            "hyperbola",
-            "parabola-conic",
-            "conic-geometry"
+            "coordinate-method"
           ],
           "competencyTags": [
-            "直观想象",
-            "数学运算",
+            "数学抽象",
             "逻辑推理",
-            "数学抽象"
+            "数学运算",
+            "直观想象",
+            "数学建模"
           ],
           "itemTypeTags": [
-            "证明推理",
-            "计算求解",
-            "综合压轴题",
-            "函数图像"
+            "课堂导入",
+            "概念讲解",
+            "例题讲评",
+            "分层练习",
+            "复习总结",
+            "错因诊断"
           ],
           "generationGuidance": [
+            "Use this teacher-resource layer to calibrate lesson sequence, explanation depth, classroom pacing, board-work structure, formative checks, and review transitions.",
+            "Prefer newly authored worked examples and checkpoint questions that match the observed chapter coverage but use fresh values, contexts, diagrams, and solution paths.",
+            "Treat the dominant resource mix (lecture-notes、lesson-plan、courseware、guided-learning-sheet、practice-set) as a planning signal only; do not reuse source lesson wording or slide layout.",
+            "When generating lessons, separate teacher-facing pedagogy from student-facing concise explanations, and run normal S18/S09/S05 review before release.",
             "Create original three-dimensional coordinate tasks involving direction vectors, normal vectors, angle, distance, and projection.",
             "Ask learners to translate a spatial diagram into vector equations before computing.",
             "Use new prism, pyramid, or coordinate configurations rather than textbook figures.",
-            "Generate new coordinate conditions for line slope, intercept, distance, tangent, chord, or circle center-radius reasoning.",
-            "Ask students to choose an equation form that fits the information given.",
-            "For integrated items, combine line-circle position with parameter constraints.",
-            "Create original conic tasks with newly chosen foci, directrix, eccentricity, chord, tangent, or parameter constraints.",
-            "Require students to connect definition, equation, graph features, and algebraic solution."
+            "Generate new coordinate conditions for line slope, intercept, distance, tangent, chord, or circle center-radius reasoning."
           ]
         }
       },
@@ -4535,7 +4616,7 @@
             "能识别至少两个常见误区，并用检验步骤修正答案。"
           ],
           "prerequisiteWarmUp": "用 3 分钟写出本节的已知对象、限制条件和目标。导数把函数变化的快慢变成可计算的斜率。",
-          "conceptExplanation": "导数 \\(f'(x)\\) 可表示切线斜率，也可判断单调性和极值。若 \\(f'(x)>0\\)，函数在相应区间递增；若 \\(f'(x)<0\\)，函数递减。 本节重点素养：直观想象、数学运算、逻辑推理、数学抽象。",
+          "conceptExplanation": "导数 \\(f'(x)\\) 可表示切线斜率，也可判断单调性和极值。若 \\(f'(x)>0\\)，函数在相应区间递增；若 \\(f'(x)<0\\)，函数递减。 本节重点素养：数学抽象、逻辑推理、数学运算、直观想象、数学建模。",
           "workedExamples": [
             {
               "title": "例 1",
@@ -4584,7 +4665,7 @@
             "Identify at least two common pitfalls and use checking steps to correct answers."
           ],
           "prerequisiteWarmUp": "Spend 3 minutes writing the mathematical objects, restrictions, and target for the lesson. Derivatives turn the rate of change of a function into a computable slope.",
-          "conceptExplanation": "\\(f'(x)\\) represents tangent slope and helps determine monotonicity and extrema. If \\(f'(x)>0\\), the function increases; if \\(f'(x)<0\\), it decreases. Competency focus: spatial and visual reasoning, mathematical operations, logical reasoning, mathematical abstraction.",
+          "conceptExplanation": "\\(f'(x)\\) represents tangent slope and helps determine monotonicity and extrema. If \\(f'(x)>0\\), the function increases; if \\(f'(x)<0\\), it decreases. Competency focus: mathematical abstraction, logical reasoning, mathematical operations, spatial and visual reasoning, mathematical modeling.",
           "workedExamples": [
             {
               "title": "Example 1",
@@ -4645,8 +4726,8 @@
           },
           {
             "section": "concept",
-            "zhHans": "导数 \\(f'(x)\\) 可表示切线斜率，也可判断单调性和极值。若 \\(f'(x)>0\\)，函数在相应区间递增；若 \\(f'(x)<0\\)，函数递减。 本节重点素养：直观想象、数学运算、逻辑推理、数学抽象。",
-            "en": "\\(f'(x)\\) represents tangent slope and helps determine monotonicity and extrema. If \\(f'(x)>0\\), the function increases; if \\(f'(x)<0\\), it decreases. Competency focus: spatial and visual reasoning, mathematical operations, logical reasoning, mathematical abstraction."
+            "zhHans": "导数 \\(f'(x)\\) 可表示切线斜率，也可判断单调性和极值。若 \\(f'(x)>0\\)，函数在相应区间递增；若 \\(f'(x)<0\\)，函数递减。 本节重点素养：数学抽象、逻辑推理、数学运算、直观想象、数学建模。",
+            "en": "\\(f'(x)\\) represents tangent slope and helps determine monotonicity and extrema. If \\(f'(x)>0\\), the function increases; if \\(f'(x)<0\\), it decreases. Competency focus: mathematical abstraction, logical reasoning, mathematical operations, spatial and visual reasoning, mathematical modeling."
           },
           {
             "section": "worked-example-1",
@@ -4677,16 +4758,16 @@
       },
       "teacherReviewerNotes": {
         "curriculumAlignment": {
-          "zhHans": "围绕一元函数的导数及其应用生成，证据来自安全 RAG 卡 pep-high-space-vectors-solid-geometry、pep-high-lines-circles、pep-high-conic-sections。",
-          "en": "Generated around 一元函数的导数及其应用 using safe RAG cards pep-high-space-vectors-solid-geometry, pep-high-lines-circles, pep-high-conic-sections."
+          "zhHans": "围绕一元函数的导数及其应用生成，证据来自安全 RAG 卡 pep-high-teacher-resources-selective-1、pep-high-space-vectors-solid-geometry、pep-high-lines-circles、pep-high-conic-sections。",
+          "en": "Generated around 一元函数的导数及其应用 using safe RAG cards pep-high-teacher-resources-selective-1, pep-high-space-vectors-solid-geometry, pep-high-lines-circles, pep-high-conic-sections."
         },
         "misconceptionTargets": [
+          "lesson sequence too close to source package",
+          "example wording copied instead of re-authored",
+          "teacher-only activity exposed as student answer text",
+          "review handout treated as answer key",
           "normal vector chosen incorrectly",
-          "angle complement error",
-          "point-to-plane distance formula misuse",
-          "slope undefined case ignored",
-          "circle radius squared error",
-          "tangent distance condition missed"
+          "angle complement error"
         ],
         "verificationChecklist": [
           {
@@ -4767,12 +4848,11 @@
           },
           "ragCardIds": [
             "pep-high-counting-principles",
+            "pep-high-teacher-resources-selective-3",
             "pep-high-sequences",
             "pep-high-derivatives-applications",
             "pep-high-random-variables-distributions",
-            "pep-high-bivariate-statistics",
-            "pep-high-sequences-summation-recursion",
-            "pep-high-conditional-probability-distributions"
+            "pep-high-bivariate-statistics"
           ],
           "examPatternCardIds": [
             "pep-high-exam-counting-distributions",
@@ -4787,6 +4867,18 @@
             "permutations-combinations",
             "binomial-theorem",
             "yanghui-triangle",
+            "binomial-distribution",
+            "bivariate-data",
+            "correlation",
+            "discrete-distributions",
+            "hypergeometric-distribution",
+            "independence-test",
+            "linear-regression",
+            "logarithmic-functions",
+            "normal-distribution",
+            "probability-foundations",
+            "random-variables",
+            "statistics",
             "sequences",
             "arithmetic-sequences",
             "geometric-sequences",
@@ -4796,21 +4888,7 @@
             "derivative-rules",
             "monotonicity-extrema",
             "optimization",
-            "random-variables",
-            "discrete-distributions",
-            "binomial-distribution",
-            "normal-distribution",
-            "expectation-variance",
-            "bivariate-data",
-            "correlation",
-            "linear-regression",
-            "independence-test",
-            "sequence-summation",
-            "inequality-proof",
-            "conditional-probability",
-            "total-probability",
-            "bayes-formula",
-            "hypergeometric-distribution"
+            "expectation-variance"
           ],
           "competencyTags": [
             "逻辑推理",
@@ -4824,19 +4902,19 @@
             "计算求解",
             "证明推理",
             "综合压轴题",
-            "函数图像",
-            "建模应用",
-            "统计概率情境题"
+            "课堂导入",
+            "概念讲解",
+            "例题讲评"
           ],
           "generationGuidance": [
             "Generate new counting scenarios that force students to choose addition principle, multiplication principle, permutation, or combination.",
             "Include restrictions such as adjacency, exclusion, grouping, or at-least conditions using fresh contexts.",
             "For binomial tasks, vary target terms, coefficients, identities, and combinatorial interpretations.",
-            "Generate original sequence patterns and ask for recursive and explicit descriptions.",
-            "Combine sum formulas, monotonicity, bounds, or parameter constraints in exam-style tasks.",
-            "Use induction only where it proves a general statement, not as a routine computation label.",
-            "Create original functions and ask students to compute derivatives, analyze sign intervals, locate extrema, and justify graph behavior.",
-            "Use new optimization contexts with clearly defined variables and constraints."
+            "Use this teacher-resource layer to calibrate lesson sequence, explanation depth, classroom pacing, board-work structure, formative checks, and review transitions.",
+            "Prefer newly authored worked examples and checkpoint questions that match the observed chapter coverage but use fresh values, contexts, diagrams, and solution paths.",
+            "Treat the dominant resource mix (lesson-plan、support-resource、courseware、practice-set、knowledge-summary) as a planning signal only; do not reuse source lesson wording or slide layout.",
+            "When generating lessons, separate teacher-facing pedagogy from student-facing concise explanations, and run normal S18/S09/S05 review before release.",
+            "Generate original sequence patterns and ask for recursive and explicit descriptions."
           ]
         }
       },
@@ -4994,16 +5072,16 @@
       },
       "teacherReviewerNotes": {
         "curriculumAlignment": {
-          "zhHans": "围绕计数原理生成，证据来自安全 RAG 卡 pep-high-counting-principles、pep-high-sequences、pep-high-derivatives-applications、pep-high-random-variables-distributions、pep-high-bivariate-statistics、pep-high-sequences-summation-recursion、pep-high-conditional-probability-distributions。",
-          "en": "Generated around 计数原理 using safe RAG cards pep-high-counting-principles, pep-high-sequences, pep-high-derivatives-applications, pep-high-random-variables-distributions, pep-high-bivariate-statistics, pep-high-sequences-summation-recursion, pep-high-conditional-probability-distributions."
+          "zhHans": "围绕计数原理生成，证据来自安全 RAG 卡 pep-high-counting-principles、pep-high-teacher-resources-selective-3、pep-high-sequences、pep-high-derivatives-applications、pep-high-random-variables-distributions、pep-high-bivariate-statistics。",
+          "en": "Generated around 计数原理 using safe RAG cards pep-high-counting-principles, pep-high-teacher-resources-selective-3, pep-high-sequences, pep-high-derivatives-applications, pep-high-random-variables-distributions, pep-high-bivariate-statistics."
         },
         "misconceptionTargets": [
           "permutation combination swapped",
           "case overlap double-counted",
           "binomial term index error",
-          "index shift error",
-          "common difference ratio confused",
-          "sum formula condition missed"
+          "lesson sequence too close to source package",
+          "example wording copied instead of re-authored",
+          "teacher-only activity exposed as student answer text"
         ],
         "verificationChecklist": [
           {
@@ -5086,11 +5164,11 @@
           },
           "ragCardIds": [
             "pep-high-random-variables-distributions",
+            "pep-high-teacher-resources-selective-3",
             "pep-high-conditional-probability-distributions",
             "pep-high-sequences",
             "pep-high-derivatives-applications",
-            "pep-high-counting-principles",
-            "pep-high-bivariate-statistics"
+            "pep-high-counting-principles"
           ],
           "examPatternCardIds": [
             "pep-high-exam-counting-distributions",
@@ -5108,9 +5186,19 @@
             "discrete-distributions",
             "binomial-distribution",
             "normal-distribution",
+            "binomial-theorem",
+            "bivariate-data",
+            "correlation",
+            "counting-principles",
+            "hypergeometric-distribution",
+            "independence-test",
+            "linear-regression",
+            "logarithmic-functions",
+            "permutations-combinations",
+            "probability-foundations",
+            "statistics",
             "total-probability",
             "bayes-formula",
-            "hypergeometric-distribution",
             "sequences",
             "arithmetic-sequences",
             "geometric-sequences",
@@ -5120,40 +5208,33 @@
             "derivative-rules",
             "monotonicity-extrema",
             "optimization",
-            "counting-principles",
-            "permutations-combinations",
-            "binomial-theorem",
-            "yanghui-triangle",
-            "bivariate-data",
-            "correlation",
-            "linear-regression",
-            "independence-test"
+            "yanghui-triangle"
           ],
           "competencyTags": [
             "数据分析",
             "数学运算",
             "数学建模",
-            "逻辑推理",
             "数学抽象",
+            "逻辑推理",
             "直观想象"
           ],
           "itemTypeTags": [
             "统计概率情境题",
             "计算求解",
             "综合压轴题",
-            "证明推理",
-            "函数图像",
-            "建模应用"
+            "课堂导入",
+            "概念讲解",
+            "例题讲评"
           ],
           "generationGuidance": [
             "Create new discrete random-variable tables or context distributions and ask for probability, expectation, variance, or interpretation.",
             "Use binomial or normal models only after students identify assumptions and parameters.",
             "For exam practice, combine distribution recognition, calculation, and real-context conclusion.",
-            "Design fresh two-stage or grouped experiments where conditions and populations are explicitly defined.",
-            "Ask students to distinguish conditional probability from joint probability before computing.",
-            "For distribution tasks, require model choice and parameter identification.",
-            "Generate original sequence patterns and ask for recursive and explicit descriptions.",
-            "Combine sum formulas, monotonicity, bounds, or parameter constraints in exam-style tasks."
+            "Use this teacher-resource layer to calibrate lesson sequence, explanation depth, classroom pacing, board-work structure, formative checks, and review transitions.",
+            "Prefer newly authored worked examples and checkpoint questions that match the observed chapter coverage but use fresh values, contexts, diagrams, and solution paths.",
+            "Treat the dominant resource mix (lesson-plan、support-resource、courseware、practice-set、knowledge-summary) as a planning signal only; do not reuse source lesson wording or slide layout.",
+            "When generating lessons, separate teacher-facing pedagogy from student-facing concise explanations, and run normal S18/S09/S05 review before release.",
+            "Design fresh two-stage or grouped experiments where conditions and populations are explicitly defined."
           ]
         }
       },
@@ -5169,7 +5250,7 @@
             "能识别至少两个常见误区，并用检验步骤修正答案。"
           ],
           "prerequisiteWarmUp": "用 3 分钟写出本节的已知对象、限制条件和目标。随机变量把随机结果转化为数值，方便计算平均水平和波动。",
-          "conceptExplanation": "离散型随机变量要列出所有可能取值及概率。期望 \\(E(X)\\) 表示长期平均，方差表示波动程度。 本节重点素养：数据分析、数学运算、数学建模、逻辑推理、数学抽象、直观想象。",
+          "conceptExplanation": "离散型随机变量要列出所有可能取值及概率。期望 \\(E(X)\\) 表示长期平均，方差表示波动程度。 本节重点素养：数据分析、数学运算、数学建模、数学抽象、逻辑推理、直观想象。",
           "workedExamples": [
             {
               "title": "例 1",
@@ -5218,7 +5299,7 @@
             "Identify at least two common pitfalls and use checking steps to correct answers."
           ],
           "prerequisiteWarmUp": "Spend 3 minutes writing the mathematical objects, restrictions, and target for the lesson. A random variable turns random outcomes into numbers, making average behavior and variation computable.",
-          "conceptExplanation": "For a discrete random variable, list all values and probabilities. Expectation \\(E(X)\\) describes long-run average behavior; variance describes spread. Competency focus: data analysis, mathematical operations, mathematical modeling, logical reasoning, mathematical abstraction, spatial and visual reasoning.",
+          "conceptExplanation": "For a discrete random variable, list all values and probabilities. Expectation \\(E(X)\\) describes long-run average behavior; variance describes spread. Competency focus: data analysis, mathematical operations, mathematical modeling, mathematical abstraction, logical reasoning, spatial and visual reasoning.",
           "workedExamples": [
             {
               "title": "Example 1",
@@ -5279,8 +5360,8 @@
           },
           {
             "section": "concept",
-            "zhHans": "离散型随机变量要列出所有可能取值及概率。期望 \\(E(X)\\) 表示长期平均，方差表示波动程度。 本节重点素养：数据分析、数学运算、数学建模、逻辑推理、数学抽象、直观想象。",
-            "en": "For a discrete random variable, list all values and probabilities. Expectation \\(E(X)\\) describes long-run average behavior; variance describes spread. Competency focus: data analysis, mathematical operations, mathematical modeling, logical reasoning, mathematical abstraction, spatial and visual reasoning."
+            "zhHans": "离散型随机变量要列出所有可能取值及概率。期望 \\(E(X)\\) 表示长期平均，方差表示波动程度。 本节重点素养：数据分析、数学运算、数学建模、数学抽象、逻辑推理、直观想象。",
+            "en": "For a discrete random variable, list all values and probabilities. Expectation \\(E(X)\\) describes long-run average behavior; variance describes spread. Competency focus: data analysis, mathematical operations, mathematical modeling, mathematical abstraction, logical reasoning, spatial and visual reasoning."
           },
           {
             "section": "worked-example-1",
@@ -5311,16 +5392,16 @@
       },
       "teacherReviewerNotes": {
         "curriculumAlignment": {
-          "zhHans": "围绕随机变量及其分布生成，证据来自安全 RAG 卡 pep-high-random-variables-distributions、pep-high-conditional-probability-distributions、pep-high-sequences、pep-high-derivatives-applications、pep-high-counting-principles、pep-high-bivariate-statistics。",
-          "en": "Generated around 随机变量及其分布 using safe RAG cards pep-high-random-variables-distributions, pep-high-conditional-probability-distributions, pep-high-sequences, pep-high-derivatives-applications, pep-high-counting-principles, pep-high-bivariate-statistics."
+          "zhHans": "围绕随机变量及其分布生成，证据来自安全 RAG 卡 pep-high-random-variables-distributions、pep-high-teacher-resources-selective-3、pep-high-conditional-probability-distributions、pep-high-sequences、pep-high-derivatives-applications、pep-high-counting-principles。",
+          "en": "Generated around 随机变量及其分布 using safe RAG cards pep-high-random-variables-distributions, pep-high-teacher-resources-selective-3, pep-high-conditional-probability-distributions, pep-high-sequences, pep-high-derivatives-applications, pep-high-counting-principles."
         },
         "misconceptionTargets": [
           "expectation interpreted as guaranteed outcome",
           "binomial assumptions unchecked",
           "normal interval standardization error",
-          "condition reversed",
-          "base-rate ignored",
-          "binomial and hypergeometric assumptions confused"
+          "lesson sequence too close to source package",
+          "example wording copied instead of re-authored",
+          "teacher-only activity exposed as student answer text"
         ],
         "verificationChecklist": [
           {
@@ -5403,12 +5484,11 @@
           },
           "ragCardIds": [
             "pep-high-bivariate-statistics",
+            "pep-high-teacher-resources-selective-3",
             "pep-high-sequences",
             "pep-high-derivatives-applications",
             "pep-high-counting-principles",
-            "pep-high-random-variables-distributions",
-            "pep-high-sequences-summation-recursion",
-            "pep-high-conditional-probability-distributions"
+            "pep-high-random-variables-distributions"
           ],
           "examPatternCardIds": [
             "pep-high-exam-bivariate-data",
@@ -5424,6 +5504,17 @@
             "linear-regression",
             "statistical-inference",
             "independence-test",
+            "binomial-distribution",
+            "binomial-theorem",
+            "counting-principles",
+            "discrete-distributions",
+            "hypergeometric-distribution",
+            "logarithmic-functions",
+            "normal-distribution",
+            "permutations-combinations",
+            "probability-foundations",
+            "random-variables",
+            "statistics",
             "sequences",
             "arithmetic-sequences",
             "geometric-sequences",
@@ -5433,21 +5524,8 @@
             "derivative-rules",
             "monotonicity-extrema",
             "optimization",
-            "counting-principles",
-            "permutations-combinations",
-            "binomial-theorem",
             "yanghui-triangle",
-            "random-variables",
-            "discrete-distributions",
-            "binomial-distribution",
-            "normal-distribution",
-            "expectation-variance",
-            "sequence-summation",
-            "inequality-proof",
-            "conditional-probability",
-            "total-probability",
-            "bayes-formula",
-            "hypergeometric-distribution"
+            "expectation-variance"
           ],
           "competencyTags": [
             "数据分析",
@@ -5461,19 +5539,19 @@
             "统计概率情境题",
             "建模应用",
             "综合压轴题",
-            "计算求解",
-            "证明推理",
-            "函数图像"
+            "课堂导入",
+            "概念讲解",
+            "例题讲评"
           ],
           "generationGuidance": [
             "Generate original paired datasets or summary statistics and ask students to interpret association, fit, prediction, and limitations.",
             "For regression tasks, require a written conclusion that avoids overclaiming causation.",
             "For independence tests, use fresh two-way contexts and ask students to connect calculation with decision language.",
-            "Generate original sequence patterns and ask for recursive and explicit descriptions.",
-            "Combine sum formulas, monotonicity, bounds, or parameter constraints in exam-style tasks.",
-            "Use induction only where it proves a general statement, not as a routine computation label.",
-            "Create original functions and ask students to compute derivatives, analyze sign intervals, locate extrema, and justify graph behavior.",
-            "Use new optimization contexts with clearly defined variables and constraints."
+            "Use this teacher-resource layer to calibrate lesson sequence, explanation depth, classroom pacing, board-work structure, formative checks, and review transitions.",
+            "Prefer newly authored worked examples and checkpoint questions that match the observed chapter coverage but use fresh values, contexts, diagrams, and solution paths.",
+            "Treat the dominant resource mix (lesson-plan、support-resource、courseware、practice-set、knowledge-summary) as a planning signal only; do not reuse source lesson wording or slide layout.",
+            "When generating lessons, separate teacher-facing pedagogy from student-facing concise explanations, and run normal S18/S09/S05 review before release.",
+            "Generate original sequence patterns and ask for recursive and explicit descriptions."
           ]
         }
       },
@@ -5631,16 +5709,16 @@
       },
       "teacherReviewerNotes": {
         "curriculumAlignment": {
-          "zhHans": "围绕成对数据的统计分析生成，证据来自安全 RAG 卡 pep-high-bivariate-statistics、pep-high-sequences、pep-high-derivatives-applications、pep-high-counting-principles、pep-high-random-variables-distributions、pep-high-sequences-summation-recursion、pep-high-conditional-probability-distributions。",
-          "en": "Generated around 成对数据的统计分析 using safe RAG cards pep-high-bivariate-statistics, pep-high-sequences, pep-high-derivatives-applications, pep-high-counting-principles, pep-high-random-variables-distributions, pep-high-sequences-summation-recursion, pep-high-conditional-probability-distributions."
+          "zhHans": "围绕成对数据的统计分析生成，证据来自安全 RAG 卡 pep-high-bivariate-statistics、pep-high-teacher-resources-selective-3、pep-high-sequences、pep-high-derivatives-applications、pep-high-counting-principles、pep-high-random-variables-distributions。",
+          "en": "Generated around 成对数据的统计分析 using safe RAG cards pep-high-bivariate-statistics, pep-high-teacher-resources-selective-3, pep-high-sequences, pep-high-derivatives-applications, pep-high-counting-principles, pep-high-random-variables-distributions."
         },
         "misconceptionTargets": [
           "correlation mistaken for causation",
           "extrapolation beyond data range",
           "independence conclusion overstated",
-          "index shift error",
-          "common difference ratio confused",
-          "sum formula condition missed"
+          "lesson sequence too close to source package",
+          "example wording copied instead of re-authored",
+          "teacher-only activity exposed as student answer text"
         ],
         "verificationChecklist": [
           {
@@ -5724,10 +5802,10 @@
           "ragCardIds": [
             "pep-high-derivatives-tangent-zeros-inequalities",
             "pep-high-derivatives-applications",
+            "pep-high-teacher-resources-selective-2",
             "pep-high-sequences",
             "pep-high-counting-principles",
-            "pep-high-random-variables-distributions",
-            "pep-high-bivariate-statistics"
+            "pep-high-random-variables-distributions"
           ],
           "examPatternCardIds": [
             "pep-high-exam-derivatives-optimization",
@@ -5747,11 +5825,14 @@
             "parameter-classification",
             "derivative-rules",
             "monotonicity-extrema",
+            "basic-inequality",
+            "function-definition",
+            "function-zero",
+            "mathematical-induction",
             "sequences",
             "arithmetic-sequences",
             "geometric-sequences",
             "recurrence",
-            "mathematical-induction",
             "counting-principles",
             "permutations-combinations",
             "binomial-theorem",
@@ -5760,11 +5841,7 @@
             "discrete-distributions",
             "binomial-distribution",
             "normal-distribution",
-            "expectation-variance",
-            "bivariate-data",
-            "correlation",
-            "linear-regression",
-            "independence-test"
+            "expectation-variance"
           ],
           "competencyTags": [
             "数学运算",
@@ -5780,7 +5857,7 @@
             "综合压轴题",
             "计算求解",
             "建模应用",
-            "统计概率情境题"
+            "课堂导入"
           ],
           "generationGuidance": [
             "Create original functions where derivative signs support tangent, zero-count, or inequality conclusions.",
@@ -5789,8 +5866,8 @@
             "Create original functions and ask students to compute derivatives, analyze sign intervals, locate extrema, and justify graph behavior.",
             "Use new optimization contexts with clearly defined variables and constraints.",
             "For exam-style problems, combine derivative sign analysis, parameters, zero distribution, and inequality reasoning.",
-            "Generate original sequence patterns and ask for recursive and explicit descriptions.",
-            "Combine sum formulas, monotonicity, bounds, or parameter constraints in exam-style tasks."
+            "Use this teacher-resource layer to calibrate lesson sequence, explanation depth, classroom pacing, board-work structure, formative checks, and review transitions.",
+            "Prefer newly authored worked examples and checkpoint questions that match the observed chapter coverage but use fresh values, contexts, diagrams, and solution paths."
           ]
         }
       },
@@ -5948,8 +6025,8 @@
       },
       "teacherReviewerNotes": {
         "curriculumAlignment": {
-          "zhHans": "围绕导数综合生成，证据来自安全 RAG 卡 pep-high-derivatives-tangent-zeros-inequalities、pep-high-derivatives-applications、pep-high-sequences、pep-high-counting-principles、pep-high-random-variables-distributions、pep-high-bivariate-statistics。",
-          "en": "Generated around 导数综合 using safe RAG cards pep-high-derivatives-tangent-zeros-inequalities, pep-high-derivatives-applications, pep-high-sequences, pep-high-counting-principles, pep-high-random-variables-distributions, pep-high-bivariate-statistics."
+          "zhHans": "围绕导数综合生成，证据来自安全 RAG 卡 pep-high-derivatives-tangent-zeros-inequalities、pep-high-derivatives-applications、pep-high-teacher-resources-selective-2、pep-high-sequences、pep-high-counting-principles、pep-high-random-variables-distributions。",
+          "en": "Generated around 导数综合 using safe RAG cards pep-high-derivatives-tangent-zeros-inequalities, pep-high-derivatives-applications, pep-high-teacher-resources-selective-2, pep-high-sequences, pep-high-counting-principles, pep-high-random-variables-distributions."
         },
         "misconceptionTargets": [
           "hidden zero assumed unique",
@@ -6362,13 +6439,12 @@
             "intent": "exam-practice"
           },
           "ragCardIds": [
+            "pep-high-teacher-resources-selective-3",
             "pep-high-counting-principles",
             "pep-high-random-variables-distributions",
             "pep-high-bivariate-statistics",
             "pep-high-sequences",
-            "pep-high-derivatives-applications",
-            "pep-high-sequences-summation-recursion",
-            "pep-high-conditional-probability-distributions"
+            "pep-high-derivatives-applications"
           ],
           "examPatternCardIds": [
             "pep-high-exam-counting-distributions",
@@ -6383,16 +6459,19 @@
             "random-variables",
             "counting-principles",
             "bivariate-data",
-            "permutations-combinations",
-            "binomial-theorem",
-            "yanghui-triangle",
-            "discrete-distributions",
             "binomial-distribution",
-            "normal-distribution",
-            "expectation-variance",
+            "binomial-theorem",
             "correlation",
-            "linear-regression",
+            "discrete-distributions",
+            "hypergeometric-distribution",
             "independence-test",
+            "linear-regression",
+            "logarithmic-functions",
+            "normal-distribution",
+            "permutations-combinations",
+            "statistics",
+            "yanghui-triangle",
+            "expectation-variance",
             "sequences",
             "arithmetic-sequences",
             "geometric-sequences",
@@ -6401,39 +6480,33 @@
             "derivatives",
             "derivative-rules",
             "monotonicity-extrema",
-            "optimization",
-            "sequence-summation",
-            "inequality-proof",
-            "conditional-probability",
-            "total-probability",
-            "bayes-formula",
-            "hypergeometric-distribution"
+            "optimization"
           ],
           "competencyTags": [
+            "数学抽象",
             "逻辑推理",
             "数学运算",
-            "数学抽象",
-            "数据分析",
+            "直观想象",
             "数学建模",
-            "直观想象"
+            "数据分析"
           ],
           "itemTypeTags": [
-            "计算求解",
-            "证明推理",
-            "综合压轴题",
-            "统计概率情境题",
-            "建模应用",
-            "函数图像"
+            "课堂导入",
+            "概念讲解",
+            "例题讲评",
+            "分层练习",
+            "复习总结",
+            "错因诊断"
           ],
           "generationGuidance": [
+            "Use this teacher-resource layer to calibrate lesson sequence, explanation depth, classroom pacing, board-work structure, formative checks, and review transitions.",
+            "Prefer newly authored worked examples and checkpoint questions that match the observed chapter coverage but use fresh values, contexts, diagrams, and solution paths.",
+            "Treat the dominant resource mix (lesson-plan、support-resource、courseware、practice-set、knowledge-summary) as a planning signal only; do not reuse source lesson wording or slide layout.",
+            "When generating lessons, separate teacher-facing pedagogy from student-facing concise explanations, and run normal S18/S09/S05 review before release.",
             "Generate new counting scenarios that force students to choose addition principle, multiplication principle, permutation, or combination.",
             "Include restrictions such as adjacency, exclusion, grouping, or at-least conditions using fresh contexts.",
             "For binomial tasks, vary target terms, coefficients, identities, and combinatorial interpretations.",
-            "Create new discrete random-variable tables or context distributions and ask for probability, expectation, variance, or interpretation.",
-            "Use binomial or normal models only after students identify assumptions and parameters.",
-            "For exam practice, combine distribution recognition, calculation, and real-context conclusion.",
-            "Generate original paired datasets or summary statistics and ask students to interpret association, fit, prediction, and limitations.",
-            "For regression tasks, require a written conclusion that avoids overclaiming causation."
+            "Create new discrete random-variable tables or context distributions and ask for probability, expectation, variance, or interpretation."
           ]
         }
       },
@@ -6449,7 +6522,7 @@
             "能识别至少两个常见误区，并用检验步骤修正答案。"
           ],
           "prerequisiteWarmUp": "用 3 分钟写出本节的已知对象、限制条件和目标。概率统计综合题通常先计数，再建分布，最后解释数据意义。",
-          "conceptExplanation": "综合题要把“样本空间、事件、随机变量、统计结论”分层处理。不要把频率、概率和因果解释混为一谈。 本节重点素养：逻辑推理、数学运算、数学抽象、数据分析、数学建模、直观想象。",
+          "conceptExplanation": "综合题要把“样本空间、事件、随机变量、统计结论”分层处理。不要把频率、概率和因果解释混为一谈。 本节重点素养：数学抽象、逻辑推理、数学运算、直观想象、数学建模、数据分析。",
           "workedExamples": [
             {
               "title": "例 1",
@@ -6498,7 +6571,7 @@
             "Identify at least two common pitfalls and use checking steps to correct answers."
           ],
           "prerequisiteWarmUp": "Spend 3 minutes writing the mathematical objects, restrictions, and target for the lesson. Probability-statistics synthesis usually counts outcomes, builds a distribution, then interprets the data.",
-          "conceptExplanation": "Synthesis items separate sample space, events, random variables, and statistical conclusions. Do not confuse frequency, probability, and causal interpretation. Competency focus: logical reasoning, mathematical operations, mathematical abstraction, data analysis, mathematical modeling, spatial and visual reasoning.",
+          "conceptExplanation": "Synthesis items separate sample space, events, random variables, and statistical conclusions. Do not confuse frequency, probability, and causal interpretation. Competency focus: mathematical abstraction, logical reasoning, mathematical operations, spatial and visual reasoning, mathematical modeling, data analysis.",
           "workedExamples": [
             {
               "title": "Example 1",
@@ -6559,8 +6632,8 @@
           },
           {
             "section": "concept",
-            "zhHans": "综合题要把“样本空间、事件、随机变量、统计结论”分层处理。不要把频率、概率和因果解释混为一谈。 本节重点素养：逻辑推理、数学运算、数学抽象、数据分析、数学建模、直观想象。",
-            "en": "Synthesis items separate sample space, events, random variables, and statistical conclusions. Do not confuse frequency, probability, and causal interpretation. Competency focus: logical reasoning, mathematical operations, mathematical abstraction, data analysis, mathematical modeling, spatial and visual reasoning."
+            "zhHans": "综合题要把“样本空间、事件、随机变量、统计结论”分层处理。不要把频率、概率和因果解释混为一谈。 本节重点素养：数学抽象、逻辑推理、数学运算、直观想象、数学建模、数据分析。",
+            "en": "Synthesis items separate sample space, events, random variables, and statistical conclusions. Do not confuse frequency, probability, and causal interpretation. Competency focus: mathematical abstraction, logical reasoning, mathematical operations, spatial and visual reasoning, mathematical modeling, data analysis."
           },
           {
             "section": "worked-example-1",
@@ -6591,16 +6664,16 @@
       },
       "teacherReviewerNotes": {
         "curriculumAlignment": {
-          "zhHans": "围绕概率统计综合生成，证据来自安全 RAG 卡 pep-high-counting-principles、pep-high-random-variables-distributions、pep-high-bivariate-statistics、pep-high-sequences、pep-high-derivatives-applications、pep-high-sequences-summation-recursion、pep-high-conditional-probability-distributions。",
-          "en": "Generated around 概率统计综合 using safe RAG cards pep-high-counting-principles, pep-high-random-variables-distributions, pep-high-bivariate-statistics, pep-high-sequences, pep-high-derivatives-applications, pep-high-sequences-summation-recursion, pep-high-conditional-probability-distributions."
+          "zhHans": "围绕概率统计综合生成，证据来自安全 RAG 卡 pep-high-teacher-resources-selective-3、pep-high-counting-principles、pep-high-random-variables-distributions、pep-high-bivariate-statistics、pep-high-sequences、pep-high-derivatives-applications。",
+          "en": "Generated around 概率统计综合 using safe RAG cards pep-high-teacher-resources-selective-3, pep-high-counting-principles, pep-high-random-variables-distributions, pep-high-bivariate-statistics, pep-high-sequences, pep-high-derivatives-applications."
         },
         "misconceptionTargets": [
+          "lesson sequence too close to source package",
+          "example wording copied instead of re-authored",
+          "teacher-only activity exposed as student answer text",
+          "review handout treated as answer key",
           "permutation combination swapped",
-          "case overlap double-counted",
-          "binomial term index error",
-          "expectation interpreted as guaranteed outcome",
-          "binomial assumptions unchecked",
-          "normal interval standardization error"
+          "case overlap double-counted"
         ],
         "verificationChecklist": [
           {
@@ -6682,12 +6755,12 @@
             "intent": "exam-practice"
           },
           "ragCardIds": [
+            "pep-high-teacher-resources-selective-2",
             "pep-high-sequences",
             "pep-high-derivatives-applications",
             "pep-high-sequences-summation-recursion",
             "pep-high-derivatives-tangent-zeros-inequalities",
-            "pep-high-counting-principles",
-            "pep-high-random-variables-distributions"
+            "pep-high-teacher-resources-selective-3"
           ],
           "examPatternCardIds": [
             "pep-high-exam-legacy-stream-migration",
@@ -6703,54 +6776,62 @@
             "analytic-geometry",
             "probability-foundations",
             "sequences",
+            "basic-inequality",
+            "function-definition",
+            "function-zero",
+            "mathematical-induction",
+            "monotonicity-extrema",
+            "optimization",
             "arithmetic-sequences",
             "geometric-sequences",
             "recurrence",
-            "mathematical-induction",
             "derivative-rules",
-            "monotonicity-extrema",
-            "optimization",
             "sequence-summation",
             "inequality-proof",
             "tangent-line",
             "implicit-zero",
             "function-inequalities",
             "parameter-classification",
-            "counting-principles",
-            "permutations-combinations",
-            "binomial-theorem",
-            "yanghui-triangle",
-            "random-variables",
-            "discrete-distributions",
             "binomial-distribution",
+            "binomial-theorem",
+            "bivariate-data",
+            "correlation",
+            "counting-principles",
+            "discrete-distributions",
+            "hypergeometric-distribution",
+            "independence-test",
+            "linear-regression",
+            "logarithmic-functions",
             "normal-distribution",
-            "expectation-variance"
+            "permutations-combinations",
+            "random-variables",
+            "statistics"
           ],
           "competencyTags": [
             "数学抽象",
-            "数学运算",
             "逻辑推理",
+            "数学运算",
             "直观想象",
             "数学建模",
             "数据分析"
           ],
           "itemTypeTags": [
-            "计算求解",
-            "证明推理",
-            "综合压轴题",
-            "函数图像",
-            "建模应用",
-            "统计概率情境题"
+            "课堂导入",
+            "概念讲解",
+            "例题讲评",
+            "分层练习",
+            "复习总结",
+            "错因诊断"
           ],
           "generationGuidance": [
+            "Use this teacher-resource layer to calibrate lesson sequence, explanation depth, classroom pacing, board-work structure, formative checks, and review transitions.",
+            "Prefer newly authored worked examples and checkpoint questions that match the observed chapter coverage but use fresh values, contexts, diagrams, and solution paths.",
+            "Treat the dominant resource mix (lesson-plan、guided-learning-sheet、courseware、practice-set、lecture-notes) as a planning signal only; do not reuse source lesson wording or slide layout.",
+            "When generating lessons, separate teacher-facing pedagogy from student-facing concise explanations, and run normal S18/S09/S05 review before release.",
             "Generate original sequence patterns and ask for recursive and explicit descriptions.",
             "Combine sum formulas, monotonicity, bounds, or parameter constraints in exam-style tasks.",
             "Use induction only where it proves a general statement, not as a routine computation label.",
-            "Create original functions and ask students to compute derivatives, analyze sign intervals, locate extrema, and justify graph behavior.",
-            "Use new optimization contexts with clearly defined variables and constraints.",
-            "For exam-style problems, combine derivative sign analysis, parameters, zero distribution, and inequality reasoning.",
-            "Generate new recursive definitions that require auxiliary sequences, telescoping, grouping, or comparison.",
-            "Ask students to justify index shifts and initial terms explicitly."
+            "Create original functions and ask students to compute derivatives, analyze sign intervals, locate extrema, and justify graph behavior."
           ]
         }
       },
@@ -6766,7 +6847,7 @@
             "能识别至少两个常见误区，并用检验步骤修正答案。"
           ],
           "prerequisiteWarmUp": "用 3 分钟写出本节的已知对象、限制条件和目标。综合复习的目标不是堆题，而是快速识别入口策略。",
-          "conceptExplanation": "高考风格综合题常把函数、解析几何、概率统计和数列放在同一套试卷节奏中。训练时要记录题型入口、关键条件和检验步骤。 本节重点素养：数学抽象、数学运算、逻辑推理、直观想象、数学建模、数据分析。",
+          "conceptExplanation": "高考风格综合题常把函数、解析几何、概率统计和数列放在同一套试卷节奏中。训练时要记录题型入口、关键条件和检验步骤。 本节重点素养：数学抽象、逻辑推理、数学运算、直观想象、数学建模、数据分析。",
           "workedExamples": [
             {
               "title": "例 1",
@@ -6815,7 +6896,7 @@
             "Identify at least two common pitfalls and use checking steps to correct answers."
           ],
           "prerequisiteWarmUp": "Spend 3 minutes writing the mathematical objects, restrictions, and target for the lesson. Mixed review is not about piling up problems; it is about quickly identifying the entry strategy.",
-          "conceptExplanation": "Exam-style mixed practice places functions, analytic geometry, probability-statistics, and sequences into one assessment rhythm. Track entry strategy, key conditions, and checks. Competency focus: mathematical abstraction, mathematical operations, logical reasoning, spatial and visual reasoning, mathematical modeling, data analysis.",
+          "conceptExplanation": "Exam-style mixed practice places functions, analytic geometry, probability-statistics, and sequences into one assessment rhythm. Track entry strategy, key conditions, and checks. Competency focus: mathematical abstraction, logical reasoning, mathematical operations, spatial and visual reasoning, mathematical modeling, data analysis.",
           "workedExamples": [
             {
               "title": "Example 1",
@@ -6876,8 +6957,8 @@
           },
           {
             "section": "concept",
-            "zhHans": "高考风格综合题常把函数、解析几何、概率统计和数列放在同一套试卷节奏中。训练时要记录题型入口、关键条件和检验步骤。 本节重点素养：数学抽象、数学运算、逻辑推理、直观想象、数学建模、数据分析。",
-            "en": "Exam-style mixed practice places functions, analytic geometry, probability-statistics, and sequences into one assessment rhythm. Track entry strategy, key conditions, and checks. Competency focus: mathematical abstraction, mathematical operations, logical reasoning, spatial and visual reasoning, mathematical modeling, data analysis."
+            "zhHans": "高考风格综合题常把函数、解析几何、概率统计和数列放在同一套试卷节奏中。训练时要记录题型入口、关键条件和检验步骤。 本节重点素养：数学抽象、逻辑推理、数学运算、直观想象、数学建模、数据分析。",
+            "en": "Exam-style mixed practice places functions, analytic geometry, probability-statistics, and sequences into one assessment rhythm. Track entry strategy, key conditions, and checks. Competency focus: mathematical abstraction, logical reasoning, mathematical operations, spatial and visual reasoning, mathematical modeling, data analysis."
           },
           {
             "section": "worked-example-1",
@@ -6908,16 +6989,16 @@
       },
       "teacherReviewerNotes": {
         "curriculumAlignment": {
-          "zhHans": "围绕高考风格综合练习生成，证据来自安全 RAG 卡 pep-high-sequences、pep-high-derivatives-applications、pep-high-sequences-summation-recursion、pep-high-derivatives-tangent-zeros-inequalities、pep-high-counting-principles、pep-high-random-variables-distributions。",
-          "en": "Generated around 高考风格综合练习 using safe RAG cards pep-high-sequences, pep-high-derivatives-applications, pep-high-sequences-summation-recursion, pep-high-derivatives-tangent-zeros-inequalities, pep-high-counting-principles, pep-high-random-variables-distributions."
+          "zhHans": "围绕高考风格综合练习生成，证据来自安全 RAG 卡 pep-high-teacher-resources-selective-2、pep-high-sequences、pep-high-derivatives-applications、pep-high-sequences-summation-recursion、pep-high-derivatives-tangent-zeros-inequalities、pep-high-teacher-resources-selective-3。",
+          "en": "Generated around 高考风格综合练习 using safe RAG cards pep-high-teacher-resources-selective-2, pep-high-sequences, pep-high-derivatives-applications, pep-high-sequences-summation-recursion, pep-high-derivatives-tangent-zeros-inequalities, pep-high-teacher-resources-selective-3."
         },
         "misconceptionTargets": [
+          "lesson sequence too close to source package",
+          "example wording copied instead of re-authored",
+          "teacher-only activity exposed as student answer text",
+          "review handout treated as answer key",
           "index shift error",
-          "common difference ratio confused",
-          "sum formula condition missed",
-          "derivative zero treated as automatic extremum",
-          "sign chart interval error",
-          "endpoint in optimization ignored"
+          "common difference ratio confused"
         ],
         "verificationChecklist": [
           {

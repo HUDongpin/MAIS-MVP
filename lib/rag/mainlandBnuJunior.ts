@@ -1,4 +1,5 @@
 import { mainlandBnuJuniorRagCards } from "../../data/rag/mainlandBnuJunior";
+import { illustrationTextMatchStandardForRag } from "./illustrationTextMatchStandard";
 import { getMainlandBnuJuniorAssessmentPatternCards } from "./mainlandBnuJuniorAssessmentPatterns";
 import { getMainlandJuniorZhongkaoExamPatternCards } from "./mainlandJuniorZhongkaoExamPatterns";
 import type {
@@ -172,6 +173,7 @@ export function buildMainlandBnuJuniorEvidencePack(query: MainlandBnuJuniorRagQu
       : []),
     "Use this evidence only to create original MAIS explanations, diagnostics, lesson support, assessment plans, and future content drafts.",
     "Do not quote or reconstruct protected textbook examples, exercises, school-paper prompts, worked responses, figures, tables, activity text, visual layouts, item order, private file locations, hidden extraction artifacts, or long protected phrasing.",
+    ...illustrationTextMatchStandardForRag,
     "Keep Beijing Normal University Press, PEP, and HJB textbook and publisher-specific paper-pattern layers separate; share only broad Mainland concept IDs, learner-facing competency language, the single shared zhongkao layer, and source-distance safety rules.",
     "This evidence pack is not connected to getMainlandPepEvidencePack, buildMainlandHjbJuniorEvidencePack, or buildMainlandBnuPrimaryEvidencePack; callers must explicitly request publisher MAINLAND_BNU junior-secondary.",
     "Junior textbook layer:",

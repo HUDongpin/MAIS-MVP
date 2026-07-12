@@ -44,7 +44,7 @@ test.describe("console UI and UX regression guards", () => {
     await page.getByRole("button", { name: /Use English/i }).click();
     await expect(page.getByRole("button", { name: /使用繁體中文/i })).toHaveText("繁");
 
-    await page.goto("/assessment/assessment-s3-algebra-quiz");
+    await page.goto("/student/assessments/assessment-s3-algebra-quiz");
     await expect(page.getByRole("button", { name: /Submit assessment/i })).toBeDisabled();
     await expectNoHorizontalOverflow(page, "student assessment");
 

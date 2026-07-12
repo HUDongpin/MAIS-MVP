@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import { WorkedExampleIllustration } from "@/components/lesson/WorkedExampleIllustration";
 import livePackJson from "@/data/generated-content/us-ca-math-middle-school-textbooks-v2/live-lessons.json";
 
 type LessonProblem = {
@@ -116,9 +117,16 @@ function StandardsList({ lesson }: { lesson: LessonRecord }) {
 }
 
 function ProblemBlock({
+  illustrationContext,
   label,
   problem
 }: {
+  illustrationContext?: {
+    content: string;
+    grade: LessonRecord["metadata"]["grade"];
+    title: string;
+    topicId: string;
+  };
   label: string;
   problem: LessonProblem;
 }) {
@@ -142,6 +150,16 @@ function ProblemBlock({
           </p>
         </div>
       </div>
+      {illustrationContext ? (
+        <WorkedExampleIllustration
+          className="max-w-full rounded-lg shadow-none"
+          content={illustrationContext.content}
+          grade={illustrationContext.grade}
+          publisher="US_CA_MATH"
+          title={illustrationContext.title}
+          topicId={illustrationContext.topicId}
+        />
+      ) : null}
     </section>
   );
 }
@@ -196,7 +214,16 @@ function LessonSection({ lesson }: { lesson: LessonRecord }) {
               {studentSafeText(content.conceptExplanation)}
             </p>
           </section>
-          <ProblemBlock label="Worked example" problem={workedExample} />
+          <ProblemBlock
+            illustrationContext={{
+              content: `${workedExample.prompt} ${workedExample.answer} ${workedExample.explanation}`,
+              grade: lesson.metadata.grade,
+              title: content.title,
+              topicId: lesson.id
+            }}
+            label="Worked example"
+            problem={workedExample}
+          />
           <ProblemBlock label="Guided practice" problem={guidedPractice} />
           <ProblemBlock label="Independent practice" problem={independentPractice} />
         </div>
@@ -256,20 +283,20 @@ export function CaliforniaMiddleSchoolReplacementTextbookPage() {
           <div className="grid gap-7 lg:grid-cols-[1fr_20rem] lg:items-end">
             <div>
               <p className="text-xs font-black uppercase tracking-[0.18em] text-cyan-700 dark:text-cyan-200">
-                California Middle School Mathematics
+                California Middle School Mathematics · Domain overview beta
               </p>
               <h1 className="mt-3 max-w-4xl text-4xl font-black text-slate-950 dark:text-white sm:text-5xl">
                 Replacement Grade 6-8 Lessons
               </h1>
               <p className="mt-4 max-w-3xl text-base font-semibold leading-7 text-slate-600 dark:text-slate-300">
-                Illustrated California standards-aligned lesson coverage with worked examples, guided practice, independent practice, checkpoints, and concept visuals.
+                Illustrated California standards-aligned domain overview lessons with cluster coverage, worked examples, guided practice, independent practice, checkpoints, and concept visuals.
               </p>
             </div>
             <div className="rounded-lg border border-slate-200/80 bg-slate-50 p-4 dark:border-white/10 dark:bg-white/[0.055]">
               <p className="text-xs font-black uppercase tracking-[0.12em] text-slate-500 dark:text-slate-400">Package</p>
               <p className="mt-2 text-sm font-bold text-slate-700 dark:text-slate-200">{livePack.packageId}</p>
               <p className="mt-3 text-xs leading-5 text-slate-500 dark:text-slate-400">
-                {totalLessons} lessons · G6-G8 · Student edition
+                {totalLessons} domain overview beta lessons · G6-G8 · cluster coverage
               </p>
             </div>
           </div>
@@ -301,7 +328,7 @@ export function CaliforniaMiddleSchoolReplacementTextbookPage() {
                 <h2 className="mt-2 text-3xl font-black text-slate-950 dark:text-white">{group.lessons[0].metadata.courseLabel}</h2>
               </div>
               <p className="max-w-xl text-sm font-semibold leading-6 text-slate-500 dark:text-slate-400">
-                California standards-aligned lesson coverage · {group.lessons.length} lessons
+                California standards-aligned domain overview beta · cluster coverage · {group.lessons.length} lessons
               </p>
             </div>
 

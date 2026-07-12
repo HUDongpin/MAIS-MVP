@@ -1,0 +1,36 @@
+# 2026-06-26 A25 Effective Work Order - A17 gamification and motivation
+
+- Owner: A17 gamification and motivation
+- Priority: P4
+- Reason: Standard owner package.
+- Entries: 4
+- From P0 proposals: 0
+- Dominant slice: runtime app/API/data/public: 3
+- Pathspec: `coordination/release-intake/latest-A25-effective-owner-a17-gamification-and-motivation.pathspec`
+
+## Required Final State
+
+Reviewed commit, owner-approved discard, evidence archive, or blocker.
+
+## Suggested Commands
+
+```bash
+git status --short --pathspec-from-file=coordination/release-intake/latest-A25-effective-owner-a17-gamification-and-motivation.pathspec
+git diff --stat --pathspec-from-file=coordination/release-intake/latest-A25-effective-owner-a17-gamification-and-motivation.pathspec
+```
+
+## Status Buckets
+
+- `M`: 3
+- `??`: 1
+
+## P0 Proposal Confidence
+
+- No P0 proposal entries in this package.
+
+## Path Sample
+
+- `M` `components/gamification/AdventureIslandGame.tsx`
+- `M` `components/gamification/FishingGame.tsx`
+- `M` `components/gamification/StudentMotivationHub.tsx`
+- `??` `components/gamification/StudentMotivationHub.disclosure.test.ts`

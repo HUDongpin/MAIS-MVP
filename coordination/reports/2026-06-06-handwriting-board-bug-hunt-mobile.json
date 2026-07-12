@@ -1,0 +1,134 @@
+{
+  "generatedAt": "2026-06-06T05:41:44.116Z",
+  "scope": "Lesson and Practice handwriting board bug hunt",
+  "findingCount": 7,
+  "findings": [
+    {
+      "id": "HWB-01",
+      "severity": "P1",
+      "surface": "Practice",
+      "title": "New-student learner setup modal blocks handwriting board controls",
+      "expected": "A student who reaches Practice or Lesson handwriting controls can switch to the handwriting board without an unrelated modal intercepting clicks, or the modal is localized and intentionally handled by the page flow.",
+      "actual": "The fixed `LearnerStartSetupGate` dialog appears above Practice/Lesson and intercepts clicks on the visible `Handwriting board` tab; the dialog copy is Simplified Chinese even though the registered student language is English.",
+      "repro": "Register a new English HK student, open `/practice`, unlock free selection, select Fill-in, then click the visible `Handwriting board` tab.",
+      "evidence": "/Users/dongpinhu/Desktop/MAIS-MVP/.tmp/s11-handwriting-board/bug-hunt-mobile/practice-learner-setup-blocks-handwriting.png",
+      "rootCause": "`components/layout/LearnerStartSetupGate.tsx` is global in `app/layout.tsx`, uses hard-coded Simplified Chinese strings, and is not excluded from Practice/Lesson handwriting flows."
+    },
+    {
+      "id": "HWB-02",
+      "severity": "P1",
+      "surface": "Practice",
+      "title": "Convert remains enabled while collapsed but sends no canvas image to OCR",
+      "expected": "If a learner collapses the handwriting canvas after drawing, Convert either expands/captures the canvas or is disabled until the canvas is visible.",
+      "actual": "The request still submits strokes, but `imageDataUrl` is missing because the `<canvas>` is unmounted while collapsed.",
+      "repro": "In Practice fill-in, switch to Handwriting board, draw a stroke, collapse the canvas, then click Convert to text.",
+      "rootCause": "`HandwritingAnswerBoard.buildOcrImageDataUrl()` returns `undefined` when `canvasRef.current` is null, while the Convert button only checks `hasDraft`."
+    },
+    {
+      "id": "HWB-03",
+      "severity": "P2",
+      "surface": "Practice",
+      "title": "Blank eraser-only drafts enable OCR conversion",
+      "expected": "Drawing only with the eraser on a blank board should not count as recognizable handwriting or enable Convert.",
+      "actual": "The Convert button becomes enabled and the payload contains only eraser strokes.",
+      "repro": "Open Practice handwriting board, choose eraser on a blank canvas, drag once, then inspect the Convert button.",
+      "rootCause": "`HandwritingAnswerBoard.hasDraft` counts all strokes, including eraser-only strokes, instead of requiring visible pen ink."
+    },
+    {
+      "id": "HWB-04",
+      "severity": "P2",
+      "surface": "API",
+      "title": "OCR payload accepts eraser-only stroke telemetry",
+      "expected": "The client should suppress OCR submission when no visible pen stroke exists.",
+      "actual": "A request reached `/api/handwriting-recognition` with eraser-only stroke telemetry.",
+      "repro": "Use the eraser on an empty Practice handwriting board and click Convert.",
+      "rootCause": "`sanitizeHandwritingStrokes` preserves eraser strokes and the client submits them without visible-ink validation."
+    },
+    {
+      "id": "HWB-05",
+      "severity": "P1",
+      "surface": "Practice",
+      "title": "Handwriting OCR rate-limit errors are replaced by a misleading handwriting-quality message",
+      "expected": "When `/api/handwriting-recognition` returns 429, the learner sees the retry-after/rate-limit message.",
+      "actual": "The UI displayed: Draw clearer separated digits, then convert again.",
+      "repro": "Force `/api/handwriting-recognition` to return 429 while converting a Practice handwriting draft.",
+      "rootCause": "`HandwritingAnswerBoard.convertHandwritingToText()` treats every non-OK response as generic `convertError` and discards the API JSON error body."
+    },
+    {
+      "id": "HWB-06",
+      "severity": "P1",
+      "surface": "Lesson",
+      "title": "Lesson practice card with handwriting-capable type is missing in the DOM",
+      "expected": "Lesson `algebra-basics` renders a non-multiple-choice practice card with the handwriting input mode.",
+      "actual": "The Lesson API had a handwriting-capable question, but the visible Lesson page did not expose a matching card.",
+      "repro": "Open /student/lessons/algebra-basics and search for Fill-in, Short answer, or Graph practice cards.",
+      "rootCause": "`components/lesson/LessonView.tsx` rendering may be filtering or relabeling linked practice questions."
+    },
+    {
+      "id": "HWB-07",
+      "severity": "P2",
+      "surface": "API",
+      "title": "Live OCR route returns empty text for clear common math expressions",
+      "expected": "Clear math images for equations and trigonometric expressions return recognized text or at least non-empty alternatives for learner review.",
+      "actual": "3/5 live OCR calls returned HTTP 200 from a provider but `accepted=false` with empty text.",
+      "repro": "POST generated PNG data URLs for common math expressions such as `2x+3=9` and `sin30=1/2` to `/api/handwriting-recognition`.",
+      "evidence": "[{\"caseId\":\"live-1\",\"input\":\"x^2+4x\",\"httpStatus\":200,\"provider\":\"simpletex\",\"accepted\":false,\"text\":\"\",\"reason\":\"Recognition requires review: low-confidence.\",\"alternativesCount\":1,\"latencyMs\":17490},{\"caseId\":\"live-4\",\"input\":\"2x+3=9\",\"httpStatus\":200,\"provider\":\"simpletex\",\"accepted\":false,\"text\":\"\",\"reason\":\"Recognition requires review: low-confidence.\",\"alternativesCount\":1,\"latencyMs\":2015},{\"caseId\":\"live-5\",\"input\":\"sin30=1/2\",\"httpStatus\":200,\"provider\":\"simpletex\",\"accepted\":false,\"text\":\"\",\"reason\":\"Recognition requires review: low-confidence.\",\"alternativesCount\":1,\"latencyMs\":1391}]",
+      "rootCause": "The route/provider acceptance threshold or post-processing may be dropping usable OCR candidates instead of surfacing them for learner review."
+    }
+  ],
+  "liveOcrRows": [
+    {
+      "caseId": "live-1",
+      "input": "x^2+4x",
+      "httpStatus": 200,
+      "provider": "simpletex",
+      "accepted": false,
+      "text": "",
+      "reason": "Recognition requires review: low-confidence.",
+      "alternativesCount": 1,
+      "latencyMs": 17490
+    },
+    {
+      "caseId": "live-2",
+      "input": "3/5+1/2",
+      "httpStatus": 200,
+      "provider": "simpletex",
+      "accepted": true,
+      "text": "3/5+1/2",
+      "alternativesCount": 1,
+      "latencyMs": 1189
+    },
+    {
+      "caseId": "live-3",
+      "input": "0.9+0.1",
+      "httpStatus": 200,
+      "provider": "simpletex",
+      "accepted": true,
+      "text": "0.9+0.1",
+      "alternativesCount": 1,
+      "latencyMs": 1647
+    },
+    {
+      "caseId": "live-4",
+      "input": "2x+3=9",
+      "httpStatus": 200,
+      "provider": "simpletex",
+      "accepted": false,
+      "text": "",
+      "reason": "Recognition requires review: low-confidence.",
+      "alternativesCount": 1,
+      "latencyMs": 2015
+    },
+    {
+      "caseId": "live-5",
+      "input": "sin30=1/2",
+      "httpStatus": 200,
+      "provider": "simpletex",
+      "accepted": false,
+      "text": "",
+      "reason": "Recognition requires review: low-confidence.",
+      "alternativesCount": 1,
+      "latencyMs": 1391
+    }
+  ]
+}

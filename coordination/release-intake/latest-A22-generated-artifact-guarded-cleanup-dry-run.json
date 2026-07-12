@@ -1,0 +1,140 @@
+{
+  "generatedAt": "2026-07-10T17:05:40.655Z",
+  "repoRoot": "/Users/dongpinhu/Desktop/MAIS-MVP",
+  "executorKind": "a22-generated-artifact-guarded-cleanup-executor",
+  "mode": "dry-run",
+  "executorStatus": "dry-run-pending-owner-decision",
+  "dirtyMapStatusSignature": "e30d647e1b51432945713f42ac78b0a2466fcb17192de0235a801ac877a0801f",
+  "expandedStatusEntries": 7636,
+  "sourceArtifacts": {
+    "planGeneratedAt": "2026-07-10T17:05:40.508Z"
+  },
+  "sourceCurrentnessFailures": [],
+  "planStatus": "pending-a22-generated-artifact-owner-decision",
+  "exactCommand": "node scripts/cleanup-generated-artifacts.mjs --apply --scope all",
+  "commandSequence": [
+    {
+      "command": "node scripts/cleanup-generated-artifacts.mjs --apply --scope all",
+      "cwd": "/Users/dongpinhu/Desktop/MAIS-MVP",
+      "approvalIds": [
+        "a22-generated-residual-next",
+        "a22-generated-residual-tmp"
+      ],
+      "paths": [
+        ".next",
+        ".tmp"
+      ]
+    }
+  ],
+  "commandCwd": "/Users/dongpinhu/Desktop/MAIS-MVP",
+  "targetRows": [
+    {
+      "approvalId": "a22-generated-residual-next",
+      "owner": "A22 production reliability and release engineering",
+      "path": ".next",
+      "command": "node scripts/cleanup-generated-artifacts.mjs --apply --scope all",
+      "cwd": "/Users/dongpinhu/Desktop/MAIS-MVP",
+      "residualBytes": 3210619565,
+      "authorizationRecorded": false,
+      "executionInstructionRecorded": false,
+      "cleanupAuthorized": false,
+      "executableNow": false
+    },
+    {
+      "approvalId": "a22-generated-residual-tmp",
+      "owner": "A22 production reliability and release engineering",
+      "path": ".tmp",
+      "command": "node scripts/cleanup-generated-artifacts.mjs --apply --scope all",
+      "cwd": "/Users/dongpinhu/Desktop/MAIS-MVP",
+      "residualBytes": 899489096,
+      "authorizationRecorded": false,
+      "executionInstructionRecorded": false,
+      "cleanupAuthorized": false,
+      "executableNow": false
+    }
+  ],
+  "commandLog": [],
+  "preflightChecks": [
+    {
+      "id": "mode-is-explicit",
+      "status": "pass",
+      "detail": "mode=dry-run"
+    },
+    {
+      "id": "source-current",
+      "status": "pass",
+      "detail": "source currentness failures=0"
+    },
+    {
+      "id": "plan-ready-or-clean",
+      "status": "pass",
+      "detail": "planStatus=pending-a22-generated-artifact-owner-decision"
+    },
+    {
+      "id": "exact-command",
+      "status": "pass",
+      "detail": "commandSequenceRows=1"
+    },
+    {
+      "id": "executable-rows-before-apply-or-clean-after",
+      "status": "pass",
+      "detail": "executableRows=0"
+    },
+    {
+      "id": "apply-requires-ready-status",
+      "status": "pass",
+      "detail": "mode=dry-run; status=dry-run-pending-owner-decision"
+    },
+    {
+      "id": "no-stage-commit-merge-deploy",
+      "status": "pass",
+      "detail": "executor only calls the guarded A22 generated-artifact cleanup command sequence in apply mode"
+    }
+  ],
+  "summary": {
+    "mode": "dry-run",
+    "executorStatus": "dry-run-pending-owner-decision",
+    "planStatus": "pending-a22-generated-artifact-owner-decision",
+    "targetRows": 2,
+    "cleanupAuthorizedRows": 0,
+    "executableRows": 0,
+    "preflightChecks": 7,
+    "passingPreflightChecks": 7,
+    "failedPreflightChecks": 0,
+    "sourceCurrentnessFailures": 0,
+    "applyRequested": false,
+    "applyPermitted": false,
+    "mutationsPerformed": false
+  },
+  "boundary": {
+    "evidenceOnly": true,
+    "dryRunOnly": true,
+    "applyModeRequested": false,
+    "recordsOwnerApproval": false,
+    "recordsExecutionInstruction": false,
+    "stageAuthorized": false,
+    "commitAuthorized": false,
+    "mergeAuthorized": false,
+    "cleanupAuthorized": false,
+    "executableNow": false,
+    "destructiveGitAuthorized": false,
+    "fileDeletionAuthorized": false,
+    "deployAuthorized": false,
+    "requiresExplicitApplyFlag": true,
+    "allowedCommand": "node scripts/cleanup-generated-artifacts.mjs --apply --scope all",
+    "allowedCommandSequence": [
+      {
+        "command": "node scripts/cleanup-generated-artifacts.mjs --apply --scope all",
+        "cwd": "/Users/dongpinhu/Desktop/MAIS-MVP",
+        "approvalIds": [
+          "a22-generated-residual-next",
+          "a22-generated-residual-tmp"
+        ],
+        "paths": [
+          ".next",
+          ".tmp"
+        ]
+      }
+    ]
+  }
+}

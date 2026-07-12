@@ -1,0 +1,58 @@
+{
+  "generatedAt": "2026-07-08T14:13:17.850Z",
+  "dirtyMapStatusSignature": "4892e406613fc3846378621b84ba0f486bb8ebf371c35837eae544472596f318",
+  "expandedStatusEntries": 6130,
+  "approvalRequestsGeneratedAt": "2026-07-08T14:13:17.799Z",
+  "cleanupAuthorized": false,
+  "executableNow": false,
+  "summary": {
+    "executionRows": 1,
+    "requiresAuthorizationRows": 1,
+    "cleanupAuthorizedRows": 0,
+    "executableRows": 0
+  },
+  "executionRows": [
+    {
+      "executionIndex": 1,
+      "approvalId": "wave01-resync-01-tsconfig-json",
+      "owner": "A10 tooling, docs, and report",
+      "path": "tsconfig.json",
+      "worktreePath": "/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A25-dirty-closure-governance",
+      "branch": "codex/A25-dirty-closure-governance",
+      "selectedAction": "owner-approved-package-restore",
+      "exactCommand": "git restore --source=HEAD -- tsconfig.json",
+      "commandCwd": "/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A25-dirty-closure-governance",
+      "packageOnly": true,
+      "rootPathExists": true,
+      "worktreePathExists": true,
+      "requiresExactOwnerAuthorization": true,
+      "ownerAuthorizationPresent": false,
+      "cleanupAuthorized": false,
+      "executableNow": false,
+      "requiredAuthorizationText": "Authorize approvalId=wave01-resync-01-tsconfig-json; worktree=/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A25-dirty-closure-governance; path=tsconfig.json; selectedAction=owner-approved-package-restore; command=git restore --source=HEAD -- tsconfig.json; approvedBy=<owner>; approvedAt=<ISO-8601>; notes=<scope, evidence reviewed, accepted risk>",
+      "preExecutionChecks": [
+        "node coordination/release-intake/assert-wave01-governance-readiness-current.mjs",
+        "node coordination/release-intake/assert-wave01-package-resync-approval-requests-current.mjs",
+        "node coordination/release-intake/assert-no-staged-changes.mjs --json",
+        "git -C /Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A25-dirty-closure-governance status --short -- tsconfig.json"
+      ],
+      "postExecutionChecks": [
+        "npm run release:dirty-map -- --reason \"A25 Wave 01 resync execution wave01-resync-01-tsconfig-json\"",
+        "node coordination/release-intake/generate-wave01-governance-readiness.mjs",
+        "node coordination/release-intake/assert-wave01-governance-readiness-current.mjs",
+        "node coordination/release-intake/generate-wave01-package-resync-approval-requests.mjs",
+        "node coordination/release-intake/assert-wave01-package-resync-approval-requests-current.mjs",
+        "node coordination/release-intake/generate-wave01-package-resync-execution-packet.mjs",
+        "node coordination/release-intake/assert-wave01-package-resync-execution-packet-current.mjs",
+        "node coordination/release-intake/assert-no-staged-changes.mjs --json"
+      ],
+      "evidence": [
+        "coordination/release-intake/2026-07-01-A25-dirty-worktree-current-cleanup-plan.md",
+        "coordination/release-intake/latest-A25-wave01-package-resync-approval-requests.json",
+        "coordination/release-intake/latest-A25-wave01-governance-readiness.json",
+        "coordination/release-intake/latest-A25-wave01-governance-readiness.md"
+      ],
+      "stopCondition": "Do not execute this row unless the owner authorizes this exact approvalId, selectedAction, exactCommand, worktreePath, path, approvedBy, and approvedAt."
+    }
+  ]
+}

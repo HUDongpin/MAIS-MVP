@@ -1,0 +1,310 @@
+{
+  "checkedAt": "2026-07-01T12:49:01.893Z",
+  "strict": true,
+  "dirtyMapStatusSignature": "d430524c30f2e4eff1098ec45357be75b822763cbce8b45314ceb82c4230da33",
+  "expandedStatusEntries": 2875,
+  "selectionPath": "coordination/release-intake/latest-A25-dirty-worktree-final-state-selection.json",
+  "missingSelection": false,
+  "decisionCount": 57,
+  "summary": {
+    "total": 57,
+    "selected": 57,
+    "complete": 57,
+    "missingSelection": false,
+    "bySourceKind": {
+      "owner-package": 24,
+      "physical-lifecycle": 33
+    },
+    "byStatus": {
+      "complete": 57
+    }
+  },
+  "failures": [],
+  "decisions": [
+    {
+      "ledgerId": "owner-package:a25-git-hygiene-and-release-intake",
+      "sourceKind": "owner-package",
+      "selectedFinalState": "reviewed commit"
+    },
+    {
+      "ledgerId": "owner-package:a22-production-reliability-and-release-engineering",
+      "sourceKind": "owner-package",
+      "selectedFinalState": "reviewed commit"
+    },
+    {
+      "ledgerId": "owner-package:a06-visualization-lead",
+      "sourceKind": "owner-package",
+      "selectedFinalState": "reviewed commit"
+    },
+    {
+      "ledgerId": "owner-package:a12-backend-api-platform",
+      "sourceKind": "owner-package",
+      "selectedFinalState": "reviewed commit"
+    },
+    {
+      "ledgerId": "owner-package:a11-qa-and-release-quality",
+      "sourceKind": "owner-package",
+      "selectedFinalState": "reviewed commit"
+    },
+    {
+      "ledgerId": "owner-package:a10-tooling-docs-and-report",
+      "sourceKind": "owner-package",
+      "selectedFinalState": "reviewed commit"
+    },
+    {
+      "ledgerId": "owner-package:a18-curriculum-qa-a21-content-pipeline",
+      "sourceKind": "owner-package",
+      "selectedFinalState": "reviewed commit"
+    },
+    {
+      "ledgerId": "owner-package:a05-lesson-lead",
+      "sourceKind": "owner-package",
+      "selectedFinalState": "reviewed commit"
+    },
+    {
+      "ledgerId": "owner-package:a21-content-pipeline-and-rag-operations",
+      "sourceKind": "owner-package",
+      "selectedFinalState": "reviewed commit"
+    },
+    {
+      "ledgerId": "owner-package:a04-practice-lead",
+      "sourceKind": "owner-package",
+      "selectedFinalState": "reviewed commit"
+    },
+    {
+      "ledgerId": "owner-package:a03-curriculum-roadmap-lead",
+      "sourceKind": "owner-package",
+      "selectedFinalState": "reviewed commit"
+    },
+    {
+      "ledgerId": "owner-package:a13-teacher-console",
+      "sourceKind": "owner-package",
+      "selectedFinalState": "reviewed commit"
+    },
+    {
+      "ledgerId": "owner-package:a01-app-shell-lead",
+      "sourceKind": "owner-package",
+      "selectedFinalState": "reviewed commit"
+    },
+    {
+      "ledgerId": "owner-package:a02-dashboard-lead",
+      "sourceKind": "owner-package",
+      "selectedFinalState": "reviewed commit"
+    },
+    {
+      "ledgerId": "owner-package:a20-game-design-and-game-based-learning",
+      "sourceKind": "owner-package",
+      "selectedFinalState": "reviewed commit"
+    },
+    {
+      "ledgerId": "owner-package:a07-ai-tutor-lead",
+      "sourceKind": "owner-package",
+      "selectedFinalState": "reviewed commit"
+    },
+    {
+      "ledgerId": "owner-package:a08-state-and-analytics-lead",
+      "sourceKind": "owner-package",
+      "selectedFinalState": "reviewed commit"
+    },
+    {
+      "ledgerId": "owner-package:a15-adaptive-engine-lead",
+      "sourceKind": "owner-package",
+      "selectedFinalState": "reviewed commit"
+    },
+    {
+      "ledgerId": "owner-package:a24-illustration-exact-layer",
+      "sourceKind": "owner-package",
+      "selectedFinalState": "reviewed commit"
+    },
+    {
+      "ledgerId": "owner-package:a14-parent-console",
+      "sourceKind": "owner-package",
+      "selectedFinalState": "reviewed commit"
+    },
+    {
+      "ledgerId": "owner-package:a16-research-and-learning-science",
+      "sourceKind": "owner-package",
+      "selectedFinalState": "reviewed commit"
+    },
+    {
+      "ledgerId": "owner-package:a09-copy-i18n-accessibility",
+      "sourceKind": "owner-package",
+      "selectedFinalState": "reviewed commit"
+    },
+    {
+      "ledgerId": "owner-package:a17-gamification-and-motivation",
+      "sourceKind": "owner-package",
+      "selectedFinalState": "reviewed commit"
+    },
+    {
+      "ledgerId": "owner-package:a23-integration-and-promotion-lead",
+      "sourceKind": "owner-package",
+      "selectedFinalState": "reviewed commit"
+    },
+    {
+      "ledgerId": "physical:root-main",
+      "sourceKind": "physical-lifecycle",
+      "selectedFinalState": "reviewed owner package commit"
+    },
+    {
+      "ledgerId": "physical:codex-a01-app-shell-closure",
+      "sourceKind": "physical-lifecycle",
+      "selectedFinalState": "owner-reviewed commit or package extraction"
+    },
+    {
+      "ledgerId": "physical:codex-a01-shell-lazy-load",
+      "sourceKind": "physical-lifecycle",
+      "selectedFinalState": "owner-reviewed commit or package extraction"
+    },
+    {
+      "ledgerId": "physical:codex-a02-a15-dashboard-adaptive-closure",
+      "sourceKind": "physical-lifecycle",
+      "selectedFinalState": "owner-reviewed commit or package extraction"
+    },
+    {
+      "ledgerId": "physical:codex-a03-roadmap-closure",
+      "sourceKind": "physical-lifecycle",
+      "selectedFinalState": "owner-reviewed commit or package extraction"
+    },
+    {
+      "ledgerId": "physical:codex-a04-practice-closure",
+      "sourceKind": "physical-lifecycle",
+      "selectedFinalState": "owner-reviewed commit or package extraction"
+    },
+    {
+      "ledgerId": "physical:codex-a05-lesson-closure",
+      "sourceKind": "physical-lifecycle",
+      "selectedFinalState": "owner-reviewed commit or package extraction"
+    },
+    {
+      "ledgerId": "physical:codex-a06-manim-three-closure",
+      "sourceKind": "physical-lifecycle",
+      "selectedFinalState": "owner-reviewed commit or package extraction"
+    },
+    {
+      "ledgerId": "physical:codex-a06-visualization-closure",
+      "sourceKind": "physical-lifecycle",
+      "selectedFinalState": "owner-reviewed commit or package extraction"
+    },
+    {
+      "ledgerId": "physical:codex-a07-a15-a08-ai-adaptive-types",
+      "sourceKind": "physical-lifecycle",
+      "selectedFinalState": "owner-reviewed commit or package extraction"
+    },
+    {
+      "ledgerId": "physical:codex-a07-ai-tutor-classroom-switches",
+      "sourceKind": "physical-lifecycle",
+      "selectedFinalState": "owner-reviewed commit or package extraction"
+    },
+    {
+      "ledgerId": "physical:codex-a07-ai-tutor-closure",
+      "sourceKind": "physical-lifecycle",
+      "selectedFinalState": "owner-reviewed commit or package extraction"
+    },
+    {
+      "ledgerId": "physical:codex-a08-a12-shared-contract-closure",
+      "sourceKind": "physical-lifecycle",
+      "selectedFinalState": "owner-reviewed commit or package extraction"
+    },
+    {
+      "ledgerId": "physical:codex-a09-copy-i18n-accessibility-closure",
+      "sourceKind": "physical-lifecycle",
+      "selectedFinalState": "owner-reviewed commit or package extraction"
+    },
+    {
+      "ledgerId": "physical:codex-a10-a22-a08-a12-a06-compose-20260628",
+      "sourceKind": "physical-lifecycle",
+      "selectedFinalState": "owner-reviewed commit or package extraction"
+    },
+    {
+      "ledgerId": "physical:codex-a10-a22-release-governance",
+      "sourceKind": "physical-lifecycle",
+      "selectedFinalState": "owner-approved PR or review package"
+    },
+    {
+      "ledgerId": "physical:codex-a11-regression-evidence-closure",
+      "sourceKind": "physical-lifecycle",
+      "selectedFinalState": "owner-reviewed commit or package extraction"
+    },
+    {
+      "ledgerId": "physical:codex-a12-google-oauth-login",
+      "sourceKind": "physical-lifecycle",
+      "selectedFinalState": "owner-reviewed commit or package extraction"
+    },
+    {
+      "ledgerId": "physical:codex-a12-userstore-storage-contract",
+      "sourceKind": "physical-lifecycle",
+      "selectedFinalState": "owner-reviewed commit or package extraction"
+    },
+    {
+      "ledgerId": "physical:codex-a13-a14-console-closure",
+      "sourceKind": "physical-lifecycle",
+      "selectedFinalState": "owner-reviewed commit or package extraction"
+    },
+    {
+      "ledgerId": "physical:codex-a16-research-evidence-closure",
+      "sourceKind": "physical-lifecycle",
+      "selectedFinalState": "owner-reviewed commit or package extraction"
+    },
+    {
+      "ledgerId": "physical:codex-a17-a20-game-motivation-closure",
+      "sourceKind": "physical-lifecycle",
+      "selectedFinalState": "owner-reviewed commit or package extraction"
+    },
+    {
+      "ledgerId": "physical:codex-a18-a21-content-evidence-closure",
+      "sourceKind": "physical-lifecycle",
+      "selectedFinalState": "owner-reviewed commit or package extraction"
+    },
+    {
+      "ledgerId": "physical:codex-a19-vercel-postgres-region",
+      "sourceKind": "physical-lifecycle",
+      "selectedFinalState": "owner-approved PR or review package"
+    },
+    {
+      "ledgerId": "physical:codex-a22-missing-module-release-slice",
+      "sourceKind": "physical-lifecycle",
+      "selectedFinalState": "owner-reviewed commit or package extraction"
+    },
+    {
+      "ledgerId": "physical:codex-a22-next-15-5-19-audit",
+      "sourceKind": "physical-lifecycle",
+      "selectedFinalState": "owner-reviewed commit or package extraction"
+    },
+    {
+      "ledgerId": "physical:codex-a22-p1-release-hygiene-security",
+      "sourceKind": "physical-lifecycle",
+      "selectedFinalState": "owner-reviewed commit or package extraction"
+    },
+    {
+      "ledgerId": "physical:codex-a22-us-region-alignment",
+      "sourceKind": "physical-lifecycle",
+      "selectedFinalState": "owner-approved PR or review package"
+    },
+    {
+      "ledgerId": "physical:codex-a25-dirty-closure-governance",
+      "sourceKind": "physical-lifecycle",
+      "selectedFinalState": "owner-reviewed commit or package extraction"
+    },
+    {
+      "ledgerId": "physical:codex-a25-full-dirty-compose-verification",
+      "sourceKind": "physical-lifecycle",
+      "selectedFinalState": "owner-reviewed commit or package extraction"
+    },
+    {
+      "ledgerId": "physical:codex-visualization-production-release",
+      "sourceKind": "physical-lifecycle",
+      "selectedFinalState": "owner-reviewed commit or package extraction"
+    },
+    {
+      "ledgerId": "physical:codex-california-practice-beta-clean",
+      "sourceKind": "physical-lifecycle",
+      "selectedFinalState": "owner-approved PR or review package"
+    },
+    {
+      "ledgerId": "physical:codex-s22-release-hygiene-2026-06-15",
+      "sourceKind": "physical-lifecycle",
+      "selectedFinalState": "owner-approved PR or review package"
+    }
+  ]
+}

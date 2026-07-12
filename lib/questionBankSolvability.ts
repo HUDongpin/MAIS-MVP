@@ -1,5 +1,10 @@
 import { questions } from "../data/questions";
 import {
+  expectedHongKongEasePracticeQuestionCount,
+  hongKongEasePracticeQuestionGenerationMetadata,
+  independentHongKongEasePracticeAnswer
+} from "../data/hongKongEasePracticeQuestions";
+import {
   independentMainlandBnuHighAnswer,
   mainlandBnuHighQuestionGenerationMetadata
 } from "../data/mainlandBnuHighQuestions";
@@ -36,8 +41,52 @@ import {
   independentMainlandPepJuniorAnswer,
   mainlandPepJuniorQuestionGenerationMetadata
 } from "../data/mainlandPepJuniorQuestions";
-import { questionAnswerMatches } from "./server/answerGrading";
+import {
+  expectedUnitedStatesArkansasG6G12QuestionCount,
+  expectedUnitedStatesArkansasK5QuestionCount,
+  expectedUnitedStatesArkansasQuestionCount,
+  independentUnitedStatesArkansasAnswer,
+  usArkansasQuestionGenerationMetadata
+} from "../data/usArkansasQuestions";
+import {
+  expectedUnitedStatesCaliforniaG6G12QuestionCount,
+  expectedUnitedStatesCaliforniaK5QuestionCount,
+  expectedUnitedStatesCaliforniaQuestionCount,
+  independentUnitedStatesCaliforniaAnswer,
+  usCaliforniaQuestionGenerationMetadata
+} from "../data/usCaliforniaQuestions";
+import {
+  expectedUnitedStatesFloridaMiddleSchoolQuestionCount,
+  independentUnitedStatesFloridaMiddleSchoolAnswer,
+  usFloridaMiddleSchoolQuestionGenerationMetadata
+} from "../data/usFloridaMiddleSchoolQuestions";
+import {
+  answerMatches as gradingAnswerMatches,
+  normalizeAnswer as normalizeGradingAnswer,
+  parseScalarAnswer,
+  questionAnswerMatches
+} from "./server/answerGrading";
+import {
+  normalizeQuestionDiagram,
+  numberLinePointValue,
+  planeFigureAngleDegrees,
+  solidFigureCuboidVolume,
+  solidFigureUnitText,
+  validateQuestionDiagram
+} from "./questionFigure";
 import type { CurriculumTrack, Question, QuestionType } from "../types";
+
+export {
+  expectedUnitedStatesArkansasG6G12QuestionCount,
+  expectedUnitedStatesArkansasK5QuestionCount,
+  expectedUnitedStatesArkansasQuestionCount
+} from "../data/usArkansasQuestions";
+export {
+  expectedUnitedStatesCaliforniaG6G12QuestionCount,
+  expectedUnitedStatesCaliforniaK5QuestionCount,
+  expectedUnitedStatesCaliforniaQuestionCount
+} from "../data/usCaliforniaQuestions";
+export { expectedUnitedStatesFloridaMiddleSchoolQuestionCount } from "../data/usFloridaMiddleSchoolQuestions";
 
 export type QuestionAuditStatus =
   | "pass"
@@ -78,6 +127,10 @@ export type FullQuestionBankAuditReport = {
     mainlandHjbJuniorQuestions: number;
     mainlandHjbPrimaryQuestions: number;
     mainlandHjbHighQuestions: number;
+    unitedStatesCaliforniaQuestions: number;
+    unitedStatesNorthCarolinaQuestions: number;
+    unitedStatesArkansasQuestions: number;
+    unitedStatesFloridaMiddleSchoolQuestions: number;
     passRows: number;
     failingRows: number;
     statusCounts: Record<QuestionAuditStatus, number>;
@@ -182,16 +235,21 @@ export type AliasKind =
   | "ratio"
   | "time";
 
-export const expectedHkQuestionCount = 285;
+// 288 = 285 legacy questions + 3 figure-based graph questions added with the
+// question-figure spec rollout (plane-figure, number-line, solid-figure).
+export const expectedHkBaseQuestionCount = 288;
+export { expectedHongKongEasePracticeQuestionCount };
+export const expectedHkQuestionCount = expectedHkBaseQuestionCount + expectedHongKongEasePracticeQuestionCount;
 export const expectedMainlandPepPrimaryQuestionCount = 1200;
 export const expectedMainlandPepJuniorQuestionCount = 1200;
 export const expectedMainlandPepHighQuestionCount = 4800;
 export const expectedMainlandHjbJuniorQuestionCount = 1500;
 export const expectedMainlandHjbPrimaryQuestionCount = 1500;
-export const expectedMainlandHjbHighQuestionCount = 6000;
+export const expectedMainlandHjbHighQuestionCount = 1500;
 export const expectedMainlandBnuPrimaryQuestionCount = 3000;
 export const expectedMainlandBnuJuniorQuestionCount = 1500;
 export const expectedMainlandBnuHighQuestionCount = 1500;
+export const expectedUnitedStatesNorthCarolinaQuestionCount = 0;
 export const expectedMainlandPepFullQuestionBankCount =
   expectedMainlandPepPrimaryQuestionCount +
   expectedMainlandPepJuniorQuestionCount +
@@ -204,7 +262,11 @@ export const expectedFullQuestionBankCount =
   expectedMainlandBnuHighQuestionCount +
   expectedMainlandHjbJuniorQuestionCount +
   expectedMainlandHjbPrimaryQuestionCount +
-  expectedMainlandHjbHighQuestionCount;
+  expectedMainlandHjbHighQuestionCount +
+  expectedUnitedStatesCaliforniaQuestionCount +
+  expectedUnitedStatesNorthCarolinaQuestionCount +
+  expectedUnitedStatesArkansasQuestionCount +
+  expectedUnitedStatesFloridaMiddleSchoolQuestionCount;
 
 export const requiredAliasKinds: AliasKind[] = [
   "fraction",
@@ -309,6 +371,9 @@ graph-functions-zero	2
 graph-coordinate-geometry-gradient	1/2
 graph-coordinate-geometry-midpoint	(1, 1)
 graph-data-handling-highest-value	8
+graph-p4-angles-straight-line	50°
+graph-p4-decimals-number-line	3.7
+graph-p5-volume-cube	27 cm^3
 supp-p1-counting-number-bonds-first-step	Count on or count back from the known number
 supp-p1-counting-number-bonds-key-fact	5
 supp-p1-counting-number-bonds-guided-example	15
@@ -508,7 +573,7 @@ supp-mixed-problem-solving-common-check	Check whether the final answer is reason
 `;
 
 export function hkIndependentAnswersById() {
-  return new Map(
+  const answers = new Map(
     hkIndependentAnswerSource
       .trim()
       .split("\n")
@@ -517,77 +582,20 @@ export function hkIndependentAnswersById() {
         return [line.slice(0, tabIndex), line.slice(tabIndex + 1)] as const;
       })
   );
+
+  Object.values(hongKongEasePracticeQuestionGenerationMetadata).forEach((metadata) => {
+    answers.set(`hk-ease-${metadata.sourceId}`, metadata.independentAnswer);
+  });
+
+  return answers;
 }
 
 export function normalizeAnswer(value: string) {
-  return value
-    .normalize("NFKC")
-    .trim()
-    .toLowerCase()
-    .replace(/[−–—]/g, "-")
-    .replace(/\\[()]/g, "")
-    .replace(/\s+/g, " ")
-    .replace(/\s*([=,+\-*/:^()])\s*/g, "$1")
-    .replace(/\s*,\s*/g, ",")
-    .replace(/\s*:\s*/g, ":")
-    .replace(/\s*°\s*/g, "°")
-    .replace(/\bhk\s*\$\s*/g, "hk$")
-    .replace(/\$\s*/g, "$")
-    .trim();
-}
-
-function normalizedAnswerVariants(value: string) {
-  const normalized = normalizeAnswer(value);
-  const variants = new Set([normalized, normalized.replace(/\s+/g, "")]);
-
-  if (normalized.startsWith("hk$")) variants.add(normalized.replace(/^hk\$/, "$"));
-  if (normalized.startsWith("$")) variants.add(normalized.replace(/^\$/, "hk$"));
-
-  const percent = normalized.match(/^(-?\d+(?:\.\d+)?)%$/);
-  if (percent) {
-    variants.add(percent[1]);
-    variants.add(`${percent[1]}percent`);
-  }
-
-  const degree = normalized.match(/^(-?\d+(?:\.\d+)?)°$/);
-  if (degree) {
-    variants.add(degree[1]);
-    variants.add(`${degree[1]}degree`);
-    variants.add(`${degree[1]}degrees`);
-  }
-
-  return variants;
-}
-
-function parseScalarAnswer(value: string) {
-  let normalized = normalizeAnswer(value).replace(/\s+/g, "");
-  normalized = normalized
-    .replace(/^hk\$/, "")
-    .replace(/^\$/, "")
-    .replace(/(?:cm\^2|cm2|cm\^3|cm3|cm|ml|l|km\/h|kmh|km|°|%)$/i, "");
-
-  const fraction = normalized.match(/^(-?\d+(?:\.\d+)?)\/(-?\d+(?:\.\d+)?)$/);
-  if (fraction) {
-    const denominator = Number(fraction[2]);
-    if (denominator === 0) return null;
-    return Number(fraction[1]) / denominator;
-  }
-
-  if (/^-?\d+(?:\.\d+)?$/.test(normalized)) return Number(normalized);
-  return null;
+  return normalizeGradingAnswer(value);
 }
 
 export function answerMatches(selectedAnswer: string, acceptedAnswer: string) {
-  const selectedVariants = normalizedAnswerVariants(selectedAnswer);
-  const acceptedVariants = normalizedAnswerVariants(acceptedAnswer);
-
-  for (const variant of selectedVariants) {
-    if (acceptedVariants.has(variant)) return true;
-  }
-
-  const selectedNumber = parseScalarAnswer(selectedAnswer);
-  const acceptedNumber = parseScalarAnswer(acceptedAnswer);
-  return selectedNumber !== null && acceptedNumber !== null && Math.abs(selectedNumber - acceptedNumber) < 0.000001;
+  return gradingAnswerMatches(selectedAnswer, acceptedAnswer);
 }
 
 export function acceptedAnswersFor(question: Question) {
@@ -649,12 +657,16 @@ function formatPoint(x: number, y: number) {
   return `(${formatNumber(x)}, ${formatNumber(y)})`;
 }
 
+function coordinateGridDiagramFor(question: Question) {
+  return question.diagram?.kind === "coordinate-grid" ? question.diagram : null;
+}
+
 function pointByLabel(question: Question, label: string) {
-  return question.diagram?.points?.find((point) => point.label === label) ?? null;
+  return coordinateGridDiagramFor(question)?.points?.find((point) => point.label === label) ?? null;
 }
 
 function firstLine(question: Question) {
-  return question.diagram?.lines?.[0] ?? null;
+  return coordinateGridDiagramFor(question)?.lines?.[0] ?? null;
 }
 
 function quadrantFor(x: number, y: number) {
@@ -744,6 +756,23 @@ export function deriveGraphAnswer(question: Question) {
     return values.length ? formatNumber(Math.max(...values)) : null;
   }
 
+  if (question.id === "graph-p4-angles-straight-line" && question.diagram.kind === "plane-figure") {
+    const angle = planeFigureAngleDegrees(question.diagram, "O", "C", "B");
+    return angle === null ? null : `${Math.round(angle)}°`;
+  }
+
+  if (question.id === "graph-p4-decimals-number-line" && question.diagram.kind === "number-line") {
+    const value = numberLinePointValue(question.diagram, "P");
+    return value === null ? null : formatNumber(value);
+  }
+
+  if (question.id === "graph-p5-volume-cube" && question.diagram.kind === "solid-figure") {
+    const volume = solidFigureCuboidVolume(question.diagram);
+    if (volume === null) return null;
+    const unit = solidFigureUnitText(question.diagram);
+    return unit ? `${formatNumber(volume)} ${unit}^3` : formatNumber(volume);
+  }
+
   return null;
 }
 
@@ -779,6 +808,67 @@ const topicFamily: Record<string, string> = {
 
 function textForSolving(question: Question) {
   return question.prompt.en.replace(/\\\(|\\\)/g, "").replace(/\s+/g, " ").trim();
+}
+
+function independentUnitedStatesLiveAnswer(question: Question): SolverResult {
+  const text = textForSolving(question);
+
+  const sumMatch = /What is ([0-9]+) \+ ([0-9]+)\?/.exec(text);
+  if (sumMatch) return { answer: String(Number(sumMatch[1]) + Number(sumMatch[2])) };
+
+  const equalRowsMatch = /arranges ([0-9]+) equal rows with 6 counters in each row/.exec(text);
+  if (equalRowsMatch) return { answer: String(Number(equalRowsMatch[1]) * 6) };
+
+  const equivalentFractionMatch = /equivalent to ([0-9]+)\/([0-9]+)\?/.exec(text);
+  if (equivalentFractionMatch) {
+    return { answer: formatFraction(Number(equivalentFractionMatch[1]), Number(equivalentFractionMatch[2])) };
+  }
+
+  const percentMatch = /What is ([0-9]+)% of ([0-9]+)\?/.exec(text);
+  if (percentMatch) return { answer: formatNumber((Number(percentMatch[1]) / 100) * Number(percentMatch[2])) };
+
+  const linearEquationMatch = /Solve 2x \+ ([0-9]+) = ([0-9]+)\./.exec(text);
+  if (linearEquationMatch) return { answer: formatNumber((Number(linearEquationMatch[2]) - Number(linearEquationMatch[1])) / 2) };
+
+  const linearFunctionMatch = /If f\(x\) = ([0-9]+)x - 1, what is f\(4\) \?/.exec(text);
+  if (linearFunctionMatch) return { answer: formatNumber(Number(linearFunctionMatch[1]) * 4 - 1) };
+
+  const rectangleAreaMatch = /A rectangle is ([0-9]+) cm by ([0-9]+) cm\. What is its area/.exec(text);
+  if (rectangleAreaMatch) return { answer: `${Number(rectangleAreaMatch[1]) * Number(rectangleAreaMatch[2])} cm^2` };
+
+  const rectanglePerimeterMatch = /same rectangle is ([0-9]+) cm by ([0-9]+) cm\. What is its perimeter\?/.exec(text);
+  if (rectanglePerimeterMatch) {
+    return { answer: `${2 * (Number(rectanglePerimeterMatch[1]) + Number(rectanglePerimeterMatch[2]))} cm` };
+  }
+
+  const meanMatch = /Find the mean of ([0-9]+), ([0-9]+), and ([0-9]+)\./.exec(text);
+  if (meanMatch) {
+    const values = meanMatch.slice(1).map(Number);
+    return { answer: formatNumber(values.reduce((total, value) => total + value, 0) / values.length) };
+  }
+
+  if (/six-sided die is rolled once/.test(text) && /probability of an even number/.test(text)) {
+    return { answer: "1/2" };
+  }
+
+  if (/Point A is at \(2,-3\)|Point A is at \(2, -3\)/.test(text) && /quadrant/.test(text)) {
+    return { answer: "IV" };
+  }
+
+  const slopeMatch = /slope through \(1,2\) and \(3,([0-9]+)\)|slope through \(1, 2\) and \(3, ([0-9]+)\)/.exec(text);
+  if (slopeMatch) {
+    const y2 = Number(slopeMatch[1] ?? slopeMatch[2]);
+    return { answer: formatNumber((y2 - 2) / 2) };
+  }
+
+  const derivativeMatch = /Differentiate ([0-9]+)x\^2 with respect to x\./.exec(text);
+  if (derivativeMatch) return { answer: `${Number(derivativeMatch[1]) * 2}x` };
+
+  if (/model doubles every hour/.test(text) && /starts at 5/.test(text) && /after 3 hours/.test(text)) {
+    return { answer: "40" };
+  }
+
+  return { answer: null, notes: [`No US live solver matched prompt ${question.id}.`] };
 }
 
 function numberFrom(value: string | undefined) {
@@ -1084,6 +1174,9 @@ function mainlandIndependentAnswer(question: Question): SolverResult {
 
 function independentAnswerFor(question: Question, hkAnswers: Map<string, string>): SolverResult {
   if (question.curriculumTrack === "HK") {
+    if (hongKongEasePracticeQuestionGenerationMetadata[question.id]) {
+      return { answer: independentHongKongEasePracticeAnswer(question) };
+    }
     if (question.type === "graph") {
       const derivedGraphAnswer = deriveGraphAnswer(question);
       if (derivedGraphAnswer) return { answer: derivedGraphAnswer };
@@ -1123,11 +1216,34 @@ function independentAnswerFor(question: Question, hkAnswers: Map<string, string>
     return { answer: independentMainlandHjbHighAnswer(question) };
   }
 
+  if (usArkansasQuestionGenerationMetadata[question.id]) {
+    return { answer: independentUnitedStatesArkansasAnswer(question) };
+  }
+
+  if (usCaliforniaQuestionGenerationMetadata[question.id]) {
+    return { answer: independentUnitedStatesCaliforniaAnswer(question) };
+  }
+
+  if (usFloridaMiddleSchoolQuestionGenerationMetadata[question.id]) {
+    return { answer: independentUnitedStatesFloridaMiddleSchoolAnswer(question) };
+  }
+
+  if (question.curriculumTrack === "US_NC_MATH") {
+    return independentUnitedStatesLiveAnswer(question);
+  }
+
+  if (question.curriculumTrack === "US_CA_MATH") {
+    return { answer: null, notes: ["California question is not from the selected Math Practice Beta metadata."] };
+  }
+
   if (question.curriculumTrack === "MAINLAND_PEP_HIGH") return mainlandIndependentAnswer(question);
   return { answer: null, notes: [`Unsupported curriculum track ${question.curriculumTrack}.`] };
 }
 
 function batchFor(question: Question) {
+  if (hongKongEasePracticeQuestionGenerationMetadata[question.id]) {
+    return hongKongEasePracticeQuestionGenerationMetadata[question.id]?.batch ?? "unknown";
+  }
   if (question.curriculumTrack === "HK") return "hk";
   if (mainlandPepPrimaryQuestionGenerationMetadata[question.id]) {
     return mainlandPepPrimaryQuestionGenerationMetadata[question.id]?.batch ?? "unknown";
@@ -1156,6 +1272,19 @@ function batchFor(question: Question) {
   if (mainlandHjbHighQuestionGenerationMetadata[question.id]) {
     return mainlandHjbHighQuestionGenerationMetadata[question.id]?.batch ?? "unknown";
   }
+  if (usArkansasQuestionGenerationMetadata[question.id]) {
+    return usArkansasQuestionGenerationMetadata[question.id]?.batch ?? "unknown";
+  }
+  if (usCaliforniaQuestionGenerationMetadata[question.id]) {
+    return usCaliforniaQuestionGenerationMetadata[question.id]?.batch ?? "unknown";
+  }
+  if (usFloridaMiddleSchoolQuestionGenerationMetadata[question.id]) {
+    return usFloridaMiddleSchoolQuestionGenerationMetadata[question.id]?.batch ?? "unknown";
+  }
+  if (question.curriculumTrack === "US_CA_MATH") return "us-ca-live-v1";
+  if (question.curriculumTrack === "US_NC_MATH") return "us-nc-live-v1";
+  if (question.curriculumTrack === "US_AR_MATH") return "us-ar-k-g5-v1";
+  if (question.curriculumTrack === "US_FL_MATH") return "us-fl-ms-v1";
   return mainlandPepHighQuestionGenerationMetadata[question.id]?.batch ?? "unknown";
 }
 
@@ -1227,6 +1356,18 @@ function auditQuestion(
   };
 
   if (!hasCoreFields(question)) mark("content-error", "Question is missing a required prompt/answer/explanation/topic/grade/type field.");
+
+  if (question.diagram) {
+    const normalizedDiagram = normalizeQuestionDiagram(question.diagram);
+    if (!normalizedDiagram) {
+      mark("content-error", "Diagram payload does not conform to the question figure spec.");
+    } else {
+      const diagramIssues = validateQuestionDiagram(normalizedDiagram);
+      if (diagramIssues.length) {
+        mark("content-error", `Diagram failed deterministic figure QA: ${diagramIssues.join("; ")}.`);
+      }
+    }
+  }
 
   const solver = independentAnswerFor(question, hkAnswers);
   const independentAnswer = solver.answer ?? "";
@@ -1315,6 +1456,10 @@ export function buildFullQuestionBankSolvabilityAudit(reportDate = new Date().to
   const mainlandHjbJuniorQuestions = questions.filter((question) => Boolean(mainlandHjbJuniorQuestionGenerationMetadata[question.id])).length;
   const mainlandHjbPrimaryQuestions = questions.filter((question) => Boolean(mainlandHjbPrimaryQuestionGenerationMetadata[question.id])).length;
   const mainlandHjbHighQuestions = questions.filter((question) => Boolean(mainlandHjbHighQuestionGenerationMetadata[question.id])).length;
+  const unitedStatesCaliforniaQuestions = questions.filter((question) => question.curriculumTrack === "US_CA_MATH").length;
+  const unitedStatesNorthCarolinaQuestions = questions.filter((question) => question.curriculumTrack === "US_NC_MATH").length;
+  const unitedStatesArkansasQuestions = questions.filter((question) => Boolean(usArkansasQuestionGenerationMetadata[question.id])).length;
+  const unitedStatesFloridaMiddleSchoolQuestions = questions.filter((question) => Boolean(usFloridaMiddleSchoolQuestionGenerationMetadata[question.id])).length;
 
   return {
     reportDate,
@@ -1331,6 +1476,10 @@ export function buildFullQuestionBankSolvabilityAudit(reportDate = new Date().to
       mainlandHjbJuniorQuestions,
       mainlandHjbPrimaryQuestions,
       mainlandHjbHighQuestions,
+      unitedStatesCaliforniaQuestions,
+      unitedStatesNorthCarolinaQuestions,
+      unitedStatesArkansasQuestions,
+      unitedStatesFloridaMiddleSchoolQuestions,
       passRows: rows.length - failingRows.length,
       failingRows: failingRows.length,
       statusCounts,
@@ -1352,7 +1501,12 @@ export function buildFullQuestionBankSolvabilityAudit(reportDate = new Date().to
       "Mainland BNU high V1 approved questions are included from the S18 approved remediated pack with production metadata.",
       "Mainland HJB junior V2 1500 questions are included from the S18-approved post-repair production question pack.",
       "Mainland HJB primary V1 questions are included from the S18 DeepSeek-v4-pro-remediated QA-green production question pack.",
-      "Mainland HJB high-school approved V1, V2, V3-remediated, and V4-remediated questions are included from reviewed production question packs.",
+      "Mainland HJB high-school V2 questions are included as the stable default production bank; V1, V3-remediated, and V4-remediated remain explicit non-default exports.",
+      "US California Math Practice Beta live questions include the owner-selected S18-approved G6-G12 v2 package and the 492-question K-G5 knowledge-point practice package; old K-G5 v3 DeepSeek questions remain deliberately downlisted. This audit uses package independentAnswer fields for answer-key matching.",
+      "US North Carolina practice questions remain candidate-only pending S18/S15 promotion, so this live full-bank audit expects zero US_NC_MATH rows.",
+      "US Arkansas K-G12 questions are included from S18 accepted DeepSeek-v4-pro packages copied to generated-content; this audit uses the package independentAnswer field for answer-key matching.",
+      "US Florida Grade 6-8 live questions are included from the S21 generated textbook package copied to generated-content; this audit uses deterministic package answers for answer-key matching while S18 final curriculum acceptance remains separate.",
+      "Hong Kong EASE Practice V1 questions are included only when the raw EASE row is materialized, text-only, cached S18 QA green, answer-key matched, and not image dependent.",
       "No live LLM provider, OCR provider, textbook corpus, or exam-paper source text is used by this audit."
     ]
   };
@@ -1659,7 +1813,11 @@ export function fullQuestionBankAuditMarkdown(report: FullQuestionBankAuditRepor
     ["Mainland BNU high approved questions", report.summary.mainlandBnuHighQuestions],
     ["Mainland HJB junior V2 questions", report.summary.mainlandHjbJuniorQuestions],
     ["Mainland HJB primary V1 questions", report.summary.mainlandHjbPrimaryQuestions],
-    ["Mainland HJB high approved questions", report.summary.mainlandHjbHighQuestions],
+    ["Mainland HJB high V2 default questions", report.summary.mainlandHjbHighQuestions],
+    ["US California live questions", report.summary.unitedStatesCaliforniaQuestions],
+    ["US North Carolina live questions", report.summary.unitedStatesNorthCarolinaQuestions],
+    ["US Arkansas K-G12 live questions", report.summary.unitedStatesArkansasQuestions],
+    ["US Florida G6-G8 live questions", report.summary.unitedStatesFloridaMiddleSchoolQuestions],
     ["Passing rows", report.summary.passRows],
     ["Failing rows", report.summary.failingRows],
     ["Release recommendation", report.summary.releaseRecommendation]
@@ -1679,7 +1837,7 @@ export function fullQuestionBankAuditMarkdown(report: FullQuestionBankAuditRepor
     "",
     `- Date: ${report.reportDate}`,
     "- Session ID: S18",
-    "- Scope: 285 HK questions plus 1200 Mainland PEP primary questions plus 1200 Mainland PEP junior questions plus 4800 Mainland PEP high-school questions plus 1500 Mainland BNU primary V1 questions plus 1500 Mainland HJB primary V1 questions plus 6000 Mainland HJB high-school approved questions",
+    `- Scope: 285 HK questions plus 1200 Mainland PEP primary questions plus 1200 Mainland PEP junior questions plus 4800 Mainland PEP high-school questions plus 1500 Mainland BNU primary V1 questions plus 1500 Mainland HJB primary V1 questions plus 1500 Mainland HJB high-school V2 default questions plus ${expectedUnitedStatesArkansasK5QuestionCount} US Arkansas K-G5 questions plus ${expectedUnitedStatesArkansasG6G12QuestionCount} US Arkansas G6-G12 questions plus 75 US Florida G6-G8 live questions`,
     "- Output type: Deterministic content QA report; no live LLM or external math service",
     "",
     "## Executive Summary",

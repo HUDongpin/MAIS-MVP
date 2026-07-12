@@ -1,18 +1,23 @@
 export type Language = "en" | "zh" | "zh-Hans";
 export type ThemeMode = "dark" | "light";
-export type GradeId = "P1" | "P2" | "P3" | "P4" | "P5" | "P6" | "S1" | "S2" | "S3" | "S4" | "S5" | "S6";
+export type GradeId = "K" | "P1" | "P2" | "P3" | "P4" | "P5" | "P6" | "S1" | "S2" | "S3" | "S4" | "S5" | "S6";
 export type TopicStatus = "completed" | "in-progress" | "not-started";
-export type Difficulty = "Foundation" | "Core" | "Challenge" | "Exam";
-export type CurriculumTrack = "HK" | "MAINLAND_PEP_HIGH" | "US_CA_MATH" | "US_NC_MATH";
+export type Difficulty = "Low" | "Medium" | "High";
+export type LegacyDifficulty = "Foundation" | "Core" | "Challenge" | "Exam";
+export type DifficultyRecord = Difficulty | LegacyDifficulty;
+export type CurriculumTrack = "HK" | "MAINLAND_PEP_HIGH" | "US_CA_MATH" | "US_NC_MATH" | "US_AR_MATH" | "US_FL_MATH";
 export type CurriculumRegion = "HK" | "MAINLAND" | "US";
 export type TextbookPublisher =
+  | "HK_MODERN_EDUCATIONAL_RESEARCH_SOCIETY"
   | "HK_UNITED_PRIME_MIA"
   | "HK_EPH_MIF"
   | "MAINLAND_PEP"
   | "MAINLAND_BNU"
   | "MAINLAND_HJB"
   | "US_CA_MATH"
-  | "US_NC_MATH";
+  | "US_NC_MATH"
+  | "US_AR_MATH"
+  | "US_FL_MATH";
 export type CurriculumProfile = {
   region: CurriculumRegion;
   publisher: TextbookPublisher;
@@ -202,9 +207,32 @@ export type HongKongDseMathRagIntent = "tutor-explain" | "generate-question" | "
 export type HongKongDseUpVolume = "4A" | "4B" | "5A" | "5B" | "6A" | "6B";
 export type HongKongDseUpDifficultyBand = "foundation" | "core" | "exam" | "challenge";
 export type HongKongDseUpRagIntent = "tutor-explain" | "generate-question" | "generate-lesson" | "diagnose-mistake" | "assessment-design" | "exam-practice";
+export type HongKongModernPrimaryVolume = "1A" | "1B" | "1C" | "1D" | "3A" | "3B" | "3C" | "3D";
+export type HongKongModernPrimaryDifficultyBand = HongKongDseUpDifficultyBand;
+export type HongKongModernPrimaryRagIntent = HongKongDseUpRagIntent;
+export type HongKongUpJuniorVolume = "1A" | "1B" | "2A" | "2B" | "3A" | "3B";
+export type HongKongUpJuniorSourceLanguage = "zh" | "en";
+export type HongKongUpJuniorDifficultyBand = HongKongDseUpDifficultyBand;
+export type HongKongUpJuniorRagIntent = HongKongDseUpRagIntent;
+export type HongKongUpJuniorResourceMaterialKind =
+  | "lesson-worksheet"
+  | "challenge-practice"
+  | "junior-dse-type-practice"
+  | "question-bank"
+  | "solution-support"
+  | "quick-practice"
+  | "side-feature-practice"
+  | "tsa-type-practice"
+  | "hkdse-style-practice"
+  | "assessment-practice";
+export type HongKongUpJuniorResourceDifficultyBand = HongKongDseUpDifficultyBand;
+export type HongKongUpJuniorResourceRagIntent = HongKongDseUpRagIntent;
 export type HongKongDseEphVolume = "A" | "B" | "C" | "D" | "E";
 export type HongKongDseEphDifficultyBand = "foundation" | "core" | "exam" | "challenge";
 export type HongKongDseEphRagIntent = "tutor-explain" | "generate-question" | "generate-lesson" | "diagnose-mistake" | "assessment-design" | "exam-practice";
+export type HongKongEaseQuestionDifficultyBand = HongKongDseMathDifficultyBand;
+export type HongKongEaseQuestionRagIntent = HongKongDseMathRagIntent;
+export type HongKongEaseQuestionAssetKind = "question-image" | "answer-image" | "text-only";
 export type UnitedStatesMathTrack =
   | "US_CA_MATH"
   | "US_TX_MATH"
@@ -215,8 +243,10 @@ export type UnitedStatesMathTrack =
   | "US_OH_MATH"
   | "US_GA_MATH"
   | "US_NC_MATH"
-  | "US_MI_MATH";
-export type UnitedStatesMathState = "CA" | "TX" | "FL" | "NY" | "PA" | "IL" | "OH" | "GA" | "NC" | "MI" | "US";
+  | "US_MI_MATH"
+  | "US_AR_MATH";
+export type UnitedStatesMathGradeId = GradeId;
+export type UnitedStatesMathState = "CA" | "TX" | "FL" | "NY" | "PA" | "IL" | "OH" | "GA" | "NC" | "MI" | "AR" | "US";
 export type UnitedStatesMathLibraryLane = "public-standards" | "licensed-private-library" | "oer";
 export type UnitedStatesMathSafeCardKind = "grade-overview" | "standards" | "textbook-compatibility" | "exam-pattern";
 export type UnitedStatesMathCommonCoreStatus =
@@ -1195,6 +1225,132 @@ export type HongKongDseUpEvidencePack = {
   evidenceText: string;
 };
 
+export type HongKongUpJuniorSafeCard = {
+  id: string;
+  curriculumTrack: "HK";
+  publisher: "HK_UNITED_PRIME_MIA";
+  stage: "junior-secondary";
+  sourceLanguage: HongKongUpJuniorSourceLanguage;
+  volume: HongKongUpJuniorVolume;
+  grade: Extract<GradeId, "S1" | "S2" | "S3">;
+  semester: "upper" | "lower";
+  chapterSequence: number;
+  chapter: string;
+  topicIds: string[];
+  conceptIds: string[];
+  competencyTags: string[];
+  itemTypeTags: string[];
+  difficultyBand: HongKongUpJuniorDifficultyBand;
+  safeSummary: string;
+  generationGuidance: string[];
+  misconceptionTags: string[];
+  sourceFiles: string[];
+  prohibitedReuseNotes: string[];
+};
+
+export type HongKongUpJuniorRagQuery = {
+  grade?: GradeId;
+  volume?: HongKongUpJuniorVolume;
+  semester?: "upper" | "lower";
+  sourceLanguage?: HongKongUpJuniorSourceLanguage;
+  chapter?: string;
+  topicId?: string;
+  conceptIds?: string[];
+  intent: HongKongUpJuniorRagIntent;
+  difficultyBand?: HongKongUpJuniorDifficultyBand;
+  limit?: number;
+};
+
+export type HongKongUpJuniorEvidencePack = {
+  curriculumTrack: "HK";
+  publisher: "HK_UNITED_PRIME_MIA";
+  stage: "junior-secondary";
+  cards: HongKongUpJuniorSafeCard[];
+  evidenceText: string;
+};
+
+export type HongKongModernPrimarySafeCard = {
+  id: string;
+  curriculumTrack: "HK";
+  publisher: "HK_MODERN_EDUCATIONAL_RESEARCH_SOCIETY";
+  stage: "primary";
+  sourceLanguage: "zh";
+  volumes: HongKongModernPrimaryVolume[];
+  grade: Extract<GradeId, "P1" | "P3">;
+  chapterSequence: number;
+  chapter: string;
+  topicIds: string[];
+  conceptIds: string[];
+  competencyTags: string[];
+  itemTypeTags: string[];
+  difficultyBand: HongKongModernPrimaryDifficultyBand;
+  safeSummary: string;
+  generationGuidance: string[];
+  misconceptionTags: string[];
+  sourceFiles: string[];
+  prohibitedReuseNotes: string[];
+};
+
+export type HongKongModernPrimaryRagQuery = {
+  grade?: GradeId;
+  volume?: HongKongModernPrimaryVolume;
+  chapter?: string;
+  topicId?: string;
+  conceptIds?: string[];
+  intent: HongKongModernPrimaryRagIntent;
+  difficultyBand?: HongKongModernPrimaryDifficultyBand;
+  limit?: number;
+};
+
+export type HongKongModernPrimaryEvidencePack = {
+  curriculumTrack: "HK";
+  publisher: "HK_MODERN_EDUCATIONAL_RESEARCH_SOCIETY";
+  stage: "primary";
+  cards: HongKongModernPrimarySafeCard[];
+  evidenceText: string;
+};
+
+export type HongKongUpJuniorResourcePatternCard = {
+  id: string;
+  curriculumTrack: "HK";
+  publisher: "HK_UNITED_PRIME_MIA";
+  stage: "junior-secondary";
+  sourceLanguage: HongKongUpJuniorSourceLanguage;
+  materialKind: HongKongUpJuniorResourceMaterialKind;
+  volumes: HongKongUpJuniorVolume[];
+  grades: Extract<GradeId, "S1" | "S2" | "S3">[];
+  topicIds: string[];
+  conceptIds: string[];
+  competencyTags: string[];
+  itemTypeTags: string[];
+  difficultyBand: HongKongUpJuniorResourceDifficultyBand;
+  patternSummary: string;
+  generationGuidance: string[];
+  misconceptionTags: string[];
+  sourceFamilies: string[];
+  prohibitedReuseNotes: string[];
+};
+
+export type HongKongUpJuniorResourceRagQuery = {
+  grade?: GradeId;
+  volume?: HongKongUpJuniorVolume;
+  sourceLanguage?: HongKongUpJuniorSourceLanguage;
+  materialKind?: HongKongUpJuniorResourceMaterialKind;
+  topicId?: string;
+  conceptIds?: string[];
+  intent: HongKongUpJuniorResourceRagIntent;
+  difficultyBand?: HongKongUpJuniorResourceDifficultyBand;
+  limit?: number;
+};
+
+export type HongKongUpJuniorResourceEvidencePack = {
+  curriculumTrack: "HK";
+  publisher: "HK_UNITED_PRIME_MIA";
+  stage: "junior-secondary";
+  cards: HongKongUpJuniorResourcePatternCard[];
+  evidenceText: string;
+};
+
 export type HongKongDseEphSafeCard = {
   id: string;
   curriculumTrack: "HK";
@@ -1232,21 +1388,64 @@ export type HongKongDseEphEvidencePack = {
   evidenceText: string;
 };
 
+export type HongKongEaseQuestionPatternCard = {
+  id: string;
+  curriculumTrack: "HK";
+  publisher: "HK_EASE_SHARED";
+  stage: "junior-secondary" | "senior-secondary" | "cross-stage";
+  grades: GradeId[];
+  sourceLanguages: HongKongDseMathLanguageVariant[];
+  topicIds: string[];
+  conceptIds: string[];
+  competencyTags: string[];
+  itemTypeTags: string[];
+  difficultyBand: HongKongEaseQuestionDifficultyBand;
+  assetKinds: HongKongEaseQuestionAssetKind[];
+  questionCountRange: string;
+  imageAssetSummary: string;
+  safeSummary: string;
+  generationGuidance: string[];
+  misconceptionTags: string[];
+  sourceFamilies: string[];
+  prohibitedReuseNotes: string[];
+};
+
+export type HongKongEaseQuestionRagQuery = {
+  grade?: GradeId;
+  topicId?: string;
+  conceptIds?: string[];
+  language?: HongKongDseMathLanguageVariant;
+  intent: HongKongEaseQuestionRagIntent;
+  difficultyBand?: HongKongEaseQuestionDifficultyBand;
+  requiresImageAssets?: boolean;
+  limit?: number;
+};
+
+export type HongKongEaseQuestionEvidencePack = {
+  curriculumTrack: "HK";
+  publisher: "HK_EASE_SHARED";
+  cards: HongKongEaseQuestionPatternCard[];
+  evidenceText: string;
+};
+
 export type HongKongMathRagQuery = Omit<HongKongMathEdBRagQuery, "intent" | "difficultyBand"> & {
   curriculumProfile?: CurriculumProfile;
-  intent: HongKongMathEdBRagIntent | HongKongDseMathRagIntent | HongKongDseUpRagIntent | HongKongDseEphRagIntent;
-  difficultyBand?: HongKongMathEdBDifficultyBand | HongKongDseMathDifficultyBand | HongKongDseUpDifficultyBand | HongKongDseEphDifficultyBand;
+  intent: HongKongMathEdBRagIntent | HongKongDseMathRagIntent | HongKongDseUpRagIntent | HongKongDseEphRagIntent | HongKongModernPrimaryRagIntent | HongKongUpJuniorRagIntent | HongKongUpJuniorResourceRagIntent | HongKongEaseQuestionRagIntent;
+  difficultyBand?: HongKongMathEdBDifficultyBand | HongKongDseMathDifficultyBand | HongKongDseUpDifficultyBand | HongKongDseEphDifficultyBand | HongKongModernPrimaryDifficultyBand | HongKongUpJuniorDifficultyBand | HongKongUpJuniorResourceDifficultyBand | HongKongEaseQuestionDifficultyBand;
   paperComponent?: HongKongDseMathPaperComponent;
   language?: HongKongDseMathLanguageVariant;
-  textbookVolume?: HongKongDseUpVolume | HongKongDseEphVolume;
+  textbookVolume?: HongKongDseUpVolume | HongKongDseEphVolume | HongKongModernPrimaryVolume | HongKongUpJuniorVolume;
+  materialKind?: HongKongUpJuniorResourceMaterialKind;
+  requiresImageAssets?: boolean;
   limit?: number;
 };
 
 export type HongKongMathEvidencePack = {
   curriculumTrack: "HK";
   curriculumCards: HongKongMathEdBRagCard[];
-  textbookCards: Array<HongKongDseUpSafeCard | HongKongDseEphSafeCard>;
+  textbookCards: Array<HongKongDseUpSafeCard | HongKongDseEphSafeCard | HongKongModernPrimarySafeCard | HongKongUpJuniorSafeCard | HongKongUpJuniorResourcePatternCard>;
   examPatternCards: HongKongDseMathExamPatternCard[];
+  questionPatternCards: HongKongEaseQuestionPatternCard[];
   evidenceText: string;
 };
 
@@ -1277,7 +1476,7 @@ export type UnitedStatesMathStateProfile = {
   curriculumTrack: UnitedStatesMathTrack;
   displayName: string;
   populationRank: number;
-  statePriorityPhase: 1 | 2;
+  statePriorityPhase: 1 | 2 | 3;
   standardsName: string;
   standardsVersion: string;
   commonCoreStatus: UnitedStatesMathCommonCoreStatus;
@@ -1301,7 +1500,7 @@ export type UnitedStatesMathSafeCard = {
   state: Exclude<UnitedStatesMathState, "US">;
   stateName: string;
   populationRank: number;
-  statePriorityPhase: 1 | 2;
+  statePriorityPhase: 1 | 2 | 3;
   standardsName: string;
   standardsVersion: string;
   commonCoreStatus: UnitedStatesMathCommonCoreStatus;
@@ -1312,7 +1511,7 @@ export type UnitedStatesMathSafeCard = {
   assessmentProgram: string;
   libraryLane: UnitedStatesMathLibraryLane;
   cardKind: UnitedStatesMathSafeCardKind;
-  grade: GradeId;
+  grade: UnitedStatesMathGradeId;
   usGradeLabel: string;
   sourceIds: string[];
   standardIds: string[];
@@ -1336,7 +1535,7 @@ export type UnitedStatesMathSafeCard = {
 export type UnitedStatesMathRagQuery = {
   curriculumTrack?: UnitedStatesMathTrack;
   state?: Exclude<UnitedStatesMathState, "US">;
-  grade?: GradeId;
+  grade?: UnitedStatesMathGradeId;
   standardIds?: string[];
   cardKinds?: UnitedStatesMathSafeCardKind[];
   libraryLanes?: UnitedStatesMathLibraryLane[];
@@ -1364,10 +1563,35 @@ export type StudentSession = {
   passwordMustChange?: boolean;
   avatarId: StudentAvatarId;
   avatarImageDataUrl?: string;
+  avatarImageObjectKey?: string;
+  avatarImageUrl?: string;
   grade: GradeId;
   curriculumTrack: CurriculumTrack;
   curriculumProfile: CurriculumProfile;
   role: "student" | "teacher" | "parent" | "admin";
+};
+
+export type LearnerProfileOnboardingVersion = "learner-start-v1";
+export type LearnerProfileOnboardingStatus = "not-started" | "completed" | "skipped";
+export type LearnerProfileGoal = "repair" | "homework" | "preview" | "exam";
+export type LearnerProfileChallengeStart = "easy" | "balanced" | "hard";
+export type LearnerProfileHelpStyle = "hint" | "steps" | "example" | "method";
+
+export type LearnerStartSetupAnswers = {
+  goal: LearnerProfileGoal;
+  challenge: LearnerProfileChallengeStart;
+  help: LearnerProfileHelpStyle;
+};
+
+export type LearnerProfile = {
+  userId: string;
+  questionnaireVersion: LearnerProfileOnboardingVersion;
+  status: LearnerProfileOnboardingStatus;
+  answers?: LearnerStartSetupAnswers;
+  initializedFrom: "login-onboarding";
+  completedAt?: string;
+  skippedAt?: string;
+  updatedAt: string;
 };
 
 export type MistakeRecord = {
@@ -1417,7 +1641,7 @@ export type Topic = {
 
 export type QuestionType = "multiple-choice" | "fill-in" | "short-answer" | "graph";
 
-export type QuestionDiagram = {
+export type CoordinateGridQuestionDiagram = {
   kind: "coordinate-grid";
   xRange: [number, number];
   yRange: [number, number];
@@ -1433,6 +1657,106 @@ export type QuestionDiagram = {
       y: number;
     }[];
   }[];
+};
+
+export type PlaneFigurePoint = {
+  id: string;
+  x: number;
+  y: number;
+  label?: string;
+};
+
+export type PlaneFigureSegment = {
+  from: string;
+  to: string;
+  style?: "solid" | "dashed";
+  tickMarks?: number;
+  parallelMarks?: number;
+  label?: LocalizedText;
+};
+
+export type PlaneFigurePolygon = {
+  vertexIds: string[];
+  shaded?: boolean;
+};
+
+export type PlaneFigureCircle = {
+  centerId: string;
+  radius: number;
+  showCenter?: boolean;
+  radiusToId?: string;
+  label?: LocalizedText;
+};
+
+export type PlaneFigureAngleMark = {
+  vertexId: string;
+  fromId: string;
+  toId: string;
+  rightAngle?: boolean;
+  arcs?: number;
+  label?: LocalizedText;
+};
+
+export type PlaneFigureQuestionDiagram = {
+  kind: "plane-figure";
+  points: PlaneFigurePoint[];
+  segments?: PlaneFigureSegment[];
+  polygons?: PlaneFigurePolygon[];
+  circles?: PlaneFigureCircle[];
+  angleMarks?: PlaneFigureAngleMark[];
+};
+
+export type NumberLinePoint = {
+  value: number;
+  label?: string;
+  marker?: "closed" | "open";
+};
+
+export type NumberLineHighlight = {
+  from: number;
+  to: number;
+  label?: LocalizedText;
+};
+
+export type NumberLineQuestionDiagram = {
+  kind: "number-line";
+  range: [number, number];
+  tickInterval?: number;
+  points?: NumberLinePoint[];
+  highlights?: NumberLineHighlight[];
+};
+
+export type SolidFigureShape = "cuboid" | "cube" | "cylinder" | "cone" | "sphere";
+
+export type SolidFigureDimensionLabels = {
+  width?: LocalizedText;
+  depth?: LocalizedText;
+  height?: LocalizedText;
+  radius?: LocalizedText;
+};
+
+export type SolidFigureQuestionDiagram = {
+  kind: "solid-figure";
+  shape: SolidFigureShape;
+  width?: number;
+  depth?: number;
+  height?: number;
+  radius?: number;
+  size?: number;
+  labels?: SolidFigureDimensionLabels;
+};
+
+export type QuestionDiagram =
+  | CoordinateGridQuestionDiagram
+  | PlaneFigureQuestionDiagram
+  | NumberLineQuestionDiagram
+  | SolidFigureQuestionDiagram;
+
+export type QuestionAsset = {
+  kind: "image";
+  src: string;
+  alt: LocalizedText;
+  caption?: LocalizedText;
 };
 
 export type Question = {
@@ -1453,6 +1777,7 @@ export type Question = {
   acceptedAnswers?: string[];
   explanation: LocalizedText;
   diagram?: QuestionDiagram;
+  questionAssets?: QuestionAsset[];
 };
 
 export type PublicQuestion = Omit<Question, "answer" | "acceptedAnswers" | "explanation">;
@@ -1692,6 +2017,46 @@ export type AdaptiveLearningDecision = {
   evidence: AdaptiveEvidence[];
 };
 
+export type PilotPlatformRole = "student" | "teacher" | "parent" | "admin";
+export type PilotPlatformVisibility = "student-owned" | "teacher-reviewed" | "parent-safe" | "blocked";
+export type PilotPlatformEventType =
+  | "adaptive-decision-requested"
+  | "adaptive-state-transitioned"
+  | "teacher-review-generated"
+  | "teacher-review-approved"
+  | "parent-safe-draft-published";
+
+export type PilotPlatformGuard = {
+  visibility: PilotPlatformVisibility;
+  allowed: boolean;
+  reason: LocalizedText;
+};
+
+export type PilotLearnerState = {
+  studentId: string;
+  grade: GradeId;
+  curriculumProfile: CurriculumProfile;
+  adaptiveDecision: AdaptiveLearningDecision | null;
+  skillStates: AdaptiveSkillState[];
+  lastTransitionAt: string | null;
+  nextReviewAt: string | null;
+  guard: PilotPlatformGuard;
+};
+
+export type PilotPlatformEvent = {
+  id: string;
+  type: PilotPlatformEventType;
+  actorRole: PilotPlatformRole;
+  actorId?: string;
+  studentId?: string;
+  classId?: string;
+  reviewLessonId?: string;
+  noticeId?: string;
+  adaptiveAction?: AdaptiveActionType;
+  generatedAt: string;
+  summary: LocalizedText;
+};
+
 export type LearningAnalyticsEventType =
   | "mouse-click"
   | "keyboard"
@@ -1734,6 +2099,9 @@ export type LearningAnalyticsEvent = {
   grade: GradeId;
   topicId: string;
   questionId?: string;
+  classId?: string;
+  assignmentId?: string;
+  competencyId?: string;
   durationSeconds?: number;
 };
 
@@ -1742,7 +2110,134 @@ export type LearningAnalyticsInput = {
   source: LearningAnalyticsEventSource;
   topicId: string;
   questionId?: string;
+  classId?: string;
+  assignmentId?: string;
+  competencyId?: string;
   durationSeconds?: number;
+};
+
+export type NovaLensSurface =
+  | "lesson"
+  | "practice"
+  | "dashboard"
+  | "roadmap"
+  | "visualization"
+  | "teacher-console"
+  | "parent-console"
+  | "admin-console"
+  | "general";
+
+export type NovaLensAction =
+  | "explain"
+  | "simple-example"
+  | "why-step"
+  | "prerequisite-gap"
+  | "quick-check"
+  | "teaching-support"
+  | "risk-audit"
+  | "rewrite-follow-up"
+  | "family-support"
+  | "custom";
+
+export type NovaLensRunStatus =
+  | "completed"
+  | "blocked"
+  | "provider-fallback"
+  | "registration-required"
+  | "error";
+
+export type NovaLensPolicy = {
+  enabled: boolean;
+  allowedRoles: Array<StudentSession["role"]>;
+  enabledSurfaces: NovaLensSurface[];
+  maxSelectionLength: number;
+  retentionDays: number;
+  blockedPatterns: string[];
+  updatedAt: string;
+  updatedBy?: string;
+};
+
+export type NovaLensPolicyEvent = {
+  id: string;
+  actorId: string;
+  changedFields: Array<keyof Pick<
+    NovaLensPolicy,
+    "enabled" | "allowedRoles" | "enabledSurfaces" | "maxSelectionLength" | "retentionDays" | "blockedPatterns"
+  >>;
+  previousPolicy: NovaLensPolicy;
+  nextPolicy: NovaLensPolicy;
+  createdAt: string;
+};
+
+export type NovaLensRunSummary = {
+  id: string;
+  userId: string;
+  userName: string;
+  role: StudentSession["role"];
+  surface: NovaLensSurface;
+  action: NovaLensAction;
+  status: NovaLensRunStatus;
+  selectedTextPreview: string;
+  selectedTextHash: string;
+  page: string;
+  topicId?: string;
+  questionId?: string;
+  lessonSlug?: string;
+  blockId?: string;
+  blockType?: string;
+  policyFlags: string[];
+  allowedScopes: string[];
+  deniedScopes: string[];
+  model?: string;
+  promptTokens?: number | null;
+  completionTokens?: number | null;
+  totalTokens?: number | null;
+  latencyMs?: number | null;
+  createdAt: string;
+};
+
+export type NovaLensRunRequest = {
+  selectedText: string;
+  action: NovaLensAction;
+  surface: NovaLensSurface;
+  page: string;
+  customQuestion?: string;
+  context?: {
+    title?: string;
+    surroundingText?: string;
+    topicId?: string;
+    questionId?: string;
+    lessonSlug?: string;
+    blockId?: string;
+    blockType?: string;
+  };
+};
+
+export type NovaLensRunResponse = {
+  mode: "nova-lens" | "registration-required";
+  status: NovaLensRunStatus;
+  reply: string;
+  runId?: string;
+  policyFlags?: string[];
+  context?: {
+    mode: "concept" | "question" | "figure" | "mistake" | "general";
+    title: string;
+    details?: string;
+    topicId?: string;
+    questionId?: string;
+    lessonSlug?: string;
+    dataScopes?: Array<"student-dashboard" | "teacher-dashboard" | "teacher-student-profile" | "adaptive-engine">;
+    selection?: {
+      selectedText: string;
+      helpType: "explain" | "simple-example" | "why-step" | "prerequisite-gap" | "custom";
+      lessonSlug?: string;
+      topicId?: string;
+      questionId?: string;
+      blockId?: string;
+      blockType?: string;
+      surroundingText?: string;
+    };
+  };
 };
 
 export type LearningAnalyticsSummary = {
@@ -1786,13 +2281,22 @@ export type LearningAnalyticsExportSummary = {
 
 export type AssignmentContentType = "lesson" | "practice" | "visualization" | "resource" | "assessment";
 export type AssignmentStatus = "draft" | "scheduled" | "active" | "closed";
-export type SubmissionStatus = "not-started" | "in-progress" | "submitted" | "graded" | "late";
+export type SubmissionStatus =
+  | "not-started"
+  | "in-progress"
+  | "submitted"
+  | "graded"
+  | "late"
+  | "correction-required"
+  | "correction-submitted"
+  | "resolved";
 export type TeacherMessageStatus = "unread" | "open" | "resolved";
 export type TeacherMessagePriority = "normal" | "urgent";
 export type TeacherMessageSenderRole = "student" | "teacher" | "parent";
 export type ParentMessageCategory = "learning-support" | "homework" | "wellbeing" | "report-question" | "logistics";
 export type GuardianRelationship = "mother" | "father" | "guardian" | "other";
 export type GuardianLinkStatus = "pending" | "active" | "revoked";
+export type TeacherNoticeSourceKind = "manual" | "teacher-review-lesson" | "assignment-reminder" | "system";
 export type TeachingResourceType =
   | "slides"
   | "practice"
@@ -1805,18 +2309,50 @@ export type TeachingResourceType =
   | "other";
 export type AssessmentType = "quiz" | "test" | "mock-exam" | "exam";
 export type AssessmentStatus = "draft" | "scheduled" | "open" | "closed";
-export type AssessmentSourceType = "question-bank" | "manual" | "resource" | "mistake-generated";
+export type AssessmentSourceType = "question-bank" | "manual" | "resource" | "mistake-generated" | "mixed";
 export type AssessmentSubmissionStatus = "not-started" | "in-progress" | "submitted" | "graded" | "late";
+export type AssessmentAnalysisBorderlineType = "pass-borderline" | "excellent-borderline" | "low-score-risk";
+export type AssessmentAnalysisScoreBandSetting = {
+  label: string;
+  min: number;
+  max: number;
+};
+export type AssessmentAnalysisSettings = {
+  passThreshold: number;
+  excellentThreshold: number;
+  lowScoreThreshold: number;
+  borderlineRange: number;
+  scoreBands: AssessmentAnalysisScoreBandSetting[];
+  updatedAt?: string;
+};
 export type TeacherReportType = "student" | "class" | "assignment" | "assessment" | "parent-summary";
 export type TeacherInterventionAction = "rebuild-foundation" | "redo-mistakes" | "challenge-extension" | "teacher-message";
 export type TeacherActionQueueType =
   | "overdue-assignment"
   | "pending-grading"
+  | "pending-correction-review"
+  | "overdue-correction"
   | "unreplied-message"
   | "consecutive-mistakes"
   | "inactive-student"
   | "high-ai-tutor";
 export type TeacherActionQueuePriority = "high" | "medium" | "low";
+export type TeacherLessonKitStatus = "draft" | "generated" | "reviewed" | "published";
+export type TeacherLessonKitReviewStatus = "needs-review" | "approved" | "rejected";
+export type TeacherLessonKitSource = "manual" | "deterministic" | "ai";
+export type TeacherLessonKitSectionKind =
+  | "lesson-plan"
+  | "learning-guide"
+  | "slides"
+  | "blackboard-design"
+  | "objectives"
+  | "key-points"
+  | "worked-examples"
+  | "class-practice"
+  | "homework"
+  | "classroom-activity";
+export type TeacherLessonKitPublishTarget = "resources" | "assignment" | "assessment" | "live-session";
+export type ClassroomWorkSampleStatus = "submitted" | "selected" | "hidden";
 
 export type School = {
   id: string;
@@ -1932,7 +2468,7 @@ export type ProvisioningValidationResult = {
 };
 
 export type ProvisioningCredential = {
-  role: "student" | "teacher";
+  role: "student" | "teacher" | "parent";
   name: string;
   username: string;
   temporaryPassword: string;
@@ -2291,6 +2827,78 @@ export type Assignment = {
   completedCount: number;
 };
 
+export type AssignmentSubmissionAttemptKind = "initial" | "correction";
+export type AssignmentSubmissionInputType = "text" | "image" | "handwriting" | "mixed";
+export type AssignmentOcrProvider = "simpletex" | "mathpix" | "llm-vision" | "local" | "none";
+export type AssignmentGradingRunStatus = "suggested" | "needs-review" | "failed";
+export type AssignmentTeacherReviewAction = "score-only" | "accept" | "request-correction" | "resolve";
+
+export type AssignmentOcrAlternative = {
+  text: string;
+  latex?: string;
+  confidence?: number | null;
+  provider: AssignmentOcrProvider;
+};
+
+export type AssignmentSubmissionOcrResult = {
+  text: string;
+  latex?: string;
+  confidence: number | null;
+  provider: AssignmentOcrProvider;
+  accepted: boolean;
+  alternatives: AssignmentOcrAlternative[];
+  reason?: string;
+};
+
+export type AssignmentSubmissionAttempt = {
+  id: string;
+  submissionId: string;
+  studentId: string;
+  attemptNumber: number;
+  kind: AssignmentSubmissionAttemptKind;
+  inputType: AssignmentSubmissionInputType;
+  answerText: string;
+  imageDataUrl?: string;
+  imageObjectKey?: string;
+  imageUrl?: string;
+  imageFileName?: string;
+  ocrResult: AssignmentSubmissionOcrResult | null;
+  submittedAt: string;
+};
+
+export type AssignmentGradingRun = {
+  id: string;
+  submissionId: string;
+  attemptId: string | null;
+  status: AssignmentGradingRunStatus;
+  provider: AssignmentOcrProvider | "llm" | "manual";
+  model: string;
+  suggestedScore: number | null;
+  confidence: number | null;
+  feedback: LocalizedText | null;
+  correctionRequest: LocalizedText | null;
+  errorCode?: string;
+  usage?: {
+    promptTokens?: number | null;
+    completionTokens?: number | null;
+    totalTokens?: number | null;
+  };
+  createdAt: string;
+};
+
+export type AssignmentTeacherReview = {
+  id: string;
+  submissionId: string;
+  action: AssignmentTeacherReviewAction;
+  finalScore: number | null;
+  feedback: LocalizedText | null;
+  correctionRequest: LocalizedText | null;
+  correctionDueAt: string | null;
+  reviewedBy: string;
+  reviewerName: string;
+  createdAt: string;
+};
+
 export type Submission = {
   id: string;
   assignmentId: string;
@@ -2301,6 +2909,15 @@ export type Submission = {
   submittedAt: string | null;
   gradedAt: string | null;
   feedback: LocalizedText | null;
+  correctionRequest: LocalizedText | null;
+  correctionDueAt: string | null;
+  correctionRound: number;
+  maxCorrectionRounds: number;
+  resolvedAt: string | null;
+  attempts: AssignmentSubmissionAttempt[];
+  latestAttempt: AssignmentSubmissionAttempt | null;
+  latestGradingRun: AssignmentGradingRun | null;
+  latestTeacherReview: AssignmentTeacherReview | null;
   updatedAt: string;
 };
 
@@ -2365,11 +2982,275 @@ export type TeachingResource = {
   };
 };
 
+export type TeacherLessonKitSectionQuestion = {
+  questionId?: string;
+  prompt: LocalizedText;
+  answer: string;
+  explanation?: LocalizedText;
+  difficulty?: Difficulty;
+  source: "question-bank" | "ai-generated" | "manual";
+  validationStatus: "validated" | "needs-review";
+};
+
+export type TeacherLessonKitSection = {
+  id: string;
+  kind: TeacherLessonKitSectionKind;
+  title: LocalizedText;
+  content: LocalizedText;
+  items: LocalizedText[];
+  questions?: TeacherLessonKitSectionQuestion[];
+  estimatedMinutes?: number;
+  teacherNotes?: LocalizedText;
+  order: number;
+};
+
+export type TeacherLessonKit = {
+  id: string;
+  teacherId: string;
+  classId: string;
+  className: string;
+  grade: GradeId;
+  curriculumProfile: CurriculumProfile;
+  publisher: TextbookPublisher;
+  topicId: string;
+  topicTitle: LocalizedText;
+  lessonSlug?: string;
+  lessonTitle: LocalizedText;
+  chapterTitle: LocalizedText;
+  lessonPeriod: number;
+  lessonType: "new-lesson" | "review" | "practice" | "exam-prep";
+  durationMinutes: number;
+  status: TeacherLessonKitStatus;
+  source: TeacherLessonKitSource;
+  reviewStatus: TeacherLessonKitReviewStatus;
+  generationNotes: LocalizedText;
+  sections: TeacherLessonKitSection[];
+  publishedResourceIds: string[];
+  assignmentId?: string;
+  assessmentId?: string;
+  liveSessionId?: string;
+  createdAt: string;
+  updatedAt: string;
+  generatedAt: string | null;
+  reviewedAt: string | null;
+  publishedAt: string | null;
+};
+
+export type TeacherLessonKitListData = {
+  generatedAt: string;
+  classes: TeacherClass[];
+  topicOptions: TeacherTopicOption[];
+  kits: TeacherLessonKit[];
+  totals: {
+    kits: number;
+    needsReview: number;
+    published: number;
+    mainlandTopics: number;
+  };
+};
+
+export type TeacherLessonKitCreateData = {
+  classes: TeacherClass[];
+  topicOptions: TeacherTopicOption[];
+};
+
+export type TeacherLessonKitPublishResult = {
+  resourceIds: string[];
+  assignmentId?: string;
+  assessmentId?: string;
+  liveSessionId?: string;
+};
+
+export type TeacherReviewLessonStatus = "draft" | "generated" | "reviewed";
+export type TeacherReviewLessonSource = "assessment" | "frequent-mistakes";
+export type TeacherReviewLessonItemCategory = "must-teach" | "quick-review" | "individual-support";
+export type TeacherReviewLessonMisconceptionTag =
+  | "conceptual-understanding"
+  | "calculation-symbol"
+  | "reading-modeling"
+  | "solution-steps"
+  | "graph-table-reading"
+  | "unit-format"
+  | "strategy-choice";
+export type TeacherReviewLessonQuestionValidationStatus = "validated" | "needs-teacher-review";
+
+export type TeacherReviewLessonSourceSnapshot = {
+  assessmentId: string;
+  assessmentTitle: LocalizedText;
+  assessmentUpdatedAt: string;
+  classId: string;
+  className: string;
+  submittedCount: number;
+  totalStudents: number;
+  questionCount: number;
+  generatedAt: string;
+};
+
+export type TeacherReviewLessonItem = {
+  id: string;
+  questionId: string;
+  prompt: LocalizedText;
+  correctAnswer?: string;
+  explanation?: LocalizedText;
+  sectionId?: string;
+  sectionTitle?: LocalizedText;
+  topicId?: string;
+  topicTitle?: LocalizedText;
+  maxPoints: number;
+  correctRate: number | null;
+  correctCount: number;
+  totalResponses: number;
+  wrongCount: number;
+  wrongStudentIds: string[];
+  wrongStudentNames: string[];
+  commonWrongAnswer: string | null;
+  commonWrongAnswerCount: number;
+  category: TeacherReviewLessonItemCategory;
+  categoryReason: LocalizedText;
+  misconceptionTags: TeacherReviewLessonMisconceptionTag[];
+  teachingScript: LocalizedText;
+  teacherNotes: LocalizedText;
+  order: number;
+};
+
+export type TeacherReviewLessonSlide = {
+  id: string;
+  title: LocalizedText;
+  bullets: LocalizedText[];
+  relatedItemIds: string[];
+  speakerNotes: LocalizedText;
+  order: number;
+};
+
+export type TeacherReviewLessonBoardColumn = {
+  id: string;
+  title: LocalizedText;
+  blocks: LocalizedText[];
+  order: number;
+};
+
+export type TeacherReviewLessonPracticeQuestion = {
+  id: string;
+  source: "question-bank" | "ai-generated" | "manual";
+  prompt: LocalizedText;
+  answer: string;
+  explanation?: LocalizedText;
+  topicId?: string;
+  difficulty?: Difficulty;
+  relatedItemId?: string;
+  validationStatus: TeacherReviewLessonQuestionValidationStatus;
+};
+
+export type TeacherReviewLessonIndividualGroup = {
+  id: string;
+  label: LocalizedText;
+  itemIds: string[];
+  studentIds: string[];
+  studentNames: string[];
+  guidance: LocalizedText;
+};
+
+export type TeacherReviewLessonPlan = {
+  id: string;
+  teacherId: string;
+  classId: string;
+  className: string;
+  assessmentId: string;
+  title: LocalizedText;
+  language: Language;
+  durationMinutes: number;
+  status: TeacherReviewLessonStatus;
+  source: TeacherReviewLessonSource;
+  sourceSnapshot: TeacherReviewLessonSourceSnapshot;
+  sourceSnapshotStale: boolean;
+  objectives: LocalizedText[];
+  timeline: Array<{
+    id: string;
+    label: LocalizedText;
+    minutes: number;
+  }>;
+  items: TeacherReviewLessonItem[];
+  slides: TeacherReviewLessonSlide[];
+  boardColumns: TeacherReviewLessonBoardColumn[];
+  variationQuestions: TeacherReviewLessonPracticeQuestion[];
+  remediationQuestions: TeacherReviewLessonPracticeQuestion[];
+  individualGroups: TeacherReviewLessonIndividualGroup[];
+  generationNotes: LocalizedText;
+  createdAt: string;
+  updatedAt: string;
+  generatedAt: string;
+  reviewedAt: string | null;
+  remediationAssessmentId?: string;
+};
+
+export type TeacherReviewLessonDetailData = {
+  reviewLesson: TeacherReviewLessonPlan;
+  class: TeacherClass;
+  assessment: Assessment;
+  parentSafeDraft: ParentSafeTeacherDraft | null;
+};
+
+export type PilotTeacherReviewQueueItem = {
+  reviewLessonId: string;
+  assessmentId: string;
+  classId: string;
+  className: string;
+  title: LocalizedText;
+  status: TeacherReviewLessonStatus;
+  generatedAt: string;
+  reviewedAt: string | null;
+  parentSafeDraft: ParentSafeTeacherDraft | null;
+  guard: PilotPlatformGuard;
+};
+
+export type PilotPlatformLoopData = {
+  mode: "p1-platform-loop";
+  generatedAt: string;
+  role: PilotPlatformRole;
+  actorId: string;
+  guard: PilotPlatformGuard;
+  learnerState: PilotLearnerState | null;
+  teacherReviewQueue: PilotTeacherReviewQueueItem[];
+  parentSafeDrafts: ParentSafeTeacherDraft[];
+  events: PilotPlatformEvent[];
+};
+
 export type AssessmentManualQuestion = {
   id: string;
   prompt: LocalizedText;
   answer: string;
   points: number;
+};
+
+export type AssessmentPaperItemSource = "question-bank" | "manual" | "ai-generated" | "mistake";
+
+export type AssessmentEmbeddedQuestion = {
+  type: QuestionType | "manual";
+  prompt: LocalizedText;
+  options?: LocalizedText[];
+  answer: string;
+  acceptedAnswers?: string[];
+  explanation?: LocalizedText;
+  topicId?: string;
+  difficulty?: Difficulty;
+  diagram?: QuestionDiagram;
+};
+
+export type AssessmentPaperItem = {
+  id: string;
+  source: AssessmentPaperItemSource;
+  questionId?: string;
+  embeddedQuestion?: AssessmentEmbeddedQuestion;
+  points: number;
+  order: number;
+};
+
+export type AssessmentPaperSection = {
+  id: string;
+  title: LocalizedText;
+  instructions?: LocalizedText;
+  order: number;
+  items: AssessmentPaperItem[];
 };
 
 export type Assessment = {
@@ -2380,8 +3261,12 @@ export type Assessment = {
   status: AssessmentStatus;
   sourceType: AssessmentSourceType;
   sourceResourceId?: string;
+  analysisSettings: AssessmentAnalysisSettings;
+  examGroupId: string;
+  examGroupName: LocalizedText;
   questionIds: string[];
   manualQuestions: AssessmentManualQuestion[];
+  paperSections: AssessmentPaperSection[];
   opensAt: string | null;
   closesAt: string | null;
   timeLimitMinutes: number | null;
@@ -2402,6 +3287,7 @@ export type AssessmentSubmissionAnswer = {
   isCorrect: boolean | null;
   pointsEarned: number | null;
   maxPoints: number;
+  teacherFeedback?: LocalizedText | null;
 };
 
 export type AssessmentSubmission = {
@@ -2444,14 +3330,27 @@ export type StudentAssessmentQuestion = {
   type: QuestionType | "manual";
   options?: LocalizedText[];
   maxPoints: number;
+  source?: AssessmentPaperItemSource;
+  sectionId?: string;
   topicId?: string;
   difficulty?: Difficulty;
+  correctAnswer?: string;
+  explanation?: LocalizedText;
+  isAnswerVisible?: boolean;
+};
+
+export type StudentAssessmentQuestionSection = {
+  id: string;
+  title: LocalizedText;
+  instructions?: LocalizedText;
+  questions: StudentAssessmentQuestion[];
 };
 
 export type StudentAssessmentDetailData = {
   assessment: Assessment;
   className: string;
   questions: StudentAssessmentQuestion[];
+  questionSections: StudentAssessmentQuestionSection[];
   submission: AssessmentSubmission;
   assignment: StudentAssignmentItem | null;
   canSubmit: boolean;
@@ -2484,6 +3383,231 @@ export type GuardianLink = {
   createdBy: string;
   createdAt: string;
   updatedAt: string;
+};
+
+export type TeacherNoticeAudience = "parents" | "students" | "both";
+export type TeacherNoticeStatus = "draft" | "queued" | "sent" | "failed";
+export type TeacherNoticeRecipientStatus = "pending" | "acknowledged";
+export type TeacherNoticeDeliveryStatus = "queued" | "sent" | "failed" | "disabled";
+
+export type TeacherNoticeRecipient = {
+  id: string;
+  noticeId: string;
+  studentId: string;
+  studentName: string;
+  guardianId?: string;
+  guardianName?: string;
+  status: TeacherNoticeRecipientStatus;
+  acknowledgedBy?: string;
+  acknowledgedAt: string | null;
+  createdAt: string;
+};
+
+export type TeacherNoticeDeliveryAttempt = {
+  id: string;
+  noticeId: string;
+  channelId: string;
+  channelName: string;
+  status: TeacherNoticeDeliveryStatus;
+  providerMessageId?: string;
+  errorCode?: string;
+  errorMessage?: string;
+  attemptedAt: string;
+};
+
+export type TeacherNotice = {
+  id: string;
+  teacherId: string;
+  classId: string;
+  className: string;
+  audience: TeacherNoticeAudience;
+  channelId: string;
+  channelName: string;
+  subject: LocalizedText;
+  body: LocalizedText;
+  status: TeacherNoticeStatus;
+  assignmentId?: string;
+  source?: {
+    kind: TeacherNoticeSourceKind;
+    id?: string;
+  };
+  dueAt: string | null;
+  createdAt: string;
+  updatedAt: string;
+  sentAt: string | null;
+  recipients: TeacherNoticeRecipient[];
+  deliveryAttempts: TeacherNoticeDeliveryAttempt[];
+  acknowledgement: {
+    total: number;
+    acknowledged: number;
+    pending: number;
+  };
+};
+
+export type ParentSafeTeacherDraft = {
+  id: string;
+  noticeId: string;
+  sourceReviewLessonId: string;
+  classId: string;
+  className: string;
+  teacherId: string;
+  teacherName: string;
+  title: LocalizedText;
+  summary: LocalizedText;
+  status: TeacherNoticeStatus;
+  publishedAt: string | null;
+  acknowledgement: TeacherNotice["acknowledgement"];
+};
+
+export type WeComChannelSummary = {
+  id: string;
+  name: string;
+  envKey: string;
+  configured: boolean;
+};
+
+export type TeacherReminderThreshold = "due-24h" | "overdue-0h" | "overdue-24h" | "overdue-72h" | "manual";
+
+export type TeacherReminderPolicy = {
+  enabled: boolean;
+  thresholds: TeacherReminderThreshold[];
+  quietHours: {
+    start: string;
+    end: string;
+  };
+};
+
+export type TeacherReminderRun = {
+  id: string;
+  teacherId: string;
+  classId: string;
+  assignmentId: string;
+  studentId: string;
+  noticeId?: string;
+  threshold: TeacherReminderThreshold;
+  status: TeacherNoticeDeliveryStatus | "skipped";
+  reason: string;
+  createdAt: string;
+};
+
+export type TeacherMissingWorkItem = {
+  assignmentId: string;
+  assignmentTitle: LocalizedText;
+  classId: string;
+  className: string;
+  studentId: string;
+  studentName: string;
+  submissionId: string;
+  submissionStatus: SubmissionStatus;
+  dueAt: string | null;
+  nextThreshold: TeacherReminderThreshold | null;
+  lastReminderAt: string | null;
+};
+
+export type ClassRosterProfile = {
+  enrollmentId: string;
+  classId: string;
+  studentId: string;
+  studentName: string;
+  grade: GradeId;
+  studentNo?: string;
+  seatLabel?: string;
+  seatRow: number | null;
+  seatColumn: number | null;
+  displayOrder: number;
+  guardianCount: number;
+  guardianStatus: "linked" | "unlinked";
+  updatedAt: string;
+};
+
+export type TeacherRosterImportRow = {
+  rowIndex: number;
+  studentNo: string;
+  name: string;
+  grade: GradeId | "";
+  email?: string;
+  username?: string;
+  seatLabel?: string;
+  seatRow: number | null;
+  seatColumn: number | null;
+  parentName?: string;
+  parentEmail?: string;
+  errors: string[];
+  warnings: string[];
+};
+
+export type TeacherRosterImportValidation = {
+  valid: boolean;
+  rows: TeacherRosterImportRow[];
+  totals: {
+    rows: number;
+    valid: number;
+    errors: number;
+    creates: number;
+    updates: number;
+  };
+};
+
+export type TeacherClassCollaboratorRole = "owner" | "co-teacher" | "viewer";
+
+export type TeacherClassCollaborator = {
+  id: string;
+  classId: string;
+  teacherId: string;
+  teacherName: string;
+  teacherUsername: string;
+  role: TeacherClassCollaboratorRole;
+  status: "active" | "revoked";
+  invitedBy: string;
+  createdAt: string;
+  updatedAt: string;
+};
+
+export type PrepTeamShareKind = "resource" | "assessment" | "lesson-kit" | "note";
+
+export type PrepTeamShare = {
+  id: string;
+  prepTeamId: string;
+  kind: PrepTeamShareKind;
+  title: LocalizedText;
+  targetId?: string;
+  createdBy: string;
+  createdByName: string;
+  createdAt: string;
+};
+
+export type PrepTeam = {
+  id: string;
+  schoolId?: string;
+  name: LocalizedText;
+  description: LocalizedText;
+  grade?: GradeId;
+  teacherIds: string[];
+  members: Array<{
+    teacherId: string;
+    teacherName: string;
+  }>;
+  shares: PrepTeamShare[];
+  createdBy: string;
+  createdAt: string;
+  updatedAt: string;
+};
+
+export type TermArchive = {
+  id: string;
+  classId: string;
+  className: string;
+  termLabel: string;
+  createdBy: string;
+  createdAt: string;
+  snapshot: {
+    studentCount: number;
+    assignmentCount: number;
+    submissionCount: number;
+    reportCount: number;
+    averageCompletionRate: number;
+  };
+  exportUrl: string;
 };
 
 export type ParentChildSummary = {
@@ -2543,6 +3667,13 @@ export type ParentMessagesData = {
   reports: TeacherReport[];
 };
 
+export type ParentNoticeData = {
+  generatedAt: string;
+  children: ParentChildSummary[];
+  notices: TeacherNotice[];
+  parentSafeDrafts: ParentSafeTeacherDraft[];
+};
+
 export type TeacherFoundationData = {
   teacher: StudentSession;
   classes: TeacherClass[];
@@ -2560,8 +3691,36 @@ export type TeacherFoundationData = {
   assessments: Assessment[];
 };
 
+export type TeacherOperationsData = {
+  generatedAt: string;
+  teacher: StudentSession;
+  classes: TeacherClass[];
+  selectedClassId: string | null;
+  wecom: {
+    enabled: boolean;
+    channels: WeComChannelSummary[];
+  };
+  notices: TeacherNotice[];
+  reminderPolicy: TeacherReminderPolicy;
+  reminderRuns: TeacherReminderRun[];
+  missingWork: TeacherMissingWorkItem[];
+  roster: ClassRosterProfile[];
+  collaborators: TeacherClassCollaborator[];
+  prepTeams: PrepTeam[];
+  termArchives: TermArchive[];
+  totals: {
+    notices: number;
+    pendingAcknowledgements: number;
+    missingWork: number;
+    collaborators: number;
+    archives: number;
+  };
+};
+
 export type TeacherDashboardKpis = {
   pendingGrading: number;
+  pendingCorrectionReview: number;
+  correctionsRequired: number;
   unrepliedMessages: number;
   weeklyAssignmentCompletionRate: number;
   atRiskStudents: number;
@@ -2627,6 +3786,8 @@ export type TeacherTopicOption = {
   id: string;
   grade: GradeId;
   title: LocalizedText;
+  curriculumProfile?: CurriculumProfile;
+  publisher?: TextbookPublisher;
 };
 
 export type TeacherResourceLibraryData = {
@@ -2757,6 +3918,14 @@ export type TeacherClassDetailData = {
   assignments: Assignment[];
 };
 
+export type TeacherStudentMasteryTarget = {
+  topicId: string;
+  mastery: number;
+  note: string;
+  updatedAt: string;
+  teacherName: string;
+};
+
 export type TeacherStudentProfileData = {
   student: StudentSession;
   classes: TeacherClass[];
@@ -2771,6 +3940,7 @@ export type TeacherStudentProfileData = {
     mastery: number;
     status: TopicStatus;
     updatedAt: string | null;
+    teacherMasteryTarget: TeacherStudentMasteryTarget | null;
   }>;
   mistakes: MistakeBookItem[];
   recentAttempts: Array<{
@@ -2804,6 +3974,12 @@ export type TeacherAssignmentDetailData = {
   class: TeacherClass;
   submissions: Submission[];
   completionRate: number;
+  gradingSummary: {
+    pendingGrading: number;
+    correctionRequired: number;
+    correctionSubmitted: number;
+    resolved: number;
+  };
 };
 
 export type StudentAssignmentItem = {
@@ -2841,12 +4017,20 @@ export type TeacherAssessmentQuestionOption = {
   topicId: string;
   topicTitle: LocalizedText;
   difficulty: Difficulty;
+  type: QuestionType;
   prompt: LocalizedText;
+  source?: AssessmentPaperItemSource;
+  usageCount?: number;
 };
 
 export type TeacherAssessmentCreateData = {
   classes: TeacherClass[];
   resources: TeachingResource[];
+  topicOptions: {
+    id: string;
+    grade: GradeId;
+    title: LocalizedText;
+  }[];
   questionBank: TeacherAssessmentQuestionOption[];
 };
 
@@ -2867,15 +4051,105 @@ export type TeacherAssessmentScoreBucket = {
   min: number;
   max: number;
   count: number;
+  percentage: number;
 };
 
 export type TeacherAssessmentQuestionAnalytics = {
   questionId: string;
   prompt: LocalizedText;
+  correctAnswer?: string;
+  explanation?: LocalizedText;
+  sectionId?: string;
+  sectionTitle?: LocalizedText;
+  topicId?: string;
+  topicTitle?: LocalizedText;
+  questionType?: QuestionType | "manual";
+  maxPoints: number;
+  averagePoints: number | null;
+  scoreRate: number | null;
+  difficultyIndex: number | null;
+  discriminationIndex: number | null;
   correctRate: number | null;
   correctCount: number;
   totalResponses: number;
   commonWrongAnswer: string | null;
+};
+
+export type TeacherAssessmentSummaryAnalysis = {
+  submittedCount: number;
+  totalStudents: number;
+  highestScore: number | null;
+  lowestScore: number | null;
+  averageScore: number | null;
+  standardDeviation: number | null;
+  passRate: number | null;
+  excellentRate: number | null;
+  lowScoreRate: number | null;
+};
+
+export type TeacherAssessmentRankingEntry = {
+  rank: number | null;
+  studentId: string;
+  studentName: string;
+  status: AssessmentSubmissionStatus;
+  score: number | null;
+  maxScore: number;
+  percentage: number | null;
+  submittedAt: string | null;
+  borderlineTypes: AssessmentAnalysisBorderlineType[];
+};
+
+export type TeacherAssessmentKnowledgeMastery = {
+  topicId: string;
+  topicTitle: LocalizedText;
+  earnedPoints: number;
+  maxPoints: number;
+  masteryRate: number | null;
+  questionCount: number;
+};
+
+export type TeacherAssessmentBorderlineStudent = {
+  studentId: string;
+  studentName: string;
+  type: AssessmentAnalysisBorderlineType;
+  score: number | null;
+  maxScore: number;
+  percentage: number | null;
+  threshold: number;
+  gap: number;
+};
+
+export type TeacherAssessmentGradeComparisonClass = {
+  classId: string;
+  className: string;
+  assessmentId: string;
+  averageScore: number | null;
+  submittedCount: number;
+  studentCount: number;
+};
+
+export type TeacherAssessmentGradeComparison = {
+  available: boolean;
+  scopeLabel: LocalizedText;
+  assessmentCount: number;
+  classCount: number;
+  submittedCount: number;
+  gradeAverageScore: number | null;
+  currentClassAverageScore: number | null;
+  currentClassRank: number | null;
+  classes: TeacherAssessmentGradeComparisonClass[];
+  message: LocalizedText;
+};
+
+export type TeacherAssessmentAnalysis = {
+  settings: AssessmentAnalysisSettings;
+  summary: TeacherAssessmentSummaryAnalysis;
+  scoreBands: TeacherAssessmentScoreBucket[];
+  rankings: TeacherAssessmentRankingEntry[];
+  itemAnalysis: TeacherAssessmentQuestionAnalytics[];
+  knowledgeMastery: TeacherAssessmentKnowledgeMastery[];
+  gradeComparison: TeacherAssessmentGradeComparison;
+  borderlineStudents: TeacherAssessmentBorderlineStudent[];
 };
 
 export type TeacherAssessmentDetailData = {
@@ -2888,10 +4162,144 @@ export type TeacherAssessmentDetailData = {
   scoreDistribution: TeacherAssessmentScoreBucket[];
   questionAnalytics: TeacherAssessmentQuestionAnalytics[];
   commonWrongQuestions: TeacherAssessmentQuestionAnalytics[];
+  analysis: TeacherAssessmentAnalysis;
 };
 
 export type TeacherLiveSessionStatus = "active" | "ended";
 export type TeacherLivePromptType = "poll" | "exit-ticket";
+export type TeacherLiveToolType =
+  | "attendance"
+  | "random-call"
+  | "buzzer"
+  | "timer"
+  | "teams"
+  | "projector"
+  | "screen-sync"
+  | "whiteboard"
+  | "math-workbench";
+
+export type AttendanceStatus = "present" | "late" | "absent" | "excused";
+
+export type TeacherLiveAttendanceEntry = {
+  studentId: string;
+  studentName: string;
+  status: AttendanceStatus;
+  checkedInAt: string | null;
+  updatedAt: string;
+};
+
+export type TeacherLiveRandomCallState = {
+  currentStudentId: string | null;
+  currentStudentName: string | null;
+  selectedStudentIds: string[];
+  allowRepeats: boolean;
+  updatedAt: string | null;
+};
+
+export type TeacherLiveBuzzerEntry = {
+  studentId: string;
+  studentName: string;
+  submittedAt: string;
+  rank: number;
+};
+
+export type BuzzerRound = {
+  id: string;
+  status: "idle" | "open" | "closed";
+  openedAt: string | null;
+  closedAt: string | null;
+  entries: TeacherLiveBuzzerEntry[];
+};
+
+export type TimerState = {
+  mode: "countdown" | "stopwatch";
+  status: "idle" | "running" | "paused" | "ended";
+  durationSeconds: number;
+  remainingSeconds: number;
+  startedAt: string | null;
+  pausedAt: string | null;
+  updatedAt: string | null;
+};
+
+export type TeamScoreState = {
+  teams: Array<{
+    id: string;
+    name: LocalizedText;
+    studentIds: string[];
+    score: number;
+  }>;
+  updatedAt: string | null;
+};
+
+export type TeacherLiveProjectionState = {
+  mode: "answers" | "work-samples";
+  showNames: boolean;
+  selectedWorkSampleId: string | null;
+  updatedAt: string | null;
+};
+
+export type TeacherLiveScreenSyncState = {
+  target: "classroom" | "prompt" | "visualization" | "whiteboard" | "math-workbench";
+  title: LocalizedText;
+  href: string;
+  locked: boolean;
+  updatedAt: string | null;
+};
+
+export type WhiteboardStroke = {
+  id: string;
+  tool: "pen" | "highlighter";
+  color: string;
+  width: number;
+  points: Array<{ x: number; y: number }>;
+  createdAt: string;
+};
+
+export type MathWorkbenchState = {
+  tool: "function-graph" | "coordinate-plane" | "geometry" | "compass-straightedge";
+  topicId: string | null;
+  title: LocalizedText;
+  parameters: Record<string, number | string | boolean>;
+  locked: boolean;
+  updatedAt: string | null;
+};
+
+export type TeacherLiveEvent = {
+  id: string;
+  type: TeacherLiveToolType | "session";
+  label: LocalizedText;
+  studentId?: string;
+  studentName?: string;
+  createdAt: string;
+};
+
+export type TeacherLiveCommand = {
+  id: string;
+  sessionId: string;
+  type: TeacherLiveToolType;
+  action: string;
+  payload: Record<string, unknown>;
+  createdAt: string;
+};
+
+export type TeacherLiveToolState = {
+  activeTool: TeacherLiveToolType;
+  attendance: TeacherLiveAttendanceEntry[];
+  randomCall: TeacherLiveRandomCallState;
+  buzzer: BuzzerRound;
+  timer: TimerState;
+  teams: TeamScoreState;
+  projection: TeacherLiveProjectionState;
+  screenSync: TeacherLiveScreenSyncState;
+  whiteboard: {
+    strokes: WhiteboardStroke[];
+    updatedAt: string | null;
+  };
+  mathWorkbench: MathWorkbenchState;
+  events: TeacherLiveEvent[];
+};
+
+export type ClassroomLiveActionType = "attendance-check-in" | "buzzer-submit" | "screen-ack" | "work-sample-submit";
 
 export type TeacherLivePromptOption = {
   id: string;
@@ -2912,12 +4320,33 @@ export type TeacherLiveResponseSummary = {
   correctCount: number;
   accuracy: number | null;
   submittedStudentIds: string[];
+  submissions: Array<{
+    studentId: string;
+    studentName: string;
+    answer: string;
+    isCorrect: boolean | null;
+    submittedAt: string;
+  }>;
   commonAnswers: Array<{
     answer: string;
     count: number;
     isCorrect: boolean | null;
   }>;
   needsReteach: boolean;
+};
+
+export type ClassroomWorkSample = {
+  id: string;
+  sessionId: string;
+  studentId: string;
+  studentName: string;
+  imageDataUrl: string;
+  imageObjectKey?: string;
+  imageUrl?: string;
+  caption: string;
+  status: ClassroomWorkSampleStatus;
+  createdAt: string;
+  selectedAt: string | null;
 };
 
 export type TeacherLiveSession = {
@@ -2938,6 +4367,10 @@ export type TeacherLiveSession = {
   currentPrompt: TeacherLivePrompt;
   studentCount: number;
   responseSummary: TeacherLiveResponseSummary;
+  lessonKitId?: string;
+  slideSections?: TeacherLessonKitSection[];
+  workSamples: ClassroomWorkSample[];
+  toolState: TeacherLiveToolState;
 };
 
 export type TeacherLiveData = {
@@ -2955,10 +4388,14 @@ export type ClassroomLiveSession = {
   lessonTitle: LocalizedText;
   joinCode: string;
   currentPrompt: TeacherLivePrompt;
+  viewerStudentId?: string;
+  attendanceStatus?: AttendanceStatus;
   viewerMode: "student" | "teacher-preview";
   canSubmit: boolean;
   submitted: boolean;
   submittedAnswer: string | null;
+  workSamples: ClassroomWorkSample[];
+  toolState: TeacherLiveToolState;
 };
 
 export type TeacherReportLanguage = "en" | "zh" | "zh-Hans";

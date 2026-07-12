@@ -1,10 +1,17 @@
 import { expect, request as apiRequest, test, type APIRequestContext, type APIResponse, type TestInfo } from "@playwright/test";
+import { pbkdf2Sync } from "node:crypto";
 import { DatabaseSync } from "node:sqlite";
 import path from "node:path";
 
 const port = Number(process.env.PLAYWRIGHT_PORT ?? 3020);
 const baseURL = process.env.PLAYWRIGHT_BASE_URL ?? `http://127.0.0.1:${port}`;
-const e2eDbPath = path.join(process.cwd(), ".tmp/e2e/hk-math-db.sqlite");
+const e2eDbPath = process.env.HK_MATH_DB_PATH
+  ? path.resolve(process.env.HK_MATH_DB_PATH)
+  : path.join(process.cwd(), ".tmp/e2e/hk-math-db.sqlite");
+const hkUpCurriculumProfile = {
+  region: "HK",
+  publisher: "HK_UNITED_PRIME_MIA"
+};
 
 type AuthSession = {
   user: {
@@ -44,7 +51,15 @@ type AppStateRow = {
 type AppStatePayload = {
   users: Array<{
     id: string;
+    username?: string;
+    normalized_username?: string;
+    email?: string;
+    normalized_email?: string;
+    password_hash?: string;
+    password_salt?: string;
+    password_must_change?: boolean;
     role: "student" | "teacher" | "parent" | "admin";
+    created_at?: string;
     school_id?: string;
   }>;
   adaptive_skill_state?: AdaptiveSkillStateRecord[];
@@ -169,6 +184,7 @@ async function registerStudent(contexts: APIRequestContext[], testInfo: TestInfo
         password: student.password,
         grade,
         curriculumTrack: "HK",
+        curriculumProfile: hkUpCurriculumProfile,
         language: "en",
         theme: "dark"
       }
@@ -244,6 +260,46 @@ function readAppStatePayload() {
     expect(row).toBeTruthy();
 
     return JSON.parse(row?.payload ?? "{}") as AppStatePayload;
+  } finally {
+    sqlite.close();
+  }
+}
+
+function hashE2ePassword(password: string, salt: string) {
+  return pbkdf2Sync(password, salt, 120000, 64, "sha512").toString("hex");
+}
+
+function seedLegacyDuplicateUsDemoUsername() {
+  const sqlite = new DatabaseSync(e2eDbPath);
+  try {
+    const row = sqlite
+      .prepare("SELECT payload FROM app_state WHERE id = ?")
+      .get("primary") as AppStateRow | undefined;
+    expect(row).toBeTruthy();
+
+    const payload = JSON.parse(row?.payload ?? "{}") as AppStatePayload;
+    const now = new Date().toISOString();
+    const legacyUserId = "legacy-student-shirleen-e2e";
+    const passwordSalt = "legacy-student-shirleen-e2e-salt";
+    payload.users = [
+      {
+        id: legacyUserId,
+        username: "Student Shirleen",
+        normalized_username: "student shirleen",
+        email: "legacy.student.shirleen@example.edu",
+        normalized_email: "legacy.student.shirleen@example.edu",
+        password_hash: hashE2ePassword("legacy-password", passwordSalt),
+        password_salt: passwordSalt,
+        password_must_change: false,
+        role: "student",
+        created_at: now
+      },
+      ...payload.users.filter((user) => user.id !== legacyUserId)
+    ];
+
+    sqlite
+      .prepare("UPDATE app_state SET payload = ?, updated_at = ? WHERE id = ?")
+      .run(JSON.stringify(payload), now, "primary");
   } finally {
     sqlite.close();
   }
@@ -331,16 +387,16 @@ function seedAITutorUsage(userId: string, totalTokens: number) {
 test.describe("backend API integration", () => {
   test.describe.configure({ timeout: 90_000 });
 
-  test("demo Mainland student can switch to HJB during login", async ({}, testInfo) => {
+  test("demo accounts stay locked to their fixed example curriculum and grade during login", async ({}, testInfo) => {
     const contexts: APIRequestContext[] = [];
     test.skip(testInfo.project.name !== "desktop-chrome", "API-only backend suite runs once.");
 
     try {
       const context = await newApiContext(contexts);
-      const session = await readJson<AuthSession>(
+      const mainlandSession = await readJson<AuthSession>(
         await context.post("/api/auth/login", {
           data: {
-            username: "Mainland Student Ludwig",
+            username: "Student Peter",
             password: "12345",
             grade: "S2",
             curriculumTrack: "MAINLAND_PEP_HIGH",
@@ -351,16 +407,86 @@ test.describe("backend API integration", () => {
         })
       );
 
-      expect(session.user.username).toBe("Mainland Student Ludwig");
-      expect(session.user.curriculumTrack).toBe("MAINLAND_PEP_HIGH");
-      expect(session.user.curriculumProfile?.publisher).toBe("MAINLAND_HJB");
-      expect(session.settings.selectedGrade).toBe("S2");
+      expect(mainlandSession.user.username).toBe("Student Peter");
+      expect(mainlandSession.user.curriculumTrack).toBe("MAINLAND_PEP_HIGH");
+      expect(mainlandSession.user.curriculumProfile?.publisher).toBe("MAINLAND_PEP");
+      expect(mainlandSession.user.grade).toBe("S4");
+      expect(mainlandSession.settings.selectedGrade).toBe("S4");
+
+      const usTeacherSession = await readJson<AuthSession>(
+        await context.post("/api/auth/login", {
+          data: {
+            username: "Teacher Scott",
+            password: "12345",
+            grade: "S4",
+            curriculumTrack: "US_CA_MATH",
+            curriculumProfile: { region: "US", publisher: "US_CA_MATH" },
+            language: "en",
+            theme: "dark"
+          }
+        })
+      );
+
+      expect(usTeacherSession.user.id).toBe("teacher-scott-us");
+      expect(usTeacherSession.user.curriculumTrack).toBe("US_CA_MATH");
+      expect(usTeacherSession.user.curriculumProfile?.publisher).toBe("US_CA_MATH");
+      expect(usTeacherSession.user.grade).toBe("P1");
+      expect(usTeacherSession.settings.selectedGrade).toBe("P1");
     } finally {
       await disposeAll(contexts);
     }
   });
 
-  test("auth, student learning APIs, analytics, password reset, and AI tutor boundaries", async ({ page }, testInfo) => {
+  test("demo US student login resolves the seeded account when a stale duplicate username exists", async ({}, testInfo) => {
+    const contexts: APIRequestContext[] = [];
+    test.skip(testInfo.project.name !== "desktop-chrome", "API-only backend suite runs once.");
+
+    try {
+      const context = await newApiContext(contexts);
+      await registerStudent(contexts, testInfo, "snapshot-warmup", "S1");
+      seedLegacyDuplicateUsDemoUsername();
+
+      const usernameSession = await readJson<AuthSession>(
+        await context.post("/api/auth/login", {
+          data: {
+            username: "Student Shirleen",
+            password: "12345",
+            grade: "S3",
+            language: "en",
+            theme: "dark"
+          }
+        })
+      );
+
+      expect(usernameSession.user.id).toBe("student-shirleen-us");
+      expect(usernameSession.user.username).toBe("Student Shirleen");
+      expect(usernameSession.user.role).toBe("student");
+      expect(usernameSession.user.curriculumTrack).toBe("US_CA_MATH");
+      expect(usernameSession.user.curriculumProfile?.publisher).toBe("US_CA_MATH");
+      expect(usernameSession.settings.selectedGrade).toBe("P1");
+
+      const emailContext = await newApiContext(contexts);
+      const emailSession = await readJson<AuthSession>(
+        await emailContext.post("/api/auth/login", {
+          data: {
+            username: "student.shirleen@example.edu",
+            password: "12345",
+            grade: "S3",
+            language: "en",
+            theme: "dark"
+          }
+        })
+      );
+
+      expect(emailSession.user.id).toBe("student-shirleen-us");
+      expect(emailSession.user.curriculumTrack).toBe("US_CA_MATH");
+      expect(emailSession.settings.selectedGrade).toBe("P1");
+    } finally {
+      await disposeAll(contexts);
+    }
+  });
+
+  test("auth, student learning APIs, analytics, password reset, and Nova Tutor boundaries", async ({ page }, testInfo) => {
     const contexts: APIRequestContext[] = [];
     test.skip(testInfo.project.name !== "desktop-chrome", "API-only backend suite runs once.");
 
@@ -374,7 +500,7 @@ test.describe("backend API integration", () => {
       expect((await anonymous.post("/api/attempts", { data: { questionId: "q5", selectedAnswer: "wrong" } })).status()).toBe(401);
 
       const publicQuestions = await readJson<{ questions: Array<{ id: string; topicId?: string }> }>(
-        await anonymous.get("/api/questions?grade=S3")
+        await anonymous.get("/api/questions?grade=S1")
       );
       expect(publicQuestions.questions.length).toBeGreaterThan(0);
       const questionId = publicQuestions.questions[0].id;
@@ -392,20 +518,26 @@ test.describe("backend API integration", () => {
           }
         })).status()
       ).toBe(409);
-      const blockedRoleSuffix = uniqueSlug(testInfo, "blocked-role");
-      expect(
-        (await anonymous.post("/api/auth/register", {
+      const publicTeacherSuffix = uniqueSlug(testInfo, "public-teacher");
+      const publicTeacherSession = await readJson<AuthSession>(
+        await anonymous.post("/api/auth/register", {
           data: {
             role: "teacher",
             name: "Public Teacher",
-            username: `teacher-${blockedRoleSuffix}@example.test`,
-            email: `teacher-${blockedRoleSuffix}@example.test`,
-            password: "start12345"
+            username: `teacher-${publicTeacherSuffix}@example.test`,
+            email: `teacher-${publicTeacherSuffix}@example.test`,
+            password: "start12345",
+            grade: "S3",
+            curriculumTrack: "HK"
           }
-        })).status()
-      ).toBe(403);
+        })
+      );
+      expect(publicTeacherSession.user.role).toBe("teacher");
+      expect(publicTeacherSession.user.curriculumTrack).toBe("HK");
+      const unauthenticated = await newApiContext(contexts);
+      const blockedRoleSuffix = uniqueSlug(testInfo, "blocked-role");
       expect(
-        (await anonymous.post("/api/auth/register", {
+        (await unauthenticated.post("/api/auth/register", {
           data: {
             role: "admin",
             name: "Public Admin",
@@ -447,8 +579,8 @@ test.describe("backend API integration", () => {
           }
         })
       );
-      expect(primaryLoginSession.user.grade).toBe("P4");
-      expect(primaryLoginSession.settings.selectedGrade).toBe("P4");
+      expect(primaryLoginSession.user.grade).toBe("P3");
+      expect(primaryLoginSession.settings.selectedGrade).toBe("P3");
 
       const me = await readJson<AuthSession>(await student.context.get("/api/me"));
       expect(me.user.id).toBe(student.userId);
@@ -495,7 +627,26 @@ test.describe("backend API integration", () => {
       expect(lessonProgress.lesson.status).toBe("completed");
       expect(lessonProgress.lesson.mastery).toBeGreaterThanOrEqual(85);
 
+      expect((await unauthenticated.get("/api/visualization-sessions")).status()).toBe(401);
+      expect(
+        (await unauthenticated.post("/api/visualization-sessions", {
+          data: {
+            moduleId: "coordinate-plane-demo",
+            topicId: "coordinates",
+            source: "coordinate-plane"
+          }
+        })).status()
+      ).toBe(401);
       expect((await student.context.post("/api/visualization-sessions", { data: { moduleId: "coordinate-plane-demo" } })).status()).toBe(400);
+      expect(
+        (await student.context.post("/api/visualization-sessions", {
+          data: {
+            moduleId: "coordinate-plane-demo",
+            topicId: "coordinates",
+            source: "not-a-visualization-source"
+          }
+        })).status()
+      ).toBe(400);
       const visualization = await readJson<{ session: { explored: boolean; moduleId: string } }>(
         await student.context.post("/api/visualization-sessions", {
           data: {
@@ -506,6 +657,33 @@ test.describe("backend API integration", () => {
         })
       );
       expect(visualization.session.explored).toBe(true);
+
+      const duplicateVisualization = await readJson<{ session: { explored: boolean; moduleId: string; topicId: string } }>(
+        await student.context.post("/api/visualization-sessions", {
+          data: {
+            moduleId: "coordinate-plane-demo",
+            topicId: "coordinates",
+            source: "coordinate-plane"
+          }
+        })
+      );
+      expect(duplicateVisualization.session.explored).toBe(true);
+      expect(duplicateVisualization.session.moduleId).toBe("coordinate-plane-demo");
+      expect(duplicateVisualization.session.topicId).toBe("coordinates");
+
+      const visualizationSessions = await readJson<{ sessions: Array<{ explored: boolean; moduleId: string; topicId: string }> }>(
+        await student.context.get("/api/visualization-sessions")
+      );
+      expect(visualizationSessions.sessions).toEqual(
+        expect.arrayContaining([
+          expect.objectContaining({
+            explored: true,
+            moduleId: "coordinate-plane-demo",
+            topicId: "coordinates"
+          })
+        ])
+      );
+      expect(visualizationSessions.sessions.filter((session) => session.moduleId === "coordinate-plane-demo")).toHaveLength(1);
 
       const attempt = await readJson<{ correct: boolean; correctAnswer?: string }>(
         await student.context.post("/api/attempts", {
@@ -581,12 +759,28 @@ test.describe("backend API integration", () => {
       expect(analyticsExport.status()).toBe(200);
       expect(analyticsExport.headers()["content-disposition"]).toContain("learning-analytics-S3.json");
 
-      const tutorStatus = await readJson<{ configured: boolean; model?: string }>(
-        await anonymous.get("/api/ai-tutor/status")
+      const tutorStatus = await readJson<{
+        configured: boolean;
+        mode: string;
+        profile?: string;
+        readiness?: string;
+        text?: { configured?: boolean; readiness?: string };
+      }>(
+        await unauthenticated.get("/api/ai-tutor/status")
       );
-      expect(tutorStatus.configured).toBe(false);
+      expect(tutorStatus).toMatchObject({
+        configured: false,
+        mode: "local-helper",
+        profile: "offline-fixture",
+        readiness: "disabled-by-test-profile",
+        text: {
+          configured: false,
+          readiness: "disabled-by-test-profile"
+        }
+      });
+      const guest = await newApiContext(contexts);
       const guestTutor = await readJson<{ reply: string; mode: string }>(
-        await anonymous.post("/api/ai-tutor", { data: { input: "Help me.", language: "en" } })
+        await guest.post("/api/ai-tutor", { data: { input: "Help me.", language: "en" } })
       );
       expect(guestTutor.mode).toBe("registration-required");
       expect(guestTutor.reply).toContain("register or sign in");
@@ -618,7 +812,7 @@ test.describe("backend API integration", () => {
       expect(quotaExceeded.quota.usedTokens).toBeGreaterThanOrEqual(200_000_000);
 
       const resetRequest = await readJson<{ ok: true; resetUrl?: string }>(
-        await anonymous.post("/api/auth/password-reset/request", {
+        await unauthenticated.post("/api/auth/password-reset/request", {
           data: { identifier: student.username }
         })
       );
@@ -628,13 +822,13 @@ test.describe("backend API integration", () => {
 
       const nextPassword = "next12345";
       const resetConfirm = await readJson<AuthSession>(
-        await anonymous.post("/api/auth/password-reset/confirm", {
+        await unauthenticated.post("/api/auth/password-reset/confirm", {
           data: { token, password: nextPassword }
         })
       );
       expect(resetConfirm.user.id).toBe(student.userId);
-      expect((await anonymous.post("/api/auth/login", { data: { username: student.username, password: student.password } })).status()).toBe(401);
-      expect((await anonymous.post("/api/auth/login", { data: { username: student.username, password: nextPassword } })).status()).toBe(200);
+      expect((await unauthenticated.post("/api/auth/login", { data: { username: student.username, password: student.password } })).status()).toBe(401);
+      expect((await unauthenticated.post("/api/auth/login", { data: { username: student.username, password: nextPassword } })).status()).toBe(200);
 
       const logout = await readJson<{ ok: true }>(await student.context.post("/api/auth/logout"));
       expect(logout.ok).toBe(true);
@@ -648,38 +842,38 @@ test.describe("backend API integration", () => {
     test.skip(testInfo.project.name !== "desktop-chrome", "API-only backend suite runs once.");
 
     try {
-      const student = await registerStudent(contexts, testInfo, "practice-lesson-outcome", "S3");
+      const student = await registerStudent(contexts, testInfo, "practice-lesson-outcome", "S1");
 
       const baseline = await readJson<AdaptiveDecisionResponse>(
-        await student.context.get("/api/adaptive-learning/next?grade=S3&topicId=polynomials")
+        await student.context.get("/api/adaptive-learning/next?grade=S1&topicId=algebra-basics")
       );
       expect(baseline.decision.deterministic).toBe(true);
-      expect(baseline.decision.topic.id).toBe("polynomials");
-      expect(baseline.decision.skill.id).toBe("polynomials:foundation");
-      expect(baseline.decision.skill.difficulty).toBe("Foundation");
-      expect(adaptiveStatesFor(student.userId, "polynomials")).toEqual([]);
+      expect(baseline.decision.topic.id).toBe("algebra-basics");
+      expect(baseline.decision.skill.id).toBe("algebra-basics:foundation");
+      expect(baseline.decision.skill.difficulty).toBe("Low");
+      expect(adaptiveStatesFor(student.userId, "algebra-basics")).toEqual([]);
 
       const baselineSnapshot = adaptiveSnapshot(baseline.decision);
       const lessonPracticeAttempt = await readJson<{ correct: boolean }>(
         await student.context.post("/api/attempts", {
           data: {
-            questionId: "supp-polynomials-key-fact",
-            selectedAnswer: "7x^2",
+            questionId: "q2",
+            selectedAnswer: "5x",
             durationSeconds: 35
           }
         })
       );
       expect(lessonPracticeAttempt.correct).toBe(true);
 
-      const beforeCompletionStates = adaptiveStatesFor(student.userId, "polynomials");
-      const beforeFoundation = beforeCompletionStates.find((state) => state.skill_id === "polynomials:foundation");
+      const beforeCompletionStates = adaptiveStatesFor(student.userId, "algebra-basics");
+      const beforeFoundation = beforeCompletionStates.find((state) => state.skill_id === "algebra-basics:foundation");
       expect(beforeFoundation?.attempt_count).toBe(1);
       expect(beforeFoundation?.p_mastery ?? 0).toBeLessThan(0.85);
 
       const completedLesson = await readJson<{ lesson: { slug: string; status: string; mastery: number } }>(
         await student.context.post("/api/lesson-progress", {
           data: {
-            slug: "polynomials",
+            slug: "algebra-basics",
             action: "complete",
             durationSeconds: 540,
             checklistState: { concept: true, practice: true, reflection: true }
@@ -689,15 +883,15 @@ test.describe("backend API integration", () => {
       expect(completedLesson.lesson.status).toBe("completed");
       expect(completedLesson.lesson.mastery).toBeGreaterThanOrEqual(85);
 
-      const afterCompletionStates = adaptiveStatesFor(student.userId, "polynomials");
-      const afterFoundation = afterCompletionStates.find((state) => state.skill_id === "polynomials:foundation");
+      const afterCompletionStates = adaptiveStatesFor(student.userId, "algebra-basics");
+      const afterFoundation = afterCompletionStates.find((state) => state.skill_id === "algebra-basics:foundation");
       expect(afterFoundation?.attempt_count).toBe((beforeFoundation?.attempt_count ?? 0) + 2);
       expect(afterFoundation?.p_mastery ?? 0).toBeGreaterThan(0.85);
 
       const repeatedCompletion = await readJson<{ lesson: { status: string } }>(
         await student.context.post("/api/lesson-progress", {
           data: {
-            slug: "polynomials",
+            slug: "algebra-basics",
             action: "complete",
             durationSeconds: 600,
             checklistState: { concept: true, practice: true, reflection: true }
@@ -705,17 +899,17 @@ test.describe("backend API integration", () => {
         })
       );
       expect(repeatedCompletion.lesson.status).toBe("completed");
-      expect(adaptiveStatesFor(student.userId, "polynomials").find((state) => state.skill_id === "polynomials:foundation")?.attempt_count)
+      expect(adaptiveStatesFor(student.userId, "algebra-basics").find((state) => state.skill_id === "algebra-basics:foundation")?.attempt_count)
         .toBe(afterFoundation?.attempt_count);
 
       const afterCompletion = await readJson<AdaptiveDecisionResponse>(
-        await student.context.get("/api/adaptive-learning/next?grade=S3&topicId=polynomials")
+        await student.context.get("/api/adaptive-learning/next?grade=S1&topicId=algebra-basics")
       );
       const afterCompletionSnapshot = adaptiveSnapshot(afterCompletion.decision);
       expect(afterCompletion.decision.deterministic).toBe(true);
-      expect(afterCompletion.decision.topic.id).toBe("polynomials");
-      expect(afterCompletion.decision.skill.id).toBe("polynomials:fluency");
-      expect(afterCompletion.decision.skill.difficulty).toBe("Core");
+      expect(afterCompletion.decision.topic.id).toBe("algebra-basics");
+      expect(afterCompletion.decision.skill.id).toBe("algebra-basics:fluency");
+      expect(afterCompletion.decision.skill.difficulty).toBe("Medium");
       expect(afterCompletionSnapshot).not.toEqual(baselineSnapshot);
       expect(afterCompletionSnapshot.questionMix).not.toEqual(baselineSnapshot.questionMix);
     } finally {
@@ -804,7 +998,7 @@ test.describe("backend API integration", () => {
             title: "API resource fixture",
             grade: "S3",
             topicId: "quadratic-patterns",
-            difficulty: "Core",
+            difficulty: "Medium",
             type: "document",
             file: {
               name: "api-resource.pdf",
@@ -904,9 +1098,91 @@ test.describe("backend API integration", () => {
       expect(assessmentSubmission.submission.status).toBe("graded");
       expect(assessmentSubmission.submission.score).toBe(10);
 
+      const joinStudentAssessment = await readJson<{ data: { canSubmit: boolean } }>(
+        await joinStudent.context.get(`/api/assessments/${assessment.assessment.id}`)
+      );
+      expect(joinStudentAssessment.data.canSubmit).toBe(true);
+      const joinStudentSubmission = await readJson<{ submission: { status: string; score: number } }>(
+        await joinStudent.context.post(`/api/assessments/${assessment.assessment.id}/submit`, {
+          data: { answers: [{ questionId: "manual-1", answer: "3" }] }
+        })
+      );
+      expect(joinStudentSubmission.submission.status).toBe("graded");
+      expect(joinStudentSubmission.submission.score).toBe(0);
+
       const assessmentCsv = await teacher.get(`/api/teacher/assessments/${assessment.assessment.id}/export`);
       expect(assessmentCsv.status()).toBe(200);
       expect(assessmentCsv.headers()["content-type"]).toContain("text/csv");
+
+      expect((await student.context.post(`/api/teacher/assessments/${assessment.assessment.id}/review-lesson/generate`, {
+        data: { language: "zh-Hans" }
+      })).status()).toBe(403);
+      const reviewLesson = await readJson<{
+        reviewLesson: {
+          id: string;
+          title: { en: string };
+          items: Array<{ id: string; category: string; teacherNotes?: string }>;
+          slides: unknown[];
+          boardColumns: unknown[];
+          remediationQuestions: Array<{ validationStatus: string }>;
+        };
+      }>(
+        await teacher.post(`/api/teacher/assessments/${assessment.assessment.id}/review-lesson/generate`, {
+          data: { language: "zh-Hans", durationMinutes: 45 }
+        }),
+        201
+      );
+      expect(reviewLesson.reviewLesson.items.length).toBeGreaterThan(0);
+      expect(reviewLesson.reviewLesson.items.some((item) => item.category === "quick-review")).toBe(true);
+      expect(reviewLesson.reviewLesson.slides.length).toBeGreaterThan(0);
+      expect(reviewLesson.reviewLesson.boardColumns.length).toBeGreaterThan(0);
+
+      const reviewLessonDetail = await readJson<{ reviewLesson: { id: string }; data: { assessment: { id: string } } }>(
+        await teacher.get(`/api/teacher/review-lessons/${reviewLesson.reviewLesson.id}`)
+      );
+      expect(reviewLessonDetail.reviewLesson.id).toBe(reviewLesson.reviewLesson.id);
+      expect(reviewLessonDetail.data.assessment.id).toBe(assessment.assessment.id);
+      const patchedReviewLesson = await readJson<{
+        reviewLesson: {
+          status: string;
+          title: { en: string };
+          items: Array<{ teacherNotes?: string }>;
+        };
+      }>(
+        await teacher.patch(`/api/teacher/review-lessons/${reviewLesson.reviewLesson.id}`, {
+          data: {
+            title: "Edited API review lesson",
+            status: "reviewed",
+            items: reviewLesson.reviewLesson.items.map((item, index) =>
+              index === 0 ? { ...item, teacherNotes: "Use this as the anchor worked example." } : item
+            )
+          }
+        })
+      );
+      expect(patchedReviewLesson.reviewLesson.status).toBe("reviewed");
+      expect(patchedReviewLesson.reviewLesson.title.en).toBe("Edited API review lesson");
+      expect(patchedReviewLesson.reviewLesson.items[0].teacherNotes).toContain("anchor worked example");
+
+      const reviewJson = await teacher.get(`/api/teacher/review-lessons/${reviewLesson.reviewLesson.id}/export?format=json`);
+      expect(reviewJson.status()).toBe(200);
+      expect(reviewJson.headers()["content-type"]).toContain("application/json");
+      expect(JSON.parse(Buffer.from(await reviewJson.body()).toString("utf8")).id).toBe(reviewLesson.reviewLesson.id);
+      const reviewMarkdown = await teacher.get(`/api/teacher/review-lessons/${reviewLesson.reviewLesson.id}/export?format=markdown`);
+      expect(reviewMarkdown.status()).toBe(200);
+      expect(reviewMarkdown.headers()["content-type"]).toContain("text/markdown");
+      expect(Buffer.from(await reviewMarkdown.body()).toString("utf8")).toContain("Edited API review lesson");
+      const reviewPptx = await teacher.get(`/api/teacher/review-lessons/${reviewLesson.reviewLesson.id}/export?format=pptx`);
+      expect(reviewPptx.status()).toBe(200);
+      expect(reviewPptx.headers()["content-type"]).toContain("application/vnd.openxmlformats-officedocument.presentationml.presentation");
+      expect((await reviewPptx.body()).byteLength).toBeGreaterThan(10_000);
+
+      expect(reviewLesson.reviewLesson.remediationQuestions.some((question) => question.validationStatus === "validated")).toBe(true);
+      const remediationAssessment = await readJson<{ assessment: { status: string; sourceType: string } }>(
+        await teacher.post(`/api/teacher/review-lessons/${reviewLesson.reviewLesson.id}/remediation-assessment`),
+        201
+      );
+      expect(remediationAssessment.assessment.status).toBe("draft");
+      expect(remediationAssessment.assessment.sourceType).toBe("mixed");
 
       const reportQuery = `type=class&language=en&classId=${encodeURIComponent(classId)}&remarks=API%20test`;
       await readJson<{ preview: { title: string } }>(await teacher.get(`/api/teacher/reports/preview?${reportQuery}`));
@@ -1014,6 +1290,21 @@ test.describe("backend API integration", () => {
         })
       );
       expect(endedLive.session.status).toBe("ended");
+      expect((await student.context.get(`/api/classroom/live?code=${encodeURIComponent(live.session.joinCode)}`)).status()).toBe(404);
+      expect((await student.context.post("/api/classroom/live", {
+        data: {
+          sessionId: live.session.id,
+          promptId: live.session.currentPrompt.id,
+          answer: "b"
+        }
+      })).status()).toBe(404);
+      const endedTeacherPreview = await readJson<{ session: { id: string; status: string; viewerMode: string; canSubmit: boolean } }>(
+        await teacher.get(`/api/classroom/live?code=${encodeURIComponent(live.session.joinCode)}`)
+      );
+      expect(endedTeacherPreview.session.id).toBe(live.session.id);
+      expect(endedTeacherPreview.session.status).toBe("ended");
+      expect(endedTeacherPreview.session.viewerMode).toBe("teacher-preview");
+      expect(endedTeacherPreview.session.canSubmit).toBe(false);
 
       expect((await teacher.get("/api/admin/storage/export")).status()).toBe(403);
       expect((await teacher.get("/api/admin/storage/health")).status()).toBe(403);
@@ -1157,9 +1448,9 @@ test.describe("backend API integration", () => {
       await page.getByLabel(/^password$/i).fill(provisionedTeacher.temporaryPassword);
       await page.getByRole("button", { name: /^log in$/i }).click();
       await expect(page).toHaveURL(/\/change-password\?next=/);
-      await page.getByLabel(/temporary password/i).fill(provisionedTeacher.temporaryPassword);
-      await page.getByLabel(/^new password$/i).fill(nextProvisionedTeacherPassword);
-      await page.getByLabel(/confirm new password/i).fill(nextProvisionedTeacherPassword);
+      await page.getByRole("textbox", { name: /temporary password/i }).fill(provisionedTeacher.temporaryPassword);
+      await page.getByRole("textbox", { name: /^new password/i }).fill(nextProvisionedTeacherPassword);
+      await page.getByRole("textbox", { name: /confirm new password/i }).fill(nextProvisionedTeacherPassword);
       await page.getByRole("button", { name: /update password/i }).click();
       await expect(page).toHaveURL(/\/teacher/);
       expect((await anonymous.post("/api/auth/login", {

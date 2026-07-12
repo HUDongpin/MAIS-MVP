@@ -1,5 +1,6 @@
 import katex from "katex";
 import { Fragment, createElement, type ElementType } from "react";
+import { normalizeMathTextForDisplay } from "@/components/math/mathTextFormatting";
 import { cn } from "@/lib/utils";
 
 type MathSegment =
@@ -18,6 +19,7 @@ type MathTextProps<TElement extends ElementType = "span"> = {
   as?: TElement;
   className?: string;
   ariaLabel?: string;
+  normalizeMath?: boolean;
   renderBareMath?: boolean;
 };
 
@@ -81,15 +83,21 @@ function normalizeMathSource(value: string) {
 }
 
 export function toPlainMathText(value: string) {
-  return value
+  return normalizeMathTextForDisplay(value)
     .replace(mathDelimiterPattern, (_, bracketMath, parenMath, blockDollarMath, inlineDollarMath) =>
       String(bracketMath ?? parenMath ?? blockDollarMath ?? inlineDollarMath ?? "")
     )
     .replace(/\\frac\{([^{}]+)\}\{([^{}]+)\}/g, "$1 over $2")
     .replace(/\\text\{([^{}]+)\}/g, "$1")
+    .replace(/\\log_\{([^{}]+)\}/g, "log base $1 ")
     .replace(/\\sin/g, "sin ")
     .replace(/\\cos/g, "cos ")
     .replace(/\\tan/g, "tan ")
+    .replace(/\\times/g, " times ")
+    .replace(/\\div/g, " divided by ")
+    .replace(/\\cdot/g, " times ")
+    .replace(/\\sqrt/g, " square root ")
+    .replace(/\\quad/g, " ")
     .replace(/\\theta/g, "theta")
     .replace(/\\pi/g, "pi")
     .replace(/\\circ/g, "degrees")
@@ -120,11 +128,13 @@ export function MathText<TElement extends ElementType = "span">({
   as,
   className,
   ariaLabel,
+  normalizeMath = true,
   renderBareMath = false
 }: MathTextProps<TElement>) {
-  const source = renderBareMath && !hasMathDelimiters(text) && looksLikeMathExpression(text)
-    ? `\\(${text}\\)`
-    : text;
+  const normalizedText = normalizeMath ? normalizeMathTextForDisplay(text) : text;
+  const source = renderBareMath && !hasMathDelimiters(normalizedText) && looksLikeMathExpression(normalizedText)
+    ? `\\(${normalizedText}\\)`
+    : normalizedText;
   const Component = as ?? "span";
 
   return createElement(

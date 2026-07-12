@@ -1,0 +1,51 @@
+{
+  "checkedAt": "2026-07-10T17:12:01.089Z",
+  "root": "/Users/dongpinhu/Desktop/MAIS-MVP",
+  "result": "pass",
+  "dirtyMapStatusSignature": "e30d647e1b51432945713f42ac78b0a2466fcb17192de0235a801ac877a0801f",
+  "expandedStatusEntries": 7636,
+  "summary": {
+    "targetFiles": 3,
+    "emptyScaffoldFiles": 1,
+    "ownerInputFiles": 2,
+    "ownerRows": 37,
+    "draftRows": 50,
+    "cleanupExecutableRows": 0
+  },
+  "failures": [],
+  "targets": [
+    {
+      "id": "canonical-next-owner-authorizations",
+      "target": "coordination/release-intake/latest-A25-next-owner-authorizations.json",
+      "mode": "owner-input-present",
+      "passed": true,
+      "ownerRows": 27,
+      "draftRows": 40,
+      "cleanupExecutableRows": 0,
+      "delegatedToOwnerValidators": true,
+      "failures": []
+    },
+    {
+      "id": "wave01-package-resync-owner-authorizations",
+      "target": "coordination/release-intake/latest-A25-wave01-package-resync-owner-authorizations.json",
+      "mode": "empty-scaffold",
+      "passed": true,
+      "ownerRows": 0,
+      "draftRows": 0,
+      "expectedDraftRows": 0,
+      "cleanupExecutableRows": 0,
+      "failures": []
+    },
+    {
+      "id": "owner-package-blocker-report-records",
+      "target": "coordination/release-intake/latest-A25-owner-package-blocker-report-records.json",
+      "mode": "owner-input-present",
+      "passed": true,
+      "ownerRows": 10,
+      "draftRows": 10,
+      "cleanupExecutableRows": 0,
+      "delegatedToOwnerValidators": true,
+      "failures": []
+    }
+  ]
+}

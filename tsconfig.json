@@ -32,7 +32,12 @@
     "**/*.ts",
     "**/*.tsx",
     ".next/types/**/*.ts",
-    "next-env.d.ts"
+    ".tmp/audit-e2e/next-dev/types/**/*.ts",
+    ".tmp/audit-e2e/next-dist/types/**/*.ts",
+    ".tmp/content-qa-session/next-dist/types/**/*.ts",
+    ".tmp/games-qa-session/next-dist/types/**/*.ts",
+    "next-env.d.ts",
+    ".tmp/figure-qa-session/next-dist/types/**/*.ts"
   ],
   "exclude": [
     "node_modules"

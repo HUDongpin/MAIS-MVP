@@ -1,0 +1,30 @@
+{
+  "generatedAt": "2026-07-06T15:50:13.764Z",
+  "repoRoot": "/Users/dongpinhu/Desktop/MAIS-MVP",
+  "dirtyMapStatusSignature": "b26fe39c438a20cdbb9cf3943e3d000d9dc8dc04ccccedc13792c457c5942d3b",
+  "expandedStatusEntries": 5183,
+  "sourceInputScaffoldGeneratedAt": "2026-07-06T15:50:13.657Z",
+  "sourcePreExecutionValidationReportGeneratedAt": "2026-07-06T15:50:13.207Z",
+  "target": "coordination/release-intake/latest-A25-a16-execution-instruction-owner-input.json",
+  "targetExists": true,
+  "action": "refresh-existing-owner-instruction-rows",
+  "willWrite": true,
+  "existingInstructionRows": 1,
+  "draftInstructionRows": 1,
+  "readyForOwnerInputRows": 0,
+  "packageFingerprintRows": 6,
+  "packageFingerprintSha256": "005a792e0e2438bbade0462d03c740dc6a542b8152935a0ed5e6b11caf5a9fac",
+  "cleanupAuthorizedRows": 0,
+  "executableRows": 0,
+  "boundary": {
+    "evidenceOnly": true,
+    "ownerInputOnly": true,
+    "recordsExecutionInstruction": false,
+    "stageAuthorized": false,
+    "commitAuthorized": false,
+    "cleanupAuthorized": false,
+    "executableNow": false,
+    "destructiveGitAuthorized": false,
+    "deployAuthorized": false
+  }
+}

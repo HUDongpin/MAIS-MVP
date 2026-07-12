@@ -82,6 +82,20 @@ npm run type-check
 npm run build
 ```
 
+### Production 持久化提醒
+
+下次一起用 Vercel 部署网页时，必须先提醒 owner 检查 durable storage。`www.mais.hk` 的真实注册、`/api/me`、dashboard 和重新登录不能只依赖 Vercel serverless 上的 SQLite `/tmp` fallback。
+
+部署前后都要做这组检查：
+
+1. Vercel Production 和 Preview 环境变量名里应有 `HK_MATH_STORAGE_PROVIDER=postgres`。
+2. Vercel Production 和 Preview 环境变量名里应有 server-only `POSTGRES_URL`，但不要在日志、报告、截图或聊天里写出真实值。
+3. 设置或更新这些变量后，必须重新部署 Production。
+4. 重新部署后，用 approved admin smoke credential 验证 `/api/admin/storage/health` 返回 `provider: "postgres"`、`status: "durable-ready"`、`durableReady: true`。
+5. 再跑一次 production registration persistence smoke：注册新学生 -> `/api/me` -> dashboard -> logout/login -> `/api/me`，全部应稳定 200。
+
+截至 2026-06-05，这个 gate 仍未关闭：S19 的只读检查显示 Production/Preview 缺少 `POSTGRES_URL` 和 `HK_MATH_STORAGE_PROVIDER`，Neon Marketplace 安装被 `integration_terms_acceptance_required` 卡住。下次部署前，要先让 owner 接受 Neon Marketplace terms，或通过安全渠道提供已有 Postgres connection string。
+
 首次使用 Vercel CLI：
 
 ```bash

@@ -1,0 +1,344 @@
+{
+  "generatedAt": "2026-07-06T15:50:32.937Z",
+  "repoRoot": "/Users/dongpinhu/Desktop/MAIS-MVP",
+  "dirtyMapStatusSignature": "b26fe39c438a20cdbb9cf3943e3d000d9dc8dc04ccccedc13792c457c5942d3b",
+  "expandedStatusEntries": 5183,
+  "sourceArtifacts": {
+    "validateToMergeHandoffGeneratedAt": "2026-07-06T15:50:32.627Z",
+    "completionAuditGeneratedAt": "2026-07-06T15:50:20.130Z",
+    "remainingCompletionAssignmentsGeneratedAt": "2026-07-06T15:50:20.179Z",
+    "compactRequestBundleGeneratedAt": "2026-07-06T15:50:32.739Z"
+  },
+  "handoffStatus": "blocked-before-merge",
+  "readyForMerge": false,
+  "sourceCurrentnessFailures": [],
+  "frontierRows": [
+    {
+      "rank": 1,
+      "checkId": "focus-batch-recorded",
+      "label": "Current focus batch is recorded as canonical owner authorizations",
+      "blocker": "3 focus-batch row(s) still pending",
+      "owner": "A25 git hygiene and release intake",
+      "agentIds": [
+        "A25"
+      ],
+      "blockerClass": "owner-authorization",
+      "nextAction": "Record the current 3-row owner-package focus batch (a09-copy-i18n-accessibility, a17-gamification-and-motivation, a23-integration-and-promotion-lead) only after explicit owner approval, then rerun post-input validation.",
+      "evidence": [
+        "coordination/release-intake/latest-A25-next-owner-authorization-focus-batch-recording-intake.json"
+      ],
+      "targetArtifact": "coordination/release-intake/latest-A25-next-owner-compact-request-bundle.json",
+      "copyableOwnerText": "Owner authorization: approve the current owner-package canonical authorization preview batch (3 rows); approvalIds=a09-copy-i18n-accessibility,a17-gamification-and-motivation,a23-integration-and-promotion-lead; selectedFinalState=reviewed commit for every row; approvedBy=<owner>; approvedAt=<ISO-8601>; do not authorize cleanup; do not authorize deploy; do not authorize merge; do not authorize destructive Git; do not authorize physical lifecycle cleanup.",
+      "copyableOwnerReplyTextZh": "我授权当前 3 条 owner-package canonical authorization preview：approvalIds=a09-copy-i18n-accessibility,a17-gamification-and-motivation,a23-integration-and-promotion-lead；selectedFinalState=reviewed commit；不授权 cleanup；不授权 deploy；不授权 merge；不授权 destructive git；不授权 physical lifecycle cleanup。",
+      "requiresOwnerInput": true,
+      "requiresCleanReleaseSource": false,
+      "mergeAuthorized": false,
+      "cleanupAuthorized": false,
+      "executableNow": false
+    },
+    {
+      "rank": 2,
+      "checkId": "canonical-authorizations-complete",
+      "label": "All canonical owner authorization rows are recorded",
+      "blocker": "42 canonical authorization row(s) still pending",
+      "owner": "A25 git hygiene and release intake with routed owner sessions",
+      "agentIds": [
+        "A25"
+      ],
+      "blockerClass": "owner-authorization-backlog",
+      "nextAction": "Continue shrinking pending canonical authorization rows through guarded owner-reviewed focus batches.",
+      "evidence": [
+        "coordination/release-intake/latest-A25-owner-closure-input-readiness.json",
+        "coordination/release-intake/latest-A25-next-owner-authorization-execution-preview.json"
+      ],
+      "targetArtifact": "coordination/release-intake/latest-A25-next-owner-compact-request-bundle.json",
+      "copyableOwnerText": "",
+      "copyableOwnerReplyTextZh": "",
+      "requiresOwnerInput": true,
+      "requiresCleanReleaseSource": false,
+      "mergeAuthorized": false,
+      "cleanupAuthorized": false,
+      "executableNow": false
+    },
+    {
+      "rank": 3,
+      "checkId": "owner-inputs-ready",
+      "label": "Owner input readiness gate is green",
+      "blocker": "owner inputs are not ready",
+      "owner": "A25 git hygiene and release intake",
+      "agentIds": [
+        "A25"
+      ],
+      "blockerClass": "owner-input-readiness",
+      "nextAction": "Bring owner-input readiness to green by recording canonical authorizations and clearing any pending owner-input rows.",
+      "evidence": [
+        "coordination/release-intake/latest-A25-owner-closure-input-readiness.json"
+      ],
+      "targetArtifact": "coordination/release-intake/latest-A25-owner-closure-input-readiness.json",
+      "copyableOwnerText": "",
+      "copyableOwnerReplyTextZh": "",
+      "requiresOwnerInput": true,
+      "requiresCleanReleaseSource": false,
+      "mergeAuthorized": false,
+      "cleanupAuthorized": false,
+      "executableNow": false
+    },
+    {
+      "rank": 4,
+      "checkId": "validation-hold-released",
+      "label": "Owner-active compose-worktree validation hold is released",
+      "blocker": "validation hold is waiting for owner compose deletion confirmation",
+      "owner": "A25 git hygiene and release intake with owner confirmation",
+      "agentIds": [
+        "A25"
+      ],
+      "blockerClass": "owner-confirmation-hold",
+      "nextAction": "Wait for explicit owner confirmation that the active compose-worktree deletion/hold is resolved before treating aggregate validation as releasable.",
+      "evidence": [
+        "coordination/release-intake/latest-A25-owner-input-action-packet.json"
+      ],
+      "targetArtifact": "coordination/release-intake/latest-A25-owner-input-action-packet.json",
+      "copyableOwnerText": "",
+      "copyableOwnerReplyTextZh": "",
+      "requiresOwnerInput": true,
+      "requiresCleanReleaseSource": false,
+      "mergeAuthorized": false,
+      "cleanupAuthorized": false,
+      "executableNow": false
+    },
+    {
+      "rank": 5,
+      "checkId": "release-source-clean",
+      "label": "A22 release-source blocker is clear before merge",
+      "blocker": "A22 release source is not clean",
+      "owner": "A22 production reliability and release engineering with A25/A10 support",
+      "agentIds": [
+        "A22",
+        "A25",
+        "A10"
+      ],
+      "blockerClass": "release-source-clean",
+      "nextAction": "Keep root as inventory and prepare a clean worktree, clean clone, reviewed clean slice, or owner-approved pruned staging directory before merge/release evidence.",
+      "evidence": [
+        "coordination/release-intake/latest-A22-release-source-clean-blocker-evidence.json"
+      ],
+      "targetArtifact": "coordination/release-intake/latest-A22-release-source-clean-blocker-evidence.json",
+      "copyableOwnerText": "",
+      "copyableOwnerReplyTextZh": "",
+      "requiresOwnerInput": false,
+      "requiresCleanReleaseSource": true,
+      "mergeAuthorized": false,
+      "cleanupAuthorized": false,
+      "executableNow": false
+    }
+  ],
+  "completionRows": [
+    {
+      "id": "root-status-clean",
+      "label": "Root git status is clean",
+      "status": "incomplete",
+      "blockingReasons": [],
+      "evidence": [
+        "git status --short"
+      ]
+    },
+    {
+      "id": "dirty-map-current-and-zero",
+      "label": "Dirty map is current and reports zero expanded entries",
+      "status": "incomplete",
+      "blockingReasons": [],
+      "evidence": [
+        "npm run release:dirty-map -- --assert-current --max-age-minutes 60",
+        "coordination/release-intake/latest-A25-dirty-tree-map.json"
+      ]
+    },
+    {
+      "id": "release-source-clean",
+      "label": "A22 release-source clean gate passes",
+      "status": "incomplete",
+      "blockingReasons": [],
+      "evidence": [
+        "node coordination/release-intake/assert-release-source-clean.mjs"
+      ]
+    },
+    {
+      "id": "strict-worktree-lifecycle",
+      "label": "A25 strict worktree lifecycle gate passes",
+      "status": "incomplete",
+      "blockingReasons": [],
+      "evidence": [
+        "node coordination/release-intake/assert-worktree-lifecycle.mjs --strict"
+      ]
+    },
+    {
+      "id": "task-3-wave01",
+      "label": "Task 3 governance/release-hygiene package closure",
+      "status": "incomplete",
+      "blockingReasons": [
+        "1 held package-resync row remains: wave01-resync-01-tsconfig-json",
+        "6 A25 artifact-clean row(s) still need owner authorization",
+        "npm audit --audit-level=high failed or unavailable",
+        "release helper tests failed",
+        "npm run type-check failed"
+      ],
+      "evidence": [
+        "coordination/release-intake/latest-A25-wave01-governance-readiness.json",
+        "coordination/release-intake/latest-A25-wave01-governance-frontier-readiness.json"
+      ]
+    },
+    {
+      "id": "task-4-wave02",
+      "label": "Task 4 shared contract/backend package closure",
+      "status": "incomplete",
+      "blockingReasons": [
+        "testAnalytics failed",
+        "testBackend failed",
+        "typeCheck failed",
+        "build failed"
+      ],
+      "evidence": [
+        "coordination/release-intake/latest-A25-wave02-shared-contract-readiness.json"
+      ]
+    },
+    {
+      "id": "task-5-waves03-05",
+      "label": "Task 5 runtime owner package closure",
+      "status": "incomplete",
+      "blockingReasons": [
+        "A01 app shell typeCheck failed",
+        "A01 app shell appShellPlaywright failed",
+        "A02/A15 dashboard adaptive testAnalytics failed",
+        "A02/A15 dashboard adaptive typeCheck failed",
+        "A02/A15 dashboard adaptive dashboardAdaptivePlaywright failed",
+        "A03 roadmap typeCheck failed",
+        "A03 roadmap roadmapPlaywright failed",
+        "A04 practice testQuestionBank failed",
+        "A04 practice typeCheck failed",
+        "A04 practice practicePlaywright failed",
+        "A05 lesson typeCheck failed",
+        "A05 lesson lessonPlaywright failed",
+        "A18/A21/A23/A24 content evidence has 110 dirty entries outside its pathspec union",
+        "A18/A21/A23/A24 content evidence testRag failed",
+        "A18/A21/A23/A24 content evidence testQuestionBank failed",
+        "A18/A21/A23/A24 content evidence typeCheck failed",
+        "A06 visualization typeCheck failed",
+        "A06 visualization visualizationNodeTests failed",
+        "A06 visualization visualizationPlaywright failed",
+        "A07 AI tutor typeCheck failed",
+        "A07 AI tutor aiTutorPlaywright failed",
+        "A09 copy/i18n/accessibility typeCheck failed",
+        "A11 regression evidence typeCheck failed",
+        "A11 regression evidence regressionPlaywright failed",
+        "A13/A14 console typeCheck failed",
+        "A13/A14 console consolePlaywright failed",
+        "A17/A20 games and motivation typeCheck failed",
+        "A17/A20 games and motivation gameMotivationPlaywright failed"
+      ],
+      "evidence": [
+        "coordination/release-intake/latest-A25-wave03-shell-dashboard-roadmap-readiness.json",
+        "coordination/release-intake/latest-A25-wave04-practice-lesson-content-readiness.json",
+        "coordination/release-intake/latest-A25-wave05-visualization-ai-runtime-readiness.json"
+      ]
+    },
+    {
+      "id": "task-6-content-qa",
+      "label": "Task 6 content/RAG/QA evidence closure",
+      "status": "incomplete",
+      "blockingReasons": [
+        "A04 practice testQuestionBank failed",
+        "A04 practice typeCheck failed",
+        "A04 practice practicePlaywright failed",
+        "A05 lesson typeCheck failed",
+        "A05 lesson lessonPlaywright failed",
+        "A18/A21/A23/A24 content evidence has 110 dirty entries outside its pathspec union",
+        "A18/A21/A23/A24 content evidence testRag failed",
+        "A18/A21/A23/A24 content evidence testQuestionBank failed",
+        "A18/A21/A23/A24 content evidence typeCheck failed",
+        "A06 visualization typeCheck failed",
+        "A06 visualization visualizationNodeTests failed",
+        "A06 visualization visualizationPlaywright failed",
+        "A07 AI tutor typeCheck failed",
+        "A07 AI tutor aiTutorPlaywright failed",
+        "A09 copy/i18n/accessibility typeCheck failed",
+        "A11 regression evidence typeCheck failed",
+        "A11 regression evidence regressionPlaywright failed",
+        "A13/A14 console typeCheck failed",
+        "A13/A14 console consolePlaywright failed",
+        "A17/A20 games and motivation typeCheck failed",
+        "A17/A20 games and motivation gameMotivationPlaywright failed"
+      ],
+      "evidence": [
+        "coordination/release-intake/latest-A25-wave04-practice-lesson-content-readiness.json",
+        "coordination/release-intake/latest-A25-wave05-visualization-ai-runtime-readiness.json"
+      ]
+    },
+    {
+      "id": "task-7-root-disposition",
+      "label": "Task 7 root dispositions",
+      "status": "blocked",
+      "blockingReasons": [
+        "Root dispositions are represented as blocker rows; no cleanup-authorized or executable root action exists."
+      ],
+      "evidence": [
+        "coordination/release-intake/latest-A25-dirty-worktree-final-state-action-runbook.json"
+      ]
+    },
+    {
+      "id": "task-8-linked-worktrees",
+      "label": "Task 8 linked worktree lifecycle closure",
+      "status": "incomplete",
+      "blockingReasons": [
+        "A25 strict worktree lifecycle gate passes"
+      ],
+      "evidence": [
+        "node coordination/release-intake/assert-worktree-lifecycle.mjs --strict"
+      ]
+    },
+    {
+      "id": "task-9-final-release-source",
+      "label": "Task 9 final release-source verification",
+      "status": "incomplete",
+      "blockingReasons": [
+        "Root git status is clean",
+        "Dirty map is current and reports zero expanded entries",
+        "A22 release-source clean gate passes",
+        "A25 strict worktree lifecycle gate passes"
+      ],
+      "evidence": [
+        "git status --short",
+        "npm run release:dirty-map -- --assert-current --max-age-minutes 60",
+        "coordination/release-intake/latest-A25-dirty-tree-map.json",
+        "node coordination/release-intake/assert-release-source-clean.mjs",
+        "node coordination/release-intake/assert-worktree-lifecycle.mjs --strict"
+      ]
+    }
+  ],
+  "summary": {
+    "handoffStatus": "blocked-before-merge",
+    "readyForMerge": false,
+    "failedMergeChecks": 5,
+    "frontierRows": 5,
+    "ownerInputFrontierRows": 4,
+    "cleanSourceFrontierRows": 1,
+    "pendingCanonicalAuthorizationRows": 42,
+    "focusBatchPendingRows": 3,
+    "validationHoldStatus": "waiting-for-owner-compose-deletion-confirmation",
+    "releaseSourceClean": false,
+    "strictLifecycleClean": false,
+    "incompleteRequirements": 4,
+    "incompletePlanTasks": 7,
+    "cleanupAuthorizedRows": 0,
+    "executableRows": 0,
+    "sourceCurrentnessFailures": 0
+  },
+  "boundary": {
+    "evidenceOnly": true,
+    "mergeAuthorized": false,
+    "cleanupAuthorized": false,
+    "executableNow": false,
+    "destructiveGitAuthorized": false,
+    "deployAuthorized": false,
+    "dirtyRootDeployAuthorized": false,
+    "physicalCleanupAuthorized": false
+  }
+}

@@ -1,0 +1,1350 @@
+{
+  "generatedAt": "2026-07-03T08:30:20.866Z",
+  "dirtyMapStatusSignature": "c01ea98a87118c49adfca945884588d4008699e1175537903861425d2ff30ffc",
+  "expandedStatusEntries": 4023,
+  "effectiveQueueGeneratedAt": "2026-07-03T08:30:15.605Z",
+  "ownerQueueGeneratedAt": "2026-07-03T08:30:15.559Z",
+  "summary": {
+    "total": 24,
+    "entries": 4023,
+    "byPriority": {
+      "P1": 2,
+      "P2": 3,
+      "P3": 6,
+      "P4": 13
+    },
+    "byKind": {
+      "release-hygiene": 3,
+      "runtime": 17,
+      "regression-evidence": 2,
+      "coordination-evidence": 2
+    }
+  },
+  "note": "Approval support only. Destructive Git actions require separate explicit owner authorization.",
+  "requests": [
+    {
+      "approvalId": "a25-git-hygiene-and-release-intake",
+      "owner": "A25 git hygiene and release intake",
+      "entries": 2233,
+      "kind": "release-hygiene",
+      "priority": 1,
+      "priorityReason": "Release-intake evidence package.",
+      "dominantSlice": {
+        "name": "docs/coordination evidence",
+        "count": 2232
+      },
+      "sliceBuckets": {
+        "docs/coordination evidence": 2232,
+        "release hygiene tooling/config": 1
+      },
+      "originalOwnerBuckets": {
+        "A25 git hygiene and release intake": 2233
+      },
+      "fromUnmappedRuntimeProposals": 0,
+      "latestPathspec": "coordination/release-intake/latest-A25-effective-owner-a25-git-hygiene-and-release-intake.pathspec",
+      "datedPathspec": "coordination/release-intake/2026-07-03-A25-effective-owner-a25-git-hygiene-and-release-intake.pathspec",
+      "workOrder": "coordination/release-intake/latest-A25-effective-work-order-a25-git-hygiene-and-release-intake.md",
+      "datedWorkOrder": "coordination/release-intake/2026-07-03-A25-effective-work-order-a25-git-hygiene-and-release-intake.md",
+      "requiredFinalState": "reviewed commit, owner-approved discard, evidence archive, or blocker",
+      "allowedFinalStates": [
+        {
+          "selectedFinalState": "reviewed commit",
+          "effect": "Owning agent commits only this pathspec package from an isolated clean worktree after package-specific checks."
+        },
+        {
+          "selectedFinalState": "owner-approved exact-path discard",
+          "effect": "A separately authorized Git operation discards only exact paths from this package after evidence review."
+        },
+        {
+          "selectedFinalState": "evidence archive",
+          "effect": "A25 preserves this package's pathspec/status/diff evidence and keeps it out of the release source."
+        },
+        {
+          "selectedFinalState": "blocker",
+          "effect": "A25 records the unresolved owner, check, content, or coordination reason blocking package closure."
+        }
+      ],
+      "approvalTemplate": {
+        "approvalId": "a25-git-hygiene-and-release-intake",
+        "owner": "A25 git hygiene and release intake",
+        "selectedFinalState": "<one allowed final state from this request>",
+        "approvedBy": "<owner or owning agent>",
+        "approvedAt": "<ISO-8601 timestamp>",
+        "evidenceReviewed": [
+          "coordination/release-intake/latest-A25-effective-owner-a25-git-hygiene-and-release-intake.pathspec",
+          "coordination/release-intake/latest-A25-effective-work-order-a25-git-hygiene-and-release-intake.md"
+        ],
+        "notes": "<scope, checks, and any exact paths if approving discard>"
+      }
+    },
+    {
+      "approvalId": "a22-production-reliability-and-release-engineering",
+      "owner": "A22 production reliability and release engineering",
+      "entries": 68,
+      "kind": "release-hygiene",
+      "priority": 1,
+      "priorityReason": "Release-source and deploy hygiene package.",
+      "dominantSlice": {
+        "name": "docs/coordination evidence",
+        "count": 51
+      },
+      "sliceBuckets": {
+        "docs/coordination evidence": 51,
+        "release hygiene tooling/config": 16,
+        "unmapped/manual": 1
+      },
+      "originalOwnerBuckets": {
+        "A22 production reliability and release engineering": 68
+      },
+      "fromUnmappedRuntimeProposals": 0,
+      "latestPathspec": "coordination/release-intake/latest-A25-effective-owner-a22-production-reliability-and-release-engineering.pathspec",
+      "datedPathspec": "coordination/release-intake/2026-07-03-A25-effective-owner-a22-production-reliability-and-release-engineering.pathspec",
+      "workOrder": "coordination/release-intake/latest-A25-effective-work-order-a22-production-reliability-and-release-engineering.md",
+      "datedWorkOrder": "coordination/release-intake/2026-07-03-A25-effective-work-order-a22-production-reliability-and-release-engineering.md",
+      "requiredFinalState": "reviewed commit, owner-approved discard, evidence archive, or blocker",
+      "allowedFinalStates": [
+        {
+          "selectedFinalState": "reviewed commit",
+          "effect": "Owning agent commits only this pathspec package from an isolated clean worktree after package-specific checks."
+        },
+        {
+          "selectedFinalState": "owner-approved exact-path discard",
+          "effect": "A separately authorized Git operation discards only exact paths from this package after evidence review."
+        },
+        {
+          "selectedFinalState": "evidence archive",
+          "effect": "A25 preserves this package's pathspec/status/diff evidence and keeps it out of the release source."
+        },
+        {
+          "selectedFinalState": "blocker",
+          "effect": "A25 records the unresolved owner, check, content, or coordination reason blocking package closure."
+        }
+      ],
+      "approvalTemplate": {
+        "approvalId": "a22-production-reliability-and-release-engineering",
+        "owner": "A22 production reliability and release engineering",
+        "selectedFinalState": "<one allowed final state from this request>",
+        "approvedBy": "<owner or owning agent>",
+        "approvedAt": "<ISO-8601 timestamp>",
+        "evidenceReviewed": [
+          "coordination/release-intake/latest-A25-effective-owner-a22-production-reliability-and-release-engineering.pathspec",
+          "coordination/release-intake/latest-A25-effective-work-order-a22-production-reliability-and-release-engineering.md"
+        ],
+        "notes": "<scope, checks, and any exact paths if approving discard>"
+      }
+    },
+    {
+      "approvalId": "a06-visualization-lead",
+      "owner": "A06 visualization lead",
+      "entries": 445,
+      "kind": "runtime",
+      "priority": 2,
+      "priorityReason": "Largest runtime/test package and linked dirty visualization worktree.",
+      "dominantSlice": {
+        "name": "runtime app/API/data/public",
+        "count": 235
+      },
+      "sliceBuckets": {
+        "runtime app/API/data/public": 235,
+        "tests/regression evidence": 210
+      },
+      "originalOwnerBuckets": {
+        "A06 visualization lead": 445
+      },
+      "fromUnmappedRuntimeProposals": 0,
+      "latestPathspec": "coordination/release-intake/latest-A25-effective-owner-a06-visualization-lead.pathspec",
+      "datedPathspec": "coordination/release-intake/2026-07-03-A25-effective-owner-a06-visualization-lead.pathspec",
+      "workOrder": "coordination/release-intake/latest-A25-effective-work-order-a06-visualization-lead.md",
+      "datedWorkOrder": "coordination/release-intake/2026-07-03-A25-effective-work-order-a06-visualization-lead.md",
+      "requiredFinalState": "reviewed commit, owner-approved discard, evidence archive, or blocker",
+      "allowedFinalStates": [
+        {
+          "selectedFinalState": "reviewed commit",
+          "effect": "Owning agent commits only this pathspec package from an isolated clean worktree after package-specific checks."
+        },
+        {
+          "selectedFinalState": "owner-approved exact-path discard",
+          "effect": "A separately authorized Git operation discards only exact paths from this package after evidence review."
+        },
+        {
+          "selectedFinalState": "evidence archive",
+          "effect": "A25 preserves this package's pathspec/status/diff evidence and keeps it out of the release source."
+        },
+        {
+          "selectedFinalState": "blocker",
+          "effect": "A25 records the unresolved owner, check, content, or coordination reason blocking package closure."
+        }
+      ],
+      "approvalTemplate": {
+        "approvalId": "a06-visualization-lead",
+        "owner": "A06 visualization lead",
+        "selectedFinalState": "<one allowed final state from this request>",
+        "approvedBy": "<owner or owning agent>",
+        "approvedAt": "<ISO-8601 timestamp>",
+        "evidenceReviewed": [
+          "coordination/release-intake/latest-A25-effective-owner-a06-visualization-lead.pathspec",
+          "coordination/release-intake/latest-A25-effective-work-order-a06-visualization-lead.md"
+        ],
+        "notes": "<scope, checks, and any exact paths if approving discard>"
+      }
+    },
+    {
+      "approvalId": "a12-backend-api-platform",
+      "owner": "A12 backend/API platform",
+      "entries": 175,
+      "kind": "runtime",
+      "priority": 2,
+      "priorityReason": "High-risk API/storage package.",
+      "dominantSlice": {
+        "name": "runtime app/API/data/public",
+        "count": 116
+      },
+      "sliceBuckets": {
+        "runtime app/API/data/public": 116,
+        "tests/regression evidence": 59
+      },
+      "originalOwnerBuckets": {
+        "A12 backend/API platform": 175
+      },
+      "fromUnmappedRuntimeProposals": 0,
+      "latestPathspec": "coordination/release-intake/latest-A25-effective-owner-a12-backend-api-platform.pathspec",
+      "datedPathspec": "coordination/release-intake/2026-07-03-A25-effective-owner-a12-backend-api-platform.pathspec",
+      "workOrder": "coordination/release-intake/latest-A25-effective-work-order-a12-backend-api-platform.md",
+      "datedWorkOrder": "coordination/release-intake/2026-07-03-A25-effective-work-order-a12-backend-api-platform.md",
+      "requiredFinalState": "reviewed commit, owner-approved discard, evidence archive, or blocker",
+      "allowedFinalStates": [
+        {
+          "selectedFinalState": "reviewed commit",
+          "effect": "Owning agent commits only this pathspec package from an isolated clean worktree after package-specific checks."
+        },
+        {
+          "selectedFinalState": "owner-approved exact-path discard",
+          "effect": "A separately authorized Git operation discards only exact paths from this package after evidence review."
+        },
+        {
+          "selectedFinalState": "evidence archive",
+          "effect": "A25 preserves this package's pathspec/status/diff evidence and keeps it out of the release source."
+        },
+        {
+          "selectedFinalState": "blocker",
+          "effect": "A25 records the unresolved owner, check, content, or coordination reason blocking package closure."
+        }
+      ],
+      "approvalTemplate": {
+        "approvalId": "a12-backend-api-platform",
+        "owner": "A12 backend/API platform",
+        "selectedFinalState": "<one allowed final state from this request>",
+        "approvedBy": "<owner or owning agent>",
+        "approvedAt": "<ISO-8601 timestamp>",
+        "evidenceReviewed": [
+          "coordination/release-intake/latest-A25-effective-owner-a12-backend-api-platform.pathspec",
+          "coordination/release-intake/latest-A25-effective-work-order-a12-backend-api-platform.md"
+        ],
+        "notes": "<scope, checks, and any exact paths if approving discard>"
+      }
+    },
+    {
+      "approvalId": "a11-qa-and-release-quality",
+      "owner": "A11 QA and release quality",
+      "entries": 62,
+      "kind": "regression-evidence",
+      "priority": 2,
+      "priorityReason": "Regression and release-quality package.",
+      "dominantSlice": {
+        "name": "tests/regression evidence",
+        "count": 62
+      },
+      "sliceBuckets": {
+        "tests/regression evidence": 62
+      },
+      "originalOwnerBuckets": {
+        "A11 QA and release quality": 62
+      },
+      "fromUnmappedRuntimeProposals": 0,
+      "latestPathspec": "coordination/release-intake/latest-A25-effective-owner-a11-qa-and-release-quality.pathspec",
+      "datedPathspec": "coordination/release-intake/2026-07-03-A25-effective-owner-a11-qa-and-release-quality.pathspec",
+      "workOrder": "coordination/release-intake/latest-A25-effective-work-order-a11-qa-and-release-quality.md",
+      "datedWorkOrder": "coordination/release-intake/2026-07-03-A25-effective-work-order-a11-qa-and-release-quality.md",
+      "requiredFinalState": "reviewed commit, owner-approved discard, evidence archive, or blocker",
+      "allowedFinalStates": [
+        {
+          "selectedFinalState": "reviewed commit",
+          "effect": "Owning agent commits only this pathspec package from an isolated clean worktree after package-specific checks."
+        },
+        {
+          "selectedFinalState": "owner-approved exact-path discard",
+          "effect": "A separately authorized Git operation discards only exact paths from this package after evidence review."
+        },
+        {
+          "selectedFinalState": "evidence archive",
+          "effect": "A25 preserves this package's pathspec/status/diff evidence and keeps it out of the release source."
+        },
+        {
+          "selectedFinalState": "blocker",
+          "effect": "A25 records the unresolved owner, check, content, or coordination reason blocking package closure."
+        }
+      ],
+      "approvalTemplate": {
+        "approvalId": "a11-qa-and-release-quality",
+        "owner": "A11 QA and release quality",
+        "selectedFinalState": "<one allowed final state from this request>",
+        "approvedBy": "<owner or owning agent>",
+        "approvedAt": "<ISO-8601 timestamp>",
+        "evidenceReviewed": [
+          "coordination/release-intake/latest-A25-effective-owner-a11-qa-and-release-quality.pathspec",
+          "coordination/release-intake/latest-A25-effective-work-order-a11-qa-and-release-quality.md"
+        ],
+        "notes": "<scope, checks, and any exact paths if approving discard>"
+      }
+    },
+    {
+      "approvalId": "a10-tooling-docs-and-report",
+      "owner": "A10 tooling, docs, and report",
+      "entries": 442,
+      "kind": "release-hygiene",
+      "priority": 3,
+      "priorityReason": "Shared docs/config/tooling package.",
+      "dominantSlice": {
+        "name": "docs/coordination evidence",
+        "count": 436
+      },
+      "sliceBuckets": {
+        "docs/coordination evidence": 436,
+        "release hygiene tooling/config": 3,
+        "unmapped/manual": 3
+      },
+      "originalOwnerBuckets": {
+        "A10 tooling, docs, and report": 442
+      },
+      "fromUnmappedRuntimeProposals": 0,
+      "latestPathspec": "coordination/release-intake/latest-A25-effective-owner-a10-tooling-docs-and-report.pathspec",
+      "datedPathspec": "coordination/release-intake/2026-07-03-A25-effective-owner-a10-tooling-docs-and-report.pathspec",
+      "workOrder": "coordination/release-intake/latest-A25-effective-work-order-a10-tooling-docs-and-report.md",
+      "datedWorkOrder": "coordination/release-intake/2026-07-03-A25-effective-work-order-a10-tooling-docs-and-report.md",
+      "requiredFinalState": "reviewed commit, owner-approved discard, evidence archive, or blocker",
+      "allowedFinalStates": [
+        {
+          "selectedFinalState": "reviewed commit",
+          "effect": "Owning agent commits only this pathspec package from an isolated clean worktree after package-specific checks."
+        },
+        {
+          "selectedFinalState": "owner-approved exact-path discard",
+          "effect": "A separately authorized Git operation discards only exact paths from this package after evidence review."
+        },
+        {
+          "selectedFinalState": "evidence archive",
+          "effect": "A25 preserves this package's pathspec/status/diff evidence and keeps it out of the release source."
+        },
+        {
+          "selectedFinalState": "blocker",
+          "effect": "A25 records the unresolved owner, check, content, or coordination reason blocking package closure."
+        }
+      ],
+      "approvalTemplate": {
+        "approvalId": "a10-tooling-docs-and-report",
+        "owner": "A10 tooling, docs, and report",
+        "selectedFinalState": "<one allowed final state from this request>",
+        "approvedBy": "<owner or owning agent>",
+        "approvedAt": "<ISO-8601 timestamp>",
+        "evidenceReviewed": [
+          "coordination/release-intake/latest-A25-effective-owner-a10-tooling-docs-and-report.pathspec",
+          "coordination/release-intake/latest-A25-effective-work-order-a10-tooling-docs-and-report.md"
+        ],
+        "notes": "<scope, checks, and any exact paths if approving discard>"
+      }
+    },
+    {
+      "approvalId": "a18-curriculum-qa-a21-content-pipeline",
+      "owner": "A18 curriculum QA / A21 content pipeline",
+      "entries": 138,
+      "kind": "runtime",
+      "priority": 3,
+      "priorityReason": "Content QA/candidate package crossing promotion gates.",
+      "dominantSlice": {
+        "name": "docs/coordination evidence",
+        "count": 136
+      },
+      "sliceBuckets": {
+        "docs/coordination evidence": 136,
+        "runtime app/API/data/public": 1,
+        "tests/regression evidence": 1
+      },
+      "originalOwnerBuckets": {
+        "A18 curriculum QA / A21 content pipeline": 138
+      },
+      "fromUnmappedRuntimeProposals": 0,
+      "latestPathspec": "coordination/release-intake/latest-A25-effective-owner-a18-curriculum-qa-a21-content-pipeline.pathspec",
+      "datedPathspec": "coordination/release-intake/2026-07-03-A25-effective-owner-a18-curriculum-qa-a21-content-pipeline.pathspec",
+      "workOrder": "coordination/release-intake/latest-A25-effective-work-order-a18-curriculum-qa-a21-content-pipeline.md",
+      "datedWorkOrder": "coordination/release-intake/2026-07-03-A25-effective-work-order-a18-curriculum-qa-a21-content-pipeline.md",
+      "requiredFinalState": "reviewed commit, owner-approved discard, evidence archive, or blocker",
+      "allowedFinalStates": [
+        {
+          "selectedFinalState": "reviewed commit",
+          "effect": "Owning agent commits only this pathspec package from an isolated clean worktree after package-specific checks."
+        },
+        {
+          "selectedFinalState": "owner-approved exact-path discard",
+          "effect": "A separately authorized Git operation discards only exact paths from this package after evidence review."
+        },
+        {
+          "selectedFinalState": "evidence archive",
+          "effect": "A25 preserves this package's pathspec/status/diff evidence and keeps it out of the release source."
+        },
+        {
+          "selectedFinalState": "blocker",
+          "effect": "A25 records the unresolved owner, check, content, or coordination reason blocking package closure."
+        }
+      ],
+      "approvalTemplate": {
+        "approvalId": "a18-curriculum-qa-a21-content-pipeline",
+        "owner": "A18 curriculum QA / A21 content pipeline",
+        "selectedFinalState": "<one allowed final state from this request>",
+        "approvedBy": "<owner or owning agent>",
+        "approvedAt": "<ISO-8601 timestamp>",
+        "evidenceReviewed": [
+          "coordination/release-intake/latest-A25-effective-owner-a18-curriculum-qa-a21-content-pipeline.pathspec",
+          "coordination/release-intake/latest-A25-effective-work-order-a18-curriculum-qa-a21-content-pipeline.md"
+        ],
+        "notes": "<scope, checks, and any exact paths if approving discard>"
+      }
+    },
+    {
+      "approvalId": "a05-lesson-lead",
+      "owner": "A05 lesson lead",
+      "entries": 128,
+      "kind": "runtime",
+      "priority": 3,
+      "priorityReason": "Lesson/source-link package, including P0 reassignment.",
+      "dominantSlice": {
+        "name": "runtime app/API/data/public",
+        "count": 116
+      },
+      "sliceBuckets": {
+        "runtime app/API/data/public": 116,
+        "tests/regression evidence": 11,
+        "unmapped/manual": 1
+      },
+      "originalOwnerBuckets": {
+        "A05 lesson lead": 128
+      },
+      "fromUnmappedRuntimeProposals": 0,
+      "latestPathspec": "coordination/release-intake/latest-A25-effective-owner-a05-lesson-lead.pathspec",
+      "datedPathspec": "coordination/release-intake/2026-07-03-A25-effective-owner-a05-lesson-lead.pathspec",
+      "workOrder": "coordination/release-intake/latest-A25-effective-work-order-a05-lesson-lead.md",
+      "datedWorkOrder": "coordination/release-intake/2026-07-03-A25-effective-work-order-a05-lesson-lead.md",
+      "requiredFinalState": "reviewed commit, owner-approved discard, evidence archive, or blocker",
+      "allowedFinalStates": [
+        {
+          "selectedFinalState": "reviewed commit",
+          "effect": "Owning agent commits only this pathspec package from an isolated clean worktree after package-specific checks."
+        },
+        {
+          "selectedFinalState": "owner-approved exact-path discard",
+          "effect": "A separately authorized Git operation discards only exact paths from this package after evidence review."
+        },
+        {
+          "selectedFinalState": "evidence archive",
+          "effect": "A25 preserves this package's pathspec/status/diff evidence and keeps it out of the release source."
+        },
+        {
+          "selectedFinalState": "blocker",
+          "effect": "A25 records the unresolved owner, check, content, or coordination reason blocking package closure."
+        }
+      ],
+      "approvalTemplate": {
+        "approvalId": "a05-lesson-lead",
+        "owner": "A05 lesson lead",
+        "selectedFinalState": "<one allowed final state from this request>",
+        "approvedBy": "<owner or owning agent>",
+        "approvedAt": "<ISO-8601 timestamp>",
+        "evidenceReviewed": [
+          "coordination/release-intake/latest-A25-effective-owner-a05-lesson-lead.pathspec",
+          "coordination/release-intake/latest-A25-effective-work-order-a05-lesson-lead.md"
+        ],
+        "notes": "<scope, checks, and any exact paths if approving discard>"
+      }
+    },
+    {
+      "approvalId": "a21-content-pipeline-and-rag-operations",
+      "owner": "A21 content pipeline and RAG operations",
+      "entries": 74,
+      "kind": "regression-evidence",
+      "priority": 3,
+      "priorityReason": "Generated/RAG backlog package.",
+      "dominantSlice": {
+        "name": "generated/content/RAG backlog",
+        "count": 65
+      },
+      "sliceBuckets": {
+        "generated/content/RAG backlog": 65,
+        "tests/regression evidence": 8,
+        "unmapped/manual": 1
+      },
+      "originalOwnerBuckets": {
+        "A21 content pipeline and RAG operations": 74
+      },
+      "fromUnmappedRuntimeProposals": 0,
+      "latestPathspec": "coordination/release-intake/latest-A25-effective-owner-a21-content-pipeline-and-rag-operations.pathspec",
+      "datedPathspec": "coordination/release-intake/2026-07-03-A25-effective-owner-a21-content-pipeline-and-rag-operations.pathspec",
+      "workOrder": "coordination/release-intake/latest-A25-effective-work-order-a21-content-pipeline-and-rag-operations.md",
+      "datedWorkOrder": "coordination/release-intake/2026-07-03-A25-effective-work-order-a21-content-pipeline-and-rag-operations.md",
+      "requiredFinalState": "reviewed commit, owner-approved discard, evidence archive, or blocker",
+      "allowedFinalStates": [
+        {
+          "selectedFinalState": "reviewed commit",
+          "effect": "Owning agent commits only this pathspec package from an isolated clean worktree after package-specific checks."
+        },
+        {
+          "selectedFinalState": "owner-approved exact-path discard",
+          "effect": "A separately authorized Git operation discards only exact paths from this package after evidence review."
+        },
+        {
+          "selectedFinalState": "evidence archive",
+          "effect": "A25 preserves this package's pathspec/status/diff evidence and keeps it out of the release source."
+        },
+        {
+          "selectedFinalState": "blocker",
+          "effect": "A25 records the unresolved owner, check, content, or coordination reason blocking package closure."
+        }
+      ],
+      "approvalTemplate": {
+        "approvalId": "a21-content-pipeline-and-rag-operations",
+        "owner": "A21 content pipeline and RAG operations",
+        "selectedFinalState": "<one allowed final state from this request>",
+        "approvedBy": "<owner or owning agent>",
+        "approvedAt": "<ISO-8601 timestamp>",
+        "evidenceReviewed": [
+          "coordination/release-intake/latest-A25-effective-owner-a21-content-pipeline-and-rag-operations.pathspec",
+          "coordination/release-intake/latest-A25-effective-work-order-a21-content-pipeline-and-rag-operations.md"
+        ],
+        "notes": "<scope, checks, and any exact paths if approving discard>"
+      }
+    },
+    {
+      "approvalId": "a04-practice-lead",
+      "owner": "A04 practice lead",
+      "entries": 58,
+      "kind": "runtime",
+      "priority": 3,
+      "priorityReason": "Practice/question-bank package, including P0 reassignment.",
+      "dominantSlice": {
+        "name": "runtime app/API/data/public",
+        "count": 47
+      },
+      "sliceBuckets": {
+        "runtime app/API/data/public": 47,
+        "tests/regression evidence": 11
+      },
+      "originalOwnerBuckets": {
+        "A04 practice lead": 58
+      },
+      "fromUnmappedRuntimeProposals": 0,
+      "latestPathspec": "coordination/release-intake/latest-A25-effective-owner-a04-practice-lead.pathspec",
+      "datedPathspec": "coordination/release-intake/2026-07-03-A25-effective-owner-a04-practice-lead.pathspec",
+      "workOrder": "coordination/release-intake/latest-A25-effective-work-order-a04-practice-lead.md",
+      "datedWorkOrder": "coordination/release-intake/2026-07-03-A25-effective-work-order-a04-practice-lead.md",
+      "requiredFinalState": "reviewed commit, owner-approved discard, evidence archive, or blocker",
+      "allowedFinalStates": [
+        {
+          "selectedFinalState": "reviewed commit",
+          "effect": "Owning agent commits only this pathspec package from an isolated clean worktree after package-specific checks."
+        },
+        {
+          "selectedFinalState": "owner-approved exact-path discard",
+          "effect": "A separately authorized Git operation discards only exact paths from this package after evidence review."
+        },
+        {
+          "selectedFinalState": "evidence archive",
+          "effect": "A25 preserves this package's pathspec/status/diff evidence and keeps it out of the release source."
+        },
+        {
+          "selectedFinalState": "blocker",
+          "effect": "A25 records the unresolved owner, check, content, or coordination reason blocking package closure."
+        }
+      ],
+      "approvalTemplate": {
+        "approvalId": "a04-practice-lead",
+        "owner": "A04 practice lead",
+        "selectedFinalState": "<one allowed final state from this request>",
+        "approvedBy": "<owner or owning agent>",
+        "approvedAt": "<ISO-8601 timestamp>",
+        "evidenceReviewed": [
+          "coordination/release-intake/latest-A25-effective-owner-a04-practice-lead.pathspec",
+          "coordination/release-intake/latest-A25-effective-work-order-a04-practice-lead.md"
+        ],
+        "notes": "<scope, checks, and any exact paths if approving discard>"
+      }
+    },
+    {
+      "approvalId": "a03-curriculum-roadmap-lead",
+      "owner": "A03 curriculum roadmap lead",
+      "entries": 30,
+      "kind": "runtime",
+      "priority": 3,
+      "priorityReason": "Roadmap/topic package, including P0 reassignment.",
+      "dominantSlice": {
+        "name": "runtime app/API/data/public",
+        "count": 29
+      },
+      "sliceBuckets": {
+        "runtime app/API/data/public": 29,
+        "tests/regression evidence": 1
+      },
+      "originalOwnerBuckets": {
+        "A03 curriculum roadmap lead": 30
+      },
+      "fromUnmappedRuntimeProposals": 0,
+      "latestPathspec": "coordination/release-intake/latest-A25-effective-owner-a03-curriculum-roadmap-lead.pathspec",
+      "datedPathspec": "coordination/release-intake/2026-07-03-A25-effective-owner-a03-curriculum-roadmap-lead.pathspec",
+      "workOrder": "coordination/release-intake/latest-A25-effective-work-order-a03-curriculum-roadmap-lead.md",
+      "datedWorkOrder": "coordination/release-intake/2026-07-03-A25-effective-work-order-a03-curriculum-roadmap-lead.md",
+      "requiredFinalState": "reviewed commit, owner-approved discard, evidence archive, or blocker",
+      "allowedFinalStates": [
+        {
+          "selectedFinalState": "reviewed commit",
+          "effect": "Owning agent commits only this pathspec package from an isolated clean worktree after package-specific checks."
+        },
+        {
+          "selectedFinalState": "owner-approved exact-path discard",
+          "effect": "A separately authorized Git operation discards only exact paths from this package after evidence review."
+        },
+        {
+          "selectedFinalState": "evidence archive",
+          "effect": "A25 preserves this package's pathspec/status/diff evidence and keeps it out of the release source."
+        },
+        {
+          "selectedFinalState": "blocker",
+          "effect": "A25 records the unresolved owner, check, content, or coordination reason blocking package closure."
+        }
+      ],
+      "approvalTemplate": {
+        "approvalId": "a03-curriculum-roadmap-lead",
+        "owner": "A03 curriculum roadmap lead",
+        "selectedFinalState": "<one allowed final state from this request>",
+        "approvedBy": "<owner or owning agent>",
+        "approvedAt": "<ISO-8601 timestamp>",
+        "evidenceReviewed": [
+          "coordination/release-intake/latest-A25-effective-owner-a03-curriculum-roadmap-lead.pathspec",
+          "coordination/release-intake/latest-A25-effective-work-order-a03-curriculum-roadmap-lead.md"
+        ],
+        "notes": "<scope, checks, and any exact paths if approving discard>"
+      }
+    },
+    {
+      "approvalId": "a13-teacher-console",
+      "owner": "A13 teacher console",
+      "entries": 36,
+      "kind": "runtime",
+      "priority": 4,
+      "priorityReason": "Standard owner package.",
+      "dominantSlice": {
+        "name": "runtime app/API/data/public",
+        "count": 35
+      },
+      "sliceBuckets": {
+        "runtime app/API/data/public": 35,
+        "tests/regression evidence": 1
+      },
+      "originalOwnerBuckets": {
+        "A13 teacher console": 36
+      },
+      "fromUnmappedRuntimeProposals": 0,
+      "latestPathspec": "coordination/release-intake/latest-A25-effective-owner-a13-teacher-console.pathspec",
+      "datedPathspec": "coordination/release-intake/2026-07-03-A25-effective-owner-a13-teacher-console.pathspec",
+      "workOrder": "coordination/release-intake/latest-A25-effective-work-order-a13-teacher-console.md",
+      "datedWorkOrder": "coordination/release-intake/2026-07-03-A25-effective-work-order-a13-teacher-console.md",
+      "requiredFinalState": "reviewed commit, owner-approved discard, evidence archive, or blocker",
+      "allowedFinalStates": [
+        {
+          "selectedFinalState": "reviewed commit",
+          "effect": "Owning agent commits only this pathspec package from an isolated clean worktree after package-specific checks."
+        },
+        {
+          "selectedFinalState": "owner-approved exact-path discard",
+          "effect": "A separately authorized Git operation discards only exact paths from this package after evidence review."
+        },
+        {
+          "selectedFinalState": "evidence archive",
+          "effect": "A25 preserves this package's pathspec/status/diff evidence and keeps it out of the release source."
+        },
+        {
+          "selectedFinalState": "blocker",
+          "effect": "A25 records the unresolved owner, check, content, or coordination reason blocking package closure."
+        }
+      ],
+      "approvalTemplate": {
+        "approvalId": "a13-teacher-console",
+        "owner": "A13 teacher console",
+        "selectedFinalState": "<one allowed final state from this request>",
+        "approvedBy": "<owner or owning agent>",
+        "approvedAt": "<ISO-8601 timestamp>",
+        "evidenceReviewed": [
+          "coordination/release-intake/latest-A25-effective-owner-a13-teacher-console.pathspec",
+          "coordination/release-intake/latest-A25-effective-work-order-a13-teacher-console.md"
+        ],
+        "notes": "<scope, checks, and any exact paths if approving discard>"
+      }
+    },
+    {
+      "approvalId": "a01-app-shell-lead",
+      "owner": "A01 app shell lead",
+      "entries": 31,
+      "kind": "runtime",
+      "priority": 4,
+      "priorityReason": "Standard owner package.",
+      "dominantSlice": {
+        "name": "runtime app/API/data/public",
+        "count": 29
+      },
+      "sliceBuckets": {
+        "runtime app/API/data/public": 29,
+        "tests/regression evidence": 2
+      },
+      "originalOwnerBuckets": {
+        "A01 app shell lead": 31
+      },
+      "fromUnmappedRuntimeProposals": 0,
+      "latestPathspec": "coordination/release-intake/latest-A25-effective-owner-a01-app-shell-lead.pathspec",
+      "datedPathspec": "coordination/release-intake/2026-07-03-A25-effective-owner-a01-app-shell-lead.pathspec",
+      "workOrder": "coordination/release-intake/latest-A25-effective-work-order-a01-app-shell-lead.md",
+      "datedWorkOrder": "coordination/release-intake/2026-07-03-A25-effective-work-order-a01-app-shell-lead.md",
+      "requiredFinalState": "reviewed commit, owner-approved discard, evidence archive, or blocker",
+      "allowedFinalStates": [
+        {
+          "selectedFinalState": "reviewed commit",
+          "effect": "Owning agent commits only this pathspec package from an isolated clean worktree after package-specific checks."
+        },
+        {
+          "selectedFinalState": "owner-approved exact-path discard",
+          "effect": "A separately authorized Git operation discards only exact paths from this package after evidence review."
+        },
+        {
+          "selectedFinalState": "evidence archive",
+          "effect": "A25 preserves this package's pathspec/status/diff evidence and keeps it out of the release source."
+        },
+        {
+          "selectedFinalState": "blocker",
+          "effect": "A25 records the unresolved owner, check, content, or coordination reason blocking package closure."
+        }
+      ],
+      "approvalTemplate": {
+        "approvalId": "a01-app-shell-lead",
+        "owner": "A01 app shell lead",
+        "selectedFinalState": "<one allowed final state from this request>",
+        "approvedBy": "<owner or owning agent>",
+        "approvedAt": "<ISO-8601 timestamp>",
+        "evidenceReviewed": [
+          "coordination/release-intake/latest-A25-effective-owner-a01-app-shell-lead.pathspec",
+          "coordination/release-intake/latest-A25-effective-work-order-a01-app-shell-lead.md"
+        ],
+        "notes": "<scope, checks, and any exact paths if approving discard>"
+      }
+    },
+    {
+      "approvalId": "a02-dashboard-lead",
+      "owner": "A02 dashboard lead",
+      "entries": 22,
+      "kind": "runtime",
+      "priority": 4,
+      "priorityReason": "Standard owner package.",
+      "dominantSlice": {
+        "name": "runtime app/API/data/public",
+        "count": 14
+      },
+      "sliceBuckets": {
+        "runtime app/API/data/public": 14,
+        "tests/regression evidence": 5,
+        "unmapped/manual": 3
+      },
+      "originalOwnerBuckets": {
+        "A02 dashboard lead": 22
+      },
+      "fromUnmappedRuntimeProposals": 0,
+      "latestPathspec": "coordination/release-intake/latest-A25-effective-owner-a02-dashboard-lead.pathspec",
+      "datedPathspec": "coordination/release-intake/2026-07-03-A25-effective-owner-a02-dashboard-lead.pathspec",
+      "workOrder": "coordination/release-intake/latest-A25-effective-work-order-a02-dashboard-lead.md",
+      "datedWorkOrder": "coordination/release-intake/2026-07-03-A25-effective-work-order-a02-dashboard-lead.md",
+      "requiredFinalState": "reviewed commit, owner-approved discard, evidence archive, or blocker",
+      "allowedFinalStates": [
+        {
+          "selectedFinalState": "reviewed commit",
+          "effect": "Owning agent commits only this pathspec package from an isolated clean worktree after package-specific checks."
+        },
+        {
+          "selectedFinalState": "owner-approved exact-path discard",
+          "effect": "A separately authorized Git operation discards only exact paths from this package after evidence review."
+        },
+        {
+          "selectedFinalState": "evidence archive",
+          "effect": "A25 preserves this package's pathspec/status/diff evidence and keeps it out of the release source."
+        },
+        {
+          "selectedFinalState": "blocker",
+          "effect": "A25 records the unresolved owner, check, content, or coordination reason blocking package closure."
+        }
+      ],
+      "approvalTemplate": {
+        "approvalId": "a02-dashboard-lead",
+        "owner": "A02 dashboard lead",
+        "selectedFinalState": "<one allowed final state from this request>",
+        "approvedBy": "<owner or owning agent>",
+        "approvedAt": "<ISO-8601 timestamp>",
+        "evidenceReviewed": [
+          "coordination/release-intake/latest-A25-effective-owner-a02-dashboard-lead.pathspec",
+          "coordination/release-intake/latest-A25-effective-work-order-a02-dashboard-lead.md"
+        ],
+        "notes": "<scope, checks, and any exact paths if approving discard>"
+      }
+    },
+    {
+      "approvalId": "a20-game-design-and-game-based-learning",
+      "owner": "A20 game design and game-based learning",
+      "entries": 16,
+      "kind": "runtime",
+      "priority": 4,
+      "priorityReason": "Standard owner package.",
+      "dominantSlice": {
+        "name": "runtime app/API/data/public",
+        "count": 15
+      },
+      "sliceBuckets": {
+        "runtime app/API/data/public": 15,
+        "tests/regression evidence": 1
+      },
+      "originalOwnerBuckets": {
+        "A20 game design and game-based learning": 16
+      },
+      "fromUnmappedRuntimeProposals": 0,
+      "latestPathspec": "coordination/release-intake/latest-A25-effective-owner-a20-game-design-and-game-based-learning.pathspec",
+      "datedPathspec": "coordination/release-intake/2026-07-03-A25-effective-owner-a20-game-design-and-game-based-learning.pathspec",
+      "workOrder": "coordination/release-intake/latest-A25-effective-work-order-a20-game-design-and-game-based-learning.md",
+      "datedWorkOrder": "coordination/release-intake/2026-07-03-A25-effective-work-order-a20-game-design-and-game-based-learning.md",
+      "requiredFinalState": "reviewed commit, owner-approved discard, evidence archive, or blocker",
+      "allowedFinalStates": [
+        {
+          "selectedFinalState": "reviewed commit",
+          "effect": "Owning agent commits only this pathspec package from an isolated clean worktree after package-specific checks."
+        },
+        {
+          "selectedFinalState": "owner-approved exact-path discard",
+          "effect": "A separately authorized Git operation discards only exact paths from this package after evidence review."
+        },
+        {
+          "selectedFinalState": "evidence archive",
+          "effect": "A25 preserves this package's pathspec/status/diff evidence and keeps it out of the release source."
+        },
+        {
+          "selectedFinalState": "blocker",
+          "effect": "A25 records the unresolved owner, check, content, or coordination reason blocking package closure."
+        }
+      ],
+      "approvalTemplate": {
+        "approvalId": "a20-game-design-and-game-based-learning",
+        "owner": "A20 game design and game-based learning",
+        "selectedFinalState": "<one allowed final state from this request>",
+        "approvedBy": "<owner or owning agent>",
+        "approvedAt": "<ISO-8601 timestamp>",
+        "evidenceReviewed": [
+          "coordination/release-intake/latest-A25-effective-owner-a20-game-design-and-game-based-learning.pathspec",
+          "coordination/release-intake/latest-A25-effective-work-order-a20-game-design-and-game-based-learning.md"
+        ],
+        "notes": "<scope, checks, and any exact paths if approving discard>"
+      }
+    },
+    {
+      "approvalId": "a07-ai-tutor-lead",
+      "owner": "A07 AI tutor lead",
+      "entries": 12,
+      "kind": "runtime",
+      "priority": 4,
+      "priorityReason": "Standard owner package.",
+      "dominantSlice": {
+        "name": "runtime app/API/data/public",
+        "count": 9
+      },
+      "sliceBuckets": {
+        "runtime app/API/data/public": 9,
+        "secret/env quarantine": 1,
+        "tests/regression evidence": 1,
+        "unmapped/manual": 1
+      },
+      "originalOwnerBuckets": {
+        "A07 AI tutor lead": 12
+      },
+      "fromUnmappedRuntimeProposals": 0,
+      "latestPathspec": "coordination/release-intake/latest-A25-effective-owner-a07-ai-tutor-lead.pathspec",
+      "datedPathspec": "coordination/release-intake/2026-07-03-A25-effective-owner-a07-ai-tutor-lead.pathspec",
+      "workOrder": "coordination/release-intake/latest-A25-effective-work-order-a07-ai-tutor-lead.md",
+      "datedWorkOrder": "coordination/release-intake/2026-07-03-A25-effective-work-order-a07-ai-tutor-lead.md",
+      "requiredFinalState": "reviewed commit, owner-approved discard, evidence archive, or blocker",
+      "allowedFinalStates": [
+        {
+          "selectedFinalState": "reviewed commit",
+          "effect": "Owning agent commits only this pathspec package from an isolated clean worktree after package-specific checks."
+        },
+        {
+          "selectedFinalState": "owner-approved exact-path discard",
+          "effect": "A separately authorized Git operation discards only exact paths from this package after evidence review."
+        },
+        {
+          "selectedFinalState": "evidence archive",
+          "effect": "A25 preserves this package's pathspec/status/diff evidence and keeps it out of the release source."
+        },
+        {
+          "selectedFinalState": "blocker",
+          "effect": "A25 records the unresolved owner, check, content, or coordination reason blocking package closure."
+        }
+      ],
+      "approvalTemplate": {
+        "approvalId": "a07-ai-tutor-lead",
+        "owner": "A07 AI tutor lead",
+        "selectedFinalState": "<one allowed final state from this request>",
+        "approvedBy": "<owner or owning agent>",
+        "approvedAt": "<ISO-8601 timestamp>",
+        "evidenceReviewed": [
+          "coordination/release-intake/latest-A25-effective-owner-a07-ai-tutor-lead.pathspec",
+          "coordination/release-intake/latest-A25-effective-work-order-a07-ai-tutor-lead.md"
+        ],
+        "notes": "<scope, checks, and any exact paths if approving discard>"
+      }
+    },
+    {
+      "approvalId": "a08-state-and-analytics-lead",
+      "owner": "A08 state and analytics lead",
+      "entries": 11,
+      "kind": "runtime",
+      "priority": 4,
+      "priorityReason": "Standard owner package.",
+      "dominantSlice": {
+        "name": "runtime app/API/data/public",
+        "count": 5
+      },
+      "sliceBuckets": {
+        "runtime app/API/data/public": 5,
+        "tests/regression evidence": 4,
+        "unmapped/manual": 2
+      },
+      "originalOwnerBuckets": {
+        "A08 state and analytics lead": 11
+      },
+      "fromUnmappedRuntimeProposals": 0,
+      "latestPathspec": "coordination/release-intake/latest-A25-effective-owner-a08-state-and-analytics-lead.pathspec",
+      "datedPathspec": "coordination/release-intake/2026-07-03-A25-effective-owner-a08-state-and-analytics-lead.pathspec",
+      "workOrder": "coordination/release-intake/latest-A25-effective-work-order-a08-state-and-analytics-lead.md",
+      "datedWorkOrder": "coordination/release-intake/2026-07-03-A25-effective-work-order-a08-state-and-analytics-lead.md",
+      "requiredFinalState": "reviewed commit, owner-approved discard, evidence archive, or blocker",
+      "allowedFinalStates": [
+        {
+          "selectedFinalState": "reviewed commit",
+          "effect": "Owning agent commits only this pathspec package from an isolated clean worktree after package-specific checks."
+        },
+        {
+          "selectedFinalState": "owner-approved exact-path discard",
+          "effect": "A separately authorized Git operation discards only exact paths from this package after evidence review."
+        },
+        {
+          "selectedFinalState": "evidence archive",
+          "effect": "A25 preserves this package's pathspec/status/diff evidence and keeps it out of the release source."
+        },
+        {
+          "selectedFinalState": "blocker",
+          "effect": "A25 records the unresolved owner, check, content, or coordination reason blocking package closure."
+        }
+      ],
+      "approvalTemplate": {
+        "approvalId": "a08-state-and-analytics-lead",
+        "owner": "A08 state and analytics lead",
+        "selectedFinalState": "<one allowed final state from this request>",
+        "approvedBy": "<owner or owning agent>",
+        "approvedAt": "<ISO-8601 timestamp>",
+        "evidenceReviewed": [
+          "coordination/release-intake/latest-A25-effective-owner-a08-state-and-analytics-lead.pathspec",
+          "coordination/release-intake/latest-A25-effective-work-order-a08-state-and-analytics-lead.md"
+        ],
+        "notes": "<scope, checks, and any exact paths if approving discard>"
+      }
+    },
+    {
+      "approvalId": "a15-adaptive-engine-lead",
+      "owner": "A15 adaptive engine lead",
+      "entries": 9,
+      "kind": "runtime",
+      "priority": 4,
+      "priorityReason": "Standard owner package.",
+      "dominantSlice": {
+        "name": "runtime app/API/data/public",
+        "count": 8
+      },
+      "sliceBuckets": {
+        "runtime app/API/data/public": 8,
+        "tests/regression evidence": 1
+      },
+      "originalOwnerBuckets": {
+        "A15 adaptive engine lead": 9
+      },
+      "fromUnmappedRuntimeProposals": 0,
+      "latestPathspec": "coordination/release-intake/latest-A25-effective-owner-a15-adaptive-engine-lead.pathspec",
+      "datedPathspec": "coordination/release-intake/2026-07-03-A25-effective-owner-a15-adaptive-engine-lead.pathspec",
+      "workOrder": "coordination/release-intake/latest-A25-effective-work-order-a15-adaptive-engine-lead.md",
+      "datedWorkOrder": "coordination/release-intake/2026-07-03-A25-effective-work-order-a15-adaptive-engine-lead.md",
+      "requiredFinalState": "reviewed commit, owner-approved discard, evidence archive, or blocker",
+      "allowedFinalStates": [
+        {
+          "selectedFinalState": "reviewed commit",
+          "effect": "Owning agent commits only this pathspec package from an isolated clean worktree after package-specific checks."
+        },
+        {
+          "selectedFinalState": "owner-approved exact-path discard",
+          "effect": "A separately authorized Git operation discards only exact paths from this package after evidence review."
+        },
+        {
+          "selectedFinalState": "evidence archive",
+          "effect": "A25 preserves this package's pathspec/status/diff evidence and keeps it out of the release source."
+        },
+        {
+          "selectedFinalState": "blocker",
+          "effect": "A25 records the unresolved owner, check, content, or coordination reason blocking package closure."
+        }
+      ],
+      "approvalTemplate": {
+        "approvalId": "a15-adaptive-engine-lead",
+        "owner": "A15 adaptive engine lead",
+        "selectedFinalState": "<one allowed final state from this request>",
+        "approvedBy": "<owner or owning agent>",
+        "approvedAt": "<ISO-8601 timestamp>",
+        "evidenceReviewed": [
+          "coordination/release-intake/latest-A25-effective-owner-a15-adaptive-engine-lead.pathspec",
+          "coordination/release-intake/latest-A25-effective-work-order-a15-adaptive-engine-lead.md"
+        ],
+        "notes": "<scope, checks, and any exact paths if approving discard>"
+      }
+    },
+    {
+      "approvalId": "a24-illustration-exact-layer",
+      "owner": "A24 illustration exact-layer",
+      "entries": 8,
+      "kind": "runtime",
+      "priority": 4,
+      "priorityReason": "Standard owner package.",
+      "dominantSlice": {
+        "name": "runtime app/API/data/public",
+        "count": 6
+      },
+      "sliceBuckets": {
+        "runtime app/API/data/public": 6,
+        "docs/coordination evidence": 2
+      },
+      "originalOwnerBuckets": {
+        "A24 illustration exact-layer": 8
+      },
+      "fromUnmappedRuntimeProposals": 0,
+      "latestPathspec": "coordination/release-intake/latest-A25-effective-owner-a24-illustration-exact-layer.pathspec",
+      "datedPathspec": "coordination/release-intake/2026-07-03-A25-effective-owner-a24-illustration-exact-layer.pathspec",
+      "workOrder": "coordination/release-intake/latest-A25-effective-work-order-a24-illustration-exact-layer.md",
+      "datedWorkOrder": "coordination/release-intake/2026-07-03-A25-effective-work-order-a24-illustration-exact-layer.md",
+      "requiredFinalState": "reviewed commit, owner-approved discard, evidence archive, or blocker",
+      "allowedFinalStates": [
+        {
+          "selectedFinalState": "reviewed commit",
+          "effect": "Owning agent commits only this pathspec package from an isolated clean worktree after package-specific checks."
+        },
+        {
+          "selectedFinalState": "owner-approved exact-path discard",
+          "effect": "A separately authorized Git operation discards only exact paths from this package after evidence review."
+        },
+        {
+          "selectedFinalState": "evidence archive",
+          "effect": "A25 preserves this package's pathspec/status/diff evidence and keeps it out of the release source."
+        },
+        {
+          "selectedFinalState": "blocker",
+          "effect": "A25 records the unresolved owner, check, content, or coordination reason blocking package closure."
+        }
+      ],
+      "approvalTemplate": {
+        "approvalId": "a24-illustration-exact-layer",
+        "owner": "A24 illustration exact-layer",
+        "selectedFinalState": "<one allowed final state from this request>",
+        "approvedBy": "<owner or owning agent>",
+        "approvedAt": "<ISO-8601 timestamp>",
+        "evidenceReviewed": [
+          "coordination/release-intake/latest-A25-effective-owner-a24-illustration-exact-layer.pathspec",
+          "coordination/release-intake/latest-A25-effective-work-order-a24-illustration-exact-layer.md"
+        ],
+        "notes": "<scope, checks, and any exact paths if approving discard>"
+      }
+    },
+    {
+      "approvalId": "a14-parent-console",
+      "owner": "A14 parent console",
+      "entries": 7,
+      "kind": "runtime",
+      "priority": 4,
+      "priorityReason": "Standard owner package.",
+      "dominantSlice": {
+        "name": "runtime app/API/data/public",
+        "count": 7
+      },
+      "sliceBuckets": {
+        "runtime app/API/data/public": 7
+      },
+      "originalOwnerBuckets": {
+        "A14 parent console": 7
+      },
+      "fromUnmappedRuntimeProposals": 0,
+      "latestPathspec": "coordination/release-intake/latest-A25-effective-owner-a14-parent-console.pathspec",
+      "datedPathspec": "coordination/release-intake/2026-07-03-A25-effective-owner-a14-parent-console.pathspec",
+      "workOrder": "coordination/release-intake/latest-A25-effective-work-order-a14-parent-console.md",
+      "datedWorkOrder": "coordination/release-intake/2026-07-03-A25-effective-work-order-a14-parent-console.md",
+      "requiredFinalState": "reviewed commit, owner-approved discard, evidence archive, or blocker",
+      "allowedFinalStates": [
+        {
+          "selectedFinalState": "reviewed commit",
+          "effect": "Owning agent commits only this pathspec package from an isolated clean worktree after package-specific checks."
+        },
+        {
+          "selectedFinalState": "owner-approved exact-path discard",
+          "effect": "A separately authorized Git operation discards only exact paths from this package after evidence review."
+        },
+        {
+          "selectedFinalState": "evidence archive",
+          "effect": "A25 preserves this package's pathspec/status/diff evidence and keeps it out of the release source."
+        },
+        {
+          "selectedFinalState": "blocker",
+          "effect": "A25 records the unresolved owner, check, content, or coordination reason blocking package closure."
+        }
+      ],
+      "approvalTemplate": {
+        "approvalId": "a14-parent-console",
+        "owner": "A14 parent console",
+        "selectedFinalState": "<one allowed final state from this request>",
+        "approvedBy": "<owner or owning agent>",
+        "approvedAt": "<ISO-8601 timestamp>",
+        "evidenceReviewed": [
+          "coordination/release-intake/latest-A25-effective-owner-a14-parent-console.pathspec",
+          "coordination/release-intake/latest-A25-effective-work-order-a14-parent-console.md"
+        ],
+        "notes": "<scope, checks, and any exact paths if approving discard>"
+      }
+    },
+    {
+      "approvalId": "a16-research-and-learning-science",
+      "owner": "A16 research and learning science",
+      "entries": 6,
+      "kind": "coordination-evidence",
+      "priority": 4,
+      "priorityReason": "Standard owner package.",
+      "dominantSlice": {
+        "name": "docs/coordination evidence",
+        "count": 6
+      },
+      "sliceBuckets": {
+        "docs/coordination evidence": 6
+      },
+      "originalOwnerBuckets": {
+        "A16 research and learning science": 6
+      },
+      "fromUnmappedRuntimeProposals": 0,
+      "latestPathspec": "coordination/release-intake/latest-A25-effective-owner-a16-research-and-learning-science.pathspec",
+      "datedPathspec": "coordination/release-intake/2026-07-03-A25-effective-owner-a16-research-and-learning-science.pathspec",
+      "workOrder": "coordination/release-intake/latest-A25-effective-work-order-a16-research-and-learning-science.md",
+      "datedWorkOrder": "coordination/release-intake/2026-07-03-A25-effective-work-order-a16-research-and-learning-science.md",
+      "requiredFinalState": "reviewed commit, owner-approved discard, evidence archive, or blocker",
+      "allowedFinalStates": [
+        {
+          "selectedFinalState": "reviewed commit",
+          "effect": "Owning agent commits only this pathspec package from an isolated clean worktree after package-specific checks."
+        },
+        {
+          "selectedFinalState": "owner-approved exact-path discard",
+          "effect": "A separately authorized Git operation discards only exact paths from this package after evidence review."
+        },
+        {
+          "selectedFinalState": "evidence archive",
+          "effect": "A25 preserves this package's pathspec/status/diff evidence and keeps it out of the release source."
+        },
+        {
+          "selectedFinalState": "blocker",
+          "effect": "A25 records the unresolved owner, check, content, or coordination reason blocking package closure."
+        }
+      ],
+      "approvalTemplate": {
+        "approvalId": "a16-research-and-learning-science",
+        "owner": "A16 research and learning science",
+        "selectedFinalState": "<one allowed final state from this request>",
+        "approvedBy": "<owner or owning agent>",
+        "approvedAt": "<ISO-8601 timestamp>",
+        "evidenceReviewed": [
+          "coordination/release-intake/latest-A25-effective-owner-a16-research-and-learning-science.pathspec",
+          "coordination/release-intake/latest-A25-effective-work-order-a16-research-and-learning-science.md"
+        ],
+        "notes": "<scope, checks, and any exact paths if approving discard>"
+      }
+    },
+    {
+      "approvalId": "a09-copy-i18n-accessibility",
+      "owner": "A09 copy, i18n, accessibility",
+      "entries": 5,
+      "kind": "runtime",
+      "priority": 4,
+      "priorityReason": "Standard owner package.",
+      "dominantSlice": {
+        "name": "runtime app/API/data/public",
+        "count": 5
+      },
+      "sliceBuckets": {
+        "runtime app/API/data/public": 5
+      },
+      "originalOwnerBuckets": {
+        "A09 copy, i18n, accessibility": 5
+      },
+      "fromUnmappedRuntimeProposals": 0,
+      "latestPathspec": "coordination/release-intake/latest-A25-effective-owner-a09-copy-i18n-accessibility.pathspec",
+      "datedPathspec": "coordination/release-intake/2026-07-03-A25-effective-owner-a09-copy-i18n-accessibility.pathspec",
+      "workOrder": "coordination/release-intake/latest-A25-effective-work-order-a09-copy-i18n-accessibility.md",
+      "datedWorkOrder": "coordination/release-intake/2026-07-03-A25-effective-work-order-a09-copy-i18n-accessibility.md",
+      "requiredFinalState": "reviewed commit, owner-approved discard, evidence archive, or blocker",
+      "allowedFinalStates": [
+        {
+          "selectedFinalState": "reviewed commit",
+          "effect": "Owning agent commits only this pathspec package from an isolated clean worktree after package-specific checks."
+        },
+        {
+          "selectedFinalState": "owner-approved exact-path discard",
+          "effect": "A separately authorized Git operation discards only exact paths from this package after evidence review."
+        },
+        {
+          "selectedFinalState": "evidence archive",
+          "effect": "A25 preserves this package's pathspec/status/diff evidence and keeps it out of the release source."
+        },
+        {
+          "selectedFinalState": "blocker",
+          "effect": "A25 records the unresolved owner, check, content, or coordination reason blocking package closure."
+        }
+      ],
+      "approvalTemplate": {
+        "approvalId": "a09-copy-i18n-accessibility",
+        "owner": "A09 copy, i18n, accessibility",
+        "selectedFinalState": "<one allowed final state from this request>",
+        "approvedBy": "<owner or owning agent>",
+        "approvedAt": "<ISO-8601 timestamp>",
+        "evidenceReviewed": [
+          "coordination/release-intake/latest-A25-effective-owner-a09-copy-i18n-accessibility.pathspec",
+          "coordination/release-intake/latest-A25-effective-work-order-a09-copy-i18n-accessibility.md"
+        ],
+        "notes": "<scope, checks, and any exact paths if approving discard>"
+      }
+    },
+    {
+      "approvalId": "a17-gamification-and-motivation",
+      "owner": "A17 gamification and motivation",
+      "entries": 5,
+      "kind": "runtime",
+      "priority": 4,
+      "priorityReason": "Standard owner package.",
+      "dominantSlice": {
+        "name": "runtime app/API/data/public",
+        "count": 3
+      },
+      "sliceBuckets": {
+        "runtime app/API/data/public": 3,
+        "tests/regression evidence": 2
+      },
+      "originalOwnerBuckets": {
+        "A17 gamification and motivation": 5
+      },
+      "fromUnmappedRuntimeProposals": 0,
+      "latestPathspec": "coordination/release-intake/latest-A25-effective-owner-a17-gamification-and-motivation.pathspec",
+      "datedPathspec": "coordination/release-intake/2026-07-03-A25-effective-owner-a17-gamification-and-motivation.pathspec",
+      "workOrder": "coordination/release-intake/latest-A25-effective-work-order-a17-gamification-and-motivation.md",
+      "datedWorkOrder": "coordination/release-intake/2026-07-03-A25-effective-work-order-a17-gamification-and-motivation.md",
+      "requiredFinalState": "reviewed commit, owner-approved discard, evidence archive, or blocker",
+      "allowedFinalStates": [
+        {
+          "selectedFinalState": "reviewed commit",
+          "effect": "Owning agent commits only this pathspec package from an isolated clean worktree after package-specific checks."
+        },
+        {
+          "selectedFinalState": "owner-approved exact-path discard",
+          "effect": "A separately authorized Git operation discards only exact paths from this package after evidence review."
+        },
+        {
+          "selectedFinalState": "evidence archive",
+          "effect": "A25 preserves this package's pathspec/status/diff evidence and keeps it out of the release source."
+        },
+        {
+          "selectedFinalState": "blocker",
+          "effect": "A25 records the unresolved owner, check, content, or coordination reason blocking package closure."
+        }
+      ],
+      "approvalTemplate": {
+        "approvalId": "a17-gamification-and-motivation",
+        "owner": "A17 gamification and motivation",
+        "selectedFinalState": "<one allowed final state from this request>",
+        "approvedBy": "<owner or owning agent>",
+        "approvedAt": "<ISO-8601 timestamp>",
+        "evidenceReviewed": [
+          "coordination/release-intake/latest-A25-effective-owner-a17-gamification-and-motivation.pathspec",
+          "coordination/release-intake/latest-A25-effective-work-order-a17-gamification-and-motivation.md"
+        ],
+        "notes": "<scope, checks, and any exact paths if approving discard>"
+      }
+    },
+    {
+      "approvalId": "a23-integration-and-promotion-lead",
+      "owner": "A23 integration and promotion lead",
+      "entries": 2,
+      "kind": "coordination-evidence",
+      "priority": 4,
+      "priorityReason": "Standard owner package.",
+      "dominantSlice": {
+        "name": "docs/coordination evidence",
+        "count": 2
+      },
+      "sliceBuckets": {
+        "docs/coordination evidence": 2
+      },
+      "originalOwnerBuckets": {
+        "A23 integration and promotion lead": 2
+      },
+      "fromUnmappedRuntimeProposals": 0,
+      "latestPathspec": "coordination/release-intake/latest-A25-effective-owner-a23-integration-and-promotion-lead.pathspec",
+      "datedPathspec": "coordination/release-intake/2026-07-03-A25-effective-owner-a23-integration-and-promotion-lead.pathspec",
+      "workOrder": "coordination/release-intake/latest-A25-effective-work-order-a23-integration-and-promotion-lead.md",
+      "datedWorkOrder": "coordination/release-intake/2026-07-03-A25-effective-work-order-a23-integration-and-promotion-lead.md",
+      "requiredFinalState": "reviewed commit, owner-approved discard, evidence archive, or blocker",
+      "allowedFinalStates": [
+        {
+          "selectedFinalState": "reviewed commit",
+          "effect": "Owning agent commits only this pathspec package from an isolated clean worktree after package-specific checks."
+        },
+        {
+          "selectedFinalState": "owner-approved exact-path discard",
+          "effect": "A separately authorized Git operation discards only exact paths from this package after evidence review."
+        },
+        {
+          "selectedFinalState": "evidence archive",
+          "effect": "A25 preserves this package's pathspec/status/diff evidence and keeps it out of the release source."
+        },
+        {
+          "selectedFinalState": "blocker",
+          "effect": "A25 records the unresolved owner, check, content, or coordination reason blocking package closure."
+        }
+      ],
+      "approvalTemplate": {
+        "approvalId": "a23-integration-and-promotion-lead",
+        "owner": "A23 integration and promotion lead",
+        "selectedFinalState": "<one allowed final state from this request>",
+        "approvedBy": "<owner or owning agent>",
+        "approvedAt": "<ISO-8601 timestamp>",
+        "evidenceReviewed": [
+          "coordination/release-intake/latest-A25-effective-owner-a23-integration-and-promotion-lead.pathspec",
+          "coordination/release-intake/latest-A25-effective-work-order-a23-integration-and-promotion-lead.md"
+        ],
+        "notes": "<scope, checks, and any exact paths if approving discard>"
+      }
+    }
+  ]
+}

@@ -1,0 +1,1839 @@
+{
+  "generatedAt": "2026-07-06T15:47:10.255Z",
+  "dirtyMapStatusSignature": "b26fe39c438a20cdbb9cf3943e3d000d9dc8dc04ccccedc13792c457c5942d3b",
+  "expandedStatusEntries": 5183,
+  "authorizationQueueGeneratedAt": "2026-07-06T15:47:00.604Z",
+  "actionRunbookGeneratedAt": "2026-07-06T15:46:55.761Z",
+  "cleanupAuthorized": false,
+  "note": "Sequencing artifact only. It cannot be used as authorization for any physical cleanup or Git operation.",
+  "summary": {
+    "waves": 6,
+    "totalApprovals": 62,
+    "ownerPackageApprovals": 23,
+    "physicalLifecycleApprovals": 39,
+    "ownerPackageEntries": 5183,
+    "executableRows": 0,
+    "cleanupAuthorizedRows": 0
+  },
+  "waves": [
+    {
+      "waveIndex": 1,
+      "waveId": "wave-01-governance-release-hygiene",
+      "name": "A25/A10/A22 governance and release hygiene",
+      "planTasks": [
+        "Task 3"
+      ],
+      "purpose": "Close the governance, release-hygiene, and clean-release-control package before runtime features.",
+      "blockedUntil": "Owner authorizes every selected final state and exact Git operation needed for this wave.",
+      "ownerApprovals": [
+        {
+          "approvalId": "a25-git-hygiene-and-release-intake",
+          "queueKind": "root-owner-package",
+          "owner": "A25 git hygiene and release intake",
+          "branch": "",
+          "state": "",
+          "currentBlocker": "root package has 3462 dirty entries",
+          "entries": 3462,
+          "priority": 1,
+          "allowedFinalStates": [
+            "reviewed commit",
+            "owner-approved exact-path discard",
+            "evidence archive",
+            "blocker"
+          ],
+          "actionKind": "owner-reviewed-commit-required",
+          "executableNow": false,
+          "cleanupAuthorized": false,
+          "requiredAuthorizationText": "Authorize approvalId=a25-git-hygiene-and-release-intake for owner=A25 git hygiene and release intake; selectedFinalState=<reviewed commit | owner-approved exact-path discard | evidence archive | blocker>; evidenceReviewed=coordination/release-intake/latest-A25-effective-owner-a25-git-hygiene-and-release-intake.pathspec, coordination/release-intake/latest-A25-effective-work-order-a25-git-hygiene-and-release-intake.md; approvedBy=<owner>; approvedAt=<ISO-8601>; notes=<scope and checks>.",
+          "postApprovalChecks": [
+            "node coordination/release-intake/review-owner-pathspec.mjs coordination/release-intake/latest-A25-effective-owner-a25-git-hygiene-and-release-intake.pathspec --status",
+            "npm run release:dirty-map -- --reason \"A25 post-owner-approval a25-git-hygiene-and-release-intake\"",
+            "node coordination/release-intake/assert-owner-package-approval-requests-current.mjs",
+            "node coordination/release-intake/assert-dirty-worktree-remediation-current.mjs"
+          ]
+        },
+        {
+          "approvalId": "a22-production-reliability-and-release-engineering",
+          "queueKind": "root-owner-package",
+          "owner": "A22 production reliability and release engineering",
+          "branch": "",
+          "state": "",
+          "currentBlocker": "root package has 68 dirty entries",
+          "entries": 68,
+          "priority": 1,
+          "allowedFinalStates": [
+            "reviewed commit",
+            "owner-approved exact-path discard",
+            "evidence archive",
+            "blocker"
+          ],
+          "actionKind": "owner-reviewed-commit-required",
+          "executableNow": false,
+          "cleanupAuthorized": false,
+          "requiredAuthorizationText": "Authorize approvalId=a22-production-reliability-and-release-engineering for owner=A22 production reliability and release engineering; selectedFinalState=<reviewed commit | owner-approved exact-path discard | evidence archive | blocker>; evidenceReviewed=coordination/release-intake/latest-A25-effective-owner-a22-production-reliability-and-release-engineering.pathspec, coordination/release-intake/latest-A25-effective-work-order-a22-production-reliability-and-release-engineering.md; approvedBy=<owner>; approvedAt=<ISO-8601>; notes=<scope and checks>.",
+          "postApprovalChecks": [
+            "node coordination/release-intake/review-owner-pathspec.mjs coordination/release-intake/latest-A25-effective-owner-a22-production-reliability-and-release-engineering.pathspec --status",
+            "npm run release:dirty-map -- --reason \"A25 post-owner-approval a22-production-reliability-and-release-engineering\"",
+            "node coordination/release-intake/assert-owner-package-approval-requests-current.mjs",
+            "node coordination/release-intake/assert-dirty-worktree-remediation-current.mjs"
+          ]
+        },
+        {
+          "approvalId": "a10-tooling-docs-and-report",
+          "queueKind": "root-owner-package",
+          "owner": "A10 tooling, docs, and report",
+          "branch": "",
+          "state": "",
+          "currentBlocker": "root package has 473 dirty entries",
+          "entries": 473,
+          "priority": 3,
+          "allowedFinalStates": [
+            "reviewed commit",
+            "owner-approved exact-path discard",
+            "evidence archive",
+            "blocker"
+          ],
+          "actionKind": "owner-reviewed-commit-required",
+          "executableNow": false,
+          "cleanupAuthorized": false,
+          "requiredAuthorizationText": "Authorize approvalId=a10-tooling-docs-and-report for owner=A10 tooling, docs, and report; selectedFinalState=<reviewed commit | owner-approved exact-path discard | evidence archive | blocker>; evidenceReviewed=coordination/release-intake/latest-A25-effective-owner-a10-tooling-docs-and-report.pathspec, coordination/release-intake/latest-A25-effective-work-order-a10-tooling-docs-and-report.md; approvedBy=<owner>; approvedAt=<ISO-8601>; notes=<scope and checks>.",
+          "postApprovalChecks": [
+            "node coordination/release-intake/review-owner-pathspec.mjs coordination/release-intake/latest-A25-effective-owner-a10-tooling-docs-and-report.pathspec --status",
+            "npm run release:dirty-map -- --reason \"A25 post-owner-approval a10-tooling-docs-and-report\"",
+            "node coordination/release-intake/assert-owner-package-approval-requests-current.mjs",
+            "node coordination/release-intake/assert-dirty-worktree-remediation-current.mjs"
+          ]
+        }
+      ],
+      "physicalLifecycleApprovals": [
+        {
+          "approvalId": "codex-a25-dirty-closure-governance",
+          "queueKind": "physical-lifecycle",
+          "owner": "",
+          "branch": "codex/A25-dirty-closure-governance",
+          "state": "dirty-open-decision",
+          "currentBlocker": "dirty 1012",
+          "entries": null,
+          "priority": null,
+          "allowedFinalStates": [
+            "owner-reviewed commit or package extraction",
+            "owner-approved exact-path discard",
+            "evidence archive with retained-worktree blocker",
+            "owner-approved worktree removal after dirty state closure",
+            "blocker"
+          ],
+          "actionKind": "owner-reviewed-worktree-package-required",
+          "executableNow": false,
+          "cleanupAuthorized": false,
+          "requiredAuthorizationText": "Authorize approvalId=codex-a25-dirty-closure-governance for branch=codex/A25-dirty-closure-governance; selectedFinalState=<one allowed final state in the physical lifecycle request>; evidenceReviewed=coordination/release-intake/archive/2026-06-30-A25-linked-worktree-archive-manifest.md, coordination/release-intake/archive/codex-A25-dirty-closure-governance.status.txt, coordination/release-intake/archive/codex-A25-dirty-closure-governance.diffstat.txt, coordination/release-intake/archive/codex-A25-dirty-closure-governance.patch, coordination/release-intake/archive/codex-A25-dirty-closure-governance.untracked.txt, coordination/release-intake/archive/2026-06-30-A25-dirty-diverged-branch-archive-manifest.md, coordination/release-intake/archive/codex-A25-dirty-closure-governance.dirty-diverged.ahead-log.txt, coordination/release-intake/archive/codex-A25-dirty-closure-governance.dirty-diverged.diffstat.txt, coordination/release-intake/archive/codex-A25-dirty-closure-governance.dirty-diverged.patch; approvedBy=<owner>; approvedAt=<ISO-8601>; notes=<scope, exact paths if discard/removal, and checks>.",
+          "postApprovalChecks": [
+            "node coordination/release-intake/worktree-hygiene-dashboard.mjs",
+            "npm run release:dirty-map -- --reason \"A25 post-physical-approval codex-a25-dirty-closure-governance\"",
+            "node coordination/release-intake/assert-physical-lifecycle-approval-requests-current.mjs",
+            "node coordination/release-intake/assert-worktree-lifecycle.mjs",
+            "node coordination/release-intake/assert-dirty-worktree-remediation-current.mjs"
+          ]
+        },
+        {
+          "approvalId": "codex-a10-a22-release-governance",
+          "queueKind": "physical-lifecycle",
+          "owner": "",
+          "branch": "codex/A10-A22-release-governance",
+          "state": "clean-diverged-open-decision",
+          "currentBlocker": "behind 2, ahead 2",
+          "entries": null,
+          "priority": null,
+          "allowedFinalStates": [
+            "owner-approved PR or review package",
+            "archive-state record",
+            "owner-approved branch or worktree retirement",
+            "blocker"
+          ],
+          "actionKind": "owner-approved-pr-or-review-package-required",
+          "executableNow": false,
+          "cleanupAuthorized": false,
+          "requiredAuthorizationText": "Authorize approvalId=codex-a10-a22-release-governance for branch=codex/A10-A22-release-governance; selectedFinalState=<one allowed final state in the physical lifecycle request>; evidenceReviewed=coordination/release-intake/archive/2026-06-30-A25-clean-diverged-branch-archive-manifest.md, coordination/release-intake/archive/codex-A10-A22-release-governance.clean-diverged.status.txt, coordination/release-intake/archive/codex-A10-A22-release-governance.clean-diverged.ahead-log.txt, coordination/release-intake/archive/codex-A10-A22-release-governance.clean-diverged.name-status.txt, coordination/release-intake/archive/codex-A10-A22-release-governance.clean-diverged.diffstat.txt, coordination/release-intake/archive/codex-A10-A22-release-governance.clean-diverged.patch, coordination/release-intake/archive/codex-A10-A22-release-governance.clean-diverged.untracked.txt; approvedBy=<owner>; approvedAt=<ISO-8601>; notes=<scope, exact paths if discard/removal, and checks>.",
+          "postApprovalChecks": [
+            "node coordination/release-intake/worktree-hygiene-dashboard.mjs",
+            "npm run release:dirty-map -- --reason \"A25 post-physical-approval codex-a10-a22-release-governance\"",
+            "node coordination/release-intake/assert-physical-lifecycle-approval-requests-current.mjs",
+            "node coordination/release-intake/assert-worktree-lifecycle.mjs",
+            "node coordination/release-intake/assert-dirty-worktree-remediation-current.mjs"
+          ]
+        },
+        {
+          "approvalId": "codex-a22-p1-release-hygiene-security",
+          "queueKind": "physical-lifecycle",
+          "owner": "",
+          "branch": "codex/A22-p1-release-hygiene-security",
+          "state": "dirty-open-decision",
+          "currentBlocker": "dirty 27",
+          "entries": null,
+          "priority": null,
+          "allowedFinalStates": [
+            "owner-reviewed commit or package extraction",
+            "owner-approved exact-path discard",
+            "evidence archive with retained-worktree blocker",
+            "owner-approved worktree removal after dirty state closure",
+            "blocker"
+          ],
+          "actionKind": "owner-reviewed-worktree-package-required",
+          "executableNow": false,
+          "cleanupAuthorized": false,
+          "requiredAuthorizationText": "Authorize approvalId=codex-a22-p1-release-hygiene-security for branch=codex/A22-p1-release-hygiene-security; selectedFinalState=<one allowed final state in the physical lifecycle request>; evidenceReviewed=coordination/release-intake/archive/2026-06-30-A25-linked-worktree-archive-manifest.md, coordination/release-intake/archive/codex-A22-p1-release-hygiene-security.status.txt, coordination/release-intake/archive/codex-A22-p1-release-hygiene-security.diffstat.txt, coordination/release-intake/archive/codex-A22-p1-release-hygiene-security.patch, coordination/release-intake/archive/codex-A22-p1-release-hygiene-security.untracked.txt, coordination/release-intake/archive/2026-06-30-A25-dirty-diverged-branch-archive-manifest.md, coordination/release-intake/archive/codex-A22-p1-release-hygiene-security.dirty-diverged.ahead-log.txt, coordination/release-intake/archive/codex-A22-p1-release-hygiene-security.dirty-diverged.diffstat.txt, coordination/release-intake/archive/codex-A22-p1-release-hygiene-security.dirty-diverged.patch; approvedBy=<owner>; approvedAt=<ISO-8601>; notes=<scope, exact paths if discard/removal, and checks>.",
+          "postApprovalChecks": [
+            "node coordination/release-intake/worktree-hygiene-dashboard.mjs",
+            "npm run release:dirty-map -- --reason \"A25 post-physical-approval codex-a22-p1-release-hygiene-security\"",
+            "node coordination/release-intake/assert-physical-lifecycle-approval-requests-current.mjs",
+            "node coordination/release-intake/assert-worktree-lifecycle.mjs",
+            "node coordination/release-intake/assert-dirty-worktree-remediation-current.mjs"
+          ]
+        },
+        {
+          "approvalId": "codex-a22-next-15-5-19-audit",
+          "queueKind": "physical-lifecycle",
+          "owner": "",
+          "branch": "codex/A22-next-15-5-19-audit",
+          "state": "dirty-open-decision",
+          "currentBlocker": "dirty 4",
+          "entries": null,
+          "priority": null,
+          "allowedFinalStates": [
+            "owner-reviewed commit or package extraction",
+            "owner-approved exact-path discard",
+            "evidence archive with retained-worktree blocker",
+            "owner-approved worktree removal after dirty state closure",
+            "blocker"
+          ],
+          "actionKind": "owner-reviewed-worktree-package-required",
+          "executableNow": false,
+          "cleanupAuthorized": false,
+          "requiredAuthorizationText": "Authorize approvalId=codex-a22-next-15-5-19-audit for branch=codex/A22-next-15-5-19-audit; selectedFinalState=<one allowed final state in the physical lifecycle request>; evidenceReviewed=coordination/release-intake/archive/2026-06-30-A25-linked-worktree-archive-manifest.md, coordination/release-intake/archive/codex-A22-next-15-5-19-audit.status.txt, coordination/release-intake/archive/codex-A22-next-15-5-19-audit.diffstat.txt, coordination/release-intake/archive/codex-A22-next-15-5-19-audit.patch, coordination/release-intake/archive/codex-A22-next-15-5-19-audit.untracked.txt, coordination/release-intake/archive/2026-06-30-A25-dirty-diverged-branch-archive-manifest.md, coordination/release-intake/archive/codex-A22-next-15-5-19-audit.dirty-diverged.ahead-log.txt, coordination/release-intake/archive/codex-A22-next-15-5-19-audit.dirty-diverged.diffstat.txt, coordination/release-intake/archive/codex-A22-next-15-5-19-audit.dirty-diverged.patch; approvedBy=<owner>; approvedAt=<ISO-8601>; notes=<scope, exact paths if discard/removal, and checks>.",
+          "postApprovalChecks": [
+            "node coordination/release-intake/worktree-hygiene-dashboard.mjs",
+            "npm run release:dirty-map -- --reason \"A25 post-physical-approval codex-a22-next-15-5-19-audit\"",
+            "node coordination/release-intake/assert-physical-lifecycle-approval-requests-current.mjs",
+            "node coordination/release-intake/assert-worktree-lifecycle.mjs",
+            "node coordination/release-intake/assert-dirty-worktree-remediation-current.mjs"
+          ]
+        },
+        {
+          "approvalId": "codex-a22-us-region-alignment",
+          "queueKind": "physical-lifecycle",
+          "owner": "",
+          "branch": "codex/A22-us-region-alignment",
+          "state": "clean-diverged-open-decision",
+          "currentBlocker": "behind 2, ahead 1",
+          "entries": null,
+          "priority": null,
+          "allowedFinalStates": [
+            "owner-approved PR or review package",
+            "archive-state record",
+            "owner-approved branch or worktree retirement",
+            "blocker"
+          ],
+          "actionKind": "owner-approved-pr-or-review-package-required",
+          "executableNow": false,
+          "cleanupAuthorized": false,
+          "requiredAuthorizationText": "Authorize approvalId=codex-a22-us-region-alignment for branch=codex/A22-us-region-alignment; selectedFinalState=<one allowed final state in the physical lifecycle request>; evidenceReviewed=coordination/release-intake/archive/2026-06-30-A25-clean-diverged-branch-archive-manifest.md, coordination/release-intake/archive/codex-A22-us-region-alignment.clean-diverged.status.txt, coordination/release-intake/archive/codex-A22-us-region-alignment.clean-diverged.ahead-log.txt, coordination/release-intake/archive/codex-A22-us-region-alignment.clean-diverged.name-status.txt, coordination/release-intake/archive/codex-A22-us-region-alignment.clean-diverged.diffstat.txt, coordination/release-intake/archive/codex-A22-us-region-alignment.clean-diverged.patch, coordination/release-intake/archive/codex-A22-us-region-alignment.clean-diverged.untracked.txt; approvedBy=<owner>; approvedAt=<ISO-8601>; notes=<scope, exact paths if discard/removal, and checks>.",
+          "postApprovalChecks": [
+            "node coordination/release-intake/worktree-hygiene-dashboard.mjs",
+            "npm run release:dirty-map -- --reason \"A25 post-physical-approval codex-a22-us-region-alignment\"",
+            "node coordination/release-intake/assert-physical-lifecycle-approval-requests-current.mjs",
+            "node coordination/release-intake/assert-worktree-lifecycle.mjs",
+            "node coordination/release-intake/assert-dirty-worktree-remediation-current.mjs"
+          ]
+        },
+        {
+          "approvalId": "codex-a22-missing-module-release-slice",
+          "queueKind": "physical-lifecycle",
+          "owner": "",
+          "branch": "codex/A22-missing-module-release-slice",
+          "state": "dirty-open-decision",
+          "currentBlocker": "dirty 1016",
+          "entries": null,
+          "priority": null,
+          "allowedFinalStates": [
+            "owner-reviewed commit or package extraction",
+            "owner-approved exact-path discard",
+            "evidence archive with retained-worktree blocker",
+            "owner-approved worktree removal after dirty state closure",
+            "blocker"
+          ],
+          "actionKind": "owner-reviewed-worktree-package-required",
+          "executableNow": false,
+          "cleanupAuthorized": false,
+          "requiredAuthorizationText": "Authorize approvalId=codex-a22-missing-module-release-slice for branch=codex/A22-missing-module-release-slice; selectedFinalState=<one allowed final state in the physical lifecycle request>; evidenceReviewed=coordination/release-intake/archive/2026-06-30-A25-linked-worktree-archive-manifest.md, coordination/release-intake/archive/codex-A22-missing-module-release-slice.status.txt, coordination/release-intake/archive/codex-A22-missing-module-release-slice.diffstat.txt, coordination/release-intake/archive/codex-A22-missing-module-release-slice.patch, coordination/release-intake/archive/codex-A22-missing-module-release-slice.untracked.txt, coordination/release-intake/archive/2026-06-30-A25-dirty-diverged-branch-archive-manifest.md, coordination/release-intake/archive/codex-A22-missing-module-release-slice.dirty-diverged.ahead-log.txt, coordination/release-intake/archive/codex-A22-missing-module-release-slice.dirty-diverged.diffstat.txt, coordination/release-intake/archive/codex-A22-missing-module-release-slice.dirty-diverged.patch; approvedBy=<owner>; approvedAt=<ISO-8601>; notes=<scope, exact paths if discard/removal, and checks>.",
+          "postApprovalChecks": [
+            "node coordination/release-intake/worktree-hygiene-dashboard.mjs",
+            "npm run release:dirty-map -- --reason \"A25 post-physical-approval codex-a22-missing-module-release-slice\"",
+            "node coordination/release-intake/assert-physical-lifecycle-approval-requests-current.mjs",
+            "node coordination/release-intake/assert-worktree-lifecycle.mjs",
+            "node coordination/release-intake/assert-dirty-worktree-remediation-current.mjs"
+          ]
+        },
+        {
+          "approvalId": "codex-a25-ci-backup-workflow",
+          "queueKind": "physical-lifecycle",
+          "owner": "",
+          "branch": "codex/A25-ci-backup-workflow",
+          "state": "clean-diverged-open-decision",
+          "currentBlocker": "behind 1, ahead 0",
+          "entries": null,
+          "priority": null,
+          "allowedFinalStates": [
+            "owner-approved PR or review package",
+            "archive-state record",
+            "owner-approved branch or worktree retirement",
+            "blocker"
+          ],
+          "actionKind": "owner-approved-pr-or-review-package-required",
+          "executableNow": false,
+          "cleanupAuthorized": false,
+          "requiredAuthorizationText": "Authorize approvalId=codex-a25-ci-backup-workflow for branch=codex/A25-ci-backup-workflow; selectedFinalState=<one allowed final state in the physical lifecycle request>; evidenceReviewed=coordination/release-intake/archive/2026-06-30-A25-clean-diverged-branch-archive-manifest.md, coordination/release-intake/archive/codex-A25-ci-backup-workflow.clean-diverged.status.txt, coordination/release-intake/archive/codex-A25-ci-backup-workflow.clean-diverged.ahead-log.txt, coordination/release-intake/archive/codex-A25-ci-backup-workflow.clean-diverged.name-status.txt, coordination/release-intake/archive/codex-A25-ci-backup-workflow.clean-diverged.diffstat.txt, coordination/release-intake/archive/codex-A25-ci-backup-workflow.clean-diverged.patch, coordination/release-intake/archive/codex-A25-ci-backup-workflow.clean-diverged.untracked.txt; approvedBy=<owner>; approvedAt=<ISO-8601>; notes=<scope, exact paths if discard/removal, and checks>.",
+          "postApprovalChecks": [
+            "node coordination/release-intake/worktree-hygiene-dashboard.mjs",
+            "npm run release:dirty-map -- --reason \"A25 post-physical-approval codex-a25-ci-backup-workflow\"",
+            "node coordination/release-intake/assert-physical-lifecycle-approval-requests-current.mjs",
+            "node coordination/release-intake/assert-worktree-lifecycle.mjs",
+            "node coordination/release-intake/assert-dirty-worktree-remediation-current.mjs"
+          ]
+        }
+      ],
+      "summary": {
+        "approvals": 10,
+        "ownerPackageApprovals": 3,
+        "physicalLifecycleApprovals": 7,
+        "entries": 4003,
+        "executableRows": 0,
+        "cleanupAuthorizedRows": 0
+      }
+    },
+    {
+      "waveIndex": 2,
+      "waveId": "wave-02-shared-contracts",
+      "name": "A08/A12 shared contracts and storage/API stability",
+      "planTasks": [
+        "Task 4"
+      ],
+      "purpose": "Stabilize shared type, provider, analytics, storage, and backend contracts before dependent runtime packages.",
+      "blockedUntil": "Owner authorizes every selected final state and exact Git operation needed for this wave.",
+      "ownerApprovals": [
+        {
+          "approvalId": "a08-state-and-analytics-lead",
+          "queueKind": "root-owner-package",
+          "owner": "A08 state and analytics lead",
+          "branch": "",
+          "state": "",
+          "currentBlocker": "root package has 11 dirty entries",
+          "entries": 11,
+          "priority": 4,
+          "allowedFinalStates": [
+            "reviewed commit",
+            "owner-approved exact-path discard",
+            "evidence archive",
+            "blocker"
+          ],
+          "actionKind": "owner-reviewed-commit-required",
+          "executableNow": false,
+          "cleanupAuthorized": false,
+          "requiredAuthorizationText": "Authorize approvalId=a08-state-and-analytics-lead for owner=A08 state and analytics lead; selectedFinalState=<reviewed commit | owner-approved exact-path discard | evidence archive | blocker>; evidenceReviewed=coordination/release-intake/latest-A25-effective-owner-a08-state-and-analytics-lead.pathspec, coordination/release-intake/latest-A25-effective-work-order-a08-state-and-analytics-lead.md; approvedBy=<owner>; approvedAt=<ISO-8601>; notes=<scope and checks>.",
+          "postApprovalChecks": [
+            "node coordination/release-intake/review-owner-pathspec.mjs coordination/release-intake/latest-A25-effective-owner-a08-state-and-analytics-lead.pathspec --status",
+            "npm run release:dirty-map -- --reason \"A25 post-owner-approval a08-state-and-analytics-lead\"",
+            "node coordination/release-intake/assert-owner-package-approval-requests-current.mjs",
+            "node coordination/release-intake/assert-dirty-worktree-remediation-current.mjs"
+          ]
+        },
+        {
+          "approvalId": "a12-backend-api-platform",
+          "queueKind": "root-owner-package",
+          "owner": "A12 backend/API platform",
+          "branch": "",
+          "state": "",
+          "currentBlocker": "root package has 175 dirty entries",
+          "entries": 175,
+          "priority": 2,
+          "allowedFinalStates": [
+            "reviewed commit",
+            "owner-approved exact-path discard",
+            "evidence archive",
+            "blocker"
+          ],
+          "actionKind": "owner-reviewed-commit-required",
+          "executableNow": false,
+          "cleanupAuthorized": false,
+          "requiredAuthorizationText": "Authorize approvalId=a12-backend-api-platform for owner=A12 backend/API platform; selectedFinalState=<reviewed commit | owner-approved exact-path discard | evidence archive | blocker>; evidenceReviewed=coordination/release-intake/latest-A25-effective-owner-a12-backend-api-platform.pathspec, coordination/release-intake/latest-A25-effective-work-order-a12-backend-api-platform.md; approvedBy=<owner>; approvedAt=<ISO-8601>; notes=<scope and checks>.",
+          "postApprovalChecks": [
+            "node coordination/release-intake/review-owner-pathspec.mjs coordination/release-intake/latest-A25-effective-owner-a12-backend-api-platform.pathspec --status",
+            "npm run release:dirty-map -- --reason \"A25 post-owner-approval a12-backend-api-platform\"",
+            "node coordination/release-intake/assert-owner-package-approval-requests-current.mjs",
+            "node coordination/release-intake/assert-dirty-worktree-remediation-current.mjs"
+          ]
+        }
+      ],
+      "physicalLifecycleApprovals": [
+        {
+          "approvalId": "codex-a08-a12-shared-contract-closure",
+          "queueKind": "physical-lifecycle",
+          "owner": "",
+          "branch": "codex/A08-A12-shared-contract-closure",
+          "state": "dirty-open-decision",
+          "currentBlocker": "dirty 185",
+          "entries": null,
+          "priority": null,
+          "allowedFinalStates": [
+            "owner-reviewed commit or package extraction",
+            "owner-approved exact-path discard",
+            "evidence archive with retained-worktree blocker",
+            "owner-approved worktree removal after dirty state closure",
+            "blocker"
+          ],
+          "actionKind": "owner-reviewed-worktree-package-required",
+          "executableNow": false,
+          "cleanupAuthorized": false,
+          "requiredAuthorizationText": "Authorize approvalId=codex-a08-a12-shared-contract-closure for branch=codex/A08-A12-shared-contract-closure; selectedFinalState=<one allowed final state in the physical lifecycle request>; evidenceReviewed=coordination/release-intake/archive/2026-06-30-A25-linked-worktree-archive-manifest.md, coordination/release-intake/archive/codex-A08-A12-shared-contract-closure.status.txt, coordination/release-intake/archive/codex-A08-A12-shared-contract-closure.diffstat.txt, coordination/release-intake/archive/codex-A08-A12-shared-contract-closure.patch, coordination/release-intake/archive/codex-A08-A12-shared-contract-closure.untracked.txt, coordination/release-intake/archive/2026-06-30-A25-dirty-diverged-branch-archive-manifest.md, coordination/release-intake/archive/codex-A08-A12-shared-contract-closure.dirty-diverged.ahead-log.txt, coordination/release-intake/archive/codex-A08-A12-shared-contract-closure.dirty-diverged.diffstat.txt, coordination/release-intake/archive/codex-A08-A12-shared-contract-closure.dirty-diverged.patch; approvedBy=<owner>; approvedAt=<ISO-8601>; notes=<scope, exact paths if discard/removal, and checks>.",
+          "postApprovalChecks": [
+            "node coordination/release-intake/worktree-hygiene-dashboard.mjs",
+            "npm run release:dirty-map -- --reason \"A25 post-physical-approval codex-a08-a12-shared-contract-closure\"",
+            "node coordination/release-intake/assert-physical-lifecycle-approval-requests-current.mjs",
+            "node coordination/release-intake/assert-worktree-lifecycle.mjs",
+            "node coordination/release-intake/assert-dirty-worktree-remediation-current.mjs"
+          ]
+        },
+        {
+          "approvalId": "codex-a12-userstore-storage-contract",
+          "queueKind": "physical-lifecycle",
+          "owner": "",
+          "branch": "codex/A12-userstore-storage-contract",
+          "state": "dirty-open-decision",
+          "currentBlocker": "dirty 170",
+          "entries": null,
+          "priority": null,
+          "allowedFinalStates": [
+            "owner-reviewed commit or package extraction",
+            "owner-approved exact-path discard",
+            "evidence archive with retained-worktree blocker",
+            "owner-approved worktree removal after dirty state closure",
+            "blocker"
+          ],
+          "actionKind": "owner-reviewed-worktree-package-required",
+          "executableNow": false,
+          "cleanupAuthorized": false,
+          "requiredAuthorizationText": "Authorize approvalId=codex-a12-userstore-storage-contract for branch=codex/A12-userstore-storage-contract; selectedFinalState=<one allowed final state in the physical lifecycle request>; evidenceReviewed=coordination/release-intake/archive/2026-06-30-A25-linked-worktree-archive-manifest.md, coordination/release-intake/archive/codex-A12-userstore-storage-contract.status.txt, coordination/release-intake/archive/codex-A12-userstore-storage-contract.diffstat.txt, coordination/release-intake/archive/codex-A12-userstore-storage-contract.patch, coordination/release-intake/archive/codex-A12-userstore-storage-contract.untracked.txt, coordination/release-intake/archive/2026-06-30-A25-dirty-diverged-branch-archive-manifest.md, coordination/release-intake/archive/codex-A12-userstore-storage-contract.dirty-diverged.ahead-log.txt, coordination/release-intake/archive/codex-A12-userstore-storage-contract.dirty-diverged.diffstat.txt, coordination/release-intake/archive/codex-A12-userstore-storage-contract.dirty-diverged.patch; approvedBy=<owner>; approvedAt=<ISO-8601>; notes=<scope, exact paths if discard/removal, and checks>.",
+          "postApprovalChecks": [
+            "node coordination/release-intake/worktree-hygiene-dashboard.mjs",
+            "npm run release:dirty-map -- --reason \"A25 post-physical-approval codex-a12-userstore-storage-contract\"",
+            "node coordination/release-intake/assert-physical-lifecycle-approval-requests-current.mjs",
+            "node coordination/release-intake/assert-worktree-lifecycle.mjs",
+            "node coordination/release-intake/assert-dirty-worktree-remediation-current.mjs"
+          ]
+        },
+        {
+          "approvalId": "codex-a12-google-oauth-login",
+          "queueKind": "physical-lifecycle",
+          "owner": "",
+          "branch": "codex/A12-google-oauth-login",
+          "state": "dirty-open-decision",
+          "currentBlocker": "dirty 16",
+          "entries": null,
+          "priority": null,
+          "allowedFinalStates": [
+            "owner-reviewed commit or package extraction",
+            "owner-approved exact-path discard",
+            "evidence archive with retained-worktree blocker",
+            "owner-approved worktree removal after dirty state closure",
+            "blocker"
+          ],
+          "actionKind": "owner-reviewed-worktree-package-required",
+          "executableNow": false,
+          "cleanupAuthorized": false,
+          "requiredAuthorizationText": "Authorize approvalId=codex-a12-google-oauth-login for branch=codex/A12-google-oauth-login; selectedFinalState=<one allowed final state in the physical lifecycle request>; evidenceReviewed=coordination/release-intake/archive/2026-06-30-A25-linked-worktree-archive-manifest.md, coordination/release-intake/archive/codex-A12-google-oauth-login.status.txt, coordination/release-intake/archive/codex-A12-google-oauth-login.diffstat.txt, coordination/release-intake/archive/codex-A12-google-oauth-login.patch, coordination/release-intake/archive/codex-A12-google-oauth-login.untracked.txt, coordination/release-intake/archive/2026-06-30-A25-dirty-diverged-branch-archive-manifest.md, coordination/release-intake/archive/codex-A12-google-oauth-login.dirty-diverged.ahead-log.txt, coordination/release-intake/archive/codex-A12-google-oauth-login.dirty-diverged.diffstat.txt, coordination/release-intake/archive/codex-A12-google-oauth-login.dirty-diverged.patch; approvedBy=<owner>; approvedAt=<ISO-8601>; notes=<scope, exact paths if discard/removal, and checks>.",
+          "postApprovalChecks": [
+            "node coordination/release-intake/worktree-hygiene-dashboard.mjs",
+            "npm run release:dirty-map -- --reason \"A25 post-physical-approval codex-a12-google-oauth-login\"",
+            "node coordination/release-intake/assert-physical-lifecycle-approval-requests-current.mjs",
+            "node coordination/release-intake/assert-worktree-lifecycle.mjs",
+            "node coordination/release-intake/assert-dirty-worktree-remediation-current.mjs"
+          ]
+        },
+        {
+          "approvalId": "codex-a07-a15-a08-ai-adaptive-types",
+          "queueKind": "physical-lifecycle",
+          "owner": "",
+          "branch": "codex/A07-A15-A08-ai-adaptive-types",
+          "state": "dirty-open-decision",
+          "currentBlocker": "dirty 30",
+          "entries": null,
+          "priority": null,
+          "allowedFinalStates": [
+            "owner-reviewed commit or package extraction",
+            "owner-approved exact-path discard",
+            "evidence archive with retained-worktree blocker",
+            "owner-approved worktree removal after dirty state closure",
+            "blocker"
+          ],
+          "actionKind": "owner-reviewed-worktree-package-required",
+          "executableNow": false,
+          "cleanupAuthorized": false,
+          "requiredAuthorizationText": "Authorize approvalId=codex-a07-a15-a08-ai-adaptive-types for branch=codex/A07-A15-A08-ai-adaptive-types; selectedFinalState=<one allowed final state in the physical lifecycle request>; evidenceReviewed=coordination/release-intake/archive/2026-06-30-A25-linked-worktree-archive-manifest.md, coordination/release-intake/archive/codex-A07-A15-A08-ai-adaptive-types.status.txt, coordination/release-intake/archive/codex-A07-A15-A08-ai-adaptive-types.diffstat.txt, coordination/release-intake/archive/codex-A07-A15-A08-ai-adaptive-types.patch, coordination/release-intake/archive/codex-A07-A15-A08-ai-adaptive-types.untracked.txt, coordination/release-intake/archive/2026-06-30-A25-dirty-diverged-branch-archive-manifest.md, coordination/release-intake/archive/codex-A07-A15-A08-ai-adaptive-types.dirty-diverged.ahead-log.txt, coordination/release-intake/archive/codex-A07-A15-A08-ai-adaptive-types.dirty-diverged.diffstat.txt, coordination/release-intake/archive/codex-A07-A15-A08-ai-adaptive-types.dirty-diverged.patch; approvedBy=<owner>; approvedAt=<ISO-8601>; notes=<scope, exact paths if discard/removal, and checks>.",
+          "postApprovalChecks": [
+            "node coordination/release-intake/worktree-hygiene-dashboard.mjs",
+            "npm run release:dirty-map -- --reason \"A25 post-physical-approval codex-a07-a15-a08-ai-adaptive-types\"",
+            "node coordination/release-intake/assert-physical-lifecycle-approval-requests-current.mjs",
+            "node coordination/release-intake/assert-worktree-lifecycle.mjs",
+            "node coordination/release-intake/assert-dirty-worktree-remediation-current.mjs"
+          ]
+        }
+      ],
+      "summary": {
+        "approvals": 6,
+        "ownerPackageApprovals": 2,
+        "physicalLifecycleApprovals": 4,
+        "entries": 186,
+        "executableRows": 0,
+        "cleanupAuthorizedRows": 0
+      }
+    },
+    {
+      "waveIndex": 3,
+      "waveId": "wave-03-shell-dashboard-roadmap",
+      "name": "A01/A02/A03/A15 student shell, dashboard, and roadmap",
+      "planTasks": [
+        "Task 5 Step 1",
+        "Task 5 Step 2",
+        "Task 5 Step 3"
+      ],
+      "purpose": "Close student entry, dashboard, adaptive UI, and roadmap packages after shared contracts are stable.",
+      "blockedUntil": "Owner authorizes every selected final state and exact Git operation needed for this wave.",
+      "ownerApprovals": [
+        {
+          "approvalId": "a01-app-shell-lead",
+          "queueKind": "root-owner-package",
+          "owner": "A01 app shell lead",
+          "branch": "",
+          "state": "",
+          "currentBlocker": "root package has 31 dirty entries",
+          "entries": 31,
+          "priority": 4,
+          "allowedFinalStates": [
+            "reviewed commit",
+            "owner-approved exact-path discard",
+            "evidence archive",
+            "blocker"
+          ],
+          "actionKind": "owner-reviewed-commit-required",
+          "executableNow": false,
+          "cleanupAuthorized": false,
+          "requiredAuthorizationText": "Authorize approvalId=a01-app-shell-lead for owner=A01 app shell lead; selectedFinalState=<reviewed commit | owner-approved exact-path discard | evidence archive | blocker>; evidenceReviewed=coordination/release-intake/latest-A25-effective-owner-a01-app-shell-lead.pathspec, coordination/release-intake/latest-A25-effective-work-order-a01-app-shell-lead.md; approvedBy=<owner>; approvedAt=<ISO-8601>; notes=<scope and checks>.",
+          "postApprovalChecks": [
+            "node coordination/release-intake/review-owner-pathspec.mjs coordination/release-intake/latest-A25-effective-owner-a01-app-shell-lead.pathspec --status",
+            "npm run release:dirty-map -- --reason \"A25 post-owner-approval a01-app-shell-lead\"",
+            "node coordination/release-intake/assert-owner-package-approval-requests-current.mjs",
+            "node coordination/release-intake/assert-dirty-worktree-remediation-current.mjs"
+          ]
+        },
+        {
+          "approvalId": "a02-dashboard-lead",
+          "queueKind": "root-owner-package",
+          "owner": "A02 dashboard lead",
+          "branch": "",
+          "state": "",
+          "currentBlocker": "root package has 22 dirty entries",
+          "entries": 22,
+          "priority": 4,
+          "allowedFinalStates": [
+            "reviewed commit",
+            "owner-approved exact-path discard",
+            "evidence archive",
+            "blocker"
+          ],
+          "actionKind": "owner-reviewed-commit-required",
+          "executableNow": false,
+          "cleanupAuthorized": false,
+          "requiredAuthorizationText": "Authorize approvalId=a02-dashboard-lead for owner=A02 dashboard lead; selectedFinalState=<reviewed commit | owner-approved exact-path discard | evidence archive | blocker>; evidenceReviewed=coordination/release-intake/latest-A25-effective-owner-a02-dashboard-lead.pathspec, coordination/release-intake/latest-A25-effective-work-order-a02-dashboard-lead.md; approvedBy=<owner>; approvedAt=<ISO-8601>; notes=<scope and checks>.",
+          "postApprovalChecks": [
+            "node coordination/release-intake/review-owner-pathspec.mjs coordination/release-intake/latest-A25-effective-owner-a02-dashboard-lead.pathspec --status",
+            "npm run release:dirty-map -- --reason \"A25 post-owner-approval a02-dashboard-lead\"",
+            "node coordination/release-intake/assert-owner-package-approval-requests-current.mjs",
+            "node coordination/release-intake/assert-dirty-worktree-remediation-current.mjs"
+          ]
+        },
+        {
+          "approvalId": "a03-curriculum-roadmap-lead",
+          "queueKind": "root-owner-package",
+          "owner": "A03 curriculum roadmap lead",
+          "branch": "",
+          "state": "",
+          "currentBlocker": "root package has 30 dirty entries",
+          "entries": 30,
+          "priority": 3,
+          "allowedFinalStates": [
+            "reviewed commit",
+            "owner-approved exact-path discard",
+            "evidence archive",
+            "blocker"
+          ],
+          "actionKind": "owner-reviewed-commit-required",
+          "executableNow": false,
+          "cleanupAuthorized": false,
+          "requiredAuthorizationText": "Authorize approvalId=a03-curriculum-roadmap-lead for owner=A03 curriculum roadmap lead; selectedFinalState=<reviewed commit | owner-approved exact-path discard | evidence archive | blocker>; evidenceReviewed=coordination/release-intake/latest-A25-effective-owner-a03-curriculum-roadmap-lead.pathspec, coordination/release-intake/latest-A25-effective-work-order-a03-curriculum-roadmap-lead.md; approvedBy=<owner>; approvedAt=<ISO-8601>; notes=<scope and checks>.",
+          "postApprovalChecks": [
+            "node coordination/release-intake/review-owner-pathspec.mjs coordination/release-intake/latest-A25-effective-owner-a03-curriculum-roadmap-lead.pathspec --status",
+            "npm run release:dirty-map -- --reason \"A25 post-owner-approval a03-curriculum-roadmap-lead\"",
+            "node coordination/release-intake/assert-owner-package-approval-requests-current.mjs",
+            "node coordination/release-intake/assert-dirty-worktree-remediation-current.mjs"
+          ]
+        },
+        {
+          "approvalId": "a15-adaptive-engine-lead",
+          "queueKind": "root-owner-package",
+          "owner": "A15 adaptive engine lead",
+          "branch": "",
+          "state": "",
+          "currentBlocker": "root package has 9 dirty entries",
+          "entries": 9,
+          "priority": 4,
+          "allowedFinalStates": [
+            "reviewed commit",
+            "owner-approved exact-path discard",
+            "evidence archive",
+            "blocker"
+          ],
+          "actionKind": "owner-reviewed-commit-required",
+          "executableNow": false,
+          "cleanupAuthorized": false,
+          "requiredAuthorizationText": "Authorize approvalId=a15-adaptive-engine-lead for owner=A15 adaptive engine lead; selectedFinalState=<reviewed commit | owner-approved exact-path discard | evidence archive | blocker>; evidenceReviewed=coordination/release-intake/latest-A25-effective-owner-a15-adaptive-engine-lead.pathspec, coordination/release-intake/latest-A25-effective-work-order-a15-adaptive-engine-lead.md; approvedBy=<owner>; approvedAt=<ISO-8601>; notes=<scope and checks>.",
+          "postApprovalChecks": [
+            "node coordination/release-intake/review-owner-pathspec.mjs coordination/release-intake/latest-A25-effective-owner-a15-adaptive-engine-lead.pathspec --status",
+            "npm run release:dirty-map -- --reason \"A25 post-owner-approval a15-adaptive-engine-lead\"",
+            "node coordination/release-intake/assert-owner-package-approval-requests-current.mjs",
+            "node coordination/release-intake/assert-dirty-worktree-remediation-current.mjs"
+          ]
+        }
+      ],
+      "physicalLifecycleApprovals": [
+        {
+          "approvalId": "codex-a01-app-shell-closure",
+          "queueKind": "physical-lifecycle",
+          "owner": "",
+          "branch": "codex/A01-app-shell-closure",
+          "state": "dirty-open-decision",
+          "currentBlocker": "dirty 26",
+          "entries": null,
+          "priority": null,
+          "allowedFinalStates": [
+            "owner-reviewed commit or package extraction",
+            "owner-approved exact-path discard",
+            "evidence archive with retained-worktree blocker",
+            "owner-approved worktree removal after dirty state closure",
+            "blocker"
+          ],
+          "actionKind": "owner-reviewed-worktree-package-required",
+          "executableNow": false,
+          "cleanupAuthorized": false,
+          "requiredAuthorizationText": "Authorize approvalId=codex-a01-app-shell-closure for branch=codex/A01-app-shell-closure; selectedFinalState=<one allowed final state in the physical lifecycle request>; evidenceReviewed=coordination/release-intake/archive/2026-06-30-A25-linked-worktree-archive-manifest.md, coordination/release-intake/archive/codex-A01-app-shell-closure.status.txt, coordination/release-intake/archive/codex-A01-app-shell-closure.diffstat.txt, coordination/release-intake/archive/codex-A01-app-shell-closure.patch, coordination/release-intake/archive/codex-A01-app-shell-closure.untracked.txt, coordination/release-intake/archive/2026-06-30-A25-dirty-diverged-branch-archive-manifest.md, coordination/release-intake/archive/codex-A01-app-shell-closure.dirty-diverged.ahead-log.txt, coordination/release-intake/archive/codex-A01-app-shell-closure.dirty-diverged.diffstat.txt, coordination/release-intake/archive/codex-A01-app-shell-closure.dirty-diverged.patch; approvedBy=<owner>; approvedAt=<ISO-8601>; notes=<scope, exact paths if discard/removal, and checks>.",
+          "postApprovalChecks": [
+            "node coordination/release-intake/worktree-hygiene-dashboard.mjs",
+            "npm run release:dirty-map -- --reason \"A25 post-physical-approval codex-a01-app-shell-closure\"",
+            "node coordination/release-intake/assert-physical-lifecycle-approval-requests-current.mjs",
+            "node coordination/release-intake/assert-worktree-lifecycle.mjs",
+            "node coordination/release-intake/assert-dirty-worktree-remediation-current.mjs"
+          ]
+        },
+        {
+          "approvalId": "codex-a01-shell-lazy-load",
+          "queueKind": "physical-lifecycle",
+          "owner": "",
+          "branch": "codex/A01-shell-lazy-load",
+          "state": "dirty-open-decision",
+          "currentBlocker": "dirty 8",
+          "entries": null,
+          "priority": null,
+          "allowedFinalStates": [
+            "owner-reviewed commit or package extraction",
+            "owner-approved exact-path discard",
+            "evidence archive with retained-worktree blocker",
+            "owner-approved worktree removal after dirty state closure",
+            "blocker"
+          ],
+          "actionKind": "owner-reviewed-worktree-package-required",
+          "executableNow": false,
+          "cleanupAuthorized": false,
+          "requiredAuthorizationText": "Authorize approvalId=codex-a01-shell-lazy-load for branch=codex/A01-shell-lazy-load; selectedFinalState=<one allowed final state in the physical lifecycle request>; evidenceReviewed=coordination/release-intake/archive/2026-06-30-A25-linked-worktree-archive-manifest.md, coordination/release-intake/archive/codex-A01-shell-lazy-load.status.txt, coordination/release-intake/archive/codex-A01-shell-lazy-load.diffstat.txt, coordination/release-intake/archive/codex-A01-shell-lazy-load.patch, coordination/release-intake/archive/codex-A01-shell-lazy-load.untracked.txt, coordination/release-intake/archive/2026-06-30-A25-dirty-diverged-branch-archive-manifest.md, coordination/release-intake/archive/codex-A01-shell-lazy-load.dirty-diverged.ahead-log.txt, coordination/release-intake/archive/codex-A01-shell-lazy-load.dirty-diverged.diffstat.txt, coordination/release-intake/archive/codex-A01-shell-lazy-load.dirty-diverged.patch; approvedBy=<owner>; approvedAt=<ISO-8601>; notes=<scope, exact paths if discard/removal, and checks>.",
+          "postApprovalChecks": [
+            "node coordination/release-intake/worktree-hygiene-dashboard.mjs",
+            "npm run release:dirty-map -- --reason \"A25 post-physical-approval codex-a01-shell-lazy-load\"",
+            "node coordination/release-intake/assert-physical-lifecycle-approval-requests-current.mjs",
+            "node coordination/release-intake/assert-worktree-lifecycle.mjs",
+            "node coordination/release-intake/assert-dirty-worktree-remediation-current.mjs"
+          ]
+        },
+        {
+          "approvalId": "codex-a02-a15-dashboard-adaptive-closure",
+          "queueKind": "physical-lifecycle",
+          "owner": "",
+          "branch": "codex/A02-A15-dashboard-adaptive-closure",
+          "state": "dirty-open-decision",
+          "currentBlocker": "dirty 30",
+          "entries": null,
+          "priority": null,
+          "allowedFinalStates": [
+            "owner-reviewed commit or package extraction",
+            "owner-approved exact-path discard",
+            "evidence archive with retained-worktree blocker",
+            "owner-approved worktree removal after dirty state closure",
+            "blocker"
+          ],
+          "actionKind": "owner-reviewed-worktree-package-required",
+          "executableNow": false,
+          "cleanupAuthorized": false,
+          "requiredAuthorizationText": "Authorize approvalId=codex-a02-a15-dashboard-adaptive-closure for branch=codex/A02-A15-dashboard-adaptive-closure; selectedFinalState=<one allowed final state in the physical lifecycle request>; evidenceReviewed=coordination/release-intake/archive/2026-06-30-A25-linked-worktree-archive-manifest.md, coordination/release-intake/archive/codex-A02-A15-dashboard-adaptive-closure.status.txt, coordination/release-intake/archive/codex-A02-A15-dashboard-adaptive-closure.diffstat.txt, coordination/release-intake/archive/codex-A02-A15-dashboard-adaptive-closure.patch, coordination/release-intake/archive/codex-A02-A15-dashboard-adaptive-closure.untracked.txt, coordination/release-intake/archive/2026-06-30-A25-dirty-diverged-branch-archive-manifest.md, coordination/release-intake/archive/codex-A02-A15-dashboard-adaptive-closure.dirty-diverged.ahead-log.txt, coordination/release-intake/archive/codex-A02-A15-dashboard-adaptive-closure.dirty-diverged.diffstat.txt, coordination/release-intake/archive/codex-A02-A15-dashboard-adaptive-closure.dirty-diverged.patch; approvedBy=<owner>; approvedAt=<ISO-8601>; notes=<scope, exact paths if discard/removal, and checks>.",
+          "postApprovalChecks": [
+            "node coordination/release-intake/worktree-hygiene-dashboard.mjs",
+            "npm run release:dirty-map -- --reason \"A25 post-physical-approval codex-a02-a15-dashboard-adaptive-closure\"",
+            "node coordination/release-intake/assert-physical-lifecycle-approval-requests-current.mjs",
+            "node coordination/release-intake/assert-worktree-lifecycle.mjs",
+            "node coordination/release-intake/assert-dirty-worktree-remediation-current.mjs"
+          ]
+        },
+        {
+          "approvalId": "codex-a03-roadmap-closure",
+          "queueKind": "physical-lifecycle",
+          "owner": "",
+          "branch": "codex/A03-roadmap-closure",
+          "state": "dirty-open-decision",
+          "currentBlocker": "dirty 30",
+          "entries": null,
+          "priority": null,
+          "allowedFinalStates": [
+            "owner-reviewed commit or package extraction",
+            "owner-approved exact-path discard",
+            "evidence archive with retained-worktree blocker",
+            "owner-approved worktree removal after dirty state closure",
+            "blocker"
+          ],
+          "actionKind": "owner-reviewed-worktree-package-required",
+          "executableNow": false,
+          "cleanupAuthorized": false,
+          "requiredAuthorizationText": "Authorize approvalId=codex-a03-roadmap-closure for branch=codex/A03-roadmap-closure; selectedFinalState=<one allowed final state in the physical lifecycle request>; evidenceReviewed=coordination/release-intake/archive/2026-06-30-A25-linked-worktree-archive-manifest.md, coordination/release-intake/archive/codex-A03-roadmap-closure.status.txt, coordination/release-intake/archive/codex-A03-roadmap-closure.diffstat.txt, coordination/release-intake/archive/codex-A03-roadmap-closure.patch, coordination/release-intake/archive/codex-A03-roadmap-closure.untracked.txt, coordination/release-intake/archive/2026-06-30-A25-dirty-diverged-branch-archive-manifest.md, coordination/release-intake/archive/codex-A03-roadmap-closure.dirty-diverged.ahead-log.txt, coordination/release-intake/archive/codex-A03-roadmap-closure.dirty-diverged.diffstat.txt, coordination/release-intake/archive/codex-A03-roadmap-closure.dirty-diverged.patch; approvedBy=<owner>; approvedAt=<ISO-8601>; notes=<scope, exact paths if discard/removal, and checks>.",
+          "postApprovalChecks": [
+            "node coordination/release-intake/worktree-hygiene-dashboard.mjs",
+            "npm run release:dirty-map -- --reason \"A25 post-physical-approval codex-a03-roadmap-closure\"",
+            "node coordination/release-intake/assert-physical-lifecycle-approval-requests-current.mjs",
+            "node coordination/release-intake/assert-worktree-lifecycle.mjs",
+            "node coordination/release-intake/assert-dirty-worktree-remediation-current.mjs"
+          ]
+        }
+      ],
+      "summary": {
+        "approvals": 8,
+        "ownerPackageApprovals": 4,
+        "physicalLifecycleApprovals": 4,
+        "entries": 92,
+        "executableRows": 0,
+        "cleanupAuthorizedRows": 0
+      }
+    },
+    {
+      "waveIndex": 4,
+      "waveId": "wave-04-practice-lesson-content",
+      "name": "A04/A05/A18/A21/A23/A24 practice, lesson, and content evidence",
+      "planTasks": [
+        "Task 5 Step 4",
+        "Task 5 Step 5",
+        "Task 6 Step 1"
+      ],
+      "purpose": "Close practice, lesson, content QA, RAG, integration, and exact-layer packages without unreviewed live promotion.",
+      "blockedUntil": "Owner authorizes every selected final state and exact Git operation needed for this wave.",
+      "ownerApprovals": [
+        {
+          "approvalId": "a04-practice-lead",
+          "queueKind": "root-owner-package",
+          "owner": "A04 practice lead",
+          "branch": "",
+          "state": "",
+          "currentBlocker": "root package has 59 dirty entries",
+          "entries": 59,
+          "priority": 3,
+          "allowedFinalStates": [
+            "reviewed commit",
+            "owner-approved exact-path discard",
+            "evidence archive",
+            "blocker"
+          ],
+          "actionKind": "owner-reviewed-commit-required",
+          "executableNow": false,
+          "cleanupAuthorized": false,
+          "requiredAuthorizationText": "Authorize approvalId=a04-practice-lead for owner=A04 practice lead; selectedFinalState=<reviewed commit | owner-approved exact-path discard | evidence archive | blocker>; evidenceReviewed=coordination/release-intake/latest-A25-effective-owner-a04-practice-lead.pathspec, coordination/release-intake/latest-A25-effective-work-order-a04-practice-lead.md; approvedBy=<owner>; approvedAt=<ISO-8601>; notes=<scope and checks>.",
+          "postApprovalChecks": [
+            "node coordination/release-intake/review-owner-pathspec.mjs coordination/release-intake/latest-A25-effective-owner-a04-practice-lead.pathspec --status",
+            "npm run release:dirty-map -- --reason \"A25 post-owner-approval a04-practice-lead\"",
+            "node coordination/release-intake/assert-owner-package-approval-requests-current.mjs",
+            "node coordination/release-intake/assert-dirty-worktree-remediation-current.mjs"
+          ]
+        },
+        {
+          "approvalId": "a05-lesson-lead",
+          "queueKind": "root-owner-package",
+          "owner": "A05 lesson lead",
+          "branch": "",
+          "state": "",
+          "currentBlocker": "root package has 128 dirty entries",
+          "entries": 128,
+          "priority": 3,
+          "allowedFinalStates": [
+            "reviewed commit",
+            "owner-approved exact-path discard",
+            "evidence archive",
+            "blocker"
+          ],
+          "actionKind": "owner-reviewed-commit-required",
+          "executableNow": false,
+          "cleanupAuthorized": false,
+          "requiredAuthorizationText": "Authorize approvalId=a05-lesson-lead for owner=A05 lesson lead; selectedFinalState=<reviewed commit | owner-approved exact-path discard | evidence archive | blocker>; evidenceReviewed=coordination/release-intake/latest-A25-effective-owner-a05-lesson-lead.pathspec, coordination/release-intake/latest-A25-effective-work-order-a05-lesson-lead.md; approvedBy=<owner>; approvedAt=<ISO-8601>; notes=<scope and checks>.",
+          "postApprovalChecks": [
+            "node coordination/release-intake/review-owner-pathspec.mjs coordination/release-intake/latest-A25-effective-owner-a05-lesson-lead.pathspec --status",
+            "npm run release:dirty-map -- --reason \"A25 post-owner-approval a05-lesson-lead\"",
+            "node coordination/release-intake/assert-owner-package-approval-requests-current.mjs",
+            "node coordination/release-intake/assert-dirty-worktree-remediation-current.mjs"
+          ]
+        },
+        {
+          "approvalId": "a18-curriculum-qa-a21-content-pipeline",
+          "queueKind": "root-owner-package",
+          "owner": "A18 curriculum QA / A21 content pipeline",
+          "branch": "",
+          "state": "",
+          "currentBlocker": "root package has 30 dirty entries",
+          "entries": 30,
+          "priority": 3,
+          "allowedFinalStates": [
+            "reviewed commit",
+            "owner-approved exact-path discard",
+            "evidence archive",
+            "blocker"
+          ],
+          "actionKind": "owner-reviewed-commit-required",
+          "executableNow": false,
+          "cleanupAuthorized": false,
+          "requiredAuthorizationText": "Authorize approvalId=a18-curriculum-qa-a21-content-pipeline for owner=A18 curriculum QA / A21 content pipeline; selectedFinalState=<reviewed commit | owner-approved exact-path discard | evidence archive | blocker>; evidenceReviewed=coordination/release-intake/latest-A25-effective-owner-a18-curriculum-qa-a21-content-pipeline.pathspec, coordination/release-intake/latest-A25-effective-work-order-a18-curriculum-qa-a21-content-pipeline.md; approvedBy=<owner>; approvedAt=<ISO-8601>; notes=<scope and checks>.",
+          "postApprovalChecks": [
+            "node coordination/release-intake/review-owner-pathspec.mjs coordination/release-intake/latest-A25-effective-owner-a18-curriculum-qa-a21-content-pipeline.pathspec --status",
+            "npm run release:dirty-map -- --reason \"A25 post-owner-approval a18-curriculum-qa-a21-content-pipeline\"",
+            "node coordination/release-intake/assert-owner-package-approval-requests-current.mjs",
+            "node coordination/release-intake/assert-dirty-worktree-remediation-current.mjs"
+          ]
+        },
+        {
+          "approvalId": "a21-content-pipeline-and-rag-operations",
+          "queueKind": "root-owner-package",
+          "owner": "A21 content pipeline and RAG operations",
+          "branch": "",
+          "state": "",
+          "currentBlocker": "root package has 74 dirty entries",
+          "entries": 74,
+          "priority": 3,
+          "allowedFinalStates": [
+            "reviewed commit",
+            "owner-approved exact-path discard",
+            "evidence archive",
+            "blocker"
+          ],
+          "actionKind": "owner-reviewed-commit-required",
+          "executableNow": false,
+          "cleanupAuthorized": false,
+          "requiredAuthorizationText": "Authorize approvalId=a21-content-pipeline-and-rag-operations for owner=A21 content pipeline and RAG operations; selectedFinalState=<reviewed commit | owner-approved exact-path discard | evidence archive | blocker>; evidenceReviewed=coordination/release-intake/latest-A25-effective-owner-a21-content-pipeline-and-rag-operations.pathspec, coordination/release-intake/latest-A25-effective-work-order-a21-content-pipeline-and-rag-operations.md; approvedBy=<owner>; approvedAt=<ISO-8601>; notes=<scope and checks>.",
+          "postApprovalChecks": [
+            "node coordination/release-intake/review-owner-pathspec.mjs coordination/release-intake/latest-A25-effective-owner-a21-content-pipeline-and-rag-operations.pathspec --status",
+            "npm run release:dirty-map -- --reason \"A25 post-owner-approval a21-content-pipeline-and-rag-operations\"",
+            "node coordination/release-intake/assert-owner-package-approval-requests-current.mjs",
+            "node coordination/release-intake/assert-dirty-worktree-remediation-current.mjs"
+          ]
+        },
+        {
+          "approvalId": "a23-integration-and-promotion-lead",
+          "queueKind": "root-owner-package",
+          "owner": "A23 integration and promotion lead",
+          "branch": "",
+          "state": "",
+          "currentBlocker": "root package has 2 dirty entries",
+          "entries": 2,
+          "priority": 4,
+          "allowedFinalStates": [
+            "reviewed commit",
+            "owner-approved exact-path discard",
+            "evidence archive",
+            "blocker"
+          ],
+          "actionKind": "owner-reviewed-commit-required",
+          "executableNow": false,
+          "cleanupAuthorized": false,
+          "requiredAuthorizationText": "Authorize approvalId=a23-integration-and-promotion-lead for owner=A23 integration and promotion lead; selectedFinalState=<reviewed commit | owner-approved exact-path discard | evidence archive | blocker>; evidenceReviewed=coordination/release-intake/latest-A25-effective-owner-a23-integration-and-promotion-lead.pathspec, coordination/release-intake/latest-A25-effective-work-order-a23-integration-and-promotion-lead.md; approvedBy=<owner>; approvedAt=<ISO-8601>; notes=<scope and checks>.",
+          "postApprovalChecks": [
+            "node coordination/release-intake/review-owner-pathspec.mjs coordination/release-intake/latest-A25-effective-owner-a23-integration-and-promotion-lead.pathspec --status",
+            "npm run release:dirty-map -- --reason \"A25 post-owner-approval a23-integration-and-promotion-lead\"",
+            "node coordination/release-intake/assert-owner-package-approval-requests-current.mjs",
+            "node coordination/release-intake/assert-dirty-worktree-remediation-current.mjs"
+          ]
+        },
+        {
+          "approvalId": "a24-illustration-exact-layer",
+          "queueKind": "root-owner-package",
+          "owner": "A24 illustration exact-layer",
+          "branch": "",
+          "state": "",
+          "currentBlocker": "root package has 6 dirty entries",
+          "entries": 6,
+          "priority": 4,
+          "allowedFinalStates": [
+            "reviewed commit",
+            "owner-approved exact-path discard",
+            "evidence archive",
+            "blocker"
+          ],
+          "actionKind": "owner-reviewed-commit-required",
+          "executableNow": false,
+          "cleanupAuthorized": false,
+          "requiredAuthorizationText": "Authorize approvalId=a24-illustration-exact-layer for owner=A24 illustration exact-layer; selectedFinalState=<reviewed commit | owner-approved exact-path discard | evidence archive | blocker>; evidenceReviewed=coordination/release-intake/latest-A25-effective-owner-a24-illustration-exact-layer.pathspec, coordination/release-intake/latest-A25-effective-work-order-a24-illustration-exact-layer.md; approvedBy=<owner>; approvedAt=<ISO-8601>; notes=<scope and checks>.",
+          "postApprovalChecks": [
+            "node coordination/release-intake/review-owner-pathspec.mjs coordination/release-intake/latest-A25-effective-owner-a24-illustration-exact-layer.pathspec --status",
+            "npm run release:dirty-map -- --reason \"A25 post-owner-approval a24-illustration-exact-layer\"",
+            "node coordination/release-intake/assert-owner-package-approval-requests-current.mjs",
+            "node coordination/release-intake/assert-dirty-worktree-remediation-current.mjs"
+          ]
+        }
+      ],
+      "physicalLifecycleApprovals": [
+        {
+          "approvalId": "codex-california-practice-beta-clean",
+          "queueKind": "physical-lifecycle",
+          "owner": "",
+          "branch": "codex/california-practice-beta-clean",
+          "state": "clean-diverged-open-decision",
+          "currentBlocker": "behind 14, ahead 1",
+          "entries": null,
+          "priority": null,
+          "allowedFinalStates": [
+            "owner-approved PR or review package",
+            "archive-state record",
+            "owner-approved branch or worktree retirement",
+            "blocker"
+          ],
+          "actionKind": "owner-approved-pr-or-review-package-required",
+          "executableNow": false,
+          "cleanupAuthorized": false,
+          "requiredAuthorizationText": "Authorize approvalId=codex-california-practice-beta-clean for branch=codex/california-practice-beta-clean; selectedFinalState=<one allowed final state in the physical lifecycle request>; evidenceReviewed=coordination/release-intake/archive/2026-06-30-A25-clean-diverged-branch-archive-manifest.md, coordination/release-intake/archive/codex-california-practice-beta-clean.clean-diverged.status.txt, coordination/release-intake/archive/codex-california-practice-beta-clean.clean-diverged.ahead-log.txt, coordination/release-intake/archive/codex-california-practice-beta-clean.clean-diverged.name-status.txt, coordination/release-intake/archive/codex-california-practice-beta-clean.clean-diverged.diffstat.txt, coordination/release-intake/archive/codex-california-practice-beta-clean.clean-diverged.patch, coordination/release-intake/archive/codex-california-practice-beta-clean.clean-diverged.untracked.txt; approvedBy=<owner>; approvedAt=<ISO-8601>; notes=<scope, exact paths if discard/removal, and checks>.",
+          "postApprovalChecks": [
+            "node coordination/release-intake/worktree-hygiene-dashboard.mjs",
+            "npm run release:dirty-map -- --reason \"A25 post-physical-approval codex-california-practice-beta-clean\"",
+            "node coordination/release-intake/assert-physical-lifecycle-approval-requests-current.mjs",
+            "node coordination/release-intake/assert-worktree-lifecycle.mjs",
+            "node coordination/release-intake/assert-dirty-worktree-remediation-current.mjs"
+          ]
+        },
+        {
+          "approvalId": "codex-a04-practice-closure",
+          "queueKind": "physical-lifecycle",
+          "owner": "",
+          "branch": "codex/A04-practice-closure",
+          "state": "dirty-open-decision",
+          "currentBlocker": "dirty 56",
+          "entries": null,
+          "priority": null,
+          "allowedFinalStates": [
+            "owner-reviewed commit or package extraction",
+            "owner-approved exact-path discard",
+            "evidence archive with retained-worktree blocker",
+            "owner-approved worktree removal after dirty state closure",
+            "blocker"
+          ],
+          "actionKind": "owner-reviewed-worktree-package-required",
+          "executableNow": false,
+          "cleanupAuthorized": false,
+          "requiredAuthorizationText": "Authorize approvalId=codex-a04-practice-closure for branch=codex/A04-practice-closure; selectedFinalState=<one allowed final state in the physical lifecycle request>; evidenceReviewed=coordination/release-intake/archive/2026-06-30-A25-linked-worktree-archive-manifest.md, coordination/release-intake/archive/codex-A04-practice-closure.status.txt, coordination/release-intake/archive/codex-A04-practice-closure.diffstat.txt, coordination/release-intake/archive/codex-A04-practice-closure.patch, coordination/release-intake/archive/codex-A04-practice-closure.untracked.txt, coordination/release-intake/archive/2026-06-30-A25-dirty-diverged-branch-archive-manifest.md, coordination/release-intake/archive/codex-A04-practice-closure.dirty-diverged.ahead-log.txt, coordination/release-intake/archive/codex-A04-practice-closure.dirty-diverged.diffstat.txt, coordination/release-intake/archive/codex-A04-practice-closure.dirty-diverged.patch; approvedBy=<owner>; approvedAt=<ISO-8601>; notes=<scope, exact paths if discard/removal, and checks>.",
+          "postApprovalChecks": [
+            "node coordination/release-intake/worktree-hygiene-dashboard.mjs",
+            "npm run release:dirty-map -- --reason \"A25 post-physical-approval codex-a04-practice-closure\"",
+            "node coordination/release-intake/assert-physical-lifecycle-approval-requests-current.mjs",
+            "node coordination/release-intake/assert-worktree-lifecycle.mjs",
+            "node coordination/release-intake/assert-dirty-worktree-remediation-current.mjs"
+          ]
+        },
+        {
+          "approvalId": "codex-a05-lesson-checklist-p0",
+          "queueKind": "physical-lifecycle",
+          "owner": "",
+          "branch": "codex/A05-lesson-checklist-p0",
+          "state": "clean-diverged-open-decision",
+          "currentBlocker": "behind 2, ahead 0",
+          "entries": null,
+          "priority": null,
+          "allowedFinalStates": [
+            "owner-approved PR or review package",
+            "archive-state record",
+            "owner-approved branch or worktree retirement",
+            "blocker"
+          ],
+          "actionKind": "owner-approved-pr-or-review-package-required",
+          "executableNow": false,
+          "cleanupAuthorized": false,
+          "requiredAuthorizationText": "Authorize approvalId=codex-a05-lesson-checklist-p0 for branch=codex/A05-lesson-checklist-p0; selectedFinalState=<one allowed final state in the physical lifecycle request>; evidenceReviewed=coordination/release-intake/archive/2026-06-30-A25-clean-diverged-branch-archive-manifest.md, coordination/release-intake/archive/codex-A05-lesson-checklist-p0.clean-diverged.status.txt, coordination/release-intake/archive/codex-A05-lesson-checklist-p0.clean-diverged.ahead-log.txt, coordination/release-intake/archive/codex-A05-lesson-checklist-p0.clean-diverged.name-status.txt, coordination/release-intake/archive/codex-A05-lesson-checklist-p0.clean-diverged.diffstat.txt, coordination/release-intake/archive/codex-A05-lesson-checklist-p0.clean-diverged.patch, coordination/release-intake/archive/codex-A05-lesson-checklist-p0.clean-diverged.untracked.txt; approvedBy=<owner>; approvedAt=<ISO-8601>; notes=<scope, exact paths if discard/removal, and checks>.",
+          "postApprovalChecks": [
+            "node coordination/release-intake/worktree-hygiene-dashboard.mjs",
+            "npm run release:dirty-map -- --reason \"A25 post-physical-approval codex-a05-lesson-checklist-p0\"",
+            "node coordination/release-intake/assert-physical-lifecycle-approval-requests-current.mjs",
+            "node coordination/release-intake/assert-worktree-lifecycle.mjs",
+            "node coordination/release-intake/assert-dirty-worktree-remediation-current.mjs"
+          ]
+        },
+        {
+          "approvalId": "codex-a05-lesson-closure",
+          "queueKind": "physical-lifecycle",
+          "owner": "",
+          "branch": "codex/A05-lesson-closure",
+          "state": "dirty-open-decision",
+          "currentBlocker": "dirty 126",
+          "entries": null,
+          "priority": null,
+          "allowedFinalStates": [
+            "owner-reviewed commit or package extraction",
+            "owner-approved exact-path discard",
+            "evidence archive with retained-worktree blocker",
+            "owner-approved worktree removal after dirty state closure",
+            "blocker"
+          ],
+          "actionKind": "owner-reviewed-worktree-package-required",
+          "executableNow": false,
+          "cleanupAuthorized": false,
+          "requiredAuthorizationText": "Authorize approvalId=codex-a05-lesson-closure for branch=codex/A05-lesson-closure; selectedFinalState=<one allowed final state in the physical lifecycle request>; evidenceReviewed=coordination/release-intake/archive/2026-06-30-A25-linked-worktree-archive-manifest.md, coordination/release-intake/archive/codex-A05-lesson-closure.status.txt, coordination/release-intake/archive/codex-A05-lesson-closure.diffstat.txt, coordination/release-intake/archive/codex-A05-lesson-closure.patch, coordination/release-intake/archive/codex-A05-lesson-closure.untracked.txt, coordination/release-intake/archive/2026-06-30-A25-dirty-diverged-branch-archive-manifest.md, coordination/release-intake/archive/codex-A05-lesson-closure.dirty-diverged.ahead-log.txt, coordination/release-intake/archive/codex-A05-lesson-closure.dirty-diverged.diffstat.txt, coordination/release-intake/archive/codex-A05-lesson-closure.dirty-diverged.patch; approvedBy=<owner>; approvedAt=<ISO-8601>; notes=<scope, exact paths if discard/removal, and checks>.",
+          "postApprovalChecks": [
+            "node coordination/release-intake/worktree-hygiene-dashboard.mjs",
+            "npm run release:dirty-map -- --reason \"A25 post-physical-approval codex-a05-lesson-closure\"",
+            "node coordination/release-intake/assert-physical-lifecycle-approval-requests-current.mjs",
+            "node coordination/release-intake/assert-worktree-lifecycle.mjs",
+            "node coordination/release-intake/assert-dirty-worktree-remediation-current.mjs"
+          ]
+        },
+        {
+          "approvalId": "codex-a05-lesson-pep-load",
+          "queueKind": "physical-lifecycle",
+          "owner": "",
+          "branch": "codex/A05-lesson-pep-load",
+          "state": "clean-diverged-open-decision",
+          "currentBlocker": "behind 2, ahead 0",
+          "entries": null,
+          "priority": null,
+          "allowedFinalStates": [
+            "owner-approved PR or review package",
+            "archive-state record",
+            "owner-approved branch or worktree retirement",
+            "blocker"
+          ],
+          "actionKind": "owner-approved-pr-or-review-package-required",
+          "executableNow": false,
+          "cleanupAuthorized": false,
+          "requiredAuthorizationText": "Authorize approvalId=codex-a05-lesson-pep-load for branch=codex/A05-lesson-pep-load; selectedFinalState=<one allowed final state in the physical lifecycle request>; evidenceReviewed=coordination/release-intake/archive/2026-06-30-A25-clean-diverged-branch-archive-manifest.md, coordination/release-intake/archive/codex-A05-lesson-pep-load.clean-diverged.status.txt, coordination/release-intake/archive/codex-A05-lesson-pep-load.clean-diverged.ahead-log.txt, coordination/release-intake/archive/codex-A05-lesson-pep-load.clean-diverged.name-status.txt, coordination/release-intake/archive/codex-A05-lesson-pep-load.clean-diverged.diffstat.txt, coordination/release-intake/archive/codex-A05-lesson-pep-load.clean-diverged.patch, coordination/release-intake/archive/codex-A05-lesson-pep-load.clean-diverged.untracked.txt; approvedBy=<owner>; approvedAt=<ISO-8601>; notes=<scope, exact paths if discard/removal, and checks>.",
+          "postApprovalChecks": [
+            "node coordination/release-intake/worktree-hygiene-dashboard.mjs",
+            "npm run release:dirty-map -- --reason \"A25 post-physical-approval codex-a05-lesson-pep-load\"",
+            "node coordination/release-intake/assert-physical-lifecycle-approval-requests-current.mjs",
+            "node coordination/release-intake/assert-worktree-lifecycle.mjs",
+            "node coordination/release-intake/assert-dirty-worktree-remediation-current.mjs"
+          ]
+        },
+        {
+          "approvalId": "codex-a05-next-item-button-scroll",
+          "queueKind": "physical-lifecycle",
+          "owner": "",
+          "branch": "codex/A05-next-item-button-scroll",
+          "state": "clean-diverged-open-decision",
+          "currentBlocker": "behind 2, ahead 0",
+          "entries": null,
+          "priority": null,
+          "allowedFinalStates": [
+            "owner-approved PR or review package",
+            "archive-state record",
+            "owner-approved branch or worktree retirement",
+            "blocker"
+          ],
+          "actionKind": "owner-approved-pr-or-review-package-required",
+          "executableNow": false,
+          "cleanupAuthorized": false,
+          "requiredAuthorizationText": "Authorize approvalId=codex-a05-next-item-button-scroll for branch=codex/A05-next-item-button-scroll; selectedFinalState=<one allowed final state in the physical lifecycle request>; evidenceReviewed=coordination/release-intake/archive/2026-06-30-A25-clean-diverged-branch-archive-manifest.md, coordination/release-intake/archive/codex-A05-next-item-button-scroll.clean-diverged.status.txt, coordination/release-intake/archive/codex-A05-next-item-button-scroll.clean-diverged.ahead-log.txt, coordination/release-intake/archive/codex-A05-next-item-button-scroll.clean-diverged.name-status.txt, coordination/release-intake/archive/codex-A05-next-item-button-scroll.clean-diverged.diffstat.txt, coordination/release-intake/archive/codex-A05-next-item-button-scroll.clean-diverged.patch, coordination/release-intake/archive/codex-A05-next-item-button-scroll.clean-diverged.untracked.txt; approvedBy=<owner>; approvedAt=<ISO-8601>; notes=<scope, exact paths if discard/removal, and checks>.",
+          "postApprovalChecks": [
+            "node coordination/release-intake/worktree-hygiene-dashboard.mjs",
+            "npm run release:dirty-map -- --reason \"A25 post-physical-approval codex-a05-next-item-button-scroll\"",
+            "node coordination/release-intake/assert-physical-lifecycle-approval-requests-current.mjs",
+            "node coordination/release-intake/assert-worktree-lifecycle.mjs",
+            "node coordination/release-intake/assert-dirty-worktree-remediation-current.mjs"
+          ]
+        },
+        {
+          "approvalId": "codex-a18-a21-content-evidence-closure",
+          "queueKind": "physical-lifecycle",
+          "owner": "",
+          "branch": "codex/A18-A21-content-evidence-closure",
+          "state": "dirty-open-decision",
+          "currentBlocker": "dirty 222",
+          "entries": null,
+          "priority": null,
+          "allowedFinalStates": [
+            "owner-reviewed commit or package extraction",
+            "owner-approved exact-path discard",
+            "evidence archive with retained-worktree blocker",
+            "owner-approved worktree removal after dirty state closure",
+            "blocker"
+          ],
+          "actionKind": "owner-reviewed-worktree-package-required",
+          "executableNow": false,
+          "cleanupAuthorized": false,
+          "requiredAuthorizationText": "Authorize approvalId=codex-a18-a21-content-evidence-closure for branch=codex/A18-A21-content-evidence-closure; selectedFinalState=<one allowed final state in the physical lifecycle request>; evidenceReviewed=coordination/release-intake/archive/2026-06-30-A25-linked-worktree-archive-manifest.md, coordination/release-intake/archive/codex-A18-A21-content-evidence-closure.status.txt, coordination/release-intake/archive/codex-A18-A21-content-evidence-closure.diffstat.txt, coordination/release-intake/archive/codex-A18-A21-content-evidence-closure.patch, coordination/release-intake/archive/codex-A18-A21-content-evidence-closure.untracked.txt, coordination/release-intake/archive/2026-06-30-A25-dirty-diverged-branch-archive-manifest.md, coordination/release-intake/archive/codex-A18-A21-content-evidence-closure.dirty-diverged.ahead-log.txt, coordination/release-intake/archive/codex-A18-A21-content-evidence-closure.dirty-diverged.diffstat.txt, coordination/release-intake/archive/codex-A18-A21-content-evidence-closure.dirty-diverged.patch; approvedBy=<owner>; approvedAt=<ISO-8601>; notes=<scope, exact paths if discard/removal, and checks>.",
+          "postApprovalChecks": [
+            "node coordination/release-intake/worktree-hygiene-dashboard.mjs",
+            "npm run release:dirty-map -- --reason \"A25 post-physical-approval codex-a18-a21-content-evidence-closure\"",
+            "node coordination/release-intake/assert-physical-lifecycle-approval-requests-current.mjs",
+            "node coordination/release-intake/assert-worktree-lifecycle.mjs",
+            "node coordination/release-intake/assert-dirty-worktree-remediation-current.mjs"
+          ]
+        }
+      ],
+      "summary": {
+        "approvals": 13,
+        "ownerPackageApprovals": 6,
+        "physicalLifecycleApprovals": 7,
+        "entries": 299,
+        "executableRows": 0,
+        "cleanupAuthorizedRows": 0
+      }
+    },
+    {
+      "waveIndex": 5,
+      "waveId": "wave-05-visualization-ai-runtime",
+      "name": "A06/A07/A09/A11/A13/A14/A16/A17/A20 runtime and QA surfaces",
+      "planTasks": [
+        "Task 5 Step 6",
+        "Task 5 Step 7",
+        "Task 5 Step 8",
+        "Task 5 Step 9",
+        "Task 6 Step 2"
+      ],
+      "purpose": "Close the remaining visualization, AI tutor, copy, QA, console, research, motivation, and game packages.",
+      "blockedUntil": "Owner authorizes every selected final state and exact Git operation needed for this wave.",
+      "ownerApprovals": [
+        {
+          "approvalId": "a06-visualization-lead",
+          "queueKind": "root-owner-package",
+          "owner": "A06 visualization lead",
+          "branch": "",
+          "state": "",
+          "currentBlocker": "root package has 460 dirty entries",
+          "entries": 460,
+          "priority": 2,
+          "allowedFinalStates": [
+            "reviewed commit",
+            "owner-approved exact-path discard",
+            "evidence archive",
+            "blocker"
+          ],
+          "actionKind": "owner-reviewed-commit-required",
+          "executableNow": false,
+          "cleanupAuthorized": false,
+          "requiredAuthorizationText": "Authorize approvalId=a06-visualization-lead for owner=A06 visualization lead; selectedFinalState=<reviewed commit | owner-approved exact-path discard | evidence archive | blocker>; evidenceReviewed=coordination/release-intake/latest-A25-effective-owner-a06-visualization-lead.pathspec, coordination/release-intake/latest-A25-effective-work-order-a06-visualization-lead.md; approvedBy=<owner>; approvedAt=<ISO-8601>; notes=<scope and checks>.",
+          "postApprovalChecks": [
+            "node coordination/release-intake/review-owner-pathspec.mjs coordination/release-intake/latest-A25-effective-owner-a06-visualization-lead.pathspec --status",
+            "npm run release:dirty-map -- --reason \"A25 post-owner-approval a06-visualization-lead\"",
+            "node coordination/release-intake/assert-owner-package-approval-requests-current.mjs",
+            "node coordination/release-intake/assert-dirty-worktree-remediation-current.mjs"
+          ]
+        },
+        {
+          "approvalId": "a07-ai-tutor-lead",
+          "queueKind": "root-owner-package",
+          "owner": "A07 AI tutor lead",
+          "branch": "",
+          "state": "",
+          "currentBlocker": "root package has 12 dirty entries",
+          "entries": 12,
+          "priority": 4,
+          "allowedFinalStates": [
+            "reviewed commit",
+            "owner-approved exact-path discard",
+            "evidence archive",
+            "blocker"
+          ],
+          "actionKind": "owner-reviewed-commit-required",
+          "executableNow": false,
+          "cleanupAuthorized": false,
+          "requiredAuthorizationText": "Authorize approvalId=a07-ai-tutor-lead for owner=A07 AI tutor lead; selectedFinalState=<reviewed commit | owner-approved exact-path discard | evidence archive | blocker>; evidenceReviewed=coordination/release-intake/latest-A25-effective-owner-a07-ai-tutor-lead.pathspec, coordination/release-intake/latest-A25-effective-work-order-a07-ai-tutor-lead.md; approvedBy=<owner>; approvedAt=<ISO-8601>; notes=<scope and checks>.",
+          "postApprovalChecks": [
+            "node coordination/release-intake/review-owner-pathspec.mjs coordination/release-intake/latest-A25-effective-owner-a07-ai-tutor-lead.pathspec --status",
+            "npm run release:dirty-map -- --reason \"A25 post-owner-approval a07-ai-tutor-lead\"",
+            "node coordination/release-intake/assert-owner-package-approval-requests-current.mjs",
+            "node coordination/release-intake/assert-dirty-worktree-remediation-current.mjs"
+          ]
+        },
+        {
+          "approvalId": "a09-copy-i18n-accessibility",
+          "queueKind": "root-owner-package",
+          "owner": "A09 copy, i18n, accessibility",
+          "branch": "",
+          "state": "",
+          "currentBlocker": "root package has 5 dirty entries",
+          "entries": 5,
+          "priority": 4,
+          "allowedFinalStates": [
+            "reviewed commit",
+            "owner-approved exact-path discard",
+            "evidence archive",
+            "blocker"
+          ],
+          "actionKind": "owner-reviewed-commit-required",
+          "executableNow": false,
+          "cleanupAuthorized": false,
+          "requiredAuthorizationText": "Authorize approvalId=a09-copy-i18n-accessibility for owner=A09 copy, i18n, accessibility; selectedFinalState=<reviewed commit | owner-approved exact-path discard | evidence archive | blocker>; evidenceReviewed=coordination/release-intake/latest-A25-effective-owner-a09-copy-i18n-accessibility.pathspec, coordination/release-intake/latest-A25-effective-work-order-a09-copy-i18n-accessibility.md; approvedBy=<owner>; approvedAt=<ISO-8601>; notes=<scope and checks>.",
+          "postApprovalChecks": [
+            "node coordination/release-intake/review-owner-pathspec.mjs coordination/release-intake/latest-A25-effective-owner-a09-copy-i18n-accessibility.pathspec --status",
+            "npm run release:dirty-map -- --reason \"A25 post-owner-approval a09-copy-i18n-accessibility\"",
+            "node coordination/release-intake/assert-owner-package-approval-requests-current.mjs",
+            "node coordination/release-intake/assert-dirty-worktree-remediation-current.mjs"
+          ]
+        },
+        {
+          "approvalId": "a11-qa-and-release-quality",
+          "queueKind": "root-owner-package",
+          "owner": "A11 QA and release quality",
+          "branch": "",
+          "state": "",
+          "currentBlocker": "root package has 62 dirty entries",
+          "entries": 62,
+          "priority": 2,
+          "allowedFinalStates": [
+            "reviewed commit",
+            "owner-approved exact-path discard",
+            "evidence archive",
+            "blocker"
+          ],
+          "actionKind": "owner-reviewed-commit-required",
+          "executableNow": false,
+          "cleanupAuthorized": false,
+          "requiredAuthorizationText": "Authorize approvalId=a11-qa-and-release-quality for owner=A11 QA and release quality; selectedFinalState=<reviewed commit | owner-approved exact-path discard | evidence archive | blocker>; evidenceReviewed=coordination/release-intake/latest-A25-effective-owner-a11-qa-and-release-quality.pathspec, coordination/release-intake/latest-A25-effective-work-order-a11-qa-and-release-quality.md; approvedBy=<owner>; approvedAt=<ISO-8601>; notes=<scope and checks>.",
+          "postApprovalChecks": [
+            "node coordination/release-intake/review-owner-pathspec.mjs coordination/release-intake/latest-A25-effective-owner-a11-qa-and-release-quality.pathspec --status",
+            "npm run release:dirty-map -- --reason \"A25 post-owner-approval a11-qa-and-release-quality\"",
+            "node coordination/release-intake/assert-owner-package-approval-requests-current.mjs",
+            "node coordination/release-intake/assert-dirty-worktree-remediation-current.mjs"
+          ]
+        },
+        {
+          "approvalId": "a13-teacher-console",
+          "queueKind": "root-owner-package",
+          "owner": "A13 teacher console",
+          "branch": "",
+          "state": "",
+          "currentBlocker": "root package has 36 dirty entries",
+          "entries": 36,
+          "priority": 4,
+          "allowedFinalStates": [
+            "reviewed commit",
+            "owner-approved exact-path discard",
+            "evidence archive",
+            "blocker"
+          ],
+          "actionKind": "owner-reviewed-commit-required",
+          "executableNow": false,
+          "cleanupAuthorized": false,
+          "requiredAuthorizationText": "Authorize approvalId=a13-teacher-console for owner=A13 teacher console; selectedFinalState=<reviewed commit | owner-approved exact-path discard | evidence archive | blocker>; evidenceReviewed=coordination/release-intake/latest-A25-effective-owner-a13-teacher-console.pathspec, coordination/release-intake/latest-A25-effective-work-order-a13-teacher-console.md; approvedBy=<owner>; approvedAt=<ISO-8601>; notes=<scope and checks>.",
+          "postApprovalChecks": [
+            "node coordination/release-intake/review-owner-pathspec.mjs coordination/release-intake/latest-A25-effective-owner-a13-teacher-console.pathspec --status",
+            "npm run release:dirty-map -- --reason \"A25 post-owner-approval a13-teacher-console\"",
+            "node coordination/release-intake/assert-owner-package-approval-requests-current.mjs",
+            "node coordination/release-intake/assert-dirty-worktree-remediation-current.mjs"
+          ]
+        },
+        {
+          "approvalId": "a14-parent-console",
+          "queueKind": "root-owner-package",
+          "owner": "A14 parent console",
+          "branch": "",
+          "state": "",
+          "currentBlocker": "root package has 7 dirty entries",
+          "entries": 7,
+          "priority": 4,
+          "allowedFinalStates": [
+            "reviewed commit",
+            "owner-approved exact-path discard",
+            "evidence archive",
+            "blocker"
+          ],
+          "actionKind": "owner-reviewed-commit-required",
+          "executableNow": false,
+          "cleanupAuthorized": false,
+          "requiredAuthorizationText": "Authorize approvalId=a14-parent-console for owner=A14 parent console; selectedFinalState=<reviewed commit | owner-approved exact-path discard | evidence archive | blocker>; evidenceReviewed=coordination/release-intake/latest-A25-effective-owner-a14-parent-console.pathspec, coordination/release-intake/latest-A25-effective-work-order-a14-parent-console.md; approvedBy=<owner>; approvedAt=<ISO-8601>; notes=<scope and checks>.",
+          "postApprovalChecks": [
+            "node coordination/release-intake/review-owner-pathspec.mjs coordination/release-intake/latest-A25-effective-owner-a14-parent-console.pathspec --status",
+            "npm run release:dirty-map -- --reason \"A25 post-owner-approval a14-parent-console\"",
+            "node coordination/release-intake/assert-owner-package-approval-requests-current.mjs",
+            "node coordination/release-intake/assert-dirty-worktree-remediation-current.mjs"
+          ]
+        },
+        {
+          "approvalId": "a17-gamification-and-motivation",
+          "queueKind": "root-owner-package",
+          "owner": "A17 gamification and motivation",
+          "branch": "",
+          "state": "",
+          "currentBlocker": "root package has 5 dirty entries",
+          "entries": 5,
+          "priority": 4,
+          "allowedFinalStates": [
+            "reviewed commit",
+            "owner-approved exact-path discard",
+            "evidence archive",
+            "blocker"
+          ],
+          "actionKind": "owner-reviewed-commit-required",
+          "executableNow": false,
+          "cleanupAuthorized": false,
+          "requiredAuthorizationText": "Authorize approvalId=a17-gamification-and-motivation for owner=A17 gamification and motivation; selectedFinalState=<reviewed commit | owner-approved exact-path discard | evidence archive | blocker>; evidenceReviewed=coordination/release-intake/latest-A25-effective-owner-a17-gamification-and-motivation.pathspec, coordination/release-intake/latest-A25-effective-work-order-a17-gamification-and-motivation.md; approvedBy=<owner>; approvedAt=<ISO-8601>; notes=<scope and checks>.",
+          "postApprovalChecks": [
+            "node coordination/release-intake/review-owner-pathspec.mjs coordination/release-intake/latest-A25-effective-owner-a17-gamification-and-motivation.pathspec --status",
+            "npm run release:dirty-map -- --reason \"A25 post-owner-approval a17-gamification-and-motivation\"",
+            "node coordination/release-intake/assert-owner-package-approval-requests-current.mjs",
+            "node coordination/release-intake/assert-dirty-worktree-remediation-current.mjs"
+          ]
+        },
+        {
+          "approvalId": "a20-game-design-and-game-based-learning",
+          "queueKind": "root-owner-package",
+          "owner": "A20 game design and game-based learning",
+          "branch": "",
+          "state": "",
+          "currentBlocker": "root package has 16 dirty entries",
+          "entries": 16,
+          "priority": 4,
+          "allowedFinalStates": [
+            "reviewed commit",
+            "owner-approved exact-path discard",
+            "evidence archive",
+            "blocker"
+          ],
+          "actionKind": "owner-reviewed-commit-required",
+          "executableNow": false,
+          "cleanupAuthorized": false,
+          "requiredAuthorizationText": "Authorize approvalId=a20-game-design-and-game-based-learning for owner=A20 game design and game-based learning; selectedFinalState=<reviewed commit | owner-approved exact-path discard | evidence archive | blocker>; evidenceReviewed=coordination/release-intake/latest-A25-effective-owner-a20-game-design-and-game-based-learning.pathspec, coordination/release-intake/latest-A25-effective-work-order-a20-game-design-and-game-based-learning.md; approvedBy=<owner>; approvedAt=<ISO-8601>; notes=<scope and checks>.",
+          "postApprovalChecks": [
+            "node coordination/release-intake/review-owner-pathspec.mjs coordination/release-intake/latest-A25-effective-owner-a20-game-design-and-game-based-learning.pathspec --status",
+            "npm run release:dirty-map -- --reason \"A25 post-owner-approval a20-game-design-and-game-based-learning\"",
+            "node coordination/release-intake/assert-owner-package-approval-requests-current.mjs",
+            "node coordination/release-intake/assert-dirty-worktree-remediation-current.mjs"
+          ]
+        }
+      ],
+      "physicalLifecycleApprovals": [
+        {
+          "approvalId": "codex-a06-manim-three-closure",
+          "queueKind": "physical-lifecycle",
+          "owner": "",
+          "branch": "codex/A06-manim-three-closure",
+          "state": "dirty-open-decision",
+          "currentBlocker": "dirty 351",
+          "entries": null,
+          "priority": null,
+          "allowedFinalStates": [
+            "owner-reviewed commit or package extraction",
+            "owner-approved exact-path discard",
+            "evidence archive with retained-worktree blocker",
+            "owner-approved worktree removal after dirty state closure",
+            "blocker"
+          ],
+          "actionKind": "owner-reviewed-worktree-package-required",
+          "executableNow": false,
+          "cleanupAuthorized": false,
+          "requiredAuthorizationText": "Authorize approvalId=codex-a06-manim-three-closure for branch=codex/A06-manim-three-closure; selectedFinalState=<one allowed final state in the physical lifecycle request>; evidenceReviewed=coordination/release-intake/archive/2026-06-30-A25-linked-worktree-archive-manifest.md, coordination/release-intake/archive/codex-A06-manim-three-closure.status.txt, coordination/release-intake/archive/codex-A06-manim-three-closure.diffstat.txt, coordination/release-intake/archive/codex-A06-manim-three-closure.patch, coordination/release-intake/archive/codex-A06-manim-three-closure.untracked.txt, coordination/release-intake/archive/2026-06-30-A25-dirty-diverged-branch-archive-manifest.md, coordination/release-intake/archive/codex-A06-manim-three-closure.dirty-diverged.ahead-log.txt, coordination/release-intake/archive/codex-A06-manim-three-closure.dirty-diverged.diffstat.txt, coordination/release-intake/archive/codex-A06-manim-three-closure.dirty-diverged.patch; approvedBy=<owner>; approvedAt=<ISO-8601>; notes=<scope, exact paths if discard/removal, and checks>.",
+          "postApprovalChecks": [
+            "node coordination/release-intake/worktree-hygiene-dashboard.mjs",
+            "npm run release:dirty-map -- --reason \"A25 post-physical-approval codex-a06-manim-three-closure\"",
+            "node coordination/release-intake/assert-physical-lifecycle-approval-requests-current.mjs",
+            "node coordination/release-intake/assert-worktree-lifecycle.mjs",
+            "node coordination/release-intake/assert-dirty-worktree-remediation-current.mjs"
+          ]
+        },
+        {
+          "approvalId": "codex-a06-visualization-closure",
+          "queueKind": "physical-lifecycle",
+          "owner": "",
+          "branch": "codex/A06-visualization-closure",
+          "state": "dirty-open-decision",
+          "currentBlocker": "dirty 437",
+          "entries": null,
+          "priority": null,
+          "allowedFinalStates": [
+            "owner-reviewed commit or package extraction",
+            "owner-approved exact-path discard",
+            "evidence archive with retained-worktree blocker",
+            "owner-approved worktree removal after dirty state closure",
+            "blocker"
+          ],
+          "actionKind": "owner-reviewed-worktree-package-required",
+          "executableNow": false,
+          "cleanupAuthorized": false,
+          "requiredAuthorizationText": "Authorize approvalId=codex-a06-visualization-closure for branch=codex/A06-visualization-closure; selectedFinalState=<one allowed final state in the physical lifecycle request>; evidenceReviewed=coordination/release-intake/archive/2026-06-30-A25-linked-worktree-archive-manifest.md, coordination/release-intake/archive/codex-A06-visualization-closure.status.txt, coordination/release-intake/archive/codex-A06-visualization-closure.diffstat.txt, coordination/release-intake/archive/codex-A06-visualization-closure.patch, coordination/release-intake/archive/codex-A06-visualization-closure.untracked.txt, coordination/release-intake/archive/2026-06-30-A25-dirty-diverged-branch-archive-manifest.md, coordination/release-intake/archive/codex-A06-visualization-closure.dirty-diverged.ahead-log.txt, coordination/release-intake/archive/codex-A06-visualization-closure.dirty-diverged.diffstat.txt, coordination/release-intake/archive/codex-A06-visualization-closure.dirty-diverged.patch; approvedBy=<owner>; approvedAt=<ISO-8601>; notes=<scope, exact paths if discard/removal, and checks>.",
+          "postApprovalChecks": [
+            "node coordination/release-intake/worktree-hygiene-dashboard.mjs",
+            "npm run release:dirty-map -- --reason \"A25 post-physical-approval codex-a06-visualization-closure\"",
+            "node coordination/release-intake/assert-physical-lifecycle-approval-requests-current.mjs",
+            "node coordination/release-intake/assert-worktree-lifecycle.mjs",
+            "node coordination/release-intake/assert-dirty-worktree-remediation-current.mjs"
+          ]
+        },
+        {
+          "approvalId": "codex-visualization-production-release",
+          "queueKind": "physical-lifecycle",
+          "owner": "",
+          "branch": "codex/visualization-production-release",
+          "state": "dirty-open-decision",
+          "currentBlocker": "dirty 16",
+          "entries": null,
+          "priority": null,
+          "allowedFinalStates": [
+            "owner-reviewed commit or package extraction",
+            "owner-approved exact-path discard",
+            "evidence archive with retained-worktree blocker",
+            "owner-approved worktree removal after dirty state closure",
+            "blocker"
+          ],
+          "actionKind": "owner-reviewed-worktree-package-required",
+          "executableNow": false,
+          "cleanupAuthorized": false,
+          "requiredAuthorizationText": "Authorize approvalId=codex-visualization-production-release for branch=codex/visualization-production-release; selectedFinalState=<one allowed final state in the physical lifecycle request>; evidenceReviewed=coordination/release-intake/archive/2026-06-30-A25-linked-worktree-archive-manifest.md, coordination/release-intake/archive/codex-visualization-production-release.status.txt, coordination/release-intake/archive/codex-visualization-production-release.diffstat.txt, coordination/release-intake/archive/codex-visualization-production-release.patch, coordination/release-intake/archive/codex-visualization-production-release.untracked.txt, coordination/release-intake/archive/2026-06-30-A25-dirty-diverged-branch-archive-manifest.md, coordination/release-intake/archive/codex-visualization-production-release.dirty-diverged.ahead-log.txt, coordination/release-intake/archive/codex-visualization-production-release.dirty-diverged.diffstat.txt, coordination/release-intake/archive/codex-visualization-production-release.dirty-diverged.patch; approvedBy=<owner>; approvedAt=<ISO-8601>; notes=<scope, exact paths if discard/removal, and checks>.",
+          "postApprovalChecks": [
+            "node coordination/release-intake/worktree-hygiene-dashboard.mjs",
+            "npm run release:dirty-map -- --reason \"A25 post-physical-approval codex-visualization-production-release\"",
+            "node coordination/release-intake/assert-physical-lifecycle-approval-requests-current.mjs",
+            "node coordination/release-intake/assert-worktree-lifecycle.mjs",
+            "node coordination/release-intake/assert-dirty-worktree-remediation-current.mjs"
+          ]
+        },
+        {
+          "approvalId": "codex-a07-ai-tutor-classroom-switches",
+          "queueKind": "physical-lifecycle",
+          "owner": "",
+          "branch": "codex/A07-ai-tutor-classroom-switches",
+          "state": "dirty-open-decision",
+          "currentBlocker": "dirty 82",
+          "entries": null,
+          "priority": null,
+          "allowedFinalStates": [
+            "owner-reviewed commit or package extraction",
+            "owner-approved exact-path discard",
+            "evidence archive with retained-worktree blocker",
+            "owner-approved worktree removal after dirty state closure",
+            "blocker"
+          ],
+          "actionKind": "owner-reviewed-worktree-package-required",
+          "executableNow": false,
+          "cleanupAuthorized": false,
+          "requiredAuthorizationText": "Authorize approvalId=codex-a07-ai-tutor-classroom-switches for branch=codex/A07-ai-tutor-classroom-switches; selectedFinalState=<one allowed final state in the physical lifecycle request>; evidenceReviewed=coordination/release-intake/archive/2026-06-30-A25-linked-worktree-archive-manifest.md, coordination/release-intake/archive/codex-A07-ai-tutor-classroom-switches.status.txt, coordination/release-intake/archive/codex-A07-ai-tutor-classroom-switches.diffstat.txt, coordination/release-intake/archive/codex-A07-ai-tutor-classroom-switches.patch, coordination/release-intake/archive/codex-A07-ai-tutor-classroom-switches.untracked.txt, coordination/release-intake/archive/2026-06-30-A25-dirty-diverged-branch-archive-manifest.md, coordination/release-intake/archive/codex-A07-ai-tutor-classroom-switches.dirty-diverged.ahead-log.txt, coordination/release-intake/archive/codex-A07-ai-tutor-classroom-switches.dirty-diverged.diffstat.txt, coordination/release-intake/archive/codex-A07-ai-tutor-classroom-switches.dirty-diverged.patch; approvedBy=<owner>; approvedAt=<ISO-8601>; notes=<scope, exact paths if discard/removal, and checks>.",
+          "postApprovalChecks": [
+            "node coordination/release-intake/worktree-hygiene-dashboard.mjs",
+            "npm run release:dirty-map -- --reason \"A25 post-physical-approval codex-a07-ai-tutor-classroom-switches\"",
+            "node coordination/release-intake/assert-physical-lifecycle-approval-requests-current.mjs",
+            "node coordination/release-intake/assert-worktree-lifecycle.mjs",
+            "node coordination/release-intake/assert-dirty-worktree-remediation-current.mjs"
+          ]
+        },
+        {
+          "approvalId": "codex-a07-ai-tutor-closure",
+          "queueKind": "physical-lifecycle",
+          "owner": "",
+          "branch": "codex/A07-ai-tutor-closure",
+          "state": "dirty-open-decision",
+          "currentBlocker": "dirty 12",
+          "entries": null,
+          "priority": null,
+          "allowedFinalStates": [
+            "owner-reviewed commit or package extraction",
+            "owner-approved exact-path discard",
+            "evidence archive with retained-worktree blocker",
+            "owner-approved worktree removal after dirty state closure",
+            "blocker"
+          ],
+          "actionKind": "owner-reviewed-worktree-package-required",
+          "executableNow": false,
+          "cleanupAuthorized": false,
+          "requiredAuthorizationText": "Authorize approvalId=codex-a07-ai-tutor-closure for branch=codex/A07-ai-tutor-closure; selectedFinalState=<one allowed final state in the physical lifecycle request>; evidenceReviewed=coordination/release-intake/archive/2026-06-30-A25-linked-worktree-archive-manifest.md, coordination/release-intake/archive/codex-A07-ai-tutor-closure.status.txt, coordination/release-intake/archive/codex-A07-ai-tutor-closure.diffstat.txt, coordination/release-intake/archive/codex-A07-ai-tutor-closure.patch, coordination/release-intake/archive/codex-A07-ai-tutor-closure.untracked.txt, coordination/release-intake/archive/2026-06-30-A25-dirty-diverged-branch-archive-manifest.md, coordination/release-intake/archive/codex-A07-ai-tutor-closure.dirty-diverged.ahead-log.txt, coordination/release-intake/archive/codex-A07-ai-tutor-closure.dirty-diverged.diffstat.txt, coordination/release-intake/archive/codex-A07-ai-tutor-closure.dirty-diverged.patch; approvedBy=<owner>; approvedAt=<ISO-8601>; notes=<scope, exact paths if discard/removal, and checks>.",
+          "postApprovalChecks": [
+            "node coordination/release-intake/worktree-hygiene-dashboard.mjs",
+            "npm run release:dirty-map -- --reason \"A25 post-physical-approval codex-a07-ai-tutor-closure\"",
+            "node coordination/release-intake/assert-physical-lifecycle-approval-requests-current.mjs",
+            "node coordination/release-intake/assert-worktree-lifecycle.mjs",
+            "node coordination/release-intake/assert-dirty-worktree-remediation-current.mjs"
+          ]
+        },
+        {
+          "approvalId": "codex-a09-copy-i18n-accessibility-closure",
+          "queueKind": "physical-lifecycle",
+          "owner": "",
+          "branch": "codex/A09-copy-i18n-accessibility-closure",
+          "state": "dirty-open-decision",
+          "currentBlocker": "dirty 5",
+          "entries": null,
+          "priority": null,
+          "allowedFinalStates": [
+            "owner-reviewed commit or package extraction",
+            "owner-approved exact-path discard",
+            "evidence archive with retained-worktree blocker",
+            "owner-approved worktree removal after dirty state closure",
+            "blocker"
+          ],
+          "actionKind": "owner-reviewed-worktree-package-required",
+          "executableNow": false,
+          "cleanupAuthorized": false,
+          "requiredAuthorizationText": "Authorize approvalId=codex-a09-copy-i18n-accessibility-closure for branch=codex/A09-copy-i18n-accessibility-closure; selectedFinalState=<one allowed final state in the physical lifecycle request>; evidenceReviewed=coordination/release-intake/archive/2026-06-30-A25-linked-worktree-archive-manifest.md, coordination/release-intake/archive/codex-A09-copy-i18n-accessibility-closure.status.txt, coordination/release-intake/archive/codex-A09-copy-i18n-accessibility-closure.diffstat.txt, coordination/release-intake/archive/codex-A09-copy-i18n-accessibility-closure.patch, coordination/release-intake/archive/codex-A09-copy-i18n-accessibility-closure.untracked.txt, coordination/release-intake/archive/2026-06-30-A25-dirty-diverged-branch-archive-manifest.md, coordination/release-intake/archive/codex-A09-copy-i18n-accessibility-closure.dirty-diverged.ahead-log.txt, coordination/release-intake/archive/codex-A09-copy-i18n-accessibility-closure.dirty-diverged.diffstat.txt, coordination/release-intake/archive/codex-A09-copy-i18n-accessibility-closure.dirty-diverged.patch; approvedBy=<owner>; approvedAt=<ISO-8601>; notes=<scope, exact paths if discard/removal, and checks>.",
+          "postApprovalChecks": [
+            "node coordination/release-intake/worktree-hygiene-dashboard.mjs",
+            "npm run release:dirty-map -- --reason \"A25 post-physical-approval codex-a09-copy-i18n-accessibility-closure\"",
+            "node coordination/release-intake/assert-physical-lifecycle-approval-requests-current.mjs",
+            "node coordination/release-intake/assert-worktree-lifecycle.mjs",
+            "node coordination/release-intake/assert-dirty-worktree-remediation-current.mjs"
+          ]
+        },
+        {
+          "approvalId": "codex-a11-fix-126-128-129",
+          "queueKind": "physical-lifecycle",
+          "owner": "",
+          "branch": "codex/A11-fix-126-128-129",
+          "state": "dirty-open-decision",
+          "currentBlocker": "dirty 41",
+          "entries": null,
+          "priority": null,
+          "allowedFinalStates": [
+            "owner-reviewed commit or package extraction",
+            "owner-approved exact-path discard",
+            "evidence archive with retained-worktree blocker",
+            "owner-approved worktree removal after dirty state closure",
+            "blocker"
+          ],
+          "actionKind": "owner-reviewed-worktree-package-required",
+          "executableNow": false,
+          "cleanupAuthorized": false,
+          "requiredAuthorizationText": "Authorize approvalId=codex-a11-fix-126-128-129 for branch=codex/A11-fix-126-128-129; selectedFinalState=<one allowed final state in the physical lifecycle request>; evidenceReviewed=coordination/release-intake/archive/2026-06-30-A25-linked-worktree-archive-manifest.md, coordination/release-intake/archive/codex-A11-fix-126-128-129.status.txt, coordination/release-intake/archive/codex-A11-fix-126-128-129.diffstat.txt, coordination/release-intake/archive/codex-A11-fix-126-128-129.patch, coordination/release-intake/archive/codex-A11-fix-126-128-129.untracked.txt, coordination/release-intake/archive/2026-06-30-A25-dirty-diverged-branch-archive-manifest.md, coordination/release-intake/archive/codex-A11-fix-126-128-129.dirty-diverged.ahead-log.txt, coordination/release-intake/archive/codex-A11-fix-126-128-129.dirty-diverged.diffstat.txt, coordination/release-intake/archive/codex-A11-fix-126-128-129.dirty-diverged.patch; approvedBy=<owner>; approvedAt=<ISO-8601>; notes=<scope, exact paths if discard/removal, and checks>.",
+          "postApprovalChecks": [
+            "node coordination/release-intake/worktree-hygiene-dashboard.mjs",
+            "npm run release:dirty-map -- --reason \"A25 post-physical-approval codex-a11-fix-126-128-129\"",
+            "node coordination/release-intake/assert-physical-lifecycle-approval-requests-current.mjs",
+            "node coordination/release-intake/assert-worktree-lifecycle.mjs",
+            "node coordination/release-intake/assert-dirty-worktree-remediation-current.mjs"
+          ]
+        },
+        {
+          "approvalId": "codex-a11-regression-evidence-closure",
+          "queueKind": "physical-lifecycle",
+          "owner": "",
+          "branch": "codex/A11-regression-evidence-closure",
+          "state": "dirty-open-decision",
+          "currentBlocker": "dirty 62",
+          "entries": null,
+          "priority": null,
+          "allowedFinalStates": [
+            "owner-reviewed commit or package extraction",
+            "owner-approved exact-path discard",
+            "evidence archive with retained-worktree blocker",
+            "owner-approved worktree removal after dirty state closure",
+            "blocker"
+          ],
+          "actionKind": "owner-reviewed-worktree-package-required",
+          "executableNow": false,
+          "cleanupAuthorized": false,
+          "requiredAuthorizationText": "Authorize approvalId=codex-a11-regression-evidence-closure for branch=codex/A11-regression-evidence-closure; selectedFinalState=<one allowed final state in the physical lifecycle request>; evidenceReviewed=coordination/release-intake/archive/2026-06-30-A25-linked-worktree-archive-manifest.md, coordination/release-intake/archive/codex-A11-regression-evidence-closure.status.txt, coordination/release-intake/archive/codex-A11-regression-evidence-closure.diffstat.txt, coordination/release-intake/archive/codex-A11-regression-evidence-closure.patch, coordination/release-intake/archive/codex-A11-regression-evidence-closure.untracked.txt, coordination/release-intake/archive/2026-06-30-A25-dirty-diverged-branch-archive-manifest.md, coordination/release-intake/archive/codex-A11-regression-evidence-closure.dirty-diverged.ahead-log.txt, coordination/release-intake/archive/codex-A11-regression-evidence-closure.dirty-diverged.diffstat.txt, coordination/release-intake/archive/codex-A11-regression-evidence-closure.dirty-diverged.patch; approvedBy=<owner>; approvedAt=<ISO-8601>; notes=<scope, exact paths if discard/removal, and checks>.",
+          "postApprovalChecks": [
+            "node coordination/release-intake/worktree-hygiene-dashboard.mjs",
+            "npm run release:dirty-map -- --reason \"A25 post-physical-approval codex-a11-regression-evidence-closure\"",
+            "node coordination/release-intake/assert-physical-lifecycle-approval-requests-current.mjs",
+            "node coordination/release-intake/assert-worktree-lifecycle.mjs",
+            "node coordination/release-intake/assert-dirty-worktree-remediation-current.mjs"
+          ]
+        },
+        {
+          "approvalId": "codex-a14-profile-avatar-save",
+          "queueKind": "physical-lifecycle",
+          "owner": "",
+          "branch": "codex/A14-profile-avatar-save",
+          "state": "dirty-open-decision",
+          "currentBlocker": "dirty 10",
+          "entries": null,
+          "priority": null,
+          "allowedFinalStates": [
+            "owner-reviewed commit or package extraction",
+            "owner-approved exact-path discard",
+            "evidence archive with retained-worktree blocker",
+            "owner-approved worktree removal after dirty state closure",
+            "blocker"
+          ],
+          "actionKind": "owner-reviewed-worktree-package-required",
+          "executableNow": false,
+          "cleanupAuthorized": false,
+          "requiredAuthorizationText": "Authorize approvalId=codex-a14-profile-avatar-save for branch=codex/A14-profile-avatar-save; selectedFinalState=<one allowed final state in the physical lifecycle request>; evidenceReviewed=coordination/release-intake/archive/2026-06-30-A25-linked-worktree-archive-manifest.md, coordination/release-intake/archive/codex-A14-profile-avatar-save.status.txt, coordination/release-intake/archive/codex-A14-profile-avatar-save.diffstat.txt, coordination/release-intake/archive/codex-A14-profile-avatar-save.patch, coordination/release-intake/archive/codex-A14-profile-avatar-save.untracked.txt, coordination/release-intake/archive/2026-06-30-A25-dirty-diverged-branch-archive-manifest.md, coordination/release-intake/archive/codex-A14-profile-avatar-save.dirty-diverged.ahead-log.txt, coordination/release-intake/archive/codex-A14-profile-avatar-save.dirty-diverged.diffstat.txt, coordination/release-intake/archive/codex-A14-profile-avatar-save.dirty-diverged.patch; approvedBy=<owner>; approvedAt=<ISO-8601>; notes=<scope, exact paths if discard/removal, and checks>.",
+          "postApprovalChecks": [
+            "node coordination/release-intake/worktree-hygiene-dashboard.mjs",
+            "npm run release:dirty-map -- --reason \"A25 post-physical-approval codex-a14-profile-avatar-save\"",
+            "node coordination/release-intake/assert-physical-lifecycle-approval-requests-current.mjs",
+            "node coordination/release-intake/assert-worktree-lifecycle.mjs",
+            "node coordination/release-intake/assert-dirty-worktree-remediation-current.mjs"
+          ]
+        },
+        {
+          "approvalId": "codex-a13-a14-console-closure",
+          "queueKind": "physical-lifecycle",
+          "owner": "",
+          "branch": "codex/A13-A14-console-closure",
+          "state": "dirty-open-decision",
+          "currentBlocker": "dirty 43",
+          "entries": null,
+          "priority": null,
+          "allowedFinalStates": [
+            "owner-reviewed commit or package extraction",
+            "owner-approved exact-path discard",
+            "evidence archive with retained-worktree blocker",
+            "owner-approved worktree removal after dirty state closure",
+            "blocker"
+          ],
+          "actionKind": "owner-reviewed-worktree-package-required",
+          "executableNow": false,
+          "cleanupAuthorized": false,
+          "requiredAuthorizationText": "Authorize approvalId=codex-a13-a14-console-closure for branch=codex/A13-A14-console-closure; selectedFinalState=<one allowed final state in the physical lifecycle request>; evidenceReviewed=coordination/release-intake/archive/2026-06-30-A25-linked-worktree-archive-manifest.md, coordination/release-intake/archive/codex-A13-A14-console-closure.status.txt, coordination/release-intake/archive/codex-A13-A14-console-closure.diffstat.txt, coordination/release-intake/archive/codex-A13-A14-console-closure.patch, coordination/release-intake/archive/codex-A13-A14-console-closure.untracked.txt, coordination/release-intake/archive/2026-06-30-A25-dirty-diverged-branch-archive-manifest.md, coordination/release-intake/archive/codex-A13-A14-console-closure.dirty-diverged.ahead-log.txt, coordination/release-intake/archive/codex-A13-A14-console-closure.dirty-diverged.diffstat.txt, coordination/release-intake/archive/codex-A13-A14-console-closure.dirty-diverged.patch; approvedBy=<owner>; approvedAt=<ISO-8601>; notes=<scope, exact paths if discard/removal, and checks>.",
+          "postApprovalChecks": [
+            "node coordination/release-intake/worktree-hygiene-dashboard.mjs",
+            "npm run release:dirty-map -- --reason \"A25 post-physical-approval codex-a13-a14-console-closure\"",
+            "node coordination/release-intake/assert-physical-lifecycle-approval-requests-current.mjs",
+            "node coordination/release-intake/assert-worktree-lifecycle.mjs",
+            "node coordination/release-intake/assert-dirty-worktree-remediation-current.mjs"
+          ]
+        },
+        {
+          "approvalId": "codex-a16-research-evidence-closure",
+          "queueKind": "physical-lifecycle",
+          "owner": "",
+          "branch": "codex/A16-research-evidence-closure",
+          "state": "dirty-open-decision",
+          "currentBlocker": "dirty 6",
+          "entries": null,
+          "priority": null,
+          "allowedFinalStates": [
+            "owner-reviewed commit or package extraction",
+            "owner-approved exact-path discard",
+            "evidence archive with retained-worktree blocker",
+            "owner-approved worktree removal after dirty state closure",
+            "blocker"
+          ],
+          "actionKind": "owner-reviewed-worktree-package-required",
+          "executableNow": false,
+          "cleanupAuthorized": false,
+          "requiredAuthorizationText": "Authorize approvalId=codex-a16-research-evidence-closure for branch=codex/A16-research-evidence-closure; selectedFinalState=<one allowed final state in the physical lifecycle request>; evidenceReviewed=coordination/release-intake/archive/2026-06-30-A25-linked-worktree-archive-manifest.md, coordination/release-intake/archive/codex-A16-research-evidence-closure.status.txt, coordination/release-intake/archive/codex-A16-research-evidence-closure.diffstat.txt, coordination/release-intake/archive/codex-A16-research-evidence-closure.patch, coordination/release-intake/archive/codex-A16-research-evidence-closure.untracked.txt, coordination/release-intake/archive/2026-06-30-A25-dirty-diverged-branch-archive-manifest.md, coordination/release-intake/archive/codex-A16-research-evidence-closure.dirty-diverged.ahead-log.txt, coordination/release-intake/archive/codex-A16-research-evidence-closure.dirty-diverged.diffstat.txt, coordination/release-intake/archive/codex-A16-research-evidence-closure.dirty-diverged.patch; approvedBy=<owner>; approvedAt=<ISO-8601>; notes=<scope, exact paths if discard/removal, and checks>.",
+          "postApprovalChecks": [
+            "node coordination/release-intake/worktree-hygiene-dashboard.mjs",
+            "npm run release:dirty-map -- --reason \"A25 post-physical-approval codex-a16-research-evidence-closure\"",
+            "node coordination/release-intake/assert-physical-lifecycle-approval-requests-current.mjs",
+            "node coordination/release-intake/assert-worktree-lifecycle.mjs",
+            "node coordination/release-intake/assert-dirty-worktree-remediation-current.mjs"
+          ]
+        },
+        {
+          "approvalId": "codex-a17-a20-game-motivation-closure",
+          "queueKind": "physical-lifecycle",
+          "owner": "",
+          "branch": "codex/A17-A20-game-motivation-closure",
+          "state": "dirty-open-decision",
+          "currentBlocker": "dirty 21",
+          "entries": null,
+          "priority": null,
+          "allowedFinalStates": [
+            "owner-reviewed commit or package extraction",
+            "owner-approved exact-path discard",
+            "evidence archive with retained-worktree blocker",
+            "owner-approved worktree removal after dirty state closure",
+            "blocker"
+          ],
+          "actionKind": "owner-reviewed-worktree-package-required",
+          "executableNow": false,
+          "cleanupAuthorized": false,
+          "requiredAuthorizationText": "Authorize approvalId=codex-a17-a20-game-motivation-closure for branch=codex/A17-A20-game-motivation-closure; selectedFinalState=<one allowed final state in the physical lifecycle request>; evidenceReviewed=coordination/release-intake/archive/2026-06-30-A25-linked-worktree-archive-manifest.md, coordination/release-intake/archive/codex-A17-A20-game-motivation-closure.status.txt, coordination/release-intake/archive/codex-A17-A20-game-motivation-closure.diffstat.txt, coordination/release-intake/archive/codex-A17-A20-game-motivation-closure.patch, coordination/release-intake/archive/codex-A17-A20-game-motivation-closure.untracked.txt, coordination/release-intake/archive/2026-06-30-A25-dirty-diverged-branch-archive-manifest.md, coordination/release-intake/archive/codex-A17-A20-game-motivation-closure.dirty-diverged.ahead-log.txt, coordination/release-intake/archive/codex-A17-A20-game-motivation-closure.dirty-diverged.diffstat.txt, coordination/release-intake/archive/codex-A17-A20-game-motivation-closure.dirty-diverged.patch; approvedBy=<owner>; approvedAt=<ISO-8601>; notes=<scope, exact paths if discard/removal, and checks>.",
+          "postApprovalChecks": [
+            "node coordination/release-intake/worktree-hygiene-dashboard.mjs",
+            "npm run release:dirty-map -- --reason \"A25 post-physical-approval codex-a17-a20-game-motivation-closure\"",
+            "node coordination/release-intake/assert-physical-lifecycle-approval-requests-current.mjs",
+            "node coordination/release-intake/assert-worktree-lifecycle.mjs",
+            "node coordination/release-intake/assert-dirty-worktree-remediation-current.mjs"
+          ]
+        }
+      ],
+      "summary": {
+        "approvals": 20,
+        "ownerPackageApprovals": 8,
+        "physicalLifecycleApprovals": 12,
+        "entries": 603,
+        "executableRows": 0,
+        "cleanupAuthorizedRows": 0
+      }
+    },
+    {
+      "waveIndex": 6,
+      "waveId": "wave-06-final-root-and-compose-lifecycle",
+      "name": "Final root and compose/legacy lifecycle closure",
+      "planTasks": [
+        "Task 7"
+      ],
+      "purpose": "Close root main and remaining compose or legacy physical lifecycle records after owner packages are resolved.",
+      "blockedUntil": "Owner authorizes every selected final state and exact Git operation needed for this wave.",
+      "ownerApprovals": [],
+      "physicalLifecycleApprovals": [
+        {
+          "approvalId": "root-main",
+          "queueKind": "physical-lifecycle",
+          "owner": "",
+          "branch": "main",
+          "state": "dirty-open-decision",
+          "currentBlocker": "dirty 5183",
+          "entries": null,
+          "priority": null,
+          "allowedFinalStates": [
+            "reviewed owner package commit",
+            "owner-approved exact-path discard",
+            "evidence archive with release-source blocker",
+            "blocker"
+          ],
+          "actionKind": "owner-reviewed-commit-required",
+          "executableNow": false,
+          "cleanupAuthorized": false,
+          "requiredAuthorizationText": "Authorize approvalId=root-main for branch=main; selectedFinalState=<one allowed final state in the physical lifecycle request>; evidenceReviewed=coordination/release-intake/latest-A25-dirty-tree-map.md, coordination/release-intake/latest-A25-effective-disposition-queue.md, coordination/release-intake/latest-A25-owner-disposition-queue.md; approvedBy=<owner>; approvedAt=<ISO-8601>; notes=<scope, exact paths if discard/removal, and checks>.",
+          "postApprovalChecks": [
+            "node coordination/release-intake/worktree-hygiene-dashboard.mjs",
+            "npm run release:dirty-map -- --reason \"A25 post-physical-approval root-main\"",
+            "node coordination/release-intake/assert-physical-lifecycle-approval-requests-current.mjs",
+            "node coordination/release-intake/assert-worktree-lifecycle.mjs",
+            "node coordination/release-intake/assert-dirty-worktree-remediation-current.mjs"
+          ]
+        },
+        {
+          "approvalId": "codex-a10-a22-a08-a12-a06-compose-20260628",
+          "queueKind": "physical-lifecycle",
+          "owner": "",
+          "branch": "codex/A10-A22-A08-A12-A06-compose-20260628",
+          "state": "dirty-open-decision",
+          "currentBlocker": "dirty 954",
+          "entries": null,
+          "priority": null,
+          "allowedFinalStates": [
+            "owner-reviewed commit or package extraction",
+            "owner-approved exact-path discard",
+            "evidence archive with retained-worktree blocker",
+            "owner-approved worktree removal after dirty state closure",
+            "blocker"
+          ],
+          "actionKind": "owner-reviewed-worktree-package-required",
+          "executableNow": false,
+          "cleanupAuthorized": false,
+          "requiredAuthorizationText": "Authorize approvalId=codex-a10-a22-a08-a12-a06-compose-20260628 for branch=codex/A10-A22-A08-A12-A06-compose-20260628; selectedFinalState=<one allowed final state in the physical lifecycle request>; evidenceReviewed=coordination/release-intake/archive/2026-06-30-A25-linked-worktree-archive-manifest.md, coordination/release-intake/archive/codex-A10-A22-A08-A12-A06-compose-20260628.status.txt, coordination/release-intake/archive/codex-A10-A22-A08-A12-A06-compose-20260628.diffstat.txt, coordination/release-intake/archive/codex-A10-A22-A08-A12-A06-compose-20260628.patch, coordination/release-intake/archive/codex-A10-A22-A08-A12-A06-compose-20260628.untracked.txt, coordination/release-intake/archive/2026-06-30-A25-dirty-diverged-branch-archive-manifest.md, coordination/release-intake/archive/codex-A10-A22-A08-A12-A06-compose-20260628.dirty-diverged.ahead-log.txt, coordination/release-intake/archive/codex-A10-A22-A08-A12-A06-compose-20260628.dirty-diverged.diffstat.txt, coordination/release-intake/archive/codex-A10-A22-A08-A12-A06-compose-20260628.dirty-diverged.patch; approvedBy=<owner>; approvedAt=<ISO-8601>; notes=<scope, exact paths if discard/removal, and checks>.",
+          "postApprovalChecks": [
+            "node coordination/release-intake/worktree-hygiene-dashboard.mjs",
+            "npm run release:dirty-map -- --reason \"A25 post-physical-approval codex-a10-a22-a08-a12-a06-compose-20260628\"",
+            "node coordination/release-intake/assert-physical-lifecycle-approval-requests-current.mjs",
+            "node coordination/release-intake/assert-worktree-lifecycle.mjs",
+            "node coordination/release-intake/assert-dirty-worktree-remediation-current.mjs"
+          ]
+        },
+        {
+          "approvalId": "codex-a25-full-dirty-compose-verification",
+          "queueKind": "physical-lifecycle",
+          "owner": "",
+          "branch": "codex/A25-full-dirty-compose-verification",
+          "state": "dirty-open-decision",
+          "currentBlocker": "dirty 2423",
+          "entries": null,
+          "priority": null,
+          "allowedFinalStates": [
+            "owner-reviewed commit or package extraction",
+            "owner-approved exact-path discard",
+            "evidence archive with retained-worktree blocker",
+            "owner-approved worktree removal after dirty state closure",
+            "blocker"
+          ],
+          "actionKind": "owner-reviewed-worktree-package-required",
+          "executableNow": false,
+          "cleanupAuthorized": false,
+          "requiredAuthorizationText": "Authorize approvalId=codex-a25-full-dirty-compose-verification for branch=codex/A25-full-dirty-compose-verification; selectedFinalState=<one allowed final state in the physical lifecycle request>; evidenceReviewed=coordination/release-intake/archive/2026-06-30-A25-linked-worktree-archive-manifest.md, coordination/release-intake/archive/codex-A25-full-dirty-compose-verification.status.txt, coordination/release-intake/archive/codex-A25-full-dirty-compose-verification.diffstat.txt, coordination/release-intake/archive/codex-A25-full-dirty-compose-verification.patch, coordination/release-intake/archive/codex-A25-full-dirty-compose-verification.untracked.txt, coordination/release-intake/archive/2026-06-30-A25-dirty-diverged-branch-archive-manifest.md, coordination/release-intake/archive/codex-A25-full-dirty-compose-verification.dirty-diverged.ahead-log.txt, coordination/release-intake/archive/codex-A25-full-dirty-compose-verification.dirty-diverged.diffstat.txt, coordination/release-intake/archive/codex-A25-full-dirty-compose-verification.dirty-diverged.patch; approvedBy=<owner>; approvedAt=<ISO-8601>; notes=<scope, exact paths if discard/removal, and checks>.",
+          "postApprovalChecks": [
+            "node coordination/release-intake/worktree-hygiene-dashboard.mjs",
+            "npm run release:dirty-map -- --reason \"A25 post-physical-approval codex-a25-full-dirty-compose-verification\"",
+            "node coordination/release-intake/assert-physical-lifecycle-approval-requests-current.mjs",
+            "node coordination/release-intake/assert-worktree-lifecycle.mjs",
+            "node coordination/release-intake/assert-dirty-worktree-remediation-current.mjs"
+          ]
+        },
+        {
+          "approvalId": "codex-a19-vercel-postgres-region",
+          "queueKind": "physical-lifecycle",
+          "owner": "",
+          "branch": "codex/A19-vercel-postgres-region",
+          "state": "clean-diverged-open-decision",
+          "currentBlocker": "behind 2, ahead 8",
+          "entries": null,
+          "priority": null,
+          "allowedFinalStates": [
+            "owner-approved PR or review package",
+            "archive-state record",
+            "owner-approved branch or worktree retirement",
+            "blocker"
+          ],
+          "actionKind": "owner-approved-pr-or-review-package-required",
+          "executableNow": false,
+          "cleanupAuthorized": false,
+          "requiredAuthorizationText": "Authorize approvalId=codex-a19-vercel-postgres-region for branch=codex/A19-vercel-postgres-region; selectedFinalState=<one allowed final state in the physical lifecycle request>; evidenceReviewed=coordination/release-intake/archive/2026-06-30-A25-clean-diverged-branch-archive-manifest.md, coordination/release-intake/archive/codex-A19-vercel-postgres-region.clean-diverged.status.txt, coordination/release-intake/archive/codex-A19-vercel-postgres-region.clean-diverged.ahead-log.txt, coordination/release-intake/archive/codex-A19-vercel-postgres-region.clean-diverged.name-status.txt, coordination/release-intake/archive/codex-A19-vercel-postgres-region.clean-diverged.diffstat.txt, coordination/release-intake/archive/codex-A19-vercel-postgres-region.clean-diverged.patch, coordination/release-intake/archive/codex-A19-vercel-postgres-region.clean-diverged.untracked.txt; approvedBy=<owner>; approvedAt=<ISO-8601>; notes=<scope, exact paths if discard/removal, and checks>.",
+          "postApprovalChecks": [
+            "node coordination/release-intake/worktree-hygiene-dashboard.mjs",
+            "npm run release:dirty-map -- --reason \"A25 post-physical-approval codex-a19-vercel-postgres-region\"",
+            "node coordination/release-intake/assert-physical-lifecycle-approval-requests-current.mjs",
+            "node coordination/release-intake/assert-worktree-lifecycle.mjs",
+            "node coordination/release-intake/assert-dirty-worktree-remediation-current.mjs"
+          ]
+        },
+        {
+          "approvalId": "codex-s22-release-hygiene-2026-06-15",
+          "queueKind": "physical-lifecycle",
+          "owner": "",
+          "branch": "codex/s22-release-hygiene-2026-06-15",
+          "state": "clean-diverged-open-decision",
+          "currentBlocker": "behind 14, ahead 1",
+          "entries": null,
+          "priority": null,
+          "allowedFinalStates": [
+            "owner-approved PR or review package",
+            "archive-state record",
+            "owner-approved branch or worktree retirement",
+            "blocker"
+          ],
+          "actionKind": "owner-approved-pr-or-review-package-required",
+          "executableNow": false,
+          "cleanupAuthorized": false,
+          "requiredAuthorizationText": "Authorize approvalId=codex-s22-release-hygiene-2026-06-15 for branch=codex/s22-release-hygiene-2026-06-15; selectedFinalState=<one allowed final state in the physical lifecycle request>; evidenceReviewed=coordination/release-intake/archive/2026-06-30-A25-clean-diverged-branch-archive-manifest.md, coordination/release-intake/archive/codex-s22-release-hygiene-2026-06-15.clean-diverged.status.txt, coordination/release-intake/archive/codex-s22-release-hygiene-2026-06-15.clean-diverged.ahead-log.txt, coordination/release-intake/archive/codex-s22-release-hygiene-2026-06-15.clean-diverged.name-status.txt, coordination/release-intake/archive/codex-s22-release-hygiene-2026-06-15.clean-diverged.diffstat.txt, coordination/release-intake/archive/codex-s22-release-hygiene-2026-06-15.clean-diverged.patch, coordination/release-intake/archive/codex-s22-release-hygiene-2026-06-15.clean-diverged.untracked.txt; approvedBy=<owner>; approvedAt=<ISO-8601>; notes=<scope, exact paths if discard/removal, and checks>.",
+          "postApprovalChecks": [
+            "node coordination/release-intake/worktree-hygiene-dashboard.mjs",
+            "npm run release:dirty-map -- --reason \"A25 post-physical-approval codex-s22-release-hygiene-2026-06-15\"",
+            "node coordination/release-intake/assert-physical-lifecycle-approval-requests-current.mjs",
+            "node coordination/release-intake/assert-worktree-lifecycle.mjs",
+            "node coordination/release-intake/assert-dirty-worktree-remediation-current.mjs"
+          ]
+        }
+      ],
+      "summary": {
+        "approvals": 5,
+        "ownerPackageApprovals": 0,
+        "physicalLifecycleApprovals": 5,
+        "entries": 0,
+        "executableRows": 0,
+        "cleanupAuthorizedRows": 0
+      }
+    }
+  ]
+}

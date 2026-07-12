@@ -6,7 +6,7 @@ import { TeacherGamificationPanel } from "@/components/gamification/TeacherGamif
 import { useSettings } from "@/components/providers/AppProviders";
 import { TeacherReportsBackToTopButton } from "@/components/teacher/TeacherReportsBackToTopButton";
 import { formatGradeLabel, localeForLanguage, textForLanguage } from "@/lib/i18n";
-import { cn } from "@/lib/utils";
+import { cn, formatDateInHongKong } from "@/lib/utils";
 import type { Language, RewardRedemptionRequest, RewardRedemptionStatus, TeacherRewardsData } from "@/types";
 
 function readTeacherRewards(value: unknown) {
@@ -16,12 +16,12 @@ function readTeacherRewards(value: unknown) {
 
 function formatDate(value: string | null | undefined, language: Language) {
   if (!value) return textForLanguage({ en: "No record", zh: "未有紀錄" }, language);
-  return new Intl.DateTimeFormat(localeForLanguage(language), {
+  return formatDateInHongKong(value, language, {
     month: "short",
     day: "numeric",
     hour: "2-digit",
     minute: "2-digit"
-  }).format(new Date(value));
+  });
 }
 
 function formatPointValue(value: number, language: Language) {
@@ -44,6 +44,23 @@ function statusTone(status: RewardRedemptionStatus) {
   if (status === "rejected") return "border-slate-300/70 bg-slate-400/12 text-slate-700 dark:text-slate-200";
   return "border-amber-300/60 bg-amber-400/12 text-amber-800 dark:text-amber-100";
 }
+
+type RewardOperation =
+  | {
+      type: "award";
+      studentId: string;
+      studentName: string;
+      amount: number;
+      label: string;
+    }
+  | {
+      type: "redemption";
+      requestId: string;
+      studentId: string;
+      studentName: string;
+      itemName: string;
+      status: RewardRedemptionStatus;
+    };
 
 function RedemptionActions({
   request,
@@ -95,6 +112,50 @@ function RedemptionActions({
   );
 }
 
+function RewardOperationPanel({ operation }: { operation: RewardOperation }) {
+  const { language, t, text } = useSettings();
+  const isAward = operation.type === "award";
+
+  return (
+    <section aria-live="polite" className="glass-panel min-w-0 border-emerald-300/45 bg-emerald-400/10 p-4">
+      <div className="flex min-w-0 flex-wrap items-center justify-between gap-3">
+        <div className="min-w-0">
+          <p className="break-words text-xs font-black uppercase tracking-[0.14em] text-emerald-800 dark:text-emerald-100">
+            {isAward ? t({ en: "Reward recorded", zh: "獎勵已記錄" }) : t({ en: "Redemption updated", zh: "兌換已更新" })}
+          </p>
+          <p className="mt-1 break-words font-black text-slate-950 dark:text-white">
+            {isAward
+              ? `${operation.studentName} · +${formatPointValue(operation.amount, language)} ${t({ en: "points", zh: "積分" })}`
+              : `${operation.studentName} · ${operation.itemName}`}
+          </p>
+          <p className="mt-1 break-words text-xs font-bold text-emerald-900 dark:text-emerald-100">
+            {isAward ? operation.label : text(statusLabel(operation.status))}
+          </p>
+        </div>
+        <div className="flex min-w-0 flex-wrap gap-2">
+          {isAward ? (
+            <>
+              <a href={`#student-balance-${operation.studentId}`} className="focus-ring rounded-full bg-slate-950 px-4 py-2 text-xs font-black text-white dark:bg-white dark:text-slate-950">
+                {t({ en: "Open balance", zh: "查看結餘" })}
+              </a>
+              <a href="#recent-point-activity" className="focus-ring rounded-full border border-emerald-300/70 bg-white/75 px-4 py-2 text-xs font-black text-emerald-900 dark:border-emerald-200/30 dark:bg-white/[0.08] dark:text-emerald-100">
+                {t({ en: "Open activity", zh: "查看流水" })}
+              </a>
+            </>
+          ) : (
+            <a href={`#redemption-${operation.requestId}`} className="focus-ring rounded-full bg-slate-950 px-4 py-2 text-xs font-black text-white dark:bg-white dark:text-slate-950">
+              {t({ en: "Open request", zh: "查看申請" })}
+            </a>
+          )}
+          <Link href={`/teacher/students/${operation.studentId}`} className="focus-ring rounded-full border border-emerald-300/70 bg-white/75 px-4 py-2 text-xs font-black text-emerald-900 dark:border-emerald-200/30 dark:bg-white/[0.08] dark:text-emerald-100">
+            {t({ en: "Student profile", zh: "學生檔案" })}
+          </Link>
+        </div>
+      </div>
+    </section>
+  );
+}
+
 export function TeacherRewardsView({ rewards }: { rewards: TeacherRewardsData }) {
   const { language, text, t } = useSettings();
   const [data, setData] = useState(rewards);
@@ -102,6 +163,7 @@ export function TeacherRewardsView({ rewards }: { rewards: TeacherRewardsData })
   const [reasonPresetId, setReasonPresetId] = useState(rewards.reasonPresets[0]?.id ?? "great-effort");
   const [amount, setAmount] = useState(String(rewards.reasonPresets[0]?.points ?? 20));
   const [message, setMessage] = useState("");
+  const [lastOperation, setLastOperation] = useState<RewardOperation | null>(null);
   const [isAwarding, setIsAwarding] = useState(false);
   const [busyRequestId, setBusyRequestId] = useState("");
   const selectedPreset = useMemo(
@@ -131,8 +193,9 @@ export function TeacherRewardsView({ rewards }: { rewards: TeacherRewardsData })
     const formElement = event.currentTarget;
     setIsAwarding(true);
     setMessage("");
+    setLastOperation(null);
     const form = new FormData(formElement);
-    const response = await fetch("/api/teacher/rewards/award", {
+    const response = await fetch("/api/teacher/reward-awards", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
@@ -148,13 +211,25 @@ export function TeacherRewardsView({ rewards }: { rewards: TeacherRewardsData })
       setMessage(t({ en: "Could not award points yet.", zh: "暫時未能加積分。" }));
       return;
     }
+    const nextRewards = readTeacherRewards(payload);
+    const awardedStudent = nextRewards?.students.find((student) => student.studentId === selectedStudentId)
+      ?? data.students.find((student) => student.studentId === selectedStudentId);
+    const awardedAmount = Number(amount);
+    setLastOperation({
+      type: "award",
+      studentId: selectedStudentId,
+      studentName: awardedStudent?.studentName ?? selectedStudentId,
+      amount: Number.isFinite(awardedAmount) ? awardedAmount : 0,
+      label: selectedPreset ? text(selectedPreset.label) : t({ en: "Positive engagement bonus", zh: "正向參與獎勵" })
+    });
     formElement.reset();
-    updateData(readTeacherRewards(payload), t({ en: "Points awarded.", zh: "已加積分。" }));
+    updateData(nextRewards, t({ en: "Points awarded.", zh: "已加積分。" }));
   };
 
   const updateRedemption = async (requestId: string, status: RewardRedemptionStatus) => {
     setBusyRequestId(requestId);
     setMessage("");
+    setLastOperation(null);
     const response = await fetch(`/api/teacher/rewards/redemptions/${encodeURIComponent(requestId)}`, {
       method: "PATCH",
       headers: { "Content-Type": "application/json" },
@@ -171,7 +246,20 @@ export function TeacherRewardsView({ rewards }: { rewards: TeacherRewardsData })
       : status === "approved"
         ? t({ en: "Gift request approved.", zh: "已批核兌換申請。" })
         : t({ en: "Gift request rejected.", zh: "已拒絕兌換申請。" });
-    updateData(readTeacherRewards(payload), success);
+    const nextRewards = readTeacherRewards(payload);
+    const updatedRequest = nextRewards?.redemptions.find((request) => request.id === requestId)
+      ?? data.redemptions.find((request) => request.id === requestId);
+    if (updatedRequest) {
+      setLastOperation({
+        type: "redemption",
+        requestId,
+        studentId: updatedRequest.studentId,
+        studentName: updatedRequest.studentName,
+        itemName: text(updatedRequest.item.name),
+        status
+      });
+    }
+    updateData(nextRewards, success);
   };
 
   return (
@@ -210,7 +298,9 @@ export function TeacherRewardsView({ rewards }: { rewards: TeacherRewardsData })
         ))}
       </section>
 
-      <TeacherGamificationPanel />
+      {data.students.length ? <TeacherGamificationPanel /> : null}
+
+      {lastOperation ? <RewardOperationPanel operation={lastOperation} /> : null}
 
       <section className="grid gap-6 xl:grid-cols-[390px_minmax(0,1fr)]">
         <aside className="grid gap-6">
@@ -283,7 +373,7 @@ export function TeacherRewardsView({ rewards }: { rewards: TeacherRewardsData })
             </div>
             <div className="mt-5 grid gap-3">
               {data.redemptions.slice(0, 8).map((request) => (
-                <article key={request.id} className="soft-panel p-4">
+                <article key={request.id} id={`redemption-${request.id}`} className="soft-panel scroll-mt-24 p-4">
                   <div className="flex flex-wrap items-start justify-between gap-3">
                     <div>
                       <p className="text-base font-black text-slate-950 dark:text-white">{request.studentName}</p>
@@ -321,7 +411,7 @@ export function TeacherRewardsView({ rewards }: { rewards: TeacherRewardsData })
                 </thead>
                 <tbody className="divide-y divide-slate-200/80 dark:divide-white/10">
                   {data.students.map((student) => (
-                    <tr key={student.studentId}>
+                    <tr key={student.studentId} id={`student-balance-${student.studentId}`} className="scroll-mt-24">
                       <td className="py-4 pr-4">
                         <Link href={`/teacher/students/${student.studentId}`} className="font-black text-cyan-700 dark:text-cyan-200">{student.studentName}</Link>
                         <p className="mt-1 text-xs font-bold text-slate-500 dark:text-slate-400">{formatGradeLabel(student.grade, language, true)}</p>
@@ -337,7 +427,7 @@ export function TeacherRewardsView({ rewards }: { rewards: TeacherRewardsData })
             </div>
           </section>
 
-          <section className="glass-panel p-5">
+          <section id="recent-point-activity" className="glass-panel scroll-mt-24 p-5">
             <h2 className="text-2xl font-black text-slate-950 dark:text-white">{t({ en: "Recent point activity", zh: "最近積分活動" })}</h2>
             <div className="mt-4 grid gap-3 md:grid-cols-2">
               {data.recentLedger.map((entry) => (

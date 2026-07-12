@@ -1,0 +1,3253 @@
+diff --git a/.gitignore b/.gitignore
+index 49c47291d..adddd438e 100644
+--- a/.gitignore
++++ b/.gitignore
+@@ -27,6 +27,9 @@ temp/
+ .local/
+ output/
+ outputs/
++var/
++Users/
++MAIS-MVP-*/
+ 
+ # Logs
+ *.log
+@@ -43,6 +46,11 @@ lerna-debug.log*
+ !.env.example
+ !.env.local.example
+ default accounts.md
++All API Keys.docx
++~$*.docx
++~$*.pptx
++~$*.xlsx
++tsconfig.*.tmp.json
+ 
+ # Vercel local state
+ .vercel/
+diff --git a/.vercelignore b/.vercelignore
+index d0a2f24d6..a55bcd5d3 100644
+--- a/.vercelignore
++++ b/.vercelignore
+@@ -5,6 +5,8 @@
+ # Dependencies and build output
+ node_modules/
+ .next/
++.next*/
++.next-*/
+ out/
+ dist/
+ build/
+@@ -20,20 +22,36 @@ video-plan/
+ 
+ # Local/generated output
+ .local/
++private/
+ .tmp/
++MAIS-MVP-*/
++Users/
++var/
+ tmp/
+ temp/
+ output/
+ outputs/
+ coverage/
+ .cache/
++coordination/reports/*-render/
++coordination/session-logs/*-failures/
++**/lo-profile/
++
++# Raw source data and generated candidate assets must stay out of deploy uploads.
++data/ease/
++public/question-illustrations/
+ 
+ # Logs and local-only files
+ *.log
+ *.tsbuildinfo
++tsconfig.*.tmp.json
+ .DS_Store
+ .Rhistory
+ default accounts.md
++All API Keys.docx
++~$*.docx
++~$*.pptx
++~$*.xlsx
+ .env
+ .env.*
+ *.local
+diff --git a/AGENTS.md b/AGENTS.md
+index 8a1b3fd0f..6a84cc2e2 100644
+--- a/AGENTS.md
++++ b/AGENTS.md
+@@ -28,6 +28,24 @@ Every session must:
+ - Leave a handoff note before stopping.
+ - Never revert unrelated user or session changes.
+ 
++## Enterprise Release Governance Addendum
++
++The release path is frozen until these A25/A10/A22 guardrails pass. Root release from `/Users/dongpinhu/Desktop/MAIS-MVP` is not allowed for A22: preview or production release source must be a clean worktree, clean clone, reviewed clean slice, or owner-approved pruned staging. A root dirty map is inventory evidence only; it is not a deploy source approval.
++
++P0 gate before any runtime preview or production decision:
++
++```bash
++npm run release:dirty-map -- --assert-current --max-age-minutes 60
++```
++
++Additional standing rules:
++
++- Unmapped owner entries must be zero, or each entry must have an explicit blocker in `coordination/release-intake/owner-pathspecs.json`.
++- `.env*`, local DOCX credential files, and other secret sources must stay quarantined and must not be committed, staged, logged, or deployed.
++- `git add .` is forbidden. Use the owner pathspecs in `coordination/release-intake/owner-package-manifest.json` and validate them with `npm run release:package-gate`.
++- Every owner package must end in exactly one of: `reviewed commit`, `owner-approved discard`, `evidence archive`, or `blocker report`.
++- Foundation governance/release hygiene should land before high-risk runtime slices. A12 storage/API, A06 visualization/Manim/Three.js, A07 AI tutor, A15 adaptive engine, A08 shared types, A11 regression evidence, and A18/A21/A23/A24 content/RAG packages must stay separate unless the owner explicitly merges scopes.
++
+ ## Project Conventions
+ 
+ - Use the `@/` path alias for project imports.
+diff --git a/coordination/release-intake/2026-06-27-A25-dirty-tree-map-final-clean-source.json b/coordination/release-intake/2026-06-27-A25-dirty-tree-map-final-clean-source.json
+new file mode 100644
+index 000000000..6bc51b1b4
+--- /dev/null
++++ b/coordination/release-intake/2026-06-27-A25-dirty-tree-map-final-clean-source.json
+@@ -0,0 +1,47 @@
++{
++  "generatedAt": "2026-06-27T14:50:48.495Z",
++  "timezone": "Asia/Hong_Kong",
++  "agents": [
++    "A25",
++    "A22",
++    "A10"
++  ],
++  "reason": "A25/A10/A22 clean source verification",
++  "statusSignature": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
++  "ownerPathspecs": "coordination/release-intake/owner-pathspecs.json",
++  "outputPaths": {
++    "latestJson": "coordination/release-intake/latest-A25-dirty-tree-map.json",
++    "latestMarkdown": "coordination/release-intake/latest-A25-dirty-tree-map.md",
++    "reportJson": "coordination/release-intake/2026-06-27-A25-dirty-tree-map-final-clean-source.json",
++    "reportMarkdown": "coordination/release-intake/2026-06-27-A25-dirty-tree-map-final-clean-source.md"
++  },
++  "policy": {
++    "rootReleaseFrozen": true,
++    "dirtyMapMaxAgeMinutes": 60,
++    "forbidGitAddDot": true,
++    "unmappedOwnerRule": "Unmapped owner entries must be zero or covered by an explicit blocker pathspec.",
++    "allowedReleaseSources": [
++      "clean-worktree",
++      "clean-clone",
++      "reviewed-clean-slice",
++      "owner-approved-pruned-staging"
++    ]
++  },
++  "statusCounts": {
++    "collapsedStatusEntries": 0,
++    "expandedStatusEntries": 0,
++    "trackedModified": 0,
++    "trackedDeleted": 0,
++    "untrackedStatusEntries": 0,
++    "untrackedFiles": 0,
++    "unmappedEntries": 0,
++    "unblockedUnmappedEntries": 0,
++    "secretQuarantineEntries": 0
++  },
++  "ownerBuckets": {},
++  "sliceBuckets": {},
++  "releaseHygieneEntries": [],
++  "unmappedEntries": [],
++  "unblockedUnmappedEntries": [],
++  "entries": []
++}
+diff --git a/coordination/release-intake/2026-06-27-A25-dirty-tree-map-final-clean-source.md b/coordination/release-intake/2026-06-27-A25-dirty-tree-map-final-clean-source.md
+new file mode 100644
+index 000000000..e0471ef6e
+--- /dev/null
++++ b/coordination/release-intake/2026-06-27-A25-dirty-tree-map-final-clean-source.md
+@@ -0,0 +1,44 @@
++# 2026-06-27 A25 Dirty-Tree Map
++
++Generated at: 2026-06-27T14:50:48.495Z
++Agents: A25; A22; A10
++Reason: A25/A10/A22 clean source verification
++Status signature: `e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855`
++Owner pathspecs: `coordination/release-intake/owner-pathspecs.json`
++
++## P0 Gates
++
++- Dirty-map max age: 60 minutes
++- Unmapped owner entries: 0
++- Unblocked unmapped owner entries: 0
++- Secret/env quarantine entries: 0
++- Runtime release source must be clean worktree, clean clone, reviewed clean slice, or owner-approved pruned staging.
++- Root dirty map is inventory evidence only; A22 release judgement is made by the clean-source gate.
++
++## Counts
++
++- Collapsed status entries: 0
++- Expanded status entries: 0
++- Tracked modified: 0
++- Tracked deleted: 0
++- Untracked status entries: 0
++- Untracked files: 0
++
++## Owner Buckets
++
++| Owner bucket | Dirty entries |
++| --- | ---: |
++
++## Slice Buckets
++
++| Slice | Dirty entries |
++| --- | ---: |
++
++## Release Hygiene Entries
++
++No entries detected.
++
++## Unmapped Entries
++
++No entries detected.
++
+diff --git a/coordination/release-intake/2026-06-27-A25-dirty-tree-map-final-governance.json b/coordination/release-intake/2026-06-27-A25-dirty-tree-map-final-governance.json
+new file mode 100644
+index 000000000..e02060eb9
+--- /dev/null
++++ b/coordination/release-intake/2026-06-27-A25-dirty-tree-map-final-governance.json
+@@ -0,0 +1,316 @@
++{
++  "generatedAt": "2026-06-27T14:47:01.128Z",
++  "timezone": "Asia/Hong_Kong",
++  "agents": [
++    "A25",
++    "A22",
++    "A10"
++  ],
++  "reason": "A25/A10/A22 final governance handoff",
++  "statusSignature": "c71ee867622325461895d2a9aa69b83c639faad4022fbdc6136cfc628401ee8f",
++  "ownerPathspecs": "coordination/release-intake/owner-pathspecs.json",
++  "outputPaths": {
++    "latestJson": "coordination/release-intake/latest-A25-dirty-tree-map.json",
++    "latestMarkdown": "coordination/release-intake/latest-A25-dirty-tree-map.md",
++    "reportJson": "coordination/release-intake/2026-06-27-A25-dirty-tree-map-final-governance.json",
++    "reportMarkdown": "coordination/release-intake/2026-06-27-A25-dirty-tree-map-final-governance.md"
++  },
++  "policy": {
++    "rootReleaseFrozen": true,
++    "dirtyMapMaxAgeMinutes": 60,
++    "forbidGitAddDot": true,
++    "unmappedOwnerRule": "Unmapped owner entries must be zero or covered by an explicit blocker pathspec.",
++    "allowedReleaseSources": [
++      "clean-worktree",
++      "clean-clone",
++      "reviewed-clean-slice",
++      "owner-approved-pruned-staging"
++    ]
++  },
++  "statusCounts": {
++    "collapsedStatusEntries": 16,
++    "expandedStatusEntries": 17,
++    "trackedModified": 5,
++    "trackedDeleted": 0,
++    "untrackedStatusEntries": 11,
++    "untrackedFiles": 12,
++    "unmappedEntries": 0,
++    "unblockedUnmappedEntries": 0,
++    "secretQuarantineEntries": 0
++  },
++  "ownerBuckets": {
++    "A22 Production reliability and release engineering": 9,
++    "A10 Tooling, docs, report, and coordination contract": 5,
++    "A25 Git hygiene and release intake": 3
++  },
++  "sliceBuckets": {
++    "release hygiene tooling/config": 9,
++    "docs/coordination evidence": 8
++  },
++  "releaseHygieneEntries": [
++    {
++      "status": " M",
++      "path": ".vercelignore",
++      "owner": "A22 Production reliability and release engineering",
++      "ownerId": "A22",
++      "packageId": "A22-release-hygiene-tooling",
++      "slice": "release hygiene tooling/config",
++      "matchedPathspec": ".vercelignore",
++      "secretQuarantine": false
++    },
++    {
++      "status": " M",
++      "path": "playwright.config.ts",
++      "owner": "A22 Production reliability and release engineering",
++      "ownerId": "A22",
++      "packageId": "A22-release-hygiene-tooling",
++      "slice": "release hygiene tooling/config",
++      "matchedPathspec": "playwright.config.ts",
++      "secretQuarantine": false
++    },
++    {
++      "status": "??",
++      "path": "scripts/deploy-vercel-preview.mjs",
++      "owner": "A22 Production reliability and release engineering",
++      "ownerId": "A22",
++      "packageId": "A22-release-hygiene-tooling",
++      "slice": "release hygiene tooling/config",
++      "matchedPathspec": "scripts/deploy-vercel-*.mjs",
++      "secretQuarantine": false
++    },
++    {
++      "status": "??",
++      "path": "scripts/deploy-vercel-production.mjs",
++      "owner": "A22 Production reliability and release engineering",
++      "ownerId": "A22",
++      "packageId": "A22-release-hygiene-tooling",
++      "slice": "release hygiene tooling/config",
++      "matchedPathspec": "scripts/deploy-vercel-*.mjs",
++      "secretQuarantine": false
++    },
++    {
++      "status": "??",
++      "path": "scripts/prepare-vercel-staging.mjs",
++      "owner": "A22 Production reliability and release engineering",
++      "ownerId": "A22",
++      "packageId": "A22-release-hygiene-tooling",
++      "slice": "release hygiene tooling/config",
++      "matchedPathspec": "scripts/prepare-vercel-staging.mjs",
++      "secretQuarantine": false
++    },
++    {
++      "status": "??",
++      "path": "scripts/release-env-guard.mjs",
++      "owner": "A22 Production reliability and release engineering",
++      "ownerId": "A22",
++      "packageId": "A22-release-hygiene-tooling",
++      "slice": "release hygiene tooling/config",
++      "matchedPathspec": "scripts/release-*.mjs",
++      "secretQuarantine": false
++    },
++    {
++      "status": "??",
++      "path": "scripts/release-governance.test.mjs",
++      "owner": "A22 Production reliability and release engineering",
++      "ownerId": "A22",
++      "packageId": "A22-release-hygiene-tooling",
++      "slice": "release hygiene tooling/config",
++      "matchedPathspec": "scripts/release-*.mjs",
++      "secretQuarantine": false
++    },
++    {
++      "status": "??",
++      "path": "scripts/release-package-gate.mjs",
++      "owner": "A22 Production reliability and release engineering",
++      "ownerId": "A22",
++      "packageId": "A22-release-hygiene-tooling",
++      "slice": "release hygiene tooling/config",
++      "matchedPathspec": "scripts/release-*.mjs",
++      "secretQuarantine": false
++    },
++    {
++      "status": "??",
++      "path": "tsconfig.next.json",
++      "owner": "A22 Production reliability and release engineering",
++      "ownerId": "A22",
++      "packageId": "A22-release-hygiene-tooling",
++      "slice": "release hygiene tooling/config",
++      "matchedPathspec": "tsconfig.next.json",
++      "secretQuarantine": false
++    }
++  ],
++  "unmappedEntries": [],
++  "unblockedUnmappedEntries": [],
++  "entries": [
++    {
++      "status": " M",
++      "path": ".gitignore",
++      "owner": "A10 Tooling, docs, report, and coordination contract",
++      "ownerId": "A10",
++      "packageId": "A10-tooling-docs-config",
++      "slice": "docs/coordination evidence",
++      "matchedPathspec": ".gitignore",
++      "secretQuarantine": false
++    },
++    {
++      "status": " M",
++      "path": ".vercelignore",
++      "owner": "A22 Production reliability and release engineering",
++      "ownerId": "A22",
++      "packageId": "A22-release-hygiene-tooling",
++      "slice": "release hygiene tooling/config",
++      "matchedPathspec": ".vercelignore",
++      "secretQuarantine": false
++    },
++    {
++      "status": " M",
++      "path": "AGENTS.md",
++      "owner": "A10 Tooling, docs, report, and coordination contract",
++      "ownerId": "A10",
++      "packageId": "A10-tooling-docs-config",
++      "slice": "docs/coordination evidence",
++      "matchedPathspec": "AGENTS.md",
++      "secretQuarantine": false
++    },
++    {
++      "status": " M",
++      "path": "package.json",
++      "owner": "A10 Tooling, docs, report, and coordination contract",
++      "ownerId": "A10",
++      "packageId": "A10-tooling-docs-config",
++      "slice": "docs/coordination evidence",
++      "matchedPathspec": "package.json",
++      "secretQuarantine": false
++    },
++    {
++      "status": " M",
++      "path": "playwright.config.ts",
++      "owner": "A22 Production reliability and release engineering",
++      "ownerId": "A22",
++      "packageId": "A22-release-hygiene-tooling",
++      "slice": "release hygiene tooling/config",
++      "matchedPathspec": "playwright.config.ts",
++      "secretQuarantine": false
++    },
++    {
++      "status": "??",
++      "path": "coordination/release-intake/owner-package-manifest.json",
++      "owner": "A25 Git hygiene and release intake",
++      "ownerId": "A25",
++      "packageId": "A25-release-intake",
++      "slice": "docs/coordination evidence",
++      "matchedPathspec": "coordination/release-intake/**",
++      "secretQuarantine": false
++    },
++    {
++      "status": "??",
++      "path": "coordination/release-intake/owner-pathspecs.json",
++      "owner": "A25 Git hygiene and release intake",
++      "ownerId": "A25",
++      "packageId": "A25-release-intake",
++      "slice": "docs/coordination evidence",
++      "matchedPathspec": "coordination/release-intake/**",
++      "secretQuarantine": false
++    },
++    {
++      "status": "??",
++      "path": "coordination/reports/2026-06-27-A10-A22-A25-release-governance.md",
++      "owner": "A10 Tooling, docs, report, and coordination contract",
++      "ownerId": "A10",
++      "packageId": "A10-tooling-docs-config",
++      "slice": "docs/coordination evidence",
++      "matchedPathspec": "coordination/reports/**",
++      "secretQuarantine": false
++    },
++    {
++      "status": "??",
++      "path": "coordination/session-logs/2026-06-27-A10-A22-A25-release-governance.md",
++      "owner": "A10 Tooling, docs, report, and coordination contract",
++      "ownerId": "A10",
++      "packageId": "A10-tooling-docs-config",
++      "slice": "docs/coordination evidence",
++      "matchedPathspec": "coordination/session-logs/**",
++      "secretQuarantine": false
++    },
++    {
++      "status": "??",
++      "path": "scripts/deploy-vercel-preview.mjs",
++      "owner": "A22 Production reliability and release engineering",
++      "ownerId": "A22",
++      "packageId": "A22-release-hygiene-tooling",
++      "slice": "release hygiene tooling/config",
++      "matchedPathspec": "scripts/deploy-vercel-*.mjs",
++      "secretQuarantine": false
++    },
++    {
++      "status": "??",
++      "path": "scripts/deploy-vercel-production.mjs",
++      "owner": "A22 Production reliability and release engineering",
++      "ownerId": "A22",
++      "packageId": "A22-release-hygiene-tooling",
++      "slice": "release hygiene tooling/config",
++      "matchedPathspec": "scripts/deploy-vercel-*.mjs",
++      "secretQuarantine": false
++    },
++    {
++      "status": "??",
++      "path": "scripts/prepare-vercel-staging.mjs",
++      "owner": "A22 Production reliability and release engineering",
++      "ownerId": "A22",
++      "packageId": "A22-release-hygiene-tooling",
++      "slice": "release hygiene tooling/config",
++      "matchedPathspec": "scripts/prepare-vercel-staging.mjs",
++      "secretQuarantine": false
++    },
++    {
++      "status": "??",
++      "path": "scripts/refresh-dirty-tree-map.mjs",
++      "owner": "A25 Git hygiene and release intake",
++      "ownerId": "A25",
++      "packageId": "A25-release-intake",
++      "slice": "docs/coordination evidence",
++      "matchedPathspec": "scripts/refresh-dirty-tree-map.mjs",
++      "secretQuarantine": false
++    },
++    {
++      "status": "??",
++      "path": "scripts/release-env-guard.mjs",
++      "owner": "A22 Production reliability and release engineering",
++      "ownerId": "A22",
++      "packageId": "A22-release-hygiene-tooling",
++      "slice": "release hygiene tooling/config",
++      "matchedPathspec": "scripts/release-*.mjs",
++      "secretQuarantine": false
++    },
++    {
++      "status": "??",
++      "path": "scripts/release-governance.test.mjs",
++      "owner": "A22 Production reliability and release engineering",
++      "ownerId": "A22",
++      "packageId": "A22-release-hygiene-tooling",
++      "slice": "release hygiene tooling/config",
++      "matchedPathspec": "scripts/release-*.mjs",
++      "secretQuarantine": false
++    },
++    {
++      "status": "??",
++      "path": "scripts/release-package-gate.mjs",
++      "owner": "A22 Production reliability and release engineering",
++      "ownerId": "A22",
++      "packageId": "A22-release-hygiene-tooling",
++      "slice": "release hygiene tooling/config",
++      "matchedPathspec": "scripts/release-*.mjs",
++      "secretQuarantine": false
++    },
++    {
++      "status": "??",
++      "path": "tsconfig.next.json",
++      "owner": "A22 Production reliability and release engineering",
++      "ownerId": "A22",
++      "packageId": "A22-release-hygiene-tooling",
++      "slice": "release hygiene tooling/config",
++      "matchedPathspec": "tsconfig.next.json",
++      "secretQuarantine": false
++    }
++  ]
++}
+diff --git a/coordination/release-intake/2026-06-27-A25-dirty-tree-map-final-governance.md b/coordination/release-intake/2026-06-27-A25-dirty-tree-map-final-governance.md
+new file mode 100644
+index 000000000..f6e4f1077
+--- /dev/null
++++ b/coordination/release-intake/2026-06-27-A25-dirty-tree-map-final-governance.md
+@@ -0,0 +1,59 @@
++# 2026-06-27 A25 Dirty-Tree Map
++
++Generated at: 2026-06-27T14:47:01.128Z
++Agents: A25; A22; A10
++Reason: A25/A10/A22 final governance handoff
++Status signature: `c71ee867622325461895d2a9aa69b83c639faad4022fbdc6136cfc628401ee8f`
++Owner pathspecs: `coordination/release-intake/owner-pathspecs.json`
++
++## P0 Gates
++
++- Dirty-map max age: 60 minutes
++- Unmapped owner entries: 0
++- Unblocked unmapped owner entries: 0
++- Secret/env quarantine entries: 0
++- Runtime release source must be clean worktree, clean clone, reviewed clean slice, or owner-approved pruned staging.
++- Root dirty map is inventory evidence only; A22 release judgement is made by the clean-source gate.
++
++## Counts
++
++- Collapsed status entries: 16
++- Expanded status entries: 17
++- Tracked modified: 5
++- Tracked deleted: 0
++- Untracked status entries: 11
++- Untracked files: 12
++
++## Owner Buckets
++
++| Owner bucket | Dirty entries |
++| --- | ---: |
++| A22 Production reliability and release engineering | 9 |
++| A10 Tooling, docs, report, and coordination contract | 5 |
++| A25 Git hygiene and release intake | 3 |
++
++## Slice Buckets
++
++| Slice | Dirty entries |
++| --- | ---: |
++| release hygiene tooling/config | 9 |
++| docs/coordination evidence | 8 |
++
++## Release Hygiene Entries
++
++| Status | Path | Owner | Package |
++| --- | --- | --- | --- |
++| `M` | `.vercelignore` | A22 Production reliability and release engineering | A22-release-hygiene-tooling |
++| `M` | `playwright.config.ts` | A22 Production reliability and release engineering | A22-release-hygiene-tooling |
++| `??` | `scripts/deploy-vercel-preview.mjs` | A22 Production reliability and release engineering | A22-release-hygiene-tooling |
++| `??` | `scripts/deploy-vercel-production.mjs` | A22 Production reliability and release engineering | A22-release-hygiene-tooling |
++| `??` | `scripts/prepare-vercel-staging.mjs` | A22 Production reliability and release engineering | A22-release-hygiene-tooling |
++| `??` | `scripts/release-env-guard.mjs` | A22 Production reliability and release engineering | A22-release-hygiene-tooling |
++| `??` | `scripts/release-governance.test.mjs` | A22 Production reliability and release engineering | A22-release-hygiene-tooling |
++| `??` | `scripts/release-package-gate.mjs` | A22 Production reliability and release engineering | A22-release-hygiene-tooling |
++| `??` | `tsconfig.next.json` | A22 Production reliability and release engineering | A22-release-hygiene-tooling |
++
++## Unmapped Entries
++
++No entries detected.
++
+diff --git a/coordination/release-intake/latest-A25-dirty-tree-map.json b/coordination/release-intake/latest-A25-dirty-tree-map.json
+new file mode 100644
+index 000000000..6bc51b1b4
+--- /dev/null
++++ b/coordination/release-intake/latest-A25-dirty-tree-map.json
+@@ -0,0 +1,47 @@
++{
++  "generatedAt": "2026-06-27T14:50:48.495Z",
++  "timezone": "Asia/Hong_Kong",
++  "agents": [
++    "A25",
++    "A22",
++    "A10"
++  ],
++  "reason": "A25/A10/A22 clean source verification",
++  "statusSignature": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
++  "ownerPathspecs": "coordination/release-intake/owner-pathspecs.json",
++  "outputPaths": {
++    "latestJson": "coordination/release-intake/latest-A25-dirty-tree-map.json",
++    "latestMarkdown": "coordination/release-intake/latest-A25-dirty-tree-map.md",
++    "reportJson": "coordination/release-intake/2026-06-27-A25-dirty-tree-map-final-clean-source.json",
++    "reportMarkdown": "coordination/release-intake/2026-06-27-A25-dirty-tree-map-final-clean-source.md"
++  },
++  "policy": {
++    "rootReleaseFrozen": true,
++    "dirtyMapMaxAgeMinutes": 60,
++    "forbidGitAddDot": true,
++    "unmappedOwnerRule": "Unmapped owner entries must be zero or covered by an explicit blocker pathspec.",
++    "allowedReleaseSources": [
++      "clean-worktree",
++      "clean-clone",
++      "reviewed-clean-slice",
++      "owner-approved-pruned-staging"
++    ]
++  },
++  "statusCounts": {
++    "collapsedStatusEntries": 0,
++    "expandedStatusEntries": 0,
++    "trackedModified": 0,
++    "trackedDeleted": 0,
++    "untrackedStatusEntries": 0,
++    "untrackedFiles": 0,
++    "unmappedEntries": 0,
++    "unblockedUnmappedEntries": 0,
++    "secretQuarantineEntries": 0
++  },
++  "ownerBuckets": {},
++  "sliceBuckets": {},
++  "releaseHygieneEntries": [],
++  "unmappedEntries": [],
++  "unblockedUnmappedEntries": [],
++  "entries": []
++}
+diff --git a/coordination/release-intake/latest-A25-dirty-tree-map.md b/coordination/release-intake/latest-A25-dirty-tree-map.md
+new file mode 100644
+index 000000000..e0471ef6e
+--- /dev/null
++++ b/coordination/release-intake/latest-A25-dirty-tree-map.md
+@@ -0,0 +1,44 @@
++# 2026-06-27 A25 Dirty-Tree Map
++
++Generated at: 2026-06-27T14:50:48.495Z
++Agents: A25; A22; A10
++Reason: A25/A10/A22 clean source verification
++Status signature: `e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855`
++Owner pathspecs: `coordination/release-intake/owner-pathspecs.json`
++
++## P0 Gates
++
++- Dirty-map max age: 60 minutes
++- Unmapped owner entries: 0
++- Unblocked unmapped owner entries: 0
++- Secret/env quarantine entries: 0
++- Runtime release source must be clean worktree, clean clone, reviewed clean slice, or owner-approved pruned staging.
++- Root dirty map is inventory evidence only; A22 release judgement is made by the clean-source gate.
++
++## Counts
++
++- Collapsed status entries: 0
++- Expanded status entries: 0
++- Tracked modified: 0
++- Tracked deleted: 0
++- Untracked status entries: 0
++- Untracked files: 0
++
++## Owner Buckets
++
++| Owner bucket | Dirty entries |
++| --- | ---: |
++
++## Slice Buckets
++
++| Slice | Dirty entries |
++| --- | ---: |
++
++## Release Hygiene Entries
++
++No entries detected.
++
++## Unmapped Entries
++
++No entries detected.
++
+diff --git a/coordination/release-intake/owner-package-manifest.json b/coordination/release-intake/owner-package-manifest.json
+new file mode 100644
+index 000000000..0db8fb80a
+--- /dev/null
++++ b/coordination/release-intake/owner-package-manifest.json
+@@ -0,0 +1,101 @@
++{
++  "version": 1,
++  "updatedAt": "2026-06-27",
++  "policy": {
++    "allowedFinalStates": [
++      "reviewed commit",
++      "owner-approved discard",
++      "evidence archive",
++      "blocker report"
++    ],
++    "forbiddenStagingCommand": "git add .",
++    "p0DirtyMapGate": "npm run release:dirty-map -- --assert-current --max-age-minutes 60"
++  },
++  "packages": [
++    {
++      "id": "foundation-governance-A25-A10",
++      "owner": "A25/A10",
++      "objective": "Freeze owner pathspecs, release-intake evidence, dirty-map reports, and package final-state validation.",
++      "pathspecs": [
++        "coordination/release-intake/**",
++        "scripts/refresh-dirty-tree-map.mjs",
++        "scripts/release-package-gate.mjs",
++        "scripts/release-governance.test.mjs",
++        "package.json",
++        "AGENTS.md"
++      ],
++      "checks": [
++        "npm run test:release-governance",
++        "npm run release:package-gate",
++        "npm run release:dirty-map -- --assert-current --max-age-minutes 60"
++      ],
++      "finalState": "reviewed commit"
++    },
++    {
++      "id": "foundation-release-hygiene-A22-A10",
++      "owner": "A22/A10",
++      "objective": "Stabilize release hygiene tooling/config before runtime slices.",
++      "pathspecs": [
++        ".vercelignore",
++        "playwright.config.ts",
++        "tsconfig.next.json",
++        "scripts/release-env-guard.mjs",
++        "scripts/prepare-vercel-staging.mjs",
++        "scripts/deploy-vercel-preview.mjs",
++        "scripts/deploy-vercel-production.mjs",
++        "package.json"
++      ],
++      "checks": [
++        "npm run test:release-governance",
++        "npm run release:preflight -- --json",
++        "npm run type-check"
++      ],
++      "finalState": "reviewed commit"
++    },
++    {
++      "id": "runtime-storage-contract-A12",
++      "owner": "A12",
++      "objective": "Process lib/server/userStore.ts and API/storage contract as a separate high-risk runtime package.",
++      "pathspecs": ["lib/server/userStore.ts", "lib/server/**", "app/api/**", "middleware.ts"],
++      "checks": ["npm run test:backend", "npm run type-check"],
++      "finalState": "blocker report",
++      "blocker": "Not included in foundation governance PR; requires A12-owned runtime slice."
++    },
++    {
++      "id": "runtime-visualization-A06",
++      "owner": "A06",
++      "objective": "Process Visualization Lab, Manim, and Three.js changes as a separate high-risk runtime package.",
++      "pathspecs": ["app/visualization-lab/**", "app/student/tools/visualizations/**", "components/visualizations/**", "data/visualizationLabs.ts", "lib/math.ts"],
++      "checks": ["visualization unit tests", "npm run type-check"],
++      "finalState": "blocker report",
++      "blocker": "Not included in foundation governance PR; requires A06-owned runtime slice."
++    },
++    {
++      "id": "runtime-ai-adaptive-shared",
++      "owner": "A07/A15/A08",
++      "objective": "Keep AI tutor, adaptive engine, and shared types in separate packages without UI rewrites.",
++      "pathspecs": ["components/ai/**", "app/api/ai-tutor/**", "app/api/adaptive-learning/**", "lib/adaptiveLearning.ts", "types/**", "components/providers/**"],
++      "checks": ["npm run type-check", "focused owner tests"],
++      "finalState": "blocker report",
++      "blocker": "Not included in foundation governance PR; split into A07, A15, and A08 owner packages."
++    },
++    {
++      "id": "regression-evidence-routing-A11",
++      "owner": "A11",
++      "objective": "Route regression evidence by owner instead of one broad regression PR.",
++      "pathspecs": ["tests/e2e/**", "coordination/reports/**"],
++      "checks": ["targeted Playwright commands per owner route"],
++      "finalState": "blocker report",
++      "blocker": "A11 must slice regression evidence after release guardrails land."
++    },
++    {
++      "id": "content-rag-candidate-chain",
++      "owner": "A21/A18/A24/A23/A04/A05/A11/A22",
++      "objective": "Keep content/RAG in candidate chain before live data integration.",
++      "pathspecs": ["coordination/content-qa/**", "data/generated-content/**", "data/rag/**", "lib/rag/**", "public/question-illustrations/**", "coordination/integration/**", "data/questions.ts", "data/lessons.ts"],
++      "checks": ["A21 candidate generation", "A18 independent QA", "A24 exact-layer if needed", "A23 promotion gate", "A04/A05 live integration", "A11 regression", "A22 clean release"],
++      "finalState": "blocker report",
++      "blocker": "Candidate chain must complete before live data/source edits."
++    }
++  ]
++}
+diff --git a/coordination/release-intake/owner-pathspecs.json b/coordination/release-intake/owner-pathspecs.json
+new file mode 100644
+index 000000000..1d7b6287f
+--- /dev/null
++++ b/coordination/release-intake/owner-pathspecs.json
+@@ -0,0 +1,288 @@
++{
++  "version": 1,
++  "frozenAt": "2026-06-27",
++  "frozenBy": ["A25", "A10", "A22"],
++  "policy": {
++    "rootReleaseFrozen": true,
++    "dirtyMapMaxAgeMinutes": 60,
++    "forbidGitAddDot": true,
++    "unmappedOwnerRule": "Unmapped owner entries must be zero or covered by an explicit blocker pathspec.",
++    "allowedReleaseSources": [
++      "clean-worktree",
++      "clean-clone",
++      "reviewed-clean-slice",
++      "owner-approved-pruned-staging"
++    ]
++  },
++  "packages": [
++    {
++      "id": "A25-release-intake",
++      "owner": "A25",
++      "role": "Git hygiene and release intake",
++      "slice": "docs/coordination evidence",
++      "pathspecs": ["coordination/release-intake/**", "scripts/refresh-dirty-tree-map.mjs"]
++    },
++    {
++      "id": "A22-release-hygiene-tooling",
++      "owner": "A22",
++      "role": "Production reliability and release engineering",
++      "slice": "release hygiene tooling/config",
++      "pathspecs": [
++        ".vercelignore",
++        "playwright.config.ts",
++        "tsconfig.next.json",
++        "scripts/release-*.mjs",
++        "scripts/deploy-vercel-*.mjs",
++        "scripts/prepare-vercel-staging.mjs",
++        "scripts/cleanup-generated-artifacts.mjs"
++      ]
++    },
++    {
++      "id": "A10-tooling-docs-config",
++      "owner": "A10",
++      "role": "Tooling, docs, report, and coordination contract",
++      "slice": "docs/coordination evidence",
++      "pathspecs": [
++        "AGENTS.md",
++        "README.md",
++        ".gitignore",
++        "package.json",
++        "package-lock.json",
++        "next.config.ts",
++        "tsconfig.json",
++        "tailwind.config.ts",
++        "postcss.config.mjs",
++        "app/globals.css",
++        "docs/**",
++        "video-plan/**",
++        "design-qa.md",
++        "coordination/reports/**",
++        "coordination/session-logs/**",
++        "coordination/blockers/**",
++        "coordination/decisions/**"
++      ]
++    },
++    {
++      "id": "A11-regression-evidence",
++      "owner": "A11",
++      "role": "QA and release quality",
++      "slice": "tests/regression evidence",
++      "pathspecs": ["tests/e2e/**", "**/*.spec.ts", "**/*.spec.tsx"]
++    },
++    {
++      "id": "A12-backend-api-storage",
++      "owner": "A12",
++      "role": "Backend/API platform and storage contract",
++      "slice": "runtime app/API/data/public",
++      "pathspecs": ["app/api/**", "lib/server/**", "middleware.ts"]
++    },
++    {
++      "id": "A07-ai-tutor",
++      "owner": "A07",
++      "role": "AI tutor and provider integration",
++      "slice": "runtime app/API/data/public",
++      "pathspecs": ["app/api/ai-tutor/**", "components/ai/**", "lib/server/llmProvider.ts", ".env.local.example"]
++    },
++    {
++      "id": "A15-adaptive-engine",
++      "owner": "A15",
++      "role": "Adaptive engine and recommendation quality",
++      "slice": "runtime app/API/data/public",
++      "pathspecs": ["app/api/adaptive-learning/**", "lib/adaptiveLearning.ts", "lib/adaptiveLearning.test.ts"]
++    },
++    {
++      "id": "A08-shared-state-types",
++      "owner": "A08",
++      "role": "Shared provider state, analytics, and app-wide types",
++      "slice": "runtime app/API/data/public",
++      "pathspecs": [
++        "components/providers/**",
++        "lib/learningAnalytics.ts",
++        "lib/learningAnalytics.test.ts",
++        "lib/utils.ts",
++        "lib/difficulty.ts",
++        "lib/difficulty.test.ts",
++        "types/**"
++      ]
++    },
++    {
++      "id": "A06-visualization-runtime",
++      "owner": "A06",
++      "role": "Visualization Lab, Manim, and Three.js runtime",
++      "slice": "runtime app/API/data/public",
++      "pathspecs": [
++        "app/visualization-lab/**",
++        "app/student/tools/visualizations/**",
++        "components/visualizations/**",
++        "data/visualizationLabs.ts",
++        "lib/math.ts"
++      ]
++    },
++    {
++      "id": "A21-content-rag-candidates",
++      "owner": "A21",
++      "role": "Content pipeline and RAG candidate operations",
++      "slice": "generated/content/RAG backlog",
++      "pathspecs": ["data/generated-content/**", "data/rag/**", "lib/rag/**", ".local/rag/**", "scripts/build-*.py", "scripts/build-*.mjs", "scripts/audit-mainland-*.ts"]
++    },
++    {
++      "id": "A18-content-qa",
++      "owner": "A18",
++      "role": "Curriculum QA and independent content acceptance",
++      "slice": "generated/content/RAG backlog",
++      "pathspecs": ["coordination/content-qa/**"]
++    },
++    {
++      "id": "A24-exact-layer",
++      "owner": "A24",
++      "role": "Deterministic illustration exact-layer overlays",
++      "slice": "generated/content/RAG backlog",
++      "pathspecs": ["public/question-illustrations/**", "coordination/content-qa/**/*illustration*", "coordination/content-qa/**/*exact*", "coordination/content-qa/**/*overlay*"]
++    },
++    {
++      "id": "A23-promotion-gate",
++      "owner": "A23",
++      "role": "Candidate-to-live promotion planning",
++      "slice": "docs/coordination evidence",
++      "pathspecs": ["coordination/integration/**"]
++    },
++    {
++      "id": "A20-game-based-learning",
++      "owner": "A20",
++      "role": "Educational games and game loops",
++      "slice": "runtime app/API/data/public",
++      "pathspecs": [
++        "app/games/**",
++        "app/student/practice/games/**",
++        "components/games/**",
++        "data/gameBasedLearning.ts",
++        "data/gameBasedLearning.test.ts",
++        "lib/gameBasedLearning.ts",
++        "lib/gameBasedLearning.test.ts",
++        "components/gamification/FishingGame.tsx",
++        "components/gamification/AdventureIslandGame.tsx",
++        "components/gamification/QuadraticBonusGame.tsx",
++        "app/practice/fishing-game/**",
++        "app/practice/quadratic-bonus/**",
++        "app/practice/adventure-island/**",
++        "app/practice/super-platformer-like/**",
++        "public/games/**"
++      ]
++    },
++    {
++      "id": "A17-gamification",
++      "owner": "A17",
++      "role": "Gamification and reward economy",
++      "slice": "runtime app/API/data/public",
++      "pathspecs": ["components/gamification/**", "data/gamification.ts", "lib/gamification.ts", "lib/gamification.test.ts"]
++    },
++    {
++      "id": "A13-teacher-console",
++      "owner": "A13",
++      "role": "Teacher console UI and workflows",
++      "slice": "runtime app/API/data/public",
++      "pathspecs": ["app/teacher/**", "components/teacher/**"]
++    },
++    {
++      "id": "A14-parent-console",
++      "owner": "A14",
++      "role": "Parent console UI and guardian experience",
++      "slice": "runtime app/API/data/public",
++      "pathspecs": ["app/parent/**", "components/parent/**"]
++    },
++    {
++      "id": "A05-lessons",
++      "owner": "A05",
++      "role": "Lesson pages and lesson content modules",
++      "slice": "runtime app/API/data/public",
++      "pathspecs": ["app/lesson/**", "app/student/lessons/**", "components/lesson/**", "data/lessons.ts", "data/*Lessons.ts", "data/*LessonIllustrations.ts", "public/lesson-illustrations/**"]
++    },
++    {
++      "id": "A04-practice",
++      "owner": "A04",
++      "role": "Practice Arena, Mistake Book, and question data",
++      "slice": "runtime app/API/data/public",
++      "pathspecs": ["app/practice/**", "app/mistake-book/**", "components/practice/**", "data/questions.ts", "data/*Questions.ts", "public/practice/**"]
++    },
++    {
++      "id": "A03-roadmap",
++      "owner": "A03",
++      "role": "Curriculum roadmap and grade/topic structure",
++      "slice": "runtime app/API/data/public",
++      "pathspecs": ["app/learning-path/**", "app/secondary-roadmap/**", "app/primary-roadmap/**", "app/student/roadmap/**", "components/learning/**", "data/grades.ts", "data/topics.ts", "data/*Topics.ts", "data/*Roadmap.ts"]
++    },
++    {
++      "id": "A02-dashboard",
++      "owner": "A02",
++      "role": "Dashboard, progress, and analytics display UI",
++      "slice": "runtime app/API/data/public",
++      "pathspecs": ["app/dashboard/**", "app/progress/**", "components/dashboard/**", "components/cards/**", "data/progress.ts", "data/learningAnalytics.ts"]
++    },
++    {
++      "id": "A09-copy-i18n-accessibility",
++      "owner": "A09",
++      "role": "Copy, i18n, and accessibility",
++      "slice": "runtime app/API/data/public",
++      "pathspecs": ["lib/i18n.ts"]
++    },
++    {
++      "id": "A01-app-shell",
++      "owner": "A01",
++      "role": "Home, layout, navigation, auth shell, and theme surface",
++      "slice": "runtime app/API/data/public",
++      "pathspecs": [
++        "app/layout.tsx",
++        "app/page.tsx",
++        "app/login/**",
++        "app/register/**",
++        "app/forgot-password/**",
++        "app/reset-password/**",
++        "app/change-password/**",
++        "app/about/**",
++        "app/not-found.tsx",
++        "app/icon.*",
++        "components/layout/**",
++        "components/home/**",
++        "components/background/**",
++        "components/ui/**",
++        "public/auth/**",
++        "public/robots.txt"
++      ]
++    },
++    {
++      "id": "A16-research",
++      "owner": "A16",
++      "role": "Learning-science research and evaluation design",
++      "slice": "docs/coordination evidence",
++      "pathspecs": ["coordination/research/**"]
++    },
++    {
++      "id": "local-generated-quarantine",
++      "owner": "A25",
++      "role": "Local/generated quarantine inventory only",
++      "slice": "local/generated quarantine",
++      "pathspecs": [
++        ".env*",
++        ".local/**",
++        ".tmp/**",
++        ".next/**",
++        "node_modules/**",
++        "private/**",
++        "Users/**",
++        "tmp/**",
++        "temp/**",
++        "output/**",
++        "outputs/**",
++        "coverage/**",
++        "playwright-report/**",
++        "test-results/**",
++        "*.log",
++        "*.tsbuildinfo",
++        "All API Keys.docx",
++        "default accounts.md"
++      ],
++      "secretQuarantine": true
++    }
++  ],
++  "unmappedBlockers": []
++}
+diff --git a/coordination/reports/2026-06-27-A10-A22-A25-release-governance.md b/coordination/reports/2026-06-27-A10-A22-A25-release-governance.md
+new file mode 100644
+index 000000000..bdb225746
+--- /dev/null
++++ b/coordination/reports/2026-06-27-A10-A22-A25-release-governance.md
+@@ -0,0 +1,34 @@
++# A10/A22/A25 Release Governance Report
++
++Date: 2026-06-27
++
++## Result
++
++Foundation governance guardrails are implemented in isolated branch `codex/A10-A22-release-governance`.
++
++## Enforced Gates
++
++- A22 root release freeze: publishing from `/Users/dongpinhu/Desktop/MAIS-MVP` is blocked unless the path is an explicitly owner-approved pruned staging flow.
++- P0 dirty-map freshness: `npm run release:dirty-map -- --assert-current --max-age-minutes 60`.
++- Unmapped owner gate: unmapped entries must be zero or covered by explicit blockers.
++- Secret quarantine: `.env*`, `All API Keys.docx`, office lockfiles, local/generated outputs, and raw/private directories are excluded from Git/deploy paths.
++- `git add .` guard: `npm run release:package-gate` rejects dot/wildcard staging pathspecs.
++- Package final state gate: each package records owner, pathspecs, checks, and one of the four allowed outcomes.
++
++## Owner Package Routing
++
++- A25/A10 foundation governance and A22/A10 release hygiene are the only packages in this branch.
++- A12 storage/API, A06 visualization/Manim/Three.js, A07 AI tutor, A15 adaptive engine, and A08 shared types are blocked from this foundation branch and must move through separate owner packages.
++- A11 regression evidence must be routed by owner rather than batched as one broad regression PR.
++- A21/A18/A24/A23/A04/A05/A11/A22 content/RAG changes must remain in candidate-to-live chain before any live data/source integration.
++
++## Verification
++
++- `npm run test:release-governance`: passed.
++- `npm run release:package-gate -- --json`: passed.
++- `npm run release:dirty-map -- --assert-current --max-age-minutes 60`: passed.
++- `npm run release:preflight -- --json`: protectively failed while the branch was dirty, proving the A22 clean-source gate blocks release before commit/clean slice.
++
++## Known Baseline Risk
++
++Baseline `npm run type-check` failed before these edits due existing missing modules/types in the older clean baseline. This branch does not modify A12/A06/A08 runtime code to fix those failures.
+diff --git a/coordination/session-logs/2026-06-27-A10-A22-A25-release-governance.md b/coordination/session-logs/2026-06-27-A10-A22-A25-release-governance.md
+new file mode 100644
+index 000000000..c6c899d2b
+--- /dev/null
++++ b/coordination/session-logs/2026-06-27-A10-A22-A25-release-governance.md
+@@ -0,0 +1,61 @@
++# 2026-06-27 A10/A22/A25 Release Governance
++
++Agents: A10 tooling/docs, A22 release engineering, A25 git hygiene/release intake.
++
++## Objective
++
++Implement the enterprise release governance foundation before any runtime/content slice lands:
++
++- Freeze root release from `/Users/dongpinhu/Desktop/MAIS-MVP`.
++- Add the 60-minute A25 dirty-map P0 gate.
++- Require owner pathspecs and final package states.
++- Quarantine `.env*` and local secret artifacts.
++- Forbid `git add .` through package-gate validation.
++- Keep A12/A06/A07/A15/A08/A11/content-RAG as separate owner packages.
++
++## Changed Files
++
++- `.gitignore`
++- `.vercelignore`
++- `AGENTS.md`
++- `package.json`
++- `playwright.config.ts`
++- `tsconfig.next.json`
++- `scripts/refresh-dirty-tree-map.mjs`
++- `scripts/release-package-gate.mjs`
++- `scripts/release-env-guard.mjs`
++- `scripts/prepare-vercel-staging.mjs`
++- `scripts/deploy-vercel-preview.mjs`
++- `scripts/deploy-vercel-production.mjs`
++- `scripts/release-governance.test.mjs`
++- `coordination/release-intake/owner-pathspecs.json`
++- `coordination/release-intake/owner-package-manifest.json`
++- `coordination/release-intake/latest-A25-dirty-tree-map.json`
++- `coordination/release-intake/latest-A25-dirty-tree-map.md`
++- `coordination/release-intake/2026-06-27-A25-dirty-tree-map-final-governance.json`
++- `coordination/release-intake/2026-06-27-A25-dirty-tree-map-final-governance.md`
++- `coordination/reports/2026-06-27-A10-A22-A25-release-governance.md`
++
++## Checks
++
++- `npm install` in isolated worktree: passed; no source changes, existing audit reports 1 moderate and 1 high vulnerability.
++- Baseline `npm run type-check` before edits: failed with pre-existing missing A12/A06/A08-era modules/types in this clean baseline.
++- `npm run test:release-governance`: passed, 4 tests.
++- `npm run release:package-gate -- --json`: passed, 7 owner packages valid.
++- `npm run release:dirty-map -- --run-id final-governance --reason "A25/A10/A22 final governance handoff"`: passed, 17 expanded status entries, 0 unblocked unmapped entries.
++- `npm run release:dirty-map -- --assert-current --max-age-minutes 60`: passed.
++- `npm run release:preflight -- --json`: protectively failed while this branch was dirty, as expected; A22 clean-source gate reported 14 status entries.
++
++## Package Final States
++
++- `foundation-governance-A25-A10`: reviewed commit target.
++- `foundation-release-hygiene-A22-A10`: reviewed commit target.
++- `runtime-storage-contract-A12`: blocker report; split into A12 package with `npm run test:backend` and `npm run type-check`.
++- `runtime-visualization-A06`: blocker report; split into A06 package with visualization unit tests and `npm run type-check`.
++- `runtime-ai-adaptive-shared`: blocker report; split into A07, A15, and A08 packages.
++- `regression-evidence-routing-A11`: blocker report; A11 must route regression evidence by owner.
++- `content-rag-candidate-chain`: blocker report; A21/A18/A24/A23/A04/A05/A11/A22 candidate-to-live chain required.
++
++## Handoff
++
++A22 clean source gate must pass from a clean worktree, clean clone, reviewed clean slice, or owner-approved pruned staging before preview/production deploy. The root dirty map remains A25 inventory evidence only and must not be used as release-source approval.
+diff --git a/package.json b/package.json
+index ca4f889fd..ae6f9d794 100644
+--- a/package.json
++++ b/package.json
+@@ -47,8 +47,19 @@
+     "rag:hk-edb-manifest": "python3 scripts/build-hk-math-edb-manifest.py",
+     "rag:us-math-manifest": "python3 scripts/build-us-math-safe-library-manifest.py",
+     "smoke:simpletex:local": "node scripts/simpletex-local-smoke.mjs",
++    "release:dirty-map": "node scripts/refresh-dirty-tree-map.mjs",
++    "release:package-gate": "node scripts/release-package-gate.mjs",
++    "release:preflight": "node scripts/release-env-guard.mjs",
++    "release:env-preflight": "node scripts/release-env-guard.mjs env",
++    "release:runtime-preflight": "node scripts/release-env-guard.mjs runtime-release",
++    "release:publish-preflight": "node scripts/release-env-guard.mjs publish",
++    "release:root-deploy-preflight": "node scripts/release-env-guard.mjs root-deploy",
++    "vercel:stage": "node scripts/release-env-guard.mjs staging && node scripts/prepare-vercel-staging.mjs",
++    "vercel:preview": "node scripts/deploy-vercel-preview.mjs",
++    "vercel:production": "node scripts/deploy-vercel-production.mjs",
++    "test:release-governance": "node --test scripts/release-governance.test.mjs",
+     "test:backend": "playwright test tests/e2e/backend-api.spec.ts --project=desktop-chrome",
+-    "test:e2e": "playwright test",
++    "test:e2e": "node scripts/release-env-guard.mjs e2e && playwright test",
+     "test:question-bank": "rm -rf .tmp/question-bank-tests .tmp/question-bank-db && tsc -p tsconfig.json --outDir .tmp/question-bank-tests --noEmit false --incremental false --module commonjs --moduleResolution node && mkdir -p .tmp/question-bank-tests/node_modules/@ && ln -s ../../data .tmp/question-bank-tests/node_modules/@/data && ln -s ../../lib .tmp/question-bank-tests/node_modules/@/lib && HK_MATH_DB_DIR=.tmp/question-bank-db node --test .tmp/question-bank-tests/lib/mainlandPepHighQuestionBank.test.js .tmp/question-bank-tests/lib/mainlandPepPrimaryQuestionBank.test.js .tmp/question-bank-tests/lib/mainlandPepJuniorQuestionBank.test.js .tmp/question-bank-tests/lib/mainlandBnuPrimaryQuestionBank.test.js .tmp/question-bank-tests/lib/mainlandBnuJuniorQuestionBank.test.js .tmp/question-bank-tests/lib/fullQuestionBankSolvability.test.js && rm -rf .tmp/question-bank-tests .tmp/question-bank-db",
+     "test:rag": "python3 scripts/build-mainland-high-abstract.py --self-test && python3 scripts/build-mainland-hjb-high-textbook-manifest.py --self-test && python3 scripts/build-mainland-hjb-primary-manifest.py --self-test && python3 scripts/build-mainland-bnu-primary-manifest.py --self-test && python3 scripts/build-mainland-bnu-junior-manifest.py --self-test && python3 scripts/build-mainland-bnu-high-textbook-manifest.py --self-test && python3 scripts/build-mainland-bnu-high-assessment-manifest.py --self-test && python3 scripts/build-mainland-bnu-high-s4-upper-assessment-manifest.py --self-test && python3 scripts/build-mainland-bnu-high-s4-lower-assessment-manifest.py --self-test && python3 scripts/build-mainland-bnu-junior-assessment-manifest.py --self-test && python3 scripts/build-mainland-bnu-junior-s1-upper-assessment-manifest.py --self-test && python3 scripts/build-mainland-bnu-primary-assessment-manifest.py --self-test && python3 scripts/build-mainland-hjb-primary-assessment-manifest.py --self-test && python3 scripts/build-mainland-hjb-primary-paper-manifest.py --self-test && python3 scripts/build-mainland-hjb-junior-manifest.py --self-test && python3 scripts/build-mainland-hjb-junior-assessment-manifest.py --self-test && python3 scripts/build-mainland-hjb-junior-paper-manifest.py --self-test && python3 scripts/build-mainland-hjb-high-exam-manifest.py --self-test && python3 scripts/build-mainland-junior-zhongkao-manifest.py --self-test && python3 scripts/build-mainland-pep-primary-manifest.py --self-test && python3 scripts/build-mainland-pep-junior-manifest.py --self-test && python3 scripts/build-mainland-pep-junior-exam-manifest.py --self-test && python3 scripts/build-mainland-pep-junior-paper-manifest.py --self-test && python3 scripts/build-mainland-pep-primary-paper-manifest.py --self-test && python3 scripts/build-mainland-pep-primary-abstract.py --self-test && python3 scripts/build-mainland-pep-primary-exam-manifest.py --self-test && python3 scripts/build-hk-dse-math-manifest.py --self-test && python3 scripts/build-hk-dse-topic-practice-manifest.py --self-test && python3 scripts/build-hk-dse-mock-manifest.py --self-test && python3 scripts/build-hk-dse-eph-textbook-manifest.py --self-test && python3 scripts/build-hk-dse-up-textbook-manifest.py --self-test && python3 scripts/build-us-math-safe-library-manifest.py --self-test && rm -rf .tmp/rag-tests && tsc -p tsconfig.rag.json && node --test .tmp/rag-tests/lib/rag/mainlandPep.test.js .tmp/rag-tests/lib/rag/mainlandPepHigh.test.js .tmp/rag-tests/lib/rag/mainlandHjbHigh.test.js .tmp/rag-tests/lib/rag/mainlandHjbPrimary.test.js .tmp/rag-tests/lib/rag/mainlandHjbJunior.test.js .tmp/rag-tests/lib/rag/mainlandBnuPrimary.test.js .tmp/rag-tests/lib/rag/mainlandBnuJunior.test.js .tmp/rag-tests/lib/rag/mainlandBnuHigh.test.js .tmp/rag-tests/lib/rag/mainlandBnuHighAssessmentPatterns.test.js .tmp/rag-tests/lib/rag/hongKongMathEdB.test.js .tmp/rag-tests/lib/rag/hongKongDseMath.test.js .tmp/rag-tests/lib/rag/hongKongDseEph.test.js .tmp/rag-tests/lib/rag/hongKongDseUp.test.js .tmp/rag-tests/lib/rag/usMath.test.js && rm -rf .tmp/rag-tests",
+     "test:analytics": "rm -rf .tmp/analytics-tests && tsc -p tsconfig.json --outDir .tmp/analytics-tests --noEmit false --incremental false --module commonjs --moduleResolution node && node --test .tmp/analytics-tests/lib/learningAnalytics.test.js .tmp/analytics-tests/lib/adaptiveLearning.test.js && rm -rf .tmp",
+diff --git a/playwright.config.ts b/playwright.config.ts
+index 39cca113e..8b90f89a1 100644
+--- a/playwright.config.ts
++++ b/playwright.config.ts
+@@ -1,8 +1,39 @@
+ import { defineConfig, devices } from "@playwright/test";
++import path from "node:path";
+ 
+ const port = Number(process.env.PLAYWRIGHT_PORT ?? 3020);
+ const baseURL = process.env.PLAYWRIGHT_BASE_URL ?? `http://127.0.0.1:${port}`;
+ const browserChannel = process.env.PLAYWRIGHT_BROWSER_CHANNEL ?? "chrome";
++const runId = sanitizePathSegment(process.env.PLAYWRIGHT_RUN_ID ?? `${port}-${process.pid}`);
++const e2eRunRoot = process.env.PLAYWRIGHT_E2E_ROOT?.trim() || path.join(".tmp", `e2e-run-${runId}`);
++const e2eNextDistDir = process.env.PLAYWRIGHT_NEXT_DIST_DIR ?? path.join(e2eRunRoot, "next-dist");
++const e2eNextTsconfigPath = process.env.PLAYWRIGHT_NEXT_TSCONFIG_PATH ?? `tsconfig.playwright-${runId}.tmp.json`;
++const e2eDbPath = path.resolve(process.env.HK_MATH_DB_PATH?.trim() || path.join(e2eRunRoot, "hk-math-db.sqlite"));
++const e2eOutputDir = process.env.PLAYWRIGHT_OUTPUT_DIR?.trim() || path.join(e2eRunRoot, "test-results");
++const e2eReportDir = process.env.PLAYWRIGHT_REPORT_DIR?.trim() || path.join(e2eRunRoot, "playwright-report");
++process.env.PLAYWRIGHT_RUN_ID = runId;
++process.env.PLAYWRIGHT_E2E_ROOT = e2eRunRoot;
++process.env.HK_MATH_DB_PATH = e2eDbPath;
++
++const disabledProviderEnv = [
++  "LLM_API_KEY=",
++  "OPENAI_API_KEY=",
++  "LLM_MODEL=",
++  "OPENAI_MODEL=",
++  "LLM_API_URL=",
++  "DEEPSEEK_API_KEY=",
++  "DEEPSEEK_MODEL=",
++  "DEEPSEEK_API_URL=",
++  "QWEN_API_KEY=",
++  "QWEN_API_URL=",
++  "QWEN_MODEL=",
++  "QWEN_TEXT_MODEL=qwen3.7-plus",
++  "QWEN_IMAGE_MODEL=",
++  "QWEN_IMAGE_API_URL=",
++  "QWEN_REALTIME_MODEL=",
++  "QWEN_REALTIME_API_URL=",
++  "AI_TUTOR_STATUS_ASSUME_QWEN_CONFIGURED=1"
++].join(" ");
+ const isolatedStatefulSpecs = [
+   "tests/e2e/rewards.spec.ts",
+   "tests/e2e/gamification.spec.ts",
+@@ -18,12 +49,75 @@ const runsOnlyIsolatedStatefulSpecs =
+   selectedSpecArgs.every((arg) => isolatedStatefulSpecs.some((spec) => arg === spec || arg.endsWith(`/${spec}`)));
+ const useGlobalWebServer = !process.env.PLAYWRIGHT_SKIP_WEBSERVER && !runsOnlyIsolatedStatefulSpecs;
+ 
++assertSafeE2eGeneratedPath("PLAYWRIGHT_E2E_ROOT", e2eRunRoot);
++assertSafeE2eGeneratedPath("PLAYWRIGHT_NEXT_DIST_DIR", e2eNextDistDir);
++
++function sanitizePathSegment(value: string) {
++  return value
++    .trim()
++    .replace(/[^a-zA-Z0-9._-]+/g, "-")
++    .replace(/^-+|-+$/g, "") || "default";
++}
++
++function isPathInside(absolutePath: string, root: string) {
++  const relative = path.relative(root, absolutePath);
++  return relative === "" || (!relative.startsWith("..") && !path.isAbsolute(relative));
++}
++
++function assertSafeE2eGeneratedPath(label: string, value: string) {
++  const absolutePath = path.resolve(value);
++  const defaultNextDir = path.resolve(".next");
++  const tmpDir = path.resolve(".tmp");
++
++  if (absolutePath === defaultNextDir || isPathInside(absolutePath, defaultNextDir)) {
++    throw new Error(`${label} must not point at the shared .next directory for Playwright release runs.`);
++  }
++
++  if (process.env.MAIS_ALLOW_EXTERNAL_ARTIFACTS !== "1" && !isPathInside(absolutePath, tmpDir)) {
++    throw new Error(`${label} must stay under .tmp unless MAIS_ALLOW_EXTERNAL_ARTIFACTS=1 is set.`);
++  }
++}
++
++function shellQuote(value: string) {
++  return `'${value.replace(/'/g, "'\\''")}'`;
++}
++
++function writeTempTsconfigCommand(tsconfigPath: string, nextDistDir: string) {
++  const content = JSON.stringify({
++    extends: "./tsconfig.json",
++    include: [
++      "next-env.d.ts",
++      "**/*.ts",
++      "**/*.tsx",
++      ".next/types/**/*.ts",
++      `${nextDistDir}/types/**/*.ts`
++    ],
++    exclude: [
++      "node_modules",
++      ".next-*",
++      ".local",
++      "tmp",
++      "temp",
++      "output",
++      "outputs",
++      "coverage",
++      "playwright-report",
++      "test-results",
++      "MAIS-MVP-*",
++      "MAIS-MVP-*/**/*"
++    ]
++  }, null, 2);
++  const script = `require("fs").writeFileSync(${JSON.stringify(tsconfigPath)}, ${JSON.stringify(content)})`;
++  return `node -e ${shellQuote(script)}`;
++}
++
+ export default defineConfig({
+   testDir: "./tests/e2e",
++  outputDir: e2eOutputDir,
+   fullyParallel: false,
+   workers: 1,
+   retries: process.env.CI ? 1 : 0,
+-  reporter: [["list"], ["html", { open: "never", outputFolder: "output/playwright-report" }]],
++  reporter: [["list"], ["html", { open: "never", outputFolder: e2eReportDir }]],
+   use: {
+     baseURL,
+     channel: browserChannel || undefined,
+@@ -35,10 +129,13 @@ export default defineConfig({
+     ? undefined
+     : {
+         command: [
+-          "rm -rf .tmp/e2e",
+-          "mkdir -p .tmp/e2e",
+-          "env LLM_API_KEY= OPENAI_API_KEY= LLM_MODEL= OPENAI_MODEL= LLM_API_URL= npm run build",
+-          `env LLM_API_KEY= OPENAI_API_KEY= LLM_MODEL= OPENAI_MODEL= LLM_API_URL= AUTH_SESSION_SECRET=e2e-session-secret HK_MATH_DB_PATH="$PWD/.tmp/e2e/hk-math-db.sqlite" HK_MATH_EXPOSE_LOCAL_RESET_LINKS=true HK_MATH_ENABLE_DEMO_USER=true AI_TUTOR_MAX_REQUESTS_PER_MINUTE=2 npm run start -- --hostname 127.0.0.1 --port ${port}`
++          `rm -rf ${shellQuote(e2eRunRoot)} ${shellQuote(e2eNextDistDir)}`,
++          `rm -f ${shellQuote(e2eNextTsconfigPath)}`,
++          `mkdir -p ${shellQuote(path.dirname(e2eDbPath))} ${shellQuote(path.dirname(e2eNextTsconfigPath))} ${shellQuote(e2eOutputDir)}`,
++          writeTempTsconfigCommand(e2eNextTsconfigPath, e2eNextDistDir),
++          `env NEXT_DIST_DIR=${shellQuote(e2eNextDistDir)} NEXT_TSCONFIG_PATH=${shellQuote(e2eNextTsconfigPath)} ${disabledProviderEnv} npm run build`,
++          `rm -f ${shellQuote(e2eNextTsconfigPath)}`,
++          `env NEXT_DIST_DIR=${shellQuote(e2eNextDistDir)} ${disabledProviderEnv} AUTH_SESSION_SECRET=e2e-session-secret HK_MATH_DB_PATH=${shellQuote(e2eDbPath)} HK_MATH_EXPOSE_LOCAL_RESET_LINKS=true HK_MATH_ENABLE_DEMO_USER=true AI_TUTOR_MAX_REQUESTS_PER_MINUTE=2 npm run start -- --hostname 127.0.0.1 --port ${port}`
+         ].join(" && "),
+         url: baseURL,
+         reuseExistingServer: false,
+diff --git a/scripts/deploy-vercel-preview.mjs b/scripts/deploy-vercel-preview.mjs
+new file mode 100644
+index 000000000..178023f71
+--- /dev/null
++++ b/scripts/deploy-vercel-preview.mjs
+@@ -0,0 +1,149 @@
++#!/usr/bin/env node
++import fs from "node:fs/promises";
++import path from "node:path";
++import { spawn } from "node:child_process";
++import { fileURLToPath, pathToFileURL } from "node:url";
++import { prepareVercelStaging } from "./prepare-vercel-staging.mjs";
++
++const SCRIPT_DIR = path.dirname(fileURLToPath(import.meta.url));
++const REPO_ROOT = path.resolve(SCRIPT_DIR, "..");
++const DEFAULT_SCOPE = "peter-dongpin-hu-s-projects";
++const DEFAULT_PROJECT = "mais-mvp";
++
++async function deployPreview(options = {}) {
++  const scope = options.scope ?? process.env.VERCEL_SCOPE ?? DEFAULT_SCOPE;
++  const project = options.project ?? process.env.VERCEL_PROJECT_NAME ?? DEFAULT_PROJECT;
++
++  await runPreflight();
++
++  const staging = await prepareVercelStaging({
++    runId: options.runId,
++    stagingRoot: options.stagingRoot
++  });
++
++  const deployResult = await runCommand("vercel", [
++    "deploy",
++    staging.stagingDir,
++    "-y",
++    "--target",
++    "preview",
++    "--scope",
++    scope,
++    "--project",
++    project,
++    "--no-wait"
++  ]);
++  if (deployResult.exitCode !== 0) {
++    throw new Error(formatCommandFailure("vercel deploy preview", deployResult));
++  }
++
++  const deploymentUrl = extractDeploymentUrl(`${deployResult.stdout}\n${deployResult.stderr}`);
++  if (!deploymentUrl) {
++    throw new Error(["Vercel deploy succeeded but no deployment URL was found.", summarizeOutput(deployResult)].join("\n"));
++  }
++
++  const inspectResult = await runCommand("vercel", ["inspect", deploymentUrl, "--scope", scope]);
++  if (inspectResult.exitCode !== 0) {
++    throw new Error(formatCommandFailure(`vercel inspect ${deploymentUrl}`, inspectResult));
++  }
++
++  const record = {
++    deploymentUrl,
++    inspectVerified: true,
++    scope,
++    project,
++    target: "preview",
++    stagingDir: staging.stagingDir,
++    stagingFileCount: staging.fileCount,
++    stagingTotalBytes: staging.totalBytes,
++    deployedAt: new Date().toISOString()
++  };
++
++  await fs.writeFile(path.join(staging.stagingDir, "vercel-preview-deployment.json"), `${JSON.stringify(record, null, 2)}\n`);
++  return record;
++}
++
++async function runPreflight() {
++  const preflight = await runCommand(process.execPath, ["scripts/release-env-guard.mjs", "preview"]);
++  if (preflight.exitCode !== 0) {
++    throw new Error("Preview release preflight failed; refresh the A25 dirty-tree map and satisfy A22 source gates first.");
++  }
++}
++
++function extractDeploymentUrl(output) {
++  const urls = output.match(/https:\/\/[^\s)\]]+/g) ?? [];
++  const cleaned = urls.map((url) => url.replace(/[.,;]+$/, ""));
++  return cleaned.find((url) => /\.vercel\.app(?:\/)?$/.test(url)) ?? cleaned.find((url) => !url.includes("://vercel.com/")) ?? null;
++}
++
++function runCommand(command, args) {
++  return new Promise((resolve, reject) => {
++    const child = spawn(command, args, {
++      cwd: REPO_ROOT,
++      env: process.env,
++      stdio: ["ignore", "pipe", "pipe"]
++    });
++    let stdout = "";
++    let stderr = "";
++    child.stdout.on("data", (chunk) => {
++      stdout += chunk.toString();
++      process.stdout.write(chunk);
++    });
++    child.stderr.on("data", (chunk) => {
++      stderr += chunk.toString();
++      process.stderr.write(chunk);
++    });
++    child.on("error", reject);
++    child.on("close", (exitCode) => resolve({ exitCode, stdout, stderr }));
++  });
++}
++
++function summarizeOutput(result) {
++  const output = `${result.stdout}\n${result.stderr}`.trim();
++  return output ? output.split("\n").slice(-40).join("\n") : "Command produced no output.";
++}
++
++function formatCommandFailure(label, result) {
++  return [`${label} failed with exit code ${result.exitCode}.`, summarizeOutput(result)].join("\n");
++}
++
++function parseArgs(argv) {
++  const args = {
++    json: false,
++    runId: undefined,
++    scope: undefined,
++    project: undefined,
++    stagingRoot: undefined
++  };
++
++  for (let index = 0; index < argv.length; index += 1) {
++    const arg = argv[index];
++    if (arg === "--json") args.json = true;
++    else if (arg === "--run-id") args.runId = argv[++index];
++    else if (arg === "--scope") args.scope = argv[++index];
++    else if (arg === "--project") args.project = argv[++index];
++    else if (arg === "--staging-root") args.stagingRoot = argv[++index];
++    else throw new Error(`Unknown argument: ${arg}`);
++  }
++
++  return args;
++}
++
++async function main() {
++  const args = parseArgs(process.argv.slice(2));
++  const record = await deployPreview(args);
++  if (args.json) {
++    console.log(JSON.stringify(record, null, 2));
++    return;
++  }
++  console.log("Vercel Preview deployment verified");
++  console.log(`Preview URL: ${record.deploymentUrl}`);
++  console.log(`Staging directory: ${record.stagingDir}`);
++}
++
++if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) {
++  main().catch((error) => {
++    console.error(error.message);
++    process.exitCode = 1;
++  });
++}
+diff --git a/scripts/deploy-vercel-production.mjs b/scripts/deploy-vercel-production.mjs
+new file mode 100644
+index 000000000..9a11a1991
+--- /dev/null
++++ b/scripts/deploy-vercel-production.mjs
+@@ -0,0 +1,170 @@
++#!/usr/bin/env node
++import fs from "node:fs/promises";
++import path from "node:path";
++import { spawn } from "node:child_process";
++import { fileURLToPath, pathToFileURL } from "node:url";
++import { prepareVercelStaging } from "./prepare-vercel-staging.mjs";
++
++const SCRIPT_DIR = path.dirname(fileURLToPath(import.meta.url));
++const REPO_ROOT = path.resolve(SCRIPT_DIR, "..");
++const DEFAULT_SCOPE = "peter-dongpin-hu-s-projects";
++const DEFAULT_PROJECT = "mais-mvp";
++
++async function deployProduction(options = {}) {
++  const scope = options.scope ?? process.env.VERCEL_SCOPE ?? DEFAULT_SCOPE;
++  const project = options.project ?? process.env.VERCEL_PROJECT_NAME ?? DEFAULT_PROJECT;
++
++  await runPreflight();
++
++  const staging = await prepareVercelStaging({
++    runId: options.runId,
++    stagingRoot: options.stagingRoot,
++    dryRun: options.dryRun
++  });
++
++  if (options.dryRun) {
++    return {
++      dryRun: true,
++      scope,
++      project,
++      target: "production",
++      stagingDir: staging.stagingDir,
++      stagingFileCount: staging.fileCount,
++      stagingTotalBytes: staging.totalBytes,
++      deployed: false
++    };
++  }
++
++  const deployResult = await runCommand("vercel", [
++    "deploy",
++    staging.stagingDir,
++    "-y",
++    "--prod",
++    "--skip-domain",
++    "--scope",
++    scope,
++    "--project",
++    project,
++    "--no-wait"
++  ]);
++  if (deployResult.exitCode !== 0) {
++    throw new Error(formatCommandFailure("vercel deploy --prod", deployResult));
++  }
++
++  const deploymentUrl = extractDeploymentUrl(`${deployResult.stdout}\n${deployResult.stderr}`);
++  if (!deploymentUrl) {
++    throw new Error(["Vercel production deploy succeeded but no deployment URL was found.", summarizeOutput(deployResult)].join("\n"));
++  }
++
++  const inspectResult = await runCommand("vercel", ["inspect", deploymentUrl, "--wait", "--timeout", "5m", "--scope", scope]);
++  if (inspectResult.exitCode !== 0) {
++    throw new Error(formatCommandFailure(`vercel inspect ${deploymentUrl}`, inspectResult));
++  }
++
++  const record = {
++    deploymentUrl,
++    inspectVerified: true,
++    scope,
++    project,
++    target: "production",
++    stagingDir: staging.stagingDir,
++    stagingFileCount: staging.fileCount,
++    stagingTotalBytes: staging.totalBytes,
++    deployedAt: new Date().toISOString()
++  };
++
++  await fs.writeFile(path.join(staging.stagingDir, "vercel-production-deployment.json"), `${JSON.stringify(record, null, 2)}\n`);
++  return record;
++}
++
++async function runPreflight() {
++  const preflight = await runCommand(process.execPath, ["scripts/release-env-guard.mjs", "publish"]);
++  if (preflight.exitCode !== 0) {
++    throw new Error("Production publish preflight failed; A22 clean source and A19 env gates must pass before production deploy.");
++  }
++}
++
++function extractDeploymentUrl(output) {
++  const urls = output.match(/https:\/\/[^\s)\]]+/g) ?? [];
++  const cleaned = urls.map((url) => url.replace(/[.,;]+$/, ""));
++  return cleaned.find((url) => /\.vercel\.app(?:\/)?$/.test(url)) ?? cleaned.find((url) => !url.includes("://vercel.com/")) ?? null;
++}
++
++function runCommand(command, args) {
++  return new Promise((resolve, reject) => {
++    const child = spawn(command, args, {
++      cwd: REPO_ROOT,
++      env: process.env,
++      stdio: ["ignore", "pipe", "pipe"]
++    });
++    let stdout = "";
++    let stderr = "";
++    child.stdout.on("data", (chunk) => {
++      stdout += chunk.toString();
++      process.stdout.write(chunk);
++    });
++    child.stderr.on("data", (chunk) => {
++      stderr += chunk.toString();
++      process.stderr.write(chunk);
++    });
++    child.on("error", reject);
++    child.on("close", (exitCode) => resolve({ exitCode, stdout, stderr }));
++  });
++}
++
++function summarizeOutput(result) {
++  const output = `${result.stdout}\n${result.stderr}`.trim();
++  return output ? output.split("\n").slice(-60).join("\n") : "Command produced no output.";
++}
++
++function formatCommandFailure(label, result) {
++  return [`${label} failed with exit code ${result.exitCode}.`, summarizeOutput(result)].join("\n");
++}
++
++function parseArgs(argv) {
++  const args = {
++    dryRun: false,
++    json: false,
++    runId: undefined,
++    scope: undefined,
++    project: undefined,
++    stagingRoot: undefined
++  };
++
++  for (let index = 0; index < argv.length; index += 1) {
++    const arg = argv[index];
++    if (arg === "--dry-run") args.dryRun = true;
++    else if (arg === "--json") args.json = true;
++    else if (arg === "--run-id") args.runId = argv[++index];
++    else if (arg === "--scope") args.scope = argv[++index];
++    else if (arg === "--project") args.project = argv[++index];
++    else if (arg === "--staging-root") args.stagingRoot = argv[++index];
++    else throw new Error(`Unknown argument: ${arg}`);
++  }
++
++  return args;
++}
++
++async function main() {
++  const args = parseArgs(process.argv.slice(2));
++  const record = await deployProduction(args);
++  if (args.json) {
++    console.log(JSON.stringify(record, null, 2));
++    return;
++  }
++  if (record.dryRun) {
++    console.log("Vercel Production deployment dry run passed");
++    console.log(`Staging directory: ${record.stagingDir}`);
++    return;
++  }
++  console.log("Vercel Production deployment verified");
++  console.log(`Production URL: ${record.deploymentUrl}`);
++  console.log(`Staging directory: ${record.stagingDir}`);
++}
++
++if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) {
++  main().catch((error) => {
++    console.error(error.message);
++    process.exitCode = 1;
++  });
++}
+diff --git a/scripts/prepare-vercel-staging.mjs b/scripts/prepare-vercel-staging.mjs
+new file mode 100644
+index 000000000..452885db0
+--- /dev/null
++++ b/scripts/prepare-vercel-staging.mjs
+@@ -0,0 +1,225 @@
++#!/usr/bin/env node
++import { execFileSync } from "node:child_process";
++import fs from "node:fs/promises";
++import path from "node:path";
++import { fileURLToPath, pathToFileURL } from "node:url";
++
++const SCRIPT_DIR = path.dirname(fileURLToPath(import.meta.url));
++const REPO_ROOT = path.resolve(SCRIPT_DIR, "..");
++const DEFAULT_STAGING_ROOT = path.join(REPO_ROOT, ".tmp", "vercel-staging");
++const FORBIDDEN_ROOTS = new Set([
++  ".git",
++  ".local",
++  ".tmp",
++  ".vercel",
++  "coordination",
++  "node_modules",
++  "private",
++  "Users"
++]);
++const FORBIDDEN_BASENAMES = new Set([
++  ".DS_Store",
++  "All API Keys.docx",
++  "default accounts.md"
++]);
++
++export async function prepareVercelStaging(options = {}) {
++  const runId = sanitizePathSegment(options.runId ?? process.env.VERCEL_STAGING_RUN_ID ?? timestampRunId());
++  const stagingRoot = path.resolve(options.stagingRoot ?? process.env.VERCEL_STAGING_ROOT ?? DEFAULT_STAGING_ROOT);
++  assertSafeStagingRoot(stagingRoot);
++  const stagingDir = path.join(stagingRoot, runId);
++  const dryRun = Boolean(options.dryRun);
++  const plannedFiles = collectDeployableFiles();
++  const forbiddenFiles = plannedFiles.filter((file) => isForbiddenDeployPath(file.relativePath));
++
++  if (forbiddenFiles.length > 0) {
++    throw new Error(
++      [
++        "Refusing to prepare Vercel staging because forbidden paths were selected:",
++        ...forbiddenFiles.slice(0, 20).map((file) => `- ${file.relativePath}`),
++        forbiddenFiles.length > 20 ? `- ...and ${forbiddenFiles.length - 20} more` : ""
++      ].filter(Boolean).join("\n")
++    );
++  }
++
++  if (!dryRun) {
++    await fs.rm(stagingDir, { recursive: true, force: true });
++    await fs.mkdir(stagingDir, { recursive: true });
++    for (const file of plannedFiles) {
++      const destination = path.join(stagingDir, file.relativePath);
++      await fs.mkdir(path.dirname(destination), { recursive: true });
++      await fs.copyFile(file.absolutePath, destination);
++    }
++  }
++
++  const summary = {
++    stagingDir,
++    dryRun,
++    fileCount: plannedFiles.length,
++    totalBytes: plannedFiles.reduce((total, file) => total + file.size, 0),
++    forbiddenPathCount: forbiddenFiles.length,
++    excludedPolicy: {
++      coordination: true,
++      tests: true,
++      envSecrets: true,
++      localGeneratedOutputs: true,
++      rawPrivateCorpus: true
++    }
++  };
++
++  if (!dryRun) {
++    await fs.writeFile(
++      path.join(stagingDir, "vercel-staging-manifest.json"),
++      `${JSON.stringify({
++        ...summary,
++        createdAt: new Date().toISOString(),
++        files: plannedFiles.map((file) => ({
++          path: file.relativePath,
++          bytes: file.size
++        }))
++      }, null, 2)}\n`
++    );
++  }
++
++  return summary;
++}
++
++function collectDeployableFiles() {
++  const trackedFiles = execFileSync("git", ["ls-files", "-z"], {
++    cwd: REPO_ROOT,
++    encoding: "utf8",
++    maxBuffer: 128 * 1024 * 1024
++  }).split("\0").filter(Boolean);
++
++  return trackedFiles
++    .map((relativePath) => {
++      const normalized = toPosix(relativePath);
++      if (isForbiddenDeployPath(normalized)) return undefined;
++      const absolutePath = path.join(REPO_ROOT, normalized);
++      const stat = execFileSync("stat", ["-f", "%z", absolutePath], { encoding: "utf8" }).trim();
++      return {
++        absolutePath,
++        relativePath: normalized,
++        size: Number(stat)
++      };
++    })
++    .filter(Boolean)
++    .sort((left, right) => left.relativePath.localeCompare(right.relativePath));
++}
++
++function isForbiddenDeployPath(relativePath) {
++  const normalizedPath = toPosix(relativePath).replace(/^\/+/, "");
++  const segments = normalizedPath.split("/").filter(Boolean);
++  const basename = segments.at(-1) ?? "";
++
++  if (FORBIDDEN_BASENAMES.has(basename)) return true;
++  if (basename.startsWith(".env")) return true;
++  if (/\.(?:spec|test)\.[cm]?[jt]sx?$/.test(basename)) return true;
++  if (segments.some((segment) => FORBIDDEN_ROOTS.has(segment))) return true;
++  if (segments.some((segment) => segment === "__tests__" || segment === "test" || segment === "tests")) return true;
++  if (segments.some((segment) => segment.startsWith(".next"))) return true;
++
++  return normalizedPath === "data/ease" || normalizedPath.startsWith("data/ease/");
++}
++
++function isInside(absolutePath, root) {
++  const relative = path.relative(root, absolutePath);
++  return relative === "" || (!relative.startsWith("..") && !path.isAbsolute(relative));
++}
++
++function assertSafeStagingRoot(stagingRoot) {
++  if (stagingRoot === REPO_ROOT) {
++    throw new Error("Refusing to use the repository root as Vercel staging root.");
++  }
++
++  if (
++    process.env.MAIS_ALLOW_EXTERNAL_VERCEL_STAGING !== "1" &&
++    !isInside(stagingRoot, DEFAULT_STAGING_ROOT)
++  ) {
++    throw new Error(
++      [
++        "Refusing to prepare Vercel staging outside .tmp/vercel-staging.",
++        `Requested staging root: ${stagingRoot}`,
++        "Set MAIS_ALLOW_EXTERNAL_VERCEL_STAGING=1 only for an owner-approved exception."
++      ].join("\n")
++    );
++  }
++}
++
++function timestampRunId() {
++  return new Date().toISOString().replace(/[-:]/g, "").replace(/\.\d{3}Z$/, "Z");
++}
++
++function sanitizePathSegment(value) {
++  const sanitized = String(value)
++    .trim()
++    .replace(/[^a-zA-Z0-9._-]+/g, "-")
++    .replace(/^-+|-+$/g, "");
++  if (!sanitized) throw new Error("Run id cannot be empty.");
++  return sanitized;
++}
++
++function toPosix(value) {
++  return value.split(path.sep).join("/");
++}
++
++function formatBytes(bytes) {
++  const units = ["B", "KB", "MB", "GB"];
++  let value = bytes;
++  let unitIndex = 0;
++  while (value >= 1024 && unitIndex < units.length - 1) {
++    value /= 1024;
++    unitIndex += 1;
++  }
++  return `${value.toFixed(unitIndex === 0 ? 0 : 1)} ${units[unitIndex]}`;
++}
++
++function parseArgs(argv) {
++  const args = {
++    dryRun: false,
++    json: false,
++    runId: undefined,
++    stagingRoot: undefined
++  };
++
++  for (let index = 0; index < argv.length; index += 1) {
++    const arg = argv[index];
++    if (arg === "--dry-run") {
++      args.dryRun = true;
++    } else if (arg === "--json") {
++      args.json = true;
++    } else if (arg === "--run-id") {
++      args.runId = argv[++index];
++    } else if (arg === "--staging-root") {
++      args.stagingRoot = argv[++index];
++    } else {
++      throw new Error(`Unknown argument: ${arg}`);
++    }
++  }
++
++  return args;
++}
++
++async function main() {
++  const args = parseArgs(process.argv.slice(2));
++  const summary = await prepareVercelStaging(args);
++
++  if (args.json) {
++    console.log(JSON.stringify(summary, null, 2));
++    return;
++  }
++
++  const action = summary.dryRun ? "Dry-run Vercel staging audit passed" : "Prepared Vercel staging package";
++  console.log(action);
++  console.log(`Staging directory: ${summary.stagingDir}`);
++  console.log(`Files: ${summary.fileCount}`);
++  console.log(`Size: ${formatBytes(summary.totalBytes)}`);
++  console.log(`Forbidden paths: ${summary.forbiddenPathCount}`);
++}
++
++if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) {
++  main().catch((error) => {
++    console.error(error.message);
++    process.exitCode = 1;
++  });
++}
+diff --git a/scripts/refresh-dirty-tree-map.mjs b/scripts/refresh-dirty-tree-map.mjs
+new file mode 100644
+index 000000000..55f34479d
+--- /dev/null
++++ b/scripts/refresh-dirty-tree-map.mjs
+@@ -0,0 +1,549 @@
++#!/usr/bin/env node
++import { execFileSync } from "node:child_process";
++import crypto from "node:crypto";
++import fs from "node:fs/promises";
++import path from "node:path";
++import { fileURLToPath, pathToFileURL } from "node:url";
++
++const SCRIPT_DIR = path.dirname(fileURLToPath(import.meta.url));
++const REPO_ROOT = path.resolve(SCRIPT_DIR, "..");
++const DEFAULT_REPORT_DIR = path.join(REPO_ROOT, "coordination", "release-intake");
++const DEFAULT_OWNER_PATHSPECS = path.join(DEFAULT_REPORT_DIR, "owner-pathspecs.json");
++const DEFAULT_LATEST_JSON = path.join(DEFAULT_REPORT_DIR, "latest-A25-dirty-tree-map.json");
++const DEFAULT_LATEST_MARKDOWN = path.join(DEFAULT_REPORT_DIR, "latest-A25-dirty-tree-map.md");
++const DEFAULT_REASON = "release hygiene dirty-tree refresh";
++
++function parseArgs(argv) {
++  const options = {
++    action: "write",
++    json: false,
++    noReport: false,
++    runId: undefined,
++    reason: DEFAULT_REASON,
++    reportDir: DEFAULT_REPORT_DIR,
++    ownerPathspecs: DEFAULT_OWNER_PATHSPECS,
++    latestJson: process.env.MAIS_DIRTY_TREE_MAP_JSON
++      ? resolveFromRepo(process.env.MAIS_DIRTY_TREE_MAP_JSON)
++      : DEFAULT_LATEST_JSON,
++    latestMarkdown: DEFAULT_LATEST_MARKDOWN,
++    maxAgeMinutes: undefined,
++    allowUnmapped: false
++  };
++
++  for (let index = 0; index < argv.length; index += 1) {
++    const arg = argv[index];
++    if (arg === "--json") {
++      options.json = true;
++    } else if (arg === "--assert-current") {
++      options.action = "assert-current";
++    } else if (arg === "--no-report") {
++      options.noReport = true;
++    } else if (arg === "--allow-unmapped") {
++      options.allowUnmapped = true;
++    } else if (arg === "--run-id") {
++      options.runId = argv[++index];
++    } else if (arg === "--reason") {
++      options.reason = argv[++index] ?? DEFAULT_REASON;
++    } else if (arg === "--report-dir") {
++      options.reportDir = resolveFromRepo(argv[++index]);
++    } else if (arg === "--owner-pathspecs") {
++      options.ownerPathspecs = resolveFromRepo(argv[++index]);
++    } else if (arg === "--latest-json") {
++      options.latestJson = resolveFromRepo(argv[++index]);
++    } else if (arg === "--latest-md" || arg === "--latest-markdown") {
++      options.latestMarkdown = resolveFromRepo(argv[++index]);
++    } else if (arg === "--max-age-minutes") {
++      options.maxAgeMinutes = parsePositiveNumber(argv[++index], "max age minutes");
++    } else {
++      throw new Error(`Unknown argument: ${arg}`);
++    }
++  }
++
++  return options;
++}
++
++function resolveFromRepo(value) {
++  if (!value) throw new Error("Expected a path value.");
++  return path.isAbsolute(value) ? value : path.resolve(REPO_ROOT, value);
++}
++
++function parsePositiveNumber(value, label) {
++  const parsed = Number(value);
++  if (!Number.isFinite(parsed) || parsed <= 0) {
++    throw new Error(`Invalid ${label}: ${value}`);
++  }
++  return parsed;
++}
++
++async function loadOwnerPathspecs(filePath) {
++  const manifest = JSON.parse(await fs.readFile(filePath, "utf8"));
++  const packages = (manifest.packages ?? []).map((pkg) => ({
++    ...pkg,
++    matchers: (pkg.pathspecs ?? []).map((pathspec) => [pathspec, pathspecToRegExp(pathspec)])
++  }));
++  const blockerMatchers = (manifest.unmappedBlockers ?? []).map((blocker) => ({
++    ...blocker,
++    matchers: (blocker.pathspecs ?? [blocker.pathspec]).filter(Boolean).map((pathspec) => [pathspec, pathspecToRegExp(pathspec)])
++  }));
++
++  return {
++    manifest,
++    packages,
++    blockerMatchers
++  };
++}
++
++function pathspecToRegExp(pathspec) {
++  const normalized = toPosix(String(pathspec).replace(/^\/+/, ""));
++  let pattern = "";
++  for (let index = 0; index < normalized.length; index += 1) {
++    const char = normalized[index];
++    const next = normalized[index + 1];
++    if (char === "*" && next === "*") {
++      pattern += ".*";
++      index += 1;
++    } else if (char === "*") {
++      pattern += "[^/]*";
++    } else {
++      pattern += escapeRegExp(char);
++    }
++  }
++  return new RegExp(`^${pattern}$`);
++}
++
++function escapeRegExp(value) {
++  return value.replace(/[|\\{}()[\]^$+?.]/g, "\\$&");
++}
++
++function gitOutput(args) {
++  return execFileSync("git", args, {
++    cwd: REPO_ROOT,
++    encoding: "utf8",
++    maxBuffer: 128 * 1024 * 1024
++  });
++}
++
++function gitLines(args) {
++  return gitOutput(args)
++    .split("\n")
++    .filter(Boolean);
++}
++
++function parseStatusLine(line) {
++  const status = line.slice(0, 2);
++  let filePath = line.slice(3);
++  if (filePath.includes(" -> ")) {
++    filePath = filePath.split(" -> ").at(-1) ?? filePath;
++  }
++  return {
++    status,
++    path: toPosix(filePath)
++  };
++}
++
++function classify(filePath, ownerConfig) {
++  const normalized = toPosix(filePath);
++  const matches = [];
++  for (const pkg of ownerConfig.packages) {
++    const matchedPathspec = pkg.matchers.find(([, matcher]) => matcher.test(normalized))?.[0];
++    if (matchedPathspec) {
++      matches.push({ pkg, matchedPathspec });
++    }
++  }
++
++  if (matches.length > 0) {
++    matches.sort((left, right) => pathspecSpecificity(right.matchedPathspec) - pathspecSpecificity(left.matchedPathspec));
++    const { pkg, matchedPathspec } = matches[0];
++    return {
++      owner: `${pkg.owner} ${pkg.role}`.trim(),
++      ownerId: pkg.owner,
++      packageId: pkg.id,
++      slice: pkg.slice ?? "unmapped/manual",
++      matchedPathspec,
++      secretQuarantine: Boolean(pkg.secretQuarantine)
++    };
++  }
++
++  return {
++    owner: "Unmapped owner needed",
++    ownerId: "UNMAPPED",
++    packageId: "unmapped",
++    slice: "unmapped/manual",
++    matchedPathspec: null,
++    secretQuarantine: false
++  };
++}
++
++function pathspecSpecificity(pathspec) {
++  const text = String(pathspec);
++  const wildcardPenalty = (text.match(/\*/g) ?? []).length * 10;
++  return text.replace(/\*/g, "").length - wildcardPenalty;
++}
++
++function blockerFor(filePath, ownerConfig) {
++  const normalized = toPosix(filePath);
++  return ownerConfig.blockerMatchers.find((blocker) =>
++    blocker.matchers.some(([, matcher]) => matcher.test(normalized))
++  );
++}
++
++async function buildDirtyTreeMap(reason, ownerPathspecs, outputPaths = {}) {
++  const ownerConfig = await loadOwnerPathspecs(ownerPathspecs);
++  const ignoredStatusPaths = ignoredOutputPaths(outputPaths);
++  const collapsedStatusLines = gitLines(["status", "--porcelain=v1"]).filter((line) => !ignoredStatusPaths.has(statusPathFromLine(line)));
++  const expandedStatusLines = gitLines(["status", "--porcelain=v1", "-uall"]).filter((line) => !ignoredStatusPaths.has(statusPathFromLine(line)));
++  const untrackedFiles = gitLines(["ls-files", "--others", "--exclude-standard"]).filter((filePath) => !ignoredStatusPaths.has(toPosix(filePath)));
++  const entries = expandedStatusLines.map((line) => {
++    const entry = parseStatusLine(line);
++    const classification = classify(entry.path, ownerConfig);
++    const blocker = classification.ownerId === "UNMAPPED" ? blockerFor(entry.path, ownerConfig) : undefined;
++    return {
++      ...entry,
++      ...classification,
++      blocker: blocker
++        ? {
++            owner: blocker.owner,
++            report: blocker.blockerReport,
++            reason: blocker.reason
++          }
++        : undefined
++    };
++  });
++
++  const trackedModified = collapsedStatusLines.filter((line) => !line.startsWith("??") && !statusHasDeletion(line)).length;
++  const trackedDeleted = collapsedStatusLines.filter((line) => !line.startsWith("??") && statusHasDeletion(line)).length;
++  const untrackedStatusEntries = collapsedStatusLines.filter((line) => line.startsWith("??")).length;
++  const unmappedEntries = entries.filter((entry) => entry.ownerId === "UNMAPPED");
++  const unblockedUnmappedEntries = unmappedEntries.filter((entry) => !entry.blocker);
++
++  return {
++    generatedAt: new Date().toISOString(),
++    timezone: "Asia/Hong_Kong",
++    agents: ["A25", "A22", "A10"],
++    reason,
++    statusSignature: hashLines(expandedStatusLines),
++    ownerPathspecs: toRepoRelativePath(ownerPathspecs),
++    outputPaths: relativeOutputPaths(outputPaths),
++    policy: ownerConfig.manifest.policy ?? {},
++    statusCounts: {
++      collapsedStatusEntries: collapsedStatusLines.length,
++      expandedStatusEntries: expandedStatusLines.length,
++      trackedModified,
++      trackedDeleted,
++      untrackedStatusEntries,
++      untrackedFiles: untrackedFiles.length,
++      unmappedEntries: unmappedEntries.length,
++      unblockedUnmappedEntries: unblockedUnmappedEntries.length,
++      secretQuarantineEntries: entries.filter((entry) => entry.secretQuarantine).length
++    },
++    ownerBuckets: countBy(entries, "owner"),
++    sliceBuckets: countBy(entries, "slice"),
++    releaseHygieneEntries: entries.filter((entry) => entry.slice === "release hygiene tooling/config"),
++    unmappedEntries,
++    unblockedUnmappedEntries,
++    entries
++  };
++}
++
++function ignoredOutputPaths(outputPaths) {
++  return new Set(
++    Object.values(outputPaths)
++      .filter(Boolean)
++      .map((value) => toRepoRelativePath(path.isAbsolute(value) ? value : path.resolve(REPO_ROOT, value)))
++  );
++}
++
++function statusPathFromLine(line) {
++  return parseStatusLine(line).path;
++}
++
++function hashLines(lines) {
++  return crypto.createHash("sha256").update([...lines].sort().join("\0")).digest("hex");
++}
++
++function statusHasDeletion(line) {
++  const indexStatus = line[0] ?? " ";
++  const worktreeStatus = line[1] ?? " ";
++  return indexStatus === "D" || worktreeStatus === "D";
++}
++
++function countBy(entries, key) {
++  const counts = new Map();
++  for (const entry of entries) {
++    counts.set(entry[key], (counts.get(entry[key]) ?? 0) + 1);
++  }
++  return Object.fromEntries([...counts.entries()].sort((left, right) => right[1] - left[1] || left[0].localeCompare(right[0])));
++}
++
++function relativeOutputPaths(outputPaths) {
++  return Object.fromEntries(
++    Object.entries(outputPaths)
++      .filter(([, value]) => value)
++      .map(([key, value]) => [key, toRepoRelativePath(value)])
++  );
++}
++
++async function writeDirtyTreeMap(options) {
++  const paths = outputPathsForRun(options);
++  await writeOutputs(await buildDirtyTreeMap(options.reason, options.ownerPathspecs, paths), paths, options.noReport);
++  const finalMap = await buildDirtyTreeMap(options.reason, options.ownerPathspecs, paths);
++  await writeOutputs(finalMap, paths, options.noReport);
++
++  return summarizeMap(finalMap, paths, options.noReport);
++}
++
++function outputPathsForRun(options) {
++  const runId = sanitizePathSegment(options.runId ?? timestampRunId());
++  const date = hktDateStamp();
++  return {
++    latestJson: options.latestJson,
++    latestMarkdown: options.latestMarkdown,
++    reportJson: path.join(options.reportDir, `${date}-A25-dirty-tree-map-${runId}.json`),
++    reportMarkdown: path.join(options.reportDir, `${date}-A25-dirty-tree-map-${runId}.md`)
++  };
++}
++
++async function writeOutputs(map, paths, noReport) {
++  await fs.mkdir(path.dirname(paths.latestJson), { recursive: true });
++  await fs.writeFile(paths.latestJson, `${JSON.stringify(map, null, 2)}\n`);
++
++  if (noReport) return;
++
++  const markdown = formatMarkdown(map);
++  await fs.mkdir(path.dirname(paths.latestMarkdown), { recursive: true });
++  await fs.mkdir(path.dirname(paths.reportJson), { recursive: true });
++  await fs.writeFile(paths.latestMarkdown, markdown);
++  await fs.writeFile(paths.reportJson, `${JSON.stringify(map, null, 2)}\n`);
++  await fs.writeFile(paths.reportMarkdown, markdown);
++}
++
++function summarizeMap(map, paths, noReport) {
++  return {
++    latestJson: toRepoRelativePath(paths.latestJson),
++    latestMarkdown: noReport ? undefined : toRepoRelativePath(paths.latestMarkdown),
++    reportJson: noReport ? undefined : toRepoRelativePath(paths.reportJson),
++    reportMarkdown: noReport ? undefined : toRepoRelativePath(paths.reportMarkdown),
++    statusSignature: map.statusSignature,
++    statusCounts: map.statusCounts,
++    ownerBuckets: map.ownerBuckets,
++    sliceBuckets: map.sliceBuckets
++  };
++}
++
++function formatMarkdown(map) {
++  const lines = [
++    `# ${hktDateStamp()} A25 Dirty-Tree Map`,
++    "",
++    `Generated at: ${map.generatedAt}`,
++    `Agents: ${map.agents.join("; ")}`,
++    `Reason: ${map.reason}`,
++    `Status signature: \`${map.statusSignature}\``,
++    `Owner pathspecs: \`${map.ownerPathspecs}\``,
++    "",
++    "## P0 Gates",
++    "",
++    `- Dirty-map max age: ${map.policy.dirtyMapMaxAgeMinutes ?? 60} minutes`,
++    `- Unmapped owner entries: ${map.statusCounts.unmappedEntries}`,
++    `- Unblocked unmapped owner entries: ${map.statusCounts.unblockedUnmappedEntries}`,
++    `- Secret/env quarantine entries: ${map.statusCounts.secretQuarantineEntries}`,
++    "- Runtime release source must be clean worktree, clean clone, reviewed clean slice, or owner-approved pruned staging.",
++    "- Root dirty map is inventory evidence only; A22 release judgement is made by the clean-source gate.",
++    "",
++    "## Counts",
++    "",
++    `- Collapsed status entries: ${map.statusCounts.collapsedStatusEntries}`,
++    `- Expanded status entries: ${map.statusCounts.expandedStatusEntries}`,
++    `- Tracked modified: ${map.statusCounts.trackedModified}`,
++    `- Tracked deleted: ${map.statusCounts.trackedDeleted}`,
++    `- Untracked status entries: ${map.statusCounts.untrackedStatusEntries}`,
++    `- Untracked files: ${map.statusCounts.untrackedFiles}`,
++    "",
++    "## Owner Buckets",
++    "",
++    ...formatBucketTable(map.ownerBuckets, "Owner bucket"),
++    "",
++    "## Slice Buckets",
++    "",
++    ...formatBucketTable(map.sliceBuckets, "Slice"),
++    "",
++    "## Release Hygiene Entries",
++    "",
++    ...formatEntries(map.releaseHygieneEntries),
++    "",
++    "## Unmapped Entries",
++    "",
++    ...formatEntries(map.unmappedEntries),
++    ""
++  ];
++
++  return `${lines.join("\n")}\n`;
++}
++
++function formatBucketTable(bucket, label) {
++  const rows = [
++    `| ${label} | Dirty entries |`,
++    "| --- | ---: |"
++  ];
++  for (const [name, count] of Object.entries(bucket)) {
++    rows.push(`| ${name} | ${count} |`);
++  }
++  return rows;
++}
++
++function formatEntries(entries) {
++  if (entries.length === 0) {
++    return ["No entries detected."];
++  }
++
++  const rows = [
++    "| Status | Path | Owner | Package |",
++    "| --- | --- | --- | --- |"
++  ];
++  for (const entry of entries.slice(0, 120)) {
++    rows.push(`| \`${entry.status.trim() || "M"}\` | \`${entry.path}\` | ${entry.owner} | ${entry.packageId} |`);
++  }
++  if (entries.length > 120) {
++    rows.push(`| ... | ${entries.length - 120} additional entries omitted from markdown; see JSON. |  |  |`);
++  }
++  return rows;
++}
++
++async function assertCurrentDirtyTreeMap(options) {
++  const latestJson = options.latestJson;
++  const raw = await fs.readFile(latestJson, "utf8").catch((error) => {
++    throw new Error(
++      [
++        `A25 dirty-tree map is missing: ${toRepoRelativePath(latestJson)}`,
++        "Run `npm run release:dirty-map -- --reason \"runtime release preflight\"` before any runtime release.",
++        error.message
++      ].join("\n")
++    );
++  });
++
++  const saved = JSON.parse(raw);
++  const current = await buildDirtyTreeMap(
++    "runtime release dirty-tree assertion",
++    options.ownerPathspecs,
++    savedOutputPaths(saved, { latestJson, latestMarkdown: options.latestMarkdown })
++  );
++
++  if (saved.statusSignature !== current.statusSignature) {
++    throw new Error(
++      [
++        "A25 dirty-tree map is stale; current git status no longer matches the latest map.",
++        `Latest map: ${toRepoRelativePath(latestJson)}`,
++        `Saved signature: ${saved.statusSignature}`,
++        `Current signature: ${current.statusSignature}`,
++        `Saved expanded entries: ${saved.statusCounts?.expandedStatusEntries ?? "unknown"}`,
++        `Current expanded entries: ${current.statusCounts.expandedStatusEntries}`,
++        "Refresh with `npm run release:dirty-map -- --reason \"runtime release preflight\"` before runtime release."
++      ].join("\n")
++    );
++  }
++
++  if (options.maxAgeMinutes !== undefined) {
++    const generatedAt = Date.parse(saved.generatedAt);
++    const ageMs = Date.now() - generatedAt;
++    const maxAgeMs = options.maxAgeMinutes * 60 * 1000;
++    if (!Number.isFinite(generatedAt) || ageMs > maxAgeMs) {
++      throw new Error(
++        [
++          `A25 dirty-tree map is older than ${options.maxAgeMinutes} minutes.`,
++          `Latest map: ${toRepoRelativePath(latestJson)}`,
++          `Generated at: ${saved.generatedAt ?? "unknown"}`,
++          "Refresh it immediately before runtime release."
++        ].join("\n")
++      );
++    }
++  }
++
++  if (!options.allowUnmapped && current.unblockedUnmappedEntries.length > 0) {
++    throw new Error(
++      [
++        "A25 dirty-tree map has unblocked unmapped owner entries.",
++        "Unmapped owner bucket must be zero or each entry must have an explicit blocker in coordination/release-intake/owner-pathspecs.json.",
++        ...current.unblockedUnmappedEntries.slice(0, 20).map((entry) => `- ${entry.path}`),
++        current.unblockedUnmappedEntries.length > 20 ? `- ...and ${current.unblockedUnmappedEntries.length - 20} more` : ""
++      ].filter(Boolean).join("\n")
++    );
++  }
++
++  return {
++    latestJson: toRepoRelativePath(latestJson),
++    generatedAt: saved.generatedAt,
++    statusSignature: saved.statusSignature,
++    statusCounts: current.statusCounts
++  };
++}
++
++function savedOutputPaths(saved, fallbackPaths) {
++  const outputPaths = { ...fallbackPaths };
++  for (const [key, value] of Object.entries(saved.outputPaths ?? {})) {
++    outputPaths[key] = resolveFromRepo(value);
++  }
++  return outputPaths;
++}
++
++function timestampRunId() {
++  return new Date().toISOString().replace(/[-:]/g, "").replace(/\.\d{3}Z$/, "Z");
++}
++
++function hktDateStamp() {
++  return new Intl.DateTimeFormat("en-CA", {
++    timeZone: "Asia/Hong_Kong",
++    year: "numeric",
++    month: "2-digit",
++    day: "2-digit"
++  }).format(new Date());
++}
++
++function sanitizePathSegment(value) {
++  const sanitized = String(value)
++    .trim()
++    .replace(/[^a-zA-Z0-9._-]+/g, "-")
++    .replace(/^-+|-+$/g, "");
++  if (!sanitized) throw new Error("Run id cannot be empty.");
++  return sanitized;
++}
++
++function toRepoRelativePath(absolutePath) {
++  return toPosix(path.relative(REPO_ROOT, absolutePath));
++}
++
++function toPosix(value) {
++  return value.split(path.sep).join("/");
++}
++
++async function main() {
++  const options = parseArgs(process.argv.slice(2));
++  const result =
++    options.action === "assert-current"
++      ? await assertCurrentDirtyTreeMap(options)
++      : await writeDirtyTreeMap(options);
++
++  if (options.json) {
++    console.log(JSON.stringify(result, null, 2));
++    return;
++  }
++
++  if (options.action === "assert-current") {
++    console.log("A25 dirty-tree map is current for runtime release preflight");
++    console.log(`Latest map: ${result.latestJson}`);
++    console.log(`Expanded status entries: ${result.statusCounts.expandedStatusEntries}`);
++    console.log(`Unblocked unmapped entries: ${result.statusCounts.unblockedUnmappedEntries}`);
++    return;
++  }
++
++  console.log("A25 dirty-tree map refreshed");
++  console.log(`Latest map: ${result.latestJson}`);
++  if (result.reportMarkdown) console.log(`Report: ${result.reportMarkdown}`);
++  console.log(`Expanded status entries: ${result.statusCounts.expandedStatusEntries}`);
++  console.log(`Unblocked unmapped entries: ${result.statusCounts.unblockedUnmappedEntries}`);
++}
++
++if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) {
++  main().catch((error) => {
++    console.error(error instanceof Error ? error.message : String(error));
++    process.exitCode = 1;
++  });
++}
+diff --git a/scripts/release-env-guard.mjs b/scripts/release-env-guard.mjs
+new file mode 100644
+index 000000000..02700c65d
+--- /dev/null
++++ b/scripts/release-env-guard.mjs
+@@ -0,0 +1,426 @@
++#!/usr/bin/env node
++import { execFileSync } from "node:child_process";
++import fs from "node:fs";
++import path from "node:path";
++import { fileURLToPath } from "node:url";
++
++const SCRIPT_DIR = path.dirname(fileURLToPath(import.meta.url));
++const REPO_ROOT = path.resolve(SCRIPT_DIR, "..");
++const TMP_ROOT = path.join(REPO_ROOT, ".tmp");
++const DEFAULT_MIN_FREE_GB = 20;
++const DEFAULT_DIRTY_TREE_MAP_MAX_AGE_MINUTES = 60;
++const DEFAULT_CANONICAL_ROOT = "/Users/dongpinhu/Desktop/MAIS-MVP";
++const DEFAULT_VERCEL_SCOPE = "peter-dongpin-hu-s-projects";
++const REQUIRED_PRODUCTION_ENV = [
++  "AUTH_SESSION_SECRET",
++  "POSTGRES_URL",
++  "HK_MATH_STORAGE_PROVIDER",
++  "RESEND_API_KEY",
++  "PASSWORD_RESET_FROM",
++  "PASSWORD_RESET_BASE_URL",
++  "HK_MATH_EXPOSE_LOCAL_RESET_LINKS",
++  "QWEN_API_KEY",
++  "QWEN_API_URL",
++  "QWEN_TEXT_MODEL",
++  "AI_TUTOR_TOTAL_DEADLINE_MS",
++  "AI_TUTOR_EDGE_RESPONSE_RESERVE_MS",
++  "AI_TUTOR_PROVIDER_TIMEOUT_MS",
++  "AI_TUTOR_LATENCY_ALERT_P95_MS",
++  "AI_TUTOR_LATENCY_ALERT_TIMEOUT_RATE"
++];
++const CLEAN_SOURCE_KINDS = new Set(["clean-worktree", "clean-clone", "reviewed-clean-slice"]);
++
++function parseArgs(argv) {
++  const modes = argv.filter((arg) => !arg.startsWith("-"));
++  return {
++    mode: modes[0] ?? "all",
++    json: argv.includes("--json")
++  };
++}
++
++function fail(message) {
++  throw new Error(message);
++}
++
++function parsePositiveNumber(value, fallback) {
++  if (value === undefined || value === "") return fallback;
++  const parsed = Number(value);
++  if (!Number.isFinite(parsed) || parsed <= 0) {
++    fail(`Invalid positive number: ${value}`);
++  }
++  return parsed;
++}
++
++function availableBytes() {
++  const output = execFileSync("df", ["-k", REPO_ROOT], { encoding: "utf8" });
++  const lines = output.trim().split(/\n/);
++  const columns = lines.at(-1)?.trim().split(/\s+/) ?? [];
++  const availableKiB = Number(columns[3]);
++  if (!Number.isFinite(availableKiB)) {
++    fail(`Could not parse available disk space from df output:\n${output}`);
++  }
++  return availableKiB * 1024;
++}
++
++function formatBytes(bytes) {
++  const units = ["B", "KB", "MB", "GB"];
++  let value = bytes;
++  let unitIndex = 0;
++  while (value >= 1024 && unitIndex < units.length - 1) {
++    value /= 1024;
++    unitIndex += 1;
++  }
++  return `${value.toFixed(unitIndex === 0 ? 0 : 1)} ${units[unitIndex]}`;
++}
++
++function isInside(absolutePath, root) {
++  const relative = path.relative(root, absolutePath);
++  return relative === "" || (!relative.startsWith("..") && !path.isAbsolute(relative));
++}
++
++function assertDisk() {
++  const minFreeGB = parsePositiveNumber(process.env.MAIS_RELEASE_MIN_FREE_GB, DEFAULT_MIN_FREE_GB);
++  const freeBytes = availableBytes();
++  const minBytes = minFreeGB * 1024 ** 3;
++  if (freeBytes < minBytes) {
++    fail(`Release guard failed: only ${formatBytes(freeBytes)} free; need at least ${minFreeGB} GB.`);
++  }
++  return {
++    freeBytes,
++    minFreeGB
++  };
++}
++
++function gitOutput(args) {
++  return execFileSync("git", args, {
++    cwd: REPO_ROOT,
++    encoding: "utf8",
++    maxBuffer: 64 * 1024 * 1024
++  });
++}
++
++function summarizeGitStatus() {
++  const statusLines = gitOutput(["status", "--porcelain=v1"])
++    .split("\n")
++    .filter(Boolean);
++  const untrackedFiles = gitOutput(["ls-files", "--others", "--exclude-standard"])
++    .split("\n")
++    .filter(Boolean);
++
++  const summary = {
++    statusEntries: statusLines.length,
++    trackedModified: 0,
++    trackedDeleted: 0,
++    untrackedStatusEntries: 0,
++    untrackedFiles: untrackedFiles.length
++  };
++
++  for (const line of statusLines) {
++    const indexStatus = line[0] ?? " ";
++    const worktreeStatus = line[1] ?? " ";
++    if (line.startsWith("??")) {
++      summary.untrackedStatusEntries += 1;
++      continue;
++    }
++    if (indexStatus === "D" || worktreeStatus === "D") {
++      summary.trackedDeleted += 1;
++    } else {
++      summary.trackedModified += 1;
++    }
++  }
++
++  return summary;
++}
++
++function assertReleaseSource() {
++  const sourceRoot = path.resolve(process.env.MAIS_RELEASE_SOURCE_ROOT?.trim() || REPO_ROOT);
++  const canonicalRoot = path.resolve(process.env.MAIS_CANONICAL_RELEASE_ROOT?.trim() || DEFAULT_CANONICAL_ROOT);
++  const kind = normalizeSourceKind(process.env.MAIS_RELEASE_SOURCE_KIND);
++  const status = summarizeGitStatus();
++  const clean =
++    status.statusEntries === 0 &&
++    status.trackedModified === 0 &&
++    status.trackedDeleted === 0 &&
++    status.untrackedFiles === 0;
++
++  if (sourceRoot === canonicalRoot && kind !== "owner-approved-pruned-staging") {
++    fail(formatRootFreezeBlock({ sourceRoot, canonicalRoot, kind, status }));
++  }
++
++  if (kind === "owner-approved-pruned-staging") {
++    if (process.env.MAIS_OWNER_APPROVED_PRUNED_STAGING !== "1") {
++      fail(
++        [
++          "Owner-approved pruned staging was selected, but MAIS_OWNER_APPROVED_PRUNED_STAGING=1 is not set.",
++          "A22 may use pruned staging only after explicit owner approval."
++        ].join("\n")
++      );
++    }
++    return {
++      sourceRoot,
++      canonicalRoot,
++      kind,
++      clean,
++      ownerApprovedPrunedStaging: true,
++      ...status
++    };
++  }
++
++  if (!CLEAN_SOURCE_KINDS.has(kind)) {
++    fail(`Unknown release source kind: ${kind}`);
++  }
++
++  if (!clean) {
++    fail(
++      [
++        `Release source kind "${kind}" requires git status --short to be empty.`,
++        `Status entries: ${status.statusEntries}`,
++        `Tracked modified: ${status.trackedModified}`,
++        `Tracked deleted: ${status.trackedDeleted}`,
++        `Untracked status entries: ${status.untrackedStatusEntries}`,
++        `Untracked files: ${status.untrackedFiles}`,
++        "Use a clean worktree, clean clone, reviewed clean slice, or owner-approved pruned staging."
++      ].join("\n")
++    );
++  }
++
++  return {
++    sourceRoot,
++    canonicalRoot,
++    kind,
++    clean,
++    ownerApprovedPrunedStaging: false,
++    ...status
++  };
++}
++
++function normalizeSourceKind(value) {
++  const raw = value?.trim();
++  if (!raw) return path.resolve(REPO_ROOT) === path.resolve(DEFAULT_CANONICAL_ROOT) ? "root" : "clean-worktree";
++  if (raw === "pruned-staging") return "owner-approved-pruned-staging";
++  return raw;
++}
++
++function formatRootFreezeBlock({ sourceRoot, canonicalRoot, kind, status }) {
++  return [
++    "Root release is frozen: A22 must not publish from /Users/dongpinhu/Desktop/MAIS-MVP root.",
++    `Source root: ${sourceRoot}`,
++    `Canonical root: ${canonicalRoot}`,
++    `Requested source kind: ${kind}`,
++    `Status entries: ${status.statusEntries}`,
++    "Allowed release sources: clean worktree, clean clone, reviewed clean slice, or owner-approved pruned staging.",
++    "Use MAIS_RELEASE_SOURCE_KIND=pruned-staging and MAIS_OWNER_APPROVED_PRUNED_STAGING=1 only for an explicit owner-approved pruned staging release."
++  ].join("\n");
++}
++
++function assertE2eIsolation() {
++  const configPath = path.join(REPO_ROOT, "playwright.config.ts");
++  const config = fs.readFileSync(configPath, "utf8");
++  for (const needle of ["PLAYWRIGHT_NEXT_DIST_DIR", "NEXT_DIST_DIR", "NEXT_TSCONFIG_PATH"]) {
++    if (!config.includes(needle)) {
++      fail(`playwright.config.ts is missing release isolation wiring: ${needle}`);
++    }
++  }
++
++  const runId = process.env.PLAYWRIGHT_RUN_ID?.trim() || "release-preflight";
++  const e2eRoot = path.resolve(process.env.PLAYWRIGHT_E2E_ROOT?.trim() || path.join(".tmp", `e2e-run-${runId}`));
++  const nextDist = path.resolve(process.env.PLAYWRIGHT_NEXT_DIST_DIR?.trim() || path.join(e2eRoot, "next-dist"));
++  const defaultNext = path.join(REPO_ROOT, ".next");
++
++  for (const [label, absolutePath] of [
++    ["PLAYWRIGHT_E2E_ROOT", e2eRoot],
++    ["PLAYWRIGHT_NEXT_DIST_DIR", nextDist]
++  ]) {
++    if (absolutePath === defaultNext || isInside(absolutePath, defaultNext)) {
++      fail(`${label} must not point at the shared .next directory for release E2E.`);
++    }
++    if (process.env.MAIS_ALLOW_EXTERNAL_ARTIFACTS !== "1" && !isInside(absolutePath, TMP_ROOT)) {
++      fail(`${label} must stay under .tmp unless MAIS_ALLOW_EXTERNAL_ARTIFACTS=1 is set: ${absolutePath}`);
++    }
++  }
++
++  return {
++    e2eRoot,
++    nextDist
++  };
++}
++
++function assertVercelStagingRoot() {
++  const stagingRoot = path.resolve(process.env.VERCEL_STAGING_ROOT?.trim() || path.join(REPO_ROOT, ".tmp", "vercel-staging"));
++  if (stagingRoot === REPO_ROOT) {
++    fail("VERCEL_STAGING_ROOT must not be the repository root.");
++  }
++  if (process.env.MAIS_ALLOW_EXTERNAL_VERCEL_STAGING !== "1" && !isInside(stagingRoot, path.join(REPO_ROOT, ".tmp", "vercel-staging"))) {
++    fail(`VERCEL_STAGING_ROOT must stay under .tmp/vercel-staging: ${stagingRoot}`);
++  }
++  return stagingRoot;
++}
++
++function assertDirtyTreeMapCurrent() {
++  const maxAgeMinutes = parsePositiveNumber(
++    process.env.MAIS_DIRTY_TREE_MAP_MAX_AGE_MINUTES,
++    DEFAULT_DIRTY_TREE_MAP_MAX_AGE_MINUTES
++  );
++  const args = [
++    "scripts/refresh-dirty-tree-map.mjs",
++    "--assert-current",
++    "--max-age-minutes",
++    String(maxAgeMinutes),
++    "--json"
++  ];
++
++  if (process.env.MAIS_DIRTY_TREE_MAP_JSON?.trim()) {
++    args.splice(2, 0, "--latest-json", process.env.MAIS_DIRTY_TREE_MAP_JSON.trim());
++  }
++
++  try {
++    const output = execFileSync(process.execPath, args, {
++      cwd: REPO_ROOT,
++      encoding: "utf8",
++      maxBuffer: 64 * 1024 * 1024
++    });
++    const jsonStart = output.indexOf("{");
++    if (jsonStart === -1) {
++      fail(`Dirty-tree map guard did not return JSON:\n${output}`);
++    }
++    return JSON.parse(output.slice(jsonStart));
++  } catch (error) {
++    const stderr = error?.stderr?.toString?.() ?? "";
++    const stdout = error?.stdout?.toString?.() ?? "";
++    const message = error instanceof Error ? error.message : String(error);
++    fail(
++      [
++        "Runtime release preflight requires a fresh A25 dirty-tree map.",
++        "Required gate: npm run release:dirty-map -- --assert-current --max-age-minutes 60",
++        stdout.trim(),
++        stderr.trim(),
++        message
++      ].filter(Boolean).join("\n")
++    );
++  }
++}
++
++function parseVercelJsonOutput(output) {
++  const jsonStart = output.indexOf("{");
++  if (jsonStart === -1) {
++    fail(`Vercel CLI did not return JSON output:\n${output}`);
++  }
++  try {
++    return JSON.parse(output.slice(jsonStart));
++  } catch (error) {
++    fail(`Could not parse Vercel CLI JSON output: ${error instanceof Error ? error.message : String(error)}`);
++  }
++}
++
++function summarizeVercelEnvReadiness() {
++  const scope = process.env.VERCEL_SCOPE?.trim() || DEFAULT_VERCEL_SCOPE;
++  const output = execFileSync("vercel", ["env", "ls", "--scope", scope, "--format", "json"], {
++    cwd: REPO_ROOT,
++    encoding: "utf8",
++    maxBuffer: 64 * 1024 * 1024
++  });
++  const parsed = parseVercelJsonOutput(output);
++  if (!Array.isArray(parsed.envs)) {
++    fail("Vercel env list JSON is missing the envs array.");
++  }
++
++  const target = process.env.MAIS_RELEASE_ENV_TARGET?.trim() || "production";
++  const present = [];
++  const missing = [];
++
++  for (const key of REQUIRED_PRODUCTION_ENV) {
++    const exists = parsed.envs.some((env) => {
++      const targets = Array.isArray(env.target) ? env.target : [];
++      return env.key === key && targets.includes(target);
++    });
++    if (exists) present.push(key);
++    else missing.push(key);
++  }
++
++  return {
++    scope,
++    target,
++    required: REQUIRED_PRODUCTION_ENV,
++    present,
++    missing,
++    envCount: parsed.envs.length
++  };
++}
++
++function assertVercelEnvReadiness() {
++  const result = summarizeVercelEnvReadiness();
++  if (result.missing.length > 0) {
++    fail(
++      [
++        `Vercel ${result.target} environment is missing required release variables:`,
++        ...result.missing.map((key) => `- ${key}`),
++        "This check only inspects variable names and target environments; it does not read secret values.",
++        "A19 must complete redacted Vercel environment parity before publish."
++      ].join("\n")
++    );
++  }
++  return result;
++}
++
++function shouldRun(mode, target) {
++  return mode === "all" || mode === target;
++}
++
++function shouldRunRuntimeRelease(mode) {
++  return ["runtime-release", "preview", "preview-release", "production"].includes(mode);
++}
++
++function shouldRunPublish(mode) {
++  return ["publish", "prepublish"].includes(mode);
++}
++
++function main() {
++  const args = parseArgs(process.argv.slice(2));
++  const result = {
++    mode: args.mode,
++    disk: assertDisk(),
++    source: shouldRun(args.mode, "source") || shouldRunRuntimeRelease(args.mode) || shouldRunPublish(args.mode) || args.mode === "root-deploy"
++      ? assertReleaseSource()
++      : undefined,
++    e2e: shouldRun(args.mode, "e2e") || shouldRunPublish(args.mode) ? assertE2eIsolation() : undefined,
++    dirtyTreeMap: shouldRunRuntimeRelease(args.mode) || shouldRunPublish(args.mode) ? assertDirtyTreeMapCurrent() : undefined,
++    stagingRoot: shouldRun(args.mode, "staging") || shouldRunRuntimeRelease(args.mode) || shouldRunPublish(args.mode)
++      ? assertVercelStagingRoot()
++      : undefined,
++    vercelEnv: args.mode === "env" || shouldRunPublish(args.mode) ? assertVercelEnvReadiness() : undefined
++  };
++
++  if (args.json) {
++    console.log(JSON.stringify(result, null, 2));
++    return;
++  }
++
++  console.log(`Release environment guard passed (${args.mode})`);
++  console.log(`Free disk: ${formatBytes(result.disk.freeBytes)} (minimum ${result.disk.minFreeGB} GB)`);
++  if (result.source) {
++    console.log(`Release source kind: ${result.source.kind}`);
++    console.log(`Release source clean: ${result.source.clean}`);
++  }
++  if (result.e2e) {
++    console.log(`E2E root: ${path.relative(REPO_ROOT, result.e2e.e2eRoot)}`);
++    console.log(`Next dist: ${path.relative(REPO_ROOT, result.e2e.nextDist)}`);
++  }
++  if (result.stagingRoot) {
++    console.log(`Vercel staging root: ${path.relative(REPO_ROOT, result.stagingRoot)}`);
++  }
++  if (result.dirtyTreeMap) {
++    console.log(`A25 dirty-tree map: ${result.dirtyTreeMap.latestJson}`);
++    console.log(`Dirty-tree map generated at: ${result.dirtyTreeMap.generatedAt}`);
++  }
++  if (result.vercelEnv) {
++    console.log(`Vercel env target: ${result.vercelEnv.target}`);
++    console.log(`Required variables present: ${result.vercelEnv.present.length}/${result.vercelEnv.required.length}`);
++  }
++}
++
++try {
++  main();
++} catch (error) {
++  console.error(error instanceof Error ? error.message : String(error));
++  process.exitCode = 1;
++}
+diff --git a/scripts/release-governance.test.mjs b/scripts/release-governance.test.mjs
+new file mode 100644
+index 000000000..146d78366
+--- /dev/null
++++ b/scripts/release-governance.test.mjs
+@@ -0,0 +1,162 @@
++import assert from "node:assert/strict";
++import { mkdtemp, readFile, rm, writeFile } from "node:fs/promises";
++import { tmpdir } from "node:os";
++import path from "node:path";
++import { spawnSync } from "node:child_process";
++import test from "node:test";
++
++const repoRoot = path.resolve(new URL("..", import.meta.url).pathname);
++
++function runNode(args, options = {}) {
++  return spawnSync(process.execPath, args, {
++    cwd: repoRoot,
++    encoding: "utf8",
++    env: {
++      ...process.env,
++      MAIS_RELEASE_MIN_FREE_GB: "1",
++      ...options.env
++    }
++  });
++}
++
++test("dirty map assert-current enforces a 60 minute freshness window", async () => {
++  const tempDir = await mkdtemp(path.join(tmpdir(), "mais-dirty-map-"));
++  const latestJson = path.join(tempDir, "latest-A25-dirty-tree-map.json");
++
++  try {
++    const refresh = runNode([
++      "scripts/refresh-dirty-tree-map.mjs",
++      "--latest-json",
++      latestJson,
++      "--no-report",
++      "--json",
++      "--reason",
++      "release governance test"
++    ]);
++    assert.equal(refresh.status, 0, `${refresh.stdout}\n${refresh.stderr}`);
++
++    const pass = runNode([
++      "scripts/refresh-dirty-tree-map.mjs",
++      "--assert-current",
++      "--latest-json",
++      latestJson,
++      "--max-age-minutes",
++      "60",
++      "--json"
++    ]);
++    assert.equal(pass.status, 0, `${pass.stdout}\n${pass.stderr}`);
++
++    const staleMap = JSON.parse(await readFile(latestJson, "utf8"));
++    staleMap.generatedAt = new Date(Date.now() - 61 * 60 * 1000).toISOString();
++    await writeFile(latestJson, `${JSON.stringify(staleMap, null, 2)}\n`);
++
++    const fail = runNode([
++      "scripts/refresh-dirty-tree-map.mjs",
++      "--assert-current",
++      "--latest-json",
++      latestJson,
++      "--max-age-minutes",
++      "60",
++      "--json"
++    ]);
++    assert.notEqual(fail.status, 0);
++    assert.match(`${fail.stdout}\n${fail.stderr}`, /older than 60 minutes/i);
++  } finally {
++    await rm(tempDir, { recursive: true, force: true });
++  }
++});
++
++test("dirty map assert-current blocks unmapped owner entries without blockers", async () => {
++  const tempDir = await mkdtemp(path.join(tmpdir(), "mais-dirty-map-unmapped-"));
++  const latestJson = path.join(tempDir, "latest-A25-dirty-tree-map.json");
++  const fixturePath = path.join(repoRoot, "zz-release-unmapped-fixture.tmpx");
++
++  try {
++    await writeFile(fixturePath, "temporary unmapped owner fixture\n");
++    const refresh = runNode([
++      "scripts/refresh-dirty-tree-map.mjs",
++      "--latest-json",
++      latestJson,
++      "--no-report",
++      "--json",
++      "--reason",
++      "unmapped owner test"
++    ]);
++    assert.equal(refresh.status, 0, `${refresh.stdout}\n${refresh.stderr}`);
++
++    const result = runNode([
++      "scripts/refresh-dirty-tree-map.mjs",
++      "--assert-current",
++      "--latest-json",
++      latestJson,
++      "--max-age-minutes",
++      "60",
++      "--json"
++    ]);
++
++    assert.notEqual(result.status, 0);
++    assert.match(`${result.stdout}\n${result.stderr}`, /unmapped owner/i);
++  } finally {
++    await rm(fixturePath, { force: true });
++    await rm(tempDir, { recursive: true, force: true });
++  }
++});
++
++test("package gate rejects dot staging and invalid final states", async () => {
++  const tempDir = await mkdtemp(path.join(tmpdir(), "mais-package-gate-"));
++  const manifestPath = path.join(tempDir, "owner-package-manifest.json");
++
++  try {
++    await writeFile(
++      manifestPath,
++      `${JSON.stringify({
++        packages: [
++          {
++            id: "bad-package",
++            owner: "A10",
++            pathspecs: ["."],
++            checks: ["npm run type-check"],
++            finalState: "maybe"
++          }
++        ]
++      }, null, 2)}\n`
++    );
++
++    const result = runNode([
++      "scripts/release-package-gate.mjs",
++      "--manifest",
++      manifestPath,
++      "--json"
++    ]);
++
++    assert.notEqual(result.status, 0);
++    assert.match(`${result.stdout}\n${result.stderr}`, /git add \./i);
++    assert.match(`${result.stdout}\n${result.stderr}`, /final state/i);
++  } finally {
++    await rm(tempDir, { recursive: true, force: true });
++  }
++});
++
++test("release source preflight freezes the dirty root unless pruned staging is owner-approved", () => {
++  const blocked = runNode(["scripts/release-env-guard.mjs", "source", "--json"], {
++    env: {
++      MAIS_RELEASE_SOURCE_ROOT: repoRoot,
++      MAIS_CANONICAL_RELEASE_ROOT: repoRoot,
++      MAIS_RELEASE_SOURCE_KIND: "root"
++    }
++  });
++
++  assert.notEqual(blocked.status, 0);
++  assert.match(`${blocked.stdout}\n${blocked.stderr}`, /root release is frozen/i);
++
++  const allowed = runNode(["scripts/release-env-guard.mjs", "source", "--json"], {
++    env: {
++      MAIS_RELEASE_SOURCE_ROOT: repoRoot,
++      MAIS_CANONICAL_RELEASE_ROOT: repoRoot,
++      MAIS_RELEASE_SOURCE_KIND: "pruned-staging",
++      MAIS_OWNER_APPROVED_PRUNED_STAGING: "1"
++    }
++  });
++
++  assert.equal(allowed.status, 0, `${allowed.stdout}\n${allowed.stderr}`);
++});
+diff --git a/scripts/release-package-gate.mjs b/scripts/release-package-gate.mjs
+new file mode 100644
+index 000000000..9c3e51088
+--- /dev/null
++++ b/scripts/release-package-gate.mjs
+@@ -0,0 +1,129 @@
++#!/usr/bin/env node
++import fs from "node:fs/promises";
++import path from "node:path";
++import { fileURLToPath, pathToFileURL } from "node:url";
++
++const SCRIPT_DIR = path.dirname(fileURLToPath(import.meta.url));
++const REPO_ROOT = path.resolve(SCRIPT_DIR, "..");
++const DEFAULT_MANIFEST = path.join(REPO_ROOT, "coordination", "release-intake", "owner-package-manifest.json");
++const ALLOWED_FINAL_STATES = new Set([
++  "reviewed commit",
++  "owner-approved discard",
++  "evidence archive",
++  "blocker report"
++]);
++
++function parseArgs(argv) {
++  const options = {
++    manifest: DEFAULT_MANIFEST,
++    json: false
++  };
++
++  for (let index = 0; index < argv.length; index += 1) {
++    const arg = argv[index];
++    if (arg === "--manifest") {
++      options.manifest = resolvePath(argv[++index]);
++    } else if (arg === "--json") {
++      options.json = true;
++    } else {
++      throw new Error(`Unknown argument: ${arg}`);
++    }
++  }
++
++  return options;
++}
++
++function resolvePath(value) {
++  if (!value) throw new Error("Expected a path value.");
++  return path.isAbsolute(value) ? value : path.resolve(REPO_ROOT, value);
++}
++
++async function readJson(filePath) {
++  return JSON.parse(await fs.readFile(filePath, "utf8"));
++}
++
++function validatePackageManifest(manifest) {
++  const errors = [];
++  const packages = Array.isArray(manifest.packages) ? manifest.packages : [];
++
++  if (packages.length === 0) {
++    errors.push("owner-package-manifest.json must contain at least one package.");
++  }
++
++  for (const [index, pkg] of packages.entries()) {
++    const label = pkg?.id || `package[${index}]`;
++    const pathspecs = Array.isArray(pkg?.pathspecs) ? pkg.pathspecs : [];
++    const checks = Array.isArray(pkg?.checks) ? pkg.checks : [];
++
++    if (!pkg?.id) errors.push(`${label}: missing id.`);
++    if (!pkg?.owner) errors.push(`${label}: missing owner.`);
++    if (pathspecs.length === 0) errors.push(`${label}: missing pathspecs.`);
++    if (checks.length === 0) errors.push(`${label}: missing checks.`);
++    if (!ALLOWED_FINAL_STATES.has(pkg?.finalState)) {
++      errors.push(`${label}: invalid final state "${pkg?.finalState}". Allowed final states: ${[...ALLOWED_FINAL_STATES].join(", ")}.`);
++    }
++
++    for (const pathspec of pathspecs) {
++      if (isForbiddenDotPathspec(pathspec)) {
++        errors.push(`${label}: pathspec "${pathspec}" is forbidden because it enables git add .; use owner pathspecs instead.`);
++      }
++      if (typeof pathspec !== "string" || pathspec.trim() === "") {
++        errors.push(`${label}: pathspecs must be non-empty strings.`);
++      }
++      if (String(pathspec).includes("\0")) {
++        errors.push(`${label}: pathspec contains a NUL byte.`);
++      }
++    }
++
++    if (pkg?.finalState === "blocker report" && !pkg?.blocker) {
++      errors.push(`${label}: blocker report final state requires a blocker explanation.`);
++    }
++  }
++
++  return {
++    valid: errors.length === 0,
++    errors,
++    packageCount: packages.length,
++    allowedFinalStates: [...ALLOWED_FINAL_STATES],
++    packages: packages.map((pkg) => ({
++      id: pkg.id,
++      owner: pkg.owner,
++      pathspecCount: Array.isArray(pkg.pathspecs) ? pkg.pathspecs.length : 0,
++      checkCount: Array.isArray(pkg.checks) ? pkg.checks.length : 0,
++      finalState: pkg.finalState
++    }))
++  };
++}
++
++function isForbiddenDotPathspec(pathspec) {
++  const normalized = String(pathspec).trim();
++  return normalized === "." || normalized === "./" || normalized === ":/" || normalized === "*" || normalized === "**";
++}
++
++async function main() {
++  const options = parseArgs(process.argv.slice(2));
++  const manifest = await readJson(options.manifest);
++  const result = validatePackageManifest(manifest);
++
++  if (!result.valid) {
++    if (options.json) {
++      console.log(JSON.stringify(result, null, 2));
++    }
++    throw new Error(["Owner package gate failed:", ...result.errors.map((error) => `- ${error}`)].join("\n"));
++  }
++
++  if (options.json) {
++    console.log(JSON.stringify(result, null, 2));
++    return;
++  }
++
++  console.log("Owner package gate passed");
++  console.log(`Packages: ${result.packageCount}`);
++}
++
++if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) {
++  main().catch((error) => {
++    console.error(error instanceof Error ? error.message : String(error));
++    process.exitCode = 1;
++  });
++}
+diff --git a/tsconfig.next.json b/tsconfig.next.json
+new file mode 100644
+index 000000000..273801c85
+--- /dev/null
++++ b/tsconfig.next.json
+@@ -0,0 +1,25 @@
++{
++  "extends": "./tsconfig.json",
++  "include": [
++    "next-env.d.ts",
++    "**/*.ts",
++    "**/*.tsx",
++    ".next/types/**/*.ts",
++    ".tmp/**/next-dist/types/**/*.ts"
++  ],
++  "exclude": [
++    "node_modules",
++    ".next-*",
++    ".local",
++    ".tmp/vercel-staging",
++    "tmp",
++    "temp",
++    "output",
++    "outputs",
++    "coverage",
++    "playwright-report",
++    "test-results",
++    "MAIS-MVP-*",
++    "MAIS-MVP-*/**/*"
++  ]
++}

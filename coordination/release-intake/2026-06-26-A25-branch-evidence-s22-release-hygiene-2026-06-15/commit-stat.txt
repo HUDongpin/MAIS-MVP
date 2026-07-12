@@ -1,0 +1,13 @@
+6fc558bd Add release hygiene guards and staging workflow
+ .gitignore                              |  16 ++
+ .vercelignore                           |  22 ++
+ next.config.ts                          |   8 +-
+ package.json                            |  10 +-
+ playwright.config.ts                    | 106 +++++++-
+ scripts/cleanup-generated-artifacts.mjs | 120 +++++++++
+ scripts/deploy-vercel-preview.mjs       | 184 ++++++++++++++
+ scripts/deploy-vercel-production.mjs    | 210 ++++++++++++++++
+ scripts/prepare-vercel-staging.mjs      | 344 +++++++++++++++++++++++++
+ scripts/release-env-guard.mjs           | 433 ++++++++++++++++++++++++++++++++
+ tsconfig.next.json                      |  30 +++
+ 11 files changed, 1475 insertions(+), 8 deletions(-)

@@ -4,6 +4,8 @@ import { useMemo, useState } from "react";
 import { motion } from "@/components/ui/Motion";
 import { MathText } from "@/components/math/MathText";
 import { useSettings } from "@/components/providers/AppProviders";
+import { VisualizationResetButton } from "@/components/visualizations/VisualizationResetButton";
+import { useVisualizationTheme } from "@/components/visualizations/visualizationTheme";
 import { isChineseLanguage, simplifyChineseText } from "@/lib/i18n";
 import { clamp, formatNumber } from "@/lib/math";
 
@@ -12,9 +14,14 @@ type LabMode = "tangent" | "normal";
 const width = 640;
 const height = 420;
 const padding = 42;
+const moduleId = "calculus-stats-lab";
 
 function mapLinear(value: number, min: number, max: number, screenMin: number, screenMax: number) {
   return screenMin + ((value - min) / (max - min)) * (screenMax - screenMin);
+}
+
+function mapVisibleLinear(value: number, min: number, max: number, screenMin: number, screenMax: number) {
+  return mapLinear(clamp(value, min, max), min, max, screenMin, screenMax);
 }
 
 function curve(x: number) {
@@ -25,12 +32,81 @@ function derivative(x: number) {
   return 0.36 * x ** 2 - 1.2 * x + 1;
 }
 
-function normalDensity(x: number, mean: number, sd: number) {
+function normalRelativeDensity(x: number, mean: number, sd: number) {
   return Math.exp(-0.5 * ((x - mean) / sd) ** 2);
+}
+
+function normalPdf(x: number, mean: number, sd: number) {
+  return normalRelativeDensity(x, mean, sd) / (sd * Math.sqrt(2 * Math.PI));
+}
+
+type GraphPoint = { x: number; y: number };
+
+function clippedLineSegment({
+  xMin,
+  xMax,
+  yMin,
+  yMax,
+  x0,
+  y0,
+  slope
+}: {
+  xMin: number;
+  xMax: number;
+  yMin: number;
+  yMax: number;
+  x0: number;
+  y0: number;
+  slope: number;
+}) {
+  const epsilon = 1e-9;
+  const candidates: GraphPoint[] = [];
+  const lineY = (x: number) => y0 + slope * (x - x0);
+
+  function addPoint(point: GraphPoint) {
+    if (!Number.isFinite(point.x) || !Number.isFinite(point.y)) return;
+    if (point.x < xMin - epsilon || point.x > xMax + epsilon) return;
+    if (point.y < yMin - epsilon || point.y > yMax + epsilon) return;
+    if (candidates.some((candidate) => Math.abs(candidate.x - point.x) < 1e-6 && Math.abs(candidate.y - point.y) < 1e-6)) return;
+    candidates.push({
+      x: clamp(point.x, xMin, xMax),
+      y: clamp(point.y, yMin, yMax)
+    });
+  }
+
+  addPoint({ x: xMin, y: lineY(xMin) });
+  addPoint({ x: xMax, y: lineY(xMax) });
+  if (Math.abs(slope) > epsilon) {
+    addPoint({ x: x0 + (yMin - y0) / slope, y: yMin });
+    addPoint({ x: x0 + (yMax - y0) / slope, y: yMax });
+  }
+
+  if (candidates.length < 2) {
+    return [
+      { x: xMin, y: clamp(lineY(xMin), yMin, yMax) },
+      { x: xMax, y: clamp(lineY(xMax), yMin, yMax) }
+    ] as const;
+  }
+
+  let bestPair: readonly [GraphPoint, GraphPoint] = [candidates[0], candidates[1]];
+  let bestDistance = -Infinity;
+  for (let firstIndex = 0; firstIndex < candidates.length; firstIndex += 1) {
+    for (let secondIndex = firstIndex + 1; secondIndex < candidates.length; secondIndex += 1) {
+      const dx = candidates[firstIndex].x - candidates[secondIndex].x;
+      const dy = candidates[firstIndex].y - candidates[secondIndex].y;
+      const distance = dx * dx + dy * dy;
+      if (distance > bestDistance) {
+        bestDistance = distance;
+        bestPair = [candidates[firstIndex], candidates[secondIndex]];
+      }
+    }
+  }
+  return bestPair;
 }
 
 export function CalculusStatsLab({ topicId = "calculus" }: { topicId?: string }) {
   const { language, recordLearningEvent, t } = useSettings();
+  const vizTheme = useVisualizationTheme();
   const [mode, setMode] = useState<LabMode>(topicId === "statistics-s6" ? "normal" : "tangent");
   const [tangentX, setTangentX] = useState(2);
   const [mean, setMean] = useState(50);
@@ -46,7 +122,7 @@ export function CalculusStatsLab({ topicId = "calculus" }: { topicId?: string })
       .map((x, index) => {
         const y = curve(x);
         const svgX = mapLinear(x, xMin, xMax, padding, width - padding);
-        const svgY = mapLinear(y, yMin, yMax, height - padding, padding);
+        const svgY = mapVisibleLinear(y, yMin, yMax, height - padding, padding);
         return `${index === 0 ? "M" : "L"} ${svgX.toFixed(2)} ${svgY.toFixed(2)}`;
       })
       .join(" ");
@@ -57,7 +133,7 @@ export function CalculusStatsLab({ topicId = "calculus" }: { topicId?: string })
     const xMax = mean + 4 * sd;
     return Array.from({ length: 180 }, (_, index) => xMin + (index / 179) * (xMax - xMin))
       .map((x, index) => {
-        const y = normalDensity(x, mean, sd);
+        const y = normalRelativeDensity(x, mean, sd);
         const svgX = mapLinear(x, xMin, xMax, padding, width - padding);
         const svgY = mapLinear(y, 0, 1, height - padding, padding);
         return `${index === 0 ? "M" : "L"} ${svgX.toFixed(2)} ${svgY.toFixed(2)}`;
@@ -73,10 +149,19 @@ export function CalculusStatsLab({ topicId = "calculus" }: { topicId?: string })
   const yMax = 9;
   const tangentStart = { x: xMin, y: tangentY + slope * (xMin - tangentX) };
   const tangentEnd = { x: xMax, y: tangentY + slope * (xMax - tangentX) };
+  const tangentVisibleSegment = clippedLineSegment({ xMin, xMax, yMin, yMax, x0: tangentX, y0: tangentY, slope });
+  const tangentVisibleY = clamp(tangentY, yMin, yMax);
+  const tangentPointClipped = tangentVisibleY !== tangentY;
   const zScore = (observed - mean) / sd;
   const normalXMin = mean - 4 * sd;
   const normalXMax = mean + 4 * sd;
   const observedX = clamp(observed, normalXMin, normalXMax);
+  const observedClipped = observedX !== observed;
+  const visibleZScore = (observedX - mean) / sd;
+  const visibleRelativeDensity = normalRelativeDensity(observedX, mean, sd);
+  const visiblePdf = normalPdf(observedX, mean, sd);
+  const observedRelativeDensity = normalRelativeDensity(observed, mean, sd);
+  const observedPdf = normalPdf(observed, mean, sd);
 
   function recordInteraction(type: "visualization-slider" | "visualization-probe") {
     recordLearningEvent({
@@ -86,9 +171,22 @@ export function CalculusStatsLab({ topicId = "calculus" }: { topicId?: string })
     });
   }
 
+  function resetModel() {
+    setMode(topicId === "statistics-s6" ? "normal" : "tangent");
+    setTangentX(2);
+    setMean(50);
+    setSd(10);
+    setObserved(65);
+    recordLearningEvent({
+      type: "visualization-reset",
+      source: "calculus-stats",
+      topicId
+    });
+  }
+
   return (
     <div className="grid gap-5 xl:grid-cols-[1fr_320px]">
-      <div className="rounded-3xl border border-slate-200/70 bg-slate-950 p-3 dark:border-white/10">
+      <div className={vizTheme.compactSurfaceClassName}>
         <svg
           data-viz-surface
           role="img"
@@ -98,53 +196,133 @@ export function CalculusStatsLab({ topicId = "calculus" }: { topicId?: string })
           viewBox={`0 0 ${width} ${height}`}
           className="h-[360px] w-full sm:h-[420px]"
         >
+          <rect x="0" y="0" width={width} height={height} fill={vizTheme.svgBackground} />
           {mode === "tangent" ? (
             <>
               {[-4, -2, 0, 2, 4, 6].map((tick) => (
-                <line key={`x-${tick}`} x1={mapLinear(tick, xMin, xMax, padding, width - padding)} x2={mapLinear(tick, xMin, xMax, padding, width - padding)} y1={padding} y2={height - padding} className="stroke-white/10" />
+                <g key={`x-${tick}`}>
+                  <line x1={mapLinear(tick, xMin, xMax, padding, width - padding)} x2={mapLinear(tick, xMin, xMax, padding, width - padding)} y1={padding} y2={height - padding} stroke={vizTheme.grid} />
+                  <text data-viz-name="axis tick label" x={mapLinear(tick, xMin, xMax, padding, width - padding)} y={height - 14} textAnchor="middle" fill={vizTheme.textMuted} className="text-[12px] font-black">{tick}</text>
+                </g>
               ))}
               {[-8, -4, 0, 4, 8].map((tick) => (
-                <line key={`y-${tick}`} x1={padding} x2={width - padding} y1={mapLinear(tick, yMin, yMax, height - padding, padding)} y2={mapLinear(tick, yMin, yMax, height - padding, padding)} className="stroke-white/10" />
+                <g key={`y-${tick}`}>
+                  <line x1={padding} x2={width - padding} y1={mapLinear(tick, yMin, yMax, height - padding, padding)} y2={mapLinear(tick, yMin, yMax, height - padding, padding)} stroke={vizTheme.grid} />
+                  <text data-viz-name="axis tick label" x={18} y={mapLinear(tick, yMin, yMax, height - padding, padding) + 3} fill={vizTheme.textMuted} className="text-[12px] font-black">{tick}</text>
+                </g>
               ))}
-              <line x1={padding} x2={width - padding} y1={mapLinear(0, yMin, yMax, height - padding, padding)} y2={mapLinear(0, yMin, yMax, height - padding, padding)} className="stroke-white/35" />
-              <motion.path data-viz-mark d={tangentPath} fill="none" stroke="#22d3ee" strokeWidth="4" strokeLinecap="round" initial={false} animate={{ pathLength: 1 }} />
+              <line x1={padding} x2={width - padding} y1={mapLinear(0, yMin, yMax, height - padding, padding)} y2={mapLinear(0, yMin, yMax, height - padding, padding)} stroke={vizTheme.axisStrong} strokeWidth="2.2" />
+              <line x1={mapLinear(0, xMin, xMax, padding, width - padding)} x2={mapLinear(0, xMin, xMax, padding, width - padding)} y1={padding} y2={height - padding} stroke={vizTheme.axisStrong} strokeWidth="2.2" />
+              <g aria-hidden="true" pointerEvents="none">
+                <text x={width - padding + 8} y={mapLinear(0, yMin, yMax, height - padding, padding) + 18} fill={vizTheme.labelText} className="text-sm font-black">x</text>
+                <text x={mapLinear(0, xMin, xMax, padding, width - padding) + 12} y={padding - 12} fill={vizTheme.labelText} className="text-sm font-black">y</text>
+              </g>
+              <motion.path
+                data-viz-mark
+                data-viz-name="cubic function"
+                data-viz-function="f(x)=0.12x^3-0.6x^2+x+1"
+                data-viz-x-min={xMin}
+                data-viz-x-max={xMax}
+                data-viz-y-min={yMin}
+                data-viz-y-max={yMax}
+                d={tangentPath}
+                fill="none"
+                stroke="#22d3ee"
+                strokeWidth="4"
+                strokeLinecap="round"
+                initial={false}
+                animate={{ pathLength: 1 }}
+              />
               <line
                 data-viz-mark
-                x1={mapLinear(tangentStart.x, xMin, xMax, padding, width - padding)}
-                y1={mapLinear(tangentStart.y, yMin, yMax, height - padding, padding)}
-                x2={mapLinear(tangentEnd.x, xMin, xMax, padding, width - padding)}
-                y2={mapLinear(tangentEnd.y, yMin, yMax, height - padding, padding)}
+                data-viz-name="tangent line"
+                data-viz-tangent-x={formatNumber(tangentX, 4)}
+                data-viz-tangent-y={formatNumber(tangentY, 4)}
+                data-viz-slope={formatNumber(slope, 4)}
+                data-viz-y-at-x-min={formatNumber(tangentStart.y, 4)}
+                data-viz-y-at-x-max={formatNumber(tangentEnd.y, 4)}
+                data-viz-visible-start-x={formatNumber(tangentVisibleSegment[0].x, 4)}
+                data-viz-visible-start-y={formatNumber(tangentVisibleSegment[0].y, 4)}
+                data-viz-visible-end-x={formatNumber(tangentVisibleSegment[1].x, 4)}
+                data-viz-visible-end-y={formatNumber(tangentVisibleSegment[1].y, 4)}
+                x1={mapLinear(tangentVisibleSegment[0].x, xMin, xMax, padding, width - padding)}
+                y1={mapLinear(tangentVisibleSegment[0].y, yMin, yMax, height - padding, padding)}
+                x2={mapLinear(tangentVisibleSegment[1].x, xMin, xMax, padding, width - padding)}
+                y2={mapLinear(tangentVisibleSegment[1].y, yMin, yMax, height - padding, padding)}
                 stroke="#f472b6"
                 strokeWidth="3"
                 strokeDasharray="8 8"
               />
               <circle
                 data-viz-mark
+                data-viz-name="tangent point"
+                data-viz-x={formatNumber(tangentX, 4)}
+                data-viz-y={formatNumber(tangentY, 4)}
+                data-viz-visible-y={formatNumber(tangentVisibleY, 4)}
+                data-viz-clipped={String(tangentPointClipped)}
+                data-viz-slope={formatNumber(slope, 4)}
                 cx={mapLinear(tangentX, xMin, xMax, padding, width - padding)}
-                cy={mapLinear(tangentY, yMin, yMax, height - padding, padding)}
+                cy={mapLinear(tangentVisibleY, yMin, yMax, height - padding, padding)}
                 r="8"
                 fill="#f472b6"
-                stroke="white"
+                stroke={vizTheme.pointStroke}
                 strokeWidth="2"
               />
-              <text x="56" y="58" className="fill-white text-lg font-bold">
+              <text x="56" y="58" fill={vizTheme.text} className="text-lg font-bold">
                 f'({formatNumber(tangentX, 1)}) = {formatNumber(slope, 2)}
               </text>
             </>
           ) : (
             <>
+              {[0, 0.5, 1].map((tick) => (
+                <g key={`density-${tick}`}>
+                  <line x1={padding} x2={width - padding} y1={mapLinear(tick, 0, 1, height - padding, padding)} y2={mapLinear(tick, 0, 1, height - padding, padding)} stroke={tick === 0 ? vizTheme.axisStrong : vizTheme.grid} strokeWidth={tick === 0 ? 2.2 : 1} />
+                  <text x="18" y={mapLinear(tick, 0, 1, height - padding, padding) + 3} fill={vizTheme.tickText} className="text-[10px] font-bold">{formatNumber(tick, tick === 0 || tick === 1 ? 0 : 1)}</text>
+                </g>
+              ))}
               {[-3, -2, -1, 0, 1, 2, 3].map((z) => {
                 const x = mean + z * sd;
                 return (
                   <g key={z}>
-                    <line x1={mapLinear(x, normalXMin, normalXMax, padding, width - padding)} x2={mapLinear(x, normalXMin, normalXMax, padding, width - padding)} y1={padding} y2={height - padding} className="stroke-white/10" />
-                    <text x={mapLinear(x, normalXMin, normalXMax, padding, width - padding)} y={height - 14} textAnchor="middle" className="fill-white/35 text-[10px]">{z}</text>
+                    <line x1={mapLinear(x, normalXMin, normalXMax, padding, width - padding)} x2={mapLinear(x, normalXMin, normalXMax, padding, width - padding)} y1={padding} y2={height - padding} stroke={vizTheme.grid} />
+                    <text x={mapLinear(x, normalXMin, normalXMax, padding, width - padding)} y={height - 14} textAnchor="middle" fill={vizTheme.tickText} className="text-[10px]">{z}</text>
                   </g>
                 );
               })}
-              <motion.path data-viz-mark d={normalPath} fill="none" stroke="#a3e635" strokeWidth="4" strokeLinecap="round" initial={false} animate={{ pathLength: 1 }} />
+              <line x1={padding} x2={padding} y1={padding} y2={height - padding} stroke={vizTheme.axisStrong} strokeWidth="2.2" />
+              <g aria-hidden="true" pointerEvents="none">
+                <text x={width - padding + 8} y={height - padding - 10} fill={vizTheme.labelText} className="text-sm font-black">x: z</text>
+                <text x={padding + 12} y={padding - 12} fill={vizTheme.labelText} className="text-sm font-black">{t({ en: "y: relative density", zh: "y：相對密度" })}</text>
+              </g>
+              <motion.path
+                data-viz-mark
+                data-viz-name="normal curve"
+                data-viz-density-mode="relative"
+                data-viz-mean={mean}
+                data-viz-standard-deviation={sd}
+                d={normalPath}
+                fill="none"
+                stroke="#a3e635"
+                strokeWidth="4"
+                strokeLinecap="round"
+                initial={false}
+                animate={{ pathLength: 1 }}
+              />
               <line
                 data-viz-mark
+                data-viz-name="observed z marker"
+                data-viz-observed={observed}
+                data-viz-mean={mean}
+                data-viz-standard-deviation={sd}
+                data-viz-z-score={formatNumber(zScore, 4)}
+                data-viz-relative-density={formatNumber(observedRelativeDensity, 4)}
+                data-viz-pdf={formatNumber(observedPdf, 6)}
+                data-viz-clamped-observed={formatNumber(observedX, 4)}
+                data-viz-visible-observed={formatNumber(observedX, 4)}
+                data-viz-visible-z-score={formatNumber(visibleZScore, 4)}
+                data-viz-visible-relative-density={formatNumber(visibleRelativeDensity, 4)}
+                data-viz-visible-pdf={formatNumber(visiblePdf, 6)}
+                data-viz-clipped={String(observedClipped)}
                 x1={mapLinear(observedX, normalXMin, normalXMax, padding, width - padding)}
                 x2={mapLinear(observedX, normalXMin, normalXMax, padding, width - padding)}
                 y1={padding}
@@ -153,7 +331,7 @@ export function CalculusStatsLab({ topicId = "calculus" }: { topicId?: string })
                 strokeWidth="3"
                 strokeDasharray="8 8"
               />
-              <text x="56" y="58" className="fill-white text-base font-bold">
+              <text x="56" y="58" fill={vizTheme.text} className="text-base font-bold">
                 z = {formatNumber(zScore, 2)}
               </text>
             </>
@@ -235,6 +413,7 @@ export function CalculusStatsLab({ topicId = "calculus" }: { topicId?: string })
             />
           </div>
         )}
+        <VisualizationResetButton moduleId={moduleId} topicId={topicId} onReset={resetModel} />
       </div>
     </div>
   );

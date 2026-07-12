@@ -1,0 +1,324 @@
+{
+  "generatedAt": "2026-07-04T15:26:23.280Z",
+  "repoRoot": "/Users/dongpinhu/Desktop/MAIS-MVP",
+  "dirtyMapStatusSignature": "d20470b5add81361e15b9a442d7784b5bed65137e18241c1f7d9b27e87532f64",
+  "expandedStatusEntries": 4316,
+  "sourceArtifacts": {
+    "closureSequenceGeneratedAt": "2026-07-04T15:23:13.505Z",
+    "completionAuditGeneratedAt": "2026-07-04T15:26:16.689Z",
+    "authorizationExecutionPreviewGeneratedAt": "2026-07-04T15:26:18.686Z",
+    "executionInstructionsCheckedAt": "2026-07-04T15:26:22.807Z",
+    "ownerClosureInputReadinessGeneratedAt": "2026-07-04T15:26:20.712Z",
+    "ownerInputActionPacketGeneratedAt": "2026-07-04T15:26:20.897Z",
+    "ownerClosureWorkOrderBundleGeneratedAt": "2026-07-04T15:26:23.196Z",
+    "a16ExecutionInstructionInputScaffoldGeneratedAt": "2026-07-04T15:26:22.374Z",
+    "a16ExecutionInstructionOwnerInputGeneratedAt": "2026-07-04T15:26:22.477Z",
+    "a16ExecutionInstructionOwnerInputGateCheckedAt": "2026-07-04T15:26:22.535Z",
+    "a16PostExtractionVerificationReportGeneratedAt": "2026-07-04T15:26:22.616Z"
+  },
+  "loopOrder": [
+    "slice",
+    "extract",
+    "validate",
+    "merge",
+    "cleanup"
+  ],
+  "activeStep": "validate",
+  "steps": [
+    {
+      "id": "slice",
+      "label": "Slice",
+      "chineseLabel": "切片",
+      "purpose": "Map root dirty inventory to owners, waves, and approval IDs.",
+      "status": "complete",
+      "blockers": [],
+      "checks": [
+        {
+          "label": "Owner pathspecs are current",
+          "passed": true,
+          "evidence": [
+            "coordination/release-intake/latest-A25-dirty-worktree-remediation-completion-audit.json"
+          ],
+          "blocker": ""
+        },
+        {
+          "label": "Effective owner overlay is current",
+          "passed": true,
+          "evidence": [
+            "coordination/release-intake/latest-A25-dirty-worktree-remediation-completion-audit.json"
+          ],
+          "blocker": ""
+        },
+        {
+          "label": "No unmapped runtime paths remain",
+          "passed": true,
+          "evidence": [
+            "coordination/release-intake/latest-A25-unmapped-runtime-owner-proposals.json"
+          ],
+          "blocker": ""
+        },
+        {
+          "label": "No unmapped manual paths remain",
+          "passed": true,
+          "evidence": [
+            "coordination/release-intake/latest-A25-unmapped-manual-owner-proposals.json"
+          ],
+          "blocker": ""
+        },
+        {
+          "label": "Closure sequence covers all approval rows",
+          "passed": true,
+          "evidence": [
+            "coordination/release-intake/latest-A25-dirty-worktree-closure-execution-sequence.json"
+          ],
+          "blocker": ""
+        }
+      ],
+      "nextGate": "Proceed only when all dirty entries have owner/pathspec coverage and sequenced approval IDs."
+    },
+    {
+      "id": "extract",
+      "label": "Extract",
+      "chineseLabel": "提取",
+      "purpose": "Materialize owner work orders, blocker reports, and authorization starters.",
+      "status": "complete",
+      "blockers": [],
+      "checks": [
+        {
+          "label": "Owner work-order bundle covers A01-A25",
+          "passed": true,
+          "evidence": [
+            "coordination/release-intake/latest-A25-owner-closure-work-order-bundle.json"
+          ],
+          "blocker": ""
+        },
+        {
+          "label": "Owner closure pending items are materialized",
+          "passed": true,
+          "evidence": [
+            "coordination/release-intake/latest-A25-owner-closure-work-order-bundle.json",
+            "coordination/release-intake/latest-A25-owner-closure-input-readiness.json"
+          ],
+          "blocker": ""
+        },
+        {
+          "label": "Owner blocker reports are closed for current starter",
+          "passed": true,
+          "evidence": [
+            "coordination/release-intake/latest-A25-owner-closure-input-readiness.json"
+          ],
+          "blocker": ""
+        },
+        {
+          "label": "Authorization starter rows are extracted",
+          "passed": true,
+          "evidence": [
+            "coordination/release-intake/latest-A25-next-owner-authorization-execution-preview.json"
+          ],
+          "blocker": ""
+        }
+      ],
+      "nextGate": "Proceed only when owner work orders and blocker records are current."
+    },
+    {
+      "id": "validate",
+      "label": "Validate",
+      "chineseLabel": "验证",
+      "purpose": "Keep current gates green while waiting for explicit owner authorization.",
+      "status": "active",
+      "blockers": [],
+      "checks": [
+        {
+          "label": "All authorization rows pass pre-authorization checks",
+          "passed": true,
+          "evidence": [
+            "coordination/release-intake/latest-A25-next-owner-authorization-execution-preview.json"
+          ],
+          "blocker": ""
+        },
+        {
+          "label": "Exact command targets are ready",
+          "passed": true,
+          "evidence": [
+            "coordination/release-intake/latest-A25-next-owner-authorization-execution-preview.json"
+          ],
+          "blocker": ""
+        },
+        {
+          "label": "A25 aggregate currentness is represented",
+          "passed": true,
+          "evidence": [
+            "coordination/release-intake/latest-A25-dirty-worktree-remediation-completion-audit.json"
+          ],
+          "blocker": ""
+        },
+        {
+          "label": "Owner input files exist but are not yet ready",
+          "passed": true,
+          "evidence": [
+            "coordination/release-intake/latest-A25-owner-closure-input-readiness.json",
+            "coordination/release-intake/latest-A25-owner-input-action-packet.json"
+          ],
+          "blocker": ""
+        },
+        {
+          "label": "A16 execution-input slot is current and waiting for owner instruction",
+          "passed": true,
+          "evidence": [
+            "coordination/release-intake/latest-A25-a16-execution-instruction-input-scaffold.json",
+            "coordination/release-intake/latest-A25-a16-execution-instruction-owner-input.json",
+            "coordination/release-intake/latest-A25-a16-post-extraction-verification-report.json"
+          ],
+          "blocker": ""
+        }
+      ],
+      "nextGate": "Owner must record canonical authorization rows before merge or cleanup can start."
+    },
+    {
+      "id": "merge",
+      "label": "Merge",
+      "chineseLabel": "合并",
+      "purpose": "Merge reviewed owner packages into a clean release source, not the dirty root.",
+      "status": "blocked",
+      "blockers": [
+        "71 canonical authorization rows are still pending",
+        "1 ready owner execution input row(s) still need separate execution instructions; A16 ready=1, generic ready=0",
+        "Owner inputs are not ready",
+        "Validation hold is waiting for owner compose deletion confirmation"
+      ],
+      "checks": [
+        {
+          "label": "Owner canonical authorization rows are recorded",
+          "passed": false,
+          "evidence": [
+            "coordination/release-intake/latest-A25-next-owner-authorization-execution-preview.json",
+            "coordination/release-intake/latest-A25-owner-closure-input-readiness.json"
+          ],
+          "blocker": "71 canonical authorization rows are still pending"
+        },
+        {
+          "label": "Separate execution instructions are recorded for ready owner execution inputs",
+          "passed": false,
+          "evidence": [
+            "coordination/release-intake/latest-A25-next-owner-execution-instructions-current-gate.json",
+            "coordination/release-intake/latest-A25-a16-execution-instruction-owner-input.json",
+            "coordination/release-intake/latest-A25-a16-post-extraction-verification-report.json"
+          ],
+          "blocker": "1 ready owner execution input row(s) still need separate execution instructions; A16 ready=1, generic ready=0"
+        },
+        {
+          "label": "Owner inputs ready",
+          "passed": false,
+          "evidence": [
+            "coordination/release-intake/latest-A25-owner-closure-input-readiness.json"
+          ],
+          "blocker": "Owner inputs are not ready"
+        },
+        {
+          "label": "Validation hold released",
+          "passed": false,
+          "evidence": [
+            "coordination/release-intake/latest-A25-owner-input-action-packet.json"
+          ],
+          "blocker": "Validation hold is waiting for owner compose deletion confirmation"
+        }
+      ],
+      "nextGate": "Release-source merge cannot begin until owner inputs are ready and validation hold is released."
+    },
+    {
+      "id": "cleanup",
+      "label": "Cleanup",
+      "chineseLabel": "清理",
+      "purpose": "Remove only owner-authorized generated artifacts, root inventory, branches, and worktrees after merge verification.",
+      "status": "blocked",
+      "blockers": [
+        "4316 expanded dirty entries remain",
+        "A22 release source is not clean",
+        "A25 strict worktree lifecycle is not clean",
+        "No cleanup/executable rows are authorized"
+      ],
+      "checks": [
+        {
+          "label": "Root dirty entries are zero",
+          "passed": false,
+          "evidence": [
+            "coordination/release-intake/latest-A25-dirty-tree-map.json"
+          ],
+          "blocker": "4316 expanded dirty entries remain"
+        },
+        {
+          "label": "Release source is clean",
+          "passed": false,
+          "evidence": [
+            "coordination/release-intake/latest-A22-release-source-clean-blocker-evidence.json"
+          ],
+          "blocker": "A22 release source is not clean"
+        },
+        {
+          "label": "Strict worktree lifecycle is clean",
+          "passed": false,
+          "evidence": [
+            "coordination/release-intake/latest-A25-strict-worktree-lifecycle-blocker-evidence.json"
+          ],
+          "blocker": "A25 strict worktree lifecycle is not clean"
+        },
+        {
+          "label": "Cleanup rows are separately authorized",
+          "passed": false,
+          "evidence": [
+            "coordination/release-intake/latest-A25-next-owner-authorization-execution-preview.json",
+            "coordination/release-intake/latest-A25-owner-input-action-packet.json"
+          ],
+          "blocker": "No cleanup/executable rows are authorized"
+        }
+      ],
+      "nextGate": "Cleanup cannot begin until merge is verified and exact cleanup rows are separately authorized."
+    }
+  ],
+  "summary": {
+    "completedSteps": 2,
+    "activeSteps": 1,
+    "blockedSteps": 2,
+    "authorizationStarterRows": 71,
+    "pendingCanonicalAuthorizationRows": 69,
+    "validAuthorizationRows": 2,
+    "readyExecutionInstructionRows": 0,
+    "validExecutionInstructionRows": 0,
+    "pendingReadyExecutionInstructionRows": 0,
+    "a16ReadyForSeparateInstructionRows": 1,
+    "a16ReadyForOwnerExecutionInstructionRows": 1,
+    "a16ValidExecutionInstructionRows": 0,
+    "a16PendingOwnerExecutionInstructionRows": 1,
+    "a16InstructionRows": 0,
+    "a16DraftInstructionRows": 1,
+    "a16PackageFileRows": 6,
+    "a16PackageFingerprintRows": 6,
+    "a16PostExtractionLifecycleStatus": "pending-owner-execution-instruction",
+    "a16PostExtractionVerified": false,
+    "a16PostExtractionFailedChecks": 0,
+    "effectiveReadyExecutionInstructionRows": 1,
+    "effectiveValidExecutionInstructionRows": 0,
+    "effectivePendingReadyExecutionInstructionRows": 1,
+    "preAuthorizationReadyRows": 71,
+    "preAuthorizationAttentionRows": 0,
+    "exactCommandRows": 9,
+    "exactCommandTargetReadyRows": 9,
+    "ownerClosurePendingItems": 133,
+    "cleanupAuthorizedRows": 0,
+    "executableRows": 0,
+    "releaseSourceClean": false,
+    "strictLifecycleClean": false,
+    "validationHoldStatus": "waiting-for-owner-compose-deletion-confirmation",
+    "sourceCurrentnessFailures": 0
+  },
+  "sourceCurrentnessFailures": [],
+  "boundary": {
+    "evidenceOnly": true,
+    "cleanupAuthorized": false,
+    "executableNow": false,
+    "destructiveGitAuthorized": false,
+    "deployAuthorized": false,
+    "mergeAuthorized": false,
+    "physicalCleanupAuthorized": false
+  }
+}

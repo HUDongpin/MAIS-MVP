@@ -68,12 +68,17 @@ type SummaryBucket = {
   infrastructureFailures: number;
   p50Ms: number;
   p95Ms: number;
+  p99Ms: number;
 };
 
 type LiveQaSummary = {
+  runId: string;
   startedAt: string;
   completedAt?: string;
   appBaseURL?: string;
+  summaryPath: string;
+  nextDistDir: string;
+  nextTsconfigPath: string;
   serverMode?: "start" | "dev";
   acceptanceMode: boolean;
   status?: {
@@ -82,6 +87,12 @@ type LiveQaSummary = {
     model?: string;
     provider?: string;
   };
+  latencyGate: {
+    firstEventMs: number;
+    maxCaseMs: number;
+    p95Ms: number;
+    p99Ms: number;
+  };
   matrix?: SummaryBucket;
   soak?: SummaryBucket & { requested: number; concurrency: number };
   frontend?: SummaryBucket;
@@ -89,7 +100,14 @@ type LiveQaSummary = {
 };
 
 const projectRoot = process.cwd();
-const e2eRoot = path.join(projectRoot, ".tmp", "ai-tutor-live-text");
+const liveTextRunId = sanitizeRunId(
+  process.env.AI_TUTOR_LIVE_TEXT_RUN_ID
+  ?? `${new Date().toISOString().replace(/[:.]/g, "-")}-${process.pid}`
+);
+const e2eRelativeRoot = path.join(".tmp", "ai-tutor-live-text", "runs", liveTextRunId);
+const e2eRoot = path.join(projectRoot, e2eRelativeRoot);
+const nextDistDir = path.join(e2eRelativeRoot, "next-dist");
+const nextTsconfigPath = `tsconfig.ai-tutor-live-text-${liveTextRunId}.tmp.json`;
 const summaryPath = path.join(e2eRoot, "live-text-summary.json");
 const liveTextQaEnabled = process.env.AI_TUTOR_LIVE_TEXT_QA === "1";
 const liveTextServerMode = process.env.AI_TUTOR_LIVE_TEXT_SERVER_MODE === "dev" ? "dev" : "start";
@@ -97,8 +115,12 @@ const liveTextAcceptanceMode = liveTextServerMode === "start";
 const matrixRounds = boundedInteger(process.env.AI_TUTOR_LIVE_TEXT_MATRIX_ROUNDS, liveTextServerMode === "start" ? 3 : 1, 1, 3);
 const soakRequestCount = boundedInteger(process.env.AI_TUTOR_LIVE_TEXT_SOAK_REQUESTS, 0, 0, 180);
 const soakConcurrency = boundedInteger(process.env.AI_TUTOR_LIVE_TEXT_SOAK_CONCURRENCY, 3, 1, 3);
+const liveTextFirstEventLatencyMs = boundedInteger(process.env.AI_TUTOR_LIVE_TEXT_FIRST_EVENT_MS, 1_000, 100, 5_000);
+const liveTextMaxCaseLatencyMs = boundedInteger(process.env.AI_TUTOR_LIVE_TEXT_MAX_CASE_LATENCY_MS, 12_000, 1_000, 60_000);
+const liveTextP95LatencyMs = boundedInteger(process.env.AI_TUTOR_LIVE_TEXT_P95_LATENCY_MS, 8_000, 1_000, 60_000);
+const liveTextP99LatencyMs = boundedInteger(process.env.AI_TUTOR_LIVE_TEXT_P99_LATENCY_MS, 12_000, 1_000, 60_000);
 const llmApiKeyConfigured = hasConfiguredLLMApiKey();
-const sensitiveLeakPattern = /Database-backed personalization|Correct answer for tutor reference|Recent tutor conversation stored on server|Authorized teacher dashboard context|Authorized teacher-visible student profile context|Authorized adaptive engine context|candidateSignature|Authorization:\s*Bearer|bearer\s+[a-z0-9._-]{20,}|OPENAI_API_KEY\s*=|LLM_API_KEY\s*=|session token:\s*[a-z0-9._-]{16,}|api key:\s*[a-z0-9._-]{16,}|stack trace|at .*app\/api\/ai-tutor/i;
+const sensitiveLeakPattern = /Database-backed personalization|Correct answer for tutor reference|Recent tutor conversation stored on server|Authorized teacher dashboard context|Authorized teacher-visible student profile context|Authorized adaptive engine context|candidateSignature|Authorization:\s*Bearer|bearer\s+[a-z0-9._-]{20,}|DEEPSEEK_API_KEY\s*=|QWEN_API_KEY\s*=|session token:\s*[a-z0-9._-]{16,}|api key:\s*[a-z0-9._-]{16,}|stack trace|at .*app\/api\/ai-tutor/i;
 const cjkPattern = /[\u3400-\u9fff]/;
 
 let harness: {
@@ -108,8 +130,18 @@ let harness: {
 } | null = null;
 
 const liveQaSummary: LiveQaSummary = {
+  runId: liveTextRunId,
   startedAt: new Date().toISOString(),
+  summaryPath,
+  nextDistDir,
+  nextTsconfigPath,
   acceptanceMode: liveTextAcceptanceMode,
+  latencyGate: {
+    firstEventMs: liveTextFirstEventLatencyMs,
+    maxCaseMs: liveTextMaxCaseLatencyMs,
+    p95Ms: liveTextP95LatencyMs,
+    p99Ms: liveTextP99LatencyMs
+  },
   results: []
 };
 
@@ -117,9 +149,9 @@ test.describe.configure({ mode: "serial" });
 test.setTimeout(90 * 60 * 1000);
 test.use({ screenshot: "off", trace: "off", video: "off" });
 
-test.describe("DeepSeek-v4-pro AI Tutor live text QA", () => {
-  test.skip(!liveTextQaEnabled, "Set AI_TUTOR_LIVE_TEXT_QA=1 to run live DeepSeek text QA.");
-  test.skip(liveTextQaEnabled && !llmApiKeyConfigured, "LLM_API_KEY is not configured in the process environment or .env.local.");
+test.describe("Ali Qwen Nova Tutor live text QA", () => {
+  test.skip(!liveTextQaEnabled, "Set AI_TUTOR_LIVE_TEXT_QA=1 to run live Qwen text QA.");
+  test.skip(liveTextQaEnabled && !llmApiKeyConfigured, "QWEN_API_KEY is not configured in the process environment or .env.local.");
 
   test.beforeAll(async ({}, testInfo) => {
     testInfo.setTimeout(300_000);
@@ -133,18 +165,18 @@ test.describe("DeepSeek-v4-pro AI Tutor live text QA", () => {
     await disposeHarness();
   });
 
-  test("status endpoint confirms live DeepSeek-v4-pro configuration", async () => {
+  test("status endpoint confirms live Qwen text configuration", async () => {
     const activeHarness = requireHarness();
     const response = await fetch(`${activeHarness.appBaseURL}/api/ai-tutor/status`, { cache: "no-store" });
     expect(response.ok).toBeTruthy();
     const status = await response.json() as LiveQaSummary["status"];
     liveQaSummary.status = status;
 
-    expect(status).toEqual({
+    expect(status).toMatchObject({
       configured: true,
       mode: "live",
-      model: "deepseek-v4-pro",
-      provider: "deepseek"
+      model: "qwen3.7-plus",
+      provider: "qwen"
     });
   });
 
@@ -196,7 +228,7 @@ test.describe("DeepSeek-v4-pro AI Tutor live text QA", () => {
           isMobile: viewportCase.isMobile
         });
         const page = await browserContext.newPage();
-        const startedAt = Date.now();
+        let startedAt = Date.now();
         try {
           if (roleCase.username) {
             const loginResponse = await browserContext.request.post(`${activeHarness.appBaseURL}/api/auth/login`, {
@@ -219,20 +251,25 @@ test.describe("DeepSeek-v4-pro AI Tutor live text QA", () => {
           ).catch(() => null);
           await page.goto(`${activeHarness.appBaseURL}${roleCase.path}`);
           await tutorStatusReady;
-          const aiTutorButton = page.getByRole("button", { name: /^AI Tutor$/i }).first();
+          const aiTutorButton = page.getByRole("button", { name: /^Nova Tutor$/i }).first();
           await expect(aiTutorButton).toBeVisible({ timeout: 15_000 });
           await expect(aiTutorButton).toBeEnabled({ timeout: 15_000 });
           await aiTutorButton.click();
-          const tutorPanel = page.getByRole("dialog", { name: /AI Tutor/i });
+          const tutorPanel = page.getByRole("dialog", { name: /Nova Tutor/i });
           await expect(tutorPanel).toBeVisible({ timeout: 15_000 });
-          await tutorPanel.getByLabel(/Ask AI Tutor/i).fill(roleCase.prompt);
+          await tutorPanel.locator("#ai-tutor-input").fill(roleCase.prompt);
 
           const responsePromise = page.waitForResponse((response) =>
             response.url().endsWith("/api/ai-tutor") &&
             response.request().method() === "POST"
           );
+          startedAt = Date.now();
           await tutorPanel.getByRole("button", { name: /^Send$/i }).click();
           const response = await responsePromise;
+          const firstEventMs = Date.now() - startedAt;
+          if (liveTextAcceptanceMode) {
+            expect(firstEventMs, `${roleCase.role} ${viewportCase.label} first AI Tutor event`).toBeLessThanOrEqual(liveTextFirstEventLatencyMs);
+          }
           const parsed = await safeResponseJson(response);
           const durationMs = Date.now() - startedAt;
           const reply = typeof parsed.body.reply === "string" ? parsed.body.reply : "";
@@ -246,7 +283,7 @@ test.describe("DeepSeek-v4-pro AI Tutor live text QA", () => {
           }, roleCase.role, response.status(), durationMs, reply, typeof parsed.body.mode === "string" ? parsed.body.mode : undefined, parsed.parseError, parsed.infrastructureHint);
 
           results.push(result);
-          await expect(tutorPanel.getByText(/MAIS AI Tutor|Professor Nova/i).first()).toBeVisible({ timeout: 15_000 });
+          await expect(tutorPanel.getByText(/MAIS Nova Tutor|Professor Nova/i).first()).toBeVisible({ timeout: 15_000 });
           await tutorPanel.getByRole("button", { name: /Close/i }).click();
           await expect(tutorPanel).toBeHidden();
         } finally {
@@ -289,6 +326,13 @@ function boundedInteger(value: string | undefined, fallback: number, min: number
   return Math.min(max, Math.max(min, Math.round(parsed)));
 }
 
+function sanitizeRunId(value: string) {
+  return value
+    .replace(/[^a-zA-Z0-9._-]+/g, "-")
+    .replace(/^-+|-+$/g, "")
+    .slice(0, 80) || "run";
+}
+
 function readDotEnvValue(filePath: string, key: string) {
   if (!existsSync(filePath)) return "";
   const text = readFileSync(filePath, "utf8");
@@ -304,7 +348,7 @@ function readDotEnvValue(filePath: string, key: string) {
 }
 
 function hasConfiguredLLMApiKey() {
-  return Boolean(process.env.LLM_API_KEY?.trim() || readDotEnvValue(path.join(projectRoot, ".env.local"), "LLM_API_KEY"));
+  return Boolean(process.env.QWEN_API_KEY?.trim() || readDotEnvValue(path.join(projectRoot, ".env.local"), "QWEN_API_KEY"));
 }
 
 async function listen(server: Server) {
@@ -333,12 +377,58 @@ function recentLogs(logs: string[]) {
   return logs.join("").split("\n").slice(-40).join("\n");
 }
 
+function writeHarnessTsconfig() {
+  const content = JSON.stringify({
+    extends: "./tsconfig.json",
+    include: [
+      "next-env.d.ts",
+      "**/*.ts",
+      "**/*.tsx",
+      ".next/types/**/*.ts",
+      `${nextDistDir}/types/**/*.ts`
+    ],
+    exclude: [
+      "node_modules",
+      ".next-*",
+      ".s??-*",
+      "tmp",
+      "temp",
+      "output",
+      "outputs",
+      "coverage",
+      "playwright-report",
+      "test-results",
+      "MAIS-MVP-*",
+      "MAIS-MVP-*/**/*"
+    ]
+  }, null, 2);
+
+  writeFileSync(
+    path.join(projectRoot, nextTsconfigPath),
+    content
+  );
+}
+
+function removeHarnessTsconfig() {
+  rmSync(path.join(projectRoot, nextTsconfigPath), { force: true });
+}
+
+function removeHarnessRuntimeArtifacts() {
+  rmSync(path.join(projectRoot, nextDistDir), { recursive: true, force: true });
+  rmSync(path.join(e2eRoot, "hk-math-db.sqlite"), { force: true });
+  rmSync(path.join(e2eRoot, "hk-math-db.sqlite-shm"), { force: true });
+  rmSync(path.join(e2eRoot, "hk-math-db.sqlite-wal"), { force: true });
+}
+
 async function startLiveHarness() {
   rmSync(e2eRoot, { recursive: true, force: true });
   mkdirSync(e2eRoot, { recursive: true });
+  writeHarnessTsconfig();
   if (liveTextServerMode === "start") {
-    rmSync(path.join(projectRoot, ".next"), { recursive: true, force: true });
-    await runHarnessCommand("npm", ["run", "build"]);
+    await runHarnessCommand("npm", ["run", "build"], {
+      NEXT_DIST_DIR: nextDistDir,
+      NEXT_TSCONFIG_PATH: nextTsconfigPath
+    });
   }
 
   const appPort = await freePort();
@@ -352,14 +442,18 @@ async function startLiveHarness() {
       HK_MATH_DB_PATH: path.join(e2eRoot, "hk-math-db.sqlite"),
       HK_MATH_ENABLE_DEMO_USER: "true",
       HK_MATH_EXPOSE_LOCAL_RESET_LINKS: "true",
-      LLM_MODEL: "deepseek-v4-pro",
-      LLM_API_URL: "https://api.deepseek.com/chat/completions",
+      AI_TUTOR_PROVIDER_PROFILE: "live-smoke",
+      QWEN_API_URL: "https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions",
+      QWEN_TEXT_MODEL: "qwen3.7-plus",
       AI_TUTOR_MAX_REQUESTS_PER_MINUTE: "240",
       AI_TUTOR_MAX_REQUESTS_PER_HOUR: "500",
-      AI_TUTOR_MAX_COMPLETION_TOKENS: "900",
-      AI_TUTOR_PROVIDER_TIMEOUT_MS: "30000",
+      AI_TUTOR_MAX_COMPLETION_TOKENS: "450",
+      AI_TUTOR_TOTAL_DEADLINE_MS: "10000",
+      AI_TUTOR_PROVIDER_TIMEOUT_MS: "12000",
       AI_TUTOR_TOKEN_LIMIT_5H: "200000000",
-      AI_TUTOR_DEMO_TOKEN_LIMIT_5H: "100000000"
+      AI_TUTOR_DEMO_TOKEN_LIMIT_5H: "100000000",
+      NEXT_DIST_DIR: nextDistDir,
+      NEXT_TSCONFIG_PATH: nextTsconfigPath
     }
   });
 
@@ -387,17 +481,24 @@ async function startLiveHarness() {
   throw new Error(`Live text QA Next server did not become ready.\n${recentLogs(appLogs)}`);
 }
 
-async function runHarnessCommand(command: string, args: string[]) {
+async function runHarnessCommand(command: string, args: string[], envOverrides: Record<string, string> = {}) {
   const logs: string[] = [];
   const child = spawn(command, args, {
     cwd: projectRoot,
     env: {
       ...process.env,
-      LLM_API_KEY: "",
-      OPENAI_API_KEY: "",
-      LLM_MODEL: "",
-      OPENAI_MODEL: "",
-      LLM_API_URL: ""
+      DEEPSEEK_API_KEY: "",
+      DEEPSEEK_MODEL: "",
+      DEEPSEEK_API_URL: "",
+      QWEN_API_KEY: "",
+      QWEN_API_URL: "",
+      QWEN_TEXT_API_URL: "",
+      QWEN_TEXT_MODEL: "",
+      QWEN_IMAGE_MODEL: "",
+      QWEN_IMAGE_API_URL: "",
+      QWEN_REALTIME_MODEL: "",
+      QWEN_REALTIME_API_URL: "",
+      ...envOverrides
     }
   });
   child.stdout.on("data", (chunk) => logs.push(chunk.toString()));
@@ -413,9 +514,12 @@ async function runHarnessCommand(command: string, args: string[]) {
 }
 
 async function disposeHarness() {
-  if (!harness) return;
-  await stopProcess(harness.appProcess);
-  harness = null;
+  if (harness) {
+    await stopProcess(harness.appProcess);
+    harness = null;
+  }
+  removeHarnessRuntimeArtifacts();
+  removeHarnessTsconfig();
 }
 
 async function stopProcess(processHandle: ChildProcessWithoutNullStreams) {
@@ -796,12 +900,51 @@ async function safeApiJson(response: Awaited<ReturnType<APIRequestContext["post"
   }
 }
 
+function parseSseFinalBody(text: string) {
+  for (const block of text.split(/\r?\n\r?\n/)) {
+    let event = "message";
+    const dataLines: string[] = [];
+    for (const line of block.split(/\r?\n/)) {
+      if (!line || line.startsWith(":")) continue;
+      if (line.startsWith("event:")) {
+        event = line.slice("event:".length).trim();
+        continue;
+      }
+      if (line.startsWith("data:")) {
+        dataLines.push(line.slice("data:".length).trimStart());
+      }
+    }
+    if (event !== "final" || !dataLines.length) continue;
+    const data = JSON.parse(dataLines.join("\n")) as unknown;
+    if (typeof data !== "object" || data === null || !("body" in data)) return {};
+    const body = (data as { body?: unknown }).body;
+    return typeof body === "object" && body !== null ? body as Record<string, unknown> : {};
+  }
+  return null;
+}
+
 async function safeResponseJson(response: {
   headers: () => Record<string, string>;
   status: () => number;
   text: () => Promise<string>;
 }) {
   const text = await response.text();
+  const contentType = response.headers()["content-type"] ?? "";
+  if (contentType.includes("text/event-stream")) {
+    try {
+      const body = parseSseFinalBody(text);
+      if (body) {
+        return {
+          body,
+          parseError: false as const,
+          infrastructureHint: undefined
+        };
+      }
+    } catch {
+      // Fall through to the JSON parser so the existing infrastructure hint path is reused.
+    }
+  }
+
   try {
     const value = JSON.parse(text) as unknown;
     return {
@@ -866,7 +1009,7 @@ function evaluateTutorReply(
     languageOk ? "" : "reply language did not match expected Chinese text",
     identityOk ? "" : "identity reply did not normalize to Professor Nova",
     noTechnicalFallback ? "" : `unexpected fallback mode${mode ? `: ${mode}` : ""}`,
-    durationMs <= 30_000 ? "" : `latency ${durationMs}ms exceeded 30000ms`
+    durationMs <= liveTextMaxCaseLatencyMs ? "" : `latency ${durationMs}ms exceeded ${liveTextMaxCaseLatencyMs}ms`
   ].filter(Boolean);
 
   return {
@@ -914,11 +1057,11 @@ function classifyFailureKind({
   noTechnicalFallback: boolean;
   durationMs: number;
 }): TutorQaResult["failureKind"] {
-  if (status >= 200 && status < 300 && nonEmpty && noSensitiveLeak && languageOk && identityOk && noTechnicalFallback && durationMs <= 30_000) return "none";
+  if (status >= 200 && status < 300 && nonEmpty && noSensitiveLeak && languageOk && identityOk && noTechnicalFallback && durationMs <= liveTextMaxCaseLatencyMs) return "none";
   if (parseError || status === 404 || status >= 500) return "infrastructure-failure";
   if (!noSensitiveLeak) return "safety-failure";
   if (!noTechnicalFallback) return "fallback";
-  if (durationMs > 30_000) return "latency-failure";
+  if (durationMs > liveTextMaxCaseLatencyMs) return "latency-failure";
   if (status < 200 || status >= 300) return "api-failure";
   return "quality-failure";
 }
@@ -933,7 +1076,8 @@ function summarizeResults(results: TutorQaResult[]): SummaryBucket {
     sensitiveLeaks: results.filter((result) => !result.checks.noSensitiveLeak).length,
     infrastructureFailures: results.filter((result) => result.failureKind === "infrastructure-failure").length,
     p50Ms: percentile(durations, 50),
-    p95Ms: percentile(durations, 95)
+    p95Ms: percentile(durations, 95),
+    p99Ms: percentile(durations, 99)
   };
 }
 
@@ -949,7 +1093,8 @@ function assertBucket(bucket: SummaryBucket, label: string, minimumSuccessRate: 
   expect(bucket.infrastructureFailures, `${label} should not have infrastructure failures`).toBe(0);
   expect(bucket.sensitiveLeaks, `${label} should not leak sensitive context`).toBe(0);
   expect(bucket.successRate, `${label} success rate`).toBeGreaterThanOrEqual(minimumSuccessRate);
-  expect(bucket.p95Ms, `${label} p95 latency`).toBeLessThanOrEqual(30_000);
+  expect(bucket.p95Ms, `${label} p95 latency`).toBeLessThanOrEqual(liveTextP95LatencyMs);
+  expect(bucket.p99Ms, `${label} p99 latency`).toBeLessThanOrEqual(liveTextP99LatencyMs);
 }
 
 function assertAcceptanceBucket(bucket: SummaryBucket, label: string, minimumSuccessRate: number) {

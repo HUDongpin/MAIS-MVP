@@ -1,0 +1,25 @@
+.vercelignore                                      |     14 +
+ app/register/page.tsx                              |     11 +
+ components/ui/CurriculumTrackSelector.tsx          |      6 +-
+ .../question-pack.json                             | 134762 ++++++++++++++++++
+ .../question-pack.json                             | 117421 +++++++++++++++
+ data/grades.ts                                     |      9 +-
+ data/mainlandHjbRoadmap.ts                         |      1 +
+ data/mainlandPepRoadmap.ts                         |      1 +
+ data/questions.ts                                  |      4 +-
+ data/rag/usMath.ts                                 |      1 +
+ data/topics.ts                                     |      4 +-
+ data/usCaliforniaQuestions.ts                      |    115 +
+ data/usCaliforniaTopics.ts                         |    202 +
+ lib/curriculumProfile.ts                           |      6 +-
+ lib/questionBankSolvability.ts                     |     16 +-
+ next.config.ts                                     |      7 +-
+ package.json                                       |      2 +
+ playwright.config.ts                               |     93 +-
+ scripts/audit-mainland-pep-roadmap.ts              |      1 +
+ scripts/deploy-vercel-preview.mjs                  |    184 +
+ scripts/prepare-vercel-staging.mjs                 |    340 +
+ .../e2e/california-student-assignment-flow.spec.ts |    137 +
+ tests/e2e/mainland-pep-primary-lessons.spec.ts     |      1 +
+ types/index.ts                                     |      2 +-
+ 24 files changed, 253322 insertions(+), 18 deletions(-)

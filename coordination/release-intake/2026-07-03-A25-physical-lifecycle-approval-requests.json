@@ -1,0 +1,2554 @@
+{
+  "generatedAt": "2026-07-03T08:30:20.794Z",
+  "dirtyMapStatusSignature": "c01ea98a87118c49adfca945884588d4008699e1175537903861425d2ff30ffc",
+  "expandedStatusEntries": 4023,
+  "physicalPacketGeneratedAt": "2026-07-03T08:30:20.701Z",
+  "worktreeCount": 38,
+  "dirtyOpenDecisionCount": 29,
+  "cleanDivergedOpenDecisionCount": 8,
+  "summary": {
+    "total": 37,
+    "root": 1,
+    "dirtyLinked": 28,
+    "cleanDiverged": 8,
+    "byKind": {
+      "root-owner-package": 1,
+      "dirty-diverged-worktree": 28,
+      "clean-diverged-branch": 8
+    }
+  },
+  "note": "Approval support only. Destructive Git actions require separate explicit owner authorization.",
+  "requests": [
+    {
+      "approvalId": "root-main",
+      "branch": "main",
+      "path": "/Users/dongpinhu/Desktop/MAIS-MVP",
+      "state": "dirty-open-decision",
+      "kind": "root-owner-package",
+      "currentBlocker": "dirty 4023",
+      "ownerHints": [
+        "A25",
+        "A10",
+        "A22",
+        "effective file owners"
+      ],
+      "evidence": [
+        "coordination/release-intake/latest-A25-dirty-tree-map.md",
+        "coordination/release-intake/latest-A25-effective-disposition-queue.md",
+        "coordination/release-intake/latest-A25-owner-disposition-queue.md"
+      ],
+      "evidenceCoverage": {
+        "rootOwnerPackageEvidence": true,
+        "dirtyLinkedArchive": false,
+        "cleanDivergedArchive": false,
+        "dirtyDivergedArchive": false
+      },
+      "allowedFinalStates": [
+        {
+          "selectedFinalState": "reviewed owner package commit",
+          "effect": "An owning agent commits a reviewed root package from an isolated clean worktree, then A25 refreshes inventory."
+        },
+        {
+          "selectedFinalState": "owner-approved exact-path discard",
+          "effect": "A separately authorized Git operation discards only the exact approved paths after evidence review."
+        },
+        {
+          "selectedFinalState": "evidence archive with release-source blocker",
+          "effect": "A25 preserves evidence and keeps root excluded from release sources until the package is closed."
+        },
+        {
+          "selectedFinalState": "blocker",
+          "effect": "A25 records the unresolved owner, package, and reason blocking closure."
+        }
+      ],
+      "approvalTemplate": {
+        "approvalId": "root-main",
+        "branch": "main",
+        "path": "/Users/dongpinhu/Desktop/MAIS-MVP",
+        "selectedFinalState": "<one allowed final state from this request>",
+        "approvedBy": "<owner or owning agent>",
+        "approvedAt": "<ISO-8601 timestamp>",
+        "evidenceReviewed": [
+          "coordination/release-intake/latest-A25-dirty-tree-map.md",
+          "coordination/release-intake/latest-A25-effective-disposition-queue.md",
+          "coordination/release-intake/latest-A25-owner-disposition-queue.md"
+        ],
+        "notes": "<scope, checks, and any exact paths if approving discard/removal>"
+      }
+    },
+    {
+      "approvalId": "codex-a01-app-shell-closure",
+      "branch": "codex/A01-app-shell-closure",
+      "path": "/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A01-app-shell-closure",
+      "state": "dirty-open-decision",
+      "kind": "dirty-diverged-worktree",
+      "currentBlocker": "dirty 26",
+      "ownerHints": [
+        "A01"
+      ],
+      "evidence": [
+        "coordination/release-intake/archive/2026-06-30-A25-linked-worktree-archive-manifest.md",
+        "coordination/release-intake/archive/codex-A01-app-shell-closure.status.txt",
+        "coordination/release-intake/archive/codex-A01-app-shell-closure.diffstat.txt",
+        "coordination/release-intake/archive/codex-A01-app-shell-closure.patch",
+        "coordination/release-intake/archive/codex-A01-app-shell-closure.untracked.txt",
+        "coordination/release-intake/archive/2026-06-30-A25-dirty-diverged-branch-archive-manifest.md",
+        "coordination/release-intake/archive/codex-A01-app-shell-closure.dirty-diverged.ahead-log.txt",
+        "coordination/release-intake/archive/codex-A01-app-shell-closure.dirty-diverged.diffstat.txt",
+        "coordination/release-intake/archive/codex-A01-app-shell-closure.dirty-diverged.patch"
+      ],
+      "evidenceCoverage": {
+        "rootOwnerPackageEvidence": false,
+        "dirtyLinkedArchive": true,
+        "cleanDivergedArchive": false,
+        "dirtyDivergedArchive": true
+      },
+      "allowedFinalStates": [
+        {
+          "selectedFinalState": "owner-reviewed commit or package extraction",
+          "effect": "The owning agent commits the dirty worktree slice or extracts it into a reviewed clean package."
+        },
+        {
+          "selectedFinalState": "owner-approved exact-path discard",
+          "effect": "A separately authorized Git operation discards only approved dirty paths after archive review."
+        },
+        {
+          "selectedFinalState": "evidence archive with retained-worktree blocker",
+          "effect": "A25 keeps the worktree retained and blocked after preserving patch and untracked evidence."
+        },
+        {
+          "selectedFinalState": "owner-approved worktree removal after dirty state closure",
+          "effect": "A separately authorized Git operation may remove the worktree only after dirty state is committed, discarded, or explicitly closed."
+        },
+        {
+          "selectedFinalState": "blocker",
+          "effect": "A25 records the unresolved owner, worktree, and reason blocking closure."
+        }
+      ],
+      "approvalTemplate": {
+        "approvalId": "codex-a01-app-shell-closure",
+        "branch": "codex/A01-app-shell-closure",
+        "path": "/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A01-app-shell-closure",
+        "selectedFinalState": "<one allowed final state from this request>",
+        "approvedBy": "<owner or owning agent>",
+        "approvedAt": "<ISO-8601 timestamp>",
+        "evidenceReviewed": [
+          "coordination/release-intake/archive/2026-06-30-A25-linked-worktree-archive-manifest.md",
+          "coordination/release-intake/archive/codex-A01-app-shell-closure.status.txt",
+          "coordination/release-intake/archive/codex-A01-app-shell-closure.diffstat.txt",
+          "coordination/release-intake/archive/codex-A01-app-shell-closure.patch",
+          "coordination/release-intake/archive/codex-A01-app-shell-closure.untracked.txt",
+          "coordination/release-intake/archive/2026-06-30-A25-dirty-diverged-branch-archive-manifest.md",
+          "coordination/release-intake/archive/codex-A01-app-shell-closure.dirty-diverged.ahead-log.txt",
+          "coordination/release-intake/archive/codex-A01-app-shell-closure.dirty-diverged.diffstat.txt",
+          "coordination/release-intake/archive/codex-A01-app-shell-closure.dirty-diverged.patch"
+        ],
+        "notes": "<scope, checks, and any exact paths if approving discard/removal>"
+      }
+    },
+    {
+      "approvalId": "codex-a01-shell-lazy-load",
+      "branch": "codex/A01-shell-lazy-load",
+      "path": "/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A01-shell-lazy-load",
+      "state": "dirty-open-decision",
+      "kind": "dirty-diverged-worktree",
+      "currentBlocker": "dirty 8",
+      "ownerHints": [
+        "A01"
+      ],
+      "evidence": [
+        "coordination/release-intake/archive/2026-06-30-A25-linked-worktree-archive-manifest.md",
+        "coordination/release-intake/archive/codex-A01-shell-lazy-load.status.txt",
+        "coordination/release-intake/archive/codex-A01-shell-lazy-load.diffstat.txt",
+        "coordination/release-intake/archive/codex-A01-shell-lazy-load.patch",
+        "coordination/release-intake/archive/codex-A01-shell-lazy-load.untracked.txt",
+        "coordination/release-intake/archive/2026-06-30-A25-dirty-diverged-branch-archive-manifest.md",
+        "coordination/release-intake/archive/codex-A01-shell-lazy-load.dirty-diverged.ahead-log.txt",
+        "coordination/release-intake/archive/codex-A01-shell-lazy-load.dirty-diverged.diffstat.txt",
+        "coordination/release-intake/archive/codex-A01-shell-lazy-load.dirty-diverged.patch"
+      ],
+      "evidenceCoverage": {
+        "rootOwnerPackageEvidence": false,
+        "dirtyLinkedArchive": true,
+        "cleanDivergedArchive": false,
+        "dirtyDivergedArchive": true
+      },
+      "allowedFinalStates": [
+        {
+          "selectedFinalState": "owner-reviewed commit or package extraction",
+          "effect": "The owning agent commits the dirty worktree slice or extracts it into a reviewed clean package."
+        },
+        {
+          "selectedFinalState": "owner-approved exact-path discard",
+          "effect": "A separately authorized Git operation discards only approved dirty paths after archive review."
+        },
+        {
+          "selectedFinalState": "evidence archive with retained-worktree blocker",
+          "effect": "A25 keeps the worktree retained and blocked after preserving patch and untracked evidence."
+        },
+        {
+          "selectedFinalState": "owner-approved worktree removal after dirty state closure",
+          "effect": "A separately authorized Git operation may remove the worktree only after dirty state is committed, discarded, or explicitly closed."
+        },
+        {
+          "selectedFinalState": "blocker",
+          "effect": "A25 records the unresolved owner, worktree, and reason blocking closure."
+        }
+      ],
+      "approvalTemplate": {
+        "approvalId": "codex-a01-shell-lazy-load",
+        "branch": "codex/A01-shell-lazy-load",
+        "path": "/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A01-shell-lazy-load",
+        "selectedFinalState": "<one allowed final state from this request>",
+        "approvedBy": "<owner or owning agent>",
+        "approvedAt": "<ISO-8601 timestamp>",
+        "evidenceReviewed": [
+          "coordination/release-intake/archive/2026-06-30-A25-linked-worktree-archive-manifest.md",
+          "coordination/release-intake/archive/codex-A01-shell-lazy-load.status.txt",
+          "coordination/release-intake/archive/codex-A01-shell-lazy-load.diffstat.txt",
+          "coordination/release-intake/archive/codex-A01-shell-lazy-load.patch",
+          "coordination/release-intake/archive/codex-A01-shell-lazy-load.untracked.txt",
+          "coordination/release-intake/archive/2026-06-30-A25-dirty-diverged-branch-archive-manifest.md",
+          "coordination/release-intake/archive/codex-A01-shell-lazy-load.dirty-diverged.ahead-log.txt",
+          "coordination/release-intake/archive/codex-A01-shell-lazy-load.dirty-diverged.diffstat.txt",
+          "coordination/release-intake/archive/codex-A01-shell-lazy-load.dirty-diverged.patch"
+        ],
+        "notes": "<scope, checks, and any exact paths if approving discard/removal>"
+      }
+    },
+    {
+      "approvalId": "codex-a02-a15-dashboard-adaptive-closure",
+      "branch": "codex/A02-A15-dashboard-adaptive-closure",
+      "path": "/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A02-A15-dashboard-adaptive-closure",
+      "state": "dirty-open-decision",
+      "kind": "dirty-diverged-worktree",
+      "currentBlocker": "dirty 30",
+      "ownerHints": [
+        "A02",
+        "A15"
+      ],
+      "evidence": [
+        "coordination/release-intake/archive/2026-06-30-A25-linked-worktree-archive-manifest.md",
+        "coordination/release-intake/archive/codex-A02-A15-dashboard-adaptive-closure.status.txt",
+        "coordination/release-intake/archive/codex-A02-A15-dashboard-adaptive-closure.diffstat.txt",
+        "coordination/release-intake/archive/codex-A02-A15-dashboard-adaptive-closure.patch",
+        "coordination/release-intake/archive/codex-A02-A15-dashboard-adaptive-closure.untracked.txt",
+        "coordination/release-intake/archive/2026-06-30-A25-dirty-diverged-branch-archive-manifest.md",
+        "coordination/release-intake/archive/codex-A02-A15-dashboard-adaptive-closure.dirty-diverged.ahead-log.txt",
+        "coordination/release-intake/archive/codex-A02-A15-dashboard-adaptive-closure.dirty-diverged.diffstat.txt",
+        "coordination/release-intake/archive/codex-A02-A15-dashboard-adaptive-closure.dirty-diverged.patch"
+      ],
+      "evidenceCoverage": {
+        "rootOwnerPackageEvidence": false,
+        "dirtyLinkedArchive": true,
+        "cleanDivergedArchive": false,
+        "dirtyDivergedArchive": true
+      },
+      "allowedFinalStates": [
+        {
+          "selectedFinalState": "owner-reviewed commit or package extraction",
+          "effect": "The owning agent commits the dirty worktree slice or extracts it into a reviewed clean package."
+        },
+        {
+          "selectedFinalState": "owner-approved exact-path discard",
+          "effect": "A separately authorized Git operation discards only approved dirty paths after archive review."
+        },
+        {
+          "selectedFinalState": "evidence archive with retained-worktree blocker",
+          "effect": "A25 keeps the worktree retained and blocked after preserving patch and untracked evidence."
+        },
+        {
+          "selectedFinalState": "owner-approved worktree removal after dirty state closure",
+          "effect": "A separately authorized Git operation may remove the worktree only after dirty state is committed, discarded, or explicitly closed."
+        },
+        {
+          "selectedFinalState": "blocker",
+          "effect": "A25 records the unresolved owner, worktree, and reason blocking closure."
+        }
+      ],
+      "approvalTemplate": {
+        "approvalId": "codex-a02-a15-dashboard-adaptive-closure",
+        "branch": "codex/A02-A15-dashboard-adaptive-closure",
+        "path": "/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A02-A15-dashboard-adaptive-closure",
+        "selectedFinalState": "<one allowed final state from this request>",
+        "approvedBy": "<owner or owning agent>",
+        "approvedAt": "<ISO-8601 timestamp>",
+        "evidenceReviewed": [
+          "coordination/release-intake/archive/2026-06-30-A25-linked-worktree-archive-manifest.md",
+          "coordination/release-intake/archive/codex-A02-A15-dashboard-adaptive-closure.status.txt",
+          "coordination/release-intake/archive/codex-A02-A15-dashboard-adaptive-closure.diffstat.txt",
+          "coordination/release-intake/archive/codex-A02-A15-dashboard-adaptive-closure.patch",
+          "coordination/release-intake/archive/codex-A02-A15-dashboard-adaptive-closure.untracked.txt",
+          "coordination/release-intake/archive/2026-06-30-A25-dirty-diverged-branch-archive-manifest.md",
+          "coordination/release-intake/archive/codex-A02-A15-dashboard-adaptive-closure.dirty-diverged.ahead-log.txt",
+          "coordination/release-intake/archive/codex-A02-A15-dashboard-adaptive-closure.dirty-diverged.diffstat.txt",
+          "coordination/release-intake/archive/codex-A02-A15-dashboard-adaptive-closure.dirty-diverged.patch"
+        ],
+        "notes": "<scope, checks, and any exact paths if approving discard/removal>"
+      }
+    },
+    {
+      "approvalId": "codex-a03-roadmap-closure",
+      "branch": "codex/A03-roadmap-closure",
+      "path": "/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A03-roadmap-closure",
+      "state": "dirty-open-decision",
+      "kind": "dirty-diverged-worktree",
+      "currentBlocker": "dirty 30",
+      "ownerHints": [
+        "A03"
+      ],
+      "evidence": [
+        "coordination/release-intake/archive/2026-06-30-A25-linked-worktree-archive-manifest.md",
+        "coordination/release-intake/archive/codex-A03-roadmap-closure.status.txt",
+        "coordination/release-intake/archive/codex-A03-roadmap-closure.diffstat.txt",
+        "coordination/release-intake/archive/codex-A03-roadmap-closure.patch",
+        "coordination/release-intake/archive/codex-A03-roadmap-closure.untracked.txt",
+        "coordination/release-intake/archive/2026-06-30-A25-dirty-diverged-branch-archive-manifest.md",
+        "coordination/release-intake/archive/codex-A03-roadmap-closure.dirty-diverged.ahead-log.txt",
+        "coordination/release-intake/archive/codex-A03-roadmap-closure.dirty-diverged.diffstat.txt",
+        "coordination/release-intake/archive/codex-A03-roadmap-closure.dirty-diverged.patch"
+      ],
+      "evidenceCoverage": {
+        "rootOwnerPackageEvidence": false,
+        "dirtyLinkedArchive": true,
+        "cleanDivergedArchive": false,
+        "dirtyDivergedArchive": true
+      },
+      "allowedFinalStates": [
+        {
+          "selectedFinalState": "owner-reviewed commit or package extraction",
+          "effect": "The owning agent commits the dirty worktree slice or extracts it into a reviewed clean package."
+        },
+        {
+          "selectedFinalState": "owner-approved exact-path discard",
+          "effect": "A separately authorized Git operation discards only approved dirty paths after archive review."
+        },
+        {
+          "selectedFinalState": "evidence archive with retained-worktree blocker",
+          "effect": "A25 keeps the worktree retained and blocked after preserving patch and untracked evidence."
+        },
+        {
+          "selectedFinalState": "owner-approved worktree removal after dirty state closure",
+          "effect": "A separately authorized Git operation may remove the worktree only after dirty state is committed, discarded, or explicitly closed."
+        },
+        {
+          "selectedFinalState": "blocker",
+          "effect": "A25 records the unresolved owner, worktree, and reason blocking closure."
+        }
+      ],
+      "approvalTemplate": {
+        "approvalId": "codex-a03-roadmap-closure",
+        "branch": "codex/A03-roadmap-closure",
+        "path": "/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A03-roadmap-closure",
+        "selectedFinalState": "<one allowed final state from this request>",
+        "approvedBy": "<owner or owning agent>",
+        "approvedAt": "<ISO-8601 timestamp>",
+        "evidenceReviewed": [
+          "coordination/release-intake/archive/2026-06-30-A25-linked-worktree-archive-manifest.md",
+          "coordination/release-intake/archive/codex-A03-roadmap-closure.status.txt",
+          "coordination/release-intake/archive/codex-A03-roadmap-closure.diffstat.txt",
+          "coordination/release-intake/archive/codex-A03-roadmap-closure.patch",
+          "coordination/release-intake/archive/codex-A03-roadmap-closure.untracked.txt",
+          "coordination/release-intake/archive/2026-06-30-A25-dirty-diverged-branch-archive-manifest.md",
+          "coordination/release-intake/archive/codex-A03-roadmap-closure.dirty-diverged.ahead-log.txt",
+          "coordination/release-intake/archive/codex-A03-roadmap-closure.dirty-diverged.diffstat.txt",
+          "coordination/release-intake/archive/codex-A03-roadmap-closure.dirty-diverged.patch"
+        ],
+        "notes": "<scope, checks, and any exact paths if approving discard/removal>"
+      }
+    },
+    {
+      "approvalId": "codex-a04-practice-closure",
+      "branch": "codex/A04-practice-closure",
+      "path": "/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A04-practice-closure",
+      "state": "dirty-open-decision",
+      "kind": "dirty-diverged-worktree",
+      "currentBlocker": "dirty 56",
+      "ownerHints": [
+        "A04"
+      ],
+      "evidence": [
+        "coordination/release-intake/archive/2026-06-30-A25-linked-worktree-archive-manifest.md",
+        "coordination/release-intake/archive/codex-A04-practice-closure.status.txt",
+        "coordination/release-intake/archive/codex-A04-practice-closure.diffstat.txt",
+        "coordination/release-intake/archive/codex-A04-practice-closure.patch",
+        "coordination/release-intake/archive/codex-A04-practice-closure.untracked.txt",
+        "coordination/release-intake/archive/2026-06-30-A25-dirty-diverged-branch-archive-manifest.md",
+        "coordination/release-intake/archive/codex-A04-practice-closure.dirty-diverged.ahead-log.txt",
+        "coordination/release-intake/archive/codex-A04-practice-closure.dirty-diverged.diffstat.txt",
+        "coordination/release-intake/archive/codex-A04-practice-closure.dirty-diverged.patch"
+      ],
+      "evidenceCoverage": {
+        "rootOwnerPackageEvidence": false,
+        "dirtyLinkedArchive": true,
+        "cleanDivergedArchive": false,
+        "dirtyDivergedArchive": true
+      },
+      "allowedFinalStates": [
+        {
+          "selectedFinalState": "owner-reviewed commit or package extraction",
+          "effect": "The owning agent commits the dirty worktree slice or extracts it into a reviewed clean package."
+        },
+        {
+          "selectedFinalState": "owner-approved exact-path discard",
+          "effect": "A separately authorized Git operation discards only approved dirty paths after archive review."
+        },
+        {
+          "selectedFinalState": "evidence archive with retained-worktree blocker",
+          "effect": "A25 keeps the worktree retained and blocked after preserving patch and untracked evidence."
+        },
+        {
+          "selectedFinalState": "owner-approved worktree removal after dirty state closure",
+          "effect": "A separately authorized Git operation may remove the worktree only after dirty state is committed, discarded, or explicitly closed."
+        },
+        {
+          "selectedFinalState": "blocker",
+          "effect": "A25 records the unresolved owner, worktree, and reason blocking closure."
+        }
+      ],
+      "approvalTemplate": {
+        "approvalId": "codex-a04-practice-closure",
+        "branch": "codex/A04-practice-closure",
+        "path": "/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A04-practice-closure",
+        "selectedFinalState": "<one allowed final state from this request>",
+        "approvedBy": "<owner or owning agent>",
+        "approvedAt": "<ISO-8601 timestamp>",
+        "evidenceReviewed": [
+          "coordination/release-intake/archive/2026-06-30-A25-linked-worktree-archive-manifest.md",
+          "coordination/release-intake/archive/codex-A04-practice-closure.status.txt",
+          "coordination/release-intake/archive/codex-A04-practice-closure.diffstat.txt",
+          "coordination/release-intake/archive/codex-A04-practice-closure.patch",
+          "coordination/release-intake/archive/codex-A04-practice-closure.untracked.txt",
+          "coordination/release-intake/archive/2026-06-30-A25-dirty-diverged-branch-archive-manifest.md",
+          "coordination/release-intake/archive/codex-A04-practice-closure.dirty-diverged.ahead-log.txt",
+          "coordination/release-intake/archive/codex-A04-practice-closure.dirty-diverged.diffstat.txt",
+          "coordination/release-intake/archive/codex-A04-practice-closure.dirty-diverged.patch"
+        ],
+        "notes": "<scope, checks, and any exact paths if approving discard/removal>"
+      }
+    },
+    {
+      "approvalId": "codex-a05-lesson-checklist-p0",
+      "branch": "codex/A05-lesson-checklist-p0",
+      "path": "/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A05-lesson-checklist-p0",
+      "state": "clean-diverged-open-decision",
+      "kind": "clean-diverged-branch",
+      "currentBlocker": "behind 1, ahead 0",
+      "ownerHints": [
+        "A05"
+      ],
+      "evidence": [
+        "coordination/release-intake/archive/2026-06-30-A25-clean-diverged-branch-archive-manifest.md",
+        "coordination/release-intake/archive/codex-A05-lesson-checklist-p0.clean-diverged.status.txt",
+        "coordination/release-intake/archive/codex-A05-lesson-checklist-p0.clean-diverged.ahead-log.txt",
+        "coordination/release-intake/archive/codex-A05-lesson-checklist-p0.clean-diverged.name-status.txt",
+        "coordination/release-intake/archive/codex-A05-lesson-checklist-p0.clean-diverged.diffstat.txt",
+        "coordination/release-intake/archive/codex-A05-lesson-checklist-p0.clean-diverged.patch",
+        "coordination/release-intake/archive/codex-A05-lesson-checklist-p0.clean-diverged.untracked.txt"
+      ],
+      "evidenceCoverage": {
+        "rootOwnerPackageEvidence": false,
+        "dirtyLinkedArchive": false,
+        "cleanDivergedArchive": true,
+        "dirtyDivergedArchive": false
+      },
+      "allowedFinalStates": [
+        {
+          "selectedFinalState": "owner-approved PR or review package",
+          "effect": "The owning agent promotes the branch through review without using the dirty root as release source."
+        },
+        {
+          "selectedFinalState": "archive-state record",
+          "effect": "A25 records the branch as preserved evidence; a real Git tag still needs separate explicit approval."
+        },
+        {
+          "selectedFinalState": "owner-approved branch or worktree retirement",
+          "effect": "A separately authorized Git operation may retire the branch or remove the worktree after archive review."
+        },
+        {
+          "selectedFinalState": "blocker",
+          "effect": "A25 records the unresolved owner, branch, and reason blocking closure."
+        }
+      ],
+      "approvalTemplate": {
+        "approvalId": "codex-a05-lesson-checklist-p0",
+        "branch": "codex/A05-lesson-checklist-p0",
+        "path": "/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A05-lesson-checklist-p0",
+        "selectedFinalState": "<one allowed final state from this request>",
+        "approvedBy": "<owner or owning agent>",
+        "approvedAt": "<ISO-8601 timestamp>",
+        "evidenceReviewed": [
+          "coordination/release-intake/archive/2026-06-30-A25-clean-diverged-branch-archive-manifest.md",
+          "coordination/release-intake/archive/codex-A05-lesson-checklist-p0.clean-diverged.status.txt",
+          "coordination/release-intake/archive/codex-A05-lesson-checklist-p0.clean-diverged.ahead-log.txt",
+          "coordination/release-intake/archive/codex-A05-lesson-checklist-p0.clean-diverged.name-status.txt",
+          "coordination/release-intake/archive/codex-A05-lesson-checklist-p0.clean-diverged.diffstat.txt",
+          "coordination/release-intake/archive/codex-A05-lesson-checklist-p0.clean-diverged.patch",
+          "coordination/release-intake/archive/codex-A05-lesson-checklist-p0.clean-diverged.untracked.txt"
+        ],
+        "notes": "<scope, checks, and any exact paths if approving discard/removal>"
+      }
+    },
+    {
+      "approvalId": "codex-a05-lesson-closure",
+      "branch": "codex/A05-lesson-closure",
+      "path": "/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A05-lesson-closure",
+      "state": "dirty-open-decision",
+      "kind": "dirty-diverged-worktree",
+      "currentBlocker": "dirty 126",
+      "ownerHints": [
+        "A05"
+      ],
+      "evidence": [
+        "coordination/release-intake/archive/2026-06-30-A25-linked-worktree-archive-manifest.md",
+        "coordination/release-intake/archive/codex-A05-lesson-closure.status.txt",
+        "coordination/release-intake/archive/codex-A05-lesson-closure.diffstat.txt",
+        "coordination/release-intake/archive/codex-A05-lesson-closure.patch",
+        "coordination/release-intake/archive/codex-A05-lesson-closure.untracked.txt",
+        "coordination/release-intake/archive/2026-06-30-A25-dirty-diverged-branch-archive-manifest.md",
+        "coordination/release-intake/archive/codex-A05-lesson-closure.dirty-diverged.ahead-log.txt",
+        "coordination/release-intake/archive/codex-A05-lesson-closure.dirty-diverged.diffstat.txt",
+        "coordination/release-intake/archive/codex-A05-lesson-closure.dirty-diverged.patch"
+      ],
+      "evidenceCoverage": {
+        "rootOwnerPackageEvidence": false,
+        "dirtyLinkedArchive": true,
+        "cleanDivergedArchive": false,
+        "dirtyDivergedArchive": true
+      },
+      "allowedFinalStates": [
+        {
+          "selectedFinalState": "owner-reviewed commit or package extraction",
+          "effect": "The owning agent commits the dirty worktree slice or extracts it into a reviewed clean package."
+        },
+        {
+          "selectedFinalState": "owner-approved exact-path discard",
+          "effect": "A separately authorized Git operation discards only approved dirty paths after archive review."
+        },
+        {
+          "selectedFinalState": "evidence archive with retained-worktree blocker",
+          "effect": "A25 keeps the worktree retained and blocked after preserving patch and untracked evidence."
+        },
+        {
+          "selectedFinalState": "owner-approved worktree removal after dirty state closure",
+          "effect": "A separately authorized Git operation may remove the worktree only after dirty state is committed, discarded, or explicitly closed."
+        },
+        {
+          "selectedFinalState": "blocker",
+          "effect": "A25 records the unresolved owner, worktree, and reason blocking closure."
+        }
+      ],
+      "approvalTemplate": {
+        "approvalId": "codex-a05-lesson-closure",
+        "branch": "codex/A05-lesson-closure",
+        "path": "/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A05-lesson-closure",
+        "selectedFinalState": "<one allowed final state from this request>",
+        "approvedBy": "<owner or owning agent>",
+        "approvedAt": "<ISO-8601 timestamp>",
+        "evidenceReviewed": [
+          "coordination/release-intake/archive/2026-06-30-A25-linked-worktree-archive-manifest.md",
+          "coordination/release-intake/archive/codex-A05-lesson-closure.status.txt",
+          "coordination/release-intake/archive/codex-A05-lesson-closure.diffstat.txt",
+          "coordination/release-intake/archive/codex-A05-lesson-closure.patch",
+          "coordination/release-intake/archive/codex-A05-lesson-closure.untracked.txt",
+          "coordination/release-intake/archive/2026-06-30-A25-dirty-diverged-branch-archive-manifest.md",
+          "coordination/release-intake/archive/codex-A05-lesson-closure.dirty-diverged.ahead-log.txt",
+          "coordination/release-intake/archive/codex-A05-lesson-closure.dirty-diverged.diffstat.txt",
+          "coordination/release-intake/archive/codex-A05-lesson-closure.dirty-diverged.patch"
+        ],
+        "notes": "<scope, checks, and any exact paths if approving discard/removal>"
+      }
+    },
+    {
+      "approvalId": "codex-a05-lesson-pep-load",
+      "branch": "codex/A05-lesson-pep-load",
+      "path": "/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A05-lesson-pep-load",
+      "state": "clean-diverged-open-decision",
+      "kind": "clean-diverged-branch",
+      "currentBlocker": "behind 1, ahead 0",
+      "ownerHints": [
+        "A05"
+      ],
+      "evidence": [
+        "coordination/release-intake/archive/2026-06-30-A25-clean-diverged-branch-archive-manifest.md",
+        "coordination/release-intake/archive/codex-A05-lesson-pep-load.clean-diverged.status.txt",
+        "coordination/release-intake/archive/codex-A05-lesson-pep-load.clean-diverged.ahead-log.txt",
+        "coordination/release-intake/archive/codex-A05-lesson-pep-load.clean-diverged.name-status.txt",
+        "coordination/release-intake/archive/codex-A05-lesson-pep-load.clean-diverged.diffstat.txt",
+        "coordination/release-intake/archive/codex-A05-lesson-pep-load.clean-diverged.patch",
+        "coordination/release-intake/archive/codex-A05-lesson-pep-load.clean-diverged.untracked.txt"
+      ],
+      "evidenceCoverage": {
+        "rootOwnerPackageEvidence": false,
+        "dirtyLinkedArchive": false,
+        "cleanDivergedArchive": true,
+        "dirtyDivergedArchive": false
+      },
+      "allowedFinalStates": [
+        {
+          "selectedFinalState": "owner-approved PR or review package",
+          "effect": "The owning agent promotes the branch through review without using the dirty root as release source."
+        },
+        {
+          "selectedFinalState": "archive-state record",
+          "effect": "A25 records the branch as preserved evidence; a real Git tag still needs separate explicit approval."
+        },
+        {
+          "selectedFinalState": "owner-approved branch or worktree retirement",
+          "effect": "A separately authorized Git operation may retire the branch or remove the worktree after archive review."
+        },
+        {
+          "selectedFinalState": "blocker",
+          "effect": "A25 records the unresolved owner, branch, and reason blocking closure."
+        }
+      ],
+      "approvalTemplate": {
+        "approvalId": "codex-a05-lesson-pep-load",
+        "branch": "codex/A05-lesson-pep-load",
+        "path": "/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A05-lesson-pep-load",
+        "selectedFinalState": "<one allowed final state from this request>",
+        "approvedBy": "<owner or owning agent>",
+        "approvedAt": "<ISO-8601 timestamp>",
+        "evidenceReviewed": [
+          "coordination/release-intake/archive/2026-06-30-A25-clean-diverged-branch-archive-manifest.md",
+          "coordination/release-intake/archive/codex-A05-lesson-pep-load.clean-diverged.status.txt",
+          "coordination/release-intake/archive/codex-A05-lesson-pep-load.clean-diverged.ahead-log.txt",
+          "coordination/release-intake/archive/codex-A05-lesson-pep-load.clean-diverged.name-status.txt",
+          "coordination/release-intake/archive/codex-A05-lesson-pep-load.clean-diverged.diffstat.txt",
+          "coordination/release-intake/archive/codex-A05-lesson-pep-load.clean-diverged.patch",
+          "coordination/release-intake/archive/codex-A05-lesson-pep-load.clean-diverged.untracked.txt"
+        ],
+        "notes": "<scope, checks, and any exact paths if approving discard/removal>"
+      }
+    },
+    {
+      "approvalId": "codex-a05-next-item-button-scroll",
+      "branch": "codex/A05-next-item-button-scroll",
+      "path": "/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A05-next-item-button-scroll",
+      "state": "clean-diverged-open-decision",
+      "kind": "clean-diverged-branch",
+      "currentBlocker": "behind 1, ahead 0",
+      "ownerHints": [
+        "A05"
+      ],
+      "evidence": [
+        "coordination/release-intake/archive/2026-06-30-A25-clean-diverged-branch-archive-manifest.md",
+        "coordination/release-intake/archive/codex-A05-next-item-button-scroll.clean-diverged.status.txt",
+        "coordination/release-intake/archive/codex-A05-next-item-button-scroll.clean-diverged.ahead-log.txt",
+        "coordination/release-intake/archive/codex-A05-next-item-button-scroll.clean-diverged.name-status.txt",
+        "coordination/release-intake/archive/codex-A05-next-item-button-scroll.clean-diverged.diffstat.txt",
+        "coordination/release-intake/archive/codex-A05-next-item-button-scroll.clean-diverged.patch",
+        "coordination/release-intake/archive/codex-A05-next-item-button-scroll.clean-diverged.untracked.txt"
+      ],
+      "evidenceCoverage": {
+        "rootOwnerPackageEvidence": false,
+        "dirtyLinkedArchive": false,
+        "cleanDivergedArchive": true,
+        "dirtyDivergedArchive": false
+      },
+      "allowedFinalStates": [
+        {
+          "selectedFinalState": "owner-approved PR or review package",
+          "effect": "The owning agent promotes the branch through review without using the dirty root as release source."
+        },
+        {
+          "selectedFinalState": "archive-state record",
+          "effect": "A25 records the branch as preserved evidence; a real Git tag still needs separate explicit approval."
+        },
+        {
+          "selectedFinalState": "owner-approved branch or worktree retirement",
+          "effect": "A separately authorized Git operation may retire the branch or remove the worktree after archive review."
+        },
+        {
+          "selectedFinalState": "blocker",
+          "effect": "A25 records the unresolved owner, branch, and reason blocking closure."
+        }
+      ],
+      "approvalTemplate": {
+        "approvalId": "codex-a05-next-item-button-scroll",
+        "branch": "codex/A05-next-item-button-scroll",
+        "path": "/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A05-next-item-button-scroll",
+        "selectedFinalState": "<one allowed final state from this request>",
+        "approvedBy": "<owner or owning agent>",
+        "approvedAt": "<ISO-8601 timestamp>",
+        "evidenceReviewed": [
+          "coordination/release-intake/archive/2026-06-30-A25-clean-diverged-branch-archive-manifest.md",
+          "coordination/release-intake/archive/codex-A05-next-item-button-scroll.clean-diverged.status.txt",
+          "coordination/release-intake/archive/codex-A05-next-item-button-scroll.clean-diverged.ahead-log.txt",
+          "coordination/release-intake/archive/codex-A05-next-item-button-scroll.clean-diverged.name-status.txt",
+          "coordination/release-intake/archive/codex-A05-next-item-button-scroll.clean-diverged.diffstat.txt",
+          "coordination/release-intake/archive/codex-A05-next-item-button-scroll.clean-diverged.patch",
+          "coordination/release-intake/archive/codex-A05-next-item-button-scroll.clean-diverged.untracked.txt"
+        ],
+        "notes": "<scope, checks, and any exact paths if approving discard/removal>"
+      }
+    },
+    {
+      "approvalId": "codex-a06-manim-three-closure",
+      "branch": "codex/A06-manim-three-closure",
+      "path": "/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A06-manim-three-closure",
+      "state": "dirty-open-decision",
+      "kind": "dirty-diverged-worktree",
+      "currentBlocker": "dirty 351",
+      "ownerHints": [
+        "A06"
+      ],
+      "evidence": [
+        "coordination/release-intake/archive/2026-06-30-A25-linked-worktree-archive-manifest.md",
+        "coordination/release-intake/archive/codex-A06-manim-three-closure.status.txt",
+        "coordination/release-intake/archive/codex-A06-manim-three-closure.diffstat.txt",
+        "coordination/release-intake/archive/codex-A06-manim-three-closure.patch",
+        "coordination/release-intake/archive/codex-A06-manim-three-closure.untracked.txt",
+        "coordination/release-intake/archive/2026-06-30-A25-dirty-diverged-branch-archive-manifest.md",
+        "coordination/release-intake/archive/codex-A06-manim-three-closure.dirty-diverged.ahead-log.txt",
+        "coordination/release-intake/archive/codex-A06-manim-three-closure.dirty-diverged.diffstat.txt",
+        "coordination/release-intake/archive/codex-A06-manim-three-closure.dirty-diverged.patch"
+      ],
+      "evidenceCoverage": {
+        "rootOwnerPackageEvidence": false,
+        "dirtyLinkedArchive": true,
+        "cleanDivergedArchive": false,
+        "dirtyDivergedArchive": true
+      },
+      "allowedFinalStates": [
+        {
+          "selectedFinalState": "owner-reviewed commit or package extraction",
+          "effect": "The owning agent commits the dirty worktree slice or extracts it into a reviewed clean package."
+        },
+        {
+          "selectedFinalState": "owner-approved exact-path discard",
+          "effect": "A separately authorized Git operation discards only approved dirty paths after archive review."
+        },
+        {
+          "selectedFinalState": "evidence archive with retained-worktree blocker",
+          "effect": "A25 keeps the worktree retained and blocked after preserving patch and untracked evidence."
+        },
+        {
+          "selectedFinalState": "owner-approved worktree removal after dirty state closure",
+          "effect": "A separately authorized Git operation may remove the worktree only after dirty state is committed, discarded, or explicitly closed."
+        },
+        {
+          "selectedFinalState": "blocker",
+          "effect": "A25 records the unresolved owner, worktree, and reason blocking closure."
+        }
+      ],
+      "approvalTemplate": {
+        "approvalId": "codex-a06-manim-three-closure",
+        "branch": "codex/A06-manim-three-closure",
+        "path": "/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A06-manim-three-closure",
+        "selectedFinalState": "<one allowed final state from this request>",
+        "approvedBy": "<owner or owning agent>",
+        "approvedAt": "<ISO-8601 timestamp>",
+        "evidenceReviewed": [
+          "coordination/release-intake/archive/2026-06-30-A25-linked-worktree-archive-manifest.md",
+          "coordination/release-intake/archive/codex-A06-manim-three-closure.status.txt",
+          "coordination/release-intake/archive/codex-A06-manim-three-closure.diffstat.txt",
+          "coordination/release-intake/archive/codex-A06-manim-three-closure.patch",
+          "coordination/release-intake/archive/codex-A06-manim-three-closure.untracked.txt",
+          "coordination/release-intake/archive/2026-06-30-A25-dirty-diverged-branch-archive-manifest.md",
+          "coordination/release-intake/archive/codex-A06-manim-three-closure.dirty-diverged.ahead-log.txt",
+          "coordination/release-intake/archive/codex-A06-manim-three-closure.dirty-diverged.diffstat.txt",
+          "coordination/release-intake/archive/codex-A06-manim-three-closure.dirty-diverged.patch"
+        ],
+        "notes": "<scope, checks, and any exact paths if approving discard/removal>"
+      }
+    },
+    {
+      "approvalId": "codex-a06-visualization-closure",
+      "branch": "codex/A06-visualization-closure",
+      "path": "/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A06-visualization-closure",
+      "state": "dirty-open-decision",
+      "kind": "dirty-diverged-worktree",
+      "currentBlocker": "dirty 437",
+      "ownerHints": [
+        "A06",
+        "A22"
+      ],
+      "evidence": [
+        "coordination/release-intake/archive/2026-06-30-A25-linked-worktree-archive-manifest.md",
+        "coordination/release-intake/archive/codex-A06-visualization-closure.status.txt",
+        "coordination/release-intake/archive/codex-A06-visualization-closure.diffstat.txt",
+        "coordination/release-intake/archive/codex-A06-visualization-closure.patch",
+        "coordination/release-intake/archive/codex-A06-visualization-closure.untracked.txt",
+        "coordination/release-intake/archive/2026-06-30-A25-dirty-diverged-branch-archive-manifest.md",
+        "coordination/release-intake/archive/codex-A06-visualization-closure.dirty-diverged.ahead-log.txt",
+        "coordination/release-intake/archive/codex-A06-visualization-closure.dirty-diverged.diffstat.txt",
+        "coordination/release-intake/archive/codex-A06-visualization-closure.dirty-diverged.patch"
+      ],
+      "evidenceCoverage": {
+        "rootOwnerPackageEvidence": false,
+        "dirtyLinkedArchive": true,
+        "cleanDivergedArchive": false,
+        "dirtyDivergedArchive": true
+      },
+      "allowedFinalStates": [
+        {
+          "selectedFinalState": "owner-reviewed commit or package extraction",
+          "effect": "The owning agent commits the dirty worktree slice or extracts it into a reviewed clean package."
+        },
+        {
+          "selectedFinalState": "owner-approved exact-path discard",
+          "effect": "A separately authorized Git operation discards only approved dirty paths after archive review."
+        },
+        {
+          "selectedFinalState": "evidence archive with retained-worktree blocker",
+          "effect": "A25 keeps the worktree retained and blocked after preserving patch and untracked evidence."
+        },
+        {
+          "selectedFinalState": "owner-approved worktree removal after dirty state closure",
+          "effect": "A separately authorized Git operation may remove the worktree only after dirty state is committed, discarded, or explicitly closed."
+        },
+        {
+          "selectedFinalState": "blocker",
+          "effect": "A25 records the unresolved owner, worktree, and reason blocking closure."
+        }
+      ],
+      "approvalTemplate": {
+        "approvalId": "codex-a06-visualization-closure",
+        "branch": "codex/A06-visualization-closure",
+        "path": "/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A06-visualization-closure",
+        "selectedFinalState": "<one allowed final state from this request>",
+        "approvedBy": "<owner or owning agent>",
+        "approvedAt": "<ISO-8601 timestamp>",
+        "evidenceReviewed": [
+          "coordination/release-intake/archive/2026-06-30-A25-linked-worktree-archive-manifest.md",
+          "coordination/release-intake/archive/codex-A06-visualization-closure.status.txt",
+          "coordination/release-intake/archive/codex-A06-visualization-closure.diffstat.txt",
+          "coordination/release-intake/archive/codex-A06-visualization-closure.patch",
+          "coordination/release-intake/archive/codex-A06-visualization-closure.untracked.txt",
+          "coordination/release-intake/archive/2026-06-30-A25-dirty-diverged-branch-archive-manifest.md",
+          "coordination/release-intake/archive/codex-A06-visualization-closure.dirty-diverged.ahead-log.txt",
+          "coordination/release-intake/archive/codex-A06-visualization-closure.dirty-diverged.diffstat.txt",
+          "coordination/release-intake/archive/codex-A06-visualization-closure.dirty-diverged.patch"
+        ],
+        "notes": "<scope, checks, and any exact paths if approving discard/removal>"
+      }
+    },
+    {
+      "approvalId": "codex-a07-a15-a08-ai-adaptive-types",
+      "branch": "codex/A07-A15-A08-ai-adaptive-types",
+      "path": "/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A07-A15-A08-ai-adaptive-types",
+      "state": "dirty-open-decision",
+      "kind": "dirty-diverged-worktree",
+      "currentBlocker": "dirty 30",
+      "ownerHints": [
+        "A07",
+        "A08",
+        "A15"
+      ],
+      "evidence": [
+        "coordination/release-intake/archive/2026-06-30-A25-linked-worktree-archive-manifest.md",
+        "coordination/release-intake/archive/codex-A07-A15-A08-ai-adaptive-types.status.txt",
+        "coordination/release-intake/archive/codex-A07-A15-A08-ai-adaptive-types.diffstat.txt",
+        "coordination/release-intake/archive/codex-A07-A15-A08-ai-adaptive-types.patch",
+        "coordination/release-intake/archive/codex-A07-A15-A08-ai-adaptive-types.untracked.txt",
+        "coordination/release-intake/archive/2026-06-30-A25-dirty-diverged-branch-archive-manifest.md",
+        "coordination/release-intake/archive/codex-A07-A15-A08-ai-adaptive-types.dirty-diverged.ahead-log.txt",
+        "coordination/release-intake/archive/codex-A07-A15-A08-ai-adaptive-types.dirty-diverged.diffstat.txt",
+        "coordination/release-intake/archive/codex-A07-A15-A08-ai-adaptive-types.dirty-diverged.patch"
+      ],
+      "evidenceCoverage": {
+        "rootOwnerPackageEvidence": false,
+        "dirtyLinkedArchive": true,
+        "cleanDivergedArchive": false,
+        "dirtyDivergedArchive": true
+      },
+      "allowedFinalStates": [
+        {
+          "selectedFinalState": "owner-reviewed commit or package extraction",
+          "effect": "The owning agent commits the dirty worktree slice or extracts it into a reviewed clean package."
+        },
+        {
+          "selectedFinalState": "owner-approved exact-path discard",
+          "effect": "A separately authorized Git operation discards only approved dirty paths after archive review."
+        },
+        {
+          "selectedFinalState": "evidence archive with retained-worktree blocker",
+          "effect": "A25 keeps the worktree retained and blocked after preserving patch and untracked evidence."
+        },
+        {
+          "selectedFinalState": "owner-approved worktree removal after dirty state closure",
+          "effect": "A separately authorized Git operation may remove the worktree only after dirty state is committed, discarded, or explicitly closed."
+        },
+        {
+          "selectedFinalState": "blocker",
+          "effect": "A25 records the unresolved owner, worktree, and reason blocking closure."
+        }
+      ],
+      "approvalTemplate": {
+        "approvalId": "codex-a07-a15-a08-ai-adaptive-types",
+        "branch": "codex/A07-A15-A08-ai-adaptive-types",
+        "path": "/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A07-A15-A08-ai-adaptive-types",
+        "selectedFinalState": "<one allowed final state from this request>",
+        "approvedBy": "<owner or owning agent>",
+        "approvedAt": "<ISO-8601 timestamp>",
+        "evidenceReviewed": [
+          "coordination/release-intake/archive/2026-06-30-A25-linked-worktree-archive-manifest.md",
+          "coordination/release-intake/archive/codex-A07-A15-A08-ai-adaptive-types.status.txt",
+          "coordination/release-intake/archive/codex-A07-A15-A08-ai-adaptive-types.diffstat.txt",
+          "coordination/release-intake/archive/codex-A07-A15-A08-ai-adaptive-types.patch",
+          "coordination/release-intake/archive/codex-A07-A15-A08-ai-adaptive-types.untracked.txt",
+          "coordination/release-intake/archive/2026-06-30-A25-dirty-diverged-branch-archive-manifest.md",
+          "coordination/release-intake/archive/codex-A07-A15-A08-ai-adaptive-types.dirty-diverged.ahead-log.txt",
+          "coordination/release-intake/archive/codex-A07-A15-A08-ai-adaptive-types.dirty-diverged.diffstat.txt",
+          "coordination/release-intake/archive/codex-A07-A15-A08-ai-adaptive-types.dirty-diverged.patch"
+        ],
+        "notes": "<scope, checks, and any exact paths if approving discard/removal>"
+      }
+    },
+    {
+      "approvalId": "codex-a07-ai-tutor-classroom-switches",
+      "branch": "codex/A07-ai-tutor-classroom-switches",
+      "path": "/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A07-ai-tutor-classroom-switches",
+      "state": "dirty-open-decision",
+      "kind": "dirty-diverged-worktree",
+      "currentBlocker": "dirty 82",
+      "ownerHints": [
+        "A07"
+      ],
+      "evidence": [
+        "coordination/release-intake/archive/2026-06-30-A25-linked-worktree-archive-manifest.md",
+        "coordination/release-intake/archive/codex-A07-ai-tutor-classroom-switches.status.txt",
+        "coordination/release-intake/archive/codex-A07-ai-tutor-classroom-switches.diffstat.txt",
+        "coordination/release-intake/archive/codex-A07-ai-tutor-classroom-switches.patch",
+        "coordination/release-intake/archive/codex-A07-ai-tutor-classroom-switches.untracked.txt",
+        "coordination/release-intake/archive/2026-06-30-A25-dirty-diverged-branch-archive-manifest.md",
+        "coordination/release-intake/archive/codex-A07-ai-tutor-classroom-switches.dirty-diverged.ahead-log.txt",
+        "coordination/release-intake/archive/codex-A07-ai-tutor-classroom-switches.dirty-diverged.diffstat.txt",
+        "coordination/release-intake/archive/codex-A07-ai-tutor-classroom-switches.dirty-diverged.patch"
+      ],
+      "evidenceCoverage": {
+        "rootOwnerPackageEvidence": false,
+        "dirtyLinkedArchive": true,
+        "cleanDivergedArchive": false,
+        "dirtyDivergedArchive": true
+      },
+      "allowedFinalStates": [
+        {
+          "selectedFinalState": "owner-reviewed commit or package extraction",
+          "effect": "The owning agent commits the dirty worktree slice or extracts it into a reviewed clean package."
+        },
+        {
+          "selectedFinalState": "owner-approved exact-path discard",
+          "effect": "A separately authorized Git operation discards only approved dirty paths after archive review."
+        },
+        {
+          "selectedFinalState": "evidence archive with retained-worktree blocker",
+          "effect": "A25 keeps the worktree retained and blocked after preserving patch and untracked evidence."
+        },
+        {
+          "selectedFinalState": "owner-approved worktree removal after dirty state closure",
+          "effect": "A separately authorized Git operation may remove the worktree only after dirty state is committed, discarded, or explicitly closed."
+        },
+        {
+          "selectedFinalState": "blocker",
+          "effect": "A25 records the unresolved owner, worktree, and reason blocking closure."
+        }
+      ],
+      "approvalTemplate": {
+        "approvalId": "codex-a07-ai-tutor-classroom-switches",
+        "branch": "codex/A07-ai-tutor-classroom-switches",
+        "path": "/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A07-ai-tutor-classroom-switches",
+        "selectedFinalState": "<one allowed final state from this request>",
+        "approvedBy": "<owner or owning agent>",
+        "approvedAt": "<ISO-8601 timestamp>",
+        "evidenceReviewed": [
+          "coordination/release-intake/archive/2026-06-30-A25-linked-worktree-archive-manifest.md",
+          "coordination/release-intake/archive/codex-A07-ai-tutor-classroom-switches.status.txt",
+          "coordination/release-intake/archive/codex-A07-ai-tutor-classroom-switches.diffstat.txt",
+          "coordination/release-intake/archive/codex-A07-ai-tutor-classroom-switches.patch",
+          "coordination/release-intake/archive/codex-A07-ai-tutor-classroom-switches.untracked.txt",
+          "coordination/release-intake/archive/2026-06-30-A25-dirty-diverged-branch-archive-manifest.md",
+          "coordination/release-intake/archive/codex-A07-ai-tutor-classroom-switches.dirty-diverged.ahead-log.txt",
+          "coordination/release-intake/archive/codex-A07-ai-tutor-classroom-switches.dirty-diverged.diffstat.txt",
+          "coordination/release-intake/archive/codex-A07-ai-tutor-classroom-switches.dirty-diverged.patch"
+        ],
+        "notes": "<scope, checks, and any exact paths if approving discard/removal>"
+      }
+    },
+    {
+      "approvalId": "codex-a07-ai-tutor-closure",
+      "branch": "codex/A07-ai-tutor-closure",
+      "path": "/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A07-ai-tutor-closure",
+      "state": "dirty-open-decision",
+      "kind": "dirty-diverged-worktree",
+      "currentBlocker": "dirty 12",
+      "ownerHints": [
+        "A07"
+      ],
+      "evidence": [
+        "coordination/release-intake/archive/2026-06-30-A25-linked-worktree-archive-manifest.md",
+        "coordination/release-intake/archive/codex-A07-ai-tutor-closure.status.txt",
+        "coordination/release-intake/archive/codex-A07-ai-tutor-closure.diffstat.txt",
+        "coordination/release-intake/archive/codex-A07-ai-tutor-closure.patch",
+        "coordination/release-intake/archive/codex-A07-ai-tutor-closure.untracked.txt",
+        "coordination/release-intake/archive/2026-06-30-A25-dirty-diverged-branch-archive-manifest.md",
+        "coordination/release-intake/archive/codex-A07-ai-tutor-closure.dirty-diverged.ahead-log.txt",
+        "coordination/release-intake/archive/codex-A07-ai-tutor-closure.dirty-diverged.diffstat.txt",
+        "coordination/release-intake/archive/codex-A07-ai-tutor-closure.dirty-diverged.patch"
+      ],
+      "evidenceCoverage": {
+        "rootOwnerPackageEvidence": false,
+        "dirtyLinkedArchive": true,
+        "cleanDivergedArchive": false,
+        "dirtyDivergedArchive": true
+      },
+      "allowedFinalStates": [
+        {
+          "selectedFinalState": "owner-reviewed commit or package extraction",
+          "effect": "The owning agent commits the dirty worktree slice or extracts it into a reviewed clean package."
+        },
+        {
+          "selectedFinalState": "owner-approved exact-path discard",
+          "effect": "A separately authorized Git operation discards only approved dirty paths after archive review."
+        },
+        {
+          "selectedFinalState": "evidence archive with retained-worktree blocker",
+          "effect": "A25 keeps the worktree retained and blocked after preserving patch and untracked evidence."
+        },
+        {
+          "selectedFinalState": "owner-approved worktree removal after dirty state closure",
+          "effect": "A separately authorized Git operation may remove the worktree only after dirty state is committed, discarded, or explicitly closed."
+        },
+        {
+          "selectedFinalState": "blocker",
+          "effect": "A25 records the unresolved owner, worktree, and reason blocking closure."
+        }
+      ],
+      "approvalTemplate": {
+        "approvalId": "codex-a07-ai-tutor-closure",
+        "branch": "codex/A07-ai-tutor-closure",
+        "path": "/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A07-ai-tutor-closure",
+        "selectedFinalState": "<one allowed final state from this request>",
+        "approvedBy": "<owner or owning agent>",
+        "approvedAt": "<ISO-8601 timestamp>",
+        "evidenceReviewed": [
+          "coordination/release-intake/archive/2026-06-30-A25-linked-worktree-archive-manifest.md",
+          "coordination/release-intake/archive/codex-A07-ai-tutor-closure.status.txt",
+          "coordination/release-intake/archive/codex-A07-ai-tutor-closure.diffstat.txt",
+          "coordination/release-intake/archive/codex-A07-ai-tutor-closure.patch",
+          "coordination/release-intake/archive/codex-A07-ai-tutor-closure.untracked.txt",
+          "coordination/release-intake/archive/2026-06-30-A25-dirty-diverged-branch-archive-manifest.md",
+          "coordination/release-intake/archive/codex-A07-ai-tutor-closure.dirty-diverged.ahead-log.txt",
+          "coordination/release-intake/archive/codex-A07-ai-tutor-closure.dirty-diverged.diffstat.txt",
+          "coordination/release-intake/archive/codex-A07-ai-tutor-closure.dirty-diverged.patch"
+        ],
+        "notes": "<scope, checks, and any exact paths if approving discard/removal>"
+      }
+    },
+    {
+      "approvalId": "codex-a08-a12-shared-contract-closure",
+      "branch": "codex/A08-A12-shared-contract-closure",
+      "path": "/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A08-A12-shared-contract-closure",
+      "state": "dirty-open-decision",
+      "kind": "dirty-diverged-worktree",
+      "currentBlocker": "dirty 185",
+      "ownerHints": [
+        "A08",
+        "A12"
+      ],
+      "evidence": [
+        "coordination/release-intake/archive/2026-06-30-A25-linked-worktree-archive-manifest.md",
+        "coordination/release-intake/archive/codex-A08-A12-shared-contract-closure.status.txt",
+        "coordination/release-intake/archive/codex-A08-A12-shared-contract-closure.diffstat.txt",
+        "coordination/release-intake/archive/codex-A08-A12-shared-contract-closure.patch",
+        "coordination/release-intake/archive/codex-A08-A12-shared-contract-closure.untracked.txt",
+        "coordination/release-intake/archive/2026-06-30-A25-dirty-diverged-branch-archive-manifest.md",
+        "coordination/release-intake/archive/codex-A08-A12-shared-contract-closure.dirty-diverged.ahead-log.txt",
+        "coordination/release-intake/archive/codex-A08-A12-shared-contract-closure.dirty-diverged.diffstat.txt",
+        "coordination/release-intake/archive/codex-A08-A12-shared-contract-closure.dirty-diverged.patch"
+      ],
+      "evidenceCoverage": {
+        "rootOwnerPackageEvidence": false,
+        "dirtyLinkedArchive": true,
+        "cleanDivergedArchive": false,
+        "dirtyDivergedArchive": true
+      },
+      "allowedFinalStates": [
+        {
+          "selectedFinalState": "owner-reviewed commit or package extraction",
+          "effect": "The owning agent commits the dirty worktree slice or extracts it into a reviewed clean package."
+        },
+        {
+          "selectedFinalState": "owner-approved exact-path discard",
+          "effect": "A separately authorized Git operation discards only approved dirty paths after archive review."
+        },
+        {
+          "selectedFinalState": "evidence archive with retained-worktree blocker",
+          "effect": "A25 keeps the worktree retained and blocked after preserving patch and untracked evidence."
+        },
+        {
+          "selectedFinalState": "owner-approved worktree removal after dirty state closure",
+          "effect": "A separately authorized Git operation may remove the worktree only after dirty state is committed, discarded, or explicitly closed."
+        },
+        {
+          "selectedFinalState": "blocker",
+          "effect": "A25 records the unresolved owner, worktree, and reason blocking closure."
+        }
+      ],
+      "approvalTemplate": {
+        "approvalId": "codex-a08-a12-shared-contract-closure",
+        "branch": "codex/A08-A12-shared-contract-closure",
+        "path": "/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A08-A12-shared-contract-closure",
+        "selectedFinalState": "<one allowed final state from this request>",
+        "approvedBy": "<owner or owning agent>",
+        "approvedAt": "<ISO-8601 timestamp>",
+        "evidenceReviewed": [
+          "coordination/release-intake/archive/2026-06-30-A25-linked-worktree-archive-manifest.md",
+          "coordination/release-intake/archive/codex-A08-A12-shared-contract-closure.status.txt",
+          "coordination/release-intake/archive/codex-A08-A12-shared-contract-closure.diffstat.txt",
+          "coordination/release-intake/archive/codex-A08-A12-shared-contract-closure.patch",
+          "coordination/release-intake/archive/codex-A08-A12-shared-contract-closure.untracked.txt",
+          "coordination/release-intake/archive/2026-06-30-A25-dirty-diverged-branch-archive-manifest.md",
+          "coordination/release-intake/archive/codex-A08-A12-shared-contract-closure.dirty-diverged.ahead-log.txt",
+          "coordination/release-intake/archive/codex-A08-A12-shared-contract-closure.dirty-diverged.diffstat.txt",
+          "coordination/release-intake/archive/codex-A08-A12-shared-contract-closure.dirty-diverged.patch"
+        ],
+        "notes": "<scope, checks, and any exact paths if approving discard/removal>"
+      }
+    },
+    {
+      "approvalId": "codex-a09-copy-i18n-accessibility-closure",
+      "branch": "codex/A09-copy-i18n-accessibility-closure",
+      "path": "/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A09-copy-i18n-accessibility-closure",
+      "state": "dirty-open-decision",
+      "kind": "dirty-diverged-worktree",
+      "currentBlocker": "dirty 5",
+      "ownerHints": [
+        "A09"
+      ],
+      "evidence": [
+        "coordination/release-intake/archive/2026-06-30-A25-linked-worktree-archive-manifest.md",
+        "coordination/release-intake/archive/codex-A09-copy-i18n-accessibility-closure.status.txt",
+        "coordination/release-intake/archive/codex-A09-copy-i18n-accessibility-closure.diffstat.txt",
+        "coordination/release-intake/archive/codex-A09-copy-i18n-accessibility-closure.patch",
+        "coordination/release-intake/archive/codex-A09-copy-i18n-accessibility-closure.untracked.txt",
+        "coordination/release-intake/archive/2026-06-30-A25-dirty-diverged-branch-archive-manifest.md",
+        "coordination/release-intake/archive/codex-A09-copy-i18n-accessibility-closure.dirty-diverged.ahead-log.txt",
+        "coordination/release-intake/archive/codex-A09-copy-i18n-accessibility-closure.dirty-diverged.diffstat.txt",
+        "coordination/release-intake/archive/codex-A09-copy-i18n-accessibility-closure.dirty-diverged.patch"
+      ],
+      "evidenceCoverage": {
+        "rootOwnerPackageEvidence": false,
+        "dirtyLinkedArchive": true,
+        "cleanDivergedArchive": false,
+        "dirtyDivergedArchive": true
+      },
+      "allowedFinalStates": [
+        {
+          "selectedFinalState": "owner-reviewed commit or package extraction",
+          "effect": "The owning agent commits the dirty worktree slice or extracts it into a reviewed clean package."
+        },
+        {
+          "selectedFinalState": "owner-approved exact-path discard",
+          "effect": "A separately authorized Git operation discards only approved dirty paths after archive review."
+        },
+        {
+          "selectedFinalState": "evidence archive with retained-worktree blocker",
+          "effect": "A25 keeps the worktree retained and blocked after preserving patch and untracked evidence."
+        },
+        {
+          "selectedFinalState": "owner-approved worktree removal after dirty state closure",
+          "effect": "A separately authorized Git operation may remove the worktree only after dirty state is committed, discarded, or explicitly closed."
+        },
+        {
+          "selectedFinalState": "blocker",
+          "effect": "A25 records the unresolved owner, worktree, and reason blocking closure."
+        }
+      ],
+      "approvalTemplate": {
+        "approvalId": "codex-a09-copy-i18n-accessibility-closure",
+        "branch": "codex/A09-copy-i18n-accessibility-closure",
+        "path": "/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A09-copy-i18n-accessibility-closure",
+        "selectedFinalState": "<one allowed final state from this request>",
+        "approvedBy": "<owner or owning agent>",
+        "approvedAt": "<ISO-8601 timestamp>",
+        "evidenceReviewed": [
+          "coordination/release-intake/archive/2026-06-30-A25-linked-worktree-archive-manifest.md",
+          "coordination/release-intake/archive/codex-A09-copy-i18n-accessibility-closure.status.txt",
+          "coordination/release-intake/archive/codex-A09-copy-i18n-accessibility-closure.diffstat.txt",
+          "coordination/release-intake/archive/codex-A09-copy-i18n-accessibility-closure.patch",
+          "coordination/release-intake/archive/codex-A09-copy-i18n-accessibility-closure.untracked.txt",
+          "coordination/release-intake/archive/2026-06-30-A25-dirty-diverged-branch-archive-manifest.md",
+          "coordination/release-intake/archive/codex-A09-copy-i18n-accessibility-closure.dirty-diverged.ahead-log.txt",
+          "coordination/release-intake/archive/codex-A09-copy-i18n-accessibility-closure.dirty-diverged.diffstat.txt",
+          "coordination/release-intake/archive/codex-A09-copy-i18n-accessibility-closure.dirty-diverged.patch"
+        ],
+        "notes": "<scope, checks, and any exact paths if approving discard/removal>"
+      }
+    },
+    {
+      "approvalId": "codex-a10-a22-a08-a12-a06-compose-20260628",
+      "branch": "codex/A10-A22-A08-A12-A06-compose-20260628",
+      "path": "/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A10-A22-A08-A12-A06-compose-20260628",
+      "state": "dirty-open-decision",
+      "kind": "dirty-diverged-worktree",
+      "currentBlocker": "dirty 744",
+      "ownerHints": [
+        "A06",
+        "A08",
+        "A10",
+        "A12",
+        "A22"
+      ],
+      "evidence": [
+        "coordination/release-intake/archive/2026-06-30-A25-linked-worktree-archive-manifest.md",
+        "coordination/release-intake/archive/codex-A10-A22-A08-A12-A06-compose-20260628.status.txt",
+        "coordination/release-intake/archive/codex-A10-A22-A08-A12-A06-compose-20260628.diffstat.txt",
+        "coordination/release-intake/archive/codex-A10-A22-A08-A12-A06-compose-20260628.patch",
+        "coordination/release-intake/archive/codex-A10-A22-A08-A12-A06-compose-20260628.untracked.txt",
+        "coordination/release-intake/archive/2026-06-30-A25-dirty-diverged-branch-archive-manifest.md",
+        "coordination/release-intake/archive/codex-A10-A22-A08-A12-A06-compose-20260628.dirty-diverged.ahead-log.txt",
+        "coordination/release-intake/archive/codex-A10-A22-A08-A12-A06-compose-20260628.dirty-diverged.diffstat.txt",
+        "coordination/release-intake/archive/codex-A10-A22-A08-A12-A06-compose-20260628.dirty-diverged.patch"
+      ],
+      "evidenceCoverage": {
+        "rootOwnerPackageEvidence": false,
+        "dirtyLinkedArchive": true,
+        "cleanDivergedArchive": false,
+        "dirtyDivergedArchive": true
+      },
+      "allowedFinalStates": [
+        {
+          "selectedFinalState": "owner-reviewed commit or package extraction",
+          "effect": "The owning agent commits the dirty worktree slice or extracts it into a reviewed clean package."
+        },
+        {
+          "selectedFinalState": "owner-approved exact-path discard",
+          "effect": "A separately authorized Git operation discards only approved dirty paths after archive review."
+        },
+        {
+          "selectedFinalState": "evidence archive with retained-worktree blocker",
+          "effect": "A25 keeps the worktree retained and blocked after preserving patch and untracked evidence."
+        },
+        {
+          "selectedFinalState": "owner-approved worktree removal after dirty state closure",
+          "effect": "A separately authorized Git operation may remove the worktree only after dirty state is committed, discarded, or explicitly closed."
+        },
+        {
+          "selectedFinalState": "blocker",
+          "effect": "A25 records the unresolved owner, worktree, and reason blocking closure."
+        }
+      ],
+      "approvalTemplate": {
+        "approvalId": "codex-a10-a22-a08-a12-a06-compose-20260628",
+        "branch": "codex/A10-A22-A08-A12-A06-compose-20260628",
+        "path": "/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A10-A22-A08-A12-A06-compose-20260628",
+        "selectedFinalState": "<one allowed final state from this request>",
+        "approvedBy": "<owner or owning agent>",
+        "approvedAt": "<ISO-8601 timestamp>",
+        "evidenceReviewed": [
+          "coordination/release-intake/archive/2026-06-30-A25-linked-worktree-archive-manifest.md",
+          "coordination/release-intake/archive/codex-A10-A22-A08-A12-A06-compose-20260628.status.txt",
+          "coordination/release-intake/archive/codex-A10-A22-A08-A12-A06-compose-20260628.diffstat.txt",
+          "coordination/release-intake/archive/codex-A10-A22-A08-A12-A06-compose-20260628.patch",
+          "coordination/release-intake/archive/codex-A10-A22-A08-A12-A06-compose-20260628.untracked.txt",
+          "coordination/release-intake/archive/2026-06-30-A25-dirty-diverged-branch-archive-manifest.md",
+          "coordination/release-intake/archive/codex-A10-A22-A08-A12-A06-compose-20260628.dirty-diverged.ahead-log.txt",
+          "coordination/release-intake/archive/codex-A10-A22-A08-A12-A06-compose-20260628.dirty-diverged.diffstat.txt",
+          "coordination/release-intake/archive/codex-A10-A22-A08-A12-A06-compose-20260628.dirty-diverged.patch"
+        ],
+        "notes": "<scope, checks, and any exact paths if approving discard/removal>"
+      }
+    },
+    {
+      "approvalId": "codex-a10-a22-release-governance",
+      "branch": "codex/A10-A22-release-governance",
+      "path": "/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A10-A22-release-governance",
+      "state": "clean-diverged-open-decision",
+      "kind": "clean-diverged-branch",
+      "currentBlocker": "behind 1, ahead 2",
+      "ownerHints": [
+        "A10",
+        "A22"
+      ],
+      "evidence": [
+        "coordination/release-intake/archive/2026-06-30-A25-clean-diverged-branch-archive-manifest.md",
+        "coordination/release-intake/archive/codex-A10-A22-release-governance.clean-diverged.status.txt",
+        "coordination/release-intake/archive/codex-A10-A22-release-governance.clean-diverged.ahead-log.txt",
+        "coordination/release-intake/archive/codex-A10-A22-release-governance.clean-diverged.name-status.txt",
+        "coordination/release-intake/archive/codex-A10-A22-release-governance.clean-diverged.diffstat.txt",
+        "coordination/release-intake/archive/codex-A10-A22-release-governance.clean-diverged.patch",
+        "coordination/release-intake/archive/codex-A10-A22-release-governance.clean-diverged.untracked.txt"
+      ],
+      "evidenceCoverage": {
+        "rootOwnerPackageEvidence": false,
+        "dirtyLinkedArchive": false,
+        "cleanDivergedArchive": true,
+        "dirtyDivergedArchive": false
+      },
+      "allowedFinalStates": [
+        {
+          "selectedFinalState": "owner-approved PR or review package",
+          "effect": "The owning agent promotes the branch through review without using the dirty root as release source."
+        },
+        {
+          "selectedFinalState": "archive-state record",
+          "effect": "A25 records the branch as preserved evidence; a real Git tag still needs separate explicit approval."
+        },
+        {
+          "selectedFinalState": "owner-approved branch or worktree retirement",
+          "effect": "A separately authorized Git operation may retire the branch or remove the worktree after archive review."
+        },
+        {
+          "selectedFinalState": "blocker",
+          "effect": "A25 records the unresolved owner, branch, and reason blocking closure."
+        }
+      ],
+      "approvalTemplate": {
+        "approvalId": "codex-a10-a22-release-governance",
+        "branch": "codex/A10-A22-release-governance",
+        "path": "/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A10-A22-release-governance",
+        "selectedFinalState": "<one allowed final state from this request>",
+        "approvedBy": "<owner or owning agent>",
+        "approvedAt": "<ISO-8601 timestamp>",
+        "evidenceReviewed": [
+          "coordination/release-intake/archive/2026-06-30-A25-clean-diverged-branch-archive-manifest.md",
+          "coordination/release-intake/archive/codex-A10-A22-release-governance.clean-diverged.status.txt",
+          "coordination/release-intake/archive/codex-A10-A22-release-governance.clean-diverged.ahead-log.txt",
+          "coordination/release-intake/archive/codex-A10-A22-release-governance.clean-diverged.name-status.txt",
+          "coordination/release-intake/archive/codex-A10-A22-release-governance.clean-diverged.diffstat.txt",
+          "coordination/release-intake/archive/codex-A10-A22-release-governance.clean-diverged.patch",
+          "coordination/release-intake/archive/codex-A10-A22-release-governance.clean-diverged.untracked.txt"
+        ],
+        "notes": "<scope, checks, and any exact paths if approving discard/removal>"
+      }
+    },
+    {
+      "approvalId": "codex-a11-fix-126-128-129",
+      "branch": "codex/A11-fix-126-128-129",
+      "path": "/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A11-fix-126-128-129",
+      "state": "dirty-open-decision",
+      "kind": "dirty-diverged-worktree",
+      "currentBlocker": "dirty 41",
+      "ownerHints": [
+        "A11"
+      ],
+      "evidence": [
+        "coordination/release-intake/archive/2026-06-30-A25-linked-worktree-archive-manifest.md",
+        "coordination/release-intake/archive/codex-A11-fix-126-128-129.status.txt",
+        "coordination/release-intake/archive/codex-A11-fix-126-128-129.diffstat.txt",
+        "coordination/release-intake/archive/codex-A11-fix-126-128-129.patch",
+        "coordination/release-intake/archive/codex-A11-fix-126-128-129.untracked.txt",
+        "coordination/release-intake/archive/2026-06-30-A25-dirty-diverged-branch-archive-manifest.md",
+        "coordination/release-intake/archive/codex-A11-fix-126-128-129.dirty-diverged.ahead-log.txt",
+        "coordination/release-intake/archive/codex-A11-fix-126-128-129.dirty-diverged.diffstat.txt",
+        "coordination/release-intake/archive/codex-A11-fix-126-128-129.dirty-diverged.patch"
+      ],
+      "evidenceCoverage": {
+        "rootOwnerPackageEvidence": false,
+        "dirtyLinkedArchive": true,
+        "cleanDivergedArchive": false,
+        "dirtyDivergedArchive": true
+      },
+      "allowedFinalStates": [
+        {
+          "selectedFinalState": "owner-reviewed commit or package extraction",
+          "effect": "The owning agent commits the dirty worktree slice or extracts it into a reviewed clean package."
+        },
+        {
+          "selectedFinalState": "owner-approved exact-path discard",
+          "effect": "A separately authorized Git operation discards only approved dirty paths after archive review."
+        },
+        {
+          "selectedFinalState": "evidence archive with retained-worktree blocker",
+          "effect": "A25 keeps the worktree retained and blocked after preserving patch and untracked evidence."
+        },
+        {
+          "selectedFinalState": "owner-approved worktree removal after dirty state closure",
+          "effect": "A separately authorized Git operation may remove the worktree only after dirty state is committed, discarded, or explicitly closed."
+        },
+        {
+          "selectedFinalState": "blocker",
+          "effect": "A25 records the unresolved owner, worktree, and reason blocking closure."
+        }
+      ],
+      "approvalTemplate": {
+        "approvalId": "codex-a11-fix-126-128-129",
+        "branch": "codex/A11-fix-126-128-129",
+        "path": "/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A11-fix-126-128-129",
+        "selectedFinalState": "<one allowed final state from this request>",
+        "approvedBy": "<owner or owning agent>",
+        "approvedAt": "<ISO-8601 timestamp>",
+        "evidenceReviewed": [
+          "coordination/release-intake/archive/2026-06-30-A25-linked-worktree-archive-manifest.md",
+          "coordination/release-intake/archive/codex-A11-fix-126-128-129.status.txt",
+          "coordination/release-intake/archive/codex-A11-fix-126-128-129.diffstat.txt",
+          "coordination/release-intake/archive/codex-A11-fix-126-128-129.patch",
+          "coordination/release-intake/archive/codex-A11-fix-126-128-129.untracked.txt",
+          "coordination/release-intake/archive/2026-06-30-A25-dirty-diverged-branch-archive-manifest.md",
+          "coordination/release-intake/archive/codex-A11-fix-126-128-129.dirty-diverged.ahead-log.txt",
+          "coordination/release-intake/archive/codex-A11-fix-126-128-129.dirty-diverged.diffstat.txt",
+          "coordination/release-intake/archive/codex-A11-fix-126-128-129.dirty-diverged.patch"
+        ],
+        "notes": "<scope, checks, and any exact paths if approving discard/removal>"
+      }
+    },
+    {
+      "approvalId": "codex-a11-regression-evidence-closure",
+      "branch": "codex/A11-regression-evidence-closure",
+      "path": "/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A11-regression-evidence-closure",
+      "state": "dirty-open-decision",
+      "kind": "dirty-diverged-worktree",
+      "currentBlocker": "dirty 62",
+      "ownerHints": [
+        "A11"
+      ],
+      "evidence": [
+        "coordination/release-intake/archive/2026-06-30-A25-linked-worktree-archive-manifest.md",
+        "coordination/release-intake/archive/codex-A11-regression-evidence-closure.status.txt",
+        "coordination/release-intake/archive/codex-A11-regression-evidence-closure.diffstat.txt",
+        "coordination/release-intake/archive/codex-A11-regression-evidence-closure.patch",
+        "coordination/release-intake/archive/codex-A11-regression-evidence-closure.untracked.txt",
+        "coordination/release-intake/archive/2026-06-30-A25-dirty-diverged-branch-archive-manifest.md",
+        "coordination/release-intake/archive/codex-A11-regression-evidence-closure.dirty-diverged.ahead-log.txt",
+        "coordination/release-intake/archive/codex-A11-regression-evidence-closure.dirty-diverged.diffstat.txt",
+        "coordination/release-intake/archive/codex-A11-regression-evidence-closure.dirty-diverged.patch"
+      ],
+      "evidenceCoverage": {
+        "rootOwnerPackageEvidence": false,
+        "dirtyLinkedArchive": true,
+        "cleanDivergedArchive": false,
+        "dirtyDivergedArchive": true
+      },
+      "allowedFinalStates": [
+        {
+          "selectedFinalState": "owner-reviewed commit or package extraction",
+          "effect": "The owning agent commits the dirty worktree slice or extracts it into a reviewed clean package."
+        },
+        {
+          "selectedFinalState": "owner-approved exact-path discard",
+          "effect": "A separately authorized Git operation discards only approved dirty paths after archive review."
+        },
+        {
+          "selectedFinalState": "evidence archive with retained-worktree blocker",
+          "effect": "A25 keeps the worktree retained and blocked after preserving patch and untracked evidence."
+        },
+        {
+          "selectedFinalState": "owner-approved worktree removal after dirty state closure",
+          "effect": "A separately authorized Git operation may remove the worktree only after dirty state is committed, discarded, or explicitly closed."
+        },
+        {
+          "selectedFinalState": "blocker",
+          "effect": "A25 records the unresolved owner, worktree, and reason blocking closure."
+        }
+      ],
+      "approvalTemplate": {
+        "approvalId": "codex-a11-regression-evidence-closure",
+        "branch": "codex/A11-regression-evidence-closure",
+        "path": "/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A11-regression-evidence-closure",
+        "selectedFinalState": "<one allowed final state from this request>",
+        "approvedBy": "<owner or owning agent>",
+        "approvedAt": "<ISO-8601 timestamp>",
+        "evidenceReviewed": [
+          "coordination/release-intake/archive/2026-06-30-A25-linked-worktree-archive-manifest.md",
+          "coordination/release-intake/archive/codex-A11-regression-evidence-closure.status.txt",
+          "coordination/release-intake/archive/codex-A11-regression-evidence-closure.diffstat.txt",
+          "coordination/release-intake/archive/codex-A11-regression-evidence-closure.patch",
+          "coordination/release-intake/archive/codex-A11-regression-evidence-closure.untracked.txt",
+          "coordination/release-intake/archive/2026-06-30-A25-dirty-diverged-branch-archive-manifest.md",
+          "coordination/release-intake/archive/codex-A11-regression-evidence-closure.dirty-diverged.ahead-log.txt",
+          "coordination/release-intake/archive/codex-A11-regression-evidence-closure.dirty-diverged.diffstat.txt",
+          "coordination/release-intake/archive/codex-A11-regression-evidence-closure.dirty-diverged.patch"
+        ],
+        "notes": "<scope, checks, and any exact paths if approving discard/removal>"
+      }
+    },
+    {
+      "approvalId": "codex-a12-google-oauth-login",
+      "branch": "codex/A12-google-oauth-login",
+      "path": "/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A12-google-oauth-login",
+      "state": "dirty-open-decision",
+      "kind": "dirty-diverged-worktree",
+      "currentBlocker": "dirty 16",
+      "ownerHints": [
+        "A12"
+      ],
+      "evidence": [
+        "coordination/release-intake/archive/2026-06-30-A25-linked-worktree-archive-manifest.md",
+        "coordination/release-intake/archive/codex-A12-google-oauth-login.status.txt",
+        "coordination/release-intake/archive/codex-A12-google-oauth-login.diffstat.txt",
+        "coordination/release-intake/archive/codex-A12-google-oauth-login.patch",
+        "coordination/release-intake/archive/codex-A12-google-oauth-login.untracked.txt",
+        "coordination/release-intake/archive/2026-06-30-A25-dirty-diverged-branch-archive-manifest.md",
+        "coordination/release-intake/archive/codex-A12-google-oauth-login.dirty-diverged.ahead-log.txt",
+        "coordination/release-intake/archive/codex-A12-google-oauth-login.dirty-diverged.diffstat.txt",
+        "coordination/release-intake/archive/codex-A12-google-oauth-login.dirty-diverged.patch"
+      ],
+      "evidenceCoverage": {
+        "rootOwnerPackageEvidence": false,
+        "dirtyLinkedArchive": true,
+        "cleanDivergedArchive": false,
+        "dirtyDivergedArchive": true
+      },
+      "allowedFinalStates": [
+        {
+          "selectedFinalState": "owner-reviewed commit or package extraction",
+          "effect": "The owning agent commits the dirty worktree slice or extracts it into a reviewed clean package."
+        },
+        {
+          "selectedFinalState": "owner-approved exact-path discard",
+          "effect": "A separately authorized Git operation discards only approved dirty paths after archive review."
+        },
+        {
+          "selectedFinalState": "evidence archive with retained-worktree blocker",
+          "effect": "A25 keeps the worktree retained and blocked after preserving patch and untracked evidence."
+        },
+        {
+          "selectedFinalState": "owner-approved worktree removal after dirty state closure",
+          "effect": "A separately authorized Git operation may remove the worktree only after dirty state is committed, discarded, or explicitly closed."
+        },
+        {
+          "selectedFinalState": "blocker",
+          "effect": "A25 records the unresolved owner, worktree, and reason blocking closure."
+        }
+      ],
+      "approvalTemplate": {
+        "approvalId": "codex-a12-google-oauth-login",
+        "branch": "codex/A12-google-oauth-login",
+        "path": "/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A12-google-oauth-login",
+        "selectedFinalState": "<one allowed final state from this request>",
+        "approvedBy": "<owner or owning agent>",
+        "approvedAt": "<ISO-8601 timestamp>",
+        "evidenceReviewed": [
+          "coordination/release-intake/archive/2026-06-30-A25-linked-worktree-archive-manifest.md",
+          "coordination/release-intake/archive/codex-A12-google-oauth-login.status.txt",
+          "coordination/release-intake/archive/codex-A12-google-oauth-login.diffstat.txt",
+          "coordination/release-intake/archive/codex-A12-google-oauth-login.patch",
+          "coordination/release-intake/archive/codex-A12-google-oauth-login.untracked.txt",
+          "coordination/release-intake/archive/2026-06-30-A25-dirty-diverged-branch-archive-manifest.md",
+          "coordination/release-intake/archive/codex-A12-google-oauth-login.dirty-diverged.ahead-log.txt",
+          "coordination/release-intake/archive/codex-A12-google-oauth-login.dirty-diverged.diffstat.txt",
+          "coordination/release-intake/archive/codex-A12-google-oauth-login.dirty-diverged.patch"
+        ],
+        "notes": "<scope, checks, and any exact paths if approving discard/removal>"
+      }
+    },
+    {
+      "approvalId": "codex-a12-userstore-storage-contract",
+      "branch": "codex/A12-userstore-storage-contract",
+      "path": "/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A12-userstore-storage-contract",
+      "state": "dirty-open-decision",
+      "kind": "dirty-diverged-worktree",
+      "currentBlocker": "dirty 170",
+      "ownerHints": [
+        "A12"
+      ],
+      "evidence": [
+        "coordination/release-intake/archive/2026-06-30-A25-linked-worktree-archive-manifest.md",
+        "coordination/release-intake/archive/codex-A12-userstore-storage-contract.status.txt",
+        "coordination/release-intake/archive/codex-A12-userstore-storage-contract.diffstat.txt",
+        "coordination/release-intake/archive/codex-A12-userstore-storage-contract.patch",
+        "coordination/release-intake/archive/codex-A12-userstore-storage-contract.untracked.txt",
+        "coordination/release-intake/archive/2026-06-30-A25-dirty-diverged-branch-archive-manifest.md",
+        "coordination/release-intake/archive/codex-A12-userstore-storage-contract.dirty-diverged.ahead-log.txt",
+        "coordination/release-intake/archive/codex-A12-userstore-storage-contract.dirty-diverged.diffstat.txt",
+        "coordination/release-intake/archive/codex-A12-userstore-storage-contract.dirty-diverged.patch"
+      ],
+      "evidenceCoverage": {
+        "rootOwnerPackageEvidence": false,
+        "dirtyLinkedArchive": true,
+        "cleanDivergedArchive": false,
+        "dirtyDivergedArchive": true
+      },
+      "allowedFinalStates": [
+        {
+          "selectedFinalState": "owner-reviewed commit or package extraction",
+          "effect": "The owning agent commits the dirty worktree slice or extracts it into a reviewed clean package."
+        },
+        {
+          "selectedFinalState": "owner-approved exact-path discard",
+          "effect": "A separately authorized Git operation discards only approved dirty paths after archive review."
+        },
+        {
+          "selectedFinalState": "evidence archive with retained-worktree blocker",
+          "effect": "A25 keeps the worktree retained and blocked after preserving patch and untracked evidence."
+        },
+        {
+          "selectedFinalState": "owner-approved worktree removal after dirty state closure",
+          "effect": "A separately authorized Git operation may remove the worktree only after dirty state is committed, discarded, or explicitly closed."
+        },
+        {
+          "selectedFinalState": "blocker",
+          "effect": "A25 records the unresolved owner, worktree, and reason blocking closure."
+        }
+      ],
+      "approvalTemplate": {
+        "approvalId": "codex-a12-userstore-storage-contract",
+        "branch": "codex/A12-userstore-storage-contract",
+        "path": "/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A12-userstore-storage-contract",
+        "selectedFinalState": "<one allowed final state from this request>",
+        "approvedBy": "<owner or owning agent>",
+        "approvedAt": "<ISO-8601 timestamp>",
+        "evidenceReviewed": [
+          "coordination/release-intake/archive/2026-06-30-A25-linked-worktree-archive-manifest.md",
+          "coordination/release-intake/archive/codex-A12-userstore-storage-contract.status.txt",
+          "coordination/release-intake/archive/codex-A12-userstore-storage-contract.diffstat.txt",
+          "coordination/release-intake/archive/codex-A12-userstore-storage-contract.patch",
+          "coordination/release-intake/archive/codex-A12-userstore-storage-contract.untracked.txt",
+          "coordination/release-intake/archive/2026-06-30-A25-dirty-diverged-branch-archive-manifest.md",
+          "coordination/release-intake/archive/codex-A12-userstore-storage-contract.dirty-diverged.ahead-log.txt",
+          "coordination/release-intake/archive/codex-A12-userstore-storage-contract.dirty-diverged.diffstat.txt",
+          "coordination/release-intake/archive/codex-A12-userstore-storage-contract.dirty-diverged.patch"
+        ],
+        "notes": "<scope, checks, and any exact paths if approving discard/removal>"
+      }
+    },
+    {
+      "approvalId": "codex-a13-a14-console-closure",
+      "branch": "codex/A13-A14-console-closure",
+      "path": "/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A13-A14-console-closure",
+      "state": "dirty-open-decision",
+      "kind": "dirty-diverged-worktree",
+      "currentBlocker": "dirty 43",
+      "ownerHints": [
+        "A13",
+        "A14"
+      ],
+      "evidence": [
+        "coordination/release-intake/archive/2026-06-30-A25-linked-worktree-archive-manifest.md",
+        "coordination/release-intake/archive/codex-A13-A14-console-closure.status.txt",
+        "coordination/release-intake/archive/codex-A13-A14-console-closure.diffstat.txt",
+        "coordination/release-intake/archive/codex-A13-A14-console-closure.patch",
+        "coordination/release-intake/archive/codex-A13-A14-console-closure.untracked.txt",
+        "coordination/release-intake/archive/2026-06-30-A25-dirty-diverged-branch-archive-manifest.md",
+        "coordination/release-intake/archive/codex-A13-A14-console-closure.dirty-diverged.ahead-log.txt",
+        "coordination/release-intake/archive/codex-A13-A14-console-closure.dirty-diverged.diffstat.txt",
+        "coordination/release-intake/archive/codex-A13-A14-console-closure.dirty-diverged.patch"
+      ],
+      "evidenceCoverage": {
+        "rootOwnerPackageEvidence": false,
+        "dirtyLinkedArchive": true,
+        "cleanDivergedArchive": false,
+        "dirtyDivergedArchive": true
+      },
+      "allowedFinalStates": [
+        {
+          "selectedFinalState": "owner-reviewed commit or package extraction",
+          "effect": "The owning agent commits the dirty worktree slice or extracts it into a reviewed clean package."
+        },
+        {
+          "selectedFinalState": "owner-approved exact-path discard",
+          "effect": "A separately authorized Git operation discards only approved dirty paths after archive review."
+        },
+        {
+          "selectedFinalState": "evidence archive with retained-worktree blocker",
+          "effect": "A25 keeps the worktree retained and blocked after preserving patch and untracked evidence."
+        },
+        {
+          "selectedFinalState": "owner-approved worktree removal after dirty state closure",
+          "effect": "A separately authorized Git operation may remove the worktree only after dirty state is committed, discarded, or explicitly closed."
+        },
+        {
+          "selectedFinalState": "blocker",
+          "effect": "A25 records the unresolved owner, worktree, and reason blocking closure."
+        }
+      ],
+      "approvalTemplate": {
+        "approvalId": "codex-a13-a14-console-closure",
+        "branch": "codex/A13-A14-console-closure",
+        "path": "/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A13-A14-console-closure",
+        "selectedFinalState": "<one allowed final state from this request>",
+        "approvedBy": "<owner or owning agent>",
+        "approvedAt": "<ISO-8601 timestamp>",
+        "evidenceReviewed": [
+          "coordination/release-intake/archive/2026-06-30-A25-linked-worktree-archive-manifest.md",
+          "coordination/release-intake/archive/codex-A13-A14-console-closure.status.txt",
+          "coordination/release-intake/archive/codex-A13-A14-console-closure.diffstat.txt",
+          "coordination/release-intake/archive/codex-A13-A14-console-closure.patch",
+          "coordination/release-intake/archive/codex-A13-A14-console-closure.untracked.txt",
+          "coordination/release-intake/archive/2026-06-30-A25-dirty-diverged-branch-archive-manifest.md",
+          "coordination/release-intake/archive/codex-A13-A14-console-closure.dirty-diverged.ahead-log.txt",
+          "coordination/release-intake/archive/codex-A13-A14-console-closure.dirty-diverged.diffstat.txt",
+          "coordination/release-intake/archive/codex-A13-A14-console-closure.dirty-diverged.patch"
+        ],
+        "notes": "<scope, checks, and any exact paths if approving discard/removal>"
+      }
+    },
+    {
+      "approvalId": "codex-a16-research-evidence-closure",
+      "branch": "codex/A16-research-evidence-closure",
+      "path": "/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A16-research-evidence-closure",
+      "state": "dirty-open-decision",
+      "kind": "dirty-diverged-worktree",
+      "currentBlocker": "dirty 6",
+      "ownerHints": [
+        "A16"
+      ],
+      "evidence": [
+        "coordination/release-intake/archive/2026-06-30-A25-linked-worktree-archive-manifest.md",
+        "coordination/release-intake/archive/codex-A16-research-evidence-closure.status.txt",
+        "coordination/release-intake/archive/codex-A16-research-evidence-closure.diffstat.txt",
+        "coordination/release-intake/archive/codex-A16-research-evidence-closure.patch",
+        "coordination/release-intake/archive/codex-A16-research-evidence-closure.untracked.txt",
+        "coordination/release-intake/archive/2026-06-30-A25-dirty-diverged-branch-archive-manifest.md",
+        "coordination/release-intake/archive/codex-A16-research-evidence-closure.dirty-diverged.ahead-log.txt",
+        "coordination/release-intake/archive/codex-A16-research-evidence-closure.dirty-diverged.diffstat.txt",
+        "coordination/release-intake/archive/codex-A16-research-evidence-closure.dirty-diverged.patch"
+      ],
+      "evidenceCoverage": {
+        "rootOwnerPackageEvidence": false,
+        "dirtyLinkedArchive": true,
+        "cleanDivergedArchive": false,
+        "dirtyDivergedArchive": true
+      },
+      "allowedFinalStates": [
+        {
+          "selectedFinalState": "owner-reviewed commit or package extraction",
+          "effect": "The owning agent commits the dirty worktree slice or extracts it into a reviewed clean package."
+        },
+        {
+          "selectedFinalState": "owner-approved exact-path discard",
+          "effect": "A separately authorized Git operation discards only approved dirty paths after archive review."
+        },
+        {
+          "selectedFinalState": "evidence archive with retained-worktree blocker",
+          "effect": "A25 keeps the worktree retained and blocked after preserving patch and untracked evidence."
+        },
+        {
+          "selectedFinalState": "owner-approved worktree removal after dirty state closure",
+          "effect": "A separately authorized Git operation may remove the worktree only after dirty state is committed, discarded, or explicitly closed."
+        },
+        {
+          "selectedFinalState": "blocker",
+          "effect": "A25 records the unresolved owner, worktree, and reason blocking closure."
+        }
+      ],
+      "approvalTemplate": {
+        "approvalId": "codex-a16-research-evidence-closure",
+        "branch": "codex/A16-research-evidence-closure",
+        "path": "/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A16-research-evidence-closure",
+        "selectedFinalState": "<one allowed final state from this request>",
+        "approvedBy": "<owner or owning agent>",
+        "approvedAt": "<ISO-8601 timestamp>",
+        "evidenceReviewed": [
+          "coordination/release-intake/archive/2026-06-30-A25-linked-worktree-archive-manifest.md",
+          "coordination/release-intake/archive/codex-A16-research-evidence-closure.status.txt",
+          "coordination/release-intake/archive/codex-A16-research-evidence-closure.diffstat.txt",
+          "coordination/release-intake/archive/codex-A16-research-evidence-closure.patch",
+          "coordination/release-intake/archive/codex-A16-research-evidence-closure.untracked.txt",
+          "coordination/release-intake/archive/2026-06-30-A25-dirty-diverged-branch-archive-manifest.md",
+          "coordination/release-intake/archive/codex-A16-research-evidence-closure.dirty-diverged.ahead-log.txt",
+          "coordination/release-intake/archive/codex-A16-research-evidence-closure.dirty-diverged.diffstat.txt",
+          "coordination/release-intake/archive/codex-A16-research-evidence-closure.dirty-diverged.patch"
+        ],
+        "notes": "<scope, checks, and any exact paths if approving discard/removal>"
+      }
+    },
+    {
+      "approvalId": "codex-a17-a20-game-motivation-closure",
+      "branch": "codex/A17-A20-game-motivation-closure",
+      "path": "/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A17-A20-game-motivation-closure",
+      "state": "dirty-open-decision",
+      "kind": "dirty-diverged-worktree",
+      "currentBlocker": "dirty 21",
+      "ownerHints": [
+        "A17",
+        "A20"
+      ],
+      "evidence": [
+        "coordination/release-intake/archive/2026-06-30-A25-linked-worktree-archive-manifest.md",
+        "coordination/release-intake/archive/codex-A17-A20-game-motivation-closure.status.txt",
+        "coordination/release-intake/archive/codex-A17-A20-game-motivation-closure.diffstat.txt",
+        "coordination/release-intake/archive/codex-A17-A20-game-motivation-closure.patch",
+        "coordination/release-intake/archive/codex-A17-A20-game-motivation-closure.untracked.txt",
+        "coordination/release-intake/archive/2026-06-30-A25-dirty-diverged-branch-archive-manifest.md",
+        "coordination/release-intake/archive/codex-A17-A20-game-motivation-closure.dirty-diverged.ahead-log.txt",
+        "coordination/release-intake/archive/codex-A17-A20-game-motivation-closure.dirty-diverged.diffstat.txt",
+        "coordination/release-intake/archive/codex-A17-A20-game-motivation-closure.dirty-diverged.patch"
+      ],
+      "evidenceCoverage": {
+        "rootOwnerPackageEvidence": false,
+        "dirtyLinkedArchive": true,
+        "cleanDivergedArchive": false,
+        "dirtyDivergedArchive": true
+      },
+      "allowedFinalStates": [
+        {
+          "selectedFinalState": "owner-reviewed commit or package extraction",
+          "effect": "The owning agent commits the dirty worktree slice or extracts it into a reviewed clean package."
+        },
+        {
+          "selectedFinalState": "owner-approved exact-path discard",
+          "effect": "A separately authorized Git operation discards only approved dirty paths after archive review."
+        },
+        {
+          "selectedFinalState": "evidence archive with retained-worktree blocker",
+          "effect": "A25 keeps the worktree retained and blocked after preserving patch and untracked evidence."
+        },
+        {
+          "selectedFinalState": "owner-approved worktree removal after dirty state closure",
+          "effect": "A separately authorized Git operation may remove the worktree only after dirty state is committed, discarded, or explicitly closed."
+        },
+        {
+          "selectedFinalState": "blocker",
+          "effect": "A25 records the unresolved owner, worktree, and reason blocking closure."
+        }
+      ],
+      "approvalTemplate": {
+        "approvalId": "codex-a17-a20-game-motivation-closure",
+        "branch": "codex/A17-A20-game-motivation-closure",
+        "path": "/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A17-A20-game-motivation-closure",
+        "selectedFinalState": "<one allowed final state from this request>",
+        "approvedBy": "<owner or owning agent>",
+        "approvedAt": "<ISO-8601 timestamp>",
+        "evidenceReviewed": [
+          "coordination/release-intake/archive/2026-06-30-A25-linked-worktree-archive-manifest.md",
+          "coordination/release-intake/archive/codex-A17-A20-game-motivation-closure.status.txt",
+          "coordination/release-intake/archive/codex-A17-A20-game-motivation-closure.diffstat.txt",
+          "coordination/release-intake/archive/codex-A17-A20-game-motivation-closure.patch",
+          "coordination/release-intake/archive/codex-A17-A20-game-motivation-closure.untracked.txt",
+          "coordination/release-intake/archive/2026-06-30-A25-dirty-diverged-branch-archive-manifest.md",
+          "coordination/release-intake/archive/codex-A17-A20-game-motivation-closure.dirty-diverged.ahead-log.txt",
+          "coordination/release-intake/archive/codex-A17-A20-game-motivation-closure.dirty-diverged.diffstat.txt",
+          "coordination/release-intake/archive/codex-A17-A20-game-motivation-closure.dirty-diverged.patch"
+        ],
+        "notes": "<scope, checks, and any exact paths if approving discard/removal>"
+      }
+    },
+    {
+      "approvalId": "codex-a18-a21-content-evidence-closure",
+      "branch": "codex/A18-A21-content-evidence-closure",
+      "path": "/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A18-A21-content-evidence-closure",
+      "state": "dirty-open-decision",
+      "kind": "dirty-diverged-worktree",
+      "currentBlocker": "dirty 222",
+      "ownerHints": [
+        "A18",
+        "A21"
+      ],
+      "evidence": [
+        "coordination/release-intake/archive/2026-06-30-A25-linked-worktree-archive-manifest.md",
+        "coordination/release-intake/archive/codex-A18-A21-content-evidence-closure.status.txt",
+        "coordination/release-intake/archive/codex-A18-A21-content-evidence-closure.diffstat.txt",
+        "coordination/release-intake/archive/codex-A18-A21-content-evidence-closure.patch",
+        "coordination/release-intake/archive/codex-A18-A21-content-evidence-closure.untracked.txt",
+        "coordination/release-intake/archive/2026-06-30-A25-dirty-diverged-branch-archive-manifest.md",
+        "coordination/release-intake/archive/codex-A18-A21-content-evidence-closure.dirty-diverged.ahead-log.txt",
+        "coordination/release-intake/archive/codex-A18-A21-content-evidence-closure.dirty-diverged.diffstat.txt",
+        "coordination/release-intake/archive/codex-A18-A21-content-evidence-closure.dirty-diverged.patch"
+      ],
+      "evidenceCoverage": {
+        "rootOwnerPackageEvidence": false,
+        "dirtyLinkedArchive": true,
+        "cleanDivergedArchive": false,
+        "dirtyDivergedArchive": true
+      },
+      "allowedFinalStates": [
+        {
+          "selectedFinalState": "owner-reviewed commit or package extraction",
+          "effect": "The owning agent commits the dirty worktree slice or extracts it into a reviewed clean package."
+        },
+        {
+          "selectedFinalState": "owner-approved exact-path discard",
+          "effect": "A separately authorized Git operation discards only approved dirty paths after archive review."
+        },
+        {
+          "selectedFinalState": "evidence archive with retained-worktree blocker",
+          "effect": "A25 keeps the worktree retained and blocked after preserving patch and untracked evidence."
+        },
+        {
+          "selectedFinalState": "owner-approved worktree removal after dirty state closure",
+          "effect": "A separately authorized Git operation may remove the worktree only after dirty state is committed, discarded, or explicitly closed."
+        },
+        {
+          "selectedFinalState": "blocker",
+          "effect": "A25 records the unresolved owner, worktree, and reason blocking closure."
+        }
+      ],
+      "approvalTemplate": {
+        "approvalId": "codex-a18-a21-content-evidence-closure",
+        "branch": "codex/A18-A21-content-evidence-closure",
+        "path": "/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A18-A21-content-evidence-closure",
+        "selectedFinalState": "<one allowed final state from this request>",
+        "approvedBy": "<owner or owning agent>",
+        "approvedAt": "<ISO-8601 timestamp>",
+        "evidenceReviewed": [
+          "coordination/release-intake/archive/2026-06-30-A25-linked-worktree-archive-manifest.md",
+          "coordination/release-intake/archive/codex-A18-A21-content-evidence-closure.status.txt",
+          "coordination/release-intake/archive/codex-A18-A21-content-evidence-closure.diffstat.txt",
+          "coordination/release-intake/archive/codex-A18-A21-content-evidence-closure.patch",
+          "coordination/release-intake/archive/codex-A18-A21-content-evidence-closure.untracked.txt",
+          "coordination/release-intake/archive/2026-06-30-A25-dirty-diverged-branch-archive-manifest.md",
+          "coordination/release-intake/archive/codex-A18-A21-content-evidence-closure.dirty-diverged.ahead-log.txt",
+          "coordination/release-intake/archive/codex-A18-A21-content-evidence-closure.dirty-diverged.diffstat.txt",
+          "coordination/release-intake/archive/codex-A18-A21-content-evidence-closure.dirty-diverged.patch"
+        ],
+        "notes": "<scope, checks, and any exact paths if approving discard/removal>"
+      }
+    },
+    {
+      "approvalId": "codex-a19-vercel-postgres-region",
+      "branch": "codex/A19-vercel-postgres-region",
+      "path": "/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A19-vercel-postgres-region",
+      "state": "clean-diverged-open-decision",
+      "kind": "clean-diverged-branch",
+      "currentBlocker": "behind 1, ahead 8",
+      "ownerHints": [
+        "A19"
+      ],
+      "evidence": [
+        "coordination/release-intake/archive/2026-06-30-A25-clean-diverged-branch-archive-manifest.md",
+        "coordination/release-intake/archive/codex-A19-vercel-postgres-region.clean-diverged.status.txt",
+        "coordination/release-intake/archive/codex-A19-vercel-postgres-region.clean-diverged.ahead-log.txt",
+        "coordination/release-intake/archive/codex-A19-vercel-postgres-region.clean-diverged.name-status.txt",
+        "coordination/release-intake/archive/codex-A19-vercel-postgres-region.clean-diverged.diffstat.txt",
+        "coordination/release-intake/archive/codex-A19-vercel-postgres-region.clean-diverged.patch",
+        "coordination/release-intake/archive/codex-A19-vercel-postgres-region.clean-diverged.untracked.txt"
+      ],
+      "evidenceCoverage": {
+        "rootOwnerPackageEvidence": false,
+        "dirtyLinkedArchive": false,
+        "cleanDivergedArchive": true,
+        "dirtyDivergedArchive": false
+      },
+      "allowedFinalStates": [
+        {
+          "selectedFinalState": "owner-approved PR or review package",
+          "effect": "The owning agent promotes the branch through review without using the dirty root as release source."
+        },
+        {
+          "selectedFinalState": "archive-state record",
+          "effect": "A25 records the branch as preserved evidence; a real Git tag still needs separate explicit approval."
+        },
+        {
+          "selectedFinalState": "owner-approved branch or worktree retirement",
+          "effect": "A separately authorized Git operation may retire the branch or remove the worktree after archive review."
+        },
+        {
+          "selectedFinalState": "blocker",
+          "effect": "A25 records the unresolved owner, branch, and reason blocking closure."
+        }
+      ],
+      "approvalTemplate": {
+        "approvalId": "codex-a19-vercel-postgres-region",
+        "branch": "codex/A19-vercel-postgres-region",
+        "path": "/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A19-vercel-postgres-region",
+        "selectedFinalState": "<one allowed final state from this request>",
+        "approvedBy": "<owner or owning agent>",
+        "approvedAt": "<ISO-8601 timestamp>",
+        "evidenceReviewed": [
+          "coordination/release-intake/archive/2026-06-30-A25-clean-diverged-branch-archive-manifest.md",
+          "coordination/release-intake/archive/codex-A19-vercel-postgres-region.clean-diverged.status.txt",
+          "coordination/release-intake/archive/codex-A19-vercel-postgres-region.clean-diverged.ahead-log.txt",
+          "coordination/release-intake/archive/codex-A19-vercel-postgres-region.clean-diverged.name-status.txt",
+          "coordination/release-intake/archive/codex-A19-vercel-postgres-region.clean-diverged.diffstat.txt",
+          "coordination/release-intake/archive/codex-A19-vercel-postgres-region.clean-diverged.patch",
+          "coordination/release-intake/archive/codex-A19-vercel-postgres-region.clean-diverged.untracked.txt"
+        ],
+        "notes": "<scope, checks, and any exact paths if approving discard/removal>"
+      }
+    },
+    {
+      "approvalId": "codex-a22-missing-module-release-slice",
+      "branch": "codex/A22-missing-module-release-slice",
+      "path": "/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A22-missing-module-release-slice",
+      "state": "dirty-open-decision",
+      "kind": "dirty-diverged-worktree",
+      "currentBlocker": "dirty 1016",
+      "ownerHints": [
+        "A22"
+      ],
+      "evidence": [
+        "coordination/release-intake/archive/2026-06-30-A25-linked-worktree-archive-manifest.md",
+        "coordination/release-intake/archive/codex-A22-missing-module-release-slice.status.txt",
+        "coordination/release-intake/archive/codex-A22-missing-module-release-slice.diffstat.txt",
+        "coordination/release-intake/archive/codex-A22-missing-module-release-slice.patch",
+        "coordination/release-intake/archive/codex-A22-missing-module-release-slice.untracked.txt",
+        "coordination/release-intake/archive/2026-06-30-A25-dirty-diverged-branch-archive-manifest.md",
+        "coordination/release-intake/archive/codex-A22-missing-module-release-slice.dirty-diverged.ahead-log.txt",
+        "coordination/release-intake/archive/codex-A22-missing-module-release-slice.dirty-diverged.diffstat.txt",
+        "coordination/release-intake/archive/codex-A22-missing-module-release-slice.dirty-diverged.patch"
+      ],
+      "evidenceCoverage": {
+        "rootOwnerPackageEvidence": false,
+        "dirtyLinkedArchive": true,
+        "cleanDivergedArchive": false,
+        "dirtyDivergedArchive": true
+      },
+      "allowedFinalStates": [
+        {
+          "selectedFinalState": "owner-reviewed commit or package extraction",
+          "effect": "The owning agent commits the dirty worktree slice or extracts it into a reviewed clean package."
+        },
+        {
+          "selectedFinalState": "owner-approved exact-path discard",
+          "effect": "A separately authorized Git operation discards only approved dirty paths after archive review."
+        },
+        {
+          "selectedFinalState": "evidence archive with retained-worktree blocker",
+          "effect": "A25 keeps the worktree retained and blocked after preserving patch and untracked evidence."
+        },
+        {
+          "selectedFinalState": "owner-approved worktree removal after dirty state closure",
+          "effect": "A separately authorized Git operation may remove the worktree only after dirty state is committed, discarded, or explicitly closed."
+        },
+        {
+          "selectedFinalState": "blocker",
+          "effect": "A25 records the unresolved owner, worktree, and reason blocking closure."
+        }
+      ],
+      "approvalTemplate": {
+        "approvalId": "codex-a22-missing-module-release-slice",
+        "branch": "codex/A22-missing-module-release-slice",
+        "path": "/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A22-missing-module-release-slice",
+        "selectedFinalState": "<one allowed final state from this request>",
+        "approvedBy": "<owner or owning agent>",
+        "approvedAt": "<ISO-8601 timestamp>",
+        "evidenceReviewed": [
+          "coordination/release-intake/archive/2026-06-30-A25-linked-worktree-archive-manifest.md",
+          "coordination/release-intake/archive/codex-A22-missing-module-release-slice.status.txt",
+          "coordination/release-intake/archive/codex-A22-missing-module-release-slice.diffstat.txt",
+          "coordination/release-intake/archive/codex-A22-missing-module-release-slice.patch",
+          "coordination/release-intake/archive/codex-A22-missing-module-release-slice.untracked.txt",
+          "coordination/release-intake/archive/2026-06-30-A25-dirty-diverged-branch-archive-manifest.md",
+          "coordination/release-intake/archive/codex-A22-missing-module-release-slice.dirty-diverged.ahead-log.txt",
+          "coordination/release-intake/archive/codex-A22-missing-module-release-slice.dirty-diverged.diffstat.txt",
+          "coordination/release-intake/archive/codex-A22-missing-module-release-slice.dirty-diverged.patch"
+        ],
+        "notes": "<scope, checks, and any exact paths if approving discard/removal>"
+      }
+    },
+    {
+      "approvalId": "codex-a22-next-15-5-19-audit",
+      "branch": "codex/A22-next-15-5-19-audit",
+      "path": "/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A22-next-15-5-19-audit",
+      "state": "dirty-open-decision",
+      "kind": "dirty-diverged-worktree",
+      "currentBlocker": "dirty 4",
+      "ownerHints": [
+        "A22"
+      ],
+      "evidence": [
+        "coordination/release-intake/archive/2026-06-30-A25-linked-worktree-archive-manifest.md",
+        "coordination/release-intake/archive/codex-A22-next-15-5-19-audit.status.txt",
+        "coordination/release-intake/archive/codex-A22-next-15-5-19-audit.diffstat.txt",
+        "coordination/release-intake/archive/codex-A22-next-15-5-19-audit.patch",
+        "coordination/release-intake/archive/codex-A22-next-15-5-19-audit.untracked.txt",
+        "coordination/release-intake/archive/2026-06-30-A25-dirty-diverged-branch-archive-manifest.md",
+        "coordination/release-intake/archive/codex-A22-next-15-5-19-audit.dirty-diverged.ahead-log.txt",
+        "coordination/release-intake/archive/codex-A22-next-15-5-19-audit.dirty-diverged.diffstat.txt",
+        "coordination/release-intake/archive/codex-A22-next-15-5-19-audit.dirty-diverged.patch"
+      ],
+      "evidenceCoverage": {
+        "rootOwnerPackageEvidence": false,
+        "dirtyLinkedArchive": true,
+        "cleanDivergedArchive": false,
+        "dirtyDivergedArchive": true
+      },
+      "allowedFinalStates": [
+        {
+          "selectedFinalState": "owner-reviewed commit or package extraction",
+          "effect": "The owning agent commits the dirty worktree slice or extracts it into a reviewed clean package."
+        },
+        {
+          "selectedFinalState": "owner-approved exact-path discard",
+          "effect": "A separately authorized Git operation discards only approved dirty paths after archive review."
+        },
+        {
+          "selectedFinalState": "evidence archive with retained-worktree blocker",
+          "effect": "A25 keeps the worktree retained and blocked after preserving patch and untracked evidence."
+        },
+        {
+          "selectedFinalState": "owner-approved worktree removal after dirty state closure",
+          "effect": "A separately authorized Git operation may remove the worktree only after dirty state is committed, discarded, or explicitly closed."
+        },
+        {
+          "selectedFinalState": "blocker",
+          "effect": "A25 records the unresolved owner, worktree, and reason blocking closure."
+        }
+      ],
+      "approvalTemplate": {
+        "approvalId": "codex-a22-next-15-5-19-audit",
+        "branch": "codex/A22-next-15-5-19-audit",
+        "path": "/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A22-next-15-5-19-audit",
+        "selectedFinalState": "<one allowed final state from this request>",
+        "approvedBy": "<owner or owning agent>",
+        "approvedAt": "<ISO-8601 timestamp>",
+        "evidenceReviewed": [
+          "coordination/release-intake/archive/2026-06-30-A25-linked-worktree-archive-manifest.md",
+          "coordination/release-intake/archive/codex-A22-next-15-5-19-audit.status.txt",
+          "coordination/release-intake/archive/codex-A22-next-15-5-19-audit.diffstat.txt",
+          "coordination/release-intake/archive/codex-A22-next-15-5-19-audit.patch",
+          "coordination/release-intake/archive/codex-A22-next-15-5-19-audit.untracked.txt",
+          "coordination/release-intake/archive/2026-06-30-A25-dirty-diverged-branch-archive-manifest.md",
+          "coordination/release-intake/archive/codex-A22-next-15-5-19-audit.dirty-diverged.ahead-log.txt",
+          "coordination/release-intake/archive/codex-A22-next-15-5-19-audit.dirty-diverged.diffstat.txt",
+          "coordination/release-intake/archive/codex-A22-next-15-5-19-audit.dirty-diverged.patch"
+        ],
+        "notes": "<scope, checks, and any exact paths if approving discard/removal>"
+      }
+    },
+    {
+      "approvalId": "codex-a22-p1-release-hygiene-security",
+      "branch": "codex/A22-p1-release-hygiene-security",
+      "path": "/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A22-p1-release-hygiene-security",
+      "state": "dirty-open-decision",
+      "kind": "dirty-diverged-worktree",
+      "currentBlocker": "dirty 27",
+      "ownerHints": [
+        "A22"
+      ],
+      "evidence": [
+        "coordination/release-intake/archive/2026-06-30-A25-linked-worktree-archive-manifest.md",
+        "coordination/release-intake/archive/codex-A22-p1-release-hygiene-security.status.txt",
+        "coordination/release-intake/archive/codex-A22-p1-release-hygiene-security.diffstat.txt",
+        "coordination/release-intake/archive/codex-A22-p1-release-hygiene-security.patch",
+        "coordination/release-intake/archive/codex-A22-p1-release-hygiene-security.untracked.txt",
+        "coordination/release-intake/archive/2026-06-30-A25-dirty-diverged-branch-archive-manifest.md",
+        "coordination/release-intake/archive/codex-A22-p1-release-hygiene-security.dirty-diverged.ahead-log.txt",
+        "coordination/release-intake/archive/codex-A22-p1-release-hygiene-security.dirty-diverged.diffstat.txt",
+        "coordination/release-intake/archive/codex-A22-p1-release-hygiene-security.dirty-diverged.patch"
+      ],
+      "evidenceCoverage": {
+        "rootOwnerPackageEvidence": false,
+        "dirtyLinkedArchive": true,
+        "cleanDivergedArchive": false,
+        "dirtyDivergedArchive": true
+      },
+      "allowedFinalStates": [
+        {
+          "selectedFinalState": "owner-reviewed commit or package extraction",
+          "effect": "The owning agent commits the dirty worktree slice or extracts it into a reviewed clean package."
+        },
+        {
+          "selectedFinalState": "owner-approved exact-path discard",
+          "effect": "A separately authorized Git operation discards only approved dirty paths after archive review."
+        },
+        {
+          "selectedFinalState": "evidence archive with retained-worktree blocker",
+          "effect": "A25 keeps the worktree retained and blocked after preserving patch and untracked evidence."
+        },
+        {
+          "selectedFinalState": "owner-approved worktree removal after dirty state closure",
+          "effect": "A separately authorized Git operation may remove the worktree only after dirty state is committed, discarded, or explicitly closed."
+        },
+        {
+          "selectedFinalState": "blocker",
+          "effect": "A25 records the unresolved owner, worktree, and reason blocking closure."
+        }
+      ],
+      "approvalTemplate": {
+        "approvalId": "codex-a22-p1-release-hygiene-security",
+        "branch": "codex/A22-p1-release-hygiene-security",
+        "path": "/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A22-p1-release-hygiene-security",
+        "selectedFinalState": "<one allowed final state from this request>",
+        "approvedBy": "<owner or owning agent>",
+        "approvedAt": "<ISO-8601 timestamp>",
+        "evidenceReviewed": [
+          "coordination/release-intake/archive/2026-06-30-A25-linked-worktree-archive-manifest.md",
+          "coordination/release-intake/archive/codex-A22-p1-release-hygiene-security.status.txt",
+          "coordination/release-intake/archive/codex-A22-p1-release-hygiene-security.diffstat.txt",
+          "coordination/release-intake/archive/codex-A22-p1-release-hygiene-security.patch",
+          "coordination/release-intake/archive/codex-A22-p1-release-hygiene-security.untracked.txt",
+          "coordination/release-intake/archive/2026-06-30-A25-dirty-diverged-branch-archive-manifest.md",
+          "coordination/release-intake/archive/codex-A22-p1-release-hygiene-security.dirty-diverged.ahead-log.txt",
+          "coordination/release-intake/archive/codex-A22-p1-release-hygiene-security.dirty-diverged.diffstat.txt",
+          "coordination/release-intake/archive/codex-A22-p1-release-hygiene-security.dirty-diverged.patch"
+        ],
+        "notes": "<scope, checks, and any exact paths if approving discard/removal>"
+      }
+    },
+    {
+      "approvalId": "codex-a22-us-region-alignment",
+      "branch": "codex/A22-us-region-alignment",
+      "path": "/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A22-us-region-alignment",
+      "state": "clean-diverged-open-decision",
+      "kind": "clean-diverged-branch",
+      "currentBlocker": "behind 1, ahead 1",
+      "ownerHints": [
+        "A22"
+      ],
+      "evidence": [
+        "coordination/release-intake/archive/2026-06-30-A25-clean-diverged-branch-archive-manifest.md",
+        "coordination/release-intake/archive/codex-A22-us-region-alignment.clean-diverged.status.txt",
+        "coordination/release-intake/archive/codex-A22-us-region-alignment.clean-diverged.ahead-log.txt",
+        "coordination/release-intake/archive/codex-A22-us-region-alignment.clean-diverged.name-status.txt",
+        "coordination/release-intake/archive/codex-A22-us-region-alignment.clean-diverged.diffstat.txt",
+        "coordination/release-intake/archive/codex-A22-us-region-alignment.clean-diverged.patch",
+        "coordination/release-intake/archive/codex-A22-us-region-alignment.clean-diverged.untracked.txt"
+      ],
+      "evidenceCoverage": {
+        "rootOwnerPackageEvidence": false,
+        "dirtyLinkedArchive": false,
+        "cleanDivergedArchive": true,
+        "dirtyDivergedArchive": false
+      },
+      "allowedFinalStates": [
+        {
+          "selectedFinalState": "owner-approved PR or review package",
+          "effect": "The owning agent promotes the branch through review without using the dirty root as release source."
+        },
+        {
+          "selectedFinalState": "archive-state record",
+          "effect": "A25 records the branch as preserved evidence; a real Git tag still needs separate explicit approval."
+        },
+        {
+          "selectedFinalState": "owner-approved branch or worktree retirement",
+          "effect": "A separately authorized Git operation may retire the branch or remove the worktree after archive review."
+        },
+        {
+          "selectedFinalState": "blocker",
+          "effect": "A25 records the unresolved owner, branch, and reason blocking closure."
+        }
+      ],
+      "approvalTemplate": {
+        "approvalId": "codex-a22-us-region-alignment",
+        "branch": "codex/A22-us-region-alignment",
+        "path": "/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A22-us-region-alignment",
+        "selectedFinalState": "<one allowed final state from this request>",
+        "approvedBy": "<owner or owning agent>",
+        "approvedAt": "<ISO-8601 timestamp>",
+        "evidenceReviewed": [
+          "coordination/release-intake/archive/2026-06-30-A25-clean-diverged-branch-archive-manifest.md",
+          "coordination/release-intake/archive/codex-A22-us-region-alignment.clean-diverged.status.txt",
+          "coordination/release-intake/archive/codex-A22-us-region-alignment.clean-diverged.ahead-log.txt",
+          "coordination/release-intake/archive/codex-A22-us-region-alignment.clean-diverged.name-status.txt",
+          "coordination/release-intake/archive/codex-A22-us-region-alignment.clean-diverged.diffstat.txt",
+          "coordination/release-intake/archive/codex-A22-us-region-alignment.clean-diverged.patch",
+          "coordination/release-intake/archive/codex-A22-us-region-alignment.clean-diverged.untracked.txt"
+        ],
+        "notes": "<scope, checks, and any exact paths if approving discard/removal>"
+      }
+    },
+    {
+      "approvalId": "codex-a25-dirty-closure-governance",
+      "branch": "codex/A25-dirty-closure-governance",
+      "path": "/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A25-dirty-closure-governance",
+      "state": "dirty-open-decision",
+      "kind": "dirty-diverged-worktree",
+      "currentBlocker": "dirty 1018",
+      "ownerHints": [
+        "A25"
+      ],
+      "evidence": [
+        "coordination/release-intake/archive/2026-06-30-A25-linked-worktree-archive-manifest.md",
+        "coordination/release-intake/archive/codex-A25-dirty-closure-governance.status.txt",
+        "coordination/release-intake/archive/codex-A25-dirty-closure-governance.diffstat.txt",
+        "coordination/release-intake/archive/codex-A25-dirty-closure-governance.patch",
+        "coordination/release-intake/archive/codex-A25-dirty-closure-governance.untracked.txt",
+        "coordination/release-intake/archive/2026-06-30-A25-dirty-diverged-branch-archive-manifest.md",
+        "coordination/release-intake/archive/codex-A25-dirty-closure-governance.dirty-diverged.ahead-log.txt",
+        "coordination/release-intake/archive/codex-A25-dirty-closure-governance.dirty-diverged.diffstat.txt",
+        "coordination/release-intake/archive/codex-A25-dirty-closure-governance.dirty-diverged.patch"
+      ],
+      "evidenceCoverage": {
+        "rootOwnerPackageEvidence": false,
+        "dirtyLinkedArchive": true,
+        "cleanDivergedArchive": false,
+        "dirtyDivergedArchive": true
+      },
+      "allowedFinalStates": [
+        {
+          "selectedFinalState": "owner-reviewed commit or package extraction",
+          "effect": "The owning agent commits the dirty worktree slice or extracts it into a reviewed clean package."
+        },
+        {
+          "selectedFinalState": "owner-approved exact-path discard",
+          "effect": "A separately authorized Git operation discards only approved dirty paths after archive review."
+        },
+        {
+          "selectedFinalState": "evidence archive with retained-worktree blocker",
+          "effect": "A25 keeps the worktree retained and blocked after preserving patch and untracked evidence."
+        },
+        {
+          "selectedFinalState": "owner-approved worktree removal after dirty state closure",
+          "effect": "A separately authorized Git operation may remove the worktree only after dirty state is committed, discarded, or explicitly closed."
+        },
+        {
+          "selectedFinalState": "blocker",
+          "effect": "A25 records the unresolved owner, worktree, and reason blocking closure."
+        }
+      ],
+      "approvalTemplate": {
+        "approvalId": "codex-a25-dirty-closure-governance",
+        "branch": "codex/A25-dirty-closure-governance",
+        "path": "/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A25-dirty-closure-governance",
+        "selectedFinalState": "<one allowed final state from this request>",
+        "approvedBy": "<owner or owning agent>",
+        "approvedAt": "<ISO-8601 timestamp>",
+        "evidenceReviewed": [
+          "coordination/release-intake/archive/2026-06-30-A25-linked-worktree-archive-manifest.md",
+          "coordination/release-intake/archive/codex-A25-dirty-closure-governance.status.txt",
+          "coordination/release-intake/archive/codex-A25-dirty-closure-governance.diffstat.txt",
+          "coordination/release-intake/archive/codex-A25-dirty-closure-governance.patch",
+          "coordination/release-intake/archive/codex-A25-dirty-closure-governance.untracked.txt",
+          "coordination/release-intake/archive/2026-06-30-A25-dirty-diverged-branch-archive-manifest.md",
+          "coordination/release-intake/archive/codex-A25-dirty-closure-governance.dirty-diverged.ahead-log.txt",
+          "coordination/release-intake/archive/codex-A25-dirty-closure-governance.dirty-diverged.diffstat.txt",
+          "coordination/release-intake/archive/codex-A25-dirty-closure-governance.dirty-diverged.patch"
+        ],
+        "notes": "<scope, checks, and any exact paths if approving discard/removal>"
+      }
+    },
+    {
+      "approvalId": "codex-a25-full-dirty-compose-verification",
+      "branch": "codex/A25-full-dirty-compose-verification",
+      "path": "/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A25-full-dirty-compose-verification",
+      "state": "dirty-open-decision",
+      "kind": "dirty-diverged-worktree",
+      "currentBlocker": "dirty 2423",
+      "ownerHints": [
+        "A25"
+      ],
+      "evidence": [
+        "coordination/release-intake/archive/2026-06-30-A25-linked-worktree-archive-manifest.md",
+        "coordination/release-intake/archive/codex-A25-full-dirty-compose-verification.status.txt",
+        "coordination/release-intake/archive/codex-A25-full-dirty-compose-verification.diffstat.txt",
+        "coordination/release-intake/archive/codex-A25-full-dirty-compose-verification.patch",
+        "coordination/release-intake/archive/codex-A25-full-dirty-compose-verification.untracked.txt",
+        "coordination/release-intake/archive/2026-06-30-A25-dirty-diverged-branch-archive-manifest.md",
+        "coordination/release-intake/archive/codex-A25-full-dirty-compose-verification.dirty-diverged.ahead-log.txt",
+        "coordination/release-intake/archive/codex-A25-full-dirty-compose-verification.dirty-diverged.diffstat.txt",
+        "coordination/release-intake/archive/codex-A25-full-dirty-compose-verification.dirty-diverged.patch"
+      ],
+      "evidenceCoverage": {
+        "rootOwnerPackageEvidence": false,
+        "dirtyLinkedArchive": true,
+        "cleanDivergedArchive": false,
+        "dirtyDivergedArchive": true
+      },
+      "allowedFinalStates": [
+        {
+          "selectedFinalState": "owner-reviewed commit or package extraction",
+          "effect": "The owning agent commits the dirty worktree slice or extracts it into a reviewed clean package."
+        },
+        {
+          "selectedFinalState": "owner-approved exact-path discard",
+          "effect": "A separately authorized Git operation discards only approved dirty paths after archive review."
+        },
+        {
+          "selectedFinalState": "evidence archive with retained-worktree blocker",
+          "effect": "A25 keeps the worktree retained and blocked after preserving patch and untracked evidence."
+        },
+        {
+          "selectedFinalState": "owner-approved worktree removal after dirty state closure",
+          "effect": "A separately authorized Git operation may remove the worktree only after dirty state is committed, discarded, or explicitly closed."
+        },
+        {
+          "selectedFinalState": "blocker",
+          "effect": "A25 records the unresolved owner, worktree, and reason blocking closure."
+        }
+      ],
+      "approvalTemplate": {
+        "approvalId": "codex-a25-full-dirty-compose-verification",
+        "branch": "codex/A25-full-dirty-compose-verification",
+        "path": "/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A25-full-dirty-compose-verification",
+        "selectedFinalState": "<one allowed final state from this request>",
+        "approvedBy": "<owner or owning agent>",
+        "approvedAt": "<ISO-8601 timestamp>",
+        "evidenceReviewed": [
+          "coordination/release-intake/archive/2026-06-30-A25-linked-worktree-archive-manifest.md",
+          "coordination/release-intake/archive/codex-A25-full-dirty-compose-verification.status.txt",
+          "coordination/release-intake/archive/codex-A25-full-dirty-compose-verification.diffstat.txt",
+          "coordination/release-intake/archive/codex-A25-full-dirty-compose-verification.patch",
+          "coordination/release-intake/archive/codex-A25-full-dirty-compose-verification.untracked.txt",
+          "coordination/release-intake/archive/2026-06-30-A25-dirty-diverged-branch-archive-manifest.md",
+          "coordination/release-intake/archive/codex-A25-full-dirty-compose-verification.dirty-diverged.ahead-log.txt",
+          "coordination/release-intake/archive/codex-A25-full-dirty-compose-verification.dirty-diverged.diffstat.txt",
+          "coordination/release-intake/archive/codex-A25-full-dirty-compose-verification.dirty-diverged.patch"
+        ],
+        "notes": "<scope, checks, and any exact paths if approving discard/removal>"
+      }
+    },
+    {
+      "approvalId": "codex-visualization-production-release",
+      "branch": "codex/visualization-production-release",
+      "path": "/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/visualization-production-release",
+      "state": "dirty-open-decision",
+      "kind": "dirty-diverged-worktree",
+      "currentBlocker": "dirty 16",
+      "ownerHints": [
+        "A06",
+        "A22"
+      ],
+      "evidence": [
+        "coordination/release-intake/archive/2026-06-30-A25-linked-worktree-archive-manifest.md",
+        "coordination/release-intake/archive/codex-visualization-production-release.status.txt",
+        "coordination/release-intake/archive/codex-visualization-production-release.diffstat.txt",
+        "coordination/release-intake/archive/codex-visualization-production-release.patch",
+        "coordination/release-intake/archive/codex-visualization-production-release.untracked.txt",
+        "coordination/release-intake/archive/2026-06-30-A25-dirty-diverged-branch-archive-manifest.md",
+        "coordination/release-intake/archive/codex-visualization-production-release.dirty-diverged.ahead-log.txt",
+        "coordination/release-intake/archive/codex-visualization-production-release.dirty-diverged.diffstat.txt",
+        "coordination/release-intake/archive/codex-visualization-production-release.dirty-diverged.patch"
+      ],
+      "evidenceCoverage": {
+        "rootOwnerPackageEvidence": false,
+        "dirtyLinkedArchive": true,
+        "cleanDivergedArchive": false,
+        "dirtyDivergedArchive": true
+      },
+      "allowedFinalStates": [
+        {
+          "selectedFinalState": "owner-reviewed commit or package extraction",
+          "effect": "The owning agent commits the dirty worktree slice or extracts it into a reviewed clean package."
+        },
+        {
+          "selectedFinalState": "owner-approved exact-path discard",
+          "effect": "A separately authorized Git operation discards only approved dirty paths after archive review."
+        },
+        {
+          "selectedFinalState": "evidence archive with retained-worktree blocker",
+          "effect": "A25 keeps the worktree retained and blocked after preserving patch and untracked evidence."
+        },
+        {
+          "selectedFinalState": "owner-approved worktree removal after dirty state closure",
+          "effect": "A separately authorized Git operation may remove the worktree only after dirty state is committed, discarded, or explicitly closed."
+        },
+        {
+          "selectedFinalState": "blocker",
+          "effect": "A25 records the unresolved owner, worktree, and reason blocking closure."
+        }
+      ],
+      "approvalTemplate": {
+        "approvalId": "codex-visualization-production-release",
+        "branch": "codex/visualization-production-release",
+        "path": "/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/visualization-production-release",
+        "selectedFinalState": "<one allowed final state from this request>",
+        "approvedBy": "<owner or owning agent>",
+        "approvedAt": "<ISO-8601 timestamp>",
+        "evidenceReviewed": [
+          "coordination/release-intake/archive/2026-06-30-A25-linked-worktree-archive-manifest.md",
+          "coordination/release-intake/archive/codex-visualization-production-release.status.txt",
+          "coordination/release-intake/archive/codex-visualization-production-release.diffstat.txt",
+          "coordination/release-intake/archive/codex-visualization-production-release.patch",
+          "coordination/release-intake/archive/codex-visualization-production-release.untracked.txt",
+          "coordination/release-intake/archive/2026-06-30-A25-dirty-diverged-branch-archive-manifest.md",
+          "coordination/release-intake/archive/codex-visualization-production-release.dirty-diverged.ahead-log.txt",
+          "coordination/release-intake/archive/codex-visualization-production-release.dirty-diverged.diffstat.txt",
+          "coordination/release-intake/archive/codex-visualization-production-release.dirty-diverged.patch"
+        ],
+        "notes": "<scope, checks, and any exact paths if approving discard/removal>"
+      }
+    },
+    {
+      "approvalId": "codex-california-practice-beta-clean",
+      "branch": "codex/california-practice-beta-clean",
+      "path": "/Users/dongpinhu/Desktop/MAIS-MVP-worktrees/MAIS-MVP-california-practice-beta-clean",
+      "state": "clean-diverged-open-decision",
+      "kind": "clean-diverged-branch",
+      "currentBlocker": "behind 13, ahead 1",
+      "ownerHints": [
+        "A21",
+        "A18",
+        "A04",
+        "A22"
+      ],
+      "evidence": [
+        "coordination/release-intake/archive/2026-06-30-A25-clean-diverged-branch-archive-manifest.md",
+        "coordination/release-intake/archive/codex-california-practice-beta-clean.clean-diverged.status.txt",
+        "coordination/release-intake/archive/codex-california-practice-beta-clean.clean-diverged.ahead-log.txt",
+        "coordination/release-intake/archive/codex-california-practice-beta-clean.clean-diverged.name-status.txt",
+        "coordination/release-intake/archive/codex-california-practice-beta-clean.clean-diverged.diffstat.txt",
+        "coordination/release-intake/archive/codex-california-practice-beta-clean.clean-diverged.patch",
+        "coordination/release-intake/archive/codex-california-practice-beta-clean.clean-diverged.untracked.txt"
+      ],
+      "evidenceCoverage": {
+        "rootOwnerPackageEvidence": false,
+        "dirtyLinkedArchive": false,
+        "cleanDivergedArchive": true,
+        "dirtyDivergedArchive": false
+      },
+      "allowedFinalStates": [
+        {
+          "selectedFinalState": "owner-approved PR or review package",
+          "effect": "The owning agent promotes the branch through review without using the dirty root as release source."
+        },
+        {
+          "selectedFinalState": "archive-state record",
+          "effect": "A25 records the branch as preserved evidence; a real Git tag still needs separate explicit approval."
+        },
+        {
+          "selectedFinalState": "owner-approved branch or worktree retirement",
+          "effect": "A separately authorized Git operation may retire the branch or remove the worktree after archive review."
+        },
+        {
+          "selectedFinalState": "blocker",
+          "effect": "A25 records the unresolved owner, branch, and reason blocking closure."
+        }
+      ],
+      "approvalTemplate": {
+        "approvalId": "codex-california-practice-beta-clean",
+        "branch": "codex/california-practice-beta-clean",
+        "path": "/Users/dongpinhu/Desktop/MAIS-MVP-worktrees/MAIS-MVP-california-practice-beta-clean",
+        "selectedFinalState": "<one allowed final state from this request>",
+        "approvedBy": "<owner or owning agent>",
+        "approvedAt": "<ISO-8601 timestamp>",
+        "evidenceReviewed": [
+          "coordination/release-intake/archive/2026-06-30-A25-clean-diverged-branch-archive-manifest.md",
+          "coordination/release-intake/archive/codex-california-practice-beta-clean.clean-diverged.status.txt",
+          "coordination/release-intake/archive/codex-california-practice-beta-clean.clean-diverged.ahead-log.txt",
+          "coordination/release-intake/archive/codex-california-practice-beta-clean.clean-diverged.name-status.txt",
+          "coordination/release-intake/archive/codex-california-practice-beta-clean.clean-diverged.diffstat.txt",
+          "coordination/release-intake/archive/codex-california-practice-beta-clean.clean-diverged.patch",
+          "coordination/release-intake/archive/codex-california-practice-beta-clean.clean-diverged.untracked.txt"
+        ],
+        "notes": "<scope, checks, and any exact paths if approving discard/removal>"
+      }
+    },
+    {
+      "approvalId": "codex-s22-release-hygiene-2026-06-15",
+      "branch": "codex/s22-release-hygiene-2026-06-15",
+      "path": "/Users/dongpinhu/Desktop/MAIS-MVP-worktrees/s22-release-hygiene-2026-06-15",
+      "state": "clean-diverged-open-decision",
+      "kind": "clean-diverged-branch",
+      "currentBlocker": "behind 13, ahead 1",
+      "ownerHints": [
+        "A22",
+        "A10"
+      ],
+      "evidence": [
+        "coordination/release-intake/archive/2026-06-30-A25-clean-diverged-branch-archive-manifest.md",
+        "coordination/release-intake/archive/codex-s22-release-hygiene-2026-06-15.clean-diverged.status.txt",
+        "coordination/release-intake/archive/codex-s22-release-hygiene-2026-06-15.clean-diverged.ahead-log.txt",
+        "coordination/release-intake/archive/codex-s22-release-hygiene-2026-06-15.clean-diverged.name-status.txt",
+        "coordination/release-intake/archive/codex-s22-release-hygiene-2026-06-15.clean-diverged.diffstat.txt",
+        "coordination/release-intake/archive/codex-s22-release-hygiene-2026-06-15.clean-diverged.patch",
+        "coordination/release-intake/archive/codex-s22-release-hygiene-2026-06-15.clean-diverged.untracked.txt"
+      ],
+      "evidenceCoverage": {
+        "rootOwnerPackageEvidence": false,
+        "dirtyLinkedArchive": false,
+        "cleanDivergedArchive": true,
+        "dirtyDivergedArchive": false
+      },
+      "allowedFinalStates": [
+        {
+          "selectedFinalState": "owner-approved PR or review package",
+          "effect": "The owning agent promotes the branch through review without using the dirty root as release source."
+        },
+        {
+          "selectedFinalState": "archive-state record",
+          "effect": "A25 records the branch as preserved evidence; a real Git tag still needs separate explicit approval."
+        },
+        {
+          "selectedFinalState": "owner-approved branch or worktree retirement",
+          "effect": "A separately authorized Git operation may retire the branch or remove the worktree after archive review."
+        },
+        {
+          "selectedFinalState": "blocker",
+          "effect": "A25 records the unresolved owner, branch, and reason blocking closure."
+        }
+      ],
+      "approvalTemplate": {
+        "approvalId": "codex-s22-release-hygiene-2026-06-15",
+        "branch": "codex/s22-release-hygiene-2026-06-15",
+        "path": "/Users/dongpinhu/Desktop/MAIS-MVP-worktrees/s22-release-hygiene-2026-06-15",
+        "selectedFinalState": "<one allowed final state from this request>",
+        "approvedBy": "<owner or owning agent>",
+        "approvedAt": "<ISO-8601 timestamp>",
+        "evidenceReviewed": [
+          "coordination/release-intake/archive/2026-06-30-A25-clean-diverged-branch-archive-manifest.md",
+          "coordination/release-intake/archive/codex-s22-release-hygiene-2026-06-15.clean-diverged.status.txt",
+          "coordination/release-intake/archive/codex-s22-release-hygiene-2026-06-15.clean-diverged.ahead-log.txt",
+          "coordination/release-intake/archive/codex-s22-release-hygiene-2026-06-15.clean-diverged.name-status.txt",
+          "coordination/release-intake/archive/codex-s22-release-hygiene-2026-06-15.clean-diverged.diffstat.txt",
+          "coordination/release-intake/archive/codex-s22-release-hygiene-2026-06-15.clean-diverged.patch",
+          "coordination/release-intake/archive/codex-s22-release-hygiene-2026-06-15.clean-diverged.untracked.txt"
+        ],
+        "notes": "<scope, checks, and any exact paths if approving discard/removal>"
+      }
+    }
+  ]
+}

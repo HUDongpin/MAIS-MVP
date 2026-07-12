@@ -1,0 +1,43 @@
+{
+  "generatedAt": "2026-07-10T15:57:41.499Z",
+  "repoRoot": "/Users/dongpinhu/Desktop/MAIS-MVP",
+  "dirtyMapStatusSignature": "37c9d353a7710b8e92d3d766006b7230936ca194044a47770a99ab12d7c6cef1",
+  "expandedStatusEntries": 7221,
+  "sourceArtifacts": {
+    "acceptanceDocketGeneratedAt": "2026-07-10T15:57:41.384Z",
+    "canonicalAuthorizationsGeneratedAt": "2026-07-10T15:57:40.785Z",
+    "finalStateLedgerGeneratedAt": "2026-07-10T15:56:09.251Z"
+  },
+  "sourceCurrentnessFailures": [],
+  "canonicalTarget": "coordination/release-intake/latest-A25-next-owner-authorizations.json",
+  "batchId": "next-owner-package-final-state-batch-01",
+  "batchStatus": "no-focus-batch",
+  "ownerInputRows": [],
+  "heldRows": [],
+  "heldPolicyApprovalIds": [
+    "wave01-resync-01-tsconfig-json"
+  ],
+  "summary": {
+    "focusBatchRows": 0,
+    "acceptedRows": 0,
+    "pendingRows": 0,
+    "heldRows": 0,
+    "canonicalDraftVisibleRows": 0,
+    "canonicalAuthorizationVisibleRows": 0,
+    "ownerInputVisibleRows": 0,
+    "cleanupAuthorizedRows": 0,
+    "executableRows": 0,
+    "sourceCurrentnessFailures": 0
+  },
+  "boundary": {
+    "evidenceOnly": true,
+    "createsAuthorizationFile": false,
+    "recordsOwnerApproval": false,
+    "recordsExecutionInstruction": false,
+    "mergeAuthorized": false,
+    "cleanupAuthorized": false,
+    "executableNow": false,
+    "destructiveGitAuthorized": false,
+    "deployAuthorized": false
+  }
+}

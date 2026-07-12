@@ -1,0 +1,58 @@
+# 2026-07-02 A25 Owner Disposition Queue
+
+Generated: 2026-07-02T15:38:47.620Z
+
+Dirty map: `coordination/release-intake/latest-A25-dirty-tree-map.json`
+
+Expanded status entries: 3505
+
+Status signature: `aab9818713f7df7ad2d9e281c7534227bc41a877b346ef4339ea49f3b0123cb2`
+
+## Required Gates
+
+- dirty map current: `npm run release:dirty-map -- --assert-current --max-age-minutes 60`
+- owner pathspecs current: `node coordination/release-intake/assert-owner-pathspecs-current.mjs`
+- unmapped runtime owner proposals current: `node coordination/release-intake/assert-unmapped-owner-proposals-current.mjs`
+- effective owner overlay current: `node coordination/release-intake/assert-effective-owner-overlay-current.mjs`
+- unmapped manual owner proposals current: `node coordination/release-intake/assert-unmapped-manual-proposals-current.mjs`
+- secret/env quarantine: `node coordination/release-intake/assert-secret-env-quarantine.mjs`
+- disposition evidence current: `node coordination/release-intake/assert-disposition-evidence-current.mjs`
+- worktree lifecycle normal: `node coordination/release-intake/assert-worktree-lifecycle.mjs`
+- release source clean: `node coordination/release-intake/assert-release-source-clean.mjs`
+- worktree lifecycle strict closure: `node coordination/release-intake/assert-worktree-lifecycle.mjs --strict`
+
+## Queue
+
+| Priority | Owner | Entries | Dominant slice | Pathspec | Required final state | Reason |
+| ---: | --- | ---: | --- | --- | --- | --- |
+| P1 | A25 git hygiene and release intake | 1768 | docs/coordination evidence: 1767 | `coordination/release-intake/latest-A25-owner-a25-git-hygiene-and-release-intake.pathspec` | reviewed commit, owner-approved discard, evidence archive, or blocker | Release-intake evidence should be reviewed/committed as one coordination package. |
+| P1 | A22 production reliability and release engineering | 67 | docs/coordination evidence: 50 | `coordination/release-intake/latest-A25-owner-a22-production-reliability-and-release-engineering.pathspec` | reviewed commit, owner-approved discard, evidence archive, or blocker | Release gate and deploy-source hygiene. |
+| P2 | A06 visualization lead | 445 | runtime app/API/data/public: 235 | `coordination/release-intake/latest-A25-owner-a06-visualization-lead.pathspec` | reviewed commit, owner-approved discard, evidence archive, or blocker | Largest dirty owner package; also linked to dirty visualization worktree. |
+| P2 | A12 backend/API platform | 175 | runtime app/API/data/public: 116 | `coordination/release-intake/latest-A25-owner-a12-backend-api-platform.pathspec` | reviewed commit, owner-approved discard, evidence archive, or blocker | High-risk API/storage surface; requires contract tests. |
+| P2 | A11 QA and release quality | 62 | tests/regression evidence: 62 | `coordination/release-intake/latest-A25-owner-a11-qa-and-release-quality.pathspec` | reviewed commit, owner-approved discard, evidence archive, or blocker | Regression evidence should be split by owning product surface. |
+| P3 | A10 tooling, docs, and report | 395 | docs/coordination evidence: 389 | `coordination/release-intake/latest-A25-owner-a10-tooling-docs-and-report.pathspec` | reviewed commit, owner-approved discard, evidence archive, or blocker | Shared coordination/config surface. |
+| P3 | A18 curriculum QA / A21 content pipeline | 138 | docs/coordination evidence: 136 | `coordination/release-intake/latest-A25-owner-a18-curriculum-qa-a21-content-pipeline.pathspec` | reviewed commit, owner-approved discard, evidence archive, or blocker | Content QA and generation pipeline must stay separated. |
+| P3 | A21 content pipeline and RAG operations | 74 | generated/content/RAG backlog: 65 | `coordination/release-intake/latest-A25-owner-a21-content-pipeline-and-rag-operations.pathspec` | reviewed commit, owner-approved discard, evidence archive, or blocker | Generated/RAG backlog requires provenance review. |
+| P4 | A05 lesson lead | 126 | runtime app/API/data/public: 116 | `coordination/release-intake/latest-A25-owner-a05-lesson-lead.pathspec` | reviewed commit, owner-approved discard, evidence archive, or blocker | Standard owner review package. |
+| P4 | A04 practice lead | 56 | runtime app/API/data/public: 46 | `coordination/release-intake/latest-A25-owner-a04-practice-lead.pathspec` | reviewed commit, owner-approved discard, evidence archive, or blocker | Standard owner review package. |
+| P4 | A13 teacher console | 36 | runtime app/API/data/public: 35 | `coordination/release-intake/latest-A25-owner-a13-teacher-console.pathspec` | reviewed commit, owner-approved discard, evidence archive, or blocker | Standard owner review package. |
+| P4 | A01 app shell lead | 31 | runtime app/API/data/public: 29 | `coordination/release-intake/latest-A25-owner-a01-app-shell-lead.pathspec` | reviewed commit, owner-approved discard, evidence archive, or blocker | Standard owner review package. |
+| P4 | A03 curriculum roadmap lead | 30 | runtime app/API/data/public: 29 | `coordination/release-intake/latest-A25-owner-a03-curriculum-roadmap-lead.pathspec` | reviewed commit, owner-approved discard, evidence archive, or blocker | Standard owner review package. |
+| P4 | A02 dashboard lead | 21 | runtime app/API/data/public: 13 | `coordination/release-intake/latest-A25-owner-a02-dashboard-lead.pathspec` | reviewed commit, owner-approved discard, evidence archive, or blocker | Standard owner review package. |
+| P4 | A20 game design and game-based learning | 16 | runtime app/API/data/public: 15 | `coordination/release-intake/latest-A25-owner-a20-game-design-and-game-based-learning.pathspec` | reviewed commit, owner-approved discard, evidence archive, or blocker | Standard owner review package. |
+| P4 | A07 AI tutor lead | 12 | runtime app/API/data/public: 9 | `coordination/release-intake/latest-A25-owner-a07-ai-tutor-lead.pathspec` | reviewed commit, owner-approved discard, evidence archive, or blocker | Standard owner review package. |
+| P4 | A08 state and analytics lead | 11 | runtime app/API/data/public: 5 | `coordination/release-intake/latest-A25-owner-a08-state-and-analytics-lead.pathspec` | reviewed commit, owner-approved discard, evidence archive, or blocker | Standard owner review package. |
+| P4 | A15 adaptive engine lead | 9 | runtime app/API/data/public: 8 | `coordination/release-intake/latest-A25-owner-a15-adaptive-engine-lead.pathspec` | reviewed commit, owner-approved discard, evidence archive, or blocker | Standard owner review package. |
+| P4 | A24 illustration exact-layer | 8 | runtime app/API/data/public: 6 | `coordination/release-intake/latest-A25-owner-a24-illustration-exact-layer.pathspec` | reviewed commit, owner-approved discard, evidence archive, or blocker | Standard owner review package. |
+| P4 | A14 parent console | 7 | runtime app/API/data/public: 7 | `coordination/release-intake/latest-A25-owner-a14-parent-console.pathspec` | reviewed commit, owner-approved discard, evidence archive, or blocker | Standard owner review package. |
+| P4 | A16 research and learning science | 6 | docs/coordination evidence: 6 | `coordination/release-intake/latest-A25-owner-a16-research-and-learning-science.pathspec` | reviewed commit, owner-approved discard, evidence archive, or blocker | Standard owner review package. |
+| P4 | A09 copy, i18n, accessibility | 5 | runtime app/API/data/public: 5 | `coordination/release-intake/latest-A25-owner-a09-copy-i18n-accessibility.pathspec` | reviewed commit, owner-approved discard, evidence archive, or blocker | Standard owner review package. |
+| P4 | A17 gamification and motivation | 5 | runtime app/API/data/public: 3 | `coordination/release-intake/latest-A25-owner-a17-gamification-and-motivation.pathspec` | reviewed commit, owner-approved discard, evidence archive, or blocker | Standard owner review package. |
+| P4 | A23 integration and promotion lead | 2 | docs/coordination evidence: 2 | `coordination/release-intake/latest-A25-owner-a23-integration-and-promotion-lead.pathspec` | reviewed commit, owner-approved discard, evidence archive, or blocker | Standard owner review package. |
+
+## Usage
+
+- Start with P0/P1 packages.
+- Use each row's pathspec for focused review only.
+- Do not mix neighboring dirty files into a package.
+- Every package must end as reviewed commit, owner-approved discard, evidence archive, or blocker.

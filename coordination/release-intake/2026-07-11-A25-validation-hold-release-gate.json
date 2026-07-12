@@ -1,0 +1,242 @@
+{
+  "generatedAt": "2026-07-10T17:12:27.805Z",
+  "repoRoot": "/Users/dongpinhu/Desktop/MAIS-MVP",
+  "gateKind": "a25-validation-hold-release-gate",
+  "gateStatus": "blocked-worktree-still-registered",
+  "validationHoldReleased": false,
+  "validationHold": {
+    "status": "waiting-for-owner-compose-deletion-confirmation",
+    "activeWorktreePath": "/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A10-A22-A08-A12-A06-compose-20260628",
+    "reason": "Owner reported active exact deletion in this compose worktree; linked-worktree archive, Wave 06, aggregate remediation, and completion-audit refreshes should wait for owner confirmation.",
+    "resumeCondition": "Owner confirms exact deletion in the compose worktree is complete.",
+    "safePostInputValidationCommands": [
+      "node coordination/release-intake/assert-next-owner-authorizations-current.mjs",
+      "node coordination/release-intake/generate-next-owner-authorization-execution-preview.mjs",
+      "node coordination/release-intake/assert-next-owner-authorization-execution-preview-current.mjs",
+      "node coordination/release-intake/assert-owner-package-blocker-report-records-current.mjs",
+      "node coordination/release-intake/assert-owner-closure-input-readiness-current.mjs"
+    ],
+    "deferredAggregateValidationCommands": [
+      "node coordination/release-intake/refresh-linked-worktree-archive-evidence.mjs",
+      "node coordination/release-intake/assert-linked-worktree-archive-evidence-current.mjs",
+      "node coordination/release-intake/generate-wave06-final-root-lifecycle-readiness.mjs",
+      "node coordination/release-intake/assert-wave06-final-root-lifecycle-readiness-current.mjs",
+      "node coordination/release-intake/refresh-dirty-worktree-remediation-evidence.mjs --reason \"owner input action packet post-input verification\"",
+      "node coordination/release-intake/assert-dirty-worktree-remediation-current.mjs",
+      "node coordination/release-intake/generate-dirty-worktree-remediation-completion-audit.mjs",
+      "node coordination/release-intake/assert-dirty-worktree-remediation-completion-audit-current.mjs"
+    ]
+  },
+  "sourceArtifacts": {
+    "ownerConfirmationRecord": {
+      "path": "coordination/release-intake/latest-A25-validation-hold-release-owner-confirmation-record.json",
+      "present": true,
+      "recordedAt": "2026-07-09T09:55:29.567Z",
+      "dirtyMapStatusSignature": "20c7448db61729ea2d5d202df4c84dc83261d5936eb4308df90c8b2227c39fb7",
+      "expandedStatusEntries": 6583
+    },
+    "recordingDryRun": {
+      "path": "coordination/release-intake/latest-A25-validation-hold-release-confirmation-recording-dry-run.json",
+      "recorderStatus": "dry-run-ready-requires-explicit-apply",
+      "ownerConfirmationAccepted": true,
+      "existingRecordPresent": true,
+      "existingRecordMatchesCurrent": false
+    },
+    "recordingGate": {
+      "path": "coordination/release-intake/latest-A25-validation-hold-release-confirmation-recording-current-gate.json",
+      "recorderStatus": "dry-run-ready-requires-explicit-apply",
+      "ownerConfirmationAccepted": true,
+      "failures": []
+    }
+  },
+  "sourceCurrentnessFailures": [],
+  "ownerConfirmationRecord": {
+    "present": true,
+    "valid": true,
+    "validationFailures": [],
+    "stableProjection": {
+      "recordKind": "a25-validation-hold-release-owner-confirmation-record",
+      "dirtyMapStatusSignature": "20c7448db61729ea2d5d202df4c84dc83261d5936eb4308df90c8b2227c39fb7",
+      "expandedStatusEntries": 6583,
+      "sourceScaffold": "coordination/release-intake/latest-A25-validation-hold-release-confirmation-scaffold.json",
+      "sourceScaffoldGate": "coordination/release-intake/latest-A25-validation-hold-release-confirmation-scaffold-current-gate.json",
+      "sourceOwnerConfirmationInput": "coordination/release-intake/latest-A25-validation-hold-release-owner-confirmation.json",
+      "validationHold": {
+        "status": "waiting-for-owner-compose-deletion-confirmation",
+        "activeWorktreePath": "/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A10-A22-A08-A12-A06-compose-20260628",
+        "reason": "Owner reported active exact deletion in this compose worktree; linked-worktree archive, Wave 06, aggregate remediation, and completion-audit refreshes should wait for owner confirmation.",
+        "resumeCondition": "Owner confirms exact deletion in the compose worktree is complete.",
+        "safePostInputValidationCommands": [
+          "node coordination/release-intake/assert-next-owner-authorizations-current.mjs",
+          "node coordination/release-intake/generate-next-owner-authorization-execution-preview.mjs",
+          "node coordination/release-intake/assert-next-owner-authorization-execution-preview-current.mjs",
+          "node coordination/release-intake/assert-owner-package-blocker-report-records-current.mjs",
+          "node coordination/release-intake/assert-owner-closure-input-readiness-current.mjs"
+        ],
+        "deferredAggregateValidationCommands": [
+          "node coordination/release-intake/refresh-linked-worktree-archive-evidence.mjs",
+          "node coordination/release-intake/assert-linked-worktree-archive-evidence-current.mjs",
+          "node coordination/release-intake/generate-wave06-final-root-lifecycle-readiness.mjs",
+          "node coordination/release-intake/assert-wave06-final-root-lifecycle-readiness-current.mjs",
+          "node coordination/release-intake/refresh-dirty-worktree-remediation-evidence.mjs --reason \"owner input action packet post-input verification\"",
+          "node coordination/release-intake/assert-dirty-worktree-remediation-current.mjs",
+          "node coordination/release-intake/generate-dirty-worktree-remediation-completion-audit.mjs",
+          "node coordination/release-intake/assert-dirty-worktree-remediation-completion-audit-current.mjs"
+        ]
+      },
+      "ownerConfirmation": {
+        "ownerConfirmed": true,
+        "confirmationText": "确认 A10-A22-A08-A12-A06 compose worktree exact deletion 已完成，可以继续 validation hold release 评估。",
+        "activeWorktreePath": "/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A10-A22-A08-A12-A06-compose-20260628",
+        "scope": "validation-hold-release-review-only",
+        "confirmedBy": "owner",
+        "confirmedAt": "2026-07-07T15:10:00Z",
+        "mergeAuthorized": false,
+        "cleanupAuthorized": false,
+        "deployAuthorized": false,
+        "destructiveGitAuthorized": false,
+        "physicalLifecycleCleanupAuthorized": false,
+        "notes": "Owner confirmed only that the compose worktree deletion hold may be reviewed for release. This does not authorize merge, cleanup, deploy, destructive Git, or physical lifecycle cleanup."
+      },
+      "boundary": {
+        "recordsOwnerConfirmation": true,
+        "releasesValidationHold": false,
+        "recordsAuthorization": false,
+        "recordsExecutionInstruction": false,
+        "stageAuthorized": false,
+        "commitAuthorized": false,
+        "mergeAuthorized": false,
+        "cleanupAuthorized": false,
+        "executableNow": false,
+        "deployAuthorized": false,
+        "destructiveGitAuthorized": false,
+        "physicalLifecycleCleanupAuthorized": false,
+        "requiresSeparateValidationHoldReleaseGate": true
+      }
+    }
+  },
+  "gitWorktreeLedger": {
+    "activeWorktreePath": "/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A10-A22-A08-A12-A06-compose-20260628",
+    "activeWorktreeRegistered": true,
+    "activeWorktreeMatch": {
+      "path": "/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A10-A22-A08-A12-A06-compose-20260628",
+      "head": "f8143dab082575d321a00ac9e022bf5ef86fe2d2",
+      "branch": "refs/heads/codex/A10-A22-A08-A12-A06-compose-20260628",
+      "bare": false,
+      "detached": false
+    },
+    "worktreeCount": 39,
+    "activeWorktreeFilesystem": {
+      "path": "/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A10-A22-A08-A12-A06-compose-20260628",
+      "existsOnDisk": true,
+      "isDirectory": true,
+      "isSymbolicLink": false,
+      "branch": "codex/A10-A22-A08-A12-A06-compose-20260628",
+      "head": "f8143dab082575d321a00ac9e022bf5ef86fe2d2",
+      "statusEntryCount": 896,
+      "statusPreview": [
+        "M .env.local.example",
+        " M .gitignore",
+        " M .vercelignore",
+        " M app/adaptive-learning/loading.tsx",
+        " M app/adaptive-learning/page.tsx",
+        " M app/api/adaptive-learning/next/route.ts",
+        " M app/api/adaptive-learning/refresh/route.ts",
+        " M app/api/ai-tutor/route.ts",
+        " M app/api/ai-tutor/status/route.ts",
+        " M app/api/analytics/export/route.ts",
+        " M app/api/analytics/summary/route.ts",
+        " M app/api/handwriting-recognition/route.ts",
+        " M app/api/learning-events/route.ts",
+        " M app/api/lessons/[slug]/route.ts",
+        " M app/api/questions/route.ts",
+        " M app/api/teacher/resources/route.ts",
+        " M app/lesson/[slug]/page.tsx",
+        " M app/lesson/california-high-school-textbook/page.tsx",
+        " M app/lesson/loading.tsx",
+        " M app/lesson/page.tsx"
+      ],
+      "statusPreviewTruncated": true
+    },
+    "pruneDryRunRows": []
+  },
+  "releaseGateChecks": [
+    {
+      "id": "source-current",
+      "status": "pass",
+      "detail": "sourceCurrentnessFailures=0"
+    },
+    {
+      "id": "owner-confirmation-record-present-or-blocked",
+      "status": "pass",
+      "detail": "ownerRecordPresent=true"
+    },
+    {
+      "id": "owner-confirmation-record-valid-or-blocked",
+      "status": "pass",
+      "detail": "ownerRecordValid=true; validationFailures=0"
+    },
+    {
+      "id": "confirmation-recording-current-or-blocked",
+      "status": "pass",
+      "detail": "recordingCurrent=true"
+    },
+    {
+      "id": "git-worktree-ledger-status-coherent",
+      "status": "pass",
+      "detail": "activeWorktreeRegistered=true"
+    },
+    {
+      "id": "active-worktree-filesystem-status-coherent",
+      "status": "pass",
+      "detail": "existsOnDisk=true; statusEntryCount=896; pruneDryRunRows=0"
+    },
+    {
+      "id": "release-only-when-worktree-absent",
+      "status": "pass",
+      "detail": "status=blocked-worktree-still-registered; activeWorktreeRegistered=true"
+    },
+    {
+      "id": "safe-boundary-no-cleanup-merge-deploy",
+      "status": "pass",
+      "detail": "this gate is evidence-only and grants no cleanup, merge, deploy, destructive git, or physical lifecycle cleanup"
+    },
+    {
+      "id": "status-coherent",
+      "status": "pass",
+      "detail": "status=blocked-worktree-still-registered"
+    }
+  ],
+  "summary": {
+    "ownerConfirmationRecorded": true,
+    "ownerConfirmationRecordPresent": true,
+    "ownerConfirmationRecordValid": true,
+    "confirmationRecordingCurrent": true,
+    "worktreeStillRegistered": true,
+    "activeWorktreePathExists": true,
+    "activeWorktreeDirtyStatusEntries": 896,
+    "worktreePruneDryRunRows": 0,
+    "validationHoldReleased": false,
+    "cleanupAuthorizedRows": 0,
+    "executableRows": 0,
+    "failedReleaseGateChecks": 0
+  },
+  "boundary": {
+    "evidenceOnly": true,
+    "recordsOwnerConfirmation": false,
+    "releasesValidationHold": false,
+    "recordsAuthorization": false,
+    "recordsExecutionInstruction": false,
+    "stageAuthorized": false,
+    "commitAuthorized": false,
+    "mergeAuthorized": false,
+    "cleanupAuthorized": false,
+    "executableNow": false,
+    "deployAuthorized": false,
+    "destructiveGitAuthorized": false,
+    "physicalLifecycleCleanupAuthorized": false,
+    "requiresSeparateMergeInstruction": true,
+    "requiresSeparateCleanupInstruction": true,
+    "requiresSeparateDeployInstruction": true
+  }
+}

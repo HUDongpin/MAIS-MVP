@@ -15,6 +15,16 @@ export async function POST(request: Request) {
   if (!authenticated) {
     return NextResponse.json({ error: "Not authenticated." }, { status: 401 });
   }
+  if (authenticated.user.role !== "student") {
+    return NextResponse.json({
+      error: "Student access required.",
+      reason: "student-only",
+      guard: {
+        en: "Adaptive learner state refresh is available only to the signed-in student in the P1 pilot loop.",
+        zh: "P1 試點閉環中，適性學習者狀態刷新只對已登入學生本人開放。"
+      }
+    }, { status: 403 });
+  }
 
   const url = new URL(request.url);
   const body = await request.json().catch(() => null) as unknown;

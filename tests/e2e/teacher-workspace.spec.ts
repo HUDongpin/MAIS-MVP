@@ -6,6 +6,20 @@ import {
   uniqueSuffix
 } from "./helpers";
 
+// Add the first question in the free paper builder's Select step, waiting for
+// the async question query to settle and confirming the paper count actually
+// incremented before the caller publishes/saves (guards a load-order race).
+async function addFirstWizardQuestion(page: import("@playwright/test").Page) {
+  await page.getByRole("button", { name: /^2\. Select$/i }).click();
+  await page.waitForLoadState("networkidle").catch(() => undefined);
+  const paperCount = page
+    .locator("div.soft-panel")
+    .filter({ hasText: /In paper/i })
+    .locator("p.gradient-text");
+  await page.getByRole("button", { name: /^Add$/i }).first().click();
+  await expect(paperCount).not.toHaveText(/^0$/);
+}
+
 test.describe.serial("teacher workspace frontend workflows", () => {
   test("teacher navigation, search, class creation, resources, and assessments work", async ({ page }, testInfo) => {
     test.slow();
@@ -39,7 +53,8 @@ test.describe.serial("teacher workspace frontend workflows", () => {
     await page.goto("/teacher");
     await page.getByPlaceholder(/Search students, assignments, resources/i).fill("quadratic");
     await page.getByPlaceholder(/Search students, assignments, resources/i).press("Enter");
-    await expect(page).toHaveURL(/\/teacher\?q=quadratic/);
+    // /teacher now redirects to /teacher/dashboard, so workspace search resolves there.
+    await expect(page).toHaveURL(/\/teacher(?:\/dashboard)?\?q=quadratic/);
     await page.getByLabel(/Class focus/i).selectOption("class-s3a-2026");
     await expect(page).toHaveURL(/classId=class-s3a-2026/);
 
@@ -62,7 +77,7 @@ test.describe.serial("teacher workspace frontend workflows", () => {
     await uploadSection.getByLabel(/Title/i).fill(resourceTitle);
     await uploadSection.getByLabel(/Grade/i).selectOption("S3");
     await uploadSection.getByLabel(/Type/i).selectOption("worksheet");
-    await uploadSection.getByLabel(/Difficulty/i).selectOption("Core");
+    await uploadSection.getByLabel(/Difficulty/i).selectOption("Medium");
     await uploadSection.locator('input[name="file"]').setInputFiles(fixturePath("sample-resource.pdf"));
     const uploadResponse = page.waitForResponse((response) =>
       response.url().includes("/api/teacher/resources") && response.request().method() === "POST"
@@ -70,7 +85,9 @@ test.describe.serial("teacher workspace frontend workflows", () => {
     await uploadSection.getByRole("button", { name: /Upload/i }).click();
     expect((await uploadResponse).ok()).toBeTruthy();
     await page.reload();
-    await expect(page.getByText(resourceTitle)).toBeVisible();
+    // The uploaded resource renders in multiple placements (highlight card,
+    // responsive variants); the library table row is the canonical one.
+    await expect(page.getByRole("table").getByText(resourceTitle)).toBeVisible();
     await page.getByLabel(/Recent/i).check();
     const uploadedResourceRow = page.locator("tr").filter({ hasText: resourceTitle }).first();
     await expect(uploadedResourceRow).toBeVisible();
@@ -83,7 +100,10 @@ test.describe.serial("teacher workspace frontend workflows", () => {
     await page.getByRole("spinbutton", { name: /Time limit/i }).fill("20");
     await page.getByRole("spinbutton", { name: /Weight/i }).fill("15");
     await page.getByRole("spinbutton", { name: /Attempts/i }).fill("2");
-    await page.getByRole("button", { name: /^Create assessment$/i }).click();
+    // The free paper builder wizard requires at least one selected question
+    // before it can publish; add the first question from the Select step.
+    await addFirstWizardQuestion(page);
+    await page.getByRole("button", { name: /Publish assessment/i }).click();
     await expect(page).toHaveURL(/\/teacher\/assessments\/assessment-/);
     await expect(page.getByRole("heading", { name: new RegExp(assessmentTitle, "i") })).toBeVisible();
     await expect(page.getByText(/Score distribution/i)).toBeVisible();
@@ -107,10 +127,18 @@ test.describe.serial("teacher workspace frontend workflows", () => {
     await page.getByRole("button", { name: /^Create assignment$/i }).click();
     await expect(page).toHaveURL(/\/teacher\/assignments\/assignment-/);
     await expect(page.getByRole("heading", { name: new RegExp(assignmentTitle, "i") })).toBeVisible();
-    const submissionRow = page.locator("tr").filter({ hasText: /HK Student Peter/i }).first();
-    await submissionRow.locator("input").fill("88");
-    await submissionRow.getByRole("button", { name: /Save/i }).click();
-    await expect(submissionRow.getByText("88")).toBeVisible();
+    // Grading moved from table rows to per-student cards with a score input
+    // and explicit "Save score" / "Return for correction" actions.
+    const submissionCard = page.locator("article").filter({ hasText: /HK Student Peter/i }).first();
+    await submissionCard.locator("input").first().fill("88");
+    await submissionCard.getByRole("button", { name: /Save score/i }).click();
+    await expect(submissionCard.getByText(/88/).first()).toBeVisible();
+
+    // OCR/AI grading suggestion + loop closure (offline fixture provider).
+    await submissionCard.getByRole("button", { name: /Run OCR\/AI suggestion/i }).click();
+    await expect(submissionCard.getByText(/AI suggestion ready/i)).toBeVisible();
+    await submissionCard.getByRole("button", { name: /Confirm and close loop/i }).click();
+    await expect(submissionCard.getByText(/Review recorded/i)).toBeVisible();
 
     await page.goto("/teacher/analytics");
     await expect(page.getByRole("heading", { name: /Class insight and intervention/i })).toBeVisible();
@@ -148,7 +176,8 @@ test.describe.serial("teacher workspace frontend workflows", () => {
     await expectDownloadFrom(page, () => page.getByRole("link", { name: /Export CSV/i }).click({ force: true }), /student-report-.*\.csv/);
     await expectDownloadFrom(page, () => page.getByRole("link", { name: /Export PDF/i }).click({ force: true }), /student-report-.*\.pdf/);
     await page.getByRole("button", { name: /Save report/i }).click({ force: true });
-    await expect(page.getByText(/Report saved to history/i)).toBeVisible();
+    // Save round-trips to the server; allow headroom for the async confirmation.
+    await expect(page.getByText(/Report saved and added to history/i)).toBeVisible({ timeout: 15_000 });
 
     await page.goto("/teacher/inbox");
     await expect(page.getByRole("heading", { name: /^Inbox$/i })).toBeVisible();
@@ -161,5 +190,34 @@ test.describe.serial("teacher workspace frontend workflows", () => {
     await page.getByRole("button", { name: /Send reply/i }).click();
     await expect(replyBox).toBeEmpty();
 
+  });
+
+  test("assessment wizard saves a draft and reopens it for editing", async ({ page }, testInfo) => {
+    test.slow();
+    const draftTitle = `E2E draft quiz ${uniqueSuffix(testInfo).slice(0, 18)}`;
+
+    await loginAsTeacher(page);
+    await page.goto("/teacher/assessments/new");
+    await page.getByRole("combobox", { name: /^Class$/i }).selectOption("class-s3a-2026");
+    await page.getByRole("combobox", { name: /Assessment type/i }).selectOption("quiz");
+    await page.getByRole("textbox", { name: /^Title$/i }).fill(draftTitle);
+
+    // Publishing requires a question; the builder must surface an announced
+    // validation alert if the teacher tries to save with an empty paper.
+    // (Scope past Next's always-present empty route announcer.)
+    await page.getByRole("button", { name: /Save draft/i }).click();
+    await expect(page.getByRole("alert").filter({ hasText: /Add at least one question/i })).toBeVisible();
+
+    await addFirstWizardQuestion(page);
+    await page.getByRole("button", { name: /Save draft/i }).click();
+
+    await expect(page).toHaveURL(/\/teacher\/assessments\/assessment-/);
+    await expect(page.getByRole("heading", { name: new RegExp(draftTitle, "i") })).toBeVisible();
+    await expect(page.getByText(/^Draft$/).first()).toBeVisible();
+
+    // Draft assessments must be editable; the edit route reopens the builder.
+    await page.getByRole("link", { name: /^Edit$/i }).click();
+    await expect(page).toHaveURL(/\/teacher\/assessments\/assessment-.*\/edit/);
+    await expect(page.getByRole("textbox", { name: /^Title$/i })).toHaveValue(new RegExp(draftTitle, "i"));
   });
 });

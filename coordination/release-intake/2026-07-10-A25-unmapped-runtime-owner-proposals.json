@@ -1,0 +1,48 @@
+{
+  "generatedAt": "2026-07-10T15:56:03.163Z",
+  "dirtyMap": {
+    "latestJson": "coordination/release-intake/latest-A25-dirty-tree-map.json",
+    "generatedAt": "2026-07-10T15:55:27.044Z",
+    "statusSignature": "37c9d353a7710b8e92d3d766006b7230936ca194044a47770a99ab12d7c6cef1"
+  },
+  "sourceOwner": "Unmapped runtime owner review needed",
+  "sourceCount": 3,
+  "proposalBuckets": {
+    "Manual A10/A25 owner assignment required": 3
+  },
+  "confidenceBuckets": {
+    "none": 3
+  },
+  "proposals": [
+    {
+      "status": " M",
+      "path": "data/hjbQuestionLocalization.ts",
+      "owner": "Unmapped runtime owner review needed",
+      "slice": "runtime app/API/data/public",
+      "proposedOwner": "Manual A10/A25 owner assignment required",
+      "coordination": [],
+      "confidence": "none",
+      "rationale": "No proposal rule matched this path."
+    },
+    {
+      "status": "??",
+      "path": "lib/questionFigure.test.ts",
+      "owner": "Unmapped runtime owner review needed",
+      "slice": "tests/regression evidence",
+      "proposedOwner": "Manual A10/A25 owner assignment required",
+      "coordination": [],
+      "confidence": "none",
+      "rationale": "No proposal rule matched this path."
+    },
+    {
+      "status": "??",
+      "path": "lib/questionFigure.ts",
+      "owner": "Unmapped runtime owner review needed",
+      "slice": "runtime app/API/data/public",
+      "proposedOwner": "Manual A10/A25 owner assignment required",
+      "coordination": [],
+      "confidence": "none",
+      "rationale": "No proposal rule matched this path."
+    }
+  ]
+}

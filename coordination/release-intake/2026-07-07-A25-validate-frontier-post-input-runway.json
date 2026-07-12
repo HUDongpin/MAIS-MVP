@@ -1,0 +1,728 @@
+{
+  "generatedAt": "2026-07-07T15:32:47.980Z",
+  "repoRoot": "/Users/dongpinhu/Desktop/MAIS-MVP",
+  "runwayKind": "a25-a22-validate-frontier-post-input-runway",
+  "runwayStatus": "waiting-for-owner-frontier-approval",
+  "currentStep": "owner-input",
+  "dirtyMapStatusSignature": "84e0553381630f5c29322b7cd071032a65d4d5b479cd222bba15314f9269b4e0",
+  "expandedStatusEntries": 5717,
+  "sourceArtifacts": {
+    "dirtyMap": {
+      "key": "dirtyMap",
+      "path": "coordination/release-intake/latest-A25-dirty-tree-map.json",
+      "generatedAt": "2026-07-07T15:02:49.974Z",
+      "dirtyMapStatusSignature": "84e0553381630f5c29322b7cd071032a65d4d5b479cd222bba15314f9269b4e0",
+      "expandedStatusEntries": 5717
+    },
+    "transitionForecast": {
+      "key": "transitionForecast",
+      "path": "coordination/release-intake/latest-A25-validate-frontier-transition-forecast.json",
+      "generatedAt": "2026-07-07T15:08:05.416Z",
+      "dirtyMapStatusSignature": "84e0553381630f5c29322b7cd071032a65d4d5b479cd222bba15314f9269b4e0",
+      "expandedStatusEntries": 5717
+    },
+    "authorizationRoundValidationPlan": {
+      "key": "authorizationRoundValidationPlan",
+      "path": "coordination/release-intake/latest-A25-authorization-round-validation-plan.json",
+      "generatedAt": "2026-07-07T15:06:51.089Z",
+      "dirtyMapStatusSignature": "84e0553381630f5c29322b7cd071032a65d4d5b479cd222bba15314f9269b4e0",
+      "expandedStatusEntries": 5717
+    },
+    "validateFrontierCapsule": {
+      "key": "validateFrontierCapsule",
+      "path": "coordination/release-intake/latest-A25-validate-frontier-owner-input-request-capsule.json",
+      "generatedAt": "2026-07-07T15:08:05.303Z",
+      "dirtyMapStatusSignature": "84e0553381630f5c29322b7cd071032a65d4d5b479cd222bba15314f9269b4e0",
+      "expandedStatusEntries": 5717
+    },
+    "a22OwnerInputLandingRunway": {
+      "key": "a22OwnerInputLandingRunway",
+      "path": "coordination/release-intake/latest-A22-root-parity-owner-input-landing-runway.json",
+      "generatedAt": "2026-07-07T15:14:44.000Z",
+      "dirtyMapStatusSignature": "84e0553381630f5c29322b7cd071032a65d4d5b479cd222bba15314f9269b4e0",
+      "expandedStatusEntries": 5717
+    },
+    "a22CleanSourceValidationQueue": {
+      "key": "a22CleanSourceValidationQueue",
+      "path": "coordination/release-intake/latest-A22-clean-source-validation-queue.json",
+      "generatedAt": "2026-07-07T15:27:02.470Z",
+      "dirtyMapStatusSignature": "84e0553381630f5c29322b7cd071032a65d4d5b479cd222bba15314f9269b4e0",
+      "expandedStatusEntries": 5717
+    },
+    "a22CandidateMutationDryRun": {
+      "key": "a22CandidateMutationDryRun",
+      "path": "coordination/release-intake/latest-A22-root-parity-candidate-mutation-dry-run.json",
+      "generatedAt": "2026-07-07T15:18:24.392Z",
+      "dirtyMapStatusSignature": "84e0553381630f5c29322b7cd071032a65d4d5b479cd222bba15314f9269b4e0",
+      "expandedStatusEntries": 5717
+    },
+    "a22CandidateMutationCurrentGate": {
+      "key": "a22CandidateMutationCurrentGate",
+      "path": "coordination/release-intake/latest-A22-root-parity-candidate-mutation-current-gate.json",
+      "generatedAt": "2026-07-07T15:18:56.720Z",
+      "dirtyMapStatusSignature": "84e0553381630f5c29322b7cd071032a65d4d5b479cd222bba15314f9269b4e0",
+      "expandedStatusEntries": 5717
+    },
+    "sevenStepClosureBridge": {
+      "key": "sevenStepClosureBridge",
+      "path": "coordination/release-intake/latest-A25-seven-step-closure-bridge.json",
+      "generatedAt": "2026-07-07T15:32:13.796Z",
+      "dirtyMapStatusSignature": "84e0553381630f5c29322b7cd071032a65d4d5b479cd222bba15314f9269b4e0",
+      "expandedStatusEntries": 5717
+    }
+  },
+  "sourceCurrentnessFailures": [],
+  "frontier": {
+    "ownerInputGroups": 2,
+    "ownerFrontierRows": 7,
+    "a25FocusRows": 3,
+    "a25FocusApprovalIds": [
+      "a09-copy-i18n-accessibility",
+      "a17-gamification-and-motivation",
+      "a23-integration-and-promotion-lead"
+    ],
+    "a22SelectedActionRows": 4,
+    "a22ApprovalIds": [
+      "a06-visualization-back-to-top-import-parity",
+      "a20-math-virus-blaster-data-parity",
+      "a20-mighty-tank-battle-data-parity",
+      "a05-california-high-school-lesson-illustration-data-parity"
+    ],
+    "currentPendingCanonicalAuthorizationRows": 42,
+    "projectedPendingCanonicalAuthorizationRows": 39,
+    "currentValidAuthorizationRows": 21,
+    "projectedValidAuthorizationRows": 24
+  },
+  "phaseRows": [
+    {
+      "order": 1,
+      "id": "preflight-currentness",
+      "ownerIds": [
+        "A25",
+        "A22"
+      ],
+      "status": "safe-now",
+      "safeRunnableNow": true,
+      "blockedUntil": "none",
+      "purpose": "Confirm the dirty map, transition forecast, and no-staged guard before any owner-input recording.",
+      "commands": [
+        "npm run release:dirty-map -- --assert-current --max-age-minutes 60",
+        "node coordination/release-intake/assert-validate-frontier-transition-forecast-current.mjs",
+        "node coordination/release-intake/assert-no-staged-changes.mjs"
+      ],
+      "stopCondition": "Stop if currentness or staged-change gates fail.",
+      "boundary": {
+        "evidenceOnly": true,
+        "recordsAuthorization": false,
+        "recordsOwnerInput": false,
+        "recordsExtractionInstruction": false,
+        "modifiesCandidate": false,
+        "copiesRootFiles": false,
+        "runsTypeCheck": false,
+        "runsBuild": false,
+        "runsRegression": false,
+        "stageAuthorized": false,
+        "commitAuthorized": false,
+        "mergeAuthorized": false,
+        "cleanupAuthorized": false,
+        "executableNow": false,
+        "deployAuthorized": false,
+        "destructiveGitAuthorized": false,
+        "physicalLifecycleCleanupAuthorized": false
+      }
+    },
+    {
+      "order": 2,
+      "id": "owner-frontier-approval-required",
+      "ownerIds": [
+        "A25",
+        "A22"
+      ],
+      "status": "blocked-explicit-owner-approval-required",
+      "safeRunnableNow": false,
+      "blockedUntil": "Owner approves the exact A25 3 focus rows and A22 4 selectedAction rows.",
+      "purpose": "Collect owner approval without treating it as cleanup, merge, deploy, or candidate mutation authorization.",
+      "commands": [],
+      "a25CopyableOwnerReplyTextZh": "我授权当前 3 条 owner-package canonical authorization preview：approvalIds=a09-copy-i18n-accessibility,a17-gamification-and-motivation,a23-integration-and-promotion-lead；selectedFinalState=reviewed commit；不授权 cleanup；不授权 deploy；不授权 merge；不授权 destructive git；不授权 physical lifecycle cleanup。",
+      "a22CopyableOwnerReplyTextZh": "我授权当前 4 条 A22 root-parity selectedAction canonical preview：approvalIds=a06-visualization-back-to-top-import-parity,a20-math-virus-blaster-data-parity,a20-mighty-tank-battle-data-parity,a05-california-high-school-lesson-illustration-data-parity；selectedActions=a06-visualization-back-to-top-import-parity:reexport,a20-math-virus-blaster-data-parity:same-path-copy,a20-mighty-tank-battle-data-parity:same-path-copy,a05-california-high-school-lesson-illustration-data-parity:same-path-copy；topCandidate=codex/A22-us-region-alignment；targetWorktree=/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A22-us-region-alignment；使用 latest-A22-root-parity-selected-action-canonical-preview.json 里的 exactOwnerExecutionTextLines；不授权 cleanup；不授权 deploy；不授权 merge；不授权 broad staging；不授权 destructive git；不授权 physical lifecycle cleanup。",
+      "a22ExactOwnerExecutionTextLines": [
+        "Authorize A22 root-parity extraction instruction for unitId=a06-visualization-back-to-top-import-parity; topCandidate=codex/A22-us-region-alignment; targetWorktree=/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A22-us-region-alignment; primaryOwnerIds=A06; coordinationOwnerIds=A22,A25; actionMode=owner-reviewed-reexport-or-import-align; rootSource=components/visualizations/VisualizationLabBackToTopButton.tsx; rootSourceSha256=efef3f7c3590ebbd6b21ca56a3d4fcdcab1c0e3dd591bf08ee5a6ccc58707155; candidateTarget=app/visualization-lab/VisualizationLabBackToTopButton.tsx; coveredBlockerRows=1; selectedAction=reexport; approvedBy=<owner>; approvedAt=<ISO-8601>; notes=<scope and checks>; No cleanup; No deploy; No merge; No broad staging; No destructive git; No physical lifecycle cleanup.",
+        "Authorize A22 root-parity extraction instruction for unitId=a20-math-virus-blaster-data-parity; topCandidate=codex/A22-us-region-alignment; targetWorktree=/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A22-us-region-alignment; primaryOwnerIds=A20; coordinationOwnerIds=A10,A22,A25; actionMode=owner-reviewed-same-path-data-extraction; rootSource=data/mathVirusBlaster.ts; rootSourceSha256=e7e7edfe35ada99e17be43cdfea5cea36e409d52e8a4c3966476209687b495fa; candidateTarget=data/mathVirusBlaster.ts; coveredBlockerRows=1; selectedAction=same-path-copy; approvedBy=<owner>; approvedAt=<ISO-8601>; notes=<scope and checks>; No cleanup; No deploy; No merge; No broad staging; No destructive git; No physical lifecycle cleanup.",
+        "Authorize A22 root-parity extraction instruction for unitId=a20-mighty-tank-battle-data-parity; topCandidate=codex/A22-us-region-alignment; targetWorktree=/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A22-us-region-alignment; primaryOwnerIds=A20; coordinationOwnerIds=A10,A22,A25; actionMode=owner-reviewed-same-path-data-extraction; rootSource=data/mightyTankBattle.ts; rootSourceSha256=d74bfa43d60d766f818bd7b8e958b386cdff38fc91d3ae5d84889c957c2138e7; candidateTarget=data/mightyTankBattle.ts; coveredBlockerRows=1; selectedAction=same-path-copy; approvedBy=<owner>; approvedAt=<ISO-8601>; notes=<scope and checks>; No cleanup; No deploy; No merge; No broad staging; No destructive git; No physical lifecycle cleanup.",
+        "Authorize A22 root-parity extraction instruction for unitId=a05-california-high-school-lesson-illustration-data-parity; topCandidate=codex/A22-us-region-alignment; targetWorktree=/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A22-us-region-alignment; primaryOwnerIds=A05; coordinationOwnerIds=A18,A21,A24,A22,A25; actionMode=owner-reviewed-same-path-data-extraction-with-content-signoff; rootSource=data/usCaliforniaHighSchoolLessonIllustrations.ts; rootSourceSha256=366c5b3a2e8ea9a67f1c13e005377f0be4d903d7d4657e15ad2d9f2da0507a28; candidateTarget=data/usCaliforniaHighSchoolLessonIllustrations.ts; coveredBlockerRows=2; selectedAction=same-path-copy; approvedBy=<owner>; approvedAt=<ISO-8601>; notes=<scope and checks>; No cleanup; No deploy; No merge; No broad staging; No destructive git; No physical lifecycle cleanup."
+      ],
+      "stopCondition": "Stop if the owner reply omits any row, changes selectedAction text, or adds cleanup/merge/deploy/destructive scope.",
+      "boundary": {
+        "evidenceOnly": true,
+        "recordsAuthorization": false,
+        "recordsOwnerInput": false,
+        "recordsExtractionInstruction": false,
+        "modifiesCandidate": false,
+        "copiesRootFiles": false,
+        "runsTypeCheck": false,
+        "runsBuild": false,
+        "runsRegression": false,
+        "stageAuthorized": false,
+        "commitAuthorized": false,
+        "mergeAuthorized": false,
+        "cleanupAuthorized": false,
+        "executableNow": false,
+        "deployAuthorized": false,
+        "destructiveGitAuthorized": false,
+        "physicalLifecycleCleanupAuthorized": false,
+        "requiresExplicitOwnerApprovalBeforeA25Recording": true,
+        "requiresExplicitOwnerApprovalBeforeA22OwnerInput": true
+      }
+    },
+    {
+      "order": 3,
+      "id": "a25-canonical-authorization-validation",
+      "ownerIds": [
+        "A25"
+      ],
+      "status": "blocked-until-a25-focus-rows-recorded",
+      "safeRunnableNow": false,
+      "blockedUntil": "A25 focus authorization rows have been recorded from explicit owner approval.",
+      "purpose": "Validate canonical authorization inputs and rebuild the non-executable authorization preview.",
+      "commands": [
+        "node coordination/release-intake/assert-next-owner-authorizations-current.mjs",
+        "node coordination/release-intake/generate-next-owner-authorization-execution-preview.mjs",
+        "node coordination/release-intake/assert-next-owner-authorization-execution-preview-current.mjs",
+        "node coordination/release-intake/assert-owner-package-blocker-report-records-current.mjs",
+        "node coordination/release-intake/assert-owner-closure-input-readiness-current.mjs"
+      ],
+      "stopCondition": "Stop if canonical authorization currentness or owner closure input readiness fails.",
+      "boundary": {
+        "evidenceOnly": true,
+        "recordsAuthorization": false,
+        "recordsOwnerInput": false,
+        "recordsExtractionInstruction": false,
+        "modifiesCandidate": false,
+        "copiesRootFiles": false,
+        "runsTypeCheck": false,
+        "runsBuild": false,
+        "runsRegression": false,
+        "stageAuthorized": false,
+        "commitAuthorized": false,
+        "mergeAuthorized": false,
+        "cleanupAuthorized": false,
+        "executableNow": false,
+        "deployAuthorized": false,
+        "destructiveGitAuthorized": false,
+        "physicalLifecycleCleanupAuthorized": false,
+        "requiresExplicitOwnerApprovalBeforeA25Recording": true
+      }
+    },
+    {
+      "order": 4,
+      "id": "a22-owner-input-recording-and-guarded-extraction-dry-run",
+      "ownerIds": [
+        "A22"
+      ],
+      "status": "blocked-until-a22-owner-input-recorded",
+      "safeRunnableNow": false,
+      "blockedUntil": "A22 selectedAction owner input is recorded from explicit owner approval.",
+      "purpose": "Run A22 instruction intake, recording, guarded-extraction dry-run, and current gates without selecting a release source.",
+      "commands": [
+        "node coordination/release-intake/generate-a22-top-clean-candidate-root-parity-extraction-instruction-intake.mjs",
+        "node coordination/release-intake/assert-a22-top-clean-candidate-root-parity-extraction-instruction-intake-current.mjs",
+        "node coordination/release-intake/run-a22-top-clean-candidate-root-parity-extraction-instruction-recording.mjs",
+        "node coordination/release-intake/assert-a22-top-clean-candidate-root-parity-extraction-instruction-recording-current.mjs",
+        "node coordination/release-intake/run-a22-top-clean-candidate-root-parity-guarded-extraction.mjs",
+        "node coordination/release-intake/assert-a22-top-clean-candidate-root-parity-guarded-extraction-current.mjs",
+        "node coordination/release-intake/assert-a22-clean-source-validation-queue-current.mjs",
+        "node coordination/release-intake/assert-validate-frontier-owner-input-request-capsule-current.mjs"
+      ],
+      "candidateMutationDryRunState": {
+        "executorStatus": "dry-run-blocked-owner-candidate-mutation-input",
+        "recordedInstructionRows": 4,
+        "applyPermitted": false,
+        "candidateMutationRows": 0,
+        "currentGateFailures": 0
+      },
+      "stopCondition": "Stop if owner input remains blank, instruction recording is missing, guarded extraction is not current, or candidate targets are still missing.",
+      "boundary": {
+        "evidenceOnly": true,
+        "recordsAuthorization": false,
+        "recordsOwnerInput": false,
+        "recordsExtractionInstruction": false,
+        "modifiesCandidate": false,
+        "copiesRootFiles": false,
+        "runsTypeCheck": false,
+        "runsBuild": false,
+        "runsRegression": false,
+        "stageAuthorized": false,
+        "commitAuthorized": false,
+        "mergeAuthorized": false,
+        "cleanupAuthorized": false,
+        "executableNow": false,
+        "deployAuthorized": false,
+        "destructiveGitAuthorized": false,
+        "physicalLifecycleCleanupAuthorized": false,
+        "requiresExplicitOwnerApprovalBeforeA22OwnerInput": true,
+        "requiresSeparateA22RecordingStep": true,
+        "requiresSeparateA22CandidateMutationInstruction": true
+      }
+    },
+    {
+      "order": 5,
+      "id": "a22-candidate-gate-rerun-after-extraction",
+      "ownerIds": [
+        "A22"
+      ],
+      "status": "blocked-until-a22-guarded-extraction-evidence-current",
+      "safeRunnableNow": false,
+      "blockedUntil": "A22 root-parity extraction evidence is current and the top candidate is ready for gate rerun.",
+      "purpose": "Rerun the focused smoke, type-check, build snapshot, and clean-source queue after approved extraction evidence.",
+      "topCandidate": {
+        "branch": "codex/A22-us-region-alignment",
+        "path": "/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A22-us-region-alignment",
+        "head": "80b8546af59def9ea4c91fa4b8a892973874504d",
+        "gateCoverageStatus": "top-candidate-gates-red",
+        "queueActionStatus": "needs-candidate-mutation-owner-input-before-rerun"
+      },
+      "commands": [
+        "npm run release:dirty-map -- --assert-current --max-age-minutes 60",
+        "node coordination/release-intake/assert-a22-clean-candidate-gate-coverage-matrix-current.mjs",
+        "node coordination/release-intake/assert-a22-top-clean-candidate-root-parity-owner-action-acceptance-docket-current.mjs",
+        "node coordination/release-intake/generate-a22-top-clean-candidate-root-parity-extraction-instruction-intake.mjs",
+        "node coordination/release-intake/assert-a22-top-clean-candidate-root-parity-extraction-instruction-intake-current.mjs",
+        "node coordination/release-intake/run-a22-top-clean-candidate-root-parity-extraction-instruction-recording.mjs",
+        "node coordination/release-intake/assert-a22-top-clean-candidate-root-parity-extraction-instruction-recording-current.mjs",
+        "node coordination/release-intake/run-a22-top-clean-candidate-root-parity-guarded-extraction.mjs",
+        "node coordination/release-intake/assert-a22-top-clean-candidate-root-parity-guarded-extraction-current.mjs",
+        "node coordination/release-intake/run-a22-root-parity-candidate-mutation.mjs",
+        "node coordination/release-intake/assert-a22-root-parity-candidate-mutation-current.mjs",
+        "node coordination/release-intake/generate-a22-top-clean-candidate-focused-smoke.mjs",
+        "node coordination/release-intake/assert-a22-top-clean-candidate-focused-smoke-current.mjs",
+        "node coordination/release-intake/generate-a22-top-clean-candidate-typecheck.mjs",
+        "node coordination/release-intake/assert-a22-top-clean-candidate-typecheck-current.mjs",
+        "node coordination/release-intake/generate-a22-top-clean-candidate-build-snapshot.mjs",
+        "node coordination/release-intake/assert-a22-top-clean-candidate-build-snapshot-current.mjs",
+        "node coordination/release-intake/generate-a22-clean-candidate-gate-coverage-matrix.mjs",
+        "node coordination/release-intake/assert-a22-clean-candidate-gate-coverage-matrix-current.mjs",
+        "node coordination/release-intake/generate-a22-clean-source-validation-queue.mjs",
+        "node coordination/release-intake/assert-a22-clean-source-validation-queue-current.mjs"
+      ],
+      "stopCondition": "Stop if focused smoke, type-check, build, or clean-source queue remains red.",
+      "boundary": {
+        "evidenceOnly": true,
+        "recordsAuthorization": false,
+        "recordsOwnerInput": false,
+        "recordsExtractionInstruction": false,
+        "modifiesCandidate": false,
+        "copiesRootFiles": false,
+        "runsTypeCheck": false,
+        "runsBuild": false,
+        "runsRegression": false,
+        "stageAuthorized": false,
+        "commitAuthorized": false,
+        "mergeAuthorized": false,
+        "cleanupAuthorized": false,
+        "executableNow": false,
+        "deployAuthorized": false,
+        "destructiveGitAuthorized": false,
+        "physicalLifecycleCleanupAuthorized": false,
+        "rerunOnlyAfterExtractionEvidence": true
+      }
+    },
+    {
+      "order": 6,
+      "id": "a25-deferred-aggregate-validation",
+      "ownerIds": [
+        "A25",
+        "A22"
+      ],
+      "status": "held:waiting-for-owner-compose-deletion-confirmation",
+      "safeRunnableNow": false,
+      "blockedUntil": "Candidate gates are green and the active validation hold has been explicitly released.",
+      "purpose": "Refresh linked-worktree evidence, Wave 06, aggregate remediation, and completion audit after post-input gates.",
+      "commands": [
+        "node coordination/release-intake/refresh-linked-worktree-archive-evidence.mjs",
+        "node coordination/release-intake/assert-linked-worktree-archive-evidence-current.mjs",
+        "node coordination/release-intake/generate-wave06-final-root-lifecycle-readiness.mjs",
+        "node coordination/release-intake/assert-wave06-final-root-lifecycle-readiness-current.mjs",
+        "node coordination/release-intake/refresh-dirty-worktree-remediation-evidence.mjs --reason \"owner input action packet post-input verification\"",
+        "node coordination/release-intake/assert-dirty-worktree-remediation-current.mjs",
+        "node coordination/release-intake/generate-dirty-worktree-remediation-completion-audit.mjs",
+        "node coordination/release-intake/assert-dirty-worktree-remediation-completion-audit-current.mjs"
+      ],
+      "validationHold": {
+        "status": "waiting-for-owner-compose-deletion-confirmation",
+        "activeWorktreePath": "/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A10-A22-A08-A12-A06-compose-20260628",
+        "reason": "Owner reported active exact deletion in this compose worktree; linked-worktree archive, Wave 06, aggregate remediation, and completion-audit refreshes should wait for owner confirmation.",
+        "resumeCondition": "Owner confirms exact deletion in the compose worktree is complete."
+      },
+      "stopCondition": "Stop if the validation hold remains active or aggregate current gate fails.",
+      "boundary": {
+        "evidenceOnly": true,
+        "recordsAuthorization": false,
+        "recordsOwnerInput": false,
+        "recordsExtractionInstruction": false,
+        "modifiesCandidate": false,
+        "copiesRootFiles": false,
+        "runsTypeCheck": false,
+        "runsBuild": false,
+        "runsRegression": false,
+        "stageAuthorized": false,
+        "commitAuthorized": false,
+        "mergeAuthorized": false,
+        "cleanupAuthorized": false,
+        "executableNow": false,
+        "deployAuthorized": false,
+        "destructiveGitAuthorized": false,
+        "physicalLifecycleCleanupAuthorized": false
+      }
+    },
+    {
+      "order": 7,
+      "id": "merge-cleanup-deploy-decision-gate",
+      "ownerIds": [
+        "A22",
+        "A25"
+      ],
+      "status": "blocked-explicit-merge-cleanup-deploy-authorization-required",
+      "safeRunnableNow": false,
+      "blockedUntil": "validateExitReady, releaseSourceEligibleNow, strict lifecycle, and separate owner merge/cleanup/deploy authorization are all present.",
+      "purpose": "Keep merge, cleanup, physical lifecycle cleanup, and deploy blocked until the release source is clean and the owner gives exact instructions.",
+      "commands": [],
+      "stopCondition": "Stop unless clean-source, strict lifecycle, merge authorization, cleanup authorization, and deploy authorization are each explicit and current.",
+      "boundary": {
+        "evidenceOnly": true,
+        "recordsAuthorization": false,
+        "recordsOwnerInput": false,
+        "recordsExtractionInstruction": false,
+        "modifiesCandidate": false,
+        "copiesRootFiles": false,
+        "runsTypeCheck": false,
+        "runsBuild": false,
+        "runsRegression": false,
+        "stageAuthorized": false,
+        "commitAuthorized": false,
+        "mergeAuthorized": false,
+        "cleanupAuthorized": false,
+        "executableNow": false,
+        "deployAuthorized": false,
+        "destructiveGitAuthorized": false,
+        "physicalLifecycleCleanupAuthorized": false,
+        "requiresSeparateMergeAuthorization": true,
+        "requiresSeparateCleanupAuthorization": true,
+        "requiresSeparateDeployAuthorization": true,
+        "requiresSeparatePhysicalLifecycleCleanupAuthorization": true
+      }
+    }
+  ],
+  "commandChains": {
+    "preflightCommands": [
+      "npm run release:dirty-map -- --assert-current --max-age-minutes 60",
+      "node coordination/release-intake/assert-validate-frontier-transition-forecast-current.mjs",
+      "node coordination/release-intake/assert-no-staged-changes.mjs"
+    ],
+    "a25SafePostInputValidationCommands": [
+      "node coordination/release-intake/assert-next-owner-authorizations-current.mjs",
+      "node coordination/release-intake/generate-next-owner-authorization-execution-preview.mjs",
+      "node coordination/release-intake/assert-next-owner-authorization-execution-preview-current.mjs",
+      "node coordination/release-intake/assert-owner-package-blocker-report-records-current.mjs",
+      "node coordination/release-intake/assert-owner-closure-input-readiness-current.mjs"
+    ],
+    "a25DeferredAggregateValidationCommands": [
+      "node coordination/release-intake/refresh-linked-worktree-archive-evidence.mjs",
+      "node coordination/release-intake/assert-linked-worktree-archive-evidence-current.mjs",
+      "node coordination/release-intake/generate-wave06-final-root-lifecycle-readiness.mjs",
+      "node coordination/release-intake/assert-wave06-final-root-lifecycle-readiness-current.mjs",
+      "node coordination/release-intake/refresh-dirty-worktree-remediation-evidence.mjs --reason \"owner input action packet post-input verification\"",
+      "node coordination/release-intake/assert-dirty-worktree-remediation-current.mjs",
+      "node coordination/release-intake/generate-dirty-worktree-remediation-completion-audit.mjs",
+      "node coordination/release-intake/assert-dirty-worktree-remediation-completion-audit-current.mjs"
+    ],
+    "a22PostOwnerInputValidationCommands": [
+      "node coordination/release-intake/generate-a22-top-clean-candidate-root-parity-extraction-instruction-intake.mjs",
+      "node coordination/release-intake/assert-a22-top-clean-candidate-root-parity-extraction-instruction-intake-current.mjs",
+      "node coordination/release-intake/run-a22-top-clean-candidate-root-parity-extraction-instruction-recording.mjs",
+      "node coordination/release-intake/assert-a22-top-clean-candidate-root-parity-extraction-instruction-recording-current.mjs",
+      "node coordination/release-intake/run-a22-top-clean-candidate-root-parity-guarded-extraction.mjs",
+      "node coordination/release-intake/assert-a22-top-clean-candidate-root-parity-guarded-extraction-current.mjs",
+      "node coordination/release-intake/assert-a22-clean-source-validation-queue-current.mjs",
+      "node coordination/release-intake/assert-validate-frontier-owner-input-request-capsule-current.mjs"
+    ],
+    "a22CandidateGateRerunCommands": [
+      "npm run release:dirty-map -- --assert-current --max-age-minutes 60",
+      "node coordination/release-intake/assert-a22-clean-candidate-gate-coverage-matrix-current.mjs",
+      "node coordination/release-intake/assert-a22-top-clean-candidate-root-parity-owner-action-acceptance-docket-current.mjs",
+      "node coordination/release-intake/generate-a22-top-clean-candidate-root-parity-extraction-instruction-intake.mjs",
+      "node coordination/release-intake/assert-a22-top-clean-candidate-root-parity-extraction-instruction-intake-current.mjs",
+      "node coordination/release-intake/run-a22-top-clean-candidate-root-parity-extraction-instruction-recording.mjs",
+      "node coordination/release-intake/assert-a22-top-clean-candidate-root-parity-extraction-instruction-recording-current.mjs",
+      "node coordination/release-intake/run-a22-top-clean-candidate-root-parity-guarded-extraction.mjs",
+      "node coordination/release-intake/assert-a22-top-clean-candidate-root-parity-guarded-extraction-current.mjs",
+      "node coordination/release-intake/run-a22-root-parity-candidate-mutation.mjs",
+      "node coordination/release-intake/assert-a22-root-parity-candidate-mutation-current.mjs",
+      "node coordination/release-intake/generate-a22-top-clean-candidate-focused-smoke.mjs",
+      "node coordination/release-intake/assert-a22-top-clean-candidate-focused-smoke-current.mjs",
+      "node coordination/release-intake/generate-a22-top-clean-candidate-typecheck.mjs",
+      "node coordination/release-intake/assert-a22-top-clean-candidate-typecheck-current.mjs",
+      "node coordination/release-intake/generate-a22-top-clean-candidate-build-snapshot.mjs",
+      "node coordination/release-intake/assert-a22-top-clean-candidate-build-snapshot-current.mjs",
+      "node coordination/release-intake/generate-a22-clean-candidate-gate-coverage-matrix.mjs",
+      "node coordination/release-intake/assert-a22-clean-candidate-gate-coverage-matrix-current.mjs",
+      "node coordination/release-intake/generate-a22-clean-source-validation-queue.mjs",
+      "node coordination/release-intake/assert-a22-clean-source-validation-queue-current.mjs"
+    ]
+  },
+  "blockers": {
+    "transitionBlockers": [
+      {
+        "id": "canonical-authorization-backlog",
+        "blockerClass": "owner-input",
+        "statusAfterCurrentFrontier": "still-blocked",
+        "count": 39,
+        "detail": "39 canonical authorization row(s) would remain after the current A25 focus rows.",
+        "recordsAuthorization": false,
+        "recordsOwnerInput": false,
+        "modifiesCandidate": false,
+        "mergeAuthorized": false,
+        "cleanupAuthorized": false,
+        "executableNow": false
+      },
+      {
+        "id": "wave01-resync-hold",
+        "blockerClass": "owner-confirmation-hold",
+        "statusAfterCurrentFrontier": "still-blocked",
+        "count": 1,
+        "approvalIds": [
+          "wave01-resync-01-tsconfig-json"
+        ],
+        "detail": "Held rows remain non-authorizable until explicit owner release.",
+        "recordsAuthorization": false,
+        "recordsOwnerInput": false,
+        "modifiesCandidate": false,
+        "mergeAuthorized": false,
+        "cleanupAuthorized": false,
+        "executableNow": false
+      },
+      {
+        "id": "validation-hold",
+        "blockerClass": "owner-confirmation-hold",
+        "statusAfterCurrentFrontier": "still-blocked",
+        "count": 1,
+        "detail": "Validation hold remains waiting for owner confirmation before validate can exit.",
+        "recordsAuthorization": false,
+        "recordsOwnerInput": false,
+        "modifiesCandidate": false,
+        "mergeAuthorized": false,
+        "cleanupAuthorized": false,
+        "executableNow": false
+      },
+      {
+        "id": "a22-extraction-recording-and-guarded-extraction",
+        "blockerClass": "release-source-clean",
+        "statusAfterCurrentFrontier": "unlocked-but-not-executed",
+        "count": 4,
+        "detail": "A22 selectedAction owner input only unlocks the recording/extraction chain; candidate mutation dry-run remains dry-run-blocked-missing-recorded-instructions with 0 mutation rows.",
+        "recordsAuthorization": false,
+        "recordsOwnerInput": false,
+        "modifiesCandidate": false,
+        "mergeAuthorized": false,
+        "cleanupAuthorized": false,
+        "executableNow": false
+      },
+      {
+        "id": "a22-candidate-mutation-still-separate",
+        "blockerClass": "candidate-mutation-authorization",
+        "statusAfterCurrentFrontier": "still-blocked",
+        "count": 4,
+        "detail": "Candidate mutation requires recorded extraction instructions plus a separate owner candidate-mutation input and explicit apply flag.",
+        "recordsAuthorization": false,
+        "recordsOwnerInput": false,
+        "modifiesCandidate": false,
+        "mergeAuthorized": false,
+        "cleanupAuthorized": false,
+        "executableNow": false
+      },
+      {
+        "id": "a22-clean-release-source",
+        "blockerClass": "release-source-clean",
+        "statusAfterCurrentFrontier": "still-blocked",
+        "count": 1,
+        "detail": "A22 release source is still not eligible for merge or deploy.",
+        "recordsAuthorization": false,
+        "recordsOwnerInput": false,
+        "modifiesCandidate": false,
+        "mergeAuthorized": false,
+        "cleanupAuthorized": false,
+        "executableNow": false
+      },
+      {
+        "id": "a22-post-extraction-candidate-gate-rerun",
+        "blockerClass": "candidate-validation",
+        "statusAfterCurrentFrontier": "still-required",
+        "count": 1,
+        "detail": "A22 focused smoke, type-check, build, and queue gates must be rerun after any approved extraction.",
+        "recordsAuthorization": false,
+        "recordsOwnerInput": false,
+        "modifiesCandidate": false,
+        "mergeAuthorized": false,
+        "cleanupAuthorized": false,
+        "executableNow": false
+      },
+      {
+        "id": "physical-lifecycle-deferred",
+        "blockerClass": "deferred-cleanup",
+        "statusAfterCurrentFrontier": "deferred",
+        "count": 38,
+        "detail": "Physical lifecycle cleanup remains deferred until validation, clean release source, and exact cleanup authorization are ready.",
+        "recordsAuthorization": false,
+        "recordsOwnerInput": false,
+        "modifiesCandidate": false,
+        "mergeAuthorized": false,
+        "cleanupAuthorized": false,
+        "executableNow": false
+      },
+      {
+        "id": "merge-not-authorized",
+        "blockerClass": "explicit-owner-merge-instruction",
+        "statusAfterCurrentFrontier": "still-blocked",
+        "count": 1,
+        "detail": "No merge instruction is recorded by frontier owner-input authorization.",
+        "recordsAuthorization": false,
+        "recordsOwnerInput": false,
+        "modifiesCandidate": false,
+        "mergeAuthorized": false,
+        "cleanupAuthorized": false,
+        "executableNow": false
+      }
+    ],
+    "validationHold": {
+      "status": "waiting-for-owner-compose-deletion-confirmation",
+      "activeWorktreePath": "/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A10-A22-A08-A12-A06-compose-20260628",
+      "reason": "Owner reported active exact deletion in this compose worktree; linked-worktree archive, Wave 06, aggregate remediation, and completion-audit refreshes should wait for owner confirmation.",
+      "resumeCondition": "Owner confirms exact deletion in the compose worktree is complete."
+    },
+    "topCandidateRequiredBeforeNextGateRun": [
+      "record separate candidate-mutation owner input for the 4 recorded A22 root-parity rows",
+      "run candidate mutation dry-run/current gate after owner input is recorded",
+      "run apply-candidate-mutation only with explicit owner candidate-mutation instruction",
+      "rerun candidate-specific focused smoke/type-check/build after candidate mutation evidence"
+    ],
+    "directFailedMergeChecks": 5,
+    "packageWorktreeTypeCheckErrorLines": 9907,
+    "a22TypeCheckErrorLines": 652,
+    "a22CandidateMutationExecutorStatus": "dry-run-blocked-owner-candidate-mutation-input",
+    "a22CandidateMutationRecordedInstructionRows": 4,
+    "a22CandidateMutationApplyPermitted": false,
+    "a22CandidateMutationRows": 0,
+    "a22CandidateMutationCurrentGateFailures": 0,
+    "buildFailureCategory": "webpack-module-not-found"
+  },
+  "checks": [
+    {
+      "id": "source-current",
+      "status": "pass",
+      "detail": "sourceCurrentnessFailures=0"
+    },
+    {
+      "id": "frontier-shape-current",
+      "status": "pass",
+      "detail": "frontier=7; a25=3; a22=4"
+    },
+    {
+      "id": "a25-validation-chain-visible",
+      "status": "pass",
+      "detail": "safe=5; deferred=8"
+    },
+    {
+      "id": "a22-owner-input-chain-visible",
+      "status": "pass",
+      "detail": "runway=owner-input-recorded-post-runway; ownerInputBlank=false; commands=8"
+    },
+    {
+      "id": "a22-candidate-mutation-dry-run-current",
+      "status": "pass",
+      "detail": "executorStatus=dry-run-blocked-owner-candidate-mutation-input; recordedInstructions=4; applyPermitted=false; candidateMutationRows=0; gateFailures=0"
+    },
+    {
+      "id": "a22-candidate-rerun-chain-visible",
+      "status": "pass",
+      "detail": "queue=waiting-top-candidate-candidate-mutation-owner-input; focusedSmoke=true; typeCheck=false; build=false; commands=21"
+    },
+    {
+      "id": "merge-cleanup-deploy-blocked",
+      "status": "pass",
+      "detail": "validateExitReady=false; releaseSourceEligibleNow=false; readyForMerge=false"
+    },
+    {
+      "id": "non-executable-boundary",
+      "status": "pass",
+      "detail": "runway records no authorization, owner input, candidate mutation, merge, cleanup, deploy, or physical lifecycle cleanup"
+    },
+    {
+      "id": "stop-conditions-visible",
+      "status": "pass",
+      "detail": "phases=7; blocked=6"
+    }
+  ],
+  "summary": {
+    "ownerInputGroups": 2,
+    "ownerFrontierRows": 7,
+    "a25FocusRows": 3,
+    "a22SelectedActionRows": 4,
+    "pendingCanonicalAuthorizationRows": 42,
+    "projectedPendingCanonicalAuthorizationRows": 39,
+    "validAuthorizationRows": 21,
+    "projectedValidAuthorizationRows": 24,
+    "phaseRows": 7,
+    "safeRunnablePreflightRows": 1,
+    "blockedPhaseRows": 6,
+    "a25SafePostInputValidationCommands": 5,
+    "a25DeferredAggregateValidationCommands": 8,
+    "a22PostOwnerInputValidationCommands": 8,
+    "a22CandidateGateRerunCommands": 21,
+    "a22CandidateMutationExecutorStatus": "dry-run-blocked-owner-candidate-mutation-input",
+    "a22CandidateMutationRecordedInstructionRows": 4,
+    "a22CandidateMutationApplyPermitted": false,
+    "a22CandidateMutationRows": 0,
+    "a22CandidateMutationCurrentGateFailures": 0,
+    "validateExitReadyNow": false,
+    "releaseSourceEligibleNow": false,
+    "candidateFocusedSmokePassed": true,
+    "candidateTypeCheckPassed": false,
+    "candidateBuildPassed": false,
+    "cleanupAuthorizedRows": 0,
+    "executableRows": 0,
+    "checks": 9,
+    "passingChecks": 9,
+    "failedChecks": 0,
+    "sourceCurrentnessFailures": 0
+  },
+  "boundary": {
+    "evidenceOnly": true,
+    "runwayOnly": true,
+    "recordsAuthorization": false,
+    "recordsOwnerInput": false,
+    "appliesOwnerInputPatch": false,
+    "recordsExtractionInstruction": false,
+    "modifiesCandidate": false,
+    "copiesRootFiles": false,
+    "runsTypeCheck": false,
+    "runsBuild": false,
+    "runsRegression": false,
+    "selectsReleaseSource": false,
+    "stageAuthorized": false,
+    "commitAuthorized": false,
+    "mergeAuthorized": false,
+    "cleanupAuthorized": false,
+    "executableNow": false,
+    "deployAuthorized": false,
+    "destructiveGitAuthorized": false,
+    "physicalLifecycleCleanupAuthorized": false,
+    "requiresExplicitOwnerApprovalBeforeA25Recording": true,
+    "requiresExplicitOwnerApprovalBeforeA22OwnerInput": true,
+    "requiresSeparateA22RecordingStep": true,
+    "requiresSeparateA22CandidateMutationInstruction": true,
+    "requiresSeparateCandidateGateRerun": true,
+    "requiresSeparateMergeAuthorization": true,
+    "requiresSeparateCleanupAuthorization": true,
+    "requiresSeparateDeployAuthorization": true,
+    "requiresSeparatePhysicalLifecycleCleanupAuthorization": true
+  }
+}

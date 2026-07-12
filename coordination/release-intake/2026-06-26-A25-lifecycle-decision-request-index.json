@@ -1,0 +1,66 @@
+{
+  "generatedAt": "2026-06-26T11:15:26.969Z",
+  "dirtyMapStatusSignature": "ad33e80de3e1e213eaec9b4d2357a4bb9dfe72de91ba552e65c8ff0679e28c50",
+  "ledgerGeneratedAt": "2026-06-26T11:15:26.869Z",
+  "ledgerDirtyMapStatusSignature": "ad33e80de3e1e213eaec9b4d2357a4bb9dfe72de91ba552e65c8ff0679e28c50",
+  "decisionCount": 4,
+  "openDecisionCount": 0,
+  "requests": [
+    {
+      "id": "root-dirty-packages",
+      "title": "Root dirty package closure",
+      "decisionStatus": "approved-evidence-archive",
+      "accountableOwners": [
+        "A25",
+        "A10",
+        "all effective owner work orders"
+      ],
+      "latestJson": "coordination/release-intake/latest-A25-lifecycle-decision-request-root-dirty-packages.json",
+      "latestMarkdown": "coordination/release-intake/latest-A25-lifecycle-decision-request-root-dirty-packages.md",
+      "datedJson": "coordination/release-intake/2026-06-26-A25-lifecycle-decision-request-root-dirty-packages.json",
+      "datedMarkdown": "coordination/release-intake/2026-06-26-A25-lifecycle-decision-request-root-dirty-packages.md"
+    },
+    {
+      "id": "dirty-visualization-production-release",
+      "title": "Dirty visualization production-release worktree",
+      "decisionStatus": "approved-evidence-archive-with-worktree-removal-blocker",
+      "accountableOwners": [
+        "A06",
+        "A22",
+        "A10"
+      ],
+      "latestJson": "coordination/release-intake/latest-A25-lifecycle-decision-request-dirty-visualization-production-release.json",
+      "latestMarkdown": "coordination/release-intake/latest-A25-lifecycle-decision-request-dirty-visualization-production-release.md",
+      "datedJson": "coordination/release-intake/2026-06-26-A25-lifecycle-decision-request-dirty-visualization-production-release.json",
+      "datedMarkdown": "coordination/release-intake/2026-06-26-A25-lifecycle-decision-request-dirty-visualization-production-release.md"
+    },
+    {
+      "id": "california-practice-beta-clean",
+      "title": "Clean diverged California practice beta worktree",
+      "decisionStatus": "approved-archive-tag",
+      "accountableOwners": [
+        "A21",
+        "A18",
+        "A04",
+        "A22"
+      ],
+      "latestJson": "coordination/release-intake/latest-A25-lifecycle-decision-request-california-practice-beta-clean.json",
+      "latestMarkdown": "coordination/release-intake/latest-A25-lifecycle-decision-request-california-practice-beta-clean.md",
+      "datedJson": "coordination/release-intake/2026-06-26-A25-lifecycle-decision-request-california-practice-beta-clean.json",
+      "datedMarkdown": "coordination/release-intake/2026-06-26-A25-lifecycle-decision-request-california-practice-beta-clean.md"
+    },
+    {
+      "id": "s22-release-hygiene-2026-06-15",
+      "title": "Clean diverged S22 release-hygiene worktree",
+      "decisionStatus": "approved-archive-tag",
+      "accountableOwners": [
+        "A22",
+        "A10"
+      ],
+      "latestJson": "coordination/release-intake/latest-A25-lifecycle-decision-request-s22-release-hygiene-2026-06-15.json",
+      "latestMarkdown": "coordination/release-intake/latest-A25-lifecycle-decision-request-s22-release-hygiene-2026-06-15.md",
+      "datedJson": "coordination/release-intake/2026-06-26-A25-lifecycle-decision-request-s22-release-hygiene-2026-06-15.json",
+      "datedMarkdown": "coordination/release-intake/2026-06-26-A25-lifecycle-decision-request-s22-release-hygiene-2026-06-15.md"
+    }
+  ]
+}

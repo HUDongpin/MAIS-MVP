@@ -1,5 +1,5 @@
 import type {
-  GradeId,
+  UnitedStatesMathGradeId,
   UnitedStatesMathSafeCard,
   UnitedStatesMathState,
   UnitedStatesMathStateProfile,
@@ -8,6 +8,9 @@ import type {
 } from "@/types";
 
 const reviewedAt = "2026-05-23";
+const californiaCoreTextbookReviewAt = "2026-06-01";
+const arkansasReviewAt = "2026-06-01";
+const newYorkHighSchoolReviewAt = "2026-06-05";
 
 type UnitedStatesMathStateCode = Exclude<UnitedStatesMathState, "US">;
 type SourceRegistrySeed = Omit<
@@ -387,6 +390,90 @@ const unitedStatesMathSourceRegistrySeeds: SourceRegistrySeed[] = [
       "Do not store released questions, scoring guides, tables, images, or answer keys."
     ],
     reviewedAt
+  },
+  {
+    id: "nysed-high-school-mathematics-regents",
+    state: "NY",
+    title: "NYSED high school mathematics Regents information",
+    sourceKind: "test-specification",
+    libraryLane: "public-standards",
+    owner: "New York State Education Department",
+    url: "https://www.nysed.gov/state-assessment/high-school-mathematics",
+    licenseStatus: "public-reference-restricted",
+    commercialUse: "review-required",
+    derivativeUse: "permission-required",
+    repositoryRetention: "local-private-analysis-only",
+    safeCardAllowed: true,
+    rawCorpusAllowed: false,
+    notes: [
+      "Use only high-school course pathway, reference-sheet availability, calculator/resource policy, and assessment-mode metadata.",
+      "Do not store Regents questions, reference-sheet body text, item-writing criteria, score materials, tables, images, or screenshots."
+    ],
+    reviewedAt: newYorkHighSchoolReviewAt,
+    lastCheckedAt: newYorkHighSchoolReviewAt
+  },
+  {
+    id: "nysed-algebra-i-regents-resources",
+    state: "NY",
+    title: "NYSED Algebra I Next Generation mathematics resources",
+    sourceKind: "test-specification",
+    libraryLane: "public-standards",
+    owner: "New York State Education Department",
+    url: "https://www.nysed.gov/state-assessment/algebra-i",
+    licenseStatus: "public-reference-restricted",
+    commercialUse: "review-required",
+    derivativeUse: "permission-required",
+    repositoryRetention: "local-private-analysis-only",
+    safeCardAllowed: true,
+    rawCorpusAllowed: false,
+    notes: [
+      "Use only the existence of Algebra I Next Generation resource families and course-level assessment metadata.",
+      "Do not store educator-guide wording, performance-level descriptions, reference-sheet content, released items, answers, scoring language, or annotated questions."
+    ],
+    reviewedAt: newYorkHighSchoolReviewAt,
+    lastCheckedAt: newYorkHighSchoolReviewAt
+  },
+  {
+    id: "nysed-geometry-regents-resources",
+    state: "NY",
+    title: "NYSED Geometry Next Generation mathematics resources",
+    sourceKind: "test-specification",
+    libraryLane: "public-standards",
+    owner: "New York State Education Department",
+    url: "https://www.nysed.gov/state-assessment/geometry",
+    licenseStatus: "public-reference-restricted",
+    commercialUse: "review-required",
+    derivativeUse: "permission-required",
+    repositoryRetention: "local-private-analysis-only",
+    safeCardAllowed: true,
+    rawCorpusAllowed: false,
+    notes: [
+      "Use only the existence of Geometry Next Generation resource families and course-level assessment metadata.",
+      "Do not store educator-guide wording, performance-level descriptions, reference-sheet content, released items, answers, scoring language, or annotated questions."
+    ],
+    reviewedAt: newYorkHighSchoolReviewAt,
+    lastCheckedAt: newYorkHighSchoolReviewAt
+  },
+  {
+    id: "nysed-algebra-ii-regents-resources",
+    state: "NY",
+    title: "NYSED Algebra II Next Generation mathematics resources",
+    sourceKind: "test-specification",
+    libraryLane: "public-standards",
+    owner: "New York State Education Department",
+    url: "https://www.nysed.gov/state-assessment/algebra-ii",
+    licenseStatus: "public-reference-restricted",
+    commercialUse: "review-required",
+    derivativeUse: "permission-required",
+    repositoryRetention: "local-private-analysis-only",
+    safeCardAllowed: true,
+    rawCorpusAllowed: false,
+    notes: [
+      "Use only the existence of Algebra II Next Generation resource families and course-level assessment metadata.",
+      "Do not store educator-guide wording, performance-level descriptions, reference-sheet content, released items, answers, scoring language, or annotated questions."
+    ],
+    reviewedAt: newYorkHighSchoolReviewAt,
+    lastCheckedAt: newYorkHighSchoolReviewAt
   },
   {
     id: "pde-mathematics-pa-core",
@@ -769,6 +856,126 @@ const unitedStatesMathSourceRegistrySeeds: SourceRegistrySeed[] = [
     reviewedAt
   },
   {
+    id: "ade-arkansas-academic-standards",
+    state: "AR",
+    title: "Arkansas Academic Standards portal",
+    sourceKind: "state-standard",
+    libraryLane: "public-standards",
+    owner: "Arkansas Department of Education / Division of Elementary and Secondary Education",
+    url: "https://dese.ade.arkansas.gov/Offices/learning-services/curriculum-support/arkansas-academic-standards",
+    licenseStatus: "public-reference-restricted",
+    commercialUse: "review-required",
+    derivativeUse: "permission-required",
+    repositoryRetention: "metadata-only",
+    safeCardAllowed: true,
+    rawCorpusAllowed: false,
+    notes: [
+      "Use as the official standards portal anchor for Arkansas Academic Standards.",
+      "Do not store full standards text, images, tables, or linked document body text."
+    ],
+    reviewedAt: arkansasReviewAt
+  },
+  {
+    id: "ade-arkansas-math-standards-courses",
+    state: "AR",
+    title: "Arkansas Mathematics Standards and Courses",
+    sourceKind: "state-standard",
+    libraryLane: "public-standards",
+    owner: "Arkansas Department of Education / Division of Elementary and Secondary Education",
+    url: "https://dese.ade.arkansas.gov/Offices/learning-services/curriculum-support/mathematics-standards-and-courses",
+    licenseStatus: "public-reference-restricted",
+    commercialUse: "review-required",
+    derivativeUse: "permission-required",
+    repositoryRetention: "safe-card-only",
+    safeCardAllowed: true,
+    rawCorpusAllowed: false,
+    notes: [
+      "Use 2023 K-8, Algebra I, Geometry, and secondary mathematics document metadata as standards-alignment anchors.",
+      "Store course/grade structure, identifier families, domain tags, and MAIS-authored crosswalk notes only."
+    ],
+    reviewedAt: arkansasReviewAt
+  },
+  {
+    id: "ade-arkansas-math-aiim-hqim",
+    state: "AR",
+    title: "Arkansas mathematics instructional materials and HQIM resources",
+    sourceKind: "textbook-adoption-list",
+    libraryLane: "licensed-private-library",
+    owner: "Arkansas Department of Education / Arkansas EdReports Catalog",
+    url: "https://dese.ade.arkansas.gov/Offices/learning-services/curriculum-support/mathematics-resources",
+    licenseStatus: "public-reference-restricted",
+    commercialUse: "review-required",
+    derivativeUse: "permission-required",
+    repositoryRetention: "metadata-only",
+    safeCardAllowed: true,
+    rawCorpusAllowed: false,
+    notes: [
+      "Use AIIM/HQIM catalog and resource links as market-compatibility metadata only.",
+      "Do not ingest publisher curriculum, lesson, assessment-bank, exercise, teacher-edition, media, or review body text without written authorization."
+    ],
+    reviewedAt: arkansasReviewAt
+  },
+  {
+    id: "ade-atlas-assessment-overview",
+    state: "AR",
+    title: "ATLAS Assessment Overview",
+    sourceKind: "test-specification",
+    libraryLane: "public-standards",
+    owner: "Arkansas Department of Education / Division of Elementary and Secondary Education",
+    url: "https://dese.ade.arkansas.gov/Offices/public-school-accountability/assessment/atlas-assessment-overview",
+    licenseStatus: "public-reference-restricted",
+    commercialUse: "review-required",
+    derivativeUse: "permission-required",
+    repositoryRetention: "metadata-only",
+    safeCardAllowed: true,
+    rawCorpusAllowed: false,
+    notes: [
+      "Use only statewide assessment-system metadata, assessment family names, and grade/course coverage signals.",
+      "Do not store ATLAS practice-test items, reports, screenshots, passages, answer choices, scoring language, or technical-report tables."
+    ],
+    reviewedAt: arkansasReviewAt
+  },
+  {
+    id: "ade-atlas-3-10-content-assessments",
+    state: "AR",
+    title: "3-10 ATLAS Content Assessments",
+    sourceKind: "assessment-blueprint",
+    libraryLane: "public-standards",
+    owner: "Arkansas Department of Education / Division of Elementary and Secondary Education",
+    url: "https://dese.ade.arkansas.gov/Offices/public-school-accountability/assessment/3-10-atlas-content-assessments",
+    licenseStatus: "public-reference-restricted",
+    commercialUse: "review-required",
+    derivativeUse: "permission-required",
+    repositoryRetention: "safe-card-only",
+    safeCardAllowed: true,
+    rawCorpusAllowed: false,
+    notes: [
+      "Use grades 3-8 mathematics, Algebra I EOC, and Geometry EOC coverage as non-expressive assessment metadata.",
+      "Do not store summative blueprint wording, cut-score tables, technical-report content, practice items, sample items, rubrics, answer keys, or screenshots."
+    ],
+    reviewedAt: arkansasReviewAt
+  },
+  {
+    id: "ade-atlas-k3-k2-assessments",
+    state: "AR",
+    title: "K-3 ATLAS Screener and K-2 Content Assessments",
+    sourceKind: "assessment-blueprint",
+    libraryLane: "public-standards",
+    owner: "Arkansas Department of Education / Division of Elementary and Secondary Education",
+    url: "https://dese.ade.arkansas.gov/Offices/public-school-accountability/assessment/k-3-atlas-screener--k-2-content-assessments",
+    licenseStatus: "public-reference-restricted",
+    commercialUse: "review-required",
+    derivativeUse: "permission-required",
+    repositoryRetention: "safe-card-only",
+    safeCardAllowed: true,
+    rawCorpusAllowed: false,
+    notes: [
+      "Use K-2 mathematics screener, interim, and summative coverage as early-numeracy assessment metadata.",
+      "Do not store K-3 blueprint wording, cut scores, item text, answer choices, reporting screenshots, or source tables."
+    ],
+    reviewedAt: arkansasReviewAt
+  },
+  {
     id: "owner-provided-authorized-us-math-materials",
     state: "US",
     title: "Owner-provided or district-authorized U.S. math private library materials",
@@ -787,6 +994,31 @@ const unitedStatesMathSourceRegistrySeeds: SourceRegistrySeed[] = [
       "Only chapter titles, standard links, coverage metadata, and MAIS-authored abstractions may be committed by default."
     ],
     reviewedAt
+  },
+  {
+    id: "owner-provided-california-core-algebra-geometry-textbooks",
+    state: "CA",
+    title: "Owner-provided California core algebra and geometry textbook archive",
+    sourceKind: "licensed-private-material",
+    libraryLane: "licensed-private-library",
+    owner: "Project owner-provided local archive; publisher rights remain with the original rights holders",
+    url: "local-private-authorized-materials:/Users/dongpinhu/Downloads/california-core-algebra-geometry.zip",
+    licenseStatus: "permission-required",
+    commercialUse: "permission-required",
+    derivativeUse: "permission-required",
+    repositoryRetention: "local-private-analysis-only",
+    safeCardAllowed: true,
+    rawCorpusAllowed: false,
+    allowedUse: "Metadata-only California Grade 7, Pre-Algebra, Algebra Readiness, Algebra 1, Algebra 2, and Geometry alignment signals; committed RAG keeps only MAIS-authored abstraction and standard/topic links.",
+    verbatimLimit: "0 committed publisher body words; no examples, exercises, teacher notes, media, worked response language, tables, or figures.",
+    attributionText: "Owner-provided local California algebra/geometry textbook metadata archive; no publisher endorsement implied.",
+    notes: [
+      "Local archive metadata reviewed for safe-RAG scope on 2026-06-01.",
+      "First batch includes Grade 7, Pre-Algebra, Algebra Readiness, Algebra 1, Algebra 2, and Geometry only.",
+      "Do not commit, embed, upload, or retrieve textbook body text, exercises, teacher notes, media, worked response language, tables, figures, OCR, or page locators."
+    ],
+    lastCheckedAt: californiaCoreTextbookReviewAt,
+    reviewedAt: californiaCoreTextbookReviewAt
   },
   {
     id: "open-up-resources-6-8-math-cc-by",
@@ -856,7 +1088,8 @@ const unitedStatesMathSourceRegistrySeeds: SourceRegistrySeed[] = [
 export const unitedStatesMathSourceRegistry: UnitedStatesMathSourceRegistryEntry[] =
   unitedStatesMathSourceRegistrySeeds.map(makeSourceEntry);
 
-const gradeLabels: Record<GradeId, string> = {
+const gradeLabels: Record<UnitedStatesMathGradeId, string> = {
+  K: "Kindergarten",
   P1: "Grade 1",
   P2: "Grade 2",
   P3: "Grade 3",
@@ -916,7 +1149,11 @@ export const unitedStatesMathStateProfiles: UnitedStatesMathStateProfile[] = [
     commonCoreStatus: "adopted-common-core",
     standardPrefix: "CA.CCSS.Math",
     standardsSourceIds: ["cde-ca-ccss-math-resources", "cde-2023-math-framework", "cde-copyright-statement"],
-    textbookSourceIds: ["cde-math-instructional-materials-adoption", "owner-provided-authorized-us-math-materials"],
+    textbookSourceIds: [
+      "cde-math-instructional-materials-adoption",
+      "owner-provided-authorized-us-math-materials",
+      "owner-provided-california-core-algebra-geometry-textbooks"
+    ],
     examSourceIds: ["caaspp-smarter-balanced-public-assessment-resources", "caaspp-math-blueprints-and-specifications"],
     baseSourceIds: ["cde-ca-ccss-math-resources", "cde-2023-math-framework", "caaspp-smarter-balanced-public-assessment-resources", "cde-math-instructional-materials-adoption"],
     assessmentProgram: "CAASPP / Smarter Balanced mathematics",
@@ -1124,10 +1361,62 @@ export const unitedStatesMathStateProfiles: UnitedStatesMathStateProfile[] = [
     crosswalkNotes: ["Use CCSS-M as the initial crosswalk spine for Michigan, with local curriculum and assessment metadata retained separately."],
     stateEvidenceNote: "Use MDE standards and M-STEP-style assessment metadata only.",
     noEndorsementNotice: "No Michigan Department of Education, district, or publisher endorsement is implied."
+  },
+  {
+    state: "AR",
+    curriculumTrack: "US_AR_MATH",
+    displayName: "Arkansas",
+    populationRank: 34,
+    statePriorityPhase: 3,
+    standardsName: "Arkansas Mathematics Standards",
+    standardsVersion: "2023 Arkansas Mathematics Standards for K-8, Algebra I, Geometry, and secondary mathematics courses",
+    commonCoreStatus: "common-core-derived",
+    standardPrefix: "AR.Math",
+    standardsSourceIds: ["ade-arkansas-academic-standards", "ade-arkansas-math-standards-courses"],
+    textbookSourceIds: ["ade-arkansas-math-aiim-hqim", "owner-provided-authorized-us-math-materials"],
+    examSourceIds: ["ade-atlas-assessment-overview", "ade-atlas-3-10-content-assessments", "ade-atlas-k3-k2-assessments"],
+    baseSourceIds: [
+      "ade-arkansas-academic-standards",
+      "ade-arkansas-math-standards-courses",
+      "ade-arkansas-math-aiim-hqim",
+      "ade-atlas-assessment-overview",
+      "ade-atlas-3-10-content-assessments",
+      "ade-atlas-k3-k2-assessments"
+    ],
+    assessmentProgram: "ATLAS mathematics: K-2 math screener/interim/summative metadata, grades 3-8 math, Algebra I EOC, and Geometry EOC",
+    adoptionPolicy: "Arkansas Mathematics Standards are statewide; curriculum sequencing and resource implementation remain district/school decisions supported by ADE guidance.",
+    materialsPolicy: "Use Arkansas AIIM/HQIM catalog and district-provided metadata only; publisher lessons, tasks, assessments, media, and teacher-edition text require written authorization.",
+    crosswalkRelationToCcss: "near",
+    crosswalkNotes: [
+      "Treat 2023 Arkansas Mathematics Standards as the state source of truth; use Common Core only as a concept-family comparison graph with human review.",
+      "Preserve Arkansas-specific strands such as number/place value, computation and algebraic reasoning, geometry/measurement, data analysis, proportional relationships, functions, and course-level Algebra/Geometry organization."
+    ],
+    stateEvidenceNote: "Use ADE standards/course metadata and ATLAS assessment-system coverage only; no ATLAS item, blueprint wording, score table, or technical-report body text is retained.",
+    noEndorsementNotice: "No Arkansas Department of Education, ATLAS, district, Cambium, or publisher endorsement is implied."
   }
 ];
 
 const gradeSeeds: SafeCardSeed[] = [
+  {
+    idSuffix: "k-counting-operations-measure-geometry",
+    grade: "K",
+    sourceIds: [],
+    standardIds: ["K.CC", "K.OA", "K.NBT", "K.MD", "K.G"],
+    domainTags: ["counting and cardinality", "early operations", "base-ten foundations", "measurement and data", "geometry"],
+    clusterTags: ["count sequence", "compose and decompose numbers", "teen numbers", "attribute comparison", "shape naming"],
+    topicIds: ["k-counting-cardinality", "k-number-stories", "k-teen-numbers", "k-measurement-sorting", "k-shapes-position"],
+    conceptIds: ["counting-cardinality", "one-to-one-correspondence", "compose-decompose", "teen-numbers", "shape-attributes"],
+    competencyTags: ["count with meaning", "compare quantities", "model joining and separating", "describe attributes", "use spatial language"],
+    itemTypeTags: ["counting collection", "draw-and-count task", "attribute sort", "shape description", "oral explanation"],
+    difficultyBand: "foundation",
+    safeSummary: "Kindergarten alignment builds counting with meaning, quantity comparison, simple joining and separating stories, teen-number foundations, measurable attributes, and shape language.",
+    generationGuidance: [
+      "Create original classroom, playground, and home contexts with small collections students can draw, touch, or count aloud.",
+      "Ask students to explain how they know a quantity, comparison, or shape name using words, drawings, or objects."
+    ],
+    misconceptionTags: ["recites count sequence without one-to-one matching", "counts an object twice", "compares by size instead of quantity", "names shapes only by familiar examples"],
+    principalDemoNotes: ["Supports early numeracy readiness evidence before Grade 1 intervention grouping."]
+  },
   {
     idSuffix: "g1-operations-place-value-measure",
     grade: "P1",
@@ -1479,6 +1768,276 @@ function makeStandardsLibraryCardsForState(profile: UnitedStatesMathStateProfile
   );
 }
 
+const newYorkHighSchoolCourseSeeds: SafeCardSeed[] = [
+  {
+    idSuffix: "algebra-i-next-generation-functions-modeling",
+    grade: "S3",
+    sourceIds: ["nysed-high-school-mathematics-regents", "nysed-algebra-i-regents-resources"],
+    standardIds: [
+      "Algebra-I.N-Q",
+      "Algebra-I.A-SSE",
+      "Algebra-I.A-CED",
+      "Algebra-I.A-REI",
+      "Algebra-I.F-IF",
+      "Algebra-I.F-BF",
+      "Algebra-I.F-LE",
+      "Algebra-I.S-ID"
+    ],
+    domainTags: ["number and quantity", "algebra", "functions", "statistics", "modeling"],
+    clusterTags: [
+      "quantities and units",
+      "expression structure",
+      "equations and inequalities",
+      "linear, exponential, and quadratic functions",
+      "bivariate data and residual thinking"
+    ],
+    topicIds: ["linear-equations", "functions", "quadratic-patterns", "polynomials", "data-handling"],
+    conceptIds: [
+      "algebra-1",
+      "linear-equations",
+      "systems",
+      "function-notation",
+      "linear-functions",
+      "exponential-functions",
+      "quadratic-functions",
+      "data-modeling"
+    ],
+    competencyTags: [
+      "create equations from contexts",
+      "interpret function features",
+      "connect tables graphs equations and verbal models",
+      "compare linear exponential and quadratic behavior",
+      "justify model fit"
+    ],
+    itemTypeTags: ["original modeling task", "function comparison", "graph interpretation", "constructed response", "technology-supported reasoning"],
+    difficultyBand: "assessment",
+    safeSummary:
+      "New York Algebra I course coverage is represented as a standards-safe course card for functions, equations, inequalities, data modeling, and algebraic structure. It uses only NYSED course/resource metadata and MAIS-authored abstraction.",
+    generationGuidance: [
+      "Generate Algebra I lessons from the concept and competency tags with fresh contexts, quantities, graphs, prompts, hints, and explanations.",
+      "Use Regents readiness only as a broad course-assessment signal; do not mirror released task layouts, wording, graphs, answer choices, or scoring language.",
+      "Keep the course sequence publisher-neutral and locally adaptable because New York curriculum implementation is locally determined."
+    ],
+    misconceptionTags: [
+      "confuses rate of change and initial value",
+      "solves symbolically without interpreting context",
+      "treats every growth pattern as linear",
+      "uses a graph feature without naming units"
+    ],
+    principalDemoNotes: ["Use as the New York Algebra I standards-safe spine for high-school readiness reporting and S18 curriculum review."]
+  },
+  {
+    idSuffix: "geometry-next-generation-transformations-proof-modeling",
+    grade: "S4",
+    sourceIds: ["nysed-high-school-mathematics-regents", "nysed-geometry-regents-resources"],
+    standardIds: [
+      "Geometry.G-CO",
+      "Geometry.G-SRT",
+      "Geometry.G-C",
+      "Geometry.G-GPE",
+      "Geometry.G-GMD",
+      "Geometry.G-MG"
+    ],
+    domainTags: ["geometry", "similarity", "trigonometry", "coordinate geometry", "modeling"],
+    clusterTags: [
+      "rigid motions and congruence",
+      "proof and geometric argument",
+      "similarity and right triangles",
+      "circle relationships",
+      "coordinate and dimensional modeling"
+    ],
+    topicIds: ["geometry", "coordinate-geometry", "trigonometry-basics", "circles", "mixed-problem-solving"],
+    conceptIds: [
+      "geometry-course",
+      "transformations",
+      "congruence",
+      "geometric-proof",
+      "similarity",
+      "right-triangle-trigonometry",
+      "circle-geometry",
+      "coordinate-proof",
+      "geometric-modeling"
+    ],
+    competencyTags: [
+      "state theorem conditions",
+      "construct deductive arguments",
+      "use transformations to justify relationships",
+      "connect diagrams coordinates and equations",
+      "model geometric constraints"
+    ],
+    itemTypeTags: ["original diagram reasoning", "proof outline", "construction description", "coordinate argument", "modeling task"],
+    difficultyBand: "assessment",
+    safeSummary:
+      "New York Geometry course coverage is represented as a standards-safe course card for transformations, congruence, similarity, right-triangle reasoning, circles, coordinate proof, and geometric modeling. It contains only MAIS-authored abstraction.",
+    generationGuidance: [
+      "Create diagrams, measurements, coordinates, proof prompts, and explanations from scratch for each lesson.",
+      "Use Geometry Regents readiness only as a broad course-assessment signal; do not reproduce official diagrams, construction wording, proof frames, rubrics, or score materials.",
+      "Ask students to name conditions before applying a theorem or transformation."
+    ],
+    misconceptionTags: [
+      "assumes a diagram is drawn to scale",
+      "uses a theorem without checking conditions",
+      "confuses congruence with similarity",
+      "treats construction steps as proof"
+    ],
+    principalDemoNotes: ["Use as the New York Geometry standards-safe spine for high-school reasoning evidence and S18 curriculum review."]
+  },
+  {
+    idSuffix: "algebra-ii-next-generation-advanced-functions-statistics",
+    grade: "S5",
+    sourceIds: ["nysed-high-school-mathematics-regents", "nysed-algebra-ii-regents-resources"],
+    standardIds: [
+      "Algebra-II.N-CN",
+      "Algebra-II.A-SSE",
+      "Algebra-II.A-APR",
+      "Algebra-II.A-REI",
+      "Algebra-II.F-IF",
+      "Algebra-II.F-BF",
+      "Algebra-II.F-LE",
+      "Algebra-II.F-TF",
+      "Algebra-II.S-ID",
+      "Algebra-II.S-IC"
+    ],
+    domainTags: ["number and quantity", "advanced algebra", "functions", "trigonometry", "statistics"],
+    clusterTags: [
+      "complex numbers",
+      "polynomial and rational structure",
+      "function families and transformations",
+      "exponential logarithmic and trigonometric models",
+      "statistical inference and data claims"
+    ],
+    topicIds: ["advanced-functions", "more-algebra", "trigonometry-s5", "probability-s5", "statistics-s6"],
+    conceptIds: [
+      "algebra-2",
+      "complex-numbers",
+      "polynomial-functions",
+      "rational-expressions",
+      "radical-functions",
+      "function-transformations",
+      "exponential-logarithmic-models",
+      "trigonometric-functions",
+      "statistical-inference"
+    ],
+    competencyTags: [
+      "analyze algebraic structure",
+      "compare function families",
+      "reason with inverses and transformations",
+      "model periodic and exponential situations",
+      "evaluate claims from samples"
+    ],
+    itemTypeTags: ["function-family comparison", "structured algebra task", "data claim critique", "model selection", "constructed response"],
+    difficultyBand: "challenge",
+    safeSummary:
+      "New York Algebra II course coverage is represented as a standards-safe course card for complex numbers, polynomial/rational structure, function families, trigonometric models, and statistical inference. It uses only source-safe metadata and original abstraction.",
+    generationGuidance: [
+      "Generate Algebra II chapters with original function families, data summaries, parameter values, and model-comparison prompts.",
+      "Use Algebra II Regents readiness only as a broad course-assessment signal; do not mirror released task scenarios, graphs, tables, official response materials, or scoring language.",
+      "Require students to describe domain restrictions, assumptions, and reasonableness checks."
+    ],
+    misconceptionTags: [
+      "cancels expressions without preserving domain",
+      "applies linear intuition to nonlinear functions",
+      "misreads inverse or transformation notation",
+      "treats sample evidence as certainty"
+    ],
+    principalDemoNotes: ["Use as the New York Algebra II standards-safe spine for college-readiness reporting and S18 curriculum review."]
+  },
+  {
+    idSuffix: "plus-advanced-math-modeling-calculus-readiness",
+    grade: "S6",
+    sourceIds: ["nysed-high-school-mathematics-regents"],
+    standardIds: [
+      "Plus.N-CN",
+      "Plus.N-VM",
+      "Plus.A-APR",
+      "Plus.F-BF",
+      "Plus.F-TF",
+      "Plus.S-MD",
+      "Plus.Modeling"
+    ],
+    domainTags: ["plus standards", "advanced modeling", "vectors and matrices", "trigonometry", "statistics", "calculus readiness"],
+    clusterTags: [
+      "advanced number systems",
+      "vector and matrix representations",
+      "polynomial and rational extensions",
+      "advanced trigonometric modeling",
+      "decision-making under uncertainty"
+    ],
+    topicIds: ["advanced-functions", "trigonometry-s5", "calculus", "statistics-s6", "mixed-problem-solving"],
+    conceptIds: [
+      "plus-standards",
+      "advanced-math",
+      "vectors",
+      "matrices",
+      "polynomial-models",
+      "trigonometric-modeling",
+      "decision-statistics",
+      "calculus-readiness"
+    ],
+    competencyTags: [
+      "select assumptions for advanced models",
+      "compare representations",
+      "use structure across function families",
+      "communicate limitations",
+      "prepare for calculus statistics or discrete mathematics"
+    ],
+    itemTypeTags: ["capstone modeling task", "representation comparison", "data decision task", "advanced readiness check", "multi-step explanation"],
+    difficultyBand: "challenge",
+    safeSummary:
+      "New York Plus/advanced high-school coverage is represented as an enrichment card for calculus, advanced statistics, discrete mathematics, and other postsecondary-preparation pathways. It is not claimed as a standalone required NYSED Regents course.",
+    generationGuidance: [
+      "Use this card for Grade 12 enrichment, capstone modeling, and advanced-readiness chapters only.",
+      "Clearly label any Plus material as local enrichment or advanced preparation rather than a required New York Regents course.",
+      "Generate new data, contexts, diagrams, and worked examples; avoid source wording, released assessment materials, and publisher sequences."
+    ],
+    misconceptionTags: [
+      "treats enrichment as required Regents coverage",
+      "uses a method without checking assumptions",
+      "overfits a model from limited data",
+      "forgets units or domain restrictions"
+    ],
+    principalDemoNotes: ["Use as an optional New York Grade 12 advanced-preparation spine that requires local district review before implementation."]
+  }
+];
+
+export function makeNewYorkHighSchoolCourseCards(): UnitedStatesMathSafeCard[] {
+  const profile = profileForState("NY");
+  return newYorkHighSchoolCourseSeeds.map<UnitedStatesMathSafeCard>((seed) => ({
+    id: `us-ny-standards-course-${seed.idSuffix}`,
+    ...stateCardMetadata(profile),
+    libraryLane: "public-standards",
+    cardKind: "standards",
+    grade: seed.grade,
+    usGradeLabel: gradeLabels[seed.grade],
+    sourceIds: withGlobalPolicySources([...profile.standardsSourceIds, ...seed.sourceIds]),
+    standardIds: stateSpecificStandardIds(profile, seed.standardIds),
+    domainTags: seed.domainTags,
+    clusterTags: seed.clusterTags,
+    topicIds: seed.topicIds,
+    conceptIds: seed.conceptIds,
+    competencyTags: ["New York high-school course mapping", "safe standards abstraction", ...seed.competencyTags],
+    itemTypeTags: seed.itemTypeTags,
+    difficultyBand: seed.difficultyBand,
+    safeSummary: stateSpecificSummary(profile, seed.safeSummary),
+    generationGuidance: [
+      ...seed.generationGuidance,
+      "Use official sources only for identifiers, course labels, implementation timing, and abstract resource-family metadata.",
+      "Do not quote, translate, paraphrase, reconstruct, or lightly modify NYSED standards wording, educator guides, performance descriptions, reference sheets, released Regents materials, diagrams, tables, rubrics, or scoring language."
+    ],
+    misconceptionTags: seed.misconceptionTags,
+    prohibitedReuseNotes: originalityGuards,
+    principalDemoNotes: seed.principalDemoNotes,
+    attributionNotes: [
+      "NYSED high-school standards and assessment anchors were checked on 2026-06-05.",
+      "Committed RAG stores only source IDs, course labels, standards-family identifiers, topic tags, competencies, misconceptions, and MAIS-authored summaries.",
+      profile.noEndorsementNotice
+    ]
+  }));
+}
+
+export const unitedStatesMathNewYorkHighSchoolCourseCards: UnitedStatesMathSafeCard[] =
+  makeNewYorkHighSchoolCourseCards();
+
 function makeTextbookCompatibilityCardsForState(profile: UnitedStatesMathStateProfile) {
   const statePrefix = profile.state.toLowerCase();
   return gradeSeeds.map<UnitedStatesMathSafeCard>((seed) => ({
@@ -1516,9 +2075,183 @@ function makeTextbookCompatibilityCardsForState(profile: UnitedStatesMathStatePr
   }));
 }
 
-const examGradeSeeds = gradeSeeds.filter((seed) => ["P3", "P4", "P5", "P6", "S1", "S2", "S3", "S5"].includes(seed.grade));
+const californiaCoreTextbookCompatibilitySeeds: SafeCardSeed[] = [
+  {
+    idSuffix: "g7-core-ratios-expressions-geometry-statistics",
+    grade: "S1",
+    sourceIds: ["owner-provided-california-core-algebra-geometry-textbooks"],
+    standardIds: ["G7.RP", "G7.NS", "G7.EE", "G7.G", "G7.SP"],
+    domainTags: ["ratios and proportional relationships", "rational numbers", "expressions and equations", "geometry", "statistics"],
+    clusterTags: ["proportional reasoning", "integer operations", "linear expressions", "scale drawings", "sampling and probability"],
+    topicIds: ["ratios", "algebra", "geometry", "statistics"],
+    conceptIds: ["grade-7-mathematics", "proportional-relationships", "rational-number-operations", "linear-expressions", "scale-geometry", "probability"],
+    competencyTags: ["transition to algebra", "multiple representations", "unit-rate reasoning", "diagram reasoning", "data interpretation"],
+    itemTypeTags: ["chapter overview", "readiness check", "modeling task", "constructed response"],
+    difficultyBand: "core",
+    safeSummary: "California Grade 7 core compatibility emphasizes proportional relationships, signed-number operations, expression reasoning, scale and angle geometry, and introductory probability through publisher-neutral sequencing signals.",
+    generationGuidance: [
+      "Use this as a course-sequence signal for original Grade 7 lessons, diagnostics, and practice.",
+      "Create new contexts, values, diagrams described in words, hints, explanations, and distractors from the concept tags."
+    ],
+    misconceptionTags: ["treats additive and multiplicative comparison as interchangeable", "drops negative signs", "solves one-step equations without inverse reasoning", "assumes all samples represent a population"],
+    principalDemoNotes: ["Shows how MAIS can align Grade 7 readiness reporting to a California core math sequence without publisher endorsement."]
+  },
+  {
+    idSuffix: "pre-algebra-linear-proportional-foundations",
+    grade: "S2",
+    sourceIds: ["owner-provided-california-core-algebra-geometry-textbooks"],
+    standardIds: ["G8.NS", "G8.EE", "G8.F", "G8.G", "G8.SP"],
+    domainTags: ["number systems", "expressions and equations", "functions", "geometry", "statistics"],
+    clusterTags: ["irrational number approximations", "linear equations", "function comparison", "transformations", "bivariate data"],
+    topicIds: ["algebra", "functions", "coordinate-geometry", "statistics"],
+    conceptIds: ["pre-algebra", "linear-equations", "slope", "function-comparison", "pythagorean-theorem", "scatter-plots"],
+    competencyTags: ["algebra readiness", "coordinate reasoning", "rate of change", "function language", "model interpretation"],
+    itemTypeTags: ["readiness check", "graph interpretation", "short modeling task", "teacher planning map"],
+    difficultyBand: "core",
+    safeSummary: "California Pre-Algebra compatibility connects linear equations, slope, functions, transformations, Pythagorean reasoning, and bivariate data as a bridge into Algebra 1.",
+    generationGuidance: [
+      "Use this card to generate original bridge lessons that make linear structure visible across tables, graphs, equations, and verbal rules.",
+      "Keep all student-facing tasks publisher-neutral and newly authored."
+    ],
+    misconceptionTags: ["confuses slope with y-intercept", "treats a nonlinear pattern as linear", "uses Pythagorean reasoning on non-right triangles", "reads association as causation"],
+    principalDemoNotes: ["Useful for placement and intervention conversations before Algebra 1."]
+  },
+  {
+    idSuffix: "algebra-readiness-transition",
+    grade: "S2",
+    sourceIds: ["owner-provided-california-core-algebra-geometry-textbooks"],
+    standardIds: ["G7.RP", "G7.EE", "G8.EE", "G8.F", "G8.G"],
+    domainTags: ["ratio reasoning", "equations", "functions", "coordinate geometry", "readiness"],
+    clusterTags: ["proportional reasoning", "equation solving", "linear patterns", "graphing", "geometric measurement"],
+    topicIds: ["algebra", "functions", "coordinate-geometry", "geometry"],
+    conceptIds: ["algebra-readiness", "proportional-relationships", "equation-solving", "linear-functions", "coordinate-plane", "geometric-measurement"],
+    competencyTags: ["prerequisite diagnosis", "representation fluency", "symbol sense", "modeling readiness"],
+    itemTypeTags: ["diagnostic checkpoint", "readiness review", "error analysis", "teacher planning map"],
+    difficultyBand: "core",
+    safeSummary: "California Algebra Readiness compatibility gathers proportional reasoning, equation solving, coordinate graphing, and geometric measurement as prerequisite evidence for Algebra 1 placement.",
+    generationGuidance: [
+      "Use this card to design original diagnostic tasks that separate computation gaps from algebra-structure gaps.",
+      "Prefer fresh school, travel, measurement, and data contexts with transparent units."
+    ],
+    misconceptionTags: ["balances equations by changing only one side", "matches graphs by shape rather than scale", "uses formulas without identifying quantities", "overgeneralizes a pattern from too few cases"],
+    principalDemoNotes: ["Supports administrator-facing readiness grouping before high-school algebra."]
+  },
+  {
+    idSuffix: "algebra-1-modeling-functions-equations",
+    grade: "S3",
+    sourceIds: ["owner-provided-california-core-algebra-geometry-textbooks"],
+    standardIds: ["HS.A-CED", "HS.A-REI", "HS.F-IF", "HS.F-LE", "HS.S-ID"],
+    domainTags: ["algebra", "equations", "functions", "linear models", "statistics"],
+    clusterTags: ["create equations", "solve equations", "interpret functions", "linear and exponential models", "data modeling"],
+    topicIds: ["functions", "coordinate-geometry", "more-algebra", "data-handling"],
+    conceptIds: ["algebra-1", "linear-equations", "systems", "function-notation", "quadratic-functions", "exponential-models", "data-modeling"],
+    competencyTags: ["model with equations", "interpret functions", "connect representations", "reason from residuals"],
+    itemTypeTags: ["modeling task", "function graph task", "equation analysis", "constructed response"],
+    difficultyBand: "assessment",
+    safeSummary: "California Algebra 1 compatibility prioritizes equations, systems, functions, linear and exponential models, quadratic beginnings, and data interpretation through original modeling and representation work.",
+    generationGuidance: [
+      "Generate original Algebra 1 tasks that require students to connect verbal situations, equations, tables, and graphs.",
+      "Use new numbers, contexts, graph descriptions, answer choices, and explanations."
+    ],
+    misconceptionTags: ["solves symbolically but ignores context", "confuses rate of change and starting value", "treats all growth as linear", "chooses a model without checking residual patterns"],
+    principalDemoNotes: ["Shows Algebra 1 standards coverage and intervention needs without exposing publisher material."]
+  },
+  {
+    idSuffix: "geometry-congruence-similarity-proofs",
+    grade: "S4",
+    sourceIds: ["owner-provided-california-core-algebra-geometry-textbooks"],
+    standardIds: ["HS.G-CO", "HS.G-SRT", "HS.G-C", "HS.G-GPE", "HS.G-MG"],
+    domainTags: ["geometry", "congruence", "similarity", "circles", "coordinate geometry"],
+    clusterTags: ["transformations", "triangle congruence", "right-triangle reasoning", "circle theorems", "geometric modeling"],
+    topicIds: ["geometry", "coordinate-geometry", "trigonometry-s5", "mixed-problem-solving"],
+    conceptIds: ["geometry-course", "geometric-proof", "congruence", "similarity", "right-triangle-trigonometry", "circle-geometry", "coordinate-proof"],
+    competencyTags: ["construct an argument", "state theorem conditions", "link diagram and proof", "model geometric constraints"],
+    itemTypeTags: ["diagram-supported reasoning", "proof outline", "construction description", "modeling task"],
+    difficultyBand: "assessment",
+    safeSummary: "California Geometry compatibility emphasizes transformations, congruence, similarity, right-triangle reasoning, circles, coordinate proof, and geometric modeling with fresh diagrams and proof prompts.",
+    generationGuidance: [
+      "Create original diagrams and measurements from scratch; describe visual elements in text or generate new geometry assets.",
+      "Ask students to justify theorem conditions and explain why a conclusion follows."
+    ],
+    misconceptionTags: ["assumes a diagram is to scale", "uses a theorem without checking conditions", "confuses congruence with similarity", "treats construction steps as proof"],
+    principalDemoNotes: ["Supports reasoning-focused reporting for Geometry without relying on publisher examples."]
+  },
+  {
+    idSuffix: "algebra-2-functions-polynomials-statistics",
+    grade: "S5",
+    sourceIds: ["owner-provided-california-core-algebra-geometry-textbooks"],
+    standardIds: ["HS.A-SSE", "HS.A-APR", "HS.F-IF", "HS.F-BF", "HS.S-IC"],
+    domainTags: ["advanced algebra", "polynomials", "functions", "exponential and logarithmic models", "statistics"],
+    clusterTags: ["expression structure", "polynomial operations", "function transformations", "inverse reasoning", "statistical inference"],
+    topicIds: ["advanced-functions", "more-algebra", "probability-s5", "statistics-s6"],
+    conceptIds: ["algebra-2", "polynomial-functions", "rational-expressions", "function-transformations", "exponential-logarithmic-models", "statistical-inference"],
+    competencyTags: ["analyze structure", "compare function families", "select transformations", "evaluate claims from data"],
+    itemTypeTags: ["model comparison", "function analysis", "structured algebra task", "data claim critique"],
+    difficultyBand: "challenge",
+    safeSummary: "California Algebra 2 compatibility extends Algebra 1 into polynomial, rational, exponential, logarithmic, and transformed function families plus statistics-based claim evaluation.",
+    generationGuidance: [
+      "Generate original multi-step tasks that compare function families, transformations, and assumptions.",
+      "Use newly authored data summaries and modeling contexts rather than any publisher sequence language."
+    ],
+    misconceptionTags: ["applies linear intuition to nonlinear functions", "cancels expressions without preserving domain", "misreads transformations", "treats sample evidence as certainty"],
+    principalDemoNotes: ["Shows college-readiness progression evidence from Algebra 2 without publisher endorsement."]
+  }
+];
 
-function examItemTagsForState(state: UnitedStatesMathStateCode, grade: GradeId) {
+function makeCaliforniaCoreTextbookCompatibilityCards(): UnitedStatesMathSafeCard[] {
+  const profile = profileForState("CA");
+  return californiaCoreTextbookCompatibilitySeeds.map<UnitedStatesMathSafeCard>((seed) => ({
+    id: `us-ca-textbook-core-${seed.idSuffix}`,
+    ...stateCardMetadata(profile),
+    libraryLane: "licensed-private-library",
+    cardKind: "textbook-compatibility",
+    grade: seed.grade,
+    usGradeLabel: gradeLabels[seed.grade],
+    sourceIds: withGlobalPolicySources([...profile.textbookSourceIds, ...seed.sourceIds]),
+    standardIds: stateSpecificStandardIds(profile, seed.standardIds),
+    domainTags: seed.domainTags,
+    clusterTags: seed.clusterTags,
+    topicIds: seed.topicIds,
+    conceptIds: seed.conceptIds,
+    competencyTags: ["California core course mapping", "safe private-library abstraction", ...seed.competencyTags],
+    itemTypeTags: seed.itemTypeTags,
+    difficultyBand: seed.difficultyBand,
+    safeSummary: `${stateSpecificSummary(profile, seed.safeSummary)} This course-specific compatibility card is derived from metadata-level review of the owner-provided local California algebra/geometry archive and contains only MAIS-authored abstraction.`,
+    generationGuidance: [
+      ...seed.generationGuidance,
+      "Do not store, quote, translate, paraphrase, reconstruct, or lightly modify publisher wording, worked response language, diagrams, tables, media, or teacher notes.",
+      `Apply the ${profile.displayName} materials policy: ${profile.materialsPolicy}`
+    ],
+    misconceptionTags: seed.misconceptionTags,
+    prohibitedReuseNotes: originalityGuards,
+    principalDemoNotes: seed.principalDemoNotes,
+    textbookCompatibilityNotes: [
+      "First-batch California core scope: Grade 7, Pre-Algebra, Algebra Readiness, Algebra 1, Algebra 2, and Geometry.",
+      "Committed RAG may use course labels, standard links, topic coverage, competencies, misconception tags, and MAIS-authored summaries only.",
+      "No CDE, CAASPP, Smarter Balanced, district, publisher, or rights-holder endorsement is implied."
+    ],
+    attributionNotes: [
+      "Local archive metadata was reviewed on 2026-06-01 under the zero-verbatim safe-RAG policy.",
+      "Official reference anchors remain CDE mathematics resources/framework/adoption pages, CDE copyright guidance, CCSS license guidance, and U.S. Copyright Office idea/fact guidance."
+    ]
+  }));
+}
+
+const defaultExamGradeSeeds = gradeSeeds.filter((seed) => ["P3", "P4", "P5", "P6", "S1", "S2", "S3", "S5"].includes(seed.grade));
+
+function examGradeSeedsForState(state: UnitedStatesMathStateCode) {
+  if (state === "AR") {
+    return gradeSeeds.filter((seed) => ["P3", "P4", "P5", "P6", "S1", "S2", "S3", "S4"].includes(seed.grade));
+  }
+
+  if (state === "NY") {
+    return gradeSeeds.filter((seed) => ["P3", "P4", "P5", "P6", "S1", "S2", "S3", "S4", "S5"].includes(seed.grade));
+  }
+
+  return defaultExamGradeSeeds;
+}
+
+function examItemTagsForState(state: UnitedStatesMathStateCode, grade: UnitedStatesMathGradeId) {
   if (state === "CA") {
     return grade === "S5"
       ? ["selected response", "constructed response", "technology-enhanced interaction", "performance task", "claim evidence"]
@@ -1533,7 +2266,16 @@ function examItemTagsForState(state: UnitedStatesMathStateCode, grade: GradeId) 
     return ["FAST/EOC-style reporting category abstraction", "selected response", "technology-enhanced interaction", "multi-step modeling"];
   }
 
+  if (state === "AR") {
+    if (grade === "S3") return ["ATLAS Algebra I EOC abstraction", "selected response", "numeric entry", "multi-step modeling"];
+    if (grade === "S4") return ["ATLAS Geometry EOC abstraction", "diagram-supported reasoning", "technology-enhanced interaction", "constructed response"];
+    return ["ATLAS grade-level math abstraction", "selected response", "numeric entry", "technology-enhanced interaction", "standards-aligned readiness evidence"];
+  }
+
   if (state === "NY") {
+    if (grade === "S3") return ["Regents Algebra I abstraction", "constructed response", "multi-step modeling", "graph interpretation", "evidence-supported reasoning"];
+    if (grade === "S4") return ["Regents Geometry abstraction", "diagram-supported reasoning", "constructed response", "proof reasoning", "coordinate argument"];
+    if (grade === "S5") return ["Regents Algebra II abstraction", "function-family comparison", "constructed response", "statistical claim critique", "multi-step modeling"];
     return ["state-test reporting-category abstraction", "constructed response", "multi-select", "evidence-supported reasoning"];
   }
 
@@ -1544,16 +2286,26 @@ function examItemTagsForState(state: UnitedStatesMathStateCode, grade: GradeId) 
   return ["selected response", "numeric entry", "technology-enhanced interaction", "grade-level reporting category"];
 }
 
+function examSourceIdsForState(profile: UnitedStatesMathStateProfile, grade: UnitedStatesMathGradeId) {
+  if (profile.state === "NY") {
+    if (grade === "S3") return ["nysed-high-school-mathematics-regents", "nysed-algebra-i-regents-resources"];
+    if (grade === "S4") return ["nysed-high-school-mathematics-regents", "nysed-geometry-regents-resources"];
+    if (grade === "S5") return ["nysed-high-school-mathematics-regents", "nysed-algebra-ii-regents-resources"];
+  }
+
+  return profile.examSourceIds;
+}
+
 function makeExamPatternCardsForState(profile: UnitedStatesMathStateProfile) {
   const statePrefix = profile.state.toLowerCase();
-  return examGradeSeeds.map<UnitedStatesMathSafeCard>((seed) => ({
+  return examGradeSeedsForState(profile.state).map<UnitedStatesMathSafeCard>((seed) => ({
     id: `us-${statePrefix}-exam-pattern-${seed.grade.toLowerCase()}-${seed.idSuffix}`,
     ...stateCardMetadata(profile),
     libraryLane: "public-standards",
     cardKind: "exam-pattern",
     grade: seed.grade,
     usGradeLabel: gradeLabels[seed.grade],
-    sourceIds: withGlobalPolicySources(profile.examSourceIds),
+    sourceIds: withGlobalPolicySources(examSourceIdsForState(profile, seed.grade)),
     standardIds: stateSpecificStandardIds(profile, seed.standardIds),
     domainTags: seed.domainTags,
     clusterTags: seed.clusterTags,
@@ -1581,11 +2333,13 @@ function makeExamPatternCardsForState(profile: UnitedStatesMathStateProfile) {
 }
 
 export const unitedStatesMathStandardsLibraryCards: UnitedStatesMathSafeCard[] = [
-  ...unitedStatesMathStateProfiles.flatMap(makeStandardsLibraryCardsForState)
+  ...unitedStatesMathStateProfiles.flatMap(makeStandardsLibraryCardsForState),
+  ...unitedStatesMathNewYorkHighSchoolCourseCards
 ];
 
 export const unitedStatesMathTextbookCompatibilityCards: UnitedStatesMathSafeCard[] = [
-  ...unitedStatesMathStateProfiles.flatMap(makeTextbookCompatibilityCardsForState)
+  ...unitedStatesMathStateProfiles.flatMap(makeTextbookCompatibilityCardsForState),
+  ...makeCaliforniaCoreTextbookCompatibilityCards()
 ];
 
 export const unitedStatesMathExamPatternCards: UnitedStatesMathSafeCard[] = [

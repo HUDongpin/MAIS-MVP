@@ -1,0 +1,42 @@
+{
+  "generatedAt": "2026-07-04T15:56:42.385Z",
+  "applied": true,
+  "scope": "wave01",
+  "repoRoot": "/Users/dongpinhu/Desktop/MAIS-MVP",
+  "dirtyMapStatusSignature": "0ed815279a9afc7897df7ef48f2e250da494e4a227adc0a6da14547ba9048571",
+  "expandedStatusEntries": 4323,
+  "targets": [
+    {
+      "id": "wave01-package-resync-owner-authorizations",
+      "target": "coordination/release-intake/latest-A25-wave01-package-resync-owner-authorizations.json",
+      "rowKey": "authorizations",
+      "draftKey": "draftAuthorizationsDoNotAuthorize",
+      "action": "refresh-empty-scaffold",
+      "willWrite": true,
+      "existingRows": 0,
+      "expectedDraftRows": 7,
+      "reason": "target input file is an empty scaffold",
+      "cleanupAuthorized": false,
+      "executableNow": false,
+      "destructiveGitAuthorized": false,
+      "deployAuthorized": false
+    }
+  ],
+  "summary": {
+    "targetFiles": 1,
+    "willWrite": 1,
+    "skipped": 0,
+    "existingOwnerRows": 0,
+    "cleanupAuthorizedRows": 0,
+    "executableRows": 0
+  },
+  "boundary": {
+    "evidenceOnly": true,
+    "scaffoldOnly": true,
+    "createsExecutableRows": false,
+    "cleanupAuthorized": false,
+    "executableNow": false,
+    "destructiveGitAuthorized": false,
+    "deployAuthorized": false
+  }
+}

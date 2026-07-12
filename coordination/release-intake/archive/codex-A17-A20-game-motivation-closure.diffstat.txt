@@ -1,0 +1,9 @@
+app/practice/adventure-island/page.tsx           |  15 +-
+ app/practice/fishing-game/page.tsx               |  15 +-
+ app/practice/super-platformer-like/page.tsx      |   3 +-
+ components/gamification/AdventureIslandGame.tsx  | 112 +++-
+ components/gamification/FishingGame.tsx          | 624 ++++++++++++++++++++---
+ components/gamification/StudentMotivationHub.tsx | 268 ++++++----
+ lib/gameBasedLearning.test.ts                    |  10 +
+ lib/gameBasedLearning.ts                         |   6 +
+ 8 files changed, 835 insertions(+), 218 deletions(-)

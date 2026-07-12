@@ -1,0 +1,297 @@
+{
+  "generatedAt": "2026-07-09T12:20:16.144Z",
+  "repoRoot": "/Users/dongpinhu/Desktop/MAIS-MVP",
+  "packetKind": "a25-a22-validate-frontier-resolution-packet",
+  "activePhase": "validate",
+  "dirtyMapStatusSignature": "b3d232fd2b9ef81d4efc95903d2e3b316db664d6e9ec6ab366181395b3966be7",
+  "expandedStatusEntries": 6604,
+  "sourceArtifacts": {
+    "sevenStepClosureBridge": {
+      "key": "sevenStepClosureBridge",
+      "path": "coordination/release-intake/latest-A25-seven-step-closure-bridge.json",
+      "generatedAt": "2026-07-09T12:08:13.229Z",
+      "dirtyMapStatusSignature": "b3d232fd2b9ef81d4efc95903d2e3b316db664d6e9ec6ab366181395b3966be7",
+      "expandedStatusEntries": 6604
+    },
+    "validateToMergeBlockerFrontier": {
+      "key": "validateToMergeBlockerFrontier",
+      "path": "coordination/release-intake/latest-A25-validate-to-merge-blocker-frontier.json",
+      "generatedAt": "2026-07-09T12:18:50.192Z",
+      "dirtyMapStatusSignature": "b3d232fd2b9ef81d4efc95903d2e3b316db664d6e9ec6ab366181395b3966be7",
+      "expandedStatusEntries": 6604
+    },
+    "validationHoldReleaseGate": {
+      "key": "validationHoldReleaseGate",
+      "path": "coordination/release-intake/latest-A25-validation-hold-release-gate.json",
+      "generatedAt": "2026-07-09T12:08:12.643Z",
+      "dirtyMapStatusSignature": null,
+      "expandedStatusEntries": null
+    },
+    "a22CleanReleaseSourceRunway": {
+      "key": "a22CleanReleaseSourceRunway",
+      "path": "coordination/release-intake/latest-A22-clean-release-source-runway.json",
+      "generatedAt": "2026-07-09T12:08:13.336Z",
+      "dirtyMapStatusSignature": "b3d232fd2b9ef81d4efc95903d2e3b316db664d6e9ec6ab366181395b3966be7",
+      "expandedStatusEntries": 6604
+    },
+    "a22CleanSourceValidationQueue": {
+      "key": "a22CleanSourceValidationQueue",
+      "path": "coordination/release-intake/latest-A22-clean-source-validation-queue.json",
+      "generatedAt": "2026-07-09T12:06:14.267Z",
+      "dirtyMapStatusSignature": "b3d232fd2b9ef81d4efc95903d2e3b316db664d6e9ec6ab366181395b3966be7",
+      "expandedStatusEntries": 6604
+    },
+    "a22CleanSourceSelectionReview": {
+      "key": "a22CleanSourceSelectionReview",
+      "path": "coordination/release-intake/latest-A22-clean-source-selection-review.json",
+      "generatedAt": "2026-07-09T12:10:43.718Z",
+      "dirtyMapStatusSignature": "b3d232fd2b9ef81d4efc95903d2e3b316db664d6e9ec6ab366181395b3966be7",
+      "expandedStatusEntries": 6604
+    },
+    "a22CleanSourceCandidatePromotionPacket": {
+      "key": "a22CleanSourceCandidatePromotionPacket",
+      "path": "coordination/release-intake/latest-A22-clean-source-candidate-promotion-packet.json",
+      "generatedAt": "2026-07-09T12:05:35.808Z",
+      "dirtyMapStatusSignature": "b3d232fd2b9ef81d4efc95903d2e3b316db664d6e9ec6ab366181395b3966be7",
+      "expandedStatusEntries": 6604
+    },
+    "a22TypecheckRemediationOwnerWorkOrders": {
+      "key": "a22TypecheckRemediationOwnerWorkOrders",
+      "path": "coordination/release-intake/latest-A22-typecheck-remediation-owner-work-orders.json",
+      "generatedAt": "2026-07-09T12:07:31.756Z",
+      "dirtyMapStatusSignature": "b3d232fd2b9ef81d4efc95903d2e3b316db664d6e9ec6ab366181395b3966be7",
+      "expandedStatusEntries": 6604
+    },
+    "focusBatchCanonicalPreview": {
+      "key": "focusBatchCanonicalPreview",
+      "path": "coordination/release-intake/latest-A25-next-owner-authorization-focus-batch-canonical-preview.json",
+      "generatedAt": "2026-07-09T12:16:52.322Z",
+      "dirtyMapStatusSignature": "b3d232fd2b9ef81d4efc95903d2e3b316db664d6e9ec6ab366181395b3966be7",
+      "expandedStatusEntries": 6604
+    }
+  },
+  "sourceCurrentnessFailures": [],
+  "summary": {
+    "resolutionRows": 4,
+    "ownerInputRows": 2,
+    "cleanSourceRows": 3,
+    "failedMergeChecks": 4,
+    "frontierRows": 4,
+    "pendingCanonicalAuthorizationRows": 41,
+    "focusBatchPendingRows": 0,
+    "focusBatchApprovalIds": [],
+    "validationHoldGateStatus": "blocked-worktree-still-registered",
+    "validationHoldReleased": false,
+    "validationHoldWorktreeStillRegistered": true,
+    "validationHoldWorktreePathExists": true,
+    "validationHoldWorktreeDirtyStatusEntries": 896,
+    "validationHoldWorktreePruneDryRunRows": 0,
+    "cleanSourceQueueStatus": "fallback-candidate-green-await-clean-source-selection-review",
+    "cleanSourceSelectionReviewStatus": "reviewed-fallback-green-not-selected",
+    "fallbackGreenCandidateBranch": "codex/s22-release-hygiene-2026-06-15",
+    "releaseSourceEligibleNow": false,
+    "releaseSourceSelected": false,
+    "promotionEligibleNow": false,
+    "cleanWorktreeCandidates": 8,
+    "blockedAllowedSourceOptions": 4,
+    "topCandidateBranch": "codex/A22-us-region-alignment",
+    "topCandidateQueueActionStatus": "needs-typecheck-remediation-and-fresh-build-observation",
+    "topCandidateTypeCheckErrorLines": 608,
+    "topCandidateBuildRefreshRequired": true,
+    "typecheckRemediationWorkOrders": 5,
+    "typecheckRemediationOwners": [
+      "A06",
+      "A13",
+      "A12",
+      "A08",
+      "A10"
+    ],
+    "validateExitReady": false,
+    "readyForMerge": false,
+    "mergeAuthorized": false,
+    "cleanupAuthorizedRows": 0,
+    "executableRows": 0,
+    "deployAuthorized": false,
+    "sourceCurrentnessFailures": 0
+  },
+  "resolutionRows": [
+    {
+      "rank": 1,
+      "rowId": "a25-validation-hold-lifecycle-resolution",
+      "owner": "A25 git hygiene and release intake",
+      "agentIds": [
+        "A25"
+      ],
+      "status": "blocked-worktree-still-registered",
+      "blockerClass": "validation-hold-lifecycle",
+      "blocker": "Owner confirmation is recorded, but the active compose worktree is still registered and has 896 dirty status entries",
+      "nextAction": "Keep validation hold blocked until the active compose worktree lifecycle is resolved through a separate, explicit owner lifecycle decision; then rerun validation-hold release gate.",
+      "evidence": [
+        "coordination/release-intake/latest-A25-validation-hold-release-gate.json",
+        "coordination/release-intake/latest-A25-validate-to-merge-blocker-frontier.json"
+      ],
+      "worktreeStillRegistered": true,
+      "activeWorktreePathExists": true,
+      "activeWorktreeDirtyStatusEntries": 896,
+      "worktreePruneDryRunRows": 0,
+      "requiresOwnerInput": true,
+      "requiresCleanReleaseSource": false,
+      "cleanupAuthorized": false,
+      "executableNow": false
+    },
+    {
+      "rank": 2,
+      "rowId": "a22-clean-source-selection-review",
+      "owner": "A22 production reliability and release engineering with A25/A10 support",
+      "agentIds": [
+        "A22",
+        "A25",
+        "A10"
+      ],
+      "status": "reviewed-fallback-green-not-selected",
+      "blockerClass": "release-source-clean",
+      "blocker": "Fallback candidate codex/s22-release-hygiene-2026-06-15 is reviewed green but not selected as release source",
+      "nextAction": "Keep the reviewed fallback as a clean-source option; do not select a release source, stage, merge, cleanup, or deploy until owner promotion/merge/deploy authorization and release gates exist.",
+      "evidence": [
+        "coordination/release-intake/latest-A22-clean-source-validation-queue.json",
+        "coordination/release-intake/latest-A22-clean-source-selection-review.json",
+        "coordination/release-intake/latest-A22-clean-source-candidate-promotion-packet.json",
+        "coordination/release-intake/latest-A22-clean-release-source-runway.json"
+      ],
+      "fallbackGreenCandidateBranch": "codex/s22-release-hygiene-2026-06-15",
+      "releaseSourceEligibleNow": false,
+      "releaseSourceSelected": false,
+      "cleanWorktreeCandidates": 8,
+      "blockedAllowedSourceOptions": 4,
+      "requiresOwnerInput": false,
+      "requiresCleanReleaseSource": true,
+      "cleanupAuthorized": false,
+      "executableNow": false
+    },
+    {
+      "rank": 3,
+      "rowId": "a22-top-candidate-typecheck-remediation",
+      "owner": "A22 production reliability and release engineering with routed owner sessions",
+      "agentIds": [
+        "A22",
+        "A06",
+        "A13",
+        "A12",
+        "A08",
+        "A10"
+      ],
+      "status": "needs-typecheck-remediation-and-fresh-build-observation",
+      "blockerClass": "typecheck-remediation",
+      "blocker": "608 A22 top-candidate type-check error line(s) remain routed across 5 owner work order(s)",
+      "nextAction": "Use the owner-routed work orders to reduce candidate-specific type-check errors to zero, then refresh A22 type-check/build/smoke evidence before any clean-source selection.",
+      "evidence": [
+        "coordination/release-intake/latest-A22-typecheck-remediation-owner-work-orders.json",
+        "coordination/release-intake/latest-A22-clean-source-validation-queue.json"
+      ],
+      "workOrderCount": 5,
+      "workOrderOwners": [
+        "A06",
+        "A13",
+        "A12",
+        "A08",
+        "A10"
+      ],
+      "totalRoutedErrorRows": 608,
+      "topWorkOrders": [
+        {
+          "workOrderId": "a22-typecheck-remediation-a06",
+          "ownerId": "A06",
+          "ownerLabel": "Visualization lead",
+          "totalRoutedErrorRows": 288,
+          "remediationStatus": "owner-routed-cross-owner-remediation-required",
+          "latestMarkdown": "coordination/release-intake/latest-A22-typecheck-remediation-owner-work-order-a06.md"
+        },
+        {
+          "workOrderId": "a22-typecheck-remediation-a13",
+          "ownerId": "A13",
+          "ownerLabel": "Teacher console lead",
+          "totalRoutedErrorRows": 229,
+          "remediationStatus": "owner-routed-cross-owner-remediation-required",
+          "latestMarkdown": "coordination/release-intake/latest-A22-typecheck-remediation-owner-work-order-a13.md"
+        },
+        {
+          "workOrderId": "a22-typecheck-remediation-a12",
+          "ownerId": "A12",
+          "ownerLabel": "Backend/API platform lead",
+          "totalRoutedErrorRows": 121,
+          "remediationStatus": "owner-routed-cross-owner-remediation-required",
+          "latestMarkdown": "coordination/release-intake/latest-A22-typecheck-remediation-owner-work-order-a12.md"
+        },
+        {
+          "workOrderId": "a22-typecheck-remediation-a08",
+          "ownerId": "A08",
+          "ownerLabel": "State and analytics / shared types lead",
+          "totalRoutedErrorRows": 97,
+          "remediationStatus": "owner-routed-cross-owner-remediation-required",
+          "latestMarkdown": "coordination/release-intake/latest-A22-typecheck-remediation-owner-work-order-a08.md"
+        },
+        {
+          "workOrderId": "a22-typecheck-remediation-a10",
+          "ownerId": "A10",
+          "ownerLabel": "Tooling, docs, report lead",
+          "totalRoutedErrorRows": 36,
+          "remediationStatus": "owner-routed-cross-owner-remediation-required",
+          "latestMarkdown": "coordination/release-intake/latest-A22-typecheck-remediation-owner-work-order-a10.md"
+        }
+      ],
+      "requiresOwnerInput": false,
+      "requiresCleanReleaseSource": true,
+      "cleanupAuthorized": false,
+      "executableNow": false
+    },
+    {
+      "rank": 4,
+      "rowId": "a25-validate-to-merge-frontier",
+      "owner": "A25 git hygiene and release intake with A22 release engineering",
+      "agentIds": [
+        "A25",
+        "A22"
+      ],
+      "status": "blocked-before-merge",
+      "blockerClass": "validate-to-merge",
+      "blocker": "4 validate-to-merge check(s) remain failed; validateExitReady=false",
+      "nextAction": "Resolve frontier rows in rank order: owner input, validation hold, clean release source, type/build gates, then rerun validate-to-merge before any merge consideration.",
+      "evidence": [
+        "coordination/release-intake/latest-A25-validate-to-merge-blocker-frontier.json",
+        "coordination/release-intake/latest-A25-seven-step-closure-bridge.json"
+      ],
+      "failedMergeChecks": 4,
+      "frontierRows": 4,
+      "readyForMerge": false,
+      "validateExitReady": false,
+      "requiresOwnerInput": true,
+      "requiresCleanReleaseSource": true,
+      "cleanupAuthorized": false,
+      "executableNow": false
+    }
+  ],
+  "safeNextCommands": [
+    "node coordination/release-intake/assert-a25-a22-validate-frontier-resolution-packet-current.mjs",
+    "node coordination/release-intake/assert-validate-to-merge-blocker-frontier-current.mjs",
+    "node coordination/release-intake/assert-a22-clean-source-validation-queue-current.mjs",
+    "node coordination/release-intake/assert-a22-clean-source-selection-review-current.mjs",
+    "node coordination/release-intake/assert-validation-hold-release-gate-current.mjs",
+    "node coordination/release-intake/assert-no-staged-changes.mjs"
+  ],
+  "boundary": {
+    "evidenceOnly": true,
+    "recordsOwnerAuthorization": false,
+    "recordsExecutionInstruction": false,
+    "stagesFiles": false,
+    "commits": false,
+    "branches": false,
+    "merges": false,
+    "deploys": false,
+    "cleanupAuthorized": false,
+    "executableNow": false,
+    "destructiveGitAuthorized": false,
+    "physicalLifecycleCleanupAuthorized": false,
+    "releaseSourceSelected": false,
+    "dirtyRootDeployAuthorized": false
+  }
+}

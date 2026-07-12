@@ -1,5 +1,5 @@
-import { AdaptiveLearningContent } from "@/components/dashboard/AdaptiveLearningContent";
+import { redirect } from "next/navigation";
 
 export default function AdaptiveLearningPage() {
-  return <AdaptiveLearningContent />;
+  redirect("/personalized-learning");
 }

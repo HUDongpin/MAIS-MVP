@@ -1,0 +1,222 @@
+M coordination/content-qa/2026-05-26-S18-us-top10-math-rag-standards-guide.docx
+ M coordination/content-qa/generate-us-top10-rag-standards-docx.py
+ M coordination/content-qa/mainland-bnu-junior-generated-bank-v1-1500/approved-question-pack.json
+ M coordination/content-qa/mainland-bnu-junior-lessons-v1/deepseek-v4-pro-lesson-qa.mjs
+ M coordination/content-qa/mainland-bnu-junior-lessons-v1/deepseek-v4-pro-lesson-qa/preflight-summary.json
+ M coordination/content-qa/mainland-bnu-junior-lessons-v1/deepseek-v4-pro-lesson-qa/preflight-summary.md
+ M coordination/content-qa/mainland-hjb-high-generated-bank-v3-remediated/s18-promotability-decision.md
+ M coordination/content-qa/mainland-hjb-high-generated-bank-v4-remediated/s18-promotability-decision.md
+ M coordination/content-qa/mainland-hjb-junior-generated-bank-v2-1500/question-pack.json
+ M coordination/content-qa/mainland-pep-high-hybrid-1200-v1/audit-independent-solvability.mjs
+ M coordination/content-qa/mainland-pep-high-hybrid-1200-v1/final-review-decision.md
+ M coordination/content-qa/mainland-pep-high-hybrid-1200-v1/independent-solvability-audit.json
+ M coordination/content-qa/mainland-pep-high-hybrid-1200-v1/independent-solvability-audit.md
+ M coordination/content-qa/mainland-pep-high-hybrid-1200-v1/manual-review-results.csv
+ M coordination/content-qa/mainland-pep-high-hybrid-1200-v1/promotability-decision.md
+ M coordination/content-qa/mainland-pep-high-hybrid-1200-v1/qa-summary.md
+ M coordination/content-qa/mainland-pep-high-lessons-v1/lessons.json
+ M coordination/content-qa/mainland-pep-high-lessons-v1/qa-report.md
+ M coordination/content-qa/mainland-pep-high-lessons-v1/validation-report.json
+ M coordination/content-qa/mainland-pep-primary-generated-bank-v2/manual-review-queue.csv
+ M coordination/content-qa/mainland-pep-primary-generated-bank-v2/manual-review-results.csv
+ M coordination/content-qa/mainland-pep-primary-generated-bank-v2/qa-report.md
+ M coordination/content-qa/mainland-pep-primary-generated-bank-v2/questions.csv
+ M coordination/content-qa/mainland-pep-primary-generated-bank-v2/questions.jsonl
+ M coordination/content-qa/mainland-pep-primary-generated-bank-v2/repair-red-flag-rows.mjs
+ M coordination/content-qa/mainland-pep-primary-generated-bank-v2/solvability-audit.csv
+ M coordination/content-qa/mainland-pep-primary-generated-bank-v2/solvability-audit.json
+ M coordination/content-qa/mainland-pep-primary-generated-bank-v2/solvability-audit.md
+ M data/generated-content/mainland-bnu-junior-generated-bank-v1-1500/approved-question-pack.json
+ M data/generated-content/mainland-hjb-junior-generated-bank-v2-1500/question-pack.json
+ M data/generated-content/mainland-pep-high-lessons-v1/lessons.json
+ M data/rag/mainlandPepHigh.ts
+ M data/rag/mainlandPepJunior.ts
+ M data/rag/mainlandPepJuniorPaperPatterns.ts
+ M data/rag/usMath.ts
+ M lib/rag/hongKongDseEph.ts
+ M lib/rag/hongKongDseMath.ts
+ M lib/rag/hongKongDseUp.ts
+ M lib/rag/hongKongMath.ts
+ M lib/rag/hongKongMathEdB.ts
+ M lib/rag/mainlandBnuHigh.ts
+ M lib/rag/mainlandBnuHighAssessmentPatterns.ts
+ M lib/rag/mainlandBnuJunior.ts
+ M lib/rag/mainlandBnuJuniorAssessmentPatterns.ts
+ M lib/rag/mainlandBnuPrimary.ts
+ M lib/rag/mainlandBnuPrimaryAssessmentPatterns.ts
+ M lib/rag/mainlandHjbHigh.ts
+ M lib/rag/mainlandHjbHighExamPatterns.ts
+ M lib/rag/mainlandHjbJunior.ts
+ M lib/rag/mainlandHjbJuniorAssessmentPatterns.ts
+ M lib/rag/mainlandHjbJuniorPaperPatterns.ts
+ M lib/rag/mainlandHjbPrimary.ts
+ M lib/rag/mainlandHjbPrimaryAssessmentPatterns.ts
+ M lib/rag/mainlandJuniorZhongkaoExamPatterns.ts
+ M lib/rag/mainlandPep.test.ts
+ M lib/rag/mainlandPep.ts
+ M lib/rag/mainlandPepHigh.test.ts
+ M lib/rag/mainlandPepHigh.ts
+ M lib/rag/mainlandPepHighExamPatterns.ts
+ M lib/rag/mainlandPepJuniorExamPatterns.ts
+ M lib/rag/mainlandPepJuniorPaperPatterns.ts
+ M lib/rag/mainlandPepPrimaryExamPatterns.ts
+ M lib/rag/usMath.test.ts
+ M lib/rag/usMath.ts
+ M scripts/audit-mainland-pep-roadmap.ts
+ M scripts/build-mainland-pep-junior-paper-manifest.py
+ M scripts/build-us-math-safe-library-manifest.py
+?? coordination/content-qa/2026-06-15-S18-S24-us-tx-primary-lesson-illustration-review.md
+?? coordination/content-qa/2026-06-21-S18-generated-content-source-package-import-signoff.md
+?? coordination/content-qa/2026-06-21-S21-generated-content-source-package-restoration-inventory.md
+?? coordination/content-qa/2026-06-22-S18-us-ca-k5-public-claim-gate.md
+?? coordination/content-qa/2026-06-27-A18-A21-A24-worked-example-illustration-qa.md
+?? coordination/content-qa/2026-06-27-A18-california-concept-story-qa.md
+?? coordination/content-qa/california-knowledge-point-system-policy.md
+?? coordination/content-qa/mainland-bnu-junior-lessons-v1/deepseek-v4-pro-lesson-qa/coverage-matrix.csv
+?? coordination/content-qa/mainland-bnu-junior-lessons-v1/deepseek-v4-pro-lesson-qa/preflight-issues.csv
+?? coordination/content-qa/mainland-bnu-junior-lessons-v1/lessons.json
+?? coordination/content-qa/us-ca-adaptive-k-g5-beta-seed-v1/manual-review-results.csv
+?? coordination/content-qa/us-ca-adaptive-k-g5-beta-seed-v1/promotability-decision.md
+?? coordination/content-qa/us-ca-adaptive-k-g5-beta-seed-v1/qa-report.md
+?? coordination/content-qa/us-ca-adaptive-k-g5-beta-seed-v1/question-pack.json
+?? coordination/content-qa/us-ca-adaptive-k-g5-beta-seed-v1/solvability-audit.json
+?? coordination/content-qa/us-ca-adaptive-k-g5-beta-seed-v1/solvability-audit.md
+?? coordination/content-qa/us-ca-k5-knowledge-point-practice-v1/build-docx-report.py
+?? coordination/content-qa/us-ca-k5-knowledge-point-practice-v1/difficulty-buckets.csv
+?? coordination/content-qa/us-ca-k5-knowledge-point-practice-v1/difficulty-buckets.json
+?? coordination/content-qa/us-ca-k5-knowledge-point-practice-v1/generate-package.mjs
+?? coordination/content-qa/us-ca-k5-knowledge-point-practice-v1/manual-review-results.csv
+?? coordination/content-qa/us-ca-k5-knowledge-point-practice-v1/qa-report.docx
+?? coordination/content-qa/us-ca-k5-knowledge-point-practice-v1/qa-report.md
+?? coordination/content-qa/us-ca-k5-knowledge-point-practice-v1/qa-round-1.json
+?? coordination/content-qa/us-ca-k5-knowledge-point-practice-v1/qa-round-2.json
+?? coordination/content-qa/us-ca-k5-knowledge-point-practice-v1/quality-difficulty-audit.mjs
+?? coordination/content-qa/us-ca-k5-knowledge-point-practice-v1/quality-findings.csv
+?? coordination/content-qa/us-ca-k5-knowledge-point-practice-v1/quality-findings.json
+?? coordination/content-qa/us-ca-k5-knowledge-point-practice-v1/question-pack.json
+?? coordination/content-qa/us-ca-k5-knowledge-point-practice-v1/rendered-492/page-1.png
+?? coordination/content-qa/us-ca-k5-knowledge-point-practice-v1/rendered-492/page-2.png
+?? coordination/content-qa/us-ca-k5-knowledge-point-practice-v1/rendered-492/page-3.png
+?? coordination/content-qa/us-ca-k5-knowledge-point-practice-v1/rendered-492/page-4.png
+?? coordination/content-qa/us-ca-k5-knowledge-point-practice-v1/rendered-492/qa-report.pdf
+?? coordination/content-qa/us-ca-k5-knowledge-point-practice-v1/rendered-fixed/page-1.png
+?? coordination/content-qa/us-ca-k5-knowledge-point-practice-v1/rendered-fixed/page-2.png
+?? coordination/content-qa/us-ca-k5-knowledge-point-practice-v1/rendered-fixed/page-3.png
+?? coordination/content-qa/us-ca-k5-knowledge-point-practice-v1/rendered-fixed/page-4.png
+?? coordination/content-qa/us-ca-k5-knowledge-point-practice-v1/rendered-fixed/qa-report.pdf
+?? coordination/content-qa/us-ca-k5-knowledge-point-practice-v1/rendered/page-1.png
+?? coordination/content-qa/us-ca-k5-knowledge-point-practice-v1/rendered/page-2.png
+?? coordination/content-qa/us-ca-k5-knowledge-point-practice-v1/rendered/page-3.png
+?? coordination/content-qa/us-ca-k5-knowledge-point-practice-v1/rendered/page-4.png
+?? coordination/content-qa/us-ca-k5-knowledge-point-practice-v1/rendered/qa-report.pdf
+?? coordination/content-qa/us-ca-k5-knowledge-point-practice-v1/run-two-round-qa.mjs
+?? coordination/content-qa/us-ca-k5-knowledge-point-practice-v1/s18-quality-difficulty-qa.md
+?? coordination/content-qa/us-ca-k5-knowledge-point-practice-v1/s18-two-round-qa-decision.md
+?? coordination/content-qa/us-ca-k5-knowledge-point-practice-v1/solvability-audit.csv
+?? coordination/content-qa/us-ca-k5-knowledge-point-practice-v1/solvability-audit.json
+?? coordination/content-qa/us-ca-k5-knowledge-point-practice-v1/solvability-audit.md
+?? coordination/content-qa/us-ca-k5-knowledge-point-practice-v1/topic-coverage.json
+?? coordination/content-qa/us-ca-k5-knowledge-point-practice-v1/validate-package.mjs
+?? coordination/content-qa/us-ca-math-grade1-h-l-micro-lessons-v1/lessons.json
+?? coordination/content-qa/us-ca-math-grade1-h-l-micro-lessons-v1/manual-review-results.csv
+?? coordination/content-qa/us-ca-math-grade1-h-l-micro-lessons-v1/qa-report.md
+?? coordination/content-qa/us-ca-math-grade1-h-l-micro-lessons-v1/s18-qa-decision.md
+?? coordination/content-qa/us-ca-math-grade1-h-l-micro-lessons-v1/s23-promotion-decision.md
+?? coordination/content-qa/us-ca-math-grade1-h-l-micro-lessons-v1/validation-report.json
+?? coordination/content-qa/us-ca-math-k-g5-textbooks-v1/concept-explanation-qa-report.json
+?? coordination/content-qa/us-ca-math-k-g5-textbooks-v1/concept-explanation-qa-results.csv
+?? coordination/content-qa/us-ca-math-k-g5-textbooks-v1/generate-us-ca-k-g5-textbooks-v1.mjs
+?? coordination/content-qa/us-ca-math-k-g5-textbooks-v1/lessons.json
+?? coordination/content-qa/us-ca-math-k-g5-textbooks-v1/manual-review-results.csv
+?? coordination/content-qa/us-ca-math-k-g5-textbooks-v1/qa-report.md
+?? coordination/content-qa/us-ca-math-k-g5-textbooks-v1/s18-concept-explanation-qa.md
+?? coordination/content-qa/us-ca-math-k-g5-textbooks-v1/s18-qa-decision.md
+?? coordination/content-qa/us-ca-math-k-g5-textbooks-v1/s18-sampling-report.md
+?? coordination/content-qa/us-ca-math-k-g5-textbooks-v1/s23-promotion-decision.md
+?? coordination/content-qa/us-ca-math-k-g5-textbooks-v1/update-concept-explanations.mjs
+?? coordination/content-qa/us-ca-math-k-g5-textbooks-v1/validate-concept-explanations.mjs
+?? coordination/content-qa/us-ca-math-k-g5-textbooks-v1/validation-report.json
+?? coordination/content-qa/us-ca-math-middle-school-textbooks-v2/generate-us-ca-middle-school-textbooks-v2.mjs
+?? coordination/content-qa/us-ca-math-middle-school-textbooks-v2/lessons.json
+?? coordination/content-qa/us-ca-math-middle-school-textbooks-v2/manual-review-results.csv
+?? coordination/content-qa/us-ca-math-middle-school-textbooks-v2/qa-report.md
+?? coordination/content-qa/us-ca-math-middle-school-textbooks-v2/review-us-ca-middle-school-textbooks-v2.mjs
+?? coordination/content-qa/us-ca-math-middle-school-textbooks-v2/s18-full-scope-qa-decision.md
+?? coordination/content-qa/us-ca-math-middle-school-textbooks-v2/s18-full-scope-review.json
+?? coordination/content-qa/us-ca-math-middle-school-textbooks-v2/s18-qa-decision.md
+?? coordination/content-qa/us-ca-math-middle-school-textbooks-v2/s23-live-promotion-decision.md
+?? coordination/content-qa/us-ca-math-middle-school-textbooks-v2/s23-promotion-decision.md
+?? coordination/content-qa/us-ca-math-middle-school-textbooks-v2/validation-report.json
+?? coordination/content-qa/us-ca-math-rag-v2-candidate/build-california-rag-v2-candidate.mjs
+?? coordination/content-qa/us-ca-math-rag-v2-candidate/build-downstream-candidate-packs.mjs
+?? coordination/content-qa/us-ca-math-rag-v2-candidate/build-s11-candidate-review-page.mjs
+?? coordination/content-qa/us-ca-math-rag-v2-candidate/candidate-package.json
+?? coordination/content-qa/us-ca-math-rag-v2-candidate/coverage-summary.json
+?? coordination/content-qa/us-ca-math-rag-v2-candidate/review/index.html
+?? coordination/content-qa/us-ca-math-rag-v2-candidate/review/s11-candidate-preview-smoke.png
+?? coordination/content-qa/us-ca-math-rag-v2-candidate/run-s11-candidate-preview-smoke.mjs
+?? coordination/content-qa/us-ca-math-rag-v2-candidate/s04-practice-question-briefs.json
+?? coordination/content-qa/us-ca-math-rag-v2-candidate/s04-question-candidate-pack.json
+?? coordination/content-qa/us-ca-math-rag-v2-candidate/s04-representative-practice-candidates.json
+?? coordination/content-qa/us-ca-math-rag-v2-candidate/s05-lesson-candidate-pack.json
+?? coordination/content-qa/us-ca-math-rag-v2-candidate/s05-representative-lesson-candidates.json
+?? coordination/content-qa/us-ca-math-rag-v2-candidate/s05-textbook-lesson-briefs.json
+?? coordination/content-qa/us-ca-math-rag-v2-candidate/s11-candidate-preview-smoke.json
+?? coordination/content-qa/us-ca-math-rag-v2-candidate/s11-candidate-preview-smoke.md
+?? coordination/content-qa/us-ca-math-rag-v2-candidate/s11-candidate-regression-manifest.json
+?? coordination/content-qa/us-ca-math-rag-v2-candidate/s11-regression-readiness.md
+?? coordination/content-qa/us-ca-math-rag-v2-candidate/s18-downstream-qa-review.md
+?? coordination/content-qa/us-ca-math-rag-v2-candidate/s18-downstream-validation.json
+?? coordination/content-qa/us-ca-math-rag-v2-candidate/s18-qa-review.md
+?? coordination/content-qa/us-ca-math-rag-v2-candidate/s18-representative-sample-review.md
+?? coordination/content-qa/us-ca-math-rag-v2-candidate/s21-generation-report.md
+?? coordination/content-qa/us-ca-math-rag-v2-candidate/s23-promotion-decision-update.md
+?? coordination/content-qa/us-ca-math-rag-v2-candidate/s23-promotion-decision.md
+?? coordination/content-qa/us-ca-math-rag-v2-candidate/s23-promotion-handoff.md
+?? coordination/content-qa/us-ca-math-rag-v2-candidate/safe-card-drafts.json
+?? coordination/content-qa/us-ca-math-rag-v2-candidate/validation-summary.md
+?? coordination/integration/2026-06-21-S23-generated-content-source-package-gate.md
+?? coordination/integration/2026-06-27-A23-content-rag-candidate-chain-intake.md
+?? data/generated-content/hk-ease-practice-bank-v1/question-pack.json
+?? data/generated-content/mainland-bnu-junior-lessons-v1/lessons.json
+?? data/generated-content/us-ar-math-g6-g12-generated-bank-v1-1500/question-pack.json
+?? data/generated-content/us-ar-math-k-g5-generated-bank-v1-1500/question-pack.json
+?? data/generated-content/us-ar-math-textbooks-v1/textbook-pack.json
+?? data/generated-content/us-ca-k5-knowledge-point-practice-v1/question-pack.json
+?? data/generated-content/us-ca-math-g6-g12-generated-bank-v2-1500/question-pack.json
+?? data/generated-content/us-ca-math-k-g5-generated-bank-v3-deepseek-1500/question-pack.json
+?? data/generated-content/us-ca-math-k-g5-textbooks-v1/lessons.json
+?? data/generated-content/us-ca-math-middle-school-textbooks-v2/live-lessons.json
+?? data/generated-content/us-ca-math-textbooks-v1/textbook-pack.json
+?? data/generated-content/us-fl-math-middle-school-textbooks-v1/textbook-pack.json
+?? data/rag/hongKongEaseQuestions.ts
+?? data/rag/hongKongModernPrimary.ts
+?? data/rag/hongKongUpJunior.ts
+?? data/rag/hongKongUpJuniorEnglish.ts
+?? data/rag/hongKongUpJuniorResources.ts
+?? data/usCaliforniaKnowledgePoints.ts
+?? lib/californiaGradeAware.test.ts
+?? lib/rag/hongKongEaseQuestions.test.ts
+?? lib/rag/hongKongEaseQuestions.ts
+?? lib/rag/hongKongModernPrimary.test.ts
+?? lib/rag/hongKongModernPrimary.ts
+?? lib/rag/hongKongUpJunior.test.ts
+?? lib/rag/hongKongUpJunior.ts
+?? lib/rag/hongKongUpJuniorEnglish.test.ts
+?? lib/rag/hongKongUpJuniorResources.test.ts
+?? lib/rag/hongKongUpJuniorResources.ts
+?? lib/rag/illustrationTextMatchStandard.ts
+?? public/lesson-illustrations/us-ca-k5/grade1-operations-algebraic-thinking/add-subtract-concrete-to-abstract.svg
+?? public/lesson-illustrations/us-ca-k5/grade1-operations-algebraic-thinking/add-subtract-stories-single-panel-reference.png
+?? public/lesson-illustrations/us-ca-k5/grade1-operations-algebraic-thinking/add-subtract-stories-single-panel-source-hd.png
+?? public/lesson-illustrations/us-ca-k5/grade1-operations-algebraic-thinking/add-subtract-stories-two-panel-reference.png
+?? public/lesson-illustrations/us-ca-k5/grade1-operations-algebraic-thinking/lena-7-plus-4-stickers-worked-example.svg
+?? public/question-illustrations/mainland-hjb-primary/candidates/hjb-primary-area-square-units-imagegen-2026-06-04.png
+?? scripts/audit-mainland-high-rag-v4-candidate-solvability.ts
+?? scripts/build-hk-up-junior-english-exercise-manifest.py
+?? scripts/build-hk-up-junior-english-textbook-manifest.py
+?? scripts/build-hk-up-junior-resource-manifest.py
+?? scripts/build-hk-up-junior-textbook-manifest.py
+?? scripts/build-us-ca-private-raw-corpus.py
+?? scripts/query-us-ca-private-raw-corpus.py
+?? scripts/storage-admin-snapshot-merge.mjs

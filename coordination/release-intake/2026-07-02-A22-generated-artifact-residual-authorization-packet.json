@@ -1,0 +1,162 @@
+{
+  "generatedAt": "2026-07-02T15:59:09.303Z",
+  "repoRoot": "/Users/dongpinhu/Desktop/MAIS-MVP",
+  "dirtyMapStatusSignature": "8795235d79d826f8568a6825c8668e276b950ddcc2dfbaa79635b451700d27b0",
+  "expandedStatusEntries": 3508,
+  "sourceResidualEvidence": {
+    "generatedAt": "2026-07-02T15:58:54.930Z",
+    "summary": {
+      "residualTargets": 3,
+      "totalBytes": 0,
+      "datalessTargets": 3,
+      "contentCapturedRows": 0,
+      "cleanupAuthorizedRows": 0,
+      "executableRows": 0
+    }
+  },
+  "summary": {
+    "residualTargets": 3,
+    "zeroByteTargets": 3,
+    "cleanupScriptApplyRows": 1,
+    "exactDirectoryRemovalRows": 2,
+    "cleanupAuthorizedRows": 0,
+    "executableRows": 0
+  },
+  "rows": [
+    {
+      "approvalId": "a22-generated-residual-s11-parent-audit-next3",
+      "approvalKind": "a22-generated-artifact-residual-cleanup",
+      "owner": "A22 production reliability and release engineering",
+      "supportingOwner": "A25 git hygiene and release intake",
+      "priority": 1,
+      "path": ".s11-parent-audit-next3",
+      "targetType": "directory",
+      "manifestType": "directory",
+      "manifestBytes": 0,
+      "directoryCount": 2,
+      "fileCount": 0,
+      "manifestSha256": "174e139bea1ac59948cf49be782d880c5b713bbbc727a0dae19aba5046273336",
+      "dryRunBytes": 0,
+      "residualSkipReason": "cleanup script apply skips this anomalous dataless generated directory until evidence is preserved and separate owner/A22 handling is authorized",
+      "dirtyMapStatusSignature": "8795235d79d826f8568a6825c8668e276b950ddcc2dfbaa79635b451700d27b0",
+      "expandedStatusEntries": 3508,
+      "selectedAction": "owner-approved-exact-generated-directory-removal",
+      "exactCommand": "git clean -fd -- .s11-parent-audit-next3",
+      "commandCwd": "/Users/dongpinhu/Desktop/MAIS-MVP",
+      "actionNote": "The cleanup script intentionally skips this anomalous dataless .s11 directory; exact owner/A22 authorization is required before any separate removal.",
+      "evidence": [
+        "coordination/release-intake/latest-A22-generated-artifact-residual-evidence.json",
+        "coordination/release-intake/latest-A25-dirty-tree-map.json"
+      ],
+      "preChecks": [
+        "node scripts/cleanup-generated-artifacts.mjs --dry-run",
+        "node coordination/release-intake/assert-a22-generated-artifact-residual-evidence-current.mjs",
+        "node coordination/release-intake/assert-no-staged-changes.mjs"
+      ],
+      "postApprovalChecks": [
+        "node coordination/release-intake/generate-a22-generated-artifact-residual-evidence.mjs",
+        "node coordination/release-intake/assert-a22-generated-artifact-residual-evidence-current.mjs",
+        "npm run release:dirty-map -- --reason \"A22 residual generated-artifact cleanup authorization post-check\" --no-report",
+        "node coordination/release-intake/refresh-dirty-worktree-remediation-evidence.mjs --reason \"A22 residual generated-artifact cleanup authorization post-check\"",
+        "node coordination/release-intake/assert-dirty-worktree-remediation-current.mjs",
+        "node coordination/release-intake/assert-no-staged-changes.mjs"
+      ],
+      "cleanupAuthorized": false,
+      "executableNow": false,
+      "requiredAuthorizationText": "Authorize approvalId=a22-generated-residual-s11-parent-audit-next3; target=.s11-parent-audit-next3; selectedAction=owner-approved-exact-generated-directory-removal; command=git clean -fd -- .s11-parent-audit-next3; evidenceReviewed=coordination/release-intake/latest-A22-generated-artifact-residual-evidence.json, coordination/release-intake/latest-A22-generated-artifact-residual-authorization-packet.json; approvedBy=<owner/A22>; approvedAt=<ISO-8601>; notes=<scope, evidence reviewed, accepted risk>"
+    },
+    {
+      "approvalId": "a22-generated-residual-s11-parent-audit-next4",
+      "approvalKind": "a22-generated-artifact-residual-cleanup",
+      "owner": "A22 production reliability and release engineering",
+      "supportingOwner": "A25 git hygiene and release intake",
+      "priority": 2,
+      "path": ".s11-parent-audit-next4",
+      "targetType": "directory",
+      "manifestType": "directory",
+      "manifestBytes": 0,
+      "directoryCount": 2,
+      "fileCount": 0,
+      "manifestSha256": "174e139bea1ac59948cf49be782d880c5b713bbbc727a0dae19aba5046273336",
+      "dryRunBytes": 0,
+      "residualSkipReason": "cleanup script apply skips this anomalous dataless generated directory until evidence is preserved and separate owner/A22 handling is authorized",
+      "dirtyMapStatusSignature": "8795235d79d826f8568a6825c8668e276b950ddcc2dfbaa79635b451700d27b0",
+      "expandedStatusEntries": 3508,
+      "selectedAction": "owner-approved-exact-generated-directory-removal",
+      "exactCommand": "git clean -fd -- .s11-parent-audit-next4",
+      "commandCwd": "/Users/dongpinhu/Desktop/MAIS-MVP",
+      "actionNote": "The cleanup script intentionally skips this anomalous dataless .s11 directory; exact owner/A22 authorization is required before any separate removal.",
+      "evidence": [
+        "coordination/release-intake/latest-A22-generated-artifact-residual-evidence.json",
+        "coordination/release-intake/latest-A25-dirty-tree-map.json"
+      ],
+      "preChecks": [
+        "node scripts/cleanup-generated-artifacts.mjs --dry-run",
+        "node coordination/release-intake/assert-a22-generated-artifact-residual-evidence-current.mjs",
+        "node coordination/release-intake/assert-no-staged-changes.mjs"
+      ],
+      "postApprovalChecks": [
+        "node coordination/release-intake/generate-a22-generated-artifact-residual-evidence.mjs",
+        "node coordination/release-intake/assert-a22-generated-artifact-residual-evidence-current.mjs",
+        "npm run release:dirty-map -- --reason \"A22 residual generated-artifact cleanup authorization post-check\" --no-report",
+        "node coordination/release-intake/refresh-dirty-worktree-remediation-evidence.mjs --reason \"A22 residual generated-artifact cleanup authorization post-check\"",
+        "node coordination/release-intake/assert-dirty-worktree-remediation-current.mjs",
+        "node coordination/release-intake/assert-no-staged-changes.mjs"
+      ],
+      "cleanupAuthorized": false,
+      "executableNow": false,
+      "requiredAuthorizationText": "Authorize approvalId=a22-generated-residual-s11-parent-audit-next4; target=.s11-parent-audit-next4; selectedAction=owner-approved-exact-generated-directory-removal; command=git clean -fd -- .s11-parent-audit-next4; evidenceReviewed=coordination/release-intake/latest-A22-generated-artifact-residual-evidence.json, coordination/release-intake/latest-A22-generated-artifact-residual-authorization-packet.json; approvedBy=<owner/A22>; approvedAt=<ISO-8601>; notes=<scope, evidence reviewed, accepted risk>"
+    },
+    {
+      "approvalId": "a22-generated-residual-tmp",
+      "approvalKind": "a22-generated-artifact-residual-cleanup",
+      "owner": "A22 production reliability and release engineering",
+      "supportingOwner": "A25 git hygiene and release intake",
+      "priority": 3,
+      "path": ".tmp",
+      "targetType": "directory",
+      "manifestType": "directory",
+      "manifestBytes": 0,
+      "directoryCount": 0,
+      "fileCount": 0,
+      "manifestSha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+      "dryRunBytes": 0,
+      "residualSkipReason": "cleanup script recreates .tmp as an empty scratch directory after apply",
+      "dirtyMapStatusSignature": "8795235d79d826f8568a6825c8668e276b950ddcc2dfbaa79635b451700d27b0",
+      "expandedStatusEntries": 3508,
+      "selectedAction": "owner-approved-generated-artifact-cleanup-script-apply",
+      "exactCommand": "node scripts/cleanup-generated-artifacts.mjs --apply --scope all",
+      "commandCwd": "/Users/dongpinhu/Desktop/MAIS-MVP",
+      "actionNote": "The cleanup script reported this target in dry-run and removes generated targets it is allowed to remove; .tmp is recreated as an empty scratch directory after apply.",
+      "evidence": [
+        "coordination/release-intake/latest-A22-generated-artifact-residual-evidence.json",
+        "coordination/release-intake/latest-A25-dirty-tree-map.json"
+      ],
+      "preChecks": [
+        "node scripts/cleanup-generated-artifacts.mjs --dry-run",
+        "node coordination/release-intake/assert-a22-generated-artifact-residual-evidence-current.mjs",
+        "node coordination/release-intake/assert-no-staged-changes.mjs"
+      ],
+      "postApprovalChecks": [
+        "node coordination/release-intake/generate-a22-generated-artifact-residual-evidence.mjs",
+        "node coordination/release-intake/assert-a22-generated-artifact-residual-evidence-current.mjs",
+        "npm run release:dirty-map -- --reason \"A22 residual generated-artifact cleanup authorization post-check\" --no-report",
+        "node coordination/release-intake/refresh-dirty-worktree-remediation-evidence.mjs --reason \"A22 residual generated-artifact cleanup authorization post-check\"",
+        "node coordination/release-intake/assert-dirty-worktree-remediation-current.mjs",
+        "node coordination/release-intake/assert-no-staged-changes.mjs"
+      ],
+      "cleanupAuthorized": false,
+      "executableNow": false,
+      "requiredAuthorizationText": "Authorize approvalId=a22-generated-residual-tmp; target=.tmp; selectedAction=owner-approved-generated-artifact-cleanup-script-apply; command=node scripts/cleanup-generated-artifacts.mjs --apply --scope all; evidenceReviewed=coordination/release-intake/latest-A22-generated-artifact-residual-evidence.json, coordination/release-intake/latest-A22-generated-artifact-residual-authorization-packet.json; approvedBy=<owner/A22>; approvedAt=<ISO-8601>; notes=<scope, evidence reviewed, accepted risk>"
+    }
+  ],
+  "boundary": {
+    "evidenceOnly": true,
+    "cleanupAuthorized": false,
+    "executableNow": false,
+    "destructiveGitAuthorized": false,
+    "fileDeletionAuthorized": false,
+    "deployAuthorized": false,
+    "contentCaptured": false
+  }
+}

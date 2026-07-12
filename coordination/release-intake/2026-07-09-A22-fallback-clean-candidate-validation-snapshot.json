@@ -1,0 +1,151 @@
+{
+  "generatedAt": "2026-07-09T12:40:17.935Z",
+  "repoRoot": "/Users/dongpinhu/Desktop/MAIS-MVP",
+  "snapshotKind": "a22-fallback-clean-candidate-validation-snapshot",
+  "dirtyMapStatusSignature": "b3d232fd2b9ef81d4efc95903d2e3b316db664d6e9ec6ab366181395b3966be7",
+  "expandedStatusEntries": 6604,
+  "sourceArtifacts": {
+    "dirtyMap": {
+      "path": "coordination/release-intake/latest-A25-dirty-tree-map.json",
+      "generatedAt": "2026-07-09T12:36:24.420Z",
+      "dirtyMapStatusSignature": "b3d232fd2b9ef81d4efc95903d2e3b316db664d6e9ec6ab366181395b3966be7",
+      "expandedStatusEntries": 6604
+    },
+    "cleanSourceValidationQueue": {
+      "path": "coordination/release-intake/latest-A22-clean-source-validation-queue.json",
+      "generatedAt": "2026-07-09T12:06:14.267Z",
+      "dirtyMapStatusSignature": "b3d232fd2b9ef81d4efc95903d2e3b316db664d6e9ec6ab366181395b3966be7",
+      "expandedStatusEntries": 6604
+    }
+  },
+  "candidate": {
+    "branch": "codex/s22-release-hygiene-2026-06-15",
+    "expectedBranch": "codex/s22-release-hygiene-2026-06-15",
+    "path": "/Users/dongpinhu/Desktop/MAIS-MVP-worktrees/s22-release-hygiene-2026-06-15",
+    "head": "6fc558bd1db17d7024279b82e1be4007ee18ca1a",
+    "queueRank": 5,
+    "wasTopCandidate": false,
+    "queueActionStatusBeforeValidation": "fallback-candidate-validation-passed-await-clean-source-selection-review",
+    "gateCoverageStatusBeforeValidation": "fallback-candidate-gates-green"
+  },
+  "summary": {
+    "validationPassed": true,
+    "typeCheckPassed": true,
+    "typeCheckErrorLines": 0,
+    "buildPassed": true,
+    "trackedStatusCleanBefore": true,
+    "trackedStatusCleanAfter": true,
+    "trackedMutationDetected": false,
+    "releaseSourceSelected": false,
+    "promotionEligibleNow": true,
+    "cleanupAuthorizedRows": 0,
+    "executableRows": 0
+  },
+  "typeCheck": {
+    "argv": [
+      "npm",
+      "run",
+      "type-check",
+      "--",
+      "--pretty",
+      "false"
+    ],
+    "startedAt": "2026-07-09T12:39:43.052Z",
+    "finishedAt": "2026-07-09T12:39:50.641Z",
+    "durationMs": 7589,
+    "exitStatus": 0,
+    "signal": null,
+    "error": "",
+    "stdoutLineCount": 2,
+    "stderrLineCount": 0,
+    "outputLineCount": 2,
+    "errorLineCount": 0,
+    "topFiles": [],
+    "topCodes": [],
+    "firstErrors": [],
+    "beforeStatusRows": [],
+    "afterStatusRows": [],
+    "beforeStatusEntries": 0,
+    "afterStatusEntries": 0,
+    "mutationDetected": false
+  },
+  "build": {
+    "argv": [
+      "npm",
+      "run",
+      "build"
+    ],
+    "startedAt": "2026-07-09T12:39:50.761Z",
+    "finishedAt": "2026-07-09T12:40:17.797Z",
+    "durationMs": 27036,
+    "exitStatus": 0,
+    "signal": null,
+    "error": "",
+    "stdoutLineCount": 166,
+    "stderrLineCount": 0,
+    "outputLineCount": 159,
+    "errorLineCount": 0,
+    "topFiles": [],
+    "topCodes": [],
+    "firstErrors": [],
+    "beforeStatusRows": [],
+    "afterStatusRows": [],
+    "beforeStatusEntries": 0,
+    "afterStatusEntries": 0,
+    "mutationDetected": false
+  },
+  "beforeStatusRows": [],
+  "afterStatusRows": [],
+  "checks": [
+    {
+      "id": "candidate-in-validation-queue",
+      "status": "pass",
+      "detail": "candidate=codex/s22-release-hygiene-2026-06-15"
+    },
+    {
+      "id": "candidate-is-fallback",
+      "status": "pass",
+      "detail": "isTopCandidate=false"
+    },
+    {
+      "id": "tracked-status-stable",
+      "status": "pass",
+      "detail": "before=0; after=0"
+    },
+    {
+      "id": "type-check-green",
+      "status": "pass",
+      "detail": "exit=0; errors=0"
+    },
+    {
+      "id": "build-green",
+      "status": "pass",
+      "detail": "exit=0"
+    },
+    {
+      "id": "non-executable-boundary",
+      "status": "pass",
+      "detail": "snapshot records validation evidence only; release-source selection, merge, deploy, cleanup, staging, and destructive git remain unauthorized"
+    }
+  ],
+  "boundary": {
+    "evidenceOnly": true,
+    "runsTypeCheck": true,
+    "runsBuild": true,
+    "runsRegression": false,
+    "recordsOwnerInput": false,
+    "recordsOwnerApproval": false,
+    "recordsExtractionInstruction": false,
+    "modifiesCandidate": false,
+    "copiesRootFiles": false,
+    "selectsReleaseSource": false,
+    "stageAuthorized": false,
+    "commitAuthorized": false,
+    "mergeAuthorized": false,
+    "cleanupAuthorized": false,
+    "executableNow": false,
+    "destructiveGitAuthorized": false,
+    "deployAuthorized": false,
+    "physicalLifecycleCleanupAuthorized": false
+  }
+}

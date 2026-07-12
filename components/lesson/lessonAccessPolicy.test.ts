@@ -7,11 +7,15 @@ function source(path: string) {
 }
 
 test("student lesson server pages require an authenticated account before rendering content", () => {
+  const entryRoute = source("app/student/lessons/route.ts");
   const entryPage = source("components/lesson/StudentLessonEntryPage.tsx");
   const detailPage = source("components/lesson/StudentLessonPage.tsx");
   const entryClient = source("components/lesson/LessonEntryClient.tsx");
   const authGate = source("components/lesson/lessonAuthGate.ts");
 
+  assert.match(entryRoute, /SESSION_COOKIE_NAME/);
+  assert.match(entryRoute, /getAuthenticatedUserFromToken/);
+  assert.match(entryRoute, /NextResponse\.redirect\(lessonLoginUrl\(request\), 307\)/);
   assert.match(entryPage, /requireLessonAuthentication\(studentLessonsPath\)/);
   assert.match(detailPage, /requireLessonAuthentication\(lessonHrefForSlug\(slug\)\)/);
   assert.doesNotMatch(entryPage, /^import .*@\/lib\/server\/userStore/m);
@@ -22,6 +26,29 @@ test("student lesson server pages require an authenticated account before render
   assert.match(authGate, /await import\("@\/lib\/server\/auth"\)/);
   assert.doesNotMatch(entryClient, /guestRecommendedLessonHrefForGrade/);
   assert.match(entryClient, /router\.replace\(`\/login\?next=\$\{encodeURIComponent\(readCurrentPath\(\)\)\}`\)/);
+});
+
+test("student lesson entry redirects from the authenticated progress target", () => {
+  const entryRoute = source("app/student/lessons/route.ts");
+  const entryPage = source("components/lesson/StudentLessonEntryPage.tsx");
+  const entryClient = source("components/lesson/LessonEntryClient.tsx");
+
+  assert.match(entryRoute, /export const runtime = "nodejs"/);
+  assert.match(entryRoute, /await import\("@\/lib\/server\/userStore"\)/);
+  assert.match(entryRoute, /getLessonEntryTarget/);
+  assert.match(entryRoute, /NextResponse\.redirect\(new URL\(lessonEntryTarget\.href, request\.url\), 307\)/);
+  assert.match(entryPage, /return lessonEntryTarget\.href/);
+  assert.doesNotMatch(entryPage, /StudentLessonPage/);
+  assert.match(entryPage, /getLessonEntryTarget/);
+  assert.doesNotMatch(entryRoute, /StudentLessonPage/);
+  assert.match(entryPage, /window\.location\.replace/);
+  assert.match(entryPage, /httpEquiv="refresh"/);
+  assert.match(entryPage, /<LessonEntryClient \/>/);
+  assert.match(entryPage, /<LessonEntryClient initialLessonHref=\{href\} \/>/);
+  assert.match(entryClient, /initialLessonHref/);
+  assert.match(entryClient, /router\.replace\(initialLessonHref\)/);
+  assert.match(entryClient, /router\.replace\(studentLessonHref\)/);
+  assert.match(entryClient, /router\.replace\(targetHref\)/);
 });
 
 test("student textbook lesson routes also use the lesson authentication gate", () => {

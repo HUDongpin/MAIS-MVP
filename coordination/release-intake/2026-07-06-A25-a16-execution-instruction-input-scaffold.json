@@ -1,0 +1,211 @@
+{
+  "generatedAt": "2026-07-06T15:50:13.657Z",
+  "repoRoot": "/Users/dongpinhu/Desktop/MAIS-MVP",
+  "scaffoldKind": "a16-execution-instruction-input",
+  "note": "A25 scaffold only. This prepares the next owner execution-instruction input for A16, but it does not authorize or run Git commands.",
+  "dirtyMapStatusSignature": "b26fe39c438a20cdbb9cf3943e3d000d9dc8dc04ccccedc13792c457c5942d3b",
+  "expandedStatusEntries": 5183,
+  "sourceArtifacts": {
+    "ownerAuthorizationsGeneratedAt": "2026-07-06T15:50:09.101Z",
+    "executionAuthorizationDocketGeneratedAt": "2026-07-06T15:50:12.738Z",
+    "preExecutionValidationReportGeneratedAt": "2026-07-06T15:50:13.207Z",
+    "postExtractionVerificationReportGeneratedAt": "2026-07-06T15:28:30.655Z"
+  },
+  "sourceCurrentnessFailures": [],
+  "candidateId": "wave-05-visualization-ai-runtime:a16-research-evidence",
+  "cleanupAuthorized": false,
+  "executableNow": false,
+  "summary": {
+    "draftInstructionRows": 1,
+    "instructionRowsInFile": 0,
+    "validInstructionRows": 0,
+    "readyForSeparateInstructionRows": 0,
+    "postExtractionVerified": true,
+    "packageFileRows": 6,
+    "packageFingerprintRows": 6,
+    "packageFingerprintSha256": "005a792e0e2438bbade0462d03c740dc6a542b8152935a0ed5e6b11caf5a9fac",
+    "exactCommandRows": 2,
+    "acceptanceChecks": 10,
+    "passingAcceptanceChecks": 10,
+    "failedAcceptanceChecks": 0,
+    "sourceCurrentnessFailures": 0,
+    "cleanupAuthorizedRows": 0,
+    "executableRows": 0
+  },
+  "instructions": [],
+  "draftInstructionsDoNotExecute": [
+    {
+      "instructionId": "a16-root-pathspec-commit-execution-execution-instruction",
+      "approvalId": "a16-root-pathspec-commit-execution",
+      "owner": "A16 research and learning science",
+      "status": "draft-owner-execution-instruction-input",
+      "candidateId": "wave-05-visualization-ai-runtime:a16-research-evidence",
+      "sourceApprovalIds": [
+        "a16-research-and-learning-science",
+        "codex-a16-research-evidence-closure"
+      ],
+      "targetCwd": "/Users/dongpinhu/Desktop/MAIS-MVP",
+      "exactCommandSequence": [
+        "git add --pathspec-from-file=coordination/release-intake/latest-A25-effective-owner-a16-research-and-learning-science.pathspec",
+        "git commit -m \"Add A16 research evidence package\""
+      ],
+      "commandSequence": [
+        "git add --pathspec-from-file=coordination/release-intake/latest-A25-effective-owner-a16-research-and-learning-science.pathspec",
+        "git commit -m \"Add A16 research evidence package\""
+      ],
+      "packageFiles": [
+        "coordination/research/2026-06-20-3blue1brown-skill-distillation-handbook.md",
+        "coordination/research/2026-06-20-3blue1brown-skill-distillation-handbook.provenance.md",
+        "coordination/research/2026-06-20-3blue1brown-style-visualization-effects-report.md",
+        "coordination/research/2026-06-21-ke-to-mais-behavior-event-dictionary.csv",
+        "coordination/research/2026-06-21-ke-to-mais-stealth-assessment-integration-spec.md",
+        "coordination/research/2026-06-21-ke-to-mais-stealth-assessment-integration-spec.provenance.md"
+      ],
+      "packageFingerprints": [
+        {
+          "path": "coordination/research/2026-06-20-3blue1brown-skill-distillation-handbook.md",
+          "bytes": 22526,
+          "lineCount": 668,
+          "sha256": "643a27210a59980749e25e12b26d7afb705f13fcd225785ee5f9bf2ca2265a10"
+        },
+        {
+          "path": "coordination/research/2026-06-20-3blue1brown-skill-distillation-handbook.provenance.md",
+          "bytes": 2548,
+          "lineCount": 42,
+          "sha256": "bdc11b6350ba02ff316505c850b250cc3f3d220a36fd13032498b150d86a08bf"
+        },
+        {
+          "path": "coordination/research/2026-06-20-3blue1brown-style-visualization-effects-report.md",
+          "bytes": 35064,
+          "lineCount": 349,
+          "sha256": "11525e88659340ab2bf16a6f03fecb04b48c40f5c8a7fc2c651eed101112d158"
+        },
+        {
+          "path": "coordination/research/2026-06-21-ke-to-mais-behavior-event-dictionary.csv",
+          "bytes": 48645,
+          "lineCount": 100,
+          "sha256": "311b2388210d526dcb308d55eee1011c1c298e921eca66e5e9256a60bae5fb5c"
+        },
+        {
+          "path": "coordination/research/2026-06-21-ke-to-mais-stealth-assessment-integration-spec.md",
+          "bytes": 26095,
+          "lineCount": 653,
+          "sha256": "e902192f6e607c2e6a0c53581b2c994a37bc17a3a6a41c6a670abda85b5400d7"
+        },
+        {
+          "path": "coordination/research/2026-06-21-ke-to-mais-stealth-assessment-integration-spec.provenance.md",
+          "bytes": 1689,
+          "lineCount": 36,
+          "sha256": "96bb772676f89f1364e729b66a28cf787bbc724f12e83209b4f2b1b0c7f3c6d5"
+        }
+      ],
+      "packageFingerprintSha256": "005a792e0e2438bbade0462d03c740dc6a542b8152935a0ed5e6b11caf5a9fac",
+      "packageFingerprintSource": "coordination/release-intake/latest-A25-a16-pre-execution-validation-report.json",
+      "evidenceReviewed": [
+        "coordination/release-intake/latest-A25-next-owner-authorizations.json",
+        "coordination/release-intake/latest-A25-a16-execution-authorization-docket.json",
+        "coordination/release-intake/latest-A25-a16-pre-execution-validation-report.json"
+      ],
+      "requiredPreExecutionChecks": [
+        "node coordination/release-intake/review-owner-pathspec.mjs coordination/release-intake/latest-A25-effective-owner-a16-research-and-learning-science.pathspec --status",
+        "node coordination/release-intake/review-owner-pathspec.mjs coordination/release-intake/latest-A25-effective-owner-a16-research-and-learning-science.pathspec --diffstat",
+        "node coordination/release-intake/assert-next-owner-authorizations-current.mjs --json",
+        "node coordination/release-intake/assert-a16-authorized-package-extraction-request-current.mjs --json",
+        "node coordination/release-intake/assert-no-staged-changes.mjs --json"
+      ],
+      "requiredPostExecutionChecks": [
+        "node coordination/release-intake/assert-no-staged-changes.mjs --json",
+        "npm run release:dirty-map -- --reason \"A25 post-A16 package extraction commit\"",
+        "node coordination/release-intake/assert-dirty-worktree-remediation-current.mjs --json"
+      ],
+      "requiredExecutionText": "Authorize separate execution for approvalIds=a16-research-and-learning-science,codex-a16-research-evidence-closure; cwd=/Users/dongpinhu/Desktop/MAIS-MVP; commandSequence=\"git add --pathspec-from-file=coordination/release-intake/latest-A25-effective-owner-a16-research-and-learning-science.pathspec\" then \"git commit -m 'Add A16 research evidence package'\"; approvedBy=dongpinhu; approvedAt=<ISO-8601>; notes=Stage and commit only the 6 A16 research evidence files listed in coordination/release-intake/latest-A25-effective-owner-a16-research-and-learning-science.pathspec. No cleanup, worktree removal, branch deletion, reset, clean, push, deploy, broad staging, or unrelated dirty-root inventory is authorized.",
+      "companionLifecycleHoldText": "Record approvalId=codex-a16-research-evidence-closure as validated package-extraction hold after the A16 package commit/extraction is complete. No worktree removal, branch deletion, cleanup, reset, clean, push, deploy, or physical lifecycle command is authorized by this hold request.",
+      "approvedBy": "",
+      "approvedAt": "",
+      "notes": "",
+      "executionText": "",
+      "cleanupAuthorized": false,
+      "executableNow": false,
+      "destructiveGitAuthorized": false,
+      "deployAuthorized": false
+    }
+  ],
+  "acceptanceChecks": [
+    {
+      "id": "source-current",
+      "status": "pass",
+      "detail": "source currentness failures=0"
+    },
+    {
+      "id": "two-canonical-a16-approvals-recorded",
+      "status": "pass",
+      "detail": "Canonical input keeps the lifecycle row and the A16 owner-package row is consumed by verified post-extraction evidence."
+    },
+    {
+      "id": "pre-execution-validation-ready",
+      "status": "pass",
+      "detail": "checks=13/13"
+    },
+    {
+      "id": "one-execution-docket-row",
+      "status": "pass",
+      "detail": "authorization rows=1"
+    },
+    {
+      "id": "two-exact-commands",
+      "status": "pass",
+      "detail": "exact commands=2"
+    },
+    {
+      "id": "six-research-package-files",
+      "status": "pass",
+      "detail": "package files=6"
+    },
+    {
+      "id": "six-package-fingerprints",
+      "status": "pass",
+      "detail": "package fingerprints=6"
+    },
+    {
+      "id": "required-execution-text-present",
+      "status": "pass",
+      "detail": "Draft includes the exact copyable owner instruction text from the A16 execution docket."
+    },
+    {
+      "id": "no-real-instruction-rows-yet",
+      "status": "pass",
+      "detail": "instruction rows=0"
+    },
+    {
+      "id": "non-executable-boundary",
+      "status": "pass",
+      "detail": "The scaffold remains input-only and non-executable."
+    }
+  ],
+  "boundary": {
+    "evidenceOnly": true,
+    "scaffoldOnly": true,
+    "recordsOwnerApproval": false,
+    "recordsExecutionInstruction": false,
+    "stageAuthorized": false,
+    "commitAuthorized": false,
+    "mergeAuthorized": false,
+    "cleanupAuthorized": false,
+    "executableNow": false,
+    "destructiveGitAuthorized": false,
+    "deployAuthorized": false,
+    "requiresSeparateOwnerExecutionInstruction": true
+  },
+  "notAuthorizedByThisScaffold": [
+    "git add",
+    "git commit",
+    "git reset",
+    "git restore",
+    "git clean",
+    "git push",
+    "worktree removal",
+    "branch deletion",
+    "deploy",
+    "cleanup apply"
+  ]
+}

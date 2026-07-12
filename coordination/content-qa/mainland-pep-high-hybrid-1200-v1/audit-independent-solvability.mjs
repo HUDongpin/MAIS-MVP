@@ -835,6 +835,7 @@ function markdownReport({ summary, inventory, auditRows, queueRows }) {
     `- Duplicate exact prompts: ${inventory.duplicatePromptCount}`,
     `- Inventory issues: ${inventory.issues.length}`,
     `- Independent review queue rows: ${queueRows.length}`,
+    `- Manual pending rows: ${summary.manualPendingRows}`,
     `- Release recommendation: ${summary.releaseRecommendation}`,
     "",
     "## Status Counts",
@@ -889,8 +890,11 @@ function markdownReport({ summary, inventory, auditRows, queueRows }) {
     "",
     "## Human Review Requirement",
     "",
-    "- Complete every row in `manual-review-results.csv` before promotion.",
+    summary.manualPendingRows
+      ? "- Complete every row in `manual-review-results.csv` before promotion."
+      : "- S18 manual review queue is complete; no pending manual-review rows remain.",
     "- Do not use manual notes to bypass solver gaps; fix the solver or candidate row and rerun this audit.",
+    "- Public integration is not performed by this S18 package audit; S04/S08/S11 still need an explicit owner-approved integration task before student-facing use.",
     ""
   ].join("\n");
 }
@@ -907,7 +911,7 @@ function finalDecision(summary, manualResults) {
     "# Final Review Decision: Mainland PEP High Hybrid 1200",
     "",
     `- Decision: ${decision}`,
-    "- Public integration: not authorized in this task",
+    "- Public integration: not performed by S18; separate owner-approved S04/S08/S11 integration task required before student-facing use",
     `- Automatic pass rows: ${summary.passRows} / ${summary.totalRows}`,
     `- Automatic failing rows: ${summary.failingRows}`,
     `- Manual review rows: ${manualResults.length}`,
@@ -917,11 +921,15 @@ function finalDecision(summary, manualResults) {
     "",
     summary.failingRows > 0
       ? "Automatic independent solvability QA found non-pass rows. Fix candidate rows or solver gaps and rerun before human promotion review."
-      : "Automatic independent solvability QA passed all candidate rows. Promotion remains blocked until S18 completes the manual review queue.",
+      : allManualApproved
+        ? "Automatic independent solvability QA passed all candidate rows, and S18 manual topic-balanced sample review is complete. This clears the S18 content QA gate for promotion planning, but it does not perform or authorize production/public integration."
+        : "Automatic independent solvability QA passed all candidate rows. Promotion remains blocked until S18 completes the manual review queue.",
     "",
     "## Next Safe Step",
     "",
-    "- Fill `manual-review-results.csv` after S18 human review.",
+    allManualApproved
+      ? "- Request a separate owner-approved S04/S08/S11 production integration task before wiring this package into public question-bank surfaces."
+      : "- Fill `manual-review-results.csv` after S18 human review.",
     "- Rerun `node coordination/content-qa/mainland-pep-high-hybrid-1200-v1/audit-independent-solvability.mjs` after any fixes or manual-review update.",
     ""
   ].join("\n");
@@ -940,16 +948,23 @@ function main() {
   const failingRows = auditRows.filter((row) => row.status !== "pass");
   const queueRows = buildReviewQueue(rows, auditRows, manualRows);
   const manualResults = buildManualResults(queueRows, previousManualResults);
+  const manualPendingRows = manualResults.filter((row) => row.manualStatus !== "approved").length;
   const summary = {
     totalRows: rows.length,
     attemptedRows: auditRows.filter((row) => row.independentAnswer || row.status !== "solver-gap").length,
     passRows: auditRows.filter((row) => row.status === "pass").length,
     failingRows: failingRows.length,
+    manualRows: manualResults.length,
+    manualPendingRows,
     statusCounts: countBy(auditRows, "status"),
     gradeCounts: countBy(rows, "grade"),
     typeCounts: countBy(rows, "type"),
     topicCounts: countBy(rows, "topicId"),
-    releaseRecommendation: failingRows.length || inventory.issues.length ? "blocked-auto-qa" : "blocked-human-review"
+    releaseRecommendation: failingRows.length || inventory.issues.length
+      ? "blocked-auto-qa"
+      : manualPendingRows
+        ? "blocked-human-review"
+        : "approved-for-promotion-review"
   };
 
   const csvColumns = [

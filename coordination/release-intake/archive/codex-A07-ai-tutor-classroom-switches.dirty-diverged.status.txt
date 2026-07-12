@@ -1,0 +1,82 @@
+M app/api/ai-tutor/route.ts
+ M app/api/ai-tutor/status/route.ts
+ M app/teacher/classes/page.tsx
+ M components/ai/AITutorButton.tsx
+ M components/ai/AITutorProvider.tsx
+ M components/teacher/TeacherManagementViews.tsx
+ M components/teacher/teacherLabels.ts
+ M lib/i18n.ts
+ M lib/server/llmProvider.ts
+ M lib/server/userStore.ts
+ M lib/utils.ts
+ M types/index.ts
+?? app/api/ai-tutor/classroom-policy/route.ts
+?? app/api/ai-tutor/resolve/route.ts
+?? app/api/ai-tutor/speech/route.ts
+?? app/api/ai-tutor/voice/route.ts
+?? app/api/teacher/classes/[classId]/ai-tutor-policy/route.ts
+?? components/ai/NovaLensGlobalOverlay.tsx
+?? components/ai/tutorVoiceInput.test.ts
+?? components/ai/tutorVoiceInput.ts
+?? data/forum.ts
+?? lib/difficulty.ts
+?? lib/forum.ts
+?? lib/parentConstraints.ts
+?? lib/server/aiGovernance.ts
+?? lib/server/aiGovernanceClassroomPolicy.test.ts
+?? lib/server/userStore/aiGovernance.ts
+?? lib/server/userStore/aiGovernancePersistence.ts
+?? lib/server/userStore/aiGovernanceStore.ts
+?? lib/server/userStore/auth.ts
+?? lib/server/userStore/authAdminStoragePersistence.ts
+?? lib/server/userStore/authProvisioningPersistence.ts
+?? lib/server/userStore/authSessionPersistence.ts
+?? lib/server/userStore/authStore.ts
+?? lib/server/userStore/curriculumAvailability.ts
+?? lib/server/userStore/domainContracts.ts
+?? lib/server/userStore/gamification.ts
+?? lib/server/userStore/gamificationCampaignPersistence.ts
+?? lib/server/userStore/gamificationEventPersistence.ts
+?? lib/server/userStore/gamificationGamePersistence.ts
+?? lib/server/userStore/gamificationRewardRedemptionPersistence.ts
+?? lib/server/userStore/gamificationSeedRecords.ts
+?? lib/server/userStore/gamificationStore.ts
+?? lib/server/userStore/gamificationSummaryPersistence.ts
+?? lib/server/userStore/learnerProfilePersistence.ts
+?? lib/server/userStore/novaLensPersistence.ts
+?? lib/server/userStore/parent.ts
+?? lib/server/userStore/parentAccessPersistence.ts
+?? lib/server/userStore/parentFoundationPersistence.ts
+?? lib/server/userStore/parentMessagePersistence.ts
+?? lib/server/userStore/parentNoticePersistence.ts
+?? lib/server/userStore/parentReportPersistence.ts
+?? lib/server/userStore/parentStore.ts
+?? lib/server/userStore/questionFilter.ts
+?? lib/server/userStore/studentActivity.ts
+?? lib/server/userStore/studentActivityPersistence.ts
+?? lib/server/userStore/studentActivityStore.ts
+?? lib/server/userStore/teacherOps.ts
+?? lib/server/userStore/teacherOpsAssessmentPersistence.ts
+?? lib/server/userStore/teacherOpsAssignmentPersistence.ts
+?? lib/server/userStore/teacherOpsClassCollaboratorPersistence.ts
+?? lib/server/userStore/teacherOpsClassPersistence.ts
+?? lib/server/userStore/teacherOpsClassroomWorkSamplePersistence.ts
+?? lib/server/userStore/teacherOpsForumPersistence.ts
+?? lib/server/userStore/teacherOpsFoundationPersistence.ts
+?? lib/server/userStore/teacherOpsInboxPersistence.ts
+?? lib/server/userStore/teacherOpsLessonKitPersistence.ts
+?? lib/server/userStore/teacherOpsLiveSessionPersistence.ts
+?? lib/server/userStore/teacherOpsMasteryTargetPersistence.ts
+?? lib/server/userStore/teacherOpsNoticePersistence.ts
+?? lib/server/userStore/teacherOpsOperationsPersistence.ts
+?? lib/server/userStore/teacherOpsPrepTeamPersistence.ts
+?? lib/server/userStore/teacherOpsReminderPersistence.ts
+?? lib/server/userStore/teacherOpsReportExport.ts
+?? lib/server/userStore/teacherOpsReportPersistence.ts
+?? lib/server/userStore/teacherOpsResourcePersistence.ts
+?? lib/server/userStore/teacherOpsRosterImportPersistence.ts
+?? lib/server/userStore/teacherOpsRosterProfilePersistence.ts
+?? lib/server/userStore/teacherOpsStore.ts
+?? lib/server/userStore/teacherOpsStudentProfilePersistence.ts
+?? lib/server/userStore/teacherOpsSubmissionPersistence.ts
+?? lib/server/userStore/teacherOpsTermArchivePersistence.ts

@@ -1,0 +1,30 @@
+M app/adaptive-learning/loading.tsx
+ M app/adaptive-learning/page.tsx
+ M app/api/adaptive-learning/next/route.ts
+ M app/api/adaptive-learning/refresh/route.ts
+ M app/assessment/[assessmentId]/page.tsx
+ M app/dashboard/page.tsx
+ M components/dashboard/AdaptiveLearningContent.tsx
+ M components/dashboard/DashboardBackToTopButton.tsx
+ M components/dashboard/DashboardGradeSelectorGrid.tsx
+ M components/dashboard/StudentProfilePanel.tsx
+ M components/dashboard/StudentRewardsPanel.tsx
+ M lib/adaptiveLearning.test.ts
+ M lib/adaptiveLearning.ts
+ M lib/curriculumProfile.ts
+?? app/dashboard/dashboardPagePerformanceBoundary.test.ts
+?? app/personalized-learning/loading.tsx
+?? app/personalized-learning/page.tsx
+?? app/student/assessments/[assessmentId]/page.tsx
+?? app/student/assignments/[assignmentId]/page.tsx
+?? app/student/assignments/page.tsx
+?? components/dashboard/AdaptiveKnowledgeGalaxy.tsx
+?? components/dashboard/StudentAssignmentsView.tsx
+?? components/dashboard/adaptiveLearningContentPerformanceBoundary.test.ts
+?? components/dashboard/studentProfileAvatarUpload.test.ts
+?? components/dashboard/studentProfileAvatarUpload.ts
+?? components/dashboard/studentRewardsPanelLayout.test.ts
+?? scripts/dashboard-latency-smoke.mjs
+?? scripts/dashboard-smoke-auth-precheck.mjs
+?? scripts/dashboard-smoke-auth-precheck.test.mjs
+?? scripts/dashboard-ui-loading-smoke.mjs

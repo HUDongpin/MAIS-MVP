@@ -1,0 +1,1131 @@
+{
+  "checkedAt": "2026-06-20T04:32:31.299Z",
+  "target": "https://www.mais.hk",
+  "issues": [],
+  "lessonTangent": {
+    "svgAria": "Calculus tangent line explorer",
+    "texts": [
+      "f'(2) = 0.04"
+    ],
+    "axisNumericTextCount": 0,
+    "clip": null,
+    "curveStats": {
+      "pointCount": 180,
+      "minX": 42,
+      "maxX": 598,
+      "minY": -1.31,
+      "maxY": 588.56,
+      "outsideCount": 29,
+      "outsideRatio": 0.161
+    }
+  },
+  "calculusAndDifferentiation": [
+    {
+      "rootId": "lab-example-differentiation-intro",
+      "states": [
+        {
+          "mode": "default",
+          "svgAria": "Calculus tangent line explorer",
+          "texts": [
+            "f'(2) = 0.04"
+          ],
+          "axisNumericTextCount": 0,
+          "clip": null,
+          "curveStats": {
+            "pointCount": 180,
+            "minX": 42,
+            "maxX": 598,
+            "minY": -1.31,
+            "maxY": 588.56,
+            "outsideCount": 29,
+            "outsideRatio": 0.161
+          }
+        },
+        {
+          "mode": "min",
+          "svgAria": "Calculus tangent line explorer",
+          "texts": [
+            "f'(-3.5) = 9.61"
+          ],
+          "axisNumericTextCount": 0,
+          "clip": null,
+          "curveStats": {
+            "pointCount": 180,
+            "minX": 42,
+            "maxX": 598,
+            "minY": -1.31,
+            "maxY": 588.56,
+            "outsideCount": 29,
+            "outsideRatio": 0.161
+          }
+        },
+        {
+          "mode": "max",
+          "svgAria": "Calculus tangent line explorer",
+          "texts": [
+            "f'(5.5) = 5.29"
+          ],
+          "axisNumericTextCount": 0,
+          "clip": null,
+          "curveStats": {
+            "pointCount": 180,
+            "minX": 42,
+            "maxX": 598,
+            "minY": -1.31,
+            "maxY": 588.56,
+            "outsideCount": 29,
+            "outsideRatio": 0.161
+          }
+        }
+      ]
+    },
+    {
+      "rootId": "lab-example-calculus",
+      "states": [
+        {
+          "mode": "default",
+          "svgAria": "Calculus tangent line explorer",
+          "texts": [
+            "f'(2) = 0.04"
+          ],
+          "axisNumericTextCount": 0,
+          "clip": null,
+          "curveStats": {
+            "pointCount": 180,
+            "minX": 42,
+            "maxX": 598,
+            "minY": -1.31,
+            "maxY": 588.56,
+            "outsideCount": 29,
+            "outsideRatio": 0.161
+          }
+        },
+        {
+          "mode": "min",
+          "svgAria": "Calculus tangent line explorer",
+          "texts": [
+            "f'(-3.5) = 9.61"
+          ],
+          "axisNumericTextCount": 0,
+          "clip": null,
+          "curveStats": {
+            "pointCount": 180,
+            "minX": 42,
+            "maxX": 598,
+            "minY": -1.31,
+            "maxY": 588.56,
+            "outsideCount": 29,
+            "outsideRatio": 0.161
+          }
+        },
+        {
+          "mode": "max",
+          "svgAria": "Calculus tangent line explorer",
+          "texts": [
+            "f'(5.5) = 5.29"
+          ],
+          "axisNumericTextCount": 0,
+          "clip": null,
+          "curveStats": {
+            "pointCount": 180,
+            "minX": 42,
+            "maxX": 598,
+            "minY": -1.31,
+            "maxY": 588.56,
+            "outsideCount": 29,
+            "outsideRatio": 0.161
+          }
+        }
+      ]
+    }
+  ],
+  "complex": [
+    {
+      "rootId": "lab-example-pep-high-s4-complex-numbers",
+      "modes": [
+        {
+          "rootId": "lab-example-pep-high-s4-complex-numbers",
+          "mode": "z",
+          "inputs": [
+            {
+              "label": "Real part",
+              "value": 9,
+              "min": 1,
+              "max": 9
+            },
+            {
+              "label": "Imaginary part",
+              "value": 9,
+              "min": 1,
+              "max": 9
+            }
+          ],
+          "svgTexts": [
+            "Re",
+            "Im",
+            "9 + 9i",
+            "|z| = 12.73",
+            "z = a + bi"
+          ],
+          "outsideCount": 6,
+          "outsideItems": [
+            {
+              "tag": "circle",
+              "name": "modulus circle",
+              "text": "",
+              "cx": 320,
+              "cy": 190,
+              "r": 229.10259710444143,
+              "x": 0,
+              "y": 0
+            },
+            {
+              "tag": "line",
+              "name": "real projection",
+              "text": "",
+              "cx": 0,
+              "cy": 0,
+              "r": 0,
+              "x": 0,
+              "y": 0
+            },
+            {
+              "tag": "line",
+              "name": "imaginary projection",
+              "text": "",
+              "cx": 0,
+              "cy": 0,
+              "r": 0,
+              "x": 0,
+              "y": 0
+            },
+            {
+              "tag": "line",
+              "name": "complex vector",
+              "text": "",
+              "cx": 0,
+              "cy": 0,
+              "r": 0,
+              "x": 0,
+              "y": 0
+            },
+            {
+              "tag": "circle",
+              "name": "complex point",
+              "text": "",
+              "cx": 482,
+              "cy": 28,
+              "r": 12,
+              "x": 0,
+              "y": 0
+            },
+            {
+              "tag": "text",
+              "name": null,
+              "text": "9 + 9i",
+              "cx": 0,
+              "cy": 0,
+              "r": 0,
+              "x": 498,
+              "y": 16
+            }
+          ]
+        },
+        {
+          "rootId": "lab-example-pep-high-s4-complex-numbers",
+          "mode": "Conjugate",
+          "inputs": [
+            {
+              "label": "Real part",
+              "value": 9,
+              "min": 1,
+              "max": 9
+            },
+            {
+              "label": "Imaginary part",
+              "value": 9,
+              "min": 1,
+              "max": 9
+            }
+          ],
+          "svgTexts": [
+            "Re",
+            "Im",
+            "9 - 9i",
+            "|z| = 12.73",
+            "z = a + bi"
+          ],
+          "outsideCount": 8,
+          "outsideItems": [
+            {
+              "tag": "circle",
+              "name": "modulus circle",
+              "text": "",
+              "cx": 320,
+              "cy": 190,
+              "r": 229.10259710444143,
+              "x": 0,
+              "y": 0
+            },
+            {
+              "tag": "line",
+              "name": "real projection",
+              "text": "",
+              "cx": 0,
+              "cy": 0,
+              "r": 0,
+              "x": 0,
+              "y": 0
+            },
+            {
+              "tag": "line",
+              "name": "imaginary projection",
+              "text": "",
+              "cx": 0,
+              "cy": 0,
+              "r": 0,
+              "x": 0,
+              "y": 0
+            },
+            {
+              "tag": "line",
+              "name": "complex vector",
+              "text": "",
+              "cx": 0,
+              "cy": 0,
+              "r": 0,
+              "x": 0,
+              "y": 0
+            },
+            {
+              "tag": "circle",
+              "name": "complex point",
+              "text": "",
+              "cx": 482,
+              "cy": 28,
+              "r": 12,
+              "x": 0,
+              "y": 0
+            },
+            {
+              "tag": "line",
+              "name": "conjugate vector",
+              "text": "",
+              "cx": 0,
+              "cy": 0,
+              "r": 0,
+              "x": 0,
+              "y": 0
+            },
+            {
+              "tag": "circle",
+              "name": "conjugate point",
+              "text": "",
+              "cx": 482,
+              "cy": 352,
+              "r": 12,
+              "x": 0,
+              "y": 0
+            },
+            {
+              "tag": "text",
+              "name": null,
+              "text": "9 - 9i",
+              "cx": 0,
+              "cy": 0,
+              "r": 0,
+              "x": 498,
+              "y": 340
+            }
+          ]
+        },
+        {
+          "rootId": "lab-example-pep-high-s4-complex-numbers",
+          "mode": "i times z",
+          "inputs": [
+            {
+              "label": "Real part",
+              "value": 9,
+              "min": 1,
+              "max": 9
+            },
+            {
+              "label": "Imaginary part",
+              "value": 9,
+              "min": 1,
+              "max": 9
+            }
+          ],
+          "svgTexts": [
+            "Re",
+            "Im",
+            "-9 + 9i",
+            "|z| = 12.73",
+            "z = a + bi"
+          ],
+          "outsideCount": 10,
+          "outsideItems": [
+            {
+              "tag": "circle",
+              "name": "modulus circle",
+              "text": "",
+              "cx": 320,
+              "cy": 190,
+              "r": 229.10259710444143,
+              "x": 0,
+              "y": 0
+            },
+            {
+              "tag": "line",
+              "name": "real projection",
+              "text": "",
+              "cx": 0,
+              "cy": 0,
+              "r": 0,
+              "x": 0,
+              "y": 0
+            },
+            {
+              "tag": "line",
+              "name": "imaginary projection",
+              "text": "",
+              "cx": 0,
+              "cy": 0,
+              "r": 0,
+              "x": 0,
+              "y": 0
+            },
+            {
+              "tag": "line",
+              "name": "complex vector",
+              "text": "",
+              "cx": 0,
+              "cy": 0,
+              "r": 0,
+              "x": 0,
+              "y": 0
+            },
+            {
+              "tag": "circle",
+              "name": "complex point",
+              "text": "",
+              "cx": 482,
+              "cy": 28,
+              "r": 12,
+              "x": 0,
+              "y": 0
+            },
+            {
+              "tag": "line",
+              "name": "conjugate vector",
+              "text": "",
+              "cx": 0,
+              "cy": 0,
+              "r": 0,
+              "x": 0,
+              "y": 0
+            },
+            {
+              "tag": "circle",
+              "name": "conjugate point",
+              "text": "",
+              "cx": 482,
+              "cy": 352,
+              "r": 9,
+              "x": 0,
+              "y": 0
+            },
+            {
+              "tag": "line",
+              "name": "i times vector",
+              "text": "",
+              "cx": 0,
+              "cy": 0,
+              "r": 0,
+              "x": 0,
+              "y": 0
+            },
+            {
+              "tag": "circle",
+              "name": "i times point",
+              "text": "",
+              "cx": 158,
+              "cy": 28,
+              "r": 12,
+              "x": 0,
+              "y": 0
+            },
+            {
+              "tag": "text",
+              "name": null,
+              "text": "-9 + 9i",
+              "cx": 0,
+              "cy": 0,
+              "r": 0,
+              "x": 174,
+              "y": 16
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "rootId": "lab-example-bnu-high-s4-复数",
+      "modes": [
+        {
+          "rootId": "lab-example-bnu-high-s4-复数",
+          "mode": "z",
+          "inputs": [
+            {
+              "label": "Real part",
+              "value": 9,
+              "min": 1,
+              "max": 9
+            },
+            {
+              "label": "Imaginary part",
+              "value": 9,
+              "min": 1,
+              "max": 9
+            }
+          ],
+          "svgTexts": [
+            "Re",
+            "Im",
+            "9 + 9i",
+            "|z| = 12.73",
+            "z = a + bi"
+          ],
+          "outsideCount": 6,
+          "outsideItems": [
+            {
+              "tag": "circle",
+              "name": "modulus circle",
+              "text": "",
+              "cx": 320,
+              "cy": 190,
+              "r": 229.10259710444143,
+              "x": 0,
+              "y": 0
+            },
+            {
+              "tag": "line",
+              "name": "real projection",
+              "text": "",
+              "cx": 0,
+              "cy": 0,
+              "r": 0,
+              "x": 0,
+              "y": 0
+            },
+            {
+              "tag": "line",
+              "name": "imaginary projection",
+              "text": "",
+              "cx": 0,
+              "cy": 0,
+              "r": 0,
+              "x": 0,
+              "y": 0
+            },
+            {
+              "tag": "line",
+              "name": "complex vector",
+              "text": "",
+              "cx": 0,
+              "cy": 0,
+              "r": 0,
+              "x": 0,
+              "y": 0
+            },
+            {
+              "tag": "circle",
+              "name": "complex point",
+              "text": "",
+              "cx": 482,
+              "cy": 28,
+              "r": 12,
+              "x": 0,
+              "y": 0
+            },
+            {
+              "tag": "text",
+              "name": null,
+              "text": "9 + 9i",
+              "cx": 0,
+              "cy": 0,
+              "r": 0,
+              "x": 498,
+              "y": 16
+            }
+          ]
+        },
+        {
+          "rootId": "lab-example-bnu-high-s4-复数",
+          "mode": "Conjugate",
+          "inputs": [
+            {
+              "label": "Real part",
+              "value": 9,
+              "min": 1,
+              "max": 9
+            },
+            {
+              "label": "Imaginary part",
+              "value": 9,
+              "min": 1,
+              "max": 9
+            }
+          ],
+          "svgTexts": [
+            "Re",
+            "Im",
+            "9 - 9i",
+            "|z| = 12.73",
+            "z = a + bi"
+          ],
+          "outsideCount": 8,
+          "outsideItems": [
+            {
+              "tag": "circle",
+              "name": "modulus circle",
+              "text": "",
+              "cx": 320,
+              "cy": 190,
+              "r": 229.10259710444143,
+              "x": 0,
+              "y": 0
+            },
+            {
+              "tag": "line",
+              "name": "real projection",
+              "text": "",
+              "cx": 0,
+              "cy": 0,
+              "r": 0,
+              "x": 0,
+              "y": 0
+            },
+            {
+              "tag": "line",
+              "name": "imaginary projection",
+              "text": "",
+              "cx": 0,
+              "cy": 0,
+              "r": 0,
+              "x": 0,
+              "y": 0
+            },
+            {
+              "tag": "line",
+              "name": "complex vector",
+              "text": "",
+              "cx": 0,
+              "cy": 0,
+              "r": 0,
+              "x": 0,
+              "y": 0
+            },
+            {
+              "tag": "circle",
+              "name": "complex point",
+              "text": "",
+              "cx": 482,
+              "cy": 28,
+              "r": 12,
+              "x": 0,
+              "y": 0
+            },
+            {
+              "tag": "line",
+              "name": "conjugate vector",
+              "text": "",
+              "cx": 0,
+              "cy": 0,
+              "r": 0,
+              "x": 0,
+              "y": 0
+            },
+            {
+              "tag": "circle",
+              "name": "conjugate point",
+              "text": "",
+              "cx": 482,
+              "cy": 352,
+              "r": 12,
+              "x": 0,
+              "y": 0
+            },
+            {
+              "tag": "text",
+              "name": null,
+              "text": "9 - 9i",
+              "cx": 0,
+              "cy": 0,
+              "r": 0,
+              "x": 498,
+              "y": 340
+            }
+          ]
+        },
+        {
+          "rootId": "lab-example-bnu-high-s4-复数",
+          "mode": "i times z",
+          "inputs": [
+            {
+              "label": "Real part",
+              "value": 9,
+              "min": 1,
+              "max": 9
+            },
+            {
+              "label": "Imaginary part",
+              "value": 9,
+              "min": 1,
+              "max": 9
+            }
+          ],
+          "svgTexts": [
+            "Re",
+            "Im",
+            "-9 + 9i",
+            "|z| = 12.73",
+            "z = a + bi"
+          ],
+          "outsideCount": 10,
+          "outsideItems": [
+            {
+              "tag": "circle",
+              "name": "modulus circle",
+              "text": "",
+              "cx": 320,
+              "cy": 190,
+              "r": 229.10259710444143,
+              "x": 0,
+              "y": 0
+            },
+            {
+              "tag": "line",
+              "name": "real projection",
+              "text": "",
+              "cx": 0,
+              "cy": 0,
+              "r": 0,
+              "x": 0,
+              "y": 0
+            },
+            {
+              "tag": "line",
+              "name": "imaginary projection",
+              "text": "",
+              "cx": 0,
+              "cy": 0,
+              "r": 0,
+              "x": 0,
+              "y": 0
+            },
+            {
+              "tag": "line",
+              "name": "complex vector",
+              "text": "",
+              "cx": 0,
+              "cy": 0,
+              "r": 0,
+              "x": 0,
+              "y": 0
+            },
+            {
+              "tag": "circle",
+              "name": "complex point",
+              "text": "",
+              "cx": 482,
+              "cy": 28,
+              "r": 12,
+              "x": 0,
+              "y": 0
+            },
+            {
+              "tag": "line",
+              "name": "conjugate vector",
+              "text": "",
+              "cx": 0,
+              "cy": 0,
+              "r": 0,
+              "x": 0,
+              "y": 0
+            },
+            {
+              "tag": "circle",
+              "name": "conjugate point",
+              "text": "",
+              "cx": 482,
+              "cy": 352,
+              "r": 9,
+              "x": 0,
+              "y": 0
+            },
+            {
+              "tag": "line",
+              "name": "i times vector",
+              "text": "",
+              "cx": 0,
+              "cy": 0,
+              "r": 0,
+              "x": 0,
+              "y": 0
+            },
+            {
+              "tag": "circle",
+              "name": "i times point",
+              "text": "",
+              "cx": 158,
+              "cy": 28,
+              "r": 12,
+              "x": 0,
+              "y": 0
+            },
+            {
+              "tag": "text",
+              "name": null,
+              "text": "-9 + 9i",
+              "cx": 0,
+              "cy": 0,
+              "r": 0,
+              "x": 174,
+              "y": 16
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "rootId": "lab-example-hjb-high-s4-复数",
+      "modes": [
+        {
+          "rootId": "lab-example-hjb-high-s4-复数",
+          "mode": "z",
+          "inputs": [
+            {
+              "label": "Real part",
+              "value": 9,
+              "min": 1,
+              "max": 9
+            },
+            {
+              "label": "Imaginary part",
+              "value": 9,
+              "min": 1,
+              "max": 9
+            }
+          ],
+          "svgTexts": [
+            "Re",
+            "Im",
+            "9 + 9i",
+            "|z| = 12.73",
+            "z = a + bi"
+          ],
+          "outsideCount": 6,
+          "outsideItems": [
+            {
+              "tag": "circle",
+              "name": "modulus circle",
+              "text": "",
+              "cx": 320,
+              "cy": 190,
+              "r": 229.10259710444143,
+              "x": 0,
+              "y": 0
+            },
+            {
+              "tag": "line",
+              "name": "real projection",
+              "text": "",
+              "cx": 0,
+              "cy": 0,
+              "r": 0,
+              "x": 0,
+              "y": 0
+            },
+            {
+              "tag": "line",
+              "name": "imaginary projection",
+              "text": "",
+              "cx": 0,
+              "cy": 0,
+              "r": 0,
+              "x": 0,
+              "y": 0
+            },
+            {
+              "tag": "line",
+              "name": "complex vector",
+              "text": "",
+              "cx": 0,
+              "cy": 0,
+              "r": 0,
+              "x": 0,
+              "y": 0
+            },
+            {
+              "tag": "circle",
+              "name": "complex point",
+              "text": "",
+              "cx": 482,
+              "cy": 28,
+              "r": 12,
+              "x": 0,
+              "y": 0
+            },
+            {
+              "tag": "text",
+              "name": null,
+              "text": "9 + 9i",
+              "cx": 0,
+              "cy": 0,
+              "r": 0,
+              "x": 498,
+              "y": 16
+            }
+          ]
+        },
+        {
+          "rootId": "lab-example-hjb-high-s4-复数",
+          "mode": "Conjugate",
+          "inputs": [
+            {
+              "label": "Real part",
+              "value": 9,
+              "min": 1,
+              "max": 9
+            },
+            {
+              "label": "Imaginary part",
+              "value": 9,
+              "min": 1,
+              "max": 9
+            }
+          ],
+          "svgTexts": [
+            "Re",
+            "Im",
+            "9 - 9i",
+            "|z| = 12.73",
+            "z = a + bi"
+          ],
+          "outsideCount": 8,
+          "outsideItems": [
+            {
+              "tag": "circle",
+              "name": "modulus circle",
+              "text": "",
+              "cx": 320,
+              "cy": 190,
+              "r": 229.10259710444143,
+              "x": 0,
+              "y": 0
+            },
+            {
+              "tag": "line",
+              "name": "real projection",
+              "text": "",
+              "cx": 0,
+              "cy": 0,
+              "r": 0,
+              "x": 0,
+              "y": 0
+            },
+            {
+              "tag": "line",
+              "name": "imaginary projection",
+              "text": "",
+              "cx": 0,
+              "cy": 0,
+              "r": 0,
+              "x": 0,
+              "y": 0
+            },
+            {
+              "tag": "line",
+              "name": "complex vector",
+              "text": "",
+              "cx": 0,
+              "cy": 0,
+              "r": 0,
+              "x": 0,
+              "y": 0
+            },
+            {
+              "tag": "circle",
+              "name": "complex point",
+              "text": "",
+              "cx": 482,
+              "cy": 28,
+              "r": 12,
+              "x": 0,
+              "y": 0
+            },
+            {
+              "tag": "line",
+              "name": "conjugate vector",
+              "text": "",
+              "cx": 0,
+              "cy": 0,
+              "r": 0,
+              "x": 0,
+              "y": 0
+            },
+            {
+              "tag": "circle",
+              "name": "conjugate point",
+              "text": "",
+              "cx": 482,
+              "cy": 352,
+              "r": 12,
+              "x": 0,
+              "y": 0
+            },
+            {
+              "tag": "text",
+              "name": null,
+              "text": "9 - 9i",
+              "cx": 0,
+              "cy": 0,
+              "r": 0,
+              "x": 498,
+              "y": 340
+            }
+          ]
+        },
+        {
+          "rootId": "lab-example-hjb-high-s4-复数",
+          "mode": "i times z",
+          "inputs": [
+            {
+              "label": "Real part",
+              "value": 9,
+              "min": 1,
+              "max": 9
+            },
+            {
+              "label": "Imaginary part",
+              "value": 9,
+              "min": 1,
+              "max": 9
+            }
+          ],
+          "svgTexts": [
+            "Re",
+            "Im",
+            "-9 + 9i",
+            "|z| = 12.73",
+            "z = a + bi"
+          ],
+          "outsideCount": 10,
+          "outsideItems": [
+            {
+              "tag": "circle",
+              "name": "modulus circle",
+              "text": "",
+              "cx": 320,
+              "cy": 190,
+              "r": 229.10259710444143,
+              "x": 0,
+              "y": 0
+            },
+            {
+              "tag": "line",
+              "name": "real projection",
+              "text": "",
+              "cx": 0,
+              "cy": 0,
+              "r": 0,
+              "x": 0,
+              "y": 0
+            },
+            {
+              "tag": "line",
+              "name": "imaginary projection",
+              "text": "",
+              "cx": 0,
+              "cy": 0,
+              "r": 0,
+              "x": 0,
+              "y": 0
+            },
+            {
+              "tag": "line",
+              "name": "complex vector",
+              "text": "",
+              "cx": 0,
+              "cy": 0,
+              "r": 0,
+              "x": 0,
+              "y": 0
+            },
+            {
+              "tag": "circle",
+              "name": "complex point",
+              "text": "",
+              "cx": 482,
+              "cy": 28,
+              "r": 12,
+              "x": 0,
+              "y": 0
+            },
+            {
+              "tag": "line",
+              "name": "conjugate vector",
+              "text": "",
+              "cx": 0,
+              "cy": 0,
+              "r": 0,
+              "x": 0,
+              "y": 0
+            },
+            {
+              "tag": "circle",
+              "name": "conjugate point",
+              "text": "",
+              "cx": 482,
+              "cy": 352,
+              "r": 9,
+              "x": 0,
+              "y": 0
+            },
+            {
+              "tag": "line",
+              "name": "i times vector",
+              "text": "",
+              "cx": 0,
+              "cy": 0,
+              "r": 0,
+              "x": 0,
+              "y": 0
+            },
+            {
+              "tag": "circle",
+              "name": "i times point",
+              "text": "",
+              "cx": 158,
+              "cy": 28,
+              "r": 12,
+              "x": 0,
+              "y": 0
+            },
+            {
+              "tag": "text",
+              "name": null,
+              "text": "-9 + 9i",
+              "cx": 0,
+              "cy": 0,
+              "r": 0,
+              "x": 174,
+              "y": 16
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

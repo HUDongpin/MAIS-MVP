@@ -10,6 +10,7 @@ import {
   type GradeLabGroupDefinition
 } from "../../data/visualizationLabs";
 import { unitedStatesMathGradeOverviewCards } from "../../data/rag/usMath";
+import { toPrcSimplifiedText } from "../../lib/i18n";
 import {
   auditVisualizationControlSurfaceContract,
   auditVisualizationDirectEntryContract,
@@ -74,6 +75,7 @@ test("premium Three.js scene variant smoke targets cover each live premium varia
     "geometry-axes",
     "measurement-rail",
     "optimization-landscape",
+    "projection-views",
     "solid-net-fold",
     "space-vector-plane",
     "statistical-inference",
@@ -226,6 +228,15 @@ test("Visualization Lab workflow controls emit lab-scoped learning analytics pro
   assert.match(pageSource, /topicId:\s*lab\?\.topicId\s*\?\?\s*topicFallback/);
   assert.match(pageSource, /recordVisualizationWorkflowEvent\(lab\);/);
   assert.ok((pageSource.match(/recordVisualizationWorkflowEvent\(activeDirectoryLab\)/g) ?? []).length >= 3);
+});
+
+test("Visualization Lab client history stays on the canonical tools route after legacy redirects", () => {
+  const pageSource = fs.readFileSync("components/visualizations/VisualizationLabPage.tsx", "utf8");
+
+  assert.match(pageSource, /function buildVisualizationHistoryHref/);
+  assert.match(pageSource, /studentVisualizationToolsPath/);
+  assert.doesNotMatch(pageSource, /visualizationLabPath/);
+  assert.doesNotMatch(pageSource, /`\/visualization-lab/);
 });
 
 test("secondary geometry explorer exposes button nudge controls as a drag alternative", () => {
@@ -417,83 +428,98 @@ test("current high-confidence US display-layer fixes are not flagged as static f
       "us-ar-math-g10-chapter-03-circle-geometry",
       "us-ar-math-g11-chapter-02-exponential-and-logarithmic-models",
       "us-ar-math-g12-chapter-03-decision-statistics",
-      "us-ca-math-g3-unit-02-division-meaning",
-      "us-ca-math-g3-unit-07-perimeter-and-measurement",
-      "us-ca-math-g4-unit-02-multi-digit-multiplication",
-      "us-ca-math-g4-unit-05-fraction-equivalence",
-      "us-ca-math-g4-unit-07-decimals-and-place-value",
-      "us-ca-math-g5-unit-03-fraction-addition-and-subtraction",
-      "us-ca-math-g5-unit-06-volume-by-layers",
-      "us-ca-math-g5-unit-08-data-and-claims",
+      "us-ca-math-p3-3-oa-mult-div",
+      "us-ca-math-p3-3-md-time-data-area-perimeter",
+      "us-ca-math-p4-4-nbt-multi-digit",
+      "us-ca-math-p4-4-nf-fraction-decimal",
+      "us-ca-math-p5-5-nbt-decimals",
+      "us-ca-math-p5-5-nf-operations",
+      "us-ca-math-p5-5-md-volume-data",
+      "us-ca-math-p5-5-g-coordinate-shapes",
       "us-ca-math-s4-chapter-03",
       "us-ca-math-s5-chapter-02",
-      "us-ca-math-s6-chapter-03",
-      "us-nc-p4-perimeter-area",
-      "us-nc-coordinates",
-      "us-nc-mixed-problem-solving"
+      "us-ca-math-s6-chapter-03"
     ].includes(lab.labId)
   );
 
-  assert.equal(fixedLabs.length, 18);
+  assert.equal(fixedLabs.length, 15);
   assert.deepEqual(auditVisualizationCurriculumReview(fixedLabs), []);
   assert.equal(
     visualizationLabCatalog.find((lab) => lab.labId === "us-ar-math-g4-gm-3")?.templateId,
     "angle-geometry"
   );
   assert.match(
-    visualizationLabCatalog.find((lab) => lab.labId === "us-ca-math-g4-unit-05-fraction-equivalence")?.templateConfig.focus.en ?? "",
-    /Fraction Equivalence/
+    visualizationLabCatalog.find((lab) => lab.labId === "us-ca-math-p4-4-nf-fraction-decimal")?.templateConfig.focus.en ?? "",
+    /fraction/i
   );
   assert.match(
-    visualizationLabCatalog.find((lab) => lab.labId === "us-nc-coordinates")?.title.en ?? "",
-    /Coordinates/
+    visualizationLabCatalog.find((lab) => lab.labId === "us-ca-math-p5-5-g-coordinate-shapes")?.title.en ?? "",
+    /Coordinate/
   );
+});
+
+test("California Visualization Lab catalog keeps priority lab themes grade appropriate", () => {
+  const expectedThemeByLabId = new Map(
+    [
+      ["us-ca-math-k-k-cc-count-sequence", ["K", "number-line", /count|next number|1, 2, 3/i]],
+      ["us-ca-math-k-k-cc-cardinality-compare", ["K", "number-line", /count|compare|group/i]],
+      ["us-ca-math-k-k-oa-compose-decompose", ["K", "number-line", /part|whole|within 10/i]],
+      ["us-ca-math-k-k-nbt-teen-numbers", ["K", "base-ten", /10 \+|ten/i]],
+      ["us-ca-math-k-k-md-attributes-data", ["K", "measurement-scale", /attribute|sort|count/i]],
+      ["us-ca-math-k-k-g-shapes-position", ["K", "angle-geometry", /shape|position/i]],
+      ["us-ca-math-p1-1-oa-add-subtract", ["P1", "number-line", /start|part|change/i]],
+      ["us-ca-math-p1-1-md-measure-data", ["P1", "measurement-scale", /measure|sort|data/i]],
+      ["us-ca-math-p1-1-g-shape-reasoning", ["P1", "angle-geometry", /shape|attribute|compose/i]],
+      ["us-ca-math-p1-1-h1-picture-join-stories-to-10", ["P1", "number-line", /part \+ part|whole/i]],
+      ["us-ca-math-p1-1-h2-picture-story-addition-equations", ["P1", "equation-balance", /part \+ part|whole/i]],
+      ["us-ca-math-p1-1-h3-cube-train-join-models-to-10", ["P1", "number-line", /cube|train|total/i]],
+      ["us-ca-math-p1-1-h4-join-stories-within-10", ["P1", "number-line", /start|more|total/i]],
+      ["us-ca-math-p1-1-h5-model-equation-join-stories-to-10", ["P1", "equation-balance", /model|equation|total/i]],
+      ["us-ca-math-p1-1-h6-equation-match-join-stories-to-10", ["P1", "equation-balance", /story|equation/i]],
+      ["us-ca-math-p1-1-l1-picture-take-away-stories-to-10", ["P1", "number-line", /whole|-|left/i]],
+      ["us-ca-math-p1-1-l2-picture-story-subtraction-equations", ["P1", "equation-balance", /whole|-|left/i]],
+      ["us-ca-math-p1-1-l3-cube-train-take-away-models-to-10", ["P1", "number-line", /cube|train|left/i]],
+      ["us-ca-math-p1-1-l4-take-away-stories-within-10", ["P1", "number-line", /start|-|left/i]],
+      ["us-ca-math-p1-1-l5-model-equation-take-away-stories-to-10", ["P1", "equation-balance", /model|equation|left/i]],
+      ["us-ca-math-p1-1-l6-break-apart-subtraction-equations-to-10", ["P1", "equation-balance", /whole|part/i]],
+      ["us-ca-math-p3-3-oa-mult-div", ["P3", "array-area", /rows|groups|array|division/i]],
+      ["us-ca-math-p4-4-oa-factors-patterns", ["P4", "array-area", /factor|multiple|array/i]],
+      ["us-ca-math-p4-4-md-conversion-angles", ["P4", "measurement-scale", /unit|angle|measure/i]],
+      ["us-ca-math-p5-5-oa-expressions-patterns", ["P5", "equation-balance", /expression|pattern/i]],
+      ["us-ca-math-p5-5-md-volume-data", ["P5", "array-area", /volume|unit cube|data/i]],
+      ["us-ca-math-s2-chapter-02", ["S2", "function-family", /input|output|rate/i]],
+      ["us-ca-math-s5-chapter-05", ["S5", "statistics-distribution", /sample|inference|claim/i]],
+      ["us-ca-math-s6-chapter-01", ["S6", "statistics-distribution", /precision|uncertainty|mean/i]]
+    ] as const
+  );
+  const forbiddenFormulaPattern = /\bmean \+\/- spread\b|\bdy\/dx\b|\(x, y\) -> \(x', y'\)|\b10 x tens\b/i;
+
+  expectedThemeByLabId.forEach(([expectedGrade, expectedTemplateId, formulaPattern], labId) => {
+    const lab = visualizationLabCatalog.find((entry) => entry.labId === labId);
+    assert.ok(lab, `${labId} should be visible in the California Visualization Lab catalog`);
+    assert.equal(lab.grade, expectedGrade, `${labId} should stay on its California grade`);
+    assert.equal(lab.publisher, "US_CA_MATH", `${labId} should remain a California lab`);
+    assert.equal(lab.templateId, expectedTemplateId, `${labId} should use a grade-appropriate template`);
+    assert.match(lab.templateConfig.formula?.en ?? "", formulaPattern, `${labId} should expose a grade-fit lab formula`);
+    assert.doesNotMatch(lab.templateConfig.formula?.en ?? "", forbiddenFormulaPattern, `${labId} should not expose advanced or mismatched notation`);
+  });
 });
 
 test("current Visualization Lab catalog has no focus/topic keyword mismatches", () => {
   assert.deepEqual(auditVisualizationCurriculumReview(visualizationLabCatalog), []);
 });
 
-test("high-risk North Carolina Visualization Labs use topic-aligned display templates", () => {
-  const expected = {
-    "us-nc-p2-money-time": {
-      title: "North Carolina Money and Time Visual Lab",
-      templateId: "clock-money-data"
-    },
-    "us-nc-p4-angles": {
-      title: "North Carolina Angles Visual Lab",
-      templateId: "angle-geometry"
-    },
-    "us-nc-p5-volume": {
-      title: "North Carolina Volume Visual Lab",
-      templateId: "array-area"
-    },
-    "us-nc-trigonometry-basics": {
-      title: "North Carolina Trigonometry Basics Visual Lab",
-      templateId: "trig-unit-wave"
-    },
-    "us-nc-probability-s5": {
-      title: "North Carolina Probability Visual Lab",
-      templateId: "probability-simulation"
-    },
-    "us-nc-differentiation-intro": {
-      title: "North Carolina Differentiation Introduction Visual Lab",
-      templateId: "calculus-rate-area"
-    },
-    "us-nc-statistics-s6": {
-      title: "North Carolina Statistics Visual Lab",
-      templateId: "statistics-distribution"
-    }
-  } as const;
+test("candidate-only North Carolina safe cards do not leak into the live Visualization Lab catalog", () => {
+  const northCarolinaCards = unitedStatesMathGradeOverviewCards.filter(
+    (card) => card.curriculumTrack === "US_NC_MATH" && card.grade !== "K"
+  );
+  const northCarolinaLabIds = northCarolinaCards.flatMap((card) => card.topicIds.map((topicId) => `us-nc-${topicId}`));
+  const liveNorthCarolinaLabs = visualizationLabCatalog.filter(
+    (lab) => lab.publisher === "US_NC_MATH" || northCarolinaLabIds.includes(lab.labId)
+  );
 
-  Object.entries(expected).forEach(([labId, expectation]) => {
-    const lab = visualizationLabCatalog.find((entry) => entry.labId === labId);
-
-    assert.ok(lab, `Missing expected lab ${labId}.`);
-    assert.equal(lab.title.en, expectation.title);
-    assert.equal(lab.templateId, expectation.templateId);
-    assert.match(lab.templateConfig.focus.en, /North Carolina live pathway/);
-  });
+  assert.ok(northCarolinaCards.length > 0);
+  assert.deepEqual(liveNorthCarolinaLabs, []);
 });
 
 test("source-card alignment diagnostics expose parallel array cardinality mismatches", () => {
@@ -547,4 +573,20 @@ test("current North Carolina source-card alignment diagnostics match current dat
   assert.equal(issues.length, expectedIssueCount);
   assert.ok(issues.every((issue) => issue.code === "source-card-array-cardinality-mismatch"));
   assert.ok(issues.every((issue) => issue.labId?.startsWith("us-nc-")));
+});
+
+test("current Visualization Lab catalog keeps zhHans copy free of Traditional Chinese leakage", () => {
+  const leaks = visualizationLabCatalog.flatMap((lab) => {
+    const fields = [
+      ["title", lab.title.zhHans],
+      ["description", lab.description.zhHans],
+      ["gradeLabel", lab.gradeLabel.zhHans]
+    ] as const;
+
+    return fields
+      .filter(([, value]) => typeof value === "string" && value !== toPrcSimplifiedText(value))
+      .map(([field]) => `${lab.labId}:${field}`);
+  });
+
+  assert.deepEqual(leaks, []);
 });

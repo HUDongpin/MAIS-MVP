@@ -525,6 +525,40 @@ export const compactGradeLabels = Object.fromEntries(
   grades.map((grade) => [grade.id, { en: grade.id, zh: grade.name.zh, zhHans: grade.name.zhHans }])
 ) as Record<GradeId, LocalizedText>;
 
+const unitedStatesGradeNumberById: Record<GradeId, number | null> = {
+  K: null,
+  P1: 1,
+  P2: 2,
+  P3: 3,
+  P4: 4,
+  P5: 5,
+  P6: 6,
+  S1: 7,
+  S2: 8,
+  S3: 9,
+  S4: 10,
+  S5: 11,
+  S6: 12
+};
+
+export function formatUnitedStatesGradeLabel(grade: GradeId, language: Language, compact = false) {
+  const gradeNumber = unitedStatesGradeNumberById[grade];
+  const label: LocalizedText =
+    gradeNumber === null
+      ? compact
+        ? { en: "K", zh: "K", zhHans: "K" }
+        : { en: "Kindergarten", zh: "Kindergarten", zhHans: "Kindergarten" }
+      : compact
+        ? { en: `G${gradeNumber}`, zh: `G${gradeNumber}`, zhHans: `G${gradeNumber}` }
+        : { en: `Grade ${gradeNumber}`, zh: `${gradeNumber} 年級`, zhHans: `${gradeNumber} 年级` };
+
+  return textForLanguage(label, language);
+}
+
+function isUnitedStatesCurriculumTrack(curriculumTrack: CurriculumTrack) {
+  return curriculumTrack === "US_CA_MATH" || curriculumTrack === "US_NC_MATH" || curriculumTrack === "US_AR_MATH" || curriculumTrack === "US_FL_MATH";
+}
+
 const firstGrade = grades[0];
 const lastGrade = grades[grades.length - 1];
 
@@ -541,10 +575,9 @@ export const expandedGradeRangeLabels: LocalizedText = {
 };
 
 export const difficultyLabels: Record<Difficulty, LocalizedText> = {
-  Foundation: { en: "Foundation", zh: "基礎", zhHans: "基础" },
-  Core: { en: "Core", zh: "核心", zhHans: "核心" },
-  Challenge: { en: "Challenge", zh: "挑戰", zhHans: "挑战" },
-  Exam: { en: "Exam", zh: "應試", zhHans: "应试" }
+  Low: { en: "Low", zh: "低", zhHans: "低" },
+  Medium: { en: "Medium", zh: "中", zhHans: "中" },
+  High: { en: "High", zh: "高", zhHans: "高" }
 };
 
 export const demoLearnerName: LocalizedText = {
@@ -588,6 +621,9 @@ export function formatGradeLabelForCurriculum(
   curriculumTrack: CurriculumTrack,
   compact = false
 ) {
+  if (curriculumTrack === "US_CA_MATH") return formatUnitedStatesGradeLabel(grade, "en", compact);
+  if (isUnitedStatesCurriculumTrack(curriculumTrack)) return formatUnitedStatesGradeLabel(grade, language, compact);
+
   const label = curriculumTrack === "MAINLAND_PEP_HIGH" ? mainlandGradeLabels[grade] : undefined;
   return label ? textForLanguage(label, language) : formatGradeLabel(grade, language, compact);
 }
@@ -666,7 +702,7 @@ export const dictionary = {
 	    correct: { en: "Correct - nice reasoning.", zh: "正確 - 推理清晰。" },
 	    notYet: { en: "Not yet - answer:", zh: "未正確 - 答案：" },
 	    savedMistake: { en: "Saved to Mistake Book.", zh: "已儲存到錯題集。" },
-	    askTutor: { en: "Ask AI Tutor", zh: "詢問智能導師" }
+	    askTutor: { en: "Ask AI Tutor", zh: "詢問 AI Tutor", zhHans: "询问 AI Tutor" }
 	  },
 	  mistakes: {
     title: { en: "Mistake Book", zh: "錯題集" },
@@ -691,23 +727,18 @@ export const dictionary = {
   },
   login: {
     title: { en: "Log in", zh: "登入", zhHans: "登录" },
-    subtitle: {
-      en: "Use your issued account, family account, or a display account for a walkthrough.",
-      zh: "使用已開通帳戶、家庭帳戶，或展示帳戶進行演示。",
-      zhHans: "使用已开通账户、家庭账户，或展示账户进行演示。"
-    },
     username: { en: "Email or username", zh: "電郵或用戶名稱", zhHans: "邮箱或用户名" },
     password: { en: "Password", zh: "密碼" },
     gradeChoice: { en: "Study grade", zh: "學習年級" },
 	    submit: { en: "Log In", zh: "登入" },
-	    signingIn: { en: "Signing in...", zh: "正在登入..." },
+	    signingIn: { en: "Signing in…", zh: "正在登入…", zhHans: "正在登录…" },
     continue: { en: "Continue to dashboard", zh: "前往學生儀表板" },
     logout: { en: "Log out", zh: "登出" },
     signedIn: { en: "Signed in as", zh: "已登入" },
     demoAccount: {
-      en: "MAIS is protected by registered intellectual property rights under the laws of the United States and China. Any unauthorized use is strictly prohibited, including but not limited to copying its features or replicating its user interface.\nMainland Chinese student (Mainland Student Ludwig / 12345)\nMainland Chinese teacher (Mainland Teacher Phoebe / 12345)\nHK student (HK Student Peter / 12345)\nHK teacher (HK Teacher Chan / 12345)\nUS student (Student Shirleen / 12345)\nUS teacher (Teacher Scott / 12345)",
-      zh: "根據美國和中國法律，MAIS 受已註冊知識產權保護。嚴禁任何未經授權的使用，包括但不限於複製其功能或仿製其用戶介面。\n中國內地學生（Mainland Student Ludwig / 12345）\n中國內地教師（Mainland Teacher Phoebe / 12345）\n香港學生（HK Student Peter / 12345）\n香港教師（HK Teacher Chan / 12345）\n美國學生（Student Shirleen / 12345）\n美國教師（Teacher Scott / 12345）",
-      zhHans: "根据美国和中国法律，MAIS 受已注册知识产权保护。严禁任何未经授权的使用，包括但不限于复制其功能或仿制其用户界面。\n中国内地学生（Mainland Student Ludwig / 12345）\n中国内地教师（Mainland Teacher Phoebe / 12345）\n香港学生（HK Student Peter / 12345）\n香港教师（HK Teacher Chan / 12345）\n美国学生（Student Shirleen / 12345）\n美国教师（Teacher Scott / 12345）"
+      en: "MAIS is protected by registered intellectual property rights under the laws of the United States and China. Any unauthorized use is strictly prohibited, including but not limited to copying its features or replicating its user interface.\nCalifornia Math Grade 1 student (Student Shirleen / 12345)\nCalifornia Math Grade 1 teacher (Teacher Scott / 12345)\nMainland PEP S4 student (Student Peter / 12345)\nMainland PEP S4 teacher (Teacher Phoebe / 12345)\nHong Kong DSE UP S4 student (HK Student Peter / 12345)\nHong Kong DSE UP S4 teacher (HK Teacher Chan / 12345)",
+      zh: "根據美國和中國法律，MAIS 受已註冊知識產權保護。嚴禁任何未經授權的使用，包括但不限於複製其功能或仿製其用戶介面。\n加州數學 Grade 1 學生（Student Shirleen / 12345）\n加州數學 Grade 1 教師（Teacher Scott / 12345）\n中國內地人教版 S4 學生（Student Peter / 12345）\n中國內地人教版 S4 教師（Teacher Phoebe / 12345）\n中國香港 DSE UP S4 學生（HK Student Peter / 12345）\n中國香港 DSE UP S4 教師（HK Teacher Chan / 12345）",
+      zhHans: "根据美国和中国法律，MAIS 受已注册知识产权保护。严禁任何未经授权的使用，包括但不限于复制其功能或仿制其用户界面。\n加州数学 Grade 1 学生（Student Shirleen / 12345）\n加州数学 Grade 1 教师（Teacher Scott / 12345）\n中国大陆人教版 S4 学生（Student Peter / 12345）\n中国大陆人教版 S4 教师（Teacher Phoebe / 12345）\n中国香港 DSE UP S4 学生（HK Student Peter / 12345）\n中国香港 DSE UP S4 教师（HK Teacher Chan / 12345）"
     },
 	    invalid: { en: "Check your email/username and password.", zh: "請檢查電郵或用戶名稱和密碼。", zhHans: "请检查邮箱或用户名和密码。" }
 	  },
@@ -729,19 +760,19 @@ export const dictionary = {
 	    fallbackRoadmap: { en: "Open the roadmap to see the next unlocked topic.", zh: "打開學習路線圖查看下一個解鎖課題。" }
 	  },
 	  aiTutor: {
-	    button: { en: "AI Tutor", zh: "智能導師" },
-	    ask: { en: "Ask AI Tutor", zh: "詢問智能導師" },
-	    close: { en: "Close AI Tutor", zh: "關閉智能導師" },
+	    button: { en: "AI Tutor", zh: "AI Tutor", zhHans: "AI Tutor" },
+	    ask: { en: "Ask AI Tutor", zh: "詢問 AI Tutor", zhHans: "询问 AI Tutor" },
+	    close: { en: "Close AI Tutor", zh: "關閉 AI Tutor", zhHans: "关闭 AI Tutor" },
 	    student: { en: "Student", zh: "學生" },
 	    placeholder: { en: "Ask for a hint, explanation, feedback, or encouragement...", zh: "輸入提示、解釋、回饋或鼓勵請求..." },
-	    thinking: { en: "Live AI tutor is thinking...", zh: "即時智能導師正在思考..." },
-	    liveMode: { en: "Live mode uses the secure server API when LLM_API_KEY is set.", zh: "設定伺服器金鑰後會使用安全伺服器。" },
-	    setupChecking: { en: "Checking AI Tutor setup...", zh: "正在檢查智能導師設定..." },
-	    liveReady: { en: "Live AI ready", zh: "即時智能導師已就緒" },
+	    thinking: { en: "AI Tutor is thinking...", zh: "AI Tutor 正在思考...", zhHans: "AI Tutor 正在思考..." },
+	    liveMode: { en: "Live mode uses the secure server API when DEEPSEEK_API_KEY is set.", zh: "設定 DeepSeek 伺服器金鑰後會使用安全伺服器。" },
+	    setupChecking: { en: "Checking AI Tutor setup...", zh: "正在檢查 AI Tutor 設定...", zhHans: "正在检查 AI Tutor 设置..." },
+	    liveReady: { en: "AI Tutor ready", zh: "AI Tutor 已就緒", zhHans: "AI Tutor 已就绪" },
 	    localHelperMode: { en: "Local helper mode", zh: "本機輔助模式" },
 	    send: { en: "Send", zh: "送出" },
 	    sending: { en: "Sending...", zh: "正在送出..." },
-	    unavailablePrefix: { en: "I could not reach the live AI tutor yet", zh: "暫時未能連接即時智能導師" },
+	    unavailablePrefix: { en: "I could not reach AI Tutor yet", zh: "暫時未能連接 AI Tutor", zhHans: "暂时未能连接 AI Tutor" },
 	    fallbackHint: { en: "Here is a local fallback hint for now:", zh: "這裡先提供本機提示：" }
 	  },
 	  visualization: {
@@ -763,13 +794,13 @@ export const dictionary = {
 	      en: "Primary labs now cover number lines, place value, arrays, fraction bars, area models, volume, percentages, and ratio.\n\nSecondary labs continue through functions, trigonometry, calculus, and statistics.",
 	      zh: "小學實驗現已涵蓋數線、位值、陣列、分數條、面積模型、體積、百分數和比例；中學實驗繼續延伸至函數、三角、微積分和統計。"
 	    },
-	    interactiveModule: { en: "Interactive module", zh: "互動模組" },
-	    markExplored: { en: "Mark explored", zh: "標記已探索" }
+	    interactiveModule: { en: "Interactive module", zh: "互動模組", zhHans: "互动模块" },
+	    markExplored: { en: "Mark explored", zh: "標記已探索", zhHans: "标记已探索" }
 	  },
 	  home: {
     eyebrow: { en: "Mathematics Adaptive Interactive System", zh: "數學適性互動系統" },
     brand: { en: "MAIS", zh: "MAIS" },
-    headline: { en: "Adaptive interactive math learning", zh: "小一至中六互動數學學習平台", zhHans: "小学一年级至高三的自适应互动数学学习平台" },
+    headline: { en: "Personalized interactive math learning", zh: "小一至中六互動數學學習平台", zhHans: "小学一年级至高三的自适应互动数学学习平台" },
     subhead: { en: "A personalized platform for primary and secondary mathematics, featuring adaptive pathways, concept visualization, instant-feedback practice, learning analytics, and gamification.", zh: "面向小一至中六數學，用可視化工具理解概念，透過即時回饋練習鞏固，並在同一個學習空間追蹤進度。", zhHans: "面向小学一年级至高三数学，用可视化工具理解概念，透过即时反馈练习巩固，并在同一个学习空间追踪进度。" },
     gradeSelectorEyebrow: { en: "Grade selector", zh: "選擇年級" },
     gradeSelectorTitle: { en: "Choose your starting point", zh: "選擇學習起點" },
@@ -808,7 +839,7 @@ export const dictionary = {
     ctaText: { en: "Choose a grade, open a visualization, and move into practice when the concept is clear.", zh: "先選擇年級，打開視覺化工具理解概念，再進入練習鞏固學習。" }
   },
 		  footer: {
-				    description: { en: "An adaptive interactive learning platform for P1-S6 mathematics.", zh: "為小一至中六數學而設的互動學習空間。", zhHans: "为小学一年级至高三数学而设的互动学习空间。" },
+				    description: { en: "A math AI system for K-12 math.", zh: "為小一至中六數學而設的互動學習空間。", zhHans: "为小学一年级至高三数学而设的互动学习空间。" },
 				    developerCredit: { en: "Developed by Dr. Peter HU Dongpin, an Educational Researcher and Application Developer.", zh: "由教育研究員及應用程式開發者胡冬品博士開發。" },
 			    email: { en: "hudongpin@126.com", zh: "hudongpin@126.com" },
 			    personalWebsite: { en: "hudongpin.com", zh: "hudongpin.com" },
@@ -816,7 +847,7 @@ export const dictionary = {
 		  },
 	  dashboard: {
 	    welcome: { en: "Welcome back, Explorer", zh: "歡迎回來，數學探索者" },
-	    summary: { en: "Your next challenge is ready. Keep your streak alive and open a visualization before practice.", zh: "下一個挑戰已準備好。先打開視覺化工具，再進入練習，保持學習連續天數。" },
+	    summary: { en: "Push the Galaxy button and we will start to learn.", zh: "按下 Galaxy 按鈕，我們就開始學習。", zhHans: "点击 Galaxy 按钮，我们就开始学习。" },
 	    nextLesson: { en: "Recommended next lesson", zh: "建議下一課" },
 	    recent: { en: "Recently viewed", zh: "最近瀏覽" },
 	    gradeTopics: { en: "Topics for your grade", zh: "你的年級課題" },

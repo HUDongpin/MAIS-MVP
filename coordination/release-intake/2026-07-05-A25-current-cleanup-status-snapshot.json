@@ -1,0 +1,678 @@
+{
+  "generatedAt": "2026-07-05T11:35:17.757Z",
+  "repoRoot": "/Users/dongpinhu/Desktop/MAIS-MVP",
+  "branch": "main",
+  "head": "ce2ae5258",
+  "inputs": [
+    {
+      "path": "coordination/release-intake/latest-A25-dirty-tree-map.json",
+      "generatedAt": "2026-07-05T11:11:38.036Z",
+      "dirtyMapStatusSignature": "fc405946dbb9033f749aa5e537f14edc23d82355d6b8e796759a4856fcbefeef",
+      "expandedStatusEntries": 4737
+    },
+    {
+      "path": "coordination/release-intake/latest-A25-dirty-worktree-remediation-completion-audit.json",
+      "generatedAt": "2026-07-05T11:15:45.471Z",
+      "dirtyMapStatusSignature": "fc405946dbb9033f749aa5e537f14edc23d82355d6b8e796759a4856fcbefeef",
+      "expandedStatusEntries": 4737
+    },
+    {
+      "path": "coordination/release-intake/latest-A25-physical-closure-authorization-queue.json",
+      "generatedAt": "2026-07-05T11:12:22.802Z",
+      "dirtyMapStatusSignature": "fc405946dbb9033f749aa5e537f14edc23d82355d6b8e796759a4856fcbefeef",
+      "expandedStatusEntries": 4737
+    },
+    {
+      "path": "coordination/release-intake/latest-A25-wave06-final-root-lifecycle-readiness.json",
+      "generatedAt": "2026-07-05T11:15:23.427Z",
+      "dirtyMapStatusSignature": "fc405946dbb9033f749aa5e537f14edc23d82355d6b8e796759a4856fcbefeef",
+      "expandedStatusEntries": 4737
+    },
+    {
+      "path": "coordination/release-intake/latest-A25-owner-closure-action-queue.json",
+      "generatedAt": "2026-07-05T11:15:45.609Z",
+      "dirtyMapStatusSignature": "fc405946dbb9033f749aa5e537f14edc23d82355d6b8e796759a4856fcbefeef",
+      "expandedStatusEntries": 4737
+    },
+    {
+      "path": "coordination/release-intake/latest-A25-next-owner-decision-focus-packet.json",
+      "generatedAt": "2026-07-05T11:15:46.480Z",
+      "dirtyMapStatusSignature": "fc405946dbb9033f749aa5e537f14edc23d82355d6b8e796759a4856fcbefeef",
+      "expandedStatusEntries": 4737
+    },
+    {
+      "path": "coordination/release-intake/latest-A25-next-owner-authorizations-starter.json",
+      "generatedAt": "2026-07-05T11:15:35.359Z",
+      "dirtyMapStatusSignature": "fc405946dbb9033f749aa5e537f14edc23d82355d6b8e796759a4856fcbefeef",
+      "expandedStatusEntries": 4737
+    },
+    {
+      "path": "coordination/release-intake/latest-A25-next-owner-authorization-execution-preview.json",
+      "generatedAt": "2026-07-05T11:15:37.344Z",
+      "dirtyMapStatusSignature": "fc405946dbb9033f749aa5e537f14edc23d82355d6b8e796759a4856fcbefeef",
+      "expandedStatusEntries": 4737
+    },
+    {
+      "path": "coordination/release-intake/latest-A25-next-owner-authorized-command-manifest.json",
+      "generatedAt": "2026-07-05T11:15:39.156Z",
+      "dirtyMapStatusSignature": "fc405946dbb9033f749aa5e537f14edc23d82355d6b8e796759a4856fcbefeef",
+      "expandedStatusEntries": 4737
+    },
+    {
+      "path": "coordination/release-intake/latest-A25-next-owner-execution-instructions-current-gate.json",
+      "generatedAt": null,
+      "dirtyMapStatusSignature": "fc405946dbb9033f749aa5e537f14edc23d82355d6b8e796759a4856fcbefeef",
+      "expandedStatusEntries": 4737
+    },
+    {
+      "path": "coordination/release-intake/latest-A25-owner-closure-input-readiness.json",
+      "generatedAt": "2026-07-05T11:15:46.569Z",
+      "dirtyMapStatusSignature": "fc405946dbb9033f749aa5e537f14edc23d82355d6b8e796759a4856fcbefeef",
+      "expandedStatusEntries": 4737
+    },
+    {
+      "path": "coordination/release-intake/latest-A25-remaining-completion-blocker-assignment-packet.json",
+      "generatedAt": "2026-07-05T11:15:45.517Z",
+      "dirtyMapStatusSignature": "fc405946dbb9033f749aa5e537f14edc23d82355d6b8e796759a4856fcbefeef",
+      "expandedStatusEntries": 4737
+    },
+    {
+      "path": "coordination/release-intake/latest-A25-owner-package-blocker-reports.json",
+      "generatedAt": "2026-07-05T11:15:24.029Z",
+      "dirtyMapStatusSignature": "fc405946dbb9033f749aa5e537f14edc23d82355d6b8e796759a4856fcbefeef",
+      "expandedStatusEntries": 4737
+    },
+    {
+      "path": "coordination/release-intake/latest-A25-pending-owner-blocker-report-bundle.json",
+      "generatedAt": "2026-07-05T11:15:46.672Z",
+      "dirtyMapStatusSignature": "fc405946dbb9033f749aa5e537f14edc23d82355d6b8e796759a4856fcbefeef",
+      "expandedStatusEntries": 4737
+    },
+    {
+      "path": "coordination/release-intake/latest-A25-owner-input-action-packet.json",
+      "generatedAt": "2026-07-05T11:25:05.198Z",
+      "dirtyMapStatusSignature": "fc405946dbb9033f749aa5e537f14edc23d82355d6b8e796759a4856fcbefeef",
+      "expandedStatusEntries": 4737
+    },
+    {
+      "path": "coordination/release-intake/latest-A25-owner-closure-work-order-bundle.json",
+      "generatedAt": "2026-07-05T11:34:58.967Z",
+      "dirtyMapStatusSignature": "fc405946dbb9033f749aa5e537f14edc23d82355d6b8e796759a4856fcbefeef",
+      "expandedStatusEntries": 4737
+    },
+    {
+      "path": "coordination/release-intake/latest-A25-dirty-worktree-closure-loop-state.json",
+      "generatedAt": "2026-07-05T11:35:17.718Z",
+      "dirtyMapStatusSignature": "fc405946dbb9033f749aa5e537f14edc23d82355d6b8e796759a4856fcbefeef",
+      "expandedStatusEntries": 4737
+    },
+    {
+      "path": "coordination/release-intake/latest-A22-generated-artifact-residual-evidence.json",
+      "generatedAt": "2026-07-05T11:15:28.078Z",
+      "dirtyMapStatusSignature": "fc405946dbb9033f749aa5e537f14edc23d82355d6b8e796759a4856fcbefeef",
+      "expandedStatusEntries": 4737
+    },
+    {
+      "path": "coordination/release-intake/latest-A22-generated-artifact-residual-authorization-packet.json",
+      "generatedAt": "2026-07-05T11:15:30.859Z",
+      "dirtyMapStatusSignature": "fc405946dbb9033f749aa5e537f14edc23d82355d6b8e796759a4856fcbefeef",
+      "expandedStatusEntries": 4737
+    },
+    {
+      "path": "coordination/release-intake/latest-A22-release-source-clean-blocker-evidence.json",
+      "generatedAt": "2026-07-05T11:15:31.423Z",
+      "dirtyMapStatusSignature": "fc405946dbb9033f749aa5e537f14edc23d82355d6b8e796759a4856fcbefeef",
+      "expandedStatusEntries": 4737
+    },
+    {
+      "path": "coordination/release-intake/latest-A25-strict-worktree-lifecycle-blocker-evidence.json",
+      "generatedAt": "2026-07-05T11:12:27.307Z",
+      "dirtyMapStatusSignature": "fc405946dbb9033f749aa5e537f14edc23d82355d6b8e796759a4856fcbefeef",
+      "expandedStatusEntries": 4737
+    },
+    {
+      "path": "coordination/release-intake/latest-A25-no-dirty-root-deploy-evidence.json",
+      "generatedAt": "2026-07-05T11:15:32.885Z",
+      "dirtyMapStatusSignature": "fc405946dbb9033f749aa5e537f14edc23d82355d6b8e796759a4856fcbefeef",
+      "expandedStatusEntries": 4737
+    }
+  ],
+  "inputFreshness": {
+    "expectedDirtyMapStatusSignature": "fc405946dbb9033f749aa5e537f14edc23d82355d6b8e796759a4856fcbefeef",
+    "expectedExpandedStatusEntries": 4737,
+    "totalInputs": 22,
+    "currentInputs": 22,
+    "staleInputs": 0,
+    "unknownInputs": 0,
+    "staleInputPaths": [],
+    "unknownInputPaths": [],
+    "rows": [
+      {
+        "path": "coordination/release-intake/latest-A25-dirty-tree-map.json",
+        "status": "current",
+        "generatedAt": "2026-07-05T11:11:38.036Z",
+        "dirtyMapStatusSignature": "fc405946dbb9033f749aa5e537f14edc23d82355d6b8e796759a4856fcbefeef",
+        "expandedStatusEntries": 4737,
+        "signatureMatches": true,
+        "entryCountMatches": true
+      },
+      {
+        "path": "coordination/release-intake/latest-A25-dirty-worktree-remediation-completion-audit.json",
+        "status": "current",
+        "generatedAt": "2026-07-05T11:15:45.471Z",
+        "dirtyMapStatusSignature": "fc405946dbb9033f749aa5e537f14edc23d82355d6b8e796759a4856fcbefeef",
+        "expandedStatusEntries": 4737,
+        "signatureMatches": true,
+        "entryCountMatches": true
+      },
+      {
+        "path": "coordination/release-intake/latest-A25-physical-closure-authorization-queue.json",
+        "status": "current",
+        "generatedAt": "2026-07-05T11:12:22.802Z",
+        "dirtyMapStatusSignature": "fc405946dbb9033f749aa5e537f14edc23d82355d6b8e796759a4856fcbefeef",
+        "expandedStatusEntries": 4737,
+        "signatureMatches": true,
+        "entryCountMatches": true
+      },
+      {
+        "path": "coordination/release-intake/latest-A25-wave06-final-root-lifecycle-readiness.json",
+        "status": "current",
+        "generatedAt": "2026-07-05T11:15:23.427Z",
+        "dirtyMapStatusSignature": "fc405946dbb9033f749aa5e537f14edc23d82355d6b8e796759a4856fcbefeef",
+        "expandedStatusEntries": 4737,
+        "signatureMatches": true,
+        "entryCountMatches": true
+      },
+      {
+        "path": "coordination/release-intake/latest-A25-owner-closure-action-queue.json",
+        "status": "current",
+        "generatedAt": "2026-07-05T11:15:45.609Z",
+        "dirtyMapStatusSignature": "fc405946dbb9033f749aa5e537f14edc23d82355d6b8e796759a4856fcbefeef",
+        "expandedStatusEntries": 4737,
+        "signatureMatches": true,
+        "entryCountMatches": true
+      },
+      {
+        "path": "coordination/release-intake/latest-A25-next-owner-decision-focus-packet.json",
+        "status": "current",
+        "generatedAt": "2026-07-05T11:15:46.480Z",
+        "dirtyMapStatusSignature": "fc405946dbb9033f749aa5e537f14edc23d82355d6b8e796759a4856fcbefeef",
+        "expandedStatusEntries": 4737,
+        "signatureMatches": true,
+        "entryCountMatches": true
+      },
+      {
+        "path": "coordination/release-intake/latest-A25-next-owner-authorizations-starter.json",
+        "status": "current",
+        "generatedAt": "2026-07-05T11:15:35.359Z",
+        "dirtyMapStatusSignature": "fc405946dbb9033f749aa5e537f14edc23d82355d6b8e796759a4856fcbefeef",
+        "expandedStatusEntries": 4737,
+        "signatureMatches": true,
+        "entryCountMatches": true
+      },
+      {
+        "path": "coordination/release-intake/latest-A25-next-owner-authorization-execution-preview.json",
+        "status": "current",
+        "generatedAt": "2026-07-05T11:15:37.344Z",
+        "dirtyMapStatusSignature": "fc405946dbb9033f749aa5e537f14edc23d82355d6b8e796759a4856fcbefeef",
+        "expandedStatusEntries": 4737,
+        "signatureMatches": true,
+        "entryCountMatches": true
+      },
+      {
+        "path": "coordination/release-intake/latest-A25-next-owner-authorized-command-manifest.json",
+        "status": "current",
+        "generatedAt": "2026-07-05T11:15:39.156Z",
+        "dirtyMapStatusSignature": "fc405946dbb9033f749aa5e537f14edc23d82355d6b8e796759a4856fcbefeef",
+        "expandedStatusEntries": 4737,
+        "signatureMatches": true,
+        "entryCountMatches": true
+      },
+      {
+        "path": "coordination/release-intake/latest-A25-next-owner-execution-instructions-current-gate.json",
+        "status": "current",
+        "generatedAt": null,
+        "dirtyMapStatusSignature": "fc405946dbb9033f749aa5e537f14edc23d82355d6b8e796759a4856fcbefeef",
+        "expandedStatusEntries": 4737,
+        "signatureMatches": true,
+        "entryCountMatches": true
+      },
+      {
+        "path": "coordination/release-intake/latest-A25-owner-closure-input-readiness.json",
+        "status": "current",
+        "generatedAt": "2026-07-05T11:15:46.569Z",
+        "dirtyMapStatusSignature": "fc405946dbb9033f749aa5e537f14edc23d82355d6b8e796759a4856fcbefeef",
+        "expandedStatusEntries": 4737,
+        "signatureMatches": true,
+        "entryCountMatches": true
+      },
+      {
+        "path": "coordination/release-intake/latest-A25-remaining-completion-blocker-assignment-packet.json",
+        "status": "current",
+        "generatedAt": "2026-07-05T11:15:45.517Z",
+        "dirtyMapStatusSignature": "fc405946dbb9033f749aa5e537f14edc23d82355d6b8e796759a4856fcbefeef",
+        "expandedStatusEntries": 4737,
+        "signatureMatches": true,
+        "entryCountMatches": true
+      },
+      {
+        "path": "coordination/release-intake/latest-A25-owner-package-blocker-reports.json",
+        "status": "current",
+        "generatedAt": "2026-07-05T11:15:24.029Z",
+        "dirtyMapStatusSignature": "fc405946dbb9033f749aa5e537f14edc23d82355d6b8e796759a4856fcbefeef",
+        "expandedStatusEntries": 4737,
+        "signatureMatches": true,
+        "entryCountMatches": true
+      },
+      {
+        "path": "coordination/release-intake/latest-A25-pending-owner-blocker-report-bundle.json",
+        "status": "current",
+        "generatedAt": "2026-07-05T11:15:46.672Z",
+        "dirtyMapStatusSignature": "fc405946dbb9033f749aa5e537f14edc23d82355d6b8e796759a4856fcbefeef",
+        "expandedStatusEntries": 4737,
+        "signatureMatches": true,
+        "entryCountMatches": true
+      },
+      {
+        "path": "coordination/release-intake/latest-A25-owner-input-action-packet.json",
+        "status": "current",
+        "generatedAt": "2026-07-05T11:25:05.198Z",
+        "dirtyMapStatusSignature": "fc405946dbb9033f749aa5e537f14edc23d82355d6b8e796759a4856fcbefeef",
+        "expandedStatusEntries": 4737,
+        "signatureMatches": true,
+        "entryCountMatches": true
+      },
+      {
+        "path": "coordination/release-intake/latest-A25-owner-closure-work-order-bundle.json",
+        "status": "current",
+        "generatedAt": "2026-07-05T11:34:58.967Z",
+        "dirtyMapStatusSignature": "fc405946dbb9033f749aa5e537f14edc23d82355d6b8e796759a4856fcbefeef",
+        "expandedStatusEntries": 4737,
+        "signatureMatches": true,
+        "entryCountMatches": true
+      },
+      {
+        "path": "coordination/release-intake/latest-A25-dirty-worktree-closure-loop-state.json",
+        "status": "current",
+        "generatedAt": "2026-07-05T11:35:17.718Z",
+        "dirtyMapStatusSignature": "fc405946dbb9033f749aa5e537f14edc23d82355d6b8e796759a4856fcbefeef",
+        "expandedStatusEntries": 4737,
+        "signatureMatches": true,
+        "entryCountMatches": true
+      },
+      {
+        "path": "coordination/release-intake/latest-A22-generated-artifact-residual-evidence.json",
+        "status": "current",
+        "generatedAt": "2026-07-05T11:15:28.078Z",
+        "dirtyMapStatusSignature": "fc405946dbb9033f749aa5e537f14edc23d82355d6b8e796759a4856fcbefeef",
+        "expandedStatusEntries": 4737,
+        "signatureMatches": true,
+        "entryCountMatches": true
+      },
+      {
+        "path": "coordination/release-intake/latest-A22-generated-artifact-residual-authorization-packet.json",
+        "status": "current",
+        "generatedAt": "2026-07-05T11:15:30.859Z",
+        "dirtyMapStatusSignature": "fc405946dbb9033f749aa5e537f14edc23d82355d6b8e796759a4856fcbefeef",
+        "expandedStatusEntries": 4737,
+        "signatureMatches": true,
+        "entryCountMatches": true
+      },
+      {
+        "path": "coordination/release-intake/latest-A22-release-source-clean-blocker-evidence.json",
+        "status": "current",
+        "generatedAt": "2026-07-05T11:15:31.423Z",
+        "dirtyMapStatusSignature": "fc405946dbb9033f749aa5e537f14edc23d82355d6b8e796759a4856fcbefeef",
+        "expandedStatusEntries": 4737,
+        "signatureMatches": true,
+        "entryCountMatches": true
+      },
+      {
+        "path": "coordination/release-intake/latest-A25-strict-worktree-lifecycle-blocker-evidence.json",
+        "status": "current",
+        "generatedAt": "2026-07-05T11:12:27.307Z",
+        "dirtyMapStatusSignature": "fc405946dbb9033f749aa5e537f14edc23d82355d6b8e796759a4856fcbefeef",
+        "expandedStatusEntries": 4737,
+        "signatureMatches": true,
+        "entryCountMatches": true
+      },
+      {
+        "path": "coordination/release-intake/latest-A25-no-dirty-root-deploy-evidence.json",
+        "status": "current",
+        "generatedAt": "2026-07-05T11:15:32.885Z",
+        "dirtyMapStatusSignature": "fc405946dbb9033f749aa5e537f14edc23d82355d6b8e796759a4856fcbefeef",
+        "expandedStatusEntries": 4737,
+        "signatureMatches": true,
+        "entryCountMatches": true
+      }
+    ]
+  },
+  "status": {
+    "dirtyMapStatusSignature": "fc405946dbb9033f749aa5e537f14edc23d82355d6b8e796759a4856fcbefeef",
+    "dirtyMapGeneratedAt": "2026-07-05T11:11:38.036Z",
+    "collapsedStatusEntries": 1455,
+    "expandedStatusEntries": 4737,
+    "trackedModified": 391,
+    "trackedDeleted": 1,
+    "untrackedStatusEntries": 1063,
+    "untrackedFiles": 4345
+  },
+  "completion": {
+    "complete": false,
+    "totalRequirements": 13,
+    "completedRequirements": 9,
+    "incompleteRequirements": 4,
+    "totalPlanTasks": 10,
+    "completedPlanTasks": 3,
+    "incompletePlanTasks": 7
+  },
+  "releaseSource": {
+    "releaseSourceClean": false,
+    "releaseSourceBlocked": true,
+    "rootStatusEntries": 4737,
+    "dirtyMapExpandedEntries": 4737,
+    "cleanupAuthorizedRows": 0,
+    "executableRows": 0,
+    "contentCapturedRows": 0
+  },
+  "strictLifecycle": {
+    "strictLifecycleClean": false,
+    "strictLifecycleBlocked": true,
+    "worktreeCount": 39,
+    "dirtyOpenDecisions": 30,
+    "cleanDivergedOpenDecisions": 9,
+    "openDecisionRows": 39,
+    "prunableWorktrees": 0,
+    "cleanupAuthorizedRows": 0,
+    "executableRows": 0,
+    "worktreeRemovalAuthorizedRows": 0,
+    "branchDeletionAuthorizedRows": 0,
+    "contentCapturedRows": 0
+  },
+  "wave06": {
+    "finalClosureReady": false,
+    "passedChecks": 4,
+    "failedChecks": 2,
+    "remainingStrictBlockers": [
+      "A22 release-source clean gate",
+      "A25 strict worktree lifecycle gate"
+    ]
+  },
+  "physicalClosure": {
+    "ownerPackageApprovals": 23,
+    "physicalLifecycleApprovals": 39,
+    "totalApprovals": 62,
+    "ownerPackageEntries": 4737,
+    "physicalRootApprovals": 1,
+    "dirtyLinkedApprovals": 29,
+    "cleanDivergedApprovals": 9,
+    "cleanupAuthorizedRows": 0,
+    "executableRows": 0
+  },
+  "ownerFrontier": {
+    "closureQueue": {
+      "owners": 25,
+      "pendingItems": 133,
+      "recordedBlockerReports": 11,
+      "pendingBlockerReports": 0,
+      "authorizationStarters": 90,
+      "remainingCompletionAssignments": 28,
+      "cleanupAuthorizedRows": 0,
+      "executableRows": 0
+    },
+    "decisionFocus": {
+      "sourceOwnerClosurePendingItems": 133,
+      "wave01PackageResyncApprovals": 7,
+      "pendingOwnerBlockerReports": 0,
+      "remainingCompletionAssignments": 5,
+      "totalDecisionRows": 14,
+      "cleanupAuthorizedRows": 0,
+      "executableRows": 0
+    },
+    "authorizationsStarter": {
+      "starterRows": 71,
+      "blankApprovalRows": 71,
+      "byKind": {
+        "wave01-package-resync": 7,
+        "owner-package": 23,
+        "physical-lifecycle": 39,
+        "a22-generated-artifact-residual-cleanup": 2
+      },
+      "cleanupAuthorizedRows": 0,
+      "executableRows": 0
+    },
+    "authorizationExecutionPreview": {
+      "starterRows": 71,
+      "authorizationFilePresent": true,
+      "authorizationRowsInFile": 7,
+      "validAuthorizationRows": 7,
+      "invalidAuthorizationRows": 0,
+      "pendingAuthorizationRows": 64,
+      "preAuthorizationReadyRows": 71,
+      "preAuthorizationAttentionRows": 0,
+      "evidenceCompleteRows": 71,
+      "worktreeCheckRows": 48,
+      "worktreePresentRows": 48,
+      "targetPathCheckRows": 71,
+      "targetPathPresentRows": 71,
+      "exactCommandRows": 9,
+      "exactCommandTargetReadyRows": 9,
+      "pathspecRows": 23,
+      "pathspecPresentRows": 23,
+      "workOrderRows": 25,
+      "workOrderPresentRows": 25,
+      "commandPreviewRows": 6,
+      "separateExecutionInstructionRequiredRows": 7,
+      "cleanupAuthorizedRows": 0,
+      "executableRows": 0
+    },
+    "authorizedCommandManifest": {
+      "starterRows": 71,
+      "validAuthorizationRows": 7,
+      "pendingAuthorizationRows": 64,
+      "invalidAuthorizationRows": 0,
+      "commandPreviewRows": 6,
+      "authorizedCandidateRows": 7,
+      "readyForSeparateInstructionRows": 6,
+      "blockedCandidateRows": 1,
+      "preAuthorizationReadyRows": 71,
+      "preAuthorizationAttentionRows": 0,
+      "cleanupAuthorizedRows": 0,
+      "executableRows": 0
+    },
+    "executionInstructions": {
+      "manifestCandidateRows": 7,
+      "readyForSeparateInstructionRows": 6,
+      "supplementalA16CandidateRows": 1,
+      "supplementalA16ReadyForOwnerExecutionInstructionRows": 0,
+      "effectiveCandidateRows": 8,
+      "effectiveReadyForSeparateInstructionRows": 6,
+      "instructionRowsInFile": 0,
+      "validInstructionRows": 0,
+      "invalidInstructionRows": 0,
+      "pendingReadyManifestRows": 6,
+      "effectivePendingReadyInstructionRows": 6,
+      "cleanupAuthorizedRows": 0,
+      "executableRows": 0
+    },
+    "closureInputReadiness": {
+      "ownerInputsReady": false,
+      "inputBlocks": 4,
+      "pendingCanonicalAuthorizationRows": 64,
+      "pendingWave01AuthorizationRows": 1,
+      "pendingOwnerBlockerReportRecords": 0,
+      "validAuthorizationRows": 7,
+      "commandPreviewRows": 6,
+      "ownerClosurePendingItems": 133,
+      "nextOwnerDecisionRows": 14,
+      "cleanupAuthorizedRows": 0,
+      "executableRows": 0
+    },
+    "blockerReports": {
+      "recordedReports": 11,
+      "pendingReports": 0,
+      "cleanupAuthorizedRows": 0,
+      "executableRows": 0
+    },
+    "pendingReportBundle": {
+      "pendingReports": 0,
+      "cleanupAuthorizedRows": 0,
+      "executableRows": 0
+    },
+    "inputActionPacket": {
+      "ownerInputsReady": false,
+      "requiredInputFiles": 3,
+      "missingInputFiles": 0,
+      "pendingCanonicalAuthorizationRows": 64,
+      "pendingWave01AuthorizationRows": 1,
+      "pendingOwnerBlockerReportRecords": 0,
+      "authorizationStarterRows": 71,
+      "pendingOwnerBlockerReports": 0,
+      "nextOwnerDecisionRows": 14,
+      "ownerClosurePendingItems": 133,
+      "cleanupAuthorizedRows": 0,
+      "executableRows": 0,
+      "sourceCurrentnessFailures": 0
+    },
+    "workOrderBundle": {
+      "owners": 25,
+      "pendingItems": 133,
+      "cleanupAuthorizedRows": 0,
+      "executableRows": 0
+    }
+  },
+  "closureLoop": {
+    "activeStep": "validate",
+    "loopOrder": [
+      "slice",
+      "extract",
+      "validate",
+      "merge",
+      "cleanup"
+    ],
+    "completedSteps": 2,
+    "activeSteps": 1,
+    "blockedSteps": 2,
+    "authorizationStarterRows": 71,
+    "pendingCanonicalAuthorizationRows": 64,
+    "validAuthorizationRows": 7,
+    "readyExecutionInstructionRows": 6,
+    "validExecutionInstructionRows": 0,
+    "pendingReadyExecutionInstructionRows": 6,
+    "a16ReadyForSeparateInstructionRows": 0,
+    "a16ReadyForOwnerExecutionInstructionRows": 0,
+    "a16ValidExecutionInstructionRows": 1,
+    "a16PendingOwnerExecutionInstructionRows": 0,
+    "a16InstructionRows": 1,
+    "a16DraftInstructionRows": 1,
+    "a16PackageFileRows": 6,
+    "a16PackageFingerprintRows": 6,
+    "a16PostExtractionLifecycleStatus": "post-extraction-verified",
+    "a16PostExtractionVerified": true,
+    "a16PostExtractionFailedChecks": 0,
+    "effectiveReadyExecutionInstructionRows": 7,
+    "effectiveValidExecutionInstructionRows": 1,
+    "effectivePendingReadyExecutionInstructionRows": 6,
+    "preAuthorizationReadyRows": 71,
+    "preAuthorizationAttentionRows": 0,
+    "cleanupAuthorizedRows": 0,
+    "executableRows": 0,
+    "validationHoldStatus": "waiting-for-owner-compose-deletion-confirmation",
+    "steps": [
+      {
+        "id": "slice",
+        "chineseLabel": "切片",
+        "status": "complete",
+        "blockers": []
+      },
+      {
+        "id": "extract",
+        "chineseLabel": "提取",
+        "status": "complete",
+        "blockers": []
+      },
+      {
+        "id": "validate",
+        "chineseLabel": "验证",
+        "status": "active",
+        "blockers": []
+      },
+      {
+        "id": "merge",
+        "chineseLabel": "合并",
+        "status": "blocked",
+        "blockers": [
+          "64 canonical authorization row(s) are still pending",
+          "6 ready owner execution input row(s) still need separate execution instructions; A16 frontier=1, A16 valid=1, generic ready=6",
+          "Owner inputs are not ready",
+          "Validation hold is waiting for owner compose deletion confirmation"
+        ]
+      },
+      {
+        "id": "cleanup",
+        "chineseLabel": "清理",
+        "status": "blocked",
+        "blockers": [
+          "4737 expanded dirty entries remain",
+          "A22 release source is not clean",
+          "A25 strict worktree lifecycle is not clean",
+          "No cleanup/executable rows are authorized"
+        ]
+      }
+    ]
+  },
+  "generatedArtifactResidual": {
+    "residualTargets": 2,
+    "totalBytes": 48689219667,
+    "cleanupAuthorizedRows": 0,
+    "executableRows": 0
+  },
+  "generatedArtifactResidualAuthorization": {
+    "residualTargets": 2,
+    "zeroByteTargets": 0,
+    "cleanupScriptApplyRows": 2,
+    "exactDirectoryRemovalRows": 0,
+    "cleanupAuthorizedRows": 0,
+    "executableRows": 0
+  },
+  "noDirtyRootDeploy": {
+    "passed": true,
+    "failures": [],
+    "localDeploymentRecords": 0
+  },
+  "validationHold": {
+    "status": "waiting-for-owner-compose-deletion-confirmation",
+    "activeWorktreePath": "/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A10-A22-A08-A12-A06-compose-20260628",
+    "reason": "Owner reported active exact deletion in this compose worktree; linked-worktree archive, Wave 06, aggregate remediation, and completion-audit refreshes should wait for owner confirmation.",
+    "resumeCondition": "Owner confirms exact deletion in the compose worktree is complete.",
+    "safePostInputValidationCommands": [
+      "node coordination/release-intake/assert-next-owner-authorizations-current.mjs",
+      "node coordination/release-intake/generate-next-owner-authorization-execution-preview.mjs",
+      "node coordination/release-intake/assert-next-owner-authorization-execution-preview-current.mjs",
+      "node coordination/release-intake/assert-owner-package-blocker-report-records-current.mjs",
+      "node coordination/release-intake/assert-owner-closure-input-readiness-current.mjs"
+    ],
+    "deferredAggregateValidationCommands": [
+      "node coordination/release-intake/refresh-linked-worktree-archive-evidence.mjs",
+      "node coordination/release-intake/assert-linked-worktree-archive-evidence-current.mjs",
+      "node coordination/release-intake/generate-wave06-final-root-lifecycle-readiness.mjs",
+      "node coordination/release-intake/assert-wave06-final-root-lifecycle-readiness-current.mjs",
+      "node coordination/release-intake/refresh-dirty-worktree-remediation-evidence.mjs --reason \"owner input action packet post-input verification\"",
+      "node coordination/release-intake/assert-dirty-worktree-remediation-current.mjs",
+      "node coordination/release-intake/generate-dirty-worktree-remediation-completion-audit.mjs",
+      "node coordination/release-intake/assert-dirty-worktree-remediation-completion-audit-current.mjs"
+    ]
+  },
+  "authorizationTotals": {
+    "cleanupAuthorizedRows": 0,
+    "executableRows": 0
+  },
+  "boundary": {
+    "evidenceOnly": true,
+    "cleanupAuthorized": false,
+    "executableNow": false,
+    "destructiveGitAuthorized": false,
+    "deployAuthorized": false,
+    "contentCaptured": false
+  }
+}

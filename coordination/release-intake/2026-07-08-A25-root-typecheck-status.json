@@ -1,0 +1,71 @@
+{
+  "generatedAt": "2026-07-08T14:14:57.783Z",
+  "repoRoot": "/Users/dongpinhu/Desktop/MAIS-MVP",
+  "branch": "main",
+  "head": "ce2ae5258",
+  "dirtyMapStatusSignature": "4892e406613fc3846378621b84ba0f486bb8ebf371c35837eae544472596f318",
+  "expandedStatusEntries": 6130,
+  "sourceArtifacts": {
+    "dirtyMap": "coordination/release-intake/latest-A25-dirty-tree-map.json",
+    "packageFrontier": "coordination/release-intake/latest-A25-typecheck-critical-path-frontier.json",
+    "packageFrontierGeneratedAt": "2026-07-08T14:14:19.800Z"
+  },
+  "sourceCurrentnessFailures": [],
+  "rootTypeCheck": {
+    "layer": "dirty-root-current-install",
+    "command": "npm run type-check -- --pretty false",
+    "status": 0,
+    "signal": null,
+    "passed": true,
+    "durationMs": 20317,
+    "errorLines": 0,
+    "topFiles": [],
+    "firstErrors": [],
+    "stdoutLineCount": 2,
+    "stderrLineCount": 0,
+    "combinedOutputSha256": "b00ccf69f9706beef275d26d9a22fc5085787cde58b50cf28ec20b7108504315"
+  },
+  "packageWorktreeTypeCheck": {
+    "generatedAt": "2026-07-08T14:14:19.800Z",
+    "dirtyMapStatusSignature": "4892e406613fc3846378621b84ba0f486bb8ebf371c35837eae544472596f318",
+    "expandedStatusEntries": 6130,
+    "typeCheckErrorLines": 9907,
+    "frontierRows": 12,
+    "criticalOwnerRows": 6,
+    "blockedOwnerPackageRows": 14,
+    "failedChecks": 34
+  },
+  "layerComparison": {
+    "rootPassed": true,
+    "rootErrorLines": 0,
+    "packageWorktreeErrorLines": 9907,
+    "packageFrontierRows": 12,
+    "status": "root-green-package-worktree-red",
+    "interpretation": "Root type-check currently passes in the dirty root install, while owner-package/worktree gates still report type-check blockers. Treat these as separate evidence layers."
+  },
+  "summary": {
+    "rootTypeCheckPassed": true,
+    "rootTypeCheckStatus": 0,
+    "rootTypeCheckErrorLines": 0,
+    "packageWorktreeTypeCheckErrorLines": 9907,
+    "packageFrontierRows": 12,
+    "packageCriticalOwnerRows": 6,
+    "sourceCurrentnessFailures": 0,
+    "cleanupAuthorizedRows": 0,
+    "executableRows": 0
+  },
+  "boundary": {
+    "evidenceOnly": true,
+    "recordsAuthorization": false,
+    "recordsExecutionInstruction": false,
+    "stageAuthorized": false,
+    "commitAuthorized": false,
+    "mergeAuthorized": false,
+    "cleanupAuthorized": false,
+    "executableNow": false,
+    "destructiveGitAuthorized": false,
+    "deployAuthorized": false,
+    "dirtyRootDeployAuthorized": false,
+    "physicalCleanupAuthorized": false
+  }
+}

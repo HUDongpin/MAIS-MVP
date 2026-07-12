@@ -1,0 +1,297 @@
+{
+  "generatedAt": "2026-07-08T12:21:05.826Z",
+  "repoRoot": "/Users/dongpinhu/Desktop/MAIS-MVP",
+  "dirtyMapStatusSignature": "340f99c33d2a1dfd0015d1dc67b58b838156a600307de07438c1189d27ac7b16",
+  "expandedStatusEntries": 6116,
+  "sourceArtifacts": {
+    "dirtyMap": {
+      "key": "dirtyMap",
+      "path": "coordination/release-intake/latest-A25-dirty-tree-map.json",
+      "generatedAt": "2026-07-08T12:20:05.311Z",
+      "dirtyMapStatusSignature": "340f99c33d2a1dfd0015d1dc67b58b838156a600307de07438c1189d27ac7b16",
+      "expandedStatusEntries": 6116
+    },
+    "cleanSourceCandidatePromotion": {
+      "key": "cleanSourceCandidatePromotion",
+      "path": "coordination/release-intake/latest-A22-clean-source-candidate-promotion-packet.json",
+      "generatedAt": "2026-07-08T12:20:56.023Z",
+      "dirtyMapStatusSignature": "340f99c33d2a1dfd0015d1dc67b58b838156a600307de07438c1189d27ac7b16",
+      "expandedStatusEntries": 6116
+    }
+  },
+  "sourceCurrentnessFailures": [],
+  "typeCheckStatus": "failed",
+  "topCandidate": {
+    "branch": "codex/A22-us-region-alignment",
+    "path": "/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A22-us-region-alignment",
+    "head": "80b8546af59def9ea4c91fa4b8a892973874504d",
+    "promotionRank": 1,
+    "promotionLane": "clean-diverged-slice-review",
+    "promotionEligibleNow": false,
+    "releaseSourceSelected": false
+  },
+  "typeCheck": {
+    "packageJsonPath": "/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A22-us-region-alignment/package.json",
+    "packageJsonPresent": true,
+    "command": {
+      "cwd": "/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A22-us-region-alignment",
+      "argv": [
+        "npm",
+        "run",
+        "type-check"
+      ]
+    },
+    "exitStatus": 2,
+    "signal": null,
+    "error": "",
+    "stdoutLineCount": 696,
+    "stderrLineCount": 0,
+    "stdoutSha256": "ebdc7829eda9cf19324062c657aec29bad69c7adb3d17f7aea542a8b8875038c",
+    "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "errorLineCount": 652,
+    "firstErrorLines": [
+      "app/api/admin/ai-governance/summary/route.ts(3,43): error TS2307: Cannot find module '@/lib/server/aiGovernance' or its corresponding type declarations.",
+      "app/api/admin/ai-governance/summary/route.ts(4,10): error TS2305: Module '\"@/lib/server/userStore\"' has no exported member 'getAiGovernanceSummaryForAdmin'.",
+      "app/api/admin/nova-lens/policy/route.ts(3,10): error TS2305: Module '\"@/lib/server/userStore\"' has no exported member 'getNovaLensPolicy'.",
+      "app/api/admin/nova-lens/policy/route.ts(3,29): error TS2305: Module '\"@/lib/server/userStore\"' has no exported member 'listNovaLensPolicyEventsForAdmin'.",
+      "app/api/admin/nova-lens/policy/route.ts(3,63): error TS2305: Module '\"@/lib/server/userStore\"' has no exported member 'updateNovaLensPolicy'.",
+      "app/api/admin/nova-lens/policy/route.ts(4,15): error TS2305: Module '\"@/types\"' has no exported member 'NovaLensPolicy'.",
+      "app/api/admin/storage/hot-auth/backfill/route.ts(3,10): error TS2305: Module '\"@/lib/server/userStore\"' has no exported member 'backfillPostgresHotAuthTablesForAdmin'.",
+      "app/api/admin/storage/temporary-bootstrap-admins/route.ts(3,10): error TS2305: Module '\"@/lib/server/userStore\"' has no exported member 'cleanupTemporaryBootstrapAdminsForAdmin'.",
+      "app/api/assignments/[assignmentId]/corrections/route.ts(3,10): error TS2305: Module '\"@/lib/server/userStore\"' has no exported member 'recordAiGovernanceEvent'.",
+      "app/api/assignments/[assignmentId]/corrections/route.ts(3,35): error TS2305: Module '\"@/lib/server/userStore\"' has no exported member 'submitAssignmentWork'.",
+      "app/api/assignments/[assignmentId]/corrections/route.ts(4,100): error TS2307: Cannot find module '@/lib/server/aiGovernance' or its corresponding type declarations.",
+      "app/api/assignments/[assignmentId]/corrections/route.ts(10,15): error TS2305: Module '\"@/types\"' has no exported member 'AssignmentSubmissionInputType'.",
+      "app/api/assignments/[assignmentId]/corrections/route.ts(10,46): error TS2305: Module '\"@/types\"' has no exported member 'AssignmentSubmissionOcrResult'.",
+      "app/api/assignments/[assignmentId]/corrections/route.ts(34,13): error TS7006: Parameter 'error' implicitly has an 'any' type.",
+      "app/api/assignments/[assignmentId]/corrections/route.ts(72,15): error TS7006: Parameter 'error' implicitly has an 'any' type.",
+      "app/api/assignments/[assignmentId]/corrections/route.ts(94,15): error TS7006: Parameter 'error' implicitly has an 'any' type.",
+      "app/api/assignments/[assignmentId]/submissions/route.ts(3,10): error TS2305: Module '\"@/lib/server/userStore\"' has no exported member 'recordAiGovernanceEvent'.",
+      "app/api/assignments/[assignmentId]/submissions/route.ts(3,35): error TS2305: Module '\"@/lib/server/userStore\"' has no exported member 'submitAssignmentWork'.",
+      "app/api/assignments/[assignmentId]/submissions/route.ts(4,100): error TS2307: Cannot find module '@/lib/server/aiGovernance' or its corresponding type declarations.",
+      "app/api/assignments/[assignmentId]/submissions/route.ts(10,15): error TS2305: Module '\"@/types\"' has no exported member 'AssignmentSubmissionInputType'."
+    ],
+    "topFiles": [
+      {
+        "file": "components/visualizations/three/scenes/TemplatePrimitiveScene.tsx",
+        "errors": 206
+      },
+      {
+        "file": "components/teacher/TeacherPrepViews.tsx",
+        "errors": 36
+      },
+      {
+        "file": "components/teacher/TeacherOperationsView.tsx",
+        "errors": 32
+      },
+      {
+        "file": "lib/teacherReviewLesson.ts",
+        "errors": 30
+      },
+      {
+        "file": "components/teacher/TeacherReviewLessonView.tsx",
+        "errors": 25
+      },
+      {
+        "file": "components/visualizations/three/ThreeDGraphCanvas.tsx",
+        "errors": 21
+      },
+      {
+        "file": "lib/teacherReviewLessonPptx.ts",
+        "errors": 19
+      },
+      {
+        "file": "components/visualizations/VisualizationLabPage.tsx",
+        "errors": 16
+      },
+      {
+        "file": "components/games/MathVirusBlasterGame.tsx",
+        "errors": 13
+      },
+      {
+        "file": "components/visualizations/three/manim/MathSceneRuntime.tsx",
+        "errors": 12
+      },
+      {
+        "file": "components/games/MightyTankBattleGame.tsx",
+        "errors": 10
+      },
+      {
+        "file": "components/visualizations/three/ThreeDLabCanvas.tsx",
+        "errors": 10
+      },
+      {
+        "file": "app/api/teacher/review-lessons/[reviewLessonId]/route.ts",
+        "errors": 9
+      },
+      {
+        "file": "components/visualizations/three/threeDSceneMath.catalog.test.ts",
+        "errors": 9
+      },
+      {
+        "file": "lib/server/teacherReviewLessonLLM.ts",
+        "errors": 9
+      },
+      {
+        "file": "lib/teacherAssessmentAnalysis.ts",
+        "errors": 9
+      },
+      {
+        "file": "app/api/assignments/[assignmentId]/corrections/route.ts",
+        "errors": 8
+      },
+      {
+        "file": "app/api/assignments/[assignmentId]/submissions/route.ts",
+        "errors": 8
+      },
+      {
+        "file": "app/api/classroom/live/[sessionId]/work-samples/route.ts",
+        "errors": 8
+      },
+      {
+        "file": "app/api/me/learner-profile/route.ts",
+        "errors": 7
+      }
+    ],
+    "topCodes": [
+      {
+        "code": "TS2339",
+        "errors": 272
+      },
+      {
+        "code": "TS7006",
+        "errors": 158
+      },
+      {
+        "code": "TS2305",
+        "errors": 122
+      },
+      {
+        "code": "TS2307",
+        "errors": 32
+      },
+      {
+        "code": "TS2724",
+        "errors": 32
+      },
+      {
+        "code": "TS2322",
+        "errors": 17
+      },
+      {
+        "code": "TS2367",
+        "errors": 4
+      },
+      {
+        "code": "TS7031",
+        "errors": 4
+      },
+      {
+        "code": "TS2769",
+        "errors": 3
+      },
+      {
+        "code": "TS7053",
+        "errors": 3
+      },
+      {
+        "code": "TS2345",
+        "errors": 2
+      },
+      {
+        "code": "TS2353",
+        "errors": 2
+      },
+      {
+        "code": "TS2459",
+        "errors": 1
+      }
+    ],
+    "tsbuildInfoPresentAfter": false,
+    "nextBuildDirPresentAfter": true,
+    "ignoredEntriesAfter": [
+      "!! .next/",
+      "!! node_modules/"
+    ],
+    "ignoredEntryCountAfter": 2,
+    "nextBuildDirIgnoredAfter": true,
+    "nodeModulesIgnoredAfter": true,
+    "beforeStatusEntries": 0,
+    "afterStatusEntries": 0,
+    "beforeStatusClean": true,
+    "afterStatusClean": true,
+    "mutationDetected": false,
+    "typeCheckPassed": false
+  },
+  "validationRows": [
+    {
+      "id": "candidate-package-present",
+      "owner": "A22 production reliability and release engineering",
+      "passed": true,
+      "status": "passed",
+      "detail": "Top candidate package.json exists."
+    },
+    {
+      "id": "candidate-type-check-command-run",
+      "owner": "A22 production reliability and release engineering",
+      "passed": true,
+      "status": "completed",
+      "detail": "npm run type-check completed with exit=2."
+    },
+    {
+      "id": "candidate-type-check-passed",
+      "owner": "A22 production reliability and release engineering",
+      "passed": false,
+      "status": "failed",
+      "detail": "Candidate-specific type-check failed with 652 TypeScript error line(s)."
+    },
+    {
+      "id": "candidate-type-check-no-mutation",
+      "owner": "A25 git hygiene and release intake",
+      "passed": true,
+      "status": "passed",
+      "detail": "Candidate worktree status stayed clean before/after type-check; mutationDetected=false."
+    }
+  ],
+  "summary": {
+    "typeCheckPassed": false,
+    "packageJsonPresent": true,
+    "exitStatus": 2,
+    "errorLineCount": 652,
+    "stdoutLineCount": 696,
+    "stderrLineCount": 0,
+    "topFileCount": 20,
+    "topCodeCount": 13,
+    "beforeStatusEntries": 0,
+    "afterStatusEntries": 0,
+    "mutationDetected": false,
+    "tsbuildInfoPresentAfter": false,
+    "nextBuildDirPresentAfter": true,
+    "ignoredEntryCountAfter": 2,
+    "nextBuildDirIgnoredAfter": true,
+    "nodeModulesIgnoredAfter": true,
+    "promotionEligibleNow": false,
+    "releaseSourceSelected": false,
+    "cleanupAuthorizedRows": 0,
+    "executableRows": 0,
+    "sourceCurrentnessFailures": 0
+  },
+  "boundary": {
+    "evidenceOnly": true,
+    "runsTypeCheck": true,
+    "runsBuild": false,
+    "runsRegression": false,
+    "selectsReleaseSource": false,
+    "recordsOwnerApproval": false,
+    "recordsExecutionInstruction": false,
+    "stagesFiles": false,
+    "commits": false,
+    "merges": false,
+    "pushes": false,
+    "deploys": false,
+    "cleanupAuthorized": false,
+    "executableNow": false,
+    "destructiveGitAuthorized": false,
+    "physicalLifecycleCleanupAuthorized": false
+  }
+}

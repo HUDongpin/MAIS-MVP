@@ -1,0 +1,253 @@
+{
+  "generatedAt": "2026-07-09T12:41:18.632Z",
+  "repoRoot": "/Users/dongpinhu/Desktop/MAIS-MVP",
+  "runwayKind": "a22-root-parity-owner-input-landing-runway",
+  "runwayStatus": "owner-input-recorded-post-runway",
+  "dirtyMapStatusSignature": "b3d232fd2b9ef81d4efc95903d2e3b316db664d6e9ec6ab366181395b3966be7",
+  "expandedStatusEntries": 6604,
+  "sourceArtifacts": {
+    "selectedActionPreviewGeneratedAt": "2026-07-09T12:41:18.527Z",
+    "ownerActionPacketGeneratedAt": "2026-07-09T12:39:42.061Z",
+    "instructionIntakeGeneratedAt": "2026-07-09T12:39:40.312Z",
+    "instructionRecordingDryRunGeneratedAt": "2026-07-09T12:39:40.537Z",
+    "guardedExtractionDryRunGeneratedAt": "2026-07-09T12:39:40.819Z"
+  },
+  "sourceCurrentnessFailures": [],
+  "topCandidate": {
+    "branch": "codex/A22-us-region-alignment",
+    "path": "/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A22-us-region-alignment",
+    "head": "80b8546af59def9ea4c91fa4b8a892973874504d",
+    "gateCoverageStatus": "top-candidate-gates-red",
+    "queueActionStatus": "needs-typecheck-remediation-and-fresh-build-observation",
+    "releaseSourceSelected": false,
+    "promotionEligibleNow": false
+  },
+  "ownerInputFile": "coordination/release-intake/latest-A22-top-clean-candidate-root-parity-extraction-instruction-owner-input.json",
+  "landingPatchPreviewDoNotApply": {
+    "doNotApply": true,
+    "ownerInputFile": "coordination/release-intake/latest-A22-top-clean-candidate-root-parity-extraction-instruction-owner-input.json",
+    "inputKind": "a22-root-parity-extraction-instruction-owner-input",
+    "applyToUnitIds": [
+      "a06-visualization-back-to-top-import-parity",
+      "a20-math-virus-blaster-data-parity",
+      "a20-mighty-tank-battle-data-parity",
+      "a05-california-high-school-lesson-illustration-data-parity"
+    ],
+    "selectedActions": [
+      {
+        "unitId": "a06-visualization-back-to-top-import-parity",
+        "primaryOwnerIds": [
+          "A06"
+        ],
+        "coordinationOwnerIds": [
+          "A22",
+          "A25"
+        ],
+        "allowedActions": [
+          "reexport",
+          "import-align"
+        ],
+        "selectedAction": "reexport",
+        "rootSource": "components/visualizations/VisualizationLabBackToTopButton.tsx",
+        "rootSourceSha256": "efef3f7c3590ebbd6b21ca56a3d4fcdcab1c0e3dd591bf08ee5a6ccc58707155",
+        "candidateTarget": "app/visualization-lab/VisualizationLabBackToTopButton.tsx"
+      },
+      {
+        "unitId": "a20-math-virus-blaster-data-parity",
+        "primaryOwnerIds": [
+          "A20"
+        ],
+        "coordinationOwnerIds": [
+          "A10",
+          "A22",
+          "A25"
+        ],
+        "allowedActions": [
+          "same-path-copy"
+        ],
+        "selectedAction": "same-path-copy",
+        "rootSource": "data/mathVirusBlaster.ts",
+        "rootSourceSha256": "e7e7edfe35ada99e17be43cdfea5cea36e409d52e8a4c3966476209687b495fa",
+        "candidateTarget": "data/mathVirusBlaster.ts"
+      },
+      {
+        "unitId": "a20-mighty-tank-battle-data-parity",
+        "primaryOwnerIds": [
+          "A20"
+        ],
+        "coordinationOwnerIds": [
+          "A10",
+          "A22",
+          "A25"
+        ],
+        "allowedActions": [
+          "same-path-copy"
+        ],
+        "selectedAction": "same-path-copy",
+        "rootSource": "data/mightyTankBattle.ts",
+        "rootSourceSha256": "d74bfa43d60d766f818bd7b8e958b386cdff38fc91d3ae5d84889c957c2138e7",
+        "candidateTarget": "data/mightyTankBattle.ts"
+      },
+      {
+        "unitId": "a05-california-high-school-lesson-illustration-data-parity",
+        "primaryOwnerIds": [
+          "A05"
+        ],
+        "coordinationOwnerIds": [
+          "A18",
+          "A21",
+          "A24",
+          "A22",
+          "A25"
+        ],
+        "allowedActions": [
+          "same-path-copy"
+        ],
+        "selectedAction": "same-path-copy",
+        "rootSource": "data/usCaliforniaHighSchoolLessonIllustrations.ts",
+        "rootSourceSha256": "366c5b3a2e8ea9a67f1c13e005377f0be4d903d7d4657e15ad2d9f2da0507a28",
+        "candidateTarget": "data/usCaliforniaHighSchoolLessonIllustrations.ts"
+      }
+    ],
+    "selectedActionMap": {
+      "a06-visualization-back-to-top-import-parity": "reexport",
+      "a20-math-virus-blaster-data-parity": "same-path-copy",
+      "a20-mighty-tank-battle-data-parity": "same-path-copy",
+      "a05-california-high-school-lesson-illustration-data-parity": "same-path-copy"
+    },
+    "ownerExecutionTextLines": [
+      "Authorize A22 root-parity extraction instruction for unitId=a06-visualization-back-to-top-import-parity; topCandidate=codex/A22-us-region-alignment; targetWorktree=/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A22-us-region-alignment; primaryOwnerIds=A06; coordinationOwnerIds=A22,A25; actionMode=owner-reviewed-reexport-or-import-align; rootSource=components/visualizations/VisualizationLabBackToTopButton.tsx; rootSourceSha256=efef3f7c3590ebbd6b21ca56a3d4fcdcab1c0e3dd591bf08ee5a6ccc58707155; candidateTarget=app/visualization-lab/VisualizationLabBackToTopButton.tsx; coveredBlockerRows=1; selectedAction=reexport; approvedBy=<owner>; approvedAt=<ISO-8601>; notes=<scope and checks>; No cleanup; No deploy; No merge; No broad staging; No destructive git; No physical lifecycle cleanup.",
+      "Authorize A22 root-parity extraction instruction for unitId=a20-math-virus-blaster-data-parity; topCandidate=codex/A22-us-region-alignment; targetWorktree=/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A22-us-region-alignment; primaryOwnerIds=A20; coordinationOwnerIds=A10,A22,A25; actionMode=owner-reviewed-same-path-data-extraction; rootSource=data/mathVirusBlaster.ts; rootSourceSha256=e7e7edfe35ada99e17be43cdfea5cea36e409d52e8a4c3966476209687b495fa; candidateTarget=data/mathVirusBlaster.ts; coveredBlockerRows=1; selectedAction=same-path-copy; approvedBy=<owner>; approvedAt=<ISO-8601>; notes=<scope and checks>; No cleanup; No deploy; No merge; No broad staging; No destructive git; No physical lifecycle cleanup.",
+      "Authorize A22 root-parity extraction instruction for unitId=a20-mighty-tank-battle-data-parity; topCandidate=codex/A22-us-region-alignment; targetWorktree=/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A22-us-region-alignment; primaryOwnerIds=A20; coordinationOwnerIds=A10,A22,A25; actionMode=owner-reviewed-same-path-data-extraction; rootSource=data/mightyTankBattle.ts; rootSourceSha256=d74bfa43d60d766f818bd7b8e958b386cdff38fc91d3ae5d84889c957c2138e7; candidateTarget=data/mightyTankBattle.ts; coveredBlockerRows=1; selectedAction=same-path-copy; approvedBy=<owner>; approvedAt=<ISO-8601>; notes=<scope and checks>; No cleanup; No deploy; No merge; No broad staging; No destructive git; No physical lifecycle cleanup.",
+      "Authorize A22 root-parity extraction instruction for unitId=a05-california-high-school-lesson-illustration-data-parity; topCandidate=codex/A22-us-region-alignment; targetWorktree=/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A22-us-region-alignment; primaryOwnerIds=A05; coordinationOwnerIds=A18,A21,A24,A22,A25; actionMode=owner-reviewed-same-path-data-extraction-with-content-signoff; rootSource=data/usCaliforniaHighSchoolLessonIllustrations.ts; rootSourceSha256=366c5b3a2e8ea9a67f1c13e005377f0be4d903d7d4657e15ad2d9f2da0507a28; candidateTarget=data/usCaliforniaHighSchoolLessonIllustrations.ts; coveredBlockerRows=2; selectedAction=same-path-copy; approvedBy=<owner>; approvedAt=<ISO-8601>; notes=<scope and checks>; No cleanup; No deploy; No merge; No broad staging; No destructive git; No physical lifecycle cleanup."
+    ],
+    "ownerExecutionTextMatchesSelectedActionPreview": true,
+    "approvedByPlaceholder": "<owner>",
+    "approvedAtPlaceholder": "<ISO-8601>",
+    "notesPlaceholder": "<scope and checks>",
+    "boundary": {
+      "previewOnly": true,
+      "ownerInputOnly": true,
+      "recordsOwnerInput": false,
+      "recordsExtractionInstruction": false,
+      "modifiesCandidate": false,
+      "copiesRootFiles": false,
+      "runsTypeCheck": false,
+      "runsBuild": false,
+      "runsRegression": false,
+      "cleanupAuthorized": false,
+      "executableNow": false,
+      "deployAuthorized": false,
+      "mergeAuthorized": false,
+      "stageAuthorized": false,
+      "destructiveGitAuthorized": false,
+      "physicalLifecycleCleanupAuthorized": false
+    }
+  },
+  "postOwnerInputValidationCommands": [
+    "node coordination/release-intake/generate-a22-top-clean-candidate-root-parity-extraction-instruction-intake.mjs",
+    "node coordination/release-intake/assert-a22-top-clean-candidate-root-parity-extraction-instruction-intake-current.mjs",
+    "node coordination/release-intake/run-a22-top-clean-candidate-root-parity-extraction-instruction-recording.mjs",
+    "node coordination/release-intake/assert-a22-top-clean-candidate-root-parity-extraction-instruction-recording-current.mjs",
+    "node coordination/release-intake/run-a22-top-clean-candidate-root-parity-guarded-extraction.mjs",
+    "node coordination/release-intake/assert-a22-top-clean-candidate-root-parity-guarded-extraction-current.mjs",
+    "node coordination/release-intake/assert-a22-clean-source-validation-queue-current.mjs",
+    "node coordination/release-intake/assert-validate-frontier-owner-input-request-capsule-current.mjs"
+  ],
+  "summary": {
+    "previewRows": 4,
+    "pendingRows": 0,
+    "acceptedRows": 4,
+    "patchRows": 4,
+    "ownerInputBlank": false,
+    "ownerInputRecorded": true,
+    "exactOwnerExecutionTextRows": 4,
+    "postOwnerInputValidationCommands": 8,
+    "instructionIntakeStatus": "ready-to-record-extraction-instruction-rows",
+    "instructionRecordingStatus": "already-recorded",
+    "guardedExtractionStatus": "already-extracted-and-verified",
+    "candidateTargetsMissing": 0,
+    "candidateTargetsVerified": 4,
+    "rootCopyRows": 0,
+    "candidateMutationRows": 0,
+    "cleanupAuthorizedRows": 0,
+    "executableRows": 0,
+    "failedChecks": 0
+  },
+  "checks": [
+    {
+      "id": "source-current",
+      "status": "pass",
+      "detail": "sourceCurrentnessFailures=0"
+    },
+    {
+      "id": "dirty-map-current",
+      "status": "pass",
+      "detail": "dirtyMapEntries=6604; previewEntries=6604"
+    },
+    {
+      "id": "selected-action-preview-current",
+      "status": "pass",
+      "detail": "previewStatus=owner-approved-post-extraction-verified-check-remediation; previewRows=4; pendingRows=0"
+    },
+    {
+      "id": "owner-input-still-blank",
+      "status": "pass",
+      "detail": "owner input has been recorded and matches the selectedAction patch"
+    },
+    {
+      "id": "patch-preview-do-not-apply",
+      "status": "pass",
+      "detail": "doNotApply=true; ownerInputFile=coordination/release-intake/latest-A22-top-clean-candidate-root-parity-extraction-instruction-owner-input.json"
+    },
+    {
+      "id": "patch-rows-match-selected-action-preview",
+      "status": "pass",
+      "detail": "patchRows=4; previewRows=4"
+    },
+    {
+      "id": "exact-owner-execution-text-lines-match",
+      "status": "pass",
+      "detail": "previewLines=4"
+    },
+    {
+      "id": "post-owner-input-chain-still-blocked",
+      "status": "pass",
+      "detail": "intake=ready-to-record-extraction-instruction-rows; recorder=already-recorded; executor=already-extracted-and-verified"
+    },
+    {
+      "id": "candidate-targets-missing-before-extraction",
+      "status": "pass",
+      "detail": "missingTargets=0/4; verifiedTargets=4/4"
+    },
+    {
+      "id": "no-unauthorized-side-effects",
+      "status": "pass",
+      "detail": "preview and patch boundaries must remain preview-only, non-executable, no-cleanup, no-merge, no-deploy"
+    }
+  ],
+  "boundary": {
+    "evidenceOnly": true,
+    "runwayOnly": true,
+    "recordsOwnerInput": false,
+    "appliesOwnerInputPatch": false,
+    "recordsExtractionInstruction": false,
+    "modifiesCandidate": false,
+    "copiesRootFiles": false,
+    "runsTypeCheck": false,
+    "runsBuild": false,
+    "runsRegression": false,
+    "selectsReleaseSource": false,
+    "stageAuthorized": false,
+    "commitAuthorized": false,
+    "mergeAuthorized": false,
+    "cleanupAuthorized": false,
+    "executableNow": false,
+    "destructiveGitAuthorized": false,
+    "deployAuthorized": false,
+    "physicalLifecycleCleanupAuthorized": false,
+    "requiresExplicitOwnerApprovalBeforeOwnerInputRecording": true,
+    "requiresSeparateRecordingApply": true,
+    "requiresSeparateGuardedExtractionApply": true
+  }
+}

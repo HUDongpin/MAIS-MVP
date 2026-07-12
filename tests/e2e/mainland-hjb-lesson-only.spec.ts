@@ -241,7 +241,7 @@ async function getStudentHjbLessonSlug(page: Page, baseURL: string, grade = "S4"
   const body = (await response.json()) as LessonEntryResponse;
   expect(body.lessonEntryTarget?.slug, "HJB student receives a lesson entry slug").toBeTruthy();
   expect(body.lessonEntryTarget?.grade).toBe(grade);
-  expect(body.lessonEntryTarget?.href).toBe(`/lesson/${encodeURIComponent(body.lessonEntryTarget?.slug ?? "")}`);
+  expect(body.lessonEntryTarget?.href).toBe(`/student/lessons/${encodeURIComponent(body.lessonEntryTarget?.slug ?? "")}`);
   return body.lessonEntryTarget?.slug ?? "";
 }
 
@@ -251,11 +251,11 @@ async function getTeacherHjbLessonSlug(page: Page, baseURL: string, grade = "S4"
   const body = (await response.json()) as LessonEntryResponse;
   expect(body.lessonEntryTarget?.slug, "HJB teacher receives a lesson entry slug").toBeTruthy();
   expect(body.lessonEntryTarget?.grade).toBe(grade);
-  expect(body.lessonEntryTarget?.href).toBe(`/lesson/${encodeURIComponent(body.lessonEntryTarget?.slug ?? "")}`);
+  expect(body.lessonEntryTarget?.href).toBe(`/student/lessons/${encodeURIComponent(body.lessonEntryTarget?.slug ?? "")}`);
   return body.lessonEntryTarget?.slug ?? "";
 }
 
-async function expectHjbLessonApi(page: Page, baseURL: string, slug: string, grade = "S4", expectedPracticeCount = 8, questionIdPattern: RegExp | null = /^hjb-high-ds-v[1-4]-/i) {
+async function expectHjbLessonApi(page: Page, baseURL: string, slug: string, grade = "S4", expectedPracticeCount = 8, questionIdPattern: RegExp | null = /^hjb-high-ds-v2-/i) {
   const response = await page.request.get(appUrl(baseURL, `/api/lessons/${encodeURIComponent(slug)}`));
   expect(response.status(), `GET /api/lessons/${slug}`).toBe(200);
   const body = (await response.json()) as LessonApiPayload;
@@ -286,27 +286,19 @@ async function expectApprovedPracticeQuestions(page: Page, baseURL: string, topi
   expect(response.status(), "GET /api/questions for Mainland HJB S4").toBe(200);
   const body = await response.json();
   const questions = (body.questions ?? []) as PublicQuestion[];
-  expect(questions).toHaveLength(2000);
+  expect(questions).toHaveLength(500);
   expect(
     questions.every((question) => question.publisher === "MAINLAND_HJB" || question.curriculumProfile?.publisher === "MAINLAND_HJB"),
     "Practice API stays scoped to Mainland HJB when it returns questions."
   ).toBe(true);
   expect(
-    questions.filter((question) => /^hjb-high-ds-v1-/i.test(question.id)).map((question) => question.id),
-    "V1 practice question IDs are exposed."
-  ).toHaveLength(500);
-  expect(
     questions.filter((question) => /^hjb-high-ds-v2-/i.test(question.id)).map((question) => question.id),
-    "Owner-approved V2 practice question IDs are exposed."
+    "Stable V2 practice question IDs are exposed."
   ).toHaveLength(500);
   expect(
-    questions.filter((question) => /^hjb-high-ds-v3-/i.test(question.id)).map((question) => question.id),
-    "Owner-approved V3-remediated practice question IDs are exposed."
-  ).toHaveLength(500);
-  expect(
-    questions.filter((question) => /^hjb-high-ds-v4-/i.test(question.id)).map((question) => question.id),
-    "Owner-approved V4-remediated practice question IDs are exposed."
-  ).toHaveLength(500);
+    questions.every((question) => /^hjb-high-ds-v2-/i.test(question.id)),
+    "Non-default HJB high candidate packages stay out of the public practice API."
+  ).toBe(true);
 
   if (topicId) {
     const topicResponse = await page.request.get(appUrl(baseURL, `/api/questions?grade=S4&publisher=MAINLAND_HJB&topicId=${encodeURIComponent(topicId)}`));
@@ -314,7 +306,7 @@ async function expectApprovedPracticeQuestions(page: Page, baseURL: string, topi
     const topicBody = await topicResponse.json();
     const topicQuestions = (topicBody.questions ?? []) as PublicQuestion[];
     expect(topicQuestions.length, "Topic-scoped Practice Arena pool is not empty.").toBeGreaterThanOrEqual(8);
-    expect(topicQuestions.every((question) => question.topicId === topicId && /^hjb-high-ds-v[1-4]-/i.test(question.id))).toBe(true);
+    expect(topicQuestions.every((question) => question.topicId === topicId && /^hjb-high-ds-v2-/i.test(question.id))).toBe(true);
   }
 }
 
@@ -337,7 +329,7 @@ async function expectApprovedJuniorPracticeQuestions(page: Page, baseURL: string
 }
 
 async function expectStudentLessonPage(page: Page, baseURL: string, slug: string, title: string, expectedPracticeCount = 8) {
-  await page.goto(appUrl(baseURL, `/lesson/${encodeURIComponent(slug)}`), { waitUntil: "domcontentloaded" });
+  await page.goto(appUrl(baseURL, `/student/lessons/${encodeURIComponent(slug)}`), { waitUntil: "domcontentloaded" });
   await expect(page.getByRole("heading", { name: localizedTitlePattern(title) })).toBeVisible();
   await expect(page.getByText(/核心概念/).first()).toBeVisible();
   await expect(page.getByText(/练习前检查/).first()).toBeVisible();
@@ -350,7 +342,7 @@ async function expectStudentLessonPage(page: Page, baseURL: string, slug: string
 }
 
 async function expectTeacherLessonPage(page: Page, baseURL: string, slug: string, title: string, expectedPracticeCount = 8) {
-  await page.goto(appUrl(baseURL, `/lesson/${encodeURIComponent(slug)}`), { waitUntil: "domcontentloaded" });
+  await page.goto(appUrl(baseURL, `/student/lessons/${encodeURIComponent(slug)}`), { waitUntil: "domcontentloaded" });
   await expect(page.getByRole("heading", { name: localizedTitlePattern(title) })).toBeVisible();
   await expect(page.getByText(/核心概念/).first()).toBeVisible();
   await expect(page.getByText(/练习前检查/).first()).toBeVisible();
@@ -376,14 +368,14 @@ async function expectHjbPrimaryLessonIllustrationsVisible(
   if (!concept) throw new Error(`${topicId} concept illustration metadata exists`);
   if (!workedExample) throw new Error(`${topicId} worked-example illustration metadata exists`);
 
-  await page.goto(appUrl(baseURL, `/lesson/${encodeURIComponent(lessonSlugForTopicId(topicId))}`), { waitUntil: "domcontentloaded" });
+  await page.goto(appUrl(baseURL, `/student/lessons/${encodeURIComponent(lessonSlugForTopicId(topicId))}`), { waitUntil: "domcontentloaded" });
   await expect(page.locator("main")).toContainText(concept.caption.zhHans ?? concept.caption.zh, { timeout: 45_000 });
   await expect(page.locator(`img[src*="mainland-hjb-primary"][src*="${topicId}"]`)).toHaveCount(2);
   await expect(page.locator("main")).toContainText(workedExample.caption.zhHans ?? workedExample.caption.zh);
 }
 
 async function expectNoHjbPrimaryIllustrations(page: Page, baseURL: string, slug: string) {
-  await page.goto(appUrl(baseURL, `/lesson/${encodeURIComponent(slug)}`), { waitUntil: "domcontentloaded" });
+  await page.goto(appUrl(baseURL, `/student/lessons/${encodeURIComponent(slug)}`), { waitUntil: "domcontentloaded" });
   await expect(page.locator('img[src*="mainland-hjb-primary"]')).toHaveCount(0);
 }
 

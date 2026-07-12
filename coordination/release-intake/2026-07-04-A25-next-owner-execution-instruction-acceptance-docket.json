@@ -1,0 +1,146 @@
+{
+  "generatedAt": "2026-07-04T15:54:16.195Z",
+  "repoRoot": "/Users/dongpinhu/Desktop/MAIS-MVP",
+  "docketKind": "next-owner-execution-instruction-acceptance",
+  "dirtyMapStatusSignature": "0ed815279a9afc7897df7ef48f2e250da494e4a227adc0a6da14547ba9048571",
+  "expandedStatusEntries": 4323,
+  "sourceArtifacts": {
+    "executionInstructionsGeneratedAt": "2026-07-04T15:53:21.535Z",
+    "executionInstructionsGatePath": "coordination/release-intake/latest-A25-next-owner-execution-instructions-current-gate.json",
+    "requestPacketGeneratedAt": "2026-07-04T15:53:44.117Z",
+    "requestPacketGatePath": "coordination/release-intake/latest-A25-next-owner-execution-instruction-request-packet-current-gate.json",
+    "a16OwnerInputGeneratedAt": "2026-07-04T15:50:05.272Z",
+    "a16OwnerInputGatePath": "coordination/release-intake/latest-A25-a16-execution-instruction-owner-input-current-gate.json",
+    "a16PreExecutionReportGeneratedAt": "2026-07-04T15:50:04.734Z"
+  },
+  "sourceCurrentnessFailures": [],
+  "acceptanceRows": [
+    {
+      "approvalId": "a16-root-pathspec-commit-execution",
+      "owner": "A16 research and learning science",
+      "candidateId": "wave-05-visualization-ai-runtime:a16-research-evidence",
+      "sourceKind": "a16-specialized-owner-input",
+      "status": "waiting-for-owner-execution-instruction",
+      "targetInputFile": "coordination/release-intake/latest-A25-next-owner-execution-instructions.json",
+      "expectedInstructionId": "a16-root-pathspec-commit-execution-execution-instruction",
+      "expectedExecutionText": "Authorize separate execution for approvalIds=a16-research-and-learning-science,codex-a16-research-evidence-closure; cwd=/Users/dongpinhu/Desktop/MAIS-MVP; commandSequence=\"git add --pathspec-from-file=coordination/release-intake/latest-A25-effective-owner-a16-research-and-learning-science.pathspec\" then \"git commit -m 'Add A16 research evidence package'\"; approvedBy=dongpinhu; approvedAt=<ISO-8601>; notes=Stage and commit only the 6 A16 research evidence files listed in coordination/release-intake/latest-A25-effective-owner-a16-research-and-learning-science.pathspec. No cleanup, worktree removal, branch deletion, reset, clean, push, deploy, broad staging, or unrelated dirty-root inventory is authorized.",
+      "exactCommandSequence": [
+        "git add --pathspec-from-file=coordination/release-intake/latest-A25-effective-owner-a16-research-and-learning-science.pathspec",
+        "git commit -m \"Add A16 research evidence package\""
+      ],
+      "packageFiles": [
+        "coordination/research/2026-06-20-3blue1brown-skill-distillation-handbook.md",
+        "coordination/research/2026-06-20-3blue1brown-skill-distillation-handbook.provenance.md",
+        "coordination/research/2026-06-20-3blue1brown-style-visualization-effects-report.md",
+        "coordination/research/2026-06-21-ke-to-mais-behavior-event-dictionary.csv",
+        "coordination/research/2026-06-21-ke-to-mais-stealth-assessment-integration-spec.md",
+        "coordination/research/2026-06-21-ke-to-mais-stealth-assessment-integration-spec.provenance.md"
+      ],
+      "packageFingerprintSha256": "005a792e0e2438bbade0462d03c740dc6a542b8152935a0ed5e6b11caf5a9fac",
+      "requiredEvidenceReviewed": [
+        "coordination/release-intake/latest-A25-next-owner-execution-instruction-request-packet.json",
+        "coordination/release-intake/latest-A25-a16-execution-instruction-owner-input.json",
+        "coordination/release-intake/latest-A25-a16-pre-execution-validation-report.json",
+        "coordination/release-intake/latest-A25-next-owner-authorized-command-manifest.json"
+      ],
+      "requiredPreExecutionChecks": [
+        "node coordination/release-intake/review-owner-pathspec.mjs coordination/release-intake/latest-A25-effective-owner-a16-research-and-learning-science.pathspec --status",
+        "node coordination/release-intake/review-owner-pathspec.mjs coordination/release-intake/latest-A25-effective-owner-a16-research-and-learning-science.pathspec --diffstat",
+        "node coordination/release-intake/assert-next-owner-authorizations-current.mjs --json",
+        "node coordination/release-intake/assert-a16-authorized-package-extraction-request-current.mjs --json",
+        "node coordination/release-intake/assert-no-staged-changes.mjs --json"
+      ],
+      "requiredPostExecutionChecks": [
+        "node coordination/release-intake/assert-no-staged-changes.mjs --json",
+        "npm run release:dirty-map -- --reason \"A25 post-A16 package extraction commit\"",
+        "node coordination/release-intake/assert-dirty-worktree-remediation-current.mjs --json"
+      ],
+      "ownerInstructionRows": 0,
+      "cleanupAuthorized": false,
+      "executableNow": false,
+      "acceptanceCriteria": [
+        "Owner instruction row must match the draft approvalId, instructionId, owner, candidateId, targetCwd, package files, package fingerprints, and exact command sequence.",
+        "executionText must include the copyable A16 separate-execution text, both source approval IDs, target cwd, both exact Git commands, and the no-cleanup/no-broad-staging exclusions.",
+        "evidenceReviewed must include canonical A16 authorization, A16 execution docket, A16 pre-execution validation report, and A16 input scaffold evidence.",
+        "cleanupAuthorized and executableNow must remain false; separate owner instruction permits only the listed stage/commit sequence after pre-checks pass.",
+        "Required pre-execution checks and post-execution checks must remain attached to the accepted instruction row."
+      ]
+    }
+  ],
+  "acceptanceChecks": [
+    {
+      "id": "source-current",
+      "status": "pass",
+      "detail": "source currentness failures=0"
+    },
+    {
+      "id": "one-ready-request-row",
+      "status": "pass",
+      "detail": "ready request rows=1"
+    },
+    {
+      "id": "pending-ready-instruction-row",
+      "status": "pass",
+      "detail": "pending=1, ownerInputReady=1"
+    },
+    {
+      "id": "no-recorded-execution-instruction-yet",
+      "status": "pass",
+      "detail": "Current state is request-only until the owner records a separate execution instruction."
+    },
+    {
+      "id": "a16-pre-execution-ready",
+      "status": "pass",
+      "detail": "pre-execution checks=13/13"
+    },
+    {
+      "id": "six-file-a16-package",
+      "status": "pass",
+      "detail": "package files=6"
+    },
+    {
+      "id": "two-exact-git-commands",
+      "status": "pass",
+      "detail": "exact commands=2"
+    },
+    {
+      "id": "copyable-execution-text-complete",
+      "status": "pass",
+      "detail": "Request row carries the exact owner-facing execution instruction text."
+    },
+    {
+      "id": "non-executable-boundary",
+      "status": "pass",
+      "detail": "Acceptance docket does not authorize cleanup or executable rows."
+    }
+  ],
+  "summary": {
+    "acceptanceRows": 1,
+    "readyInstructionRequestRows": 1,
+    "effectivePendingReadyInstructionRows": 1,
+    "instructionRowsInFile": 0,
+    "validInstructionRows": 0,
+    "ownerInputInstructionRows": 0,
+    "ownerInputValidInstructionRows": 0,
+    "acceptanceChecks": 9,
+    "passingAcceptanceChecks": 9,
+    "failedAcceptanceChecks": 0,
+    "sourceCurrentnessFailures": 0,
+    "preExecutionValidationReady": true,
+    "cleanupAuthorizedRows": 0,
+    "executableRows": 0
+  },
+  "boundary": {
+    "evidenceOnly": true,
+    "acceptanceDocketOnly": true,
+    "recordsExecutionInstruction": false,
+    "stageAuthorized": false,
+    "commitAuthorized": false,
+    "mergeAuthorized": false,
+    "cleanupAuthorized": false,
+    "executableNow": false,
+    "destructiveGitAuthorized": false,
+    "deployAuthorized": false,
+    "requiresSeparateOwnerExecutionInstruction": true
+  }
+}

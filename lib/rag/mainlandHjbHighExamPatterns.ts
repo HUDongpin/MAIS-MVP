@@ -1,4 +1,5 @@
 import { mainlandHjbHighExamPatternCards } from "../../data/rag/mainlandHjbHighExamPatterns";
+import { illustrationTextMatchStandardForRag } from "./illustrationTextMatchStandard";
 import type {
   MainlandHjbHighExamPatternCard,
   MainlandHjbHighExamPatternEvidencePack,
@@ -220,6 +221,7 @@ export function buildMainlandHjbHighExamPatternEvidencePack(
     "Use these aggregated patterns only to create original MAIS assessments, diagnostics, review plans, and future content drafts.",
     "Do not quote, paraphrase, reconstruct, or lightly modify protected prompts, worked responses, diagrams, tables, scoring language, or visual layouts.",
     "Treat cross-volume review cards as review-only; they do not count as compulsory-three or selective-compulsory volume coverage completion.",
+    ...illustrationTextMatchStandardForRag,
     ...cards.flatMap((card, index) => [
       `HJB assessment-pattern card ${index + 1}: ${card.chapters.join(" / ")} (${card.assessmentFamilies.join(", ")}; ${card.difficultyBand}).`,
       `Volume scope: ${card.volumeScope}.`,

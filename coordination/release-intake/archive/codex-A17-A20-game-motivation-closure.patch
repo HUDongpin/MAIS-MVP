@@ -1,0 +1,1614 @@
+diff --git a/app/practice/adventure-island/page.tsx b/app/practice/adventure-island/page.tsx
+index c69b9d966..2e66d8761 100644
+--- a/app/practice/adventure-island/page.tsx
++++ b/app/practice/adventure-island/page.tsx
+@@ -1,13 +1,6 @@
+-import { AdventureIslandGame } from "@/components/gamification/AdventureIslandGame";
+-import { GamePracticeBackLink } from "@/components/gamification/GamePracticeBackLink";
++import { permanentRedirect } from "next/navigation";
++import { studentPracticeGameHrefs } from "@/lib/gameBasedLearning";
+ 
+-export default function AdventureIslandPage() {
+-  return (
+-    <div className="page-container min-h-dvh py-4 sm:py-12">
+-      <div className="mb-4 flex items-center justify-between">
+-        <GamePracticeBackLink />
+-      </div>
+-      <AdventureIslandGame />
+-    </div>
+-  );
++export default function LegacyAdventureIslandPage() {
++  permanentRedirect(studentPracticeGameHrefs.adventureIsland);
+ }
+diff --git a/app/practice/fishing-game/page.tsx b/app/practice/fishing-game/page.tsx
+index 5906c9b33..aeae96949 100644
+--- a/app/practice/fishing-game/page.tsx
++++ b/app/practice/fishing-game/page.tsx
+@@ -1,13 +1,6 @@
+-import { FishingGame } from "@/components/gamification/FishingGame";
+-import { GamePracticeBackLink } from "@/components/gamification/GamePracticeBackLink";
++import { permanentRedirect } from "next/navigation";
++import { studentPracticeGameHrefs } from "@/lib/gameBasedLearning";
+ 
+-export default function FishingGamePage() {
+-  return (
+-    <div className="page-container min-h-dvh py-4 sm:py-12">
+-      <div className="mb-4 flex items-center justify-between">
+-        <GamePracticeBackLink />
+-      </div>
+-      <FishingGame />
+-    </div>
+-  );
++export default function LegacyFishingGamePage() {
++  permanentRedirect(studentPracticeGameHrefs.fishingMaster);
+ }
+diff --git a/app/practice/super-platformer-like/page.tsx b/app/practice/super-platformer-like/page.tsx
+index da4e2682a..92288871b 100644
+--- a/app/practice/super-platformer-like/page.tsx
++++ b/app/practice/super-platformer-like/page.tsx
+@@ -1,5 +1,6 @@
+ import { permanentRedirect } from "next/navigation";
++import { studentPracticeGameHrefs } from "@/lib/gameBasedLearning";
+ 
+ export default function LegacyAdventureIslandRedirectPage() {
+-  permanentRedirect("/practice/adventure-island");
++  permanentRedirect(studentPracticeGameHrefs.adventureIsland);
+ }
+diff --git a/components/gamification/AdventureIslandGame.tsx b/components/gamification/AdventureIslandGame.tsx
+index 14d1a1e68..9f0df5e0f 100644
+--- a/components/gamification/AdventureIslandGame.tsx
++++ b/components/gamification/AdventureIslandGame.tsx
+@@ -5,6 +5,7 @@ import { AnimatePresence, motion } from "@/components/ui/Motion";
+ import { useCallback, useEffect, useRef, useState } from "react";
+ import { PracticeQuestionCard } from "@/components/practice/PracticeQuestionCard";
+ import { dictionary, useSettings } from "@/components/providers/AppProviders";
++import { completedPracticeRoundStorageKey, practiceAdventureRoundStorageKey } from "@/lib/gameBasedLearning";
+ import { formatGradeLabel } from "@/lib/i18n";
+ import { cn } from "@/lib/utils";
+ import type { AttemptFeedback, LocalizedText, PublicQuestion } from "@/types";
+@@ -54,6 +55,7 @@ type GameStats = {
+ };
+ 
+ type GamePhase = "loading" | "locked" | "welcome" | "ready" | "challenge" | "submitting" | "cleared" | "game-over";
++type ResourceLoadState = "idle" | "loading" | "ready" | "failed";
+ 
+ type GameControl = {
+   resolveChallenge: (correct: boolean) => void;
+@@ -68,9 +70,10 @@ type MovementControls = {
+ };
+ 
+ const adventureIslandApiPath = "/api/gamification/adventure-island";
+-const adventureRoundStorageKey = "hk-math-practice-adventure-round";
++const adventureRoundStorageKey = practiceAdventureRoundStorageKey;
+ const trophyRequiredDefeats = 3;
+ const targetGameDurationSeconds = 120;
++const resourceLoadTimeoutMs = 12_000;
+ const levelWidth = 4200;
+ const levelHeight = 620;
+ const maxHeroHp = 2;
+@@ -151,6 +154,21 @@ function readQuestions(value: unknown) {
+   return Array.isArray(payload?.questions) ? payload.questions as PublicQuestion[] : [];
+ }
+ 
++async function importPhaserWithTimeout() {
++  let timeout: number | null = null;
++
++  try {
++    return await Promise.race([
++      import("phaser"),
++      new Promise<never>((_, reject) => {
++        timeout = window.setTimeout(() => reject(new Error("Phaser import timed out.")), resourceLoadTimeoutMs);
++      })
++    ]);
++  } finally {
++    if (timeout) window.clearTimeout(timeout);
++  }
++}
++
+ function completionMessage(status: string | undefined) {
+   if (status === "awarded") {
+     return {
+@@ -256,7 +274,7 @@ function HeartIcon({ filled }: { filled: boolean }) {
+ }
+ 
+ export function AdventureIslandGame() {
+-  const { currentUser, language, t, text } = useSettings();
++  const { currentUser, language, selectedGrade, t, text } = useSettings();
+   const gameRootRef = useRef<HTMLDivElement | null>(null);
+   const gameControlRef = useRef<GameControl | null>(null);
+   const questionsRef = useRef<PublicQuestion[]>([]);
+@@ -272,6 +290,8 @@ export function AdventureIslandGame() {
+   const [roundPayload, setRoundPayload] = useState<AdventureRoundPayload | null>(null);
+   const [questions, setQuestions] = useState<PublicQuestion[]>([]);
+   const [loadError, setLoadError] = useState("");
++  const [loadErrorCode, setLoadErrorCode] = useState("");
++  const [rendererLoadState, setRendererLoadState] = useState<ResourceLoadState>("idle");
+   const [challenge, setChallenge] = useState<Challenge | null>(null);
+   const [stats, setStats] = useState<GameStats>(defaultStats);
+   const [phase, setPhase] = useState<GamePhase>("loading");
+@@ -280,7 +300,7 @@ export function AdventureIslandGame() {
+   const [runBootKey, setRunBootKey] = useState(0);
+ 
+   const canPlay = Boolean(eligibility?.eligible || eligibility?.alreadyCompleted);
+-  const currentGradeLabel = currentUser ? formatGradeLabel(currentUser.grade, language, true) : "";
++  const currentGradeLabel = currentUser ? formatGradeLabel(selectedGrade, language, true) : "";
+   const topicTitle = eligibility?.topicTitle ? text(eligibility.topicTitle) : "";
+   const questTitle = topicTitle
+     ? t({ en: `${topicTitle} Adventure`, zh: `${topicTitle} 探险任務` })
+@@ -416,17 +436,26 @@ export function AdventureIslandGame() {
+     let cancelled = false;
+ 
+     async function loadAdventureIslandGame() {
+-      const nextPayload = readAdventureRoundPayload(window.sessionStorage.getItem(adventureRoundStorageKey));
++      const sessionPayload = readAdventureRoundPayload(window.sessionStorage.getItem(adventureRoundStorageKey));
++      const localPayload = sessionPayload ? null : readAdventureRoundPayload(window.localStorage.getItem(completedPracticeRoundStorageKey(currentUser?.id)));
++      if (!sessionPayload && localPayload) {
++        window.sessionStorage.setItem(adventureRoundStorageKey, JSON.stringify(localPayload));
++      }
++      const nextPayload = sessionPayload ?? localPayload;
+       setRoundPayload(nextPayload);
+       roundPayloadRef.current = nextPayload;
+ 
+       if (!currentUser) {
++        setRendererLoadState("idle");
++        setLoadErrorCode("auth");
+         setGamePhase("locked");
+         setLoadError(translateRef.current({ en: "Log in to use the Adventure Island game.", zh: "登入後才可使用探险岛遊戲。" }));
+         return;
+       }
+ 
+       if (!nextPayload) {
++        setRendererLoadState("idle");
++        setLoadErrorCode("eligibility");
+         setGamePhase("locked");
+         setLoadError(translateRef.current({
+           en: "Complete a same-topic 5-question Practice Arena round at 80%+ first.",
+@@ -437,6 +466,8 @@ export function AdventureIslandGame() {
+ 
+       try {
+         setLoadError("");
++        setLoadErrorCode("");
++        setRendererLoadState("idle");
+         const [nextEligibility, topicQuestionResponse] = await Promise.all([
+           refreshEligibility(nextPayload),
+           fetch(`/api/questions?topicId=${encodeURIComponent(nextPayload.topicId)}&curriculumTrack=${encodeURIComponent(currentUser.curriculumTrack)}`, { cache: "no-store" })
+@@ -448,6 +479,8 @@ export function AdventureIslandGame() {
+         setGamePhase(nextEligibility.eligible || nextEligibility.alreadyCompleted ? "welcome" : "locked");
+       } catch {
+         if (!cancelled) {
++          setRendererLoadState("idle");
++          setLoadErrorCode("questions");
+           setGamePhase("locked");
+           setLoadError(translateRef.current({ en: "Could not prepare this topic's Adventure Island game.", zh: "暫時未能準備本課題探险岛遊戲。" }));
+         }
+@@ -467,7 +500,22 @@ export function AdventureIslandGame() {
+     let game: Phaser.Game | null = null;
+ 
+     async function bootGame() {
+-      const loaded = await import("phaser");
++      let loaded: Awaited<ReturnType<typeof importPhaserWithTimeout>>;
++      try {
++        setRendererLoadState("loading");
++        setLoadErrorCode("");
++        setLoadError("");
++        loaded = await importPhaserWithTimeout();
++      } catch {
++        if (!destroyed) {
++          setRendererLoadState("failed");
++          setLoadErrorCode("phaser-timeout");
++          setLoadError(translateRef.current({ en: "Could not start the Adventure Island renderer.", zh: "暫時未能啟動探险岛畫面。" }));
++          setGamePhase("locked");
++          if (gameRootRef.current) gameRootRef.current.dataset.phase = "locked";
++        }
++        return;
++      }
+       if (destroyed || !gameRootRef.current) return;
+       const Phaser = ((loaded as { default?: typeof import("phaser") }).default ?? loaded) as typeof import("phaser");
+       const root = gameRootRef.current;
+@@ -1068,25 +1116,39 @@ export function AdventureIslandGame() {
+         }
+       }
+ 
+-      game = new Phaser.Game({
+-        type: Phaser.AUTO,
+-        parent: root,
+-        width: 960,
+-        height: 540,
+-        backgroundColor: "#e0f7ff",
+-        physics: {
+-          default: "arcade",
+-          arcade: {
+-            gravity: { x: 0, y: 980 },
+-            debug: false
+-          }
+-        },
+-        scale: {
+-          mode: Phaser.Scale.FIT,
+-          autoCenter: Phaser.Scale.CENTER_BOTH
+-        },
+-        scene: QuadraticQuestScene
+-      });
++      try {
++        game = new Phaser.Game({
++          type: Phaser.AUTO,
++          parent: root,
++          width: 960,
++          height: 540,
++          backgroundColor: "#e0f7ff",
++          physics: {
++            default: "arcade",
++            arcade: {
++              gravity: { x: 0, y: 980 },
++              debug: false
++            }
++          },
++          scale: {
++            mode: Phaser.Scale.FIT,
++            autoCenter: Phaser.Scale.CENTER_BOTH
++          },
++          scene: QuadraticQuestScene
++        });
++        if (!destroyed) setRendererLoadState("ready");
++      } catch {
++        if (!destroyed) {
++          setRendererLoadState("failed");
++          setLoadErrorCode("phaser-runtime");
++          setLoadError(translateRef.current({ en: "Could not start the Adventure Island renderer.", zh: "暫時未能啟動探险岛畫面。" }));
++          setGamePhase("locked");
++          root.dataset.phase = "locked";
++          gameControlRef.current = null;
++          game?.destroy(true);
++          game = null;
++        }
++      }
+     }
+ 
+     void bootGame();
+@@ -1247,6 +1309,8 @@ export function AdventureIslandGame() {
+               data-lives={stats.lives}
+               data-phase={phase}
+               data-challenge-kind={challenge?.kind ?? ""}
++              data-renderer-load={rendererLoadState}
++              data-load-error={loadErrorCode}
+               className={cn("min-h-[360px] w-full sm:min-h-[420px]", phase === "challenge" || phase === "submitting" ? "opacity-70" : "opacity-100")}
+             />
+             {phase === "welcome" ? (
+diff --git a/components/gamification/FishingGame.tsx b/components/gamification/FishingGame.tsx
+index 26ecf2e44..4e067a0e3 100644
+--- a/components/gamification/FishingGame.tsx
++++ b/components/gamification/FishingGame.tsx
+@@ -1,11 +1,18 @@
+ "use client";
+ 
+ import Link from "next/link";
+-import { useCallback, useEffect, useRef, useState } from "react";
++import {
++  useCallback,
++  useEffect,
++  useRef,
++  useState,
++  type KeyboardEvent as ReactKeyboardEvent,
++  type PointerEvent as ReactPointerEvent
++} from "react";
+ import { PracticeQuestionCard } from "@/components/practice/PracticeQuestionCard";
+ import { useSettings } from "@/components/providers/AppProviders";
+ import { cn } from "@/lib/utils";
+-import type { AttemptFeedback, GamificationSummary, PublicQuestion } from "@/types";
++import type { AttemptFeedback, GamificationSummary, Language, LocalizedText, PublicQuestion } from "@/types";
+ 
+ type FishingRoundPayload = {
+   topicId: string;
+@@ -30,6 +37,15 @@ type Challenge = {
+   question: PublicQuestion;
+ };
+ 
++type FishingFeedbackKind = "hit" | "miss" | "coin" | "settlement";
++
++type FishingFeedback = {
++  id: number;
++  kind: FishingFeedbackKind;
++  title: string;
++  detail: string;
++};
++
+ type FishingCompletion = {
+   status: "awarded" | "duplicate" | "capped" | "not-eligible" | "invalid-run";
+   reward: {
+@@ -47,6 +63,8 @@ type AdventureIslandEligibility = {
+ type FishingControl = {
+   aimLeft: () => void;
+   aimRight: () => void;
++  aimBy: (delta: number) => void;
++  aimAt: (stageX: number, stageY: number) => void;
+   fireNet: () => void;
+   resume: () => void;
+   stop: () => void;
+@@ -55,6 +73,16 @@ type FishingControl = {
+ const fishingRoundStorageKey = "hk-math-practice-fishing-round";
+ const fishingDurationSeconds = 120;
+ const resourceLoadTimeoutMs = 12_000;
++const fishingStageWidth = 960;
++const fishingStageHeight = 540;
++const defaultCannonAngle = -135;
++const minCannonAngle = -160;
++const maxCannonAngle = -30;
++const cannonKeyboardNudgeDegrees = 5;
++const cannonHoldDegreesPerSecond = 70;
++const cannonHoldTickMs = 16;
++const settlementRetryDelayMs = 4_000;
++const settlementSubmitTimeoutMs = 12_000;
+ const defaultStats: FishingStats = {
+   netsRemaining: 10,
+   coins: 0,
+@@ -62,6 +90,31 @@ const defaultStats: FishingStats = {
+   netsUsed: 0
+ };
+ const creatureNames = ["Small fish", "Shark", "Octopus", "Lobster", "Blue fish", "Golden fish", "Stingray"];
++const fishingSimplifiedTextReplacements = [
++  ["練", "练"],
++  ["魚", "鱼"],
++  ["獎", "奖"],
++  ["勵", "励"],
++  ["記", "记"],
++  ["錄", "录"],
++  ["這", "这"],
++  ["領", "领"],
++  ["驗", "验"],
++  ["證", "证"],
++  ["暫", "暂"],
++  ["準", "准"],
++  ["備", "备"],
++  ["啟", "启"],
++  ["畫", "画"],
++  ["結", "结"],
++  ["獲", "获"],
++  ["幣", "币"],
++  ["兌", "兑"],
++  ["換", "换"],
++  ["網", "网"],
++  ["狀", "状"],
++  ["態", "态"]
++] as const;
+ const fishingCompletionStatuses = new Set<FishingCompletion["status"]>([
+   "awarded",
+   "duplicate",
+@@ -183,6 +236,15 @@ function timerRunsInPhase(phase: FishingPhase) {
+   return phase === "ready" || phase === "casting" || phase === "challenge";
+ }
+ 
++function normalizeFishingSimplifiedText(value: string, language: Language) {
++  if (language !== "zh-Hans") return value;
++
++  return fishingSimplifiedTextReplacements.reduce(
++    (current, [source, replacement]) => current.split(source).join(replacement),
++    value
++  );
++}
++
+ function completionCopy(status: FishingCompletion["status"] | undefined) {
+   if (status === "awarded") return { en: "Fishing Master reward recorded.", zh: "捕魚達人獎勵已記錄。" };
+   if (status === "capped") return { en: "Fishing Master reward recorded, limited by today's cap.", zh: "捕魚達人獎勵已記錄，並受今日上限限制。" };
+@@ -193,7 +255,11 @@ function completionCopy(status: FishingCompletion["status"] | undefined) {
+ }
+ 
+ export function FishingGame() {
+-  const { currentUser, t } = useSettings();
++  const { currentUser, language, t: settingsT } = useSettings();
++  const t = useCallback(
++    (localized: LocalizedText) => normalizeFishingSimplifiedText(settingsT(localized), language),
++    [language, settingsT]
++  );
+   const gameRootRef = useRef<HTMLDivElement | null>(null);
+   const gameControlRef = useRef<FishingControl | null>(null);
+   const phaseRef = useRef<FishingPhase>("loading");
+@@ -216,6 +282,18 @@ export function FishingGame() {
+   const [rendererLoadState, setRendererLoadState] = useState<ResourceLoadState>("idle");
+   const [completion, setCompletion] = useState<FishingCompletion | null>(null);
+   const [statusMessage, setStatusMessage] = useState("");
++  const [cannonAngle, setCannonAngle] = useState(defaultCannonAngle);
++  const [impactFeedback, setImpactFeedback] = useState<FishingFeedback | null>(null);
++  const [rewardFeedback, setRewardFeedback] = useState<FishingFeedback | null>(null);
++  const [settlementDelayed, setSettlementDelayed] = useState(false);
++  const aimHoldTimerRef = useRef<number | null>(null);
++  const aimHoldDirectionRef = useRef(0);
++  const aimPointerIdRef = useRef<number | null>(null);
++  const feedbackIdRef = useRef(0);
++  const settlementDelayTimerRef = useRef<number | null>(null);
++  const settlementTimeoutTimerRef = useRef<number | null>(null);
++  const submitAbortControllerRef = useRef<AbortController | null>(null);
++  const submitRunIdRef = useRef(0);
+   const tRef = useRef(t);
+ 
+   useEffect(() => {
+@@ -246,19 +324,64 @@ export function FishingGame() {
+     return question;
+   }, []);
+ 
++  const clearSettlementTimers = useCallback(() => {
++    if (settlementDelayTimerRef.current !== null) {
++      window.clearTimeout(settlementDelayTimerRef.current);
++      settlementDelayTimerRef.current = null;
++    }
++    if (settlementTimeoutTimerRef.current !== null) {
++      window.clearTimeout(settlementTimeoutTimerRef.current);
++      settlementTimeoutTimerRef.current = null;
++    }
++  }, []);
++
++  const nextFeedback = useCallback((kind: FishingFeedbackKind, title: LocalizedText, detail: LocalizedText): FishingFeedback => {
++    feedbackIdRef.current += 1;
++    return {
++      id: feedbackIdRef.current,
++      kind,
++      title: tRef.current(title),
++      detail: tRef.current(detail)
++    };
++  }, []);
++
++  const showImpactFeedback = useCallback((kind: "hit" | "miss", title: LocalizedText, detail: LocalizedText) => {
++    setImpactFeedback(nextFeedback(kind, title, detail));
++  }, [nextFeedback]);
++
++  const showRewardFeedback = useCallback((title: LocalizedText, detail: LocalizedText) => {
++    setRewardFeedback(nextFeedback("coin", title, detail));
++  }, [nextFeedback]);
++
+   const submitResult = useCallback(async () => {
+     const latestPayload = payloadRef.current;
+     if (!latestPayload || hasSubmittedRef.current) return;
+ 
+     hasSubmittedRef.current = true;
++    const runId = submitRunIdRef.current + 1;
++    submitRunIdRef.current = runId;
++    const controller = new AbortController();
++    submitAbortControllerRef.current = controller;
++    clearSettlementTimers();
++    setSettlementDelayed(false);
+     gameControlRef.current?.stop();
+     setGamePhase("submitting");
+-    setStatusMessage("");
++    setStatusMessage(tRef.current({ en: "Securing your reward. This usually takes a moment.", zh: "正在記錄你的獎勵，通常只需片刻。" }));
++    settlementDelayTimerRef.current = window.setTimeout(() => {
++      if (submitRunIdRef.current === runId && phaseRef.current === "submitting") {
++        setSettlementDelayed(true);
++        setStatusMessage(tRef.current({ en: "Still securing your reward. You can retry if this keeps waiting.", zh: "仍在記錄獎勵。如等待太久，可以重試提交。" }));
++      }
++    }, settlementRetryDelayMs);
++    settlementTimeoutTimerRef.current = window.setTimeout(() => {
++      if (submitRunIdRef.current === runId && phaseRef.current === "submitting") controller.abort();
++    }, settlementSubmitTimeoutMs);
+ 
+     try {
+       const response = await fetch("/api/gamification/fishing-game/complete", {
+         method: "POST",
+         headers: { "Content-Type": "application/json" },
++        signal: controller.signal,
+         body: JSON.stringify({
+           ...latestPayload,
+           caughtQuestionIds: Array.from(caughtQuestionIdsRef.current),
+@@ -271,15 +394,35 @@ export function FishingGame() {
+       const result = readFishingCompletion(await response.json().catch(() => null));
+       const expectedCompletionStatus = response.ok || [403, 409, 422].includes(response.status);
+       if (!expectedCompletionStatus || !result) throw new Error("Could not record Fishing reward.");
++      if (submitRunIdRef.current !== runId) return;
++      clearSettlementTimers();
++      submitAbortControllerRef.current = null;
++      setSettlementDelayed(false);
+       setCompletion(result);
+       setStatusMessage(tRef.current(completionCopy(result.status)));
+       setGamePhase("submitted");
+-    } catch {
+-      setStatusMessage(tRef.current({ en: "Could not submit the Fishing run yet.", zh: "暫時未能提交捕魚回合。" }));
++    } catch (error) {
++      if (submitRunIdRef.current !== runId) return;
++      clearSettlementTimers();
++      submitAbortControllerRef.current = null;
++      setSettlementDelayed(error instanceof DOMException && error.name === "AbortError");
++      setStatusMessage(tRef.current(
++        error instanceof DOMException && error.name === "AbortError"
++          ? { en: "Reward submission took too long. Please retry when you are ready.", zh: "獎勵提交等待過久。準備好後請重試。" }
++          : { en: "Could not submit the Fishing run yet. Please retry.", zh: "暫時未能提交捕魚回合，請重試。" }
++      ));
+       setGamePhase("ended");
+       hasSubmittedRef.current = false;
+     }
+-  }, [setGamePhase]);
++  }, [clearSettlementTimers, setGamePhase]);
++
++  useEffect(() => {
++    return () => {
++      clearSettlementTimers();
++      submitAbortControllerRef.current?.abort();
++      submitAbortControllerRef.current = null;
++    };
++  }, [clearSettlementTimers]);
+ 
+   const endGame = useCallback(() => {
+     if (phaseRef.current === "ended" || phaseRef.current === "submitting" || phaseRef.current === "submitted") return;
+@@ -323,11 +466,32 @@ export function FishingGame() {
+   useEffect(() => {
+     if (!payload) return;
+     let cancelled = false;
++    const controller = new AbortController();
++    const activeTimeouts = new Set<number>();
+     const activePayload = payload;
+ 
++    async function withQuestionLoadTimeout<T>(task: Promise<T>) {
++      let timeout: number | null = null;
++      try {
++        return await Promise.race([
++          task,
++          new Promise<never>((_, reject) => {
++            timeout = window.setTimeout(() => {
++              controller.abort();
++              reject(new Error("questions-timeout"));
++            }, resourceLoadTimeoutMs);
++            activeTimeouts.add(timeout);
++          })
++        ]);
++      } finally {
++        if (timeout !== null) {
++          window.clearTimeout(timeout);
++          activeTimeouts.delete(timeout);
++        }
++      }
++    }
++
+     async function loadQuestions() {
+-      const controller = new AbortController();
+-      const timeout = window.setTimeout(() => controller.abort(), resourceLoadTimeoutMs);
+       let failureKind = "questions";
+ 
+       try {
+@@ -335,21 +499,21 @@ export function FishingGame() {
+         setQuestionLoadState("loading");
+         setRendererLoadState("idle");
+         setLoadErrorCode("");
+-        const eligibilityResponse = await fetch(`/api/gamification/adventure-island?${adventureEligibilitySearchParams(activePayload).toString()}`, {
++        const eligibilityResponse = await withQuestionLoadTimeout(fetch(`/api/gamification/adventure-island?${adventureEligibilitySearchParams(activePayload).toString()}`, {
+           cache: "no-store",
+           signal: controller.signal
+-        });
+-        const eligibility = readAdventureEligibility(await eligibilityResponse.json().catch(() => null));
++        }));
++        const eligibility = readAdventureEligibility(await withQuestionLoadTimeout(eligibilityResponse.json().catch(() => null)));
+         if (!eligibilityResponse.ok || !eligibility?.alreadyCompleted || !eligibility.postAdventurePracticeEligible) {
+           failureKind = "adventure-chain";
+           throw new Error("Adventure Island chain is incomplete.");
+         }
+ 
+-        const response = await fetch(`/api/questions?topicId=${encodeURIComponent(activePayload.topicId)}&curriculumTrack=${encodeURIComponent(currentUser?.curriculumTrack ?? "HK")}`, {
++        const response = await withQuestionLoadTimeout(fetch(`/api/questions?topicId=${encodeURIComponent(activePayload.topicId)}&curriculumTrack=${encodeURIComponent(currentUser?.curriculumTrack ?? "HK")}`, {
+           cache: "no-store",
+           signal: controller.signal
+-        });
+-        const nextQuestions = readQuestions(await response.json().catch(() => null));
++        }));
++        const nextQuestions = readQuestions(await withQuestionLoadTimeout(response.json().catch(() => null)));
+         if (!response.ok || !nextQuestions.length) throw new Error("Could not load Fishing questions.");
+         if (cancelled) return;
+ 
+@@ -364,13 +528,16 @@ export function FishingGame() {
+         setCompletion(null);
+         setChallenge(null);
+         setStatusMessage("");
++        setImpactFeedback(null);
++        setRewardFeedback(null);
++        setSettlementDelayed(false);
+         publishStats(defaultStats);
+         setGamePhase("welcome");
+-      } catch {
++      } catch (error) {
+         if (!cancelled) {
+           setQuestionLoadState("failed");
+           setRendererLoadState("idle");
+-          if (controller.signal.aborted) failureKind = "questions-timeout";
++          if (controller.signal.aborted || (error instanceof Error && error.message === "questions-timeout")) failureKind = "questions-timeout";
+           setLoadErrorCode(failureKind);
+           setLoadError(
+             tRef.current(failureKind === "adventure-chain"
+@@ -379,8 +546,6 @@ export function FishingGame() {
+           );
+           setGamePhase("locked");
+         }
+-      } finally {
+-        window.clearTimeout(timeout);
+       }
+     }
+ 
+@@ -388,6 +553,9 @@ export function FishingGame() {
+ 
+     return () => {
+       cancelled = true;
++      controller.abort();
++      activeTimeouts.forEach((timeout) => window.clearTimeout(timeout));
++      activeTimeouts.clear();
+     };
+   }, [currentUser?.curriculumTrack, payload, publishStats, setGamePhase]);
+ 
+@@ -408,20 +576,50 @@ export function FishingGame() {
+ 
+     let destroyed = false;
+     let game: Phaser.Game | null = null;
++    let rendererResolved = false;
++    let rendererTimeout: number | null = null;
++
++    const clearRendererTimeout = () => {
++      if (rendererTimeout !== null) {
++        window.clearTimeout(rendererTimeout);
++        rendererTimeout = null;
++      }
++    };
++
++    const failRendererStart = (code: "phaser" | "phaser-timeout") => {
++      if (destroyed || rendererResolved) return;
++      rendererResolved = true;
++      clearRendererTimeout();
++      gameControlRef.current = null;
++      game?.destroy(true);
++      game = null;
++      setRendererLoadState("failed");
++      setLoadErrorCode(code);
++      setLoadError(tRef.current({ en: "Could not start the Fishing renderer.", zh: "暫時未能啟動捕魚畫面。" }));
++      setGamePhase("locked");
++    };
++
++    const markRendererReady = () => {
++      if (destroyed || rendererResolved) return;
++      rendererResolved = true;
++      clearRendererTimeout();
++      setRendererLoadState("ready");
++    };
++
++    const startRendererTimeout = () => {
++      clearRendererTimeout();
++      rendererTimeout = window.setTimeout(() => failRendererStart("phaser-timeout"), resourceLoadTimeoutMs);
++    };
+ 
+     async function bootGame() {
+       let loaded: Awaited<ReturnType<typeof importPhaserWithTimeout>>;
+       try {
+         setRendererLoadState("loading");
+         setLoadErrorCode("");
++        startRendererTimeout();
+         loaded = await importPhaserWithTimeout();
+       } catch {
+-        if (!destroyed) {
+-          setRendererLoadState("failed");
+-          setLoadErrorCode("phaser-timeout");
+-          setLoadError(tRef.current({ en: "Could not start the Fishing renderer.", zh: "暫時未能啟動捕魚畫面。" }));
+-          setGamePhase("locked");
+-        }
++        failRendererStart("phaser-timeout");
+         return;
+       }
+ 
+@@ -431,7 +629,6 @@ export function FishingGame() {
+         const Phaser = ((loaded as { default?: typeof import("phaser") }).default ?? loaded) as typeof import("phaser");
+         const root = gameRootRef.current;
+         root.innerHTML = "";
+-        root.dataset.phase = phaseRef.current;
+         root.dataset.nets = String(statsRef.current.netsRemaining);
+         root.dataset.coins = String(statsRef.current.coins);
+         root.dataset.elapsed = String(statsRef.current.elapsedSeconds);
+@@ -441,25 +638,23 @@ export function FishingGame() {
+         private net!: Phaser.GameObjects.Graphics;
+         private cannonBase!: Phaser.GameObjects.Graphics;
+         private cannonBarrel!: Phaser.GameObjects.Container;
++        private aimGuide!: Phaser.GameObjects.Graphics;
+         private isCasting = false;
+-        private cannonAngle = -135;
++        private cannonAngle = defaultCannonAngle;
+         private readonly cannonX = 805;
+         private readonly cannonY = 505;
+         private readonly cannonLength = 105;
+-        private readonly minCannonAngle = -160;
+-        private readonly maxCannonAngle = -30;
+-        private readonly aimStep = 7;
+ 
+         constructor() {
+           super("FishingScene");
+         }
+ 
+         create() {
+-          this.physics.world.setBounds(0, 0, 960, 540);
++          this.physics.world.setBounds(0, 0, fishingStageWidth, fishingStageHeight);
+           this.cameras.main.setBackgroundColor("#075985");
+           this.createTextures();
+-          this.add.rectangle(480, 270, 960, 540, 0x0ea5e9).setAlpha(0.25);
+-          this.add.rectangle(480, 515, 960, 70, 0x064e3b).setAlpha(0.26);
++          this.add.rectangle(480, 270, fishingStageWidth, fishingStageHeight, 0x0ea5e9).setAlpha(0.25);
++          this.add.rectangle(480, 515, fishingStageWidth, 70, 0x064e3b).setAlpha(0.26);
+ 
+           for (let index = 0; index < 16; index += 1) {
+             this.add.circle(80 + index * 58, 70 + (index % 5) * 74, 3 + (index % 4), 0xe0f2fe, 0.35);
+@@ -492,8 +687,10 @@ export function FishingGame() {
+           root.dataset.lastCast = "";
+ 
+           gameControlRef.current = {
+-            aimLeft: () => this.aimCannon(-this.aimStep),
+-            aimRight: () => this.aimCannon(this.aimStep),
++            aimLeft: () => this.aimCannon(-cannonKeyboardNudgeDegrees),
++            aimRight: () => this.aimCannon(cannonKeyboardNudgeDegrees),
++            aimBy: (delta) => this.aimCannon(delta),
++            aimAt: (stageX, stageY) => this.aimAtPoint(stageX, stageY),
+             fireNet: () => this.fireNet(),
+             resume: () => {
+               this.isCasting = false;
+@@ -505,6 +702,7 @@ export function FishingGame() {
+           };
+ 
+           if (phaseRef.current !== "ready") this.physics.world.pause();
++          markRendererReady();
+         }
+ 
+         update() {
+@@ -582,6 +780,7 @@ export function FishingGame() {
+         }
+ 
+         private createCannon() {
++          this.aimGuide = this.add.graphics().setDepth(6);
+           this.cannonBase = this.add.graphics().setDepth(8);
+           this.cannonBase.fillStyle(0xf59e0b, 1);
+           this.cannonBase.fillRoundedRect(this.cannonX - 48, this.cannonY - 18, 96, 32, 10);
+@@ -608,11 +807,22 @@ export function FishingGame() {
+         private updateCannonRotation() {
+           this.cannonBarrel.setRotation(Phaser.Math.DegToRad(this.cannonAngle));
+           root.dataset.cannonAngle = String(Math.round(this.cannonAngle));
++          setCannonAngle(Math.round(this.cannonAngle));
++          this.drawAimGuide();
+         }
+ 
+         private aimCannon(delta: number) {
+           if (this.isCasting || phaseRef.current !== "ready") return;
+-          this.cannonAngle = Phaser.Math.Clamp(this.cannonAngle + delta, this.minCannonAngle, this.maxCannonAngle);
++          this.cannonAngle = Phaser.Math.Clamp(this.cannonAngle + delta, minCannonAngle, maxCannonAngle);
++          this.updateCannonRotation();
++        }
++
++        private aimAtPoint(stageX: number, stageY: number) {
++          if (this.isCasting || phaseRef.current !== "ready") return;
++          const dx = stageX - this.cannonX;
++          const dy = stageY - this.cannonY;
++          if (Math.hypot(dx, dy) < 24) return;
++          this.cannonAngle = Phaser.Math.Clamp(Phaser.Math.RadToDeg(Math.atan2(dy, dx)), minCannonAngle, maxCannonAngle);
+           this.updateCannonRotation();
+         }
+ 
+@@ -624,6 +834,60 @@ export function FishingGame() {
+           };
+         }
+ 
++        private drawAimGuide() {
++          if (!this.aimGuide) return;
++          const start = this.cannonMuzzle();
++          const radians = Phaser.Math.DegToRad(this.cannonAngle);
++          const end = {
++            x: start.x + Math.cos(radians) * 320,
++            y: start.y + Math.sin(radians) * 320
++          };
++
++          this.aimGuide.clear();
++          this.aimGuide.lineStyle(3, 0xfef9c3, 0.62);
++          this.aimGuide.lineBetween(start.x, start.y, end.x, end.y);
++          this.aimGuide.lineStyle(1, 0x0f172a, 0.32);
++          this.aimGuide.strokeCircle(end.x, end.y, 13);
++        }
++
++        private showImpactBurst(x: number, y: number, kind: "hit" | "miss") {
++          const clampedX = Phaser.Math.Clamp(x, 36, fishingStageWidth - 36);
++          const clampedY = Phaser.Math.Clamp(y, 36, fishingStageHeight - 36);
++          const color = kind === "hit" ? 0xfacc15 : 0x7dd3fc;
++          const label = kind === "hit" ? "CATCH!" : "SPLASH";
++          const burst = this.add.graphics().setDepth(14);
++          const text = this.add.text(clampedX, clampedY - 44, label, {
++            color: kind === "hit" ? "#fef3c7" : "#e0f2fe",
++            fontFamily: "Arial, sans-serif",
++            fontSize: "22px",
++            fontStyle: "bold",
++            stroke: "#0f172a",
++            strokeThickness: 5
++          }).setOrigin(0.5).setDepth(15);
++
++          burst.lineStyle(5, color, 0.95);
++          burst.strokeCircle(clampedX, clampedY, 18);
++          burst.lineStyle(2, 0xffffff, 0.75);
++          burst.strokeCircle(clampedX, clampedY, 31);
++
++          this.tweens.add({
++            targets: burst,
++            alpha: 0,
++            scale: 1.8,
++            duration: 540,
++            ease: "Sine.easeOut",
++            onComplete: () => burst.destroy()
++          });
++          this.tweens.add({
++            targets: text,
++            y: clampedY - 74,
++            alpha: 0,
++            duration: 720,
++            ease: "Back.easeOut",
++            onComplete: () => text.destroy()
++          });
++        }
++
+         private hitCreatureAt(x: number, y: number) {
+           const activeCreatures = this.creatures.getChildren().filter((child) => (child as Phaser.Physics.Arcade.Sprite).active);
+           for (const child of activeCreatures) {
+@@ -683,6 +947,13 @@ export function FishingGame() {
+                 if (hit) {
+                   caughtTarget = hit;
+                   root.dataset.lastCast = "hit";
++                  root.dataset.lastFeedback = "hit";
++                  this.showImpactBurst(x, y, "hit");
++                  showImpactFeedback(
++                    "hit",
++                    { en: "Nice catch!", zh: "捕獲成功！" },
++                    { en: "Solve the challenge to bank the coin.", zh: "答對挑戰即可收入金幣。" }
++                  );
+                   this.physics.world.pause();
+                 }
+               }
+@@ -691,7 +962,14 @@ export function FishingGame() {
+               this.net.clear();
+               if (!caughtTarget) {
+                 root.dataset.lastCast = "miss";
++                root.dataset.lastFeedback = "miss";
++                this.showImpactBurst(end.x, end.y, "miss");
+                 this.isCasting = false;
++                showImpactFeedback(
++                  "miss",
++                  { en: "Missed the catch", zh: "這次未命中" },
++                  { en: "The splash shows where the net landed. Adjust and fire again.", zh: "水花標出魚網落點，調整方向再試一次。" }
++                );
+                 setStatusMessage(tRef.current({ en: "The net missed. Aim the cannon and try again.", zh: "魚網未命中。調整炮台方向再試一次。" }));
+                 if (statsRef.current.netsRemaining <= 0) {
+                   endGame();
+@@ -730,8 +1008,8 @@ export function FishingGame() {
+       game = new Phaser.Game({
+         type: Phaser.AUTO,
+         parent: root,
+-        width: 960,
+-        height: 540,
++        width: fishingStageWidth,
++        height: fishingStageHeight,
+         backgroundColor: "#075985",
+         physics: {
+           default: "arcade",
+@@ -746,14 +1024,8 @@ export function FishingGame() {
+         },
+         scene: FishingScene
+       });
+-        if (!destroyed) setRendererLoadState("ready");
+       } catch {
+-        if (!destroyed) {
+-          setRendererLoadState("failed");
+-          setLoadErrorCode("phaser");
+-          setLoadError(tRef.current({ en: "Could not start the Fishing renderer.", zh: "暫時未能啟動捕魚畫面。" }));
+-          setGamePhase("locked");
+-        }
++        failRendererStart("phaser");
+       }
+     }
+ 
+@@ -761,14 +1033,17 @@ export function FishingGame() {
+ 
+     return () => {
+       destroyed = true;
++      clearRendererTimeout();
+       gameControlRef.current = null;
+       game?.destroy(true);
+     };
+-  }, [endGame, nextFishingQuestion, payload, publishStats, questions.length, setGamePhase]);
++  }, [endGame, nextFishingQuestion, payload, publishStats, questions.length, setGamePhase, showImpactFeedback]);
+ 
+   function startGame() {
+     if (phase !== "welcome") return;
+     setStatusMessage("");
++    setImpactFeedback(null);
++    setRewardFeedback(null);
+     setGamePhase("ready");
+     gameControlRef.current?.resume();
+   }
+@@ -788,6 +1063,8 @@ export function FishingGame() {
+     }
+ 
+     try {
++      setImpactFeedback(null);
++      setRewardFeedback(null);
+       control.fireNet();
+     } catch {
+       setStatusMessage(tRef.current({ en: "The cannon jammed. Please try again.", zh: "炮台暫時卡住，請再試一次。" }));
+@@ -796,6 +1073,70 @@ export function FishingGame() {
+     }
+   }, [endGame, setGamePhase]);
+ 
++  const stopAimHold = useCallback(() => {
++    aimHoldDirectionRef.current = 0;
++    if (aimHoldTimerRef.current !== null) {
++      window.clearInterval(aimHoldTimerRef.current);
++      aimHoldTimerRef.current = null;
++    }
++  }, []);
++
++  const startAimHold = useCallback((direction: -1 | 1) => {
++    if (phaseRef.current !== "ready") return;
++    aimHoldDirectionRef.current = direction;
++    gameControlRef.current?.aimBy(direction * cannonKeyboardNudgeDegrees);
++    if (aimHoldTimerRef.current !== null) return;
++
++    aimHoldTimerRef.current = window.setInterval(() => {
++      if (phaseRef.current !== "ready" || aimHoldDirectionRef.current === 0) {
++        stopAimHold();
++        return;
++      }
++      gameControlRef.current?.aimBy(
++        aimHoldDirectionRef.current * cannonHoldDegreesPerSecond * (cannonHoldTickMs / 1000)
++      );
++    }, cannonHoldTickMs);
++  }, [stopAimHold]);
++
++  const aimAtStagePointer = useCallback((event: ReactPointerEvent<HTMLDivElement>) => {
++    if (phaseRef.current !== "ready") return;
++    const canvas = event.currentTarget.querySelector("canvas");
++    const rect = canvas?.getBoundingClientRect() ?? event.currentTarget.getBoundingClientRect();
++    const ratioX = Math.min(1, Math.max(0, (event.clientX - rect.left) / Math.max(1, rect.width)));
++    const ratioY = Math.min(1, Math.max(0, (event.clientY - rect.top) / Math.max(1, rect.height)));
++    gameControlRef.current?.aimAt(ratioX * fishingStageWidth, ratioY * fishingStageHeight);
++  }, []);
++
++  const handleStagePointerDown = useCallback((event: ReactPointerEvent<HTMLDivElement>) => {
++    if (phaseRef.current !== "ready" || event.button > 0) return;
++    event.preventDefault();
++    aimPointerIdRef.current = event.pointerId;
++    event.currentTarget.setPointerCapture(event.pointerId);
++    aimAtStagePointer(event);
++  }, [aimAtStagePointer]);
++
++  const handleStagePointerMove = useCallback((event: ReactPointerEvent<HTMLDivElement>) => {
++    if (aimPointerIdRef.current !== event.pointerId) return;
++    event.preventDefault();
++    aimAtStagePointer(event);
++  }, [aimAtStagePointer]);
++
++  const releaseStagePointer = useCallback((event: ReactPointerEvent<HTMLDivElement>) => {
++    if (aimPointerIdRef.current !== event.pointerId) return;
++    aimPointerIdRef.current = null;
++    if (event.currentTarget.hasPointerCapture(event.pointerId)) {
++      event.currentTarget.releasePointerCapture(event.pointerId);
++    }
++  }, []);
++
++  const handleAimButtonKeyDown = useCallback((event: ReactKeyboardEvent<HTMLButtonElement>, direction: -1 | 1) => {
++    if (event.key !== "Enter" && event.key !== " ") return;
++    event.preventDefault();
++    gameControlRef.current?.aimBy(direction * cannonKeyboardNudgeDegrees);
++  }, []);
++
++  useEffect(() => stopAimHold, [stopAimHold]);
++
+   useEffect(() => {
+     function handleKeyDown(event: KeyboardEvent) {
+       const target = event.target as HTMLElement | null;
+@@ -803,12 +1144,12 @@ export function FishingGame() {
+ 
+       if (event.key === "ArrowLeft" && phaseRef.current === "ready") {
+         event.preventDefault();
+-        gameControlRef.current?.aimLeft();
++        if (!event.repeat) startAimHold(-1);
+       }
+ 
+       if (event.key === "ArrowRight" && phaseRef.current === "ready") {
+         event.preventDefault();
+-        gameControlRef.current?.aimRight();
++        if (!event.repeat) startAimHold(1);
+       }
+ 
+       if (event.code === "Space" || event.key === " ") {
+@@ -817,13 +1158,22 @@ export function FishingGame() {
+       }
+     }
+ 
++    function handleKeyUp(event: KeyboardEvent) {
++      if (event.key === "ArrowLeft" || event.key === "ArrowRight") stopAimHold();
++    }
++
+     window.addEventListener("keydown", handleKeyDown);
+-    return () => window.removeEventListener("keydown", handleKeyDown);
+-  }, [fireNet]);
++    window.addEventListener("keyup", handleKeyUp);
++    return () => {
++      window.removeEventListener("keydown", handleKeyDown);
++      window.removeEventListener("keyup", handleKeyUp);
++      stopAimHold();
++    };
++  }, [fireNet, startAimHold, stopAimHold]);
+ 
+   const showSettlement = phase === "ended" || phase === "submitting" || phase === "submitted";
+   const settlementTitle = phase === "submitting"
+-    ? t({ en: "Counting your catch", zh: "正在結算收穫" })
++    ? t({ en: "Securing your reward", zh: "正在記錄獎勵" })
+     : t({ en: "Fishing Master complete", zh: "捕魚達人完成" });
+   const settlementDetail = completion
+     ? t({
+@@ -831,10 +1181,21 @@ export function FishingGame() {
+         zh: `${completion.coins} 枚金幣已兌換成 ${completion.reward.xp} XP 和 ${completion.reward.rewardPoints} 獎勵積分。`
+       })
+     : phase === "submitting"
+-      ? t({ en: "Submitting the Fishing run now.", zh: "正在提交捕魚回合。" })
++      ? settlementDelayed
++        ? t({ en: "The server is taking longer than usual. Your catch is safe here while we keep trying.", zh: "伺服器比平時更慢。你的捕獲仍保留在這裡，我們會繼續嘗試。" })
++        : t({ en: "Submitting the Fishing run now. Keep this page open for the reward receipt.", zh: "正在提交捕魚回合。請保留此頁以完成獎勵記錄。" })
+       : t({ en: "The Fishing Master run has ended. You can submit the result again if the network was interrupted.", zh: "捕魚達人回合已結束。如網絡中斷，可以再次提交結果。" });
++  const showRetrySubmit = phase === "ended" || (phase === "submitting" && settlementDelayed);
+ 
+   function retrySubmitResult() {
++    if (phaseRef.current === "submitting") {
++      submitRunIdRef.current += 1;
++      submitAbortControllerRef.current?.abort();
++      submitAbortControllerRef.current = null;
++      hasSubmittedRef.current = false;
++      clearSettlementTimers();
++      setSettlementDelayed(false);
++    }
+     void submitResult();
+   }
+ 
+@@ -842,8 +1203,17 @@ export function FishingGame() {
+     if (feedback.correct) {
+       correctCaughtQuestionIdsRef.current.add(question.id);
+       publishStats({ ...statsRef.current, coins: statsRef.current.coins + 1 });
++      showRewardFeedback(
++        { en: "+1 coin landed", zh: "+1 金幣入袋" },
++        { en: "Correct catch. The reward counter updated.", zh: "答對捕獲，獎勵已加入計數。" }
++      );
+       setStatusMessage(tRef.current({ en: "Correct catch. +1 coin.", zh: "答對捕獲，+1 金幣。" }));
+     } else {
++      setRewardFeedback(nextFeedback(
++        "settlement",
++        { en: "No coin this catch", zh: "這次沒有金幣" },
++        { en: "Keep fishing and answer the next catch.", zh: "繼續捕魚，下一次捕獲再挑戰。" }
++      ));
+       setStatusMessage(tRef.current({ en: "No coin this catch. Keep going.", zh: "這次沒有金幣，繼續努力。" }));
+     }
+ 
+@@ -919,14 +1289,58 @@ export function FishingGame() {
+             <p className="text-sm font-bold text-slate-600 dark:text-slate-300">
+               {payload ? t({ en: `Round accuracy ${payload.accuracyPercent}%`, zh: `回合準確率 ${payload.accuracyPercent}%` }) : null}
+             </p>
+-            <button
+-              type="button"
+-              onClick={fireNet}
+-              disabled={phase !== "ready" || stats.netsRemaining <= 0}
+-              className="focus-ring rounded-full bg-slate-950 px-5 py-3 text-sm font-black text-white transition enabled:hover:-translate-y-0.5 disabled:cursor-not-allowed disabled:opacity-50 dark:bg-white dark:text-slate-950"
+-            >
+-              {t({ en: "Fire net", zh: "發射魚網" })}
+-            </button>
++            <div className="flex flex-wrap items-center justify-end gap-2" data-testid="fishing-aim-controls">
++              {[
++                { direction: -1 as const, label: "↖", aria: t({ en: "Aim cannon left", zh: "炮台向左瞄準" }) },
++                { direction: 1 as const, label: "↗", aria: t({ en: "Aim cannon right", zh: "炮台向右瞄準" }) }
++              ].map((control) => (
++                <button
++                  key={control.direction}
++                  type="button"
++                  data-testid={control.direction < 0 ? "fishing-aim-left" : "fishing-aim-right"}
++                  aria-label={control.aria}
++                  title={control.aria}
++                  disabled={phase !== "ready"}
++                  onClick={(event) => {
++                    if (event.detail === 0) gameControlRef.current?.aimBy(control.direction * cannonKeyboardNudgeDegrees);
++                  }}
++                  onKeyDown={(event) => handleAimButtonKeyDown(event, control.direction)}
++                  onPointerDown={(event) => {
++                    if (event.button > 0) return;
++                    event.preventDefault();
++                    event.currentTarget.setPointerCapture(event.pointerId);
++                    startAimHold(control.direction);
++                  }}
++                  onPointerUp={(event) => {
++                    if (event.currentTarget.hasPointerCapture(event.pointerId)) {
++                      event.currentTarget.releasePointerCapture(event.pointerId);
++                    }
++                    stopAimHold();
++                  }}
++                  onPointerCancel={stopAimHold}
++                  onPointerLeave={stopAimHold}
++                  onBlur={stopAimHold}
++                  className="focus-ring grid h-11 min-w-11 touch-none place-items-center rounded-xl border border-slate-300/70 bg-white/90 text-lg font-black text-slate-800 shadow-sm transition enabled:hover:bg-cyan-100 enabled:active:scale-95 disabled:cursor-not-allowed disabled:opacity-50 dark:border-white/10 dark:bg-slate-950/75 dark:text-white dark:enabled:hover:bg-cyan-950"
++                >
++                  {control.label}
++                </button>
++              ))}
++              <output
++                data-testid="fishing-cannon-angle"
++                aria-label={t({ en: "Cannon angle", zh: "炮台角度" })}
++                className="min-w-[4.25rem] rounded-xl border border-cyan-300/45 bg-cyan-400/10 px-3 py-2 text-center text-sm font-black text-cyan-800 dark:text-cyan-100"
++              >
++                {cannonAngle}°
++              </output>
++              <button
++                type="button"
++                onClick={fireNet}
++                disabled={phase !== "ready" || stats.netsRemaining <= 0}
++                className="focus-ring rounded-full bg-slate-950 px-5 py-3 text-sm font-black text-white transition enabled:hover:-translate-y-0.5 disabled:cursor-not-allowed disabled:opacity-50 dark:bg-white dark:text-slate-950"
++              >
++                {t({ en: "Fire net", zh: "發射魚網" })}
++              </button>
++            </div>
+           </div>
+ 
+           <div className="relative overflow-hidden rounded-2xl border border-slate-200/80 bg-sky-900 dark:border-white/10">
+@@ -940,7 +1354,16 @@ export function FishingGame() {
+               data-question-load={questionLoadState}
+               data-renderer-load={rendererLoadState}
+               data-load-error={loadErrorCode}
+-              className={cn("min-h-[320px] w-full", phase === "challenge" || phase === "submitting" ? "opacity-70" : "opacity-100")}
++              data-cannon-angle={cannonAngle}
++              onPointerDown={handleStagePointerDown}
++              onPointerMove={handleStagePointerMove}
++              onPointerUp={releaseStagePointer}
++              onPointerCancel={releaseStagePointer}
++              className={cn(
++                "min-h-[320px] w-full",
++                phase === "ready" ? "touch-none cursor-crosshair" : "",
++                phase === "challenge" || phase === "submitting" ? "opacity-70" : "opacity-100"
++              )}
+             />
+             <div className="pointer-events-none absolute right-3 top-3 flex flex-wrap justify-end gap-2">
+               {[
+@@ -954,6 +1377,36 @@ export function FishingGame() {
+                 </div>
+               ))}
+             </div>
++            {impactFeedback ? (
++              <div
++                key={impactFeedback.id}
++                data-testid="fishing-impact-feedback"
++                className={cn(
++                  "pointer-events-none absolute left-3 top-3 z-30 max-w-[min(22rem,calc(100%-1.5rem))] rounded-2xl border px-4 py-3 shadow-2xl backdrop-blur-md animate-pulse",
++                  impactFeedback.kind === "hit"
++                    ? "border-amber-200/80 bg-amber-300/90 text-slate-950 shadow-amber-950/20"
++                    : "border-sky-100/80 bg-sky-100/90 text-sky-950 shadow-sky-950/20"
++                )}
++              >
++                <p className="text-sm font-black">{impactFeedback.title}</p>
++                <p className="mt-1 text-xs font-bold leading-5 opacity-85">{impactFeedback.detail}</p>
++              </div>
++            ) : null}
++            {rewardFeedback ? (
++              <div
++                key={rewardFeedback.id}
++                data-testid="fishing-reward-feedback"
++                className={cn(
++                  "pointer-events-none absolute bottom-3 left-3 z-30 max-w-[min(21rem,calc(100%-1.5rem))] rounded-2xl border px-4 py-3 shadow-2xl backdrop-blur-md",
++                  rewardFeedback.kind === "coin"
++                    ? "border-yellow-200/80 bg-yellow-300/95 text-slate-950 shadow-yellow-950/20 animate-bounce"
++                    : "border-slate-200/80 bg-white/90 text-slate-900 shadow-slate-950/20"
++                )}
++              >
++                <p className="text-sm font-black">{rewardFeedback.title}</p>
++                <p className="mt-1 text-xs font-bold leading-5 opacity-85">{rewardFeedback.detail}</p>
++              </div>
++            ) : null}
+             {phase === "welcome" ? (
+               <div
+                 data-testid="fishing-welcome"
+@@ -996,13 +1449,41 @@ export function FishingGame() {
+           ) : null}
+ 
+           {showSettlement ? (
+-            <div className="mt-4 rounded-2xl border border-emerald-300/45 bg-emerald-400/10 p-4">
+-              <p className="text-lg font-black text-emerald-800 dark:text-emerald-100">
+-                {settlementTitle}
+-              </p>
+-              <p className="mt-1 text-sm font-semibold text-slate-600 dark:text-slate-300">
+-                {settlementDetail}
+-              </p>
++            <div
++              data-testid="fishing-settlement-panel"
++              className={cn(
++                "mt-4 rounded-2xl border p-4",
++                phase === "submitting"
++                  ? "border-cyan-300/45 bg-cyan-400/10"
++                  : "border-emerald-300/45 bg-emerald-400/10"
++              )}
++            >
++              <div className="flex flex-wrap items-start justify-between gap-3">
++                <div>
++                  <p className={cn(
++                    "text-lg font-black",
++                    phase === "submitting" ? "text-cyan-800 dark:text-cyan-100" : "text-emerald-800 dark:text-emerald-100"
++                  )}>
++                    {settlementTitle}
++                  </p>
++                  <p className="mt-1 text-sm font-semibold text-slate-600 dark:text-slate-300">
++                    {settlementDetail}
++                  </p>
++                </div>
++                {phase === "submitting" ? (
++                  <div className="rounded-full border border-cyan-300/45 bg-white/70 px-3 py-1.5 text-xs font-black text-cyan-800 dark:bg-white/[0.08] dark:text-cyan-100">
++                    {settlementDelayed ? t({ en: "Still working", zh: "仍在處理" }) : t({ en: "Recording", zh: "記錄中" })}
++                  </div>
++                ) : null}
++              </div>
++              {phase === "submitting" ? (
++                <div data-testid="fishing-settlement-progress" className="mt-4 overflow-hidden rounded-full bg-white/80 shadow-inner dark:bg-white/[0.08]">
++                  <div className={cn(
++                    "h-3 rounded-full bg-gradient-to-r from-cyan-300 via-amber-300 to-emerald-300",
++                    settlementDelayed ? "w-full animate-pulse" : "w-2/3 animate-pulse"
++                  )} />
++                </div>
++              ) : null}
+               <div className="mt-4 grid gap-2 text-sm font-bold text-slate-700 dark:text-slate-200 sm:grid-cols-3">
+                 <div className="rounded-xl bg-white/70 px-4 py-3 dark:bg-white/[0.06]">
+                   {t({ en: "Coins", zh: "金幣" })}: {completion?.coins ?? stats.coins}
+@@ -1015,13 +1496,16 @@ export function FishingGame() {
+                 </div>
+               </div>
+               <div className="mt-4 flex flex-wrap gap-3">
+-                {phase === "ended" ? (
++                {showRetrySubmit ? (
+                   <button
+                     type="button"
++                    data-testid="fishing-retry-submit"
+                     onClick={retrySubmitResult}
+                     className="focus-ring rounded-full bg-emerald-700 px-5 py-3 text-sm font-black text-white transition hover:-translate-y-0.5 dark:bg-emerald-300 dark:text-emerald-950"
+                   >
+-                    {t({ en: "Submit result", zh: "提交結果" })}
++                    {phase === "submitting"
++                      ? t({ en: "Retry submit", zh: "重試提交" })
++                      : t({ en: "Submit result", zh: "提交結果" })}
+                   </button>
+                 ) : null}
+                 <Link href="/practice" className="focus-ring rounded-full bg-slate-950 px-5 py-3 text-sm font-black text-white transition hover:-translate-y-0.5 dark:bg-white dark:text-slate-950">
+diff --git a/components/gamification/StudentMotivationHub.tsx b/components/gamification/StudentMotivationHub.tsx
+index eab4ca8cf..98986cdc4 100644
+--- a/components/gamification/StudentMotivationHub.tsx
++++ b/components/gamification/StudentMotivationHub.tsx
+@@ -1,6 +1,6 @@
+ "use client";
+ 
+-import { useEffect, useMemo, useState } from "react";
++import { useEffect, useId, useMemo, useState } from "react";
+ import { StudentBadgeLogo } from "@/components/gamification/StudentBadgeLogo";
+ import { useSettings } from "@/components/providers/AppProviders";
+ import { localeForLanguage } from "@/lib/i18n";
+@@ -16,10 +16,39 @@ function progressWidth(value: number) {
+   return `${Math.max(4, Math.min(100, value))}%`;
+ }
+ 
++function MotivationHubIcon() {
++  return (
++    <svg aria-hidden="true" viewBox="0 0 32 32" className="h-7 w-7 fill-none stroke-current stroke-[2.4]">
++      <path d="M16 5l2.6 5.3 5.8.8-4.2 4.1 1 5.8L16 18.3 10.8 21l1-5.8-4.2-4.1 5.8-.8L16 5z" />
++      <path d="M10 25h12" />
++      <path d="M13 21.5v3.5" />
++      <path d="M19 21.5v3.5" />
++    </svg>
++  );
++}
++
++function ExpandIcon({ expanded }: { expanded: boolean }) {
++  return (
++    <span
++      className={cn(
++        "grid h-12 w-12 shrink-0 place-items-center rounded-full bg-cyan-100/80 text-cyan-800 transition dark:bg-white/15 dark:text-white",
++        expanded ? "rotate-45" : ""
++      )}
++    >
++      <svg aria-hidden="true" viewBox="0 0 32 32" className="h-6 w-6 fill-none stroke-current stroke-[2.4]">
++        <path d="M16 7v18" />
++        <path d="M7 16h18" />
++      </svg>
++    </span>
++  );
++}
++
+ export function StudentMotivationHub() {
+   const { currentUser, language, t, text } = useSettings();
++  const expandedContentId = useId();
+   const [summary, setSummary] = useState<GamificationSummary | null>(null);
+   const [isLoading, setIsLoading] = useState(true);
++  const [isExpanded, setIsExpanded] = useState(false);
+   const [loadError, setLoadError] = useState("");
+   const numberFormat = useMemo(() => new Intl.NumberFormat(localeForLanguage(language)), [language]);
+   const loadErrorCopy = t({ en: "Could not load motivation data.", zh: "暫時無法載入激勵資料。" });
+@@ -58,116 +87,153 @@ export function StudentMotivationHub() {
+   if (!currentUser || currentUser.role !== "student") return null;
+ 
+   const earnedBadges = summary?.earnedBadges.slice(0, 4) ?? [];
++  const title = summary
++    ? t({ en: `Level ${summary.level.current.level}`, zh: `第 ${summary.level.current.level} 級` })
++    : t({ en: "Growth track", zh: "成長軌道" });
++  const collapsedDetail = loadError
++    ? loadError
++    : isLoading
++      ? t({ en: "Loading motivation data.", zh: "正在載入激勵資料。" })
++      : summary
++        ? t({
++            en: `${numberFormat.format(summary.xp)} XP, ${summary.level.progressPercent}% progress, ${numberFormat.format(summary.rewardSummary.available)} points ready.`,
++            zh: `${numberFormat.format(summary.xp)} XP，${summary.level.progressPercent}% 進度，${numberFormat.format(summary.rewardSummary.available)} 積分可用。`
++          })
++        : t({ en: "Open motivation hub to review growth progress, quests, and badges.", zh: "開啟學習激勵中心以查看成長進度、任務與徽章。" });
+ 
+   return (
+-    <section aria-labelledby="motivation-hub-title" className="glass-panel mt-6 overflow-hidden p-5 sm:p-6">
+-      <div className="grid gap-4 xl:grid-cols-[minmax(0,1fr)_minmax(18rem,24rem)] xl:items-stretch">
+-        <div className="rounded-2xl border border-slate-200/70 bg-white/60 p-5 dark:border-white/10 dark:bg-white/[0.045]">
+-          <p className="text-sm font-black uppercase text-cyan-600 dark:text-cyan-300">{t({ en: "Motivation hub", zh: "學習激勵中心" })}</p>
+-          <h2 id="motivation-hub-title" className="mt-2 text-3xl font-black text-slate-950 dark:text-white sm:text-4xl">
+-            {summary
+-              ? t({ en: `Level ${summary.level.current.level}`, zh: `第 ${summary.level.current.level} 級` })
+-              : t({ en: "Growth track", zh: "成長軌道" })}
+-          </h2>
+-          <p className="mt-2 text-base font-bold text-slate-600 dark:text-slate-300">
+-            {summary ? text(summary.level.current.title) : t({ en: "Loading growth progress", zh: "正在載入成長進度" })}
+-          </p>
+-          {isLoading ? <p className="mt-4 text-sm font-bold text-cyan-700 dark:text-cyan-200">{t({ en: "Loading motivation data...", zh: "正在載入激勵資料..." })}</p> : null}
+-          {loadError ? <p className="mt-4 text-sm font-bold text-rose-700 dark:text-rose-200">{loadError}</p> : null}
+-          {summary ? (
+-            <div className="mt-5">
+-              <div className="flex items-center justify-between gap-3 text-sm font-black text-slate-600 dark:text-slate-300">
+-                <span>{numberFormat.format(summary.xp)} XP</span>
+-                <span>{summary.level.progressPercent}%</span>
+-              </div>
+-              <div className="mt-2 h-3 overflow-hidden rounded-full bg-slate-200 dark:bg-white/10">
+-                <div className="h-full rounded-full bg-cyan-400" style={{ width: progressWidth(summary.level.progressPercent) }} />
+-              </div>
+-              <div className="mt-4 grid gap-3 sm:grid-cols-3">
+-                <div className="soft-panel p-3">
+-                  <p className="text-2xl font-black text-slate-950 dark:text-white">{summary.streakDays}</p>
+-                  <p className="text-xs font-bold text-slate-500 dark:text-slate-400">{t({ en: "streak days", zh: "連續學習日" })}</p>
+-                </div>
+-                <div className="soft-panel p-3">
+-                  <p className="text-2xl font-black text-slate-950 dark:text-white">{earnedBadges.length}</p>
+-                  <p className="text-xs font-bold text-slate-500 dark:text-slate-400">{t({ en: "earned badges", zh: "已獲徽章" })}</p>
+-                </div>
+-                <div className="soft-panel p-3">
+-                  <p className="text-2xl font-black text-slate-950 dark:text-white">{numberFormat.format(summary.rewardSummary.available)}</p>
+-                  <p className="text-xs font-bold text-slate-500 dark:text-slate-400">{t({ en: "spendable points", zh: "可兌換積分" })}</p>
+-                </div>
+-              </div>
++    <section aria-labelledby="motivation-hub-title" className="mt-6">
++      <details className="group" onToggle={(event) => setIsExpanded(event.currentTarget.open)}>
++        <summary
++          aria-controls={expandedContentId}
++          className="focus-ring relative min-w-0 cursor-pointer list-none overflow-hidden rounded-[2rem] border border-cyan-100/80 bg-sky-50 text-left text-slate-950 shadow-2xl shadow-cyan-900/10 transition hover:-translate-y-0.5 dark:border-white/10 dark:bg-slate-950 dark:text-white dark:shadow-cyan-950/20 [&::-webkit-details-marker]:hidden"
++        >
++          <div
++            aria-hidden="true"
++            className="absolute inset-0 opacity-70 dark:opacity-25"
++            style={{
++              backgroundImage:
++                "radial-gradient(circle, rgba(6,182,212,0.16) 0 1px, transparent 1.6px), radial-gradient(circle, rgba(16,185,129,0.16) 0 1px, transparent 1.6px)",
++              backgroundPosition: "0 0, 46px 34px",
++              backgroundSize: "112px 112px, 148px 148px"
++            }}
++          />
++          <div className="relative z-10 grid gap-4 p-5 sm:grid-cols-[auto_minmax(0,1fr)_auto] sm:items-center sm:p-6">
++            <span className="relative grid h-16 w-16 shrink-0 place-items-center rounded-full bg-gradient-to-br from-cyan-200 via-sky-400 to-emerald-400 text-slate-950 shadow-2xl shadow-cyan-400/25">
++              <span aria-hidden="true" className="absolute -inset-[14%] rounded-full border border-white/60 opacity-70 dark:border-white/25" />
++              <span className="relative z-10 drop-shadow-[0_2px_10px_rgba(255,255,255,0.28)]">
++                <MotivationHubIcon />
++              </span>
++            </span>
++            <div className="min-w-0">
++              <h2 id="motivation-hub-title" className="text-2xl font-black leading-tight text-slate-950 dark:text-white sm:text-3xl">
++                {title}
++              </h2>
++              <p className={cn(
++                "mt-2 max-w-3xl text-sm font-bold leading-6 sm:text-base",
++                loadError ? "text-rose-700 dark:text-rose-200" : "text-slate-600 dark:text-slate-300"
++              )}>
++                {collapsedDetail}
++              </p>
+             </div>
+-          ) : null}
+-        </div>
++            <span className="inline-flex h-20 w-full max-w-full items-center justify-between gap-4 rounded-[1.6rem] border border-cyan-100/80 bg-sky-50/75 px-4 py-2 text-base font-black leading-tight text-emerald-900 shadow-[0_14px_30px_rgba(14,165,233,0.08)] backdrop-blur-md transition dark:border-white/10 dark:bg-white/[0.06] dark:text-emerald-100 dark:shadow-[inset_0_0_0_1px_rgba(255,255,255,0.04),0_14px_30px_rgba(15,23,42,0.24)] sm:w-80 sm:text-lg">
++              <span className="min-w-0 flex-1 break-words text-left leading-tight">
++                {isExpanded ? t({ en: "Hide motivation hub", zh: "收起學習激勵" }) : t({ en: "Open motivation hub", zh: "開啟學習激勵" })}
++              </span>
++              <ExpandIcon expanded={isExpanded} />
++            </span>
++          </div>
++        </summary>
+ 
+-        <div className="rounded-2xl border border-cyan-300/50 bg-cyan-400/10 p-5">
+-          <h3 className="text-base font-black text-slate-950 dark:text-white">{t({ en: "Daily quests", zh: "每日任務" })}</h3>
+-          <div className="mt-4 grid gap-3">
+-            {(summary?.quests ?? []).map((quest) => (
+-              <div key={quest.quest.id} className="rounded-2xl border border-slate-200/70 bg-white/55 p-3 dark:border-white/10 dark:bg-white/[0.05]">
+-                <div className="flex items-start justify-between gap-3">
+-                  <div className="min-w-0">
+-                    <p className="font-black text-slate-950 dark:text-white">{text(quest.quest.title)}</p>
+-                    <p className="mt-1 text-xs font-bold text-slate-500 dark:text-slate-400">{quest.progress}/{quest.target} · +{quest.xpReward} XP · +{quest.rewardPointReward}</p>
++        <div id={expandedContentId} className="mt-4">
++          <div className="glass-panel overflow-hidden p-5 sm:p-6">
++            <div className="grid gap-4 xl:grid-cols-[minmax(0,1fr)_minmax(18rem,24rem)] xl:items-stretch">
++              <div className="rounded-2xl border border-slate-200/70 bg-white/60 p-5 dark:border-white/10 dark:bg-white/[0.045]">
++                <p className="text-sm font-black uppercase text-cyan-600 dark:text-cyan-300">{t({ en: "Growth progress", zh: "成長進度" })}</p>
++                <p className="mt-2 text-base font-bold text-slate-600 dark:text-slate-300">
++                  {summary ? text(summary.level.current.title) : t({ en: "Loading growth progress", zh: "正在載入成長進度" })}
++                </p>
++                {isLoading ? <p className="mt-4 text-sm font-bold text-cyan-700 dark:text-cyan-200">{t({ en: "Loading motivation data...", zh: "正在載入激勵資料..." })}</p> : null}
++                {loadError ? <p className="mt-4 text-sm font-bold text-rose-700 dark:text-rose-200">{loadError}</p> : null}
++                {summary ? (
++                  <div className="mt-5">
++                    <div className="flex items-center justify-between gap-3 text-sm font-black text-slate-600 dark:text-slate-300">
++                      <span>{numberFormat.format(summary.xp)} XP</span>
++                      <span>{summary.level.progressPercent}%</span>
++                    </div>
++                    <div className="mt-2 h-3 overflow-hidden rounded-full bg-slate-200 dark:bg-white/10">
++                      <div className="h-full rounded-full bg-cyan-400" style={{ width: progressWidth(summary.level.progressPercent) }} />
++                    </div>
++                    <div className="mt-4 grid gap-3 sm:grid-cols-3">
++                      <div className="soft-panel p-3">
++                        <p className="text-2xl font-black text-slate-950 dark:text-white">{summary.streakDays}</p>
++                        <p className="text-xs font-bold text-slate-500 dark:text-slate-400">{t({ en: "streak days", zh: "連續學習日" })}</p>
++                      </div>
++                      <div className="soft-panel p-3">
++                        <p className="text-2xl font-black text-slate-950 dark:text-white">{earnedBadges.length}</p>
++                        <p className="text-xs font-bold text-slate-500 dark:text-slate-400">{t({ en: "earned badges", zh: "已獲徽章" })}</p>
++                      </div>
++                      <div className="soft-panel p-3">
++                        <p className="text-2xl font-black text-slate-950 dark:text-white">{numberFormat.format(summary.rewardSummary.available)}</p>
++                        <p className="text-xs font-bold text-slate-500 dark:text-slate-400">{t({ en: "spendable points", zh: "可兌換積分" })}</p>
++                      </div>
++                    </div>
+                   </div>
+-                  <span className={cn(
+-                    "shrink-0 rounded-full px-2.5 py-1 text-[11px] font-black",
+-                    quest.completed
+-                      ? "bg-emerald-400/15 text-emerald-800 dark:text-emerald-100"
+-                      : "bg-slate-950/[0.06] text-slate-600 dark:bg-white/[0.08] dark:text-slate-300"
+-                  )}>
+-                    {quest.completed ? t({ en: "Done", zh: "完成" }) : t({ en: "Open", zh: "進行中" })}
+-                  </span>
+-                </div>
+-                <div className="mt-3 h-2 overflow-hidden rounded-full bg-slate-200 dark:bg-white/10">
+-                  <div className="h-full rounded-full bg-cyan-400" style={{ width: progressWidth((quest.progress / quest.target) * 100) }} />
+-                </div>
++                ) : null}
+               </div>
+-            ))}
+-          </div>
+-        </div>
+-      </div>
+-
+-      {summary ? (
+-        <div className="mt-6 grid gap-4 xl:grid-cols-[minmax(0,1fr)_minmax(18rem,0.7fr)]">
+-          <section className="soft-panel p-4 sm:p-5">
+-            <h3 className="text-base font-black text-slate-950 dark:text-white">{t({ en: "Badges", zh: "成就徽章" })}</h3>
+-            <div className="mt-3 grid gap-3 md:grid-cols-2">
+-              {summary.badges.slice(0, 6).map((badge) => (
+-                <div key={badge.id} className={cn(
+-                  "grid grid-cols-[auto_minmax(0,1fr)] items-center gap-3 rounded-2xl border px-4 py-3",
+-                  badge.earned
+-                    ? "border-emerald-300/60 bg-emerald-400/10 shadow-sm shadow-emerald-500/10"
+-                    : "border-slate-200/70 bg-white/45 dark:border-white/10 dark:bg-white/[0.035]"
+-                )}>
+-                  <StudentBadgeLogo badgeId={badge.id} earned={badge.earned} />
+-                  <div className="min-w-0">
+-                    <p className="font-black text-slate-950 dark:text-white">{text(badge.name)}</p>
+-                    <p className="mt-1 text-xs font-bold leading-relaxed text-slate-500 dark:text-slate-400">{badge.progress}/{badge.criteria.target} · {text(badge.description)}</p>
+-                  </div>
++
++              <div className="rounded-2xl border border-cyan-300/50 bg-cyan-400/10 p-5">
++                <h3 className="text-base font-black text-slate-950 dark:text-white">{t({ en: "Daily quests", zh: "每日任務" })}</h3>
++                <div className="mt-4 grid gap-3">
++                  {(summary?.quests ?? []).map((quest) => (
++                    <div key={quest.quest.id} className="rounded-2xl border border-slate-200/70 bg-white/55 p-3 dark:border-white/10 dark:bg-white/[0.05]">
++                      <div className="flex items-start justify-between gap-3">
++                        <div className="min-w-0">
++                          <p className="font-black text-slate-950 dark:text-white">{text(quest.quest.title)}</p>
++                          <p className="mt-1 text-xs font-bold text-slate-500 dark:text-slate-400">{quest.progress}/{quest.target} · +{quest.xpReward} XP · +{quest.rewardPointReward}</p>
++                        </div>
++                        <span className={cn(
++                          "shrink-0 rounded-full px-2.5 py-1 text-[11px] font-black",
++                          quest.completed
++                            ? "bg-emerald-400/15 text-emerald-800 dark:text-emerald-100"
++                            : "bg-slate-950/[0.06] text-slate-600 dark:bg-white/[0.08] dark:text-slate-300"
++                        )}>
++                          {quest.completed ? t({ en: "Done", zh: "完成" }) : t({ en: "Open", zh: "進行中" })}
++                        </span>
++                      </div>
++                      <div className="mt-3 h-2 overflow-hidden rounded-full bg-slate-200 dark:bg-white/10">
++                        <div className="h-full rounded-full bg-cyan-400" style={{ width: progressWidth((quest.progress / quest.target) * 100) }} />
++                      </div>
++                    </div>
++                  ))}
+                 </div>
+-              ))}
++              </div>
+             </div>
+-          </section>
+-
+-          <section className="soft-panel p-4 sm:p-5">
+-            <h3 className="text-base font-black text-slate-950 dark:text-white">{t({ en: "Class leaderboard", zh: "班級排行榜" })}</h3>
+-            <div className="mt-3 grid gap-2">
+-              {summary.leaderboard.map((entry) => (
+-                <div key={entry.studentId} className={cn(
+-                  "grid grid-cols-[auto_minmax(0,1fr)_auto] items-center gap-3 rounded-2xl px-3 py-2 text-sm",
+-                  entry.isCurrentStudent ? "bg-cyan-400/15" : "bg-white/45 dark:bg-white/[0.035]"
+-                )}>
+-                  <span className="font-black text-cyan-700 dark:text-cyan-200">#{entry.rank}</span>
+-                  <span className="truncate font-black text-slate-700 dark:text-slate-200">{entry.studentName}</span>
+-                  <span className="font-black text-slate-500 dark:text-slate-400">{numberFormat.format(entry.weeklyXp)} XP</span>
++
++            {summary ? (
++              <section className="soft-panel mt-6 p-4 sm:p-5">
++                <h3 className="text-base font-black text-slate-950 dark:text-white">{t({ en: "Badges", zh: "成就徽章" })}</h3>
++                <div className="mt-3 grid gap-3 md:grid-cols-2">
++                  {summary.badges.slice(0, 6).map((badge) => (
++                    <div key={badge.id} className={cn(
++                      "grid grid-cols-[auto_minmax(0,1fr)] items-center gap-3 rounded-2xl border px-4 py-3",
++                      badge.earned
++                        ? "border-emerald-300/60 bg-emerald-400/10 shadow-sm shadow-emerald-500/10"
++                        : "border-slate-200/70 bg-white/45 dark:border-white/10 dark:bg-white/[0.035]"
++                    )}>
++                      <StudentBadgeLogo badgeId={badge.id} earned={badge.earned} />
++                      <div className="min-w-0">
++                        <p className="font-black text-slate-950 dark:text-white">{text(badge.name)}</p>
++                        <p className="mt-1 text-xs font-bold leading-relaxed text-slate-500 dark:text-slate-400">{badge.progress}/{badge.criteria.target} · {text(badge.description)}</p>
++                      </div>
++                    </div>
++                  ))}
+                 </div>
+-              ))}
+-            </div>
+-          </section>
++              </section>
++            ) : null}
++          </div>
+         </div>
+-      ) : null}
++      </details>
+     </section>
+   );
+ }
+diff --git a/lib/gameBasedLearning.test.ts b/lib/gameBasedLearning.test.ts
+index e1f9d6f1e..f60fbb157 100644
+--- a/lib/gameBasedLearning.test.ts
++++ b/lib/gameBasedLearning.test.ts
+@@ -2,7 +2,10 @@ import assert from "node:assert/strict";
+ import test from "node:test";
+ import {
+   calculateMathMatchQuestReward,
++  completedPracticeRoundStorageKey,
++  completedPracticeRoundStoragePrefix,
+   findMathMatchQuestMatches,
++  practiceAdventureRoundStorageKey,
+   resolveMathMatchQuestLevelResult,
+   type MathMatchQuestTile
+ } from "./gameBasedLearning";
+@@ -104,3 +107,10 @@ test("resolveMathMatchQuestLevelResult uses target progress, answer accuracy, an
+     }
+   );
+ });
++
++test("practice game storage keys are stable and scoped per user", () => {
++  assert.equal(practiceAdventureRoundStorageKey, "hk-math-practice-adventure-round");
++  assert.equal(completedPracticeRoundStoragePrefix, "hk-math-practice-completed-round");
++  assert.equal(completedPracticeRoundStorageKey("student-123"), "hk-math-practice-completed-round:student-123");
++  assert.equal(completedPracticeRoundStorageKey(undefined), "hk-math-practice-completed-round:guest");
++});
+diff --git a/lib/gameBasedLearning.ts b/lib/gameBasedLearning.ts
+index 1d9147ed0..14283795b 100644
+--- a/lib/gameBasedLearning.ts
++++ b/lib/gameBasedLearning.ts
+@@ -1,6 +1,12 @@
+ export const studentPracticeGamesPath = "/student/practice/games" as const;
+ export const mathMatchQuestDraftPath = `${studentPracticeGamesPath}/math-match-quest` as const;
+ export const legacyMathMatchQuestDraftPath = "/games/math-match-quest" as const;
++export const practiceAdventureRoundStorageKey = "hk-math-practice-adventure-round" as const;
++export const completedPracticeRoundStoragePrefix = "hk-math-practice-completed-round" as const;
++
++export function completedPracticeRoundStorageKey(userId: string | null | undefined) {
++  return `${completedPracticeRoundStoragePrefix}:${userId ?? "guest"}`;
++}
+ 
+ export const studentPracticeGameSlugs = {
+   adventureIsland: "adventure-island",

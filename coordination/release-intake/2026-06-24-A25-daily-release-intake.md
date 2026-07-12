@@ -1,0 +1,78 @@
+# A25 Daily Release Intake
+
+- Date: 2026-06-24
+- Agent ID: A25
+- Scope: Non-destructive dirty-tree and release-intake inventory for root-as-integration-inventory policy
+- Commands run:
+  - `git status --short`
+  - `npm run release:dirty-map -- --reason "A25 root inventory worktree policy implementation" --run-id 20260624-root-worktree-policy`
+  - `npm run release:dirty-map -- --reason "A25 root inventory worktree policy implementation after gitignore" --run-id 20260624-root-worktree-policy-final`
+  - `node scripts/cleanup-generated-artifacts.mjs --dry-run`
+  - `npm run clean:generated`
+  - `MAIS_RELEASE_MIN_FREE_GB=1 npm run release:runtime-preflight -- --json`
+  - `MAIS_RELEASE_MIN_FREE_GB=1 npm run release:root-deploy-preflight -- --json`
+- Latest A25 map:
+  - `coordination/release-intake/latest-A25-dirty-tree-map.json`
+  - `coordination/release-intake/latest-A25-dirty-tree-map.md`
+  - `coordination/release-intake/2026-06-24-A25-dirty-tree-map-20260624-root-worktree-policy-final.md`
+- Git status counts from latest A25 map:
+  - Collapsed status entries: 890
+  - Expanded status entries: 1144
+  - Tracked modified: 361
+  - Tracked deleted: 0
+  - Untracked status entries: 529
+  - Untracked files: 783
+- Largest dirty owner areas:
+  - A06 visualization lead: 283
+  - A12 backend/API platform: 160
+  - A18 curriculum QA / A21 content pipeline: 130
+  - A10 tooling, docs, and report: 118
+  - Unmapped runtime owner review needed: 99
+- Shared files currently dirty:
+  - `.gitignore`
+  - `.vercelignore`
+  - `AGENTS.md`
+  - `README.md`
+  - `package.json`
+  - `package-lock.json`
+  - `next.config.ts`
+  - `playwright.config.ts`
+  - `types/index.ts`
+  - `lib/i18n.ts`
+  - `components/providers/AppProviders.tsx`
+  - `data/questions.ts`
+  - `data/topics.ts`
+  - `data/grades.ts`
+  - `data/generated-content/`
+  - `data/rag/`
+  - `lib/rag/`
+  - `coordination/content-qa/`
+  - `coordination/release-intake/`
+- Recommended PR/commit slices:
+  - Runtime app/API/data/public: 482 dirty entries; split by A01-A08/A12-A15/A17/A20 owners before review.
+  - Tests/regression evidence: 276 dirty entries; A11 should split by owning feature surface and keep broad harness changes separate.
+  - Docs/coordination evidence: 300 dirty entries; A10/A25 should review reports, logs, and policy changes separately from runtime code.
+  - Content/RAG backlog: 65 dirty entries; A21/A18/A23 should keep candidate packages out of live app surfaces until promotion gates pass.
+  - Release hygiene tooling/config: 12 dirty entries; A22/A10 should review scripts/config in a clean release-engineering slice.
+  - Local/generated quarantine: current cleanup dry-run found 5 generated targets, 55.2 GB reclaimable; no files were removed.
+- Release-safe clean-slice candidates:
+  - A10/A25 root policy documentation and dirty-map script vocabulary.
+  - A22 generated-artifact cleanup guardrail.
+  - A22 release preflight wording around clean worktrees/pruned staging.
+- Files or directories that must not be staged:
+  - `.env`, `.env.local`, `.env.*` secrets
+  - `All API Keys.docx`
+  - `.next/`, `.tmp/`, `.local/`, `node_modules/`
+  - Playwright traces/reports/logs that still need QA evidence retention
+  - Raw/private RAG corpus text unless owner rights approval is recorded
+- A22 clean release path:
+  - Current root remains an integration inventory and must not be used as a production deploy source.
+  - Default release source is a clean worktree, clean clone, reviewed clean release slice, or A22 pruned staging directory.
+  - `MAIS_RELEASE_MIN_FREE_GB=1 npm run release:root-deploy-preflight -- --json` confirmed direct root deploy is still blocked by dirty status when disk threshold is test-lowered.
+- A22 generated cleanup status:
+  - Dry run command: `node scripts/cleanup-generated-artifacts.mjs --dry-run`
+  - Apply command, if owner-approved after preserving needed evidence: `node scripts/cleanup-generated-artifacts.mjs --apply`
+  - Playwright traces/reports preserved: yes, because no apply cleanup was run.
+- Owner decisions needed:
+  - Confirm when A22 may remove `.next/`, `.tmp/`, and temporary TypeScript configs after preserving any needed Playwright/report evidence.
+  - Confirm which release slice should be reviewed first from the 890 collapsed dirty status entries.

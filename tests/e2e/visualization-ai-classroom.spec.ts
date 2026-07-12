@@ -41,7 +41,7 @@ async function routeTutorFailure(page: Page) {
 }
 
 async function askTutor(panel: Locator, input: string, expected: RegExp | string) {
-  await panel.getByLabel(/Ask AI Tutor|詢問智能導師/i).fill(input);
+  await panel.getByLabel(/Ask Nova Tutor|詢問 Nova 導師/i).fill(input);
   await panel.getByRole("button", { name: /^Send$|^送出$/i }).click();
   await expect(panel.getByText(expected)).toBeVisible({ timeout: 10000 });
 }
@@ -56,8 +56,8 @@ async function openVisualizationLab(page: Page, labId: string) {
   await expect(labCard.locator("[data-viz-surface]").first()).toBeVisible();
 }
 
-test.describe("visualization lab, AI tutor, and live classroom", () => {
-  test("floating AI tutor opens globally, preserves drafts, and shows sending states", async ({ page }) => {
+test.describe("visualization lab, Nova Tutor, and live classroom", () => {
+  test("floating Nova Tutor opens globally, preserves drafts, and shows sending states", async ({ page }) => {
     const pageErrors = collectPageErrors(page);
     let tutorRequestCount = 0;
 
@@ -73,27 +73,27 @@ test.describe("visualization lab, AI tutor, and live classroom", () => {
 
     await loginAsDemoStudent(page);
     await page.goto("/practice");
-    const launcher = page.getByRole("button", { name: /^AI Tutor$/i });
+    const launcher = page.getByRole("button", { name: /^Nova Tutor$/i });
     await launcher.click({ force: true });
-    const tutorPanel = page.getByRole("dialog", { name: /AI Tutor/i });
+    const tutorPanel = page.getByRole("dialog", { name: /Nova Tutor/i });
 
     await expect(tutorPanel).toBeVisible();
     await expect(tutorPanel.getByText("Professor Nova", { exact: true })).toBeVisible();
     await expect(tutorPanel.getByText(/HK Student Peter · S3 · \/practice/)).toBeVisible();
     await expect(tutorPanel.getByRole("button", { name: /^Send$/i })).toBeDisabled();
 
-    await tutorPanel.getByLabel(/Ask AI Tutor/i).fill("Please keep this draft.");
-    await tutorPanel.getByRole("button", { name: /Close AI Tutor/i }).click();
+    await tutorPanel.getByLabel(/Ask Nova Tutor/i).fill("Please keep this draft.");
+    await tutorPanel.getByRole("button", { name: /Close Nova Tutor/i }).click();
     await expect(tutorPanel).toBeHidden();
 
     await launcher.click({ force: true });
-    await expect(tutorPanel.getByLabel(/Ask AI Tutor/i)).toHaveValue("Please keep this draft.");
+    await expect(tutorPanel.getByLabel(/Ask Nova Tutor/i)).toHaveValue("Please keep this draft.");
 
     await page.goto("/dashboard");
     await expect(tutorPanel).toBeVisible();
-    await expect(tutorPanel.getByLabel(/Ask AI Tutor/i)).toHaveValue("Please keep this draft.");
+    await expect(tutorPanel.getByLabel(/Ask Nova Tutor/i)).toHaveValue("Please keep this draft.");
 
-    await tutorPanel.getByLabel(/Ask AI Tutor/i).fill("Give me one hint about factorising.");
+    await tutorPanel.getByLabel(/Ask Nova Tutor/i).fill("Give me one hint about factorising.");
     await tutorPanel.getByRole("button", { name: /^Send$/i }).click();
     await expect(tutorPanel.getByRole("button", { name: /^Sending/i })).toBeDisabled();
     await expect(tutorPanel.getByText(/^Thinking/i)).toBeVisible();
@@ -109,8 +109,8 @@ test.describe("visualization lab, AI tutor, and live classroom", () => {
     await routeTutorFailure(page);
     await loginAsDemoStudent(page);
     await page.goto("/practice");
-    await page.getByRole("button", { name: /^AI Tutor$/i }).click({ force: true });
-    const tutorPanel = page.getByRole("dialog", { name: /AI Tutor/i });
+    await page.getByRole("button", { name: /^Nova Tutor$/i }).click({ force: true });
+    const tutorPanel = page.getByRole("dialog", { name: /Nova Tutor/i });
     await expect(tutorPanel).toBeVisible();
     await expect(tutorPanel.getByText("Local helper mode", { exact: true })).toBeVisible();
 
@@ -134,14 +134,14 @@ test.describe("visualization lab, AI tutor, and live classroom", () => {
       await chineseToggle.click();
       await expect(page.getByRole("button", { name: "Use English" })).toBeVisible();
     }
-    await page.getByRole("button", { name: /^智能導師$/ }).click({ force: true });
-    const tutorPanel = page.getByRole("dialog", { name: /智能導師/ });
+    await page.getByRole("button", { name: /^Nova 導師$/ }).click({ force: true });
+    const tutorPanel = page.getByRole("dialog", { name: /Nova 導師/ });
 
     await expect(tutorPanel).toBeVisible();
     await expect(tutorPanel.getByText("Nova 導師", { exact: true })).toBeVisible();
     await expect(tutorPanel.locator("#ai-tutor-input")).toHaveAttribute("placeholder", /輸入提示/);
 
-    await tutorPanel.getByLabel(/詢問智能導師/).fill("我好難，唔識點開始。");
+    await tutorPanel.getByLabel(/詢問 Nova 導師/).fill("我好難，唔識點開始。");
     await tutorPanel.getByRole("button", { name: /^送出$/ }).click();
 
     await expect(tutorPanel.getByText("本機輔助模式", { exact: true })).toBeVisible({ timeout: 10000 });
@@ -151,7 +151,7 @@ test.describe("visualization lab, AI tutor, and live classroom", () => {
     expectNoPageErrors(pageErrors);
   });
 
-  test("AI tutor attachments cap at six, submit multipart data, and clear after a reply", async ({ page }) => {
+  test("Nova Tutor attachments cap at six, submit multipart data, and clear after a reply", async ({ page }) => {
     const pageErrors = collectPageErrors(page);
     let contentType = "";
     let multipartBody = "";
@@ -173,8 +173,8 @@ test.describe("visualization lab, AI tutor, and live classroom", () => {
 
     await loginAsDemoStudent(page);
     await page.goto("/practice");
-    await page.getByRole("button", { name: /^AI Tutor$/i }).click({ force: true });
-    const tutorPanel = page.getByRole("dialog", { name: /AI Tutor/i });
+    await page.getByRole("button", { name: /^Nova Tutor$/i }).click({ force: true });
+    const tutorPanel = page.getByRole("dialog", { name: /Nova Tutor/i });
     await tutorPanel.getByRole("button", { name: /Add photos and files/i }).click({ force: true });
     await page.locator("#ai-tutor-attachments").setInputFiles(filePayloads);
 
@@ -182,7 +182,7 @@ test.describe("visualization lab, AI tutor, and live classroom", () => {
     await expect(tutorPanel.getByText("note-6.txt")).toBeVisible();
     await expect(tutorPanel.getByText("note-7.txt")).toHaveCount(0);
 
-    await tutorPanel.getByLabel(/Ask AI Tutor/i).fill("Please read these files.");
+    await tutorPanel.getByLabel(/Ask Nova Tutor/i).fill("Please read these files.");
     await tutorPanel.getByRole("button", { name: /^Send$/i }).click();
     await expect(tutorPanel.getByText("Files received.", { exact: true })).toBeVisible({ timeout: 10000 });
     await expect(tutorPanel.getByText(/note-[1-6]\.txt/)).toHaveCount(0);
@@ -229,9 +229,9 @@ test.describe("visualization lab, AI tutor, and live classroom", () => {
     }, tutorDraftStorageKey);
     await page.goto("/practice");
 
-    const tutorPanel = page.getByRole("dialog", { name: /AI Tutor/i });
+    const tutorPanel = page.getByRole("dialog", { name: /Nova Tutor/i });
     await expect(tutorPanel).toBeVisible();
-    await tutorPanel.getByLabel(/Ask AI Tutor/i).fill("Help without revealing the answer.");
+    await tutorPanel.getByLabel(/Ask Nova Tutor/i).fill("Help without revealing the answer.");
     await tutorPanel.getByRole("button", { name: /^Send$/i }).click();
     await expect(tutorPanel.getByText("Safe context received.", { exact: true })).toBeVisible({ timeout: 10000 });
 
@@ -243,7 +243,7 @@ test.describe("visualization lab, AI tutor, and live classroom", () => {
     expectNoPageErrors(pageErrors);
   });
 
-  test("mistake-book tutor launch uses mistake context and records AI tutor analytics", async ({ page }) => {
+  test("mistake-book tutor launch uses mistake context and records Nova Tutor analytics", async ({ page }) => {
     const pageErrors = collectPageErrors(page);
     const learningEvents: Array<{ type?: string; source?: string; topicId?: string }> = [];
 
@@ -266,9 +266,9 @@ test.describe("visualization lab, AI tutor, and live classroom", () => {
       data: { questionId: "q1", selectedAnswer: "wrong answer", durationSeconds: 12 }
     });
     await page.goto("/mistake-book");
-    await page.getByRole("button", { name: /^Ask AI Tutor$/i }).first().click();
+    await page.getByRole("button", { name: /^Ask Nova Tutor$/i }).first().click();
 
-    const tutorPanel = page.getByRole("dialog", { name: /AI Tutor/i });
+    const tutorPanel = page.getByRole("dialog", { name: /Nova Tutor/i });
     await expect(tutorPanel).toBeVisible();
     await expect(tutorPanel.getByText(/mistake-book item/i)).toBeVisible();
     await expect.poll(() =>
@@ -287,11 +287,11 @@ test.describe("visualization lab, AI tutor, and live classroom", () => {
 
     await routeTutorFailure(page);
     await loginAsDemoStudent(page);
-    await page.goto("/visualization-lab");
+    await page.goto("/student/tools/visualizations");
     await expect(page.getByRole("heading", { name: /Visualization Lab/i })).toBeVisible();
     await expect(page.getByRole("heading", { name: /HK Student Peter's S3 visualizations/i })).toBeVisible();
 
-    await page.getByRole("button", { name: /Explore all labs|Explore other grades/i }).click();
+    await page.getByRole("button", { name: /Explore all labs|Explore my curriculum|Explore other grades/i }).click();
     await expect(page.getByRole("heading", { name: /HK Student Peter is exploring P1-S6 visualizations/i })).toBeVisible();
     await expect(page.locator('[id^="lab-example-"]')).toHaveCount(allVisualizationLabs.length);
     for (const group of gradeLabGroups) {
@@ -345,32 +345,32 @@ test.describe("visualization lab, AI tutor, and live classroom", () => {
     await page.getByRole("button", { name: "Use English" }).click();
     await expect(page.getByRole("heading", { name: /Visualization Lab/i })).toBeVisible();
 
-    await page.getByRole("button", { name: /^AI Tutor$/i }).first().click();
-    const tutorPanel = page.getByRole("dialog", { name: /AI Tutor/i });
+    await page.getByRole("button", { name: /^Nova Tutor$/i }).first().click();
+    const tutorPanel = page.getByRole("dialog", { name: /Nova Tutor/i });
     await expect(tutorPanel).toBeVisible();
-    await tutorPanel.getByLabel(/Ask AI Tutor/i).fill("Give me one hint about this visualization.");
+    await tutorPanel.getByLabel(/Ask Nova Tutor/i).fill("Give me one hint about this visualization.");
     await tutorPanel.getByRole("button", { name: /^Send$/i }).click();
     await expect(tutorPanel.getByText("Local helper mode", { exact: true })).toBeVisible();
-    await tutorPanel.getByRole("button", { name: /Close AI Tutor/i }).click();
+    await tutorPanel.getByRole("button", { name: /Close Nova Tutor/i }).click();
     await expect(tutorPanel).toBeHidden();
 
     expectNoPageErrors(pageErrors);
   });
 
-  test("floating AI tutor attachments and classroom student response flow work", async ({ page }) => {
+  test("floating Nova Tutor attachments and classroom student response flow work", async ({ page }) => {
     const pageErrors = collectPageErrors(page);
 
     await loginAsDemoStudent(page);
     await page.goto("/practice");
-    await page.getByRole("button", { name: /^AI Tutor$/i }).click({ force: true });
-    const tutorPanel = page.getByRole("dialog", { name: /AI Tutor/i });
+    await page.getByRole("button", { name: /^Nova Tutor$/i }).click({ force: true });
+    const tutorPanel = page.getByRole("dialog", { name: /Nova Tutor/i });
     await expect(tutorPanel).toBeVisible();
     await tutorPanel.getByRole("button", { name: /Add photos and files/i }).click({ force: true });
     await page.locator("#ai-tutor-attachments").setInputFiles(fixturePath("sample-resource.pdf"));
     await expect(tutorPanel.getByText("sample-resource.pdf")).toBeVisible();
     await tutorPanel.getByRole("button", { name: /Remove sample-resource\.pdf/i }).click();
     await expect(tutorPanel.getByText("sample-resource.pdf")).toHaveCount(0);
-    await tutorPanel.getByRole("button", { name: /Close AI Tutor/i }).click({ force: true });
+    await tutorPanel.getByRole("button", { name: /Close Nova Tutor/i }).click({ force: true });
 
     await page.goto("/classroom?code=S3A82");
     await expect(page.getByRole("heading", { name: /Join live classroom/i })).toBeVisible();

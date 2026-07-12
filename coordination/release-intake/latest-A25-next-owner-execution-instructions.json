@@ -1,0 +1,1017 @@
+{
+  "generatedAt": "2026-07-10T17:12:06.991Z",
+  "scaffoldManaged": true,
+  "scaffoldKind": "next-owner-execution-instructions",
+  "note": "A25 scaffold only. Rows in draftInstructionsDoNotExecute are not execution instructions until copied into instructions with approvedBy, approvedAt, evidenceReviewed, notes, and executionText. This file does not execute anything.",
+  "dirtyMapStatusSignature": "e30d647e1b51432945713f42ac78b0a2466fcb17192de0235a801ac877a0801f",
+  "expandedStatusEntries": 7636,
+  "sourceAuthorizedCommandManifestGeneratedAt": "2026-07-10T17:12:05.144Z",
+  "sourceAuthorizedCommandManifest": "coordination/release-intake/latest-A25-next-owner-authorized-command-manifest.json",
+  "sourceA16OwnerInputGeneratedAt": "2026-07-10T17:12:06.521Z",
+  "sourceA16OwnerInputGateCheckedAt": "2026-07-10T17:12:06.585Z",
+  "sourceA16PostExtractionVerificationReportGeneratedAt": "2026-07-10T17:12:06.745Z",
+  "cleanupAuthorized": false,
+  "executableNow": false,
+  "summary": {
+    "manifestCandidateRows": 27,
+    "readyForSeparateInstructionRows": 0,
+    "supplementalA16CandidateRows": 1,
+    "supplementalA16ReadyForOwnerExecutionInstructionRows": 0,
+    "effectiveCandidateRows": 28,
+    "effectiveReadyForSeparateInstructionRows": 0,
+    "instructionRowsInFile": 0,
+    "draftInstructionRows": 28,
+    "cleanupAuthorizedRows": 0,
+    "executableRows": 0,
+    "consumedInstructionRows": 6
+  },
+  "instructions": [],
+  "draftInstructionsDoNotExecute": [
+    {
+      "approvalId": "a25-git-hygiene-and-release-intake",
+      "approvalKind": "owner-package",
+      "owner": "A25 git hygiene and release intake",
+      "subject": "coordination/release-intake/latest-A25-effective-owner-a25-git-hygiene-and-release-intake.pathspec",
+      "path": "coordination/release-intake/latest-A25-effective-owner-a25-git-hygiene-and-release-intake.pathspec",
+      "command": "",
+      "cwd": "/Users/dongpinhu/Desktop/MAIS-MVP",
+      "worktreePath": "",
+      "selectedAction": "owner-selected-final-state",
+      "selectedFinalState": "reviewed commit",
+      "readyForSeparateInstruction": false,
+      "requiredExecutionText": "Candidate is not ready for a separate execution instruction.",
+      "evidenceReviewed": [
+        "coordination/release-intake/latest-A25-next-owner-authorized-command-manifest.json"
+      ],
+      "approvedBy": "",
+      "approvedAt": "",
+      "notes": "",
+      "executionText": "",
+      "cleanupAuthorized": false,
+      "executableNow": false,
+      "packageFiles": [
+        "coordination/release-intake/latest-A25-effective-owner-a25-git-hygiene-and-release-intake.pathspec"
+      ]
+    },
+    {
+      "approvalId": "a22-production-reliability-and-release-engineering",
+      "approvalKind": "owner-package",
+      "owner": "A22 production reliability and release engineering",
+      "subject": "coordination/release-intake/latest-A25-effective-owner-a22-production-reliability-and-release-engineering.pathspec",
+      "path": "coordination/release-intake/latest-A25-effective-owner-a22-production-reliability-and-release-engineering.pathspec",
+      "command": "",
+      "cwd": "/Users/dongpinhu/Desktop/MAIS-MVP",
+      "worktreePath": "",
+      "selectedAction": "owner-selected-final-state",
+      "selectedFinalState": "reviewed commit",
+      "readyForSeparateInstruction": false,
+      "requiredExecutionText": "Candidate is not ready for a separate execution instruction.",
+      "evidenceReviewed": [
+        "coordination/release-intake/latest-A25-next-owner-authorized-command-manifest.json"
+      ],
+      "approvedBy": "",
+      "approvedAt": "",
+      "notes": "",
+      "executionText": "",
+      "cleanupAuthorized": false,
+      "executableNow": false,
+      "packageFiles": [
+        "coordination/release-intake/latest-A25-effective-owner-a22-production-reliability-and-release-engineering.pathspec"
+      ]
+    },
+    {
+      "approvalId": "a06-visualization-lead",
+      "approvalKind": "owner-package",
+      "owner": "A06 visualization lead",
+      "subject": "coordination/release-intake/latest-A25-effective-owner-a06-visualization-lead.pathspec",
+      "path": "coordination/release-intake/latest-A25-effective-owner-a06-visualization-lead.pathspec",
+      "command": "",
+      "cwd": "/Users/dongpinhu/Desktop/MAIS-MVP",
+      "worktreePath": "",
+      "selectedAction": "owner-selected-final-state",
+      "selectedFinalState": "reviewed commit",
+      "readyForSeparateInstruction": false,
+      "requiredExecutionText": "Candidate is not ready for a separate execution instruction.",
+      "evidenceReviewed": [
+        "coordination/release-intake/latest-A25-next-owner-authorized-command-manifest.json"
+      ],
+      "approvedBy": "",
+      "approvedAt": "",
+      "notes": "",
+      "executionText": "",
+      "cleanupAuthorized": false,
+      "executableNow": false,
+      "packageFiles": [
+        "coordination/release-intake/latest-A25-effective-owner-a06-visualization-lead.pathspec"
+      ]
+    },
+    {
+      "approvalId": "a12-backend-api-platform",
+      "approvalKind": "owner-package",
+      "owner": "A12 backend/API platform",
+      "subject": "coordination/release-intake/latest-A25-effective-owner-a12-backend-api-platform.pathspec",
+      "path": "coordination/release-intake/latest-A25-effective-owner-a12-backend-api-platform.pathspec",
+      "command": "",
+      "cwd": "/Users/dongpinhu/Desktop/MAIS-MVP",
+      "worktreePath": "",
+      "selectedAction": "owner-selected-final-state",
+      "selectedFinalState": "reviewed commit",
+      "readyForSeparateInstruction": false,
+      "requiredExecutionText": "Candidate is not ready for a separate execution instruction.",
+      "evidenceReviewed": [
+        "coordination/release-intake/latest-A25-next-owner-authorized-command-manifest.json"
+      ],
+      "approvedBy": "",
+      "approvedAt": "",
+      "notes": "",
+      "executionText": "",
+      "cleanupAuthorized": false,
+      "executableNow": false,
+      "packageFiles": [
+        "coordination/release-intake/latest-A25-effective-owner-a12-backend-api-platform.pathspec"
+      ]
+    },
+    {
+      "approvalId": "a11-qa-and-release-quality",
+      "approvalKind": "owner-package",
+      "owner": "A11 QA and release quality",
+      "subject": "coordination/release-intake/latest-A25-effective-owner-a11-qa-and-release-quality.pathspec",
+      "path": "coordination/release-intake/latest-A25-effective-owner-a11-qa-and-release-quality.pathspec",
+      "command": "",
+      "cwd": "/Users/dongpinhu/Desktop/MAIS-MVP",
+      "worktreePath": "",
+      "selectedAction": "owner-selected-final-state",
+      "selectedFinalState": "reviewed commit",
+      "readyForSeparateInstruction": false,
+      "requiredExecutionText": "Candidate is not ready for a separate execution instruction.",
+      "evidenceReviewed": [
+        "coordination/release-intake/latest-A25-next-owner-authorized-command-manifest.json"
+      ],
+      "approvedBy": "",
+      "approvedAt": "",
+      "notes": "",
+      "executionText": "",
+      "cleanupAuthorized": false,
+      "executableNow": false,
+      "packageFiles": [
+        "coordination/release-intake/latest-A25-effective-owner-a11-qa-and-release-quality.pathspec"
+      ]
+    },
+    {
+      "approvalId": "a10-tooling-docs-and-report",
+      "approvalKind": "owner-package",
+      "owner": "A10 tooling, docs, and report",
+      "subject": "coordination/release-intake/latest-A25-effective-owner-a10-tooling-docs-and-report.pathspec",
+      "path": "coordination/release-intake/latest-A25-effective-owner-a10-tooling-docs-and-report.pathspec",
+      "command": "",
+      "cwd": "/Users/dongpinhu/Desktop/MAIS-MVP",
+      "worktreePath": "",
+      "selectedAction": "owner-selected-final-state",
+      "selectedFinalState": "reviewed commit",
+      "readyForSeparateInstruction": false,
+      "requiredExecutionText": "Candidate is not ready for a separate execution instruction.",
+      "evidenceReviewed": [
+        "coordination/release-intake/latest-A25-next-owner-authorized-command-manifest.json"
+      ],
+      "approvedBy": "",
+      "approvedAt": "",
+      "notes": "",
+      "executionText": "",
+      "cleanupAuthorized": false,
+      "executableNow": false,
+      "packageFiles": [
+        "coordination/release-intake/latest-A25-effective-owner-a10-tooling-docs-and-report.pathspec"
+      ]
+    },
+    {
+      "approvalId": "a05-lesson-lead",
+      "approvalKind": "owner-package",
+      "owner": "A05 lesson lead",
+      "subject": "coordination/release-intake/latest-A25-effective-owner-a05-lesson-lead.pathspec",
+      "path": "coordination/release-intake/latest-A25-effective-owner-a05-lesson-lead.pathspec",
+      "command": "",
+      "cwd": "/Users/dongpinhu/Desktop/MAIS-MVP",
+      "worktreePath": "",
+      "selectedAction": "owner-selected-final-state",
+      "selectedFinalState": "reviewed commit",
+      "readyForSeparateInstruction": false,
+      "requiredExecutionText": "Candidate is not ready for a separate execution instruction.",
+      "evidenceReviewed": [
+        "coordination/release-intake/latest-A25-next-owner-authorized-command-manifest.json"
+      ],
+      "approvedBy": "",
+      "approvedAt": "",
+      "notes": "",
+      "executionText": "",
+      "cleanupAuthorized": false,
+      "executableNow": false,
+      "packageFiles": [
+        "coordination/release-intake/latest-A25-effective-owner-a05-lesson-lead.pathspec"
+      ]
+    },
+    {
+      "approvalId": "a21-content-pipeline-and-rag-operations",
+      "approvalKind": "owner-package",
+      "owner": "A21 content pipeline and RAG operations",
+      "subject": "coordination/release-intake/latest-A25-effective-owner-a21-content-pipeline-and-rag-operations.pathspec",
+      "path": "coordination/release-intake/latest-A25-effective-owner-a21-content-pipeline-and-rag-operations.pathspec",
+      "command": "",
+      "cwd": "/Users/dongpinhu/Desktop/MAIS-MVP",
+      "worktreePath": "",
+      "selectedAction": "owner-selected-final-state",
+      "selectedFinalState": "reviewed commit",
+      "readyForSeparateInstruction": false,
+      "requiredExecutionText": "Candidate is not ready for a separate execution instruction.",
+      "evidenceReviewed": [
+        "coordination/release-intake/latest-A25-next-owner-authorized-command-manifest.json"
+      ],
+      "approvedBy": "",
+      "approvedAt": "",
+      "notes": "",
+      "executionText": "",
+      "cleanupAuthorized": false,
+      "executableNow": false,
+      "packageFiles": [
+        "coordination/release-intake/latest-A25-effective-owner-a21-content-pipeline-and-rag-operations.pathspec"
+      ]
+    },
+    {
+      "approvalId": "a04-practice-lead",
+      "approvalKind": "owner-package",
+      "owner": "A04 practice lead",
+      "subject": "coordination/release-intake/latest-A25-effective-owner-a04-practice-lead.pathspec",
+      "path": "coordination/release-intake/latest-A25-effective-owner-a04-practice-lead.pathspec",
+      "command": "",
+      "cwd": "/Users/dongpinhu/Desktop/MAIS-MVP",
+      "worktreePath": "",
+      "selectedAction": "owner-selected-final-state",
+      "selectedFinalState": "reviewed commit",
+      "readyForSeparateInstruction": false,
+      "requiredExecutionText": "Candidate is not ready for a separate execution instruction.",
+      "evidenceReviewed": [
+        "coordination/release-intake/latest-A25-next-owner-authorized-command-manifest.json"
+      ],
+      "approvedBy": "",
+      "approvedAt": "",
+      "notes": "",
+      "executionText": "",
+      "cleanupAuthorized": false,
+      "executableNow": false,
+      "packageFiles": [
+        "coordination/release-intake/latest-A25-effective-owner-a04-practice-lead.pathspec"
+      ]
+    },
+    {
+      "approvalId": "a18-curriculum-qa-a21-content-pipeline",
+      "approvalKind": "owner-package",
+      "owner": "A18 curriculum QA / A21 content pipeline",
+      "subject": "coordination/release-intake/latest-A25-effective-owner-a18-curriculum-qa-a21-content-pipeline.pathspec",
+      "path": "coordination/release-intake/latest-A25-effective-owner-a18-curriculum-qa-a21-content-pipeline.pathspec",
+      "command": "",
+      "cwd": "/Users/dongpinhu/Desktop/MAIS-MVP",
+      "worktreePath": "",
+      "selectedAction": "owner-selected-final-state",
+      "selectedFinalState": "reviewed commit",
+      "readyForSeparateInstruction": false,
+      "requiredExecutionText": "Candidate is not ready for a separate execution instruction.",
+      "evidenceReviewed": [
+        "coordination/release-intake/latest-A25-next-owner-authorized-command-manifest.json"
+      ],
+      "approvedBy": "",
+      "approvedAt": "",
+      "notes": "",
+      "executionText": "",
+      "cleanupAuthorized": false,
+      "executableNow": false,
+      "packageFiles": [
+        "coordination/release-intake/latest-A25-effective-owner-a18-curriculum-qa-a21-content-pipeline.pathspec"
+      ]
+    },
+    {
+      "approvalId": "a03-curriculum-roadmap-lead",
+      "approvalKind": "owner-package",
+      "owner": "A03 curriculum roadmap lead",
+      "subject": "coordination/release-intake/latest-A25-effective-owner-a03-curriculum-roadmap-lead.pathspec",
+      "path": "coordination/release-intake/latest-A25-effective-owner-a03-curriculum-roadmap-lead.pathspec",
+      "command": "",
+      "cwd": "/Users/dongpinhu/Desktop/MAIS-MVP",
+      "worktreePath": "",
+      "selectedAction": "owner-selected-final-state",
+      "selectedFinalState": "reviewed commit",
+      "readyForSeparateInstruction": false,
+      "requiredExecutionText": "Candidate is not ready for a separate execution instruction.",
+      "evidenceReviewed": [
+        "coordination/release-intake/latest-A25-next-owner-authorized-command-manifest.json"
+      ],
+      "approvedBy": "",
+      "approvedAt": "",
+      "notes": "",
+      "executionText": "",
+      "cleanupAuthorized": false,
+      "executableNow": false,
+      "packageFiles": [
+        "coordination/release-intake/latest-A25-effective-owner-a03-curriculum-roadmap-lead.pathspec"
+      ]
+    },
+    {
+      "approvalId": "a24-illustration-exact-layer",
+      "approvalKind": "owner-package",
+      "owner": "A24 illustration exact-layer",
+      "subject": "coordination/release-intake/latest-A25-effective-owner-a24-illustration-exact-layer.pathspec",
+      "path": "coordination/release-intake/latest-A25-effective-owner-a24-illustration-exact-layer.pathspec",
+      "command": "",
+      "cwd": "/Users/dongpinhu/Desktop/MAIS-MVP",
+      "worktreePath": "",
+      "selectedAction": "owner-selected-final-state",
+      "selectedFinalState": "reviewed commit",
+      "readyForSeparateInstruction": false,
+      "requiredExecutionText": "Candidate is not ready for a separate execution instruction.",
+      "evidenceReviewed": [
+        "coordination/release-intake/latest-A25-next-owner-authorized-command-manifest.json"
+      ],
+      "approvedBy": "",
+      "approvedAt": "",
+      "notes": "",
+      "executionText": "",
+      "cleanupAuthorized": false,
+      "executableNow": false,
+      "packageFiles": [
+        "coordination/release-intake/latest-A25-effective-owner-a24-illustration-exact-layer.pathspec"
+      ]
+    },
+    {
+      "approvalId": "a13-teacher-console",
+      "approvalKind": "owner-package",
+      "owner": "A13 teacher console",
+      "subject": "coordination/release-intake/latest-A25-effective-owner-a13-teacher-console.pathspec",
+      "path": "coordination/release-intake/latest-A25-effective-owner-a13-teacher-console.pathspec",
+      "command": "",
+      "cwd": "/Users/dongpinhu/Desktop/MAIS-MVP",
+      "worktreePath": "",
+      "selectedAction": "owner-selected-final-state",
+      "selectedFinalState": "reviewed commit",
+      "readyForSeparateInstruction": false,
+      "requiredExecutionText": "Candidate is not ready for a separate execution instruction.",
+      "evidenceReviewed": [
+        "coordination/release-intake/latest-A25-next-owner-authorized-command-manifest.json"
+      ],
+      "approvedBy": "",
+      "approvedAt": "",
+      "notes": "",
+      "executionText": "",
+      "cleanupAuthorized": false,
+      "executableNow": false,
+      "packageFiles": [
+        "coordination/release-intake/latest-A25-effective-owner-a13-teacher-console.pathspec"
+      ]
+    },
+    {
+      "approvalId": "a01-app-shell-lead",
+      "approvalKind": "owner-package",
+      "owner": "A01 app shell lead",
+      "subject": "coordination/release-intake/latest-A25-effective-owner-a01-app-shell-lead.pathspec",
+      "path": "coordination/release-intake/latest-A25-effective-owner-a01-app-shell-lead.pathspec",
+      "command": "",
+      "cwd": "/Users/dongpinhu/Desktop/MAIS-MVP",
+      "worktreePath": "",
+      "selectedAction": "owner-selected-final-state",
+      "selectedFinalState": "reviewed commit",
+      "readyForSeparateInstruction": false,
+      "requiredExecutionText": "Candidate is not ready for a separate execution instruction.",
+      "evidenceReviewed": [
+        "coordination/release-intake/latest-A25-next-owner-authorized-command-manifest.json"
+      ],
+      "approvedBy": "",
+      "approvedAt": "",
+      "notes": "",
+      "executionText": "",
+      "cleanupAuthorized": false,
+      "executableNow": false,
+      "packageFiles": [
+        "coordination/release-intake/latest-A25-effective-owner-a01-app-shell-lead.pathspec"
+      ]
+    },
+    {
+      "approvalId": "a02-dashboard-lead",
+      "approvalKind": "owner-package",
+      "owner": "A02 dashboard lead",
+      "subject": "coordination/release-intake/latest-A25-effective-owner-a02-dashboard-lead.pathspec",
+      "path": "coordination/release-intake/latest-A25-effective-owner-a02-dashboard-lead.pathspec",
+      "command": "",
+      "cwd": "/Users/dongpinhu/Desktop/MAIS-MVP",
+      "worktreePath": "",
+      "selectedAction": "owner-selected-final-state",
+      "selectedFinalState": "reviewed commit",
+      "readyForSeparateInstruction": false,
+      "requiredExecutionText": "Candidate is not ready for a separate execution instruction.",
+      "evidenceReviewed": [
+        "coordination/release-intake/latest-A25-next-owner-authorized-command-manifest.json"
+      ],
+      "approvedBy": "",
+      "approvedAt": "",
+      "notes": "",
+      "executionText": "",
+      "cleanupAuthorized": false,
+      "executableNow": false,
+      "packageFiles": [
+        "coordination/release-intake/latest-A25-effective-owner-a02-dashboard-lead.pathspec"
+      ]
+    },
+    {
+      "approvalId": "a20-game-design-and-game-based-learning",
+      "approvalKind": "owner-package",
+      "owner": "A20 game design and game-based learning",
+      "subject": "coordination/release-intake/latest-A25-effective-owner-a20-game-design-and-game-based-learning.pathspec",
+      "path": "coordination/release-intake/latest-A25-effective-owner-a20-game-design-and-game-based-learning.pathspec",
+      "command": "",
+      "cwd": "/Users/dongpinhu/Desktop/MAIS-MVP",
+      "worktreePath": "",
+      "selectedAction": "owner-selected-final-state",
+      "selectedFinalState": "reviewed commit",
+      "readyForSeparateInstruction": false,
+      "requiredExecutionText": "Candidate is not ready for a separate execution instruction.",
+      "evidenceReviewed": [
+        "coordination/release-intake/latest-A25-next-owner-authorized-command-manifest.json"
+      ],
+      "approvedBy": "",
+      "approvedAt": "",
+      "notes": "",
+      "executionText": "",
+      "cleanupAuthorized": false,
+      "executableNow": false,
+      "packageFiles": [
+        "coordination/release-intake/latest-A25-effective-owner-a20-game-design-and-game-based-learning.pathspec"
+      ]
+    },
+    {
+      "approvalId": "a07-ai-tutor-lead",
+      "approvalKind": "owner-package",
+      "owner": "A07 AI tutor lead",
+      "subject": "coordination/release-intake/latest-A25-effective-owner-a07-ai-tutor-lead.pathspec",
+      "path": "coordination/release-intake/latest-A25-effective-owner-a07-ai-tutor-lead.pathspec",
+      "command": "",
+      "cwd": "/Users/dongpinhu/Desktop/MAIS-MVP",
+      "worktreePath": "",
+      "selectedAction": "owner-selected-final-state",
+      "selectedFinalState": "reviewed commit",
+      "readyForSeparateInstruction": false,
+      "requiredExecutionText": "Candidate is not ready for a separate execution instruction.",
+      "evidenceReviewed": [
+        "coordination/release-intake/latest-A25-next-owner-authorized-command-manifest.json"
+      ],
+      "approvedBy": "",
+      "approvedAt": "",
+      "notes": "",
+      "executionText": "",
+      "cleanupAuthorized": false,
+      "executableNow": false,
+      "packageFiles": [
+        "coordination/release-intake/latest-A25-effective-owner-a07-ai-tutor-lead.pathspec"
+      ]
+    },
+    {
+      "approvalId": "a08-state-and-analytics-lead",
+      "approvalKind": "owner-package",
+      "owner": "A08 state and analytics lead",
+      "subject": "coordination/release-intake/latest-A25-effective-owner-a08-state-and-analytics-lead.pathspec",
+      "path": "coordination/release-intake/latest-A25-effective-owner-a08-state-and-analytics-lead.pathspec",
+      "command": "",
+      "cwd": "/Users/dongpinhu/Desktop/MAIS-MVP",
+      "worktreePath": "",
+      "selectedAction": "owner-selected-final-state",
+      "selectedFinalState": "reviewed commit",
+      "readyForSeparateInstruction": false,
+      "requiredExecutionText": "Candidate is not ready for a separate execution instruction.",
+      "evidenceReviewed": [
+        "coordination/release-intake/latest-A25-next-owner-authorized-command-manifest.json"
+      ],
+      "approvedBy": "",
+      "approvedAt": "",
+      "notes": "",
+      "executionText": "",
+      "cleanupAuthorized": false,
+      "executableNow": false,
+      "packageFiles": [
+        "coordination/release-intake/latest-A25-effective-owner-a08-state-and-analytics-lead.pathspec"
+      ]
+    },
+    {
+      "approvalId": "a15-adaptive-engine-lead",
+      "approvalKind": "owner-package",
+      "owner": "A15 adaptive engine lead",
+      "subject": "coordination/release-intake/latest-A25-effective-owner-a15-adaptive-engine-lead.pathspec",
+      "path": "coordination/release-intake/latest-A25-effective-owner-a15-adaptive-engine-lead.pathspec",
+      "command": "",
+      "cwd": "/Users/dongpinhu/Desktop/MAIS-MVP",
+      "worktreePath": "",
+      "selectedAction": "owner-selected-final-state",
+      "selectedFinalState": "reviewed commit",
+      "readyForSeparateInstruction": false,
+      "requiredExecutionText": "Candidate is not ready for a separate execution instruction.",
+      "evidenceReviewed": [
+        "coordination/release-intake/latest-A25-next-owner-authorized-command-manifest.json"
+      ],
+      "approvedBy": "",
+      "approvedAt": "",
+      "notes": "",
+      "executionText": "",
+      "cleanupAuthorized": false,
+      "executableNow": false,
+      "packageFiles": [
+        "coordination/release-intake/latest-A25-effective-owner-a15-adaptive-engine-lead.pathspec"
+      ]
+    },
+    {
+      "approvalId": "a14-parent-console",
+      "approvalKind": "owner-package",
+      "owner": "A14 parent console",
+      "subject": "coordination/release-intake/latest-A25-effective-owner-a14-parent-console.pathspec",
+      "path": "coordination/release-intake/latest-A25-effective-owner-a14-parent-console.pathspec",
+      "command": "",
+      "cwd": "/Users/dongpinhu/Desktop/MAIS-MVP",
+      "worktreePath": "",
+      "selectedAction": "owner-selected-final-state",
+      "selectedFinalState": "reviewed commit",
+      "readyForSeparateInstruction": false,
+      "requiredExecutionText": "Candidate is not ready for a separate execution instruction.",
+      "evidenceReviewed": [
+        "coordination/release-intake/latest-A25-next-owner-authorized-command-manifest.json"
+      ],
+      "approvedBy": "",
+      "approvedAt": "",
+      "notes": "",
+      "executionText": "",
+      "cleanupAuthorized": false,
+      "executableNow": false,
+      "packageFiles": [
+        "coordination/release-intake/latest-A25-effective-owner-a14-parent-console.pathspec"
+      ]
+    },
+    {
+      "approvalId": "manual-a10-a25-owner-assignment-required",
+      "approvalKind": "owner-package",
+      "owner": "Manual A10/A25 owner assignment required",
+      "subject": "coordination/release-intake/latest-A25-effective-owner-manual-a10-a25-owner-assignment-required.pathspec",
+      "path": "coordination/release-intake/latest-A25-effective-owner-manual-a10-a25-owner-assignment-required.pathspec",
+      "command": "",
+      "cwd": "/Users/dongpinhu/Desktop/MAIS-MVP",
+      "worktreePath": "",
+      "selectedAction": "owner-selected-final-state",
+      "selectedFinalState": "reviewed commit",
+      "readyForSeparateInstruction": false,
+      "requiredExecutionText": "Candidate is not ready for a separate execution instruction.",
+      "evidenceReviewed": [
+        "coordination/release-intake/latest-A25-next-owner-authorized-command-manifest.json"
+      ],
+      "approvedBy": "",
+      "approvedAt": "",
+      "notes": "",
+      "executionText": "",
+      "cleanupAuthorized": false,
+      "executableNow": false,
+      "packageFiles": [
+        "coordination/release-intake/latest-A25-effective-owner-manual-a10-a25-owner-assignment-required.pathspec"
+      ]
+    },
+    {
+      "approvalId": "a09-copy-i18n-accessibility",
+      "approvalKind": "owner-package",
+      "owner": "A09 copy, i18n, accessibility",
+      "subject": "coordination/release-intake/latest-A25-effective-owner-a09-copy-i18n-accessibility.pathspec",
+      "path": "coordination/release-intake/latest-A25-effective-owner-a09-copy-i18n-accessibility.pathspec",
+      "command": "",
+      "cwd": "/Users/dongpinhu/Desktop/MAIS-MVP",
+      "worktreePath": "",
+      "selectedAction": "owner-selected-final-state",
+      "selectedFinalState": "reviewed commit",
+      "readyForSeparateInstruction": false,
+      "requiredExecutionText": "Candidate is not ready for a separate execution instruction.",
+      "evidenceReviewed": [
+        "coordination/release-intake/latest-A25-next-owner-authorized-command-manifest.json"
+      ],
+      "approvedBy": "",
+      "approvedAt": "",
+      "notes": "",
+      "executionText": "",
+      "cleanupAuthorized": false,
+      "executableNow": false,
+      "packageFiles": [
+        "coordination/release-intake/latest-A25-effective-owner-a09-copy-i18n-accessibility.pathspec"
+      ]
+    },
+    {
+      "approvalId": "a17-gamification-and-motivation",
+      "approvalKind": "owner-package",
+      "owner": "A17 gamification and motivation",
+      "subject": "coordination/release-intake/latest-A25-effective-owner-a17-gamification-and-motivation.pathspec",
+      "path": "coordination/release-intake/latest-A25-effective-owner-a17-gamification-and-motivation.pathspec",
+      "command": "",
+      "cwd": "/Users/dongpinhu/Desktop/MAIS-MVP",
+      "worktreePath": "",
+      "selectedAction": "owner-selected-final-state",
+      "selectedFinalState": "reviewed commit",
+      "readyForSeparateInstruction": false,
+      "requiredExecutionText": "Candidate is not ready for a separate execution instruction.",
+      "evidenceReviewed": [
+        "coordination/release-intake/latest-A25-next-owner-authorized-command-manifest.json"
+      ],
+      "approvedBy": "",
+      "approvedAt": "",
+      "notes": "",
+      "executionText": "",
+      "cleanupAuthorized": false,
+      "executableNow": false,
+      "packageFiles": [
+        "coordination/release-intake/latest-A25-effective-owner-a17-gamification-and-motivation.pathspec"
+      ]
+    },
+    {
+      "approvalId": "a23-integration-and-promotion-lead",
+      "approvalKind": "owner-package",
+      "owner": "A23 integration and promotion lead",
+      "subject": "coordination/release-intake/latest-A25-effective-owner-a23-integration-and-promotion-lead.pathspec",
+      "path": "coordination/release-intake/latest-A25-effective-owner-a23-integration-and-promotion-lead.pathspec",
+      "command": "",
+      "cwd": "/Users/dongpinhu/Desktop/MAIS-MVP",
+      "worktreePath": "",
+      "selectedAction": "owner-selected-final-state",
+      "selectedFinalState": "reviewed commit",
+      "readyForSeparateInstruction": false,
+      "requiredExecutionText": "Candidate is not ready for a separate execution instruction.",
+      "evidenceReviewed": [
+        "coordination/release-intake/latest-A25-next-owner-authorized-command-manifest.json"
+      ],
+      "approvedBy": "",
+      "approvedAt": "",
+      "notes": "",
+      "executionText": "",
+      "cleanupAuthorized": false,
+      "executableNow": false,
+      "packageFiles": [
+        "coordination/release-intake/latest-A25-effective-owner-a23-integration-and-promotion-lead.pathspec"
+      ]
+    },
+    {
+      "approvalId": "a13-teacher-console-lead",
+      "approvalKind": "owner-package",
+      "owner": "A13 teacher console lead",
+      "subject": "coordination/release-intake/latest-A25-effective-owner-a13-teacher-console-lead.pathspec",
+      "path": "coordination/release-intake/latest-A25-effective-owner-a13-teacher-console-lead.pathspec",
+      "command": "",
+      "cwd": "/Users/dongpinhu/Desktop/MAIS-MVP",
+      "worktreePath": "",
+      "selectedAction": "owner-selected-final-state",
+      "selectedFinalState": "reviewed commit",
+      "readyForSeparateInstruction": false,
+      "requiredExecutionText": "Candidate is not ready for a separate execution instruction.",
+      "evidenceReviewed": [
+        "coordination/release-intake/latest-A25-next-owner-authorized-command-manifest.json"
+      ],
+      "approvedBy": "",
+      "approvedAt": "",
+      "notes": "",
+      "executionText": "",
+      "cleanupAuthorized": false,
+      "executableNow": false,
+      "packageFiles": [
+        "coordination/release-intake/latest-A25-effective-owner-a13-teacher-console-lead.pathspec"
+      ]
+    },
+    {
+      "approvalId": "a18-curriculum-qa-and-content-quality-lead",
+      "approvalKind": "owner-package",
+      "owner": "A18 curriculum QA and content quality lead",
+      "subject": "coordination/release-intake/latest-A25-effective-owner-a18-curriculum-qa-and-content-quality-lead.pathspec",
+      "path": "coordination/release-intake/latest-A25-effective-owner-a18-curriculum-qa-and-content-quality-lead.pathspec",
+      "command": "",
+      "cwd": "/Users/dongpinhu/Desktop/MAIS-MVP",
+      "worktreePath": "",
+      "selectedAction": "owner-selected-final-state",
+      "selectedFinalState": "reviewed commit",
+      "readyForSeparateInstruction": false,
+      "requiredExecutionText": "Candidate is not ready for a separate execution instruction.",
+      "evidenceReviewed": [
+        "coordination/release-intake/latest-A25-next-owner-authorized-command-manifest.json"
+      ],
+      "approvedBy": "",
+      "approvedAt": "",
+      "notes": "",
+      "executionText": "",
+      "cleanupAuthorized": false,
+      "executableNow": false,
+      "packageFiles": [
+        "coordination/release-intake/latest-A25-effective-owner-a18-curriculum-qa-and-content-quality-lead.pathspec"
+      ]
+    },
+    {
+      "approvalId": "codex-a16-research-evidence-closure",
+      "approvalKind": "physical-lifecycle",
+      "owner": "A16",
+      "subject": "codex/A16-research-evidence-closure",
+      "path": "/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A16-research-evidence-closure",
+      "command": "",
+      "cwd": "/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A16-research-evidence-closure",
+      "worktreePath": "/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A16-research-evidence-closure",
+      "selectedAction": "owner-selected-lifecycle-final-state",
+      "selectedFinalState": "owner-reviewed commit or package extraction",
+      "readyForSeparateInstruction": false,
+      "requiredExecutionText": "Candidate is not ready for a separate execution instruction.",
+      "evidenceReviewed": [
+        "coordination/release-intake/latest-A25-next-owner-authorized-command-manifest.json"
+      ],
+      "approvedBy": "",
+      "approvedAt": "",
+      "notes": "",
+      "executionText": "",
+      "cleanupAuthorized": false,
+      "executableNow": false,
+      "packageFiles": [
+        "/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A16-research-evidence-closure"
+      ]
+    },
+    {
+      "approvalId": "a16-root-pathspec-commit-execution",
+      "approvalKind": "a16-package-extraction-execution",
+      "owner": "A16 research and learning science",
+      "subject": "wave-05-visualization-ai-runtime:a16-research-evidence",
+      "path": "coordination/release-intake/latest-A25-a16-pre-execution-validation-report.json",
+      "command": "",
+      "exactCommandSequence": [
+        "git add --pathspec-from-file=coordination/release-intake/latest-A25-effective-owner-a16-research-and-learning-science.pathspec",
+        "git commit -m \"Add A16 research evidence package\""
+      ],
+      "cwd": "/Users/dongpinhu/Desktop/MAIS-MVP",
+      "worktreePath": "",
+      "selectedAction": "pathspec-stage-and-commit",
+      "selectedFinalState": "reviewed commit",
+      "readyForSeparateInstruction": false,
+      "requiredExecutionText": "Candidate is not ready for a separate execution instruction.",
+      "evidenceReviewed": [
+        "coordination/release-intake/latest-A25-next-owner-authorized-command-manifest.json"
+      ],
+      "approvedBy": "",
+      "approvedAt": "",
+      "notes": "",
+      "executionText": "",
+      "cleanupAuthorized": false,
+      "executableNow": false,
+      "sourceKind": "a16-specialized-owner-input",
+      "candidateId": "wave-05-visualization-ai-runtime:a16-research-evidence",
+      "sourceApprovalIds": [
+        "a16-research-and-learning-science",
+        "codex-a16-research-evidence-closure"
+      ],
+      "packageFiles": [
+        "coordination/research/2026-06-20-3blue1brown-skill-distillation-handbook.md",
+        "coordination/research/2026-06-20-3blue1brown-skill-distillation-handbook.provenance.md",
+        "coordination/research/2026-06-20-3blue1brown-style-visualization-effects-report.md",
+        "coordination/research/2026-06-21-ke-to-mais-behavior-event-dictionary.csv",
+        "coordination/research/2026-06-21-ke-to-mais-stealth-assessment-integration-spec.md",
+        "coordination/research/2026-06-21-ke-to-mais-stealth-assessment-integration-spec.provenance.md"
+      ],
+      "packageFingerprints": [
+        {
+          "path": "coordination/research/2026-06-20-3blue1brown-skill-distillation-handbook.md",
+          "bytes": 22526,
+          "lineCount": 668,
+          "sha256": "643a27210a59980749e25e12b26d7afb705f13fcd225785ee5f9bf2ca2265a10"
+        },
+        {
+          "path": "coordination/research/2026-06-20-3blue1brown-skill-distillation-handbook.provenance.md",
+          "bytes": 2548,
+          "lineCount": 42,
+          "sha256": "bdc11b6350ba02ff316505c850b250cc3f3d220a36fd13032498b150d86a08bf"
+        },
+        {
+          "path": "coordination/research/2026-06-20-3blue1brown-style-visualization-effects-report.md",
+          "bytes": 35064,
+          "lineCount": 349,
+          "sha256": "11525e88659340ab2bf16a6f03fecb04b48c40f5c8a7fc2c651eed101112d158"
+        },
+        {
+          "path": "coordination/research/2026-06-21-ke-to-mais-behavior-event-dictionary.csv",
+          "bytes": 48645,
+          "lineCount": 100,
+          "sha256": "311b2388210d526dcb308d55eee1011c1c298e921eca66e5e9256a60bae5fb5c"
+        },
+        {
+          "path": "coordination/research/2026-06-21-ke-to-mais-stealth-assessment-integration-spec.md",
+          "bytes": 26095,
+          "lineCount": 653,
+          "sha256": "e902192f6e607c2e6a0c53581b2c994a37bc17a3a6a41c6a670abda85b5400d7"
+        },
+        {
+          "path": "coordination/research/2026-06-21-ke-to-mais-stealth-assessment-integration-spec.provenance.md",
+          "bytes": 1689,
+          "lineCount": 36,
+          "sha256": "96bb772676f89f1364e729b66a28cf787bbc724f12e83209b4f2b1b0c7f3c6d5"
+        }
+      ],
+      "packageFingerprintSha256": "005a792e0e2438bbade0462d03c740dc6a542b8152935a0ed5e6b11caf5a9fac",
+      "packageFingerprintSource": "coordination/release-intake/latest-A25-a16-pre-execution-validation-report.json",
+      "requiredPreExecutionChecks": [
+        "node coordination/release-intake/review-owner-pathspec.mjs coordination/release-intake/latest-A25-effective-owner-a16-research-and-learning-science.pathspec --status",
+        "node coordination/release-intake/review-owner-pathspec.mjs coordination/release-intake/latest-A25-effective-owner-a16-research-and-learning-science.pathspec --diffstat",
+        "node coordination/release-intake/assert-next-owner-authorizations-current.mjs --json",
+        "node coordination/release-intake/assert-a16-authorized-package-extraction-request-current.mjs --json",
+        "node coordination/release-intake/assert-no-staged-changes.mjs --json"
+      ],
+      "requiredPostExecutionChecks": [
+        "node coordination/release-intake/assert-no-staged-changes.mjs --json",
+        "npm run release:dirty-map -- --reason \"A25 post-A16 package extraction commit\"",
+        "node coordination/release-intake/assert-dirty-worktree-remediation-current.mjs --json"
+      ]
+    }
+  ],
+  "boundary": {
+    "evidenceOnly": true,
+    "scaffoldOnly": true,
+    "cleanupAuthorized": false,
+    "executableNow": false,
+    "destructiveGitAuthorized": false,
+    "deployAuthorized": false,
+    "requiresSeparateExecutionInstruction": true
+  },
+  "consumedInstructionsDoNotExecute": [
+    {
+      "approvalId": "wave01-resync-02-coordination-release-intake-2026-06-30-a25-dirty-tree-map-20260630t072027z-json",
+      "approvalKind": "wave01-package-resync",
+      "owner": "A25 git hygiene and release intake",
+      "subject": "coordination/release-intake/2026-06-30-A25-dirty-tree-map-20260630T072027Z.json",
+      "path": "coordination/release-intake/2026-06-30-A25-dirty-tree-map-20260630T072027Z.json",
+      "command": "git clean -f -- coordination/release-intake/2026-06-30-A25-dirty-tree-map-20260630T072027Z.json",
+      "cwd": "/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A25-dirty-closure-governance",
+      "worktreePath": "/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A25-dirty-closure-governance",
+      "selectedAction": "owner-approved-package-untracked-clean",
+      "selectedFinalState": "approve-wave01-a25-artifact-clean-only",
+      "readyForSeparateInstruction": false,
+      "requiredExecutionText": "Instruction row has already been consumed by the guarded executor and verified post-clean.",
+      "evidenceReviewed": [
+        "coordination/release-intake/latest-A25-wave01-artifact-clean-post-clean-verification-plan.json",
+        "coordination/release-intake/latest-A25-wave01-artifact-clean-batch-execution-instruction-owner-input.json"
+      ],
+      "approvedBy": "owner-chat-instruction",
+      "approvedAt": "2026-07-06T02:01:00Z",
+      "notes": "Owner instructed Codex to first let A25/A22 turn cleanable items into executableRows > 0, then check whether the clean slice satisfies build/type/regression gates. Scope is limited to recording the six Wave01 A25 artifact-clean execution-instruction rows; no broad staging, commit, merge, push, reset, branch deletion, worktree removal, deploy, or unrelated file operation is authorized.",
+      "executionText": "Authorize separate Wave01 A25 artifact-clean batch execution; approvalId=wave01-resync-02-coordination-release-intake-2026-06-30-a25-dirty-tree-map-20260630t072027z-json; approvalId=wave01-resync-03-coordination-release-intake-2026-06-30-a25-dirty-tree-map-20260630t072027z-md; approvalId=wave01-resync-04-coordination-release-intake-2026-06-30-a25-dirty-tree-map-20260630t073137z-json; approvalId=wave01-resync-05-coordination-release-intake-2026-06-30-a25-dirty-tree-map-20260630t073137z-md; approvalId=wave01-resync-06-coordination-release-intake-2026-06-30-a25-dirty-tree-map-20260630t130221z-json; approvalId=wave01-resync-07-coordination-release-intake-2026-06-30-a25-dirty-tree-map-20260630t130221z-md; cwd=/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A25-dirty-closure-governance; command=git clean -f -- coordination/release-intake/2026-06-30-A25-dirty-tree-map-20260630T072027Z.json; command=git clean -f -- coordination/release-intake/2026-06-30-A25-dirty-tree-map-20260630T072027Z.md; command=git clean -f -- coordination/release-intake/2026-06-30-A25-dirty-tree-map-20260630T073137Z.json; command=git clean -f -- coordination/release-intake/2026-06-30-A25-dirty-tree-map-20260630T073137Z.md; command=git clean -f -- coordination/release-intake/2026-06-30-A25-dirty-tree-map-20260630T130221Z.json; command=git clean -f -- coordination/release-intake/2026-06-30-A25-dirty-tree-map-20260630T130221Z.md; No cleanup beyond the exact listed command sequence; no broad staging, commit, merge, push, reset, branch deletion, worktree removal, deploy, or unrelated file operation is authorized; approvedBy=<owner>; approvedAt=<ISO-8601>; notes=<scope, evidence reviewed, accepted risk>",
+      "cleanupAuthorized": false,
+      "executableNow": false,
+      "packageFiles": [
+        "coordination/release-intake/2026-06-30-A25-dirty-tree-map-20260630T072027Z.json"
+      ],
+      "instructionId": "wave01-resync-02-coordination-release-intake-2026-06-30-a25-dirty-tree-map-20260630t072027z-json-execution-instruction",
+      "consumedStatus": "post-clean-verified",
+      "consumedEvidence": "coordination/release-intake/latest-A25-wave01-artifact-clean-post-clean-verification-plan.json"
+    },
+    {
+      "approvalId": "wave01-resync-03-coordination-release-intake-2026-06-30-a25-dirty-tree-map-20260630t072027z-md",
+      "approvalKind": "wave01-package-resync",
+      "owner": "A25 git hygiene and release intake",
+      "subject": "coordination/release-intake/2026-06-30-A25-dirty-tree-map-20260630T072027Z.md",
+      "path": "coordination/release-intake/2026-06-30-A25-dirty-tree-map-20260630T072027Z.md",
+      "command": "git clean -f -- coordination/release-intake/2026-06-30-A25-dirty-tree-map-20260630T072027Z.md",
+      "cwd": "/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A25-dirty-closure-governance",
+      "worktreePath": "/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A25-dirty-closure-governance",
+      "selectedAction": "owner-approved-package-untracked-clean",
+      "selectedFinalState": "approve-wave01-a25-artifact-clean-only",
+      "readyForSeparateInstruction": false,
+      "requiredExecutionText": "Instruction row has already been consumed by the guarded executor and verified post-clean.",
+      "evidenceReviewed": [
+        "coordination/release-intake/latest-A25-wave01-artifact-clean-post-clean-verification-plan.json",
+        "coordination/release-intake/latest-A25-wave01-artifact-clean-batch-execution-instruction-owner-input.json"
+      ],
+      "approvedBy": "owner-chat-instruction",
+      "approvedAt": "2026-07-06T02:01:00Z",
+      "notes": "Owner instructed Codex to first let A25/A22 turn cleanable items into executableRows > 0, then check whether the clean slice satisfies build/type/regression gates. Scope is limited to recording the six Wave01 A25 artifact-clean execution-instruction rows; no broad staging, commit, merge, push, reset, branch deletion, worktree removal, deploy, or unrelated file operation is authorized.",
+      "executionText": "Authorize separate Wave01 A25 artifact-clean batch execution; approvalId=wave01-resync-02-coordination-release-intake-2026-06-30-a25-dirty-tree-map-20260630t072027z-json; approvalId=wave01-resync-03-coordination-release-intake-2026-06-30-a25-dirty-tree-map-20260630t072027z-md; approvalId=wave01-resync-04-coordination-release-intake-2026-06-30-a25-dirty-tree-map-20260630t073137z-json; approvalId=wave01-resync-05-coordination-release-intake-2026-06-30-a25-dirty-tree-map-20260630t073137z-md; approvalId=wave01-resync-06-coordination-release-intake-2026-06-30-a25-dirty-tree-map-20260630t130221z-json; approvalId=wave01-resync-07-coordination-release-intake-2026-06-30-a25-dirty-tree-map-20260630t130221z-md; cwd=/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A25-dirty-closure-governance; command=git clean -f -- coordination/release-intake/2026-06-30-A25-dirty-tree-map-20260630T072027Z.json; command=git clean -f -- coordination/release-intake/2026-06-30-A25-dirty-tree-map-20260630T072027Z.md; command=git clean -f -- coordination/release-intake/2026-06-30-A25-dirty-tree-map-20260630T073137Z.json; command=git clean -f -- coordination/release-intake/2026-06-30-A25-dirty-tree-map-20260630T073137Z.md; command=git clean -f -- coordination/release-intake/2026-06-30-A25-dirty-tree-map-20260630T130221Z.json; command=git clean -f -- coordination/release-intake/2026-06-30-A25-dirty-tree-map-20260630T130221Z.md; No cleanup beyond the exact listed command sequence; no broad staging, commit, merge, push, reset, branch deletion, worktree removal, deploy, or unrelated file operation is authorized; approvedBy=<owner>; approvedAt=<ISO-8601>; notes=<scope, evidence reviewed, accepted risk>",
+      "cleanupAuthorized": false,
+      "executableNow": false,
+      "packageFiles": [
+        "coordination/release-intake/2026-06-30-A25-dirty-tree-map-20260630T072027Z.md"
+      ],
+      "instructionId": "wave01-resync-03-coordination-release-intake-2026-06-30-a25-dirty-tree-map-20260630t072027z-md-execution-instruction",
+      "consumedStatus": "post-clean-verified",
+      "consumedEvidence": "coordination/release-intake/latest-A25-wave01-artifact-clean-post-clean-verification-plan.json"
+    },
+    {
+      "approvalId": "wave01-resync-04-coordination-release-intake-2026-06-30-a25-dirty-tree-map-20260630t073137z-json",
+      "approvalKind": "wave01-package-resync",
+      "owner": "A25 git hygiene and release intake",
+      "subject": "coordination/release-intake/2026-06-30-A25-dirty-tree-map-20260630T073137Z.json",
+      "path": "coordination/release-intake/2026-06-30-A25-dirty-tree-map-20260630T073137Z.json",
+      "command": "git clean -f -- coordination/release-intake/2026-06-30-A25-dirty-tree-map-20260630T073137Z.json",
+      "cwd": "/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A25-dirty-closure-governance",
+      "worktreePath": "/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A25-dirty-closure-governance",
+      "selectedAction": "owner-approved-package-untracked-clean",
+      "selectedFinalState": "approve-wave01-a25-artifact-clean-only",
+      "readyForSeparateInstruction": false,
+      "requiredExecutionText": "Instruction row has already been consumed by the guarded executor and verified post-clean.",
+      "evidenceReviewed": [
+        "coordination/release-intake/latest-A25-wave01-artifact-clean-post-clean-verification-plan.json",
+        "coordination/release-intake/latest-A25-wave01-artifact-clean-batch-execution-instruction-owner-input.json"
+      ],
+      "approvedBy": "owner-chat-instruction",
+      "approvedAt": "2026-07-06T02:01:00Z",
+      "notes": "Owner instructed Codex to first let A25/A22 turn cleanable items into executableRows > 0, then check whether the clean slice satisfies build/type/regression gates. Scope is limited to recording the six Wave01 A25 artifact-clean execution-instruction rows; no broad staging, commit, merge, push, reset, branch deletion, worktree removal, deploy, or unrelated file operation is authorized.",
+      "executionText": "Authorize separate Wave01 A25 artifact-clean batch execution; approvalId=wave01-resync-02-coordination-release-intake-2026-06-30-a25-dirty-tree-map-20260630t072027z-json; approvalId=wave01-resync-03-coordination-release-intake-2026-06-30-a25-dirty-tree-map-20260630t072027z-md; approvalId=wave01-resync-04-coordination-release-intake-2026-06-30-a25-dirty-tree-map-20260630t073137z-json; approvalId=wave01-resync-05-coordination-release-intake-2026-06-30-a25-dirty-tree-map-20260630t073137z-md; approvalId=wave01-resync-06-coordination-release-intake-2026-06-30-a25-dirty-tree-map-20260630t130221z-json; approvalId=wave01-resync-07-coordination-release-intake-2026-06-30-a25-dirty-tree-map-20260630t130221z-md; cwd=/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A25-dirty-closure-governance; command=git clean -f -- coordination/release-intake/2026-06-30-A25-dirty-tree-map-20260630T072027Z.json; command=git clean -f -- coordination/release-intake/2026-06-30-A25-dirty-tree-map-20260630T072027Z.md; command=git clean -f -- coordination/release-intake/2026-06-30-A25-dirty-tree-map-20260630T073137Z.json; command=git clean -f -- coordination/release-intake/2026-06-30-A25-dirty-tree-map-20260630T073137Z.md; command=git clean -f -- coordination/release-intake/2026-06-30-A25-dirty-tree-map-20260630T130221Z.json; command=git clean -f -- coordination/release-intake/2026-06-30-A25-dirty-tree-map-20260630T130221Z.md; No cleanup beyond the exact listed command sequence; no broad staging, commit, merge, push, reset, branch deletion, worktree removal, deploy, or unrelated file operation is authorized; approvedBy=<owner>; approvedAt=<ISO-8601>; notes=<scope, evidence reviewed, accepted risk>",
+      "cleanupAuthorized": false,
+      "executableNow": false,
+      "packageFiles": [
+        "coordination/release-intake/2026-06-30-A25-dirty-tree-map-20260630T073137Z.json"
+      ],
+      "instructionId": "wave01-resync-04-coordination-release-intake-2026-06-30-a25-dirty-tree-map-20260630t073137z-json-execution-instruction",
+      "consumedStatus": "post-clean-verified",
+      "consumedEvidence": "coordination/release-intake/latest-A25-wave01-artifact-clean-post-clean-verification-plan.json"
+    },
+    {
+      "approvalId": "wave01-resync-05-coordination-release-intake-2026-06-30-a25-dirty-tree-map-20260630t073137z-md",
+      "approvalKind": "wave01-package-resync",
+      "owner": "A25 git hygiene and release intake",
+      "subject": "coordination/release-intake/2026-06-30-A25-dirty-tree-map-20260630T073137Z.md",
+      "path": "coordination/release-intake/2026-06-30-A25-dirty-tree-map-20260630T073137Z.md",
+      "command": "git clean -f -- coordination/release-intake/2026-06-30-A25-dirty-tree-map-20260630T073137Z.md",
+      "cwd": "/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A25-dirty-closure-governance",
+      "worktreePath": "/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A25-dirty-closure-governance",
+      "selectedAction": "owner-approved-package-untracked-clean",
+      "selectedFinalState": "approve-wave01-a25-artifact-clean-only",
+      "readyForSeparateInstruction": false,
+      "requiredExecutionText": "Instruction row has already been consumed by the guarded executor and verified post-clean.",
+      "evidenceReviewed": [
+        "coordination/release-intake/latest-A25-wave01-artifact-clean-post-clean-verification-plan.json",
+        "coordination/release-intake/latest-A25-wave01-artifact-clean-batch-execution-instruction-owner-input.json"
+      ],
+      "approvedBy": "owner-chat-instruction",
+      "approvedAt": "2026-07-06T02:01:00Z",
+      "notes": "Owner instructed Codex to first let A25/A22 turn cleanable items into executableRows > 0, then check whether the clean slice satisfies build/type/regression gates. Scope is limited to recording the six Wave01 A25 artifact-clean execution-instruction rows; no broad staging, commit, merge, push, reset, branch deletion, worktree removal, deploy, or unrelated file operation is authorized.",
+      "executionText": "Authorize separate Wave01 A25 artifact-clean batch execution; approvalId=wave01-resync-02-coordination-release-intake-2026-06-30-a25-dirty-tree-map-20260630t072027z-json; approvalId=wave01-resync-03-coordination-release-intake-2026-06-30-a25-dirty-tree-map-20260630t072027z-md; approvalId=wave01-resync-04-coordination-release-intake-2026-06-30-a25-dirty-tree-map-20260630t073137z-json; approvalId=wave01-resync-05-coordination-release-intake-2026-06-30-a25-dirty-tree-map-20260630t073137z-md; approvalId=wave01-resync-06-coordination-release-intake-2026-06-30-a25-dirty-tree-map-20260630t130221z-json; approvalId=wave01-resync-07-coordination-release-intake-2026-06-30-a25-dirty-tree-map-20260630t130221z-md; cwd=/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A25-dirty-closure-governance; command=git clean -f -- coordination/release-intake/2026-06-30-A25-dirty-tree-map-20260630T072027Z.json; command=git clean -f -- coordination/release-intake/2026-06-30-A25-dirty-tree-map-20260630T072027Z.md; command=git clean -f -- coordination/release-intake/2026-06-30-A25-dirty-tree-map-20260630T073137Z.json; command=git clean -f -- coordination/release-intake/2026-06-30-A25-dirty-tree-map-20260630T073137Z.md; command=git clean -f -- coordination/release-intake/2026-06-30-A25-dirty-tree-map-20260630T130221Z.json; command=git clean -f -- coordination/release-intake/2026-06-30-A25-dirty-tree-map-20260630T130221Z.md; No cleanup beyond the exact listed command sequence; no broad staging, commit, merge, push, reset, branch deletion, worktree removal, deploy, or unrelated file operation is authorized; approvedBy=<owner>; approvedAt=<ISO-8601>; notes=<scope, evidence reviewed, accepted risk>",
+      "cleanupAuthorized": false,
+      "executableNow": false,
+      "packageFiles": [
+        "coordination/release-intake/2026-06-30-A25-dirty-tree-map-20260630T073137Z.md"
+      ],
+      "instructionId": "wave01-resync-05-coordination-release-intake-2026-06-30-a25-dirty-tree-map-20260630t073137z-md-execution-instruction",
+      "consumedStatus": "post-clean-verified",
+      "consumedEvidence": "coordination/release-intake/latest-A25-wave01-artifact-clean-post-clean-verification-plan.json"
+    },
+    {
+      "approvalId": "wave01-resync-06-coordination-release-intake-2026-06-30-a25-dirty-tree-map-20260630t130221z-json",
+      "approvalKind": "wave01-package-resync",
+      "owner": "A25 git hygiene and release intake",
+      "subject": "coordination/release-intake/2026-06-30-A25-dirty-tree-map-20260630T130221Z.json",
+      "path": "coordination/release-intake/2026-06-30-A25-dirty-tree-map-20260630T130221Z.json",
+      "command": "git clean -f -- coordination/release-intake/2026-06-30-A25-dirty-tree-map-20260630T130221Z.json",
+      "cwd": "/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A25-dirty-closure-governance",
+      "worktreePath": "/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A25-dirty-closure-governance",
+      "selectedAction": "owner-approved-package-untracked-clean",
+      "selectedFinalState": "approve-wave01-a25-artifact-clean-only",
+      "readyForSeparateInstruction": false,
+      "requiredExecutionText": "Instruction row has already been consumed by the guarded executor and verified post-clean.",
+      "evidenceReviewed": [
+        "coordination/release-intake/latest-A25-wave01-artifact-clean-post-clean-verification-plan.json",
+        "coordination/release-intake/latest-A25-wave01-artifact-clean-batch-execution-instruction-owner-input.json"
+      ],
+      "approvedBy": "owner-chat-instruction",
+      "approvedAt": "2026-07-06T02:01:00Z",
+      "notes": "Owner instructed Codex to first let A25/A22 turn cleanable items into executableRows > 0, then check whether the clean slice satisfies build/type/regression gates. Scope is limited to recording the six Wave01 A25 artifact-clean execution-instruction rows; no broad staging, commit, merge, push, reset, branch deletion, worktree removal, deploy, or unrelated file operation is authorized.",
+      "executionText": "Authorize separate Wave01 A25 artifact-clean batch execution; approvalId=wave01-resync-02-coordination-release-intake-2026-06-30-a25-dirty-tree-map-20260630t072027z-json; approvalId=wave01-resync-03-coordination-release-intake-2026-06-30-a25-dirty-tree-map-20260630t072027z-md; approvalId=wave01-resync-04-coordination-release-intake-2026-06-30-a25-dirty-tree-map-20260630t073137z-json; approvalId=wave01-resync-05-coordination-release-intake-2026-06-30-a25-dirty-tree-map-20260630t073137z-md; approvalId=wave01-resync-06-coordination-release-intake-2026-06-30-a25-dirty-tree-map-20260630t130221z-json; approvalId=wave01-resync-07-coordination-release-intake-2026-06-30-a25-dirty-tree-map-20260630t130221z-md; cwd=/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A25-dirty-closure-governance; command=git clean -f -- coordination/release-intake/2026-06-30-A25-dirty-tree-map-20260630T072027Z.json; command=git clean -f -- coordination/release-intake/2026-06-30-A25-dirty-tree-map-20260630T072027Z.md; command=git clean -f -- coordination/release-intake/2026-06-30-A25-dirty-tree-map-20260630T073137Z.json; command=git clean -f -- coordination/release-intake/2026-06-30-A25-dirty-tree-map-20260630T073137Z.md; command=git clean -f -- coordination/release-intake/2026-06-30-A25-dirty-tree-map-20260630T130221Z.json; command=git clean -f -- coordination/release-intake/2026-06-30-A25-dirty-tree-map-20260630T130221Z.md; No cleanup beyond the exact listed command sequence; no broad staging, commit, merge, push, reset, branch deletion, worktree removal, deploy, or unrelated file operation is authorized; approvedBy=<owner>; approvedAt=<ISO-8601>; notes=<scope, evidence reviewed, accepted risk>",
+      "cleanupAuthorized": false,
+      "executableNow": false,
+      "packageFiles": [
+        "coordination/release-intake/2026-06-30-A25-dirty-tree-map-20260630T130221Z.json"
+      ],
+      "instructionId": "wave01-resync-06-coordination-release-intake-2026-06-30-a25-dirty-tree-map-20260630t130221z-json-execution-instruction",
+      "consumedStatus": "post-clean-verified",
+      "consumedEvidence": "coordination/release-intake/latest-A25-wave01-artifact-clean-post-clean-verification-plan.json"
+    },
+    {
+      "approvalId": "wave01-resync-07-coordination-release-intake-2026-06-30-a25-dirty-tree-map-20260630t130221z-md",
+      "approvalKind": "wave01-package-resync",
+      "owner": "A25 git hygiene and release intake",
+      "subject": "coordination/release-intake/2026-06-30-A25-dirty-tree-map-20260630T130221Z.md",
+      "path": "coordination/release-intake/2026-06-30-A25-dirty-tree-map-20260630T130221Z.md",
+      "command": "git clean -f -- coordination/release-intake/2026-06-30-A25-dirty-tree-map-20260630T130221Z.md",
+      "cwd": "/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A25-dirty-closure-governance",
+      "worktreePath": "/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A25-dirty-closure-governance",
+      "selectedAction": "owner-approved-package-untracked-clean",
+      "selectedFinalState": "approve-wave01-a25-artifact-clean-only",
+      "readyForSeparateInstruction": false,
+      "requiredExecutionText": "Instruction row has already been consumed by the guarded executor and verified post-clean.",
+      "evidenceReviewed": [
+        "coordination/release-intake/latest-A25-wave01-artifact-clean-post-clean-verification-plan.json",
+        "coordination/release-intake/latest-A25-wave01-artifact-clean-batch-execution-instruction-owner-input.json"
+      ],
+      "approvedBy": "owner-chat-instruction",
+      "approvedAt": "2026-07-06T02:01:00Z",
+      "notes": "Owner instructed Codex to first let A25/A22 turn cleanable items into executableRows > 0, then check whether the clean slice satisfies build/type/regression gates. Scope is limited to recording the six Wave01 A25 artifact-clean execution-instruction rows; no broad staging, commit, merge, push, reset, branch deletion, worktree removal, deploy, or unrelated file operation is authorized.",
+      "executionText": "Authorize separate Wave01 A25 artifact-clean batch execution; approvalId=wave01-resync-02-coordination-release-intake-2026-06-30-a25-dirty-tree-map-20260630t072027z-json; approvalId=wave01-resync-03-coordination-release-intake-2026-06-30-a25-dirty-tree-map-20260630t072027z-md; approvalId=wave01-resync-04-coordination-release-intake-2026-06-30-a25-dirty-tree-map-20260630t073137z-json; approvalId=wave01-resync-05-coordination-release-intake-2026-06-30-a25-dirty-tree-map-20260630t073137z-md; approvalId=wave01-resync-06-coordination-release-intake-2026-06-30-a25-dirty-tree-map-20260630t130221z-json; approvalId=wave01-resync-07-coordination-release-intake-2026-06-30-a25-dirty-tree-map-20260630t130221z-md; cwd=/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A25-dirty-closure-governance; command=git clean -f -- coordination/release-intake/2026-06-30-A25-dirty-tree-map-20260630T072027Z.json; command=git clean -f -- coordination/release-intake/2026-06-30-A25-dirty-tree-map-20260630T072027Z.md; command=git clean -f -- coordination/release-intake/2026-06-30-A25-dirty-tree-map-20260630T073137Z.json; command=git clean -f -- coordination/release-intake/2026-06-30-A25-dirty-tree-map-20260630T073137Z.md; command=git clean -f -- coordination/release-intake/2026-06-30-A25-dirty-tree-map-20260630T130221Z.json; command=git clean -f -- coordination/release-intake/2026-06-30-A25-dirty-tree-map-20260630T130221Z.md; No cleanup beyond the exact listed command sequence; no broad staging, commit, merge, push, reset, branch deletion, worktree removal, deploy, or unrelated file operation is authorized; approvedBy=<owner>; approvedAt=<ISO-8601>; notes=<scope, evidence reviewed, accepted risk>",
+      "cleanupAuthorized": false,
+      "executableNow": false,
+      "packageFiles": [
+        "coordination/release-intake/2026-06-30-A25-dirty-tree-map-20260630T130221Z.md"
+      ],
+      "instructionId": "wave01-resync-07-coordination-release-intake-2026-06-30-a25-dirty-tree-map-20260630t130221z-md-execution-instruction",
+      "consumedStatus": "post-clean-verified",
+      "consumedEvidence": "coordination/release-intake/latest-A25-wave01-artifact-clean-post-clean-verification-plan.json"
+    }
+  ]
+}

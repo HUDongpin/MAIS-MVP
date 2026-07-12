@@ -1,0 +1,261 @@
+{
+  "generatedAt": "2026-07-04T15:49:48.081Z",
+  "dirtyMapStatusSignature": "0ed815279a9afc7897df7ef48f2e250da494e4a227adc0a6da14547ba9048571",
+  "expandedStatusEntries": 4323,
+  "executionSequenceGeneratedAt": "2026-07-04T15:46:55.641Z",
+  "artifactSignatures": {
+    "physicalQueue": "0ed815279a9afc7897df7ef48f2e250da494e4a227adc0a6da14547ba9048571",
+    "remainingStrictPacket": "0ed815279a9afc7897df7ef48f2e250da494e4a227adc0a6da14547ba9048571",
+    "finalActionRunbook": "0ed815279a9afc7897df7ef48f2e250da494e4a227adc0a6da14547ba9048571",
+    "linkedArchiveGate": "0ed815279a9afc7897df7ef48f2e250da494e4a227adc0a6da14547ba9048571"
+  },
+  "wave": {
+    "waveId": "wave-06-final-root-and-compose-lifecycle",
+    "name": "Final root and compose/legacy lifecycle closure",
+    "ownerApprovals": [],
+    "physicalLifecycleApprovals": [
+      {
+        "approvalId": "root-main",
+        "branch": "main",
+        "state": "dirty-open-decision",
+        "currentBlocker": "dirty 4323"
+      },
+      {
+        "approvalId": "codex-a10-a22-a08-a12-a06-compose-20260628",
+        "branch": "codex/A10-A22-A08-A12-A06-compose-20260628",
+        "state": "dirty-open-decision",
+        "currentBlocker": "dirty 954"
+      },
+      {
+        "approvalId": "codex-a25-full-dirty-compose-verification",
+        "branch": "codex/A25-full-dirty-compose-verification",
+        "state": "dirty-open-decision",
+        "currentBlocker": "dirty 2423"
+      },
+      {
+        "approvalId": "codex-a19-vercel-postgres-region",
+        "branch": "codex/A19-vercel-postgres-region",
+        "state": "clean-diverged-open-decision",
+        "currentBlocker": "behind 1, ahead 8"
+      },
+      {
+        "approvalId": "codex-s22-release-hygiene-2026-06-15",
+        "branch": "codex/s22-release-hygiene-2026-06-15",
+        "state": "clean-diverged-open-decision",
+        "currentBlocker": "behind 13, ahead 1"
+      }
+    ]
+  },
+  "physicalQueue": {
+    "cleanupAuthorized": false,
+    "summary": {
+      "ownerPackageApprovals": 24,
+      "physicalLifecycleApprovals": 38,
+      "totalApprovals": 62,
+      "ownerPackageEntries": 4323,
+      "physicalRootApprovals": 1,
+      "dirtyLinkedApprovals": 29,
+      "cleanDivergedApprovals": 8,
+      "executableRows": 0,
+      "cleanupAuthorizedRows": 0
+    }
+  },
+  "remainingStrictBlockers": [
+    "A22 release-source clean gate",
+    "A25 strict worktree lifecycle gate"
+  ],
+  "finalActionRunbook": {
+    "summary": {
+      "total": 62,
+      "notExecutable": 62,
+      "byActionKind": {
+        "owner-reviewed-commit-required": 25,
+        "owner-reviewed-worktree-package-required": 29,
+        "owner-approved-pr-or-review-package-required": 8
+      },
+      "byDecisionStatus": {
+        "approved-reviewed-commit": 24,
+        "approved-reviewed-owner-package-commit": 1,
+        "approved-owner-reviewed-commit-or-package-extraction": 29,
+        "approved-owner-approved-pr-or-review-package": 8
+      },
+      "bySourceKind": {
+        "owner-package": 24,
+        "physical-lifecycle": 38
+      }
+    }
+  },
+  "checks": {
+    "releaseSourceClean": {
+      "command": "node coordination/release-intake/assert-release-source-clean.mjs",
+      "status": 1,
+      "passed": false,
+      "stdout": [],
+      "stderr": [
+        "A22 release-source clean gate failed.",
+        "Release source is dirty: 4323 expanded status entries in /Users/dongpinhu/Desktop/MAIS-MVP.",
+        "Branch: main",
+        "HEAD: e909992b0",
+        "Sample:",
+        "M .env.local.example",
+        " M .gitignore",
+        " M .vercelignore",
+        " M AGENTS.md",
+        " M README.md",
+        " M app/adaptive-learning/loading.tsx",
+        " M app/adaptive-learning/page.tsx",
+        " M app/api/adaptive-learning/next/route.ts",
+        " M app/api/adaptive-learning/refresh/route.ts",
+        " M app/api/ai-tutor/route.ts",
+        " M app/api/ai-tutor/status/route.ts",
+        " M app/api/analytics/export/route.ts",
+        " M app/api/analytics/summary/route.ts",
+        " M app/api/attempts/route.ts",
+        " M app/api/auth/login/route.ts",
+        " M app/api/auth/logout/route.ts",
+        " M app/api/auth/password-change/route.ts",
+        " M app/api/auth/password-reset/confirm/route.ts",
+        " M app/api/auth/password-reset/request/route.ts",
+        " M app/api/auth/register/route.ts",
+        " M app/api/dashboard/route.ts",
+        " M app/api/handwriting-recognition/route.ts",
+        " M app/api/learning-events/route.ts",
+        " M app/api/lesson-entry/route.ts",
+        " M app/api/lessons/[slug]/route.ts",
+        "Allowed sources: clean worktree, clean clone, reviewed clean release slice, or explicitly owner-approved pruned staging package."
+      ]
+    },
+    "strictWorktreeLifecycle": {
+      "command": "node coordination/release-intake/assert-worktree-lifecycle.mjs --strict",
+      "status": 1,
+      "passed": false,
+      "stdout": [
+        "A25 worktree lifecycle gate",
+        "Worktrees: 39",
+        "Prunable: 0",
+        "Dirty open decisions: 30",
+        "Clean diverged open decisions: 8",
+        "Open decisions:",
+        "- main: dirty (4323 entries)",
+        "- codex/A01-app-shell-closure: dirty (26 entries)",
+        "- codex/A01-shell-lazy-load: dirty (8 entries)",
+        "- codex/A02-A15-dashboard-adaptive-closure: dirty (30 entries)",
+        "- codex/A03-roadmap-closure: dirty (30 entries)",
+        "- codex/A04-practice-closure: dirty (56 entries)",
+        "... 20 lines omitted ...",
+        "- codex/A18-A21-content-evidence-closure: dirty (222 entries)",
+        "- codex/A19-vercel-postgres-region: behind 1, ahead 8",
+        "- codex/A22-missing-module-release-slice: dirty (1016 entries)",
+        "- codex/A22-next-15-5-19-audit: dirty (4 entries)",
+        "- codex/A22-p1-release-hygiene-security: dirty (27 entries)",
+        "- codex/A22-us-region-alignment: behind 1, ahead 1",
+        "- codex/A25-dirty-closure-governance: dirty (1018 entries)",
+        "- codex/A25-full-dirty-compose-verification: dirty (2423 entries)",
+        "- codex/A14-profile-avatar-save: dirty (10 entries)",
+        "- codex/visualization-production-release: dirty (16 entries)",
+        "- codex/california-practice-beta-clean: behind 13, ahead 1",
+        "- codex/s22-release-hygiene-2026-06-15: behind 13, ahead 1"
+      ],
+      "stderr": [
+        "A25 worktree lifecycle gate failed.",
+        "- open lifecycle decision: main: dirty (4323 entries)",
+        "- open lifecycle decision: codex/A01-app-shell-closure: dirty (26 entries)",
+        "- open lifecycle decision: codex/A01-shell-lazy-load: dirty (8 entries)",
+        "- open lifecycle decision: codex/A02-A15-dashboard-adaptive-closure: dirty (30 entries)",
+        "- open lifecycle decision: codex/A03-roadmap-closure: dirty (30 entries)",
+        "- open lifecycle decision: codex/A04-practice-closure: dirty (56 entries)",
+        "- open lifecycle decision: codex/A05-lesson-checklist-p0: behind 1, ahead 0",
+        "- open lifecycle decision: codex/A05-lesson-closure: dirty (126 entries)",
+        "- open lifecycle decision: codex/A05-lesson-pep-load: behind 1, ahead 0",
+        "- open lifecycle decision: codex/A05-next-item-button-scroll: behind 1, ahead 0",
+        "- open lifecycle decision: codex/A06-manim-three-closure: dirty (351 entries)",
+        "- open lifecycle decision: codex/A06-visualization-closure: dirty (437 entries)",
+        "- open lifecycle decision: codex/A07-A15-A08-ai-adaptive-types: dirty (30 entries)",
+        "- open lifecycle decision: codex/A07-ai-tutor-classroom-switches: dirty (82 entries)",
+        "- open lifecycle decision: codex/A07-ai-tutor-closure: dirty (12 entries)",
+        "- open lifecycle decision: codex/A08-A12-shared-contract-closure: dirty (185 entries)",
+        "- open lifecycle decision: codex/A09-copy-i18n-accessibility-closure: dirty (5 entries)",
+        "- open lifecycle decision: codex/A10-A22-A08-A12-A06-compose-20260628: dirty (954 entries)",
+        "- open lifecycle decision: codex/A10-A22-release-governance: behind 1, ahead 2",
+        "- open lifecycle decision: codex/A11-fix-126-128-129: dirty (41 entries)",
+        "- open lifecycle decision: codex/A11-regression-evidence-closure: dirty (62 entries)",
+        "- open lifecycle decision: codex/A12-google-oauth-login: dirty (16 entries)",
+        "- open lifecycle decision: codex/A12-userstore-storage-contract: dirty (170 entries)",
+        "- open lifecycle decision: codex/A13-A14-console-closure: dirty (43 entries)",
+        "- open lifecycle decision: codex/A16-research-evidence-closure: dirty (6 entries)",
+        "- open lifecycle decision: codex/A17-A20-game-motivation-closure: dirty (21 entries)",
+        "- open lifecycle decision: codex/A18-A21-content-evidence-closure: dirty (222 entries)",
+        "- open lifecycle decision: codex/A19-vercel-postgres-region: behind 1, ahead 8",
+        "- open lifecycle decision: codex/A22-missing-module-release-slice: dirty (1016 entries)",
+        "- open lifecycle decision: codex/A22-next-15-5-19-audit: dirty (4 entries)",
+        "- open lifecycle decision: codex/A22-p1-release-hygiene-security: dirty (27 entries)",
+        "- open lifecycle decision: codex/A22-us-region-alignment: behind 1, ahead 1",
+        "- open lifecycle decision: codex/A25-dirty-closure-governance: dirty (1018 entries)",
+        "- open lifecycle decision: codex/A25-full-dirty-compose-verification: dirty (2423 entries)",
+        "- open lifecycle decision: codex/A14-profile-avatar-save: dirty (10 entries)",
+        "- open lifecycle decision: codex/visualization-production-release: dirty (16 entries)",
+        "- open lifecycle decision: codex/california-practice-beta-clean: behind 13, ahead 1",
+        "- open lifecycle decision: codex/s22-release-hygiene-2026-06-15: behind 13, ahead 1"
+      ]
+    },
+    "physicalQueueCurrent": {
+      "command": "node coordination/release-intake/assert-physical-closure-authorization-queue-current.mjs",
+      "status": 0,
+      "passed": true,
+      "stdout": [
+        "A25 physical closure authorization queue gate",
+        "Owner package approvals: 24",
+        "Physical lifecycle approvals: 38",
+        "Failures: 0"
+      ],
+      "stderr": []
+    },
+    "remainingStrictPacketCurrent": {
+      "command": "node coordination/release-intake/assert-remaining-strict-blocker-authorization-packet-current.mjs",
+      "status": 0,
+      "passed": true,
+      "stdout": [
+        "A25 remaining strict blocker authorization packet gate",
+        "Remaining strict blockers: 2",
+        "Physical approvals needed: 38",
+        "Failures: 0"
+      ],
+      "stderr": []
+    },
+    "finalActionRunbookCurrent": {
+      "command": "node coordination/release-intake/assert-dirty-worktree-final-state-action-runbook-current.mjs",
+      "status": 0,
+      "passed": true,
+      "stdout": [
+        "A25 dirty-worktree final-state action runbook gate",
+        "Actions: 62",
+        "Executable now: 0",
+        "Failures: 0"
+      ],
+      "stderr": []
+    },
+    "linkedArchiveEvidenceCurrent": {
+      "command": "node coordination/release-intake/assert-linked-worktree-archive-evidence-current.mjs",
+      "status": 0,
+      "passed": true,
+      "stdout": [
+        "A25 linked-worktree archive evidence gate",
+        "Open linked decisions: 37",
+        "Failures: 0"
+      ],
+      "stderr": []
+    }
+  },
+  "summary": {
+    "checkCount": 6,
+    "passedChecks": 4,
+    "failedChecks": 2
+  },
+  "finalClosureReady": false,
+  "cleanupAuthorized": false,
+  "executableNow": false,
+  "blockingReasons": [
+    "A22 release-source clean gate failed",
+    "A25 strict worktree lifecycle gate failed"
+  ]
+}

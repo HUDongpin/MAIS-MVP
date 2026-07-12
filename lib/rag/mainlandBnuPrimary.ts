@@ -1,4 +1,5 @@
 import { mainlandBnuPrimaryRagCards } from "../../data/rag/mainlandBnuPrimary";
+import { illustrationTextMatchStandardForRag } from "./illustrationTextMatchStandard";
 import { getMainlandBnuPrimaryAssessmentPatternCards } from "./mainlandBnuPrimaryAssessmentPatterns";
 import type {
   GradeId,
@@ -148,6 +149,7 @@ export function buildMainlandBnuPrimaryEvidencePack(query: MainlandBnuPrimaryRag
       : []),
     "Use this evidence only to create original MAIS explanations, diagnostics, lesson support, assessment plans, and future content drafts.",
     "Do not quote or reconstruct protected textbook examples, exercises, answers, worked responses, figures, tables, activity text, visual layouts, item order, private file locations, hidden extraction artifacts, or long protected phrasing.",
+    ...illustrationTextMatchStandardForRag,
     "Keep Beijing Normal University Press, PEP, and HJB textbook layers separate; share only broad Mainland concept IDs, learner-facing competency language, and source-distance safety rules.",
     "This evidence pack is not connected to getMainlandPepEvidencePack or buildMainlandHjbPrimaryEvidencePack; callers must explicitly request publisher MAINLAND_BNU.",
     "Primary textbook layer:",

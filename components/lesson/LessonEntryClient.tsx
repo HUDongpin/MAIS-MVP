@@ -16,12 +16,16 @@ type LessonEntryResponse = {
 
 type LessonEntryState = "idle" | "loading" | "error";
 
+type LessonEntryClientProps = {
+  initialLessonHref?: string | null;
+};
+
 function readCurrentPath() {
   if (typeof window === "undefined") return studentLessonsPath;
   return `${window.location.pathname}${window.location.search}`;
 }
 
-export function LessonEntryClient() {
+export function LessonEntryClient({ initialLessonHref = null }: LessonEntryClientProps) {
   const router = useRouter();
   const { currentUser, language, selectedGrade, settingsReady, studentLessonHref, t } = useSettings();
   const [entryState, setEntryState] = useState<LessonEntryState>("idle");
@@ -43,6 +47,13 @@ export function LessonEntryClient() {
         if (!canUseAuthenticatedLessonEntry) {
           if (!cancelled) {
             router.replace(`/login?next=${encodeURIComponent(readCurrentPath())}`);
+          }
+          return;
+        }
+
+        if (initialLessonHref) {
+          if (!cancelled) {
+            router.replace(initialLessonHref);
           }
           return;
         }
@@ -81,7 +92,7 @@ export function LessonEntryClient() {
       cancelled = true;
       controller.abort();
     };
-  }, [currentUser?.role, entryGrade, router, settingsReady, studentLessonHref]);
+  }, [currentUser?.role, entryGrade, initialLessonHref, router, settingsReady, studentLessonHref]);
 
   const isError = entryState === "error";
 

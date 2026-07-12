@@ -2,10 +2,9 @@
 
 import { usePathname } from "next/navigation";
 import { dictionary, useSettings } from "@/components/providers/AppProviders";
+import { isImmersiveStudentPracticeGamePath } from "@/lib/gameBasedLearning";
 import { isChineseLanguage } from "@/lib/i18n";
 import { cn } from "@/lib/utils";
-
-const immersiveGameRoutes = ["/practice/fishing-game", "/practice/adventure-island"];
 
 function PeterHuLogo({ mark = "PH", compact = false }: { mark?: string; compact?: boolean }) {
   return (
@@ -75,7 +74,7 @@ function PedaNovaLogo() {
 export function Footer() {
   const pathname = usePathname();
   const { language, t } = useSettings();
-  const isImmersiveGameRoute = immersiveGameRoutes.some((route) => pathname.startsWith(route));
+  const isImmersiveGameRoute = isImmersiveStudentPracticeGamePath(pathname);
   return (
     <footer className={cn(
       "relative z-10 border-t border-slate-200/70 bg-white/70 py-6 backdrop-blur-xl dark:border-white/10 dark:bg-slate-950/55",

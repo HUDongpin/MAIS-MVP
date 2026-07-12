@@ -1,0 +1,135 @@
+{
+  "generatedAt": "2026-07-10T15:57:41.851Z",
+  "repoRoot": "/Users/dongpinhu/Desktop/MAIS-MVP",
+  "dirtyMapStatusSignature": "37c9d353a7710b8e92d3d766006b7230936ca194044a47770a99ab12d7c6cef1",
+  "expandedStatusEntries": 7221,
+  "sourceArtifacts": {
+    "authorizationGapShrinkMapGeneratedAt": "2026-07-10T15:54:34.050Z",
+    "nextOwnerDecisionFocusGeneratedAt": "2026-07-10T15:57:41.032Z",
+    "nextOwnerAuthorizationsGateCheckedAt": "2026-07-10T15:57:40.829Z",
+    "ownerInputActionPacketGeneratedAt": "2026-07-10T15:57:41.731Z"
+  },
+  "sourceCurrentnessFailures": [],
+  "candidate": {
+    "candidateId": "",
+    "waveId": "",
+    "packageId": "",
+    "packageName": "",
+    "owners": [],
+    "approvalIds": [],
+    "physicalLifecycleApprovalIds": [],
+    "worktree": null,
+    "statusEntries": 0,
+    "coveredEntries": 0,
+    "uncoveredEntries": 0,
+    "failedChecks": 0,
+    "typeCheckErrorLines": 0,
+    "pathspecFiles": [],
+    "pathspecChecksum": "",
+    "recommendedOwnerAction": "",
+    "readyForOwnerReview": false
+  },
+  "authorizationRound": {
+    "id": "ready-candidate-owner-review",
+    "order": 1,
+    "label": "Ready candidate owner review",
+    "ownerAction": "The previous ready candidate has been post-extraction verified; proceed to Wave 01 package-resync authorization review.",
+    "why": "A16 owner-package approval was consumed by the committed package extraction, while the physical lifecycle final-state row remains tracked separately.",
+    "candidateId": "wave-05-visualization-ai-runtime:a16-research-evidence",
+    "packageId": "a16-research-evidence",
+    "rowCount": 0,
+    "pendingRows": 0,
+    "authorizedRows": 0,
+    "approvalIds": [],
+    "consumedApprovalIds": [
+      "a16-research-and-learning-science"
+    ],
+    "postExtractionState": {
+      "reportPath": "coordination/release-intake/latest-A25-a16-post-extraction-verification-report.json",
+      "reportPresent": true,
+      "verified": true,
+      "lifecycleStatus": "post-extraction-verified",
+      "packageStatusRows": 0,
+      "stagedPackageRows": 0,
+      "latestPackageCommit": {
+        "hash": "ce2ae5258013ca5bd79dd0cc56e7b1681d5cd411",
+        "subject": "Add A16 research evidence package",
+        "fileCount": 6
+      }
+    },
+    "cleanupAuthorizedRows": 0,
+    "executableRows": 0
+  },
+  "approvalRows": [],
+  "reviewChecklist": {
+    "purpose": "",
+    "requiredReviewInputs": [],
+    "missingReviewInputs": [],
+    "reviewEvidence": [],
+    "missingReviewEvidence": [],
+    "reviewQuestions": [],
+    "allowedFinalStateDecisions": [],
+    "postApprovalValidationCommands": [],
+    "mustRemainFalseUntilSeparateAuthorization": {}
+  },
+  "authorizationRecordingTargets": {
+    "canonicalAuthorizationFile": "coordination/release-intake/latest-A25-next-owner-authorizations.json",
+    "allTargetInputFiles": [
+      "coordination/release-intake/latest-A25-next-owner-authorizations.json",
+      "coordination/release-intake/latest-A25-wave01-package-resync-owner-authorizations.json",
+      "coordination/release-intake/latest-A25-owner-package-blocker-report-records.json"
+    ]
+  },
+  "copyableAuthorizationTexts": [],
+  "postApprovalValidationCommands": [
+    "node coordination/release-intake/assert-next-owner-authorizations-current.mjs",
+    "node coordination/release-intake/generate-next-owner-authorization-execution-preview.mjs",
+    "node coordination/release-intake/assert-next-owner-authorization-execution-preview-current.mjs",
+    "node coordination/release-intake/assert-owner-package-blocker-report-records-current.mjs",
+    "node coordination/release-intake/assert-owner-closure-input-readiness-current.mjs"
+  ],
+  "validationHold": {
+    "status": "waiting-for-owner-compose-deletion-confirmation",
+    "activeWorktreePath": "/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A10-A22-A08-A12-A06-compose-20260628",
+    "reason": "Owner reported active exact deletion in this compose worktree; linked-worktree archive, Wave 06, aggregate remediation, and completion-audit refreshes should wait for owner confirmation.",
+    "resumeCondition": "Owner confirms exact deletion in the compose worktree is complete."
+  },
+  "deferredAggregateValidationCommands": [
+    "node coordination/release-intake/refresh-linked-worktree-archive-evidence.mjs",
+    "node coordination/release-intake/assert-linked-worktree-archive-evidence-current.mjs",
+    "node coordination/release-intake/generate-wave06-final-root-lifecycle-readiness.mjs",
+    "node coordination/release-intake/assert-wave06-final-root-lifecycle-readiness-current.mjs",
+    "node coordination/release-intake/refresh-dirty-worktree-remediation-evidence.mjs --reason \"owner input action packet post-input verification\"",
+    "node coordination/release-intake/assert-dirty-worktree-remediation-current.mjs",
+    "node coordination/release-intake/generate-dirty-worktree-remediation-completion-audit.mjs",
+    "node coordination/release-intake/assert-dirty-worktree-remediation-completion-audit-current.mjs"
+  ],
+  "summary": {
+    "readyForOwnerReview": false,
+    "approvalRows": 0,
+    "consumedApprovalRows": 1,
+    "pendingApprovalRows": 0,
+    "authorizedApprovalRows": 0,
+    "copyableAuthorizationTexts": 0,
+    "requiredReviewInputs": 0,
+    "missingReviewInputs": 0,
+    "reviewEvidenceRows": 0,
+    "missingReviewEvidenceRows": 0,
+    "canonicalAuthorizationRowsInFile": 27,
+    "authorizedCanonicalRows": 27,
+    "pendingCanonicalAuthorizationRows": 40,
+    "cleanupAuthorizedRows": 0,
+    "executableRows": 0,
+    "sourceCurrentnessFailures": 0
+  },
+  "boundary": {
+    "evidenceOnly": true,
+    "createsAuthorizationFile": false,
+    "recordsOwnerApproval": false,
+    "mergeAuthorized": false,
+    "cleanupAuthorized": false,
+    "executableNow": false,
+    "destructiveGitAuthorized": false,
+    "deployAuthorized": false
+  }
+}

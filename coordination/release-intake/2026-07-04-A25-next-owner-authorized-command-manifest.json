@@ -1,0 +1,100 @@
+{
+  "generatedAt": "2026-07-04T15:50:03.092Z",
+  "repoRoot": "/Users/dongpinhu/Desktop/MAIS-MVP",
+  "dirtyMapStatusSignature": "0ed815279a9afc7897df7ef48f2e250da494e4a227adc0a6da14547ba9048571",
+  "expandedStatusEntries": 4323,
+  "sourceExecutionPreviewGeneratedAt": "2026-07-04T15:50:01.349Z",
+  "sourceAuthorizationFile": "coordination/release-intake/latest-A25-next-owner-authorizations.json",
+  "cleanupAuthorized": false,
+  "executableNow": false,
+  "boundary": {
+    "evidenceOnly": true,
+    "manifestOnly": true,
+    "cleanupAuthorized": false,
+    "executableNow": false,
+    "destructiveGitAuthorized": false,
+    "deployAuthorized": false,
+    "requiresSeparateExecutionInstruction": true
+  },
+  "summary": {
+    "starterRows": 71,
+    "validAuthorizationRows": 2,
+    "pendingAuthorizationRows": 69,
+    "invalidAuthorizationRows": 0,
+    "commandPreviewRows": 0,
+    "authorizedCandidateRows": 2,
+    "readyForSeparateInstructionRows": 0,
+    "blockedCandidateRows": 2,
+    "preAuthorizationReadyRows": 71,
+    "preAuthorizationAttentionRows": 0,
+    "cleanupAuthorizedRows": 0,
+    "executableRows": 0
+  },
+  "candidates": [
+    {
+      "approvalId": "a16-research-and-learning-science",
+      "approvalKind": "owner-package",
+      "owner": "A16 research and learning science",
+      "subject": "coordination/release-intake/latest-A25-effective-owner-a16-research-and-learning-science.pathspec",
+      "path": "coordination/release-intake/latest-A25-effective-owner-a16-research-and-learning-science.pathspec",
+      "selectedAction": "owner-selected-final-state",
+      "selectedFinalState": "reviewed commit",
+      "approvedBy": "dongpinhu",
+      "approvedAt": "2026-07-04T14:48:52Z",
+      "command": "",
+      "cwd": "/Users/dongpinhu/Desktop/MAIS-MVP",
+      "worktreePath": "",
+      "branch": "",
+      "preAuthorizationStatus": "preauthorization-evidence-ready",
+      "commandTargetStatus": "not-required",
+      "postApprovalChecks": [
+        "node coordination/release-intake/review-owner-pathspec.mjs coordination/release-intake/latest-A25-effective-owner-a16-research-and-learning-science.pathspec --status",
+        "npm run release:dirty-map -- --reason \"A25 post-owner-approval a16-research-and-learning-science\"",
+        "node coordination/release-intake/assert-owner-package-approval-requests-current.mjs",
+        "node coordination/release-intake/assert-dirty-worktree-remediation-current.mjs"
+      ],
+      "readyForSeparateInstruction": false,
+      "requiresSeparateExecutionInstruction": true,
+      "separateExecutionInstructionText": "A separate owner instruction must explicitly say to execute approvalId=a16-research-and-learning-science command=<owner-package or lifecycle command from work order> after this preview is reviewed.",
+      "blockers": [
+        "no exact command is available; use work-order/manual package review",
+        "separate owner execution instruction is still required"
+      ],
+      "cleanupAuthorized": false,
+      "executableNow": false
+    },
+    {
+      "approvalId": "codex-a16-research-evidence-closure",
+      "approvalKind": "physical-lifecycle",
+      "owner": "A16",
+      "subject": "codex/A16-research-evidence-closure",
+      "path": "/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A16-research-evidence-closure",
+      "selectedAction": "owner-selected-lifecycle-final-state",
+      "selectedFinalState": "owner-reviewed commit or package extraction",
+      "approvedBy": "dongpinhu",
+      "approvedAt": "2026-07-04T14:48:52Z",
+      "command": "",
+      "cwd": "/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A16-research-evidence-closure",
+      "worktreePath": "/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A16-research-evidence-closure",
+      "branch": "codex/A16-research-evidence-closure",
+      "preAuthorizationStatus": "preauthorization-evidence-ready",
+      "commandTargetStatus": "not-required",
+      "postApprovalChecks": [
+        "node coordination/release-intake/worktree-hygiene-dashboard.mjs",
+        "npm run release:dirty-map -- --reason \"A25 post-physical-approval codex-a16-research-evidence-closure\"",
+        "node coordination/release-intake/assert-physical-lifecycle-approval-requests-current.mjs",
+        "node coordination/release-intake/assert-worktree-lifecycle.mjs",
+        "node coordination/release-intake/assert-dirty-worktree-remediation-current.mjs"
+      ],
+      "readyForSeparateInstruction": false,
+      "requiresSeparateExecutionInstruction": true,
+      "separateExecutionInstructionText": "A separate owner instruction must explicitly say to execute approvalId=codex-a16-research-evidence-closure command=<owner-package or lifecycle command from work order> after this preview is reviewed.",
+      "blockers": [
+        "no exact command is available; use work-order/manual package review",
+        "separate owner execution instruction is still required"
+      ],
+      "cleanupAuthorized": false,
+      "executableNow": false
+    }
+  ]
+}

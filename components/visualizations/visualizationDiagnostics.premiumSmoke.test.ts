@@ -1,4 +1,5 @@
 import assert from "node:assert/strict";
+import fs from "node:fs";
 import test from "node:test";
 import {
   buildPremiumThreeDTopicPagePath,
@@ -175,5 +176,39 @@ test("scene variant selector covers standard-only Three.js variants without impo
     assert.equal(url.pathname, "/visualization-lab");
     assert.equal(url.searchParams.get("lab"), target.lab.labId);
     assert.equal(url.searchParams.get("grade"), target.lab.grade);
+  }
+});
+
+test("premium CAPSTONE topic pages are allowed through the authenticated learner curriculum gate", () => {
+  const pageSource = fs.readFileSync("components/visualizations/VisualizationLabPage.tsx", "utf8");
+
+  assert.match(pageSource, /lab\.curriculumTrack === "CAPSTONE"/);
+  assert.match(pageSource, /premiumLaunch/);
+  assert.match(pageSource, /labMatchesLearnerCurriculum/);
+});
+
+test("premium direct topic labs render the same template and 3D family as the catalog", async () => {
+  const [{ getPremiumThreeDDirectLab }, { premiumThreeDLaunchLabIds }, { getVisualizationLabByLabId }] = await Promise.all([
+    import("./premiumThreeDDirectLabs"),
+    import("./three/threeDSceneMath"),
+    import("../../data/visualizationLabs")
+  ]);
+
+  for (const labId of premiumThreeDLaunchLabIds) {
+    const directLab = getPremiumThreeDDirectLab(labId);
+    const catalogLab = getVisualizationLabByLabId(labId);
+
+    assert.ok(directLab, `${labId} should resolve on the premium direct route`);
+    assert.ok(catalogLab, `${labId} should exist in the visualization catalog`);
+    assert.equal(
+      directLab!.templateId,
+      catalogLab!.templateId,
+      `${labId} direct-route template must match the catalog (regenerate catalogTemplateByPremiumLabId)`
+    );
+    assert.equal(
+      directLab!.threeD?.familyId,
+      catalogLab!.threeD?.familyId,
+      `${labId} direct-route 3D family must match the catalog`
+    );
   }
 });

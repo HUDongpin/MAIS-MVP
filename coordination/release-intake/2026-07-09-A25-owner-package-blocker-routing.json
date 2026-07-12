@@ -1,0 +1,4141 @@
+{
+  "generatedAt": "2026-07-09T14:00:21.899Z",
+  "dirtyMapStatusSignature": "b3d232fd2b9ef81d4efc95903d2e3b316db664d6e9ec6ab366181395b3966be7",
+  "expandedStatusEntries": 6604,
+  "sourceMatrixGeneratedAt": "2026-07-09T14:00:21.777Z",
+  "note": "Blocker routing evidence only. A separate explicit owner instruction is required for any Git or physical cleanup operation.",
+  "summary": {
+    "matrixRows": 16,
+    "matrixReadyRows": 1,
+    "matrixBlockedRows": 15,
+    "routingRows": 15,
+    "cleanupAuthorizedRows": 0,
+    "executableRows": 0,
+    "failedChecks": 34,
+    "resyncRecommendationRows": 1,
+    "typeCheckErrorLines": 9907,
+    "topRoutingOwners": [
+      {
+        "ownerId": "A06",
+        "owner": "A06 visualization lead",
+        "routeRows": 14,
+        "files": 44,
+        "errors": 3226
+      },
+      {
+        "ownerId": "A13",
+        "owner": "A13 teacher console lead",
+        "routeRows": 13,
+        "files": 69,
+        "errors": 2017
+      },
+      {
+        "ownerId": "A18",
+        "owner": "A18 curriculum QA and content quality lead",
+        "routeRows": 4,
+        "files": 10,
+        "errors": 407
+      },
+      {
+        "ownerId": "A03",
+        "owner": "A03 curriculum roadmap lead",
+        "routeRows": 3,
+        "files": 8,
+        "errors": 225
+      },
+      {
+        "ownerId": "A04",
+        "owner": "A04 practice lead",
+        "routeRows": 2,
+        "files": 2,
+        "errors": 182
+      },
+      {
+        "ownerId": "A20",
+        "owner": "A20 game design and game-based learning lead",
+        "routeRows": 8,
+        "files": 9,
+        "errors": 114
+      },
+      {
+        "ownerId": "A25",
+        "owner": "A25 git hygiene and release intake lead",
+        "routeRows": 4,
+        "files": 4,
+        "errors": 77
+      },
+      {
+        "ownerId": "A15",
+        "owner": "A15 adaptive engine lead",
+        "routeRows": 2,
+        "files": 2,
+        "errors": 44
+      },
+      {
+        "ownerId": "A11",
+        "owner": "A11 QA and release quality lead",
+        "routeRows": 1,
+        "files": 1,
+        "errors": 30
+      },
+      {
+        "ownerId": "A12",
+        "owner": "A12 backend/API platform lead",
+        "routeRows": 2,
+        "files": 2,
+        "errors": 21
+      },
+      {
+        "ownerId": "A07",
+        "owner": "A07 AI tutor lead",
+        "routeRows": 1,
+        "files": 1,
+        "errors": 12
+      }
+    ]
+  },
+  "rows": [
+    {
+      "matrixId": "wave-01-governance-release-hygiene:wave-01-governance-release-hygiene",
+      "sourceKind": "owner-package-readiness",
+      "waveId": "wave-01-governance-release-hygiene",
+      "packageId": "wave-01-governance-release-hygiene",
+      "packageName": "A25/A10/A22 governance and release hygiene",
+      "readiness": "blocked",
+      "packageOwners": [
+        "A25 git hygiene and release intake",
+        "A22 production reliability and release engineering",
+        "A10 tooling, docs, and report"
+      ],
+      "packageOwnerIds": [
+        "A25",
+        "A22",
+        "A10"
+      ],
+      "routeToOwners": [
+        {
+          "ownerId": "A13",
+          "owner": "A13 teacher console lead",
+          "routeKind": "cross-owner-blocker",
+          "files": 6,
+          "errors": 150
+        },
+        {
+          "ownerId": "A06",
+          "owner": "A06 visualization lead",
+          "routeKind": "cross-owner-blocker",
+          "files": 2,
+          "errors": 25
+        },
+        {
+          "ownerId": "A20",
+          "owner": "A20 game design and game-based learning lead",
+          "routeKind": "cross-owner-blocker",
+          "files": 2,
+          "errors": 23
+        },
+        {
+          "ownerId": "A12",
+          "owner": "A12 backend/API platform lead",
+          "routeKind": "cross-owner-blocker",
+          "files": 1,
+          "errors": 9
+        }
+      ],
+      "ownerRoutes": [
+        {
+          "ownerId": "A06",
+          "owner": "A06 visualization lead",
+          "routeKind": "cross-owner-blocker",
+          "files": [
+            {
+              "file": "components/visualizations/VisualizationLabPage.tsx",
+              "errors": 16
+            },
+            {
+              "file": "components/visualizations/three/threeDSceneMath.catalog.test.ts",
+              "errors": 9
+            }
+          ]
+        },
+        {
+          "ownerId": "A12",
+          "owner": "A12 backend/API platform lead",
+          "routeKind": "cross-owner-blocker",
+          "files": [
+            {
+              "file": "app/api/teacher/review-lessons/[reviewLessonId]/route.ts",
+              "errors": 9
+            }
+          ]
+        },
+        {
+          "ownerId": "A13",
+          "owner": "A13 teacher console lead",
+          "routeKind": "cross-owner-blocker",
+          "files": [
+            {
+              "file": "components/teacher/TeacherPrepViews.tsx",
+              "errors": 36
+            },
+            {
+              "file": "components/teacher/TeacherOperationsView.tsx",
+              "errors": 32
+            },
+            {
+              "file": "lib/teacherReviewLesson.ts",
+              "errors": 30
+            },
+            {
+              "file": "components/teacher/TeacherReviewLessonView.tsx",
+              "errors": 25
+            },
+            {
+              "file": "lib/teacherReviewLessonPptx.ts",
+              "errors": 18
+            },
+            {
+              "file": "app/api/teacher/review-lessons/[reviewLessonId]/route.ts",
+              "errors": 9
+            }
+          ]
+        },
+        {
+          "ownerId": "A20",
+          "owner": "A20 game design and game-based learning lead",
+          "routeKind": "cross-owner-blocker",
+          "files": [
+            {
+              "file": "components/games/MathVirusBlasterGame.tsx",
+              "errors": 13
+            },
+            {
+              "file": "components/games/MightyTankBattleGame.tsx",
+              "errors": 10
+            }
+          ]
+        }
+      ],
+      "blockingReasons": [
+        "1 held package-resync row remains: wave01-resync-01-tsconfig-json",
+        "npm run type-check failed"
+      ],
+      "failedCheckNames": [
+        "typeCheck"
+      ],
+      "failedChecks": [
+        {
+          "name": "typeCheck",
+          "command": "npm run type-check -- --pretty false",
+          "status": 2
+        }
+      ],
+      "typeCheckErrorLines": 404,
+      "typeCheckTopFiles": [
+        {
+          "file": "components/teacher/TeacherPrepViews.tsx",
+          "errors": 36,
+          "inferredOwners": [
+            {
+              "ownerId": "A13",
+              "owner": "A13 teacher console lead"
+            }
+          ]
+        },
+        {
+          "file": "components/teacher/TeacherOperationsView.tsx",
+          "errors": 32,
+          "inferredOwners": [
+            {
+              "ownerId": "A13",
+              "owner": "A13 teacher console lead"
+            }
+          ]
+        },
+        {
+          "file": "lib/teacherReviewLesson.ts",
+          "errors": 30,
+          "inferredOwners": [
+            {
+              "ownerId": "A13",
+              "owner": "A13 teacher console lead"
+            }
+          ]
+        },
+        {
+          "file": "components/teacher/TeacherReviewLessonView.tsx",
+          "errors": 25,
+          "inferredOwners": [
+            {
+              "ownerId": "A13",
+              "owner": "A13 teacher console lead"
+            }
+          ]
+        },
+        {
+          "file": "lib/teacherReviewLessonPptx.ts",
+          "errors": 18,
+          "inferredOwners": [
+            {
+              "ownerId": "A13",
+              "owner": "A13 teacher console lead"
+            }
+          ]
+        },
+        {
+          "file": "components/visualizations/VisualizationLabPage.tsx",
+          "errors": 16,
+          "inferredOwners": [
+            {
+              "ownerId": "A06",
+              "owner": "A06 visualization lead"
+            }
+          ]
+        },
+        {
+          "file": "components/games/MathVirusBlasterGame.tsx",
+          "errors": 13,
+          "inferredOwners": [
+            {
+              "ownerId": "A20",
+              "owner": "A20 game design and game-based learning lead"
+            }
+          ]
+        },
+        {
+          "file": "components/games/MightyTankBattleGame.tsx",
+          "errors": 10,
+          "inferredOwners": [
+            {
+              "ownerId": "A20",
+              "owner": "A20 game design and game-based learning lead"
+            }
+          ]
+        },
+        {
+          "file": "app/api/teacher/review-lessons/[reviewLessonId]/route.ts",
+          "errors": 9,
+          "inferredOwners": [
+            {
+              "ownerId": "A12",
+              "owner": "A12 backend/API platform lead"
+            },
+            {
+              "ownerId": "A13",
+              "owner": "A13 teacher console lead"
+            }
+          ]
+        },
+        {
+          "file": "components/visualizations/three/threeDSceneMath.catalog.test.ts",
+          "errors": 9,
+          "inferredOwners": [
+            {
+              "ownerId": "A06",
+              "owner": "A06 visualization lead"
+            }
+          ]
+        }
+      ],
+      "uncoveredPaths": [
+        {
+          "path": "tsconfig.json",
+          "inferredOwners": [
+            {
+              "ownerId": "A10",
+              "owner": "A10 tooling, docs, and report lead"
+            }
+          ]
+        }
+      ],
+      "resyncRecommendationCount": 1,
+      "resyncRecommendations": [
+        {
+          "path": "tsconfig.json",
+          "actionKind": "owner-approved-package-restore",
+          "approvalNeeded": "Owner must explicitly approve this exact package-worktree resync/discard before any restore, clean, or file deletion.",
+          "executableNow": false,
+          "cleanupAuthorized": false
+        }
+      ],
+      "wave01FrontierStatus": "post-clean-verified",
+      "wave01ArtifactCleanAuthorizedRows": 0,
+      "wave01ArtifactCleanTargetDirtyRows": 0,
+      "wave01HeldRows": 1,
+      "wave01ValidExecutionInstructionRows": 0,
+      "wave01CleanupAuthorizedRows": 0,
+      "wave01ExecutableRows": 0,
+      "approvalIds": [
+        "a25-git-hygiene-and-release-intake",
+        "a22-production-reliability-and-release-engineering",
+        "a10-tooling-docs-and-report"
+      ],
+      "physicalLifecycleApprovalIds": [
+        "codex-a25-dirty-closure-governance",
+        "codex-a10-a22-release-governance",
+        "codex-a22-p1-release-hygiene-security",
+        "codex-a22-next-15-5-19-audit",
+        "codex-a22-us-region-alignment",
+        "codex-a22-missing-module-release-slice",
+        "codex-a25-ci-backup-workflow"
+      ],
+      "nextActions": [
+        "Use the Wave01 governance frontier as the current source of truth: six A25 artifact-clean rows are owner-authorized but still need a separate execution instruction.",
+        "Keep wave01-resync-01-tsconfig-json held; do not restore tsconfig.json until the owner explicitly changes that hold.",
+        "Do not run restore, clean, discard, or file deletion in the package worktree until an exact owner execution instruction is recorded.",
+        "Keep package-only resync or uncovered-path rows non-executable until the recorded owner input and execution-instruction gates both pass.",
+        "Route type-check top-file blockers to the inferred cross-owner agents before the package owner attempts a reviewed commit.",
+        "After any approved package action, refresh the dirty map and rerun the A25 aggregate currentness gate."
+      ],
+      "cleanupAuthorized": false,
+      "executableNow": false
+    },
+    {
+      "matrixId": "wave-02-shared-contracts:wave-02-shared-contracts",
+      "sourceKind": "owner-package-readiness",
+      "waveId": "wave-02-shared-contracts",
+      "packageId": "wave-02-shared-contracts",
+      "packageName": "A08/A12 shared contracts and storage/API stability",
+      "readiness": "blocked",
+      "packageOwners": [
+        "A08 state and analytics lead",
+        "A12 backend/API platform"
+      ],
+      "packageOwnerIds": [
+        "A08",
+        "A12"
+      ],
+      "routeToOwners": [
+        {
+          "ownerId": "A06",
+          "owner": "A06 visualization lead",
+          "routeKind": "cross-owner-blocker",
+          "files": 4,
+          "errors": 253
+        },
+        {
+          "ownerId": "A18",
+          "owner": "A18 curriculum QA and content quality lead",
+          "routeKind": "cross-owner-blocker",
+          "files": 4,
+          "errors": 186
+        },
+        {
+          "ownerId": "A03",
+          "owner": "A03 curriculum roadmap lead",
+          "routeKind": "cross-owner-blocker",
+          "files": 3,
+          "errors": 95
+        },
+        {
+          "ownerId": "A04",
+          "owner": "A04 practice lead",
+          "routeKind": "cross-owner-blocker",
+          "files": 1,
+          "errors": 91
+        },
+        {
+          "ownerId": "A15",
+          "owner": "A15 adaptive engine lead",
+          "routeKind": "cross-owner-blocker",
+          "files": 1,
+          "errors": 24
+        },
+        {
+          "ownerId": "A20",
+          "owner": "A20 game design and game-based learning lead",
+          "routeKind": "cross-owner-blocker",
+          "files": 1,
+          "errors": 13
+        }
+      ],
+      "ownerRoutes": [
+        {
+          "ownerId": "A03",
+          "owner": "A03 curriculum roadmap lead",
+          "routeKind": "cross-owner-blocker",
+          "files": [
+            {
+              "file": "data/topics.ts",
+              "errors": 49
+            },
+            {
+              "file": "data/mainlandPepPrimaryTopics.ts",
+              "errors": 24
+            },
+            {
+              "file": "data/mainlandPepHighTopics.ts",
+              "errors": 22
+            }
+          ]
+        },
+        {
+          "ownerId": "A04",
+          "owner": "A04 practice lead",
+          "routeKind": "cross-owner-blocker",
+          "files": [
+            {
+              "file": "data/questions.ts",
+              "errors": 91
+            }
+          ]
+        },
+        {
+          "ownerId": "A06",
+          "owner": "A06 visualization lead",
+          "routeKind": "cross-owner-blocker",
+          "files": [
+            {
+              "file": "components/visualizations/three/scenes/TemplatePrimitiveScene.tsx",
+              "errors": 206
+            },
+            {
+              "file": "components/visualizations/three/ThreeDGraphCanvas.tsx",
+              "errors": 21
+            },
+            {
+              "file": "components/visualizations/VisualizationLabPage.tsx",
+              "errors": 14
+            },
+            {
+              "file": "components/visualizations/three/manim/MathSceneRuntime.tsx",
+              "errors": 12
+            }
+          ]
+        },
+        {
+          "ownerId": "A15",
+          "owner": "A15 adaptive engine lead",
+          "routeKind": "cross-owner-blocker",
+          "files": [
+            {
+              "file": "lib/adaptiveLearning.ts",
+              "errors": 24
+            }
+          ]
+        },
+        {
+          "ownerId": "A18",
+          "owner": "A18 curriculum QA and content quality lead",
+          "routeKind": "cross-owner-blocker",
+          "files": [
+            {
+              "file": "data/questions.ts",
+              "errors": 91
+            },
+            {
+              "file": "data/topics.ts",
+              "errors": 49
+            },
+            {
+              "file": "data/mainlandPepPrimaryTopics.ts",
+              "errors": 24
+            },
+            {
+              "file": "data/mainlandPepHighTopics.ts",
+              "errors": 22
+            }
+          ]
+        },
+        {
+          "ownerId": "A20",
+          "owner": "A20 game design and game-based learning lead",
+          "routeKind": "cross-owner-blocker",
+          "files": [
+            {
+              "file": "components/games/MathVirusBlasterGame.tsx",
+              "errors": 13
+            }
+          ]
+        }
+      ],
+      "blockingReasons": [
+        "testAnalytics failed",
+        "testBackend failed",
+        "typeCheck failed",
+        "build failed"
+      ],
+      "failedCheckNames": [
+        "testAnalytics",
+        "testBackend",
+        "typeCheck",
+        "build"
+      ],
+      "failedChecks": [
+        {
+          "name": "testAnalytics",
+          "command": "npm run test:analytics",
+          "status": 2
+        },
+        {
+          "name": "testBackend",
+          "command": "npm run test:backend",
+          "status": 1
+        },
+        {
+          "name": "typeCheck",
+          "command": "npm run type-check -- --pretty false",
+          "status": 2
+        },
+        {
+          "name": "build",
+          "command": "npm run build",
+          "status": 1
+        }
+      ],
+      "typeCheckErrorLines": 689,
+      "typeCheckTopFiles": [
+        {
+          "file": "components/visualizations/three/scenes/TemplatePrimitiveScene.tsx",
+          "errors": 206,
+          "inferredOwners": [
+            {
+              "ownerId": "A06",
+              "owner": "A06 visualization lead"
+            }
+          ]
+        },
+        {
+          "file": "data/questions.ts",
+          "errors": 91,
+          "inferredOwners": [
+            {
+              "ownerId": "A04",
+              "owner": "A04 practice lead"
+            },
+            {
+              "ownerId": "A18",
+              "owner": "A18 curriculum QA and content quality lead"
+            }
+          ]
+        },
+        {
+          "file": "data/topics.ts",
+          "errors": 49,
+          "inferredOwners": [
+            {
+              "ownerId": "A03",
+              "owner": "A03 curriculum roadmap lead"
+            },
+            {
+              "ownerId": "A18",
+              "owner": "A18 curriculum QA and content quality lead"
+            }
+          ]
+        },
+        {
+          "file": "data/mainlandPepPrimaryTopics.ts",
+          "errors": 24,
+          "inferredOwners": [
+            {
+              "ownerId": "A03",
+              "owner": "A03 curriculum roadmap lead"
+            },
+            {
+              "ownerId": "A18",
+              "owner": "A18 curriculum QA and content quality lead"
+            }
+          ]
+        },
+        {
+          "file": "lib/adaptiveLearning.ts",
+          "errors": 24,
+          "inferredOwners": [
+            {
+              "ownerId": "A15",
+              "owner": "A15 adaptive engine lead"
+            }
+          ]
+        },
+        {
+          "file": "data/mainlandPepHighTopics.ts",
+          "errors": 22,
+          "inferredOwners": [
+            {
+              "ownerId": "A03",
+              "owner": "A03 curriculum roadmap lead"
+            },
+            {
+              "ownerId": "A18",
+              "owner": "A18 curriculum QA and content quality lead"
+            }
+          ]
+        },
+        {
+          "file": "components/visualizations/three/ThreeDGraphCanvas.tsx",
+          "errors": 21,
+          "inferredOwners": [
+            {
+              "ownerId": "A06",
+              "owner": "A06 visualization lead"
+            }
+          ]
+        },
+        {
+          "file": "components/visualizations/VisualizationLabPage.tsx",
+          "errors": 14,
+          "inferredOwners": [
+            {
+              "ownerId": "A06",
+              "owner": "A06 visualization lead"
+            }
+          ]
+        },
+        {
+          "file": "components/games/MathVirusBlasterGame.tsx",
+          "errors": 13,
+          "inferredOwners": [
+            {
+              "ownerId": "A20",
+              "owner": "A20 game design and game-based learning lead"
+            }
+          ]
+        },
+        {
+          "file": "components/visualizations/three/manim/MathSceneRuntime.tsx",
+          "errors": 12,
+          "inferredOwners": [
+            {
+              "ownerId": "A06",
+              "owner": "A06 visualization lead"
+            }
+          ]
+        }
+      ],
+      "uncoveredPaths": [],
+      "resyncRecommendationCount": 0,
+      "resyncRecommendations": [],
+      "wave01FrontierStatus": null,
+      "wave01ArtifactCleanAuthorizedRows": null,
+      "wave01ArtifactCleanTargetDirtyRows": null,
+      "wave01HeldRows": null,
+      "wave01ValidExecutionInstructionRows": null,
+      "wave01CleanupAuthorizedRows": null,
+      "wave01ExecutableRows": null,
+      "approvalIds": [
+        "a08-state-and-analytics-lead",
+        "a12-backend-api-platform"
+      ],
+      "physicalLifecycleApprovalIds": [
+        "codex-a08-a12-shared-contract-closure",
+        "codex-a12-userstore-storage-contract",
+        "codex-a12-google-oauth-login",
+        "codex-a07-a15-a08-ai-adaptive-types"
+      ],
+      "nextActions": [
+        "Route type-check top-file blockers to the inferred cross-owner agents before the package owner attempts a reviewed commit.",
+        "The owning package session must inspect the named failed checks in its isolated worktree and either fix in scope or produce a blocker report.",
+        "After any approved package action, refresh the dirty map and rerun the A25 aggregate currentness gate."
+      ],
+      "cleanupAuthorized": false,
+      "executableNow": false
+    },
+    {
+      "matrixId": "wave-03-shell-dashboard-roadmap:a01-app-shell",
+      "sourceKind": "owner-package-readiness",
+      "waveId": "wave-03-shell-dashboard-roadmap",
+      "packageId": "a01-app-shell",
+      "packageName": "A01 app shell",
+      "readiness": "blocked",
+      "packageOwners": [
+        "A01 app shell lead"
+      ],
+      "packageOwnerIds": [
+        "A01"
+      ],
+      "routeToOwners": [
+        {
+          "ownerId": "A06",
+          "owner": "A06 visualization lead",
+          "routeKind": "cross-owner-blocker",
+          "files": 3,
+          "errors": 243
+        },
+        {
+          "ownerId": "A13",
+          "owner": "A13 teacher console lead",
+          "routeKind": "cross-owner-blocker",
+          "files": 5,
+          "errors": 142
+        },
+        {
+          "ownerId": "A25",
+          "owner": "A25 git hygiene and release intake lead",
+          "routeKind": "cross-owner-blocker",
+          "files": 1,
+          "errors": 17
+        },
+        {
+          "ownerId": "A20",
+          "owner": "A20 game design and game-based learning lead",
+          "routeKind": "cross-owner-blocker",
+          "files": 1,
+          "errors": 13
+        }
+      ],
+      "ownerRoutes": [
+        {
+          "ownerId": "A06",
+          "owner": "A06 visualization lead",
+          "routeKind": "cross-owner-blocker",
+          "files": [
+            {
+              "file": "components/visualizations/three/scenes/TemplatePrimitiveScene.tsx",
+              "errors": 206
+            },
+            {
+              "file": "components/visualizations/three/ThreeDGraphCanvas.tsx",
+              "errors": 21
+            },
+            {
+              "file": "components/visualizations/VisualizationLabPage.tsx",
+              "errors": 16
+            }
+          ]
+        },
+        {
+          "ownerId": "A13",
+          "owner": "A13 teacher console lead",
+          "routeKind": "cross-owner-blocker",
+          "files": [
+            {
+              "file": "components/teacher/TeacherPrepViews.tsx",
+              "errors": 36
+            },
+            {
+              "file": "components/teacher/TeacherOperationsView.tsx",
+              "errors": 32
+            },
+            {
+              "file": "lib/teacherReviewLesson.ts",
+              "errors": 30
+            },
+            {
+              "file": "components/teacher/TeacherReviewLessonView.tsx",
+              "errors": 25
+            },
+            {
+              "file": "lib/teacherReviewLessonPptx.ts",
+              "errors": 19
+            }
+          ]
+        },
+        {
+          "ownerId": "A20",
+          "owner": "A20 game design and game-based learning lead",
+          "routeKind": "cross-owner-blocker",
+          "files": [
+            {
+              "file": "components/games/MathVirusBlasterGame.tsx",
+              "errors": 13
+            }
+          ]
+        },
+        {
+          "ownerId": "A25",
+          "owner": "A25 git hygiene and release intake lead",
+          "routeKind": "cross-owner-blocker",
+          "files": [
+            {
+              "file": "app/login/page.tsx",
+              "errors": 17
+            }
+          ]
+        }
+      ],
+      "blockingReasons": [
+        "A01 app shell typeCheck failed",
+        "A01 app shell appShellPlaywright failed"
+      ],
+      "failedCheckNames": [
+        "typeCheck",
+        "appShellPlaywright"
+      ],
+      "failedChecks": [
+        {
+          "name": "typeCheck",
+          "command": "npm run type-check -- --pretty false",
+          "status": 2
+        },
+        {
+          "name": "appShellPlaywright",
+          "command": "npx playwright test tests/e2e/app-shell-auth.spec.ts tests/e2e/home-functional.spec.ts --project=desktop-chrome",
+          "status": 1
+        }
+      ],
+      "typeCheckErrorLines": 697,
+      "typeCheckTopFiles": [
+        {
+          "file": "components/visualizations/three/scenes/TemplatePrimitiveScene.tsx",
+          "errors": 206,
+          "inferredOwners": [
+            {
+              "ownerId": "A06",
+              "owner": "A06 visualization lead"
+            }
+          ]
+        },
+        {
+          "file": "components/teacher/TeacherPrepViews.tsx",
+          "errors": 36,
+          "inferredOwners": [
+            {
+              "ownerId": "A13",
+              "owner": "A13 teacher console lead"
+            }
+          ]
+        },
+        {
+          "file": "components/teacher/TeacherOperationsView.tsx",
+          "errors": 32,
+          "inferredOwners": [
+            {
+              "ownerId": "A13",
+              "owner": "A13 teacher console lead"
+            }
+          ]
+        },
+        {
+          "file": "lib/teacherReviewLesson.ts",
+          "errors": 30,
+          "inferredOwners": [
+            {
+              "ownerId": "A13",
+              "owner": "A13 teacher console lead"
+            }
+          ]
+        },
+        {
+          "file": "components/teacher/TeacherReviewLessonView.tsx",
+          "errors": 25,
+          "inferredOwners": [
+            {
+              "ownerId": "A13",
+              "owner": "A13 teacher console lead"
+            }
+          ]
+        },
+        {
+          "file": "components/visualizations/three/ThreeDGraphCanvas.tsx",
+          "errors": 21,
+          "inferredOwners": [
+            {
+              "ownerId": "A06",
+              "owner": "A06 visualization lead"
+            }
+          ]
+        },
+        {
+          "file": "lib/teacherReviewLessonPptx.ts",
+          "errors": 19,
+          "inferredOwners": [
+            {
+              "ownerId": "A13",
+              "owner": "A13 teacher console lead"
+            }
+          ]
+        },
+        {
+          "file": "app/login/page.tsx",
+          "errors": 17,
+          "inferredOwners": [
+            {
+              "ownerId": "A25",
+              "owner": "A25 git hygiene and release intake lead"
+            }
+          ]
+        },
+        {
+          "file": "components/visualizations/VisualizationLabPage.tsx",
+          "errors": 16,
+          "inferredOwners": [
+            {
+              "ownerId": "A06",
+              "owner": "A06 visualization lead"
+            }
+          ]
+        },
+        {
+          "file": "components/games/MathVirusBlasterGame.tsx",
+          "errors": 13,
+          "inferredOwners": [
+            {
+              "ownerId": "A20",
+              "owner": "A20 game design and game-based learning lead"
+            }
+          ]
+        }
+      ],
+      "uncoveredPaths": [],
+      "resyncRecommendationCount": 0,
+      "resyncRecommendations": [],
+      "wave01FrontierStatus": null,
+      "wave01ArtifactCleanAuthorizedRows": null,
+      "wave01ArtifactCleanTargetDirtyRows": null,
+      "wave01HeldRows": null,
+      "wave01ValidExecutionInstructionRows": null,
+      "wave01CleanupAuthorizedRows": null,
+      "wave01ExecutableRows": null,
+      "approvalIds": [
+        "a01-app-shell-lead"
+      ],
+      "physicalLifecycleApprovalIds": [
+        "codex-a01-app-shell-closure"
+      ],
+      "nextActions": [
+        "Route type-check top-file blockers to the inferred cross-owner agents before the package owner attempts a reviewed commit.",
+        "The owning package session must inspect the named failed checks in its isolated worktree and either fix in scope or produce a blocker report.",
+        "After any approved package action, refresh the dirty map and rerun the A25 aggregate currentness gate."
+      ],
+      "cleanupAuthorized": false,
+      "executableNow": false
+    },
+    {
+      "matrixId": "wave-03-shell-dashboard-roadmap:a02-a15-dashboard-adaptive",
+      "sourceKind": "owner-package-readiness",
+      "waveId": "wave-03-shell-dashboard-roadmap",
+      "packageId": "a02-a15-dashboard-adaptive",
+      "packageName": "A02/A15 dashboard adaptive",
+      "readiness": "blocked",
+      "packageOwners": [
+        "A02 dashboard lead",
+        "A15 adaptive engine lead"
+      ],
+      "packageOwnerIds": [
+        "A02",
+        "A15"
+      ],
+      "routeToOwners": [
+        {
+          "ownerId": "A06",
+          "owner": "A06 visualization lead",
+          "routeKind": "cross-owner-blocker",
+          "files": 3,
+          "errors": 243
+        },
+        {
+          "ownerId": "A13",
+          "owner": "A13 teacher console lead",
+          "routeKind": "cross-owner-blocker",
+          "files": 5,
+          "errors": 142
+        },
+        {
+          "ownerId": "A15",
+          "owner": "A15 adaptive engine lead",
+          "routeKind": "package-owner",
+          "files": 1,
+          "errors": 20
+        },
+        {
+          "ownerId": "A25",
+          "owner": "A25 git hygiene and release intake lead",
+          "routeKind": "cross-owner-blocker",
+          "files": 1,
+          "errors": 19
+        }
+      ],
+      "ownerRoutes": [
+        {
+          "ownerId": "A06",
+          "owner": "A06 visualization lead",
+          "routeKind": "cross-owner-blocker",
+          "files": [
+            {
+              "file": "components/visualizations/three/scenes/TemplatePrimitiveScene.tsx",
+              "errors": 206
+            },
+            {
+              "file": "components/visualizations/three/ThreeDGraphCanvas.tsx",
+              "errors": 21
+            },
+            {
+              "file": "components/visualizations/VisualizationLabPage.tsx",
+              "errors": 16
+            }
+          ]
+        },
+        {
+          "ownerId": "A13",
+          "owner": "A13 teacher console lead",
+          "routeKind": "cross-owner-blocker",
+          "files": [
+            {
+              "file": "components/teacher/TeacherPrepViews.tsx",
+              "errors": 36
+            },
+            {
+              "file": "components/teacher/TeacherOperationsView.tsx",
+              "errors": 32
+            },
+            {
+              "file": "lib/teacherReviewLesson.ts",
+              "errors": 30
+            },
+            {
+              "file": "components/teacher/TeacherReviewLessonView.tsx",
+              "errors": 25
+            },
+            {
+              "file": "lib/teacherReviewLessonPptx.ts",
+              "errors": 19
+            }
+          ]
+        },
+        {
+          "ownerId": "A15",
+          "owner": "A15 adaptive engine lead",
+          "routeKind": "package-owner",
+          "files": [
+            {
+              "file": "lib/adaptiveLearning.ts",
+              "errors": 20
+            }
+          ]
+        },
+        {
+          "ownerId": "A25",
+          "owner": "A25 git hygiene and release intake lead",
+          "routeKind": "cross-owner-blocker",
+          "files": [
+            {
+              "file": "lib/curriculumProfile.ts",
+              "errors": 19
+            }
+          ]
+        }
+      ],
+      "blockingReasons": [
+        "A02/A15 dashboard adaptive testAnalytics failed",
+        "A02/A15 dashboard adaptive typeCheck failed",
+        "A02/A15 dashboard adaptive dashboardAdaptivePlaywright failed"
+      ],
+      "failedCheckNames": [
+        "testAnalytics",
+        "typeCheck",
+        "dashboardAdaptivePlaywright"
+      ],
+      "failedChecks": [
+        {
+          "name": "testAnalytics",
+          "command": "npm run test:analytics",
+          "status": 1
+        },
+        {
+          "name": "typeCheck",
+          "command": "npm run type-check -- --pretty false",
+          "status": 2
+        },
+        {
+          "name": "dashboardAdaptivePlaywright",
+          "command": "npx playwright test tests/e2e/student-smoke.spec.ts tests/e2e/adaptive-llm-smoke.spec.ts --project=desktop-chrome",
+          "status": 1
+        }
+      ],
+      "typeCheckErrorLines": 738,
+      "typeCheckTopFiles": [
+        {
+          "file": "components/visualizations/three/scenes/TemplatePrimitiveScene.tsx",
+          "errors": 206,
+          "inferredOwners": [
+            {
+              "ownerId": "A06",
+              "owner": "A06 visualization lead"
+            }
+          ]
+        },
+        {
+          "file": "components/teacher/TeacherPrepViews.tsx",
+          "errors": 36,
+          "inferredOwners": [
+            {
+              "ownerId": "A13",
+              "owner": "A13 teacher console lead"
+            }
+          ]
+        },
+        {
+          "file": "components/teacher/TeacherOperationsView.tsx",
+          "errors": 32,
+          "inferredOwners": [
+            {
+              "ownerId": "A13",
+              "owner": "A13 teacher console lead"
+            }
+          ]
+        },
+        {
+          "file": "lib/teacherReviewLesson.ts",
+          "errors": 30,
+          "inferredOwners": [
+            {
+              "ownerId": "A13",
+              "owner": "A13 teacher console lead"
+            }
+          ]
+        },
+        {
+          "file": "components/teacher/TeacherReviewLessonView.tsx",
+          "errors": 25,
+          "inferredOwners": [
+            {
+              "ownerId": "A13",
+              "owner": "A13 teacher console lead"
+            }
+          ]
+        },
+        {
+          "file": "components/visualizations/three/ThreeDGraphCanvas.tsx",
+          "errors": 21,
+          "inferredOwners": [
+            {
+              "ownerId": "A06",
+              "owner": "A06 visualization lead"
+            }
+          ]
+        },
+        {
+          "file": "lib/adaptiveLearning.ts",
+          "errors": 20,
+          "inferredOwners": [
+            {
+              "ownerId": "A15",
+              "owner": "A15 adaptive engine lead"
+            }
+          ]
+        },
+        {
+          "file": "lib/curriculumProfile.ts",
+          "errors": 19,
+          "inferredOwners": [
+            {
+              "ownerId": "A25",
+              "owner": "A25 git hygiene and release intake lead"
+            }
+          ]
+        },
+        {
+          "file": "lib/teacherReviewLessonPptx.ts",
+          "errors": 19,
+          "inferredOwners": [
+            {
+              "ownerId": "A13",
+              "owner": "A13 teacher console lead"
+            }
+          ]
+        },
+        {
+          "file": "components/visualizations/VisualizationLabPage.tsx",
+          "errors": 16,
+          "inferredOwners": [
+            {
+              "ownerId": "A06",
+              "owner": "A06 visualization lead"
+            }
+          ]
+        }
+      ],
+      "uncoveredPaths": [],
+      "resyncRecommendationCount": 0,
+      "resyncRecommendations": [],
+      "wave01FrontierStatus": null,
+      "wave01ArtifactCleanAuthorizedRows": null,
+      "wave01ArtifactCleanTargetDirtyRows": null,
+      "wave01HeldRows": null,
+      "wave01ValidExecutionInstructionRows": null,
+      "wave01CleanupAuthorizedRows": null,
+      "wave01ExecutableRows": null,
+      "approvalIds": [
+        "a02-dashboard-lead",
+        "a15-adaptive-engine-lead"
+      ],
+      "physicalLifecycleApprovalIds": [
+        "codex-a02-a15-dashboard-adaptive-closure"
+      ],
+      "nextActions": [
+        "Route type-check top-file blockers to the inferred cross-owner agents before the package owner attempts a reviewed commit.",
+        "The owning package session must inspect the named failed checks in its isolated worktree and either fix in scope or produce a blocker report.",
+        "After any approved package action, refresh the dirty map and rerun the A25 aggregate currentness gate."
+      ],
+      "cleanupAuthorized": false,
+      "executableNow": false
+    },
+    {
+      "matrixId": "wave-03-shell-dashboard-roadmap:a03-roadmap",
+      "sourceKind": "owner-package-readiness",
+      "waveId": "wave-03-shell-dashboard-roadmap",
+      "packageId": "a03-roadmap",
+      "packageName": "A03 roadmap",
+      "readiness": "blocked",
+      "packageOwners": [
+        "A03 curriculum roadmap lead"
+      ],
+      "packageOwnerIds": [
+        "A03"
+      ],
+      "routeToOwners": [
+        {
+          "ownerId": "A06",
+          "owner": "A06 visualization lead",
+          "routeKind": "cross-owner-blocker",
+          "files": 2,
+          "errors": 227
+        },
+        {
+          "ownerId": "A13",
+          "owner": "A13 teacher console lead",
+          "routeKind": "cross-owner-blocker",
+          "files": 5,
+          "errors": 142
+        },
+        {
+          "ownerId": "A03",
+          "owner": "A03 curriculum roadmap lead",
+          "routeKind": "package-owner",
+          "files": 3,
+          "errors": 95
+        },
+        {
+          "ownerId": "A18",
+          "owner": "A18 curriculum QA and content quality lead",
+          "routeKind": "cross-owner-blocker",
+          "files": 3,
+          "errors": 95
+        }
+      ],
+      "ownerRoutes": [
+        {
+          "ownerId": "A03",
+          "owner": "A03 curriculum roadmap lead",
+          "routeKind": "package-owner",
+          "files": [
+            {
+              "file": "data/topics.ts",
+              "errors": 49
+            },
+            {
+              "file": "data/mainlandPepPrimaryTopics.ts",
+              "errors": 24
+            },
+            {
+              "file": "data/mainlandPepHighTopics.ts",
+              "errors": 22
+            }
+          ]
+        },
+        {
+          "ownerId": "A06",
+          "owner": "A06 visualization lead",
+          "routeKind": "cross-owner-blocker",
+          "files": [
+            {
+              "file": "components/visualizations/three/scenes/TemplatePrimitiveScene.tsx",
+              "errors": 206
+            },
+            {
+              "file": "components/visualizations/three/ThreeDGraphCanvas.tsx",
+              "errors": 21
+            }
+          ]
+        },
+        {
+          "ownerId": "A13",
+          "owner": "A13 teacher console lead",
+          "routeKind": "cross-owner-blocker",
+          "files": [
+            {
+              "file": "components/teacher/TeacherPrepViews.tsx",
+              "errors": 36
+            },
+            {
+              "file": "components/teacher/TeacherOperationsView.tsx",
+              "errors": 32
+            },
+            {
+              "file": "lib/teacherReviewLesson.ts",
+              "errors": 30
+            },
+            {
+              "file": "components/teacher/TeacherReviewLessonView.tsx",
+              "errors": 25
+            },
+            {
+              "file": "lib/teacherReviewLessonPptx.ts",
+              "errors": 19
+            }
+          ]
+        },
+        {
+          "ownerId": "A18",
+          "owner": "A18 curriculum QA and content quality lead",
+          "routeKind": "cross-owner-blocker",
+          "files": [
+            {
+              "file": "data/topics.ts",
+              "errors": 49
+            },
+            {
+              "file": "data/mainlandPepPrimaryTopics.ts",
+              "errors": 24
+            },
+            {
+              "file": "data/mainlandPepHighTopics.ts",
+              "errors": 22
+            }
+          ]
+        }
+      ],
+      "blockingReasons": [
+        "A03 roadmap typeCheck failed",
+        "A03 roadmap roadmapPlaywright failed"
+      ],
+      "failedCheckNames": [
+        "typeCheck",
+        "roadmapPlaywright"
+      ],
+      "failedChecks": [
+        {
+          "name": "typeCheck",
+          "command": "npm run type-check -- --pretty false",
+          "status": 2
+        },
+        {
+          "name": "roadmapPlaywright",
+          "command": "npx playwright test tests/e2e/mainland-hjb-roadmaps.spec.ts tests/e2e/mainland-pep-roadmaps.spec.ts --project=desktop-chrome",
+          "status": 1
+        }
+      ],
+      "typeCheckErrorLines": 841,
+      "typeCheckTopFiles": [
+        {
+          "file": "components/visualizations/three/scenes/TemplatePrimitiveScene.tsx",
+          "errors": 206,
+          "inferredOwners": [
+            {
+              "ownerId": "A06",
+              "owner": "A06 visualization lead"
+            }
+          ]
+        },
+        {
+          "file": "data/topics.ts",
+          "errors": 49,
+          "inferredOwners": [
+            {
+              "ownerId": "A03",
+              "owner": "A03 curriculum roadmap lead"
+            },
+            {
+              "ownerId": "A18",
+              "owner": "A18 curriculum QA and content quality lead"
+            }
+          ]
+        },
+        {
+          "file": "components/teacher/TeacherPrepViews.tsx",
+          "errors": 36,
+          "inferredOwners": [
+            {
+              "ownerId": "A13",
+              "owner": "A13 teacher console lead"
+            }
+          ]
+        },
+        {
+          "file": "components/teacher/TeacherOperationsView.tsx",
+          "errors": 32,
+          "inferredOwners": [
+            {
+              "ownerId": "A13",
+              "owner": "A13 teacher console lead"
+            }
+          ]
+        },
+        {
+          "file": "lib/teacherReviewLesson.ts",
+          "errors": 30,
+          "inferredOwners": [
+            {
+              "ownerId": "A13",
+              "owner": "A13 teacher console lead"
+            }
+          ]
+        },
+        {
+          "file": "components/teacher/TeacherReviewLessonView.tsx",
+          "errors": 25,
+          "inferredOwners": [
+            {
+              "ownerId": "A13",
+              "owner": "A13 teacher console lead"
+            }
+          ]
+        },
+        {
+          "file": "data/mainlandPepPrimaryTopics.ts",
+          "errors": 24,
+          "inferredOwners": [
+            {
+              "ownerId": "A03",
+              "owner": "A03 curriculum roadmap lead"
+            },
+            {
+              "ownerId": "A18",
+              "owner": "A18 curriculum QA and content quality lead"
+            }
+          ]
+        },
+        {
+          "file": "data/mainlandPepHighTopics.ts",
+          "errors": 22,
+          "inferredOwners": [
+            {
+              "ownerId": "A03",
+              "owner": "A03 curriculum roadmap lead"
+            },
+            {
+              "ownerId": "A18",
+              "owner": "A18 curriculum QA and content quality lead"
+            }
+          ]
+        },
+        {
+          "file": "components/visualizations/three/ThreeDGraphCanvas.tsx",
+          "errors": 21,
+          "inferredOwners": [
+            {
+              "ownerId": "A06",
+              "owner": "A06 visualization lead"
+            }
+          ]
+        },
+        {
+          "file": "lib/teacherReviewLessonPptx.ts",
+          "errors": 19,
+          "inferredOwners": [
+            {
+              "ownerId": "A13",
+              "owner": "A13 teacher console lead"
+            }
+          ]
+        }
+      ],
+      "uncoveredPaths": [],
+      "resyncRecommendationCount": 0,
+      "resyncRecommendations": [],
+      "wave01FrontierStatus": null,
+      "wave01ArtifactCleanAuthorizedRows": null,
+      "wave01ArtifactCleanTargetDirtyRows": null,
+      "wave01HeldRows": null,
+      "wave01ValidExecutionInstructionRows": null,
+      "wave01CleanupAuthorizedRows": null,
+      "wave01ExecutableRows": null,
+      "approvalIds": [
+        "a03-curriculum-roadmap-lead"
+      ],
+      "physicalLifecycleApprovalIds": [
+        "codex-a03-roadmap-closure"
+      ],
+      "nextActions": [
+        "Route type-check top-file blockers to the inferred cross-owner agents before the package owner attempts a reviewed commit.",
+        "The owning package session must inspect the named failed checks in its isolated worktree and either fix in scope or produce a blocker report.",
+        "After any approved package action, refresh the dirty map and rerun the A25 aggregate currentness gate."
+      ],
+      "cleanupAuthorized": false,
+      "executableNow": false
+    },
+    {
+      "matrixId": "wave-04-practice-lesson-content:a04-practice",
+      "sourceKind": "owner-package-readiness",
+      "waveId": "wave-04-practice-lesson-content",
+      "packageId": "a04-practice",
+      "packageName": "A04 practice",
+      "readiness": "blocked",
+      "packageOwners": [
+        "A04 practice lead"
+      ],
+      "packageOwnerIds": [
+        "A04"
+      ],
+      "routeToOwners": [
+        {
+          "ownerId": "A06",
+          "owner": "A06 visualization lead",
+          "routeKind": "cross-owner-blocker",
+          "files": 3,
+          "errors": 243
+        },
+        {
+          "ownerId": "A13",
+          "owner": "A13 teacher console lead",
+          "routeKind": "cross-owner-blocker",
+          "files": 5,
+          "errors": 142
+        },
+        {
+          "ownerId": "A04",
+          "owner": "A04 practice lead",
+          "routeKind": "package-owner",
+          "files": 1,
+          "errors": 91
+        },
+        {
+          "ownerId": "A18",
+          "owner": "A18 curriculum QA and content quality lead",
+          "routeKind": "cross-owner-blocker",
+          "files": 1,
+          "errors": 91
+        },
+        {
+          "ownerId": "A25",
+          "owner": "A25 git hygiene and release intake lead",
+          "routeKind": "cross-owner-blocker",
+          "files": 1,
+          "errors": 27
+        }
+      ],
+      "ownerRoutes": [
+        {
+          "ownerId": "A04",
+          "owner": "A04 practice lead",
+          "routeKind": "package-owner",
+          "files": [
+            {
+              "file": "data/questions.ts",
+              "errors": 91
+            }
+          ]
+        },
+        {
+          "ownerId": "A06",
+          "owner": "A06 visualization lead",
+          "routeKind": "cross-owner-blocker",
+          "files": [
+            {
+              "file": "components/visualizations/three/scenes/TemplatePrimitiveScene.tsx",
+              "errors": 206
+            },
+            {
+              "file": "components/visualizations/three/ThreeDGraphCanvas.tsx",
+              "errors": 21
+            },
+            {
+              "file": "components/visualizations/VisualizationLabPage.tsx",
+              "errors": 16
+            }
+          ]
+        },
+        {
+          "ownerId": "A13",
+          "owner": "A13 teacher console lead",
+          "routeKind": "cross-owner-blocker",
+          "files": [
+            {
+              "file": "components/teacher/TeacherPrepViews.tsx",
+              "errors": 36
+            },
+            {
+              "file": "components/teacher/TeacherOperationsView.tsx",
+              "errors": 32
+            },
+            {
+              "file": "lib/teacherReviewLesson.ts",
+              "errors": 30
+            },
+            {
+              "file": "components/teacher/TeacherReviewLessonView.tsx",
+              "errors": 25
+            },
+            {
+              "file": "lib/teacherReviewLessonPptx.ts",
+              "errors": 19
+            }
+          ]
+        },
+        {
+          "ownerId": "A18",
+          "owner": "A18 curriculum QA and content quality lead",
+          "routeKind": "cross-owner-blocker",
+          "files": [
+            {
+              "file": "data/questions.ts",
+              "errors": 91
+            }
+          ]
+        },
+        {
+          "ownerId": "A25",
+          "owner": "A25 git hygiene and release intake lead",
+          "routeKind": "cross-owner-blocker",
+          "files": [
+            {
+              "file": "lib/mainlandPepHighQuestionBank.test.ts",
+              "errors": 27
+            }
+          ]
+        }
+      ],
+      "blockingReasons": [
+        "A04 practice testQuestionBank failed",
+        "A04 practice typeCheck failed",
+        "A04 practice practicePlaywright failed"
+      ],
+      "failedCheckNames": [
+        "testQuestionBank",
+        "typeCheck",
+        "practicePlaywright"
+      ],
+      "failedChecks": [
+        {
+          "name": "testQuestionBank",
+          "command": "npm run test:question-bank",
+          "status": 1
+        },
+        {
+          "name": "typeCheck",
+          "command": "npm run type-check -- --pretty false",
+          "status": 2
+        },
+        {
+          "name": "practicePlaywright",
+          "command": "npx playwright test tests/e2e/practice-pager.spec.ts tests/e2e/student-smoke.spec.ts --project=desktop-chrome",
+          "status": 1
+        }
+      ],
+      "typeCheckErrorLines": 885,
+      "typeCheckTopFiles": [
+        {
+          "file": "components/visualizations/three/scenes/TemplatePrimitiveScene.tsx",
+          "errors": 206,
+          "inferredOwners": [
+            {
+              "ownerId": "A06",
+              "owner": "A06 visualization lead"
+            }
+          ]
+        },
+        {
+          "file": "data/questions.ts",
+          "errors": 91,
+          "inferredOwners": [
+            {
+              "ownerId": "A04",
+              "owner": "A04 practice lead"
+            },
+            {
+              "ownerId": "A18",
+              "owner": "A18 curriculum QA and content quality lead"
+            }
+          ]
+        },
+        {
+          "file": "components/teacher/TeacherPrepViews.tsx",
+          "errors": 36,
+          "inferredOwners": [
+            {
+              "ownerId": "A13",
+              "owner": "A13 teacher console lead"
+            }
+          ]
+        },
+        {
+          "file": "components/teacher/TeacherOperationsView.tsx",
+          "errors": 32,
+          "inferredOwners": [
+            {
+              "ownerId": "A13",
+              "owner": "A13 teacher console lead"
+            }
+          ]
+        },
+        {
+          "file": "lib/teacherReviewLesson.ts",
+          "errors": 30,
+          "inferredOwners": [
+            {
+              "ownerId": "A13",
+              "owner": "A13 teacher console lead"
+            }
+          ]
+        },
+        {
+          "file": "lib/mainlandPepHighQuestionBank.test.ts",
+          "errors": 27,
+          "inferredOwners": [
+            {
+              "ownerId": "A25",
+              "owner": "A25 git hygiene and release intake lead"
+            }
+          ]
+        },
+        {
+          "file": "components/teacher/TeacherReviewLessonView.tsx",
+          "errors": 25,
+          "inferredOwners": [
+            {
+              "ownerId": "A13",
+              "owner": "A13 teacher console lead"
+            }
+          ]
+        },
+        {
+          "file": "components/visualizations/three/ThreeDGraphCanvas.tsx",
+          "errors": 21,
+          "inferredOwners": [
+            {
+              "ownerId": "A06",
+              "owner": "A06 visualization lead"
+            }
+          ]
+        },
+        {
+          "file": "lib/teacherReviewLessonPptx.ts",
+          "errors": 19,
+          "inferredOwners": [
+            {
+              "ownerId": "A13",
+              "owner": "A13 teacher console lead"
+            }
+          ]
+        },
+        {
+          "file": "components/visualizations/VisualizationLabPage.tsx",
+          "errors": 16,
+          "inferredOwners": [
+            {
+              "ownerId": "A06",
+              "owner": "A06 visualization lead"
+            }
+          ]
+        }
+      ],
+      "uncoveredPaths": [],
+      "resyncRecommendationCount": 0,
+      "resyncRecommendations": [],
+      "wave01FrontierStatus": null,
+      "wave01ArtifactCleanAuthorizedRows": null,
+      "wave01ArtifactCleanTargetDirtyRows": null,
+      "wave01HeldRows": null,
+      "wave01ValidExecutionInstructionRows": null,
+      "wave01CleanupAuthorizedRows": null,
+      "wave01ExecutableRows": null,
+      "approvalIds": [
+        "a04-practice-lead"
+      ],
+      "physicalLifecycleApprovalIds": [
+        "codex-a04-practice-closure"
+      ],
+      "nextActions": [
+        "Route type-check top-file blockers to the inferred cross-owner agents before the package owner attempts a reviewed commit.",
+        "The owning package session must inspect the named failed checks in its isolated worktree and either fix in scope or produce a blocker report.",
+        "After any approved package action, refresh the dirty map and rerun the A25 aggregate currentness gate."
+      ],
+      "cleanupAuthorized": false,
+      "executableNow": false
+    },
+    {
+      "matrixId": "wave-04-practice-lesson-content:a05-lesson",
+      "sourceKind": "owner-package-readiness",
+      "waveId": "wave-04-practice-lesson-content",
+      "packageId": "a05-lesson",
+      "packageName": "A05 lesson",
+      "readiness": "blocked",
+      "packageOwners": [
+        "A05 lesson lead"
+      ],
+      "packageOwnerIds": [
+        "A05"
+      ],
+      "routeToOwners": [
+        {
+          "ownerId": "A06",
+          "owner": "A06 visualization lead",
+          "routeKind": "cross-owner-blocker",
+          "files": 3,
+          "errors": 243
+        },
+        {
+          "ownerId": "A13",
+          "owner": "A13 teacher console lead",
+          "routeKind": "cross-owner-blocker",
+          "files": 5,
+          "errors": 142
+        },
+        {
+          "ownerId": "A03",
+          "owner": "A03 curriculum roadmap lead",
+          "routeKind": "cross-owner-blocker",
+          "files": 2,
+          "errors": 35
+        },
+        {
+          "ownerId": "A18",
+          "owner": "A18 curriculum QA and content quality lead",
+          "routeKind": "cross-owner-blocker",
+          "files": 2,
+          "errors": 35
+        }
+      ],
+      "ownerRoutes": [
+        {
+          "ownerId": "A03",
+          "owner": "A03 curriculum roadmap lead",
+          "routeKind": "cross-owner-blocker",
+          "files": [
+            {
+              "file": "data/usCaliforniaLessons.ts",
+              "errors": 20
+            },
+            {
+              "file": "data/usCaliforniaLessons.test.ts",
+              "errors": 15
+            }
+          ]
+        },
+        {
+          "ownerId": "A06",
+          "owner": "A06 visualization lead",
+          "routeKind": "cross-owner-blocker",
+          "files": [
+            {
+              "file": "components/visualizations/three/scenes/TemplatePrimitiveScene.tsx",
+              "errors": 206
+            },
+            {
+              "file": "components/visualizations/three/ThreeDGraphCanvas.tsx",
+              "errors": 21
+            },
+            {
+              "file": "components/visualizations/VisualizationLabPage.tsx",
+              "errors": 16
+            }
+          ]
+        },
+        {
+          "ownerId": "A13",
+          "owner": "A13 teacher console lead",
+          "routeKind": "cross-owner-blocker",
+          "files": [
+            {
+              "file": "components/teacher/TeacherPrepViews.tsx",
+              "errors": 36
+            },
+            {
+              "file": "components/teacher/TeacherOperationsView.tsx",
+              "errors": 32
+            },
+            {
+              "file": "lib/teacherReviewLesson.ts",
+              "errors": 30
+            },
+            {
+              "file": "components/teacher/TeacherReviewLessonView.tsx",
+              "errors": 25
+            },
+            {
+              "file": "lib/teacherReviewLessonPptx.ts",
+              "errors": 19
+            }
+          ]
+        },
+        {
+          "ownerId": "A18",
+          "owner": "A18 curriculum QA and content quality lead",
+          "routeKind": "cross-owner-blocker",
+          "files": [
+            {
+              "file": "data/usCaliforniaLessons.ts",
+              "errors": 20
+            },
+            {
+              "file": "data/usCaliforniaLessons.test.ts",
+              "errors": 15
+            }
+          ]
+        }
+      ],
+      "blockingReasons": [
+        "A05 lesson typeCheck failed",
+        "A05 lesson lessonPlaywright failed"
+      ],
+      "failedCheckNames": [
+        "typeCheck",
+        "lessonPlaywright"
+      ],
+      "failedChecks": [
+        {
+          "name": "typeCheck",
+          "command": "npm run type-check -- --pretty false",
+          "status": 2
+        },
+        {
+          "name": "lessonPlaywright",
+          "command": "npx playwright test tests/e2e/lesson-all.spec.ts tests/e2e/mainland-pep-high-lessons.spec.ts tests/e2e/california-k5-textbook-lessons.spec.ts --project=desktop-chrome",
+          "status": 1
+        }
+      ],
+      "typeCheckErrorLines": 723,
+      "typeCheckTopFiles": [
+        {
+          "file": "components/visualizations/three/scenes/TemplatePrimitiveScene.tsx",
+          "errors": 206,
+          "inferredOwners": [
+            {
+              "ownerId": "A06",
+              "owner": "A06 visualization lead"
+            }
+          ]
+        },
+        {
+          "file": "components/teacher/TeacherPrepViews.tsx",
+          "errors": 36,
+          "inferredOwners": [
+            {
+              "ownerId": "A13",
+              "owner": "A13 teacher console lead"
+            }
+          ]
+        },
+        {
+          "file": "components/teacher/TeacherOperationsView.tsx",
+          "errors": 32,
+          "inferredOwners": [
+            {
+              "ownerId": "A13",
+              "owner": "A13 teacher console lead"
+            }
+          ]
+        },
+        {
+          "file": "lib/teacherReviewLesson.ts",
+          "errors": 30,
+          "inferredOwners": [
+            {
+              "ownerId": "A13",
+              "owner": "A13 teacher console lead"
+            }
+          ]
+        },
+        {
+          "file": "components/teacher/TeacherReviewLessonView.tsx",
+          "errors": 25,
+          "inferredOwners": [
+            {
+              "ownerId": "A13",
+              "owner": "A13 teacher console lead"
+            }
+          ]
+        },
+        {
+          "file": "components/visualizations/three/ThreeDGraphCanvas.tsx",
+          "errors": 21,
+          "inferredOwners": [
+            {
+              "ownerId": "A06",
+              "owner": "A06 visualization lead"
+            }
+          ]
+        },
+        {
+          "file": "data/usCaliforniaLessons.ts",
+          "errors": 20,
+          "inferredOwners": [
+            {
+              "ownerId": "A03",
+              "owner": "A03 curriculum roadmap lead"
+            },
+            {
+              "ownerId": "A18",
+              "owner": "A18 curriculum QA and content quality lead"
+            }
+          ]
+        },
+        {
+          "file": "lib/teacherReviewLessonPptx.ts",
+          "errors": 19,
+          "inferredOwners": [
+            {
+              "ownerId": "A13",
+              "owner": "A13 teacher console lead"
+            }
+          ]
+        },
+        {
+          "file": "components/visualizations/VisualizationLabPage.tsx",
+          "errors": 16,
+          "inferredOwners": [
+            {
+              "ownerId": "A06",
+              "owner": "A06 visualization lead"
+            }
+          ]
+        },
+        {
+          "file": "data/usCaliforniaLessons.test.ts",
+          "errors": 15,
+          "inferredOwners": [
+            {
+              "ownerId": "A03",
+              "owner": "A03 curriculum roadmap lead"
+            },
+            {
+              "ownerId": "A18",
+              "owner": "A18 curriculum QA and content quality lead"
+            }
+          ]
+        }
+      ],
+      "uncoveredPaths": [],
+      "resyncRecommendationCount": 0,
+      "resyncRecommendations": [],
+      "wave01FrontierStatus": null,
+      "wave01ArtifactCleanAuthorizedRows": null,
+      "wave01ArtifactCleanTargetDirtyRows": null,
+      "wave01HeldRows": null,
+      "wave01ValidExecutionInstructionRows": null,
+      "wave01CleanupAuthorizedRows": null,
+      "wave01ExecutableRows": null,
+      "approvalIds": [
+        "a05-lesson-lead"
+      ],
+      "physicalLifecycleApprovalIds": [
+        "codex-a05-lesson-closure"
+      ],
+      "nextActions": [
+        "Route type-check top-file blockers to the inferred cross-owner agents before the package owner attempts a reviewed commit.",
+        "The owning package session must inspect the named failed checks in its isolated worktree and either fix in scope or produce a blocker report.",
+        "After any approved package action, refresh the dirty map and rerun the A25 aggregate currentness gate."
+      ],
+      "cleanupAuthorized": false,
+      "executableNow": false
+    },
+    {
+      "matrixId": "wave-04-practice-lesson-content:a18-a21-a23-a24-content-evidence",
+      "sourceKind": "owner-package-readiness",
+      "waveId": "wave-04-practice-lesson-content",
+      "packageId": "a18-a21-a23-a24-content-evidence",
+      "packageName": "A18/A21/A23/A24 content evidence",
+      "readiness": "blocked",
+      "packageOwners": [
+        "A18 curriculum QA / A21 content pipeline",
+        "A21 content pipeline and RAG operations",
+        "A23 integration and promotion lead",
+        "A24 illustration exact-layer"
+      ],
+      "packageOwnerIds": [
+        "A18",
+        "A21",
+        "A23",
+        "A24"
+      ],
+      "routeToOwners": [
+        {
+          "ownerId": "A06",
+          "owner": "A06 visualization lead",
+          "routeKind": "cross-owner-blocker",
+          "files": 3,
+          "errors": 243
+        },
+        {
+          "ownerId": "A13",
+          "owner": "A13 teacher console lead",
+          "routeKind": "cross-owner-blocker",
+          "files": 5,
+          "errors": 142
+        },
+        {
+          "ownerId": "A25",
+          "owner": "A25 git hygiene and release intake lead",
+          "routeKind": "cross-owner-blocker",
+          "files": 1,
+          "errors": 14
+        },
+        {
+          "ownerId": "A20",
+          "owner": "A20 game design and game-based learning lead",
+          "routeKind": "cross-owner-blocker",
+          "files": 1,
+          "errors": 13
+        }
+      ],
+      "ownerRoutes": [
+        {
+          "ownerId": "A06",
+          "owner": "A06 visualization lead",
+          "routeKind": "cross-owner-blocker",
+          "files": [
+            {
+              "file": "components/visualizations/three/scenes/TemplatePrimitiveScene.tsx",
+              "errors": 206
+            },
+            {
+              "file": "components/visualizations/three/ThreeDGraphCanvas.tsx",
+              "errors": 21
+            },
+            {
+              "file": "components/visualizations/VisualizationLabPage.tsx",
+              "errors": 16
+            }
+          ]
+        },
+        {
+          "ownerId": "A13",
+          "owner": "A13 teacher console lead",
+          "routeKind": "cross-owner-blocker",
+          "files": [
+            {
+              "file": "components/teacher/TeacherPrepViews.tsx",
+              "errors": 36
+            },
+            {
+              "file": "components/teacher/TeacherOperationsView.tsx",
+              "errors": 32
+            },
+            {
+              "file": "lib/teacherReviewLesson.ts",
+              "errors": 30
+            },
+            {
+              "file": "components/teacher/TeacherReviewLessonView.tsx",
+              "errors": 25
+            },
+            {
+              "file": "lib/teacherReviewLessonPptx.ts",
+              "errors": 19
+            }
+          ]
+        },
+        {
+          "ownerId": "A20",
+          "owner": "A20 game design and game-based learning lead",
+          "routeKind": "cross-owner-blocker",
+          "files": [
+            {
+              "file": "components/games/MathVirusBlasterGame.tsx",
+              "errors": 13
+            }
+          ]
+        },
+        {
+          "ownerId": "A25",
+          "owner": "A25 git hygiene and release intake lead",
+          "routeKind": "cross-owner-blocker",
+          "files": [
+            {
+              "file": "lib/rag/hongKongMath.ts",
+              "errors": 14
+            }
+          ]
+        }
+      ],
+      "blockingReasons": [
+        "A18/A21/A23/A24 content evidence has 110 dirty entries outside its pathspec union",
+        "A18/A21/A23/A24 content evidence testRag failed",
+        "A18/A21/A23/A24 content evidence testQuestionBank failed",
+        "A18/A21/A23/A24 content evidence typeCheck failed"
+      ],
+      "failedCheckNames": [
+        "testRag",
+        "testQuestionBank",
+        "typeCheck"
+      ],
+      "failedChecks": [
+        {
+          "name": "testRag",
+          "command": "npm run test:rag",
+          "status": 1
+        },
+        {
+          "name": "testQuestionBank",
+          "command": "npm run test:question-bank",
+          "status": 1
+        },
+        {
+          "name": "typeCheck",
+          "command": "npm run type-check -- --pretty false",
+          "status": 2
+        }
+      ],
+      "typeCheckErrorLines": 756,
+      "typeCheckTopFiles": [
+        {
+          "file": "components/visualizations/three/scenes/TemplatePrimitiveScene.tsx",
+          "errors": 206,
+          "inferredOwners": [
+            {
+              "ownerId": "A06",
+              "owner": "A06 visualization lead"
+            }
+          ]
+        },
+        {
+          "file": "components/teacher/TeacherPrepViews.tsx",
+          "errors": 36,
+          "inferredOwners": [
+            {
+              "ownerId": "A13",
+              "owner": "A13 teacher console lead"
+            }
+          ]
+        },
+        {
+          "file": "components/teacher/TeacherOperationsView.tsx",
+          "errors": 32,
+          "inferredOwners": [
+            {
+              "ownerId": "A13",
+              "owner": "A13 teacher console lead"
+            }
+          ]
+        },
+        {
+          "file": "lib/teacherReviewLesson.ts",
+          "errors": 30,
+          "inferredOwners": [
+            {
+              "ownerId": "A13",
+              "owner": "A13 teacher console lead"
+            }
+          ]
+        },
+        {
+          "file": "components/teacher/TeacherReviewLessonView.tsx",
+          "errors": 25,
+          "inferredOwners": [
+            {
+              "ownerId": "A13",
+              "owner": "A13 teacher console lead"
+            }
+          ]
+        },
+        {
+          "file": "components/visualizations/three/ThreeDGraphCanvas.tsx",
+          "errors": 21,
+          "inferredOwners": [
+            {
+              "ownerId": "A06",
+              "owner": "A06 visualization lead"
+            }
+          ]
+        },
+        {
+          "file": "lib/teacherReviewLessonPptx.ts",
+          "errors": 19,
+          "inferredOwners": [
+            {
+              "ownerId": "A13",
+              "owner": "A13 teacher console lead"
+            }
+          ]
+        },
+        {
+          "file": "components/visualizations/VisualizationLabPage.tsx",
+          "errors": 16,
+          "inferredOwners": [
+            {
+              "ownerId": "A06",
+              "owner": "A06 visualization lead"
+            }
+          ]
+        },
+        {
+          "file": "lib/rag/hongKongMath.ts",
+          "errors": 14,
+          "inferredOwners": [
+            {
+              "ownerId": "A25",
+              "owner": "A25 git hygiene and release intake lead"
+            }
+          ]
+        },
+        {
+          "file": "components/games/MathVirusBlasterGame.tsx",
+          "errors": 13,
+          "inferredOwners": [
+            {
+              "ownerId": "A20",
+              "owner": "A20 game design and game-based learning lead"
+            }
+          ]
+        }
+      ],
+      "uncoveredPaths": [
+        {
+          "path": "coordination/content-qa/2026-06-15-S18-S24-us-tx-primary-lesson-illustration-review.md",
+          "inferredOwners": [
+            {
+              "ownerId": "A10",
+              "owner": "A10 tooling, docs, and report lead"
+            }
+          ]
+        },
+        {
+          "path": "coordination/content-qa/2026-06-21-S18-generated-content-source-package-import-signoff.md",
+          "inferredOwners": [
+            {
+              "ownerId": "A10",
+              "owner": "A10 tooling, docs, and report lead"
+            }
+          ]
+        },
+        {
+          "path": "coordination/content-qa/2026-06-21-S21-generated-content-source-package-restoration-inventory.md",
+          "inferredOwners": [
+            {
+              "ownerId": "A10",
+              "owner": "A10 tooling, docs, and report lead"
+            }
+          ]
+        },
+        {
+          "path": "coordination/content-qa/2026-06-22-S18-us-ca-k5-public-claim-gate.md",
+          "inferredOwners": [
+            {
+              "ownerId": "A10",
+              "owner": "A10 tooling, docs, and report lead"
+            }
+          ]
+        },
+        {
+          "path": "coordination/content-qa/2026-06-27-A18-A21-A24-worked-example-illustration-qa.md",
+          "inferredOwners": [
+            {
+              "ownerId": "A10",
+              "owner": "A10 tooling, docs, and report lead"
+            }
+          ]
+        },
+        {
+          "path": "coordination/content-qa/2026-06-27-A18-california-concept-story-qa.md",
+          "inferredOwners": [
+            {
+              "ownerId": "A10",
+              "owner": "A10 tooling, docs, and report lead"
+            }
+          ]
+        },
+        {
+          "path": "coordination/content-qa/california-knowledge-point-system-policy.md",
+          "inferredOwners": [
+            {
+              "ownerId": "A10",
+              "owner": "A10 tooling, docs, and report lead"
+            }
+          ]
+        },
+        {
+          "path": "coordination/content-qa/mainland-bnu-junior-lessons-v1/deepseek-v4-pro-lesson-qa/coverage-matrix.csv",
+          "inferredOwners": [
+            {
+              "ownerId": "A10",
+              "owner": "A10 tooling, docs, and report lead"
+            }
+          ]
+        },
+        {
+          "path": "coordination/content-qa/mainland-bnu-junior-lessons-v1/deepseek-v4-pro-lesson-qa/preflight-issues.csv",
+          "inferredOwners": [
+            {
+              "ownerId": "A10",
+              "owner": "A10 tooling, docs, and report lead"
+            }
+          ]
+        },
+        {
+          "path": "coordination/content-qa/mainland-bnu-junior-lessons-v1/lessons.json",
+          "inferredOwners": [
+            {
+              "ownerId": "A10",
+              "owner": "A10 tooling, docs, and report lead"
+            }
+          ]
+        },
+        {
+          "path": "coordination/content-qa/us-ca-adaptive-k-g5-beta-seed-v1/manual-review-results.csv",
+          "inferredOwners": [
+            {
+              "ownerId": "A10",
+              "owner": "A10 tooling, docs, and report lead"
+            }
+          ]
+        },
+        {
+          "path": "coordination/content-qa/us-ca-adaptive-k-g5-beta-seed-v1/promotability-decision.md",
+          "inferredOwners": [
+            {
+              "ownerId": "A10",
+              "owner": "A10 tooling, docs, and report lead"
+            }
+          ]
+        },
+        {
+          "path": "coordination/content-qa/us-ca-adaptive-k-g5-beta-seed-v1/qa-report.md",
+          "inferredOwners": [
+            {
+              "ownerId": "A10",
+              "owner": "A10 tooling, docs, and report lead"
+            }
+          ]
+        },
+        {
+          "path": "coordination/content-qa/us-ca-adaptive-k-g5-beta-seed-v1/question-pack.json",
+          "inferredOwners": [
+            {
+              "ownerId": "A10",
+              "owner": "A10 tooling, docs, and report lead"
+            }
+          ]
+        },
+        {
+          "path": "coordination/content-qa/us-ca-adaptive-k-g5-beta-seed-v1/solvability-audit.json",
+          "inferredOwners": [
+            {
+              "ownerId": "A10",
+              "owner": "A10 tooling, docs, and report lead"
+            }
+          ]
+        },
+        {
+          "path": "coordination/content-qa/us-ca-adaptive-k-g5-beta-seed-v1/solvability-audit.md",
+          "inferredOwners": [
+            {
+              "ownerId": "A10",
+              "owner": "A10 tooling, docs, and report lead"
+            }
+          ]
+        },
+        {
+          "path": "coordination/content-qa/us-ca-k5-knowledge-point-practice-v1/build-docx-report.py",
+          "inferredOwners": [
+            {
+              "ownerId": "A10",
+              "owner": "A10 tooling, docs, and report lead"
+            }
+          ]
+        },
+        {
+          "path": "coordination/content-qa/us-ca-k5-knowledge-point-practice-v1/difficulty-buckets.csv",
+          "inferredOwners": [
+            {
+              "ownerId": "A10",
+              "owner": "A10 tooling, docs, and report lead"
+            }
+          ]
+        },
+        {
+          "path": "coordination/content-qa/us-ca-k5-knowledge-point-practice-v1/difficulty-buckets.json",
+          "inferredOwners": [
+            {
+              "ownerId": "A10",
+              "owner": "A10 tooling, docs, and report lead"
+            }
+          ]
+        },
+        {
+          "path": "coordination/content-qa/us-ca-k5-knowledge-point-practice-v1/generate-package.mjs",
+          "inferredOwners": [
+            {
+              "ownerId": "A10",
+              "owner": "A10 tooling, docs, and report lead"
+            }
+          ]
+        }
+      ],
+      "resyncRecommendationCount": 0,
+      "resyncRecommendations": [],
+      "wave01FrontierStatus": null,
+      "wave01ArtifactCleanAuthorizedRows": null,
+      "wave01ArtifactCleanTargetDirtyRows": null,
+      "wave01HeldRows": null,
+      "wave01ValidExecutionInstructionRows": null,
+      "wave01CleanupAuthorizedRows": null,
+      "wave01ExecutableRows": null,
+      "approvalIds": [
+        "a18-curriculum-qa-a21-content-pipeline",
+        "a21-content-pipeline-and-rag-operations",
+        "a23-integration-and-promotion-lead",
+        "a24-illustration-exact-layer"
+      ],
+      "physicalLifecycleApprovalIds": [
+        "codex-a18-a21-content-evidence-closure"
+      ],
+      "nextActions": [
+        "A25/A10/A22 must keep package-only resync or uncovered-path rows parked until canonical owner input plus execution-instruction gates both pass; no restore, clean, or discard is authorized by this routing row.",
+        "Keep package-only resync or uncovered-path rows non-executable until the recorded owner input and execution-instruction gates both pass.",
+        "Route type-check top-file blockers to the inferred cross-owner agents before the package owner attempts a reviewed commit.",
+        "The owning package session must inspect the named failed checks in its isolated worktree and either fix in scope or produce a blocker report.",
+        "After any approved package action, refresh the dirty map and rerun the A25 aggregate currentness gate."
+      ],
+      "cleanupAuthorized": false,
+      "executableNow": false
+    },
+    {
+      "matrixId": "wave-05-visualization-ai-runtime:a06-visualization",
+      "sourceKind": "owner-package-readiness",
+      "waveId": "wave-05-visualization-ai-runtime",
+      "packageId": "a06-visualization",
+      "packageName": "A06 visualization",
+      "readiness": "blocked",
+      "packageOwners": [
+        "A06 visualization lead"
+      ],
+      "packageOwnerIds": [
+        "A06"
+      ],
+      "routeToOwners": [
+        {
+          "ownerId": "A06",
+          "owner": "A06 visualization lead",
+          "routeKind": "package-owner",
+          "files": 4,
+          "errors": 274
+        },
+        {
+          "ownerId": "A13",
+          "owner": "A13 teacher console lead",
+          "routeKind": "cross-owner-blocker",
+          "files": 5,
+          "errors": 142
+        },
+        {
+          "ownerId": "A20",
+          "owner": "A20 game design and game-based learning lead",
+          "routeKind": "cross-owner-blocker",
+          "files": 1,
+          "errors": 13
+        }
+      ],
+      "ownerRoutes": [
+        {
+          "ownerId": "A06",
+          "owner": "A06 visualization lead",
+          "routeKind": "package-owner",
+          "files": [
+            {
+              "file": "components/visualizations/three/scenes/TemplatePrimitiveScene.tsx",
+              "errors": 216
+            },
+            {
+              "file": "components/visualizations/three/manim/MathSceneRuntime.tsx",
+              "errors": 25
+            },
+            {
+              "file": "components/visualizations/three/ThreeDGraphCanvas.tsx",
+              "errors": 21
+            },
+            {
+              "file": "components/visualizations/three/ThreeDLabCanvas.tsx",
+              "errors": 12
+            }
+          ]
+        },
+        {
+          "ownerId": "A13",
+          "owner": "A13 teacher console lead",
+          "routeKind": "cross-owner-blocker",
+          "files": [
+            {
+              "file": "components/teacher/TeacherPrepViews.tsx",
+              "errors": 36
+            },
+            {
+              "file": "components/teacher/TeacherOperationsView.tsx",
+              "errors": 32
+            },
+            {
+              "file": "lib/teacherReviewLesson.ts",
+              "errors": 30
+            },
+            {
+              "file": "components/teacher/TeacherReviewLessonView.tsx",
+              "errors": 25
+            },
+            {
+              "file": "lib/teacherReviewLessonPptx.ts",
+              "errors": 19
+            }
+          ]
+        },
+        {
+          "ownerId": "A20",
+          "owner": "A20 game design and game-based learning lead",
+          "routeKind": "cross-owner-blocker",
+          "files": [
+            {
+              "file": "components/games/MathVirusBlasterGame.tsx",
+              "errors": 13
+            }
+          ]
+        }
+      ],
+      "blockingReasons": [
+        "A06 visualization typeCheck failed",
+        "A06 visualization visualizationNodeTests failed",
+        "A06 visualization visualizationPlaywright failed"
+      ],
+      "failedCheckNames": [
+        "typeCheck",
+        "visualizationNodeTests",
+        "visualizationPlaywright"
+      ],
+      "failedChecks": [
+        {
+          "name": "typeCheck",
+          "command": "npm run type-check -- --pretty false",
+          "status": 2
+        },
+        {
+          "name": "visualizationNodeTests",
+          "command": "node --test components/visualizations/configuredVisualizationLabRegressions.test.ts components/visualizations/three/threeDCanvasContract.test.ts components/visualizations/visualizationDiagnostics.test.ts",
+          "status": 1
+        },
+        {
+          "name": "visualizationPlaywright",
+          "command": "npx playwright test tests/e2e/visualization-values.spec.ts tests/e2e/visualization-overlap.spec.ts --project=desktop-chrome",
+          "status": 1
+        }
+      ],
+      "typeCheckErrorLines": 655,
+      "typeCheckTopFiles": [
+        {
+          "file": "components/visualizations/three/scenes/TemplatePrimitiveScene.tsx",
+          "errors": 216,
+          "inferredOwners": [
+            {
+              "ownerId": "A06",
+              "owner": "A06 visualization lead"
+            }
+          ]
+        },
+        {
+          "file": "components/teacher/TeacherPrepViews.tsx",
+          "errors": 36,
+          "inferredOwners": [
+            {
+              "ownerId": "A13",
+              "owner": "A13 teacher console lead"
+            }
+          ]
+        },
+        {
+          "file": "components/teacher/TeacherOperationsView.tsx",
+          "errors": 32,
+          "inferredOwners": [
+            {
+              "ownerId": "A13",
+              "owner": "A13 teacher console lead"
+            }
+          ]
+        },
+        {
+          "file": "lib/teacherReviewLesson.ts",
+          "errors": 30,
+          "inferredOwners": [
+            {
+              "ownerId": "A13",
+              "owner": "A13 teacher console lead"
+            }
+          ]
+        },
+        {
+          "file": "components/teacher/TeacherReviewLessonView.tsx",
+          "errors": 25,
+          "inferredOwners": [
+            {
+              "ownerId": "A13",
+              "owner": "A13 teacher console lead"
+            }
+          ]
+        },
+        {
+          "file": "components/visualizations/three/manim/MathSceneRuntime.tsx",
+          "errors": 25,
+          "inferredOwners": [
+            {
+              "ownerId": "A06",
+              "owner": "A06 visualization lead"
+            }
+          ]
+        },
+        {
+          "file": "components/visualizations/three/ThreeDGraphCanvas.tsx",
+          "errors": 21,
+          "inferredOwners": [
+            {
+              "ownerId": "A06",
+              "owner": "A06 visualization lead"
+            }
+          ]
+        },
+        {
+          "file": "lib/teacherReviewLessonPptx.ts",
+          "errors": 19,
+          "inferredOwners": [
+            {
+              "ownerId": "A13",
+              "owner": "A13 teacher console lead"
+            }
+          ]
+        },
+        {
+          "file": "components/games/MathVirusBlasterGame.tsx",
+          "errors": 13,
+          "inferredOwners": [
+            {
+              "ownerId": "A20",
+              "owner": "A20 game design and game-based learning lead"
+            }
+          ]
+        },
+        {
+          "file": "components/visualizations/three/ThreeDLabCanvas.tsx",
+          "errors": 12,
+          "inferredOwners": [
+            {
+              "ownerId": "A06",
+              "owner": "A06 visualization lead"
+            }
+          ]
+        }
+      ],
+      "uncoveredPaths": [],
+      "resyncRecommendationCount": 0,
+      "resyncRecommendations": [],
+      "wave01FrontierStatus": null,
+      "wave01ArtifactCleanAuthorizedRows": null,
+      "wave01ArtifactCleanTargetDirtyRows": null,
+      "wave01HeldRows": null,
+      "wave01ValidExecutionInstructionRows": null,
+      "wave01CleanupAuthorizedRows": null,
+      "wave01ExecutableRows": null,
+      "approvalIds": [
+        "a06-visualization-lead"
+      ],
+      "physicalLifecycleApprovalIds": [
+        "codex-a06-visualization-closure"
+      ],
+      "nextActions": [
+        "Route type-check top-file blockers to the inferred cross-owner agents before the package owner attempts a reviewed commit.",
+        "The owning package session must inspect the named failed checks in its isolated worktree and either fix in scope or produce a blocker report.",
+        "After any approved package action, refresh the dirty map and rerun the A25 aggregate currentness gate."
+      ],
+      "cleanupAuthorized": false,
+      "executableNow": false
+    },
+    {
+      "matrixId": "wave-05-visualization-ai-runtime:a07-ai-tutor",
+      "sourceKind": "owner-package-readiness",
+      "waveId": "wave-05-visualization-ai-runtime",
+      "packageId": "a07-ai-tutor",
+      "packageName": "A07 AI tutor",
+      "readiness": "blocked",
+      "packageOwners": [
+        "A07 AI tutor lead"
+      ],
+      "packageOwnerIds": [
+        "A07"
+      ],
+      "routeToOwners": [
+        {
+          "ownerId": "A06",
+          "owner": "A06 visualization lead",
+          "routeKind": "cross-owner-blocker",
+          "files": 3,
+          "errors": 243
+        },
+        {
+          "ownerId": "A13",
+          "owner": "A13 teacher console lead",
+          "routeKind": "cross-owner-blocker",
+          "files": 5,
+          "errors": 142
+        },
+        {
+          "ownerId": "A20",
+          "owner": "A20 game design and game-based learning lead",
+          "routeKind": "cross-owner-blocker",
+          "files": 1,
+          "errors": 13
+        },
+        {
+          "ownerId": "A07",
+          "owner": "A07 AI tutor lead",
+          "routeKind": "package-owner",
+          "files": 1,
+          "errors": 12
+        },
+        {
+          "ownerId": "A12",
+          "owner": "A12 backend/API platform lead",
+          "routeKind": "cross-owner-blocker",
+          "files": 1,
+          "errors": 12
+        }
+      ],
+      "ownerRoutes": [
+        {
+          "ownerId": "A06",
+          "owner": "A06 visualization lead",
+          "routeKind": "cross-owner-blocker",
+          "files": [
+            {
+              "file": "components/visualizations/three/scenes/TemplatePrimitiveScene.tsx",
+              "errors": 206
+            },
+            {
+              "file": "components/visualizations/three/ThreeDGraphCanvas.tsx",
+              "errors": 21
+            },
+            {
+              "file": "components/visualizations/VisualizationLabPage.tsx",
+              "errors": 16
+            }
+          ]
+        },
+        {
+          "ownerId": "A07",
+          "owner": "A07 AI tutor lead",
+          "routeKind": "package-owner",
+          "files": [
+            {
+              "file": "app/api/ai-tutor/resolve/route.ts",
+              "errors": 12
+            }
+          ]
+        },
+        {
+          "ownerId": "A12",
+          "owner": "A12 backend/API platform lead",
+          "routeKind": "cross-owner-blocker",
+          "files": [
+            {
+              "file": "app/api/ai-tutor/resolve/route.ts",
+              "errors": 12
+            }
+          ]
+        },
+        {
+          "ownerId": "A13",
+          "owner": "A13 teacher console lead",
+          "routeKind": "cross-owner-blocker",
+          "files": [
+            {
+              "file": "components/teacher/TeacherPrepViews.tsx",
+              "errors": 36
+            },
+            {
+              "file": "components/teacher/TeacherOperationsView.tsx",
+              "errors": 32
+            },
+            {
+              "file": "lib/teacherReviewLesson.ts",
+              "errors": 30
+            },
+            {
+              "file": "components/teacher/TeacherReviewLessonView.tsx",
+              "errors": 25
+            },
+            {
+              "file": "lib/teacherReviewLessonPptx.ts",
+              "errors": 19
+            }
+          ]
+        },
+        {
+          "ownerId": "A20",
+          "owner": "A20 game design and game-based learning lead",
+          "routeKind": "cross-owner-blocker",
+          "files": [
+            {
+              "file": "components/games/MathVirusBlasterGame.tsx",
+              "errors": 13
+            }
+          ]
+        }
+      ],
+      "blockingReasons": [
+        "A07 AI tutor typeCheck failed",
+        "A07 AI tutor aiTutorPlaywright failed"
+      ],
+      "failedCheckNames": [
+        "typeCheck",
+        "aiTutorPlaywright"
+      ],
+      "failedChecks": [
+        {
+          "name": "typeCheck",
+          "command": "npm run type-check -- --pretty false",
+          "status": 2
+        },
+        {
+          "name": "aiTutorPlaywright",
+          "command": "npx playwright test tests/e2e/ai-tutor-deepseek.spec.ts tests/e2e/ai-tutor-live-text.spec.ts --project=desktop-chrome",
+          "status": 1
+        }
+      ],
+      "typeCheckErrorLines": 680,
+      "typeCheckTopFiles": [
+        {
+          "file": "components/visualizations/three/scenes/TemplatePrimitiveScene.tsx",
+          "errors": 206,
+          "inferredOwners": [
+            {
+              "ownerId": "A06",
+              "owner": "A06 visualization lead"
+            }
+          ]
+        },
+        {
+          "file": "components/teacher/TeacherPrepViews.tsx",
+          "errors": 36,
+          "inferredOwners": [
+            {
+              "ownerId": "A13",
+              "owner": "A13 teacher console lead"
+            }
+          ]
+        },
+        {
+          "file": "components/teacher/TeacherOperationsView.tsx",
+          "errors": 32,
+          "inferredOwners": [
+            {
+              "ownerId": "A13",
+              "owner": "A13 teacher console lead"
+            }
+          ]
+        },
+        {
+          "file": "lib/teacherReviewLesson.ts",
+          "errors": 30,
+          "inferredOwners": [
+            {
+              "ownerId": "A13",
+              "owner": "A13 teacher console lead"
+            }
+          ]
+        },
+        {
+          "file": "components/teacher/TeacherReviewLessonView.tsx",
+          "errors": 25,
+          "inferredOwners": [
+            {
+              "ownerId": "A13",
+              "owner": "A13 teacher console lead"
+            }
+          ]
+        },
+        {
+          "file": "components/visualizations/three/ThreeDGraphCanvas.tsx",
+          "errors": 21,
+          "inferredOwners": [
+            {
+              "ownerId": "A06",
+              "owner": "A06 visualization lead"
+            }
+          ]
+        },
+        {
+          "file": "lib/teacherReviewLessonPptx.ts",
+          "errors": 19,
+          "inferredOwners": [
+            {
+              "ownerId": "A13",
+              "owner": "A13 teacher console lead"
+            }
+          ]
+        },
+        {
+          "file": "components/visualizations/VisualizationLabPage.tsx",
+          "errors": 16,
+          "inferredOwners": [
+            {
+              "ownerId": "A06",
+              "owner": "A06 visualization lead"
+            }
+          ]
+        },
+        {
+          "file": "components/games/MathVirusBlasterGame.tsx",
+          "errors": 13,
+          "inferredOwners": [
+            {
+              "ownerId": "A20",
+              "owner": "A20 game design and game-based learning lead"
+            }
+          ]
+        },
+        {
+          "file": "app/api/ai-tutor/resolve/route.ts",
+          "errors": 12,
+          "inferredOwners": [
+            {
+              "ownerId": "A07",
+              "owner": "A07 AI tutor lead"
+            },
+            {
+              "ownerId": "A12",
+              "owner": "A12 backend/API platform lead"
+            }
+          ]
+        }
+      ],
+      "uncoveredPaths": [],
+      "resyncRecommendationCount": 0,
+      "resyncRecommendations": [],
+      "wave01FrontierStatus": null,
+      "wave01ArtifactCleanAuthorizedRows": null,
+      "wave01ArtifactCleanTargetDirtyRows": null,
+      "wave01HeldRows": null,
+      "wave01ValidExecutionInstructionRows": null,
+      "wave01CleanupAuthorizedRows": null,
+      "wave01ExecutableRows": null,
+      "approvalIds": [
+        "a07-ai-tutor-lead"
+      ],
+      "physicalLifecycleApprovalIds": [
+        "codex-a07-ai-tutor-closure"
+      ],
+      "nextActions": [
+        "Route type-check top-file blockers to the inferred cross-owner agents before the package owner attempts a reviewed commit.",
+        "The owning package session must inspect the named failed checks in its isolated worktree and either fix in scope or produce a blocker report.",
+        "After any approved package action, refresh the dirty map and rerun the A25 aggregate currentness gate."
+      ],
+      "cleanupAuthorized": false,
+      "executableNow": false
+    },
+    {
+      "matrixId": "wave-05-visualization-ai-runtime:a09-copy-i18n-accessibility",
+      "sourceKind": "owner-package-readiness",
+      "waveId": "wave-05-visualization-ai-runtime",
+      "packageId": "a09-copy-i18n-accessibility",
+      "packageName": "A09 copy/i18n/accessibility",
+      "readiness": "blocked",
+      "packageOwners": [
+        "A09 copy, i18n, accessibility"
+      ],
+      "packageOwnerIds": [
+        "A09"
+      ],
+      "routeToOwners": [
+        {
+          "ownerId": "A06",
+          "owner": "A06 visualization lead",
+          "routeKind": "cross-owner-blocker",
+          "files": 4,
+          "errors": 254
+        },
+        {
+          "ownerId": "A13",
+          "owner": "A13 teacher console lead",
+          "routeKind": "cross-owner-blocker",
+          "files": 5,
+          "errors": 142
+        },
+        {
+          "ownerId": "A20",
+          "owner": "A20 game design and game-based learning lead",
+          "routeKind": "cross-owner-blocker",
+          "files": 1,
+          "errors": 13
+        }
+      ],
+      "ownerRoutes": [
+        {
+          "ownerId": "A06",
+          "owner": "A06 visualization lead",
+          "routeKind": "cross-owner-blocker",
+          "files": [
+            {
+              "file": "components/visualizations/three/scenes/TemplatePrimitiveScene.tsx",
+              "errors": 206
+            },
+            {
+              "file": "components/visualizations/three/ThreeDGraphCanvas.tsx",
+              "errors": 20
+            },
+            {
+              "file": "components/visualizations/VisualizationLabPage.tsx",
+              "errors": 16
+            },
+            {
+              "file": "components/visualizations/three/manim/MathSceneRuntime.tsx",
+              "errors": 12
+            }
+          ]
+        },
+        {
+          "ownerId": "A13",
+          "owner": "A13 teacher console lead",
+          "routeKind": "cross-owner-blocker",
+          "files": [
+            {
+              "file": "components/teacher/TeacherPrepViews.tsx",
+              "errors": 36
+            },
+            {
+              "file": "components/teacher/TeacherOperationsView.tsx",
+              "errors": 32
+            },
+            {
+              "file": "lib/teacherReviewLesson.ts",
+              "errors": 30
+            },
+            {
+              "file": "components/teacher/TeacherReviewLessonView.tsx",
+              "errors": 25
+            },
+            {
+              "file": "lib/teacherReviewLessonPptx.ts",
+              "errors": 19
+            }
+          ]
+        },
+        {
+          "ownerId": "A20",
+          "owner": "A20 game design and game-based learning lead",
+          "routeKind": "cross-owner-blocker",
+          "files": [
+            {
+              "file": "components/games/MathVirusBlasterGame.tsx",
+              "errors": 13
+            }
+          ]
+        }
+      ],
+      "blockingReasons": [
+        "A09 copy/i18n/accessibility typeCheck failed"
+      ],
+      "failedCheckNames": [
+        "typeCheck"
+      ],
+      "failedChecks": [
+        {
+          "name": "typeCheck",
+          "command": "npm run type-check -- --pretty false",
+          "status": 2
+        }
+      ],
+      "typeCheckErrorLines": 654,
+      "typeCheckTopFiles": [
+        {
+          "file": "components/visualizations/three/scenes/TemplatePrimitiveScene.tsx",
+          "errors": 206,
+          "inferredOwners": [
+            {
+              "ownerId": "A06",
+              "owner": "A06 visualization lead"
+            }
+          ]
+        },
+        {
+          "file": "components/teacher/TeacherPrepViews.tsx",
+          "errors": 36,
+          "inferredOwners": [
+            {
+              "ownerId": "A13",
+              "owner": "A13 teacher console lead"
+            }
+          ]
+        },
+        {
+          "file": "components/teacher/TeacherOperationsView.tsx",
+          "errors": 32,
+          "inferredOwners": [
+            {
+              "ownerId": "A13",
+              "owner": "A13 teacher console lead"
+            }
+          ]
+        },
+        {
+          "file": "lib/teacherReviewLesson.ts",
+          "errors": 30,
+          "inferredOwners": [
+            {
+              "ownerId": "A13",
+              "owner": "A13 teacher console lead"
+            }
+          ]
+        },
+        {
+          "file": "components/teacher/TeacherReviewLessonView.tsx",
+          "errors": 25,
+          "inferredOwners": [
+            {
+              "ownerId": "A13",
+              "owner": "A13 teacher console lead"
+            }
+          ]
+        },
+        {
+          "file": "components/visualizations/three/ThreeDGraphCanvas.tsx",
+          "errors": 20,
+          "inferredOwners": [
+            {
+              "ownerId": "A06",
+              "owner": "A06 visualization lead"
+            }
+          ]
+        },
+        {
+          "file": "lib/teacherReviewLessonPptx.ts",
+          "errors": 19,
+          "inferredOwners": [
+            {
+              "ownerId": "A13",
+              "owner": "A13 teacher console lead"
+            }
+          ]
+        },
+        {
+          "file": "components/visualizations/VisualizationLabPage.tsx",
+          "errors": 16,
+          "inferredOwners": [
+            {
+              "ownerId": "A06",
+              "owner": "A06 visualization lead"
+            }
+          ]
+        },
+        {
+          "file": "components/games/MathVirusBlasterGame.tsx",
+          "errors": 13,
+          "inferredOwners": [
+            {
+              "ownerId": "A20",
+              "owner": "A20 game design and game-based learning lead"
+            }
+          ]
+        },
+        {
+          "file": "components/visualizations/three/manim/MathSceneRuntime.tsx",
+          "errors": 12,
+          "inferredOwners": [
+            {
+              "ownerId": "A06",
+              "owner": "A06 visualization lead"
+            }
+          ]
+        }
+      ],
+      "uncoveredPaths": [],
+      "resyncRecommendationCount": 0,
+      "resyncRecommendations": [],
+      "wave01FrontierStatus": null,
+      "wave01ArtifactCleanAuthorizedRows": null,
+      "wave01ArtifactCleanTargetDirtyRows": null,
+      "wave01HeldRows": null,
+      "wave01ValidExecutionInstructionRows": null,
+      "wave01CleanupAuthorizedRows": null,
+      "wave01ExecutableRows": null,
+      "approvalIds": [
+        "a09-copy-i18n-accessibility"
+      ],
+      "physicalLifecycleApprovalIds": [
+        "codex-a09-copy-i18n-accessibility-closure"
+      ],
+      "nextActions": [
+        "Route type-check top-file blockers to the inferred cross-owner agents before the package owner attempts a reviewed commit.",
+        "After any approved package action, refresh the dirty map and rerun the A25 aggregate currentness gate."
+      ],
+      "cleanupAuthorized": false,
+      "executableNow": false
+    },
+    {
+      "matrixId": "wave-05-visualization-ai-runtime:a11-regression-evidence",
+      "sourceKind": "owner-package-readiness",
+      "waveId": "wave-05-visualization-ai-runtime",
+      "packageId": "a11-regression-evidence",
+      "packageName": "A11 regression evidence",
+      "readiness": "blocked",
+      "packageOwners": [
+        "A11 QA and release quality"
+      ],
+      "packageOwnerIds": [
+        "A11"
+      ],
+      "routeToOwners": [
+        {
+          "ownerId": "A06",
+          "owner": "A06 visualization lead",
+          "routeKind": "cross-owner-blocker",
+          "files": 3,
+          "errors": 243
+        },
+        {
+          "ownerId": "A13",
+          "owner": "A13 teacher console lead",
+          "routeKind": "cross-owner-blocker",
+          "files": 5,
+          "errors": 142
+        },
+        {
+          "ownerId": "A11",
+          "owner": "A11 QA and release quality lead",
+          "routeKind": "package-owner",
+          "files": 1,
+          "errors": 30
+        },
+        {
+          "ownerId": "A20",
+          "owner": "A20 game design and game-based learning lead",
+          "routeKind": "cross-owner-blocker",
+          "files": 1,
+          "errors": 13
+        }
+      ],
+      "ownerRoutes": [
+        {
+          "ownerId": "A06",
+          "owner": "A06 visualization lead",
+          "routeKind": "cross-owner-blocker",
+          "files": [
+            {
+              "file": "components/visualizations/three/scenes/TemplatePrimitiveScene.tsx",
+              "errors": 206
+            },
+            {
+              "file": "components/visualizations/three/ThreeDGraphCanvas.tsx",
+              "errors": 21
+            },
+            {
+              "file": "components/visualizations/VisualizationLabPage.tsx",
+              "errors": 16
+            }
+          ]
+        },
+        {
+          "ownerId": "A11",
+          "owner": "A11 QA and release quality lead",
+          "routeKind": "package-owner",
+          "files": [
+            {
+              "file": "lib/mvpReadiness.test.ts",
+              "errors": 30
+            }
+          ]
+        },
+        {
+          "ownerId": "A13",
+          "owner": "A13 teacher console lead",
+          "routeKind": "cross-owner-blocker",
+          "files": [
+            {
+              "file": "components/teacher/TeacherPrepViews.tsx",
+              "errors": 36
+            },
+            {
+              "file": "components/teacher/TeacherOperationsView.tsx",
+              "errors": 32
+            },
+            {
+              "file": "lib/teacherReviewLesson.ts",
+              "errors": 30
+            },
+            {
+              "file": "components/teacher/TeacherReviewLessonView.tsx",
+              "errors": 25
+            },
+            {
+              "file": "lib/teacherReviewLessonPptx.ts",
+              "errors": 19
+            }
+          ]
+        },
+        {
+          "ownerId": "A20",
+          "owner": "A20 game design and game-based learning lead",
+          "routeKind": "cross-owner-blocker",
+          "files": [
+            {
+              "file": "components/games/MathVirusBlasterGame.tsx",
+              "errors": 13
+            }
+          ]
+        }
+      ],
+      "blockingReasons": [
+        "A11 regression evidence typeCheck failed",
+        "A11 regression evidence regressionPlaywright failed"
+      ],
+      "failedCheckNames": [
+        "typeCheck",
+        "regressionPlaywright"
+      ],
+      "failedChecks": [
+        {
+          "name": "typeCheck",
+          "command": "npm run type-check -- --pretty false",
+          "status": 2
+        },
+        {
+          "name": "regressionPlaywright",
+          "command": "npx playwright test tests/e2e/student-smoke.spec.ts tests/e2e/backend-api.spec.ts --project=desktop-chrome",
+          "status": 1
+        }
+      ],
+      "typeCheckErrorLines": 697,
+      "typeCheckTopFiles": [
+        {
+          "file": "components/visualizations/three/scenes/TemplatePrimitiveScene.tsx",
+          "errors": 206,
+          "inferredOwners": [
+            {
+              "ownerId": "A06",
+              "owner": "A06 visualization lead"
+            }
+          ]
+        },
+        {
+          "file": "components/teacher/TeacherPrepViews.tsx",
+          "errors": 36,
+          "inferredOwners": [
+            {
+              "ownerId": "A13",
+              "owner": "A13 teacher console lead"
+            }
+          ]
+        },
+        {
+          "file": "components/teacher/TeacherOperationsView.tsx",
+          "errors": 32,
+          "inferredOwners": [
+            {
+              "ownerId": "A13",
+              "owner": "A13 teacher console lead"
+            }
+          ]
+        },
+        {
+          "file": "lib/mvpReadiness.test.ts",
+          "errors": 30,
+          "inferredOwners": [
+            {
+              "ownerId": "A11",
+              "owner": "A11 QA and release quality lead"
+            }
+          ]
+        },
+        {
+          "file": "lib/teacherReviewLesson.ts",
+          "errors": 30,
+          "inferredOwners": [
+            {
+              "ownerId": "A13",
+              "owner": "A13 teacher console lead"
+            }
+          ]
+        },
+        {
+          "file": "components/teacher/TeacherReviewLessonView.tsx",
+          "errors": 25,
+          "inferredOwners": [
+            {
+              "ownerId": "A13",
+              "owner": "A13 teacher console lead"
+            }
+          ]
+        },
+        {
+          "file": "components/visualizations/three/ThreeDGraphCanvas.tsx",
+          "errors": 21,
+          "inferredOwners": [
+            {
+              "ownerId": "A06",
+              "owner": "A06 visualization lead"
+            }
+          ]
+        },
+        {
+          "file": "lib/teacherReviewLessonPptx.ts",
+          "errors": 19,
+          "inferredOwners": [
+            {
+              "ownerId": "A13",
+              "owner": "A13 teacher console lead"
+            }
+          ]
+        },
+        {
+          "file": "components/visualizations/VisualizationLabPage.tsx",
+          "errors": 16,
+          "inferredOwners": [
+            {
+              "ownerId": "A06",
+              "owner": "A06 visualization lead"
+            }
+          ]
+        },
+        {
+          "file": "components/games/MathVirusBlasterGame.tsx",
+          "errors": 13,
+          "inferredOwners": [
+            {
+              "ownerId": "A20",
+              "owner": "A20 game design and game-based learning lead"
+            }
+          ]
+        }
+      ],
+      "uncoveredPaths": [],
+      "resyncRecommendationCount": 0,
+      "resyncRecommendations": [],
+      "wave01FrontierStatus": null,
+      "wave01ArtifactCleanAuthorizedRows": null,
+      "wave01ArtifactCleanTargetDirtyRows": null,
+      "wave01HeldRows": null,
+      "wave01ValidExecutionInstructionRows": null,
+      "wave01CleanupAuthorizedRows": null,
+      "wave01ExecutableRows": null,
+      "approvalIds": [
+        "a11-qa-and-release-quality"
+      ],
+      "physicalLifecycleApprovalIds": [
+        "codex-a11-regression-evidence-closure"
+      ],
+      "nextActions": [
+        "Route type-check top-file blockers to the inferred cross-owner agents before the package owner attempts a reviewed commit.",
+        "The owning package session must inspect the named failed checks in its isolated worktree and either fix in scope or produce a blocker report.",
+        "After any approved package action, refresh the dirty map and rerun the A25 aggregate currentness gate."
+      ],
+      "cleanupAuthorized": false,
+      "executableNow": false
+    },
+    {
+      "matrixId": "wave-05-visualization-ai-runtime:a13-a14-console",
+      "sourceKind": "owner-package-readiness",
+      "waveId": "wave-05-visualization-ai-runtime",
+      "packageId": "a13-a14-console",
+      "packageName": "A13/A14 console",
+      "readiness": "blocked",
+      "packageOwners": [
+        "A13 teacher console",
+        "A14 parent console"
+      ],
+      "packageOwnerIds": [
+        "A13",
+        "A14"
+      ],
+      "routeToOwners": [
+        {
+          "ownerId": "A13",
+          "owner": "A13 teacher console lead",
+          "routeKind": "package-owner",
+          "files": 8,
+          "errors": 305
+        },
+        {
+          "ownerId": "A06",
+          "owner": "A06 visualization lead",
+          "routeKind": "cross-owner-blocker",
+          "files": 2,
+          "errors": 227
+        }
+      ],
+      "ownerRoutes": [
+        {
+          "ownerId": "A06",
+          "owner": "A06 visualization lead",
+          "routeKind": "cross-owner-blocker",
+          "files": [
+            {
+              "file": "components/visualizations/three/scenes/TemplatePrimitiveScene.tsx",
+              "errors": 206
+            },
+            {
+              "file": "components/visualizations/three/ThreeDGraphCanvas.tsx",
+              "errors": 21
+            }
+          ]
+        },
+        {
+          "ownerId": "A13",
+          "owner": "A13 teacher console lead",
+          "routeKind": "package-owner",
+          "files": [
+            {
+              "file": "components/teacher/TeacherResourceAssessmentViews.tsx",
+              "errors": 96
+            },
+            {
+              "file": "components/teacher/TeacherLiveView.tsx",
+              "errors": 36
+            },
+            {
+              "file": "components/teacher/TeacherPrepViews.tsx",
+              "errors": 36
+            },
+            {
+              "file": "components/teacher/TeacherOperationsView.tsx",
+              "errors": 32
+            },
+            {
+              "file": "components/teacher/TeacherManagementViews.tsx",
+              "errors": 31
+            },
+            {
+              "file": "lib/teacherReviewLesson.ts",
+              "errors": 30
+            },
+            {
+              "file": "components/teacher/TeacherReviewLessonView.tsx",
+              "errors": 25
+            },
+            {
+              "file": "lib/teacherReviewLessonPptx.ts",
+              "errors": 19
+            }
+          ]
+        }
+      ],
+      "blockingReasons": [
+        "A13/A14 console typeCheck failed",
+        "A13/A14 console consolePlaywright failed"
+      ],
+      "failedCheckNames": [
+        "typeCheck",
+        "consolePlaywright"
+      ],
+      "failedChecks": [
+        {
+          "name": "typeCheck",
+          "command": "npm run type-check -- --pretty false",
+          "status": 2
+        },
+        {
+          "name": "consolePlaywright",
+          "command": "npx playwright test tests/e2e/teacher-workspace.spec.ts tests/e2e/parent-console.spec.ts tests/e2e/class-forum.spec.ts --project=desktop-chrome",
+          "status": 1
+        }
+      ],
+      "typeCheckErrorLines": 865,
+      "typeCheckTopFiles": [
+        {
+          "file": "components/visualizations/three/scenes/TemplatePrimitiveScene.tsx",
+          "errors": 206,
+          "inferredOwners": [
+            {
+              "ownerId": "A06",
+              "owner": "A06 visualization lead"
+            }
+          ]
+        },
+        {
+          "file": "components/teacher/TeacherResourceAssessmentViews.tsx",
+          "errors": 96,
+          "inferredOwners": [
+            {
+              "ownerId": "A13",
+              "owner": "A13 teacher console lead"
+            }
+          ]
+        },
+        {
+          "file": "components/teacher/TeacherLiveView.tsx",
+          "errors": 36,
+          "inferredOwners": [
+            {
+              "ownerId": "A13",
+              "owner": "A13 teacher console lead"
+            }
+          ]
+        },
+        {
+          "file": "components/teacher/TeacherPrepViews.tsx",
+          "errors": 36,
+          "inferredOwners": [
+            {
+              "ownerId": "A13",
+              "owner": "A13 teacher console lead"
+            }
+          ]
+        },
+        {
+          "file": "components/teacher/TeacherOperationsView.tsx",
+          "errors": 32,
+          "inferredOwners": [
+            {
+              "ownerId": "A13",
+              "owner": "A13 teacher console lead"
+            }
+          ]
+        },
+        {
+          "file": "components/teacher/TeacherManagementViews.tsx",
+          "errors": 31,
+          "inferredOwners": [
+            {
+              "ownerId": "A13",
+              "owner": "A13 teacher console lead"
+            }
+          ]
+        },
+        {
+          "file": "lib/teacherReviewLesson.ts",
+          "errors": 30,
+          "inferredOwners": [
+            {
+              "ownerId": "A13",
+              "owner": "A13 teacher console lead"
+            }
+          ]
+        },
+        {
+          "file": "components/teacher/TeacherReviewLessonView.tsx",
+          "errors": 25,
+          "inferredOwners": [
+            {
+              "ownerId": "A13",
+              "owner": "A13 teacher console lead"
+            }
+          ]
+        },
+        {
+          "file": "components/visualizations/three/ThreeDGraphCanvas.tsx",
+          "errors": 21,
+          "inferredOwners": [
+            {
+              "ownerId": "A06",
+              "owner": "A06 visualization lead"
+            }
+          ]
+        },
+        {
+          "file": "lib/teacherReviewLessonPptx.ts",
+          "errors": 19,
+          "inferredOwners": [
+            {
+              "ownerId": "A13",
+              "owner": "A13 teacher console lead"
+            }
+          ]
+        }
+      ],
+      "uncoveredPaths": [],
+      "resyncRecommendationCount": 0,
+      "resyncRecommendations": [],
+      "wave01FrontierStatus": null,
+      "wave01ArtifactCleanAuthorizedRows": null,
+      "wave01ArtifactCleanTargetDirtyRows": null,
+      "wave01HeldRows": null,
+      "wave01ValidExecutionInstructionRows": null,
+      "wave01CleanupAuthorizedRows": null,
+      "wave01ExecutableRows": null,
+      "approvalIds": [
+        "a13-teacher-console",
+        "a14-parent-console"
+      ],
+      "physicalLifecycleApprovalIds": [
+        "codex-a13-a14-console-closure"
+      ],
+      "nextActions": [
+        "Route type-check top-file blockers to the inferred cross-owner agents before the package owner attempts a reviewed commit.",
+        "The owning package session must inspect the named failed checks in its isolated worktree and either fix in scope or produce a blocker report.",
+        "After any approved package action, refresh the dirty map and rerun the A25 aggregate currentness gate."
+      ],
+      "cleanupAuthorized": false,
+      "executableNow": false
+    },
+    {
+      "matrixId": "wave-05-visualization-ai-runtime:a17-a20-game-motivation",
+      "sourceKind": "owner-package-readiness",
+      "waveId": "wave-05-visualization-ai-runtime",
+      "packageId": "a17-a20-game-motivation",
+      "packageName": "A17/A20 games and motivation",
+      "readiness": "blocked",
+      "packageOwners": [
+        "A17 gamification and motivation",
+        "A20 game design and game-based learning"
+      ],
+      "packageOwnerIds": [
+        "A17",
+        "A20"
+      ],
+      "routeToOwners": [
+        {
+          "ownerId": "A06",
+          "owner": "A06 visualization lead",
+          "routeKind": "cross-owner-blocker",
+          "files": 5,
+          "errors": 265
+        },
+        {
+          "ownerId": "A13",
+          "owner": "A13 teacher console lead",
+          "routeKind": "cross-owner-blocker",
+          "files": 5,
+          "errors": 142
+        }
+      ],
+      "ownerRoutes": [
+        {
+          "ownerId": "A06",
+          "owner": "A06 visualization lead",
+          "routeKind": "cross-owner-blocker",
+          "files": [
+            {
+              "file": "components/visualizations/three/scenes/TemplatePrimitiveScene.tsx",
+              "errors": 206
+            },
+            {
+              "file": "components/visualizations/three/ThreeDGraphCanvas.tsx",
+              "errors": 21
+            },
+            {
+              "file": "components/visualizations/VisualizationLabPage.tsx",
+              "errors": 16
+            },
+            {
+              "file": "components/visualizations/three/manim/MathSceneRuntime.tsx",
+              "errors": 12
+            },
+            {
+              "file": "components/visualizations/three/ThreeDLabCanvas.tsx",
+              "errors": 10
+            }
+          ]
+        },
+        {
+          "ownerId": "A13",
+          "owner": "A13 teacher console lead",
+          "routeKind": "cross-owner-blocker",
+          "files": [
+            {
+              "file": "components/teacher/TeacherPrepViews.tsx",
+              "errors": 36
+            },
+            {
+              "file": "components/teacher/TeacherOperationsView.tsx",
+              "errors": 32
+            },
+            {
+              "file": "lib/teacherReviewLesson.ts",
+              "errors": 30
+            },
+            {
+              "file": "components/teacher/TeacherReviewLessonView.tsx",
+              "errors": 25
+            },
+            {
+              "file": "lib/teacherReviewLessonPptx.ts",
+              "errors": 19
+            }
+          ]
+        }
+      ],
+      "blockingReasons": [
+        "A17/A20 games and motivation typeCheck failed",
+        "A17/A20 games and motivation gameMotivationPlaywright failed"
+      ],
+      "failedCheckNames": [
+        "typeCheck",
+        "gameMotivationPlaywright"
+      ],
+      "failedChecks": [
+        {
+          "name": "typeCheck",
+          "command": "npm run type-check -- --pretty false",
+          "status": 2
+        },
+        {
+          "name": "gameMotivationPlaywright",
+          "command": "npx playwright test tests/e2e/adventure-island.spec.ts tests/e2e/fishing-game.spec.ts tests/e2e/gamification.spec.ts --project=desktop-chrome",
+          "status": 1
+        }
+      ],
+      "typeCheckErrorLines": 623,
+      "typeCheckTopFiles": [
+        {
+          "file": "components/visualizations/three/scenes/TemplatePrimitiveScene.tsx",
+          "errors": 206,
+          "inferredOwners": [
+            {
+              "ownerId": "A06",
+              "owner": "A06 visualization lead"
+            }
+          ]
+        },
+        {
+          "file": "components/teacher/TeacherPrepViews.tsx",
+          "errors": 36,
+          "inferredOwners": [
+            {
+              "ownerId": "A13",
+              "owner": "A13 teacher console lead"
+            }
+          ]
+        },
+        {
+          "file": "components/teacher/TeacherOperationsView.tsx",
+          "errors": 32,
+          "inferredOwners": [
+            {
+              "ownerId": "A13",
+              "owner": "A13 teacher console lead"
+            }
+          ]
+        },
+        {
+          "file": "lib/teacherReviewLesson.ts",
+          "errors": 30,
+          "inferredOwners": [
+            {
+              "ownerId": "A13",
+              "owner": "A13 teacher console lead"
+            }
+          ]
+        },
+        {
+          "file": "components/teacher/TeacherReviewLessonView.tsx",
+          "errors": 25,
+          "inferredOwners": [
+            {
+              "ownerId": "A13",
+              "owner": "A13 teacher console lead"
+            }
+          ]
+        },
+        {
+          "file": "components/visualizations/three/ThreeDGraphCanvas.tsx",
+          "errors": 21,
+          "inferredOwners": [
+            {
+              "ownerId": "A06",
+              "owner": "A06 visualization lead"
+            }
+          ]
+        },
+        {
+          "file": "lib/teacherReviewLessonPptx.ts",
+          "errors": 19,
+          "inferredOwners": [
+            {
+              "ownerId": "A13",
+              "owner": "A13 teacher console lead"
+            }
+          ]
+        },
+        {
+          "file": "components/visualizations/VisualizationLabPage.tsx",
+          "errors": 16,
+          "inferredOwners": [
+            {
+              "ownerId": "A06",
+              "owner": "A06 visualization lead"
+            }
+          ]
+        },
+        {
+          "file": "components/visualizations/three/manim/MathSceneRuntime.tsx",
+          "errors": 12,
+          "inferredOwners": [
+            {
+              "ownerId": "A06",
+              "owner": "A06 visualization lead"
+            }
+          ]
+        },
+        {
+          "file": "components/visualizations/three/ThreeDLabCanvas.tsx",
+          "errors": 10,
+          "inferredOwners": [
+            {
+              "ownerId": "A06",
+              "owner": "A06 visualization lead"
+            }
+          ]
+        }
+      ],
+      "uncoveredPaths": [],
+      "resyncRecommendationCount": 0,
+      "resyncRecommendations": [],
+      "wave01FrontierStatus": null,
+      "wave01ArtifactCleanAuthorizedRows": null,
+      "wave01ArtifactCleanTargetDirtyRows": null,
+      "wave01HeldRows": null,
+      "wave01ValidExecutionInstructionRows": null,
+      "wave01CleanupAuthorizedRows": null,
+      "wave01ExecutableRows": null,
+      "approvalIds": [
+        "a17-gamification-and-motivation",
+        "a20-game-design-and-game-based-learning"
+      ],
+      "physicalLifecycleApprovalIds": [
+        "codex-a17-a20-game-motivation-closure"
+      ],
+      "nextActions": [
+        "Route type-check top-file blockers to the inferred cross-owner agents before the package owner attempts a reviewed commit.",
+        "The owning package session must inspect the named failed checks in its isolated worktree and either fix in scope or produce a blocker report.",
+        "After any approved package action, refresh the dirty map and rerun the A25 aggregate currentness gate."
+      ],
+      "cleanupAuthorized": false,
+      "executableNow": false
+    },
+    {
+      "matrixId": "wave-06-final-root-and-compose-lifecycle:wave-06-final-root-and-compose-lifecycle",
+      "sourceKind": "physical-lifecycle-readiness",
+      "waveId": "wave-06-final-root-and-compose-lifecycle",
+      "packageId": "wave-06-final-root-and-compose-lifecycle",
+      "packageName": "Final root and compose/legacy lifecycle closure",
+      "readiness": "blocked",
+      "packageOwners": [
+        "A25 git hygiene and release intake",
+        "A22 production reliability and release engineering"
+      ],
+      "packageOwnerIds": [
+        "A25",
+        "A22"
+      ],
+      "routeToOwners": [],
+      "ownerRoutes": [],
+      "blockingReasons": [
+        "A22 release-source clean gate failed",
+        "A25 strict worktree lifecycle gate failed"
+      ],
+      "failedCheckNames": [
+        "releaseSourceClean",
+        "strictWorktreeLifecycle"
+      ],
+      "failedChecks": [
+        {
+          "name": "releaseSourceClean",
+          "command": "node coordination/release-intake/assert-release-source-clean.mjs",
+          "status": 1
+        },
+        {
+          "name": "strictWorktreeLifecycle",
+          "command": "node coordination/release-intake/assert-worktree-lifecycle.mjs --strict",
+          "status": 1
+        }
+      ],
+      "typeCheckErrorLines": 0,
+      "typeCheckTopFiles": [],
+      "uncoveredPaths": [],
+      "resyncRecommendationCount": 0,
+      "resyncRecommendations": [],
+      "wave01FrontierStatus": null,
+      "wave01ArtifactCleanAuthorizedRows": null,
+      "wave01ArtifactCleanTargetDirtyRows": null,
+      "wave01HeldRows": null,
+      "wave01ValidExecutionInstructionRows": null,
+      "wave01CleanupAuthorizedRows": null,
+      "wave01ExecutableRows": null,
+      "approvalIds": [],
+      "physicalLifecycleApprovalIds": [
+        "root-main",
+        "codex-a10-a22-a08-a12-a06-compose-20260628",
+        "codex-a25-full-dirty-compose-verification",
+        "codex-a19-vercel-postgres-region",
+        "codex-s22-release-hygiene-2026-06-15"
+      ],
+      "nextActions": [
+        "A25/A22 must keep this as a lifecycle decision until the release-source clean gate and strict worktree lifecycle gate both pass.",
+        "The owning package session must inspect the named failed checks in its isolated worktree and either fix in scope or produce a blocker report.",
+        "After any approved package action, refresh the dirty map and rerun the A25 aggregate currentness gate."
+      ],
+      "cleanupAuthorized": false,
+      "executableNow": false
+    }
+  ]
+}

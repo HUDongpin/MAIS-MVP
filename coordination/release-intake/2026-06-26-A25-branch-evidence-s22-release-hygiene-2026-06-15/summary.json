@@ -1,0 +1,22 @@
+{
+  "archivedAt": "2026-06-26T09:53:43.277Z",
+  "branch": "codex/s22-release-hygiene-2026-06-15",
+  "head": "6fc558bd1db17d7024279b82e1be4007ee18ca1a",
+  "divergence": {
+    "behind": 12,
+    "ahead": 1
+  },
+  "aheadCommits": [
+    "6fc558bd (codex/s22-release-hygiene-2026-06-15) Add release hygiene guards and staging workflow"
+  ],
+  "changedFiles": 11,
+  "totalChangedLines": 1483,
+  "patchLineLimit": 10000,
+  "fullPatchIncluded": true,
+  "patchFiles": [
+    "0001-Add-release-hygiene-guards-and-staging-workflow.patch"
+  ],
+  "notes": [
+    "Full patch included because commit-level changed lines are under the configured limit."
+  ]
+}

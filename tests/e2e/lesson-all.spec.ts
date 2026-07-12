@@ -3,8 +3,8 @@ import fs from "node:fs/promises";
 import path from "node:path";
 import { questions } from "../../data/questions";
 import { topics } from "../../data/topics";
-import { gradeLabGroups, type VisualizationModuleId } from "../../data/visualizationLabs";
-import { lessonSlugForTopicId } from "../../lib/lessonLinks";
+import type { VisualizationModuleId } from "../../data/visualizationLabs";
+import { lessonSlugForTopicId, studentLessonsPath } from "../../lib/lessonLinks";
 import type { CurriculumTrack, Difficulty, GradeId, LessonBlock, LessonDetail } from "../../types";
 
 type Severity = "P0" | "P1" | "P2" | "P3";
@@ -58,10 +58,17 @@ type AttemptResponseBody = {
 };
 
 const validGrades = new Set<GradeId>(["P1", "P2", "P3", "P4", "P5", "P6", "S1", "S2", "S3", "S4", "S5", "S6"]);
-const validDifficulties = new Set<Difficulty>(["Foundation", "Core", "Challenge", "Exam"]);
-const validVisualizationModules = new Set<VisualizationModuleId>(
-  gradeLabGroups.flatMap((group) => group.labs.map((lab) => lab.moduleId))
-);
+const validDifficulties = new Set<Difficulty>(["Low", "Medium", "High"]);
+const validVisualizationModules = new Set<VisualizationModuleId>([
+  "coordinate-plane-demo",
+  "function-graph-explorer",
+  "geometry-explorer",
+  "probability-simulator",
+  "function-model-comparer",
+  "trig-wave-explorer",
+  "calculus-stats-lab",
+  "configured-visualization-lab"
+]);
 
 const placeholderPatterns = [
   { label: "generic lesson title", pattern: /Concept, Model, and Practice/i },
@@ -73,16 +80,34 @@ const placeholderPatterns = [
 
 const invalidTextPattern = /\b(?:undefined|NaN)\b/i;
 const sourceQuestionById = new Map(questions.map((question) => [question.id, question]));
+const requestedLessonQaSlugs = new Set(
+  (process.env.LESSON_QA_SLUGS ?? "")
+    .split(",")
+    .map((slug) => slug.trim())
+    .filter(Boolean)
+);
+const requestedLessonQaOffset = Math.max(0, Number.parseInt(process.env.LESSON_QA_OFFSET ?? "0", 10) || 0);
+const requestedLessonQaLimit = (() => {
+  const parsed = Number.parseInt(process.env.LESSON_QA_LIMIT ?? "", 10);
+  return Number.isFinite(parsed) && parsed > 0 ? parsed : null;
+})();
+const lessonQuestionAutoAdvanceTimeoutMs = 2_200;
 
 function lessonTargets() {
-  return topics
-    .filter((topic) => topic.curriculumTrack === "HK" || (topic.curriculumTrack === "MAINLAND_PEP_HIGH" && topic.grade.startsWith("S")))
+  const targets = topics
+    .filter((topic) =>
+      topic.curriculumTrack === "HK" ||
+      (topic.curriculumTrack === "MAINLAND_PEP_HIGH" && topic.id.startsWith("pep-high-"))
+    )
     .map((topic) => ({
       topic,
       curriculumTrack: topic.curriculumTrack,
       slug: lessonSlugForTopicId(topic.id),
-      route: `/lesson/${lessonSlugForTopicId(topic.id)}`
-    }));
+      route: `${studentLessonsPath}/${lessonSlugForTopicId(topic.id)}`
+    }))
+    .filter((target) => requestedLessonQaSlugs.size === 0 || requestedLessonQaSlugs.has(target.slug));
+  const offsetTargets = requestedLessonQaOffset ? targets.slice(requestedLessonQaOffset) : targets;
+  return requestedLessonQaLimit === null ? offsetTargets : offsetTargets.slice(0, requestedLessonQaLimit);
 }
 
 function addFinding(findings: Finding[], finding: Finding) {
@@ -96,6 +121,23 @@ function shortEvidence(value: unknown) {
 
 async function responseText(response: APIResponse) {
   return shortEvidence(await response.text().catch((error) => `Could not read response body: ${String(error)}`));
+}
+
+async function getWithRetry(
+  page: Page,
+  url: string,
+  options: { maxRedirects?: number; timeout?: number } = {}
+) {
+  let lastError: unknown = null;
+  for (let attempt = 0; attempt < 2; attempt += 1) {
+    try {
+      return await page.request.get(url, { timeout: 15_000, ...options });
+    } catch (error) {
+      lastError = error;
+      await page.waitForTimeout(250).catch(() => undefined);
+    }
+  }
+  throw lastError;
 }
 
 function textValuesFromLesson(lesson: LessonDetail) {
@@ -206,7 +248,7 @@ function validateLessonPayload({
       severity: "P1",
       owner: "S10 api/tooling",
       check: "lesson difficulty",
-      expected: "One of Foundation, Core, Challenge, or Exam.",
+      expected: "One of Low, Medium, or High.",
       actual: String(lesson.difficulty),
       repro: `GET /api/lessons/${slug}`
     });
@@ -356,7 +398,23 @@ function validateLessonPayload({
 }
 
 async function fetchLesson(page: Page, findings: Finding[], slug: string, route: string) {
-  const response = await page.request.get(`/api/lessons/${encodeURIComponent(slug)}`);
+  let response: APIResponse;
+  try {
+    response = await getWithRetry(page, `/api/lessons/${encodeURIComponent(slug)}`);
+  } catch (error) {
+    addFinding(findings, {
+      route,
+      slug,
+      severity: "P0",
+      owner: "S10 api/tooling",
+      check: "lesson API transport",
+      expected: `GET /api/lessons/${slug} returns an HTTP response without resetting the connection.`,
+      actual: shortEvidence(error instanceof Error ? error.message : String(error)),
+      repro: `GET /api/lessons/${slug}`
+    });
+    return null;
+  }
+
   if (!response.ok()) {
     addFinding(findings, {
       route,
@@ -464,8 +522,14 @@ async function maybeAttachScreenshot(testInfo: TestInfo, page: Page, name: strin
   });
 }
 
-function routeTitleVisibleText(lesson: LessonDetail) {
-  return lesson.title.en.split(":")[0].trim();
+function routeTitleVisibleTexts(lesson: LessonDetail) {
+  const titlePrefix = (value: string) => value.split(/[:：]/)[0].trim();
+  return Array.from(new Set([
+    titlePrefix(lesson.title.en),
+    titlePrefix(lesson.title.zh),
+    lesson.title.en.trim(),
+    lesson.title.zh.trim()
+  ].filter(Boolean)));
 }
 
 async function visibleBodyText(page: Page) {
@@ -560,6 +624,39 @@ function correctOptionTextFor(question: (typeof questions)[number]) {
   return question.options?.find((option) => option.en === question.answer || option.zh === question.answer)?.en ?? null;
 }
 
+function normalizePracticeOptionLabel(value: string) {
+  return value
+    .replace(/\s+/g, " ")
+    .replace(/\\,/g, " ")
+    .replace(/\\text\{([^{}]+)\}/g, "$1")
+    .replace(/\^\s*\{\s*([23])\s*\}/g, "^$1")
+    .replace(/[²]/g, "^2")
+    .replace(/[³]/g, "^3")
+    .replace(/\s+\^/g, "^")
+    .trim()
+    .toLowerCase();
+}
+
+async function clickMatchingPracticeOption(card: Locator, correctOptionText: string) {
+  const expected = normalizePracticeOptionLabel(correctOptionText);
+  const buttons = card.locator("button");
+  const count = await buttons.count();
+
+  for (let index = 0; index < count; index += 1) {
+    const button = buttons.nth(index);
+    const labels = [
+      await button.getAttribute("aria-label").catch(() => null),
+      await button.innerText().catch(() => null)
+    ];
+    if (labels.some((label) => label !== null && normalizePracticeOptionLabel(label) === expected)) {
+      await button.click();
+      return true;
+    }
+  }
+
+  return false;
+}
+
 async function readAttemptResponseBody(response: PageResponse) {
   return await response.json().catch((error) => ({
     error: `Could not parse attempt response JSON: ${String(error)}`
@@ -601,6 +698,10 @@ async function selectStoredAnswer({
       return "selected-fallback";
     }
 
+    if (await clickMatchingPracticeOption(card, correctOptionText)) {
+      return "selected-normalized";
+    }
+
     stats.missingRenderedCard += 1;
     noteQuestionFailure(stats, question.id);
     return `missing-rendered-option:${correctOptionText}`;
@@ -618,36 +719,43 @@ async function selectStoredAnswer({
 }
 
 async function submitAllPracticeQuestions(page: Page, lesson: LessonDetail) {
-  const stats = createQuestionSolvabilityStats(lesson.practiceQuestions.length);
-  const cards = page.locator("article").filter({ has: page.getByRole("button", { name: /^Check answer$/i }) });
-  if (lesson.practiceQuestions.length) {
-    await cards.first().waitFor({ state: "visible", timeout: 5_000 }).catch(() => undefined);
+  const expectedQuestionCount = Math.min(lesson.practiceQuestions.length, 5);
+  const stats = createQuestionSolvabilityStats(expectedQuestionCount);
+  const practiceSection = page.locator("#lesson-practice");
+  const visiblePracticeCard = () => practiceSection.locator("div:not([hidden]) article[data-question-id]").filter({
+    has: page.getByRole("button", { name: /^(Check answer|檢查答案|检查答案)$/i })
+  }).first();
+  if (expectedQuestionCount) {
+    await visiblePracticeCard().waitFor({ state: "visible", timeout: 5_000 }).catch(() => undefined);
   }
 
-  const renderedCardCount = await cards.count();
+  const visitedQuestionIds = new Set<string>();
 
-  for (const [index, publicQuestion] of lesson.practiceQuestions.entries()) {
-    const sourceQuestion = sourceQuestionById.get(publicQuestion.id);
+  for (let index = 0; index < expectedQuestionCount; index += 1) {
+    const card = visiblePracticeCard();
+    const questionId = await card.getAttribute("data-question-id").catch(() => null);
+    const fallbackQuestion = lesson.practiceQuestions[index];
+    const sourceQuestion = questionId ? sourceQuestionById.get(questionId) : fallbackQuestion ? sourceQuestionById.get(fallbackQuestion.id) : null;
     if (!sourceQuestion) {
       stats.missingSourceRecord += 1;
-      noteQuestionFailure(stats, publicQuestion.id);
+      noteQuestionFailure(stats, questionId ?? fallbackQuestion?.id ?? `lesson-question-${index + 1}`);
       continue;
     }
 
-    if (index >= renderedCardCount) {
+    if (!questionId || visitedQuestionIds.has(questionId)) {
       stats.missingRenderedCard += 1;
       noteQuestionFailure(stats, sourceQuestion.id);
       continue;
     }
+    visitedQuestionIds.add(questionId);
 
     try {
-      const card = cards.nth(index);
       await card.scrollIntoViewIfNeeded();
 
       const selection = await selectStoredAnswer({ card, question: sourceQuestion, stats });
       if (!selection.startsWith("selected")) continue;
 
-      const checkButton = card.getByRole("button", { name: /^Check answer$/i }).first();
+      const checkButton = card.getByRole("button", { name: /^(Check answer|檢查答案|检查答案)$/i }).first();
       await expect(checkButton).toBeEnabled({ timeout: 5_000 });
       const attemptResponse = page.waitForResponse((response) => {
         const postData = response.request().postData() ?? "";
@@ -673,7 +781,7 @@ async function submitAllPracticeQuestions(page: Page, lesson: LessonDetail) {
       }
 
       stats.correct += 1;
-      await expect(card.getByText(/^Correct\b/i).first()).toBeVisible({ timeout: 5_000 }).catch(() => {
+      await expect(card.getByText(/^(Correct\b|正確|正确)/i).first()).toBeVisible({ timeout: 5_000 }).catch(() => {
         stats.wrongFeedback += 1;
         noteQuestionFailure(stats, sourceQuestion.id);
       });
@@ -681,9 +789,32 @@ async function submitAllPracticeQuestions(page: Page, lesson: LessonDetail) {
       stats.wrongFeedback += 1;
       noteQuestionFailure(stats, sourceQuestion.id);
     }
+
+    if (index < expectedQuestionCount - 1) {
+      if (await waitForPracticeQuestionChange(visiblePracticeCard, questionId, lessonQuestionAutoAdvanceTimeoutMs)) {
+        continue;
+      }
+
+      const nextButton = practiceSection.getByRole("button", { name: /^(Next question|下一題|下一题)$/i }).first();
+      if ((await nextButton.count()) && await nextButton.isEnabled().catch(() => false)) {
+        await nextButton.click();
+        await waitForPracticeQuestionChange(visiblePracticeCard, questionId, 5_000);
+      }
+    }
   }
 
   return stats;
+}
+
+async function waitForPracticeQuestionChange(visiblePracticeCard: () => Locator, previousQuestionId: string | null, timeout: number) {
+  if (!previousQuestionId) return false;
+
+  return await expect.poll(async () => {
+    const nextQuestionId = await visiblePracticeCard().getAttribute("data-question-id").catch(() => null);
+    return nextQuestionId && nextQuestionId !== previousQuestionId ? nextQuestionId : previousQuestionId;
+  }, { timeout }).not.toBe(previousQuestionId)
+    .then(() => true)
+    .catch(() => false);
 }
 
 async function completeLessonProbe(page: Page) {
@@ -696,12 +827,12 @@ async function completeLessonProbe(page: Page) {
       response.request().method() === "POST" &&
       (response.request().postData() ?? "").includes('"complete"');
   }, { timeout: 10_000 }).catch(() => null);
-  await page.getByRole("button", { name: /Mark lesson complete/i }).click();
+  await page.getByRole("button", { name: /Mark lesson complete|標記課節完成|标记课时完成/i }).click();
   const response = await completeResponse;
   if (!response) return "missing-complete-response";
   if (!response.ok()) return `complete-response-${response.status()}`;
 
-  await expect(page.getByText(/Mastery:\s*(85|8[6-9]|9\d|100)%/i).first()).toBeVisible({ timeout: 5_000 });
+  await expect(page.getByText(/(?:Mastery:\s*|掌握度[：:]\s*)(85|8[6-9]|9\d|100)%/i).first()).toBeVisible({ timeout: 5_000 });
   return "completed";
 }
 
@@ -749,22 +880,24 @@ async function validateLessonPage({
     await maybeAttachScreenshot(testInfo, page, `${row.slug}-route-response.png`, screenshotBudget);
   }
 
-  const titleText = routeTitleVisibleText(lesson);
+  const titleTexts = routeTitleVisibleTexts(lesson);
   await page.waitForFunction(
-    ([title]) => document.body.innerText.includes(title) || document.body.innerText.includes("Lesson not found"),
-    [titleText],
+    (titles: string[]) =>
+      titles.some((title) => document.body.innerText.includes(title)) ||
+      document.body.innerText.includes("Lesson not found"),
+    titleTexts,
     { timeout: 10_000 }
   ).catch(() => undefined);
 
   const bodyText = await visibleBodyText(page);
-  if (!bodyText.includes(titleText)) {
+  if (!titleTexts.some((title) => bodyText.includes(title))) {
     addFinding(findings, {
       route: row.route,
       slug: row.slug,
       severity: "P0",
       owner: "S05 lesson",
       check: "lesson page loaded content",
-      expected: `Rendered page includes lesson title text "${titleText}".`,
+      expected: `Rendered page includes one localized lesson title: ${titleTexts.map((title) => `"${title}"`).join(", ")}.`,
       actual: shortEvidence(bodyText),
       repro: `Open ${row.route}`
     });
@@ -928,7 +1061,12 @@ test.describe("lesson page all-slug bug detection", () => {
     const mainlandHighTargets = targets.filter((target) => target.curriculumTrack === "MAINLAND_PEP_HIGH");
     const hongKongTargets = targets.filter((target) => target.curriculumTrack === "HK");
 
-    if (hongKongTargets.length === 0 || mainlandHighTargets.length !== 22) {
+    const isFullLessonInventoryRun =
+      requestedLessonQaSlugs.size === 0 &&
+      requestedLessonQaOffset === 0 &&
+      requestedLessonQaLimit === null;
+
+    if (isFullLessonInventoryRun && (hongKongTargets.length === 0 || mainlandHighTargets.length !== 22)) {
       addFinding(findings, {
         route: "data/topics.ts",
         severity: "P2",
@@ -952,25 +1090,16 @@ test.describe("lesson page all-slug bug detection", () => {
       });
     }
 
-    const rootResponse = await page.request.get("/lesson");
-    if (rootResponse.status() === 404) {
+    const rootResponse = await page.request.get("/lesson", { maxRedirects: 0 });
+    const rootLocation = rootResponse.headers()["location"] ?? "";
+    if (![307, 308].includes(rootResponse.status()) || !rootLocation.endsWith(studentLessonsPath)) {
       addFinding(findings, {
         route: "/lesson",
         severity: "P1",
         owner: "S05 lesson",
-        check: "lesson index route",
-        expected: "`/lesson` is the user-requested Lesson page and should not return 404.",
-        actual: `404 ${rootResponse.statusText()} ${await responseText(rootResponse)}`,
-        repro: "Open http://localhost:3015/lesson."
-      });
-    } else if (rootResponse.status() >= 400) {
-      addFinding(findings, {
-        route: "/lesson",
-        severity: "P1",
-        owner: "S05 lesson",
-        check: "lesson index route",
-        expected: "`/lesson` returns a successful page or redirect.",
-        actual: `${rootResponse.status()} ${rootResponse.statusText()} ${await responseText(rootResponse)}`,
+        check: "legacy lesson index redirect",
+        expected: "`/lesson` permanently redirects to `/student/lessons`.",
+        actual: `${rootResponse.status()} ${rootResponse.statusText()} location=${rootLocation || "(missing)"} ${await responseText(rootResponse)}`,
         repro: "Open /lesson."
       });
     }
@@ -979,6 +1108,15 @@ test.describe("lesson page all-slug bug detection", () => {
     const pageErrors: string[] = [];
     page.on("pageerror", (error) => pageErrors.push(error.message));
     const exercisedModules = new Set<string>();
+    const reportDir = path.join(process.cwd(), "output", "playwright", "lesson-qa");
+    const reportPath = path.join(reportDir, `lesson-qa-results-${testInfo.project.name}.json`);
+    const writeReport = async () => {
+      const questionSolvability = mergeQuestionSolvabilityStats(rows.map((row) => row.questionSolvability));
+      const reportBody = JSON.stringify({ rows, questionSolvability, findings }, null, 2);
+      await fs.mkdir(reportDir, { recursive: true });
+      await fs.writeFile(reportPath, reportBody);
+      return { questionSolvability, reportBody };
+    };
     const targetGroups = new Map<string, typeof targets>();
     targets.forEach((target) => {
       const key = `${target.curriculumTrack}:${target.topic.grade}`;
@@ -1045,6 +1183,7 @@ test.describe("lesson page all-slug bug detection", () => {
           row.status = "fail";
           row.findings += 1;
           row.checks.push("browser:skipped-no-api-lesson");
+          await writeReport();
           continue;
         }
 
@@ -1057,6 +1196,7 @@ test.describe("lesson page all-slug bug detection", () => {
           screenshotBudget,
           testInfo
         });
+        await writeReport();
       }
     }
 
@@ -1085,7 +1225,7 @@ test.describe("lesson page all-slug bug detection", () => {
     const anyRegisteredGroup = rows.some((row) => !row.checks.includes("browser:skipped-registration-failed"));
     if (anyRegisteredGroup && unexercisedModules.length) {
       addFinding(findings, {
-        route: "/lesson/[slug]",
+        route: "/student/lessons/[lessonSlug]",
         severity: "P2",
         owner: "S06 visualization",
         check: "distinct visualization module coverage",
@@ -1095,12 +1235,7 @@ test.describe("lesson page all-slug bug detection", () => {
       });
     }
 
-    const questionSolvability = mergeQuestionSolvabilityStats(rows.map((row) => row.questionSolvability));
-    const reportBody = JSON.stringify({ rows, questionSolvability, findings }, null, 2);
-    const reportDir = path.join(process.cwd(), "output", "playwright", "lesson-qa");
-    const reportPath = path.join(reportDir, `lesson-qa-results-${testInfo.project.name}.json`);
-    await fs.mkdir(reportDir, { recursive: true });
-    await fs.writeFile(reportPath, reportBody);
+    const { reportBody } = await writeReport();
 
     await testInfo.attach("lesson-qa-results.json", {
       body: reportBody,

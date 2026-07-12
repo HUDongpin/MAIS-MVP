@@ -1,0 +1,484 @@
+{
+  "generatedAt": "2026-07-09T14:01:17.527Z",
+  "repoRoot": "/Users/dongpinhu/Desktop/MAIS-MVP",
+  "dirtyMapStatusSignature": "b3d232fd2b9ef81d4efc95903d2e3b316db664d6e9ec6ab366181395b3966be7",
+  "expandedStatusEntries": 6604,
+  "sourceArtifacts": {
+    "dirtyMap": {
+      "path": "coordination/release-intake/latest-A25-dirty-tree-map.json",
+      "generatedAt": "2026-07-09T13:58:22.296Z",
+      "dirtyMapStatusSignature": "b3d232fd2b9ef81d4efc95903d2e3b316db664d6e9ec6ab366181395b3966be7",
+      "expandedStatusEntries": 6604
+    },
+    "validateToMergeHandoff": {
+      "path": "coordination/release-intake/latest-A25-validate-to-merge-handoff.json",
+      "generatedAt": "2026-07-09T14:00:37.401Z",
+      "dirtyMapStatusSignature": "b3d232fd2b9ef81d4efc95903d2e3b316db664d6e9ec6ab366181395b3966be7",
+      "expandedStatusEntries": 6604
+    },
+    "validateToMergeBlockerFrontier": {
+      "path": "coordination/release-intake/latest-A25-validate-to-merge-blocker-frontier.json",
+      "generatedAt": "2026-07-09T14:00:37.950Z",
+      "dirtyMapStatusSignature": "b3d232fd2b9ef81d4efc95903d2e3b316db664d6e9ec6ab366181395b3966be7",
+      "expandedStatusEntries": 6604
+    },
+    "authorizationBacklogQueue": {
+      "path": "coordination/release-intake/latest-A25-authorization-backlog-queue.json",
+      "generatedAt": "2026-07-09T13:58:21.096Z",
+      "dirtyMapStatusSignature": "b3d232fd2b9ef81d4efc95903d2e3b316db664d6e9ec6ab366181395b3966be7",
+      "expandedStatusEntries": 6604
+    },
+    "compactRequestBundle": {
+      "path": "coordination/release-intake/latest-A25-next-owner-compact-request-bundle.json",
+      "generatedAt": "2026-07-09T14:00:37.729Z",
+      "dirtyMapStatusSignature": "b3d232fd2b9ef81d4efc95903d2e3b316db664d6e9ec6ab366181395b3966be7",
+      "expandedStatusEntries": 6604
+    },
+    "ownerInputActionPacket": {
+      "path": "coordination/release-intake/latest-A25-owner-input-action-packet.json",
+      "generatedAt": "2026-07-09T14:00:27.322Z",
+      "dirtyMapStatusSignature": "b3d232fd2b9ef81d4efc95903d2e3b316db664d6e9ec6ab366181395b3966be7",
+      "expandedStatusEntries": 6604
+    },
+    "currentCleanupStatus": {
+      "path": "coordination/release-intake/latest-A25-current-cleanup-status-snapshot.json",
+      "generatedAt": "2026-07-09T14:01:17.372Z",
+      "dirtyMapStatusSignature": "b3d232fd2b9ef81d4efc95903d2e3b316db664d6e9ec6ab366181395b3966be7",
+      "expandedStatusEntries": 6604
+    },
+    "a22ReleaseSourceBlocker": {
+      "path": "coordination/release-intake/latest-A22-release-source-clean-blocker-evidence.json",
+      "generatedAt": "2026-07-09T13:58:04.100Z",
+      "dirtyMapStatusSignature": "b3d232fd2b9ef81d4efc95903d2e3b316db664d6e9ec6ab366181395b3966be7",
+      "expandedStatusEntries": 6604
+    }
+  },
+  "sourceCurrentnessFailures": [],
+  "validateExitReady": false,
+  "handoffStatus": "blocked-before-merge",
+  "readyForMerge": false,
+  "directCriteria": [
+    {
+      "id": "sources-current",
+      "label": "All handoff sources match the current dirty map",
+      "passed": true,
+      "status": "passed",
+      "blocker": "",
+      "blockerClass": "source-currentness",
+      "owner": "A25/A22 routed release owner",
+      "evidence": [
+        "coordination/release-intake/latest-A25-dirty-tree-map.json",
+        "coordination/release-intake/latest-A25-dirty-worktree-closure-loop-state.json",
+        "coordination/release-intake/latest-A25-dirty-worktree-remediation-completion-audit.json",
+        "coordination/release-intake/latest-A25-owner-closure-input-readiness.json",
+        "coordination/release-intake/latest-A25-owner-input-action-packet.json",
+        "coordination/release-intake/latest-A25-owner-closure-work-order-bundle.json",
+        "coordination/release-intake/latest-A25-next-owner-authorization-focus-batch-recording-intake.json",
+        "coordination/release-intake/latest-A25-next-owner-authorization-execution-preview.json",
+        "coordination/release-intake/latest-A25-next-owner-execution-instructions-current-gate.json",
+        "coordination/release-intake/latest-A25-a16-post-extraction-verification-report.json",
+        "coordination/release-intake/latest-A22-release-source-clean-blocker-evidence.json",
+        "coordination/release-intake/latest-A25-strict-worktree-lifecycle-blocker-evidence.json",
+        "coordination/release-intake/latest-A25-no-dirty-root-deploy-evidence.json",
+        "coordination/release-intake/latest-A25-validate-to-merge-handoff.json",
+        "coordination/release-intake/latest-A25-validate-to-merge-handoff.md"
+      ],
+      "directValidateExitBlocker": false,
+      "mergeAuthorized": false,
+      "cleanupAuthorized": false,
+      "executableNow": false
+    },
+    {
+      "id": "closure-loop-validate",
+      "label": "Closure loop is still at validate until owner inputs are complete",
+      "passed": true,
+      "status": "passed",
+      "blocker": "",
+      "blockerClass": "closure-loop-position",
+      "owner": "A25/A22 routed release owner",
+      "evidence": [
+        "coordination/release-intake/latest-A25-dirty-worktree-closure-loop-state.json"
+      ],
+      "directValidateExitBlocker": false,
+      "mergeAuthorized": false,
+      "cleanupAuthorized": false,
+      "executableNow": false
+    },
+    {
+      "id": "preauthorization-clean",
+      "label": "Authorization pre-checks have no attention rows",
+      "passed": true,
+      "status": "passed",
+      "blocker": "",
+      "blockerClass": "preauthorization-safety",
+      "owner": "A25/A22 routed release owner",
+      "evidence": [
+        "coordination/release-intake/latest-A25-next-owner-authorization-execution-preview.json"
+      ],
+      "directValidateExitBlocker": false,
+      "mergeAuthorized": false,
+      "cleanupAuthorized": false,
+      "executableNow": false
+    },
+    {
+      "id": "focus-batch-recorded",
+      "label": "Current focus batch is recorded as canonical owner authorizations",
+      "passed": true,
+      "status": "passed",
+      "blocker": "",
+      "blockerClass": "owner-authorization-focus",
+      "owner": "A25 git hygiene and release intake",
+      "evidence": [
+        "coordination/release-intake/latest-A25-next-owner-authorization-focus-batch-recording-intake.json"
+      ],
+      "directValidateExitBlocker": false,
+      "mergeAuthorized": false,
+      "cleanupAuthorized": false,
+      "executableNow": false
+    },
+    {
+      "id": "canonical-authorizations-complete",
+      "label": "All canonical owner authorization rows are recorded",
+      "passed": false,
+      "status": "blocked",
+      "blocker": "41 canonical authorization row(s) still pending",
+      "blockerClass": "canonical-authorization-backlog",
+      "owner": "A25 git hygiene and release intake with routed owner sessions",
+      "evidence": [
+        "coordination/release-intake/latest-A25-owner-closure-input-readiness.json",
+        "coordination/release-intake/latest-A25-next-owner-authorization-execution-preview.json"
+      ],
+      "directValidateExitBlocker": true,
+      "mergeAuthorized": false,
+      "cleanupAuthorized": false,
+      "executableNow": false
+    },
+    {
+      "id": "owner-inputs-ready",
+      "label": "Owner input readiness gate is green",
+      "passed": false,
+      "status": "blocked",
+      "blocker": "owner inputs are not ready",
+      "blockerClass": "owner-input-readiness",
+      "owner": "A25 git hygiene and release intake",
+      "evidence": [
+        "coordination/release-intake/latest-A25-owner-closure-input-readiness.json"
+      ],
+      "directValidateExitBlocker": true,
+      "mergeAuthorized": false,
+      "cleanupAuthorized": false,
+      "executableNow": false
+    },
+    {
+      "id": "execution-instructions-complete",
+      "label": "Ready owner execution inputs have valid separate execution instructions",
+      "passed": true,
+      "status": "passed",
+      "blocker": "",
+      "blockerClass": "execution-instruction-readiness",
+      "owner": "A25/A22 routed release owner",
+      "evidence": [
+        "coordination/release-intake/latest-A25-next-owner-execution-instructions-current-gate.json"
+      ],
+      "directValidateExitBlocker": false,
+      "mergeAuthorized": false,
+      "cleanupAuthorized": false,
+      "executableNow": false
+    },
+    {
+      "id": "validation-hold-released",
+      "label": "Owner-active compose-worktree validation hold is released",
+      "passed": false,
+      "status": "blocked",
+      "blocker": "validation hold is waiting for owner compose deletion confirmation",
+      "blockerClass": "validation-hold",
+      "owner": "A25 git hygiene and release intake with owner confirmation",
+      "evidence": [
+        "coordination/release-intake/latest-A25-owner-input-action-packet.json"
+      ],
+      "directValidateExitBlocker": true,
+      "mergeAuthorized": false,
+      "cleanupAuthorized": false,
+      "executableNow": false
+    },
+    {
+      "id": "release-source-clean",
+      "label": "A22 release-source blocker is clear before merge",
+      "passed": false,
+      "status": "blocked",
+      "blocker": "A22 release source is not clean",
+      "blockerClass": "clean-release-source",
+      "owner": "A22 production reliability and release engineering",
+      "evidence": [
+        "coordination/release-intake/latest-A22-release-source-clean-blocker-evidence.json"
+      ],
+      "directValidateExitBlocker": true,
+      "mergeAuthorized": false,
+      "cleanupAuthorized": false,
+      "executableNow": false
+    },
+    {
+      "id": "no-dirty-root-deploy",
+      "label": "No dirty-root deploy evidence is present",
+      "passed": true,
+      "status": "passed",
+      "blocker": "",
+      "blockerClass": "dirty-root-deploy-protection",
+      "owner": "A22 production reliability and release engineering",
+      "evidence": [
+        "coordination/release-intake/latest-A25-no-dirty-root-deploy-evidence.json"
+      ],
+      "directValidateExitBlocker": false,
+      "mergeAuthorized": false,
+      "cleanupAuthorized": false,
+      "executableNow": false
+    },
+    {
+      "id": "non-executable-boundary",
+      "label": "Handoff remains non-executable",
+      "passed": true,
+      "status": "passed",
+      "blocker": "",
+      "blockerClass": "non-executable-boundary",
+      "owner": "A25 git hygiene and release intake",
+      "evidence": [
+        "coordination/release-intake/latest-A25-dirty-worktree-closure-loop-state.json",
+        "coordination/release-intake/latest-A25-owner-input-action-packet.json"
+      ],
+      "directValidateExitBlocker": false,
+      "mergeAuthorized": false,
+      "cleanupAuthorized": false,
+      "executableNow": false
+    },
+    {
+      "id": "strict-lifecycle-not-yet-clean",
+      "label": "Strict lifecycle cleanup remains blocked until after merge verification",
+      "passed": true,
+      "status": "passed",
+      "blocker": "",
+      "blockerClass": "deferred-lifecycle-cleanup",
+      "owner": "A25 git hygiene and release intake",
+      "evidence": [
+        "coordination/release-intake/latest-A25-strict-worktree-lifecycle-blocker-evidence.json"
+      ],
+      "directValidateExitBlocker": false,
+      "mergeAuthorized": false,
+      "cleanupAuthorized": false,
+      "executableNow": false
+    }
+  ],
+  "exitBlockerRows": [
+    {
+      "id": "current-focus-batch-not-recorded",
+      "owner": "A25 git hygiene and release intake",
+      "blockerClass": "owner-authorization-focus",
+      "status": "passed",
+      "count": 0,
+      "detail": "0 current focus row(s) still require explicit owner authorization",
+      "approvalIds": [],
+      "evidence": [
+        "coordination/release-intake/latest-A25-authorization-backlog-queue.json",
+        "coordination/release-intake/latest-A25-next-owner-compact-request-bundle.json"
+      ],
+      "mergeAuthorized": false,
+      "cleanupAuthorized": false,
+      "executableNow": false
+    },
+    {
+      "id": "canonical-authorization-backlog-not-empty",
+      "owner": "A25 git hygiene and release intake",
+      "blockerClass": "canonical-authorization-backlog",
+      "status": "blocked",
+      "count": 41,
+      "detail": "41 canonical authorization row(s) remain pending",
+      "evidence": [
+        "coordination/release-intake/latest-A25-authorization-backlog-queue.json"
+      ],
+      "mergeAuthorized": false,
+      "cleanupAuthorized": false,
+      "executableNow": false
+    },
+    {
+      "id": "owner-input-readiness-not-green",
+      "owner": "A25 git hygiene and release intake",
+      "blockerClass": "owner-input-readiness",
+      "status": "blocked",
+      "count": 1,
+      "detail": "ownerInputsReady=false",
+      "evidence": [
+        "coordination/release-intake/latest-A25-owner-input-action-packet.json"
+      ],
+      "mergeAuthorized": false,
+      "cleanupAuthorized": false,
+      "executableNow": false
+    },
+    {
+      "id": "validation-hold-not-released",
+      "owner": "A25 git hygiene and release intake with owner confirmation",
+      "blockerClass": "validation-hold",
+      "status": "blocked",
+      "count": 1,
+      "detail": "validationHoldStatus=waiting-for-owner-compose-deletion-confirmation",
+      "evidence": [
+        "coordination/release-intake/latest-A25-owner-input-action-packet.json"
+      ],
+      "mergeAuthorized": false,
+      "cleanupAuthorized": false,
+      "executableNow": false
+    },
+    {
+      "id": "release-source-not-clean",
+      "owner": "A22 production reliability and release engineering",
+      "blockerClass": "clean-release-source",
+      "status": "blocked",
+      "count": 1,
+      "detail": "rootStatusEntries=6604",
+      "evidence": [
+        "coordination/release-intake/latest-A22-release-source-clean-blocker-evidence.json"
+      ],
+      "mergeAuthorized": false,
+      "cleanupAuthorized": false,
+      "executableNow": false
+    },
+    {
+      "id": "strict-lifecycle-still-deferred",
+      "owner": "A25 git hygiene and release intake",
+      "blockerClass": "deferred-physical-lifecycle",
+      "status": "deferred",
+      "count": 38,
+      "detail": "31 dirty worktree decision(s), 8 clean diverged decision(s), 38 deferred physical-lifecycle row(s)",
+      "evidence": [
+        "coordination/release-intake/latest-A25-current-cleanup-status-snapshot.json",
+        "coordination/release-intake/latest-A25-authorization-backlog-queue.json"
+      ],
+      "mergeAuthorized": false,
+      "cleanupAuthorized": false,
+      "executableNow": false
+    },
+    {
+      "id": "merge-not-authorized",
+      "owner": "owner",
+      "blockerClass": "explicit-merge-authorization",
+      "status": "blocked",
+      "count": 1,
+      "detail": "No exact owner merge instruction is recorded; this artifact is evidence-only.",
+      "evidence": [
+        "coordination/release-intake/latest-A25-validate-to-merge-handoff.json"
+      ],
+      "mergeAuthorized": false,
+      "cleanupAuthorized": false,
+      "executableNow": false
+    },
+    {
+      "id": "post-input-validation-commands",
+      "owner": "A25 git hygiene and release intake",
+      "blockerClass": "post-input-validation",
+      "status": "ready-after-owner-input",
+      "count": 13,
+      "detail": "5 immediate command(s), 8 deferred aggregate command(s)",
+      "evidence": [
+        "coordination/release-intake/latest-A25-owner-input-action-packet.json"
+      ],
+      "mergeAuthorized": false,
+      "cleanupAuthorized": false,
+      "executableNow": false
+    }
+  ],
+  "exitEquation": {
+    "validateExitReady": false,
+    "directFailedMergeChecks": 4,
+    "directExitBlockerClassCounts": {
+      "canonical-authorization-backlog": 1,
+      "owner-input-readiness": 1,
+      "validation-hold": 1,
+      "clean-release-source": 1
+    },
+    "ownerAuthorizationRows": 0,
+    "pendingCanonicalAuthorizationRows": 41,
+    "ownerHoldRows": 1,
+    "deferredPhysicalLifecycleRows": 38,
+    "cleanSourceBlockers": 1,
+    "validationHoldBlockers": 1,
+    "mergeAuthorized": false,
+    "cleanupAuthorizedRows": 0,
+    "executableRows": 0
+  },
+  "currentFocus": {
+    "approvalIds": [],
+    "pendingRows": 0,
+    "copyableOwnerReplyTextZh": "",
+    "copyableApprovalText": ""
+  },
+  "validationCommands": {
+    "postInputValidationCommands": [
+      "node coordination/release-intake/assert-next-owner-authorizations-current.mjs",
+      "node coordination/release-intake/generate-next-owner-authorization-execution-preview.mjs",
+      "node coordination/release-intake/assert-next-owner-authorization-execution-preview-current.mjs",
+      "node coordination/release-intake/assert-owner-package-blocker-report-records-current.mjs",
+      "node coordination/release-intake/assert-owner-closure-input-readiness-current.mjs"
+    ],
+    "deferredAggregateValidationCommands": [
+      "node coordination/release-intake/refresh-linked-worktree-archive-evidence.mjs",
+      "node coordination/release-intake/assert-linked-worktree-archive-evidence-current.mjs",
+      "node coordination/release-intake/generate-wave06-final-root-lifecycle-readiness.mjs",
+      "node coordination/release-intake/assert-wave06-final-root-lifecycle-readiness-current.mjs",
+      "node coordination/release-intake/refresh-dirty-worktree-remediation-evidence.mjs --reason \"owner input action packet post-input verification\"",
+      "node coordination/release-intake/assert-dirty-worktree-remediation-current.mjs",
+      "node coordination/release-intake/generate-dirty-worktree-remediation-completion-audit.mjs",
+      "node coordination/release-intake/assert-dirty-worktree-remediation-completion-audit-current.mjs"
+    ],
+    "postInputValidationCommandRows": 5,
+    "deferredAggregateValidationCommandRows": 8
+  },
+  "a22ReleaseSourceOptions": {
+    "allowedReleaseSources": [
+      "clean worktree",
+      "clean clone",
+      "reviewed clean release slice",
+      "explicitly owner-approved pruned staging package"
+    ],
+    "releaseSourceClean": false,
+    "releaseSourceBlocked": true,
+    "rootStatusEntries": 6604,
+    "dirtyMapExpandedEntries": 6604
+  },
+  "downstreamClosureState": {
+    "strictLifecycleClean": false,
+    "dirtyOpenDecisions": 31,
+    "cleanDivergedOpenDecisions": 8,
+    "deferredPhysicalLifecycleRows": 38
+  },
+  "summary": {
+    "validateExitReady": false,
+    "handoffStatus": "blocked-before-merge",
+    "readyForMerge": false,
+    "directCriteriaRows": 12,
+    "directFailedMergeChecks": 4,
+    "exitBlockerRows": 8,
+    "currentFocusRows": 0,
+    "pendingCanonicalAuthorizationRows": 41,
+    "heldRows": 1,
+    "deferredPhysicalLifecycleRows": 38,
+    "cleanSourceBlockers": 1,
+    "validationHoldBlockers": 1,
+    "postInputValidationCommandRows": 5,
+    "deferredAggregateValidationCommandRows": 8,
+    "releaseSourceClean": false,
+    "strictLifecycleClean": false,
+    "cleanupAuthorizedRows": 0,
+    "executableRows": 0,
+    "sourceCurrentnessFailures": 0
+  },
+  "boundary": {
+    "evidenceOnly": true,
+    "recordsOwnerApproval": false,
+    "recordsExecutionInstruction": false,
+    "mergeAuthorized": false,
+    "cleanupAuthorized": false,
+    "executableNow": false,
+    "destructiveGitAuthorized": false,
+    "deployAuthorized": false,
+    "dirtyRootDeployAuthorized": false,
+    "physicalLifecycleCleanupAuthorized": false
+  }
+}

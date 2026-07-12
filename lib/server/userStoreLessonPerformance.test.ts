@@ -7,12 +7,12 @@ function source(relativePath: string) {
   return readFileSync(path.join(process.cwd(), relativePath), "utf8");
 }
 
-function exportedFunctionBody(fileSource: string, functionName: string) {
-  const start = fileSource.indexOf(`export async function ${functionName}(`);
-  assert.notEqual(start, -1, `${functionName} should be exported`);
+function functionBodyFromSignature(fileSource: string, signature: string, description: string) {
+  const start = fileSource.indexOf(signature);
+  assert.notEqual(start, -1, `${description} should exist`);
 
   const braceStart = fileSource.indexOf("{", start);
-  assert.notEqual(braceStart, -1, `${functionName} should have a body`);
+  assert.notEqual(braceStart, -1, `${description} should have a body`);
 
   let depth = 0;
   for (let index = braceStart; index < fileSource.length; index += 1) {
@@ -26,26 +26,36 @@ function exportedFunctionBody(fileSource: string, functionName: string) {
     }
   }
 
-  throw new Error(`${functionName} body was not closed`);
+  throw new Error(`${description} body was not closed`);
+}
+
+function studentActivityMethodBody(fileSource: string, functionName: string) {
+  return functionBodyFromSignature(fileSource, `async ${functionName}(`, `${functionName} student activity method`);
 }
 
 test("lesson entry target uses the Postgres fast path before reading the full database", () => {
-  const body = exportedFunctionBody(source("lib/server/userStore.ts"), "getLessonEntryTarget");
-  const fastPathIndex = body.indexOf("getFastPostgresLessonEntryTarget");
+  const compatibilitySource = source("lib/server/userStore.ts");
+  const body = studentActivityMethodBody(source("lib/server/userStore/studentActivityPersistence.ts"), "getLessonEntryTarget");
+  const fastPathIndex = body.indexOf("getFastLessonEntryTarget");
   const readDatabaseIndex = body.indexOf("readDatabase()");
 
+  assert.match(compatibilitySource, /export const getLessonEntryTarget = studentActivityUserStore\.getLessonEntryTarget/);
   assert.notEqual(fastPathIndex, -1);
   assert.notEqual(readDatabaseIndex, -1);
   assert.ok(fastPathIndex < readDatabaseIndex);
 });
 
 test("lesson entry target falls back to public content when the Postgres fast path has no target", () => {
-  const storeSource = source("lib/server/userStore.ts");
+  const compatibilitySource = source("lib/server/userStore.ts");
+  const studentActivitySource = source("lib/server/userStore/studentActivityPersistence.ts");
+
+  assert.match(compatibilitySource, /export const getLessonEntryTarget = studentActivityUserStore\.getLessonEntryTarget/);
+  assert.match(compatibilitySource, /export const getLessonEntryTargetForLogin = studentActivityUserStore\.getLessonEntryTargetForLogin/);
 
   for (const functionName of ["getLessonEntryTarget", "getLessonEntryTargetForLogin"]) {
-    const body = exportedFunctionBody(storeSource, functionName);
+    const body = studentActivityMethodBody(studentActivitySource, functionName);
     const fastNullIndex = body.indexOf("fastTarget === null");
-    const publicFallbackIndex = body.indexOf("readPublicContentDatabase()", fastNullIndex);
+    const publicFallbackIndex = body.indexOf("readPublicDatabase()", fastNullIndex);
     const readDatabaseIndex = body.indexOf("readDatabase()");
 
     assert.notEqual(fastNullIndex, -1, `${functionName} should detect a null fast target`);
@@ -56,9 +66,11 @@ test("lesson entry target falls back to public content when the Postgres fast pa
 });
 
 test("public lesson roadmap rendering uses the public content database", () => {
-  const body = exportedFunctionBody(source("lib/server/userStore.ts"), "getRoadmapData");
+  const compatibilitySource = source("lib/server/userStore.ts");
+  const body = studentActivityMethodBody(source("lib/server/userStore/studentActivityPersistence.ts"), "getRoadmapData");
 
-  assert.match(body, /userId\s*\?\s*await readDatabase\(\)\s*:\s*readPublicContentDatabase\(\)/);
+  assert.match(compatibilitySource, /export const getRoadmapData = studentActivityUserStore\.getRoadmapData/);
+  assert.match(body, /userId\s*\?\s*await readDatabase\(\)\s*:\s*await readPublicDatabase\(\)/);
 });
 
 test("student lesson page renders initial lesson content without authenticated full-database reads", () => {

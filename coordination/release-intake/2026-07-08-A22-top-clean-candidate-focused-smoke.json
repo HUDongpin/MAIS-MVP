@@ -1,0 +1,150 @@
+{
+  "generatedAt": "2026-07-08T15:37:10.127Z",
+  "repoRoot": "/Users/dongpinhu/Desktop/MAIS-MVP",
+  "dirtyMapStatusSignature": "4892e406613fc3846378621b84ba0f486bb8ebf371c35837eae544472596f318",
+  "expandedStatusEntries": 6130,
+  "sourceArtifacts": {
+    "dirtyMap": {
+      "key": "dirtyMap",
+      "path": "coordination/release-intake/latest-A25-dirty-tree-map.json",
+      "generatedAt": "2026-07-08T14:14:26.017Z",
+      "dirtyMapStatusSignature": "4892e406613fc3846378621b84ba0f486bb8ebf371c35837eae544472596f318",
+      "expandedStatusEntries": 6130
+    },
+    "cleanSourceCandidatePromotion": {
+      "key": "cleanSourceCandidatePromotion",
+      "path": "coordination/release-intake/latest-A22-clean-source-candidate-promotion-packet.json",
+      "generatedAt": "2026-07-08T15:22:42.316Z",
+      "dirtyMapStatusSignature": "4892e406613fc3846378621b84ba0f486bb8ebf371c35837eae544472596f318",
+      "expandedStatusEntries": 6130
+    }
+  },
+  "sourceCurrentnessFailures": [],
+  "smokeStatus": "passed",
+  "topCandidate": {
+    "branch": "codex/A22-us-region-alignment",
+    "path": "/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A22-us-region-alignment",
+    "head": "80b8546af59def9ea4c91fa4b8a892973874504d",
+    "promotionRank": 1,
+    "promotionLane": "controlled-mutated-root-parity-recovery",
+    "promotionEligibleNow": false,
+    "releaseSourceSelected": false,
+    "allowedDirtyStatusRows": [
+      "?? app/visualization-lab/VisualizationLabBackToTopButton.tsx",
+      "?? data/mathVirusBlaster.ts",
+      "?? data/mightyTankBattle.ts",
+      "?? data/usCaliforniaHighSchoolLessonIllustrations.ts"
+    ]
+  },
+  "focusedSmoke": {
+    "scriptPath": "/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A22-us-region-alignment/scripts/vercel-region-config.test.mjs",
+    "scriptPresent": true,
+    "command": {
+      "cwd": "/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A22-us-region-alignment",
+      "argv": [
+        "/usr/local/bin/node",
+        "scripts/vercel-region-config.test.mjs"
+      ]
+    },
+    "exitStatus": 0,
+    "signal": null,
+    "error": "",
+    "stdoutLineCount": 10,
+    "stderrLineCount": 0,
+    "nodeTestSummary": {
+      "tests": 2,
+      "suites": 0,
+      "pass": 2,
+      "fail": 0,
+      "cancelled": 0,
+      "skipped": 0,
+      "todo": 0
+    },
+    "allowedDirtyStatusRows": [
+      "?? app/visualization-lab/VisualizationLabBackToTopButton.tsx",
+      "?? data/mathVirusBlaster.ts",
+      "?? data/mightyTankBattle.ts",
+      "?? data/usCaliforniaHighSchoolLessonIllustrations.ts"
+    ],
+    "boundedDirtyAccepted": true,
+    "beforeStatusRows": [
+      "?? app/visualization-lab/VisualizationLabBackToTopButton.tsx",
+      "?? data/mathVirusBlaster.ts",
+      "?? data/mightyTankBattle.ts",
+      "?? data/usCaliforniaHighSchoolLessonIllustrations.ts"
+    ],
+    "afterStatusRows": [
+      "?? app/visualization-lab/VisualizationLabBackToTopButton.tsx",
+      "?? data/mathVirusBlaster.ts",
+      "?? data/mightyTankBattle.ts",
+      "?? data/usCaliforniaHighSchoolLessonIllustrations.ts"
+    ],
+    "beforeStatusEntries": 4,
+    "afterStatusEntries": 4,
+    "beforeStatusClean": false,
+    "afterStatusClean": false,
+    "beforeStatusAllowed": true,
+    "afterStatusAllowed": true,
+    "mutationDetected": false,
+    "smokePassed": true
+  },
+  "validationRows": [
+    {
+      "id": "focused-smoke-script-present",
+      "owner": "A22 production reliability and release engineering",
+      "passed": true,
+      "status": "passed",
+      "detail": "Focused Vercel region smoke script exists in the top candidate worktree."
+    },
+    {
+      "id": "focused-smoke-command-passed",
+      "owner": "A22 production reliability and release engineering",
+      "passed": true,
+      "status": "passed",
+      "detail": "Node test exit=0; tests=2; pass=2; fail=0."
+    },
+    {
+      "id": "focused-smoke-no-mutation",
+      "owner": "A25 git hygiene and release intake",
+      "passed": true,
+      "status": "passed",
+      "detail": "Candidate worktree status stayed within allowed bounds before/after smoke; mutationDetected=false."
+    }
+  ],
+  "summary": {
+    "smokePassed": true,
+    "scriptPresent": true,
+    "tests": 2,
+    "pass": 2,
+    "fail": 0,
+    "beforeStatusEntries": 4,
+    "afterStatusEntries": 4,
+    "beforeStatusAllowed": true,
+    "afterStatusAllowed": true,
+    "boundedDirtyAccepted": true,
+    "mutationDetected": false,
+    "promotionEligibleNow": false,
+    "releaseSourceSelected": false,
+    "cleanupAuthorizedRows": 0,
+    "executableRows": 0,
+    "sourceCurrentnessFailures": 0
+  },
+  "boundary": {
+    "evidenceOnly": true,
+    "runsFocusedSmoke": true,
+    "runsTypeCheck": false,
+    "runsBuild": false,
+    "selectsReleaseSource": false,
+    "recordsOwnerApproval": false,
+    "recordsExecutionInstruction": false,
+    "stagesFiles": false,
+    "commits": false,
+    "merges": false,
+    "pushes": false,
+    "deploys": false,
+    "cleanupAuthorized": false,
+    "executableNow": false,
+    "destructiveGitAuthorized": false,
+    "physicalLifecycleCleanupAuthorized": false
+  }
+}

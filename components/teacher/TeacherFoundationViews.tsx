@@ -7,15 +7,16 @@ import {
   assignmentStatusLabels,
   teacherMessageStatusLabels
 } from "@/components/teacher/teacherLabels";
-import { formatGradeLabel, localeForLanguage, textForLanguage } from "@/lib/i18n";
+import { formatGradeLabel, textForLanguage } from "@/lib/i18n";
+import { formatDateInHongKong } from "@/lib/utils";
 import type { Assignment, Language, TeacherClass, TeacherFoundationData, TeacherMessage } from "@/types";
 
 function formatDate(value: string | null, language: Language) {
   if (!value) return textForLanguage({ en: "Not set", zh: "未設定" }, language);
-  return new Intl.DateTimeFormat(localeForLanguage(language), {
+  return formatDateInHongKong(value, language, {
     month: "short",
     day: "numeric"
-  }).format(new Date(value));
+  });
 }
 
 function assignmentCompletion(assignment: Assignment) {

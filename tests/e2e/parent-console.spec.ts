@@ -1,7 +1,7 @@
 import { expect, request as apiRequest, test, type APIRequestContext, type Page, type TestInfo } from "@playwright/test";
-import { createHash } from "node:crypto";
 import { DatabaseSync } from "node:sqlite";
 import path from "node:path";
+import { parentMessageBodyMaxLength, parentMessageSubjectMaxLength } from "../../lib/parentConstraints";
 import {
   collectPageErrors,
   demoParent,
@@ -17,7 +17,9 @@ import {
 
 const port = Number(process.env.PLAYWRIGHT_PORT ?? 3020);
 const baseURL = process.env.PLAYWRIGHT_BASE_URL ?? `http://127.0.0.1:${port}`;
-const e2eDbPath = path.join(process.cwd(), ".tmp/e2e/hk-math-db.sqlite");
+const e2eDbPath = process.env.HK_MATH_DB_PATH
+  ? path.resolve(process.env.HK_MATH_DB_PATH)
+  : path.join(process.cwd(), ".tmp/e2e/hk-math-db.sqlite");
 
 type UserRole = "student" | "teacher" | "parent" | "admin";
 
@@ -51,6 +53,7 @@ type AppStatePayload = {
     user_id: string;
     name: string;
     grade: string;
+    parent_invite_code?: string;
     avatar_id?: string;
   }>;
   guardian_links?: Array<{
@@ -140,8 +143,19 @@ function escapeRegex(value: string) {
 }
 
 function parentInviteCodeForStudent(studentId: string) {
-  const digest = createHash("sha1").update(`parent-link:${studentId}`).digest("hex").slice(0, 6).toUpperCase();
-  return `MAIS-${digest}`;
+  const sqlite = new DatabaseSync(e2eDbPath);
+  try {
+    const row = sqlite
+      .prepare("SELECT payload FROM app_state WHERE id = ?")
+      .get("primary") as AppStateRow | undefined;
+    expect(row).toBeTruthy();
+    const payload = JSON.parse(row?.payload ?? "{}") as AppStatePayload;
+    const inviteCode = payload.student_profiles?.find((profile) => profile.user_id === studentId)?.parent_invite_code;
+    expect(inviteCode, `Missing stored parent invite code for ${studentId}`).toMatch(/^MAIS-[A-Z0-9]{10}$/);
+    return inviteCode!;
+  } finally {
+    sqlite.close();
+  }
 }
 
 async function newApiContext(contexts: APIRequestContext[]) {
@@ -183,6 +197,10 @@ async function registerStudentViaApi(contexts: APIRequestContext[], testInfo: Te
       password: student.password,
       grade,
       curriculumTrack: "HK",
+      curriculumProfile: {
+        region: "HK",
+        publisher: "HK_UNITED_PRIME_MIA",
+      },
       language: "en",
       theme: "dark"
     }
@@ -319,7 +337,7 @@ test.describe("parent console viewport smoke", () => {
     await expect(page.getByRole("heading", { name: /Use a parent invite code/i })).toBeVisible();
 
     await parentNavigation.getByRole("link", { name: /^Overview$/i }).click();
-    await expect(page).toHaveURL(/\/parent$/);
+    await expect(page).toHaveURL(/\/parent(?:\?studentId=[^&]+)?$/);
     await expect(page.getByRole("heading", { name: /Today’s home-school picture/i })).toBeVisible();
 
     const childCard = page.locator("main").locator(`a[href="${childPath}"]`);
@@ -409,7 +427,7 @@ test.describe.serial("parent console end-to-end verification", () => {
       await expect(page.getByText(/average mastery/i).first()).toBeVisible();
       await expect(page.getByText(/minutes 7d/i).first()).toBeVisible();
       await expect(page.getByText(/points/i).first()).toBeVisible();
-      await expect(page.getByText(/Messages and AI Tutor|Last AI message|Create assignment|Generate report|Save report|Edit profile/i)).toHaveCount(0);
+      await expect(page.getByText(/Messages and Nova Tutor|Last AI message|Create assignment|Generate report|Save report|Edit profile/i)).toHaveCount(0);
 
       expect((await page.request.get(`/api/parent/children/${encodeURIComponent(unlinkedStudent.userId)}/summary`)).status()).toBe(404);
       const linkResponse = await page.request.post("/api/parent/children/link", {
@@ -540,6 +558,28 @@ test.describe.serial("parent console end-to-end verification", () => {
       });
       expect(invalidMessageResponse.status()).toBe(400);
 
+      const invalidReportResponse = await page.request.post("/api/parent/messages", {
+        data: {
+          studentId: child.student.id,
+          category: "report-question",
+          subject: "Invalid report probe",
+          body: parentBody,
+          reportId: "not-a-real-parent-report"
+        }
+      });
+      expect(invalidReportResponse.status()).toBe(404);
+
+      const oversizedMessageResponse = await page.request.post("/api/parent/messages", {
+        data: {
+          studentId: child.student.id,
+          category: "homework",
+          subject: "x".repeat(parentMessageSubjectMaxLength + 1),
+          body: "x".repeat(parentMessageBodyMaxLength + 1),
+          reportId: linkedReport?.id
+        }
+      });
+      expect(oversizedMessageResponse.status()).toBe(413);
+
       const createMessageResponse = await page.request.post("/api/parent/messages", {
         data: {
           studentId: child.student.id,
@@ -554,6 +594,11 @@ test.describe.serial("parent console end-to-end verification", () => {
       expect(created.thread.parentCategory).toBe("homework");
       expect(created.thread.reportId).toBe(linkedReport?.id);
       expect(created.thread.messages[0]?.senderRole).toBe("parent");
+
+      const oversizedReplyResponse = await page.request.post(`/api/parent/messages/${encodeURIComponent(created.thread.id)}/reply`, {
+        data: { body: "x".repeat(parentMessageBodyMaxLength + 1) }
+      });
+      expect(oversizedReplyResponse.status()).toBe(413);
 
       const parentMessagesResponse = await page.request.get("/api/parent/messages");
       const parentMessages = await parentMessagesResponse.json() as ParentMessagesResponse;

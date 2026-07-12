@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { canAccessTeacherArea, requireAuthenticatedUser } from "@/lib/server/auth";
-import { addStudentToTeacherClass, getTeacherClassEnrollments } from "@/lib/server/userStore";
+import { addStudentToTeacherClass, getTeacherClassDetailData, getTeacherClassEnrollments } from "@/lib/server/userStore";
 
 export const runtime = "nodejs";
 
@@ -44,5 +44,7 @@ export async function POST(request: Request, { params }: { params: Promise<{ cla
     return NextResponse.json({ error: result.status }, { status });
   }
 
-  return NextResponse.json({ ok: true }, { status: 201 });
+  const detail = await getTeacherClassDetailData(authenticated.user.id, classId);
+
+  return NextResponse.json({ ok: true, detail }, { status: 201 });
 }

@@ -1,0 +1,213 @@
+{
+  "generatedAt": "2026-07-06T15:51:13.663Z",
+  "repoRoot": "/Users/dongpinhu/Desktop/MAIS-MVP",
+  "dirtyMapStatusSignature": "b26fe39c438a20cdbb9cf3943e3d000d9dc8dc04ccccedc13792c457c5942d3b",
+  "expandedStatusEntries": 5183,
+  "sourceArtifacts": {
+    "dirtyMap": {
+      "path": "coordination/release-intake/latest-A25-dirty-tree-map.json",
+      "generatedAt": "2026-07-06T15:50:03.750Z",
+      "dirtyMapStatusSignature": "b26fe39c438a20cdbb9cf3943e3d000d9dc8dc04ccccedc13792c457c5942d3b",
+      "expandedStatusEntries": 5183
+    },
+    "authorizationBacklogQueue": {
+      "path": "coordination/release-intake/latest-A25-authorization-backlog-queue.json",
+      "generatedAt": "2026-07-06T15:50:21.768Z",
+      "dirtyMapStatusSignature": "b26fe39c438a20cdbb9cf3943e3d000d9dc8dc04ccccedc13792c457c5942d3b",
+      "expandedStatusEntries": 5183
+    },
+    "focusBatchRecordingIntake": {
+      "path": "coordination/release-intake/latest-A25-next-owner-authorization-focus-batch-recording-intake.json",
+      "generatedAt": "2026-07-06T15:50:22.107Z",
+      "dirtyMapStatusSignature": "b26fe39c438a20cdbb9cf3943e3d000d9dc8dc04ccccedc13792c457c5942d3b",
+      "expandedStatusEntries": 5183
+    },
+    "compactRequestBundle": {
+      "path": "coordination/release-intake/latest-A25-next-owner-compact-request-bundle.json",
+      "generatedAt": "2026-07-06T15:50:32.739Z",
+      "dirtyMapStatusSignature": "b26fe39c438a20cdbb9cf3943e3d000d9dc8dc04ccccedc13792c457c5942d3b",
+      "expandedStatusEntries": 5183
+    },
+    "ownerClosureInputReadiness": {
+      "path": "coordination/release-intake/latest-A25-owner-closure-input-readiness.json",
+      "generatedAt": "2026-07-06T15:50:21.237Z",
+      "dirtyMapStatusSignature": "b26fe39c438a20cdbb9cf3943e3d000d9dc8dc04ccccedc13792c457c5942d3b",
+      "expandedStatusEntries": 5183
+    },
+    "validateToMergeExitCriteria": {
+      "path": "coordination/release-intake/latest-A25-validate-to-merge-exit-criteria.json",
+      "generatedAt": "2026-07-06T15:51:13.544Z",
+      "dirtyMapStatusSignature": "b26fe39c438a20cdbb9cf3943e3d000d9dc8dc04ccccedc13792c457c5942d3b",
+      "expandedStatusEntries": 5183
+    }
+  },
+  "sourceCurrentnessFailures": [],
+  "currentState": {
+    "pendingCanonicalAuthorizationRows": 42,
+    "validAuthorizationRows": 21,
+    "currentFocusRows": 3,
+    "currentFocusApprovalIds": [
+      "a09-copy-i18n-accessibility",
+      "a17-gamification-and-motivation",
+      "a23-integration-and-promotion-lead"
+    ],
+    "heldRows": 1,
+    "heldApprovalIds": [
+      "wave01-resync-01-tsconfig-json"
+    ],
+    "deferredPhysicalLifecycleRows": 38,
+    "ownerInputsReady": false,
+    "validateExitReady": false,
+    "cleanupAuthorizedRows": 0,
+    "executableRows": 0
+  },
+  "assumedOwnerAction": {
+    "action": "authorize-current-owner-package-focus-batch",
+    "approvalIds": [
+      "a09-copy-i18n-accessibility",
+      "a17-gamification-and-motivation",
+      "a23-integration-and-promotion-lead"
+    ],
+    "selectedFinalState": "reviewed commit",
+    "copyableOwnerReplyTextZh": "我授权当前 3 条 owner-package canonical authorization preview：approvalIds=a09-copy-i18n-accessibility,a17-gamification-and-motivation,a23-integration-and-promotion-lead；selectedFinalState=reviewed commit；不授权 cleanup；不授权 deploy；不授权 merge；不授权 destructive git；不授权 physical lifecycle cleanup。",
+    "recordsAuthorizationOnlyAfterExplicitOwnerReply": true,
+    "cleanupAuthorized": false,
+    "executableNow": false,
+    "mergeAuthorized": false,
+    "deployAuthorized": false,
+    "destructiveGitAuthorized": false,
+    "physicalLifecycleCleanupAuthorized": false
+  },
+  "projectedAfterCurrentFocusAuthorization": {
+    "projectedPendingCanonicalAuthorizationRows": 39,
+    "projectedValidAuthorizationRows": 24,
+    "projectedCurrentFocusRows": 0,
+    "projectedHeldRows": 1,
+    "projectedDeferredPhysicalLifecycleRows": 38,
+    "projectedOwnerInputsReady": false,
+    "projectedValidateExitReady": false,
+    "projectedReadyForMerge": false,
+    "projectedCleanupAuthorizedRows": 0,
+    "projectedExecutableRows": 0
+  },
+  "blockersAfterCurrentFocus": [
+    {
+      "id": "canonical-authorization-backlog",
+      "blockerClass": "owner-input",
+      "statusAfterCurrentFocus": "still-blocked",
+      "count": 39,
+      "detail": "39 canonical authorization row(s) would still be pending after the current focus batch.",
+      "mergeAuthorized": false,
+      "cleanupAuthorized": false,
+      "executableNow": false
+    },
+    {
+      "id": "wave01-resync-hold",
+      "blockerClass": "owner-confirmation-hold",
+      "statusAfterCurrentFocus": "still-blocked",
+      "count": 1,
+      "approvalIds": [
+        "wave01-resync-01-tsconfig-json"
+      ],
+      "detail": "Held rows remain non-authorizable until explicit owner release.",
+      "mergeAuthorized": false,
+      "cleanupAuthorized": false,
+      "executableNow": false
+    },
+    {
+      "id": "validation-hold",
+      "blockerClass": "owner-confirmation-hold",
+      "statusAfterCurrentFocus": "still-blocked",
+      "count": 1,
+      "detail": "Validation hold remains waiting for owner compose deletion confirmation.",
+      "mergeAuthorized": false,
+      "cleanupAuthorized": false,
+      "executableNow": false
+    },
+    {
+      "id": "a22-clean-release-source",
+      "blockerClass": "release-source-clean",
+      "statusAfterCurrentFocus": "still-blocked",
+      "count": 1,
+      "detail": "A22 release source remains dirty; root is still an integration inventory.",
+      "mergeAuthorized": false,
+      "cleanupAuthorized": false,
+      "executableNow": false
+    },
+    {
+      "id": "physical-lifecycle-deferred",
+      "blockerClass": "deferred-cleanup",
+      "statusAfterCurrentFocus": "deferred",
+      "count": 38,
+      "detail": "Physical lifecycle cleanup stays deferred until validation, clean release source, and exact cleanup authorization are ready.",
+      "mergeAuthorized": false,
+      "cleanupAuthorized": false,
+      "executableNow": false
+    },
+    {
+      "id": "merge-not-authorized",
+      "blockerClass": "explicit-owner-merge-instruction",
+      "statusAfterCurrentFocus": "still-blocked",
+      "count": 1,
+      "detail": "No merge instruction is recorded by owner-package authorization.",
+      "mergeAuthorized": false,
+      "cleanupAuthorized": false,
+      "executableNow": false
+    }
+  ],
+  "validationCommandsAfterOwnerInput": {
+    "postInputValidationCommands": [
+      "node coordination/release-intake/assert-next-owner-authorizations-current.mjs",
+      "node coordination/release-intake/generate-next-owner-authorization-execution-preview.mjs",
+      "node coordination/release-intake/assert-next-owner-authorization-execution-preview-current.mjs",
+      "node coordination/release-intake/assert-owner-package-blocker-report-records-current.mjs",
+      "node coordination/release-intake/assert-owner-closure-input-readiness-current.mjs"
+    ],
+    "deferredAggregateValidationCommands": [
+      "node coordination/release-intake/refresh-linked-worktree-archive-evidence.mjs",
+      "node coordination/release-intake/assert-linked-worktree-archive-evidence-current.mjs",
+      "node coordination/release-intake/generate-wave06-final-root-lifecycle-readiness.mjs",
+      "node coordination/release-intake/assert-wave06-final-root-lifecycle-readiness-current.mjs",
+      "node coordination/release-intake/refresh-dirty-worktree-remediation-evidence.mjs --reason \"owner input action packet post-input verification\"",
+      "node coordination/release-intake/assert-dirty-worktree-remediation-current.mjs",
+      "node coordination/release-intake/generate-dirty-worktree-remediation-completion-audit.mjs",
+      "node coordination/release-intake/assert-dirty-worktree-remediation-completion-audit-current.mjs"
+    ],
+    "postInputValidationCommandRows": 5,
+    "deferredAggregateValidationCommandRows": 8
+  },
+  "forecastConclusion": {
+    "zh": "授权当前 A09/A17/A23 三条只会完成 owner-package tail batch; 不会授权 cleanup/merge/deploy, 也不会直接让 validate 进入 merge。",
+    "nextHardGateAfterCurrentFocus": "held Wave01 row plus deferred physical-lifecycle rows remain before owner inputs can be green",
+    "mergeStillRequiresCleanSource": true,
+    "physicalLifecycleStillDeferred": true
+  },
+  "summary": {
+    "currentFocusRows": 3,
+    "pendingCanonicalAuthorizationRows": 42,
+    "projectedPendingCanonicalAuthorizationRows": 39,
+    "projectedValidAuthorizationRows": 24,
+    "heldRows": 1,
+    "deferredPhysicalLifecycleRows": 38,
+    "blockersAfterCurrentFocus": 6,
+    "postInputValidationCommandRows": 5,
+    "deferredAggregateValidationCommandRows": 8,
+    "validateExitReadyNow": false,
+    "projectedValidateExitReady": false,
+    "cleanupAuthorizedRows": 0,
+    "executableRows": 0,
+    "sourceCurrentnessFailures": 0
+  },
+  "boundary": {
+    "evidenceOnly": true,
+    "recordsOwnerApproval": false,
+    "recordsExecutionInstruction": false,
+    "mergeAuthorized": false,
+    "cleanupAuthorized": false,
+    "executableNow": false,
+    "destructiveGitAuthorized": false,
+    "deployAuthorized": false,
+    "dirtyRootDeployAuthorized": false,
+    "physicalLifecycleCleanupAuthorized": false
+  }
+}

@@ -1,4 +1,6 @@
 import assert from "node:assert/strict";
+import { existsSync } from "node:fs";
+import path from "node:path";
 import test from "node:test";
 import {
   independentMainlandPepPrimaryAnswer,
@@ -10,11 +12,18 @@ import { mainlandPepPrimaryTopics } from "../data/mainlandPepPrimaryTopics";
 import { questions } from "../data/questions";
 import { mainlandPepPrimaryExamPatternCards } from "../data/rag/mainlandPepPrimaryExamPatterns";
 import { mainlandPepPrimaryRagCards } from "../data/rag/mainlandPepPrimary";
-import type { Difficulty, GradeId, QuestionType } from "@/types";
+import {
+  mainlandPepQuestionAssetFor,
+  mainlandPepQuestionAssetSrc,
+  mainlandPepQuestionIllustrationApprovals,
+  mainlandPepQuestionPromptHash
+} from "./mainlandPepQuestionAssets";
+import type { Difficulty, GradeId, Question, QuestionType } from "@/types";
 
 const primaryGrades: Extract<GradeId, "P1" | "P2" | "P3" | "P4" | "P5" | "P6">[] = ["P1", "P2", "P3", "P4", "P5", "P6"];
 const generatedTypes: Exclude<QuestionType, "graph">[] = ["multiple-choice", "fill-in", "short-answer"];
 const expectedPrimaryQuestionCount = 1200;
+const cjkPattern = /[\u3400-\u9fff]/u;
 
 function countBy<T extends string>(values: T[]) {
   const counts: Record<string, number> = {};
@@ -31,9 +40,40 @@ function expectedTypeQuota(grade: GradeId) {
 }
 
 function expectedDifficultyQuota(grade: GradeId): Record<Difficulty, number> {
-  if (grade === "P1" || grade === "P2") return { Foundation: 120, Core: 70, Challenge: 10, Exam: 0 };
-  if (grade === "P3" || grade === "P4") return { Foundation: 80, Core: 95, Challenge: 25, Exam: 0 };
-  return { Foundation: 60, Core: 100, Challenge: 30, Exam: 10 };
+  if (grade === "P1" || grade === "P2") return { Low: 120, Medium: 70, High: 10 };
+  if (grade === "P3" || grade === "P4") return { Low: 80, Medium: 95, High: 25 };
+  return { Low: 60, Medium: 100, High: 40 };
+}
+
+function publicAssetPath(src: string) {
+  return path.join(process.cwd(), "public", src.replace(/^\//, ""));
+}
+
+function assertQuestionImageAssetIsGated(question: Question) {
+  const approvedAsset = mainlandPepQuestionAssetFor(question);
+  const imageAssets = question.questionAssets?.filter((asset) => asset.kind === "image") ?? [];
+
+  if (!approvedAsset) {
+    assert.equal(imageAssets.length, 0, `${question.id} should remain text-only without an approved exact image asset`);
+    return;
+  }
+
+  assert.deepEqual(
+    imageAssets.map((asset) => asset.src),
+    [approvedAsset.src],
+    `${question.id} should expose only the approved exact image asset`
+  );
+  assert.equal(existsSync(publicAssetPath(approvedAsset.src)), true, `${question.id} approved PNG asset should exist at ${approvedAsset.src}`);
+}
+
+function englishVisibleTextFields(question: Question): Array<[string, string]> {
+  return [
+    ["topic", question.topic.en],
+    ["prompt", question.prompt.en],
+    ["answer", question.answer],
+    ["explanation", question.explanation.en],
+    ...(question.options ?? []).map((option, index) => [`option ${index + 1}`, option.en] as [string, string])
+  ];
 }
 
 test("Mainland PEP primary rag-v1 question bank has requested grade, semester, type, and difficulty coverage", () => {
@@ -78,6 +118,7 @@ test("Mainland PEP primary questions are app-integrated, track-compatible, and i
   const ids = new Set<string>();
 
   assert.equal(combinedPrimaryQuestions.length, expectedPrimaryQuestionCount);
+  combinedPrimaryQuestions.forEach(assertQuestionImageAssetIsGated);
 
   mainlandPepPrimaryRagV1Questions.forEach((question) => {
     assert.equal(question.curriculumTrack, "MAINLAND_PEP_HIGH");
@@ -90,6 +131,50 @@ test("Mainland PEP primary questions are app-integrated, track-compatible, and i
     assert.ok(question.explanation.en.trim() && question.explanation.zh.trim(), `${question.id} is missing explanation text`);
     assert.equal(independentMainlandPepPrimaryAnswer(question), question.answer, `${question.id} answer should match deterministic audit solver`);
   });
+});
+
+test("Mainland PEP primary English-visible question text does not leak Chinese characters", () => {
+  mainlandPepPrimaryRagV1Questions.forEach((question) => {
+    englishVisibleTextFields(question).forEach(([field, value]) => {
+      assert.doesNotMatch(value, cjkPattern, `${question.id} ${field} should be English-mode safe`);
+    });
+  });
+});
+
+test("Mainland PEP question illustration approvals require the current prompt hash", () => {
+  const question = mainlandPepPrimaryRagV1Questions[0];
+  assert.ok(question, "sample Mainland PEP primary question should exist");
+  const originalApprovalCount = mainlandPepQuestionIllustrationApprovals.length;
+  const currentPromptHash = mainlandPepQuestionPromptHash(question);
+
+  try {
+    mainlandPepQuestionIllustrationApprovals.push({
+      questionId: question.id,
+      promptHash: currentPromptHash === "00000000" ? "ffffffff" : "00000000",
+      qaStatus: "approved",
+      approvedAtHkt: "2026-06-04 00:00:00",
+      approvedBySession: "S18",
+      mathLayer: "prompt-specific-exact"
+    });
+    assert.equal(
+      mainlandPepQuestionAssetFor(question),
+      null,
+      "approved row with a stale or mismatched prompt hash must not expose a question image"
+    );
+
+    mainlandPepQuestionIllustrationApprovals.push({
+      questionId: question.id,
+      promptHash: currentPromptHash,
+      qaStatus: "approved",
+      approvedAtHkt: "2026-06-04 00:00:00",
+      approvedBySession: "S18",
+      mathLayer: "prompt-specific-exact"
+    });
+    const approvedAsset = mainlandPepQuestionAssetFor(question);
+    assert.equal(approvedAsset?.src, mainlandPepQuestionAssetSrc(question.id));
+  } finally {
+    mainlandPepQuestionIllustrationApprovals.length = originalApprovalCount;
+  }
 });
 
 test("Mainland PEP primary generated questions cite safe RAG and paper-pattern evidence", () => {

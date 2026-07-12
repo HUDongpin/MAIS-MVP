@@ -1,0 +1,116 @@
+{
+  "generatedAt": "2026-07-07T15:48:14.797Z",
+  "repoRoot": "/Users/dongpinhu/Desktop/MAIS-MVP",
+  "planKind": "a22-generated-artifact-guarded-cleanup-plan",
+  "dirtyMapStatusSignature": "21bf7897e245ce5bceb31315d088e7024d2e12aa53a9a098945ea69c3440b015",
+  "expandedStatusEntries": 5728,
+  "sourceArtifacts": {
+    "residualEvidenceGeneratedAt": "2026-07-07T15:48:02.600Z",
+    "authorizationPacketGeneratedAt": "2026-07-07T15:48:02.707Z",
+    "ownerAuthorizationsGeneratedAt": "2026-07-07T15:48:06.940Z",
+    "executionInstructionsGeneratedAt": "2026-07-07T15:48:11.729Z"
+  },
+  "sourceCurrentnessFailures": [],
+  "rowValidationFailures": [],
+  "stagedRows": [],
+  "dryRun": {
+    "status": 0,
+    "scope": "all",
+    "targetCount": 0,
+    "totalBytes": 0,
+    "skippedTargets": [],
+    "targets": []
+  },
+  "planStatus": "already-cleaned-and-verified",
+  "exactCommand": "node scripts/cleanup-generated-artifacts.mjs --apply --scope all",
+  "commandSequence": [],
+  "commandCwd": "/Users/dongpinhu/Desktop/MAIS-MVP",
+  "targetRows": [],
+  "acceptanceChecks": [
+    {
+      "id": "source-current",
+      "status": "pass",
+      "detail": "source currentness failures=0"
+    },
+    {
+      "id": "cleanup-dry-run-green",
+      "status": "pass",
+      "detail": "status=0; parseError=none"
+    },
+    {
+      "id": "residual-target-state-supported",
+      "status": "pass",
+      "detail": "residualTargetRows=0"
+    },
+    {
+      "id": "canonical-authorizations-present",
+      "status": "pass",
+      "detail": "canonicalA22Rows=0/0"
+    },
+    {
+      "id": "execution-instructions-present",
+      "status": "pass",
+      "detail": "instructionRows=0/0"
+    },
+    {
+      "id": "exact-targets-and-command",
+      "status": "pass",
+      "detail": "rows match exact A22 cleanup command"
+    },
+    {
+      "id": "dry-run-targets-match",
+      "status": "pass",
+      "detail": "dryRunTargets=none"
+    },
+    {
+      "id": "no-skipped-targets",
+      "status": "pass",
+      "detail": "skippedTargets=0"
+    },
+    {
+      "id": "no-staged-root-input",
+      "status": "pass",
+      "detail": "stagedRows=0"
+    },
+    {
+      "id": "plan-status-supported",
+      "status": "pass",
+      "detail": "planStatus=already-cleaned-and-verified"
+    }
+  ],
+  "summary": {
+    "planStatus": "already-cleaned-and-verified",
+    "residualTargets": 0,
+    "targetRows": 0,
+    "ownerAuthorizationRows": 0,
+    "executionInstructionRows": 0,
+    "cleanupDryRunTargets": 0,
+    "cleanupDryRunBytes": 0,
+    "stagedRows": 0,
+    "acceptanceChecks": 10,
+    "passingAcceptanceChecks": 10,
+    "failedAcceptanceChecks": 0,
+    "sourceCurrentnessFailures": 0,
+    "rowValidationFailures": 0,
+    "commandSequenceRows": 0,
+    "cleanupAuthorizedRows": 0,
+    "executableRows": 0
+  },
+  "boundary": {
+    "evidenceOnly": true,
+    "planOnly": true,
+    "recordsOwnerApproval": false,
+    "recordsExecutionInstruction": false,
+    "stageAuthorized": false,
+    "commitAuthorized": false,
+    "mergeAuthorized": false,
+    "cleanupAuthorized": false,
+    "executableNow": false,
+    "destructiveGitAuthorized": false,
+    "fileDeletionAuthorized": false,
+    "deployAuthorized": false,
+    "requiresExplicitApplyFlag": true,
+    "allowedCommand": "node scripts/cleanup-generated-artifacts.mjs --apply --scope all",
+    "allowedCommandSequence": "see targetRows and commandSequence"
+  }
+}

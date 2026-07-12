@@ -1,0 +1,274 @@
+{
+  "generatedAt": "2026-07-10T17:12:28.472Z",
+  "repoRoot": "/Users/dongpinhu/Desktop/MAIS-MVP",
+  "branch": "main",
+  "head": "ce2ae5258",
+  "dirtyMapStatusSignature": "e30d647e1b51432945713f42ac78b0a2466fcb17192de0235a801ac877a0801f",
+  "expandedStatusEntries": 7636,
+  "sourceArtifacts": {
+    "dirtyMap": {
+      "path": "coordination/release-intake/latest-A25-dirty-tree-map.json",
+      "generatedAt": "2026-07-10T17:07:27.521Z",
+      "dirtyMapStatusSignature": "e30d647e1b51432945713f42ac78b0a2466fcb17192de0235a801ac877a0801f",
+      "expandedStatusEntries": null
+    },
+    "currentCleanupStatus": {
+      "path": "coordination/release-intake/latest-A25-current-cleanup-status-snapshot.json",
+      "generatedAt": "2026-07-10T17:12:27.404Z",
+      "dirtyMapStatusSignature": "e30d647e1b51432945713f42ac78b0a2466fcb17192de0235a801ac877a0801f",
+      "expandedStatusEntries": 7636
+    },
+    "closureLoopState": {
+      "path": "coordination/release-intake/latest-A25-dirty-worktree-closure-loop-state.json",
+      "generatedAt": "2026-07-10T17:12:26.811Z",
+      "dirtyMapStatusSignature": "e30d647e1b51432945713f42ac78b0a2466fcb17192de0235a801ac877a0801f",
+      "expandedStatusEntries": 7636
+    },
+    "validateToMergeHandoff": {
+      "path": "coordination/release-intake/latest-A25-validate-to-merge-handoff.json",
+      "generatedAt": "2026-07-10T17:12:26.931Z",
+      "dirtyMapStatusSignature": "e30d647e1b51432945713f42ac78b0a2466fcb17192de0235a801ac877a0801f",
+      "expandedStatusEntries": 7636
+    },
+    "validateToMergeBlockerFrontier": {
+      "path": "coordination/release-intake/latest-A25-validate-to-merge-blocker-frontier.json",
+      "generatedAt": "2026-07-10T17:12:28.128Z",
+      "dirtyMapStatusSignature": "e30d647e1b51432945713f42ac78b0a2466fcb17192de0235a801ac877a0801f",
+      "expandedStatusEntries": 7636
+    },
+    "validateToMergeExitCriteria": {
+      "path": "coordination/release-intake/latest-A25-validate-to-merge-exit-criteria.json",
+      "generatedAt": "2026-07-10T17:12:28.246Z",
+      "dirtyMapStatusSignature": "e30d647e1b51432945713f42ac78b0a2466fcb17192de0235a801ac877a0801f",
+      "expandedStatusEntries": 7636
+    },
+    "compactRequestBundle": {
+      "path": "coordination/release-intake/latest-A25-next-owner-compact-request-bundle.json",
+      "generatedAt": "2026-07-10T17:12:27.187Z",
+      "dirtyMapStatusSignature": "e30d647e1b51432945713f42ac78b0a2466fcb17192de0235a801ac877a0801f",
+      "expandedStatusEntries": 7636
+    },
+    "completionAudit": {
+      "path": "coordination/release-intake/latest-A25-dirty-worktree-remediation-completion-audit.json",
+      "generatedAt": "2026-07-10T17:12:24.398Z",
+      "dirtyMapStatusSignature": "e30d647e1b51432945713f42ac78b0a2466fcb17192de0235a801ac877a0801f",
+      "expandedStatusEntries": 7636
+    },
+    "staleApplyGuard": {
+      "path": "coordination/release-intake/latest-A25-next-owner-authorization-stale-apply-guard-current-gate.json",
+      "generatedAt": "2026-07-10T16:59:27.277Z",
+      "dirtyMapStatusSignature": "e30d647e1b51432945713f42ac78b0a2466fcb17192de0235a801ac877a0801f",
+      "expandedStatusEntries": 7636
+    }
+  },
+  "framing": {
+    "zh": "问题不是需要更多 worktrees, 而是 root 已经是未收口的 integration inventory. 当前闭环要靠切片、提取、验证、合并、清理逐步收口。",
+    "releaseBoundary": "Root remains a read-only integration inventory and is not a deploy source while dirty.",
+    "loopIsFivePhasesInsideSevenStepRemediation": true
+  },
+  "phaseOrder": [
+    "slice",
+    "extract",
+    "validate",
+    "merge",
+    "cleanup"
+  ],
+  "activePhase": "validate",
+  "phases": [
+    {
+      "id": "slice",
+      "label": "Slice",
+      "chineseLabel": "切片",
+      "closureLoopStatus": "complete",
+      "blockers": [],
+      "evidence": [
+        "coordination/release-intake/latest-A25-dirty-tree-map.json",
+        "coordination/release-intake/latest-A25-effective-owner-overlay.json",
+        "coordination/release-intake/latest-A25-owner-disposition-queue.json",
+        "coordination/release-intake/latest-A25-owner-package-approval-requests.json"
+      ],
+      "currentCounts": {
+        "collapsedStatusEntries": 1507,
+        "expandedStatusEntries": 7636,
+        "ownerPackageApprovals": 26,
+        "physicalLifecycleApprovals": 39,
+        "ownerPackageEntries": 7636
+      },
+      "nextGate": "Keep A25 owner/pathspec coverage current before any package-level extraction or merge decision.",
+      "purpose": "Map the dirty root inventory into owner packages, pathspecs, waves, and approval IDs."
+    },
+    {
+      "id": "extract",
+      "label": "Extract",
+      "chineseLabel": "提取",
+      "closureLoopStatus": "complete",
+      "blockers": [],
+      "evidence": [
+        "coordination/release-intake/latest-A25-owner-closure-work-order-bundle.json",
+        "coordination/release-intake/latest-A25-a16-post-extraction-verification-report.json",
+        "coordination/release-intake/latest-A25-dirty-worktree-remediation-completion-audit.json"
+      ],
+      "currentCounts": {
+        "ownerClosurePendingItems": 130,
+        "a16PostExtractionVerified": true,
+        "a16ValidExecutionInstructionRows": 1,
+        "completedRequirements": 7,
+        "totalRequirements": 13
+      },
+      "nextGate": "Do not treat extracted packages as mergeable until validation and owner authorization gates are green.",
+      "purpose": "Materialize owner work orders, evidence capsules, blocker records, and authorization starters."
+    },
+    {
+      "id": "validate",
+      "label": "Validate",
+      "chineseLabel": "验证",
+      "closureLoopStatus": "active",
+      "blockers": [
+        "Completion audit is missing or stale"
+      ],
+      "evidence": [
+        "coordination/release-intake/latest-A25-dirty-worktree-closure-loop-state.json",
+        "coordination/release-intake/latest-A25-current-cleanup-status-snapshot.json",
+        "coordination/release-intake/latest-A25-next-owner-compact-request-bundle.json",
+        "coordination/release-intake/latest-A25-next-owner-authorization-stale-apply-guard-current-gate.json"
+      ],
+      "currentCounts": {
+        "pendingCanonicalAuthorizationRows": 40,
+        "validAuthorizationRows": 27,
+        "focusBatchRows": 0,
+        "focusBatchPendingRows": 0,
+        "rootTypeCheckPassed": true,
+        "rootTypeCheckErrorLines": 0,
+        "packageWorktreeTypeCheckErrorLines": 9907
+      },
+      "nextGate": "Record only explicit owner-approved canonical authorization rows, then rerun the safe post-input validation commands.",
+      "purpose": "Keep machine gates current while owner authorization and release-source checks are still pending."
+    },
+    {
+      "id": "merge",
+      "label": "Merge",
+      "chineseLabel": "合并",
+      "closureLoopStatus": "blocked",
+      "blockers": [
+        "40 canonical authorization row(s) are still pending",
+        "Owner inputs are not ready",
+        "Validation hold is waiting for owner compose deletion confirmation"
+      ],
+      "evidence": [
+        "coordination/release-intake/latest-A25-validate-to-merge-handoff.json",
+        "coordination/release-intake/latest-A25-validate-to-merge-blocker-frontier.json",
+        "coordination/release-intake/latest-A25-validate-to-merge-exit-criteria.json",
+        "coordination/release-intake/latest-A22-release-source-clean-blocker-evidence.json"
+      ],
+      "currentCounts": {
+        "handoffStatus": "blocked-before-merge",
+        "readyForMerge": false,
+        "validateExitReady": false,
+        "directFailedMergeChecks": 4,
+        "failedMergeChecks": 4,
+        "ownerInputFrontierRows": 3,
+        "cleanSourceFrontierRows": 1,
+        "deferredPhysicalLifecycleRows": 38,
+        "releaseSourceClean": false,
+        "strictLifecycleClean": false
+      },
+      "nextGate": "Merge remains blocked until owner inputs are ready, validation hold is released, and A22 has a clean release source.",
+      "purpose": "Merge reviewed owner packages only into a clean release source, never directly from the dirty root inventory."
+    },
+    {
+      "id": "cleanup",
+      "label": "Cleanup",
+      "chineseLabel": "清理",
+      "closureLoopStatus": "blocked",
+      "blockers": [
+        "7636 expanded dirty entries remain",
+        "A22 release source is not clean",
+        "A25 strict worktree lifecycle is not clean",
+        "No cleanup/executable rows are authorized"
+      ],
+      "evidence": [
+        "coordination/release-intake/latest-A25-current-cleanup-status-snapshot.json",
+        "coordination/release-intake/latest-A25-physical-closure-authorization-queue.json",
+        "coordination/release-intake/latest-A25-strict-worktree-lifecycle-blocker-evidence.json"
+      ],
+      "currentCounts": {
+        "expandedStatusEntries": 7636,
+        "cleanupAuthorizedRows": 0,
+        "executableRows": 0,
+        "strictLifecycleClean": false,
+        "worktreeRemovalAuthorizedRows": 0,
+        "branchDeletionAuthorizedRows": 0
+      },
+      "nextGate": "Cleanup remains blocked until merge is verified and exact cleanup/lifecycle rows receive separate owner authorization.",
+      "purpose": "Clean generated artifacts, root inventory, branches, and worktrees only after merge verification and exact owner cleanup authorization."
+    }
+  ],
+  "summary": {
+    "completedPhases": 2,
+    "activePhases": 1,
+    "blockedPhases": 2,
+    "pendingCanonicalAuthorizationRows": 40,
+    "validAuthorizationRows": 27,
+    "focusBatchRows": 0,
+    "focusBatchPendingRows": 0,
+    "validExecutionInstructionRows": 1,
+    "validateExitReady": false,
+    "directFailedMergeChecks": 4,
+    "failedMergeChecks": 4,
+    "frontierRows": 4,
+    "releaseSourceClean": false,
+    "strictLifecycleClean": false,
+    "rootTypeCheckPassed": true,
+    "rootTypeCheckErrorLines": 0,
+    "packageWorktreeTypeCheckErrorLines": 9907,
+    "cleanupAuthorizedRows": 0,
+    "executableRows": 0,
+    "sourceCurrentnessFailures": 0,
+    "staleApplyGuardFailures": 0
+  },
+  "currentOwnerAuthorizationBatch": {
+    "status": "waiting-for-owner-input",
+    "requestId": "focus-batch-owner-package-canonical-authorization",
+    "pendingRows": 0,
+    "approvalIds": [],
+    "selectedFinalStates": [],
+    "copyableOwnerReplyTextZh": "",
+    "copyableApprovalText": "",
+    "boundary": {
+      "recordsAuthorizationOnlyAfterExplicitOwnerReply": true,
+      "cleanupAuthorized": false,
+      "deployAuthorized": false,
+      "mergeAuthorized": false,
+      "destructiveGitAuthorized": false,
+      "physicalCleanupAuthorized": false,
+      "executableNow": false
+    }
+  },
+  "duplicateAuthorizationGuard": {
+    "currentFocusApprovalIds": [],
+    "latestApplyStatus": "stale-idempotent-artifact",
+    "latestApplyApprovalIds": [
+      "manual-a10-a25-owner-assignment-required"
+    ],
+    "latestApplyIdsAlreadyAuthorized": true,
+    "currentFocusIdsAlreadyAuthorized": [],
+    "latestApplyIdsStillPending": [],
+    "applyPermitted": false,
+    "cleanupAuthorizedRows": 0,
+    "executableRows": 0,
+    "failures": []
+  },
+  "sourceCurrentnessFailures": [],
+  "conclusionZh": "当前在验证阶段: 切片和提取已形成证据, 但合并前仍有 owner 授权、validation hold、clean release source 三类硬门; 清理没有任何可执行授权。",
+  "boundary": {
+    "evidenceOnly": true,
+    "recordsAuthorizationOnlyAfterExplicitOwnerReply": true,
+    "mergeAuthorized": false,
+    "cleanupAuthorized": false,
+    "executableNow": false,
+    "deployAuthorized": false,
+    "dirtyRootDeployAuthorized": false,
+    "destructiveGitAuthorized": false,
+    "physicalCleanupAuthorized": false
+  }
+}

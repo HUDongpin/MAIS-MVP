@@ -1,0 +1,3287 @@
+diff --git a/app/adaptive-learning/loading.tsx b/app/adaptive-learning/loading.tsx
+index 0881823db..4becdcb83 100644
+--- a/app/adaptive-learning/loading.tsx
++++ b/app/adaptive-learning/loading.tsx
+@@ -2,8 +2,8 @@ export default function AdaptiveLearningLoading() {
+   return (
+     <div className="min-h-full bg-[linear-gradient(115deg,#eefaff_0%,#f8fbff_46%,#f7f4ff_100%)] text-slate-950 dark:bg-none dark:bg-slate-950 dark:text-slate-100">
+       <div className="page-container py-10 sm:py-12">
+-        <p className="text-sm font-black uppercase tracking-[0.24em] text-cyan-500 dark:text-cyan-300">Adaptive Learning</p>
+-        <h1 className="mt-4 text-3xl font-black tracking-tight text-slate-950 dark:text-white sm:text-5xl">Loading adaptive plan...</h1>
++        <p className="text-sm font-black uppercase tracking-[0.24em] text-cyan-500 dark:text-cyan-300">Personalized Learning</p>
++        <h1 className="mt-4 text-3xl font-black tracking-tight text-slate-950 dark:text-white sm:text-5xl">Opening personalized learning...</h1>
+         <div className="mt-8 grid gap-4 md:grid-cols-2 xl:grid-cols-4">
+           {[0, 1, 2, 3].map((item) => (
+             <div key={item} className="h-36 animate-pulse rounded-[1.5rem] border border-slate-200/70 bg-white/70 dark:border-white/10 dark:bg-white/[0.055]" />
+diff --git a/app/adaptive-learning/page.tsx b/app/adaptive-learning/page.tsx
+index 7d7f14514..559789a5d 100644
+--- a/app/adaptive-learning/page.tsx
++++ b/app/adaptive-learning/page.tsx
+@@ -1,5 +1,5 @@
+-import { AdaptiveLearningContent } from "@/components/dashboard/AdaptiveLearningContent";
++import { redirect } from "next/navigation";
+ 
+ export default function AdaptiveLearningPage() {
+-  return <AdaptiveLearningContent />;
++  redirect("/personalized-learning");
+ }
+diff --git a/app/api/adaptive-learning/next/route.ts b/app/api/adaptive-learning/next/route.ts
+index faa259d33..79987ad54 100644
+--- a/app/api/adaptive-learning/next/route.ts
++++ b/app/api/adaptive-learning/next/route.ts
+@@ -1,7 +1,7 @@
+ import { NextResponse } from "next/server";
+ import { isValidGradeId } from "@/data/grades";
+ import { requireAuthenticatedUser } from "@/lib/server/auth";
+-import { getAdaptiveLearningDecision } from "@/lib/server/userStore";
++import { getAdaptiveContentUnavailableForCurriculum, getAdaptiveLearningDecision } from "@/lib/server/userStore";
+ import type { GradeId } from "@/types";
+ 
+ export const runtime = "nodejs";
+@@ -11,6 +11,16 @@ export async function GET(request: Request) {
+   if (!authenticated) {
+     return NextResponse.json({ error: "Not authenticated." }, { status: 401 });
+   }
++  if (authenticated.user.role !== "student") {
++    return NextResponse.json({
++      error: "Student access required.",
++      reason: "student-only",
++      guard: {
++        en: "Adaptive learner state is available only to the signed-in student in the P1 pilot loop.",
++        zh: "P1 試點閉環中，適性學習者狀態只對已登入學生本人開放。"
++      }
++    }, { status: 403 });
++  }
+ 
+   const url = new URL(request.url);
+   const gradeParam = url.searchParams.get("grade");
+@@ -26,6 +36,15 @@ export async function GET(request: Request) {
+   });
+ 
+   if (!decision) {
++    const contentUnavailable = getAdaptiveContentUnavailableForCurriculum(authenticated.user.curriculumProfile, grade);
++    if (contentUnavailable) {
++      return NextResponse.json({
++        error: "No adaptive learning decision is available because this curriculum content is not open yet.",
++        reason: "content-unavailable",
++        contentUnavailable
++      }, { status: 404 });
++    }
++
+     return NextResponse.json({ error: "No adaptive learning decision is available." }, { status: 404 });
+   }
+ 
+diff --git a/app/api/adaptive-learning/refresh/route.ts b/app/api/adaptive-learning/refresh/route.ts
+index 7a468a063..cc23c6970 100644
+--- a/app/api/adaptive-learning/refresh/route.ts
++++ b/app/api/adaptive-learning/refresh/route.ts
+@@ -15,6 +15,16 @@ export async function POST(request: Request) {
+   if (!authenticated) {
+     return NextResponse.json({ error: "Not authenticated." }, { status: 401 });
+   }
++  if (authenticated.user.role !== "student") {
++    return NextResponse.json({
++      error: "Student access required.",
++      reason: "student-only",
++      guard: {
++        en: "Adaptive learner state refresh is available only to the signed-in student in the P1 pilot loop.",
++        zh: "P1 試點閉環中，適性學習者狀態刷新只對已登入學生本人開放。"
++      }
++    }, { status: 403 });
++  }
+ 
+   const url = new URL(request.url);
+   const body = await request.json().catch(() => null) as unknown;
+diff --git a/app/assessment/[assessmentId]/page.tsx b/app/assessment/[assessmentId]/page.tsx
+index 4b4faba22..b3db5ca5e 100644
+--- a/app/assessment/[assessmentId]/page.tsx
++++ b/app/assessment/[assessmentId]/page.tsx
+@@ -1,178 +1,11 @@
+-"use client";
++import { redirect } from "next/navigation";
++import { studentAssessmentHref } from "@/lib/studentAssessmentRoutes";
+ 
+-import Link from "next/link";
+-import { useParams } from "next/navigation";
+-import { FormEvent, useEffect, useState } from "react";
+-import { MathText } from "@/components/math/MathText";
+-import { dictionary, useSettings } from "@/components/providers/AppProviders";
+-import type { StudentAssessmentDetailData } from "@/types";
+-
+-type AssessmentResponse = {
+-  data?: StudentAssessmentDetailData;
+-  submission?: StudentAssessmentDetailData["submission"];
++type LegacyStudentAssessmentPageProps = {
++  params: Promise<{ assessmentId: string }>;
+ };
+ 
+-function scoreLabel(submission: StudentAssessmentDetailData["submission"]) {
+-  if (submission.score === null || submission.maxScore <= 0) return "-";
+-  return `${submission.score}/${submission.maxScore} (${Math.round((submission.score / submission.maxScore) * 100)}%)`;
+-}
+-
+-export default function StudentAssessmentPage() {
+-  const params = useParams<{ assessmentId: string }>();
+-  const { t, text } = useSettings();
+-  const [data, setData] = useState<StudentAssessmentDetailData | null>(null);
+-  const [answers, setAnswers] = useState<Record<string, string>>({});
+-  const [isLoading, setIsLoading] = useState(true);
+-  const [isSubmitting, setIsSubmitting] = useState(false);
+-  const [message, setMessage] = useState("");
+-
+-  async function loadAssessment() {
+-    setIsLoading(true);
+-    const response = await fetch(`/api/assessments/${encodeURIComponent(params.assessmentId)}`, { cache: "no-store" });
+-    const payload = await response.json().catch(() => null) as AssessmentResponse | null;
+-    setData(response.ok ? payload?.data ?? null : null);
+-    setIsLoading(false);
+-  }
+-
+-  useEffect(() => {
+-    void loadAssessment();
+-    // eslint-disable-next-line react-hooks/exhaustive-deps
+-  }, [params.assessmentId]);
+-
+-  async function submitAssessment(event: FormEvent<HTMLFormElement>) {
+-    event.preventDefault();
+-    if (!data) return;
+-    setMessage("");
+-    setIsSubmitting(true);
+-    const response = await fetch(`/api/assessments/${encodeURIComponent(params.assessmentId)}/submit`, {
+-      method: "POST",
+-      headers: { "Content-Type": "application/json" },
+-      body: JSON.stringify({
+-        answers: data.questions.map((question) => ({
+-          questionId: question.id,
+-          answer: answers[question.id] ?? ""
+-        }))
+-      })
+-    });
+-    setIsSubmitting(false);
+-    if (!response.ok) {
+-      setMessage(t({ en: "Could not submit this assessment yet.", zh: "暫時未能提交此測驗。" }));
+-      return;
+-    }
+-    setMessage(t({ en: "Assessment submitted and graded.", zh: "測驗已提交並完成批改。" }));
+-    await loadAssessment();
+-  }
+-
+-  if (isLoading) {
+-    return (
+-      <div className="page-container py-10 sm:py-12">
+-        <div className="glass-panel min-h-72 animate-pulse p-8" />
+-      </div>
+-    );
+-  }
+-
+-  if (!data) {
+-    return (
+-      <div className="page-container py-10 sm:py-12">
+-        <section className="glass-panel p-6 sm:p-8">
+-          <h1 className="text-3xl font-black text-slate-950 dark:text-white">{t({ en: "Assessment unavailable", zh: "測驗未能開啟" })}</h1>
+-          <Link href="/dashboard" className="focus-ring mt-5 inline-flex rounded-full bg-slate-950 px-5 py-3 text-sm font-black text-white dark:bg-white dark:text-slate-950">
+-            {t(dictionary.nav.dashboard)}
+-          </Link>
+-        </section>
+-      </div>
+-    );
+-  }
+-
+-  return (
+-    <div className="page-container py-10 sm:py-12">
+-      <section className="glass-panel p-6 sm:p-8">
+-        <p className="text-sm font-black uppercase tracking-[0.24em] text-cyan-600 dark:text-cyan-300">
+-          {data.className}
+-        </p>
+-        <h1 className="mt-3 text-4xl font-black tracking-tight text-slate-950 dark:text-white">{text(data.assessment.title)}</h1>
+-        <div className="mt-5 flex flex-wrap gap-2 text-xs font-black">
+-          <span className="rounded-full bg-cyan-400/15 px-3 py-1 text-cyan-700 dark:text-cyan-200">{data.assessment.type}</span>
+-          <span className="rounded-full bg-violet-400/15 px-3 py-1 text-violet-700 dark:text-violet-200">{data.assessment.maxAttempts}x</span>
+-          <span className="rounded-full bg-emerald-400/15 px-3 py-1 text-emerald-700 dark:text-emerald-200">{data.submission.status}</span>
+-        </div>
+-        {data.assessment.sourceResourceId ? (
+-          <Link href={`/resource/${data.assessment.sourceResourceId}`} className="focus-ring mt-5 inline-flex rounded-full border border-slate-200/80 bg-white/75 px-4 py-2 text-sm font-black dark:border-white/10 dark:bg-white/[0.07]">
+-            {t({ en: "Open source resource", zh: "開啟來源資源" })}
+-          </Link>
+-        ) : null}
+-        {data.unavailableReason ? (
+-          <p className="mt-4 rounded-2xl border border-amber-300/50 bg-amber-400/10 px-4 py-3 text-sm font-bold text-amber-800 dark:text-amber-100">
+-            {text(data.unavailableReason)}
+-          </p>
+-        ) : null}
+-      </section>
+-
+-      <form onSubmit={submitAssessment} className="mt-7 grid gap-5">
+-        {data.questions.map((question, index) => {
+-          const previousAnswer = data.submission.answers.find((answer) => answer.questionId === question.id);
+-          const currentAnswer = answers[question.id] ?? previousAnswer?.answer ?? "";
+-          return (
+-            <section key={question.id} className="glass-panel p-5 sm:p-6">
+-              <p className="text-xs font-black uppercase tracking-[0.2em] text-cyan-600 dark:text-cyan-300">
+-                {t({ en: `Question ${index + 1}`, zh: `第 ${index + 1} 題` })} · {question.maxPoints} {t({ en: "points", zh: "分" })}
+-              </p>
+-              <MathText as="h2" text={text(question.prompt)} className="mt-3 text-2xl font-black text-slate-950 dark:text-white" />
+-              {question.options?.length ? (
+-                <div className="mt-5 grid gap-3 sm:grid-cols-2">
+-                  {question.options.map((option) => {
+-                    const value = text(option);
+-                    return (
+-                      <label key={value} className={`focus-ring flex cursor-pointer items-center gap-3 rounded-2xl border p-4 text-sm font-bold ${currentAnswer === value ? "border-cyan-300 bg-cyan-400/15" : "border-slate-200/80 bg-white/70 dark:border-white/10 dark:bg-white/[0.06]"}`}>
+-                        <input
+-                          type="radio"
+-                          name={question.id}
+-                          value={value}
+-                          checked={currentAnswer === value}
+-                          disabled={!data.canSubmit}
+-                          onChange={(event) => setAnswers((current) => ({ ...current, [question.id]: event.target.value }))}
+-                        />
+-                        <MathText text={value} />
+-                      </label>
+-                    );
+-                  })}
+-                </div>
+-              ) : (
+-                <input
+-                  value={currentAnswer}
+-                  disabled={!data.canSubmit}
+-                  onChange={(event) => setAnswers((current) => ({ ...current, [question.id]: event.target.value }))}
+-                  className="focus-ring mt-5 w-full rounded-2xl border border-slate-200/80 bg-white/80 px-4 py-3 font-semibold dark:border-white/10 dark:bg-white/[0.06]"
+-                />
+-              )}
+-              {previousAnswer ? (
+-                <p className={`mt-4 text-sm font-black ${previousAnswer.isCorrect ? "text-emerald-700 dark:text-emerald-200" : "text-rose-700 dark:text-rose-200"}`}>
+-                  {previousAnswer.isCorrect ? t({ en: "Correct", zh: "正確" }) : t({ en: "Needs review", zh: "需要重溫" })}
+-                </p>
+-              ) : null}
+-            </section>
+-          );
+-        })}
+-
+-        <section className="glass-panel flex flex-wrap items-center justify-between gap-4 p-5 sm:p-6">
+-          <div>
+-            <p className="text-sm font-black text-slate-500 dark:text-slate-400">{t({ en: "Current score", zh: "目前分數" })}</p>
+-            <p className="mt-1 text-3xl font-black gradient-text">{scoreLabel(data.submission)}</p>
+-          </div>
+-          <div className="flex flex-wrap gap-3">
+-            <Link href="/dashboard" className="focus-ring rounded-full border border-slate-200/80 bg-white/75 px-5 py-3 text-sm font-black dark:border-white/10 dark:bg-white/[0.07]">
+-              {t(dictionary.nav.dashboard)}
+-            </Link>
+-            <button
+-              disabled={!data.canSubmit || isSubmitting}
+-              className="focus-ring rounded-full bg-slate-950 px-5 py-3 text-sm font-black text-white disabled:opacity-50 dark:bg-white dark:text-slate-950"
+-            >
+-              {isSubmitting ? t({ en: "Submitting", zh: "提交中" }) : t({ en: "Submit assessment", zh: "提交測驗" })}
+-            </button>
+-          </div>
+-          {message ? <p className="basis-full text-sm font-bold text-cyan-700 dark:text-cyan-200">{message}</p> : null}
+-        </section>
+-      </form>
+-    </div>
+-  );
++export default async function LegacyStudentAssessmentPage({ params }: LegacyStudentAssessmentPageProps) {
++  const { assessmentId } = await params;
++  redirect(studentAssessmentHref(assessmentId));
+ }
+diff --git a/app/dashboard/page.tsx b/app/dashboard/page.tsx
+index db97c67f2..8fe5f95d0 100644
+--- a/app/dashboard/page.tsx
++++ b/app/dashboard/page.tsx
+@@ -8,35 +8,264 @@ import { StudentRewardsPanel } from "@/components/dashboard/StudentRewardsPanel"
+ import { StudentMotivationHub } from "@/components/gamification/StudentMotivationHub";
+ import { dictionary, useSettings } from "@/components/providers/AppProviders";
+ import { curriculumProfileLabel } from "@/lib/curriculumProfile";
+-import { formatGradeLabelForCurriculum, formatLearnerName, isChineseLanguage, simplifyChineseText } from "@/lib/i18n";
+-import type { DashboardData } from "@/types";
++import { formatGradeLabelForCurriculum, formatLearnerName, formatUnitedStatesGradeLabel, isChineseLanguage, simplifyChineseText } from "@/lib/i18n";
++import { studentLessonsPath } from "@/lib/lessonLinks";
++import { studentAssignmentHref, studentAssignmentsPath } from "@/lib/studentAssignmentRoutes";
++import type { DashboardData, StudentAssignmentItem } from "@/types";
+ 
+ function readDashboard(value: unknown) {
+   const response = value as { dashboard?: unknown } | null;
+   return (response?.dashboard ?? null) as DashboardData | null;
+ }
+ 
++function readAssignments(value: unknown) {
++  const response = value as { assignments?: unknown } | null;
++  return Array.isArray(response?.assignments) ? (response.assignments as StudentAssignmentItem[]) : [];
++}
++
++function assignmentHref(item: StudentAssignmentItem) {
++  return studentAssignmentHref(item.assignment.id);
++}
++
++function formatDate(value: string, language: string) {
++  return new Intl.DateTimeFormat(language === "en" ? "en-HK" : language === "zh-Hans" ? "zh-CN" : "zh-HK", {
++    month: "short",
++    day: "numeric"
++  }).format(new Date(value));
++}
++
++function DashboardLessonShortcutLink({
++  ariaLabel,
++  disabled = false,
++  href,
++  label
++}: {
++  ariaLabel: string;
++  disabled?: boolean;
++  href: string;
++  label: string;
++}) {
++  const className = `focus-ring inline-flex h-11 min-w-[7.25rem] shrink-0 items-center justify-center rounded-full border-2 border-white/80 bg-[linear-gradient(110deg,#fde047,#86efac_42%,#67e8f9_70%,#f9a8d4)] px-5 text-base font-black leading-none text-slate-950 shadow-[0_14px_30px_rgba(20,184,166,0.2)] ring-1 ring-cyan-200/80 transition duration-300 dark:border-white/20 dark:ring-white/10 ${disabled ? "cursor-wait opacity-70" : "hover:-translate-y-0.5 hover:shadow-[0_18px_38px_rgba(236,72,153,0.2)]"}`;
++
++  if (disabled) {
++    return (
++      <button
++        type="button"
++        disabled={disabled}
++        aria-label={ariaLabel}
++        title={ariaLabel}
++        className={className}
++      >
++        <span>{label}</span>
++      </button>
++    );
++  }
++
++  return (
++    <Link
++      href={href}
++      aria-label={ariaLabel}
++      title={ariaLabel}
++      className={className}
++    >
++      <span>{label}</span>
++    </Link>
++  );
++}
++
++function DashboardHeaderShortcuts({ lessonHref, lessonShortcutReady, t }: { lessonHref: string; lessonShortcutReady: boolean; t: (localized: { en: string; zh: string; zhHans?: string }) => string }) {
++  return (
++    <span className="inline-flex flex-wrap items-center align-middle">
++      <DashboardLessonShortcutLink
++        href={lessonHref}
++        disabled={!lessonShortcutReady}
++        label={t({ en: "Lesson", zh: "課時", zhHans: "课时" })}
++        ariaLabel={lessonShortcutReady
++          ? t({ en: "Open lesson", zh: "開啟課時", zhHans: "打开课时" })
++          : t({ en: "Preparing lesson", zh: "正在準備課時", zhHans: "正在准备课时" })}
++      />
++    </span>
++  );
++}
++
++const novaLensDisabledStorageKey = "mais:nova-lens-disabled";
++const novaLensPreferenceChangedEventName = "mais:nova-lens-preference-change";
++const settingsLinkClassName = "focus-ring flex min-h-11 items-center justify-between gap-3 rounded-2xl border border-slate-200/80 bg-white/80 px-3 py-2 text-left text-sm font-black text-slate-700 transition hover:-translate-y-0.5 hover:border-cyan-200 hover:bg-cyan-50 dark:border-white/10 dark:bg-white/[0.06] dark:text-slate-100 dark:hover:border-cyan-200/25 dark:hover:bg-cyan-300/[0.08]";
++const dashboardMenuButtonClassName = "focus-ring rounded-full border border-slate-200/80 bg-white/75 px-4 py-2 text-center text-sm font-black text-slate-700 transition hover:-translate-y-0.5 dark:border-white/10 dark:bg-white/[0.06] dark:text-slate-200";
++
++function readNovaLensDisabledPreference() {
++  if (typeof window === "undefined") return false;
++
++  try {
++    return window.localStorage.getItem(novaLensDisabledStorageKey) === "true";
++  } catch {
++    return false;
++  }
++}
++
++function writeNovaLensDisabledPreference(disabled: boolean) {
++  try {
++    window.localStorage.setItem(novaLensDisabledStorageKey, disabled ? "true" : "false");
++  } catch {
++    // The visible toggle still updates in-memory when local storage is unavailable.
++  }
++
++  window.dispatchEvent(new CustomEvent(novaLensPreferenceChangedEventName, { detail: { disabled } }));
++}
++
++function DashboardSettingsMenu({
++  novaLensDisabled,
++  onClose,
++  onNovaLensDisabledChange,
++  t
++}: {
++  novaLensDisabled: boolean;
++  onClose: () => void;
++  onNovaLensDisabledChange: (disabled: boolean) => void;
++  t: ReturnType<typeof useSettings>["t"];
++}) {
++  return (
++    <div
++      id="student-dashboard-settings-panel"
++      role="dialog"
++      aria-label={t({ en: "Student settings", zh: "學生設定", zhHans: "学生设置" })}
++      className="absolute left-0 right-0 top-full z-[80] mt-3 grid gap-2 rounded-[1.25rem] border border-cyan-200/70 bg-white/90 p-3 shadow-xl shadow-slate-950/10 backdrop-blur dark:border-cyan-200/20 dark:bg-slate-950/95 dark:shadow-black/30"
++    >
++      <label className="relative flex min-h-[4.25rem] cursor-pointer items-start justify-between gap-3 rounded-2xl border border-cyan-200/70 bg-cyan-50/70 px-3 py-3 transition focus-within:ring-2 focus-within:ring-cyan-300/70 dark:border-cyan-200/20 dark:bg-cyan-300/[0.08]">
++        <span className="pointer-events-none grid gap-1">
++          <span className="text-sm font-black leading-5 text-slate-900 dark:text-white">
++            {t({ en: "Turn off immersive text selection", zh: "關閉沉浸式文字選取", zhHans: "关闭沉浸式文字选取" })}
++          </span>
++          <span className="text-xs font-bold leading-5 text-cyan-700 dark:text-cyan-100">
++            {t({ en: "NOVA LENS", zh: "NOVA LENS", zhHans: "NOVA LENS" })}
++          </span>
++        </span>
++        <input
++          type="checkbox"
++          checked={novaLensDisabled}
++          onChange={(event) => onNovaLensDisabledChange(event.target.checked)}
++          className="absolute inset-0 z-10 h-full w-full cursor-pointer opacity-0"
++        />
++        <span
++          aria-hidden="true"
++          className={`pointer-events-none mt-0.5 flex h-7 w-12 shrink-0 items-center rounded-full p-1 transition ${novaLensDisabled ? "bg-slate-950 dark:bg-white" : "bg-cyan-300 dark:bg-cyan-500"}`}
++        >
++          <span className={`h-5 w-5 rounded-full bg-white shadow transition dark:bg-slate-950 ${novaLensDisabled ? "translate-x-5" : "translate-x-0"}`} />
++        </span>
++      </label>
++
++      <Link href="/change-password?next=%2Fdashboard" onClick={onClose} className={settingsLinkClassName}>
++        <span>{t({ en: "Change password", zh: "更改密碼", zhHans: "更改密码" })}</span>
++        <span aria-hidden="true">›</span>
++      </Link>
++    </div>
++  );
++}
++
++function DashboardShortcutsMenu({
++  lessonHref,
++  onClose,
++  t
++}: {
++  lessonHref: string;
++  onClose: () => void;
++  t: ReturnType<typeof useSettings>["t"];
++}) {
++  const shortcuts = [
++    { href: "/personalized-learning", label: t({ en: "Personalized Learning", zh: "個人化學習", zhHans: "个性化学习" }) },
++    { href: "/progress", label: t({ en: "Progress Report", zh: "學習報告", zhHans: "学习报告" }) },
++    { href: lessonHref, label: t({ en: "Lessons", zh: "課時", zhHans: "课时" }) },
++    { href: "/practice", label: t({ en: "Practice Arena", zh: "練習場", zhHans: "练习场" }) },
++    { href: "/student/roadmap", label: t({ en: "Learning Roadmap", zh: "學習路線圖", zhHans: "学习路线图" }) },
++    { href: "/student/tools/visualizations", label: t({ en: "Visualization Lab", zh: "可視化實驗室", zhHans: "可视化实验室" }) },
++    { href: "/mistake-book", label: t({ en: "Mistake Book", zh: "錯題簿", zhHans: "错题簿" }) },
++    { href: studentAssignmentsPath, label: t({ en: "Assignments", zh: "作業", zhHans: "作业" }) }
++  ];
++
++  return (
++    <div
++      id="student-dashboard-shortcuts-panel"
++      role="dialog"
++      aria-label={t({ en: "Student shortcuts", zh: "學生捷徑", zhHans: "学生快捷入口" })}
++      className="absolute left-0 right-0 top-full z-[80] mt-3 grid gap-2 rounded-[1.25rem] border border-cyan-200/70 bg-white/90 p-3 shadow-xl shadow-slate-950/10 backdrop-blur dark:border-cyan-200/20 dark:bg-slate-950/95 dark:shadow-black/30"
++    >
++      {shortcuts.map((shortcut) => (
++        <Link key={shortcut.href} href={shortcut.href} onClick={onClose} className={settingsLinkClassName}>
++          <span>{shortcut.label}</span>
++          <span aria-hidden="true">›</span>
++        </Link>
++      ))}
++    </div>
++  );
++}
++
+ export default function DashboardPage() {
+-  const { currentUser, language, selectedGrade, t } = useSettings();
++  const { currentUser, language, selectedGrade, settingsReady, studentLessonHref, t, text } = useSettings();
+   const [dashboard, setDashboard] = useState<DashboardData | null>(null);
++  const [assignments, setAssignments] = useState<StudentAssignmentItem[]>([]);
++  const [assignmentDrafts, setAssignmentDrafts] = useState<Record<string, string>>({});
++  const [assignmentSavingId, setAssignmentSavingId] = useState("");
+   const [isLoading, setIsLoading] = useState(true);
+   const [loadError, setLoadError] = useState("");
+-  const selectedGradeLabel = formatGradeLabelForCurriculum(selectedGrade, language, currentUser?.curriculumTrack ?? "HK", true);
++  const [settingsOpen, setSettingsOpen] = useState(false);
++  const [shortcutsOpen, setShortcutsOpen] = useState(false);
++  const [novaLensDisabled, setNovaLensDisabled] = useState(false);
++  const [loadSecondaryPanels, setLoadSecondaryPanels] = useState(false);
++  const currentUserRequestKey = currentUser
++    ? `${currentUser.id}:${currentUser.role}:${currentUser.curriculumTrack}:${currentUser.curriculumProfile.region}:${currentUser.curriculumProfile.publisher ?? ""}`
++    : "";
++  const isChinese = isChineseLanguage(language);
++  const visibleAssignments = assignments.filter((item) => item.classGrade === selectedGrade);
++  const isUnitedStatesCourse = currentUser?.curriculumProfile.region === "US";
++  const selectedGradeLabel = isUnitedStatesCourse
++    ? formatUnitedStatesGradeLabel(selectedGrade, language, true)
++    : formatGradeLabelForCurriculum(selectedGrade, language, currentUser?.curriculumTrack ?? "HK", true);
+   const courseName = currentUser ? t(curriculumProfileLabel(currentUser.curriculumProfile)) : "";
++  const lessonShortcutHref = currentUser?.role === "student" && studentLessonHref ? studentLessonHref : studentLessonsPath;
++  const lessonShortcutReady = currentUser?.role !== "student" || Boolean(studentLessonHref);
++  const learnerName = currentUser ? formatLearnerName(currentUser.name, language) : "";
++  const learnerNameParts = learnerName.trim().split(/\s+/).filter(Boolean);
++  const learnerNameLead = !isChinese && learnerNameParts.length > 1 ? learnerNameParts[0] : "";
++  const learnerNameTail = !isChinese && learnerNameParts.length > 1 ? learnerNameParts.slice(1).join(" ") : learnerName;
++  const welcomePrefix = currentUser
++    ? isChinese
++      ? simplifyChineseText("歡迎回來，", language)
++      : "Welcome back,"
++    : "";
++  const welcomeLead = currentUser
++    ? isChinese
++      ? welcomePrefix
++      : [welcomePrefix, learnerNameLead].filter(Boolean).join(" ")
++    : "";
+   const welcome = currentUser
+-    ? isChineseLanguage(language)
+-      ? simplifyChineseText(`歡迎回來，${formatLearnerName(currentUser.name, language)}`, language)
+-      : `Welcome back, ${formatLearnerName(currentUser.name, language)}`
++    ? isChinese
++      ? `${welcomePrefix}${learnerName}`
++      : `${welcomePrefix} ${learnerName}`
+     : t(dictionary.dashboard.welcome);
+   const loadErrorCopy = t({ en: "Could not load dashboard data.", zh: "暫時無法載入學生儀表板資料。" });
++  const welcomeHeadingTextClassName = "min-w-0 text-4xl font-black tracking-tight text-slate-950 dark:text-white sm:text-5xl";
+ 
+   useEffect(() => {
++    if (!settingsReady) {
++      setDashboard(null);
++      setLoadError("");
++      setIsLoading(true);
++      return;
++    }
++
+     const controller = new AbortController();
+ 
+     async function loadDashboard() {
+       setIsLoading(true);
+       setLoadError("");
+ 
++      if (!currentUser || currentUser.role !== "student") {
++        setDashboard(null);
++        setLoadError("");
++        setIsLoading(false);
++        return;
++      }
++
+       try {
+         const response = await fetch(`/api/dashboard?grade=${selectedGrade}`, {
+           cache: "no-store",
+@@ -58,7 +287,140 @@ export default function DashboardPage() {
+     loadDashboard();
+ 
+     return () => controller.abort();
+-  }, [loadErrorCopy, selectedGrade]);
++  }, [currentUserRequestKey, loadErrorCopy, selectedGrade, settingsReady]);
++
++  useEffect(() => {
++    if (!settingsReady) {
++      setAssignments([]);
++      return;
++    }
++
++    const controller = new AbortController();
++
++    async function loadAssignments() {
++      if (!currentUser || currentUser.role !== "student") {
++        setAssignments([]);
++        return;
++      }
++
++      try {
++        const response = await fetch("/api/assignments", { cache: "no-store", signal: controller.signal });
++        if (!response.ok) throw new Error("Assignments unavailable");
++        setAssignments(readAssignments(await response.json()));
++      } catch {
++        if (!controller.signal.aborted) setAssignments([]);
++      }
++    }
++
++    loadAssignments();
++
++    return () => controller.abort();
++  }, [currentUserRequestKey, settingsReady]);
++
++  useEffect(() => {
++    if (!settingsReady || !currentUser || currentUser.role !== "student" || isLoading || loadError) {
++      setLoadSecondaryPanels(false);
++      return;
++    }
++
++    setLoadSecondaryPanels(false);
++    const timer = window.setTimeout(() => setLoadSecondaryPanels(true), 300);
++    return () => window.clearTimeout(timer);
++  }, [currentUserRequestKey, isLoading, loadError, selectedGrade, settingsReady]);
++
++  useEffect(() => {
++    setNovaLensDisabled(readNovaLensDisabledPreference());
++
++    function handleStorage(event: StorageEvent) {
++      if (event.key === novaLensDisabledStorageKey) {
++        setNovaLensDisabled(readNovaLensDisabledPreference());
++      }
++    }
++
++    function handlePreferenceChange(event: Event) {
++      const disabled = (event as CustomEvent<{ disabled?: unknown }>).detail?.disabled;
++      setNovaLensDisabled(typeof disabled === "boolean" ? disabled : readNovaLensDisabledPreference());
++    }
++
++    window.addEventListener("storage", handleStorage);
++    window.addEventListener(novaLensPreferenceChangedEventName, handlePreferenceChange);
++
++    return () => {
++      window.removeEventListener("storage", handleStorage);
++      window.removeEventListener(novaLensPreferenceChangedEventName, handlePreferenceChange);
++    };
++  }, []);
++
++  const updateNovaLensDisabled = (disabled: boolean) => {
++    writeNovaLensDisabledPreference(disabled);
++    setNovaLensDisabled(disabled);
++  };
++
++  if (!settingsReady) {
++    return (
++      <div className="page-container py-10 sm:py-12">
++        <section className="glass-panel overflow-hidden p-6 sm:p-8">
++          <p className="text-sm font-bold uppercase tracking-[0.24em] text-cyan-500 dark:text-cyan-300">
++            {t({ en: "Secure workspace", zh: "安全學習空間", zhHans: "安全学习空间" })}
++          </p>
++          <h1 className="mt-3 text-3xl font-black tracking-tight text-slate-950 dark:text-white sm:text-4xl">
++            {t({ en: "Loading secure workspace", zh: "正在載入安全學習空間", zhHans: "正在载入安全学习空间" })}
++          </h1>
++        </section>
++      </div>
++    );
++  }
++
++  if (currentUser && currentUser.role !== "student") {
++    const consoleHref = currentUser.role === "parent" ? "/parent" : currentUser.role === "teacher" || currentUser.role === "admin" ? "/teacher" : "/";
++    return (
++      <div className="page-container py-10 sm:py-12">
++        <section className="glass-panel overflow-hidden p-6 sm:p-8">
++          <div className="max-w-3xl">
++            <p className="text-sm font-bold uppercase tracking-[0.24em] text-cyan-500 dark:text-cyan-300">
++              {t({ en: "Guarded student dashboard", zh: "受保護學生儀表板", zhHans: "受保护学生仪表盘" })}
++            </p>
++            <h1 className="mt-3 text-3xl font-black tracking-tight text-slate-950 dark:text-white sm:text-4xl md:text-5xl">
++              {t({ en: "Student learner state is not open for this role", zh: "此角色未開放學生學習狀態", zhHans: "此角色未开放学生学习状态" })}
++            </h1>
++            <p className="mt-4 text-base leading-7 text-slate-600 dark:text-slate-300 sm:text-lg">
++              {t({
++                en: "The P1 platform loop keeps student dashboard data student-owned. Teacher review and parent-safe updates are available in the role console.",
++                zh: "P1 平台閉環將學生儀表板資料保留給學生本人；教師審核與家長安全更新會在角色控制台中顯示。",
++                zhHans: "P1 平台闭环将学生仪表盘数据保留给学生本人；教师审核与家长安全更新会在角色控制台中显示。"
++              })}
++            </p>
++            <Link href={consoleHref} className="focus-ring mt-6 inline-flex rounded-full bg-slate-950 px-5 py-3 text-sm font-black text-white transition hover:-translate-y-0.5 dark:bg-white dark:text-slate-950">
++              {t({ en: "Open your console", zh: "開啟你的控制台", zhHans: "打开你的控制台" })}
++            </Link>
++          </div>
++        </section>
++      </div>
++    );
++  }
++
++  const submitAssignmentDraft = async (item: StudentAssignmentItem) => {
++    const answerText = assignmentDrafts[item.assignment.id]?.trim() ?? "";
++    if (!answerText) return;
++    setAssignmentSavingId(item.assignment.id);
++    const endpoint = item.submission.status === "correction-required"
++      ? `/api/assignments/${encodeURIComponent(item.assignment.id)}/corrections`
++      : `/api/assignments/${encodeURIComponent(item.assignment.id)}/submissions`;
++    const response = await fetch(endpoint, {
++      method: "POST",
++      headers: { "Content-Type": "application/json" },
++      body: JSON.stringify({ answerText, inputType: "text" })
++    });
++    const payload = await response.json().catch(() => null) as { submission?: StudentAssignmentItem["submission"] } | null;
++    setAssignmentSavingId("");
++    if (!response.ok || !payload?.submission) return;
++    setAssignments((current) => current.map((candidate) =>
++      candidate.assignment.id === item.assignment.id
++        ? { ...candidate, submission: payload.submission! }
++        : candidate
++    ));
++    setAssignmentDrafts((current) => ({ ...current, [item.assignment.id]: "" }));
++  };
+ 
+   return (
+     <div className="page-container py-10 sm:py-12">
+@@ -66,20 +428,31 @@ export default function DashboardPage() {
+         <section className="glass-panel flex h-full flex-col justify-between gap-8 overflow-hidden p-6 sm:p-8">
+           <div className="grid gap-8 lg:grid-cols-[minmax(0,1fr)_auto] lg:items-start">
+             <div>
+-              <p className="text-sm font-bold uppercase tracking-[0.24em] text-cyan-500 dark:text-cyan-300">
+-                {isChineseLanguage(language)
+-                  ? `${selectedGradeLabel} · ${t(dictionary.dashboard.streak)} ${dashboard?.streakDays ?? 0}${t(dictionary.common.days)}`
+-                  : `${selectedGradeLabel} · ${t(dictionary.dashboard.streak)} ${dashboard?.streakDays ?? 0} ${t(dictionary.common.days)}`}
++              {currentUser ? (
++                <div className="flex flex-wrap items-center gap-x-3 gap-y-3">
++                  <h1 className="flex min-w-0 flex-wrap items-baseline gap-x-3 gap-y-1">
++                    <span className={welcomeHeadingTextClassName}>{welcomeLead}</span>
++                    {learnerNameTail ? <span className={welcomeHeadingTextClassName}>{learnerNameTail}</span> : null}
++                  </h1>
++                  <DashboardHeaderShortcuts lessonHref={lessonShortcutHref} lessonShortcutReady={lessonShortcutReady} t={t} />
++                </div>
++              ) : (
++                <h1 className={`mt-3 ${welcomeHeadingTextClassName}`}>{welcome}</h1>
++              )}
++              <p className="mt-4 max-w-2xl text-lg leading-8 text-slate-600 dark:text-slate-300">
++                {t({
++                  en: "Click the Lesson button to begin your learning journey.",
++                  zh: "點擊課時按鈕，開始學習之旅",
++                  zhHans: "点击课时按钮，开始学习之旅"
++                })}
+               </p>
+-              <h1 className="mt-3 text-4xl font-black tracking-tight text-slate-950 dark:text-white sm:text-5xl">{welcome}</h1>
+-              <p className="mt-4 max-w-2xl text-lg leading-8 text-slate-600 dark:text-slate-300">{t(dictionary.dashboard.summary)}</p>
+               {currentUser ? (
+                 <div className="mt-8 max-w-2xl rounded-3xl border border-cyan-200/70 bg-cyan-50/70 px-5 py-4 shadow-sm dark:border-cyan-300/15 dark:bg-cyan-300/[0.08]">
+                   <p className="text-sm font-bold uppercase tracking-[0.22em] text-cyan-600 dark:text-cyan-300">
+                     {t({ en: "Learning course", zh: "學習課程", zhHans: "学习课程" })}
+                   </p>
+                   <p className="mt-2 break-words text-2xl font-black text-slate-950 [overflow-wrap:anywhere] dark:text-white">
+-                    {courseName}
++                    {courseName} · {selectedGradeLabel}
+                   </p>
+                 </div>
+               ) : null}
+@@ -100,33 +473,132 @@ export default function DashboardPage() {
+           </div>
+ 
+           <div className="border-t border-slate-200/70 pt-6 dark:border-white/10">
+-            <div className="grid gap-5 xl:grid-cols-[minmax(16rem,0.32fr)_1fr] xl:items-start">
+-              <div>
+-                <p className="text-sm font-bold uppercase tracking-[0.22em] text-cyan-500 dark:text-cyan-300">
+-                  {t(currentUser?.role === "student" ? { en: "Learning grade", zh: "學習年級" } : { en: "Choose learning grade", zh: "選擇學習年級" })}
+-                </p>
+-                <p className="mt-2 text-2xl font-black text-slate-950 dark:text-white">{selectedGradeLabel}</p>
+-              </div>
+-              <DashboardGradeSelectorGrid />
+-            </div>
++            <DashboardGradeSelectorGrid />
+           </div>
+         </section>
+ 
+-        <aside className="glass-panel p-5">
++        <aside className={`glass-panel p-5 ${settingsOpen || shortcutsOpen ? "relative z-[90]" : "relative"}`}>
+           <StudentProfilePanel />
+-          <div className="mt-5 grid gap-2">
+-            <Link href="/messages" className="focus-ring rounded-full border border-slate-200/80 bg-white/75 px-4 py-2 text-center text-sm font-black text-slate-700 transition hover:-translate-y-0.5 dark:border-white/10 dark:bg-white/[0.06] dark:text-slate-200">
++          <div className={`relative mt-5 grid gap-2 ${settingsOpen || shortcutsOpen ? "z-[70]" : ""}`} data-nova-lens-ignore="true">
++            <Link href="/messages" className={dashboardMenuButtonClassName}>
+               {t({ en: "Messages", zh: "私信" })}
+             </Link>
+-            <Link href="/classroom/join" className="focus-ring rounded-full border border-slate-200/80 bg-white/75 px-4 py-2 text-center text-sm font-black text-slate-700 transition hover:-translate-y-0.5 dark:border-white/10 dark:bg-white/[0.06] dark:text-slate-200">
+-              {t({ en: "Join class", zh: "加入班級" })}
+-            </Link>
++            <button
++              type="button"
++              aria-expanded={settingsOpen}
++              aria-haspopup="dialog"
++              aria-controls="student-dashboard-settings-panel"
++              onClick={() => {
++                setShortcutsOpen(false);
++                setSettingsOpen((current) => !current);
++              }}
++              className={dashboardMenuButtonClassName}
++            >
++              {t({ en: "Settings", zh: "設定", zhHans: "设置" })}
++            </button>
++            <button
++              type="button"
++              aria-expanded={shortcutsOpen}
++              aria-haspopup="dialog"
++              aria-controls="student-dashboard-shortcuts-panel"
++              onClick={() => {
++                setSettingsOpen(false);
++                setShortcutsOpen((current) => !current);
++              }}
++              className={dashboardMenuButtonClassName}
++            >
++              {t({ en: "Shortcuts", zh: "捷徑", zhHans: "快捷入口" })}
++            </button>
++            {settingsOpen ? (
++              <DashboardSettingsMenu
++                novaLensDisabled={novaLensDisabled}
++                onClose={() => setSettingsOpen(false)}
++                onNovaLensDisabledChange={updateNovaLensDisabled}
++                t={t}
++              />
++            ) : null}
++            {shortcutsOpen ? (
++              <DashboardShortcutsMenu
++                lessonHref={lessonShortcutHref}
++                onClose={() => setShortcutsOpen(false)}
++                t={t}
++              />
++            ) : null}
+           </div>
+         </aside>
+       </div>
+ 
+-      <StudentMotivationHub />
+-      <StudentRewardsPanel />
++      {visibleAssignments.length ? (
++        <section className="glass-panel mt-6 p-5 sm:p-6" aria-labelledby="dashboard-assignments-heading">
++          <div className="flex flex-wrap items-start justify-between gap-3">
++            <div>
++              <p className="text-sm font-black uppercase tracking-[0.2em] text-cyan-600 dark:text-cyan-300">
++                {t({ en: "Task bay", zh: "任務艙", zhHans: "任务舱" })}
++              </p>
++              <h2 id="dashboard-assignments-heading" className="mt-2 text-2xl font-black text-slate-950 dark:text-white">
++                {t({ en: "Teacher-assigned work", zh: "老師分派內容", zhHans: "老师分派内容" })}
++              </h2>
++            </div>
++            <Link href={studentAssignmentsPath} className="focus-ring rounded-full border border-cyan-200/80 bg-cyan-50 px-4 py-2 text-sm font-black text-cyan-800 transition hover:-translate-y-0.5 dark:border-cyan-200/25 dark:bg-cyan-300/[0.12] dark:text-cyan-100">
++              {t({ en: "Open assignments", zh: "開啟作業", zhHans: "打开作业" })}
++            </Link>
++          </div>
++          <div className="mt-5 grid gap-3 md:grid-cols-2 xl:grid-cols-4">
++            {visibleAssignments.slice(0, 4).map((item) => (
++              <article key={item.assignment.id} className="soft-panel grid min-h-64 gap-3 p-4">
++                <div>
++                  <p className="text-xs font-black uppercase leading-5 text-cyan-700 dark:text-cyan-100">{item.className} · {item.assignment.contentType}</p>
++                  <Link href={assignmentHref(item)} className="focus-ring mt-2 inline-flex break-words text-base font-black leading-tight text-slate-950 underline-offset-4 hover:underline dark:text-white">
++                    {text(item.assignment.title)}
++                  </Link>
++                </div>
++                <div className="flex flex-wrap items-center justify-between gap-2 text-xs font-black text-slate-600 dark:text-slate-200">
++                  <span className="rounded-full border border-cyan-200/80 bg-cyan-100/75 px-3 py-1 text-cyan-800 dark:border-cyan-200/30 dark:bg-cyan-300/[0.12] dark:text-cyan-100">{item.submission.status}</span>
++                  <span>{item.assignment.dueAt ? formatDate(item.assignment.dueAt, language) : t({ en: "No due date", zh: "無截止日期", zhHans: "无截止日期" })}</span>
++                </div>
++                {item.submission.feedback ? (
++                  <p className="max-h-20 overflow-auto break-words text-xs font-bold leading-5 text-slate-600 dark:text-slate-200">{text(item.submission.feedback)}</p>
++                ) : null}
++                {item.submission.correctionRequest ? (
++                  <p className="max-h-24 overflow-auto rounded-2xl border border-amber-200/80 bg-amber-50/80 p-3 text-xs font-bold leading-5 text-amber-800 dark:border-amber-200/25 dark:bg-amber-300/[0.12] dark:text-amber-100">
++                    {text(item.submission.correctionRequest)}
++                  </p>
++                ) : null}
++                <label className="grid gap-2">
++                  <span className="text-xs font-black uppercase tracking-[0.12em] text-slate-500 dark:text-slate-300">
++                    {item.submission.status === "correction-required" ? t({ en: "Correction", zh: "訂正內容", zhHans: "订正内容" }) : t({ en: "Submission", zh: "提交內容", zhHans: "提交内容" })}
++                  </span>
++                  <textarea
++                    rows={3}
++                    value={assignmentDrafts[item.assignment.id] ?? ""}
++                    onChange={(event) => setAssignmentDrafts((current) => ({ ...current, [item.assignment.id]: event.target.value }))}
++                    className="focus-ring rounded-2xl border border-cyan-100/80 bg-white/80 px-3 py-2 text-sm text-slate-950 dark:border-white/10 dark:bg-white/[0.08] dark:text-white"
++                  />
++                </label>
++                <button
++                  disabled={assignmentSavingId === item.assignment.id || !(assignmentDrafts[item.assignment.id]?.trim())}
++                  onClick={() => submitAssignmentDraft(item)}
++                  type="button"
++                  className="focus-ring rounded-full bg-slate-950 px-4 py-2 text-xs font-black text-white disabled:opacity-50 dark:bg-white dark:text-slate-950"
++                >
++                  {assignmentSavingId === item.assignment.id
++                    ? t({ en: "Submitting", zh: "提交中", zhHans: "提交中" })
++                    : item.submission.status === "correction-required"
++                      ? t({ en: "Submit correction", zh: "提交訂正", zhHans: "提交订正" })
++                      : t({ en: "Submit work", zh: "提交作業", zhHans: "提交作业" })}
++                </button>
++              </article>
++            ))}
++          </div>
++        </section>
++      ) : null}
++
++      {loadSecondaryPanels ? (
++        <>
++          <StudentMotivationHub />
++          <StudentRewardsPanel />
++        </>
++      ) : null}
+     </div>
+   );
+ }
+diff --git a/components/dashboard/AdaptiveLearningContent.tsx b/components/dashboard/AdaptiveLearningContent.tsx
+index d69d8a136..3f219f16e 100644
+--- a/components/dashboard/AdaptiveLearningContent.tsx
++++ b/components/dashboard/AdaptiveLearningContent.tsx
+@@ -2,16 +2,20 @@
+ 
+ import Link from "next/link";
+ import { useEffect, useState } from "react";
++import type { ReactNode } from "react";
+ import { motion } from "@/components/ui/Motion";
+-import { ProgressCard } from "@/components/cards/ProgressCard";
+ import { TopicCard } from "@/components/cards/TopicCard";
++import { AdaptiveKnowledgeGalaxy } from "@/components/dashboard/AdaptiveKnowledgeGalaxy";
+ import { DashboardBackToTopButton } from "@/components/dashboard/DashboardBackToTopButton";
+ import { DashboardProgressDetails } from "@/components/dashboard/DashboardProgressDetails";
+ import { LearningAnalyticsReport } from "@/components/dashboard/LearningAnalyticsReport";
+ import { dictionary, useSettings } from "@/components/providers/AppProviders";
+-import { formatDifficultyLabel, formatGradeLabel, localeForLanguage, textForLanguage } from "@/lib/i18n";
+-import { lessonHrefForSlug, lessonHrefForTopicId } from "@/lib/lessonLinks";
+-import type { AdaptiveActionType, AdaptiveLearningDecision, AdaptiveSkillSummary, DashboardData, Language, LocalizedText, StudentAssignmentItem } from "@/types";
++import { formatDifficultyLabel, formatGradeLabel, localeForLanguage } from "@/lib/i18n";
++import { lessonHrefForTopicId } from "@/lib/lessonLinks";
++import { studentRoadmapPath } from "@/lib/roadmapRoutes";
++import { studentAssignmentHref, studentAssignmentsPath } from "@/lib/studentAssignmentRoutes";
++import { cn } from "@/lib/utils";
++import type { AdaptiveLearningDecision, DashboardData, Language, LocalizedText, StudentAssignmentItem } from "@/types";
+ 
+ function readDashboard(value: unknown) {
+   const response = value as { dashboard?: unknown } | null;
+@@ -40,280 +44,296 @@ function readAdaptiveDecision(value: unknown) {
+   return decision as AdaptiveLearningDecision;
+ }
+ 
+-function assignmentHref(item: StudentAssignmentItem) {
+-  if (item.assignment.contentType === "lesson" && item.assignment.targetId) return lessonHrefForSlug(item.assignment.targetId);
+-  if (item.assignment.contentType === "practice") return "/practice";
+-  if (item.assignment.contentType === "visualization") return "/visualization-lab";
+-  if (item.assignment.contentType === "resource" && item.assignment.targetId) return `/resource/${item.assignment.targetId}`;
+-  if (item.assignment.contentType === "assessment" && item.assignment.targetId) return `/assessment/${item.assignment.targetId}`;
+-  return "/adaptive-learning#my-assignments";
++function isLocalizedText(value: unknown): value is LocalizedText {
++  const record = value as Partial<LocalizedText> | null;
++  return typeof record?.en === "string" && typeof record.zh === "string";
+ }
+ 
+-function formatDate(value: string, language: Language) {
+-  return new Intl.DateTimeFormat(localeForLanguage(language), {
+-    month: "short",
+-    day: "numeric"
+-  }).format(new Date(value));
++function readAdaptiveContentUnavailable(value: unknown) {
++  const response = value as { reason?: unknown; contentUnavailable?: unknown } | null;
++  if (response?.reason !== "content-unavailable" || !isLocalizedText(response.contentUnavailable)) return null;
++  return response.contentUnavailable;
+ }
+ 
+-function formatReviewDate(value: string | null, language: Language) {
+-  if (!value) return textForLanguage({ en: "Not scheduled", zh: "未排程" }, language);
++function assignmentHref(item: StudentAssignmentItem) {
++  return studentAssignmentHref(item.assignment.id);
++}
++
++function formatDate(value: string, language: Language) {
+   return new Intl.DateTimeFormat(localeForLanguage(language), {
+     month: "short",
+     day: "numeric"
+   }).format(new Date(value));
+ }
+ 
+-function formatGeneratedAt(value: string, language: Language) {
+-  const date = new Date(value);
+-  if (!Number.isFinite(date.getTime())) return "";
++type GalaxyDockTone = "cyan" | "violet" | "emerald" | "solar";
++
++type GalaxyDockIconKind = "assignment" | "analytics" | "archive" | "expand" | "route";
++
++const galaxyDockToneClasses: Record<GalaxyDockTone, { chip: string; planet: string; pulse: string }> = {
++  cyan: {
++    chip: "border-cyan-200/80 bg-cyan-100/75 text-cyan-800 dark:border-cyan-200/30 dark:bg-cyan-300/[0.12] dark:text-cyan-100",
++    planet: "from-cyan-200 via-sky-400 to-indigo-500 shadow-cyan-400/35",
++    pulse: "bg-cyan-500 shadow-[0_0_18px_rgba(14,165,233,0.42)] dark:bg-cyan-300 dark:shadow-[0_0_24px_rgba(103,232,249,0.95)]"
++  },
++  violet: {
++    chip: "border-violet-200/80 bg-violet-100/75 text-violet-800 dark:border-violet-200/30 dark:bg-violet-300/[0.12] dark:text-violet-100",
++    planet: "from-fuchsia-200 via-violet-400 to-blue-500 shadow-violet-400/35",
++    pulse: "bg-violet-500 shadow-[0_0_18px_rgba(139,92,246,0.38)] dark:bg-violet-300 dark:shadow-[0_0_24px_rgba(196,181,253,0.9)]"
++  },
++  emerald: {
++    chip: "border-emerald-200/80 bg-emerald-100/75 text-emerald-800 dark:border-emerald-200/30 dark:bg-emerald-300/[0.12] dark:text-emerald-100",
++    planet: "from-lime-200 via-emerald-400 to-teal-500 shadow-emerald-400/30",
++    pulse: "bg-emerald-500 shadow-[0_0_18px_rgba(16,185,129,0.38)] dark:bg-emerald-300 dark:shadow-[0_0_24px_rgba(110,231,183,0.86)]"
++  },
++  solar: {
++    chip: "border-amber-200/80 bg-amber-100/75 text-amber-800 dark:border-amber-200/30 dark:bg-amber-300/[0.12] dark:text-amber-100",
++    planet: "from-amber-200 via-orange-300 to-rose-400 shadow-rose-400/30",
++    pulse: "bg-amber-500 shadow-[0_0_18px_rgba(245,158,11,0.38)] dark:bg-amber-200 dark:shadow-[0_0_24px_rgba(253,230,138,0.86)]"
++  }
++};
++
++const galaxyDockBackdrops: Record<GalaxyDockTone, { light: string; dark: string }> = {
++  cyan: {
++    light: "radial-gradient(circle at 14% 16%, rgba(14,165,233,0.2), transparent 25%), radial-gradient(circle at 82% 20%, rgba(99,102,241,0.12), transparent 28%), radial-gradient(circle at 74% 78%, rgba(16,185,129,0.1), transparent 26%), linear-gradient(135deg, #eefaff 0%, #f8fbff 48%, #f4f0ff 100%)",
++    dark: "radial-gradient(circle at 14% 16%, rgba(70,243,255,0.24), transparent 25%), radial-gradient(circle at 82% 20%, rgba(167,139,250,0.17), transparent 28%), radial-gradient(circle at 74% 78%, rgba(85,244,178,0.1), transparent 26%), linear-gradient(135deg, #071022 0%, #0c0b24 43%, #170b2f 76%, #050813 100%)"
++  },
++  violet: {
++    light: "radial-gradient(circle at 16% 18%, rgba(139,92,246,0.18), transparent 26%), radial-gradient(circle at 76% 24%, rgba(236,72,153,0.1), transparent 30%), radial-gradient(circle at 72% 78%, rgba(14,165,233,0.1), transparent 24%), linear-gradient(135deg, #f5f3ff 0%, #f8fbff 48%, #eefaff 100%)",
++    dark: "radial-gradient(circle at 16% 18%, rgba(167,139,250,0.26), transparent 26%), radial-gradient(circle at 76% 24%, rgba(244,114,182,0.18), transparent 30%), radial-gradient(circle at 72% 78%, rgba(103,232,249,0.1), transparent 24%), linear-gradient(135deg, #071022 0%, #0c0b24 43%, #170b2f 76%, #050813 100%)"
++  },
++  emerald: {
++    light: "radial-gradient(circle at 15% 20%, rgba(16,185,129,0.16), transparent 26%), radial-gradient(circle at 78% 24%, rgba(14,165,233,0.12), transparent 28%), radial-gradient(circle at 70% 80%, rgba(245,158,11,0.1), transparent 24%), linear-gradient(135deg, #ecfdf5 0%, #f8fbff 48%, #eefaff 100%)",
++    dark: "radial-gradient(circle at 15% 20%, rgba(85,244,178,0.2), transparent 26%), radial-gradient(circle at 78% 24%, rgba(70,243,255,0.16), transparent 28%), radial-gradient(circle at 70% 80%, rgba(250,204,21,0.1), transparent 24%), linear-gradient(135deg, #071022 0%, #0c0b24 43%, #170b2f 76%, #050813 100%)"
++  },
++  solar: {
++    light: "radial-gradient(circle at 15% 18%, rgba(245,158,11,0.16), transparent 26%), radial-gradient(circle at 78% 20%, rgba(244,63,94,0.1), transparent 29%), radial-gradient(circle at 70% 78%, rgba(139,92,246,0.1), transparent 24%), linear-gradient(135deg, #fff7ed 0%, #f8fbff 48%, #f5f3ff 100%)",
++    dark: "radial-gradient(circle at 15% 18%, rgba(250,204,21,0.18), transparent 26%), radial-gradient(circle at 78% 20%, rgba(251,113,133,0.18), transparent 29%), radial-gradient(circle at 70% 78%, rgba(167,139,250,0.12), transparent 24%), linear-gradient(135deg, #071022 0%, #0c0b24 43%, #170b2f 76%, #050813 100%)"
++  }
++};
+ 
+-  return new Intl.DateTimeFormat(localeForLanguage(language), {
+-    month: "short",
+-    day: "numeric",
+-    hour: "numeric",
+-    minute: "2-digit"
+-  }).format(date);
+-}
++const galaxyDockStars = {
++  light: "radial-gradient(circle, rgba(14,165,233,0.32) 0 1px, transparent 1.4px), radial-gradient(circle, rgba(99,102,241,0.26) 0 1px, transparent 1.4px), radial-gradient(circle, rgba(245,158,11,0.28) 0 1px, transparent 1.5px)",
++  dark: "radial-gradient(circle, rgba(255,255,255,0.86) 0 1px, transparent 1.4px), radial-gradient(circle, rgba(70,243,255,0.7) 0 1px, transparent 1.4px), radial-gradient(circle, rgba(255,209,102,0.68) 0 1px, transparent 1.5px)"
++};
+ 
+-function actionLabel(action: AdaptiveActionType) {
+-  const labels: Record<AdaptiveActionType, { en: string; zh: string }> = {
+-    review: { en: "Spaced review", zh: "間隔複習" },
+-    repair: { en: "Repair foundation", zh: "修補基礎" },
+-    practice: { en: "Targeted practice", zh: "針對練習" },
+-    lesson: { en: "Guided lesson", zh: "導學課節" },
+-    challenge: { en: "Challenge work", zh: "挑戰練習" }
+-  };
+-  return labels[action];
+-}
++const galaxyDockActionButtonClass = "inline-flex h-20 w-full max-w-full items-center justify-between gap-4 rounded-[1.6rem] px-4 py-2 text-base font-black leading-tight shadow-[0_14px_30px_rgba(15,23,42,0.10)] backdrop-blur-md transition dark:shadow-[inset_0_0_0_1px_rgba(255,255,255,0.04),0_14px_30px_rgba(15,23,42,0.24)] sm:w-80 sm:text-lg";
++const galaxyDockActionTextClass = "min-w-0 flex-1 text-left leading-tight break-words";
++const galaxyDockActionIconClass = "grid h-12 w-12 shrink-0 place-items-center rounded-full bg-cyan-100/80 text-cyan-800 transition dark:bg-white/15 dark:text-white";
+ 
+-function confidenceCopy(confidence: AdaptiveLearningDecision["confidence"]) {
+-  const labels: Record<AdaptiveLearningDecision["confidence"], LocalizedText> = {
+-    thin: { en: "Diagnostic evidence", zh: "診斷證據" },
+-    developing: { en: "Developing evidence", zh: "累積中證據" },
+-    strong: { en: "Strong evidence", zh: "強證據" }
+-  };
+-  return labels[confidence];
++function GalaxyDockBackdrop({ tone }: { tone: GalaxyDockTone }) {
++  return (
++    <>
++      <div
++        aria-hidden="true"
++        className="absolute inset-0 dark:hidden"
++        style={{
++          background: galaxyDockBackdrops[tone].light
++        }}
++      />
++      <div
++        aria-hidden="true"
++        className="absolute inset-0 hidden dark:block"
++        style={{
++          background: galaxyDockBackdrops[tone].dark
++        }}
++      />
++      <div
++        aria-hidden="true"
++        className="absolute inset-0 opacity-45 dark:hidden"
++        style={{
++          backgroundImage: galaxyDockStars.light,
++          backgroundPosition: "0 0, 32px 28px, 74px 42px",
++          backgroundSize: "92px 92px, 132px 132px, 172px 172px"
++        }}
++      />
++      <div
++        aria-hidden="true"
++        className="absolute inset-0 hidden opacity-55 dark:block"
++        style={{
++          backgroundImage: galaxyDockStars.dark,
++          backgroundPosition: "0 0, 32px 28px, 74px 42px",
++          backgroundSize: "92px 92px, 132px 132px, 172px 172px"
++        }}
++      />
++    </>
++  );
+ }
+ 
+-function signalLabel(signal: string): LocalizedText {
+-  const labels: Record<string, LocalizedText> = {
+-    deterministicCandidateId: { en: "Candidate match", zh: "候選一致" },
+-    masteryProbability: { en: "Mastery probability", zh: "掌握概率" },
+-    hardGuardFlags: { en: "Guardrail flags", zh: "防護標記" },
+-    wrongStreak: { en: "Wrong streak", zh: "連續答錯" },
+-    correctStreak: { en: "Correct streak", zh: "連續答對" },
+-    attemptCount: { en: "Attempt depth", zh: "作答深度" },
+-    questionIntegrity: { en: "Question integrity", zh: "題目完整性" }
++function GalaxyDockIcon({ icon }: { icon: GalaxyDockIconKind }) {
++  const commonProps = {
++    "aria-hidden": true,
++    className: "h-6 w-6 fill-none stroke-current stroke-[2.4]"
+   };
+ 
+-  return labels[signal] ?? { en: signal.replace(/[-_]/g, " "), zh: signal.replace(/[-_]/g, " ") };
+-}
++  if (icon === "assignment") {
++    return (
++      <svg viewBox="0 0 32 32" {...commonProps}>
++        <path d="M10 6h12" />
++        <path d="M12 4h8l1.5 4h-11L12 4z" />
++        <path d="M8 8h16v19H8z" />
++        <path d="M12 15h8" />
++        <path d="M12 20h5" />
++      </svg>
++    );
++  }
+ 
+-function engineStatusCopy(decision: AdaptiveLearningDecision) {
+-  if (decision.engine.mode === "llm-assisted") {
+-    return {
+-      label: { en: "AI-assisted adaptive recommendation", zh: "AI 輔助適性建議" },
+-      detail: decision.engine.confidenceExplanation ?? { en: "Validated against the BKT guardrails.", zh: "已通過 BKT 防護規則驗證。" }
+-    };
++  if (icon === "analytics") {
++    return (
++      <svg viewBox="0 0 32 32" {...commonProps}>
++        <circle cx="16" cy="16" r="4" />
++        <path d="M4 18c4-8 12-12 22-10" />
++        <path d="M28 14c-4 8-12 12-22 10" />
++        <path d="M10 24h12" />
++      </svg>
++    );
+   }
+ 
+-  if (decision.engine.llmStatus === "rejected" && decision.engine.errorKind === "format") {
+-    return {
+-      label: { en: "Deterministic adaptive recommendation", zh: "確定性適性建議" },
+-      detail: {
+-        en: "AI rerank returned incomplete JSON; showing the safe deterministic plan.",
+-        zh: "AI 重排傳回的 JSON 不完整；目前顯示安全的確定性方案。"
+-      }
+-    };
++  if (icon === "route") {
++    return (
++      <svg viewBox="0 0 32 32" {...commonProps}>
++        <path d="M6 22c5-12 15 4 20-8" />
++        <circle cx="7" cy="22" r="3" />
++        <circle cx="26" cy="14" r="3" />
++        <path d="M16 7l2 5 5 2-5 2-2 5-2-5-5-2 5-2 2-5z" />
++      </svg>
++    );
+   }
+ 
+-  if (decision.engine.llmStatus === "rejected" && decision.engine.errorKind === "guardrail") {
+-    return {
+-      label: { en: "Deterministic adaptive recommendation", zh: "確定性適性建議" },
+-      detail: {
+-        en: "AI rerank tried to leave the allowed candidate set, so the safe deterministic plan is shown.",
+-        zh: "AI 重排嘗試離開允許的候選範圍，因此顯示安全的確定性方案。"
+-      }
+-    };
++  if (icon === "archive") {
++    return (
++      <svg viewBox="0 0 32 32" {...commonProps}>
++        <path d="M7 9h18v5H7z" />
++        <path d="M9 14v12h14V14" />
++        <path d="M13 19h6" />
++        <path d="M22 5l2 4" />
++        <path d="M10 5L8 9" />
++      </svg>
++    );
+   }
+ 
+-  const statusDetail: Record<AdaptiveLearningDecision["engine"]["llmStatus"], { en: string; zh: string }> = {
+-    disabled: { en: "LLM reranking is disabled; using deterministic BKT guardrails.", zh: "LLM 重排未啟用；目前使用確定性 BKT 防護規則。" },
+-    pending: { en: "LLM reranking is warming in the background.", zh: "LLM 重排正在背景準備。" },
+-    ready: { en: "Using deterministic BKT guardrails.", zh: "正在使用確定性 BKT 防護規則。" },
+-    failed: { en: "AI rerank was unavailable, so the safe deterministic plan is shown.", zh: "AI 重排暫時不可用，因此顯示安全的確定性方案。" },
+-    rejected: { en: "AI rerank could not be used, so the safe deterministic plan is shown.", zh: "AI 重排結果未能使用，因此顯示安全的確定性方案。" }
+-  };
++  return (
++    <svg viewBox="0 0 32 32" {...commonProps}>
++      <path d="M16 7v18" />
++      <path d="M7 16h18" />
++    </svg>
++  );
++}
+ 
+-  return {
+-    label: { en: "Deterministic adaptive recommendation", zh: "確定性適性建議" },
+-    detail: statusDetail[decision.engine.llmStatus]
+-  };
++function GalaxyDockPlanet({ icon, tone }: { icon: GalaxyDockIconKind; tone: GalaxyDockTone }) {
++  return (
++    <span className={cn("relative grid h-16 w-16 shrink-0 place-items-center rounded-full bg-gradient-to-br text-slate-950 shadow-2xl", galaxyDockToneClasses[tone].planet)}>
++      <span aria-hidden="true" className="absolute -inset-[14%] rounded-full border border-white/60 opacity-70 dark:border-white/25" />
++      <span aria-hidden="true" className="absolute -inset-[34%] rounded-full bg-cyan-100/30 blur-xl dark:bg-white/10" />
++      <span className="relative z-10 drop-shadow-[0_2px_10px_rgba(255,255,255,0.28)]">
++        <GalaxyDockIcon icon={icon} />
++      </span>
++    </span>
++  );
+ }
+ 
+-function SkillPill({ summary, renderText }: { summary: AdaptiveSkillSummary; renderText: (value: { en: string; zh: string }) => string }) {
+-  const mastery = Math.round(summary.state.pMastery * 100);
++function GalaxyDockHeader({
++  action,
++  detail,
++  eyebrow,
++  icon,
++  title,
++  tone
++}: {
++  action?: ReactNode;
++  detail: string;
++  eyebrow: string;
++  icon: GalaxyDockIconKind;
++  title: string;
++  tone: GalaxyDockTone;
++}) {
+   return (
+-    <div className="rounded-2xl border border-slate-200/70 bg-white/65 p-4 dark:border-white/10 dark:bg-white/[0.055]">
+-      <div className="flex items-start justify-between gap-3">
+-        <div className="min-w-0">
+-          <p className="text-sm font-black text-slate-950 dark:text-white">{renderText(summary.skill.title)}</p>
+-          <p className="mt-1 text-xs font-semibold text-slate-500 dark:text-slate-400">{renderText(summary.topic.title)}</p>
+-        </div>
+-        <span className="shrink-0 rounded-full bg-cyan-500/15 px-3 py-1 text-xs font-black text-cyan-700 dark:text-cyan-200">{mastery}%</span>
+-      </div>
+-      <div className="mt-3 h-2 overflow-hidden rounded-full bg-slate-200 dark:bg-white/10">
+-        <div className="h-full rounded-full bg-gradient-to-r from-cyan-400 to-emerald-400" style={{ width: `${mastery}%` }} />
++    <div className="relative z-10 grid gap-4 sm:grid-cols-[auto_minmax(0,1fr)] sm:items-center lg:grid-cols-[auto_minmax(0,1fr)_auto]">
++      <GalaxyDockPlanet icon={icon} tone={tone} />
++      <div className="min-w-0">
++        <p className="flex items-center gap-3 text-sm font-black uppercase text-cyan-700 dark:text-cyan-200 sm:text-base">
++          <span className={cn("h-2.5 w-2.5 rounded-full", galaxyDockToneClasses[tone].pulse)} />
++          {eyebrow}
++        </p>
++        <h2 className="mt-2 text-2xl font-black leading-tight text-slate-950 dark:text-white sm:text-3xl">{title}</h2>
++        <p className="mt-2 max-w-3xl text-sm font-bold leading-6 text-slate-600 dark:text-slate-300 sm:text-base">{detail}</p>
+       </div>
++      {action ? <div className="sm:col-start-2 lg:col-start-auto">{action}</div> : null}
+     </div>
+   );
+ }
+ 
+-function AdaptiveRecommendationPanel({
+-  decision,
+-  language,
+-  t,
+-  text
++function GalaxyDockPanel({
++  action,
++  children,
++  detail,
++  eyebrow,
++  icon,
++  id,
++  title,
++  tone
+ }: {
+-  decision: AdaptiveLearningDecision;
+-  language: Language;
+-  t: (value: LocalizedText) => string;
+-  text: (value: LocalizedText) => string;
++  action?: ReactNode;
++  children: ReactNode;
++  detail: string;
++  eyebrow: string;
++  icon: GalaxyDockIconKind;
++  id?: string;
++  title: string;
++  tone: GalaxyDockTone;
+ }) {
+-  const engineStatus = engineStatusCopy(decision);
+-  const aiConfidence = decision.engine.aiConfidence ?? null;
+-  const generatedAt = formatGeneratedAt(decision.generatedAt, language);
+-  const signals = (decision.engine.signalsUsed ?? []).filter(Boolean).slice(0, 4);
+-  const reviewItems = (decision.dueReviews.length ? decision.dueReviews : decision.skillMap.slice(0, 1)).slice(0, 3);
+-
+   return (
+-    <section className="glass-panel mt-6 overflow-hidden p-0">
+-      <div className="grid gap-0 xl:grid-cols-[minmax(0,1fr)_22rem]">
+-        <div className="min-w-0 p-5 sm:p-6">
+-          <div className="flex flex-wrap items-start justify-between gap-4">
+-            <div className="min-w-0">
+-              <p className="text-sm font-black uppercase tracking-[0.22em] text-cyan-500 dark:text-cyan-300">{t({ en: "Adaptive engine", zh: "適性引擎" })}</p>
+-              <h2 className="mt-2 text-2xl font-black leading-tight text-slate-950 dark:text-white sm:text-3xl">
+-                <span>{t(actionLabel(decision.action))}</span>
+-                <span className="text-slate-400 dark:text-slate-500">: </span>
+-                <span className="break-words">{text(decision.skill.title)}</span>
+-              </h2>
+-            </div>
+-
+-            <div className="flex max-w-full flex-wrap gap-2">
+-              <span className="rounded-full border border-cyan-300/45 bg-cyan-400/12 px-3 py-1 text-xs font-black text-cyan-700 dark:text-cyan-100">
+-                {text(confidenceCopy(decision.confidence))}
+-              </span>
+-              {generatedAt ? (
+-                <span className="rounded-full border border-slate-200/80 bg-white/75 px-3 py-1 text-xs font-bold text-slate-500 dark:border-white/10 dark:bg-white/[0.06] dark:text-slate-300">
+-                  {generatedAt}
+-                </span>
+-              ) : null}
+-            </div>
+-          </div>
+-
+-          <div className="mt-5 grid gap-4 lg:grid-cols-[minmax(0,1.12fr)_minmax(16rem,0.88fr)]">
+-            <article className="rounded-2xl border border-slate-200/70 bg-white/70 p-4 dark:border-white/10 dark:bg-white/[0.055] sm:p-5">
+-              <p className="text-xs font-black uppercase tracking-[0.18em] text-slate-500 dark:text-slate-400">{t({ en: "Recommended focus", zh: "建議焦點" })}</p>
+-              <p className="mt-3 text-base font-semibold leading-7 text-slate-700 dark:text-slate-200">{text(decision.explanation)}</p>
+-              <div className="mt-4 flex flex-wrap gap-2">
+-                <span className="rounded-full bg-slate-950 px-3 py-1 text-xs font-black text-white dark:bg-white dark:text-slate-950">{text(decision.topic.title)}</span>
+-                <span className="rounded-full border border-slate-200/80 bg-white/75 px-3 py-1 text-xs font-bold text-slate-600 dark:border-white/10 dark:bg-white/[0.06] dark:text-slate-300">
+-                  {formatDifficultyLabel(decision.skill.difficulty, language)}
+-                </span>
+-              </div>
+-            </article>
+-
+-            <article className="rounded-2xl border border-emerald-300/35 bg-emerald-400/10 p-4 text-emerald-900 dark:text-emerald-50 sm:p-5">
+-              <div className="flex items-start justify-between gap-4">
+-                <div>
+-                  <p className="text-xs font-black uppercase tracking-[0.18em] text-emerald-700 dark:text-emerald-200">{t({ en: "Engine status", zh: "引擎狀態" })}</p>
+-                  <p className="mt-2 text-base font-black leading-6">{text(engineStatus.label)}</p>
+-                </div>
+-                <span className="shrink-0 rounded-full bg-emerald-500/15 px-3 py-1 text-xs font-black text-emerald-800 dark:text-emerald-100">
+-                  {aiConfidence ? `${Math.round(aiConfidence.score * 100)}%` : decision.engine.mode === "llm-assisted" ? "AI" : "BKT"}
+-                </span>
+-              </div>
+-              <p className="mt-3 text-sm font-semibold leading-6 text-emerald-800 dark:text-emerald-100">{text(engineStatus.detail)}</p>
+-            </article>
+-          </div>
+-
+-          {decision.engine.teacherAuditNote || aiConfidence ? (
+-            <div className="mt-4 grid gap-3 lg:grid-cols-2">
+-              {decision.engine.teacherAuditNote ? (
+-                <article className="rounded-2xl border border-emerald-300/25 bg-white/70 p-4 dark:border-emerald-200/10 dark:bg-white/[0.055]">
+-                  <p className="text-xs font-black uppercase tracking-[0.18em] text-emerald-700 dark:text-emerald-200">{t({ en: "Audit note", zh: "審核備註" })}</p>
+-                  <p className="mt-2 text-sm font-semibold leading-6 text-emerald-900 dark:text-emerald-50">{text(decision.engine.teacherAuditNote)}</p>
+-                </article>
+-              ) : null}
+-
+-              {aiConfidence ? (
+-                <article className="rounded-2xl border border-slate-200/70 bg-white/70 p-4 dark:border-white/10 dark:bg-white/[0.055]">
+-                  <div className="flex flex-wrap items-start justify-between gap-3">
+-                    <p className="text-xs font-black uppercase tracking-[0.18em] text-slate-500 dark:text-slate-400">{t({ en: "Confidence basis", zh: "信心依據" })}</p>
+-                    <p className="text-xs font-black text-emerald-700 dark:text-emerald-200">{text(aiConfidence.label)}</p>
+-                  </div>
+-                  <p className="mt-2 break-words text-sm font-semibold leading-6 text-slate-600 dark:text-slate-300">{text(aiConfidence.criteria)}</p>
+-                  {signals.length ? (
+-                    <div className="mt-3 flex flex-wrap gap-2">
+-                      {signals.map((signal) => (
+-                        <span key={signal} className="rounded-full bg-cyan-500/10 px-2.5 py-1 text-[11px] font-black text-cyan-700 dark:text-cyan-100">
+-                          {text(signalLabel(signal))}
+-                        </span>
+-                      ))}
+-                    </div>
+-                  ) : null}
+-                </article>
+-              ) : null}
+-            </div>
+-          ) : null}
+-
+-          <div className="mt-5 grid gap-3 sm:grid-cols-3">
+-            {decision.evidence.map((item) => (
+-              <div key={text(item.label)} className="rounded-2xl border border-slate-200/70 bg-white/65 p-4 dark:border-white/10 dark:bg-white/[0.055]">
+-                <p className="text-xs font-black uppercase tracking-[0.16em] text-slate-500 dark:text-slate-400">{text(item.label)}</p>
+-                <p className="mt-2 break-words text-2xl font-black text-slate-950 dark:text-white">{item.value}</p>
+-                <p className="mt-1 text-xs font-semibold leading-5 text-slate-500 dark:text-slate-400">{text(item.detail)}</p>
+-              </div>
+-            ))}
+-          </div>
+-        </div>
++    <section id={id} className="relative mt-6 min-w-0 overflow-hidden rounded-[2rem] border border-cyan-100/80 bg-sky-50 text-slate-950 shadow-2xl shadow-cyan-900/10 dark:border-white/10 dark:bg-slate-950 dark:text-white dark:shadow-cyan-950/25">
++      <GalaxyDockBackdrop tone={tone} />
++      <div className="relative z-10 p-5 sm:p-6">
++        <GalaxyDockHeader action={action} detail={detail} eyebrow={eyebrow} icon={icon} title={title} tone={tone} />
++        {children}
++      </div>
++    </section>
++  );
++}
+ 
+-        <aside className="border-t border-cyan-200/70 bg-cyan-400/[0.08] p-5 dark:border-white/10 sm:p-6 xl:border-l xl:border-t-0">
+-          <p className="text-sm font-black uppercase tracking-[0.18em] text-cyan-700 dark:text-cyan-100">{t({ en: "Target snapshot", zh: "目標摘要" })}</p>
+-          <div className="mt-4 rounded-2xl bg-white/70 p-4 dark:bg-white/[0.055]">
+-            <p className="text-xs font-black uppercase tracking-[0.16em] text-slate-500 dark:text-slate-400">{t({ en: "Current skill", zh: "目前技能" })}</p>
+-            <p className="mt-2 text-sm font-black leading-6 text-slate-950 dark:text-white">{text(decision.skill.title)}</p>
+-            <p className="mt-1 text-xs font-semibold leading-5 text-slate-500 dark:text-slate-400">
+-              {text(decision.topic.title)} · {decision.questions.length} {t({ en: "questions", zh: "題" })}
++function GalaxyDetailsPanel({
++  children,
++  detail,
++  eyebrow,
++  icon,
++  openLabel,
++  title,
++  tone
++}: {
++  children: ReactNode;
++  detail: string;
++  eyebrow: string;
++  icon: GalaxyDockIconKind;
++  openLabel: string;
++  title: string;
++  tone: GalaxyDockTone;
++}) {
++  return (
++    <details className="group mt-6">
++      <summary className="focus-ring relative min-w-0 cursor-pointer list-none overflow-hidden rounded-[2rem] border border-cyan-100/80 bg-sky-50 text-slate-950 shadow-2xl shadow-cyan-900/10 transition hover:-translate-y-0.5 dark:border-white/10 dark:bg-slate-950 dark:text-white dark:shadow-cyan-950/20 [&::-webkit-details-marker]:hidden">
++        <GalaxyDockBackdrop tone={tone} />
++        <div className="relative z-10 grid gap-4 p-5 sm:grid-cols-[auto_minmax(0,1fr)_auto] sm:items-center sm:p-6">
++          <GalaxyDockPlanet icon={icon} tone={tone} />
++          <div className="min-w-0">
++            <p className="flex items-center gap-3 text-sm font-black uppercase text-cyan-700 dark:text-cyan-200 sm:text-base">
++              <span className={cn("h-2.5 w-2.5 rounded-full", galaxyDockToneClasses[tone].pulse)} />
++              {eyebrow}
+             </p>
++            <h2 className="mt-2 text-2xl font-black leading-tight text-slate-950 dark:text-white sm:text-3xl">{title}</h2>
++            <p className="mt-2 max-w-3xl text-sm font-bold leading-6 text-slate-600 dark:text-slate-300 sm:text-base">{detail}</p>
+           </div>
+-
+-          <div className="mt-5 flex items-center justify-between gap-3">
+-            <p className="text-sm font-black text-cyan-700 dark:text-cyan-100">{t({ en: "Due reviews", zh: "到期複習" })}</p>
+-            <span className="rounded-full bg-cyan-500/15 px-3 py-1 text-xs font-black text-cyan-700 dark:text-cyan-100">{decision.dueReviews.length}</span>
+-          </div>
+-          <div className="mt-3 space-y-3">
+-            {reviewItems.map((summary) => (
+-              <div key={summary.skill.id} className="rounded-2xl bg-white/70 p-4 dark:bg-white/[0.055]">
+-                <p className="text-sm font-black leading-6 text-slate-950 dark:text-white">{text(summary.skill.title)}</p>
+-                <p className="mt-1 text-xs font-semibold text-slate-500 dark:text-slate-400">
+-                  {formatReviewDate(summary.state.nextReviewAt, language)} · {Math.round(summary.state.pMastery * 100)}%
+-                </p>
+-              </div>
+-            ))}
+-          </div>
+-        </aside>
+-      </div>
+-
+-      <div className="border-t border-slate-200/70 p-5 dark:border-white/10 sm:p-6">
+-        <p className="text-sm font-black uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400">{t({ en: "Skill mastery map", zh: "技能掌握地圖" })}</p>
+-        <div className="mt-4 grid gap-3 md:grid-cols-2 xl:grid-cols-3">
+-          {decision.skillMap.slice(0, 6).map((summary) => <SkillPill key={summary.skill.id} summary={summary} renderText={text} />)}
++          <span className={cn(galaxyDockActionButtonClass, "border", galaxyDockToneClasses[tone].chip)}>
++            <span className={galaxyDockActionTextClass}>{openLabel}</span>
++            <span className={cn(galaxyDockActionIconClass, "group-open:rotate-45")}>
++              <GalaxyDockIcon icon="expand" />
++            </span>
++          </span>
+         </div>
+-      </div>
+-    </section>
++      </summary>
++      <div className="mt-6">{children}</div>
++    </details>
+   );
+ }
+ 
+@@ -321,24 +341,54 @@ export function AdaptiveLearningContent() {
+   const { currentUser, language, selectedGrade, settingsReady, t, text } = useSettings();
+   const [dashboard, setDashboard] = useState<DashboardData | null>(null);
+   const [assignments, setAssignments] = useState<StudentAssignmentItem[]>([]);
++  const [assignmentDrafts, setAssignmentDrafts] = useState<Record<string, string>>({});
++  const [assignmentSavingId, setAssignmentSavingId] = useState("");
+   const [adaptiveDecision, setAdaptiveDecision] = useState<AdaptiveLearningDecision | null>(null);
++  const [adaptiveContentUnavailable, setAdaptiveContentUnavailable] = useState<LocalizedText | null>(null);
+   const [isLoading, setIsLoading] = useState(true);
+   const [loadError, setLoadError] = useState("");
++  const [loadSecondaryPanels, setLoadSecondaryPanels] = useState(false);
++  const currentUserRequestKey = currentUser
++    ? `${currentUser.id}:${currentUser.role}:${currentUser.curriculumTrack}:${currentUser.curriculumProfile.region}:${currentUser.curriculumProfile.publisher ?? ""}`
++    : "";
+   const gradeTopics = dashboard?.gradeTopics ?? [];
+   const recommended = dashboard?.recommendedLesson ?? null;
+   const analyticsFocusTopic = dashboard?.weakTopics[0] ?? recommended ?? undefined;
+   const recent = dashboard?.recentTopics ?? [];
+   const visibleAssignments = assignments.filter((item) => item.classGrade === selectedGrade);
+-  const progressEyebrow = t({ en: "Live analytics", zh: "即時學習分析" });
+   const loadErrorCopy = t({ en: "Could not load dashboard data.", zh: "暫時無法載入學生儀表板資料。" });
+ 
++  const submitAssignmentDraft = async (item: StudentAssignmentItem) => {
++    const answerText = assignmentDrafts[item.assignment.id]?.trim() ?? "";
++    if (!answerText) return;
++    setAssignmentSavingId(item.assignment.id);
++    const endpoint = item.submission.status === "correction-required"
++      ? `/api/assignments/${encodeURIComponent(item.assignment.id)}/corrections`
++      : `/api/assignments/${encodeURIComponent(item.assignment.id)}/submissions`;
++    const response = await fetch(endpoint, {
++      method: "POST",
++      headers: { "Content-Type": "application/json" },
++      body: JSON.stringify({ answerText, inputType: "text" })
++    });
++    const payload = await response.json().catch(() => null) as { submission?: StudentAssignmentItem["submission"] } | null;
++    setAssignmentSavingId("");
++    if (!response.ok || !payload?.submission) return;
++    const updatedSubmission = payload.submission;
++    setAssignments((current) => current.map((candidate) =>
++      candidate.assignment.id === item.assignment.id
++        ? { ...candidate, submission: updatedSubmission }
++        : candidate
++    ));
++    setAssignmentDrafts((current) => ({ ...current, [item.assignment.id]: "" }));
++  };
++
+   useEffect(() => {
+     const controller = new AbortController();
+ 
+     async function loadDashboard() {
+       if (!settingsReady) return;
+ 
+-      if (!currentUser) {
++      if (!currentUser || currentUser.role !== "student") {
+         setDashboard(null);
+         setIsLoading(false);
+         setLoadError("");
+@@ -369,7 +419,7 @@ export function AdaptiveLearningContent() {
+     loadDashboard();
+ 
+     return () => controller.abort();
+-  }, [currentUser, loadErrorCopy, selectedGrade, settingsReady]);
++  }, [currentUserRequestKey, loadErrorCopy, selectedGrade, settingsReady]);
+ 
+   useEffect(() => {
+     const controller = new AbortController();
+@@ -382,6 +432,8 @@ export function AdaptiveLearningContent() {
+         return;
+       }
+ 
++      if (isLoading || loadError) return;
++
+       try {
+         const response = await fetch("/api/assignments", { cache: "no-store", signal: controller.signal });
+         if (!response.ok) throw new Error("Assignments unavailable");
+@@ -394,7 +446,7 @@ export function AdaptiveLearningContent() {
+     loadAssignments();
+ 
+     return () => controller.abort();
+-  }, [currentUser, settingsReady]);
++  }, [currentUserRequestKey, isLoading, loadError, settingsReady]);
+ 
+   useEffect(() => {
+     const controller = new AbortController();
+@@ -402,8 +454,15 @@ export function AdaptiveLearningContent() {
+     async function loadAdaptiveDecision() {
+       if (!settingsReady) return;
+ 
+-      if (!currentUser) {
++      if (!currentUser || currentUser.role !== "student") {
+         setAdaptiveDecision(null);
++        setAdaptiveContentUnavailable(null);
++        return;
++      }
++
++      if (isLoading || loadError) {
++        setAdaptiveDecision(null);
++        setAdaptiveContentUnavailable(null);
+         return;
+       }
+ 
+@@ -412,9 +471,18 @@ export function AdaptiveLearningContent() {
+           cache: "no-store",
+           signal: controller.signal
+         });
+-        const decision = readAdaptiveDecision(await response.json());
++        const payload = await response.json().catch(() => null) as unknown;
++        const unavailable = readAdaptiveContentUnavailable(payload);
++        if (unavailable) {
++          setAdaptiveDecision(null);
++          setAdaptiveContentUnavailable(unavailable);
++          return;
++        }
++
++        const decision = readAdaptiveDecision(payload);
+         if (!response.ok || !decision) throw new Error("Adaptive decision unavailable.");
+         setAdaptiveDecision(decision);
++        setAdaptiveContentUnavailable(null);
+         if (decision.engine.llmStatus === "pending") {
+           void fetch("/api/adaptive-learning/refresh", {
+             method: "POST",
+@@ -422,32 +490,54 @@ export function AdaptiveLearningContent() {
+             body: JSON.stringify({ grade: selectedGrade })
+           })
+             .then(async (refreshResponse) => {
++              const refreshPayload = await refreshResponse.json().catch(() => null) as unknown;
++              const refreshUnavailable = readAdaptiveContentUnavailable(refreshPayload);
++              if (refreshUnavailable && !controller.signal.aborted) {
++                setAdaptiveDecision(null);
++                setAdaptiveContentUnavailable(refreshUnavailable);
++                return;
++              }
++
+               if (!refreshResponse.ok) return;
+-              const refreshed = readAdaptiveDecision(await refreshResponse.json());
++              const refreshed = readAdaptiveDecision(refreshPayload);
+               if (refreshed && !controller.signal.aborted) setAdaptiveDecision(refreshed);
+             })
+             .catch(() => undefined);
+         }
+       } catch {
+-        if (!controller.signal.aborted) setAdaptiveDecision(null);
++        if (!controller.signal.aborted) {
++          setAdaptiveDecision(null);
++          setAdaptiveContentUnavailable(null);
++        }
+       }
+     }
+ 
+     void loadAdaptiveDecision();
+ 
+     return () => controller.abort();
+-  }, [currentUser, selectedGrade, settingsReady]);
++  }, [currentUserRequestKey, isLoading, loadError, selectedGrade, settingsReady]);
++
++  useEffect(() => {
++    if (!settingsReady || !currentUser || currentUser.role !== "student" || isLoading || loadError) {
++      setLoadSecondaryPanels(false);
++      return;
++    }
++
++    setLoadSecondaryPanels(false);
++    const timer = window.setTimeout(() => setLoadSecondaryPanels(true), 300);
++    return () => window.clearTimeout(timer);
++  }, [currentUserRequestKey, isLoading, loadError, selectedGrade, settingsReady]);
+ 
+   if (!settingsReady) {
+     return (
+       <div className="page-container py-10 sm:py-12">
+         <section className="max-w-3xl">
+-          <p className="mb-3 text-sm font-bold uppercase tracking-[0.24em] text-cyan-500 dark:text-cyan-300">{t({ en: "Adaptive learning", zh: "適性學習" })}</p>
++          <p className="mb-3 text-sm font-bold uppercase tracking-[0.24em] text-cyan-500 dark:text-cyan-300">{t({ en: "Personalized learning", zh: "個人化學習", zhHans: "个性化学习" })}</p>
+           <h1 className="text-3xl font-black tracking-tight text-slate-950 dark:text-white sm:text-4xl md:text-5xl">
+             {t({ en: "Checking your learning profile", zh: "正在檢查你的學習檔案" })}
+           </h1>
+           <p className="mt-4 text-base leading-7 text-slate-600 dark:text-slate-300 sm:text-lg">
+-            {t({ en: "Loading sign-in status before opening the adaptive dashboard.", zh: "正在載入登入狀態，然後開啟適性學習儀表板。" })}
++            {t({ en: "Loading sign-in status before opening the personalized learning dashboard.", zh: "正在載入登入狀態，然後開啟個人化學習儀表板。", zhHans: "正在载入登录状态，然后开启个性化学习仪表板。" })}
+           </p>
+         </section>
+       </div>
+@@ -459,9 +549,9 @@ export function AdaptiveLearningContent() {
+       <div className="page-container py-10 sm:py-12">
+         <section className="glass-panel overflow-hidden p-6 sm:p-8">
+           <div className="max-w-3xl">
+-            <p className="mb-3 text-sm font-bold uppercase tracking-[0.24em] text-cyan-500 dark:text-cyan-300">{t({ en: "Adaptive learning", zh: "適性學習" })}</p>
++            <p className="mb-3 text-sm font-bold uppercase tracking-[0.24em] text-cyan-500 dark:text-cyan-300">{t({ en: "Personalized learning", zh: "個人化學習", zhHans: "个性化学习" })}</p>
+             <h1 className="text-3xl font-black tracking-tight text-slate-950 dark:text-white sm:text-4xl md:text-5xl">
+-              {t({ en: "Log in to view adaptive recommendations", zh: "登入以查看適性學習建議" })}
++              {t({ en: "Log in to view personalized recommendations", zh: "登入以查看個人化學習建議", zhHans: "登录以查看个性化学习建议" })}
+             </h1>
+             <p className="mt-4 text-base leading-7 text-slate-600 dark:text-slate-300 sm:text-lg">
+               {t({
+@@ -473,8 +563,8 @@ export function AdaptiveLearningContent() {
+               <Link href="/login" className="focus-ring rounded-full bg-slate-950 px-5 py-3 text-sm font-black text-white transition hover:-translate-y-0.5 dark:bg-white dark:text-slate-950">
+                 {t(dictionary.nav.login)}
+               </Link>
+-              <Link href="/learning-path" className="focus-ring rounded-full border border-cyan-300/45 bg-cyan-400/15 px-5 py-3 text-sm font-black text-cyan-700 transition hover:-translate-y-0.5 dark:text-cyan-100">
+-                {t(dictionary.common.viewRoadmap)}
++              <Link href="/register" className="focus-ring rounded-full border border-cyan-300/45 bg-cyan-400/15 px-5 py-3 text-sm font-black text-cyan-700 transition hover:-translate-y-0.5 dark:text-cyan-100">
++                {t({ en: "Register", zh: "註冊", zhHans: "注册" })}
+               </Link>
+             </div>
+           </div>
+@@ -482,7 +572,7 @@ export function AdaptiveLearningContent() {
+             {[
+               { title: { en: "Skill mastery map", zh: "技能掌握地圖" }, detail: { en: "See which skills are secure, fragile, or ready for challenge.", zh: "查看哪些技能已穩固、仍薄弱或可進入挑戰。" } },
+               { title: { en: "Spaced review", zh: "間隔複習" }, detail: { en: "Review work appears when the system predicts it will help most.", zh: "系統會在最有幫助的時間安排複習。" } },
+-              { title: { en: "Teacher assignments", zh: "老師分派內容" }, detail: { en: "Class work appears beside your adaptive next step.", zh: "課堂作業會與你的適性下一步並列顯示。" } }
++              { title: { en: "Teacher assignments", zh: "老師分派內容" }, detail: { en: "Class work appears beside your personalized next step.", zh: "課堂作業會與你的個人化下一步並列顯示。", zhHans: "课堂作业会与你的个性化下一步并列显示。" } }
+             ].map((item) => (
+               <div key={text(item.title)} className="rounded-2xl border border-slate-200/70 bg-white/65 p-4 dark:border-white/10 dark:bg-white/[0.055]">
+                 <p className="text-sm font-black text-slate-950 dark:text-white">{text(item.title)}</p>
+@@ -495,68 +585,156 @@ export function AdaptiveLearningContent() {
+     );
+   }
+ 
++  if (currentUser.role !== "student") {
++    const consoleHref = currentUser.role === "parent" ? "/parent" : currentUser.role === "teacher" || currentUser.role === "admin" ? "/teacher" : "/";
++    return (
++      <div className="page-container py-10 sm:py-12">
++        <section className="glass-panel overflow-hidden p-6 sm:p-8">
++          <div className="max-w-3xl">
++            <p className="mb-3 text-sm font-bold uppercase tracking-[0.24em] text-cyan-500 dark:text-cyan-300">{t({ en: "Guarded personalized surface", zh: "受保護個人化介面", zhHans: "受保护个性化界面" })}</p>
++            <h1 className="text-3xl font-black tracking-tight text-slate-950 dark:text-white sm:text-4xl md:text-5xl">
++              {t({ en: "Student personalized learning state is not open for this role", zh: "此角色未開放學生個人化學習狀態", zhHans: "此角色未开放学生个性化学习状态" })}
++            </h1>
++            <p className="mt-4 text-base leading-7 text-slate-600 dark:text-slate-300 sm:text-lg">
++              {t({
++                en: "The P1 pilot loop keeps learner-state recommendations student-owned. Teacher review and parent-safe updates stay in their own consoles.",
++                zh: "P1 試點閉環將學習者狀態建議保留給學生本人；教師審核與家長安全更新會留在各自控制台。"
++              })}
++            </p>
++            <Link href={consoleHref} className="focus-ring mt-6 inline-flex rounded-full bg-slate-950 px-5 py-3 text-sm font-black text-white transition hover:-translate-y-0.5 dark:bg-white dark:text-slate-950">
++              {t({ en: "Open your console", zh: "開啟你的控制台" })}
++            </Link>
++          </div>
++        </section>
++      </div>
++    );
++  }
++
+   return (
+     <div className="page-container py-10 sm:py-12">
+-      <section className="max-w-3xl">
+-        <p className="mb-3 text-sm font-bold uppercase tracking-[0.24em] text-cyan-500 dark:text-cyan-300">{progressEyebrow}</p>
+-        <h1 className="text-3xl font-black tracking-tight text-slate-950 dark:text-white sm:text-4xl md:text-5xl">
+-          {t(dictionary.pages.progressTitle)}
+-        </h1>
+-        <p className="mt-4 text-base leading-7 text-slate-600 dark:text-slate-300 sm:text-lg">{t(dictionary.pages.progressDesc)}</p>
+-        {isLoading ? <p className="mt-3 text-sm font-bold text-cyan-600 dark:text-cyan-300">{t(dictionary.dashboard.loading)}</p> : null}
+-        {loadError ? <p className="mt-3 text-sm font-bold text-rose-700 dark:text-rose-200">{loadError}</p> : null}
+-        {dashboard?.contentUnavailable ? (
+-          <p className="mt-4 rounded-2xl border border-amber-300/55 bg-amber-400/10 px-4 py-3 text-sm font-bold text-amber-800 dark:text-amber-100">
+-            {text(dashboard.contentUnavailable)}
+-          </p>
++      <AdaptiveKnowledgeGalaxy
++        contentUnavailable={adaptiveContentUnavailable ?? dashboard?.contentUnavailable ?? null}
++        decision={adaptiveDecision}
++        isLoading={isLoading}
++        loadError={loadError}
++        progressMetrics={dashboard?.progressMetrics ?? []}
++      />
++
++      <GalaxyDockPanel
++        id="my-assignments"
++        action={(
++          <Link href={studentAssignmentsPath} className={cn("focus-ring group border border-violet-200/80 bg-white/[0.72] text-slate-950 hover:-translate-y-0.5 hover:border-cyan-300/70 hover:bg-cyan-50 dark:border-violet-200/35 dark:bg-violet-950/25 dark:text-white dark:hover:border-cyan-200/45 dark:hover:bg-violet-900/35", galaxyDockActionButtonClass)}>
++            <span className={galaxyDockActionTextClass}>{t({ en: "All assignments", zh: "全部作業", zhHans: "全部作业" })}</span>
++            <span className={cn(galaxyDockActionIconClass, "group-hover:rotate-90 group-hover:bg-cyan-200/80 dark:group-hover:bg-white/20")}>
++              <GalaxyDockIcon icon="expand" />
++            </span>
++          </Link>
++        )}
++        detail={t({
++          en: "Class missions dock beside your personalized route with due dates, status, and the next place to enter.",
++          zh: "課堂任務會與你的個人化航線並列，呈現截止日期、狀態與下一個入口。",
++          zhHans: "课堂任务会与你的个性化航线并列，呈现截止日期、状态与下一个入口。"
++        })}
++        eyebrow={t({ en: "Task bay", zh: "任務艙", zhHans: "任务舱" })}
++        icon="assignment"
++        title={t({ en: "Teacher-assigned work", zh: "老師分派內容" })}
++        tone="cyan"
++      >
++        {visibleAssignments.length ? (
++          <div className="mt-6 grid gap-3 md:grid-cols-2 xl:grid-cols-4">
++            {visibleAssignments.slice(0, 4).map((item) => (
++              <article key={item.assignment.id} className="group relative grid min-h-64 gap-4 overflow-hidden rounded-[1.25rem] border border-cyan-100/80 bg-white/[0.72] p-4 text-slate-950 shadow-lg shadow-cyan-900/10 backdrop-blur-xl dark:border-white/10 dark:bg-white/[0.075] dark:text-white dark:shadow-xl dark:shadow-black/20">
++                <span aria-hidden="true" className="absolute -right-10 -top-10 h-28 w-28 rounded-full bg-cyan-200/35 blur-2xl transition group-hover:bg-violet-200/40 dark:bg-cyan-300/15 dark:group-hover:bg-violet-300/20" />
++                <div className="relative z-10 grid gap-3">
++                  <div>
++                    <p className="text-xs font-black uppercase leading-5 text-cyan-700 dark:text-cyan-100">{item.className} · {item.assignment.contentType}</p>
++                    <Link href={assignmentHref(item)} className="focus-ring mt-2 inline-flex text-base font-black leading-tight text-slate-950 underline-offset-4 hover:underline dark:text-white">{text(item.assignment.title)}</Link>
++                  </div>
++                  <div className="flex items-center justify-between gap-2 text-xs font-black text-slate-600 dark:text-slate-200">
++                    <span className="rounded-full border border-cyan-200/80 bg-cyan-100/75 px-3 py-1 text-cyan-800 dark:border-cyan-200/30 dark:bg-cyan-300/[0.12] dark:text-cyan-100">{item.submission.status}</span>
++                    <span>{item.assignment.dueAt ? formatDate(item.assignment.dueAt, language) : t({ en: "No due date", zh: "無截止日期" })}</span>
++                  </div>
++                  {item.submission.feedback ? (
++                    <p className="text-xs font-bold leading-5 text-slate-600 dark:text-slate-200">{text(item.submission.feedback)}</p>
++                  ) : null}
++                  {item.submission.correctionRequest ? (
++                    <p className="rounded-2xl border border-amber-200/80 bg-amber-50/80 p-3 text-xs font-bold leading-5 text-amber-800 dark:border-amber-200/25 dark:bg-amber-300/[0.12] dark:text-amber-100">{text(item.submission.correctionRequest)}</p>
++                  ) : null}
++                  <label className="grid gap-2">
++                    <span className="text-xs font-black uppercase tracking-[0.12em] text-slate-500 dark:text-slate-300">
++                      {item.submission.status === "correction-required" ? t({ en: "Correction", zh: "訂正內容" }) : t({ en: "Submission", zh: "提交內容" })}
++                    </span>
++                    <textarea
++                      rows={3}
++                      value={assignmentDrafts[item.assignment.id] ?? ""}
++                      onChange={(event) => setAssignmentDrafts((current) => ({ ...current, [item.assignment.id]: event.target.value }))}
++                      className="focus-ring rounded-2xl border border-cyan-100/80 bg-white/80 px-3 py-2 text-sm text-slate-950 dark:border-white/10 dark:bg-white/[0.08] dark:text-white"
++                    />
++                  </label>
++                  <button
++                    disabled={assignmentSavingId === item.assignment.id || !(assignmentDrafts[item.assignment.id]?.trim())}
++                    onClick={() => submitAssignmentDraft(item)}
++                    type="button"
++                    className="focus-ring rounded-full bg-slate-950 px-4 py-2 text-xs font-black text-white disabled:opacity-50 dark:bg-white dark:text-slate-950"
++                  >
++                    {assignmentSavingId === item.assignment.id
++                      ? t({ en: "Submitting", zh: "提交中" })
++                      : item.submission.status === "correction-required"
++                        ? t({ en: "Submit correction", zh: "提交訂正" })
++                        : t({ en: "Submit work", zh: "提交作業" })}
++                  </button>
++                </div>
++              </article>
++            ))}
++          </div>
+         ) : null}
+-      </section>
+-
+-      <section className="mt-6 grid gap-4 md:grid-cols-2 xl:grid-cols-4">
+-        {(dashboard?.progressMetrics ?? []).slice(0, 4).map((metric, index) => <ProgressCard key={text(metric.label)} metric={metric} index={index} />)}
+-      </section>
+-
+-      {adaptiveDecision ? <AdaptiveRecommendationPanel decision={adaptiveDecision} language={language} t={t} text={text} /> : null}
+-
+-      <section id="my-assignments" className="glass-panel mt-6 p-5 sm:p-6">
+-        <div className="flex flex-wrap items-end justify-between gap-3">
+-          <div>
+-            <p className="text-sm font-bold uppercase tracking-[0.22em] text-cyan-500 dark:text-cyan-300">{t({ en: "My assignments", zh: "我的作業" })}</p>
+-            <h2 className="mt-2 text-2xl font-black text-slate-950 dark:text-white">{t({ en: "Teacher-assigned work", zh: "老師分派內容" })}</h2>
++      </GalaxyDockPanel>
++
++      <GalaxyDetailsPanel
++        detail={t({
++          en: "Engagement, accuracy, pace, and review signals become a cockpit view for the next route decision.",
++          zh: "參與度、答對率、節奏與重溫訊號會匯入下一步航線判讀。",
++          zhHans: "参与度、答对率、节奏与重温信号会汇入下一步航线判读。"
++        })}
++        eyebrow={t({ en: "Signal bay", zh: "訊號艙", zhHans: "信号舱" })}
++        icon="analytics"
++        openLabel={t({ en: "Open bay", zh: "開啟艙門", zhHans: "开启舱门" })}
++        title={t({ en: "Learning analytics", zh: "學習分析", zhHans: "学习分析" })}
++        tone="violet"
++      >
++        {loadSecondaryPanels ? (
++          <LearningAnalyticsReport focusTopic={analyticsFocusTopic} />
++        ) : (
++          <div className="mt-6 rounded-[1.25rem] border border-violet-200/70 bg-white/[0.72] p-5 text-sm font-bold text-slate-600 shadow-lg shadow-cyan-900/10 dark:border-white/10 dark:bg-white/[0.075] dark:text-slate-300">
++            {t({ en: "Preparing learning analytics after your route opens.", zh: "正在開啟航線後準備學習分析。", zhHans: "正在开启航线后准备学习分析。" })}
+           </div>
+-          <Link href="/practice" className="focus-ring rounded-full border border-slate-200/80 bg-white/75 px-4 py-2 text-sm font-black text-slate-700 transition hover:-translate-y-0.5 dark:border-white/10 dark:bg-white/[0.06] dark:text-slate-200">
+-            {t({ en: "Practice", zh: "練習" })}
+-          </Link>
+-        </div>
+-        <div className="mt-5 grid gap-3 md:grid-cols-2 xl:grid-cols-4">
+-          {visibleAssignments.slice(0, 4).map((item) => (
+-            <Link key={item.assignment.id} href={assignmentHref(item)} className="focus-ring soft-panel block p-4 transition hover:-translate-y-0.5">
+-              <p className="text-sm font-black text-slate-950 dark:text-white">{text(item.assignment.title)}</p>
+-              <p className="mt-2 text-xs font-bold text-slate-500 dark:text-slate-400">{item.className} · {item.assignment.contentType}</p>
+-              <div className="mt-3 flex items-center justify-between gap-2 text-xs font-black">
+-                <span className="rounded-full border border-cyan-300/55 bg-cyan-400/12 px-3 py-1 text-cyan-800 dark:text-cyan-100">{item.submission.status}</span>
+-                <span>{item.assignment.dueAt ? formatDate(item.assignment.dueAt, language) : t({ en: "No due date", zh: "無截止日期" })}</span>
+-              </div>
+-            </Link>
+-          ))}
+-        </div>
+-        {!visibleAssignments.length ? <p className="mt-4 rounded-2xl border border-slate-200/70 bg-white/60 p-4 text-sm font-semibold text-slate-500 dark:border-white/10 dark:bg-white/[0.055] dark:text-slate-400">{t({ en: "Assigned work will appear here.", zh: "老師分派的作業會顯示在這裡。" })}</p> : null}
+-      </section>
+-
+-      <LearningAnalyticsReport focusTopic={analyticsFocusTopic} />
+-
+-      <section className="mt-8 grid gap-6 lg:grid-cols-[1fr_360px]">
+-        <div>
++        )}
++      </GalaxyDetailsPanel>
++
++      <GalaxyDetailsPanel
++        detail={t({
++          en: "Grade topics, the recommended lesson, and recent learning stay connected to the active route.",
++          zh: "年級課題、建議課節與最近學習會連接到當前航線。",
++          zhHans: "年级课题、建议课时与最近学习会连接到当前航线。"
++        })}
++        eyebrow={t({ en: "Support bay", zh: "支援艙", zhHans: "支持舱" })}
++        icon="route"
++        openLabel={t({ en: "Topics and recent learning", zh: "課題與最近學習", zhHans: "课题与最近学习" })}
++        title={t({ en: "Route support", zh: "航線支援", zhHans: "航线支持" })}
++        tone="emerald"
++      >
++        <section className="mt-6 grid gap-6 lg:grid-cols-[1fr_360px]">
++          <div>
+           <div className="mb-4 flex items-center justify-between gap-4">
+             <h2 className="text-2xl font-black text-slate-950 dark:text-white">{t(dictionary.dashboard.gradeTopics)}</h2>
+-            <Link href="/learning-path" className="text-sm font-bold text-cyan-600 hover:text-cyan-500 dark:text-cyan-300">{t(dictionary.common.viewRoadmap)} →</Link>
++            <Link href={studentRoadmapPath} className="text-sm font-bold text-cyan-600 hover:text-cyan-500 dark:text-cyan-300">{t(dictionary.common.viewRoadmap)} →</Link>
+           </div>
+           <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
+             {gradeTopics.map((topic) => <TopicCard key={topic.id} topic={topic} />)}
+           </div>
+-        </div>
++          </div>
+ 
+-        <div className="space-y-6">
++          <div className="space-y-6">
+           {recommended ? (
+             <motion.section className="glass-panel p-5" initial={{ opacity: 0, x: 18 }} animate={{ opacity: 1, x: 0 }}>
+               <p className="text-sm font-bold uppercase tracking-[0.22em] text-cyan-500 dark:text-cyan-300">{t(dictionary.dashboard.nextLesson)}</p>
+@@ -584,10 +762,30 @@ export function AdaptiveLearningContent() {
+               ) : null}
+             </div>
+           </section>
+-        </div>
+-      </section>
+-
+-      <DashboardProgressDetails />
++          </div>
++        </section>
++      </GalaxyDetailsPanel>
++
++      <GalaxyDetailsPanel
++        detail={t({
++          en: "Weekly activity, mastery areas, weak topics, and recent events are stored as the route archive.",
++          zh: "每週活動、掌握區域、薄弱課題與最近事件會收進航線紀錄。",
++          zhHans: "每周活动、掌握区域、薄弱课题与最近事件会收进航线记录。"
++        })}
++        eyebrow={t({ en: "Archive bay", zh: "紀錄艙", zhHans: "记录舱" })}
++        icon="archive"
++        openLabel={t({ en: "Weekly activity and mastery areas", zh: "每週活動與掌握區域", zhHans: "每周活动与掌握区域" })}
++        title={t({ en: "Progress archive", zh: "進度紀錄", zhHans: "进度记录" })}
++        tone="solar"
++      >
++        {loadSecondaryPanels ? (
++          <DashboardProgressDetails />
++        ) : (
++          <div className="mt-6 rounded-[1.25rem] border border-amber-200/70 bg-white/[0.72] p-5 text-sm font-bold text-slate-600 shadow-lg shadow-cyan-900/10 dark:border-white/10 dark:bg-white/[0.075] dark:text-slate-300">
++            {t({ en: "Preparing progress archive after your route opens.", zh: "正在開啟航線後準備進度紀錄。", zhHans: "正在开启航线后准备进度记录。" })}
++          </div>
++        )}
++      </GalaxyDetailsPanel>
+       <DashboardBackToTopButton />
+     </div>
+   );
+diff --git a/components/dashboard/DashboardBackToTopButton.tsx b/components/dashboard/DashboardBackToTopButton.tsx
+index 616eec7b9..1ec7aab73 100644
+--- a/components/dashboard/DashboardBackToTopButton.tsx
++++ b/components/dashboard/DashboardBackToTopButton.tsx
+@@ -64,10 +64,12 @@ export function DashboardBackToTopButton() {
+         aria-hidden="true"
+         className="absolute inset-0 rounded-full opacity-95 shadow-[0_18px_50px_rgba(14,165,233,0.28)] transition group-hover:shadow-[0_24px_68px_rgba(217,70,239,0.25)]"
+         style={{
+-          background: `conic-gradient(from -90deg, rgba(34,211,238,0.96) ${scrollState.progress * 360}deg, rgba(148,163,184,0.24) 0deg)`
++          background: `conic-gradient(from -90deg, rgba(34,211,238,0.96) ${scrollState.progress * 360}deg, rgba(148,163,184,0.24) 0deg)`,
++          WebkitMask: "radial-gradient(farthest-side, transparent calc(100% - 3px), #000 0)",
++          mask: "radial-gradient(farthest-side, transparent calc(100% - 3px), #000 0)"
+         }}
+       />
+-      <span aria-hidden="true" className="absolute inset-[3px] rounded-full border border-white/65 bg-white/92 backdrop-blur-xl dark:border-white/15 dark:bg-slate-950/90" />
++      <span aria-hidden="true" className="absolute inset-[3px] rounded-full border border-white/[0.65] bg-white/[0.92] backdrop-blur-xl dark:border-white/[0.15] dark:bg-slate-950/90" />
+       <span aria-hidden="true" className="absolute inset-[7px] rounded-full bg-gradient-to-br from-cyan-400/16 via-white/0 to-fuchsia-400/18 dark:from-cyan-300/20 dark:to-fuchsia-300/16" />
+       <span className="relative flex h-full w-full items-center justify-center text-slate-950 transition group-hover:-translate-y-0.5 dark:text-white">
+         <svg viewBox="0 0 24 24" className="h-6 w-6" fill="none" aria-hidden="true">
+diff --git a/components/dashboard/DashboardGradeSelectorGrid.tsx b/components/dashboard/DashboardGradeSelectorGrid.tsx
+index da1234024..f0949d17d 100644
+--- a/components/dashboard/DashboardGradeSelectorGrid.tsx
++++ b/components/dashboard/DashboardGradeSelectorGrid.tsx
+@@ -1,10 +1,17 @@
+ "use client";
+ 
++import { useEffect } from "react";
+ import { primaryGrades, secondaryGrades } from "@/data/grades";
+ import { useSettings } from "@/components/providers/AppProviders";
+ import { formatGradeLabelForCurriculum } from "@/lib/i18n";
+ import { cn } from "@/lib/utils";
+-import type { Grade, GradeId } from "@/types";
++import type { CurriculumTrack, Grade, GradeId } from "@/types";
++
++const unitedStatesCurriculumTracks = new Set<CurriculumTrack>(["US_CA_MATH", "US_NC_MATH", "US_AR_MATH", "US_FL_MATH"]);
++
++function primaryGradesForCurriculumTrack(curriculumTrack: CurriculumTrack) {
++  return unitedStatesCurriculumTracks.has(curriculumTrack) ? primaryGrades : primaryGrades.filter((grade) => grade.id !== "K");
++}
+ 
+ function DashboardGradeButton({
+   active,
+@@ -52,16 +59,46 @@ function DashboardGradeButton({
+ 
+ export function DashboardGradeSelectorGrid() {
+   const { currentUser, language, selectedGrade, setSelectedGrade, t } = useSettings();
+-  const gradeLocked = currentUser?.role === "student";
+   const curriculumTrack = currentUser?.curriculumTrack ?? "HK";
++  const visiblePrimaryGrades = primaryGradesForCurriculumTrack(curriculumTrack);
++  const visibleGrades = [...visiblePrimaryGrades, ...secondaryGrades];
++  const fixedStudentGrade = currentUser?.role === "student" ? currentUser.grade : null;
++  const selectedGradeIsVisible = visibleGrades.some((grade) => grade.id === selectedGrade);
++  const fixedStudentGradeIsVisible = fixedStudentGrade
++    ? visibleGrades.some((grade) => grade.id === fixedStudentGrade)
++    : false;
++  const displayedSelectedGrade = fixedStudentGrade && fixedStudentGradeIsVisible
++    ? fixedStudentGrade
++    : selectedGradeIsVisible ? selectedGrade : visibleGrades[0]?.id ?? "P1";
++  const gradeRowGridClassName = visiblePrimaryGrades.length > 6 ? "grid-cols-4 sm:grid-cols-7" : "grid-cols-3 sm:grid-cols-6";
++
++  useEffect(() => {
++    if (fixedStudentGrade && fixedStudentGradeIsVisible) {
++      if (selectedGrade !== fixedStudentGrade) {
++        setSelectedGrade(fixedStudentGrade);
++      }
++      return;
++    }
++
++    if (!selectedGradeIsVisible) {
++      setSelectedGrade(displayedSelectedGrade);
++    }
++  }, [
++    displayedSelectedGrade,
++    fixedStudentGrade,
++    fixedStudentGradeIsVisible,
++    selectedGrade,
++    selectedGradeIsVisible,
++    setSelectedGrade,
++  ]);
+ 
+   const renderGrade = (grade: Grade) => (
+     <DashboardGradeButton
+       key={grade.id}
+-      active={selectedGrade === grade.id}
++      active={displayedSelectedGrade === grade.id}
+       grade={grade}
+       label={formatGradeLabelForCurriculum(grade.id, language, curriculumTrack, true)}
+-      locked={gradeLocked}
++      locked={Boolean(fixedStudentGrade)}
+       onSelect={setSelectedGrade}
+     />
+   );
+@@ -70,12 +107,12 @@ export function DashboardGradeSelectorGrid() {
+     <div
+       className="grid gap-3"
+       role="radiogroup"
+-      aria-label={t(gradeLocked ? { en: "Fixed grade", zh: "固定年級" } : { en: "Select grade", zh: "選擇年級" })}
++      aria-label={t({ en: "Select grade", zh: "選擇年級", zhHans: "选择年级" })}
+     >
+-      <div className="grid grid-cols-3 gap-3 sm:grid-cols-6" data-testid="dashboard-primary-grade-row">
+-        {primaryGrades.map(renderGrade)}
++      <div className={cn("grid gap-3", gradeRowGridClassName)} data-testid="dashboard-primary-grade-row">
++        {visiblePrimaryGrades.map(renderGrade)}
+       </div>
+-      <div className="grid grid-cols-3 gap-3 sm:grid-cols-6" data-testid="dashboard-secondary-grade-row">
++      <div className={cn("grid gap-3", gradeRowGridClassName)} data-testid="dashboard-secondary-grade-row">
+         {secondaryGrades.map(renderGrade)}
+       </div>
+     </div>
+diff --git a/components/dashboard/StudentProfilePanel.tsx b/components/dashboard/StudentProfilePanel.tsx
+index 1afbb0011..a69626782 100644
+--- a/components/dashboard/StudentProfilePanel.tsx
++++ b/components/dashboard/StudentProfilePanel.tsx
+@@ -2,59 +2,59 @@
+ 
+ import { useEffect, useMemo, useRef, useState, type ChangeEvent } from "react";
+ import { dictionary, useSettings } from "@/components/providers/AppProviders";
+-import { curriculumProfileLabel } from "@/lib/curriculumProfile";
+-import { formatGradeLabel, formatLearnerName } from "@/lib/i18n";
++import { formatLearnerName } from "@/lib/i18n";
+ import { cn } from "@/lib/utils";
+ import type { LocalizedText, StudentAvatarId } from "@/types";
++import { avatarUploadAccept, avatarUploadImageDataUrl, isSupportedAvatarUploadFile } from "./studentProfileAvatarUpload";
+ 
+ type AvatarPreset = {
+   id: StudentAvatarId;
+-  symbol: string;
+   label: LocalizedText;
+   className: string;
++  mascot: AvatarMascot;
+ };
+ 
++type AvatarMascot = "cosmicCat" | "orbitAlien" | "solarPup" | "mintAlien" | "skyBunny" | "novaBlob";
++
+ const avatarPresets: AvatarPreset[] = [
+   {
+     id: "delta",
+-    symbol: "∆",
+-    label: { en: "Delta gradient", zh: "Delta 漸層" },
+-    className: "from-cyan-300 via-violet-400 to-fuchsia-400"
++    label: { en: "Cosmic cat", zh: "星空貓" },
++    className: "from-cyan-300 via-violet-400 to-fuchsia-400",
++    mascot: "cosmicCat"
+   },
+   {
+     id: "pi",
+-    symbol: "π",
+-    label: { en: "Pi focus", zh: "Pi 專注" },
+-    className: "from-emerald-300 via-cyan-400 to-sky-500"
++    label: { en: "Orbit alien", zh: "軌道外星人" },
++    className: "from-emerald-300 via-cyan-400 to-sky-500",
++    mascot: "orbitAlien"
+   },
+   {
+     id: "sigma",
+-    symbol: "Σ",
+-    label: { en: "Sigma mastery", zh: "Sigma 掌握" },
+-    className: "from-amber-200 via-orange-400 to-rose-400"
++    label: { en: "Solar pup", zh: "陽光小狗" },
++    className: "from-amber-200 via-orange-400 to-rose-400",
++    mascot: "solarPup"
+   },
+   {
+     id: "theta",
+-    symbol: "θ",
+-    label: { en: "Theta explorer", zh: "Theta 探索" },
+-    className: "from-lime-200 via-emerald-400 to-teal-500"
++    label: { en: "Mint alien", zh: "薄荷外星人" },
++    className: "from-lime-200 via-emerald-400 to-teal-500",
++    mascot: "mintAlien"
+   },
+   {
+     id: "function",
+-    symbol: "f",
+-    label: { en: "Function lab", zh: "函數實驗" },
+-    className: "from-blue-300 via-indigo-400 to-violet-500"
++    label: { en: "Sky bunny", zh: "天空兔" },
++    className: "from-blue-300 via-indigo-400 to-violet-500",
++    mascot: "skyBunny"
+   },
+   {
+     id: "radical",
+-    symbol: "√",
+-    label: { en: "Radical spark", zh: "根號靈感" },
+-    className: "from-rose-200 via-pink-400 to-purple-500"
++    label: { en: "Nova blob", zh: "新星外星人" },
++    className: "from-rose-200 via-pink-400 to-purple-500",
++    mascot: "novaBlob"
+   }
+ ];
+ 
+-const avatarUploadAccept = "image/jpeg,image/png,image/webp";
+-const maxAvatarUploadBytes = 5 * 1024 * 1024;
+ const maxAvatarImageDataUrlLength = 900_000;
+ const avatarCanvasSize = 384;
+ 
+@@ -62,6 +62,116 @@ function avatarFor(id?: StudentAvatarId) {
+   return avatarPresets.find((avatar) => avatar.id === id) ?? avatarPresets[0];
+ }
+ 
++function MascotAvatar({ mascot }: { mascot: AvatarMascot }) {
++  const commonProps = {
++    "aria-hidden": true,
++    className: "h-full w-full drop-shadow-sm",
++    fill: "none",
++    viewBox: "10 8 76 80"
++  };
++
++  switch (mascot) {
++    case "cosmicCat":
++      return (
++        <svg {...commonProps}>
++          <path d="M26 37 18 18l22 11" fill="#f8fafc" />
++          <path d="M70 37 78 18 56 29" fill="#f8fafc" />
++          <path d="M30 35 24 27l11 5" fill="#f0abfc" opacity="0.8" />
++          <path d="M66 35 72 27l-11 5" fill="#f0abfc" opacity="0.8" />
++          <circle cx="48" cy="53" r="29" fill="#f8fafc" />
++          <circle cx="37" cy="49" r="4.6" fill="#0f172a" />
++          <circle cx="59" cy="49" r="4.6" fill="#0f172a" />
++          <circle cx="38.5" cy="47.5" r="1.4" fill="#ffffff" />
++          <circle cx="60.5" cy="47.5" r="1.4" fill="#ffffff" />
++          <path d="M47 56h2l-1 2.5Z" fill="#f472b6" />
++          <path d="M42 62c3.2 3 8.8 3 12 0" stroke="#0f172a" strokeLinecap="round" strokeWidth="3" />
++          <path d="M25 57h11M26 64h11M60 57h11M59 64h11" stroke="#94a3b8" strokeLinecap="round" strokeWidth="2.4" />
++          <path d="M74 13v9M69.5 17.5h9" stroke="#ffffff" strokeLinecap="round" strokeWidth="3" />
++        </svg>
++      );
++    case "orbitAlien":
++      return (
++        <svg {...commonProps}>
++          <path d="M26 62c13 9 31 10 44 1" stroke="#dffbff" strokeLinecap="round" strokeWidth="5" opacity="0.65" />
++          <path d="M35 30c0-9 26-9 26 0" stroke="#dffbff" strokeLinecap="round" strokeWidth="4" />
++          <circle cx="31" cy="30" r="5" fill="#dcfce7" />
++          <circle cx="65" cy="30" r="5" fill="#dcfce7" />
++          <path d="M23 58c0-20 10.5-32 25-32s25 12 25 32c0 17-11 26-25 26s-25-9-25-26Z" fill="#f8fafc" />
++          <ellipse cx="38" cy="55" rx="7.2" ry="10.5" fill="#0f172a" />
++          <ellipse cx="58" cy="55" rx="7.2" ry="10.5" fill="#0f172a" />
++          <circle cx="40" cy="51" r="2" fill="#ffffff" />
++          <circle cx="60" cy="51" r="2" fill="#ffffff" />
++          <path d="M42 69c4 2.5 8 2.5 12 0" stroke="#22c55e" strokeLinecap="round" strokeWidth="3.2" />
++          <circle cx="48" cy="39" r="3.4" fill="#67e8f9" />
++        </svg>
++      );
++    case "solarPup":
++      return (
++        <svg {...commonProps}>
++          <path d="M24 43c-7 9-4 26 7 28 8 1.5 13-7 10-16-2-7-10-15-17-12Z" fill="#fff7ed" opacity="0.92" />
++          <path d="M72 43c7 9 4 26-7 28-8 1.5-13-7-10-16 2-7 10-15 17-12Z" fill="#fff7ed" opacity="0.92" />
++          <circle cx="48" cy="52" r="29" fill="#fff7ed" />
++          <path d="M29 46c2-10 10-17 19-17s17 7 19 17c-10-6-28-6-38 0Z" fill="#fed7aa" />
++          <circle cx="38" cy="53" r="4.5" fill="#111827" />
++          <circle cx="58" cy="53" r="4.5" fill="#111827" />
++          <path d="M42 61c0-3 12-3 12 0 0 4-3 7-6 7s-6-3-6-7Z" fill="#fb7185" />
++          <path d="M45 59h6l-3 3.5Z" fill="#0f172a" />
++          <path d="M37 72c5.5 4.5 16.5 4.5 22 0" stroke="#fb923c" strokeLinecap="round" strokeWidth="3.2" />
++          <circle cx="30" cy="59" r="3" fill="#fdba74" opacity="0.75" />
++          <circle cx="66" cy="59" r="3" fill="#fdba74" opacity="0.75" />
++        </svg>
++      );
++    case "mintAlien":
++      return (
++        <svg {...commonProps}>
++          <path d="M35 32 25 18M61 32l10-14" stroke="#ecfeff" strokeLinecap="round" strokeWidth="4.2" />
++          <circle cx="24" cy="17" r="5.5" fill="#ecfeff" />
++          <circle cx="72" cy="17" r="5.5" fill="#ecfeff" />
++          <path d="M21 57c0-18 10.5-30 27-30s27 12 27 30c0 19-12 28-27 28s-27-9-27-28Z" fill="#f0fdfa" />
++          <path d="M28 37c8-11 32-11 40 0-10-4-30-4-40 0Z" fill="#99f6e4" />
++          <circle cx="37" cy="54" r="5.5" fill="#0f172a" />
++          <circle cx="59" cy="54" r="5.5" fill="#0f172a" />
++          <circle cx="38.5" cy="52" r="1.6" fill="#ffffff" />
++          <circle cx="60.5" cy="52" r="1.6" fill="#ffffff" />
++          <path d="M42 68c3.5 3 8.5 3 12 0" stroke="#0d9488" strokeLinecap="round" strokeWidth="3.4" />
++          <path d="M23 48c-8 1-11 13-2 18M73 48c8 1 11 13 2 18" stroke="#ecfeff" strokeLinecap="round" strokeWidth="5" />
++        </svg>
++      );
++    case "skyBunny":
++      return (
++        <svg {...commonProps}>
++          <path d="M35 42c-5-19-3-30 5-31 8-1 12 13 9 31" fill="#eff6ff" />
++          <path d="M58 42c4-19 2-30-6-31-8-1-12 13-8 31" fill="#eff6ff" />
++          <path d="M40 36c-2-10-1-17 2-18 3-1 5 7 3 18M54 36c2-10 1-17-2-18-3-1-5 7-3 18" stroke="#c4b5fd" strokeLinecap="round" strokeWidth="4" />
++          <circle cx="48" cy="56" r="28" fill="#eff6ff" />
++          <circle cx="38" cy="55" r="4.4" fill="#111827" />
++          <circle cx="58" cy="55" r="4.4" fill="#111827" />
++          <path d="M46 63h4l-2 3Z" fill="#fb7185" />
++          <path d="M43 70c3 2.4 7 2.4 10 0" stroke="#6366f1" strokeLinecap="round" strokeWidth="3" />
++          <circle cx="31" cy="63" r="4" fill="#f9a8d4" opacity="0.7" />
++          <circle cx="65" cy="63" r="4" fill="#f9a8d4" opacity="0.7" />
++          <path d="M72 24h8M76 20v8" stroke="#ffffff" strokeLinecap="round" strokeWidth="3" />
++        </svg>
++      );
++    case "novaBlob":
++      return (
++        <svg {...commonProps}>
++          <path d="M31 37c-9-1-15-8-15-15 9 1 17 6 20 14" fill="#fdf2f8" />
++          <path d="M65 37c9-1 15-8 15-15-9 1-17 6-20 14" fill="#fdf2f8" />
++          <path d="M20 58c0-18 13-30 28-30s28 12 28 30c0 17-10 27-28 27S20 75 20 58Z" fill="#fdf2f8" />
++          <path d="M33 39c7-8 23-8 30 0" stroke="#f0abfc" strokeLinecap="round" strokeWidth="5" />
++          <circle cx="36" cy="55" r="5" fill="#0f172a" />
++          <circle cx="60" cy="55" r="5" fill="#0f172a" />
++          <circle cx="48" cy="48" r="4.5" fill="#a855f7" />
++          <circle cx="49.5" cy="46.5" r="1.4" fill="#ffffff" />
++          <path d="M41 68c4 3.5 10 3.5 14 0" stroke="#db2777" strokeLinecap="round" strokeWidth="3.4" />
++          <circle cx="29" cy="63" r="3" fill="#f9a8d4" opacity="0.75" />
++          <circle cx="67" cy="63" r="3" fill="#f9a8d4" opacity="0.75" />
++        </svg>
++      );
++  }
++}
++
+ function readFileAsDataUrl(file: File) {
+   return new Promise<string>((resolve, reject) => {
+     const reader = new FileReader();
+@@ -87,11 +197,11 @@ function loadImage(dataUrl: string) {
+ }
+ 
+ async function prepareAvatarImage(file: File) {
+-  if (!avatarUploadAccept.split(",").includes(file.type) || file.size > maxAvatarUploadBytes) {
++  if (!isSupportedAvatarUploadFile(file)) {
+     throw new Error("Unsupported profile image.");
+   }
+ 
+-  const image = await loadImage(await readFileAsDataUrl(file));
++  const image = await loadImage(avatarUploadImageDataUrl(file, await readFileAsDataUrl(file)));
+   const canvas = document.createElement("canvas");
+   canvas.width = avatarCanvasSize;
+   canvas.height = avatarCanvasSize;
+@@ -118,7 +228,7 @@ async function prepareAvatarImage(file: File) {
+ }
+ 
+ export function StudentProfilePanel() {
+-  const { currentUser, language, selectedGrade, t, text, updateProfile } = useSettings();
++  const { currentUser, language, t, text, updateProfile } = useSettings();
+   const fileInputRef = useRef<HTMLInputElement | null>(null);
+   const [draftName, setDraftName] = useState("");
+   const [draftAvatarId, setDraftAvatarId] = useState<StudentAvatarId>("delta");
+@@ -151,8 +261,6 @@ export function StudentProfilePanel() {
+         draftAvatarImageValue !== currentAvatarImageDataUrl)
+   );
+   const canSave = isDirty && cleanDraftName.length >= 2 && cleanDraftName.length <= 48 && !isSaving && !isPreparingImage;
+-  const gradeLabel = formatGradeLabel(currentUser?.grade ?? selectedGrade, language, true);
+-  const courseLabel = currentUser ? t(curriculumProfileLabel(currentUser.curriculumProfile)) : "";
+   const localizedName = useMemo(
+     () => formatLearnerName(currentUser?.name ?? t(dictionary.aiTutor.student), language),
+     [currentUser?.name, language, t]
+@@ -197,7 +305,7 @@ export function StudentProfilePanel() {
+       <div className="flex items-center gap-4">
+         <div
+           className={cn(
+-            "grid h-20 w-20 shrink-0 place-items-center overflow-hidden rounded-[1.75rem] text-4xl font-black text-white shadow-glow ring-1 ring-white/35",
++            "grid h-20 w-20 shrink-0 place-items-center overflow-hidden rounded-[1.75rem] text-white shadow-glow ring-1 ring-white/35",
+             draftAvatarImageDataUrl ? "bg-slate-100 dark:bg-slate-900" : `bg-gradient-to-br ${activeAvatar.className}`
+           )}
+           aria-hidden="true"
+@@ -205,7 +313,7 @@ export function StudentProfilePanel() {
+           {draftAvatarImageDataUrl ? (
+             <img src={draftAvatarImageDataUrl} alt="" className="h-full w-full object-cover" />
+           ) : (
+-            activeAvatar.symbol
++            <MascotAvatar mascot={activeAvatar.mascot} />
+           )}
+         </div>
+         <div className="min-w-0">
+@@ -213,8 +321,6 @@ export function StudentProfilePanel() {
+             {t({ en: "Student profile", zh: "學生檔案" })}
+           </p>
+           <h2 className="mt-1 truncate text-2xl font-black text-slate-950 dark:text-white">{localizedName}</h2>
+-          <p className="mt-1 text-sm font-semibold text-slate-500 dark:text-slate-400">{gradeLabel}</p>
+-          <p className="mt-1 break-words text-sm font-semibold text-cyan-600 [overflow-wrap:anywhere] dark:text-cyan-300">{courseLabel}</p>
+         </div>
+       </div>
+ 
+@@ -249,22 +355,24 @@ export function StudentProfilePanel() {
+                   setStatus("idle");
+                 }}
+                 className={cn(
+-                  "focus-ring grid h-12 place-items-center rounded-2xl border text-xl font-black text-white transition hover:-translate-y-0.5",
++                  "focus-ring grid h-12 place-items-center overflow-hidden rounded-2xl border text-white transition hover:-translate-y-0.5",
+                   `bg-gradient-to-br ${avatar.className}`,
+                   selected ? "border-white shadow-glow ring-2 ring-cyan-300/80" : "border-white/20 opacity-80 hover:opacity-100"
+                 )}
+               >
+-                {avatar.symbol}
++                <MascotAvatar mascot={avatar.mascot} />
+               </button>
+             );
+           })}
++        </div>
++        <div className="mt-3 grid grid-cols-2 gap-3">
+           <button
+             type="button"
+             aria-pressed={Boolean(draftAvatarImageDataUrl)}
+             onClick={() => fileInputRef.current?.click()}
+             disabled={isPreparingImage}
+             className={cn(
+-              "focus-ring col-span-3 flex min-h-12 items-center justify-center rounded-2xl border border-dashed px-3 text-sm font-black transition hover:-translate-y-0.5 disabled:cursor-wait disabled:opacity-70",
++              "focus-ring flex min-h-12 items-center justify-center rounded-2xl border border-dashed px-3 text-center text-sm font-black transition hover:-translate-y-0.5 disabled:cursor-wait disabled:opacity-70",
+               draftAvatarImageDataUrl
+                 ? "border-cyan-300 bg-cyan-50 text-cyan-700 ring-2 ring-cyan-300/70 dark:bg-cyan-300/10 dark:text-cyan-100"
+                 : "border-slate-300 bg-white/80 text-slate-700 hover:border-cyan-300 dark:border-white/15 dark:bg-white/[0.06] dark:text-slate-200"
+@@ -276,6 +384,14 @@ export function StudentProfilePanel() {
+                 ? t({ en: "Photo selected", zh: "已選相片" })
+                 : t({ en: "Upload photo", zh: "上載相片" })}
+           </button>
++          <button
++            type="button"
++            onClick={handleSave}
++            disabled={!canSave}
++            className="focus-ring flex min-h-12 items-center justify-center rounded-2xl bg-slate-950 px-3 text-center text-sm font-black text-white transition hover:-translate-y-0.5 disabled:cursor-not-allowed disabled:opacity-45 dark:bg-white dark:text-slate-950"
++          >
++            {isSaving ? t({ en: "Saving...", zh: "正在儲存..." }) : t({ en: "Save profile", zh: "儲存檔案" })}
++          </button>
+           <input
+             ref={fileInputRef}
+             type="file"
+@@ -287,20 +403,9 @@ export function StudentProfilePanel() {
+           />
+         </div>
+         {uploadError ? <p className="mt-2 text-xs font-bold text-rose-600 dark:text-rose-300">{uploadError}</p> : null}
++        {status === "saved" ? <p className="mt-2 text-sm font-bold text-emerald-600 dark:text-emerald-300">{t({ en: "Saved", zh: "已儲存" })}</p> : null}
++        {status === "error" ? <p className="mt-2 text-sm font-bold text-rose-600 dark:text-rose-300">{t({ en: "Could not save", zh: "無法儲存" })}</p> : null}
+       </fieldset>
+-
+-      <div className="mt-5 flex flex-wrap items-center gap-3">
+-        <button
+-          type="button"
+-          onClick={handleSave}
+-          disabled={!canSave}
+-          className="focus-ring rounded-full bg-slate-950 px-5 py-2.5 text-sm font-black text-white transition hover:-translate-y-0.5 disabled:cursor-not-allowed disabled:opacity-45 dark:bg-white dark:text-slate-950"
+-        >
+-          {isSaving ? t({ en: "Saving...", zh: "正在儲存..." }) : t({ en: "Save profile", zh: "儲存檔案" })}
+-        </button>
+-        {status === "saved" ? <span className="text-sm font-bold text-emerald-600 dark:text-emerald-300">{t({ en: "Saved", zh: "已儲存" })}</span> : null}
+-        {status === "error" ? <span className="text-sm font-bold text-rose-600 dark:text-rose-300">{t({ en: "Could not save", zh: "無法儲存" })}</span> : null}
+-      </div>
+     </section>
+   );
+ }
+diff --git a/components/dashboard/StudentRewardsPanel.tsx b/components/dashboard/StudentRewardsPanel.tsx
+index 31777e3b0..f808b8c10 100644
+--- a/components/dashboard/StudentRewardsPanel.tsx
++++ b/components/dashboard/StudentRewardsPanel.tsx
+@@ -1,6 +1,6 @@
+ "use client";
+ 
+-import { useEffect, useMemo, useState } from "react";
++import { useEffect, useId, useMemo, useState } from "react";
+ import { useSettings } from "@/components/providers/AppProviders";
+ import { localeForLanguage } from "@/lib/i18n";
+ import { cn } from "@/lib/utils";
+@@ -132,6 +132,76 @@ function MetricChip({ label, value }: { label: string; value: number }) {
+   );
+ }
+ 
++function RewardsDockBackdrop() {
++  return (
++    <>
++      <div
++        aria-hidden="true"
++        className="absolute inset-0 dark:hidden"
++        style={{
++          background:
++            "radial-gradient(circle at 14% 16%, rgba(16,185,129,0.18), transparent 26%), radial-gradient(circle at 80% 22%, rgba(14,165,233,0.16), transparent 28%), radial-gradient(circle at 74% 78%, rgba(245,158,11,0.1), transparent 24%), linear-gradient(135deg, #ecfdf5 0%, #f8fbff 48%, #eefaff 100%)"
++        }}
++      />
++      <div
++        aria-hidden="true"
++        className="absolute inset-0 hidden dark:block"
++        style={{
++          background:
++            "radial-gradient(circle at 14% 16%, rgba(85,244,178,0.2), transparent 26%), radial-gradient(circle at 80% 22%, rgba(70,243,255,0.16), transparent 28%), radial-gradient(circle at 74% 78%, rgba(250,204,21,0.1), transparent 24%), linear-gradient(135deg, #071022 0%, #0c0b24 46%, #06252d 100%)"
++        }}
++      />
++      <div
++        aria-hidden="true"
++        className="absolute inset-0 opacity-45 dark:hidden"
++        style={{
++          backgroundImage:
++            "radial-gradient(circle, rgba(14,165,233,0.32) 0 1px, transparent 1.4px), radial-gradient(circle, rgba(16,185,129,0.26) 0 1px, transparent 1.4px), radial-gradient(circle, rgba(245,158,11,0.28) 0 1px, transparent 1.5px)",
++          backgroundPosition: "0 0, 32px 28px, 74px 42px",
++          backgroundSize: "92px 92px, 132px 132px, 172px 172px"
++        }}
++      />
++      <div
++        aria-hidden="true"
++        className="absolute inset-0 hidden opacity-55 dark:block"
++        style={{
++          backgroundImage:
++            "radial-gradient(circle, rgba(255,255,255,0.86) 0 1px, transparent 1.4px), radial-gradient(circle, rgba(70,243,255,0.7) 0 1px, transparent 1.4px), radial-gradient(circle, rgba(255,209,102,0.68) 0 1px, transparent 1.5px)",
++          backgroundPosition: "0 0, 32px 28px, 74px 42px",
++          backgroundSize: "92px 92px, 132px 132px, 172px 172px"
++        }}
++      />
++    </>
++  );
++}
++
++function RewardPointsIcon() {
++  return (
++    <svg aria-hidden="true" viewBox="0 0 32 32" className="h-7 w-7 fill-none stroke-current stroke-[2.4]">
++      <ellipse cx="16" cy="10" rx="8" ry="4" />
++      <path d="M8 10v6c0 2.2 3.6 4 8 4s8-1.8 8-4v-6" />
++      <path d="M8 16v6c0 2.2 3.6 4 8 4s8-1.8 8-4v-6" />
++      <path d="M11.5 13c1.3.7 2.8 1 4.5 1s3.2-.3 4.5-1" />
++    </svg>
++  );
++}
++
++function ExpandIcon({ expanded }: { expanded: boolean }) {
++  return (
++    <span
++      className={cn(
++        "grid h-12 w-12 shrink-0 place-items-center rounded-full bg-cyan-100/80 text-cyan-800 transition dark:bg-white/15 dark:text-white",
++        expanded ? "rotate-45" : ""
++      )}
++    >
++      <svg aria-hidden="true" viewBox="0 0 32 32" className="h-6 w-6 fill-none stroke-current stroke-[2.4]">
++        <path d="M16 7v18" />
++        <path d="M7 16h18" />
++      </svg>
++    </span>
++  );
++}
++
+ function EmptyRequestsFallback() {
+   const { t } = useSettings();
+ 
+@@ -144,8 +214,10 @@ function EmptyRequestsFallback() {
+ 
+ export function StudentRewardsPanel() {
+   const { currentUser, language, t, text } = useSettings();
++  const expandedContentId = useId();
+   const [rewards, setRewards] = useState<StudentRewardsData | null>(null);
+   const [isLoading, setIsLoading] = useState(true);
++  const [isExpanded, setIsExpanded] = useState(false);
+   const [loadError, setLoadError] = useState("");
+   const [pendingItemId, setPendingItemId] = useState("");
+   const [statusMessage, setStatusMessage] = useState("");
+@@ -231,119 +303,167 @@ export function StudentRewardsPanel() {
+         { label: t({ en: "redeemed", zh: "已兌換" }), value: rewards.summary.spent }
+       ]
+     : [];
++  const collapsedDetail = loadError
++    ? loadError
++    : isLoading
++      ? t({ en: "Loading points and reward shop.", zh: "正在載入積分與獎品兌換。" })
++      : rewards
++        ? t({
++            en: `${formatPointValue(rewards.summary.available, language)} points ready for teacher-approved gifts.`,
++            zh: `${formatPointValue(rewards.summary.available, language)} 積分可用於申請教師批核獎品。`
++          })
++        : t({ en: "Open reward shop to review points, earning rules, and requests.", zh: "開啟獎品兌換以查看積分、賺分方法與申請。" });
+ 
+   return (
+-    <section aria-labelledby="student-rewards-title" className="glass-panel mt-6 overflow-hidden p-5 sm:p-6">
+-      <div className="grid gap-4 lg:grid-cols-[minmax(0,1fr)_minmax(17rem,22rem)] lg:items-stretch">
+-        <div className="flex min-w-0 flex-col justify-between rounded-2xl border border-slate-200/70 bg-white/60 p-5 dark:border-white/10 dark:bg-white/[0.045]">
+-          <div>
+-            <p className="text-sm font-black uppercase text-cyan-600 dark:text-cyan-300">{t({ en: "Points system", zh: "積分系統" })}</p>
+-            <h2 id="student-rewards-title" className="mt-2 text-3xl font-black text-slate-950 dark:text-white sm:text-4xl">
+-              {t({ en: "Points balance", zh: "積分結餘" })}
+-            </h2>
++    <section aria-labelledby="student-rewards-title" className="mt-6">
++      <details
++        className="group"
++        onToggle={(event) => setIsExpanded(event.currentTarget.open)}
++      >
++        <summary className="focus-ring relative min-w-0 cursor-pointer list-none overflow-hidden rounded-[2rem] border border-cyan-100/80 bg-sky-50 text-left text-slate-950 shadow-2xl shadow-cyan-900/10 transition hover:-translate-y-0.5 dark:border-white/10 dark:bg-slate-950 dark:text-white dark:shadow-cyan-950/20 [&::-webkit-details-marker]:hidden">
++          <RewardsDockBackdrop />
++          <div className="relative z-10 grid gap-4 p-5 sm:grid-cols-[auto_minmax(0,1fr)_auto] sm:items-center sm:p-6">
++            <span className="relative grid h-16 w-16 shrink-0 place-items-center rounded-full bg-gradient-to-br from-lime-200 via-emerald-400 to-teal-500 text-slate-950 shadow-2xl shadow-emerald-400/30">
++              <span aria-hidden="true" className="absolute -inset-[14%] rounded-full border border-white/60 opacity-70 dark:border-white/25" />
++              <span aria-hidden="true" className="absolute -inset-[34%] rounded-full bg-cyan-100/30 blur-xl dark:bg-white/10" />
++              <span className="relative z-10 drop-shadow-[0_2px_10px_rgba(255,255,255,0.28)]">
++                <RewardPointsIcon />
++              </span>
++            </span>
++            <div className="min-w-0">
++              <h2 id="student-rewards-title" className="text-2xl font-black leading-tight text-slate-950 dark:text-white sm:text-3xl">
++                {t({ en: "Points balance", zh: "積分結餘" })}
++              </h2>
++              <p className={cn(
++                "mt-2 max-w-3xl text-sm font-bold leading-6 sm:text-base",
++                loadError ? "text-rose-700 dark:text-rose-200" : "text-slate-600 dark:text-slate-300"
++              )}>
++                {collapsedDetail}
++              </p>
++            </div>
++            <span className="inline-flex h-20 w-full max-w-full items-center justify-between gap-4 rounded-[1.6rem] border border-emerald-200/80 bg-emerald-100/75 px-4 py-2 text-base font-black leading-tight text-emerald-800 shadow-[0_14px_30px_rgba(15,23,42,0.10)] backdrop-blur-md transition dark:border-emerald-200/30 dark:bg-emerald-300/[0.12] dark:text-emerald-100 dark:shadow-[inset_0_0_0_1px_rgba(255,255,255,0.04),0_14px_30px_rgba(15,23,42,0.24)] sm:w-80 sm:text-lg">
++              <span className="min-w-0 flex-1 break-words text-left leading-tight">
++                {isExpanded ? t({ en: "Hide reward shop", zh: "收起獎品兌換" }) : t({ en: "Open reward shop", zh: "開啟獎品兌換" })}
++              </span>
++              <ExpandIcon expanded={isExpanded} />
++            </span>
+           </div>
+-
+-          {isLoading ? <p className="mt-4 text-sm font-bold text-cyan-700 dark:text-cyan-200">{t({ en: "Loading points...", zh: "正在載入積分..." })}</p> : null}
+-          {loadError ? <p className="mt-4 text-sm font-bold text-rose-700 dark:text-rose-200">{loadError}</p> : null}
+-        </div>
+-
+-        <div className="rounded-2xl border border-cyan-300/50 bg-cyan-400/10 p-5 text-left shadow-inner shadow-cyan-100/40 dark:shadow-none">
+-          <p className="text-sm font-black text-cyan-700 dark:text-cyan-200">{t({ en: "available points", zh: "可用積分" })}</p>
+-          <p className="mt-3 break-words text-6xl font-black leading-none gradient-text sm:text-7xl">{formatPointValue(rewards?.summary.available ?? 0, language)}</p>
+-          <p className="mt-3 text-sm font-bold text-slate-500 dark:text-slate-400">
+-            {t({ en: "ready for teacher-approved gifts", zh: "可用於申請教師批核獎品" })}
+-          </p>
+-        </div>
+-      </div>
+-
+-      {rewards ? (
+-        <>
+-          <dl className="mt-4 grid gap-3 sm:grid-cols-3">
+-            {summaryStats.map((stat) => (
+-              <MetricChip key={stat.label} label={stat.label} value={stat.value} />
+-            ))}
+-          </dl>
+-
+-          <div className="mt-6 grid gap-6 xl:grid-cols-[minmax(18rem,0.38fr)_minmax(0,1fr)] xl:items-start">
+-            <section aria-labelledby="earn-more-title" className="soft-panel p-4 sm:p-5">
+-              <div className="flex flex-wrap items-end justify-between gap-2">
+-                <h3 id="earn-more-title" className="text-base font-black text-slate-950 dark:text-white">{t({ en: "Earn more", zh: "賺取更多積分" })}</h3>
+-                <p className="text-xs font-bold text-slate-500 dark:text-slate-400">{t({ en: "Ways to earn", zh: "賺分方法" })}</p>
+-              </div>
+-
+-              <div className="mt-3 divide-y divide-slate-200/70 dark:divide-white/10">
+-                {rewards.earnRules.map((rule) => (
+-                  <div key={rule.id} className="grid gap-3 py-3 first:pt-0 last:pb-0 sm:grid-cols-[minmax(0,1fr)_auto] sm:items-center">
+-                    <div className="min-w-0">
+-                      <p className="text-sm font-black leading-5 text-slate-800 dark:text-slate-100">{text(rule.label)}</p>
+-                      <p className="mt-1 text-sm leading-6 text-slate-500 dark:text-slate-400">{text(rule.detail)}</p>
+-                    </div>
+-                    <span className="w-fit rounded-full bg-cyan-400/12 px-3 py-1.5 text-sm font-black text-cyan-700 dark:text-cyan-200">+{formatPointValue(rule.points, language)}</span>
+-                  </div>
+-                ))}
++        </summary>
++
++        <div id={expandedContentId} className="mt-4">
++          <div className="glass-panel overflow-hidden p-5 sm:p-6">
++            <div className="grid gap-4 lg:grid-cols-[minmax(0,1fr)_minmax(17rem,22rem)] lg:items-stretch">
++              <div className="flex min-w-0 flex-col justify-between rounded-2xl border border-slate-200/70 bg-white/60 p-5 dark:border-white/10 dark:bg-white/[0.045]">
++                <div>
++                  <h3 className="text-3xl font-black text-slate-950 dark:text-white sm:text-4xl">
++                    {t({ en: "Points balance", zh: "積分結餘" })}
++                  </h3>
++                </div>
++
++                {isLoading ? <p className="mt-4 text-sm font-bold text-cyan-700 dark:text-cyan-200">{t({ en: "Loading points...", zh: "正在載入積分..." })}</p> : null}
++                {loadError ? <p className="mt-4 text-sm font-bold text-rose-700 dark:text-rose-200">{loadError}</p> : null}
+               </div>
+-            </section>
+ 
+-            <section aria-labelledby="reward-shop-title">
+-              <div className="flex flex-wrap items-end justify-between gap-3">
+-                <h3 id="reward-shop-title" className="text-base font-black text-slate-950 dark:text-white">{t({ en: "Reward shop", zh: "獎品兌換" })}</h3>
+-                <p className="rounded-full bg-slate-950/[0.05] px-3 py-1.5 text-xs font-bold text-slate-500 dark:bg-white/[0.08] dark:text-slate-400">
+-                  {t({ en: "Teacher approval required", zh: "需教師批核" })}
++              <div className="rounded-2xl border border-cyan-300/50 bg-cyan-400/10 p-5 text-left shadow-inner shadow-cyan-100/40 dark:shadow-none">
++                <p className="text-sm font-black text-cyan-700 dark:text-cyan-200">{t({ en: "available points", zh: "可用積分" })}</p>
++                <p className="mt-3 break-words text-6xl font-black leading-none gradient-text sm:text-7xl">{formatPointValue(rewards?.summary.available ?? 0, language)}</p>
++                <p className="mt-3 text-sm font-bold text-slate-500 dark:text-slate-400">
++                  {t({ en: "ready for teacher-approved gifts", zh: "可用於申請教師批核獎品" })}
+                 </p>
+               </div>
+-              <div className="mt-3 grid gap-4 md:grid-cols-2 2xl:grid-cols-3">
+-                {visibleCatalog.map((item) => {
+-                  const requestStatus = activeRedemptionByItem.get(item.id);
+-
+-                  return (
+-                    <RewardCatalogButton
+-                      key={item.id}
+-                      item={item}
+-                      canRedeem={!requestStatus && item.available && rewards.summary.available >= item.pointsCost}
+-                      isSubmitting={pendingItemId === item.id}
+-                      requestStatus={requestStatus}
+-                      onRedeem={redeem}
+-                    />
+-                  );
+-                })}
+-              </div>
+-            </section>
+-          </div>
++            </div>
+ 
+-          {statusMessage ? <p className="mt-4 text-sm font-bold text-emerald-700 dark:text-emerald-200">{statusMessage}</p> : null}
+-
+-          <div className="mt-6 grid gap-4 lg:grid-cols-2">
+-            <section aria-labelledby="point-history-title" className="soft-panel p-4 sm:p-5">
+-              <h3 id="point-history-title" className="text-base font-black text-slate-950 dark:text-white">{t({ en: "Recent point history", zh: "最近積分紀錄" })}</h3>
+-              <div className="mt-3 grid gap-2">
+-                {rewards.ledger.slice(0, 3).map((entry) => (
+-                  <div key={entry.id} className="grid gap-2 rounded-2xl border border-slate-200/70 bg-white/45 px-4 py-3 text-sm dark:border-white/10 dark:bg-white/[0.035] sm:flex sm:items-center sm:justify-between sm:gap-3">
+-                    <span className="min-w-0 font-bold leading-5 text-slate-600 dark:text-slate-300 sm:truncate">{text(entry.label)}</span>
+-                    <span className={cn("w-fit shrink-0 font-black", entry.amount >= 0 ? "text-emerald-700 dark:text-emerald-200" : "text-rose-700 dark:text-rose-200")}>
+-                      {entry.amount >= 0 ? "+" : ""}{formatPointValue(entry.amount, language)}
+-                    </span>
+-                  </div>
+-                ))}
+-              </div>
+-            </section>
+-
+-            <section aria-labelledby="gift-requests-title" className="soft-panel p-4 sm:p-5">
+-              <h3 id="gift-requests-title" className="text-base font-black text-slate-950 dark:text-white">{t({ en: "Gift requests", zh: "兌換申請" })}</h3>
+-              <div className="mt-3 grid gap-2">
+-                {rewards.redemptions.length ? rewards.redemptions.slice(0, 3).map((request) => (
+-                  <div key={request.id} className="rounded-2xl border border-slate-200/70 bg-white/45 px-4 py-3 text-sm dark:border-white/10 dark:bg-white/[0.035]">
+-                    <div className="grid gap-2 sm:flex sm:items-center sm:justify-between">
+-                      <span className="min-w-0 font-black text-slate-700 dark:text-slate-200">{text(request.item.name)}</span>
+-                      <span className={cn("w-fit max-w-full rounded-full border px-2.5 py-1 text-xs font-black", statusTone(request.status))}>{text(statusLabel(request.status))}</span>
++            {rewards ? (
++              <>
++                <dl className="mt-4 grid gap-3 sm:grid-cols-3">
++                  {summaryStats.map((stat) => (
++                    <MetricChip key={stat.label} label={stat.label} value={stat.value} />
++                  ))}
++                </dl>
++
++                <div className="mt-6 grid gap-6 xl:grid-cols-[minmax(18rem,0.38fr)_minmax(0,1fr)] xl:items-start">
++                  <section aria-labelledby="earn-more-title" className="soft-panel p-4 sm:p-5">
++                    <div className="flex flex-wrap items-end justify-between gap-2">
++                      <h3 id="earn-more-title" className="text-base font-black text-slate-950 dark:text-white">{t({ en: "Earn more", zh: "賺取更多積分" })}</h3>
++                      <p className="text-xs font-bold text-slate-500 dark:text-slate-400">{t({ en: "Ways to earn", zh: "賺分方法" })}</p>
+                     </div>
+-                    <p className="mt-2 font-bold text-slate-500 dark:text-slate-400">{formatDate(request.requestedAt, language)} · {formatPointValue(request.pointsCost, language)} {t({ en: "points", zh: "積分" })}</p>
+-                  </div>
+-                )) : <EmptyRequestsFallback />}
+-              </div>
+-            </section>
++
++                    <div className="mt-3 divide-y divide-slate-200/70 dark:divide-white/10">
++                      {rewards.earnRules.map((rule) => (
++                        <div key={rule.id} className="grid gap-3 py-3 first:pt-0 last:pb-0 sm:grid-cols-[minmax(0,1fr)_auto] sm:items-center">
++                          <div className="min-w-0">
++                            <p className="text-sm font-black leading-5 text-slate-800 dark:text-slate-100">{text(rule.label)}</p>
++                            <p className="mt-1 text-sm leading-6 text-slate-500 dark:text-slate-400">{text(rule.detail)}</p>
++                          </div>
++                          <span className="w-fit rounded-full bg-cyan-400/12 px-3 py-1.5 text-sm font-black text-cyan-700 dark:text-cyan-200">+{formatPointValue(rule.points, language)}</span>
++                        </div>
++                      ))}
++                    </div>
++                  </section>
++
++                  <section aria-labelledby="reward-shop-title">
++                    <div className="flex flex-wrap items-end justify-between gap-3">
++                      <h3 id="reward-shop-title" className="text-base font-black text-slate-950 dark:text-white">{t({ en: "Reward shop", zh: "獎品兌換" })}</h3>
++                      <p className="rounded-full bg-slate-950/[0.05] px-3 py-1.5 text-xs font-bold text-slate-500 dark:bg-white/[0.08] dark:text-slate-400">
++                        {t({ en: "Teacher approval required", zh: "需教師批核" })}
++                      </p>
++                    </div>
++                    <div className="mt-3 grid gap-4 md:grid-cols-2 2xl:grid-cols-3">
++                      {visibleCatalog.map((item) => {
++                        const requestStatus = activeRedemptionByItem.get(item.id);
++
++                        return (
++                          <RewardCatalogButton
++                            key={item.id}
++                            item={item}
++                            canRedeem={!requestStatus && item.available && rewards.summary.available >= item.pointsCost}
++                            isSubmitting={pendingItemId === item.id}
++                            requestStatus={requestStatus}
++                            onRedeem={redeem}
++                          />
++                        );
++                      })}
++                    </div>
++                  </section>
++                </div>
++
++                {statusMessage ? <p className="mt-4 text-sm font-bold text-emerald-700 dark:text-emerald-200">{statusMessage}</p> : null}
++
++                <div className="mt-6 grid gap-4 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)]">
++                  <section aria-labelledby="point-history-title" className="soft-panel min-w-0 overflow-hidden p-4 sm:p-5">
++                    <h3 id="point-history-title" className="text-base font-black text-slate-950 dark:text-white">{t({ en: "Recent point history", zh: "最近積分紀錄" })}</h3>
++                    <div className="mt-3 grid gap-2">
++                      {rewards.ledger.slice(0, 3).map((entry) => (
++                        <div key={entry.id} className="grid min-w-0 gap-2 overflow-hidden rounded-2xl border border-slate-200/70 bg-white/45 px-4 py-3 text-sm dark:border-white/10 dark:bg-white/[0.035] sm:flex sm:items-center sm:justify-between sm:gap-3">
++                          <span className="block min-w-0 flex-1 truncate font-bold leading-5 text-slate-600 dark:text-slate-300">{text(entry.label)}</span>
++                          <span className={cn("w-fit shrink-0 font-black", entry.amount >= 0 ? "text-emerald-700 dark:text-emerald-200" : "text-rose-700 dark:text-rose-200")}>
++                            {entry.amount >= 0 ? "+" : ""}{formatPointValue(entry.amount, language)}
++                          </span>
++                        </div>
++                      ))}
++                    </div>
++                  </section>
++
++                  <section aria-labelledby="gift-requests-title" className="soft-panel min-w-0 overflow-hidden p-4 sm:p-5">
++                    <h3 id="gift-requests-title" className="text-base font-black text-slate-950 dark:text-white">{t({ en: "Gift requests", zh: "兌換申請" })}</h3>
++                    <div className="mt-3 grid gap-2">
++                      {rewards.redemptions.length ? rewards.redemptions.slice(0, 3).map((request) => (
++                        <div key={request.id} className="min-w-0 overflow-hidden rounded-2xl border border-slate-200/70 bg-white/45 px-4 py-3 text-sm dark:border-white/10 dark:bg-white/[0.035]">
++                          <div className="grid min-w-0 gap-2 sm:flex sm:items-center sm:justify-between sm:gap-3">
++                            <span className="block min-w-0 flex-1 truncate font-black text-slate-700 dark:text-slate-200">{text(request.item.name)}</span>
++                            <span className={cn("w-fit max-w-full shrink-0 rounded-full border px-2.5 py-1 text-xs font-black", statusTone(request.status))}>{text(statusLabel(request.status))}</span>
++                          </div>
++                          <p className="mt-2 truncate font-bold text-slate-500 dark:text-slate-400">{formatDate(request.requestedAt, language)} · {formatPointValue(request.pointsCost, language)} {t({ en: "points", zh: "積分" })}</p>
++                        </div>
++                      )) : <EmptyRequestsFallback />}
++                    </div>
++                  </section>
++                </div>
++              </>
++            ) : null}
+           </div>
+-        </>
+-      ) : null}
++        </div>
++      </details>
+     </section>
+   );
+ }
+diff --git a/lib/adaptiveLearning.test.ts b/lib/adaptiveLearning.test.ts
+index 0adb49139..38180c617 100644
+--- a/lib/adaptiveLearning.test.ts
++++ b/lib/adaptiveLearning.test.ts
+@@ -23,7 +23,7 @@ const topics: Topic[] = [
+     title: { en: "Fractions", zh: "分數" },
+     description: { en: "Operate with fractions.", zh: "分數運算。" },
+     status: "in-progress",
+-    difficulty: "Core",
++    difficulty: "Medium",
+     minutes: 20,
+     mastery: 45
+   }
+@@ -35,7 +35,7 @@ const questions: PublicQuestion[] = [
+     grade: "S1",
+     topicId: "fractions",
+     topic: topics[0].title,
+-    difficulty: "Foundation",
++    difficulty: "Low",
+     type: "multiple-choice",
+     prompt: { en: "Foundation fraction item", zh: "分數基礎題" }
+   },
+@@ -45,7 +45,7 @@ const questions: PublicQuestion[] = [
+     grade: "S1",
+     topicId: "fractions",
+     topic: topics[0].title,
+-    difficulty: "Core",
++    difficulty: "Medium",
+     type: "fill-in",
+     prompt: { en: "Core fraction item", zh: "分數核心題" }
+   },
+@@ -55,7 +55,7 @@ const questions: PublicQuestion[] = [
+     grade: "S1",
+     topicId: "fractions",
+     topic: topics[0].title,
+-    difficulty: "Challenge",
++    difficulty: "High",
+     type: "short-answer",
+     prompt: { en: "Challenge fraction item", zh: "分數挑戰題" }
+   },
+@@ -65,7 +65,7 @@ const questions: PublicQuestion[] = [
+     grade: "S1",
+     topicId: "fractions",
+     topic: topics[0].title,
+-    difficulty: "Exam",
++    difficulty: "High",
+     type: "graph",
+     prompt: { en: "Exam fraction item", zh: "分數考試題" }
+   }
+@@ -79,6 +79,50 @@ function state(overrides: Partial<AdaptiveSkillState> & { skillId: string }): Ad
+   };
+ }
+ 
++function zeroEvidenceScenario(status: Topic["status"], grade: Topic["grade"] = "P1") {
++  const scenarioTopics: Topic[] = [
++    {
++      id: `${grade.toLowerCase()}-zero-evidence`,
++      curriculumTrack: "HK",
++      grade,
++      title: { en: `${grade} zero evidence`, zh: `${grade} 零證據` },
++      description: { en: "Synthetic zero-evidence topic.", zh: "合成零證據課題。" },
++      status,
++      difficulty: "Medium",
++      minutes: 20,
++      mastery: 0
++    }
++  ];
++  const scenarioQuestions: PublicQuestion[] = [
++    {
++      id: `${scenarioTopics[0].id}-foundation`,
++      curriculumTrack: "HK",
++      grade,
++      topicId: scenarioTopics[0].id,
++      topic: scenarioTopics[0].title,
++      difficulty: "Low",
++      type: "multiple-choice",
++      prompt: { en: "Foundation diagnostic", zh: "基礎診斷" }
++    },
++    {
++      id: `${scenarioTopics[0].id}-core`,
++      curriculumTrack: "HK",
++      grade,
++      topicId: scenarioTopics[0].id,
++      topic: scenarioTopics[0].title,
++      difficulty: "Medium",
++      type: "short-answer",
++      prompt: { en: "Core diagnostic", zh: "核心診斷" }
++    }
++  ];
++
++  return {
++    scenarioTopics,
++    scenarioQuestions,
++    scenarioComponents: buildKnowledgeComponents({ topics: scenarioTopics, questions: scenarioQuestions })
++  };
++}
++
+ function recommendationFor(candidate: AdaptiveLearningCandidate): AdaptiveLLMRecommendation {
+   return {
+     selectedCandidateId: candidate.candidateId,
+@@ -118,6 +162,32 @@ test("prerequisite gaps choose repair before harder material", () => {
+   assert.equal(decision?.skill.id, "fractions:foundation");
+ });
+ 
++test("zero-history HK students do not get repair-required as the first step", () => {
++  const p1LessonScenario = zeroEvidenceScenario("not-started", "P1");
++  const p1LessonDecision = selectNextAdaptiveAction({
++    components: p1LessonScenario.scenarioComponents,
++    states: [],
++    topics: p1LessonScenario.scenarioTopics,
++    questions: p1LessonScenario.scenarioQuestions,
++    now
++  });
++
++  assert.equal(p1LessonDecision?.action, "lesson");
++  assert.ok(!p1LessonDecision?.guardFlags.includes("repair-required"));
++
++  const s3PracticeScenario = zeroEvidenceScenario("in-progress", "S3");
++  const s3PracticeDecision = selectNextAdaptiveAction({
++    components: s3PracticeScenario.scenarioComponents,
++    states: [],
++    topics: s3PracticeScenario.scenarioTopics,
++    questions: s3PracticeScenario.scenarioQuestions,
++    now
++  });
++
++  assert.equal(s3PracticeDecision?.action, "practice");
++  assert.ok(!s3PracticeDecision?.guardFlags.includes("repair-required"));
++});
++
+ test("due reviews outrank new content", () => {
+   const decision = selectNextAdaptiveAction({
+     components,
+@@ -152,7 +222,49 @@ test("strong mastery unlocks challenge", () => {
+   });
+ 
+   assert.equal(decision?.action, "challenge");
++  assert.equal(decision?.skill.id, "fractions:transfer");
+   assert.ok(decision?.questions.every((question) => question.topicId === "fractions"));
++  assert.ok(decision?.questions.length);
++  assert.ok(decision?.questions.every((question) => question.difficulty === "High"));
++});
++
++test("strong mastery does not emit challenge when no challenge or exam items exist", () => {
++  const easyQuestions = questions.filter((question) => question.difficulty === "Low" || question.difficulty === "Medium");
++  const easyComponents = buildKnowledgeComponents({ topics, questions: easyQuestions });
++  const generated = generateAdaptiveCandidates({
++    components: easyComponents,
++    states: easyComponents.map((component) =>
++      state({
++        skillId: component.id,
++        pMastery: 0.92,
++        attemptCount: 6,
++        correctStreak: 3
++      })
++    ),
++    topics,
++    questions: easyQuestions,
++    now
++  });
++  const decision = selectNextAdaptiveAction({
++    components: easyComponents,
++    states: easyComponents.map((component) =>
++      state({
++        skillId: component.id,
++        pMastery: 0.92,
++        attemptCount: 6,
++        correctStreak: 3
++      })
++    ),
++    topics,
++    questions: easyQuestions,
++    now
++  });
++
++  assert.ok(!generated.candidates.some((candidate) => candidate.action === "challenge"));
++  assert.notEqual(decision?.action, "challenge");
++  assert.equal(decision?.action, "practice");
++  assert.ok((decision?.questions.length ?? 0) > 0);
++  assert.ok(decision?.questions.every((question) => question.difficulty === "Low" || question.difficulty === "Medium"));
+ });
+ 
+ test("explanations match the selected adaptive action", () => {
+@@ -186,6 +298,15 @@ test("candidate generation preserves review and repair guard priority", () => {
+   assert.equal(generated.candidates[0]?.action, "review");
+   assert.ok(generated.candidates.some((candidate) => candidate.hardGuardFlags.includes("repair-required")));
+   assert.equal(generated.deterministicCandidateId, generated.candidates[0]?.candidateId);
++
++  const deterministicReview = generated.candidates[0];
++  assert.ok(deterministicReview);
++  const validated = validateLLMAdaptiveRecommendation({
++    recommendation: recommendationFor(deterministicReview),
++    candidates: generated.candidates
++  });
++
++  assert.equal(validated.valid, true);
+ });
+ 
+ test("valid LLM rerank is accepted and may reorder candidate question ids", () => {
+@@ -428,11 +549,11 @@ test("adaptive LLM request body uses JSON mode without changing default DeepSeek
+     maxTokens: 500,
+     provider: "deepseek"
+   }) as Record<string, unknown>;
+-  const adaptiveOpenAIBody = buildLLMProviderRequestBody({
+-    model: "gpt-4.1-mini",
++  const adaptiveQwenBody = buildLLMProviderRequestBody({
++    model: "qwen3.7-max",
+     messages,
+     maxTokens: 1200,
+-    provider: "openai",
++    provider: "qwen",
+     responseFormat: "json_object"
+   }) as Record<string, unknown>;
+ 
+@@ -442,8 +563,8 @@ test("adaptive LLM request body uses JSON mode without changing default DeepSeek
+   assert.equal(adaptiveDeepSeekBody.max_tokens, 1200);
+   assert.deepEqual(defaultDeepSeekBody.thinking, { type: "enabled" });
+   assert.equal(defaultDeepSeekBody.reasoning_effort, "high");
+-  assert.deepEqual(adaptiveOpenAIBody.response_format, { type: "json_object" });
+-  assert.equal(adaptiveOpenAIBody.max_completion_tokens, 1200);
++  assert.deepEqual(adaptiveQwenBody.response_format, { type: "json_object" });
++  assert.equal(adaptiveQwenBody.max_tokens, 1200);
+ });
+ 
+ test("disabled LLM status keeps the composed decision deterministic", () => {
+diff --git a/lib/adaptiveLearning.ts b/lib/adaptiveLearning.ts
+index 860e7d8d5..7ecf3a5b6 100644
+--- a/lib/adaptiveLearning.ts
++++ b/lib/adaptiveLearning.ts
+@@ -27,11 +27,12 @@ export const adaptiveQuestionSetSize = 5;
+ 
+ const reviewIntervalsDays = [1, 3, 7, 14] as const;
+ const difficultyRanks: Record<Difficulty, number> = {
+-  Foundation: 0,
+-  Core: 1,
+-  Challenge: 2,
+-  Exam: 3
++  Low: 0,
++  Medium: 1,
++  High: 2
+ };
++const ascendingDifficultyOrder = ["Low", "Medium", "High"] satisfies Difficulty[];
++const descendingDifficultyOrder = ["High", "Medium", "Low"] satisfies Difficulty[];
+ const skillStages = ["foundation", "fluency", "transfer"] as const;
+ 
+ type SkillStage = (typeof skillStages)[number];
+@@ -103,21 +104,26 @@ function stageDescription(topic: KnowledgeComponentTopic, stage: SkillStage) {
+ }
+ 
+ function stageDifficulty(topic: KnowledgeComponentTopic, stage: SkillStage): Difficulty {
+-  if (stage === "foundation") return "Foundation";
+-  if (stage === "fluency") return topic.difficulty === "Foundation" ? "Core" : topic.difficulty;
+-  return topic.difficulty === "Exam" ? "Exam" : "Challenge";
++  if (stage === "foundation") return "Low";
++  if (stage === "fluency") return difficultyRanks[topic.difficulty] <= difficultyRanks.Low ? "Medium" : topic.difficulty;
++  return "High";
+ }
+ 
+ function questionIdsForStage(questions: KnowledgeComponentQuestion[], stage: SkillStage) {
+   const stageQuestions = questions.filter((question) => {
+-    if (stage === "foundation") return question.difficulty === "Foundation" || question.difficulty === "Core";
+-    if (stage === "fluency") return question.difficulty === "Core" || question.difficulty === "Challenge";
+-    return question.difficulty === "Challenge" || question.difficulty === "Exam" || question.type === "graph";
++    const rank = difficultyRanks[question.difficulty];
++    if (stage === "foundation") return rank <= difficultyRanks.Medium;
++    if (stage === "fluency") return rank >= difficultyRanks.Medium;
++    return isChallengeDifficulty(question.difficulty) || question.type === "graph";
+   });
+ 
+   return (stageQuestions.length ? stageQuestions : questions).map((question) => question.id);
+ }
+ 
++function isChallengeDifficulty(difficulty: Difficulty) {
++  return difficultyRanks[difficulty] >= difficultyRanks.High;
++}
++
+ function misconceptionTagsForStage(topicId: string, questions: KnowledgeComponentQuestion[], stage: SkillStage) {
+   const typeTags = Array.from(new Set(questions.map((question) => `${question.type}-error`))).sort();
+   const stageTag = stage === "foundation" ? "concept-gap" : stage === "fluency" ? "procedure-slip" : "transfer-gap";
+@@ -257,10 +263,10 @@ function sortSkillSummaries(summaries: AdaptiveSkillSummary[], topics: Topic[],
+ }
+ 
+ function questionDifficultyOrder(action: AdaptiveActionType, difficulty: Difficulty) {
+-  if (action === "challenge") return ["Exam", "Challenge", "Core", "Foundation"] satisfies Difficulty[];
+-  if (action === "repair" || action === "lesson") return ["Foundation", "Core", "Challenge", "Exam"] satisfies Difficulty[];
++  if (action === "challenge") return descendingDifficultyOrder;
++  if (action === "repair" || action === "lesson") return ascendingDifficultyOrder;
+ 
+-  return (["Foundation", "Core", "Challenge", "Exam"] as Difficulty[]).sort((left, right) => {
++  return [...ascendingDifficultyOrder].sort((left, right) => {
+     const leftDistance = Math.abs(difficultyRanks[left] - difficultyRanks[difficulty]);
+     const rightDistance = Math.abs(difficultyRanks[right] - difficultyRanks[difficulty]);
+     return leftDistance - rightDistance || difficultyRanks[left] - difficultyRanks[right];
+@@ -281,7 +287,17 @@ export function selectAdaptiveQuestions({
+   const linkedIds = new Set(skill.questionIds);
+   const linkedQuestions = questions.filter((question) => linkedIds.has(question.id));
+   const topicQuestions = questions.filter((question) => question.topicId === skill.topicId);
+-  const candidates = linkedQuestions.length ? linkedQuestions : topicQuestions;
++  const challengeLinkedQuestions = linkedQuestions.filter((question) => isChallengeDifficulty(question.difficulty));
++  const challengeTopicQuestions = topicQuestions.filter((question) => isChallengeDifficulty(question.difficulty));
++  const candidates = action === "challenge"
++    ? challengeLinkedQuestions.length
++      ? challengeLinkedQuestions
++      : challengeTopicQuestions.length
++        ? challengeTopicQuestions
++        : []
++    : linkedQuestions.length
++      ? linkedQuestions
++      : topicQuestions;
+   const difficultyOrder = questionDifficultyOrder(action, skill.difficulty);
+ 
+   return [...candidates]
+@@ -295,6 +311,17 @@ export function selectAdaptiveQuestions({
+     .slice(0, limit);
+ }
+ 
++function hasAdaptiveEvidence(state: AdaptiveSkillState) {
++  return (
++    state.attemptCount > 0 ||
++    state.correctStreak > 0 ||
++    state.wrongStreak > 0 ||
++    state.hintCount > 0 ||
++    Boolean(state.lastPracticedAt) ||
++    state.misconceptionTags.length > 0
++  );
++}
++
+ function dueReviewSummaries(summaries: AdaptiveSkillSummary[], now: Date) {
+   return summaries
+     .filter((summary) => {
+@@ -316,7 +343,7 @@ function prerequisiteRepairSummary(summaries: AdaptiveSkillSummary[], ordered: A
+     const weakPrerequisite = summary.skill.prerequisites
+       .map((id) => byId.get(id))
+       .find((candidate): candidate is AdaptiveSkillSummary =>
+-        Boolean(candidate && candidate.state.pMastery < adaptivePrerequisiteThreshold)
++        Boolean(candidate && hasAdaptiveEvidence(candidate.state) && candidate.state.pMastery < adaptivePrerequisiteThreshold)
+       );
+     if (weakPrerequisite) return weakPrerequisite;
+   }
+@@ -341,8 +368,25 @@ function practiceSummary(ordered: AdaptiveSkillSummary[]) {
+   return ordered.find((summary) => summary.state.pMastery < adaptiveMasteryThreshold) ?? null;
+ }
+ 
+-function challengeSummary(ordered: AdaptiveSkillSummary[]) {
+-  return ordered.find((summary) => summary.state.pMastery >= adaptiveMasteryThreshold && summary.state.correctStreak >= 2) ?? null;
++function hasChallengeQuestionsForSkill(questions: PublicQuestion[], skill: KnowledgeComponent) {
++  return questions.some((question) =>
++    question.topicId === skill.topicId &&
++    isChallengeDifficulty(question.difficulty)
++  );
++}
++
++function challengeSummary(ordered: AdaptiveSkillSummary[], questions: PublicQuestion[]) {
++  const orderedIndex = new Map(ordered.map((summary, index) => [summary.skill.id, index]));
++  return ordered
++    .filter((summary) =>
++      summary.state.pMastery >= adaptiveMasteryThreshold &&
++      summary.state.correctStreak >= 2 &&
++      hasChallengeQuestionsForSkill(questions, summary.skill)
++    )
++    .sort((left, right) =>
++      difficultyRanks[right.skill.difficulty] - difficultyRanks[left.skill.difficulty] ||
++      (orderedIndex.get(left.skill.id) ?? 999) - (orderedIndex.get(right.skill.id) ?? 999)
++    )[0] ?? null;
+ }
+ 
+ function candidateIdFor(action: AdaptiveActionType, summary: AdaptiveSkillSummary) {
+@@ -486,10 +530,13 @@ export function generateAdaptiveCandidates({
+   candidateSignature: string;
+ } {
+   const nowDate = new Date(now);
++  const requestedTopicId = topicId?.trim() || null;
+   const topicById = new Map(topics.map((topic) => [topic.id, topic]));
++  const topicIdsWithQuestions = new Set(questions.map((question) => question.topicId));
+   const eligibleComponents = components.filter((component) => {
+     const topic = topicById.get(component.topicId);
+     if (!topic) return false;
++    if (!topicIdsWithQuestions.has(component.topicId)) return false;
+     if (grade && component.grade !== grade) return false;
+     return true;
+   });
+@@ -511,18 +558,30 @@ export function generateAdaptiveCandidates({
+       deterministicCandidateId: "",
+       skillMap: [],
+       dueReviews: [],
+-      candidateSignature: candidateSignatureFor({ candidates: [], grade, topicId })
++      candidateSignature: candidateSignatureFor({ candidates: [], grade, topicId: requestedTopicId })
+     };
+   }
+ 
+-  const ordered = sortSkillSummaries(summaries, topics, topicId);
+-  const dueReviews = dueReviewSummaries(summaries, nowDate);
++  const focusTopicId = requestedTopicId && topicById.has(requestedTopicId) ? requestedTopicId : null;
++  const candidateSummaries = focusTopicId ? summaries.filter((summary) => summary.skill.topicId === focusTopicId) : summaries;
++  if (!candidateSummaries.length) {
++    return {
++      candidates: [],
++      deterministicCandidateId: "",
++      skillMap: sortSkillSummaries(summaries, topics, focusTopicId),
++      dueReviews: [],
++      candidateSignature: candidateSignatureFor({ candidates: [], grade, topicId: focusTopicId })
++    };
++  }
++
++  const ordered = sortSkillSummaries(candidateSummaries, topics, focusTopicId);
++  const dueReviews = dueReviewSummaries(candidateSummaries, nowDate);
+   const dueReview = dueReviews[0] ?? null;
+   const prerequisiteRepair = prerequisiteRepairSummary(summaries, ordered);
+   const attemptedRepair = attemptedRepairSummary(ordered);
+   const lesson = lessonSummary(ordered);
+   const practice = practiceSummary(ordered);
+-  const challenge = challengeSummary(ordered);
++  const challenge = challengeSummary(ordered, questions);
+   const fallback = ordered[0];
+   const selections = uniqueSelections([
+     dueReview
+@@ -617,7 +676,7 @@ export function generateAdaptiveCandidates({
+     deterministicCandidateId,
+     skillMap: ordered,
+     dueReviews,
+-    candidateSignature: candidateSignatureFor({ candidates, grade, topicId })
++    candidateSignature: candidateSignatureFor({ candidates, grade, topicId: focusTopicId })
+   };
+ }
+ 
+@@ -898,11 +957,14 @@ export function validateLLMAdaptiveRecommendation({
+   const candidate = candidates.find((item) => item.candidateId === record.selectedCandidateId);
+   if (!candidate) return { valid: false, reason: "candidate-not-generated" };
+ 
+-  if (candidates.some((item) => item.hardGuardFlags.includes("due-review")) && candidate.action !== "review") {
++  const hasDueReviewGuard = candidates.some((item) => item.hardGuardFlags.includes("due-review"));
++  const hasRepairGuard = candidates.some((item) => item.hardGuardFlags.includes("repair-required"));
++
++  if (hasDueReviewGuard && candidate.action !== "review") {
+     return { valid: false, reason: "due-review-required" };
+   }
+ 
+-  if (candidates.some((item) => item.hardGuardFlags.includes("repair-required")) && candidate.action !== "repair") {
++  if (!hasDueReviewGuard && hasRepairGuard && candidate.action !== "repair") {
+     return { valid: false, reason: "repair-required" };
+   }
+ 
+@@ -967,7 +1029,7 @@ export function classifyAdaptiveLLMError(
+   if (!error) return undefined;
+   if (adaptiveFormatFailureReasons.has(error)) return "format";
+   if (adaptiveGuardrailFailureReasons.has(error)) return "guardrail";
+-  if (status === "disabled" || error.includes("Missing LLM_API_KEY") || error.includes("OPENAI_API_KEY")) return "configuration";
++  if (status === "disabled" || error.includes("Missing DEEPSEEK_API_KEY")) return "configuration";
+   if (error.toLowerCase().includes("rate limit")) return "rate-limit";
+   return "provider";
+ }
+diff --git a/lib/curriculumProfile.ts b/lib/curriculumProfile.ts
+index 431918b6e..506d9d634 100644
+--- a/lib/curriculumProfile.ts
++++ b/lib/curriculumProfile.ts
+@@ -8,18 +8,21 @@ import type {
+ 
+ export const curriculumRegions = ["MAINLAND", "US", "HK"] as const satisfies CurriculumRegion[];
+ export const textbookPublishers = [
++  "HK_MODERN_EDUCATIONAL_RESEARCH_SOCIETY",
+   "HK_UNITED_PRIME_MIA",
+   "HK_EPH_MIF",
+   "MAINLAND_PEP",
+   "MAINLAND_BNU",
+   "MAINLAND_HJB",
+   "US_CA_MATH",
+-  "US_NC_MATH"
++  "US_NC_MATH",
++  "US_AR_MATH",
++  "US_FL_MATH"
+ ] as const satisfies TextbookPublisher[];
+ 
+ export const defaultHongKongCurriculumProfile: CurriculumProfile = {
+   region: "HK",
+-  publisher: "HK_UNITED_PRIME_MIA"
++  publisher: "HK_MODERN_EDUCATIONAL_RESEARCH_SOCIETY"
+ };
+ 
+ export const defaultMainlandCurriculumProfile: CurriculumProfile = {
+@@ -35,16 +38,24 @@ export const defaultUnitedStatesCurriculumProfile: CurriculumProfile = {
+ export const defaultCurriculumProfile = defaultHongKongCurriculumProfile;
+ 
+ const publisherRegion: Record<TextbookPublisher, CurriculumRegion> = {
++  HK_MODERN_EDUCATIONAL_RESEARCH_SOCIETY: "HK",
+   HK_UNITED_PRIME_MIA: "HK",
+   HK_EPH_MIF: "HK",
+   MAINLAND_PEP: "MAINLAND",
+   MAINLAND_BNU: "MAINLAND",
+   MAINLAND_HJB: "MAINLAND",
+   US_CA_MATH: "US",
+-  US_NC_MATH: "US"
++  US_NC_MATH: "US",
++  US_AR_MATH: "US",
++  US_FL_MATH: "US"
+ };
+ 
+ export const publisherLabels: Record<TextbookPublisher, LocalizedText> = {
++  HK_MODERN_EDUCATIONAL_RESEARCH_SOCIETY: {
++    en: "HK Modern Primary Math",
++    zh: "香港現代小學數學",
++    zhHans: "香港现代小学数学"
++  },
+   HK_UNITED_PRIME_MIA: {
+     en: "DSE UP",
+     zh: "DSE UP",
+@@ -71,14 +82,24 @@ export const publisherLabels: Record<TextbookPublisher, LocalizedText> = {
+     zhHans: "沪教版数学"
+   },
+   US_CA_MATH: {
+-    en: "California Curriculum",
+-    zh: "加州課程",
+-    zhHans: "加州课程"
++    en: "California Math Practice Beta",
++    zh: "California Math Practice Beta",
++    zhHans: "California Math Practice Beta"
+   },
+   US_NC_MATH: {
+     en: "North Carolina Curriculum",
+     zh: "北卡課程",
+     zhHans: "北卡课程"
++  },
++  US_AR_MATH: {
++    en: "Arkansas Curriculum",
++    zh: "阿肯色州課程",
++    zhHans: "阿肯色州课程"
++  },
++  US_FL_MATH: {
++    en: "Florida Curriculum",
++    zh: "佛州課程",
++    zhHans: "佛州课程"
+   }
+ };
+ 
+@@ -99,7 +120,7 @@ export function isTextbookPublisher(value: unknown): value is TextbookPublisher
+ export function publisherForRegion(region: CurriculumRegion): TextbookPublisher {
+   if (region === "MAINLAND") return "MAINLAND_PEP";
+   if (region === "US") return "US_CA_MATH";
+-  return "HK_UNITED_PRIME_MIA";
++  return "HK_MODERN_EDUCATIONAL_RESEARCH_SOCIETY";
+ }
+ 
+ export function curriculumProfileForPublisher(publisher: TextbookPublisher): CurriculumProfile {
+@@ -113,12 +134,16 @@ export function curriculumProfileForTrack(track?: CurriculumTrack | null): Curri
+   if (track === "MAINLAND_PEP_HIGH") return defaultMainlandCurriculumProfile;
+   if (track === "US_CA_MATH") return defaultUnitedStatesCurriculumProfile;
+   if (track === "US_NC_MATH") return { region: "US", publisher: "US_NC_MATH" };
++  if (track === "US_AR_MATH") return { region: "US", publisher: "US_AR_MATH" };
++  if (track === "US_FL_MATH") return { region: "US", publisher: "US_FL_MATH" };
+   return defaultHongKongCurriculumProfile;
+ }
+ 
+ export function curriculumTrackForProfile(profile?: CurriculumProfile | null): CurriculumTrack {
+   if (profile?.publisher === "US_CA_MATH") return "US_CA_MATH";
+   if (profile?.publisher === "US_NC_MATH") return "US_NC_MATH";
++  if (profile?.publisher === "US_AR_MATH") return "US_AR_MATH";
++  if (profile?.publisher === "US_FL_MATH") return "US_FL_MATH";
+   if (profile?.region === "MAINLAND") return "MAINLAND_PEP_HIGH";
+   return "HK";
+ }
+@@ -165,8 +190,10 @@ export function contentMatchesCurriculumProfile(
+   if (content.curriculumTrack === "MAINLAND_PEP_HIGH") return content.publisher ? content.publisher === profile.publisher : profile.publisher === "MAINLAND_PEP";
+   if (content.curriculumTrack === "US_CA_MATH") return profile.publisher === "US_CA_MATH";
+   if (content.curriculumTrack === "US_NC_MATH") return profile.publisher === "US_NC_MATH";
+-  if (content.curriculumTrack === "HK") return profile.region === "HK";
++  if (content.curriculumTrack === "US_AR_MATH") return profile.publisher === "US_AR_MATH";
++  if (content.curriculumTrack === "US_FL_MATH") return profile.publisher === "US_FL_MATH";
+   if (content.publisher) return content.publisher === profile.publisher;
++  if (content.curriculumTrack === "HK") return profile.region === "HK";
+   if (content.region) return content.region === profile.region;
+   return false;
+ }

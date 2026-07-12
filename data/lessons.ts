@@ -1,5 +1,7 @@
 import type { LearningAnalyticsEventSource, LessonBlockType, LocalizedText } from "@/types";
 import type { VisualizationModuleId } from "@/data/visualizationLabs";
+import { mainlandBnuHighLessonSeeds } from "./mainlandBnuHighLessons";
+import { mainlandBnuJuniorLessonSeeds } from "./mainlandBnuJuniorLessons";
 import { mainlandBnuPrimaryLessonSeeds } from "./mainlandBnuPrimaryLessons";
 import { mainlandHjbHighLessonSeeds } from "./mainlandHjbHighLessons";
 import { mainlandHjbJuniorLessonSeeds } from "./mainlandHjbJuniorLessons";
@@ -7,6 +9,9 @@ import { mainlandHjbPrimaryLessonSeeds } from "./mainlandHjbPrimaryLessons";
 import { mainlandPepHighLessonSeeds } from "./mainlandPepHighLessons";
 import { mainlandPepJuniorLessonSeeds } from "./mainlandPepJuniorLessons";
 import { mainlandPepPrimaryLessonSeeds } from "./mainlandPepPrimaryLessons";
+import { usArkansasMiddleSchoolLessonSeeds } from "./usArkansasMiddleSchoolLessons";
+import { usCaliforniaLessonSeeds } from "./usCaliforniaLessons";
+import { usFloridaMiddleSchoolLessonSeeds } from "./usFloridaMiddleSchoolLessons";
 
 const math = (expression: string) => `\\(${expression}\\)`;
 
@@ -157,7 +162,7 @@ const hongKongProductionLessonSeeds: ProductionLessonSeed[] = [
         en: "Use the counter grid to split a whole into two visible parts, then read the number sentence that changes with the model.",
         zh: "使用粒子格把整體分成兩個可見部分，然後讀出隨模型改變的算式。"
       },
-      moduleId: "coordinate-plane-demo",
+      moduleId: "configured-visualization-lab",
       source: "coordinate-plane",
       topicId: "p1-counting-number-bonds"
     },
@@ -203,7 +208,7 @@ const hongKongProductionLessonSeeds: ProductionLessonSeed[] = [
         en: "Use the coordinate grid as a number line and describe each forward or backward step.",
         zh: "把坐標網格作為數線，描述每一步向前或向後移動。"
       },
-      moduleId: "coordinate-plane-demo",
+      moduleId: "configured-visualization-lab",
       source: "coordinate-plane"
     },
     extension: {
@@ -248,7 +253,7 @@ const hongKongProductionLessonSeeds: ProductionLessonSeed[] = [
         en: "Drag the points to see how sides and corners help name a shape.",
         zh: "拖曳點，觀察邊和角如何幫助命名圖形。"
       },
-      moduleId: "geometry-explorer",
+      moduleId: "configured-visualization-lab",
       source: "geometry"
     },
     extension: {
@@ -329,7 +334,7 @@ const hongKongProductionLessonSeeds: ProductionLessonSeed[] = [
         en: "Use the grid to arrange hundreds, tens, and ones before comparing three-digit numbers.",
         zh: "用方格整理百、十、個，再比較三位數。"
       },
-      moduleId: "coordinate-plane-demo",
+      moduleId: "configured-visualization-lab",
       source: "coordinate-plane"
     },
     extension: {
@@ -374,7 +379,7 @@ const hongKongProductionLessonSeeds: ProductionLessonSeed[] = [
         en: "Use the geometry panel as an array board and connect rows, columns, and repeated addition.",
         zh: "把幾何面板作為陣列板，連繫行、列和重複加法。"
       },
-      moduleId: "geometry-explorer",
+      moduleId: "configured-visualization-lab",
       source: "geometry"
     },
     extension: {
@@ -455,7 +460,7 @@ const hongKongProductionLessonSeeds: ProductionLessonSeed[] = [
         en: "Move points and compare side lengths to support measurement language.",
         zh: "移動點並比較邊長，支援度量語言。"
       },
-      moduleId: "geometry-explorer",
+      moduleId: "configured-visualization-lab",
       source: "geometry"
     },
     extension: {
@@ -536,7 +541,7 @@ const hongKongProductionLessonSeeds: ProductionLessonSeed[] = [
         en: "Use partitions as fraction bars to compare halves, thirds, quarters, and equivalent fractions.",
         zh: "把分割圖形作分數條，比較二分之一、三分之一、四分之一和等值分數。"
       },
-      moduleId: "geometry-explorer",
+      moduleId: "configured-visualization-lab",
       source: "geometry"
     },
     extension: {
@@ -617,7 +622,7 @@ const hongKongProductionLessonSeeds: ProductionLessonSeed[] = [
         en: "Use the geometry model to compare angle sizes and describe the pattern.",
         zh: "使用幾何模型比較角度大小，並描述規律。"
       },
-      moduleId: "geometry-explorer",
+      moduleId: "configured-visualization-lab",
       source: "geometry"
     },
     extension: {
@@ -698,7 +703,7 @@ const hongKongProductionLessonSeeds: ProductionLessonSeed[] = [
         en: "Use the coordinate plane to locate tenths and hundredths, then compare decimals by position.",
         zh: "利用坐標平面定位十分位和百分位，再按位置比較小數。"
       },
-      moduleId: "coordinate-plane-demo",
+      moduleId: "configured-visualization-lab",
       source: "coordinate-plane"
     },
     extension: {
@@ -743,7 +748,7 @@ const hongKongProductionLessonSeeds: ProductionLessonSeed[] = [
         en: "Drag the geometry model and compare angle types visually.",
         zh: "拖曳幾何模型，以視覺方式比較角的種類。"
       },
-      moduleId: "geometry-explorer",
+      moduleId: "configured-visualization-lab",
       source: "geometry"
     },
     extension: {
@@ -788,7 +793,7 @@ const hongKongProductionLessonSeeds: ProductionLessonSeed[] = [
         en: "Drag shapes and reason about perimeter, area, arrays, and composite shape splitting.",
         zh: "拖曳圖形，思考周界、面積、陣列和組合圖形分割。"
       },
-      moduleId: "geometry-explorer",
+      moduleId: "configured-visualization-lab",
       source: "geometry"
     },
     extension: {
@@ -833,7 +838,7 @@ const hongKongProductionLessonSeeds: ProductionLessonSeed[] = [
         en: "Use partitioned bars to reason about equivalent fractions, addition, subtraction, and simplification.",
         zh: "用分割條推理等值分數、加減和約簡。"
       },
-      moduleId: "geometry-explorer",
+      moduleId: "configured-visualization-lab",
       source: "geometry"
     },
     extension: {
@@ -878,7 +883,7 @@ const hongKongProductionLessonSeeds: ProductionLessonSeed[] = [
         en: "Use the geometry canvas to discuss unit cubes, layers, cuboids, and cubic units.",
         zh: "用幾何畫布討論小立方體、分層、長方體和立方單位。"
       },
-      moduleId: "geometry-explorer",
+      moduleId: "configured-visualization-lab",
       source: "geometry"
     },
     extension: {
@@ -959,7 +964,7 @@ const hongKongProductionLessonSeeds: ProductionLessonSeed[] = [
         en: "Use repeated trials to see how counts change and why averages need enough data.",
         zh: "透過重複試驗觀察數量如何變化，理解平均數需要足夠數據。"
       },
-      moduleId: "probability-simulator",
+      moduleId: "configured-visualization-lab",
       source: "probability"
     },
     extension: {
@@ -1004,8 +1009,8 @@ const hongKongProductionLessonSeeds: ProductionLessonSeed[] = [
         en: "Use model comparisons as scalable bars for fractions, decimals, percentages, and ratio relationships.",
         zh: "用模型比較作可縮放條形，連繫分數、小數、百分數和比例關係。"
       },
-      moduleId: "function-model-comparer",
-      source: "function-model"
+      moduleId: "configured-visualization-lab",
+      source: "geometry"
     },
     extension: {
       items: [
@@ -1085,8 +1090,8 @@ const hongKongProductionLessonSeeds: ProductionLessonSeed[] = [
         en: "Use the coordinate plane to prepare for reading distance-time graphs and movement patterns.",
         zh: "使用坐標平面，準備閱讀距離時間圖和移動規律。"
       },
-      moduleId: "coordinate-plane-demo",
-      source: "coordinate-plane"
+      moduleId: "configured-visualization-lab",
+      source: "function-model"
     },
     extension: {
       items: [
@@ -1166,7 +1171,7 @@ const hongKongProductionLessonSeeds: ProductionLessonSeed[] = [
         en: "Use the coordinate plane as a number-line model for positive and negative movement.",
         zh: "把坐標平面作為數線模型，觀察正負方向移動。"
       },
-      moduleId: "coordinate-plane-demo",
+      moduleId: "configured-visualization-lab",
       source: "coordinate-plane"
     },
     extension: {
@@ -1247,7 +1252,7 @@ const hongKongProductionLessonSeeds: ProductionLessonSeed[] = [
         en: "Move the vertices and compare individual angle sizes with the fixed triangle angle sum.",
         zh: "移動頂點，比較個別角度大小與固定的三角形內角和。"
       },
-      moduleId: "geometry-explorer",
+      moduleId: "configured-visualization-lab",
       source: "geometry"
     },
     extension: {
@@ -1400,7 +1405,7 @@ const hongKongProductionLessonSeeds: ProductionLessonSeed[] = [
         en: "Plot points, connect them, and animate transformations such as translation and reflection.",
         zh: "標示點、連接點，並以動畫呈現平移和反射等變換。"
       },
-      moduleId: "coordinate-plane-demo",
+      moduleId: "configured-visualization-lab",
       source: "coordinate-plane"
     },
     extension: {
@@ -1445,7 +1450,7 @@ const hongKongProductionLessonSeeds: ProductionLessonSeed[] = [
         en: "Plot points, switch transformation modes, and compare original and image positions.",
         zh: "標示點、切換變換模式，並比較原像和影像位置。"
       },
-      moduleId: "coordinate-plane-demo",
+      moduleId: "configured-visualization-lab",
       source: "coordinate-plane"
     },
     extension: {
@@ -1490,7 +1495,7 @@ const hongKongProductionLessonSeeds: ProductionLessonSeed[] = [
         en: "Use the simulator to see how frequencies change after 1 trial, 20 trials, and more.",
         zh: "使用模擬器觀察 1 次、20 次及更多試驗後頻率如何改變。"
       },
-      moduleId: "probability-simulator",
+      moduleId: "configured-visualization-lab",
       source: "probability"
     },
     extension: {
@@ -1571,7 +1576,7 @@ const hongKongProductionLessonSeeds: ProductionLessonSeed[] = [
         en: `Adjust ${math("a")}, ${math("b")}, and ${math("c")} and describe what changes in the graph, vertex, symmetry axis, and intercepts.`,
         zh: `調整 ${math("a")}、${math("b")} 和 ${math("c")}，描述圖像、頂點、對稱軸和截距如何改變。`
       },
-      moduleId: "function-graph-explorer",
+      moduleId: "configured-visualization-lab",
       source: "function-graph"
     },
     extension: {
@@ -1688,8 +1693,8 @@ const hongKongProductionLessonSeeds: ProductionLessonSeed[] = [
         en: "Use the comparer to see how polynomial, exponential, and logarithmic models separate as x increases.",
         zh: "使用比較器觀察多項式、指數和對數模型在 x 增加時如何分別變化。"
       },
-      moduleId: "function-model-comparer",
-      source: "function-model"
+      moduleId: "configured-visualization-lab",
+      source: "function-graph"
     },
     extension: {
       items: [
@@ -1733,7 +1738,7 @@ const hongKongProductionLessonSeeds: ProductionLessonSeed[] = [
         en: "Use the coordinate plane to plot points and reason about slope and movement.",
         zh: "使用坐標平面標示點，並推理斜率和移動。"
       },
-      moduleId: "coordinate-plane-demo",
+      moduleId: "configured-visualization-lab",
       source: "coordinate-plane"
     },
     extension: {
@@ -1850,7 +1855,7 @@ const hongKongProductionLessonSeeds: ProductionLessonSeed[] = [
         en: "Use the model comparer to test how growth strength changes each family.",
         zh: "使用模型比較器測試增長強度如何改變各類函數。"
       },
-      moduleId: "function-model-comparer",
+      moduleId: "configured-visualization-lab",
       source: "function-model"
     },
     extension: {
@@ -1895,7 +1900,7 @@ const hongKongProductionLessonSeeds: ProductionLessonSeed[] = [
         en: "Adjust amplitude, period, and phase shift to connect graph transformations with sine-wave equations.",
         zh: "調整振幅、周期和平移，連繫圖像變換與正弦波方程。"
       },
-      moduleId: "trig-wave-explorer",
+      moduleId: "configured-visualization-lab",
       source: "trig-wave"
     },
     extension: {
@@ -1976,7 +1981,7 @@ const hongKongProductionLessonSeeds: ProductionLessonSeed[] = [
         en: "Use the calculus lab to move the tangent point and compare the curve with its local linear model.",
         zh: "使用微積分實驗室移動切線點，比較曲線和局部線性模型。"
       },
-      moduleId: "calculus-stats-lab",
+      moduleId: "configured-visualization-lab",
       source: "calculus-stats"
     },
     extension: {
@@ -2021,7 +2026,7 @@ const hongKongProductionLessonSeeds: ProductionLessonSeed[] = [
         en: "Use the calculus lab to see how tangent gradients change across a curve.",
         zh: "使用微積分實驗室觀察切線斜率如何沿曲線改變。"
       },
-      moduleId: "calculus-stats-lab",
+      moduleId: "configured-visualization-lab",
       source: "calculus-stats"
     },
     extension: {
@@ -2066,8 +2071,8 @@ const hongKongProductionLessonSeeds: ProductionLessonSeed[] = [
         en: "Use the statistics mode in the senior lab to move the observed value and watch the z-score update.",
         zh: "使用高中實驗室的統計模式移動觀察值，並觀察 z 分數更新。"
       },
-      moduleId: "calculus-stats-lab",
-      source: "calculus-stats"
+      moduleId: "configured-visualization-lab",
+      source: "probability"
     },
     extension: {
       items: [
@@ -2155,12 +2160,19 @@ export const productionLessonSeeds: ProductionLessonSeed[] = [
   ...mainlandPepPrimaryLessonSeeds,
   ...mainlandPepJuniorLessonSeeds,
   ...mainlandPepHighLessonSeeds,
+  ...mainlandBnuHighLessonSeeds,
+  ...mainlandBnuJuniorLessonSeeds,
   ...mainlandBnuPrimaryLessonSeeds,
   ...mainlandHjbPrimaryLessonSeeds,
   ...mainlandHjbJuniorLessonSeeds,
-  ...mainlandHjbHighLessonSeeds
+  ...mainlandHjbHighLessonSeeds,
+  ...usArkansasMiddleSchoolLessonSeeds,
+  ...usCaliforniaLessonSeeds,
+  ...usFloridaMiddleSchoolLessonSeeds
 ];
 
+export const liveProductionLessonSeeds = productionLessonSeeds.filter((lessonSeed) => lessonSeed.productionReady);
+
 export const productionLessonByTopicId = new Map(
-  productionLessonSeeds.map((lessonSeed) => [lessonSeed.topicId, lessonSeed])
+  liveProductionLessonSeeds.map((lessonSeed) => [lessonSeed.topicId, lessonSeed])
 );

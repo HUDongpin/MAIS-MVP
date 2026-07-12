@@ -1,0 +1,1629 @@
+{
+  "generatedAt": "2026-07-09T14:10:37.347Z",
+  "dirtyMapStatusSignature": "b3d232fd2b9ef81d4efc95903d2e3b316db664d6e9ec6ab366181395b3966be7",
+  "expandedStatusEntries": 6604,
+  "executionSequenceGeneratedAt": "2026-07-09T14:10:36.992Z",
+  "wave": {
+    "waveId": "wave-04-practice-lesson-content",
+    "name": "A04/A05/A18/A21/A23/A24 practice, lesson, and content evidence",
+    "ownerApprovals": [
+      "a04-practice-lead",
+      "a05-lesson-lead",
+      "a18-curriculum-qa-a21-content-pipeline",
+      "a18-curriculum-qa-and-content-quality-lead",
+      "a21-content-pipeline-and-rag-operations",
+      "a23-integration-and-promotion-lead",
+      "a24-illustration-exact-layer"
+    ],
+    "physicalLifecycleApprovals": [
+      "codex-california-practice-beta-clean",
+      "codex-a04-practice-closure",
+      "codex-a05-lesson-checklist-p0",
+      "codex-a05-lesson-closure",
+      "codex-a05-lesson-pep-load",
+      "codex-a05-next-item-button-scroll",
+      "codex-a18-a21-content-evidence-closure"
+    ]
+  },
+  "packages": [
+    {
+      "packageId": "a04-practice",
+      "name": "A04 practice",
+      "owners": [
+        "A04 practice lead"
+      ],
+      "approvalIds": [
+        "a04-practice-lead"
+      ],
+      "worktree": {
+        "path": "/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A04-practice-closure",
+        "exists": true,
+        "branch": "codex/A04-practice-closure",
+        "head": "cef544e09",
+        "statusSignature": "8a226b715e81564576089d0bd074b652c147a432420a732ae64727c2c7e4019f",
+        "nodeModulesPresent": true
+      },
+      "pathspecs": {
+        "files": [
+          "coordination/release-intake/latest-A25-owner-a04-practice-lead.pathspec"
+        ],
+        "checksum": "a05633e07b97d3785328b4bef66c3624e62f7a6e382dc0be134446a3d680c045",
+        "allowedPaths": 59
+      },
+      "pathspecCoverage": {
+        "statusEntries": 56,
+        "coveredEntries": 56,
+        "uncoveredEntries": 0,
+        "uncovered": []
+      },
+      "checks": {
+        "testQuestionBank": {
+          "command": "npm run test:question-bank",
+          "status": 1,
+          "passed": false,
+          "stdout": [
+            "> hk-math-lab-template@0.1.0 test:question-bank",
+            "> rm -rf .tmp/question-bank-tests .tmp/question-bank-db && tsc -p tsconfig.json --outDir .tmp/question-bank-tests --noEmit false --incremental false --module commonjs --moduleResolution node && mkdir -p .tmp/question-bank-tests/node_modules/@ && ln -s ../../data .tmp/question-bank-tests/node_modules/@/data && ln -s ../../lib .tmp/question-bank-tests/node_modules/@/lib && HK_MATH_DB_DIR=.tmp/question-bank-db node --test .tmp/question-bank-tests/lib/mainlandPepHighQuestionBank.test.js .tmp/question-bank-tests/lib/mainlandPepPrimaryQuestionBank.test.js .tmp/question-bank-tests/lib/mainlandPepJuniorQuestionBank.test.js .tmp/question-bank-tests/lib/mainlandBnuPrimaryQuestionBank.test.js .tmp/question-bank-tests/lib/mainlandBnuJuniorQuestionBank.test.js .tmp/question-bank-tests/lib/fullQuestionBankSolvability.test.js && rm -rf .tmp/question-bank-tests .tmp/question-bank-db"
+          ],
+          "stderr": [
+            "rm: .tmp/question-bank-tests/types/index.js: Operation not permitted",
+            "rm: .tmp/question-bank-tests/types: Operation not permitted",
+            "rm: .tmp/question-bank-tests/tailwind.config.js: Operation not permitted",
+            "rm: .tmp/question-bank-tests/coordination/content-qa/mainland-bnu-junior-generated-bank-v1-1500/approved-question-pack.json: Operation not permitted",
+            "rm: .tmp/question-bank-tests/coordination/content-qa/mainland-bnu-junior-generated-bank-v1-1500: Operation not permitted",
+            "rm: .tmp/question-bank-tests/coordination/content-qa: Operation not permitted",
+            "rm: .tmp/question-bank-tests/coordination: Operation not permitted",
+            "rm: .tmp/question-bank-tests/app/visualization-lab/page.jsx: Operation not permitted",
+            "rm: .tmp/question-bank-tests/app/visualization-lab/loading.jsx: Operation not permitted",
+            "rm: .tmp/question-bank-tests/app/visualization-lab: Operation not permitted",
+            "rm: .tmp/question-bank-tests/app/layout.jsx: Operation not permitted",
+            "rm: .tmp/question-bank-tests/app/messages/page.jsx: Operation not permitted",
+            "rm: .tmp/question-bank-tests/app/messages: Operation not permitted",
+            "rm: .tmp/question-bank-tests/app/progress/page.jsx: Operation not permitted",
+            "rm: .tmp/question-bank-tests/app/progress: Operation not permitted",
+            "rm: .tmp/question-bank-tests/app/primary-roadmap/page.jsx: Operation not permitted",
+            "rm: .tmp/question-bank-tests/app/primary-roadmap: Operation not permitted",
+            "rm: .tmp/question-bank-tests/app/not-found.jsx: Operation not permitted",
+            "rm: .tmp/question-bank-tests/app/student/tools/visualizations/page.jsx: Operation not permitted",
+            "rm: .tmp/question-bank-tests/app/student/tools/visualizations/[labId]/page.jsx: Operation not permitted",
+            "rm: .tmp/question-bank-tests/app/student/tools/visualizations/[labId]: Operation not permitted",
+            "rm: .tmp/question-bank-tests/app/student/tools/visualizations/loading.jsx: Operation not permitted",
+            "rm: .tmp/question-bank-tests/app/student/tools/visualizations: Operation not permitted",
+            "rm: .tmp/question-bank-tests/app/student/tools: Operation not permitted",
+            "rm: .tmp/question-bank-tests/app/student/lessons/california-middle-school-textbook/page.jsx: Operation not permitted",
+            "rm: .tmp/question-bank-tests/app/student/lessons/california-middle-school-textbook: Operation not permitted",
+            "rm: .tmp/question-bank-tests/app/student/lessons/california-high-school-textbook/page.jsx: Operation not permitted",
+            "rm: .tmp/question-bank-tests/app/student/lessons/california-high-school-textbook: Operation not permitted",
+            "rm: .tmp/question-bank-tests/app/student/lessons/page.jsx: Operation not permitted",
+            "rm: .tmp/question-bank-tests/app/student/lessons/loading.jsx: Operation not permitted",
+            "rm: .tmp/question-bank-tests/app/student/lessons/[lessonSlug]/page.jsx: Operation not permitted",
+            "rm: .tmp/question-bank-tests/app/student/lessons/[lessonSlug]: Operation not permitted",
+            "rm: .tmp/question-bank-tests/app/student/lessons: Operation not permitted",
+            "rm: .tmp/question-bank-tests/app/student: Operation not permitted",
+            "rm: .tmp/question-bank-tests/app/page.jsx: Operation not permitted",
+            "rm: .tmp/question-bank-tests/app/learning-path/page.jsx: Operation not permitted",
+            "rm: .tmp/question-bank-tests/app/learning-path: Operation not permitted",
+            "rm: .tmp/question-bank-tests/app/classroom/join/page.jsx: Operation not permitted",
+            "rm: .tmp/question-bank-tests/app/classroom/join: Operation not permitted",
+            "rm: .tmp/question-bank-tests/app/classroom/page.jsx: Operation not permitted",
+            "rm: .tmp/question-bank-tests/app/classroom: Operation not permitted",
+            "rm: .tmp/question-bank-tests/app/assessment/[assessmentId]/page.jsx: Operation not permitted",
+            "rm: .tmp/question-bank-tests/app/assessment/[assessmentId]: Operation not permitted",
+            "rm: .tmp/question-bank-tests/app/assessment: Operation not permitted",
+            "rm: .tmp/question-bank-tests/app/secondary-roadmap/page.jsx: Operation not permitted",
+            "rm: .tmp/question-bank-tests/app/secondary-roadmap: Operation not permitted",
+            "rm: .tmp/question-bank-tests/app/dashboard/page.jsx: Operation not permitted",
+            "rm: .tmp/question-bank-tests/app/dashboard: Operation not permitted",
+            "rm: .tmp/question-bank-tests/app/register/page.jsx: Operation not permitted",
+            "rm: .tmp/question-bank-tests/app/register: Operation not permitted",
+            "... 1451 lines omitted ...",
+            "rm: .tmp/question-bank-tests/data/mainlandPepPrimaryTopics.js: Operation not permitted",
+            "rm: .tmp/question-bank-tests/data/mainlandPepHighLessonIllustrations.js: Operation not permitted",
+            "rm: .tmp/question-bank-tests/data/mainlandHjbJuniorQuestions.js: Operation not permitted",
+            "rm: .tmp/question-bank-tests/data/mainlandBnuPrimaryTopics.js: Operation not permitted",
+            "rm: .tmp/question-bank-tests/data/gamification.js: Operation not permitted",
+            "rm: .tmp/question-bank-tests/data/mainlandHjbPrimaryLessons.js: Operation not permitted",
+            "rm: .tmp/question-bank-tests/data/mainlandBnuJuniorQuestions.js: Operation not permitted",
+            "rm: .tmp/question-bank-tests/data/mainlandHjbHighLessonIllustrations.js: Operation not permitted",
+            "rm: .tmp/question-bank-tests/data/mainlandHjbPrimaryTopics.js: Operation not permitted",
+            "rm: .tmp/question-bank-tests/data/topics.js: Operation not permitted",
+            "rm: .tmp/question-bank-tests/data/mainlandPepJuniorTopics.js: Operation not permitted",
+            "rm: .tmp/question-bank-tests/data/mainlandBnuPrimaryLessons.js: Operation not permitted",
+            "rm: .tmp/question-bank-tests/data/mainlandPepJuniorQuestions.js: Operation not permitted",
+            "rm: .tmp/question-bank-tests/data/hkChineseGlossary.js: Operation not permitted",
+            "rm: .tmp/question-bank-tests/data/mainlandBnuHighTopics.js: Operation not permitted",
+            "rm: .tmp/question-bank-tests/data/usFloridaMiddleSchoolQuestions.js: Operation not permitted",
+            "rm: .tmp/question-bank-tests/data/generated-content/mainland-bnu-junior-generated-bank-v1-1500/approved-question-pack.json: Operation not permitted",
+            "rm: .tmp/question-bank-tests/data/generated-content/mainland-bnu-junior-generated-bank-v1-1500: Operation not permitted",
+            "rm: .tmp/question-bank-tests/data/generated-content/mainland-hjb-junior-generated-bank-v2-1500/question-pack.json: Operation not permitted",
+            "rm: .tmp/question-bank-tests/data/generated-content/mainland-hjb-junior-generated-bank-v2-1500: Operation not permitted",
+            "rm: .tmp/question-bank-tests/data/generated-content/mainland-hjb-primary-generated-bank-v1-1500/question-pack.json: Operation not permitted",
+            "rm: .tmp/question-bank-tests/data/generated-content/mainland-hjb-primary-generated-bank-v1-1500: Operation not permitted",
+            "rm: .tmp/question-bank-tests/data/generated-content/mainland-pep-junior-lessons-v1/lessons.json: Operation not permitted",
+            "rm: .tmp/question-bank-tests/data/generated-content/mainland-pep-junior-lessons-v1: Operation not permitted",
+            "rm: .tmp/question-bank-tests/data/generated-content/mainland-bnu-primary-generated-bank-v1-1500/question-pack.json: Operation not permitted",
+            "rm: .tmp/question-bank-tests/data/generated-content/mainland-bnu-primary-generated-bank-v1-1500: Operation not permitted",
+            "rm: .tmp/question-bank-tests/data/generated-content/mainland-hjb-junior-lessons-v1/lessons.json: Operation not permitted",
+            "rm: .tmp/question-bank-tests/data/generated-content/mainland-hjb-junior-lessons-v1: Operation not permitted",
+            "rm: .tmp/question-bank-tests/data/generated-content/mainland-hjb-high-generated-bank-v1/question-pack.json: Operation not permitted",
+            "rm: .tmp/question-bank-tests/data/generated-content/mainland-hjb-high-generated-bank-v1: Operation not permitted",
+            "rm: .tmp/question-bank-tests/data/generated-content/mainland-pep-junior-generated-bank-v2-1200/question-pack.json: Operation not permitted",
+            "rm: .tmp/question-bank-tests/data/generated-content/mainland-pep-junior-generated-bank-v2-1200: Operation not permitted",
+            "rm: .tmp/question-bank-tests/data/generated-content/mainland-pep-high-lessons-v1/lessons.json: Operation not permitted",
+            "rm: .tmp/question-bank-tests/data/generated-content/mainland-pep-high-lessons-v1: Operation not permitted",
+            "rm: .tmp/question-bank-tests/data/generated-content/mainland-bnu-high-generated-bank-v1-1500/question-pack.approved.json: Operation not permitted",
+            "rm: .tmp/question-bank-tests/data/generated-content/mainland-bnu-high-generated-bank-v1-1500: Operation not permitted",
+            "rm: .tmp/question-bank-tests/data/generated-content/mainland-pep-primary-lessons-v1/lessons.json: Operation not permitted",
+            "rm: .tmp/question-bank-tests/data/generated-content/mainland-pep-primary-lessons-v1: Operation not permitted",
+            "rm: .tmp/question-bank-tests/data/generated-content/mainland-bnu-primary-generated-bank-v2-1500/question-pack.json: Operation not permitted",
+            "rm: .tmp/question-bank-tests/data/generated-content/mainland-bnu-primary-generated-bank-v2-1500: Operation not permitted",
+            "rm: .tmp/question-bank-tests/data/generated-content/mainland-hjb-high-generated-bank-v4-remediated/question-pack.json: Operation not permitted",
+            "rm: .tmp/question-bank-tests/data/generated-content/mainland-hjb-high-generated-bank-v4-remediated: Operation not permitted",
+            "rm: .tmp/question-bank-tests/data/generated-content/mainland-hjb-high-generated-bank-v3-remediated/question-pack.json: Operation not permitted",
+            "rm: .tmp/question-bank-tests/data/generated-content/mainland-hjb-high-generated-bank-v3-remediated: Operation not permitted",
+            "rm: .tmp/question-bank-tests/data/generated-content/mainland-hjb-high-generated-bank-v2/question-pack.json: Operation not permitted",
+            "rm: .tmp/question-bank-tests/data/generated-content/mainland-hjb-high-generated-bank-v2: Operation not permitted",
+            "rm: .tmp/question-bank-tests/data/generated-content: Operation not permitted",
+            "rm: .tmp/question-bank-tests/data/mainlandHjbJuniorTopics.js: Operation not permitted",
+            "rm: .tmp/question-bank-tests/data: Operation not permitted",
+            "rm: .tmp/question-bank-tests: Operation not permitted"
+          ]
+        },
+        "typeCheck": {
+          "command": "npm run type-check -- --pretty false",
+          "status": 2,
+          "passed": false,
+          "stdout": [
+            "> hk-math-lab-template@0.1.0 type-check",
+            "> tsc --noEmit --incremental false --pretty false",
+            "app/api/admin/ai-governance/summary/route.ts(3,43): error TS2307: Cannot find module '@/lib/server/aiGovernance' or its corresponding type declarations.",
+            "app/api/admin/ai-governance/summary/route.ts(4,10): error TS2305: Module '\"@/lib/server/userStore\"' has no exported member 'getAiGovernanceSummaryForAdmin'.",
+            "app/api/admin/nova-lens/policy/route.ts(3,10): error TS2305: Module '\"@/lib/server/userStore\"' has no exported member 'getNovaLensPolicy'.",
+            "app/api/admin/nova-lens/policy/route.ts(3,29): error TS2305: Module '\"@/lib/server/userStore\"' has no exported member 'listNovaLensPolicyEventsForAdmin'.",
+            "app/api/admin/nova-lens/policy/route.ts(3,63): error TS2305: Module '\"@/lib/server/userStore\"' has no exported member 'updateNovaLensPolicy'.",
+            "app/api/admin/nova-lens/policy/route.ts(4,15): error TS2305: Module '\"@/types\"' has no exported member 'NovaLensPolicy'.",
+            "app/api/admin/storage/hot-auth/backfill/route.ts(3,10): error TS2305: Module '\"@/lib/server/userStore\"' has no exported member 'backfillPostgresHotAuthTablesForAdmin'.",
+            "app/api/admin/storage/temporary-bootstrap-admins/route.ts(3,10): error TS2305: Module '\"@/lib/server/userStore\"' has no exported member 'cleanupTemporaryBootstrapAdminsForAdmin'.",
+            "app/api/assignments/[assignmentId]/corrections/route.ts(3,10): error TS2305: Module '\"@/lib/server/userStore\"' has no exported member 'recordAiGovernanceEvent'.",
+            "app/api/assignments/[assignmentId]/corrections/route.ts(3,35): error TS2305: Module '\"@/lib/server/userStore\"' has no exported member 'submitAssignmentWork'.",
+            "app/api/assignments/[assignmentId]/corrections/route.ts(4,100): error TS2307: Cannot find module '@/lib/server/aiGovernance' or its corresponding type declarations.",
+            "app/api/assignments/[assignmentId]/corrections/route.ts(10,15): error TS2305: Module '\"@/types\"' has no exported member 'AssignmentSubmissionInputType'.",
+            "app/api/assignments/[assignmentId]/corrections/route.ts(10,46): error TS2305: Module '\"@/types\"' has no exported member 'AssignmentSubmissionOcrResult'.",
+            "app/api/assignments/[assignmentId]/corrections/route.ts(34,13): error TS7006: Parameter 'error' implicitly has an 'any' type.",
+            "app/api/assignments/[assignmentId]/corrections/route.ts(72,15): error TS7006: Parameter 'error' implicitly has an 'any' type.",
+            "app/api/assignments/[assignmentId]/corrections/route.ts(94,15): error TS7006: Parameter 'error' implicitly has an 'any' type.",
+            "app/api/assignments/[assignmentId]/submissions/route.ts(3,10): error TS2305: Module '\"@/lib/server/userStore\"' has no exported member 'recordAiGovernanceEvent'.",
+            "app/api/assignments/[assignmentId]/submissions/route.ts(3,35): error TS2305: Module '\"@/lib/server/userStore\"' has no exported member 'submitAssignmentWork'.",
+            "app/api/assignments/[assignmentId]/submissions/route.ts(4,100): error TS2307: Cannot find module '@/lib/server/aiGovernance' or its corresponding type declarations.",
+            "app/api/assignments/[assignmentId]/submissions/route.ts(10,15): error TS2305: Module '\"@/types\"' has no exported member 'AssignmentSubmissionInputType'.",
+            "app/api/assignments/[assignmentId]/submissions/route.ts(10,46): error TS2305: Module '\"@/types\"' has no exported member 'AssignmentSubmissionOcrResult'.",
+            "app/api/assignments/[assignmentId]/submissions/route.ts(34,13): error TS7006: Parameter 'error' implicitly has an 'any' type.",
+            "app/api/assignments/[assignmentId]/submissions/route.ts(72,15): error TS7006: Parameter 'error' implicitly has an 'any' type.",
+            "... 891 lines omitted ...",
+            "lib/teacherReviewLesson.ts(498,28): error TS7006: Parameter 'objective' implicitly has an 'any' type.",
+            "lib/teacherReviewLesson.ts(501,26): error TS7006: Parameter 'entry' implicitly has an 'any' type.",
+            "lib/teacherReviewLesson.ts(515,30): error TS7006: Parameter 'column' implicitly has an 'any' type.",
+            "lib/teacherReviewLesson.ts(517,28): error TS7006: Parameter 'block' implicitly has an 'any' type.",
+            "lib/teacherReviewLesson.ts(521,38): error TS7006: Parameter 'question' implicitly has an 'any' type.",
+            "lib/teacherReviewLesson.ts(521,48): error TS7006: Parameter 'index' implicitly has an 'any' type.",
+            "lib/teacherReviewLessonPptx.ts(4,3): error TS2305: Module '\"@/types\"' has no exported member 'TeacherReviewLessonItem'.",
+            "lib/teacherReviewLessonPptx.ts(5,3): error TS2305: Module '\"@/types\"' has no exported member 'TeacherReviewLessonItemCategory'.",
+            "lib/teacherReviewLessonPptx.ts(6,3): error TS2305: Module '\"@/types\"' has no exported member 'TeacherReviewLessonPlan'.",
+            "lib/teacherReviewLessonPptx.ts(7,3): error TS2305: Module '\"@/types\"' has no exported member 'TeacherReviewLessonPracticeQuestion'.",
+            "lib/teacherReviewLessonPptx.ts(147,14): error TS7006: Parameter 'item' implicitly has an 'any' type.",
+            "lib/teacherReviewLessonPptx.ts(148,12): error TS7006: Parameter 'a' implicitly has an 'any' type.",
+            "lib/teacherReviewLessonPptx.ts(148,15): error TS7006: Parameter 'b' implicitly has an 'any' type.",
+            "lib/teacherReviewLessonPptx.ts(196,26): error TS7006: Parameter 'objective' implicitly has an 'any' type.",
+            "lib/teacherReviewLessonPptx.ts(212,24): error TS7006: Parameter 'item' implicitly has an 'any' type.",
+            "lib/teacherReviewLessonPptx.ts(257,18): error TS7006: Parameter 'item' implicitly has an 'any' type.",
+            "lib/teacherReviewLessonPptx.ts(270,14): error TS7006: Parameter 'item' implicitly has an 'any' type.",
+            "lib/teacherReviewLessonPptx.ts(271,12): error TS7006: Parameter 'a' implicitly has an 'any' type.",
+            "lib/teacherReviewLessonPptx.ts(271,15): error TS7006: Parameter 'b' implicitly has an 'any' type.",
+            "lib/teacherReviewLessonPptx.ts(347,20): error TS7006: Parameter 'column' implicitly has an 'any' type.",
+            "lib/teacherReviewLessonPptx.ts(347,28): error TS7006: Parameter 'index' implicitly has an 'any' type.",
+            "lib/teacherReviewLessonPptx.ts(353,26): error TS7006: Parameter 'block' implicitly has an 'any' type.",
+            "lib/teacherReviewLessonPptx.ts(376,62): error TS7006: Parameter 'question' implicitly has an 'any' type.",
+            "lib/teacherReviewLessonPptx.ts(378,64): error TS7006: Parameter 'question' implicitly has an 'any' type.",
+            "lib/teacherReviewLessonPptx.ts(383,35): error TS2307: Cannot find module 'pptxgenjs' or its corresponding type declarations."
+          ]
+        },
+        "practicePlaywright": {
+          "command": "npx playwright test tests/e2e/practice-pager.spec.ts tests/e2e/student-smoke.spec.ts --project=desktop-chrome",
+          "status": 1,
+          "passed": false,
+          "stdout": [
+            "Error: EPERM: operation not permitted, unlink '/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A04-practice-closure/test-results/.last-run.json'"
+          ],
+          "stderr": [
+            "Error in reporter Error: EPERM: operation not permitted, open '/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A04-practice-closure/output/playwright-report/index.html'",
+            "    at open (node:internal/fs/promises:640:25)",
+            "    at Object.writeFile (node:internal/fs/promises:1257:14)",
+            "    at HtmlBuilder._writeStaticAssets (/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A04-practice-closure/node_modules/playwright/lib/reporters/html.js:330:7)",
+            "    at HtmlBuilder.build (/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A04-practice-closure/node_modules/playwright/lib/reporters/html.js:292:29)",
+            "    at HtmlReporter.onEnd (/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A04-practice-closure/node_modules/playwright/lib/reporters/html.js:128:25)",
+            "    at wrapAsync (/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A04-practice-closure/node_modules/playwright/lib/reporters/multiplexer.js:101:12)",
+            "    at Multiplexer.onEnd (/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A04-practice-closure/node_modules/playwright/lib/reporters/multiplexer.js:69:25)",
+            "    at InternalReporter.onEnd (/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A04-practice-closure/node_modules/playwright/lib/reporters/internalReporter.js:81:12)",
+            "    at finishTaskRun (/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A04-practice-closure/node_modules/playwright/lib/runner/tasks.js:94:26)",
+            "    at runTasks (/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A04-practice-closure/node_modules/playwright/lib/runner/tasks.js:81:10)",
+            "    at runAllTestsWithConfig (/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A04-practice-closure/node_modules/playwright/lib/runner/testRunner.js:388:18)",
+            "    at runTests (/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A04-practice-closure/node_modules/playwright/lib/testActions.js:96:18)",
+            "    at i.<anonymous> (/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A04-practice-closure/node_modules/playwright/lib/program.js:56:7) {",
+            "  errno: -1,",
+            "  code: 'EPERM',",
+            "  syscall: 'open',",
+            "  path: '/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A04-practice-closure/output/playwright-report/index.html'",
+            "}",
+            "Error in reporter Error: EPERM: operation not permitted, open '/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A04-practice-closure/test-results/.last-run.json'",
+            "    at open (node:internal/fs/promises:640:25)",
+            "    at Object.writeFile (node:internal/fs/promises:1257:14)",
+            "    at LastRunReporter.onEnd (/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A04-practice-closure/node_modules/playwright/lib/runner/lastRun.js:71:5)",
+            "    at wrapAsync (/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A04-practice-closure/node_modules/playwright/lib/reporters/multiplexer.js:101:12)",
+            "    at Multiplexer.onEnd (/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A04-practice-closure/node_modules/playwright/lib/reporters/multiplexer.js:69:25)",
+            "    at InternalReporter.onEnd (/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A04-practice-closure/node_modules/playwright/lib/reporters/internalReporter.js:81:12)",
+            "    at finishTaskRun (/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A04-practice-closure/node_modules/playwright/lib/runner/tasks.js:94:26)",
+            "    at runTasks (/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A04-practice-closure/node_modules/playwright/lib/runner/tasks.js:81:10)",
+            "    at runAllTestsWithConfig (/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A04-practice-closure/node_modules/playwright/lib/runner/testRunner.js:388:18)",
+            "    at runTests (/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A04-practice-closure/node_modules/playwright/lib/testActions.js:96:18)",
+            "    at i.<anonymous> (/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A04-practice-closure/node_modules/playwright/lib/program.js:56:7) {",
+            "  errno: -1,",
+            "  code: 'EPERM',",
+            "  syscall: 'open',",
+            "  path: '/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A04-practice-closure/test-results/.last-run.json'",
+            "}"
+          ]
+        }
+      },
+      "typeCheck": {
+        "passed": false,
+        "status": 2,
+        "skipped": false,
+        "summary": {
+          "errorLines": 885,
+          "byTop": {
+            "app": 122,
+            "components": 438,
+            "data": 174,
+            "lib": 151
+          },
+          "topFiles": [
+            {
+              "file": "components/visualizations/three/scenes/TemplatePrimitiveScene.tsx",
+              "errors": 206
+            },
+            {
+              "file": "data/questions.ts",
+              "errors": 91
+            },
+            {
+              "file": "components/teacher/TeacherPrepViews.tsx",
+              "errors": 36
+            },
+            {
+              "file": "components/teacher/TeacherOperationsView.tsx",
+              "errors": 32
+            },
+            {
+              "file": "lib/teacherReviewLesson.ts",
+              "errors": 30
+            },
+            {
+              "file": "lib/mainlandPepHighQuestionBank.test.ts",
+              "errors": 27
+            },
+            {
+              "file": "components/teacher/TeacherReviewLessonView.tsx",
+              "errors": 25
+            },
+            {
+              "file": "components/visualizations/three/ThreeDGraphCanvas.tsx",
+              "errors": 21
+            },
+            {
+              "file": "lib/teacherReviewLessonPptx.ts",
+              "errors": 19
+            },
+            {
+              "file": "components/visualizations/VisualizationLabPage.tsx",
+              "errors": 16
+            },
+            {
+              "file": "data/usMathQuestions.ts",
+              "errors": 15
+            },
+            {
+              "file": "components/games/MathVirusBlasterGame.tsx",
+              "errors": 13
+            },
+            {
+              "file": "data/usFloridaMiddleSchoolQuestions.ts",
+              "errors": 13
+            },
+            {
+              "file": "components/visualizations/three/manim/MathSceneRuntime.tsx",
+              "errors": 12
+            },
+            {
+              "file": "data/mainlandPepHighQuestions.ts",
+              "errors": 11
+            },
+            {
+              "file": "components/games/MightyTankBattleGame.tsx",
+              "errors": 10
+            },
+            {
+              "file": "components/visualizations/three/ThreeDLabCanvas.tsx",
+              "errors": 10
+            },
+            {
+              "file": "data/usArkansasQuestions.ts",
+              "errors": 10
+            },
+            {
+              "file": "app/api/teacher/review-lessons/[reviewLessonId]/route.ts",
+              "errors": 9
+            },
+            {
+              "file": "components/visualizations/three/threeDSceneMath.catalog.test.ts",
+              "errors": 9
+            }
+          ],
+          "firstErrors": [
+            "app/api/admin/ai-governance/summary/route.ts(3,43): error TS2307: Cannot find module '@/lib/server/aiGovernance' or its corresponding type declarations.",
+            "app/api/admin/ai-governance/summary/route.ts(4,10): error TS2305: Module '\"@/lib/server/userStore\"' has no exported member 'getAiGovernanceSummaryForAdmin'.",
+            "app/api/admin/nova-lens/policy/route.ts(3,10): error TS2305: Module '\"@/lib/server/userStore\"' has no exported member 'getNovaLensPolicy'.",
+            "app/api/admin/nova-lens/policy/route.ts(3,29): error TS2305: Module '\"@/lib/server/userStore\"' has no exported member 'listNovaLensPolicyEventsForAdmin'.",
+            "app/api/admin/nova-lens/policy/route.ts(3,63): error TS2305: Module '\"@/lib/server/userStore\"' has no exported member 'updateNovaLensPolicy'.",
+            "app/api/admin/nova-lens/policy/route.ts(4,15): error TS2305: Module '\"@/types\"' has no exported member 'NovaLensPolicy'.",
+            "app/api/admin/storage/hot-auth/backfill/route.ts(3,10): error TS2305: Module '\"@/lib/server/userStore\"' has no exported member 'backfillPostgresHotAuthTablesForAdmin'.",
+            "app/api/admin/storage/temporary-bootstrap-admins/route.ts(3,10): error TS2305: Module '\"@/lib/server/userStore\"' has no exported member 'cleanupTemporaryBootstrapAdminsForAdmin'.",
+            "app/api/assignments/[assignmentId]/corrections/route.ts(3,10): error TS2305: Module '\"@/lib/server/userStore\"' has no exported member 'recordAiGovernanceEvent'.",
+            "app/api/assignments/[assignmentId]/corrections/route.ts(3,35): error TS2305: Module '\"@/lib/server/userStore\"' has no exported member 'submitAssignmentWork'.",
+            "app/api/assignments/[assignmentId]/corrections/route.ts(4,100): error TS2307: Cannot find module '@/lib/server/aiGovernance' or its corresponding type declarations.",
+            "app/api/assignments/[assignmentId]/corrections/route.ts(10,15): error TS2305: Module '\"@/types\"' has no exported member 'AssignmentSubmissionInputType'.",
+            "app/api/assignments/[assignmentId]/corrections/route.ts(10,46): error TS2305: Module '\"@/types\"' has no exported member 'AssignmentSubmissionOcrResult'.",
+            "app/api/assignments/[assignmentId]/corrections/route.ts(34,13): error TS7006: Parameter 'error' implicitly has an 'any' type.",
+            "app/api/assignments/[assignmentId]/corrections/route.ts(72,15): error TS7006: Parameter 'error' implicitly has an 'any' type.",
+            "app/api/assignments/[assignmentId]/corrections/route.ts(94,15): error TS7006: Parameter 'error' implicitly has an 'any' type.",
+            "app/api/assignments/[assignmentId]/submissions/route.ts(3,10): error TS2305: Module '\"@/lib/server/userStore\"' has no exported member 'recordAiGovernanceEvent'.",
+            "app/api/assignments/[assignmentId]/submissions/route.ts(3,35): error TS2305: Module '\"@/lib/server/userStore\"' has no exported member 'submitAssignmentWork'.",
+            "app/api/assignments/[assignmentId]/submissions/route.ts(4,100): error TS2307: Cannot find module '@/lib/server/aiGovernance' or its corresponding type declarations.",
+            "app/api/assignments/[assignmentId]/submissions/route.ts(10,15): error TS2305: Module '\"@/types\"' has no exported member 'AssignmentSubmissionInputType'.",
+            "app/api/assignments/[assignmentId]/submissions/route.ts(10,46): error TS2305: Module '\"@/types\"' has no exported member 'AssignmentSubmissionOcrResult'.",
+            "app/api/assignments/[assignmentId]/submissions/route.ts(34,13): error TS7006: Parameter 'error' implicitly has an 'any' type.",
+            "app/api/assignments/[assignmentId]/submissions/route.ts(72,15): error TS7006: Parameter 'error' implicitly has an 'any' type.",
+            "app/api/assignments/[assignmentId]/submissions/route.ts(94,15): error TS7006: Parameter 'error' implicitly has an 'any' type.",
+            "app/api/classroom/live/[sessionId]/work-samples/route.ts(3,10): error TS2305: Module '\"@/lib/server/userStore\"' has no exported member 'createClassroomWorkSample'."
+          ]
+        }
+      },
+      "blockingReasons": [
+        "A04 practice testQuestionBank failed",
+        "A04 practice typeCheck failed",
+        "A04 practice practicePlaywright failed"
+      ],
+      "ready": false,
+      "checkExecutionMode": "reused",
+      "checkReuseSourceGeneratedAt": "2026-07-09T14:00:09.732Z",
+      "checkReuseReason": "worktree head/status, pathspec coverage, node_modules, and check commands are unchanged"
+    },
+    {
+      "packageId": "a05-lesson",
+      "name": "A05 lesson",
+      "owners": [
+        "A05 lesson lead"
+      ],
+      "approvalIds": [
+        "a05-lesson-lead"
+      ],
+      "worktree": {
+        "path": "/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A05-lesson-closure",
+        "exists": true,
+        "branch": "codex/A05-lesson-closure",
+        "head": "cef544e09",
+        "statusSignature": "b191577b892eeb5590de4089db4f8b287a133c09bcc01937e2f7a8a7b6daa913",
+        "nodeModulesPresent": true
+      },
+      "pathspecs": {
+        "files": [
+          "coordination/release-intake/latest-A25-owner-a05-lesson-lead.pathspec"
+        ],
+        "checksum": "243a58c82ee20057aa07c080b7bfd0336d0fb7780a1783580860823d7e519776",
+        "allowedPaths": 128
+      },
+      "pathspecCoverage": {
+        "statusEntries": 126,
+        "coveredEntries": 126,
+        "uncoveredEntries": 0,
+        "uncovered": []
+      },
+      "checks": {
+        "typeCheck": {
+          "command": "npm run type-check -- --pretty false",
+          "status": 2,
+          "passed": false,
+          "stdout": [
+            "> hk-math-lab-template@0.1.0 type-check",
+            "> tsc --noEmit --incremental false --pretty false",
+            "app/api/admin/ai-governance/summary/route.ts(3,43): error TS2307: Cannot find module '@/lib/server/aiGovernance' or its corresponding type declarations.",
+            "app/api/admin/ai-governance/summary/route.ts(4,10): error TS2305: Module '\"@/lib/server/userStore\"' has no exported member 'getAiGovernanceSummaryForAdmin'.",
+            "app/api/admin/nova-lens/policy/route.ts(3,10): error TS2305: Module '\"@/lib/server/userStore\"' has no exported member 'getNovaLensPolicy'.",
+            "app/api/admin/nova-lens/policy/route.ts(3,29): error TS2305: Module '\"@/lib/server/userStore\"' has no exported member 'listNovaLensPolicyEventsForAdmin'.",
+            "app/api/admin/nova-lens/policy/route.ts(3,63): error TS2305: Module '\"@/lib/server/userStore\"' has no exported member 'updateNovaLensPolicy'.",
+            "app/api/admin/nova-lens/policy/route.ts(4,15): error TS2305: Module '\"@/types\"' has no exported member 'NovaLensPolicy'.",
+            "app/api/admin/storage/hot-auth/backfill/route.ts(3,10): error TS2305: Module '\"@/lib/server/userStore\"' has no exported member 'backfillPostgresHotAuthTablesForAdmin'.",
+            "app/api/admin/storage/temporary-bootstrap-admins/route.ts(3,10): error TS2305: Module '\"@/lib/server/userStore\"' has no exported member 'cleanupTemporaryBootstrapAdminsForAdmin'.",
+            "app/api/assignments/[assignmentId]/corrections/route.ts(3,10): error TS2305: Module '\"@/lib/server/userStore\"' has no exported member 'recordAiGovernanceEvent'.",
+            "app/api/assignments/[assignmentId]/corrections/route.ts(3,35): error TS2305: Module '\"@/lib/server/userStore\"' has no exported member 'submitAssignmentWork'.",
+            "app/api/assignments/[assignmentId]/corrections/route.ts(4,100): error TS2307: Cannot find module '@/lib/server/aiGovernance' or its corresponding type declarations.",
+            "app/api/assignments/[assignmentId]/corrections/route.ts(10,15): error TS2305: Module '\"@/types\"' has no exported member 'AssignmentSubmissionInputType'.",
+            "app/api/assignments/[assignmentId]/corrections/route.ts(10,46): error TS2305: Module '\"@/types\"' has no exported member 'AssignmentSubmissionOcrResult'.",
+            "app/api/assignments/[assignmentId]/corrections/route.ts(34,13): error TS7006: Parameter 'error' implicitly has an 'any' type.",
+            "app/api/assignments/[assignmentId]/corrections/route.ts(72,15): error TS7006: Parameter 'error' implicitly has an 'any' type.",
+            "app/api/assignments/[assignmentId]/corrections/route.ts(94,15): error TS7006: Parameter 'error' implicitly has an 'any' type.",
+            "app/api/assignments/[assignmentId]/submissions/route.ts(3,10): error TS2305: Module '\"@/lib/server/userStore\"' has no exported member 'recordAiGovernanceEvent'.",
+            "app/api/assignments/[assignmentId]/submissions/route.ts(3,35): error TS2305: Module '\"@/lib/server/userStore\"' has no exported member 'submitAssignmentWork'.",
+            "app/api/assignments/[assignmentId]/submissions/route.ts(4,100): error TS2307: Cannot find module '@/lib/server/aiGovernance' or its corresponding type declarations.",
+            "app/api/assignments/[assignmentId]/submissions/route.ts(10,15): error TS2305: Module '\"@/types\"' has no exported member 'AssignmentSubmissionInputType'.",
+            "app/api/assignments/[assignmentId]/submissions/route.ts(10,46): error TS2305: Module '\"@/types\"' has no exported member 'AssignmentSubmissionOcrResult'.",
+            "app/api/assignments/[assignmentId]/submissions/route.ts(34,13): error TS7006: Parameter 'error' implicitly has an 'any' type.",
+            "app/api/assignments/[assignmentId]/submissions/route.ts(72,15): error TS7006: Parameter 'error' implicitly has an 'any' type.",
+            "... 726 lines omitted ...",
+            "lib/teacherReviewLesson.ts(498,28): error TS7006: Parameter 'objective' implicitly has an 'any' type.",
+            "lib/teacherReviewLesson.ts(501,26): error TS7006: Parameter 'entry' implicitly has an 'any' type.",
+            "lib/teacherReviewLesson.ts(515,30): error TS7006: Parameter 'column' implicitly has an 'any' type.",
+            "lib/teacherReviewLesson.ts(517,28): error TS7006: Parameter 'block' implicitly has an 'any' type.",
+            "lib/teacherReviewLesson.ts(521,38): error TS7006: Parameter 'question' implicitly has an 'any' type.",
+            "lib/teacherReviewLesson.ts(521,48): error TS7006: Parameter 'index' implicitly has an 'any' type.",
+            "lib/teacherReviewLessonPptx.ts(4,3): error TS2305: Module '\"@/types\"' has no exported member 'TeacherReviewLessonItem'.",
+            "lib/teacherReviewLessonPptx.ts(5,3): error TS2305: Module '\"@/types\"' has no exported member 'TeacherReviewLessonItemCategory'.",
+            "lib/teacherReviewLessonPptx.ts(6,3): error TS2305: Module '\"@/types\"' has no exported member 'TeacherReviewLessonPlan'.",
+            "lib/teacherReviewLessonPptx.ts(7,3): error TS2305: Module '\"@/types\"' has no exported member 'TeacherReviewLessonPracticeQuestion'.",
+            "lib/teacherReviewLessonPptx.ts(147,14): error TS7006: Parameter 'item' implicitly has an 'any' type.",
+            "lib/teacherReviewLessonPptx.ts(148,12): error TS7006: Parameter 'a' implicitly has an 'any' type.",
+            "lib/teacherReviewLessonPptx.ts(148,15): error TS7006: Parameter 'b' implicitly has an 'any' type.",
+            "lib/teacherReviewLessonPptx.ts(196,26): error TS7006: Parameter 'objective' implicitly has an 'any' type.",
+            "lib/teacherReviewLessonPptx.ts(212,24): error TS7006: Parameter 'item' implicitly has an 'any' type.",
+            "lib/teacherReviewLessonPptx.ts(257,18): error TS7006: Parameter 'item' implicitly has an 'any' type.",
+            "lib/teacherReviewLessonPptx.ts(270,14): error TS7006: Parameter 'item' implicitly has an 'any' type.",
+            "lib/teacherReviewLessonPptx.ts(271,12): error TS7006: Parameter 'a' implicitly has an 'any' type.",
+            "lib/teacherReviewLessonPptx.ts(271,15): error TS7006: Parameter 'b' implicitly has an 'any' type.",
+            "lib/teacherReviewLessonPptx.ts(347,20): error TS7006: Parameter 'column' implicitly has an 'any' type.",
+            "lib/teacherReviewLessonPptx.ts(347,28): error TS7006: Parameter 'index' implicitly has an 'any' type.",
+            "lib/teacherReviewLessonPptx.ts(353,26): error TS7006: Parameter 'block' implicitly has an 'any' type.",
+            "lib/teacherReviewLessonPptx.ts(376,62): error TS7006: Parameter 'question' implicitly has an 'any' type.",
+            "lib/teacherReviewLessonPptx.ts(378,64): error TS7006: Parameter 'question' implicitly has an 'any' type.",
+            "lib/teacherReviewLessonPptx.ts(383,35): error TS2307: Cannot find module 'pptxgenjs' or its corresponding type declarations."
+          ]
+        },
+        "lessonPlaywright": {
+          "command": "npx playwright test tests/e2e/lesson-all.spec.ts tests/e2e/mainland-pep-high-lessons.spec.ts tests/e2e/california-k5-textbook-lessons.spec.ts --project=desktop-chrome",
+          "status": 1,
+          "passed": false,
+          "stdout": [
+            "Error: EPERM: operation not permitted, unlink '/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A05-lesson-closure/test-results/.last-run.json'"
+          ],
+          "stderr": [
+            "Error in reporter Error: EPERM: operation not permitted, open '/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A05-lesson-closure/output/playwright-report/index.html'",
+            "    at open (node:internal/fs/promises:640:25)",
+            "    at Object.writeFile (node:internal/fs/promises:1257:14)",
+            "    at HtmlBuilder._writeStaticAssets (/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A05-lesson-closure/node_modules/playwright/lib/reporters/html.js:330:7)",
+            "    at HtmlBuilder.build (/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A05-lesson-closure/node_modules/playwright/lib/reporters/html.js:292:29)",
+            "    at HtmlReporter.onEnd (/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A05-lesson-closure/node_modules/playwright/lib/reporters/html.js:128:25)",
+            "    at wrapAsync (/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A05-lesson-closure/node_modules/playwright/lib/reporters/multiplexer.js:101:12)",
+            "    at Multiplexer.onEnd (/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A05-lesson-closure/node_modules/playwright/lib/reporters/multiplexer.js:69:25)",
+            "    at InternalReporter.onEnd (/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A05-lesson-closure/node_modules/playwright/lib/reporters/internalReporter.js:81:12)",
+            "    at finishTaskRun (/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A05-lesson-closure/node_modules/playwright/lib/runner/tasks.js:94:26)",
+            "    at runTasks (/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A05-lesson-closure/node_modules/playwright/lib/runner/tasks.js:81:10)",
+            "    at runAllTestsWithConfig (/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A05-lesson-closure/node_modules/playwright/lib/runner/testRunner.js:388:18)",
+            "    at runTests (/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A05-lesson-closure/node_modules/playwright/lib/testActions.js:96:18)",
+            "    at i.<anonymous> (/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A05-lesson-closure/node_modules/playwright/lib/program.js:56:7) {",
+            "  errno: -1,",
+            "  code: 'EPERM',",
+            "  syscall: 'open',",
+            "  path: '/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A05-lesson-closure/output/playwright-report/index.html'",
+            "}",
+            "Error in reporter Error: EPERM: operation not permitted, open '/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A05-lesson-closure/test-results/.last-run.json'",
+            "    at open (node:internal/fs/promises:640:25)",
+            "    at Object.writeFile (node:internal/fs/promises:1257:14)",
+            "    at LastRunReporter.onEnd (/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A05-lesson-closure/node_modules/playwright/lib/runner/lastRun.js:71:5)",
+            "    at wrapAsync (/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A05-lesson-closure/node_modules/playwright/lib/reporters/multiplexer.js:101:12)",
+            "    at Multiplexer.onEnd (/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A05-lesson-closure/node_modules/playwright/lib/reporters/multiplexer.js:69:25)",
+            "    at InternalReporter.onEnd (/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A05-lesson-closure/node_modules/playwright/lib/reporters/internalReporter.js:81:12)",
+            "    at finishTaskRun (/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A05-lesson-closure/node_modules/playwright/lib/runner/tasks.js:94:26)",
+            "    at runTasks (/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A05-lesson-closure/node_modules/playwright/lib/runner/tasks.js:81:10)",
+            "    at runAllTestsWithConfig (/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A05-lesson-closure/node_modules/playwright/lib/runner/testRunner.js:388:18)",
+            "    at runTests (/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A05-lesson-closure/node_modules/playwright/lib/testActions.js:96:18)",
+            "    at i.<anonymous> (/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A05-lesson-closure/node_modules/playwright/lib/program.js:56:7) {",
+            "  errno: -1,",
+            "  code: 'EPERM',",
+            "  syscall: 'open',",
+            "  path: '/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A05-lesson-closure/test-results/.last-run.json'",
+            "}"
+          ]
+        }
+      },
+      "typeCheck": {
+        "passed": false,
+        "status": 2,
+        "skipped": false,
+        "summary": {
+          "errorLines": 723,
+          "byTop": {
+            "app": 119,
+            "components": 422,
+            "data": 81,
+            "lib": 101
+          },
+          "topFiles": [
+            {
+              "file": "components/visualizations/three/scenes/TemplatePrimitiveScene.tsx",
+              "errors": 206
+            },
+            {
+              "file": "components/teacher/TeacherPrepViews.tsx",
+              "errors": 36
+            },
+            {
+              "file": "components/teacher/TeacherOperationsView.tsx",
+              "errors": 32
+            },
+            {
+              "file": "lib/teacherReviewLesson.ts",
+              "errors": 30
+            },
+            {
+              "file": "components/teacher/TeacherReviewLessonView.tsx",
+              "errors": 25
+            },
+            {
+              "file": "components/visualizations/three/ThreeDGraphCanvas.tsx",
+              "errors": 21
+            },
+            {
+              "file": "data/usCaliforniaLessons.ts",
+              "errors": 20
+            },
+            {
+              "file": "lib/teacherReviewLessonPptx.ts",
+              "errors": 19
+            },
+            {
+              "file": "components/visualizations/VisualizationLabPage.tsx",
+              "errors": 16
+            },
+            {
+              "file": "data/usCaliforniaLessons.test.ts",
+              "errors": 15
+            },
+            {
+              "file": "components/games/MathVirusBlasterGame.tsx",
+              "errors": 13
+            },
+            {
+              "file": "components/visualizations/three/manim/MathSceneRuntime.tsx",
+              "errors": 12
+            },
+            {
+              "file": "data/usCaliforniaMicroLessons.ts",
+              "errors": 12
+            },
+            {
+              "file": "components/games/MightyTankBattleGame.tsx",
+              "errors": 10
+            },
+            {
+              "file": "components/visualizations/three/ThreeDLabCanvas.tsx",
+              "errors": 10
+            },
+            {
+              "file": "app/api/teacher/review-lessons/[reviewLessonId]/route.ts",
+              "errors": 9
+            },
+            {
+              "file": "components/visualizations/three/threeDSceneMath.catalog.test.ts",
+              "errors": 9
+            },
+            {
+              "file": "data/usArkansasMiddleSchoolLessons.ts",
+              "errors": 9
+            },
+            {
+              "file": "lib/server/teacherReviewLessonLLM.ts",
+              "errors": 9
+            },
+            {
+              "file": "lib/teacherAssessmentAnalysis.ts",
+              "errors": 9
+            }
+          ],
+          "firstErrors": [
+            "app/api/admin/ai-governance/summary/route.ts(3,43): error TS2307: Cannot find module '@/lib/server/aiGovernance' or its corresponding type declarations.",
+            "app/api/admin/ai-governance/summary/route.ts(4,10): error TS2305: Module '\"@/lib/server/userStore\"' has no exported member 'getAiGovernanceSummaryForAdmin'.",
+            "app/api/admin/nova-lens/policy/route.ts(3,10): error TS2305: Module '\"@/lib/server/userStore\"' has no exported member 'getNovaLensPolicy'.",
+            "app/api/admin/nova-lens/policy/route.ts(3,29): error TS2305: Module '\"@/lib/server/userStore\"' has no exported member 'listNovaLensPolicyEventsForAdmin'.",
+            "app/api/admin/nova-lens/policy/route.ts(3,63): error TS2305: Module '\"@/lib/server/userStore\"' has no exported member 'updateNovaLensPolicy'.",
+            "app/api/admin/nova-lens/policy/route.ts(4,15): error TS2305: Module '\"@/types\"' has no exported member 'NovaLensPolicy'.",
+            "app/api/admin/storage/hot-auth/backfill/route.ts(3,10): error TS2305: Module '\"@/lib/server/userStore\"' has no exported member 'backfillPostgresHotAuthTablesForAdmin'.",
+            "app/api/admin/storage/temporary-bootstrap-admins/route.ts(3,10): error TS2305: Module '\"@/lib/server/userStore\"' has no exported member 'cleanupTemporaryBootstrapAdminsForAdmin'.",
+            "app/api/assignments/[assignmentId]/corrections/route.ts(3,10): error TS2305: Module '\"@/lib/server/userStore\"' has no exported member 'recordAiGovernanceEvent'.",
+            "app/api/assignments/[assignmentId]/corrections/route.ts(3,35): error TS2305: Module '\"@/lib/server/userStore\"' has no exported member 'submitAssignmentWork'.",
+            "app/api/assignments/[assignmentId]/corrections/route.ts(4,100): error TS2307: Cannot find module '@/lib/server/aiGovernance' or its corresponding type declarations.",
+            "app/api/assignments/[assignmentId]/corrections/route.ts(10,15): error TS2305: Module '\"@/types\"' has no exported member 'AssignmentSubmissionInputType'.",
+            "app/api/assignments/[assignmentId]/corrections/route.ts(10,46): error TS2305: Module '\"@/types\"' has no exported member 'AssignmentSubmissionOcrResult'.",
+            "app/api/assignments/[assignmentId]/corrections/route.ts(34,13): error TS7006: Parameter 'error' implicitly has an 'any' type.",
+            "app/api/assignments/[assignmentId]/corrections/route.ts(72,15): error TS7006: Parameter 'error' implicitly has an 'any' type.",
+            "app/api/assignments/[assignmentId]/corrections/route.ts(94,15): error TS7006: Parameter 'error' implicitly has an 'any' type.",
+            "app/api/assignments/[assignmentId]/submissions/route.ts(3,10): error TS2305: Module '\"@/lib/server/userStore\"' has no exported member 'recordAiGovernanceEvent'.",
+            "app/api/assignments/[assignmentId]/submissions/route.ts(3,35): error TS2305: Module '\"@/lib/server/userStore\"' has no exported member 'submitAssignmentWork'.",
+            "app/api/assignments/[assignmentId]/submissions/route.ts(4,100): error TS2307: Cannot find module '@/lib/server/aiGovernance' or its corresponding type declarations.",
+            "app/api/assignments/[assignmentId]/submissions/route.ts(10,15): error TS2305: Module '\"@/types\"' has no exported member 'AssignmentSubmissionInputType'.",
+            "app/api/assignments/[assignmentId]/submissions/route.ts(10,46): error TS2305: Module '\"@/types\"' has no exported member 'AssignmentSubmissionOcrResult'.",
+            "app/api/assignments/[assignmentId]/submissions/route.ts(34,13): error TS7006: Parameter 'error' implicitly has an 'any' type.",
+            "app/api/assignments/[assignmentId]/submissions/route.ts(72,15): error TS7006: Parameter 'error' implicitly has an 'any' type.",
+            "app/api/assignments/[assignmentId]/submissions/route.ts(94,15): error TS7006: Parameter 'error' implicitly has an 'any' type.",
+            "app/api/classroom/live/[sessionId]/work-samples/route.ts(3,10): error TS2305: Module '\"@/lib/server/userStore\"' has no exported member 'createClassroomWorkSample'."
+          ]
+        }
+      },
+      "blockingReasons": [
+        "A05 lesson typeCheck failed",
+        "A05 lesson lessonPlaywright failed"
+      ],
+      "ready": false,
+      "checkExecutionMode": "reused",
+      "checkReuseSourceGeneratedAt": "2026-07-09T14:00:09.732Z",
+      "checkReuseReason": "worktree head/status, pathspec coverage, node_modules, and check commands are unchanged"
+    },
+    {
+      "packageId": "a18-a21-a23-a24-content-evidence",
+      "name": "A18/A21/A23/A24 content evidence",
+      "owners": [
+        "A18 curriculum QA / A21 content pipeline",
+        "A21 content pipeline and RAG operations",
+        "A23 integration and promotion lead",
+        "A24 illustration exact-layer"
+      ],
+      "approvalIds": [
+        "a18-curriculum-qa-a21-content-pipeline",
+        "a21-content-pipeline-and-rag-operations",
+        "a23-integration-and-promotion-lead",
+        "a24-illustration-exact-layer"
+      ],
+      "worktree": {
+        "path": "/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A18-A21-content-evidence-closure",
+        "exists": true,
+        "branch": "codex/A18-A21-content-evidence-closure",
+        "head": "cef544e09",
+        "statusSignature": "ebecba225418582fe0b0cc7aa5dc5e9aee9735b2088972e676a6618e4c0d58c0",
+        "nodeModulesPresent": true
+      },
+      "pathspecs": {
+        "files": [
+          "coordination/release-intake/latest-A25-owner-a18-curriculum-qa-a21-content-pipeline.pathspec",
+          "coordination/release-intake/latest-A25-owner-a21-content-pipeline-and-rag-operations.pathspec",
+          "coordination/release-intake/latest-A25-owner-a23-integration-and-promotion-lead.pathspec",
+          "coordination/release-intake/latest-A25-owner-a24-illustration-exact-layer.pathspec"
+        ],
+        "checksum": "f158d954718a55887f466eaa8b04641e9f04ea77b9e070d4a24ed8d1da5b2ba1",
+        "allowedPaths": 112
+      },
+      "pathspecCoverage": {
+        "statusEntries": 222,
+        "coveredEntries": 112,
+        "uncoveredEntries": 110,
+        "uncovered": [
+          {
+            "line": "?? coordination/content-qa/2026-06-15-S18-S24-us-tx-primary-lesson-illustration-review.md",
+            "path": "coordination/content-qa/2026-06-15-S18-S24-us-tx-primary-lesson-illustration-review.md"
+          },
+          {
+            "line": "?? coordination/content-qa/2026-06-21-S18-generated-content-source-package-import-signoff.md",
+            "path": "coordination/content-qa/2026-06-21-S18-generated-content-source-package-import-signoff.md"
+          },
+          {
+            "line": "?? coordination/content-qa/2026-06-21-S21-generated-content-source-package-restoration-inventory.md",
+            "path": "coordination/content-qa/2026-06-21-S21-generated-content-source-package-restoration-inventory.md"
+          },
+          {
+            "line": "?? coordination/content-qa/2026-06-22-S18-us-ca-k5-public-claim-gate.md",
+            "path": "coordination/content-qa/2026-06-22-S18-us-ca-k5-public-claim-gate.md"
+          },
+          {
+            "line": "?? coordination/content-qa/2026-06-27-A18-A21-A24-worked-example-illustration-qa.md",
+            "path": "coordination/content-qa/2026-06-27-A18-A21-A24-worked-example-illustration-qa.md"
+          },
+          {
+            "line": "?? coordination/content-qa/2026-06-27-A18-california-concept-story-qa.md",
+            "path": "coordination/content-qa/2026-06-27-A18-california-concept-story-qa.md"
+          },
+          {
+            "line": "?? coordination/content-qa/california-knowledge-point-system-policy.md",
+            "path": "coordination/content-qa/california-knowledge-point-system-policy.md"
+          },
+          {
+            "line": "?? coordination/content-qa/mainland-bnu-junior-lessons-v1/deepseek-v4-pro-lesson-qa/coverage-matrix.csv",
+            "path": "coordination/content-qa/mainland-bnu-junior-lessons-v1/deepseek-v4-pro-lesson-qa/coverage-matrix.csv"
+          },
+          {
+            "line": "?? coordination/content-qa/mainland-bnu-junior-lessons-v1/deepseek-v4-pro-lesson-qa/preflight-issues.csv",
+            "path": "coordination/content-qa/mainland-bnu-junior-lessons-v1/deepseek-v4-pro-lesson-qa/preflight-issues.csv"
+          },
+          {
+            "line": "?? coordination/content-qa/mainland-bnu-junior-lessons-v1/lessons.json",
+            "path": "coordination/content-qa/mainland-bnu-junior-lessons-v1/lessons.json"
+          },
+          {
+            "line": "?? coordination/content-qa/us-ca-adaptive-k-g5-beta-seed-v1/manual-review-results.csv",
+            "path": "coordination/content-qa/us-ca-adaptive-k-g5-beta-seed-v1/manual-review-results.csv"
+          },
+          {
+            "line": "?? coordination/content-qa/us-ca-adaptive-k-g5-beta-seed-v1/promotability-decision.md",
+            "path": "coordination/content-qa/us-ca-adaptive-k-g5-beta-seed-v1/promotability-decision.md"
+          },
+          {
+            "line": "?? coordination/content-qa/us-ca-adaptive-k-g5-beta-seed-v1/qa-report.md",
+            "path": "coordination/content-qa/us-ca-adaptive-k-g5-beta-seed-v1/qa-report.md"
+          },
+          {
+            "line": "?? coordination/content-qa/us-ca-adaptive-k-g5-beta-seed-v1/question-pack.json",
+            "path": "coordination/content-qa/us-ca-adaptive-k-g5-beta-seed-v1/question-pack.json"
+          },
+          {
+            "line": "?? coordination/content-qa/us-ca-adaptive-k-g5-beta-seed-v1/solvability-audit.json",
+            "path": "coordination/content-qa/us-ca-adaptive-k-g5-beta-seed-v1/solvability-audit.json"
+          },
+          {
+            "line": "?? coordination/content-qa/us-ca-adaptive-k-g5-beta-seed-v1/solvability-audit.md",
+            "path": "coordination/content-qa/us-ca-adaptive-k-g5-beta-seed-v1/solvability-audit.md"
+          },
+          {
+            "line": "?? coordination/content-qa/us-ca-k5-knowledge-point-practice-v1/build-docx-report.py",
+            "path": "coordination/content-qa/us-ca-k5-knowledge-point-practice-v1/build-docx-report.py"
+          },
+          {
+            "line": "?? coordination/content-qa/us-ca-k5-knowledge-point-practice-v1/difficulty-buckets.csv",
+            "path": "coordination/content-qa/us-ca-k5-knowledge-point-practice-v1/difficulty-buckets.csv"
+          },
+          {
+            "line": "?? coordination/content-qa/us-ca-k5-knowledge-point-practice-v1/difficulty-buckets.json",
+            "path": "coordination/content-qa/us-ca-k5-knowledge-point-practice-v1/difficulty-buckets.json"
+          },
+          {
+            "line": "?? coordination/content-qa/us-ca-k5-knowledge-point-practice-v1/generate-package.mjs",
+            "path": "coordination/content-qa/us-ca-k5-knowledge-point-practice-v1/generate-package.mjs"
+          },
+          {
+            "line": "?? coordination/content-qa/us-ca-k5-knowledge-point-practice-v1/manual-review-results.csv",
+            "path": "coordination/content-qa/us-ca-k5-knowledge-point-practice-v1/manual-review-results.csv"
+          },
+          {
+            "line": "?? coordination/content-qa/us-ca-k5-knowledge-point-practice-v1/qa-report.docx",
+            "path": "coordination/content-qa/us-ca-k5-knowledge-point-practice-v1/qa-report.docx"
+          },
+          {
+            "line": "?? coordination/content-qa/us-ca-k5-knowledge-point-practice-v1/qa-report.md",
+            "path": "coordination/content-qa/us-ca-k5-knowledge-point-practice-v1/qa-report.md"
+          },
+          {
+            "line": "?? coordination/content-qa/us-ca-k5-knowledge-point-practice-v1/qa-round-1.json",
+            "path": "coordination/content-qa/us-ca-k5-knowledge-point-practice-v1/qa-round-1.json"
+          },
+          {
+            "line": "?? coordination/content-qa/us-ca-k5-knowledge-point-practice-v1/qa-round-2.json",
+            "path": "coordination/content-qa/us-ca-k5-knowledge-point-practice-v1/qa-round-2.json"
+          },
+          {
+            "line": "?? coordination/content-qa/us-ca-k5-knowledge-point-practice-v1/quality-difficulty-audit.mjs",
+            "path": "coordination/content-qa/us-ca-k5-knowledge-point-practice-v1/quality-difficulty-audit.mjs"
+          },
+          {
+            "line": "?? coordination/content-qa/us-ca-k5-knowledge-point-practice-v1/quality-findings.csv",
+            "path": "coordination/content-qa/us-ca-k5-knowledge-point-practice-v1/quality-findings.csv"
+          },
+          {
+            "line": "?? coordination/content-qa/us-ca-k5-knowledge-point-practice-v1/quality-findings.json",
+            "path": "coordination/content-qa/us-ca-k5-knowledge-point-practice-v1/quality-findings.json"
+          },
+          {
+            "line": "?? coordination/content-qa/us-ca-k5-knowledge-point-practice-v1/question-pack.json",
+            "path": "coordination/content-qa/us-ca-k5-knowledge-point-practice-v1/question-pack.json"
+          },
+          {
+            "line": "?? coordination/content-qa/us-ca-k5-knowledge-point-practice-v1/rendered-492/page-1.png",
+            "path": "coordination/content-qa/us-ca-k5-knowledge-point-practice-v1/rendered-492/page-1.png"
+          },
+          {
+            "line": "?? coordination/content-qa/us-ca-k5-knowledge-point-practice-v1/rendered-492/page-2.png",
+            "path": "coordination/content-qa/us-ca-k5-knowledge-point-practice-v1/rendered-492/page-2.png"
+          },
+          {
+            "line": "?? coordination/content-qa/us-ca-k5-knowledge-point-practice-v1/rendered-492/page-3.png",
+            "path": "coordination/content-qa/us-ca-k5-knowledge-point-practice-v1/rendered-492/page-3.png"
+          },
+          {
+            "line": "?? coordination/content-qa/us-ca-k5-knowledge-point-practice-v1/rendered-492/page-4.png",
+            "path": "coordination/content-qa/us-ca-k5-knowledge-point-practice-v1/rendered-492/page-4.png"
+          },
+          {
+            "line": "?? coordination/content-qa/us-ca-k5-knowledge-point-practice-v1/rendered-492/qa-report.pdf",
+            "path": "coordination/content-qa/us-ca-k5-knowledge-point-practice-v1/rendered-492/qa-report.pdf"
+          },
+          {
+            "line": "?? coordination/content-qa/us-ca-k5-knowledge-point-practice-v1/rendered-fixed/page-1.png",
+            "path": "coordination/content-qa/us-ca-k5-knowledge-point-practice-v1/rendered-fixed/page-1.png"
+          },
+          {
+            "line": "?? coordination/content-qa/us-ca-k5-knowledge-point-practice-v1/rendered-fixed/page-2.png",
+            "path": "coordination/content-qa/us-ca-k5-knowledge-point-practice-v1/rendered-fixed/page-2.png"
+          },
+          {
+            "line": "?? coordination/content-qa/us-ca-k5-knowledge-point-practice-v1/rendered-fixed/page-3.png",
+            "path": "coordination/content-qa/us-ca-k5-knowledge-point-practice-v1/rendered-fixed/page-3.png"
+          },
+          {
+            "line": "?? coordination/content-qa/us-ca-k5-knowledge-point-practice-v1/rendered-fixed/page-4.png",
+            "path": "coordination/content-qa/us-ca-k5-knowledge-point-practice-v1/rendered-fixed/page-4.png"
+          },
+          {
+            "line": "?? coordination/content-qa/us-ca-k5-knowledge-point-practice-v1/rendered-fixed/qa-report.pdf",
+            "path": "coordination/content-qa/us-ca-k5-knowledge-point-practice-v1/rendered-fixed/qa-report.pdf"
+          },
+          {
+            "line": "?? coordination/content-qa/us-ca-k5-knowledge-point-practice-v1/rendered/page-1.png",
+            "path": "coordination/content-qa/us-ca-k5-knowledge-point-practice-v1/rendered/page-1.png"
+          },
+          {
+            "line": "?? coordination/content-qa/us-ca-k5-knowledge-point-practice-v1/rendered/page-2.png",
+            "path": "coordination/content-qa/us-ca-k5-knowledge-point-practice-v1/rendered/page-2.png"
+          },
+          {
+            "line": "?? coordination/content-qa/us-ca-k5-knowledge-point-practice-v1/rendered/page-3.png",
+            "path": "coordination/content-qa/us-ca-k5-knowledge-point-practice-v1/rendered/page-3.png"
+          },
+          {
+            "line": "?? coordination/content-qa/us-ca-k5-knowledge-point-practice-v1/rendered/page-4.png",
+            "path": "coordination/content-qa/us-ca-k5-knowledge-point-practice-v1/rendered/page-4.png"
+          },
+          {
+            "line": "?? coordination/content-qa/us-ca-k5-knowledge-point-practice-v1/rendered/qa-report.pdf",
+            "path": "coordination/content-qa/us-ca-k5-knowledge-point-practice-v1/rendered/qa-report.pdf"
+          },
+          {
+            "line": "?? coordination/content-qa/us-ca-k5-knowledge-point-practice-v1/run-two-round-qa.mjs",
+            "path": "coordination/content-qa/us-ca-k5-knowledge-point-practice-v1/run-two-round-qa.mjs"
+          },
+          {
+            "line": "?? coordination/content-qa/us-ca-k5-knowledge-point-practice-v1/s18-quality-difficulty-qa.md",
+            "path": "coordination/content-qa/us-ca-k5-knowledge-point-practice-v1/s18-quality-difficulty-qa.md"
+          },
+          {
+            "line": "?? coordination/content-qa/us-ca-k5-knowledge-point-practice-v1/s18-two-round-qa-decision.md",
+            "path": "coordination/content-qa/us-ca-k5-knowledge-point-practice-v1/s18-two-round-qa-decision.md"
+          },
+          {
+            "line": "?? coordination/content-qa/us-ca-k5-knowledge-point-practice-v1/solvability-audit.csv",
+            "path": "coordination/content-qa/us-ca-k5-knowledge-point-practice-v1/solvability-audit.csv"
+          },
+          {
+            "line": "?? coordination/content-qa/us-ca-k5-knowledge-point-practice-v1/solvability-audit.json",
+            "path": "coordination/content-qa/us-ca-k5-knowledge-point-practice-v1/solvability-audit.json"
+          },
+          {
+            "line": "?? coordination/content-qa/us-ca-k5-knowledge-point-practice-v1/solvability-audit.md",
+            "path": "coordination/content-qa/us-ca-k5-knowledge-point-practice-v1/solvability-audit.md"
+          },
+          {
+            "line": "?? coordination/content-qa/us-ca-k5-knowledge-point-practice-v1/topic-coverage.json",
+            "path": "coordination/content-qa/us-ca-k5-knowledge-point-practice-v1/topic-coverage.json"
+          },
+          {
+            "line": "?? coordination/content-qa/us-ca-k5-knowledge-point-practice-v1/validate-package.mjs",
+            "path": "coordination/content-qa/us-ca-k5-knowledge-point-practice-v1/validate-package.mjs"
+          },
+          {
+            "line": "?? coordination/content-qa/us-ca-math-grade1-h-l-micro-lessons-v1/lessons.json",
+            "path": "coordination/content-qa/us-ca-math-grade1-h-l-micro-lessons-v1/lessons.json"
+          },
+          {
+            "line": "?? coordination/content-qa/us-ca-math-grade1-h-l-micro-lessons-v1/manual-review-results.csv",
+            "path": "coordination/content-qa/us-ca-math-grade1-h-l-micro-lessons-v1/manual-review-results.csv"
+          },
+          {
+            "line": "?? coordination/content-qa/us-ca-math-grade1-h-l-micro-lessons-v1/qa-report.md",
+            "path": "coordination/content-qa/us-ca-math-grade1-h-l-micro-lessons-v1/qa-report.md"
+          },
+          {
+            "line": "?? coordination/content-qa/us-ca-math-grade1-h-l-micro-lessons-v1/s18-qa-decision.md",
+            "path": "coordination/content-qa/us-ca-math-grade1-h-l-micro-lessons-v1/s18-qa-decision.md"
+          },
+          {
+            "line": "?? coordination/content-qa/us-ca-math-grade1-h-l-micro-lessons-v1/s23-promotion-decision.md",
+            "path": "coordination/content-qa/us-ca-math-grade1-h-l-micro-lessons-v1/s23-promotion-decision.md"
+          },
+          {
+            "line": "?? coordination/content-qa/us-ca-math-grade1-h-l-micro-lessons-v1/validation-report.json",
+            "path": "coordination/content-qa/us-ca-math-grade1-h-l-micro-lessons-v1/validation-report.json"
+          },
+          {
+            "line": "?? coordination/content-qa/us-ca-math-k-g5-textbooks-v1/concept-explanation-qa-report.json",
+            "path": "coordination/content-qa/us-ca-math-k-g5-textbooks-v1/concept-explanation-qa-report.json"
+          },
+          {
+            "line": "?? coordination/content-qa/us-ca-math-k-g5-textbooks-v1/concept-explanation-qa-results.csv",
+            "path": "coordination/content-qa/us-ca-math-k-g5-textbooks-v1/concept-explanation-qa-results.csv"
+          },
+          {
+            "line": "?? coordination/content-qa/us-ca-math-k-g5-textbooks-v1/generate-us-ca-k-g5-textbooks-v1.mjs",
+            "path": "coordination/content-qa/us-ca-math-k-g5-textbooks-v1/generate-us-ca-k-g5-textbooks-v1.mjs"
+          },
+          {
+            "line": "?? coordination/content-qa/us-ca-math-k-g5-textbooks-v1/lessons.json",
+            "path": "coordination/content-qa/us-ca-math-k-g5-textbooks-v1/lessons.json"
+          },
+          {
+            "line": "?? coordination/content-qa/us-ca-math-k-g5-textbooks-v1/manual-review-results.csv",
+            "path": "coordination/content-qa/us-ca-math-k-g5-textbooks-v1/manual-review-results.csv"
+          },
+          {
+            "line": "?? coordination/content-qa/us-ca-math-k-g5-textbooks-v1/qa-report.md",
+            "path": "coordination/content-qa/us-ca-math-k-g5-textbooks-v1/qa-report.md"
+          },
+          {
+            "line": "?? coordination/content-qa/us-ca-math-k-g5-textbooks-v1/s18-concept-explanation-qa.md",
+            "path": "coordination/content-qa/us-ca-math-k-g5-textbooks-v1/s18-concept-explanation-qa.md"
+          },
+          {
+            "line": "?? coordination/content-qa/us-ca-math-k-g5-textbooks-v1/s18-qa-decision.md",
+            "path": "coordination/content-qa/us-ca-math-k-g5-textbooks-v1/s18-qa-decision.md"
+          },
+          {
+            "line": "?? coordination/content-qa/us-ca-math-k-g5-textbooks-v1/s18-sampling-report.md",
+            "path": "coordination/content-qa/us-ca-math-k-g5-textbooks-v1/s18-sampling-report.md"
+          },
+          {
+            "line": "?? coordination/content-qa/us-ca-math-k-g5-textbooks-v1/s23-promotion-decision.md",
+            "path": "coordination/content-qa/us-ca-math-k-g5-textbooks-v1/s23-promotion-decision.md"
+          },
+          {
+            "line": "?? coordination/content-qa/us-ca-math-k-g5-textbooks-v1/update-concept-explanations.mjs",
+            "path": "coordination/content-qa/us-ca-math-k-g5-textbooks-v1/update-concept-explanations.mjs"
+          },
+          {
+            "line": "?? coordination/content-qa/us-ca-math-k-g5-textbooks-v1/validate-concept-explanations.mjs",
+            "path": "coordination/content-qa/us-ca-math-k-g5-textbooks-v1/validate-concept-explanations.mjs"
+          },
+          {
+            "line": "?? coordination/content-qa/us-ca-math-k-g5-textbooks-v1/validation-report.json",
+            "path": "coordination/content-qa/us-ca-math-k-g5-textbooks-v1/validation-report.json"
+          },
+          {
+            "line": "?? coordination/content-qa/us-ca-math-middle-school-textbooks-v2/generate-us-ca-middle-school-textbooks-v2.mjs",
+            "path": "coordination/content-qa/us-ca-math-middle-school-textbooks-v2/generate-us-ca-middle-school-textbooks-v2.mjs"
+          },
+          {
+            "line": "?? coordination/content-qa/us-ca-math-middle-school-textbooks-v2/lessons.json",
+            "path": "coordination/content-qa/us-ca-math-middle-school-textbooks-v2/lessons.json"
+          },
+          {
+            "line": "?? coordination/content-qa/us-ca-math-middle-school-textbooks-v2/manual-review-results.csv",
+            "path": "coordination/content-qa/us-ca-math-middle-school-textbooks-v2/manual-review-results.csv"
+          },
+          {
+            "line": "?? coordination/content-qa/us-ca-math-middle-school-textbooks-v2/qa-report.md",
+            "path": "coordination/content-qa/us-ca-math-middle-school-textbooks-v2/qa-report.md"
+          },
+          {
+            "line": "?? coordination/content-qa/us-ca-math-middle-school-textbooks-v2/review-us-ca-middle-school-textbooks-v2.mjs",
+            "path": "coordination/content-qa/us-ca-math-middle-school-textbooks-v2/review-us-ca-middle-school-textbooks-v2.mjs"
+          },
+          {
+            "line": "?? coordination/content-qa/us-ca-math-middle-school-textbooks-v2/s18-full-scope-qa-decision.md",
+            "path": "coordination/content-qa/us-ca-math-middle-school-textbooks-v2/s18-full-scope-qa-decision.md"
+          },
+          {
+            "line": "?? coordination/content-qa/us-ca-math-middle-school-textbooks-v2/s18-full-scope-review.json",
+            "path": "coordination/content-qa/us-ca-math-middle-school-textbooks-v2/s18-full-scope-review.json"
+          },
+          {
+            "line": "?? coordination/content-qa/us-ca-math-middle-school-textbooks-v2/s18-qa-decision.md",
+            "path": "coordination/content-qa/us-ca-math-middle-school-textbooks-v2/s18-qa-decision.md"
+          },
+          {
+            "line": "?? coordination/content-qa/us-ca-math-middle-school-textbooks-v2/s23-live-promotion-decision.md",
+            "path": "coordination/content-qa/us-ca-math-middle-school-textbooks-v2/s23-live-promotion-decision.md"
+          },
+          {
+            "line": "?? coordination/content-qa/us-ca-math-middle-school-textbooks-v2/s23-promotion-decision.md",
+            "path": "coordination/content-qa/us-ca-math-middle-school-textbooks-v2/s23-promotion-decision.md"
+          },
+          {
+            "line": "?? coordination/content-qa/us-ca-math-middle-school-textbooks-v2/validation-report.json",
+            "path": "coordination/content-qa/us-ca-math-middle-school-textbooks-v2/validation-report.json"
+          },
+          {
+            "line": "?? coordination/content-qa/us-ca-math-rag-v2-candidate/build-california-rag-v2-candidate.mjs",
+            "path": "coordination/content-qa/us-ca-math-rag-v2-candidate/build-california-rag-v2-candidate.mjs"
+          },
+          {
+            "line": "?? coordination/content-qa/us-ca-math-rag-v2-candidate/build-downstream-candidate-packs.mjs",
+            "path": "coordination/content-qa/us-ca-math-rag-v2-candidate/build-downstream-candidate-packs.mjs"
+          },
+          {
+            "line": "?? coordination/content-qa/us-ca-math-rag-v2-candidate/build-s11-candidate-review-page.mjs",
+            "path": "coordination/content-qa/us-ca-math-rag-v2-candidate/build-s11-candidate-review-page.mjs"
+          },
+          {
+            "line": "?? coordination/content-qa/us-ca-math-rag-v2-candidate/candidate-package.json",
+            "path": "coordination/content-qa/us-ca-math-rag-v2-candidate/candidate-package.json"
+          },
+          {
+            "line": "?? coordination/content-qa/us-ca-math-rag-v2-candidate/coverage-summary.json",
+            "path": "coordination/content-qa/us-ca-math-rag-v2-candidate/coverage-summary.json"
+          },
+          {
+            "line": "?? coordination/content-qa/us-ca-math-rag-v2-candidate/review/index.html",
+            "path": "coordination/content-qa/us-ca-math-rag-v2-candidate/review/index.html"
+          },
+          {
+            "line": "?? coordination/content-qa/us-ca-math-rag-v2-candidate/review/s11-candidate-preview-smoke.png",
+            "path": "coordination/content-qa/us-ca-math-rag-v2-candidate/review/s11-candidate-preview-smoke.png"
+          },
+          {
+            "line": "?? coordination/content-qa/us-ca-math-rag-v2-candidate/run-s11-candidate-preview-smoke.mjs",
+            "path": "coordination/content-qa/us-ca-math-rag-v2-candidate/run-s11-candidate-preview-smoke.mjs"
+          },
+          {
+            "line": "?? coordination/content-qa/us-ca-math-rag-v2-candidate/s04-practice-question-briefs.json",
+            "path": "coordination/content-qa/us-ca-math-rag-v2-candidate/s04-practice-question-briefs.json"
+          },
+          {
+            "line": "?? coordination/content-qa/us-ca-math-rag-v2-candidate/s04-question-candidate-pack.json",
+            "path": "coordination/content-qa/us-ca-math-rag-v2-candidate/s04-question-candidate-pack.json"
+          },
+          {
+            "line": "?? coordination/content-qa/us-ca-math-rag-v2-candidate/s04-representative-practice-candidates.json",
+            "path": "coordination/content-qa/us-ca-math-rag-v2-candidate/s04-representative-practice-candidates.json"
+          },
+          {
+            "line": "?? coordination/content-qa/us-ca-math-rag-v2-candidate/s05-lesson-candidate-pack.json",
+            "path": "coordination/content-qa/us-ca-math-rag-v2-candidate/s05-lesson-candidate-pack.json"
+          },
+          {
+            "line": "?? coordination/content-qa/us-ca-math-rag-v2-candidate/s05-representative-lesson-candidates.json",
+            "path": "coordination/content-qa/us-ca-math-rag-v2-candidate/s05-representative-lesson-candidates.json"
+          },
+          {
+            "line": "?? coordination/content-qa/us-ca-math-rag-v2-candidate/s05-textbook-lesson-briefs.json",
+            "path": "coordination/content-qa/us-ca-math-rag-v2-candidate/s05-textbook-lesson-briefs.json"
+          },
+          {
+            "line": "?? coordination/content-qa/us-ca-math-rag-v2-candidate/s11-candidate-preview-smoke.json",
+            "path": "coordination/content-qa/us-ca-math-rag-v2-candidate/s11-candidate-preview-smoke.json"
+          },
+          {
+            "line": "?? coordination/content-qa/us-ca-math-rag-v2-candidate/s11-candidate-preview-smoke.md",
+            "path": "coordination/content-qa/us-ca-math-rag-v2-candidate/s11-candidate-preview-smoke.md"
+          },
+          {
+            "line": "?? coordination/content-qa/us-ca-math-rag-v2-candidate/s11-candidate-regression-manifest.json",
+            "path": "coordination/content-qa/us-ca-math-rag-v2-candidate/s11-candidate-regression-manifest.json"
+          },
+          {
+            "line": "?? coordination/content-qa/us-ca-math-rag-v2-candidate/s11-regression-readiness.md",
+            "path": "coordination/content-qa/us-ca-math-rag-v2-candidate/s11-regression-readiness.md"
+          },
+          {
+            "line": "?? coordination/content-qa/us-ca-math-rag-v2-candidate/s18-downstream-qa-review.md",
+            "path": "coordination/content-qa/us-ca-math-rag-v2-candidate/s18-downstream-qa-review.md"
+          },
+          {
+            "line": "?? coordination/content-qa/us-ca-math-rag-v2-candidate/s18-downstream-validation.json",
+            "path": "coordination/content-qa/us-ca-math-rag-v2-candidate/s18-downstream-validation.json"
+          },
+          {
+            "line": "?? coordination/content-qa/us-ca-math-rag-v2-candidate/s18-qa-review.md",
+            "path": "coordination/content-qa/us-ca-math-rag-v2-candidate/s18-qa-review.md"
+          },
+          {
+            "line": "?? coordination/content-qa/us-ca-math-rag-v2-candidate/s18-representative-sample-review.md",
+            "path": "coordination/content-qa/us-ca-math-rag-v2-candidate/s18-representative-sample-review.md"
+          },
+          {
+            "line": "?? coordination/content-qa/us-ca-math-rag-v2-candidate/s21-generation-report.md",
+            "path": "coordination/content-qa/us-ca-math-rag-v2-candidate/s21-generation-report.md"
+          },
+          {
+            "line": "?? coordination/content-qa/us-ca-math-rag-v2-candidate/s23-promotion-decision-update.md",
+            "path": "coordination/content-qa/us-ca-math-rag-v2-candidate/s23-promotion-decision-update.md"
+          },
+          {
+            "line": "?? coordination/content-qa/us-ca-math-rag-v2-candidate/s23-promotion-decision.md",
+            "path": "coordination/content-qa/us-ca-math-rag-v2-candidate/s23-promotion-decision.md"
+          },
+          {
+            "line": "?? coordination/content-qa/us-ca-math-rag-v2-candidate/s23-promotion-handoff.md",
+            "path": "coordination/content-qa/us-ca-math-rag-v2-candidate/s23-promotion-handoff.md"
+          },
+          {
+            "line": "?? coordination/content-qa/us-ca-math-rag-v2-candidate/safe-card-drafts.json",
+            "path": "coordination/content-qa/us-ca-math-rag-v2-candidate/safe-card-drafts.json"
+          },
+          {
+            "line": "?? coordination/content-qa/us-ca-math-rag-v2-candidate/validation-summary.md",
+            "path": "coordination/content-qa/us-ca-math-rag-v2-candidate/validation-summary.md"
+          }
+        ]
+      },
+      "checks": {
+        "testRag": {
+          "command": "npm run test:rag",
+          "status": 1,
+          "passed": false,
+          "stdout": [
+            "> hk-math-lab-template@0.1.0 test:rag",
+            "> python3 scripts/build-mainland-high-abstract.py --self-test && python3 scripts/build-mainland-hjb-high-textbook-manifest.py --self-test && python3 scripts/build-mainland-hjb-primary-manifest.py --self-test && python3 scripts/build-mainland-bnu-primary-manifest.py --self-test && python3 scripts/build-mainland-bnu-junior-manifest.py --self-test && python3 scripts/build-mainland-bnu-high-textbook-manifest.py --self-test && python3 scripts/build-mainland-bnu-high-assessment-manifest.py --self-test && python3 scripts/build-mainland-bnu-high-s4-upper-assessment-manifest.py --self-test && python3 scripts/build-mainland-bnu-high-s4-lower-assessment-manifest.py --self-test && python3 scripts/build-mainland-bnu-junior-assessment-manifest.py --self-test && python3 scripts/build-mainland-bnu-junior-s1-upper-assessment-manifest.py --self-test && python3 scripts/build-mainland-bnu-primary-assessment-manifest.py --self-test && python3 scripts/build-mainland-hjb-primary-assessment-manifest.py --self-test && python3 scripts/build-mainland-hjb-primary-paper-manifest.py --self-test && python3 scripts/build-mainland-hjb-junior-manifest.py --self-test && python3 scripts/build-mainland-hjb-junior-assessment-manifest.py --self-test && python3 scripts/build-mainland-hjb-junior-paper-manifest.py --self-test && python3 scripts/build-mainland-hjb-high-exam-manifest.py --self-test && python3 scripts/build-mainland-junior-zhongkao-manifest.py --self-test && python3 scripts/build-mainland-pep-primary-manifest.py --self-test && python3 scripts/build-mainland-pep-junior-manifest.py --self-test && python3 scripts/build-mainland-pep-junior-exam-manifest.py --self-test && python3 scripts/build-mainland-pep-junior-paper-manifest.py --self-test && python3 scripts/build-mainland-pep-primary-paper-manifest.py --self-test && python3 scripts/build-mainland-pep-primary-abstract.py --self-test && python3 scripts/build-mainland-pep-primary-exam-manifest.py --self-test && python3 scripts/build-hk-dse-math-manifest.py --self-test && python3 scripts/build-hk-dse-topic-practice-manifest.py --self-test && python3 scripts/build-hk-dse-mock-manifest.py --self-test && python3 scripts/build-hk-dse-eph-textbook-manifest.py --self-test && python3 scripts/build-hk-dse-up-textbook-manifest.py --self-test && python3 scripts/build-us-math-safe-library-manifest.py --self-test && rm -rf .tmp/rag-tests && tsc -p tsconfig.rag.json && node --test .tmp/rag-tests/lib/rag/mainlandPep.test.js .tmp/rag-tests/lib/rag/mainlandPepHigh.test.js .tmp/rag-tests/lib/rag/mainlandHjbHigh.test.js .tmp/rag-tests/lib/rag/mainlandHjbPrimary.test.js .tmp/rag-tests/lib/rag/mainlandHjbJunior.test.js .tmp/rag-tests/lib/rag/mainlandBnuPrimary.test.js .tmp/rag-tests/lib/rag/mainlandBnuJunior.test.js .tmp/rag-tests/lib/rag/mainlandBnuHigh.test.js .tmp/rag-tests/lib/rag/mainlandBnuHighAssessmentPatterns.test.js .tmp/rag-tests/lib/rag/hongKongMathEdB.test.js .tmp/rag-tests/lib/rag/hongKongDseMath.test.js .tmp/rag-tests/lib/rag/hongKongDseEph.test.js .tmp/rag-tests/lib/rag/hongKongDseUp.test.js .tmp/rag-tests/lib/rag/usMath.test.js && rm -rf .tmp/rag-tests",
+            "Self-test passed: metadata-only abstraction handles 193 doc/docx entries.",
+            "Self-test passed: metadata-only HJB high-school manifest handles five PDFs and 21 safe draft cards.",
+            "Self-test passed: metadata-only manifest covers P1-P6 upper/lower HJB primary PDFs.",
+            "Self-test passed: metadata-only manifest covers P1-P2, P3, P4, P5, and P6 target BNU primary PDFs.",
+            "Self-test passed: metadata-only manifest covers S1-S3 upper/lower BNU junior targets.",
+            "Self-test passed: metadata-only BNU high-school manifest handles four PDFs and 23 safe draft cards.",
+            "Self-test passed: metadata-only BNU high S5 assessment manifest built without content extraction.",
+            "Self-test passed: metadata-only BNU high S4 upper assessment manifest built without content extraction.",
+            "Self-test passed: metadata-only BNU high S4 lower assessment manifest built without content extraction.",
+            "Self-test passed: metadata-only BNU junior S1 lower assessment manifest built without content extraction.",
+            "Self-test passed: metadata-only BNU junior S2 lower assessment manifest built without content extraction.",
+            "Self-test passed: metadata-only BNU junior S3 lower assessment manifest built without content extraction.",
+            "Self-test passed: metadata-only BNU junior S1 upper assessment manifest handles Chinese archives and safe draft cards.",
+            "Self-test passed: metadata-only BNU primary assessment manifest handles target configs and ZIP archives safely.",
+            "Self-test passed: metadata-only HJB primary assessment manifest handles target configs and Chinese ZIP archives safely.",
+            "Self-test passed: metadata-only HJB primary paper ZIP manifest built without content extraction.",
+            "Self-test passed: metadata-only manifest covers S1-S3 upper/lower HJB junior PDFs.",
+            "Self-test passed: metadata-only HJB junior assessment manifest handles Chinese archives and safe draft cards.",
+            "Self-test passed: metadata-only HJB junior paper archive manifest built without content extraction.",
+            "Self-test passed: metadata-only HJB assessment manifest handles Chinese archive entries and 63 safe draft cards.",
+            "mainland junior zhongkao manifest self-test passed",
+            "Self-test passed: metadata-only manifest covers 12 P1-P6 upper/lower PDFs.",
+            "Self-test passed: metadata-only manifest covers 6 S1-S3 upper/lower PDFs.",
+            "Self-test passed: metadata-only junior zhongkao archive manifest built without content extraction.",
+            "Self-test passed: metadata-only junior paper archive manifest built without content extraction.",
+            "Self-test passed: primary paper manifest supports DOC/DOCX/PDF metadata only and filters hidden/unsupported files.",
+            "Self-test passed: safe abstraction drafts cover P1-P6 upper/lower without PDF extraction.",
+            "Self-test passed: metadata-only generic primary exam archive manifest built without content extraction.",
+            "Self-test passed: HK DSE manifest builder recognized 36 English PDFs and 35 Chinese PDFs.",
+            "Self-test passed: HK DSE topic-practice manifest recognized 37 English PDFs.",
+            "Self-test passed: HK DSE mock manifest recognized 18 Paper 1 metadata PDFs.",
+            "Self-test passed: HK DSE EPH manifest builder recognized 5 volumes and 10 safe-card drafts.",
+            "Self-test passed: HK DSE UP manifest builder recognized 6 volumes and 12 safe-card drafts.",
+            "Self-test passed: U.S. math safe-library manifest remains metadata-only."
+          ],
+          "stderr": [
+            "rm: .tmp/rag-tests/types/index.js: Operation not permitted",
+            "rm: .tmp/rag-tests/types: Operation not permitted",
+            "rm: .tmp/rag-tests/lib/rag/mainlandPepHigh.js: Operation not permitted",
+            "rm: .tmp/rag-tests/lib/rag/mainlandPep.js: Operation not permitted",
+            "rm: .tmp/rag-tests/lib/rag/mainlandPepJuniorPaperPatterns.js: Operation not permitted",
+            "rm: .tmp/rag-tests/lib/rag/mainlandBnuJunior.js: Operation not permitted",
+            "rm: .tmp/rag-tests/lib/rag/mainlandPepPrimaryExamPatterns.js: Operation not permitted",
+            "rm: .tmp/rag-tests/lib/rag/hongKongUpJunior.test.js: Operation not permitted",
+            "rm: .tmp/rag-tests/lib/rag/mainlandBnuJunior.test.js: Operation not permitted",
+            "rm: .tmp/rag-tests/lib/rag/hongKongMathEdB.test.js: Operation not permitted",
+            "rm: .tmp/rag-tests/lib/rag/illustrationTextMatchStandard.js: Operation not permitted",
+            "rm: .tmp/rag-tests/lib/rag/mainlandHjbPrimaryAssessmentPatterns.js: Operation not permitted",
+            "rm: .tmp/rag-tests/lib/rag/hongKongUpJuniorResources.js: Operation not permitted",
+            "rm: .tmp/rag-tests/lib/rag/hongKongMathEdB.js: Operation not permitted",
+            "rm: .tmp/rag-tests/lib/rag/usMath.test.js: Operation not permitted",
+            "rm: .tmp/rag-tests/lib/rag/mainlandHjbJuniorPaperPatterns.js: Operation not permitted",
+            "rm: .tmp/rag-tests/lib/rag/mainlandPepHigh.test.js: Operation not permitted",
+            "rm: .tmp/rag-tests/lib/rag/mainlandBnuPrimaryAssessmentPatterns.js: Operation not permitted",
+            "rm: .tmp/rag-tests/lib/rag/mainlandHjbHighExamPatterns.js: Operation not permitted",
+            "rm: .tmp/rag-tests/lib/rag/mainlandHjbPrimary.test.js: Operation not permitted",
+            "rm: .tmp/rag-tests/lib/rag/mainlandBnuPrimary.js: Operation not permitted",
+            "rm: .tmp/rag-tests/lib/rag/hongKongEaseQuestions.test.js: Operation not permitted",
+            "rm: .tmp/rag-tests/lib/rag/hongKongDseMath.js: Operation not permitted",
+            "rm: .tmp/rag-tests/lib/rag/mainlandHjbPrimary.js: Operation not permitted",
+            "rm: .tmp/rag-tests/lib/rag/mainlandBnuPrimary.test.js: Operation not permitted",
+            "rm: .tmp/rag-tests/lib/rag/mainlandPep.test.js: Operation not permitted",
+            "rm: .tmp/rag-tests/lib/rag/mainlandPepJuniorExamPatterns.js: Operation not permitted",
+            "rm: .tmp/rag-tests/lib/rag/hongKongMath.js: Operation not permitted",
+            "rm: .tmp/rag-tests/lib/rag/mainlandHjbJunior.js: Operation not permitted",
+            "rm: .tmp/rag-tests/lib/rag/hongKongDseUp.js: Operation not permitted",
+            "rm: .tmp/rag-tests/lib/rag/hongKongDseEph.js: Operation not permitted",
+            "rm: .tmp/rag-tests/lib/rag/mainlandHjbJunior.test.js: Operation not permitted",
+            "rm: .tmp/rag-tests/lib/rag/mainlandBnuHigh.test.js: Operation not permitted",
+            "rm: .tmp/rag-tests/lib/rag/hongKongDseUp.test.js: Operation not permitted",
+            "rm: .tmp/rag-tests/lib/rag/mainlandBnuJuniorAssessmentPatterns.js: Operation not permitted",
+            "rm: .tmp/rag-tests/lib/rag/mainlandHjbHigh.test.js: Operation not permitted",
+            "rm: .tmp/rag-tests/lib/rag/mainlandHjbJuniorAssessmentPatterns.js: Operation not permitted",
+            "rm: .tmp/rag-tests/lib/rag/hongKongUpJunior.js: Operation not permitted",
+            "rm: .tmp/rag-tests/lib/rag/hongKongModernPrimary.js: Operation not permitted",
+            "rm: .tmp/rag-tests/lib/rag/hongKongModernPrimary.test.js: Operation not permitted",
+            "rm: .tmp/rag-tests/lib/rag/mainlandBnuHighAssessmentPatterns.js: Operation not permitted",
+            "rm: .tmp/rag-tests/lib/rag/mainlandHjbHigh.js: Operation not permitted",
+            "rm: .tmp/rag-tests/lib/rag/hongKongEaseQuestions.js: Operation not permitted",
+            "rm: .tmp/rag-tests/lib/rag/hongKongUpJuniorResources.test.js: Operation not permitted",
+            "rm: .tmp/rag-tests/lib/rag/mainlandBnuHigh.js: Operation not permitted",
+            "rm: .tmp/rag-tests/lib/rag/mainlandJuniorZhongkaoExamPatterns.js: Operation not permitted",
+            "rm: .tmp/rag-tests/lib/rag/hongKongUpJuniorEnglish.test.js: Operation not permitted",
+            "rm: .tmp/rag-tests/lib/rag/hongKongDseEph.test.js: Operation not permitted",
+            "rm: .tmp/rag-tests/lib/rag/usMath.js: Operation not permitted",
+            "rm: .tmp/rag-tests/lib/rag/mainlandPepHighExamPatterns.js: Operation not permitted",
+            "rm: .tmp/rag-tests/lib/rag/mainlandBnuHighAssessmentPatterns.test.js: Operation not permitted",
+            "rm: .tmp/rag-tests/lib/rag/hongKongDseMath.test.js: Operation not permitted",
+            "rm: .tmp/rag-tests/lib/rag: Operation not permitted",
+            "rm: .tmp/rag-tests/lib/curriculumProfile.js: Operation not permitted",
+            "rm: .tmp/rag-tests/lib: Operation not permitted",
+            "rm: .tmp/rag-tests/data/rag/hongKongDseTopicPractice.js: Operation not permitted",
+            "rm: .tmp/rag-tests/data/rag/mainlandPepHigh.js: Operation not permitted",
+            "rm: .tmp/rag-tests/data/rag/mainlandPepJuniorPaperPatterns.js: Operation not permitted",
+            "rm: .tmp/rag-tests/data/rag/mainlandBnuJunior.js: Operation not permitted",
+            "rm: .tmp/rag-tests/data/rag/mainlandPepPrimaryExamPatterns.js: Operation not permitted",
+            "rm: .tmp/rag-tests/data/rag/mainlandHjbPrimaryAssessmentPatterns.js: Operation not permitted",
+            "rm: .tmp/rag-tests/data/rag/hongKongUpJuniorResources.js: Operation not permitted",
+            "rm: .tmp/rag-tests/data/rag/hongKongMathEdB.js: Operation not permitted",
+            "rm: .tmp/rag-tests/data/rag/mainlandHjbJuniorPaperPatterns.js: Operation not permitted",
+            "rm: .tmp/rag-tests/data/rag/hongKongUpJuniorEnglish.js: Operation not permitted",
+            "rm: .tmp/rag-tests/data/rag/mainlandBnuPrimaryAssessmentPatterns.js: Operation not permitted",
+            "rm: .tmp/rag-tests/data/rag/mainlandHjbHighExamPatterns.js: Operation not permitted",
+            "rm: .tmp/rag-tests/data/rag/mainlandBnuPrimary.js: Operation not permitted",
+            "rm: .tmp/rag-tests/data/rag/mainlandHjbPrimary.js: Operation not permitted",
+            "rm: .tmp/rag-tests/data/rag/mainlandPepJuniorExamPatterns.js: Operation not permitted",
+            "rm: .tmp/rag-tests/data/rag/mainlandHjbJunior.js: Operation not permitted",
+            "rm: .tmp/rag-tests/data/rag/mainlandPepJunior.js: Operation not permitted",
+            "rm: .tmp/rag-tests/data/rag/hongKongDseUp.js: Operation not permitted",
+            "rm: .tmp/rag-tests/data/rag/hongKongDseEph.js: Operation not permitted",
+            "rm: .tmp/rag-tests/data/rag/mainlandBnuJuniorAssessmentPatterns.js: Operation not permitted",
+            "rm: .tmp/rag-tests/data/rag/hongKongDseMock.js: Operation not permitted",
+            "rm: .tmp/rag-tests/data/rag/mainlandPepPrimary.js: Operation not permitted",
+            "rm: .tmp/rag-tests/data/rag/mainlandHjbJuniorAssessmentPatterns.js: Operation not permitted",
+            "rm: .tmp/rag-tests/data/rag/hongKongUpJunior.js: Operation not permitted",
+            "rm: .tmp/rag-tests/data/rag/hongKongModernPrimary.js: Operation not permitted",
+            "rm: .tmp/rag-tests/data/rag/mainlandBnuHighAssessmentPatterns.js: Operation not permitted",
+            "rm: .tmp/rag-tests/data/rag/mainlandHjbHigh.js: Operation not permitted",
+            "rm: .tmp/rag-tests/data/rag/hongKongEaseQuestions.js: Operation not permitted",
+            "rm: .tmp/rag-tests/data/rag/mainlandBnuHigh.js: Operation not permitted",
+            "rm: .tmp/rag-tests/data/rag/mainlandJuniorZhongkaoExamPatterns.js: Operation not permitted",
+            "rm: .tmp/rag-tests/data/rag/hongKongDseMathExamPatterns.js: Operation not permitted",
+            "rm: .tmp/rag-tests/data/rag/usMath.js: Operation not permitted",
+            "rm: .tmp/rag-tests/data/rag/mainlandPepHighExamPatterns.js: Operation not permitted",
+            "rm: .tmp/rag-tests/data/rag: Operation not permitted",
+            "rm: .tmp/rag-tests/data: Operation not permitted",
+            "rm: .tmp/rag-tests: Operation not permitted"
+          ]
+        },
+        "testQuestionBank": {
+          "command": "npm run test:question-bank",
+          "status": 1,
+          "passed": false,
+          "stdout": [
+            "> hk-math-lab-template@0.1.0 test:question-bank",
+            "> rm -rf .tmp/question-bank-tests .tmp/question-bank-db && tsc -p tsconfig.json --outDir .tmp/question-bank-tests --noEmit false --incremental false --module commonjs --moduleResolution node && mkdir -p .tmp/question-bank-tests/node_modules/@ && ln -s ../../data .tmp/question-bank-tests/node_modules/@/data && ln -s ../../lib .tmp/question-bank-tests/node_modules/@/lib && HK_MATH_DB_DIR=.tmp/question-bank-db node --test .tmp/question-bank-tests/lib/mainlandPepHighQuestionBank.test.js .tmp/question-bank-tests/lib/mainlandPepPrimaryQuestionBank.test.js .tmp/question-bank-tests/lib/mainlandPepJuniorQuestionBank.test.js .tmp/question-bank-tests/lib/mainlandBnuPrimaryQuestionBank.test.js .tmp/question-bank-tests/lib/mainlandBnuJuniorQuestionBank.test.js .tmp/question-bank-tests/lib/fullQuestionBankSolvability.test.js && rm -rf .tmp/question-bank-tests .tmp/question-bank-db"
+          ],
+          "stderr": [
+            "rm: .tmp/question-bank-tests/types/index.js: Operation not permitted",
+            "rm: .tmp/question-bank-tests/types: Operation not permitted",
+            "rm: .tmp/question-bank-tests/tailwind.config.js: Operation not permitted",
+            "rm: .tmp/question-bank-tests/coordination/content-qa/mainland-bnu-junior-generated-bank-v1-1500/approved-question-pack.json: Operation not permitted",
+            "rm: .tmp/question-bank-tests/coordination/content-qa/mainland-bnu-junior-generated-bank-v1-1500: Operation not permitted",
+            "rm: .tmp/question-bank-tests/coordination/content-qa: Operation not permitted",
+            "rm: .tmp/question-bank-tests/coordination: Operation not permitted",
+            "rm: .tmp/question-bank-tests/app/visualization-lab/page.jsx: Operation not permitted",
+            "rm: .tmp/question-bank-tests/app/visualization-lab/loading.jsx: Operation not permitted",
+            "rm: .tmp/question-bank-tests/app/visualization-lab: Operation not permitted",
+            "rm: .tmp/question-bank-tests/app/layout.jsx: Operation not permitted",
+            "rm: .tmp/question-bank-tests/app/messages/page.jsx: Operation not permitted",
+            "rm: .tmp/question-bank-tests/app/messages: Operation not permitted",
+            "rm: .tmp/question-bank-tests/app/progress/page.jsx: Operation not permitted",
+            "rm: .tmp/question-bank-tests/app/progress: Operation not permitted",
+            "rm: .tmp/question-bank-tests/app/primary-roadmap/page.jsx: Operation not permitted",
+            "rm: .tmp/question-bank-tests/app/primary-roadmap: Operation not permitted",
+            "rm: .tmp/question-bank-tests/app/not-found.jsx: Operation not permitted",
+            "rm: .tmp/question-bank-tests/app/student/tools/visualizations/page.jsx: Operation not permitted",
+            "rm: .tmp/question-bank-tests/app/student/tools/visualizations/[labId]/page.jsx: Operation not permitted",
+            "rm: .tmp/question-bank-tests/app/student/tools/visualizations/[labId]: Operation not permitted",
+            "rm: .tmp/question-bank-tests/app/student/tools/visualizations/loading.jsx: Operation not permitted",
+            "rm: .tmp/question-bank-tests/app/student/tools/visualizations: Operation not permitted",
+            "rm: .tmp/question-bank-tests/app/student/tools: Operation not permitted",
+            "rm: .tmp/question-bank-tests/app/student/lessons/california-middle-school-textbook/page.jsx: Operation not permitted",
+            "rm: .tmp/question-bank-tests/app/student/lessons/california-middle-school-textbook: Operation not permitted",
+            "rm: .tmp/question-bank-tests/app/student/lessons/california-high-school-textbook/page.jsx: Operation not permitted",
+            "rm: .tmp/question-bank-tests/app/student/lessons/california-high-school-textbook: Operation not permitted",
+            "rm: .tmp/question-bank-tests/app/student/lessons/page.jsx: Operation not permitted",
+            "rm: .tmp/question-bank-tests/app/student/lessons/loading.jsx: Operation not permitted",
+            "rm: .tmp/question-bank-tests/app/student/lessons/[lessonSlug]/page.jsx: Operation not permitted",
+            "rm: .tmp/question-bank-tests/app/student/lessons/[lessonSlug]: Operation not permitted",
+            "rm: .tmp/question-bank-tests/app/student/lessons: Operation not permitted",
+            "rm: .tmp/question-bank-tests/app/student: Operation not permitted",
+            "rm: .tmp/question-bank-tests/app/page.jsx: Operation not permitted",
+            "rm: .tmp/question-bank-tests/app/learning-path/page.jsx: Operation not permitted",
+            "rm: .tmp/question-bank-tests/app/learning-path: Operation not permitted",
+            "rm: .tmp/question-bank-tests/app/classroom/join/page.jsx: Operation not permitted",
+            "rm: .tmp/question-bank-tests/app/classroom/join: Operation not permitted",
+            "rm: .tmp/question-bank-tests/app/classroom/page.jsx: Operation not permitted",
+            "rm: .tmp/question-bank-tests/app/classroom: Operation not permitted",
+            "rm: .tmp/question-bank-tests/app/assessment/[assessmentId]/page.jsx: Operation not permitted",
+            "rm: .tmp/question-bank-tests/app/assessment/[assessmentId]: Operation not permitted",
+            "rm: .tmp/question-bank-tests/app/assessment: Operation not permitted",
+            "rm: .tmp/question-bank-tests/app/secondary-roadmap/page.jsx: Operation not permitted",
+            "rm: .tmp/question-bank-tests/app/secondary-roadmap: Operation not permitted",
+            "rm: .tmp/question-bank-tests/app/dashboard/page.jsx: Operation not permitted",
+            "rm: .tmp/question-bank-tests/app/dashboard: Operation not permitted",
+            "rm: .tmp/question-bank-tests/app/register/page.jsx: Operation not permitted",
+            "rm: .tmp/question-bank-tests/app/register: Operation not permitted",
+            "... 930 lines omitted ...",
+            "rm: .tmp/question-bank-tests/data/gamification.js: Operation not permitted",
+            "rm: .tmp/question-bank-tests/data/mainlandHjbPrimaryLessons.js: Operation not permitted",
+            "rm: .tmp/question-bank-tests/data/mainlandBnuJuniorQuestions.js: Operation not permitted",
+            "rm: .tmp/question-bank-tests/data/usCaliforniaKnowledgePoints.js: Operation not permitted",
+            "rm: .tmp/question-bank-tests/data/mainlandHjbHighLessonIllustrations.js: Operation not permitted",
+            "rm: .tmp/question-bank-tests/data/mainlandHjbPrimaryTopics.js: Operation not permitted",
+            "rm: .tmp/question-bank-tests/data/topics.js: Operation not permitted",
+            "rm: .tmp/question-bank-tests/data/mainlandPepJuniorTopics.js: Operation not permitted",
+            "rm: .tmp/question-bank-tests/data/mainlandBnuPrimaryLessons.js: Operation not permitted",
+            "rm: .tmp/question-bank-tests/data/mainlandPepJuniorQuestions.js: Operation not permitted",
+            "rm: .tmp/question-bank-tests/data/hkChineseGlossary.js: Operation not permitted",
+            "rm: .tmp/question-bank-tests/data/mainlandBnuHighTopics.js: Operation not permitted",
+            "rm: .tmp/question-bank-tests/data/generated-content/mainland-bnu-junior-generated-bank-v1-1500/approved-question-pack.json: Operation not permitted",
+            "rm: .tmp/question-bank-tests/data/generated-content/mainland-bnu-junior-generated-bank-v1-1500: Operation not permitted",
+            "rm: .tmp/question-bank-tests/data/generated-content/mainland-hjb-junior-generated-bank-v2-1500/question-pack.json: Operation not permitted",
+            "rm: .tmp/question-bank-tests/data/generated-content/mainland-hjb-junior-generated-bank-v2-1500: Operation not permitted",
+            "rm: .tmp/question-bank-tests/data/generated-content/mainland-hjb-primary-generated-bank-v1-1500/question-pack.json: Operation not permitted",
+            "rm: .tmp/question-bank-tests/data/generated-content/mainland-hjb-primary-generated-bank-v1-1500: Operation not permitted",
+            "rm: .tmp/question-bank-tests/data/generated-content/mainland-pep-junior-lessons-v1/lessons.json: Operation not permitted",
+            "rm: .tmp/question-bank-tests/data/generated-content/mainland-pep-junior-lessons-v1: Operation not permitted",
+            "rm: .tmp/question-bank-tests/data/generated-content/mainland-bnu-primary-generated-bank-v1-1500/question-pack.json: Operation not permitted",
+            "rm: .tmp/question-bank-tests/data/generated-content/mainland-bnu-primary-generated-bank-v1-1500: Operation not permitted",
+            "rm: .tmp/question-bank-tests/data/generated-content/us-ca-math-middle-school-textbooks-v2/live-lessons.json: Operation not permitted",
+            "rm: .tmp/question-bank-tests/data/generated-content/us-ca-math-middle-school-textbooks-v2: Operation not permitted",
+            "rm: .tmp/question-bank-tests/data/generated-content/mainland-hjb-junior-lessons-v1/lessons.json: Operation not permitted",
+            "rm: .tmp/question-bank-tests/data/generated-content/mainland-hjb-junior-lessons-v1: Operation not permitted",
+            "rm: .tmp/question-bank-tests/data/generated-content/mainland-hjb-high-generated-bank-v1/question-pack.json: Operation not permitted",
+            "rm: .tmp/question-bank-tests/data/generated-content/mainland-hjb-high-generated-bank-v1: Operation not permitted",
+            "rm: .tmp/question-bank-tests/data/generated-content/mainland-pep-junior-generated-bank-v2-1200/question-pack.json: Operation not permitted",
+            "rm: .tmp/question-bank-tests/data/generated-content/mainland-pep-junior-generated-bank-v2-1200: Operation not permitted",
+            "rm: .tmp/question-bank-tests/data/generated-content/us-ca-math-textbooks-v1/textbook-pack.json: Operation not permitted",
+            "rm: .tmp/question-bank-tests/data/generated-content/us-ca-math-textbooks-v1: Operation not permitted",
+            "rm: .tmp/question-bank-tests/data/generated-content/mainland-pep-high-lessons-v1/lessons.json: Operation not permitted",
+            "rm: .tmp/question-bank-tests/data/generated-content/mainland-pep-high-lessons-v1: Operation not permitted",
+            "rm: .tmp/question-bank-tests/data/generated-content/mainland-bnu-high-generated-bank-v1-1500/question-pack.approved.json: Operation not permitted",
+            "rm: .tmp/question-bank-tests/data/generated-content/mainland-bnu-high-generated-bank-v1-1500: Operation not permitted",
+            "rm: .tmp/question-bank-tests/data/generated-content/mainland-pep-primary-lessons-v1/lessons.json: Operation not permitted",
+            "rm: .tmp/question-bank-tests/data/generated-content/mainland-pep-primary-lessons-v1: Operation not permitted",
+            "rm: .tmp/question-bank-tests/data/generated-content/mainland-bnu-primary-generated-bank-v2-1500/question-pack.json: Operation not permitted",
+            "rm: .tmp/question-bank-tests/data/generated-content/mainland-bnu-primary-generated-bank-v2-1500: Operation not permitted",
+            "rm: .tmp/question-bank-tests/data/generated-content/mainland-hjb-high-generated-bank-v4-remediated/question-pack.json: Operation not permitted",
+            "rm: .tmp/question-bank-tests/data/generated-content/mainland-hjb-high-generated-bank-v4-remediated: Operation not permitted",
+            "rm: .tmp/question-bank-tests/data/generated-content/mainland-hjb-high-generated-bank-v3-remediated/question-pack.json: Operation not permitted",
+            "rm: .tmp/question-bank-tests/data/generated-content/mainland-hjb-high-generated-bank-v3-remediated: Operation not permitted",
+            "rm: .tmp/question-bank-tests/data/generated-content/mainland-hjb-high-generated-bank-v2/question-pack.json: Operation not permitted",
+            "rm: .tmp/question-bank-tests/data/generated-content/mainland-hjb-high-generated-bank-v2: Operation not permitted",
+            "rm: .tmp/question-bank-tests/data/generated-content: Operation not permitted",
+            "rm: .tmp/question-bank-tests/data/mainlandHjbJuniorTopics.js: Operation not permitted",
+            "rm: .tmp/question-bank-tests/data: Operation not permitted",
+            "rm: .tmp/question-bank-tests: Operation not permitted"
+          ]
+        },
+        "typeCheck": {
+          "command": "npm run type-check -- --pretty false",
+          "status": 2,
+          "passed": false,
+          "stdout": [
+            "> hk-math-lab-template@0.1.0 type-check",
+            "> tsc --noEmit --incremental false --pretty false",
+            "app/api/admin/ai-governance/summary/route.ts(3,43): error TS2307: Cannot find module '@/lib/server/aiGovernance' or its corresponding type declarations.",
+            "app/api/admin/ai-governance/summary/route.ts(4,10): error TS2305: Module '\"@/lib/server/userStore\"' has no exported member 'getAiGovernanceSummaryForAdmin'.",
+            "app/api/admin/nova-lens/policy/route.ts(3,10): error TS2305: Module '\"@/lib/server/userStore\"' has no exported member 'getNovaLensPolicy'.",
+            "app/api/admin/nova-lens/policy/route.ts(3,29): error TS2305: Module '\"@/lib/server/userStore\"' has no exported member 'listNovaLensPolicyEventsForAdmin'.",
+            "app/api/admin/nova-lens/policy/route.ts(3,63): error TS2305: Module '\"@/lib/server/userStore\"' has no exported member 'updateNovaLensPolicy'.",
+            "app/api/admin/nova-lens/policy/route.ts(4,15): error TS2305: Module '\"@/types\"' has no exported member 'NovaLensPolicy'.",
+            "app/api/admin/storage/hot-auth/backfill/route.ts(3,10): error TS2305: Module '\"@/lib/server/userStore\"' has no exported member 'backfillPostgresHotAuthTablesForAdmin'.",
+            "app/api/admin/storage/temporary-bootstrap-admins/route.ts(3,10): error TS2305: Module '\"@/lib/server/userStore\"' has no exported member 'cleanupTemporaryBootstrapAdminsForAdmin'.",
+            "app/api/assignments/[assignmentId]/corrections/route.ts(3,10): error TS2305: Module '\"@/lib/server/userStore\"' has no exported member 'recordAiGovernanceEvent'.",
+            "app/api/assignments/[assignmentId]/corrections/route.ts(3,35): error TS2305: Module '\"@/lib/server/userStore\"' has no exported member 'submitAssignmentWork'.",
+            "app/api/assignments/[assignmentId]/corrections/route.ts(4,100): error TS2307: Cannot find module '@/lib/server/aiGovernance' or its corresponding type declarations.",
+            "app/api/assignments/[assignmentId]/corrections/route.ts(10,15): error TS2305: Module '\"@/types\"' has no exported member 'AssignmentSubmissionInputType'.",
+            "app/api/assignments/[assignmentId]/corrections/route.ts(10,46): error TS2305: Module '\"@/types\"' has no exported member 'AssignmentSubmissionOcrResult'.",
+            "app/api/assignments/[assignmentId]/corrections/route.ts(34,13): error TS7006: Parameter 'error' implicitly has an 'any' type.",
+            "app/api/assignments/[assignmentId]/corrections/route.ts(72,15): error TS7006: Parameter 'error' implicitly has an 'any' type.",
+            "app/api/assignments/[assignmentId]/corrections/route.ts(94,15): error TS7006: Parameter 'error' implicitly has an 'any' type.",
+            "app/api/assignments/[assignmentId]/submissions/route.ts(3,10): error TS2305: Module '\"@/lib/server/userStore\"' has no exported member 'recordAiGovernanceEvent'.",
+            "app/api/assignments/[assignmentId]/submissions/route.ts(3,35): error TS2305: Module '\"@/lib/server/userStore\"' has no exported member 'submitAssignmentWork'.",
+            "app/api/assignments/[assignmentId]/submissions/route.ts(4,100): error TS2307: Cannot find module '@/lib/server/aiGovernance' or its corresponding type declarations.",
+            "app/api/assignments/[assignmentId]/submissions/route.ts(10,15): error TS2305: Module '\"@/types\"' has no exported member 'AssignmentSubmissionInputType'.",
+            "app/api/assignments/[assignmentId]/submissions/route.ts(10,46): error TS2305: Module '\"@/types\"' has no exported member 'AssignmentSubmissionOcrResult'.",
+            "app/api/assignments/[assignmentId]/submissions/route.ts(34,13): error TS7006: Parameter 'error' implicitly has an 'any' type.",
+            "app/api/assignments/[assignmentId]/submissions/route.ts(72,15): error TS7006: Parameter 'error' implicitly has an 'any' type.",
+            "... 750 lines omitted ...",
+            "lib/teacherReviewLesson.ts(501,26): error TS7006: Parameter 'entry' implicitly has an 'any' type.",
+            "lib/teacherReviewLesson.ts(515,30): error TS7006: Parameter 'column' implicitly has an 'any' type.",
+            "lib/teacherReviewLesson.ts(517,28): error TS7006: Parameter 'block' implicitly has an 'any' type.",
+            "lib/teacherReviewLesson.ts(521,38): error TS7006: Parameter 'question' implicitly has an 'any' type.",
+            "lib/teacherReviewLesson.ts(521,48): error TS7006: Parameter 'index' implicitly has an 'any' type.",
+            "lib/teacherReviewLessonPptx.ts(4,3): error TS2305: Module '\"@/types\"' has no exported member 'TeacherReviewLessonItem'.",
+            "lib/teacherReviewLessonPptx.ts(5,3): error TS2305: Module '\"@/types\"' has no exported member 'TeacherReviewLessonItemCategory'.",
+            "lib/teacherReviewLessonPptx.ts(6,3): error TS2305: Module '\"@/types\"' has no exported member 'TeacherReviewLessonPlan'.",
+            "lib/teacherReviewLessonPptx.ts(7,3): error TS2305: Module '\"@/types\"' has no exported member 'TeacherReviewLessonPracticeQuestion'.",
+            "lib/teacherReviewLessonPptx.ts(147,14): error TS7006: Parameter 'item' implicitly has an 'any' type.",
+            "lib/teacherReviewLessonPptx.ts(148,12): error TS7006: Parameter 'a' implicitly has an 'any' type.",
+            "lib/teacherReviewLessonPptx.ts(148,15): error TS7006: Parameter 'b' implicitly has an 'any' type.",
+            "lib/teacherReviewLessonPptx.ts(196,26): error TS7006: Parameter 'objective' implicitly has an 'any' type.",
+            "lib/teacherReviewLessonPptx.ts(212,24): error TS7006: Parameter 'item' implicitly has an 'any' type.",
+            "lib/teacherReviewLessonPptx.ts(257,18): error TS7006: Parameter 'item' implicitly has an 'any' type.",
+            "lib/teacherReviewLessonPptx.ts(270,14): error TS7006: Parameter 'item' implicitly has an 'any' type.",
+            "lib/teacherReviewLessonPptx.ts(271,12): error TS7006: Parameter 'a' implicitly has an 'any' type.",
+            "lib/teacherReviewLessonPptx.ts(271,15): error TS7006: Parameter 'b' implicitly has an 'any' type.",
+            "lib/teacherReviewLessonPptx.ts(347,20): error TS7006: Parameter 'column' implicitly has an 'any' type.",
+            "lib/teacherReviewLessonPptx.ts(347,28): error TS7006: Parameter 'index' implicitly has an 'any' type.",
+            "lib/teacherReviewLessonPptx.ts(353,26): error TS7006: Parameter 'block' implicitly has an 'any' type.",
+            "lib/teacherReviewLessonPptx.ts(376,62): error TS7006: Parameter 'question' implicitly has an 'any' type.",
+            "lib/teacherReviewLessonPptx.ts(378,64): error TS7006: Parameter 'question' implicitly has an 'any' type.",
+            "lib/teacherReviewLessonPptx.ts(383,35): error TS2307: Cannot find module 'pptxgenjs' or its corresponding type declarations.",
+            "scripts/audit-mainland-pep-roadmap.ts(12,3): error TS2353: Object literal may only specify known properties, and 'K' does not exist in type 'Record<GradeId, number>'."
+          ]
+        }
+      },
+      "typeCheck": {
+        "passed": false,
+        "status": 2,
+        "skipped": false,
+        "summary": {
+          "errorLines": 756,
+          "byTop": {
+            "app": 120,
+            "components": 429,
+            "data": 27,
+            "lib": 179,
+            "scripts": 1
+          },
+          "topFiles": [
+            {
+              "file": "components/visualizations/three/scenes/TemplatePrimitiveScene.tsx",
+              "errors": 206
+            },
+            {
+              "file": "components/teacher/TeacherPrepViews.tsx",
+              "errors": 36
+            },
+            {
+              "file": "components/teacher/TeacherOperationsView.tsx",
+              "errors": 32
+            },
+            {
+              "file": "lib/teacherReviewLesson.ts",
+              "errors": 30
+            },
+            {
+              "file": "components/teacher/TeacherReviewLessonView.tsx",
+              "errors": 25
+            },
+            {
+              "file": "components/visualizations/three/ThreeDGraphCanvas.tsx",
+              "errors": 21
+            },
+            {
+              "file": "lib/teacherReviewLessonPptx.ts",
+              "errors": 19
+            },
+            {
+              "file": "components/visualizations/VisualizationLabPage.tsx",
+              "errors": 16
+            },
+            {
+              "file": "lib/rag/hongKongMath.ts",
+              "errors": 14
+            },
+            {
+              "file": "components/games/MathVirusBlasterGame.tsx",
+              "errors": 13
+            },
+            {
+              "file": "data/rag/usMath.ts",
+              "errors": 13
+            },
+            {
+              "file": "components/visualizations/three/manim/MathSceneRuntime.tsx",
+              "errors": 12
+            },
+            {
+              "file": "components/games/MightyTankBattleGame.tsx",
+              "errors": 10
+            },
+            {
+              "file": "components/visualizations/three/ThreeDLabCanvas.tsx",
+              "errors": 10
+            },
+            {
+              "file": "lib/rag/hongKongEaseQuestions.test.ts",
+              "errors": 10
+            },
+            {
+              "file": "app/api/teacher/review-lessons/[reviewLessonId]/route.ts",
+              "errors": 9
+            },
+            {
+              "file": "components/visualizations/three/threeDSceneMath.catalog.test.ts",
+              "errors": 9
+            },
+            {
+              "file": "data/usCaliforniaKnowledgePoints.ts",
+              "errors": 9
+            },
+            {
+              "file": "lib/server/teacherReviewLessonLLM.ts",
+              "errors": 9
+            },
+            {
+              "file": "lib/teacherAssessmentAnalysis.ts",
+              "errors": 9
+            }
+          ],
+          "firstErrors": [
+            "app/api/admin/ai-governance/summary/route.ts(3,43): error TS2307: Cannot find module '@/lib/server/aiGovernance' or its corresponding type declarations.",
+            "app/api/admin/ai-governance/summary/route.ts(4,10): error TS2305: Module '\"@/lib/server/userStore\"' has no exported member 'getAiGovernanceSummaryForAdmin'.",
+            "app/api/admin/nova-lens/policy/route.ts(3,10): error TS2305: Module '\"@/lib/server/userStore\"' has no exported member 'getNovaLensPolicy'.",
+            "app/api/admin/nova-lens/policy/route.ts(3,29): error TS2305: Module '\"@/lib/server/userStore\"' has no exported member 'listNovaLensPolicyEventsForAdmin'.",
+            "app/api/admin/nova-lens/policy/route.ts(3,63): error TS2305: Module '\"@/lib/server/userStore\"' has no exported member 'updateNovaLensPolicy'.",
+            "app/api/admin/nova-lens/policy/route.ts(4,15): error TS2305: Module '\"@/types\"' has no exported member 'NovaLensPolicy'.",
+            "app/api/admin/storage/hot-auth/backfill/route.ts(3,10): error TS2305: Module '\"@/lib/server/userStore\"' has no exported member 'backfillPostgresHotAuthTablesForAdmin'.",
+            "app/api/admin/storage/temporary-bootstrap-admins/route.ts(3,10): error TS2305: Module '\"@/lib/server/userStore\"' has no exported member 'cleanupTemporaryBootstrapAdminsForAdmin'.",
+            "app/api/assignments/[assignmentId]/corrections/route.ts(3,10): error TS2305: Module '\"@/lib/server/userStore\"' has no exported member 'recordAiGovernanceEvent'.",
+            "app/api/assignments/[assignmentId]/corrections/route.ts(3,35): error TS2305: Module '\"@/lib/server/userStore\"' has no exported member 'submitAssignmentWork'.",
+            "app/api/assignments/[assignmentId]/corrections/route.ts(4,100): error TS2307: Cannot find module '@/lib/server/aiGovernance' or its corresponding type declarations.",
+            "app/api/assignments/[assignmentId]/corrections/route.ts(10,15): error TS2305: Module '\"@/types\"' has no exported member 'AssignmentSubmissionInputType'.",
+            "app/api/assignments/[assignmentId]/corrections/route.ts(10,46): error TS2305: Module '\"@/types\"' has no exported member 'AssignmentSubmissionOcrResult'.",
+            "app/api/assignments/[assignmentId]/corrections/route.ts(34,13): error TS7006: Parameter 'error' implicitly has an 'any' type.",
+            "app/api/assignments/[assignmentId]/corrections/route.ts(72,15): error TS7006: Parameter 'error' implicitly has an 'any' type.",
+            "app/api/assignments/[assignmentId]/corrections/route.ts(94,15): error TS7006: Parameter 'error' implicitly has an 'any' type.",
+            "app/api/assignments/[assignmentId]/submissions/route.ts(3,10): error TS2305: Module '\"@/lib/server/userStore\"' has no exported member 'recordAiGovernanceEvent'.",
+            "app/api/assignments/[assignmentId]/submissions/route.ts(3,35): error TS2305: Module '\"@/lib/server/userStore\"' has no exported member 'submitAssignmentWork'.",
+            "app/api/assignments/[assignmentId]/submissions/route.ts(4,100): error TS2307: Cannot find module '@/lib/server/aiGovernance' or its corresponding type declarations.",
+            "app/api/assignments/[assignmentId]/submissions/route.ts(10,15): error TS2305: Module '\"@/types\"' has no exported member 'AssignmentSubmissionInputType'.",
+            "app/api/assignments/[assignmentId]/submissions/route.ts(10,46): error TS2305: Module '\"@/types\"' has no exported member 'AssignmentSubmissionOcrResult'.",
+            "app/api/assignments/[assignmentId]/submissions/route.ts(34,13): error TS7006: Parameter 'error' implicitly has an 'any' type.",
+            "app/api/assignments/[assignmentId]/submissions/route.ts(72,15): error TS7006: Parameter 'error' implicitly has an 'any' type.",
+            "app/api/assignments/[assignmentId]/submissions/route.ts(94,15): error TS7006: Parameter 'error' implicitly has an 'any' type.",
+            "app/api/classroom/live/[sessionId]/work-samples/route.ts(3,10): error TS2305: Module '\"@/lib/server/userStore\"' has no exported member 'createClassroomWorkSample'."
+          ]
+        }
+      },
+      "blockingReasons": [
+        "A18/A21/A23/A24 content evidence has 110 dirty entries outside its pathspec union",
+        "A18/A21/A23/A24 content evidence testRag failed",
+        "A18/A21/A23/A24 content evidence testQuestionBank failed",
+        "A18/A21/A23/A24 content evidence typeCheck failed"
+      ],
+      "ready": false,
+      "checkExecutionMode": "reused",
+      "checkReuseSourceGeneratedAt": "2026-07-09T14:00:09.732Z",
+      "checkReuseReason": "worktree head/status, pathspec coverage, node_modules, and check commands are unchanged"
+    }
+  ],
+  "summary": {
+    "packages": 3,
+    "readyPackages": 0,
+    "missingWorktrees": 0,
+    "statusEntries": 404,
+    "coveredEntries": 294,
+    "uncoveredEntries": 110,
+    "checkCount": 8,
+    "passedChecks": 0,
+    "failedChecks": 8,
+    "skippedChecks": 0,
+    "typeCheckErrors": 2364
+  },
+  "commitReady": false,
+  "cleanupAuthorized": false,
+  "executableNow": false,
+  "blockingReasons": [
+    "A04 practice testQuestionBank failed",
+    "A04 practice typeCheck failed",
+    "A04 practice practicePlaywright failed",
+    "A05 lesson typeCheck failed",
+    "A05 lesson lessonPlaywright failed",
+    "A18/A21/A23/A24 content evidence has 110 dirty entries outside its pathspec union",
+    "A18/A21/A23/A24 content evidence testRag failed",
+    "A18/A21/A23/A24 content evidence testQuestionBank failed",
+    "A18/A21/A23/A24 content evidence typeCheck failed"
+  ]
+}

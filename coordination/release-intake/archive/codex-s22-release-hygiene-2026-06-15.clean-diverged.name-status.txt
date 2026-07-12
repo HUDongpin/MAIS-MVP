@@ -1,0 +1,11 @@
+M	.gitignore
+M	.vercelignore
+M	next.config.ts
+M	package.json
+M	playwright.config.ts
+A	scripts/cleanup-generated-artifacts.mjs
+A	scripts/deploy-vercel-preview.mjs
+A	scripts/deploy-vercel-production.mjs
+A	scripts/prepare-vercel-staging.mjs
+A	scripts/release-env-guard.mjs
+A	tsconfig.next.json

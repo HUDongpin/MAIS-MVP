@@ -1,0 +1,6 @@
+app/api/me/profile/route.ts                  | 122 +++++++++++-
+ components/dashboard/StudentProfilePanel.tsx |  62 +++---
+ components/providers/AppProviders.tsx        | 125 +++++++++++--
+ lib/server/userStore.ts                      | 269 ++++++++++++++++++++++++++-
+ types/index.ts                               |   2 +
+ 5 files changed, 535 insertions(+), 45 deletions(-)

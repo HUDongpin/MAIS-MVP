@@ -1,0 +1,123 @@
+{
+  "generatedAtHkt": "2026-06-26 11:22:54 HKT",
+  "slice": "shirleen-release-source-control-closure",
+  "agents": [
+    "A10",
+    "A25"
+  ],
+  "status": "ready for exact clean/pruned review package; production fix already live per A22 evidence",
+  "dirtyMap": {
+    "path": "coordination/release-intake/2026-06-26-A25-dirty-tree-map-20260626T032131Z.json",
+    "markdownPath": "coordination/release-intake/2026-06-26-A25-dirty-tree-map-20260626T032131Z.md",
+    "latestJson": "coordination/release-intake/latest-A25-dirty-tree-map.json",
+    "latestMarkdown": "coordination/release-intake/latest-A25-dirty-tree-map.md",
+    "generatedAt": "2026-06-26T03:21:33.107Z",
+    "statusSignature": "c8c133649f8784377ba9ad3da651f82400150120ffd2b7bc3cc5ec58276a9f9f",
+    "expandedStatusEntries": 1257,
+    "collapsedStatusEntries": 951
+  },
+  "baseline": {
+    "branch": "main",
+    "head": "cef544e0"
+  },
+  "pathspecFile": "coordination/release-intake/2026-06-26-A25-shirleen-release-slice.pathspec",
+  "entries": [
+    {
+      "status": " M",
+      "path": "app/dashboard/page.tsx",
+      "owner": "A02 dashboard lead",
+      "slice": "runtime app/API/data/public"
+    },
+    {
+      "status": " M",
+      "path": "components/lesson/StudentLessonEntryPage.tsx",
+      "owner": "A05 lesson lead",
+      "slice": "runtime app/API/data/public"
+    },
+    {
+      "status": " M",
+      "path": "lib/server/internalCaliforniaFastLogin.ts",
+      "owner": "A12 backend/API platform",
+      "slice": "runtime app/API/data/public"
+    },
+    {
+      "status": "??",
+      "path": "lib/server/userStore/studentActivityPersistence.ts",
+      "owner": "A12 backend/API platform",
+      "slice": "runtime app/API/data/public"
+    },
+    {
+      "status": " M",
+      "path": "lib/server/internalCaliforniaFastLogin.test.ts",
+      "owner": "A12 backend/API platform",
+      "slice": "tests/regression evidence"
+    },
+    {
+      "status": "??",
+      "path": "lib/server/userStoreStudentActivityPersistence.test.ts",
+      "owner": "A12 backend/API platform",
+      "slice": "tests/regression evidence"
+    },
+    {
+      "status": " M",
+      "path": "components/lesson/lessonAccessPolicy.test.ts",
+      "owner": "A05 lesson lead",
+      "slice": "tests/regression evidence"
+    },
+    {
+      "status": "??",
+      "path": "tests/e2e/reported-bug-source-regressions.test.ts",
+      "owner": "A11 QA and release quality",
+      "slice": "tests/regression evidence"
+    },
+    {
+      "status": "??",
+      "path": "coordination/reports/2026-06-26-A22-shirleen-lesson-production-readiness.md",
+      "owner": "A22 production reliability and release engineering",
+      "slice": "docs/coordination evidence"
+    },
+    {
+      "status": "??",
+      "path": "coordination/reports/2026-06-26-A22-shirleen-lesson-production-deploy.md",
+      "owner": "A22 production reliability and release engineering",
+      "slice": "docs/coordination evidence"
+    },
+    {
+      "status": "??",
+      "path": "coordination/session-logs/2026-06-25-A12-A08-A02-A05-lesson-entry-bugfix.md",
+      "owner": "A10 tooling, docs, and report",
+      "slice": "docs/coordination evidence"
+    }
+  ],
+  "summary": {
+    "byOwner": {
+      "A02 dashboard lead": 1,
+      "A05 lesson lead": 2,
+      "A12 backend/API platform": 4,
+      "A11 QA and release quality": 1,
+      "A22 production reliability and release engineering": 2,
+      "A10 tooling, docs, and report": 1
+    },
+    "bySlice": {
+      "runtime app/API/data/public": 4,
+      "tests/regression evidence": 4,
+      "docs/coordination evidence": 3
+    }
+  },
+  "verification": [
+    {
+      "command": "node --import tsx --test lib/server/internalCaliforniaFastLogin.test.ts lib/server/userStoreStudentActivityPersistence.test.ts components/lesson/lessonAccessPolicy.test.ts tests/e2e/reported-bug-source-regressions.test.ts",
+      "result": "passed, 66/66"
+    },
+    {
+      "command": "npm run type-check -- --pretty false",
+      "result": "passed"
+    }
+  ],
+  "exclusions": [
+    "unrelated app/API/data dirty files",
+    "generated/content/RAG backlog",
+    "local/generated artifacts",
+    "secret/env files"
+  ]
+}

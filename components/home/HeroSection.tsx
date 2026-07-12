@@ -6,30 +6,37 @@ import pedaNovaMark from "@/components/home/brand-assets/pedanova-mark-transpare
 import curriculumRoadmapMapIcon from "@/components/home/feature-icons/curriculum-roadmap-map.png";
 import { dictionary, useSettings } from "@/components/providers/AppProviders";
 import { gradeIds } from "@/data/grades";
+import { studentPracticeGameHrefs } from "@/lib/gameBasedLearning";
+import { studentRoadmapPath } from "@/lib/roadmapRoutes";
+import { studentVisualizationToolsPath } from "@/lib/visualizationRoutes";
 import type { Language, LocalizedText } from "@/types";
 
 type MiniStatIcon = "grades" | "labs" | "questions" | "curriculum" | "roadmap" | "gamification" | "games" | "experts";
 
 type HeroSectionProps = {
   practiceQuestionTotal: number;
+  visualizationLabCount: number;
 };
 
 const numberFormatter = new Intl.NumberFormat("en-US");
 
+function formatRoundedCompactTotal(total: number, unitSize: number) {
+  const roundedTotal = Math.round((total / unitSize) * 10) / 10;
+  return Number.isInteger(roundedTotal) ? String(roundedTotal) : roundedTotal.toFixed(1);
+}
+
 function formatMiniStatTotal(total: number, language: Language) {
   if (language !== "en" && total >= 10000) {
-    const compactWanTotal = Math.floor(total / 1000) / 10;
-    const label = Number.isInteger(compactWanTotal) ? String(compactWanTotal) : compactWanTotal.toFixed(1);
     const tenThousandUnit = language === "zh-Hans" ? "万" : "萬";
 
-    return `${label}${tenThousandUnit}`;
+    return `${formatRoundedCompactTotal(total, 10000)}${tenThousandUnit}`;
   }
 
-  if (total >= 1000) return `${Math.floor(total / 1000)}k`;
+  if (total >= 1000) return `${Math.round(total / 1000)}k`;
   return numberFormatter.format(total);
 }
 
-function miniStats(practiceQuestionTotalLabel: string): Array<{
+function miniStats(practiceQuestionTotalLabel: string, visualizationLabTotalLabel: string): Array<{
   id: string;
   value: string;
   label: LocalizedText;
@@ -43,7 +50,7 @@ function miniStats(practiceQuestionTotalLabel: string): Array<{
       id: "grades",
       value: String(gradeIds.length),
       label: dictionary.home.stats.grades,
-      href: "/learning-path",
+      href: studentRoadmapPath,
       icon: "grades",
       accentBarClassName: "bg-cyan-500",
       badgeClassName:
@@ -51,9 +58,9 @@ function miniStats(practiceQuestionTotalLabel: string): Array<{
     },
     {
       id: "labs",
-      value: "100",
+      value: visualizationLabTotalLabel,
       label: dictionary.home.stats.labs,
-      href: "/visualization-lab",
+      href: studentVisualizationToolsPath,
       icon: "labs",
       accentBarClassName: "bg-violet-500",
       badgeClassName:
@@ -73,7 +80,7 @@ function miniStats(practiceQuestionTotalLabel: string): Array<{
       id: "curriculum",
       value: "7",
       label: { en: "China/HK SAR/US Curriculum", zh: "中國/香港特區/美國課程", zhHans: "中国/香港特区/美国课程" },
-      href: "/register",
+      href: studentRoadmapPath,
       icon: "curriculum",
       accentBarClassName: "bg-amber-500",
       badgeClassName:
@@ -92,8 +99,8 @@ function miniStats(practiceQuestionTotalLabel: string): Array<{
     {
       id: "games",
       value: "2",
-      label: { en: "Games (Adventure Island and Fishing Master)", zh: "遊戲（探险岛🏖與捕魚達人🎣）", zhHans: "游戏（探险岛🏖与捕鱼达人🎣）" },
-      href: "/practice",
+      label: { en: "Games (Adventure Island 🏖 and Fishing Master 🎣)", zh: "遊戲（探险岛🏖與捕魚達人🎣）", zhHans: "游戏（探险岛🏖与捕鱼达人🎣）" },
+      href: studentPracticeGameHrefs.adventureIsland,
       icon: "games",
       accentBarClassName: "bg-sky-500",
       badgeClassName:
@@ -102,8 +109,8 @@ function miniStats(practiceQuestionTotalLabel: string): Array<{
     {
       id: "curriculum-roadmaps",
       value: "14",
-      label: { en: "Curriculum Roadmaps", zh: "課程路線圖", zhHans: "课程路线图" },
-      href: "/learning-path",
+      label: { en: "Curriculum Galaxy", zh: "課程星雲圖", zhHans: "课程星云图" },
+      href: studentRoadmapPath,
       icon: "roadmap",
       accentBarClassName: "bg-indigo-500",
       badgeClassName:
@@ -286,71 +293,69 @@ function PedaNovaEngineCard({ text }: { text: (localized: LocalizedText) => stri
   return (
     <aside
       aria-label="PedaNova TRUST-MAIS adaptive engine status"
-      className="pedanova-flow-border relative rounded-[1.6rem] p-[2px] shadow-[0_20px_52px_rgba(15,23,42,0.1)] dark:shadow-none"
+      className="pedanova-flow-border relative overflow-visible rounded-[1.6rem] p-[2px] shadow-[0_20px_52px_rgba(15,23,42,0.1)] dark:shadow-none"
     >
-      <div className="pedanova-flow-panel relative isolate overflow-hidden rounded-[1.48rem] bg-[linear-gradient(135deg,#ffffff,#f8fafc_52%,#eef2ff)] px-6 py-5 backdrop-blur-xl dark:bg-[linear-gradient(135deg,#0f172a,#1e293b_54%,#312e81)] sm:px-7 sm:py-6 lg:px-8 lg:py-7 xl:px-9">
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_88%_10%,rgba(168,85,247,0.18),transparent_34%),radial-gradient(circle_at_8%_90%,rgba(14,165,233,0.16),transparent_30%)] dark:bg-[radial-gradient(circle_at_88%_10%,rgba(168,85,247,0.22),transparent_34%),radial-gradient(circle_at_8%_90%,rgba(34,211,238,0.12),transparent_30%)]" aria-hidden="true" />
-        <div className="relative flex min-h-full flex-col">
-        <div className="flex flex-col gap-3 sm:flex-row sm:items-center">
-          <PedaNovaHeroLogo />
-          <div className="min-w-0">
-            <p className="flex flex-wrap gap-x-3 gap-y-1 text-[0.7rem] font-black uppercase leading-4 text-sky-600 dark:text-cyan-200 sm:text-xs">
-              <span>P E D A N O V A</span>
-              <span>E D - T E C H</span>
-            </p>
-            <h2 className="mt-1.5 text-xl font-black leading-tight text-slate-950 dark:text-white sm:text-[1.35rem]">
-              {text({ en: "TRUST-MAIS adaptive engine", zh: "TRUST-MAIS 適性引擎", zhHans: "TRUST-MAIS 自适应引擎" })}
-            </h2>
+      <div className="pedanova-flow-panel relative z-10 isolate overflow-hidden rounded-[1.48rem] bg-[linear-gradient(135deg,#ffffff,#f8fafc_52%,#eef2ff)] px-6 pb-6 pt-5 backdrop-blur-xl dark:bg-[linear-gradient(135deg,#0f172a,#1e293b_54%,#312e81)] sm:px-7 sm:py-6 lg:px-8 lg:py-7 xl:px-9">
+        <div className="pointer-events-none absolute inset-0 z-0 bg-[radial-gradient(circle_at_88%_10%,rgba(168,85,247,0.18),transparent_34%),radial-gradient(circle_at_8%_90%,rgba(14,165,233,0.16),transparent_30%)] dark:bg-[radial-gradient(circle_at_88%_10%,rgba(168,85,247,0.22),transparent_34%),radial-gradient(circle_at_8%_90%,rgba(34,211,238,0.12),transparent_30%)]" aria-hidden="true" />
+        <div className="relative z-10 flex min-h-full flex-col" data-pedanova-card-content>
+          <div className="flex flex-col gap-3 sm:flex-row sm:items-center">
+            <PedaNovaHeroLogo />
+            <div className="min-w-0">
+              <p className="flex flex-wrap gap-x-3 gap-y-1 text-[0.7rem] font-black uppercase leading-4 text-sky-600 dark:text-cyan-200 sm:text-xs">
+                <span>P E D A N O V A</span>
+                <span>E D - T E C H</span>
+              </p>
+              <h2 className="mt-1.5 text-xl font-black leading-tight text-slate-950 dark:text-white sm:text-[1.35rem]">
+                {text({ en: "TRUST-MAIS adaptive engine", zh: "TRUST-MAIS 適性引擎", zhHans: "TRUST-MAIS 自适应引擎" })}
+              </h2>
+            </div>
+          </div>
+
+          <p className="mt-4 text-sm font-semibold leading-6 tracking-normal text-slate-700 dark:text-slate-200 sm:text-base sm:leading-6">
+            {text({
+              en: "From the TRUST-MAIS adaptive engine to school pilots and cross-border collaboration, PedaNova is moving research-informed design into real learning environments.",
+              zh: "從 TRUST-MAIS 適性引擎到學校試點與跨境協作，PedaNova 正把研究驅動的設計帶入真實學習環境。",
+              zhHans: "从 TRUST-MAIS 自适应引擎到学校试点与跨境协作，PedaNova 正把研究驱动的设计带入真实学习环境。"
+            })}
+          </p>
+
+          <div className="mt-5 divide-y divide-slate-200/80 border-t border-slate-200/80 dark:divide-white/10 dark:border-white/10 sm:mt-6">
+            {pedaNovaStatusRows.map((row) => (
+              <div key={row.id} className="grid gap-2 py-2.5 sm:grid-cols-[minmax(0,0.8fr)_minmax(0,1.2fr)] sm:items-center sm:py-3">
+                <p className="text-xl font-black leading-tight text-slate-950 dark:text-white sm:text-[1.35rem]">{text(row.label)}</p>
+                <p className="text-left text-sm font-bold leading-snug text-slate-500 dark:text-slate-300 sm:max-w-[13.5rem] sm:justify-self-end sm:text-right">{text(row.detail)}</p>
+              </div>
+            ))}
           </div>
         </div>
-
-        <p className="mt-4 text-base font-semibold leading-7 tracking-normal text-slate-700 dark:text-slate-200 sm:text-[1.05rem]">
-          {text({
-            en: "From the TRUST-MAIS adaptive engine to school pilots and cross-border collaboration, PedaNova is moving research-informed design into real learning environments.",
-            zh: "從 TRUST-MAIS 適性引擎到學校試點與跨境協作，PedaNova 正把研究驅動的設計帶入真實學習環境。",
-            zhHans: "从 TRUST-MAIS 自适应引擎到学校试点与跨境协作，PedaNova 正把研究驱动的设计带入真实学习环境。"
-          })}
-        </p>
-
-        <div className="mt-6 divide-y divide-slate-200/80 border-t border-slate-200/80 dark:divide-white/10 dark:border-white/10">
-          {pedaNovaStatusRows.map((row) => (
-            <div key={row.id} className="grid gap-2 py-3 sm:grid-cols-[minmax(0,0.8fr)_minmax(0,1.2fr)] sm:items-center">
-              <p className="text-xl font-black leading-tight text-slate-950 dark:text-white sm:text-[1.35rem]">{text(row.label)}</p>
-              <p className="text-left text-sm font-bold leading-snug text-slate-500 dark:text-slate-300 sm:max-w-[13.5rem] sm:justify-self-end sm:text-right">{text(row.detail)}</p>
-            </div>
-          ))}
-        </div>
-      </div>
       </div>
     </aside>
   );
 }
 
-export function HeroSection({ practiceQuestionTotal }: HeroSectionProps) {
+export function HeroSection({ practiceQuestionTotal, visualizationLabCount }: HeroSectionProps) {
   const { language, t, text } = useSettings();
   const brandText = t(dictionary.home.brand);
-  const headlineText = t(dictionary.home.headline);
+  const displayHeadlineText = t(dictionary.home.headline);
   const splitHeadlineLines: [string, string] | null =
-    language === "en" && headlineText === "Adaptive interactive math learning"
-      ? ["Adaptive interactive", "math learning"]
-      : language === "zh-Hans" && headlineText === "小学一年级至高三的自适应互动数学学习平台"
+    language === "en" && displayHeadlineText === "Personalized interactive math learning"
+      ? ["Personalized interactive", "math learning"]
+      : language === "zh-Hans" && displayHeadlineText === "小学一年级至高三的自适应互动数学学习平台"
         ? ["小学一年级至高三", "自适应互动数学学习平台"]
-        : language === "zh" && headlineText === "小一至中六互動數學學習平台"
+        : language === "zh" && displayHeadlineText === "小一至中六互動數學學習平台"
           ? ["小一至中六互動", "數學學習平台"]
           : null;
-  const homeMiniStats = miniStats(formatMiniStatTotal(practiceQuestionTotal, language));
+  const homeMiniStats = miniStats(
+    formatMiniStatTotal(practiceQuestionTotal, language),
+    formatMiniStatTotal(visualizationLabCount, language)
+  );
 
   return (
     <section className="page-container pt-8 sm:pt-10 lg:pt-12">
       <div className="grid gap-8 lg:grid-cols-[minmax(0,1fr)_minmax(22rem,0.68fr)] lg:items-start xl:gap-10">
         <div className="max-w-4xl">
-          <p
-            className="mb-4 inline-flex rounded-full border border-cyan-400/25 bg-cyan-400/[0.08] px-4 py-2 text-sm font-bold text-cyan-700 dark:text-cyan-200"
-          >
-            {t(dictionary.home.eyebrow)}
-          </p>
           <h1
-            aria-label={`${brandText} ${headlineText}`}
+            aria-label={`${brandText} ${displayHeadlineText}`}
             className="max-w-3xl text-4xl font-black leading-[1.06] tracking-normal text-slate-950 dark:text-white sm:text-5xl lg:text-6xl"
           >
             <span className="block">
@@ -373,7 +378,7 @@ export function HeroSection({ practiceQuestionTotal }: HeroSectionProps) {
               </span>
             ) : (
               <span className="mais-headline-gradient mais-headline-gradient-single block leading-[1.12]">
-                {headlineText}
+                {displayHeadlineText}
               </span>
             )}
           </h1>
@@ -444,11 +449,6 @@ export function HeroSection({ practiceQuestionTotal }: HeroSectionProps) {
             }
 
             .pedanova-flow-border {
-              isolation: isolate;
-            }
-
-            .pedanova-flow-border::before,
-            .pedanova-flow-border::after {
               animation: pedanova-border-spin 3.6s linear infinite;
               background-image: linear-gradient(
                 var(--pedanova-border-rotate),
@@ -457,26 +457,12 @@ export function HeroSection({ practiceQuestionTotal }: HeroSectionProps) {
                 rgba(78, 0, 194, 0.96) 72%,
                 rgba(93, 220, 255, 0.98)
               );
-              border-radius: inherit;
-              content: "";
-              pointer-events: none;
-              position: absolute;
-              z-index: 0;
-            }
-
-            .pedanova-flow-border::before {
-              inset: 0;
-            }
-
-            .pedanova-flow-border::after {
-              filter: blur(28px);
-              inset: -1.1rem;
-              opacity: 0.42;
-              transform: scale(0.98);
+              isolation: isolate;
+              overflow: visible;
             }
 
             .pedanova-flow-panel {
-              z-index: 1;
+              z-index: 10;
             }
 
             @keyframes pedanova-border-spin {
@@ -499,9 +485,15 @@ export function HeroSection({ practiceQuestionTotal }: HeroSectionProps) {
                 background-position: 76% 50%;
               }
 
-              .pedanova-flow-border::before,
-              .pedanova-flow-border::after {
+              .pedanova-flow-border {
                 animation: none;
+                background-image: linear-gradient(
+                  132deg,
+                  rgba(93, 220, 255, 0.98),
+                  rgba(60, 103, 227, 0.96) 43%,
+                  rgba(78, 0, 194, 0.96) 72%,
+                  rgba(93, 220, 255, 0.98)
+                );
               }
             }
           `}</style>
@@ -513,11 +505,29 @@ export function HeroSection({ practiceQuestionTotal }: HeroSectionProps) {
           <div
             className="mt-8 flex flex-col gap-3 sm:flex-row"
           >
-            <Link href="/login" className="focus-ring rounded-full bg-slate-950 px-6 py-3 text-center font-bold text-white shadow-sm shadow-slate-950/10 transition hover:-translate-y-1 dark:bg-white dark:text-slate-950">
-              {t(dictionary.common.startLearning)}
-            </Link>
-            <Link href="/visualization-lab" className="focus-ring rounded-full border border-slate-200/80 bg-white/75 px-6 py-3 text-center font-bold text-slate-800 shadow-sm transition hover:-translate-y-1 hover:bg-white dark:border-white/10 dark:bg-white/[0.07] dark:text-white dark:hover:bg-white/[0.12]">
-              {t(dictionary.common.exploreVisualizations)}
+            <Link
+              href="/login"
+              className="focus-ring group relative inline-flex min-h-[3.75rem] w-full items-center justify-center overflow-visible rounded-full bg-gradient-to-br from-cyan-200 via-emerald-300 to-lime-300 px-5 py-3 text-center font-black text-slate-950 shadow-[0_16px_34px_rgba(8,145,178,0.18),inset_0_1px_0_rgba(255,255,255,0.72)] transition duration-300 hover:-translate-y-1 hover:shadow-[0_22px_46px_rgba(8,145,178,0.26),inset_0_1px_0_rgba(255,255,255,0.82)] active:translate-y-0 active:scale-[0.99] dark:from-cyan-300 dark:via-emerald-300 dark:to-lime-300 sm:w-auto sm:min-w-[20rem] sm:px-6"
+            >
+              <span className="pointer-events-none absolute inset-x-5 bottom-[-0.55rem] h-4 rounded-full bg-cyan-900/10 blur-md transition duration-300 group-hover:translate-y-1 group-hover:bg-cyan-700/15 dark:bg-cyan-200/20" aria-hidden="true" />
+              <span className="pointer-events-none absolute inset-0 rounded-full bg-[linear-gradient(135deg,rgba(255,255,255,0.68),rgba(255,255,255,0)_46%)]" aria-hidden="true" />
+              <span className="pointer-events-none absolute -right-2 -top-2 hidden rounded-full bg-slate-950 px-3 py-1.5 text-xs font-black uppercase leading-none tracking-normal text-white shadow-[0_8px_16px_rgba(15,23,42,0.18)] min-[380px]:inline-flex dark:bg-slate-900">
+                XP
+              </span>
+              <span className="relative flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-white/65 shadow-[inset_0_1px_0_rgba(255,255,255,0.92),0_4px_10px_rgba(15,23,42,0.08)] sm:h-11 sm:w-11" aria-hidden="true">
+                <svg className="h-[64%] w-[64%] translate-y-[3%] text-slate-950" viewBox="0 0 48 48" fill="none">
+                  <path
+                    d="M12.5 25.6 21.2 34.2 36.2 15.8"
+                    stroke="currentColor"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="7.2"
+                  />
+                </svg>
+              </span>
+              <span className="relative ml-3 whitespace-nowrap text-lg leading-none sm:text-xl">
+                {t(dictionary.common.startLearning)}
+              </span>
             </Link>
           </div>
         </div>

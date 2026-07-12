@@ -1,0 +1,77 @@
+{
+  "generatedAt": "2026-07-08T14:13:18.010Z",
+  "dirtyMapStatusSignature": "4892e406613fc3846378621b84ba0f486bb8ebf371c35837eae544472596f318",
+  "expandedStatusEntries": 6130,
+  "readinessGeneratedAt": "2026-07-08T14:13:17.484Z",
+  "approvalRequestsGeneratedAt": "2026-07-08T14:13:17.799Z",
+  "executionPacketGeneratedAt": "2026-07-08T14:13:17.850Z",
+  "worktree": {
+    "path": "/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A25-dirty-closure-governance",
+    "branch": "codex/A25-dirty-closure-governance",
+    "head": "cef544e09",
+    "statusSignature": "60958c44ce556b63f89d6fd1488514448e53f68e5a035cadc4d3b41cd71c7d6a",
+    "nodeModulesPresent": true
+  },
+  "summary": {
+    "evidenceRows": 1,
+    "packageOnlyRows": 1,
+    "worktreePresentRows": 1,
+    "rootMissingRows": 0,
+    "modifiedRows": 1,
+    "untrackedRows": 0,
+    "contentCapturedRows": 0,
+    "cleanupAuthorizedRows": 0,
+    "executableRows": 0
+  },
+  "rows": [
+    {
+      "evidenceIndex": 1,
+      "approvalId": "wave01-resync-01-tsconfig-json",
+      "owner": "A10 tooling, docs, and report",
+      "path": "tsconfig.json",
+      "worktreePath": "/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A25-dirty-closure-governance",
+      "branch": "codex/A25-dirty-closure-governance",
+      "actionKind": "owner-approved-package-restore",
+      "exactCommandIfLaterAuthorized": "git restore --source=HEAD -- tsconfig.json",
+      "packageOnly": true,
+      "rootPathExists": true,
+      "worktreePathExists": true,
+      "rootStatusLines": [],
+      "worktreeStatusLines": [
+        " M tsconfig.json"
+      ],
+      "rootEvidence": {
+        "exists": true,
+        "type": "file",
+        "bytes": 667,
+        "sha256": "4c4c756bcc9dacd3e9e701491bf7a5ecf8f041e715b15a4a6bd2750705ff8273",
+        "childCount": 0
+      },
+      "worktreeEvidence": {
+        "exists": true,
+        "type": "file",
+        "bytes": 1093,
+        "sha256": "843bde564302f0b648e9b2d765184b5a1bdac17ff7838e87a3a0459738fd6936",
+        "childCount": 0
+      },
+      "worktreeDiffEvidence": {
+        "hasTrackedDiff": true,
+        "nameStatus": [
+          "M\ttsconfig.json"
+        ],
+        "numstat": [
+          "25\t1\ttsconfig.json"
+        ],
+        "diffSha256": "5d341f05c11f6762ae42bc7aa4b90c933cbc5d7a0c11f97bb0aa1efa205af652",
+        "diffBytes": 677
+      },
+      "approvalRequestPresent": true,
+      "executionRowPresent": true,
+      "evidenceOnly": true,
+      "contentCaptured": false,
+      "cleanupAuthorized": false,
+      "executableNow": false,
+      "stopCondition": "Do not execute cleanup, restore, discard, or deletion from this evidence pack. Use it only to support exact owner authorization review."
+    }
+  ]
+}

@@ -1,0 +1,38 @@
+{
+  "generatedAt": "2026-07-10T17:12:07.097Z",
+  "repoRoot": "/Users/dongpinhu/Desktop/MAIS-MVP",
+  "dirtyMapStatusSignature": "e30d647e1b51432945713f42ac78b0a2466fcb17192de0235a801ac877a0801f",
+  "expandedStatusEntries": 7636,
+  "sourceArtifacts": {
+    "executionInstructionsGeneratedAt": "2026-07-10T17:12:06.991Z",
+    "executionInstructionsGateCheckedAt": "2026-07-10T17:12:07.050Z",
+    "executionInstructionsGatePath": "coordination/release-intake/latest-A25-next-owner-execution-instructions-current-gate.json"
+  },
+  "targetInputFile": "coordination/release-intake/latest-A25-next-owner-execution-instructions.json",
+  "requests": [],
+  "summary": {
+    "readyInstructionRequestRows": 0,
+    "effectiveReadyForSeparateInstructionRows": 0,
+    "effectivePendingReadyInstructionRows": 0,
+    "manifestReadyForSeparateInstructionRows": 0,
+    "supplementalA16ReadyForOwnerExecutionInstructionRows": 0,
+    "instructionRowsInFile": 0,
+    "validInstructionRows": 0,
+    "invalidInstructionRows": 0,
+    "cleanupAuthorizedRows": 0,
+    "executableRows": 0
+  },
+  "boundary": {
+    "evidenceOnly": true,
+    "requestPacketOnly": true,
+    "recordsExecutionInstruction": false,
+    "stageAuthorized": false,
+    "commitAuthorized": false,
+    "mergeAuthorized": false,
+    "cleanupAuthorized": false,
+    "executableNow": false,
+    "destructiveGitAuthorized": false,
+    "deployAuthorized": false,
+    "requiresSeparateOwnerExecutionInstruction": false
+  }
+}

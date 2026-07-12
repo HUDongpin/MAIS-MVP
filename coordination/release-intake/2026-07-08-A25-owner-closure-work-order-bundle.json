@@ -1,0 +1,749 @@
+{
+  "generatedAt": "2026-07-08T14:14:27.608Z",
+  "dirtyMapStatusSignature": "4892e406613fc3846378621b84ba0f486bb8ebf371c35837eae544472596f318",
+  "expandedStatusEntries": 6130,
+  "sourceArtifacts": {
+    "dirtyMapGeneratedAt": "2026-07-08T14:14:26.017Z",
+    "queueGeneratedAt": "2026-07-08T14:14:23.315Z",
+    "focusBatchAcceptanceDocketGeneratedAt": "2026-07-08T14:14:26.674Z",
+    "focusBatchOwnerInputScaffoldGeneratedAt": "2026-07-08T14:14:26.775Z",
+    "focusBatchRecordingIntakeGeneratedAt": "2026-07-08T14:14:26.881Z"
+  },
+  "note": "Coordination evidence only. Owner sessions must still work in approved scopes/worktrees and cannot perform physical cleanup without exact owner authorization.",
+  "validationHold": {
+    "status": "waiting-for-owner-compose-deletion-confirmation",
+    "activeWorktreePath": "/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A10-A22-A08-A12-A06-compose-20260628",
+    "reason": "Owner reported active exact deletion in this compose worktree; linked-worktree archive, Wave 06, aggregate remediation, and completion-audit refreshes should wait for owner confirmation.",
+    "resumeCondition": "Owner confirms exact deletion in the compose worktree is complete.",
+    "safePostInputValidationCommands": [
+      "node coordination/release-intake/assert-next-owner-authorizations-current.mjs",
+      "node coordination/release-intake/generate-next-owner-authorization-execution-preview.mjs",
+      "node coordination/release-intake/assert-next-owner-authorization-execution-preview-current.mjs",
+      "node coordination/release-intake/assert-owner-package-blocker-report-records-current.mjs",
+      "node coordination/release-intake/assert-owner-closure-input-readiness-current.mjs"
+    ],
+    "deferredAggregateValidationCommands": [
+      "node coordination/release-intake/refresh-linked-worktree-archive-evidence.mjs",
+      "node coordination/release-intake/assert-linked-worktree-archive-evidence-current.mjs",
+      "node coordination/release-intake/generate-wave06-final-root-lifecycle-readiness.mjs",
+      "node coordination/release-intake/assert-wave06-final-root-lifecycle-readiness-current.mjs",
+      "node coordination/release-intake/refresh-dirty-worktree-remediation-evidence.mjs --reason \"owner input action packet post-input verification\"",
+      "node coordination/release-intake/assert-dirty-worktree-remediation-current.mjs",
+      "node coordination/release-intake/generate-dirty-worktree-remediation-completion-audit.mjs",
+      "node coordination/release-intake/assert-dirty-worktree-remediation-completion-audit-current.mjs"
+    ]
+  },
+  "summary": {
+    "owners": 25,
+    "ownerPackageAssignments": 11,
+    "blockerReportStarters": 11,
+    "recordedBlockerReports": 11,
+    "pendingBlockerReports": 0,
+    "authorizationStarters": 84,
+    "generatedArtifactResidualAuthorizations": 0,
+    "focusBatchStatus": "no-focus-batch",
+    "focusBatchRows": 0,
+    "focusBatchAcceptedRows": 0,
+    "focusBatchPendingRows": 0,
+    "focusBatchHeldRows": 1,
+    "focusBatchOwnerInputVisibleRows": 0,
+    "focusBatchCanonicalDraftVisibleRows": 0,
+    "focusBatchCanonicalAuthorizationVisibleRows": 0,
+    "focusBatchRecordingIntakeStatus": "no-focus-batch",
+    "focusBatchRecordingAcceptedRows": 0,
+    "focusBatchRecordingPendingRows": 0,
+    "focusBatchRecordingOwnerInputVisibleRows": 0,
+    "focusBatchRecordingFailedChecks": 0,
+    "focusBatchRecordingPostInputValidationCommands": 5,
+    "focusBatchRecordingDeferredAggregateValidationCommands": 8,
+    "remainingCompletionAssignments": 28,
+    "pendingItems": 123,
+    "cleanupAuthorizedRows": 0,
+    "executableRows": 0
+  },
+  "workOrders": [
+    {
+      "agentId": "A01",
+      "owner": "A01 app shell lead",
+      "latestMarkdown": "coordination/release-intake/latest-A25-owner-closure-work-order-a01.md",
+      "datedMarkdown": "coordination/release-intake/2026-07-08-A25-owner-closure-work-order-a01.md",
+      "recommendedWorktrees": [
+        "/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A01-app-shell-closure",
+        "/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A01-shell-lazy-load"
+      ],
+      "focusBatchAuthorizationRows": [],
+      "counts": {
+        "ownerPackageAssignments": 0,
+        "blockerReportStarters": 0,
+        "recordedBlockerReports": 0,
+        "pendingBlockerReports": 0,
+        "authorizationStarters": 3,
+        "generatedArtifactResidualAuthorizations": 0,
+        "focusBatchAuthorizationRows": 0,
+        "focusBatchRecordingRows": 0,
+        "remainingCompletionAssignments": 1,
+        "pendingItems": 4,
+        "cleanupAuthorizedRows": 0,
+        "executableRows": 0
+      },
+      "cleanupAuthorized": false,
+      "executableNow": false
+    },
+    {
+      "agentId": "A02",
+      "owner": "A02 dashboard lead",
+      "latestMarkdown": "coordination/release-intake/latest-A25-owner-closure-work-order-a02.md",
+      "datedMarkdown": "coordination/release-intake/2026-07-08-A25-owner-closure-work-order-a02.md",
+      "recommendedWorktrees": [
+        "/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A02-A15-dashboard-adaptive-closure"
+      ],
+      "focusBatchAuthorizationRows": [],
+      "counts": {
+        "ownerPackageAssignments": 0,
+        "blockerReportStarters": 0,
+        "recordedBlockerReports": 0,
+        "pendingBlockerReports": 0,
+        "authorizationStarters": 2,
+        "generatedArtifactResidualAuthorizations": 0,
+        "focusBatchAuthorizationRows": 0,
+        "focusBatchRecordingRows": 0,
+        "remainingCompletionAssignments": 1,
+        "pendingItems": 3,
+        "cleanupAuthorizedRows": 0,
+        "executableRows": 0
+      },
+      "cleanupAuthorized": false,
+      "executableNow": false
+    },
+    {
+      "agentId": "A03",
+      "owner": "A03 curriculum roadmap lead",
+      "latestMarkdown": "coordination/release-intake/latest-A25-owner-closure-work-order-a03.md",
+      "datedMarkdown": "coordination/release-intake/2026-07-08-A25-owner-closure-work-order-a03.md",
+      "recommendedWorktrees": [
+        "/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A03-roadmap-closure"
+      ],
+      "focusBatchAuthorizationRows": [],
+      "counts": {
+        "ownerPackageAssignments": 1,
+        "blockerReportStarters": 1,
+        "recordedBlockerReports": 1,
+        "pendingBlockerReports": 0,
+        "authorizationStarters": 2,
+        "generatedArtifactResidualAuthorizations": 0,
+        "focusBatchAuthorizationRows": 0,
+        "focusBatchRecordingRows": 0,
+        "remainingCompletionAssignments": 1,
+        "pendingItems": 4,
+        "cleanupAuthorizedRows": 0,
+        "executableRows": 0
+      },
+      "cleanupAuthorized": false,
+      "executableNow": false
+    },
+    {
+      "agentId": "A04",
+      "owner": "A04 practice lead",
+      "latestMarkdown": "coordination/release-intake/latest-A25-owner-closure-work-order-a04.md",
+      "datedMarkdown": "coordination/release-intake/2026-07-08-A25-owner-closure-work-order-a04.md",
+      "recommendedWorktrees": [
+        "/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A04-practice-closure",
+        "/Users/dongpinhu/Desktop/MAIS-MVP-worktrees/MAIS-MVP-california-practice-beta-clean"
+      ],
+      "focusBatchAuthorizationRows": [],
+      "counts": {
+        "ownerPackageAssignments": 1,
+        "blockerReportStarters": 1,
+        "recordedBlockerReports": 1,
+        "pendingBlockerReports": 0,
+        "authorizationStarters": 3,
+        "generatedArtifactResidualAuthorizations": 0,
+        "focusBatchAuthorizationRows": 0,
+        "focusBatchRecordingRows": 0,
+        "remainingCompletionAssignments": 1,
+        "pendingItems": 5,
+        "cleanupAuthorizedRows": 0,
+        "executableRows": 0
+      },
+      "cleanupAuthorized": false,
+      "executableNow": false
+    },
+    {
+      "agentId": "A05",
+      "owner": "A05 lesson lead",
+      "latestMarkdown": "coordination/release-intake/latest-A25-owner-closure-work-order-a05.md",
+      "datedMarkdown": "coordination/release-intake/2026-07-08-A25-owner-closure-work-order-a05.md",
+      "recommendedWorktrees": [
+        "/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A05-lesson-checklist-p0",
+        "/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A05-lesson-closure",
+        "/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A05-lesson-pep-load",
+        "/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A05-next-item-button-scroll"
+      ],
+      "focusBatchAuthorizationRows": [],
+      "counts": {
+        "ownerPackageAssignments": 0,
+        "blockerReportStarters": 0,
+        "recordedBlockerReports": 0,
+        "pendingBlockerReports": 0,
+        "authorizationStarters": 5,
+        "generatedArtifactResidualAuthorizations": 0,
+        "focusBatchAuthorizationRows": 0,
+        "focusBatchRecordingRows": 0,
+        "remainingCompletionAssignments": 1,
+        "pendingItems": 6,
+        "cleanupAuthorizedRows": 0,
+        "executableRows": 0
+      },
+      "cleanupAuthorized": false,
+      "executableNow": false
+    },
+    {
+      "agentId": "A06",
+      "owner": "A06 visualization lead",
+      "latestMarkdown": "coordination/release-intake/latest-A25-owner-closure-work-order-a06.md",
+      "datedMarkdown": "coordination/release-intake/2026-07-08-A25-owner-closure-work-order-a06.md",
+      "recommendedWorktrees": [
+        "/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A06-manim-three-closure",
+        "/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A06-visualization-closure",
+        "/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A10-A22-A08-A12-A06-compose-20260628",
+        "/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/visualization-production-release"
+      ],
+      "focusBatchAuthorizationRows": [],
+      "counts": {
+        "ownerPackageAssignments": 1,
+        "blockerReportStarters": 1,
+        "recordedBlockerReports": 1,
+        "pendingBlockerReports": 0,
+        "authorizationStarters": 5,
+        "generatedArtifactResidualAuthorizations": 0,
+        "focusBatchAuthorizationRows": 0,
+        "focusBatchRecordingRows": 0,
+        "remainingCompletionAssignments": 1,
+        "pendingItems": 7,
+        "cleanupAuthorizedRows": 0,
+        "executableRows": 0
+      },
+      "cleanupAuthorized": false,
+      "executableNow": false
+    },
+    {
+      "agentId": "A07",
+      "owner": "A07 AI tutor lead",
+      "latestMarkdown": "coordination/release-intake/latest-A25-owner-closure-work-order-a07.md",
+      "datedMarkdown": "coordination/release-intake/2026-07-08-A25-owner-closure-work-order-a07.md",
+      "recommendedWorktrees": [
+        "/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A07-A15-A08-ai-adaptive-types",
+        "/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A07-ai-tutor-classroom-switches",
+        "/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A07-ai-tutor-closure"
+      ],
+      "focusBatchAuthorizationRows": [],
+      "counts": {
+        "ownerPackageAssignments": 1,
+        "blockerReportStarters": 1,
+        "recordedBlockerReports": 1,
+        "pendingBlockerReports": 0,
+        "authorizationStarters": 4,
+        "generatedArtifactResidualAuthorizations": 0,
+        "focusBatchAuthorizationRows": 0,
+        "focusBatchRecordingRows": 0,
+        "remainingCompletionAssignments": 1,
+        "pendingItems": 6,
+        "cleanupAuthorizedRows": 0,
+        "executableRows": 0
+      },
+      "cleanupAuthorized": false,
+      "executableNow": false
+    },
+    {
+      "agentId": "A08",
+      "owner": "A08 state and analytics lead",
+      "latestMarkdown": "coordination/release-intake/latest-A25-owner-closure-work-order-a08.md",
+      "datedMarkdown": "coordination/release-intake/2026-07-08-A25-owner-closure-work-order-a08.md",
+      "recommendedWorktrees": [
+        "/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A07-A15-A08-ai-adaptive-types",
+        "/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A08-A12-shared-contract-closure",
+        "/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A10-A22-A08-A12-A06-compose-20260628"
+      ],
+      "focusBatchAuthorizationRows": [],
+      "counts": {
+        "ownerPackageAssignments": 0,
+        "blockerReportStarters": 0,
+        "recordedBlockerReports": 0,
+        "pendingBlockerReports": 0,
+        "authorizationStarters": 4,
+        "generatedArtifactResidualAuthorizations": 0,
+        "focusBatchAuthorizationRows": 0,
+        "focusBatchRecordingRows": 0,
+        "remainingCompletionAssignments": 1,
+        "pendingItems": 5,
+        "cleanupAuthorizedRows": 0,
+        "executableRows": 0
+      },
+      "cleanupAuthorized": false,
+      "executableNow": false
+    },
+    {
+      "agentId": "A09",
+      "owner": "A09 copy, i18n, accessibility",
+      "latestMarkdown": "coordination/release-intake/latest-A25-owner-closure-work-order-a09.md",
+      "datedMarkdown": "coordination/release-intake/2026-07-08-A25-owner-closure-work-order-a09.md",
+      "recommendedWorktrees": [
+        "/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A09-copy-i18n-accessibility-closure"
+      ],
+      "focusBatchAuthorizationRows": [],
+      "counts": {
+        "ownerPackageAssignments": 0,
+        "blockerReportStarters": 0,
+        "recordedBlockerReports": 0,
+        "pendingBlockerReports": 0,
+        "authorizationStarters": 2,
+        "generatedArtifactResidualAuthorizations": 0,
+        "focusBatchAuthorizationRows": 0,
+        "focusBatchRecordingRows": 0,
+        "remainingCompletionAssignments": 0,
+        "pendingItems": 2,
+        "cleanupAuthorizedRows": 0,
+        "executableRows": 0
+      },
+      "cleanupAuthorized": false,
+      "executableNow": false
+    },
+    {
+      "agentId": "A10",
+      "owner": "A10 tooling, docs, and report",
+      "latestMarkdown": "coordination/release-intake/latest-A25-owner-closure-work-order-a10.md",
+      "datedMarkdown": "coordination/release-intake/2026-07-08-A25-owner-closure-work-order-a10.md",
+      "recommendedWorktrees": [
+        "/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A10-A22-A08-A12-A06-compose-20260628",
+        "/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A10-A22-release-governance",
+        "/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A25-dirty-closure-governance",
+        "/Users/dongpinhu/Desktop/MAIS-MVP",
+        "/Users/dongpinhu/Desktop/MAIS-MVP-worktrees/s22-release-hygiene-2026-06-15"
+      ],
+      "focusBatchAuthorizationRows": [],
+      "counts": {
+        "ownerPackageAssignments": 0,
+        "blockerReportStarters": 0,
+        "recordedBlockerReports": 0,
+        "pendingBlockerReports": 0,
+        "authorizationStarters": 6,
+        "generatedArtifactResidualAuthorizations": 0,
+        "focusBatchAuthorizationRows": 0,
+        "focusBatchRecordingRows": 0,
+        "remainingCompletionAssignments": 2,
+        "pendingItems": 8,
+        "cleanupAuthorizedRows": 0,
+        "executableRows": 0
+      },
+      "cleanupAuthorized": false,
+      "executableNow": false
+    },
+    {
+      "agentId": "A11",
+      "owner": "A11 QA and release quality lead",
+      "latestMarkdown": "coordination/release-intake/latest-A25-owner-closure-work-order-a11.md",
+      "datedMarkdown": "coordination/release-intake/2026-07-08-A25-owner-closure-work-order-a11.md",
+      "recommendedWorktrees": [
+        "/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A11-fix-126-128-129",
+        "/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A11-regression-evidence-closure"
+      ],
+      "focusBatchAuthorizationRows": [],
+      "counts": {
+        "ownerPackageAssignments": 1,
+        "blockerReportStarters": 1,
+        "recordedBlockerReports": 1,
+        "pendingBlockerReports": 0,
+        "authorizationStarters": 3,
+        "generatedArtifactResidualAuthorizations": 0,
+        "focusBatchAuthorizationRows": 0,
+        "focusBatchRecordingRows": 0,
+        "remainingCompletionAssignments": 2,
+        "pendingItems": 6,
+        "cleanupAuthorizedRows": 0,
+        "executableRows": 0
+      },
+      "cleanupAuthorized": false,
+      "executableNow": false
+    },
+    {
+      "agentId": "A12",
+      "owner": "A12 backend/API platform lead",
+      "latestMarkdown": "coordination/release-intake/latest-A25-owner-closure-work-order-a12.md",
+      "datedMarkdown": "coordination/release-intake/2026-07-08-A25-owner-closure-work-order-a12.md",
+      "recommendedWorktrees": [
+        "/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A08-A12-shared-contract-closure",
+        "/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A10-A22-A08-A12-A06-compose-20260628",
+        "/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A12-google-oauth-login",
+        "/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A12-userstore-storage-contract"
+      ],
+      "focusBatchAuthorizationRows": [],
+      "counts": {
+        "ownerPackageAssignments": 1,
+        "blockerReportStarters": 1,
+        "recordedBlockerReports": 1,
+        "pendingBlockerReports": 0,
+        "authorizationStarters": 5,
+        "generatedArtifactResidualAuthorizations": 0,
+        "focusBatchAuthorizationRows": 0,
+        "focusBatchRecordingRows": 0,
+        "remainingCompletionAssignments": 1,
+        "pendingItems": 7,
+        "cleanupAuthorizedRows": 0,
+        "executableRows": 0
+      },
+      "cleanupAuthorized": false,
+      "executableNow": false
+    },
+    {
+      "agentId": "A13",
+      "owner": "A13 teacher console lead",
+      "latestMarkdown": "coordination/release-intake/latest-A25-owner-closure-work-order-a13.md",
+      "datedMarkdown": "coordination/release-intake/2026-07-08-A25-owner-closure-work-order-a13.md",
+      "recommendedWorktrees": [
+        "/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A13-A14-console-closure"
+      ],
+      "focusBatchAuthorizationRows": [],
+      "counts": {
+        "ownerPackageAssignments": 1,
+        "blockerReportStarters": 1,
+        "recordedBlockerReports": 1,
+        "pendingBlockerReports": 0,
+        "authorizationStarters": 2,
+        "generatedArtifactResidualAuthorizations": 0,
+        "focusBatchAuthorizationRows": 0,
+        "focusBatchRecordingRows": 0,
+        "remainingCompletionAssignments": 1,
+        "pendingItems": 4,
+        "cleanupAuthorizedRows": 0,
+        "executableRows": 0
+      },
+      "cleanupAuthorized": false,
+      "executableNow": false
+    },
+    {
+      "agentId": "A14",
+      "owner": "A14 parent console",
+      "latestMarkdown": "coordination/release-intake/latest-A25-owner-closure-work-order-a14.md",
+      "datedMarkdown": "coordination/release-intake/2026-07-08-A25-owner-closure-work-order-a14.md",
+      "recommendedWorktrees": [
+        "/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A13-A14-console-closure",
+        "/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/codex-A14-profile-avatar-save"
+      ],
+      "focusBatchAuthorizationRows": [],
+      "counts": {
+        "ownerPackageAssignments": 0,
+        "blockerReportStarters": 0,
+        "recordedBlockerReports": 0,
+        "pendingBlockerReports": 0,
+        "authorizationStarters": 3,
+        "generatedArtifactResidualAuthorizations": 0,
+        "focusBatchAuthorizationRows": 0,
+        "focusBatchRecordingRows": 0,
+        "remainingCompletionAssignments": 0,
+        "pendingItems": 3,
+        "cleanupAuthorizedRows": 0,
+        "executableRows": 0
+      },
+      "cleanupAuthorized": false,
+      "executableNow": false
+    },
+    {
+      "agentId": "A15",
+      "owner": "A15 adaptive engine lead",
+      "latestMarkdown": "coordination/release-intake/latest-A25-owner-closure-work-order-a15.md",
+      "datedMarkdown": "coordination/release-intake/2026-07-08-A25-owner-closure-work-order-a15.md",
+      "recommendedWorktrees": [
+        "/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A02-A15-dashboard-adaptive-closure",
+        "/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A07-A15-A08-ai-adaptive-types"
+      ],
+      "focusBatchAuthorizationRows": [],
+      "counts": {
+        "ownerPackageAssignments": 1,
+        "blockerReportStarters": 1,
+        "recordedBlockerReports": 1,
+        "pendingBlockerReports": 0,
+        "authorizationStarters": 3,
+        "generatedArtifactResidualAuthorizations": 0,
+        "focusBatchAuthorizationRows": 0,
+        "focusBatchRecordingRows": 0,
+        "remainingCompletionAssignments": 1,
+        "pendingItems": 5,
+        "cleanupAuthorizedRows": 0,
+        "executableRows": 0
+      },
+      "cleanupAuthorized": false,
+      "executableNow": false
+    },
+    {
+      "agentId": "A16",
+      "owner": "A16",
+      "latestMarkdown": "coordination/release-intake/latest-A25-owner-closure-work-order-a16.md",
+      "datedMarkdown": "coordination/release-intake/2026-07-08-A25-owner-closure-work-order-a16.md",
+      "recommendedWorktrees": [
+        "/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A16-research-evidence-closure"
+      ],
+      "focusBatchAuthorizationRows": [],
+      "counts": {
+        "ownerPackageAssignments": 0,
+        "blockerReportStarters": 0,
+        "recordedBlockerReports": 0,
+        "pendingBlockerReports": 0,
+        "authorizationStarters": 1,
+        "generatedArtifactResidualAuthorizations": 0,
+        "focusBatchAuthorizationRows": 0,
+        "focusBatchRecordingRows": 0,
+        "remainingCompletionAssignments": 0,
+        "pendingItems": 1,
+        "cleanupAuthorizedRows": 0,
+        "executableRows": 0
+      },
+      "cleanupAuthorized": false,
+      "executableNow": false
+    },
+    {
+      "agentId": "A17",
+      "owner": "A17 gamification and motivation",
+      "latestMarkdown": "coordination/release-intake/latest-A25-owner-closure-work-order-a17.md",
+      "datedMarkdown": "coordination/release-intake/2026-07-08-A25-owner-closure-work-order-a17.md",
+      "recommendedWorktrees": [
+        "/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A17-A20-game-motivation-closure"
+      ],
+      "focusBatchAuthorizationRows": [],
+      "counts": {
+        "ownerPackageAssignments": 0,
+        "blockerReportStarters": 0,
+        "recordedBlockerReports": 0,
+        "pendingBlockerReports": 0,
+        "authorizationStarters": 2,
+        "generatedArtifactResidualAuthorizations": 0,
+        "focusBatchAuthorizationRows": 0,
+        "focusBatchRecordingRows": 0,
+        "remainingCompletionAssignments": 0,
+        "pendingItems": 2,
+        "cleanupAuthorizedRows": 0,
+        "executableRows": 0
+      },
+      "cleanupAuthorized": false,
+      "executableNow": false
+    },
+    {
+      "agentId": "A18",
+      "owner": "A18 curriculum QA and content quality lead",
+      "latestMarkdown": "coordination/release-intake/latest-A25-owner-closure-work-order-a18.md",
+      "datedMarkdown": "coordination/release-intake/2026-07-08-A25-owner-closure-work-order-a18.md",
+      "recommendedWorktrees": [
+        "/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A18-A21-content-evidence-closure",
+        "/Users/dongpinhu/Desktop/MAIS-MVP-worktrees/MAIS-MVP-california-practice-beta-clean"
+      ],
+      "focusBatchAuthorizationRows": [],
+      "counts": {
+        "ownerPackageAssignments": 1,
+        "blockerReportStarters": 1,
+        "recordedBlockerReports": 1,
+        "pendingBlockerReports": 0,
+        "authorizationStarters": 3,
+        "generatedArtifactResidualAuthorizations": 0,
+        "focusBatchAuthorizationRows": 0,
+        "focusBatchRecordingRows": 0,
+        "remainingCompletionAssignments": 1,
+        "pendingItems": 5,
+        "cleanupAuthorizedRows": 0,
+        "executableRows": 0
+      },
+      "cleanupAuthorized": false,
+      "executableNow": false
+    },
+    {
+      "agentId": "A19",
+      "owner": "A19",
+      "latestMarkdown": "coordination/release-intake/latest-A25-owner-closure-work-order-a19.md",
+      "datedMarkdown": "coordination/release-intake/2026-07-08-A25-owner-closure-work-order-a19.md",
+      "recommendedWorktrees": [
+        "/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A19-vercel-postgres-region"
+      ],
+      "focusBatchAuthorizationRows": [],
+      "counts": {
+        "ownerPackageAssignments": 0,
+        "blockerReportStarters": 0,
+        "recordedBlockerReports": 0,
+        "pendingBlockerReports": 0,
+        "authorizationStarters": 1,
+        "generatedArtifactResidualAuthorizations": 0,
+        "focusBatchAuthorizationRows": 0,
+        "focusBatchRecordingRows": 0,
+        "remainingCompletionAssignments": 0,
+        "pendingItems": 1,
+        "cleanupAuthorizedRows": 0,
+        "executableRows": 0
+      },
+      "cleanupAuthorized": false,
+      "executableNow": false
+    },
+    {
+      "agentId": "A20",
+      "owner": "A20 game design and game-based learning lead",
+      "latestMarkdown": "coordination/release-intake/latest-A25-owner-closure-work-order-a20.md",
+      "datedMarkdown": "coordination/release-intake/2026-07-08-A25-owner-closure-work-order-a20.md",
+      "recommendedWorktrees": [
+        "/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A17-A20-game-motivation-closure"
+      ],
+      "focusBatchAuthorizationRows": [],
+      "counts": {
+        "ownerPackageAssignments": 1,
+        "blockerReportStarters": 1,
+        "recordedBlockerReports": 1,
+        "pendingBlockerReports": 0,
+        "authorizationStarters": 2,
+        "generatedArtifactResidualAuthorizations": 0,
+        "focusBatchAuthorizationRows": 0,
+        "focusBatchRecordingRows": 0,
+        "remainingCompletionAssignments": 1,
+        "pendingItems": 4,
+        "cleanupAuthorizedRows": 0,
+        "executableRows": 0
+      },
+      "cleanupAuthorized": false,
+      "executableNow": false
+    },
+    {
+      "agentId": "A21",
+      "owner": "A21 content pipeline and RAG operations",
+      "latestMarkdown": "coordination/release-intake/latest-A25-owner-closure-work-order-a21.md",
+      "datedMarkdown": "coordination/release-intake/2026-07-08-A25-owner-closure-work-order-a21.md",
+      "recommendedWorktrees": [
+        "/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A18-A21-content-evidence-closure",
+        "/Users/dongpinhu/Desktop/MAIS-MVP-worktrees/MAIS-MVP-california-practice-beta-clean"
+      ],
+      "focusBatchAuthorizationRows": [],
+      "counts": {
+        "ownerPackageAssignments": 0,
+        "blockerReportStarters": 0,
+        "recordedBlockerReports": 0,
+        "pendingBlockerReports": 0,
+        "authorizationStarters": 4,
+        "generatedArtifactResidualAuthorizations": 0,
+        "focusBatchAuthorizationRows": 0,
+        "focusBatchRecordingRows": 0,
+        "remainingCompletionAssignments": 1,
+        "pendingItems": 5,
+        "cleanupAuthorizedRows": 0,
+        "executableRows": 0
+      },
+      "cleanupAuthorized": false,
+      "executableNow": false
+    },
+    {
+      "agentId": "A22",
+      "owner": "A22 production reliability and release engineering",
+      "latestMarkdown": "coordination/release-intake/latest-A25-owner-closure-work-order-a22.md",
+      "datedMarkdown": "coordination/release-intake/2026-07-08-A25-owner-closure-work-order-a22.md",
+      "recommendedWorktrees": [
+        "/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A06-visualization-closure",
+        "/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A10-A22-A08-A12-A06-compose-20260628",
+        "/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A10-A22-release-governance",
+        "/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A22-missing-module-release-slice",
+        "/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A22-next-15-5-19-audit",
+        "/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A22-p1-release-hygiene-security",
+        "/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A22-us-region-alignment",
+        "/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/visualization-production-release",
+        "/Users/dongpinhu/Desktop/MAIS-MVP",
+        "/Users/dongpinhu/Desktop/MAIS-MVP-worktrees/MAIS-MVP-california-practice-beta-clean",
+        "/Users/dongpinhu/Desktop/MAIS-MVP-worktrees/s22-release-hygiene-2026-06-15"
+      ],
+      "focusBatchAuthorizationRows": [],
+      "counts": {
+        "ownerPackageAssignments": 0,
+        "blockerReportStarters": 0,
+        "recordedBlockerReports": 0,
+        "pendingBlockerReports": 0,
+        "authorizationStarters": 12,
+        "generatedArtifactResidualAuthorizations": 0,
+        "focusBatchAuthorizationRows": 0,
+        "focusBatchRecordingRows": 0,
+        "remainingCompletionAssignments": 4,
+        "pendingItems": 16,
+        "cleanupAuthorizedRows": 0,
+        "executableRows": 0
+      },
+      "cleanupAuthorized": false,
+      "executableNow": false
+    },
+    {
+      "agentId": "A23",
+      "owner": "A23 integration and promotion lead",
+      "latestMarkdown": "coordination/release-intake/latest-A25-owner-closure-work-order-a23.md",
+      "datedMarkdown": "coordination/release-intake/2026-07-08-A25-owner-closure-work-order-a23.md",
+      "recommendedWorktrees": [],
+      "focusBatchAuthorizationRows": [],
+      "counts": {
+        "ownerPackageAssignments": 0,
+        "blockerReportStarters": 0,
+        "recordedBlockerReports": 0,
+        "pendingBlockerReports": 0,
+        "authorizationStarters": 1,
+        "generatedArtifactResidualAuthorizations": 0,
+        "focusBatchAuthorizationRows": 0,
+        "focusBatchRecordingRows": 0,
+        "remainingCompletionAssignments": 1,
+        "pendingItems": 2,
+        "cleanupAuthorizedRows": 0,
+        "executableRows": 0
+      },
+      "cleanupAuthorized": false,
+      "executableNow": false
+    },
+    {
+      "agentId": "A24",
+      "owner": "A24 illustration exact-layer",
+      "latestMarkdown": "coordination/release-intake/latest-A25-owner-closure-work-order-a24.md",
+      "datedMarkdown": "coordination/release-intake/2026-07-08-A25-owner-closure-work-order-a24.md",
+      "recommendedWorktrees": [],
+      "focusBatchAuthorizationRows": [],
+      "counts": {
+        "ownerPackageAssignments": 0,
+        "blockerReportStarters": 0,
+        "recordedBlockerReports": 0,
+        "pendingBlockerReports": 0,
+        "authorizationStarters": 1,
+        "generatedArtifactResidualAuthorizations": 0,
+        "focusBatchAuthorizationRows": 0,
+        "focusBatchRecordingRows": 0,
+        "remainingCompletionAssignments": 1,
+        "pendingItems": 2,
+        "cleanupAuthorizedRows": 0,
+        "executableRows": 0
+      },
+      "cleanupAuthorized": false,
+      "executableNow": false
+    },
+    {
+      "agentId": "A25",
+      "owner": "A25 git hygiene and release intake lead",
+      "latestMarkdown": "coordination/release-intake/latest-A25-owner-closure-work-order-a25.md",
+      "datedMarkdown": "coordination/release-intake/2026-07-08-A25-owner-closure-work-order-a25.md",
+      "recommendedWorktrees": [
+        "/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A25-ci-backup-workflow",
+        "/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A25-dirty-closure-governance",
+        "/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A25-full-dirty-compose-verification",
+        "/Users/dongpinhu/Desktop/MAIS-MVP"
+      ],
+      "focusBatchAuthorizationRows": [],
+      "counts": {
+        "ownerPackageAssignments": 1,
+        "blockerReportStarters": 1,
+        "recordedBlockerReports": 1,
+        "pendingBlockerReports": 0,
+        "authorizationStarters": 5,
+        "generatedArtifactResidualAuthorizations": 0,
+        "focusBatchAuthorizationRows": 0,
+        "focusBatchRecordingRows": 0,
+        "remainingCompletionAssignments": 4,
+        "pendingItems": 10,
+        "cleanupAuthorizedRows": 0,
+        "executableRows": 0
+      },
+      "cleanupAuthorized": false,
+      "executableNow": false
+    }
+  ]
+}

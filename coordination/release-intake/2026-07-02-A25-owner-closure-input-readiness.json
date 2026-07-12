@@ -1,0 +1,93 @@
+{
+  "generatedAt": "2026-07-02T15:48:19.177Z",
+  "repoRoot": "/Users/dongpinhu/Desktop/MAIS-MVP",
+  "dirtyMapStatusSignature": "aab9818713f7df7ad2d9e281c7534227bc41a877b346ef4339ea49f3b0123cb2",
+  "expandedStatusEntries": 3505,
+  "sourceArtifacts": {
+    "nextOwnerAuthorizationsGateCheckedAt": "2026-07-02T15:48:18.760Z",
+    "nextOwnerAuthorizationExecutionPreviewGateCheckedAt": "2026-07-02T15:48:18.863Z",
+    "wave01PackageResyncAuthorizationsGateCheckedAt": "2026-07-02T15:39:44.368Z",
+    "ownerPackageBlockerReportRecordsGateCheckedAt": "2026-07-02T15:47:38.250Z",
+    "ownerClosureQueueGeneratedAt": "2026-07-02T15:48:18.997Z",
+    "nextOwnerDecisionFocusGeneratedAt": "2026-07-02T15:48:19.088Z"
+  },
+  "inputGateFailures": [],
+  "inputBlocks": [
+    {
+      "id": "canonical-next-owner-authorizations",
+      "label": "Canonical next-owner authorizations",
+      "sourceFile": "coordination/release-intake/latest-A25-next-owner-authorizations.json",
+      "filePresent": true,
+      "totalRows": 67,
+      "validRows": 0,
+      "pendingRows": 67,
+      "cleanupAuthorizedRows": 0,
+      "executableRows": 0,
+      "ready": false,
+      "status": "waiting-for-owner-input",
+      "note": "Owner input file is present but must remain non-executable until a separate execution instruction exists."
+    },
+    {
+      "id": "next-owner-authorization-execution-preview",
+      "label": "Next-owner authorization execution preview",
+      "sourceFile": "coordination/release-intake/latest-A25-next-owner-authorization-execution-preview-current-gate.json",
+      "filePresent": true,
+      "totalRows": 67,
+      "validRows": 0,
+      "pendingRows": 67,
+      "cleanupAuthorizedRows": 0,
+      "executableRows": 0,
+      "ready": false,
+      "status": "waiting-for-owner-input",
+      "note": "Owner input file is present but must remain non-executable until a separate execution instruction exists."
+    },
+    {
+      "id": "wave01-package-resync-authorizations",
+      "label": "Wave 01 package-resync owner authorizations",
+      "sourceFile": "coordination/release-intake/latest-A25-wave01-package-resync-owner-authorizations.json",
+      "filePresent": true,
+      "totalRows": 7,
+      "validRows": 0,
+      "pendingRows": 7,
+      "cleanupAuthorizedRows": 0,
+      "executableRows": 0,
+      "ready": false,
+      "status": "waiting-for-owner-input",
+      "note": "Owner input file is present but must remain non-executable until a separate execution instruction exists."
+    },
+    {
+      "id": "owner-package-blocker-report-records",
+      "label": "Owner package blocker report records",
+      "sourceFile": "coordination/release-intake/latest-A25-owner-package-blocker-report-records.json",
+      "filePresent": true,
+      "totalRows": 10,
+      "validRows": 0,
+      "pendingRows": 10,
+      "cleanupAuthorizedRows": 0,
+      "executableRows": 0,
+      "ready": false,
+      "status": "waiting-for-owner-input",
+      "note": "Owner input file is present but must remain non-executable until a separate execution instruction exists."
+    }
+  ],
+  "summary": {
+    "ownerInputsReady": false,
+    "inputBlocks": 4,
+    "pendingCanonicalAuthorizationRows": 67,
+    "pendingWave01AuthorizationRows": 7,
+    "pendingOwnerBlockerReportRecords": 10,
+    "validAuthorizationRows": 0,
+    "commandPreviewRows": 0,
+    "ownerClosurePendingItems": 140,
+    "nextOwnerDecisionRows": 25,
+    "cleanupAuthorizedRows": 0,
+    "executableRows": 0
+  },
+  "boundary": {
+    "evidenceOnly": true,
+    "cleanupAuthorized": false,
+    "executableNow": false,
+    "destructiveGitAuthorized": false,
+    "deployAuthorized": false
+  }
+}

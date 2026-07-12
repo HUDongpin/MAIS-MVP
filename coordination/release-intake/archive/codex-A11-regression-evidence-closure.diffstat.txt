@@ -1,0 +1,36 @@
+lib/mvpReadiness.test.ts                          | 284 ++++++++++--
+ tests/e2e/adaptive-llm-smoke.spec.ts              |  27 +-
+ tests/e2e/adventure-island.spec.ts                |  87 +++-
+ tests/e2e/ai-tutor-deepseek.spec.ts               | 504 +++++++++++++++++-----
+ tests/e2e/ai-tutor-live-text.spec.ts              | 217 ++++++++--
+ tests/e2e/app-shell-auth.spec.ts                  | 154 +++++--
+ tests/e2e/backend-api.spec.ts                     | 397 ++++++++++++++---
+ tests/e2e/console-readonly-audit.spec.ts          |  17 +-
+ tests/e2e/deepseek-fetch-proxy.cjs                |   5 +-
+ tests/e2e/fishing-game.spec.ts                    |  62 ++-
+ tests/e2e/fishing-master-adventure.spec.ts        |  12 +-
+ tests/e2e/gamification.spec.ts                    |  21 +-
+ tests/e2e/helpers.ts                              | 187 +++++++-
+ tests/e2e/home-functional.spec.ts                 | 233 +++++++---
+ tests/e2e/isolated-app.ts                         | 265 +++++++++++-
+ tests/e2e/lesson-all.spec.ts                      | 247 ++++++++---
+ tests/e2e/mainland-hjb-lesson-only.spec.ts        |  34 +-
+ tests/e2e/mainland-hjb-roadmaps.spec.ts           |  11 +-
+ tests/e2e/mainland-pep-primary-lessons.spec.ts    |  82 +++-
+ tests/e2e/mainland-pep-roadmaps.spec.ts           |  64 +--
+ tests/e2e/parent-console.spec.ts                  |  57 ++-
+ tests/e2e/practice-pager.spec.ts                  |  93 ++--
+ tests/e2e/production-auth-storage-smoke.spec.ts   |  10 +-
+ tests/e2e/production-game-smoke.spec.ts           |  23 +-
+ tests/e2e/production-visualization-values.spec.ts |  87 +++-
+ tests/e2e/student-button-dropdown-matrix.spec.ts  | 408 ++++++++++++++----
+ tests/e2e/student-frontend.spec.ts                | 219 +++++++---
+ tests/e2e/student-smoke.spec.ts                   |  93 ++--
+ tests/e2e/teacher-console-button-matrix.spec.ts   | 151 ++++---
+ tests/e2e/teacher-student-cross-role.spec.ts      |  44 +-
+ tests/e2e/teacher-workspace.spec.ts               |   2 +-
+ tests/e2e/ui-ux-regression.spec.ts                |   2 +-
+ tests/e2e/visualization-ai-classroom.spec.ts      |  68 +--
+ tests/e2e/visualization-overlap.spec.ts           |  99 ++++-
+ tests/e2e/visualization-values.spec.ts            | 417 ++++++++++++++++--
+ 35 files changed, 3756 insertions(+), 927 deletions(-)

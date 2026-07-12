@@ -1,0 +1,13 @@
+app/api/ai-tutor/route.ts                     |  2351 +--
+ app/api/ai-tutor/status/route.ts              |   142 +-
+ app/teacher/classes/page.tsx                  |    23 +-
+ components/ai/AITutorButton.tsx               |    10 +-
+ components/ai/AITutorProvider.tsx             |  2132 ++-
+ components/teacher/TeacherManagementViews.tsx |  1390 +-
+ components/teacher/teacherLabels.ts           |     8 +-
+ lib/i18n.ts                                   |    81 +-
+ lib/server/llmProvider.ts                     |   376 +-
+ lib/server/userStore.ts                       | 19232 ++++++++++--------------
+ lib/utils.ts                                  |    11 +-
+ types/index.ts                                |  1450 +-
+ 12 files changed, 13028 insertions(+), 14178 deletions(-)

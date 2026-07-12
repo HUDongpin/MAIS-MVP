@@ -1,5 +1,6 @@
 import { mainlandPepJuniorExamPatternCards } from "../../data/rag/mainlandPepJuniorExamPatterns";
 import { mainlandPepJuniorRagCards } from "../../data/rag/mainlandPepJunior";
+import { illustrationTextMatchStandardForRag } from "./illustrationTextMatchStandard";
 import type {
   MainlandPepJuniorExamEvidencePack,
   MainlandPepJuniorExamGenerationEvidencePack,
@@ -152,6 +153,7 @@ export function buildMainlandPepJuniorExamEvidencePack(query: MainlandPepJuniorE
     "Use these aggregated patterns only to create original MAIS practice, diagnostics, assessment design, lesson support, and teacher planning.",
     "Junior exam-pattern cards summarize broad zhongkao design tendencies; they do not authorize copying protected wording, worked responses, scoring text, tables, diagrams, layouts, or item sequences.",
     "Use only the pattern summaries, tags, misconceptions, and originality guidance below.",
+    ...illustrationTextMatchStandardForRag,
     ...cards.flatMap((card, index) => [
       `Junior exam pattern ${index + 1}: ${card.grades.join("/")} ${card.semesters.join("/")} ${card.unitTitles.join(" / ")} (${card.yearRange}; ${card.difficultyBand}).`,
       `Exam families: ${card.examFamilies.join(", ")}.`,
@@ -183,6 +185,7 @@ export function buildMainlandPepJuniorExamGenerationEvidencePack(
     "MAIS-safe combined evidence pack for MAINLAND_PEP junior secondary.",
     "Layer 1 answers what to teach from curriculum safe cards. Layer 2 answers how junior exam-style tasks are commonly structured from aggregated pattern cards.",
     "Generate only new MAIS-authored questions, contexts, diagrams, values, distractors, and explanations.",
+    ...illustrationTextMatchStandardForRag,
     "Curriculum layer:",
     ...curriculumCards.map((card, index) => `${index + 1}. ${card.grade} ${card.unitTitle}: ${card.safeSummary}`),
     "Exam-pattern layer:",

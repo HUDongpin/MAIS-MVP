@@ -1,0 +1,170 @@
+{
+  "generatedAt": "2026-07-10T15:54:29.418Z",
+  "repoRoot": "/Users/dongpinhu/Desktop/MAIS-MVP",
+  "planKind": "a22-generated-artifact-guarded-cleanup-plan",
+  "dirtyMapStatusSignature": "37c9d353a7710b8e92d3d766006b7230936ca194044a47770a99ab12d7c6cef1",
+  "expandedStatusEntries": 7221,
+  "sourceArtifacts": {
+    "residualEvidenceGeneratedAt": "2026-07-10T15:51:14.434Z",
+    "authorizationPacketGeneratedAt": "2026-07-10T15:51:15.040Z",
+    "ownerAuthorizationsGeneratedAt": "2026-07-10T15:54:19.864Z",
+    "executionInstructionsGeneratedAt": "2026-07-10T15:54:25.693Z"
+  },
+  "sourceCurrentnessFailures": [],
+  "rowValidationFailures": [
+    "a22-generated-residual-next: missing canonical owner authorization row",
+    "a22-generated-residual-next: missing owner execution-instruction row",
+    "a22-generated-residual-tmp: missing canonical owner authorization row",
+    "a22-generated-residual-tmp: missing owner execution-instruction row"
+  ],
+  "stagedRows": [],
+  "dryRun": {
+    "status": 0,
+    "scope": "all",
+    "targetCount": 2,
+    "totalBytes": 4110108661,
+    "skippedTargets": [],
+    "targets": [
+      {
+        "path": ".next",
+        "type": "directory",
+        "bytes": 3210619565
+      },
+      {
+        "path": ".tmp",
+        "type": "directory",
+        "bytes": 899489096
+      }
+    ]
+  },
+  "planStatus": "pending-a22-generated-artifact-owner-decision",
+  "exactCommand": "node scripts/cleanup-generated-artifacts.mjs --apply --scope all",
+  "commandSequence": [
+    {
+      "command": "node scripts/cleanup-generated-artifacts.mjs --apply --scope all",
+      "cwd": "/Users/dongpinhu/Desktop/MAIS-MVP",
+      "approvalIds": [
+        "a22-generated-residual-next",
+        "a22-generated-residual-tmp"
+      ],
+      "paths": [
+        ".next",
+        ".tmp"
+      ]
+    }
+  ],
+  "commandCwd": "/Users/dongpinhu/Desktop/MAIS-MVP",
+  "targetRows": [
+    {
+      "approvalId": "a22-generated-residual-next",
+      "owner": "A22 production reliability and release engineering",
+      "path": ".next",
+      "command": "node scripts/cleanup-generated-artifacts.mjs --apply --scope all",
+      "cwd": "/Users/dongpinhu/Desktop/MAIS-MVP",
+      "residualBytes": 3210619565,
+      "authorizationRecorded": false,
+      "executionInstructionRecorded": false,
+      "cleanupAuthorized": false,
+      "executableNow": false
+    },
+    {
+      "approvalId": "a22-generated-residual-tmp",
+      "owner": "A22 production reliability and release engineering",
+      "path": ".tmp",
+      "command": "node scripts/cleanup-generated-artifacts.mjs --apply --scope all",
+      "cwd": "/Users/dongpinhu/Desktop/MAIS-MVP",
+      "residualBytes": 899489096,
+      "authorizationRecorded": false,
+      "executionInstructionRecorded": false,
+      "cleanupAuthorized": false,
+      "executableNow": false
+    }
+  ],
+  "acceptanceChecks": [
+    {
+      "id": "source-current",
+      "status": "pass",
+      "detail": "source currentness failures=0"
+    },
+    {
+      "id": "cleanup-dry-run-green",
+      "status": "pass",
+      "detail": "status=0; parseError=none"
+    },
+    {
+      "id": "residual-target-state-supported",
+      "status": "pass",
+      "detail": "residualTargetRows=2"
+    },
+    {
+      "id": "canonical-authorizations-present",
+      "status": "pass",
+      "detail": "canonicalA22Rows=0/2"
+    },
+    {
+      "id": "execution-instructions-present",
+      "status": "pass",
+      "detail": "instructionRows=0/2"
+    },
+    {
+      "id": "exact-targets-and-command",
+      "status": "pass",
+      "detail": "pending owner decision; executable bridge is intentionally disabled"
+    },
+    {
+      "id": "dry-run-targets-match",
+      "status": "pass",
+      "detail": "dryRunTargets=.next,.tmp"
+    },
+    {
+      "id": "no-skipped-targets",
+      "status": "pass",
+      "detail": "skippedTargets=0"
+    },
+    {
+      "id": "no-staged-root-input",
+      "status": "pass",
+      "detail": "stagedRows=0"
+    },
+    {
+      "id": "plan-status-supported",
+      "status": "pass",
+      "detail": "planStatus=pending-a22-generated-artifact-owner-decision"
+    }
+  ],
+  "summary": {
+    "planStatus": "pending-a22-generated-artifact-owner-decision",
+    "residualTargets": 2,
+    "targetRows": 2,
+    "ownerAuthorizationRows": 0,
+    "executionInstructionRows": 0,
+    "cleanupDryRunTargets": 2,
+    "cleanupDryRunBytes": 4110108661,
+    "stagedRows": 0,
+    "acceptanceChecks": 10,
+    "passingAcceptanceChecks": 10,
+    "failedAcceptanceChecks": 0,
+    "sourceCurrentnessFailures": 0,
+    "rowValidationFailures": 4,
+    "commandSequenceRows": 1,
+    "cleanupAuthorizedRows": 0,
+    "executableRows": 0
+  },
+  "boundary": {
+    "evidenceOnly": true,
+    "planOnly": true,
+    "recordsOwnerApproval": false,
+    "recordsExecutionInstruction": false,
+    "stageAuthorized": false,
+    "commitAuthorized": false,
+    "mergeAuthorized": false,
+    "cleanupAuthorized": false,
+    "executableNow": false,
+    "destructiveGitAuthorized": false,
+    "fileDeletionAuthorized": false,
+    "deployAuthorized": false,
+    "requiresExplicitApplyFlag": true,
+    "allowedCommand": "node scripts/cleanup-generated-artifacts.mjs --apply --scope all",
+    "allowedCommandSequence": "see targetRows and commandSequence"
+  }
+}

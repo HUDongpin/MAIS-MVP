@@ -1,0 +1,289 @@
+{
+  "generatedAt": "2026-07-08T12:21:18.276Z",
+  "repoRoot": "/Users/dongpinhu/Desktop/MAIS-MVP",
+  "recorderKind": "a22-root-parity-owner-input-recording",
+  "mode": "dry-run",
+  "recorderStatus": "already-recorded",
+  "dirtyMapStatusSignature": "340f99c33d2a1dfd0015d1dc67b58b838156a600307de07438c1189d27ac7b16",
+  "expandedStatusEntries": 6116,
+  "sourceArtifacts": {
+    "landingRunwayGeneratedAt": "2026-07-08T12:21:18.161Z",
+    "landingRunwayGateFailureCount": 0,
+    "ownerInputGeneratedAt": "2026-07-07T15:10:41.176Z"
+  },
+  "sourceCurrentnessFailures": [],
+  "targetInputFile": "coordination/release-intake/latest-A22-top-clean-candidate-root-parity-extraction-instruction-owner-input.json",
+  "topCandidate": {
+    "branch": "codex/A22-us-region-alignment",
+    "path": "/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A22-us-region-alignment",
+    "head": "80b8546af59def9ea4c91fa4b8a892973874504d",
+    "gateCoverageStatus": "top-candidate-gates-red",
+    "queueActionStatus": "needs-candidate-mutation-owner-input-before-rerun",
+    "releaseSourceSelected": false,
+    "promotionEligibleNow": false
+  },
+  "patchUnitIds": [
+    "a06-visualization-back-to-top-import-parity",
+    "a20-math-virus-blaster-data-parity",
+    "a20-mighty-tank-battle-data-parity",
+    "a05-california-high-school-lesson-illustration-data-parity"
+  ],
+  "existingOwnerInputBlank": false,
+  "existingOwnerInputMatchesPatch": true,
+  "proposedOwnerInputDoNotApply": {
+    "generatedAt": "2026-07-08T12:21:18.276Z",
+    "inputKind": "a22-root-parity-extraction-instruction-owner-input",
+    "instructions": [
+      "Fill selectedActions with exactly one allowed selectedAction per unit only after the owner explicitly authorizes the A22 root-parity extraction instruction rows.",
+      "Paste the owner authorization wording into ownerExecutionText. This file is input only and does not mutate the A22 candidate.",
+      "Keep all boundary booleans false unless the owner gives a separate explicit cleanup/deploy/merge/destructive-git authorization, which this intake does not consume."
+    ],
+    "sourceInstructionRequestGeneratedAt": "2026-07-07T15:08:02.465Z",
+    "sourceInstructionRequest": "coordination/release-intake/latest-A22-top-clean-candidate-root-parity-extraction-instruction-request.json",
+    "topCandidate": {
+      "branch": "codex/A22-us-region-alignment",
+      "path": "/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A22-us-region-alignment",
+      "head": "80b8546af59def9ea4c91fa4b8a892973874504d",
+      "releaseSourceSelected": false,
+      "promotionEligibleNow": false
+    },
+    "targetWorktree": "/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A22-us-region-alignment",
+    "applyToUnitIds": [
+      "a06-visualization-back-to-top-import-parity",
+      "a20-math-virus-blaster-data-parity",
+      "a20-mighty-tank-battle-data-parity",
+      "a05-california-high-school-lesson-illustration-data-parity"
+    ],
+    "selectedActions": [
+      {
+        "unitId": "a06-visualization-back-to-top-import-parity",
+        "primaryOwnerIds": [
+          "A06"
+        ],
+        "coordinationOwnerIds": [
+          "A22",
+          "A25"
+        ],
+        "allowedActions": [
+          "reexport",
+          "import-align"
+        ],
+        "selectedAction": "reexport",
+        "rootSource": "components/visualizations/VisualizationLabBackToTopButton.tsx",
+        "rootSourceSha256": "efef3f7c3590ebbd6b21ca56a3d4fcdcab1c0e3dd591bf08ee5a6ccc58707155",
+        "candidateTarget": "app/visualization-lab/VisualizationLabBackToTopButton.tsx"
+      },
+      {
+        "unitId": "a20-math-virus-blaster-data-parity",
+        "primaryOwnerIds": [
+          "A20"
+        ],
+        "coordinationOwnerIds": [
+          "A10",
+          "A22",
+          "A25"
+        ],
+        "allowedActions": [
+          "same-path-copy"
+        ],
+        "selectedAction": "same-path-copy",
+        "rootSource": "data/mathVirusBlaster.ts",
+        "rootSourceSha256": "e7e7edfe35ada99e17be43cdfea5cea36e409d52e8a4c3966476209687b495fa",
+        "candidateTarget": "data/mathVirusBlaster.ts"
+      },
+      {
+        "unitId": "a20-mighty-tank-battle-data-parity",
+        "primaryOwnerIds": [
+          "A20"
+        ],
+        "coordinationOwnerIds": [
+          "A10",
+          "A22",
+          "A25"
+        ],
+        "allowedActions": [
+          "same-path-copy"
+        ],
+        "selectedAction": "same-path-copy",
+        "rootSource": "data/mightyTankBattle.ts",
+        "rootSourceSha256": "d74bfa43d60d766f818bd7b8e958b386cdff38fc91d3ae5d84889c957c2138e7",
+        "candidateTarget": "data/mightyTankBattle.ts"
+      },
+      {
+        "unitId": "a05-california-high-school-lesson-illustration-data-parity",
+        "primaryOwnerIds": [
+          "A05"
+        ],
+        "coordinationOwnerIds": [
+          "A18",
+          "A21",
+          "A24",
+          "A22",
+          "A25"
+        ],
+        "allowedActions": [
+          "same-path-copy"
+        ],
+        "selectedAction": "same-path-copy",
+        "rootSource": "data/usCaliforniaHighSchoolLessonIllustrations.ts",
+        "rootSourceSha256": "366c5b3a2e8ea9a67f1c13e005377f0be4d903d7d4657e15ad2d9f2da0507a28",
+        "candidateTarget": "data/usCaliforniaHighSchoolLessonIllustrations.ts"
+      }
+    ],
+    "ownerExecutionText": "Authorize A22 root-parity extraction instruction for unitId=a06-visualization-back-to-top-import-parity; topCandidate=codex/A22-us-region-alignment; targetWorktree=/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A22-us-region-alignment; primaryOwnerIds=A06; coordinationOwnerIds=A22,A25; actionMode=owner-reviewed-reexport-or-import-align; rootSource=components/visualizations/VisualizationLabBackToTopButton.tsx; rootSourceSha256=efef3f7c3590ebbd6b21ca56a3d4fcdcab1c0e3dd591bf08ee5a6ccc58707155; candidateTarget=app/visualization-lab/VisualizationLabBackToTopButton.tsx; coveredBlockerRows=1; selectedAction=reexport; approvedBy=<owner>; approvedAt=<ISO-8601>; notes=<scope and checks>; No cleanup; No deploy; No merge; No broad staging; No destructive git; No physical lifecycle cleanup.\nAuthorize A22 root-parity extraction instruction for unitId=a20-math-virus-blaster-data-parity; topCandidate=codex/A22-us-region-alignment; targetWorktree=/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A22-us-region-alignment; primaryOwnerIds=A20; coordinationOwnerIds=A10,A22,A25; actionMode=owner-reviewed-same-path-data-extraction; rootSource=data/mathVirusBlaster.ts; rootSourceSha256=e7e7edfe35ada99e17be43cdfea5cea36e409d52e8a4c3966476209687b495fa; candidateTarget=data/mathVirusBlaster.ts; coveredBlockerRows=1; selectedAction=same-path-copy; approvedBy=<owner>; approvedAt=<ISO-8601>; notes=<scope and checks>; No cleanup; No deploy; No merge; No broad staging; No destructive git; No physical lifecycle cleanup.\nAuthorize A22 root-parity extraction instruction for unitId=a20-mighty-tank-battle-data-parity; topCandidate=codex/A22-us-region-alignment; targetWorktree=/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A22-us-region-alignment; primaryOwnerIds=A20; coordinationOwnerIds=A10,A22,A25; actionMode=owner-reviewed-same-path-data-extraction; rootSource=data/mightyTankBattle.ts; rootSourceSha256=d74bfa43d60d766f818bd7b8e958b386cdff38fc91d3ae5d84889c957c2138e7; candidateTarget=data/mightyTankBattle.ts; coveredBlockerRows=1; selectedAction=same-path-copy; approvedBy=<owner>; approvedAt=<ISO-8601>; notes=<scope and checks>; No cleanup; No deploy; No merge; No broad staging; No destructive git; No physical lifecycle cleanup.\nAuthorize A22 root-parity extraction instruction for unitId=a05-california-high-school-lesson-illustration-data-parity; topCandidate=codex/A22-us-region-alignment; targetWorktree=/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A22-us-region-alignment; primaryOwnerIds=A05; coordinationOwnerIds=A18,A21,A24,A22,A25; actionMode=owner-reviewed-same-path-data-extraction-with-content-signoff; rootSource=data/usCaliforniaHighSchoolLessonIllustrations.ts; rootSourceSha256=366c5b3a2e8ea9a67f1c13e005377f0be4d903d7d4657e15ad2d9f2da0507a28; candidateTarget=data/usCaliforniaHighSchoolLessonIllustrations.ts; coveredBlockerRows=2; selectedAction=same-path-copy; approvedBy=<owner>; approvedAt=<ISO-8601>; notes=<scope and checks>; No cleanup; No deploy; No merge; No broad staging; No destructive git; No physical lifecycle cleanup.",
+    "approvedBy": "<owner>",
+    "approvedAt": "<ISO-8601>",
+    "notes": "<scope and checks>",
+    "cleanupAuthorized": false,
+    "executableNow": false,
+    "deployAuthorized": false,
+    "mergeAuthorized": false,
+    "stageAuthorized": false,
+    "destructiveGitAuthorized": false,
+    "physicalLifecycleCleanupAuthorized": false,
+    "boundary": {
+      "ownerInputOnly": true,
+      "recordsOwnerInput": true,
+      "recordsExtractionInstruction": false,
+      "modifiesCandidate": false,
+      "copiesRootFiles": false,
+      "runsTypeCheck": false,
+      "runsBuild": false,
+      "runsRegression": false,
+      "cleanupAuthorized": false,
+      "executableNow": false,
+      "deployAuthorized": false,
+      "mergeAuthorized": false,
+      "stageAuthorized": false,
+      "destructiveGitAuthorized": false,
+      "physicalLifecycleCleanupAuthorized": false
+    }
+  },
+  "recordingChecks": [
+    {
+      "id": "mode-is-explicit",
+      "status": "pass",
+      "detail": "mode=dry-run"
+    },
+    {
+      "id": "source-current",
+      "status": "pass",
+      "detail": "sourceCurrentnessFailures=0"
+    },
+    {
+      "id": "landing-runway-ready",
+      "status": "pass",
+      "detail": "runwayStatus=owner-input-recorded-post-runway"
+    },
+    {
+      "id": "four-patch-rows",
+      "status": "pass",
+      "detail": "selectedActions=4; textLines=4"
+    },
+    {
+      "id": "owner-input-blank-or-already-recorded",
+      "status": "pass",
+      "detail": "ownerInputBlank=false; ownerInputMatchesPatch=true"
+    },
+    {
+      "id": "owner-approval-text-covers-rows",
+      "status": "pass",
+      "detail": "approvalTextCoversRows=false"
+    },
+    {
+      "id": "owner-approval-text-keeps-negative-boundaries",
+      "status": "pass",
+      "detail": "cleanup=false; deploy=false; merge=false; broad-staging=false; destructive-git=false; physical-lifecycle-cleanup=false"
+    },
+    {
+      "id": "proposed-owner-input-safe-boundary",
+      "status": "pass",
+      "detail": "proposed owner input must stay non-executable and must not authorize cleanup, merge, deploy, staging, destructive Git, candidate mutation, or physical cleanup"
+    },
+    {
+      "id": "recording-status-coherent",
+      "status": "pass",
+      "detail": "recordingStatus=already-recorded"
+    },
+    {
+      "id": "apply-requires-ready-status",
+      "status": "pass",
+      "detail": "mode=dry-run; status=already-recorded"
+    }
+  ],
+  "summary": {
+    "mode": "dry-run",
+    "recorderStatus": "already-recorded",
+    "patchRows": 4,
+    "ownerExecutionTextRows": 4,
+    "ownerApprovalFieldsPresent": false,
+    "ownerApprovalTextCoversRows": false,
+    "ownerApprovalTextHasNegativeBoundaries": false,
+    "ownerApprovalTextBoundaryCoverage": [
+      {
+        "id": "cleanup",
+        "covered": false
+      },
+      {
+        "id": "deploy",
+        "covered": false
+      },
+      {
+        "id": "merge",
+        "covered": false
+      },
+      {
+        "id": "broad-staging",
+        "covered": false
+      },
+      {
+        "id": "destructive-git",
+        "covered": false
+      },
+      {
+        "id": "physical-lifecycle-cleanup",
+        "covered": false
+      }
+    ],
+    "recordingChecks": 10,
+    "passingRecordingChecks": 10,
+    "failedRecordingChecks": 0,
+    "sourceCurrentnessFailures": 0,
+    "applyRequested": false,
+    "applyPermitted": false,
+    "mutationsPerformed": false,
+    "recordsOwnerInputRows": 0,
+    "recordsExtractionInstructionRows": 0,
+    "modifiesCandidateRows": 0,
+    "rootCopyRows": 0,
+    "cleanupAuthorizedRows": 0,
+    "executableRows": 0
+  },
+  "boundary": {
+    "evidenceOnly": true,
+    "dryRunOnly": true,
+    "recordsOwnerInput": false,
+    "appliesOwnerInputPatch": false,
+    "recordsExtractionInstruction": false,
+    "modifiesCandidate": false,
+    "copiesRootFiles": false,
+    "runsTypeCheck": false,
+    "runsBuild": false,
+    "runsRegression": false,
+    "selectsReleaseSource": false,
+    "stageAuthorized": false,
+    "commitAuthorized": false,
+    "mergeAuthorized": false,
+    "cleanupAuthorized": false,
+    "executableNow": false,
+    "destructiveGitAuthorized": false,
+    "deployAuthorized": false,
+    "physicalLifecycleCleanupAuthorized": false,
+    "requiresExplicitApplyOwnerInputFlag": true,
+    "requiresOwnerApprovalTextCoveringAllRows": true,
+    "requiresOwnerApprovalTextNegativeBoundaries": true,
+    "requiresSeparateExtractionInstructionRecording": true,
+    "requiresSeparateCandidateExtractionStep": true
+  },
+  "nextOwnerInputPreview": null
+}

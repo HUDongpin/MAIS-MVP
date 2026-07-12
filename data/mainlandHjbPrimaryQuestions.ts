@@ -1,8 +1,10 @@
 import questionPackJson from "./generated-content/mainland-hjb-primary-generated-bank-v1-1500/question-pack.json";
 import { localizedHjbGeneratedAcceptedAnswers, localizeHjbGeneratedText } from "./hjbQuestionLocalization";
 import { mainlandHjbPrimaryTopics } from "./mainlandHjbPrimaryTopics";
+import { mapDifficultyToActive } from "@/lib/difficulty";
 import type {
   Difficulty,
+  DifficultyRecord,
   MainlandHjbPrimaryGradeId,
   MainlandPepSemester,
   Question,
@@ -18,7 +20,7 @@ type GeneratedHjbPrimaryQuestion = {
   unitTitle: string;
   volume: string;
   conceptIds: string[];
-  difficulty: Difficulty;
+  difficulty: DifficultyRecord;
   type: Exclude<QuestionType, "graph">;
   evidenceCardIds: string[];
   assessmentPatternCardIds: string[];
@@ -76,7 +78,7 @@ function toQuestion(question: GeneratedHjbPrimaryQuestion): Question {
     grade: question.grade,
     topicId: question.topicId,
     topic: topic.title,
-    difficulty: question.difficulty,
+    difficulty: mapDifficultyToActive(question.difficulty),
     type: question.type,
     prompt: localizeHjbGeneratedText(question.promptZhHans),
     options: question.type === "multiple-choice" ? question.optionsZhHans.map(localizeHjbGeneratedText) : undefined,
@@ -98,7 +100,7 @@ export const mainlandHjbPrimaryQuestionGenerationMetadata: Record<string, Mainla
         volume: question.volume,
         unitTitle: question.unitTitle,
         type: question.type,
-        difficulty: question.difficulty,
+        difficulty: mapDifficultyToActive(question.difficulty),
         evidenceCardIds: question.evidenceCardIds,
         assessmentPatternCardIds: question.assessmentPatternCardIds,
         paperPatternCardIds: question.paperPatternCardIds,

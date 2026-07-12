@@ -1,0 +1,938 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <title>MAIS-MVP President Report - 2026-06-07</title>
+  <meta name="Author" content="S10 Codex automation">
+  <meta name="LastAuthor" content="S10 Codex automation">
+  <meta name="Company" content="MAIS-MVP">
+  <meta name="Subject" content="Daily AI coordination report">
+  <meta name="CreationTime" content="2026-06-07T00:14:54Z">
+  <meta name="ModificationTime" content="2026-06-07T00:14:54Z">
+  <meta name="Generator" content="Cocoa HTML Writer">
+  <meta name="CocoaVersion" content="2575.7">
+  <style type="text/css">
+    p.p1 {margin: 0.0px 0.0px 3.0px 0.0px; font: 20.0px Times; color: #111827}
+    p.p2 {margin: 0.0px 0.0px 6.0px 0.0px; font: 11.0px Times; color: #4b5563}
+    p.p3 {margin: 16.0px 0.0px 8.0px 0.0px; font: 16.0px Times; color: #2e74b5}
+    p.p5 {margin: 0.0px 0.0px 0.0px 0.0px; font: 7.5px Times; color: #111827}
+    p.p6 {margin: 0.0px 0.0px 6.0px 0.0px; font: 11.0px Times; color: #111827; min-height: 13.0px}
+    p.p7 {margin: 0.0px 0.0px 0.0px 0.0px; font: 8.5px Times; color: #111827}
+    p.p8 {margin: 0.0px 0.0px 0.0px 0.0px; font: 10.5px Times; color: #111827; min-height: 13.0px}
+    p.p9 {margin: 0.0px 0.0px 0.0px 0.0px; font: 10.5px Times; color: #111827}
+    li.li4 {margin: 0.0px 0.0px 8.0px 0.0px; font: 11.0px Times; color: #111827}
+    table.t1 {border-collapse: collapse}
+    td.td1 {border-style: solid; border-width: 1.0px 1.0px 1.0px 1.0px; border-color: #bfbfbf #bfbfbf #bfbfbf #bfbfbf; padding: 0.0px 5.0px 0.0px 5.0px}
+    ul.ul1 {list-style-type: disc}
+  </style>
+</head>
+<body>
+<p class="p1"><b>MAIS-MVP 每日总裁报告 / Daily President Report</b></p>
+<p class="p2">Report date: 2026-06-07 08:00 HKT | Reporting window: 2026-06-06 08:00 to 2026-06-07 08:00 Asia/Hong_Kong</p>
+<p class="p2">Prepared for: Dr. Peter Hu | Prepared by: S10 Tooling, Docs, and Executive Reporting Automation</p>
+<p class="p3"><b>Chinese Executive Summary / 中文执行摘要</b></p>
+<ul class="ul1">
+  <li class="li4">本窗口不是空窗期：S01/S02/S04/S05/S06/S07/S09/S10/S11/S12/S13/S14/S18/S19/S21/S22/S23/S25 均有新鲜日志或报告证据，工作集中在发布治理、生产环境、California/BNU 内容、Nova Lens/AI Tutor、Parent/Teacher Console 与学生 P1 修复。</li>
+  <li class="li4">本地质量基线明显改善：本次 S10 新鲜检查 `npm run type-check` 通过，`npm run test:analytics` 通过 23/23，`npm run build` 通过并生成 122 个静态页面。</li>
+  <li class="li4">Nova Lens 文本/治理门从 HOLD 推进到 PASS：S07/S12/S13/S11/S10 后续完成 live provider、策略/审计、Teacher Operations UI 与 18/18 目标 E2E 证据；AI Tutor 图像上传 live completion 仍是非阻塞媒体后续项。</li>
+  <li class="li4">内容进展较大但仍需分层发布：BNU P1-S6 formal lessons 已本地进入 lesson registry；California lesson layer 新增 95 个 beta lesson seeds；California G6-G8 textbook route 修复并通过 S18 QA；US AR/TX 标准 crosswalk 完成 item-level 扩展包。</li>
+  <li class="li4">生产发布仍不能直接从当前根目录执行：工作区仍有 3346 条 status entries、32350 个 untracked files，S22/S25 明确阻止 dirty-root deploy；生产发布必须走 clean reviewed source 或 S22 pruned staging。</li>
+  <li class="li4">最大风险从“代码是否能构建”转为“能否从干净、可审查、可回滚的源发布，并确认 mais.hk 生产 API/storage 仍健康”。S11 01:13 的生产 preflight 仍显示 storage-backed API 500，需要 S12/S19/S22 复核线上日志与恢复状态。</li>
+</ul>
+<p class="p3"><b>English Executive Summary</b></p>
+<ul class="ul1">
+  <li class="li4">The window delivered substantial progress across release hygiene, AI governance, production environment readiness, content integration, and regression coverage; it was not an idle reporting period.</li>
+  <li class="li4">The current local baseline is green: fresh S10 `type-check`, analytics/adaptive tests, and production build all passed.</li>
+  <li class="li4">Nova Lens text/governance is now release-gate green on the targeted evidence set, while AI Tutor media/image completion remains a separate follow-up.</li>
+  <li class="li4">California and BNU content advanced, but public release claims must remain conservative: California stays `California Math Practice Beta`, and BNU/California textbook layers still need clean-source release sequencing.</li>
+  <li class="li4">The main blocker is release hygiene rather than local compilation: the root worktree is too dirty for direct production deployment, and production API/storage health needs a current S12/S19/S22 confirmation before broad live smoke.</li>
+</ul>
+<p class="p3"><b>报告窗口摘要</b></p>
+<ul class="ul1">
+  <li class="li4">窗口：2026-06-06 08:00 至 2026-06-07 08:00（香港时间）。</li>
+  <li class="li4">活跃会话/证据：S01、S02、S04、S05、S06、S07、S09、S10、S11、S12、S13、S14、S18、S19、S21、S22、S23、S25；S03/S08/S15/S16/S17/S20/S24 无新鲜正式日志。</li>
+  <li class="li4">新鲜 blocker：S05 BNU high formal lessons（本地解决）、S12 password reset credentials（由 S19 后续 env parity 解决）、S12 Postgres residual external actions、S19 Resend env（已解决）、S22 dirty worktree direct deploy（仍 active）。</li>
+  <li class="li4">变更窗口内 `git status` mtime 证据：约 190 个 dirty status paths，其中 coordination 103、components 20、tests 17、app 14、data 10、lib 10、scripts 7，以及配置/文档文件。</li>
+  <li class="li4">当前根目录 dirty-tree 规模：3346 status entries；244 tracked modified；4 tracked deleted；3098 untracked status lines；32350 untracked files；tracked diff 248 files, +32018/-10917。</li>
+</ul>
+<p class="p3"><b>整体项目进展</b></p>
+<ul class="ul1">
+  <li class="li4">产品体验：注册、登录、首页 CTA、Lesson Galaxy、Visualization Lab 标签、学生 P1 阻塞、Parent Console、Teacher Operations/assignment deletion 等多个用户面细节得到修复或验证。</li>
+  <li class="li4">AI 能力：AI Tutor 语音互斥/回声、简体中文默认、Nova Lens 全局选择、策略、审计、Teacher governance 与 live provider smoke 形成较完整证据链。</li>
+  <li class="li4">内容能力：California 题库/lesson beta、BNU 初中/高中正式 lesson seeds、Mainland PEP high lessons、US standards crosswalk、RAG intake 均有推进；多数仍需 S18/S09/S11/S22 release gate 分层签核。</li>
+  <li class="li4">平台能力：S19 已完成 Resend Production env parity；S12/S19 完成 Postgres recovery/runbook/temporary admin health 路径；但线上 API 500 的最新 S11 证据必须复核。</li>
+  <li class="li4">发布能力：S22/S25 增加 direct-root-deploy guard、publish preflight、production wrapper、tsconfig/gitignore cleanup；发布路径更安全，但还未形成 clean reviewed release source。</li>
+</ul>
+<p class="p3"><b>S01-S25 会话状态表</b></p>
+<table cellspacing="0" cellpadding="0" class="t1">
+  <tbody>
+    <tr>
+      <td valign="middle" class="td1">
+        <p class="p5"><b>会话</b></p>
+      </td>
+      <td valign="middle" class="td1">
+        <p class="p5"><b>状态</b></p>
+      </td>
+      <td valign="middle" class="td1">
+        <p class="p5"><b>窗口内完成/证据</b></p>
+      </td>
+      <td valign="middle" class="td1">
+        <p class="p5"><b>阻塞/下一步</b></p>
+      </td>
+      <td valign="middle" class="td1">
+        <p class="p5"><b>检查</b></p>
+      </td>
+    </tr>
+    <tr>
+      <td valign="middle" class="td1">
+        <p class="p5">S01</p>
+      </td>
+      <td valign="middle" class="td1">
+        <p class="p5">完成</p>
+      </td>
+      <td valign="middle" class="td1">
+        <p class="p5">注册流程顺序、登录年级过滤、注册视觉复刻/归档、首页 eyebrow/CTA 文案与按钮设计更新。</p>
+      </td>
+      <td valign="middle" class="td1">
+        <p class="p5">避免继续扩大 auth/home UI；需要与 S09/S11 保持 copy/regression 对齐。</p>
+      </td>
+      <td valign="middle" class="td1">
+        <p class="p5">多次 focused TS/Playwright 通过；当前 S10 fresh type-check green。</p>
+      </td>
+    </tr>
+    <tr>
+      <td valign="middle" class="td1">
+        <p class="p5">S02</p>
+      </td>
+      <td valign="middle" class="td1">
+        <p class="p5">完成</p>
+      </td>
+      <td valign="middle" class="td1">
+        <p class="p5">Adaptive guest screen 二级 CTA 改为 Register/注册并跳转 `/register`。</p>
+      </td>
+      <td valign="middle" class="td1">
+        <p class="p5">仅 UI CTA；无 adaptive engine 语义改动。</p>
+      </td>
+      <td valign="middle" class="td1">
+        <p class="p5">`git diff --check` 通过；full type-check 当时受 nested copy 阻塞。</p>
+      </td>
+    </tr>
+    <tr>
+      <td valign="middle" class="td1">
+        <p class="p5">S03</p>
+      </td>
+      <td valign="middle" class="td1">
+        <p class="p5">无新鲜日志</p>
+      </td>
+      <td valign="middle" class="td1">
+        <p class="p5">未见本窗口独立 roadmap/curriculum handoff。</p>
+      </td>
+      <td valign="middle" class="td1">
+        <p class="p5">等待内容集成/roadmap owner assignment。</p>
+      </td>
+      <td valign="middle" class="td1">
+        <p class="p5">无。</p>
+      </td>
+    </tr>
+    <tr>
+      <td valign="middle" class="td1">
+        <p class="p5">S04</p>
+      </td>
+      <td valign="middle" class="td1">
+        <p class="p5">完成/有部署 caveat</p>
+      </td>
+      <td valign="middle" class="td1">
+        <p class="p5">California Math Practice Beta live practice data integration、3000 题 beta lane、本地 build/E2E/question checks；另有 Practice header/filter UI follow-ups。</p>
+      </td>
+      <td valign="middle" class="td1">
+        <p class="p5">Vercel preview timeout 记录；public naming 必须保留 Beta。</p>
+      </td>
+      <td valign="middle" class="td1">
+        <p class="p5">局部 compile、full-bank tests、build、CA E2E passed；当前 fresh green。</p>
+      </td>
+    </tr>
+    <tr>
+      <td valign="middle" class="td1">
+        <p class="p5">S05</p>
+      </td>
+      <td valign="middle" class="td1">
+        <p class="p5">完成</p>
+      </td>
+      <td valign="middle" class="td1">
+        <p class="p5">Lesson heading 仅 Enter Planet 后显示；BNU junior/high formal lessons 本地集成；California 95 lesson seeds 加入 beta lesson layer。</p>
+      </td>
+      <td valign="middle" class="td1">
+        <p class="p5">BNU/California 仍需 S18/S09/S11/S22 公开发布门；不应越权宣称完整课程。</p>
+      </td>
+      <td valign="middle" class="td1">
+        <p class="p5">BNU high 37/37、junior 7/7、primary 11/11、MVP 29/29；CA focused compile/runtime audit passed。</p>
+      </td>
+    </tr>
+    <tr>
+      <td valign="middle" class="td1">
+        <p class="p5">S06</p>
+      </td>
+      <td valign="middle" class="td1">
+        <p class="p5">完成</p>
+      </td>
+      <td valign="middle" class="td1">
+        <p class="p5">Visualization Lab 删除“综合衔接/Capstone bridge”和“深入实验/deep-dive”可见标签。</p>
+      </td>
+      <td valign="middle" class="td1">
+        <p class="p5">未改核心 visualization 行为。</p>
+      </td>
+      <td valign="middle" class="td1">
+        <p class="p5">目标 `rg` 检查通过；当时 full type-check 受 unrelated dirty tree 阻塞。</p>
+      </td>
+    </tr>
+    <tr>
+      <td valign="middle" class="td1">
+        <p class="p5">S07</p>
+      </td>
+      <td valign="middle" class="td1">
+        <p class="p5">完成/后续项</p>
+      </td>
+      <td valign="middle" class="td1">
+        <p class="p5">AI Tutor voice echo suppression、简体默认、Nova Lens enterprise agents/API/governance、voice/provider audit。</p>
+      </td>
+      <td valign="middle" class="td1">
+        <p class="p5">发现 voice route invalid empty-text 会先消耗 quota；image upload live completion 仍为媒体后续。</p>
+      </td>
+      <td valign="middle" class="td1">
+        <p class="p5">type-check passed；Nova Lens API/UI specs passed；live text 27/27；Qwen voice smoke passed。</p>
+      </td>
+    </tr>
+    <tr>
+      <td valign="middle" class="td1">
+        <p class="p5">S08</p>
+      </td>
+      <td valign="middle" class="td1">
+        <p class="p5">无新鲜日志</p>
+      </td>
+      <td valign="middle" class="td1">
+        <p class="p5">Shared state/types 被其他会话触及，但无 S08 独立 handoff。</p>
+      </td>
+      <td valign="middle" class="td1">
+        <p class="p5">需审 `types/index.ts`、provider/userStore 共享契约后再 release。</p>
+      </td>
+      <td valign="middle" class="td1">
+        <p class="p5">无。</p>
+      </td>
+    </tr>
+    <tr>
+      <td valign="middle" class="td1">
+        <p class="p5">S09</p>
+      </td>
+      <td valign="middle" class="td1">
+        <p class="p5">完成</p>
+      </td>
+      <td valign="middle" class="td1">
+        <p class="p5">Teacher reports US heading、login/register/forgot copy eyebrow cleanup；California copy review artifact。</p>
+      </td>
+      <td valign="middle" class="td1">
+        <p class="p5">建议补 US teacher reports E2E；继续守住 California Beta 命名。</p>
+      </td>
+      <td valign="middle" class="td1">
+        <p class="p5">narrow `rg`/targeted diagnostics/browser checks；部分 copy-only 未跑 full build。</p>
+      </td>
+    </tr>
+    <tr>
+      <td valign="middle" class="td1">
+        <p class="p5">S10</p>
+      </td>
+      <td valign="middle" class="td1">
+        <p class="p5">完成</p>
+      </td>
+      <td valign="middle" class="td1">
+        <p class="p5">Nova Lens release gate synthesis与continuation、production auth/storage coordination、urgent-five report、当前 president report。</p>
+      </td>
+      <td valign="middle" class="td1">
+        <p class="p5">S10 不执行 feature code；继续 release intake/reporting。</p>
+      </td>
+      <td valign="middle" class="td1">
+        <p class="p5">type-check/build/test:analytics/test:mvp 在 urgent/current runs 通过。</p>
+      </td>
+    </tr>
+    <tr>
+      <td valign="middle" class="td1">
+        <p class="p5">S11</p>
+      </td>
+      <td valign="middle" class="td1">
+        <p class="p5">完成/生产红灯</p>
+      </td>
+      <td valign="middle" class="td1">
+        <p class="p5">Parent bug audit与回归、学生 P1 blocker repair、handwriting reports、PEP/BNU/CA route smokes、release matrix continuation。</p>
+      </td>
+      <td valign="middle" class="td1">
+        <p class="p5">production auth/API preflight 仍 RED：missing-user login/questions/lessons 500；full production write smoke gated。</p>
+      </td>
+      <td valign="middle" class="td1">
+        <p class="p5">本地多项 Playwright passed；production preflight repeated RED；当前 fresh build/type/test green only证明本地。</p>
+      </td>
+    </tr>
+    <tr>
+      <td valign="middle" class="td1">
+        <p class="p5">S12</p>
+      </td>
+      <td valign="middle" class="td1">
+        <p class="p5">完成/外部阻塞</p>
+      </td>
+      <td valign="middle" class="td1">
+        <p class="p5">Nova Lens backend policy/redaction fixes、Parent backend closure、Postgres residual tooling/runbook、password reset delivery code/tests。</p>
+      </td>
+      <td valign="middle" class="td1">
+        <p class="p5">历史 Postgres 旧数据迁移、临时 admin cleanup、production storage health需外部/owner路径。</p>
+      </td>
+      <td valign="middle" class="td1">
+        <p class="p5">type-check passed；password reset focused 12/12；storage merge self-test passed。</p>
+      </td>
+    </tr>
+    <tr>
+      <td valign="middle" class="td1">
+        <p class="p5">S13</p>
+      </td>
+      <td valign="middle" class="td1">
+        <p class="p5">完成</p>
+      </td>
+      <td valign="middle" class="td1">
+        <p class="p5">Teacher Operations Nova Lens UX gate PASS；assignment 删除 UI/API/store tombstone cleanup。</p>
+      </td>
+      <td valign="middle" class="td1">
+        <p class="p5">需要 S11 后续 assignment delete regression。</p>
+      </td>
+      <td valign="middle" class="td1">
+        <p class="p5">teacher-operations 4/4；Nova Lens targeted 18/18；type-check/build passed。</p>
+      </td>
+    </tr>
+    <tr>
+      <td valign="middle" class="td1">
+        <p class="p5">S14</p>
+      </td>
+      <td valign="middle" class="td1">
+        <p class="p5">完成</p>
+      </td>
+      <td valign="middle" class="td1">
+        <p class="p5">Parent navigation child focus、notices deep link/receipt、messages URL/thread state 修复并由 S11 回归。</p>
+      </td>
+      <td valign="middle" class="td1">
+        <p class="p5">继续监控 parent seeded-data 覆盖。</p>
+      </td>
+      <td valign="middle" class="td1">
+        <p class="p5">parent focused regressions passed；type-check later passed。</p>
+      </td>
+    </tr>
+    <tr>
+      <td valign="middle" class="td1">
+        <p class="p5">S15</p>
+      </td>
+      <td valign="middle" class="td1">
+        <p class="p5">无新鲜日志</p>
+      </td>
+      <td valign="middle" class="td1">
+        <p class="p5">Adaptive tests 被 S10 fresh run 覆盖；无 S15 独立 adaptive handoff。</p>
+      </td>
+      <td valign="middle" class="td1">
+        <p class="p5">California/adaptive semantics 如上线需 S15 review。</p>
+      </td>
+      <td valign="middle" class="td1">
+        <p class="p5">fresh analytics/adaptive tests passed 23/23。</p>
+      </td>
+    </tr>
+    <tr>
+      <td valign="middle" class="td1">
+        <p class="p5">S16</p>
+      </td>
+      <td valign="middle" class="td1">
+        <p class="p5">无新鲜日志</p>
+      </td>
+      <td valign="middle" class="td1">
+        <p class="p5">本窗口无新鲜 learning-science/research log。</p>
+      </td>
+      <td valign="middle" class="td1">
+        <p class="p5">无。</p>
+      </td>
+      <td valign="middle" class="td1">
+        <p class="p5">无。</p>
+      </td>
+    </tr>
+    <tr>
+      <td valign="middle" class="td1">
+        <p class="p5">S17</p>
+      </td>
+      <td valign="middle" class="td1">
+        <p class="p5">无新鲜日志</p>
+      </td>
+      <td valign="middle" class="td1">
+        <p class="p5">无 reward economy/gamification 独立 handoff。</p>
+      </td>
+      <td valign="middle" class="td1">
+        <p class="p5">游戏与 reward 发布需 S17/S20 协调。</p>
+      </td>
+      <td valign="middle" class="td1">
+        <p class="p5">无。</p>
+      </td>
+    </tr>
+    <tr>
+      <td valign="middle" class="td1">
+        <p class="p5">S18</p>
+      </td>
+      <td valign="middle" class="td1">
+        <p class="p5">完成</p>
+      </td>
+      <td valign="middle" class="td1">
+        <p class="p5">BNU high final QA/local registry promotion、US standards crosswalk granularity、California middle-school textbook repair/final QA、California practice beta QA。</p>
+      </td>
+      <td valign="middle" class="td1">
+        <p class="p5">S18 QA 不等于 dirty-root production deploy 许可。</p>
+      </td>
+      <td valign="middle" class="td1">
+        <p class="p5">BNU focused tests passed；CA textbook validator 0 issues；browser desktop/mobile checks passed。</p>
+      </td>
+    </tr>
+    <tr>
+      <td valign="middle" class="td1">
+        <p class="p5">S19</p>
+      </td>
+      <td valign="middle" class="td1">
+        <p class="p5">完成/需复核线上</p>
+      </td>
+      <td valign="middle" class="td1">
+        <p class="p5">Production Postgres recovery/admin health、Resend Production env parity via approved DOCX、release env preflight green。</p>
+      </td>
+      <td valign="middle" class="td1">
+        <p class="p5">真实 publish 仍被 S22 dirty source gate 阻止；production API 500 需重新查 logs。</p>
+      </td>
+      <td valign="middle" class="td1">
+        <p class="p5">`release:env-preflight` passed；`publish-preflight` fails only dirty gate per S19 blocker。</p>
+      </td>
+    </tr>
+    <tr>
+      <td valign="middle" class="td1">
+        <p class="p5">S20</p>
+      </td>
+      <td valign="middle" class="td1">
+        <p class="p5">无新鲜日志</p>
+      </td>
+      <td valign="middle" class="td1">
+        <p class="p5">有 game QA report artifact，但无正式 S20 session log。</p>
+      </td>
+      <td valign="middle" class="td1">
+        <p class="p5">实际 game release 需 S20 owner handoff。</p>
+      </td>
+      <td valign="middle" class="td1">
+        <p class="p5">无正式 S20 checks。</p>
+      </td>
+    </tr>
+    <tr>
+      <td valign="middle" class="td1">
+        <p class="p5">S21</p>
+      </td>
+      <td valign="middle" class="td1">
+        <p class="p5">完成</p>
+      </td>
+      <td valign="middle" class="td1">
+        <p class="p5">PEP high S4-S6 lesson resend、Compulsory 1/2 private RAG intake、AR/TX official standard expansion 4570 rows。</p>
+      </td>
+      <td valign="middle" class="td1">
+        <p class="p5">Raw/private RAG stays local；live source edits需 S18/S23/S04/S05。</p>
+      </td>
+      <td valign="middle" class="td1">
+        <p class="p5">validators/self-tests/line counts/safety scans passed；无 app checks因未改 live TS。</p>
+      </td>
+    </tr>
+    <tr>
+      <td valign="middle" class="td1">
+        <p class="p5">S22</p>
+      </td>
+      <td valign="middle" class="td1">
+        <p class="p5">完成/active blocker</p>
+      </td>
+      <td valign="middle" class="td1">
+        <p class="p5">Release hygiene guardrails、direct root deploy blocker、Vercel staging dry-run、publish/root preflight scripts。</p>
+      </td>
+      <td valign="middle" class="td1">
+        <p class="p5">Direct deploy from root remains blocked until clean reviewed source or approved pruned staging。</p>
+      </td>
+      <td valign="middle" class="td1">
+        <p class="p5">vercel:stage dry-run passed；root/publish preflight correctly blocks dirty tree。</p>
+      </td>
+    </tr>
+    <tr>
+      <td valign="middle" class="td1">
+        <p class="p5">S23</p>
+      </td>
+      <td valign="middle" class="td1">
+        <p class="p5">完成/协调</p>
+      </td>
+      <td valign="middle" class="td1">
+        <p class="p5">Textbook sequencing、BNU junior integration gate、PEP high refresh、California post-launch/release handoff evidence。</p>
+      </td>
+      <td valign="middle" class="td1">
+        <p class="p5">不要把 candidate textbook/illustrations 宣称 live curriculum。</p>
+      </td>
+      <td valign="middle" class="td1">
+        <p class="p5">report/evidence checks；PEP high smoke 4/4 with S11 evidence。</p>
+      </td>
+    </tr>
+    <tr>
+      <td valign="middle" class="td1">
+        <p class="p5">S24</p>
+      </td>
+      <td valign="middle" class="td1">
+        <p class="p5">无新鲜日志</p>
+      </td>
+      <td valign="middle" class="td1">
+        <p class="p5">无 exact-layer 独立 handoff。</p>
+      </td>
+      <td valign="middle" class="td1">
+        <p class="p5">Question illustration exact-layer 仍需 S24 before final visual release。</p>
+      </td>
+      <td valign="middle" class="td1">
+        <p class="p5">无。</p>
+      </td>
+    </tr>
+    <tr>
+      <td valign="middle" class="td1">
+        <p class="p5">S25</p>
+      </td>
+      <td valign="middle" class="td1">
+        <p class="p5">完成/active release intake</p>
+      </td>
+      <td valign="middle" class="td1">
+        <p class="p5">California release closure、tsconfig excludes、gitignore/playwright temp tsconfig cleanup、copy guardrail、release decision保持 Beta。</p>
+      </td>
+      <td valign="middle" class="td1">
+        <p class="p5">仍需 clean PR/release slice；不能 stage/commit/deploy。</p>
+      </td>
+      <td valign="middle" class="td1">
+        <p class="p5">type-check passed；question-bank 72/72；MVP 29/29；zh-Hans audit pass；CA E2E 2/2。</p>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<p class="p6"><br></p>
+<p class="p3"><b>已完成工作</b></p>
+<ul class="ul1">
+  <li class="li4">本地 baseline 恢复为 green：fresh type-check、analytics/adaptive tests、production build 均通过。</li>
+  <li class="li4">Nova Lens 文本/治理 release gate 完整闭环：API policy、redaction、retention、audit events、Teacher UI、targeted E2E、live provider smoke 均有通过证据。</li>
+  <li class="li4">Parent Console P1/P2 修复与回归闭环：child focus、notices、messages、invite-code 安全和 multi-child state 通过 focused regressions。</li>
+  <li class="li4">Student P1 blocker repair 完成：learner setup gate 限制到 dashboard、direct lesson slug、dashboard heading、handwriting UI/API、student/game regressions green。</li>
+  <li class="li4">BNU P1-S6 formal lessons 在本地 production lesson registry 形成完整覆盖；BNU high S18 final QA 完成。</li>
+  <li class="li4">California lesson layer 增加 95 topic seeds，G6-G8 textbook route 从 review-only blocker 修复为 student-facing repaired route。</li>
+  <li class="li4">S21 完成 AR/TX 4570 行 official standard expansion package，并完成 PEP high Compulsory 1/2 private RAG intake。</li>
+  <li class="li4">S22/S25 增加 release guardrails，阻止 dirty root deploy，并把 nested checkout TypeScript 污染从 root checks 中隔离。</li>
+</ul>
+<p class="p3"><b>进行中工作</b></p>
+<ul class="ul1">
+  <li class="li4">生产 API/storage 健康复核：S11 生产 preflight 仍显示 login/questions/lessons 500；需要 S12/S19/S22 重新看 Vercel logs、admin health、Postgres state。</li>
+  <li class="li4">发布切片：当前 root 可 build，但不能直接发布；需要 clean branch/PR 或 S22 pruned staging source，并通过 `release:publish-preflight`。</li>
+  <li class="li4">内容 promotion：BNU junior/high、California lessons/textbook、US standards crosswalk 需要逐包 S18/S09/S11/S22/S23 gate。</li>
+  <li class="li4">Password reset：S19 env parity 已完成；仍需在安全测试账号上验证 production Resend email delivery，不记录 secret。</li>
+  <li class="li4">AI Tutor media：Nova Lens text/governance green；image upload live completion 与 voice quota-order bug 仍需单独 follow-up。</li>
+</ul>
+<p class="p3"><b>阻塞项</b></p>
+<table cellspacing="0" cellpadding="0" class="t1">
+  <tbody>
+    <tr>
+      <td valign="middle" class="td1">
+        <p class="p7"><b>事项</b></p>
+      </td>
+      <td valign="middle" class="td1">
+        <p class="p7"><b>状态</b></p>
+      </td>
+      <td valign="middle" class="td1">
+        <p class="p7"><b>证据</b></p>
+      </td>
+      <td valign="middle" class="td1">
+        <p class="p7"><b>需要的下一步</b></p>
+      </td>
+    </tr>
+    <tr>
+      <td valign="middle" class="td1">
+        <p class="p7">Dirty root deploy</p>
+      </td>
+      <td valign="middle" class="td1">
+        <p class="p7">Active</p>
+      </td>
+      <td valign="middle" class="td1">
+        <p class="p7">S22/S25: root has 3346 status entries and 32350 untracked files; direct deploy blocked.</p>
+      </td>
+      <td valign="middle" class="td1">
+        <p class="p7">Use clean reviewed source or approved S22 pruned staging; require publish preflight pass.</p>
+      </td>
+    </tr>
+    <tr>
+      <td valign="middle" class="td1">
+        <p class="p7">Production API/storage</p>
+      </td>
+      <td valign="middle" class="td1">
+        <p class="p7">Active verification gap</p>
+      </td>
+      <td valign="middle" class="td1">
+        <p class="p7">S11 repeated production preflight RED at 01:13 HKT for login/questions/lessons 500.</p>
+      </td>
+      <td valign="middle" class="td1">
+        <p class="p7">S12/S19/S22 inspect current production logs/admin health before full production smoke.</p>
+      </td>
+    </tr>
+    <tr>
+      <td valign="middle" class="td1">
+        <p class="p7">Resend/password reset</p>
+      </td>
+      <td valign="middle" class="td1">
+        <p class="p7">Env parity resolved; smoke pending</p>
+      </td>
+      <td valign="middle" class="td1">
+        <p class="p7">S19 configured Production variables from approved DOCX and env preflight passed.</p>
+      </td>
+      <td valign="middle" class="td1">
+        <p class="p7">Run controlled production reset-delivery smoke after release-source decision.</p>
+      </td>
+    </tr>
+    <tr>
+      <td valign="middle" class="td1">
+        <p class="p7">Postgres historical data</p>
+      </td>
+      <td valign="middle" class="td1">
+        <p class="p7">External blocker</p>
+      </td>
+      <td valign="middle" class="td1">
+        <p class="p7">Fresh Postgres is live, but old quota-exhausted historical registrations need export/migration path.</p>
+      </td>
+      <td valign="middle" class="td1">
+        <p class="p7">Owner approve old-resource recovery/export and S12 migration dry-run/apply plan.</p>
+      </td>
+    </tr>
+    <tr>
+      <td valign="middle" class="td1">
+        <p class="p7">BNU/California content public release</p>
+      </td>
+      <td valign="middle" class="td1">
+        <p class="p7">Gate required</p>
+      </td>
+      <td valign="middle" class="td1">
+        <p class="p7">Local QA/integration green for several packages, but deployment/public naming not authorized from dirty tree.</p>
+      </td>
+      <td valign="middle" class="td1">
+        <p class="p7">Promote one package at a time through S18/S09/S11/S22/S23.</p>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<p class="p6"><br></p>
+<p class="p3"><b>风险</b></p>
+<ul class="ul1">
+  <li class="li4">发布风险：local build green 不能抵消 dirty-root release risk；直接发布会混入大量未审 app/API/data/public assets。</li>
+  <li class="li4">生产状态风险：S19 早前 recovery green 与 S11 后续 production preflight RED 之间存在冲突证据，必须以最新 production logs 与 admin health 为准。</li>
+  <li class="li4">内容声明风险：California 仍是 Math Practice Beta；BNU/California textbook 不能在未完成 gate 前宣传为完整课程或正式 curriculum。</li>
+  <li class="li4">数据风险：fresh Postgres 恢复了当前 auth/storage，但旧 resource 独有历史 registration 仍不可用，迁移需审批。</li>
+  <li class="li4">测试环境风险：过去 24 小时多次出现 `.next` contention、ENOSPC、webServer timeout；S22 isolation work 仍必要。</li>
+</ul>
+<p class="p3"><b>测试/构建状态</b></p>
+<table cellspacing="0" cellpadding="0" class="t1">
+  <tbody>
+    <tr>
+      <td valign="middle" class="td1">
+        <p class="p7"><b>检查</b></p>
+      </td>
+      <td valign="middle" class="td1">
+        <p class="p7"><b>结果</b></p>
+      </td>
+      <td valign="middle" class="td1">
+        <p class="p7"><b>说明</b></p>
+      </td>
+    </tr>
+    <tr>
+      <td valign="middle" class="td1">
+        <p class="p7">Fresh S10 `npm run type-check`</p>
+      </td>
+      <td valign="middle" class="td1">
+        <p class="p7">PASS</p>
+      </td>
+      <td valign="middle" class="td1">
+        <p class="p7">2026-06-07 report run; current workspace tsc passed.</p>
+      </td>
+    </tr>
+    <tr>
+      <td valign="middle" class="td1">
+        <p class="p7">Fresh S10 `npm run test:analytics`</p>
+      </td>
+      <td valign="middle" class="td1">
+        <p class="p7">PASS</p>
+      </td>
+      <td valign="middle" class="td1">
+        <p class="p7">23/23 passed across learningAnalytics/adaptiveLearning tests.</p>
+      </td>
+    </tr>
+    <tr>
+      <td valign="middle" class="td1">
+        <p class="p7">Fresh S10 `npm run build`</p>
+      </td>
+      <td valign="middle" class="td1">
+        <p class="p7">PASS</p>
+      </td>
+      <td valign="middle" class="td1">
+        <p class="p7">Next production build compiled, checked types, and generated 122 static pages.</p>
+      </td>
+    </tr>
+    <tr>
+      <td valign="middle" class="td1">
+        <p class="p7">S25 question-bank/MVP/zh-Hans</p>
+      </td>
+      <td valign="middle" class="td1">
+        <p class="p7">PASS</p>
+      </td>
+      <td valign="middle" class="td1">
+        <p class="p7">`test:question-bank` 72/72; `test:mvp` 29/29; strict zh-Hans audit 0 critical/warnings.</p>
+      </td>
+    </tr>
+    <tr>
+      <td valign="middle" class="td1">
+        <p class="p7">S11 production auth API preflight</p>
+      </td>
+      <td valign="middle" class="td1">
+        <p class="p7">RED</p>
+      </td>
+      <td valign="middle" class="td1">
+        <p class="p7">Missing-user login and public questions/lessons returned 500 empty body on www.mais.hk; full production write smoke skipped.</p>
+      </td>
+    </tr>
+    <tr>
+      <td valign="middle" class="td1">
+        <p class="p7">S19 release env preflight</p>
+      </td>
+      <td valign="middle" class="td1">
+        <p class="p7">PASS</p>
+      </td>
+      <td valign="middle" class="td1">
+        <p class="p7">After DOCX-sourced Resend key, Production env variable inventory passed redacted preflight.</p>
+      </td>
+    </tr>
+    <tr>
+      <td valign="middle" class="td1">
+        <p class="p7">S19/S22 publish preflight</p>
+      </td>
+      <td valign="middle" class="td1">
+        <p class="p7">BLOCKED</p>
+      </td>
+      <td valign="middle" class="td1">
+        <p class="p7">Fails on dirty release-source gate; this is expected and protective.</p>
+      </td>
+    </tr>
+    <tr>
+      <td valign="middle" class="td1">
+        <p class="p7">Nova Lens target gate</p>
+      </td>
+      <td valign="middle" class="td1">
+        <p class="p7">PASS</p>
+      </td>
+      <td valign="middle" class="td1">
+        <p class="p7">Targeted current-source API/UI/provider evidence green; image-upload live completion remains separate follow-up.</p>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<p class="p6"><br></p>
+<p class="p3"><b>变更文件</b></p>
+<table cellspacing="0" cellpadding="0" class="t1">
+  <tbody>
+    <tr>
+      <td valign="middle" class="td1">
+        <p class="p8"><b></b><br></p>
+      </td>
+    </tr>
+    <tr>
+      <td valign="middle" class="td1">
+        <p class="p9">本节是窗口内 changed-file evidence 摘要，不是提交计划。S10 没有 stage、commit、branch、push、reset 或 revert。</p>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<p class="p6"><br></p>
+<table cellspacing="0" cellpadding="0" class="t1">
+  <tbody>
+    <tr>
+      <td valign="middle" class="td1">
+        <p class="p7"><b>区域</b></p>
+      </td>
+      <td valign="middle" class="td1">
+        <p class="p7"><b>数量/范围</b></p>
+      </td>
+      <td valign="middle" class="td1">
+        <p class="p7"><b>说明</b></p>
+      </td>
+    </tr>
+    <tr>
+      <td valign="middle" class="td1">
+        <p class="p7">coordination/</p>
+      </td>
+      <td valign="middle" class="td1">
+        <p class="p7">103 窗口内 dirty paths</p>
+      </td>
+      <td valign="middle" class="td1">
+        <p class="p7">session logs、blockers、release reports、content QA、integration/release-intake artifacts。</p>
+      </td>
+    </tr>
+    <tr>
+      <td valign="middle" class="td1">
+        <p class="p7">components/</p>
+      </td>
+      <td valign="middle" class="td1">
+        <p class="p7">20</p>
+      </td>
+      <td valign="middle" class="td1">
+        <p class="p7">AI Tutor/Nova Lens、Teacher/Parent UI、Lesson/Practice/Visualization/Home/Auth UI。</p>
+      </td>
+    </tr>
+    <tr>
+      <td valign="middle" class="td1">
+        <p class="p7">tests/e2e/</p>
+      </td>
+      <td valign="middle" class="td1">
+        <p class="p7">17</p>
+      </td>
+      <td valign="middle" class="td1">
+        <p class="p7">Nova Lens、Teacher Operations、Parent Console、California、release matrix、handwriting/student/game regressions。</p>
+      </td>
+    </tr>
+    <tr>
+      <td valign="middle" class="td1">
+        <p class="p7">app/</p>
+      </td>
+      <td valign="middle" class="td1">
+        <p class="p7">14</p>
+      </td>
+      <td valign="middle" class="td1">
+        <p class="p7">Auth/reset/register routes/pages、AI Tutor/Nova Lens APIs、teacher/parent/student lesson routes。</p>
+      </td>
+    </tr>
+    <tr>
+      <td valign="middle" class="td1">
+        <p class="p7">data/</p>
+      </td>
+      <td valign="middle" class="td1">
+        <p class="p7">10</p>
+      </td>
+      <td valign="middle" class="td1">
+        <p class="p7">California/BNU lesson/question generated-content adapters and lesson registry。</p>
+      </td>
+    </tr>
+    <tr>
+      <td valign="middle" class="td1">
+        <p class="p7">lib/</p>
+      </td>
+      <td valign="middle" class="td1">
+        <p class="p7">10</p>
+      </td>
+      <td valign="middle" class="td1">
+        <p class="p7">userStore, password reset delivery/request, LLM/provider/adaptive/question-bank support。</p>
+      </td>
+    </tr>
+    <tr>
+      <td valign="middle" class="td1">
+        <p class="p7">scripts/</p>
+      </td>
+      <td valign="middle" class="td1">
+        <p class="p7">7</p>
+      </td>
+      <td valign="middle" class="td1">
+        <p class="p7">release env/root/publish guards, Vercel staging/production wrappers, Resend smoke, storage snapshot merge。</p>
+      </td>
+    </tr>
+    <tr>
+      <td valign="middle" class="td1">
+        <p class="p7">config/docs</p>
+      </td>
+      <td valign="middle" class="td1">
+        <p class="p7">10+</p>
+      </td>
+      <td valign="middle" class="td1">
+        <p class="p7">.env.local.example, .gitignore, .vercelignore, README.md, package.json, playwright.config.ts, tsconfig.json, types/index.ts, public assets。</p>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<p class="p6"><br></p>
+<p class="p3"><b>明日优先事项</b></p>
+<ul class="ul1">
+  <li class="li4">先清 release source：S22/S25/S10 形成 clean reviewed branch/PR 或批准的 pruned staging source，并让 `npm run release:publish-preflight` 通过。</li>
+  <li class="li4">复核 production API/storage：S12/S19/S22 对照 S11 RED preflight 拉最新 logs/admin health，确认 mais.hk login/questions/lessons 是否恢复。</li>
+  <li class="li4">做 controlled production password-reset delivery smoke：验证 Resend delivery，不泄露 token/key/link内容。</li>
+  <li class="li4">只选一个内容包推进 public release gate：建议从 California Math Practice Beta lesson/textbook 或 BNU formal lessons 中二选一，按 S18/S09/S11/S22/S23 顺序走。</li>
+  <li class="li4">补关键 regressions：assignment delete、AI Tutor voice quota-order、California/BNU lesson entry、parent/teacher high-risk flows。</li>
+</ul>
+<p class="p3"><b>需要 Dr. Peter Hu 决策</b></p>
+<table cellspacing="0" cellpadding="0" class="t1">
+  <tbody>
+    <tr>
+      <td valign="middle" class="td1">
+        <p class="p7"><b>决策项</b></p>
+      </td>
+      <td valign="middle" class="td1">
+        <p class="p7"><b>问题</b></p>
+      </td>
+      <td valign="middle" class="td1">
+        <p class="p7"><b>建议</b></p>
+      </td>
+    </tr>
+    <tr>
+      <td valign="middle" class="td1">
+        <p class="p7">Release source</p>
+      </td>
+      <td valign="middle" class="td1">
+        <p class="p7">是否要求 clean Git branch/PR，还是授权 S22 pruned staging 作为下一次生产源？</p>
+      </td>
+      <td valign="middle" class="td1">
+        <p class="p7">推荐 clean reviewed source；dirty-root 继续禁止。</p>
+      </td>
+    </tr>
+    <tr>
+      <td valign="middle" class="td1">
+        <p class="p7">Production API recovery</p>
+      </td>
+      <td valign="middle" class="td1">
+        <p class="p7">是否授权 S12/S19 使用现有 admin session/安全 smoke 路径复核 storage health 与 API 500？</p>
+      </td>
+      <td valign="middle" class="td1">
+        <p class="p7">需要，因 S11 线上 preflight RED。</p>
+      </td>
+    </tr>
+    <tr>
+      <td valign="middle" class="td1">
+        <p class="p7">Content release priority</p>
+      </td>
+      <td valign="middle" class="td1">
+        <p class="p7">下一包优先公开：California lesson/textbook、BNU junior/high formal lessons、还是 US standards/question bank？</p>
+      </td>
+      <td valign="middle" class="td1">
+        <p class="p7">建议一次只推一个包。</p>
+      </td>
+    </tr>
+    <tr>
+      <td valign="middle" class="td1">
+        <p class="p7">Postgres historical data</p>
+      </td>
+      <td valign="middle" class="td1">
+        <p class="p7">是否恢复旧 Neon resource quota/export 并执行 S12 snapshot migration dry-run？</p>
+      </td>
+      <td valign="middle" class="td1">
+        <p class="p7">决定历史 registration 是否必须找回。</p>
+      </td>
+    </tr>
+    <tr>
+      <td valign="middle" class="td1">
+        <p class="p7">Public naming</p>
+      </td>
+      <td valign="middle" class="td1">
+        <p class="p7">是否继续保持 `California Math Practice Beta`，并禁止完整 California curriculum/course wording？</p>
+      </td>
+      <td valign="middle" class="td1">
+        <p class="p7">推荐保持 Beta，直到全 release gate 通过。</p>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<p class="p6"><br></p>
+</body>
+</html>

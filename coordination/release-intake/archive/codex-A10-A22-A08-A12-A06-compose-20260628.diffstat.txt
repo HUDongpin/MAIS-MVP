@@ -1,0 +1,457 @@
+.env.local.example                                 |   110 +-
+ .gitignore                                         |    23 +-
+ .vercelignore                                      |     8 +-
+ app/adaptive-learning/loading.tsx                  |     4 +-
+ app/adaptive-learning/page.tsx                     |     4 +-
+ app/api/adaptive-learning/next/route.ts            |    21 +-
+ app/api/adaptive-learning/refresh/route.ts         |    10 +
+ app/api/ai-tutor/route.ts                          |  2352 +--
+ app/api/ai-tutor/status/route.ts                   |   143 +-
+ app/api/analytics/export/route.ts                  |    12 +-
+ app/api/analytics/summary/route.ts                 |    10 +-
+ app/api/handwriting-recognition/route.ts           |   540 +-
+ app/api/learning-events/route.ts                   |    65 +-
+ app/api/lessons/[slug]/route.ts                    |     5 +-
+ app/api/questions/route.ts                         |    79 +-
+ app/api/teacher/resources/route.ts                 |     4 +-
+ app/lesson/[slug]/page.tsx                         |    70 +-
+ .../california-high-school-textbook/page.tsx       |     7 +-
+ app/lesson/loading.tsx                             |    17 +-
+ app/lesson/page.tsx                                |    27 +-
+ app/login/page.tsx                                 |   701 +-
+ app/practice/page.tsx                              |  1018 +-
+ .../california-high-school-textbook/page.tsx       |     5 +-
+ app/student/tools/visualizations/[labId]/page.tsx  |     8 +-
+ app/student/tools/visualizations/page.tsx          |     4 +-
+ app/teacher/analytics/page.tsx                     |    13 +-
+ app/teacher/assessments/new/page.tsx               |     2 +-
+ app/teacher/assessments/page.tsx                   |     8 +-
+ app/teacher/assignments/[assignmentId]/page.tsx    |    16 +-
+ app/teacher/assignments/new/page.tsx               |    15 +-
+ app/teacher/assignments/page.tsx                   |    57 +-
+ app/teacher/classes/page.tsx                       |    23 +-
+ app/teacher/classroom-sessions/page.tsx            |    10 +-
+ app/teacher/communications/inbox/page.tsx          |    10 +-
+ app/teacher/dashboard/page.tsx                     |     7 +
+ app/teacher/getTeacherFoundation.ts                |    69 +-
+ app/teacher/inbox/page.tsx                         |    18 +-
+ app/teacher/layout.tsx                             |    24 +-
+ app/teacher/lesson-kits/page.tsx                   |     8 +-
+ app/teacher/live/page.tsx                          |    16 +-
+ app/teacher/operations/renderOperationsPage.tsx    |    10 +-
+ app/teacher/page.tsx                               |    12 +-
+ app/teacher/reports/page.tsx                       |    11 +-
+ app/teacher/resources/page.tsx                     |    11 +-
+ app/teacher/rewards/page.tsx                       |    11 +-
+ app/teacher/students/[studentId]/page.tsx          |    19 +-
+ app/visualization-lab/loading.tsx                  |    12 +-
+ app/visualization-lab/page.tsx                     |   407 +-
+ components/ai/AITutorButton.tsx                    |    10 +-
+ components/ai/AITutorProvider.tsx                  |  2028 ++-
+ components/learning/LearningRoadmap.tsx            |   304 +-
+ components/learning/SubwayNetworkMap.tsx           |    95 +-
+ .../lesson/CaliforniaHighSchoolTextbookPage.tsx    |    25 +-
+ .../CaliforniaHighSchoolTextbookStudentPage.tsx    |    12 +-
+ ...liforniaMiddleSchoolReplacementTextbookPage.tsx |    37 +-
+ .../lesson/CaliforniaMiddleSchoolTextbookPage.tsx  |    42 +-
+ components/lesson/LessonEntryClient.tsx            |    15 +-
+ components/lesson/LessonGalaxyDirectory.tsx        |    95 +-
+ components/lesson/LessonView.tsx                   |  3120 +++-
+ components/lesson/StudentLessonEntryPage.tsx       |    34 +-
+ components/lesson/StudentLessonPage.tsx            |    29 +-
+ components/lesson/lessonAccessPolicy.test.ts       |    27 +
+ components/lesson/lessonContentText.test.ts        |   126 +-
+ components/lesson/lessonContentText.ts             |   111 +-
+ .../lesson/lessonGalaxyDirectoryNavigation.test.ts |   148 +
+ components/math/MathText.tsx                       |    18 +-
+ components/practice/HandwritingAnswerBoard.tsx     |    51 +-
+ .../practice/PracticeAdventureArenaShell.tsx       |   175 +-
+ components/practice/PracticeGradeRadarSelect.tsx   |    18 +-
+ .../practice/PracticeMissionSetupControls.tsx      |   110 +-
+ components/practice/PracticeQuestionCard.tsx       |   169 +-
+ components/providers/AppProviders.tsx              |   101 +-
+ components/teacher/TeacherAnalyticsView.tsx        |    41 +-
+ components/teacher/TeacherDashboardClient.tsx      |    10 +-
+ components/teacher/TeacherDashboardView.tsx        |   150 +-
+ components/teacher/TeacherFoundationViews.tsx      |     7 +-
+ components/teacher/TeacherLiveView.tsx             |   831 +-
+ components/teacher/TeacherManagementViews.tsx      |  1231 +-
+ components/teacher/TeacherReportsView.tsx          |    85 +-
+ .../teacher/TeacherResourceAssessmentViews.tsx     |  1372 +-
+ components/teacher/TeacherRewardsView.tsx          |   110 +-
+ components/teacher/TeacherShell.tsx                |   119 +-
+ components/teacher/teacherLabels.ts                |     8 +-
+ components/ui/CurriculumTrackSelector.tsx          |   224 +-
+ components/visualizations/CalculusStatsLab.tsx     |   217 +-
+ .../visualizations/ConfiguredVisualizationLab.tsx  |  2639 ++-
+ components/visualizations/CoordinatePlaneDemo.tsx  |   417 +-
+ .../visualizations/FunctionGraphExplorer.tsx       |   195 +-
+ .../visualizations/FunctionModelComparer.tsx       |   164 +-
+ components/visualizations/GeometryExplorer.tsx     |   505 +-
+ components/visualizations/ProbabilitySimulator.tsx |   160 +-
+ .../visualizations/RoadmapVisualizationSuite.tsx   |     6 +-
+ components/visualizations/TrigWaveExplorer.tsx     |    80 +-
+ components/visualizations/VisualizationCard.tsx    |    68 +-
+ components/visualizations/VisualizationLabPage.tsx |   428 +-
+ .../assets/lab-quest-island-map-4k.webp            |   Bin 611100 -> 601740 bytes
+ .../assets/lab-quest-island-map-en-4k.webp         |   Bin 828150 -> 843518 bytes
+ .../configuredVisualizationLabRegressions.test.ts  |    98 +
+ .../visualizations/three/ThreeDLabCanvas.tsx       | 10996 ++++++++++-
+ .../three/ThreeDLabSceneRegistry.tsx               |    21 +-
+ .../three/configuredThreeDRenderPlan.test.ts       |   154 +-
+ .../three/configuredThreeDRenderPlan.ts            |    34 +-
+ .../three/manim/MathFormulaOverlay.tsx             |   235 +-
+ .../three/manim/MathSceneRuntime.tsx               |   332 +-
+ .../three/manim/mathCameraDirector.ts              |   155 +-
+ .../three/manim/mathCoordinateSpace.test.ts        |    80 +
+ .../three/manim/mathCoordinateSpace.ts             |   240 +
+ .../three/manim/mathCoordinateSystem3D.test.ts     |   116 +-
+ .../three/manim/mathCoordinateSystem3D.ts          |   320 +-
+ .../three/manim/mathCurveObject.test.ts            |    59 +-
+ .../visualizations/three/manim/mathCurveObject.ts  |    99 +-
+ .../three/manim/mathFormulaBindings.test.ts        |    10 +-
+ .../three/manim/mathFormulaBindings.ts             |    11 +-
+ .../three/manim/mathFormulaLayer.test.ts           |   220 +-
+ .../visualizations/three/manim/mathFormulaLayer.ts |   247 +-
+ .../three/manim/mathObjectTransform.test.ts        |   271 +
+ .../three/manim/mathObjectTransform.ts             |    96 +-
+ .../three/manim/mathSceneCheckpoint.test.ts        |   116 +-
+ .../three/manim/mathSceneCheckpoint.ts             |   181 +
+ .../three/manim/mathScenePlayback.test.ts          |   388 +-
+ .../three/manim/mathScenePlayback.ts               |   429 +-
+ .../three/manim/mathSceneRegistry.test.ts          |  1466 +-
+ .../three/manim/mathSceneRegistry.ts               |  3506 +++-
+ .../three/manim/mathSceneRuntimeState.test.ts      |  1015 +-
+ .../three/manim/mathSceneRuntimeState.ts           |   257 +-
+ .../visualizations/three/manim/mathSceneTypes.ts   |   440 +-
+ .../three/manim/mathTimeline.test.ts               |   206 +-
+ .../visualizations/three/manim/mathTimeline.ts     |   243 +-
+ .../three/manim/mathUpdaterRegistry.ts             |   610 +-
+ .../three/scenes/TemplatePrimitiveScene.tsx        |    56 +
+ .../three/threeDCanvasContract.test.ts             |  8307 ++++++++-
+ .../visualizations/three/threeDCanvasContract.ts   |     1 +
+ .../three/threeDCanvasSurfaceContract.ts           |  2475 ++-
+ .../three/threeDLaunchCoverageContract.test.ts     |     4 +-
+ .../three/threeDSceneMath.catalog.test.ts          |   126 +-
+ .../visualizations/three/threeDSceneMath.test.ts   |    52 +-
+ components/visualizations/three/threeDSceneMath.ts |    33 +
+ .../visualizations/three/threeDSceneTypes.ts       |     2 +
+ .../three/threeDSceneVariantMetadata.ts            |     5 +
+ .../threeDTopicCatalogBuilderContract.test.ts      |     5 +-
+ .../visualizationDiagnostics.premiumSmoke.test.ts  |     9 +
+ .../visualizationDiagnostics.test.ts               |   137 +-
+ .../candidates/hjb-primary-ds-v1-p1-001.png        |   Bin 1712283 -> 0 bytes
+ .../candidates/hjb-primary-ds-v1-p1-004.png        |   Bin 2002666 -> 0 bytes
+ .../candidates/hjb-primary-ds-v1-p1-006.png        |   Bin 1685287 -> 0 bytes
+ .../candidates/hjb-primary-ds-v1-p1-007.png        |   Bin 2069733 -> 0 bytes
+ .../candidates/hjb-primary-ds-v1-p1-010.png        |   Bin 1405265 -> 0 bytes
+ .../candidates/hjb-primary-ds-v1-p1-013.png        |   Bin 1865455 -> 0 bytes
+ .../candidates/hjb-primary-ds-v1-p1-016.png        |   Bin 1975039 -> 0 bytes
+ .../candidates/hjb-primary-ds-v1-p1-018.png        |   Bin 2052167 -> 0 bytes
+ .../candidates/hjb-primary-ds-v1-p1-020.png        |   Bin 1978075 -> 0 bytes
+ .../candidates/hjb-primary-ds-v1-p1-021.png        |   Bin 1206161 -> 0 bytes
+ .../candidates/hjb-primary-ds-v1-p1-022.png        |   Bin 1530180 -> 0 bytes
+ .../candidates/hjb-primary-ds-v1-p1-054.png        |   Bin 1539216 -> 0 bytes
+ .../candidates/hjb-primary-ds-v1-p1-081.png        |   Bin 1962427 -> 0 bytes
+ .../candidates/hjb-primary-ds-v1-p1-106.png        |   Bin 2033178 -> 0 bytes
+ .../candidates/hjb-primary-ds-v1-p1-141.png        |   Bin 2117892 -> 0 bytes
+ .../candidates/hjb-primary-ds-v1-p1-146.png        |   Bin 2069690 -> 0 bytes
+ .../candidates/hjb-primary-ds-v1-p1-151.png        |   Bin 2008591 -> 0 bytes
+ .../candidates/hjb-primary-ds-v1-p1-175.png        |   Bin 1105787 -> 0 bytes
+ .../candidates/hjb-primary-ds-v1-p1-176.png        |   Bin 954437 -> 0 bytes
+ .../candidates/hjb-primary-ds-v1-p1-194.png        |   Bin 2087943 -> 0 bytes
+ .../candidates/hjb-primary-ds-v1-p1-195.png        |   Bin 1928571 -> 0 bytes
+ .../candidates/hjb-primary-ds-v1-p1-196.png        |   Bin 1801878 -> 0 bytes
+ .../candidates/hjb-primary-ds-v1-p1-197.png        |   Bin 1634269 -> 0 bytes
+ .../candidates/hjb-primary-ds-v1-p1-201.png        |   Bin 1687917 -> 0 bytes
+ .../candidates/hjb-primary-ds-v1-p1-228.png        |   Bin 2024843 -> 0 bytes
+ .../candidates/hjb-primary-ds-v1-p2-028.png        |   Bin 2246624 -> 0 bytes
+ .../candidates/hjb-primary-ds-v1-p2-030.png        |   Bin 1975289 -> 0 bytes
+ .../candidates/hjb-primary-ds-v1-p2-070.png        |   Bin 1409780 -> 0 bytes
+ .../candidates/hjb-primary-ds-v1-p2-077.png        |   Bin 1121416 -> 0 bytes
+ .../candidates/hjb-primary-ds-v1-p2-095.png        |   Bin 980518 -> 0 bytes
+ .../candidates/hjb-primary-ds-v1-p2-100.png        |   Bin 1183298 -> 0 bytes
+ .../candidates/hjb-primary-ds-v1-p2-160.png        |   Bin 1619659 -> 0 bytes
+ .../candidates/hjb-primary-ds-v1-p3-004.png        |   Bin 1040240 -> 0 bytes
+ .../candidates/hjb-primary-ds-v1-p3-007.png        |   Bin 1828273 -> 0 bytes
+ .../candidates/hjb-primary-ds-v1-p3-088.png        |   Bin 995868 -> 0 bytes
+ .../candidates/hjb-primary-ds-v1-p3-091.png        |   Bin 1840952 -> 0 bytes
+ .../candidates/hjb-primary-ds-v1-p3-100.png        |   Bin 1282209 -> 0 bytes
+ .../candidates/hjb-primary-ds-v1-p4-111.png        |   Bin 783585 -> 0 bytes
+ .../candidates/hjb-primary-ds-v1-p5-034.png        |   Bin 1474357 -> 0 bytes
+ .../candidates/hjb-primary-ds-v1-p6-040.png        |   Bin 1115021 -> 0 bytes
+ .../candidates/hjb-primary-ds-v1-p6-043.png        |   Bin 1057403 -> 0 bytes
+ .../candidates/hjb-primary-ds-v1-p6-058.png        |   Bin 1098263 -> 0 bytes
+ .../candidates/hjb-primary-ds-v1-p6-205.png        |   Bin 1244413 -> 0 bytes
+ .../concept.png                                    |   Bin 127430 -> 0 bytes
+ .../worked-example.png                             |   Bin 130762 -> 0 bytes
+ .../concept.png                                    |   Bin 127416 -> 0 bytes
+ .../worked-example.png                             |   Bin 131084 -> 0 bytes
+ .../hjb-primary-p1-lower-review/concept.png        |   Bin 126718 -> 0 bytes
+ .../hjb-primary-p1-lower-review/worked-example.png |   Bin 129416 -> 0 bytes
+ .../concept.png                                    |   Bin 123699 -> 0 bytes
+ .../worked-example.png                             |   Bin 123735 -> 0 bytes
+ .../concept.png                                    |   Bin 153416 -> 0 bytes
+ .../worked-example.png                             |   Bin 153790 -> 0 bytes
+ .../concept.png                                    |   Bin 143714 -> 0 bytes
+ .../worked-example.png                             |   Bin 144377 -> 0 bytes
+ .../concept.png                                    |   Bin 153182 -> 0 bytes
+ .../worked-example.png                             |   Bin 153732 -> 0 bytes
+ .../hjb-primary-p1-upper-review/concept.png        |   Bin 129034 -> 0 bytes
+ .../hjb-primary-p1-upper-review/worked-example.png |   Bin 129262 -> 0 bytes
+ .../concept.png                                    |   Bin 121907 -> 0 bytes
+ .../worked-example.png                             |   Bin 121552 -> 0 bytes
+ .../concept.png                                    |   Bin 129315 -> 0 bytes
+ .../worked-example.png                             |   Bin 128616 -> 0 bytes
+ .../concept.png                                    |   Bin 153027 -> 0 bytes
+ .../worked-example.png                             |   Bin 152990 -> 0 bytes
+ .../concept.png                                    |   Bin 144386 -> 0 bytes
+ .../worked-example.png                             |   Bin 143937 -> 0 bytes
+ .../concept.png                                    |   Bin 154234 -> 0 bytes
+ .../worked-example.png                             |   Bin 152003 -> 0 bytes
+ .../concept.png                                    |   Bin 149678 -> 0 bytes
+ .../worked-example.png                             |   Bin 153233 -> 0 bytes
+ .../concept.png                                    |   Bin 127071 -> 0 bytes
+ .../worked-example.png                             |   Bin 129545 -> 0 bytes
+ .../hjb-primary-p2-lower-time/concept.png          |   Bin 124398 -> 0 bytes
+ .../hjb-primary-p2-lower-time/worked-example.png   |   Bin 123530 -> 0 bytes
+ .../concept.png                                    |   Bin 152934 -> 0 bytes
+ .../worked-example.png                             |   Bin 153499 -> 0 bytes
+ .../concept.png                                    |   Bin 143615 -> 0 bytes
+ .../worked-example.png                             |   Bin 143950 -> 0 bytes
+ .../concept.png                                    |   Bin 147556 -> 0 bytes
+ .../worked-example.png                             |   Bin 153879 -> 0 bytes
+ .../concept.png                                    |   Bin 127823 -> 0 bytes
+ .../worked-example.png                             |   Bin 129504 -> 0 bytes
+ .../concept.png                                    |   Bin 126316 -> 0 bytes
+ .../worked-example.png                             |   Bin 127541 -> 0 bytes
+ .../concept.png                                    |   Bin 150032 -> 0 bytes
+ .../worked-example.png                             |   Bin 152229 -> 0 bytes
+ .../concept.png                                    |   Bin 147710 -> 0 bytes
+ .../worked-example.png                             |   Bin 148409 -> 0 bytes
+ .../concept.png                                    |   Bin 127658 -> 0 bytes
+ .../worked-example.png                             |   Bin 130318 -> 0 bytes
+ .../concept.png                                    |   Bin 123753 -> 0 bytes
+ .../worked-example.png                             |   Bin 123879 -> 0 bytes
+ .../concept.png                                    |   Bin 146781 -> 0 bytes
+ .../worked-example.png                             |   Bin 153981 -> 0 bytes
+ .../concept.png                                    |   Bin 137017 -> 0 bytes
+ .../worked-example.png                             |   Bin 136596 -> 0 bytes
+ .../concept.png                                    |   Bin 127312 -> 0 bytes
+ .../worked-example.png                             |   Bin 131718 -> 0 bytes
+ .../concept.png                                    |   Bin 151263 -> 0 bytes
+ .../worked-example.png                             |   Bin 153040 -> 0 bytes
+ .../concept.png                                    |   Bin 153769 -> 0 bytes
+ .../worked-example.png                             |   Bin 150125 -> 0 bytes
+ .../concept.png                                    |   Bin 136995 -> 0 bytes
+ .../worked-example.png                             |   Bin 136665 -> 0 bytes
+ .../concept.png                                    |   Bin 127103 -> 0 bytes
+ .../worked-example.png                             |   Bin 130145 -> 0 bytes
+ .../concept.png                                    |   Bin 152592 -> 0 bytes
+ .../worked-example.png                             |   Bin 158179 -> 0 bytes
+ .../concept.png                                    |   Bin 150223 -> 0 bytes
+ .../worked-example.png                             |   Bin 153029 -> 0 bytes
+ .../concept.png                                    |   Bin 147505 -> 0 bytes
+ .../worked-example.png                             |   Bin 147827 -> 0 bytes
+ .../concept.png                                    |   Bin 127260 -> 0 bytes
+ .../worked-example.png                             |   Bin 131454 -> 0 bytes
+ .../concept.png                                    |   Bin 127280 -> 0 bytes
+ .../worked-example.png                             |   Bin 130569 -> 0 bytes
+ .../concept.png                                    |   Bin 136352 -> 0 bytes
+ .../worked-example.png                             |   Bin 137486 -> 0 bytes
+ .../concept.png                                    |   Bin 146490 -> 0 bytes
+ .../worked-example.png                             |   Bin 156129 -> 0 bytes
+ .../concept.png                                    |   Bin 128022 -> 0 bytes
+ .../worked-example.png                             |   Bin 130404 -> 0 bytes
+ .../concept.png                                    |   Bin 127804 -> 0 bytes
+ .../worked-example.png                             |   Bin 129702 -> 0 bytes
+ .../concept.png                                    |   Bin 147377 -> 0 bytes
+ .../worked-example.png                             |   Bin 147796 -> 0 bytes
+ .../concept.png                                    |   Bin 128293 -> 0 bytes
+ .../worked-example.png                             |   Bin 130762 -> 0 bytes
+ .../concept.png                                    |   Bin 127993 -> 0 bytes
+ .../worked-example.png                             |   Bin 130538 -> 0 bytes
+ .../concept.png                                    |   Bin 124574 -> 0 bytes
+ .../worked-example.png                             |   Bin 124520 -> 0 bytes
+ .../concept.png                                    |   Bin 124298 -> 0 bytes
+ .../worked-example.png                             |   Bin 123584 -> 0 bytes
+ .../concept.png                                    |   Bin 128410 -> 0 bytes
+ .../worked-example.png                             |   Bin 130654 -> 0 bytes
+ .../concept.png                                    |   Bin 126849 -> 0 bytes
+ .../worked-example.png                             |   Bin 129949 -> 0 bytes
+ .../hjb-primary-p5-lower-cuboid-cube/concept.png   |   Bin 130239 -> 0 bytes
+ .../worked-example.png                             |   Bin 130501 -> 0 bytes
+ .../concept.png                                    |   Bin 148948 -> 0 bytes
+ .../worked-example.png                             |   Bin 155967 -> 0 bytes
+ .../concept.png                                    |   Bin 136083 -> 0 bytes
+ .../worked-example.png                             |   Bin 137486 -> 0 bytes
+ .../concept.png                                    |   Bin 149830 -> 0 bytes
+ .../worked-example.png                             |   Bin 153917 -> 0 bytes
+ .../hjb-primary-p5-upper-data-average/concept.png  |   Bin 146937 -> 0 bytes
+ .../worked-example.png                             |   Bin 155020 -> 0 bytes
+ .../concept.png                                    |   Bin 135909 -> 0 bytes
+ .../worked-example.png                             |   Bin 137977 -> 0 bytes
+ .../concept.png                                    |   Bin 123742 -> 0 bytes
+ .../worked-example.png                             |   Bin 127244 -> 0 bytes
+ .../concept.png                                    |   Bin 147071 -> 0 bytes
+ .../worked-example.png                             |   Bin 148028 -> 0 bytes
+ .../hjb-primary-p6-lower-circle-sector/concept.png |   Bin 148264 -> 0 bytes
+ .../worked-example.png                             |   Bin 148713 -> 0 bytes
+ .../hjb-primary-p6-lower-cuboid/concept.png        |   Bin 129489 -> 0 bytes
+ .../hjb-primary-p6-lower-cuboid/worked-example.png |   Bin 130033 -> 0 bytes
+ .../hjb-primary-p6-lower-cylinder-cone/concept.png |   Bin 130800 -> 0 bytes
+ .../worked-example.png                             |   Bin 130453 -> 0 bytes
+ .../concept.png                                    |   Bin 122220 -> 0 bytes
+ .../worked-example.png                             |   Bin 125638 -> 0 bytes
+ .../concept.png                                    |   Bin 123530 -> 0 bytes
+ .../worked-example.png                             |   Bin 126147 -> 0 bytes
+ .../concept.png                                    |   Bin 146228 -> 0 bytes
+ .../worked-example.png                             |   Bin 154768 -> 0 bytes
+ .../concept.png                                    |   Bin 127787 -> 0 bytes
+ .../worked-example.png                             |   Bin 129458 -> 0 bytes
+ .../concept.png                                    |   Bin 128164 -> 0 bytes
+ .../worked-example.png                             |   Bin 130812 -> 0 bytes
+ .../concept.png                                    |   Bin 123747 -> 0 bytes
+ .../worked-example.png                             |   Bin 124409 -> 0 bytes
+ .../concept.png                                    |   Bin 123856 -> 0 bytes
+ .../worked-example.png                             |   Bin 127269 -> 0 bytes
+ .../hjb-primary-p6-upper-circle-sector/concept.png |   Bin 147625 -> 0 bytes
+ .../worked-example.png                             |   Bin 147650 -> 0 bytes
+ .../hjb-primary-p6-upper-divisibility/concept.png  |   Bin 122879 -> 0 bytes
+ .../worked-example.png                             |   Bin 126322 -> 0 bytes
+ .../hjb-primary-p6-upper-fractions/concept.png     |   Bin 127385 -> 0 bytes
+ .../worked-example.png                             |   Bin 130694 -> 0 bytes
+ .../concept.png                                    |   Bin 127381 -> 0 bytes
+ .../worked-example.png                             |   Bin 129375 -> 0 bytes
+ .../concept.png                                    |   Bin 1298623 -> 0 bytes
+ .../worked-example.png                             |   Bin 1436454 -> 0 bytes
+ .../concept.png                                    |   Bin 1380136 -> 0 bytes
+ .../worked-example.png                             |   Bin 1390157 -> 0 bytes
+ .../concept.png                                    |   Bin 1418997 -> 0 bytes
+ .../worked-example.png                             |   Bin 1361855 -> 0 bytes
+ .../concept.png                                    |   Bin 1388313 -> 0 bytes
+ .../worked-example.png                             |   Bin 1310138 -> 0 bytes
+ .../concept.png                                    |   Bin 1388376 -> 0 bytes
+ .../worked-example.png                             |   Bin 1381816 -> 0 bytes
+ .../concept.png                                    |   Bin 1398020 -> 0 bytes
+ .../worked-example.png                             |   Bin 1427384 -> 0 bytes
+ .../concept.png                                    |   Bin 1450730 -> 0 bytes
+ .../worked-example.png                             |   Bin 1303173 -> 0 bytes
+ .../concept.png                                    |   Bin 1212612 -> 0 bytes
+ .../worked-example.png                             |   Bin 1219170 -> 0 bytes
+ .../concept.png                                    |   Bin 1397419 -> 0 bytes
+ .../worked-example.png                             |   Bin 1476958 -> 0 bytes
+ .../concept.png                                    |   Bin 1477525 -> 0 bytes
+ .../worked-example.png                             |   Bin 1405292 -> 0 bytes
+ .../concept.png                                    |   Bin 1467525 -> 0 bytes
+ .../worked-example.png                             |   Bin 1436630 -> 0 bytes
+ .../release-intake/latest-A25-dirty-tree-map.json  |  7505 +++++++-
+ .../release-intake/latest-A25-dirty-tree-map.md    |    55 +-
+ coordination/release-intake/owner-pathspecs.json   |    59 +-
+ .../desktop-zh-Hans-visualization-lab.png          |   Bin 395174 -> 0 bytes
+ .../desktop-zh-visualization-lab.png               |   Bin 393979 -> 0 bytes
+ .../mobile-zh-Hans-visualization-lab.png           |   Bin 233798 -> 0 bytes
+ .../mobile-zh-visualization-lab.png                |   Bin 234202 -> 0 bytes
+ ...2026-05-22-login-curriculum-selector-design.png |   Bin 867875 -> 0 bytes
+ data/grades.ts                                     |     9 +-
+ data/hkChineseExceptions.ts                        |     4 +-
+ data/hkChineseGlossary.ts                          |     6 +-
+ data/lessons.ts                                    |    16 +-
+ data/mainlandBnuHighQuestions.ts                   |    30 +-
+ data/mainlandBnuHighTopics.ts                      |    20 +-
+ data/mainlandBnuJuniorQuestions.ts                 |    29 +-
+ data/mainlandBnuJuniorTopics.ts                    |    26 +-
+ data/mainlandBnuPrimaryLessons.ts                  |    19 +-
+ data/mainlandBnuPrimaryQuestions.ts                |    33 +-
+ data/mainlandBnuPrimaryTopics.ts                   |    20 +-
+ data/mainlandHjbHighLessons.ts                     |     7 +-
+ data/mainlandHjbHighQuestions.ts                   |    18 +-
+ data/mainlandHjbHighTopics.ts                      |    20 +-
+ data/mainlandHjbJuniorLessons.ts                   |     7 +-
+ data/mainlandHjbJuniorQuestions.ts                 |    55 +-
+ data/mainlandHjbJuniorTopics.ts                    |     7 +-
+ data/mainlandHjbPrimaryLessons.ts                  |     7 +-
+ data/mainlandHjbPrimaryQuestions.ts                |     8 +-
+ data/mainlandHjbPrimaryTopics.ts                   |    20 +-
+ data/mainlandHjbRoadmap.ts                         |     6 +-
+ data/mainlandPepHighLessonIllustrations.ts         |   967 +-
+ data/mainlandPepHighQuestions.ts                   |    48 +-
+ data/mainlandPepHighTopics.ts                      |    47 +-
+ data/mainlandPepJuniorQuestions.ts                 |   282 +-
+ data/mainlandPepJuniorTopics.ts                    |     7 +-
+ data/mainlandPepPrimaryQuestions.ts                |   139 +-
+ data/mainlandPepPrimaryTopics.ts                   |    48 +-
+ data/mainlandPepRoadmap.ts                         |     6 +-
+ data/questions.ts                                  |   199 +-
+ data/rag/mainlandPepHigh.ts                        |   294 +
+ data/rag/mainlandPepJunior.ts                      |    37 +-
+ data/rag/mainlandPepJuniorPaperPatterns.ts         |   680 +-
+ data/rag/usMath.ts                                 |   772 +-
+ data/topics.ts                                     |   108 +-
+ data/visualizationLabs.ts                          |  2528 ++-
+ lib/adaptiveLearning.test.ts                       |   141 +-
+ lib/adaptiveLearning.ts                            |   112 +-
+ lib/curriculumProfile.ts                           |    43 +-
+ lib/gameBasedLearning.test.ts                      |    10 +
+ lib/gameBasedLearning.ts                           |     6 +
+ lib/i18n.ts                                        |    81 +-
+ lib/lessonLinks.ts                                 |     9 +-
+ lib/mainlandPepPrimaryQuestionBank.test.ts         |     4 +-
+ lib/rag/hongKongDseEph.ts                          |     2 +
+ lib/rag/hongKongDseMath.ts                         |     2 +
+ lib/rag/hongKongDseUp.ts                           |     2 +
+ lib/rag/hongKongMath.ts                            |   238 +-
+ lib/rag/hongKongMathEdB.ts                         |     2 +
+ lib/rag/mainlandBnuHigh.ts                         |     2 +
+ lib/rag/mainlandBnuHighAssessmentPatterns.ts       |     2 +
+ lib/rag/mainlandBnuJunior.ts                       |     2 +
+ lib/rag/mainlandBnuJuniorAssessmentPatterns.ts     |     3 +
+ lib/rag/mainlandBnuPrimary.ts                      |     2 +
+ lib/rag/mainlandBnuPrimaryAssessmentPatterns.ts    |     2 +
+ lib/rag/mainlandHjbHigh.ts                         |     2 +
+ lib/rag/mainlandHjbHighExamPatterns.ts             |     2 +
+ lib/rag/mainlandHjbJunior.ts                       |     2 +
+ lib/rag/mainlandHjbJuniorAssessmentPatterns.ts     |     3 +
+ lib/rag/mainlandHjbJuniorPaperPatterns.ts          |     3 +
+ lib/rag/mainlandHjbPrimary.ts                      |     2 +
+ lib/rag/mainlandHjbPrimaryAssessmentPatterns.ts    |     2 +
+ lib/rag/mainlandJuniorZhongkaoExamPatterns.ts      |     2 +
+ lib/rag/mainlandPep.test.ts                        |    96 +-
+ lib/rag/mainlandPep.ts                             |     3 +
+ lib/rag/mainlandPepHigh.test.ts                    |    24 +-
+ lib/rag/mainlandPepHigh.ts                         |     2 +
+ lib/rag/mainlandPepHighExamPatterns.ts             |     3 +
+ lib/rag/mainlandPepJuniorExamPatterns.ts           |     3 +
+ lib/rag/mainlandPepJuniorPaperPatterns.ts          |    11 +-
+ lib/rag/mainlandPepPrimaryExamPatterns.ts          |     3 +
+ lib/rag/usMath.test.ts                             |   205 +-
+ lib/rag/usMath.ts                                  |     3 +
+ lib/server/answerGrading.ts                        |    94 +-
+ lib/server/auth.ts                                 |     2 +-
+ lib/server/internalCaliforniaFastLogin.test.ts     |    78 +-
+ lib/server/internalCaliforniaFastLogin.ts          |    40 +-
+ lib/server/llmProvider.test.ts                     |   201 +-
+ lib/server/llmProvider.ts                          |   376 +-
+ lib/server/lrsClient.test.ts                       |   192 +-
+ lib/server/lrsClient.ts                            |   438 +-
+ lib/server/userStore.ts                            | 18190 +++++++------------
+ lib/server/userStoreLessonPerformance.test.ts      |    34 +-
+ lib/utils.ts                                       |    11 +-
+ next-env.d.ts                                      |     2 +-
+ next.config.ts                                     |    66 +-
+ package-lock.json                                  |  1444 +-
+ package.json                                       |    36 +-
+ playwright.config.ts                               |     8 +-
+ scripts/audit-mainland-pep-roadmap.ts              |     1 +
+ scripts/deploy-vercel-preview.mjs                  |    90 +-
+ scripts/deploy-vercel-production.mjs               |   166 +-
+ scripts/prepare-vercel-staging.mjs                 |   154 +-
+ scripts/release-env-guard.mjs                      |   451 +-
+ tests/e2e/lesson-all.spec.ts                       |   247 +-
+ tests/e2e/mainland-pep-primary-lessons.spec.ts     |    82 +-
+ tests/e2e/student-smoke.spec.ts                    |    75 +-
+ tests/e2e/visualization-values.spec.ts             |    40 +-
+ tsconfig.json                                      |    26 +-
+ tsconfig.next.json                                 |    45 +-
+ types/index.ts                                     |  1447 +-
+ 456 files changed, 74413 insertions(+), 20673 deletions(-)

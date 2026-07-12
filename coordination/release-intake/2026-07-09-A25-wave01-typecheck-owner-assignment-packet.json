@@ -1,0 +1,518 @@
+{
+  "generatedAt": "2026-07-09T14:09:03.864Z",
+  "dirtyMapStatusSignature": "b3d232fd2b9ef81d4efc95903d2e3b316db664d6e9ec6ab366181395b3966be7",
+  "expandedStatusEntries": 6604,
+  "sourceHandoffGeneratedAt": "2026-07-09T14:09:03.770Z",
+  "sourceHandoffSummary": {
+    "handoffs": 6,
+    "crossOwnerHandoffs": 6,
+    "wave01OwnerHandoffs": 0,
+    "uniqueFiles": 20,
+    "ownerFileLinks": 23,
+    "typeCheckErrorLines": 404,
+    "cleanupAuthorizedRows": 0,
+    "executableRows": 0
+  },
+  "assignments": [
+    {
+      "assignmentId": "wave01-typecheck-a13",
+      "agentId": "A13",
+      "owner": "A13 teacher console lead",
+      "role": "Teacher console lead",
+      "objective": "Resolve or formally block the Wave 01 type-check blockers routed to A13 without widening the A25/A10/A22 governance package.",
+      "recommendedWorktree": "/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A13-A14-console-closure",
+      "readScope": [
+        {
+          "file": "components/teacher/TeacherPrepViews.tsx",
+          "errors": 36,
+          "coOwners": []
+        },
+        {
+          "file": "components/teacher/TeacherOperationsView.tsx",
+          "errors": 32,
+          "coOwners": []
+        },
+        {
+          "file": "lib/teacherReviewLesson.ts",
+          "errors": 30,
+          "coOwners": []
+        },
+        {
+          "file": "components/teacher/TeacherReviewLessonView.tsx",
+          "errors": 25,
+          "coOwners": []
+        },
+        {
+          "file": "lib/teacherReviewLessonPptx.ts",
+          "errors": 18,
+          "coOwners": []
+        },
+        {
+          "file": "app/api/teacher/review-lessons/[reviewLessonId]/route.ts",
+          "errors": 9,
+          "coOwners": [
+            {
+              "ownerId": "A12",
+              "owner": "A12 backend/API platform lead",
+              "routeKind": "cross-owner-blocker"
+            }
+          ]
+        },
+        {
+          "file": "lib/server/teacherReviewLessonLLM.ts",
+          "errors": 9,
+          "coOwners": [
+            {
+              "ownerId": "A12",
+              "owner": "A12 backend/API platform lead",
+              "routeKind": "cross-owner-blocker"
+            },
+            {
+              "ownerId": "A07",
+              "owner": "A07 AI tutor lead",
+              "routeKind": "cross-owner-blocker"
+            }
+          ]
+        },
+        {
+          "file": "lib/teacherAssessmentAnalysis.ts",
+          "errors": 9,
+          "coOwners": []
+        }
+      ],
+      "writeScope": [
+        "components/teacher/TeacherPrepViews.tsx",
+        "components/teacher/TeacherOperationsView.tsx",
+        "components/teacher/TeacherReviewLessonView.tsx"
+      ],
+      "coordinationRequired": [
+        {
+          "file": "lib/teacherReviewLesson.ts",
+          "reason": "outside this owner's AGENTS.md write scope"
+        },
+        {
+          "file": "lib/teacherReviewLessonPptx.ts",
+          "reason": "outside this owner's AGENTS.md write scope"
+        },
+        {
+          "file": "app/api/teacher/review-lessons/[reviewLessonId]/route.ts",
+          "reason": "co-owned with A12"
+        },
+        {
+          "file": "lib/server/teacherReviewLessonLLM.ts",
+          "reason": "co-owned with A12, A07"
+        },
+        {
+          "file": "lib/teacherAssessmentAnalysis.ts",
+          "reason": "outside this owner's AGENTS.md write scope"
+        }
+      ],
+      "forbiddenScope": [
+        "general API implementation",
+        "parent/student UI",
+        "AI Tutor",
+        "adaptive engine",
+        "shared types/i18n except coordinated copy-only edits"
+      ],
+      "acceptanceCriteria": [
+        "Every listed file is either fixed inside the owner's allowed write scope or covered by an owner-routed blocker report.",
+        "No runtime/source file outside the listed write scope is edited without explicit owner expansion.",
+        "No dirty-root deploy, broad staging, or physical cleanup is performed.",
+        "Suggested checks are rerun, or failures are recorded with exact owning-agent blockers.",
+        "A25 can rerun Wave 01 governance readiness and the aggregate currentness gate after the owner session hands off."
+      ],
+      "checks": [
+        "npm run type-check -- --pretty false",
+        "npx playwright test tests/e2e/teacher-workspace.spec.ts --project=desktop-chrome",
+        "node coordination/release-intake/generate-wave01-governance-readiness.mjs",
+        "node coordination/release-intake/assert-wave01-governance-readiness-current.mjs",
+        "node coordination/release-intake/assert-dirty-worktree-remediation-current.mjs"
+      ],
+      "stopConditions": [
+        "Stop if the fix needs files outside this owner's AGENTS.md write scope.",
+        "Stop if the fix needs secrets, provider credential values, or real env files.",
+        "Stop if the package needs staging, commit, branch, push, reset, restore, clean, worktree removal, pruning, deploy, or file deletion without exact owner approval.",
+        "After owner resolution or blocker report, ask A25 to rerun Wave 01 governance readiness and the aggregate currentness gate.",
+        "Stop if the fix requires adding/removing package dependencies without A10/A22 approval.",
+        "Stop if the fix requires shared type/schema changes without A08 coordination.",
+        "Stop if the assignment needs owner-approved Git operations; A25 evidence alone is not authorization."
+      ],
+      "dirtyStateFinalAction": "pending owner reviewed commit, owner-routed blocker, or exact owner-approved final state",
+      "worktreeLifecycleAction": "retain isolated worktree until owner handoff is reviewed",
+      "cleanupAuthorized": false,
+      "executableNow": false
+    },
+    {
+      "assignmentId": "wave01-typecheck-a12",
+      "agentId": "A12",
+      "owner": "A12 backend/API platform lead",
+      "role": "Backend/API platform lead",
+      "objective": "Resolve or formally block the Wave 01 type-check blockers routed to A12 without widening the A25/A10/A22 governance package.",
+      "recommendedWorktree": "/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A12-backend-api-closure",
+      "readScope": [
+        {
+          "file": "app/api/teacher/review-lessons/[reviewLessonId]/route.ts",
+          "errors": 9,
+          "coOwners": [
+            {
+              "ownerId": "A13",
+              "owner": "A13 teacher console lead",
+              "routeKind": "cross-owner-blocker"
+            }
+          ]
+        },
+        {
+          "file": "lib/server/teacherReviewLessonLLM.ts",
+          "errors": 9,
+          "coOwners": [
+            {
+              "ownerId": "A13",
+              "owner": "A13 teacher console lead",
+              "routeKind": "cross-owner-blocker"
+            },
+            {
+              "ownerId": "A07",
+              "owner": "A07 AI tutor lead",
+              "routeKind": "cross-owner-blocker"
+            }
+          ]
+        },
+        {
+          "file": "app/api/assignments/[assignmentId]/corrections/route.ts",
+          "errors": 8,
+          "coOwners": []
+        },
+        {
+          "file": "app/api/assignments/[assignmentId]/submissions/route.ts",
+          "errors": 8,
+          "coOwners": []
+        },
+        {
+          "file": "app/api/classroom/live/[sessionId]/work-samples/route.ts",
+          "errors": 8,
+          "coOwners": []
+        },
+        {
+          "file": "app/api/me/learner-profile/route.ts",
+          "errors": 7,
+          "coOwners": []
+        },
+        {
+          "file": "app/api/classroom/live/actions/route.ts",
+          "errors": 6,
+          "coOwners": []
+        }
+      ],
+      "writeScope": [
+        "app/api/teacher/review-lessons/[reviewLessonId]/route.ts",
+        "app/api/assignments/[assignmentId]/corrections/route.ts",
+        "app/api/assignments/[assignmentId]/submissions/route.ts",
+        "app/api/classroom/live/[sessionId]/work-samples/route.ts",
+        "app/api/me/learner-profile/route.ts",
+        "app/api/classroom/live/actions/route.ts"
+      ],
+      "coordinationRequired": [
+        {
+          "file": "app/api/teacher/review-lessons/[reviewLessonId]/route.ts",
+          "reason": "co-owned with A13"
+        },
+        {
+          "file": "lib/server/teacherReviewLessonLLM.ts",
+          "reason": "co-owned with A13, A07"
+        }
+      ],
+      "forbiddenScope": [
+        "app/api/ai-tutor/",
+        "app/api/adaptive-learning/",
+        "feature UI pages",
+        "real .env*",
+        "LLM prompt/provider behavior without A07/A15 coordination"
+      ],
+      "acceptanceCriteria": [
+        "Every listed file is either fixed inside the owner's allowed write scope or covered by an owner-routed blocker report.",
+        "No runtime/source file outside the listed write scope is edited without explicit owner expansion.",
+        "No dirty-root deploy, broad staging, or physical cleanup is performed.",
+        "Suggested checks are rerun, or failures are recorded with exact owning-agent blockers.",
+        "A25 can rerun Wave 01 governance readiness and the aggregate currentness gate after the owner session hands off."
+      ],
+      "checks": [
+        "npm run type-check -- --pretty false",
+        "npx playwright test tests/e2e/backend-api.spec.ts --project=desktop-chrome",
+        "node coordination/release-intake/generate-wave01-governance-readiness.mjs",
+        "node coordination/release-intake/assert-wave01-governance-readiness-current.mjs",
+        "node coordination/release-intake/assert-dirty-worktree-remediation-current.mjs"
+      ],
+      "stopConditions": [
+        "Stop if the fix needs files outside this owner's AGENTS.md write scope.",
+        "Stop if the fix needs secrets, provider credential values, or real env files.",
+        "Stop if the package needs staging, commit, branch, push, reset, restore, clean, worktree removal, pruning, deploy, or file deletion without exact owner approval.",
+        "After owner resolution or blocker report, ask A25 to rerun Wave 01 governance readiness and the aggregate currentness gate.",
+        "Stop if the fix requires adding/removing package dependencies without A10/A22 approval.",
+        "Stop if the fix requires shared type/schema changes without A08 coordination.",
+        "Stop if the assignment needs owner-approved Git operations; A25 evidence alone is not authorization."
+      ],
+      "dirtyStateFinalAction": "pending owner reviewed commit, owner-routed blocker, or exact owner-approved final state",
+      "worktreeLifecycleAction": "retain isolated worktree until owner handoff is reviewed",
+      "cleanupAuthorized": false,
+      "executableNow": false
+    },
+    {
+      "assignmentId": "wave01-typecheck-a20",
+      "agentId": "A20",
+      "owner": "A20 game design and game-based learning lead",
+      "role": "Game design and game-based learning lead",
+      "objective": "Resolve or formally block the Wave 01 type-check blockers routed to A20 without widening the A25/A10/A22 governance package.",
+      "recommendedWorktree": "/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A17-A20-game-motivation-closure",
+      "readScope": [
+        {
+          "file": "components/games/MathVirusBlasterGame.tsx",
+          "errors": 13,
+          "coOwners": []
+        },
+        {
+          "file": "components/games/MightyTankBattleGame.tsx",
+          "errors": 10,
+          "coOwners": []
+        },
+        {
+          "file": "components/games/MathMatchQuestGame.tsx",
+          "errors": 6,
+          "coOwners": []
+        }
+      ],
+      "writeScope": [
+        "components/games/MathVirusBlasterGame.tsx",
+        "components/games/MightyTankBattleGame.tsx",
+        "components/games/MathMatchQuestGame.tsx"
+      ],
+      "coordinationRequired": [],
+      "forbiddenScope": [
+        "reward economy",
+        "badges/streaks/leaderboards",
+        "broad gamification storage/API",
+        "curriculum correctness without A18",
+        "question-bank edits without A04/A18"
+      ],
+      "acceptanceCriteria": [
+        "Every listed file is either fixed inside the owner's allowed write scope or covered by an owner-routed blocker report.",
+        "No runtime/source file outside the listed write scope is edited without explicit owner expansion.",
+        "No dirty-root deploy, broad staging, or physical cleanup is performed.",
+        "Suggested checks are rerun, or failures are recorded with exact owning-agent blockers.",
+        "A25 can rerun Wave 01 governance readiness and the aggregate currentness gate after the owner session hands off."
+      ],
+      "checks": [
+        "npm run type-check -- --pretty false",
+        "npx playwright test tests/e2e/adventure-island.spec.ts tests/e2e/fishing-game.spec.ts tests/e2e/gamification.spec.ts --project=desktop-chrome",
+        "node coordination/release-intake/generate-wave01-governance-readiness.mjs",
+        "node coordination/release-intake/assert-wave01-governance-readiness-current.mjs",
+        "node coordination/release-intake/assert-dirty-worktree-remediation-current.mjs"
+      ],
+      "stopConditions": [
+        "Stop if the fix needs files outside this owner's AGENTS.md write scope.",
+        "Stop if the fix needs secrets, provider credential values, or real env files.",
+        "Stop if the package needs staging, commit, branch, push, reset, restore, clean, worktree removal, pruning, deploy, or file deletion without exact owner approval.",
+        "After owner resolution or blocker report, ask A25 to rerun Wave 01 governance readiness and the aggregate currentness gate.",
+        "Stop if the fix requires adding/removing package dependencies without A10/A22 approval.",
+        "Stop if the fix requires shared type/schema changes without A08 coordination.",
+        "Stop if the assignment needs owner-approved Git operations; A25 evidence alone is not authorization."
+      ],
+      "dirtyStateFinalAction": "pending owner reviewed commit, owner-routed blocker, or exact owner-approved final state",
+      "worktreeLifecycleAction": "retain isolated worktree until owner handoff is reviewed",
+      "cleanupAuthorized": false,
+      "executableNow": false
+    },
+    {
+      "assignmentId": "wave01-typecheck-a06",
+      "agentId": "A06",
+      "owner": "A06 visualization lead",
+      "role": "Visualization lead",
+      "objective": "Resolve or formally block the Wave 01 type-check blockers routed to A06 without widening the A25/A10/A22 governance package.",
+      "recommendedWorktree": "/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A06-visualization-closure",
+      "readScope": [
+        {
+          "file": "components/visualizations/VisualizationLabPage.tsx",
+          "errors": 16,
+          "coOwners": []
+        },
+        {
+          "file": "components/visualizations/three/threeDSceneMath.catalog.test.ts",
+          "errors": 9,
+          "coOwners": []
+        }
+      ],
+      "writeScope": [
+        "components/visualizations/VisualizationLabPage.tsx",
+        "components/visualizations/three/threeDSceneMath.catalog.test.ts"
+      ],
+      "coordinationRequired": [],
+      "forbiddenScope": [
+        "AI route",
+        "provider state",
+        "curriculum/content final signoff"
+      ],
+      "acceptanceCriteria": [
+        "Every listed file is either fixed inside the owner's allowed write scope or covered by an owner-routed blocker report.",
+        "No runtime/source file outside the listed write scope is edited without explicit owner expansion.",
+        "No dirty-root deploy, broad staging, or physical cleanup is performed.",
+        "Suggested checks are rerun, or failures are recorded with exact owning-agent blockers.",
+        "A25 can rerun Wave 01 governance readiness and the aggregate currentness gate after the owner session hands off."
+      ],
+      "checks": [
+        "npm run type-check -- --pretty false",
+        "node --test components/visualizations/configuredVisualizationLabRegressions.test.ts components/visualizations/three/threeDCanvasContract.test.ts components/visualizations/visualizationDiagnostics.test.ts",
+        "npx playwright test tests/e2e/visualization-values.spec.ts tests/e2e/visualization-overlap.spec.ts --project=desktop-chrome",
+        "node coordination/release-intake/generate-wave01-governance-readiness.mjs",
+        "node coordination/release-intake/assert-wave01-governance-readiness-current.mjs",
+        "node coordination/release-intake/assert-dirty-worktree-remediation-current.mjs"
+      ],
+      "stopConditions": [
+        "Stop if the fix needs files outside this owner's AGENTS.md write scope.",
+        "Stop if the fix needs secrets, provider credential values, or real env files.",
+        "Stop if the package needs staging, commit, branch, push, reset, restore, clean, worktree removal, pruning, deploy, or file deletion without exact owner approval.",
+        "After owner resolution or blocker report, ask A25 to rerun Wave 01 governance readiness and the aggregate currentness gate.",
+        "Stop if the fix requires adding/removing package dependencies without A10/A22 approval.",
+        "Stop if the fix requires shared type/schema changes without A08 coordination.",
+        "Stop if the assignment needs owner-approved Git operations; A25 evidence alone is not authorization."
+      ],
+      "dirtyStateFinalAction": "pending owner reviewed commit, owner-routed blocker, or exact owner-approved final state",
+      "worktreeLifecycleAction": "retain isolated worktree until owner handoff is reviewed",
+      "cleanupAuthorized": false,
+      "executableNow": false
+    },
+    {
+      "assignmentId": "wave01-typecheck-a05",
+      "agentId": "A05",
+      "owner": "A05 lesson lead",
+      "role": "Lesson lead",
+      "objective": "Resolve or formally block the Wave 01 type-check blockers routed to A05 without widening the A25/A10/A22 governance package.",
+      "recommendedWorktree": "/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A05-lesson-closure",
+      "readScope": [
+        {
+          "file": "components/lesson/CaliforniaHighSchoolTextbookPage.tsx",
+          "errors": 7,
+          "coOwners": []
+        },
+        {
+          "file": "components/lesson/CaliforniaHighSchoolTextbookStudentPage.tsx",
+          "errors": 7,
+          "coOwners": []
+        }
+      ],
+      "writeScope": [
+        "components/lesson/CaliforniaHighSchoolTextbookPage.tsx",
+        "components/lesson/CaliforniaHighSchoolTextbookStudentPage.tsx"
+      ],
+      "coordinationRequired": [],
+      "forbiddenScope": [
+        "dashboard",
+        "practice",
+        "visualization lab",
+        "AI route",
+        "global config"
+      ],
+      "acceptanceCriteria": [
+        "Every listed file is either fixed inside the owner's allowed write scope or covered by an owner-routed blocker report.",
+        "No runtime/source file outside the listed write scope is edited without explicit owner expansion.",
+        "No dirty-root deploy, broad staging, or physical cleanup is performed.",
+        "Suggested checks are rerun, or failures are recorded with exact owning-agent blockers.",
+        "A25 can rerun Wave 01 governance readiness and the aggregate currentness gate after the owner session hands off."
+      ],
+      "checks": [
+        "npm run type-check -- --pretty false",
+        "manual lesson page smoke for affected lesson/textbook routes",
+        "node coordination/release-intake/generate-wave01-governance-readiness.mjs",
+        "node coordination/release-intake/assert-wave01-governance-readiness-current.mjs",
+        "node coordination/release-intake/assert-dirty-worktree-remediation-current.mjs"
+      ],
+      "stopConditions": [
+        "Stop if the fix needs files outside this owner's AGENTS.md write scope.",
+        "Stop if the fix needs secrets, provider credential values, or real env files.",
+        "Stop if the package needs staging, commit, branch, push, reset, restore, clean, worktree removal, pruning, deploy, or file deletion without exact owner approval.",
+        "After owner resolution or blocker report, ask A25 to rerun Wave 01 governance readiness and the aggregate currentness gate.",
+        "Stop if the fix requires adding/removing package dependencies without A10/A22 approval.",
+        "Stop if the fix requires shared type/schema changes without A08 coordination.",
+        "Stop if the assignment needs owner-approved Git operations; A25 evidence alone is not authorization."
+      ],
+      "dirtyStateFinalAction": "pending owner reviewed commit, owner-routed blocker, or exact owner-approved final state",
+      "worktreeLifecycleAction": "retain isolated worktree until owner handoff is reviewed",
+      "cleanupAuthorized": false,
+      "executableNow": false
+    },
+    {
+      "assignmentId": "wave01-typecheck-a07",
+      "agentId": "A07",
+      "owner": "A07 AI tutor lead",
+      "role": "AI tutor/provider integration lead",
+      "objective": "Resolve or formally block the Wave 01 type-check blockers routed to A07 without widening the A25/A10/A22 governance package.",
+      "recommendedWorktree": "/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A07-ai-tutor-closure",
+      "readScope": [
+        {
+          "file": "lib/server/teacherReviewLessonLLM.ts",
+          "errors": 9,
+          "coOwners": [
+            {
+              "ownerId": "A13",
+              "owner": "A13 teacher console lead",
+              "routeKind": "cross-owner-blocker"
+            },
+            {
+              "ownerId": "A12",
+              "owner": "A12 backend/API platform lead",
+              "routeKind": "cross-owner-blocker"
+            }
+          ]
+        }
+      ],
+      "writeScope": [],
+      "coordinationRequired": [
+        {
+          "file": "lib/server/teacherReviewLessonLLM.ts",
+          "reason": "co-owned with A13, A12"
+        }
+      ],
+      "forbiddenScope": [
+        "real .env* secret files",
+        "visualization logic",
+        "analytics test logic",
+        "feature UI outside AI tutor"
+      ],
+      "acceptanceCriteria": [
+        "Every listed file is either fixed inside the owner's allowed write scope or covered by an owner-routed blocker report.",
+        "No runtime/source file outside the listed write scope is edited without explicit owner expansion.",
+        "No dirty-root deploy, broad staging, or physical cleanup is performed.",
+        "Suggested checks are rerun, or failures are recorded with exact owning-agent blockers.",
+        "A25 can rerun Wave 01 governance readiness and the aggregate currentness gate after the owner session hands off."
+      ],
+      "checks": [
+        "npm run type-check -- --pretty false",
+        "coordinate any LLM provider behavior change with A07-owned provider contracts",
+        "node coordination/release-intake/generate-wave01-governance-readiness.mjs",
+        "node coordination/release-intake/assert-wave01-governance-readiness-current.mjs",
+        "node coordination/release-intake/assert-dirty-worktree-remediation-current.mjs"
+      ],
+      "stopConditions": [
+        "Stop if the fix needs files outside this owner's AGENTS.md write scope.",
+        "Stop if the fix needs secrets, provider credential values, or real env files.",
+        "Stop if the package needs staging, commit, branch, push, reset, restore, clean, worktree removal, pruning, deploy, or file deletion without exact owner approval.",
+        "After owner resolution or blocker report, ask A25 to rerun Wave 01 governance readiness and the aggregate currentness gate.",
+        "Stop if the fix requires adding/removing package dependencies without A10/A22 approval.",
+        "Stop if the fix requires shared type/schema changes without A08 coordination.",
+        "Stop if the assignment needs owner-approved Git operations; A25 evidence alone is not authorization."
+      ],
+      "dirtyStateFinalAction": "pending owner reviewed commit, owner-routed blocker, or exact owner-approved final state",
+      "worktreeLifecycleAction": "retain isolated worktree until owner handoff is reviewed",
+      "cleanupAuthorized": false,
+      "executableNow": false
+    }
+  ],
+  "cleanupAuthorized": false,
+  "executableNow": false,
+  "summary": {
+    "assignments": 6,
+    "readScopeFiles": 23,
+    "writeScopeFiles": 16,
+    "coordinationRequiredFiles": 8,
+    "cleanupAuthorizedRows": 0,
+    "executableRows": 0
+  }
+}

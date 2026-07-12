@@ -1,0 +1,42 @@
+{
+  "generatedAt": "2026-07-03T08:38:57.029Z",
+  "applied": true,
+  "scope": "canonical",
+  "repoRoot": "/Users/dongpinhu/Desktop/MAIS-MVP",
+  "dirtyMapStatusSignature": "c01ea98a87118c49adfca945884588d4008699e1175537903861425d2ff30ffc",
+  "expandedStatusEntries": 4023,
+  "targets": [
+    {
+      "id": "canonical-next-owner-authorizations",
+      "target": "coordination/release-intake/latest-A25-next-owner-authorizations.json",
+      "rowKey": "authorizations",
+      "draftKey": "draftAuthorizationsDoNotAuthorize",
+      "action": "refresh-empty-scaffold",
+      "willWrite": true,
+      "existingRows": 0,
+      "expectedDraftRows": 68,
+      "reason": "target input file is an empty scaffold",
+      "cleanupAuthorized": false,
+      "executableNow": false,
+      "destructiveGitAuthorized": false,
+      "deployAuthorized": false
+    }
+  ],
+  "summary": {
+    "targetFiles": 1,
+    "willWrite": 1,
+    "skipped": 0,
+    "existingOwnerRows": 0,
+    "cleanupAuthorizedRows": 0,
+    "executableRows": 0
+  },
+  "boundary": {
+    "evidenceOnly": true,
+    "scaffoldOnly": true,
+    "createsExecutableRows": false,
+    "cleanupAuthorized": false,
+    "executableNow": false,
+    "destructiveGitAuthorized": false,
+    "deployAuthorized": false
+  }
+}

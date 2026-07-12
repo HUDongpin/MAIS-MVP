@@ -1,0 +1,724 @@
+{
+  "generatedAt": "2026-07-10T17:07:27.574Z",
+  "dirtyMapStatusSignature": "e30d647e1b51432945713f42ac78b0a2466fcb17192de0235a801ac877a0801f",
+  "expandedStatusEntries": 7636,
+  "note": "A25 linked-worktree archive manifest. Dirty worktree entries include tracked patches, untracked lists, and untracked-content tarballs. Clean-diverged entries include ahead logs and branch diffs.",
+  "archivedWorktrees": [
+    {
+      "branch": "codex/A01-app-shell-closure",
+      "path": "/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A01-app-shell-closure",
+      "lifecycleState": "dirty-active-review-required",
+      "head": "cef544e09bee8118ddcf3bf3005e570bdf4977e3",
+      "divergence": {
+        "behind": 2,
+        "ahead": 0
+      },
+      "statusEntries": 26,
+      "patchBytes": 198562,
+      "patchSha256": "83460cb6d513cab23059f0ae6dade9aaa8ff0764ce5b427d107014858079db34",
+      "untrackedEntries": 9,
+      "untrackedArchiveBytes": 6129702,
+      "untrackedArchiveSha256": "b2c61b2eca74faa045e7396b4a1aed9e7ae06d4ef4889dd99a37f5ad644d22fd",
+      "prefix": "coordination/release-intake/archive/codex-A01-app-shell-closure",
+      "archiveKind": "dirty-worktree"
+    },
+    {
+      "branch": "codex/A01-shell-lazy-load",
+      "path": "/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A01-shell-lazy-load",
+      "lifecycleState": "dirty-active-review-required",
+      "head": "cef544e09bee8118ddcf3bf3005e570bdf4977e3",
+      "divergence": {
+        "behind": 2,
+        "ahead": 0
+      },
+      "statusEntries": 8,
+      "patchBytes": 65856,
+      "patchSha256": "e0ee9347fb0a553a0d697a8bd342767210b849f7e7d3052a88d33808afe3f628",
+      "untrackedEntries": 5,
+      "untrackedArchiveBytes": 19806,
+      "untrackedArchiveSha256": "fbc9bb10370da331fa00848febdbad4eaabb7d9f8f611d4802e8f5105787f305",
+      "prefix": "coordination/release-intake/archive/codex-A01-shell-lazy-load",
+      "archiveKind": "dirty-worktree"
+    },
+    {
+      "branch": "codex/A02-A15-dashboard-adaptive-closure",
+      "path": "/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A02-A15-dashboard-adaptive-closure",
+      "lifecycleState": "dirty-active-review-required",
+      "head": "cef544e09bee8118ddcf3bf3005e570bdf4977e3",
+      "divergence": {
+        "behind": 2,
+        "ahead": 0
+      },
+      "statusEntries": 30,
+      "patchBytes": 175592,
+      "patchSha256": "9ccd70116ad3fa094304a276f47a1b8e3bae0695c5f384b15c4d8136aeaba523",
+      "untrackedEntries": 16,
+      "untrackedArchiveBytes": 31787,
+      "untrackedArchiveSha256": "f9129f8fb43695b89054d59acfaf434af282c176a91211a2bc8c4b97b386c662",
+      "prefix": "coordination/release-intake/archive/codex-A02-A15-dashboard-adaptive-closure",
+      "archiveKind": "dirty-worktree"
+    },
+    {
+      "branch": "codex/A03-roadmap-closure",
+      "path": "/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A03-roadmap-closure",
+      "lifecycleState": "dirty-active-review-required",
+      "head": "cef544e09bee8118ddcf3bf3005e570bdf4977e3",
+      "divergence": {
+        "behind": 2,
+        "ahead": 0
+      },
+      "statusEntries": 30,
+      "patchBytes": 147361,
+      "patchSha256": "cadd19bd1b0600fa698dc27bcd09d21797c8d53ab7ed04d2658422218d25fc44",
+      "untrackedEntries": 9,
+      "untrackedArchiveBytes": 8334,
+      "untrackedArchiveSha256": "2eeda9e905bcdae473c491e25022b634f9612cfd49482481ea74d6777108fb17",
+      "prefix": "coordination/release-intake/archive/codex-A03-roadmap-closure",
+      "archiveKind": "dirty-worktree"
+    },
+    {
+      "branch": "codex/A04-practice-closure",
+      "path": "/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A04-practice-closure",
+      "lifecycleState": "dirty-active-review-required",
+      "head": "cef544e09bee8118ddcf3bf3005e570bdf4977e3",
+      "divergence": {
+        "behind": 2,
+        "ahead": 0
+      },
+      "statusEntries": 56,
+      "patchBytes": 310796,
+      "patchSha256": "cd7970291d87100fd90b34eb35f836a5c511ea93f7131b8461432f9cb2c1e99b",
+      "untrackedEntries": 33,
+      "untrackedArchiveBytes": 1716871,
+      "untrackedArchiveSha256": "598b74df96ed7954ba2ee00f316079897f6b557482f622e556774d4d04e2d5cf",
+      "prefix": "coordination/release-intake/archive/codex-A04-practice-closure",
+      "archiveKind": "dirty-worktree"
+    },
+    {
+      "branch": "codex/A05-lesson-checklist-p0",
+      "path": "/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A05-lesson-checklist-p0",
+      "archiveKind": "clean-diverged-branch",
+      "head": "cef544e09bee8118ddcf3bf3005e570bdf4977e3",
+      "divergence": {
+        "behind": 2,
+        "ahead": 0
+      },
+      "statusEntries": 0,
+      "untrackedEntries": 0,
+      "aheadLog": "coordination/release-intake/archive/codex-A05-lesson-checklist-p0.clean-diverged.ahead-log.txt",
+      "nameStatus": "coordination/release-intake/archive/codex-A05-lesson-checklist-p0.clean-diverged.name-status.txt",
+      "diffstat": "coordination/release-intake/archive/codex-A05-lesson-checklist-p0.clean-diverged.diffstat.txt",
+      "patch": "coordination/release-intake/archive/codex-A05-lesson-checklist-p0.clean-diverged.patch",
+      "patchBytes": 1,
+      "patchSha256": "01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b",
+      "status": "coordination/release-intake/archive/codex-A05-lesson-checklist-p0.clean-diverged.status.txt",
+      "untracked": "coordination/release-intake/archive/codex-A05-lesson-checklist-p0.clean-diverged.untracked.txt",
+      "prefix": "coordination/release-intake/archive/codex-A05-lesson-checklist-p0.clean-diverged",
+      "metadata": "coordination/release-intake/archive/codex-A05-lesson-checklist-p0.clean-diverged.metadata.json"
+    },
+    {
+      "branch": "codex/A05-lesson-closure",
+      "path": "/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A05-lesson-closure",
+      "lifecycleState": "dirty-active-review-required",
+      "head": "cef544e09bee8118ddcf3bf3005e570bdf4977e3",
+      "divergence": {
+        "behind": 2,
+        "ahead": 0
+      },
+      "statusEntries": 126,
+      "patchBytes": 270334,
+      "patchSha256": "6d7b34df4fe7c9a66f90fa4127ea1e118eba2de4c37b1d5e395e92427e5d81c7",
+      "untrackedEntries": 99,
+      "untrackedArchiveBytes": 36891268,
+      "untrackedArchiveSha256": "612c8344885e87eba541024b7a9e1301e3768ff00b587fdd8e4c1e2f72486699",
+      "prefix": "coordination/release-intake/archive/codex-A05-lesson-closure",
+      "archiveKind": "dirty-worktree"
+    },
+    {
+      "branch": "codex/A05-lesson-pep-load",
+      "path": "/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A05-lesson-pep-load",
+      "archiveKind": "clean-diverged-branch",
+      "head": "cef544e09bee8118ddcf3bf3005e570bdf4977e3",
+      "divergence": {
+        "behind": 2,
+        "ahead": 0
+      },
+      "statusEntries": 0,
+      "untrackedEntries": 0,
+      "aheadLog": "coordination/release-intake/archive/codex-A05-lesson-pep-load.clean-diverged.ahead-log.txt",
+      "nameStatus": "coordination/release-intake/archive/codex-A05-lesson-pep-load.clean-diverged.name-status.txt",
+      "diffstat": "coordination/release-intake/archive/codex-A05-lesson-pep-load.clean-diverged.diffstat.txt",
+      "patch": "coordination/release-intake/archive/codex-A05-lesson-pep-load.clean-diverged.patch",
+      "patchBytes": 1,
+      "patchSha256": "01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b",
+      "status": "coordination/release-intake/archive/codex-A05-lesson-pep-load.clean-diverged.status.txt",
+      "untracked": "coordination/release-intake/archive/codex-A05-lesson-pep-load.clean-diverged.untracked.txt",
+      "prefix": "coordination/release-intake/archive/codex-A05-lesson-pep-load.clean-diverged",
+      "metadata": "coordination/release-intake/archive/codex-A05-lesson-pep-load.clean-diverged.metadata.json"
+    },
+    {
+      "branch": "codex/A05-next-item-button-scroll",
+      "path": "/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A05-next-item-button-scroll",
+      "archiveKind": "clean-diverged-branch",
+      "head": "cef544e09bee8118ddcf3bf3005e570bdf4977e3",
+      "divergence": {
+        "behind": 2,
+        "ahead": 0
+      },
+      "statusEntries": 0,
+      "untrackedEntries": 0,
+      "aheadLog": "coordination/release-intake/archive/codex-A05-next-item-button-scroll.clean-diverged.ahead-log.txt",
+      "nameStatus": "coordination/release-intake/archive/codex-A05-next-item-button-scroll.clean-diverged.name-status.txt",
+      "diffstat": "coordination/release-intake/archive/codex-A05-next-item-button-scroll.clean-diverged.diffstat.txt",
+      "patch": "coordination/release-intake/archive/codex-A05-next-item-button-scroll.clean-diverged.patch",
+      "patchBytes": 1,
+      "patchSha256": "01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b",
+      "status": "coordination/release-intake/archive/codex-A05-next-item-button-scroll.clean-diverged.status.txt",
+      "untracked": "coordination/release-intake/archive/codex-A05-next-item-button-scroll.clean-diverged.untracked.txt",
+      "prefix": "coordination/release-intake/archive/codex-A05-next-item-button-scroll.clean-diverged",
+      "metadata": "coordination/release-intake/archive/codex-A05-next-item-button-scroll.clean-diverged.metadata.json"
+    },
+    {
+      "branch": "codex/A06-manim-three-closure",
+      "path": "/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A06-manim-three-closure",
+      "lifecycleState": "dirty-active-review-required",
+      "head": "cef544e09bee8118ddcf3bf3005e570bdf4977e3",
+      "divergence": {
+        "behind": 2,
+        "ahead": 0
+      },
+      "statusEntries": 351,
+      "patchBytes": 6113295,
+      "patchSha256": "6d9ed8eebaa08f07d76c7b7e6e056dd56818e3cdb17550570acd9e64308aef77",
+      "untrackedEntries": 288,
+      "untrackedArchiveBytes": 654248,
+      "untrackedArchiveSha256": "926101922b0dd92cabf2d130f4b787e5ca497571190963a4790bf93bd0ad0387",
+      "prefix": "coordination/release-intake/archive/codex-A06-manim-three-closure",
+      "archiveKind": "dirty-worktree"
+    },
+    {
+      "branch": "codex/A06-visualization-closure",
+      "path": "/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A06-visualization-closure",
+      "lifecycleState": "dirty-active-review-required",
+      "head": "cef544e09bee8118ddcf3bf3005e570bdf4977e3",
+      "divergence": {
+        "behind": 2,
+        "ahead": 0
+      },
+      "statusEntries": 437,
+      "patchBytes": 6139347,
+      "patchSha256": "b40c37c9240a9dcfc80aab7976af5ce3744024d16f75e1a1573d354f15f6124d",
+      "untrackedEntries": 373,
+      "untrackedArchiveBytes": 827197,
+      "untrackedArchiveSha256": "2b22e3ff83d220b0e9507199c71a279a5af3e1e10565803133442d680eefba81",
+      "prefix": "coordination/release-intake/archive/codex-A06-visualization-closure",
+      "archiveKind": "dirty-worktree"
+    },
+    {
+      "branch": "codex/A07-A15-A08-ai-adaptive-types",
+      "path": "/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A07-A15-A08-ai-adaptive-types",
+      "lifecycleState": "dirty-active-review-required",
+      "head": "cef544e09bee8118ddcf3bf3005e570bdf4977e3",
+      "divergence": {
+        "behind": 2,
+        "ahead": 0
+      },
+      "statusEntries": 30,
+      "patchBytes": 336825,
+      "patchSha256": "ef48fcc7f56eb7e2a5cfdfb601821290a1050c864e453f0ae612dd00758d3d78",
+      "untrackedEntries": 13,
+      "untrackedArchiveBytes": 15088,
+      "untrackedArchiveSha256": "af13861e23fb1f31c445595d619365a9b8c86b353ab01594a2a2d6018f151605",
+      "prefix": "coordination/release-intake/archive/codex-A07-A15-A08-ai-adaptive-types",
+      "archiveKind": "dirty-worktree"
+    },
+    {
+      "branch": "codex/A07-ai-tutor-classroom-switches",
+      "path": "/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A07-ai-tutor-classroom-switches",
+      "lifecycleState": "dirty-active-review-required",
+      "head": "cef544e09bee8118ddcf3bf3005e570bdf4977e3",
+      "divergence": {
+        "behind": 2,
+        "ahead": 0
+      },
+      "statusEntries": 82,
+      "patchBytes": 1275968,
+      "patchSha256": "19d87efac92c58f94960c3ca818d1ee1869152ddc600fb05a59f8386ac30ca9b",
+      "untrackedEntries": 70,
+      "untrackedArchiveBytes": 294925,
+      "untrackedArchiveSha256": "d73446b0eb83fd2246432e4fb64c1a239516723ed94e890a6c77a8b0ca6c197e",
+      "prefix": "coordination/release-intake/archive/codex-A07-ai-tutor-classroom-switches",
+      "archiveKind": "dirty-worktree"
+    },
+    {
+      "branch": "codex/A07-ai-tutor-closure",
+      "path": "/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A07-ai-tutor-closure",
+      "lifecycleState": "dirty-active-review-required",
+      "head": "cef544e09bee8118ddcf3bf3005e570bdf4977e3",
+      "divergence": {
+        "behind": 2,
+        "ahead": 0
+      },
+      "statusEntries": 12,
+      "patchBytes": 213630,
+      "patchSha256": "0efde82a877b25666e36960f32aae13e54f16721a2d3e6fd74ad7ed74fc42561",
+      "untrackedEntries": 7,
+      "untrackedArchiveBytes": 43089,
+      "untrackedArchiveSha256": "4443d7eda8308b1b7c9ae70e11dd2f1dbd42665ffe9a3e5fb39ef15b594ee962",
+      "prefix": "coordination/release-intake/archive/codex-A07-ai-tutor-closure",
+      "archiveKind": "dirty-worktree"
+    },
+    {
+      "branch": "codex/A08-A12-shared-contract-closure",
+      "path": "/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A08-A12-shared-contract-closure",
+      "lifecycleState": "dirty-active-review-required",
+      "head": "cef544e09bee8118ddcf3bf3005e570bdf4977e3",
+      "divergence": {
+        "behind": 2,
+        "ahead": 0
+      },
+      "statusEntries": 186,
+      "patchBytes": 1149306,
+      "patchSha256": "a0a067247ac4ca0e93e7a2d36bea70e52fff6076cd9ac9683789c4fd873eb39a",
+      "untrackedEntries": 140,
+      "untrackedArchiveBytes": 9226015,
+      "untrackedArchiveSha256": "234e7a1dbecfebb2644894c366fe5b0c571029e1fa12b7f3ce47290079a489ca",
+      "prefix": "coordination/release-intake/archive/codex-A08-A12-shared-contract-closure",
+      "archiveKind": "dirty-worktree"
+    },
+    {
+      "branch": "codex/A09-copy-i18n-accessibility-closure",
+      "path": "/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A09-copy-i18n-accessibility-closure",
+      "lifecycleState": "dirty-active-review-required",
+      "head": "cef544e09bee8118ddcf3bf3005e570bdf4977e3",
+      "divergence": {
+        "behind": 2,
+        "ahead": 0
+      },
+      "statusEntries": 5,
+      "patchBytes": 16661,
+      "patchSha256": "198c57a702a52a48395bf8d9b5aef8706595d7e55a29849c1842e7f48c809be9",
+      "untrackedEntries": 1,
+      "untrackedArchiveBytes": 4735,
+      "untrackedArchiveSha256": "bf57000fe133656bf9bbe159a91b734a598c6b6006a4d5fedc7f38fdfa8cac3a",
+      "prefix": "coordination/release-intake/archive/codex-A09-copy-i18n-accessibility-closure",
+      "archiveKind": "dirty-worktree"
+    },
+    {
+      "branch": "codex/A10-A22-A08-A12-A06-compose-20260628",
+      "path": "/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A10-A22-A08-A12-A06-compose-20260628",
+      "lifecycleState": "dirty-active-review-required",
+      "head": "f8143dab082575d321a00ac9e022bf5ef86fe2d2",
+      "divergence": {
+        "behind": 2,
+        "ahead": 2
+      },
+      "statusEntries": 954,
+      "patchBytes": 161272583,
+      "patchSha256": "0f5d6f290df9db70f9e4c7de8073e30ac3c08da070f95698b0d545222524d7ae",
+      "untrackedEntries": 498,
+      "untrackedArchiveBytes": 3217322,
+      "untrackedArchiveSha256": "697398219b13911793906beacdd1a2b6d8097a9be18edc058e28ccdc67960969",
+      "prefix": "coordination/release-intake/archive/codex-A10-A22-A08-A12-A06-compose-20260628",
+      "archiveKind": "dirty-worktree"
+    },
+    {
+      "branch": "codex/A10-A22-release-governance",
+      "path": "/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A10-A22-release-governance",
+      "archiveKind": "clean-diverged-branch",
+      "head": "f8143dab082575d321a00ac9e022bf5ef86fe2d2",
+      "divergence": {
+        "behind": 2,
+        "ahead": 2
+      },
+      "statusEntries": 0,
+      "untrackedEntries": 0,
+      "aheadLog": "coordination/release-intake/archive/codex-A10-A22-release-governance.clean-diverged.ahead-log.txt",
+      "nameStatus": "coordination/release-intake/archive/codex-A10-A22-release-governance.clean-diverged.name-status.txt",
+      "diffstat": "coordination/release-intake/archive/codex-A10-A22-release-governance.clean-diverged.diffstat.txt",
+      "patch": "coordination/release-intake/archive/codex-A10-A22-release-governance.clean-diverged.patch",
+      "patchBytes": 120497,
+      "patchSha256": "698c52f69aee11d86248a7ece92e950cca3e36100582694b59f4a4202d7805aa",
+      "status": "coordination/release-intake/archive/codex-A10-A22-release-governance.clean-diverged.status.txt",
+      "untracked": "coordination/release-intake/archive/codex-A10-A22-release-governance.clean-diverged.untracked.txt",
+      "prefix": "coordination/release-intake/archive/codex-A10-A22-release-governance.clean-diverged",
+      "metadata": "coordination/release-intake/archive/codex-A10-A22-release-governance.clean-diverged.metadata.json"
+    },
+    {
+      "branch": "codex/A11-fix-126-128-129",
+      "path": "/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A11-fix-126-128-129",
+      "lifecycleState": "dirty-active-review-required",
+      "head": "cef544e09bee8118ddcf3bf3005e570bdf4977e3",
+      "divergence": {
+        "behind": 2,
+        "ahead": 0
+      },
+      "statusEntries": 41,
+      "patchBytes": 164844,
+      "patchSha256": "0ebd8ae4290012666f647a48e5104898222178b3ea3f8e986fcfc8c28b431c5b",
+      "untrackedEntries": 32,
+      "untrackedArchiveBytes": 1722028,
+      "untrackedArchiveSha256": "ffbbeb6984f6fe6c4290d57c562ab81b13d960234fdc757284710df94d0c32ee",
+      "prefix": "coordination/release-intake/archive/codex-A11-fix-126-128-129",
+      "archiveKind": "dirty-worktree"
+    },
+    {
+      "branch": "codex/A11-regression-evidence-closure",
+      "path": "/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A11-regression-evidence-closure",
+      "lifecycleState": "dirty-active-review-required",
+      "head": "cef544e09bee8118ddcf3bf3005e570bdf4977e3",
+      "divergence": {
+        "behind": 2,
+        "ahead": 0
+      },
+      "statusEntries": 62,
+      "patchBytes": 411035,
+      "patchSha256": "7bdbd6bfdd1ebdd08d43d831c345a12bd3f38b7fc70d007d170e963e02946629",
+      "untrackedEntries": 27,
+      "untrackedArchiveBytes": 42623,
+      "untrackedArchiveSha256": "8b89575e57ceb6cab58e8bcf6fd816c210f976c87a1907b0c4480ed1ff32cb0f",
+      "prefix": "coordination/release-intake/archive/codex-A11-regression-evidence-closure",
+      "archiveKind": "dirty-worktree"
+    },
+    {
+      "branch": "codex/A12-google-oauth-login",
+      "path": "/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A12-google-oauth-login",
+      "lifecycleState": "dirty-active-review-required",
+      "head": "cef544e09bee8118ddcf3bf3005e570bdf4977e3",
+      "divergence": {
+        "behind": 2,
+        "ahead": 0
+      },
+      "statusEntries": 16,
+      "patchBytes": 17206,
+      "patchSha256": "71abe162d0e0e527c98ab51a00e9e2d6cb69a486547b552cecdf8a334ddf4838",
+      "untrackedEntries": 13,
+      "untrackedArchiveBytes": 18453,
+      "untrackedArchiveSha256": "7a19f93be3bab06af043c52707f28163107986302dd3aa8ee1fd12bff3f6a117",
+      "prefix": "coordination/release-intake/archive/codex-A12-google-oauth-login",
+      "archiveKind": "dirty-worktree"
+    },
+    {
+      "branch": "codex/A12-userstore-storage-contract",
+      "path": "/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A12-userstore-storage-contract",
+      "lifecycleState": "dirty-active-review-required",
+      "head": "cef544e09bee8118ddcf3bf3005e570bdf4977e3",
+      "divergence": {
+        "behind": 2,
+        "ahead": 0
+      },
+      "statusEntries": 170,
+      "patchBytes": 982194,
+      "patchSha256": "b8ba19fc028e5cb746b6493869081036dd6a1441086229cac48b354e283f8c53",
+      "untrackedEntries": 133,
+      "untrackedArchiveBytes": 9218265,
+      "untrackedArchiveSha256": "f8516a127fbf6b94b67b8bd53612eca3a5c745514cdb8c886eb99e53bbc7a38f",
+      "prefix": "coordination/release-intake/archive/codex-A12-userstore-storage-contract",
+      "archiveKind": "dirty-worktree"
+    },
+    {
+      "branch": "codex/A13-A14-console-closure",
+      "path": "/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A13-A14-console-closure",
+      "lifecycleState": "dirty-active-review-required",
+      "head": "cef544e09bee8118ddcf3bf3005e570bdf4977e3",
+      "divergence": {
+        "behind": 2,
+        "ahead": 0
+      },
+      "statusEntries": 43,
+      "patchBytes": 439744,
+      "patchSha256": "2fe79c84ca044787c3e741a853199033ea10ff685fe706d14496c539603656f6",
+      "untrackedEntries": 6,
+      "untrackedArchiveBytes": 9556,
+      "untrackedArchiveSha256": "d236c1c44500b2169c8b83be5c8f8f90f01844cdbaff2bc2c7c1057b5438ea45",
+      "prefix": "coordination/release-intake/archive/codex-A13-A14-console-closure",
+      "archiveKind": "dirty-worktree"
+    },
+    {
+      "branch": "codex/A14-profile-avatar-save",
+      "path": "/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/codex-A14-profile-avatar-save",
+      "lifecycleState": "dirty-active-review-required",
+      "head": "e909992b098ce7f8b57ca7f7ede6c97e50ccdc45",
+      "divergence": {
+        "behind": 1,
+        "ahead": 0
+      },
+      "statusEntries": 10,
+      "patchBytes": 37942,
+      "patchSha256": "114dfe93cde665d883fe34a2d21fa8368b593d982adebd48f3acc2c9692ddac4",
+      "untrackedEntries": 5,
+      "untrackedArchiveBytes": 6859,
+      "untrackedArchiveSha256": "d87046e59877e171f16564e8029e016bb2ceb88938805eb8422da2ef722cd7a5",
+      "prefix": "coordination/release-intake/archive/codex-A14-profile-avatar-save",
+      "archiveKind": "dirty-worktree"
+    },
+    {
+      "branch": "codex/A16-research-evidence-closure",
+      "path": "/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A16-research-evidence-closure",
+      "lifecycleState": "dirty-active-review-required",
+      "head": "cef544e09bee8118ddcf3bf3005e570bdf4977e3",
+      "divergence": {
+        "behind": 2,
+        "ahead": 0
+      },
+      "statusEntries": 6,
+      "patchBytes": 1,
+      "patchSha256": "01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b",
+      "untrackedEntries": 6,
+      "untrackedArchiveBytes": 41506,
+      "untrackedArchiveSha256": "1efeb137e220faa162a4f42ceb9fc5000748a498e89081b1997fbbcf1e098f10",
+      "prefix": "coordination/release-intake/archive/codex-A16-research-evidence-closure",
+      "archiveKind": "dirty-worktree"
+    },
+    {
+      "branch": "codex/A17-A20-game-motivation-closure",
+      "path": "/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A17-A20-game-motivation-closure",
+      "lifecycleState": "dirty-active-review-required",
+      "head": "cef544e09bee8118ddcf3bf3005e570bdf4977e3",
+      "divergence": {
+        "behind": 2,
+        "ahead": 0
+      },
+      "statusEntries": 21,
+      "patchBytes": 78190,
+      "patchSha256": "75a018567b00c82e466bc474035d4dbd759d8c7d4ab6658231ab37899778a111",
+      "untrackedEntries": 13,
+      "untrackedArchiveBytes": 11667648,
+      "untrackedArchiveSha256": "9750c776177ddf052938c3361a75cadb6375ff659ded101e66c4c9052967a2c3",
+      "prefix": "coordination/release-intake/archive/codex-A17-A20-game-motivation-closure",
+      "archiveKind": "dirty-worktree"
+    },
+    {
+      "branch": "codex/A18-A21-content-evidence-closure",
+      "path": "/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A18-A21-content-evidence-closure",
+      "lifecycleState": "dirty-active-review-required",
+      "head": "cef544e09bee8118ddcf3bf3005e570bdf4977e3",
+      "divergence": {
+        "behind": 2,
+        "ahead": 0
+      },
+      "statusEntries": 222,
+      "patchBytes": 7471822,
+      "patchSha256": "78851c7c27a3684d298c9f672f33c0a4aaf29d47d90fd91cb4f2173de39c7dfa",
+      "untrackedEntries": 155,
+      "untrackedArchiveBytes": 13079066,
+      "untrackedArchiveSha256": "34c9dcfef2eaddc2fe29d838ac5dc8a92896e68fdf8afc1e9cd986ff86e02a42",
+      "prefix": "coordination/release-intake/archive/codex-A18-A21-content-evidence-closure",
+      "archiveKind": "dirty-worktree"
+    },
+    {
+      "branch": "codex/A19-vercel-postgres-region",
+      "path": "/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A19-vercel-postgres-region",
+      "archiveKind": "clean-diverged-branch",
+      "head": "28aa4d5eaf306c169864e2bc3cebc2153fad0c90",
+      "divergence": {
+        "behind": 2,
+        "ahead": 8
+      },
+      "statusEntries": 0,
+      "untrackedEntries": 0,
+      "aheadLog": "coordination/release-intake/archive/codex-A19-vercel-postgres-region.clean-diverged.ahead-log.txt",
+      "nameStatus": "coordination/release-intake/archive/codex-A19-vercel-postgres-region.clean-diverged.name-status.txt",
+      "diffstat": "coordination/release-intake/archive/codex-A19-vercel-postgres-region.clean-diverged.diffstat.txt",
+      "patch": "coordination/release-intake/archive/codex-A19-vercel-postgres-region.clean-diverged.patch",
+      "patchBytes": 41973,
+      "patchSha256": "a6e12ba27ca002f7f7873c0529908734031ea1c312372a7124f61536efb6f8a7",
+      "status": "coordination/release-intake/archive/codex-A19-vercel-postgres-region.clean-diverged.status.txt",
+      "untracked": "coordination/release-intake/archive/codex-A19-vercel-postgres-region.clean-diverged.untracked.txt",
+      "prefix": "coordination/release-intake/archive/codex-A19-vercel-postgres-region.clean-diverged",
+      "metadata": "coordination/release-intake/archive/codex-A19-vercel-postgres-region.clean-diverged.metadata.json"
+    },
+    {
+      "branch": "codex/A22-missing-module-release-slice",
+      "path": "/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A22-missing-module-release-slice",
+      "lifecycleState": "dirty-active-review-required",
+      "head": "cef544e09bee8118ddcf3bf3005e570bdf4977e3",
+      "divergence": {
+        "behind": 2,
+        "ahead": 0
+      },
+      "statusEntries": 1017,
+      "patchBytes": 10663571,
+      "patchSha256": "0fa3074e9a326feed754719194e19ea6f5e0ce309435a6408826484fb84faa00",
+      "untrackedEntries": 679,
+      "untrackedArchiveBytes": 7390577,
+      "untrackedArchiveSha256": "361eef496592fa9ea4bd7cdd4262bd69e489ee6bf75902b25002240863192d63",
+      "prefix": "coordination/release-intake/archive/codex-A22-missing-module-release-slice",
+      "archiveKind": "dirty-worktree"
+    },
+    {
+      "branch": "codex/A22-next-15-5-19-audit",
+      "path": "/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A22-next-15-5-19-audit",
+      "lifecycleState": "dirty-active-review-required",
+      "head": "cef544e09bee8118ddcf3bf3005e570bdf4977e3",
+      "divergence": {
+        "behind": 2,
+        "ahead": 0
+      },
+      "statusEntries": 4,
+      "patchBytes": 7433,
+      "patchSha256": "88e9d37285417958acb0ba81d47833e1be4f79a00f02eea97f41d9cbf78f1552",
+      "untrackedEntries": 2,
+      "untrackedArchiveBytes": 2479,
+      "untrackedArchiveSha256": "b719957396069137f7c8c69af42702bc445402ddcc85823270788a5b6fb8e1ee",
+      "prefix": "coordination/release-intake/archive/codex-A22-next-15-5-19-audit",
+      "archiveKind": "dirty-worktree"
+    },
+    {
+      "branch": "codex/A22-p1-release-hygiene-security",
+      "path": "/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A22-p1-release-hygiene-security",
+      "lifecycleState": "dirty-active-review-required",
+      "head": "cef544e09bee8118ddcf3bf3005e570bdf4977e3",
+      "divergence": {
+        "behind": 2,
+        "ahead": 0
+      },
+      "statusEntries": 27,
+      "patchBytes": 24203,
+      "patchSha256": "493ff240e4bec61dfe4589ac9925dda86919a6dcd086a73dde155cd521b0cb6a",
+      "untrackedEntries": 22,
+      "untrackedArchiveBytes": 39426,
+      "untrackedArchiveSha256": "a467cf1032b99fa0254ae4099fd39692684d7d8971dd9c12b95b60817805143a",
+      "prefix": "coordination/release-intake/archive/codex-A22-p1-release-hygiene-security",
+      "archiveKind": "dirty-worktree"
+    },
+    {
+      "branch": "codex/A22-us-region-alignment",
+      "path": "/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A22-us-region-alignment",
+      "lifecycleState": "dirty-active-review-required",
+      "head": "80b8546af59def9ea4c91fa4b8a892973874504d",
+      "divergence": {
+        "behind": 2,
+        "ahead": 1
+      },
+      "statusEntries": 7,
+      "patchBytes": 55348,
+      "patchSha256": "7a6d07129dc8e61870c30eff3abfaa5d5d709d8c253b108d4d096f005744e4cb",
+      "untrackedEntries": 5,
+      "untrackedArchiveBytes": 21633,
+      "untrackedArchiveSha256": "a5d9c593a13ae7acd42976c583cb7a9d28a991a59be51e215739d456f1d3aac9",
+      "prefix": "coordination/release-intake/archive/codex-A22-us-region-alignment",
+      "archiveKind": "dirty-worktree"
+    },
+    {
+      "branch": "codex/A25-ci-backup-workflow",
+      "path": "/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A25-ci-backup-workflow",
+      "archiveKind": "clean-diverged-branch",
+      "head": "e909992b098ce7f8b57ca7f7ede6c97e50ccdc45",
+      "divergence": {
+        "behind": 1,
+        "ahead": 0
+      },
+      "statusEntries": 0,
+      "untrackedEntries": 0,
+      "aheadLog": "coordination/release-intake/archive/codex-A25-ci-backup-workflow.clean-diverged.ahead-log.txt",
+      "nameStatus": "coordination/release-intake/archive/codex-A25-ci-backup-workflow.clean-diverged.name-status.txt",
+      "diffstat": "coordination/release-intake/archive/codex-A25-ci-backup-workflow.clean-diverged.diffstat.txt",
+      "patch": "coordination/release-intake/archive/codex-A25-ci-backup-workflow.clean-diverged.patch",
+      "patchBytes": 1,
+      "patchSha256": "01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b",
+      "status": "coordination/release-intake/archive/codex-A25-ci-backup-workflow.clean-diverged.status.txt",
+      "untracked": "coordination/release-intake/archive/codex-A25-ci-backup-workflow.clean-diverged.untracked.txt",
+      "prefix": "coordination/release-intake/archive/codex-A25-ci-backup-workflow.clean-diverged",
+      "metadata": "coordination/release-intake/archive/codex-A25-ci-backup-workflow.clean-diverged.metadata.json"
+    },
+    {
+      "branch": "codex/A25-dirty-closure-governance",
+      "path": "/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A25-dirty-closure-governance",
+      "lifecycleState": "dirty-active-review-required",
+      "head": "cef544e09bee8118ddcf3bf3005e570bdf4977e3",
+      "divergence": {
+        "behind": 2,
+        "ahead": 0
+      },
+      "statusEntries": 1012,
+      "patchBytes": 349200,
+      "patchSha256": "0fef3f4c58c4a1d744a951379d8d7b3efe92cccd14f95580ba74926c6f40b472",
+      "untrackedEntries": 990,
+      "untrackedArchiveBytes": 23016654,
+      "untrackedArchiveSha256": "848e3611e6a9dc84aff57c41ace1ba2d10bee01539abc641b5e97006269fc075",
+      "prefix": "coordination/release-intake/archive/codex-A25-dirty-closure-governance",
+      "archiveKind": "dirty-worktree"
+    },
+    {
+      "branch": "codex/A25-full-dirty-compose-verification",
+      "path": "/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A25-full-dirty-compose-verification",
+      "lifecycleState": "dirty-active-review-required",
+      "head": "cef544e09bee8118ddcf3bf3005e570bdf4977e3",
+      "divergence": {
+        "behind": 2,
+        "ahead": 0
+      },
+      "statusEntries": 2423,
+      "patchBytes": 17433348,
+      "patchSha256": "c787e0258480a24f031e189b3e46a65149ee93182eea1a9739484a3742ea3c2c",
+      "untrackedEntries": 2033,
+      "untrackedArchiveBytes": 116389090,
+      "untrackedArchiveSha256": "b2dec4668c196d09f19c2f5626f1328bde2eea54c27b8877fc801c70244972c1",
+      "prefix": "coordination/release-intake/archive/codex-A25-full-dirty-compose-verification",
+      "archiveKind": "dirty-worktree"
+    },
+    {
+      "branch": "codex/california-practice-beta-clean",
+      "path": "/Users/dongpinhu/Desktop/MAIS-MVP-worktrees/MAIS-MVP-california-practice-beta-clean",
+      "archiveKind": "clean-diverged-branch",
+      "head": "fb6776be92ca341044282558a7f7e3ce7c57edf5",
+      "divergence": {
+        "behind": 14,
+        "ahead": 1
+      },
+      "statusEntries": 0,
+      "untrackedEntries": 0,
+      "aheadLog": "coordination/release-intake/archive/codex-california-practice-beta-clean.clean-diverged.ahead-log.txt",
+      "nameStatus": "coordination/release-intake/archive/codex-california-practice-beta-clean.clean-diverged.name-status.txt",
+      "diffstat": "coordination/release-intake/archive/codex-california-practice-beta-clean.clean-diverged.diffstat.txt",
+      "patch": "coordination/release-intake/archive/codex-california-practice-beta-clean.clean-diverged.patch",
+      "patchBytes": 9603220,
+      "patchSha256": "8c0b48d4bcd8622a04ca1e46361ddd66f163ef41e30b772805cde67bf216c741",
+      "status": "coordination/release-intake/archive/codex-california-practice-beta-clean.clean-diverged.status.txt",
+      "untracked": "coordination/release-intake/archive/codex-california-practice-beta-clean.clean-diverged.untracked.txt",
+      "prefix": "coordination/release-intake/archive/codex-california-practice-beta-clean.clean-diverged",
+      "metadata": "coordination/release-intake/archive/codex-california-practice-beta-clean.clean-diverged.metadata.json"
+    },
+    {
+      "branch": "codex/s22-release-hygiene-2026-06-15",
+      "path": "/Users/dongpinhu/Desktop/MAIS-MVP-worktrees/s22-release-hygiene-2026-06-15",
+      "archiveKind": "clean-diverged-branch",
+      "head": "6fc558bd1db17d7024279b82e1be4007ee18ca1a",
+      "divergence": {
+        "behind": 14,
+        "ahead": 1
+      },
+      "statusEntries": 0,
+      "untrackedEntries": 0,
+      "aheadLog": "coordination/release-intake/archive/codex-s22-release-hygiene-2026-06-15.clean-diverged.ahead-log.txt",
+      "nameStatus": "coordination/release-intake/archive/codex-s22-release-hygiene-2026-06-15.clean-diverged.name-status.txt",
+      "diffstat": "coordination/release-intake/archive/codex-s22-release-hygiene-2026-06-15.clean-diverged.diffstat.txt",
+      "patch": "coordination/release-intake/archive/codex-s22-release-hygiene-2026-06-15.clean-diverged.patch",
+      "patchBytes": 55209,
+      "patchSha256": "53e60a3b9d2c9a07e735107e450af54dafc5d4719adc427eecf09ab1f9fe58d0",
+      "status": "coordination/release-intake/archive/codex-s22-release-hygiene-2026-06-15.clean-diverged.status.txt",
+      "untracked": "coordination/release-intake/archive/codex-s22-release-hygiene-2026-06-15.clean-diverged.untracked.txt",
+      "prefix": "coordination/release-intake/archive/codex-s22-release-hygiene-2026-06-15.clean-diverged",
+      "metadata": "coordination/release-intake/archive/codex-s22-release-hygiene-2026-06-15.clean-diverged.metadata.json"
+    },
+    {
+      "branch": "codex/visualization-production-release",
+      "path": "/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/visualization-production-release",
+      "lifecycleState": "dirty-active-review-required",
+      "head": "11f79d4f16ee044f476dee3668fe82ea699ea532",
+      "divergence": {
+        "behind": 14,
+        "ahead": 0
+      },
+      "statusEntries": 16,
+      "patchBytes": 19929,
+      "patchSha256": "4a006b909a4f517a2385ea8ee2917d3a00d53b9f6055a28ae2b0339c0a35c8ca",
+      "untrackedEntries": 15,
+      "untrackedArchiveBytes": 216523,
+      "untrackedArchiveSha256": "e3ef647f8de5973f244cdff100fd469d34c2c65212d0567979e6fce78959fc69",
+      "prefix": "coordination/release-intake/archive/codex-visualization-production-release",
+      "archiveKind": "dirty-worktree"
+    }
+  ]
+}

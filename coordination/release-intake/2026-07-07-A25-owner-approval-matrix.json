@@ -1,0 +1,182 @@
+{
+  "generatedAt": "2026-07-07T15:59:26.496Z",
+  "dirtyMapStatusSignature": "21bf7897e245ce5bceb31315d088e7024d2e12aa53a9a098945ea69c3440b015",
+  "ledgerDirtyMapStatusSignature": "21bf7897e245ce5bceb31315d088e7024d2e12aa53a9a098945ea69c3440b015",
+  "requestIndexDirtyMapStatusSignature": "21bf7897e245ce5bceb31315d088e7024d2e12aa53a9a098945ea69c3440b015",
+  "runbookDirtyMapStatusSignature": "21bf7897e245ce5bceb31315d088e7024d2e12aa53a9a098945ea69c3440b015",
+  "approvalSelectionRecordedAt": "2026-06-26T11:11:01Z",
+  "approvalSelectionSource": "user message selecting final states",
+  "expandedStatusEntries": 5728,
+  "rowCount": 4,
+  "pendingApprovalCount": 0,
+  "rows": [
+    {
+      "id": "root-dirty-packages",
+      "title": "Root dirty package closure",
+      "status": "approved-evidence-archive",
+      "approvalStatus": "approved",
+      "accountableOwners": [
+        "A25",
+        "A10",
+        "all effective owner work orders"
+      ],
+      "allowedFinalStates": [
+        "reviewed commit",
+        "owner-approved discard",
+        "evidence archive",
+        "blocker"
+      ],
+      "selectedFinalState": "evidence archive",
+      "approvedBy": "owner via Codex thread",
+      "approvedAt": "2026-06-26T11:11:01Z",
+      "ownerDecision": "Owner selected conservative non-destructive evidence archive final state.",
+      "evidenceLinks": [
+        "coordination/release-intake/latest-A25-owner-approval-selection.md"
+      ],
+      "requestPacket": "coordination/release-intake/latest-A25-lifecycle-decision-request-root-dirty-packages.md",
+      "closureRunbook": "coordination/release-intake/latest-A25-lifecycle-closure-runbook.md",
+      "relatedWorkOrders": [
+        "coordination/release-intake/latest-A25-effective-work-order-a25-git-hygiene-and-release-intake.md",
+        "coordination/release-intake/latest-A25-effective-work-order-a22-production-reliability-and-release-engineering.md",
+        "coordination/release-intake/latest-A25-effective-work-order-a06-visualization-lead.md",
+        "coordination/release-intake/latest-A25-effective-work-order-a12-backend-api-platform.md",
+        "coordination/release-intake/latest-A25-effective-work-order-a11-qa-and-release-quality.md",
+        "coordination/release-intake/latest-A25-effective-work-order-a10-tooling-docs-and-report.md",
+        "coordination/release-intake/latest-A25-effective-work-order-a05-lesson-lead.md",
+        "coordination/release-intake/latest-A25-effective-work-order-a21-content-pipeline-and-rag-operations.md",
+        "coordination/release-intake/latest-A25-effective-work-order-a04-practice-lead.md",
+        "coordination/release-intake/latest-A25-effective-work-order-a03-curriculum-roadmap-lead.md",
+        "coordination/release-intake/latest-A25-effective-work-order-a18-curriculum-qa-a21-content-pipeline.md",
+        "coordination/release-intake/latest-A25-effective-work-order-a13-teacher-console.md",
+        "coordination/release-intake/latest-A25-effective-work-order-a01-app-shell-lead.md",
+        "coordination/release-intake/latest-A25-effective-work-order-a02-dashboard-lead.md",
+        "coordination/release-intake/latest-A25-effective-work-order-a20-game-design-and-game-based-learning.md",
+        "coordination/release-intake/latest-A25-effective-work-order-a07-ai-tutor-lead.md",
+        "coordination/release-intake/latest-A25-effective-work-order-a08-state-and-analytics-lead.md",
+        "coordination/release-intake/latest-A25-effective-work-order-a15-adaptive-engine-lead.md",
+        "coordination/release-intake/latest-A25-effective-work-order-a14-parent-console.md",
+        "coordination/release-intake/latest-A25-effective-work-order-a24-illustration-exact-layer.md",
+        "coordination/release-intake/latest-A25-effective-work-order-a09-copy-i18n-accessibility.md",
+        "coordination/release-intake/latest-A25-effective-work-order-a17-gamification-and-motivation.md",
+        "coordination/release-intake/latest-A25-effective-work-order-a23-integration-and-promotion-lead.md"
+      ],
+      "finalVerificationRequired": [
+        "Refresh A25 dirty map and dependent artifacts.",
+        "Run normal A25 gates.",
+        "Run strict lifecycle, decision-ledger, decision-request, and closure-runbook gates.",
+        "Confirm this decision no longer appears as pending."
+      ]
+    },
+    {
+      "id": "dirty-visualization-production-release",
+      "title": "Dirty visualization production-release worktree",
+      "status": "approved-evidence-archive-with-worktree-removal-blocker",
+      "approvalStatus": "approved",
+      "accountableOwners": [
+        "A06",
+        "A22",
+        "A10"
+      ],
+      "allowedFinalStates": [
+        "reviewed package",
+        "owner-approved discard",
+        "evidence archive with worktree removal blocker",
+        "blocker"
+      ],
+      "selectedFinalState": "evidence archive with worktree removal blocker",
+      "approvedBy": "owner via Codex thread",
+      "approvedAt": "2026-06-26T11:11:01Z",
+      "ownerDecision": "Owner selected conservative non-destructive evidence archive with worktree removal blocker final state.",
+      "evidenceLinks": [
+        "coordination/release-intake/latest-A25-owner-approval-selection.md"
+      ],
+      "requestPacket": "coordination/release-intake/latest-A25-lifecycle-decision-request-dirty-visualization-production-release.md",
+      "closureRunbook": "coordination/release-intake/latest-A25-lifecycle-closure-runbook.md",
+      "relatedWorkOrders": [
+        "coordination/release-intake/latest-A25-effective-work-order-a22-production-reliability-and-release-engineering.md",
+        "coordination/release-intake/latest-A25-effective-work-order-a06-visualization-lead.md",
+        "coordination/release-intake/latest-A25-effective-work-order-a10-tooling-docs-and-report.md"
+      ],
+      "finalVerificationRequired": [
+        "Refresh A25 dirty map and dependent artifacts.",
+        "Run normal A25 gates.",
+        "Run strict lifecycle, decision-ledger, decision-request, and closure-runbook gates.",
+        "Confirm this decision no longer appears as pending."
+      ]
+    },
+    {
+      "id": "california-practice-beta-clean",
+      "title": "Clean diverged California practice beta worktree",
+      "status": "approved-archive-tag",
+      "approvalStatus": "approved",
+      "accountableOwners": [
+        "A21",
+        "A18",
+        "A04",
+        "A22"
+      ],
+      "allowedFinalStates": [
+        "PR candidate",
+        "archive tag",
+        "owner-approved branch retirement",
+        "blocker"
+      ],
+      "selectedFinalState": "archive tag",
+      "approvedBy": "owner via Codex thread",
+      "approvedAt": "2026-06-26T11:11:01Z",
+      "ownerDecision": "Owner selected conservative non-destructive archive tag final state. A25 records this as an archive-state approval and does not create a Git tag without separate explicit tag instruction.",
+      "evidenceLinks": [
+        "coordination/release-intake/latest-A25-owner-approval-selection.md"
+      ],
+      "requestPacket": "coordination/release-intake/latest-A25-lifecycle-decision-request-california-practice-beta-clean.md",
+      "closureRunbook": "coordination/release-intake/latest-A25-lifecycle-closure-runbook.md",
+      "relatedWorkOrders": [
+        "coordination/release-intake/latest-A25-effective-work-order-a22-production-reliability-and-release-engineering.md",
+        "coordination/release-intake/latest-A25-effective-work-order-a21-content-pipeline-and-rag-operations.md",
+        "coordination/release-intake/latest-A25-effective-work-order-a04-practice-lead.md",
+        "coordination/release-intake/latest-A25-effective-work-order-a18-curriculum-qa-a21-content-pipeline.md"
+      ],
+      "finalVerificationRequired": [
+        "Refresh A25 dirty map and dependent artifacts.",
+        "Run normal A25 gates.",
+        "Run strict lifecycle, decision-ledger, decision-request, and closure-runbook gates.",
+        "Confirm this decision no longer appears as pending."
+      ]
+    },
+    {
+      "id": "s22-release-hygiene-2026-06-15",
+      "title": "Clean diverged S22 release-hygiene worktree",
+      "status": "approved-archive-tag",
+      "approvalStatus": "approved",
+      "accountableOwners": [
+        "A22",
+        "A10"
+      ],
+      "allowedFinalStates": [
+        "PR candidate",
+        "archive tag",
+        "owner-approved branch retirement",
+        "blocker"
+      ],
+      "selectedFinalState": "archive tag",
+      "approvedBy": "owner via Codex thread",
+      "approvedAt": "2026-06-26T11:11:01Z",
+      "ownerDecision": "Owner selected conservative non-destructive archive tag final state. A25 records this as an archive-state approval and does not create a Git tag without separate explicit tag instruction.",
+      "evidenceLinks": [
+        "coordination/release-intake/latest-A25-owner-approval-selection.md"
+      ],
+      "requestPacket": "coordination/release-intake/latest-A25-lifecycle-decision-request-s22-release-hygiene-2026-06-15.md",
+      "closureRunbook": "coordination/release-intake/latest-A25-lifecycle-closure-runbook.md",
+      "relatedWorkOrders": [
+        "coordination/release-intake/latest-A25-effective-work-order-a22-production-reliability-and-release-engineering.md",
+        "coordination/release-intake/latest-A25-effective-work-order-a10-tooling-docs-and-report.md"
+      ],
+      "finalVerificationRequired": [
+        "Refresh A25 dirty map and dependent artifacts.",
+        "Run normal A25 gates.",
+        "Run strict lifecycle, decision-ledger, decision-request, and closure-runbook gates.",
+        "Confirm this decision no longer appears as pending."
+      ]
+    }
+  ]
+}

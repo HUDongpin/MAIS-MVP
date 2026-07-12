@@ -2,7 +2,8 @@
 
 import Link from "next/link";
 import { useSettings } from "@/components/providers/AppProviders";
-import { formatGradeLabel, localeForLanguage } from "@/lib/i18n";
+import { formatGradeLabel } from "@/lib/i18n";
+import { formatDateInHongKong } from "@/lib/utils";
 import type { Language, LocalizedText, TeacherActionQueueItem, TeacherDashboardData, TeacherMasteryHeatmapCell } from "@/types";
 
 function formatPercent(value: number) {
@@ -10,12 +11,12 @@ function formatPercent(value: number) {
 }
 
 function formatDateTime(value: string, language: Language) {
-  return new Intl.DateTimeFormat(localeForLanguage(language), {
+  return formatDateInHongKong(value, language, {
     month: "short",
     day: "numeric",
     hour: "2-digit",
     minute: "2-digit"
-  }).format(new Date(value));
+  });
 }
 
 function heatmapTone(value: number) {
@@ -38,10 +39,12 @@ function actionTypeLabel(type: TeacherActionQueueItem["type"]): LocalizedText {
   const labels: Record<TeacherActionQueueItem["type"], LocalizedText> = {
     "overdue-assignment": { en: "Overdue", zh: "逾期" },
     "pending-grading": { en: "Grade", zh: "批改" },
+    "pending-correction-review": { en: "Correction", zh: "訂正" },
+    "overdue-correction": { en: "Overdue correction", zh: "逾期訂正" },
     "unreplied-message": { en: "Reply", zh: "回覆" },
     "consecutive-mistakes": { en: "Mistakes", zh: "連錯" },
     "inactive-student": { en: "Inactive", zh: "低活躍" },
-    "high-ai-tutor": { en: "AI Tutor", zh: "AI Tutor" }
+    "high-ai-tutor": { en: "AI Tutor", zh: "AI Tutor", zhHans: "AI Tutor" }
   };
 
   return labels[type];
@@ -106,8 +109,54 @@ function ActionQueueItem({ item }: { item: TeacherActionQueueItem }) {
   );
 }
 
+function enterpriseTone(tone: "cyan" | "emerald" | "amber" | "rose" | "violet" | "slate") {
+  const tones = {
+    cyan: "border-cyan-300/55 bg-cyan-400/12 text-cyan-800 dark:text-cyan-100",
+    emerald: "border-emerald-300/55 bg-emerald-400/12 text-emerald-800 dark:text-emerald-100",
+    amber: "border-amber-300/55 bg-amber-400/12 text-amber-800 dark:text-amber-100",
+    rose: "border-rose-300/55 bg-rose-400/12 text-rose-800 dark:text-rose-100",
+    violet: "border-violet-300/55 bg-violet-400/12 text-violet-800 dark:text-violet-100",
+    slate: "border-slate-200/80 bg-white/70 text-slate-700 dark:border-white/10 dark:bg-white/[0.07] dark:text-slate-200"
+  };
+  return tones[tone];
+}
+
+function EnterpriseWorkflowCard({
+  eyebrow,
+  title,
+  detail,
+  signal,
+  href,
+  cta,
+  tone
+}: {
+  eyebrow: string;
+  title: string;
+  detail: string;
+  signal: string;
+  href: string;
+  cta: string;
+  tone: "cyan" | "emerald" | "amber" | "rose" | "violet" | "slate";
+}) {
+  return (
+    <Link href={href} className="focus-ring glass-panel flex min-h-[196px] min-w-0 flex-col justify-between p-5 transition hover:-translate-y-0.5 hover:shadow-glow">
+      <div className="min-w-0">
+        <div className="flex flex-wrap items-center justify-between gap-2">
+          <p className="break-words text-xs font-black uppercase tracking-[0.14em] text-slate-500 dark:text-slate-400">{eyebrow}</p>
+          <span className={`rounded-full border px-3 py-1 text-xs font-black ${enterpriseTone(tone)}`}>{signal}</span>
+        </div>
+        <h2 className="mt-4 break-words text-xl font-black text-slate-950 dark:text-white">{title}</h2>
+        <p className="mt-2 break-words text-sm leading-6 text-slate-600 dark:text-slate-300">{detail}</p>
+      </div>
+      <p className="mt-5 text-sm font-black text-cyan-700 dark:text-cyan-200">{cta}</p>
+    </Link>
+  );
+}
+
 export function TeacherDashboardView({ dashboard }: { dashboard: TeacherDashboardData }) {
   const { language, t } = useSettings();
+  const classCount = dashboard.classSummaries.length;
+  const atRiskStudents = dashboard.kpis.atRiskStudents;
   const kpis = [
     {
       label: t({ en: "Pending grading", zh: "待批改提交" }),
@@ -116,10 +165,22 @@ export function TeacherDashboardView({ dashboard }: { dashboard: TeacherDashboar
       href: "/teacher/assignments?filter=grading"
     },
     {
+      label: t({ en: "Correction review", zh: "訂正覆核" }),
+      value: dashboard.kpis.pendingCorrectionReview,
+      detail: t({ en: "Returned corrections waiting for a second review", zh: "學生已重交、等待教師覆核" }),
+      href: "/teacher/assignments?filter=correction-review"
+    },
+    {
+      label: t({ en: "Needs correction", zh: "需訂正" }),
+      value: dashboard.kpis.correctionsRequired,
+      detail: t({ en: "Students currently working on teacher-requested corrections", zh: "學生正在處理教師退回訂正" }),
+      href: "/teacher/assignments?filter=correction-required"
+    },
+    {
       label: t({ en: "Unreplied messages", zh: "未回覆留言" }),
       value: dashboard.kpis.unrepliedMessages,
       detail: t({ en: "Open student questions and private messages", zh: "未解決學生提問與私信" }),
-      href: "/teacher/inbox?filter=open"
+      href: "/teacher/communications/inbox?filter=open"
     },
     {
       label: t({ en: "Weekly completion", zh: "本週作業完成率" }),
@@ -131,7 +192,63 @@ export function TeacherDashboardView({ dashboard }: { dashboard: TeacherDashboar
       label: t({ en: "Needs attention", zh: "需要關注學生" }),
       value: dashboard.kpis.atRiskStudents,
       detail: t({ en: "Low mastery, repeated errors, inactivity, or heavy tutor usage", zh: "低掌握、連續錯題、低活躍或頻繁求助" }),
-      href: "/teacher/classes?filter=attention"
+      href: "/teacher/analytics"
+    }
+  ];
+  const enterpriseWorkflows = [
+    {
+      eyebrow: t({ en: "Plan", zh: "備課" }),
+      title: t({ en: "Build a lesson kit", zh: "建立備課包" }),
+      detail: t({ en: "Prepare lesson plan, guide, slides, board design, examples, practice, and homework for the selected class.", zh: "為指定班級準備教案、導學案、課件、板書、例題、練習與作業。" }),
+      signal: t({ en: `${classCount} classes`, zh: `${classCount} 個班級` }),
+      href: "/teacher/lesson-kits/new",
+      cta: t({ en: "Open prep center", zh: "進入備課中心" }),
+      tone: "cyan" as const
+    },
+    {
+      eyebrow: t({ en: "Teach", zh: "授課" }),
+      title: t({ en: "Run live classroom", zh: "啟動課堂模式" }),
+      detail: t({ en: "Start a class check, share the student-facing prompt, and control presenter or mobile classroom screens.", zh: "發起課堂檢查，分享學生端任務，並控制大屏或移動控課頁。" }),
+      signal: t({ en: "Live", zh: "即時" }),
+      href: "/teacher/classroom-sessions",
+      cta: t({ en: "Start classroom", zh: "開始課堂" }),
+      tone: "emerald" as const
+    },
+    {
+      eyebrow: t({ en: "Assess", zh: "測評" }),
+      title: t({ en: "Create assessment", zh: "建立測驗" }),
+      detail: t({ en: "Assemble manual, imported, bank, or AI-assisted questions and publish them to the class workflow.", zh: "組合手動、批量、題庫或 AI 輔助題目，發布到班級流程。" }),
+      signal: t({ en: `${dashboard.kpis.pendingGrading} to grade`, zh: `${dashboard.kpis.pendingGrading} 待批改` }),
+      href: "/teacher/assessments/new",
+      cta: t({ en: "Create quiz or test", zh: "建立測驗或考試" }),
+      tone: "amber" as const
+    },
+    {
+      eyebrow: t({ en: "Intervene", zh: "干預" }),
+      title: t({ en: "Act on learning risk", zh: "處理學習風險" }),
+      detail: t({ en: "Review mastery gaps, open follow-ups, and set teacher targets before the next assignment cycle.", zh: "查看掌握度缺口、建立跟進，並在下一輪作業前設定教師目標。" }),
+      signal: t({ en: `${atRiskStudents} students`, zh: `${atRiskStudents} 位學生` }),
+      href: "/teacher/analytics",
+      cta: t({ en: "Open analytics", zh: "查看學習分析" }),
+      tone: atRiskStudents > 0 ? "rose" as const : "slate" as const
+    },
+    {
+      eyebrow: t({ en: "Communicate", zh: "家校" }),
+      title: t({ en: "Send notice receipts", zh: "發送通知回執" }),
+      detail: t({ en: "Create school notices, record WeCom delivery attempts, and track parent or student acknowledgements.", zh: "建立校務通知，記錄企業微信發送，追蹤家長或學生回執。" }),
+      signal: t({ en: `${dashboard.kpis.unrepliedMessages} open`, zh: `${dashboard.kpis.unrepliedMessages} 未回覆` }),
+      href: "/teacher/operations/notices",
+      cta: t({ en: "Open operations", zh: "進入校務落地" }),
+      tone: "violet" as const
+    },
+    {
+      eyebrow: t({ en: "Close", zh: "結算" }),
+      title: t({ en: "Save reports and archive", zh: "保存報告與歸檔" }),
+      detail: t({ en: "Export bilingual reports, preserve term snapshots, and keep audit-ready class records.", zh: "匯出雙語報告，保存學期快照，維持可審計的班級記錄。" }),
+      signal: t({ en: "Audit-ready", zh: "可審計" }),
+      href: "/teacher/operations/term-archives",
+      cta: t({ en: "Archive term", zh: "學期歸檔" }),
+      tone: "slate" as const
     }
   ];
 
@@ -156,6 +273,27 @@ export function TeacherDashboardView({ dashboard }: { dashboard: TeacherDashboar
           <p className="rounded-full border border-slate-200/80 bg-white/75 px-4 py-2 text-xs font-black text-slate-500 dark:border-white/10 dark:bg-white/[0.07] dark:text-slate-300">
             {t({ en: "Updated", zh: "更新" })} {formatDateTime(dashboard.generatedAt, language)}
           </p>
+        </div>
+      </section>
+
+      <section>
+        <div className="mb-4 flex flex-wrap items-end justify-between gap-3">
+          <div>
+            <p className="text-sm font-black uppercase tracking-[0.22em] text-cyan-600 dark:text-cyan-300">
+              {t({ en: "Enterprise workflow", zh: "企業級工作流" })}
+            </p>
+            <h2 className="mt-2 text-2xl font-black text-slate-950 dark:text-white">
+              {t({ en: "Run the teaching operation", zh: "跑通教師營運閉環" })}
+            </h2>
+          </div>
+          <Link href="/teacher/operations/notices" className="focus-ring rounded-full border border-slate-200/80 bg-white/75 px-5 py-3 text-sm font-black text-slate-700 transition hover:-translate-y-0.5 dark:border-white/10 dark:bg-white/[0.07] dark:text-slate-200">
+            {t({ en: "Operations console", zh: "校務工作台" })}
+          </Link>
+        </div>
+        <div className="grid gap-4 md:grid-cols-2 2xl:grid-cols-3">
+          {enterpriseWorkflows.map((workflow) => (
+            <EnterpriseWorkflowCard key={workflow.href} {...workflow} />
+          ))}
         </div>
       </section>
 

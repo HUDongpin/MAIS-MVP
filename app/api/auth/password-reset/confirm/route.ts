@@ -1,6 +1,11 @@
 import { NextResponse } from "next/server";
+import {
+  authRateLimitRules,
+  consumeAuthRateLimit,
+  withAuthRouteJsonBoundary
+} from "@/lib/server/authRouteGuards";
 import { sessionSecretMissingResponse, setSessionCookie } from "@/lib/server/sessionCookie";
-import { resetUserPassword } from "@/lib/server/userStore";
+import { resetUserPassword } from "@/lib/server/userStore/auth";
 
 export const runtime = "nodejs";
 
@@ -9,6 +14,10 @@ function isRecord(value: unknown): value is Record<string, unknown> {
 }
 
 export async function POST(request: Request) {
+  return withAuthRouteJsonBoundary("auth-password-reset-confirm", () => handlePasswordResetConfirm(request));
+}
+
+async function handlePasswordResetConfirm(request: Request) {
   let body: unknown;
   try {
     body = await request.json();
@@ -25,6 +34,21 @@ export async function POST(request: Request) {
   if (!token || password.length < 5) {
     return NextResponse.json({ error: "A reset token and a password of at least 5 characters are required." }, { status: 400 });
   }
+
+  const ipRateLimit = consumeAuthRateLimit({
+    request,
+    scope: "password-reset-confirm-ip",
+    rule: authRateLimitRules.passwordResetConfirmIp
+  });
+  if (ipRateLimit) return ipRateLimit;
+
+  const tokenRateLimit = consumeAuthRateLimit({
+    request,
+    scope: "password-reset-confirm-token",
+    subject: token,
+    rule: authRateLimitRules.passwordResetConfirmToken
+  });
+  if (tokenRateLimit) return tokenRateLimit;
 
   const result = await resetUserPassword(token, password);
   if (result.status !== "reset") {

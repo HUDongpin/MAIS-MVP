@@ -1,0 +1,534 @@
+<!doctype html>
+<html lang="zh-Hans">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>PEP Primary Roadmap Metro Preview V2</title>
+    <style>
+      :root {
+        color-scheme: light;
+        --ink: #0f172a;
+        --muted: #334155;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        min-height: 100vh;
+        display: grid;
+        place-items: center;
+        background:
+          radial-gradient(circle at 52% 45%, rgba(148, 163, 184, 0.2), transparent 38%),
+          linear-gradient(135deg, #f8fbff 0%, #eef5fb 58%, #f8fafc 100%);
+        font-family: Inter, "PingFang SC", "Microsoft YaHei", "Noto Sans CJK SC", Arial, sans-serif;
+      }
+
+      .preview-shell {
+        width: 2048px;
+        height: 1180px;
+        overflow: hidden;
+        background:
+          radial-gradient(circle at 58% 42%, rgba(125, 211, 252, 0.18), transparent 38%),
+          linear-gradient(135deg, #fbfdff 0%, #edf6fd 62%, #ffffff 100%);
+      }
+
+      svg {
+        display: block;
+        width: 2048px;
+        height: 1180px;
+      }
+
+      .title-zh {
+        fill: var(--ink);
+        font-size: 48px;
+        font-weight: 950;
+        letter-spacing: 0;
+      }
+
+      .title-en {
+        fill: #334155;
+        font-size: 22px;
+        font-weight: 760;
+      }
+
+      .logo {
+        filter: drop-shadow(0 10px 16px rgba(15, 23, 42, 0.18));
+      }
+
+      .panel {
+        fill: rgba(255, 255, 255, 0.86);
+        stroke: rgba(148, 163, 184, 0.62);
+        stroke-width: 2px;
+        filter: drop-shadow(0 18px 30px rgba(15, 23, 42, 0.14));
+      }
+
+      .panel-title {
+        fill: var(--ink);
+        font-size: 18px;
+        font-weight: 920;
+      }
+
+      .panel-small {
+        fill: #0f172a;
+        font-size: 15px;
+        font-weight: 850;
+      }
+
+      .panel-mini {
+        fill: #475569;
+        font-size: 12px;
+        font-weight: 720;
+      }
+
+      .line-swatch {
+        stroke-width: 13px;
+        stroke-linecap: round;
+        filter: drop-shadow(0 3px 3px rgba(15, 23, 42, 0.18));
+      }
+
+      .grade-chip rect {
+        fill: url(#chipGradient);
+        stroke: #ffffff;
+        stroke-width: 4px;
+        filter: drop-shadow(0 9px 10px rgba(15, 23, 42, 0.34));
+      }
+
+      .grade-chip text {
+        fill: #ffffff;
+        font-size: 28px;
+        font-weight: 950;
+      }
+
+      .route-shadow {
+        fill: none;
+        stroke: rgba(15, 23, 42, 0.26);
+        stroke-width: 24px;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+      }
+
+      .route-casing {
+        fill: none;
+        stroke: #ffffff;
+        stroke-width: 19px;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+      }
+
+      .route-color {
+        fill: none;
+        stroke-width: 11px;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+      }
+
+      .route-gloss {
+        fill: none;
+        stroke: rgba(255, 255, 255, 0.82);
+        stroke-width: 3px;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+      }
+
+      .station-outer {
+        fill: #ffffff;
+        stroke: #ffffff;
+        stroke-width: 7px;
+      }
+
+      .station-ring {
+        fill: #f8fafc;
+        stroke: #1f2937;
+        stroke-width: 5px;
+      }
+
+      .station-transfer .station-ring {
+        stroke-width: 7px;
+      }
+
+      .station-dot {
+        fill: currentColor;
+      }
+
+      .station-label rect {
+        fill: rgba(255, 255, 255, 0.92);
+        stroke: #1f2937;
+        stroke-width: 1.7px;
+        filter: drop-shadow(0 5px 7px rgba(15, 23, 42, 0.18));
+      }
+
+      .station-label .zh {
+        fill: #0f172a;
+        font-size: 16px;
+        font-weight: 920;
+      }
+
+      .station-label .en {
+        fill: #475569;
+        font-size: 10px;
+        font-weight: 760;
+      }
+
+      .terrain-top {
+        stroke: rgba(47, 105, 26, 0.24);
+        stroke-width: 1.5px;
+      }
+
+      .terrain-side-a {
+        fill: url(#cliffA);
+      }
+
+      .terrain-side-b {
+        fill: url(#cliffB);
+      }
+
+      .district-label {
+        fill: rgba(15, 23, 42, 0.62);
+        font-size: 24px;
+        font-weight: 950;
+      }
+
+      .compass-text {
+        fill: #0f172a;
+        font-size: 17px;
+        font-weight: 820;
+      }
+    </style>
+  </head>
+  <body>
+    <main class="preview-shell" aria-label="人教版小学数学拟物化地铁图预实施效果图 V2">
+      <svg viewBox="0 0 2048 1180" role="img" aria-labelledby="title desc">
+        <title id="title">人教版小学数学地铁图 V2</title>
+        <desc id="desc">拟物化等距岛屿地形，每个年级三条路线，站点不重叠。</desc>
+        <defs>
+          <linearGradient id="chipGradient" x1="0" x2="1" y1="0" y2="1">
+            <stop offset="0" stop-color="#111827" />
+            <stop offset="1" stop-color="#020617" />
+          </linearGradient>
+          <linearGradient id="grassA" x1="0" x2="1" y1="0" y2="1">
+            <stop offset="0" stop-color="#a3e635" />
+            <stop offset="0.48" stop-color="#65c83c" />
+            <stop offset="1" stop-color="#2f9f45" />
+          </linearGradient>
+          <linearGradient id="grassB" x1="0" x2="1" y1="0" y2="1">
+            <stop offset="0" stop-color="#f9d47f" />
+            <stop offset="0.38" stop-color="#9ad846" />
+            <stop offset="1" stop-color="#35a852" />
+          </linearGradient>
+          <linearGradient id="cliffA" x1="0" x2="0" y1="0" y2="1">
+            <stop offset="0" stop-color="#c87825" />
+            <stop offset="0.62" stop-color="#9a541e" />
+            <stop offset="1" stop-color="#743814" />
+          </linearGradient>
+          <linearGradient id="cliffB" x1="0" x2="0" y1="0" y2="1">
+            <stop offset="0" stop-color="#efaa4a" />
+            <stop offset="0.55" stop-color="#b56826" />
+            <stop offset="1" stop-color="#834116" />
+          </linearGradient>
+          <linearGradient id="water" x1="0" x2="0" y1="0" y2="1">
+            <stop offset="0" stop-color="#38bdf8" />
+            <stop offset="0.55" stop-color="#0284c7" />
+            <stop offset="1" stop-color="#075985" />
+          </linearGradient>
+          <radialGradient id="shadowPool" cx="50%" cy="50%" r="50%">
+            <stop offset="0" stop-color="rgba(15,23,42,.24)" />
+            <stop offset="1" stop-color="rgba(15,23,42,0)" />
+          </radialGradient>
+          <filter id="mapShadow" x="-20%" y="-20%" width="140%" height="150%">
+            <feDropShadow dx="0" dy="28" stdDeviation="24" flood-color="#0f172a" flood-opacity="0.22" />
+          </filter>
+          <filter id="soft" x="-30%" y="-30%" width="160%" height="160%">
+            <feDropShadow dx="0" dy="8" stdDeviation="8" flood-color="#0f172a" flood-opacity="0.18" />
+          </filter>
+        </defs>
+
+        <rect width="2048" height="1180" fill="transparent" />
+        <ellipse cx="1120" cy="880" rx="820" ry="190" fill="url(#shadowPool)" opacity="0.72" />
+
+        <g transform="translate(42 58)">
+          <g class="logo">
+            <rect width="82" height="82" rx="15" fill="#dc2626" />
+            <path d="M15 68 L15 15 L30 15 L41 45 L52 15 L67 15 L67 68 L53 68 L53 40 L46 59 L36 59 L29 40 L29 68 Z" fill="#ffffff" />
+          </g>
+          <text x="106" y="44" class="title-zh">人教版小学地铁图</text>
+          <text x="108" y="82" class="title-en">PEP Primary Wonderland Metro Map</text>
+        </g>
+
+        <g transform="translate(46 174)">
+          <line x1="0" y1="20" x2="82" y2="20" class="line-swatch" stroke="#2daa26" />
+          <text x="112" y="17" class="panel-title">主线</text>
+          <text x="180" y="17" class="panel-small">P1-P6 年级路线</text>
+          <text x="112" y="40" class="panel-mini">Grade Spine</text>
+          <line x1="0" y1="102" x2="82" y2="102" class="line-swatch" stroke="#0ea5e9" />
+          <text x="112" y="98" class="panel-title">1号线</text>
+          <text x="208" y="98" class="panel-small">数感模型线</text>
+          <text x="112" y="122" class="panel-mini">Number & Model Line</text>
+          <line x1="0" y1="184" x2="82" y2="184" class="line-swatch" stroke="#ef4444" />
+          <text x="112" y="180" class="panel-title">2号线</text>
+          <text x="208" y="180" class="panel-small">运算推理线</text>
+          <text x="112" y="204" class="panel-mini">Operations Line</text>
+          <line x1="0" y1="266" x2="82" y2="266" class="line-swatch" stroke="#f59e0b" />
+          <text x="112" y="262" class="panel-title">3号线</text>
+          <text x="208" y="262" class="panel-small">几何应用线</text>
+          <text x="112" y="286" class="panel-mini">Geometry & Application Line</text>
+        </g>
+
+        <g transform="translate(1620 70)">
+          <circle cx="22" cy="22" r="20" fill="#f8fafc" stroke="#1f2937" stroke-width="3" />
+          <path d="M22 8 L22 23 L33 29" fill="none" stroke="#1f2937" stroke-width="3" stroke-linecap="round" />
+          <text x="62" y="22" class="panel-title">运营时间 06:00 - 23:30</text>
+          <text x="62" y="48" class="panel-mini">Service Hours</text>
+          <rect x="2" y="92" width="40" height="34" rx="7" fill="#334155" />
+          <circle cx="12" cy="132" r="4" fill="#334155" />
+          <circle cx="32" cy="132" r="4" fill="#334155" />
+          <text x="62" y="108" class="panel-title">换乘站点</text>
+          <text x="62" y="132" class="panel-mini">Transfer Station</text>
+          <path d="M22 172 L43 208 L1 208 Z" fill="#ef4444" stroke="#b91c1c" stroke-width="3" />
+          <circle cx="22" cy="196" r="5" fill="#ffffff" />
+          <text x="62" y="190" class="panel-title">地标景点</text>
+          <text x="62" y="214" class="panel-mini">Landmark</text>
+        </g>
+
+        <g id="terrain" filter="url(#mapShadow)"></g>
+        <g id="decor"></g>
+        <g id="routes"></g>
+        <g id="stations"></g>
+        <g id="labels"></g>
+        <g id="chips"></g>
+
+        <g transform="translate(74 892)">
+          <rect class="panel" width="260" height="188" rx="14" />
+          <text x="28" y="38" class="panel-title">图例 Legend</text>
+          <circle cx="48" cy="78" r="13" fill="#ffffff" stroke="#1f2937" stroke-width="4" />
+          <text x="84" y="78" class="panel-small">普通站点</text>
+          <text x="84" y="98" class="panel-mini">Station</text>
+          <circle cx="48" cy="126" r="16" fill="#ffffff" stroke="#1f2937" stroke-width="6" />
+          <text x="84" y="126" class="panel-small">换乘站点</text>
+          <text x="84" y="146" class="panel-mini">Transfer Station</text>
+          <path d="M48 154 L64 184 L32 184 Z" fill="#ef4444" stroke="#b91c1c" stroke-width="3" />
+          <circle cx="48" cy="174" r="4" fill="#ffffff" />
+          <text x="84" y="174" class="panel-small">地标景点</text>
+          <text x="84" y="194" class="panel-mini">Landmark</text>
+        </g>
+
+        <g transform="translate(1794 904)">
+          <circle cx="80" cy="80" r="60" fill="rgba(255,255,255,.72)" stroke="#0f172a" stroke-width="3" />
+          <path d="M80 3 L96 80 L80 157 L64 80 Z" fill="#f8fafc" stroke="#0f172a" stroke-width="3" />
+          <path d="M3 80 L80 64 L157 80 L80 96 Z" fill="#e2e8f0" stroke="#0f172a" stroke-width="3" />
+          <path d="M80 35 L91 80 L80 125 L69 80 Z" fill="#0f172a" />
+          <text x="80" y="-18" text-anchor="middle" class="compass-text">N</text>
+          <text x="80" y="190" text-anchor="middle" class="compass-text">S</text>
+          <text x="-25" y="86" text-anchor="middle" class="compass-text">W</text>
+          <text x="186" y="86" text-anchor="middle" class="compass-text">E</text>
+        </g>
+
+        <script>
+          const svg = document.currentScript.ownerSVGElement;
+          const ns = "http://www.w3.org/2000/svg";
+          const terrainLayer = svg.querySelector("#terrain");
+          const decorLayer = svg.querySelector("#decor");
+          const routeLayer = svg.querySelector("#routes");
+          const stationLayer = svg.querySelector("#stations");
+          const labelLayer = svg.querySelector("#labels");
+          const chipLayer = svg.querySelector("#chips");
+
+          const routeColors = {
+            spine: "#2daa26",
+            model: "#0ea5e9",
+            ops: "#ef4444",
+            geo: "#f59e0b"
+          };
+
+          const blocks = [
+            { cx: 520, cy: 610, w: 430, h: 260, z: 165, top: "url(#grassA)" },
+            { cx: 705, cy: 430, w: 410, h: 250, z: 185, top: "url(#grassB)" },
+            { cx: 960, cy: 315, w: 440, h: 270, z: 210, top: "url(#grassA)" },
+            { cx: 1190, cy: 470, w: 440, h: 260, z: 180, top: "url(#grassB)" },
+            { cx: 1410, cy: 650, w: 440, h: 270, z: 170, top: "url(#grassA)" },
+            { cx: 1600, cy: 835, w: 450, h: 270, z: 155, top: "url(#grassB)" }
+          ];
+
+          const grades = [
+            {
+              id: "P1",
+              hub: [480, 620],
+              chip: [440, 548],
+              district: [365, 440, "数感启蒙岛"],
+              branches: [
+                { kind: "model", name: "20以内数感", en: "Numbers within 20", pts: [[480,620],[405,560],[330,620],[318,730]], label: [205, 708] },
+                { kind: "ops", name: "100以内加减", en: "Addition and subtraction", pts: [[480,620],[520,540],[558,450],[582,358]], label: [582, 306] },
+                { kind: "geo", name: "图形位置整时", en: "Shapes, position, time", pts: [[480,620],[480,720],[565,805],[690,860]], label: [630, 874] }
+              ]
+            },
+            {
+              id: "P2",
+              hub: [710, 455],
+              chip: [684, 374],
+              district: [610, 290, "乘除基础区"],
+              branches: [
+                { kind: "model", name: "长度角观察", en: "Length, angles, views", pts: [[710,455],[635,390],[620,315],[690,248]], label: [555, 214] },
+                { kind: "ops", name: "表内乘法", en: "Arrays and facts", pts: [[710,455],[775,388],[810,302],[818,238]], label: [792, 194] },
+                { kind: "geo", name: "除法与余数", en: "Division route", pts: [[710,455],[660,528],[610,615],[522,682]], label: [394, 658] }
+              ]
+            },
+            {
+              id: "P3",
+              hub: [965, 360],
+              chip: [936, 286],
+              district: [930, 168, "测量与小数岭"],
+              branches: [
+                { kind: "model", name: "年月日测量", en: "Time and measure", pts: [[965,360],[900,292],[888,212],[962,160]], label: [894, 108] },
+                { kind: "ops", name: "多位数运算", en: "Multi-digit operations", pts: [[965,360],[1042,312],[1098,238],[1150,226]], label: [1142, 188] },
+                { kind: "geo", name: "面积与小数", en: "Area and decimals", pts: [[965,360],[970,462],[910,532],[872,620]], label: [748, 610] }
+              ]
+            },
+            {
+              id: "P4",
+              hub: [1190, 500],
+              chip: [1154, 420],
+              district: [1230, 318, "几何语言台"],
+              branches: [
+                { kind: "model", name: "大数乘法", en: "Large numbers", pts: [[1190,500],[1134,426],[1120,318],[1208,258]], label: [1176, 214] },
+                { kind: "ops", name: "小数平均数", en: "Decimals and average", pts: [[1190,500],[1252,430],[1328,374],[1394,414]], label: [1370, 356] },
+                { kind: "geo", name: "角度与图形", en: "Angles and geometry", pts: [[1190,500],[1204,596],[1120,666],[1036,706]], label: [910, 696] }
+              ]
+            },
+            {
+              id: "P5",
+              hub: [1400, 680],
+              chip: [1362, 602],
+              district: [1376, 520, "方程应用湾"],
+              branches: [
+                { kind: "model", name: "多边形面积", en: "Polygon area", pts: [[1400,680],[1340,590],[1302,506],[1326,450]], label: [1218, 404] },
+                { kind: "ops", name: "方程与小数", en: "Equations line", pts: [[1400,680],[1464,612],[1538,560],[1614,614]], label: [1574, 540] },
+                { kind: "geo", name: "因数与分数", en: "Factors and fractions", pts: [[1400,680],[1390,780],[1290,832],[1218,818]], label: [1068, 804] }
+              ]
+            },
+            {
+              id: "P6",
+              hub: [1600, 835],
+              chip: [1558, 758],
+              district: [1510, 1032, "升学衔接区"],
+              branches: [
+                { kind: "model", name: "百分数与数据", en: "Percent and data", pts: [[1600,835],[1512,760],[1482,670],[1538,620]], label: [1442, 582] },
+                { kind: "ops", name: "比与比例尺", en: "Ratio and scale", pts: [[1600,835],[1645,754],[1732,720],[1818,760]], label: [1780, 714] },
+                { kind: "geo", name: "负数总复习", en: "Transition review", pts: [[1600,835],[1588,930],[1490,982],[1390,950]], label: [1244, 950] }
+              ]
+            }
+          ];
+
+          function el(name, attrs = {}, parent) {
+            const node = document.createElementNS(ns, name);
+            Object.entries(attrs).forEach(([key, value]) => node.setAttribute(key, value));
+            if (parent) parent.appendChild(node);
+            return node;
+          }
+
+          function pointsToString(points) {
+            return points.map((point) => point.join(",")).join(" ");
+          }
+
+          function drawBlock({ cx, cy, w, h, z, top }) {
+            const topPts = [[cx, cy - h / 2], [cx + w / 2, cy], [cx, cy + h / 2], [cx - w / 2, cy]];
+            const rightPts = [[cx + w / 2, cy], [cx, cy + h / 2], [cx, cy + h / 2 + z], [cx + w / 2, cy + z]];
+            const leftPts = [[cx - w / 2, cy], [cx, cy + h / 2], [cx, cy + h / 2 + z], [cx - w / 2, cy + z]];
+            el("polygon", { points: pointsToString(leftPts), class: "terrain-side-a" }, terrainLayer);
+            el("polygon", { points: pointsToString(rightPts), class: "terrain-side-b" }, terrainLayer);
+            el("polygon", { points: pointsToString(topPts), class: "terrain-top", fill: top }, terrainLayer);
+            for (let i = 0; i < 9; i += 1) {
+              const sx = cx - w * 0.28 + i * (w / 13);
+              const sy = cy - h * 0.12 + ((i * 31) % 70);
+              el("path", {
+                d: `M ${sx} ${sy} l 48 -24 l 62 34 l -48 24 Z`,
+                fill: i % 3 === 0 ? "rgba(255,234,177,.72)" : "rgba(84,152,36,.22)"
+              }, terrainLayer);
+            }
+          }
+
+          function pathD(points) {
+            return points.map((point, index) => `${index === 0 ? "M" : "L"} ${point[0]} ${point[1]}`).join(" ");
+          }
+
+          function drawRoute(points, color, isSpine = false) {
+            const d = pathD(points);
+            el("path", { d, class: "route-shadow" }, routeLayer);
+            el("path", { d, class: "route-casing", "stroke-width": isSpine ? 21 : 19 }, routeLayer);
+            el("path", { d, class: "route-color", stroke: color, "stroke-width": isSpine ? 13 : 11 }, routeLayer);
+            el("path", { d, class: "route-gloss" }, routeLayer);
+          }
+
+          function drawStation(x, y, color, transfer = false) {
+            const group = el("g", { transform: `translate(${x} ${y})`, class: transfer ? "station-transfer" : "", style: `color:${color}` }, stationLayer);
+            el("circle", { cx: 0, cy: 0, r: transfer ? 21 : 17, class: "station-outer" }, group);
+            el("circle", { cx: 0, cy: 0, r: transfer ? 17 : 13, class: "station-ring" }, group);
+            el("circle", { cx: 0, cy: 0, r: transfer ? 6 : 4.5, class: "station-dot" }, group);
+          }
+
+          function drawLabel(x, y, zh, en) {
+            const group = el("g", { transform: `translate(${x} ${y})`, class: "station-label" }, labelLayer);
+            el("rect", { width: 150, height: 50, rx: 8 }, group);
+            const zhText = el("text", { x: 12, y: 21, class: "zh" }, group);
+            zhText.textContent = zh;
+            const enText = el("text", { x: 12, y: 39, class: "en" }, group);
+            enText.textContent = en;
+          }
+
+          function drawGradeChip(id, x, y) {
+            const group = el("g", { transform: `translate(${x} ${y})`, class: "grade-chip" }, chipLayer);
+            el("rect", { width: 58, height: 58, rx: 12 }, group);
+            const text = el("text", { x: 29, y: 39, "text-anchor": "middle" }, group);
+            text.textContent = id;
+          }
+
+          function drawDecorations() {
+            el("path", { d: "M 1020 372 C 1080 410 1100 468 1072 532 C 1040 602 1060 668 1130 710 L 1220 690 C 1160 640 1148 578 1180 508 C 1210 444 1175 390 1108 358 Z", fill: "url(#water)", opacity: 0.88 }, decorLayer);
+            el("path", { d: "M 1084 514 C 1112 570 1110 638 1086 700", fill: "none", stroke: "#7dd3fc", "stroke-width": 34, "stroke-linecap": "round", opacity: 0.7 }, decorLayer);
+            el("path", { d: "M 1084 514 C 1112 570 1110 638 1086 700", fill: "none", stroke: "#e0f2fe", "stroke-width": 8, "stroke-linecap": "round", opacity: 0.78 }, decorLayer);
+
+            const rocks = [[602,330],[840,210],[1194,334],[1530,532],[1670,910],[438,760],[1308,754]];
+            rocks.forEach(([x, y], i) => {
+              el("polygon", { points: `${x},${y-16} ${x+28},${y} ${x+8},${y+18} ${x-22},${y+5}`, fill: i % 2 ? "#a8a29e" : "#cbd5e1", stroke: "#64748b", "stroke-width": 1.2, filter: "url(#soft)" }, decorLayer);
+            });
+
+            const trees = [[380,630],[430,590],[690,512],[1258,390],[1324,456],[1508,650],[1658,732]];
+            trees.forEach(([x, y]) => {
+              el("rect", { x: x - 5, y: y + 16, width: 10, height: 32, fill: "#7c2d12" }, decorLayer);
+              el("circle", { cx: x, cy: y, r: 24, fill: "#46a635", filter: "url(#soft)" }, decorLayer);
+              el("circle", { cx: x + 22, cy: y + 4, r: 18, fill: "#33a852" }, decorLayer);
+            });
+
+            [[655,500],[1360,732],[1608,574]].forEach(([x, y]) => {
+              el("path", { d: `M ${x} ${y-34} L ${x+20} ${y+4} L ${x-20} ${y+4} Z`, fill: "#ef4444", stroke: "#b91c1c", "stroke-width": 3, filter: "url(#soft)" }, decorLayer);
+              el("circle", { cx: x, cy: y - 8, r: 5, fill: "#ffffff" }, decorLayer);
+            });
+
+            el("path", { d: "M 1510 884 C 1542 850 1580 850 1616 886 L 1588 944 L 1538 944 Z", fill: "#f59e0b", stroke: "#b45309", "stroke-width": 4, filter: "url(#soft)" }, decorLayer);
+            el("circle", { cx: 1564, cy: 892, r: 15, fill: "#0284c7" }, decorLayer);
+          }
+
+          blocks.forEach(drawBlock);
+          drawDecorations();
+
+          drawRoute(grades.map((grade) => grade.hub), routeColors.spine, true);
+          grades.forEach((grade) => {
+            grade.branches.forEach((branch) => drawRoute(branch.pts, routeColors[branch.kind]));
+          });
+
+          grades.forEach((grade) => {
+            drawStation(grade.hub[0], grade.hub[1], routeColors.spine, true);
+            grade.branches.forEach((branch) => {
+              branch.pts.slice(1).forEach(([x, y], index) => drawStation(x, y, routeColors[branch.kind], index === 1));
+              drawLabel(branch.label[0], branch.label[1], branch.name, branch.en);
+            });
+            drawGradeChip(grade.id, grade.chip[0], grade.chip[1]);
+            const text = el("text", { x: grade.district[0], y: grade.district[1], class: "district-label" }, labelLayer);
+            text.textContent = grade.district[2];
+          });
+        </script>
+      </svg>
+    </main>
+  </body>
+</html>

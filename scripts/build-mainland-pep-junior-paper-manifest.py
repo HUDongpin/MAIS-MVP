@@ -42,22 +42,24 @@ UNIT_SIGNAL_CHECKS = [
     ("有理数", ["有理数", "正数", "负数", "数轴", "相反数", "绝对值"]),
     ("整式加减", ["整式", "代数式", "同类项", "去括号", "合并同类项"]),
     ("一元一次方程", ["一元一次方程", "等式", "列方程"]),
+    ("相交线与平行线", ["相交线", "平行线", "两条直线", "垂直", "对顶角", "邻补角", "同位角", "内错角", "同旁内角"]),
+    ("定义命题定理", ["定义、命题、定理", "命题与定理", "定义与命题", "真命题", "假命题"]),
+    ("平移", ["平移"]),
     ("几何图形", ["几何图形", "线段", "射线", "直线", "角的", "点线面体"]),
-    ("相交线与平行线", ["相交线", "平行线", "对顶角", "邻补角", "同位角", "内错角", "同旁内角"]),
-    ("实数", ["实数", "平方根", "立方根", "无理数", "算术平方根"]),
+    ("实数", ["实数", "实数及其简单运算", "平方根", "立方根", "无理数", "算术平方根"]),
     ("平面直角坐标系", ["平面直角坐标系", "坐标系", "坐标", "象限", "有序数对"]),
     ("二元一次方程组", ["二元一次方程组", "方程组", "消元", "代入法", "加减法"]),
     ("不等式", ["不等式", "不等式组", "解集"]),
-    ("数据收集整理", ["数据", "统计", "调查", "抽样", "频数", "统计图"]),
+    ("数据分析", ["数据分析", "数据的分析", "平均数", "中位数", "众数", "方差"]),
+    ("数据收集整理", ["数据收集", "数据的收集", "统计", "调查", "抽样", "频数", "统计图"]),
     ("三角形", ["三角形", "全等三角形", "角平分线", "垂直平分线"]),
     ("轴对称", ["轴对称", "等腰三角形", "等边三角形"]),
     ("整式乘法与因式分解", ["整式乘法", "乘法公式", "因式分解"]),
     ("分式", ["分式", "分式方程"]),
-    ("二次根式", ["二次根式", "平方根"]),
+    ("二次根式", ["二次根式"]),
     ("勾股定理", ["勾股定理", "直角三角形"]),
-    ("四边形", ["平行四边形", "矩形", "菱形", "正方形"]),
+    ("四边形", ["四边形", "平行四边形", "矩形", "菱形", "正方形"]),
     ("一次函数", ["一次函数", "函数图象", "待定系数"]),
-    ("数据分析", ["平均数", "中位数", "众数", "方差", "数据分析"]),
     ("一元二次方程", ["一元二次方程", "配方法", "公式法", "判别式", "根与系数"]),
     ("二次函数", ["二次函数", "抛物线", "顶点", "对称轴"]),
     ("旋转", ["旋转", "中心对称", "图形变换"]),
@@ -128,6 +130,11 @@ def sha256_for_zip_entry(archive: ZipFile, info: ZipInfo) -> str:
     return digest.hexdigest()
 
 
+def context_text_for_zip_path(zip_path: Path) -> str:
+    parts = [part for part in zip_path.parts[-4:] if part]
+    return " ".join(parts)
+
+
 def infer_grade(text: str) -> str:
     for grade, markers in JUNIOR_GRADE_MARKERS:
         if any(marker in text for marker in markers):
@@ -146,7 +153,7 @@ def infer_semester(text: str) -> str:
 def material_kinds_for(name: str) -> list[str]:
     checks = [
         ("unit-test", ["单元检测", "单元测试", "单元卷", "测试卷", "测评", "达标", "基础测试", "提高测试", "月考"]),
-        ("sync-practice", ["同步练习", "同步小练", "课时练习", "课时", "随堂", "小练", "基础训练"]),
+        ("sync-practice", ["同步练习", "同步小练", "课时练习", "课时", "随堂", "小练", "基础训练", "导学案", "作业"]),
         ("topic-practice", ["专项练习", "专项训练", "专题训练", "专题", "专项"]),
         ("tiered-practice", ["分层练习", "分层", "梯度", "培优"]),
         ("midterm-final", ["期中", "期末"]),
@@ -191,7 +198,13 @@ def archive_root_and_group(name: str) -> tuple[str, str]:
     return root, root
 
 
-def classify_archive_entry(zip_path: Path, archive: ZipFile, archive_hash: str, info: ZipInfo) -> tuple[dict[str, object] | None, dict[str, object] | None]:
+def classify_archive_entry(
+    zip_path: Path,
+    archive: ZipFile,
+    archive_hash: str,
+    info: ZipInfo,
+    archive_context: str,
+) -> tuple[dict[str, object] | None, dict[str, object] | None]:
     decoded_name = decode_zip_name(info.filename)
     if is_ignored_entry(decoded_name) or decoded_name.endswith("/"):
         return None, None
@@ -206,7 +219,7 @@ def classify_archive_entry(zip_path: Path, archive: ZipFile, archive_hash: str, 
         }
 
     root, top_group = archive_root_and_group(decoded_name)
-    searchable = f"{zip_path.name} {decoded_name}"
+    searchable = f"{archive_context} {zip_path.name} {decoded_name}"
     grade = infer_grade(searchable)
     semester = infer_semester(searchable)
     return {
@@ -296,6 +309,16 @@ def coverage(entries: list[dict[str, object]], expected_slots: list[str]) -> dic
     }
 
 
+def apply_single_expected_slot_fallback(entry: dict[str, object], expected_slots: list[str]) -> None:
+    if len(expected_slots) != 1:
+        return
+    grade, semester = expected_slots[0].split(":", 1)
+    if entry.get("grade") == "unknown":
+        entry["grade"] = grade
+    if entry.get("semester") == "unknown":
+        entry["semester"] = semester
+
+
 def archive_scope_counts(entries: list[dict[str, object]]) -> dict[str, object]:
     archives: dict[str, list[dict[str, object]]] = {}
     for entry in entries:
@@ -325,6 +348,7 @@ def build_manifest(zip_paths: list[Path], expected_slots: list[str] | None = Non
         if not zip_path.exists():
             raise FileNotFoundError(f"Archive not found: {zip_path}")
         archive_hash = sha256_for_path(zip_path)
+        archive_context = context_text_for_zip_path(zip_path)
         archive_entry_count = 0
         archive_file_count = 0
         archive_ignored_count = 0
@@ -340,8 +364,9 @@ def build_manifest(zip_paths: list[Path], expected_slots: list[str] | None = Non
                 if decoded_name.endswith("/"):
                     continue
                 archive_file_count += 1
-                entry, ignored = classify_archive_entry(zip_path, archive, archive_hash, info)
+                entry, ignored = classify_archive_entry(zip_path, archive, archive_hash, info, archive_context)
                 if entry:
+                    apply_single_expected_slot_fallback(entry, slots)
                     entries.append(entry)
                 if ignored:
                     archive_ignored_count += 1
@@ -427,7 +452,9 @@ def run_self_test() -> None:
     with TemporaryDirectory() as tmp:
         tmp_dir = Path(tmp)
         upper_zip = tmp_dir / "8上初中数学试卷.zip"
-        lower_zip = tmp_dir / "8下初中数学试卷.zip"
+        lower_scope = tmp_dir / "八年级数学下册（人教版）"
+        lower_scope.mkdir()
+        lower_zip = lower_scope / "单元测试.zip"
         with ZipFile(upper_zip, "w", compression=ZIP_DEFLATED) as archive:
             archive.writestr(mojibake_zip_name("八年级上册/三角形/三角形单元测试.docx"), b"forbidden upper body text")
             archive.writestr(mojibake_zip_name("八年级上册/分式/分式同步练习答案.pdf"), b"%PDF forbidden answer body")
@@ -435,9 +462,9 @@ def run_self_test() -> None:
             archive.writestr(mojibake_zip_name("__MACOSX/._hidden.docx"), b"hidden")
             archive.writestr(mojibake_zip_name("八年级上册/资料链接.url"), b"https://example.invalid")
         with ZipFile(lower_zip, "w", compression=ZIP_DEFLATED) as archive:
-            archive.writestr(mojibake_zip_name("八年级下册/一次函数/一次函数单元测试.docx"), b"forbidden lower body text")
-            archive.writestr(mojibake_zip_name("八年级下册/二次根式/二次根式专题练习.docx"), b"forbidden coordinate body")
-            archive.writestr(mojibake_zip_name("八年级下册/数据分析/数据分析期末综合详解.pdf"), b"%PDF forbidden detailed body")
+            archive.writestr(mojibake_zip_name("单元测试/一次函数单元测试.docx"), b"forbidden lower body text")
+            archive.writestr(mojibake_zip_name("单元测试/二次根式专题练习.docx"), b"forbidden coordinate body")
+            archive.writestr(mojibake_zip_name("单元测试/数据分析期末综合详解.pdf"), b"%PDF forbidden detailed body")
         manifest = build_manifest([upper_zip, lower_zip], ["S2:upper", "S2:lower"])
         serialized = json.dumps(manifest, ensure_ascii=False)
         assert manifest["totals"]["files"] == 6  # type: ignore[index]
@@ -446,7 +473,7 @@ def run_self_test() -> None:
         assert manifest["coverage"]["expectedSlotCoverage"]["S2:lower"] == 3  # type: ignore[index]
         assert manifest["coverage"]["expectedSlotsComplete"] is True  # type: ignore[index]
         assert manifest["archiveScopeCounts"]["8上初中数学试卷.zip"]["files"] == 3  # type: ignore[index]
-        assert manifest["archiveScopeCounts"]["8下初中数学试卷.zip"]["files"] == 3  # type: ignore[index]
+        assert manifest["archiveScopeCounts"]["单元测试.zip"]["files"] == 3  # type: ignore[index]
         assert manifest["counts"]["extensions"] == {".docx": 3, ".pdf": 2, ".doc": 1}  # type: ignore[index]
         assert manifest["totals"]["answerLabelFiles"] == 1  # type: ignore[index]
         assert manifest["totals"]["solutionLabelFiles"] == 2  # type: ignore[index]

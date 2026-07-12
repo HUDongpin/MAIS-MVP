@@ -14,7 +14,7 @@ export async function getParentFoundationForPage(selectedStudentId?: string | nu
   }
 
   if (!canAccessParentArea(authenticated.user)) {
-    redirect(authenticated.user.role === "teacher" || authenticated.user.role === "admin" ? "/teacher" : "/dashboard");
+    redirect(authenticated.user.role === "teacher" || authenticated.user.role === "admin" ? "/teacher/dashboard" : "/dashboard");
   }
 
   const foundation = await getParentFoundationData(authenticated.user.id, selectedStudentId);

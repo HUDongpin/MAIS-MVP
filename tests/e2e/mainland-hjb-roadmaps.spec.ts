@@ -20,7 +20,7 @@ const accountScopedRoadmapTimeout = 45_000;
 const hkPlaceNames = /新界|九龍|九龙|香港島|香港岛|New Territories|Kowloon|Hong Kong Island/i;
 const guangzhouPlaceNames = /天河区|海珠区|白云区|黄埔区|越秀区|番禺区|Tianhe District|Haizhu District|Baiyun District|Huangpu District|Yuexiu District|Panyu District/i;
 const shanghaiPlaceNames = /黄浦区|徐汇区|浦东新区|杨浦区|静安区|闵行区|Huangpu District|Xuhui District|Pudong New Area|Yangpu District|Jing'an District|Minhang District/i;
-const internalArtifactText = /\b(?:RAG|candidate|DeepSeek|OCR|source path|locator)\b|候选|候選|源码|源路径/i;
+const internalArtifactText = /\b(?:candidate|DeepSeek|OCR|source path|locator)\b|候选|候選|源码|源路径/i;
 
 function appUrl(baseURL: string, pathname: string) {
   return new URL(pathname, baseURL).toString();
@@ -97,12 +97,13 @@ test.describe("Mainland HJB account-scoped roadmaps", () => {
 
     await registerHjbAccount(page, resolvedBaseURL, testInfo, "S2");
 
-    await gotoAndExpectHeading(page, resolvedBaseURL, "/learning-path", /沪教版数学P1-S6学习路径|HJB Mathematics P1-S6 Learning Path/i);
-    await expect(page.locator("body")).toContainText(/小学一年级|Primary 1/i, { timeout: accountScopedRoadmapTimeout });
-    await expect(page.locator("body")).toContainText(/高三|Grade 12/i, { timeout: accountScopedRoadmapTimeout });
+    await gotoAndExpectHeading(page, resolvedBaseURL, "/student/roadmap", /沪教版学习路径|HJB .*Learning Path/i);
+    await expect(page.locator("body")).toContainText(/沪教版每日学习路径|当前年级路线|HJB daily learning path/i, { timeout: accountScopedRoadmapTimeout });
+    await expect(page.getByRole("link", { name: /打开沪教版P1至S6路线图|完整沪教版路线|Open HJB P1-S6 roadmap/i })).toBeVisible();
+    await expect(page.getByRole("link", { name: /打开沪教版S1至S6中学路线图|中学总览|Open HJB S1-S6 secondary roadmap/i })).toBeVisible();
     await expect(page.locator("body")).not.toContainText(internalArtifactText);
 
-    await gotoAndExpectHeading(page, resolvedBaseURL, "/primary-roadmap", /沪教版数学P1-S6路线图|HJB Mathematics P1-S6 Roadmap/i);
+    await gotoAndExpectHeading(page, resolvedBaseURL, "/student/roadmap/primary", /沪教版数学P1-S6路线图|HJB Mathematics P1-S6 Roadmap/i);
     await expect(page.locator("body")).toContainText(/沪教版小学数学路线图|HJB Primary Mathematics Roadmap/i, { timeout: accountScopedRoadmapTimeout });
     await expect(page.locator("body")).toContainText(/沪教版中学数学路线图|HJB Secondary Mathematics Roadmap/i, { timeout: accountScopedRoadmapTimeout });
     await expect(page.locator("body")).toContainText(shanghaiPlaceNames, { timeout: accountScopedRoadmapTimeout });

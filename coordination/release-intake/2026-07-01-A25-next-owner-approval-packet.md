@@ -1,0 +1,124 @@
+# A25 Next Owner Approval Packet
+
+Generated: 2026-07-01T15:53:36.469Z
+
+Dirty map signature: `a3d53193f9c6629f27caf373e28dd1f70fe23a49596658b8c8fd09e4079b9c66`
+
+Expanded dirty entries: 2923
+
+Root status entries: 1243
+
+This packet is approval support only. It does not authorize staging, committing, discarding, tagging, pushing, pruning, deploying, branch deletion, reset, clean, restore, worktree removal, file deletion, or any other physical cleanup. Every approval row remains non-executable until the owner explicitly authorizes the exact approval ID and selected final state or command.
+
+## Summary
+
+- Completion: not complete
+- Requirements complete: 9/13
+- Plan tasks complete: 3/10
+- Package resync approvals: 7
+- Owner package approvals: 24
+- Physical lifecycle approvals: 33
+- Cleanup-authorized rows: 0
+- Executable rows: 0
+
+## Recommended Approval Order
+
+| Order | Queue | Approval IDs | Reason |
+| ---: | --- | ---: | --- |
+| 1 | wave01-package-resync | 7 | Clear package-worktree-only stale entries before the A25/A10/A22 governance package can be reviewed. |
+| 2 | owner-package-approvals | 24 | Owner package final-state approvals are required before root dirty entries can move to reviewed commits, exact-path discards, evidence archives, or blockers. |
+| 3 | physical-lifecycle-approvals | 33 | Linked worktrees and diverged branches need explicit lifecycle final-state choices before strict lifecycle can pass. |
+
+## Immediate Wave 01 Package Resync Approvals
+
+| Approval ID | Owner | Path | Action kind | Command hint |
+| --- | --- | --- | --- | --- |
+| `wave01-resync-01-tsconfig-json` | A10 tooling, docs, and report | `tsconfig.json` | owner-approved-package-restore | `git restore --source=HEAD -- tsconfig.json` |
+| `wave01-resync-02-coordination-release-intake-2026-06-30-a25-dirty-tree-map-20260630t072027z-json` | A25 git hygiene and release intake | `coordination/release-intake/2026-06-30-A25-dirty-tree-map-20260630T072027Z.json` | owner-approved-package-untracked-clean | `git clean -f -- coordination/release-intake/2026-06-30-A25-dirty-tree-map-20260630T072027Z.json` |
+| `wave01-resync-03-coordination-release-intake-2026-06-30-a25-dirty-tree-map-20260630t072027z-md` | A25 git hygiene and release intake | `coordination/release-intake/2026-06-30-A25-dirty-tree-map-20260630T072027Z.md` | owner-approved-package-untracked-clean | `git clean -f -- coordination/release-intake/2026-06-30-A25-dirty-tree-map-20260630T072027Z.md` |
+| `wave01-resync-04-coordination-release-intake-2026-06-30-a25-dirty-tree-map-20260630t073137z-json` | A25 git hygiene and release intake | `coordination/release-intake/2026-06-30-A25-dirty-tree-map-20260630T073137Z.json` | owner-approved-package-untracked-clean | `git clean -f -- coordination/release-intake/2026-06-30-A25-dirty-tree-map-20260630T073137Z.json` |
+| `wave01-resync-05-coordination-release-intake-2026-06-30-a25-dirty-tree-map-20260630t073137z-md` | A25 git hygiene and release intake | `coordination/release-intake/2026-06-30-A25-dirty-tree-map-20260630T073137Z.md` | owner-approved-package-untracked-clean | `git clean -f -- coordination/release-intake/2026-06-30-A25-dirty-tree-map-20260630T073137Z.md` |
+| `wave01-resync-06-coordination-release-intake-2026-06-30-a25-dirty-tree-map-20260630t130221z-json` | A25 git hygiene and release intake | `coordination/release-intake/2026-06-30-A25-dirty-tree-map-20260630T130221Z.json` | owner-approved-package-untracked-clean | `git clean -f -- coordination/release-intake/2026-06-30-A25-dirty-tree-map-20260630T130221Z.json` |
+| `wave01-resync-07-coordination-release-intake-2026-06-30-a25-dirty-tree-map-20260630t130221z-md` | A25 git hygiene and release intake | `coordination/release-intake/2026-06-30-A25-dirty-tree-map-20260630T130221Z.md` | owner-approved-package-untracked-clean | `git clean -f -- coordination/release-intake/2026-06-30-A25-dirty-tree-map-20260630T130221Z.md` |
+
+## First Owner Package Approvals
+
+Showing first 12 of 24.
+
+| Approval ID | Owner | Priority | Entries | Current blocker |
+| --- | --- | ---: | ---: | --- |
+| `a25-git-hygiene-and-release-intake` | A25 git hygiene and release intake | P1 | 1381 | root package has 1381 dirty entries |
+| `a22-production-reliability-and-release-engineering` | A22 production reliability and release engineering | P1 | 44 | root package has 44 dirty entries |
+| `a06-visualization-lead` | A06 visualization lead | P2 | 443 | root package has 443 dirty entries |
+| `a12-backend-api-platform` | A12 backend/API platform | P2 | 175 | root package has 175 dirty entries |
+| `a11-qa-and-release-quality` | A11 QA and release quality | P2 | 62 | root package has 62 dirty entries |
+| `a10-tooling-docs-and-report` | A10 tooling, docs, and report | P3 | 225 | root package has 225 dirty entries |
+| `a18-curriculum-qa-a21-content-pipeline` | A18 curriculum QA / A21 content pipeline | P3 | 138 | root package has 138 dirty entries |
+| `a05-lesson-lead` | A05 lesson lead | P3 | 126 | root package has 126 dirty entries |
+| `a21-content-pipeline-and-rag-operations` | A21 content pipeline and RAG operations | P3 | 74 | root package has 74 dirty entries |
+| `a04-practice-lead` | A04 practice lead | P3 | 56 | root package has 56 dirty entries |
+| `a03-curriculum-roadmap-lead` | A03 curriculum roadmap lead | P3 | 30 | root package has 30 dirty entries |
+| `a13-teacher-console` | A13 teacher console | P4 | 36 | root package has 36 dirty entries |
+
+## First Physical Lifecycle Approvals
+
+Showing first 12 of 33.
+
+| Approval ID | Branch | State | Current blocker | Owner hints |
+| --- | --- | --- | --- | --- |
+| `root-main` | `main` | dirty-open-decision | dirty 2923 | A25, A10, A22, effective file owners |
+| `codex-a01-app-shell-closure` | `codex/A01-app-shell-closure` | dirty-open-decision | dirty 26 | A01 |
+| `codex-a01-shell-lazy-load` | `codex/A01-shell-lazy-load` | dirty-open-decision | dirty 8 | A01 |
+| `codex-a02-a15-dashboard-adaptive-closure` | `codex/A02-A15-dashboard-adaptive-closure` | dirty-open-decision | dirty 30 | A02, A15 |
+| `codex-a03-roadmap-closure` | `codex/A03-roadmap-closure` | dirty-open-decision | dirty 30 | A03 |
+| `codex-a04-practice-closure` | `codex/A04-practice-closure` | dirty-open-decision | dirty 56 | A04 |
+| `codex-a05-lesson-closure` | `codex/A05-lesson-closure` | dirty-open-decision | dirty 126 | A05 |
+| `codex-a06-manim-three-closure` | `codex/A06-manim-three-closure` | dirty-open-decision | dirty 351 | A06 |
+| `codex-a06-visualization-closure` | `codex/A06-visualization-closure` | dirty-open-decision | dirty 437 | A06, A22 |
+| `codex-a07-a15-a08-ai-adaptive-types` | `codex/A07-A15-A08-ai-adaptive-types` | dirty-open-decision | dirty 30 | A07, A08, A15 |
+| `codex-a07-ai-tutor-classroom-switches` | `codex/A07-ai-tutor-classroom-switches` | dirty-open-decision | dirty 82 | A07 |
+| `codex-a07-ai-tutor-closure` | `codex/A07-ai-tutor-closure` | dirty-open-decision | dirty 12 | A07 |
+
+## Wave Sequence
+
+| Wave | ID | Owner approvals | Physical approvals | Blocked until |
+| ---: | --- | ---: | ---: | --- |
+| 1 | wave-01-governance-release-hygiene | 3 | 6 | Owner authorizes every selected final state and exact Git operation needed for this wave. |
+| 2 | wave-02-shared-contracts | 2 | 4 | Owner authorizes every selected final state and exact Git operation needed for this wave. |
+| 3 | wave-03-shell-dashboard-roadmap | 4 | 4 | Owner authorizes every selected final state and exact Git operation needed for this wave. |
+| 4 | wave-04-practice-lesson-content | 6 | 4 | Owner authorizes every selected final state and exact Git operation needed for this wave. |
+| 5 | wave-05-visualization-ai-runtime | 9 | 10 | Owner authorizes every selected final state and exact Git operation needed for this wave. |
+| 6 | wave-06-final-root-and-compose-lifecycle | 0 | 5 | Owner authorizes every selected final state and exact Git operation needed for this wave. |
+
+## Top Cross-Owner Routing Owners
+
+| Owner ID | Owner | Route rows | Files | Type errors |
+| --- | --- | ---: | ---: | ---: |
+| A06 | A06 visualization lead | 14 | 44 | 3226 |
+| A13 | A13 teacher console lead | 13 | 69 | 2017 |
+| A18 | A18 curriculum QA and content quality lead | 4 | 10 | 407 |
+| A03 | A03 curriculum roadmap lead | 3 | 8 | 225 |
+| A04 | A04 practice lead | 2 | 2 | 182 |
+| A20 | A20 game design and game-based learning lead | 8 | 9 | 114 |
+| A25 | A25 git hygiene and release intake lead | 4 | 4 | 77 |
+| A15 | A15 adaptive engine lead | 2 | 2 | 44 |
+| A11 | A11 QA and release quality lead | 1 | 1 | 30 |
+| A12 | A12 backend/API platform lead | 2 | 2 | 21 |
+| A07 | A07 AI tutor lead | 1 | 1 | 12 |
+
+## Top Type-Check Files
+
+| File | Errors |
+| --- | ---: |
+| `components/visualizations/three/scenes/TemplatePrimitiveScene.tsx` | 2688 |
+| `components/teacher/TeacherPrepViews.tsx` | 468 |
+| `components/teacher/TeacherOperationsView.tsx` | 416 |
+| `lib/teacherReviewLesson.ts` | 390 |
+| `components/teacher/TeacherReviewLessonView.tsx` | 325 |
+| `components/visualizations/three/ThreeDGraphCanvas.tsx` | 272 |
+| `lib/teacherReviewLessonPptx.ts` | 246 |
+| `data/questions.ts` | 182 |
+| `components/visualizations/VisualizationLabPage.tsx` | 174 |
+| `components/games/MathVirusBlasterGame.tsx` | 104 |
+| `data/topics.ts` | 98 |
+| `components/teacher/TeacherResourceAssessmentViews.tsx` | 96 |

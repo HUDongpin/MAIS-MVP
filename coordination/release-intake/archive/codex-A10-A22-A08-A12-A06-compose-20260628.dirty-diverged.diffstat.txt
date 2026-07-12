@@ -1,0 +1,24 @@
+.gitignore                                         |   8 +
+ .vercelignore                                      |  18 +
+ AGENTS.md                                          |  18 +
+ ...6-27-A25-dirty-tree-map-final-clean-source.json |  47 ++
+ ...-06-27-A25-dirty-tree-map-final-clean-source.md |  44 ++
+ ...-06-27-A25-dirty-tree-map-final-governance.json | 316 ++++++++++++
+ ...26-06-27-A25-dirty-tree-map-final-governance.md |  59 +++
+ .../release-intake/latest-A25-dirty-tree-map.json  |  47 ++
+ .../release-intake/latest-A25-dirty-tree-map.md    |  44 ++
+ .../release-intake/owner-package-manifest.json     | 101 ++++
+ coordination/release-intake/owner-pathspecs.json   | 288 +++++++++++
+ .../2026-06-27-A10-A22-A25-release-governance.md   |  34 ++
+ .../2026-06-27-A10-A22-A25-release-governance.md   |  61 +++
+ package.json                                       |  13 +-
+ playwright.config.ts                               | 107 +++-
+ scripts/deploy-vercel-preview.mjs                  | 149 ++++++
+ scripts/deploy-vercel-production.mjs               | 170 +++++++
+ scripts/prepare-vercel-staging.mjs                 | 225 +++++++++
+ scripts/refresh-dirty-tree-map.mjs                 | 549 +++++++++++++++++++++
+ scripts/release-env-guard.mjs                      | 426 ++++++++++++++++
+ scripts/release-governance.test.mjs                | 162 ++++++
+ scripts/release-package-gate.mjs                   | 129 +++++
+ tsconfig.next.json                                 |  25 +
+ 23 files changed, 3034 insertions(+), 6 deletions(-)

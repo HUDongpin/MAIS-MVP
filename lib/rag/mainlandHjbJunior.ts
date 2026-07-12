@@ -1,4 +1,5 @@
 import { mainlandHjbJuniorRagCards } from "../../data/rag/mainlandHjbJunior";
+import { illustrationTextMatchStandardForRag } from "./illustrationTextMatchStandard";
 import { getMainlandJuniorZhongkaoExamPatternCards } from "./mainlandJuniorZhongkaoExamPatterns";
 import { getMainlandHjbJuniorPaperPatternCards } from "./mainlandHjbJuniorPaperPatterns";
 import type {
@@ -148,6 +149,7 @@ export function buildMainlandHjbJuniorEvidencePack(query: MainlandHjbJuniorRagQu
     "Layer 1 is Shanghai Education Press S1-S3 textbook sequencing expressed as MAIS safe abstraction cards. Layer 2 is HJB junior paper-pattern guidance expressed as aggregated safe cards. Layer 3 is the shared Mainland junior zhongkao pattern layer used once across PEP, BNU, HJB, and future Mainland editions.",
     "Use this evidence only to create original MAIS explanations, diagnostics, lesson support, assessment plans, and future content drafts.",
     "Do not quote or reconstruct protected textbook tasks, paper prompts, worked responses, scoring wording, figures, tables, activity text, visual layouts, item order, or long protected phrasing.",
+    ...illustrationTextMatchStandardForRag,
     "Keep Shanghai Education Press, PEP, and BNU textbook and paper-pattern layers separate; share only broad Mainland concept IDs, learner-facing competency language, and the single shared zhongkao exam-pattern layer.",
     "Junior textbook layer:",
     ...cards.flatMap((card, index) => [

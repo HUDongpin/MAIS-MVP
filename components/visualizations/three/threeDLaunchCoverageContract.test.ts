@@ -17,7 +17,7 @@ test("approved aggressive Three.js launch coverage stays inside required bands w
   const issues = validateThreeDLaunchCoverage(report);
 
   assert.deepEqual(issues, []);
-  assert.equal(report.familyCount, 26);
+  assert.equal(report.familyCount, 27);
   assert.equal(report.topicPageCount, 80);
   assert.deepEqual(report.regionalCounts, {
     california: 12,
@@ -38,7 +38,7 @@ test("every approved Three.js family is reachable from a template or premium ove
 
   assert.deepEqual(report.unreachableFamilyIds, []);
   assert.equal(report.templateFamilyCount, 18);
-  assert.equal(report.overrideFamilyCount, 8);
+  assert.equal(report.overrideFamilyCount, 10);
 });
 
 test("premium Three.js topic static params come from the approved launch manifest", () => {

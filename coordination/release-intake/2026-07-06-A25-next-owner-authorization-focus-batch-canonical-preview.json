@@ -1,0 +1,310 @@
+{
+  "generatedAt": "2026-07-06T15:50:22.225Z",
+  "repoRoot": "/Users/dongpinhu/Desktop/MAIS-MVP",
+  "dirtyMapStatusSignature": "b26fe39c438a20cdbb9cf3943e3d000d9dc8dc04ccccedc13792c457c5942d3b",
+  "expandedStatusEntries": 5183,
+  "sourceArtifacts": {
+    "recordingIntakeGeneratedAt": "2026-07-06T15:50:22.107Z",
+    "recordingIntakeGateCheckedAt": "2026-07-06T15:50:22.171Z",
+    "ownerInputScaffoldGeneratedAt": "2026-07-06T15:50:21.998Z",
+    "canonicalAuthorizationsGeneratedAt": "2026-07-06T15:50:09.101Z",
+    "finalStateLedgerGeneratedAt": "2026-07-06T15:46:55.664Z",
+    "ledgerBridgeGeneratedAt": "2026-07-06T15:50:09.240Z"
+  },
+  "sourceCurrentnessFailures": [],
+  "canonicalTarget": "coordination/release-intake/latest-A25-next-owner-authorizations.json",
+  "batchId": "next-owner-package-final-state-batch-01",
+  "previewStatus": "ready-for-owner-review",
+  "batchAuthorizationRequest": {
+    "requestId": "focus-batch-owner-package-canonical-authorization",
+    "pendingRows": 3,
+    "approvalIds": [
+      "a09-copy-i18n-accessibility",
+      "a17-gamification-and-motivation",
+      "a23-integration-and-promotion-lead"
+    ],
+    "selectedFinalStates": [
+      "reviewed commit"
+    ],
+    "everyRowReviewedCommit": true,
+    "targetFile": "coordination/release-intake/latest-A25-next-owner-authorizations.json",
+    "copyableApprovalText": "Owner authorization: approve the current owner-package canonical authorization preview batch (3 rows); approvalIds=a09-copy-i18n-accessibility,a17-gamification-and-motivation,a23-integration-and-promotion-lead; selectedFinalState=reviewed commit for every row; approvedBy=<owner>; approvedAt=<ISO-8601>; do not authorize cleanup; do not authorize deploy; do not authorize merge; do not authorize destructive Git; do not authorize physical lifecycle cleanup.",
+    "copyableOwnerReplyTextZh": "我授权当前 3 条 owner-package canonical authorization preview：approvalIds=a09-copy-i18n-accessibility,a17-gamification-and-motivation,a23-integration-and-promotion-lead；selectedFinalState=reviewed commit；不授权 cleanup；不授权 deploy；不授权 merge；不授权 destructive git；不授权 physical lifecycle cleanup。",
+    "boundary": {
+      "recordsAuthorizationOnlyAfterExplicitOwnerReply": true,
+      "cleanupAuthorized": false,
+      "deployAuthorized": false,
+      "mergeAuthorized": false,
+      "destructiveGitAuthorized": false,
+      "physicalCleanupAuthorized": false,
+      "executableNow": false
+    }
+  },
+  "previewRows": [
+    {
+      "approvalId": "a09-copy-i18n-accessibility",
+      "approvalKind": "owner-package",
+      "owner": "A09 copy, i18n, accessibility",
+      "sourceRoundId": "remaining-owner-package-final-states",
+      "rowStatus": "waiting-for-owner-authorization",
+      "canonicalDraftRowPresent": true,
+      "canonicalRowPresent": false,
+      "ledgerSelectedFinalState": "reviewed commit",
+      "ledgerDecisionStatus": "approved-reviewed-commit",
+      "previewAuthorizationRow": {
+        "approvalKind": "owner-package",
+        "approvalId": "a09-copy-i18n-accessibility",
+        "owner": "A09 copy, i18n, accessibility",
+        "ownerHints": [],
+        "subject": "coordination/release-intake/latest-A25-effective-owner-a09-copy-i18n-accessibility.pathspec",
+        "path": "coordination/release-intake/latest-A25-effective-owner-a09-copy-i18n-accessibility.pathspec",
+        "branch": "",
+        "worktreePath": "",
+        "selectedAction": "owner-selected-final-state",
+        "exactCommand": "",
+        "pathspec": "coordination/release-intake/latest-A25-effective-owner-a09-copy-i18n-accessibility.pathspec",
+        "workOrder": "coordination/release-intake/latest-A25-effective-work-order-a09-copy-i18n-accessibility.md",
+        "evidence": [
+          "coordination/release-intake/latest-A25-effective-owner-a09-copy-i18n-accessibility.pathspec",
+          "coordination/release-intake/latest-A25-effective-work-order-a09-copy-i18n-accessibility.md"
+        ],
+        "requiredAuthorizationText": "Authorize approvalId=a09-copy-i18n-accessibility for owner=A09 copy, i18n, accessibility; selectedFinalState=<reviewed commit | owner-approved exact-path discard | evidence archive | blocker>; evidenceReviewed=coordination/release-intake/latest-A25-effective-owner-a09-copy-i18n-accessibility.pathspec, coordination/release-intake/latest-A25-effective-work-order-a09-copy-i18n-accessibility.md; approvedBy=<owner>; approvedAt=<ISO-8601>; notes=<scope and checks>.",
+        "postApprovalChecks": [
+          "node coordination/release-intake/review-owner-pathspec.mjs coordination/release-intake/latest-A25-effective-owner-a09-copy-i18n-accessibility.pathspec --status",
+          "npm run release:dirty-map -- --reason \"A25 post-owner-approval a09-copy-i18n-accessibility\"",
+          "node coordination/release-intake/assert-owner-package-approval-requests-current.mjs",
+          "node coordination/release-intake/assert-dirty-worktree-remediation-current.mjs"
+        ],
+        "priority": 4,
+        "entries": 5,
+        "packageKind": "runtime",
+        "approvalFingerprint": "e361215005c7a01f641a6988deac5cf261ffee9dcbe01374fe3c6136c55e7b40",
+        "selectedFinalState": "reviewed commit",
+        "approvedBy": "<owner>",
+        "approvedAt": "<ISO-8601>",
+        "evidenceReviewed": [
+          "coordination/release-intake/latest-A25-next-owner-approval-packet.json",
+          "coordination/release-intake/latest-A25-next-owner-authorizations-starter.json",
+          "coordination/release-intake/latest-A25-effective-owner-a09-copy-i18n-accessibility.pathspec",
+          "coordination/release-intake/latest-A25-effective-work-order-a09-copy-i18n-accessibility.md",
+          "coordination/release-intake/latest-A25-owner-package-approval-requests.json",
+          "coordination/release-intake/latest-A25-dirty-worktree-final-state-selection-draft.json",
+          "coordination/release-intake/latest-A25-dirty-worktree-final-state-ledger.json",
+          "coordination/release-intake/latest-A25-next-owner-authorizations.json",
+          "coordination/release-intake/latest-A25-next-owner-authorization-focus-batch-recording-intake.json",
+          "coordination/release-intake/latest-A25-next-owner-authorization-focus-batch-owner-input-scaffold.json",
+          "coordination/release-intake/latest-A25-ledger-to-canonical-authorization-bridge.json"
+        ],
+        "notes": "Owner-package final-state recording preview only. Ledger decision status: approved-reviewed-commit. Current focus-row status: waiting-for-owner-authorization. No cleanup, deploy, push, reset, clean, remove worktrees, delete branches, merge, commit, or physical lifecycle command is authorized by this preview artifact alone.",
+        "authorizationText": "Authorize approvalId=a09-copy-i18n-accessibility for owner=A09 copy, i18n, accessibility; selectedFinalState=reviewed commit; evidenceReviewed=coordination/release-intake/latest-A25-next-owner-approval-packet.json, coordination/release-intake/latest-A25-next-owner-authorizations-starter.json, coordination/release-intake/latest-A25-effective-owner-a09-copy-i18n-accessibility.pathspec, coordination/release-intake/latest-A25-effective-work-order-a09-copy-i18n-accessibility.md, coordination/release-intake/latest-A25-owner-package-approval-requests.json, coordination/release-intake/latest-A25-dirty-worktree-final-state-selection-draft.json, coordination/release-intake/latest-A25-dirty-worktree-final-state-ledger.json, coordination/release-intake/latest-A25-next-owner-authorizations.json, coordination/release-intake/latest-A25-next-owner-authorization-focus-batch-recording-intake.json, coordination/release-intake/latest-A25-next-owner-authorization-focus-batch-owner-input-scaffold.json, coordination/release-intake/latest-A25-ledger-to-canonical-authorization-bridge.json; approvedBy=<owner>; approvedAt=<ISO-8601>; notes=Owner-package final-state recording preview only. Ledger decision status: approved-reviewed-commit. Current focus-row status: waiting-for-owner-authorization. No cleanup, deploy, push, reset, clean, remove worktrees, delete branches, merge, commit, or physical lifecycle command is authorized by this preview artifact alone..",
+        "cleanupAuthorized": false,
+        "executableNow": false
+      },
+      "canonicalAppendInstruction": "After explicit owner approval, copy this previewAuthorizationRow into authorizations[] in coordination/release-intake/latest-A25-next-owner-authorizations.json and remove or leave the matching draft row according to the canonical recorder's documented behavior.",
+      "requiredOwnerFieldsStillPlaceholders": [
+        "approvedBy",
+        "approvedAt"
+      ],
+      "cleanupAuthorized": false,
+      "executableNow": false
+    },
+    {
+      "approvalId": "a17-gamification-and-motivation",
+      "approvalKind": "owner-package",
+      "owner": "A17 gamification and motivation",
+      "sourceRoundId": "remaining-owner-package-final-states",
+      "rowStatus": "waiting-for-owner-authorization",
+      "canonicalDraftRowPresent": true,
+      "canonicalRowPresent": false,
+      "ledgerSelectedFinalState": "reviewed commit",
+      "ledgerDecisionStatus": "approved-reviewed-commit",
+      "previewAuthorizationRow": {
+        "approvalKind": "owner-package",
+        "approvalId": "a17-gamification-and-motivation",
+        "owner": "A17 gamification and motivation",
+        "ownerHints": [],
+        "subject": "coordination/release-intake/latest-A25-effective-owner-a17-gamification-and-motivation.pathspec",
+        "path": "coordination/release-intake/latest-A25-effective-owner-a17-gamification-and-motivation.pathspec",
+        "branch": "",
+        "worktreePath": "",
+        "selectedAction": "owner-selected-final-state",
+        "exactCommand": "",
+        "pathspec": "coordination/release-intake/latest-A25-effective-owner-a17-gamification-and-motivation.pathspec",
+        "workOrder": "coordination/release-intake/latest-A25-effective-work-order-a17-gamification-and-motivation.md",
+        "evidence": [
+          "coordination/release-intake/latest-A25-effective-owner-a17-gamification-and-motivation.pathspec",
+          "coordination/release-intake/latest-A25-effective-work-order-a17-gamification-and-motivation.md"
+        ],
+        "requiredAuthorizationText": "Authorize approvalId=a17-gamification-and-motivation for owner=A17 gamification and motivation; selectedFinalState=<reviewed commit | owner-approved exact-path discard | evidence archive | blocker>; evidenceReviewed=coordination/release-intake/latest-A25-effective-owner-a17-gamification-and-motivation.pathspec, coordination/release-intake/latest-A25-effective-work-order-a17-gamification-and-motivation.md; approvedBy=<owner>; approvedAt=<ISO-8601>; notes=<scope and checks>.",
+        "postApprovalChecks": [
+          "node coordination/release-intake/review-owner-pathspec.mjs coordination/release-intake/latest-A25-effective-owner-a17-gamification-and-motivation.pathspec --status",
+          "npm run release:dirty-map -- --reason \"A25 post-owner-approval a17-gamification-and-motivation\"",
+          "node coordination/release-intake/assert-owner-package-approval-requests-current.mjs",
+          "node coordination/release-intake/assert-dirty-worktree-remediation-current.mjs"
+        ],
+        "priority": 4,
+        "entries": 5,
+        "packageKind": "runtime",
+        "approvalFingerprint": "d10a1a470c6e54b153e22bfc471c4e3caa86333445f5cf2fd83cbe841c3e1357",
+        "selectedFinalState": "reviewed commit",
+        "approvedBy": "<owner>",
+        "approvedAt": "<ISO-8601>",
+        "evidenceReviewed": [
+          "coordination/release-intake/latest-A25-next-owner-approval-packet.json",
+          "coordination/release-intake/latest-A25-next-owner-authorizations-starter.json",
+          "coordination/release-intake/latest-A25-effective-owner-a17-gamification-and-motivation.pathspec",
+          "coordination/release-intake/latest-A25-effective-work-order-a17-gamification-and-motivation.md",
+          "coordination/release-intake/latest-A25-owner-package-approval-requests.json",
+          "coordination/release-intake/latest-A25-dirty-worktree-final-state-selection-draft.json",
+          "coordination/release-intake/latest-A25-dirty-worktree-final-state-ledger.json",
+          "coordination/release-intake/latest-A25-next-owner-authorizations.json",
+          "coordination/release-intake/latest-A25-next-owner-authorization-focus-batch-recording-intake.json",
+          "coordination/release-intake/latest-A25-next-owner-authorization-focus-batch-owner-input-scaffold.json",
+          "coordination/release-intake/latest-A25-ledger-to-canonical-authorization-bridge.json"
+        ],
+        "notes": "Owner-package final-state recording preview only. Ledger decision status: approved-reviewed-commit. Current focus-row status: waiting-for-owner-authorization. No cleanup, deploy, push, reset, clean, remove worktrees, delete branches, merge, commit, or physical lifecycle command is authorized by this preview artifact alone.",
+        "authorizationText": "Authorize approvalId=a17-gamification-and-motivation for owner=A17 gamification and motivation; selectedFinalState=reviewed commit; evidenceReviewed=coordination/release-intake/latest-A25-next-owner-approval-packet.json, coordination/release-intake/latest-A25-next-owner-authorizations-starter.json, coordination/release-intake/latest-A25-effective-owner-a17-gamification-and-motivation.pathspec, coordination/release-intake/latest-A25-effective-work-order-a17-gamification-and-motivation.md, coordination/release-intake/latest-A25-owner-package-approval-requests.json, coordination/release-intake/latest-A25-dirty-worktree-final-state-selection-draft.json, coordination/release-intake/latest-A25-dirty-worktree-final-state-ledger.json, coordination/release-intake/latest-A25-next-owner-authorizations.json, coordination/release-intake/latest-A25-next-owner-authorization-focus-batch-recording-intake.json, coordination/release-intake/latest-A25-next-owner-authorization-focus-batch-owner-input-scaffold.json, coordination/release-intake/latest-A25-ledger-to-canonical-authorization-bridge.json; approvedBy=<owner>; approvedAt=<ISO-8601>; notes=Owner-package final-state recording preview only. Ledger decision status: approved-reviewed-commit. Current focus-row status: waiting-for-owner-authorization. No cleanup, deploy, push, reset, clean, remove worktrees, delete branches, merge, commit, or physical lifecycle command is authorized by this preview artifact alone..",
+        "cleanupAuthorized": false,
+        "executableNow": false
+      },
+      "canonicalAppendInstruction": "After explicit owner approval, copy this previewAuthorizationRow into authorizations[] in coordination/release-intake/latest-A25-next-owner-authorizations.json and remove or leave the matching draft row according to the canonical recorder's documented behavior.",
+      "requiredOwnerFieldsStillPlaceholders": [
+        "approvedBy",
+        "approvedAt"
+      ],
+      "cleanupAuthorized": false,
+      "executableNow": false
+    },
+    {
+      "approvalId": "a23-integration-and-promotion-lead",
+      "approvalKind": "owner-package",
+      "owner": "A23 integration and promotion lead",
+      "sourceRoundId": "remaining-owner-package-final-states",
+      "rowStatus": "waiting-for-owner-authorization",
+      "canonicalDraftRowPresent": true,
+      "canonicalRowPresent": false,
+      "ledgerSelectedFinalState": "reviewed commit",
+      "ledgerDecisionStatus": "approved-reviewed-commit",
+      "previewAuthorizationRow": {
+        "approvalKind": "owner-package",
+        "approvalId": "a23-integration-and-promotion-lead",
+        "owner": "A23 integration and promotion lead",
+        "ownerHints": [],
+        "subject": "coordination/release-intake/latest-A25-effective-owner-a23-integration-and-promotion-lead.pathspec",
+        "path": "coordination/release-intake/latest-A25-effective-owner-a23-integration-and-promotion-lead.pathspec",
+        "branch": "",
+        "worktreePath": "",
+        "selectedAction": "owner-selected-final-state",
+        "exactCommand": "",
+        "pathspec": "coordination/release-intake/latest-A25-effective-owner-a23-integration-and-promotion-lead.pathspec",
+        "workOrder": "coordination/release-intake/latest-A25-effective-work-order-a23-integration-and-promotion-lead.md",
+        "evidence": [
+          "coordination/release-intake/latest-A25-effective-owner-a23-integration-and-promotion-lead.pathspec",
+          "coordination/release-intake/latest-A25-effective-work-order-a23-integration-and-promotion-lead.md"
+        ],
+        "requiredAuthorizationText": "Authorize approvalId=a23-integration-and-promotion-lead for owner=A23 integration and promotion lead; selectedFinalState=<reviewed commit | owner-approved exact-path discard | evidence archive | blocker>; evidenceReviewed=coordination/release-intake/latest-A25-effective-owner-a23-integration-and-promotion-lead.pathspec, coordination/release-intake/latest-A25-effective-work-order-a23-integration-and-promotion-lead.md; approvedBy=<owner>; approvedAt=<ISO-8601>; notes=<scope and checks>.",
+        "postApprovalChecks": [
+          "node coordination/release-intake/review-owner-pathspec.mjs coordination/release-intake/latest-A25-effective-owner-a23-integration-and-promotion-lead.pathspec --status",
+          "npm run release:dirty-map -- --reason \"A25 post-owner-approval a23-integration-and-promotion-lead\"",
+          "node coordination/release-intake/assert-owner-package-approval-requests-current.mjs",
+          "node coordination/release-intake/assert-dirty-worktree-remediation-current.mjs"
+        ],
+        "priority": 4,
+        "entries": 2,
+        "packageKind": "coordination-evidence",
+        "approvalFingerprint": "0f7d0513fb3cd8101fae63d96e37a8603a36aa1afa9b203e3f1da0377a4c1bbe",
+        "selectedFinalState": "reviewed commit",
+        "approvedBy": "<owner>",
+        "approvedAt": "<ISO-8601>",
+        "evidenceReviewed": [
+          "coordination/release-intake/latest-A25-next-owner-approval-packet.json",
+          "coordination/release-intake/latest-A25-next-owner-authorizations-starter.json",
+          "coordination/release-intake/latest-A25-effective-owner-a23-integration-and-promotion-lead.pathspec",
+          "coordination/release-intake/latest-A25-effective-work-order-a23-integration-and-promotion-lead.md",
+          "coordination/release-intake/latest-A25-owner-package-approval-requests.json",
+          "coordination/release-intake/latest-A25-dirty-worktree-final-state-selection-draft.json",
+          "coordination/release-intake/latest-A25-dirty-worktree-final-state-ledger.json",
+          "coordination/release-intake/latest-A25-next-owner-authorizations.json",
+          "coordination/release-intake/latest-A25-next-owner-authorization-focus-batch-recording-intake.json",
+          "coordination/release-intake/latest-A25-next-owner-authorization-focus-batch-owner-input-scaffold.json",
+          "coordination/release-intake/latest-A25-ledger-to-canonical-authorization-bridge.json"
+        ],
+        "notes": "Owner-package final-state recording preview only. Ledger decision status: approved-reviewed-commit. Current focus-row status: waiting-for-owner-authorization. No cleanup, deploy, push, reset, clean, remove worktrees, delete branches, merge, commit, or physical lifecycle command is authorized by this preview artifact alone.",
+        "authorizationText": "Authorize approvalId=a23-integration-and-promotion-lead for owner=A23 integration and promotion lead; selectedFinalState=reviewed commit; evidenceReviewed=coordination/release-intake/latest-A25-next-owner-approval-packet.json, coordination/release-intake/latest-A25-next-owner-authorizations-starter.json, coordination/release-intake/latest-A25-effective-owner-a23-integration-and-promotion-lead.pathspec, coordination/release-intake/latest-A25-effective-work-order-a23-integration-and-promotion-lead.md, coordination/release-intake/latest-A25-owner-package-approval-requests.json, coordination/release-intake/latest-A25-dirty-worktree-final-state-selection-draft.json, coordination/release-intake/latest-A25-dirty-worktree-final-state-ledger.json, coordination/release-intake/latest-A25-next-owner-authorizations.json, coordination/release-intake/latest-A25-next-owner-authorization-focus-batch-recording-intake.json, coordination/release-intake/latest-A25-next-owner-authorization-focus-batch-owner-input-scaffold.json, coordination/release-intake/latest-A25-ledger-to-canonical-authorization-bridge.json; approvedBy=<owner>; approvedAt=<ISO-8601>; notes=Owner-package final-state recording preview only. Ledger decision status: approved-reviewed-commit. Current focus-row status: waiting-for-owner-authorization. No cleanup, deploy, push, reset, clean, remove worktrees, delete branches, merge, commit, or physical lifecycle command is authorized by this preview artifact alone..",
+        "cleanupAuthorized": false,
+        "executableNow": false
+      },
+      "canonicalAppendInstruction": "After explicit owner approval, copy this previewAuthorizationRow into authorizations[] in coordination/release-intake/latest-A25-next-owner-authorizations.json and remove or leave the matching draft row according to the canonical recorder's documented behavior.",
+      "requiredOwnerFieldsStillPlaceholders": [
+        "approvedBy",
+        "approvedAt"
+      ],
+      "cleanupAuthorized": false,
+      "executableNow": false
+    }
+  ],
+  "missingDraftRows": [],
+  "missingLedgerRows": [],
+  "unsafeRows": [],
+  "checks": [
+    {
+      "id": "source-current",
+      "status": "pass",
+      "detail": "sourceCurrentnessFailures=0"
+    },
+    {
+      "id": "pending-rows-previewed",
+      "status": "pass",
+      "detail": "previewRows=3; pendingRows=3"
+    },
+    {
+      "id": "draft-rows-present",
+      "status": "pass",
+      "detail": "missingDraftRows=0"
+    },
+    {
+      "id": "ledger-rows-present",
+      "status": "pass",
+      "detail": "missingLedgerRows=0"
+    },
+    {
+      "id": "safe-non-executable",
+      "status": "pass",
+      "detail": "unsafeRows=0"
+    },
+    {
+      "id": "owner-placeholders-remain",
+      "status": "pass",
+      "detail": "preview rows must not claim owner approval"
+    },
+    {
+      "id": "reviewed-commit-final-state",
+      "status": "pass",
+      "detail": "current owner-package focus rows must preserve ledger selectedFinalState=reviewed commit"
+    }
+  ],
+  "summary": {
+    "focusBatchRows": 3,
+    "acceptedRows": 0,
+    "pendingRows": 3,
+    "previewRows": 3,
+    "missingDraftRows": 0,
+    "missingLedgerRows": 0,
+    "unsafeRows": 0,
+    "sourceCurrentnessFailures": 0,
+    "cleanupAuthorizedRows": 0,
+    "executableRows": 0
+  },
+  "boundary": {
+    "evidenceOnly": true,
+    "createsAuthorizationFile": false,
+    "recordsOwnerApproval": false,
+    "promotesCanonicalRows": false,
+    "recordsExecutionInstruction": false,
+    "mergeAuthorized": false,
+    "cleanupAuthorized": false,
+    "executableNow": false,
+    "destructiveGitAuthorized": false,
+    "deployAuthorized": false
+  }
+}

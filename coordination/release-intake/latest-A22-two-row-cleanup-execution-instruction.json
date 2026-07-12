@@ -1,0 +1,57 @@
+{
+  "generatedAt": "2026-07-06T07:28:02Z",
+  "instructionKind": "a22-two-row-generated-artifact-cleanup-execution-instruction",
+  "owner": "A22 production reliability and release engineering",
+  "supportingOwner": "A25 git hygiene and release intake",
+  "sourceOwnerRequest": "Give A22 two cleanup rows a clear execution instruction.",
+  "sourceRows": {
+    "snapshot": "coordination/release-intake/2026-07-05-A22-generated-artifact-residual-authorization-packet.json",
+    "snapshotGeneratedAt": "2026-07-05T11:15:30.859Z",
+    "approvalIds": [
+      "a22-generated-residual-tmp",
+      "a22-generated-residual-next"
+    ],
+    "paths": [
+      ".tmp",
+      ".next"
+    ],
+    "command": "node scripts/cleanup-generated-artifacts.mjs --apply --scope all",
+    "cwd": "/Users/dongpinhu/Desktop/MAIS-MVP"
+  },
+  "currentA22StateAtRecording": {
+    "latestResidualAuthorizationPacket": "coordination/release-intake/latest-A22-generated-artifact-residual-authorization-packet.json",
+    "latestGuardedCleanupPlan": "coordination/release-intake/latest-A22-generated-artifact-guarded-cleanup-plan.json",
+    "latestResidualTargets": 0,
+    "latestPlanStatus": "already-cleaned-and-verified",
+    "latestExecutableRows": 0,
+    "cleanupDryRunTargetCount": 0,
+    "recordsExecutionInstructionOnly": true,
+    "reexecuteNow": false
+  },
+  "ownerExecutionText": "Authorize separate A22 generated-artifact cleanup execution instruction for approvalId=a22-generated-residual-tmp and approvalId=a22-generated-residual-next; cwd=/Users/dongpinhu/Desktop/MAIS-MVP; command=node scripts/cleanup-generated-artifacts.mjs --apply --scope all; targets=.tmp,.next; No cleanup beyond the exact generated-artifact cleanup script scope; no staging, commit, merge, push, reset, branch deletion, worktree removal, deploy, or unrelated file operation is authorized; approvedBy=owner-chat-instruction; approvedAt=2026-07-06T07:28:02Z; notes=Owner asked Codex to give A22 two cleanup rows a clear execution instruction. Current latest A22 residual evidence is post-clean/no residual, so this instruction is preserved as evidence and must not trigger a new cleanup apply unless these approvalIds reappear in current residual evidence and cleanup dry-run targets.",
+  "approvedBy": "owner-chat-instruction",
+  "approvedAt": "2026-07-06T07:28:02Z",
+  "notes": "This instruction is intentionally narrow. It records explicit owner direction for the two previously surfaced A22 generated-artifact cleanup rows, while preserving the current no-op/post-clean state. It does not authorize deploy, stage, commit, merge, push, reset, branch deletion, worktree removal, broad git clean, or unrelated cleanup.",
+  "boundary": {
+    "ownerInstructionRecorded": true,
+    "cleanupAuthorizedForCurrentLatestRows": false,
+    "executableNow": false,
+    "recordsOwnerApproval": false,
+    "recordsExecutionInstruction": true,
+    "stageAuthorized": false,
+    "commitAuthorized": false,
+    "mergeAuthorized": false,
+    "pushAuthorized": false,
+    "resetAuthorized": false,
+    "branchDeletionAuthorized": false,
+    "worktreeRemovalAuthorized": false,
+    "deployAuthorized": false,
+    "requiresCurrentResidualEvidenceBeforeApply": true
+  },
+  "postRecordingChecks": [
+    "node scripts/cleanup-generated-artifacts.mjs --dry-run --json",
+    "node coordination/release-intake/assert-a22-generated-artifact-residual-evidence-current.mjs",
+    "node coordination/release-intake/assert-a22-generated-artifact-guarded-cleanup-current.mjs",
+    "node coordination/release-intake/assert-no-staged-changes.mjs"
+  ]
+}

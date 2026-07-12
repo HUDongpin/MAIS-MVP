@@ -1,0 +1,294 @@
+{
+  "checkedAt": "2026-07-09T18:26:17.795Z",
+  "dirtyMapStatusSignature": "476e1b41a0d7a979e4ad322d00bf51fd7a2e7324dae88e4c0b219b36bc660ef7",
+  "expandedStatusEntries": 7018,
+  "physicalPacketGeneratedAt": "2026-07-09T18:10:29.072Z",
+  "requestCount": 39,
+  "summary": {
+    "total": 39,
+    "root": 1,
+    "dirtyLinked": 30,
+    "cleanDiverged": 8,
+    "byKind": {
+      "root-owner-package": 1,
+      "dirty-diverged-worktree": 30,
+      "clean-diverged-branch": 8
+    }
+  },
+  "failures": [],
+  "requests": [
+    {
+      "approvalId": "root-main",
+      "branch": "main",
+      "state": "dirty-open-decision",
+      "kind": "root-owner-package",
+      "currentBlocker": "dirty 7018"
+    },
+    {
+      "approvalId": "codex-a01-app-shell-closure",
+      "branch": "codex/A01-app-shell-closure",
+      "state": "dirty-open-decision",
+      "kind": "dirty-diverged-worktree",
+      "currentBlocker": "dirty 26"
+    },
+    {
+      "approvalId": "codex-a01-shell-lazy-load",
+      "branch": "codex/A01-shell-lazy-load",
+      "state": "dirty-open-decision",
+      "kind": "dirty-diverged-worktree",
+      "currentBlocker": "dirty 8"
+    },
+    {
+      "approvalId": "codex-a02-a15-dashboard-adaptive-closure",
+      "branch": "codex/A02-A15-dashboard-adaptive-closure",
+      "state": "dirty-open-decision",
+      "kind": "dirty-diverged-worktree",
+      "currentBlocker": "dirty 30"
+    },
+    {
+      "approvalId": "codex-a03-roadmap-closure",
+      "branch": "codex/A03-roadmap-closure",
+      "state": "dirty-open-decision",
+      "kind": "dirty-diverged-worktree",
+      "currentBlocker": "dirty 30"
+    },
+    {
+      "approvalId": "codex-a04-practice-closure",
+      "branch": "codex/A04-practice-closure",
+      "state": "dirty-open-decision",
+      "kind": "dirty-diverged-worktree",
+      "currentBlocker": "dirty 56"
+    },
+    {
+      "approvalId": "codex-a05-lesson-checklist-p0",
+      "branch": "codex/A05-lesson-checklist-p0",
+      "state": "clean-diverged-open-decision",
+      "kind": "clean-diverged-branch",
+      "currentBlocker": "behind 2, ahead 0"
+    },
+    {
+      "approvalId": "codex-a05-lesson-closure",
+      "branch": "codex/A05-lesson-closure",
+      "state": "dirty-open-decision",
+      "kind": "dirty-diverged-worktree",
+      "currentBlocker": "dirty 126"
+    },
+    {
+      "approvalId": "codex-a05-lesson-pep-load",
+      "branch": "codex/A05-lesson-pep-load",
+      "state": "clean-diverged-open-decision",
+      "kind": "clean-diverged-branch",
+      "currentBlocker": "behind 2, ahead 0"
+    },
+    {
+      "approvalId": "codex-a05-next-item-button-scroll",
+      "branch": "codex/A05-next-item-button-scroll",
+      "state": "clean-diverged-open-decision",
+      "kind": "clean-diverged-branch",
+      "currentBlocker": "behind 2, ahead 0"
+    },
+    {
+      "approvalId": "codex-a06-manim-three-closure",
+      "branch": "codex/A06-manim-three-closure",
+      "state": "dirty-open-decision",
+      "kind": "dirty-diverged-worktree",
+      "currentBlocker": "dirty 351"
+    },
+    {
+      "approvalId": "codex-a06-visualization-closure",
+      "branch": "codex/A06-visualization-closure",
+      "state": "dirty-open-decision",
+      "kind": "dirty-diverged-worktree",
+      "currentBlocker": "dirty 437"
+    },
+    {
+      "approvalId": "codex-a07-a15-a08-ai-adaptive-types",
+      "branch": "codex/A07-A15-A08-ai-adaptive-types",
+      "state": "dirty-open-decision",
+      "kind": "dirty-diverged-worktree",
+      "currentBlocker": "dirty 30"
+    },
+    {
+      "approvalId": "codex-a07-ai-tutor-classroom-switches",
+      "branch": "codex/A07-ai-tutor-classroom-switches",
+      "state": "dirty-open-decision",
+      "kind": "dirty-diverged-worktree",
+      "currentBlocker": "dirty 82"
+    },
+    {
+      "approvalId": "codex-a07-ai-tutor-closure",
+      "branch": "codex/A07-ai-tutor-closure",
+      "state": "dirty-open-decision",
+      "kind": "dirty-diverged-worktree",
+      "currentBlocker": "dirty 12"
+    },
+    {
+      "approvalId": "codex-a08-a12-shared-contract-closure",
+      "branch": "codex/A08-A12-shared-contract-closure",
+      "state": "dirty-open-decision",
+      "kind": "dirty-diverged-worktree",
+      "currentBlocker": "dirty 185"
+    },
+    {
+      "approvalId": "codex-a09-copy-i18n-accessibility-closure",
+      "branch": "codex/A09-copy-i18n-accessibility-closure",
+      "state": "dirty-open-decision",
+      "kind": "dirty-diverged-worktree",
+      "currentBlocker": "dirty 5"
+    },
+    {
+      "approvalId": "codex-a10-a22-a08-a12-a06-compose-20260628",
+      "branch": "codex/A10-A22-A08-A12-A06-compose-20260628",
+      "state": "dirty-open-decision",
+      "kind": "dirty-diverged-worktree",
+      "currentBlocker": "dirty 954"
+    },
+    {
+      "approvalId": "codex-a10-a22-release-governance",
+      "branch": "codex/A10-A22-release-governance",
+      "state": "clean-diverged-open-decision",
+      "kind": "clean-diverged-branch",
+      "currentBlocker": "behind 2, ahead 2"
+    },
+    {
+      "approvalId": "codex-a11-fix-126-128-129",
+      "branch": "codex/A11-fix-126-128-129",
+      "state": "dirty-open-decision",
+      "kind": "dirty-diverged-worktree",
+      "currentBlocker": "dirty 41"
+    },
+    {
+      "approvalId": "codex-a11-regression-evidence-closure",
+      "branch": "codex/A11-regression-evidence-closure",
+      "state": "dirty-open-decision",
+      "kind": "dirty-diverged-worktree",
+      "currentBlocker": "dirty 62"
+    },
+    {
+      "approvalId": "codex-a12-google-oauth-login",
+      "branch": "codex/A12-google-oauth-login",
+      "state": "dirty-open-decision",
+      "kind": "dirty-diverged-worktree",
+      "currentBlocker": "dirty 16"
+    },
+    {
+      "approvalId": "codex-a12-userstore-storage-contract",
+      "branch": "codex/A12-userstore-storage-contract",
+      "state": "dirty-open-decision",
+      "kind": "dirty-diverged-worktree",
+      "currentBlocker": "dirty 170"
+    },
+    {
+      "approvalId": "codex-a13-a14-console-closure",
+      "branch": "codex/A13-A14-console-closure",
+      "state": "dirty-open-decision",
+      "kind": "dirty-diverged-worktree",
+      "currentBlocker": "dirty 43"
+    },
+    {
+      "approvalId": "codex-a16-research-evidence-closure",
+      "branch": "codex/A16-research-evidence-closure",
+      "state": "dirty-open-decision",
+      "kind": "dirty-diverged-worktree",
+      "currentBlocker": "dirty 6"
+    },
+    {
+      "approvalId": "codex-a17-a20-game-motivation-closure",
+      "branch": "codex/A17-A20-game-motivation-closure",
+      "state": "dirty-open-decision",
+      "kind": "dirty-diverged-worktree",
+      "currentBlocker": "dirty 21"
+    },
+    {
+      "approvalId": "codex-a18-a21-content-evidence-closure",
+      "branch": "codex/A18-A21-content-evidence-closure",
+      "state": "dirty-open-decision",
+      "kind": "dirty-diverged-worktree",
+      "currentBlocker": "dirty 222"
+    },
+    {
+      "approvalId": "codex-a19-vercel-postgres-region",
+      "branch": "codex/A19-vercel-postgres-region",
+      "state": "clean-diverged-open-decision",
+      "kind": "clean-diverged-branch",
+      "currentBlocker": "behind 2, ahead 8"
+    },
+    {
+      "approvalId": "codex-a22-missing-module-release-slice",
+      "branch": "codex/A22-missing-module-release-slice",
+      "state": "dirty-open-decision",
+      "kind": "dirty-diverged-worktree",
+      "currentBlocker": "dirty 1016"
+    },
+    {
+      "approvalId": "codex-a22-next-15-5-19-audit",
+      "branch": "codex/A22-next-15-5-19-audit",
+      "state": "dirty-open-decision",
+      "kind": "dirty-diverged-worktree",
+      "currentBlocker": "dirty 4"
+    },
+    {
+      "approvalId": "codex-a22-p1-release-hygiene-security",
+      "branch": "codex/A22-p1-release-hygiene-security",
+      "state": "dirty-open-decision",
+      "kind": "dirty-diverged-worktree",
+      "currentBlocker": "dirty 27"
+    },
+    {
+      "approvalId": "codex-a22-us-region-alignment",
+      "branch": "codex/A22-us-region-alignment",
+      "state": "dirty-open-decision",
+      "kind": "dirty-diverged-worktree",
+      "currentBlocker": "dirty 7"
+    },
+    {
+      "approvalId": "codex-a25-ci-backup-workflow",
+      "branch": "codex/A25-ci-backup-workflow",
+      "state": "clean-diverged-open-decision",
+      "kind": "clean-diverged-branch",
+      "currentBlocker": "behind 1, ahead 0"
+    },
+    {
+      "approvalId": "codex-a25-dirty-closure-governance",
+      "branch": "codex/A25-dirty-closure-governance",
+      "state": "dirty-open-decision",
+      "kind": "dirty-diverged-worktree",
+      "currentBlocker": "dirty 1012"
+    },
+    {
+      "approvalId": "codex-a25-full-dirty-compose-verification",
+      "branch": "codex/A25-full-dirty-compose-verification",
+      "state": "dirty-open-decision",
+      "kind": "dirty-diverged-worktree",
+      "currentBlocker": "dirty 2423"
+    },
+    {
+      "approvalId": "codex-a14-profile-avatar-save",
+      "branch": "codex/A14-profile-avatar-save",
+      "state": "dirty-open-decision",
+      "kind": "dirty-diverged-worktree",
+      "currentBlocker": "dirty 10"
+    },
+    {
+      "approvalId": "codex-visualization-production-release",
+      "branch": "codex/visualization-production-release",
+      "state": "dirty-open-decision",
+      "kind": "dirty-diverged-worktree",
+      "currentBlocker": "dirty 16"
+    },
+    {
+      "approvalId": "codex-california-practice-beta-clean",
+      "branch": "codex/california-practice-beta-clean",
+      "state": "clean-diverged-open-decision",
+      "kind": "clean-diverged-branch",
+      "currentBlocker": "behind 14, ahead 1"
+    },
+    {
+      "approvalId": "codex-s22-release-hygiene-2026-06-15",
+      "branch": "codex/s22-release-hygiene-2026-06-15",
+      "state": "clean-diverged-open-decision",
+      "kind": "clean-diverged-branch",
+      "currentBlocker": "behind 14, ahead 1"
+    }
+  ]
+}

@@ -1,4 +1,5 @@
 import { hongKongDseEphSafeCards } from "../../data/rag/hongKongDseEph";
+import { illustrationTextMatchStandardForRag } from "./illustrationTextMatchStandard";
 import type {
   GradeId,
   HongKongDseEphEvidencePack,
@@ -142,6 +143,7 @@ export function buildHongKongDseEphEvidencePack(query: HongKongDseEphRagQuery): 
     "Do not quote, translate, paraphrase, reconstruct, or lightly modify textbook wording, worked responses, figures, tables, prompts, or recognisable layouts.",
     "Do not store or infer private source locators, scans, machine-extracted source text, embeddings, or source-document excerpts.",
     "Keep this publisher layer separate from HK_UNITED_PRIME_MIA DSE UP material.",
+    ...illustrationTextMatchStandardForRag,
     ...cards.flatMap((card, index) => [
       `DSE EPH textbook card ${index + 1}: ${volumeLabels[card.volume]} ${card.chapter} (${card.difficultyBand}).`,
       `Grade: ${card.grade}.`,

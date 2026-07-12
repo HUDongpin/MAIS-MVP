@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { isValidGradeId } from "@/data/grades";
+import { isActiveDifficulty } from "@/lib/difficulty";
 import { canAccessTeacherArea, requireAuthenticatedUser } from "@/lib/server/auth";
 import { createTeacherResource, getTeacherResourceLibraryData } from "@/lib/server/userStore";
 import type { Difficulty, GradeId, TeachingResourceType } from "@/types";
@@ -7,7 +8,6 @@ import type { Difficulty, GradeId, TeachingResourceType } from "@/types";
 export const runtime = "nodejs";
 
 const maxUploadBytes = 25 * 1024 * 1024;
-const validDifficulties = new Set<Difficulty>(["Foundation", "Core", "Challenge", "Exam"]);
 const validResourceTypes = new Set<TeachingResourceType>([
   "slides",
   "practice",
@@ -57,7 +57,7 @@ export async function POST(request: Request) {
     title,
     grade: grade as GradeId,
     topicId: typeof topicId === "string" && topicId ? topicId : null,
-    difficulty: typeof difficulty === "string" && validDifficulties.has(difficulty as Difficulty)
+    difficulty: isActiveDifficulty(difficulty)
       ? (difficulty as Difficulty)
       : null,
     type: typeof type === "string" && validResourceTypes.has(type as TeachingResourceType)

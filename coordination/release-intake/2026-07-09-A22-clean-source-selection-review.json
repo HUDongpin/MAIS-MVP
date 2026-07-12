@@ -1,0 +1,187 @@
+{
+  "generatedAt": "2026-07-09T14:05:20.680Z",
+  "repoRoot": "/Users/dongpinhu/Desktop/MAIS-MVP",
+  "reviewKind": "a22-clean-source-selection-review",
+  "dirtyMapStatusSignature": "b3d232fd2b9ef81d4efc95903d2e3b316db664d6e9ec6ab366181395b3966be7",
+  "expandedStatusEntries": 6604,
+  "sourceArtifacts": {
+    "cleanSourceValidationQueue": {
+      "key": "cleanSourceValidationQueue",
+      "path": "coordination/release-intake/latest-A22-clean-source-validation-queue.json",
+      "generatedAt": "2026-07-09T14:05:20.575Z",
+      "dirtyMapStatusSignature": "b3d232fd2b9ef81d4efc95903d2e3b316db664d6e9ec6ab366181395b3966be7",
+      "expandedStatusEntries": 6604
+    },
+    "cleanSourceCandidatePromotionPacket": {
+      "key": "cleanSourceCandidatePromotionPacket",
+      "path": "coordination/release-intake/latest-A22-clean-source-candidate-promotion-packet.json",
+      "generatedAt": "2026-07-09T14:01:41.799Z",
+      "dirtyMapStatusSignature": "b3d232fd2b9ef81d4efc95903d2e3b316db664d6e9ec6ab366181395b3966be7",
+      "expandedStatusEntries": 6604
+    },
+    "cleanReleaseSourceRunway": {
+      "key": "cleanReleaseSourceRunway",
+      "path": "coordination/release-intake/latest-A22-clean-release-source-runway.json",
+      "generatedAt": "2026-07-09T14:01:17.855Z",
+      "dirtyMapStatusSignature": "b3d232fd2b9ef81d4efc95903d2e3b316db664d6e9ec6ab366181395b3966be7",
+      "expandedStatusEntries": 6604
+    },
+    "fallbackCandidateValidationSnapshot": {
+      "key": "fallbackCandidateValidationSnapshot",
+      "path": "coordination/release-intake/latest-A22-fallback-clean-candidate-validation-snapshot.json",
+      "generatedAt": "2026-07-09T12:40:17.935Z",
+      "dirtyMapStatusSignature": "b3d232fd2b9ef81d4efc95903d2e3b316db664d6e9ec6ab366181395b3966be7",
+      "expandedStatusEntries": 6604
+    },
+    "validateToMergeBlockerFrontier": {
+      "key": "validateToMergeBlockerFrontier",
+      "path": "coordination/release-intake/latest-A25-validate-to-merge-blocker-frontier.json",
+      "generatedAt": "2026-07-09T14:00:37.950Z",
+      "dirtyMapStatusSignature": "b3d232fd2b9ef81d4efc95903d2e3b316db664d6e9ec6ab366181395b3966be7",
+      "expandedStatusEntries": 6604
+    },
+    "validateToMergeExitCriteria": {
+      "key": "validateToMergeExitCriteria",
+      "path": "coordination/release-intake/latest-A25-validate-to-merge-exit-criteria.json",
+      "generatedAt": "2026-07-09T14:01:17.527Z",
+      "dirtyMapStatusSignature": "b3d232fd2b9ef81d4efc95903d2e3b316db664d6e9ec6ab366181395b3966be7",
+      "expandedStatusEntries": 6604
+    },
+    "sevenStepClosureBridge": {
+      "key": "sevenStepClosureBridge",
+      "path": "coordination/release-intake/latest-A25-seven-step-closure-bridge.json",
+      "generatedAt": "2026-07-09T14:01:17.746Z",
+      "dirtyMapStatusSignature": "b3d232fd2b9ef81d4efc95903d2e3b316db664d6e9ec6ab366181395b3966be7",
+      "expandedStatusEntries": 6604
+    }
+  },
+  "sourceCurrentnessFailures": [],
+  "selectionReviewStatus": "reviewed-fallback-green-not-selected",
+  "summary": {
+    "fallbackGreenCandidateBranch": "codex/s22-release-hygiene-2026-06-15",
+    "fallbackValidationPassed": true,
+    "fallbackTypeCheckPassed": true,
+    "fallbackTypeCheckErrorLines": 0,
+    "fallbackBuildPassed": true,
+    "fallbackTrackedMutationDetected": false,
+    "queueStatus": "fallback-candidate-green-await-clean-source-selection-review",
+    "topCandidateBranch": "codex/A22-us-region-alignment",
+    "topCandidateQueueActionStatus": "needs-typecheck-remediation-and-fresh-build-observation",
+    "topCandidateTypeCheckErrorLines": 360,
+    "topCandidateBuildRefreshRequired": true,
+    "releaseSourceEligibleNow": false,
+    "releaseSourceSelected": false,
+    "promotionEligibleNow": false,
+    "cleanWorktreeCandidates": 8,
+    "blockedAllowedSourceOptions": 4,
+    "pendingCanonicalAuthorizationRows": 41,
+    "focusBatchPendingRows": 0,
+    "failedMergeChecks": 4,
+    "validateExitReady": false,
+    "readyForMerge": false,
+    "cleanupAuthorizedRows": 0,
+    "executableRows": 0,
+    "sourceCurrentnessFailures": 0
+  },
+  "selectionRows": [
+    {
+      "rank": 1,
+      "rowId": "fallback-green-candidate-reviewed",
+      "owner": "A22 production reliability and release engineering",
+      "agentIds": [
+        "A22"
+      ],
+      "branch": "codex/s22-release-hygiene-2026-06-15",
+      "status": "green-for-review-not-selected",
+      "evidence": [
+        "coordination/release-intake/latest-A22-fallback-clean-candidate-validation-snapshot.json",
+        "coordination/release-intake/latest-A22-clean-source-validation-queue.json"
+      ],
+      "facts": {
+        "validationPassed": true,
+        "typeCheckPassed": true,
+        "typeCheckErrorLines": 0,
+        "buildPassed": true,
+        "trackedMutationDetected": false,
+        "releaseSourceSelected": false
+      },
+      "blocker": "The fallback candidate is green, but no owner clean-source promotion instruction or release-source selection record exists.",
+      "nextAction": "Keep the fallback candidate as a reviewed clean-source option; do not select it as release source until owner promotion, merge, deploy, and release gates are explicit."
+    },
+    {
+      "rank": 2,
+      "rowId": "top-candidate-remediation-still-required",
+      "owner": "A22 production reliability and release engineering with routed owner sessions",
+      "agentIds": [
+        "A22"
+      ],
+      "branch": "codex/A22-us-region-alignment",
+      "status": "needs-typecheck-remediation-and-fresh-build-observation",
+      "evidence": [
+        "coordination/release-intake/latest-A22-clean-source-validation-queue.json"
+      ],
+      "facts": {
+        "focusedSmokePassed": true,
+        "typeCheckPassed": false,
+        "typeCheckErrorLines": 360,
+        "buildPassed": false,
+        "buildRefreshRequired": true
+      },
+      "blocker": "The top clean candidate remains red for type-check/build freshness and cannot be promoted as a clean source.",
+      "nextAction": "Use the existing A22 type-check remediation work orders before any top-candidate clean-source selection."
+    },
+    {
+      "rank": 3,
+      "rowId": "selection-boundary-holds",
+      "owner": "A22 production reliability and A25 release intake",
+      "agentIds": [
+        "A22",
+        "A25"
+      ],
+      "branch": "",
+      "status": "blocked-before-release-source-selection",
+      "evidence": [
+        "coordination/release-intake/latest-A22-clean-source-candidate-promotion-packet.json",
+        "coordination/release-intake/latest-A22-clean-release-source-runway.json",
+        "coordination/release-intake/latest-A25-validate-to-merge-blocker-frontier.json",
+        "coordination/release-intake/latest-A25-validate-to-merge-exit-criteria.json",
+        "coordination/release-intake/latest-A25-seven-step-closure-bridge.json"
+      ],
+      "facts": {
+        "releaseSourceEligibleNow": false,
+        "releaseSourceSelected": false,
+        "promotionEligibleNow": false,
+        "readyForMerge": false,
+        "validateExitReady": false,
+        "pendingCanonicalAuthorizationRows": 41,
+        "failedMergeChecks": 4,
+        "cleanWorktreeCandidates": 8,
+        "blockedAllowedSourceOptions": 4
+      },
+      "blocker": "Selection remains blocked by release-source eligibility, canonical authorization backlog, validate-exit gates, and missing merge/deploy authorization.",
+      "nextAction": "Treat this review as evidence only; keep release-source selection, staging, merging, cleanup, and deploy blocked."
+    }
+  ],
+  "safeNextCommands": [
+    "node coordination/release-intake/assert-a22-clean-source-selection-review-current.mjs",
+    "node coordination/release-intake/assert-a22-clean-source-validation-queue-current.mjs",
+    "node coordination/release-intake/assert-a22-fallback-clean-candidate-validation-snapshot-current.mjs",
+    "node coordination/release-intake/assert-a22-clean-source-candidate-promotion-packet-current.mjs",
+    "node coordination/release-intake/assert-a22-clean-release-source-runway-current.mjs",
+    "node coordination/release-intake/assert-validate-to-merge-blocker-frontier-current.mjs"
+  ],
+  "boundary": {
+    "evidenceOnly": true,
+    "selectsReleaseSource": false,
+    "recordsOwnerApproval": false,
+    "recordsExecutionInstruction": false,
+    "stagesFiles": false,
+    "commits": false,
+    "merges": false,
+    "deploys": false,
+    "cleanupAuthorized": false,
+    "executableNow": false,
+    "destructiveGitAuthorized": false,
+    "physicalLifecycleCleanupAuthorized": false
+  }
+}

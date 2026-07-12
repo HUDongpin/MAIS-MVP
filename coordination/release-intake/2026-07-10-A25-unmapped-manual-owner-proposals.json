@@ -1,0 +1,89 @@
+{
+  "generatedAt": "2026-07-10T15:56:03.201Z",
+  "dirtyMap": {
+    "latestJson": "coordination/release-intake/latest-A25-dirty-tree-map.json",
+    "generatedAt": "2026-07-10T15:55:27.044Z",
+    "statusSignature": "37c9d353a7710b8e92d3d766006b7230936ca194044a47770a99ab12d7c6cef1"
+  },
+  "sourceOwner": "Unmapped/manual owner needed",
+  "sourceCount": 6,
+  "proposalBuckets": {
+    "Manual A10/A25 owner assignment required": 4,
+    "A13 teacher console lead": 1,
+    "A18 curriculum QA and content quality lead": 1
+  },
+  "confidenceBuckets": {
+    "none": 4,
+    "high": 2
+  },
+  "proposals": [
+    {
+      "status": "??",
+      "path": ".claude/launch.json",
+      "owner": "Unmapped/manual owner needed",
+      "slice": "unmapped/manual",
+      "proposedOwner": "Manual A10/A25 owner assignment required",
+      "coordination": [],
+      "confidence": "none",
+      "rationale": "No manual proposal rule exists for this path."
+    },
+    {
+      "status": "??",
+      "path": "MAIS_CA-Math_K-5_Content_QA_Report.docx",
+      "owner": "Unmapped/manual owner needed",
+      "slice": "unmapped/manual",
+      "proposedOwner": "A18 curriculum QA and content quality lead",
+      "coordination": [
+        "A21 content pipeline and RAG operations",
+        "A10 tooling, docs, and report",
+        "A25 git hygiene and release intake"
+      ],
+      "confidence": "high",
+      "rationale": "California K-5 math content QA evidence belongs to A18 curriculum/content-quality review, with A21 content-pipeline and A10/A25 report/release-intake coordination."
+    },
+    {
+      "status": "??",
+      "path": "MAIS_Competitive_Analysis_K12_Math.docx",
+      "owner": "Unmapped/manual owner needed",
+      "slice": "unmapped/manual",
+      "proposedOwner": "Manual A10/A25 owner assignment required",
+      "coordination": [],
+      "confidence": "none",
+      "rationale": "No manual proposal rule exists for this path."
+    },
+    {
+      "status": "??",
+      "path": "MAIS_Teacher_Console_Bug_Detection_Report.docx",
+      "owner": "Unmapped/manual owner needed",
+      "slice": "unmapped/manual",
+      "proposedOwner": "A13 teacher console lead",
+      "coordination": [
+        "A10 tooling, docs, and report",
+        "A11 QA and release quality",
+        "A25 git hygiene and release intake"
+      ],
+      "confidence": "high",
+      "rationale": "Teacher Console bug-detection report should be reviewed by A13 for product ownership, with A10/A11/A25 coordinating report evidence and release intake."
+    },
+    {
+      "status": "??",
+      "path": "scripts/dev-isolated.mjs",
+      "owner": "Unmapped/manual owner needed",
+      "slice": "unmapped/manual",
+      "proposedOwner": "Manual A10/A25 owner assignment required",
+      "coordination": [],
+      "confidence": "none",
+      "rationale": "No manual proposal rule exists for this path."
+    },
+    {
+      "status": "??",
+      "path": "scripts/kill-port.mjs",
+      "owner": "Unmapped/manual owner needed",
+      "slice": "unmapped/manual",
+      "proposedOwner": "Manual A10/A25 owner assignment required",
+      "coordination": [],
+      "confidence": "none",
+      "rationale": "No manual proposal rule exists for this path."
+    }
+  ]
+}

@@ -1,17 +1,9 @@
 import { redirect } from "next/navigation";
-import { TeacherInboxManager } from "@/components/teacher/TeacherManagementViews";
-import { getTeacherInboxData } from "@/lib/server/userStore";
-import { getTeacherFoundationForPage } from "../getTeacherFoundation";
 
-export default async function TeacherInboxPage({ searchParams }: { searchParams: Promise<{ thread?: string }> }) {
-  const foundation = await getTeacherFoundationForPage();
+export default async function TeacherInboxPage({ searchParams }: { searchParams: Promise<{ thread?: string; filter?: string }> }) {
   const params = await searchParams;
-  const inbox = await getTeacherInboxData(foundation.teacher.id, params.thread);
-
-  if (!inbox) {
-    redirect("/teacher");
-  }
-
-  return <TeacherInboxManager inbox={inbox} />;
+  const nextParams = new URLSearchParams();
+  if (params.thread) nextParams.set("thread", params.thread);
+  if (params.filter) nextParams.set("filter", params.filter);
+  redirect(`/teacher/communications/inbox${nextParams.toString() ? `?${nextParams.toString()}` : ""}`);
 }
-

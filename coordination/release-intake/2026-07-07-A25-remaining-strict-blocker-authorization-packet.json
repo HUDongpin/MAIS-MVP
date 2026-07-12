@@ -1,0 +1,435 @@
+{
+  "generatedAt": "2026-07-07T15:59:35.591Z",
+  "dirtyMapStatusSignature": "21bf7897e245ce5bceb31315d088e7024d2e12aa53a9a098945ea69c3440b015",
+  "expandedStatusEntries": 5728,
+  "strictResult": "fail",
+  "strictGateCurrentnessSnapshot": {
+    "currentTotal": 40,
+    "currentPassed": 25,
+    "note": "Informational only. The remaining-strict packet currentness gate is self-referential inside the strict aggregate, so blocker authorization validity does not depend on this count."
+  },
+  "strictTotal": 4,
+  "strictPassed": 2,
+  "worktreeCount": 39,
+  "liveOpenDecisions": 39,
+  "coveredBlockerRows": 39,
+  "releaseSourceDirtyEntries": 5728,
+  "cleanupAuthorized": false,
+  "note": "Authorization request only. No cleanup, deploy, staging, commit, reset, restore, clean, worktree removal, prune, branch deletion, tag, or push is approved by this artifact.",
+  "remainingStrictBlockers": [
+    {
+      "id": "A22 release-source clean gate",
+      "owner": "A22 production reliability and release engineering",
+      "status": "blocked",
+      "evidence": [
+        "coordination/release-intake/latest-A25-dirty-tree-map.json",
+        "coordination/release-intake/latest-A25-effective-disposition-queue.json",
+        "coordination/release-intake/latest-A25-dirty-worktree-final-state-ledger.json"
+      ],
+      "authorizationNeeded": "Root must become clean through reviewed owner-package commits, exact-path discards, archives, or retained blockers before any release-source use."
+    },
+    {
+      "id": "A25 strict worktree lifecycle gate",
+      "owner": "A25 git hygiene and release intake",
+      "status": "blocked",
+      "evidence": [
+        "coordination/release-intake/latest-A25-worktree-lifecycle-gate.json",
+        "coordination/release-intake/latest-A25-physical-lifecycle-blocker-coverage-current-gate.json",
+        "coordination/release-intake/latest-A25-dirty-worktree-final-state-action-runbook.json"
+      ],
+      "authorizationNeeded": "Every live dirty or diverged worktree needs owner-approved commit/extraction, archive, retirement, removal, or continued blocker disposition."
+    }
+  ],
+  "physicalLifecycleApprovalsNeeded": [
+    {
+      "branch": "main",
+      "state": "dirty-open-decision",
+      "currentBlocker": "dirty 5728",
+      "ledgerId": "physical:root-main",
+      "selectedFinalState": "reviewed owner package commit",
+      "actionKind": "owner-reviewed-commit-required",
+      "authorizationNeeded": "Owner packages must be reviewed, committed/extracted, archived, or explicitly discarded before root can become a clean release source.",
+      "cleanupAuthorized": false
+    },
+    {
+      "branch": "codex/A01-app-shell-closure",
+      "state": "dirty-open-decision",
+      "currentBlocker": "dirty 26",
+      "ledgerId": "physical:codex-a01-app-shell-closure",
+      "selectedFinalState": "owner-reviewed commit or package extraction",
+      "actionKind": "owner-reviewed-worktree-package-required",
+      "authorizationNeeded": "Owning agent must review dirty changes, then choose commit/package extraction, exact-path discard, retained evidence archive, approved worktree removal after closure, or continued blocker handling.",
+      "cleanupAuthorized": false
+    },
+    {
+      "branch": "codex/A01-shell-lazy-load",
+      "state": "dirty-open-decision",
+      "currentBlocker": "dirty 8",
+      "ledgerId": "physical:codex-a01-shell-lazy-load",
+      "selectedFinalState": "owner-reviewed commit or package extraction",
+      "actionKind": "owner-reviewed-worktree-package-required",
+      "authorizationNeeded": "Owning agent must review dirty changes, then choose commit/package extraction, exact-path discard, retained evidence archive, approved worktree removal after closure, or continued blocker handling.",
+      "cleanupAuthorized": false
+    },
+    {
+      "branch": "codex/A02-A15-dashboard-adaptive-closure",
+      "state": "dirty-open-decision",
+      "currentBlocker": "dirty 30",
+      "ledgerId": "physical:codex-a02-a15-dashboard-adaptive-closure",
+      "selectedFinalState": "owner-reviewed commit or package extraction",
+      "actionKind": "owner-reviewed-worktree-package-required",
+      "authorizationNeeded": "Owning agent must review dirty changes, then choose commit/package extraction, exact-path discard, retained evidence archive, approved worktree removal after closure, or continued blocker handling.",
+      "cleanupAuthorized": false
+    },
+    {
+      "branch": "codex/A03-roadmap-closure",
+      "state": "dirty-open-decision",
+      "currentBlocker": "dirty 30",
+      "ledgerId": "physical:codex-a03-roadmap-closure",
+      "selectedFinalState": "owner-reviewed commit or package extraction",
+      "actionKind": "owner-reviewed-worktree-package-required",
+      "authorizationNeeded": "Owning agent must review dirty changes, then choose commit/package extraction, exact-path discard, retained evidence archive, approved worktree removal after closure, or continued blocker handling.",
+      "cleanupAuthorized": false
+    },
+    {
+      "branch": "codex/A04-practice-closure",
+      "state": "dirty-open-decision",
+      "currentBlocker": "dirty 56",
+      "ledgerId": "physical:codex-a04-practice-closure",
+      "selectedFinalState": "owner-reviewed commit or package extraction",
+      "actionKind": "owner-reviewed-worktree-package-required",
+      "authorizationNeeded": "Owning agent must review dirty changes, then choose commit/package extraction, exact-path discard, retained evidence archive, approved worktree removal after closure, or continued blocker handling.",
+      "cleanupAuthorized": false
+    },
+    {
+      "branch": "codex/A05-lesson-checklist-p0",
+      "state": "clean-diverged-open-decision",
+      "currentBlocker": "behind 2, ahead 0",
+      "ledgerId": "physical:codex-a05-lesson-checklist-p0",
+      "selectedFinalState": "owner-approved PR or review package",
+      "actionKind": "owner-approved-pr-or-review-package-required",
+      "authorizationNeeded": "Owner must choose PR/review package, archive-state record, branch/worktree retirement, or continued blocker handling for the diverged branch.",
+      "cleanupAuthorized": false
+    },
+    {
+      "branch": "codex/A05-lesson-closure",
+      "state": "dirty-open-decision",
+      "currentBlocker": "dirty 126",
+      "ledgerId": "physical:codex-a05-lesson-closure",
+      "selectedFinalState": "owner-reviewed commit or package extraction",
+      "actionKind": "owner-reviewed-worktree-package-required",
+      "authorizationNeeded": "Owning agent must review dirty changes, then choose commit/package extraction, exact-path discard, retained evidence archive, approved worktree removal after closure, or continued blocker handling.",
+      "cleanupAuthorized": false
+    },
+    {
+      "branch": "codex/A05-lesson-pep-load",
+      "state": "clean-diverged-open-decision",
+      "currentBlocker": "behind 2, ahead 0",
+      "ledgerId": "physical:codex-a05-lesson-pep-load",
+      "selectedFinalState": "owner-approved PR or review package",
+      "actionKind": "owner-approved-pr-or-review-package-required",
+      "authorizationNeeded": "Owner must choose PR/review package, archive-state record, branch/worktree retirement, or continued blocker handling for the diverged branch.",
+      "cleanupAuthorized": false
+    },
+    {
+      "branch": "codex/A05-next-item-button-scroll",
+      "state": "clean-diverged-open-decision",
+      "currentBlocker": "behind 2, ahead 0",
+      "ledgerId": "physical:codex-a05-next-item-button-scroll",
+      "selectedFinalState": "owner-approved PR or review package",
+      "actionKind": "owner-approved-pr-or-review-package-required",
+      "authorizationNeeded": "Owner must choose PR/review package, archive-state record, branch/worktree retirement, or continued blocker handling for the diverged branch.",
+      "cleanupAuthorized": false
+    },
+    {
+      "branch": "codex/A06-manim-three-closure",
+      "state": "dirty-open-decision",
+      "currentBlocker": "dirty 351",
+      "ledgerId": "physical:codex-a06-manim-three-closure",
+      "selectedFinalState": "owner-reviewed commit or package extraction",
+      "actionKind": "owner-reviewed-worktree-package-required",
+      "authorizationNeeded": "Owning agent must review dirty changes, then choose commit/package extraction, exact-path discard, retained evidence archive, approved worktree removal after closure, or continued blocker handling.",
+      "cleanupAuthorized": false
+    },
+    {
+      "branch": "codex/A06-visualization-closure",
+      "state": "dirty-open-decision",
+      "currentBlocker": "dirty 437",
+      "ledgerId": "physical:codex-a06-visualization-closure",
+      "selectedFinalState": "owner-reviewed commit or package extraction",
+      "actionKind": "owner-reviewed-worktree-package-required",
+      "authorizationNeeded": "Owning agent must review dirty changes, then choose commit/package extraction, exact-path discard, retained evidence archive, approved worktree removal after closure, or continued blocker handling.",
+      "cleanupAuthorized": false
+    },
+    {
+      "branch": "codex/A07-A15-A08-ai-adaptive-types",
+      "state": "dirty-open-decision",
+      "currentBlocker": "dirty 30",
+      "ledgerId": "physical:codex-a07-a15-a08-ai-adaptive-types",
+      "selectedFinalState": "owner-reviewed commit or package extraction",
+      "actionKind": "owner-reviewed-worktree-package-required",
+      "authorizationNeeded": "Owning agent must review dirty changes, then choose commit/package extraction, exact-path discard, retained evidence archive, approved worktree removal after closure, or continued blocker handling.",
+      "cleanupAuthorized": false
+    },
+    {
+      "branch": "codex/A07-ai-tutor-classroom-switches",
+      "state": "dirty-open-decision",
+      "currentBlocker": "dirty 82",
+      "ledgerId": "physical:codex-a07-ai-tutor-classroom-switches",
+      "selectedFinalState": "owner-reviewed commit or package extraction",
+      "actionKind": "owner-reviewed-worktree-package-required",
+      "authorizationNeeded": "Owning agent must review dirty changes, then choose commit/package extraction, exact-path discard, retained evidence archive, approved worktree removal after closure, or continued blocker handling.",
+      "cleanupAuthorized": false
+    },
+    {
+      "branch": "codex/A07-ai-tutor-closure",
+      "state": "dirty-open-decision",
+      "currentBlocker": "dirty 12",
+      "ledgerId": "physical:codex-a07-ai-tutor-closure",
+      "selectedFinalState": "owner-reviewed commit or package extraction",
+      "actionKind": "owner-reviewed-worktree-package-required",
+      "authorizationNeeded": "Owning agent must review dirty changes, then choose commit/package extraction, exact-path discard, retained evidence archive, approved worktree removal after closure, or continued blocker handling.",
+      "cleanupAuthorized": false
+    },
+    {
+      "branch": "codex/A08-A12-shared-contract-closure",
+      "state": "dirty-open-decision",
+      "currentBlocker": "dirty 185",
+      "ledgerId": "physical:codex-a08-a12-shared-contract-closure",
+      "selectedFinalState": "owner-reviewed commit or package extraction",
+      "actionKind": "owner-reviewed-worktree-package-required",
+      "authorizationNeeded": "Owning agent must review dirty changes, then choose commit/package extraction, exact-path discard, retained evidence archive, approved worktree removal after closure, or continued blocker handling.",
+      "cleanupAuthorized": false
+    },
+    {
+      "branch": "codex/A09-copy-i18n-accessibility-closure",
+      "state": "dirty-open-decision",
+      "currentBlocker": "dirty 5",
+      "ledgerId": "physical:codex-a09-copy-i18n-accessibility-closure",
+      "selectedFinalState": "owner-reviewed commit or package extraction",
+      "actionKind": "owner-reviewed-worktree-package-required",
+      "authorizationNeeded": "Owning agent must review dirty changes, then choose commit/package extraction, exact-path discard, retained evidence archive, approved worktree removal after closure, or continued blocker handling.",
+      "cleanupAuthorized": false
+    },
+    {
+      "branch": "codex/A10-A22-A08-A12-A06-compose-20260628",
+      "state": "dirty-open-decision",
+      "currentBlocker": "dirty 954",
+      "ledgerId": "physical:codex-a10-a22-a08-a12-a06-compose-20260628",
+      "selectedFinalState": "owner-reviewed commit or package extraction",
+      "actionKind": "owner-reviewed-worktree-package-required",
+      "authorizationNeeded": "Owning agent must review dirty changes, then choose commit/package extraction, exact-path discard, retained evidence archive, approved worktree removal after closure, or continued blocker handling.",
+      "cleanupAuthorized": false
+    },
+    {
+      "branch": "codex/A10-A22-release-governance",
+      "state": "clean-diverged-open-decision",
+      "currentBlocker": "behind 2, ahead 2",
+      "ledgerId": "physical:codex-a10-a22-release-governance",
+      "selectedFinalState": "owner-approved PR or review package",
+      "actionKind": "owner-approved-pr-or-review-package-required",
+      "authorizationNeeded": "Owner must choose PR/review package, archive-state record, branch/worktree retirement, or continued blocker handling for the diverged branch.",
+      "cleanupAuthorized": false
+    },
+    {
+      "branch": "codex/A11-fix-126-128-129",
+      "state": "dirty-open-decision",
+      "currentBlocker": "dirty 41",
+      "ledgerId": "physical:codex-a11-fix-126-128-129",
+      "selectedFinalState": "owner-reviewed commit or package extraction",
+      "actionKind": "owner-reviewed-worktree-package-required",
+      "authorizationNeeded": "Owning agent must review dirty changes, then choose commit/package extraction, exact-path discard, retained evidence archive, approved worktree removal after closure, or continued blocker handling.",
+      "cleanupAuthorized": false
+    },
+    {
+      "branch": "codex/A11-regression-evidence-closure",
+      "state": "dirty-open-decision",
+      "currentBlocker": "dirty 62",
+      "ledgerId": "physical:codex-a11-regression-evidence-closure",
+      "selectedFinalState": "owner-reviewed commit or package extraction",
+      "actionKind": "owner-reviewed-worktree-package-required",
+      "authorizationNeeded": "Owning agent must review dirty changes, then choose commit/package extraction, exact-path discard, retained evidence archive, approved worktree removal after closure, or continued blocker handling.",
+      "cleanupAuthorized": false
+    },
+    {
+      "branch": "codex/A12-google-oauth-login",
+      "state": "dirty-open-decision",
+      "currentBlocker": "dirty 16",
+      "ledgerId": "physical:codex-a12-google-oauth-login",
+      "selectedFinalState": "owner-reviewed commit or package extraction",
+      "actionKind": "owner-reviewed-worktree-package-required",
+      "authorizationNeeded": "Owning agent must review dirty changes, then choose commit/package extraction, exact-path discard, retained evidence archive, approved worktree removal after closure, or continued blocker handling.",
+      "cleanupAuthorized": false
+    },
+    {
+      "branch": "codex/A12-userstore-storage-contract",
+      "state": "dirty-open-decision",
+      "currentBlocker": "dirty 170",
+      "ledgerId": "physical:codex-a12-userstore-storage-contract",
+      "selectedFinalState": "owner-reviewed commit or package extraction",
+      "actionKind": "owner-reviewed-worktree-package-required",
+      "authorizationNeeded": "Owning agent must review dirty changes, then choose commit/package extraction, exact-path discard, retained evidence archive, approved worktree removal after closure, or continued blocker handling.",
+      "cleanupAuthorized": false
+    },
+    {
+      "branch": "codex/A13-A14-console-closure",
+      "state": "dirty-open-decision",
+      "currentBlocker": "dirty 43",
+      "ledgerId": "physical:codex-a13-a14-console-closure",
+      "selectedFinalState": "owner-reviewed commit or package extraction",
+      "actionKind": "owner-reviewed-worktree-package-required",
+      "authorizationNeeded": "Owning agent must review dirty changes, then choose commit/package extraction, exact-path discard, retained evidence archive, approved worktree removal after closure, or continued blocker handling.",
+      "cleanupAuthorized": false
+    },
+    {
+      "branch": "codex/A16-research-evidence-closure",
+      "state": "dirty-open-decision",
+      "currentBlocker": "dirty 6",
+      "ledgerId": "physical:codex-a16-research-evidence-closure",
+      "selectedFinalState": "owner-reviewed commit or package extraction",
+      "actionKind": "owner-reviewed-worktree-package-required",
+      "authorizationNeeded": "Owning agent must review dirty changes, then choose commit/package extraction, exact-path discard, retained evidence archive, approved worktree removal after closure, or continued blocker handling.",
+      "cleanupAuthorized": false
+    },
+    {
+      "branch": "codex/A17-A20-game-motivation-closure",
+      "state": "dirty-open-decision",
+      "currentBlocker": "dirty 21",
+      "ledgerId": "physical:codex-a17-a20-game-motivation-closure",
+      "selectedFinalState": "owner-reviewed commit or package extraction",
+      "actionKind": "owner-reviewed-worktree-package-required",
+      "authorizationNeeded": "Owning agent must review dirty changes, then choose commit/package extraction, exact-path discard, retained evidence archive, approved worktree removal after closure, or continued blocker handling.",
+      "cleanupAuthorized": false
+    },
+    {
+      "branch": "codex/A18-A21-content-evidence-closure",
+      "state": "dirty-open-decision",
+      "currentBlocker": "dirty 222",
+      "ledgerId": "physical:codex-a18-a21-content-evidence-closure",
+      "selectedFinalState": "owner-reviewed commit or package extraction",
+      "actionKind": "owner-reviewed-worktree-package-required",
+      "authorizationNeeded": "Owning agent must review dirty changes, then choose commit/package extraction, exact-path discard, retained evidence archive, approved worktree removal after closure, or continued blocker handling.",
+      "cleanupAuthorized": false
+    },
+    {
+      "branch": "codex/A19-vercel-postgres-region",
+      "state": "clean-diverged-open-decision",
+      "currentBlocker": "behind 2, ahead 8",
+      "ledgerId": "physical:codex-a19-vercel-postgres-region",
+      "selectedFinalState": "owner-approved PR or review package",
+      "actionKind": "owner-approved-pr-or-review-package-required",
+      "authorizationNeeded": "Owner must choose PR/review package, archive-state record, branch/worktree retirement, or continued blocker handling for the diverged branch.",
+      "cleanupAuthorized": false
+    },
+    {
+      "branch": "codex/A22-missing-module-release-slice",
+      "state": "dirty-open-decision",
+      "currentBlocker": "dirty 1016",
+      "ledgerId": "physical:codex-a22-missing-module-release-slice",
+      "selectedFinalState": "owner-reviewed commit or package extraction",
+      "actionKind": "owner-reviewed-worktree-package-required",
+      "authorizationNeeded": "Owning agent must review dirty changes, then choose commit/package extraction, exact-path discard, retained evidence archive, approved worktree removal after closure, or continued blocker handling.",
+      "cleanupAuthorized": false
+    },
+    {
+      "branch": "codex/A22-next-15-5-19-audit",
+      "state": "dirty-open-decision",
+      "currentBlocker": "dirty 4",
+      "ledgerId": "physical:codex-a22-next-15-5-19-audit",
+      "selectedFinalState": "owner-reviewed commit or package extraction",
+      "actionKind": "owner-reviewed-worktree-package-required",
+      "authorizationNeeded": "Owning agent must review dirty changes, then choose commit/package extraction, exact-path discard, retained evidence archive, approved worktree removal after closure, or continued blocker handling.",
+      "cleanupAuthorized": false
+    },
+    {
+      "branch": "codex/A22-p1-release-hygiene-security",
+      "state": "dirty-open-decision",
+      "currentBlocker": "dirty 27",
+      "ledgerId": "physical:codex-a22-p1-release-hygiene-security",
+      "selectedFinalState": "owner-reviewed commit or package extraction",
+      "actionKind": "owner-reviewed-worktree-package-required",
+      "authorizationNeeded": "Owning agent must review dirty changes, then choose commit/package extraction, exact-path discard, retained evidence archive, approved worktree removal after closure, or continued blocker handling.",
+      "cleanupAuthorized": false
+    },
+    {
+      "branch": "codex/A22-us-region-alignment",
+      "state": "clean-diverged-open-decision",
+      "currentBlocker": "behind 2, ahead 1",
+      "ledgerId": "physical:codex-a22-us-region-alignment",
+      "selectedFinalState": "owner-approved PR or review package",
+      "actionKind": "owner-approved-pr-or-review-package-required",
+      "authorizationNeeded": "Owner must choose PR/review package, archive-state record, branch/worktree retirement, or continued blocker handling for the diverged branch.",
+      "cleanupAuthorized": false
+    },
+    {
+      "branch": "codex/A25-ci-backup-workflow",
+      "state": "clean-diverged-open-decision",
+      "currentBlocker": "behind 1, ahead 0",
+      "ledgerId": "physical:codex-a25-ci-backup-workflow",
+      "selectedFinalState": "owner-approved PR or review package",
+      "actionKind": "owner-approved-pr-or-review-package-required",
+      "authorizationNeeded": "Owner must choose PR/review package, archive-state record, branch/worktree retirement, or continued blocker handling for the diverged branch.",
+      "cleanupAuthorized": false
+    },
+    {
+      "branch": "codex/A25-dirty-closure-governance",
+      "state": "dirty-open-decision",
+      "currentBlocker": "dirty 1012",
+      "ledgerId": "physical:codex-a25-dirty-closure-governance",
+      "selectedFinalState": "owner-reviewed commit or package extraction",
+      "actionKind": "owner-reviewed-worktree-package-required",
+      "authorizationNeeded": "Owning agent must review dirty changes, then choose commit/package extraction, exact-path discard, retained evidence archive, approved worktree removal after closure, or continued blocker handling.",
+      "cleanupAuthorized": false
+    },
+    {
+      "branch": "codex/A25-full-dirty-compose-verification",
+      "state": "dirty-open-decision",
+      "currentBlocker": "dirty 2423",
+      "ledgerId": "physical:codex-a25-full-dirty-compose-verification",
+      "selectedFinalState": "owner-reviewed commit or package extraction",
+      "actionKind": "owner-reviewed-worktree-package-required",
+      "authorizationNeeded": "Owning agent must review dirty changes, then choose commit/package extraction, exact-path discard, retained evidence archive, approved worktree removal after closure, or continued blocker handling.",
+      "cleanupAuthorized": false
+    },
+    {
+      "branch": "codex/A14-profile-avatar-save",
+      "state": "dirty-open-decision",
+      "currentBlocker": "dirty 10",
+      "ledgerId": "physical:codex-a14-profile-avatar-save",
+      "selectedFinalState": "owner-reviewed commit or package extraction",
+      "actionKind": "owner-reviewed-worktree-package-required",
+      "authorizationNeeded": "Owning agent must review dirty changes, then choose commit/package extraction, exact-path discard, retained evidence archive, approved worktree removal after closure, or continued blocker handling.",
+      "cleanupAuthorized": false
+    },
+    {
+      "branch": "codex/visualization-production-release",
+      "state": "dirty-open-decision",
+      "currentBlocker": "dirty 16",
+      "ledgerId": "physical:codex-visualization-production-release",
+      "selectedFinalState": "owner-reviewed commit or package extraction",
+      "actionKind": "owner-reviewed-worktree-package-required",
+      "authorizationNeeded": "Owning agent must review dirty changes, then choose commit/package extraction, exact-path discard, retained evidence archive, approved worktree removal after closure, or continued blocker handling.",
+      "cleanupAuthorized": false
+    },
+    {
+      "branch": "codex/california-practice-beta-clean",
+      "state": "clean-diverged-open-decision",
+      "currentBlocker": "behind 14, ahead 1",
+      "ledgerId": "physical:codex-california-practice-beta-clean",
+      "selectedFinalState": "owner-approved PR or review package",
+      "actionKind": "owner-approved-pr-or-review-package-required",
+      "authorizationNeeded": "Owner must choose PR/review package, archive-state record, branch/worktree retirement, or continued blocker handling for the diverged branch.",
+      "cleanupAuthorized": false
+    },
+    {
+      "branch": "codex/s22-release-hygiene-2026-06-15",
+      "state": "clean-diverged-open-decision",
+      "currentBlocker": "behind 14, ahead 1",
+      "ledgerId": "physical:codex-s22-release-hygiene-2026-06-15",
+      "selectedFinalState": "owner-approved PR or review package",
+      "actionKind": "owner-approved-pr-or-review-package-required",
+      "authorizationNeeded": "Owner must choose PR/review package, archive-state record, branch/worktree retirement, or continued blocker handling for the diverged branch.",
+      "cleanupAuthorized": false
+    }
+  ]
+}

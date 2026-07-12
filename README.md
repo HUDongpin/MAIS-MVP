@@ -67,6 +67,16 @@ The demo account is intended for local demos. In production, set `HK_MATH_ENABLE
 
 Local/demo password resets can expose an in-browser reset link with `HK_MATH_EXPOSE_LOCAL_RESET_LINKS=true`. Keep it disabled for real production email delivery.
 
+Production password resets require server-side delivery configuration. Use Resend with `RESEND_API_KEY` and `PASSWORD_RESET_FROM`, or set `PASSWORD_RESET_WEBHOOK_URL` to a private delivery webhook. Set `PASSWORD_RESET_BASE_URL` to the public app origin used in emailed links. If local/demo link exposure is disabled and no delivery channel is configured, the password-reset request API returns 503 instead of silently accepting a reset that cannot reach the user.
+
+For a one-off Resend API smoke test, use the local script rather than committing a curl command with a bearer token:
+
+```bash
+RESEND_API_KEY=re_xxxxxxxxx npm run smoke:resend:local -- --dry-run
+```
+
+Replace `re_xxxxxxxxx` with your real Resend API key only in a private shell or Vercel Environment Variable. Do not commit or paste the real key into source files, logs, screenshots, or reports. To send the sample email, remove `--dry-run`; the script posts to `https://api.resend.com/emails` with the same sample payload as the Resend quickstart.
+
 Admin users can export a full storage snapshot from `/api/admin/storage/export`. The export includes server-side records and is intended for backup/triage, not student-facing sharing.
 
 ### Vercel deployment
@@ -75,11 +85,13 @@ Set `AUTH_SESSION_SECRET` in the Vercel project environment variables before usi
 
 When no `HK_MATH_DB_PATH` is configured on Vercel, the app stores its SQLite file under Vercel's writable `/tmp` directory. That is enough for demo login and smoke testing, but it is ephemeral and should not be used as the long-term student record store for a real class.
 
+Before any Vercel Production deploy for real authenticated use, keep the durable-storage gate closed: Vercel Production and Preview should include `HK_MATH_STORAGE_PROVIDER=postgres` and server-only `POSTGRES_URL`, Production must be redeployed after those variables are set, and an authenticated admin `/api/admin/storage/health` check should report `provider: "postgres"` with `durableReady: true`. If this gate is missed, registration can return 200 while later `/api/me`, dashboard, or login reads return 401 across Vercel serverless instances. As of June 5, 2026, the Vercel environment/deployment gate is cleared through the connected Neon `mais-mvp-postgres` resource and a fresh Production redeploy; anonymous storage-health requests still return 401 by design, so admin health checks require an existing admin session or owner-provided admin smoke credential.
+
 ## AI Tutor LLM API
 
-The AI Tutor UI is wired to `app/api/ai-tutor/route.ts`, which calls an OpenAI-compatible Chat Completions endpoint from the server. API keys stay in `.env.local` and are never sent to the browser. The default live example targets DeepSeek V4 Pro.
+The AI Tutor UI is wired to `app/api/ai-tutor/route.ts`, which calls server-side provider endpoints. API keys stay in `.env.local` and are never sent to the browser. Text tutoring uses DeepSeek V4 Pro. Image attachments use Qwen through DashScope, and reply voice playback uses Qwen realtime.
 
-The app can run without a key. In that state the tutor panel shows `Local helper mode` and returns guided fallback hints. When the server sees `LLM_API_KEY` or `OPENAI_API_KEY`, `/api/ai-tutor/status` reports live mode without exposing the secret.
+The app can run without keys. In that state the tutor panel shows `Local helper mode` and returns guided fallback hints. When the server sees `DEEPSEEK_API_KEY`, `/api/ai-tutor/status` reports live text mode without exposing the secret. Qwen image and reply voice status also reports whether `QWEN_API_KEY` is configured.
 
 Create a local environment file:
 
@@ -90,18 +102,25 @@ cp .env.local.example .env.local
 Then set:
 
 ```bash
-LLM_API_KEY=your_server_side_key
-LLM_MODEL=deepseek-v4-pro
-LLM_API_URL=https://api.deepseek.com/chat/completions
+DEEPSEEK_API_KEY=your_deepseek_server_side_key
+DEEPSEEK_MODEL=deepseek-v4-pro
+DEEPSEEK_API_URL=https://api.deepseek.com/chat/completions
+QWEN_API_KEY=your_qwen_server_side_key
+QWEN_API_URL=https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions
+QWEN_IMAGE_MODEL=qwen3.7-plus
+QWEN_REALTIME_MODEL=qwen3.5-omni-flash-realtime
+QWEN_REALTIME_API_URL=wss://dashscope.aliyuncs.com/api-ws/v1/realtime
 AUTH_SESSION_SECRET=replace_with_a_long_random_value
 AI_TUTOR_MAX_REQUESTS_PER_MINUTE=6
 AI_TUTOR_MAX_REQUESTS_PER_HOUR=30
 AI_TUTOR_MAX_COMPLETION_TOKENS=500
+AI_TUTOR_VOICE_PROVIDER_TIMEOUT_MS=30000
+AI_TUTOR_VOICE_MAX_REQUESTS_PER_MINUTE=12
 AI_TUTOR_TOKEN_LIMIT_5H=200000000
 AI_TUTOR_DEMO_TOKEN_LIMIT_5H=100000000
 ```
 
-Minimum DeepSeek setup is `LLM_API_KEY`, `LLM_MODEL`, `LLM_API_URL`, and `AUTH_SESSION_SECRET`; the checked-in `.env.local.example` already supplies the DeepSeek model and URL. `OPENAI_API_KEY` and `OPENAI_MODEL` still work as aliases for OpenAI-backed setup. Guest users receive a registration prompt instead of a live provider call, while signed-in users are limited by the 5-hour token quota settings above. If no key is configured, the chat panel stays available in local helper mode and includes the configuration error in the tutor message so the missing server setup is visible during development.
+Minimum live text setup is `DEEPSEEK_API_KEY` and `AUTH_SESSION_SECRET`; the checked-in `.env.local.example` already supplies the DeepSeek model and URL. Add `QWEN_API_KEY` to enable image attachments and Qwen realtime reply voice. Guest users receive a registration prompt instead of a live provider call, while signed-in users are limited by the 5-hour token quota settings above. If no DeepSeek key is configured, the chat panel stays available in local helper mode and includes the configuration error in the tutor message so the missing server setup is visible during development.
 
 After editing `.env.local`, restart the dev server:
 

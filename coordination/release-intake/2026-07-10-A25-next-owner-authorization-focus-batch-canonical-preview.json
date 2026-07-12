@@ -1,0 +1,102 @@
+{
+  "generatedAt": "2026-07-10T15:57:54.043Z",
+  "repoRoot": "/Users/dongpinhu/Desktop/MAIS-MVP",
+  "dirtyMapStatusSignature": "37c9d353a7710b8e92d3d766006b7230936ca194044a47770a99ab12d7c6cef1",
+  "expandedStatusEntries": 7221,
+  "sourceArtifacts": {
+    "recordingIntakeGeneratedAt": "2026-07-10T15:57:41.612Z",
+    "recordingIntakeGateCheckedAt": "2026-07-10T15:57:41.679Z",
+    "ownerInputScaffoldGeneratedAt": "2026-07-10T15:57:41.499Z",
+    "canonicalAuthorizationsGeneratedAt": "2026-07-10T15:57:40.785Z",
+    "finalStateLedgerGeneratedAt": "2026-07-10T15:56:09.251Z",
+    "ledgerBridgeGeneratedAt": "2026-07-10T15:54:20.013Z"
+  },
+  "sourceCurrentnessFailures": [],
+  "canonicalTarget": "coordination/release-intake/latest-A25-next-owner-authorizations.json",
+  "batchId": "next-owner-package-final-state-batch-01",
+  "previewStatus": "no-pending-focus-rows",
+  "batchAuthorizationRequest": {
+    "requestId": "focus-batch-owner-package-canonical-authorization",
+    "pendingRows": 0,
+    "approvalIds": [],
+    "selectedFinalStates": [],
+    "everyRowReviewedCommit": false,
+    "targetFile": "coordination/release-intake/latest-A25-next-owner-authorizations.json",
+    "copyableApprovalText": "",
+    "copyableOwnerReplyTextZh": "",
+    "boundary": {
+      "recordsAuthorizationOnlyAfterExplicitOwnerReply": true,
+      "cleanupAuthorized": false,
+      "deployAuthorized": false,
+      "mergeAuthorized": false,
+      "destructiveGitAuthorized": false,
+      "physicalCleanupAuthorized": false,
+      "executableNow": false
+    }
+  },
+  "previewRows": [],
+  "missingDraftRows": [],
+  "missingLedgerRows": [],
+  "unsafeRows": [],
+  "checks": [
+    {
+      "id": "source-current",
+      "status": "pass",
+      "detail": "sourceCurrentnessFailures=0"
+    },
+    {
+      "id": "pending-rows-previewed",
+      "status": "pass",
+      "detail": "previewRows=0; pendingRows=0"
+    },
+    {
+      "id": "draft-rows-present",
+      "status": "pass",
+      "detail": "missingDraftRows=0"
+    },
+    {
+      "id": "ledger-rows-present",
+      "status": "pass",
+      "detail": "missingLedgerRows=0"
+    },
+    {
+      "id": "safe-non-executable",
+      "status": "pass",
+      "detail": "unsafeRows=0"
+    },
+    {
+      "id": "owner-placeholders-remain",
+      "status": "pass",
+      "detail": "preview rows must not claim owner approval"
+    },
+    {
+      "id": "reviewed-commit-final-state",
+      "status": "pass",
+      "detail": "current owner-package focus rows must preserve ledger selectedFinalState=reviewed commit"
+    }
+  ],
+  "summary": {
+    "focusBatchRows": 0,
+    "acceptedRows": 0,
+    "pendingRows": 0,
+    "previewRows": 0,
+    "missingDraftRows": 0,
+    "missingLedgerRows": 0,
+    "unsafeRows": 0,
+    "sourceCurrentnessFailures": 0,
+    "cleanupAuthorizedRows": 0,
+    "executableRows": 0
+  },
+  "boundary": {
+    "evidenceOnly": true,
+    "createsAuthorizationFile": false,
+    "recordsOwnerApproval": false,
+    "promotesCanonicalRows": false,
+    "recordsExecutionInstruction": false,
+    "mergeAuthorized": false,
+    "cleanupAuthorized": false,
+    "executableNow": false,
+    "destructiveGitAuthorized": false,
+    "deployAuthorized": false
+  }
+}

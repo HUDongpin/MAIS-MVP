@@ -1,0 +1,85 @@
+{
+  "checkedAt": "2026-07-09T18:26:46.480Z",
+  "root": "/Users/dongpinhu/Desktop/MAIS-MVP",
+  "result": "pass",
+  "summary": {
+    "total": 9,
+    "passed": 9,
+    "failed": 0
+  },
+  "failures": [],
+  "checks": [
+    {
+      "name": "A25 daily dirty-map script remains available",
+      "passed": true,
+      "expected": "node scripts/refresh-dirty-tree-map.mjs",
+      "actual": "node scripts/refresh-dirty-tree-map.mjs"
+    },
+    {
+      "name": "A25 AGENTS daily release-intake policy remains present",
+      "passed": true,
+      "requiredPhrases": [
+        "A25 daily git hygiene and release intake",
+        "npm run release:dirty-map -- --reason",
+        "A25 must not stage, commit, branch, push, reset, delete, revert, or clean"
+      ]
+    },
+    {
+      "name": "A22 clean release-source policy remains present",
+      "passed": true,
+      "requiredPhrases": [
+        "A22 release engineering must build and publish only from a clean worktree",
+        "A22 must not publish from the current dirty repository root"
+      ]
+    },
+    {
+      "name": "A25 end-of-session final-state handoff checklist remains present",
+      "passed": true,
+      "requiredPhrases": [
+        "Dirty state final action",
+        "Worktree lifecycle action"
+      ]
+    },
+    {
+      "name": "A22 release guard calls A22 clean-source and A25 strict lifecycle gates",
+      "passed": true,
+      "scripts": [
+        "coordination/release-intake/assert-release-source-clean.mjs",
+        "coordination/release-intake/assert-worktree-lifecycle.mjs"
+      ]
+    },
+    {
+      "name": "A22 release guard wires gates into release and publish modes",
+      "passed": true,
+      "guardedModes": [
+        "runtime-release",
+        "preview-release",
+        "production",
+        "root-deploy",
+        "publish",
+        "staged-publish"
+      ]
+    },
+    {
+      "name": "A25 weekly worktree audit commands remain available",
+      "passed": true,
+      "commands": [
+        "git worktree list",
+        "node coordination/release-intake/worktree-hygiene-dashboard.mjs",
+        "node coordination/release-intake/assert-worktree-lifecycle.mjs --strict"
+      ]
+    },
+    {
+      "name": "A25 final-state selection path remains machine-checkable",
+      "passed": true,
+      "template": "coordination/release-intake/latest-A25-dirty-worktree-final-state-selection-template.json",
+      "expectedSelection": "coordination/release-intake/latest-A25-dirty-worktree-final-state-selection.json",
+      "validator": "coordination/release-intake/assert-dirty-worktree-final-state-selection-current.mjs"
+    },
+    {
+      "name": "A25 worktree lifecycle gate has recent output",
+      "passed": true,
+      "output": "coordination/release-intake/latest-A25-worktree-lifecycle-gate.json"
+    }
+  ]
+}

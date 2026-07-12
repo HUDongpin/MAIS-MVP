@@ -1,0 +1,437 @@
+M app/student/tools/visualizations/[labId]/page.tsx
+ M app/student/tools/visualizations/page.tsx
+ M app/visualization-lab/loading.tsx
+ M app/visualization-lab/page.tsx
+ M components/visualizations/CalculusStatsLab.tsx
+ M components/visualizations/ConfiguredVisualizationLab.tsx
+ M components/visualizations/CoordinatePlaneDemo.tsx
+ M components/visualizations/FunctionGraphExplorer.tsx
+ M components/visualizations/FunctionModelComparer.tsx
+ M components/visualizations/GeometryExplorer.tsx
+ M components/visualizations/ProbabilitySimulator.tsx
+ M components/visualizations/RoadmapVisualizationSuite.tsx
+ M components/visualizations/TrigWaveExplorer.tsx
+ M components/visualizations/VisualizationCard.tsx
+ M components/visualizations/VisualizationLabBackToTopButton.tsx
+ M components/visualizations/VisualizationLabPage.tsx
+ M components/visualizations/assets/lab-quest-island-map-4k.webp
+ M components/visualizations/assets/lab-quest-island-map-en-4k.webp
+ M components/visualizations/configuredVisualizationLabRegressions.test.ts
+ M components/visualizations/three/ThreeDLabCanvas.tsx
+ M components/visualizations/three/ThreeDLabSceneRegistry.tsx
+ M components/visualizations/three/configuredThreeDRenderPlan.test.ts
+ M components/visualizations/three/configuredThreeDRenderPlan.ts
+ M components/visualizations/three/manim/MathFormulaOverlay.tsx
+ M components/visualizations/three/manim/MathSceneRuntime.tsx
+ M components/visualizations/three/manim/mathCameraDirector.ts
+ M components/visualizations/three/manim/mathCoordinateSpace.test.ts
+ M components/visualizations/three/manim/mathCoordinateSpace.ts
+ M components/visualizations/three/manim/mathCoordinateSystem3D.test.ts
+ M components/visualizations/three/manim/mathCoordinateSystem3D.ts
+ M components/visualizations/three/manim/mathCurveObject.test.ts
+ M components/visualizations/three/manim/mathCurveObject.ts
+ M components/visualizations/three/manim/mathFormulaBindings.test.ts
+ M components/visualizations/three/manim/mathFormulaBindings.ts
+ M components/visualizations/three/manim/mathFormulaLayer.test.ts
+ M components/visualizations/three/manim/mathFormulaLayer.ts
+ M components/visualizations/three/manim/mathObjectTransform.test.ts
+ M components/visualizations/three/manim/mathObjectTransform.ts
+ M components/visualizations/three/manim/mathSceneCheckpoint.test.ts
+ M components/visualizations/three/manim/mathSceneCheckpoint.ts
+ M components/visualizations/three/manim/mathScenePlayback.test.ts
+ M components/visualizations/three/manim/mathScenePlayback.ts
+ M components/visualizations/three/manim/mathSceneRegistry.test.ts
+ M components/visualizations/three/manim/mathSceneRegistry.ts
+ M components/visualizations/three/manim/mathSceneRuntimeState.test.ts
+ M components/visualizations/three/manim/mathSceneRuntimeState.ts
+ M components/visualizations/three/manim/mathSceneTypes.ts
+ M components/visualizations/three/manim/mathTimeline.test.ts
+ M components/visualizations/three/manim/mathTimeline.ts
+ M components/visualizations/three/manim/mathUpdaterRegistry.ts
+ M components/visualizations/three/scenes/TemplatePrimitiveScene.tsx
+ M components/visualizations/three/threeDCanvasContract.test.ts
+ M components/visualizations/three/threeDCanvasContract.ts
+ M components/visualizations/three/threeDCanvasSurfaceContract.ts
+ M components/visualizations/three/threeDLaunchCoverageContract.test.ts
+ M components/visualizations/three/threeDSceneMath.catalog.test.ts
+ M components/visualizations/three/threeDSceneMath.test.ts
+ M components/visualizations/three/threeDSceneMath.ts
+ M components/visualizations/three/threeDSceneTypes.ts
+ M components/visualizations/three/threeDSceneVariantMetadata.ts
+ M components/visualizations/three/threeDTopicCatalogBuilderContract.test.ts
+ M components/visualizations/visualizationDiagnostics.premiumSmoke.test.ts
+ M components/visualizations/visualizationDiagnostics.test.ts
+ M data/visualizationLabs.ts
+?? app/visualization-lab/stembench-euler-demo/page.tsx
+?? components/visualizations/PremiumThreeDDirectRouteShell.tsx
+?? components/visualizations/StembenchEulerLineDemo.tsx
+?? components/visualizations/VisualizationLabRouteShell.tsx
+?? components/visualizations/premiumThreeDDirectLabs.ts
+?? components/visualizations/three/manim/mathAlwaysMethodUpdater.test.ts
+?? components/visualizations/three/manim/mathAlwaysMethodUpdater.ts
+?? components/visualizations/three/manim/mathAlwaysRedraw.test.ts
+?? components/visualizations/three/manim/mathAlwaysRedraw.ts
+?? components/visualizations/three/manim/mathAnimationBuilder.test.ts
+?? components/visualizations/three/manim/mathAnimationBuilder.ts
+?? components/visualizations/three/manim/mathAnimationComposition.test.ts
+?? components/visualizations/three/manim/mathAnimationComposition.ts
+?? components/visualizations/three/manim/mathAnimationLifecycle.test.ts
+?? components/visualizations/three/manim/mathAnimationLifecycle.ts
+?? components/visualizations/three/manim/mathAnimationRuntime.test.ts
+?? components/visualizations/three/manim/mathAnimationRuntime.ts
+?? components/visualizations/three/manim/mathAxisTicks.test.ts
+?? components/visualizations/three/manim/mathAxisTicks.ts
+?? components/visualizations/three/manim/mathCameraDirector.test.ts
+?? components/visualizations/three/manim/mathCameraFrame.test.ts
+?? components/visualizations/three/manim/mathCameraFrame.ts
+?? components/visualizations/three/manim/mathCameraFrameAdapter.test.ts
+?? components/visualizations/three/manim/mathCameraFrameAdapter.ts
+?? components/visualizations/three/manim/mathCameraFramePayload.test.ts
+?? components/visualizations/three/manim/mathCameraFramePayload.ts
+?? components/visualizations/three/manim/mathCameraFrameUpdater.test.ts
+?? components/visualizations/three/manim/mathCameraFrameUpdater.ts
+?? components/visualizations/three/manim/mathCameraShotAuthoring.test.ts
+?? components/visualizations/three/manim/mathCameraShotAuthoring.ts
+?? components/visualizations/three/manim/mathCheckpointPasteFileWriterBridge.test.ts
+?? components/visualizations/three/manim/mathCheckpointPasteFileWriterBridge.ts
+?? components/visualizations/three/manim/mathCheckpointPastePlan.test.ts
+?? components/visualizations/three/manim/mathCheckpointPastePlan.ts
+?? components/visualizations/three/manim/mathConfigDigest.test.ts
+?? components/visualizations/three/manim/mathConfigDigest.ts
+?? components/visualizations/three/manim/mathCreationPrimitives.test.ts
+?? components/visualizations/three/manim/mathCreationPrimitives.ts
+?? components/visualizations/three/manim/mathCurvePartialEvidence.test.ts
+?? components/visualizations/three/manim/mathCurvePartialEvidence.ts
+?? components/visualizations/three/manim/mathDrawBorderThenFillEvidence.test.ts
+?? components/visualizations/three/manim/mathDrawBorderThenFillEvidence.ts
+?? components/visualizations/three/manim/mathEvidenceHarness.test.ts
+?? components/visualizations/three/manim/mathEvidenceHarness.ts
+?? components/visualizations/three/manim/mathFadeGrowEvidence.test.ts
+?? components/visualizations/three/manim/mathFadeGrowEvidence.ts
+?? components/visualizations/three/manim/mathFormulaBindingAnchors.test.ts
+?? components/visualizations/three/manim/mathFormulaBindingAnchors.ts
+?? components/visualizations/three/manim/mathFormulaCollision.test.ts
+?? components/visualizations/three/manim/mathFormulaCollision.ts
+?? components/visualizations/three/manim/mathFormulaSvgMorphEvidence.test.ts
+?? components/visualizations/three/manim/mathFormulaSvgMorphEvidence.ts
+?? components/visualizations/three/manim/mathFormulaSvgMorphRuntime.test.ts
+?? components/visualizations/three/manim/mathFormulaSvgMorphRuntime.ts
+?? components/visualizations/three/manim/mathIndicationPrimitives.test.ts
+?? components/visualizations/three/manim/mathIndicationPrimitives.ts
+?? components/visualizations/three/manim/mathLagRatios.test.ts
+?? components/visualizations/three/manim/mathLagRatios.ts
+?? components/visualizations/three/manim/mathMobjectAnchors.test.ts
+?? components/visualizations/three/manim/mathMobjectAnchors.ts
+?? components/visualizations/three/manim/mathMobjectBoundingBox.test.ts
+?? components/visualizations/three/manim/mathMobjectBoundingBox.ts
+?? components/visualizations/three/manim/mathMobjectCopyPlan.test.ts
+?? components/visualizations/three/manim/mathMobjectCopyPlan.ts
+?? components/visualizations/three/manim/mathMobjectDataArray.test.ts
+?? components/visualizations/three/manim/mathMobjectDataArray.ts
+?? components/visualizations/three/manim/mathMobjectDirtyStatePayload.test.ts
+?? components/visualizations/three/manim/mathMobjectDirtyStatePayload.ts
+?? components/visualizations/three/manim/mathMobjectFamily.test.ts
+?? components/visualizations/three/manim/mathMobjectFamily.ts
+?? components/visualizations/three/manim/mathMobjectFamilyCache.ts
+?? components/visualizations/three/manim/mathMobjectInvalidation.test.ts
+?? components/visualizations/three/manim/mathMobjectInvalidation.ts
+?? components/visualizations/three/manim/mathMobjectLayout.test.ts
+?? components/visualizations/three/manim/mathMobjectLayout.ts
+?? components/visualizations/three/manim/mathMobjectMaterialUniforms.test.ts
+?? components/visualizations/three/manim/mathMobjectMaterialUniforms.ts
+?? components/visualizations/three/manim/mathMobjectMoveToTargetBridge.test.ts
+?? components/visualizations/three/manim/mathMobjectMoveToTargetBridge.ts
+?? components/visualizations/three/manim/mathMobjectPointCloud.test.ts
+?? components/visualizations/three/manim/mathMobjectPointCloud.ts
+?? components/visualizations/three/manim/mathMobjectPointGeneration.test.ts
+?? components/visualizations/three/manim/mathMobjectPointGeneration.ts
+?? components/visualizations/three/manim/mathMobjectPointTransforms.test.ts
+?? components/visualizations/three/manim/mathMobjectPointTransforms.ts
+?? components/visualizations/three/manim/mathMobjectRenderOrder.test.ts
+?? components/visualizations/three/manim/mathMobjectRenderOrder.ts
+?? components/visualizations/three/manim/mathMobjectState.test.ts
+?? components/visualizations/three/manim/mathMobjectState.ts
+?? components/visualizations/three/manim/mathMobjectStatePayload.test.ts
+?? components/visualizations/three/manim/mathMobjectStateRestoreBridge.test.ts
+?? components/visualizations/three/manim/mathMobjectStateRestoreBridge.ts
+?? components/visualizations/three/manim/mathMobjectUniforms.test.ts
+?? components/visualizations/three/manim/mathMobjectUniforms.ts
+?? components/visualizations/three/manim/mathMoveAlongVectorField.test.ts
+?? components/visualizations/three/manim/mathMoveAlongVectorField.ts
+?? components/visualizations/three/manim/mathOdeTrajectory.test.ts
+?? components/visualizations/three/manim/mathOdeTrajectory.ts
+?? components/visualizations/three/manim/mathOdeTrajectoryObjects.test.ts
+?? components/visualizations/three/manim/mathOdeTrajectoryObjects.ts
+?? components/visualizations/three/manim/mathParameterPanel.test.ts
+?? components/visualizations/three/manim/mathParameterPanel.ts
+?? components/visualizations/three/manim/mathPathFunctions.test.ts
+?? components/visualizations/three/manim/mathPathFunctions.ts
+?? components/visualizations/three/manim/mathProjectedLabels.test.ts
+?? components/visualizations/three/manim/mathProjectedLabels.ts
+?? components/visualizations/three/manim/mathRateFunctions.test.ts
+?? components/visualizations/three/manim/mathRateFunctions.ts
+?? components/visualizations/three/manim/mathRuntimeIndicationOverlay.test.ts
+?? components/visualizations/three/manim/mathRuntimeIndicationOverlay.ts
+?? components/visualizations/three/manim/mathRuntimeRenderState.test.ts
+?? components/visualizations/three/manim/mathRuntimeRenderState.ts
+?? components/visualizations/three/manim/mathSceneAddMobjectBridge.test.ts
+?? components/visualizations/three/manim/mathSceneAddMobjectBridge.ts
+?? components/visualizations/three/manim/mathSceneAnimationPlans.test.ts
+?? components/visualizations/three/manim/mathSceneAnimationPlans.ts
+?? components/visualizations/three/manim/mathSceneBeginAnimations.test.ts
+?? components/visualizations/three/manim/mathSceneBeginAnimations.ts
+?? components/visualizations/three/manim/mathSceneBringToFrontMobjectBridge.test.ts
+?? components/visualizations/three/manim/mathSceneBringToFrontMobjectBridge.ts
+?? components/visualizations/three/manim/mathSceneCapture.test.ts
+?? components/visualizations/three/manim/mathSceneCapture.ts
+?? components/visualizations/three/manim/mathSceneClearMobjectBridge.test.ts
+?? components/visualizations/three/manim/mathSceneClearMobjectBridge.ts
+?? components/visualizations/three/manim/mathSceneEmitFrame.test.ts
+?? components/visualizations/three/manim/mathSceneEmitFrame.ts
+?? components/visualizations/three/manim/mathSceneExport.test.ts
+?? components/visualizations/three/manim/mathSceneExport.ts
+?? components/visualizations/three/manim/mathSceneFileWriterCombinePlan.test.ts
+?? components/visualizations/three/manim/mathSceneFileWriterCombinePlan.ts
+?? components/visualizations/three/manim/mathSceneFileWriterPlan.test.ts
+?? components/visualizations/three/manim/mathSceneFileWriterPlan.ts
+?? components/visualizations/three/manim/mathSceneFileWriterSegments.test.ts
+?? components/visualizations/three/manim/mathSceneFileWriterSegments.ts
+?? components/visualizations/three/manim/mathSceneFinishAnimations.test.ts
+?? components/visualizations/three/manim/mathSceneFinishAnimations.ts
+?? components/visualizations/three/manim/mathSceneFloorPlane.test.ts
+?? components/visualizations/three/manim/mathSceneFloorPlane.ts
+?? components/visualizations/three/manim/mathSceneFrameAudit.test.ts
+?? components/visualizations/three/manim/mathSceneFrameAudit.ts
+?? components/visualizations/three/manim/mathSceneFrameStepper.test.ts
+?? components/visualizations/three/manim/mathSceneFrameStepper.ts
+?? components/visualizations/three/manim/mathSceneGraph.test.ts
+?? components/visualizations/three/manim/mathSceneGraph.ts
+?? components/visualizations/three/manim/mathSceneHistory.test.ts
+?? components/visualizations/three/manim/mathSceneHistory.ts
+?? components/visualizations/three/manim/mathSceneInitialization.test.ts
+?? components/visualizations/three/manim/mathSceneInitialization.ts
+?? components/visualizations/three/manim/mathSceneInteractLoop.test.ts
+?? components/visualizations/three/manim/mathSceneInteractLoop.ts
+?? components/visualizations/three/manim/mathSceneKeyControls.test.ts
+?? components/visualizations/three/manim/mathSceneKeyControls.ts
+?? components/visualizations/three/manim/mathScenePicking.test.ts
+?? components/visualizations/three/manim/mathScenePicking.ts
+?? components/visualizations/three/manim/mathScenePlayCompilation.test.ts
+?? components/visualizations/three/manim/mathScenePlayCompilation.ts
+?? components/visualizations/three/manim/mathScenePlaybackFileWriterBridge.test.ts
+?? components/visualizations/three/manim/mathScenePlaybackFileWriterBridge.ts
+?? components/visualizations/three/manim/mathScenePointerControls.test.ts
+?? components/visualizations/three/manim/mathScenePointerControls.ts
+?? components/visualizations/three/manim/mathScenePostCellRedraw.test.ts
+?? components/visualizations/three/manim/mathScenePostCellRedraw.ts
+?? components/visualizations/three/manim/mathScenePostPlayPreview.test.ts
+?? components/visualizations/three/manim/mathScenePostPlayPreview.ts
+?? components/visualizations/three/manim/mathScenePrePlayControl.test.ts
+?? components/visualizations/three/manim/mathScenePrePlayControl.ts
+?? components/visualizations/three/manim/mathScenePresenterHold.test.ts
+?? components/visualizations/three/manim/mathScenePresenterHold.ts
+?? components/visualizations/three/manim/mathSceneProgressControl.test.ts
+?? components/visualizations/three/manim/mathSceneProgressControl.ts
+?? components/visualizations/three/manim/mathSceneProgressThroughAnimations.test.ts
+?? components/visualizations/three/manim/mathSceneProgressThroughAnimations.ts
+?? components/visualizations/three/manim/mathSceneRandom.test.ts
+?? components/visualizations/three/manim/mathSceneRandom.ts
+?? components/visualizations/three/manim/mathSceneReloadPlan.test.ts
+?? components/visualizations/three/manim/mathSceneReloadPlan.ts
+?? components/visualizations/three/manim/mathSceneRemoveAllExceptMobjectBridge.test.ts
+?? components/visualizations/three/manim/mathSceneRemoveAllExceptMobjectBridge.ts
+?? components/visualizations/three/manim/mathSceneRemoveMobjectBridge.test.ts
+?? components/visualizations/three/manim/mathSceneRemoveMobjectBridge.ts
+?? components/visualizations/three/manim/mathSceneRenderBatches.test.ts
+?? components/visualizations/three/manim/mathSceneRenderBatches.ts
+?? components/visualizations/three/manim/mathSceneRenderQuality.test.ts
+?? components/visualizations/three/manim/mathSceneRenderQuality.ts
+?? components/visualizations/three/manim/mathSceneRenderQualityBridge.test.ts
+?? components/visualizations/three/manim/mathSceneRenderQualityBridge.ts
+?? components/visualizations/three/manim/mathSceneReplaceMobjectBridge.test.ts
+?? components/visualizations/three/manim/mathSceneReplaceMobjectBridge.ts
+?? components/visualizations/three/manim/mathSceneReviewPackageHandoff.test.ts
+?? components/visualizations/three/manim/mathSceneReviewPackageHandoff.ts
+?? components/visualizations/three/manim/mathSceneReviewPackageSlices.test.ts
+?? components/visualizations/three/manim/mathSceneReviewPackageSlices.ts
+?? components/visualizations/three/manim/mathSceneReviewPackages.test.ts
+?? components/visualizations/three/manim/mathSceneReviewPackages.ts
+?? components/visualizations/three/manim/mathSceneRunFileWriterFinishBridge.test.ts
+?? components/visualizations/three/manim/mathSceneRunFileWriterFinishBridge.ts
+?? components/visualizations/three/manim/mathSceneRunFromBeat.test.ts
+?? components/visualizations/three/manim/mathSceneRunFromBeat.ts
+?? components/visualizations/three/manim/mathSceneRunInteractBridge.test.ts
+?? components/visualizations/three/manim/mathSceneRunInteractBridge.ts
+?? components/visualizations/three/manim/mathSceneRunLifecycle.test.ts
+?? components/visualizations/three/manim/mathSceneRunLifecycle.ts
+?? components/visualizations/three/manim/mathSceneRuntimeGraph.test.ts
+?? components/visualizations/three/manim/mathSceneRuntimeGraph.ts
+?? components/visualizations/three/manim/mathSceneSelectorCatalog.test.ts
+?? components/visualizations/three/manim/mathSceneSelectorCatalog.ts
+?? components/visualizations/three/manim/mathSceneSendToBackMobjectBridge.test.ts
+?? components/visualizations/three/manim/mathSceneSendToBackMobjectBridge.ts
+?? components/visualizations/three/manim/mathSceneShortcutCatalog.test.ts
+?? components/visualizations/three/manim/mathSceneShortcutCatalog.ts
+?? components/visualizations/three/manim/mathSceneSkipControl.test.ts
+?? components/visualizations/three/manim/mathSceneSkipControl.ts
+?? components/visualizations/three/manim/mathSceneSkippingWindow.test.ts
+?? components/visualizations/three/manim/mathSceneSkippingWindow.ts
+?? components/visualizations/three/manim/mathSceneSmokeHook.test.ts
+?? components/visualizations/three/manim/mathSceneSmokeHook.ts
+?? components/visualizations/three/manim/mathSceneSoundCue.test.ts
+?? components/visualizations/three/manim/mathSceneSoundCue.ts
+?? components/visualizations/three/manim/mathSceneStateSnapshot.test.ts
+?? components/visualizations/three/manim/mathSceneStateSnapshot.ts
+?? components/visualizations/three/manim/mathSceneTeachingA06SourceConfirmationLedger.test.ts
+?? components/visualizations/three/manim/mathSceneTeachingA06SourceConfirmationLedger.ts
+?? components/visualizations/three/manim/mathSceneTeachingFinalDecisionIntake.test.ts
+?? components/visualizations/three/manim/mathSceneTeachingFinalDecisionIntake.ts
+?? components/visualizations/three/manim/mathSceneTeachingFinalDecisionLedger.test.ts
+?? components/visualizations/three/manim/mathSceneTeachingFinalDecisionLedger.ts
+?? components/visualizations/three/manim/mathSceneTeachingFinalReviewPacket.test.ts
+?? components/visualizations/three/manim/mathSceneTeachingFinalReviewPacket.ts
+?? components/visualizations/three/manim/mathSceneTeachingInspectionTargets.test.ts
+?? components/visualizations/three/manim/mathSceneTeachingInspectionTargets.ts
+?? components/visualizations/three/manim/mathSceneTeachingQuality.test.ts
+?? components/visualizations/three/manim/mathSceneTeachingQuality.ts
+?? components/visualizations/three/manim/mathSceneTeachingRenderedReviewRoutes.test.ts
+?? components/visualizations/three/manim/mathSceneTeachingRenderedReviewRoutes.ts
+?? components/visualizations/three/manim/mathSceneTeachingReviewBrief.test.ts
+?? components/visualizations/three/manim/mathSceneTeachingReviewBrief.ts
+?? components/visualizations/three/manim/mathSceneTeachingReviewCases.test.ts
+?? components/visualizations/three/manim/mathSceneTeachingReviewCases.ts
+?? components/visualizations/three/manim/mathSceneTeachingReviewDossier.test.ts
+?? components/visualizations/three/manim/mathSceneTeachingReviewDossier.ts
+?? components/visualizations/three/manim/mathSceneTeachingSignoffMatrix.test.ts
+?? components/visualizations/three/manim/mathSceneTeachingSignoffMatrix.ts
+?? components/visualizations/three/manim/mathSceneTimeProgression.test.ts
+?? components/visualizations/three/manim/mathSceneTimeProgression.ts
+?? components/visualizations/three/manim/mathSceneUpdateFrame.test.ts
+?? components/visualizations/three/manim/mathSceneUpdateFrame.ts
+?? components/visualizations/three/manim/mathSceneUpdatePolicy.test.ts
+?? components/visualizations/three/manim/mathSceneUpdatePolicy.ts
+?? components/visualizations/three/manim/mathSceneV2ClosureEvidencePackage.test.ts
+?? components/visualizations/three/manim/mathSceneV2ClosureEvidencePackage.ts
+?? components/visualizations/three/manim/mathSceneV2CompletionAcceptanceChecklist.test.ts
+?? components/visualizations/three/manim/mathSceneV2CompletionAcceptanceChecklist.ts
+?? components/visualizations/three/manim/mathSceneV2CompletionClosureQueue.test.ts
+?? components/visualizations/three/manim/mathSceneV2CompletionClosureQueue.ts
+?? components/visualizations/three/manim/mathSceneV2CompletionEvidenceIntake.test.ts
+?? components/visualizations/three/manim/mathSceneV2CompletionEvidenceIntake.ts
+?? components/visualizations/three/manim/mathSceneV2CompletionRerunPlan.test.ts
+?? components/visualizations/three/manim/mathSceneV2CompletionRerunPlan.ts
+?? components/visualizations/three/manim/mathSceneV2CompletionStatusSummary.test.ts
+?? components/visualizations/three/manim/mathSceneV2CompletionStatusSummary.ts
+?? components/visualizations/three/manim/mathSceneV2CrossAgentHandoff.test.ts
+?? components/visualizations/three/manim/mathSceneV2CrossAgentHandoff.ts
+?? components/visualizations/three/manim/mathSceneV2FinalClosureAudit.test.ts
+?? components/visualizations/three/manim/mathSceneV2FinalClosureAudit.ts
+?? components/visualizations/three/manim/mathSceneV2FinalCompletionDossier.test.ts
+?? components/visualizations/three/manim/mathSceneV2FinalCompletionDossier.ts
+?? components/visualizations/three/manim/mathSceneV2FinalObjectiveAuditRecordIntake.test.ts
+?? components/visualizations/three/manim/mathSceneV2FinalObjectiveAuditRecordIntake.ts
+?? components/visualizations/three/manim/mathSceneV2FinalObjectiveAuditRequestPacket.test.ts
+?? components/visualizations/three/manim/mathSceneV2FinalObjectiveAuditRequestPacket.ts
+?? components/visualizations/three/manim/mathSceneV2FinalObjectiveProofLedger.test.ts
+?? components/visualizations/three/manim/mathSceneV2FinalObjectiveProofLedger.ts
+?? components/visualizations/three/manim/mathSceneV2FinalObjectiveVerifiedClosurePipeline.test.ts
+?? components/visualizations/three/manim/mathSceneV2FinalObjectiveVerifiedClosurePipeline.ts
+?? components/visualizations/three/manim/mathSceneV2FinalOwnerClosurePacket.test.ts
+?? components/visualizations/three/manim/mathSceneV2FinalOwnerClosurePacket.ts
+?? components/visualizations/three/manim/mathSceneV2GoalGate.test.ts
+?? components/visualizations/three/manim/mathSceneV2GoalGate.ts
+?? components/visualizations/three/manim/mathSceneV2ObjectiveCompletionAudit.test.ts
+?? components/visualizations/three/manim/mathSceneV2ObjectiveCompletionAudit.ts
+?? components/visualizations/three/manim/mathSceneV2OwnerEvidenceRequestPacket.test.ts
+?? components/visualizations/three/manim/mathSceneV2OwnerEvidenceRequestPacket.ts
+?? components/visualizations/three/manim/mathSceneV2OwnerGateRerunCommandEvidenceIntake.test.ts
+?? components/visualizations/three/manim/mathSceneV2OwnerGateRerunCommandEvidenceIntake.ts
+?? components/visualizations/three/manim/mathSceneV2OwnerGateRerunCommandPacket.test.ts
+?? components/visualizations/three/manim/mathSceneV2OwnerGateRerunCommandPacket.ts
+?? components/visualizations/three/manim/mathSceneV2OwnerGateRerunCommandTranscriptIntake.test.ts
+?? components/visualizations/three/manim/mathSceneV2OwnerGateRerunCommandTranscriptIntake.ts
+?? components/visualizations/three/manim/mathSceneV2OwnerGateRerunIntake.test.ts
+?? components/visualizations/three/manim/mathSceneV2OwnerGateRerunIntake.ts
+?? components/visualizations/three/manim/mathSceneV2OwnerGateTranscriptRequestPacket.test.ts
+?? components/visualizations/three/manim/mathSceneV2OwnerGateTranscriptRequestPacket.ts
+?? components/visualizations/three/manim/mathSceneV2ReleaseSliceManifest.test.ts
+?? components/visualizations/three/manim/mathSceneV2ReleaseSliceManifest.ts
+?? components/visualizations/three/manim/mathSceneV2TranscriptVerifiedClosurePipeline.test.ts
+?? components/visualizations/three/manim/mathSceneV2TranscriptVerifiedClosurePipeline.ts
+?? components/visualizations/three/manim/mathSceneV2VerifiedClosurePipeline.test.ts
+?? components/visualizations/three/manim/mathSceneV2VerifiedClosurePipeline.ts
+?? components/visualizations/three/manim/mathSceneWaitControl.test.ts
+?? components/visualizations/three/manim/mathSceneWaitControl.ts
+?? components/visualizations/three/manim/mathSceneWaitFrameStepperBridge.test.ts
+?? components/visualizations/three/manim/mathSceneWaitFrameStepperBridge.ts
+?? components/visualizations/three/manim/mathSceneWindowEvents.test.ts
+?? components/visualizations/three/manim/mathSceneWindowEvents.ts
+?? components/visualizations/three/manim/mathShowCreationEvidence.test.ts
+?? components/visualizations/three/manim/mathShowCreationEvidence.ts
+?? components/visualizations/three/manim/mathStreamLineObjects.test.ts
+?? components/visualizations/three/manim/mathStreamLineObjects.ts
+?? components/visualizations/three/manim/mathStreamLines.test.ts
+?? components/visualizations/three/manim/mathStreamLines.ts
+?? components/visualizations/three/manim/mathSubAlphaSchedule.test.ts
+?? components/visualizations/three/manim/mathSubAlphaSchedule.ts
+?? components/visualizations/three/manim/mathSurfaceObject.test.ts
+?? components/visualizations/three/manim/mathSurfaceObject.ts
+?? components/visualizations/three/manim/mathSvgPathMorph.test.ts
+?? components/visualizations/three/manim/mathSvgPathMorph.ts
+?? components/visualizations/three/manim/mathTexCacheManifest.test.ts
+?? components/visualizations/three/manim/mathTexCacheManifest.ts
+?? components/visualizations/three/manim/mathTexColorMap.test.ts
+?? components/visualizations/three/manim/mathTexColorMap.ts
+?? components/visualizations/three/manim/mathTexColorizedFormula.test.ts
+?? components/visualizations/three/manim/mathTexColorizedFormula.ts
+?? components/visualizations/three/manim/mathTexCompilePipeline.test.ts
+?? components/visualizations/three/manim/mathTexCompilePipeline.ts
+?? components/visualizations/three/manim/mathTexIsolation.test.ts
+?? components/visualizations/three/manim/mathTexIsolation.ts
+?? components/visualizations/three/manim/mathTracingTail.test.ts
+?? components/visualizations/three/manim/mathTracingTail.ts
+?? components/visualizations/three/manim/mathTransformBeginPlan.test.ts
+?? components/visualizations/three/manim/mathTransformBeginPlan.ts
+?? components/visualizations/three/manim/mathTransformDataLock.test.ts
+?? components/visualizations/three/manim/mathTransformDataLock.ts
+?? components/visualizations/three/manim/mathTransformFamilyAlignment.test.ts
+?? components/visualizations/three/manim/mathTransformFamilyAlignment.ts
+?? components/visualizations/three/manim/mathTransformMatching.test.ts
+?? components/visualizations/three/manim/mathTransformMatching.ts
+?? components/visualizations/three/manim/mathTransformPointAlignmentBridge.test.ts
+?? components/visualizations/three/manim/mathTransformPointAlignmentBridge.ts
+?? components/visualizations/three/manim/mathUpdaterExecutionPlan.test.ts
+?? components/visualizations/three/manim/mathUpdaterExecutionPlan.ts
+?? components/visualizations/three/manim/mathUpdaterRegistry.test.ts
+?? components/visualizations/three/manim/mathUpdaterSignature.test.ts
+?? components/visualizations/three/manim/mathUpdaterSignature.ts
+?? components/visualizations/three/manim/mathUpdaterSuspension.test.ts
+?? components/visualizations/three/manim/mathUpdaterSuspension.ts
+?? components/visualizations/three/manim/mathVMobjectBezierPath.test.ts
+?? components/visualizations/three/manim/mathVMobjectBezierPath.ts
+?? components/visualizations/three/manim/mathVMobjectPathBuilder.test.ts
+?? components/visualizations/three/manim/mathVMobjectPathBuilder.ts
+?? components/visualizations/three/manim/mathVMobjectRenderStyle.test.ts
+?? components/visualizations/three/manim/mathVMobjectRenderStyle.ts
+?? components/visualizations/three/manim/mathVMobjectSmoothPath.test.ts
+?? components/visualizations/three/manim/mathVMobjectSmoothPath.ts
+?? components/visualizations/three/manim/mathVMobjectStyle.test.ts
+?? components/visualizations/three/manim/mathVMobjectStyle.ts
+?? components/visualizations/three/manim/mathVMobjectStyleEvidence.test.ts
+?? components/visualizations/three/manim/mathVMobjectStyleEvidence.ts
+?? components/visualizations/three/manim/mathValueTracker.test.ts
+?? components/visualizations/three/manim/mathValueTracker.ts
+?? components/visualizations/three/manim/mathValueTrackerPayload.test.ts
+?? components/visualizations/three/manim/mathValueTrackerPayload.ts
+?? components/visualizations/three/manim/mathVectorField.test.ts
+?? components/visualizations/three/manim/mathVectorField.ts
+?? components/visualizations/three/manim/mathVectorFieldObjects.test.ts
+?? components/visualizations/three/manim/mathVectorFieldObjects.ts
+?? components/visualizations/visualizationBrowserRegressionEvidence.test.ts
+?? components/visualizations/visualizationBrowserRegressionEvidence.ts
+?? components/visualizations/visualizationBrowserRegressionPackages.test.ts
+?? components/visualizations/visualizationBrowserRegressionPackages.ts
+?? components/visualizations/visualizationBundleBoundaries.test.ts
+?? components/visualizations/visualizationLabPageRegressions.test.ts
+?? components/visualizations/visualizationReleaseReadinessEvidence.test.ts
+?? components/visualizations/visualizationReleaseReadinessEvidence.ts

@@ -1,0 +1,106 @@
+{
+  "authMode": "demo-login",
+  "baseUrl": "https://www.mais.ac",
+  "requestedBaseUrl": "https://mais.ac",
+  "grade": "P1",
+  "generatedAt": "2026-06-28T04:05:46.623Z",
+  "ok": false,
+  "results": [
+    {
+      "name": "session",
+      "path": "/api/me?includeLessonEntry=false",
+      "thresholdMs": 5000,
+      "maxMs": 1620,
+      "ok": true,
+      "p50Ms": 1620,
+      "p95Ms": 1620,
+      "samples": [
+        {
+          "elapsedMs": 1620,
+          "ok": true,
+          "status": 200
+        }
+      ],
+      "statuses": [
+        200
+      ]
+    },
+    {
+      "name": "dashboard",
+      "path": "/api/dashboard?grade=P1",
+      "thresholdMs": 6000,
+      "maxMs": 7966,
+      "ok": false,
+      "p50Ms": 7966,
+      "p95Ms": 7966,
+      "samples": [
+        {
+          "elapsedMs": 7966,
+          "ok": true,
+          "status": 200
+        }
+      ],
+      "statuses": [
+        200
+      ]
+    },
+    {
+      "name": "assignments",
+      "path": "/api/assignments",
+      "thresholdMs": 12000,
+      "maxMs": 7482,
+      "ok": true,
+      "p50Ms": 7482,
+      "p95Ms": 7482,
+      "samples": [
+        {
+          "elapsedMs": 7482,
+          "ok": true,
+          "status": 200
+        }
+      ],
+      "statuses": [
+        200
+      ]
+    },
+    {
+      "name": "gamification-summary",
+      "path": "/api/gamification/summary",
+      "thresholdMs": 12000,
+      "maxMs": 8116,
+      "ok": true,
+      "p50Ms": 8116,
+      "p95Ms": 8116,
+      "samples": [
+        {
+          "elapsedMs": 8116,
+          "ok": true,
+          "status": 200
+        }
+      ],
+      "statuses": [
+        200
+      ]
+    },
+    {
+      "name": "rewards",
+      "path": "/api/rewards",
+      "thresholdMs": 12000,
+      "maxMs": 7450,
+      "ok": true,
+      "p50Ms": 7450,
+      "p95Ms": 7450,
+      "samples": [
+        {
+          "elapsedMs": 7450,
+          "ok": true,
+          "status": 200
+        }
+      ],
+      "statuses": [
+        200
+      ]
+    }
+  ],
+  "samples": 1
+}

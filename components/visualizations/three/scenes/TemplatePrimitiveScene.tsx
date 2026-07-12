@@ -27,6 +27,7 @@ export const implementedThreeDSceneVariants = [
   "measurement-rail",
   "optimization-landscape",
   "place-value-blocks",
+  "projection-views",
   "solid-net-fold",
   "space-vector-plane",
   "statistical-inference",
@@ -342,6 +343,60 @@ function SolidNetFoldScene({ accent, state }: ThreeDSceneProps) {
   );
 }
 
+function ProjectionViewsScene({ accent, state }: ThreeDSceneProps) {
+  const values = normalized(state);
+  const width = 0.68 + values.primary * 0.035;
+  const height = 0.72 + values.depth * 0.12;
+  const depth = 0.52 + values.secondary * 0.035;
+
+  return (
+    <group>
+      <mesh position={[-0.78, 0.62, -0.12]} rotation={[0, -0.36, 0]}>
+        <boxGeometry args={[width, height, depth]} />
+        <meshStandardMaterial color={accent} transparent opacity={0.36} roughness={0.38} />
+      </mesh>
+      <Line
+        color="#facc15"
+        lineWidth={5}
+        points={[
+          point(0.45, 0.22, -0.72),
+          point(1.23, 0.22, -0.72),
+          point(1.23, 1.12, -0.72),
+          point(0.45, 1.12, -0.72),
+          point(0.45, 0.22, -0.72)
+        ]}
+      />
+      <Line
+        color="#38bdf8"
+        lineWidth={5}
+        points={[
+          point(0.42, 0.08, 0.18),
+          point(1.24, 0.08, 0.18),
+          point(1.24, 0.08, 0.96),
+          point(0.42, 0.08, 0.96),
+          point(0.42, 0.08, 0.18)
+        ]}
+      />
+      <Line
+        color="#f472b6"
+        lineWidth={5}
+        points={[
+          point(1.58, 0.18, -0.1),
+          point(1.58, 0.18, 0.72),
+          point(1.58, 1.08, 0.72),
+          point(1.58, 1.08, -0.1),
+          point(1.58, 0.18, -0.1)
+        ]}
+      />
+      <Line color="#e0f2fe" lineWidth={3} points={[point(-1.2, 1.28, -0.55), point(0.45, 1.12, -0.72)]} />
+      <mesh position={[-1.22, 1.32, -0.56]}>
+        <sphereGeometry args={[0.1, 18, 12]} />
+        <meshStandardMaterial color="#facc15" roughness={0.34} />
+      </mesh>
+    </group>
+  );
+}
+
 function CrossSectionSlicerScene({ accent, state }: ThreeDSceneProps) {
   const values = normalized(state);
   const sliceY = 0.36 + values.primary * 0.055;
@@ -560,6 +615,7 @@ export const threeDSceneRendererByVariant: Record<ThreeDSceneVariant, (props: Th
   "measurement-rail": MeasurementRail,
   "optimization-landscape": OptimizationLandscapeScene,
   "place-value-blocks": PlaceValueBlocks,
+  "projection-views": ProjectionViewsScene,
   "solid-net-fold": SolidNetFoldScene,
   "space-vector-plane": SpaceVectorPlaneScene,
   "statistical-inference": StatisticalInferenceScene,

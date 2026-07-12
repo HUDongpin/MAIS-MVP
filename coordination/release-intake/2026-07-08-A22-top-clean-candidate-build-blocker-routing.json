@@ -1,0 +1,515 @@
+{
+  "generatedAt": "2026-07-08T12:21:15.526Z",
+  "repoRoot": "/Users/dongpinhu/Desktop/MAIS-MVP",
+  "dirtyMapStatusSignature": "340f99c33d2a1dfd0015d1dc67b58b838156a600307de07438c1189d27ac7b16",
+  "expandedStatusEntries": 6116,
+  "sourceArtifacts": {
+    "dirtyMap": {
+      "key": "dirtyMap",
+      "path": "coordination/release-intake/latest-A25-dirty-tree-map.json",
+      "generatedAt": "2026-07-08T12:20:05.311Z",
+      "dirtyMapStatusSignature": "340f99c33d2a1dfd0015d1dc67b58b838156a600307de07438c1189d27ac7b16",
+      "expandedStatusEntries": 6116
+    },
+    "topCleanCandidateBuildSnapshot": {
+      "key": "topCleanCandidateBuildSnapshot",
+      "path": "coordination/release-intake/latest-A22-top-clean-candidate-build-snapshot.json",
+      "generatedAt": "2026-07-08T12:21:15.268Z",
+      "dirtyMapStatusSignature": "340f99c33d2a1dfd0015d1dc67b58b838156a600307de07438c1189d27ac7b16",
+      "expandedStatusEntries": 6116
+    }
+  },
+  "sourceCurrentnessFailures": [],
+  "routingStatus": "routed-non-executable",
+  "topCandidate": {
+    "branch": "codex/A22-us-region-alignment",
+    "path": "/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A22-us-region-alignment",
+    "head": "80b8546af59def9ea4c91fa4b8a892973874504d",
+    "promotionRank": 1,
+    "promotionLane": "clean-diverged-slice-review",
+    "promotionEligibleNow": false,
+    "releaseSourceSelected": false
+  },
+  "buildStatus": "failed",
+  "buildFailureCategory": "webpack-module-not-found",
+  "rows": [
+    {
+      "id": "a22-build-blocker-a06-visualization-back-to-top:app/visualization-lab/page.tsx:@/app/visualization-lab/VisualizationLabBackToTopButton",
+      "groupId": "a22-build-blocker-a06-visualization-back-to-top",
+      "importer": "app/visualization-lab/page.tsx",
+      "moduleSpecifier": "@/app/visualization-lab/VisualizationLabBackToTopButton",
+      "blockerClass": "import-path-parity",
+      "blockerConfirmed": true,
+      "importPresent": true,
+      "expectedModuleResolvedInCandidate": false,
+      "candidateExpectedPaths": [
+        {
+          "path": "app/visualization-lab/VisualizationLabBackToTopButton.tsx",
+          "exists": false
+        }
+      ],
+      "candidateObservedAlternatePaths": [
+        {
+          "path": "components/visualizations/VisualizationLabBackToTopButton.tsx",
+          "exists": true
+        }
+      ],
+      "rootExpectedPaths": [
+        {
+          "path": "app/visualization-lab/VisualizationLabBackToTopButton.tsx",
+          "existsInRoot": false
+        }
+      ],
+      "rootAlternatePaths": [
+        {
+          "path": "components/visualizations/VisualizationLabBackToTopButton.tsx",
+          "existsInRoot": true
+        }
+      ],
+      "rootParitySourceAvailable": true,
+      "primaryOwnerIds": [
+        "A06"
+      ],
+      "primaryOwners": [
+        {
+          "ownerId": "A06",
+          "owner": "A06 visualization lead"
+        }
+      ],
+      "coordinationOwnerIds": [
+        "A22",
+        "A25"
+      ],
+      "coordinationOwners": [
+        {
+          "ownerId": "A22",
+          "owner": "A22 production reliability and release engineering lead"
+        },
+        {
+          "ownerId": "A25",
+          "owner": "A25 git hygiene and release intake lead"
+        }
+      ],
+      "recommendedFix": "A06 should align the visualization-lab page import with the existing components/visualizations/VisualizationLabBackToTopButton.tsx module, or add an app-level re-export in A06 scope, then ask A22 to rerun candidate build evidence.",
+      "requiredNextEvidence": [
+        "owner-reviewed parity fix or explicit blocker report in the relevant isolated owner worktree",
+        "candidate-specific npm run type-check evidence after the fix",
+        "candidate-specific npm run build evidence after the fix",
+        "A22 review packet refresh showing candidate-build passed before promotion"
+      ],
+      "cleanupAuthorized": false,
+      "executableNow": false,
+      "deployAuthorized": false,
+      "mergeAuthorized": false
+    },
+    {
+      "id": "a22-build-blocker-a20-game-data:components/games/MathVirusBlasterGame.tsx:@/data/mathVirusBlaster",
+      "groupId": "a22-build-blocker-a20-game-data",
+      "importer": "components/games/MathVirusBlasterGame.tsx",
+      "moduleSpecifier": "@/data/mathVirusBlaster",
+      "blockerClass": "root-local-data-module-missing-from-candidate",
+      "blockerConfirmed": true,
+      "importPresent": true,
+      "expectedModuleResolvedInCandidate": false,
+      "candidateExpectedPaths": [
+        {
+          "path": "data/mathVirusBlaster.ts",
+          "exists": false
+        },
+        {
+          "path": "data/mathVirusBlaster.tsx",
+          "exists": false
+        }
+      ],
+      "candidateObservedAlternatePaths": [],
+      "rootExpectedPaths": [
+        {
+          "path": "data/mathVirusBlaster.ts",
+          "existsInRoot": true
+        },
+        {
+          "path": "data/mathVirusBlaster.tsx",
+          "existsInRoot": false
+        }
+      ],
+      "rootAlternatePaths": [],
+      "rootParitySourceAvailable": true,
+      "primaryOwnerIds": [
+        "A20"
+      ],
+      "primaryOwners": [
+        {
+          "ownerId": "A20",
+          "owner": "A20 game design and game-based learning lead"
+        }
+      ],
+      "coordinationOwnerIds": [
+        "A10",
+        "A22",
+        "A25"
+      ],
+      "coordinationOwners": [
+        {
+          "ownerId": "A10",
+          "owner": "A10 tooling, docs, and report lead"
+        },
+        {
+          "ownerId": "A22",
+          "owner": "A22 production reliability and release engineering lead"
+        },
+        {
+          "ownerId": "A25",
+          "owner": "A25 git hygiene and release intake lead"
+        }
+      ],
+      "recommendedFix": "A20 should review the root-local data/mathVirusBlaster.ts parity source and either promote it as the game data module or refactor the game import inside A20 scope; any data-scope expansion must remain owner-coordinated before A22 reruns build evidence.",
+      "requiredNextEvidence": [
+        "owner-reviewed parity fix or explicit blocker report in the relevant isolated owner worktree",
+        "candidate-specific npm run type-check evidence after the fix",
+        "candidate-specific npm run build evidence after the fix",
+        "A22 review packet refresh showing candidate-build passed before promotion"
+      ],
+      "cleanupAuthorized": false,
+      "executableNow": false,
+      "deployAuthorized": false,
+      "mergeAuthorized": false
+    },
+    {
+      "id": "a22-build-blocker-a20-game-data:components/games/MightyTankBattleGame.tsx:@/data/mightyTankBattle",
+      "groupId": "a22-build-blocker-a20-game-data",
+      "importer": "components/games/MightyTankBattleGame.tsx",
+      "moduleSpecifier": "@/data/mightyTankBattle",
+      "blockerClass": "root-local-data-module-missing-from-candidate",
+      "blockerConfirmed": true,
+      "importPresent": true,
+      "expectedModuleResolvedInCandidate": false,
+      "candidateExpectedPaths": [
+        {
+          "path": "data/mightyTankBattle.ts",
+          "exists": false
+        },
+        {
+          "path": "data/mightyTankBattle.tsx",
+          "exists": false
+        }
+      ],
+      "candidateObservedAlternatePaths": [],
+      "rootExpectedPaths": [
+        {
+          "path": "data/mightyTankBattle.ts",
+          "existsInRoot": true
+        },
+        {
+          "path": "data/mightyTankBattle.tsx",
+          "existsInRoot": false
+        }
+      ],
+      "rootAlternatePaths": [],
+      "rootParitySourceAvailable": true,
+      "primaryOwnerIds": [
+        "A20"
+      ],
+      "primaryOwners": [
+        {
+          "ownerId": "A20",
+          "owner": "A20 game design and game-based learning lead"
+        }
+      ],
+      "coordinationOwnerIds": [
+        "A10",
+        "A22",
+        "A25"
+      ],
+      "coordinationOwners": [
+        {
+          "ownerId": "A10",
+          "owner": "A10 tooling, docs, and report lead"
+        },
+        {
+          "ownerId": "A22",
+          "owner": "A22 production reliability and release engineering lead"
+        },
+        {
+          "ownerId": "A25",
+          "owner": "A25 git hygiene and release intake lead"
+        }
+      ],
+      "recommendedFix": "A20 should review the root-local data/mightyTankBattle.ts parity source and either promote it as the game data module or refactor the game import inside A20 scope; any data-scope expansion must remain owner-coordinated before A22 reruns build evidence.",
+      "requiredNextEvidence": [
+        "owner-reviewed parity fix or explicit blocker report in the relevant isolated owner worktree",
+        "candidate-specific npm run type-check evidence after the fix",
+        "candidate-specific npm run build evidence after the fix",
+        "A22 review packet refresh showing candidate-build passed before promotion"
+      ],
+      "cleanupAuthorized": false,
+      "executableNow": false,
+      "deployAuthorized": false,
+      "mergeAuthorized": false
+    },
+    {
+      "id": "a22-build-blocker-a05-a18-a21-a24-california-illustrations:components/lesson/CaliforniaHighSchoolTextbookPage.tsx:@/data/usCaliforniaHighSchoolLessonIllustrations",
+      "groupId": "a22-build-blocker-a05-a18-a21-a24-california-illustrations",
+      "importer": "components/lesson/CaliforniaHighSchoolTextbookPage.tsx",
+      "moduleSpecifier": "@/data/usCaliforniaHighSchoolLessonIllustrations",
+      "blockerClass": "root-local-lesson-illustration-data-missing-from-candidate",
+      "blockerConfirmed": true,
+      "importPresent": true,
+      "expectedModuleResolvedInCandidate": false,
+      "candidateExpectedPaths": [
+        {
+          "path": "data/usCaliforniaHighSchoolLessonIllustrations.ts",
+          "exists": false
+        },
+        {
+          "path": "data/usCaliforniaHighSchoolLessonIllustrations.tsx",
+          "exists": false
+        }
+      ],
+      "candidateObservedAlternatePaths": [],
+      "rootExpectedPaths": [
+        {
+          "path": "data/usCaliforniaHighSchoolLessonIllustrations.ts",
+          "existsInRoot": true
+        },
+        {
+          "path": "data/usCaliforniaHighSchoolLessonIllustrations.tsx",
+          "existsInRoot": false
+        }
+      ],
+      "rootAlternatePaths": [],
+      "rootParitySourceAvailable": true,
+      "primaryOwnerIds": [
+        "A05"
+      ],
+      "primaryOwners": [
+        {
+          "ownerId": "A05",
+          "owner": "A05 lesson lead"
+        }
+      ],
+      "coordinationOwnerIds": [
+        "A18",
+        "A21",
+        "A24",
+        "A22",
+        "A25"
+      ],
+      "coordinationOwners": [
+        {
+          "ownerId": "A18",
+          "owner": "A18 curriculum QA and content quality lead"
+        },
+        {
+          "ownerId": "A21",
+          "owner": "A21 content pipeline and RAG operations lead"
+        },
+        {
+          "ownerId": "A24",
+          "owner": "A24 illustration exact-layer lead"
+        },
+        {
+          "ownerId": "A22",
+          "owner": "A22 production reliability and release engineering lead"
+        },
+        {
+          "ownerId": "A25",
+          "owner": "A25 git hygiene and release intake lead"
+        }
+      ],
+      "recommendedFix": "A05 should coordinate with A18/A21/A24 to review the root-local data/usCaliforniaHighSchoolLessonIllustrations.ts parity source, then either promote it with curriculum/exact-layer signoff or gate the high-school textbook imports before A22 reruns build evidence.",
+      "requiredNextEvidence": [
+        "owner-reviewed parity fix or explicit blocker report in the relevant isolated owner worktree",
+        "candidate-specific npm run type-check evidence after the fix",
+        "candidate-specific npm run build evidence after the fix",
+        "A22 review packet refresh showing candidate-build passed before promotion"
+      ],
+      "cleanupAuthorized": false,
+      "executableNow": false,
+      "deployAuthorized": false,
+      "mergeAuthorized": false
+    },
+    {
+      "id": "a22-build-blocker-a05-a18-a21-a24-california-illustrations:components/lesson/CaliforniaHighSchoolTextbookStudentPage.tsx:@/data/usCaliforniaHighSchoolLessonIllustrations",
+      "groupId": "a22-build-blocker-a05-a18-a21-a24-california-illustrations",
+      "importer": "components/lesson/CaliforniaHighSchoolTextbookStudentPage.tsx",
+      "moduleSpecifier": "@/data/usCaliforniaHighSchoolLessonIllustrations",
+      "blockerClass": "root-local-lesson-illustration-data-missing-from-candidate",
+      "blockerConfirmed": true,
+      "importPresent": true,
+      "expectedModuleResolvedInCandidate": false,
+      "candidateExpectedPaths": [
+        {
+          "path": "data/usCaliforniaHighSchoolLessonIllustrations.ts",
+          "exists": false
+        },
+        {
+          "path": "data/usCaliforniaHighSchoolLessonIllustrations.tsx",
+          "exists": false
+        }
+      ],
+      "candidateObservedAlternatePaths": [],
+      "rootExpectedPaths": [
+        {
+          "path": "data/usCaliforniaHighSchoolLessonIllustrations.ts",
+          "existsInRoot": true
+        },
+        {
+          "path": "data/usCaliforniaHighSchoolLessonIllustrations.tsx",
+          "existsInRoot": false
+        }
+      ],
+      "rootAlternatePaths": [],
+      "rootParitySourceAvailable": true,
+      "primaryOwnerIds": [
+        "A05"
+      ],
+      "primaryOwners": [
+        {
+          "ownerId": "A05",
+          "owner": "A05 lesson lead"
+        }
+      ],
+      "coordinationOwnerIds": [
+        "A18",
+        "A21",
+        "A24",
+        "A22",
+        "A25"
+      ],
+      "coordinationOwners": [
+        {
+          "ownerId": "A18",
+          "owner": "A18 curriculum QA and content quality lead"
+        },
+        {
+          "ownerId": "A21",
+          "owner": "A21 content pipeline and RAG operations lead"
+        },
+        {
+          "ownerId": "A24",
+          "owner": "A24 illustration exact-layer lead"
+        },
+        {
+          "ownerId": "A22",
+          "owner": "A22 production reliability and release engineering lead"
+        },
+        {
+          "ownerId": "A25",
+          "owner": "A25 git hygiene and release intake lead"
+        }
+      ],
+      "recommendedFix": "A05 should coordinate with A18/A21/A24 to review the root-local data/usCaliforniaHighSchoolLessonIllustrations.ts parity source, then either promote it with curriculum/exact-layer signoff or gate the high-school textbook imports before A22 reruns build evidence.",
+      "requiredNextEvidence": [
+        "owner-reviewed parity fix or explicit blocker report in the relevant isolated owner worktree",
+        "candidate-specific npm run type-check evidence after the fix",
+        "candidate-specific npm run build evidence after the fix",
+        "A22 review packet refresh showing candidate-build passed before promotion"
+      ],
+      "cleanupAuthorized": false,
+      "executableNow": false,
+      "deployAuthorized": false,
+      "mergeAuthorized": false
+    }
+  ],
+  "ownerRoutes": [
+    {
+      "ownerId": "A05",
+      "owner": "A05 lesson lead",
+      "blockerRows": 2,
+      "routeGroups": [
+        "a22-build-blocker-a05-a18-a21-a24-california-illustrations"
+      ],
+      "rootParitySourceRows": 2
+    },
+    {
+      "ownerId": "A20",
+      "owner": "A20 game design and game-based learning lead",
+      "blockerRows": 2,
+      "routeGroups": [
+        "a22-build-blocker-a20-game-data"
+      ],
+      "rootParitySourceRows": 2
+    },
+    {
+      "ownerId": "A06",
+      "owner": "A06 visualization lead",
+      "blockerRows": 1,
+      "routeGroups": [
+        "a22-build-blocker-a06-visualization-back-to-top"
+      ],
+      "rootParitySourceRows": 1
+    }
+  ],
+  "validationRows": [
+    {
+      "id": "build-snapshot-current",
+      "owner": "A22 production reliability and release engineering",
+      "passed": true,
+      "status": "passed",
+      "detail": "Build snapshot is aligned with the latest dirty map."
+    },
+    {
+      "id": "build-blockers-confirmed",
+      "owner": "A22 production reliability and release engineering",
+      "passed": true,
+      "status": "passed",
+      "detail": "5/5 build blocker row(s) are confirmed."
+    },
+    {
+      "id": "build-blockers-owner-routed",
+      "owner": "A25 git hygiene and release intake",
+      "passed": true,
+      "status": "passed",
+      "detail": "5/5 blocker row(s) have primary owner routes."
+    },
+    {
+      "id": "build-blockers-non-executable",
+      "owner": "A25 git hygiene and release intake",
+      "passed": true,
+      "status": "passed",
+      "detail": "Routing rows do not authorize cleanup, execution, deployment, or merge."
+    }
+  ],
+  "safeValidationCommands": [
+    "npm run release:dirty-map -- --assert-current --max-age-minutes 60",
+    "node coordination/release-intake/assert-a22-top-clean-candidate-build-snapshot-current.mjs",
+    "node coordination/release-intake/assert-a22-top-clean-candidate-build-blocker-routing-current.mjs",
+    "node coordination/release-intake/assert-a22-top-clean-candidate-review-packet-current.mjs"
+  ],
+  "summary": {
+    "moduleBlockerRows": 5,
+    "confirmedModuleBlockerRows": 5,
+    "routeGroupRows": 3,
+    "routedOwnerRows": 5,
+    "rootParitySourceRows": 5,
+    "allBuildBlockersRouted": true,
+    "buildPassed": false,
+    "buildStatus": "failed",
+    "buildFailureCategory": "webpack-module-not-found",
+    "candidateCleanForGit": true,
+    "cleanupAuthorizedRows": 0,
+    "executableRows": 0,
+    "sourceCurrentnessFailures": 0
+  },
+  "boundary": {
+    "evidenceOnly": true,
+    "routesBuildBlockersOnly": true,
+    "modifiesCandidate": false,
+    "copiesRootFiles": false,
+    "selectsReleaseSource": false,
+    "recordsOwnerApproval": false,
+    "recordsExecutionInstruction": false,
+    "runsTypeCheck": false,
+    "runsBuild": false,
+    "runsRegression": false,
+    "stagesFiles": false,
+    "commits": false,
+    "merges": false,
+    "pushes": false,
+    "deploys": false,
+    "cleanupAuthorized": false,
+    "executableNow": false,
+    "destructiveGitAuthorized": false,
+    "physicalLifecycleCleanupAuthorized": false
+  }
+}

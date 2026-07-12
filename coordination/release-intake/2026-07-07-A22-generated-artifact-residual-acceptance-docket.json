@@ -1,0 +1,94 @@
+{
+  "generatedAt": "2026-07-07T15:48:02.815Z",
+  "repoRoot": "/Users/dongpinhu/Desktop/MAIS-MVP",
+  "dirtyMapStatusSignature": "21bf7897e245ce5bceb31315d088e7024d2e12aa53a9a098945ea69c3440b015",
+  "expandedStatusEntries": 5728,
+  "sourceArtifacts": {
+    "authorizationPacketGeneratedAt": "2026-07-07T15:48:02.707Z",
+    "authorizationPacketPath": "coordination/release-intake/latest-A22-generated-artifact-residual-authorization-packet.json",
+    "residualEvidenceGeneratedAt": "2026-07-07T15:48:02.600Z",
+    "residualEvidencePath": "coordination/release-intake/latest-A22-generated-artifact-residual-evidence.json"
+  },
+  "sourceCurrentnessFailures": [],
+  "residualDigest": [],
+  "acceptanceChecks": [
+    {
+      "id": "source-currentness-green",
+      "label": "A22 residual authorization packet is current",
+      "passed": true,
+      "evidence": "sourceCurrentnessFailures=0",
+      "status": "pass"
+    },
+    {
+      "id": "no-residual-targets",
+      "label": "No generated-artifact residual targets remain",
+      "passed": true,
+      "evidence": "rows=0",
+      "status": "pass"
+    },
+    {
+      "id": "no-cleanup-needed",
+      "label": "No owner cleanup authorization text is needed after cleanup",
+      "passed": true,
+      "evidence": "cleanupScriptApplyRows=0",
+      "status": "pass"
+    },
+    {
+      "id": "non-executable-boundary",
+      "label": "No residual cleanup row is executable or cleanup-authorized",
+      "passed": true,
+      "evidence": "cleanup=0 executable=0",
+      "status": "pass"
+    },
+    {
+      "id": "evidence-only-boundary",
+      "label": "Authorization packet boundary is evidence-only",
+      "passed": true,
+      "evidence": "evidenceOnly=true fileDeletion=false",
+      "status": "pass"
+    }
+  ],
+  "ownerDecisionDocket": {
+    "status": "post-clean-no-residual-targets",
+    "ownerDecisionRequired": false,
+    "owner": "A22 production reliability and release engineering",
+    "targetAuthorizationFile": "coordination/release-intake/latest-A25-next-owner-authorizations.json",
+    "requiredApprovalIds": [],
+    "copyableAuthorizationTexts": [],
+    "caution": "This docket is for owner review only. It does not authorize cleanup apply, file deletion, destructive Git, deploy, or execution instructions.",
+    "postDecisionValidationCommands": [
+      "node coordination/release-intake/assert-a22-generated-artifact-residual-acceptance-docket-current.mjs",
+      "node coordination/release-intake/assert-next-owner-authorizations-current.mjs",
+      "node coordination/release-intake/assert-dirty-worktree-remediation-current.mjs",
+      "node coordination/release-intake/assert-no-staged-changes.mjs --json"
+    ]
+  },
+  "summary": {
+    "readyForOwnerDecision": false,
+    "postCleanNoResidualTargets": true,
+    "residualTargets": 0,
+    "totalBytes": 0,
+    "totalGiB": 0,
+    "tmpGiB": 0,
+    "nextGiB": 0,
+    "cleanupScriptApplyRows": 0,
+    "exactDirectoryRemovalRows": 0,
+    "cleanupAuthorizedRows": 0,
+    "executableRows": 0,
+    "copyableAuthorizationTexts": 0,
+    "acceptanceChecks": 5,
+    "passingAcceptanceChecks": 5,
+    "failedAcceptanceChecks": 0,
+    "sourceCurrentnessFailures": 0
+  },
+  "boundary": {
+    "evidenceOnly": true,
+    "createsAuthorizationFile": false,
+    "recordsOwnerApproval": false,
+    "cleanupAuthorized": false,
+    "executableNow": false,
+    "destructiveGitAuthorized": false,
+    "fileDeletionAuthorized": false,
+    "deployAuthorized": false
+  }
+}

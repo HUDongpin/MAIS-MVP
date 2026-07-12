@@ -1,0 +1,76 @@
+# A22 Root-Parity Guarded Extraction Dry Run
+
+Generated: 2026-07-07T15:17:53.220Z
+
+Mode: `dry-run`
+
+Executor status: `dry-run-ready-requires-explicit-apply`
+
+Dirty map signature: `84e0553381630f5c29322b7cd071032a65d4d5b479cd222bba15314f9269b4e0`
+
+Expanded dirty entries: 5717
+
+This executor is fail-closed evidence only. It validates whether recorded A22 root-parity extraction instructions are present and current, but it does not copy root files, mutate the A22 candidate, run type-check/build/regression, stage, commit, merge, deploy, clean, delete, reset, prune, record owner approval, or record execution instructions.
+
+## Summary
+
+- Expected rows: 4
+- Recorded instruction rows: 4
+- Candidate git status rows: 0
+- Root sources SHA matched: 4/4
+- Candidate targets missing: 4/4
+- Candidate targets verified: 0/4
+- Preflight checks: 12/12
+- Apply requested: false
+- Apply permitted: false
+- Mutations performed: false
+- Root copy rows: 0
+- Candidate mutation rows: 0
+- Cleanup-authorized rows: 0
+- Executable rows: 0
+
+## Extraction Units
+
+| Unit ID | Root source | Root SHA matches | Candidate target | Target exists | Instruction recorded |
+| --- | --- | --- | --- | --- | --- |
+| `a06-visualization-back-to-top-import-parity` | `components/visualizations/VisualizationLabBackToTopButton.tsx` | yes | `app/visualization-lab/VisualizationLabBackToTopButton.tsx` | no | yes |
+| `a20-math-virus-blaster-data-parity` | `data/mathVirusBlaster.ts` | yes | `data/mathVirusBlaster.ts` | no | yes |
+| `a20-mighty-tank-battle-data-parity` | `data/mightyTankBattle.ts` | yes | `data/mightyTankBattle.ts` | no | yes |
+| `a05-california-high-school-lesson-illustration-data-parity` | `data/usCaliforniaHighSchoolLessonIllustrations.ts` | yes | `data/usCaliforniaHighSchoolLessonIllustrations.ts` | no | yes |
+
+## Preflight Checks
+
+| Check | Status | Detail |
+| --- | --- | --- |
+| `mode-is-explicit` | pass | mode=dry-run |
+| `source-current` | pass | sourceCurrentnessFailures=0 |
+| `target-worktree-contained` | pass | targetWorktree=/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A22-us-region-alignment |
+| `four-extraction-units` | pass | expectedRows=4; extractionUnits=4 |
+| `instruction-recording-source-safe` | pass | recorderStatus=already-recorded |
+| `recorded-instructions-state-coherent` | pass | recordedInstructionRows=4; expectedRows=4 |
+| `recorded-instructions-safe-boundary` | pass | recorded rows must not authorize cleanup, execution, deploy, merge, staging, destructive git, or physical lifecycle cleanup |
+| `root-sources-fingerprint-match` | pass | matchingRootSources=4/4 |
+| `candidate-targets-preflight` | pass | missingTargets=4/4 |
+| `candidate-git-status-clean` | pass | candidateGitStatusRows=0 |
+| `no-candidate-mutation-in-this-executor` | pass | this executor writes evidence only and never copies root files into the candidate |
+| `extraction-instruction-file-shape` | pass | instructionFileRows=4; targetRows=4 |
+
+## Boundary
+
+- Evidence only: true
+- Records owner approval: false
+- Records execution instruction: false
+- Modifies candidate: false
+- Copies root files: false
+- Runs type-check: false
+- Runs build: false
+- Runs regression: false
+- Stage authorized: false
+- Commit authorized: false
+- Merge authorized: false
+- Cleanup authorized: false
+- Executable now: false
+- Destructive Git authorized: false
+- Deploy authorized: false
+- Physical lifecycle cleanup authorized: false
+- Requires separate owner candidate mutation instruction: true

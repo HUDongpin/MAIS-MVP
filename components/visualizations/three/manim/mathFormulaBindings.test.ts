@@ -1,6 +1,7 @@
 import assert from "node:assert/strict";
 import test from "node:test";
 import {
+  FORMULA_BINDING_SOURCE_CONTRACT,
   summarizeFormulaBindings,
   validateFormulaBindings
 } from "./mathFormulaBindings";
@@ -44,10 +45,17 @@ const validScene: MathSceneSpec = {
 
 test("accepts formula bindings when tokens and objects share concepts", () => {
   assert.deepEqual(validateFormulaBindings(validScene), []);
+  assert.equal(
+    FORMULA_BINDING_SOURCE_CONTRACT,
+    "FormulaBinding: formula tokens and math objects share conceptId for semantic highlight and explanation"
+  );
   assert.deepEqual(summarizeFormulaBindings(validScene), {
     bindingCount: 2,
+    conceptIds: "function-rule,probe-point",
     objectCount: 4,
-    tokenCount: 2
+    sourceContract: FORMULA_BINDING_SOURCE_CONTRACT,
+    tokenCount: 2,
+    tokenIds: "function-token,point-token"
   });
 });
 

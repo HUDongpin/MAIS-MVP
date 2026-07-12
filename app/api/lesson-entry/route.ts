@@ -15,7 +15,7 @@ export async function GET(request: Request) {
   const url = new URL(request.url);
   const gradeParam = url.searchParams.get("grade");
   const requestedGrade = isValidGradeId(gradeParam) ? (gradeParam as GradeId) : authenticated.settings.selectedGrade;
-  const grade = authenticated.user.role === "student" ? authenticated.user.grade : requestedGrade;
+  const grade = requestedGrade;
   const lessonEntryTarget = ["student", "teacher", "admin"].includes(authenticated.user.role)
     ? await getLessonEntryTarget(authenticated.user.id, grade, authenticated.user.curriculumProfile)
     : null;

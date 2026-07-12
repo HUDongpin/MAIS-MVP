@@ -1,0 +1,42 @@
+{
+  "generatedAt": "2026-07-06T15:50:17.250Z",
+  "applied": true,
+  "scope": "records",
+  "repoRoot": "/Users/dongpinhu/Desktop/MAIS-MVP",
+  "dirtyMapStatusSignature": "b26fe39c438a20cdbb9cf3943e3d000d9dc8dc04ccccedc13792c457c5942d3b",
+  "expandedStatusEntries": 5183,
+  "targets": [
+    {
+      "id": "owner-package-blocker-report-records",
+      "target": "coordination/release-intake/latest-A25-owner-package-blocker-report-records.json",
+      "rowKey": "records",
+      "draftKey": "draftRecordsDoNotAuthorize",
+      "action": "sync-existing-owner-records",
+      "willWrite": true,
+      "existingRows": 10,
+      "expectedDraftRows": 10,
+      "reason": "target records file contains owner rows; preserve owner fields while refreshing template fields",
+      "cleanupAuthorized": false,
+      "executableNow": false,
+      "destructiveGitAuthorized": false,
+      "deployAuthorized": false
+    }
+  ],
+  "summary": {
+    "targetFiles": 1,
+    "willWrite": 1,
+    "skipped": 0,
+    "existingOwnerRows": 10,
+    "cleanupAuthorizedRows": 0,
+    "executableRows": 0
+  },
+  "boundary": {
+    "evidenceOnly": true,
+    "scaffoldOnly": true,
+    "createsExecutableRows": false,
+    "cleanupAuthorized": false,
+    "executableNow": false,
+    "destructiveGitAuthorized": false,
+    "deployAuthorized": false
+  }
+}

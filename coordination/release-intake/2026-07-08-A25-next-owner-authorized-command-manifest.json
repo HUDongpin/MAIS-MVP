@@ -1,0 +1,876 @@
+{
+  "generatedAt": "2026-07-08T14:14:15.296Z",
+  "repoRoot": "/Users/dongpinhu/Desktop/MAIS-MVP",
+  "dirtyMapStatusSignature": "4892e406613fc3846378621b84ba0f486bb8ebf371c35837eae544472596f318",
+  "expandedStatusEntries": 6130,
+  "sourceExecutionPreviewGeneratedAt": "2026-07-08T14:14:13.819Z",
+  "sourceAuthorizationFile": "coordination/release-intake/latest-A25-next-owner-authorizations.json",
+  "cleanupAuthorized": false,
+  "executableNow": false,
+  "boundary": {
+    "evidenceOnly": true,
+    "manifestOnly": true,
+    "cleanupAuthorized": false,
+    "executableNow": false,
+    "destructiveGitAuthorized": false,
+    "deployAuthorized": false,
+    "requiresSeparateExecutionInstruction": true
+  },
+  "summary": {
+    "starterRows": 63,
+    "validAuthorizationRows": 24,
+    "pendingAuthorizationRows": 39,
+    "invalidAuthorizationRows": 0,
+    "commandPreviewRows": 0,
+    "authorizedCandidateRows": 24,
+    "readyForSeparateInstructionRows": 0,
+    "blockedCandidateRows": 24,
+    "preAuthorizationReadyRows": 63,
+    "preAuthorizationAttentionRows": 0,
+    "cleanupAuthorizedRows": 0,
+    "executableRows": 0
+  },
+  "candidates": [
+    {
+      "approvalId": "a25-git-hygiene-and-release-intake",
+      "approvalKind": "owner-package",
+      "owner": "A25 git hygiene and release intake",
+      "subject": "coordination/release-intake/latest-A25-effective-owner-a25-git-hygiene-and-release-intake.pathspec",
+      "path": "coordination/release-intake/latest-A25-effective-owner-a25-git-hygiene-and-release-intake.pathspec",
+      "selectedAction": "owner-selected-final-state",
+      "selectedFinalState": "reviewed commit",
+      "approvedBy": "dongpinhu",
+      "approvedAt": "2026-07-06T08:04:39Z",
+      "command": "",
+      "packageFiles": [
+        "coordination/release-intake/latest-A25-effective-owner-a25-git-hygiene-and-release-intake.pathspec"
+      ],
+      "cwd": "/Users/dongpinhu/Desktop/MAIS-MVP",
+      "worktreePath": "",
+      "branch": "",
+      "preAuthorizationStatus": "preauthorization-evidence-ready",
+      "commandTargetStatus": "not-required",
+      "postApprovalChecks": [
+        "node coordination/release-intake/review-owner-pathspec.mjs coordination/release-intake/latest-A25-effective-owner-a25-git-hygiene-and-release-intake.pathspec --status",
+        "npm run release:dirty-map -- --reason \"A25 post-owner-approval a25-git-hygiene-and-release-intake\"",
+        "node coordination/release-intake/assert-owner-package-approval-requests-current.mjs",
+        "node coordination/release-intake/assert-dirty-worktree-remediation-current.mjs"
+      ],
+      "readyForSeparateInstruction": false,
+      "requiresSeparateExecutionInstruction": true,
+      "separateExecutionInstructionText": "A separate owner instruction must explicitly say to execute approvalId=a25-git-hygiene-and-release-intake command=<owner-package or lifecycle command from work order> after this preview is reviewed.",
+      "blockers": [
+        "no exact command is available; use work-order/manual package review",
+        "separate owner execution instruction is still required"
+      ],
+      "cleanupAuthorized": false,
+      "executableNow": false
+    },
+    {
+      "approvalId": "a22-production-reliability-and-release-engineering",
+      "approvalKind": "owner-package",
+      "owner": "A22 production reliability and release engineering",
+      "subject": "coordination/release-intake/latest-A25-effective-owner-a22-production-reliability-and-release-engineering.pathspec",
+      "path": "coordination/release-intake/latest-A25-effective-owner-a22-production-reliability-and-release-engineering.pathspec",
+      "selectedAction": "owner-selected-final-state",
+      "selectedFinalState": "reviewed commit",
+      "approvedBy": "dongpinhu",
+      "approvedAt": "2026-07-06T08:04:39Z",
+      "command": "",
+      "packageFiles": [
+        "coordination/release-intake/latest-A25-effective-owner-a22-production-reliability-and-release-engineering.pathspec"
+      ],
+      "cwd": "/Users/dongpinhu/Desktop/MAIS-MVP",
+      "worktreePath": "",
+      "branch": "",
+      "preAuthorizationStatus": "preauthorization-evidence-ready",
+      "commandTargetStatus": "not-required",
+      "postApprovalChecks": [
+        "node coordination/release-intake/review-owner-pathspec.mjs coordination/release-intake/latest-A25-effective-owner-a22-production-reliability-and-release-engineering.pathspec --status",
+        "npm run release:dirty-map -- --reason \"A25 post-owner-approval a22-production-reliability-and-release-engineering\"",
+        "node coordination/release-intake/assert-owner-package-approval-requests-current.mjs",
+        "node coordination/release-intake/assert-dirty-worktree-remediation-current.mjs"
+      ],
+      "readyForSeparateInstruction": false,
+      "requiresSeparateExecutionInstruction": true,
+      "separateExecutionInstructionText": "A separate owner instruction must explicitly say to execute approvalId=a22-production-reliability-and-release-engineering command=<owner-package or lifecycle command from work order> after this preview is reviewed.",
+      "blockers": [
+        "no exact command is available; use work-order/manual package review",
+        "separate owner execution instruction is still required"
+      ],
+      "cleanupAuthorized": false,
+      "executableNow": false
+    },
+    {
+      "approvalId": "a06-visualization-lead",
+      "approvalKind": "owner-package",
+      "owner": "A06 visualization lead",
+      "subject": "coordination/release-intake/latest-A25-effective-owner-a06-visualization-lead.pathspec",
+      "path": "coordination/release-intake/latest-A25-effective-owner-a06-visualization-lead.pathspec",
+      "selectedAction": "owner-selected-final-state",
+      "selectedFinalState": "reviewed commit",
+      "approvedBy": "dongpinhu",
+      "approvedAt": "2026-07-06T08:04:39Z",
+      "command": "",
+      "packageFiles": [
+        "coordination/release-intake/latest-A25-effective-owner-a06-visualization-lead.pathspec"
+      ],
+      "cwd": "/Users/dongpinhu/Desktop/MAIS-MVP",
+      "worktreePath": "",
+      "branch": "",
+      "preAuthorizationStatus": "preauthorization-evidence-ready",
+      "commandTargetStatus": "not-required",
+      "postApprovalChecks": [
+        "node coordination/release-intake/review-owner-pathspec.mjs coordination/release-intake/latest-A25-effective-owner-a06-visualization-lead.pathspec --status",
+        "npm run release:dirty-map -- --reason \"A25 post-owner-approval a06-visualization-lead\"",
+        "node coordination/release-intake/assert-owner-package-approval-requests-current.mjs",
+        "node coordination/release-intake/assert-dirty-worktree-remediation-current.mjs"
+      ],
+      "readyForSeparateInstruction": false,
+      "requiresSeparateExecutionInstruction": true,
+      "separateExecutionInstructionText": "A separate owner instruction must explicitly say to execute approvalId=a06-visualization-lead command=<owner-package or lifecycle command from work order> after this preview is reviewed.",
+      "blockers": [
+        "no exact command is available; use work-order/manual package review",
+        "separate owner execution instruction is still required"
+      ],
+      "cleanupAuthorized": false,
+      "executableNow": false
+    },
+    {
+      "approvalId": "a12-backend-api-platform",
+      "approvalKind": "owner-package",
+      "owner": "A12 backend/API platform",
+      "subject": "coordination/release-intake/latest-A25-effective-owner-a12-backend-api-platform.pathspec",
+      "path": "coordination/release-intake/latest-A25-effective-owner-a12-backend-api-platform.pathspec",
+      "selectedAction": "owner-selected-final-state",
+      "selectedFinalState": "reviewed commit",
+      "approvedBy": "dongpinhu",
+      "approvedAt": "2026-07-06T08:04:39Z",
+      "command": "",
+      "packageFiles": [
+        "coordination/release-intake/latest-A25-effective-owner-a12-backend-api-platform.pathspec"
+      ],
+      "cwd": "/Users/dongpinhu/Desktop/MAIS-MVP",
+      "worktreePath": "",
+      "branch": "",
+      "preAuthorizationStatus": "preauthorization-evidence-ready",
+      "commandTargetStatus": "not-required",
+      "postApprovalChecks": [
+        "node coordination/release-intake/review-owner-pathspec.mjs coordination/release-intake/latest-A25-effective-owner-a12-backend-api-platform.pathspec --status",
+        "npm run release:dirty-map -- --reason \"A25 post-owner-approval a12-backend-api-platform\"",
+        "node coordination/release-intake/assert-owner-package-approval-requests-current.mjs",
+        "node coordination/release-intake/assert-dirty-worktree-remediation-current.mjs"
+      ],
+      "readyForSeparateInstruction": false,
+      "requiresSeparateExecutionInstruction": true,
+      "separateExecutionInstructionText": "A separate owner instruction must explicitly say to execute approvalId=a12-backend-api-platform command=<owner-package or lifecycle command from work order> after this preview is reviewed.",
+      "blockers": [
+        "no exact command is available; use work-order/manual package review",
+        "separate owner execution instruction is still required"
+      ],
+      "cleanupAuthorized": false,
+      "executableNow": false
+    },
+    {
+      "approvalId": "a11-qa-and-release-quality",
+      "approvalKind": "owner-package",
+      "owner": "A11 QA and release quality",
+      "subject": "coordination/release-intake/latest-A25-effective-owner-a11-qa-and-release-quality.pathspec",
+      "path": "coordination/release-intake/latest-A25-effective-owner-a11-qa-and-release-quality.pathspec",
+      "selectedAction": "owner-selected-final-state",
+      "selectedFinalState": "reviewed commit",
+      "approvedBy": "dongpinhu",
+      "approvedAt": "2026-07-06T08:04:39Z",
+      "command": "",
+      "packageFiles": [
+        "coordination/release-intake/latest-A25-effective-owner-a11-qa-and-release-quality.pathspec"
+      ],
+      "cwd": "/Users/dongpinhu/Desktop/MAIS-MVP",
+      "worktreePath": "",
+      "branch": "",
+      "preAuthorizationStatus": "preauthorization-evidence-ready",
+      "commandTargetStatus": "not-required",
+      "postApprovalChecks": [
+        "node coordination/release-intake/review-owner-pathspec.mjs coordination/release-intake/latest-A25-effective-owner-a11-qa-and-release-quality.pathspec --status",
+        "npm run release:dirty-map -- --reason \"A25 post-owner-approval a11-qa-and-release-quality\"",
+        "node coordination/release-intake/assert-owner-package-approval-requests-current.mjs",
+        "node coordination/release-intake/assert-dirty-worktree-remediation-current.mjs"
+      ],
+      "readyForSeparateInstruction": false,
+      "requiresSeparateExecutionInstruction": true,
+      "separateExecutionInstructionText": "A separate owner instruction must explicitly say to execute approvalId=a11-qa-and-release-quality command=<owner-package or lifecycle command from work order> after this preview is reviewed.",
+      "blockers": [
+        "no exact command is available; use work-order/manual package review",
+        "separate owner execution instruction is still required"
+      ],
+      "cleanupAuthorized": false,
+      "executableNow": false
+    },
+    {
+      "approvalId": "a10-tooling-docs-and-report",
+      "approvalKind": "owner-package",
+      "owner": "A10 tooling, docs, and report",
+      "subject": "coordination/release-intake/latest-A25-effective-owner-a10-tooling-docs-and-report.pathspec",
+      "path": "coordination/release-intake/latest-A25-effective-owner-a10-tooling-docs-and-report.pathspec",
+      "selectedAction": "owner-selected-final-state",
+      "selectedFinalState": "reviewed commit",
+      "approvedBy": "dongpinhu",
+      "approvedAt": "2026-07-06T09:08:51Z",
+      "command": "",
+      "packageFiles": [
+        "coordination/release-intake/latest-A25-effective-owner-a10-tooling-docs-and-report.pathspec"
+      ],
+      "cwd": "/Users/dongpinhu/Desktop/MAIS-MVP",
+      "worktreePath": "",
+      "branch": "",
+      "preAuthorizationStatus": "preauthorization-evidence-ready",
+      "commandTargetStatus": "not-required",
+      "postApprovalChecks": [
+        "node coordination/release-intake/review-owner-pathspec.mjs coordination/release-intake/latest-A25-effective-owner-a10-tooling-docs-and-report.pathspec --status",
+        "npm run release:dirty-map -- --reason \"A25 post-owner-approval a10-tooling-docs-and-report\"",
+        "node coordination/release-intake/assert-owner-package-approval-requests-current.mjs",
+        "node coordination/release-intake/assert-dirty-worktree-remediation-current.mjs"
+      ],
+      "readyForSeparateInstruction": false,
+      "requiresSeparateExecutionInstruction": true,
+      "separateExecutionInstructionText": "A separate owner instruction must explicitly say to execute approvalId=a10-tooling-docs-and-report command=<owner-package or lifecycle command from work order> after this preview is reviewed.",
+      "blockers": [
+        "no exact command is available; use work-order/manual package review",
+        "separate owner execution instruction is still required"
+      ],
+      "cleanupAuthorized": false,
+      "executableNow": false
+    },
+    {
+      "approvalId": "a05-lesson-lead",
+      "approvalKind": "owner-package",
+      "owner": "A05 lesson lead",
+      "subject": "coordination/release-intake/latest-A25-effective-owner-a05-lesson-lead.pathspec",
+      "path": "coordination/release-intake/latest-A25-effective-owner-a05-lesson-lead.pathspec",
+      "selectedAction": "owner-selected-final-state",
+      "selectedFinalState": "reviewed commit",
+      "approvedBy": "dongpinhu",
+      "approvedAt": "2026-07-06T09:08:51Z",
+      "command": "",
+      "packageFiles": [
+        "coordination/release-intake/latest-A25-effective-owner-a05-lesson-lead.pathspec"
+      ],
+      "cwd": "/Users/dongpinhu/Desktop/MAIS-MVP",
+      "worktreePath": "",
+      "branch": "",
+      "preAuthorizationStatus": "preauthorization-evidence-ready",
+      "commandTargetStatus": "not-required",
+      "postApprovalChecks": [
+        "node coordination/release-intake/review-owner-pathspec.mjs coordination/release-intake/latest-A25-effective-owner-a05-lesson-lead.pathspec --status",
+        "npm run release:dirty-map -- --reason \"A25 post-owner-approval a05-lesson-lead\"",
+        "node coordination/release-intake/assert-owner-package-approval-requests-current.mjs",
+        "node coordination/release-intake/assert-dirty-worktree-remediation-current.mjs"
+      ],
+      "readyForSeparateInstruction": false,
+      "requiresSeparateExecutionInstruction": true,
+      "separateExecutionInstructionText": "A separate owner instruction must explicitly say to execute approvalId=a05-lesson-lead command=<owner-package or lifecycle command from work order> after this preview is reviewed.",
+      "blockers": [
+        "no exact command is available; use work-order/manual package review",
+        "separate owner execution instruction is still required"
+      ],
+      "cleanupAuthorized": false,
+      "executableNow": false
+    },
+    {
+      "approvalId": "a21-content-pipeline-and-rag-operations",
+      "approvalKind": "owner-package",
+      "owner": "A21 content pipeline and RAG operations",
+      "subject": "coordination/release-intake/latest-A25-effective-owner-a21-content-pipeline-and-rag-operations.pathspec",
+      "path": "coordination/release-intake/latest-A25-effective-owner-a21-content-pipeline-and-rag-operations.pathspec",
+      "selectedAction": "owner-selected-final-state",
+      "selectedFinalState": "reviewed commit",
+      "approvedBy": "dongpinhu",
+      "approvedAt": "2026-07-06T09:08:51Z",
+      "command": "",
+      "packageFiles": [
+        "coordination/release-intake/latest-A25-effective-owner-a21-content-pipeline-and-rag-operations.pathspec"
+      ],
+      "cwd": "/Users/dongpinhu/Desktop/MAIS-MVP",
+      "worktreePath": "",
+      "branch": "",
+      "preAuthorizationStatus": "preauthorization-evidence-ready",
+      "commandTargetStatus": "not-required",
+      "postApprovalChecks": [
+        "node coordination/release-intake/review-owner-pathspec.mjs coordination/release-intake/latest-A25-effective-owner-a21-content-pipeline-and-rag-operations.pathspec --status",
+        "npm run release:dirty-map -- --reason \"A25 post-owner-approval a21-content-pipeline-and-rag-operations\"",
+        "node coordination/release-intake/assert-owner-package-approval-requests-current.mjs",
+        "node coordination/release-intake/assert-dirty-worktree-remediation-current.mjs"
+      ],
+      "readyForSeparateInstruction": false,
+      "requiresSeparateExecutionInstruction": true,
+      "separateExecutionInstructionText": "A separate owner instruction must explicitly say to execute approvalId=a21-content-pipeline-and-rag-operations command=<owner-package or lifecycle command from work order> after this preview is reviewed.",
+      "blockers": [
+        "no exact command is available; use work-order/manual package review",
+        "separate owner execution instruction is still required"
+      ],
+      "cleanupAuthorized": false,
+      "executableNow": false
+    },
+    {
+      "approvalId": "a04-practice-lead",
+      "approvalKind": "owner-package",
+      "owner": "A04 practice lead",
+      "subject": "coordination/release-intake/latest-A25-effective-owner-a04-practice-lead.pathspec",
+      "path": "coordination/release-intake/latest-A25-effective-owner-a04-practice-lead.pathspec",
+      "selectedAction": "owner-selected-final-state",
+      "selectedFinalState": "reviewed commit",
+      "approvedBy": "dongpinhu",
+      "approvedAt": "2026-07-06T09:08:51Z",
+      "command": "",
+      "packageFiles": [
+        "coordination/release-intake/latest-A25-effective-owner-a04-practice-lead.pathspec"
+      ],
+      "cwd": "/Users/dongpinhu/Desktop/MAIS-MVP",
+      "worktreePath": "",
+      "branch": "",
+      "preAuthorizationStatus": "preauthorization-evidence-ready",
+      "commandTargetStatus": "not-required",
+      "postApprovalChecks": [
+        "node coordination/release-intake/review-owner-pathspec.mjs coordination/release-intake/latest-A25-effective-owner-a04-practice-lead.pathspec --status",
+        "npm run release:dirty-map -- --reason \"A25 post-owner-approval a04-practice-lead\"",
+        "node coordination/release-intake/assert-owner-package-approval-requests-current.mjs",
+        "node coordination/release-intake/assert-dirty-worktree-remediation-current.mjs"
+      ],
+      "readyForSeparateInstruction": false,
+      "requiresSeparateExecutionInstruction": true,
+      "separateExecutionInstructionText": "A separate owner instruction must explicitly say to execute approvalId=a04-practice-lead command=<owner-package or lifecycle command from work order> after this preview is reviewed.",
+      "blockers": [
+        "no exact command is available; use work-order/manual package review",
+        "separate owner execution instruction is still required"
+      ],
+      "cleanupAuthorized": false,
+      "executableNow": false
+    },
+    {
+      "approvalId": "a03-curriculum-roadmap-lead",
+      "approvalKind": "owner-package",
+      "owner": "A03 curriculum roadmap lead",
+      "subject": "coordination/release-intake/latest-A25-effective-owner-a03-curriculum-roadmap-lead.pathspec",
+      "path": "coordination/release-intake/latest-A25-effective-owner-a03-curriculum-roadmap-lead.pathspec",
+      "selectedAction": "owner-selected-final-state",
+      "selectedFinalState": "reviewed commit",
+      "approvedBy": "dongpinhu",
+      "approvedAt": "2026-07-06T09:08:51Z",
+      "command": "",
+      "packageFiles": [
+        "coordination/release-intake/latest-A25-effective-owner-a03-curriculum-roadmap-lead.pathspec"
+      ],
+      "cwd": "/Users/dongpinhu/Desktop/MAIS-MVP",
+      "worktreePath": "",
+      "branch": "",
+      "preAuthorizationStatus": "preauthorization-evidence-ready",
+      "commandTargetStatus": "not-required",
+      "postApprovalChecks": [
+        "node coordination/release-intake/review-owner-pathspec.mjs coordination/release-intake/latest-A25-effective-owner-a03-curriculum-roadmap-lead.pathspec --status",
+        "npm run release:dirty-map -- --reason \"A25 post-owner-approval a03-curriculum-roadmap-lead\"",
+        "node coordination/release-intake/assert-owner-package-approval-requests-current.mjs",
+        "node coordination/release-intake/assert-dirty-worktree-remediation-current.mjs"
+      ],
+      "readyForSeparateInstruction": false,
+      "requiresSeparateExecutionInstruction": true,
+      "separateExecutionInstructionText": "A separate owner instruction must explicitly say to execute approvalId=a03-curriculum-roadmap-lead command=<owner-package or lifecycle command from work order> after this preview is reviewed.",
+      "blockers": [
+        "no exact command is available; use work-order/manual package review",
+        "separate owner execution instruction is still required"
+      ],
+      "cleanupAuthorized": false,
+      "executableNow": false
+    },
+    {
+      "approvalId": "a18-curriculum-qa-a21-content-pipeline",
+      "approvalKind": "owner-package",
+      "owner": "A18 curriculum QA / A21 content pipeline",
+      "subject": "coordination/release-intake/latest-A25-effective-owner-a18-curriculum-qa-a21-content-pipeline.pathspec",
+      "path": "coordination/release-intake/latest-A25-effective-owner-a18-curriculum-qa-a21-content-pipeline.pathspec",
+      "selectedAction": "owner-selected-final-state",
+      "selectedFinalState": "reviewed commit",
+      "approvedBy": "owner",
+      "approvedAt": "2026-07-06T09:31:16Z",
+      "command": "",
+      "packageFiles": [
+        "coordination/release-intake/latest-A25-effective-owner-a18-curriculum-qa-a21-content-pipeline.pathspec"
+      ],
+      "cwd": "/Users/dongpinhu/Desktop/MAIS-MVP",
+      "worktreePath": "",
+      "branch": "",
+      "preAuthorizationStatus": "preauthorization-evidence-ready",
+      "commandTargetStatus": "not-required",
+      "postApprovalChecks": [
+        "node coordination/release-intake/review-owner-pathspec.mjs coordination/release-intake/latest-A25-effective-owner-a18-curriculum-qa-a21-content-pipeline.pathspec --status",
+        "npm run release:dirty-map -- --reason \"A25 post-owner-approval a18-curriculum-qa-a21-content-pipeline\"",
+        "node coordination/release-intake/assert-owner-package-approval-requests-current.mjs",
+        "node coordination/release-intake/assert-dirty-worktree-remediation-current.mjs"
+      ],
+      "readyForSeparateInstruction": false,
+      "requiresSeparateExecutionInstruction": true,
+      "separateExecutionInstructionText": "A separate owner instruction must explicitly say to execute approvalId=a18-curriculum-qa-a21-content-pipeline command=<owner-package or lifecycle command from work order> after this preview is reviewed.",
+      "blockers": [
+        "no exact command is available; use work-order/manual package review",
+        "separate owner execution instruction is still required"
+      ],
+      "cleanupAuthorized": false,
+      "executableNow": false
+    },
+    {
+      "approvalId": "a13-teacher-console",
+      "approvalKind": "owner-package",
+      "owner": "A13 teacher console",
+      "subject": "coordination/release-intake/latest-A25-effective-owner-a13-teacher-console.pathspec",
+      "path": "coordination/release-intake/latest-A25-effective-owner-a13-teacher-console.pathspec",
+      "selectedAction": "owner-selected-final-state",
+      "selectedFinalState": "reviewed commit",
+      "approvedBy": "owner",
+      "approvedAt": "2026-07-06T09:31:16Z",
+      "command": "",
+      "packageFiles": [
+        "coordination/release-intake/latest-A25-effective-owner-a13-teacher-console.pathspec"
+      ],
+      "cwd": "/Users/dongpinhu/Desktop/MAIS-MVP",
+      "worktreePath": "",
+      "branch": "",
+      "preAuthorizationStatus": "preauthorization-evidence-ready",
+      "commandTargetStatus": "not-required",
+      "postApprovalChecks": [
+        "node coordination/release-intake/review-owner-pathspec.mjs coordination/release-intake/latest-A25-effective-owner-a13-teacher-console.pathspec --status",
+        "npm run release:dirty-map -- --reason \"A25 post-owner-approval a13-teacher-console\"",
+        "node coordination/release-intake/assert-owner-package-approval-requests-current.mjs",
+        "node coordination/release-intake/assert-dirty-worktree-remediation-current.mjs"
+      ],
+      "readyForSeparateInstruction": false,
+      "requiresSeparateExecutionInstruction": true,
+      "separateExecutionInstructionText": "A separate owner instruction must explicitly say to execute approvalId=a13-teacher-console command=<owner-package or lifecycle command from work order> after this preview is reviewed.",
+      "blockers": [
+        "no exact command is available; use work-order/manual package review",
+        "separate owner execution instruction is still required"
+      ],
+      "cleanupAuthorized": false,
+      "executableNow": false
+    },
+    {
+      "approvalId": "a01-app-shell-lead",
+      "approvalKind": "owner-package",
+      "owner": "A01 app shell lead",
+      "subject": "coordination/release-intake/latest-A25-effective-owner-a01-app-shell-lead.pathspec",
+      "path": "coordination/release-intake/latest-A25-effective-owner-a01-app-shell-lead.pathspec",
+      "selectedAction": "owner-selected-final-state",
+      "selectedFinalState": "reviewed commit",
+      "approvedBy": "owner",
+      "approvedAt": "2026-07-06T09:31:16Z",
+      "command": "",
+      "packageFiles": [
+        "coordination/release-intake/latest-A25-effective-owner-a01-app-shell-lead.pathspec"
+      ],
+      "cwd": "/Users/dongpinhu/Desktop/MAIS-MVP",
+      "worktreePath": "",
+      "branch": "",
+      "preAuthorizationStatus": "preauthorization-evidence-ready",
+      "commandTargetStatus": "not-required",
+      "postApprovalChecks": [
+        "node coordination/release-intake/review-owner-pathspec.mjs coordination/release-intake/latest-A25-effective-owner-a01-app-shell-lead.pathspec --status",
+        "npm run release:dirty-map -- --reason \"A25 post-owner-approval a01-app-shell-lead\"",
+        "node coordination/release-intake/assert-owner-package-approval-requests-current.mjs",
+        "node coordination/release-intake/assert-dirty-worktree-remediation-current.mjs"
+      ],
+      "readyForSeparateInstruction": false,
+      "requiresSeparateExecutionInstruction": true,
+      "separateExecutionInstructionText": "A separate owner instruction must explicitly say to execute approvalId=a01-app-shell-lead command=<owner-package or lifecycle command from work order> after this preview is reviewed.",
+      "blockers": [
+        "no exact command is available; use work-order/manual package review",
+        "separate owner execution instruction is still required"
+      ],
+      "cleanupAuthorized": false,
+      "executableNow": false
+    },
+    {
+      "approvalId": "a02-dashboard-lead",
+      "approvalKind": "owner-package",
+      "owner": "A02 dashboard lead",
+      "subject": "coordination/release-intake/latest-A25-effective-owner-a02-dashboard-lead.pathspec",
+      "path": "coordination/release-intake/latest-A25-effective-owner-a02-dashboard-lead.pathspec",
+      "selectedAction": "owner-selected-final-state",
+      "selectedFinalState": "reviewed commit",
+      "approvedBy": "owner",
+      "approvedAt": "2026-07-06T09:31:16Z",
+      "command": "",
+      "packageFiles": [
+        "coordination/release-intake/latest-A25-effective-owner-a02-dashboard-lead.pathspec"
+      ],
+      "cwd": "/Users/dongpinhu/Desktop/MAIS-MVP",
+      "worktreePath": "",
+      "branch": "",
+      "preAuthorizationStatus": "preauthorization-evidence-ready",
+      "commandTargetStatus": "not-required",
+      "postApprovalChecks": [
+        "node coordination/release-intake/review-owner-pathspec.mjs coordination/release-intake/latest-A25-effective-owner-a02-dashboard-lead.pathspec --status",
+        "npm run release:dirty-map -- --reason \"A25 post-owner-approval a02-dashboard-lead\"",
+        "node coordination/release-intake/assert-owner-package-approval-requests-current.mjs",
+        "node coordination/release-intake/assert-dirty-worktree-remediation-current.mjs"
+      ],
+      "readyForSeparateInstruction": false,
+      "requiresSeparateExecutionInstruction": true,
+      "separateExecutionInstructionText": "A separate owner instruction must explicitly say to execute approvalId=a02-dashboard-lead command=<owner-package or lifecycle command from work order> after this preview is reviewed.",
+      "blockers": [
+        "no exact command is available; use work-order/manual package review",
+        "separate owner execution instruction is still required"
+      ],
+      "cleanupAuthorized": false,
+      "executableNow": false
+    },
+    {
+      "approvalId": "a20-game-design-and-game-based-learning",
+      "approvalKind": "owner-package",
+      "owner": "A20 game design and game-based learning",
+      "subject": "coordination/release-intake/latest-A25-effective-owner-a20-game-design-and-game-based-learning.pathspec",
+      "path": "coordination/release-intake/latest-A25-effective-owner-a20-game-design-and-game-based-learning.pathspec",
+      "selectedAction": "owner-selected-final-state",
+      "selectedFinalState": "reviewed commit",
+      "approvedBy": "owner",
+      "approvedAt": "2026-07-06T09:31:16Z",
+      "command": "",
+      "packageFiles": [
+        "coordination/release-intake/latest-A25-effective-owner-a20-game-design-and-game-based-learning.pathspec"
+      ],
+      "cwd": "/Users/dongpinhu/Desktop/MAIS-MVP",
+      "worktreePath": "",
+      "branch": "",
+      "preAuthorizationStatus": "preauthorization-evidence-ready",
+      "commandTargetStatus": "not-required",
+      "postApprovalChecks": [
+        "node coordination/release-intake/review-owner-pathspec.mjs coordination/release-intake/latest-A25-effective-owner-a20-game-design-and-game-based-learning.pathspec --status",
+        "npm run release:dirty-map -- --reason \"A25 post-owner-approval a20-game-design-and-game-based-learning\"",
+        "node coordination/release-intake/assert-owner-package-approval-requests-current.mjs",
+        "node coordination/release-intake/assert-dirty-worktree-remediation-current.mjs"
+      ],
+      "readyForSeparateInstruction": false,
+      "requiresSeparateExecutionInstruction": true,
+      "separateExecutionInstructionText": "A separate owner instruction must explicitly say to execute approvalId=a20-game-design-and-game-based-learning command=<owner-package or lifecycle command from work order> after this preview is reviewed.",
+      "blockers": [
+        "no exact command is available; use work-order/manual package review",
+        "separate owner execution instruction is still required"
+      ],
+      "cleanupAuthorized": false,
+      "executableNow": false
+    },
+    {
+      "approvalId": "a07-ai-tutor-lead",
+      "approvalKind": "owner-package",
+      "owner": "A07 AI tutor lead",
+      "subject": "coordination/release-intake/latest-A25-effective-owner-a07-ai-tutor-lead.pathspec",
+      "path": "coordination/release-intake/latest-A25-effective-owner-a07-ai-tutor-lead.pathspec",
+      "selectedAction": "owner-selected-final-state",
+      "selectedFinalState": "reviewed commit",
+      "approvedBy": "dongpinhu",
+      "approvedAt": "2026-07-06T10:30:41Z",
+      "command": "",
+      "packageFiles": [
+        "coordination/release-intake/latest-A25-effective-owner-a07-ai-tutor-lead.pathspec"
+      ],
+      "cwd": "/Users/dongpinhu/Desktop/MAIS-MVP",
+      "worktreePath": "",
+      "branch": "",
+      "preAuthorizationStatus": "preauthorization-evidence-ready",
+      "commandTargetStatus": "not-required",
+      "postApprovalChecks": [
+        "node coordination/release-intake/review-owner-pathspec.mjs coordination/release-intake/latest-A25-effective-owner-a07-ai-tutor-lead.pathspec --status",
+        "npm run release:dirty-map -- --reason \"A25 post-owner-approval a07-ai-tutor-lead\"",
+        "node coordination/release-intake/assert-owner-package-approval-requests-current.mjs",
+        "node coordination/release-intake/assert-dirty-worktree-remediation-current.mjs"
+      ],
+      "readyForSeparateInstruction": false,
+      "requiresSeparateExecutionInstruction": true,
+      "separateExecutionInstructionText": "A separate owner instruction must explicitly say to execute approvalId=a07-ai-tutor-lead command=<owner-package or lifecycle command from work order> after this preview is reviewed.",
+      "blockers": [
+        "no exact command is available; use work-order/manual package review",
+        "separate owner execution instruction is still required"
+      ],
+      "cleanupAuthorized": false,
+      "executableNow": false
+    },
+    {
+      "approvalId": "a08-state-and-analytics-lead",
+      "approvalKind": "owner-package",
+      "owner": "A08 state and analytics lead",
+      "subject": "coordination/release-intake/latest-A25-effective-owner-a08-state-and-analytics-lead.pathspec",
+      "path": "coordination/release-intake/latest-A25-effective-owner-a08-state-and-analytics-lead.pathspec",
+      "selectedAction": "owner-selected-final-state",
+      "selectedFinalState": "reviewed commit",
+      "approvedBy": "dongpinhu",
+      "approvedAt": "2026-07-06T10:30:41Z",
+      "command": "",
+      "packageFiles": [
+        "coordination/release-intake/latest-A25-effective-owner-a08-state-and-analytics-lead.pathspec"
+      ],
+      "cwd": "/Users/dongpinhu/Desktop/MAIS-MVP",
+      "worktreePath": "",
+      "branch": "",
+      "preAuthorizationStatus": "preauthorization-evidence-ready",
+      "commandTargetStatus": "not-required",
+      "postApprovalChecks": [
+        "node coordination/release-intake/review-owner-pathspec.mjs coordination/release-intake/latest-A25-effective-owner-a08-state-and-analytics-lead.pathspec --status",
+        "npm run release:dirty-map -- --reason \"A25 post-owner-approval a08-state-and-analytics-lead\"",
+        "node coordination/release-intake/assert-owner-package-approval-requests-current.mjs",
+        "node coordination/release-intake/assert-dirty-worktree-remediation-current.mjs"
+      ],
+      "readyForSeparateInstruction": false,
+      "requiresSeparateExecutionInstruction": true,
+      "separateExecutionInstructionText": "A separate owner instruction must explicitly say to execute approvalId=a08-state-and-analytics-lead command=<owner-package or lifecycle command from work order> after this preview is reviewed.",
+      "blockers": [
+        "no exact command is available; use work-order/manual package review",
+        "separate owner execution instruction is still required"
+      ],
+      "cleanupAuthorized": false,
+      "executableNow": false
+    },
+    {
+      "approvalId": "a15-adaptive-engine-lead",
+      "approvalKind": "owner-package",
+      "owner": "A15 adaptive engine lead",
+      "subject": "coordination/release-intake/latest-A25-effective-owner-a15-adaptive-engine-lead.pathspec",
+      "path": "coordination/release-intake/latest-A25-effective-owner-a15-adaptive-engine-lead.pathspec",
+      "selectedAction": "owner-selected-final-state",
+      "selectedFinalState": "reviewed commit",
+      "approvedBy": "dongpinhu",
+      "approvedAt": "2026-07-06T10:30:41Z",
+      "command": "",
+      "packageFiles": [
+        "coordination/release-intake/latest-A25-effective-owner-a15-adaptive-engine-lead.pathspec"
+      ],
+      "cwd": "/Users/dongpinhu/Desktop/MAIS-MVP",
+      "worktreePath": "",
+      "branch": "",
+      "preAuthorizationStatus": "preauthorization-evidence-ready",
+      "commandTargetStatus": "not-required",
+      "postApprovalChecks": [
+        "node coordination/release-intake/review-owner-pathspec.mjs coordination/release-intake/latest-A25-effective-owner-a15-adaptive-engine-lead.pathspec --status",
+        "npm run release:dirty-map -- --reason \"A25 post-owner-approval a15-adaptive-engine-lead\"",
+        "node coordination/release-intake/assert-owner-package-approval-requests-current.mjs",
+        "node coordination/release-intake/assert-dirty-worktree-remediation-current.mjs"
+      ],
+      "readyForSeparateInstruction": false,
+      "requiresSeparateExecutionInstruction": true,
+      "separateExecutionInstructionText": "A separate owner instruction must explicitly say to execute approvalId=a15-adaptive-engine-lead command=<owner-package or lifecycle command from work order> after this preview is reviewed.",
+      "blockers": [
+        "no exact command is available; use work-order/manual package review",
+        "separate owner execution instruction is still required"
+      ],
+      "cleanupAuthorized": false,
+      "executableNow": false
+    },
+    {
+      "approvalId": "a14-parent-console",
+      "approvalKind": "owner-package",
+      "owner": "A14 parent console",
+      "subject": "coordination/release-intake/latest-A25-effective-owner-a14-parent-console.pathspec",
+      "path": "coordination/release-intake/latest-A25-effective-owner-a14-parent-console.pathspec",
+      "selectedAction": "owner-selected-final-state",
+      "selectedFinalState": "reviewed commit",
+      "approvedBy": "dongpinhu",
+      "approvedAt": "2026-07-06T10:30:41Z",
+      "command": "",
+      "packageFiles": [
+        "coordination/release-intake/latest-A25-effective-owner-a14-parent-console.pathspec"
+      ],
+      "cwd": "/Users/dongpinhu/Desktop/MAIS-MVP",
+      "worktreePath": "",
+      "branch": "",
+      "preAuthorizationStatus": "preauthorization-evidence-ready",
+      "commandTargetStatus": "not-required",
+      "postApprovalChecks": [
+        "node coordination/release-intake/review-owner-pathspec.mjs coordination/release-intake/latest-A25-effective-owner-a14-parent-console.pathspec --status",
+        "npm run release:dirty-map -- --reason \"A25 post-owner-approval a14-parent-console\"",
+        "node coordination/release-intake/assert-owner-package-approval-requests-current.mjs",
+        "node coordination/release-intake/assert-dirty-worktree-remediation-current.mjs"
+      ],
+      "readyForSeparateInstruction": false,
+      "requiresSeparateExecutionInstruction": true,
+      "separateExecutionInstructionText": "A separate owner instruction must explicitly say to execute approvalId=a14-parent-console command=<owner-package or lifecycle command from work order> after this preview is reviewed.",
+      "blockers": [
+        "no exact command is available; use work-order/manual package review",
+        "separate owner execution instruction is still required"
+      ],
+      "cleanupAuthorized": false,
+      "executableNow": false
+    },
+    {
+      "approvalId": "a24-illustration-exact-layer",
+      "approvalKind": "owner-package",
+      "owner": "A24 illustration exact-layer",
+      "subject": "coordination/release-intake/latest-A25-effective-owner-a24-illustration-exact-layer.pathspec",
+      "path": "coordination/release-intake/latest-A25-effective-owner-a24-illustration-exact-layer.pathspec",
+      "selectedAction": "owner-selected-final-state",
+      "selectedFinalState": "reviewed commit",
+      "approvedBy": "dongpinhu",
+      "approvedAt": "2026-07-06T10:30:41Z",
+      "command": "",
+      "packageFiles": [
+        "coordination/release-intake/latest-A25-effective-owner-a24-illustration-exact-layer.pathspec"
+      ],
+      "cwd": "/Users/dongpinhu/Desktop/MAIS-MVP",
+      "worktreePath": "",
+      "branch": "",
+      "preAuthorizationStatus": "preauthorization-evidence-ready",
+      "commandTargetStatus": "not-required",
+      "postApprovalChecks": [
+        "node coordination/release-intake/review-owner-pathspec.mjs coordination/release-intake/latest-A25-effective-owner-a24-illustration-exact-layer.pathspec --status",
+        "npm run release:dirty-map -- --reason \"A25 post-owner-approval a24-illustration-exact-layer\"",
+        "node coordination/release-intake/assert-owner-package-approval-requests-current.mjs",
+        "node coordination/release-intake/assert-dirty-worktree-remediation-current.mjs"
+      ],
+      "readyForSeparateInstruction": false,
+      "requiresSeparateExecutionInstruction": true,
+      "separateExecutionInstructionText": "A separate owner instruction must explicitly say to execute approvalId=a24-illustration-exact-layer command=<owner-package or lifecycle command from work order> after this preview is reviewed.",
+      "blockers": [
+        "no exact command is available; use work-order/manual package review",
+        "separate owner execution instruction is still required"
+      ],
+      "cleanupAuthorized": false,
+      "executableNow": false
+    },
+    {
+      "approvalId": "a09-copy-i18n-accessibility",
+      "approvalKind": "owner-package",
+      "owner": "A09 copy, i18n, accessibility",
+      "subject": "coordination/release-intake/latest-A25-effective-owner-a09-copy-i18n-accessibility.pathspec",
+      "path": "coordination/release-intake/latest-A25-effective-owner-a09-copy-i18n-accessibility.pathspec",
+      "selectedAction": "owner-selected-final-state",
+      "selectedFinalState": "reviewed commit",
+      "approvedBy": "owner",
+      "approvedAt": "2026-07-07T15:10:00Z",
+      "command": "",
+      "packageFiles": [
+        "coordination/release-intake/latest-A25-effective-owner-a09-copy-i18n-accessibility.pathspec"
+      ],
+      "cwd": "/Users/dongpinhu/Desktop/MAIS-MVP",
+      "worktreePath": "",
+      "branch": "",
+      "preAuthorizationStatus": "preauthorization-evidence-ready",
+      "commandTargetStatus": "not-required",
+      "postApprovalChecks": [
+        "node coordination/release-intake/review-owner-pathspec.mjs coordination/release-intake/latest-A25-effective-owner-a09-copy-i18n-accessibility.pathspec --status",
+        "npm run release:dirty-map -- --reason \"A25 post-owner-approval a09-copy-i18n-accessibility\"",
+        "node coordination/release-intake/assert-owner-package-approval-requests-current.mjs",
+        "node coordination/release-intake/assert-dirty-worktree-remediation-current.mjs"
+      ],
+      "readyForSeparateInstruction": false,
+      "requiresSeparateExecutionInstruction": true,
+      "separateExecutionInstructionText": "A separate owner instruction must explicitly say to execute approvalId=a09-copy-i18n-accessibility command=<owner-package or lifecycle command from work order> after this preview is reviewed.",
+      "blockers": [
+        "no exact command is available; use work-order/manual package review",
+        "separate owner execution instruction is still required"
+      ],
+      "cleanupAuthorized": false,
+      "executableNow": false
+    },
+    {
+      "approvalId": "a17-gamification-and-motivation",
+      "approvalKind": "owner-package",
+      "owner": "A17 gamification and motivation",
+      "subject": "coordination/release-intake/latest-A25-effective-owner-a17-gamification-and-motivation.pathspec",
+      "path": "coordination/release-intake/latest-A25-effective-owner-a17-gamification-and-motivation.pathspec",
+      "selectedAction": "owner-selected-final-state",
+      "selectedFinalState": "reviewed commit",
+      "approvedBy": "owner",
+      "approvedAt": "2026-07-07T15:10:00Z",
+      "command": "",
+      "packageFiles": [
+        "coordination/release-intake/latest-A25-effective-owner-a17-gamification-and-motivation.pathspec"
+      ],
+      "cwd": "/Users/dongpinhu/Desktop/MAIS-MVP",
+      "worktreePath": "",
+      "branch": "",
+      "preAuthorizationStatus": "preauthorization-evidence-ready",
+      "commandTargetStatus": "not-required",
+      "postApprovalChecks": [
+        "node coordination/release-intake/review-owner-pathspec.mjs coordination/release-intake/latest-A25-effective-owner-a17-gamification-and-motivation.pathspec --status",
+        "npm run release:dirty-map -- --reason \"A25 post-owner-approval a17-gamification-and-motivation\"",
+        "node coordination/release-intake/assert-owner-package-approval-requests-current.mjs",
+        "node coordination/release-intake/assert-dirty-worktree-remediation-current.mjs"
+      ],
+      "readyForSeparateInstruction": false,
+      "requiresSeparateExecutionInstruction": true,
+      "separateExecutionInstructionText": "A separate owner instruction must explicitly say to execute approvalId=a17-gamification-and-motivation command=<owner-package or lifecycle command from work order> after this preview is reviewed.",
+      "blockers": [
+        "no exact command is available; use work-order/manual package review",
+        "separate owner execution instruction is still required"
+      ],
+      "cleanupAuthorized": false,
+      "executableNow": false
+    },
+    {
+      "approvalId": "a23-integration-and-promotion-lead",
+      "approvalKind": "owner-package",
+      "owner": "A23 integration and promotion lead",
+      "subject": "coordination/release-intake/latest-A25-effective-owner-a23-integration-and-promotion-lead.pathspec",
+      "path": "coordination/release-intake/latest-A25-effective-owner-a23-integration-and-promotion-lead.pathspec",
+      "selectedAction": "owner-selected-final-state",
+      "selectedFinalState": "reviewed commit",
+      "approvedBy": "owner",
+      "approvedAt": "2026-07-07T15:10:00Z",
+      "command": "",
+      "packageFiles": [
+        "coordination/release-intake/latest-A25-effective-owner-a23-integration-and-promotion-lead.pathspec"
+      ],
+      "cwd": "/Users/dongpinhu/Desktop/MAIS-MVP",
+      "worktreePath": "",
+      "branch": "",
+      "preAuthorizationStatus": "preauthorization-evidence-ready",
+      "commandTargetStatus": "not-required",
+      "postApprovalChecks": [
+        "node coordination/release-intake/review-owner-pathspec.mjs coordination/release-intake/latest-A25-effective-owner-a23-integration-and-promotion-lead.pathspec --status",
+        "npm run release:dirty-map -- --reason \"A25 post-owner-approval a23-integration-and-promotion-lead\"",
+        "node coordination/release-intake/assert-owner-package-approval-requests-current.mjs",
+        "node coordination/release-intake/assert-dirty-worktree-remediation-current.mjs"
+      ],
+      "readyForSeparateInstruction": false,
+      "requiresSeparateExecutionInstruction": true,
+      "separateExecutionInstructionText": "A separate owner instruction must explicitly say to execute approvalId=a23-integration-and-promotion-lead command=<owner-package or lifecycle command from work order> after this preview is reviewed.",
+      "blockers": [
+        "no exact command is available; use work-order/manual package review",
+        "separate owner execution instruction is still required"
+      ],
+      "cleanupAuthorized": false,
+      "executableNow": false
+    },
+    {
+      "approvalId": "codex-a16-research-evidence-closure",
+      "approvalKind": "physical-lifecycle",
+      "owner": "A16",
+      "subject": "codex/A16-research-evidence-closure",
+      "path": "/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A16-research-evidence-closure",
+      "selectedAction": "owner-selected-lifecycle-final-state",
+      "selectedFinalState": "owner-reviewed commit or package extraction",
+      "approvedBy": "dongpinhu",
+      "approvedAt": "2026-07-04T14:48:52Z",
+      "command": "",
+      "packageFiles": [
+        "/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A16-research-evidence-closure"
+      ],
+      "cwd": "/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A16-research-evidence-closure",
+      "worktreePath": "/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A16-research-evidence-closure",
+      "branch": "codex/A16-research-evidence-closure",
+      "preAuthorizationStatus": "preauthorization-evidence-ready",
+      "commandTargetStatus": "not-required",
+      "postApprovalChecks": [
+        "node coordination/release-intake/worktree-hygiene-dashboard.mjs",
+        "npm run release:dirty-map -- --reason \"A25 post-physical-approval codex-a16-research-evidence-closure\"",
+        "node coordination/release-intake/assert-physical-lifecycle-approval-requests-current.mjs",
+        "node coordination/release-intake/assert-worktree-lifecycle.mjs",
+        "node coordination/release-intake/assert-dirty-worktree-remediation-current.mjs"
+      ],
+      "readyForSeparateInstruction": false,
+      "requiresSeparateExecutionInstruction": true,
+      "separateExecutionInstructionText": "A separate owner instruction must explicitly say to execute approvalId=codex-a16-research-evidence-closure command=<owner-package or lifecycle command from work order> after this preview is reviewed.",
+      "blockers": [
+        "no exact command is available; use work-order/manual package review",
+        "separate owner execution instruction is still required"
+      ],
+      "cleanupAuthorized": false,
+      "executableNow": false
+    }
+  ]
+}

@@ -1,0 +1,29 @@
+# Agent Daily Work Report
+
+- Date: 2026-06-27
+- Agent ID: A05
+- Workstream: Lesson pages and lesson content modules
+- Status: Completed
+- Objective: Reproduce and reduce the slow `/student/lessons` load for Mainland PEP Mathematics on the live-style lesson entry path.
+- Planned/final files: `app/student/lessons/route.ts`, removed `app/student/lessons/page.tsx`, `components/lesson/StudentLessonEntryPage.tsx`, `components/lesson/lessonEntryTarget.ts`, `components/lesson/lessonAccessPolicy.test.ts`, `coordination/session-logs/2026-06-27-A05-lesson-pep-load-performance.md`
+- Scope confirmation: The code edit stays in A05-owned lesson entry/rendering files. It consumes existing public topic/lesson metadata and does not edit API routes, provider credentials, generated content, shared types, storage internals, or release config.
+- Initial evidence:
+  - Production `www.mais.hk` Mainland demo (`Student Peter`, S4, Mainland PEP) timing before fix: `GET /api/lesson-entry?grade=S4` 3856 ms; `GET /student/lessons` 5501 ms; direct resolved slug `/student/lessons/pep-high-s4-sets-logic` 1889 ms.
+  - Final live confirmation before local fix deployment: production `www.mais.hk` `GET /student/lessons` took 26858 ms and returned the loading shell; production `GET /api/lesson-entry?grade=S4` took 5099 ms.
+  - Local dirty live-snapshot server on `127.0.0.1:3000` before fix: `GET /api/lesson-entry?grade=S4` 4681 ms; `GET /student/lessons` 5405 ms; direct resolved slug `/student/lessons/pep-high-s4-quadratic-inequalities` 134 ms.
+  - Baseline `npm run type-check` in the isolated branch failed before this fix on unrelated missing/dirty shared teacher/admin/visualization contracts.
+- Root-cause hypothesis: `/student/lessons` performs slow lesson-entry target resolution and then renders the full resolved lesson server-side. For Mainland PEP, the target can be selected from the static public lesson catalog without scanning the live Postgres JSONB snapshot or rendering lesson content under the entry route.
+- Change made:
+  - Replaced the `/student/lessons` React entry page with a Node route handler that authenticates the session and returns a direct `307` to the first matching public catalog lesson for the selected grade/curriculum profile.
+  - Moved static public catalog target selection into `components/lesson/lessonEntryTarget.ts`.
+  - Kept `StudentLessonEntryPage` as a component fallback for any future internal use, but the live index route no longer renders the loading shell or calls the slow `getLessonEntryTarget` path.
+- Verification:
+  - `npx tsx --test components/lesson/lessonAccessPolicy.test.ts`: passed 4/4.
+  - Fresh local dev server `127.0.0.1:3056`, Mainland PEP S4 demo: hot `GET /student/lessons` returned `307` to `/student/lessons/pep-high-s4-sets-logic` in 31-42 ms; followed request reached the slug lesson in 129-133 ms.
+  - Playwright browser timing on the same server: `/student/lessons` to visible lesson content completed in 530 ms, final path `/student/lessons/pep-high-s4-sets-logic`.
+  - `npx tsx -e "(async () => { await import('./app/student/lessons/route.ts'); await import('./components/lesson/lessonEntryTarget.ts'); console.log('lesson entry route modules imported'); })()"`: passed.
+- Checks not green:
+  - `npm run type-check -- --pretty false` is red in this dirty root because generated `.next`/`tmp` validator files still reference deleted `app/student/lessons/page.js`, and an unrelated visualization evidence snapshot type drift remains in `components/visualizations/three/manim/mathEvidenceHarness.ts`.
+- Risks and follow-up:
+  - The standalone `/api/lesson-entry` endpoint is still slow on live and should be optimized by the A08/A12-owned state/API path if other surfaces rely on it.
+  - The fix was applied in the dirty integration root because the live/local snapshot being debugged was dirty-root; do not release from this dirty root without A22/A25 release slicing.

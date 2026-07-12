@@ -1,4 +1,5 @@
 import { mainlandJuniorZhongkaoExamPatternCards } from "../../data/rag/mainlandJuniorZhongkaoExamPatterns";
+import { illustrationTextMatchStandardForRag } from "./illustrationTextMatchStandard";
 import type {
   MainlandJuniorZhongkaoExamEvidencePack,
   MainlandJuniorZhongkaoExamPatternCard,
@@ -124,6 +125,7 @@ export function buildMainlandJuniorZhongkaoExamEvidencePack(
     "Use these aggregated patterns once across Mainland textbook publishers, including PEP, BNU, HJB, and future Mainland editions.",
     "The shared zhongkao layer summarizes broad 2021-2025 regional exam tendencies; it does not authorize copying protected wording, worked responses, scoring text, tables, diagrams, layouts, or item sequences.",
     "Use only the pattern summaries, tags, misconceptions, and originality guidance below.",
+    ...illustrationTextMatchStandardForRag,
     ...cards.flatMap((card, index) => [
       `Shared zhongkao pattern ${index + 1}: ${card.grades.join("/")} ${card.semesters.join("/")} ${card.unitTitles.join(" / ")} (${card.yearRange}; ${card.difficultyBand}).`,
       `Exam families: ${card.examFamilies.join(", ")}.`,

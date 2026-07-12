@@ -1,4 +1,5 @@
 import { hongKongDseMathExamPatternCards } from "../../data/rag/hongKongDseMathExamPatterns";
+import { illustrationTextMatchStandardForRag } from "./illustrationTextMatchStandard";
 import type {
   GradeId,
   HongKongDseMathEvidencePack,
@@ -126,6 +127,7 @@ export function buildHongKongDseMathEvidencePack(query: HongKongDseMathRagQuery)
     "Topic-practice safe cards describe chapter-level drill goals only; never reproduce source workbook prompts or worked responses.",
     "Mock-paper safe cards describe full-paper practice goals only; never reproduce mock prompts or worked responses.",
     "Prefer Hong Kong mathematical terminology and concise bilingual alignment when Chinese or English support is requested.",
+    ...illustrationTextMatchStandardForRag,
     ...cards.flatMap((card, index) => [
       `DSE pattern card ${index + 1}: ${card.id} (${card.difficultyBand}).`,
       `Year range: ${card.yearRange}.`,

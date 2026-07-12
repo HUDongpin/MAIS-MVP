@@ -14,7 +14,7 @@ Target routes:
 
 - `/`
 - `/dashboard`
-- `/adaptive-learning`
+- `/personalized-learning`
 - `/learning-path`
 - `/practice`
 - `/visualization-lab`
@@ -74,7 +74,7 @@ Ask Codex to verify the exported files:
 
 ### Route Capture Prompt
 
-Open the MAIS app in the browser and capture clean screenshots for the FII video from `/dashboard`, `/adaptive-learning`, `/practice`, `/visualization-lab`, `/teacher`, `/teacher/analytics`, and `/teacher/live`. Use demo data only and flag any route that requires setup.
+Open the MAIS app in the browser and capture clean screenshots for the FII video from `/dashboard`, `/personalized-learning`, `/practice`, `/visualization-lab`, `/teacher`, `/teacher/analytics`, and `/teacher/live`. Use demo data only and flag any route that requires setup.
 
 ### Claim Review Prompt
 

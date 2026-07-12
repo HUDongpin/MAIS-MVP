@@ -1,0 +1,31 @@
+{
+  "generatedAt": "2026-06-26T11:07:44.526Z",
+  "dirtyMapStatusSignature": "8c55a609f4ff42e1b227341b9895110a8899d6f996a73e7ceb07d68317f4663c",
+  "expandedStatusEntries": 1641,
+  "blocker": "Owner has not selected final states for the four lifecycle decisions.",
+  "pendingApprovalDecisionIds": [
+    "root-dirty-packages",
+    "dirty-visualization-production-release",
+    "california-practice-beta-clean",
+    "s22-release-hygiene-2026-06-15"
+  ],
+  "recommendedNonDestructiveSelection": {
+    "root-dirty-packages": "evidence archive",
+    "dirty-visualization-production-release": "evidence archive with worktree removal blocker",
+    "california-practice-beta-clean": "archive tag",
+    "s22-release-hygiene-2026-06-15": "archive tag"
+  },
+  "forbiddenUntilApproval": [
+    "stage",
+    "commit",
+    "branch",
+    "merge",
+    "rebase",
+    "push",
+    "delete",
+    "reset",
+    "revert",
+    "clean",
+    "deploy"
+  ]
+}

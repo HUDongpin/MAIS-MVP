@@ -1,0 +1,31 @@
+{
+  "checkedAt": "2026-07-10T17:12:25.285Z",
+  "strict": false,
+  "dirtyMapStatusSignature": "e30d647e1b51432945713f42ac78b0a2466fcb17192de0235a801ac877a0801f",
+  "decisionCount": 4,
+  "openDecisionCount": 0,
+  "closurePlanCount": 4,
+  "failures": [],
+  "closurePlans": [
+    {
+      "id": "root-dirty-packages",
+      "status": "approved-evidence-archive",
+      "requestPacket": "coordination/release-intake/latest-A25-lifecycle-decision-request-root-dirty-packages.md"
+    },
+    {
+      "id": "dirty-visualization-production-release",
+      "status": "approved-evidence-archive-with-worktree-removal-blocker",
+      "requestPacket": "coordination/release-intake/latest-A25-lifecycle-decision-request-dirty-visualization-production-release.md"
+    },
+    {
+      "id": "california-practice-beta-clean",
+      "status": "approved-archive-tag",
+      "requestPacket": "coordination/release-intake/latest-A25-lifecycle-decision-request-california-practice-beta-clean.md"
+    },
+    {
+      "id": "s22-release-hygiene-2026-06-15",
+      "status": "approved-archive-tag",
+      "requestPacket": "coordination/release-intake/latest-A25-lifecycle-decision-request-s22-release-hygiene-2026-06-15.md"
+    }
+  ]
+}

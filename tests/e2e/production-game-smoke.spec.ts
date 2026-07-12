@@ -84,7 +84,7 @@ const productionSmokeEnabled = process.env.PRODUCTION_GAME_SMOKE === "1";
 const expectedProductionOrigin = "https://www.mais.hk";
 const fishingRoundStorageKey = "hk-math-practice-fishing-round";
 const answerByQuestionId = new Map(questions.map((question) => [question.id, question.answer]));
-const fatalRuntimePattern = /Application error|ChunkLoadError|Loading chunk \d+ failed|\/_next\/static\/chunks\/app\/practice\/(?:fishing-game|adventure-island)/i;
+const fatalRuntimePattern = /Application error|ChunkLoadError|Loading chunk \d+ failed|\/_next\/static\/chunks\/app\/student\/practice\/games/i;
 
 test.setTimeout(180_000);
 test.use({ trace: "off", video: "off", screenshot: "off" });
@@ -482,7 +482,7 @@ test.describe("Vercel Production authenticated game smoke", () => {
   });
 
   test("Fishing Game authenticates, renders gameplay, answers one challenge, and awards once", async ({ page }, testInfo) => {
-    const diagnostics = attachProductionRuntimeDiagnostics(page, ["/practice/fishing-game"], [
+    const diagnostics = attachProductionRuntimeDiagnostics(page, ["/student/practice/games/fishing-master", "/practice/fishing-game"], [
       "/api/me",
       "/api/questions",
       "/api/attempts",
@@ -496,6 +496,11 @@ test.describe("Vercel Production authenticated game smoke", () => {
     try {
       await loginThroughBrowser(page, student);
       await expectBrowserSession(page, student);
+
+      const legacyRoute = await requestWithRetries(page, "GET", "/practice/fishing-game", { maxRedirects: 0 });
+      expect([307, 308]).toContain(legacyRoute.status());
+      expect(legacyRoute.headers().location ?? "").toContain("/student/practice/games/fishing-master");
+
       await page.evaluate(({ key, payload }) => {
         window.sessionStorage.setItem(key, JSON.stringify(payload));
       }, {
@@ -509,7 +514,7 @@ test.describe("Vercel Production authenticated game smoke", () => {
         }
       });
 
-      await page.goto("/practice/fishing-game", { waitUntil: "domcontentloaded" });
+      await page.goto("/student/practice/games/fishing-master", { waitUntil: "domcontentloaded" });
       await expectNoRuntimeErrorCopy(page);
       await expect(page.getByRole("heading", { name: /Math Fishing Challenge/i })).toBeVisible({ timeout: 20_000 });
       const stage = page.getByTestId("fishing-game-stage");
@@ -580,7 +585,7 @@ test.describe("Vercel Production authenticated game smoke", () => {
   });
 
   test("Adventure Island authenticates, renders gameplay, redirects legacy route, and awards once", async ({ page }, testInfo) => {
-    const diagnostics = attachProductionRuntimeDiagnostics(page, ["/practice/adventure-island", "/practice/super-platformer-like"], [
+    const diagnostics = attachProductionRuntimeDiagnostics(page, ["/student/practice/games/adventure-island", "/practice/adventure-island", "/practice/super-platformer-like"], [
       "/api/me",
       "/api/questions",
       "/api/attempts",
@@ -595,13 +600,15 @@ test.describe("Vercel Production authenticated game smoke", () => {
       await loginThroughBrowser(page, student);
       await expectBrowserSession(page, student);
 
-      const legacyRoute = await requestWithRetries(page, "GET", "/practice/super-platformer-like", { maxRedirects: 0 });
-      expect([307, 308]).toContain(legacyRoute.status());
-      expect(legacyRoute.headers().location ?? "").toContain("/practice/adventure-island");
+      for (const legacyPath of ["/practice/adventure-island", "/practice/super-platformer-like"]) {
+        const legacyRoute = await requestWithRetries(page, "GET", legacyPath, { maxRedirects: 0 });
+        expect([307, 308]).toContain(legacyRoute.status());
+        expect(legacyRoute.headers().location ?? "").toContain("/student/practice/games/adventure-island");
+      }
 
       await expectAdventureEligibilityReady(page);
 
-      await page.goto("/practice/adventure-island", { waitUntil: "domcontentloaded" });
+      await page.goto("/student/practice/games/adventure-island", { waitUntil: "domcontentloaded" });
       await expectNoRuntimeErrorCopy(page);
       await expect(page.getByRole("heading", { name: /P5 Practice Quest/i })).toBeVisible({ timeout: 20_000 });
       const stage = page.getByTestId("adventure-island-stage");

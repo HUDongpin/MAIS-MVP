@@ -12,6 +12,7 @@ const parentNavItems = [
   { href: "/parent", label: { en: "Overview", zh: "總覽" }, activePaths: ["/parent"] },
   { href: "/parent/reports", label: { en: "Reports", zh: "報告" }, activePaths: ["/parent/reports"] },
   { href: "/parent/messages", label: { en: "Messages", zh: "家校私信" }, activePaths: ["/parent/messages"] },
+  { href: "/parent/notices", label: { en: "Notices", zh: "通知回執" }, activePaths: ["/parent/notices"] },
   { href: "/parent/connect", label: { en: "Connect child", zh: "綁定孩子" }, activePaths: ["/parent/connect"] }
 ];
 
@@ -31,6 +32,13 @@ function childIdFromDetailPath(pathname: string) {
   }
 }
 
+function parentHrefWithChildFocus(href: string, selectedStudentId: string) {
+  if (!selectedStudentId || href === "/parent/connect") return href;
+  const params = new URLSearchParams();
+  params.set("studentId", selectedStudentId);
+  return `${href}?${params.toString()}`;
+}
+
 export function ParentShell({
   parent,
   children: linkedChildren,
@@ -47,6 +55,7 @@ export function ParentShell({
   const detailStudentId = childIdFromDetailPath(pathname);
   const routeStudentId = detailStudentId && linkedChildren.some((child) => child.student.id === detailStudentId) ? detailStudentId : null;
   const selectedStudentId = routeStudentId ?? searchParams.get("studentId") ?? linkedChildren[0]?.student.id ?? "";
+  const overviewHref = parentHrefWithChildFocus("/parent", selectedStudentId);
 
   const switchChild = (studentId: string) => {
     if (!studentId) return;
@@ -63,7 +72,7 @@ export function ParentShell({
     <div className="page-container py-6 sm:py-8">
       <div className="grid gap-5 lg:grid-cols-[260px_minmax(0,1fr)]">
         <aside className="glass-panel h-fit p-3 lg:sticky lg:top-24">
-          <Link href="/parent" className="focus-ring block rounded-2xl px-3 py-3 transition hover:bg-slate-950/[0.04] dark:hover:bg-white/[0.06]">
+          <Link href={overviewHref} className="focus-ring block rounded-2xl px-3 py-3 transition hover:bg-slate-950/[0.04] dark:hover:bg-white/[0.06]">
             <p className="text-xs font-black uppercase tracking-[0.24em] text-cyan-600 dark:text-cyan-300">
               {t({ en: "Parent Console", zh: "家長工作台" })}
             </p>
@@ -76,10 +85,11 @@ export function ParentShell({
           <nav className="mt-3 grid gap-1" aria-label={t({ en: "Parent navigation", zh: "家長導覽" })}>
             {parentNavItems.map((item) => {
               const active = isActivePath(pathname, item);
+              const href = parentHrefWithChildFocus(item.href, selectedStudentId);
               return (
                 <Link
                   key={item.href}
-                  href={item.href}
+                  href={href}
                   aria-current={active ? "page" : undefined}
                   className={cn(
                     "focus-ring rounded-2xl px-4 py-3 text-sm font-black transition",

@@ -1,0 +1,1654 @@
+diff --git a/.gitignore b/.gitignore
+index 49c47291d..ded13a174 100644
+--- a/.gitignore
++++ b/.gitignore
+@@ -5,6 +5,7 @@ node_modules/
+ 
+ # Next.js / React build output
+ .next/
++.next-*/
+ out/
+ dist/
+ build/
+@@ -13,6 +14,7 @@ build/
+ # TypeScript and compiler cache
+ *.tsbuildinfo
+ tsconfig.tsbuildinfo
++tsconfig.*.tmp.json
+ 
+ # Test, coverage, and temporary output
+ coverage/
+@@ -20,6 +22,7 @@ coverage/
+ playwright-report/
+ test-results/
+ .playwright-cli/
++.s??-*/
+ .tmp/
+ tmp/
+ temp/
+@@ -27,6 +30,15 @@ temp/
+ .local/
+ output/
+ outputs/
++var/
++
++# Local report/render scratch output
++coordination/reports/*-render/
++coordination/session-logs/*-failures/
++**/lo-profile/
++~$*.docx
++~$*.pptx
++~$*.xlsx
+ 
+ # Logs
+ *.log
+@@ -43,6 +55,7 @@ lerna-debug.log*
+ !.env.example
+ !.env.local.example
+ default accounts.md
++All API Keys.docx
+ 
+ # Vercel local state
+ .vercel/
+@@ -85,3 +98,6 @@ __pycache__/
+ # Local package/export artifacts
+ *.tgz
+ *.tar.gz
++
++# Local nested checkouts / release scratch copies
++MAIS-MVP-*/
+diff --git a/.vercelignore b/.vercelignore
+index d0a2f24d6..b791b16b2 100644
+--- a/.vercelignore
++++ b/.vercelignore
+@@ -5,6 +5,8 @@
+ # Dependencies and build output
+ node_modules/
+ .next/
++.next*/
++.next-register-slider/
+ out/
+ dist/
+ build/
+@@ -20,20 +22,40 @@ video-plan/
+ 
+ # Local/generated output
+ .local/
++private/
+ .tmp/
++.s11*/
++MAIS-MVP-*/
++Users/
++var/
+ tmp/
+ temp/
+ output/
+ outputs/
+ coverage/
+ .cache/
++coordination/reports/*-render/
++coordination/session-logs/*-failures/
++**/lo-profile/
++
++# Raw source data and inactive generated assets kept out of deploy uploads
++data/ease/
++
++# Generated public assets not referenced by the current app build.
++# Keep lesson-illustrations and ease_question_assets; they are referenced.
++public/question-illustrations/
+ 
+ # Logs and local-only files
+ *.log
+ *.tsbuildinfo
++tsconfig.*.tmp.json
+ .DS_Store
+ .Rhistory
+ default accounts.md
++All API Keys.docx
++~$*.docx
++~$*.pptx
++~$*.xlsx
+ .env
+ .env.*
+ *.local
+diff --git a/next.config.ts b/next.config.ts
+index 465422545..aae551d96 100644
+--- a/next.config.ts
++++ b/next.config.ts
+@@ -1,8 +1,14 @@
+ import type { NextConfig } from "next";
+ 
++const distDir = process.env.NEXT_DIST_DIR?.trim();
++const tsconfigPath = process.env.NEXT_TSCONFIG_PATH?.trim() || "tsconfig.next.json";
++
+ const nextConfig: NextConfig = {
++  devIndicators: false,
+   outputFileTracingRoot: process.cwd(),
+-  reactStrictMode: true
++  reactStrictMode: true,
++  ...(distDir ? { distDir } : {}),
++  ...(tsconfigPath ? { typescript: { tsconfigPath } } : {})
+ };
+ 
+ export default nextConfig;
+diff --git a/package.json b/package.json
+index ca4f889fd..2bfd5c875 100644
+--- a/package.json
++++ b/package.json
+@@ -47,8 +47,16 @@
+     "rag:hk-edb-manifest": "python3 scripts/build-hk-math-edb-manifest.py",
+     "rag:us-math-manifest": "python3 scripts/build-us-math-safe-library-manifest.py",
+     "smoke:simpletex:local": "node scripts/simpletex-local-smoke.mjs",
++    "clean:generated": "node scripts/cleanup-generated-artifacts.mjs",
++    "release:preflight": "node scripts/release-env-guard.mjs",
++    "release:env-preflight": "node scripts/release-env-guard.mjs env",
++    "release:publish-preflight": "node scripts/release-env-guard.mjs publish",
++    "release:root-deploy-preflight": "node scripts/release-env-guard.mjs root-deploy",
++    "vercel:stage": "node scripts/release-env-guard.mjs staging && node scripts/prepare-vercel-staging.mjs",
++    "vercel:preview": "node scripts/release-env-guard.mjs staging && node scripts/deploy-vercel-preview.mjs",
++    "vercel:production": "node scripts/deploy-vercel-production.mjs",
+     "test:backend": "playwright test tests/e2e/backend-api.spec.ts --project=desktop-chrome",
+-    "test:e2e": "playwright test",
++    "test:e2e": "node scripts/release-env-guard.mjs e2e && playwright test",
+     "test:question-bank": "rm -rf .tmp/question-bank-tests .tmp/question-bank-db && tsc -p tsconfig.json --outDir .tmp/question-bank-tests --noEmit false --incremental false --module commonjs --moduleResolution node && mkdir -p .tmp/question-bank-tests/node_modules/@ && ln -s ../../data .tmp/question-bank-tests/node_modules/@/data && ln -s ../../lib .tmp/question-bank-tests/node_modules/@/lib && HK_MATH_DB_DIR=.tmp/question-bank-db node --test .tmp/question-bank-tests/lib/mainlandPepHighQuestionBank.test.js .tmp/question-bank-tests/lib/mainlandPepPrimaryQuestionBank.test.js .tmp/question-bank-tests/lib/mainlandPepJuniorQuestionBank.test.js .tmp/question-bank-tests/lib/mainlandBnuPrimaryQuestionBank.test.js .tmp/question-bank-tests/lib/mainlandBnuJuniorQuestionBank.test.js .tmp/question-bank-tests/lib/fullQuestionBankSolvability.test.js && rm -rf .tmp/question-bank-tests .tmp/question-bank-db",
+     "test:rag": "python3 scripts/build-mainland-high-abstract.py --self-test && python3 scripts/build-mainland-hjb-high-textbook-manifest.py --self-test && python3 scripts/build-mainland-hjb-primary-manifest.py --self-test && python3 scripts/build-mainland-bnu-primary-manifest.py --self-test && python3 scripts/build-mainland-bnu-junior-manifest.py --self-test && python3 scripts/build-mainland-bnu-high-textbook-manifest.py --self-test && python3 scripts/build-mainland-bnu-high-assessment-manifest.py --self-test && python3 scripts/build-mainland-bnu-high-s4-upper-assessment-manifest.py --self-test && python3 scripts/build-mainland-bnu-high-s4-lower-assessment-manifest.py --self-test && python3 scripts/build-mainland-bnu-junior-assessment-manifest.py --self-test && python3 scripts/build-mainland-bnu-junior-s1-upper-assessment-manifest.py --self-test && python3 scripts/build-mainland-bnu-primary-assessment-manifest.py --self-test && python3 scripts/build-mainland-hjb-primary-assessment-manifest.py --self-test && python3 scripts/build-mainland-hjb-primary-paper-manifest.py --self-test && python3 scripts/build-mainland-hjb-junior-manifest.py --self-test && python3 scripts/build-mainland-hjb-junior-assessment-manifest.py --self-test && python3 scripts/build-mainland-hjb-junior-paper-manifest.py --self-test && python3 scripts/build-mainland-hjb-high-exam-manifest.py --self-test && python3 scripts/build-mainland-junior-zhongkao-manifest.py --self-test && python3 scripts/build-mainland-pep-primary-manifest.py --self-test && python3 scripts/build-mainland-pep-junior-manifest.py --self-test && python3 scripts/build-mainland-pep-junior-exam-manifest.py --self-test && python3 scripts/build-mainland-pep-junior-paper-manifest.py --self-test && python3 scripts/build-mainland-pep-primary-paper-manifest.py --self-test && python3 scripts/build-mainland-pep-primary-abstract.py --self-test && python3 scripts/build-mainland-pep-primary-exam-manifest.py --self-test && python3 scripts/build-hk-dse-math-manifest.py --self-test && python3 scripts/build-hk-dse-topic-practice-manifest.py --self-test && python3 scripts/build-hk-dse-mock-manifest.py --self-test && python3 scripts/build-hk-dse-eph-textbook-manifest.py --self-test && python3 scripts/build-hk-dse-up-textbook-manifest.py --self-test && python3 scripts/build-us-math-safe-library-manifest.py --self-test && rm -rf .tmp/rag-tests && tsc -p tsconfig.rag.json && node --test .tmp/rag-tests/lib/rag/mainlandPep.test.js .tmp/rag-tests/lib/rag/mainlandPepHigh.test.js .tmp/rag-tests/lib/rag/mainlandHjbHigh.test.js .tmp/rag-tests/lib/rag/mainlandHjbPrimary.test.js .tmp/rag-tests/lib/rag/mainlandHjbJunior.test.js .tmp/rag-tests/lib/rag/mainlandBnuPrimary.test.js .tmp/rag-tests/lib/rag/mainlandBnuJunior.test.js .tmp/rag-tests/lib/rag/mainlandBnuHigh.test.js .tmp/rag-tests/lib/rag/mainlandBnuHighAssessmentPatterns.test.js .tmp/rag-tests/lib/rag/hongKongMathEdB.test.js .tmp/rag-tests/lib/rag/hongKongDseMath.test.js .tmp/rag-tests/lib/rag/hongKongDseEph.test.js .tmp/rag-tests/lib/rag/hongKongDseUp.test.js .tmp/rag-tests/lib/rag/usMath.test.js && rm -rf .tmp/rag-tests",
+     "test:analytics": "rm -rf .tmp/analytics-tests && tsc -p tsconfig.json --outDir .tmp/analytics-tests --noEmit false --incremental false --module commonjs --moduleResolution node && node --test .tmp/analytics-tests/lib/learningAnalytics.test.js .tmp/analytics-tests/lib/adaptiveLearning.test.js && rm -rf .tmp",
+diff --git a/playwright.config.ts b/playwright.config.ts
+index 39cca113e..97df98438 100644
+--- a/playwright.config.ts
++++ b/playwright.config.ts
+@@ -1,13 +1,41 @@
+ import { defineConfig, devices } from "@playwright/test";
++import path from "node:path";
+ 
+ const port = Number(process.env.PLAYWRIGHT_PORT ?? 3020);
+ const baseURL = process.env.PLAYWRIGHT_BASE_URL ?? `http://127.0.0.1:${port}`;
+ const browserChannel = process.env.PLAYWRIGHT_BROWSER_CHANNEL ?? "chrome";
++const runId = sanitizePathSegment(process.env.PLAYWRIGHT_RUN_ID ?? `${port}-${process.pid}`);
++const e2eRunRoot = process.env.PLAYWRIGHT_E2E_ROOT?.trim() || path.join(".tmp", `e2e-run-${runId}`);
++const e2eNextDistDir = process.env.PLAYWRIGHT_NEXT_DIST_DIR ?? path.join(e2eRunRoot, "next-dist");
++const e2eNextTsconfigPath = process.env.PLAYWRIGHT_NEXT_TSCONFIG_PATH ?? `tsconfig.playwright-${runId}.tmp.json`;
++const e2eDbPath = path.resolve(process.env.HK_MATH_DB_PATH?.trim() || path.join(e2eRunRoot, "hk-math-db.sqlite"));
++const e2eOutputDir = process.env.PLAYWRIGHT_OUTPUT_DIR?.trim() || path.join(e2eRunRoot, "test-results");
++const e2eReportDir = process.env.PLAYWRIGHT_REPORT_DIR?.trim() || path.join(e2eRunRoot, "playwright-report");
++process.env.PLAYWRIGHT_RUN_ID = runId;
++process.env.PLAYWRIGHT_E2E_ROOT = e2eRunRoot;
++process.env.HK_MATH_DB_PATH = e2eDbPath;
++const disabledProviderEnv = [
++  "LLM_API_KEY=",
++  "OPENAI_API_KEY=",
++  "LLM_MODEL=",
++  "OPENAI_MODEL=",
++  "LLM_API_URL=",
++  "DEEPSEEK_API_KEY=",
++  "DEEPSEEK_MODEL=",
++  "DEEPSEEK_API_URL=",
++  "QWEN_API_KEY=",
++  "QWEN_API_URL=",
++  "QWEN_IMAGE_MODEL=",
++  "QWEN_IMAGE_API_URL=",
++  "QWEN_REALTIME_MODEL=",
++  "QWEN_REALTIME_API_URL="
++].join(" ");
+ const isolatedStatefulSpecs = [
+   "tests/e2e/rewards.spec.ts",
+   "tests/e2e/gamification.spec.ts",
+   "tests/e2e/fishing-game.spec.ts",
+-  "tests/e2e/adventure-island.spec.ts"
++  "tests/e2e/adventure-island.spec.ts",
++  "tests/e2e/parent-console-stress.spec.ts"
+ ];
+ const selectedSpecArgs = process.argv
+   .slice(2)
+@@ -18,12 +46,75 @@ const runsOnlyIsolatedStatefulSpecs =
+   selectedSpecArgs.every((arg) => isolatedStatefulSpecs.some((spec) => arg === spec || arg.endsWith(`/${spec}`)));
+ const useGlobalWebServer = !process.env.PLAYWRIGHT_SKIP_WEBSERVER && !runsOnlyIsolatedStatefulSpecs;
+ 
++assertSafeE2eGeneratedPath("PLAYWRIGHT_E2E_ROOT", e2eRunRoot);
++assertSafeE2eGeneratedPath("PLAYWRIGHT_NEXT_DIST_DIR", e2eNextDistDir);
++
++function sanitizePathSegment(value: string) {
++  return value
++    .trim()
++    .replace(/[^a-zA-Z0-9._-]+/g, "-")
++    .replace(/^-+|-+$/g, "") || "default";
++}
++
++function isPathInside(absolutePath: string, root: string) {
++  const relative = path.relative(root, absolutePath);
++  return relative === "" || (!relative.startsWith("..") && !path.isAbsolute(relative));
++}
++
++function assertSafeE2eGeneratedPath(label: string, value: string) {
++  const absolutePath = path.resolve(value);
++  const defaultNextDir = path.resolve(".next");
++  const tmpDir = path.resolve(".tmp");
++
++  if (absolutePath === defaultNextDir || isPathInside(absolutePath, defaultNextDir)) {
++    throw new Error(`${label} must not point at the shared .next directory for Playwright release runs.`);
++  }
++
++  if (process.env.MAIS_ALLOW_EXTERNAL_ARTIFACTS !== "1" && !isPathInside(absolutePath, tmpDir)) {
++    throw new Error(`${label} must stay under .tmp unless MAIS_ALLOW_EXTERNAL_ARTIFACTS=1 is set.`);
++  }
++}
++
++function shellQuote(value: string) {
++  return `'${value.replace(/'/g, "'\\''")}'`;
++}
++
++function writeTempTsconfigCommand(tsconfigPath: string, nextDistDir: string) {
++  const content = JSON.stringify({
++    extends: "./tsconfig.json",
++    include: [
++      "next-env.d.ts",
++      "**/*.ts",
++      "**/*.tsx",
++      ".next/types/**/*.ts",
++      `${nextDistDir}/types/**/*.ts`
++    ],
++    exclude: [
++      "node_modules",
++      ".next-*",
++      ".s??-*",
++      "tmp",
++      "temp",
++      "output",
++      "outputs",
++      "coverage",
++      "playwright-report",
++      "test-results",
++      "MAIS-MVP-*",
++      "MAIS-MVP-*/**/*"
++    ]
++  }, null, 2);
++  const script = `require("fs").writeFileSync(${JSON.stringify(tsconfigPath)}, ${JSON.stringify(content)})`;
++  return `node -e ${shellQuote(script)}`;
++}
++
+ export default defineConfig({
+   testDir: "./tests/e2e",
++  outputDir: e2eOutputDir,
+   fullyParallel: false,
+   workers: 1,
+   retries: process.env.CI ? 1 : 0,
+-  reporter: [["list"], ["html", { open: "never", outputFolder: "output/playwright-report" }]],
++  reporter: [["list"], ["html", { open: "never", outputFolder: e2eReportDir }]],
+   use: {
+     baseURL,
+     channel: browserChannel || undefined,
+@@ -35,10 +126,13 @@ export default defineConfig({
+     ? undefined
+     : {
+         command: [
+-          "rm -rf .tmp/e2e",
+-          "mkdir -p .tmp/e2e",
+-          "env LLM_API_KEY= OPENAI_API_KEY= LLM_MODEL= OPENAI_MODEL= LLM_API_URL= npm run build",
+-          `env LLM_API_KEY= OPENAI_API_KEY= LLM_MODEL= OPENAI_MODEL= LLM_API_URL= AUTH_SESSION_SECRET=e2e-session-secret HK_MATH_DB_PATH="$PWD/.tmp/e2e/hk-math-db.sqlite" HK_MATH_EXPOSE_LOCAL_RESET_LINKS=true HK_MATH_ENABLE_DEMO_USER=true AI_TUTOR_MAX_REQUESTS_PER_MINUTE=2 npm run start -- --hostname 127.0.0.1 --port ${port}`
++          `rm -rf ${shellQuote(e2eRunRoot)} ${shellQuote(e2eNextDistDir)}`,
++          `rm -f ${shellQuote(e2eNextTsconfigPath)}`,
++          `mkdir -p ${shellQuote(path.dirname(e2eDbPath))} ${shellQuote(path.dirname(e2eNextTsconfigPath))} ${shellQuote(e2eOutputDir)}`,
++          writeTempTsconfigCommand(e2eNextTsconfigPath, e2eNextDistDir),
++          `env NEXT_DIST_DIR=${shellQuote(e2eNextDistDir)} NEXT_TSCONFIG_PATH=${shellQuote(e2eNextTsconfigPath)} ${disabledProviderEnv} npm run build`,
++          `rm -f ${shellQuote(e2eNextTsconfigPath)}`,
++          `env NEXT_DIST_DIR=${shellQuote(e2eNextDistDir)} ${disabledProviderEnv} AUTH_SESSION_SECRET=e2e-session-secret HK_MATH_DB_PATH=${shellQuote(e2eDbPath)} HK_MATH_EXPOSE_LOCAL_RESET_LINKS=true HK_MATH_ENABLE_DEMO_USER=true AI_TUTOR_MAX_REQUESTS_PER_MINUTE=2 npm run start -- --hostname 127.0.0.1 --port ${port}`
+         ].join(" && "),
+         url: baseURL,
+         reuseExistingServer: false,
+diff --git a/scripts/cleanup-generated-artifacts.mjs b/scripts/cleanup-generated-artifacts.mjs
+new file mode 100644
+index 000000000..392aea660
+--- /dev/null
++++ b/scripts/cleanup-generated-artifacts.mjs
+@@ -0,0 +1,120 @@
++#!/usr/bin/env node
++import fs from "node:fs/promises";
++import path from "node:path";
++import { fileURLToPath } from "node:url";
++
++const SCRIPT_DIR = path.dirname(fileURLToPath(import.meta.url));
++const REPO_ROOT = path.resolve(SCRIPT_DIR, "..");
++
++const EXACT_GENERATED_DIRS = new Set([".next", ".tmp"]);
++const GENERATED_DIR_PREFIXES = [".next-", ".s11"];
++const GENERATED_FILE_PATTERNS = [
++  /^tsconfig\.playwright-.*\.tmp.*\.json$/,
++  /^tsconfig\..+\.tmp\.json$/
++];
++
++function parseArgs(argv) {
++  return {
++    dryRun: argv.includes("--dry-run"),
++    json: argv.includes("--json")
++  };
++}
++
++function isGeneratedDirectory(name) {
++  return EXACT_GENERATED_DIRS.has(name) || GENERATED_DIR_PREFIXES.some((prefix) => name.startsWith(prefix));
++}
++
++function isGeneratedFile(name) {
++  return GENERATED_FILE_PATTERNS.some((pattern) => pattern.test(name));
++}
++
++function formatBytes(bytes) {
++  const units = ["B", "KB", "MB", "GB"];
++  let value = bytes;
++  let unitIndex = 0;
++  while (value >= 1024 && unitIndex < units.length - 1) {
++    value /= 1024;
++    unitIndex += 1;
++  }
++  return `${value.toFixed(unitIndex === 0 ? 0 : 1)} ${units[unitIndex]}`;
++}
++
++async function pathSize(absolutePath) {
++  let total = 0;
++  const entries = await fs.readdir(absolutePath, { withFileTypes: true });
++  for (const entry of entries) {
++    const childPath = path.join(absolutePath, entry.name);
++    if (entry.isDirectory()) {
++      total += await pathSize(childPath);
++    } else if (entry.isFile()) {
++      const stat = await fs.stat(childPath);
++      total += stat.size;
++    }
++  }
++  return total;
++}
++
++async function generatedTargets() {
++  const targets = [];
++  const entries = await fs.readdir(REPO_ROOT, { withFileTypes: true });
++
++  for (const entry of entries) {
++    if (entry.isDirectory() && isGeneratedDirectory(entry.name)) {
++      const absolutePath = path.join(REPO_ROOT, entry.name);
++      targets.push({
++        path: entry.name,
++        type: "directory",
++        bytes: await pathSize(absolutePath)
++      });
++      continue;
++    }
++
++    if (entry.isFile() && isGeneratedFile(entry.name)) {
++      const absolutePath = path.join(REPO_ROOT, entry.name);
++      const stat = await fs.stat(absolutePath);
++      targets.push({
++        path: entry.name,
++        type: "file",
++        bytes: stat.size
++      });
++    }
++  }
++
++  return targets.sort((left, right) => left.path.localeCompare(right.path));
++}
++
++async function main() {
++  const args = parseArgs(process.argv.slice(2));
++  const targets = await generatedTargets();
++
++  if (!args.dryRun) {
++    for (const target of targets) {
++      await fs.rm(path.join(REPO_ROOT, target.path), { recursive: target.type === "directory", force: true });
++    }
++    await fs.mkdir(path.join(REPO_ROOT, ".tmp"), { recursive: true });
++  }
++
++  const summary = {
++    dryRun: args.dryRun,
++    targetCount: targets.length,
++    totalBytes: targets.reduce((total, target) => total + target.bytes, 0),
++    targets
++  };
++
++  if (args.json) {
++    console.log(JSON.stringify(summary, null, 2));
++    return;
++  }
++
++  console.log(args.dryRun ? "Generated artifact cleanup dry run" : "Generated artifact cleanup complete");
++  console.log(`Targets: ${summary.targetCount}`);
++  console.log(`Reclaimable: ${formatBytes(summary.totalBytes)}`);
++  for (const target of targets) {
++    console.log(`- ${target.path} (${target.type}, ${formatBytes(target.bytes)})`);
++  }
++}
++
++main().catch((error) => {
++  console.error(error.message);
++  process.exitCode = 1;
++});
+diff --git a/scripts/deploy-vercel-preview.mjs b/scripts/deploy-vercel-preview.mjs
+new file mode 100644
+index 000000000..522f95f76
+--- /dev/null
++++ b/scripts/deploy-vercel-preview.mjs
+@@ -0,0 +1,184 @@
++#!/usr/bin/env node
++import fs from "node:fs/promises";
++import path from "node:path";
++import { spawn } from "node:child_process";
++import { fileURLToPath, pathToFileURL } from "node:url";
++import { prepareVercelStaging } from "./prepare-vercel-staging.mjs";
++
++const SCRIPT_DIR = path.dirname(fileURLToPath(import.meta.url));
++const REPO_ROOT = path.resolve(SCRIPT_DIR, "..");
++const DEFAULT_SCOPE = "peter-dongpin-hu-s-projects";
++const DEFAULT_PROJECT = "mais-mvp";
++const DEFAULT_TARGET = "preview";
++
++async function deployPreview(options = {}) {
++  const scope = options.scope ?? process.env.VERCEL_SCOPE ?? DEFAULT_SCOPE;
++  const project = options.project ?? process.env.VERCEL_PROJECT_NAME ?? DEFAULT_PROJECT;
++  const target = options.target ?? process.env.VERCEL_TARGET ?? DEFAULT_TARGET;
++
++  if (target !== "preview") {
++    throw new Error("This wrapper only creates Preview deployments. Use explicit owner-approved commands for production.");
++  }
++
++  const staging = await prepareVercelStaging({
++    runId: options.runId,
++    stagingRoot: options.stagingRoot
++  });
++
++  const deployArgs = [
++    "deploy",
++    staging.stagingDir,
++    "-y",
++    "--target",
++    target,
++    "--scope",
++    scope,
++    "--project",
++    project,
++    "--no-wait"
++  ];
++
++  const deployResult = await runCommand("vercel", deployArgs, { cwd: REPO_ROOT });
++  if (deployResult.exitCode !== 0) {
++    throw new Error(formatCommandFailure("vercel deploy", deployResult));
++  }
++
++  const deploymentUrl = extractDeploymentUrl(`${deployResult.stdout}\n${deployResult.stderr}`);
++  if (!deploymentUrl) {
++    throw new Error(
++      [
++        "Vercel deploy exited successfully but did not return a deployment URL.",
++        "Refusing to treat this as success because it matches the prior archive-mode no-record failure.",
++        summarizeOutput(deployResult)
++      ].join("\n")
++    );
++  }
++
++  const inspectResult = await runCommand("vercel", ["inspect", deploymentUrl, "--scope", scope], {
++    cwd: REPO_ROOT
++  });
++  if (inspectResult.exitCode !== 0) {
++    throw new Error(formatCommandFailure(`vercel inspect ${deploymentUrl}`, inspectResult));
++  }
++
++  const record = {
++    deploymentUrl,
++    inspectVerified: true,
++    scope,
++    project,
++    target,
++    stagingDir: staging.stagingDir,
++    stagingFileCount: staging.fileCount,
++    stagingTotalBytes: staging.totalBytes,
++    deployedAt: new Date().toISOString()
++  };
++
++  await fs.writeFile(
++    path.join(staging.stagingDir, "vercel-preview-deployment.json"),
++    `${JSON.stringify(record, null, 2)}\n`
++  );
++
++  return record;
++}
++
++function extractDeploymentUrl(output) {
++  const urls = output.match(/https:\/\/[^\s)\]]+/g) ?? [];
++  const cleaned = urls.map((url) => url.replace(/[.,;]+$/, ""));
++  return (
++    cleaned.find((url) => /\.vercel\.app(?:\/)?$/.test(url)) ??
++    cleaned.find((url) => !url.includes("://vercel.com/")) ??
++    null
++  );
++}
++
++function runCommand(command, args, options) {
++  return new Promise((resolve, reject) => {
++    const child = spawn(command, args, {
++      cwd: options.cwd,
++      env: process.env,
++      stdio: ["ignore", "pipe", "pipe"]
++    });
++
++    let stdout = "";
++    let stderr = "";
++
++    child.stdout.on("data", (chunk) => {
++      stdout += chunk.toString();
++      process.stdout.write(chunk);
++    });
++
++    child.stderr.on("data", (chunk) => {
++      stderr += chunk.toString();
++      process.stderr.write(chunk);
++    });
++
++    child.on("error", reject);
++    child.on("close", (exitCode) => {
++      resolve({ exitCode, stdout, stderr });
++    });
++  });
++}
++
++function summarizeOutput(result) {
++  const output = `${result.stdout}\n${result.stderr}`.trim();
++  if (!output) return "Command produced no output.";
++  return output.split("\n").slice(-40).join("\n");
++}
++
++function formatCommandFailure(label, result) {
++  return [`${label} failed with exit code ${result.exitCode}.`, summarizeOutput(result)].join("\n");
++}
++
++function parseArgs(argv) {
++  const args = {
++    json: false,
++    runId: undefined,
++    scope: undefined,
++    project: undefined,
++    stagingRoot: undefined,
++    target: DEFAULT_TARGET
++  };
++
++  for (let index = 0; index < argv.length; index += 1) {
++    const arg = argv[index];
++    if (arg === "--json") {
++      args.json = true;
++    } else if (arg === "--run-id") {
++      args.runId = argv[++index];
++    } else if (arg === "--scope") {
++      args.scope = argv[++index];
++    } else if (arg === "--project") {
++      args.project = argv[++index];
++    } else if (arg === "--staging-root") {
++      args.stagingRoot = argv[++index];
++    } else if (arg === "--target") {
++      args.target = argv[++index];
++    } else {
++      throw new Error(`Unknown argument: ${arg}`);
++    }
++  }
++
++  return args;
++}
++
++async function main() {
++  const args = parseArgs(process.argv.slice(2));
++  const record = await deployPreview(args);
++
++  if (args.json) {
++    console.log(JSON.stringify(record, null, 2));
++    return;
++  }
++
++  console.log("Vercel Preview deployment verified");
++  console.log(`Preview URL: ${record.deploymentUrl}`);
++  console.log(`Staging directory: ${record.stagingDir}`);
++  console.log(`Files: ${record.stagingFileCount}`);
++}
++
++if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) {
++  main().catch((error) => {
++    console.error(error.message);
++    process.exitCode = 1;
++  });
++}
+diff --git a/scripts/deploy-vercel-production.mjs b/scripts/deploy-vercel-production.mjs
+new file mode 100644
+index 000000000..fdc3b43c0
+--- /dev/null
++++ b/scripts/deploy-vercel-production.mjs
+@@ -0,0 +1,210 @@
++#!/usr/bin/env node
++import fs from "node:fs/promises";
++import path from "node:path";
++import { spawn } from "node:child_process";
++import { fileURLToPath, pathToFileURL } from "node:url";
++import { prepareVercelStaging } from "./prepare-vercel-staging.mjs";
++
++const SCRIPT_DIR = path.dirname(fileURLToPath(import.meta.url));
++const REPO_ROOT = path.resolve(SCRIPT_DIR, "..");
++const DEFAULT_SCOPE = "peter-dongpin-hu-s-projects";
++const DEFAULT_PROJECT = "mais-mvp";
++
++async function deployProduction(options = {}) {
++  const scope = options.scope ?? process.env.VERCEL_SCOPE ?? DEFAULT_SCOPE;
++  const project = options.project ?? process.env.VERCEL_PROJECT_NAME ?? DEFAULT_PROJECT;
++
++  await runPreflight();
++
++  const staging = await prepareVercelStaging({
++    runId: options.runId,
++    stagingRoot: options.stagingRoot,
++    dryRun: options.dryRun
++  });
++
++  if (options.dryRun) {
++    return {
++      dryRun: true,
++      scope,
++      project,
++      target: "production",
++      stagingDir: staging.stagingDir,
++      stagingFileCount: staging.fileCount,
++      stagingTotalBytes: staging.totalBytes,
++      forbiddenPathCount: staging.forbiddenPathCount,
++      deployed: false
++    };
++  }
++
++  const deployArgs = [
++    "deploy",
++    staging.stagingDir,
++    "-y",
++    "--prod",
++    "--scope",
++    scope,
++    "--project",
++    project,
++    "--no-wait"
++  ];
++
++  const deployResult = await runCommand("vercel", deployArgs, { cwd: REPO_ROOT });
++  if (deployResult.exitCode !== 0) {
++    throw new Error(formatCommandFailure("vercel deploy --prod", deployResult));
++  }
++
++  const deploymentUrl = extractDeploymentUrl(`${deployResult.stdout}\n${deployResult.stderr}`);
++  if (!deploymentUrl) {
++    throw new Error(
++      [
++        "Vercel production deploy exited successfully but did not return a deployment URL.",
++        "Refusing to treat this as success because publish provenance cannot be verified.",
++        summarizeOutput(deployResult)
++      ].join("\n")
++    );
++  }
++
++  const inspectResult = await runCommand("vercel", ["inspect", deploymentUrl, "--scope", scope], {
++    cwd: REPO_ROOT
++  });
++  if (inspectResult.exitCode !== 0) {
++    throw new Error(formatCommandFailure(`vercel inspect ${deploymentUrl}`, inspectResult));
++  }
++
++  const record = {
++    deploymentUrl,
++    inspectVerified: true,
++    scope,
++    project,
++    target: "production",
++    stagingDir: staging.stagingDir,
++    stagingFileCount: staging.fileCount,
++    stagingTotalBytes: staging.totalBytes,
++    deployedAt: new Date().toISOString()
++  };
++
++  await fs.writeFile(
++    path.join(staging.stagingDir, "vercel-production-deployment.json"),
++    `${JSON.stringify(record, null, 2)}\n`
++  );
++
++  return record;
++}
++
++async function runPreflight() {
++  const preflight = await runCommand("node", ["scripts/release-env-guard.mjs", "publish"], {
++    cwd: REPO_ROOT
++  });
++  if (preflight.exitCode !== 0) {
++    throw new Error("production publish preflight failed; see blocker details above.");
++  }
++}
++
++function extractDeploymentUrl(output) {
++  const urls = output.match(/https:\/\/[^\s)\]]+/g) ?? [];
++  const cleaned = urls.map((url) => url.replace(/[.,;]+$/, ""));
++  return (
++    cleaned.find((url) => /\.vercel\.app(?:\/)?$/.test(url)) ??
++    cleaned.find((url) => !url.includes("://vercel.com/")) ??
++    null
++  );
++}
++
++function runCommand(command, args, options) {
++  return new Promise((resolve, reject) => {
++    const child = spawn(command, args, {
++      cwd: options.cwd,
++      env: process.env,
++      stdio: ["ignore", "pipe", "pipe"]
++    });
++
++    let stdout = "";
++    let stderr = "";
++
++    child.stdout.on("data", (chunk) => {
++      stdout += chunk.toString();
++      process.stdout.write(chunk);
++    });
++
++    child.stderr.on("data", (chunk) => {
++      stderr += chunk.toString();
++      process.stderr.write(chunk);
++    });
++
++    child.on("error", reject);
++    child.on("close", (exitCode) => {
++      resolve({ exitCode, stdout, stderr });
++    });
++  });
++}
++
++function summarizeOutput(result) {
++  const output = `${result.stdout}\n${result.stderr}`.trim();
++  if (!output) return "Command produced no output.";
++  return output.split("\n").slice(-60).join("\n");
++}
++
++function formatCommandFailure(label, result) {
++  return [`${label} failed with exit code ${result.exitCode}.`, summarizeOutput(result)].join("\n");
++}
++
++function parseArgs(argv) {
++  const args = {
++    dryRun: false,
++    json: false,
++    runId: undefined,
++    scope: undefined,
++    project: undefined,
++    stagingRoot: undefined
++  };
++
++  for (let index = 0; index < argv.length; index += 1) {
++    const arg = argv[index];
++    if (arg === "--dry-run") {
++      args.dryRun = true;
++    } else if (arg === "--json") {
++      args.json = true;
++    } else if (arg === "--run-id") {
++      args.runId = argv[++index];
++    } else if (arg === "--scope") {
++      args.scope = argv[++index];
++    } else if (arg === "--project") {
++      args.project = argv[++index];
++    } else if (arg === "--staging-root") {
++      args.stagingRoot = argv[++index];
++    } else {
++      throw new Error(`Unknown argument: ${arg}`);
++    }
++  }
++
++  return args;
++}
++
++async function main() {
++  const args = parseArgs(process.argv.slice(2));
++  const record = await deployProduction(args);
++
++  if (args.json) {
++    console.log(JSON.stringify(record, null, 2));
++    return;
++  }
++
++  if (record.dryRun) {
++    console.log("Vercel Production deployment dry run passed");
++    console.log(`Staging directory: ${record.stagingDir}`);
++    console.log(`Files: ${record.stagingFileCount}`);
++    return;
++  }
++
++  console.log("Vercel Production deployment verified");
++  console.log(`Production URL: ${record.deploymentUrl}`);
++  console.log(`Staging directory: ${record.stagingDir}`);
++  console.log(`Files: ${record.stagingFileCount}`);
++}
++
++if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) {
++  main().catch((error) => {
++    console.error(error.message);
++    process.exitCode = 1;
++  });
++}
+diff --git a/scripts/prepare-vercel-staging.mjs b/scripts/prepare-vercel-staging.mjs
+new file mode 100644
+index 000000000..2cd540947
+--- /dev/null
++++ b/scripts/prepare-vercel-staging.mjs
+@@ -0,0 +1,344 @@
++#!/usr/bin/env node
++import { constants as fsConstants } from "node:fs";
++import fs from "node:fs/promises";
++import path from "node:path";
++import { fileURLToPath, pathToFileURL } from "node:url";
++
++const SCRIPT_DIR = path.dirname(fileURLToPath(import.meta.url));
++const REPO_ROOT = path.resolve(SCRIPT_DIR, "..");
++const DEFAULT_STAGING_ROOT = path.join(REPO_ROOT, ".tmp", "vercel-staging");
++
++const REQUIRED_ROOT_FILES = [
++  ".vercelignore",
++  "middleware.ts",
++  "next-env.d.ts",
++  "next.config.ts",
++  "package-lock.json",
++  "package.json",
++  "postcss.config.mjs",
++  "tailwind.config.ts",
++  "tsconfig.json",
++  "tsconfig.next.json"
++];
++
++const REQUIRED_DIRECTORIES = [
++  "app",
++  "components",
++  "data",
++  "lib",
++  "types",
++  "public/lesson-illustrations",
++  "public/ease_question_assets"
++];
++
++const OPTIONAL_DIRECTORIES = [
++  "public/practice"
++];
++
++const FORBIDDEN_ROOTS = new Set([
++  ".git",
++  ".local",
++  ".tmp",
++  ".vercel",
++  "coordination",
++  "node_modules",
++  "private",
++  "Users"
++]);
++
++const FORBIDDEN_BASENAMES = new Set([
++  ".DS_Store",
++  "All API Keys.docx",
++  "default accounts.md"
++]);
++
++export async function prepareVercelStaging(options = {}) {
++  const runId = sanitizePathSegment(options.runId ?? process.env.VERCEL_STAGING_RUN_ID ?? timestampRunId());
++  const stagingRoot = path.resolve(options.stagingRoot ?? process.env.VERCEL_STAGING_ROOT ?? DEFAULT_STAGING_ROOT);
++  assertSafeStagingRoot(stagingRoot);
++  const stagingDir = path.join(stagingRoot, runId);
++  const dryRun = Boolean(options.dryRun);
++
++  await assertMainlandPepQuestionIllustrationsAreNotDeployable();
++
++  const plannedFiles = await collectDeployableFiles();
++  const forbiddenFiles = plannedFiles.filter((file) => isForbiddenDeployPath(file.relativePath));
++  if (forbiddenFiles.length > 0) {
++    throw new Error(
++      [
++        "Refusing to prepare Vercel staging because forbidden paths were selected:",
++        ...forbiddenFiles.slice(0, 20).map((file) => `- ${file.relativePath}`),
++        forbiddenFiles.length > 20 ? `- ...and ${forbiddenFiles.length - 20} more` : ""
++      ].filter(Boolean).join("\n")
++    );
++  }
++
++  if (!dryRun) {
++    await fs.rm(stagingDir, { recursive: true, force: true });
++    await fs.mkdir(stagingDir, { recursive: true });
++    for (const file of plannedFiles) {
++      const destination = path.join(stagingDir, file.relativePath);
++      await fs.mkdir(path.dirname(destination), { recursive: true });
++      await fs.copyFile(file.absolutePath, destination);
++    }
++  }
++
++  const summary = {
++    stagingDir,
++    dryRun,
++    fileCount: plannedFiles.length,
++    totalBytes: plannedFiles.reduce((total, file) => total + file.size, 0),
++    forbiddenPathCount: forbiddenFiles.length,
++    excludedPolicy: {
++      dataEase: true,
++      publicQuestionIllustrations: true,
++      localSecretsAndGeneratedOutputs: true
++    }
++  };
++
++  if (!dryRun) {
++    await fs.writeFile(
++      path.join(stagingDir, "vercel-staging-manifest.json"),
++      `${JSON.stringify({
++        ...summary,
++        createdAt: new Date().toISOString(),
++        files: plannedFiles.map((file) => ({
++          path: file.relativePath,
++          bytes: file.size
++        }))
++      }, null, 2)}\n`
++    );
++  }
++
++  return summary;
++}
++
++async function collectDeployableFiles() {
++  const files = [];
++
++  for (const rootFile of REQUIRED_ROOT_FILES) {
++    const absolutePath = path.join(REPO_ROOT, rootFile);
++    await assertReadablePath(absolutePath, rootFile);
++    const stat = await fs.stat(absolutePath);
++    if (!stat.isFile()) {
++      throw new Error(`Required deploy file is not a file: ${rootFile}`);
++    }
++    files.push({
++      absolutePath,
++      relativePath: toPosix(rootFile),
++      size: stat.size
++    });
++  }
++
++  for (const directory of REQUIRED_DIRECTORIES) {
++    const absoluteDirectory = path.join(REPO_ROOT, directory);
++    await assertReadablePath(absoluteDirectory, directory);
++    await walkDirectory(absoluteDirectory, async (absolutePath, stat) => {
++      const relativePath = toRepoRelativePath(absolutePath);
++      if (isForbiddenDeployPath(relativePath)) return;
++      files.push({
++        absolutePath,
++        relativePath,
++        size: stat.size
++      });
++    });
++  }
++
++  for (const directory of OPTIONAL_DIRECTORIES) {
++    const absoluteDirectory = path.join(REPO_ROOT, directory);
++    if (!(await pathIsReadable(absoluteDirectory))) continue;
++    await walkDirectory(absoluteDirectory, async (absolutePath, stat) => {
++      const relativePath = toRepoRelativePath(absolutePath);
++      if (isForbiddenDeployPath(relativePath)) return;
++      files.push({
++        absolutePath,
++        relativePath,
++        size: stat.size
++      });
++    });
++  }
++
++  return files.sort((left, right) => left.relativePath.localeCompare(right.relativePath));
++}
++
++async function walkDirectory(directory, onFile) {
++  const entries = await fs.readdir(directory, { withFileTypes: true });
++  for (const entry of entries) {
++    const absolutePath = path.join(directory, entry.name);
++    const relativePath = toRepoRelativePath(absolutePath);
++    if (isForbiddenDeployPath(relativePath)) continue;
++
++    if (entry.isDirectory()) {
++      await walkDirectory(absolutePath, onFile);
++      continue;
++    }
++
++    if (entry.isFile()) {
++      const stat = await fs.stat(absolutePath);
++      await onFile(absolutePath, stat);
++    }
++  }
++}
++
++function isForbiddenDeployPath(relativePath) {
++  const normalizedPath = toPosix(relativePath).replace(/^\/+/, "");
++  const segments = normalizedPath.split("/").filter(Boolean);
++  const basename = segments.at(-1) ?? "";
++
++  if (FORBIDDEN_BASENAMES.has(basename)) return true;
++  if (basename.startsWith(".env")) return true;
++
++  if (segments.some((segment) => FORBIDDEN_ROOTS.has(segment))) return true;
++  if (segments.some((segment) => segment.startsWith(".next"))) return true;
++  if (segments.some((segment) => segment.startsWith(".s11"))) return true;
++
++  return (
++    normalizedPath === "data/ease" ||
++    normalizedPath.startsWith("data/ease/") ||
++    normalizedPath === "public/question-illustrations" ||
++    normalizedPath.startsWith("public/question-illustrations/")
++  );
++}
++
++function isInside(absolutePath, root) {
++  const relative = path.relative(root, absolutePath);
++  return relative === "" || (!relative.startsWith("..") && !path.isAbsolute(relative));
++}
++
++function assertSafeStagingRoot(stagingRoot) {
++  if (stagingRoot === REPO_ROOT) {
++    throw new Error("Refusing to use the repository root as Vercel staging root.");
++  }
++
++  if (
++    process.env.MAIS_ALLOW_EXTERNAL_VERCEL_STAGING !== "1" &&
++    !isInside(stagingRoot, DEFAULT_STAGING_ROOT)
++  ) {
++    throw new Error(
++      [
++        "Refusing to prepare Vercel staging outside .tmp/vercel-staging.",
++        `Requested staging root: ${stagingRoot}`,
++        "Set MAIS_ALLOW_EXTERNAL_VERCEL_STAGING=1 only for an owner-approved exception."
++      ].join("\n")
++    );
++  }
++}
++
++async function assertMainlandPepQuestionIllustrationsAreNotDeployable() {
++  const sourcePath = path.join(REPO_ROOT, "lib", "mainlandPepQuestionAssets.ts");
++  try {
++    await fs.access(sourcePath, fsConstants.R_OK);
++  } catch {
++    return;
++  }
++
++  const source = await fs.readFile(sourcePath, "utf8");
++  const approvalsAreEmpty =
++    /export\s+const\s+mainlandPepQuestionIllustrationApprovals[\s\S]*?=\s*\[\s*\];/.test(source);
++
++  if (!approvalsAreEmpty) {
++    throw new Error(
++      [
++        "Refusing to exclude public/question-illustrations because Mainland PEP question illustration approvals are no longer empty.",
++        "Define an explicit deploy asset policy before preparing Vercel staging."
++      ].join("\n")
++    );
++  }
++}
++
++async function assertReadablePath(absolutePath, label) {
++  if (!(await pathIsReadable(absolutePath))) {
++    throw new Error(`Required deploy input is missing or unreadable: ${label}`);
++  }
++}
++
++async function pathIsReadable(absolutePath) {
++  try {
++    await fs.access(absolutePath, fsConstants.R_OK);
++    return true;
++  } catch {
++    return false;
++  }
++}
++
++function timestampRunId() {
++  return new Date().toISOString().replace(/[-:]/g, "").replace(/\.\d{3}Z$/, "Z");
++}
++
++function sanitizePathSegment(value) {
++  const sanitized = String(value)
++    .trim()
++    .replace(/[^a-zA-Z0-9._-]+/g, "-")
++    .replace(/^-+|-+$/g, "");
++  if (!sanitized) throw new Error("Run id cannot be empty.");
++  return sanitized;
++}
++
++function toRepoRelativePath(absolutePath) {
++  return toPosix(path.relative(REPO_ROOT, absolutePath));
++}
++
++function toPosix(value) {
++  return value.split(path.sep).join("/");
++}
++
++function formatBytes(bytes) {
++  const units = ["B", "KB", "MB", "GB"];
++  let value = bytes;
++  let unitIndex = 0;
++  while (value >= 1024 && unitIndex < units.length - 1) {
++    value /= 1024;
++    unitIndex += 1;
++  }
++  return `${value.toFixed(unitIndex === 0 ? 0 : 1)} ${units[unitIndex]}`;
++}
++
++function parseArgs(argv) {
++  const args = {
++    dryRun: false,
++    json: false,
++    runId: undefined,
++    stagingRoot: undefined
++  };
++
++  for (let index = 0; index < argv.length; index += 1) {
++    const arg = argv[index];
++    if (arg === "--dry-run") {
++      args.dryRun = true;
++    } else if (arg === "--json") {
++      args.json = true;
++    } else if (arg === "--run-id") {
++      args.runId = argv[++index];
++    } else if (arg === "--staging-root") {
++      args.stagingRoot = argv[++index];
++    } else {
++      throw new Error(`Unknown argument: ${arg}`);
++    }
++  }
++
++  return args;
++}
++
++async function main() {
++  const args = parseArgs(process.argv.slice(2));
++  const summary = await prepareVercelStaging(args);
++
++  if (args.json) {
++    console.log(JSON.stringify(summary, null, 2));
++    return;
++  }
++
++  const action = summary.dryRun ? "Dry-run Vercel staging audit passed" : "Prepared Vercel staging package";
++  console.log(action);
++  console.log(`Staging directory: ${summary.stagingDir}`);
++  console.log(`Files: ${summary.fileCount}`);
++  console.log(`Size: ${formatBytes(summary.totalBytes)}`);
++  console.log(`Forbidden paths: ${summary.forbiddenPathCount}`);
++}
++
++if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) {
++  main().catch((error) => {
++    console.error(error.message);
++    process.exitCode = 1;
++  });
++}
+diff --git a/scripts/release-env-guard.mjs b/scripts/release-env-guard.mjs
+new file mode 100644
+index 000000000..4a55019b0
+--- /dev/null
++++ b/scripts/release-env-guard.mjs
+@@ -0,0 +1,433 @@
++#!/usr/bin/env node
++import { execFileSync } from "node:child_process";
++import fs from "node:fs";
++import path from "node:path";
++import { fileURLToPath } from "node:url";
++
++const SCRIPT_DIR = path.dirname(fileURLToPath(import.meta.url));
++const REPO_ROOT = path.resolve(SCRIPT_DIR, "..");
++const TMP_ROOT = path.join(REPO_ROOT, ".tmp");
++const VERCEL_STAGING_ROOT = path.join(TMP_ROOT, "vercel-staging");
++const DEFAULT_MIN_FREE_GB = 20;
++const DEFAULT_VERCEL_SCOPE = "peter-dongpin-hu-s-projects";
++const DIRTY_ROOT_DEPLOY_OVERRIDE = "MAIS_ALLOW_DIRTY_ROOT_DEPLOY";
++const REQUIRED_PRODUCTION_ENV = [
++  "AUTH_SESSION_SECRET",
++  "DATABASE_URL",
++  "HK_MATH_STORAGE_PROVIDER",
++  "RESEND_API_KEY",
++  "PASSWORD_RESET_FROM",
++  "PASSWORD_RESET_BASE_URL",
++  "HK_MATH_EXPOSE_LOCAL_RESET_LINKS"
++];
++
++function parseArgs(argv) {
++  const modes = argv.filter((arg) => !arg.startsWith("-"));
++  return {
++    mode: modes[0] ?? "all",
++    json: argv.includes("--json")
++  };
++}
++
++function fail(message) {
++  throw new Error(message);
++}
++
++function parsePositiveNumber(value, fallback) {
++  if (value === undefined || value === "") return fallback;
++  const parsed = Number(value);
++  if (!Number.isFinite(parsed) || parsed <= 0) {
++    fail(`Invalid positive number: ${value}`);
++  }
++  return parsed;
++}
++
++function availableBytes() {
++  const output = execFileSync("df", ["-k", REPO_ROOT], { encoding: "utf8" });
++  const lines = output.trim().split(/\n/);
++  const columns = lines.at(-1)?.trim().split(/\s+/) ?? [];
++  const availableKiB = Number(columns[3]);
++  if (!Number.isFinite(availableKiB)) {
++    fail(`Could not parse available disk space from df output:\n${output}`);
++  }
++  return availableKiB * 1024;
++}
++
++function formatBytes(bytes) {
++  const units = ["B", "KB", "MB", "GB"];
++  let value = bytes;
++  let unitIndex = 0;
++  while (value >= 1024 && unitIndex < units.length - 1) {
++    value /= 1024;
++    unitIndex += 1;
++  }
++  return `${value.toFixed(unitIndex === 0 ? 0 : 1)} ${units[unitIndex]}`;
++}
++
++function isInside(absolutePath, root) {
++  const relative = path.relative(root, absolutePath);
++  return relative === "" || (!relative.startsWith("..") && !path.isAbsolute(relative));
++}
++
++function safeResolve(candidate) {
++  return path.resolve(REPO_ROOT, candidate);
++}
++
++function assertNotDefaultNextDist(label, absolutePath) {
++  const defaultNext = path.join(REPO_ROOT, ".next");
++  if (absolutePath === defaultNext || isInside(absolutePath, defaultNext)) {
++    fail(`${label} must not point at the shared .next directory for release E2E.`);
++  }
++}
++
++function assertTmpScoped(label, absolutePath) {
++  if (process.env.MAIS_ALLOW_EXTERNAL_ARTIFACTS === "1") return;
++  if (!isInside(absolutePath, TMP_ROOT)) {
++    fail(`${label} must stay under .tmp unless MAIS_ALLOW_EXTERNAL_ARTIFACTS=1 is set: ${absolutePath}`);
++  }
++}
++
++function configuredE2eRoot() {
++  const runId = process.env.PLAYWRIGHT_RUN_ID?.trim() || "release-preflight";
++  return process.env.PLAYWRIGHT_E2E_ROOT?.trim() || path.join(".tmp", `e2e-run-${runId}`);
++}
++
++function assertE2eIsolation() {
++  const configPath = path.join(REPO_ROOT, "playwright.config.ts");
++  const config = fs.readFileSync(configPath, "utf8");
++  for (const needle of ["PLAYWRIGHT_NEXT_DIST_DIR", "NEXT_DIST_DIR", "NEXT_TSCONFIG_PATH"]) {
++    if (!config.includes(needle)) {
++      fail(`playwright.config.ts is missing release isolation wiring: ${needle}`);
++    }
++  }
++
++  const e2eRoot = configuredE2eRoot();
++  const nextDist = process.env.PLAYWRIGHT_NEXT_DIST_DIR?.trim() || path.join(e2eRoot, "next-dist");
++  const rootPath = safeResolve(e2eRoot);
++  const nextDistPath = safeResolve(nextDist);
++
++  assertNotDefaultNextDist("PLAYWRIGHT_E2E_ROOT", rootPath);
++  assertNotDefaultNextDist("PLAYWRIGHT_NEXT_DIST_DIR", nextDistPath);
++  assertTmpScoped("PLAYWRIGHT_E2E_ROOT", rootPath);
++  assertTmpScoped("PLAYWRIGHT_NEXT_DIST_DIR", nextDistPath);
++
++  if (process.env.PLAYWRIGHT_SKIP_WEBSERVER === "1" && isLocalBaseURL(process.env.PLAYWRIGHT_BASE_URL)) {
++    if (process.env.MAIS_ALLOW_SHARED_LOCAL_E2E_SERVER !== "1") {
++      fail(
++        [
++          "PLAYWRIGHT_SKIP_WEBSERVER=1 with a local PLAYWRIGHT_BASE_URL is blocked for release E2E.",
++          "Use the Playwright webServer path or startIsolatedApp so NEXT_DIST_DIR is controlled.",
++          "For a deliberate one-off local probe, set MAIS_ALLOW_SHARED_LOCAL_E2E_SERVER=1."
++        ].join("\n")
++      );
++    }
++  }
++
++  return {
++    e2eRoot: rootPath,
++    nextDist: nextDistPath
++  };
++}
++
++function isLocalBaseURL(value) {
++  if (!value) return false;
++  try {
++    const url = new URL(value);
++    return ["localhost", "127.0.0.1", "::1"].includes(url.hostname);
++  } catch {
++    return false;
++  }
++}
++
++function assertVercelStagingRoot() {
++  const configured = process.env.VERCEL_STAGING_ROOT?.trim() || VERCEL_STAGING_ROOT;
++  const stagingRoot = safeResolve(configured);
++  if (stagingRoot === REPO_ROOT) {
++    fail("VERCEL_STAGING_ROOT must not be the repository root.");
++  }
++  if (process.env.MAIS_ALLOW_EXTERNAL_VERCEL_STAGING !== "1" && !isInside(stagingRoot, VERCEL_STAGING_ROOT)) {
++    fail(`VERCEL_STAGING_ROOT must stay under .tmp/vercel-staging: ${stagingRoot}`);
++  }
++  return stagingRoot;
++}
++
++function assertDisk() {
++  const minFreeGB = parsePositiveNumber(process.env.MAIS_RELEASE_MIN_FREE_GB, DEFAULT_MIN_FREE_GB);
++  const freeBytes = availableBytes();
++  const minBytes = minFreeGB * 1024 ** 3;
++  if (freeBytes < minBytes) {
++    fail(`Release guard failed: only ${formatBytes(freeBytes)} free; need at least ${minFreeGB} GB.`);
++  }
++  return {
++    freeBytes,
++    minFreeGB
++  };
++}
++
++function shouldRun(mode, target) {
++  return mode === "all" || mode === target;
++}
++
++function shouldRunRootDeploy(mode) {
++  return mode === "root-deploy" || mode === "direct-deploy";
++}
++
++function shouldRunVercelEnv(mode) {
++  return mode === "env" || mode === "vercel-env";
++}
++
++function shouldRunPublish(mode) {
++  return mode === "publish" || mode === "prepublish";
++}
++
++function gitOutput(args) {
++  return execFileSync("git", args, {
++    cwd: REPO_ROOT,
++    encoding: "utf8",
++    maxBuffer: 64 * 1024 * 1024
++  });
++}
++
++function summarizeGitStatus() {
++  const statusLines = gitOutput(["status", "--porcelain=v1"])
++    .split("\n")
++    .filter(Boolean);
++  const untrackedFiles = gitOutput(["ls-files", "--others", "--exclude-standard"])
++    .split("\n")
++    .filter(Boolean);
++
++  const summary = {
++    statusEntries: statusLines.length,
++    trackedModified: 0,
++    trackedDeleted: 0,
++    untrackedStatusEntries: 0,
++    untrackedFiles: untrackedFiles.length
++  };
++
++  for (const line of statusLines) {
++    const indexStatus = line[0] ?? " ";
++    const worktreeStatus = line[1] ?? " ";
++    if (line.startsWith("??")) {
++      summary.untrackedStatusEntries += 1;
++      continue;
++    }
++    if (indexStatus === "D" || worktreeStatus === "D") {
++      summary.trackedDeleted += 1;
++    } else {
++      summary.trackedModified += 1;
++    }
++  }
++
++  return summary;
++}
++
++function assertCleanRootForDirectDeploy() {
++  const summary = summarizeRootDeployReadiness();
++  if (summary.clean || summary.dirtyOverride) {
++    return summary;
++  }
++
++  fail(formatDirtyRootDeployBlock(summary));
++}
++
++function summarizeRootDeployReadiness() {
++  const summary = summarizeGitStatus();
++  const dirty =
++    summary.statusEntries > 0 ||
++    summary.trackedModified > 0 ||
++    summary.trackedDeleted > 0 ||
++    summary.untrackedFiles > 0;
++
++  if (!dirty) {
++    return {
++      ...summary,
++      clean: true,
++      dirtyOverride: false
++    };
++  }
++
++  if (process.env[DIRTY_ROOT_DEPLOY_OVERRIDE] === "1") {
++    return {
++      ...summary,
++      clean: false,
++      dirtyOverride: true
++    };
++  }
++
++  return {
++    ...summary,
++    clean: false,
++    dirtyOverride: false
++  };
++}
++
++function formatDirtyRootDeployBlock(summary) {
++  return [
++    "Direct root deploy is blocked because the worktree is dirty.",
++    `Status entries: ${summary.statusEntries}`,
++    `Tracked modified: ${summary.trackedModified}`,
++    `Tracked deleted: ${summary.trackedDeleted}`,
++    `Untracked status entries: ${summary.untrackedStatusEntries}`,
++    `Untracked files: ${summary.untrackedFiles}`,
++    "Use the S22 pruned staging path or a clean reviewed release worktree instead.",
++    `Set ${DIRTY_ROOT_DEPLOY_OVERRIDE}=1 only for an explicit owner-approved emergency exception.`
++  ].join("\n");
++}
++
++function parseVercelJsonOutput(output) {
++  const jsonStart = output.indexOf("{");
++  if (jsonStart === -1) {
++    fail(`Vercel CLI did not return JSON output:\n${output}`);
++  }
++  try {
++    return JSON.parse(output.slice(jsonStart));
++  } catch (error) {
++    fail(`Could not parse Vercel CLI JSON output: ${error instanceof Error ? error.message : String(error)}`);
++  }
++}
++
++function listVercelEnvs() {
++  const scope = process.env.VERCEL_SCOPE?.trim() || DEFAULT_VERCEL_SCOPE;
++  const output = execFileSync("vercel", ["env", "ls", "--scope", scope, "--format", "json"], {
++    cwd: REPO_ROOT,
++    encoding: "utf8",
++    maxBuffer: 64 * 1024 * 1024
++  });
++  const parsed = parseVercelJsonOutput(output);
++  if (!Array.isArray(parsed.envs)) {
++    fail("Vercel env list JSON is missing the envs array.");
++  }
++  return {
++    scope,
++    envs: parsed.envs
++  };
++}
++
++function assertVercelEnvReadiness() {
++  const result = summarizeVercelEnvReadiness();
++  if (result.missing.length > 0) {
++    fail(formatVercelEnvBlock(result));
++  }
++  return result;
++}
++
++function summarizeVercelEnvReadiness() {
++  const inventory = listVercelEnvs();
++  const target = process.env.MAIS_RELEASE_ENV_TARGET?.trim() || "production";
++  const required = REQUIRED_PRODUCTION_ENV;
++  const present = [];
++  const missing = [];
++
++  for (const key of required) {
++    const exists = inventory.envs.some((env) => {
++      const targets = Array.isArray(env.target) ? env.target : [];
++      return env.key === key && targets.includes(target);
++    });
++    if (exists) {
++      present.push(key);
++    } else {
++      missing.push(key);
++    }
++  }
++
++  const result = {
++    scope: inventory.scope,
++    target,
++    required,
++    present,
++    missing,
++    envCount: inventory.envs.length
++  };
++
++  return result;
++}
++
++function formatVercelEnvBlock(result) {
++  return [
++    `Vercel ${result.target} environment is missing required release variables:`,
++    ...result.missing.map((key) => `- ${key}`),
++    "This check only inspects variable names and target environments; it does not read secret values.",
++    "S19 must complete redacted Vercel environment parity before publish."
++  ].join("\n");
++}
++
++function assertPublishReadiness() {
++  const e2e = assertE2eIsolation();
++  const stagingRoot = assertVercelStagingRoot();
++  const rootDeploy = summarizeRootDeployReadiness();
++  const vercelEnv = summarizeVercelEnvReadiness();
++  const blockers = [];
++
++  if (!rootDeploy.clean && !rootDeploy.dirtyOverride) {
++    blockers.push(formatDirtyRootDeployBlock(rootDeploy));
++  }
++  if (vercelEnv.missing.length > 0) {
++    blockers.push(formatVercelEnvBlock(vercelEnv));
++  }
++
++  const result = {
++    e2e,
++    stagingRoot,
++    rootDeploy,
++    vercelEnv
++  };
++
++  if (blockers.length > 0) {
++    fail(["Production publish preflight failed:", ...blockers].join("\n\n"));
++  }
++
++  return result;
++}
++
++function main() {
++  const args = parseArgs(process.argv.slice(2));
++  const result = {
++    mode: args.mode,
++    disk: assertDisk(),
++    e2e: shouldRun(args.mode, "e2e") ? assertE2eIsolation() : undefined,
++    stagingRoot: shouldRun(args.mode, "staging") ? assertVercelStagingRoot() : undefined,
++    rootDeploy: shouldRunRootDeploy(args.mode) ? assertCleanRootForDirectDeploy() : undefined,
++    vercelEnv: shouldRunVercelEnv(args.mode) ? assertVercelEnvReadiness() : undefined,
++    publish: shouldRunPublish(args.mode) ? assertPublishReadiness() : undefined
++  };
++
++  if (args.json) {
++    console.log(JSON.stringify(result, null, 2));
++    return;
++  }
++
++  console.log(`Release environment guard passed (${args.mode})`);
++  console.log(`Free disk: ${formatBytes(result.disk.freeBytes)} (minimum ${result.disk.minFreeGB} GB)`);
++  if (result.e2e) {
++    console.log(`E2E root: ${path.relative(REPO_ROOT, result.e2e.e2eRoot)}`);
++    console.log(`Next dist: ${path.relative(REPO_ROOT, result.e2e.nextDist)}`);
++  }
++  if (result.stagingRoot) {
++    console.log(`Vercel staging root: ${path.relative(REPO_ROOT, result.stagingRoot)}`);
++  }
++  if (result.rootDeploy) {
++    console.log(
++      result.rootDeploy.clean
++        ? "Direct root deploy preflight: clean worktree"
++        : "Direct root deploy preflight: dirty override active"
++    );
++    console.log(`Status entries: ${result.rootDeploy.statusEntries}`);
++    console.log(`Untracked files: ${result.rootDeploy.untrackedFiles}`);
++  }
++  if (result.vercelEnv) {
++    console.log(`Vercel env target: ${result.vercelEnv.target}`);
++    console.log(`Required variables present: ${result.vercelEnv.present.length}/${result.vercelEnv.required.length}`);
++  }
++  if (result.publish) {
++    console.log("Production publish preflight passed");
++    console.log(`E2E root: ${path.relative(REPO_ROOT, result.publish.e2e.e2eRoot)}`);
++    console.log(`Vercel env target: ${result.publish.vercelEnv.target}`);
++  }
++}
++
++try {
++  main();
++} catch (error) {
++  console.error(error instanceof Error ? error.message : String(error));
++  process.exitCode = 1;
++}
+diff --git a/tsconfig.next.json b/tsconfig.next.json
+new file mode 100644
+index 000000000..08fd19494
+--- /dev/null
++++ b/tsconfig.next.json
+@@ -0,0 +1,30 @@
++{
++  "extends": "./tsconfig.json",
++  "include": [
++    "**/*.ts",
++    "**/*.tsx",
++    ".next-codex-ar/types/**/*.ts",
++    ".next-lesson-analysis/types/**/*.ts",
++    ".next/types/**/*.ts",
++    ".tmp/ca-textbook-english-build/types/**/*.ts",
++    ".tmp/ca-us-english-only-build2/types/**/*.ts",
++    ".tmp/math-match-next-3011/types/**/*.ts",
++    ".tmp/viz-next-3033/types/**/*.ts",
++    "next-env.d.ts"
++  ],
++  "exclude": [
++    "node_modules",
++    ".next-*",
++    ".s??-*",
++    ".tmp",
++    "tmp",
++    "temp",
++    "output",
++    "outputs",
++    "coverage",
++    "playwright-report",
++    "test-results",
++    "MAIS-MVP-*",
++    "MAIS-MVP-*/**/*"
++  ]
++}

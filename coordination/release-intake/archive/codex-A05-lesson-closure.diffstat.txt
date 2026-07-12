@@ -1,0 +1,28 @@
+app/lesson/[slug]/page.tsx                         |   70 +-
+ .../california-high-school-textbook/page.tsx       |    7 +-
+ app/lesson/loading.tsx                             |   17 +-
+ app/lesson/page.tsx                                |   27 +-
+ .../california-high-school-textbook/page.tsx       |    5 +-
+ app/student/lessons/page.tsx                       |    7 -
+ .../lesson/CaliforniaHighSchoolTextbookPage.tsx    |   25 +-
+ .../CaliforniaHighSchoolTextbookStudentPage.tsx    |   12 +-
+ ...liforniaMiddleSchoolReplacementTextbookPage.tsx |   37 +-
+ .../lesson/CaliforniaMiddleSchoolTextbookPage.tsx  |   42 +-
+ components/lesson/LessonBackToTopButton.tsx        |    6 +-
+ components/lesson/LessonEntryClient.tsx            |   15 +-
+ components/lesson/LessonGalaxyDirectory.tsx        |   95 +-
+ components/lesson/LessonView.tsx                   | 3104 +++++++++++++++++---
+ components/lesson/StudentLessonEntryPage.tsx       |   34 +-
+ components/lesson/lessonAccessPolicy.test.ts       |   27 +
+ components/lesson/lessonContentText.test.ts        |  126 +-
+ components/lesson/lessonContentText.ts             |  111 +-
+ .../lesson/lessonGalaxyDirectoryNavigation.test.ts |  148 +
+ data/lessons.ts                                    |   16 +-
+ data/mainlandBnuPrimaryLessons.ts                  |   19 +-
+ data/mainlandHjbHighLessons.ts                     |    7 +-
+ data/mainlandHjbJuniorLessons.ts                   |    7 +-
+ data/mainlandHjbPrimaryLessons.ts                  |    7 +-
+ data/mainlandPepHighLessonIllustrations.ts         |  967 +-----
+ lib/guestLessonLinks.ts                            |    4 +-
+ lib/lessonLinks.ts                                 |    9 +-
+ 27 files changed, 3297 insertions(+), 1654 deletions(-)

@@ -1,0 +1,3533 @@
+diff --git a/app/change-password/page.tsx b/app/change-password/page.tsx
+index e915a8f06..686c9a687 100644
+--- a/app/change-password/page.tsx
++++ b/app/change-password/page.tsx
+@@ -4,6 +4,7 @@ import Link from "next/link";
+ import { useRouter } from "next/navigation";
+ import { FormEvent, useEffect, useState } from "react";
+ import { dictionary, useSettings } from "@/components/providers/AppProviders";
++import { PasswordInputWithReveal } from "@/components/ui/PasswordInputWithReveal";
+ import type { StudentSession } from "@/types";
+ 
+ const changePasswordCopy = {
+@@ -28,7 +29,7 @@ const changePasswordCopy = {
+ } as const;
+ 
+ function workspaceForRole(role?: StudentSession["role"]) {
+-  if (role === "teacher" || role === "admin") return "/teacher";
++  if (role === "teacher" || role === "admin") return "/teacher/dashboard";
+   if (role === "parent") return "/parent";
+   return "/dashboard";
+ }
+@@ -97,12 +98,13 @@ export default function ChangePasswordPage() {
+           <form onSubmit={handleSubmit} className="mt-8 grid gap-5">
+             <label className="grid gap-2">
+               <span className="text-sm font-bold text-slate-700 dark:text-slate-200">{t(changePasswordCopy.currentPassword)}</span>
+-              <input
++              <PasswordInputWithReveal
+                 value={currentPassword}
+                 onChange={(event) => setCurrentPassword(event.target.value)}
+-                type="password"
+                 autoComplete="current-password"
+                 required
++                showLabel={t({ en: "Show temporary password", zh: "顯示臨時密碼", zhHans: "显示临时密码" })}
++                hideLabel={t({ en: "Hide temporary password", zh: "隱藏臨時密碼", zhHans: "隐藏临时密码" })}
+                 className="focus-ring rounded-2xl border border-slate-200/80 bg-white/80 px-4 py-3 font-semibold text-slate-950 shadow-sm outline-none transition placeholder:text-slate-400 dark:border-white/10 dark:bg-white/[0.06] dark:text-white"
+               />
+             </label>
+@@ -110,26 +112,28 @@ export default function ChangePasswordPage() {
+             <div className="grid gap-5 sm:grid-cols-2">
+               <label className="grid gap-2">
+                 <span className="text-sm font-bold text-slate-700 dark:text-slate-200">{t(changePasswordCopy.newPassword)}</span>
+-                <input
++                <PasswordInputWithReveal
+                   value={password}
+                   onChange={(event) => setPassword(event.target.value)}
+-                  type="password"
+                   autoComplete="new-password"
+                   required
+                   minLength={5}
++                  showLabel={t({ en: "Show new password", zh: "顯示新密碼", zhHans: "显示新密码" })}
++                  hideLabel={t({ en: "Hide new password", zh: "隱藏新密碼", zhHans: "隐藏新密码" })}
+                   className="focus-ring rounded-2xl border border-slate-200/80 bg-white/80 px-4 py-3 font-semibold text-slate-950 shadow-sm outline-none transition placeholder:text-slate-400 dark:border-white/10 dark:bg-white/[0.06] dark:text-white"
+                 />
+               </label>
+ 
+               <label className="grid gap-2">
+                 <span className="text-sm font-bold text-slate-700 dark:text-slate-200">{t(changePasswordCopy.confirmPassword)}</span>
+-                <input
++                <PasswordInputWithReveal
+                   value={confirmPassword}
+                   onChange={(event) => setConfirmPassword(event.target.value)}
+-                  type="password"
+                   autoComplete="new-password"
+                   required
+                   minLength={5}
++                  showLabel={t({ en: "Show confirm new password", zh: "顯示確認新密碼", zhHans: "显示确认新密码" })}
++                  hideLabel={t({ en: "Hide confirm new password", zh: "隱藏確認新密碼", zhHans: "隐藏确认新密码" })}
+                   className="focus-ring rounded-2xl border border-slate-200/80 bg-white/80 px-4 py-3 font-semibold text-slate-950 shadow-sm outline-none transition placeholder:text-slate-400 dark:border-white/10 dark:bg-white/[0.06] dark:text-white"
+                 />
+               </label>
+diff --git a/app/forgot-password/page.tsx b/app/forgot-password/page.tsx
+index 8285fc540..1ce6953cf 100644
+--- a/app/forgot-password/page.tsx
++++ b/app/forgot-password/page.tsx
+@@ -2,7 +2,7 @@
+ 
+ import Link from "next/link";
+ import { FormEvent, useState } from "react";
+-import { dictionary, useSettings } from "@/components/providers/AppProviders";
++import { useSettings } from "@/components/providers/AppProviders";
+ 
+ const forgotPasswordCopy = {
+   eyebrow: { en: "Account recovery", zh: "帳戶協助" },
+@@ -134,10 +134,7 @@ export default function ForgotPasswordPage() {
+         </section>
+ 
+         <aside className="glass-panel p-6">
+-          <p className="text-sm font-bold uppercase tracking-[0.22em] text-cyan-500 dark:text-cyan-300">
+-            {t(dictionary.common.siteName)}
+-          </p>
+-          <h2 className="mt-3 text-2xl font-black text-slate-950 dark:text-white">{t(forgotPasswordCopy.nextStepsTitle)}</h2>
++          <h2 className="text-2xl font-black text-slate-950 dark:text-white">{t(forgotPasswordCopy.nextStepsTitle)}</h2>
+           <ol className="mt-5 grid gap-3">
+             {forgotPasswordCopy.nextSteps.map((step, index) => (
+               <li key={step.en} className="flex gap-3 rounded-2xl border border-slate-200/70 bg-white/60 p-3 text-sm font-semibold text-slate-700 dark:border-white/10 dark:bg-white/[0.06] dark:text-slate-200">
+diff --git a/app/layout.tsx b/app/layout.tsx
+index 392c21f00..8515d3cdf 100644
+--- a/app/layout.tsx
++++ b/app/layout.tsx
+@@ -6,6 +6,7 @@ import "./globals.css";
+ import { AITutorProvider } from "@/components/ai/AITutorProvider";
+ import { AnimatedMathBackground } from "@/components/background/AnimatedMathBackground";
+ import { Footer } from "@/components/layout/Footer";
++import { GuestLoginPromptGate } from "@/components/layout/GuestLoginPromptGate";
+ import { Navbar } from "@/components/layout/Navbar";
+ import { StudentBackToTopButton } from "@/components/layout/StudentBackToTopButton";
+ import { AppProviders } from "@/components/providers/AppProviders";
+@@ -15,10 +16,12 @@ export const metadata: Metadata = {
+   description: "A bilingual interactive mathematics learning template for Hong Kong P1-S6 students."
+ };
+ 
++const shouldRenderVercelAnalytics = Boolean(process.env.VERCEL || process.env.VERCEL_ENV);
++
+ export default function RootLayout({ children }: Readonly<{ children: ReactNode }>) {
+   return (
+     <html lang="en" suppressHydrationWarning>
+-      <body>
++      <body className="overflow-x-hidden">
+         <AppProviders>
+           <AITutorProvider>
+             <AnimatedMathBackground />
+@@ -28,9 +31,10 @@ export default function RootLayout({ children }: Readonly<{ children: ReactNode
+               <Footer />
+             </div>
+             <StudentBackToTopButton />
++            <GuestLoginPromptGate />
+           </AITutorProvider>
+         </AppProviders>
+-        <Analytics />
++        {shouldRenderVercelAnalytics ? <Analytics /> : null}
+       </body>
+     </html>
+   );
+diff --git a/app/login/page.tsx b/app/login/page.tsx
+index 9eb2c2846..d10ce5c45 100644
+--- a/app/login/page.tsx
++++ b/app/login/page.tsx
+@@ -1,22 +1,28 @@
+ "use client";
+ 
+ import Link from "next/link";
+-import { FormEvent, useEffect, useState } from "react";
++import { useRouter } from "next/navigation";
++import { FormEvent, useEffect, useRef, useState } from "react";
+ import {
++  demoHongKongTeacherAccount,
++  demoMainlandStudentAccount,
++  demoMainlandTeacherAccount,
+   demoStudentAccount,
++  demoUnitedStatesStudentAccount,
++  demoUnitedStatesTeacherAccount,
+   dictionary,
+   useSettings
+ } from "@/components/providers/AppProviders";
+-import { CurriculumTrackSelector } from "@/components/ui/CurriculumTrackSelector";
+-import { GradeSelector } from "@/components/ui/GradeSelector";
+-import { curriculumProfileForPublisher, curriculumTrackForProfile, publisherLabels } from "@/lib/curriculumProfile";
++import { PasswordInputWithReveal } from "@/components/ui/PasswordInputWithReveal";
++import { grades, isValidGradeId } from "@/data/grades";
++import { curriculumProfileForPublisher, curriculumTrackForProfile, isTextbookPublisher, publisherLabels, regionLabels } from "@/lib/curriculumProfile";
+ import { formatGradeLabelForCurriculum, formatLearnerName } from "@/lib/i18n";
+-import type { CurriculumProfile, CurriculumRegion, GradeId, LocalizedText, TextbookPublisher } from "@/types";
++import type { CurriculumProfile, CurriculumRegion, Grade, GradeId, TextbookPublisher } from "@/types";
+ 
+ const authLinkCopy = {
+   forgotPassword: { en: "Forgot password?", zh: "忘記密碼？" },
+   registerPrompt: { en: "New to MAIS?", zh: "第一次使用妙思數？" },
+-  registerAction: { en: "Create a family or student account", zh: "建立家庭或學生帳戶", zhHans: "建立家庭或学生帐户" },
++  registerAction: { en: "Create an account", zh: "建立帳戶", zhHans: "建立账号" },
+   sessionSetup: {
+     en: "Login sessions are not configured yet. Set AUTH_SESSION_SECRET or NEXTAUTH_SECRET before using the student workspace.",
+     zh: "登入工作階段尚未設定。請先設定 AUTH_SESSION_SECRET 或 NEXTAUTH_SECRET，才可使用學生學習空間。"
+@@ -25,26 +31,10 @@ const authLinkCopy = {
+     en: "Could not log in yet. Try again in a moment.",
+     zh: "暫時未能登入，請稍後再試。"
+   },
+-  protectedRouteNotice: {
+-    en: "Log in to open your saved student workspace.",
+-    zh: "登入後即可開啟已儲存的學生學習空間。"
+-  },
+-  progressNotice: {
+-    en: "Log in to view your saved progress and learning analytics.",
+-    zh: "登入後即可查看已儲存的學習進度和學習分析。"
+-  },
+-  dashboardNotice: {
+-    en: "Log in to open the student dashboard.",
+-    zh: "登入後即可開啟學生儀表板。"
+-  },
+-  mistakesNotice: {
+-    en: "Log in to review your saved mistakes.",
+-    zh: "登入後即可重溫已儲存錯題。"
+-  },
+-  formalAccountHelp: {
+-    en: "Use the account issued by your school, family registration, or administrator.",
+-    zh: "請使用學校、家庭註冊或管理員開通的正式帳戶。",
+-    zhHans: "请使用学校、家庭注册或管理员开通的正式帐户。"
++  signedIn: {
++    en: "Signed in as",
++    zh: "已登入",
++    zhHans: "已登录"
+   }
+ } as const;
+ 
+@@ -91,165 +81,180 @@ const curriculumCopy = {
+   }
+ } as const;
+ 
+-const loginRegionChipLabelOverrides = {
+-  MAINLAND: { en: "CHINA", zh: "中國", zhHans: "中国" },
+-  HK: { en: "HKSAR", zh: "香港特區", zhHans: "香港特区" }
+-} satisfies Partial<Record<CurriculumRegion, LocalizedText>>;
++const loginSetupCopy = {
++  courseLabel: { en: "Course", zh: "課程", zhHans: "课程" },
++  gradeLabel: { en: "Grade", zh: "年級", zhHans: "年级" },
++  courseLocked: { en: "Course locked after registration", zh: "註冊後課程固定", zhHans: "注册后课程固定" }
++} as const;
+ 
+-const loginPublisherDetailOverrides = {
+-  MAINLAND_HJB: {
+-    en: "HJB mathematic pathway",
+-    zh: "滬教版數學課程路徑",
+-    zhHans: "沪教版数学课程路径"
+-  }
+-} satisfies Partial<Record<TextbookPublisher, LocalizedText>>;
++const loginPublisherGroups = [
++  { region: "MAINLAND", publishers: ["MAINLAND_PEP", "MAINLAND_HJB", "MAINLAND_BNU"] },
++  { region: "HK", publishers: ["HK_MODERN_EDUCATIONAL_RESEARCH_SOCIETY", "HK_UNITED_PRIME_MIA", "HK_EPH_MIF"] },
++  { region: "US", publishers: ["US_CA_MATH", "US_NC_MATH", "US_AR_MATH", "US_FL_MATH"] }
++] as const satisfies readonly { region: CurriculumRegion; publishers: readonly TextbookPublisher[] }[];
++
++const hiddenLoginPublisherOptions = new Set<TextbookPublisher>(["US_NC_MATH", "US_AR_MATH", "US_FL_MATH"]);
++const loginSelectOptionClassName = "bg-white text-slate-950 dark:bg-slate-950 dark:text-white";
++
++const visibleLoginPublisherGroups = loginPublisherGroups
++  .map((group) => ({
++    ...group,
++    publishers: group.publishers.filter((publisher) => !hiddenLoginPublisherOptions.has(publisher))
++  }))
++  .filter((group) => group.publishers.length > 0);
+ 
+ const defaultLoginGrade: GradeId = "S4";
++const defaultUnitedStatesLoginGrade: GradeId = "K";
++const floridaLoginGrades = new Set<GradeId>(["P6", "S1", "S2"]);
++
++const exampleAccountRows = [
++  {
++    key: "us-ca-grade-1",
++    label: { en: "California Math Grade 1", zh: "加州數學 Grade 1", zhHans: "加州数学 Grade 1" },
++    curriculumProfile: curriculumProfileForPublisher("US_CA_MATH"),
++    grade: "P1",
++    accounts: [
++      { key: "us-ca-student", roleLabel: { en: "Student", zh: "學生", zhHans: "学生" }, account: demoUnitedStatesStudentAccount },
++      { key: "us-ca-teacher", roleLabel: { en: "Teacher", zh: "教師", zhHans: "教师" }, account: demoUnitedStatesTeacherAccount }
++    ]
++  },
++  {
++    key: "us-ca-k-12",
++    label: { en: "California Math K-12", zh: "California Math K-12", zhHans: "California Math K-12" },
++    curriculumProfile: curriculumProfileForPublisher("US_CA_MATH"),
++    grade: "K",
++    accounts: [
++      { key: "us-ca-k12-student", roleLabel: { en: "Student", zh: "學生", zhHans: "学生" }, account: { username: "Student Jon", password: "12345" } },
++      { key: "us-ca-k12-teacher", roleLabel: { en: "Teacher", zh: "教師", zhHans: "教师" }, account: { username: "Teacher Rhi", password: "12345" } }
++    ]
++  },
++  {
++    key: "mainland-pep-s4",
++    label: { en: "Mainland PEP S4", zh: "中國內地人教版 S4", zhHans: "中国大陆人教版 S4" },
++    curriculumProfile: curriculumProfileForPublisher("MAINLAND_PEP"),
++    grade: "S4",
++    accounts: [
++      { key: "mainland-student", roleLabel: { en: "Student", zh: "學生", zhHans: "学生" }, account: demoMainlandStudentAccount },
++      { key: "mainland-teacher", roleLabel: { en: "Teacher", zh: "教師", zhHans: "教师" }, account: demoMainlandTeacherAccount }
++    ]
++  },
++  {
++    key: "hk-up-s4",
++    label: { en: "Hong Kong DSE UP S4", zh: "中國香港 DSE UP S4", zhHans: "中国香港 DSE UP S4" },
++    curriculumProfile: curriculumProfileForPublisher("HK_UNITED_PRIME_MIA"),
++    grade: "S4",
++    accounts: [
++      { key: "hk-student", roleLabel: { en: "Student", zh: "學生", zhHans: "学生" }, account: demoStudentAccount },
++      { key: "hk-teacher", roleLabel: { en: "Teacher", zh: "教師", zhHans: "教师" }, account: demoHongKongTeacherAccount }
++    ]
++  }
++] as const satisfies readonly {
++  key: string;
++  label: { en: string; zh: string; zhHans: string };
++  curriculumProfile: CurriculumProfile;
++  grade: GradeId;
++  accounts: readonly {
++    key: string;
++    roleLabel: { en: string; zh: string; zhHans: string };
++    account: { username: string; password: string };
++  }[];
++}[];
++
++const demoAccountHelpCopy = {
++  title: { en: "Example accounts", zh: "示例帳戶", zhHans: "示例账号" },
++  useAccount: { en: "Use example account", zh: "使用示例帳戶", zhHans: "使用示例账号" }
++} as const;
+ 
+ function defaultLoginCurriculumProfile() {
+   return curriculumProfileForPublisher("MAINLAND_PEP");
+ }
+ 
++function loginGradeForCurriculumProfile(profile: CurriculumProfile, grade: GradeId): GradeId {
++  if (profile.publisher === "US_FL_MATH" && !floridaLoginGrades.has(grade)) return "P6";
++  if (profile.region === "US" && grade === defaultLoginGrade) return defaultUnitedStatesLoginGrade;
++  return grade;
++}
++
++function loginGradeOptionsForCurriculumProfile(profile: CurriculumProfile): Grade[] {
++  if (profile.publisher === "US_FL_MATH") return grades.filter((grade) => floridaLoginGrades.has(grade.id));
++  if (profile.region === "US") return grades;
++  return grades.filter((grade) => grade.id !== "K");
++}
++
+ function workspaceForRole(role?: "student" | "teacher" | "parent" | "admin") {
+-  if (role === "teacher" || role === "admin") return "/teacher";
++  if (role === "teacher" || role === "admin") return "/teacher/dashboard";
+   if (role === "parent") return "/parent";
+   return "/dashboard";
+ }
+ 
+-function safeWorkspaceTarget(value: string | null, role?: "student" | "teacher" | "parent" | "admin") {
+-  if (value?.startsWith("/") && !value.startsWith("//")) return value;
+-  return workspaceForRole(role);
++function nextPathStartsWith(value: string, root: string) {
++  return value === root || value.startsWith(`${root}/`);
+ }
+ 
+-const missionCopy = {
+-  label: {
+-    en: "Mission",
+-    zh: "使命",
+-    zhHans: "使命"
+-  },
+-  lines: {
+-    en: ["Accelerate", "the world's transition", "to personalized", "learning and teaching."],
+-    zh: ["加速世界", "邁向個人化", "學習與教學。"],
+-    "zh-Hans": ["加速世界", "迈向个性化", "学习与教学。"]
++function safeWorkspaceTarget(value: string | null, role?: "student" | "teacher" | "parent" | "admin") {
++  if (!value?.startsWith("/") || value.startsWith("//")) return workspaceForRole(role);
++  if (role === "teacher" || role === "admin") return nextPathStartsWith(value, "/teacher") ? value : workspaceForRole(role);
++  if (role === "parent") return nextPathStartsWith(value, "/parent") ? value : workspaceForRole(role);
++  if (role === "student" && (nextPathStartsWith(value, "/teacher") || nextPathStartsWith(value, "/parent"))) {
++    return workspaceForRole(role);
+   }
+-} as const;
+-
+-const futureExpansionCopy = {
+-  eyebrow: {
+-    en: "Future 3-year market plan",
+-    zh: "未來 3 年市場計劃",
+-    zhHans: "未来 3 年市场计划"
+-  },
+-  title: {
+-    en: "Future markets MAIS plans to support",
+-    zh: "MAIS 未來 3 年內計劃支持的市場",
+-    zhHans: "MAIS 未来 3 年内计划支持的市场"
+-  },
+-  body: {
+-    en: "MAIS is preparing a wider international learning network for families, schools, and education partners.",
+-    zh: "MAIS 正在準備更廣泛的國際學習網絡，服務家庭、學校與教育合作夥伴。",
+-    zhHans: "MAIS 正在准备更广泛的国际学习网络，服务家庭、学校与教育合作伙伴。"
+-  },
+-  timelineValue: {
+-    en: "3",
+-    zh: "3",
+-    zhHans: "3"
+-  },
+-  timelineLabel: {
+-    en: "years",
+-    zh: "年",
+-    zhHans: "年"
+-  },
+-  marketsLabel: {
+-    en: "Planned markets",
+-    zh: "計劃市場",
+-    zhHans: "计划市场"
+-  },
+-  modelTitle: {
+-    en: "Hybrid public-good and SaaS model",
+-    zh: "公益與 SaaS 混合模式",
+-    zhHans: "公益与 SaaS 混合模式"
+-  },
+-  modelBody: {
+-    en: "In some regions, MAIS will operate as an NGO. In other regions, MAIS will operate through a SaaS model. MAIS provides free sponsorship for families in need. This is exactly our founding purpose as education researchers and developers: education is not only a social responsibility, but also an expression of love❤️.",
+-    zh: "在部分地區，MAIS 會以 NGO 的形式運營；在其他地區，MAIS 會以 SaaS 形式運營。MAIS 為有需要的家庭提供免費資助。這正是我們作為教育研究者和開發者的初衷：教育不僅是一種社會責任，更是愛的體現❤️。",
+-    zhHans: "在部分地区，MAIS 会以 NGO 的形式运营；在其他地区，MAIS 会以 SaaS 形式运营。MAIS 为有需要的家庭提供免费资助。这正是我们作为教育研究者和开发者的初衷：教育不仅是一种社会责任，更是爱的体现❤️。"
+-  },
+-  invitationTitle: {
+-    en: "Referrals, angel investment, and donations",
+-    zh: "推薦使用、天使投資與慈善捐贈",
+-    zhHans: "推荐使用、天使投资与慈善捐赠"
+-  },
+-  invitationBody: {
+-    en: "Please recommend MAIS to people who need it. Conversations about angel investment and philanthropic donations are also welcome.",
+-    zh: "歡迎推薦給有需要的人使用；也歡迎聯絡洽談天使投資和慈善捐贈。",
+-    zhHans: "欢迎推荐给有需要的人使用；也欢迎联系洽谈天使投资和慈善捐赠。"
+-  },
+-  markets: [
+-    { key: "uk", flag: "🇬🇧", label: { en: "United Kingdom", zh: "英國", zhHans: "英国" } },
+-    { key: "france", flag: "🇫🇷", label: { en: "France", zh: "法國", zhHans: "法国" } },
+-    { key: "germany", flag: "🇩🇪", label: { en: "Germany", zh: "德國", zhHans: "德国" } },
+-    { key: "saudi-arabia", flag: "🇸🇦", label: { en: "Saudi Arabia", zh: "沙特", zhHans: "沙特" } },
+-    { key: "uae", flag: "🇦🇪", label: { en: "UAE", zh: "阿聯酋", zhHans: "阿联酋" } },
+-    { key: "qatar", flag: "🇶🇦", label: { en: "Qatar", zh: "卡塔爾", zhHans: "卡塔尔" } },
+-    { key: "vietnam", flag: "🇻🇳", label: { en: "Vietnam", zh: "越南", zhHans: "越南" } },
+-    { key: "korea", flag: "🇰🇷", label: { en: "Korea", zh: "韓國", zhHans: "韩国" } },
+-    { key: "japan", flag: "🇯🇵", label: { en: "Japan", zh: "日本", zhHans: "日本" } },
+-    { key: "macau", flag: "🇲🇴", label: { en: "Macau region", zh: "澳門地區", zhHans: "澳门地区" } },
+-    { key: "malaysia", flag: "🇲🇾", label: { en: "Malaysia", zh: "馬來西亞", zhHans: "马来西亚" } },
+-    { key: "mexico", flag: "🇲🇽", label: { en: "Mexico", zh: "墨西哥", zhHans: "墨西哥" } }
+-  ]
+-} as const;
++  return value;
++}
+ 
+ export default function LoginPage() {
+-  const { currentUser, language, login, logout, selectedGrade, setSelectedGrade, settingsReady, t } = useSettings();
++  const router = useRouter();
++  const { currentUser, language, login, setSelectedGrade, settingsReady, t } = useSettings();
+   const [identifier, setIdentifier] = useState("");
+   const [password, setPassword] = useState("");
+   const [selectedCurriculumProfile, setSelectedCurriculumProfile] = useState<CurriculumProfile>(defaultLoginCurriculumProfile);
+   const [curriculumSelectorProfile, setCurriculumSelectorProfile] = useState<CurriculumProfile>(defaultLoginCurriculumProfile);
+   const [curriculumNoticeProfile, setCurriculumNoticeProfile] = useState<CurriculumProfile | null>(null);
+   const [pendingCurriculumUser, setPendingCurriculumUser] = useState<{ name: string; username: string; grade: GradeId } | null>(null);
+-  const [loginSelectedGrade, setLoginSelectedGrade] = useState<GradeId>(selectedGrade);
++  const [loginSelectedGrade, setLoginSelectedGrade] = useState<GradeId>(defaultLoginGrade);
++  const [selectedExampleAccountKey, setSelectedExampleAccountKey] = useState<string | null>(null);
+   const [error, setError] = useState("");
+-  const [nextTarget, setNextTarget] = useState("");
+   const [isSubmitting, setIsSubmitting] = useState(false);
+-  const redirectNotice =
+-    nextTarget.startsWith("/progress")
+-      ? t(authLinkCopy.progressNotice)
+-      : nextTarget.startsWith("/dashboard")
+-        ? t(authLinkCopy.dashboardNotice)
+-        : nextTarget.startsWith("/mistake-book")
+-          ? t(authLinkCopy.mistakesNotice)
+-          : nextTarget
+-            ? t(authLinkCopy.protectedRouteNotice)
+-            : "";
+-  const currentWorkspaceHref = workspaceForRole(currentUser?.role);
+-  const missionLines = missionCopy.lines[language];
++  const [isHydrated, setIsHydrated] = useState(false);
++  const identifierInputRef = useRef<HTMLInputElement>(null);
++  const passwordInputRef = useRef<HTMLInputElement>(null);
++  const hasLoginInteractionRef = useRef(false);
+   const registeredStudentProfile = currentUser?.role === "student" ? currentUser : null;
+-  const displayedCurriculumProfile = registeredStudentProfile?.curriculumProfile ?? curriculumSelectorProfile;
++  const selectedExampleAccount = exampleAccountRows
++    .flatMap((row) => row.accounts.map((entry) => ({ ...entry, row })))
++    .find((entry) => entry.key === selectedExampleAccountKey) ?? null;
++  const displayedCurriculumProfile = registeredStudentProfile?.curriculumProfile ?? selectedExampleAccount?.row.curriculumProfile ?? curriculumSelectorProfile;
+   const displayedCurriculumTrack = curriculumTrackForProfile(displayedCurriculumProfile);
+-  const displayedLoginGrade = registeredStudentProfile?.grade ?? loginSelectedGrade;
++  const displayedLoginGrade = selectedExampleAccount?.row.grade ?? loginSelectedGrade;
++  const displayedLoginGradeOptions = loginGradeOptionsForCurriculumProfile(displayedCurriculumProfile);
++  const displayedLoginGradeSelectValue = displayedLoginGradeOptions.some((grade) => grade.id === displayedLoginGrade)
++    ? displayedLoginGrade
++    : displayedLoginGradeOptions[0]?.id ?? defaultLoginGrade;
++  const exampleSelectionLocked = Boolean(selectedExampleAccount);
++  const exampleAccountButtonsDisabled = !isHydrated || isSubmitting;
++  const courseSelectionLocked = Boolean(registeredStudentProfile || selectedExampleAccount);
++
++  const formatLoginGradeOption = (grade: Grade) => {
++    if (displayedCurriculumProfile.region === "US") return formatGradeLabelForCurriculum(grade.id, language, displayedCurriculumTrack);
++
++    const curriculumLabel = formatGradeLabelForCurriculum(grade.id, language, displayedCurriculumTrack, false);
++    const gradeName = t(grade.name);
++    if (curriculumLabel === gradeName || curriculumLabel !== grade.id) return curriculumLabel;
++    return `${curriculumLabel} / ${gradeName}`;
++  };
+ 
+   useEffect(() => {
+-    const nextPath = new URLSearchParams(window.location.search).get("next") ?? "";
+-    setNextTarget(nextPath);
++    setIdentifier(identifierInputRef.current?.value ?? "");
++    setPassword(passwordInputRef.current?.value ?? "");
++    setIsHydrated(true);
++  }, []);
+ 
++  useEffect(() => {
+     if (!settingsReady) return;
+-    if (currentUser && nextPath) {
+-      const targetPath = safeWorkspaceTarget(nextPath, currentUser.role);
+-      const redirectPath = currentUser.passwordMustChange ? `/change-password?next=${encodeURIComponent(targetPath)}` : targetPath;
+-      const redirectKey = `mais-login-redirect:${currentUser.id}:${redirectPath}`;
+-      const lastAttempt = Number(window.sessionStorage.getItem(redirectKey) ?? "0");
+-      if (Date.now() - lastAttempt > 2500) {
+-        window.sessionStorage.setItem(redirectKey, String(Date.now()));
+-        window.location.replace(redirectPath);
+-      }
+-      return;
+-    }
+ 
+-    if (!currentUser) {
++    if (!currentUser && !hasLoginInteractionRef.current) {
+       setSelectedGrade(defaultLoginGrade);
+       setLoginSelectedGrade(defaultLoginGrade);
++      setSelectedExampleAccountKey(null);
+     }
+   }, [currentUser, settingsReady, setSelectedGrade]);
+ 
+@@ -274,7 +279,9 @@ export default function LoginPage() {
+         setPendingCurriculumUser(null);
+         const nextPath = new URLSearchParams(window.location.search).get("next");
+         const targetPath = safeWorkspaceTarget(nextPath, result.role);
+-        window.location.assign(result.passwordMustChange ? `/change-password?next=${encodeURIComponent(targetPath)}` : targetPath);
++        const routeTarget = result.passwordMustChange ? `/change-password?next=${encodeURIComponent(targetPath)}` : targetPath;
++        router.prefetch(routeTarget);
++        router.replace(routeTarget);
+         return;
+       }
+ 
+@@ -300,132 +307,98 @@ export default function LoginPage() {
+ 
+   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
+     event.preventDefault();
++    if (!isHydrated) return;
++    const formData = new FormData(event.currentTarget);
++    const submittedIdentifier = formData.get("username");
++    const submittedPassword = formData.get("password");
++    const submittedGrade = formData.get("grade");
++    const submittedPublisher = formData.get("curriculumPublisher");
++    const submittedCurriculumProfile =
++      typeof submittedPublisher === "string" && isTextbookPublisher(submittedPublisher)
++        ? curriculumProfileForPublisher(submittedPublisher)
++        : selectedCurriculumProfile;
++    const submittedLoginGrade = isValidGradeId(submittedGrade) ? submittedGrade : loginSelectedGrade;
+     await submitLogin({
+-      loginIdentifier: identifier,
+-      loginPassword: password,
+-      grade: loginSelectedGrade,
+-      curriculumProfile: selectedCurriculumProfile
++      loginIdentifier: typeof submittedIdentifier === "string" ? submittedIdentifier : identifier,
++      loginPassword: typeof submittedPassword === "string" ? submittedPassword : password,
++      grade: selectedExampleAccount
++        ? selectedExampleAccount.row.grade
++        : loginGradeForCurriculumProfile(submittedCurriculumProfile, submittedLoginGrade),
++      curriculumProfile: selectedExampleAccount?.row.curriculumProfile ?? submittedCurriculumProfile
+     });
+   };
+ 
+-  const handleLogout = async () => {
+-    await logout();
+-    setPassword("");
+-    setIdentifier("");
+-    setSelectedCurriculumProfile(defaultLoginCurriculumProfile());
+-    setCurriculumSelectorProfile(defaultLoginCurriculumProfile());
+-    setLoginSelectedGrade(defaultLoginGrade);
+-    setSelectedGrade(defaultLoginGrade);
+-    setPendingCurriculumUser(null);
+-  };
+-
+   const handleCurriculumSelection = (profile: CurriculumProfile) => {
+     if (registeredStudentProfile) return;
++    hasLoginInteractionRef.current = true;
++    setSelectedExampleAccountKey(null);
+     setCurriculumNoticeProfile(null);
+     setSelectedCurriculumProfile(profile);
+     setCurriculumSelectorProfile(profile);
++    const nextLoginGrade = loginGradeForCurriculumProfile(profile, loginSelectedGrade);
++    setLoginSelectedGrade(nextLoginGrade);
++    setSelectedGrade(nextLoginGrade);
+   };
+ 
+-  const renderFutureExpansionPanel = (className = "") => (
+-    <section
+-      className={[
+-        "overflow-hidden rounded-3xl border border-cyan-200/70 bg-gradient-to-br from-white via-cyan-50/75 to-indigo-50/80 p-5 shadow-sm shadow-cyan-900/5 dark:border-cyan-300/15 dark:from-slate-950/70 dark:via-cyan-950/30 dark:to-indigo-950/35 sm:p-6",
+-        className
+-      ].filter(Boolean).join(" ")}
+-    >
+-      <div className="flex flex-col gap-5 sm:flex-row sm:items-start sm:justify-between">
+-        <div className="min-w-0">
+-          <p className="text-xs font-black uppercase tracking-[0.22em] text-cyan-600 dark:text-cyan-300">
+-            {t(futureExpansionCopy.eyebrow)}
+-          </p>
+-          <h2 className="mt-2 text-2xl font-black tracking-tight text-slate-950 dark:text-white sm:text-3xl">
+-            {t(futureExpansionCopy.title)}
+-          </h2>
+-          <p className="mt-3 max-w-2xl text-sm font-semibold leading-6 text-slate-600 dark:text-slate-300">
+-            {t(futureExpansionCopy.body)}
+-          </p>
+-        </div>
+-        <div className="grid w-24 shrink-0 place-items-center rounded-2xl border border-white/80 bg-white/80 px-4 py-3 text-center shadow-sm shadow-cyan-900/5 dark:border-white/10 dark:bg-white/[0.07]">
+-          <span className="text-4xl font-black leading-none text-cyan-700 dark:text-cyan-200">
+-            {t(futureExpansionCopy.timelineValue)}
+-          </span>
+-          <span className="mt-1 text-xs font-black uppercase tracking-[0.18em] text-slate-500 dark:text-slate-300">
+-            {t(futureExpansionCopy.timelineLabel)}
+-          </span>
+-        </div>
+-      </div>
+-
+-      <div className="mt-5">
+-        <p className="text-xs font-black uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400">
+-          {t(futureExpansionCopy.marketsLabel)}
+-        </p>
+-        <div className="mt-3 flex flex-wrap gap-2">
+-          {futureExpansionCopy.markets.map((market) => (
+-            <span
+-              key={market.key}
+-              className="inline-flex min-h-9 items-center gap-1.5 rounded-full border border-cyan-200/80 bg-white/75 px-3 py-1.5 text-sm font-black text-slate-700 shadow-sm shadow-cyan-900/5 dark:border-cyan-300/15 dark:bg-white/[0.07] dark:text-slate-100"
+-            >
+-              {"flag" in market ? (
+-                <span aria-hidden="true" className="text-base leading-none">
+-                  {market.flag}
+-                </span>
+-              ) : null}
+-              {t(market.label)}
+-            </span>
+-          ))}
+-        </div>
+-      </div>
+-
+-      <div className="mt-5 grid gap-3 md:grid-cols-2">
+-        <article className="rounded-2xl border border-white/80 bg-white/75 p-4 shadow-sm shadow-slate-900/5 dark:border-white/10 dark:bg-white/[0.06]">
+-          <p className="text-xs font-black uppercase tracking-[0.18em] text-cyan-600 dark:text-cyan-300">01</p>
+-          <h3 className="mt-2 text-base font-black text-slate-950 dark:text-white">
+-            {t(futureExpansionCopy.modelTitle)}
+-          </h3>
+-          <p className="mt-2 text-sm font-semibold leading-6 text-slate-600 dark:text-slate-300">
+-            {t(futureExpansionCopy.modelBody)}
+-          </p>
+-        </article>
+-        <article className="rounded-2xl border border-white/80 bg-white/75 p-4 shadow-sm shadow-slate-900/5 dark:border-white/10 dark:bg-white/[0.06]">
+-          <p className="text-xs font-black uppercase tracking-[0.18em] text-indigo-600 dark:text-indigo-300">02</p>
+-          <h3 className="mt-2 text-base font-black text-slate-950 dark:text-white">
+-            {t(futureExpansionCopy.invitationTitle)}
+-          </h3>
+-          <p className="mt-2 text-sm font-semibold leading-6 text-slate-600 dark:text-slate-300">
+-            {t(futureExpansionCopy.invitationBody)}
+-          </p>
+-        </article>
+-      </div>
+-    </section>
+-  );
++  const fillExampleAccount = (
++    account: { username: string; password: string },
++    row: (typeof exampleAccountRows)[number],
++    accountKey: string
++  ) => {
++    if (isSubmitting) return;
++    hasLoginInteractionRef.current = true;
++    setIdentifier(account.username);
++    setPassword(account.password);
++    setSelectedCurriculumProfile(row.curriculumProfile);
++    setCurriculumSelectorProfile(row.curriculumProfile);
++    setLoginSelectedGrade(row.grade);
++    setSelectedGrade(row.grade);
++    setPendingCurriculumUser(null);
++    setError("");
++    setSelectedExampleAccountKey(accountKey);
++    void submitLogin({
++      loginIdentifier: account.username,
++      loginPassword: account.password,
++      grade: row.grade,
++      curriculumProfile: row.curriculumProfile
++    });
++  };
+ 
+   return (
+     <div className="page-container py-10 sm:py-14">
+-      <div className="mx-auto grid max-w-5xl gap-6 lg:grid-cols-[minmax(0,1fr)_360px]">
++      <div className="mx-auto grid max-w-3xl gap-6">
+         <section className="glass-panel p-6 sm:p-8">
+-          <p className="text-sm font-bold uppercase tracking-[0.24em] text-cyan-500 dark:text-cyan-300">{t(dictionary.common.siteName)}</p>
+-          <h1 className="mt-3 text-4xl font-black tracking-tight text-slate-950 dark:text-white sm:text-5xl">
++          <h1 className="text-4xl font-black tracking-tight text-slate-950 dark:text-white sm:text-5xl">
+             {t(dictionary.login.title)}
+           </h1>
+-          <p className="mt-4 max-w-2xl text-base leading-7 text-slate-600 dark:text-slate-300">
+-            {t(dictionary.login.subtitle)}
+-          </p>
+ 
+-          {redirectNotice ? (
+-            <p className="mt-5 rounded-2xl border border-cyan-300/45 bg-cyan-400/10 px-4 py-3 text-sm font-black text-cyan-700 dark:text-cyan-100">
+-              {redirectNotice}
+-            </p>
++          {currentUser ? (
++            <div role="status" className="mt-5 rounded-2xl border border-emerald-300/50 bg-emerald-400/10 px-4 py-3 text-sm font-semibold text-emerald-800 dark:border-emerald-300/20 dark:text-emerald-100">
++              <span className="font-black">{t(authLinkCopy.signedIn)}</span>
++              <span className="ml-2">{formatLearnerName(currentUser.name, language)}</span>
++            </div>
+           ) : null}
+ 
+-          <form onSubmit={handleSubmit} className="mt-8 grid gap-5">
+-            <label className="grid gap-2">
++          <form method="post" action="/api/auth/login" onSubmit={handleSubmit} className="mt-8 grid gap-3">
++            <label htmlFor="login-identifier" className="grid gap-2">
+               <span className="text-sm font-bold text-slate-700 dark:text-slate-200">{t(dictionary.login.username)}</span>
+               <input
++                id="login-identifier"
++                ref={identifierInputRef}
++                name="username"
++                type="text"
+                 value={identifier}
+-                onChange={(event) => setIdentifier(event.target.value)}
++                onChange={(event) => {
++                  hasLoginInteractionRef.current = true;
++                  setSelectedExampleAccountKey(null);
++                  setIdentifier(event.target.value);
++                }}
+                 autoComplete="username"
++                autoCapitalize="none"
++                autoCorrect="off"
++                spellCheck={false}
+                 required
+-                className="focus-ring rounded-2xl border border-slate-200/80 bg-white/80 px-4 py-3 font-semibold text-slate-950 shadow-sm outline-none transition placeholder:text-slate-400 dark:border-white/10 dark:bg-white/[0.06] dark:text-white"
++                className="focus-ring block w-full rounded-2xl border border-slate-200/80 bg-white/80 px-4 py-3 font-semibold text-slate-950 shadow-sm outline-none transition placeholder:text-slate-400 dark:border-white/10 dark:bg-white/[0.06] dark:text-white"
+               />
+             </label>
+ 
+@@ -434,24 +407,99 @@ export default function LoginPage() {
+                 <label htmlFor="login-password" className="text-sm font-bold text-slate-700 dark:text-slate-200">
+                   {t(dictionary.login.password)}
+                 </label>
+-                <Link href="/forgot-password" className="focus-ring rounded-full px-2 py-1 text-xs font-black text-cyan-700 transition hover:bg-cyan-400/10 dark:text-cyan-200">
++                <Link href="/forgot-password" className="focus-ring inline-flex min-h-11 items-center rounded-full px-3 py-2 text-xs font-black text-cyan-700 transition hover:bg-cyan-400/10 dark:text-cyan-200">
+                   {t(authLinkCopy.forgotPassword)}
+                 </Link>
+               </div>
+-              <input
++              <PasswordInputWithReveal
+                 id="login-password"
++                ref={passwordInputRef}
++                name="password"
+                 value={password}
+-                onChange={(event) => setPassword(event.target.value)}
+-                type="password"
++                onChange={(event) => {
++                  hasLoginInteractionRef.current = true;
++                  setSelectedExampleAccountKey(null);
++                  setPassword(event.target.value);
++                }}
+                 autoComplete="current-password"
+                 required
+-                className="focus-ring rounded-2xl border border-slate-200/80 bg-white/80 px-4 py-3 font-semibold text-slate-950 shadow-sm outline-none transition placeholder:text-slate-400 dark:border-white/10 dark:bg-white/[0.06] dark:text-white"
++                showLabel={t({ en: "Show password", zh: "顯示密碼", zhHans: "显示密码" })}
++                hideLabel={t({ en: "Hide password", zh: "隱藏密碼", zhHans: "隐藏密码" })}
++                className="focus-ring block w-full rounded-2xl border border-slate-200/80 bg-white/80 px-4 py-3 font-semibold text-slate-950 shadow-sm outline-none transition placeholder:text-slate-400 dark:border-white/10 dark:bg-white/[0.06] dark:text-white"
+               />
+             </div>
+ 
+-            <p className="text-sm font-semibold leading-6 text-slate-500 dark:text-slate-400">
+-              {t(authLinkCopy.formalAccountHelp)}
+-            </p>
++            <div className="grid gap-3">
++              {registeredStudentProfile ? (
++                <div className="flex justify-end">
++                  <span className="rounded-full border border-slate-200/80 bg-white/70 px-3 py-1 text-[11px] font-black text-slate-500 dark:border-white/10 dark:bg-white/[0.06] dark:text-slate-300">
++                    {t(loginSetupCopy.courseLocked)}
++                  </span>
++                </div>
++              ) : null}
++              <div className="grid gap-4 sm:grid-cols-2">
++                <div className="grid gap-2">
++                  <label htmlFor="login-curriculum" className="text-sm font-bold text-slate-700 dark:text-slate-200">{t(loginSetupCopy.courseLabel)}</label>
++                  <span className="relative block">
++                    <select
++                      id="login-curriculum"
++                      name="curriculumPublisher"
++                      value={displayedCurriculumProfile.publisher}
++                      disabled={courseSelectionLocked}
++                      onChange={(event) => {
++                        const nextPublisher = event.currentTarget.value;
++                        if (!isTextbookPublisher(nextPublisher)) return;
++                        handleCurriculumSelection(curriculumProfileForPublisher(nextPublisher));
++                      }}
++                      className="focus-ring min-h-14 w-full appearance-none rounded-2xl border border-slate-200/80 bg-white/80 px-4 py-3 pr-11 text-sm font-black text-slate-950 shadow-sm outline-none transition disabled:cursor-not-allowed disabled:bg-slate-100 disabled:text-slate-500 dark:border-white/10 dark:bg-white/[0.06] dark:text-white dark:disabled:bg-white/[0.04] dark:disabled:text-slate-400"
++                    >
++                      {visibleLoginPublisherGroups.map((group) => (
++                        <optgroup key={group.region} label={t(regionLabels[group.region])} className={loginSelectOptionClassName}>
++                          {group.publishers.map((publisher) => (
++                            <option key={publisher} value={publisher} className={loginSelectOptionClassName}>
++                              {t(publisherLabels[publisher])}
++                            </option>
++                          ))}
++                        </optgroup>
++                      ))}
++                    </select>
++                    <span aria-hidden="true" className="pointer-events-none absolute inset-y-0 right-4 grid place-items-center text-lg font-black text-slate-400 dark:text-slate-300">
++                      ⌄
++                    </span>
++                  </span>
++                </div>
++
++                <div className="grid gap-2">
++                  <label htmlFor="login-grade" className="text-sm font-bold text-slate-700 dark:text-slate-200">{t(loginSetupCopy.gradeLabel)}</label>
++                  <span className="relative block">
++                    <select
++                      id="login-grade"
++                      name="grade"
++                      value={displayedLoginGradeSelectValue}
++                      disabled={exampleSelectionLocked}
++                      onChange={(event) => {
++                        const nextGrade = event.currentTarget.value;
++                        if (!isValidGradeId(nextGrade)) return;
++                        hasLoginInteractionRef.current = true;
++                        setSelectedExampleAccountKey(null);
++                        setLoginSelectedGrade(nextGrade);
++                        setSelectedGrade(nextGrade);
++                      }}
++                      className="focus-ring min-h-14 w-full appearance-none rounded-2xl border border-slate-200/80 bg-white/80 px-4 py-3 pr-11 text-sm font-black text-slate-950 shadow-sm outline-none transition disabled:cursor-not-allowed disabled:bg-slate-100 disabled:text-slate-500 dark:border-white/10 dark:bg-white/[0.06] dark:text-white dark:disabled:bg-white/[0.04] dark:disabled:text-slate-400"
++                    >
++                      {displayedLoginGradeOptions.map((grade) => (
++                        <option key={grade.id} value={grade.id} className={loginSelectOptionClassName}>
++                          {formatLoginGradeOption(grade)}
++                        </option>
++                      ))}
++                    </select>
++                    <span aria-hidden="true" className="pointer-events-none absolute inset-y-0 right-4 grid place-items-center text-lg font-black text-slate-400 dark:text-slate-300">
++                      ⌄
++                    </span>
++                  </span>
++                </div>
++              </div>
++            </div>
+ 
+             {pendingCurriculumUser ? (
+               <div className="grid gap-3 rounded-2xl border border-amber-300/55 bg-amber-400/10 p-4">
+@@ -470,103 +518,70 @@ export default function LoginPage() {
+ 
+             <button
+               type="submit"
+-              disabled={isSubmitting}
++              disabled={!isHydrated || isSubmitting}
+               className="focus-ring inline-flex w-full justify-center rounded-full bg-slate-950 px-5 py-3 font-black text-white shadow-lg shadow-slate-900/10 transition enabled:hover:-translate-y-1 disabled:cursor-not-allowed disabled:opacity-55 dark:bg-white dark:text-slate-950"
+             >
+-              {isSubmitting ? t(dictionary.login.signingIn) : pendingCurriculumUser ? t({ en: "Save curriculum and log in", zh: "保存課程並登入", zhHans: "保存课程并登录" }) : t(dictionary.login.submit)}
++              {!isHydrated
++                ? t({ en: "Preparing secure login", zh: "準備安全登入", zhHans: "准备安全登录" })
++                : isSubmitting
++                  ? t(dictionary.login.signingIn)
++                  : pendingCurriculumUser
++                    ? t({ en: "Save curriculum and log in", zh: "保存課程並登入", zhHans: "保存课程并登录" })
++                    : t(dictionary.login.submit)}
+             </button>
+ 
+-            <div className="rounded-2xl border border-cyan-300/40 bg-cyan-400/10 px-4 py-3 text-sm font-semibold text-slate-700 dark:border-cyan-300/20 dark:text-slate-200">
+-              <span>{t(authLinkCopy.registerPrompt)} </span>
+-              <Link href="/register" className="focus-ring rounded-full px-2 py-1 font-black text-cyan-700 underline-offset-4 transition hover:bg-cyan-400/10 hover:underline dark:text-cyan-200">
++            <div className="flex flex-wrap items-center gap-x-1 gap-y-2 rounded-2xl border border-cyan-300/40 bg-cyan-400/10 px-4 py-3 text-sm font-semibold text-slate-700 dark:border-cyan-300/20 dark:text-slate-200">
++              <span>{t(authLinkCopy.registerPrompt)}</span>
++              <Link href="/register" className="focus-ring inline-flex min-h-11 items-center rounded-full px-3 py-2 font-black text-cyan-700 underline-offset-4 transition hover:bg-cyan-400/10 hover:underline dark:text-cyan-200">
+                 {t(authLinkCopy.registerAction)}
+               </Link>
+             </div>
+           </form>
+-
+-          {renderFutureExpansionPanel("mt-7 hidden lg:block")}
+         </section>
+ 
+-        <aside className="glass-panel p-6">
+-          <p className="text-sm font-bold uppercase tracking-[0.22em] text-cyan-500 dark:text-cyan-300">
+-            {t(curriculumCopy.title)}
+-          </p>
+-          <div className="mt-4">
+-            <CurriculumTrackSelector
+-              value={displayedCurriculumProfile}
+-              onChange={handleCurriculumSelection}
+-              onRegionChange={handleCurriculumSelection}
+-              text={t}
+-              regionChipLabelOverrides={loginRegionChipLabelOverrides}
+-              publisherDetailOverrides={loginPublisherDetailOverrides}
+-              showRegionTitles={false}
+-              courseSelectionMode="buttons"
+-              compact
+-              locked={Boolean(registeredStudentProfile)}
+-            />
+-          </div>
+-
+-          <div className="mt-6 border-t border-slate-200/70 pt-6 dark:border-white/10">
+-            <p className="text-sm font-bold uppercase tracking-[0.22em] text-cyan-500 dark:text-cyan-300">
+-              {t(curriculumCopy.gradeTitle)}
+-            </p>
+-            <div className="mt-4">
+-              <GradeSelector compact locked curriculumTrack={displayedCurriculumTrack} value={displayedLoginGrade} onChange={setLoginSelectedGrade} respectCurrentStudentProfile={false} />
+-            </div>
+-          </div>
+-
+-          {pendingCurriculumUser ? (
+-            <p className="mt-5 rounded-2xl border border-amber-300/55 bg-amber-400/10 px-4 py-3 text-xs font-bold leading-5 text-amber-800 dark:text-amber-100">
+-              {t(curriculumCopy.helper)}
+-            </p>
+-          ) : null}
++      </div>
+ 
+-          <div className="relative mt-10 overflow-hidden rounded-3xl border border-slate-200/80 bg-white shadow-xl shadow-slate-950/5 dark:border-white/10 dark:bg-white dark:shadow-black/10">
+-            <div className="relative overflow-hidden px-6 py-7 sm:py-8">
+-              <div className="relative">
+-                <div>
+-                  <p className="text-sm font-bold uppercase tracking-[0.22em] text-cyan-500 dark:text-cyan-300">
+-                    {t(missionCopy.label)}
+-                  </p>
+-                  <p className="mt-5 text-3xl font-black leading-[1.04] tracking-normal text-slate-950 sm:text-4xl">
+-                    {missionLines.map((line) => (
+-                      <span key={line} className="block">
+-                        {line}
++      <section
++        aria-labelledby="login-example-accounts-title"
++        className="mx-auto mt-6 max-w-3xl rounded-3xl border border-cyan-300/70 bg-cyan-50/85 p-5 shadow-sm shadow-cyan-900/10 dark:border-cyan-300/20 dark:bg-cyan-950/20 sm:p-6"
++      >
++        <h2 id="login-example-accounts-title" className="text-2xl font-black tracking-tight text-slate-800 dark:text-white">
++          {t(demoAccountHelpCopy.title)}
++        </h2>
++        <div className="mt-4 grid gap-4">
++          {exampleAccountRows.map((row) => (
++            <div key={row.key} className="grid gap-3 border-t border-cyan-200/80 pt-4 first:border-t-0 first:pt-0 dark:border-cyan-100/15">
++              <p className="text-xl font-black uppercase text-cyan-700 dark:text-cyan-200">{t(row.label)}</p>
++              <div className="grid gap-4 md:grid-cols-2">
++                {row.accounts.map(({ account, key, roleLabel }) => {
++                  const selected = selectedExampleAccountKey === key;
++                  return (
++                    <button
++                      key={key}
++                      type="button"
++                      disabled={exampleAccountButtonsDisabled}
++                      onClick={() => fillExampleAccount(account, row, key)}
++                      aria-label={`${t(demoAccountHelpCopy.useAccount)}: ${account.username} (${t(row.label)})`}
++                      className={`focus-ring min-h-24 rounded-2xl border px-5 py-4 text-left transition disabled:cursor-not-allowed disabled:opacity-55 disabled:hover:translate-y-0 ${
++                        selected
++                          ? "border-slate-950 bg-slate-950 text-white shadow-lg shadow-slate-950/15 dark:border-white dark:bg-white dark:text-slate-950"
++                          : "border-white/80 bg-white/85 hover:-translate-y-0.5 hover:bg-white hover:shadow-md hover:shadow-cyan-900/10 dark:border-white/10 dark:bg-white/[0.07] dark:hover:bg-white/[0.12]"
++                      }`}
++                    >
++                      <span className={`block text-base font-black uppercase ${selected ? "text-cyan-200 dark:text-cyan-700" : "text-cyan-700 dark:text-cyan-200"}`}>
++                        {t(roleLabel)}
+                       </span>
+-                    ))}
+-                  </p>
+-                </div>
+-              </div>
+-            </div>
+-          </div>
+-
+-          {currentUser ? (
+-            <div className="mt-6 border-t border-slate-200/70 pt-6 dark:border-white/10">
+-              <p className="text-sm font-bold text-slate-500 dark:text-slate-400">{t(dictionary.login.signedIn)}</p>
+-              <p className="mt-2 text-2xl font-black text-slate-950 dark:text-white">{formatLearnerName(currentUser.name, language)}</p>
+-              <p className="mt-1 text-sm font-semibold text-cyan-600 dark:text-cyan-300">{formatGradeLabelForCurriculum(currentUser.grade, language, currentUser.curriculumTrack, true)}</p>
+-              <p className="mt-1 text-sm font-semibold text-emerald-600 dark:text-emerald-300">{t(publisherLabels[currentUser.curriculumProfile.publisher])}</p>
+-              <div className="mt-5 flex flex-wrap gap-3">
+-                <Link
+-                  href={currentWorkspaceHref}
+-                  className="focus-ring rounded-full bg-cyan-400 px-4 py-2 text-sm font-black text-slate-950 transition hover:-translate-y-0.5"
+-                >
+-                  {t(dictionary.login.continue)}
+-                </Link>
+-                <button
+-                  type="button"
+-                  onClick={handleLogout}
+-                  className="focus-ring rounded-full border border-slate-200/80 bg-white/70 px-4 py-2 text-sm font-bold text-slate-700 transition hover:-translate-y-0.5 dark:border-white/10 dark:bg-white/[0.06] dark:text-slate-200"
+-                >
+-                  {t(dictionary.login.logout)}
+-                </button>
++                      <span className="mt-1.5 block break-words text-2xl font-black leading-tight">
++                        {account.username}
++                      </span>
++                    </button>
++                  );
++                })}
+               </div>
+             </div>
+-          ) : null}
+-        </aside>
+-
+-        {renderFutureExpansionPanel("lg:hidden")}
+-      </div>
++          ))}
++        </div>
++      </section>
+ 
+       {curriculumNoticeProfile ? (
+         <div
+diff --git a/app/not-found.tsx b/app/not-found.tsx
+index 35fee9a59..b6c1e0949 100644
+--- a/app/not-found.tsx
++++ b/app/not-found.tsx
+@@ -2,6 +2,7 @@
+ 
+ import Link from "next/link";
+ import { dictionary, useSettings } from "@/components/providers/AppProviders";
++import { studentRoadmapPath } from "@/lib/roadmapRoutes";
+ 
+ export default function NotFound() {
+   const { t } = useSettings();
+@@ -22,7 +23,7 @@ export default function NotFound() {
+           })}
+         </p>
+         <Link
+-          href="/learning-path"
++          href={studentRoadmapPath}
+           className="focus-ring mt-8 inline-flex rounded-full bg-slate-950 px-5 py-3 text-sm font-black text-white transition hover:-translate-y-0.5 dark:bg-white dark:text-slate-950"
+         >
+           {t(dictionary.nav.learningPath)}
+diff --git a/app/page.tsx b/app/page.tsx
+index 10643c2e8..47282b28a 100644
+--- a/app/page.tsx
++++ b/app/page.tsx
+@@ -1,19 +1,5 @@
+-import { HomePageClient } from "@/components/home/HomePageClient";
+-import { questions } from "@/data/questions";
+-
+-function isMainlandPepQuestion(question: (typeof questions)[number]) {
+-  // Older high-school PEP rows still use the compatibility track without publisher metadata.
+-  return (
+-    question.publisher === "MAINLAND_PEP" ||
+-    question.curriculumProfile?.publisher === "MAINLAND_PEP" ||
+-    question.curriculumTrack === "MAINLAND_PEP_HIGH"
+-  );
+-}
+-
+-const mainlandPepQuestionCount = questions.filter(isMainlandPepQuestion).length;
+-const defaultQuestionBankQuestionCount = questions.filter((question) => question.curriculumTrack === "HK").length;
+-const practiceQuestionTotal = mainlandPepQuestionCount + defaultQuestionBankQuestionCount;
++import { PedaNovaHomeHero } from "@/components/home/PedaNovaHomeHero";
+ 
+ export default function HomePage() {
+-  return <HomePageClient practiceQuestionTotal={practiceQuestionTotal} />;
++  return <PedaNovaHomeHero />;
+ }
+diff --git a/app/register/page.tsx b/app/register/page.tsx
+index 7e3de4dbd..ee1f603d9 100644
+--- a/app/register/page.tsx
++++ b/app/register/page.tsx
+@@ -1,45 +1,32 @@
+ "use client";
+ 
+-import Link from "next/link";
+-import { FormEvent, useState } from "react";
+-import { dictionary, useSettings } from "@/components/providers/AppProviders";
+-import { CurriculumTrackSelector } from "@/components/ui/CurriculumTrackSelector";
++import { type CSSProperties, type FormEvent, useEffect, useState } from "react";
++import { useSettings } from "@/components/providers/AppProviders";
+ import { GradeSelector } from "@/components/ui/GradeSelector";
+-import { curriculumProfileForPublisher, curriculumTrackForProfile, publisherLabels } from "@/lib/curriculumProfile";
++import { PasswordInputWithReveal } from "@/components/ui/PasswordInputWithReveal";
++import { curriculumProfileForPublisher, curriculumTrackForProfile, publisherLabels, regionLabels } from "@/lib/curriculumProfile";
+ import { formatGradeLabelForCurriculum } from "@/lib/i18n";
+-import type { CurriculumProfile, CurriculumRegion, LocalizedText } from "@/types";
++import type { CurriculumProfile, CurriculumRegion, CurriculumTrack, GradeId, Language, LocalizedText, TextbookPublisher } from "@/types";
+ 
+ const registerCopy = {
+-  eyebrow: { en: "Account access", zh: "帳戶開通", zhHans: "账户开通" },
+-  title: { en: "Create a student or parent account", zh: "建立學生或家長帳戶", zhHans: "建立学生或家长帐户" },
++  title: { en: "Create a student, teacher, or parent account", zh: "建立學生、教師或家長帳戶", zhHans: "建立学生、教师或家长帐户" },
++  flowTitle: { en: "Choose your curriculum", zh: "選擇你的課程", zhHans: "选择你的课程" },
++  parentTitle: { en: "Create a parent account", zh: "建立家長帳戶", zhHans: "建立家长帐户" },
+   subtitle: {
+-    en: "Individual learners can create a student account here.",
+-    zh: "個人學習者可在此建立學生帳戶。",
+-    zhHans: "个人学习者可在此建立学生账户。"
++    en: "Students, teachers, and families can create their MAIS account here.",
++    zh: "學生、教師和家庭可在此建立 MAIS 帳戶。",
++    zhHans: "学生、教师和家庭可在此建立 MAIS 账户。"
+   },
+   gradePrompt: {
+-    en: "School students and teachers should log in with the account issued by an administrator.",
+-    zh: "學校學生和教師請使用管理員開通的帳戶登入。",
+-    zhHans: "学校学生和教师请使用管理员开通的账户登录。"
++    en: "Choose the curriculum and grade you want MAIS to open first.",
++    zh: "請選擇你希望 MAIS 優先開啟的課程與年級。",
++    zhHans: "请选择你希望 MAIS 优先开启的课程与年级。"
+   },
+   familyPrompt: {
+     en: "Families can create a parent account first, then connect children with an invite code.",
+     zh: "家庭可先建立家長帳戶，再用邀請碼綁定孩子。",
+     zhHans: "家庭可先建立家长账户，再用邀请码绑定孩子。"
+   },
+-  stepCurriculum: { en: "1. Curriculum", zh: "1. 課程", zhHans: "1. 课程" },
+-  stepCurriculumHelp: {
+-    en: "Select the curriculum region and textbook version. This choice is saved to the student account.",
+-    zh: "選擇課程地區與教材版本；系統會保存到學生帳戶。",
+-    zhHans: "选择课程地区与教材版本；系统会保存到学生帐户。"
+-  },
+-  stepGrade: { en: "2. Grade", zh: "2. 年級", zhHans: "2. 年级" },
+-  stepGradeHelp: {
+-    en: "Grade labels update to match the selected curriculum path before the account is created.",
+-    zh: "建立帳戶前，年級標籤會根據已選課程路徑自動調整。",
+-    zhHans: "建立帐户前，年级标签会根据已选课程路径自动调整。"
+-  },
+-  stepDetails: { en: "3. Account details", zh: "3. 帳戶資料", zhHans: "3. 帐户资料" },
+   stepDetailsHelp: {
+     en: "These details create the private account used for learning, family access, and tutor history.",
+     zh: "這些資料會建立私人帳戶，用於學習、家庭連結和導師紀錄。",
+@@ -47,15 +34,18 @@ const registerCopy = {
+   },
+   accountType: { en: "1. Account type", zh: "1. 帳戶類型", zhHans: "1. 账户类型" },
+   accountTypeHelp: {
+-    en: "Teacher and administrator accounts are not created through public registration.",
+-    zh: "教師和管理員帳戶不經公開註冊建立。",
+-    zhHans: "教师和管理员账户不经公开注册建立。"
++    en: "Create a Student, Teacher, or Parent profile. Admin accounts remain invitation-only.",
++    zh: "建立學生、教師或家長檔案。管理員帳戶仍需邀請開通。",
++    zhHans: "建立学生、教师或家长档案。管理员账户仍需邀请开通。"
+   },
+   parentAccount: { en: "Parent", zh: "家長", zhHans: "家长" },
+-  studentAccount: { en: "Individual student", zh: "個人學生", zhHans: "个人学生" },
++  studentAccount: { en: "Student", zh: "學生", zhHans: "学生" },
++  teacherAccount: { en: "Teacher", zh: "教師", zhHans: "教师" },
+   studentName: { en: "Student name", zh: "學生姓名" },
++  teacherName: { en: "Teacher name", zh: "教師姓名", zhHans: "教师姓名" },
+   parentName: { en: "Parent name", zh: "家長姓名", zhHans: "家长姓名" },
+   username: { en: "Username or student ID", zh: "用戶名稱或學生編號", zhHans: "用户名或学生编号" },
++  teacherUsername: { en: "Teacher username or work email", zh: "教師用戶名稱或工作電郵", zhHans: "教师用户名或工作邮箱" },
+   email: { en: "Email", zh: "電郵", zhHans: "邮箱" },
+   password: { en: "Password", zh: "密碼" },
+   confirmPassword: { en: "Confirm password", zh: "確認密碼" },
+@@ -67,6 +57,11 @@ const registerCopy = {
+     en: "Account created. Opening the student dashboard...",
+     zh: "帳戶已建立，正在開啟學生儀表板..."
+   },
++  teacherSuccess: {
++    en: "Teacher account created. Opening the teacher workspace...",
++    zh: "教師帳戶已建立，正在開啟教師工作台...",
++    zhHans: "教师账户已建立，正在打开教师工作台..."
++  },
+   parentSuccess: {
+     en: "Parent account created. Opening child connection...",
+     zh: "家長帳戶已建立，正在開啟孩子綁定...",
+@@ -92,122 +87,601 @@ const registerCopy = {
+   },
+   alreadyRegistered: { en: "Already have an account?", zh: "已有帳戶？" },
+   login: { en: "Log in", zh: "登入" },
+-  profilePreview: { en: "Live profile preview", zh: "帳戶即時預覽", zhHans: "帐户即时预览" },
+-  profilePreviewHelp: {
+-    en: "Review the account path before creating it.",
+-    zh: "建立帳戶前，先核對帳戶路徑。",
+-    zhHans: "建立账户前，先核对账户路径。"
+-  },
++  pathReady: { en: "Learning path ready", zh: "學習路徑已準備", zhHans: "学习路径已准备" },
++  summaryIdentity: { en: "Selected profile", zh: "已選身份", zhHans: "已选身份" },
++  summaryIdentityStudentHelp: { en: "Private learner profile", zh: "私人學習檔案", zhHans: "私人学习档案" },
++  summaryIdentityTeacherHelp: { en: "Classroom teaching profile", zh: "課堂教學檔案", zhHans: "课堂教学档案" },
++  summaryIdentityParentHelp: { en: "Family access profile", zh: "家庭連結檔案", zhHans: "家庭连接档案" },
++  summaryGradeHelp: { en: "Visible before the form", zh: "填寫前可先確認", zhHans: "填写前可先确认" },
++  summaryCurriculumHelp: { en: "Saved to account", zh: "保存到帳戶", zhHans: "保存到账户" },
++  stepperAccountType: { en: "Account type", zh: "帳戶類型", zhHans: "账户类型" },
++  stepperGrade: { en: "Grade", zh: "年級", zhHans: "年级" },
++  stepperCurriculum: { en: "Curriculum", zh: "課程", zhHans: "课程" },
++  stepperDetails: { en: "Account details", zh: "帳戶資料", zhHans: "帐户资料" },
++  stepperConnectChild: { en: "Connect child", zh: "綁定孩子", zhHans: "绑定孩子" },
++  nextStep: { en: "Next step", zh: "下一步", zhHans: "下一步" },
+   selectedCurriculum: { en: "Saved curriculum", zh: "保存課程", zhHans: "保存课程" },
+-  contentStatus: { en: "Content status", zh: "內容狀態", zhHans: "内容状态" },
+   privacyNote: {
+     en: "Progress, mistakes, and tutor history stay tied to this private learner profile.",
+     zh: "進度、錯題和導師紀錄會連繫到這個私人學生帳戶。",
+     zhHans: "进度、错题和导师记录会关联到这个私人学生帐户。"
+   },
++  teacherPrivacyNote: {
++    en: "Teaching resources, class planning, and student support tools stay tied to this teacher workspace.",
++    zh: "教學資源、課堂規劃和學生支援工具會連繫到這個教師工作台。",
++    zhHans: "教学资源、课堂规划和学生支持工具会关联到这个教师工作台。"
++  },
+   parentPrivacyNote: {
+     en: "After registration, use a teacher-provided parent invite code to connect a child.",
+     zh: "註冊後，請使用教師提供的家長邀請碼綁定孩子。",
+     zhHans: "注册后，请使用教师提供的家长邀请码绑定孩子。"
++  },
++  questTitle: { en: "Start your math journey", zh: "開始你的數學旅程", zhHans: "开始你的数学旅程" },
++  questSubtitle: {
++    en: "Choose your learner profile",
++    zh: "選擇你的學習者檔案",
++    zhHans: "选择你的学习者档案"
++  },
++  questNote: {
++    en: "Complete each checkpoint to unlock a personalized learning path.",
++    zh: "完成每個檢查點，解鎖個人化學習路徑。",
++    zhHans: "完成每个检查点，解锁个性化学习路径。"
+   }
+ } as const;
+ 
+-const registerRegionChipLabelOverrides: Partial<Record<CurriculumRegion, LocalizedText>> = {
+-  MAINLAND: { en: "CHINA", zh: "中國", zhHans: "中国" },
+-  HK: { en: "HKSAR", zh: "香港特區", zhHans: "香港特区" }
+-};
+-
+ const registerRegionLabelOverrides: Partial<Record<CurriculumRegion, LocalizedText>> = {
+   MAINLAND: { en: "China Curriculum", zh: "中國課程", zhHans: "中国课程" },
+   HK: { en: "HKSAR Curriculum", zh: "香港特區課程", zhHans: "香港特区课程" }
+ };
+ 
+-type RegistrationRole = "parent" | "student";
++const registerPublisherButtonLabelOverrides: Partial<Record<TextbookPublisher, LocalizedText>> = {
++  MAINLAND_BNU: {
++    en: "BNUP Mathematics",
++    zh: "北師大版數學",
++    zhHans: "北师大版数学"
++  }
++};
+ 
+-function contentStatusFor(profile: CurriculumProfile) {
+-  if (profile.publisher === "MAINLAND_PEP") {
+-    return {
+-      tone: "emerald",
+-      body: {
+-        en: "China PEP primary, junior-secondary, and high school learning paths are available.",
+-        zh: "中國人教版小學、初中及高中學習路徑已開放。",
+-        zhHans: "中国人教版小学、初中及高中学习路径已开放。"
+-      }
+-    } as const;
++const registerCurriculumPublisherGroups: readonly {
++  region: CurriculumRegion;
++  publishers: readonly TextbookPublisher[];
++}[] = [
++  { region: "MAINLAND", publishers: ["MAINLAND_PEP", "MAINLAND_HJB", "MAINLAND_BNU"] },
++  { region: "HK", publishers: ["HK_MODERN_EDUCATIONAL_RESEARCH_SOCIETY", "HK_UNITED_PRIME_MIA", "HK_EPH_MIF"] },
++  { region: "US", publishers: ["US_CA_MATH"] }
++];
++
++const registerCurriculumPublisherOptions: readonly TextbookPublisher[] = [
++  "MAINLAND_PEP",
++  "MAINLAND_HJB",
++  "MAINLAND_BNU",
++  "HK_MODERN_EDUCATIONAL_RESEARCH_SOCIETY",
++  "HK_UNITED_PRIME_MIA",
++  "HK_EPH_MIF",
++  "US_CA_MATH"
++];
++
++type RegistrationRole = "parent" | "student" | "teacher";
++type RegisterStepId = "account" | "grade" | "curriculum" | "details";
++type RegisterIconKind = "book" | "details" | "grade" | "profile";
++
++function isUnitedStatesRegistrationTrack(curriculumTrack: CurriculumTrack) {
++  return curriculumTrack === "US_CA_MATH" || curriculumTrack === "US_NC_MATH" || curriculumTrack === "US_AR_MATH" || curriculumTrack === "US_FL_MATH";
++}
++
++function formatRegistrationGradeLabel(grade: GradeId, language: Language, curriculumTrack: CurriculumTrack) {
++  return formatGradeLabelForCurriculum(grade, language, curriculumTrack, true);
++}
++
++function StepIcon({ kind, className = "" }: { kind: RegisterIconKind; className?: string }) {
++  if (kind === "book") {
++    return (
++      <svg aria-hidden="true" className={className} viewBox="0 0 48 48" fill="none">
++        <path d="M9 13c0-2.2 1.8-4 4-4h9c2.2 0 4 1.8 4 4v27c0-2.2-1.8-4-4-4h-9c-2.2 0-4 1.8-4 4V13Z" fill="currentColor" opacity="0.18" />
++        <path d="M39 13c0-2.2-1.8-4-4-4h-9c-2.2 0-4 1.8-4 4v27c0-2.2 1.8-4 4-4h9c2.2 0 4 1.8 4 4V13Z" fill="currentColor" opacity="0.14" />
++        <path d="M24 13v27M12 15h8M12 22h8M28 15h8M28 22h8" stroke="currentColor" strokeWidth="3.2" strokeLinecap="round" strokeLinejoin="round" />
++      </svg>
++    );
+   }
+ 
+-  if (profile.publisher === "MAINLAND_HJB") {
+-    return {
+-      tone: "emerald",
+-      body: {
+-        en: "Shanghai Education Press primary P1-P6, junior S1-S3, and high-school S4-S6 lessons are available; junior practice remains gated for review.",
+-        zh: "滬教版小學 P1-P6、初中 S1-S3 及高中 S4-S6 課程已開放；初中練習題待審核後開放。",
+-        zhHans: "沪教版小学 P1-P6、初中 S1-S3 及高中 S4-S6 课程已开放；初中练习题待审核后开放。"
+-      }
+-    } as const;
++  if (kind === "grade") {
++    return (
++      <svg aria-hidden="true" className={className} viewBox="0 0 48 48" fill="none">
++        <path d="m24 8 18 8.5L24 25 6 16.5 24 8Z" fill="currentColor" opacity="0.2" />
++        <path d="m13 21.5 11 5.3 11-5.3V31c-2.6 3.5-6.3 5.3-11 5.3S15.6 34.5 13 31v-9.5Z" fill="currentColor" opacity="0.16" />
++        <path d="m24 8 18 8.5L24 25 6 16.5 24 8ZM13 21.5V31c2.6 3.5 6.3 5.3 11 5.3S32.4 34.5 35 31v-9.5M41 17v11" stroke="currentColor" strokeWidth="3.1" strokeLinecap="round" strokeLinejoin="round" />
++      </svg>
++    );
+   }
+ 
+-  if (profile.publisher === "MAINLAND_BNU") {
+-    return {
+-      tone: "emerald",
+-      body: {
+-        en: "BNUP P1-S6 AI-generated practice and learning content are live.",
+-        zh: "北師大版 P1-S6 AI 生成練習與學習內容已上線。",
+-        zhHans: "北师大版 P1-S6 AI 生成练习与学习内容已上线。"
+-      }
+-    } as const;
++  if (kind === "details") {
++    return (
++      <svg aria-hidden="true" className={className} viewBox="0 0 48 48" fill="none">
++        <path d="M15 8h18c2.2 0 4 1.8 4 4v27c0 2.2-1.8 4-4 4H15c-2.2 0-4-1.8-4-4V12c0-2.2 1.8-4 4-4Z" fill="currentColor" opacity="0.18" />
++        <path d="M18 6h12v8H18V6Z" fill="currentColor" opacity="0.25" />
++        <path d="M18 6h12v8H18V6ZM16 19h16M16 26h16M16 33h10" stroke="currentColor" strokeWidth="3.1" strokeLinecap="round" strokeLinejoin="round" />
++        <path d="M15 8h18c2.2 0 4 1.8 4 4v27c0 2.2-1.8 4-4 4H15c-2.2 0-4-1.8-4-4V12c0-2.2 1.8-4 4-4Z" stroke="currentColor" strokeWidth="3.1" strokeLinejoin="round" />
++      </svg>
++    );
+   }
+ 
+-  if (profile.region === "MAINLAND") {
+-    return {
+-      tone: "emerald",
+-      body: {
+-        en: "This China textbook edition is saved to the account while student-facing content remains gated.",
+-        zh: "此中國教材版本會保存到帳戶；學生內容仍待審核發布。",
+-        zhHans: "此中国教材版本会保存到账户；学生内容仍待审核发布。"
+-      }
+-    } as const;
++  return (
++    <svg aria-hidden="true" className={className} viewBox="0 0 48 48" fill="none">
++      <path d="M24 23c4.4 0 8-3.6 8-8s-3.6-8-8-8-8 3.6-8 8 3.6 8 8 8Z" fill="currentColor" opacity="0.2" />
++      <path d="M10 40c1.8-7.2 7-11.2 14-11.2S36.2 32.8 38 40" fill="currentColor" opacity="0.18" />
++      <path d="M24 23c4.4 0 8-3.6 8-8s-3.6-8-8-8-8 3.6-8 8 3.6 8 8 8ZM10 40c1.8-7.2 7-11.2 14-11.2S36.2 32.8 38 40" stroke="currentColor" strokeWidth="3.1" strokeLinecap="round" strokeLinejoin="round" />
++    </svg>
++  );
++}
++
++function RoleIllustration({ role }: { role: RegistrationRole }) {
++  if (role === "student") {
++    return (
++      <div aria-hidden="true" className="relative mx-auto h-36 w-full max-w-[16rem] xl:h-40 xl:max-w-[17rem] min-[1800px]:h-44 min-[1800px]:max-w-[18rem]">
++        <svg className="h-full w-full overflow-visible" viewBox="0 0 320 220" fill="none">
++          <defs>
++            <linearGradient id="studentCloudGradient" x1="73" x2="230" y1="64" y2="170" gradientUnits="userSpaceOnUse">
++              <stop stopColor="#d8f0ff" />
++              <stop offset="1" stopColor="#abd6f8" />
++            </linearGradient>
++            <linearGradient id="studentMainBlue" x1="99" x2="207" y1="62" y2="190" gradientUnits="userSpaceOnUse">
++              <stop stopColor="#409df4" />
++              <stop offset="0.48" stopColor="#1775d8" />
++              <stop offset="1" stopColor="#0951b3" />
++            </linearGradient>
++            <linearGradient id="studentSideBlue" x1="82" x2="126" y1="74" y2="176" gradientUnits="userSpaceOnUse">
++              <stop stopColor="#45a5f7" />
++              <stop offset="1" stopColor="#1160c0" />
++            </linearGradient>
++            <linearGradient id="studentPocketBlue" x1="125" x2="190" y1="108" y2="168" gradientUnits="userSpaceOnUse">
++              <stop stopColor="#45a7f8" />
++              <stop offset="1" stopColor="#075cc3" />
++            </linearGradient>
++            <linearGradient id="studentPatchGradient" x1="178" x2="223" y1="79" y2="123" gradientUnits="userSpaceOnUse">
++              <stop stopColor="#a7e98d" />
++              <stop offset="1" stopColor="#59c179" />
++            </linearGradient>
++            <linearGradient id="studentLeafGradient" x1="236" x2="280" y1="103" y2="183" gradientUnits="userSpaceOnUse">
++              <stop stopColor="#8adb7b" />
++              <stop offset="1" stopColor="#55b85a" />
++            </linearGradient>
++            <linearGradient id="studentMetalGradient" x1="0" x2="1" y1="0" y2="1">
++              <stop stopColor="#f4fbff" />
++              <stop offset="1" stopColor="#9fb2c4" />
++            </linearGradient>
++            <radialGradient id="studentBlueHighlight" cx="0" cy="0" r="1" gradientTransform="matrix(78 0 0 85 127 78)" gradientUnits="userSpaceOnUse">
++              <stop stopColor="#75bdf9" stopOpacity="0.85" />
++              <stop offset="1" stopColor="#75bdf9" stopOpacity="0" />
++            </radialGradient>
++            <filter id="studentSoftShadow" x="45" y="20" width="250" height="190" colorInterpolationFilters="sRGB" filterUnits="userSpaceOnUse">
++              <feDropShadow dx="0" dy="14" floodColor="#0a58aa" floodOpacity="0.26" stdDeviation="10" />
++            </filter>
++          </defs>
++          <ellipse cx="160" cy="184" rx="95" ry="16" fill="#0d4d99" opacity="0.14" />
++          <path
++            d="M72 139c-17-2-29-15-29-32 0-18 14-32 31-32 8-27 32-46 62-46 22 0 42 10 54 26 8-5 18-8 29-8 28 0 51 22 51 50 0 25-18 45-42 49H72Z"
++            fill="url(#studentCloudGradient)"
++            opacity="0.9"
++          />
++          <g opacity="0.95">
++            <path d="M236 165c-6-25 7-52 30-61 8 24-4 51-30 61Z" fill="url(#studentLeafGradient)" />
++            <path d="M260 174c-3-20 10-39 30-43 6 21-8 40-30 43Z" fill="url(#studentLeafGradient)" />
++            <path d="M225 174c2-23 18-40 40-42 1 23-17 41-40 42Z" fill="url(#studentLeafGradient)" />
++          </g>
++          <g filter="url(#studentSoftShadow)">
++            <path d="M124 75c0-24 15-41 37-41 23 0 38 17 38 41" stroke="#155eb5" strokeLinecap="round" strokeWidth="15" />
++            <path d="M124 75c0-24 15-41 37-41 23 0 38 17 38 41" stroke="#54adf8" strokeLinecap="round" strokeWidth="6" opacity="0.5" />
++            <path
++              d="M104 82c0-18 14-32 32-32h58c19 0 35 16 35 35v67c0 25-20 45-45 45h-44c-21 0-38-17-38-38V82Z"
++              fill="url(#studentMainBlue)"
++            />
++            <path d="M104 82c0-18 14-32 32-32h58c19 0 35 16 35 35v67c0 25-20 45-45 45h-44c-21 0-38-17-38-38V82Z" fill="url(#studentBlueHighlight)" />
++            <path d="M111 85c7-21 27-31 58-31h21c17 0 29 11 34 29-28 11-82 11-113 2Z" fill="#71c3ff" opacity="0.38" />
++            <path d="M109 154c12 18 31 28 56 28 26 0 47-11 60-29v7c0 22-18 40-40 40h-45c-18 0-31-13-31-31v-15Z" fill="#003f9c" opacity="0.2" />
++            <path d="M82 103c0-17 12-31 28-31h12v104H98c-13 0-23-10-23-23v-43c0-4 3-7 7-7Z" fill="url(#studentSideBlue)" />
++            <path d="M86 106c0-12 9-22 21-22h7v80H96c-8 0-14-6-14-14v-39c0-3 2-5 4-5Z" fill="#4daef9" opacity="0.35" />
++            <path d="M221 85h7c15 0 27 12 27 27v41c0 16-13 29-29 29h-14V91c0-3 4-6 9-6Z" fill="#0d64c7" />
++            <path d="M225 95c11 2 19 11 19 23v37c0 8-5 15-12 18" stroke="#449bef" strokeLinecap="round" strokeWidth="5" opacity="0.38" />
++            <path d="M119 128c0-13 11-24 24-24h43c15 0 27 12 27 27v33c0 19-15 34-34 34h-28c-18 0-32-14-32-32v-38Z" fill="url(#studentPocketBlue)" />
++            <path d="M127 132c0-9 7-17 17-17h35c12 0 21 9 21 21v12h-73v-16Z" fill="#5eb4fb" opacity="0.33" />
++            <path d="M126 121h79" stroke="#0a4faa" strokeLinecap="round" strokeWidth="3" opacity="0.45" />
++            <path d="M130 153c20 7 48 7 69 0" stroke="#5db5fb" strokeLinecap="round" strokeWidth="4" opacity="0.4" />
++            <rect x="183" y="80" width="44" height="44" rx="10" fill="url(#studentPatchGradient)" transform="rotate(45 183 80)" />
++            <circle cx="197" cy="103" r="4" fill="#14736b" opacity="0.82" />
++            <circle cx="214" cy="120" r="4" fill="#14736b" opacity="0.82" />
++            <path d="M111 69c18-6 50-8 87 1" stroke="#8fd0ff" strokeLinecap="round" strokeWidth="4" opacity="0.32" />
++            <path d="M113 85c-2 23-1 47 2 70" stroke="#083f93" strokeLinecap="round" strokeWidth="3" opacity="0.42" />
++            <path d="M202 93c5 25 5 55 0 81" stroke="#073f91" strokeLinecap="round" strokeWidth="3" opacity="0.38" />
++            <rect x="93" y="98" width="14" height="57" rx="7" fill="url(#studentMetalGradient)" />
++            <rect x="195" y="139" width="13" height="49" rx="6.5" fill="url(#studentMetalGradient)" />
++            <path d="M106 156l-8 16" stroke="#718497" strokeLinecap="round" strokeWidth="4" />
++            <path d="M206 188l-6 14" stroke="#718497" strokeLinecap="round" strokeWidth="4" />
++          </g>
++        </svg>
++      </div>
++    );
+   }
+ 
+-  if (profile.region === "US") {
+-    return {
+-      tone: "cyan",
+-      body: {
+-        en: "The selected U.S. standards pathway will be saved to the student account.",
+-        zh: "已選的美國標準路徑會保存到學生帳戶。",
+-        zhHans: "已选的美国标准路径会保存到学生帐户。"
+-      }
+-    } as const;
++  if (role === "teacher") {
++    return (
++      <div aria-hidden="true" className="relative mx-auto h-36 w-full max-w-[16rem] xl:h-40 xl:max-w-[17rem] min-[1800px]:h-44 min-[1800px]:max-w-[18rem]">
++        <svg className="h-full w-full overflow-visible" viewBox="0 0 320 220" fill="none">
++          <defs>
++            <linearGradient id="teacherBackdropGradient" x1="58" x2="258" y1="30" y2="171" gradientUnits="userSpaceOnUse">
++              <stop stopColor="#d6f7ee" />
++              <stop offset="1" stopColor="#a9e9df" />
++            </linearGradient>
++            <linearGradient id="teacherBoardOuterGradient" x1="82" x2="244" y1="34" y2="136" gradientUnits="userSpaceOnUse">
++              <stop stopColor="#20c7ae" />
++              <stop offset="1" stopColor="#0a938d" />
++            </linearGradient>
++            <linearGradient id="teacherBoardInnerGradient" x1="94" x2="235" y1="46" y2="120" gradientUnits="userSpaceOnUse">
++              <stop stopColor="#19b9a6" />
++              <stop offset="1" stopColor="#07887e" />
++            </linearGradient>
++            <linearGradient id="teacherDeskGradient" x1="96" x2="228" y1="145" y2="193" gradientUnits="userSpaceOnUse">
++              <stop stopColor="#ffcf58" />
++              <stop offset="1" stopColor="#f1a626" />
++            </linearGradient>
++            <linearGradient id="teacherProtractorGradient" x1="179" x2="263" y1="123" y2="190" gradientUnits="userSpaceOnUse">
++              <stop stopColor="#ffea9c" />
++              <stop offset="1" stopColor="#ffc94a" />
++            </linearGradient>
++            <linearGradient id="teacherBookGradient" x1="74" x2="112" y1="137" y2="190" gradientUnits="userSpaceOnUse">
++              <stop stopColor="#3da9f5" />
++              <stop offset="1" stopColor="#0b62cf" />
++            </linearGradient>
++            <filter id="teacherSoftShadow" x="48" y="18" width="240" height="190" colorInterpolationFilters="sRGB" filterUnits="userSpaceOnUse">
++              <feDropShadow dx="0" dy="14" floodColor="#0b756f" floodOpacity="0.23" stdDeviation="10" />
++            </filter>
++          </defs>
++          <ellipse cx="160" cy="184" rx="100" ry="15" fill="#2f7774" opacity="0.14" />
++          <path
++            d="M71 125c-8-35 13-70 48-79 19-5 38-1 53 9 14-15 37-22 59-15 31 10 50 42 43 74-7 35-41 59-77 55-15 11-34 15-54 11-16-4-29-12-39-23-16 2-28-6-33-32Z"
++            fill="url(#teacherBackdropGradient)"
++          />
++          <g filter="url(#teacherSoftShadow)">
++            <rect x="72" y="36" width="176" height="104" rx="14" fill="url(#teacherBoardOuterGradient)" />
++            <rect x="85" y="48" width="150" height="78" rx="9" fill="url(#teacherBoardInnerGradient)" />
++            <g stroke="#c8fff5" strokeWidth="1.6" opacity="0.5">
++              <path d="M103 50v75" />
++              <path d="M122 50v75" />
++              <path d="M141 50v75" />
++              <path d="M160 50v75" />
++              <path d="M179 50v75" />
++              <path d="M198 50v75" />
++              <path d="M217 50v75" />
++              <path d="M86 66h148" />
++              <path d="M86 83h148" />
++              <path d="M86 100h148" />
++              <path d="M86 117h148" />
++            </g>
++            <path d="M101 94h125" stroke="#eafffb" strokeWidth="3.5" strokeLinecap="round" />
++            <path d="M122 114V57" stroke="#eafffb" strokeWidth="3.5" strokeLinecap="round" />
++            <path d="M106 108 224 64" stroke="#ffffff" strokeWidth="4" strokeLinecap="round" />
++            <path d="M119 77 C134 107 172 109 197 60" stroke="#fff199" strokeWidth="5" strokeLinecap="round" />
++            <path d="m197 60-11 4 8 8" stroke="#fff199" strokeWidth="4" strokeLinecap="round" strokeLinejoin="round" />
++            <path d="m119 77 3 12 8-8" stroke="#fff199" strokeWidth="4" strokeLinecap="round" strokeLinejoin="round" />
++            <text x="137" y="69" fill="#f5fffe" fontFamily="Arial, sans-serif" fontSize="22" fontWeight="900">f(x)</text>
++            <text x="107" y="65" fill="#f5fffe" fontFamily="Arial, sans-serif" fontSize="16" fontWeight="900">y</text>
++            <text x="203" y="116" fill="#f5fffe" fontFamily="Arial, sans-serif" fontSize="18" fontWeight="900">x</text>
++            <rect x="95" y="130" width="132" height="12" rx="6" fill="#0b7d78" />
++            <rect x="111" y="139" width="102" height="46" rx="13" fill="url(#teacherDeskGradient)" />
++            <path d="M121 148h82" stroke="#ffe597" strokeWidth="5" strokeLinecap="round" opacity="0.5" />
++            <rect x="78" y="137" width="34" height="51" rx="8" fill="url(#teacherBookGradient)" />
++            <path d="M86 146h18M86 157h18M86 168h18" stroke="#8ad2ff" strokeWidth="3" strokeLinecap="round" opacity="0.7" />
++            <path d="M196 185a42 42 0 0 1 84 0h-84Z" fill="url(#teacherProtractorGradient)" />
++            <path d="M214 185a24 24 0 0 1 48 0h-48Z" fill="#fff7cd" opacity="0.82" />
++            <path d="M202 181h72" stroke="#d89d19" strokeWidth="5" strokeLinecap="round" />
++            {Array.from({ length: 7 }).map((_, index) => (
++              <path key={`teacher-protractor-mark-${index}`} d={`M${213 + index * 9} 181l${index - 3} -15`} stroke="#b67d12" strokeWidth="2.4" strokeLinecap="round" opacity="0.7" />
++            ))}
++            <path d="M237 143 271 111" stroke="#ff7b64" strokeWidth="9" strokeLinecap="round" />
++            <path d="m269 111 9-5-4 10" fill="#ff7b64" />
++            <path d="M70 154c10-10 23-13 38-8" stroke="#6bcf71" strokeWidth="12" strokeLinecap="round" />
++            <circle cx="64" cy="158" r="17" fill="#73d36d" />
++            <circle cx="262" cy="151" r="22" fill="#56bd57" />
++          </g>
++        </svg>
++      </div>
++    );
+   }
+ 
+-  return {
+-    tone: "emerald",
+-    body: {
+-      en: "HKSAR P1-S6 learning paths are available for the selected DSE course.",
+-      zh: "已選 DSE 課程可使用香港特區小一至中六學習路徑。",
+-      zhHans: "已选 DSE 课程可使用香港特区小一至中六学习路径。"
+-    }
+-  } as const;
++  return (
++    <div aria-hidden="true" className="relative mx-auto h-36 w-full max-w-[16rem] xl:h-40 xl:max-w-[17rem] min-[1800px]:h-44 min-[1800px]:max-w-[18rem]">
++      <svg className="h-full w-full overflow-visible" viewBox="0 0 320 220" fill="none">
++        <defs>
++          <linearGradient id="parentBackdropGradient" x1="64" x2="261" y1="33" y2="169" gradientUnits="userSpaceOnUse">
++            <stop stopColor="#d6f6ec" />
++            <stop offset="1" stopColor="#aee8d8" />
++          </linearGradient>
++          <linearGradient id="parentWallGradient" x1="111" x2="204" y1="70" y2="174" gradientUnits="userSpaceOnUse">
++            <stop stopColor="#ffeec6" />
++            <stop offset="0.52" stopColor="#f8dba4" />
++            <stop offset="1" stopColor="#e9bd77" />
++          </linearGradient>
++          <linearGradient id="parentRoofGradient" x1="91" x2="231" y1="35" y2="102" gradientUnits="userSpaceOnUse">
++            <stop stopColor="#ff7f67" />
++            <stop offset="0.55" stopColor="#f15e4b" />
++            <stop offset="1" stopColor="#d94639" />
++          </linearGradient>
++          <linearGradient id="parentBlueGradient" x1="126" x2="198" y1="102" y2="172" gradientUnits="userSpaceOnUse">
++            <stop stopColor="#3697dc" />
++            <stop offset="1" stopColor="#0e5c98" />
++          </linearGradient>
++          <linearGradient id="parentShrubGradient" x1="51" x2="267" y1="130" y2="187" gradientUnits="userSpaceOnUse">
++            <stop stopColor="#86d97b" />
++            <stop offset="1" stopColor="#57b753" />
++          </linearGradient>
++          <radialGradient id="parentWallHighlight" cx="0" cy="0" r="1" gradientTransform="matrix(61 0 0 68 132 90)" gradientUnits="userSpaceOnUse">
++            <stop stopColor="#fff6d8" stopOpacity="0.88" />
++            <stop offset="1" stopColor="#fff6d8" stopOpacity="0" />
++          </radialGradient>
++          <filter id="parentSoftShadow" x="39" y="21" width="250" height="185" colorInterpolationFilters="sRGB" filterUnits="userSpaceOnUse">
++            <feDropShadow dx="0" dy="14" floodColor="#8a6538" floodOpacity="0.19" stdDeviation="10" />
++          </filter>
++        </defs>
++        <ellipse cx="160" cy="184" rx="102" ry="15" fill="#8f7449" opacity="0.13" />
++        <path
++          d="M68 126c-9-33 9-67 42-78 20-7 40-5 56 5 14-17 38-26 62-20 34 8 57 40 53 74-4 39-40 67-80 62-16 13-38 18-60 13-16-4-30-12-40-23-15 3-29-1-33-33Z"
++          fill="url(#parentBackdropGradient)"
++        />
++        <g filter="url(#parentSoftShadow)">
++          <circle cx="69" cy="161" r="28" fill="url(#parentShrubGradient)" />
++          <circle cx="245" cy="160" r="31" fill="url(#parentShrubGradient)" />
++          <circle cx="96" cy="167" r="20" fill="url(#parentShrubGradient)" />
++          <circle cx="219" cy="173" r="19" fill="url(#parentShrubGradient)" />
++          <path
++            d="M107 84c0-7 6-13 13-13h76c7 0 13 6 13 13v83c0 8-6 14-14 14h-74c-8 0-14-6-14-14V84Z"
++            fill="url(#parentWallGradient)"
++          />
++          <path d="M107 84c0-7 6-13 13-13h76c7 0 13 6 13 13v83c0 8-6 14-14 14h-74c-8 0-14-6-14-14V84Z" fill="url(#parentWallHighlight)" />
++          <path
++            d="M82 86 158 34l83 52-17 17-66-41-62 41-14-17Z"
++            fill="url(#parentRoofGradient)"
++          />
++          <path d="M91 84 158 41l75 43" stroke="url(#parentRoofGradient)" strokeLinecap="round" strokeLinejoin="round" strokeWidth="24" />
++          <path d="M105 84 158 51l61 33" stroke="#ff9a80" strokeLinecap="round" strokeLinejoin="round" strokeWidth="7" opacity="0.38" />
++          <path d="M94 100 158 61l65 39" stroke="#c84235" strokeLinecap="round" strokeLinejoin="round" strokeWidth="7" opacity="0.22" />
++          <path d="M100 92 158 52l64 40" stroke="#ff9a80" strokeLinecap="round" strokeWidth="8" opacity="0.35" />
++          <rect x="206" y="52" width="30" height="59" rx="8" fill="url(#parentRoofGradient)" />
++          <path d="M206 61c11 1 20 1 30-1" stroke="#ff9a80" strokeLinecap="round" strokeWidth="5" opacity="0.35" />
++          <rect x="129" y="118" width="34" height="61" rx="11" fill="url(#parentBlueGradient)" />
++          <circle cx="143" cy="150" r="5.5" fill="#f1a249" />
++          <g fill="url(#parentBlueGradient)">
++            <rect x="176" y="103" width="20" height="24" rx="5" />
++            <rect x="204" y="103" width="20" height="24" rx="5" />
++            <rect x="176" y="134" width="20" height="24" rx="5" />
++            <rect x="204" y="134" width="20" height="24" rx="5" />
++          </g>
++          <g opacity="0.38">
++            <path d="M181 107h12M209 107h11M181 138h12M209 138h11" stroke="#79c7f3" strokeLinecap="round" strokeWidth="3" />
++            <path d="M133 125h25" stroke="#79c7f3" strokeLinecap="round" strokeWidth="3" />
++          </g>
++          <rect x="98" y="173" width="131" height="16" rx="8" fill="#ef654f" />
++          <path d="M104 175h119" stroke="#ff9a80" strokeLinecap="round" strokeWidth="5" opacity="0.45" />
++        </g>
++      </svg>
++    </div>
++  );
++}
++
++function TopChipIcon({ kind, label }: { kind: "book" | "flag" | "grade"; label?: string }) {
++  if (kind === "book") {
++    return (
++      <svg aria-hidden="true" className="h-5 w-5 text-[#1267d8]" viewBox="0 0 24 24" fill="none">
++        <path d="M4 5.5A2.5 2.5 0 0 1 6.5 3H11a2 2 0 0 1 2 2v15a2 2 0 0 0-2-2H6.5A2.5 2.5 0 0 0 4 20.5v-15Z" fill="currentColor" opacity="0.9" />
++        <path d="M20 5.5A2.5 2.5 0 0 0 17.5 3H13a2 2 0 0 0-2 2v15a2 2 0 0 1 2-2h4.5a2.5 2.5 0 0 1 2.5 2.5v-15Z" fill="#f5b829" />
++      </svg>
++    );
++  }
++
++  if (kind === "grade") {
++    return <span className="grid h-5 w-5 place-items-center rounded-full bg-[#eef4ff] text-[0.68rem] font-black text-[#102454]">{label ?? "S"}</span>;
++  }
++
++  return (
++    <svg aria-hidden="true" className="h-5 w-5 text-[#2fbf79]" viewBox="0 0 24 24" fill="none">
++      <path d="M6 20V4" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" />
++      <path d="M8 5h10l-2.5 4L18 13H8V5Z" fill="currentColor" />
++      <path d="M8 5h10l-2.5 4L18 13H8V5Z" fill="#ffd65c" opacity="0.45" />
++    </svg>
++  );
++}
++
++function NumberBlocks() {
++  return (
++    <div aria-hidden="true" className="absolute bottom-6 left-0 hidden h-36 w-[24rem] overflow-visible md:block">
++      <div className="absolute bottom-0 left-0 h-28 w-60 rounded-tr-[80%] bg-[#9dd36f]" />
++      <div className="absolute bottom-0 left-48 h-16 w-32 rounded-t-[100%] bg-[#e7efb4]" />
++      <div className="absolute bottom-9 left-7 grid h-16 w-16 rotate-[-9deg] place-items-center rounded-2xl bg-gradient-to-br from-[#ffd847] to-[#f5aa16] text-5xl font-black text-white shadow-[0_12px_18px_rgba(178,119,8,0.25),inset_6px_6px_9px_rgba(255,255,255,0.36)] [text-shadow:0_3px_0_rgba(145,92,0,0.28)]">
++        2
++      </div>
++      <div className="absolute bottom-5 left-[8.9rem] grid h-14 w-14 rotate-[2deg] place-items-center rounded-xl bg-gradient-to-br from-[#4ba8e8] to-[#1267d8] text-4xl font-black text-white shadow-[0_12px_18px_rgba(18,91,177,0.25),inset_5px_5px_8px_rgba(255,255,255,0.3)]">
++        ×
++      </div>
++      <div className="absolute bottom-8 left-[13.3rem] grid h-[4.4rem] w-[4.4rem] rotate-[9deg] place-items-center rounded-2xl bg-gradient-to-br from-[#ff906f] to-[#e75d42] text-5xl font-black text-white shadow-[0_12px_18px_rgba(182,75,51,0.25),inset_6px_6px_9px_rgba(255,255,255,0.34)] [text-shadow:0_3px_0_rgba(117,49,35,0.24)]">
++        8
++      </div>
++    </div>
++  );
+ }
+ 
+ export default function RegisterPage() {
+-  const { language, register, selectedGrade, t } = useSettings();
++  const { language, register, t } = useSettings();
+   const [accountType, setAccountType] = useState<RegistrationRole>("student");
+   const [studentName, setStudentName] = useState("");
+   const [username, setUsername] = useState("");
+   const [email, setEmail] = useState("");
+-  const [curriculumProfile, setCurriculumProfile] = useState<CurriculumProfile>(() => curriculumProfileForPublisher("HK_UNITED_PRIME_MIA"));
+-  const [registrationGrade, setRegistrationGrade] = useState(selectedGrade);
++  const [curriculumProfile, setCurriculumProfile] = useState<CurriculumProfile>(() => curriculumProfileForPublisher("US_CA_MATH"));
++  const [registrationGrade, setRegistrationGrade] = useState<GradeId>("K");
+   const [password, setPassword] = useState("");
+   const [confirmPassword, setConfirmPassword] = useState("");
+   const [message, setMessage] = useState("");
+   const [isSubmitting, setIsSubmitting] = useState(false);
++  const [activeStep, setActiveStep] = useState<RegisterStepId>("account");
+   const curriculumTrack = curriculumTrackForProfile(curriculumProfile);
+   const isParentRegistration = accountType === "parent";
+-  const contentStatus = contentStatusFor(curriculumProfile);
+-  const contentStatusClassName = contentStatus.tone === "cyan"
+-      ? "border-cyan-300/45 bg-cyan-400/10 text-cyan-800 dark:border-cyan-300/20 dark:text-cyan-100"
+-      : "border-emerald-300/45 bg-emerald-400/10 text-emerald-800 dark:border-emerald-300/20 dark:text-emerald-100";
++  const isTeacherRegistration = accountType === "teacher";
++  const selectedGradeLabel = formatRegistrationGradeLabel(registrationGrade, language, curriculumTrack);
++  const selectedGradeChipBadge = isUnitedStatesRegistrationTrack(curriculumTrack) ? (registrationGrade === "K" ? "K" : "G") : registrationGrade.startsWith("P") ? "P" : "S";
++  const selectedPublisherLabel = t(registerPublisherButtonLabelOverrides[curriculumProfile.publisher] ?? publisherLabels[curriculumProfile.publisher]);
++  const displayedPublisherLabel = selectedPublisherLabel;
++  const curriculumOptionLabel = (publisher: TextbookPublisher) => {
++    const publisherLabel = t(registerPublisherButtonLabelOverrides[publisher] ?? publisherLabels[publisher]);
++
++    return publisherLabel;
++  };
++  const stepOrder: RegisterStepId[] = ["account", "curriculum", "grade", "details"];
++  const availableStepOrder = isParentRegistration ? (["account", "details"] as RegisterStepId[]) : stepOrder;
++  const activeStepIndex = Math.max(0, stepOrder.indexOf(activeStep));
++  const activeAvailableStepIndex = Math.max(0, availableStepOrder.indexOf(activeStep));
++  const canGoPrevious = activeAvailableStepIndex > 0;
++  const canGoNext = activeAvailableStepIndex < availableStepOrder.length - 1;
++  const registerSteps: {
++    id: RegisterStepId;
++    icon: RegisterIconKind;
++    summary: string;
++    title: string;
++    disabled?: boolean;
++  }[] = [
++    {
++      id: "account",
++      icon: "profile",
++      title: t(registerCopy.stepperAccountType),
++      summary: t(
++        isTeacherRegistration
++          ? registerCopy.summaryIdentityTeacherHelp
++          : isParentRegistration
++            ? registerCopy.summaryIdentityParentHelp
++            : registerCopy.summaryIdentityStudentHelp
++      )
++    },
++    {
++      id: "curriculum",
++      icon: "book",
++      title: t(registerCopy.stepperCurriculum),
++      summary: isParentRegistration ? t(registerCopy.stepperConnectChild) : displayedPublisherLabel,
++      disabled: isParentRegistration
++    },
++    {
++      id: "grade",
++      icon: "grade",
++      title: t(registerCopy.stepperGrade),
++      summary: isParentRegistration ? t({ en: "Student only", zh: "學生帳戶適用", zhHans: "学生帐户适用" }) : selectedGradeLabel,
++      disabled: isParentRegistration
++    },
++    {
++      id: "details",
++      icon: "details",
++      title: t(registerCopy.stepperDetails),
++      summary: studentName || t({ en: "Tell us a little more", zh: "告訴我們更多", zhHans: "告诉我们更多" })
++    }
++  ];
++
++  useEffect(() => {
++    if (isParentRegistration && (activeStep === "grade" || activeStep === "curriculum")) {
++      setActiveStep("details");
++    }
++  }, [activeStep, isParentRegistration]);
++
++  const goToStep = (step: RegisterStepId) => {
++    const target = registerSteps.find((item) => item.id === step);
++    if (target?.disabled) return;
++    setActiveStep(step);
++  };
++
++  const goToPreviousStep = () => {
++    if (!canGoPrevious) return;
++    const previousStep = availableStepOrder[activeAvailableStepIndex - 1];
++    if (previousStep) setActiveStep(previousStep);
++  };
++
++  const goToNextStep = () => {
++    if (!canGoNext) return;
++    const nextStep = availableStepOrder[activeAvailableStepIndex + 1];
++    if (nextStep) setActiveStep(nextStep);
++  };
++
++  const handleAccountTypeChange = (role: RegistrationRole) => {
++    setAccountType(role);
++    setMessage("");
++  };
++
++  const detailsDescription = isParentRegistration
++    ? registerCopy.parentPrivacyNote
++    : isTeacherRegistration
++      ? registerCopy.teacherPrivacyNote
++      : registerCopy.stepDetailsHelp;
++  const profileNameLabel = isParentRegistration
++    ? registerCopy.parentName
++    : isTeacherRegistration
++      ? registerCopy.teacherName
++      : registerCopy.studentName;
++  const usernameLabel = isTeacherRegistration ? registerCopy.teacherUsername : registerCopy.username;
++  const successMessage = isParentRegistration
++    ? registerCopy.parentSuccess
++    : isTeacherRegistration
++      ? registerCopy.teacherSuccess
++      : registerCopy.success;
++  const successRedirect = isParentRegistration ? "/parent/connect" : isTeacherRegistration ? "/teacher/dashboard" : "/dashboard";
++
++  const carouselCardStyle = (step: RegisterStepId): CSSProperties => {
++    const stepIndex = stepOrder.indexOf(step);
++    const isActive = activeStep === step;
++
++    return {
++      inset: isActive ? undefined : "0.25rem",
++      opacity: isActive ? 1 : 0,
++      pointerEvents: isActive ? "auto" : "none",
++      position: isActive ? "relative" : "absolute",
++      transform: isActive ? "translateX(0)" : `translateX(${stepIndex < activeStepIndex ? "-2rem" : "2rem"})`
++    };
++  };
++
++  const renderStepActions = ({
++    nextLabel,
++    showBack = true,
++    submit = false
++  }: {
++    nextLabel?: LocalizedText;
++    showBack?: boolean;
++    submit?: boolean;
++  }) => (
++    <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
++      {showBack ? (
++        <button
++          type="button"
++          onClick={goToPreviousStep}
++          className="focus-ring inline-flex h-14 items-center justify-center rounded-2xl border border-[#dae7f6] bg-white px-6 text-sm font-black text-[#33426a] shadow-[0_10px_20px_rgba(18,58,109,0.08)] transition hover:-translate-y-0.5 hover:border-[#b9d5f4]"
++        >
++          {t({ en: "Back", zh: "返回", zhHans: "返回" })}
++        </button>
++      ) : (
++        <span className="hidden sm:block" aria-hidden="true" />
++      )}
++
++      {submit ? (
++        <button
++          type="submit"
++          disabled={isSubmitting}
++          className="focus-ring inline-flex h-16 min-w-[15rem] items-center justify-center gap-8 rounded-[1.05rem] bg-gradient-to-b from-[#1682f2] to-[#075fd4] px-8 text-lg font-black text-white shadow-[0_14px_24px_rgba(5,96,214,0.28),inset_0_1px_0_rgba(255,255,255,0.34)] transition enabled:hover:-translate-y-0.5 enabled:hover:from-[#1e8efb] enabled:hover:to-[#0758c5] disabled:cursor-not-allowed disabled:opacity-55"
++        >
++          {isSubmitting ? t(registerCopy.submitting) : t(registerCopy.submit)}
++          <span aria-hidden="true" className="text-xl leading-none">→</span>
++        </button>
++      ) : (
++        <button
++          type="button"
++          onClick={goToNextStep}
++          className="focus-ring inline-flex h-16 min-w-[15rem] items-center justify-center gap-8 rounded-[1.05rem] bg-gradient-to-b from-[#1682f2] to-[#075fd4] px-8 text-lg font-black text-white shadow-[0_14px_24px_rgba(5,96,214,0.28),inset_0_1px_0_rgba(255,255,255,0.34)] transition hover:-translate-y-0.5 hover:from-[#1e8efb] hover:to-[#0758c5]"
++        >
++          {t(nextLabel ?? registerCopy.nextStep)}
++          <span aria-hidden="true" className="text-xl leading-none">→</span>
++        </button>
++      )}
++    </div>
++  );
+ 
+   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
+     event.preventDefault();
+@@ -231,8 +705,8 @@ export default function RegisterPage() {
+       });
+ 
+       if (result.ok) {
+-        setMessage(t(isParentRegistration ? registerCopy.parentSuccess : registerCopy.success));
+-        window.location.assign(isParentRegistration ? "/parent/connect" : "/dashboard");
++        setMessage(t(successMessage));
++        window.location.assign(successRedirect);
+         return;
+       }
+ 
+@@ -251,253 +725,336 @@ export default function RegisterPage() {
+   };
+ 
+   return (
+-    <div className="page-container py-10 sm:py-14">
+-      <div className="mx-auto grid max-w-6xl gap-6 lg:grid-cols-[minmax(0,1fr)_360px] lg:items-start">
+-        <section className="glass-panel p-6 sm:p-8">
+-          <p className="text-sm font-bold uppercase tracking-[0.24em] text-cyan-500 dark:text-cyan-300">{t(registerCopy.eyebrow)}</p>
+-          <h1 className="mt-3 text-4xl font-black tracking-tight text-slate-950 dark:text-white sm:text-5xl">
+-            {t(registerCopy.title)}
+-          </h1>
+-          <p className="mt-4 max-w-2xl text-base leading-7 text-slate-600 dark:text-slate-300">
+-            <span className="block">{t(registerCopy.subtitle)}</span>
+-            <span className="block">{t(registerCopy.gradePrompt)}</span>
+-            <span className="block">{t(registerCopy.familyPrompt)}</span>
+-          </p>
+-
+-          <form onSubmit={handleSubmit} className="mt-8 grid gap-5">
+-            <section className="rounded-3xl border border-slate-200/80 bg-white/60 p-4 dark:border-white/10 dark:bg-white/[0.05] sm:p-5" aria-labelledby="register-account-type-title">
+-              <p id="register-account-type-title" className="text-sm font-black uppercase tracking-[0.2em] text-cyan-600 dark:text-cyan-300">
+-                {t(registerCopy.accountType)}
+-              </p>
+-              <p className="mt-2 text-sm font-semibold leading-6 text-slate-600 dark:text-slate-300">
+-                {t(registerCopy.accountTypeHelp)}
+-              </p>
+-              <div className="mt-4 grid gap-2 sm:grid-cols-2" role="radiogroup" aria-label={t(registerCopy.accountType)}>
+-                {([
+-                  { role: "student" as const, label: registerCopy.studentAccount },
+-                  { role: "parent" as const, label: registerCopy.parentAccount }
+-                ]).map((item) => {
+-                  const active = accountType === item.role;
+-                  return (
+-                    <button
+-                      key={item.role}
+-                      type="button"
+-                      role="radio"
+-                      aria-checked={active}
+-                      onClick={() => setAccountType(item.role)}
+-                      className={`focus-ring rounded-full px-4 py-3 text-sm font-black transition ${active ? "bg-slate-950 text-white shadow-lg shadow-slate-900/10 dark:bg-white dark:text-slate-950" : "border border-slate-200/80 bg-white/75 text-slate-700 hover:-translate-y-0.5 dark:border-white/10 dark:bg-white/[0.06] dark:text-slate-200"}`}
++    <main data-mais-register-replica className="relative min-h-[calc(100dvh-4.25rem)] overflow-x-hidden bg-[#cceefa] p-3 text-[#081333] sm:p-4 lg:p-5 xl:p-6 min-[1800px]:p-8">
++      <style>{`
++        body:has([data-mais-register-replica]) footer,
++        body:has([data-mais-register-replica]) button[aria-label*="AI Tutor"] {
++          display: none !important;
++        }
++
++        body:has([data-mais-register-replica]) main.flex-1 {
++          padding-bottom: 0 !important;
++        }
++      `}</style>
++      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_8%_8%,rgba(255,255,255,0.86),transparent_24%),radial-gradient(circle_at_88%_20%,rgba(255,255,255,0.65),transparent_22%),linear-gradient(180deg,#d9f5ff_0%,#c8ecf9_100%)]" />
++      <div className="relative mx-auto min-h-[calc(100dvh-5rem)] max-w-[1490px] overflow-hidden rounded-[2rem] border border-white/75 bg-[#f8fdff] shadow-[0_26px_58px_rgba(58,112,151,0.28)] sm:min-h-[calc(100dvh-5.75rem)] lg:min-h-[calc(100dvh-6.5rem)] min-[1800px]:min-h-[calc(100dvh-4rem)]">
++        <div className="absolute inset-y-0 left-0 w-full bg-[linear-gradient(90deg,#eefaff_0%,#f9fdff_28%,#ffffff_28%,#ffffff_100%)]" />
++        <NumberBlocks />
++
++        <div className="relative grid min-h-[calc(100dvh-5rem)] lg:min-h-[calc(100dvh-6.5rem)] lg:grid-cols-[360px_minmax(0,1fr)] min-[1800px]:min-h-[calc(100dvh-4rem)]">
++          <aside className="relative z-10 border-b border-[#d8edf8] px-6 pb-6 pt-8 lg:border-b-0 lg:px-12 lg:pb-28 lg:pt-8 min-[1800px]:pb-40 min-[1800px]:pt-10">
++            <svg aria-hidden="true" className="absolute left-[4.2rem] top-40 hidden h-[32rem] w-24 lg:block" viewBox="0 0 96 520" fill="none">
++              <path d="M53 4C10 20 15 94 54 104c45 12 41 82-4 95-48 14-43 92 5 104 42 11 42 78 0 96-37 16-33 76 5 96" stroke="#aad4ef" strokeWidth="30" strokeLinecap="round" />
++              <path d="M53 4C10 20 15 94 54 104c45 12 41 82-4 95-48 14-43 92 5 104 42 11 42 78 0 96-37 16-33 76 5 96" stroke="white" strokeWidth="5" strokeLinecap="round" strokeDasharray="18 18" />
++            </svg>
++
++            <div className="relative mt-7 grid gap-4 sm:grid-cols-2 lg:mt-8 lg:grid-cols-1 lg:gap-8 min-[1800px]:mt-12 min-[1800px]:gap-11">
++              {registerSteps.map((step, index) => {
++                const isActive = activeStep === step.id;
++                const isComplete = index < activeStepIndex && !step.disabled;
++                return (
++                  <button
++                    key={step.id}
++                    type="button"
++                    disabled={step.disabled}
++                    aria-current={isActive ? "step" : undefined}
++                    onClick={() => goToStep(step.id)}
++                    className={`focus-ring relative flex min-h-[6.5rem] items-center gap-4 rounded-[1.35rem] bg-white px-5 py-4 text-left transition min-[1800px]:min-h-[7.2rem] min-[1800px]:gap-5 ${
++                      isActive
++                        ? "border-2 border-[#116ee4] shadow-[0_14px_28px_rgba(17,110,228,0.18)]"
++                        : "border border-[#e1e9f2] shadow-[0_10px_24px_rgba(35,75,118,0.1)] hover:-translate-y-0.5 hover:border-[#c5d9ef]"
++                    } ${step.disabled ? "cursor-not-allowed opacity-50" : ""}`}
++                  >
++                    <span
++                      className={`absolute -left-3 -top-5 grid h-11 w-11 place-items-center rounded-full border-[5px] border-white text-lg font-black shadow-[0_6px_14px_rgba(36,87,137,0.18)] ${
++                        isActive || isComplete
++                          ? "bg-gradient-to-b from-[#2187f3] to-[#0b62cf] text-white"
++                          : "bg-[#bff4ee] text-[#138896]"
++                      }`}
+                     >
+-                      {t(item.label)}
+-                    </button>
+-                  );
+-                })}
+-              </div>
+-            </section>
+-
+-            {!isParentRegistration ? (
+-            <section className="rounded-3xl border border-cyan-200/70 bg-cyan-50/55 p-4 dark:border-cyan-300/15 dark:bg-cyan-950/20 sm:p-5" aria-labelledby="register-curriculum-title">
+-              <div className="mb-4 flex flex-col gap-2 sm:flex-row sm:items-start sm:justify-between">
+-                <div>
+-                  <p id="register-curriculum-title" className="text-sm font-black uppercase tracking-[0.2em] text-cyan-600 dark:text-cyan-300">
+-                    {t(registerCopy.stepCurriculum)}
+-                  </p>
+-                  <p className="mt-2 text-sm font-semibold leading-6 text-slate-600 dark:text-slate-300">
+-                    {t(registerCopy.stepCurriculumHelp)}
+-                  </p>
+-                </div>
+-              </div>
+-              <CurriculumTrackSelector
+-                value={curriculumProfile}
+-                onChange={setCurriculumProfile}
+-                text={t}
+-                regionChipLabelOverrides={registerRegionChipLabelOverrides}
+-                regionLabelOverrides={registerRegionLabelOverrides}
+-                embedMainlandCoursePicker={false}
+-                courseSelectionMode="buttons"
+-                embedButtonCoursePicker={false}
+-              />
+-            </section>
+-            ) : null}
+-
+-            {!isParentRegistration ? (
+-            <section className="rounded-3xl border border-slate-200/80 bg-white/60 p-4 dark:border-white/10 dark:bg-white/[0.05] sm:p-5" aria-labelledby="register-grade-title">
+-              <p id="register-grade-title" className="text-sm font-black uppercase tracking-[0.2em] text-cyan-600 dark:text-cyan-300">
+-                {t(registerCopy.stepGrade)}
+-              </p>
+-              <p className="mt-2 text-sm font-semibold leading-6 text-slate-600 dark:text-slate-300">
+-                {t(registerCopy.stepGradeHelp)}
+-              </p>
+-              <div className="mt-4">
+-                <GradeSelector compact curriculumTrack={curriculumTrack} value={registrationGrade} onChange={setRegistrationGrade} respectCurrentStudentProfile={false} />
++                      {isComplete ? "✓" : index + 1}
++                    </span>
++                    <span className="grid h-16 w-16 shrink-0 place-items-center rounded-full bg-gradient-to-br from-[#ccfff3] to-[#b8eee5] text-[#10959e] shadow-[inset_6px_6px_14px_rgba(255,255,255,0.9),0_8px_18px_rgba(17,149,158,0.15)] min-[1800px]:h-[4.7rem] min-[1800px]:w-[4.7rem]">
++                      <StepIcon kind={step.icon} className="h-9 w-9 min-[1800px]:h-10 min-[1800px]:w-10" />
++                    </span>
++                    <span className="min-w-0">
++                      <span className="block text-lg font-black leading-tight text-[#07112f]">{step.title}</span>
++                      <span className="mt-2 block text-sm font-semibold leading-5 text-[#33426a]">{step.summary}</span>
++                    </span>
++                  </button>
++                );
++              })}
++            </div>
++          </aside>
++
++          <form onSubmit={handleSubmit} className="relative z-10 min-h-[38rem] rounded-t-[2rem] bg-white px-6 py-7 shadow-[0_0_38px_rgba(49,91,124,0.12)] sm:px-10 lg:min-h-[calc(100dvh-6.5rem)] lg:rounded-l-[2rem] lg:rounded-r-none lg:rounded-t-none lg:px-12 lg:py-8 min-[1800px]:min-h-[40rem] min-[1800px]:px-14 min-[1800px]:py-8">
++            <div className="relative z-10 mx-auto max-w-[960px]">
++              <div className="flex flex-wrap justify-start gap-3 lg:justify-end">
++                <span className="inline-flex h-11 items-center gap-2 rounded-2xl border border-[#cdeee6] bg-[#e3fbf3] px-4 text-sm font-black text-[#286b67] shadow-[0_6px_14px_rgba(30,112,116,0.08)]">
++                  <TopChipIcon kind="flag" />
++                  {t(registerCopy.pathReady)}
++                </span>
++                <span className="inline-flex h-11 items-center gap-2 rounded-2xl border border-[#dfe7f0] bg-white px-4 text-sm font-black text-[#26385f] shadow-[0_6px_14px_rgba(26,62,105,0.08)]">
++                  <TopChipIcon kind="book" />
++                  {displayedPublisherLabel}
++                </span>
++                <span className="inline-flex h-11 items-center gap-2 rounded-full border border-[#dfe7f0] bg-white px-5 text-sm font-black text-[#102454] shadow-[0_6px_14px_rgba(26,62,105,0.08)]">
++                  <TopChipIcon kind="grade" label={selectedGradeChipBadge} />
++                  {selectedGradeLabel}
++                </span>
+               </div>
+-            </section>
+-            ) : null}
+-
+-            <section className="rounded-3xl border border-slate-200/80 bg-white/60 p-4 dark:border-white/10 dark:bg-white/[0.05] sm:p-5" aria-labelledby="register-details-title">
+-              <p id="register-details-title" className="text-sm font-black uppercase tracking-[0.2em] text-cyan-600 dark:text-cyan-300">
+-                {t(registerCopy.stepDetails)}
+-              </p>
+-              <p className="mt-2 text-sm font-semibold leading-6 text-slate-600 dark:text-slate-300">
+-                {t(registerCopy.stepDetailsHelp)}
+-              </p>
+-
+-              <div className="mt-5 grid gap-5">
+-                <label className="grid gap-2">
+-                  <span className="text-sm font-bold text-slate-700 dark:text-slate-200">{t(isParentRegistration ? registerCopy.parentName : registerCopy.studentName)}</span>
+-                  <input
+-                    value={studentName}
+-                    onChange={(event) => setStudentName(event.target.value)}
+-                    autoComplete="name"
+-                    required
+-                    className="focus-ring rounded-2xl border border-slate-200/80 bg-white/80 px-4 py-3 font-semibold text-slate-950 shadow-sm outline-none transition placeholder:text-slate-400 dark:border-white/10 dark:bg-white/[0.06] dark:text-white"
+-                  />
+-                </label>
+-
+-                <div className={`grid gap-5 ${isParentRegistration ? "" : "sm:grid-cols-2"}`}>
+-                  {!isParentRegistration ? (
+-                  <label className="grid gap-2">
+-                    <span className="text-sm font-bold text-slate-700 dark:text-slate-200">{t(registerCopy.username)}</span>
+-                    <input
+-                      value={username}
+-                      onChange={(event) => setUsername(event.target.value)}
+-                      autoComplete="username"
+-                      required
+-                      className="focus-ring rounded-2xl border border-slate-200/80 bg-white/80 px-4 py-3 font-semibold text-slate-950 shadow-sm outline-none transition placeholder:text-slate-400 dark:border-white/10 dark:bg-white/[0.06] dark:text-white"
+-                    />
+-                  </label>
+-                  ) : null}
+-
+-                  <label className="grid gap-2">
+-                    <span className="text-sm font-bold text-slate-700 dark:text-slate-200">{t(registerCopy.email)}</span>
+-                    <input
+-                      value={email}
+-                      onChange={(event) => setEmail(event.target.value)}
+-                      type="email"
+-                      autoComplete="email"
+-                      required
+-                      className="focus-ring rounded-2xl border border-slate-200/80 bg-white/80 px-4 py-3 font-semibold text-slate-950 shadow-sm outline-none transition placeholder:text-slate-400 dark:border-white/10 dark:bg-white/[0.06] dark:text-white"
+-                    />
+-                  </label>
+-                </div>
+-
+-                <div className="grid gap-5 sm:grid-cols-2">
+-                  <label className="grid gap-2">
+-                    <span className="text-sm font-bold text-slate-700 dark:text-slate-200">{t(registerCopy.password)}</span>
+-                    <input
+-                      value={password}
+-                      onChange={(event) => setPassword(event.target.value)}
+-                      type="password"
+-                      autoComplete="new-password"
+-                      required
+-                      minLength={5}
+-                      className="focus-ring rounded-2xl border border-slate-200/80 bg-white/80 px-4 py-3 font-semibold text-slate-950 shadow-sm outline-none transition placeholder:text-slate-400 dark:border-white/10 dark:bg-white/[0.06] dark:text-white"
+-                    />
+-                  </label>
+-
+-                  <label className="grid gap-2">
+-                    <span className="text-sm font-bold text-slate-700 dark:text-slate-200">{t(registerCopy.confirmPassword)}</span>
+-                    <input
+-                      value={confirmPassword}
+-                      onChange={(event) => setConfirmPassword(event.target.value)}
+-                      type="password"
+-                      autoComplete="new-password"
+-                      required
+-                      minLength={5}
+-                      className="focus-ring rounded-2xl border border-slate-200/80 bg-white/80 px-4 py-3 font-semibold text-slate-950 shadow-sm outline-none transition placeholder:text-slate-400 dark:border-white/10 dark:bg-white/[0.06] dark:text-white"
+-                    />
+-                  </label>
+-                </div>
++
++              <div className="relative mt-7 overflow-hidden lg:mt-8 min-[1800px]:mt-8">
++                <section className="transition-all duration-300 ease-out motion-reduce:transition-none" style={carouselCardStyle("account")} aria-labelledby="register-account-type-title" aria-hidden={activeStep !== "account"} inert={activeStep !== "account" ? true : undefined}>
++                  <div className="min-h-[29rem] pb-5 lg:min-h-[31.5rem] min-[1800px]:min-h-[34rem] min-[1800px]:pb-6">
++                    <h1 id="register-account-type-title" className="max-w-none text-4xl font-black leading-[0.98] tracking-normal text-[#07112f] sm:text-5xl lg:whitespace-nowrap lg:text-[3.35rem] min-[1800px]:text-[3.95rem]">
++                      {t(registerCopy.questTitle)}
++                    </h1>
++                    <p className="mt-4 text-xl font-black leading-tight text-[#3c496b] min-[1800px]:mt-5 min-[1800px]:text-2xl">
++                      {t(registerCopy.questSubtitle)}
++                    </p>
++
++                    <div className="mt-6 grid gap-5 xl:grid-cols-3 min-[1800px]:mt-7 min-[1800px]:gap-5" role="radiogroup" aria-label={t(registerCopy.accountType)}>
++                      {([
++                        {
++                          role: "student" as const,
++                          label: registerCopy.studentAccount,
++                          help: {
++                            en: "Experience future-facing personalized learning",
++                            zh: "體驗面向未來的個人化學習",
++                            zhHans: "体验面向未来的个性化学习"
++                          }
++                        },
++                        {
++                          role: "teacher" as const,
++                          label: registerCopy.teacherAccount,
++                          help: {
++                            en: "Experience future-facing personalized teaching",
++                            zh: "體驗面向未來的個人化教學",
++                            zhHans: "体验面向未来的个性化教学"
++                          }
++                        },
++                        {
++                          role: "parent" as const,
++                          label: registerCopy.parentAccount,
++                          help: {
++                            en: "Experience future-facing educational innovation",
++                            zh: "體驗面向未來的教育創新",
++                            zhHans: "体验面向未来的教育创新"
++                          }
++                        }
++                      ]).map((item) => {
++                        const active = accountType === item.role;
++                        return (
++                          <button
++                            key={item.role}
++                            type="button"
++                            role="radio"
++                            aria-checked={active}
++                            onClick={() => handleAccountTypeChange(item.role)}
++                            className={`focus-ring relative min-h-[19.5rem] rounded-[1.7rem] px-5 pb-5 pt-3 text-center transition min-[1800px]:min-h-[21.25rem] min-[1800px]:px-6 min-[1800px]:pb-6 min-[1800px]:pt-3 ${
++                              active
++                                ? "border-2 border-[#116ee4] bg-[#f7fbff] shadow-[0_16px_28px_rgba(17,110,228,0.16)]"
++                                : "border border-[#dfe5ec] bg-white shadow-[0_14px_28px_rgba(34,67,101,0.1)] hover:-translate-y-0.5 hover:border-[#bed4ee]"
++                            }`}
++                          >
++                            {active ? (
++                              <span className="absolute right-5 top-5 grid h-12 w-12 place-items-center rounded-full bg-gradient-to-b from-[#1f83ef] to-[#075dcb] text-3xl font-black text-white shadow-[0_10px_18px_rgba(5,95,208,0.25)]">
++                                ✓
++                              </span>
++                            ) : null}
++                            <RoleIllustration role={item.role} />
++                            <span className="mt-1 block text-2xl font-black leading-tight text-[#07112f] min-[1800px]:mt-2 min-[1800px]:text-3xl">
++                              {t(item.label)}
++                            </span>
++                            <span className="mx-auto mt-2 block max-w-[15.5rem] text-base font-semibold leading-6 text-[#33426a] min-[1800px]:max-w-[16rem]">
++                              {t(item.help)}
++                            </span>
++                          </button>
++                        );
++                      })}
++                    </div>
++
++                    <div className="mt-6 flex justify-center min-[1800px]:mt-7">
++                      <button
++                        type="button"
++                        onClick={goToNextStep}
++                        className="focus-ring inline-flex h-16 w-full max-w-[25rem] items-center justify-center gap-12 rounded-[1.05rem] bg-gradient-to-b from-[#1682f2] to-[#075fd4] px-8 text-xl font-black text-white shadow-[0_16px_26px_rgba(5,96,214,0.3),inset_0_1px_0_rgba(255,255,255,0.36)] transition hover:-translate-y-0.5 hover:from-[#1e8efb] hover:to-[#0758c5] min-[1800px]:max-w-[25rem]"
++                      >
++                        {t({ en: "Continue", zh: "繼續", zhHans: "继续" })}
++                        <span aria-hidden="true" className="text-2xl leading-none min-[1800px]:text-3xl">→</span>
++                      </button>
++                    </div>
++                  </div>
++                </section>
++
++                <section className="transition-all duration-300 ease-out motion-reduce:transition-none" style={carouselCardStyle("curriculum")} aria-labelledby="register-curriculum-title" aria-hidden={activeStep !== "curriculum"} inert={activeStep !== "curriculum" ? true : undefined}>
++                  <div className="min-h-[24rem] rounded-[1.7rem] border border-[#e2eaf4] bg-[#fbfdff] p-6 shadow-[0_14px_28px_rgba(34,67,101,0.08)]">
++                    <h2 id="register-curriculum-title" className="text-4xl font-black leading-tight text-[#07112f]">
++                      {t(registerCopy.flowTitle)}
++                    </h2>
++
++                    <div className="mt-7">
++                      <label className="grid gap-2">
++                        <span className="text-sm font-black uppercase tracking-[0.16em] text-[#116ee4]">
++                          {t(registerCopy.selectedCurriculum)}
++                        </span>
++                        <span className="relative block">
++                          <select
++                            value={curriculumProfile.publisher}
++                            onChange={(event) => {
++                              const nextPublisher = registerCurriculumPublisherOptions.find((publisher) => publisher === event.currentTarget.value);
++                              if (nextPublisher) setCurriculumProfile(curriculumProfileForPublisher(nextPublisher));
++                            }}
++                            className="focus-ring h-16 w-full appearance-none rounded-[1.15rem] border border-[#d9e5f2] bg-white px-5 py-3 pr-14 text-base font-black text-[#07112f] shadow-[0_10px_20px_rgba(18,58,109,0.08)] outline-none transition hover:border-[#b9d5f4]"
++                          >
++                            {registerCurriculumPublisherGroups.map((group) => (
++                              <optgroup key={group.region} label={t(registerRegionLabelOverrides[group.region] ?? regionLabels[group.region])}>
++                                {group.publishers.map((publisher) => (
++                                  <option key={publisher} value={publisher}>
++                                    {curriculumOptionLabel(publisher)}
++                                  </option>
++                                ))}
++                              </optgroup>
++                            ))}
++                          </select>
++                          <span
++                            aria-hidden="true"
++                            className="pointer-events-none absolute inset-y-0 right-4 grid place-items-center text-[#33426a]"
++                          >
++                            <svg viewBox="0 0 16 16" className="h-5 w-5" fill="none">
++                              <path d="M4 6.25 8 10.25l4-4" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" />
++                            </svg>
++                          </span>
++                        </span>
++                      </label>
++                    </div>
++
++                    {renderStepActions({ nextLabel: registerCopy.stepperGrade })}
++                  </div>
++                </section>
++
++                <section className="transition-all duration-300 ease-out motion-reduce:transition-none" style={carouselCardStyle("grade")} aria-labelledby="register-grade-title" aria-hidden={activeStep !== "grade"} inert={activeStep !== "grade" ? true : undefined}>
++                  <div className="min-h-[37rem] rounded-[1.7rem] border border-[#e2eaf4] bg-[#fbfdff] p-6 shadow-[0_14px_28px_rgba(34,67,101,0.08)]">
++                    <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
++                      <div>
++                        <h2 id="register-grade-title" className="text-4xl font-black leading-tight text-[#07112f]">
++                          {t({ en: "Choose your grade", zh: "選擇你的年級", zhHans: "选择你的年级" })}
++                        </h2>
++                      </div>
++                      <span className="inline-flex w-fit rounded-full border border-[#dfe7f0] bg-white px-4 py-2 text-sm font-black text-[#102454] shadow-[0_6px_14px_rgba(26,62,105,0.08)]">
++                        {selectedGradeLabel}
++                      </span>
++                    </div>
++
++                    <div className="mt-7">
++                      <GradeSelector
++                        compact
++                        compactLayout="grouped"
++                        curriculumTrack={curriculumTrack}
++                        value={registrationGrade}
++                        onChange={setRegistrationGrade}
++                        respectCurrentStudentProfile={false}
++                        useUnitedStatesSchoolBands
++                      />
++                    </div>
++
++                    {renderStepActions({ nextLabel: registerCopy.stepperDetails })}
++                  </div>
++                </section>
++
++                <section className="transition-all duration-300 ease-out motion-reduce:transition-none" style={carouselCardStyle("details")} aria-label={t(registerCopy.stepperDetails)} aria-hidden={activeStep !== "details"} inert={activeStep !== "details" ? true : undefined}>
++                  <div className="min-h-[37rem] rounded-[1.7rem] border border-[#e2eaf4] bg-[#fbfdff] p-6 shadow-[0_14px_28px_rgba(34,67,101,0.08)]">
++                    <p className="max-w-2xl text-lg font-semibold leading-8 text-[#44516f]">
++                      {t(detailsDescription)}
++                    </p>
++
++                    <div className="mt-6 grid gap-5">
++                      <label className="grid gap-2">
++                        <span className="text-sm font-bold text-[#33426a]">{t(profileNameLabel)}</span>
++                        <input
++                          value={studentName}
++                          onChange={(event) => setStudentName(event.target.value)}
++                          autoComplete="name"
++                          required
++                          className="focus-ring h-[3.25rem] rounded-2xl border border-[#d9e5f2] bg-white px-4 py-3 font-semibold text-[#07112f] shadow-sm outline-none transition placeholder:text-slate-400"
++                        />
++                      </label>
++
++                      <div className={`grid gap-5 ${isParentRegistration ? "" : "sm:grid-cols-2"}`}>
++                        {!isParentRegistration ? (
++                          <label className="grid gap-2">
++                            <span className="text-sm font-bold text-[#33426a]">{t(usernameLabel)}</span>
++                            <input
++                              value={username}
++                              onChange={(event) => setUsername(event.target.value)}
++                              autoComplete="username"
++                              required
++                              className="focus-ring h-[3.25rem] rounded-2xl border border-[#d9e5f2] bg-white px-4 py-3 font-semibold text-[#07112f] shadow-sm outline-none transition placeholder:text-slate-400"
++                            />
++                          </label>
++                        ) : null}
++
++                        <label className="grid gap-2">
++                          <span className="text-sm font-bold text-[#33426a]">{t(registerCopy.email)}</span>
++                          <input
++                            value={email}
++                            onChange={(event) => setEmail(event.target.value)}
++                            type="email"
++                            autoComplete="email"
++                            required
++                            className="focus-ring h-[3.25rem] rounded-2xl border border-[#d9e5f2] bg-white px-4 py-3 font-semibold text-[#07112f] shadow-sm outline-none transition placeholder:text-slate-400"
++                          />
++                        </label>
++                      </div>
++
++                      <div className="grid gap-5 sm:grid-cols-2">
++                        <div className="grid gap-2">
++                          <label htmlFor="register-password" className="text-sm font-bold text-[#33426a]">{t(registerCopy.password)}</label>
++                          <PasswordInputWithReveal
++                            id="register-password"
++                            value={password}
++                            onChange={(event) => setPassword(event.target.value)}
++                            autoComplete="new-password"
++                            required
++                            minLength={5}
++                            showLabel={t({ en: "Show password", zh: "顯示密碼", zhHans: "显示密码" })}
++                            hideLabel={t({ en: "Hide password", zh: "隱藏密碼", zhHans: "隐藏密码" })}
++                            className="focus-ring h-[3.25rem] rounded-2xl border border-[#d9e5f2] bg-white px-4 py-3 font-semibold text-[#07112f] shadow-sm outline-none transition placeholder:text-slate-400"
++                          />
++                        </div>
++
++                        <div className="grid gap-2">
++                          <label htmlFor="register-confirm-password" className="text-sm font-bold text-[#33426a]">{t(registerCopy.confirmPassword)}</label>
++                          <PasswordInputWithReveal
++                            id="register-confirm-password"
++                            value={confirmPassword}
++                            onChange={(event) => setConfirmPassword(event.target.value)}
++                            autoComplete="new-password"
++                            required
++                            minLength={5}
++                            showLabel={t({ en: "Show confirm password", zh: "顯示確認密碼", zhHans: "显示确认密码" })}
++                            hideLabel={t({ en: "Hide confirm password", zh: "隱藏確認密碼", zhHans: "隐藏确认密码" })}
++                            className="focus-ring h-[3.25rem] rounded-2xl border border-[#d9e5f2] bg-white px-4 py-3 font-semibold text-[#07112f] shadow-sm outline-none transition placeholder:text-slate-400"
++                          />
++                        </div>
++                      </div>
++                    </div>
++
++                    {renderStepActions({ submit: true })}
++                  </div>
++                </section>
+               </div>
+-            </section>
+-
+-            {message ? (
+-              <p role="status" className="rounded-2xl border border-cyan-300/50 bg-cyan-400/10 px-4 py-3 text-sm font-semibold text-cyan-800 dark:border-cyan-300/20 dark:text-cyan-100">
+-                {message}
+-              </p>
+-            ) : null}
+-
+-            <button
+-              type="submit"
+-              disabled={isSubmitting}
+-              className="focus-ring inline-flex w-full justify-center rounded-full bg-slate-950 px-5 py-3 font-black text-white shadow-lg shadow-slate-900/10 transition enabled:hover:-translate-y-1 disabled:cursor-not-allowed disabled:opacity-55 dark:bg-white dark:text-slate-950"
+-            >
+-              {isSubmitting ? t(registerCopy.submitting) : t(registerCopy.submit)}
+-            </button>
+-
+-            <p className="text-sm font-semibold text-slate-500 dark:text-slate-400">
+-              {t(registerCopy.alreadyRegistered)}{" "}
+-              <Link href="/login" className="focus-ring rounded-full px-2 py-1 font-black text-cyan-700 underline-offset-4 transition hover:bg-cyan-400/10 hover:underline dark:text-cyan-200">
+-                {t(registerCopy.login)}
+-              </Link>
+-            </p>
+-          </form>
+-        </section>
+-
+-        <aside className="glass-panel p-6 lg:sticky lg:top-24">
+-          <p className="text-sm font-bold uppercase tracking-[0.22em] text-cyan-500 dark:text-cyan-300">
+-            {t(registerCopy.profilePreview)}
+-          </p>
+-          <p className="mt-2 text-sm font-semibold leading-6 text-slate-600 dark:text-slate-300">
+-            {t(registerCopy.profilePreviewHelp)}
+-          </p>
+-
+-          <div className="mt-6 rounded-3xl border border-slate-200/80 bg-white/70 p-5 shadow-sm shadow-slate-900/5 dark:border-white/10 dark:bg-white/[0.06]">
+-            <p className="text-xs font-black uppercase tracking-[0.18em] text-slate-500 dark:text-slate-400">
+-              {t(isParentRegistration ? registerCopy.parentAccount : dictionary.common.selectedLearner)}
+-            </p>
+-            <p className="mt-2 text-2xl font-black text-slate-950 dark:text-white">
+-              {studentName.trim() || t(isParentRegistration ? registerCopy.parentAccount : dictionary.common.selectedLearner)}
+-            </p>
+-          </div>
+-
+-          {!isParentRegistration ? (
+-          <div className="mt-4 grid gap-3">
+-            <div className="rounded-2xl border border-slate-200/80 bg-white/65 p-4 dark:border-white/10 dark:bg-white/[0.05]">
+-              <p className="text-xs font-black uppercase tracking-[0.18em] text-slate-500 dark:text-slate-400">
+-                {t(registerCopy.selectedCurriculum)}
+-              </p>
+-              <p className="mt-2 text-sm font-black text-slate-950 dark:text-white">
+-                {t(registerRegionLabelOverrides[curriculumProfile.region] ?? { en: "U.S. Curriculum", zh: "美國課程", zhHans: "美国课程" })}
+-              </p>
+-              <p className="mt-1 text-sm font-semibold text-emerald-600 dark:text-emerald-300">
+-                {t(publisherLabels[curriculumProfile.publisher])}
+-              </p>
+-            </div>
+ 
+-            <div className="rounded-2xl border border-slate-200/80 bg-white/65 p-4 dark:border-white/10 dark:bg-white/[0.05]">
+-              <p className="text-xs font-black uppercase tracking-[0.18em] text-slate-500 dark:text-slate-400">
+-                {t(registerCopy.gradeChoice)}
+-              </p>
+-              <p className="mt-2 text-lg font-black text-cyan-700 dark:text-cyan-200">
+-                {formatGradeLabelForCurriculum(registrationGrade, language, curriculumTrack, true)}
+-              </p>
++              {message ? (
++                <p role="status" className="relative z-20 mt-5 rounded-2xl border border-[#b8d7f7] bg-[#eef7ff] px-4 py-3 text-sm font-semibold text-[#17467e]">
++                  {message}
++                </p>
++              ) : null}
+             </div>
+-          </div>
+-          ) : (
+-          <div className="mt-4 rounded-2xl border border-cyan-300/45 bg-cyan-400/10 p-4 text-sm font-semibold leading-6 text-cyan-800 dark:border-cyan-300/20 dark:text-cyan-100">
+-            <p className="text-xs font-black uppercase tracking-[0.18em]">
+-              {t({ en: "Next step", zh: "下一步", zhHans: "下一步" })}
+-            </p>
+-            <p className="mt-2">
+-              {t(registerCopy.parentPrivacyNote)}
+-            </p>
+-          </div>
+-          )}
+-
+-          {!isParentRegistration ? (
+-          <div className={`mt-4 rounded-2xl border p-4 text-sm font-semibold leading-6 ${contentStatusClassName}`}>
+-            <p className="text-xs font-black uppercase tracking-[0.18em]">
+-              {t(registerCopy.contentStatus)}
+-            </p>
+-            <p className="mt-2">
+-              {t(contentStatus.body)}
+-            </p>
+-          </div>
+-          ) : null}
+-
+-          <p className="mt-5 text-sm leading-6 text-slate-600 dark:text-slate-300">{t(isParentRegistration ? registerCopy.parentPrivacyNote : registerCopy.privacyNote)}</p>
+-        </aside>
++          </form>
++        </div>
+       </div>
+-    </div>
++    </main>
+   );
+ }
+diff --git a/app/reset-password/page.tsx b/app/reset-password/page.tsx
+index 8ee2f5acd..fa23a30ba 100644
+--- a/app/reset-password/page.tsx
++++ b/app/reset-password/page.tsx
+@@ -4,6 +4,7 @@ import Link from "next/link";
+ import { useRouter } from "next/navigation";
+ import { FormEvent, useEffect, useState } from "react";
+ import { dictionary, useSettings } from "@/components/providers/AppProviders";
++import { PasswordInputWithReveal } from "@/components/ui/PasswordInputWithReveal";
+ import type { StudentSession } from "@/types";
+ 
+ const resetPasswordCopy = {
+@@ -36,7 +37,7 @@ const resetPasswordCopy = {
+ } as const;
+ 
+ function workspaceForRole(role?: StudentSession["role"]) {
+-  if (role === "teacher" || role === "admin") return "/teacher";
++  if (role === "teacher" || role === "admin") return "/teacher/dashboard";
+   if (role === "parent") return "/parent";
+   return "/dashboard";
+ }
+@@ -106,26 +107,28 @@ export default function ResetPasswordPage() {
+             <div className="grid gap-4 sm:grid-cols-2">
+               <label className="grid gap-2">
+                 <span className="text-sm font-bold text-slate-700 dark:text-slate-200">{t(resetPasswordCopy.password)}</span>
+-                <input
++                <PasswordInputWithReveal
+                   value={password}
+                   onChange={(event) => setPassword(event.target.value)}
+-                  type="password"
+                   autoComplete="new-password"
+                   required
+                   minLength={5}
++                  showLabel={t({ en: "Show new password", zh: "顯示新密碼", zhHans: "显示新密码" })}
++                  hideLabel={t({ en: "Hide new password", zh: "隱藏新密碼", zhHans: "隐藏新密码" })}
+                   className="focus-ring rounded-2xl border border-slate-200/80 bg-white/80 px-4 py-3 font-semibold text-slate-950 shadow-sm outline-none transition placeholder:text-slate-400 dark:border-white/10 dark:bg-white/[0.06] dark:text-white"
+                 />
+               </label>
+ 
+               <label className="grid gap-2">
+                 <span className="text-sm font-bold text-slate-700 dark:text-slate-200">{t(resetPasswordCopy.confirmPassword)}</span>
+-                <input
++                <PasswordInputWithReveal
+                   value={confirmPassword}
+                   onChange={(event) => setConfirmPassword(event.target.value)}
+-                  type="password"
+                   autoComplete="new-password"
+                   required
+                   minLength={5}
++                  showLabel={t({ en: "Show confirm new password", zh: "顯示確認新密碼", zhHans: "显示确认新密码" })}
++                  hideLabel={t({ en: "Hide confirm new password", zh: "隱藏確認新密碼", zhHans: "隐藏确认新密码" })}
+                   className="focus-ring rounded-2xl border border-slate-200/80 bg-white/80 px-4 py-3 font-semibold text-slate-950 shadow-sm outline-none transition placeholder:text-slate-400 dark:border-white/10 dark:bg-white/[0.06] dark:text-white"
+                 />
+               </label>
+diff --git a/components/background/AnimatedMathBackground.tsx b/components/background/AnimatedMathBackground.tsx
+index 4ec277830..def98e5a9 100644
+--- a/components/background/AnimatedMathBackground.tsx
++++ b/components/background/AnimatedMathBackground.tsx
+@@ -1,22 +1,29 @@
+ "use client";
+ 
++import { usePathname } from "next/navigation";
+ import { motion, useReducedMotion } from "@/components/ui/Motion";
+ 
+ const symbols = [
+-  { text: "∫", x: "8%", y: "18%", delay: 0 },
+   { text: "√", x: "72%", y: "68%", delay: 0.4 },
+-  { text: "f(x)", x: "40%", y: "13%", delay: 2.2 },
+   { text: "θ", x: "39%", y: "82%", delay: 1.3 }
+ ];
+ 
+ export function AnimatedMathBackground() {
++  const pathname = usePathname();
+   const reduceMotion = useReducedMotion();
++  const hideSymbols =
++    pathname === "/" ||
++    pathname === "/login" ||
++    pathname === "/register" ||
++    pathname.startsWith("/lesson") ||
++    pathname.startsWith("/student/lessons");
++  const showSymbols = !hideSymbols;
+ 
+   return (
+-    <div aria-hidden="true" className="pointer-events-none fixed inset-0 z-0 overflow-hidden bg-radial-glow">
+-      <div className="absolute inset-0 opacity-[0.08] dark:opacity-[0.12]">
++    <div aria-hidden="true" className="pointer-events-none fixed inset-y-0 left-0 z-0 w-[100dvw] max-w-full overflow-hidden bg-radial-glow">
++      <div className="absolute inset-y-0 left-0 w-full opacity-[0.08] dark:opacity-[0.12]">
+         <div
+-          className="absolute inset-0 animate-gridPan"
++          className="absolute inset-y-0 left-0 w-full animate-gridPan"
+           style={{
+             backgroundImage:
+               "linear-gradient(to right, rgba(148,163,184,.20) 1px, transparent 1px), linear-gradient(to bottom, rgba(148,163,184,.20) 1px, transparent 1px)",
+@@ -24,18 +31,20 @@ export function AnimatedMathBackground() {
+           }}
+         />
+       </div>
+-      <div className="absolute inset-x-0 top-0 h-56 bg-gradient-to-b from-cyan-400/[0.055] to-transparent dark:from-cyan-300/[0.045]" />
+-      {symbols.map((symbol) => (
+-        <motion.div
+-          key={symbol.text}
+-          className="absolute select-none text-4xl font-black text-slate-400/[0.08] dark:text-white/[0.045] md:text-7xl"
+-          style={{ left: symbol.x, top: symbol.y }}
+-          animate={reduceMotion ? undefined : { y: [0, -8, 0] }}
+-          transition={{ duration: 12 + symbol.delay, repeat: Infinity, ease: "easeInOut", delay: symbol.delay }}
+-        >
+-          {symbol.text}
+-        </motion.div>
+-      ))}
++      <div className="absolute left-0 top-0 h-56 w-full bg-gradient-to-b from-cyan-400/[0.055] to-transparent dark:from-cyan-300/[0.045]" />
++      {showSymbols
++        ? symbols.map((symbol) => (
++            <motion.div
++              key={symbol.text}
++              className="absolute select-none text-4xl font-black text-slate-400/[0.08] dark:text-white/[0.045] md:text-7xl"
++              style={{ left: symbol.x, top: symbol.y }}
++              animate={reduceMotion ? undefined : { y: [0, -8, 0] }}
++              transition={{ duration: 12 + symbol.delay, repeat: Infinity, ease: "easeInOut", delay: symbol.delay }}
++            >
++              {symbol.text}
++            </motion.div>
++          ))
++        : null}
+     </div>
+   );
+ }
+diff --git a/components/home/HeroSection.tsx b/components/home/HeroSection.tsx
+index f6b3539eb..a8c7bf0eb 100644
+--- a/components/home/HeroSection.tsx
++++ b/components/home/HeroSection.tsx
+@@ -6,30 +6,36 @@ import pedaNovaMark from "@/components/home/brand-assets/pedanova-mark-transpare
+ import curriculumRoadmapMapIcon from "@/components/home/feature-icons/curriculum-roadmap-map.png";
+ import { dictionary, useSettings } from "@/components/providers/AppProviders";
+ import { gradeIds } from "@/data/grades";
++import { studentRoadmapPath } from "@/lib/roadmapRoutes";
++import { studentVisualizationToolsPath } from "@/lib/visualizationRoutes";
+ import type { Language, LocalizedText } from "@/types";
+ 
+ type MiniStatIcon = "grades" | "labs" | "questions" | "curriculum" | "roadmap" | "gamification" | "games" | "experts";
+ 
+ type HeroSectionProps = {
+   practiceQuestionTotal: number;
++  visualizationLabCount: number;
+ };
+ 
+ const numberFormatter = new Intl.NumberFormat("en-US");
+ 
++function formatRoundedCompactTotal(total: number, unitSize: number) {
++  const roundedTotal = Math.round((total / unitSize) * 10) / 10;
++  return Number.isInteger(roundedTotal) ? String(roundedTotal) : roundedTotal.toFixed(1);
++}
++
+ function formatMiniStatTotal(total: number, language: Language) {
+   if (language !== "en" && total >= 10000) {
+-    const compactWanTotal = Math.floor(total / 1000) / 10;
+-    const label = Number.isInteger(compactWanTotal) ? String(compactWanTotal) : compactWanTotal.toFixed(1);
+     const tenThousandUnit = language === "zh-Hans" ? "万" : "萬";
+ 
+-    return `${label}${tenThousandUnit}`;
++    return `${formatRoundedCompactTotal(total, 10000)}${tenThousandUnit}`;
+   }
+ 
+-  if (total >= 1000) return `${Math.floor(total / 1000)}k`;
++  if (total >= 1000) return `${Math.round(total / 1000)}k`;
+   return numberFormatter.format(total);
+ }
+ 
+-function miniStats(practiceQuestionTotalLabel: string): Array<{
++function miniStats(practiceQuestionTotalLabel: string, visualizationLabTotalLabel: string): Array<{
+   id: string;
+   value: string;
+   label: LocalizedText;
+@@ -43,7 +49,7 @@ function miniStats(practiceQuestionTotalLabel: string): Array<{
+       id: "grades",
+       value: String(gradeIds.length),
+       label: dictionary.home.stats.grades,
+-      href: "/learning-path",
++      href: studentRoadmapPath,
+       icon: "grades",
+       accentBarClassName: "bg-cyan-500",
+       badgeClassName:
+@@ -51,9 +57,9 @@ function miniStats(practiceQuestionTotalLabel: string): Array<{
+     },
+     {
+       id: "labs",
+-      value: "100",
++      value: visualizationLabTotalLabel,
+       label: dictionary.home.stats.labs,
+-      href: "/visualization-lab",
++      href: studentVisualizationToolsPath,
+       icon: "labs",
+       accentBarClassName: "bg-violet-500",
+       badgeClassName:
+@@ -92,7 +98,7 @@ function miniStats(practiceQuestionTotalLabel: string): Array<{
+     {
+       id: "games",
+       value: "2",
+-      label: { en: "Games (Adventure Island and Fishing Master)", zh: "遊戲（探险岛🏖與捕魚達人🎣）", zhHans: "游戏（探险岛🏖与捕鱼达人🎣）" },
++      label: { en: "Games (Adventure Island 🏖 and Fishing Master 🎣)", zh: "遊戲（探险岛🏖與捕魚達人🎣）", zhHans: "游戏（探险岛🏖与捕鱼达人🎣）" },
+       href: "/practice",
+       icon: "games",
+       accentBarClassName: "bg-sky-500",
+@@ -102,8 +108,8 @@ function miniStats(practiceQuestionTotalLabel: string): Array<{
+     {
+       id: "curriculum-roadmaps",
+       value: "14",
+-      label: { en: "Curriculum Roadmaps", zh: "課程路線圖", zhHans: "课程路线图" },
+-      href: "/learning-path",
++      label: { en: "Curriculum Galaxy", zh: "課程星雲圖", zhHans: "课程星云图" },
++      href: studentRoadmapPath,
+       icon: "roadmap",
+       accentBarClassName: "bg-indigo-500",
+       badgeClassName:
+@@ -286,71 +292,69 @@ function PedaNovaEngineCard({ text }: { text: (localized: LocalizedText) => stri
+   return (
+     <aside
+       aria-label="PedaNova TRUST-MAIS adaptive engine status"
+-      className="pedanova-flow-border relative rounded-[1.6rem] p-[2px] shadow-[0_20px_52px_rgba(15,23,42,0.1)] dark:shadow-none"
++      className="pedanova-flow-border relative overflow-visible rounded-[1.6rem] p-[2px] shadow-[0_20px_52px_rgba(15,23,42,0.1)] dark:shadow-none"
+     >
+-      <div className="pedanova-flow-panel relative isolate overflow-hidden rounded-[1.48rem] bg-[linear-gradient(135deg,#ffffff,#f8fafc_52%,#eef2ff)] px-6 py-5 backdrop-blur-xl dark:bg-[linear-gradient(135deg,#0f172a,#1e293b_54%,#312e81)] sm:px-7 sm:py-6 lg:px-8 lg:py-7 xl:px-9">
+-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_88%_10%,rgba(168,85,247,0.18),transparent_34%),radial-gradient(circle_at_8%_90%,rgba(14,165,233,0.16),transparent_30%)] dark:bg-[radial-gradient(circle_at_88%_10%,rgba(168,85,247,0.22),transparent_34%),radial-gradient(circle_at_8%_90%,rgba(34,211,238,0.12),transparent_30%)]" aria-hidden="true" />
+-        <div className="relative flex min-h-full flex-col">
+-        <div className="flex flex-col gap-3 sm:flex-row sm:items-center">
+-          <PedaNovaHeroLogo />
+-          <div className="min-w-0">
+-            <p className="flex flex-wrap gap-x-3 gap-y-1 text-[0.7rem] font-black uppercase leading-4 text-sky-600 dark:text-cyan-200 sm:text-xs">
+-              <span>P E D A N O V A</span>
+-              <span>E D - T E C H</span>
+-            </p>
+-            <h2 className="mt-1.5 text-xl font-black leading-tight text-slate-950 dark:text-white sm:text-[1.35rem]">
+-              {text({ en: "TRUST-MAIS adaptive engine", zh: "TRUST-MAIS 適性引擎", zhHans: "TRUST-MAIS 自适应引擎" })}
+-            </h2>
++      <div className="pedanova-flow-panel relative z-10 isolate overflow-hidden rounded-[1.48rem] bg-[linear-gradient(135deg,#ffffff,#f8fafc_52%,#eef2ff)] px-6 pb-6 pt-5 backdrop-blur-xl dark:bg-[linear-gradient(135deg,#0f172a,#1e293b_54%,#312e81)] sm:px-7 sm:py-6 lg:px-8 lg:py-7 xl:px-9">
++        <div className="pointer-events-none absolute inset-0 z-0 bg-[radial-gradient(circle_at_88%_10%,rgba(168,85,247,0.18),transparent_34%),radial-gradient(circle_at_8%_90%,rgba(14,165,233,0.16),transparent_30%)] dark:bg-[radial-gradient(circle_at_88%_10%,rgba(168,85,247,0.22),transparent_34%),radial-gradient(circle_at_8%_90%,rgba(34,211,238,0.12),transparent_30%)]" aria-hidden="true" />
++        <div className="relative z-10 flex min-h-full flex-col" data-pedanova-card-content>
++          <div className="flex flex-col gap-3 sm:flex-row sm:items-center">
++            <PedaNovaHeroLogo />
++            <div className="min-w-0">
++              <p className="flex flex-wrap gap-x-3 gap-y-1 text-[0.7rem] font-black uppercase leading-4 text-sky-600 dark:text-cyan-200 sm:text-xs">
++                <span>P E D A N O V A</span>
++                <span>E D - T E C H</span>
++              </p>
++              <h2 className="mt-1.5 text-xl font-black leading-tight text-slate-950 dark:text-white sm:text-[1.35rem]">
++                {text({ en: "TRUST-MAIS adaptive engine", zh: "TRUST-MAIS 適性引擎", zhHans: "TRUST-MAIS 自适应引擎" })}
++              </h2>
++            </div>
+           </div>
+-        </div>
+ 
+-        <p className="mt-4 text-base font-semibold leading-7 tracking-normal text-slate-700 dark:text-slate-200 sm:text-[1.05rem]">
+-          {text({
+-            en: "From the TRUST-MAIS adaptive engine to school pilots and cross-border collaboration, PedaNova is moving research-informed design into real learning environments.",
+-            zh: "從 TRUST-MAIS 適性引擎到學校試點與跨境協作，PedaNova 正把研究驅動的設計帶入真實學習環境。",
+-            zhHans: "从 TRUST-MAIS 自适应引擎到学校试点与跨境协作，PedaNova 正把研究驱动的设计带入真实学习环境。"
+-          })}
+-        </p>
+-
+-        <div className="mt-6 divide-y divide-slate-200/80 border-t border-slate-200/80 dark:divide-white/10 dark:border-white/10">
+-          {pedaNovaStatusRows.map((row) => (
+-            <div key={row.id} className="grid gap-2 py-3 sm:grid-cols-[minmax(0,0.8fr)_minmax(0,1.2fr)] sm:items-center">
+-              <p className="text-xl font-black leading-tight text-slate-950 dark:text-white sm:text-[1.35rem]">{text(row.label)}</p>
+-              <p className="text-left text-sm font-bold leading-snug text-slate-500 dark:text-slate-300 sm:max-w-[13.5rem] sm:justify-self-end sm:text-right">{text(row.detail)}</p>
+-            </div>
+-          ))}
++          <p className="mt-4 text-sm font-semibold leading-6 tracking-normal text-slate-700 dark:text-slate-200 sm:text-base sm:leading-6">
++            {text({
++              en: "From the TRUST-MAIS adaptive engine to school pilots and cross-border collaboration, PedaNova is moving research-informed design into real learning environments.",
++              zh: "從 TRUST-MAIS 適性引擎到學校試點與跨境協作，PedaNova 正把研究驅動的設計帶入真實學習環境。",
++              zhHans: "从 TRUST-MAIS 自适应引擎到学校试点与跨境协作，PedaNova 正把研究驱动的设计带入真实学习环境。"
++            })}
++          </p>
++
++          <div className="mt-5 divide-y divide-slate-200/80 border-t border-slate-200/80 dark:divide-white/10 dark:border-white/10 sm:mt-6">
++            {pedaNovaStatusRows.map((row) => (
++              <div key={row.id} className="grid gap-2 py-2.5 sm:grid-cols-[minmax(0,0.8fr)_minmax(0,1.2fr)] sm:items-center sm:py-3">
++                <p className="text-xl font-black leading-tight text-slate-950 dark:text-white sm:text-[1.35rem]">{text(row.label)}</p>
++                <p className="text-left text-sm font-bold leading-snug text-slate-500 dark:text-slate-300 sm:max-w-[13.5rem] sm:justify-self-end sm:text-right">{text(row.detail)}</p>
++              </div>
++            ))}
++          </div>
+         </div>
+       </div>
+-      </div>
+     </aside>
+   );
+ }
+ 
+-export function HeroSection({ practiceQuestionTotal }: HeroSectionProps) {
++export function HeroSection({ practiceQuestionTotal, visualizationLabCount }: HeroSectionProps) {
+   const { language, t, text } = useSettings();
+   const brandText = t(dictionary.home.brand);
+-  const headlineText = t(dictionary.home.headline);
++  const displayHeadlineText = t(dictionary.home.headline);
+   const splitHeadlineLines: [string, string] | null =
+-    language === "en" && headlineText === "Adaptive interactive math learning"
+-      ? ["Adaptive interactive", "math learning"]
+-      : language === "zh-Hans" && headlineText === "小学一年级至高三的自适应互动数学学习平台"
++    language === "en" && displayHeadlineText === "Personalized interactive math learning"
++      ? ["Personalized interactive", "math learning"]
++      : language === "zh-Hans" && displayHeadlineText === "小学一年级至高三的自适应互动数学学习平台"
+         ? ["小学一年级至高三", "自适应互动数学学习平台"]
+-        : language === "zh" && headlineText === "小一至中六互動數學學習平台"
++        : language === "zh" && displayHeadlineText === "小一至中六互動數學學習平台"
+           ? ["小一至中六互動", "數學學習平台"]
+           : null;
+-  const homeMiniStats = miniStats(formatMiniStatTotal(practiceQuestionTotal, language));
++  const homeMiniStats = miniStats(
++    formatMiniStatTotal(practiceQuestionTotal, language),
++    formatMiniStatTotal(visualizationLabCount, language)
++  );
+ 
+   return (
+     <section className="page-container pt-8 sm:pt-10 lg:pt-12">
+       <div className="grid gap-8 lg:grid-cols-[minmax(0,1fr)_minmax(22rem,0.68fr)] lg:items-start xl:gap-10">
+         <div className="max-w-4xl">
+-          <p
+-            className="mb-4 inline-flex rounded-full border border-cyan-400/25 bg-cyan-400/[0.08] px-4 py-2 text-sm font-bold text-cyan-700 dark:text-cyan-200"
+-          >
+-            {t(dictionary.home.eyebrow)}
+-          </p>
+           <h1
+-            aria-label={`${brandText} ${headlineText}`}
++            aria-label={`${brandText} ${displayHeadlineText}`}
+             className="max-w-3xl text-4xl font-black leading-[1.06] tracking-normal text-slate-950 dark:text-white sm:text-5xl lg:text-6xl"
+           >
+             <span className="block">
+@@ -373,7 +377,7 @@ export function HeroSection({ practiceQuestionTotal }: HeroSectionProps) {
+               </span>
+             ) : (
+               <span className="mais-headline-gradient mais-headline-gradient-single block leading-[1.12]">
+-                {headlineText}
++                {displayHeadlineText}
+               </span>
+             )}
+           </h1>
+@@ -444,11 +448,6 @@ export function HeroSection({ practiceQuestionTotal }: HeroSectionProps) {
+             }
+ 
+             .pedanova-flow-border {
+-              isolation: isolate;
+-            }
+-
+-            .pedanova-flow-border::before,
+-            .pedanova-flow-border::after {
+               animation: pedanova-border-spin 3.6s linear infinite;
+               background-image: linear-gradient(
+                 var(--pedanova-border-rotate),
+@@ -457,26 +456,12 @@ export function HeroSection({ practiceQuestionTotal }: HeroSectionProps) {
+                 rgba(78, 0, 194, 0.96) 72%,
+                 rgba(93, 220, 255, 0.98)
+               );
+-              border-radius: inherit;
+-              content: "";
+-              pointer-events: none;
+-              position: absolute;
+-              z-index: 0;
+-            }
+-
+-            .pedanova-flow-border::before {
+-              inset: 0;
+-            }
+-
+-            .pedanova-flow-border::after {
+-              filter: blur(28px);
+-              inset: -1.1rem;
+-              opacity: 0.42;
+-              transform: scale(0.98);
++              isolation: isolate;
++              overflow: visible;
+             }
+ 
+             .pedanova-flow-panel {
+-              z-index: 1;
++              z-index: 10;
+             }
+ 
+             @keyframes pedanova-border-spin {
+@@ -499,9 +484,15 @@ export function HeroSection({ practiceQuestionTotal }: HeroSectionProps) {
+                 background-position: 76% 50%;
+               }
+ 
+-              .pedanova-flow-border::before,
+-              .pedanova-flow-border::after {
++              .pedanova-flow-border {
+                 animation: none;
++                background-image: linear-gradient(
++                  132deg,
++                  rgba(93, 220, 255, 0.98),
++                  rgba(60, 103, 227, 0.96) 43%,
++                  rgba(78, 0, 194, 0.96) 72%,
++                  rgba(93, 220, 255, 0.98)
++                );
+               }
+             }
+           `}</style>
+@@ -513,11 +504,29 @@ export function HeroSection({ practiceQuestionTotal }: HeroSectionProps) {
+           <div
+             className="mt-8 flex flex-col gap-3 sm:flex-row"
+           >
+-            <Link href="/login" className="focus-ring rounded-full bg-slate-950 px-6 py-3 text-center font-bold text-white shadow-sm shadow-slate-950/10 transition hover:-translate-y-1 dark:bg-white dark:text-slate-950">
+-              {t(dictionary.common.startLearning)}
+-            </Link>
+-            <Link href="/visualization-lab" className="focus-ring rounded-full border border-slate-200/80 bg-white/75 px-6 py-3 text-center font-bold text-slate-800 shadow-sm transition hover:-translate-y-1 hover:bg-white dark:border-white/10 dark:bg-white/[0.07] dark:text-white dark:hover:bg-white/[0.12]">
+-              {t(dictionary.common.exploreVisualizations)}
++            <Link
++              href="/login"
++              className="focus-ring group relative inline-flex min-h-[3.75rem] w-full items-center justify-center overflow-visible rounded-full bg-gradient-to-br from-cyan-200 via-emerald-300 to-lime-300 px-5 py-3 text-center font-black text-slate-950 shadow-[0_16px_34px_rgba(8,145,178,0.18),inset_0_1px_0_rgba(255,255,255,0.72)] transition duration-300 hover:-translate-y-1 hover:shadow-[0_22px_46px_rgba(8,145,178,0.26),inset_0_1px_0_rgba(255,255,255,0.82)] active:translate-y-0 active:scale-[0.99] dark:from-cyan-300 dark:via-emerald-300 dark:to-lime-300 sm:w-auto sm:min-w-[20rem] sm:px-6"
++            >
++              <span className="pointer-events-none absolute inset-x-5 bottom-[-0.55rem] h-4 rounded-full bg-cyan-900/10 blur-md transition duration-300 group-hover:translate-y-1 group-hover:bg-cyan-700/15 dark:bg-cyan-200/20" aria-hidden="true" />
++              <span className="pointer-events-none absolute inset-0 rounded-full bg-[linear-gradient(135deg,rgba(255,255,255,0.68),rgba(255,255,255,0)_46%)]" aria-hidden="true" />
++              <span className="pointer-events-none absolute -right-2 -top-2 hidden rounded-full bg-slate-950 px-3 py-1.5 text-xs font-black uppercase leading-none tracking-normal text-white shadow-[0_8px_16px_rgba(15,23,42,0.18)] min-[380px]:inline-flex dark:bg-slate-900">
++                XP
++              </span>
++              <span className="relative flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-white/65 shadow-[inset_0_1px_0_rgba(255,255,255,0.92),0_4px_10px_rgba(15,23,42,0.08)] sm:h-11 sm:w-11" aria-hidden="true">
++                <svg className="h-[64%] w-[64%] translate-y-[3%] text-slate-950" viewBox="0 0 48 48" fill="none">
++                  <path
++                    d="M12.5 25.6 21.2 34.2 36.2 15.8"
++                    stroke="currentColor"
++                    strokeLinecap="round"
++                    strokeLinejoin="round"
++                    strokeWidth="7.2"
++                  />
++                </svg>
++              </span>
++              <span className="relative ml-3 whitespace-nowrap text-lg leading-none sm:text-xl">
++                {t(dictionary.common.startLearning)}
++              </span>
+             </Link>
+           </div>
+         </div>
+diff --git a/components/home/HomePageClient.tsx b/components/home/HomePageClient.tsx
+index 732b29635..8596bfdf5 100644
+--- a/components/home/HomePageClient.tsx
++++ b/components/home/HomePageClient.tsx
+@@ -1,8 +1,8 @@
+ "use client";
+ 
+-import Link from "next/link";
+ import Image, { type StaticImageData } from "next/image";
+ import { HeroSection } from "@/components/home/HeroSection";
++import { PersonalizedPracticeMissionShowcase } from "@/components/practice/PersonalizedPracticeMissionShowcase";
+ import examReadinessIcon from "@/components/home/feature-icons/exam-readiness.png";
+ import geometryExplorerIcon from "@/components/home/feature-icons/geometry-explorer.png";
+ import interactiveGraphsIcon from "@/components/home/feature-icons/interactive-graphs.png";
+@@ -26,13 +26,15 @@ type HomeFeature = {
+ 
+ type HomePageClientProps = {
+   practiceQuestionTotal: number;
++  visualizationLabCount: number;
+ };
+ 
+ const adaptiveLearning = {
+-  title: { en: "Adaptive learning that responds to each student", zh: "回應每位學生的適性學習" },
++  title: { en: "Personalized learning that responds to each student", zh: "回應每位學生的個人化學習", zhHans: "回应每位学生的个性化学习" },
+   description: {
+-    en: "Adaptive learning connects each student's grade, activity, mastery, and mistakes to recommend the right lesson, practice, and review path.",
+-    zh: "適性學習會把學生的年級、活動、掌握度和錯題連起來，推薦合適的課堂、練習與重溫路徑。"
++    en: "Personalized learning connects each student's grade, activity, mastery, and mistakes to recommend the right lesson, practice, and review path.",
++    zh: "個人化學習會把學生的年級、活動、掌握度和錯題連起來，推薦合適的課堂、練習與重溫路徑。",
++    zhHans: "个性化学习会把学生的年级、活动、掌握度和错题连起来，推荐合适的课堂、练习与重温路径。"
+   }
+ };
+ 
+@@ -119,12 +121,12 @@ function FeatureGrid({ items }: { items: HomeFeature[] }) {
+   );
+ }
+ 
+-export function HomePageClient({ practiceQuestionTotal }: HomePageClientProps) {
++export function HomePageClient({ practiceQuestionTotal, visualizationLabCount }: HomePageClientProps) {
+   const { t, text } = useSettings();
+ 
+   return (
+     <>
+-      <HeroSection practiceQuestionTotal={practiceQuestionTotal} />
++      <HeroSection practiceQuestionTotal={practiceQuestionTotal} visualizationLabCount={visualizationLabCount} />
+       <section className="page-container pb-10 pt-16 sm:pb-12 sm:pt-20">
+         <SectionHeader title={text(adaptiveLearning.title)} description={text(adaptiveLearning.description)} />
+         <FeatureGrid items={adaptiveFeatures} />
+@@ -135,21 +137,8 @@ export function HomePageClient({ practiceQuestionTotal }: HomePageClientProps) {
+         <FeatureGrid items={features} />
+       </section>
+ 
+-      <section className="page-container pb-16 sm:pb-24">
+-        <div className="glass-panel relative overflow-hidden p-6 sm:p-8 lg:p-10">
+-          <div className="relative grid gap-8 lg:grid-cols-[1fr_auto] lg:items-center">
+-            <div>
+-              <p className="text-sm font-bold uppercase tracking-[0.24em] text-cyan-500 dark:text-cyan-300">{t(dictionary.home.ctaEyebrow)}</p>
+-              <h2 className="mt-3 text-3xl font-black text-slate-950 dark:text-white">{t(dictionary.home.ctaTitle)}</h2>
+-              <p className="mt-3 max-w-2xl text-slate-600 dark:text-slate-300">
+-                {t(dictionary.home.ctaText)}
+-              </p>
+-            </div>
+-            <Link href="/visualization-lab" className="focus-ring rounded-full bg-gradient-to-r from-cyan-500 to-indigo-500 px-6 py-3 text-center font-black text-white shadow-sm transition hover:-translate-y-1">
+-              {t(dictionary.common.exploreVisualizations)}
+-            </Link>
+-          </div>
+-        </div>
++      <section className="page-container pb-16 pt-2 sm:pb-20">
++        <PersonalizedPracticeMissionShowcase />
+       </section>
+     </>
+   );
+diff --git a/components/layout/Footer.tsx b/components/layout/Footer.tsx
+index b35130617..a53bf5835 100644
+--- a/components/layout/Footer.tsx
++++ b/components/layout/Footer.tsx
+@@ -2,11 +2,10 @@
+ 
+ import { usePathname } from "next/navigation";
+ import { dictionary, useSettings } from "@/components/providers/AppProviders";
++import { isImmersiveStudentPracticeGamePath } from "@/lib/gameBasedLearning";
+ import { isChineseLanguage } from "@/lib/i18n";
+ import { cn } from "@/lib/utils";
+ 
+-const immersiveGameRoutes = ["/practice/fishing-game", "/practice/adventure-island"];
+-
+ function PeterHuLogo({ mark = "PH", compact = false }: { mark?: string; compact?: boolean }) {
+   return (
+     <span
+@@ -75,7 +74,7 @@ function PedaNovaLogo() {
+ export function Footer() {
+   const pathname = usePathname();
+   const { language, t } = useSettings();
+-  const isImmersiveGameRoute = immersiveGameRoutes.some((route) => pathname.startsWith(route));
++  const isImmersiveGameRoute = isImmersiveStudentPracticeGamePath(pathname);
+   return (
+     <footer className={cn(
+       "relative z-10 border-t border-slate-200/70 bg-white/70 py-6 backdrop-blur-xl dark:border-white/10 dark:bg-slate-950/55",
+diff --git a/components/layout/MapLikeLogoMark.tsx b/components/layout/MapLikeLogoMark.tsx
+index f7ca46b5b..2f917db48 100644
+--- a/components/layout/MapLikeLogoMark.tsx
++++ b/components/layout/MapLikeLogoMark.tsx
+@@ -1,19 +1,46 @@
+-import Image from "next/image";
+-import maisLogo from "./mais-logo.png";
+-
+ type MapLikeLogoMarkProps = {
+   className?: string;
+   strokeWidth?: number;
+ };
+ 
+-export function MapLikeLogoMark({ className = "h-10 w-10" }: MapLikeLogoMarkProps) {
++const BRAND_BOOK_BLUE = "#7DD3FC";
++const BRAND_PURPLE = "#A78BFA";
++const BRAND_STAR_YELLOW = "#FACC15";
++const BRAND_RING = "#2F3544";
++const BRAND_WHITE = "#FFFFFF";
++
++export function MapLikeLogoMark({ className = "h-10 w-10", strokeWidth = 3.5 }: MapLikeLogoMarkProps) {
+   return (
+-    <Image
++    <svg
+       aria-hidden="true"
+-      alt=""
+-      className={`${className} object-contain`}
+-      priority
+-      src={maisLogo}
+-    />
++      className={className}
++      fill="none"
++      viewBox="0 0 128 128"
++      xmlns="http://www.w3.org/2000/svg"
++    >
++      <circle cx="64" cy="64" r="58" fill={BRAND_WHITE} stroke={BRAND_RING} strokeWidth={strokeWidth} />
++      <path
++        d="M25 86 49 35l15 33 15-33 24 51"
++        stroke={BRAND_BOOK_BLUE}
++        strokeLinecap="round"
++        strokeLinejoin="round"
++        strokeWidth="10"
++      />
++      <path
++        d="M35 84c19-9 39-9 58 0"
++        stroke={BRAND_PURPLE}
++        strokeLinecap="round"
++        strokeWidth="6"
++        opacity="0.86"
++      />
++      <path
++        d="M94 17c2.1 0 3.8 1.2 4.6 3.2l3.7 9.2 9.2 3.7c2 .8 3.2 2.5 3.2 4.6s-1.2 3.8-3.2 4.6l-9.2 3.7-3.7 9.2c-.8 2-2.5 3.2-4.6 3.2s-3.8-1.2-4.6-3.2l-3.7-9.2-9.2-3.7c-2-.8-3.2-2.5-3.2-4.6s1.2-3.8 3.2-4.6l9.2-3.7 3.7-9.2c.8-2 2.5-3.2 4.6-3.2Z"
++        fill={BRAND_STAR_YELLOW}
++      />
++      <path
++        d="M94 31.5c.8 2.6 2.5 4.3 5.1 5.1-2.6.8-4.3 2.5-5.1 5.1-.8-2.6-2.5-4.3-5.1-5.1 2.6-.8 4.3-2.5 5.1-5.1Z"
++        fill={BRAND_BOOK_BLUE}
++      />
++    </svg>
+   );
+ }
+diff --git a/components/layout/Navbar.tsx b/components/layout/Navbar.tsx
+index 1c83bc4b4..e261e3ea1 100644
+--- a/components/layout/Navbar.tsx
++++ b/components/layout/Navbar.tsx
+@@ -7,11 +7,22 @@ import { dictionary, useSettings } from "@/components/providers/AppProviders";
+ import { MapLikeLogoMark } from "@/components/layout/MapLikeLogoMark";
+ import { LanguageToggle } from "@/components/ui/LanguageToggle";
+ import { ThemeToggle } from "@/components/ui/ThemeToggle";
+-import { guestRecommendedLessonHrefForGrade } from "@/lib/guestLessonLinks";
++import { isImmersiveStudentPracticeGamePath } from "@/lib/gameBasedLearning";
+ import { formatLearnerName } from "@/lib/i18n";
++import { studentLessonsPath } from "@/lib/lessonLinks";
+ import { cn } from "@/lib/utils";
++import { studentVisualizationToolsPath } from "@/lib/visualizationRoutes";
+ 
+-const immersiveGameRoutes = ["/practice/fishing-game", "/practice/adventure-island"];
++function practiceHrefForPathname(pathname: string) {
++  const lessonMatch = pathname.match(/^\/student\/lessons\/([^/]+)/) ?? pathname.match(/^\/lesson\/([^/]+)/);
++  if (!lessonMatch?.[1]) return "/practice";
++
++  try {
++    return `/practice?lesson=${encodeURIComponent(decodeURIComponent(lessonMatch[1]))}`;
++  } catch {
++    return `/practice?lesson=${encodeURIComponent(lessonMatch[1])}`;
++  }
++}
+ 
+ function LogoutIcon() {
+   return (
+@@ -35,7 +46,7 @@ function LogoutIcon() {
+ function MaisLogo() {
+   return (
+     <MapLikeLogoMark
+-      className="h-10 w-10 shrink-0 text-indigo-600 drop-shadow-[0_9px_20px_rgba(79,70,229,0.18)] transition group-hover:scale-105 dark:text-indigo-500"
++      className="h-10 w-10 shrink-0 drop-shadow-[0_9px_20px_rgba(79,70,229,0.18)] transition group-hover:scale-105"
+       strokeWidth={3.5}
+     />
+   );
+@@ -44,56 +55,59 @@ function MaisLogo() {
+ export function Navbar() {
+   const pathname = usePathname();
+   const router = useRouter();
+-  const { currentUser, language, logout, selectedGrade, settingsReady, studentLessonHref, t } = useSettings();
++  const { currentUser, language, logout, studentLessonHref, t } = useSettings();
+   const [open, setOpen] = useState(false);
+   const [isLoggingOut, setIsLoggingOut] = useState(false);
+-  const lessonPending = !settingsReady || (currentUser?.role === "student" && !studentLessonHref);
+-  const lessonHref = !settingsReady
+-    ? ""
+-    : currentUser?.role === "student"
+-      ? studentLessonHref ?? ""
+-      : guestRecommendedLessonHrefForGrade(selectedGrade);
++  const lessonHref = currentUser?.role === "student"
++    ? studentLessonHref ?? studentLessonsPath
++    : currentUser
++      ? studentLessonsPath
++      : `/login?next=${encodeURIComponent(studentLessonsPath)}`;
++  const practiceHref = practiceHrefForPathname(pathname);
+   const primaryNavItems = [
+-    { key: "lesson", href: lessonHref, label: dictionary.lesson.label, activePaths: ["/lesson"], pending: lessonPending },
+-    { key: "adaptive-learning", href: "/adaptive-learning", label: { en: "Adaptive Learning", zh: "適性學習" }, activePaths: ["/adaptive-learning"], pending: false },
+-    { key: "visualization-lab", href: "/visualization-lab", label: dictionary.nav.visualizationLab, activePaths: ["/visualization-lab"], pending: false },
+-    { key: "practice", href: "/practice", label: dictionary.nav.practice, activePaths: ["/practice", "/mistake-book"], pending: false }
++    { key: "lesson", href: lessonHref, label: dictionary.lesson.label, activePaths: [studentLessonsPath] },
++    {
++      key: "personalized-learning",
++      href: "/personalized-learning",
++      label: { en: "Personalized Learning", zh: "個人化學習", zhHans: "个性化学习" },
++      activePaths: ["/personalized-learning", "/adaptive-learning"]
++    },
++    { key: "visualization-lab", href: studentVisualizationToolsPath, label: dictionary.nav.visualizationLab, activePaths: [studentVisualizationToolsPath, "/visualization-lab"] },
++    { key: "practice", href: practiceHref, label: dictionary.nav.practice, activePaths: ["/practice", "/mistake-book"] },
++    { key: "about", href: "/about", label: { en: "About", zh: "關於", zhHans: "关于" }, activePaths: ["/about"] }
+   ];
+   const guestAuthLinks = [
+     {
+       key: "login",
+       href: "/login",
+       label: dictionary.nav.login,
+-      active: pathname.startsWith("/login") || pathname.startsWith("/forgot-password") || pathname.startsWith("/reset-password"),
+-      emphasis: "primary"
++      active: pathname.startsWith("/login") || pathname.startsWith("/forgot-password") || pathname.startsWith("/reset-password")
+     },
+     {
+       key: "register",
+       href: "/register",
+       label: { en: "Register", zh: "註冊" },
+-      active: pathname.startsWith("/register"),
+-      emphasis: "secondary"
++      active: pathname.startsWith("/register")
+     }
+   ] as const;
+   const hasTeacherWorkspace = currentUser?.role === "teacher" || currentUser?.role === "admin";
+   const hasParentWorkspace = currentUser?.role === "parent";
+-  const accountHref = hasTeacherWorkspace ? "/teacher" : hasParentWorkspace ? "/parent" : "/dashboard";
++  const accountHref = hasTeacherWorkspace ? "/teacher/dashboard" : hasParentWorkspace ? "/parent" : "/dashboard";
+   const accountActive = hasTeacherWorkspace
+     ? pathname.startsWith("/teacher")
+     : hasParentWorkspace
+       ? pathname.startsWith("/parent")
+       : pathname.startsWith("/dashboard");
+   const accountLabel = currentUser ? formatLearnerName(currentUser.name, language) : "";
+-  const isImmersiveGameRoute = immersiveGameRoutes.some((route) => pathname.startsWith(route));
++  const isImmersiveGameRoute = isImmersiveStudentPracticeGamePath(pathname);
+   const isActive = (item: (typeof primaryNavItems)[number]) =>
+     item.activePaths.some((activePath) => pathname.startsWith(activePath));
+ 
+   useEffect(() => {
+-    if (!settingsReady) return;
+-    const hrefs = [lessonHref, "/adaptive-learning", "/visualization-lab", "/practice"]
+-      .filter((href): href is string => Boolean(href && href !== "/lesson"));
++    const hrefs = [lessonHref, "/personalized-learning", studentVisualizationToolsPath, practiceHref, "/about"]
++      .filter((href): href is string => Boolean(href && href !== studentLessonsPath));
+     Array.from(new Set(hrefs)).forEach((href) => router.prefetch(href));
+-  }, [lessonHref, router, settingsReady]);
++  }, [lessonHref, practiceHref, router]);
+ 
+   const handleLogout = async () => {
+     if (isLoggingOut) return;
+@@ -110,16 +124,21 @@ export function Navbar() {
+       "sticky top-0 z-50 border-b border-slate-200/70 bg-white/65 backdrop-blur-2xl dark:border-white/10 dark:bg-slate-950/55",
+       isImmersiveGameRoute ? "hidden sm:block" : ""
+     )}>
+-      <nav className="page-container flex h-16 items-center justify-between gap-3 xl:gap-4" aria-label={t({ en: "Main navigation", zh: "主導覽" })}>
+-        <Link href="/" className="focus-ring group flex min-w-0 shrink-0 items-center gap-3 rounded-full" onClick={() => setOpen(false)}>
++      <nav className="page-container flex h-16 items-center justify-between gap-2 xl:gap-4" aria-label={t({ en: "Main navigation", zh: "主導覽" })}>
++        <Link
++          href="/"
++          aria-label={t(dictionary.common.siteName)}
++          className="focus-ring group flex min-h-11 min-w-11 shrink-0 items-center gap-3 rounded-full"
++          onClick={() => setOpen(false)}
++        >
+           <MaisLogo />
+-          <span className="min-w-0">
++          <span className="hidden min-w-0 sm:block">
+             <span className="block whitespace-nowrap text-sm font-black tracking-tight">{t(dictionary.common.siteName)}</span>
+             <span
+               className={cn(
+                 "text-[11px] font-medium text-slate-500 dark:text-slate-400",
+                 language === "en"
+-                  ? "hidden max-w-[15rem] truncate whitespace-nowrap xl:block 2xl:max-w-none"
++                  ? "hidden max-w-[15rem] truncate whitespace-nowrap 2xl:block 2xl:max-w-none"
+                   : "hidden whitespace-nowrap sm:block"
+               )}
+             >
+@@ -133,25 +152,10 @@ export function Navbar() {
+             const active = isActive(item);
+             const className = cn(
+               "focus-ring shrink-0 whitespace-nowrap rounded-full px-2.5 py-2 text-[13px] font-semibold transition xl:px-3 xl:text-sm",
+-              item.pending
+-                ? "cursor-wait text-slate-400 opacity-70 dark:text-slate-500"
+-                : active
+-                  ? "bg-slate-900 text-white shadow-lg shadow-slate-900/10 dark:bg-white dark:text-slate-950"
+-                  : "text-slate-600 hover:bg-slate-900/5 hover:text-slate-950 dark:text-slate-300 dark:hover:bg-white/10 dark:hover:text-white"
++              active
++                ? "bg-cyan-400 text-slate-950 shadow-lg shadow-cyan-500/20"
++                : "text-slate-600 hover:bg-slate-900/5 hover:text-slate-950 dark:text-slate-300 dark:hover:bg-white/10 dark:hover:text-white"
+             );
+-            if (item.pending) {
+-              return (
+-                <button
+-                  key={item.key}
+-                  type="button"
+-                  disabled
+-                  aria-disabled="true"
+-                  className={className}
+-                >
+-                  {t(item.label)}
+-                </button>
+-              );
+-            }
+             return (
+               <Link
+                 key={item.key}
+@@ -168,7 +172,7 @@ export function Navbar() {
+               href={accountHref}
+               aria-current={accountActive ? "page" : undefined}
+               className={cn(
+-                "focus-ring max-w-[12rem] truncate rounded-full px-2.5 py-2 text-[13px] font-semibold transition xl:max-w-[14rem] xl:px-3 xl:text-sm",
++                "focus-ring max-w-[10rem] truncate rounded-full px-2.5 py-2 text-[13px] font-semibold transition 2xl:max-w-[14rem] 2xl:px-3 2xl:text-sm",
+                 accountActive
+                   ? "bg-cyan-400 text-slate-950 shadow-lg shadow-cyan-500/20"
+                   : "border border-cyan-400/35 bg-cyan-400/10 text-cyan-700 hover:bg-cyan-400/20 dark:text-cyan-200"
+@@ -185,13 +189,9 @@ export function Navbar() {
+                   aria-current={link.active ? "page" : undefined}
+                   className={cn(
+                     "focus-ring rounded-full px-3 py-2 text-[13px] font-black leading-none transition duration-200 xl:px-3.5 xl:text-sm",
+-                    link.emphasis === "primary"
+-                      ? link.active
+-                        ? "bg-cyan-400 text-slate-950 shadow-lg shadow-cyan-500/25"
+-                        : "bg-cyan-400 text-slate-950 shadow-md shadow-cyan-500/20 hover:-translate-y-0.5 hover:bg-cyan-300"
+-                      : link.active
+-                        ? "bg-slate-950 text-white shadow-lg shadow-slate-950/10 dark:bg-white dark:text-slate-950"
+-                        : "text-slate-700 hover:bg-slate-950/5 hover:text-slate-950 dark:text-slate-200 dark:hover:bg-white/10 dark:hover:text-white"
++                    link.active
++                      ? "bg-cyan-400 text-slate-950 shadow-lg shadow-cyan-500/25"
++                      : "bg-white text-slate-950 shadow-sm shadow-slate-900/5 hover:-translate-y-0.5 hover:bg-cyan-50 dark:bg-white/[0.08] dark:text-white dark:hover:bg-white/[0.13]"
+                   )}
+                 >
+                   {t(link.label)}
+@@ -201,20 +201,21 @@ export function Navbar() {
+           )}
+         </div>
+ 
+-        <div className="flex shrink-0 items-center gap-1.5 xl:gap-2">
++        <div className="flex shrink-0 items-center gap-1 sm:gap-1.5 xl:gap-2">
+           <LanguageToggle />
+           <ThemeToggle />
+           {currentUser ? (
+             <button
+               type="button"
++              aria-label={t(dictionary.login.logout)}
+               onClick={handleLogout}
+               disabled={isLoggingOut}
+-              className="focus-ring hidden h-11 items-center gap-2 whitespace-nowrap rounded-full border border-cyan-300/45 bg-white px-2.5 pr-3 text-sm font-black text-slate-950 shadow-lg shadow-cyan-500/15 transition hover:-translate-y-0.5 hover:border-cyan-200 hover:bg-cyan-50 disabled:cursor-not-allowed disabled:opacity-55 dark:border-cyan-300/25 dark:bg-white/[0.08] dark:text-white dark:shadow-cyan-950/30 dark:hover:bg-white/[0.13] sm:inline-flex xl:px-3.5 xl:pr-4"
++              className="focus-ring hidden h-11 items-center rounded-full border border-cyan-300/45 bg-white px-2.5 text-sm font-black text-slate-950 shadow-lg shadow-cyan-500/15 transition hover:-translate-y-0.5 hover:border-cyan-200 hover:bg-cyan-50 disabled:cursor-not-allowed disabled:opacity-55 dark:border-cyan-300/25 dark:bg-white/[0.08] dark:text-white dark:shadow-cyan-950/30 dark:hover:bg-white/[0.13] sm:inline-flex 2xl:gap-2 2xl:px-3.5 2xl:pr-4"
+             >
+               <span className="grid h-7 w-7 shrink-0 place-items-center rounded-full bg-cyan-400 text-slate-950 shadow-inner shadow-white/30">
+                 <LogoutIcon />
+               </span>
+-              <span className="whitespace-nowrap">{t(dictionary.login.logout)}</span>
++              <span className="sr-only whitespace-nowrap 2xl:not-sr-only">{t(dictionary.login.logout)}</span>
+             </button>
+           ) : null}
+           <button
+@@ -222,7 +223,7 @@ export function Navbar() {
+             aria-label={t({ en: "Open mobile menu", zh: "開啟手機選單" })}
+             aria-expanded={open}
+             onClick={() => setOpen((current) => !current)}
+-            className="focus-ring inline-flex h-10 w-10 items-center justify-center rounded-full border border-slate-200/70 bg-white/75 shadow-sm lg:hidden dark:border-white/10 dark:bg-white/[0.07]"
++            className="focus-ring inline-flex h-11 w-11 items-center justify-center rounded-full border border-slate-200/70 bg-white/75 shadow-sm lg:hidden dark:border-white/10 dark:bg-white/[0.07]"
+           >
+             <span aria-hidden="true" className="text-xl">{open ? "×" : "≡"}</span>
+           </button>
+@@ -236,25 +237,10 @@ export function Navbar() {
+               const active = isActive(item);
+               const className = cn(
+                 "focus-ring rounded-2xl px-4 py-3 text-sm font-semibold transition",
+-                item.pending
+-                  ? "cursor-wait text-slate-400 opacity-70 dark:text-slate-500"
+-                  : active
+-                    ? "bg-slate-900 text-white dark:bg-white dark:text-slate-950"
+-                    : "text-slate-600 hover:bg-slate-900/5 dark:text-slate-300 dark:hover:bg-white/10"
++                active
++                  ? "bg-cyan-400 text-slate-950 shadow-lg shadow-cyan-500/20"
++                  : "text-slate-600 hover:bg-slate-900/5 dark:text-slate-300 dark:hover:bg-white/10"
+               );
+-              if (item.pending) {
+-                return (
+-                  <button
+-                    key={item.key}
+-                    type="button"
+-                    disabled
+-                    aria-disabled="true"
+-                    className={className}
+-                  >
+-                    {t(item.label)}
+-                  </button>
+-                );
+-              }
+               return (
+                 <Link
+                   key={item.key}
+@@ -291,13 +277,9 @@ export function Navbar() {
+                     aria-current={link.active ? "page" : undefined}
+                     className={cn(
+                       "focus-ring rounded-2xl px-4 py-3 text-center text-sm font-black transition",
+-                      link.emphasis === "primary"
+-                        ? link.active
+-                          ? "bg-cyan-400 text-slate-950 shadow-lg shadow-cyan-500/20"
+-                          : "bg-cyan-400 text-slate-950 shadow-md shadow-cyan-500/15 hover:bg-cyan-300"
+-                        : link.active
+-                          ? "bg-slate-950 text-white dark:bg-white dark:text-slate-950"
+-                          : "border border-slate-200/80 bg-white/70 text-slate-700 hover:bg-slate-950/5 dark:border-white/10 dark:bg-white/[0.06] dark:text-slate-200 dark:hover:bg-white/10"
++                      link.active
++                        ? "bg-cyan-400 text-slate-950 shadow-lg shadow-cyan-500/20"
++                        : "border border-slate-200/80 bg-white text-slate-950 shadow-sm shadow-slate-900/5 hover:bg-cyan-50 dark:border-white/10 dark:bg-white/[0.08] dark:text-white dark:hover:bg-white/[0.13]"
+                     )}
+                   >
+                     {t(link.label)}
+diff --git a/components/layout/StudentBackToTopButton.tsx b/components/layout/StudentBackToTopButton.tsx
+index f00e4a465..366297c8c 100644
+--- a/components/layout/StudentBackToTopButton.tsx
++++ b/components/layout/StudentBackToTopButton.tsx
+@@ -3,7 +3,11 @@
+ import { usePathname } from "next/navigation";
+ import { useEffect, useMemo, useState } from "react";
+ import { useSettings } from "@/components/providers/AppProviders";
++import { isImmersiveStudentPracticeGamePath } from "@/lib/gameBasedLearning";
++import { studentLessonsPath } from "@/lib/lessonLinks";
++import { studentRoadmapPath } from "@/lib/roadmapRoutes";
+ import { cn } from "@/lib/utils";
++import { studentVisualizationToolsPath } from "@/lib/visualizationRoutes";
+ 
+ type ScrollState = {
+   progress: number;
+@@ -11,11 +15,12 @@ type ScrollState = {
+ };
+ 
+ const routesWithPageBackToTop = [
++  "/personalized-learning",
+   "/adaptive-learning",
+-  "/learning-path",
+-  "/lesson",
++  studentRoadmapPath,
++  studentLessonsPath,
+   "/practice",
+-  "/visualization-lab"
++  studentVisualizationToolsPath
+ ];
+ 
+ export function StudentBackToTopButton() {
+@@ -24,7 +29,10 @@ export function StudentBackToTopButton() {
+   const [scrollState, setScrollState] = useState<ScrollState>({ progress: 0, visible: false });
+   const label = t({ en: "Back to top", zh: "返回頂部" });
+   const shouldRender = useMemo(
+-    () => currentUser?.role === "student" && !routesWithPageBackToTop.some((route) => pathname.startsWith(route)),
++    () => currentUser?.role === "student" &&
++      pathname !== "/" &&
++      !routesWithPageBackToTop.some((route) => pathname.startsWith(route)) &&
++      !isImmersiveStudentPracticeGamePath(pathname),
+     [currentUser?.role, pathname]
+   );
+ 
+@@ -90,10 +98,12 @@ export function StudentBackToTopButton() {
+         aria-hidden="true"
+         className="absolute inset-0 rounded-full opacity-95 shadow-[0_18px_50px_rgba(14,165,233,0.28)] transition group-hover:shadow-[0_24px_68px_rgba(217,70,239,0.25)]"
+         style={{
+-          background: `conic-gradient(from -90deg, rgba(34,211,238,0.96) ${scrollState.progress * 360}deg, rgba(148,163,184,0.24) 0deg)`
++          background: `conic-gradient(from -90deg, rgba(34,211,238,0.96) ${scrollState.progress * 360}deg, rgba(148,163,184,0.24) 0deg)`,
++          WebkitMask: "radial-gradient(farthest-side, transparent calc(100% - 3px), #000 0)",
++          mask: "radial-gradient(farthest-side, transparent calc(100% - 3px), #000 0)"
+         }}
+       />
+-      <span aria-hidden="true" className="absolute inset-[3px] rounded-full border border-white/65 bg-white/92 backdrop-blur-xl dark:border-white/15 dark:bg-slate-950/90" />
++      <span aria-hidden="true" className="absolute inset-[3px] rounded-full border border-white/[0.65] bg-white/[0.92] backdrop-blur-xl dark:border-white/[0.15] dark:bg-slate-950/90" />
+       <span aria-hidden="true" className="absolute inset-[7px] rounded-full bg-gradient-to-br from-cyan-400/16 via-white/0 to-fuchsia-400/18 dark:from-cyan-300/20 dark:to-fuchsia-300/16" />
+       <span className="relative flex h-full w-full items-center justify-center text-slate-950 transition group-hover:-translate-y-0.5 dark:text-white">
+         <svg viewBox="0 0 24 24" className="h-6 w-6" fill="none" aria-hidden="true">
+diff --git a/components/ui/LanguageToggle.tsx b/components/ui/LanguageToggle.tsx
+index 04047f613..827e07561 100644
+--- a/components/ui/LanguageToggle.tsx
++++ b/components/ui/LanguageToggle.tsx
+@@ -1,45 +1,163 @@
+ "use client";
+ 
++import { useEffect, useId, useRef, useState } from "react";
+ import { useSettings } from "@/components/providers/AppProviders";
+ import { isChineseLanguage } from "@/lib/i18n";
+ import { cn } from "@/lib/utils";
+ 
+ const languageOptions = [
+-  { value: "en", label: "ENG", ariaLabel: { en: "Use English", zh: "使用英文", zhHans: "使用英文" } },
+-  { value: "zh", label: "繁", ariaLabel: { en: "Use Traditional Chinese", zh: "使用繁體中文", zhHans: "使用繁体中文" } },
+-  { value: "zh-Hans", label: "简", ariaLabel: { en: "Use Simplified Chinese", zh: "使用簡體中文", zhHans: "使用简体中文" } }
++  { value: "en", triggerLabel: "English", menuLabel: "English", ariaLabel: { en: "Use English", zh: "使用英文", zhHans: "使用英文" } },
++  { value: "zh-Hans", triggerLabel: "简体中文", menuLabel: "简体中文", ariaLabel: { en: "Use Simplified Chinese", zh: "使用簡體中文", zhHans: "使用简体中文" } },
++  { value: "zh", triggerLabel: "繁體中文", menuLabel: "繁體中文", ariaLabel: { en: "Use Traditional Chinese", zh: "使用繁體中文", zhHans: "使用繁体中文" } }
+ ] as const;
+ 
+-export function LanguageToggle() {
+-  const { language, setLanguage, t } = useSettings();
++function ChevronIcon({ open }: { open: boolean }) {
++  return (
++    <svg
++      aria-hidden="true"
++      className={cn("h-4 w-4 shrink-0 text-slate-500 transition dark:text-slate-300", open ? "rotate-180" : "")}
++      fill="none"
++      viewBox="0 0 24 24"
++      stroke="currentColor"
++      strokeLinecap="round"
++      strokeLinejoin="round"
++      strokeWidth="2.5"
++    >
++      <path d="m6 9 6 6 6-6" />
++    </svg>
++  );
++}
+ 
++function CheckIcon() {
+   return (
+-    <div
+-      className="inline-flex shrink-0 rounded-full border border-slate-200/70 bg-white/70 p-1 shadow-sm backdrop-blur dark:border-cyan-300/20 dark:bg-white/[0.07]"
+-      aria-label={isChineseLanguage(language) ? "語言選擇" : "Language selector"}
+-      role="group"
++    <svg
++      aria-hidden="true"
++      className="h-5 w-5 shrink-0"
++      fill="none"
++      viewBox="0 0 24 24"
++      stroke="currentColor"
++      strokeLinecap="round"
++      strokeLinejoin="round"
++      strokeWidth="3"
+     >
+-      {languageOptions.map((option) => {
+-        const active = language === option.value;
+-
+-        return (
+-          <button
+-            key={option.value}
+-            type="button"
+-            aria-label={t(option.ariaLabel)}
+-            aria-pressed={active}
+-            onClick={() => setLanguage(option.value)}
+-            className={cn(
+-              "focus-ring min-w-12 whitespace-nowrap rounded-full px-2.5 py-1.5 text-sm font-black transition xl:px-3",
+-              active
+-                ? "bg-cyan-300 text-slate-950 shadow-lg shadow-cyan-400/25 ring-1 ring-cyan-100/70"
+-                : "text-slate-500 hover:bg-slate-900/5 hover:text-slate-950 dark:text-slate-300 dark:hover:bg-white/10 dark:hover:text-white"
+-            )}
+-          >
+-            {option.label}
+-          </button>
+-        );
+-      })}
++      <path d="M20 6 9 17l-5-5" />
++    </svg>
++  );
++}
++
++export function LanguageToggle() {
++  const { currentUser, language, setLanguage, t } = useSettings();
++  const [open, setOpen] = useState(false);
++  const containerRef = useRef<HTMLDivElement>(null);
++  const menuId = useId();
++  const isUnitedStatesCurriculumUser =
++    currentUser?.curriculumProfile?.region === "US" ||
++    currentUser?.curriculumTrack === "US_CA_MATH" ||
++    currentUser?.curriculumTrack === "US_NC_MATH" ||
++    currentUser?.curriculumTrack === "US_AR_MATH" ||
++    currentUser?.curriculumTrack === "US_FL_MATH";
++  const visibleLanguageOptions = isUnitedStatesCurriculumUser
++    ? languageOptions.filter((option) => option.value === "en")
++    : languageOptions;
++
++  useEffect(() => {
++    if (isUnitedStatesCurriculumUser && language !== "en") {
++      setLanguage("en");
++    }
++  }, [isUnitedStatesCurriculumUser, language, setLanguage]);
++
++  useEffect(() => {
++    if (!open) return;
++
++    const handlePointerDown = (event: PointerEvent) => {
++      if (!containerRef.current?.contains(event.target as Node)) {
++        setOpen(false);
++      }
++    };
++    const handleKeyDown = (event: KeyboardEvent) => {
++      if (event.key === "Escape") {
++        setOpen(false);
++      }
++    };
++
++    document.addEventListener("pointerdown", handlePointerDown);
++    document.addEventListener("keydown", handleKeyDown);
++
++    return () => {
++      document.removeEventListener("pointerdown", handlePointerDown);
++      document.removeEventListener("keydown", handleKeyDown);
++    };
++  }, [open]);
++
++  const activeLanguage = visibleLanguageOptions.find((option) => option.value === language) ?? visibleLanguageOptions[0] ?? languageOptions[0];
++  const canChangeLanguage = visibleLanguageOptions.length > 1;
++
++  useEffect(() => {
++    if (!canChangeLanguage) {
++      setOpen(false);
++    }
++  }, [canChangeLanguage]);
++
++  return (
++    <div ref={containerRef} className="relative inline-flex shrink-0">
++      <button
++        type="button"
++        aria-label={isChineseLanguage(language) ? "語言選擇" : "Language selector"}
++        aria-haspopup={canChangeLanguage ? "menu" : undefined}
++        aria-expanded={canChangeLanguage ? open : undefined}
++        aria-controls={canChangeLanguage && open ? menuId : undefined}
++        onClick={() => {
++          if (canChangeLanguage) {
++            setOpen((current) => !current);
++          }
++        }}
++        className={cn(
++          "focus-ring inline-flex h-11 w-fit max-w-[calc(100vw-2rem)] items-center justify-center gap-2 rounded-full border bg-white/[0.82] px-4 text-base font-black text-slate-950 shadow-sm backdrop-blur transition dark:bg-white/[0.08] dark:text-white",
++          open
++            ? "border-cyan-300 shadow-xl shadow-cyan-500/20 ring-4 ring-cyan-300/25 dark:border-cyan-300/40"
++            : "border-slate-200/75 hover:border-cyan-300/60 hover:bg-white dark:border-cyan-300/20 dark:hover:bg-white/[0.12]",
++          canChangeLanguage ? "cursor-pointer" : "cursor-default"
++        )}
++      >
++        <span className="whitespace-nowrap text-left">{activeLanguage.triggerLabel}</span>
++        {canChangeLanguage ? <ChevronIcon open={open} /> : null}
++      </button>
++
++      {canChangeLanguage && open ? (
++        <div
++          id={menuId}
++          role="menu"
++          aria-label={isChineseLanguage(language) ? "語言選單" : "Language menu"}
++          className="absolute right-0 top-[calc(100%+0.65rem)] z-[60] w-[13.5rem] rounded-[1.75rem] border border-slate-200/75 bg-white/[0.96] p-2 shadow-2xl shadow-slate-900/15 ring-1 ring-white/80 backdrop-blur-2xl dark:border-cyan-300/20 dark:bg-slate-950/95 dark:ring-white/10"
++        >
++          {visibleLanguageOptions.map((option) => {
++            const active = language === option.value;
++
++            return (
++              <button
++                key={option.value}
++                type="button"
++                role="menuitemradio"
++                aria-label={t(option.ariaLabel)}
++                aria-checked={active}
++                onClick={() => {
++                  setLanguage(option.value);
++                  setOpen(false);
++                }}
++                className={cn(
++                  "focus-ring flex h-12 w-full items-center justify-between gap-3 rounded-[1.15rem] px-4 text-left text-[15px] font-black transition",
++                  active
++                    ? "bg-cyan-400 text-slate-950 shadow-lg shadow-cyan-500/20"
++                    : "text-slate-600 hover:bg-slate-900/5 hover:text-slate-950 dark:text-slate-200 dark:hover:bg-white/10 dark:hover:text-white"
++                )}
++              >
++                <span>{option.menuLabel}</span>
++                {active ? <CheckIcon /> : <span aria-hidden="true" className="h-5 w-5 shrink-0" />}
++              </button>
++            );
++          })}
++        </div>
++      ) : null}
+     </div>
+   );
+ }
+diff --git a/components/ui/ThemeToggle.tsx b/components/ui/ThemeToggle.tsx
+index 3cddf5eb3..2f4aa371b 100644
+--- a/components/ui/ThemeToggle.tsx
++++ b/components/ui/ThemeToggle.tsx
+@@ -13,7 +13,7 @@ export function ThemeToggle() {
+       type="button"
+       aria-label={t(label)}
+       onClick={toggleTheme}
+-      className="focus-ring inline-flex h-10 w-10 items-center justify-center rounded-full border border-slate-200/70 bg-white/75 text-lg shadow-sm transition hover:-translate-y-0.5 hover:bg-white dark:border-white/10 dark:bg-white/[0.07] dark:hover:bg-white/[0.12]"
++      className="focus-ring inline-flex h-11 w-11 items-center justify-center rounded-full border border-slate-200/70 bg-white/75 text-lg shadow-sm transition hover:-translate-y-0.5 hover:bg-white dark:border-white/10 dark:bg-white/[0.07] dark:hover:bg-white/[0.12]"
+     >
+       <span aria-hidden="true">{theme === "dark" ? "☀️" : "🌙"}</span>
+     </button>

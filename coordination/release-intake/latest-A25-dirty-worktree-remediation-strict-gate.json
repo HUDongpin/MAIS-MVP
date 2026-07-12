@@ -1,0 +1,383 @@
+{
+  "checkedAt": "2026-07-01T10:32:53.038Z",
+  "root": "/Users/dongpinhu/Desktop/MAIS-MVP",
+  "strict": true,
+  "result": "fail",
+  "summary": {
+    "currentTotal": 40,
+    "currentPassed": 25,
+    "strictTotal": 4,
+    "strictPassed": 2
+  },
+  "artifacts": {
+    "dirtyMap": {
+      "generatedAt": "2026-07-01T10:30:43.146Z",
+      "statusSignature": "bc52932ccb01392efc9f6352f297c5430587d214ebcc0b40747dd071d155c6ba",
+      "expandedStatusEntries": 2858
+    },
+    "finalStateLedger": {
+      "entries": 57,
+      "pending": 0,
+      "approved": 57,
+      "invalid": 0
+    },
+    "worktreeLifecycle": {
+      "strict": true,
+      "worktreeCount": 36,
+      "dirtyCount": 28,
+      "divergedCleanCount": 5,
+      "openDecisions": 33
+    }
+  },
+  "failures": [
+    "A25 remaining strict blocker authorization packet current failed",
+    "A25 physical closure authorization queue current failed",
+    "A25 dirty-worktree closure execution sequence current failed",
+    "A25 Wave 01 governance readiness current failed",
+    "A25 Wave 01 package resync approval requests current failed",
+    "A25 Wave 02 shared contract readiness current failed",
+    "A25 Wave 03 shell dashboard roadmap readiness current failed",
+    "A25 Wave 04 practice lesson content readiness current failed",
+    "A25 Wave 05 visualization AI runtime readiness current failed",
+    "A25 Wave 06 final root lifecycle readiness current failed",
+    "A25 dirty-worktree blocker report index current failed",
+    "A25 owner package readiness blocker matrix current failed",
+    "A25 owner package blocker routing current failed",
+    "A25 no dirty root deploy evidence current failed",
+    "A25 dirty-worktree remediation completion audit current failed",
+    "A22 release-source clean gate failed",
+    "A25 strict worktree lifecycle gate failed"
+  ],
+  "currentChecks": [
+    {
+      "name": "A25 dirty-tree map current",
+      "command": "npm run release:dirty-map -- --assert-current --max-age-minutes 60",
+      "status": 0,
+      "passed": true,
+      "stdout": "> hk-math-lab-template@0.1.0 release:dirty-map\n> node scripts/refresh-dirty-tree-map.mjs --assert-current --max-age-minutes 60\nA25 dirty-tree map is current for runtime release preflight\nLatest map: coordination/release-intake/latest-A25-dirty-tree-map.json\nExpanded status entries: 2858"
+    },
+    {
+      "name": "A25 owner pathspecs current",
+      "command": "node coordination/release-intake/assert-owner-pathspecs-current.mjs",
+      "status": 0,
+      "passed": true,
+      "stdout": "A25 owner pathspec current gate passed\nOwners checked: 24"
+    },
+    {
+      "name": "A25 unmapped runtime proposals current",
+      "command": "node coordination/release-intake/assert-unmapped-owner-proposals-current.mjs",
+      "status": 0,
+      "passed": true,
+      "stdout": "A25 unmapped owner proposal gate passed\nCovered paths: 0\nProposed owner buckets: 0"
+    },
+    {
+      "name": "A25 unmapped manual proposals current",
+      "command": "node coordination/release-intake/assert-unmapped-manual-proposals-current.mjs",
+      "status": 0,
+      "passed": true,
+      "stdout": "A25 unmapped manual proposal gate passed\nCovered paths: 0\nProposed owner buckets: 0"
+    },
+    {
+      "name": "A25 effective owner overlay current",
+      "command": "node coordination/release-intake/assert-effective-owner-overlay-current.mjs",
+      "status": 0,
+      "passed": true,
+      "stdout": "A25 effective owner overlay gate passed\nEffective owners: 24\nOverlay entries: 2858"
+    },
+    {
+      "name": "A25 effective disposition queue current",
+      "command": "node coordination/release-intake/assert-effective-disposition-queue-current.mjs",
+      "status": 0,
+      "passed": true,
+      "stdout": "A25 effective disposition queue gate passed\nQueue items: 24"
+    },
+    {
+      "name": "A25 worktree lifecycle inventory current",
+      "command": "node coordination/release-intake/assert-worktree-lifecycle.mjs",
+      "status": 0,
+      "passed": true,
+      "stdout": "A25 worktree lifecycle gate\nWorktrees: 36\nPrunable: 0\nDirty open decisions: 28\nClean diverged open decisions: 5\nOpen decisions:\n- main: dirty (2858 entries)\n... 25 lines omitted ...\n- codex/A22-p1-release-hygiene-security: dirty (27 entries)\n- codex/A22-us-region-alignment: behind 0, ahead 1\n- codex/A25-dirty-closure-governance: dirty (1018 entries)\n- codex/A25-full-dirty-compose-verification: dirty (2423 entries)\n- codex/visualization-production-release: dirty (16 entries)\n- codex/california-practice-beta-clean: behind 12, ahead 1\n- codex/s22-release-hygiene-2026-06-15: behind 12, ahead 1"
+    },
+    {
+      "name": "A25 physical lifecycle blocker coverage current",
+      "command": "node coordination/release-intake/assert-physical-lifecycle-blocker-coverage-current.mjs",
+      "status": 0,
+      "passed": true,
+      "stdout": "A25 physical lifecycle blocker coverage gate\nOpen decisions: 33\nCovered blocker rows: 33\nFailures: 0"
+    },
+    {
+      "name": "A25 remaining strict blocker authorization packet current",
+      "command": "node coordination/release-intake/assert-remaining-strict-blocker-authorization-packet-current.mjs",
+      "status": 1,
+      "passed": false,
+      "stdout": "A25 remaining strict blocker authorization packet gate\nRemaining strict blockers: 2\nPhysical approvals needed: 33\nFailures: 4",
+      "stderr": "A25 remaining strict blocker authorization packet gate failed.\n- packet dirty-map signature is stale\n- packet expanded status count is stale\n- packet releaseSourceDirtyEntries is stale\n- physical:root-main: currentBlocker is stale"
+    },
+    {
+      "name": "A25 physical closure authorization queue current",
+      "command": "node coordination/release-intake/assert-physical-closure-authorization-queue-current.mjs",
+      "status": 1,
+      "passed": false,
+      "stdout": "A25 physical closure authorization queue gate\nOwner package approvals: 24\nPhysical lifecycle approvals: 33\nFailures: 9",
+      "stderr": "A25 physical closure authorization queue gate failed.\n- queue dirty-map signature is stale\n- queue expanded dirty entry count is stale\n- remaining strict packet dirty-map signature is stale\n- remaining strict packet expanded dirty entry count is stale\n- queue owner package approval timestamp is stale\n- queue physical lifecycle approval timestamp is stale\n- queue action runbook timestamp is stale\n- a25-git-hygiene-and-release-intake: entries are stale\n- root-main: currentBlocker is stale"
+    },
+    {
+      "name": "A25 dirty-worktree closure execution sequence current",
+      "command": "node coordination/release-intake/assert-dirty-worktree-closure-execution-sequence-current.mjs",
+      "status": 1,
+      "passed": false,
+      "stdout": "A25 dirty-worktree closure execution sequence gate\nWaves: 6\nTotal approvals: 57\nFailures: 5",
+      "stderr": "A25 dirty-worktree closure execution sequence gate failed.\n- authorization queue dirty-map signature is stale\n- authorization queue expanded dirty entry count is stale\n- sequence dirty-map signature is stale\n- sequence expanded dirty entry count is stale\n- sequence action runbook timestamp is stale"
+    },
+    {
+      "name": "A25 Wave 01 governance readiness current",
+      "command": "node coordination/release-intake/assert-wave01-governance-readiness-current.mjs",
+      "status": 1,
+      "passed": false,
+      "stdout": "A25 Wave 01 governance readiness gate\nCommit ready: no\nFailures: 4",
+      "stderr": "A25 Wave 01 governance readiness gate failed.\n- readiness dirty-map signature is stale\n- readiness expanded dirty entry count is stale\n- readiness pathspec checksum is stale\n- readiness pathspec allowed path count is stale"
+    },
+    {
+      "name": "A25 Wave 01 package resync approval requests current",
+      "command": "node coordination/release-intake/assert-wave01-package-resync-approval-requests-current.mjs",
+      "status": 1,
+      "passed": false,
+      "stdout": "A25 Wave 01 package resync approval-request gate\nRequests: 7\nFailures: 2",
+      "stderr": "A25 Wave 01 package resync approval-request gate failed.\n- approval packet dirty-map signature is stale\n- approval packet expanded dirty entry count is stale"
+    },
+    {
+      "name": "A25 Wave 02 shared contract readiness current",
+      "command": "node coordination/release-intake/assert-wave02-shared-contract-readiness-current.mjs",
+      "status": 1,
+      "passed": false,
+      "stdout": "A25 Wave 02 shared contract readiness gate\nCommit ready: no\nFailures: 2",
+      "stderr": "A25 Wave 02 shared contract readiness gate failed.\n- readiness dirty-map signature is stale\n- readiness expanded dirty entry count is stale"
+    },
+    {
+      "name": "A25 Wave 03 shell dashboard roadmap readiness current",
+      "command": "node coordination/release-intake/assert-wave03-shell-dashboard-roadmap-readiness-current.mjs",
+      "status": 1,
+      "passed": false,
+      "stdout": "A25 Wave 03 shell dashboard roadmap readiness gate\nCommit ready: no\nFailures: 2",
+      "stderr": "A25 Wave 03 shell dashboard roadmap readiness gate failed.\n- readiness dirty-map signature is stale\n- readiness expanded dirty entry count is stale"
+    },
+    {
+      "name": "A25 Wave 04 practice lesson content readiness current",
+      "command": "node coordination/release-intake/assert-wave04-practice-lesson-content-readiness-current.mjs",
+      "status": 1,
+      "passed": false,
+      "stdout": "A25 Wave 04 practice lesson content readiness gate\nCommit ready: no\nFailures: 2",
+      "stderr": "A25 Wave 04 practice lesson content readiness gate failed.\n- readiness dirty-map signature is stale\n- readiness expanded dirty entry count is stale"
+    },
+    {
+      "name": "A25 Wave 05 visualization AI runtime readiness current",
+      "command": "node coordination/release-intake/assert-wave05-visualization-ai-runtime-readiness-current.mjs",
+      "status": 1,
+      "passed": false,
+      "stdout": "A25 Wave 05 visualization AI runtime readiness gate\nCommit ready: no\nFailures: 2",
+      "stderr": "A25 Wave 05 visualization AI runtime readiness gate failed.\n- readiness dirty-map signature is stale\n- readiness expanded dirty entry count is stale"
+    },
+    {
+      "name": "A25 Wave 06 final root lifecycle readiness current",
+      "command": "node coordination/release-intake/assert-wave06-final-root-lifecycle-readiness-current.mjs",
+      "status": 1,
+      "passed": false,
+      "stdout": "A25 Wave 06 final root lifecycle readiness gate\nFinal closure ready: no\nFailures: 6",
+      "stderr": "A25 Wave 06 final root lifecycle readiness gate failed.\n- readiness dirty-map signature is stale\n- readiness expanded dirty entry count is stale\n- physicalQueueCurrent: passed flag is stale\n- physicalQueueCurrent: status is stale\n- remainingStrictPacketCurrent: passed flag is stale\n- remainingStrictPacketCurrent: status is stale"
+    },
+    {
+      "name": "A25 linked-worktree archive evidence current",
+      "command": "node coordination/release-intake/assert-linked-worktree-archive-evidence-current.mjs",
+      "status": 0,
+      "passed": true,
+      "stdout": "A25 linked-worktree archive evidence gate\nOpen linked decisions: 32\nFailures: 0"
+    },
+    {
+      "name": "A25 lifecycle decision requests current",
+      "command": "node coordination/release-intake/assert-lifecycle-decision-requests-current.mjs",
+      "status": 0,
+      "passed": true,
+      "stdout": "A25 lifecycle decision requests gate\nStrict: no\nRequests: 4\nOpen decisions: 0"
+    },
+    {
+      "name": "A25 lifecycle decision ledger current",
+      "command": "node coordination/release-intake/assert-lifecycle-decision-ledger-current.mjs",
+      "status": 0,
+      "passed": true,
+      "stdout": "A25 lifecycle decision ledger gate\nStrict: no\nDecisions: 4\nOpen decisions: 0"
+    },
+    {
+      "name": "A25 owner approval matrix current",
+      "command": "node coordination/release-intake/assert-owner-approval-matrix-current.mjs",
+      "status": 0,
+      "passed": true,
+      "stdout": "A25 owner approval matrix gate\nStrict: no\nRows: 4\nPending approvals: 0"
+    },
+    {
+      "name": "A25 lifecycle closure runbook current",
+      "command": "node coordination/release-intake/assert-lifecycle-closure-runbook-current.mjs",
+      "status": 0,
+      "passed": true,
+      "stdout": "A25 lifecycle closure runbook gate\nStrict: no\nClosure plans: 4\nOpen decisions: 0"
+    },
+    {
+      "name": "A19 secret/env quarantine clean",
+      "command": "node coordination/release-intake/assert-secret-env-quarantine.mjs",
+      "status": 0,
+      "passed": true,
+      "stdout": "A25 secret/env quarantine gate passed\nEnv status entries: 0\nBlocked secret entries: 0"
+    },
+    {
+      "name": "A25 disposition evidence current",
+      "command": "node coordination/release-intake/assert-disposition-evidence-current.mjs",
+      "status": 0,
+      "passed": true,
+      "stdout": "A25 disposition evidence current gate passed\nEvidence checks: 3"
+    },
+    {
+      "name": "A25 physical lifecycle approval requests current",
+      "command": "node coordination/release-intake/assert-physical-lifecycle-approval-requests-current.mjs",
+      "status": 0,
+      "passed": true,
+      "stdout": "A25 physical lifecycle approval requests gate\nRequests: 33\nExpanded dirty entries: 2858"
+    },
+    {
+      "name": "A25 owner package approval requests current",
+      "command": "node coordination/release-intake/assert-owner-package-approval-requests-current.mjs",
+      "status": 0,
+      "passed": true,
+      "stdout": "A25 owner package approval requests gate\nRequests: 24\nExpanded dirty entries: 2858"
+    },
+    {
+      "name": "A25 dirty-worktree final-state ledger current",
+      "command": "node coordination/release-intake/assert-dirty-worktree-final-state-ledger-current.mjs",
+      "status": 0,
+      "passed": true,
+      "stdout": "A25 dirty-worktree final-state ledger gate\nStrict: no\nLedger entries: 57\nPending decisions: 0"
+    },
+    {
+      "name": "A25 dirty-worktree final-state owner decision packet current",
+      "command": "node coordination/release-intake/assert-dirty-worktree-final-state-owner-decision-packet-current.mjs",
+      "status": 0,
+      "passed": true,
+      "stdout": "A25 dirty-worktree final-state owner decision packet gate\nDecisions: 57\nFailures: 0"
+    },
+    {
+      "name": "A25 dirty-worktree final-state selection draft current",
+      "command": "node coordination/release-intake/assert-dirty-worktree-final-state-selection-draft-current.mjs",
+      "status": 0,
+      "passed": true,
+      "stdout": "A25 dirty-worktree final-state selection draft gate\nDecisions: 57\nReal selection present: yes\nFailures: 0"
+    },
+    {
+      "name": "A25 dirty-worktree final-state action runbook current",
+      "command": "node coordination/release-intake/assert-dirty-worktree-final-state-action-runbook-current.mjs",
+      "status": 0,
+      "passed": true,
+      "stdout": "A25 dirty-worktree final-state action runbook gate\nActions: 57\nExecutable now: 0\nFailures: 0"
+    },
+    {
+      "name": "A25 dirty-worktree blocker report index current",
+      "command": "node coordination/release-intake/assert-dirty-worktree-blocker-report-index-current.mjs",
+      "status": 1,
+      "passed": false,
+      "stdout": "A25 dirty-worktree blocker report index gate\nBlocker reports: 57\nRecorded blockers: 57\nFailures: 5",
+      "stderr": "A25 dirty-worktree blocker report index gate failed.\n- blocker report index dirty-map signature is stale\n- blocker report index expanded status count is stale\n- blocker report index action-runbook timestamp is stale\n- owner-package:a25-git-hygiene-and-release-intake: currentBlocker is stale\n- physical:root-main: currentBlocker is stale"
+    },
+    {
+      "name": "A25 owner package readiness blocker matrix current",
+      "command": "node coordination/release-intake/assert-owner-package-readiness-blocker-matrix-current.mjs",
+      "status": 1,
+      "passed": false,
+      "stdout": "A25 owner package readiness blocker matrix gate\nRows: 16\nBlocked rows: 15\nFailures: 9",
+      "stderr": "A25 owner package readiness blocker matrix gate failed.\n- matrix dirty-map signature is stale\n- matrix expanded status count is stale\n- matrix owner-package approval timestamp is stale\n- wave-01-governance-release-hygiene is stale relative to dirty map\n- wave-02-shared-contracts is stale relative to dirty map\n- wave-03-shell-dashboard-roadmap is stale relative to dirty map\n- wave-04-practice-lesson-content is stale relative to dirty map\n- wave-05-visualization-ai-runtime is stale relative to dirty map\n- wave-06-final-root-and-compose-lifecycle is stale relative to dirty map"
+    },
+    {
+      "name": "A25 owner package blocker routing current",
+      "command": "node coordination/release-intake/assert-owner-package-blocker-routing-current.mjs",
+      "status": 1,
+      "passed": false,
+      "stdout": "A25 owner package blocker routing gate\nRouting rows: 15\nFailures: 3",
+      "stderr": "A25 owner package blocker routing gate failed.\n- routing dirty-map signature is stale\n- routing expanded status count is stale\n- source matrix is stale relative to dirty map"
+    },
+    {
+      "name": "A25 dirty-worktree final-state selection template current",
+      "command": "node coordination/release-intake/assert-dirty-worktree-final-state-selection-template-current.mjs",
+      "status": 0,
+      "passed": true,
+      "stdout": "A25 dirty-worktree final-state selection template gate\nTemplate decisions: 57\nExpanded dirty entries: 2858"
+    },
+    {
+      "name": "A25 dirty-worktree final-state selection current",
+      "command": "node coordination/release-intake/assert-dirty-worktree-final-state-selection-current.mjs",
+      "status": 0,
+      "passed": true,
+      "stdout": "A25 dirty-worktree final-state selection gate\nStrict: no\nSelection file: present\nTemplate decisions: 57\nComplete selections: 57"
+    },
+    {
+      "name": "A25 dirty-worktree recurrence prevention current",
+      "command": "node coordination/release-intake/assert-dirty-worktree-recurrence-prevention-current.mjs",
+      "status": 0,
+      "passed": true,
+      "stdout": "A25 dirty-worktree recurrence-prevention currentness gate\nChecks: 9/9\nFailures: 0"
+    },
+    {
+      "name": "A25 dirty-worktree remediation refresh runner current",
+      "command": "node coordination/release-intake/assert-dirty-worktree-remediation-refresh-runner-current.mjs",
+      "status": 0,
+      "passed": true,
+      "stdout": "A25 dirty-worktree remediation refresh-runner gate\nSteps: 45\nFailures: 0"
+    },
+    {
+      "name": "A25 no dirty root deploy evidence current",
+      "command": "node coordination/release-intake/assert-no-dirty-root-deploy-evidence-current.mjs",
+      "status": 1,
+      "passed": false,
+      "stdout": "A25 no-dirty-root-deploy evidence gate\nPassed: no\nFailures: 1",
+      "stderr": "A25 no-dirty-root-deploy evidence gate failed.\n- no-dirty-root-deploy evidence is stale relative to current guard/source/record probes"
+    },
+    {
+      "name": "A25 dirty-worktree remediation completion audit current",
+      "command": "node coordination/release-intake/assert-dirty-worktree-remediation-completion-audit-current.mjs",
+      "status": 1,
+      "passed": false,
+      "stdout": "A25 dirty-worktree remediation completion-audit currentness gate\nComplete: no\nFailures: 4",
+      "stderr": "A25 dirty-worktree remediation completion-audit currentness gate failed.\n- audit dirty-map signature is stale\n- audit expanded dirty entry count is stale\n- no-dirty-root-deploy-evidence: command status is stale\n- no-dirty-root-deploy-evidence: command passed flag is stale"
+    }
+  ],
+  "strictChecks": [
+    {
+      "name": "A22 release-source clean gate",
+      "command": "node coordination/release-intake/assert-release-source-clean.mjs",
+      "status": 1,
+      "passed": false,
+      "stdout": "",
+      "stderr": "A22 release-source clean gate failed.\nRelease source is dirty: 2858 expanded status entries in /Users/dongpinhu/Desktop/MAIS-MVP.\nBranch: main\nHEAD: cef544e09\nSample:\nM .env.local.example\n M .gitignore\n M .vercelignore\n M AGENTS.md\n M README.md\n M app/adaptive-learning/loading.tsx\n M app/adaptive-learning/page.tsx\n... 7 lines omitted ...\n M app/api/auth/login/route.ts\n M app/api/auth/logout/route.ts\n M app/api/auth/password-change/route.ts\n M app/api/auth/password-reset/confirm/route.ts\n M app/api/auth/password-reset/request/route.ts\n M app/api/auth/register/route.ts\n M app/api/dashboard/route.ts\n M app/api/handwriting-recognition/route.ts\n M app/api/learning-events/route.ts\n M app/api/lesson-entry/route.ts\n M app/api/lessons/[slug]/route.ts\nAllowed sources: clean worktree, clean clone, reviewed clean release slice, or explicitly owner-approved pruned staging package."
+    },
+    {
+      "name": "A25 strict worktree lifecycle gate",
+      "command": "node coordination/release-intake/assert-worktree-lifecycle.mjs --strict",
+      "status": 1,
+      "passed": false,
+      "stdout": "A25 worktree lifecycle gate\nWorktrees: 36\nPrunable: 0\nDirty open decisions: 28\nClean diverged open decisions: 5\nOpen decisions:\n- main: dirty (2858 entries)\n... 25 lines omitted ...\n- codex/A22-p1-release-hygiene-security: dirty (27 entries)\n- codex/A22-us-region-alignment: behind 0, ahead 1\n- codex/A25-dirty-closure-governance: dirty (1018 entries)\n- codex/A25-full-dirty-compose-verification: dirty (2423 entries)\n- codex/visualization-production-release: dirty (16 entries)\n- codex/california-practice-beta-clean: behind 12, ahead 1\n- codex/s22-release-hygiene-2026-06-15: behind 12, ahead 1",
+      "stderr": "A25 worktree lifecycle gate failed.\n- open lifecycle decision: main: dirty (2858 entries)\n- open lifecycle decision: codex/A01-app-shell-closure: dirty (26 entries)\n- open lifecycle decision: codex/A01-shell-lazy-load: dirty (8 entries)\n- open lifecycle decision: codex/A02-A15-dashboard-adaptive-closure: dirty (30 entries)\n- open lifecycle decision: codex/A03-roadmap-closure: dirty (30 entries)\n- open lifecycle decision: codex/A04-practice-closure: dirty (56 entries)\n- open lifecycle decision: codex/A05-lesson-closure: dirty (126 entries)\n- open lifecycle decision: codex/A06-manim-three-closure: dirty (351 entries)\n- open lifecycle decision: codex/A06-visualization-closure: dirty (437 entries)\n- open lifecycle decision: codex/A07-A15-A08-ai-adaptive-types: dirty (30 entries)\n- open lifecycle decision: codex/A07-ai-tutor-classroom-switches: dirty (82 entries)\n... 10 lines omitted ...\n- open lifecycle decision: codex/A17-A20-game-motivation-closure: dirty (21 entries)\n- open lifecycle decision: codex/A18-A21-content-evidence-closure: dirty (222 entries)\n- open lifecycle decision: codex/A19-vercel-postgres-region: behind 0, ahead 8\n- open lifecycle decision: codex/A22-missing-module-release-slice: dirty (1016 entries)\n- open lifecycle decision: codex/A22-next-15-5-19-audit: dirty (4 entries)\n- open lifecycle decision: codex/A22-p1-release-hygiene-security: dirty (27 entries)\n- open lifecycle decision: codex/A22-us-region-alignment: behind 0, ahead 1\n- open lifecycle decision: codex/A25-dirty-closure-governance: dirty (1018 entries)\n- open lifecycle decision: codex/A25-full-dirty-compose-verification: dirty (2423 entries)\n- open lifecycle decision: codex/visualization-production-release: dirty (16 entries)\n- open lifecycle decision: codex/california-practice-beta-clean: behind 12, ahead 1\n- open lifecycle decision: codex/s22-release-hygiene-2026-06-15: behind 12, ahead 1"
+    },
+    {
+      "name": "A25 strict final-state selection gate",
+      "command": "node coordination/release-intake/assert-dirty-worktree-final-state-selection-current.mjs --strict",
+      "status": 0,
+      "passed": true,
+      "stdout": "A25 dirty-worktree final-state selection gate\nStrict: yes\nSelection file: present\nTemplate decisions: 57\nComplete selections: 57"
+    },
+    {
+      "name": "A25 final-state ledger closure",
+      "command": "read latest-A25-dirty-worktree-final-state-ledger.json",
+      "passed": true,
+      "failures": [],
+      "pending": 0,
+      "invalid": 0,
+      "pendingSample": [],
+      "invalidSample": []
+    }
+  ]
+}

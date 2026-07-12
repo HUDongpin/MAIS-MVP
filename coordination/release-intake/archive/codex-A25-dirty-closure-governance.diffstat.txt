@@ -1,0 +1,23 @@
+.gitignore                                         |   19 +
+ .vercelignore                                      |   22 +
+ AGENTS.md                                          |  475 +++++--
+ README.md                                          |   31 +-
+ .../2026-05-28-vercel-deployment-slimming-guide.md |   14 +
+ coordination/session-logs/2026-05-28-S01.md        |   82 ++
+ coordination/session-logs/2026-05-28-S04.md        |  598 +++++++++
+ coordination/session-logs/2026-05-28-S05.md        |  444 +++++++
+ coordination/session-logs/2026-05-28-S06.md        |  588 +++++++-
+ coordination/session-logs/2026-05-28-S10.md        |   58 +
+ coordination/session-logs/2026-05-28-S13.md        |   47 +
+ coordination/session-logs/2026-05-28-S18.md        |  117 ++
+ next.config.ts                                     |   66 +-
+ package-lock.json                                  | 1401 +++++++++++++++++++-
+ package.json                                       |   45 +-
+ playwright.config.ts                               |  111 +-
+ tsconfig.json                                      |   26 +-
+ video-plan/claim-check.md                          |    2 +-
+ video-plan/codex-production-workflow.md            |    4 +-
+ video-plan/recording-checklist.md                  |    2 +-
+ video-plan/route-capture-plan.json                 |    2 +-
+ video-plan/shot-checklist.md                       |    2 +-
+ 22 files changed, 3971 insertions(+), 185 deletions(-)

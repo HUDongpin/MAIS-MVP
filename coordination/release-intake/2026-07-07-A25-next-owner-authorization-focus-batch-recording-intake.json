@@ -1,0 +1,141 @@
+{
+  "generatedAt": "2026-07-07T15:53:41.491Z",
+  "repoRoot": "/Users/dongpinhu/Desktop/MAIS-MVP",
+  "dirtyMapStatusSignature": "21bf7897e245ce5bceb31315d088e7024d2e12aa53a9a098945ea69c3440b015",
+  "expandedStatusEntries": 5728,
+  "sourceArtifacts": {
+    "acceptanceDocketGeneratedAt": "2026-07-07T15:48:18.757Z",
+    "ownerInputScaffoldGeneratedAt": "2026-07-07T15:48:18.858Z",
+    "ownerInputScaffoldGateCheckedAt": "2026-07-07T15:48:18.914Z",
+    "canonicalAuthorizationsGeneratedAt": "2026-07-07T15:48:06.940Z",
+    "canonicalAuthorizationsGateCheckedAt": "2026-07-07T15:48:10.997Z"
+  },
+  "sourceCurrentnessFailures": [],
+  "canonicalTarget": "coordination/release-intake/latest-A25-next-owner-authorizations.json",
+  "batchId": "next-owner-package-final-state-batch-01",
+  "intakeStatus": "no-focus-batch",
+  "focusBatchRows": [],
+  "heldRows": [
+    {
+      "approvalId": "wave01-resync-01-tsconfig-json",
+      "approvalKind": "wave01-package-resync",
+      "owner": "A10 tooling, docs, and report",
+      "subject": "tsconfig.json",
+      "path": "tsconfig.json",
+      "branch": "codex/A25-dirty-closure-governance",
+      "worktreePath": "/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A25-dirty-closure-governance",
+      "selectedFinalState": "",
+      "ledgerSelectedFinalState": "",
+      "ledgerDecisionStatus": "",
+      "selectedAction": "owner-approved-package-restore",
+      "exactCommand": "git restore --source=HEAD -- tsconfig.json",
+      "authorizationText": "Authorize approvalId=wave01-resync-01-tsconfig-json; worktree=/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A25-dirty-closure-governance; path=tsconfig.json; selectedAction=owner-approved-package-restore; command=git restore --source=HEAD -- tsconfig.json; approvedBy=<owner>; approvedAt=<ISO-8601>; notes=<scope, evidence reviewed, accepted risk>",
+      "evidenceReviewed": [
+        "coordination/release-intake/latest-A25-next-owner-approval-packet.json",
+        "coordination/release-intake/latest-A25-next-owner-authorizations-starter.json",
+        "coordination/release-intake/latest-A25-wave01-package-resync-approval-requests.json",
+        "coordination/release-intake/latest-A25-wave01-package-resync-execution-packet.json",
+        "coordination/release-intake/latest-A25-wave01-package-resync-owner-authorization-template.json"
+      ],
+      "postApprovalChecks": [
+        "node coordination/release-intake/generate-wave01-governance-readiness.mjs",
+        "node coordination/release-intake/assert-wave01-governance-readiness-current.mjs",
+        "node coordination/release-intake/generate-wave01-package-resync-approval-requests.mjs",
+        "node coordination/release-intake/assert-wave01-package-resync-approval-requests-current.mjs",
+        "node coordination/release-intake/assert-dirty-worktree-remediation-current.mjs"
+      ],
+      "sourceRoundId": "wave01-package-resync-authorizations",
+      "sourceRoundLabel": "Wave 01 package resync authorizations",
+      "authorized": false,
+      "held": true,
+      "cleanupAuthorized": false,
+      "executableNow": false
+    }
+  ],
+  "postInputValidationCommands": [
+    "node coordination/release-intake/assert-next-owner-authorizations-current.mjs",
+    "node coordination/release-intake/generate-next-owner-authorization-execution-preview.mjs",
+    "node coordination/release-intake/assert-next-owner-authorization-execution-preview-current.mjs",
+    "node coordination/release-intake/assert-owner-package-blocker-report-records-current.mjs",
+    "node coordination/release-intake/assert-owner-closure-input-readiness-current.mjs"
+  ],
+  "deferredAggregateValidationCommands": [
+    "node coordination/release-intake/refresh-linked-worktree-archive-evidence.mjs",
+    "node coordination/release-intake/assert-linked-worktree-archive-evidence-current.mjs",
+    "node coordination/release-intake/generate-wave06-final-root-lifecycle-readiness.mjs",
+    "node coordination/release-intake/assert-wave06-final-root-lifecycle-readiness-current.mjs",
+    "node coordination/release-intake/refresh-dirty-worktree-remediation-evidence.mjs --reason \"owner input action packet post-input verification\"",
+    "node coordination/release-intake/assert-dirty-worktree-remediation-current.mjs",
+    "node coordination/release-intake/generate-dirty-worktree-remediation-completion-audit.mjs",
+    "node coordination/release-intake/assert-dirty-worktree-remediation-completion-audit-current.mjs"
+  ],
+  "checks": [
+    {
+      "id": "source-current",
+      "status": "pass",
+      "detail": "source currentness failures=0"
+    },
+    {
+      "id": "focus-rows-present",
+      "status": "pass",
+      "detail": "focusBatchRows=0"
+    },
+    {
+      "id": "owner-input-visible",
+      "status": "pass",
+      "detail": "ownerInputVisibleRows=0/0"
+    },
+    {
+      "id": "accepted-plus-pending",
+      "status": "pass",
+      "detail": "accepted=0; pending=0; rows=0"
+    },
+    {
+      "id": "pending-rows-have-drafts",
+      "status": "pass",
+      "detail": "pending rows must remain visible as canonical draft rows"
+    },
+    {
+      "id": "accepted-rows-have-canonical-records",
+      "status": "pass",
+      "detail": "accepted rows must have canonical authorization rows"
+    },
+    {
+      "id": "safe-non-executable",
+      "status": "pass",
+      "detail": "cleanupAuthorizedRows=0; executableRows=0"
+    },
+    {
+      "id": "intake-status-coherent",
+      "status": "pass",
+      "detail": "intakeStatus=no-focus-batch"
+    }
+  ],
+  "summary": {
+    "focusBatchRows": 0,
+    "acceptedRows": 0,
+    "pendingRows": 0,
+    "heldRows": 1,
+    "canonicalDraftVisibleRows": 0,
+    "canonicalAuthorizationVisibleRows": 0,
+    "ownerInputVisibleRows": 0,
+    "canonicalAuthorizationsGateAuthorizedRows": 24,
+    "canonicalAuthorizationsGatePendingRows": 39,
+    "postInputValidationCommands": 5,
+    "deferredAggregateValidationCommands": 8,
+    "cleanupAuthorizedRows": 0,
+    "executableRows": 0,
+    "sourceCurrentnessFailures": 0
+  },
+  "boundary": {
+    "evidenceOnly": true,
+    "createsAuthorizationFile": false,
+    "recordsOwnerApproval": false,
+    "recordsExecutionInstruction": false,
+    "mergeAuthorized": false,
+    "cleanupAuthorized": false,
+    "executableNow": false,
+    "destructiveGitAuthorized": false,
+    "deployAuthorized": false
+  }
+}

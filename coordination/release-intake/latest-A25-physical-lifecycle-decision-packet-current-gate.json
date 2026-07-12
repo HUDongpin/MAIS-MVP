@@ -1,0 +1,210 @@
+{
+  "checkedAt": "2026-07-01T00:42:54.584Z",
+  "dirtyMapStatusSignature": "43131880bc33c26ecb959ab7d1c1ba957f9889d68d2fd577464172d415ad59e6",
+  "expandedStatusEntries": 2715,
+  "worktreeCount": 25,
+  "dirtyOpenDecisionCount": 17,
+  "cleanDivergedOpenDecisionCount": 5,
+  "decisionCount": 22,
+  "failures": [],
+  "decisions": [
+    {
+      "branch": "main",
+      "state": "dirty-open-decision",
+      "statusEntries": 2715,
+      "divergence": {
+        "behind": 0,
+        "ahead": 0
+      }
+    },
+    {
+      "branch": "codex/A01-app-shell-closure",
+      "state": "dirty-open-decision",
+      "statusEntries": 26,
+      "divergence": {
+        "behind": 0,
+        "ahead": 0
+      }
+    },
+    {
+      "branch": "codex/A01-shell-lazy-load",
+      "state": "dirty-open-decision",
+      "statusEntries": 8,
+      "divergence": {
+        "behind": 0,
+        "ahead": 0
+      }
+    },
+    {
+      "branch": "codex/A06-manim-three-closure",
+      "state": "dirty-open-decision",
+      "statusEntries": 351,
+      "divergence": {
+        "behind": 0,
+        "ahead": 0
+      }
+    },
+    {
+      "branch": "codex/A06-visualization-closure",
+      "state": "dirty-open-decision",
+      "statusEntries": 437,
+      "divergence": {
+        "behind": 0,
+        "ahead": 0
+      }
+    },
+    {
+      "branch": "codex/A07-A15-A08-ai-adaptive-types",
+      "state": "dirty-open-decision",
+      "statusEntries": 30,
+      "divergence": {
+        "behind": 0,
+        "ahead": 0
+      }
+    },
+    {
+      "branch": "codex/A07-ai-tutor-classroom-switches",
+      "state": "dirty-open-decision",
+      "statusEntries": 82,
+      "divergence": {
+        "behind": 0,
+        "ahead": 0
+      }
+    },
+    {
+      "branch": "codex/A08-A12-shared-contract-closure",
+      "state": "dirty-open-decision",
+      "statusEntries": 185,
+      "divergence": {
+        "behind": 0,
+        "ahead": 0
+      }
+    },
+    {
+      "branch": "codex/A10-A22-A08-A12-A06-compose-20260628",
+      "state": "dirty-open-decision",
+      "statusEntries": 744,
+      "divergence": {
+        "behind": 0,
+        "ahead": 2
+      }
+    },
+    {
+      "branch": "codex/A10-A22-release-governance",
+      "state": "clean-diverged-open-decision",
+      "statusEntries": 0,
+      "divergence": {
+        "behind": 0,
+        "ahead": 2
+      }
+    },
+    {
+      "branch": "codex/A12-google-oauth-login",
+      "state": "dirty-open-decision",
+      "statusEntries": 16,
+      "divergence": {
+        "behind": 0,
+        "ahead": 0
+      }
+    },
+    {
+      "branch": "codex/A12-userstore-storage-contract",
+      "state": "dirty-open-decision",
+      "statusEntries": 170,
+      "divergence": {
+        "behind": 0,
+        "ahead": 0
+      }
+    },
+    {
+      "branch": "codex/A19-vercel-postgres-region",
+      "state": "clean-diverged-open-decision",
+      "statusEntries": 0,
+      "divergence": {
+        "behind": 0,
+        "ahead": 8
+      }
+    },
+    {
+      "branch": "codex/A22-missing-module-release-slice",
+      "state": "dirty-open-decision",
+      "statusEntries": 1016,
+      "divergence": {
+        "behind": 0,
+        "ahead": 0
+      }
+    },
+    {
+      "branch": "codex/A22-next-15-5-19-audit",
+      "state": "dirty-open-decision",
+      "statusEntries": 4,
+      "divergence": {
+        "behind": 0,
+        "ahead": 0
+      }
+    },
+    {
+      "branch": "codex/A22-p1-release-hygiene-security",
+      "state": "dirty-open-decision",
+      "statusEntries": 27,
+      "divergence": {
+        "behind": 0,
+        "ahead": 0
+      }
+    },
+    {
+      "branch": "codex/A22-us-region-alignment",
+      "state": "clean-diverged-open-decision",
+      "statusEntries": 0,
+      "divergence": {
+        "behind": 0,
+        "ahead": 1
+      }
+    },
+    {
+      "branch": "codex/A25-dirty-closure-governance",
+      "state": "dirty-open-decision",
+      "statusEntries": 1018,
+      "divergence": {
+        "behind": 0,
+        "ahead": 0
+      }
+    },
+    {
+      "branch": "codex/A25-full-dirty-compose-verification",
+      "state": "dirty-open-decision",
+      "statusEntries": 2423,
+      "divergence": {
+        "behind": 0,
+        "ahead": 0
+      }
+    },
+    {
+      "branch": "codex/visualization-production-release",
+      "state": "dirty-open-decision",
+      "statusEntries": 16,
+      "divergence": {
+        "behind": 12,
+        "ahead": 0
+      }
+    },
+    {
+      "branch": "codex/california-practice-beta-clean",
+      "state": "clean-diverged-open-decision",
+      "statusEntries": 0,
+      "divergence": {
+        "behind": 12,
+        "ahead": 1
+      }
+    },
+    {
+      "branch": "codex/s22-release-hygiene-2026-06-15",
+      "state": "clean-diverged-open-decision",
+      "statusEntries": 0,
+      "divergence": {
+        "behind": 12,
+        "ahead": 1
+      }
+    }
+  ]
+}

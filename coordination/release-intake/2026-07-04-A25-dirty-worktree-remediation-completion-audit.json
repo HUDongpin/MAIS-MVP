@@ -1,0 +1,564 @@
+{
+  "generatedAt": "2026-07-04T15:49:59.325Z",
+  "dirtyMapStatusSignature": "0ed815279a9afc7897df7ef48f2e250da494e4a227adc0a6da14547ba9048571",
+  "expandedStatusEntries": 4323,
+  "rootStatusEntries": 1457,
+  "complete": false,
+  "summary": {
+    "totalRequirements": 13,
+    "completedRequirements": 9,
+    "incompleteRequirements": 4,
+    "totalPlanTasks": 10,
+    "completedPlanTasks": 3,
+    "incompletePlanTasks": 7
+  },
+  "physicalQueue": {
+    "summary": {
+      "ownerPackageApprovals": 24,
+      "physicalLifecycleApprovals": 38,
+      "totalApprovals": 62,
+      "ownerPackageEntries": 4323,
+      "physicalRootApprovals": 1,
+      "dirtyLinkedApprovals": 29,
+      "cleanDivergedApprovals": 8,
+      "executableRows": 0,
+      "cleanupAuthorizedRows": 0
+    },
+    "cleanupAuthorized": false
+  },
+  "finalStateLedger": {
+    "summary": {
+      "total": 62,
+      "pending": 0,
+      "approved": 62,
+      "invalid": 0,
+      "bySourceKind": {
+        "owner-package": 24,
+        "physical-lifecycle": 38
+      },
+      "byStatus": {
+        "approved-reviewed-commit": 24,
+        "approved-reviewed-owner-package-commit": 1,
+        "approved-owner-reviewed-commit-or-package-extraction": 29,
+        "approved-owner-approved-pr-or-review-package": 8
+      }
+    }
+  },
+  "aggregateCurrentness": {
+    "passed": null,
+    "status": null,
+    "command": "not evaluated inside completion audit generator to avoid self-reference"
+  },
+  "validationHold": {
+    "status": "waiting-for-owner-compose-deletion-confirmation",
+    "activeWorktreePath": "/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A10-A22-A08-A12-A06-compose-20260628",
+    "reason": "Owner reported active exact deletion in this compose worktree; linked-worktree archive, Wave 06, aggregate remediation, and completion-audit refreshes should wait for owner confirmation.",
+    "resumeCondition": "Owner confirms exact deletion in the compose worktree is complete.",
+    "safePostInputValidationCommands": [
+      "node coordination/release-intake/assert-next-owner-authorizations-current.mjs",
+      "node coordination/release-intake/generate-next-owner-authorization-execution-preview.mjs",
+      "node coordination/release-intake/assert-next-owner-authorization-execution-preview-current.mjs",
+      "node coordination/release-intake/assert-owner-package-blocker-report-records-current.mjs",
+      "node coordination/release-intake/assert-owner-closure-input-readiness-current.mjs"
+    ],
+    "deferredAggregateValidationCommands": [
+      "node coordination/release-intake/refresh-linked-worktree-archive-evidence.mjs",
+      "node coordination/release-intake/assert-linked-worktree-archive-evidence-current.mjs",
+      "node coordination/release-intake/generate-wave06-final-root-lifecycle-readiness.mjs",
+      "node coordination/release-intake/assert-wave06-final-root-lifecycle-readiness-current.mjs",
+      "node coordination/release-intake/refresh-dirty-worktree-remediation-evidence.mjs --reason \"owner input action packet post-input verification\"",
+      "node coordination/release-intake/assert-dirty-worktree-remediation-current.mjs",
+      "node coordination/release-intake/generate-dirty-worktree-remediation-completion-audit.mjs",
+      "node coordination/release-intake/assert-dirty-worktree-remediation-completion-audit-current.mjs"
+    ]
+  },
+  "requirements": [
+    {
+      "id": "root-status-clean",
+      "label": "Root git status is clean",
+      "status": "incomplete",
+      "passed": false,
+      "command": {
+        "command": "git status --short",
+        "status": 0,
+        "passed": true,
+        "stdout": [
+          "M .env.local.example",
+          " M .gitignore",
+          " M .vercelignore",
+          " M AGENTS.md",
+          " M README.md",
+          " M app/adaptive-learning/loading.tsx",
+          " M app/adaptive-learning/page.tsx",
+          " M app/api/adaptive-learning/next/route.ts",
+          " M app/api/adaptive-learning/refresh/route.ts",
+          "... 1439 lines omitted ...",
+          "?? tests/e2e/student-learning-analytics-backend.spec.ts",
+          "?? tests/e2e/teacher-operations.spec.ts",
+          "?? tests/e2e/teacher-parent-hydration.spec.ts",
+          "?? tests/e2e/teacher-parent-p1-regressions.spec.ts",
+          "?? tests/e2e/teacher-prep-toolchain.spec.ts",
+          "?? tests/e2e/teacher-review-lesson.spec.ts",
+          "?? tests/e2e/visualization-persistence.spec.ts",
+          "?? tsconfig.analytics.json",
+          "?? tsconfig.next.json"
+        ],
+        "stderr": []
+      },
+      "evidence": [
+        "git status --short"
+      ]
+    },
+    {
+      "id": "dirty-map-current-and-zero",
+      "label": "Dirty map is current and reports zero expanded entries",
+      "status": "incomplete",
+      "passed": false,
+      "command": {
+        "command": "npm run release:dirty-map -- --assert-current --max-age-minutes 60",
+        "status": 0,
+        "passed": true,
+        "stdout": [
+          "> hk-math-lab-template@0.1.0 release:dirty-map",
+          "> node scripts/refresh-dirty-tree-map.mjs --assert-current --max-age-minutes 60",
+          "A25 dirty-tree map is current for runtime release preflight",
+          "Latest map: coordination/release-intake/latest-A25-dirty-tree-map.json",
+          "Expanded status entries: 4323"
+        ],
+        "stderr": []
+      },
+      "evidence": [
+        "npm run release:dirty-map -- --assert-current --max-age-minutes 60",
+        "coordination/release-intake/latest-A25-dirty-tree-map.json"
+      ]
+    },
+    {
+      "id": "release-source-clean",
+      "label": "A22 release-source clean gate passes",
+      "status": "incomplete",
+      "passed": false,
+      "command": {
+        "command": "node coordination/release-intake/assert-release-source-clean.mjs",
+        "status": 1,
+        "passed": false,
+        "stdout": [],
+        "stderr": [
+          "A22 release-source clean gate failed.",
+          "Release source is dirty: 4323 expanded status entries in /Users/dongpinhu/Desktop/MAIS-MVP.",
+          "Branch: main",
+          "HEAD: e909992b0",
+          "Sample:",
+          "M .env.local.example",
+          " M .gitignore",
+          " M .vercelignore",
+          " M AGENTS.md",
+          " M README.md",
+          " M app/adaptive-learning/loading.tsx",
+          " M app/adaptive-learning/page.tsx",
+          " M app/api/adaptive-learning/next/route.ts",
+          " M app/api/adaptive-learning/refresh/route.ts",
+          " M app/api/ai-tutor/route.ts",
+          "... 1 lines omitted ...",
+          " M app/api/analytics/export/route.ts",
+          " M app/api/analytics/summary/route.ts",
+          " M app/api/attempts/route.ts",
+          " M app/api/auth/login/route.ts",
+          " M app/api/auth/logout/route.ts",
+          " M app/api/auth/password-change/route.ts",
+          " M app/api/auth/password-reset/confirm/route.ts",
+          " M app/api/auth/password-reset/request/route.ts",
+          " M app/api/auth/register/route.ts",
+          " M app/api/dashboard/route.ts",
+          " M app/api/handwriting-recognition/route.ts",
+          " M app/api/learning-events/route.ts",
+          " M app/api/lesson-entry/route.ts",
+          " M app/api/lessons/[slug]/route.ts",
+          "Allowed sources: clean worktree, clean clone, reviewed clean release slice, or explicitly owner-approved pruned staging package."
+        ]
+      },
+      "evidence": [
+        "node coordination/release-intake/assert-release-source-clean.mjs"
+      ]
+    },
+    {
+      "id": "strict-worktree-lifecycle",
+      "label": "A25 strict worktree lifecycle gate passes",
+      "status": "incomplete",
+      "passed": false,
+      "command": {
+        "command": "node coordination/release-intake/assert-worktree-lifecycle.mjs --strict",
+        "status": null,
+        "passed": false,
+        "deferred": true,
+        "deferredReason": "Owner reported active exact deletion in this compose worktree; linked-worktree archive, Wave 06, aggregate remediation, and completion-audit refreshes should wait for owner confirmation."
+      },
+      "evidence": [
+        "node coordination/release-intake/assert-worktree-lifecycle.mjs --strict"
+      ]
+    },
+    {
+      "id": "owner-pathspecs-current",
+      "label": "A25 owner pathspecs are current",
+      "status": "complete",
+      "passed": true,
+      "command": {
+        "command": "node coordination/release-intake/assert-owner-pathspecs-current.mjs",
+        "status": 0,
+        "passed": true,
+        "stdout": [
+          "A25 owner pathspec current gate passed",
+          "Owners checked: 24"
+        ],
+        "stderr": []
+      },
+      "evidence": [
+        "node coordination/release-intake/assert-owner-pathspecs-current.mjs"
+      ]
+    },
+    {
+      "id": "effective-owner-overlay-current",
+      "label": "A25 effective owner overlay is current",
+      "status": "complete",
+      "passed": true,
+      "command": {
+        "command": "node coordination/release-intake/assert-effective-owner-overlay-current.mjs",
+        "status": 0,
+        "passed": true,
+        "stdout": [
+          "A25 effective owner overlay gate passed",
+          "Effective owners: 24",
+          "Overlay entries: 4323"
+        ],
+        "stderr": []
+      },
+      "evidence": [
+        "node coordination/release-intake/assert-effective-owner-overlay-current.mjs"
+      ]
+    },
+    {
+      "id": "unmapped-runtime-zero",
+      "label": "A25 unmapped runtime proposals are current with zero unmapped runtime paths",
+      "status": "complete",
+      "passed": true,
+      "command": {
+        "command": "node coordination/release-intake/assert-unmapped-owner-proposals-current.mjs",
+        "status": 0,
+        "passed": true,
+        "stdout": [
+          "A25 unmapped owner proposal gate passed",
+          "Covered paths: 0",
+          "Proposed owner buckets: 0"
+        ],
+        "stderr": []
+      },
+      "evidence": [
+        "node coordination/release-intake/assert-unmapped-owner-proposals-current.mjs",
+        "coordination/release-intake/latest-A25-unmapped-runtime-owner-proposals.json"
+      ]
+    },
+    {
+      "id": "unmapped-manual-zero",
+      "label": "A25 unmapped manual proposals are current with zero unmapped manual paths",
+      "status": "complete",
+      "passed": true,
+      "command": {
+        "command": "node coordination/release-intake/assert-unmapped-manual-proposals-current.mjs",
+        "status": 0,
+        "passed": true,
+        "stdout": [
+          "A25 unmapped manual proposal gate passed",
+          "Covered paths: 0",
+          "Proposed owner buckets: 0"
+        ],
+        "stderr": []
+      },
+      "evidence": [
+        "node coordination/release-intake/assert-unmapped-manual-proposals-current.mjs",
+        "coordination/release-intake/latest-A25-unmapped-manual-owner-proposals.json"
+      ]
+    },
+    {
+      "id": "lifecycle-decision-requests-current",
+      "label": "A25 lifecycle decision requests are current",
+      "status": "complete",
+      "passed": true,
+      "command": {
+        "command": "node coordination/release-intake/assert-lifecycle-decision-requests-current.mjs",
+        "status": 0,
+        "passed": true,
+        "stdout": [
+          "A25 lifecycle decision requests gate",
+          "Strict: no",
+          "Requests: 4",
+          "Open decisions: 0"
+        ],
+        "stderr": []
+      },
+      "evidence": [
+        "node coordination/release-intake/assert-lifecycle-decision-requests-current.mjs"
+      ]
+    },
+    {
+      "id": "owner-approval-matrix-current",
+      "label": "A25 owner approval matrix is current",
+      "status": "complete",
+      "passed": true,
+      "command": {
+        "command": "node coordination/release-intake/assert-owner-approval-matrix-current.mjs",
+        "status": 0,
+        "passed": true,
+        "stdout": [
+          "A25 owner approval matrix gate",
+          "Strict: no",
+          "Rows: 4",
+          "Pending approvals: 0"
+        ],
+        "stderr": []
+      },
+      "evidence": [
+        "node coordination/release-intake/assert-owner-approval-matrix-current.mjs"
+      ]
+    },
+    {
+      "id": "lifecycle-closure-runbook-current",
+      "label": "A25 lifecycle closure runbook is current",
+      "status": "complete",
+      "passed": true,
+      "command": {
+        "command": "node coordination/release-intake/assert-lifecycle-closure-runbook-current.mjs",
+        "status": 0,
+        "passed": true,
+        "stdout": [
+          "A25 lifecycle closure runbook gate",
+          "Strict: no",
+          "Closure plans: 4",
+          "Open decisions: 0"
+        ],
+        "stderr": []
+      },
+      "evidence": [
+        "node coordination/release-intake/assert-lifecycle-closure-runbook-current.mjs"
+      ]
+    },
+    {
+      "id": "final-state-recorded",
+      "label": "Every dirty package/lifecycle row has a recorded final state",
+      "status": "complete",
+      "passed": true,
+      "command": {
+        "command": "node coordination/release-intake/assert-dirty-worktree-final-state-ledger-current.mjs",
+        "status": 0,
+        "passed": true,
+        "stdout": [
+          "A25 dirty-worktree final-state ledger gate",
+          "Strict: no",
+          "Ledger entries: 62",
+          "Pending decisions: 0"
+        ],
+        "stderr": []
+      },
+      "evidence": [
+        "node coordination/release-intake/assert-dirty-worktree-final-state-ledger-current.mjs",
+        "coordination/release-intake/latest-A25-dirty-worktree-final-state-ledger.json"
+      ]
+    },
+    {
+      "id": "no-dirty-root-deploy-evidence",
+      "label": "No preview or production deploy used the dirty root",
+      "status": "complete",
+      "passed": true,
+      "command": {
+        "command": "node coordination/release-intake/assert-no-dirty-root-deploy-evidence-current.mjs",
+        "status": 0,
+        "passed": true,
+        "stdout": [
+          "A25 no-dirty-root-deploy evidence gate",
+          "Passed: yes",
+          "Failures: 0"
+        ],
+        "stderr": []
+      },
+      "evidence": [
+        "node coordination/release-intake/assert-no-dirty-root-deploy-evidence-current.mjs",
+        "coordination/release-intake/latest-A25-no-dirty-root-deploy-evidence.json",
+        "coordination/release-intake/latest-A25-no-dirty-root-deploy-evidence.md"
+      ]
+    }
+  ],
+  "planTasks": [
+    {
+      "id": "task-1-governance",
+      "label": "Task 1 governance artifacts",
+      "status": "complete",
+      "evidence": [
+        "node coordination/release-intake/assert-owner-pathspecs-current.mjs",
+        "node coordination/release-intake/assert-effective-owner-overlay-current.mjs",
+        "node coordination/release-intake/assert-lifecycle-decision-requests-current.mjs",
+        "node coordination/release-intake/assert-owner-approval-matrix-current.mjs",
+        "node coordination/release-intake/assert-lifecycle-closure-runbook-current.mjs"
+      ],
+      "blockingReasons": []
+    },
+    {
+      "id": "task-2-unmapped",
+      "label": "Task 2 unmapped ownership",
+      "status": "complete",
+      "evidence": [
+        "node coordination/release-intake/assert-unmapped-owner-proposals-current.mjs",
+        "coordination/release-intake/latest-A25-unmapped-runtime-owner-proposals.json",
+        "node coordination/release-intake/assert-unmapped-manual-proposals-current.mjs",
+        "coordination/release-intake/latest-A25-unmapped-manual-owner-proposals.json"
+      ],
+      "blockingReasons": []
+    },
+    {
+      "id": "task-3-wave01",
+      "label": "Task 3 governance/release-hygiene package closure",
+      "status": "incomplete",
+      "evidence": [
+        "coordination/release-intake/latest-A25-wave01-governance-readiness.json"
+      ],
+      "blockingReasons": [
+        "7 package-only dirty entries need owner-approved package resync authorization",
+        "npm audit --audit-level=high failed",
+        "release helper tests failed",
+        "npm run type-check failed"
+      ]
+    },
+    {
+      "id": "task-4-wave02",
+      "label": "Task 4 shared contract/backend package closure",
+      "status": "incomplete",
+      "evidence": [
+        "coordination/release-intake/latest-A25-wave02-shared-contract-readiness.json"
+      ],
+      "blockingReasons": [
+        "testAnalytics failed",
+        "testBackend failed",
+        "typeCheck failed",
+        "build failed"
+      ]
+    },
+    {
+      "id": "task-5-waves03-05",
+      "label": "Task 5 runtime owner package closure",
+      "status": "incomplete",
+      "evidence": [
+        "coordination/release-intake/latest-A25-wave03-shell-dashboard-roadmap-readiness.json",
+        "coordination/release-intake/latest-A25-wave04-practice-lesson-content-readiness.json",
+        "coordination/release-intake/latest-A25-wave05-visualization-ai-runtime-readiness.json"
+      ],
+      "blockingReasons": [
+        "A01 app shell typeCheck failed",
+        "A01 app shell appShellPlaywright failed",
+        "A02/A15 dashboard adaptive testAnalytics failed",
+        "A02/A15 dashboard adaptive typeCheck failed",
+        "A02/A15 dashboard adaptive dashboardAdaptivePlaywright failed",
+        "A03 roadmap typeCheck failed",
+        "A03 roadmap roadmapPlaywright failed",
+        "A04 practice testQuestionBank failed",
+        "A04 practice typeCheck failed",
+        "A04 practice practicePlaywright failed",
+        "A05 lesson typeCheck failed",
+        "A05 lesson lessonPlaywright failed",
+        "A18/A21/A23/A24 content evidence has 110 dirty entries outside its pathspec union",
+        "A18/A21/A23/A24 content evidence testRag failed",
+        "A18/A21/A23/A24 content evidence testQuestionBank failed",
+        "A18/A21/A23/A24 content evidence typeCheck failed",
+        "A06 visualization typeCheck failed",
+        "A06 visualization visualizationNodeTests failed",
+        "A06 visualization visualizationPlaywright failed",
+        "A07 AI tutor typeCheck failed",
+        "A07 AI tutor aiTutorPlaywright failed",
+        "A09 copy/i18n/accessibility typeCheck failed",
+        "A11 regression evidence typeCheck failed",
+        "A11 regression evidence regressionPlaywright failed",
+        "A13/A14 console typeCheck failed",
+        "A13/A14 console consolePlaywright failed",
+        "A17/A20 games and motivation typeCheck failed",
+        "A17/A20 games and motivation gameMotivationPlaywright failed"
+      ]
+    },
+    {
+      "id": "task-6-content-qa",
+      "label": "Task 6 content/RAG/QA evidence closure",
+      "status": "incomplete",
+      "evidence": [
+        "coordination/release-intake/latest-A25-wave04-practice-lesson-content-readiness.json",
+        "coordination/release-intake/latest-A25-wave05-visualization-ai-runtime-readiness.json"
+      ],
+      "blockingReasons": [
+        "A04 practice testQuestionBank failed",
+        "A04 practice typeCheck failed",
+        "A04 practice practicePlaywright failed",
+        "A05 lesson typeCheck failed",
+        "A05 lesson lessonPlaywright failed",
+        "A18/A21/A23/A24 content evidence has 110 dirty entries outside its pathspec union",
+        "A18/A21/A23/A24 content evidence testRag failed",
+        "A18/A21/A23/A24 content evidence testQuestionBank failed",
+        "A18/A21/A23/A24 content evidence typeCheck failed",
+        "A06 visualization typeCheck failed",
+        "A06 visualization visualizationNodeTests failed",
+        "A06 visualization visualizationPlaywright failed",
+        "A07 AI tutor typeCheck failed",
+        "A07 AI tutor aiTutorPlaywright failed",
+        "A09 copy/i18n/accessibility typeCheck failed",
+        "A11 regression evidence typeCheck failed",
+        "A11 regression evidence regressionPlaywright failed",
+        "A13/A14 console typeCheck failed",
+        "A13/A14 console consolePlaywright failed",
+        "A17/A20 games and motivation typeCheck failed",
+        "A17/A20 games and motivation gameMotivationPlaywright failed"
+      ]
+    },
+    {
+      "id": "task-7-root-disposition",
+      "label": "Task 7 root dispositions",
+      "status": "blocked",
+      "evidence": [
+        "coordination/release-intake/latest-A25-dirty-worktree-final-state-action-runbook.json"
+      ],
+      "blockingReasons": [
+        "Root dispositions are represented as blocker rows; no cleanup-authorized or executable root action exists."
+      ]
+    },
+    {
+      "id": "task-8-linked-worktrees",
+      "label": "Task 8 linked worktree lifecycle closure",
+      "status": "incomplete",
+      "evidence": [
+        "node coordination/release-intake/assert-worktree-lifecycle.mjs --strict"
+      ],
+      "blockingReasons": [
+        "A25 strict worktree lifecycle gate passes"
+      ]
+    },
+    {
+      "id": "task-9-final-release-source",
+      "label": "Task 9 final release-source verification",
+      "status": "incomplete",
+      "evidence": [
+        "git status --short",
+        "npm run release:dirty-map -- --assert-current --max-age-minutes 60",
+        "coordination/release-intake/latest-A25-dirty-tree-map.json",
+        "node coordination/release-intake/assert-release-source-clean.mjs",
+        "node coordination/release-intake/assert-worktree-lifecycle.mjs --strict"
+      ],
+      "blockingReasons": [
+        "Root git status is clean",
+        "Dirty map is current and reports zero expanded entries",
+        "A22 release-source clean gate passes",
+        "A25 strict worktree lifecycle gate passes"
+      ]
+    },
+    {
+      "id": "task-10-recurrence",
+      "label": "Task 10 recurrence prevention",
+      "status": "complete",
+      "evidence": [
+        "coordination/release-intake/latest-A25-dirty-worktree-recurrence-prevention-current-gate.json"
+      ],
+      "blockingReasons": []
+    }
+  ]
+}

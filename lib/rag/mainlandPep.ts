@@ -8,6 +8,7 @@ import {
   buildMainlandPepJuniorPaperEvidencePack as buildJuniorPaperEvidencePack,
   getMainlandPepJuniorPaperPatternCards as getJuniorPaperPatternCards
 } from "./mainlandPepJuniorPaperPatterns";
+import { illustrationTextMatchStandardForRag } from "./illustrationTextMatchStandard";
 import type {
   GradeId,
   MainlandPepEvidencePack,
@@ -412,6 +413,7 @@ export function buildMainlandPepPrimaryExamEvidencePack(query: MainlandPepPrimar
     "Use this evidence only for original MAIS practice, diagnostics, assessment design, lesson support, and teacher planning.",
     "Primary paper-pattern cards are aggregated safe abstractions only; they do not authorize copying source paper wording, worked responses, tables, diagrams, layouts, or item sequences.",
     "Do not use source archives, extracted text, source locators, embeddings, page screenshots, or recognizable paper layouts in generated output.",
+    ...illustrationTextMatchStandardForRag,
     ...cards.flatMap((card, index) => [
       `Primary paper pattern ${index + 1}: ${card.grade} ${card.semester} ${card.unitTitles.join(" / ")} (${card.difficultyBand}).`,
       `Material kinds: ${card.materialKinds.join(", ")}.`,
@@ -462,6 +464,7 @@ export function getMainlandPepEvidencePack(query: MainlandPepRagQuery): Mainland
       : []),
     "Prefer Simplified Chinese Mainland mathematics terminology when Chinese wording is helpful.",
     "Do not quote or reconstruct source examples, practice items, answers, tables, diagrams, activity text, visual layouts, or long source phrasing.",
+    ...illustrationTextMatchStandardForRag,
     "Curriculum layer:",
     ...cards.flatMap((card, index) => [
       `Card ${index + 1}: ${card.grade} ${card.unitTitle} (${card.stage}; ${card.semester}).`,

@@ -1,0 +1,1132 @@
+diff --git a/app/api/auth/login/route.ts b/app/api/auth/login/route.ts
+index 50dc0138..2a6768ea 100644
+--- a/app/api/auth/login/route.ts
++++ b/app/api/auth/login/route.ts
+@@ -10,6 +10,15 @@ export const runtime = "nodejs";
+ 
+ const validThemes = new Set<ThemeMode>(["dark", "light"]);
+ const validCurriculumTracks = new Set<CurriculumTrack>(["HK", "MAINLAND_PEP_HIGH", "US_CA_MATH", "US_NC_MATH"]);
++const demoAccountUserIds = new Set([
++  "student-peter",
++  "student-li-mainland",
++  "student-shirleen-us",
++  "teacher-ms-chan",
++  "teacher-mainland-phoebe",
++  "teacher-scott-us",
++  "parent-peter-family"
++]);
+ 
+ function isRecord(value: unknown): value is Record<string, unknown> {
+   return typeof value === "object" && value !== null;
+@@ -19,6 +28,10 @@ function isSecureRequest(request: Request) {
+   return request.headers.get("x-forwarded-proto") === "https" || new URL(request.url).protocol === "https:";
+ }
+ 
++function isDemoAccountUserId(userId: string) {
++  return demoAccountUserIds.has(userId);
++}
++
+ export async function POST(request: Request) {
+   let body: unknown;
+   try {
+@@ -80,8 +93,17 @@ export async function POST(request: Request) {
+     : requestedGrade;
+   const language = isValidLanguage(body.language) ? body.language : authenticated.session.settings.language;
+   const theme = validThemes.has(body.theme as ThemeMode) ? (body.theme as ThemeMode) : authenticated.session.settings.theme;
+-  const sessionData =
+-    (await updateUserSettings(authenticated.session.user.id, { selectedGrade, language, theme })) ?? authenticated.session;
++  const sessionData = isDemoAccountUserId(authenticated.session.user.id)
++    ? {
++        ...authenticated.session,
++        settings: {
++          ...authenticated.session.settings,
++          language,
++          theme,
++          selectedGrade
++        }
++      }
++    : (await updateUserSettings(authenticated.session.user.id, { selectedGrade, language, theme })) ?? authenticated.session;
+   let token: string;
+   try {
+     token = await createSessionToken(sessionData.user.id);
+@@ -92,7 +114,7 @@ export async function POST(request: Request) {
+     );
+   }
+ 
+-  const lessonEntryTarget = sessionData.user.role === "student"
++  const lessonEntryTarget = sessionData.user.role === "student" && !isDemoAccountUserId(sessionData.user.id)
+     ? await getLessonEntryTarget(sessionData.user.id, sessionData.user.grade, sessionData.user.curriculumProfile)
+     : null;
+   const response = NextResponse.json({ ...sessionData, lessonEntryTarget });
+diff --git a/app/api/me/route.ts b/app/api/me/route.ts
+index d3670ded..85df79fa 100644
+--- a/app/api/me/route.ts
++++ b/app/api/me/route.ts
+@@ -4,15 +4,20 @@ import { getLessonEntryTarget } from "@/lib/server/userStore";
+ 
+ export const runtime = "nodejs";
+ 
++function shouldIncludeLessonEntry(request: Request) {
++  return new URL(request.url).searchParams.get("includeLessonEntry") !== "false";
++}
++
+ export async function GET(request: Request) {
+   const authenticated = await requireAuthenticatedUser(request);
+   if (!authenticated) {
+     return NextResponse.json({ error: "Not authenticated." }, { status: 401 });
+   }
+ 
+-  const lessonEntryTarget = authenticated.user.role === "student"
++  const includeLessonEntry = shouldIncludeLessonEntry(request);
++  const lessonEntryTarget = includeLessonEntry && authenticated.user.role === "student"
+     ? await getLessonEntryTarget(authenticated.user.id, authenticated.user.grade, authenticated.user.curriculumProfile)
+     : null;
+ 
+-  return NextResponse.json({ ...authenticated, lessonEntryTarget });
++  return NextResponse.json(includeLessonEntry ? { ...authenticated, lessonEntryTarget } : authenticated);
+ }
+diff --git a/app/login/page.tsx b/app/login/page.tsx
+index 9eb2c284..da10a21f 100644
+--- a/app/login/page.tsx
++++ b/app/login/page.tsx
+@@ -111,7 +111,7 @@ function defaultLoginCurriculumProfile() {
+ }
+ 
+ function workspaceForRole(role?: "student" | "teacher" | "parent" | "admin") {
+-  if (role === "teacher" || role === "admin") return "/teacher";
++  if (role === "teacher" || role === "admin") return "/teacher/dashboard";
+   if (role === "parent") return "/parent";
+   return "/dashboard";
+ }
+diff --git a/app/teacher/getTeacherFoundation.ts b/app/teacher/getTeacherFoundation.ts
+index 66435f79..4d00f9df 100644
+--- a/app/teacher/getTeacherFoundation.ts
++++ b/app/teacher/getTeacherFoundation.ts
+@@ -10,7 +10,7 @@ export async function getTeacherFoundationForPage() {
+   const authenticated = await getAuthenticatedUserFromToken(token);
+ 
+   if (!authenticated) {
+-    redirect("/login?next=/teacher");
++    redirect("/login?next=/teacher/dashboard");
+   }
+ 
+   if (!canAccessTeacherArea(authenticated.user)) {
+diff --git a/app/teacher/layout.tsx b/app/teacher/layout.tsx
+index 74f16358..66a63276 100644
+--- a/app/teacher/layout.tsx
++++ b/app/teacher/layout.tsx
+@@ -4,7 +4,7 @@ import type { ReactNode } from "react";
+ import { TeacherShell } from "@/components/teacher/TeacherShell";
+ import { SESSION_COOKIE_NAME } from "@/lib/session";
+ import { canAccessTeacherArea, getAuthenticatedUserFromToken } from "@/lib/server/auth";
+-import { getTeacherFoundationData } from "@/lib/server/userStore";
++import { getTeacherShellData } from "@/lib/server/userStore";
+ 
+ export const dynamic = "force-dynamic";
+ 
+@@ -14,14 +14,14 @@ export default async function TeacherLayout({ children }: { children: ReactNode
+   const authenticated = await getAuthenticatedUserFromToken(token);
+ 
+   if (!authenticated) {
+-    redirect("/login?next=/teacher");
++    redirect("/login?next=/teacher/dashboard");
+   }
+ 
+   if (!canAccessTeacherArea(authenticated.user)) {
+     redirect("/dashboard");
+   }
+ 
+-  const foundation = await getTeacherFoundationData(authenticated.user.id);
++  const foundation = await getTeacherShellData(authenticated.user.id);
+ 
+   if (!foundation) {
+     redirect("/dashboard");
+diff --git a/app/teacher/page.tsx b/app/teacher/page.tsx
+index 66534862..e9498a18 100644
+--- a/app/teacher/page.tsx
++++ b/app/teacher/page.tsx
+@@ -1,15 +1,5 @@
+ import { redirect } from "next/navigation";
+-import { TeacherDashboardView } from "@/components/teacher/TeacherDashboardView";
+-import { getTeacherDashboardData } from "@/lib/server/userStore";
+-import { getTeacherFoundationForPage } from "./getTeacherFoundation";
+ 
+ export default async function TeacherPage() {
+-  const foundation = await getTeacherFoundationForPage();
+-  const dashboard = await getTeacherDashboardData(foundation.teacher.id);
+-
+-  if (!dashboard) {
+-    redirect("/dashboard");
+-  }
+-
+-  return <TeacherDashboardView dashboard={dashboard} />;
++  redirect("/teacher/dashboard");
+ }
+diff --git a/lib/server/userStore.ts b/lib/server/userStore.ts
+index fa7ed0e8..4d313bda 100644
+--- a/lib/server/userStore.ts
++++ b/lib/server/userStore.ts
+@@ -4096,6 +4096,44 @@ function toAuthenticatedUser(database: Database, user: UserRecord): Authenticate
+   };
+ }
+ 
++function toAuthenticatedUserFromRecords(
++  user: UserRecord,
++  profile: StudentProfileRecord,
++  settingsRecord?: UserSettingsRecord | null
++): AuthenticatedUser | null {
++  const curriculumProfile = normalizeStoredCurriculumProfile({
++    curriculumTrack: normalizeCurriculumTrack(profile.curriculum_track),
++    region: profile.curriculum_region,
++    publisher: profile.textbook_publisher
++  });
++  const curriculumTrack = curriculumTrackForProfile(curriculumProfile) ?? (user.role === "student" ? undefined : defaultCurriculumTrack);
++  if (!curriculumTrack) return null;
++
++  const settings = settingsRecord ?? defaultSettings(user.id, profile.grade);
++
++  return {
++    user: {
++      id: user.id,
++      name: profile.name,
++      username: user.username,
++      email: user.email,
++      schoolId: user.school_id,
++      passwordMustChange: user.password_must_change ?? false,
++      avatarId: isValidStudentAvatarId(profile.avatar_id) ? profile.avatar_id : defaultStudentAvatarId,
++      avatarImageDataUrl: normalizeStudentAvatarImageDataUrl(profile.avatar_image_data_url),
++      grade: profile.grade,
++      curriculumTrack,
++      curriculumProfile,
++      role: user.role
++    },
++    settings: {
++      language: settings.language,
++      theme: settings.theme,
++      selectedGrade: settings.selected_grade
++    }
++  };
++}
++
+ function canUseTeacherArea(user?: UserRecord | null): user is UserRecord {
+   return user?.role === "teacher" || user?.role === "admin";
+ }
+@@ -5641,6 +5679,13 @@ export async function authenticateUser(username: string, password: string) {
+ }
+ 
+ export async function authenticateUserForLogin(username: string, password: string) {
++  const demoDatabase = getDemoAccountDatabaseForLogin(username, password);
++  if (demoDatabase) {
++    const user = authenticatedUserForCredentials(demoDatabase, username, password);
++    const session = user ? toAuthenticatedUser(demoDatabase, user) : null;
++    return session ? { status: "authenticated" as const, session } : { status: "invalid" as const };
++  }
++
+   const database = await readDatabase();
+   const user = authenticatedUserForCredentials(database, username, password);
+   if (!user) return { status: "invalid" as const };
+@@ -6935,6 +6980,12 @@ export async function resetUserPassword(token: string, password: string) {
+ }
+ 
+ export async function getAuthenticatedUserById(userId: string) {
++  const demoDatabase = getDemoAccountDatabaseForUserId(userId);
++  if (demoDatabase) {
++    const user = demoDatabase.users.find((candidate) => candidate.id === userId);
++    return user ? toAuthenticatedUser(demoDatabase, user) : null;
++  }
++
+   const database = await readDatabase();
+   const user = database.users.find((candidate) => candidate.id === userId);
+   return user ? toAuthenticatedUser(database, user) : null;
+@@ -6945,6 +6996,370 @@ export async function parentCanAccessStudent(parentId: string, studentId: string
+   return parentCanAccessStudentInDatabase(database, parentId, studentId);
+ }
+ 
++type TeacherShellData = Pick<TeacherFoundationData, "teacher" | "classes">;
++
++function emptyTeacherDashboardDatabase(overrides: Partial<Database>): Database {
++  return {
++    users: [],
++    student_profiles: [],
++    user_settings: [],
++    schools: [],
++    school_memberships: [],
++    provisioning_batches: [],
++    provisioning_row_results: [],
++    guardian_links: [],
++    password_reset_tokens: [],
++    topics: [],
++    lessons: [],
++    lesson_blocks: [],
++    questions: [],
++    attempts: [],
++    mistakes: [],
++    lesson_progress: [],
++    adaptive_skill_state: [],
++    adaptive_recommendation_cache: [],
++    visualization_events: [],
++    learning_events: [],
++    learning_event_clears: [],
++    visualization_sessions: [],
++    ai_tutor_messages: [],
++    ai_tutor_usage: [],
++    teacher_classes: [],
++    class_enrollments: [],
++    assignments: [],
++    submissions: [],
++    teacher_messages: [],
++    teacher_message_entries: [],
++    teaching_resources: [],
++    assessments: [],
++    assessment_submissions: [],
++    teacher_reports: [],
++    teacher_live_sessions: [],
++    teacher_live_prompts: [],
++    teacher_live_responses: [],
++    reward_catalog: [],
++    reward_point_ledger: [],
++    reward_redemptions: [],
++    gamification_events: [],
++    reward_campaigns: [],
++    ...overrides
++  };
++}
++
++function demoAccountDatabaseForSeed(seed: DemoAccountSeed): Database {
++  const now = new Date().toISOString();
++  const curriculumProfile = curriculumProfileForTrack(seed.curriculumTrack);
++  const password = hashPassword(getDemoPassword());
++  const user: UserRecord = {
++    id: seed.id,
++    username: seed.username,
++    normalized_username: normalizeUsername(seed.username),
++    email: seed.email,
++    normalized_email: normalizeEmail(seed.email),
++    password_hash: password.hash,
++    password_salt: password.salt,
++    password_must_change: false,
++    role: seed.role,
++    created_at: now
++  };
++  const profile: StudentProfileRecord = {
++    user_id: seed.id,
++    name: seed.username,
++    grade: seed.grade,
++    curriculum_track: seed.curriculumTrack,
++    curriculum_region: curriculumProfile.region,
++    textbook_publisher: curriculumProfile.publisher,
++    avatar_id: seed.avatarId
++  };
++  const settings: UserSettingsRecord = {
++    user_id: seed.id,
++    language: seed.curriculumTrack === "MAINLAND_PEP_HIGH" ? "zh-Hans" : "en",
++    theme: "dark",
++    selected_grade: seed.grade,
++    updated_at: now
++  };
++
++  return emptyTeacherDashboardDatabase({
++    users: [user],
++    student_profiles: [profile],
++    user_settings: [settings]
++  });
++}
++
++function getDemoAccountDatabaseForLogin(username: string, password: string): Database | null {
++  if (password !== getDemoPassword()) return null;
++
++  const normalizedIdentifier = normalizeUsername(username);
++  const seed = demoAccountSeeds.find(
++    (candidate) =>
++      normalizeUsername(candidate.username) === normalizedIdentifier ||
++      normalizeEmail(candidate.email) === normalizedIdentifier
++  );
++  return seed ? demoAccountDatabaseForSeed(seed) : null;
++}
++
++function getDemoAccountDatabaseForUserId(userId: string): Database | null {
++  const seed = demoAccountSeeds.find((candidate) => candidate.id === userId);
++  return seed ? demoAccountDatabaseForSeed(seed) : null;
++}
++
++function getDemoStudentLessonEntryTarget(
++  userId: string,
++  grade: GradeId,
++  curriculumTrack: CurriculumScope
++): LessonEntryTarget | null | undefined {
++  const seed = demoAccountSeeds.find((candidate) => candidate.id === userId);
++  if (!seed || seed.role !== "student") return undefined;
++  if (seed.grade !== grade || curriculumTrackForProfile(curriculumProfileForScope(curriculumTrack)) !== seed.curriculumTrack) {
++    return null;
++  }
++
++  if (seed.id === demoUserId) {
++    return {
++      href: "/lesson/trigonometry-basics",
++      slug: "trigonometry-basics",
++      grade: "S3",
++      topicId: "trigonometry-basics"
++    };
++  }
++
++  if (seed.id === mainlandDemoUserId) {
++    return {
++      href: "/lesson/pep-high-s4-sets-logic",
++      slug: "pep-high-s4-sets-logic",
++      grade: "S4",
++      topicId: "pep-high-s4-sets-logic"
++    };
++  }
++
++  return null;
++}
++
++function getDemoTeacherDatabase(userId: string): Database | null {
++  const seed = demoAccountSeeds.find((candidate) => candidate.id === userId);
++  if (!seed) return null;
++
++  const now = new Date().toISOString();
++  const curriculumProfile = curriculumProfileForTrack(seed.curriculumTrack);
++  const user: UserRecord = {
++    id: seed.id,
++    username: seed.username,
++    normalized_username: normalizeUsername(seed.username),
++    email: seed.email,
++    normalized_email: normalizeEmail(seed.email),
++    password_hash: "",
++    password_salt: "",
++    password_must_change: false,
++    role: seed.role,
++    created_at: now
++  };
++  const profile: StudentProfileRecord = {
++    user_id: seed.id,
++    name: seed.username,
++    grade: seed.grade,
++    curriculum_track: seed.curriculumTrack,
++    curriculum_region: curriculumProfile.region,
++    textbook_publisher: curriculumProfile.publisher,
++    avatar_id: seed.avatarId
++  };
++  const settings: UserSettingsRecord = {
++    user_id: seed.id,
++    language: seed.curriculumTrack === "MAINLAND_PEP_HIGH" ? "zh-Hans" : "en",
++    theme: "dark",
++    selected_grade: seed.grade,
++    updated_at: now
++  };
++  const database = createInitialDatabase();
++  database.users = [user, ...database.users.filter((candidate) => candidate.id !== user.id)];
++  database.student_profiles = [profile, ...database.student_profiles.filter((candidate) => candidate.user_id !== profile.user_id)];
++  database.user_settings = [settings, ...database.user_settings.filter((candidate) => candidate.user_id !== settings.user_id)];
++
++  return canUseTeacherArea(user) ? database : null;
++}
++
++function projectedRecord<T>(value: unknown): T | null {
++  if (typeof value === "object" && value !== null) return value as T;
++  if (typeof value === "string") {
++    try {
++      const parsed = JSON.parse(value) as unknown;
++      return typeof parsed === "object" && parsed !== null ? (parsed as T) : null;
++    } catch {
++      return null;
++    }
++  }
++  return null;
++}
++
++function projectionArray<T>(value: unknown): T[] {
++  if (Array.isArray(value)) return value as T[];
++  if (typeof value === "string") {
++    try {
++      const parsed = JSON.parse(value) as unknown;
++      return Array.isArray(parsed) ? (parsed as T[]) : [];
++    } catch {
++      return [];
++    }
++  }
++  return [];
++}
++
++type TeacherShellProjectionRow = {
++  user_record: unknown;
++  profile_record: unknown;
++  settings_record: unknown;
++  class_records: unknown;
++  enrollment_records: unknown;
++};
++
++function teacherClassesFromProjectedRecords({
++  classRecords,
++  enrollmentRecords,
++  teacher
++}: {
++  classRecords: TeacherClassRecord[];
++  enrollmentRecords: ClassEnrollmentRecord[];
++  teacher: StudentSession;
++}): TeacherClass[] {
++  const database = emptyTeacherDashboardDatabase({
++    users: [
++      {
++        id: teacher.id,
++        username: teacher.username,
++        normalized_username: normalizeUsername(teacher.username),
++        email: teacher.email,
++        normalized_email: teacher.email ? normalizeEmail(teacher.email) : undefined,
++        school_id: teacher.schoolId,
++        password_hash: "",
++        password_salt: "",
++        password_must_change: teacher.passwordMustChange,
++        role: teacher.role,
++        created_at: new Date().toISOString()
++      }
++    ],
++    student_profiles: [
++      {
++        user_id: teacher.id,
++        name: teacher.name,
++        grade: teacher.grade,
++        curriculum_track: teacher.curriculumTrack,
++        curriculum_region: teacher.curriculumProfile.region,
++        textbook_publisher: teacher.curriculumProfile.publisher,
++        avatar_id: teacher.avatarId,
++        avatar_image_data_url: teacher.avatarImageDataUrl
++      }
++    ],
++    teacher_classes: classRecords,
++    class_enrollments: enrollmentRecords
++  });
++
++  return [...classRecords]
++    .sort((a, b) => a.grade.localeCompare(b.grade) || a.name.localeCompare(b.name))
++    .map((record) => toTeacherClass(database, record));
++}
++
++async function getTeacherShellDataFromPostgresProjection(userId: string): Promise<TeacherShellData | null | undefined> {
++  if (storageProvider !== "postgres") return undefined;
++
++  try {
++    await ensurePostgresStateTable();
++    const rows = await getPostgresClient()<TeacherShellProjectionRow[]>`
++      WITH user_match AS (
++        SELECT
++          state.payload,
++          user_items.user_record
++        FROM app_state AS state
++        CROSS JOIN LATERAL jsonb_array_elements(COALESCE(state.payload->'users', '[]'::jsonb)) AS user_items(user_record)
++        WHERE state.id = ${stateRecordId}
++          AND user_items.user_record->>'id' = ${userId}
++        LIMIT 1
++      ),
++      class_records AS (
++        SELECT class_items.class_record
++        FROM user_match
++        CROSS JOIN LATERAL jsonb_array_elements(COALESCE(user_match.payload->'teacher_classes', '[]'::jsonb)) AS class_items(class_record)
++        WHERE class_items.class_record->>'teacher_id' = ${userId}
++          OR EXISTS (
++            SELECT 1
++            FROM jsonb_array_elements(COALESCE(user_match.payload->'school_memberships', '[]'::jsonb)) AS membership_items(membership_record)
++            WHERE membership_items.membership_record->>'user_id' = ${userId}
++              AND membership_items.membership_record->>'class_id' = class_items.class_record->>'id'
++              AND membership_items.membership_record->>'role' IN ('teacher', 'admin')
++          )
++      )
++      SELECT
++        user_match.user_record AS user_record,
++        (
++          SELECT profile_record
++          FROM jsonb_array_elements(COALESCE(user_match.payload->'student_profiles', '[]'::jsonb)) AS profile_items(profile_record)
++          WHERE profile_record->>'user_id' = user_match.user_record->>'id'
++          LIMIT 1
++        ) AS profile_record,
++        (
++          SELECT settings_record
++          FROM jsonb_array_elements(COALESCE(user_match.payload->'user_settings', '[]'::jsonb)) AS settings_items(settings_record)
++          WHERE settings_record->>'user_id' = user_match.user_record->>'id'
++          LIMIT 1
++        ) AS settings_record,
++        COALESCE((SELECT jsonb_agg(class_record) FROM class_records), '[]'::jsonb) AS class_records,
++        COALESCE((
++          SELECT jsonb_agg(enrollment_record)
++          FROM jsonb_array_elements(COALESCE(user_match.payload->'class_enrollments', '[]'::jsonb)) AS enrollment_items(enrollment_record)
++          WHERE EXISTS (
++            SELECT 1
++            FROM class_records
++            WHERE class_records.class_record->>'id' = enrollment_items.enrollment_record->>'class_id'
++          )
++        ), '[]'::jsonb) AS enrollment_records
++      FROM user_match
++      LIMIT 1
++    `;
++
++    const row = rows[0];
++    if (!row) return null;
++
++    const user = projectedRecord<UserRecord>(row.user_record);
++    if (!canUseTeacherArea(user)) return null;
++    if (user.role === "admin") return undefined;
++
++    const profile = projectedRecord<StudentProfileRecord>(row.profile_record);
++    if (!profile) return null;
++
++    const session = toAuthenticatedUserFromRecords(user, profile, projectedRecord<UserSettingsRecord>(row.settings_record));
++    if (!session) return null;
++
++    return {
++      teacher: session.user,
++      classes: teacherClassesFromProjectedRecords({
++        classRecords: projectionArray<TeacherClassRecord>(row.class_records),
++        enrollmentRecords: projectionArray<ClassEnrollmentRecord>(row.enrollment_records),
++        teacher: session.user
++      })
++    };
++  } catch {
++    return undefined;
++  }
++}
++
++export async function getTeacherShellData(userId: string): Promise<TeacherShellData | null> {
++  const demoDatabase = getDemoTeacherDatabase(userId);
++  if (demoDatabase) {
++    const user = demoDatabase.users.find((candidate) => candidate.id === userId);
++    const teacher = user ? toAuthenticatedUser(demoDatabase, user) : null;
++    if (user && teacher) {
++      return {
++        teacher: teacher.user,
++        classes: teacherClassRecordsFor(demoDatabase, user).map((teacherClass) => toTeacherClass(demoDatabase, teacherClass))
++      };
++    }
++  }
++
++  const projected = await getTeacherShellDataFromPostgresProjection(userId);
++  if (projected !== undefined) return projected;
++
++  const foundation = await getTeacherFoundationData(userId);
++  return foundation ? { teacher: foundation.teacher, classes: foundation.classes } : null;
++}
++
+ export async function getTeacherFoundationData(userId: string): Promise<TeacherFoundationData | null> {
+   const database = await readDatabase();
+   const user = database.users.find((candidate) => candidate.id === userId);
+@@ -7071,8 +7486,207 @@ function actionPriorityRank(priority: TeacherActionQueueItem["priority"]) {
+   return 2;
+ }
+ 
+-export async function getTeacherDashboardData(userId: string): Promise<TeacherDashboardData | null> {
+-  const database = await readDatabase();
++type TeacherDashboardProjectionRow = {
++  user_records: unknown;
++  student_profile_records: unknown;
++  user_setting_records: unknown;
++  topic_records: unknown;
++  lesson_progress_records: unknown;
++  class_records: unknown;
++  enrollment_records: unknown;
++  assignment_records: unknown;
++  submission_records: unknown;
++  teacher_message_records: unknown;
++  mistake_records: unknown;
++  attempt_records: unknown;
++  learning_event_records: unknown;
++  visualization_session_records: unknown;
++  ai_tutor_message_records: unknown;
++  reward_point_ledger_records: unknown;
++  reward_redemption_records: unknown;
++};
++
++async function getTeacherDashboardDataFromPostgresProjection(userId: string): Promise<TeacherDashboardData | null | undefined> {
++  if (storageProvider !== "postgres") return undefined;
++
++  try {
++    await ensurePostgresStateTable();
++    const rows = await getPostgresClient()<TeacherDashboardProjectionRow[]>`
++      WITH user_match AS (
++        SELECT
++          state.payload,
++          user_items.user_record
++        FROM app_state AS state
++        CROSS JOIN LATERAL jsonb_array_elements(COALESCE(state.payload->'users', '[]'::jsonb)) AS user_items(user_record)
++        WHERE state.id = ${stateRecordId}
++          AND user_items.user_record->>'id' = ${userId}
++        LIMIT 1
++      ),
++      class_records AS (
++        SELECT class_items.class_record
++        FROM user_match
++        CROSS JOIN LATERAL jsonb_array_elements(COALESCE(user_match.payload->'teacher_classes', '[]'::jsonb)) AS class_items(class_record)
++        WHERE class_items.class_record->>'teacher_id' = ${userId}
++          OR EXISTS (
++            SELECT 1
++            FROM jsonb_array_elements(COALESCE(user_match.payload->'school_memberships', '[]'::jsonb)) AS membership_items(membership_record)
++            WHERE membership_items.membership_record->>'user_id' = ${userId}
++              AND membership_items.membership_record->>'class_id' = class_items.class_record->>'id'
++              AND membership_items.membership_record->>'role' IN ('teacher', 'admin')
++          )
++      ),
++      class_ids AS (
++        SELECT class_record->>'id' AS class_id
++        FROM class_records
++      ),
++      class_grades AS (
++        SELECT class_record->>'grade' AS grade
++        FROM class_records
++      ),
++      enrollment_records AS (
++        SELECT enrollment_items.enrollment_record
++        FROM user_match
++        CROSS JOIN LATERAL jsonb_array_elements(COALESCE(user_match.payload->'class_enrollments', '[]'::jsonb)) AS enrollment_items(enrollment_record)
++        WHERE enrollment_items.enrollment_record->>'class_id' IN (SELECT class_id FROM class_ids)
++      ),
++      student_ids AS (
++        SELECT enrollment_record->>'student_id' AS student_id
++        FROM enrollment_records
++      ),
++      relevant_user_ids AS (
++        SELECT user_match.user_record->>'id' AS user_id
++        FROM user_match
++        UNION
++        SELECT student_id AS user_id
++        FROM student_ids
++      ),
++      assignment_records AS (
++        SELECT assignment_items.assignment_record
++        FROM user_match
++        CROSS JOIN LATERAL jsonb_array_elements(COALESCE(user_match.payload->'assignments', '[]'::jsonb)) AS assignment_items(assignment_record)
++        WHERE assignment_items.assignment_record->>'class_id' IN (SELECT class_id FROM class_ids)
++      ),
++      assignment_ids AS (
++        SELECT assignment_record->>'id' AS assignment_id
++        FROM assignment_records
++      ),
++      topic_records AS (
++        SELECT topic_items.topic_record
++        FROM user_match
++        CROSS JOIN LATERAL jsonb_array_elements(COALESCE(user_match.payload->'topics', '[]'::jsonb)) AS topic_items(topic_record)
++        WHERE topic_items.topic_record->>'grade' IN (SELECT grade FROM class_grades)
++      )
++      SELECT
++        COALESCE((
++          SELECT jsonb_agg(user_record)
++          FROM jsonb_array_elements(COALESCE(user_match.payload->'users', '[]'::jsonb)) AS user_items(user_record)
++          WHERE user_record->>'id' IN (SELECT user_id FROM relevant_user_ids)
++        ), '[]'::jsonb) AS user_records,
++        COALESCE((
++          SELECT jsonb_agg(profile_record)
++          FROM jsonb_array_elements(COALESCE(user_match.payload->'student_profiles', '[]'::jsonb)) AS profile_items(profile_record)
++          WHERE profile_record->>'user_id' IN (SELECT user_id FROM relevant_user_ids)
++        ), '[]'::jsonb) AS student_profile_records,
++        COALESCE((
++          SELECT jsonb_agg(settings_record)
++          FROM jsonb_array_elements(COALESCE(user_match.payload->'user_settings', '[]'::jsonb)) AS settings_items(settings_record)
++          WHERE settings_record->>'user_id' IN (SELECT user_id FROM relevant_user_ids)
++        ), '[]'::jsonb) AS user_setting_records,
++        COALESCE((SELECT jsonb_agg(topic_record) FROM topic_records), '[]'::jsonb) AS topic_records,
++        COALESCE((
++          SELECT jsonb_agg(progress_record)
++          FROM jsonb_array_elements(COALESCE(user_match.payload->'lesson_progress', '[]'::jsonb)) AS progress_items(progress_record)
++          WHERE progress_record->>'user_id' IN (SELECT student_id FROM student_ids)
++            AND progress_record->>'topic_id' IN (SELECT topic_record->>'id' FROM topic_records)
++        ), '[]'::jsonb) AS lesson_progress_records,
++        COALESCE((SELECT jsonb_agg(class_record) FROM class_records), '[]'::jsonb) AS class_records,
++        COALESCE((SELECT jsonb_agg(enrollment_record) FROM enrollment_records), '[]'::jsonb) AS enrollment_records,
++        COALESCE((SELECT jsonb_agg(assignment_record) FROM assignment_records), '[]'::jsonb) AS assignment_records,
++        COALESCE((
++          SELECT jsonb_agg(submission_record)
++          FROM jsonb_array_elements(COALESCE(user_match.payload->'submissions', '[]'::jsonb)) AS submission_items(submission_record)
++          WHERE submission_record->>'assignment_id' IN (SELECT assignment_id FROM assignment_ids)
++        ), '[]'::jsonb) AS submission_records,
++        COALESCE((
++          SELECT jsonb_agg(message_record)
++          FROM jsonb_array_elements(COALESCE(user_match.payload->'teacher_messages', '[]'::jsonb)) AS message_items(message_record)
++          WHERE message_record->>'teacher_id' = ${userId}
++            OR message_record->>'class_id' IN (SELECT class_id FROM class_ids)
++        ), '[]'::jsonb) AS teacher_message_records,
++        COALESCE((
++          SELECT jsonb_agg(mistake_record)
++          FROM jsonb_array_elements(COALESCE(user_match.payload->'mistakes', '[]'::jsonb)) AS mistake_items(mistake_record)
++          WHERE mistake_record->>'user_id' IN (SELECT student_id FROM student_ids)
++        ), '[]'::jsonb) AS mistake_records,
++        COALESCE((
++          SELECT jsonb_agg(attempt_record)
++          FROM jsonb_array_elements(COALESCE(user_match.payload->'attempts', '[]'::jsonb)) AS attempt_items(attempt_record)
++          WHERE attempt_record->>'user_id' IN (SELECT student_id FROM student_ids)
++        ), '[]'::jsonb) AS attempt_records,
++        COALESCE((
++          SELECT jsonb_agg(event_record)
++          FROM jsonb_array_elements(COALESCE(user_match.payload->'learning_events', '[]'::jsonb)) AS event_items(event_record)
++          WHERE event_record->>'user_id' IN (SELECT student_id FROM student_ids)
++        ), '[]'::jsonb) AS learning_event_records,
++        COALESCE((
++          SELECT jsonb_agg(session_record)
++          FROM jsonb_array_elements(COALESCE(user_match.payload->'visualization_sessions', '[]'::jsonb)) AS session_items(session_record)
++          WHERE session_record->>'user_id' IN (SELECT student_id FROM student_ids)
++        ), '[]'::jsonb) AS visualization_session_records,
++        COALESCE((
++          SELECT jsonb_agg(message_record)
++          FROM jsonb_array_elements(COALESCE(user_match.payload->'ai_tutor_messages', '[]'::jsonb)) AS ai_message_items(message_record)
++          WHERE message_record->>'user_id' IN (SELECT student_id FROM student_ids)
++        ), '[]'::jsonb) AS ai_tutor_message_records,
++        COALESCE((
++          SELECT jsonb_agg(ledger_record)
++          FROM jsonb_array_elements(COALESCE(user_match.payload->'reward_point_ledger', '[]'::jsonb)) AS ledger_items(ledger_record)
++          WHERE ledger_record->>'student_id' IN (SELECT student_id FROM student_ids)
++        ), '[]'::jsonb) AS reward_point_ledger_records,
++        COALESCE((
++          SELECT jsonb_agg(redemption_record)
++          FROM jsonb_array_elements(COALESCE(user_match.payload->'reward_redemptions', '[]'::jsonb)) AS redemption_items(redemption_record)
++          WHERE redemption_record->>'student_id' IN (SELECT student_id FROM student_ids)
++        ), '[]'::jsonb) AS reward_redemption_records
++      FROM user_match
++      LIMIT 1
++    `;
++
++    const row = rows[0];
++    if (!row) return null;
++
++    const users = projectionArray<UserRecord>(row.user_records);
++    const user = users.find((candidate) => candidate.id === userId);
++    if (!canUseTeacherArea(user)) return null;
++    if (user.role === "admin") return undefined;
++
++    const database = emptyTeacherDashboardDatabase({
++      users,
++      student_profiles: projectionArray<StudentProfileRecord>(row.student_profile_records),
++      user_settings: projectionArray<UserSettingsRecord>(row.user_setting_records),
++      topics: projectionArray<TopicRecord>(row.topic_records),
++      lesson_progress: projectionArray<LessonProgressRecord>(row.lesson_progress_records),
++      teacher_classes: projectionArray<TeacherClassRecord>(row.class_records),
++      class_enrollments: projectionArray<ClassEnrollmentRecord>(row.enrollment_records),
++      assignments: projectionArray<AssignmentRecord>(row.assignment_records),
++      submissions: projectionArray<SubmissionRecord>(row.submission_records),
++      teacher_messages: projectionArray<TeacherMessageRecord>(row.teacher_message_records),
++      mistakes: projectionArray<MistakeRecordRow>(row.mistake_records),
++      attempts: projectionArray<AttemptRecord>(row.attempt_records),
++      learning_events: projectionArray<LearningEventRecord>(row.learning_event_records),
++      visualization_sessions: projectionArray<VisualizationSessionRecord>(row.visualization_session_records),
++      ai_tutor_messages: projectionArray<AITutorMessageRecord>(row.ai_tutor_message_records),
++      reward_point_ledger: projectionArray<RewardPointLedgerRecord>(row.reward_point_ledger_records),
++      reward_redemptions: projectionArray<RewardRedemptionRecord>(row.reward_redemption_records)
++    });
++
++    return buildTeacherDashboardDataFromDatabase(database, userId);
++  } catch {
++    return undefined;
++  }
++}
++
++function buildTeacherDashboardDataFromDatabase(database: Database, userId: string): TeacherDashboardData | null {
+   const user = database.users.find((candidate) => candidate.id === userId);
+   if (!canUseTeacherArea(user)) return null;
+ 
+@@ -7359,6 +7973,19 @@ export async function getTeacherDashboardData(userId: string): Promise<TeacherDa
+   };
+ }
+ 
++export async function getTeacherDashboardData(userId: string): Promise<TeacherDashboardData | null> {
++  const demoDatabase = getDemoTeacherDatabase(userId);
++  if (demoDatabase) {
++    const demoDashboard = buildTeacherDashboardDataFromDatabase(demoDatabase, userId);
++    if (demoDashboard) return demoDashboard;
++  }
++
++  const projected = await getTeacherDashboardDataFromPostgresProjection(userId);
++  if (projected !== undefined) return projected;
++
++  return buildTeacherDashboardDataFromDatabase(await readDatabase(), userId);
++}
++
+ function average(values: number[]) {
+   const finiteValues = values.filter((value) => Number.isFinite(value));
+   return finiteValues.length ? Math.round(finiteValues.reduce((sum, value) => sum + value, 0) / finiteValues.length) : null;
+@@ -13168,6 +13795,12 @@ export async function getLessonEntryTarget(
+   curriculumTrack: CurriculumScope = defaultCurriculumProfile
+ ): Promise<LessonEntryTarget | null> {
+   const startedAt = Date.now();
++  const demoLessonEntryTarget = getDemoStudentLessonEntryTarget(userId, grade, curriculumTrack);
++  if (demoLessonEntryTarget !== undefined) {
++    logLessonPerf("getLessonEntryTarget(demo)", startedAt);
++    return demoLessonEntryTarget;
++  }
++
+   const database = await readDatabase();
+   const topicRecords = database.topics
+     .filter((topic) => isCurriculumTopic(topic, curriculumTrack) && topic.grade === grade)
+diff --git a/app/api/me/route.test.ts b/app/api/me/route.test.ts
+new file mode 100644
+index 00000000..e5a9d384
+--- /dev/null
++++ b/app/api/me/route.test.ts
+@@ -0,0 +1,28 @@
++import assert from "node:assert/strict";
++import test from "node:test";
++
++process.env.AUTH_SESSION_SECRET ??= "api-me-route-test-secret";
++
++test("GET /api/me skips lesson entry lookup when includeLessonEntry is false", async () => {
++  const [{ createSessionToken, SESSION_COOKIE_NAME }, { GET }] = await Promise.all([
++    import("@/lib/session"),
++    import("./route")
++  ]);
++  const token = await createSessionToken("student-shirleen-us");
++  const request = new Request("https://mais.hk/api/me?includeLessonEntry=false", {
++    headers: {
++      cookie: `${SESSION_COOKIE_NAME}=${encodeURIComponent(token)}`
++    }
++  });
++
++  const startedAt = Date.now();
++  const response = await GET(request);
++  const durationMs = Date.now() - startedAt;
++  const body = await response.json();
++
++  assert.equal(response.status, 200);
++  assert.equal(body.user.id, "student-shirleen-us");
++  assert.equal(body.user.role, "student");
++  assert.equal("lessonEntryTarget" in body, false);
++  assert.ok(durationMs < 500, `includeLessonEntry=false should not read full lesson storage; took ${durationMs}ms`);
++});
+diff --git a/app/teacher/dashboard/page.tsx b/app/teacher/dashboard/page.tsx
+new file mode 100644
+index 00000000..95dd558c
+--- /dev/null
++++ b/app/teacher/dashboard/page.tsx
+@@ -0,0 +1,5 @@
++import { TeacherDashboardClient } from "@/components/teacher/TeacherDashboardClient";
++
++export default async function TeacherDashboardPage() {
++  return <TeacherDashboardClient />;
++}
+diff --git a/components/teacher/TeacherDashboardClient.tsx b/components/teacher/TeacherDashboardClient.tsx
+new file mode 100644
+index 00000000..73572b5f
+--- /dev/null
++++ b/components/teacher/TeacherDashboardClient.tsx
+@@ -0,0 +1,104 @@
++"use client";
++
++import { useEffect, useState } from "react";
++import { useSettings } from "@/components/providers/AppProviders";
++import type { TeacherDashboardData } from "@/types";
++import { TeacherDashboardView } from "./TeacherDashboardView";
++
++function readDashboard(value: unknown) {
++  const response = value as { dashboard?: unknown } | null;
++  return (response?.dashboard ?? null) as TeacherDashboardData | null;
++}
++
++function TeacherDashboardSkeleton() {
++  return (
++    <div className="grid gap-7" aria-busy="true">
++      <section className="glass-panel p-6 sm:p-8">
++        <div className="h-4 w-40 rounded-full bg-cyan-300/30 dark:bg-cyan-200/15" />
++        <div className="mt-5 h-12 max-w-2xl rounded-2xl bg-slate-200/80 dark:bg-white/10" />
++        <div className="mt-4 h-5 max-w-3xl rounded-full bg-slate-200/70 dark:bg-white/10" />
++      </section>
++      <section className="grid gap-4 md:grid-cols-2 2xl:grid-cols-3">
++        {Array.from({ length: 6 }, (_, index) => (
++          <div key={index} className="glass-panel min-h-[196px] p-5">
++            <div className="h-4 w-28 rounded-full bg-slate-200/80 dark:bg-white/10" />
++            <div className="mt-5 h-7 rounded-xl bg-slate-200/80 dark:bg-white/10" />
++            <div className="mt-3 h-16 rounded-xl bg-slate-200/70 dark:bg-white/10" />
++          </div>
++        ))}
++      </section>
++      <section className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
++        {Array.from({ length: 4 }, (_, index) => (
++          <div key={index} className="glass-panel p-5">
++            <div className="h-4 w-24 rounded-full bg-slate-200/80 dark:bg-white/10" />
++            <div className="mt-4 h-10 w-20 rounded-xl bg-cyan-300/25 dark:bg-cyan-200/15" />
++            <div className="mt-3 h-12 rounded-xl bg-slate-200/70 dark:bg-white/10" />
++          </div>
++        ))}
++      </section>
++    </div>
++  );
++}
++
++export function TeacherDashboardClient() {
++  const { t } = useSettings();
++  const [dashboard, setDashboard] = useState<TeacherDashboardData | null>(null);
++  const [isLoading, setIsLoading] = useState(true);
++  const [loadError, setLoadError] = useState("");
++  const [reloadKey, setReloadKey] = useState(0);
++  const errorCopy = t({ en: "Could not load teacher dashboard data.", zh: "暫時無法載入教師儀表板資料。" });
++
++  useEffect(() => {
++    const controller = new AbortController();
++
++    async function loadDashboard() {
++      setIsLoading(true);
++      setLoadError("");
++
++      try {
++        const response = await fetch("/api/teacher/dashboard", {
++          cache: "no-store",
++          signal: controller.signal
++        });
++        const nextDashboard = readDashboard(await response.json());
++        if (!response.ok || !nextDashboard) throw new Error(errorCopy);
++        setDashboard(nextDashboard);
++      } catch (error) {
++        if (!controller.signal.aborted) {
++          setDashboard(null);
++          setLoadError(error instanceof Error ? error.message : errorCopy);
++        }
++      } finally {
++        if (!controller.signal.aborted) setIsLoading(false);
++      }
++    }
++
++    loadDashboard();
++
++    return () => controller.abort();
++  }, [errorCopy, reloadKey]);
++
++  if (dashboard) return <TeacherDashboardView dashboard={dashboard} />;
++
++  if (isLoading) return <TeacherDashboardSkeleton />;
++
++  return (
++    <section className="glass-panel p-6 sm:p-8">
++      <p role="alert" className="rounded-2xl border border-rose-300/60 bg-rose-500/10 px-4 py-3 text-sm font-semibold text-rose-700 dark:text-rose-200">
++        {loadError || errorCopy}
++      </p>
++      <button
++        type="button"
++        onClick={() => {
++          setIsLoading(true);
++          setLoadError("");
++          setDashboard(null);
++          setReloadKey((value) => value + 1);
++        }}
++        className="focus-ring mt-5 rounded-full bg-slate-950 px-5 py-3 text-sm font-black text-white transition hover:-translate-y-0.5 dark:bg-white dark:text-slate-950"
++      >
++        {t({ en: "Retry", zh: "重試" })}
++      </button>
++    </section>
++  );
++}
+diff --git a/lib/server/teacherDashboardPageBoundary.test.ts b/lib/server/teacherDashboardPageBoundary.test.ts
+new file mode 100644
+index 00000000..1b199466
+--- /dev/null
++++ b/lib/server/teacherDashboardPageBoundary.test.ts
+@@ -0,0 +1,117 @@
++import assert from "node:assert/strict";
++import { readFile } from "node:fs/promises";
++import path from "node:path";
++import test from "node:test";
++
++test("teacher login targets the fast teacher dashboard route", async () => {
++  const loginSource = await readFile(path.join(process.cwd(), "app/login/page.tsx"), "utf8");
++  const workspaceStart = loginSource.indexOf("function workspaceForRole");
++  const workspaceSource = loginSource.slice(workspaceStart, loginSource.indexOf("function safeWorkspaceTarget", workspaceStart));
++
++  assert.notEqual(workspaceStart, -1, "Login workspace target helper should exist.");
++  assert.ok(workspaceSource.includes('return "/teacher/dashboard"'));
++});
++
++test("teacher index redirects to the fast teacher dashboard route", async () => {
++  const pageSource = await readFile(path.join(process.cwd(), "app/teacher/page.tsx"), "utf8");
++
++  assert.ok(pageSource.includes('redirect("/teacher/dashboard")'));
++  assert.equal(pageSource.includes("getTeacherDashboardData"), false);
++});
++
++test("teacher dashboard route does not block first navigation on dashboard aggregation", async () => {
++  const pageSource = await readFile(path.join(process.cwd(), "app/teacher/dashboard/page.tsx"), "utf8");
++
++  assert.equal(
++    pageSource.includes("getTeacherDashboardData"),
++    false,
++    "Teacher dashboard page should render a fast route shell and let the client load dashboard aggregation asynchronously."
++  );
++});
++
++test("teacher layout does not block the shell on full foundation previews", async () => {
++  const layoutSource = await readFile(path.join(process.cwd(), "app/teacher/layout.tsx"), "utf8");
++
++  assert.equal(
++    layoutSource.includes("getTeacherFoundationData"),
++    false,
++    "Teacher layout should load only teacher identity and classes needed by the shell."
++  );
++  assert.equal(layoutSource.includes("getTeacherShellData"), true);
++});
++
++test("teacher dashboard data tries the Postgres projection before full database fallback", async () => {
++  const userStoreSource = await readFile(path.join(process.cwd(), "lib/server/userStore.ts"), "utf8");
++  const exportIndex = userStoreSource.indexOf("export async function getTeacherDashboardData");
++  const projectionCallIndex = userStoreSource.indexOf("getTeacherDashboardDataFromPostgresProjection(userId)", exportIndex);
++  const fullReadIndex = userStoreSource.indexOf("readDatabase()", exportIndex);
++
++  assert.notEqual(exportIndex, -1, "Teacher dashboard data export should exist.");
++  assert.notEqual(projectionCallIndex, -1, "Teacher dashboard data should try the Postgres projection.");
++  assert.notEqual(fullReadIndex, -1, "Teacher dashboard data should keep a full-read fallback.");
++  assert.ok(
++    projectionCallIndex < fullReadIndex,
++    "Teacher dashboard data must attempt the narrow Postgres projection before falling back to readDatabase()."
++  );
++});
++
++test("teacher dashboard projection keeps full database reads out of the projected path", async () => {
++  const userStoreSource = await readFile(path.join(process.cwd(), "lib/server/userStore.ts"), "utf8");
++  const projectionStart = userStoreSource.indexOf("async function getTeacherDashboardDataFromPostgresProjection");
++  const builderStart = userStoreSource.indexOf("function buildTeacherDashboardDataFromDatabase", projectionStart);
++  const projectionSource = userStoreSource.slice(projectionStart, builderStart);
++
++  assert.notEqual(projectionStart, -1, "Teacher dashboard projection should exist.");
++  assert.notEqual(builderStart, -1, "Teacher dashboard builder should exist.");
++  assert.equal(
++    projectionSource.includes("readDatabase()"),
++    false,
++    "The projected teacher dashboard path should not load the full application state."
++  );
++  assert.ok(
++    projectionSource.includes("class_records") &&
++      projectionSource.includes("student_ids") &&
++      projectionSource.includes("submission_records") &&
++      projectionSource.includes("lesson_progress_records"),
++    "Projection should include the teacher dashboard slices needed to preserve existing semantics."
++  );
++});
++
++test("known demo teachers bypass projected teacher data misses", async () => {
++  const userStoreSource = await readFile(path.join(process.cwd(), "lib/server/userStore.ts"), "utf8");
++  const shellExportIndex = userStoreSource.indexOf("export async function getTeacherShellData");
++  const dashboardExportIndex = userStoreSource.indexOf("export async function getTeacherDashboardData");
++  const shellSource = userStoreSource.slice(shellExportIndex, dashboardExportIndex);
++  const dashboardSource = userStoreSource.slice(dashboardExportIndex, userStoreSource.indexOf("function average", dashboardExportIndex));
++  const shellDemoIndex = shellSource.indexOf("getDemoTeacherDatabase(userId)");
++  const shellProjectionIndex = shellSource.indexOf("getTeacherShellDataFromPostgresProjection(userId)");
++  const dashboardDemoIndex = dashboardSource.indexOf("getDemoTeacherDatabase(userId)");
++  const dashboardProjectionIndex = dashboardSource.indexOf("getTeacherDashboardDataFromPostgresProjection(userId)");
++
++  assert.notEqual(shellExportIndex, -1, "Teacher shell export should exist.");
++  assert.notEqual(dashboardExportIndex, -1, "Teacher dashboard export should exist.");
++  assert.ok(
++    shellDemoIndex !== -1 && shellProjectionIndex !== -1 && shellDemoIndex < shellProjectionIndex,
++    "Teacher shell should bypass Postgres for known demo teachers instead of waiting for a projected miss."
++  );
++  assert.ok(
++    dashboardDemoIndex !== -1 && dashboardProjectionIndex !== -1 && dashboardDemoIndex < dashboardProjectionIndex,
++    "Teacher dashboard should return a valid demo payload before trying a slow projected miss."
++  );
++});
++
++test("demo teacher bypass creates account records even when demo seeding is disabled", async () => {
++  const userStoreSource = await readFile(path.join(process.cwd(), "lib/server/userStore.ts"), "utf8");
++  const helperStart = userStoreSource.indexOf("function getDemoTeacherDatabase");
++  const helperEnd = userStoreSource.indexOf("function projectedRecord", helperStart);
++  const helperSource = userStoreSource.slice(helperStart, helperEnd);
++
++  assert.notEqual(helperStart, -1, "Demo teacher database helper should exist.");
++  assert.notEqual(helperEnd, -1, "Demo teacher database helper boundary should be found.");
++  assert.ok(helperSource.includes("const user: UserRecord"));
++  assert.ok(helperSource.includes("const profile: StudentProfileRecord"));
++  assert.ok(helperSource.includes("const settings: UserSettingsRecord"));
++  assert.ok(helperSource.includes("database.users = [user"));
++  assert.ok(helperSource.includes("database.student_profiles = [profile"));
++  assert.ok(helperSource.includes("database.user_settings = [settings"));
++});

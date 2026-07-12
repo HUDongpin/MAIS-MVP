@@ -20,7 +20,7 @@ PASS for automated schema/source-safety/bilingual/duplicate validation. S18/S09/
 - Required worked examples and checkpoint answers/explanations.
 - Forbidden source-artifact markers: page references, OCR/original-text markers, screenshots/scans, official answer/solution wording markers, and source locator markers.
 - Inline KaTeX delimiter balance.
-- Exact normalized prompt duplicate scan against 5440 existing Mainland high-school question-bank prompt strings.
+- Exact normalized prompt duplicate scan against 8440 existing Mainland high-school question-bank prompt strings.
 
 ## Lesson Decisions
 

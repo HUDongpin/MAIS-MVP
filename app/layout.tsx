@@ -6,6 +6,7 @@ import "./globals.css";
 import { AITutorProvider } from "@/components/ai/AITutorProvider";
 import { AnimatedMathBackground } from "@/components/background/AnimatedMathBackground";
 import { Footer } from "@/components/layout/Footer";
+import { GuestLoginPromptGate } from "@/components/layout/GuestLoginPromptGate";
 import { Navbar } from "@/components/layout/Navbar";
 import { StudentBackToTopButton } from "@/components/layout/StudentBackToTopButton";
 import { AppProviders } from "@/components/providers/AppProviders";
@@ -15,10 +16,12 @@ export const metadata: Metadata = {
   description: "A bilingual interactive mathematics learning template for Hong Kong P1-S6 students."
 };
 
+const shouldRenderVercelAnalytics = Boolean(process.env.VERCEL || process.env.VERCEL_ENV);
+
 export default function RootLayout({ children }: Readonly<{ children: ReactNode }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body>
+      <body className="overflow-x-hidden">
         <AppProviders>
           <AITutorProvider>
             <AnimatedMathBackground />
@@ -28,9 +31,10 @@ export default function RootLayout({ children }: Readonly<{ children: ReactNode 
               <Footer />
             </div>
             <StudentBackToTopButton />
+            <GuestLoginPromptGate />
           </AITutorProvider>
         </AppProviders>
-        <Analytics />
+        {shouldRenderVercelAnalytics ? <Analytics /> : null}
       </body>
     </html>
   );

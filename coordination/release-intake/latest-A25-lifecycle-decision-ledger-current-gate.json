@@ -1,0 +1,52 @@
+{
+  "checkedAt": "2026-07-09T18:26:17.339Z",
+  "strict": false,
+  "ledgerPath": "coordination/release-intake/latest-A25-lifecycle-decision-ledger.json",
+  "dirtyMapSignature": "476e1b41a0d7a979e4ad322d00bf51fd7a2e7324dae88e4c0b219b36bc660ef7",
+  "ledgerSignature": "476e1b41a0d7a979e4ad322d00bf51fd7a2e7324dae88e4c0b219b36bc660ef7",
+  "decisionCount": 4,
+  "openDecisionCount": 0,
+  "failures": [],
+  "decisions": [
+    {
+      "id": "root-dirty-packages",
+      "decisionStatus": "approved-evidence-archive",
+      "currentState": "open",
+      "accountableOwners": [
+        "A25",
+        "A10",
+        "all effective owner work orders"
+      ]
+    },
+    {
+      "id": "dirty-visualization-production-release",
+      "decisionStatus": "approved-evidence-archive-with-worktree-removal-blocker",
+      "currentState": "open",
+      "accountableOwners": [
+        "A06",
+        "A22",
+        "A10"
+      ]
+    },
+    {
+      "id": "california-practice-beta-clean",
+      "decisionStatus": "approved-archive-tag",
+      "currentState": "open",
+      "accountableOwners": [
+        "A21",
+        "A18",
+        "A04",
+        "A22"
+      ]
+    },
+    {
+      "id": "s22-release-hygiene-2026-06-15",
+      "decisionStatus": "approved-archive-tag",
+      "currentState": "open",
+      "accountableOwners": [
+        "A22",
+        "A10"
+      ]
+    }
+  ]
+}

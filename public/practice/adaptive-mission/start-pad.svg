@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="240" height="240" viewBox="0 0 240 240" role="img" aria-label="Start pad with flag">
+  <defs>
+    <radialGradient id="startGlow" cx=".5" cy=".5" r=".5">
+      <stop offset="0" stop-color="#ccfbf1" stop-opacity=".95"/>
+      <stop offset=".52" stop-color="#67e8f9" stop-opacity=".48"/>
+      <stop offset="1" stop-color="#67e8f9" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="startBase" x1="0" x2="0" y1="0" y2="1">
+      <stop offset="0" stop-color="#ffffff"/>
+      <stop offset="1" stop-color="#d7dde7"/>
+    </linearGradient>
+    <linearGradient id="startInner" x1="0" x2="0" y1="0" y2="1">
+      <stop offset="0" stop-color="#ecfdf5"/>
+      <stop offset=".52" stop-color="#ffffff"/>
+      <stop offset="1" stop-color="#bcf7ef"/>
+    </linearGradient>
+    <filter id="startShadow" x="-25%" y="-25%" width="150%" height="150%">
+      <feDropShadow dx="0" dy="16" stdDeviation="12" flood-color="#0f172a" flood-opacity=".18"/>
+    </filter>
+  </defs>
+  <circle cx="120" cy="120" r="112" fill="url(#startGlow)"/>
+  <circle cx="120" cy="132" r="78" fill="url(#startBase)" filter="url(#startShadow)"/>
+  <circle cx="120" cy="132" r="64" fill="url(#startInner)"/>
+  <circle cx="120" cy="132" r="42" fill="#ffffff" fill-opacity=".58" stroke="#a7f3d0" stroke-width="10"/>
+  <circle cx="120" cy="132" r="24" fill="#d1fae5"/>
+  <g transform="translate(96 74)" fill="none" stroke="#14b8a6" stroke-linecap="round">
+    <path d="M18 82V10" stroke-width="6"/>
+    <circle cx="18" cy="10" r="5" fill="#14b8a6" stroke="none"/>
+    <path d="M22 16c22-16 38-2 56-13v43c-20 9-36-5-56 12Z" fill="#2dd4bf" stroke="none"/>
+    <path d="M30 21c13-7 24-4 40-10" stroke="#ccfbf1" stroke-width="4" opacity=".75"/>
+    <circle cx="18" cy="82" r="6" fill="#14b8a6" stroke="none" opacity=".55"/>
+  </g>
+</svg>

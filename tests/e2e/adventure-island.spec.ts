@@ -58,6 +58,15 @@ type AuthenticatedResponse = {
   };
 };
 
+type StudentRegistrationOptions = {
+  curriculumTrack?: "HK" | "US_CA_MATH";
+  curriculumProfile?: {
+    region: "HK" | "US";
+    publisher: "HK_LOCAL" | "US_CA_MATH";
+  };
+  theme?: "light" | "dark";
+};
+
 type BoundingBox = {
   x: number;
   y: number;
@@ -87,9 +96,16 @@ async function readJson<T>(response: APIResponse | PlaywrightResponse, expectedS
   return JSON.parse(body) as T;
 }
 
-async function registerStudentThroughApi(app: IsolatedApp, page: Page, testInfo: TestInfo, grade = "P5") {
+async function registerStudentThroughApi(
+  app: IsolatedApp,
+  page: Page,
+  testInfo: TestInfo,
+  grade = "P5",
+  options: StudentRegistrationOptions = {}
+) {
   const suffix = uniqueSuffix(testInfo);
   let lastBody = "";
+  const curriculumTrack = options.curriculumTrack ?? "HK";
 
   for (let attempt = 0; attempt < 3; attempt += 1) {
     const response = await page.request.post(app.url("/api/auth/register"), {
@@ -98,9 +114,10 @@ async function registerStudentThroughApi(app: IsolatedApp, page: Page, testInfo:
         username: `adventure-island-${suffix}-${attempt}@example.test`,
         password: "start12345",
         grade,
-        curriculumTrack: "HK",
+        curriculumTrack,
+        ...(options.curriculumProfile ? { curriculumProfile: options.curriculumProfile } : {}),
         language: "en",
-        theme: "dark"
+        theme: options.theme ?? "dark"
       }
     });
     lastBody = await response.text();
@@ -403,8 +420,54 @@ async function startAdventureIslandRun(page: Page) {
 }
 
 test.describe.serial("topic-bound Adventure Island game", () => {
+  test("starts from the personalized 100% summary Adventure Island CTA", async ({ page }, testInfo) => {
+    test.slow();
+    const app = await startIsolatedApp("adventure-island-personalized-summary", testInfo, {
+      warmPaths: ["/practice", "/student/practice/games/adventure-island"]
+    });
+
+    try {
+      await registerStudentThroughApi(app, page, testInfo, "P1", {
+        curriculumTrack: "US_CA_MATH",
+        curriculumProfile: { region: "US", publisher: "US_CA_MATH" },
+        theme: "light"
+      });
+
+      await page.goto(app.url("/practice"), { waitUntil: "domcontentloaded" });
+      await expect(page.getByRole("heading", { name: /Practice Arena/i })).toBeVisible();
+      const adaptivePanel = page.locator("#adaptive-practice-round");
+      await expect(adaptivePanel).toBeVisible({ timeout: 20_000 });
+      await expect(adaptivePanel.getByRole("region", { name: /Practice questions/i }).getByText(/Question 1 of 5/i)).toBeVisible({ timeout: 20_000 });
+
+      for (let questionNumber = 1; questionNumber <= 5; questionNumber += 1) {
+        await expect(adaptivePanel.getByText(new RegExp(`Question ${questionNumber} of 5`, "i"))).toBeVisible({ timeout: 20_000 });
+        await answerVisiblePracticeQuestion(page, true);
+        if (questionNumber < 5) {
+          await expect(adaptivePanel.getByText(new RegExp(`Question ${questionNumber + 1} of 5`, "i"))).toBeVisible({ timeout: 10_000 });
+        }
+      }
+
+      const summaryDialog = page.getByRole("dialog", { name: /Personalized practice round complete/i });
+      await expect(summaryDialog).toBeVisible({ timeout: 15_000 });
+      await expect(summaryDialog).toContainText(/100%/);
+      const startAdventureIsland = summaryDialog.getByRole("link", { name: /Start Adventure Island/i });
+      await expect(startAdventureIsland).toBeVisible({ timeout: 20_000 });
+      await expect(startAdventureIsland).toHaveAttribute("href", "/student/practice/games/adventure-island");
+
+      await startAdventureIsland.click();
+
+      await expect(page).toHaveURL(/\/student\/practice\/games\/adventure-island$/);
+      await expect(page.getByTestId("adventure-island-stage")).toHaveAttribute("data-phase", "welcome", { timeout: 20_000 });
+      await expect(page.getByTestId("adventure-island-welcome")).toBeVisible();
+      await expect(page.getByText(/Adventure Island locked/i)).toHaveCount(0);
+    } finally {
+      await app.attachLogs(testInfo);
+      await app.stop();
+    }
+  });
+
   test("opens from Practice Arena evidence after a strong same-topic 5-question round", async ({ page }, testInfo) => {
-    const app = await startIsolatedApp("adventure-island-practice-unlock", testInfo, { warmPaths: ["/practice", "/practice/adventure-island"] });
+    const app = await startIsolatedApp("adventure-island-practice-unlock", testInfo, { warmPaths: ["/practice", "/student/practice/games/adventure-island"] });
     const grade = "S3";
 
     try {
@@ -455,7 +518,7 @@ test.describe.serial("topic-bound Adventure Island game", () => {
       await page.evaluate(({ key, payload }) => {
         window.sessionStorage.setItem(key, JSON.stringify(payload));
       }, { key: adventureRoundStorageKey, payload: strongPayload });
-      await page.goto(app.url("/practice/adventure-island"), { waitUntil: "domcontentloaded" });
+      await page.goto(app.url("/student/practice/games/adventure-island"), { waitUntil: "domcontentloaded" });
       await expect(page.getByTestId("adventure-island-stage")).toHaveAttribute("data-phase", "welcome", { timeout: 20_000 });
       await expect(page.getByTestId("adventure-island-welcome")).toBeVisible();
       await expect(page.getByText(/Adventure Island locked/i)).toHaveCount(0);
@@ -466,7 +529,7 @@ test.describe.serial("topic-bound Adventure Island game", () => {
   });
 
   test("uses Practice Arena topic evidence and awards the Adventure Island reward once from a trophy clear", async ({ page }, testInfo) => {
-    const app = await startIsolatedApp("adventure-island", testInfo, { warmPaths: ["/practice/adventure-island"] });
+    const app = await startIsolatedApp("adventure-island", testInfo, { warmPaths: ["/student/practice/games/adventure-island"] });
     const grade = "S3";
 
     try {
@@ -482,9 +545,11 @@ test.describe.serial("topic-bound Adventure Island game", () => {
       expect(initialEligibility.eligible).toBeFalsy();
       expect(initialEligibility.reason).toBe("need-round-context");
 
-      const legacyRoute = await page.request.get(app.url("/practice/super-platformer-like"), { maxRedirects: 0 });
-      expect([307, 308]).toContain(legacyRoute.status());
-      expect(legacyRoute.headers().location ?? "").toContain("/practice/adventure-island");
+      for (const legacyPath of ["/practice/adventure-island", "/practice/super-platformer-like"]) {
+        const legacyRoute = await page.request.get(app.url(legacyPath), { maxRedirects: 0 });
+        expect([307, 308]).toContain(legacyRoute.status());
+        expect(legacyRoute.headers().location ?? "").toContain("/student/practice/games/adventure-island");
+      }
 
       const legacyEligibility = await readJson<AdventureIslandEligibility>(
         await page.request.get(app.url("/api/gamification/bonus-games/quadratic"))
@@ -527,12 +592,12 @@ test.describe.serial("topic-bound Adventure Island game", () => {
       await page.evaluate(({ key, payload }) => {
         window.sessionStorage.setItem(key, JSON.stringify(payload));
       }, { key: adventureRoundStorageKey, payload: strongPayload });
-      await page.goto(app.url("/practice/adventure-island"), { waitUntil: "domcontentloaded" });
+      await page.goto(app.url("/student/practice/games/adventure-island"), { waitUntil: "domcontentloaded" });
       await expect(page.getByRole("heading", { name: /Quadratic Patterns Adventure/i })).toBeVisible({ timeout: 20_000 });
       if (testInfo.project.name === "mobile-chrome") {
         await expect(page.getByRole("navigation", { name: /Main navigation/i })).toBeHidden();
         await expect(page.getByRole("contentinfo")).toBeHidden();
-        await expect(page.getByRole("button", { name: /AI Tutor/i })).toHaveCount(0);
+        await expect(page.getByRole("button", { name: /Nova Tutor/i })).toHaveCount(0);
         await expect(page.getByRole("link", { name: /Back to Practice/i })).toBeVisible();
       }
       const adventureIslandQuestionPayload = await readJson<{ questions: AdventureIslandQuestion[] }>(

@@ -7,11 +7,22 @@ import { dictionary, useSettings } from "@/components/providers/AppProviders";
 import { MapLikeLogoMark } from "@/components/layout/MapLikeLogoMark";
 import { LanguageToggle } from "@/components/ui/LanguageToggle";
 import { ThemeToggle } from "@/components/ui/ThemeToggle";
-import { guestRecommendedLessonHrefForGrade } from "@/lib/guestLessonLinks";
+import { isImmersiveStudentPracticeGamePath } from "@/lib/gameBasedLearning";
 import { formatLearnerName } from "@/lib/i18n";
+import { studentLessonsPath } from "@/lib/lessonLinks";
 import { cn } from "@/lib/utils";
+import { studentVisualizationToolsPath } from "@/lib/visualizationRoutes";
 
-const immersiveGameRoutes = ["/practice/fishing-game", "/practice/adventure-island"];
+function practiceHrefForPathname(pathname: string) {
+  const lessonMatch = pathname.match(/^\/student\/lessons\/([^/]+)/) ?? pathname.match(/^\/lesson\/([^/]+)/);
+  if (!lessonMatch?.[1]) return "/practice";
+
+  try {
+    return `/practice?lesson=${encodeURIComponent(decodeURIComponent(lessonMatch[1]))}`;
+  } catch {
+    return `/practice?lesson=${encodeURIComponent(lessonMatch[1])}`;
+  }
+}
 
 function LogoutIcon() {
   return (
@@ -35,7 +46,7 @@ function LogoutIcon() {
 function MaisLogo() {
   return (
     <MapLikeLogoMark
-      className="h-10 w-10 shrink-0 text-indigo-600 drop-shadow-[0_9px_20px_rgba(79,70,229,0.18)] transition group-hover:scale-105 dark:text-indigo-500"
+      className="h-10 w-10 shrink-0 drop-shadow-[0_9px_20px_rgba(79,70,229,0.18)] transition group-hover:scale-105"
       strokeWidth={3.5}
     />
   );
@@ -44,56 +55,59 @@ function MaisLogo() {
 export function Navbar() {
   const pathname = usePathname();
   const router = useRouter();
-  const { currentUser, language, logout, selectedGrade, settingsReady, studentLessonHref, t } = useSettings();
+  const { currentUser, language, logout, studentLessonHref, t } = useSettings();
   const [open, setOpen] = useState(false);
   const [isLoggingOut, setIsLoggingOut] = useState(false);
-  const lessonPending = !settingsReady || (currentUser?.role === "student" && !studentLessonHref);
-  const lessonHref = !settingsReady
-    ? ""
-    : currentUser?.role === "student"
-      ? studentLessonHref ?? ""
-      : guestRecommendedLessonHrefForGrade(selectedGrade);
+  const lessonHref = currentUser?.role === "student"
+    ? studentLessonHref ?? studentLessonsPath
+    : currentUser
+      ? studentLessonsPath
+      : `/login?next=${encodeURIComponent(studentLessonsPath)}`;
+  const practiceHref = practiceHrefForPathname(pathname);
   const primaryNavItems = [
-    { key: "lesson", href: lessonHref, label: dictionary.lesson.label, activePaths: ["/lesson"], pending: lessonPending },
-    { key: "adaptive-learning", href: "/adaptive-learning", label: { en: "Adaptive Learning", zh: "適性學習" }, activePaths: ["/adaptive-learning"], pending: false },
-    { key: "visualization-lab", href: "/visualization-lab", label: dictionary.nav.visualizationLab, activePaths: ["/visualization-lab"], pending: false },
-    { key: "practice", href: "/practice", label: dictionary.nav.practice, activePaths: ["/practice", "/mistake-book"], pending: false }
+    { key: "lesson", href: lessonHref, label: dictionary.lesson.label, activePaths: [studentLessonsPath] },
+    {
+      key: "personalized-learning",
+      href: "/personalized-learning",
+      label: { en: "Personalized Learning", zh: "個人化學習", zhHans: "个性化学习" },
+      activePaths: ["/personalized-learning", "/adaptive-learning"]
+    },
+    { key: "visualization-lab", href: studentVisualizationToolsPath, label: dictionary.nav.visualizationLab, activePaths: [studentVisualizationToolsPath, "/visualization-lab"] },
+    { key: "practice", href: practiceHref, label: dictionary.nav.practice, activePaths: ["/practice", "/mistake-book"] },
+    { key: "about", href: "/about", label: { en: "About", zh: "關於", zhHans: "关于" }, activePaths: ["/about"] }
   ];
   const guestAuthLinks = [
     {
       key: "login",
       href: "/login",
       label: dictionary.nav.login,
-      active: pathname.startsWith("/login") || pathname.startsWith("/forgot-password") || pathname.startsWith("/reset-password"),
-      emphasis: "primary"
+      active: pathname.startsWith("/login") || pathname.startsWith("/forgot-password") || pathname.startsWith("/reset-password")
     },
     {
       key: "register",
       href: "/register",
       label: { en: "Register", zh: "註冊" },
-      active: pathname.startsWith("/register"),
-      emphasis: "secondary"
+      active: pathname.startsWith("/register")
     }
   ] as const;
   const hasTeacherWorkspace = currentUser?.role === "teacher" || currentUser?.role === "admin";
   const hasParentWorkspace = currentUser?.role === "parent";
-  const accountHref = hasTeacherWorkspace ? "/teacher" : hasParentWorkspace ? "/parent" : "/dashboard";
+  const accountHref = hasTeacherWorkspace ? "/teacher/dashboard" : hasParentWorkspace ? "/parent" : "/dashboard";
   const accountActive = hasTeacherWorkspace
     ? pathname.startsWith("/teacher")
     : hasParentWorkspace
       ? pathname.startsWith("/parent")
       : pathname.startsWith("/dashboard");
   const accountLabel = currentUser ? formatLearnerName(currentUser.name, language) : "";
-  const isImmersiveGameRoute = immersiveGameRoutes.some((route) => pathname.startsWith(route));
+  const isImmersiveGameRoute = isImmersiveStudentPracticeGamePath(pathname);
   const isActive = (item: (typeof primaryNavItems)[number]) =>
     item.activePaths.some((activePath) => pathname.startsWith(activePath));
 
   useEffect(() => {
-    if (!settingsReady) return;
-    const hrefs = [lessonHref, "/adaptive-learning", "/visualization-lab", "/practice"]
-      .filter((href): href is string => Boolean(href && href !== "/lesson"));
+    const hrefs = [lessonHref, "/personalized-learning", studentVisualizationToolsPath, practiceHref, "/about"]
+      .filter((href): href is string => Boolean(href && href !== studentLessonsPath));
     Array.from(new Set(hrefs)).forEach((href) => router.prefetch(href));
-  }, [lessonHref, router, settingsReady]);
+  }, [lessonHref, practiceHref, router]);
 
   const handleLogout = async () => {
     if (isLoggingOut) return;
@@ -110,16 +124,21 @@ export function Navbar() {
       "sticky top-0 z-50 border-b border-slate-200/70 bg-white/65 backdrop-blur-2xl dark:border-white/10 dark:bg-slate-950/55",
       isImmersiveGameRoute ? "hidden sm:block" : ""
     )}>
-      <nav className="page-container flex h-16 items-center justify-between gap-3 xl:gap-4" aria-label={t({ en: "Main navigation", zh: "主導覽" })}>
-        <Link href="/" className="focus-ring group flex min-w-0 shrink-0 items-center gap-3 rounded-full" onClick={() => setOpen(false)}>
+      <nav className="page-container flex h-16 items-center justify-between gap-2 xl:gap-4" aria-label={t({ en: "Main navigation", zh: "主導覽" })}>
+        <Link
+          href="/"
+          aria-label={t(dictionary.common.siteName)}
+          className="focus-ring group flex min-h-11 min-w-11 shrink-0 items-center gap-3 rounded-full"
+          onClick={() => setOpen(false)}
+        >
           <MaisLogo />
-          <span className="min-w-0">
+          <span className="hidden min-w-0 sm:block">
             <span className="block whitespace-nowrap text-sm font-black tracking-tight">{t(dictionary.common.siteName)}</span>
             <span
               className={cn(
                 "text-[11px] font-medium text-slate-500 dark:text-slate-400",
                 language === "en"
-                  ? "hidden max-w-[15rem] truncate whitespace-nowrap xl:block 2xl:max-w-none"
+                  ? "hidden max-w-[15rem] truncate whitespace-nowrap 2xl:block 2xl:max-w-none"
                   : "hidden whitespace-nowrap sm:block"
               )}
             >
@@ -133,25 +152,10 @@ export function Navbar() {
             const active = isActive(item);
             const className = cn(
               "focus-ring shrink-0 whitespace-nowrap rounded-full px-2.5 py-2 text-[13px] font-semibold transition xl:px-3 xl:text-sm",
-              item.pending
-                ? "cursor-wait text-slate-400 opacity-70 dark:text-slate-500"
-                : active
-                  ? "bg-slate-900 text-white shadow-lg shadow-slate-900/10 dark:bg-white dark:text-slate-950"
-                  : "text-slate-600 hover:bg-slate-900/5 hover:text-slate-950 dark:text-slate-300 dark:hover:bg-white/10 dark:hover:text-white"
+              active
+                ? "bg-cyan-400 text-slate-950 shadow-lg shadow-cyan-500/20"
+                : "text-slate-600 hover:bg-slate-900/5 hover:text-slate-950 dark:text-slate-300 dark:hover:bg-white/10 dark:hover:text-white"
             );
-            if (item.pending) {
-              return (
-                <button
-                  key={item.key}
-                  type="button"
-                  disabled
-                  aria-disabled="true"
-                  className={className}
-                >
-                  {t(item.label)}
-                </button>
-              );
-            }
             return (
               <Link
                 key={item.key}
@@ -168,7 +172,7 @@ export function Navbar() {
               href={accountHref}
               aria-current={accountActive ? "page" : undefined}
               className={cn(
-                "focus-ring max-w-[12rem] truncate rounded-full px-2.5 py-2 text-[13px] font-semibold transition xl:max-w-[14rem] xl:px-3 xl:text-sm",
+                "focus-ring max-w-[10rem] truncate rounded-full px-2.5 py-2 text-[13px] font-semibold transition 2xl:max-w-[14rem] 2xl:px-3 2xl:text-sm",
                 accountActive
                   ? "bg-cyan-400 text-slate-950 shadow-lg shadow-cyan-500/20"
                   : "border border-cyan-400/35 bg-cyan-400/10 text-cyan-700 hover:bg-cyan-400/20 dark:text-cyan-200"
@@ -185,13 +189,9 @@ export function Navbar() {
                   aria-current={link.active ? "page" : undefined}
                   className={cn(
                     "focus-ring rounded-full px-3 py-2 text-[13px] font-black leading-none transition duration-200 xl:px-3.5 xl:text-sm",
-                    link.emphasis === "primary"
-                      ? link.active
-                        ? "bg-cyan-400 text-slate-950 shadow-lg shadow-cyan-500/25"
-                        : "bg-cyan-400 text-slate-950 shadow-md shadow-cyan-500/20 hover:-translate-y-0.5 hover:bg-cyan-300"
-                      : link.active
-                        ? "bg-slate-950 text-white shadow-lg shadow-slate-950/10 dark:bg-white dark:text-slate-950"
-                        : "text-slate-700 hover:bg-slate-950/5 hover:text-slate-950 dark:text-slate-200 dark:hover:bg-white/10 dark:hover:text-white"
+                    link.active
+                      ? "bg-cyan-400 text-slate-950 shadow-lg shadow-cyan-500/25"
+                      : "bg-white text-slate-950 shadow-sm shadow-slate-900/5 hover:-translate-y-0.5 hover:bg-cyan-50 dark:bg-white/[0.08] dark:text-white dark:hover:bg-white/[0.13]"
                   )}
                 >
                   {t(link.label)}
@@ -201,20 +201,21 @@ export function Navbar() {
           )}
         </div>
 
-        <div className="flex shrink-0 items-center gap-1.5 xl:gap-2">
+        <div className="flex shrink-0 items-center gap-1 sm:gap-1.5 xl:gap-2">
           <LanguageToggle />
           <ThemeToggle />
           {currentUser ? (
             <button
               type="button"
+              aria-label={t(dictionary.login.logout)}
               onClick={handleLogout}
               disabled={isLoggingOut}
-              className="focus-ring hidden h-11 items-center gap-2 whitespace-nowrap rounded-full border border-cyan-300/45 bg-white px-2.5 pr-3 text-sm font-black text-slate-950 shadow-lg shadow-cyan-500/15 transition hover:-translate-y-0.5 hover:border-cyan-200 hover:bg-cyan-50 disabled:cursor-not-allowed disabled:opacity-55 dark:border-cyan-300/25 dark:bg-white/[0.08] dark:text-white dark:shadow-cyan-950/30 dark:hover:bg-white/[0.13] sm:inline-flex xl:px-3.5 xl:pr-4"
+              className="focus-ring hidden h-11 items-center rounded-full border border-cyan-300/45 bg-white px-2.5 text-sm font-black text-slate-950 shadow-lg shadow-cyan-500/15 transition hover:-translate-y-0.5 hover:border-cyan-200 hover:bg-cyan-50 disabled:cursor-not-allowed disabled:opacity-55 dark:border-cyan-300/25 dark:bg-white/[0.08] dark:text-white dark:shadow-cyan-950/30 dark:hover:bg-white/[0.13] sm:inline-flex 2xl:gap-2 2xl:px-3.5 2xl:pr-4"
             >
               <span className="grid h-7 w-7 shrink-0 place-items-center rounded-full bg-cyan-400 text-slate-950 shadow-inner shadow-white/30">
                 <LogoutIcon />
               </span>
-              <span className="whitespace-nowrap">{t(dictionary.login.logout)}</span>
+              <span className="sr-only whitespace-nowrap 2xl:not-sr-only">{t(dictionary.login.logout)}</span>
             </button>
           ) : null}
           <button
@@ -222,7 +223,7 @@ export function Navbar() {
             aria-label={t({ en: "Open mobile menu", zh: "開啟手機選單" })}
             aria-expanded={open}
             onClick={() => setOpen((current) => !current)}
-            className="focus-ring inline-flex h-10 w-10 items-center justify-center rounded-full border border-slate-200/70 bg-white/75 shadow-sm lg:hidden dark:border-white/10 dark:bg-white/[0.07]"
+            className="focus-ring inline-flex h-11 w-11 items-center justify-center rounded-full border border-slate-200/70 bg-white/75 shadow-sm lg:hidden dark:border-white/10 dark:bg-white/[0.07]"
           >
             <span aria-hidden="true" className="text-xl">{open ? "×" : "≡"}</span>
           </button>
@@ -236,25 +237,10 @@ export function Navbar() {
               const active = isActive(item);
               const className = cn(
                 "focus-ring rounded-2xl px-4 py-3 text-sm font-semibold transition",
-                item.pending
-                  ? "cursor-wait text-slate-400 opacity-70 dark:text-slate-500"
-                  : active
-                    ? "bg-slate-900 text-white dark:bg-white dark:text-slate-950"
-                    : "text-slate-600 hover:bg-slate-900/5 dark:text-slate-300 dark:hover:bg-white/10"
+                active
+                  ? "bg-cyan-400 text-slate-950 shadow-lg shadow-cyan-500/20"
+                  : "text-slate-600 hover:bg-slate-900/5 dark:text-slate-300 dark:hover:bg-white/10"
               );
-              if (item.pending) {
-                return (
-                  <button
-                    key={item.key}
-                    type="button"
-                    disabled
-                    aria-disabled="true"
-                    className={className}
-                  >
-                    {t(item.label)}
-                  </button>
-                );
-              }
               return (
                 <Link
                   key={item.key}
@@ -291,13 +277,9 @@ export function Navbar() {
                     aria-current={link.active ? "page" : undefined}
                     className={cn(
                       "focus-ring rounded-2xl px-4 py-3 text-center text-sm font-black transition",
-                      link.emphasis === "primary"
-                        ? link.active
-                          ? "bg-cyan-400 text-slate-950 shadow-lg shadow-cyan-500/20"
-                          : "bg-cyan-400 text-slate-950 shadow-md shadow-cyan-500/15 hover:bg-cyan-300"
-                        : link.active
-                          ? "bg-slate-950 text-white dark:bg-white dark:text-slate-950"
-                          : "border border-slate-200/80 bg-white/70 text-slate-700 hover:bg-slate-950/5 dark:border-white/10 dark:bg-white/[0.06] dark:text-slate-200 dark:hover:bg-white/10"
+                      link.active
+                        ? "bg-cyan-400 text-slate-950 shadow-lg shadow-cyan-500/20"
+                        : "border border-slate-200/80 bg-white text-slate-950 shadow-sm shadow-slate-900/5 hover:bg-cyan-50 dark:border-white/10 dark:bg-white/[0.08] dark:text-white dark:hover:bg-white/[0.13]"
                     )}
                   >
                     {t(link.label)}

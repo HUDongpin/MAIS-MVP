@@ -1,0 +1,287 @@
+{
+  "generatedAt": "2026-07-09T14:01:41.595Z",
+  "repoRoot": "/Users/dongpinhu/Desktop/MAIS-MVP",
+  "artifactKind": "a22-owner-remediation-candidate-dirty-allowlist",
+  "dirtyMapStatusSignature": "b3d232fd2b9ef81d4efc95903d2e3b316db664d6e9ec6ab366181395b3966be7",
+  "expandedStatusEntries": 6604,
+  "sourceArtifacts": {
+    "dirtyMap": {
+      "key": "dirtyMap",
+      "path": "coordination/release-intake/latest-A25-dirty-tree-map.json",
+      "generatedAt": "2026-07-09T13:58:22.296Z",
+      "dirtyMapStatusSignature": "b3d232fd2b9ef81d4efc95903d2e3b316db664d6e9ec6ab366181395b3966be7",
+      "expandedStatusEntries": 6604
+    },
+    "rootParityCandidateMutation": {
+      "key": "rootParityCandidateMutation",
+      "path": "coordination/release-intake/latest-A22-root-parity-candidate-mutation-dry-run.json",
+      "generatedAt": "2026-07-09T14:01:41.264Z",
+      "dirtyMapStatusSignature": "b3d232fd2b9ef81d4efc95903d2e3b316db664d6e9ec6ab366181395b3966be7",
+      "expandedStatusEntries": 6604
+    }
+  },
+  "sourceCurrentnessFailures": [],
+  "targetWorktree": "/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A22-us-region-alignment",
+  "currentCandidateStatusRows": [
+    " M package-lock.json",
+    " M package.json",
+    "?? app/visualization-lab/VisualizationLabBackToTopButton.tsx",
+    "?? data/gameBasedLearning.ts",
+    "?? data/mathVirusBlaster.ts",
+    "?? data/mightyTankBattle.ts",
+    "?? data/usCaliforniaHighSchoolLessonIllustrations.ts"
+  ],
+  "allowlistRows": [
+    {
+      "unitId": "a20-math-match-quest-data-parity",
+      "ownerId": "A20",
+      "ownerRole": "Game design and game-based learning lead",
+      "verificationKind": "same-path-copy",
+      "rootSourcePath": "data/gameBasedLearning.ts",
+      "candidateTargetPath": "data/gameBasedLearning.ts",
+      "selectedAction": "same-path-copy",
+      "reason": "Resolve A20 MathMatchQuestGame import and inferred-any type-check cascade in the A22 clean-source validation candidate.",
+      "statusRow": "?? data/gameBasedLearning.ts",
+      "verificationStatus": "verified",
+      "matchBasis": "sha256-exact",
+      "ownerScopeAllowed": true,
+      "statusRowPresent": true,
+      "rootSource": {
+        "exists": true,
+        "bytes": 8744,
+        "sha256": "b2efeb236e024b4a980489778bc49479dc4a96722c76e6394be188ebe4ff1b02"
+      },
+      "candidateTarget": {
+        "exists": true,
+        "bytes": 8744,
+        "sha256": "b2efeb236e024b4a980489778bc49479dc4a96722c76e6394be188ebe4ff1b02"
+      },
+      "candidateTargetMatchesRoot": true,
+      "packageContract": null,
+      "boundary": {
+        "evidenceOnly": true,
+        "recordsOwnerApproval": false,
+        "recordsExecutionInstruction": false,
+        "stagesFiles": false,
+        "commits": false,
+        "merges": false,
+        "deploys": false,
+        "cleanupAuthorized": false,
+        "executableNow": false,
+        "destructiveGitAuthorized": false,
+        "physicalLifecycleCleanupAuthorized": false
+      }
+    },
+    {
+      "unitId": "a10-a22-package-json-dependency-parity",
+      "ownerId": "A10",
+      "ownerRole": "Tooling, docs, and report lead",
+      "coordinationOwnerIds": [
+        "A22"
+      ],
+      "verificationKind": "package-json-dependency-contract",
+      "rootSourcePath": "package.json",
+      "candidateTargetPath": "package.json",
+      "statusRow": " M package.json",
+      "selectedAction": "package-dependency-parity",
+      "reason": "Resolve A06 3D visualization type-check cascade by carrying the root package dependency contract into the A22 clean-source validation candidate.",
+      "verificationStatus": "verified",
+      "matchBasis": "package-json-dependency-contract",
+      "ownerScopeAllowed": true,
+      "statusRowPresent": true,
+      "rootSource": {
+        "exists": true,
+        "bytes": 13840,
+        "sha256": "351579158a91a62d826acc969f5214c80d038424de5b2b59100cf152e7578247"
+      },
+      "candidateTarget": {
+        "exists": true,
+        "bytes": 11326,
+        "sha256": "c7666eddd8e16b66a8336d821ed8e011b726184a2458aeda8d7d5450d720b00c"
+      },
+      "candidateTargetMatchesRoot": true,
+      "packageContract": {
+        "kind": "package-json-dependency-contract",
+        "checks": [
+          {
+            "section": "dependencies",
+            "name": "@react-three/drei",
+            "expected": "10.7.7",
+            "actual": "10.7.7",
+            "passed": true
+          },
+          {
+            "section": "dependencies",
+            "name": "@react-three/fiber",
+            "expected": "9.6.1",
+            "actual": "9.6.1",
+            "passed": true
+          },
+          {
+            "section": "dependencies",
+            "name": "pptxgenjs",
+            "expected": "^4.0.1",
+            "actual": "^4.0.1",
+            "passed": true
+          },
+          {
+            "section": "dependencies",
+            "name": "three",
+            "expected": "0.184.0",
+            "actual": "0.184.0",
+            "passed": true
+          },
+          {
+            "section": "devDependencies",
+            "name": "tsx",
+            "expected": "^4.22.4",
+            "actual": "^4.22.4",
+            "passed": true
+          }
+        ],
+        "forbiddenChecks": [
+          {
+            "section": "dependencies",
+            "name": "tsx",
+            "actual": null,
+            "passed": true
+          }
+        ],
+        "passed": true
+      },
+      "boundary": {
+        "evidenceOnly": true,
+        "recordsOwnerApproval": false,
+        "recordsExecutionInstruction": false,
+        "stagesFiles": false,
+        "commits": false,
+        "merges": false,
+        "deploys": false,
+        "cleanupAuthorized": false,
+        "executableNow": false,
+        "destructiveGitAuthorized": false,
+        "physicalLifecycleCleanupAuthorized": false
+      }
+    },
+    {
+      "unitId": "a10-a22-package-lock-dependency-parity",
+      "ownerId": "A10",
+      "ownerRole": "Tooling, docs, and report lead",
+      "coordinationOwnerIds": [
+        "A22"
+      ],
+      "verificationKind": "package-lock-dependency-contract",
+      "rootSourcePath": "package-lock.json",
+      "candidateTargetPath": "package-lock.json",
+      "statusRow": " M package-lock.json",
+      "selectedAction": "package-dependency-parity",
+      "reason": "Keep the A22 clean-source validation candidate lockfile consistent with the root package dependency contract needed by the visualization runtime.",
+      "verificationStatus": "verified",
+      "matchBasis": "package-lock-dependency-contract",
+      "ownerScopeAllowed": true,
+      "statusRowPresent": true,
+      "rootSource": {
+        "exists": true,
+        "bytes": 102381,
+        "sha256": "03b7f43b93e94faae513ec704e624bcbab033b9708ff307949559e145a721f4c"
+      },
+      "candidateTarget": {
+        "exists": true,
+        "bytes": 102381,
+        "sha256": "2cc4e1735b2de7226c520476f69f92acd3c9980c7d8ffbf30554dffebe1ccf2d"
+      },
+      "candidateTargetMatchesRoot": true,
+      "packageContract": {
+        "kind": "package-lock-dependency-contract",
+        "checks": [
+          {
+            "packagePath": "node_modules/@react-three/drei",
+            "expected": "10.7.7",
+            "actual": "10.7.7",
+            "passed": true
+          },
+          {
+            "packagePath": "node_modules/@react-three/fiber",
+            "expected": "9.6.1",
+            "actual": "9.6.1",
+            "passed": true
+          },
+          {
+            "packagePath": "node_modules/pptxgenjs",
+            "expected": "4.0.1",
+            "actual": "4.0.1",
+            "passed": true
+          },
+          {
+            "packagePath": "node_modules/three",
+            "expected": "0.184.0",
+            "actual": "0.184.0",
+            "passed": true
+          },
+          {
+            "packagePath": "node_modules/tsx",
+            "expected": "4.22.4",
+            "actual": "4.22.4",
+            "passed": true
+          }
+        ],
+        "passed": true
+      },
+      "boundary": {
+        "evidenceOnly": true,
+        "recordsOwnerApproval": false,
+        "recordsExecutionInstruction": false,
+        "stagesFiles": false,
+        "commits": false,
+        "merges": false,
+        "deploys": false,
+        "cleanupAuthorized": false,
+        "executableNow": false,
+        "destructiveGitAuthorized": false,
+        "physicalLifecycleCleanupAuthorized": false
+      }
+    }
+  ],
+  "allowedDirtyStatusRows": [
+    "?? data/gameBasedLearning.ts",
+    " M package.json",
+    " M package-lock.json"
+  ],
+  "authorizedOwnerRemediationUnitIds": [
+    "a20-math-match-quest-data-parity",
+    "a10-a22-package-json-dependency-parity",
+    "a10-a22-package-lock-dependency-parity"
+  ],
+  "summary": {
+    "allowlistRows": 3,
+    "verifiedRows": 3,
+    "blockedRows": 0,
+    "currentCandidateStatusRows": 7,
+    "allowedDirtyStatusRows": 3,
+    "rootSourcesAvailable": 3,
+    "candidateTargetsAvailable": 3,
+    "candidateTargetsMatchingRoot": 3,
+    "ownerScopeAllowedRows": 3,
+    "statusRowsPresent": 3,
+    "readyForPromotionAllowlist": true,
+    "cleanupAuthorizedRows": 0,
+    "executableRows": 0
+  },
+  "boundary": {
+    "evidenceOnly": true,
+    "createsClone": false,
+    "createsWorktree": false,
+    "selectsReleaseSource": false,
+    "recordsOwnerApproval": false,
+    "recordsExecutionInstruction": false,
+    "stagesFiles": false,
+    "commits": false,
+    "merges": false,
+    "pushes": false,
+    "deploys": false,
+    "cleanupAuthorized": false,
+    "executableNow": false,
+    "destructiveGitAuthorized": false,
+    "physicalLifecycleCleanupAuthorized": false
+  }
+}

@@ -1,0 +1,582 @@
+# 2026-06-28 A02/A12/A17/A22 Dashboard Neon Performance Continuation
+
+- Agent roles: A02 dashboard UI, A12 backend/API/storage, A17 gamification secondary panels, A22 release/performance smoke, A11 verification support, A25 dirty-tree intake, A19 env readiness.
+- Objective: Continue implementing and release-gating the accepted enterprise fixes for the Neon-backed student dashboard loading stall.
+
+## Changes
+
+- Added A22/A19 explicit dashboard demo-login smoke mode.
+  - `DASHBOARD_SMOKE_USE_DEMO_LOGIN=1` now satisfies redacted auth readiness without requiring private dashboard smoke credentials.
+  - `scripts/dashboard-latency-smoke.mjs` and `scripts/dashboard-ui-loading-smoke.mjs` can authenticate through the public demo-login path.
+  - Precheck output still reports only auth mode and variable status; it does not print credential values.
+- Added an A17/A12 student gamification summary fast path for Postgres/Neon.
+  - `lib/server/userStore/gamificationSummaryPersistence.ts` now accepts `getFastStudentGamificationSummary`.
+  - `lib/server/userStore.ts` now projects the current student, class leaderboard peers, activity records, reward ledger/redemptions, and gamification events before falling back to full `readDatabase()`.
+  - This reduces secondary-panel smoke risk for `/api/gamification/summary`, which was slow on the current old production deployment.
+- Added an A12 student dashboard cache generation guard in `lib/server/userStore.ts`.
+  - Stale in-flight Neon projection responses can no longer repopulate the cache after a student mutation invalidates it.
+- Extended A11 coverage in `lib/server/userStoreStudentActivityPersistence.test.ts` for the cache generation guard and in-flight invalidation.
+- Split A22 direct-root and staged-production publish preflights in `scripts/release-env-guard.mjs`.
+  - `publish` still blocks dirty-root production publish.
+  - `staged-publish` checks A25 dirty-map currency, E2E isolation, Vercel staging root, and production env readiness without requiring the root worktree to be clean.
+- Updated `scripts/deploy-vercel-production.mjs` to use `staged-publish`.
+- Added a production promotion gate in `scripts/deploy-vercel-production.mjs` so dashboard latency smoke must pass before `vercel promote` can run.
+- Added a post-promotion production-domain dashboard smoke gate in `scripts/deploy-vercel-production.mjs`.
+  - Default production smoke target: `https://mais.ac`.
+  - Can be overridden with `--production-base-url` or `MAIS_PRODUCTION_SMOKE_BASE_URL`.
+- Added a preview dashboard latency gate in `scripts/deploy-vercel-preview.mjs`.
+  - Preview deploy now checks dashboard smoke credentials before creating a Vercel deployment.
+  - After `vercel inspect --wait --timeout 5m`, preview deploy runs `scripts/dashboard-latency-smoke.mjs` against the preview URL and records the result.
+  - Preview deploy now supports `--dry-run`, which verifies preflight and staging metadata without dashboard smoke credentials or Vercel deployment creation.
+- Added browser-level dashboard UI loading smoke in `scripts/dashboard-ui-loading-smoke.mjs`.
+  - It logs into the dashboard, visits `/dashboard`, waits for `Loading dashboard data...` to become hidden, and records loading/ready timings without printing credentials.
+  - Preview and production wrappers now include this UI loading gate in addition to API latency smoke.
+- Added redacted dashboard smoke auth readiness precheck in `scripts/dashboard-smoke-auth-precheck.mjs`.
+  - It checks for `DASHBOARD_SMOKE_COOKIE` or `DASHBOARD_SMOKE_USERNAME` plus `DASHBOARD_SMOKE_PASSWORD` without printing secret values.
+  - Preview and production deploy wrappers now import the same redacted helper instead of duplicating local environment checks.
+- Added `release:staged-publish-preflight` to `package.json`.
+- Added A22 regression coverage for `staged-publish` in `scripts/release-env-guard.test.mjs`.
+- Added A22 regression coverage in `scripts/deploy-vercel-production.test.mjs` to keep the dashboard latency gates before production promotion and after production-domain promotion.
+- Added A22 regression coverage in `scripts/deploy-vercel-preview.test.mjs` to keep preview dashboard latency smoke before release handoff.
+- Added A22 release-readiness report at `coordination/reports/2026-06-28-A22-dashboard-neon-release-readiness.md`.
+- Added A22/A25 dashboard release-slice handoff at `coordination/release-intake/2026-06-28-A22-A25-dashboard-neon-release-slice.md`.
+- Added A22 disk-guard blocker report at `coordination/reports/2026-06-28-A22-dashboard-neon-disk-guard-blocker.md`.
+- Enhanced `scripts/cleanup-generated-artifacts.mjs` with a scoped `--scope vercel-staging` dry-run/apply path.
+  - This targets only `.tmp/vercel-staging`, preserving Playwright reports/traces/test-results by default.
+- Added `--scope next-builds` dry-run/apply path.
+  - This targets Next build artifacts and `next-dist` directories while preserving Playwright reports/traces/test-results.
+- Added `scripts/cleanup-generated-artifacts.test.mjs`.
+- Added `clean:vercel-staging` and `clean:next-builds` dry-run helpers to `package.json`.
+
+## Checks
+
+- A22 deploy-wrapper build gate recheck at 2026-06-28 11:41 HKT:
+  - Added `scripts/release-build-gate.mjs` and `scripts/release-build-gate.test.mjs`.
+    - Runs `scripts/next-clean-build.mjs` with an isolated `.tmp/release-build-gate-next-*` `NEXT_DIST_DIR`.
+    - Verifies `BUILD_ID`, `/api/auth/login`, `/api/dashboard`, `/api/gamification/summary`, `/api/rewards`, and `dashboard.html` build outputs.
+    - Cleans its own isolated dist directory after verification.
+  - Updated preview and production deploy wrappers.
+    - Local release build gate now runs after release preflight and before Vercel staging.
+    - Dry-run records now include `localBuildGate` output checks.
+  - Added `release:build-gate` npm script.
+  - PASS: `npm run release:build-gate -- --json`
+    - Static pages generated: 223/223.
+    - Required build outputs: all present.
+    - Cleanup: true.
+  - PASS: `node --check scripts/release-build-gate.mjs && node --check scripts/next-clean-build.mjs && node --test scripts/release-build-gate.test.mjs scripts/next-clean-build.test.mjs scripts/dashboard-smoke-auth-precheck.test.mjs scripts/cleanup-generated-artifacts.test.mjs scripts/deploy-vercel-preview.test.mjs scripts/deploy-vercel-production.test.mjs scripts/release-env-guard.test.mjs`
+    - Tests: 20 pass, 0 fail.
+  - PASS: `npm run type-check`
+  - PASS: `npm run vercel:preview -- --dry-run --json`
+    - A25 map generated at: `2026-06-28T03:38:32.185Z`.
+    - Local build gate completed at: `2026-06-28T03:39:58.461Z`.
+    - Local build gate required outputs: all present.
+    - Staging files: 2064.
+    - Staging size: 166434763 bytes.
+    - Forbidden paths: 0.
+    - `deployed: false`.
+  - PASS: `npm run vercel:production -- --dry-run --json`
+    - Local build gate completed at: `2026-06-28T03:41:28.155Z`.
+    - Local build gate required outputs: all present.
+    - Staging files: 2064.
+    - Staging size: 166434830 bytes.
+    - Forbidden paths: 0.
+    - `deployed: false`.
+  - PASS: A22 scoped generated-artifact cleanup after deploy-wrapper dry-runs.
+    - Applied only `next-builds` scope.
+    - Reclaimed Next build artifacts: 5285158951 bytes.
+- A22/A10 build-isolation hardening recheck at 2026-06-28 11:36 HKT:
+  - Changed `scripts/next-clean-build.mjs`.
+    - Shared `.next` builds fail closed when same-repo active Next processes are detected.
+    - Isolated generated `NEXT_DIST_DIR` builds remain allowed.
+    - Clean target is the actual dist dir, with generated-path safety checks.
+  - Added `scripts/next-clean-build.test.mjs`.
+  - Changed `tsconfig.json`.
+    - Excludes generated/local output roots from root `tsc` so `tmp/` and `var/` Next validator artifacts do not poison `npm run type-check`.
+  - PASS: `node --test scripts/next-clean-build.test.mjs`
+    - Tests: 5 pass, 0 fail.
+  - PASS protectively: `npm run build`
+    - Failed closed before cleaning shared `.next`.
+    - Detected active same-repo Next dev processes: ports 3008, 0.0.0.0, and 3137.
+  - PASS: `NEXT_DIST_DIR=.tmp/dashboard-guard-final-next-20260628T0336Z NEXT_TSCONFIG_PATH=tsconfig.next.json npm run build`
+    - Next production build completed.
+    - Static pages generated: 223/223.
+  - PASS: `node --check scripts/next-clean-build.mjs && node --test scripts/next-clean-build.test.mjs scripts/dashboard-smoke-auth-precheck.test.mjs scripts/cleanup-generated-artifacts.test.mjs scripts/deploy-vercel-preview.test.mjs scripts/deploy-vercel-production.test.mjs scripts/release-env-guard.test.mjs`
+    - Tests: 17 pass, 0 fail.
+  - FAIL before tsconfig hygiene: `npm run type-check`
+    - Root `tsconfig.json` included generated `tmp/` and `var/` Next validator files.
+    - Errors referenced missing `app/student/lessons/page.js` from generated validator files.
+  - PASS after tsconfig hygiene: `npm run type-check`
+  - PASS: A22 scoped generated-artifact cleanup after isolated build.
+    - Applied only `next-builds` scope.
+    - Reclaimed Next build artifacts: 2642768716 bytes.
+    - Free disk after cleanup: 40 GiB.
+  - PASS: A25 currentness and Vercel package dry-runs after hardening.
+    - A25 map generated at: `2026-06-28T03:30:36.825Z`.
+    - Expanded status entries: 1893.
+    - Preview dry-run: 2064 files, 166434564 bytes, 0 forbidden paths, `deployed: false`.
+    - Production dry-run: 2064 files, 166434564 bytes, 0 forbidden paths, `deployed: false`.
+- Local A22/A11 production-runtime recheck at 2026-06-28 11:16 HKT:
+  - Diagnostic note: `npm run build` against the shared `.next` failed once with `ENOENT: no such file or directory, open '.next/server/pages-manifest.json'` while existing MAIS-MVP `next dev` processes were active in the same root. A22 did not treat this as source failure after the isolated build below passed.
+  - PASS: `NEXT_DIST_DIR=.tmp/dashboard-runtime-next-20260628T0314Z NEXT_TSCONFIG_PATH=tsconfig.next.json MAIS_SKIP_NEXT_CLEAN_BUILD=1 npm run build`
+    - Next production build completed.
+    - Static pages generated: 223/223.
+    - Build route manifest includes `/dashboard`, `/api/dashboard`, `/api/gamification/summary`, `/api/rewards`, and `/api/auth/login`.
+  - PASS: `NEXT_DIST_DIR=.tmp/dashboard-runtime-next-20260628T0314Z NEXT_TSCONFIG_PATH=tsconfig.next.json PORT=3010 HOSTNAME=127.0.0.1 npm run start`
+    - Local production server ready on `http://localhost:3010`.
+  - PASS: `DASHBOARD_SMOKE_USE_DEMO_LOGIN=1 npm run smoke:dashboard-ui-loading -- --base-url http://127.0.0.1:3010 --json`
+    - `ok: true`.
+    - Loading hidden: 832 ms.
+    - Dashboard ready: 835 ms.
+  - PASS: `DASHBOARD_SMOKE_USE_DEMO_LOGIN=1 DASHBOARD_SMOKE_SAMPLES=1 npm run smoke:dashboard-latency -- --base-url http://127.0.0.1:3010 --json`
+    - `ok: true`.
+    - Session: 9 ms.
+    - Dashboard: 14 ms.
+    - Assignments: 13 ms.
+    - Gamification summary: 60 ms.
+    - Rewards: 17 ms.
+  - PASS: local cleanup checks.
+    - `lsof -nP -iTCP:3010 -sTCP:LISTEN || true` returned no listener.
+    - `git diff --exit-code -- tsconfig.json` returned clean after reverting Next's automatic generated-output edit.
+  - PASS: A22 scoped generated-artifact cleanup after runtime smoke.
+    - Dry-run first: `node scripts/cleanup-generated-artifacts.mjs --dry-run --scope next-builds --json`.
+    - Applied only `next-builds` scope: `node scripts/cleanup-generated-artifacts.mjs --apply --scope next-builds --json`.
+    - Reclaimed Next build artifacts: 21332541848 bytes.
+    - Free disk after cleanup: 40 GiB.
+- Final A22/A25 non-deploy package recheck at 2026-06-28 11:08 HKT:
+  - PASS: `npm run release:dirty-map -- --reason "dashboard-neon-final-build-report-refresh-2026-06-28"`
+    - Latest map: `coordination/release-intake/latest-A25-dirty-tree-map.json`.
+    - Expanded status entries: 1884.
+  - PASS: `node scripts/refresh-dirty-tree-map.mjs --assert-current --max-age-minutes 120 --json`
+    - Latest map generated at: `2026-06-28T03:07:22.917Z`.
+    - Expanded status entries: 1884.
+  - PASS: `df -h /Users/dongpinhu/Desktop/MAIS-MVP`
+    - Available disk: 28 GiB.
+  - PASS: `npm run vercel:preview -- --dry-run --json`
+    - No deployment performed.
+    - Staging file count: 2064.
+    - Staging size: 166430084 bytes.
+    - Forbidden paths: 0.
+  - PASS: `npm run vercel:production -- --dry-run --json`
+    - No deployment performed.
+    - Staging file count: 2064.
+    - Staging size: 166430084 bytes.
+    - Forbidden paths: 0.
+- Fresh A22 build-grade recheck at 2026-06-28 11:05 HKT:
+  - PASS: `npm run build`
+    - Next production build completed.
+    - Static pages generated: 223/223.
+    - Build route manifest includes `/api/dashboard`, `/api/gamification/summary`, `/api/rewards`, and `/api/auth/login`.
+  - PASS: `df -h /Users/dongpinhu/Desktop/MAIS-MVP`
+    - Available disk before post-build release checks: 33 GiB; release guard later reported 30.2-30.3 GiB after staging.
+  - FAIL protectively before map refresh: `node scripts/refresh-dirty-tree-map.mjs --assert-current --max-age-minutes 120 --json`
+    - Saved expanded entries: 1880.
+    - Current expanded entries: 1879.
+  - PASS: `npm run release:dirty-map -- --reason "dashboard-neon-after-build-verification-2026-06-28"`
+    - Latest map: `coordination/release-intake/latest-A25-dirty-tree-map.json`.
+    - Expanded status entries: 1882.
+  - PASS: `npm run release:env-preflight`
+    - Required Vercel production variables present: 15/15.
+  - PASS: `npm run release:staged-publish-preflight`
+    - Free disk: 30.3 GiB.
+  - PASS: `npm run vercel:preview -- --dry-run --json`
+    - No deployment performed.
+    - Staging file count: 2064.
+    - Staging size: 166430085 bytes.
+    - Forbidden paths: 0.
+  - PASS: `npm run vercel:production -- --dry-run --json`
+    - No deployment performed.
+    - Staging file count: 2064.
+    - Staging size: 166430085 bytes.
+    - Forbidden paths: 0.
+- Fresh A22/A17/A12 continuation recheck at 2026-06-28 10:58 HKT:
+  - PASS: `node --check scripts/dashboard-smoke-auth-precheck.mjs && node --check scripts/dashboard-latency-smoke.mjs && node --check scripts/dashboard-ui-loading-smoke.mjs`
+  - PASS: `node --import tsx --test lib/server/userStoreGamificationSummaryPersistence.test.ts`
+    - Tests: 7 pass, 0 fail.
+  - PASS: `npm run type-check`
+  - PASS: `node --import tsx --test app/dashboard/dashboardPagePerformanceBoundary.test.ts lib/server/userStoreStudentActivityPersistence.test.ts lib/server/userStoreGamificationSummaryPersistence.test.ts --test-name-pattern "student dashboard waits|student dashboard defers|student dashboard fast path|student dashboard Neon projection|student dashboard cache|student dashboard cache safely|gamification summary"`
+    - Tests: 64 pass, 0 fail.
+  - PASS: `node --test scripts/dashboard-smoke-auth-precheck.test.mjs scripts/cleanup-generated-artifacts.test.mjs scripts/deploy-vercel-preview.test.mjs scripts/deploy-vercel-production.test.mjs scripts/release-env-guard.test.mjs`
+    - Tests: 12 pass, 0 fail.
+  - PASS: `npm run smoke:dashboard-auth-ready -- --self-test && npm run smoke:dashboard-ui-loading -- --self-test && npm run smoke:dashboard-latency -- --self-test`
+  - PASS: `DASHBOARD_SMOKE_USE_DEMO_LOGIN=1 npm run smoke:dashboard-auth-ready -- --json`
+    - Auth mode: `demo-login`.
+    - No credential values printed.
+  - PASS current production UI smoke with demo-login: `DASHBOARD_SMOKE_USE_DEMO_LOGIN=1 npm run smoke:dashboard-ui-loading -- --base-url https://mais.ac --json`
+    - Resolved base URL: `https://www.mais.ac`.
+    - Loading hidden: 2904 ms.
+    - Dashboard ready: 5700 ms.
+  - FAIL current production API smoke with demo-login: `DASHBOARD_SMOKE_USE_DEMO_LOGIN=1 DASHBOARD_SMOKE_SAMPLES=1 npm run smoke:dashboard-latency -- --base-url https://mais.ac --json`
+    - Resolved base URL: `https://www.mais.ac`.
+    - Session: 3466 ms, pass.
+    - Dashboard: 16522 ms, fail against 6000 ms.
+    - Assignments: 8351 ms, pass.
+    - Gamification summary: 13365 ms, fail against 12000 ms.
+    - Rewards: 8439 ms, pass.
+  - PASS: `node scripts/refresh-dirty-tree-map.mjs --assert-current --max-age-minutes 120 --json`
+    - Expanded status entries: 1878.
+  - PASS final sequential: `npm run vercel:preview -- --dry-run --json`
+    - No deployment performed.
+    - Staging file count: 2064.
+    - Staging size: 166429419 bytes.
+    - Forbidden paths: 0.
+  - PASS final sequential: `npm run vercel:production -- --dry-run --json`
+    - No deployment performed.
+    - Staging file count: 2064.
+    - Staging size: 166429419 bytes.
+    - Forbidden paths: 0.
+- Fresh A22/A25 continuation recheck at 2026-06-28 10:45 HKT:
+  - FAIL protectively before cleanup: `npm run release:env-preflight`
+    - Failure reason: only 14.2 GiB free; minimum is 20 GiB.
+  - DRY RUN ONLY: `node scripts/cleanup-generated-artifacts.mjs --dry-run --json`
+    - Broad `.tmp` target detected, so broad cleanup was not applied.
+  - DRY RUN ONLY: `npm run clean:vercel-staging -- --json`
+    - Target: `.tmp/vercel-staging`.
+    - Reclaimable: 2801574631 bytes.
+  - DRY RUN ONLY: `npm run clean:next-builds -- --json`
+    - Targets: `.tmp/a22-preview-3137-next` and A06/A11 Manim `next-dist` directories.
+    - Reclaimable: 24247537927 bytes.
+  - APPLIED scoped only: `node scripts/cleanup-generated-artifacts.mjs --scope vercel-staging --apply --json`
+    - Removed `.tmp/vercel-staging`.
+    - Reclaimed: 2801574631 bytes.
+  - APPLIED scoped only: `node scripts/cleanup-generated-artifacts.mjs --scope next-builds --apply --json`
+    - Removed Next build / `next-dist` generated artifacts.
+    - Reclaimed: 24247537927 bytes.
+  - PASS after scoped cleanup: `df -h /Users/dongpinhu/Desktop/MAIS-MVP`
+    - Available disk: 40 GiB shown by `df`; release guard reported 39.5 GiB.
+  - PASS: `npm run release:dirty-map -- --reason "dashboard-neon-continuation-after-scoped-cleanup-2026-06-28"`
+    - Latest map: `coordination/release-intake/latest-A25-dirty-tree-map.json`.
+    - Expanded status entries: 1874.
+  - PASS: `npm run release:env-preflight`
+    - Required Vercel production variables present: 15/15.
+  - CURRENT ENV NOT READY: `npm run smoke:dashboard-auth-ready -- --json`
+    - `DASHBOARD_SMOKE_COOKIE`: missing.
+    - `DASHBOARD_SMOKE_USERNAME`: missing.
+    - `DASHBOARD_SMOKE_PASSWORD`: missing.
+    - `DASHBOARD_SMOKE_VERCEL_PROTECTION_BYPASS_SECRET`: missing.
+    - No credential values printed.
+  - PASS: `node --import tsx --test app/dashboard/dashboardPagePerformanceBoundary.test.ts lib/server/userStoreStudentActivityPersistence.test.ts --test-name-pattern "student dashboard waits|student dashboard defers|student dashboard fast path|student dashboard Neon projection|student dashboard cache|student dashboard cache safely"`
+    - Tests: 57 pass, 0 fail.
+  - PASS: `node --test scripts/dashboard-smoke-auth-precheck.test.mjs scripts/cleanup-generated-artifacts.test.mjs scripts/deploy-vercel-preview.test.mjs scripts/deploy-vercel-production.test.mjs scripts/release-env-guard.test.mjs`
+    - Tests: 11 pass, 0 fail.
+  - PASS: `npm run smoke:dashboard-auth-ready -- --self-test && npm run smoke:dashboard-ui-loading -- --self-test && npm run smoke:dashboard-latency -- --self-test`
+  - PASS: `npm run type-check`
+  - PASS: `npm run release:staged-publish-preflight`
+  - PASS: `npm run vercel:preview -- --dry-run --json`
+    - No deployment performed.
+    - Staging file count: 2064.
+    - Staging size: 166416710 bytes.
+    - Forbidden paths: 0.
+  - PASS: `npm run vercel:production -- --dry-run --json`
+    - No deployment performed.
+    - Staging file count: 2064.
+    - Staging size: 166416710 bytes.
+    - Forbidden paths: 0.
+- Fresh A22/A25 recheck at 2026-06-28 02:21 HKT:
+  - PASS: `df -h /Users/dongpinhu/Desktop/MAIS-MVP`
+    - Available disk: 50 GiB.
+  - PASS: `node scripts/refresh-dirty-tree-map.mjs --assert-current --max-age-minutes 120 --json`
+    - Latest map: `coordination/release-intake/latest-A25-dirty-tree-map.json`.
+    - Expanded status entries: 1866.
+  - CURRENT ENV NOT READY: `npm run smoke:dashboard-auth-ready -- --json`
+    - `DASHBOARD_SMOKE_COOKIE`: missing.
+    - `DASHBOARD_SMOKE_USERNAME`: missing.
+    - `DASHBOARD_SMOKE_PASSWORD`: missing.
+    - `DASHBOARD_SMOKE_VERCEL_PROTECTION_BYPASS_SECRET`: missing.
+    - No credential values printed.
+  - PASS: `node --import tsx --test app/dashboard/dashboardPagePerformanceBoundary.test.ts lib/server/userStoreStudentActivityPersistence.test.ts --test-name-pattern "student dashboard waits|student dashboard defers|student dashboard fast path|student dashboard Neon projection|student dashboard cache|student dashboard cache safely"`
+    - Tests: 57 pass, 0 fail.
+  - PASS: `node --test scripts/dashboard-smoke-auth-precheck.test.mjs scripts/cleanup-generated-artifacts.test.mjs scripts/deploy-vercel-preview.test.mjs scripts/deploy-vercel-production.test.mjs scripts/release-env-guard.test.mjs`
+    - Tests: 11 pass, 0 fail.
+  - PASS: `npm run smoke:dashboard-auth-ready -- --self-test && npm run smoke:dashboard-ui-loading -- --self-test && npm run smoke:dashboard-latency -- --self-test`
+  - PASS: `npm run type-check`
+  - PASS: `npm run vercel:preview -- --dry-run --json`
+    - No deployment performed.
+    - Staging file count: 2064.
+    - Staging size: 166412374 bytes.
+    - Forbidden paths: 0.
+  - PASS: `npm run vercel:production -- --dry-run --json`
+    - No deployment performed.
+    - Staging file count: 2064.
+    - Staging size: 166412374 bytes.
+    - Forbidden paths: 0.
+- PASS: `node --test scripts/release-env-guard.test.mjs`
+  - Tests: 3 pass, 0 fail.
+- PASS: `node --test scripts/deploy-vercel-production.test.mjs`
+  - Tests: 1 pass, 0 fail.
+- PASS after adding post-promotion production-domain smoke: `node --test scripts/deploy-vercel-production.test.mjs`
+  - Tests: 1 pass, 0 fail.
+- PASS: `node --test scripts/deploy-vercel-preview.test.mjs scripts/deploy-vercel-production.test.mjs`
+  - Tests: 2 pass, 0 fail.
+- PASS: `node --test scripts/release-env-guard.test.mjs scripts/deploy-vercel-production.test.mjs`
+  - Tests: 4 pass, 0 fail.
+- PASS after adding post-promotion production-domain smoke: `node --test scripts/release-env-guard.test.mjs scripts/deploy-vercel-production.test.mjs`
+  - Tests: 4 pass, 0 fail.
+- PASS after adding preview dashboard gate: `node --test scripts/release-env-guard.test.mjs scripts/deploy-vercel-preview.test.mjs scripts/deploy-vercel-production.test.mjs`
+  - Tests: 5 pass, 0 fail.
+- PASS after adding release-readiness report: `node --test scripts/release-env-guard.test.mjs scripts/deploy-vercel-preview.test.mjs scripts/deploy-vercel-production.test.mjs`
+  - Tests: 5 pass, 0 fail.
+- PASS after adding preview inspect wait and release-slice handoff: `node --test scripts/deploy-vercel-preview.test.mjs scripts/deploy-vercel-production.test.mjs scripts/release-env-guard.test.mjs`
+  - Tests: 5 pass, 0 fail.
+- PASS after adding preview inspect wait and release-slice handoff: `node --check scripts/deploy-vercel-preview.mjs`
+- PASS after adding preview dry-run: `node --check scripts/deploy-vercel-preview.mjs`
+- PASS after adding preview dry-run: `node --test scripts/deploy-vercel-preview.test.mjs`
+  - Tests: 1 pass, 0 fail.
+- PASS after adding preview dry-run: `npm run vercel:preview -- --dry-run --json`
+  - No deployment performed.
+  - Staging file count: 2061.
+  - Staging size: 166383070 bytes.
+  - Forbidden paths: 0.
+- PASS after adding browser UI loading smoke: `node --check scripts/dashboard-ui-loading-smoke.mjs && npm run smoke:dashboard-ui-loading -- --self-test`
+- PASS after adding browser UI loading smoke: `node --test scripts/deploy-vercel-preview.test.mjs scripts/deploy-vercel-production.test.mjs`
+  - Tests: 2 pass, 0 fail.
+- PASS after adding browser UI loading smoke: `node --check scripts/deploy-vercel-preview.mjs && node --check scripts/deploy-vercel-production.mjs`
+- PASS final after adding browser UI loading smoke: `node --test scripts/cleanup-generated-artifacts.test.mjs scripts/deploy-vercel-preview.test.mjs scripts/deploy-vercel-production.test.mjs scripts/release-env-guard.test.mjs`
+  - Tests: 7 pass, 0 fail.
+- PASS final after adding browser UI loading smoke: `node --check scripts/dashboard-ui-loading-smoke.mjs && npm run smoke:dashboard-ui-loading -- --self-test && npm run smoke:dashboard-latency -- --self-test`
+- PASS final after adding browser UI loading smoke: `npm run vercel:preview -- --dry-run --json`
+  - No deployment performed.
+  - Staging file count: 2061.
+  - Staging size: 166383151 bytes.
+  - Forbidden paths: 0.
+- PASS final after adding browser UI loading smoke: `npm run vercel:production -- --dry-run --json`
+  - No deployment performed.
+  - Staging file count: 2061.
+  - Staging size: 166383151 bytes.
+  - Forbidden paths: 0.
+- PASS final after A06 Manim file appeared in the worktree: `npm run type-check`
+- PASS after adding auth precheck: `node --check scripts/dashboard-smoke-auth-precheck.mjs && npm run smoke:dashboard-auth-ready -- --self-test`
+- PASS after adding auth precheck: `node --test scripts/dashboard-smoke-auth-precheck.test.mjs`
+  - Tests: 3 pass, 0 fail.
+- CURRENT ENV NOT READY after adding auth precheck: `npm run smoke:dashboard-auth-ready -- --json`
+  - `DASHBOARD_SMOKE_COOKIE`: missing.
+  - `DASHBOARD_SMOKE_USERNAME`: missing.
+  - `DASHBOARD_SMOKE_PASSWORD`: missing.
+  - No credential values printed.
+- PASS final after adding auth precheck: `node --test scripts/dashboard-smoke-auth-precheck.test.mjs scripts/cleanup-generated-artifacts.test.mjs scripts/deploy-vercel-preview.test.mjs scripts/deploy-vercel-production.test.mjs scripts/release-env-guard.test.mjs`
+  - Tests: 10 pass, 0 fail.
+- PASS final after refreshing A25 map: `npm run vercel:preview -- --dry-run --json`
+  - No deployment performed.
+  - Staging file count: 2063.
+  - Staging size: 166400095 bytes.
+  - Forbidden paths: 0.
+- PASS final after refreshing A25 map: `npm run vercel:production -- --dry-run --json`
+  - No deployment performed.
+  - Staging file count: 2063.
+  - Staging size: 166400095 bytes.
+  - Forbidden paths: 0.
+- PASS final after refreshing A25 map: `node scripts/refresh-dirty-tree-map.mjs --assert-current --max-age-minutes 120 --json`
+  - Expanded status entries: 1853.
+- CURRENT BLOCKED outside this A22 dashboard/release slice: `npm run type-check`
+  - Failure source: A06-owned `components/visualizations/three/manim/mathSceneReviewPackages.test.ts` imports missing `./mathSceneReviewPackages`.
+  - A22 did not edit A06 Manim files.
+- PASS after sharing auth precheck helper: `node --test scripts/dashboard-smoke-auth-precheck.test.mjs scripts/cleanup-generated-artifacts.test.mjs scripts/deploy-vercel-preview.test.mjs scripts/deploy-vercel-production.test.mjs scripts/release-env-guard.test.mjs`
+  - Tests: 11 pass, 0 fail.
+- PASS after sharing auth precheck helper: `npm run smoke:dashboard-auth-ready -- --self-test && npm run smoke:dashboard-ui-loading -- --self-test && npm run smoke:dashboard-latency -- --self-test`
+- PASS after sharing auth precheck helper: `node --check scripts/dashboard-smoke-auth-precheck.mjs && node --check scripts/deploy-vercel-preview.mjs && node --check scripts/deploy-vercel-production.mjs`
+- APPLIED after final dry-run disk guard check: `node scripts/cleanup-generated-artifacts.mjs --scope next-builds --apply`
+  - Removed `.next`, `.tmp/a22-preview-3137-next`, and `.tmp/e2e-run-manim-v2-a11-20260628h/next-dist`.
+  - Reclaimed about 2.5 GB.
+- PASS final after shared auth helper and scoped cleanup: `npm run vercel:preview -- --dry-run --json`
+  - No deployment performed.
+  - Staging file count: 2064.
+  - Staging size: 166412374 bytes.
+  - Forbidden paths: 0.
+- PASS final after shared auth helper and scoped cleanup: `npm run vercel:production -- --dry-run --json`
+  - No deployment performed.
+  - Staging file count: 2064.
+  - Staging size: 166412374 bytes.
+  - Forbidden paths: 0.
+- Added completion audit report at `coordination/reports/2026-06-28-A22-dashboard-neon-completion-audit.md`.
+- PASS after completion audit: `node --import tsx --test app/dashboard/dashboardPagePerformanceBoundary.test.ts lib/server/userStoreStudentActivityPersistence.test.ts --test-name-pattern "student dashboard waits|student dashboard defers|student dashboard fast path|student dashboard Neon projection|student dashboard cache|student dashboard cache safely"`
+  - Tests: 57 pass, 0 fail.
+- PASS after completion audit: `node --test scripts/dashboard-smoke-auth-precheck.test.mjs scripts/cleanup-generated-artifacts.test.mjs scripts/deploy-vercel-preview.test.mjs scripts/deploy-vercel-production.test.mjs scripts/release-env-guard.test.mjs`
+  - Tests: 11 pass, 0 fail.
+- PASS after completion audit: `npm run smoke:dashboard-auth-ready -- --self-test && npm run smoke:dashboard-ui-loading -- --self-test && npm run smoke:dashboard-latency -- --self-test`
+- PASS: `npm run release:dirty-map -- --reason "dashboard-neon-staged-publish-preflight-2026-06-28"`
+  - Latest map: `coordination/release-intake/latest-A25-dirty-tree-map.json`
+  - Report: `coordination/release-intake/2026-06-28-A25-dirty-tree-map-20260627T163546Z.md`
+  - Expanded status entries: 1803
+- PASS: `npm run release:env-preflight`
+  - Vercel production required variables present: 15/15.
+- PASS after sequential refresh: `npm run release:runtime-preflight`
+- PASS: `npm run release:staged-publish-preflight`
+  - Staged production publish preflight passed.
+  - Vercel staging root: `.tmp/vercel-staging`
+  - Vercel env target: production.
+- PASS after adding preview inspect wait and release-slice handoff: `npm run release:staged-publish-preflight`
+  - Staged production publish preflight passed.
+  - Vercel staging root: `.tmp/vercel-staging`
+  - Vercel env target: production.
+- FAIL protectively after additional release-slice/report files were written: `npm run vercel:production -- --dry-run --json`
+  - First failure reason: A25 dirty-tree map became stale after writing report/handoff files.
+  - After refreshing A25 dirty-tree map, current failure reason: A22 disk guard reports only about 18.0 GB free; minimum is 20 GB.
+- FAIL protectively after refreshing dirty-tree map: `npm run release:staged-publish-preflight`
+  - Current failure reason: A22 disk guard reports only about 18.0 GB free; minimum is 20 GB.
+- DRY RUN ONLY: `node scripts/cleanup-generated-artifacts.mjs --dry-run`
+  - Reclaimable: about 31.7 GB.
+  - No files removed.
+  - `.tmp` contains Playwright reports, traces, screenshots, and videos, so broad cleanup was not applied.
+- PASS: `node --test scripts/cleanup-generated-artifacts.test.mjs`
+  - Tests: 1 pass, 0 fail.
+- PASS after adding `next-builds` scope: `node --test scripts/cleanup-generated-artifacts.test.mjs`
+  - Tests: 2 pass, 0 fail.
+- PASS dry-run only: `npm run clean:vercel-staging -- --json`
+  - Target: `.tmp/vercel-staging`.
+  - Reclaimable: about 9.2 GB.
+  - No files removed.
+- PASS dry-run only: `npm run clean:next-builds -- --json`
+  - Targets: Next build artifacts and `next-dist` directories.
+  - Reclaimable before apply: about 27.4 GB.
+  - No files removed in dry run.
+- APPLIED: `node scripts/cleanup-generated-artifacts.mjs --scope vercel-staging --apply`
+  - Removed old Vercel staging packages.
+  - Reclaimed about 8.6 GB.
+- APPLIED: `node scripts/cleanup-generated-artifacts.mjs --scope next-builds --apply`
+  - Removed Next build artifacts and `next-dist` directories.
+  - Reclaimed about 27.1 GB.
+- APPLIED after final dry-run: `node scripts/cleanup-generated-artifacts.mjs --scope next-builds --apply`
+  - Removed two newly generated Next build artifact targets.
+  - Reclaimed about 2.6 GB.
+- PASS after scoped cleanup: `node --test scripts/cleanup-generated-artifacts.test.mjs scripts/deploy-vercel-preview.test.mjs scripts/deploy-vercel-production.test.mjs scripts/release-env-guard.test.mjs`
+  - Tests: 7 pass, 0 fail.
+- PASS after scoped cleanup: `npm run type-check`
+- PASS after scoped cleanup: `npm run smoke:dashboard-latency -- --self-test`
+- PASS after scoped cleanup: `npm run release:staged-publish-preflight`
+  - Free disk: 43.2 GB.
+- PASS after scoped cleanup: `npm run vercel:production -- --dry-run --json`
+  - No deployment performed.
+  - Staging file count: 2061.
+  - Staging size: 166382905 bytes.
+  - Forbidden paths: 0.
+- PASS: `npm run vercel:production -- --dry-run --json`
+  - No deployment performed.
+  - Staging file count: 2060.
+  - Staging size: 166099490 bytes.
+  - Forbidden paths: 0.
+- PASS after adding the dashboard promotion gate: `npm run vercel:production -- --dry-run --json`
+  - No deployment performed.
+  - Staging file count: 2060.
+  - Staging size: 166099567 bytes.
+  - Forbidden paths: 0.
+- PASS after adding post-promotion production-domain smoke: `npm run vercel:production -- --dry-run --json`
+  - No deployment performed.
+  - Staging file count: 2060.
+  - Staging size: 166099629 bytes.
+  - Forbidden paths: 0.
+  - Production-domain smoke target: `https://mais.ac`.
+- PASS after adding preview dashboard gate: `node scripts/release-env-guard.mjs preview`
+  - Vercel staging root: `.tmp/vercel-staging`
+  - A25 dirty-tree map current.
+- PASS after adding preview dashboard gate: `npm run vercel:production -- --dry-run --json`
+  - No deployment performed.
+  - Staging file count: 2060.
+  - Staging size: 166099617 bytes.
+  - Forbidden paths: 0.
+  - Production-domain smoke target: `https://mais.ac`.
+- FAIL protectively: `npm run release:publish-preflight`
+  - Direct dirty-root production publish remains blocked.
+  - Status entries: 1070; tracked modified: 381; tracked deleted: 1; untracked status entries: 688; untracked files: 1419.
+- FAIL protectively: `npm run release:root-deploy-preflight`
+  - Direct dirty-root production publish remains blocked.
+- PASS: `node --import tsx --test app/dashboard/dashboardPagePerformanceBoundary.test.ts lib/server/userStoreStudentActivityPersistence.test.ts --test-name-pattern "student dashboard waits|student dashboard defers|student dashboard fast path|student dashboard Neon projection|student dashboard cache|student dashboard cache safely"`
+  - Tests: 57 pass, 0 fail.
+- PASS: `npm run smoke:dashboard-latency -- --self-test`
+- PASS after adding the dashboard promotion gate: `npm run smoke:dashboard-latency -- --self-test`
+- PASS after adding post-promotion production-domain smoke: `npm run smoke:dashboard-latency -- --self-test`
+- PASS after adding preview dashboard gate: `npm run smoke:dashboard-latency -- --self-test`
+- PASS after adding release-readiness report: `npm run smoke:dashboard-latency -- --self-test`
+- PASS: `node --check scripts/deploy-vercel-production.mjs && node --check scripts/release-env-guard.mjs && node --check scripts/prepare-vercel-staging.mjs && node --check scripts/next-clean-build.mjs`
+- PASS: `node --check scripts/deploy-vercel-preview.mjs && node --check scripts/deploy-vercel-production.mjs`
+- PASS: `npm run type-check`
+- PASS after adding the dashboard promotion gate: `npm run type-check`
+- PASS after adding post-promotion production-domain smoke: `npm run type-check`
+- PASS after adding preview dashboard gate: `npm run type-check`
+- PASS: `node scripts/prepare-vercel-staging.mjs --run-id dashboard-neon-20260628-release-readiness --json`
+  - Staging directory: `.tmp/vercel-staging/dashboard-neon-20260628-release-readiness`
+  - Files: 2060
+  - Size: 166099490 bytes
+  - Forbidden paths: 0
+- PASS from isolated A22 staging package: `npm run build`
+  - Working directory: `.tmp/vercel-staging/dashboard-neon-20260628-release-readiness`
+  - Generated 223 static pages and included `/api/auth/login` plus `/api/dashboard`.
+- FAIL on current deployed production before deploying this slice: `DASHBOARD_SMOKE_USERNAME='Student Shirleen' DASHBOARD_SMOKE_PASSWORD='[redacted]' DASHBOARD_SMOKE_SAMPLES=1 npm run smoke:dashboard-latency -- --base-url https://mais.ac`
+  - Resolved base URL: `https://www.mais.ac`
+  - Session: 1939 ms, pass.
+  - Dashboard: 8502 ms, fail against the 6000 ms threshold.
+  - Assignments: 8360 ms, pass against the 12000 ms secondary threshold.
+  - Gamification summary: 8659 ms, pass against the 12000 ms secondary threshold.
+  - Rewards: 8309 ms, pass against the 12000 ms secondary threshold.
+  - Artifact: `.tmp/dashboard-latency-smoke/last-run.json`
+
+## Notes And Risks
+
+- The implementation and staged production path are substantially closer to release-ready.
+- The current production domain still has not received this dashboard/Neon performance slice, so the owner-visible loading stall remains reproducible on `https://www.mais.ac`.
+- Direct dirty-root production publish remains blocked by A22 guardrails.
+- Earlier `npm run vercel:production -- --dry-run --json` proved the staged production wrapper can pass preflight and prepare a pruned staging package without deploying when the release guards are satisfied.
+- The latest staged production dry run is temporarily blocked by disk availability, not by dashboard runtime tests. Free disk must be restored and the A25 map refreshed before rerunning release dry-run.
+- The disk-availability blocker was resolved by scoped cleanup of Vercel staging packages and Next build artifacts. Broad `.tmp` cleanup was not applied.
+- Final completion still requires owner-approved preview/production deployment, Vercel inspect evidence, and a passing `npm run smoke:dashboard-latency` against the promoted online domain.
+- Production promotion is now explicitly gated by dashboard latency smoke against the deployment URL; a failing dashboard gate keeps production domains on the previous deployment.
+- After promotion, the wrapper also runs dashboard latency smoke against the configured production domain. This makes the final user-facing domain smoke part of the production release command rather than a manual afterthought.
+- Preview deployments now also require dashboard latency smoke before they are considered release-ready; missing smoke credentials fail before creating a Vercel preview deployment.
+
+## Continuation Update - 2026-06-28 11:55 HKT
+
+- A22/A19 hardened deploy wrapper ordering:
+  - Real preview and production deploy paths now run redacted dashboard smoke auth precheck before the local release build gate.
+  - Dry-run remains credential-free and non-deploying.
+- PASS: `node --check scripts/deploy-vercel-preview.mjs && node --check scripts/deploy-vercel-production.mjs && node --test scripts/deploy-vercel-preview.test.mjs scripts/deploy-vercel-production.test.mjs`
+  - Tests: 2 pass, 0 fail.
+- PASS: `node --check scripts/release-build-gate.mjs && node --check scripts/next-clean-build.mjs && node --test scripts/release-build-gate.test.mjs scripts/next-clean-build.test.mjs scripts/dashboard-smoke-auth-precheck.test.mjs scripts/cleanup-generated-artifacts.test.mjs scripts/deploy-vercel-preview.test.mjs scripts/deploy-vercel-production.test.mjs scripts/release-env-guard.test.mjs`
+  - Tests: 20 pass, 0 fail.
+- PASS: `npm run type-check`.
+- PASS: `npm run vercel:preview -- --dry-run --json`
+  - Release build gate completed at `2026-06-28T03:53:19.209Z`.
+  - Staging files: 2064; size: 166434965 bytes; forbidden paths: 0; `deployed: false`.
+  - Required build outputs present: `BUILD_ID`, auth login route, dashboard API route, gamification summary API route, rewards API route, and `dashboard.html`.
+- PASS: `npm run vercel:production -- --dry-run --json`
+  - Release build gate completed at `2026-06-28T03:54:43.945Z`.
+  - Staging files: 2064; size: 166435031 bytes; forbidden paths: 0; production base URL: `https://mais.ac`; `deployed: false`.
+  - Required build outputs present: `BUILD_ID`, auth login route, dashboard API route, gamification summary API route, rewards API route, and `dashboard.html`.
+- DRY RUN ONLY: `node scripts/cleanup-generated-artifacts.mjs --dry-run --scope next-builds --json`
+  - Found 3 old A11-owned manim E2E `next-dist` targets totaling 5274355175 bytes.
+  - No apply was run because those directories were not generated by this A22 dashboard/Neon dry-run and may be preserved evidence.
+  - Current wrapper-generated Vercel staging and release-build-gate directories were already cleaned by the wrappers.
+- A22 release build gate hygiene fix:
+  - Added `tsconfig.next.json` snapshot/restore around the local release build gate.
+  - Removed stale `release-build-gate-next-*` include entries from `tsconfig.next.json`.
+  - PASS: `node --check scripts/release-build-gate.mjs && node --test scripts/release-build-gate.test.mjs`
+    - Tests: 4 pass, 0 fail.
+  - PASS: `node scripts/release-build-gate.mjs --run-id 20260628T0400Z-restore-check --json`
+    - Required build outputs present.
+    - `tsconfig.next.json` had no remaining `release-build-gate-next` include after the run.
+    - No `.tmp/release-build-gate-next-*` directory remained after cleanup.
+  - PASS after restore fix: `node --check scripts/release-build-gate.mjs && node --check scripts/next-clean-build.mjs && node --test scripts/release-build-gate.test.mjs scripts/next-clean-build.test.mjs scripts/dashboard-smoke-auth-precheck.test.mjs scripts/cleanup-generated-artifacts.test.mjs scripts/deploy-vercel-preview.test.mjs scripts/deploy-vercel-production.test.mjs scripts/release-env-guard.test.mjs`
+    - Tests: 21 pass, 0 fail.
+  - PASS after restore fix: `npm run type-check`.
+
+## Continuation Update - 2026-06-28 12:06 HKT
+
+- A22/A11 ran non-deploy current production smoke against the existing Neon-backed `https://mais.ac` deployment using explicit demo-login mode.
+- FAIL: `DASHBOARD_SMOKE_USE_DEMO_LOGIN=1 DASHBOARD_SMOKE_SAMPLES=1 DASHBOARD_SMOKE_ARTIFACT_DIR=coordination/reports/dashboard-neon-current-production-latency-20260628 npm run smoke:dashboard-latency -- --base-url https://mais.ac --json`
+  - Resolved base URL: `https://www.mais.ac`.
+  - `/api/dashboard?grade=P1`: 7966 ms against the 6000 ms dashboard threshold.
+  - Session: 1620 ms; assignments: 7482 ms; gamification summary: 8116 ms; rewards: 7450 ms.
+  - Artifact: `coordination/reports/dashboard-neon-current-production-latency-20260628/last-run.json`.
+- PASS: `DASHBOARD_SMOKE_USE_DEMO_LOGIN=1 DASHBOARD_UI_SMOKE_ARTIFACT_DIR=coordination/reports/dashboard-neon-current-production-ui-20260628 npm run smoke:dashboard-ui-loading -- --base-url https://mais.ac --json`
+  - Final URL: `https://www.mais.ac/dashboard`.
+  - Loading hidden: 2463 ms against the 8000 ms threshold.
+  - Dashboard ready: 3246 ms against the 12000 ms threshold.
+  - Artifact: `coordination/reports/dashboard-neon-current-production-ui-20260628/last-run.json`.
+- Decision: current production still cannot close the goal because the dashboard API latency gate is red on the existing Neon-backed deployment. A passing UI sample is useful but not sufficient completion evidence.
+
+## Continuation Update - 2026-06-28 Deploy Authorization Handoff
+
+- A22 created `coordination/reports/2026-06-28-A22-dashboard-neon-deploy-authorization-handoff.md`.
+- The handoff records:
+  - Preferred preview command after owner approval: `DASHBOARD_SMOKE_USE_DEMO_LOGIN=1 npm run vercel:preview -- --json`.
+  - Production command only after separate explicit owner approval: `DASHBOARD_SMOKE_USE_DEMO_LOGIN=1 npm run vercel:production -- --json`.
+  - Required completion evidence: deployment URL, `vercel inspect --wait`, dashboard API latency smoke, dashboard UI loading smoke, and production-domain smoke if production is promoted.
+  - Stop conditions for missing approval, stale A25 map, failed preflight, failed smoke auth, failed build gate, missing deployment URL, failed inspect, or failed dashboard smoke.
+- A22/A11 decision remains unchanged: preview deployment is the next lowest-risk step; production must remain separate explicit approval.

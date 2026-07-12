@@ -1,0 +1,253 @@
+{
+  "generatedAt": "2026-07-06T06:44:55.529Z",
+  "repoRoot": "/Users/dongpinhu/Desktop/MAIS-MVP",
+  "executorKind": "a22-generated-artifact-guarded-cleanup-executor",
+  "mode": "apply",
+  "executorStatus": "apply-complete",
+  "dirtyMapStatusSignature": "553a440b7372c2a727988920d3d23c00a2574615bd1dd22bc38860298a259ad7",
+  "expandedStatusEntries": 5100,
+  "sourceArtifacts": {
+    "planGeneratedAt": "2026-07-06T06:44:44.429Z"
+  },
+  "sourceCurrentnessFailures": [],
+  "planStatus": "ready-for-owner-approved-generated-cleanup",
+  "exactCommand": "node scripts/cleanup-generated-artifacts.mjs --apply --scope all",
+  "commandSequence": [
+    {
+      "command": "node scripts/cleanup-generated-artifacts.mjs --apply --scope all",
+      "cwd": "/Users/dongpinhu/Desktop/MAIS-MVP",
+      "approvalIds": [
+        "a22-generated-residual-next"
+      ],
+      "paths": [
+        ".next"
+      ]
+    },
+    {
+      "command": "git clean -fdX -- .s11-parent-audit-next4",
+      "cwd": "/Users/dongpinhu/Desktop/MAIS-MVP",
+      "approvalIds": [
+        "a22-generated-residual-s11-parent-audit-next4"
+      ],
+      "paths": [
+        ".s11-parent-audit-next4"
+      ]
+    },
+    {
+      "command": "git clean -fdX -- .s11-parent-audit-next3",
+      "cwd": "/Users/dongpinhu/Desktop/MAIS-MVP",
+      "approvalIds": [
+        "a22-generated-residual-s11-parent-audit-next3"
+      ],
+      "paths": [
+        ".s11-parent-audit-next3"
+      ]
+    }
+  ],
+  "commandCwd": "/Users/dongpinhu/Desktop/MAIS-MVP",
+  "targetRows": [
+    {
+      "approvalId": "a22-generated-residual-next",
+      "owner": "A22 production reliability and release engineering",
+      "path": ".next",
+      "command": "node scripts/cleanup-generated-artifacts.mjs --apply --scope all",
+      "cwd": "/Users/dongpinhu/Desktop/MAIS-MVP",
+      "residualBytes": 1462959506,
+      "authorizationRecorded": true,
+      "executionInstructionRecorded": true,
+      "cleanupAuthorized": true,
+      "executableNow": true
+    },
+    {
+      "approvalId": "a22-generated-residual-s11-parent-audit-next4",
+      "owner": "A22 production reliability and release engineering",
+      "path": ".s11-parent-audit-next4",
+      "command": "git clean -fdX -- .s11-parent-audit-next4",
+      "cwd": "/Users/dongpinhu/Desktop/MAIS-MVP",
+      "residualBytes": 151355,
+      "authorizationRecorded": true,
+      "executionInstructionRecorded": true,
+      "cleanupAuthorized": true,
+      "executableNow": true
+    },
+    {
+      "approvalId": "a22-generated-residual-s11-parent-audit-next3",
+      "owner": "A22 production reliability and release engineering",
+      "path": ".s11-parent-audit-next3",
+      "command": "git clean -fdX -- .s11-parent-audit-next3",
+      "cwd": "/Users/dongpinhu/Desktop/MAIS-MVP",
+      "residualBytes": 23752,
+      "authorizationRecorded": true,
+      "executionInstructionRecorded": true,
+      "cleanupAuthorized": true,
+      "executableNow": true
+    }
+  ],
+  "commandLog": [
+    {
+      "command": "node scripts/cleanup-generated-artifacts.mjs --apply --scope all",
+      "cwd": "/Users/dongpinhu/Desktop/MAIS-MVP",
+      "status": 0,
+      "stdout": "{\n  \"dryRun\": false,\n  \"apply\": true,\n  \"scope\": \"all\",\n  \"targetCount\": 3,\n  \"totalBytes\": 1463134613,\n  \"skippedTargets\": [\n    {\n      \"path\": \".s11-parent-audit-next4\",\n      \"type\": \"directory\",\n      \"bytes\": 151355,\n      \"reason\": \"skipped anomalous dataless generated directory; remove separately after preserving evidence\"\n    },\n    {\n      \"path\": \".s11-parent-audit-next3\",\n      \"type\": \"directory\",\n      \"bytes\": 23752,\n      \"reason\": \"skipped anomalous dataless generated directory; remove separately after preserving evidence\"\n    }\n  ],\n  \"targets\": [\n    {\n      \"path\": \".next\",\n      \"type\": \"directory\",\n      \"bytes\": 1462959506\n    },\n    {\n      \"path\": \".s11-parent-audit-next4\",\n      \"type\": \"directory\",\n      \"bytes\": 151355\n    },\n    {\n      \"path\": \".s11-parent-audit-next3\",\n      \"type\": \"directory\",\n      \"bytes\": 23752\n    }\n  ]\n}\n",
+      "stderr": "",
+      "parseError": "",
+      "payload": {
+        "dryRun": false,
+        "apply": true,
+        "scope": "all",
+        "targetCount": 3,
+        "totalBytes": 1463134613,
+        "skippedTargets": [
+          {
+            "path": ".s11-parent-audit-next4",
+            "type": "directory",
+            "bytes": 151355,
+            "reason": "skipped anomalous dataless generated directory; remove separately after preserving evidence"
+          },
+          {
+            "path": ".s11-parent-audit-next3",
+            "type": "directory",
+            "bytes": 23752,
+            "reason": "skipped anomalous dataless generated directory; remove separately after preserving evidence"
+          }
+        ],
+        "targets": [
+          {
+            "path": ".next",
+            "type": "directory",
+            "bytes": 1462959506
+          },
+          {
+            "path": ".s11-parent-audit-next4",
+            "type": "directory",
+            "bytes": 151355
+          },
+          {
+            "path": ".s11-parent-audit-next3",
+            "type": "directory",
+            "bytes": 23752
+          }
+        ]
+      }
+    },
+    {
+      "command": "git clean -fdX -- .s11-parent-audit-next4",
+      "cwd": "/Users/dongpinhu/Desktop/MAIS-MVP",
+      "status": 0,
+      "stdout": "Removing .s11-parent-audit-next4/\n",
+      "stderr": "",
+      "parseError": "",
+      "payload": null
+    },
+    {
+      "command": "git clean -fdX -- .s11-parent-audit-next3",
+      "cwd": "/Users/dongpinhu/Desktop/MAIS-MVP",
+      "status": 0,
+      "stdout": "Removing .s11-parent-audit-next3/\n",
+      "stderr": "",
+      "parseError": "",
+      "payload": null
+    }
+  ],
+  "preflightChecks": [
+    {
+      "id": "mode-is-explicit",
+      "status": "pass",
+      "detail": "mode=apply"
+    },
+    {
+      "id": "source-current",
+      "status": "pass",
+      "detail": "source currentness failures=0"
+    },
+    {
+      "id": "plan-ready-or-clean",
+      "status": "pass",
+      "detail": "planStatus=ready-for-owner-approved-generated-cleanup"
+    },
+    {
+      "id": "exact-command",
+      "status": "pass",
+      "detail": "commandSequenceRows=3"
+    },
+    {
+      "id": "executable-rows-before-apply-or-clean-after",
+      "status": "pass",
+      "detail": "executableRows=3"
+    },
+    {
+      "id": "apply-requires-ready-status",
+      "status": "pass",
+      "detail": "mode=apply; status=ready-to-apply"
+    },
+    {
+      "id": "no-stage-commit-merge-deploy",
+      "status": "pass",
+      "detail": "executor only calls the guarded A22 generated-artifact cleanup command sequence in apply mode"
+    }
+  ],
+  "summary": {
+    "mode": "apply",
+    "executorStatus": "apply-complete",
+    "planStatus": "ready-for-owner-approved-generated-cleanup",
+    "targetRows": 3,
+    "cleanupAuthorizedRows": 3,
+    "executableRows": 3,
+    "preflightChecks": 7,
+    "passingPreflightChecks": 7,
+    "failedPreflightChecks": 0,
+    "sourceCurrentnessFailures": 0,
+    "applyRequested": true,
+    "applyPermitted": true,
+    "mutationsPerformed": true
+  },
+  "boundary": {
+    "evidenceOnly": false,
+    "dryRunOnly": false,
+    "applyModeRequested": true,
+    "recordsOwnerApproval": false,
+    "recordsExecutionInstruction": false,
+    "stageAuthorized": false,
+    "commitAuthorized": false,
+    "mergeAuthorized": false,
+    "cleanupAuthorized": true,
+    "executableNow": true,
+    "destructiveGitAuthorized": true,
+    "fileDeletionAuthorized": true,
+    "deployAuthorized": false,
+    "requiresExplicitApplyFlag": true,
+    "allowedCommand": "node scripts/cleanup-generated-artifacts.mjs --apply --scope all",
+    "allowedCommandSequence": [
+      {
+        "command": "node scripts/cleanup-generated-artifacts.mjs --apply --scope all",
+        "cwd": "/Users/dongpinhu/Desktop/MAIS-MVP",
+        "approvalIds": [
+          "a22-generated-residual-next"
+        ],
+        "paths": [
+          ".next"
+        ]
+      },
+      {
+        "command": "git clean -fdX -- .s11-parent-audit-next4",
+        "cwd": "/Users/dongpinhu/Desktop/MAIS-MVP",
+        "approvalIds": [
+          "a22-generated-residual-s11-parent-audit-next4"
+        ],
+        "paths": [
+          ".s11-parent-audit-next4"
+        ]
+      },
+      {
+        "command": "git clean -fdX -- .s11-parent-audit-next3",
+        "cwd": "/Users/dongpinhu/Desktop/MAIS-MVP",
+        "approvalIds": [
+          "a22-generated-residual-s11-parent-audit-next3"
+        ],
+        "paths": [
+          ".s11-parent-audit-next3"
+        ]
+      }
+    ]
+  }
+}

@@ -1,0 +1,10 @@
+app/api/ai-tutor/status/route.ts                   |   41 +-
+ components/ai/AITutorProvider.tsx                  | 2027 ++++++++++++++++++--
+ components/home/HeroSection.tsx                    |  184 +-
+ components/home/HomePageClient.tsx                 |   31 +-
+ components/learning/SubwayNetworkMap.tsx           |   95 +-
+ .../PersonalizedPracticeMissionShowcase.tsx        |   32 +-
+ lib/server/llmProvider.ts                          |  460 ++++-
+ package-lock.json                                  |   35 +-
+ package.json                                       |    4 +-
+ 9 files changed, 2531 insertions(+), 378 deletions(-)

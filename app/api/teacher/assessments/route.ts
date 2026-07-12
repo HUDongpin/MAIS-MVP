@@ -1,12 +1,13 @@
 import { NextResponse } from "next/server";
 import { canAccessTeacherArea, requireAuthenticatedUser } from "@/lib/server/auth";
 import { createTeacherAssessment, getTeacherAssessmentListData } from "@/lib/server/userStore";
-import type { AssessmentManualQuestion, AssessmentSourceType, AssessmentType } from "@/types";
+import type { AssessmentManualQuestion, AssessmentPaperSection, AssessmentSourceType, AssessmentType } from "@/types";
 
 export const runtime = "nodejs";
 
 const validAssessmentTypes = new Set<AssessmentType>(["quiz", "test", "mock-exam", "exam"]);
-const validSourceTypes = new Set<AssessmentSourceType>(["question-bank", "manual", "resource", "mistake-generated"]);
+const validSourceTypes = new Set<AssessmentSourceType>(["question-bank", "manual", "resource", "mistake-generated", "mixed"]);
+const validStatusIntents = new Set(["draft", "publish"]);
 
 export async function GET(request: Request) {
   const authenticated = await requireAuthenticatedUser(request);
@@ -29,10 +30,12 @@ export async function POST(request: Request) {
     title?: unknown;
     type?: unknown;
     sourceType?: unknown;
-    sourceResourceId?: unknown;
-    questionIds?: unknown;
-    manualQuestions?: unknown;
-    opensAt?: unknown;
+	    sourceResourceId?: unknown;
+	    questionIds?: unknown;
+	    manualQuestions?: unknown;
+	    paperSections?: unknown;
+	    statusIntent?: unknown;
+	    opensAt?: unknown;
     closesAt?: unknown;
     timeLimitMinutes?: unknown;
     maxAttempts?: unknown;
@@ -56,11 +59,13 @@ export async function POST(request: Request) {
     type,
     sourceType,
     sourceResourceId: typeof body.sourceResourceId === "string" && body.sourceResourceId ? body.sourceResourceId : null,
-    questionIds: Array.isArray(body.questionIds)
-      ? body.questionIds.filter((questionId): questionId is string => typeof questionId === "string")
-      : undefined,
-    manualQuestions: Array.isArray(body.manualQuestions) ? (body.manualQuestions as AssessmentManualQuestion[]) : undefined,
-    opensAt: typeof body.opensAt === "string" && body.opensAt ? body.opensAt : null,
+	    questionIds: Array.isArray(body.questionIds)
+	      ? body.questionIds.filter((questionId): questionId is string => typeof questionId === "string")
+	      : undefined,
+	    manualQuestions: Array.isArray(body.manualQuestions) ? (body.manualQuestions as AssessmentManualQuestion[]) : undefined,
+	    paperSections: Array.isArray(body.paperSections) ? (body.paperSections as AssessmentPaperSection[]) : undefined,
+	    statusIntent: validStatusIntents.has(body.statusIntent as string) ? (body.statusIntent as "draft" | "publish") : "publish",
+	    opensAt: typeof body.opensAt === "string" && body.opensAt ? body.opensAt : null,
     closesAt: typeof body.closesAt === "string" && body.closesAt ? body.closesAt : null,
     timeLimitMinutes: typeof body.timeLimitMinutes === "number" ? body.timeLimitMinutes : null,
     maxAttempts: typeof body.maxAttempts === "number" ? body.maxAttempts : null,

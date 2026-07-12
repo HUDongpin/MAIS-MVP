@@ -1,0 +1,212 @@
+{
+  "generatedAt": "2026-07-05T11:15:41.780Z",
+  "repoRoot": "/Users/dongpinhu/Desktop/MAIS-MVP",
+  "planKind": "wave01-artifact-clean-guarded-execution-plan",
+  "dirtyMapStatusSignature": "fc405946dbb9033f749aa5e537f14edc23d82355d6b8e796759a4856fcbefeef",
+  "expandedStatusEntries": 4737,
+  "sourceArtifacts": {
+    "executionInstructionsGeneratedAt": "2026-07-05T11:15:40.828Z",
+    "requestPacketGeneratedAt": "2026-07-05T11:15:40.929Z",
+    "preflightGeneratedAt": "2026-07-05T11:15:41.228Z",
+    "instructionCapsuleGeneratedAt": "2026-07-05T11:15:41.530Z"
+  },
+  "sourceCurrentnessFailures": [],
+  "planStatus": "blocked-missing-owner-execution-instruction",
+  "targetInputFile": "coordination/release-intake/latest-A25-next-owner-execution-instructions.json",
+  "targetRows": [
+    {
+      "approvalId": "wave01-resync-02-coordination-release-intake-2026-06-30-a25-dirty-tree-map-20260630t072027z-json",
+      "owner": "A25 git hygiene and release intake",
+      "cwd": "/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A25-dirty-closure-governance",
+      "packageFile": "coordination/release-intake/2026-06-30-A25-dirty-tree-map-20260630T072027Z.json",
+      "command": "git clean -f -- coordination/release-intake/2026-06-30-A25-dirty-tree-map-20260630T072027Z.json",
+      "expectedStatusShort": "?? coordination/release-intake/2026-06-30-A25-dirty-tree-map-20260630T072027Z.json",
+      "statusShort": "?? coordination/release-intake/2026-06-30-A25-dirty-tree-map-20260630T072027Z.json",
+      "dryRunCommand": "git clean -n -- coordination/release-intake/2026-06-30-A25-dirty-tree-map-20260630T072027Z.json",
+      "dryRunOutput": "Would remove coordination/release-intake/2026-06-30-A25-dirty-tree-map-20260630T072027Z.json",
+      "dryRunRemovals": [
+        "coordination/release-intake/2026-06-30-A25-dirty-tree-map-20260630T072027Z.json"
+      ],
+      "targetStillDirty": true,
+      "targetAlreadyClean": false,
+      "cleanupAuthorized": false,
+      "executableNow": false
+    },
+    {
+      "approvalId": "wave01-resync-03-coordination-release-intake-2026-06-30-a25-dirty-tree-map-20260630t072027z-md",
+      "owner": "A25 git hygiene and release intake",
+      "cwd": "/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A25-dirty-closure-governance",
+      "packageFile": "coordination/release-intake/2026-06-30-A25-dirty-tree-map-20260630T072027Z.md",
+      "command": "git clean -f -- coordination/release-intake/2026-06-30-A25-dirty-tree-map-20260630T072027Z.md",
+      "expectedStatusShort": "?? coordination/release-intake/2026-06-30-A25-dirty-tree-map-20260630T072027Z.md",
+      "statusShort": "?? coordination/release-intake/2026-06-30-A25-dirty-tree-map-20260630T072027Z.md",
+      "dryRunCommand": "git clean -n -- coordination/release-intake/2026-06-30-A25-dirty-tree-map-20260630T072027Z.md",
+      "dryRunOutput": "Would remove coordination/release-intake/2026-06-30-A25-dirty-tree-map-20260630T072027Z.md",
+      "dryRunRemovals": [
+        "coordination/release-intake/2026-06-30-A25-dirty-tree-map-20260630T072027Z.md"
+      ],
+      "targetStillDirty": true,
+      "targetAlreadyClean": false,
+      "cleanupAuthorized": false,
+      "executableNow": false
+    },
+    {
+      "approvalId": "wave01-resync-04-coordination-release-intake-2026-06-30-a25-dirty-tree-map-20260630t073137z-json",
+      "owner": "A25 git hygiene and release intake",
+      "cwd": "/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A25-dirty-closure-governance",
+      "packageFile": "coordination/release-intake/2026-06-30-A25-dirty-tree-map-20260630T073137Z.json",
+      "command": "git clean -f -- coordination/release-intake/2026-06-30-A25-dirty-tree-map-20260630T073137Z.json",
+      "expectedStatusShort": "?? coordination/release-intake/2026-06-30-A25-dirty-tree-map-20260630T073137Z.json",
+      "statusShort": "?? coordination/release-intake/2026-06-30-A25-dirty-tree-map-20260630T073137Z.json",
+      "dryRunCommand": "git clean -n -- coordination/release-intake/2026-06-30-A25-dirty-tree-map-20260630T073137Z.json",
+      "dryRunOutput": "Would remove coordination/release-intake/2026-06-30-A25-dirty-tree-map-20260630T073137Z.json",
+      "dryRunRemovals": [
+        "coordination/release-intake/2026-06-30-A25-dirty-tree-map-20260630T073137Z.json"
+      ],
+      "targetStillDirty": true,
+      "targetAlreadyClean": false,
+      "cleanupAuthorized": false,
+      "executableNow": false
+    },
+    {
+      "approvalId": "wave01-resync-05-coordination-release-intake-2026-06-30-a25-dirty-tree-map-20260630t073137z-md",
+      "owner": "A25 git hygiene and release intake",
+      "cwd": "/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A25-dirty-closure-governance",
+      "packageFile": "coordination/release-intake/2026-06-30-A25-dirty-tree-map-20260630T073137Z.md",
+      "command": "git clean -f -- coordination/release-intake/2026-06-30-A25-dirty-tree-map-20260630T073137Z.md",
+      "expectedStatusShort": "?? coordination/release-intake/2026-06-30-A25-dirty-tree-map-20260630T073137Z.md",
+      "statusShort": "?? coordination/release-intake/2026-06-30-A25-dirty-tree-map-20260630T073137Z.md",
+      "dryRunCommand": "git clean -n -- coordination/release-intake/2026-06-30-A25-dirty-tree-map-20260630T073137Z.md",
+      "dryRunOutput": "Would remove coordination/release-intake/2026-06-30-A25-dirty-tree-map-20260630T073137Z.md",
+      "dryRunRemovals": [
+        "coordination/release-intake/2026-06-30-A25-dirty-tree-map-20260630T073137Z.md"
+      ],
+      "targetStillDirty": true,
+      "targetAlreadyClean": false,
+      "cleanupAuthorized": false,
+      "executableNow": false
+    },
+    {
+      "approvalId": "wave01-resync-06-coordination-release-intake-2026-06-30-a25-dirty-tree-map-20260630t130221z-json",
+      "owner": "A25 git hygiene and release intake",
+      "cwd": "/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A25-dirty-closure-governance",
+      "packageFile": "coordination/release-intake/2026-06-30-A25-dirty-tree-map-20260630T130221Z.json",
+      "command": "git clean -f -- coordination/release-intake/2026-06-30-A25-dirty-tree-map-20260630T130221Z.json",
+      "expectedStatusShort": "?? coordination/release-intake/2026-06-30-A25-dirty-tree-map-20260630T130221Z.json",
+      "statusShort": "?? coordination/release-intake/2026-06-30-A25-dirty-tree-map-20260630T130221Z.json",
+      "dryRunCommand": "git clean -n -- coordination/release-intake/2026-06-30-A25-dirty-tree-map-20260630T130221Z.json",
+      "dryRunOutput": "Would remove coordination/release-intake/2026-06-30-A25-dirty-tree-map-20260630T130221Z.json",
+      "dryRunRemovals": [
+        "coordination/release-intake/2026-06-30-A25-dirty-tree-map-20260630T130221Z.json"
+      ],
+      "targetStillDirty": true,
+      "targetAlreadyClean": false,
+      "cleanupAuthorized": false,
+      "executableNow": false
+    },
+    {
+      "approvalId": "wave01-resync-07-coordination-release-intake-2026-06-30-a25-dirty-tree-map-20260630t130221z-md",
+      "owner": "A25 git hygiene and release intake",
+      "cwd": "/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A25-dirty-closure-governance",
+      "packageFile": "coordination/release-intake/2026-06-30-A25-dirty-tree-map-20260630T130221Z.md",
+      "command": "git clean -f -- coordination/release-intake/2026-06-30-A25-dirty-tree-map-20260630T130221Z.md",
+      "expectedStatusShort": "?? coordination/release-intake/2026-06-30-A25-dirty-tree-map-20260630T130221Z.md",
+      "statusShort": "?? coordination/release-intake/2026-06-30-A25-dirty-tree-map-20260630T130221Z.md",
+      "dryRunCommand": "git clean -n -- coordination/release-intake/2026-06-30-A25-dirty-tree-map-20260630T130221Z.md",
+      "dryRunOutput": "Would remove coordination/release-intake/2026-06-30-A25-dirty-tree-map-20260630T130221Z.md",
+      "dryRunRemovals": [
+        "coordination/release-intake/2026-06-30-A25-dirty-tree-map-20260630T130221Z.md"
+      ],
+      "targetStillDirty": true,
+      "targetAlreadyClean": false,
+      "cleanupAuthorized": false,
+      "executableNow": false
+    }
+  ],
+  "instructionRows": [],
+  "instructionValidationFailures": [],
+  "stagedRows": [],
+  "guardedCommandSequence": [
+    "git clean -f -- coordination/release-intake/2026-06-30-A25-dirty-tree-map-20260630T072027Z.json",
+    "git clean -f -- coordination/release-intake/2026-06-30-A25-dirty-tree-map-20260630T072027Z.md",
+    "git clean -f -- coordination/release-intake/2026-06-30-A25-dirty-tree-map-20260630T073137Z.json",
+    "git clean -f -- coordination/release-intake/2026-06-30-A25-dirty-tree-map-20260630T073137Z.md",
+    "git clean -f -- coordination/release-intake/2026-06-30-A25-dirty-tree-map-20260630T130221Z.json",
+    "git clean -f -- coordination/release-intake/2026-06-30-A25-dirty-tree-map-20260630T130221Z.md"
+  ],
+  "acceptanceChecks": [
+    {
+      "id": "source-current",
+      "status": "pass",
+      "detail": "source currentness failures=0"
+    },
+    {
+      "id": "six-target-rows",
+      "status": "pass",
+      "detail": "targetRows=6"
+    },
+    {
+      "id": "target-status-coherent",
+      "status": "pass",
+      "detail": "dirty=6; alreadyClean=0"
+    },
+    {
+      "id": "instruction-state-coherent",
+      "status": "pass",
+      "detail": "instructionRows=0; instructionFailures=0; status=blocked-missing-owner-execution-instruction"
+    },
+    {
+      "id": "exact-command-allowlist",
+      "status": "pass",
+      "detail": "all commands are single-file Wave01 A25 artifact clean commands"
+    },
+    {
+      "id": "no-tsconfig-or-deploy-target",
+      "status": "pass",
+      "detail": "tsconfig restore and deploy artifacts are excluded"
+    },
+    {
+      "id": "no-staged-root-input",
+      "status": "pass",
+      "detail": "stagedRows=0"
+    },
+    {
+      "id": "non-executable-plan",
+      "status": "pass",
+      "detail": "plan generation does not mark rows executable"
+    }
+  ],
+  "summary": {
+    "planStatus": "blocked-missing-owner-execution-instruction",
+    "targetRows": 6,
+    "targetDirtyRows": 6,
+    "targetAlreadyCleanRows": 0,
+    "instructionRows": 0,
+    "validInstructionRows": 0,
+    "instructionValidationFailures": 0,
+    "guardedCommandRows": 6,
+    "stagedRows": 0,
+    "acceptanceChecks": 8,
+    "passingAcceptanceChecks": 8,
+    "failedAcceptanceChecks": 0,
+    "sourceCurrentnessFailures": 0,
+    "canExecuteIfSeparateOwnerInstructionRecorded": false,
+    "cleanupAuthorizedRows": 0,
+    "executableRows": 0
+  },
+  "boundary": {
+    "evidenceOnly": true,
+    "planOnly": true,
+    "recordsOwnerApproval": false,
+    "recordsExecutionInstruction": false,
+    "stageAuthorized": false,
+    "commitAuthorized": false,
+    "mergeAuthorized": false,
+    "cleanupAuthorized": false,
+    "executableNow": false,
+    "destructiveGitAuthorized": false,
+    "deployAuthorized": false,
+    "requiresSeparateOwnerExecutionInstruction": true,
+    "requiresExplicitApplyFlag": true
+  }
+}

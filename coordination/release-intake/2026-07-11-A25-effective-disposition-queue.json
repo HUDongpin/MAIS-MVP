@@ -1,0 +1,514 @@
+{
+  "generatedAt": "2026-07-10T17:08:15.028Z",
+  "overlay": {
+    "latestJson": "coordination/release-intake/latest-A25-effective-owner-overlay.json",
+    "dirtyMapStatusSignature": "e30d647e1b51432945713f42ac78b0a2466fcb17192de0235a801ac877a0801f",
+    "expandedStatusEntries": 7636,
+    "remainingUnmappedRuntimeEntries": 0,
+    "remainingUnmappedManualEntries": 0
+  },
+  "queue": [
+    {
+      "owner": "A25 git hygiene and release intake",
+      "entries": 5702,
+      "fromUnmappedRuntimeProposals": 0,
+      "sliceBuckets": {
+        "docs/coordination evidence": 5701,
+        "release hygiene tooling/config": 1
+      },
+      "originalOwnerBuckets": {
+        "A25 git hygiene and release intake": 5702
+      },
+      "latestPathspec": "coordination/release-intake/latest-A25-effective-owner-a25-git-hygiene-and-release-intake.pathspec",
+      "datedPathspec": "coordination/release-intake/2026-07-11-A25-effective-owner-a25-git-hygiene-and-release-intake.pathspec",
+      "priority": 1,
+      "priorityReason": "Release-intake evidence package.",
+      "workOrder": "coordination/release-intake/latest-A25-effective-work-order-a25-git-hygiene-and-release-intake.md",
+      "datedWorkOrder": "coordination/release-intake/2026-07-11-A25-effective-work-order-a25-git-hygiene-and-release-intake.md",
+      "requiredFinalState": "reviewed commit, owner-approved discard, evidence archive, or blocker"
+    },
+    {
+      "owner": "A22 production reliability and release engineering",
+      "entries": 68,
+      "fromUnmappedRuntimeProposals": 0,
+      "sliceBuckets": {
+        "docs/coordination evidence": 51,
+        "release hygiene tooling/config": 16,
+        "unmapped/manual": 1
+      },
+      "originalOwnerBuckets": {
+        "A22 production reliability and release engineering": 68
+      },
+      "latestPathspec": "coordination/release-intake/latest-A25-effective-owner-a22-production-reliability-and-release-engineering.pathspec",
+      "datedPathspec": "coordination/release-intake/2026-07-11-A25-effective-owner-a22-production-reliability-and-release-engineering.pathspec",
+      "priority": 1,
+      "priorityReason": "Release-source and deploy hygiene package.",
+      "workOrder": "coordination/release-intake/latest-A25-effective-work-order-a22-production-reliability-and-release-engineering.md",
+      "datedWorkOrder": "coordination/release-intake/2026-07-11-A25-effective-work-order-a22-production-reliability-and-release-engineering.md",
+      "requiredFinalState": "reviewed commit, owner-approved discard, evidence archive, or blocker"
+    },
+    {
+      "owner": "A06 visualization lead",
+      "entries": 460,
+      "fromUnmappedRuntimeProposals": 0,
+      "sliceBuckets": {
+        "runtime app/API/data/public": 242,
+        "tests/regression evidence": 218
+      },
+      "originalOwnerBuckets": {
+        "A06 visualization lead": 460
+      },
+      "latestPathspec": "coordination/release-intake/latest-A25-effective-owner-a06-visualization-lead.pathspec",
+      "datedPathspec": "coordination/release-intake/2026-07-11-A25-effective-owner-a06-visualization-lead.pathspec",
+      "priority": 2,
+      "priorityReason": "Largest runtime/test package and linked dirty visualization worktree.",
+      "workOrder": "coordination/release-intake/latest-A25-effective-work-order-a06-visualization-lead.md",
+      "datedWorkOrder": "coordination/release-intake/2026-07-11-A25-effective-work-order-a06-visualization-lead.md",
+      "requiredFinalState": "reviewed commit, owner-approved discard, evidence archive, or blocker"
+    },
+    {
+      "owner": "A12 backend/API platform",
+      "entries": 178,
+      "fromUnmappedRuntimeProposals": 0,
+      "sliceBuckets": {
+        "runtime app/API/data/public": 119,
+        "tests/regression evidence": 59
+      },
+      "originalOwnerBuckets": {
+        "A12 backend/API platform": 178
+      },
+      "latestPathspec": "coordination/release-intake/latest-A25-effective-owner-a12-backend-api-platform.pathspec",
+      "datedPathspec": "coordination/release-intake/2026-07-11-A25-effective-owner-a12-backend-api-platform.pathspec",
+      "priority": 2,
+      "priorityReason": "High-risk API/storage package.",
+      "workOrder": "coordination/release-intake/latest-A25-effective-work-order-a12-backend-api-platform.md",
+      "datedWorkOrder": "coordination/release-intake/2026-07-11-A25-effective-work-order-a12-backend-api-platform.md",
+      "requiredFinalState": "reviewed commit, owner-approved discard, evidence archive, or blocker"
+    },
+    {
+      "owner": "A11 QA and release quality",
+      "entries": 64,
+      "fromUnmappedRuntimeProposals": 0,
+      "sliceBuckets": {
+        "tests/regression evidence": 64
+      },
+      "originalOwnerBuckets": {
+        "A11 QA and release quality": 64
+      },
+      "latestPathspec": "coordination/release-intake/latest-A25-effective-owner-a11-qa-and-release-quality.pathspec",
+      "datedPathspec": "coordination/release-intake/2026-07-11-A25-effective-owner-a11-qa-and-release-quality.pathspec",
+      "priority": 2,
+      "priorityReason": "Regression and release-quality package.",
+      "workOrder": "coordination/release-intake/latest-A25-effective-work-order-a11-qa-and-release-quality.md",
+      "datedWorkOrder": "coordination/release-intake/2026-07-11-A25-effective-work-order-a11-qa-and-release-quality.md",
+      "requiredFinalState": "reviewed commit, owner-approved discard, evidence archive, or blocker"
+    },
+    {
+      "owner": "A10 tooling, docs, and report",
+      "entries": 490,
+      "fromUnmappedRuntimeProposals": 0,
+      "sliceBuckets": {
+        "docs/coordination evidence": 482,
+        "unmapped/manual": 5,
+        "release hygiene tooling/config": 3
+      },
+      "originalOwnerBuckets": {
+        "A10 tooling, docs, and report": 490
+      },
+      "latestPathspec": "coordination/release-intake/latest-A25-effective-owner-a10-tooling-docs-and-report.pathspec",
+      "datedPathspec": "coordination/release-intake/2026-07-11-A25-effective-owner-a10-tooling-docs-and-report.pathspec",
+      "priority": 3,
+      "priorityReason": "Shared docs/config/tooling package.",
+      "workOrder": "coordination/release-intake/latest-A25-effective-work-order-a10-tooling-docs-and-report.md",
+      "datedWorkOrder": "coordination/release-intake/2026-07-11-A25-effective-work-order-a10-tooling-docs-and-report.md",
+      "requiredFinalState": "reviewed commit, owner-approved discard, evidence archive, or blocker"
+    },
+    {
+      "owner": "A05 lesson lead",
+      "entries": 129,
+      "fromUnmappedRuntimeProposals": 0,
+      "sliceBuckets": {
+        "runtime app/API/data/public": 117,
+        "tests/regression evidence": 11,
+        "unmapped/manual": 1
+      },
+      "originalOwnerBuckets": {
+        "A05 lesson lead": 129
+      },
+      "latestPathspec": "coordination/release-intake/latest-A25-effective-owner-a05-lesson-lead.pathspec",
+      "datedPathspec": "coordination/release-intake/2026-07-11-A25-effective-owner-a05-lesson-lead.pathspec",
+      "priority": 3,
+      "priorityReason": "Lesson/source-link package, including P0 reassignment.",
+      "workOrder": "coordination/release-intake/latest-A25-effective-work-order-a05-lesson-lead.md",
+      "datedWorkOrder": "coordination/release-intake/2026-07-11-A25-effective-work-order-a05-lesson-lead.md",
+      "requiredFinalState": "reviewed commit, owner-approved discard, evidence archive, or blocker"
+    },
+    {
+      "owner": "A21 content pipeline and RAG operations",
+      "entries": 76,
+      "fromUnmappedRuntimeProposals": 0,
+      "sliceBuckets": {
+        "generated/content/RAG backlog": 67,
+        "tests/regression evidence": 8,
+        "unmapped/manual": 1
+      },
+      "originalOwnerBuckets": {
+        "A21 content pipeline and RAG operations": 76
+      },
+      "latestPathspec": "coordination/release-intake/latest-A25-effective-owner-a21-content-pipeline-and-rag-operations.pathspec",
+      "datedPathspec": "coordination/release-intake/2026-07-11-A25-effective-owner-a21-content-pipeline-and-rag-operations.pathspec",
+      "priority": 3,
+      "priorityReason": "Generated/RAG backlog package.",
+      "workOrder": "coordination/release-intake/latest-A25-effective-work-order-a21-content-pipeline-and-rag-operations.md",
+      "datedWorkOrder": "coordination/release-intake/2026-07-11-A25-effective-work-order-a21-content-pipeline-and-rag-operations.md",
+      "requiredFinalState": "reviewed commit, owner-approved discard, evidence archive, or blocker"
+    },
+    {
+      "owner": "A04 practice lead",
+      "entries": 60,
+      "fromUnmappedRuntimeProposals": 0,
+      "sliceBuckets": {
+        "runtime app/API/data/public": 49,
+        "tests/regression evidence": 11
+      },
+      "originalOwnerBuckets": {
+        "A04 practice lead": 60
+      },
+      "latestPathspec": "coordination/release-intake/latest-A25-effective-owner-a04-practice-lead.pathspec",
+      "datedPathspec": "coordination/release-intake/2026-07-11-A25-effective-owner-a04-practice-lead.pathspec",
+      "priority": 3,
+      "priorityReason": "Practice/question-bank package, including P0 reassignment.",
+      "workOrder": "coordination/release-intake/latest-A25-effective-work-order-a04-practice-lead.md",
+      "datedWorkOrder": "coordination/release-intake/2026-07-11-A25-effective-work-order-a04-practice-lead.md",
+      "requiredFinalState": "reviewed commit, owner-approved discard, evidence archive, or blocker"
+    },
+    {
+      "owner": "A18 curriculum QA / A21 content pipeline",
+      "entries": 45,
+      "fromUnmappedRuntimeProposals": 0,
+      "sliceBuckets": {
+        "docs/coordination evidence": 43,
+        "runtime app/API/data/public": 1,
+        "tests/regression evidence": 1
+      },
+      "originalOwnerBuckets": {
+        "A18 curriculum QA / A21 content pipeline": 45
+      },
+      "latestPathspec": "coordination/release-intake/latest-A25-effective-owner-a18-curriculum-qa-a21-content-pipeline.pathspec",
+      "datedPathspec": "coordination/release-intake/2026-07-11-A25-effective-owner-a18-curriculum-qa-a21-content-pipeline.pathspec",
+      "priority": 3,
+      "priorityReason": "Content QA/candidate package crossing promotion gates.",
+      "workOrder": "coordination/release-intake/latest-A25-effective-work-order-a18-curriculum-qa-a21-content-pipeline.md",
+      "datedWorkOrder": "coordination/release-intake/2026-07-11-A25-effective-work-order-a18-curriculum-qa-a21-content-pipeline.md",
+      "requiredFinalState": "reviewed commit, owner-approved discard, evidence archive, or blocker"
+    },
+    {
+      "owner": "A03 curriculum roadmap lead",
+      "entries": 30,
+      "fromUnmappedRuntimeProposals": 0,
+      "sliceBuckets": {
+        "runtime app/API/data/public": 29,
+        "tests/regression evidence": 1
+      },
+      "originalOwnerBuckets": {
+        "A03 curriculum roadmap lead": 30
+      },
+      "latestPathspec": "coordination/release-intake/latest-A25-effective-owner-a03-curriculum-roadmap-lead.pathspec",
+      "datedPathspec": "coordination/release-intake/2026-07-11-A25-effective-owner-a03-curriculum-roadmap-lead.pathspec",
+      "priority": 3,
+      "priorityReason": "Roadmap/topic package, including P0 reassignment.",
+      "workOrder": "coordination/release-intake/latest-A25-effective-work-order-a03-curriculum-roadmap-lead.md",
+      "datedWorkOrder": "coordination/release-intake/2026-07-11-A25-effective-work-order-a03-curriculum-roadmap-lead.md",
+      "requiredFinalState": "reviewed commit, owner-approved discard, evidence archive, or blocker"
+    },
+    {
+      "owner": "A24 illustration exact-layer",
+      "entries": 168,
+      "fromUnmappedRuntimeProposals": 0,
+      "sliceBuckets": {
+        "runtime app/API/data/public": 168
+      },
+      "originalOwnerBuckets": {
+        "A24 illustration exact-layer": 168
+      },
+      "latestPathspec": "coordination/release-intake/latest-A25-effective-owner-a24-illustration-exact-layer.pathspec",
+      "datedPathspec": "coordination/release-intake/2026-07-11-A25-effective-owner-a24-illustration-exact-layer.pathspec",
+      "priority": 4,
+      "priorityReason": "Standard owner package.",
+      "workOrder": "coordination/release-intake/latest-A25-effective-work-order-a24-illustration-exact-layer.md",
+      "datedWorkOrder": "coordination/release-intake/2026-07-11-A25-effective-work-order-a24-illustration-exact-layer.md",
+      "requiredFinalState": "reviewed commit, owner-approved discard, evidence archive, or blocker"
+    },
+    {
+      "owner": "A13 teacher console",
+      "entries": 37,
+      "fromUnmappedRuntimeProposals": 0,
+      "sliceBuckets": {
+        "runtime app/API/data/public": 36,
+        "tests/regression evidence": 1
+      },
+      "originalOwnerBuckets": {
+        "A13 teacher console": 37
+      },
+      "latestPathspec": "coordination/release-intake/latest-A25-effective-owner-a13-teacher-console.pathspec",
+      "datedPathspec": "coordination/release-intake/2026-07-11-A25-effective-owner-a13-teacher-console.pathspec",
+      "priority": 4,
+      "priorityReason": "Standard owner package.",
+      "workOrder": "coordination/release-intake/latest-A25-effective-work-order-a13-teacher-console.md",
+      "datedWorkOrder": "coordination/release-intake/2026-07-11-A25-effective-work-order-a13-teacher-console.md",
+      "requiredFinalState": "reviewed commit, owner-approved discard, evidence archive, or blocker"
+    },
+    {
+      "owner": "A01 app shell lead",
+      "entries": 31,
+      "fromUnmappedRuntimeProposals": 0,
+      "sliceBuckets": {
+        "runtime app/API/data/public": 29,
+        "tests/regression evidence": 2
+      },
+      "originalOwnerBuckets": {
+        "A01 app shell lead": 31
+      },
+      "latestPathspec": "coordination/release-intake/latest-A25-effective-owner-a01-app-shell-lead.pathspec",
+      "datedPathspec": "coordination/release-intake/2026-07-11-A25-effective-owner-a01-app-shell-lead.pathspec",
+      "priority": 4,
+      "priorityReason": "Standard owner package.",
+      "workOrder": "coordination/release-intake/latest-A25-effective-work-order-a01-app-shell-lead.md",
+      "datedWorkOrder": "coordination/release-intake/2026-07-11-A25-effective-work-order-a01-app-shell-lead.md",
+      "requiredFinalState": "reviewed commit, owner-approved discard, evidence archive, or blocker"
+    },
+    {
+      "owner": "A02 dashboard lead",
+      "entries": 22,
+      "fromUnmappedRuntimeProposals": 0,
+      "sliceBuckets": {
+        "runtime app/API/data/public": 14,
+        "tests/regression evidence": 5,
+        "unmapped/manual": 3
+      },
+      "originalOwnerBuckets": {
+        "A02 dashboard lead": 22
+      },
+      "latestPathspec": "coordination/release-intake/latest-A25-effective-owner-a02-dashboard-lead.pathspec",
+      "datedPathspec": "coordination/release-intake/2026-07-11-A25-effective-owner-a02-dashboard-lead.pathspec",
+      "priority": 4,
+      "priorityReason": "Standard owner package.",
+      "workOrder": "coordination/release-intake/latest-A25-effective-work-order-a02-dashboard-lead.md",
+      "datedWorkOrder": "coordination/release-intake/2026-07-11-A25-effective-work-order-a02-dashboard-lead.md",
+      "requiredFinalState": "reviewed commit, owner-approved discard, evidence archive, or blocker"
+    },
+    {
+      "owner": "A20 game design and game-based learning",
+      "entries": 16,
+      "fromUnmappedRuntimeProposals": 0,
+      "sliceBuckets": {
+        "runtime app/API/data/public": 15,
+        "tests/regression evidence": 1
+      },
+      "originalOwnerBuckets": {
+        "A20 game design and game-based learning": 16
+      },
+      "latestPathspec": "coordination/release-intake/latest-A25-effective-owner-a20-game-design-and-game-based-learning.pathspec",
+      "datedPathspec": "coordination/release-intake/2026-07-11-A25-effective-owner-a20-game-design-and-game-based-learning.pathspec",
+      "priority": 4,
+      "priorityReason": "Standard owner package.",
+      "workOrder": "coordination/release-intake/latest-A25-effective-work-order-a20-game-design-and-game-based-learning.md",
+      "datedWorkOrder": "coordination/release-intake/2026-07-11-A25-effective-work-order-a20-game-design-and-game-based-learning.md",
+      "requiredFinalState": "reviewed commit, owner-approved discard, evidence archive, or blocker"
+    },
+    {
+      "owner": "A07 AI tutor lead",
+      "entries": 12,
+      "fromUnmappedRuntimeProposals": 0,
+      "sliceBuckets": {
+        "runtime app/API/data/public": 9,
+        "secret/env quarantine": 1,
+        "tests/regression evidence": 1,
+        "unmapped/manual": 1
+      },
+      "originalOwnerBuckets": {
+        "A07 AI tutor lead": 12
+      },
+      "latestPathspec": "coordination/release-intake/latest-A25-effective-owner-a07-ai-tutor-lead.pathspec",
+      "datedPathspec": "coordination/release-intake/2026-07-11-A25-effective-owner-a07-ai-tutor-lead.pathspec",
+      "priority": 4,
+      "priorityReason": "Standard owner package.",
+      "workOrder": "coordination/release-intake/latest-A25-effective-work-order-a07-ai-tutor-lead.md",
+      "datedWorkOrder": "coordination/release-intake/2026-07-11-A25-effective-work-order-a07-ai-tutor-lead.md",
+      "requiredFinalState": "reviewed commit, owner-approved discard, evidence archive, or blocker"
+    },
+    {
+      "owner": "A08 state and analytics lead",
+      "entries": 11,
+      "fromUnmappedRuntimeProposals": 0,
+      "sliceBuckets": {
+        "runtime app/API/data/public": 5,
+        "tests/regression evidence": 4,
+        "unmapped/manual": 2
+      },
+      "originalOwnerBuckets": {
+        "A08 state and analytics lead": 11
+      },
+      "latestPathspec": "coordination/release-intake/latest-A25-effective-owner-a08-state-and-analytics-lead.pathspec",
+      "datedPathspec": "coordination/release-intake/2026-07-11-A25-effective-owner-a08-state-and-analytics-lead.pathspec",
+      "priority": 4,
+      "priorityReason": "Standard owner package.",
+      "workOrder": "coordination/release-intake/latest-A25-effective-work-order-a08-state-and-analytics-lead.md",
+      "datedWorkOrder": "coordination/release-intake/2026-07-11-A25-effective-work-order-a08-state-and-analytics-lead.md",
+      "requiredFinalState": "reviewed commit, owner-approved discard, evidence archive, or blocker"
+    },
+    {
+      "owner": "A15 adaptive engine lead",
+      "entries": 9,
+      "fromUnmappedRuntimeProposals": 0,
+      "sliceBuckets": {
+        "runtime app/API/data/public": 8,
+        "tests/regression evidence": 1
+      },
+      "originalOwnerBuckets": {
+        "A15 adaptive engine lead": 9
+      },
+      "latestPathspec": "coordination/release-intake/latest-A25-effective-owner-a15-adaptive-engine-lead.pathspec",
+      "datedPathspec": "coordination/release-intake/2026-07-11-A25-effective-owner-a15-adaptive-engine-lead.pathspec",
+      "priority": 4,
+      "priorityReason": "Standard owner package.",
+      "workOrder": "coordination/release-intake/latest-A25-effective-work-order-a15-adaptive-engine-lead.md",
+      "datedWorkOrder": "coordination/release-intake/2026-07-11-A25-effective-work-order-a15-adaptive-engine-lead.md",
+      "requiredFinalState": "reviewed commit, owner-approved discard, evidence archive, or blocker"
+    },
+    {
+      "owner": "A14 parent console",
+      "entries": 7,
+      "fromUnmappedRuntimeProposals": 0,
+      "sliceBuckets": {
+        "runtime app/API/data/public": 7
+      },
+      "originalOwnerBuckets": {
+        "A14 parent console": 7
+      },
+      "latestPathspec": "coordination/release-intake/latest-A25-effective-owner-a14-parent-console.pathspec",
+      "datedPathspec": "coordination/release-intake/2026-07-11-A25-effective-owner-a14-parent-console.pathspec",
+      "priority": 4,
+      "priorityReason": "Standard owner package.",
+      "workOrder": "coordination/release-intake/latest-A25-effective-work-order-a14-parent-console.md",
+      "datedWorkOrder": "coordination/release-intake/2026-07-11-A25-effective-work-order-a14-parent-console.md",
+      "requiredFinalState": "reviewed commit, owner-approved discard, evidence archive, or blocker"
+    },
+    {
+      "owner": "Manual A10/A25 owner assignment required",
+      "entries": 7,
+      "fromUnmappedRuntimeProposals": 3,
+      "sliceBuckets": {
+        "unmapped/manual": 4,
+        "runtime app/API/data/public": 2,
+        "tests/regression evidence": 1
+      },
+      "originalOwnerBuckets": {
+        "Unmapped/manual owner needed": 4,
+        "Unmapped runtime owner review needed": 3
+      },
+      "latestPathspec": "coordination/release-intake/latest-A25-effective-owner-manual-a10-a25-owner-assignment-required.pathspec",
+      "datedPathspec": "coordination/release-intake/2026-07-11-A25-effective-owner-manual-a10-a25-owner-assignment-required.pathspec",
+      "priority": 4,
+      "priorityReason": "Standard owner package.",
+      "workOrder": "coordination/release-intake/latest-A25-effective-work-order-manual-a10-a25-owner-assignment-required.md",
+      "datedWorkOrder": "coordination/release-intake/2026-07-11-A25-effective-work-order-manual-a10-a25-owner-assignment-required.md",
+      "requiredFinalState": "reviewed commit, owner-approved discard, evidence archive, or blocker"
+    },
+    {
+      "owner": "A09 copy, i18n, accessibility",
+      "entries": 5,
+      "fromUnmappedRuntimeProposals": 0,
+      "sliceBuckets": {
+        "runtime app/API/data/public": 5
+      },
+      "originalOwnerBuckets": {
+        "A09 copy, i18n, accessibility": 5
+      },
+      "latestPathspec": "coordination/release-intake/latest-A25-effective-owner-a09-copy-i18n-accessibility.pathspec",
+      "datedPathspec": "coordination/release-intake/2026-07-11-A25-effective-owner-a09-copy-i18n-accessibility.pathspec",
+      "priority": 4,
+      "priorityReason": "Standard owner package.",
+      "workOrder": "coordination/release-intake/latest-A25-effective-work-order-a09-copy-i18n-accessibility.md",
+      "datedWorkOrder": "coordination/release-intake/2026-07-11-A25-effective-work-order-a09-copy-i18n-accessibility.md",
+      "requiredFinalState": "reviewed commit, owner-approved discard, evidence archive, or blocker"
+    },
+    {
+      "owner": "A17 gamification and motivation",
+      "entries": 5,
+      "fromUnmappedRuntimeProposals": 0,
+      "sliceBuckets": {
+        "runtime app/API/data/public": 3,
+        "tests/regression evidence": 2
+      },
+      "originalOwnerBuckets": {
+        "A17 gamification and motivation": 5
+      },
+      "latestPathspec": "coordination/release-intake/latest-A25-effective-owner-a17-gamification-and-motivation.pathspec",
+      "datedPathspec": "coordination/release-intake/2026-07-11-A25-effective-owner-a17-gamification-and-motivation.pathspec",
+      "priority": 4,
+      "priorityReason": "Standard owner package.",
+      "workOrder": "coordination/release-intake/latest-A25-effective-work-order-a17-gamification-and-motivation.md",
+      "datedWorkOrder": "coordination/release-intake/2026-07-11-A25-effective-work-order-a17-gamification-and-motivation.md",
+      "requiredFinalState": "reviewed commit, owner-approved discard, evidence archive, or blocker"
+    },
+    {
+      "owner": "A23 integration and promotion lead",
+      "entries": 2,
+      "fromUnmappedRuntimeProposals": 0,
+      "sliceBuckets": {
+        "docs/coordination evidence": 2
+      },
+      "originalOwnerBuckets": {
+        "A23 integration and promotion lead": 2
+      },
+      "latestPathspec": "coordination/release-intake/latest-A25-effective-owner-a23-integration-and-promotion-lead.pathspec",
+      "datedPathspec": "coordination/release-intake/2026-07-11-A25-effective-owner-a23-integration-and-promotion-lead.pathspec",
+      "priority": 4,
+      "priorityReason": "Standard owner package.",
+      "workOrder": "coordination/release-intake/latest-A25-effective-work-order-a23-integration-and-promotion-lead.md",
+      "datedWorkOrder": "coordination/release-intake/2026-07-11-A25-effective-work-order-a23-integration-and-promotion-lead.md",
+      "requiredFinalState": "reviewed commit, owner-approved discard, evidence archive, or blocker"
+    },
+    {
+      "owner": "A13 teacher console lead",
+      "entries": 1,
+      "fromUnmappedRuntimeProposals": 0,
+      "sliceBuckets": {
+        "unmapped/manual": 1
+      },
+      "originalOwnerBuckets": {
+        "Unmapped/manual owner needed": 1
+      },
+      "latestPathspec": "coordination/release-intake/latest-A25-effective-owner-a13-teacher-console-lead.pathspec",
+      "datedPathspec": "coordination/release-intake/2026-07-11-A25-effective-owner-a13-teacher-console-lead.pathspec",
+      "priority": 4,
+      "priorityReason": "Standard owner package.",
+      "workOrder": "coordination/release-intake/latest-A25-effective-work-order-a13-teacher-console-lead.md",
+      "datedWorkOrder": "coordination/release-intake/2026-07-11-A25-effective-work-order-a13-teacher-console-lead.md",
+      "requiredFinalState": "reviewed commit, owner-approved discard, evidence archive, or blocker"
+    },
+    {
+      "owner": "A18 curriculum QA and content quality lead",
+      "entries": 1,
+      "fromUnmappedRuntimeProposals": 0,
+      "sliceBuckets": {
+        "unmapped/manual": 1
+      },
+      "originalOwnerBuckets": {
+        "Unmapped/manual owner needed": 1
+      },
+      "latestPathspec": "coordination/release-intake/latest-A25-effective-owner-a18-curriculum-qa-and-content-quality-lead.pathspec",
+      "datedPathspec": "coordination/release-intake/2026-07-11-A25-effective-owner-a18-curriculum-qa-and-content-quality-lead.pathspec",
+      "priority": 4,
+      "priorityReason": "Standard owner package.",
+      "workOrder": "coordination/release-intake/latest-A25-effective-work-order-a18-curriculum-qa-and-content-quality-lead.md",
+      "datedWorkOrder": "coordination/release-intake/2026-07-11-A25-effective-work-order-a18-curriculum-qa-and-content-quality-lead.md",
+      "requiredFinalState": "reviewed commit, owner-approved discard, evidence archive, or blocker"
+    }
+  ],
+  "supersededLatestWorkOrders": [
+    "coordination/release-intake/latest-A25-effective-work-order-a16-research-and-learning-science.md",
+    "coordination/release-intake/latest-A25-effective-work-order-unmapped-manual-owner-needed.md"
+  ]
+}

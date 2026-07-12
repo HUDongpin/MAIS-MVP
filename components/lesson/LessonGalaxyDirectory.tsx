@@ -33,42 +33,31 @@ type LessonGalaxyDirectoryProps = {
   modules: LessonSummary[];
 };
 
-function lessonStatusLabel(status: LessonSummary["status"]) {
-  if (status === "completed") return { en: "Completed", zh: "已完成", zhHans: "已完成" };
-  if (status === "in-progress") return { en: "In progress", zh: "進行中", zhHans: "进行中" };
-  return { en: "Ready", zh: "待學習", zhHans: "待学习" };
-}
-
-function itemKindLabel(kind: LessonGalaxyItemKind) {
-  const labels: Record<LessonGalaxyItemKind, { en: string; zh: string; zhHans: string }> = {
-    concept: { en: "Concept", zh: "概念", zhHans: "概念" },
-    "worked-example": { en: "Example", zh: "例題", zhHans: "例题" },
-    visualization: { en: "Lab", zh: "互動", zhHans: "互动" },
-    practice: { en: "Practice", zh: "練習", zhHans: "练习" },
-    extension: { en: "Extension", zh: "延伸", zhHans: "延伸" },
-    "teacher-guide": { en: "Teacher", zh: "教師", zhHans: "教师" }
-  };
-
-  return labels[kind];
-}
-
 function compactModuleTitle(title: string) {
   return cleanLessonUnitTitle(title);
+}
+
+function formatLessonPartTitle({
+  itemIndex,
+  title,
+  unitIndex
+}: {
+  itemIndex: number;
+  title: string;
+  unitIndex: number;
+}) {
+  return `${unitIndex + 1}.${itemIndex + 1} ${title}`;
 }
 
 function modulePreviewItems({
   description,
   module,
-  title,
   t
 }: {
   description: string;
   module: LessonSummary;
-  title: string;
   t: ReturnType<typeof useSettings>["t"];
 }): LessonGalaxyItem[] {
-  const conceptTitle = description || title;
-
   return [
     {
       description,
@@ -76,7 +65,7 @@ function modulePreviewItems({
       kind: "concept",
       subtitle: t({ en: "Concept reading", zh: "概念閱讀", zhHans: "概念阅读" }),
       targetId: "",
-      title: conceptTitle
+      title: t({ en: "Concept explanation", zh: "概念說明", zhHans: "概念说明" })
     },
     {
       description: "",
@@ -105,6 +94,8 @@ function modulePreviewItems({
   ];
 }
 
+const californiaK5LessonBetaGrades = new Set(["K", "P1", "P2", "P3", "P4", "P5"]);
+
 export function LessonGalaxyDirectory({ currentSlug, items, lesson, modules }: LessonGalaxyDirectoryProps) {
   const { language, t, text } = useSettings();
   const visibleModules = modules.length ? modules : [lesson];
@@ -119,11 +110,19 @@ export function LessonGalaxyDirectory({ currentSlug, items, lesson, modules }: L
     lesson.curriculumProfile?.publisher === "US_CA_MATH";
   const californiaCourseTitle = isCaliforniaCourse ? californiaCourseTitleForGrade(activeModule.grade) : null;
   const courseTitle = californiaCourseTitle ? t(californiaCourseTitle) : cleanLessonDisplayTitle(text(lesson.topic.title));
-  const courseLabel = t({
-    en: `${formatGradeLabel(activeModule.grade, language, true)} Mathematics`,
-    zh: `${formatGradeLabel(activeModule.grade, language, true)}數學`,
-    zhHans: `${formatGradeLabel(activeModule.grade, language, true)}数学`
-  });
+  const isCaliforniaK5LessonBeta = isCaliforniaCourse && californiaK5LessonBetaGrades.has(activeModule.grade);
+  const gradeLabel = formatGradeLabel(activeModule.grade, language, true);
+  const courseLabel = isCaliforniaK5LessonBeta
+    ? t({
+        en: `${gradeLabel} Mathematics beta`,
+        zh: `${gradeLabel}數學 beta`,
+        zhHans: `${gradeLabel}数学 beta`
+      })
+    : t({
+        en: `${gradeLabel} Mathematics`,
+        zh: `${gradeLabel}數學`,
+        zhHans: `${gradeLabel}数学`
+      });
   const routeSummary = t({
     en: `${visibleModules.length} units / ${completedModuleCount} completed`,
     zh: `${visibleModules.length} 個單元 / 已完成 ${completedModuleCount} 個`,
@@ -166,17 +165,12 @@ export function LessonGalaxyDirectory({ currentSlug, items, lesson, modules }: L
           const isCurrent = module.slug === currentSlug || module.slug === lesson.slug;
           const moduleTitle = compactModuleTitle(text(module.title));
           const moduleDescription = text(module.description);
-          const moduleMeta = [
-            formatGradeLabel(module.grade, language, true),
-            t(lessonStatusLabel(module.status))
-          ].join(" / ");
           const moduleHref = lessonHrefForSlug(module.slug);
           const moduleItems = isCurrent && items.length
             ? items.slice(0, 8)
             : modulePreviewItems({
               description: moduleDescription,
               module,
-              title: moduleTitle,
               t
             });
 
@@ -198,9 +192,6 @@ export function LessonGalaxyDirectory({ currentSlug, items, lesson, modules }: L
                     text={moduleTitle}
                     className="mt-2 block text-2xl font-black leading-tight text-slate-950 dark:text-white"
                   />
-                  <span className="mt-2 block text-xs font-bold leading-5 text-slate-500 dark:text-slate-400">
-                    {moduleMeta}
-                  </span>
                 </span>
                 <span
                   aria-hidden="true"
@@ -215,37 +206,37 @@ export function LessonGalaxyDirectory({ currentSlug, items, lesson, modules }: L
               {isSelected ? (
                 <div className="px-4 pb-5 sm:px-5">
                   <div className="grid gap-2">
-                    {moduleItems.map((item) => (
-                      isCurrent && item.targetId ? (
+                    {moduleItems.map((item, itemIndex) => {
+                      const numberedItemTitle = formatLessonPartTitle({
+                        itemIndex,
+                        title: item.title,
+                        unitIndex: index
+                      });
+
+                      return isCurrent && item.targetId ? (
                         <button
                           key={item.id}
                           type="button"
                           onClick={() => scrollToLessonItem(item.targetId)}
                           className="focus-ring rounded-[1.15rem] border border-slate-200 bg-white px-4 py-3 text-left transition hover:-translate-y-0.5 hover:border-cyan-300 hover:bg-cyan-50 dark:border-white/10 dark:bg-white/[0.045] dark:hover:bg-cyan-300/10"
                         >
-                          <span className="block text-xs font-black text-cyan-700 dark:text-cyan-200">
-                            {t(itemKindLabel(item.kind))}
-                          </span>
-                          <MathText as="span" text={item.title} className="mt-1 block line-clamp-2 text-sm font-black leading-5 text-slate-900 dark:text-white" />
+                          <MathText as="span" text={numberedItemTitle} className="block line-clamp-2 text-sm font-black leading-5 text-slate-900 dark:text-white" />
                         </button>
                       ) : (
                         <Link
                           key={item.id}
                           href={moduleHref}
                           aria-label={t({
-                            en: `Open ${moduleTitle}: ${item.title}`,
-                            zh: `開啟 ${moduleTitle}: ${item.title}`,
-                            zhHans: `开启 ${moduleTitle}: ${item.title}`
+                            en: `Open ${moduleTitle}: ${numberedItemTitle}`,
+                            zh: `開啟 ${moduleTitle}: ${numberedItemTitle}`,
+                            zhHans: `开启 ${moduleTitle}: ${numberedItemTitle}`
                           })}
                           className="focus-ring rounded-[1.15rem] border border-slate-200 bg-white px-4 py-3 text-left transition hover:-translate-y-0.5 hover:border-cyan-300 hover:bg-cyan-50 dark:border-white/10 dark:bg-white/[0.045] dark:hover:bg-cyan-300/10"
                         >
-                          <span className="block text-xs font-black text-cyan-700 dark:text-cyan-200">
-                            {t(itemKindLabel(item.kind))}
-                          </span>
-                          <MathText as="span" text={item.title} className="mt-1 block line-clamp-2 text-sm font-black leading-5 text-slate-900 dark:text-white" />
+                          <MathText as="span" text={numberedItemTitle} className="block line-clamp-2 text-sm font-black leading-5 text-slate-900 dark:text-white" />
                         </Link>
-                      )
-                    ))}
+                      );
+                    })}
                   </div>
                 </div>
               ) : null}

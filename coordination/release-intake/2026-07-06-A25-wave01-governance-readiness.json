@@ -1,0 +1,316 @@
+{
+  "generatedAt": "2026-07-06T15:47:22.947Z",
+  "dirtyMapStatusSignature": "b26fe39c438a20cdbb9cf3943e3d000d9dc8dc04ccccedc13792c457c5942d3b",
+  "expandedStatusEntries": 5183,
+  "executionSequenceGeneratedAt": "2026-07-06T15:47:10.255Z",
+  "wave": {
+    "waveId": "wave-01-governance-release-hygiene",
+    "name": "A25/A10/A22 governance and release hygiene",
+    "ownerApprovals": [
+      "a25-git-hygiene-and-release-intake",
+      "a22-production-reliability-and-release-engineering",
+      "a10-tooling-docs-and-report"
+    ],
+    "physicalLifecycleApprovals": [
+      "codex-a25-dirty-closure-governance",
+      "codex-a10-a22-release-governance",
+      "codex-a22-p1-release-hygiene-security",
+      "codex-a22-next-15-5-19-audit",
+      "codex-a22-us-region-alignment",
+      "codex-a22-missing-module-release-slice",
+      "codex-a25-ci-backup-workflow"
+    ]
+  },
+  "worktree": {
+    "path": "/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A25-dirty-closure-governance",
+    "branch": "codex/A25-dirty-closure-governance",
+    "head": "cef544e09",
+    "statusSignature": "60958c44ce556b63f89d6fd1488514448e53f68e5a035cadc4d3b41cd71c7d6a",
+    "nodeModulesPresent": true
+  },
+  "pathspecs": {
+    "files": [
+      "coordination/release-intake/latest-A25-owner-a25-git-hygiene-and-release-intake.pathspec",
+      "coordination/release-intake/latest-A25-owner-a10-tooling-docs-and-report.pathspec",
+      "coordination/release-intake/latest-A25-owner-a22-production-reliability-and-release-engineering.pathspec"
+    ],
+    "checksum": "d78583392217f3af2c95f4131e3e0d42bfd27f1da1bd5fe5df935968207d99f9",
+    "allowedPaths": 4003
+  },
+  "pathspecCoverage": {
+    "statusEntries": 1012,
+    "coveredEntries": 1011,
+    "uncoveredEntries": 1,
+    "uncovered": [
+      {
+        "line": " M tsconfig.json",
+        "path": "tsconfig.json"
+      }
+    ]
+  },
+  "packageResyncRecommendations": [
+    {
+      "path": "tsconfig.json",
+      "worktreeStatus": " M",
+      "rootStatus": null,
+      "rootOwner": null,
+      "rootSlice": null,
+      "rootPathExists": true,
+      "worktreePathExists": true,
+      "packageOnly": true,
+      "actionKind": "owner-approved-package-restore",
+      "commandHint": "git restore --source=HEAD -- tsconfig.json",
+      "executableNow": false,
+      "cleanupAuthorized": false,
+      "approvalNeeded": "Owner must explicitly approve this exact package-worktree resync/discard before any restore, clean, or file deletion."
+    }
+  ],
+  "packageResyncCoverage": {
+    "packageOnlyRows": 1,
+    "rootMappedRows": 0,
+    "ownerAuthorizationRequiredRows": 1,
+    "rootPathspecOrRecopyRequiredRows": 0,
+    "packageOnlyPaths": [
+      "tsconfig.json"
+    ],
+    "rootMappedPaths": [],
+    "cleanupAuthorizedRows": 0,
+    "executableRows": 0
+  },
+  "checks": {
+    "highAudit": {
+      "command": "npm audit --audit-level=high",
+      "status": 1,
+      "passed": false,
+      "stdout": [
+        "undefined"
+      ],
+      "timeoutMs": 120000,
+      "stderr": [
+        "npm warn audit request to https://registry.npmjs.org/-/npm/v1/security/advisories/bulk failed, reason: getaddrinfo ENOTFOUND registry.npmjs.org",
+        "npm error audit endpoint returned an error",
+        "npm error Log files were not written due to an error writing to the directory: /Users/dongpinhu/.npm/_logs",
+        "npm error You can rerun the command with `--loglevel=verbose` to see the logs in your terminal"
+      ]
+    },
+    "releaseHelperTests": {
+      "command": "/usr/local/bin/node --test scripts/cleanup-generated-artifacts.test.mjs scripts/deploy-vercel-preview.test.mjs scripts/deploy-vercel-production.test.mjs scripts/release-build-gate.test.mjs scripts/release-env-guard.test.mjs",
+      "status": 1,
+      "passed": false,
+      "stdout": [
+        "✔ cleanup dry run can target Vercel staging without Playwright evidence (25.449125ms)",
+        "✔ cleanup dry run can target Next build artifacts without Playwright evidence (28.79175ms)",
+        "✔ preview deploy verifies dashboard latency before release handoff (2.546917ms)",
+        "✔ production deploy gates promotion and final domain on dashboard latency smoke (3.834292ms)",
+        "✔ release build gate defaults to an isolated generated Next dist directory (0.472875ms)",
+        "✔ release build gate allows an explicit generated .tmp next dist directory (0.082167ms)",
+        "✔ release build gate refuses shared .next and non-generated clean targets (0.651208ms)",
+        "✖ release build gate restores the configured tsconfig after Next mutates it (1.60025ms)",
+        "✔ runtime release guard requires a current S25 dirty-tree map (815.498875ms)",
+        "✔ production env guard requires POSTGRES_URL, not just DATABASE_URL (442.548334ms)",
+        "✔ staged production publish guard allows pruned staging without direct root deploy gate (706.561667ms)",
+        "ℹ tests 11",
+        "ℹ suites 0",
+        "ℹ pass 10",
+        "ℹ fail 1",
+        "ℹ cancelled 0",
+        "ℹ skipped 0",
+        "ℹ todo 0",
+        "ℹ duration_ms 2003.687",
+        "✖ failing tests:",
+        "test at scripts/release-build-gate.test.mjs:45:1",
+        "✖ release build gate restores the configured tsconfig after Next mutates it (1.60025ms)",
+        "  Error: EPERM: operation not permitted, mkdir '/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A25-dirty-closure-governance/.tmp/release-build-gate-unit'",
+        "      at async Object.mkdir (node:internal/fs/promises:859:10)",
+        "      at async TestContext.<anonymous> (file:///Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A25-dirty-closure-governance/scripts/release-build-gate.test.mjs:48:3)",
+        "      at async Test.run (node:internal/test_runner/test:1208:7)",
+        "      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7) {",
+        "    errno: -1,",
+        "    code: 'EPERM',",
+        "    syscall: 'mkdir',",
+        "    path: '/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A25-dirty-closure-governance/.tmp/release-build-gate-unit'",
+        "  }"
+      ],
+      "timeoutMs": 120000
+    },
+    "typeCheck": {
+      "command": "npm run type-check -- --pretty false",
+      "status": 2,
+      "passed": false,
+      "stdout": [
+        "> hk-math-lab-template@0.1.0 type-check",
+        "> tsc --noEmit --incremental false --pretty false",
+        "app/api/admin/ai-governance/summary/route.ts(3,43): error TS2307: Cannot find module '@/lib/server/aiGovernance' or its corresponding type declarations.",
+        "app/api/admin/ai-governance/summary/route.ts(4,10): error TS2305: Module '\"@/lib/server/userStore\"' has no exported member 'getAiGovernanceSummaryForAdmin'.",
+        "app/api/admin/nova-lens/policy/route.ts(3,10): error TS2305: Module '\"@/lib/server/userStore\"' has no exported member 'getNovaLensPolicy'.",
+        "app/api/admin/nova-lens/policy/route.ts(3,29): error TS2305: Module '\"@/lib/server/userStore\"' has no exported member 'listNovaLensPolicyEventsForAdmin'.",
+        "app/api/admin/nova-lens/policy/route.ts(3,63): error TS2305: Module '\"@/lib/server/userStore\"' has no exported member 'updateNovaLensPolicy'.",
+        "app/api/admin/nova-lens/policy/route.ts(4,15): error TS2305: Module '\"@/types\"' has no exported member 'NovaLensPolicy'.",
+        "app/api/admin/storage/hot-auth/backfill/route.ts(3,10): error TS2305: Module '\"@/lib/server/userStore\"' has no exported member 'backfillPostgresHotAuthTablesForAdmin'.",
+        "app/api/admin/storage/temporary-bootstrap-admins/route.ts(3,10): error TS2305: Module '\"@/lib/server/userStore\"' has no exported member 'cleanupTemporaryBootstrapAdminsForAdmin'.",
+        "app/api/assignments/[assignmentId]/corrections/route.ts(3,10): error TS2305: Module '\"@/lib/server/userStore\"' has no exported member 'recordAiGovernanceEvent'.",
+        "app/api/assignments/[assignmentId]/corrections/route.ts(3,35): error TS2305: Module '\"@/lib/server/userStore\"' has no exported member 'submitAssignmentWork'.",
+        "app/api/assignments/[assignmentId]/corrections/route.ts(4,100): error TS2307: Cannot find module '@/lib/server/aiGovernance' or its corresponding type declarations.",
+        "app/api/assignments/[assignmentId]/corrections/route.ts(10,15): error TS2305: Module '\"@/types\"' has no exported member 'AssignmentSubmissionInputType'.",
+        "app/api/assignments/[assignmentId]/corrections/route.ts(10,46): error TS2305: Module '\"@/types\"' has no exported member 'AssignmentSubmissionOcrResult'.",
+        "app/api/assignments/[assignmentId]/corrections/route.ts(34,13): error TS7006: Parameter 'error' implicitly has an 'any' type.",
+        "app/api/assignments/[assignmentId]/corrections/route.ts(72,15): error TS7006: Parameter 'error' implicitly has an 'any' type.",
+        "app/api/assignments/[assignmentId]/corrections/route.ts(94,15): error TS7006: Parameter 'error' implicitly has an 'any' type.",
+        "app/api/assignments/[assignmentId]/submissions/route.ts(3,10): error TS2305: Module '\"@/lib/server/userStore\"' has no exported member 'recordAiGovernanceEvent'.",
+        "app/api/assignments/[assignmentId]/submissions/route.ts(3,35): error TS2305: Module '\"@/lib/server/userStore\"' has no exported member 'submitAssignmentWork'.",
+        "... 408 lines omitted ...",
+        "lib/teacherReviewLesson.ts(521,38): error TS7006: Parameter 'question' implicitly has an 'any' type.",
+        "lib/teacherReviewLesson.ts(521,48): error TS7006: Parameter 'index' implicitly has an 'any' type.",
+        "lib/teacherReviewLessonPptx.ts(4,3): error TS2305: Module '\"@/types\"' has no exported member 'TeacherReviewLessonItem'.",
+        "lib/teacherReviewLessonPptx.ts(5,3): error TS2305: Module '\"@/types\"' has no exported member 'TeacherReviewLessonItemCategory'.",
+        "lib/teacherReviewLessonPptx.ts(6,3): error TS2305: Module '\"@/types\"' has no exported member 'TeacherReviewLessonPlan'.",
+        "lib/teacherReviewLessonPptx.ts(7,3): error TS2305: Module '\"@/types\"' has no exported member 'TeacherReviewLessonPracticeQuestion'.",
+        "lib/teacherReviewLessonPptx.ts(147,14): error TS7006: Parameter 'item' implicitly has an 'any' type.",
+        "lib/teacherReviewLessonPptx.ts(148,12): error TS7006: Parameter 'a' implicitly has an 'any' type.",
+        "lib/teacherReviewLessonPptx.ts(148,15): error TS7006: Parameter 'b' implicitly has an 'any' type.",
+        "lib/teacherReviewLessonPptx.ts(196,26): error TS7006: Parameter 'objective' implicitly has an 'any' type.",
+        "lib/teacherReviewLessonPptx.ts(212,24): error TS7006: Parameter 'item' implicitly has an 'any' type.",
+        "lib/teacherReviewLessonPptx.ts(257,18): error TS7006: Parameter 'item' implicitly has an 'any' type.",
+        "lib/teacherReviewLessonPptx.ts(270,14): error TS7006: Parameter 'item' implicitly has an 'any' type.",
+        "lib/teacherReviewLessonPptx.ts(271,12): error TS7006: Parameter 'a' implicitly has an 'any' type.",
+        "lib/teacherReviewLessonPptx.ts(271,15): error TS7006: Parameter 'b' implicitly has an 'any' type.",
+        "lib/teacherReviewLessonPptx.ts(347,20): error TS7006: Parameter 'column' implicitly has an 'any' type.",
+        "lib/teacherReviewLessonPptx.ts(347,28): error TS7006: Parameter 'index' implicitly has an 'any' type.",
+        "lib/teacherReviewLessonPptx.ts(353,26): error TS7006: Parameter 'block' implicitly has an 'any' type.",
+        "lib/teacherReviewLessonPptx.ts(376,62): error TS7006: Parameter 'question' implicitly has an 'any' type.",
+        "lib/teacherReviewLessonPptx.ts(378,64): error TS7006: Parameter 'question' implicitly has an 'any' type."
+      ],
+      "timeoutMs": 180000
+    }
+  },
+  "typeCheck": {
+    "passed": false,
+    "status": 2,
+    "summary": {
+      "errorLines": 404,
+      "byTop": {
+        "app": 120,
+        "components": 184,
+        "lib": 100
+      },
+      "topFiles": [
+        {
+          "file": "components/teacher/TeacherPrepViews.tsx",
+          "errors": 36
+        },
+        {
+          "file": "components/teacher/TeacherOperationsView.tsx",
+          "errors": 32
+        },
+        {
+          "file": "lib/teacherReviewLesson.ts",
+          "errors": 30
+        },
+        {
+          "file": "components/teacher/TeacherReviewLessonView.tsx",
+          "errors": 25
+        },
+        {
+          "file": "lib/teacherReviewLessonPptx.ts",
+          "errors": 18
+        },
+        {
+          "file": "components/visualizations/VisualizationLabPage.tsx",
+          "errors": 16
+        },
+        {
+          "file": "components/games/MathVirusBlasterGame.tsx",
+          "errors": 13
+        },
+        {
+          "file": "components/games/MightyTankBattleGame.tsx",
+          "errors": 10
+        },
+        {
+          "file": "app/api/teacher/review-lessons/[reviewLessonId]/route.ts",
+          "errors": 9
+        },
+        {
+          "file": "components/visualizations/three/threeDSceneMath.catalog.test.ts",
+          "errors": 9
+        },
+        {
+          "file": "lib/server/teacherReviewLessonLLM.ts",
+          "errors": 9
+        },
+        {
+          "file": "lib/teacherAssessmentAnalysis.ts",
+          "errors": 9
+        },
+        {
+          "file": "app/api/assignments/[assignmentId]/corrections/route.ts",
+          "errors": 8
+        },
+        {
+          "file": "app/api/assignments/[assignmentId]/submissions/route.ts",
+          "errors": 8
+        },
+        {
+          "file": "app/api/classroom/live/[sessionId]/work-samples/route.ts",
+          "errors": 8
+        },
+        {
+          "file": "app/api/me/learner-profile/route.ts",
+          "errors": 7
+        },
+        {
+          "file": "components/lesson/CaliforniaHighSchoolTextbookPage.tsx",
+          "errors": 7
+        },
+        {
+          "file": "components/lesson/CaliforniaHighSchoolTextbookStudentPage.tsx",
+          "errors": 7
+        },
+        {
+          "file": "app/api/classroom/live/actions/route.ts",
+          "errors": 6
+        },
+        {
+          "file": "components/games/MathMatchQuestGame.tsx",
+          "errors": 6
+        }
+      ],
+      "firstErrors": [
+        "app/api/admin/ai-governance/summary/route.ts(3,43): error TS2307: Cannot find module '@/lib/server/aiGovernance' or its corresponding type declarations.",
+        "app/api/admin/ai-governance/summary/route.ts(4,10): error TS2305: Module '\"@/lib/server/userStore\"' has no exported member 'getAiGovernanceSummaryForAdmin'.",
+        "app/api/admin/nova-lens/policy/route.ts(3,10): error TS2305: Module '\"@/lib/server/userStore\"' has no exported member 'getNovaLensPolicy'.",
+        "app/api/admin/nova-lens/policy/route.ts(3,29): error TS2305: Module '\"@/lib/server/userStore\"' has no exported member 'listNovaLensPolicyEventsForAdmin'.",
+        "app/api/admin/nova-lens/policy/route.ts(3,63): error TS2305: Module '\"@/lib/server/userStore\"' has no exported member 'updateNovaLensPolicy'.",
+        "app/api/admin/nova-lens/policy/route.ts(4,15): error TS2305: Module '\"@/types\"' has no exported member 'NovaLensPolicy'.",
+        "app/api/admin/storage/hot-auth/backfill/route.ts(3,10): error TS2305: Module '\"@/lib/server/userStore\"' has no exported member 'backfillPostgresHotAuthTablesForAdmin'.",
+        "app/api/admin/storage/temporary-bootstrap-admins/route.ts(3,10): error TS2305: Module '\"@/lib/server/userStore\"' has no exported member 'cleanupTemporaryBootstrapAdminsForAdmin'.",
+        "app/api/assignments/[assignmentId]/corrections/route.ts(3,10): error TS2305: Module '\"@/lib/server/userStore\"' has no exported member 'recordAiGovernanceEvent'.",
+        "app/api/assignments/[assignmentId]/corrections/route.ts(3,35): error TS2305: Module '\"@/lib/server/userStore\"' has no exported member 'submitAssignmentWork'.",
+        "app/api/assignments/[assignmentId]/corrections/route.ts(4,100): error TS2307: Cannot find module '@/lib/server/aiGovernance' or its corresponding type declarations.",
+        "app/api/assignments/[assignmentId]/corrections/route.ts(10,15): error TS2305: Module '\"@/types\"' has no exported member 'AssignmentSubmissionInputType'.",
+        "app/api/assignments/[assignmentId]/corrections/route.ts(10,46): error TS2305: Module '\"@/types\"' has no exported member 'AssignmentSubmissionOcrResult'.",
+        "app/api/assignments/[assignmentId]/corrections/route.ts(34,13): error TS7006: Parameter 'error' implicitly has an 'any' type.",
+        "app/api/assignments/[assignmentId]/corrections/route.ts(72,15): error TS7006: Parameter 'error' implicitly has an 'any' type.",
+        "app/api/assignments/[assignmentId]/corrections/route.ts(94,15): error TS7006: Parameter 'error' implicitly has an 'any' type.",
+        "app/api/assignments/[assignmentId]/submissions/route.ts(3,10): error TS2305: Module '\"@/lib/server/userStore\"' has no exported member 'recordAiGovernanceEvent'.",
+        "app/api/assignments/[assignmentId]/submissions/route.ts(3,35): error TS2305: Module '\"@/lib/server/userStore\"' has no exported member 'submitAssignmentWork'.",
+        "app/api/assignments/[assignmentId]/submissions/route.ts(4,100): error TS2307: Cannot find module '@/lib/server/aiGovernance' or its corresponding type declarations.",
+        "app/api/assignments/[assignmentId]/submissions/route.ts(10,15): error TS2305: Module '\"@/types\"' has no exported member 'AssignmentSubmissionInputType'.",
+        "app/api/assignments/[assignmentId]/submissions/route.ts(10,46): error TS2305: Module '\"@/types\"' has no exported member 'AssignmentSubmissionOcrResult'.",
+        "app/api/assignments/[assignmentId]/submissions/route.ts(34,13): error TS7006: Parameter 'error' implicitly has an 'any' type.",
+        "app/api/assignments/[assignmentId]/submissions/route.ts(72,15): error TS7006: Parameter 'error' implicitly has an 'any' type.",
+        "app/api/assignments/[assignmentId]/submissions/route.ts(94,15): error TS7006: Parameter 'error' implicitly has an 'any' type.",
+        "app/api/classroom/live/[sessionId]/work-samples/route.ts(3,10): error TS2305: Module '\"@/lib/server/userStore\"' has no exported member 'createClassroomWorkSample'."
+      ]
+    }
+  },
+  "commitReady": false,
+  "cleanupAuthorized": false,
+  "executableNow": false,
+  "blockingReasons": [
+    "1 package-only dirty entries need owner-approved package resync authorization",
+    "npm audit --audit-level=high failed",
+    "release helper tests failed",
+    "npm run type-check failed"
+  ]
+}

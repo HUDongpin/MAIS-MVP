@@ -27,11 +27,12 @@ export const adaptiveQuestionSetSize = 5;
 
 const reviewIntervalsDays = [1, 3, 7, 14] as const;
 const difficultyRanks: Record<Difficulty, number> = {
-  Foundation: 0,
-  Core: 1,
-  Challenge: 2,
-  Exam: 3
+  Low: 0,
+  Medium: 1,
+  High: 2
 };
+const ascendingDifficultyOrder = ["Low", "Medium", "High"] satisfies Difficulty[];
+const descendingDifficultyOrder = ["High", "Medium", "Low"] satisfies Difficulty[];
 const skillStages = ["foundation", "fluency", "transfer"] as const;
 
 type SkillStage = (typeof skillStages)[number];
@@ -103,19 +104,24 @@ function stageDescription(topic: KnowledgeComponentTopic, stage: SkillStage) {
 }
 
 function stageDifficulty(topic: KnowledgeComponentTopic, stage: SkillStage): Difficulty {
-  if (stage === "foundation") return "Foundation";
-  if (stage === "fluency") return topic.difficulty === "Foundation" ? "Core" : topic.difficulty;
-  return topic.difficulty === "Exam" ? "Exam" : "Challenge";
+  if (stage === "foundation") return "Low";
+  if (stage === "fluency") return difficultyRanks[topic.difficulty] <= difficultyRanks.Low ? "Medium" : topic.difficulty;
+  return "High";
 }
 
 function questionIdsForStage(questions: KnowledgeComponentQuestion[], stage: SkillStage) {
   const stageQuestions = questions.filter((question) => {
-    if (stage === "foundation") return question.difficulty === "Foundation" || question.difficulty === "Core";
-    if (stage === "fluency") return question.difficulty === "Core" || question.difficulty === "Challenge";
-    return question.difficulty === "Challenge" || question.difficulty === "Exam" || question.type === "graph";
+    const rank = difficultyRanks[question.difficulty];
+    if (stage === "foundation") return rank <= difficultyRanks.Medium;
+    if (stage === "fluency") return rank >= difficultyRanks.Medium;
+    return isChallengeDifficulty(question.difficulty) || question.type === "graph";
   });
 
   return (stageQuestions.length ? stageQuestions : questions).map((question) => question.id);
+}
+
+function isChallengeDifficulty(difficulty: Difficulty) {
+  return difficultyRanks[difficulty] >= difficultyRanks.High;
 }
 
 function misconceptionTagsForStage(topicId: string, questions: KnowledgeComponentQuestion[], stage: SkillStage) {
@@ -257,10 +263,10 @@ function sortSkillSummaries(summaries: AdaptiveSkillSummary[], topics: Topic[], 
 }
 
 function questionDifficultyOrder(action: AdaptiveActionType, difficulty: Difficulty) {
-  if (action === "challenge") return ["Exam", "Challenge", "Core", "Foundation"] satisfies Difficulty[];
-  if (action === "repair" || action === "lesson") return ["Foundation", "Core", "Challenge", "Exam"] satisfies Difficulty[];
+  if (action === "challenge") return descendingDifficultyOrder;
+  if (action === "repair" || action === "lesson") return ascendingDifficultyOrder;
 
-  return (["Foundation", "Core", "Challenge", "Exam"] as Difficulty[]).sort((left, right) => {
+  return [...ascendingDifficultyOrder].sort((left, right) => {
     const leftDistance = Math.abs(difficultyRanks[left] - difficultyRanks[difficulty]);
     const rightDistance = Math.abs(difficultyRanks[right] - difficultyRanks[difficulty]);
     return leftDistance - rightDistance || difficultyRanks[left] - difficultyRanks[right];
@@ -281,7 +287,17 @@ export function selectAdaptiveQuestions({
   const linkedIds = new Set(skill.questionIds);
   const linkedQuestions = questions.filter((question) => linkedIds.has(question.id));
   const topicQuestions = questions.filter((question) => question.topicId === skill.topicId);
-  const candidates = linkedQuestions.length ? linkedQuestions : topicQuestions;
+  const challengeLinkedQuestions = linkedQuestions.filter((question) => isChallengeDifficulty(question.difficulty));
+  const challengeTopicQuestions = topicQuestions.filter((question) => isChallengeDifficulty(question.difficulty));
+  const candidates = action === "challenge"
+    ? challengeLinkedQuestions.length
+      ? challengeLinkedQuestions
+      : challengeTopicQuestions.length
+        ? challengeTopicQuestions
+        : []
+    : linkedQuestions.length
+      ? linkedQuestions
+      : topicQuestions;
   const difficultyOrder = questionDifficultyOrder(action, skill.difficulty);
 
   return [...candidates]
@@ -293,6 +309,17 @@ export function selectAdaptiveQuestions({
       );
     })
     .slice(0, limit);
+}
+
+function hasAdaptiveEvidence(state: AdaptiveSkillState) {
+  return (
+    state.attemptCount > 0 ||
+    state.correctStreak > 0 ||
+    state.wrongStreak > 0 ||
+    state.hintCount > 0 ||
+    Boolean(state.lastPracticedAt) ||
+    state.misconceptionTags.length > 0
+  );
 }
 
 function dueReviewSummaries(summaries: AdaptiveSkillSummary[], now: Date) {
@@ -316,7 +343,7 @@ function prerequisiteRepairSummary(summaries: AdaptiveSkillSummary[], ordered: A
     const weakPrerequisite = summary.skill.prerequisites
       .map((id) => byId.get(id))
       .find((candidate): candidate is AdaptiveSkillSummary =>
-        Boolean(candidate && candidate.state.pMastery < adaptivePrerequisiteThreshold)
+        Boolean(candidate && hasAdaptiveEvidence(candidate.state) && candidate.state.pMastery < adaptivePrerequisiteThreshold)
       );
     if (weakPrerequisite) return weakPrerequisite;
   }
@@ -341,8 +368,25 @@ function practiceSummary(ordered: AdaptiveSkillSummary[]) {
   return ordered.find((summary) => summary.state.pMastery < adaptiveMasteryThreshold) ?? null;
 }
 
-function challengeSummary(ordered: AdaptiveSkillSummary[]) {
-  return ordered.find((summary) => summary.state.pMastery >= adaptiveMasteryThreshold && summary.state.correctStreak >= 2) ?? null;
+function hasChallengeQuestionsForSkill(questions: PublicQuestion[], skill: KnowledgeComponent) {
+  return questions.some((question) =>
+    question.topicId === skill.topicId &&
+    isChallengeDifficulty(question.difficulty)
+  );
+}
+
+function challengeSummary(ordered: AdaptiveSkillSummary[], questions: PublicQuestion[]) {
+  const orderedIndex = new Map(ordered.map((summary, index) => [summary.skill.id, index]));
+  return ordered
+    .filter((summary) =>
+      summary.state.pMastery >= adaptiveMasteryThreshold &&
+      summary.state.correctStreak >= 2 &&
+      hasChallengeQuestionsForSkill(questions, summary.skill)
+    )
+    .sort((left, right) =>
+      difficultyRanks[right.skill.difficulty] - difficultyRanks[left.skill.difficulty] ||
+      (orderedIndex.get(left.skill.id) ?? 999) - (orderedIndex.get(right.skill.id) ?? 999)
+    )[0] ?? null;
 }
 
 function candidateIdFor(action: AdaptiveActionType, summary: AdaptiveSkillSummary) {
@@ -486,10 +530,13 @@ export function generateAdaptiveCandidates({
   candidateSignature: string;
 } {
   const nowDate = new Date(now);
+  const requestedTopicId = topicId?.trim() || null;
   const topicById = new Map(topics.map((topic) => [topic.id, topic]));
+  const topicIdsWithQuestions = new Set(questions.map((question) => question.topicId));
   const eligibleComponents = components.filter((component) => {
     const topic = topicById.get(component.topicId);
     if (!topic) return false;
+    if (!topicIdsWithQuestions.has(component.topicId)) return false;
     if (grade && component.grade !== grade) return false;
     return true;
   });
@@ -511,18 +558,30 @@ export function generateAdaptiveCandidates({
       deterministicCandidateId: "",
       skillMap: [],
       dueReviews: [],
-      candidateSignature: candidateSignatureFor({ candidates: [], grade, topicId })
+      candidateSignature: candidateSignatureFor({ candidates: [], grade, topicId: requestedTopicId })
     };
   }
 
-  const ordered = sortSkillSummaries(summaries, topics, topicId);
-  const dueReviews = dueReviewSummaries(summaries, nowDate);
+  const focusTopicId = requestedTopicId && topicById.has(requestedTopicId) ? requestedTopicId : null;
+  const candidateSummaries = focusTopicId ? summaries.filter((summary) => summary.skill.topicId === focusTopicId) : summaries;
+  if (!candidateSummaries.length) {
+    return {
+      candidates: [],
+      deterministicCandidateId: "",
+      skillMap: sortSkillSummaries(summaries, topics, focusTopicId),
+      dueReviews: [],
+      candidateSignature: candidateSignatureFor({ candidates: [], grade, topicId: focusTopicId })
+    };
+  }
+
+  const ordered = sortSkillSummaries(candidateSummaries, topics, focusTopicId);
+  const dueReviews = dueReviewSummaries(candidateSummaries, nowDate);
   const dueReview = dueReviews[0] ?? null;
   const prerequisiteRepair = prerequisiteRepairSummary(summaries, ordered);
   const attemptedRepair = attemptedRepairSummary(ordered);
   const lesson = lessonSummary(ordered);
   const practice = practiceSummary(ordered);
-  const challenge = challengeSummary(ordered);
+  const challenge = challengeSummary(ordered, questions);
   const fallback = ordered[0];
   const selections = uniqueSelections([
     dueReview
@@ -617,7 +676,7 @@ export function generateAdaptiveCandidates({
     deterministicCandidateId,
     skillMap: ordered,
     dueReviews,
-    candidateSignature: candidateSignatureFor({ candidates, grade, topicId })
+    candidateSignature: candidateSignatureFor({ candidates, grade, topicId: focusTopicId })
   };
 }
 
@@ -898,11 +957,14 @@ export function validateLLMAdaptiveRecommendation({
   const candidate = candidates.find((item) => item.candidateId === record.selectedCandidateId);
   if (!candidate) return { valid: false, reason: "candidate-not-generated" };
 
-  if (candidates.some((item) => item.hardGuardFlags.includes("due-review")) && candidate.action !== "review") {
+  const hasDueReviewGuard = candidates.some((item) => item.hardGuardFlags.includes("due-review"));
+  const hasRepairGuard = candidates.some((item) => item.hardGuardFlags.includes("repair-required"));
+
+  if (hasDueReviewGuard && candidate.action !== "review") {
     return { valid: false, reason: "due-review-required" };
   }
 
-  if (candidates.some((item) => item.hardGuardFlags.includes("repair-required")) && candidate.action !== "repair") {
+  if (!hasDueReviewGuard && hasRepairGuard && candidate.action !== "repair") {
     return { valid: false, reason: "repair-required" };
   }
 
@@ -967,7 +1029,7 @@ export function classifyAdaptiveLLMError(
   if (!error) return undefined;
   if (adaptiveFormatFailureReasons.has(error)) return "format";
   if (adaptiveGuardrailFailureReasons.has(error)) return "guardrail";
-  if (status === "disabled" || error.includes("Missing LLM_API_KEY") || error.includes("OPENAI_API_KEY")) return "configuration";
+  if (status === "disabled" || error.includes("Missing DEEPSEEK_API_KEY")) return "configuration";
   if (error.toLowerCase().includes("rate limit")) return "rate-limit";
   return "provider";
 }

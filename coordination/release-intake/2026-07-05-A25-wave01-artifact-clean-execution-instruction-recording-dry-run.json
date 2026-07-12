@@ -1,0 +1,102 @@
+{
+  "generatedAt": "2026-07-05T11:15:42.262Z",
+  "repoRoot": "/Users/dongpinhu/Desktop/MAIS-MVP",
+  "recorderKind": "wave01-artifact-clean-execution-instruction-recording",
+  "mode": "dry-run",
+  "recorderStatus": "dry-run-blocked-owner-input",
+  "dirtyMapStatusSignature": "fc405946dbb9033f749aa5e537f14edc23d82355d6b8e796759a4856fcbefeef",
+  "expandedStatusEntries": 4737,
+  "sourceArtifacts": {
+    "intakeGeneratedAt": "2026-07-05T11:15:42.139Z",
+    "intakeGateFailureCount": 0,
+    "executionInstructionsGeneratedAt": "2026-07-05T11:15:40.828Z",
+    "executionInstructionsGateFailureCount": 0
+  },
+  "sourceCurrentnessFailures": [],
+  "targetInputFile": "coordination/release-intake/latest-A25-next-owner-execution-instructions.json",
+  "intakeStatus": "waiting-for-owner-input",
+  "approvalIds": [
+    "wave01-resync-02-coordination-release-intake-2026-06-30-a25-dirty-tree-map-20260630t072027z-json",
+    "wave01-resync-03-coordination-release-intake-2026-06-30-a25-dirty-tree-map-20260630t072027z-md",
+    "wave01-resync-04-coordination-release-intake-2026-06-30-a25-dirty-tree-map-20260630t073137z-json",
+    "wave01-resync-05-coordination-release-intake-2026-06-30-a25-dirty-tree-map-20260630t073137z-md",
+    "wave01-resync-06-coordination-release-intake-2026-06-30-a25-dirty-tree-map-20260630t130221z-json",
+    "wave01-resync-07-coordination-release-intake-2026-06-30-a25-dirty-tree-map-20260630t130221z-md"
+  ],
+  "existingInstructionRows": [],
+  "proposedInstructionRowsDoNotApply": [],
+  "recordingChecks": [
+    {
+      "id": "mode-is-explicit",
+      "status": "pass",
+      "detail": "mode=dry-run"
+    },
+    {
+      "id": "source-current",
+      "status": "pass",
+      "detail": "source currentness failures=0"
+    },
+    {
+      "id": "six-approval-ids",
+      "status": "pass",
+      "detail": "approvalIds=6"
+    },
+    {
+      "id": "no-partial-existing-target-records",
+      "status": "pass",
+      "detail": "existingTargetRows=0"
+    },
+    {
+      "id": "proposed-rows-match-status",
+      "status": "pass",
+      "detail": "intakeStatus=waiting-for-owner-input; proposedRows=0"
+    },
+    {
+      "id": "proposed-rows-safe-boundary",
+      "status": "pass",
+      "detail": "proposed rows must not authorize cleanup, execution, destructive git, or deploy"
+    },
+    {
+      "id": "recording-status-coherent",
+      "status": "pass",
+      "detail": "recordingStatus=dry-run-blocked-owner-input"
+    },
+    {
+      "id": "apply-requires-ready-status",
+      "status": "pass",
+      "detail": "mode=dry-run; status=dry-run-blocked-owner-input"
+    }
+  ],
+  "summary": {
+    "mode": "dry-run",
+    "recorderStatus": "dry-run-blocked-owner-input",
+    "approvalRows": 6,
+    "existingInstructionRows": 0,
+    "proposedInstructionRows": 0,
+    "recordingChecks": 8,
+    "passingRecordingChecks": 8,
+    "failedRecordingChecks": 0,
+    "sourceCurrentnessFailures": 0,
+    "applyRequested": false,
+    "applyPermitted": false,
+    "mutationsPerformed": false,
+    "recordsExecutionInstructionRows": 0,
+    "cleanupAuthorizedRows": 0,
+    "executableRows": 0
+  },
+  "boundary": {
+    "evidenceOnly": true,
+    "dryRunOnly": true,
+    "recordsExecutionInstruction": false,
+    "stageAuthorized": false,
+    "commitAuthorized": false,
+    "mergeAuthorized": false,
+    "cleanupAuthorized": false,
+    "executableNow": false,
+    "destructiveGitAuthorized": false,
+    "deployAuthorized": false,
+    "requiresExplicitApplyRecordingFlag": true,
+    "requiresSeparateGuardedExecutor": true
+  },
+  "nextExecutionInstructionsPreview": null
+}

@@ -1,12 +1,16 @@
 import type { TestInfo } from "@playwright/test";
-import { spawn, type ChildProcessWithoutNullStreams } from "node:child_process";
-import { existsSync, mkdirSync, readFileSync, rmSync } from "node:fs";
+import { execFileSync, spawn, type ChildProcessWithoutNullStreams } from "node:child_process";
+import { existsSync, mkdirSync, readFileSync, rmSync, writeFileSync } from "node:fs";
 import { createServer, type Server } from "node:http";
+import { createConnection } from "node:net";
 import path from "node:path";
 
 export type IsolatedAppOptions = {
   warmPaths?: string[];
   env?: Record<string, string | undefined>;
+  dbPath?: string;
+  liveProviders?: boolean;
+  mode?: "dev" | "production" | "auto";
 };
 
 export type IsolatedApp = {
@@ -15,12 +19,19 @@ export type IsolatedApp = {
   rootDir: string;
   logs: string[];
   url: (pathname: string) => string;
+  assertAlive: (label: string, pathname?: string) => Promise<void>;
   stop: () => Promise<void>;
   attachLogs: (testInfo: TestInfo, name?: string) => Promise<void>;
 };
 
 const projectRoot = process.cwd();
 const buildIdPath = path.join(projectRoot, ".next", "BUILD_ID");
+const productionBuildRequiredPaths = [
+  buildIdPath,
+  path.join(projectRoot, ".next", "required-server-files.json"),
+  path.join(projectRoot, ".next", "server", "middleware-manifest.json"),
+  path.join(projectRoot, ".next", "server", "pages", "_error.js")
+];
 
 function delay(ms: number) {
   return new Promise((resolve) => setTimeout(resolve, ms));
@@ -28,6 +39,18 @@ function delay(ms: number) {
 
 function logLine(logs: string[], message: string) {
   logs.push(`[${new Date().toISOString()}] ${message}\n`);
+}
+
+function recentLogTail(logs: string[]) {
+  return logs.slice(-80).join("");
+}
+
+function processState(appProcess: ChildProcessWithoutNullStreams) {
+  return [
+    `pid=${appProcess.pid ?? "unknown"}`,
+    `exitCode=${appProcess.exitCode ?? "null"}`,
+    `signalCode=${appProcess.signalCode ?? "null"}`
+  ].join(" ");
 }
 
 function sanitize(value: string) {
@@ -60,12 +83,91 @@ async function freePort() {
   return port;
 }
 
+async function assertNoLocalListener(port: number, logs: string[]) {
+  await new Promise<void>((resolve, reject) => {
+    const socket = createConnection({ host: "127.0.0.1", port });
+    const finish = (error?: Error) => {
+      socket.removeAllListeners();
+      socket.destroy();
+      if (error) reject(error);
+      else resolve();
+    };
+
+    socket.once("connect", () => finish(new Error(`Preflight failed: another local server is already listening on 127.0.0.1:${port}.`)));
+    socket.once("timeout", () => finish());
+    socket.once("error", () => finish());
+    socket.setTimeout(500);
+  });
+  logLine(logs, `preflightPortFree port=${port}`);
+}
+
+function sqliteHolderPids(dbPath: string) {
+  const candidates = [dbPath, `${dbPath}-wal`, `${dbPath}-shm`].filter((candidate) => existsSync(candidate));
+  const pids = new Set<string>();
+
+  for (const candidate of candidates) {
+    try {
+      const output = execFileSync("lsof", ["-t", "--", candidate], {
+        encoding: "utf8",
+        stdio: ["ignore", "pipe", "ignore"]
+      });
+      output
+        .split(/\s+/)
+        .map((pid) => pid.trim())
+        .filter(Boolean)
+        .forEach((pid) => pids.add(pid));
+    } catch {
+      // lsof exits non-zero when no process holds the file.
+    }
+  }
+
+  return Array.from(pids).sort();
+}
+
+function assertNoSqliteHolder(dbPath: string, logs: string[]) {
+  const holders = sqliteHolderPids(dbPath);
+  if (holders.length) {
+    throw new Error(`Preflight failed: SQLite database is already held by process id(s) ${holders.join(", ")}: ${dbPath}`);
+  }
+  logLine(logs, `preflightDbFree dbPath=${dbPath}`);
+}
+
+function childProcessIds(parentPid: number) {
+  try {
+    const output = execFileSync("pgrep", ["-P", String(parentPid)], {
+      encoding: "utf8",
+      stdio: ["ignore", "pipe", "ignore"]
+    });
+    return output
+      .split(/\s+/)
+      .map((pid) => Number(pid.trim()))
+      .filter((pid) => Number.isInteger(pid) && pid > 0);
+  } catch {
+    // pgrep exits non-zero when the process has no children.
+    return [];
+  }
+}
+
+function processTreeIds(rootPid: number) {
+  const seen = new Set<number>();
+  const stack = [rootPid];
+
+  while (stack.length) {
+    const pid = stack.pop();
+    if (!pid || seen.has(pid)) continue;
+    seen.add(pid);
+    stack.push(...childProcessIds(pid));
+  }
+
+  return Array.from(seen);
+}
+
 async function waitForApp(baseURL: string, appProcess: ChildProcessWithoutNullStreams, logs: string[], timeoutMs = 90_000) {
   const deadline = Date.now() + timeoutMs;
 
   while (Date.now() < deadline) {
     if (appProcess.exitCode !== null) {
-      throw new Error(`Isolated app exited before it was ready.\n${logs.slice(-80).join("")}`);
+      throw new Error(`Isolated app exited before it was ready. ${processState(appProcess)}\n${recentLogTail(logs)}`);
     }
 
     try {
@@ -78,7 +180,7 @@ async function waitForApp(baseURL: string, appProcess: ChildProcessWithoutNullSt
     await delay(250);
   }
 
-  throw new Error(`Timed out waiting for isolated app at ${baseURL}.\n${logs.slice(-80).join("")}`);
+  throw new Error(`Timed out waiting for isolated app at ${baseURL}. ${processState(appProcess)}\n${recentLogTail(logs)}`);
 }
 
 function readBuildId() {
@@ -88,6 +190,48 @@ function readBuildId() {
   } catch {
     return "unreadable";
   }
+}
+
+function hasHealthyProductionBuild() {
+  return productionBuildRequiredPaths.every((artifactPath) => existsSync(artifactPath));
+}
+
+function isolatedAppMode(value: string | undefined): "dev" | "production" | "auto" | null {
+  return value === "dev" || value === "production" || value === "auto" ? value : null;
+}
+
+function writeTempNextTsconfig(tsconfigPath: string, nextDistDir: string) {
+  writeFileSync(
+    path.join(projectRoot, tsconfigPath),
+    JSON.stringify({
+      extends: "./tsconfig.json",
+      include: [
+        "next-env.d.ts",
+        "**/*.ts",
+        "**/*.tsx",
+        ".next/types/**/*.ts",
+        `${nextDistDir}/types/**/*.ts`
+      ],
+      exclude: [
+        "node_modules",
+        ".git",
+        ".local",
+        ".next",
+        ".next-*",
+        ".tmp",
+        ".s??-*",
+        "tmp",
+        "temp",
+        "output",
+        "outputs",
+        "coverage",
+        "playwright-report",
+        "test-results",
+        "MAIS-MVP-*",
+        "MAIS-MVP-*/**/*"
+      ]
+    }, null, 2)
+  );
 }
 
 function staticScriptSources(html: string, baseURL: string) {
@@ -107,7 +251,7 @@ async function warmRouteChunks(baseURL: string, warmPaths: string[], appProcess:
 
   for (const warmPath of uniqueWarmPaths) {
     if (appProcess.exitCode !== null) {
-      throw new Error(`Isolated app exited before warmup for ${warmPath}.\n${logs.slice(-80).join("")}`);
+      throw new Error(`Isolated app exited before warmup for ${warmPath}. ${processState(appProcess)}\n${recentLogTail(logs)}`);
     }
 
     const routeURL = new URL(warmPath.startsWith("/") ? warmPath : `/${warmPath}`, baseURL).toString();
@@ -139,16 +283,60 @@ async function warmRouteChunks(baseURL: string, warmPaths: string[], appProcess:
   }
 }
 
+async function assertIsolatedAppAlive(
+  baseURL: string,
+  appProcess: ChildProcessWithoutNullStreams,
+  logs: string[],
+  label: string,
+  pathname = "/login"
+) {
+  const cleanPath = pathname.startsWith("/") ? pathname : `/${pathname}`;
+  const probeURL = new URL(cleanPath, baseURL).toString();
+  logLine(logs, `livenessStart label=${label} path=${cleanPath} url=${probeURL} ${processState(appProcess)}`);
+
+  if (appProcess.exitCode !== null) {
+    throw new Error(`Isolated app is not alive at ${label}. ${processState(appProcess)}\n${recentLogTail(logs)}`);
+  }
+
+  try {
+    const response = await fetch(probeURL, { redirect: "manual" });
+    logLine(logs, `livenessResponse label=${label} status=${response.status} ${processState(appProcess)}`);
+    if (response.status >= 500) {
+      throw new Error(`Liveness route returned ${response.status}.`);
+    }
+  } catch (error) {
+    logLine(logs, `livenessFailure label=${label} error=${error instanceof Error ? error.message : String(error)} ${processState(appProcess)}`);
+    throw new Error([
+      `Isolated app liveness check failed at ${label}: ${probeURL}. ${processState(appProcess)}`,
+      `Cause: ${error instanceof Error ? error.message : String(error)}`,
+      recentLogTail(logs)
+    ].join("\n"));
+  }
+
+  if (appProcess.exitCode !== null) {
+    throw new Error(`Isolated app exited during liveness check at ${label}. ${processState(appProcess)}\n${recentLogTail(logs)}`);
+  }
+}
+
 async function stopProcess(appProcess: ChildProcessWithoutNullStreams, logs?: string[]) {
   if (appProcess.exitCode !== null) return;
   logLine(logs ?? [], `stopRequested pid=${appProcess.pid ?? "unknown"}`);
 
   const killTree = (signal: NodeJS.Signals) => {
     try {
-      if (process.platform !== "win32" && appProcess.pid) {
-        process.kill(-appProcess.pid, signal);
-      } else {
+      if (process.platform === "win32" || !appProcess.pid) {
         appProcess.kill(signal);
+        return;
+      }
+
+      const pids = processTreeIds(appProcess.pid);
+      logLine(logs ?? [], `stopSignal signal=${signal} pids=${pids.join(",") || "none"}`);
+      for (const pid of pids.reverse()) {
+        try {
+          process.kill(pid, signal);
+        } catch {
+          // A child may exit naturally while the tree is being signalled.
+        }
       }
     } catch {
       // The process tree may have already exited between checks.
@@ -183,37 +371,64 @@ export async function startIsolatedApp(suiteName: string, testInfo: TestInfo, op
     Math.random().toString(36).slice(2, 8)
   ].join("-"));
   const rootDir = path.join(projectRoot, ".tmp", "e2e-isolated", sanitize(suiteName), runSlug);
-  const dbPath = path.join(rootDir, "hk-math-db.sqlite");
+  const dbPath = options.dbPath ? path.resolve(options.dbPath) : path.join(rootDir, "hk-math-db.sqlite");
+  const nextDistDir = path.join(rootDir, "next-dist");
+  const nextDistDirEnv = path.relative(projectRoot, nextDistDir);
+  const nextTsconfigPath = `tsconfig.${runSlug}.tmp.json`;
   const port = await freePort();
   const baseURL = `http://127.0.0.1:${port}`;
   const logs: string[] = [];
-  const hasProductionBuild = existsSync(buildIdPath);
-  const useProductionBuild = process.env.PLAYWRIGHT_ISOLATED_FORCE_DEV !== "1" && hasProductionBuild;
+  const hasProductionBuild = hasHealthyProductionBuild();
+  const requestedMode = process.env.PLAYWRIGHT_ISOLATED_FORCE_DEV === "1"
+    ? "dev"
+    : options.mode ?? isolatedAppMode(process.env.PLAYWRIGHT_ISOLATED_MODE) ?? "dev";
+  if (requestedMode === "production" && !hasProductionBuild) {
+    throw new Error("startIsolatedApp was asked for production mode, but the default .next production build is not healthy.");
+  }
+  const useProductionBuild = requestedMode !== "dev" && hasProductionBuild;
   const startScript = useProductionBuild ? "start" : "dev";
 
   rmSync(rootDir, { recursive: true, force: true });
   mkdirSync(rootDir, { recursive: true });
+  mkdirSync(path.dirname(dbPath), { recursive: true });
+  if (!useProductionBuild) writeTempNextTsconfig(nextTsconfigPath, nextDistDirEnv);
 
+  logLine(logs, `isolatedAppRequestedMode=${requestedMode}`);
   logLine(logs, `isolatedAppMode=${useProductionBuild ? "production-start" : "dev-isolated"}`);
   logLine(logs, `buildId=${readBuildId()}`);
   logLine(logs, `rootDir=${rootDir}`);
+  if (!useProductionBuild) logLine(logs, `nextDistDir=${nextDistDirEnv}`);
+  if (!useProductionBuild) logLine(logs, `nextTsconfigPath=${nextTsconfigPath}`);
   logLine(logs, `dbPath=${dbPath}`);
+  await assertNoLocalListener(port, logs);
+  assertNoSqliteHolder(dbPath, logs);
+
+  const providerEnv = options.liveProviders
+    ? {}
+    : {
+        DEEPSEEK_API_KEY: "",
+        DEEPSEEK_MODEL: "",
+        DEEPSEEK_API_URL: "",
+        QWEN_API_KEY: "",
+        QWEN_API_URL: "",
+        QWEN_IMAGE_MODEL: "",
+        QWEN_IMAGE_API_URL: "",
+        QWEN_REALTIME_MODEL: "",
+        QWEN_REALTIME_API_URL: ""
+      };
 
   const appProcess = spawn("npm", ["run", startScript, "--", "--hostname", "127.0.0.1", "--port", String(port)], {
     cwd: projectRoot,
     detached: process.platform !== "win32",
     env: {
       ...process.env,
-      LLM_API_KEY: "",
-      OPENAI_API_KEY: "",
-      LLM_MODEL: "",
-      OPENAI_MODEL: "",
-      LLM_API_URL: "",
+      ...providerEnv,
       AUTH_SESSION_SECRET: `${sanitize(suiteName)}-e2e-session-secret`,
       HK_MATH_DB_PATH: dbPath,
       HK_MATH_ENABLE_DEMO_USER: "true",
       HK_MATH_EXPOSE_LOCAL_RESET_LINKS: "true",
       AI_TUTOR_MAX_REQUESTS_PER_MINUTE: "2",
+      ...(useProductionBuild ? {} : { NEXT_DIST_DIR: nextDistDirEnv, NEXT_TSCONFIG_PATH: nextTsconfigPath }),
       ...options.env
     }
   });
@@ -221,13 +436,24 @@ export async function startIsolatedApp(suiteName: string, testInfo: TestInfo, op
 
   appProcess.stdout.on("data", (chunk) => logs.push(chunk.toString()));
   appProcess.stderr.on("data", (chunk) => logs.push(chunk.toString()));
+  appProcess.once("exit", (code, signal) => {
+    logLine(logs, `processExit pid=${appProcess.pid ?? "unknown"} exitCode=${code ?? "null"} signal=${signal ?? "null"}`);
+  });
+  appProcess.once("error", (error) => {
+    logLine(logs, `processError pid=${appProcess.pid ?? "unknown"} error=${error.message}`);
+  });
+
+  const stop = async () => {
+    await stopProcess(appProcess, logs);
+    if (!useProductionBuild) rmSync(path.join(projectRoot, nextTsconfigPath), { force: true });
+  };
 
   try {
     await waitForApp(baseURL, appProcess, logs);
     logLine(logs, `ready baseURL=${baseURL}`);
     if (options.warmPaths?.length) await warmRouteChunks(baseURL, options.warmPaths, appProcess, logs);
   } catch (error) {
-    await stopProcess(appProcess, logs);
+    await stop();
     throw error;
   }
 
@@ -240,7 +466,10 @@ export async function startIsolatedApp(suiteName: string, testInfo: TestInfo, op
       const cleanPath = pathname.startsWith("/") ? pathname : `/${pathname}`;
       return new URL(cleanPath, baseURL).toString();
     },
-    stop: () => stopProcess(appProcess, logs),
+    async assertAlive(label: string, pathname = "/login") {
+      await assertIsolatedAppAlive(baseURL, appProcess, logs, label, pathname);
+    },
+    stop,
     async attachLogs(nextTestInfo: TestInfo, name = "isolated-app.log") {
       if (!logs.length) return;
       await nextTestInfo.attach(name, {

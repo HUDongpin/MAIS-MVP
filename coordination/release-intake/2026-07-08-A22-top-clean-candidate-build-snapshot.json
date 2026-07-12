@@ -1,0 +1,249 @@
+{
+  "generatedAt": "2026-07-08T12:21:15.268Z",
+  "repoRoot": "/Users/dongpinhu/Desktop/MAIS-MVP",
+  "dirtyMapStatusSignature": "340f99c33d2a1dfd0015d1dc67b58b838156a600307de07438c1189d27ac7b16",
+  "expandedStatusEntries": 6116,
+  "sourceArtifacts": {
+    "dirtyMap": {
+      "key": "dirtyMap",
+      "path": "coordination/release-intake/latest-A25-dirty-tree-map.json",
+      "generatedAt": "2026-07-08T12:20:05.311Z",
+      "dirtyMapStatusSignature": "340f99c33d2a1dfd0015d1dc67b58b838156a600307de07438c1189d27ac7b16",
+      "expandedStatusEntries": 6116
+    },
+    "cleanSourceCandidatePromotion": {
+      "key": "cleanSourceCandidatePromotion",
+      "path": "coordination/release-intake/latest-A22-clean-source-candidate-promotion-packet.json",
+      "generatedAt": "2026-07-08T12:20:56.023Z",
+      "dirtyMapStatusSignature": "340f99c33d2a1dfd0015d1dc67b58b838156a600307de07438c1189d27ac7b16",
+      "expandedStatusEntries": 6116
+    }
+  },
+  "sourceCurrentnessFailures": [],
+  "buildStatus": "failed",
+  "topCandidate": {
+    "branch": "codex/A22-us-region-alignment",
+    "path": "/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A22-us-region-alignment",
+    "head": "80b8546af59def9ea4c91fa4b8a892973874504d",
+    "promotionRank": 1,
+    "promotionLane": "clean-diverged-slice-review",
+    "promotionEligibleNow": false,
+    "releaseSourceSelected": false
+  },
+  "buildObservation": {
+    "mode": "manual-escalated-build-observed",
+    "command": {
+      "cwd": "/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A22-us-region-alignment",
+      "argv": [
+        "env",
+        "NEXT_TELEMETRY_DISABLED=1",
+        "npm",
+        "run",
+        "build"
+      ]
+    },
+    "exitStatus": 1,
+    "buildPassed": false,
+    "failureCategory": "webpack-module-not-found",
+    "firstFailureLines": [
+      "Module not found: Can't resolve '@/app/visualization-lab/VisualizationLabBackToTopButton'",
+      "Module not found: Can't resolve '@/data/mathVirusBlaster'",
+      "Module not found: Can't resolve '@/data/mightyTankBattle'",
+      "Module not found: Can't resolve '@/data/usCaliforniaHighSchoolLessonIllustrations'"
+    ],
+    "note": "The actual Next build was run once with owner-approved escalated write access because Next writes .next in the linked worktree; this snapshot does not rerun build."
+  },
+  "moduleBlockers": [
+    {
+      "importer": "app/visualization-lab/page.tsx",
+      "importerExists": true,
+      "moduleSpecifier": "@/app/visualization-lab/VisualizationLabBackToTopButton",
+      "importPresent": true,
+      "expectedPaths": [
+        {
+          "path": "app/visualization-lab/VisualizationLabBackToTopButton.tsx",
+          "exists": false
+        }
+      ],
+      "expectedModuleResolved": false,
+      "observedAlternatePaths": [
+        {
+          "path": "components/visualizations/VisualizationLabBackToTopButton.tsx",
+          "exists": true
+        }
+      ],
+      "blockerConfirmed": true
+    },
+    {
+      "importer": "components/games/MathVirusBlasterGame.tsx",
+      "importerExists": true,
+      "moduleSpecifier": "@/data/mathVirusBlaster",
+      "importPresent": true,
+      "expectedPaths": [
+        {
+          "path": "data/mathVirusBlaster.ts",
+          "exists": false
+        },
+        {
+          "path": "data/mathVirusBlaster.tsx",
+          "exists": false
+        }
+      ],
+      "expectedModuleResolved": false,
+      "observedAlternatePaths": [],
+      "blockerConfirmed": true
+    },
+    {
+      "importer": "components/games/MightyTankBattleGame.tsx",
+      "importerExists": true,
+      "moduleSpecifier": "@/data/mightyTankBattle",
+      "importPresent": true,
+      "expectedPaths": [
+        {
+          "path": "data/mightyTankBattle.ts",
+          "exists": false
+        },
+        {
+          "path": "data/mightyTankBattle.tsx",
+          "exists": false
+        }
+      ],
+      "expectedModuleResolved": false,
+      "observedAlternatePaths": [],
+      "blockerConfirmed": true
+    },
+    {
+      "importer": "components/lesson/CaliforniaHighSchoolTextbookPage.tsx",
+      "importerExists": true,
+      "moduleSpecifier": "@/data/usCaliforniaHighSchoolLessonIllustrations",
+      "importPresent": true,
+      "expectedPaths": [
+        {
+          "path": "data/usCaliforniaHighSchoolLessonIllustrations.ts",
+          "exists": false
+        },
+        {
+          "path": "data/usCaliforniaHighSchoolLessonIllustrations.tsx",
+          "exists": false
+        }
+      ],
+      "expectedModuleResolved": false,
+      "observedAlternatePaths": [],
+      "blockerConfirmed": true
+    },
+    {
+      "importer": "components/lesson/CaliforniaHighSchoolTextbookStudentPage.tsx",
+      "importerExists": true,
+      "moduleSpecifier": "@/data/usCaliforniaHighSchoolLessonIllustrations",
+      "importPresent": true,
+      "expectedPaths": [
+        {
+          "path": "data/usCaliforniaHighSchoolLessonIllustrations.ts",
+          "exists": false
+        },
+        {
+          "path": "data/usCaliforniaHighSchoolLessonIllustrations.tsx",
+          "exists": false
+        }
+      ],
+      "expectedModuleResolved": false,
+      "observedAlternatePaths": [],
+      "blockerConfirmed": true
+    }
+  ],
+  "candidateWorktreeStatus": {
+    "statusEntries": [],
+    "statusEntryCount": 0,
+    "cleanForGit": true,
+    "ignoredEntries": [
+      "!! .next/",
+      "!! node_modules/"
+    ],
+    "ignoredEntryCount": 2,
+    "nextDirIgnored": true,
+    "nodeModulesIgnored": true
+  },
+  "buildArtifacts": {
+    "nextDirPresent": true,
+    "nextDirSizeKiB": 970904,
+    "nextDirSizeMiB": 948,
+    "tsbuildInfoPresent": false,
+    "cleanupAuthorizedRows": 0,
+    "executableRows": 0
+  },
+  "validationRows": [
+    {
+      "id": "candidate-build-observed",
+      "owner": "A22 production reliability and release engineering",
+      "passed": true,
+      "status": "observed",
+      "detail": "A real candidate npm run build was observed with owner-approved escalated write access."
+    },
+    {
+      "id": "candidate-build-passed",
+      "owner": "A22 production reliability and release engineering",
+      "passed": false,
+      "status": "failed",
+      "detail": "Candidate build failed with 5 confirmed module-resolution blocker row(s)."
+    },
+    {
+      "id": "candidate-build-blockers-confirmed",
+      "owner": "A22 production reliability and release engineering",
+      "passed": true,
+      "status": "passed",
+      "detail": "5/5 module-resolution blocker row(s) are confirmed by source inspection."
+    },
+    {
+      "id": "candidate-build-git-clean-after",
+      "owner": "A25 git hygiene and release intake",
+      "passed": true,
+      "status": "passed",
+      "detail": "Candidate worktree normal git status entries after build: 0."
+    },
+    {
+      "id": "candidate-build-artifact-present",
+      "owner": "A22 production reliability and release engineering",
+      "passed": true,
+      "status": "observed",
+      "detail": ".next build artifact is present and ignored; cleanup is not authorized in this pass."
+    }
+  ],
+  "summary": {
+    "buildPassed": false,
+    "exitStatus": 1,
+    "failureCategory": "webpack-module-not-found",
+    "moduleBlockerRows": 5,
+    "confirmedModuleBlockerRows": 5,
+    "statusEntryCount": 0,
+    "ignoredEntryCount": 2,
+    "nextDirPresent": true,
+    "nextDirSizeKiB": 970904,
+    "nextDirSizeMiB": 948,
+    "tsbuildInfoPresent": false,
+    "promotionEligibleNow": false,
+    "releaseSourceSelected": false,
+    "cleanupAuthorizedRows": 0,
+    "executableRows": 0,
+    "sourceCurrentnessFailures": 0
+  },
+  "boundary": {
+    "evidenceOnly": true,
+    "rerunsBuild": false,
+    "usesObservedEscalatedBuild": true,
+    "requiresEscalatedBuildToRefreshActualBuild": true,
+    "runsTypeCheck": false,
+    "runsRegression": false,
+    "selectsReleaseSource": false,
+    "recordsOwnerApproval": false,
+    "recordsExecutionInstruction": false,
+    "stagesFiles": false,
+    "commits": false,
+    "merges": false,
+    "pushes": false,
+    "deploys": false,
+    "cleanupAuthorized": false,
+    "executableNow": false,
+    "destructiveGitAuthorized": false,
+    "physicalLifecycleCleanupAuthorized": false
+  }
+}

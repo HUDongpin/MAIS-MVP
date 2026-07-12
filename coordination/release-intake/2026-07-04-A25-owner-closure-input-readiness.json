@@ -1,0 +1,116 @@
+{
+  "generatedAt": "2026-07-04T15:50:03.469Z",
+  "repoRoot": "/Users/dongpinhu/Desktop/MAIS-MVP",
+  "dirtyMapStatusSignature": "0ed815279a9afc7897df7ef48f2e250da494e4a227adc0a6da14547ba9048571",
+  "expandedStatusEntries": 4323,
+  "sourceArtifacts": {
+    "nextOwnerAuthorizationsGateCheckedAt": "2026-07-04T15:49:59.632Z",
+    "nextOwnerAuthorizationExecutionPreviewGateCheckedAt": "2026-07-04T15:50:03.045Z",
+    "wave01PackageResyncAuthorizationsGateCheckedAt": "2026-07-04T15:47:12.352Z",
+    "ownerPackageBlockerReportRecordsGateCheckedAt": "2026-07-04T15:49:48.626Z",
+    "ownerClosureQueueGeneratedAt": "2026-07-04T15:50:03.285Z",
+    "nextOwnerDecisionFocusGeneratedAt": "2026-07-04T15:50:03.379Z"
+  },
+  "inputGateFailures": [],
+  "inputBlocks": [
+    {
+      "id": "canonical-next-owner-authorizations",
+      "label": "Canonical next-owner authorizations",
+      "sourceFile": "coordination/release-intake/latest-A25-next-owner-authorizations.json",
+      "filePresent": true,
+      "totalRows": 71,
+      "validRows": 2,
+      "pendingRows": 69,
+      "cleanupAuthorizedRows": 0,
+      "executableRows": 0,
+      "ready": false,
+      "status": "waiting-for-owner-input",
+      "note": "Owner input file is present but must remain non-executable until a separate execution instruction exists."
+    },
+    {
+      "id": "next-owner-authorization-execution-preview",
+      "label": "Next-owner authorization execution preview",
+      "sourceFile": "coordination/release-intake/latest-A25-next-owner-authorization-execution-preview-current-gate.json",
+      "filePresent": true,
+      "totalRows": 71,
+      "validRows": 2,
+      "pendingRows": 71,
+      "cleanupAuthorizedRows": 0,
+      "executableRows": 0,
+      "ready": false,
+      "status": "waiting-for-owner-input",
+      "note": "Owner input file is present but must remain non-executable until a separate execution instruction exists."
+    },
+    {
+      "id": "wave01-package-resync-authorizations",
+      "label": "Wave 01 package-resync owner authorizations",
+      "sourceFile": "coordination/release-intake/latest-A25-wave01-package-resync-owner-authorizations.json",
+      "filePresent": true,
+      "totalRows": 7,
+      "validRows": 0,
+      "pendingRows": 7,
+      "cleanupAuthorizedRows": 0,
+      "executableRows": 0,
+      "ready": false,
+      "status": "waiting-for-owner-input",
+      "note": "Owner input file is present but must remain non-executable until a separate execution instruction exists."
+    },
+    {
+      "id": "owner-package-blocker-report-records",
+      "label": "Owner package blocker report records",
+      "sourceFile": "coordination/release-intake/latest-A25-owner-package-blocker-report-records.json",
+      "filePresent": true,
+      "totalRows": 10,
+      "validRows": 10,
+      "pendingRows": 0,
+      "cleanupAuthorizedRows": 0,
+      "executableRows": 0,
+      "ready": true,
+      "status": "ready",
+      "note": "Owner input file is present but must remain non-executable until a separate execution instruction exists."
+    }
+  ],
+  "validationHold": {
+    "status": "waiting-for-owner-compose-deletion-confirmation",
+    "activeWorktreePath": "/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A10-A22-A08-A12-A06-compose-20260628",
+    "reason": "Owner reported active exact deletion in this compose worktree; linked-worktree archive, Wave 06, aggregate remediation, and completion-audit refreshes should wait for owner confirmation.",
+    "resumeCondition": "Owner confirms exact deletion in the compose worktree is complete."
+  },
+  "nextValidationCommands": [
+    "node coordination/release-intake/assert-next-owner-authorizations-current.mjs",
+    "node coordination/release-intake/generate-next-owner-authorization-execution-preview.mjs",
+    "node coordination/release-intake/assert-next-owner-authorization-execution-preview-current.mjs",
+    "node coordination/release-intake/assert-owner-package-blocker-report-records-current.mjs",
+    "node coordination/release-intake/assert-owner-closure-input-readiness-current.mjs"
+  ],
+  "deferredValidationCommands": [
+    "node coordination/release-intake/refresh-linked-worktree-archive-evidence.mjs",
+    "node coordination/release-intake/assert-linked-worktree-archive-evidence-current.mjs",
+    "node coordination/release-intake/generate-wave06-final-root-lifecycle-readiness.mjs",
+    "node coordination/release-intake/assert-wave06-final-root-lifecycle-readiness-current.mjs",
+    "node coordination/release-intake/refresh-dirty-worktree-remediation-evidence.mjs --reason \"owner input action packet post-input verification\"",
+    "node coordination/release-intake/assert-dirty-worktree-remediation-current.mjs",
+    "node coordination/release-intake/generate-dirty-worktree-remediation-completion-audit.mjs",
+    "node coordination/release-intake/assert-dirty-worktree-remediation-completion-audit-current.mjs"
+  ],
+  "summary": {
+    "ownerInputsReady": false,
+    "inputBlocks": 4,
+    "pendingCanonicalAuthorizationRows": 69,
+    "pendingWave01AuthorizationRows": 7,
+    "pendingOwnerBlockerReportRecords": 0,
+    "validAuthorizationRows": 2,
+    "commandPreviewRows": 0,
+    "ownerClosurePendingItems": 133,
+    "nextOwnerDecisionRows": 14,
+    "cleanupAuthorizedRows": 0,
+    "executableRows": 0
+  },
+  "boundary": {
+    "evidenceOnly": true,
+    "cleanupAuthorized": false,
+    "executableNow": false,
+    "destructiveGitAuthorized": false,
+    "deployAuthorized": false
+  }
+}

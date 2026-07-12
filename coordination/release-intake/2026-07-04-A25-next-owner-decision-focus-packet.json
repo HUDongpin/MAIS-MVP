@@ -1,0 +1,1318 @@
+{
+  "generatedAt": "2026-07-04T15:50:03.379Z",
+  "dirtyMapStatusSignature": "0ed815279a9afc7897df7ef48f2e250da494e4a227adc0a6da14547ba9048571",
+  "expandedStatusEntries": 4323,
+  "sourceArtifacts": {
+    "blockerReportStarterGeneratedAt": "2026-07-04T15:49:48.439Z",
+    "blockerReportsGeneratedAt": "2026-07-04T15:49:48.673Z",
+    "nextOwnerAuthorizationsStarterGeneratedAt": "2026-07-04T15:49:59.467Z",
+    "a22GeneratedArtifactResidualAuthorizationsGeneratedAt": "2026-07-04T15:49:55.450Z",
+    "remainingCompletionAssignmentsGeneratedAt": "2026-07-04T15:50:03.193Z",
+    "ownerClosureActionQueueGeneratedAt": "2026-07-04T15:50:03.285Z"
+  },
+  "note": "Coordination evidence only. These rows narrow the next owner decisions but do not authorize physical cleanup or execution.",
+  "summary": {
+    "sourceOwnerClosurePendingItems": 133,
+    "readyOwnerPackageMergeCandidates": 1,
+    "wave01PackageResyncApprovals": 7,
+    "generatedArtifactResidualApprovals": 2,
+    "pendingOwnerBlockerReports": 0,
+    "remainingCompletionAssignments": 5,
+    "totalDecisionRows": 14,
+    "totalFocusRows": 15,
+    "cleanupAuthorizedRows": 0,
+    "executableRows": 0
+  },
+  "criticalPath": {
+    "status": "waiting-for-owner-input",
+    "targetInputFiles": [
+      "coordination/release-intake/latest-A25-next-owner-authorizations.json",
+      "coordination/release-intake/latest-A25-wave01-package-resync-owner-authorizations.json",
+      "coordination/release-intake/latest-A25-owner-package-blocker-report-records.json"
+    ],
+    "priorityOrder": [
+      {
+        "order": 1,
+        "id": "ready-owner-package-merge-candidates",
+        "ownerAction": "Review the currently ready owner package as the first merge-candidate packet after owner authorization is recorded.",
+        "why": "A ready package has full pathspec coverage and no package-level failed checks, so it can become the first reviewed merge candidate once owner authorization is explicit.",
+        "rows": 1,
+        "candidates": [
+          {
+            "candidateId": "wave-05-visualization-ai-runtime:a16-research-evidence",
+            "packageId": "a16-research-evidence",
+            "packageName": "A16 research evidence",
+            "owners": [
+              "A16 research and learning science"
+            ],
+            "approvalIds": [
+              "a16-research-and-learning-science"
+            ],
+            "physicalLifecycleApprovalIds": [
+              "codex-a16-research-evidence-closure"
+            ],
+            "worktree": {
+              "path": "/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A16-research-evidence-closure",
+              "exists": true,
+              "branch": "codex/A16-research-evidence-closure",
+              "head": "cef544e09",
+              "statusSignature": "5c16bd55641262fe40be892952805688e66b2d56a11063c11279ccf867c4b9ef",
+              "nodeModulesPresent": true
+            },
+            "statusEntries": 6,
+            "uncoveredEntries": 0,
+            "reviewEvidence": {
+              "archivePrefix": "coordination/release-intake/archive/codex-A16-research-evidence-closure",
+              "requiresHumanReviewBeforeMerge": true,
+              "recommendedReviewOrder": [
+                "status",
+                "diffstat",
+                "patch",
+                "untracked",
+                "dirty-diverged ahead-log",
+                "dirty-diverged diffstat",
+                "dirty-diverged patch"
+              ],
+              "linkedWorktreeManifest": {
+                "path": "coordination/release-intake/archive/2026-06-30-A25-linked-worktree-archive-manifest.md",
+                "exists": true,
+                "lineCount": 47,
+                "sampleLines": [
+                  "# 2026-06-30 A25 Linked Worktree Archive Manifest",
+                  "",
+                  "Generated: 2026-07-04T15:46:03.583Z",
+                  "",
+                  "Dirty map signature: `0ed815279a9afc7897df7ef48f2e250da494e4a227adc0a6da14547ba9048571`"
+                ]
+              },
+              "dirtyDivergedManifest": {
+                "path": "coordination/release-intake/archive/2026-06-30-A25-dirty-diverged-branch-archive-manifest.md",
+                "exists": true,
+                "lineCount": 36,
+                "sampleLines": [
+                  "# 2026-06-30 A25 Dirty-Diverged Branch Archive Manifest",
+                  "",
+                  "Generated: 2026-07-04T15:46:03.583Z",
+                  "",
+                  "Dirty map signature: `0ed815279a9afc7897df7ef48f2e250da494e4a227adc0a6da14547ba9048571`"
+                ]
+              },
+              "status": {
+                "path": "coordination/release-intake/archive/codex-A16-research-evidence-closure.status.txt",
+                "exists": true,
+                "lineCount": 6,
+                "sampleLines": [
+                  "?? coordination/research/2026-06-20-3blue1brown-skill-distillation-handbook.md",
+                  "?? coordination/research/2026-06-20-3blue1brown-skill-distillation-handbook.provenance.md",
+                  "?? coordination/research/2026-06-20-3blue1brown-style-visualization-effects-report.md",
+                  "?? coordination/research/2026-06-21-ke-to-mais-behavior-event-dictionary.csv",
+                  "?? coordination/research/2026-06-21-ke-to-mais-stealth-assessment-integration-spec.md",
+                  "?? coordination/research/2026-06-21-ke-to-mais-stealth-assessment-integration-spec.provenance.md"
+                ]
+              },
+              "diffstat": {
+                "path": "coordination/release-intake/archive/codex-A16-research-evidence-closure.diffstat.txt",
+                "exists": true,
+                "lineCount": 1,
+                "sampleLines": [
+                  "No tracked diff."
+                ]
+              },
+              "patch": {
+                "path": "coordination/release-intake/archive/codex-A16-research-evidence-closure.patch",
+                "exists": true,
+                "lineCount": 1,
+                "sampleLines": [
+                  ""
+                ]
+              },
+              "untracked": {
+                "path": "coordination/release-intake/archive/codex-A16-research-evidence-closure.untracked.txt",
+                "exists": true,
+                "lineCount": 6,
+                "sampleLines": [
+                  "coordination/research/2026-06-20-3blue1brown-skill-distillation-handbook.md",
+                  "coordination/research/2026-06-20-3blue1brown-skill-distillation-handbook.provenance.md",
+                  "coordination/research/2026-06-20-3blue1brown-style-visualization-effects-report.md",
+                  "coordination/research/2026-06-21-ke-to-mais-behavior-event-dictionary.csv",
+                  "coordination/research/2026-06-21-ke-to-mais-stealth-assessment-integration-spec.md",
+                  "coordination/research/2026-06-21-ke-to-mais-stealth-assessment-integration-spec.provenance.md"
+                ]
+              },
+              "dirtyDivergedAheadLog": {
+                "path": "coordination/release-intake/archive/codex-A16-research-evidence-closure.dirty-diverged.ahead-log.txt",
+                "exists": true,
+                "lineCount": 1,
+                "sampleLines": [
+                  "No ahead commits."
+                ]
+              },
+              "dirtyDivergedDiffstat": {
+                "path": "coordination/release-intake/archive/codex-A16-research-evidence-closure.dirty-diverged.diffstat.txt",
+                "exists": true,
+                "lineCount": 1,
+                "sampleLines": [
+                  "No branch diff."
+                ]
+              },
+              "dirtyDivergedPatch": {
+                "path": "coordination/release-intake/archive/codex-A16-research-evidence-closure.dirty-diverged.patch",
+                "exists": true,
+                "lineCount": 1,
+                "sampleLines": [
+                  ""
+                ]
+              },
+              "mergeGate": "Owner must review the archived status, diffstat, patch, untracked, and dirty-diverged evidence before recording owner-package and physical-lifecycle authorization."
+            },
+            "decisionChecklist": {
+              "purpose": "Convert this validated ready package into an explicit owner decision. This checklist does not authorize merge, cleanup, or execution.",
+              "readyForOwnerReview": true,
+              "requiredReviewInputs": [
+                {
+                  "id": "owner-pathspec",
+                  "path": "coordination/release-intake/latest-A25-owner-a16-research-and-learning-science.pathspec",
+                  "exists": true,
+                  "description": "Defines the owner-bounded file scope for the ready package."
+                },
+                {
+                  "id": "owner-work-order",
+                  "path": "coordination/release-intake/latest-A25-effective-work-order-a16-research-and-learning-science.md",
+                  "exists": true,
+                  "description": "Defines the owner work-order and package review context."
+                },
+                {
+                  "id": "codex-A16-research-evidence-closure.status.txt",
+                  "path": "coordination/release-intake/archive/codex-A16-research-evidence-closure.status.txt",
+                  "exists": true,
+                  "description": "Archived worktree evidence that must be reviewed before authorization."
+                },
+                {
+                  "id": "codex-A16-research-evidence-closure.diffstat.txt",
+                  "path": "coordination/release-intake/archive/codex-A16-research-evidence-closure.diffstat.txt",
+                  "exists": true,
+                  "description": "Archived worktree evidence that must be reviewed before authorization."
+                },
+                {
+                  "id": "codex-A16-research-evidence-closure.patch",
+                  "path": "coordination/release-intake/archive/codex-A16-research-evidence-closure.patch",
+                  "exists": true,
+                  "description": "Archived worktree evidence that must be reviewed before authorization."
+                },
+                {
+                  "id": "codex-A16-research-evidence-closure.untracked.txt",
+                  "path": "coordination/release-intake/archive/codex-A16-research-evidence-closure.untracked.txt",
+                  "exists": true,
+                  "description": "Archived worktree evidence that must be reviewed before authorization."
+                },
+                {
+                  "id": "codex-A16-research-evidence-closure.dirty-diverged.ahead-log.txt",
+                  "path": "coordination/release-intake/archive/codex-A16-research-evidence-closure.dirty-diverged.ahead-log.txt",
+                  "exists": true,
+                  "description": "Archived worktree evidence that must be reviewed before authorization."
+                },
+                {
+                  "id": "codex-A16-research-evidence-closure.dirty-diverged.diffstat.txt",
+                  "path": "coordination/release-intake/archive/codex-A16-research-evidence-closure.dirty-diverged.diffstat.txt",
+                  "exists": true,
+                  "description": "Archived worktree evidence that must be reviewed before authorization."
+                },
+                {
+                  "id": "codex-A16-research-evidence-closure.dirty-diverged.patch",
+                  "path": "coordination/release-intake/archive/codex-A16-research-evidence-closure.dirty-diverged.patch",
+                  "exists": true,
+                  "description": "Archived worktree evidence that must be reviewed before authorization."
+                }
+              ],
+              "reviewQuestions": [
+                "Do all status/untracked paths belong to the listed A16 research evidence owner scope?",
+                "Does the archived diffstat/patch confirm there is no tracked code change hidden in the candidate?",
+                "Is the intended final state an owner-approved reviewed commit, evidence archive, exact-path discard, or blocker?",
+                "Are both owner-package and physical-lifecycle approval IDs covered by the decision text?",
+                "Are the listed post-approval validation commands acceptable before any merge/cleanup action?"
+              ],
+              "allowedFinalStateDecisions": [
+                {
+                  "approvalId": "a16-research-and-learning-science",
+                  "decisionKind": "owner-package",
+                  "allowedFinalStates": [
+                    "reviewed commit",
+                    "owner-approved exact-path discard",
+                    "evidence archive",
+                    "blocker"
+                  ],
+                  "mustNameEvidenceReviewed": true
+                },
+                {
+                  "approvalId": "codex-a16-research-evidence-closure",
+                  "decisionKind": "physical-lifecycle",
+                  "allowedFinalStates": [
+                    "one allowed final state in the physical lifecycle request"
+                  ],
+                  "mustNameEvidenceReviewed": true
+                }
+              ],
+              "postApprovalValidationCommands": [
+                "node coordination/release-intake/review-owner-pathspec.mjs coordination/release-intake/latest-A25-effective-owner-a16-research-and-learning-science.pathspec --status",
+                "npm run release:dirty-map -- --reason \"A25 post-owner-approval a16-research-and-learning-science\"",
+                "node coordination/release-intake/assert-owner-package-approval-requests-current.mjs",
+                "node coordination/release-intake/assert-dirty-worktree-remediation-current.mjs",
+                "node coordination/release-intake/worktree-hygiene-dashboard.mjs",
+                "npm run release:dirty-map -- --reason \"A25 post-physical-approval codex-a16-research-evidence-closure\"",
+                "node coordination/release-intake/assert-physical-lifecycle-approval-requests-current.mjs",
+                "node coordination/release-intake/assert-worktree-lifecycle.mjs"
+              ],
+              "mustRemainFalseUntilSeparateAuthorization": {
+                "mergeAuthorized": false,
+                "cleanupAuthorized": false,
+                "executableNow": false
+              }
+            },
+            "requiredAuthorizationTexts": [
+              "Authorize approvalId=a16-research-and-learning-science for owner=A16 research and learning science; selectedFinalState=<reviewed commit | owner-approved exact-path discard | evidence archive | blocker>; evidenceReviewed=coordination/release-intake/latest-A25-effective-owner-a16-research-and-learning-science.pathspec, coordination/release-intake/latest-A25-effective-work-order-a16-research-and-learning-science.md; approvedBy=<owner>; approvedAt=<ISO-8601>; notes=<scope and checks>.",
+              "Authorize approvalId=codex-a16-research-evidence-closure for branch=codex/A16-research-evidence-closure; selectedFinalState=<one allowed final state in the physical lifecycle request>; evidenceReviewed=coordination/release-intake/archive/2026-06-30-A25-linked-worktree-archive-manifest.md, coordination/release-intake/archive/codex-A16-research-evidence-closure.status.txt, coordination/release-intake/archive/codex-A16-research-evidence-closure.diffstat.txt, coordination/release-intake/archive/codex-A16-research-evidence-closure.patch, coordination/release-intake/archive/codex-A16-research-evidence-closure.untracked.txt, coordination/release-intake/archive/2026-06-30-A25-dirty-diverged-branch-archive-manifest.md, coordination/release-intake/archive/codex-A16-research-evidence-closure.dirty-diverged.ahead-log.txt, coordination/release-intake/archive/codex-A16-research-evidence-closure.dirty-diverged.diffstat.txt, coordination/release-intake/archive/codex-A16-research-evidence-closure.dirty-diverged.patch; approvedBy=<owner>; approvedAt=<ISO-8601>; notes=<scope, exact paths if discard/removal, and checks>."
+            ]
+          }
+        ],
+        "cleanupAuthorizedRows": 0,
+        "executableRows": 0
+      },
+      {
+        "order": 2,
+        "id": "wave01-package-resync-approvals",
+        "ownerAction": "Approve, reject, or defer the exact Wave 01 package-resync rows.",
+        "why": "These rows unblock the governance/package baseline before broader owner package closure can become reviewable.",
+        "rows": 7,
+        "approvalIds": [
+          "wave01-resync-01-tsconfig-json",
+          "wave01-resync-02-coordination-release-intake-2026-06-30-a25-dirty-tree-map-20260630t072027z-json",
+          "wave01-resync-03-coordination-release-intake-2026-06-30-a25-dirty-tree-map-20260630t072027z-md",
+          "wave01-resync-04-coordination-release-intake-2026-06-30-a25-dirty-tree-map-20260630t073137z-json",
+          "wave01-resync-05-coordination-release-intake-2026-06-30-a25-dirty-tree-map-20260630t073137z-md",
+          "wave01-resync-06-coordination-release-intake-2026-06-30-a25-dirty-tree-map-20260630t130221z-json",
+          "wave01-resync-07-coordination-release-intake-2026-06-30-a25-dirty-tree-map-20260630t130221z-md"
+        ],
+        "exactCommands": [
+          {
+            "approvalId": "wave01-resync-01-tsconfig-json",
+            "worktreePath": "/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A25-dirty-closure-governance",
+            "path": "tsconfig.json",
+            "selectedAction": "owner-approved-package-restore",
+            "exactCommand": "git restore --source=HEAD -- tsconfig.json",
+            "requiredAuthorizationText": "Authorize approvalId=wave01-resync-01-tsconfig-json; worktree=/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A25-dirty-closure-governance; path=tsconfig.json; selectedAction=owner-approved-package-restore; command=git restore --source=HEAD -- tsconfig.json; approvedBy=<owner>; approvedAt=<ISO-8601>; notes=<scope, evidence reviewed, accepted risk>"
+          },
+          {
+            "approvalId": "wave01-resync-02-coordination-release-intake-2026-06-30-a25-dirty-tree-map-20260630t072027z-json",
+            "worktreePath": "/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A25-dirty-closure-governance",
+            "path": "coordination/release-intake/2026-06-30-A25-dirty-tree-map-20260630T072027Z.json",
+            "selectedAction": "owner-approved-package-untracked-clean",
+            "exactCommand": "git clean -f -- coordination/release-intake/2026-06-30-A25-dirty-tree-map-20260630T072027Z.json",
+            "requiredAuthorizationText": "Authorize approvalId=wave01-resync-02-coordination-release-intake-2026-06-30-a25-dirty-tree-map-20260630t072027z-json; worktree=/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A25-dirty-closure-governance; path=coordination/release-intake/2026-06-30-A25-dirty-tree-map-20260630T072027Z.json; selectedAction=owner-approved-package-untracked-clean; command=git clean -f -- coordination/release-intake/2026-06-30-A25-dirty-tree-map-20260630T072027Z.json; approvedBy=<owner>; approvedAt=<ISO-8601>; notes=<scope, evidence reviewed, accepted risk>"
+          },
+          {
+            "approvalId": "wave01-resync-03-coordination-release-intake-2026-06-30-a25-dirty-tree-map-20260630t072027z-md",
+            "worktreePath": "/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A25-dirty-closure-governance",
+            "path": "coordination/release-intake/2026-06-30-A25-dirty-tree-map-20260630T072027Z.md",
+            "selectedAction": "owner-approved-package-untracked-clean",
+            "exactCommand": "git clean -f -- coordination/release-intake/2026-06-30-A25-dirty-tree-map-20260630T072027Z.md",
+            "requiredAuthorizationText": "Authorize approvalId=wave01-resync-03-coordination-release-intake-2026-06-30-a25-dirty-tree-map-20260630t072027z-md; worktree=/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A25-dirty-closure-governance; path=coordination/release-intake/2026-06-30-A25-dirty-tree-map-20260630T072027Z.md; selectedAction=owner-approved-package-untracked-clean; command=git clean -f -- coordination/release-intake/2026-06-30-A25-dirty-tree-map-20260630T072027Z.md; approvedBy=<owner>; approvedAt=<ISO-8601>; notes=<scope, evidence reviewed, accepted risk>"
+          },
+          {
+            "approvalId": "wave01-resync-04-coordination-release-intake-2026-06-30-a25-dirty-tree-map-20260630t073137z-json",
+            "worktreePath": "/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A25-dirty-closure-governance",
+            "path": "coordination/release-intake/2026-06-30-A25-dirty-tree-map-20260630T073137Z.json",
+            "selectedAction": "owner-approved-package-untracked-clean",
+            "exactCommand": "git clean -f -- coordination/release-intake/2026-06-30-A25-dirty-tree-map-20260630T073137Z.json",
+            "requiredAuthorizationText": "Authorize approvalId=wave01-resync-04-coordination-release-intake-2026-06-30-a25-dirty-tree-map-20260630t073137z-json; worktree=/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A25-dirty-closure-governance; path=coordination/release-intake/2026-06-30-A25-dirty-tree-map-20260630T073137Z.json; selectedAction=owner-approved-package-untracked-clean; command=git clean -f -- coordination/release-intake/2026-06-30-A25-dirty-tree-map-20260630T073137Z.json; approvedBy=<owner>; approvedAt=<ISO-8601>; notes=<scope, evidence reviewed, accepted risk>"
+          },
+          {
+            "approvalId": "wave01-resync-05-coordination-release-intake-2026-06-30-a25-dirty-tree-map-20260630t073137z-md",
+            "worktreePath": "/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A25-dirty-closure-governance",
+            "path": "coordination/release-intake/2026-06-30-A25-dirty-tree-map-20260630T073137Z.md",
+            "selectedAction": "owner-approved-package-untracked-clean",
+            "exactCommand": "git clean -f -- coordination/release-intake/2026-06-30-A25-dirty-tree-map-20260630T073137Z.md",
+            "requiredAuthorizationText": "Authorize approvalId=wave01-resync-05-coordination-release-intake-2026-06-30-a25-dirty-tree-map-20260630t073137z-md; worktree=/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A25-dirty-closure-governance; path=coordination/release-intake/2026-06-30-A25-dirty-tree-map-20260630T073137Z.md; selectedAction=owner-approved-package-untracked-clean; command=git clean -f -- coordination/release-intake/2026-06-30-A25-dirty-tree-map-20260630T073137Z.md; approvedBy=<owner>; approvedAt=<ISO-8601>; notes=<scope, evidence reviewed, accepted risk>"
+          },
+          {
+            "approvalId": "wave01-resync-06-coordination-release-intake-2026-06-30-a25-dirty-tree-map-20260630t130221z-json",
+            "worktreePath": "/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A25-dirty-closure-governance",
+            "path": "coordination/release-intake/2026-06-30-A25-dirty-tree-map-20260630T130221Z.json",
+            "selectedAction": "owner-approved-package-untracked-clean",
+            "exactCommand": "git clean -f -- coordination/release-intake/2026-06-30-A25-dirty-tree-map-20260630T130221Z.json",
+            "requiredAuthorizationText": "Authorize approvalId=wave01-resync-06-coordination-release-intake-2026-06-30-a25-dirty-tree-map-20260630t130221z-json; worktree=/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A25-dirty-closure-governance; path=coordination/release-intake/2026-06-30-A25-dirty-tree-map-20260630T130221Z.json; selectedAction=owner-approved-package-untracked-clean; command=git clean -f -- coordination/release-intake/2026-06-30-A25-dirty-tree-map-20260630T130221Z.json; approvedBy=<owner>; approvedAt=<ISO-8601>; notes=<scope, evidence reviewed, accepted risk>"
+          },
+          {
+            "approvalId": "wave01-resync-07-coordination-release-intake-2026-06-30-a25-dirty-tree-map-20260630t130221z-md",
+            "worktreePath": "/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A25-dirty-closure-governance",
+            "path": "coordination/release-intake/2026-06-30-A25-dirty-tree-map-20260630T130221Z.md",
+            "selectedAction": "owner-approved-package-untracked-clean",
+            "exactCommand": "git clean -f -- coordination/release-intake/2026-06-30-A25-dirty-tree-map-20260630T130221Z.md",
+            "requiredAuthorizationText": "Authorize approvalId=wave01-resync-07-coordination-release-intake-2026-06-30-a25-dirty-tree-map-20260630t130221z-md; worktree=/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A25-dirty-closure-governance; path=coordination/release-intake/2026-06-30-A25-dirty-tree-map-20260630T130221Z.md; selectedAction=owner-approved-package-untracked-clean; command=git clean -f -- coordination/release-intake/2026-06-30-A25-dirty-tree-map-20260630T130221Z.md; approvedBy=<owner>; approvedAt=<ISO-8601>; notes=<scope, evidence reviewed, accepted risk>"
+          }
+        ],
+        "cleanupAuthorizedRows": 0,
+        "executableRows": 0
+      },
+      {
+        "order": 3,
+        "id": "owner-package-blocker-report-records",
+        "ownerAction": "Ask each routed owner to either resolve blockers in its recommended worktree or record a concrete blocker report.",
+        "why": "Completion cannot advance while owner package checks remain red without scoped fixes or recorded blockers.",
+        "rows": 0,
+        "reportIds": [],
+        "agents": [],
+        "reports": [],
+        "cleanupAuthorizedRows": 0,
+        "executableRows": 0
+      },
+      {
+        "order": 4,
+        "id": "canonical-final-state-decisions",
+        "ownerAction": "Select final states for the remaining owner-package and physical-lifecycle rows only after package evidence is reviewed.",
+        "why": "Strict lifecycle and dirty-map zero require reviewed final states for owner packages and linked worktrees.",
+        "rows": 62,
+        "ownerPackageRows": 24,
+        "physicalLifecycleRows": 38,
+        "authorizationGroups": [
+          {
+            "approvalKind": "owner-package",
+            "rows": 24,
+            "approvalIds": [
+              "a25-git-hygiene-and-release-intake",
+              "a22-production-reliability-and-release-engineering",
+              "a06-visualization-lead",
+              "a12-backend-api-platform",
+              "a11-qa-and-release-quality",
+              "a10-tooling-docs-and-report",
+              "a05-lesson-lead",
+              "a21-content-pipeline-and-rag-operations",
+              "a04-practice-lead",
+              "a03-curriculum-roadmap-lead",
+              "a18-curriculum-qa-a21-content-pipeline",
+              "a13-teacher-console",
+              "a01-app-shell-lead",
+              "a02-dashboard-lead",
+              "a20-game-design-and-game-based-learning",
+              "a07-ai-tutor-lead",
+              "a08-state-and-analytics-lead",
+              "a15-adaptive-engine-lead",
+              "a14-parent-console",
+              "a16-research-and-learning-science",
+              "a24-illustration-exact-layer",
+              "a09-copy-i18n-accessibility",
+              "a17-gamification-and-motivation",
+              "a23-integration-and-promotion-lead"
+            ],
+            "owners": [
+              "A01 app shell lead",
+              "A02 dashboard lead",
+              "A03 curriculum roadmap lead",
+              "A04 practice lead",
+              "A05 lesson lead",
+              "A06 visualization lead",
+              "A07 AI tutor lead",
+              "A08 state and analytics lead",
+              "A09 copy, i18n, accessibility",
+              "A10 tooling, docs, and report",
+              "A11 QA and release quality",
+              "A12 backend/API platform",
+              "A13 teacher console",
+              "A14 parent console",
+              "A15 adaptive engine lead",
+              "A16 research and learning science",
+              "A17 gamification and motivation",
+              "A18 curriculum QA / A21 content pipeline",
+              "A20 game design and game-based learning",
+              "A21 content pipeline and RAG operations",
+              "A22 production reliability and release engineering",
+              "A23 integration and promotion lead",
+              "A24 illustration exact-layer",
+              "A25 git hygiene and release intake"
+            ],
+            "cleanupAuthorizedRows": 0,
+            "executableRows": 0
+          },
+          {
+            "approvalKind": "physical-lifecycle",
+            "rows": 38,
+            "approvalIds": [
+              "root-main",
+              "codex-a01-app-shell-closure",
+              "codex-a01-shell-lazy-load",
+              "codex-a02-a15-dashboard-adaptive-closure",
+              "codex-a03-roadmap-closure",
+              "codex-a04-practice-closure",
+              "codex-a05-lesson-checklist-p0",
+              "codex-a05-lesson-closure",
+              "codex-a05-lesson-pep-load",
+              "codex-a05-next-item-button-scroll",
+              "codex-a06-manim-three-closure",
+              "codex-a06-visualization-closure",
+              "codex-a07-a15-a08-ai-adaptive-types",
+              "codex-a07-ai-tutor-classroom-switches",
+              "codex-a07-ai-tutor-closure",
+              "codex-a08-a12-shared-contract-closure",
+              "codex-a09-copy-i18n-accessibility-closure",
+              "codex-a10-a22-a08-a12-a06-compose-20260628",
+              "codex-a10-a22-release-governance",
+              "codex-a11-fix-126-128-129",
+              "codex-a11-regression-evidence-closure",
+              "codex-a12-google-oauth-login",
+              "codex-a12-userstore-storage-contract",
+              "codex-a13-a14-console-closure",
+              "codex-a16-research-evidence-closure",
+              "codex-a17-a20-game-motivation-closure",
+              "codex-a18-a21-content-evidence-closure",
+              "codex-a19-vercel-postgres-region",
+              "codex-a22-missing-module-release-slice",
+              "codex-a22-next-15-5-19-audit",
+              "codex-a22-p1-release-hygiene-security",
+              "codex-a22-us-region-alignment",
+              "codex-a25-dirty-closure-governance",
+              "codex-a25-full-dirty-compose-verification",
+              "codex-a14-profile-avatar-save",
+              "codex-visualization-production-release",
+              "codex-california-practice-beta-clean",
+              "codex-s22-release-hygiene-2026-06-15"
+            ],
+            "owners": [
+              "A01",
+              "A02, A15",
+              "A03",
+              "A04",
+              "A05",
+              "A06",
+              "A06, A08, A10, A12, A22",
+              "A06, A22",
+              "A07",
+              "A07, A08, A15",
+              "A08, A12",
+              "A09",
+              "A10, A22",
+              "A11",
+              "A12",
+              "A13, A14",
+              "A14",
+              "A16",
+              "A17, A20",
+              "A18, A21",
+              "A19",
+              "A21, A18, A04, A22",
+              "A22",
+              "A22, A10",
+              "A25",
+              "A25, A10, A22, effective file owners"
+            ],
+            "cleanupAuthorizedRows": 0,
+            "executableRows": 0
+          }
+        ],
+        "cleanupAuthorizedRows": 0,
+        "executableRows": 0
+      },
+      {
+        "order": 5,
+        "id": "final-clean-source-verification",
+        "ownerAction": "Run final A22/A25/A11 release-source checks only after root status, dirty-map zero, and strict lifecycle are green.",
+        "why": "Dirty-root evidence cannot prove release readiness.",
+        "rows": 5,
+        "assignmentIds": [
+          "remaining-completion-release-source-clean",
+          "remaining-completion-worktree-lifecycle",
+          "remaining-completion-wave01-governance",
+          "remaining-completion-owner-packages",
+          "remaining-completion-final-release-source"
+        ],
+        "cleanupAuthorizedRows": 0,
+        "executableRows": 0
+      }
+    ],
+    "postInputValidationCommands": [
+      "node coordination/release-intake/assert-next-owner-authorizations-current.mjs",
+      "node coordination/release-intake/generate-next-owner-authorization-execution-preview.mjs",
+      "node coordination/release-intake/assert-next-owner-authorization-execution-preview-current.mjs",
+      "node coordination/release-intake/assert-owner-package-blocker-report-records-current.mjs",
+      "node coordination/release-intake/assert-owner-closure-input-readiness-current.mjs",
+      "node coordination/release-intake/refresh-dirty-worktree-remediation-evidence.mjs --reason \"owner critical path input verification\""
+    ],
+    "cleanupAuthorizedRows": 0,
+    "executableRows": 0
+  },
+  "readyOwnerPackageMergeCandidates": [
+    {
+      "candidateId": "wave-05-visualization-ai-runtime:a16-research-evidence",
+      "waveId": "wave-05-visualization-ai-runtime",
+      "packageId": "a16-research-evidence",
+      "packageName": "A16 research evidence",
+      "owners": [
+        "A16 research and learning science"
+      ],
+      "approvalIds": [
+        "a16-research-and-learning-science"
+      ],
+      "physicalLifecycleApprovalIds": [
+        "codex-a16-research-evidence-closure"
+      ],
+      "worktree": {
+        "path": "/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A16-research-evidence-closure",
+        "exists": true,
+        "branch": "codex/A16-research-evidence-closure",
+        "head": "cef544e09",
+        "statusSignature": "5c16bd55641262fe40be892952805688e66b2d56a11063c11279ccf867c4b9ef",
+        "nodeModulesPresent": true
+      },
+      "statusEntries": 6,
+      "coveredEntries": 6,
+      "uncoveredEntries": 0,
+      "checkCount": 0,
+      "failedChecks": 0,
+      "skippedChecks": 0,
+      "typeCheckErrorLines": 0,
+      "pathspecFiles": [
+        "coordination/release-intake/latest-A25-owner-a16-research-and-learning-science.pathspec"
+      ],
+      "pathspecChecksum": "5b370baf388a9116bf0951d86fe2b70582fefced82b19bed03dbb785d3aeb77e",
+      "reviewEvidence": {
+        "archivePrefix": "coordination/release-intake/archive/codex-A16-research-evidence-closure",
+        "requiresHumanReviewBeforeMerge": true,
+        "recommendedReviewOrder": [
+          "status",
+          "diffstat",
+          "patch",
+          "untracked",
+          "dirty-diverged ahead-log",
+          "dirty-diverged diffstat",
+          "dirty-diverged patch"
+        ],
+        "linkedWorktreeManifest": {
+          "path": "coordination/release-intake/archive/2026-06-30-A25-linked-worktree-archive-manifest.md",
+          "exists": true,
+          "lineCount": 47,
+          "sampleLines": [
+            "# 2026-06-30 A25 Linked Worktree Archive Manifest",
+            "",
+            "Generated: 2026-07-04T15:46:03.583Z",
+            "",
+            "Dirty map signature: `0ed815279a9afc7897df7ef48f2e250da494e4a227adc0a6da14547ba9048571`"
+          ]
+        },
+        "dirtyDivergedManifest": {
+          "path": "coordination/release-intake/archive/2026-06-30-A25-dirty-diverged-branch-archive-manifest.md",
+          "exists": true,
+          "lineCount": 36,
+          "sampleLines": [
+            "# 2026-06-30 A25 Dirty-Diverged Branch Archive Manifest",
+            "",
+            "Generated: 2026-07-04T15:46:03.583Z",
+            "",
+            "Dirty map signature: `0ed815279a9afc7897df7ef48f2e250da494e4a227adc0a6da14547ba9048571`"
+          ]
+        },
+        "status": {
+          "path": "coordination/release-intake/archive/codex-A16-research-evidence-closure.status.txt",
+          "exists": true,
+          "lineCount": 6,
+          "sampleLines": [
+            "?? coordination/research/2026-06-20-3blue1brown-skill-distillation-handbook.md",
+            "?? coordination/research/2026-06-20-3blue1brown-skill-distillation-handbook.provenance.md",
+            "?? coordination/research/2026-06-20-3blue1brown-style-visualization-effects-report.md",
+            "?? coordination/research/2026-06-21-ke-to-mais-behavior-event-dictionary.csv",
+            "?? coordination/research/2026-06-21-ke-to-mais-stealth-assessment-integration-spec.md",
+            "?? coordination/research/2026-06-21-ke-to-mais-stealth-assessment-integration-spec.provenance.md"
+          ]
+        },
+        "diffstat": {
+          "path": "coordination/release-intake/archive/codex-A16-research-evidence-closure.diffstat.txt",
+          "exists": true,
+          "lineCount": 1,
+          "sampleLines": [
+            "No tracked diff."
+          ]
+        },
+        "patch": {
+          "path": "coordination/release-intake/archive/codex-A16-research-evidence-closure.patch",
+          "exists": true,
+          "lineCount": 1,
+          "sampleLines": [
+            ""
+          ]
+        },
+        "untracked": {
+          "path": "coordination/release-intake/archive/codex-A16-research-evidence-closure.untracked.txt",
+          "exists": true,
+          "lineCount": 6,
+          "sampleLines": [
+            "coordination/research/2026-06-20-3blue1brown-skill-distillation-handbook.md",
+            "coordination/research/2026-06-20-3blue1brown-skill-distillation-handbook.provenance.md",
+            "coordination/research/2026-06-20-3blue1brown-style-visualization-effects-report.md",
+            "coordination/research/2026-06-21-ke-to-mais-behavior-event-dictionary.csv",
+            "coordination/research/2026-06-21-ke-to-mais-stealth-assessment-integration-spec.md",
+            "coordination/research/2026-06-21-ke-to-mais-stealth-assessment-integration-spec.provenance.md"
+          ]
+        },
+        "dirtyDivergedAheadLog": {
+          "path": "coordination/release-intake/archive/codex-A16-research-evidence-closure.dirty-diverged.ahead-log.txt",
+          "exists": true,
+          "lineCount": 1,
+          "sampleLines": [
+            "No ahead commits."
+          ]
+        },
+        "dirtyDivergedDiffstat": {
+          "path": "coordination/release-intake/archive/codex-A16-research-evidence-closure.dirty-diverged.diffstat.txt",
+          "exists": true,
+          "lineCount": 1,
+          "sampleLines": [
+            "No branch diff."
+          ]
+        },
+        "dirtyDivergedPatch": {
+          "path": "coordination/release-intake/archive/codex-A16-research-evidence-closure.dirty-diverged.patch",
+          "exists": true,
+          "lineCount": 1,
+          "sampleLines": [
+            ""
+          ]
+        },
+        "mergeGate": "Owner must review the archived status, diffstat, patch, untracked, and dirty-diverged evidence before recording owner-package and physical-lifecycle authorization."
+      },
+      "decisionChecklist": {
+        "purpose": "Convert this validated ready package into an explicit owner decision. This checklist does not authorize merge, cleanup, or execution.",
+        "readyForOwnerReview": true,
+        "requiredReviewInputs": [
+          {
+            "id": "owner-pathspec",
+            "path": "coordination/release-intake/latest-A25-owner-a16-research-and-learning-science.pathspec",
+            "exists": true,
+            "description": "Defines the owner-bounded file scope for the ready package."
+          },
+          {
+            "id": "owner-work-order",
+            "path": "coordination/release-intake/latest-A25-effective-work-order-a16-research-and-learning-science.md",
+            "exists": true,
+            "description": "Defines the owner work-order and package review context."
+          },
+          {
+            "id": "codex-A16-research-evidence-closure.status.txt",
+            "path": "coordination/release-intake/archive/codex-A16-research-evidence-closure.status.txt",
+            "exists": true,
+            "description": "Archived worktree evidence that must be reviewed before authorization."
+          },
+          {
+            "id": "codex-A16-research-evidence-closure.diffstat.txt",
+            "path": "coordination/release-intake/archive/codex-A16-research-evidence-closure.diffstat.txt",
+            "exists": true,
+            "description": "Archived worktree evidence that must be reviewed before authorization."
+          },
+          {
+            "id": "codex-A16-research-evidence-closure.patch",
+            "path": "coordination/release-intake/archive/codex-A16-research-evidence-closure.patch",
+            "exists": true,
+            "description": "Archived worktree evidence that must be reviewed before authorization."
+          },
+          {
+            "id": "codex-A16-research-evidence-closure.untracked.txt",
+            "path": "coordination/release-intake/archive/codex-A16-research-evidence-closure.untracked.txt",
+            "exists": true,
+            "description": "Archived worktree evidence that must be reviewed before authorization."
+          },
+          {
+            "id": "codex-A16-research-evidence-closure.dirty-diverged.ahead-log.txt",
+            "path": "coordination/release-intake/archive/codex-A16-research-evidence-closure.dirty-diverged.ahead-log.txt",
+            "exists": true,
+            "description": "Archived worktree evidence that must be reviewed before authorization."
+          },
+          {
+            "id": "codex-A16-research-evidence-closure.dirty-diverged.diffstat.txt",
+            "path": "coordination/release-intake/archive/codex-A16-research-evidence-closure.dirty-diverged.diffstat.txt",
+            "exists": true,
+            "description": "Archived worktree evidence that must be reviewed before authorization."
+          },
+          {
+            "id": "codex-A16-research-evidence-closure.dirty-diverged.patch",
+            "path": "coordination/release-intake/archive/codex-A16-research-evidence-closure.dirty-diverged.patch",
+            "exists": true,
+            "description": "Archived worktree evidence that must be reviewed before authorization."
+          }
+        ],
+        "reviewQuestions": [
+          "Do all status/untracked paths belong to the listed A16 research evidence owner scope?",
+          "Does the archived diffstat/patch confirm there is no tracked code change hidden in the candidate?",
+          "Is the intended final state an owner-approved reviewed commit, evidence archive, exact-path discard, or blocker?",
+          "Are both owner-package and physical-lifecycle approval IDs covered by the decision text?",
+          "Are the listed post-approval validation commands acceptable before any merge/cleanup action?"
+        ],
+        "allowedFinalStateDecisions": [
+          {
+            "approvalId": "a16-research-and-learning-science",
+            "decisionKind": "owner-package",
+            "allowedFinalStates": [
+              "reviewed commit",
+              "owner-approved exact-path discard",
+              "evidence archive",
+              "blocker"
+            ],
+            "mustNameEvidenceReviewed": true
+          },
+          {
+            "approvalId": "codex-a16-research-evidence-closure",
+            "decisionKind": "physical-lifecycle",
+            "allowedFinalStates": [
+              "one allowed final state in the physical lifecycle request"
+            ],
+            "mustNameEvidenceReviewed": true
+          }
+        ],
+        "postApprovalValidationCommands": [
+          "node coordination/release-intake/review-owner-pathspec.mjs coordination/release-intake/latest-A25-effective-owner-a16-research-and-learning-science.pathspec --status",
+          "npm run release:dirty-map -- --reason \"A25 post-owner-approval a16-research-and-learning-science\"",
+          "node coordination/release-intake/assert-owner-package-approval-requests-current.mjs",
+          "node coordination/release-intake/assert-dirty-worktree-remediation-current.mjs",
+          "node coordination/release-intake/worktree-hygiene-dashboard.mjs",
+          "npm run release:dirty-map -- --reason \"A25 post-physical-approval codex-a16-research-evidence-closure\"",
+          "node coordination/release-intake/assert-physical-lifecycle-approval-requests-current.mjs",
+          "node coordination/release-intake/assert-worktree-lifecycle.mjs"
+        ],
+        "mustRemainFalseUntilSeparateAuthorization": {
+          "mergeAuthorized": false,
+          "cleanupAuthorized": false,
+          "executableNow": false
+        }
+      },
+      "requiredAuthorizationTexts": [
+        "Authorize approvalId=a16-research-and-learning-science for owner=A16 research and learning science; selectedFinalState=<reviewed commit | owner-approved exact-path discard | evidence archive | blocker>; evidenceReviewed=coordination/release-intake/latest-A25-effective-owner-a16-research-and-learning-science.pathspec, coordination/release-intake/latest-A25-effective-work-order-a16-research-and-learning-science.md; approvedBy=<owner>; approvedAt=<ISO-8601>; notes=<scope and checks>.",
+        "Authorize approvalId=codex-a16-research-evidence-closure for branch=codex/A16-research-evidence-closure; selectedFinalState=<one allowed final state in the physical lifecycle request>; evidenceReviewed=coordination/release-intake/archive/2026-06-30-A25-linked-worktree-archive-manifest.md, coordination/release-intake/archive/codex-A16-research-evidence-closure.status.txt, coordination/release-intake/archive/codex-A16-research-evidence-closure.diffstat.txt, coordination/release-intake/archive/codex-A16-research-evidence-closure.patch, coordination/release-intake/archive/codex-A16-research-evidence-closure.untracked.txt, coordination/release-intake/archive/2026-06-30-A25-dirty-diverged-branch-archive-manifest.md, coordination/release-intake/archive/codex-A16-research-evidence-closure.dirty-diverged.ahead-log.txt, coordination/release-intake/archive/codex-A16-research-evidence-closure.dirty-diverged.diffstat.txt, coordination/release-intake/archive/codex-A16-research-evidence-closure.dirty-diverged.patch; approvedBy=<owner>; approvedAt=<ISO-8601>; notes=<scope, exact paths if discard/removal, and checks>."
+      ],
+      "postApprovalChecks": [
+        "node coordination/release-intake/review-owner-pathspec.mjs coordination/release-intake/latest-A25-effective-owner-a16-research-and-learning-science.pathspec --status",
+        "npm run release:dirty-map -- --reason \"A25 post-owner-approval a16-research-and-learning-science\"",
+        "node coordination/release-intake/assert-owner-package-approval-requests-current.mjs",
+        "node coordination/release-intake/assert-dirty-worktree-remediation-current.mjs",
+        "node coordination/release-intake/worktree-hygiene-dashboard.mjs",
+        "npm run release:dirty-map -- --reason \"A25 post-physical-approval codex-a16-research-evidence-closure\"",
+        "node coordination/release-intake/assert-physical-lifecycle-approval-requests-current.mjs",
+        "node coordination/release-intake/assert-worktree-lifecycle.mjs"
+      ],
+      "recommendedOwnerAction": "Review this ready owner package as the first merge-candidate after Wave 01/package authorization decisions.",
+      "mergeAuthorized": false,
+      "cleanupAuthorized": false,
+      "executableNow": false
+    }
+  ],
+  "wave01PackageResyncApprovals": [
+    {
+      "approvalId": "wave01-resync-01-tsconfig-json",
+      "owner": "A10 tooling, docs, and report",
+      "subject": "tsconfig.json",
+      "path": "tsconfig.json",
+      "branch": "codex/A25-dirty-closure-governance",
+      "worktreePath": "/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A25-dirty-closure-governance",
+      "selectedAction": "owner-approved-package-restore",
+      "exactCommand": "git restore --source=HEAD -- tsconfig.json",
+      "requiredAuthorizationText": "Authorize approvalId=wave01-resync-01-tsconfig-json; worktree=/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A25-dirty-closure-governance; path=tsconfig.json; selectedAction=owner-approved-package-restore; command=git restore --source=HEAD -- tsconfig.json; approvedBy=<owner>; approvedAt=<ISO-8601>; notes=<scope, evidence reviewed, accepted risk>",
+      "evidence": [
+        "coordination/release-intake/latest-A25-wave01-package-resync-approval-requests.json",
+        "coordination/release-intake/latest-A25-wave01-package-resync-execution-packet.json",
+        "coordination/release-intake/latest-A25-wave01-package-resync-owner-authorization-template.json"
+      ],
+      "postApprovalChecks": [
+        "node coordination/release-intake/generate-wave01-governance-readiness.mjs",
+        "node coordination/release-intake/assert-wave01-governance-readiness-current.mjs",
+        "node coordination/release-intake/generate-wave01-package-resync-approval-requests.mjs",
+        "node coordination/release-intake/assert-wave01-package-resync-approval-requests-current.mjs",
+        "node coordination/release-intake/assert-dirty-worktree-remediation-current.mjs"
+      ],
+      "cleanupAuthorized": false,
+      "executableNow": false
+    },
+    {
+      "approvalId": "wave01-resync-02-coordination-release-intake-2026-06-30-a25-dirty-tree-map-20260630t072027z-json",
+      "owner": "A25 git hygiene and release intake",
+      "subject": "coordination/release-intake/2026-06-30-A25-dirty-tree-map-20260630T072027Z.json",
+      "path": "coordination/release-intake/2026-06-30-A25-dirty-tree-map-20260630T072027Z.json",
+      "branch": "codex/A25-dirty-closure-governance",
+      "worktreePath": "/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A25-dirty-closure-governance",
+      "selectedAction": "owner-approved-package-untracked-clean",
+      "exactCommand": "git clean -f -- coordination/release-intake/2026-06-30-A25-dirty-tree-map-20260630T072027Z.json",
+      "requiredAuthorizationText": "Authorize approvalId=wave01-resync-02-coordination-release-intake-2026-06-30-a25-dirty-tree-map-20260630t072027z-json; worktree=/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A25-dirty-closure-governance; path=coordination/release-intake/2026-06-30-A25-dirty-tree-map-20260630T072027Z.json; selectedAction=owner-approved-package-untracked-clean; command=git clean -f -- coordination/release-intake/2026-06-30-A25-dirty-tree-map-20260630T072027Z.json; approvedBy=<owner>; approvedAt=<ISO-8601>; notes=<scope, evidence reviewed, accepted risk>",
+      "evidence": [
+        "coordination/release-intake/latest-A25-wave01-package-resync-approval-requests.json",
+        "coordination/release-intake/latest-A25-wave01-package-resync-execution-packet.json",
+        "coordination/release-intake/latest-A25-wave01-package-resync-owner-authorization-template.json"
+      ],
+      "postApprovalChecks": [
+        "node coordination/release-intake/generate-wave01-governance-readiness.mjs",
+        "node coordination/release-intake/assert-wave01-governance-readiness-current.mjs",
+        "node coordination/release-intake/generate-wave01-package-resync-approval-requests.mjs",
+        "node coordination/release-intake/assert-wave01-package-resync-approval-requests-current.mjs",
+        "node coordination/release-intake/assert-dirty-worktree-remediation-current.mjs"
+      ],
+      "cleanupAuthorized": false,
+      "executableNow": false
+    },
+    {
+      "approvalId": "wave01-resync-03-coordination-release-intake-2026-06-30-a25-dirty-tree-map-20260630t072027z-md",
+      "owner": "A25 git hygiene and release intake",
+      "subject": "coordination/release-intake/2026-06-30-A25-dirty-tree-map-20260630T072027Z.md",
+      "path": "coordination/release-intake/2026-06-30-A25-dirty-tree-map-20260630T072027Z.md",
+      "branch": "codex/A25-dirty-closure-governance",
+      "worktreePath": "/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A25-dirty-closure-governance",
+      "selectedAction": "owner-approved-package-untracked-clean",
+      "exactCommand": "git clean -f -- coordination/release-intake/2026-06-30-A25-dirty-tree-map-20260630T072027Z.md",
+      "requiredAuthorizationText": "Authorize approvalId=wave01-resync-03-coordination-release-intake-2026-06-30-a25-dirty-tree-map-20260630t072027z-md; worktree=/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A25-dirty-closure-governance; path=coordination/release-intake/2026-06-30-A25-dirty-tree-map-20260630T072027Z.md; selectedAction=owner-approved-package-untracked-clean; command=git clean -f -- coordination/release-intake/2026-06-30-A25-dirty-tree-map-20260630T072027Z.md; approvedBy=<owner>; approvedAt=<ISO-8601>; notes=<scope, evidence reviewed, accepted risk>",
+      "evidence": [
+        "coordination/release-intake/latest-A25-wave01-package-resync-approval-requests.json",
+        "coordination/release-intake/latest-A25-wave01-package-resync-execution-packet.json",
+        "coordination/release-intake/latest-A25-wave01-package-resync-owner-authorization-template.json"
+      ],
+      "postApprovalChecks": [
+        "node coordination/release-intake/generate-wave01-governance-readiness.mjs",
+        "node coordination/release-intake/assert-wave01-governance-readiness-current.mjs",
+        "node coordination/release-intake/generate-wave01-package-resync-approval-requests.mjs",
+        "node coordination/release-intake/assert-wave01-package-resync-approval-requests-current.mjs",
+        "node coordination/release-intake/assert-dirty-worktree-remediation-current.mjs"
+      ],
+      "cleanupAuthorized": false,
+      "executableNow": false
+    },
+    {
+      "approvalId": "wave01-resync-04-coordination-release-intake-2026-06-30-a25-dirty-tree-map-20260630t073137z-json",
+      "owner": "A25 git hygiene and release intake",
+      "subject": "coordination/release-intake/2026-06-30-A25-dirty-tree-map-20260630T073137Z.json",
+      "path": "coordination/release-intake/2026-06-30-A25-dirty-tree-map-20260630T073137Z.json",
+      "branch": "codex/A25-dirty-closure-governance",
+      "worktreePath": "/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A25-dirty-closure-governance",
+      "selectedAction": "owner-approved-package-untracked-clean",
+      "exactCommand": "git clean -f -- coordination/release-intake/2026-06-30-A25-dirty-tree-map-20260630T073137Z.json",
+      "requiredAuthorizationText": "Authorize approvalId=wave01-resync-04-coordination-release-intake-2026-06-30-a25-dirty-tree-map-20260630t073137z-json; worktree=/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A25-dirty-closure-governance; path=coordination/release-intake/2026-06-30-A25-dirty-tree-map-20260630T073137Z.json; selectedAction=owner-approved-package-untracked-clean; command=git clean -f -- coordination/release-intake/2026-06-30-A25-dirty-tree-map-20260630T073137Z.json; approvedBy=<owner>; approvedAt=<ISO-8601>; notes=<scope, evidence reviewed, accepted risk>",
+      "evidence": [
+        "coordination/release-intake/latest-A25-wave01-package-resync-approval-requests.json",
+        "coordination/release-intake/latest-A25-wave01-package-resync-execution-packet.json",
+        "coordination/release-intake/latest-A25-wave01-package-resync-owner-authorization-template.json"
+      ],
+      "postApprovalChecks": [
+        "node coordination/release-intake/generate-wave01-governance-readiness.mjs",
+        "node coordination/release-intake/assert-wave01-governance-readiness-current.mjs",
+        "node coordination/release-intake/generate-wave01-package-resync-approval-requests.mjs",
+        "node coordination/release-intake/assert-wave01-package-resync-approval-requests-current.mjs",
+        "node coordination/release-intake/assert-dirty-worktree-remediation-current.mjs"
+      ],
+      "cleanupAuthorized": false,
+      "executableNow": false
+    },
+    {
+      "approvalId": "wave01-resync-05-coordination-release-intake-2026-06-30-a25-dirty-tree-map-20260630t073137z-md",
+      "owner": "A25 git hygiene and release intake",
+      "subject": "coordination/release-intake/2026-06-30-A25-dirty-tree-map-20260630T073137Z.md",
+      "path": "coordination/release-intake/2026-06-30-A25-dirty-tree-map-20260630T073137Z.md",
+      "branch": "codex/A25-dirty-closure-governance",
+      "worktreePath": "/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A25-dirty-closure-governance",
+      "selectedAction": "owner-approved-package-untracked-clean",
+      "exactCommand": "git clean -f -- coordination/release-intake/2026-06-30-A25-dirty-tree-map-20260630T073137Z.md",
+      "requiredAuthorizationText": "Authorize approvalId=wave01-resync-05-coordination-release-intake-2026-06-30-a25-dirty-tree-map-20260630t073137z-md; worktree=/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A25-dirty-closure-governance; path=coordination/release-intake/2026-06-30-A25-dirty-tree-map-20260630T073137Z.md; selectedAction=owner-approved-package-untracked-clean; command=git clean -f -- coordination/release-intake/2026-06-30-A25-dirty-tree-map-20260630T073137Z.md; approvedBy=<owner>; approvedAt=<ISO-8601>; notes=<scope, evidence reviewed, accepted risk>",
+      "evidence": [
+        "coordination/release-intake/latest-A25-wave01-package-resync-approval-requests.json",
+        "coordination/release-intake/latest-A25-wave01-package-resync-execution-packet.json",
+        "coordination/release-intake/latest-A25-wave01-package-resync-owner-authorization-template.json"
+      ],
+      "postApprovalChecks": [
+        "node coordination/release-intake/generate-wave01-governance-readiness.mjs",
+        "node coordination/release-intake/assert-wave01-governance-readiness-current.mjs",
+        "node coordination/release-intake/generate-wave01-package-resync-approval-requests.mjs",
+        "node coordination/release-intake/assert-wave01-package-resync-approval-requests-current.mjs",
+        "node coordination/release-intake/assert-dirty-worktree-remediation-current.mjs"
+      ],
+      "cleanupAuthorized": false,
+      "executableNow": false
+    },
+    {
+      "approvalId": "wave01-resync-06-coordination-release-intake-2026-06-30-a25-dirty-tree-map-20260630t130221z-json",
+      "owner": "A25 git hygiene and release intake",
+      "subject": "coordination/release-intake/2026-06-30-A25-dirty-tree-map-20260630T130221Z.json",
+      "path": "coordination/release-intake/2026-06-30-A25-dirty-tree-map-20260630T130221Z.json",
+      "branch": "codex/A25-dirty-closure-governance",
+      "worktreePath": "/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A25-dirty-closure-governance",
+      "selectedAction": "owner-approved-package-untracked-clean",
+      "exactCommand": "git clean -f -- coordination/release-intake/2026-06-30-A25-dirty-tree-map-20260630T130221Z.json",
+      "requiredAuthorizationText": "Authorize approvalId=wave01-resync-06-coordination-release-intake-2026-06-30-a25-dirty-tree-map-20260630t130221z-json; worktree=/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A25-dirty-closure-governance; path=coordination/release-intake/2026-06-30-A25-dirty-tree-map-20260630T130221Z.json; selectedAction=owner-approved-package-untracked-clean; command=git clean -f -- coordination/release-intake/2026-06-30-A25-dirty-tree-map-20260630T130221Z.json; approvedBy=<owner>; approvedAt=<ISO-8601>; notes=<scope, evidence reviewed, accepted risk>",
+      "evidence": [
+        "coordination/release-intake/latest-A25-wave01-package-resync-approval-requests.json",
+        "coordination/release-intake/latest-A25-wave01-package-resync-execution-packet.json",
+        "coordination/release-intake/latest-A25-wave01-package-resync-owner-authorization-template.json"
+      ],
+      "postApprovalChecks": [
+        "node coordination/release-intake/generate-wave01-governance-readiness.mjs",
+        "node coordination/release-intake/assert-wave01-governance-readiness-current.mjs",
+        "node coordination/release-intake/generate-wave01-package-resync-approval-requests.mjs",
+        "node coordination/release-intake/assert-wave01-package-resync-approval-requests-current.mjs",
+        "node coordination/release-intake/assert-dirty-worktree-remediation-current.mjs"
+      ],
+      "cleanupAuthorized": false,
+      "executableNow": false
+    },
+    {
+      "approvalId": "wave01-resync-07-coordination-release-intake-2026-06-30-a25-dirty-tree-map-20260630t130221z-md",
+      "owner": "A25 git hygiene and release intake",
+      "subject": "coordination/release-intake/2026-06-30-A25-dirty-tree-map-20260630T130221Z.md",
+      "path": "coordination/release-intake/2026-06-30-A25-dirty-tree-map-20260630T130221Z.md",
+      "branch": "codex/A25-dirty-closure-governance",
+      "worktreePath": "/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A25-dirty-closure-governance",
+      "selectedAction": "owner-approved-package-untracked-clean",
+      "exactCommand": "git clean -f -- coordination/release-intake/2026-06-30-A25-dirty-tree-map-20260630T130221Z.md",
+      "requiredAuthorizationText": "Authorize approvalId=wave01-resync-07-coordination-release-intake-2026-06-30-a25-dirty-tree-map-20260630t130221z-md; worktree=/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A25-dirty-closure-governance; path=coordination/release-intake/2026-06-30-A25-dirty-tree-map-20260630T130221Z.md; selectedAction=owner-approved-package-untracked-clean; command=git clean -f -- coordination/release-intake/2026-06-30-A25-dirty-tree-map-20260630T130221Z.md; approvedBy=<owner>; approvedAt=<ISO-8601>; notes=<scope, evidence reviewed, accepted risk>",
+      "evidence": [
+        "coordination/release-intake/latest-A25-wave01-package-resync-approval-requests.json",
+        "coordination/release-intake/latest-A25-wave01-package-resync-execution-packet.json",
+        "coordination/release-intake/latest-A25-wave01-package-resync-owner-authorization-template.json"
+      ],
+      "postApprovalChecks": [
+        "node coordination/release-intake/generate-wave01-governance-readiness.mjs",
+        "node coordination/release-intake/assert-wave01-governance-readiness-current.mjs",
+        "node coordination/release-intake/generate-wave01-package-resync-approval-requests.mjs",
+        "node coordination/release-intake/assert-wave01-package-resync-approval-requests-current.mjs",
+        "node coordination/release-intake/assert-dirty-worktree-remediation-current.mjs"
+      ],
+      "cleanupAuthorized": false,
+      "executableNow": false
+    }
+  ],
+  "generatedArtifactResidualApprovals": [
+    {
+      "approvalId": "a22-generated-residual-tmp",
+      "approvalKind": "a22-generated-artifact-residual-cleanup",
+      "owner": "A22 production reliability and release engineering",
+      "supportingOwner": "A25 git hygiene and release intake",
+      "path": ".tmp",
+      "targetType": "directory",
+      "selectedAction": "owner-approved-generated-artifact-cleanup-script-apply",
+      "exactCommand": "node scripts/cleanup-generated-artifacts.mjs --apply --scope all",
+      "commandCwd": "/Users/dongpinhu/Desktop/MAIS-MVP",
+      "requiredAuthorizationText": "Authorize approvalId=a22-generated-residual-tmp; target=.tmp; selectedAction=owner-approved-generated-artifact-cleanup-script-apply; command=node scripts/cleanup-generated-artifacts.mjs --apply --scope all; evidenceReviewed=coordination/release-intake/latest-A22-generated-artifact-residual-evidence.json, coordination/release-intake/latest-A22-generated-artifact-residual-authorization-packet.json; approvedBy=<owner/A22>; approvedAt=<ISO-8601>; notes=<scope, evidence reviewed, accepted risk>",
+      "evidence": [
+        "coordination/release-intake/latest-A22-generated-artifact-residual-evidence.json",
+        "coordination/release-intake/latest-A25-dirty-tree-map.json"
+      ],
+      "preChecks": [
+        "node scripts/cleanup-generated-artifacts.mjs --dry-run",
+        "node coordination/release-intake/assert-a22-generated-artifact-residual-evidence-current.mjs",
+        "node coordination/release-intake/assert-no-staged-changes.mjs"
+      ],
+      "postApprovalChecks": [
+        "node coordination/release-intake/generate-a22-generated-artifact-residual-evidence.mjs",
+        "node coordination/release-intake/assert-a22-generated-artifact-residual-evidence-current.mjs",
+        "npm run release:dirty-map -- --reason \"A22 residual generated-artifact cleanup authorization post-check\" --no-report",
+        "node coordination/release-intake/refresh-dirty-worktree-remediation-evidence.mjs --reason \"A22 residual generated-artifact cleanup authorization post-check\"",
+        "node coordination/release-intake/assert-dirty-worktree-remediation-current.mjs",
+        "node coordination/release-intake/assert-no-staged-changes.mjs"
+      ],
+      "manifestSha256": "50d3d48b4be77f67b33b9c355e8bbdd7ba6452766b4eda1cfc0607e98965d44b",
+      "manifestBytes": 48405782949,
+      "dryRunBytes": 48405782949,
+      "cleanupAuthorized": false,
+      "executableNow": false
+    },
+    {
+      "approvalId": "a22-generated-residual-next",
+      "approvalKind": "a22-generated-artifact-residual-cleanup",
+      "owner": "A22 production reliability and release engineering",
+      "supportingOwner": "A25 git hygiene and release intake",
+      "path": ".next",
+      "targetType": "directory",
+      "selectedAction": "owner-approved-generated-artifact-cleanup-script-apply",
+      "exactCommand": "node scripts/cleanup-generated-artifacts.mjs --apply --scope all",
+      "commandCwd": "/Users/dongpinhu/Desktop/MAIS-MVP",
+      "requiredAuthorizationText": "Authorize approvalId=a22-generated-residual-next; target=.next; selectedAction=owner-approved-generated-artifact-cleanup-script-apply; command=node scripts/cleanup-generated-artifacts.mjs --apply --scope all; evidenceReviewed=coordination/release-intake/latest-A22-generated-artifact-residual-evidence.json, coordination/release-intake/latest-A22-generated-artifact-residual-authorization-packet.json; approvedBy=<owner/A22>; approvedAt=<ISO-8601>; notes=<scope, evidence reviewed, accepted risk>",
+      "evidence": [
+        "coordination/release-intake/latest-A22-generated-artifact-residual-evidence.json",
+        "coordination/release-intake/latest-A25-dirty-tree-map.json"
+      ],
+      "preChecks": [
+        "node scripts/cleanup-generated-artifacts.mjs --dry-run",
+        "node coordination/release-intake/assert-a22-generated-artifact-residual-evidence-current.mjs",
+        "node coordination/release-intake/assert-no-staged-changes.mjs"
+      ],
+      "postApprovalChecks": [
+        "node coordination/release-intake/generate-a22-generated-artifact-residual-evidence.mjs",
+        "node coordination/release-intake/assert-a22-generated-artifact-residual-evidence-current.mjs",
+        "npm run release:dirty-map -- --reason \"A22 residual generated-artifact cleanup authorization post-check\" --no-report",
+        "node coordination/release-intake/refresh-dirty-worktree-remediation-evidence.mjs --reason \"A22 residual generated-artifact cleanup authorization post-check\"",
+        "node coordination/release-intake/assert-dirty-worktree-remediation-current.mjs",
+        "node coordination/release-intake/assert-no-staged-changes.mjs"
+      ],
+      "manifestSha256": "c2a1554fe695b50b7c683da3e11e7ff282045bb0acb5da1341944e5f09326900",
+      "manifestBytes": 283436718,
+      "dryRunBytes": 283436718,
+      "cleanupAuthorized": false,
+      "executableNow": false
+    }
+  ],
+  "pendingOwnerBlockerReports": [],
+  "remainingCompletionAssignments": [
+    {
+      "assignmentId": "remaining-completion-release-source-clean",
+      "agentIds": [
+        "A22",
+        "A25",
+        "A10"
+      ],
+      "owner": "A22 release engineering with A25/A10 release-intake support",
+      "objective": "Make release-source clean possible without using dirty root as a deploy source.",
+      "nextActions": [
+        "Keep root main inventory-only until owner-package closure drains dirty entries.",
+        "Use clean worktree, clean clone, reviewed clean release slice, or owner-approved pruned staging only.",
+        "After package closure, rerun release-source clean and dirty-map zero gates."
+      ],
+      "blockerRows": [
+        {
+          "id": "root-status-clean",
+          "label": "Root git status is clean",
+          "status": "incomplete",
+          "blockingReasons": [],
+          "command": "git status --short",
+          "commandStatus": 0
+        },
+        {
+          "id": "dirty-map-current-and-zero",
+          "label": "Dirty map is current and reports zero expanded entries",
+          "status": "incomplete",
+          "blockingReasons": [],
+          "command": "npm run release:dirty-map -- --assert-current --max-age-minutes 60",
+          "commandStatus": 0
+        },
+        {
+          "id": "release-source-clean",
+          "label": "A22 release-source clean gate passes",
+          "status": "incomplete",
+          "blockingReasons": [],
+          "command": "node coordination/release-intake/assert-release-source-clean.mjs",
+          "commandStatus": 1
+        },
+        {
+          "id": "task-7-root-disposition",
+          "label": "Task 7 root dispositions",
+          "status": "blocked",
+          "blockingReasons": [
+            "Root dispositions are represented as blocker rows; no cleanup-authorized or executable root action exists."
+          ],
+          "command": "",
+          "commandStatus": null
+        }
+      ],
+      "cleanupAuthorized": false,
+      "executableNow": false
+    },
+    {
+      "assignmentId": "remaining-completion-worktree-lifecycle",
+      "agentIds": [
+        "A25",
+        "A22"
+      ],
+      "owner": "A25 git hygiene with A22 release-source consumer",
+      "objective": "Close strict worktree lifecycle decisions only after owner-reviewed package extraction, PR/review package, archive, retirement, or blocker decisions exist.",
+      "nextActions": [
+        "Use physical lifecycle approval rows as the source of truth.",
+        "Do not remove/prune worktrees or delete branches until exact owner authorization names the approval ID and command.",
+        "Rerun strict lifecycle only after every dirty or clean-diverged row has a reviewed final state."
+      ],
+      "blockerRows": [
+        {
+          "id": "strict-worktree-lifecycle",
+          "label": "A25 strict worktree lifecycle gate passes",
+          "status": "incomplete",
+          "blockingReasons": [],
+          "command": "node coordination/release-intake/assert-worktree-lifecycle.mjs --strict",
+          "commandStatus": null
+        },
+        {
+          "id": "task-8-linked-worktrees",
+          "label": "Task 8 linked worktree lifecycle closure",
+          "status": "incomplete",
+          "blockingReasons": [
+            "A25 strict worktree lifecycle gate passes"
+          ],
+          "command": "",
+          "commandStatus": null
+        }
+      ],
+      "cleanupAuthorized": false,
+      "executableNow": false
+    },
+    {
+      "assignmentId": "remaining-completion-wave01-governance",
+      "agentIds": [
+        "A25",
+        "A10",
+        "A22"
+      ],
+      "owner": "A25/A10/A22 governance and release-hygiene package",
+      "objective": "Make Wave 01 reviewable by resolving package-resync blockers and routing off-scope type-check failures.",
+      "nextActions": [
+        "Use Wave 01 resync authorization template for the 7 uncovered package-worktree rows.",
+        "Do not run restore/clean in the package worktree until the owner authorizes exact rows.",
+        "Keep off-scope type-check failures routed to owning feature/API sessions."
+      ],
+      "blockerRows": [
+        {
+          "id": "task-3-wave01",
+          "label": "Task 3 governance/release-hygiene package closure",
+          "status": "incomplete",
+          "blockingReasons": [
+            "7 package-only dirty entries need owner-approved package resync authorization",
+            "npm audit --audit-level=high failed",
+            "release helper tests failed",
+            "npm run type-check failed"
+          ],
+          "command": "",
+          "commandStatus": null
+        }
+      ],
+      "cleanupAuthorized": false,
+      "executableNow": false
+    },
+    {
+      "assignmentId": "remaining-completion-owner-packages",
+      "agentIds": [
+        "A01",
+        "A02",
+        "A03",
+        "A04",
+        "A05",
+        "A06",
+        "A07",
+        "A08",
+        "A11",
+        "A12",
+        "A13",
+        "A15",
+        "A18",
+        "A20",
+        "A21",
+        "A23",
+        "A24"
+      ],
+      "owner": "Routed owner package sessions",
+      "objective": "Resolve or formally block Wave 02-05 owner package readiness failures in isolated owner worktrees.",
+      "nextActions": [
+        "Consume latest-A25-owner-package-blocker-assignment-packet.json.",
+        "Fix only inside each owner allowed write scope, or write an owner-routed blocker report.",
+        "Return targeted checks so A25/A22/A11 can re-evaluate readiness."
+      ],
+      "blockerRows": [
+        {
+          "id": "task-4-wave02",
+          "label": "Task 4 shared contract/backend package closure",
+          "status": "incomplete",
+          "blockingReasons": [
+            "testAnalytics failed",
+            "testBackend failed",
+            "typeCheck failed",
+            "build failed"
+          ],
+          "command": "",
+          "commandStatus": null
+        },
+        {
+          "id": "task-5-waves03-05",
+          "label": "Task 5 runtime owner package closure",
+          "status": "incomplete",
+          "blockingReasons": [
+            "A01 app shell typeCheck failed",
+            "A01 app shell appShellPlaywright failed",
+            "A02/A15 dashboard adaptive testAnalytics failed",
+            "A02/A15 dashboard adaptive typeCheck failed",
+            "A02/A15 dashboard adaptive dashboardAdaptivePlaywright failed",
+            "A03 roadmap typeCheck failed",
+            "A03 roadmap roadmapPlaywright failed",
+            "A04 practice testQuestionBank failed",
+            "A04 practice typeCheck failed",
+            "A04 practice practicePlaywright failed",
+            "A05 lesson typeCheck failed",
+            "A05 lesson lessonPlaywright failed",
+            "A18/A21/A23/A24 content evidence has 110 dirty entries outside its pathspec union",
+            "A18/A21/A23/A24 content evidence testRag failed",
+            "A18/A21/A23/A24 content evidence testQuestionBank failed",
+            "A18/A21/A23/A24 content evidence typeCheck failed",
+            "A06 visualization typeCheck failed",
+            "A06 visualization visualizationNodeTests failed",
+            "A06 visualization visualizationPlaywright failed",
+            "A07 AI tutor typeCheck failed",
+            "A07 AI tutor aiTutorPlaywright failed",
+            "A09 copy/i18n/accessibility typeCheck failed",
+            "A11 regression evidence typeCheck failed",
+            "A11 regression evidence regressionPlaywright failed",
+            "A13/A14 console typeCheck failed",
+            "A13/A14 console consolePlaywright failed",
+            "A17/A20 games and motivation typeCheck failed",
+            "A17/A20 games and motivation gameMotivationPlaywright failed"
+          ],
+          "command": "",
+          "commandStatus": null
+        },
+        {
+          "id": "task-6-content-qa",
+          "label": "Task 6 content/RAG/QA evidence closure",
+          "status": "incomplete",
+          "blockingReasons": [
+            "A04 practice testQuestionBank failed",
+            "A04 practice typeCheck failed",
+            "A04 practice practicePlaywright failed",
+            "A05 lesson typeCheck failed",
+            "A05 lesson lessonPlaywright failed",
+            "A18/A21/A23/A24 content evidence has 110 dirty entries outside its pathspec union",
+            "A18/A21/A23/A24 content evidence testRag failed",
+            "A18/A21/A23/A24 content evidence testQuestionBank failed",
+            "A18/A21/A23/A24 content evidence typeCheck failed",
+            "A06 visualization typeCheck failed",
+            "A06 visualization visualizationNodeTests failed",
+            "A06 visualization visualizationPlaywright failed",
+            "A07 AI tutor typeCheck failed",
+            "A07 AI tutor aiTutorPlaywright failed",
+            "A09 copy/i18n/accessibility typeCheck failed",
+            "A11 regression evidence typeCheck failed",
+            "A11 regression evidence regressionPlaywright failed",
+            "A13/A14 console typeCheck failed",
+            "A13/A14 console consolePlaywright failed",
+            "A17/A20 games and motivation typeCheck failed",
+            "A17/A20 games and motivation gameMotivationPlaywright failed"
+          ],
+          "command": "",
+          "commandStatus": null
+        }
+      ],
+      "cleanupAuthorized": false,
+      "executableNow": false
+    },
+    {
+      "assignmentId": "remaining-completion-final-release-source",
+      "agentIds": [
+        "A22",
+        "A25",
+        "A11"
+      ],
+      "owner": "A22 release engineering with A25 release intake and A11 regression quality",
+      "objective": "Run final release-source and regression verification only after root and lifecycle closure are complete.",
+      "nextActions": [
+        "Wait for root status zero, dirty-map zero, release-source clean, and strict lifecycle green.",
+        "Then run A22 clean-source build gate and A11 targeted regression.",
+        "Do not treat current dirty-root checks as release evidence."
+      ],
+      "blockerRows": [
+        {
+          "id": "task-9-final-release-source",
+          "label": "Task 9 final release-source verification",
+          "status": "incomplete",
+          "blockingReasons": [
+            "Root git status is clean",
+            "Dirty map is current and reports zero expanded entries",
+            "A22 release-source clean gate passes",
+            "A25 strict worktree lifecycle gate passes"
+          ],
+          "command": "",
+          "commandStatus": null
+        }
+      ],
+      "cleanupAuthorized": false,
+      "executableNow": false
+    }
+  ]
+}

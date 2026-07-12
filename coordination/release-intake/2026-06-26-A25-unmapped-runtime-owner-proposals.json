@@ -1,0 +1,1318 @@
+{
+  "generatedAt": "2026-06-26T11:15:03.877Z",
+  "dirtyMap": {
+    "latestJson": "coordination/release-intake/latest-A25-dirty-tree-map.json",
+    "generatedAt": "2026-06-26T11:14:52.368Z",
+    "statusSignature": "ad33e80de3e1e213eaec9b4d2357a4bb9dfe72de91ba552e65c8ff0679e28c50"
+  },
+  "sourceOwner": "Unmapped runtime owner review needed",
+  "sourceCount": 100,
+  "proposalBuckets": {
+    "A03 curriculum roadmap lead": 22,
+    "A04 practice lead": 22,
+    "A05 lesson lead": 17,
+    "A12 backend/API platform": 9,
+    "A01 app shell lead": 5,
+    "A15 adaptive engine lead": 5,
+    "A02 dashboard lead": 4,
+    "A08 state and analytics lead": 4,
+    "A09 copy, i18n, accessibility": 4,
+    "A20 game design and game-based learning": 3,
+    "A14 parent console": 2,
+    "A06 visualization lead": 1,
+    "A11 QA and release quality": 1,
+    "A18 curriculum QA / A21 content pipeline": 1
+  },
+  "confidenceBuckets": {
+    "high": 74,
+    "medium": 26
+  },
+  "proposals": [
+    {
+      "status": " M",
+      "path": "app/adaptive-learning/loading.tsx",
+      "owner": "Unmapped runtime owner review needed",
+      "slice": "runtime app/API/data/public",
+      "proposedOwner": "A15 adaptive engine lead",
+      "coordination": [
+        "A02 dashboard lead",
+        "A08 state and analytics lead"
+      ],
+      "confidence": "medium",
+      "rationale": "Adaptive/personalized learning surface should be routed through A15, with UI/state coordination."
+    },
+    {
+      "status": " M",
+      "path": "app/adaptive-learning/page.tsx",
+      "owner": "Unmapped runtime owner review needed",
+      "slice": "runtime app/API/data/public",
+      "proposedOwner": "A15 adaptive engine lead",
+      "coordination": [
+        "A02 dashboard lead",
+        "A08 state and analytics lead"
+      ],
+      "confidence": "medium",
+      "rationale": "Adaptive/personalized learning surface should be routed through A15, with UI/state coordination."
+    },
+    {
+      "status": " M",
+      "path": "app/assessment/[assessmentId]/page.tsx",
+      "owner": "Unmapped runtime owner review needed",
+      "slice": "runtime app/API/data/public",
+      "proposedOwner": "A02 dashboard lead",
+      "coordination": [
+        "A13 teacher console",
+        "A12 backend/API platform",
+        "A11 QA and release quality"
+      ],
+      "confidence": "medium",
+      "rationale": "Student assessment/assignment UI is launched from dashboard student-work surfaces and coordinates with teacher operations/API contracts."
+    },
+    {
+      "status": " M",
+      "path": "app/icon.png",
+      "owner": "Unmapped runtime owner review needed",
+      "slice": "runtime app/API/data/public",
+      "proposedOwner": "A01 app shell lead",
+      "coordination": [
+        "A10 tooling/docs/report",
+        "A22 production reliability if release metadata affected"
+      ],
+      "confidence": "medium",
+      "rationale": "App icons and robots metadata are app-shell/release-surface assets."
+    },
+    {
+      "status": " M",
+      "path": "app/messages/page.tsx",
+      "owner": "Unmapped runtime owner review needed",
+      "slice": "runtime app/API/data/public",
+      "proposedOwner": "A14 parent console",
+      "coordination": [
+        "A12 backend/API platform",
+        "A13 teacher console"
+      ],
+      "confidence": "medium",
+      "rationale": "Messages overlap parent/teacher communication; A14 should lead UI ownership with A12/A13 coordination."
+    },
+    {
+      "status": " M",
+      "path": "components/math/MathText.tsx",
+      "owner": "Unmapped runtime owner review needed",
+      "slice": "runtime app/API/data/public",
+      "proposedOwner": "A09 copy, i18n, accessibility",
+      "coordination": [
+        "A04 practice lead",
+        "A05 lesson lead",
+        "A18 curriculum QA and content quality lead"
+      ],
+      "confidence": "medium",
+      "rationale": "Math text rendering and normalization affect copy/accessibility and content display; A09 should triage with content-surface owners."
+    },
+    {
+      "status": " M",
+      "path": "components/providers/AppProviders.tsx",
+      "owner": "Unmapped runtime owner review needed",
+      "slice": "runtime app/API/data/public",
+      "proposedOwner": "A08 state and analytics lead",
+      "coordination": [
+        "A10 tooling/docs/report"
+      ],
+      "confidence": "high",
+      "rationale": "Shared provider/state boundary is A08-owned by coordination contract."
+    },
+    {
+      "status": " M",
+      "path": "components/ui/CurriculumTrackSelector.tsx",
+      "owner": "Unmapped runtime owner review needed",
+      "slice": "runtime app/API/data/public",
+      "proposedOwner": "A03 curriculum roadmap lead",
+      "coordination": [
+        "A18 curriculum QA and content quality lead"
+      ],
+      "confidence": "high",
+      "rationale": "Grade/topic/roadmap structures map to A03."
+    },
+    {
+      "status": " M",
+      "path": "components/ui/GradeSelector.tsx",
+      "owner": "Unmapped runtime owner review needed",
+      "slice": "runtime app/API/data/public",
+      "proposedOwner": "A03 curriculum roadmap lead",
+      "coordination": [
+        "A18 curriculum QA and content quality lead"
+      ],
+      "confidence": "high",
+      "rationale": "Grade/topic/roadmap structures map to A03."
+    },
+    {
+      "status": " M",
+      "path": "data/grades.ts",
+      "owner": "Unmapped runtime owner review needed",
+      "slice": "runtime app/API/data/public",
+      "proposedOwner": "A03 curriculum roadmap lead",
+      "coordination": [
+        "A18 curriculum QA and content quality lead"
+      ],
+      "confidence": "high",
+      "rationale": "Grade/topic/roadmap structures map to A03."
+    },
+    {
+      "status": " M",
+      "path": "data/hkChineseExceptions.ts",
+      "owner": "Unmapped runtime owner review needed",
+      "slice": "runtime app/API/data/public",
+      "proposedOwner": "A09 copy, i18n, accessibility",
+      "coordination": [
+        "A18 curriculum QA and content quality lead"
+      ],
+      "confidence": "high",
+      "rationale": "Chinese glossary/exception copy is an A09 bilingual terminology surface."
+    },
+    {
+      "status": " M",
+      "path": "data/hkChineseGlossary.ts",
+      "owner": "Unmapped runtime owner review needed",
+      "slice": "runtime app/API/data/public",
+      "proposedOwner": "A09 copy, i18n, accessibility",
+      "coordination": [
+        "A18 curriculum QA and content quality lead"
+      ],
+      "confidence": "high",
+      "rationale": "Chinese glossary/exception copy is an A09 bilingual terminology surface."
+    },
+    {
+      "status": " M",
+      "path": "data/lessons.ts",
+      "owner": "Unmapped runtime owner review needed",
+      "slice": "runtime app/API/data/public",
+      "proposedOwner": "A05 lesson lead",
+      "coordination": [
+        "A18 curriculum QA and content quality lead",
+        "A21 content pipeline and RAG operations"
+      ],
+      "confidence": "high",
+      "rationale": "Lesson source/link/illustration data maps to A05 with A18/A21 content coordination."
+    },
+    {
+      "status": " M",
+      "path": "data/mainlandBnuHighQuestions.ts",
+      "owner": "Unmapped runtime owner review needed",
+      "slice": "runtime app/API/data/public",
+      "proposedOwner": "A04 practice lead",
+      "coordination": [
+        "A18 curriculum QA and content quality lead",
+        "A21 content pipeline and RAG operations"
+      ],
+      "confidence": "high",
+      "rationale": "Question bank and solvability checks are A04-led with A18/A21 content coordination."
+    },
+    {
+      "status": " M",
+      "path": "data/mainlandBnuHighTopics.ts",
+      "owner": "Unmapped runtime owner review needed",
+      "slice": "runtime app/API/data/public",
+      "proposedOwner": "A03 curriculum roadmap lead",
+      "coordination": [
+        "A18 curriculum QA and content quality lead"
+      ],
+      "confidence": "high",
+      "rationale": "Grade/topic/roadmap structures map to A03."
+    },
+    {
+      "status": " M",
+      "path": "data/mainlandBnuJuniorQuestions.ts",
+      "owner": "Unmapped runtime owner review needed",
+      "slice": "runtime app/API/data/public",
+      "proposedOwner": "A04 practice lead",
+      "coordination": [
+        "A18 curriculum QA and content quality lead",
+        "A21 content pipeline and RAG operations"
+      ],
+      "confidence": "high",
+      "rationale": "Question bank and solvability checks are A04-led with A18/A21 content coordination."
+    },
+    {
+      "status": " M",
+      "path": "data/mainlandBnuJuniorTopics.ts",
+      "owner": "Unmapped runtime owner review needed",
+      "slice": "runtime app/API/data/public",
+      "proposedOwner": "A03 curriculum roadmap lead",
+      "coordination": [
+        "A18 curriculum QA and content quality lead"
+      ],
+      "confidence": "high",
+      "rationale": "Grade/topic/roadmap structures map to A03."
+    },
+    {
+      "status": " M",
+      "path": "data/mainlandBnuPrimaryLessons.ts",
+      "owner": "Unmapped runtime owner review needed",
+      "slice": "runtime app/API/data/public",
+      "proposedOwner": "A05 lesson lead",
+      "coordination": [
+        "A18 curriculum QA and content quality lead",
+        "A21 content pipeline and RAG operations"
+      ],
+      "confidence": "high",
+      "rationale": "Lesson source/link/illustration data maps to A05 with A18/A21 content coordination."
+    },
+    {
+      "status": " M",
+      "path": "data/mainlandBnuPrimaryQuestions.ts",
+      "owner": "Unmapped runtime owner review needed",
+      "slice": "runtime app/API/data/public",
+      "proposedOwner": "A04 practice lead",
+      "coordination": [
+        "A18 curriculum QA and content quality lead",
+        "A21 content pipeline and RAG operations"
+      ],
+      "confidence": "high",
+      "rationale": "Question bank and solvability checks are A04-led with A18/A21 content coordination."
+    },
+    {
+      "status": " M",
+      "path": "data/mainlandBnuPrimaryTopics.ts",
+      "owner": "Unmapped runtime owner review needed",
+      "slice": "runtime app/API/data/public",
+      "proposedOwner": "A03 curriculum roadmap lead",
+      "coordination": [
+        "A18 curriculum QA and content quality lead"
+      ],
+      "confidence": "high",
+      "rationale": "Grade/topic/roadmap structures map to A03."
+    },
+    {
+      "status": " M",
+      "path": "data/mainlandHjbHighLessons.ts",
+      "owner": "Unmapped runtime owner review needed",
+      "slice": "runtime app/API/data/public",
+      "proposedOwner": "A05 lesson lead",
+      "coordination": [
+        "A18 curriculum QA and content quality lead",
+        "A21 content pipeline and RAG operations"
+      ],
+      "confidence": "high",
+      "rationale": "Lesson source/link/illustration data maps to A05 with A18/A21 content coordination."
+    },
+    {
+      "status": " M",
+      "path": "data/mainlandHjbHighQuestions.ts",
+      "owner": "Unmapped runtime owner review needed",
+      "slice": "runtime app/API/data/public",
+      "proposedOwner": "A04 practice lead",
+      "coordination": [
+        "A18 curriculum QA and content quality lead",
+        "A21 content pipeline and RAG operations"
+      ],
+      "confidence": "high",
+      "rationale": "Question bank and solvability checks are A04-led with A18/A21 content coordination."
+    },
+    {
+      "status": " M",
+      "path": "data/mainlandHjbHighTopics.ts",
+      "owner": "Unmapped runtime owner review needed",
+      "slice": "runtime app/API/data/public",
+      "proposedOwner": "A03 curriculum roadmap lead",
+      "coordination": [
+        "A18 curriculum QA and content quality lead"
+      ],
+      "confidence": "high",
+      "rationale": "Grade/topic/roadmap structures map to A03."
+    },
+    {
+      "status": " M",
+      "path": "data/mainlandHjbJuniorLessons.ts",
+      "owner": "Unmapped runtime owner review needed",
+      "slice": "runtime app/API/data/public",
+      "proposedOwner": "A05 lesson lead",
+      "coordination": [
+        "A18 curriculum QA and content quality lead",
+        "A21 content pipeline and RAG operations"
+      ],
+      "confidence": "high",
+      "rationale": "Lesson source/link/illustration data maps to A05 with A18/A21 content coordination."
+    },
+    {
+      "status": " M",
+      "path": "data/mainlandHjbJuniorQuestions.ts",
+      "owner": "Unmapped runtime owner review needed",
+      "slice": "runtime app/API/data/public",
+      "proposedOwner": "A04 practice lead",
+      "coordination": [
+        "A18 curriculum QA and content quality lead",
+        "A21 content pipeline and RAG operations"
+      ],
+      "confidence": "high",
+      "rationale": "Question bank and solvability checks are A04-led with A18/A21 content coordination."
+    },
+    {
+      "status": " M",
+      "path": "data/mainlandHjbJuniorTopics.ts",
+      "owner": "Unmapped runtime owner review needed",
+      "slice": "runtime app/API/data/public",
+      "proposedOwner": "A03 curriculum roadmap lead",
+      "coordination": [
+        "A18 curriculum QA and content quality lead"
+      ],
+      "confidence": "high",
+      "rationale": "Grade/topic/roadmap structures map to A03."
+    },
+    {
+      "status": " M",
+      "path": "data/mainlandHjbPrimaryLessons.ts",
+      "owner": "Unmapped runtime owner review needed",
+      "slice": "runtime app/API/data/public",
+      "proposedOwner": "A05 lesson lead",
+      "coordination": [
+        "A18 curriculum QA and content quality lead",
+        "A21 content pipeline and RAG operations"
+      ],
+      "confidence": "high",
+      "rationale": "Lesson source/link/illustration data maps to A05 with A18/A21 content coordination."
+    },
+    {
+      "status": " M",
+      "path": "data/mainlandHjbPrimaryQuestions.ts",
+      "owner": "Unmapped runtime owner review needed",
+      "slice": "runtime app/API/data/public",
+      "proposedOwner": "A04 practice lead",
+      "coordination": [
+        "A18 curriculum QA and content quality lead",
+        "A21 content pipeline and RAG operations"
+      ],
+      "confidence": "high",
+      "rationale": "Question bank and solvability checks are A04-led with A18/A21 content coordination."
+    },
+    {
+      "status": " M",
+      "path": "data/mainlandHjbPrimaryTopics.ts",
+      "owner": "Unmapped runtime owner review needed",
+      "slice": "runtime app/API/data/public",
+      "proposedOwner": "A03 curriculum roadmap lead",
+      "coordination": [
+        "A18 curriculum QA and content quality lead"
+      ],
+      "confidence": "high",
+      "rationale": "Grade/topic/roadmap structures map to A03."
+    },
+    {
+      "status": " M",
+      "path": "data/mainlandHjbRoadmap.ts",
+      "owner": "Unmapped runtime owner review needed",
+      "slice": "runtime app/API/data/public",
+      "proposedOwner": "A03 curriculum roadmap lead",
+      "coordination": [
+        "A18 curriculum QA and content quality lead"
+      ],
+      "confidence": "high",
+      "rationale": "Grade/topic/roadmap structures map to A03."
+    },
+    {
+      "status": " M",
+      "path": "data/mainlandPepHighLessonIllustrations.ts",
+      "owner": "Unmapped runtime owner review needed",
+      "slice": "runtime app/API/data/public",
+      "proposedOwner": "A05 lesson lead",
+      "coordination": [
+        "A18 curriculum QA and content quality lead",
+        "A21 content pipeline and RAG operations"
+      ],
+      "confidence": "high",
+      "rationale": "Lesson source/link/illustration data maps to A05 with A18/A21 content coordination."
+    },
+    {
+      "status": " M",
+      "path": "data/mainlandPepHighQuestions.ts",
+      "owner": "Unmapped runtime owner review needed",
+      "slice": "runtime app/API/data/public",
+      "proposedOwner": "A04 practice lead",
+      "coordination": [
+        "A18 curriculum QA and content quality lead",
+        "A21 content pipeline and RAG operations"
+      ],
+      "confidence": "high",
+      "rationale": "Question bank and solvability checks are A04-led with A18/A21 content coordination."
+    },
+    {
+      "status": " M",
+      "path": "data/mainlandPepHighTopics.ts",
+      "owner": "Unmapped runtime owner review needed",
+      "slice": "runtime app/API/data/public",
+      "proposedOwner": "A03 curriculum roadmap lead",
+      "coordination": [
+        "A18 curriculum QA and content quality lead"
+      ],
+      "confidence": "high",
+      "rationale": "Grade/topic/roadmap structures map to A03."
+    },
+    {
+      "status": " M",
+      "path": "data/mainlandPepJuniorQuestions.ts",
+      "owner": "Unmapped runtime owner review needed",
+      "slice": "runtime app/API/data/public",
+      "proposedOwner": "A04 practice lead",
+      "coordination": [
+        "A18 curriculum QA and content quality lead",
+        "A21 content pipeline and RAG operations"
+      ],
+      "confidence": "high",
+      "rationale": "Question bank and solvability checks are A04-led with A18/A21 content coordination."
+    },
+    {
+      "status": " M",
+      "path": "data/mainlandPepJuniorTopics.ts",
+      "owner": "Unmapped runtime owner review needed",
+      "slice": "runtime app/API/data/public",
+      "proposedOwner": "A03 curriculum roadmap lead",
+      "coordination": [
+        "A18 curriculum QA and content quality lead"
+      ],
+      "confidence": "high",
+      "rationale": "Grade/topic/roadmap structures map to A03."
+    },
+    {
+      "status": " M",
+      "path": "data/mainlandPepPrimaryQuestions.ts",
+      "owner": "Unmapped runtime owner review needed",
+      "slice": "runtime app/API/data/public",
+      "proposedOwner": "A04 practice lead",
+      "coordination": [
+        "A18 curriculum QA and content quality lead",
+        "A21 content pipeline and RAG operations"
+      ],
+      "confidence": "high",
+      "rationale": "Question bank and solvability checks are A04-led with A18/A21 content coordination."
+    },
+    {
+      "status": " M",
+      "path": "data/mainlandPepPrimaryTopics.ts",
+      "owner": "Unmapped runtime owner review needed",
+      "slice": "runtime app/API/data/public",
+      "proposedOwner": "A03 curriculum roadmap lead",
+      "coordination": [
+        "A18 curriculum QA and content quality lead"
+      ],
+      "confidence": "high",
+      "rationale": "Grade/topic/roadmap structures map to A03."
+    },
+    {
+      "status": " M",
+      "path": "data/mainlandPepRoadmap.ts",
+      "owner": "Unmapped runtime owner review needed",
+      "slice": "runtime app/API/data/public",
+      "proposedOwner": "A03 curriculum roadmap lead",
+      "coordination": [
+        "A18 curriculum QA and content quality lead"
+      ],
+      "confidence": "high",
+      "rationale": "Grade/topic/roadmap structures map to A03."
+    },
+    {
+      "status": " M",
+      "path": "data/questions.ts",
+      "owner": "Unmapped runtime owner review needed",
+      "slice": "runtime app/API/data/public",
+      "proposedOwner": "A04 practice lead",
+      "coordination": [
+        "A18 curriculum QA and content quality lead",
+        "A21 content pipeline and RAG operations"
+      ],
+      "confidence": "high",
+      "rationale": "Question bank and solvability checks are A04-led with A18/A21 content coordination."
+    },
+    {
+      "status": " M",
+      "path": "data/topics.ts",
+      "owner": "Unmapped runtime owner review needed",
+      "slice": "runtime app/API/data/public",
+      "proposedOwner": "A03 curriculum roadmap lead",
+      "coordination": [
+        "A18 curriculum QA and content quality lead"
+      ],
+      "confidence": "high",
+      "rationale": "Grade/topic/roadmap structures map to A03."
+    },
+    {
+      "status": " M",
+      "path": "data/visualizationLabs.ts",
+      "owner": "Unmapped runtime owner review needed",
+      "slice": "runtime app/API/data/public",
+      "proposedOwner": "A06 visualization lead",
+      "coordination": [
+        "A18 curriculum QA and content quality lead"
+      ],
+      "confidence": "high",
+      "rationale": "Visualization lab runtime data is A06-owned."
+    },
+    {
+      "status": " M",
+      "path": "lib/curriculumProfile.ts",
+      "owner": "Unmapped runtime owner review needed",
+      "slice": "runtime app/API/data/public",
+      "proposedOwner": "A15 adaptive engine lead",
+      "coordination": [
+        "A02 dashboard lead",
+        "A08 state and analytics lead"
+      ],
+      "confidence": "medium",
+      "rationale": "Adaptive/personalized learning surface should be routed through A15, with UI/state coordination."
+    },
+    {
+      "status": " M",
+      "path": "lib/fullQuestionBankSolvability.test.ts",
+      "owner": "Unmapped runtime owner review needed",
+      "slice": "tests/regression evidence",
+      "proposedOwner": "A04 practice lead",
+      "coordination": [
+        "A18 curriculum QA and content quality lead",
+        "A21 content pipeline and RAG operations"
+      ],
+      "confidence": "high",
+      "rationale": "Question bank and solvability checks are A04-led with A18/A21 content coordination."
+    },
+    {
+      "status": " M",
+      "path": "lib/guestLessonLinks.ts",
+      "owner": "Unmapped runtime owner review needed",
+      "slice": "runtime app/API/data/public",
+      "proposedOwner": "A05 lesson lead",
+      "coordination": [
+        "A18 curriculum QA and content quality lead",
+        "A21 content pipeline and RAG operations"
+      ],
+      "confidence": "high",
+      "rationale": "Lesson source/link/illustration data maps to A05 with A18/A21 content coordination."
+    },
+    {
+      "status": " M",
+      "path": "lib/lessonLinks.ts",
+      "owner": "Unmapped runtime owner review needed",
+      "slice": "runtime app/API/data/public",
+      "proposedOwner": "A05 lesson lead",
+      "coordination": [
+        "A18 curriculum QA and content quality lead",
+        "A21 content pipeline and RAG operations"
+      ],
+      "confidence": "high",
+      "rationale": "Lesson source/link/illustration data maps to A05 with A18/A21 content coordination."
+    },
+    {
+      "status": " M",
+      "path": "lib/mainlandBnuJuniorQuestionBank.test.ts",
+      "owner": "Unmapped runtime owner review needed",
+      "slice": "tests/regression evidence",
+      "proposedOwner": "A04 practice lead",
+      "coordination": [
+        "A18 curriculum QA and content quality lead",
+        "A21 content pipeline and RAG operations"
+      ],
+      "confidence": "high",
+      "rationale": "Question bank and solvability checks are A04-led with A18/A21 content coordination."
+    },
+    {
+      "status": " M",
+      "path": "lib/mainlandPepHighQuestionBank.test.ts",
+      "owner": "Unmapped runtime owner review needed",
+      "slice": "tests/regression evidence",
+      "proposedOwner": "A04 practice lead",
+      "coordination": [
+        "A18 curriculum QA and content quality lead",
+        "A21 content pipeline and RAG operations"
+      ],
+      "confidence": "high",
+      "rationale": "Question bank and solvability checks are A04-led with A18/A21 content coordination."
+    },
+    {
+      "status": " M",
+      "path": "lib/mainlandPepJuniorQuestionBank.test.ts",
+      "owner": "Unmapped runtime owner review needed",
+      "slice": "tests/regression evidence",
+      "proposedOwner": "A04 practice lead",
+      "coordination": [
+        "A18 curriculum QA and content quality lead",
+        "A21 content pipeline and RAG operations"
+      ],
+      "confidence": "high",
+      "rationale": "Question bank and solvability checks are A04-led with A18/A21 content coordination."
+    },
+    {
+      "status": " M",
+      "path": "lib/mainlandPepPrimaryQuestionBank.test.ts",
+      "owner": "Unmapped runtime owner review needed",
+      "slice": "tests/regression evidence",
+      "proposedOwner": "A04 practice lead",
+      "coordination": [
+        "A18 curriculum QA and content quality lead",
+        "A21 content pipeline and RAG operations"
+      ],
+      "confidence": "high",
+      "rationale": "Question bank and solvability checks are A04-led with A18/A21 content coordination."
+    },
+    {
+      "status": " M",
+      "path": "lib/mvpReadiness.test.ts",
+      "owner": "Unmapped runtime owner review needed",
+      "slice": "tests/regression evidence",
+      "proposedOwner": "A11 QA and release quality",
+      "coordination": [
+        "A22 production reliability and release engineering"
+      ],
+      "confidence": "high",
+      "rationale": "MVP readiness regression evidence is A11-owned."
+    },
+    {
+      "status": " M",
+      "path": "lib/questionBankSolvability.ts",
+      "owner": "Unmapped runtime owner review needed",
+      "slice": "runtime app/API/data/public",
+      "proposedOwner": "A04 practice lead",
+      "coordination": [
+        "A18 curriculum QA and content quality lead",
+        "A21 content pipeline and RAG operations"
+      ],
+      "confidence": "high",
+      "rationale": "Question bank and solvability checks are A04-led with A18/A21 content coordination."
+    },
+    {
+      "status": "??",
+      "path": "app/forum/page.tsx",
+      "owner": "Unmapped runtime owner review needed",
+      "slice": "runtime app/API/data/public",
+      "proposedOwner": "A12 backend/API platform",
+      "coordination": [
+        "A13 teacher console",
+        "A01 app shell lead",
+        "A11 QA and release quality"
+      ],
+      "confidence": "medium",
+      "rationale": "Forum spans route/data/server-like contracts and needs A12 ownership until a dedicated forum owner is assigned."
+    },
+    {
+      "status": "??",
+      "path": "app/icon.svg",
+      "owner": "Unmapped runtime owner review needed",
+      "slice": "runtime app/API/data/public",
+      "proposedOwner": "A01 app shell lead",
+      "coordination": [
+        "A10 tooling/docs/report",
+        "A22 production reliability if release metadata affected"
+      ],
+      "confidence": "medium",
+      "rationale": "App icons and robots metadata are app-shell/release-surface assets."
+    },
+    {
+      "status": "??",
+      "path": "app/personalized-learning/loading.tsx",
+      "owner": "Unmapped runtime owner review needed",
+      "slice": "runtime app/API/data/public",
+      "proposedOwner": "A15 adaptive engine lead",
+      "coordination": [
+        "A02 dashboard lead",
+        "A08 state and analytics lead"
+      ],
+      "confidence": "medium",
+      "rationale": "Adaptive/personalized learning surface should be routed through A15, with UI/state coordination."
+    },
+    {
+      "status": "??",
+      "path": "app/personalized-learning/page.tsx",
+      "owner": "Unmapped runtime owner review needed",
+      "slice": "runtime app/API/data/public",
+      "proposedOwner": "A15 adaptive engine lead",
+      "coordination": [
+        "A02 dashboard lead",
+        "A08 state and analytics lead"
+      ],
+      "confidence": "medium",
+      "rationale": "Adaptive/personalized learning surface should be routed through A15, with UI/state coordination."
+    },
+    {
+      "status": "??",
+      "path": "app/student/assessments/[assessmentId]/page.tsx",
+      "owner": "Unmapped runtime owner review needed",
+      "slice": "runtime app/API/data/public",
+      "proposedOwner": "A02 dashboard lead",
+      "coordination": [
+        "A13 teacher console",
+        "A12 backend/API platform",
+        "A11 QA and release quality"
+      ],
+      "confidence": "medium",
+      "rationale": "Student assessment/assignment UI is launched from dashboard student-work surfaces and coordinates with teacher operations/API contracts."
+    },
+    {
+      "status": "??",
+      "path": "app/student/assignments/[assignmentId]/page.tsx",
+      "owner": "Unmapped runtime owner review needed",
+      "slice": "runtime app/API/data/public",
+      "proposedOwner": "A02 dashboard lead",
+      "coordination": [
+        "A13 teacher console",
+        "A12 backend/API platform",
+        "A11 QA and release quality"
+      ],
+      "confidence": "medium",
+      "rationale": "Student assessment/assignment UI is launched from dashboard student-work surfaces and coordinates with teacher operations/API contracts."
+    },
+    {
+      "status": "??",
+      "path": "app/student/assignments/page.tsx",
+      "owner": "Unmapped runtime owner review needed",
+      "slice": "runtime app/API/data/public",
+      "proposedOwner": "A02 dashboard lead",
+      "coordination": [
+        "A13 teacher console",
+        "A12 backend/API platform",
+        "A11 QA and release quality"
+      ],
+      "confidence": "medium",
+      "rationale": "Student assessment/assignment UI is launched from dashboard student-work surfaces and coordinates with teacher operations/API contracts."
+    },
+    {
+      "status": "??",
+      "path": "app/student/roadmap/page.tsx",
+      "owner": "Unmapped runtime owner review needed",
+      "slice": "runtime app/API/data/public",
+      "proposedOwner": "A03 curriculum roadmap lead",
+      "coordination": [
+        "A18 curriculum QA and content quality lead"
+      ],
+      "confidence": "high",
+      "rationale": "Grade/topic/roadmap structures map to A03."
+    },
+    {
+      "status": "??",
+      "path": "app/student/roadmap/primary/page.tsx",
+      "owner": "Unmapped runtime owner review needed",
+      "slice": "runtime app/API/data/public",
+      "proposedOwner": "A03 curriculum roadmap lead",
+      "coordination": [
+        "A18 curriculum QA and content quality lead"
+      ],
+      "confidence": "high",
+      "rationale": "Grade/topic/roadmap structures map to A03."
+    },
+    {
+      "status": "??",
+      "path": "app/student/roadmap/secondary/page.tsx",
+      "owner": "Unmapped runtime owner review needed",
+      "slice": "runtime app/API/data/public",
+      "proposedOwner": "A03 curriculum roadmap lead",
+      "coordination": [
+        "A18 curriculum QA and content quality lead"
+      ],
+      "confidence": "high",
+      "rationale": "Grade/topic/roadmap structures map to A03."
+    },
+    {
+      "status": "??",
+      "path": "components/forum/ForumWorkspace.tsx",
+      "owner": "Unmapped runtime owner review needed",
+      "slice": "runtime app/API/data/public",
+      "proposedOwner": "A12 backend/API platform",
+      "coordination": [
+        "A13 teacher console",
+        "A01 app shell lead",
+        "A11 QA and release quality"
+      ],
+      "confidence": "medium",
+      "rationale": "Forum spans route/data/server-like contracts and needs A12 ownership until a dedicated forum owner is assigned."
+    },
+    {
+      "status": "??",
+      "path": "components/math/mathTextFormatting.ts",
+      "owner": "Unmapped runtime owner review needed",
+      "slice": "runtime app/API/data/public",
+      "proposedOwner": "A09 copy, i18n, accessibility",
+      "coordination": [
+        "A04 practice lead",
+        "A05 lesson lead",
+        "A18 curriculum QA and content quality lead"
+      ],
+      "confidence": "medium",
+      "rationale": "Math text rendering and normalization affect copy/accessibility and content display; A09 should triage with content-surface owners."
+    },
+    {
+      "status": "??",
+      "path": "components/providers/appProvidersTeacherAnalyticsBoundary.test.ts",
+      "owner": "Unmapped runtime owner review needed",
+      "slice": "tests/regression evidence",
+      "proposedOwner": "A08 state and analytics lead",
+      "coordination": [
+        "A10 tooling/docs/report"
+      ],
+      "confidence": "high",
+      "rationale": "Shared provider/state boundary is A08-owned by coordination contract."
+    },
+    {
+      "status": "??",
+      "path": "components/ui/PasswordInputWithReveal.tsx",
+      "owner": "Unmapped runtime owner review needed",
+      "slice": "runtime app/API/data/public",
+      "proposedOwner": "A01 app shell lead",
+      "coordination": [
+        "A12 backend/API platform",
+        "A09 copy, i18n, accessibility"
+      ],
+      "confidence": "medium",
+      "rationale": "Shared password-entry UI is an app-shell/auth-entry component."
+    },
+    {
+      "status": "??",
+      "path": "data/forum.ts",
+      "owner": "Unmapped runtime owner review needed",
+      "slice": "runtime app/API/data/public",
+      "proposedOwner": "A12 backend/API platform",
+      "coordination": [
+        "A13 teacher console",
+        "A01 app shell lead",
+        "A11 QA and release quality"
+      ],
+      "confidence": "medium",
+      "rationale": "Forum spans route/data/server-like contracts and needs A12 ownership until a dedicated forum owner is assigned."
+    },
+    {
+      "status": "??",
+      "path": "data/gameBasedLearning.ts",
+      "owner": "Unmapped runtime owner review needed",
+      "slice": "runtime app/API/data/public",
+      "proposedOwner": "A20 game design and game-based learning",
+      "coordination": [
+        "A17 gamification and motivation lead",
+        "A18 curriculum QA and content quality lead"
+      ],
+      "confidence": "high",
+      "rationale": "Game-based learning data and game loops map to A20."
+    },
+    {
+      "status": "??",
+      "path": "data/hongKongEasePracticeQuestions.ts",
+      "owner": "Unmapped runtime owner review needed",
+      "slice": "runtime app/API/data/public",
+      "proposedOwner": "A04 practice lead",
+      "coordination": [
+        "A18 curriculum QA and content quality lead",
+        "A21 content pipeline and RAG operations"
+      ],
+      "confidence": "high",
+      "rationale": "Question bank and solvability checks are A04-led with A18/A21 content coordination."
+    },
+    {
+      "status": "??",
+      "path": "data/mainlandBnuHighLessons.ts",
+      "owner": "Unmapped runtime owner review needed",
+      "slice": "runtime app/API/data/public",
+      "proposedOwner": "A05 lesson lead",
+      "coordination": [
+        "A18 curriculum QA and content quality lead",
+        "A21 content pipeline and RAG operations"
+      ],
+      "confidence": "high",
+      "rationale": "Lesson source/link/illustration data maps to A05 with A18/A21 content coordination."
+    },
+    {
+      "status": "??",
+      "path": "data/mainlandBnuJuniorLessons.ts",
+      "owner": "Unmapped runtime owner review needed",
+      "slice": "runtime app/API/data/public",
+      "proposedOwner": "A05 lesson lead",
+      "coordination": [
+        "A18 curriculum QA and content quality lead",
+        "A21 content pipeline and RAG operations"
+      ],
+      "confidence": "high",
+      "rationale": "Lesson source/link/illustration data maps to A05 with A18/A21 content coordination."
+    },
+    {
+      "status": "??",
+      "path": "data/mathVirusBlaster.ts",
+      "owner": "Unmapped runtime owner review needed",
+      "slice": "runtime app/API/data/public",
+      "proposedOwner": "A20 game design and game-based learning",
+      "coordination": [
+        "A17 gamification and motivation lead",
+        "A18 curriculum QA and content quality lead"
+      ],
+      "confidence": "high",
+      "rationale": "Game-based learning data and game loops map to A20."
+    },
+    {
+      "status": "??",
+      "path": "data/mightyTankBattle.ts",
+      "owner": "Unmapped runtime owner review needed",
+      "slice": "runtime app/API/data/public",
+      "proposedOwner": "A20 game design and game-based learning",
+      "coordination": [
+        "A17 gamification and motivation lead",
+        "A18 curriculum QA and content quality lead"
+      ],
+      "confidence": "high",
+      "rationale": "Game-based learning data and game loops map to A20."
+    },
+    {
+      "status": "??",
+      "path": "data/usArkansasMiddleSchoolLessonIllustrations.ts",
+      "owner": "Unmapped runtime owner review needed",
+      "slice": "runtime app/API/data/public",
+      "proposedOwner": "A05 lesson lead",
+      "coordination": [
+        "A18 curriculum QA and content quality lead",
+        "A21 content pipeline and RAG operations"
+      ],
+      "confidence": "high",
+      "rationale": "Lesson source/link/illustration data maps to A05 with A18/A21 content coordination."
+    },
+    {
+      "status": "??",
+      "path": "data/usArkansasMiddleSchoolLessons.ts",
+      "owner": "Unmapped runtime owner review needed",
+      "slice": "runtime app/API/data/public",
+      "proposedOwner": "A05 lesson lead",
+      "coordination": [
+        "A18 curriculum QA and content quality lead",
+        "A21 content pipeline and RAG operations"
+      ],
+      "confidence": "high",
+      "rationale": "Lesson source/link/illustration data maps to A05 with A18/A21 content coordination."
+    },
+    {
+      "status": "??",
+      "path": "data/usArkansasQuestions.ts",
+      "owner": "Unmapped runtime owner review needed",
+      "slice": "runtime app/API/data/public",
+      "proposedOwner": "A04 practice lead",
+      "coordination": [
+        "A18 curriculum QA and content quality lead",
+        "A21 content pipeline and RAG operations"
+      ],
+      "confidence": "high",
+      "rationale": "Question bank and solvability checks are A04-led with A18/A21 content coordination."
+    },
+    {
+      "status": "??",
+      "path": "data/usArkansasTopics.ts",
+      "owner": "Unmapped runtime owner review needed",
+      "slice": "runtime app/API/data/public",
+      "proposedOwner": "A03 curriculum roadmap lead",
+      "coordination": [
+        "A18 curriculum QA and content quality lead"
+      ],
+      "confidence": "high",
+      "rationale": "Grade/topic/roadmap structures map to A03."
+    },
+    {
+      "status": "??",
+      "path": "data/usCaliforniaHighSchoolLessonIllustrations.ts",
+      "owner": "Unmapped runtime owner review needed",
+      "slice": "runtime app/API/data/public",
+      "proposedOwner": "A05 lesson lead",
+      "coordination": [
+        "A18 curriculum QA and content quality lead",
+        "A21 content pipeline and RAG operations"
+      ],
+      "confidence": "high",
+      "rationale": "Lesson source/link/illustration data maps to A05 with A18/A21 content coordination."
+    },
+    {
+      "status": "??",
+      "path": "data/usCaliforniaKnowledgePoints.ts",
+      "owner": "Unmapped runtime owner review needed",
+      "slice": "runtime app/API/data/public",
+      "proposedOwner": "A18 curriculum QA / A21 content pipeline",
+      "coordination": [
+        "A03 curriculum roadmap lead",
+        "A04 practice lead"
+      ],
+      "confidence": "medium",
+      "rationale": "California knowledge-point content requires curriculum QA and content-pipeline review before live ownership closure."
+    },
+    {
+      "status": "??",
+      "path": "data/usCaliforniaLessons.test.ts",
+      "owner": "Unmapped runtime owner review needed",
+      "slice": "tests/regression evidence",
+      "proposedOwner": "A05 lesson lead",
+      "coordination": [
+        "A18 curriculum QA and content quality lead",
+        "A21 content pipeline and RAG operations"
+      ],
+      "confidence": "high",
+      "rationale": "Lesson source/link/illustration data maps to A05 with A18/A21 content coordination."
+    },
+    {
+      "status": "??",
+      "path": "data/usCaliforniaLessons.ts",
+      "owner": "Unmapped runtime owner review needed",
+      "slice": "runtime app/API/data/public",
+      "proposedOwner": "A05 lesson lead",
+      "coordination": [
+        "A18 curriculum QA and content quality lead",
+        "A21 content pipeline and RAG operations"
+      ],
+      "confidence": "high",
+      "rationale": "Lesson source/link/illustration data maps to A05 with A18/A21 content coordination."
+    },
+    {
+      "status": "??",
+      "path": "data/usCaliforniaMicroLessons.ts",
+      "owner": "Unmapped runtime owner review needed",
+      "slice": "runtime app/API/data/public",
+      "proposedOwner": "A05 lesson lead",
+      "coordination": [
+        "A18 curriculum QA and content quality lead",
+        "A21 content pipeline and RAG operations"
+      ],
+      "confidence": "high",
+      "rationale": "Lesson source/link/illustration data maps to A05 with A18/A21 content coordination."
+    },
+    {
+      "status": "??",
+      "path": "data/usCaliforniaQuestions.ts",
+      "owner": "Unmapped runtime owner review needed",
+      "slice": "runtime app/API/data/public",
+      "proposedOwner": "A04 practice lead",
+      "coordination": [
+        "A18 curriculum QA and content quality lead",
+        "A21 content pipeline and RAG operations"
+      ],
+      "confidence": "high",
+      "rationale": "Question bank and solvability checks are A04-led with A18/A21 content coordination."
+    },
+    {
+      "status": "??",
+      "path": "data/usCaliforniaTopics.ts",
+      "owner": "Unmapped runtime owner review needed",
+      "slice": "runtime app/API/data/public",
+      "proposedOwner": "A03 curriculum roadmap lead",
+      "coordination": [
+        "A18 curriculum QA and content quality lead"
+      ],
+      "confidence": "high",
+      "rationale": "Grade/topic/roadmap structures map to A03."
+    },
+    {
+      "status": "??",
+      "path": "data/usFloridaMiddleSchoolLessons.ts",
+      "owner": "Unmapped runtime owner review needed",
+      "slice": "runtime app/API/data/public",
+      "proposedOwner": "A05 lesson lead",
+      "coordination": [
+        "A18 curriculum QA and content quality lead",
+        "A21 content pipeline and RAG operations"
+      ],
+      "confidence": "high",
+      "rationale": "Lesson source/link/illustration data maps to A05 with A18/A21 content coordination."
+    },
+    {
+      "status": "??",
+      "path": "data/usFloridaMiddleSchoolQuestions.ts",
+      "owner": "Unmapped runtime owner review needed",
+      "slice": "runtime app/API/data/public",
+      "proposedOwner": "A04 practice lead",
+      "coordination": [
+        "A18 curriculum QA and content quality lead",
+        "A21 content pipeline and RAG operations"
+      ],
+      "confidence": "high",
+      "rationale": "Question bank and solvability checks are A04-led with A18/A21 content coordination."
+    },
+    {
+      "status": "??",
+      "path": "data/usFloridaMiddleSchoolTopics.ts",
+      "owner": "Unmapped runtime owner review needed",
+      "slice": "runtime app/API/data/public",
+      "proposedOwner": "A03 curriculum roadmap lead",
+      "coordination": [
+        "A18 curriculum QA and content quality lead"
+      ],
+      "confidence": "high",
+      "rationale": "Grade/topic/roadmap structures map to A03."
+    },
+    {
+      "status": "??",
+      "path": "data/usMathQuestions.ts",
+      "owner": "Unmapped runtime owner review needed",
+      "slice": "runtime app/API/data/public",
+      "proposedOwner": "A04 practice lead",
+      "coordination": [
+        "A18 curriculum QA and content quality lead",
+        "A21 content pipeline and RAG operations"
+      ],
+      "confidence": "high",
+      "rationale": "Question bank and solvability checks are A04-led with A18/A21 content coordination."
+    },
+    {
+      "status": "??",
+      "path": "data/usMathTopics.ts",
+      "owner": "Unmapped runtime owner review needed",
+      "slice": "runtime app/API/data/public",
+      "proposedOwner": "A03 curriculum roadmap lead",
+      "coordination": [
+        "A18 curriculum QA and content quality lead"
+      ],
+      "confidence": "high",
+      "rationale": "Grade/topic/roadmap structures map to A03."
+    },
+    {
+      "status": "??",
+      "path": "lib/difficulty.test.ts",
+      "owner": "Unmapped runtime owner review needed",
+      "slice": "tests/regression evidence",
+      "proposedOwner": "A08 state and analytics lead",
+      "coordination": [
+        "A10 tooling/docs/report",
+        "A22 production reliability if type-check/build affected"
+      ],
+      "confidence": "high",
+      "rationale": "Shared difficulty schema is A08-owned by coordination contract."
+    },
+    {
+      "status": "??",
+      "path": "lib/difficulty.ts",
+      "owner": "Unmapped runtime owner review needed",
+      "slice": "runtime app/API/data/public",
+      "proposedOwner": "A08 state and analytics lead",
+      "coordination": [
+        "A10 tooling/docs/report",
+        "A22 production reliability if type-check/build affected"
+      ],
+      "confidence": "high",
+      "rationale": "Shared difficulty schema is A08-owned by coordination contract."
+    },
+    {
+      "status": "??",
+      "path": "lib/forum.ts",
+      "owner": "Unmapped runtime owner review needed",
+      "slice": "runtime app/API/data/public",
+      "proposedOwner": "A12 backend/API platform",
+      "coordination": [
+        "A13 teacher console",
+        "A01 app shell lead",
+        "A11 QA and release quality"
+      ],
+      "confidence": "medium",
+      "rationale": "Forum spans route/data/server-like contracts and needs A12 ownership until a dedicated forum owner is assigned."
+    },
+    {
+      "status": "??",
+      "path": "lib/loginRedirect.test.ts",
+      "owner": "Unmapped runtime owner review needed",
+      "slice": "tests/regression evidence",
+      "proposedOwner": "A01 app shell lead",
+      "coordination": [
+        "A11 QA and release quality"
+      ],
+      "confidence": "high",
+      "rationale": "Login redirect behavior is an app shell/auth-entry regression surface."
+    },
+    {
+      "status": "??",
+      "path": "lib/mainlandPepQuestionAssets.ts",
+      "owner": "Unmapped runtime owner review needed",
+      "slice": "runtime app/API/data/public",
+      "proposedOwner": "A04 practice lead",
+      "coordination": [
+        "A18 curriculum QA and content quality lead",
+        "A21 content pipeline and RAG operations"
+      ],
+      "confidence": "high",
+      "rationale": "Question bank and solvability checks are A04-led with A18/A21 content coordination."
+    },
+    {
+      "status": "??",
+      "path": "lib/parentConstraints.ts",
+      "owner": "Unmapped runtime owner review needed",
+      "slice": "runtime app/API/data/public",
+      "proposedOwner": "A14 parent console",
+      "coordination": [
+        "A12 backend/API platform",
+        "A09 copy, i18n, accessibility"
+      ],
+      "confidence": "high",
+      "rationale": "Parent message/invite text limits are parent-console domain constraints."
+    },
+    {
+      "status": "??",
+      "path": "public/forum-assets/clay-math-props-sheet.png",
+      "owner": "Unmapped runtime owner review needed",
+      "slice": "runtime app/API/data/public",
+      "proposedOwner": "A12 backend/API platform",
+      "coordination": [
+        "A13 teacher console",
+        "A01 app shell lead",
+        "A11 QA and release quality"
+      ],
+      "confidence": "medium",
+      "rationale": "Forum spans route/data/server-like contracts and needs A12 ownership until a dedicated forum owner is assigned."
+    },
+    {
+      "status": "??",
+      "path": "public/forum-assets/primary-math-park-hero.png",
+      "owner": "Unmapped runtime owner review needed",
+      "slice": "runtime app/API/data/public",
+      "proposedOwner": "A12 backend/API platform",
+      "coordination": [
+        "A13 teacher console",
+        "A01 app shell lead",
+        "A11 QA and release quality"
+      ],
+      "confidence": "medium",
+      "rationale": "Forum spans route/data/server-like contracts and needs A12 ownership until a dedicated forum owner is assigned."
+    },
+    {
+      "status": "??",
+      "path": "public/forum-assets/primary-problem-island.png",
+      "owner": "Unmapped runtime owner review needed",
+      "slice": "runtime app/API/data/public",
+      "proposedOwner": "A12 backend/API platform",
+      "coordination": [
+        "A13 teacher console",
+        "A01 app shell lead",
+        "A11 QA and release quality"
+      ],
+      "confidence": "medium",
+      "rationale": "Forum spans route/data/server-like contracts and needs A12 ownership until a dedicated forum owner is assigned."
+    },
+    {
+      "status": "??",
+      "path": "public/forum-assets/secondary-adventure-island-hero.png",
+      "owner": "Unmapped runtime owner review needed",
+      "slice": "runtime app/API/data/public",
+      "proposedOwner": "A12 backend/API platform",
+      "coordination": [
+        "A13 teacher console",
+        "A01 app shell lead",
+        "A11 QA and release quality"
+      ],
+      "confidence": "medium",
+      "rationale": "Forum spans route/data/server-like contracts and needs A12 ownership until a dedicated forum owner is assigned."
+    },
+    {
+      "status": "??",
+      "path": "public/forum-assets/secondary-forum-plaza.png",
+      "owner": "Unmapped runtime owner review needed",
+      "slice": "runtime app/API/data/public",
+      "proposedOwner": "A12 backend/API platform",
+      "coordination": [
+        "A13 teacher console",
+        "A01 app shell lead",
+        "A11 QA and release quality"
+      ],
+      "confidence": "medium",
+      "rationale": "Forum spans route/data/server-like contracts and needs A12 ownership until a dedicated forum owner is assigned."
+    },
+    {
+      "status": "??",
+      "path": "public/robots.txt",
+      "owner": "Unmapped runtime owner review needed",
+      "slice": "runtime app/API/data/public",
+      "proposedOwner": "A01 app shell lead",
+      "coordination": [
+        "A10 tooling/docs/report",
+        "A22 production reliability if release metadata affected"
+      ],
+      "confidence": "medium",
+      "rationale": "App icons and robots metadata are app-shell/release-surface assets."
+    }
+  ]
+}

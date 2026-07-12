@@ -1,0 +1,26 @@
+{
+  "generatedAt": "2026-07-06T15:50:04.718Z",
+  "dirtyMapStatusSignature": "b26fe39c438a20cdbb9cf3943e3d000d9dc8dc04ccccedc13792c457c5942d3b",
+  "expandedStatusEntries": 5183,
+  "cleanupCommand": "node scripts/cleanup-generated-artifacts.mjs --dry-run --json",
+  "dryRun": {
+    "scope": "all",
+    "targetCount": 0,
+    "totalBytes": 0,
+    "apply": false,
+    "dryRun": true
+  },
+  "summary": {
+    "residualTargets": 0,
+    "scratchBaselineTargets": 0,
+    "totalBytes": 0,
+    "activeWriterBlockedRows": 0,
+    "activeWriterOpenFileCount": 0,
+    "datalessTargets": 0,
+    "contentCapturedRows": 0,
+    "cleanupAuthorizedRows": 0,
+    "executableRows": 0
+  },
+  "scratchBaselineRows": [],
+  "rows": []
+}

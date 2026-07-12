@@ -1,0 +1,76 @@
+{
+  "generatedAt": "2026-07-08T14:14:26.775Z",
+  "repoRoot": "/Users/dongpinhu/Desktop/MAIS-MVP",
+  "dirtyMapStatusSignature": "4892e406613fc3846378621b84ba0f486bb8ebf371c35837eae544472596f318",
+  "expandedStatusEntries": 6130,
+  "sourceArtifacts": {
+    "acceptanceDocketGeneratedAt": "2026-07-08T14:14:26.674Z",
+    "canonicalAuthorizationsGeneratedAt": "2026-07-08T14:14:26.165Z",
+    "finalStateLedgerGeneratedAt": "2026-07-08T14:12:49.161Z"
+  },
+  "sourceCurrentnessFailures": [],
+  "canonicalTarget": "coordination/release-intake/latest-A25-next-owner-authorizations.json",
+  "batchId": "next-owner-package-final-state-batch-01",
+  "batchStatus": "no-focus-batch",
+  "ownerInputRows": [],
+  "heldRows": [
+    {
+      "approvalId": "wave01-resync-01-tsconfig-json",
+      "approvalKind": "wave01-package-resync",
+      "owner": "A10 tooling, docs, and report",
+      "subject": "tsconfig.json",
+      "path": "tsconfig.json",
+      "branch": "codex/A25-dirty-closure-governance",
+      "worktreePath": "/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A25-dirty-closure-governance",
+      "selectedFinalState": "",
+      "ledgerSelectedFinalState": "",
+      "ledgerDecisionStatus": "",
+      "selectedAction": "owner-approved-package-restore",
+      "exactCommand": "git restore --source=HEAD -- tsconfig.json",
+      "authorizationText": "Authorize approvalId=wave01-resync-01-tsconfig-json; worktree=/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A25-dirty-closure-governance; path=tsconfig.json; selectedAction=owner-approved-package-restore; command=git restore --source=HEAD -- tsconfig.json; approvedBy=<owner>; approvedAt=<ISO-8601>; notes=<scope, evidence reviewed, accepted risk>",
+      "evidenceReviewed": [
+        "coordination/release-intake/latest-A25-next-owner-approval-packet.json",
+        "coordination/release-intake/latest-A25-next-owner-authorizations-starter.json",
+        "coordination/release-intake/latest-A25-wave01-package-resync-approval-requests.json",
+        "coordination/release-intake/latest-A25-wave01-package-resync-execution-packet.json",
+        "coordination/release-intake/latest-A25-wave01-package-resync-owner-authorization-template.json"
+      ],
+      "postApprovalChecks": [
+        "node coordination/release-intake/generate-wave01-governance-readiness.mjs",
+        "node coordination/release-intake/assert-wave01-governance-readiness-current.mjs",
+        "node coordination/release-intake/generate-wave01-package-resync-approval-requests.mjs",
+        "node coordination/release-intake/assert-wave01-package-resync-approval-requests-current.mjs",
+        "node coordination/release-intake/assert-dirty-worktree-remediation-current.mjs"
+      ],
+      "sourceRoundId": "wave01-package-resync-authorizations",
+      "sourceRoundLabel": "Wave 01 package resync authorizations",
+      "authorized": false,
+      "held": true,
+      "cleanupAuthorized": false,
+      "executableNow": false
+    }
+  ],
+  "summary": {
+    "focusBatchRows": 0,
+    "acceptedRows": 0,
+    "pendingRows": 0,
+    "heldRows": 1,
+    "canonicalDraftVisibleRows": 0,
+    "canonicalAuthorizationVisibleRows": 0,
+    "ownerInputVisibleRows": 0,
+    "cleanupAuthorizedRows": 0,
+    "executableRows": 0,
+    "sourceCurrentnessFailures": 0
+  },
+  "boundary": {
+    "evidenceOnly": true,
+    "createsAuthorizationFile": false,
+    "recordsOwnerApproval": false,
+    "recordsExecutionInstruction": false,
+    "mergeAuthorized": false,
+    "cleanupAuthorized": false,
+    "executableNow": false,
+    "destructiveGitAuthorized": false,
+    "deployAuthorized": false
+  }
+}

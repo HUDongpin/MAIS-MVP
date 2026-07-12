@@ -1,0 +1,181 @@
+{
+  "generatedAt": "2026-07-10T17:02:26.933Z",
+  "repoRoot": "/Users/dongpinhu/Desktop/MAIS-MVP",
+  "dirtyMapStatusSignature": "e30d647e1b51432945713f42ac78b0a2466fcb17192de0235a801ac877a0801f",
+  "expandedStatusEntries": 7636,
+  "sourceArtifacts": {
+    "authorizationPacketGeneratedAt": "2026-07-10T17:02:26.809Z",
+    "authorizationPacketPath": "coordination/release-intake/latest-A22-generated-artifact-residual-authorization-packet.json",
+    "residualEvidenceGeneratedAt": "2026-07-10T17:02:26.261Z",
+    "residualEvidencePath": "coordination/release-intake/latest-A22-generated-artifact-residual-evidence.json"
+  },
+  "sourceCurrentnessFailures": [],
+  "residualDigest": [
+    {
+      "approvalId": "a22-generated-residual-next",
+      "path": ".next",
+      "owner": "A22 production reliability and release engineering",
+      "selectedAction": "owner-approved-generated-artifact-cleanup-script-apply",
+      "exactCommand": "node scripts/cleanup-generated-artifacts.mjs --apply --scope all",
+      "commandCwd": "/Users/dongpinhu/Desktop/MAIS-MVP",
+      "manifestBytes": 3210619565,
+      "manifestGiB": 2.99,
+      "dryRunBytesVolatile": false,
+      "activeWriterBlocked": false,
+      "activeWriterCount": 0,
+      "activeWriterPaths": [],
+      "directoryCount": 49,
+      "fileCount": 227,
+      "manifestSha256": "e4f00e9d1b15244f36435a2780b744f8e8a6546c743b805a619cd4a5a94193d0",
+      "cleanupAuthorized": false,
+      "executableNow": false,
+      "residualSkipReason": "generated artifact target reported by cleanup dry-run"
+    },
+    {
+      "approvalId": "a22-generated-residual-tmp",
+      "path": ".tmp",
+      "owner": "A22 production reliability and release engineering",
+      "selectedAction": "owner-approved-generated-artifact-cleanup-script-apply",
+      "exactCommand": "node scripts/cleanup-generated-artifacts.mjs --apply --scope all",
+      "commandCwd": "/Users/dongpinhu/Desktop/MAIS-MVP",
+      "manifestBytes": 899489096,
+      "manifestGiB": 0.84,
+      "dryRunBytesVolatile": false,
+      "activeWriterBlocked": false,
+      "activeWriterCount": 0,
+      "activeWriterPaths": [],
+      "directoryCount": 520,
+      "fileCount": 1818,
+      "manifestSha256": "ebac55551b51c8b7c3f75a2d09ec3065b1dc6fea3774fcb09958486f1e66593a",
+      "cleanupAuthorized": false,
+      "executableNow": false,
+      "residualSkipReason": "cleanup script recreates .tmp as an empty scratch directory after apply"
+    }
+  ],
+  "acceptanceChecks": [
+    {
+      "id": "source-currentness-green",
+      "label": "A22 residual authorization packet is current",
+      "passed": true,
+      "evidence": "sourceCurrentnessFailures=0",
+      "status": "pass"
+    },
+    {
+      "id": "supported-residual-targets",
+      "label": "Generated-artifact residual targets are limited to supported cleanup surfaces",
+      "passed": true,
+      "evidence": "rows=2 paths=.next,.tmp",
+      "status": "pass"
+    },
+    {
+      "id": "byte-risk-visible",
+      "label": "Generated-artifact byte risk is visible before owner decision",
+      "passed": true,
+      "evidence": "totalGiB=3.83 volatileRows=0",
+      "status": "pass"
+    },
+    {
+      "id": "bounded-cleanup-actions",
+      "label": "Rows are limited to cleanup script apply or exact evidence-protected directory removal",
+      "passed": true,
+      "evidence": "cleanupScriptApplyRows=2 exactDirectoryRemovalRows=0",
+      "status": "pass"
+    },
+    {
+      "id": "non-executable-boundary",
+      "label": "No residual cleanup row is executable or cleanup-authorized",
+      "passed": true,
+      "evidence": "cleanup=0 executable=0",
+      "status": "pass"
+    },
+    {
+      "id": "required-authorization-texts-present",
+      "label": "Each row has copyable owner/A22 authorization text",
+      "passed": true,
+      "evidence": "texts=2/2",
+      "status": "pass"
+    },
+    {
+      "id": "prechecks-present",
+      "label": "Each row requires dry-run, residual evidence, and no-staged checks first",
+      "passed": true,
+      "evidence": "rowsWithPrechecks=2/2",
+      "status": "pass"
+    },
+    {
+      "id": "post-approval-validation-present",
+      "label": "Each row names post-approval refresh/currentness checks",
+      "passed": true,
+      "evidence": "rowsWithPostChecks=2/2",
+      "status": "pass"
+    },
+    {
+      "id": "evidence-only-boundary",
+      "label": "Authorization packet boundary is evidence-only",
+      "passed": true,
+      "evidence": "evidenceOnly=true fileDeletion=false",
+      "status": "pass"
+    }
+  ],
+  "ownerDecisionDocket": {
+    "status": "ready-for-owner-decision",
+    "ownerDecisionRequired": true,
+    "owner": "A22 production reliability and release engineering",
+    "targetAuthorizationFile": "coordination/release-intake/latest-A25-next-owner-authorizations.json",
+    "requiredApprovalIds": [
+      "a22-generated-residual-next",
+      "a22-generated-residual-tmp"
+    ],
+    "copyableAuthorizationTexts": [
+      {
+        "approvalId": "a22-generated-residual-next",
+        "path": ".next",
+        "exactCommand": "node scripts/cleanup-generated-artifacts.mjs --apply --scope all",
+        "text": "Authorize approvalId=a22-generated-residual-next; target=.next; selectedAction=owner-approved-generated-artifact-cleanup-script-apply; command=node scripts/cleanup-generated-artifacts.mjs --apply --scope all; evidenceReviewed=coordination/release-intake/latest-A22-generated-artifact-residual-evidence.json, coordination/release-intake/latest-A22-generated-artifact-residual-authorization-packet.json; approvedBy=<owner/A22>; approvedAt=<ISO-8601>; notes=<scope, evidence reviewed, accepted risk>"
+      },
+      {
+        "approvalId": "a22-generated-residual-tmp",
+        "path": ".tmp",
+        "exactCommand": "node scripts/cleanup-generated-artifacts.mjs --apply --scope all",
+        "text": "Authorize approvalId=a22-generated-residual-tmp; target=.tmp; selectedAction=owner-approved-generated-artifact-cleanup-script-apply; command=node scripts/cleanup-generated-artifacts.mjs --apply --scope all; evidenceReviewed=coordination/release-intake/latest-A22-generated-artifact-residual-evidence.json, coordination/release-intake/latest-A22-generated-artifact-residual-authorization-packet.json; approvedBy=<owner/A22>; approvedAt=<ISO-8601>; notes=<scope, evidence reviewed, accepted risk>"
+      }
+    ],
+    "caution": "This docket is for owner review only. It does not authorize cleanup apply, file deletion, destructive Git, deploy, or execution instructions.",
+    "postDecisionValidationCommands": [
+      "node coordination/release-intake/assert-a22-generated-artifact-residual-acceptance-docket-current.mjs",
+      "node coordination/release-intake/assert-next-owner-authorizations-current.mjs",
+      "node coordination/release-intake/assert-dirty-worktree-remediation-current.mjs",
+      "node coordination/release-intake/assert-no-staged-changes.mjs --json"
+    ]
+  },
+  "summary": {
+    "readyForOwnerDecision": true,
+    "postCleanNoResidualTargets": false,
+    "residualTargets": 2,
+    "totalBytes": 4110108661,
+    "totalGiB": 3.83,
+    "volatileByteRows": 0,
+    "activeWriterBlockedRows": 0,
+    "tmpGiB": 0.84,
+    "nextGiB": 2.99,
+    "cleanupScriptApplyRows": 2,
+    "exactDirectoryRemovalRows": 0,
+    "cleanupAuthorizedRows": 0,
+    "executableRows": 0,
+    "copyableAuthorizationTexts": 2,
+    "acceptanceChecks": 9,
+    "passingAcceptanceChecks": 9,
+    "failedAcceptanceChecks": 0,
+    "sourceCurrentnessFailures": 0
+  },
+  "boundary": {
+    "evidenceOnly": true,
+    "createsAuthorizationFile": false,
+    "recordsOwnerApproval": false,
+    "cleanupAuthorized": false,
+    "executableNow": false,
+    "destructiveGitAuthorized": false,
+    "fileDeletionAuthorized": false,
+    "deployAuthorized": false
+  }
+}

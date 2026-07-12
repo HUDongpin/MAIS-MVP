@@ -46,6 +46,9 @@ test("active visualization module types and page registry are Three.js-only", ()
     assert.doesNotMatch(pageSource, new RegExp(`\\b${componentName}\\b`));
   }
 
-  assert.match(pageSource, /type VisualizationLabModuleId,/);
+  assert.match(pageSource, /type VisualizationLabModuleId = FeaturedLabDefinition\["moduleId"\];/);
+  assert.match(pageSource, /const ConfiguredVisualizationLab = dynamic<LabComponentProps>\(/);
+  assert.match(pageSource, /import\("@\/components\/visualizations\/ConfiguredVisualizationLab"\)/);
+  assert.doesNotMatch(pageSource, /import \{ ConfiguredVisualizationLab \} from "@\/components\/visualizations\/ConfiguredVisualizationLab"/);
   assert.match(pageSource, /const labComponentRegistry: Record<VisualizationLabModuleId, ComponentType<LabComponentProps>> = \{\s*"configured-visualization-lab": ConfiguredVisualizationLab\s*\};/);
 });

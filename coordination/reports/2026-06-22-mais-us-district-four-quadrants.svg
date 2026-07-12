@@ -1,0 +1,109 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1920" height="1080" viewBox="0 0 1920 1080" role="img" aria-labelledby="title desc">
+  <title id="title">MAIS US District Sales Priorities Four Quadrants Time Management</title>
+  <desc id="desc">A Four Quadrants time management matrix for selling MAIS to US school district leaders, organized by district impact and buyer time pressure.</desc>
+  <defs>
+    <style>
+      .bg { fill: #f8fafc; }
+      .ink { fill: #0f172a; font-family: Inter, Avenir Next, Helvetica, Arial, sans-serif; }
+      .muted { fill: #475569; font-family: Inter, Avenir Next, Helvetica, Arial, sans-serif; }
+      .small { font-size: 24px; }
+      .body { font-size: 28px; }
+      .h2 { font-size: 36px; font-weight: 760; letter-spacing: 0; }
+      .title { font-size: 48px; font-weight: 820; letter-spacing: 0; }
+      .subtitle { font-size: 27px; }
+      .axis { font-size: 25px; font-weight: 720; letter-spacing: 0; }
+      .qtag { font-size: 22px; font-weight: 800; letter-spacing: 1.8px; }
+      .qtitle { font-size: 34px; font-weight: 820; letter-spacing: 0; }
+      .bullet { font-size: 25px; }
+      .source { font-size: 18px; fill: #64748b; font-family: Inter, Avenir Next, Helvetica, Arial, sans-serif; }
+      .panel { stroke: rgba(15, 23, 42, 0.14); stroke-width: 2; }
+      .grid { stroke: #334155; stroke-width: 3; opacity: 0.28; }
+      .arrow { stroke: #334155; stroke-width: 5; fill: none; marker-end: url(#arrowHead); }
+      .pillText { font-size: 21px; font-weight: 760; fill: #0f172a; font-family: Inter, Avenir Next, Helvetica, Arial, sans-serif; }
+    </style>
+    <marker id="arrowHead" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto">
+      <path d="M 0 0 L 12 6 L 0 12 z" fill="#334155"/>
+    </marker>
+    <linearGradient id="headerGlow" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#0f766e" stop-opacity="0.16"/>
+      <stop offset="0.52" stop-color="#2563eb" stop-opacity="0.12"/>
+      <stop offset="1" stop-color="#f59e0b" stop-opacity="0.16"/>
+    </linearGradient>
+    <filter id="softShadow" x="-10%" y="-10%" width="120%" height="125%">
+      <feDropShadow dx="0" dy="10" stdDeviation="14" flood-color="#0f172a" flood-opacity="0.12"/>
+    </filter>
+  </defs>
+
+  <rect class="bg" width="1920" height="1080"/>
+  <rect x="60" y="38" width="1800" height="112" rx="24" fill="url(#headerGlow)"/>
+  <circle cx="102" cy="93" r="28" fill="#0f766e"/>
+  <text x="102" y="103" text-anchor="middle" class="ink" font-size="25" font-weight="850" fill="#ffffff">M</text>
+  <text x="150" y="84" class="ink title">MAIS US District Sales Priorities</text>
+  <text x="152" y="122" class="muted subtitle">Four Quadrants Time Management for US school district leaders</text>
+  <text x="1810" y="86" class="muted small" text-anchor="end">Audience: superintendents, curriculum leaders,</text>
+  <text x="1810" y="118" class="muted small" text-anchor="end">chief academic officers, technology directors</text>
+
+  <g transform="translate(120 202)">
+    <rect x="0" y="0" width="1680" height="748" rx="26" fill="#ffffff" filter="url(#softShadow)"/>
+
+    <rect class="panel" x="0" y="0" width="840" height="374" rx="26" fill="#eefdf8"/>
+    <rect class="panel" x="840" y="0" width="840" height="374" rx="26" fill="#fff7e5"/>
+    <rect class="panel" x="0" y="374" width="840" height="374" rx="26" fill="#f6f7fb"/>
+    <rect class="panel" x="840" y="374" width="840" height="374" rx="26" fill="#fff1f3"/>
+    <line class="grid" x1="840" y1="0" x2="840" y2="748"/>
+    <line class="grid" x1="0" y1="374" x2="1680" y2="374"/>
+
+    <g transform="translate(40 38)">
+      <rect x="0" y="0" width="136" height="36" rx="18" fill="#0f766e" opacity="0.16"/>
+      <text x="20" y="26" class="qtag" fill="#115e59">PLAN</text>
+      <text x="0" y="83" class="ink qtitle">Build district-proof trust</text>
+      <text x="0" y="133" class="muted bullet">- ESSA-style logic model and pilot evidence plan</text>
+      <text x="0" y="174" class="muted bullet">- FERPA, COPPA, data-retention, accessibility answers</text>
+      <text x="0" y="215" class="muted bullet">- State standards maps: CA, TX, FL, NY, Common Core</text>
+      <text x="0" y="256" class="muted bullet">- Integration roadmap: Clever/ClassLink, LMS, SIS exports</text>
+      <text x="0" y="312" class="ink body" font-weight="760">Schedule before scaling outreach.</text>
+    </g>
+
+    <g transform="translate(880 38)">
+      <rect x="0" y="0" width="152" height="36" rx="18" fill="#f59e0b" opacity="0.20"/>
+      <text x="20" y="26" class="qtag" fill="#92400e">DO NOW</text>
+      <text x="0" y="83" class="ink qtitle">Win the math-recovery pilot</text>
+      <text x="0" y="133" class="muted bullet">- Lead with grade 4-8 recovery and standards alignment</text>
+      <text x="0" y="174" class="muted bullet">- Demo adaptive pathways, practice, visual labs, AI tutor</text>
+      <text x="0" y="215" class="muted bullet">- Show teacher analytics for intervention groups</text>
+      <text x="0" y="256" class="muted bullet">- Offer a 6-8 week pilot with success metrics and PD</text>
+      <text x="0" y="312" class="ink body" font-weight="760">Make the first buyer meeting concrete.</text>
+    </g>
+
+    <g transform="translate(40 412)">
+      <rect x="0" y="0" width="126" height="36" rx="18" fill="#64748b" opacity="0.16"/>
+      <text x="20" y="26" class="qtag" fill="#334155">DEFER</text>
+      <text x="0" y="83" class="ink qtitle">Avoid low-leverage work</text>
+      <text x="0" y="133" class="muted bullet">- Generic consumer ads before district evidence</text>
+      <text x="0" y="174" class="muted bullet">- Flashy AI claims without teacher-control guardrails</text>
+      <text x="0" y="215" class="muted bullet">- New non-US curricula during the launch window</text>
+      <text x="0" y="256" class="muted bullet">- Custom content promises without QA and standards maps</text>
+      <text x="0" y="312" class="ink body" font-weight="760">Protect focus and credibility.</text>
+    </g>
+
+    <g transform="translate(880 412)">
+      <rect x="0" y="0" width="286" height="36" rx="18" fill="#e11d48" opacity="0.13"/>
+      <text x="20" y="26" class="qtag" fill="#9f1239">TEMPLATE / DELEGATE</text>
+      <text x="0" y="83" class="ink qtitle">Handle urgent noise cleanly</text>
+      <text x="0" y="133" class="muted bullet">- One-off demo feature requests and stakeholder emails</text>
+      <text x="0" y="174" class="muted bullet">- Conference follow-ups and RFP checkbox responses</text>
+      <text x="0" y="215" class="muted bullet">- Price calculators, security packets, procurement FAQs</text>
+      <text x="0" y="256" class="muted bullet">- Route through templates, partners, and sales operations</text>
+      <text x="0" y="312" class="ink body" font-weight="760">Respond fast without derailing the pilot.</text>
+    </g>
+  </g>
+
+  <g>
+    <line class="arrow" x1="190" y1="988" x2="1714" y2="988"/>
+    <text x="952" y="1030" class="ink axis" text-anchor="middle">Buyer time pressure / urgency increases to the right</text>
+    <line class="arrow" x1="82" y1="904" x2="82" y2="246"/>
+    <text x="42" y="585" class="ink axis" transform="rotate(-90 42 585)" text-anchor="middle">District impact / strategic importance increases upward</text>
+  </g>
+
+  <text x="120" y="1054" class="source">Sources: MAIS public homepage, www.mais.hk, checked 2026-06-22; NCES/NAEP 2024 Mathematics public reporting, used as current US math-recovery context.</text>
+</svg>

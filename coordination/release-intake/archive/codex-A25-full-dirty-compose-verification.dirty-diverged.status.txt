@@ -1,0 +1,2423 @@
+M .env.local.example
+ M .gitignore
+ M .vercelignore
+ M AGENTS.md
+ M README.md
+ M app/adaptive-learning/loading.tsx
+ M app/adaptive-learning/page.tsx
+ M app/api/adaptive-learning/next/route.ts
+ M app/api/adaptive-learning/refresh/route.ts
+ M app/api/ai-tutor/route.ts
+ M app/api/ai-tutor/status/route.ts
+ M app/api/analytics/export/route.ts
+ M app/api/analytics/summary/route.ts
+ M app/api/attempts/route.ts
+ M app/api/auth/login/route.ts
+ M app/api/auth/logout/route.ts
+ M app/api/auth/password-change/route.ts
+ M app/api/auth/password-reset/confirm/route.ts
+ M app/api/auth/password-reset/request/route.ts
+ M app/api/auth/register/route.ts
+ M app/api/dashboard/route.ts
+ M app/api/handwriting-recognition/route.ts
+ M app/api/learning-events/route.ts
+ M app/api/lesson-entry/route.ts
+ M app/api/lessons/[slug]/route.ts
+ M app/api/me/profile/route.ts
+ M app/api/me/route.ts
+ M app/api/me/settings/route.ts
+ M app/api/parent/children/link/route.ts
+ M app/api/parent/messages/[threadId]/reply/route.ts
+ M app/api/parent/messages/route.ts
+ M app/api/questions/route.ts
+ M app/api/teacher/assessments/[assessmentId]/route.ts
+ M app/api/teacher/assessments/route.ts
+ M app/api/teacher/assignments/[assignmentId]/route.ts
+ M app/api/teacher/assignments/route.ts
+ M app/api/teacher/classes/[classId]/students/route.ts
+ M app/api/teacher/resources/route.ts
+ M app/api/visualization-sessions/route.ts
+ M app/assessment/[assessmentId]/page.tsx
+ M app/change-password/page.tsx
+ M app/dashboard/page.tsx
+ M app/forgot-password/page.tsx
+ M app/icon.png
+ M app/layout.tsx
+ M app/learning-path/page.tsx
+ M app/lesson/[slug]/page.tsx
+ M app/lesson/california-high-school-textbook/page.tsx
+ M app/lesson/loading.tsx
+ M app/lesson/page.tsx
+ M app/login/page.tsx
+ M app/messages/page.tsx
+ M app/not-found.tsx
+ M app/page.tsx
+ M app/parent/getParentFoundation.ts
+ M app/practice/PracticeArenaBackToTopButton.tsx
+ M app/practice/adventure-island/page.tsx
+ M app/practice/fishing-game/page.tsx
+ M app/practice/page.tsx
+ M app/practice/super-platformer-like/page.tsx
+ M app/primary-roadmap/page.tsx
+ M app/register/page.tsx
+ M app/reset-password/page.tsx
+ M app/secondary-roadmap/page.tsx
+ M app/student/lessons/california-high-school-textbook/page.tsx
+ D app/student/lessons/page.tsx
+ M app/student/tools/visualizations/[labId]/page.tsx
+ M app/student/tools/visualizations/page.tsx
+ M app/teacher/analytics/page.tsx
+ M app/teacher/assessments/new/page.tsx
+ M app/teacher/assessments/page.tsx
+ M app/teacher/assignments/[assignmentId]/page.tsx
+ M app/teacher/assignments/new/page.tsx
+ M app/teacher/assignments/page.tsx
+ M app/teacher/classes/page.tsx
+ M app/teacher/classroom-sessions/page.tsx
+ M app/teacher/communications/inbox/page.tsx
+ M app/teacher/dashboard/page.tsx
+ M app/teacher/getTeacherFoundation.ts
+ M app/teacher/inbox/page.tsx
+ M app/teacher/layout.tsx
+ M app/teacher/lesson-kits/page.tsx
+ M app/teacher/live/page.tsx
+ M app/teacher/operations/renderOperationsPage.tsx
+ M app/teacher/page.tsx
+ M app/teacher/reports/page.tsx
+ M app/teacher/resources/page.tsx
+ M app/teacher/rewards/page.tsx
+ M app/teacher/students/[studentId]/page.tsx
+ M app/visualization-lab/loading.tsx
+ M app/visualization-lab/page.tsx
+ M components/ai/AITutorButton.tsx
+ M components/ai/AITutorProvider.tsx
+ M components/background/AnimatedMathBackground.tsx
+ M components/dashboard/AdaptiveLearningContent.tsx
+ M components/dashboard/DashboardBackToTopButton.tsx
+ M components/dashboard/DashboardGradeSelectorGrid.tsx
+ M components/dashboard/StudentProfilePanel.tsx
+ M components/dashboard/StudentRewardsPanel.tsx
+ M components/gamification/AdventureIslandGame.tsx
+ M components/gamification/FishingGame.tsx
+ M components/gamification/StudentMotivationHub.tsx
+ M components/home/HeroSection.tsx
+ M components/home/HomePageClient.tsx
+ M components/layout/Footer.tsx
+ M components/layout/MapLikeLogoMark.tsx
+ M components/layout/Navbar.tsx
+ M components/layout/StudentBackToTopButton.tsx
+ M components/learning/LearningPathBackToTopButton.tsx
+ M components/learning/LearningRoadmap.tsx
+ M components/learning/SubwayNetworkMap.tsx
+ M components/lesson/CaliforniaHighSchoolTextbookPage.tsx
+ M components/lesson/CaliforniaHighSchoolTextbookStudentPage.tsx
+ M components/lesson/CaliforniaMiddleSchoolReplacementTextbookPage.tsx
+ M components/lesson/CaliforniaMiddleSchoolTextbookPage.tsx
+ M components/lesson/LessonBackToTopButton.tsx
+ M components/lesson/LessonEntryClient.tsx
+ M components/lesson/LessonGalaxyDirectory.tsx
+ M components/lesson/LessonView.tsx
+ M components/lesson/StudentLessonEntryPage.tsx
+ M components/lesson/lessonAccessPolicy.test.ts
+ M components/lesson/lessonContentText.test.ts
+ M components/lesson/lessonContentText.ts
+ M components/lesson/lessonGalaxyDirectoryNavigation.test.ts
+ M components/math/MathText.tsx
+ M components/parent/ParentShell.tsx
+ M components/parent/ParentViews.tsx
+ M components/practice/HandwritingAnswerBoard.tsx
+ M components/practice/PracticeAdventureArenaShell.tsx
+ M components/practice/PracticeGradeRadarSelect.tsx
+ M components/practice/PracticeMissionSetupControls.tsx
+ M components/practice/PracticeQuestionCard.tsx
+ M components/providers/AppProviders.tsx
+ M components/teacher/TeacherAnalyticsView.tsx
+ M components/teacher/TeacherDashboardClient.tsx
+ M components/teacher/TeacherDashboardView.tsx
+ M components/teacher/TeacherFoundationViews.tsx
+ M components/teacher/TeacherLiveView.tsx
+ M components/teacher/TeacherManagementViews.tsx
+ M components/teacher/TeacherReportsBackToTopButton.tsx
+ M components/teacher/TeacherReportsView.tsx
+ M components/teacher/TeacherResourceAssessmentViews.tsx
+ M components/teacher/TeacherRewardsView.tsx
+ M components/teacher/TeacherShell.tsx
+ M components/teacher/teacherLabels.ts
+ M components/ui/CurriculumTrackSelector.tsx
+ M components/ui/GradeSelector.tsx
+ M components/ui/LanguageToggle.tsx
+ M components/ui/ThemeToggle.tsx
+ M components/visualizations/CalculusStatsLab.tsx
+ M components/visualizations/ConfiguredVisualizationLab.tsx
+ M components/visualizations/CoordinatePlaneDemo.tsx
+ M components/visualizations/FunctionGraphExplorer.tsx
+ M components/visualizations/FunctionModelComparer.tsx
+ M components/visualizations/GeometryExplorer.tsx
+ M components/visualizations/ProbabilitySimulator.tsx
+ M components/visualizations/RoadmapVisualizationSuite.tsx
+ M components/visualizations/TrigWaveExplorer.tsx
+ M components/visualizations/VisualizationCard.tsx
+ M components/visualizations/VisualizationLabBackToTopButton.tsx
+ M components/visualizations/VisualizationLabPage.tsx
+ M components/visualizations/assets/lab-quest-island-map-4k.webp
+ M components/visualizations/assets/lab-quest-island-map-en-4k.webp
+ M components/visualizations/configuredVisualizationLabRegressions.test.ts
+ M components/visualizations/three/ThreeDLabCanvas.tsx
+ M components/visualizations/three/ThreeDLabSceneRegistry.tsx
+ M components/visualizations/three/configuredThreeDRenderPlan.test.ts
+ M components/visualizations/three/configuredThreeDRenderPlan.ts
+ M components/visualizations/three/manim/MathFormulaOverlay.tsx
+ M components/visualizations/three/manim/MathSceneRuntime.tsx
+ M components/visualizations/three/manim/mathCameraDirector.ts
+ M components/visualizations/three/manim/mathCoordinateSpace.test.ts
+ M components/visualizations/three/manim/mathCoordinateSpace.ts
+ M components/visualizations/three/manim/mathCoordinateSystem3D.test.ts
+ M components/visualizations/three/manim/mathCoordinateSystem3D.ts
+ M components/visualizations/three/manim/mathCurveObject.test.ts
+ M components/visualizations/three/manim/mathCurveObject.ts
+ M components/visualizations/three/manim/mathFormulaBindings.test.ts
+ M components/visualizations/three/manim/mathFormulaBindings.ts
+ M components/visualizations/three/manim/mathFormulaLayer.test.ts
+ M components/visualizations/three/manim/mathFormulaLayer.ts
+ M components/visualizations/three/manim/mathObjectTransform.test.ts
+ M components/visualizations/three/manim/mathObjectTransform.ts
+ M components/visualizations/three/manim/mathSceneCheckpoint.test.ts
+ M components/visualizations/three/manim/mathSceneCheckpoint.ts
+ M components/visualizations/three/manim/mathScenePlayback.test.ts
+ M components/visualizations/three/manim/mathScenePlayback.ts
+ M components/visualizations/three/manim/mathSceneRegistry.test.ts
+ M components/visualizations/three/manim/mathSceneRegistry.ts
+ M components/visualizations/three/manim/mathSceneRuntimeState.test.ts
+ M components/visualizations/three/manim/mathSceneRuntimeState.ts
+ M components/visualizations/three/manim/mathSceneTypes.ts
+ M components/visualizations/three/manim/mathTimeline.test.ts
+ M components/visualizations/three/manim/mathTimeline.ts
+ M components/visualizations/three/manim/mathUpdaterRegistry.ts
+ M components/visualizations/three/scenes/TemplatePrimitiveScene.tsx
+ M components/visualizations/three/threeDCanvasContract.test.ts
+ M components/visualizations/three/threeDCanvasContract.ts
+ M components/visualizations/three/threeDCanvasSurfaceContract.ts
+ M components/visualizations/three/threeDLaunchCoverageContract.test.ts
+ M components/visualizations/three/threeDSceneMath.catalog.test.ts
+ M components/visualizations/three/threeDSceneMath.test.ts
+ M components/visualizations/three/threeDSceneMath.ts
+ M components/visualizations/three/threeDSceneTypes.ts
+ M components/visualizations/three/threeDSceneVariantMetadata.ts
+ M components/visualizations/three/threeDTopicCatalogBuilderContract.test.ts
+ M components/visualizations/visualizationDiagnostics.premiumSmoke.test.ts
+ M components/visualizations/visualizationDiagnostics.test.ts
+ M coordination/content-qa/2026-05-26-S18-us-top10-math-rag-standards-guide.docx
+ M coordination/content-qa/generate-us-top10-rag-standards-docx.py
+ M coordination/content-qa/mainland-bnu-junior-generated-bank-v1-1500/approved-question-pack.json
+ M coordination/content-qa/mainland-bnu-junior-lessons-v1/deepseek-v4-pro-lesson-qa.mjs
+ M coordination/content-qa/mainland-bnu-junior-lessons-v1/deepseek-v4-pro-lesson-qa/preflight-summary.json
+ M coordination/content-qa/mainland-bnu-junior-lessons-v1/deepseek-v4-pro-lesson-qa/preflight-summary.md
+ M coordination/content-qa/mainland-hjb-high-generated-bank-v3-remediated/s18-promotability-decision.md
+ M coordination/content-qa/mainland-hjb-high-generated-bank-v4-remediated/s18-promotability-decision.md
+ M coordination/content-qa/mainland-hjb-junior-generated-bank-v2-1500/question-pack.json
+ M coordination/content-qa/mainland-pep-high-hybrid-1200-v1/audit-independent-solvability.mjs
+ M coordination/content-qa/mainland-pep-high-hybrid-1200-v1/final-review-decision.md
+ M coordination/content-qa/mainland-pep-high-hybrid-1200-v1/independent-solvability-audit.json
+ M coordination/content-qa/mainland-pep-high-hybrid-1200-v1/independent-solvability-audit.md
+ M coordination/content-qa/mainland-pep-high-hybrid-1200-v1/manual-review-results.csv
+ M coordination/content-qa/mainland-pep-high-hybrid-1200-v1/promotability-decision.md
+ M coordination/content-qa/mainland-pep-high-hybrid-1200-v1/qa-summary.md
+ M coordination/content-qa/mainland-pep-high-lessons-v1/lessons.json
+ M coordination/content-qa/mainland-pep-high-lessons-v1/qa-report.md
+ M coordination/content-qa/mainland-pep-high-lessons-v1/validation-report.json
+ M coordination/content-qa/mainland-pep-primary-generated-bank-v2/manual-review-queue.csv
+ M coordination/content-qa/mainland-pep-primary-generated-bank-v2/manual-review-results.csv
+ M coordination/content-qa/mainland-pep-primary-generated-bank-v2/qa-report.md
+ M coordination/content-qa/mainland-pep-primary-generated-bank-v2/questions.csv
+ M coordination/content-qa/mainland-pep-primary-generated-bank-v2/questions.jsonl
+ M coordination/content-qa/mainland-pep-primary-generated-bank-v2/repair-red-flag-rows.mjs
+ M coordination/content-qa/mainland-pep-primary-generated-bank-v2/solvability-audit.csv
+ M coordination/content-qa/mainland-pep-primary-generated-bank-v2/solvability-audit.json
+ M coordination/content-qa/mainland-pep-primary-generated-bank-v2/solvability-audit.md
+ M coordination/reports/2026-05-28-vercel-deployment-slimming-guide.md
+ M coordination/session-logs/2026-05-28-S01.md
+ M coordination/session-logs/2026-05-28-S04.md
+ M coordination/session-logs/2026-05-28-S05.md
+ M coordination/session-logs/2026-05-28-S06.md
+ M coordination/session-logs/2026-05-28-S10.md
+ M coordination/session-logs/2026-05-28-S13.md
+ M coordination/session-logs/2026-05-28-S18.md
+ M data/generated-content/mainland-bnu-junior-generated-bank-v1-1500/approved-question-pack.json
+ M data/generated-content/mainland-hjb-junior-generated-bank-v2-1500/question-pack.json
+ M data/generated-content/mainland-pep-high-lessons-v1/lessons.json
+ M data/grades.ts
+ M data/hkChineseExceptions.ts
+ M data/hkChineseGlossary.ts
+ M data/lessons.ts
+ M data/mainlandBnuHighQuestions.ts
+ M data/mainlandBnuHighTopics.ts
+ M data/mainlandBnuJuniorQuestions.ts
+ M data/mainlandBnuJuniorTopics.ts
+ M data/mainlandBnuPrimaryLessons.ts
+ M data/mainlandBnuPrimaryQuestions.ts
+ M data/mainlandBnuPrimaryTopics.ts
+ M data/mainlandHjbHighLessons.ts
+ M data/mainlandHjbHighQuestions.ts
+ M data/mainlandHjbHighTopics.ts
+ M data/mainlandHjbJuniorLessons.ts
+ M data/mainlandHjbJuniorQuestions.ts
+ M data/mainlandHjbJuniorTopics.ts
+ M data/mainlandHjbPrimaryLessons.ts
+ M data/mainlandHjbPrimaryQuestions.ts
+ M data/mainlandHjbPrimaryTopics.ts
+ M data/mainlandHjbRoadmap.ts
+ M data/mainlandPepHighLessonIllustrations.ts
+ M data/mainlandPepHighQuestions.ts
+ M data/mainlandPepHighTopics.ts
+ M data/mainlandPepJuniorQuestions.ts
+ M data/mainlandPepJuniorTopics.ts
+ M data/mainlandPepPrimaryQuestions.ts
+ M data/mainlandPepPrimaryTopics.ts
+ M data/mainlandPepRoadmap.ts
+ M data/questions.ts
+ M data/rag/mainlandPepHigh.ts
+ M data/rag/mainlandPepJunior.ts
+ M data/rag/mainlandPepJuniorPaperPatterns.ts
+ M data/rag/usMath.ts
+ M data/topics.ts
+ M data/visualizationLabs.ts
+ M lib/adaptiveLearning.test.ts
+ M lib/adaptiveLearning.ts
+ M lib/curriculumProfile.ts
+ M lib/fullQuestionBankSolvability.test.ts
+ M lib/gameBasedLearning.test.ts
+ M lib/gameBasedLearning.ts
+ M lib/guestLessonLinks.ts
+ M lib/i18n.ts
+ M lib/learningAnalytics.test.ts
+ M lib/learningAnalytics.ts
+ M lib/lessonLinks.ts
+ M lib/mainlandBnuJuniorQuestionBank.test.ts
+ M lib/mainlandPepHighQuestionBank.test.ts
+ M lib/mainlandPepJuniorQuestionBank.test.ts
+ M lib/mainlandPepPrimaryQuestionBank.test.ts
+ M lib/mvpReadiness.test.ts
+ M lib/questionBankSolvability.ts
+ M lib/rag/hongKongDseEph.ts
+ M lib/rag/hongKongDseMath.ts
+ M lib/rag/hongKongDseUp.ts
+ M lib/rag/hongKongMath.ts
+ M lib/rag/hongKongMathEdB.ts
+ M lib/rag/mainlandBnuHigh.ts
+ M lib/rag/mainlandBnuHighAssessmentPatterns.ts
+ M lib/rag/mainlandBnuJunior.ts
+ M lib/rag/mainlandBnuJuniorAssessmentPatterns.ts
+ M lib/rag/mainlandBnuPrimary.ts
+ M lib/rag/mainlandBnuPrimaryAssessmentPatterns.ts
+ M lib/rag/mainlandHjbHigh.ts
+ M lib/rag/mainlandHjbHighExamPatterns.ts
+ M lib/rag/mainlandHjbJunior.ts
+ M lib/rag/mainlandHjbJuniorAssessmentPatterns.ts
+ M lib/rag/mainlandHjbJuniorPaperPatterns.ts
+ M lib/rag/mainlandHjbPrimary.ts
+ M lib/rag/mainlandHjbPrimaryAssessmentPatterns.ts
+ M lib/rag/mainlandJuniorZhongkaoExamPatterns.ts
+ M lib/rag/mainlandPep.test.ts
+ M lib/rag/mainlandPep.ts
+ M lib/rag/mainlandPepHigh.test.ts
+ M lib/rag/mainlandPepHigh.ts
+ M lib/rag/mainlandPepHighExamPatterns.ts
+ M lib/rag/mainlandPepJuniorExamPatterns.ts
+ M lib/rag/mainlandPepJuniorPaperPatterns.ts
+ M lib/rag/mainlandPepPrimaryExamPatterns.ts
+ M lib/rag/usMath.test.ts
+ M lib/rag/usMath.ts
+ M lib/server/answerGrading.ts
+ M lib/server/apiSurfaceSecurity.test.ts
+ M lib/server/auth.ts
+ M lib/server/internalCaliforniaFastLogin.test.ts
+ M lib/server/internalCaliforniaFastLogin.ts
+ M lib/server/llmProvider.test.ts
+ M lib/server/llmProvider.ts
+ M lib/server/lrsClient.test.ts
+ M lib/server/lrsClient.ts
+ M lib/server/teacherDashboardPageBoundary.test.ts
+ M lib/server/userStore.ts
+ M lib/server/userStoreLessonPerformance.test.ts
+ M lib/utils.ts
+ M middleware.ts
+ M next.config.ts
+ M package-lock.json
+ M package.json
+ M playwright.config.ts
+ M scripts/audit-mainland-pep-roadmap.ts
+ M scripts/build-mainland-pep-junior-paper-manifest.py
+ M scripts/build-us-math-safe-library-manifest.py
+ M tests/e2e/adaptive-llm-smoke.spec.ts
+ M tests/e2e/adventure-island.spec.ts
+ M tests/e2e/ai-tutor-deepseek.spec.ts
+ M tests/e2e/ai-tutor-live-text.spec.ts
+ M tests/e2e/app-shell-auth.spec.ts
+ M tests/e2e/backend-api.spec.ts
+ M tests/e2e/console-readonly-audit.spec.ts
+ M tests/e2e/deepseek-fetch-proxy.cjs
+ M tests/e2e/fishing-game.spec.ts
+ M tests/e2e/fishing-master-adventure.spec.ts
+ M tests/e2e/gamification.spec.ts
+ M tests/e2e/helpers.ts
+ M tests/e2e/home-functional.spec.ts
+ M tests/e2e/isolated-app.ts
+ M tests/e2e/lesson-all.spec.ts
+ M tests/e2e/mainland-hjb-lesson-only.spec.ts
+ M tests/e2e/mainland-hjb-roadmaps.spec.ts
+ M tests/e2e/mainland-pep-primary-lessons.spec.ts
+ M tests/e2e/mainland-pep-roadmaps.spec.ts
+ M tests/e2e/parent-console.spec.ts
+ M tests/e2e/practice-pager.spec.ts
+ M tests/e2e/production-auth-storage-smoke.spec.ts
+ M tests/e2e/production-game-smoke.spec.ts
+ M tests/e2e/production-visualization-values.spec.ts
+ M tests/e2e/student-button-dropdown-matrix.spec.ts
+ M tests/e2e/student-frontend.spec.ts
+ M tests/e2e/student-smoke.spec.ts
+ M tests/e2e/teacher-console-button-matrix.spec.ts
+ M tests/e2e/teacher-student-cross-role.spec.ts
+ M tests/e2e/teacher-workspace.spec.ts
+ M tests/e2e/ui-ux-regression.spec.ts
+ M tests/e2e/visualization-ai-classroom.spec.ts
+ M tests/e2e/visualization-overlap.spec.ts
+ M tests/e2e/visualization-values.spec.ts
+ M types/index.ts
+ M video-plan/claim-check.md
+ M video-plan/codex-production-workflow.md
+ M video-plan/recording-checklist.md
+ M video-plan/route-capture-plan.json
+ M video-plan/shot-checklist.md
+?? app/about/page.tsx
+?? app/api/ai-tutor/resolve/route.ts
+?? app/api/ai-tutor/speech/route.ts
+?? app/api/ai-tutor/voice/route.ts
+?? app/api/attempts/routeFastPath.test.ts
+?? app/api/forum/notifications/route.ts
+?? app/api/forum/route.ts
+?? app/api/forum/threads/[threadId]/pulses/route.ts
+?? app/api/forum/threads/[threadId]/replies/route.ts
+?? app/api/forum/threads/[threadId]/reports/route.ts
+?? app/api/forum/threads/[threadId]/route.ts
+?? app/api/lesson-audio/lessonAudioSse.test.ts
+?? app/api/lesson-audio/lessonAudioSse.ts
+?? app/api/lesson-audio/route.ts
+?? app/api/nova-lens/runs/route.ts
+?? app/api/parent/notices/[recipientId]/ack/route.ts
+?? app/api/parent/notices/route.ts
+?? app/api/questions/routeQuestionStore.test.ts
+?? app/dashboard/dashboardPagePerformanceBoundary.test.ts
+?? app/forum/page.tsx
+?? app/icon.svg
+?? app/parent/notices/page.tsx
+?? app/personalized-learning/loading.tsx
+?? app/personalized-learning/page.tsx
+?? app/practice/practiceArenaPageRegressions.test.ts
+?? app/student/assessments/[assessmentId]/page.tsx
+?? app/student/assignments/[assignmentId]/page.tsx
+?? app/student/assignments/page.tsx
+?? app/student/lessons/route.ts
+?? app/student/practice/games/[gameSlug]/page.tsx
+?? app/student/practice/games/math-match-quest/page.tsx
+?? app/student/roadmap/page.tsx
+?? app/student/roadmap/primary/page.tsx
+?? app/student/roadmap/secondary/page.tsx
+?? app/teacher/emptyTeacherData.ts
+?? app/teacher/teacherNavigationPerformanceBoundary.test.ts
+?? app/visualization-lab/stembench-euler-demo/page.tsx
+?? components/ai/NovaLensGlobalOverlay.tsx
+?? components/ai/tutorVoiceInput.test.ts
+?? components/ai/tutorVoiceInput.ts
+?? components/dashboard/AdaptiveKnowledgeGalaxy.tsx
+?? components/dashboard/StudentAssignmentsView.tsx
+?? components/dashboard/studentProfileAvatarUpload.test.ts
+?? components/dashboard/studentProfileAvatarUpload.ts
+?? components/dashboard/studentRewardsPanelLayout.test.ts
+?? components/forum/ForumWorkspace.tsx
+?? components/gamification/StudentMotivationHub.disclosure.test.ts
+?? components/gamification/adventureIslandGamePersistence.test.ts
+?? components/home/AboutGamePathShowcase.tsx
+?? components/home/PedaNovaHomeHero.tsx
+?? components/home/aboutGamePathShowcaseLinks.test.ts
+?? components/home/brand-assets/pedanova-home-background-4k-crisp.webp
+?? components/home/brand-assets/pedanova-home-background-4k.png
+?? components/layout/GuestLoginPromptGate.tsx
+?? components/layout/LearnerStartSetupGate.tsx
+?? components/learning/RoadmapRouteShell.tsx
+?? components/learning/subwayNetworkMapGeometry.test.ts
+?? components/lesson/WorkedExampleIllustration.tsx
+?? components/lesson/lessonAudioQueue.test.ts
+?? components/lesson/lessonAudioQueue.ts
+?? components/lesson/lessonCompletionChecklist.test.ts
+?? components/lesson/lessonCompletionChecklist.ts
+?? components/lesson/lessonEntryTarget.ts
+?? components/lesson/lessonVisualPlacement.test.ts
+?? components/lesson/staticLessonAudio.test.ts
+?? components/lesson/staticLessonAudio.ts
+?? components/lesson/workedExampleIllustrationMetadata.ts
+?? components/math/mathTextFormatting.ts
+?? components/parent/ParentNoticesView.tsx
+?? components/practice/practiceAdventureArenaShell.test.ts
+?? components/practice/practiceAdventureGrades.test.ts
+?? components/practice/practiceAdventureGrades.ts
+?? components/practice/practicePromptText.test.ts
+?? components/practice/practicePromptText.ts
+?? components/practice/practiceQuestionCardMetadata.test.ts
+?? components/providers/appProvidersTeacherAnalyticsBoundary.test.ts
+?? components/teacher/TeacherEmptyWorkspace.tsx
+?? components/ui/PasswordInputWithReveal.tsx
+?? components/visualizations/PremiumThreeDDirectRouteShell.tsx
+?? components/visualizations/StembenchEulerLineDemo.tsx
+?? components/visualizations/VisualizationLabRouteShell.tsx
+?? components/visualizations/premiumThreeDDirectLabs.ts
+?? components/visualizations/three/manim/mathAlwaysMethodUpdater.test.ts
+?? components/visualizations/three/manim/mathAlwaysMethodUpdater.ts
+?? components/visualizations/three/manim/mathAlwaysRedraw.test.ts
+?? components/visualizations/three/manim/mathAlwaysRedraw.ts
+?? components/visualizations/three/manim/mathAnimationBuilder.test.ts
+?? components/visualizations/three/manim/mathAnimationBuilder.ts
+?? components/visualizations/three/manim/mathAnimationComposition.test.ts
+?? components/visualizations/three/manim/mathAnimationComposition.ts
+?? components/visualizations/three/manim/mathAnimationLifecycle.test.ts
+?? components/visualizations/three/manim/mathAnimationLifecycle.ts
+?? components/visualizations/three/manim/mathAnimationRuntime.test.ts
+?? components/visualizations/three/manim/mathAnimationRuntime.ts
+?? components/visualizations/three/manim/mathAxisTicks.test.ts
+?? components/visualizations/three/manim/mathAxisTicks.ts
+?? components/visualizations/three/manim/mathCameraDirector.test.ts
+?? components/visualizations/three/manim/mathCameraFrame.test.ts
+?? components/visualizations/three/manim/mathCameraFrame.ts
+?? components/visualizations/three/manim/mathCameraFrameAdapter.test.ts
+?? components/visualizations/three/manim/mathCameraFrameAdapter.ts
+?? components/visualizations/three/manim/mathCameraFramePayload.test.ts
+?? components/visualizations/three/manim/mathCameraFramePayload.ts
+?? components/visualizations/three/manim/mathCameraFrameUpdater.test.ts
+?? components/visualizations/three/manim/mathCameraFrameUpdater.ts
+?? components/visualizations/three/manim/mathCameraShotAuthoring.test.ts
+?? components/visualizations/three/manim/mathCameraShotAuthoring.ts
+?? components/visualizations/three/manim/mathCheckpointPasteFileWriterBridge.test.ts
+?? components/visualizations/three/manim/mathCheckpointPasteFileWriterBridge.ts
+?? components/visualizations/three/manim/mathCheckpointPastePlan.test.ts
+?? components/visualizations/three/manim/mathCheckpointPastePlan.ts
+?? components/visualizations/three/manim/mathConfigDigest.test.ts
+?? components/visualizations/three/manim/mathConfigDigest.ts
+?? components/visualizations/three/manim/mathCreationPrimitives.test.ts
+?? components/visualizations/three/manim/mathCreationPrimitives.ts
+?? components/visualizations/three/manim/mathCurvePartialEvidence.test.ts
+?? components/visualizations/three/manim/mathCurvePartialEvidence.ts
+?? components/visualizations/three/manim/mathDrawBorderThenFillEvidence.test.ts
+?? components/visualizations/three/manim/mathDrawBorderThenFillEvidence.ts
+?? components/visualizations/three/manim/mathEvidenceHarness.test.ts
+?? components/visualizations/three/manim/mathEvidenceHarness.ts
+?? components/visualizations/three/manim/mathFadeGrowEvidence.test.ts
+?? components/visualizations/three/manim/mathFadeGrowEvidence.ts
+?? components/visualizations/three/manim/mathFormulaBindingAnchors.test.ts
+?? components/visualizations/three/manim/mathFormulaBindingAnchors.ts
+?? components/visualizations/three/manim/mathFormulaCollision.test.ts
+?? components/visualizations/three/manim/mathFormulaCollision.ts
+?? components/visualizations/three/manim/mathFormulaSvgMorphEvidence.test.ts
+?? components/visualizations/three/manim/mathFormulaSvgMorphEvidence.ts
+?? components/visualizations/three/manim/mathFormulaSvgMorphRuntime.test.ts
+?? components/visualizations/three/manim/mathFormulaSvgMorphRuntime.ts
+?? components/visualizations/three/manim/mathIndicationPrimitives.test.ts
+?? components/visualizations/three/manim/mathIndicationPrimitives.ts
+?? components/visualizations/three/manim/mathLagRatios.test.ts
+?? components/visualizations/three/manim/mathLagRatios.ts
+?? components/visualizations/three/manim/mathMobjectAnchors.test.ts
+?? components/visualizations/three/manim/mathMobjectAnchors.ts
+?? components/visualizations/three/manim/mathMobjectBoundingBox.test.ts
+?? components/visualizations/three/manim/mathMobjectBoundingBox.ts
+?? components/visualizations/three/manim/mathMobjectCopyPlan.test.ts
+?? components/visualizations/three/manim/mathMobjectCopyPlan.ts
+?? components/visualizations/three/manim/mathMobjectDataArray.test.ts
+?? components/visualizations/three/manim/mathMobjectDataArray.ts
+?? components/visualizations/three/manim/mathMobjectDirtyStatePayload.test.ts
+?? components/visualizations/three/manim/mathMobjectDirtyStatePayload.ts
+?? components/visualizations/three/manim/mathMobjectFamily.test.ts
+?? components/visualizations/three/manim/mathMobjectFamily.ts
+?? components/visualizations/three/manim/mathMobjectFamilyCache.ts
+?? components/visualizations/three/manim/mathMobjectInvalidation.test.ts
+?? components/visualizations/three/manim/mathMobjectInvalidation.ts
+?? components/visualizations/three/manim/mathMobjectLayout.test.ts
+?? components/visualizations/three/manim/mathMobjectLayout.ts
+?? components/visualizations/three/manim/mathMobjectMaterialUniforms.test.ts
+?? components/visualizations/three/manim/mathMobjectMaterialUniforms.ts
+?? components/visualizations/three/manim/mathMobjectMoveToTargetBridge.test.ts
+?? components/visualizations/three/manim/mathMobjectMoveToTargetBridge.ts
+?? components/visualizations/three/manim/mathMobjectPointCloud.test.ts
+?? components/visualizations/three/manim/mathMobjectPointCloud.ts
+?? components/visualizations/three/manim/mathMobjectPointGeneration.test.ts
+?? components/visualizations/three/manim/mathMobjectPointGeneration.ts
+?? components/visualizations/three/manim/mathMobjectPointTransforms.test.ts
+?? components/visualizations/three/manim/mathMobjectPointTransforms.ts
+?? components/visualizations/three/manim/mathMobjectRenderOrder.test.ts
+?? components/visualizations/three/manim/mathMobjectRenderOrder.ts
+?? components/visualizations/three/manim/mathMobjectState.test.ts
+?? components/visualizations/three/manim/mathMobjectState.ts
+?? components/visualizations/three/manim/mathMobjectStatePayload.test.ts
+?? components/visualizations/three/manim/mathMobjectStateRestoreBridge.test.ts
+?? components/visualizations/three/manim/mathMobjectStateRestoreBridge.ts
+?? components/visualizations/three/manim/mathMobjectUniforms.test.ts
+?? components/visualizations/three/manim/mathMobjectUniforms.ts
+?? components/visualizations/three/manim/mathMoveAlongVectorField.test.ts
+?? components/visualizations/three/manim/mathMoveAlongVectorField.ts
+?? components/visualizations/three/manim/mathOdeTrajectory.test.ts
+?? components/visualizations/three/manim/mathOdeTrajectory.ts
+?? components/visualizations/three/manim/mathOdeTrajectoryObjects.test.ts
+?? components/visualizations/three/manim/mathOdeTrajectoryObjects.ts
+?? components/visualizations/three/manim/mathParameterPanel.test.ts
+?? components/visualizations/three/manim/mathParameterPanel.ts
+?? components/visualizations/three/manim/mathPathFunctions.test.ts
+?? components/visualizations/three/manim/mathPathFunctions.ts
+?? components/visualizations/three/manim/mathProjectedLabels.test.ts
+?? components/visualizations/three/manim/mathProjectedLabels.ts
+?? components/visualizations/three/manim/mathRateFunctions.test.ts
+?? components/visualizations/three/manim/mathRateFunctions.ts
+?? components/visualizations/three/manim/mathRuntimeIndicationOverlay.test.ts
+?? components/visualizations/three/manim/mathRuntimeIndicationOverlay.ts
+?? components/visualizations/three/manim/mathRuntimeRenderState.test.ts
+?? components/visualizations/three/manim/mathRuntimeRenderState.ts
+?? components/visualizations/three/manim/mathSceneAddMobjectBridge.test.ts
+?? components/visualizations/three/manim/mathSceneAddMobjectBridge.ts
+?? components/visualizations/three/manim/mathSceneAnimationPlans.test.ts
+?? components/visualizations/three/manim/mathSceneAnimationPlans.ts
+?? components/visualizations/three/manim/mathSceneBeginAnimations.test.ts
+?? components/visualizations/three/manim/mathSceneBeginAnimations.ts
+?? components/visualizations/three/manim/mathSceneBringToFrontMobjectBridge.test.ts
+?? components/visualizations/three/manim/mathSceneBringToFrontMobjectBridge.ts
+?? components/visualizations/three/manim/mathSceneCapture.test.ts
+?? components/visualizations/three/manim/mathSceneCapture.ts
+?? components/visualizations/three/manim/mathSceneClearMobjectBridge.test.ts
+?? components/visualizations/three/manim/mathSceneClearMobjectBridge.ts
+?? components/visualizations/three/manim/mathSceneEmitFrame.test.ts
+?? components/visualizations/three/manim/mathSceneEmitFrame.ts
+?? components/visualizations/three/manim/mathSceneExport.test.ts
+?? components/visualizations/three/manim/mathSceneExport.ts
+?? components/visualizations/three/manim/mathSceneFileWriterCombinePlan.test.ts
+?? components/visualizations/three/manim/mathSceneFileWriterCombinePlan.ts
+?? components/visualizations/three/manim/mathSceneFileWriterPlan.test.ts
+?? components/visualizations/three/manim/mathSceneFileWriterPlan.ts
+?? components/visualizations/three/manim/mathSceneFileWriterSegments.test.ts
+?? components/visualizations/three/manim/mathSceneFileWriterSegments.ts
+?? components/visualizations/three/manim/mathSceneFinishAnimations.test.ts
+?? components/visualizations/three/manim/mathSceneFinishAnimations.ts
+?? components/visualizations/three/manim/mathSceneFloorPlane.test.ts
+?? components/visualizations/three/manim/mathSceneFloorPlane.ts
+?? components/visualizations/three/manim/mathSceneFrameAudit.test.ts
+?? components/visualizations/three/manim/mathSceneFrameAudit.ts
+?? components/visualizations/three/manim/mathSceneFrameStepper.test.ts
+?? components/visualizations/three/manim/mathSceneFrameStepper.ts
+?? components/visualizations/three/manim/mathSceneGraph.test.ts
+?? components/visualizations/three/manim/mathSceneGraph.ts
+?? components/visualizations/three/manim/mathSceneHistory.test.ts
+?? components/visualizations/three/manim/mathSceneHistory.ts
+?? components/visualizations/three/manim/mathSceneInitialization.test.ts
+?? components/visualizations/three/manim/mathSceneInitialization.ts
+?? components/visualizations/three/manim/mathSceneInteractLoop.test.ts
+?? components/visualizations/three/manim/mathSceneInteractLoop.ts
+?? components/visualizations/three/manim/mathSceneKeyControls.test.ts
+?? components/visualizations/three/manim/mathSceneKeyControls.ts
+?? components/visualizations/three/manim/mathScenePicking.test.ts
+?? components/visualizations/three/manim/mathScenePicking.ts
+?? components/visualizations/three/manim/mathScenePlayCompilation.test.ts
+?? components/visualizations/three/manim/mathScenePlayCompilation.ts
+?? components/visualizations/three/manim/mathScenePlaybackFileWriterBridge.test.ts
+?? components/visualizations/three/manim/mathScenePlaybackFileWriterBridge.ts
+?? components/visualizations/three/manim/mathScenePointerControls.test.ts
+?? components/visualizations/three/manim/mathScenePointerControls.ts
+?? components/visualizations/three/manim/mathScenePostCellRedraw.test.ts
+?? components/visualizations/three/manim/mathScenePostCellRedraw.ts
+?? components/visualizations/three/manim/mathScenePostPlayPreview.test.ts
+?? components/visualizations/three/manim/mathScenePostPlayPreview.ts
+?? components/visualizations/three/manim/mathScenePrePlayControl.test.ts
+?? components/visualizations/three/manim/mathScenePrePlayControl.ts
+?? components/visualizations/three/manim/mathScenePresenterHold.test.ts
+?? components/visualizations/three/manim/mathScenePresenterHold.ts
+?? components/visualizations/three/manim/mathSceneProgressControl.test.ts
+?? components/visualizations/three/manim/mathSceneProgressControl.ts
+?? components/visualizations/three/manim/mathSceneProgressThroughAnimations.test.ts
+?? components/visualizations/three/manim/mathSceneProgressThroughAnimations.ts
+?? components/visualizations/three/manim/mathSceneRandom.test.ts
+?? components/visualizations/three/manim/mathSceneRandom.ts
+?? components/visualizations/three/manim/mathSceneReloadPlan.test.ts
+?? components/visualizations/three/manim/mathSceneReloadPlan.ts
+?? components/visualizations/three/manim/mathSceneRemoveAllExceptMobjectBridge.test.ts
+?? components/visualizations/three/manim/mathSceneRemoveAllExceptMobjectBridge.ts
+?? components/visualizations/three/manim/mathSceneRemoveMobjectBridge.test.ts
+?? components/visualizations/three/manim/mathSceneRemoveMobjectBridge.ts
+?? components/visualizations/three/manim/mathSceneRenderBatches.test.ts
+?? components/visualizations/three/manim/mathSceneRenderBatches.ts
+?? components/visualizations/three/manim/mathSceneRenderQuality.test.ts
+?? components/visualizations/three/manim/mathSceneRenderQuality.ts
+?? components/visualizations/three/manim/mathSceneRenderQualityBridge.test.ts
+?? components/visualizations/three/manim/mathSceneRenderQualityBridge.ts
+?? components/visualizations/three/manim/mathSceneReplaceMobjectBridge.test.ts
+?? components/visualizations/three/manim/mathSceneReplaceMobjectBridge.ts
+?? components/visualizations/three/manim/mathSceneReviewPackageHandoff.test.ts
+?? components/visualizations/three/manim/mathSceneReviewPackageHandoff.ts
+?? components/visualizations/three/manim/mathSceneReviewPackageSlices.test.ts
+?? components/visualizations/three/manim/mathSceneReviewPackageSlices.ts
+?? components/visualizations/three/manim/mathSceneReviewPackages.test.ts
+?? components/visualizations/three/manim/mathSceneReviewPackages.ts
+?? components/visualizations/three/manim/mathSceneRunFileWriterFinishBridge.test.ts
+?? components/visualizations/three/manim/mathSceneRunFileWriterFinishBridge.ts
+?? components/visualizations/three/manim/mathSceneRunFromBeat.test.ts
+?? components/visualizations/three/manim/mathSceneRunFromBeat.ts
+?? components/visualizations/three/manim/mathSceneRunInteractBridge.test.ts
+?? components/visualizations/three/manim/mathSceneRunInteractBridge.ts
+?? components/visualizations/three/manim/mathSceneRunLifecycle.test.ts
+?? components/visualizations/three/manim/mathSceneRunLifecycle.ts
+?? components/visualizations/three/manim/mathSceneRuntimeGraph.test.ts
+?? components/visualizations/three/manim/mathSceneRuntimeGraph.ts
+?? components/visualizations/three/manim/mathSceneSelectorCatalog.test.ts
+?? components/visualizations/three/manim/mathSceneSelectorCatalog.ts
+?? components/visualizations/three/manim/mathSceneSendToBackMobjectBridge.test.ts
+?? components/visualizations/three/manim/mathSceneSendToBackMobjectBridge.ts
+?? components/visualizations/three/manim/mathSceneShortcutCatalog.test.ts
+?? components/visualizations/three/manim/mathSceneShortcutCatalog.ts
+?? components/visualizations/three/manim/mathSceneSkipControl.test.ts
+?? components/visualizations/three/manim/mathSceneSkipControl.ts
+?? components/visualizations/three/manim/mathSceneSkippingWindow.test.ts
+?? components/visualizations/three/manim/mathSceneSkippingWindow.ts
+?? components/visualizations/three/manim/mathSceneSmokeHook.test.ts
+?? components/visualizations/three/manim/mathSceneSmokeHook.ts
+?? components/visualizations/three/manim/mathSceneSoundCue.test.ts
+?? components/visualizations/three/manim/mathSceneSoundCue.ts
+?? components/visualizations/three/manim/mathSceneStateSnapshot.test.ts
+?? components/visualizations/three/manim/mathSceneStateSnapshot.ts
+?? components/visualizations/three/manim/mathSceneTeachingA06SourceConfirmationLedger.test.ts
+?? components/visualizations/three/manim/mathSceneTeachingA06SourceConfirmationLedger.ts
+?? components/visualizations/three/manim/mathSceneTeachingFinalDecisionIntake.test.ts
+?? components/visualizations/three/manim/mathSceneTeachingFinalDecisionIntake.ts
+?? components/visualizations/three/manim/mathSceneTeachingFinalDecisionLedger.test.ts
+?? components/visualizations/three/manim/mathSceneTeachingFinalDecisionLedger.ts
+?? components/visualizations/three/manim/mathSceneTeachingFinalReviewPacket.test.ts
+?? components/visualizations/three/manim/mathSceneTeachingFinalReviewPacket.ts
+?? components/visualizations/three/manim/mathSceneTeachingInspectionTargets.test.ts
+?? components/visualizations/three/manim/mathSceneTeachingInspectionTargets.ts
+?? components/visualizations/three/manim/mathSceneTeachingQuality.test.ts
+?? components/visualizations/three/manim/mathSceneTeachingQuality.ts
+?? components/visualizations/three/manim/mathSceneTeachingRenderedReviewRoutes.test.ts
+?? components/visualizations/three/manim/mathSceneTeachingRenderedReviewRoutes.ts
+?? components/visualizations/three/manim/mathSceneTeachingReviewBrief.test.ts
+?? components/visualizations/three/manim/mathSceneTeachingReviewBrief.ts
+?? components/visualizations/three/manim/mathSceneTeachingReviewCases.test.ts
+?? components/visualizations/three/manim/mathSceneTeachingReviewCases.ts
+?? components/visualizations/three/manim/mathSceneTeachingReviewDossier.test.ts
+?? components/visualizations/three/manim/mathSceneTeachingReviewDossier.ts
+?? components/visualizations/three/manim/mathSceneTeachingSignoffMatrix.test.ts
+?? components/visualizations/three/manim/mathSceneTeachingSignoffMatrix.ts
+?? components/visualizations/three/manim/mathSceneTimeProgression.test.ts
+?? components/visualizations/three/manim/mathSceneTimeProgression.ts
+?? components/visualizations/three/manim/mathSceneUpdateFrame.test.ts
+?? components/visualizations/three/manim/mathSceneUpdateFrame.ts
+?? components/visualizations/three/manim/mathSceneUpdatePolicy.test.ts
+?? components/visualizations/three/manim/mathSceneUpdatePolicy.ts
+?? components/visualizations/three/manim/mathSceneV2ClosureEvidencePackage.test.ts
+?? components/visualizations/three/manim/mathSceneV2ClosureEvidencePackage.ts
+?? components/visualizations/three/manim/mathSceneV2CompletionAcceptanceChecklist.test.ts
+?? components/visualizations/three/manim/mathSceneV2CompletionAcceptanceChecklist.ts
+?? components/visualizations/three/manim/mathSceneV2CompletionClosureQueue.test.ts
+?? components/visualizations/three/manim/mathSceneV2CompletionClosureQueue.ts
+?? components/visualizations/three/manim/mathSceneV2CompletionEvidenceIntake.test.ts
+?? components/visualizations/three/manim/mathSceneV2CompletionEvidenceIntake.ts
+?? components/visualizations/three/manim/mathSceneV2CompletionRerunPlan.test.ts
+?? components/visualizations/three/manim/mathSceneV2CompletionRerunPlan.ts
+?? components/visualizations/three/manim/mathSceneV2CompletionStatusSummary.test.ts
+?? components/visualizations/three/manim/mathSceneV2CompletionStatusSummary.ts
+?? components/visualizations/three/manim/mathSceneV2CrossAgentHandoff.test.ts
+?? components/visualizations/three/manim/mathSceneV2CrossAgentHandoff.ts
+?? components/visualizations/three/manim/mathSceneV2FinalClosureAudit.test.ts
+?? components/visualizations/three/manim/mathSceneV2FinalClosureAudit.ts
+?? components/visualizations/three/manim/mathSceneV2FinalCompletionDossier.test.ts
+?? components/visualizations/three/manim/mathSceneV2FinalCompletionDossier.ts
+?? components/visualizations/three/manim/mathSceneV2FinalObjectiveAuditRecordIntake.test.ts
+?? components/visualizations/three/manim/mathSceneV2FinalObjectiveAuditRecordIntake.ts
+?? components/visualizations/three/manim/mathSceneV2FinalObjectiveAuditRequestPacket.test.ts
+?? components/visualizations/three/manim/mathSceneV2FinalObjectiveAuditRequestPacket.ts
+?? components/visualizations/three/manim/mathSceneV2FinalObjectiveProofLedger.test.ts
+?? components/visualizations/three/manim/mathSceneV2FinalObjectiveProofLedger.ts
+?? components/visualizations/three/manim/mathSceneV2FinalObjectiveVerifiedClosurePipeline.test.ts
+?? components/visualizations/three/manim/mathSceneV2FinalObjectiveVerifiedClosurePipeline.ts
+?? components/visualizations/three/manim/mathSceneV2FinalOwnerClosurePacket.test.ts
+?? components/visualizations/three/manim/mathSceneV2FinalOwnerClosurePacket.ts
+?? components/visualizations/three/manim/mathSceneV2GoalGate.test.ts
+?? components/visualizations/three/manim/mathSceneV2GoalGate.ts
+?? components/visualizations/three/manim/mathSceneV2ObjectiveCompletionAudit.test.ts
+?? components/visualizations/three/manim/mathSceneV2ObjectiveCompletionAudit.ts
+?? components/visualizations/three/manim/mathSceneV2OwnerEvidenceRequestPacket.test.ts
+?? components/visualizations/three/manim/mathSceneV2OwnerEvidenceRequestPacket.ts
+?? components/visualizations/three/manim/mathSceneV2OwnerGateRerunCommandEvidenceIntake.test.ts
+?? components/visualizations/three/manim/mathSceneV2OwnerGateRerunCommandEvidenceIntake.ts
+?? components/visualizations/three/manim/mathSceneV2OwnerGateRerunCommandPacket.test.ts
+?? components/visualizations/three/manim/mathSceneV2OwnerGateRerunCommandPacket.ts
+?? components/visualizations/three/manim/mathSceneV2OwnerGateRerunCommandTranscriptIntake.test.ts
+?? components/visualizations/three/manim/mathSceneV2OwnerGateRerunCommandTranscriptIntake.ts
+?? components/visualizations/three/manim/mathSceneV2OwnerGateRerunIntake.test.ts
+?? components/visualizations/three/manim/mathSceneV2OwnerGateRerunIntake.ts
+?? components/visualizations/three/manim/mathSceneV2OwnerGateTranscriptRequestPacket.test.ts
+?? components/visualizations/three/manim/mathSceneV2OwnerGateTranscriptRequestPacket.ts
+?? components/visualizations/three/manim/mathSceneV2ReleaseSliceManifest.test.ts
+?? components/visualizations/three/manim/mathSceneV2ReleaseSliceManifest.ts
+?? components/visualizations/three/manim/mathSceneV2TranscriptVerifiedClosurePipeline.test.ts
+?? components/visualizations/three/manim/mathSceneV2TranscriptVerifiedClosurePipeline.ts
+?? components/visualizations/three/manim/mathSceneV2VerifiedClosurePipeline.test.ts
+?? components/visualizations/three/manim/mathSceneV2VerifiedClosurePipeline.ts
+?? components/visualizations/three/manim/mathSceneWaitControl.test.ts
+?? components/visualizations/three/manim/mathSceneWaitControl.ts
+?? components/visualizations/three/manim/mathSceneWaitFrameStepperBridge.test.ts
+?? components/visualizations/three/manim/mathSceneWaitFrameStepperBridge.ts
+?? components/visualizations/three/manim/mathSceneWindowEvents.test.ts
+?? components/visualizations/three/manim/mathSceneWindowEvents.ts
+?? components/visualizations/three/manim/mathShowCreationEvidence.test.ts
+?? components/visualizations/three/manim/mathShowCreationEvidence.ts
+?? components/visualizations/three/manim/mathStreamLineObjects.test.ts
+?? components/visualizations/three/manim/mathStreamLineObjects.ts
+?? components/visualizations/three/manim/mathStreamLines.test.ts
+?? components/visualizations/three/manim/mathStreamLines.ts
+?? components/visualizations/three/manim/mathSubAlphaSchedule.test.ts
+?? components/visualizations/three/manim/mathSubAlphaSchedule.ts
+?? components/visualizations/three/manim/mathSurfaceObject.test.ts
+?? components/visualizations/three/manim/mathSurfaceObject.ts
+?? components/visualizations/three/manim/mathSvgPathMorph.test.ts
+?? components/visualizations/three/manim/mathSvgPathMorph.ts
+?? components/visualizations/three/manim/mathTexCacheManifest.test.ts
+?? components/visualizations/three/manim/mathTexCacheManifest.ts
+?? components/visualizations/three/manim/mathTexColorMap.test.ts
+?? components/visualizations/three/manim/mathTexColorMap.ts
+?? components/visualizations/three/manim/mathTexColorizedFormula.test.ts
+?? components/visualizations/three/manim/mathTexColorizedFormula.ts
+?? components/visualizations/three/manim/mathTexCompilePipeline.test.ts
+?? components/visualizations/three/manim/mathTexCompilePipeline.ts
+?? components/visualizations/three/manim/mathTexIsolation.test.ts
+?? components/visualizations/three/manim/mathTexIsolation.ts
+?? components/visualizations/three/manim/mathTracingTail.test.ts
+?? components/visualizations/three/manim/mathTracingTail.ts
+?? components/visualizations/three/manim/mathTransformBeginPlan.test.ts
+?? components/visualizations/three/manim/mathTransformBeginPlan.ts
+?? components/visualizations/three/manim/mathTransformDataLock.test.ts
+?? components/visualizations/three/manim/mathTransformDataLock.ts
+?? components/visualizations/three/manim/mathTransformFamilyAlignment.test.ts
+?? components/visualizations/three/manim/mathTransformFamilyAlignment.ts
+?? components/visualizations/three/manim/mathTransformMatching.test.ts
+?? components/visualizations/three/manim/mathTransformMatching.ts
+?? components/visualizations/three/manim/mathTransformPointAlignmentBridge.test.ts
+?? components/visualizations/three/manim/mathTransformPointAlignmentBridge.ts
+?? components/visualizations/three/manim/mathUpdaterExecutionPlan.test.ts
+?? components/visualizations/three/manim/mathUpdaterExecutionPlan.ts
+?? components/visualizations/three/manim/mathUpdaterRegistry.test.ts
+?? components/visualizations/three/manim/mathUpdaterSignature.test.ts
+?? components/visualizations/three/manim/mathUpdaterSignature.ts
+?? components/visualizations/three/manim/mathUpdaterSuspension.test.ts
+?? components/visualizations/three/manim/mathUpdaterSuspension.ts
+?? components/visualizations/three/manim/mathVMobjectBezierPath.test.ts
+?? components/visualizations/three/manim/mathVMobjectBezierPath.ts
+?? components/visualizations/three/manim/mathVMobjectPathBuilder.test.ts
+?? components/visualizations/three/manim/mathVMobjectPathBuilder.ts
+?? components/visualizations/three/manim/mathVMobjectRenderStyle.test.ts
+?? components/visualizations/three/manim/mathVMobjectRenderStyle.ts
+?? components/visualizations/three/manim/mathVMobjectSmoothPath.test.ts
+?? components/visualizations/three/manim/mathVMobjectSmoothPath.ts
+?? components/visualizations/three/manim/mathVMobjectStyle.test.ts
+?? components/visualizations/three/manim/mathVMobjectStyle.ts
+?? components/visualizations/three/manim/mathVMobjectStyleEvidence.test.ts
+?? components/visualizations/three/manim/mathVMobjectStyleEvidence.ts
+?? components/visualizations/three/manim/mathValueTracker.test.ts
+?? components/visualizations/three/manim/mathValueTracker.ts
+?? components/visualizations/three/manim/mathValueTrackerPayload.test.ts
+?? components/visualizations/three/manim/mathValueTrackerPayload.ts
+?? components/visualizations/three/manim/mathVectorField.test.ts
+?? components/visualizations/three/manim/mathVectorField.ts
+?? components/visualizations/three/manim/mathVectorFieldObjects.test.ts
+?? components/visualizations/three/manim/mathVectorFieldObjects.ts
+?? components/visualizations/visualizationBrowserRegressionEvidence.test.ts
+?? components/visualizations/visualizationBrowserRegressionEvidence.ts
+?? components/visualizations/visualizationBrowserRegressionPackages.test.ts
+?? components/visualizations/visualizationBrowserRegressionPackages.ts
+?? components/visualizations/visualizationBundleBoundaries.test.ts
+?? components/visualizations/visualizationLabPageRegressions.test.ts
+?? components/visualizations/visualizationReleaseReadinessEvidence.test.ts
+?? components/visualizations/visualizationReleaseReadinessEvidence.ts
+?? coordination/blockers/2026-06-23-S08-learning-analytics-backend-gates.md
+?? coordination/blockers/2026-06-23-S13-teacher-global-learning-events.md
+?? coordination/blockers/2026-06-24-A19-bug-lrs-credentials.md
+?? coordination/content-qa/2026-06-15-S18-S24-us-tx-primary-lesson-illustration-review.md
+?? coordination/content-qa/2026-06-21-S18-generated-content-source-package-import-signoff.md
+?? coordination/content-qa/2026-06-21-S21-generated-content-source-package-restoration-inventory.md
+?? coordination/content-qa/2026-06-22-S18-us-ca-k5-public-claim-gate.md
+?? coordination/content-qa/2026-06-27-A18-A21-A24-worked-example-illustration-qa.md
+?? coordination/content-qa/2026-06-27-A18-california-concept-story-qa.md
+?? coordination/content-qa/california-knowledge-point-system-policy.md
+?? coordination/content-qa/mainland-bnu-junior-lessons-v1/deepseek-v4-pro-lesson-qa/coverage-matrix.csv
+?? coordination/content-qa/mainland-bnu-junior-lessons-v1/deepseek-v4-pro-lesson-qa/preflight-issues.csv
+?? coordination/content-qa/mainland-bnu-junior-lessons-v1/lessons.json
+?? coordination/content-qa/us-ca-adaptive-k-g5-beta-seed-v1/manual-review-results.csv
+?? coordination/content-qa/us-ca-adaptive-k-g5-beta-seed-v1/promotability-decision.md
+?? coordination/content-qa/us-ca-adaptive-k-g5-beta-seed-v1/qa-report.md
+?? coordination/content-qa/us-ca-adaptive-k-g5-beta-seed-v1/question-pack.json
+?? coordination/content-qa/us-ca-adaptive-k-g5-beta-seed-v1/solvability-audit.json
+?? coordination/content-qa/us-ca-adaptive-k-g5-beta-seed-v1/solvability-audit.md
+?? coordination/content-qa/us-ca-k5-knowledge-point-practice-v1/build-docx-report.py
+?? coordination/content-qa/us-ca-k5-knowledge-point-practice-v1/difficulty-buckets.csv
+?? coordination/content-qa/us-ca-k5-knowledge-point-practice-v1/difficulty-buckets.json
+?? coordination/content-qa/us-ca-k5-knowledge-point-practice-v1/generate-package.mjs
+?? coordination/content-qa/us-ca-k5-knowledge-point-practice-v1/manual-review-results.csv
+?? coordination/content-qa/us-ca-k5-knowledge-point-practice-v1/qa-report.docx
+?? coordination/content-qa/us-ca-k5-knowledge-point-practice-v1/qa-report.md
+?? coordination/content-qa/us-ca-k5-knowledge-point-practice-v1/qa-round-1.json
+?? coordination/content-qa/us-ca-k5-knowledge-point-practice-v1/qa-round-2.json
+?? coordination/content-qa/us-ca-k5-knowledge-point-practice-v1/quality-difficulty-audit.mjs
+?? coordination/content-qa/us-ca-k5-knowledge-point-practice-v1/quality-findings.csv
+?? coordination/content-qa/us-ca-k5-knowledge-point-practice-v1/quality-findings.json
+?? coordination/content-qa/us-ca-k5-knowledge-point-practice-v1/question-pack.json
+?? coordination/content-qa/us-ca-k5-knowledge-point-practice-v1/rendered-492/page-1.png
+?? coordination/content-qa/us-ca-k5-knowledge-point-practice-v1/rendered-492/page-2.png
+?? coordination/content-qa/us-ca-k5-knowledge-point-practice-v1/rendered-492/page-3.png
+?? coordination/content-qa/us-ca-k5-knowledge-point-practice-v1/rendered-492/page-4.png
+?? coordination/content-qa/us-ca-k5-knowledge-point-practice-v1/rendered-492/qa-report.pdf
+?? coordination/content-qa/us-ca-k5-knowledge-point-practice-v1/rendered-fixed/page-1.png
+?? coordination/content-qa/us-ca-k5-knowledge-point-practice-v1/rendered-fixed/page-2.png
+?? coordination/content-qa/us-ca-k5-knowledge-point-practice-v1/rendered-fixed/page-3.png
+?? coordination/content-qa/us-ca-k5-knowledge-point-practice-v1/rendered-fixed/page-4.png
+?? coordination/content-qa/us-ca-k5-knowledge-point-practice-v1/rendered-fixed/qa-report.pdf
+?? coordination/content-qa/us-ca-k5-knowledge-point-practice-v1/rendered/page-1.png
+?? coordination/content-qa/us-ca-k5-knowledge-point-practice-v1/rendered/page-2.png
+?? coordination/content-qa/us-ca-k5-knowledge-point-practice-v1/rendered/page-3.png
+?? coordination/content-qa/us-ca-k5-knowledge-point-practice-v1/rendered/page-4.png
+?? coordination/content-qa/us-ca-k5-knowledge-point-practice-v1/rendered/qa-report.pdf
+?? coordination/content-qa/us-ca-k5-knowledge-point-practice-v1/run-two-round-qa.mjs
+?? coordination/content-qa/us-ca-k5-knowledge-point-practice-v1/s18-quality-difficulty-qa.md
+?? coordination/content-qa/us-ca-k5-knowledge-point-practice-v1/s18-two-round-qa-decision.md
+?? coordination/content-qa/us-ca-k5-knowledge-point-practice-v1/solvability-audit.csv
+?? coordination/content-qa/us-ca-k5-knowledge-point-practice-v1/solvability-audit.json
+?? coordination/content-qa/us-ca-k5-knowledge-point-practice-v1/solvability-audit.md
+?? coordination/content-qa/us-ca-k5-knowledge-point-practice-v1/topic-coverage.json
+?? coordination/content-qa/us-ca-k5-knowledge-point-practice-v1/validate-package.mjs
+?? coordination/content-qa/us-ca-math-grade1-h-l-micro-lessons-v1/lessons.json
+?? coordination/content-qa/us-ca-math-grade1-h-l-micro-lessons-v1/manual-review-results.csv
+?? coordination/content-qa/us-ca-math-grade1-h-l-micro-lessons-v1/qa-report.md
+?? coordination/content-qa/us-ca-math-grade1-h-l-micro-lessons-v1/s18-qa-decision.md
+?? coordination/content-qa/us-ca-math-grade1-h-l-micro-lessons-v1/s23-promotion-decision.md
+?? coordination/content-qa/us-ca-math-grade1-h-l-micro-lessons-v1/validation-report.json
+?? coordination/content-qa/us-ca-math-k-g5-textbooks-v1/concept-explanation-qa-report.json
+?? coordination/content-qa/us-ca-math-k-g5-textbooks-v1/concept-explanation-qa-results.csv
+?? coordination/content-qa/us-ca-math-k-g5-textbooks-v1/generate-us-ca-k-g5-textbooks-v1.mjs
+?? coordination/content-qa/us-ca-math-k-g5-textbooks-v1/lessons.json
+?? coordination/content-qa/us-ca-math-k-g5-textbooks-v1/manual-review-results.csv
+?? coordination/content-qa/us-ca-math-k-g5-textbooks-v1/qa-report.md
+?? coordination/content-qa/us-ca-math-k-g5-textbooks-v1/s18-concept-explanation-qa.md
+?? coordination/content-qa/us-ca-math-k-g5-textbooks-v1/s18-qa-decision.md
+?? coordination/content-qa/us-ca-math-k-g5-textbooks-v1/s18-sampling-report.md
+?? coordination/content-qa/us-ca-math-k-g5-textbooks-v1/s23-promotion-decision.md
+?? coordination/content-qa/us-ca-math-k-g5-textbooks-v1/update-concept-explanations.mjs
+?? coordination/content-qa/us-ca-math-k-g5-textbooks-v1/validate-concept-explanations.mjs
+?? coordination/content-qa/us-ca-math-k-g5-textbooks-v1/validation-report.json
+?? coordination/content-qa/us-ca-math-middle-school-textbooks-v2/generate-us-ca-middle-school-textbooks-v2.mjs
+?? coordination/content-qa/us-ca-math-middle-school-textbooks-v2/lessons.json
+?? coordination/content-qa/us-ca-math-middle-school-textbooks-v2/manual-review-results.csv
+?? coordination/content-qa/us-ca-math-middle-school-textbooks-v2/qa-report.md
+?? coordination/content-qa/us-ca-math-middle-school-textbooks-v2/review-us-ca-middle-school-textbooks-v2.mjs
+?? coordination/content-qa/us-ca-math-middle-school-textbooks-v2/s18-full-scope-qa-decision.md
+?? coordination/content-qa/us-ca-math-middle-school-textbooks-v2/s18-full-scope-review.json
+?? coordination/content-qa/us-ca-math-middle-school-textbooks-v2/s18-qa-decision.md
+?? coordination/content-qa/us-ca-math-middle-school-textbooks-v2/s23-live-promotion-decision.md
+?? coordination/content-qa/us-ca-math-middle-school-textbooks-v2/s23-promotion-decision.md
+?? coordination/content-qa/us-ca-math-middle-school-textbooks-v2/validation-report.json
+?? coordination/content-qa/us-ca-math-rag-v2-candidate/build-california-rag-v2-candidate.mjs
+?? coordination/content-qa/us-ca-math-rag-v2-candidate/build-downstream-candidate-packs.mjs
+?? coordination/content-qa/us-ca-math-rag-v2-candidate/build-s11-candidate-review-page.mjs
+?? coordination/content-qa/us-ca-math-rag-v2-candidate/candidate-package.json
+?? coordination/content-qa/us-ca-math-rag-v2-candidate/coverage-summary.json
+?? coordination/content-qa/us-ca-math-rag-v2-candidate/review/index.html
+?? coordination/content-qa/us-ca-math-rag-v2-candidate/review/s11-candidate-preview-smoke.png
+?? coordination/content-qa/us-ca-math-rag-v2-candidate/run-s11-candidate-preview-smoke.mjs
+?? coordination/content-qa/us-ca-math-rag-v2-candidate/s04-practice-question-briefs.json
+?? coordination/content-qa/us-ca-math-rag-v2-candidate/s04-question-candidate-pack.json
+?? coordination/content-qa/us-ca-math-rag-v2-candidate/s04-representative-practice-candidates.json
+?? coordination/content-qa/us-ca-math-rag-v2-candidate/s05-lesson-candidate-pack.json
+?? coordination/content-qa/us-ca-math-rag-v2-candidate/s05-representative-lesson-candidates.json
+?? coordination/content-qa/us-ca-math-rag-v2-candidate/s05-textbook-lesson-briefs.json
+?? coordination/content-qa/us-ca-math-rag-v2-candidate/s11-candidate-preview-smoke.json
+?? coordination/content-qa/us-ca-math-rag-v2-candidate/s11-candidate-preview-smoke.md
+?? coordination/content-qa/us-ca-math-rag-v2-candidate/s11-candidate-regression-manifest.json
+?? coordination/content-qa/us-ca-math-rag-v2-candidate/s11-regression-readiness.md
+?? coordination/content-qa/us-ca-math-rag-v2-candidate/s18-downstream-qa-review.md
+?? coordination/content-qa/us-ca-math-rag-v2-candidate/s18-downstream-validation.json
+?? coordination/content-qa/us-ca-math-rag-v2-candidate/s18-qa-review.md
+?? coordination/content-qa/us-ca-math-rag-v2-candidate/s18-representative-sample-review.md
+?? coordination/content-qa/us-ca-math-rag-v2-candidate/s21-generation-report.md
+?? coordination/content-qa/us-ca-math-rag-v2-candidate/s23-promotion-decision-update.md
+?? coordination/content-qa/us-ca-math-rag-v2-candidate/s23-promotion-decision.md
+?? coordination/content-qa/us-ca-math-rag-v2-candidate/s23-promotion-handoff.md
+?? coordination/content-qa/us-ca-math-rag-v2-candidate/safe-card-drafts.json
+?? coordination/content-qa/us-ca-math-rag-v2-candidate/validation-summary.md
+?? coordination/decisions/2026-06-11-practice-adventure-ui-direction.md
+?? coordination/integration/2026-06-21-S23-generated-content-source-package-gate.md
+?? coordination/integration/2026-06-27-A23-content-rag-candidate-chain-intake.md
+?? coordination/release-intake/2026-06-20-S25-S22-root-release-hygiene-map.md
+?? coordination/release-intake/2026-06-20-S25-data-28-slices.md
+?? coordination/release-intake/2026-06-20-teacher-dashboard-login-clean-snapshot.patch
+?? coordination/release-intake/2026-06-20-teacher-dashboard-login-release-handoff.md
+?? coordination/release-intake/2026-06-21-S25-dirty-tree-map-s25-s22-s10-release-hygiene-20260621.json
+?? coordination/release-intake/2026-06-21-S25-dirty-tree-map-s25-s22-s10-release-hygiene-20260621.md
+?? coordination/release-intake/2026-06-22-S25-dirty-tree-map-20260622T122849Z.json
+?? coordination/release-intake/2026-06-22-S25-dirty-tree-map-20260622T122849Z.md
+?? coordination/release-intake/2026-06-22-S25-dirty-tree-map-20260622T124237Z.json
+?? coordination/release-intake/2026-06-22-S25-dirty-tree-map-20260622T124237Z.md
+?? coordination/release-intake/2026-06-22-S25-dirty-tree-map-20260622T151937Z.json
+?? coordination/release-intake/2026-06-22-S25-dirty-tree-map-20260622T151937Z.md
+?? coordination/release-intake/2026-06-22-california-k5-public-claim-registry.md
+?? coordination/release-intake/2026-06-23-S25-dirty-tree-map-20260622T164142Z.json
+?? coordination/release-intake/2026-06-23-S25-dirty-tree-map-20260622T164142Z.md
+?? coordination/release-intake/2026-06-23-S25-dirty-tree-map-20260622T164856Z.json
+?? coordination/release-intake/2026-06-23-S25-dirty-tree-map-20260622T164856Z.md
+?? coordination/release-intake/2026-06-23-S25-dirty-tree-map-20260622T165320Z.json
+?? coordination/release-intake/2026-06-23-S25-dirty-tree-map-20260622T165320Z.md
+?? coordination/release-intake/2026-06-23-S25-dirty-tree-map-20260622T174524Z.json
+?? coordination/release-intake/2026-06-23-S25-dirty-tree-map-20260622T174524Z.md
+?? coordination/release-intake/2026-06-23-S25-dirty-tree-map-20260622T180633Z.json
+?? coordination/release-intake/2026-06-23-S25-dirty-tree-map-20260622T180633Z.md
+?? coordination/release-intake/2026-06-23-S25-dirty-tree-map-20260622T181552Z.json
+?? coordination/release-intake/2026-06-23-S25-dirty-tree-map-20260622T181552Z.md
+?? coordination/release-intake/2026-06-23-S25-dirty-tree-map-20260623T-client-empty-workspace.json
+?? coordination/release-intake/2026-06-23-S25-dirty-tree-map-20260623T-client-empty-workspace.md
+?? coordination/release-intake/2026-06-23-S25-dirty-tree-map-20260623T-teacher-empty-workspace-link-prefetch-off.json
+?? coordination/release-intake/2026-06-23-S25-dirty-tree-map-20260623T-teacher-empty-workspace-link-prefetch-off.md
+?? coordination/release-intake/2026-06-23-S25-dirty-tree-map-20260623T-teacher-empty-workspace-no-prefetch.json
+?? coordination/release-intake/2026-06-23-S25-dirty-tree-map-20260623T-teacher-empty-workspace-no-prefetch.md
+?? coordination/release-intake/2026-06-23-S25-teacher-console-latency-release-slice.md
+?? coordination/release-intake/2026-06-24-A25-daily-release-intake.md
+?? coordination/release-intake/2026-06-24-A25-dirty-tree-map-20260624-root-worktree-policy-final.json
+?? coordination/release-intake/2026-06-24-A25-dirty-tree-map-20260624-root-worktree-policy-final.md
+?? coordination/release-intake/2026-06-24-A25-dirty-tree-map-20260624-root-worktree-policy.json
+?? coordination/release-intake/2026-06-24-A25-dirty-tree-map-20260624-root-worktree-policy.md
+?? coordination/release-intake/2026-06-24-A25-dirty-tree-map-20260624T083452Z.json
+?? coordination/release-intake/2026-06-24-A25-dirty-tree-map-20260624T083452Z.md
+?? coordination/release-intake/2026-06-24-A25-dirty-tree-map-20260624T083519Z.json
+?? coordination/release-intake/2026-06-24-A25-dirty-tree-map-20260624T083519Z.md
+?? coordination/release-intake/2026-06-24-A25-dirty-tree-map-20260624T083739Z.json
+?? coordination/release-intake/2026-06-24-A25-dirty-tree-map-20260624T083739Z.md
+?? coordination/release-intake/2026-06-24-A25-dirty-tree-map-20260624T153358Z.json
+?? coordination/release-intake/2026-06-24-A25-dirty-tree-map-20260624T153358Z.md
+?? coordination/release-intake/2026-06-25-A25-dirty-tree-map-20260624T161827Z.json
+?? coordination/release-intake/2026-06-25-A25-dirty-tree-map-20260624T161827Z.md
+?? coordination/release-intake/2026-06-25-A25-dirty-tree-map-20260625T032053Z.json
+?? coordination/release-intake/2026-06-25-A25-dirty-tree-map-20260625T032053Z.md
+?? coordination/release-intake/2026-06-25-A25-dirty-tree-map-20260625T154703Z.json
+?? coordination/release-intake/2026-06-25-A25-dirty-tree-map-20260625T154703Z.md
+?? coordination/release-intake/2026-06-26-A10-A25-dirty-root-priority-slices.md
+?? coordination/release-intake/2026-06-26-A11-post-production-bug-ui-regression-evidence.pathspec
+?? coordination/release-intake/2026-06-26-A22-bug-ui-fix-release-candidate.pathspec
+?? coordination/release-intake/2026-06-26-A22-post-production-bug-ui-overlay.pathspec
+?? coordination/release-intake/2026-06-26-A22-post-production-bug-ui-runtime.pathspec
+?? coordination/release-intake/2026-06-26-A25-a06-type-fix-slice-manifest.json
+?? coordination/release-intake/2026-06-26-A25-a06-type-fix-slice-manifest.md
+?? coordination/release-intake/2026-06-26-A25-a06-type-fix-slice.pathspec
+?? coordination/release-intake/2026-06-26-A25-branch-evidence-california-practice-beta-clean/README.md
+?? coordination/release-intake/2026-06-26-A25-branch-evidence-california-practice-beta-clean/ahead-log.txt
+?? coordination/release-intake/2026-06-26-A25-branch-evidence-california-practice-beta-clean/commit-name-status.txt
+?? coordination/release-intake/2026-06-26-A25-branch-evidence-california-practice-beta-clean/commit-numstat.txt
+?? coordination/release-intake/2026-06-26-A25-branch-evidence-california-practice-beta-clean/commit-stat.txt
+?? coordination/release-intake/2026-06-26-A25-branch-evidence-california-practice-beta-clean/summary.json
+?? coordination/release-intake/2026-06-26-A25-branch-evidence-s22-release-hygiene-2026-06-15/0001-Add-release-hygiene-guards-and-staging-workflow.patch
+?? coordination/release-intake/2026-06-26-A25-branch-evidence-s22-release-hygiene-2026-06-15/README.md
+?? coordination/release-intake/2026-06-26-A25-branch-evidence-s22-release-hygiene-2026-06-15/ahead-log.txt
+?? coordination/release-intake/2026-06-26-A25-branch-evidence-s22-release-hygiene-2026-06-15/commit-name-status.txt
+?? coordination/release-intake/2026-06-26-A25-branch-evidence-s22-release-hygiene-2026-06-15/commit-numstat.txt
+?? coordination/release-intake/2026-06-26-A25-branch-evidence-s22-release-hygiene-2026-06-15/commit-stat.txt
+?? coordination/release-intake/2026-06-26-A25-branch-evidence-s22-release-hygiene-2026-06-15/summary.json
+?? coordination/release-intake/2026-06-26-A25-dirty-root-slice-buckets-manifest.json
+?? coordination/release-intake/2026-06-26-A25-dirty-root-slice-buckets-manifest.md
+?? coordination/release-intake/2026-06-26-A25-dirty-tree-map-20260625T163121Z.json
+?? coordination/release-intake/2026-06-26-A25-dirty-tree-map-20260625T163121Z.md
+?? coordination/release-intake/2026-06-26-A25-dirty-tree-map-20260625T164255Z.json
+?? coordination/release-intake/2026-06-26-A25-dirty-tree-map-20260625T164255Z.md
+?? coordination/release-intake/2026-06-26-A25-dirty-tree-map-20260625T175640Z.json
+?? coordination/release-intake/2026-06-26-A25-dirty-tree-map-20260625T175640Z.md
+?? coordination/release-intake/2026-06-26-A25-dirty-tree-map-20260626T023436Z.json
+?? coordination/release-intake/2026-06-26-A25-dirty-tree-map-20260626T023436Z.md
+?? coordination/release-intake/2026-06-26-A25-dirty-tree-map-20260626T030506Z.json
+?? coordination/release-intake/2026-06-26-A25-dirty-tree-map-20260626T030506Z.md
+?? coordination/release-intake/2026-06-26-A25-dirty-tree-map-20260626T030945Z.json
+?? coordination/release-intake/2026-06-26-A25-dirty-tree-map-20260626T030945Z.md
+?? coordination/release-intake/2026-06-26-A25-dirty-tree-map-20260626T031034Z.json
+?? coordination/release-intake/2026-06-26-A25-dirty-tree-map-20260626T031034Z.md
+?? coordination/release-intake/2026-06-26-A25-dirty-tree-map-20260626T031225Z.json
+?? coordination/release-intake/2026-06-26-A25-dirty-tree-map-20260626T031225Z.md
+?? coordination/release-intake/2026-06-26-A25-dirty-tree-map-20260626T031853Z.json
+?? coordination/release-intake/2026-06-26-A25-dirty-tree-map-20260626T031853Z.md
+?? coordination/release-intake/2026-06-26-A25-dirty-tree-map-20260626T032131Z.json
+?? coordination/release-intake/2026-06-26-A25-dirty-tree-map-20260626T032131Z.md
+?? coordination/release-intake/2026-06-26-A25-dirty-tree-map-20260626T084650Z.json
+?? coordination/release-intake/2026-06-26-A25-dirty-tree-map-20260626T084650Z.md
+?? coordination/release-intake/2026-06-26-A25-dirty-tree-map-20260626T085613Z.json
+?? coordination/release-intake/2026-06-26-A25-dirty-tree-map-20260626T085613Z.md
+?? coordination/release-intake/2026-06-26-A25-dirty-tree-map-20260626T085936Z.json
+?? coordination/release-intake/2026-06-26-A25-dirty-tree-map-20260626T085936Z.md
+?? coordination/release-intake/2026-06-26-A25-dirty-tree-map-20260626T090653Z.json
+?? coordination/release-intake/2026-06-26-A25-dirty-tree-map-20260626T090653Z.md
+?? coordination/release-intake/2026-06-26-A25-dirty-tree-map-20260626T112308Z.json
+?? coordination/release-intake/2026-06-26-A25-dirty-tree-map-20260626T112308Z.md
+?? coordination/release-intake/2026-06-26-A25-dirty-tree-map-20260626T114426Z.json
+?? coordination/release-intake/2026-06-26-A25-dirty-tree-map-20260626T114426Z.md
+?? coordination/release-intake/2026-06-26-A25-dirty-tree-map-20260626T114443Z.json
+?? coordination/release-intake/2026-06-26-A25-dirty-tree-map-20260626T114443Z.md
+?? coordination/release-intake/2026-06-26-A25-dirty-tree-map-20260626T115331Z.json
+?? coordination/release-intake/2026-06-26-A25-dirty-tree-map-20260626T115331Z.md
+?? coordination/release-intake/2026-06-26-A25-dirty-tree-map-20260626T115522Z.json
+?? coordination/release-intake/2026-06-26-A25-dirty-tree-map-20260626T115522Z.md
+?? coordination/release-intake/2026-06-26-A25-dirty-tree-map-20260626T115936Z.json
+?? coordination/release-intake/2026-06-26-A25-dirty-tree-map-20260626T115936Z.md
+?? coordination/release-intake/2026-06-26-A25-dirty-tree-map-20260626T120447Z.json
+?? coordination/release-intake/2026-06-26-A25-dirty-tree-map-20260626T120447Z.md
+?? coordination/release-intake/2026-06-26-A25-dirty-tree-map-20260626T125913Z.json
+?? coordination/release-intake/2026-06-26-A25-dirty-tree-map-20260626T125913Z.md
+?? coordination/release-intake/2026-06-26-A25-dirty-tree-map-enterprise-dirty-worktree-remediation-disposition-final.json
+?? coordination/release-intake/2026-06-26-A25-dirty-tree-map-enterprise-dirty-worktree-remediation-disposition-final.md
+?? coordination/release-intake/2026-06-26-A25-dirty-tree-map-enterprise-dirty-worktree-remediation-final.json
+?? coordination/release-intake/2026-06-26-A25-dirty-tree-map-enterprise-dirty-worktree-remediation-final.md
+?? coordination/release-intake/2026-06-26-A25-dirty-tree-map-enterprise-remediation-branch-evidence-final.json
+?? coordination/release-intake/2026-06-26-A25-dirty-tree-map-enterprise-remediation-branch-evidence-final.md
+?? coordination/release-intake/2026-06-26-A25-dirty-tree-map-enterprise-remediation-completion-audit-final.json
+?? coordination/release-intake/2026-06-26-A25-dirty-tree-map-enterprise-remediation-completion-audit-final.md
+?? coordination/release-intake/2026-06-26-A25-dirty-tree-map-enterprise-remediation-effective-owner-overlay-final.json
+?? coordination/release-intake/2026-06-26-A25-dirty-tree-map-enterprise-remediation-effective-owner-overlay-final.md
+?? coordination/release-intake/2026-06-26-A25-dirty-tree-map-enterprise-remediation-effective-queue-manual-overlay-final.json
+?? coordination/release-intake/2026-06-26-A25-dirty-tree-map-enterprise-remediation-effective-queue-manual-overlay-final.md
+?? coordination/release-intake/2026-06-26-A25-dirty-tree-map-enterprise-remediation-final-stable-verification.json
+?? coordination/release-intake/2026-06-26-A25-dirty-tree-map-enterprise-remediation-final-stable-verification.md
+?? coordination/release-intake/2026-06-26-A25-dirty-tree-map-enterprise-remediation-lifecycle-archive-final.json
+?? coordination/release-intake/2026-06-26-A25-dirty-tree-map-enterprise-remediation-lifecycle-archive-final.md
+?? coordination/release-intake/2026-06-26-A25-dirty-tree-map-enterprise-remediation-lifecycle-closure-runbook-current-final.json
+?? coordination/release-intake/2026-06-26-A25-dirty-tree-map-enterprise-remediation-lifecycle-closure-runbook-current-final.md
+?? coordination/release-intake/2026-06-26-A25-dirty-tree-map-enterprise-remediation-lifecycle-closure-runbook-final.json
+?? coordination/release-intake/2026-06-26-A25-dirty-tree-map-enterprise-remediation-lifecycle-closure-runbook-final.md
+?? coordination/release-intake/2026-06-26-A25-dirty-tree-map-enterprise-remediation-lifecycle-closure-runbook-stable-final.json
+?? coordination/release-intake/2026-06-26-A25-dirty-tree-map-enterprise-remediation-lifecycle-closure-runbook-stable-final.md
+?? coordination/release-intake/2026-06-26-A25-dirty-tree-map-enterprise-remediation-lifecycle-decision-ledger-current-gate-final.json
+?? coordination/release-intake/2026-06-26-A25-dirty-tree-map-enterprise-remediation-lifecycle-decision-ledger-current-gate-final.md
+?? coordination/release-intake/2026-06-26-A25-dirty-tree-map-enterprise-remediation-lifecycle-decision-ledger-final.json
+?? coordination/release-intake/2026-06-26-A25-dirty-tree-map-enterprise-remediation-lifecycle-decision-ledger-final.md
+?? coordination/release-intake/2026-06-26-A25-dirty-tree-map-enterprise-remediation-lifecycle-decision-requests-final.json
+?? coordination/release-intake/2026-06-26-A25-dirty-tree-map-enterprise-remediation-lifecycle-decision-requests-final.md
+?? coordination/release-intake/2026-06-26-A25-dirty-tree-map-enterprise-remediation-lifecycle-decision-requests-stable-final.json
+?? coordination/release-intake/2026-06-26-A25-dirty-tree-map-enterprise-remediation-lifecycle-decision-requests-stable-final.md
+?? coordination/release-intake/2026-06-26-A25-dirty-tree-map-enterprise-remediation-owner-approval-blocker-final.json
+?? coordination/release-intake/2026-06-26-A25-dirty-tree-map-enterprise-remediation-owner-approval-blocker-final.md
+?? coordination/release-intake/2026-06-26-A25-dirty-tree-map-enterprise-remediation-owner-approval-matrix-final.json
+?? coordination/release-intake/2026-06-26-A25-dirty-tree-map-enterprise-remediation-owner-approval-matrix-final.md
+?? coordination/release-intake/2026-06-26-A25-dirty-tree-map-enterprise-remediation-owner-approval-matrix-gate-stable-final.json
+?? coordination/release-intake/2026-06-26-A25-dirty-tree-map-enterprise-remediation-owner-approval-matrix-gate-stable-final.md
+?? coordination/release-intake/2026-06-26-A25-dirty-tree-map-enterprise-remediation-owner-approval-matrix-post-report-final.json
+?? coordination/release-intake/2026-06-26-A25-dirty-tree-map-enterprise-remediation-owner-approval-matrix-post-report-final.md
+?? coordination/release-intake/2026-06-26-A25-dirty-tree-map-enterprise-remediation-owner-approval-matrix-stable-final.json
+?? coordination/release-intake/2026-06-26-A25-dirty-tree-map-enterprise-remediation-owner-approval-matrix-stable-final.md
+?? coordination/release-intake/2026-06-26-A25-dirty-tree-map-enterprise-remediation-owner-approval-selection-recorded.json
+?? coordination/release-intake/2026-06-26-A25-dirty-tree-map-enterprise-remediation-owner-approval-selection-recorded.md
+?? coordination/release-intake/2026-06-26-A25-dirty-tree-map-enterprise-remediation-owner-approval-selection-verification-refresh.json
+?? coordination/release-intake/2026-06-26-A25-dirty-tree-map-enterprise-remediation-owner-approval-selection-verification-refresh.md
+?? coordination/release-intake/2026-06-26-A25-dirty-tree-map-enterprise-remediation-owner-queue-final.json
+?? coordination/release-intake/2026-06-26-A25-dirty-tree-map-enterprise-remediation-owner-queue-final.md
+?? coordination/release-intake/2026-06-26-A25-dirty-tree-map-enterprise-remediation-p0-owner-proposals-final.json
+?? coordination/release-intake/2026-06-26-A25-dirty-tree-map-enterprise-remediation-p0-owner-proposals-final.md
+?? coordination/release-intake/2026-06-26-A25-dirty-tree-map-enterprise-remediation-p0-owner-proposals-post-gate-final.json
+?? coordination/release-intake/2026-06-26-A25-dirty-tree-map-enterprise-remediation-p0-owner-proposals-post-gate-final.md
+?? coordination/release-intake/2026-06-26-A25-dirty-tree-map-enterprise-remediation-p0-owner-proposals-post-log-final.json
+?? coordination/release-intake/2026-06-26-A25-dirty-tree-map-enterprise-remediation-p0-owner-proposals-post-log-final.md
+?? coordination/release-intake/2026-06-26-A25-dirty-tree-map-enterprise-remediation-pending-approval-refresh.json
+?? coordination/release-intake/2026-06-26-A25-dirty-tree-map-enterprise-remediation-pending-approval-refresh.md
+?? coordination/release-intake/2026-06-26-A25-dirty-tree-map-worktree-dirty-analysis-post-log.json
+?? coordination/release-intake/2026-06-26-A25-dirty-tree-map-worktree-dirty-analysis-post-log.md
+?? coordination/release-intake/2026-06-26-A25-effective-disposition-queue.json
+?? coordination/release-intake/2026-06-26-A25-effective-disposition-queue.md
+?? coordination/release-intake/2026-06-26-A25-effective-owner-a01-app-shell-lead.pathspec
+?? coordination/release-intake/2026-06-26-A25-effective-owner-a02-dashboard-lead.pathspec
+?? coordination/release-intake/2026-06-26-A25-effective-owner-a03-curriculum-roadmap-lead.pathspec
+?? coordination/release-intake/2026-06-26-A25-effective-owner-a04-practice-lead.pathspec
+?? coordination/release-intake/2026-06-26-A25-effective-owner-a05-lesson-lead.pathspec
+?? coordination/release-intake/2026-06-26-A25-effective-owner-a06-visualization-lead.pathspec
+?? coordination/release-intake/2026-06-26-A25-effective-owner-a07-ai-tutor-lead.pathspec
+?? coordination/release-intake/2026-06-26-A25-effective-owner-a08-state-and-analytics-lead.pathspec
+?? coordination/release-intake/2026-06-26-A25-effective-owner-a09-copy-i18n-accessibility.pathspec
+?? coordination/release-intake/2026-06-26-A25-effective-owner-a10-tooling-docs-and-report.pathspec
+?? coordination/release-intake/2026-06-26-A25-effective-owner-a11-qa-and-release-quality.pathspec
+?? coordination/release-intake/2026-06-26-A25-effective-owner-a12-backend-api-platform.pathspec
+?? coordination/release-intake/2026-06-26-A25-effective-owner-a13-teacher-console.pathspec
+?? coordination/release-intake/2026-06-26-A25-effective-owner-a14-parent-console.pathspec
+?? coordination/release-intake/2026-06-26-A25-effective-owner-a15-adaptive-engine-lead.pathspec
+?? coordination/release-intake/2026-06-26-A25-effective-owner-a16-research-and-learning-science.pathspec
+?? coordination/release-intake/2026-06-26-A25-effective-owner-a17-gamification-and-motivation.pathspec
+?? coordination/release-intake/2026-06-26-A25-effective-owner-a18-curriculum-qa-a21-content-pipeline.pathspec
+?? coordination/release-intake/2026-06-26-A25-effective-owner-a20-game-design-and-game-based-learning.pathspec
+?? coordination/release-intake/2026-06-26-A25-effective-owner-a21-content-pipeline-and-rag-operations.pathspec
+?? coordination/release-intake/2026-06-26-A25-effective-owner-a22-production-reliability-and-release-engineering.pathspec
+?? coordination/release-intake/2026-06-26-A25-effective-owner-a23-integration-and-promotion-lead.pathspec
+?? coordination/release-intake/2026-06-26-A25-effective-owner-a24-illustration-exact-layer.pathspec
+?? coordination/release-intake/2026-06-26-A25-effective-owner-a25-git-hygiene-and-release-intake.pathspec
+?? coordination/release-intake/2026-06-26-A25-effective-owner-overlay.json
+?? coordination/release-intake/2026-06-26-A25-effective-owner-overlay.md
+?? coordination/release-intake/2026-06-26-A25-effective-owner-unmapped-manual-owner-needed.pathspec
+?? coordination/release-intake/2026-06-26-A25-effective-work-order-a01-app-shell-lead.md
+?? coordination/release-intake/2026-06-26-A25-effective-work-order-a02-dashboard-lead.md
+?? coordination/release-intake/2026-06-26-A25-effective-work-order-a03-curriculum-roadmap-lead.md
+?? coordination/release-intake/2026-06-26-A25-effective-work-order-a04-practice-lead.md
+?? coordination/release-intake/2026-06-26-A25-effective-work-order-a05-lesson-lead.md
+?? coordination/release-intake/2026-06-26-A25-effective-work-order-a06-visualization-lead.md
+?? coordination/release-intake/2026-06-26-A25-effective-work-order-a07-ai-tutor-lead.md
+?? coordination/release-intake/2026-06-26-A25-effective-work-order-a08-state-and-analytics-lead.md
+?? coordination/release-intake/2026-06-26-A25-effective-work-order-a09-copy-i18n-accessibility.md
+?? coordination/release-intake/2026-06-26-A25-effective-work-order-a10-tooling-docs-and-report.md
+?? coordination/release-intake/2026-06-26-A25-effective-work-order-a11-qa-and-release-quality.md
+?? coordination/release-intake/2026-06-26-A25-effective-work-order-a12-backend-api-platform.md
+?? coordination/release-intake/2026-06-26-A25-effective-work-order-a13-teacher-console.md
+?? coordination/release-intake/2026-06-26-A25-effective-work-order-a14-parent-console.md
+?? coordination/release-intake/2026-06-26-A25-effective-work-order-a15-adaptive-engine-lead.md
+?? coordination/release-intake/2026-06-26-A25-effective-work-order-a16-research-and-learning-science.md
+?? coordination/release-intake/2026-06-26-A25-effective-work-order-a17-gamification-and-motivation.md
+?? coordination/release-intake/2026-06-26-A25-effective-work-order-a18-curriculum-qa-a21-content-pipeline.md
+?? coordination/release-intake/2026-06-26-A25-effective-work-order-a20-game-design-and-game-based-learning.md
+?? coordination/release-intake/2026-06-26-A25-effective-work-order-a21-content-pipeline-and-rag-operations.md
+?? coordination/release-intake/2026-06-26-A25-effective-work-order-a22-production-reliability-and-release-engineering.md
+?? coordination/release-intake/2026-06-26-A25-effective-work-order-a23-integration-and-promotion-lead.md
+?? coordination/release-intake/2026-06-26-A25-effective-work-order-a24-illustration-exact-layer.md
+?? coordination/release-intake/2026-06-26-A25-effective-work-order-a25-git-hygiene-and-release-intake.md
+?? coordination/release-intake/2026-06-26-A25-effective-work-order-unmapped-manual-owner-needed.md
+?? coordination/release-intake/2026-06-26-A25-eight-point-completion-audit.md
+?? coordination/release-intake/2026-06-26-A25-enterprise-dirty-worktree-remediation.md
+?? coordination/release-intake/2026-06-26-A25-lifecycle-closure-runbook.json
+?? coordination/release-intake/2026-06-26-A25-lifecycle-closure-runbook.md
+?? coordination/release-intake/2026-06-26-A25-lifecycle-decision-ledger.json
+?? coordination/release-intake/2026-06-26-A25-lifecycle-decision-ledger.md
+?? coordination/release-intake/2026-06-26-A25-lifecycle-decision-request-california-practice-beta-clean.json
+?? coordination/release-intake/2026-06-26-A25-lifecycle-decision-request-california-practice-beta-clean.md
+?? coordination/release-intake/2026-06-26-A25-lifecycle-decision-request-dirty-visualization-production-release.json
+?? coordination/release-intake/2026-06-26-A25-lifecycle-decision-request-dirty-visualization-production-release.md
+?? coordination/release-intake/2026-06-26-A25-lifecycle-decision-request-index.json
+?? coordination/release-intake/2026-06-26-A25-lifecycle-decision-request-index.md
+?? coordination/release-intake/2026-06-26-A25-lifecycle-decision-request-root-dirty-packages.json
+?? coordination/release-intake/2026-06-26-A25-lifecycle-decision-request-root-dirty-packages.md
+?? coordination/release-intake/2026-06-26-A25-lifecycle-decision-request-s22-release-hygiene-2026-06-15.json
+?? coordination/release-intake/2026-06-26-A25-lifecycle-decision-request-s22-release-hygiene-2026-06-15.md
+?? coordination/release-intake/2026-06-26-A25-owner-a01-app-shell-lead.pathspec
+?? coordination/release-intake/2026-06-26-A25-owner-a02-dashboard-lead.pathspec
+?? coordination/release-intake/2026-06-26-A25-owner-a03-curriculum-roadmap-lead.pathspec
+?? coordination/release-intake/2026-06-26-A25-owner-a04-practice-lead.pathspec
+?? coordination/release-intake/2026-06-26-A25-owner-a05-lesson-lead.pathspec
+?? coordination/release-intake/2026-06-26-A25-owner-a06-visualization-lead.pathspec
+?? coordination/release-intake/2026-06-26-A25-owner-a07-ai-tutor-lead.pathspec
+?? coordination/release-intake/2026-06-26-A25-owner-a08-state-and-analytics-lead.pathspec
+?? coordination/release-intake/2026-06-26-A25-owner-a09-copy-i18n-accessibility.pathspec
+?? coordination/release-intake/2026-06-26-A25-owner-a10-tooling-docs-and-report.pathspec
+?? coordination/release-intake/2026-06-26-A25-owner-a11-qa-and-release-quality.pathspec
+?? coordination/release-intake/2026-06-26-A25-owner-a12-backend-api-platform.pathspec
+?? coordination/release-intake/2026-06-26-A25-owner-a13-teacher-console.pathspec
+?? coordination/release-intake/2026-06-26-A25-owner-a14-parent-console.pathspec
+?? coordination/release-intake/2026-06-26-A25-owner-a15-adaptive-engine-lead.pathspec
+?? coordination/release-intake/2026-06-26-A25-owner-a16-research-and-learning-science.pathspec
+?? coordination/release-intake/2026-06-26-A25-owner-a17-gamification-and-motivation.pathspec
+?? coordination/release-intake/2026-06-26-A25-owner-a18-curriculum-qa-a21-content-pipeline.pathspec
+?? coordination/release-intake/2026-06-26-A25-owner-a20-game-design-and-game-based-learning.pathspec
+?? coordination/release-intake/2026-06-26-A25-owner-a21-content-pipeline-and-rag-operations.pathspec
+?? coordination/release-intake/2026-06-26-A25-owner-a22-production-reliability-and-release-engineering.pathspec
+?? coordination/release-intake/2026-06-26-A25-owner-a24-illustration-exact-layer.pathspec
+?? coordination/release-intake/2026-06-26-A25-owner-a25-git-hygiene-and-release-intake.pathspec
+?? coordination/release-intake/2026-06-26-A25-owner-approval-matrix.json
+?? coordination/release-intake/2026-06-26-A25-owner-approval-matrix.md
+?? coordination/release-intake/2026-06-26-A25-owner-disposition-queue.json
+?? coordination/release-intake/2026-06-26-A25-owner-disposition-queue.md
+?? coordination/release-intake/2026-06-26-A25-owner-unmapped-manual-owner-needed.pathspec
+?? coordination/release-intake/2026-06-26-A25-owner-unmapped-runtime-owner-review-needed.pathspec
+?? coordination/release-intake/2026-06-26-A25-proposed-manual-owner-a08-state-and-analytics-lead.pathspec
+?? coordination/release-intake/2026-06-26-A25-proposed-manual-owner-a10-tooling-docs-and-report.pathspec
+?? coordination/release-intake/2026-06-26-A25-proposed-manual-owner-a22-production-reliability-and-release-engineering.pathspec
+?? coordination/release-intake/2026-06-26-A25-proposed-manual-owner-a23-integration-and-promotion-lead.pathspec
+?? coordination/release-intake/2026-06-26-A25-proposed-manual-owner-a25-git-hygiene-and-release-intake.pathspec
+?? coordination/release-intake/2026-06-26-A25-proposed-owner-a01-app-shell-lead.pathspec
+?? coordination/release-intake/2026-06-26-A25-proposed-owner-a02-dashboard-lead.pathspec
+?? coordination/release-intake/2026-06-26-A25-proposed-owner-a03-curriculum-roadmap-lead.pathspec
+?? coordination/release-intake/2026-06-26-A25-proposed-owner-a04-practice-lead.pathspec
+?? coordination/release-intake/2026-06-26-A25-proposed-owner-a05-lesson-lead.pathspec
+?? coordination/release-intake/2026-06-26-A25-proposed-owner-a06-visualization-lead.pathspec
+?? coordination/release-intake/2026-06-26-A25-proposed-owner-a08-state-and-analytics-lead.pathspec
+?? coordination/release-intake/2026-06-26-A25-proposed-owner-a09-copy-i18n-accessibility.pathspec
+?? coordination/release-intake/2026-06-26-A25-proposed-owner-a11-qa-and-release-quality.pathspec
+?? coordination/release-intake/2026-06-26-A25-proposed-owner-a12-backend-api-platform.pathspec
+?? coordination/release-intake/2026-06-26-A25-proposed-owner-a13-teacher-console.pathspec
+?? coordination/release-intake/2026-06-26-A25-proposed-owner-a14-parent-console.pathspec
+?? coordination/release-intake/2026-06-26-A25-proposed-owner-a15-adaptive-engine-lead.pathspec
+?? coordination/release-intake/2026-06-26-A25-proposed-owner-a18-curriculum-qa-a21-content-pipeline.pathspec
+?? coordination/release-intake/2026-06-26-A25-proposed-owner-a20-game-design-and-game-based-learning.pathspec
+?? coordination/release-intake/2026-06-26-A25-proposed-owner-manual-a10-a25-owner-assignment-required.pathspec
+?? coordination/release-intake/2026-06-26-A25-shirleen-release-slice-manifest.json
+?? coordination/release-intake/2026-06-26-A25-shirleen-release-slice-manifest.md
+?? coordination/release-intake/2026-06-26-A25-shirleen-release-slice.pathspec
+?? coordination/release-intake/2026-06-26-A25-slice-docs-coordination-evidence.pathspec
+?? coordination/release-intake/2026-06-26-A25-slice-generated-content-rag-backlog.pathspec
+?? coordination/release-intake/2026-06-26-A25-slice-release-hygiene-tooling-config.pathspec
+?? coordination/release-intake/2026-06-26-A25-slice-runtime-app-api-data-public.pathspec
+?? coordination/release-intake/2026-06-26-A25-slice-secret-env-quarantine.pathspec
+?? coordination/release-intake/2026-06-26-A25-slice-tests-regression-evidence.pathspec
+?? coordination/release-intake/2026-06-26-A25-slice-unmapped-manual.pathspec
+?? coordination/release-intake/2026-06-26-A25-unmapped-manual-owner-proposals.json
+?? coordination/release-intake/2026-06-26-A25-unmapped-manual-owner-proposals.md
+?? coordination/release-intake/2026-06-26-A25-unmapped-runtime-owner-proposals.json
+?? coordination/release-intake/2026-06-26-A25-unmapped-runtime-owner-proposals.md
+?? coordination/release-intake/2026-06-26-A25-worktree-disposition-matrix.md
+?? coordination/release-intake/2026-06-26-A25-worktree-evidence-visualization-production-release/README.md
+?? coordination/release-intake/2026-06-26-A25-worktree-evidence-visualization-production-release/recent-log.txt
+?? coordination/release-intake/2026-06-26-A25-worktree-evidence-visualization-production-release/status.txt
+?? coordination/release-intake/2026-06-26-A25-worktree-evidence-visualization-production-release/summary.json
+?? coordination/release-intake/2026-06-26-A25-worktree-evidence-visualization-production-release/tracked-diff-stat.txt
+?? coordination/release-intake/2026-06-26-A25-worktree-evidence-visualization-production-release/tracked-diff.patch
+?? coordination/release-intake/2026-06-26-A25-worktree-evidence-visualization-production-release/untracked-files.tar-list
+?? coordination/release-intake/2026-06-26-A25-worktree-evidence-visualization-production-release/untracked-files.txt
+?? coordination/release-intake/2026-06-26-A25-worktree-evidence-visualization-production-release/untracked-manifest.json
+?? coordination/release-intake/2026-06-26-A25-worktree-hygiene-dashboard.json
+?? coordination/release-intake/2026-06-26-A25-worktree-hygiene-dashboard.md
+?? coordination/release-intake/2026-06-27-A25-daily-release-intake.md
+?? coordination/release-intake/2026-06-27-A25-dirty-tree-map-20260627T015640Z.json
+?? coordination/release-intake/2026-06-27-A25-dirty-tree-map-20260627T015640Z.md
+?? coordination/release-intake/2026-06-27-A25-dirty-tree-map-20260627T020442Z.json
+?? coordination/release-intake/2026-06-27-A25-dirty-tree-map-20260627T020442Z.md
+?? coordination/release-intake/2026-06-27-A25-dirty-tree-map-20260627T075136Z.json
+?? coordination/release-intake/2026-06-27-A25-dirty-tree-map-20260627T075136Z.md
+?? coordination/release-intake/2026-06-27-A25-dirty-tree-map-20260627T141618Z.json
+?? coordination/release-intake/2026-06-27-A25-dirty-tree-map-20260627T141618Z.md
+?? coordination/release-intake/2026-06-27-A25-dirty-tree-map-20260627T150123Z.json
+?? coordination/release-intake/2026-06-27-A25-dirty-tree-map-20260627T150123Z.md
+?? coordination/release-intake/2026-06-27-A25-dirty-tree-map-20260627T153547Z.json
+?? coordination/release-intake/2026-06-27-A25-dirty-tree-map-20260627T153547Z.md
+?? coordination/release-intake/2026-06-28-A22-A25-dashboard-neon-release-slice.md
+?? coordination/release-intake/2026-06-28-A25-dirty-tree-map-20260627T162911Z.json
+?? coordination/release-intake/2026-06-28-A25-dirty-tree-map-20260627T162911Z.md
+?? coordination/release-intake/2026-06-28-A25-dirty-tree-map-20260627T162947Z.json
+?? coordination/release-intake/2026-06-28-A25-dirty-tree-map-20260627T162947Z.md
+?? coordination/release-intake/2026-06-28-A25-dirty-tree-map-20260627T163546Z.json
+?? coordination/release-intake/2026-06-28-A25-dirty-tree-map-20260627T163546Z.md
+?? coordination/release-intake/2026-06-28-A25-dirty-tree-map-20260627T164854Z.json
+?? coordination/release-intake/2026-06-28-A25-dirty-tree-map-20260627T164854Z.md
+?? coordination/release-intake/2026-06-28-A25-dirty-tree-map-20260627T165350Z.json
+?? coordination/release-intake/2026-06-28-A25-dirty-tree-map-20260627T165350Z.md
+?? coordination/release-intake/2026-06-28-A25-dirty-tree-map-20260627T165808Z.json
+?? coordination/release-intake/2026-06-28-A25-dirty-tree-map-20260627T165808Z.md
+?? coordination/release-intake/2026-06-28-A25-dirty-tree-map-20260627T165919Z.json
+?? coordination/release-intake/2026-06-28-A25-dirty-tree-map-20260627T165919Z.md
+?? coordination/release-intake/2026-06-28-A25-dirty-tree-map-20260627T170703Z.json
+?? coordination/release-intake/2026-06-28-A25-dirty-tree-map-20260627T170703Z.md
+?? coordination/release-intake/2026-06-28-A25-dirty-tree-map-20260627T171649Z.json
+?? coordination/release-intake/2026-06-28-A25-dirty-tree-map-20260627T171649Z.md
+?? coordination/release-intake/2026-06-28-A25-dirty-tree-map-20260627T172235Z.json
+?? coordination/release-intake/2026-06-28-A25-dirty-tree-map-20260627T172235Z.md
+?? coordination/release-intake/2026-06-28-A25-dirty-tree-map-20260627T172628Z.json
+?? coordination/release-intake/2026-06-28-A25-dirty-tree-map-20260627T172628Z.md
+?? coordination/release-intake/2026-06-28-A25-dirty-tree-map-20260627T174304Z.json
+?? coordination/release-intake/2026-06-28-A25-dirty-tree-map-20260627T174304Z.md
+?? coordination/release-intake/2026-06-28-A25-dirty-tree-map-20260627T174536Z.json
+?? coordination/release-intake/2026-06-28-A25-dirty-tree-map-20260627T174536Z.md
+?? coordination/release-intake/2026-06-28-A25-dirty-tree-map-20260627T174748Z.json
+?? coordination/release-intake/2026-06-28-A25-dirty-tree-map-20260627T174748Z.md
+?? coordination/release-intake/2026-06-28-A25-dirty-tree-map-20260627T175223Z.json
+?? coordination/release-intake/2026-06-28-A25-dirty-tree-map-20260627T175223Z.md
+?? coordination/release-intake/2026-06-28-A25-dirty-tree-map-20260627T175948Z.json
+?? coordination/release-intake/2026-06-28-A25-dirty-tree-map-20260627T175948Z.md
+?? coordination/release-intake/2026-06-28-A25-dirty-tree-map-20260627T180205Z.json
+?? coordination/release-intake/2026-06-28-A25-dirty-tree-map-20260627T180205Z.md
+?? coordination/release-intake/2026-06-28-A25-dirty-tree-map-20260627T180617Z.json
+?? coordination/release-intake/2026-06-28-A25-dirty-tree-map-20260627T180617Z.md
+?? coordination/release-intake/2026-06-28-A25-dirty-tree-map-20260627T180736Z.json
+?? coordination/release-intake/2026-06-28-A25-dirty-tree-map-20260627T180736Z.md
+?? coordination/release-intake/2026-06-28-A25-dirty-tree-map-20260627T181309Z.json
+?? coordination/release-intake/2026-06-28-A25-dirty-tree-map-20260627T181309Z.md
+?? coordination/release-intake/2026-06-28-A25-dirty-tree-map-20260627T181400Z.json
+?? coordination/release-intake/2026-06-28-A25-dirty-tree-map-20260627T181400Z.md
+?? coordination/release-intake/2026-06-28-A25-dirty-tree-map-20260627T181504Z.json
+?? coordination/release-intake/2026-06-28-A25-dirty-tree-map-20260627T181504Z.md
+?? coordination/release-intake/2026-06-28-A25-dirty-tree-map-20260627T181808Z.json
+?? coordination/release-intake/2026-06-28-A25-dirty-tree-map-20260627T181808Z.md
+?? coordination/release-intake/2026-06-28-A25-dirty-tree-map-20260627T182235Z.json
+?? coordination/release-intake/2026-06-28-A25-dirty-tree-map-20260627T182235Z.md
+?? coordination/release-intake/2026-06-28-A25-dirty-tree-map-20260628T014340Z.json
+?? coordination/release-intake/2026-06-28-A25-dirty-tree-map-20260628T014340Z.md
+?? coordination/release-intake/2026-06-28-A25-dirty-tree-map-20260628T024355Z.json
+?? coordination/release-intake/2026-06-28-A25-dirty-tree-map-20260628T024355Z.md
+?? coordination/release-intake/2026-06-28-A25-dirty-tree-map-20260628T024619Z.json
+?? coordination/release-intake/2026-06-28-A25-dirty-tree-map-20260628T024619Z.md
+?? coordination/release-intake/2026-06-28-A25-dirty-tree-map-20260628T025717Z.json
+?? coordination/release-intake/2026-06-28-A25-dirty-tree-map-20260628T025717Z.md
+?? coordination/release-intake/2026-06-28-A25-dirty-tree-map-20260628T025950Z.json
+?? coordination/release-intake/2026-06-28-A25-dirty-tree-map-20260628T025950Z.md
+?? coordination/release-intake/2026-06-28-A25-dirty-tree-map-20260628T030405Z.json
+?? coordination/release-intake/2026-06-28-A25-dirty-tree-map-20260628T030405Z.md
+?? coordination/release-intake/2026-06-28-A25-dirty-tree-map-20260628T030716Z.json
+?? coordination/release-intake/2026-06-28-A25-dirty-tree-map-20260628T030716Z.md
+?? coordination/release-intake/2026-06-28-A25-dirty-tree-map-20260628T030904Z.json
+?? coordination/release-intake/2026-06-28-A25-dirty-tree-map-20260628T030904Z.md
+?? coordination/release-intake/2026-06-28-A25-dirty-tree-map-20260628T031748Z.json
+?? coordination/release-intake/2026-06-28-A25-dirty-tree-map-20260628T031748Z.md
+?? coordination/release-intake/2026-06-28-A25-dirty-tree-map-20260628T031947Z.json
+?? coordination/release-intake/2026-06-28-A25-dirty-tree-map-20260628T031947Z.md
+?? coordination/release-intake/2026-06-28-A25-dirty-tree-map-20260628T033031Z.json
+?? coordination/release-intake/2026-06-28-A25-dirty-tree-map-20260628T033031Z.md
+?? coordination/release-intake/2026-06-28-A25-dirty-tree-map-20260628T033148Z.json
+?? coordination/release-intake/2026-06-28-A25-dirty-tree-map-20260628T033148Z.md
+?? coordination/release-intake/2026-06-28-A25-dirty-tree-map-20260628T033827Z.json
+?? coordination/release-intake/2026-06-28-A25-dirty-tree-map-20260628T033827Z.md
+?? coordination/release-intake/2026-06-28-A25-dirty-tree-map-20260628T034246Z.json
+?? coordination/release-intake/2026-06-28-A25-dirty-tree-map-20260628T034246Z.md
+?? coordination/release-intake/2026-06-28-A25-dirty-tree-map-20260628T034622Z.json
+?? coordination/release-intake/2026-06-28-A25-dirty-tree-map-20260628T034622Z.md
+?? coordination/release-intake/2026-06-28-A25-dirty-tree-map-20260628T034924Z.json
+?? coordination/release-intake/2026-06-28-A25-dirty-tree-map-20260628T034924Z.md
+?? coordination/release-intake/2026-06-28-A25-dirty-tree-map-20260628T035625Z.json
+?? coordination/release-intake/2026-06-28-A25-dirty-tree-map-20260628T035625Z.md
+?? coordination/release-intake/2026-06-28-A25-dirty-tree-map-20260628T040240Z.json
+?? coordination/release-intake/2026-06-28-A25-dirty-tree-map-20260628T040240Z.md
+?? coordination/release-intake/2026-06-28-A25-dirty-tree-map-20260628T040708Z.json
+?? coordination/release-intake/2026-06-28-A25-dirty-tree-map-20260628T040708Z.md
+?? coordination/release-intake/2026-06-28-A25-dirty-tree-map-20260628T041040Z.json
+?? coordination/release-intake/2026-06-28-A25-dirty-tree-map-20260628T041040Z.md
+?? coordination/release-intake/2026-06-28-A25-dirty-tree-map-20260628T041125Z.json
+?? coordination/release-intake/2026-06-28-A25-dirty-tree-map-20260628T041125Z.md
+?? coordination/release-intake/2026-06-28-A25-dirty-tree-map-20260628T110555Z.json
+?? coordination/release-intake/2026-06-28-A25-dirty-tree-map-20260628T110555Z.md
+?? coordination/release-intake/2026-06-28-A25-dirty-tree-map-20260628T111034Z.json
+?? coordination/release-intake/2026-06-28-A25-dirty-tree-map-20260628T111034Z.md
+?? coordination/release-intake/2026-06-29-A25-dirty-tree-map-20260629T004907Z.json
+?? coordination/release-intake/2026-06-29-A25-dirty-tree-map-20260629T004907Z.md
+?? coordination/release-intake/2026-06-29-A25-dirty-tree-map-20260629T101226Z.json
+?? coordination/release-intake/2026-06-29-A25-dirty-tree-map-20260629T101226Z.md
+?? coordination/release-intake/2026-06-29-A25-dirty-tree-map-20260629T110934Z.json
+?? coordination/release-intake/2026-06-29-A25-dirty-tree-map-20260629T110934Z.md
+?? coordination/release-intake/2026-06-30-A25-dirty-tree-map-20260630T000433Z.json
+?? coordination/release-intake/2026-06-30-A25-dirty-tree-map-20260630T000433Z.md
+?? coordination/release-intake/2026-06-30-A25-dirty-tree-map-20260630T011306Z.json
+?? coordination/release-intake/2026-06-30-A25-dirty-tree-map-20260630T011306Z.md
+?? coordination/release-intake/2026-06-30-A25-dirty-tree-map-20260630T053138Z.json
+?? coordination/release-intake/2026-06-30-A25-dirty-tree-map-20260630T053138Z.md
+?? coordination/release-intake/2026-06-30-A25-dirty-tree-map-20260630T064000Z.json
+?? coordination/release-intake/2026-06-30-A25-dirty-tree-map-20260630T064000Z.md
+?? coordination/release-intake/2026-06-30-A25-dirty-tree-map-20260630T064556Z.json
+?? coordination/release-intake/2026-06-30-A25-dirty-tree-map-20260630T064556Z.md
+?? coordination/release-intake/2026-06-30-A25-dirty-tree-map-20260630T071521Z.json
+?? coordination/release-intake/2026-06-30-A25-dirty-tree-map-20260630T071521Z.md
+?? coordination/release-intake/2026-06-30-A25-dirty-tree-map-20260630T071735Z.json
+?? coordination/release-intake/2026-06-30-A25-dirty-tree-map-20260630T071735Z.md
+?? coordination/release-intake/2026-06-30-A25-dirty-tree-map-20260630T071905Z.json
+?? coordination/release-intake/2026-06-30-A25-dirty-tree-map-20260630T071905Z.md
+?? coordination/release-intake/2026-06-30-A25-dirty-tree-map-20260630T071921Z.json
+?? coordination/release-intake/2026-06-30-A25-dirty-tree-map-20260630T071921Z.md
+?? coordination/release-intake/2026-06-30-A25-dirty-tree-map-20260630T071923Z.json
+?? coordination/release-intake/2026-06-30-A25-dirty-tree-map-20260630T071923Z.md
+?? coordination/release-intake/2026-06-30-A25-dirty-tree-map-20260630T072455Z.json
+?? coordination/release-intake/2026-06-30-A25-dirty-tree-map-20260630T072455Z.md
+?? coordination/release-intake/2026-06-30-A25-dirty-tree-map-20260630T072607Z.json
+?? coordination/release-intake/2026-06-30-A25-dirty-tree-map-20260630T072607Z.md
+?? coordination/release-intake/2026-06-30-A25-dirty-tree-map-20260630T072655Z.json
+?? coordination/release-intake/2026-06-30-A25-dirty-tree-map-20260630T072655Z.md
+?? coordination/release-intake/2026-06-30-A25-dirty-tree-map-20260630T072737Z.json
+?? coordination/release-intake/2026-06-30-A25-dirty-tree-map-20260630T072737Z.md
+?? coordination/release-intake/2026-06-30-A25-dirty-tree-map-20260630T073306Z.json
+?? coordination/release-intake/2026-06-30-A25-dirty-tree-map-20260630T073306Z.md
+?? coordination/release-intake/2026-06-30-A25-dirty-tree-map-20260630T073400Z.json
+?? coordination/release-intake/2026-06-30-A25-dirty-tree-map-20260630T073400Z.md
+?? coordination/release-intake/2026-06-30-A25-dirty-tree-map-20260630T074915Z.json
+?? coordination/release-intake/2026-06-30-A25-dirty-tree-map-20260630T074915Z.md
+?? coordination/release-intake/2026-06-30-A25-dirty-tree-map-20260630T075157Z.json
+?? coordination/release-intake/2026-06-30-A25-dirty-tree-map-20260630T075157Z.md
+?? coordination/release-intake/2026-06-30-A25-dirty-tree-map-20260630T075412Z.json
+?? coordination/release-intake/2026-06-30-A25-dirty-tree-map-20260630T075412Z.md
+?? coordination/release-intake/2026-06-30-A25-dirty-tree-map-20260630T075645Z.json
+?? coordination/release-intake/2026-06-30-A25-dirty-tree-map-20260630T075645Z.md
+?? coordination/release-intake/2026-06-30-A25-dirty-tree-map-20260630T080147Z.json
+?? coordination/release-intake/2026-06-30-A25-dirty-tree-map-20260630T080147Z.md
+?? coordination/release-intake/2026-06-30-A25-dirty-tree-map-20260630T081101Z.json
+?? coordination/release-intake/2026-06-30-A25-dirty-tree-map-20260630T081101Z.md
+?? coordination/release-intake/2026-06-30-A25-dirty-tree-map-20260630T081618Z.json
+?? coordination/release-intake/2026-06-30-A25-dirty-tree-map-20260630T081618Z.md
+?? coordination/release-intake/2026-06-30-A25-dirty-tree-map-20260630T081946Z.json
+?? coordination/release-intake/2026-06-30-A25-dirty-tree-map-20260630T081946Z.md
+?? coordination/release-intake/2026-06-30-A25-dirty-tree-map-20260630T082228Z.json
+?? coordination/release-intake/2026-06-30-A25-dirty-tree-map-20260630T082228Z.md
+?? coordination/release-intake/2026-06-30-A25-dirty-tree-map-20260630T082306Z.json
+?? coordination/release-intake/2026-06-30-A25-dirty-tree-map-20260630T082306Z.md
+?? coordination/release-intake/2026-06-30-A25-dirty-worktree-remediation-plan.md
+?? coordination/release-intake/2026-06-30-A25-effective-disposition-queue.json
+?? coordination/release-intake/2026-06-30-A25-effective-disposition-queue.md
+?? coordination/release-intake/2026-06-30-A25-effective-owner-a01-app-shell-lead.pathspec
+?? coordination/release-intake/2026-06-30-A25-effective-owner-a02-dashboard-lead.pathspec
+?? coordination/release-intake/2026-06-30-A25-effective-owner-a03-curriculum-roadmap-lead.pathspec
+?? coordination/release-intake/2026-06-30-A25-effective-owner-a04-practice-lead.pathspec
+?? coordination/release-intake/2026-06-30-A25-effective-owner-a05-lesson-lead.pathspec
+?? coordination/release-intake/2026-06-30-A25-effective-owner-a06-visualization-lead.pathspec
+?? coordination/release-intake/2026-06-30-A25-effective-owner-a07-ai-tutor-lead.pathspec
+?? coordination/release-intake/2026-06-30-A25-effective-owner-a08-state-and-analytics-lead.pathspec
+?? coordination/release-intake/2026-06-30-A25-effective-owner-a09-copy-i18n-accessibility.pathspec
+?? coordination/release-intake/2026-06-30-A25-effective-owner-a10-tooling-docs-and-report.pathspec
+?? coordination/release-intake/2026-06-30-A25-effective-owner-a11-qa-and-release-quality.pathspec
+?? coordination/release-intake/2026-06-30-A25-effective-owner-a12-backend-api-platform.pathspec
+?? coordination/release-intake/2026-06-30-A25-effective-owner-a13-teacher-console.pathspec
+?? coordination/release-intake/2026-06-30-A25-effective-owner-a14-parent-console.pathspec
+?? coordination/release-intake/2026-06-30-A25-effective-owner-a15-adaptive-engine-lead.pathspec
+?? coordination/release-intake/2026-06-30-A25-effective-owner-a16-research-and-learning-science.pathspec
+?? coordination/release-intake/2026-06-30-A25-effective-owner-a17-gamification-and-motivation.pathspec
+?? coordination/release-intake/2026-06-30-A25-effective-owner-a18-curriculum-qa-a21-content-pipeline.pathspec
+?? coordination/release-intake/2026-06-30-A25-effective-owner-a20-game-design-and-game-based-learning.pathspec
+?? coordination/release-intake/2026-06-30-A25-effective-owner-a21-content-pipeline-and-rag-operations.pathspec
+?? coordination/release-intake/2026-06-30-A25-effective-owner-a22-production-reliability-and-release-engineering.pathspec
+?? coordination/release-intake/2026-06-30-A25-effective-owner-a23-integration-and-promotion-lead.pathspec
+?? coordination/release-intake/2026-06-30-A25-effective-owner-a24-illustration-exact-layer.pathspec
+?? coordination/release-intake/2026-06-30-A25-effective-owner-a25-git-hygiene-and-release-intake.pathspec
+?? coordination/release-intake/2026-06-30-A25-effective-owner-manual-a10-a25-owner-assignment-required.pathspec
+?? coordination/release-intake/2026-06-30-A25-effective-owner-overlay.json
+?? coordination/release-intake/2026-06-30-A25-effective-owner-overlay.md
+?? coordination/release-intake/2026-06-30-A25-effective-work-order-a01-app-shell-lead.md
+?? coordination/release-intake/2026-06-30-A25-effective-work-order-a02-dashboard-lead.md
+?? coordination/release-intake/2026-06-30-A25-effective-work-order-a03-curriculum-roadmap-lead.md
+?? coordination/release-intake/2026-06-30-A25-effective-work-order-a04-practice-lead.md
+?? coordination/release-intake/2026-06-30-A25-effective-work-order-a05-lesson-lead.md
+?? coordination/release-intake/2026-06-30-A25-effective-work-order-a06-visualization-lead.md
+?? coordination/release-intake/2026-06-30-A25-effective-work-order-a07-ai-tutor-lead.md
+?? coordination/release-intake/2026-06-30-A25-effective-work-order-a08-state-and-analytics-lead.md
+?? coordination/release-intake/2026-06-30-A25-effective-work-order-a09-copy-i18n-accessibility.md
+?? coordination/release-intake/2026-06-30-A25-effective-work-order-a10-tooling-docs-and-report.md
+?? coordination/release-intake/2026-06-30-A25-effective-work-order-a11-qa-and-release-quality.md
+?? coordination/release-intake/2026-06-30-A25-effective-work-order-a12-backend-api-platform.md
+?? coordination/release-intake/2026-06-30-A25-effective-work-order-a13-teacher-console.md
+?? coordination/release-intake/2026-06-30-A25-effective-work-order-a14-parent-console.md
+?? coordination/release-intake/2026-06-30-A25-effective-work-order-a15-adaptive-engine-lead.md
+?? coordination/release-intake/2026-06-30-A25-effective-work-order-a16-research-and-learning-science.md
+?? coordination/release-intake/2026-06-30-A25-effective-work-order-a17-gamification-and-motivation.md
+?? coordination/release-intake/2026-06-30-A25-effective-work-order-a18-curriculum-qa-a21-content-pipeline.md
+?? coordination/release-intake/2026-06-30-A25-effective-work-order-a20-game-design-and-game-based-learning.md
+?? coordination/release-intake/2026-06-30-A25-effective-work-order-a21-content-pipeline-and-rag-operations.md
+?? coordination/release-intake/2026-06-30-A25-effective-work-order-a22-production-reliability-and-release-engineering.md
+?? coordination/release-intake/2026-06-30-A25-effective-work-order-a23-integration-and-promotion-lead.md
+?? coordination/release-intake/2026-06-30-A25-effective-work-order-a24-illustration-exact-layer.md
+?? coordination/release-intake/2026-06-30-A25-effective-work-order-a25-git-hygiene-and-release-intake.md
+?? coordination/release-intake/2026-06-30-A25-effective-work-order-manual-a10-a25-owner-assignment-required.md
+?? coordination/release-intake/2026-06-30-A25-lifecycle-closure-runbook.json
+?? coordination/release-intake/2026-06-30-A25-lifecycle-closure-runbook.md
+?? coordination/release-intake/2026-06-30-A25-lifecycle-decision-ledger.json
+?? coordination/release-intake/2026-06-30-A25-lifecycle-decision-ledger.md
+?? coordination/release-intake/2026-06-30-A25-lifecycle-decision-request-california-practice-beta-clean.json
+?? coordination/release-intake/2026-06-30-A25-lifecycle-decision-request-california-practice-beta-clean.md
+?? coordination/release-intake/2026-06-30-A25-lifecycle-decision-request-dirty-visualization-production-release.json
+?? coordination/release-intake/2026-06-30-A25-lifecycle-decision-request-dirty-visualization-production-release.md
+?? coordination/release-intake/2026-06-30-A25-lifecycle-decision-request-index.json
+?? coordination/release-intake/2026-06-30-A25-lifecycle-decision-request-index.md
+?? coordination/release-intake/2026-06-30-A25-lifecycle-decision-request-root-dirty-packages.json
+?? coordination/release-intake/2026-06-30-A25-lifecycle-decision-request-root-dirty-packages.md
+?? coordination/release-intake/2026-06-30-A25-lifecycle-decision-request-s22-release-hygiene-2026-06-15.json
+?? coordination/release-intake/2026-06-30-A25-lifecycle-decision-request-s22-release-hygiene-2026-06-15.md
+?? coordination/release-intake/2026-06-30-A25-owner-a01-app-shell-lead.pathspec
+?? coordination/release-intake/2026-06-30-A25-owner-a02-dashboard-lead.pathspec
+?? coordination/release-intake/2026-06-30-A25-owner-a03-curriculum-roadmap-lead.pathspec
+?? coordination/release-intake/2026-06-30-A25-owner-a04-practice-lead.pathspec
+?? coordination/release-intake/2026-06-30-A25-owner-a05-lesson-lead.pathspec
+?? coordination/release-intake/2026-06-30-A25-owner-a06-visualization-lead.pathspec
+?? coordination/release-intake/2026-06-30-A25-owner-a07-ai-tutor-lead.pathspec
+?? coordination/release-intake/2026-06-30-A25-owner-a08-state-and-analytics-lead.pathspec
+?? coordination/release-intake/2026-06-30-A25-owner-a09-copy-i18n-accessibility.pathspec
+?? coordination/release-intake/2026-06-30-A25-owner-a10-tooling-docs-and-report.pathspec
+?? coordination/release-intake/2026-06-30-A25-owner-a11-qa-and-release-quality.pathspec
+?? coordination/release-intake/2026-06-30-A25-owner-a12-backend-api-platform.pathspec
+?? coordination/release-intake/2026-06-30-A25-owner-a13-teacher-console.pathspec
+?? coordination/release-intake/2026-06-30-A25-owner-a14-parent-console.pathspec
+?? coordination/release-intake/2026-06-30-A25-owner-a15-adaptive-engine-lead.pathspec
+?? coordination/release-intake/2026-06-30-A25-owner-a16-research-and-learning-science.pathspec
+?? coordination/release-intake/2026-06-30-A25-owner-a17-gamification-and-motivation.pathspec
+?? coordination/release-intake/2026-06-30-A25-owner-a18-curriculum-qa-a21-content-pipeline.pathspec
+?? coordination/release-intake/2026-06-30-A25-owner-a20-game-design-and-game-based-learning.pathspec
+?? coordination/release-intake/2026-06-30-A25-owner-a21-content-pipeline-and-rag-operations.pathspec
+?? coordination/release-intake/2026-06-30-A25-owner-a22-production-reliability-and-release-engineering.pathspec
+?? coordination/release-intake/2026-06-30-A25-owner-a23-integration-and-promotion-lead.pathspec
+?? coordination/release-intake/2026-06-30-A25-owner-a24-illustration-exact-layer.pathspec
+?? coordination/release-intake/2026-06-30-A25-owner-a25-git-hygiene-and-release-intake.pathspec
+?? coordination/release-intake/2026-06-30-A25-owner-approval-matrix.json
+?? coordination/release-intake/2026-06-30-A25-owner-approval-matrix.md
+?? coordination/release-intake/2026-06-30-A25-owner-disposition-queue.json
+?? coordination/release-intake/2026-06-30-A25-owner-disposition-queue.md
+?? coordination/release-intake/2026-06-30-A25-owner-unmapped-manual-owner-needed.pathspec
+?? coordination/release-intake/2026-06-30-A25-owner-unmapped-runtime-owner-review-needed.pathspec
+?? coordination/release-intake/2026-06-30-A25-proposed-manual-owner-a02-dashboard-lead.pathspec
+?? coordination/release-intake/2026-06-30-A25-proposed-manual-owner-a07-ai-tutor-lead.pathspec
+?? coordination/release-intake/2026-06-30-A25-proposed-manual-owner-a08-state-and-analytics-lead.pathspec
+?? coordination/release-intake/2026-06-30-A25-proposed-manual-owner-a10-tooling-docs-and-report.pathspec
+?? coordination/release-intake/2026-06-30-A25-proposed-manual-owner-a22-production-reliability-and-release-engineering.pathspec
+?? coordination/release-intake/2026-06-30-A25-proposed-manual-owner-a23-integration-and-promotion-lead.pathspec
+?? coordination/release-intake/2026-06-30-A25-proposed-manual-owner-a25-git-hygiene-and-release-intake.pathspec
+?? coordination/release-intake/2026-06-30-A25-proposed-manual-owner-manual-a10-a25-owner-assignment-required.pathspec
+?? coordination/release-intake/2026-06-30-A25-proposed-owner-a01-app-shell-lead.pathspec
+?? coordination/release-intake/2026-06-30-A25-proposed-owner-a02-dashboard-lead.pathspec
+?? coordination/release-intake/2026-06-30-A25-proposed-owner-a03-curriculum-roadmap-lead.pathspec
+?? coordination/release-intake/2026-06-30-A25-proposed-owner-a04-practice-lead.pathspec
+?? coordination/release-intake/2026-06-30-A25-proposed-owner-a05-lesson-lead.pathspec
+?? coordination/release-intake/2026-06-30-A25-proposed-owner-a06-visualization-lead.pathspec
+?? coordination/release-intake/2026-06-30-A25-proposed-owner-a08-state-and-analytics-lead.pathspec
+?? coordination/release-intake/2026-06-30-A25-proposed-owner-a09-copy-i18n-accessibility.pathspec
+?? coordination/release-intake/2026-06-30-A25-proposed-owner-a11-qa-and-release-quality.pathspec
+?? coordination/release-intake/2026-06-30-A25-proposed-owner-a12-backend-api-platform.pathspec
+?? coordination/release-intake/2026-06-30-A25-proposed-owner-a14-parent-console.pathspec
+?? coordination/release-intake/2026-06-30-A25-proposed-owner-a15-adaptive-engine-lead.pathspec
+?? coordination/release-intake/2026-06-30-A25-proposed-owner-a18-curriculum-qa-a21-content-pipeline.pathspec
+?? coordination/release-intake/2026-06-30-A25-proposed-owner-a20-game-design-and-game-based-learning.pathspec
+?? coordination/release-intake/2026-06-30-A25-proposed-owner-a24-illustration-exact-layer.pathspec
+?? coordination/release-intake/2026-06-30-A25-proposed-owner-manual-a10-a25-owner-assignment-required.pathspec
+?? coordination/release-intake/2026-06-30-A25-unmapped-manual-owner-proposals.json
+?? coordination/release-intake/2026-06-30-A25-unmapped-manual-owner-proposals.md
+?? coordination/release-intake/2026-06-30-A25-unmapped-runtime-owner-proposals.json
+?? coordination/release-intake/2026-06-30-A25-unmapped-runtime-owner-proposals.md
+?? coordination/release-intake/2026-06-30-A25-worktree-hygiene-dashboard.json
+?? coordination/release-intake/2026-06-30-A25-worktree-hygiene-dashboard.md
+?? coordination/release-intake/archive-branch-evidence.mjs
+?? coordination/release-intake/archive-worktree-evidence.mjs
+?? coordination/release-intake/archive/2026-06-30-A25-clean-diverged-branch-archive-manifest.json
+?? coordination/release-intake/archive/2026-06-30-A25-clean-diverged-branch-archive-manifest.md
+?? coordination/release-intake/archive/2026-06-30-A25-dirty-diverged-branch-archive-manifest.json
+?? coordination/release-intake/archive/2026-06-30-A25-dirty-diverged-branch-archive-manifest.md
+?? coordination/release-intake/archive/2026-06-30-A25-linked-worktree-archive-manifest.json
+?? coordination/release-intake/archive/2026-06-30-A25-linked-worktree-archive-manifest.md
+?? coordination/release-intake/archive/codex-A01-app-shell-closure.diffstat.txt
+?? coordination/release-intake/archive/codex-A01-app-shell-closure.patch
+?? coordination/release-intake/archive/codex-A01-app-shell-closure.status.txt
+?? coordination/release-intake/archive/codex-A01-app-shell-closure.untracked.txt
+?? coordination/release-intake/archive/codex-A01-shell-lazy-load.diffstat.txt
+?? coordination/release-intake/archive/codex-A01-shell-lazy-load.patch
+?? coordination/release-intake/archive/codex-A01-shell-lazy-load.status.txt
+?? coordination/release-intake/archive/codex-A01-shell-lazy-load.untracked.txt
+?? coordination/release-intake/archive/codex-A06-manim-three-closure.diffstat.txt
+?? coordination/release-intake/archive/codex-A06-manim-three-closure.patch
+?? coordination/release-intake/archive/codex-A06-manim-three-closure.status.txt
+?? coordination/release-intake/archive/codex-A06-manim-three-closure.untracked.txt
+?? coordination/release-intake/archive/codex-A07-A15-A08-ai-adaptive-types.diffstat.txt
+?? coordination/release-intake/archive/codex-A07-A15-A08-ai-adaptive-types.patch
+?? coordination/release-intake/archive/codex-A07-A15-A08-ai-adaptive-types.status.txt
+?? coordination/release-intake/archive/codex-A07-A15-A08-ai-adaptive-types.untracked.txt
+?? coordination/release-intake/archive/codex-A07-ai-tutor-classroom-switches.diffstat.txt
+?? coordination/release-intake/archive/codex-A07-ai-tutor-classroom-switches.patch
+?? coordination/release-intake/archive/codex-A07-ai-tutor-classroom-switches.status.txt
+?? coordination/release-intake/archive/codex-A07-ai-tutor-classroom-switches.untracked.txt
+?? coordination/release-intake/archive/codex-A08-A12-shared-contract-closure.diffstat.txt
+?? coordination/release-intake/archive/codex-A08-A12-shared-contract-closure.patch
+?? coordination/release-intake/archive/codex-A08-A12-shared-contract-closure.status.txt
+?? coordination/release-intake/archive/codex-A08-A12-shared-contract-closure.untracked.txt
+?? coordination/release-intake/archive/codex-A10-A22-A08-A12-A06-compose-20260628.diffstat.txt
+?? coordination/release-intake/archive/codex-A10-A22-A08-A12-A06-compose-20260628.dirty-diverged.ahead-log.txt
+?? coordination/release-intake/archive/codex-A10-A22-A08-A12-A06-compose-20260628.dirty-diverged.diffstat.txt
+?? coordination/release-intake/archive/codex-A10-A22-A08-A12-A06-compose-20260628.dirty-diverged.metadata.json
+?? coordination/release-intake/archive/codex-A10-A22-A08-A12-A06-compose-20260628.dirty-diverged.name-status.txt
+?? coordination/release-intake/archive/codex-A10-A22-A08-A12-A06-compose-20260628.dirty-diverged.patch
+?? coordination/release-intake/archive/codex-A10-A22-A08-A12-A06-compose-20260628.dirty-diverged.status.txt
+?? coordination/release-intake/archive/codex-A10-A22-A08-A12-A06-compose-20260628.patch
+?? coordination/release-intake/archive/codex-A10-A22-A08-A12-A06-compose-20260628.status.txt
+?? coordination/release-intake/archive/codex-A10-A22-A08-A12-A06-compose-20260628.untracked.txt
+?? coordination/release-intake/archive/codex-A10-A22-release-governance.clean-diverged.ahead-log.txt
+?? coordination/release-intake/archive/codex-A10-A22-release-governance.clean-diverged.diffstat.txt
+?? coordination/release-intake/archive/codex-A10-A22-release-governance.clean-diverged.metadata.json
+?? coordination/release-intake/archive/codex-A10-A22-release-governance.clean-diverged.name-status.txt
+?? coordination/release-intake/archive/codex-A10-A22-release-governance.clean-diverged.patch
+?? coordination/release-intake/archive/codex-A10-A22-release-governance.clean-diverged.status.txt
+?? coordination/release-intake/archive/codex-A12-google-oauth-login.diffstat.txt
+?? coordination/release-intake/archive/codex-A12-google-oauth-login.patch
+?? coordination/release-intake/archive/codex-A12-google-oauth-login.status.txt
+?? coordination/release-intake/archive/codex-A12-google-oauth-login.untracked.txt
+?? coordination/release-intake/archive/codex-A12-userstore-storage-contract.diffstat.txt
+?? coordination/release-intake/archive/codex-A12-userstore-storage-contract.patch
+?? coordination/release-intake/archive/codex-A12-userstore-storage-contract.status.txt
+?? coordination/release-intake/archive/codex-A12-userstore-storage-contract.untracked.txt
+?? coordination/release-intake/archive/codex-A19-vercel-postgres-region.clean-diverged.ahead-log.txt
+?? coordination/release-intake/archive/codex-A19-vercel-postgres-region.clean-diverged.diffstat.txt
+?? coordination/release-intake/archive/codex-A19-vercel-postgres-region.clean-diverged.metadata.json
+?? coordination/release-intake/archive/codex-A19-vercel-postgres-region.clean-diverged.name-status.txt
+?? coordination/release-intake/archive/codex-A19-vercel-postgres-region.clean-diverged.patch
+?? coordination/release-intake/archive/codex-A19-vercel-postgres-region.clean-diverged.status.txt
+?? coordination/release-intake/archive/codex-A22-missing-module-release-slice.diffstat.txt
+?? coordination/release-intake/archive/codex-A22-missing-module-release-slice.patch
+?? coordination/release-intake/archive/codex-A22-missing-module-release-slice.status.txt
+?? coordination/release-intake/archive/codex-A22-missing-module-release-slice.untracked.txt
+?? coordination/release-intake/archive/codex-A22-next-15-5-19-audit.diffstat.txt
+?? coordination/release-intake/archive/codex-A22-next-15-5-19-audit.patch
+?? coordination/release-intake/archive/codex-A22-next-15-5-19-audit.status.txt
+?? coordination/release-intake/archive/codex-A22-next-15-5-19-audit.untracked.txt
+?? coordination/release-intake/archive/codex-A22-p1-release-hygiene-security.diffstat.txt
+?? coordination/release-intake/archive/codex-A22-p1-release-hygiene-security.patch
+?? coordination/release-intake/archive/codex-A22-p1-release-hygiene-security.status.txt
+?? coordination/release-intake/archive/codex-A22-p1-release-hygiene-security.untracked.txt
+?? coordination/release-intake/archive/codex-A22-us-region-alignment.clean-diverged.ahead-log.txt
+?? coordination/release-intake/archive/codex-A22-us-region-alignment.clean-diverged.diffstat.txt
+?? coordination/release-intake/archive/codex-A22-us-region-alignment.clean-diverged.metadata.json
+?? coordination/release-intake/archive/codex-A22-us-region-alignment.clean-diverged.name-status.txt
+?? coordination/release-intake/archive/codex-A22-us-region-alignment.clean-diverged.patch
+?? coordination/release-intake/archive/codex-A22-us-region-alignment.clean-diverged.status.txt
+?? coordination/release-intake/archive/codex-A25-dirty-closure-governance.diffstat.txt
+?? coordination/release-intake/archive/codex-A25-dirty-closure-governance.patch
+?? coordination/release-intake/archive/codex-A25-dirty-closure-governance.status.txt
+?? coordination/release-intake/archive/codex-A25-dirty-closure-governance.untracked.txt
+?? coordination/release-intake/archive/codex-california-practice-beta-clean.clean-diverged.ahead-log.txt
+?? coordination/release-intake/archive/codex-california-practice-beta-clean.clean-diverged.diffstat.txt
+?? coordination/release-intake/archive/codex-california-practice-beta-clean.clean-diverged.metadata.json
+?? coordination/release-intake/archive/codex-california-practice-beta-clean.clean-diverged.name-status.txt
+?? coordination/release-intake/archive/codex-california-practice-beta-clean.clean-diverged.patch
+?? coordination/release-intake/archive/codex-california-practice-beta-clean.clean-diverged.status.txt
+?? coordination/release-intake/archive/codex-s22-release-hygiene-2026-06-15.clean-diverged.ahead-log.txt
+?? coordination/release-intake/archive/codex-s22-release-hygiene-2026-06-15.clean-diverged.diffstat.txt
+?? coordination/release-intake/archive/codex-s22-release-hygiene-2026-06-15.clean-diverged.metadata.json
+?? coordination/release-intake/archive/codex-s22-release-hygiene-2026-06-15.clean-diverged.name-status.txt
+?? coordination/release-intake/archive/codex-s22-release-hygiene-2026-06-15.clean-diverged.patch
+?? coordination/release-intake/archive/codex-s22-release-hygiene-2026-06-15.clean-diverged.status.txt
+?? coordination/release-intake/archive/codex-visualization-production-release.diffstat.txt
+?? coordination/release-intake/archive/codex-visualization-production-release.dirty-diverged.ahead-log.txt
+?? coordination/release-intake/archive/codex-visualization-production-release.dirty-diverged.diffstat.txt
+?? coordination/release-intake/archive/codex-visualization-production-release.dirty-diverged.metadata.json
+?? coordination/release-intake/archive/codex-visualization-production-release.dirty-diverged.name-status.txt
+?? coordination/release-intake/archive/codex-visualization-production-release.dirty-diverged.patch
+?? coordination/release-intake/archive/codex-visualization-production-release.dirty-diverged.status.txt
+?? coordination/release-intake/archive/codex-visualization-production-release.patch
+?? coordination/release-intake/archive/codex-visualization-production-release.status.txt
+?? coordination/release-intake/archive/codex-visualization-production-release.untracked.txt
+?? coordination/release-intake/assert-disposition-evidence-current.mjs
+?? coordination/release-intake/assert-effective-disposition-queue-current.mjs
+?? coordination/release-intake/assert-effective-owner-overlay-current.mjs
+?? coordination/release-intake/assert-lifecycle-closure-runbook-current.mjs
+?? coordination/release-intake/assert-lifecycle-decision-ledger-current.mjs
+?? coordination/release-intake/assert-lifecycle-decision-requests-current.mjs
+?? coordination/release-intake/assert-owner-approval-matrix-current.mjs
+?? coordination/release-intake/assert-owner-pathspecs-current.mjs
+?? coordination/release-intake/assert-physical-lifecycle-decision-packet-current.mjs
+?? coordination/release-intake/assert-release-source-clean.mjs
+?? coordination/release-intake/assert-secret-env-quarantine.mjs
+?? coordination/release-intake/assert-unmapped-manual-proposals-current.mjs
+?? coordination/release-intake/assert-unmapped-owner-proposals-current.mjs
+?? coordination/release-intake/assert-worktree-lifecycle.mjs
+?? coordination/release-intake/california-k5-claim-audit.mjs
+?? coordination/release-intake/generate-effective-disposition-queue.mjs
+?? coordination/release-intake/generate-effective-owner-overlay.mjs
+?? coordination/release-intake/generate-lifecycle-closure-runbook.mjs
+?? coordination/release-intake/generate-lifecycle-decision-ledger.mjs
+?? coordination/release-intake/generate-lifecycle-decision-requests.mjs
+?? coordination/release-intake/generate-owner-approval-matrix.mjs
+?? coordination/release-intake/generate-owner-disposition-queue.mjs
+?? coordination/release-intake/generate-physical-lifecycle-decision-packet.mjs
+?? coordination/release-intake/generate-priority-slice-manifests.mjs
+?? coordination/release-intake/latest-A25-dirty-tree-map.json
+?? coordination/release-intake/latest-A25-dirty-tree-map.md
+?? coordination/release-intake/latest-A25-disposition-evidence-current-gate.json
+?? coordination/release-intake/latest-A25-effective-disposition-queue-current-gate.json
+?? coordination/release-intake/latest-A25-effective-disposition-queue.json
+?? coordination/release-intake/latest-A25-effective-disposition-queue.md
+?? coordination/release-intake/latest-A25-effective-owner-a01-app-shell-lead.pathspec
+?? coordination/release-intake/latest-A25-effective-owner-a02-dashboard-lead.pathspec
+?? coordination/release-intake/latest-A25-effective-owner-a03-curriculum-roadmap-lead.pathspec
+?? coordination/release-intake/latest-A25-effective-owner-a04-practice-lead.pathspec
+?? coordination/release-intake/latest-A25-effective-owner-a05-lesson-lead.pathspec
+?? coordination/release-intake/latest-A25-effective-owner-a06-visualization-lead.pathspec
+?? coordination/release-intake/latest-A25-effective-owner-a07-ai-tutor-lead.pathspec
+?? coordination/release-intake/latest-A25-effective-owner-a08-state-and-analytics-lead.pathspec
+?? coordination/release-intake/latest-A25-effective-owner-a09-copy-i18n-accessibility.pathspec
+?? coordination/release-intake/latest-A25-effective-owner-a10-tooling-docs-and-report.pathspec
+?? coordination/release-intake/latest-A25-effective-owner-a11-qa-and-release-quality.pathspec
+?? coordination/release-intake/latest-A25-effective-owner-a12-backend-api-platform.pathspec
+?? coordination/release-intake/latest-A25-effective-owner-a13-teacher-console.pathspec
+?? coordination/release-intake/latest-A25-effective-owner-a14-parent-console.pathspec
+?? coordination/release-intake/latest-A25-effective-owner-a15-adaptive-engine-lead.pathspec
+?? coordination/release-intake/latest-A25-effective-owner-a16-research-and-learning-science.pathspec
+?? coordination/release-intake/latest-A25-effective-owner-a17-gamification-and-motivation.pathspec
+?? coordination/release-intake/latest-A25-effective-owner-a18-curriculum-qa-a21-content-pipeline.pathspec
+?? coordination/release-intake/latest-A25-effective-owner-a20-game-design-and-game-based-learning.pathspec
+?? coordination/release-intake/latest-A25-effective-owner-a21-content-pipeline-and-rag-operations.pathspec
+?? coordination/release-intake/latest-A25-effective-owner-a22-production-reliability-and-release-engineering.pathspec
+?? coordination/release-intake/latest-A25-effective-owner-a23-integration-and-promotion-lead.pathspec
+?? coordination/release-intake/latest-A25-effective-owner-a24-illustration-exact-layer.pathspec
+?? coordination/release-intake/latest-A25-effective-owner-a25-git-hygiene-and-release-intake.pathspec
+?? coordination/release-intake/latest-A25-effective-owner-manual-a10-a25-owner-assignment-required.pathspec
+?? coordination/release-intake/latest-A25-effective-owner-overlay-current-gate.json
+?? coordination/release-intake/latest-A25-effective-owner-overlay.json
+?? coordination/release-intake/latest-A25-effective-owner-overlay.md
+?? coordination/release-intake/latest-A25-effective-owner-unmapped-manual-owner-needed.pathspec
+?? coordination/release-intake/latest-A25-effective-work-order-a01-app-shell-lead.md
+?? coordination/release-intake/latest-A25-effective-work-order-a02-dashboard-lead.md
+?? coordination/release-intake/latest-A25-effective-work-order-a03-curriculum-roadmap-lead.md
+?? coordination/release-intake/latest-A25-effective-work-order-a04-practice-lead.md
+?? coordination/release-intake/latest-A25-effective-work-order-a05-lesson-lead.md
+?? coordination/release-intake/latest-A25-effective-work-order-a06-visualization-lead.md
+?? coordination/release-intake/latest-A25-effective-work-order-a07-ai-tutor-lead.md
+?? coordination/release-intake/latest-A25-effective-work-order-a08-state-and-analytics-lead.md
+?? coordination/release-intake/latest-A25-effective-work-order-a09-copy-i18n-accessibility.md
+?? coordination/release-intake/latest-A25-effective-work-order-a10-tooling-docs-and-report.md
+?? coordination/release-intake/latest-A25-effective-work-order-a11-qa-and-release-quality.md
+?? coordination/release-intake/latest-A25-effective-work-order-a12-backend-api-platform.md
+?? coordination/release-intake/latest-A25-effective-work-order-a13-teacher-console.md
+?? coordination/release-intake/latest-A25-effective-work-order-a14-parent-console.md
+?? coordination/release-intake/latest-A25-effective-work-order-a15-adaptive-engine-lead.md
+?? coordination/release-intake/latest-A25-effective-work-order-a16-research-and-learning-science.md
+?? coordination/release-intake/latest-A25-effective-work-order-a17-gamification-and-motivation.md
+?? coordination/release-intake/latest-A25-effective-work-order-a18-curriculum-qa-a21-content-pipeline.md
+?? coordination/release-intake/latest-A25-effective-work-order-a20-game-design-and-game-based-learning.md
+?? coordination/release-intake/latest-A25-effective-work-order-a21-content-pipeline-and-rag-operations.md
+?? coordination/release-intake/latest-A25-effective-work-order-a22-production-reliability-and-release-engineering.md
+?? coordination/release-intake/latest-A25-effective-work-order-a23-integration-and-promotion-lead.md
+?? coordination/release-intake/latest-A25-effective-work-order-a24-illustration-exact-layer.md
+?? coordination/release-intake/latest-A25-effective-work-order-a25-git-hygiene-and-release-intake.md
+?? coordination/release-intake/latest-A25-effective-work-order-manual-a10-a25-owner-assignment-required.md
+?? coordination/release-intake/latest-A25-effective-work-order-unmapped-manual-owner-needed.md
+?? coordination/release-intake/latest-A25-lifecycle-closure-runbook-current-gate.json
+?? coordination/release-intake/latest-A25-lifecycle-closure-runbook.json
+?? coordination/release-intake/latest-A25-lifecycle-closure-runbook.md
+?? coordination/release-intake/latest-A25-lifecycle-decision-ledger-current-gate.json
+?? coordination/release-intake/latest-A25-lifecycle-decision-ledger.json
+?? coordination/release-intake/latest-A25-lifecycle-decision-ledger.md
+?? coordination/release-intake/latest-A25-lifecycle-decision-request-california-practice-beta-clean.json
+?? coordination/release-intake/latest-A25-lifecycle-decision-request-california-practice-beta-clean.md
+?? coordination/release-intake/latest-A25-lifecycle-decision-request-dirty-visualization-production-release.json
+?? coordination/release-intake/latest-A25-lifecycle-decision-request-dirty-visualization-production-release.md
+?? coordination/release-intake/latest-A25-lifecycle-decision-request-index.json
+?? coordination/release-intake/latest-A25-lifecycle-decision-request-index.md
+?? coordination/release-intake/latest-A25-lifecycle-decision-request-root-dirty-packages.json
+?? coordination/release-intake/latest-A25-lifecycle-decision-request-root-dirty-packages.md
+?? coordination/release-intake/latest-A25-lifecycle-decision-request-s22-release-hygiene-2026-06-15.json
+?? coordination/release-intake/latest-A25-lifecycle-decision-request-s22-release-hygiene-2026-06-15.md
+?? coordination/release-intake/latest-A25-lifecycle-decision-requests-current-gate.json
+?? coordination/release-intake/latest-A25-owner-a01-app-shell-lead.pathspec
+?? coordination/release-intake/latest-A25-owner-a02-dashboard-lead.pathspec
+?? coordination/release-intake/latest-A25-owner-a03-curriculum-roadmap-lead.pathspec
+?? coordination/release-intake/latest-A25-owner-a04-practice-lead.pathspec
+?? coordination/release-intake/latest-A25-owner-a05-lesson-lead.pathspec
+?? coordination/release-intake/latest-A25-owner-a06-visualization-lead.pathspec
+?? coordination/release-intake/latest-A25-owner-a07-ai-tutor-lead.pathspec
+?? coordination/release-intake/latest-A25-owner-a08-state-and-analytics-lead.pathspec
+?? coordination/release-intake/latest-A25-owner-a09-copy-i18n-accessibility.pathspec
+?? coordination/release-intake/latest-A25-owner-a10-tooling-docs-and-report.pathspec
+?? coordination/release-intake/latest-A25-owner-a11-qa-and-release-quality.pathspec
+?? coordination/release-intake/latest-A25-owner-a12-backend-api-platform.pathspec
+?? coordination/release-intake/latest-A25-owner-a13-teacher-console.pathspec
+?? coordination/release-intake/latest-A25-owner-a14-parent-console.pathspec
+?? coordination/release-intake/latest-A25-owner-a15-adaptive-engine-lead.pathspec
+?? coordination/release-intake/latest-A25-owner-a16-research-and-learning-science.pathspec
+?? coordination/release-intake/latest-A25-owner-a17-gamification-and-motivation.pathspec
+?? coordination/release-intake/latest-A25-owner-a18-curriculum-qa-a21-content-pipeline.pathspec
+?? coordination/release-intake/latest-A25-owner-a20-game-design-and-game-based-learning.pathspec
+?? coordination/release-intake/latest-A25-owner-a21-content-pipeline-and-rag-operations.pathspec
+?? coordination/release-intake/latest-A25-owner-a22-production-reliability-and-release-engineering.pathspec
+?? coordination/release-intake/latest-A25-owner-a23-integration-and-promotion-lead.pathspec
+?? coordination/release-intake/latest-A25-owner-a24-illustration-exact-layer.pathspec
+?? coordination/release-intake/latest-A25-owner-a25-git-hygiene-and-release-intake.pathspec
+?? coordination/release-intake/latest-A25-owner-approval-blocker.json
+?? coordination/release-intake/latest-A25-owner-approval-blocker.md
+?? coordination/release-intake/latest-A25-owner-approval-matrix-current-gate.json
+?? coordination/release-intake/latest-A25-owner-approval-matrix.json
+?? coordination/release-intake/latest-A25-owner-approval-matrix.md
+?? coordination/release-intake/latest-A25-owner-approval-selection.json
+?? coordination/release-intake/latest-A25-owner-approval-selection.md
+?? coordination/release-intake/latest-A25-owner-disposition-queue.json
+?? coordination/release-intake/latest-A25-owner-disposition-queue.md
+?? coordination/release-intake/latest-A25-owner-pathspec-current-gate.json
+?? coordination/release-intake/latest-A25-owner-unmapped-manual-owner-needed.pathspec
+?? coordination/release-intake/latest-A25-owner-unmapped-runtime-owner-review-needed.pathspec
+?? coordination/release-intake/latest-A25-physical-lifecycle-closure-decision-packet.json
+?? coordination/release-intake/latest-A25-physical-lifecycle-closure-decision-packet.md
+?? coordination/release-intake/latest-A25-physical-lifecycle-decision-packet-current-gate.json
+?? coordination/release-intake/latest-A25-proposed-manual-owner-a02-dashboard-lead.pathspec
+?? coordination/release-intake/latest-A25-proposed-manual-owner-a07-ai-tutor-lead.pathspec
+?? coordination/release-intake/latest-A25-proposed-manual-owner-a08-state-and-analytics-lead.pathspec
+?? coordination/release-intake/latest-A25-proposed-manual-owner-a10-tooling-docs-and-report.pathspec
+?? coordination/release-intake/latest-A25-proposed-manual-owner-a22-production-reliability-and-release-engineering.pathspec
+?? coordination/release-intake/latest-A25-proposed-manual-owner-a23-integration-and-promotion-lead.pathspec
+?? coordination/release-intake/latest-A25-proposed-manual-owner-a25-git-hygiene-and-release-intake.pathspec
+?? coordination/release-intake/latest-A25-proposed-manual-owner-manual-a10-a25-owner-assignment-required.pathspec
+?? coordination/release-intake/latest-A25-proposed-owner-a01-app-shell-lead.pathspec
+?? coordination/release-intake/latest-A25-proposed-owner-a02-dashboard-lead.pathspec
+?? coordination/release-intake/latest-A25-proposed-owner-a03-curriculum-roadmap-lead.pathspec
+?? coordination/release-intake/latest-A25-proposed-owner-a04-practice-lead.pathspec
+?? coordination/release-intake/latest-A25-proposed-owner-a05-lesson-lead.pathspec
+?? coordination/release-intake/latest-A25-proposed-owner-a06-visualization-lead.pathspec
+?? coordination/release-intake/latest-A25-proposed-owner-a08-state-and-analytics-lead.pathspec
+?? coordination/release-intake/latest-A25-proposed-owner-a09-copy-i18n-accessibility.pathspec
+?? coordination/release-intake/latest-A25-proposed-owner-a11-qa-and-release-quality.pathspec
+?? coordination/release-intake/latest-A25-proposed-owner-a12-backend-api-platform.pathspec
+?? coordination/release-intake/latest-A25-proposed-owner-a13-teacher-console.pathspec
+?? coordination/release-intake/latest-A25-proposed-owner-a14-parent-console.pathspec
+?? coordination/release-intake/latest-A25-proposed-owner-a15-adaptive-engine-lead.pathspec
+?? coordination/release-intake/latest-A25-proposed-owner-a18-curriculum-qa-a21-content-pipeline.pathspec
+?? coordination/release-intake/latest-A25-proposed-owner-a20-game-design-and-game-based-learning.pathspec
+?? coordination/release-intake/latest-A25-proposed-owner-a24-illustration-exact-layer.pathspec
+?? coordination/release-intake/latest-A25-proposed-owner-manual-a10-a25-owner-assignment-required.pathspec
+?? coordination/release-intake/latest-A25-secret-env-quarantine-gate.json
+?? coordination/release-intake/latest-A25-unmapped-manual-owner-proposals.json
+?? coordination/release-intake/latest-A25-unmapped-manual-owner-proposals.md
+?? coordination/release-intake/latest-A25-unmapped-manual-proposals-current-gate.json
+?? coordination/release-intake/latest-A25-unmapped-owner-proposals-current-gate.json
+?? coordination/release-intake/latest-A25-unmapped-runtime-owner-proposals.json
+?? coordination/release-intake/latest-A25-unmapped-runtime-owner-proposals.md
+?? coordination/release-intake/latest-A25-worktree-hygiene-dashboard.json
+?? coordination/release-intake/latest-A25-worktree-hygiene-dashboard.md
+?? coordination/release-intake/latest-A25-worktree-lifecycle-gate.json
+?? coordination/release-intake/latest-S25-dirty-tree-map.json
+?? coordination/release-intake/latest-S25-dirty-tree-map.md
+?? coordination/release-intake/propose-unmapped-manual-owners.mjs
+?? coordination/release-intake/propose-unmapped-runtime-owners.mjs
+?? coordination/release-intake/worktree-hygiene-dashboard.mjs
+?? coordination/reports/.~26-06-30-president-report.docx
+?? coordination/reports/2026-06-20-s11-live-viz-lab-bug-check-artifacts/calculus-visual-lab-0.png
+?? coordination/reports/2026-06-20-s11-live-viz-lab-bug-check-artifacts/complex-numbers-visual-lab-0.png
+?? coordination/reports/2026-06-20-s11-live-viz-lab-bug-check-artifacts/complex-numbers-visual-lab-1.png
+?? coordination/reports/2026-06-20-s11-live-viz-lab-bug-check-artifacts/complex-numbers-visual-lab-2.png
+?? coordination/reports/2026-06-20-s11-live-viz-lab-bug-check-artifacts/differentiation-intro-visual-lab-0.png
+?? coordination/reports/2026-06-20-s11-live-viz-lab-bug-check-artifacts/summary.json
+?? coordination/reports/2026-06-20-s11-live-viz-lab-bug-check-artifacts/www-mais-hk-lesson-calculus.png
+?? coordination/reports/2026-06-20-s11-live-viz-lab-bug-check-artifacts/www-mais-hk-visualization-lab-grade-S6-track-HK-lab-calculus.png
+?? coordination/reports/2026-06-20-s11-live-viz-lab-bug-check-artifacts/www-mais-hk-visualization-lab-grade-S6-track-HK-lab-differentiation-intro.png
+?? coordination/reports/2026-06-20-s11-live-viz-lab-bug-check-artifacts/www-mais-hk-visualization-lab-grade-S6-track-MAINLAND-PEP-HIGH-lab-pep-high-s4-complex-numbers.png
+?? coordination/reports/2026-06-20-s11-live-viz-lab-bug-check-artifacts/www-mais-hk-visualization-lab.png
+?? coordination/reports/2026-06-20-s11-live-viz-lab-bug-check.md
+?? coordination/reports/2026-06-20-s22-root-release-hygiene.md
+?? coordination/reports/2026-06-21-president-report.docx
+?? coordination/reports/2026-06-21-s25-s22-s10-release-hygiene-tooling.md
+?? coordination/reports/2026-06-22-bug-description-evaluation-en-render-final/2026-06-22-bug-description-evaluation-en.pdf
+?? coordination/reports/2026-06-22-bug-description-evaluation-en-render-final/page-1.png
+?? coordination/reports/2026-06-22-bug-description-evaluation-en-render-final/page-2.png
+?? coordination/reports/2026-06-22-bug-description-evaluation-en.docx
+?? coordination/reports/2026-06-22-mais-mvp-bug-severity-guideline-render-final-v2/2026-06-22-mais-mvp-bug-severity-guideline.pdf
+?? coordination/reports/2026-06-22-mais-mvp-bug-severity-guideline-render-final-v2/page-1.png
+?? coordination/reports/2026-06-22-mais-mvp-bug-severity-guideline-render-final-v2/page-2.png
+?? coordination/reports/2026-06-22-mais-mvp-bug-severity-guideline-render-final-v2/page-3.png
+?? coordination/reports/2026-06-22-mais-mvp-bug-severity-guideline-render-final-v2/page-4.png
+?? coordination/reports/2026-06-22-mais-mvp-bug-severity-guideline-render-final-v2/page-5.png
+?? coordination/reports/2026-06-22-mais-mvp-bug-severity-guideline-render-final-v2/page-6.png
+?? coordination/reports/2026-06-22-mais-mvp-bug-severity-guideline-render-final-v2/page-7.png
+?? coordination/reports/2026-06-22-mais-mvp-bug-severity-guideline-render-final-v2/page-8.png
+?? coordination/reports/2026-06-22-mais-mvp-bug-severity-guideline-render-final/2026-06-22-mais-mvp-bug-severity-guideline.pdf
+?? coordination/reports/2026-06-22-mais-mvp-bug-severity-guideline-render-final/page-1.png
+?? coordination/reports/2026-06-22-mais-mvp-bug-severity-guideline-render-final/page-2.png
+?? coordination/reports/2026-06-22-mais-mvp-bug-severity-guideline-render-final/page-3.png
+?? coordination/reports/2026-06-22-mais-mvp-bug-severity-guideline-render-final/page-4.png
+?? coordination/reports/2026-06-22-mais-mvp-bug-severity-guideline-render-final/page-5.png
+?? coordination/reports/2026-06-22-mais-mvp-bug-severity-guideline-render-final/page-6.png
+?? coordination/reports/2026-06-22-mais-mvp-bug-severity-guideline-render-final/page-7.png
+?? coordination/reports/2026-06-22-mais-mvp-bug-severity-guideline-render-final/page-8.png
+?? coordination/reports/2026-06-22-mais-mvp-bug-severity-guideline.docx
+?? coordination/reports/2026-06-22-mais-us-district-four-quadrants.png
+?? coordination/reports/2026-06-22-mais-us-district-four-quadrants.svg
+?? coordination/reports/2026-06-22-president-report.docx
+?? coordination/reports/2026-06-22-s19-neon-supabase-provider-assessment.md
+?? coordination/reports/2026-06-22-s19-production-db-smoke.md
+?? coordination/reports/2026-06-22-s19-production-db-smoke.mjs
+?? coordination/reports/2026-06-22-s22-vercel-production-www-mais-hk.md
+?? coordination/reports/2026-06-23-president-report.docx
+?? coordination/reports/2026-06-23-s22-s12-teacher-first-entry-cold-start-followup.md
+?? coordination/reports/2026-06-23-s22-teacher-console-latency-preview.md
+?? coordination/reports/2026-06-23-s22-teacher-console-latency-production.md
+?? coordination/reports/2026-06-23-s22-teacher-console-latency-staging.md
+?? coordination/reports/2026-06-24-A22-p0-us-ca-example-login-production.md
+?? coordination/reports/2026-06-24-A22-vercel-preview-deploy.md
+?? coordination/reports/2026-06-24-president-report.docx
+?? coordination/reports/2026-06-25-A10-team-clean-cleanup-report.md
+?? coordination/reports/2026-06-25-A22-shirleen-lesson-vercel-preview.md
+?? coordination/reports/2026-06-25-A22-vercel-production-blocker.md
+?? coordination/reports/2026-06-25-president-report.docx
+?? coordination/reports/2026-06-26-A11-A22-clean-pruned-slice-verification.md
+?? coordination/reports/2026-06-26-A11-bug-52-87-existence-verification.md
+?? coordination/reports/2026-06-26-A22-A25-post-production-bug-ui-release-closure.md
+?? coordination/reports/2026-06-26-A22-current-version-production-deploy-readiness.md
+?? coordination/reports/2026-06-26-A22-post-production-bug-ui-production-deploy.md
+?? coordination/reports/2026-06-26-A22-post-production-bug-ui-release-readiness.md
+?? coordination/reports/2026-06-26-A22-shirleen-lesson-production-deploy.md
+?? coordination/reports/2026-06-26-A22-shirleen-lesson-production-readiness.md
+?? coordination/reports/2026-06-26-president-report.docx
+?? coordination/reports/2026-06-27-A11-bug-52-87-source-corrected-verification.md
+?? coordination/reports/2026-06-27-A11-student-regression-split.md
+?? coordination/reports/2026-06-27-A22-current-version-production-deploy.md
+?? coordination/reports/2026-06-27-president-report.docx
+?? coordination/reports/2026-06-28-A11-dashboard-neon-requirement-audit.md
+?? coordination/reports/2026-06-28-A22-dashboard-neon-completion-audit.md
+?? coordination/reports/2026-06-28-A22-dashboard-neon-deploy-authorization-handoff.md
+?? coordination/reports/2026-06-28-A22-dashboard-neon-disk-guard-blocker.md
+?? coordination/reports/2026-06-28-A22-dashboard-neon-release-readiness.md
+?? coordination/reports/2026-06-28-manim-v2-completion-status.md
+?? coordination/reports/2026-06-28-president-report.docx
+?? coordination/reports/2026-06-29-A07-A19-A11-ai-tutor-env-gate-enterprise-solution.md
+?? coordination/reports/2026-06-29-A25-A22-root-parity-release-slice-enterprise-solution.md
+?? coordination/reports/2026-06-29-president-report.docx
+?? coordination/reports/2026-06-30-president-report.docx
+?? coordination/reports/dashboard-neon-current-production-latency-20260628/last-run.json
+?? coordination/reports/dashboard-neon-current-production-ui-20260628/last-run.json
+?? coordination/research/2026-06-20-3blue1brown-skill-distillation-handbook.md
+?? coordination/research/2026-06-20-3blue1brown-skill-distillation-handbook.provenance.md
+?? coordination/research/2026-06-20-3blue1brown-style-visualization-effects-report.md
+?? coordination/research/2026-06-21-ke-to-mais-behavior-event-dictionary.csv
+?? coordination/research/2026-06-21-ke-to-mais-stealth-assessment-integration-spec.md
+?? coordination/research/2026-06-21-ke-to-mais-stealth-assessment-integration-spec.provenance.md
+?? coordination/session-logs/2026-06-20-S05.md
+?? coordination/session-logs/2026-06-20-S06.md
+?? coordination/session-logs/2026-06-20-S08.md
+?? coordination/session-logs/2026-06-20-S11.md
+?? coordination/session-logs/2026-06-20-S12.md
+?? coordination/session-logs/2026-06-20-S16.md
+?? coordination/session-logs/2026-06-20-S22.md
+?? coordination/session-logs/2026-06-20-S25.md
+?? coordination/session-logs/2026-06-21-S06.md
+?? coordination/session-logs/2026-06-21-S08.md
+?? coordination/session-logs/2026-06-21-S10.md
+?? coordination/session-logs/2026-06-21-S12.md
+?? coordination/session-logs/2026-06-21-S16-ke-to-mais-stealth-assessment.md
+?? coordination/session-logs/2026-06-21-S18.md
+?? coordination/session-logs/2026-06-21-S21.md
+?? coordination/session-logs/2026-06-21-S22.md
+?? coordination/session-logs/2026-06-21-S23.md
+?? coordination/session-logs/2026-06-21-S25.md
+?? coordination/session-logs/2026-06-22-S01.md
+?? coordination/session-logs/2026-06-22-S02.md
+?? coordination/session-logs/2026-06-22-S04.md
+?? coordination/session-logs/2026-06-22-S05.md
+?? coordination/session-logs/2026-06-22-S06.md
+?? coordination/session-logs/2026-06-22-S08.md
+?? coordination/session-logs/2026-06-22-S10.md
+?? coordination/session-logs/2026-06-22-S11.md
+?? coordination/session-logs/2026-06-22-S12.md
+?? coordination/session-logs/2026-06-22-S13.md
+?? coordination/session-logs/2026-06-22-S17.md
+?? coordination/session-logs/2026-06-22-S18.md
+?? coordination/session-logs/2026-06-22-S19.md
+?? coordination/session-logs/2026-06-22-S21.md
+?? coordination/session-logs/2026-06-22-S22.md
+?? coordination/session-logs/2026-06-22-S23.md
+?? coordination/session-logs/2026-06-23-S06.md
+?? coordination/session-logs/2026-06-23-S08.md
+?? coordination/session-logs/2026-06-23-S10.md
+?? coordination/session-logs/2026-06-23-S11.md
+?? coordination/session-logs/2026-06-23-S12.md
+?? coordination/session-logs/2026-06-23-S13.md
+?? coordination/session-logs/2026-06-23-S22.md
+?? coordination/session-logs/2026-06-23-S25.md
+?? coordination/session-logs/2026-06-24-A01.md
+?? coordination/session-logs/2026-06-24-A02.md
+?? coordination/session-logs/2026-06-24-A05.md
+?? coordination/session-logs/2026-06-24-A07.md
+?? coordination/session-logs/2026-06-24-A10.md
+?? coordination/session-logs/2026-06-24-A11.md
+?? coordination/session-logs/2026-06-24-A19.md
+?? coordination/session-logs/2026-06-24-A22.md
+?? coordination/session-logs/2026-06-24-A25.md
+?? coordination/session-logs/2026-06-24-S06.md
+?? coordination/session-logs/2026-06-24-S08.md
+?? coordination/session-logs/2026-06-24-S10.md
+?? coordination/session-logs/2026-06-24-S12.md
+?? coordination/session-logs/2026-06-25-A01.md
+?? coordination/session-logs/2026-06-25-A02.md
+?? coordination/session-logs/2026-06-25-A04.md
+?? coordination/session-logs/2026-06-25-A05.md
+?? coordination/session-logs/2026-06-25-A06.md
+?? coordination/session-logs/2026-06-25-A07.md
+?? coordination/session-logs/2026-06-25-A10.md
+?? coordination/session-logs/2026-06-25-A11.md
+?? coordination/session-logs/2026-06-25-A12-A08-A02-A05-lesson-entry-bugfix.md
+?? coordination/session-logs/2026-06-25-A22.md
+?? coordination/session-logs/2026-06-25-S06.md
+?? coordination/session-logs/2026-06-26-A01.md
+?? coordination/session-logs/2026-06-26-A02.md
+?? coordination/session-logs/2026-06-26-A04.md
+?? coordination/session-logs/2026-06-26-A05.md
+?? coordination/session-logs/2026-06-26-A06.md
+?? coordination/session-logs/2026-06-26-A07.md
+?? coordination/session-logs/2026-06-26-A10.md
+?? coordination/session-logs/2026-06-26-A11.md
+?? coordination/session-logs/2026-06-26-A22.md
+?? coordination/session-logs/2026-06-26-A25.md
+?? coordination/session-logs/2026-06-27-A01-A03-bugfixes.md
+?? coordination/session-logs/2026-06-27-A02-A12-A17-A22-dashboard-neon-performance.md
+?? coordination/session-logs/2026-06-27-A04.md
+?? coordination/session-logs/2026-06-27-A05-A07-A12-lesson-audio-streaming.md
+?? coordination/session-logs/2026-06-27-A05-A12-learning-position-entry.md
+?? coordination/session-logs/2026-06-27-A05-A18-A21-A24-worked-example-illustrations.md
+?? coordination/session-logs/2026-06-27-A05-A18-california-concept-explanations.md
+?? coordination/session-logs/2026-06-27-A05-lesson-pep-load-performance.md
+?? coordination/session-logs/2026-06-27-A05.md
+?? coordination/session-logs/2026-06-27-A06-A04-A20-bugfix.md
+?? coordination/session-logs/2026-06-27-A06.md
+?? coordination/session-logs/2026-06-27-A10.md
+?? coordination/session-logs/2026-06-27-A11.md
+?? coordination/session-logs/2026-06-27-A12-A08-A19-lrs-hardening.md
+?? coordination/session-logs/2026-06-27-A15.md
+?? coordination/session-logs/2026-06-27-A17.md
+?? coordination/session-logs/2026-06-27-A18-A03-A04-A05-A12-A22-california-grade-aware.md
+?? coordination/session-logs/2026-06-27-A22.md
+?? coordination/session-logs/2026-06-27-A24.md
+?? coordination/session-logs/2026-06-27-A25.md
+?? coordination/session-logs/2026-06-28-A01.md
+?? coordination/session-logs/2026-06-28-A02-A12-A17-A22-dashboard-neon-performance-continuation.md
+?? coordination/session-logs/2026-06-28-A02.md
+?? coordination/session-logs/2026-06-28-A04-A20-adventure-island-summary-cta.md
+?? coordination/session-logs/2026-06-28-A05-A07-lesson-nova-tutor-launcher.md
+?? coordination/session-logs/2026-06-28-A05-lesson-image-display-fidelity.md
+?? coordination/session-logs/2026-06-28-A05-lesson-image-hd-remake.md
+?? coordination/session-logs/2026-06-28-A05-lesson-image-placement.md
+?? coordination/session-logs/2026-06-28-A05-lesson-image-resolution.md
+?? coordination/session-logs/2026-06-28-A05-lesson-image-root-cause.md
+?? coordination/session-logs/2026-06-28-A06.md
+?? coordination/session-logs/2026-06-28-A10.md
+?? coordination/session-logs/2026-06-28-A22-preview-performance.md
+?? coordination/session-logs/2026-06-28-A22-www-mais-production-deploy.md
+?? coordination/session-logs/2026-06-28-A22.md
+?? coordination/session-logs/2026-06-29-A07-A19-A11-ai-tutor-env-gate-implementation.md
+?? coordination/session-logs/2026-06-29-A07-A19-A11-ai-tutor-env-gate-proposal.md
+?? coordination/session-logs/2026-06-29-A08-A12-type-check-storage.md
+?? coordination/session-logs/2026-06-29-A08-learning-event-throttle.md
+?? coordination/session-logs/2026-06-29-A10.md
+?? coordination/session-logs/2026-06-29-A12-hot-tables-projection.md
+?? coordination/session-logs/2026-06-29-A25-A22-root-parity-release-slice-proposal.md
+?? coordination/session-logs/2026-06-30-A01.md
+?? coordination/session-logs/2026-06-30-A05.md
+?? coordination/session-logs/2026-06-30-A06.md
+?? coordination/session-logs/2026-06-30-A10.md
+?? coordination/session-logs/2026-06-30-A11-confirmed-bugfixes.md
+?? coordination/session-logs/2026-06-30-A12.md
+?? coordination/session-logs/2026-06-30-A25.md
+?? data/forum.ts
+?? data/gameBasedLearning.ts
+?? data/generated-content/hk-ease-practice-bank-v1/question-pack.json
+?? data/generated-content/mainland-bnu-junior-lessons-v1/lessons.json
+?? data/generated-content/us-ar-math-g6-g12-generated-bank-v1-1500/question-pack.json
+?? data/generated-content/us-ar-math-k-g5-generated-bank-v1-1500/question-pack.json
+?? data/generated-content/us-ar-math-textbooks-v1/textbook-pack.json
+?? data/generated-content/us-ca-k5-knowledge-point-practice-v1/question-pack.json
+?? data/generated-content/us-ca-math-g6-g12-generated-bank-v2-1500/question-pack.json
+?? data/generated-content/us-ca-math-k-g5-generated-bank-v3-deepseek-1500/question-pack.json
+?? data/generated-content/us-ca-math-k-g5-textbooks-v1/lessons.json
+?? data/generated-content/us-ca-math-middle-school-textbooks-v2/live-lessons.json
+?? data/generated-content/us-ca-math-textbooks-v1/textbook-pack.json
+?? data/generated-content/us-fl-math-middle-school-textbooks-v1/textbook-pack.json
+?? data/hongKongEasePracticeQuestions.ts
+?? data/mainlandBnuHighLessons.ts
+?? data/mainlandBnuJuniorLessons.ts
+?? data/mathVirusBlaster.ts
+?? data/mightyTankBattle.ts
+?? data/productionLessonsNearTransfer.test.ts
+?? data/rag/hongKongEaseQuestions.ts
+?? data/rag/hongKongModernPrimary.ts
+?? data/rag/hongKongUpJunior.ts
+?? data/rag/hongKongUpJuniorEnglish.ts
+?? data/rag/hongKongUpJuniorResources.ts
+?? data/usArkansasMiddleSchoolLessonIllustrations.ts
+?? data/usArkansasMiddleSchoolLessons.ts
+?? data/usArkansasQuestions.ts
+?? data/usArkansasTopics.ts
+?? data/usCaliforniaHighSchoolLessonIllustrations.ts
+?? data/usCaliforniaKnowledgePoints.ts
+?? data/usCaliforniaLessonIllustrations.ts
+?? data/usCaliforniaLessons.test.ts
+?? data/usCaliforniaLessons.ts
+?? data/usCaliforniaMicroLessons.ts
+?? data/usCaliforniaQuestions.ts
+?? data/usCaliforniaTopics.ts
+?? data/usFloridaMiddleSchoolLessons.ts
+?? data/usFloridaMiddleSchoolQuestions.ts
+?? data/usFloridaMiddleSchoolTopics.ts
+?? data/usMathQuestions.ts
+?? data/usMathTopics.ts
+?? design-qa.md
+?? docs/LEARNING_DESIGN.md
+?? docs/superpowers/plans/2026-06-20-aggressive-threejs-visualization-labs.md
+?? docs/superpowers/plans/2026-06-20-california-3d-visualization-labs.md
+?? docs/superpowers/specs/2026-06-20-aggressive-threejs-visualization-labs-design.md
+?? lib/californiaGradeAware.test.ts
+?? lib/difficulty.test.ts
+?? lib/difficulty.ts
+?? lib/forum.ts
+?? lib/loginRedirect.test.ts
+?? lib/mainlandPepQuestionAssets.ts
+?? lib/parentConstraints.ts
+?? lib/rag/hongKongEaseQuestions.test.ts
+?? lib/rag/hongKongEaseQuestions.ts
+?? lib/rag/hongKongModernPrimary.test.ts
+?? lib/rag/hongKongModernPrimary.ts
+?? lib/rag/hongKongUpJunior.test.ts
+?? lib/rag/hongKongUpJunior.ts
+?? lib/rag/hongKongUpJuniorEnglish.test.ts
+?? lib/rag/hongKongUpJuniorResources.test.ts
+?? lib/rag/hongKongUpJuniorResources.ts
+?? lib/rag/illustrationTextMatchStandard.ts
+?? lib/server/aiGovernance.test.ts
+?? lib/server/aiGovernance.ts
+?? lib/server/answerMatching.test.ts
+?? lib/server/answerMatching.ts
+?? lib/server/hongKongBaseQuestions.ts
+?? lib/server/practiceAttemptStore.test.ts
+?? lib/server/practiceAttemptStore.ts
+?? lib/server/questionStore.test.ts
+?? lib/server/questionStore.ts
+?? lib/server/userStore/aiGovernance.ts
+?? lib/server/userStore/aiGovernancePersistence.ts
+?? lib/server/userStore/aiGovernanceStore.ts
+?? lib/server/userStore/auth.ts
+?? lib/server/userStore/authAdminStoragePersistence.ts
+?? lib/server/userStore/authProvisioningPersistence.ts
+?? lib/server/userStore/authSessionPersistence.ts
+?? lib/server/userStore/authStore.ts
+?? lib/server/userStore/curriculumAvailability.ts
+?? lib/server/userStore/domainContracts.ts
+?? lib/server/userStore/gamification.ts
+?? lib/server/userStore/gamificationCampaignPersistence.ts
+?? lib/server/userStore/gamificationEventPersistence.ts
+?? lib/server/userStore/gamificationGamePersistence.ts
+?? lib/server/userStore/gamificationRewardRedemptionPersistence.ts
+?? lib/server/userStore/gamificationSeedRecords.ts
+?? lib/server/userStore/gamificationStore.ts
+?? lib/server/userStore/gamificationSummaryPersistence.ts
+?? lib/server/userStore/learnerProfilePersistence.ts
+?? lib/server/userStore/novaLensPersistence.ts
+?? lib/server/userStore/parent.ts
+?? lib/server/userStore/parentAccessPersistence.ts
+?? lib/server/userStore/parentFoundationPersistence.ts
+?? lib/server/userStore/parentMessagePersistence.ts
+?? lib/server/userStore/parentNoticePersistence.ts
+?? lib/server/userStore/parentReportPersistence.ts
+?? lib/server/userStore/parentStore.ts
+?? lib/server/userStore/questionFilter.ts
+?? lib/server/userStore/studentActivity.ts
+?? lib/server/userStore/studentActivityPersistence.ts
+?? lib/server/userStore/studentActivityStore.ts
+?? lib/server/userStore/teacherOps.ts
+?? lib/server/userStore/teacherOpsAssessmentPersistence.ts
+?? lib/server/userStore/teacherOpsAssignmentPersistence.ts
+?? lib/server/userStore/teacherOpsClassCollaboratorPersistence.ts
+?? lib/server/userStore/teacherOpsClassPersistence.ts
+?? lib/server/userStore/teacherOpsClassroomWorkSamplePersistence.ts
+?? lib/server/userStore/teacherOpsForumPersistence.ts
+?? lib/server/userStore/teacherOpsFoundationPersistence.ts
+?? lib/server/userStore/teacherOpsInboxPersistence.ts
+?? lib/server/userStore/teacherOpsLessonKitPersistence.ts
+?? lib/server/userStore/teacherOpsLiveSessionPersistence.ts
+?? lib/server/userStore/teacherOpsMasteryTargetPersistence.ts
+?? lib/server/userStore/teacherOpsNoticePersistence.ts
+?? lib/server/userStore/teacherOpsOperationsPersistence.ts
+?? lib/server/userStore/teacherOpsPrepTeamPersistence.ts
+?? lib/server/userStore/teacherOpsReminderPersistence.ts
+?? lib/server/userStore/teacherOpsReportExport.ts
+?? lib/server/userStore/teacherOpsReportPersistence.ts
+?? lib/server/userStore/teacherOpsResourcePersistence.ts
+?? lib/server/userStore/teacherOpsRosterImportPersistence.ts
+?? lib/server/userStore/teacherOpsRosterProfilePersistence.ts
+?? lib/server/userStore/teacherOpsStore.ts
+?? lib/server/userStore/teacherOpsStudentProfilePersistence.ts
+?? lib/server/userStore/teacherOpsSubmissionPersistence.ts
+?? lib/server/userStore/teacherOpsTermArchivePersistence.ts
+?? lib/server/userStoreAiGovernancePersistence.test.ts
+?? lib/server/userStoreAuthAdminStoragePersistence.test.ts
+?? lib/server/userStoreAuthProvisioningPersistence.test.ts
+?? lib/server/userStoreAuthSessionPersistence.test.ts
+?? lib/server/userStoreCurriculumAvailability.test.ts
+?? lib/server/userStoreDomainBoundaries.test.ts
+?? lib/server/userStoreDomainContracts.test.ts
+?? lib/server/userStoreGamificationAutomaticRewardPersistence.test.ts
+?? lib/server/userStoreGamificationCampaignPersistence.test.ts
+?? lib/server/userStoreGamificationEventPersistence.test.ts
+?? lib/server/userStoreGamificationGamePersistence.test.ts
+?? lib/server/userStoreGamificationRewardRedemptionPersistence.test.ts
+?? lib/server/userStoreGamificationSeedRecords.test.ts
+?? lib/server/userStoreGamificationSummaryPersistence.test.ts
+?? lib/server/userStoreLearnerProfilePersistence.test.ts
+?? lib/server/userStoreNovaLensPersistence.test.ts
+?? lib/server/userStoreParentAccessPersistence.test.ts
+?? lib/server/userStoreParentFoundationPersistence.test.ts
+?? lib/server/userStoreParentMessagePersistence.test.ts
+?? lib/server/userStoreParentNoticePersistence.test.ts
+?? lib/server/userStoreParentReportPersistence.test.ts
+?? lib/server/userStoreQuestionFilter.test.ts
+?? lib/server/userStoreStudentActivityPersistence.test.ts
+?? lib/server/userStoreTeacherOpsAssessmentPersistence.test.ts
+?? lib/server/userStoreTeacherOpsAssignmentPersistence.test.ts
+?? lib/server/userStoreTeacherOpsClassCollaboratorPersistence.test.ts
+?? lib/server/userStoreTeacherOpsClassPersistence.test.ts
+?? lib/server/userStoreTeacherOpsClassroomWorkSamplePersistence.test.ts
+?? lib/server/userStoreTeacherOpsForumPersistence.test.ts
+?? lib/server/userStoreTeacherOpsFoundationPersistence.test.ts
+?? lib/server/userStoreTeacherOpsInboxPersistence.test.ts
+?? lib/server/userStoreTeacherOpsLessonKitPersistence.test.ts
+?? lib/server/userStoreTeacherOpsLiveSessionPersistence.test.ts
+?? lib/server/userStoreTeacherOpsMasteryTargetPersistence.test.ts
+?? lib/server/userStoreTeacherOpsNoticePersistence.test.ts
+?? lib/server/userStoreTeacherOpsOperationsPersistence.test.ts
+?? lib/server/userStoreTeacherOpsPrepTeamPersistence.test.ts
+?? lib/server/userStoreTeacherOpsReminderPersistence.test.ts
+?? lib/server/userStoreTeacherOpsReportExport.test.ts
+?? lib/server/userStoreTeacherOpsReportPersistence.test.ts
+?? lib/server/userStoreTeacherOpsResourcePersistence.test.ts
+?? lib/server/userStoreTeacherOpsRosterImportPersistence.test.ts
+?? lib/server/userStoreTeacherOpsRosterProfilePersistence.test.ts
+?? lib/server/userStoreTeacherOpsStudentProfilePersistence.test.ts
+?? lib/server/userStoreTeacherOpsSubmissionPersistence.test.ts
+?? lib/server/userStoreTeacherOpsTermArchivePersistence.test.ts
+?? public/audio/lessons/us-ca-math/us-ca-math-k-k-cc-cardinality-compare/us-ca-math-k-k-cc-cardinality-compare-concept.mp3
+?? public/audio/lessons/us-ca-math/us-ca-math-k-k-cc-count-sequence/us-ca-math-k-k-cc-count-sequence-concept.mp3
+?? public/audio/lessons/us-ca-math/us-ca-math-k-k-g-shapes-position/us-ca-math-k-k-g-shapes-position-concept.mp3
+?? public/audio/lessons/us-ca-math/us-ca-math-k-k-md-attributes-data/us-ca-math-k-k-md-attributes-data-concept.mp3
+?? public/audio/lessons/us-ca-math/us-ca-math-k-k-nbt-teen-numbers/us-ca-math-k-k-nbt-teen-numbers-concept.mp3
+?? public/audio/lessons/us-ca-math/us-ca-math-k-k-oa-compose-decompose/us-ca-math-k-k-oa-compose-decompose-concept.mp3
+?? public/audio/lessons/us-ca-math/us-ca-math-p1-1-g-shape-reasoning/us-ca-math-p1-1-g-shape-reasoning-concept.mp3
+?? public/audio/lessons/us-ca-math/us-ca-math-p1-1-h1-picture-join-stories-to-10/us-ca-math-p1-1-h1-picture-join-stories-to-10-concept.mp3
+?? public/audio/lessons/us-ca-math/us-ca-math-p1-1-h2-picture-story-addition-equations/us-ca-math-p1-1-h2-picture-story-addition-equations-concept.mp3
+?? public/audio/lessons/us-ca-math/us-ca-math-p1-1-h3-cube-train-join-models-to-10/us-ca-math-p1-1-h3-cube-train-join-models-to-10-concept.mp3
+?? public/audio/lessons/us-ca-math/us-ca-math-p1-1-h4-join-stories-within-10/us-ca-math-p1-1-h4-join-stories-within-10-concept.mp3
+?? public/audio/lessons/us-ca-math/us-ca-math-p1-1-h5-model-equation-join-stories-to-10/us-ca-math-p1-1-h5-model-equation-join-stories-to-10-concept.mp3
+?? public/audio/lessons/us-ca-math/us-ca-math-p1-1-h6-equation-match-join-stories-to-10/us-ca-math-p1-1-h6-equation-match-join-stories-to-10-concept.mp3
+?? public/audio/lessons/us-ca-math/us-ca-math-p1-1-l1-picture-take-away-stories-to-10/us-ca-math-p1-1-l1-picture-take-away-stories-to-10-concept.mp3
+?? public/audio/lessons/us-ca-math/us-ca-math-p1-1-l2-picture-story-subtraction-equations/us-ca-math-p1-1-l2-picture-story-subtraction-equations-concept.mp3
+?? public/audio/lessons/us-ca-math/us-ca-math-p1-1-l3-cube-train-take-away-models-to-10/us-ca-math-p1-1-l3-cube-train-take-away-models-to-10-concept.mp3
+?? public/audio/lessons/us-ca-math/us-ca-math-p1-1-l4-take-away-stories-within-10/us-ca-math-p1-1-l4-take-away-stories-within-10-concept.mp3
+?? public/audio/lessons/us-ca-math/us-ca-math-p1-1-l5-model-equation-take-away-stories-to-10/us-ca-math-p1-1-l5-model-equation-take-away-stories-to-10-concept.mp3
+?? public/audio/lessons/us-ca-math/us-ca-math-p1-1-l6-break-apart-subtraction-equations-to-10/us-ca-math-p1-1-l6-break-apart-subtraction-equations-to-10-concept.mp3
+?? public/audio/lessons/us-ca-math/us-ca-math-p1-1-md-measure-data/us-ca-math-p1-1-md-measure-data-concept.mp3
+?? public/audio/lessons/us-ca-math/us-ca-math-p1-1-nbt-place-value/us-ca-math-p1-1-nbt-place-value-concept.mp3
+?? public/audio/lessons/us-ca-math/us-ca-math-p1-1-oa-add-subtract/us-ca-math-p1-1-oa-add-subtract-concept.mp3
+?? public/audio/lessons/us-ca-math/us-ca-math-p2-2-g-partition-shapes/us-ca-math-p2-2-g-partition-shapes-concept.mp3
+?? public/audio/lessons/us-ca-math/us-ca-math-p2-2-md-measure-data-money-time/us-ca-math-p2-2-md-measure-data-money-time-concept.mp3
+?? public/audio/lessons/us-ca-math/us-ca-math-p2-2-nbt-three-digit-place-value/us-ca-math-p2-2-nbt-three-digit-place-value-concept.mp3
+?? public/audio/lessons/us-ca-math/us-ca-math-p2-2-oa-fluency-arrays/us-ca-math-p2-2-oa-fluency-arrays-concept.mp3
+?? public/audio/lessons/us-ca-math/us-ca-math-p3-3-g-categories/us-ca-math-p3-3-g-categories-concept.mp3
+?? public/audio/lessons/us-ca-math/us-ca-math-p3-3-md-time-data-area-perimeter/us-ca-math-p3-3-md-time-data-area-perimeter-concept.mp3
+?? public/audio/lessons/us-ca-math/us-ca-math-p3-3-nbt-arithmetic/us-ca-math-p3-3-nbt-arithmetic-concept.mp3
+?? public/audio/lessons/us-ca-math/us-ca-math-p3-3-nf-fraction-meaning/us-ca-math-p3-3-nf-fraction-meaning-concept.mp3
+?? public/audio/lessons/us-ca-math/us-ca-math-p3-3-oa-mult-div/us-ca-math-p3-3-oa-mult-div-concept.mp3
+?? public/audio/lessons/us-ca-math/us-ca-math-p4-4-g-lines-shapes/us-ca-math-p4-4-g-lines-shapes-concept.mp3
+?? public/audio/lessons/us-ca-math/us-ca-math-p4-4-md-conversion-angles/us-ca-math-p4-4-md-conversion-angles-concept.mp3
+?? public/audio/lessons/us-ca-math/us-ca-math-p4-4-nbt-multi-digit/us-ca-math-p4-4-nbt-multi-digit-concept.mp3
+?? public/audio/lessons/us-ca-math/us-ca-math-p4-4-nf-fraction-decimal/us-ca-math-p4-4-nf-fraction-decimal-concept.mp3
+?? public/audio/lessons/us-ca-math/us-ca-math-p4-4-oa-factors-patterns/us-ca-math-p4-4-oa-factors-patterns-concept.mp3
+?? public/audio/lessons/us-ca-math/us-ca-math-p5-5-g-coordinate-shapes/us-ca-math-p5-5-g-coordinate-shapes-concept.mp3
+?? public/audio/lessons/us-ca-math/us-ca-math-p5-5-md-volume-data/us-ca-math-p5-5-md-volume-data-concept.mp3
+?? public/audio/lessons/us-ca-math/us-ca-math-p5-5-nbt-decimals/us-ca-math-p5-5-nbt-decimals-concept.mp3
+?? public/audio/lessons/us-ca-math/us-ca-math-p5-5-nf-operations/us-ca-math-p5-5-nf-operations-concept.mp3
+?? public/audio/lessons/us-ca-math/us-ca-math-p5-5-oa-expressions-patterns/us-ca-math-p5-5-oa-expressions-patterns-concept.mp3
+?? public/audio/lessons/us-ca-math/us-ca-math-p6-chapter-01/us-ca-math-p6-chapter-01-concept.mp3
+?? public/audio/lessons/us-ca-math/us-ca-math-p6-chapter-02/us-ca-math-p6-chapter-02-concept.mp3
+?? public/audio/lessons/us-ca-math/us-ca-math-p6-chapter-03/us-ca-math-p6-chapter-03-concept.mp3
+?? public/audio/lessons/us-ca-math/us-ca-math-p6-chapter-04/us-ca-math-p6-chapter-04-concept.mp3
+?? public/audio/lessons/us-ca-math/us-ca-math-p6-chapter-05/us-ca-math-p6-chapter-05-concept.mp3
+?? public/audio/lessons/us-ca-math/us-ca-math-s1-chapter-01/us-ca-math-s1-chapter-01-concept.mp3
+?? public/audio/lessons/us-ca-math/us-ca-math-s1-chapter-02/us-ca-math-s1-chapter-02-concept.mp3
+?? public/audio/lessons/us-ca-math/us-ca-math-s1-chapter-03/us-ca-math-s1-chapter-03-concept.mp3
+?? public/audio/lessons/us-ca-math/us-ca-math-s1-chapter-04/us-ca-math-s1-chapter-04-concept.mp3
+?? public/audio/lessons/us-ca-math/us-ca-math-s1-chapter-05/us-ca-math-s1-chapter-05-concept.mp3
+?? public/audio/lessons/us-ca-math/us-ca-math-s2-chapter-01/us-ca-math-s2-chapter-01-concept.mp3
+?? public/audio/lessons/us-ca-math/us-ca-math-s2-chapter-02/us-ca-math-s2-chapter-02-concept.mp3
+?? public/audio/lessons/us-ca-math/us-ca-math-s2-chapter-03/us-ca-math-s2-chapter-03-concept.mp3
+?? public/audio/lessons/us-ca-math/us-ca-math-s2-chapter-04/us-ca-math-s2-chapter-04-concept.mp3
+?? public/audio/lessons/us-ca-math/us-ca-math-s2-chapter-05/us-ca-math-s2-chapter-05-concept.mp3
+?? public/audio/lessons/us-ca-math/us-ca-math-s3-chapter-01/us-ca-math-s3-chapter-01-concept.mp3
+?? public/audio/lessons/us-ca-math/us-ca-math-s3-chapter-02/us-ca-math-s3-chapter-02-concept.mp3
+?? public/audio/lessons/us-ca-math/us-ca-math-s3-chapter-03/us-ca-math-s3-chapter-03-concept.mp3
+?? public/audio/lessons/us-ca-math/us-ca-math-s3-chapter-04/us-ca-math-s3-chapter-04-concept.mp3
+?? public/audio/lessons/us-ca-math/us-ca-math-s3-chapter-05/us-ca-math-s3-chapter-05-concept.mp3
+?? public/audio/lessons/us-ca-math/us-ca-math-s4-chapter-01/us-ca-math-s4-chapter-01-concept.mp3
+?? public/audio/lessons/us-ca-math/us-ca-math-s4-chapter-02/us-ca-math-s4-chapter-02-concept.mp3
+?? public/audio/lessons/us-ca-math/us-ca-math-s4-chapter-03/us-ca-math-s4-chapter-03-concept.mp3
+?? public/audio/lessons/us-ca-math/us-ca-math-s4-chapter-04/us-ca-math-s4-chapter-04-concept.mp3
+?? public/audio/lessons/us-ca-math/us-ca-math-s4-chapter-05/us-ca-math-s4-chapter-05-concept.mp3
+?? public/audio/lessons/us-ca-math/us-ca-math-s5-chapter-01/us-ca-math-s5-chapter-01-concept.mp3
+?? public/audio/lessons/us-ca-math/us-ca-math-s5-chapter-02/us-ca-math-s5-chapter-02-concept.mp3
+?? public/audio/lessons/us-ca-math/us-ca-math-s5-chapter-03/us-ca-math-s5-chapter-03-concept.mp3
+?? public/audio/lessons/us-ca-math/us-ca-math-s5-chapter-04/us-ca-math-s5-chapter-04-concept.mp3
+?? public/audio/lessons/us-ca-math/us-ca-math-s5-chapter-05/us-ca-math-s5-chapter-05-concept.mp3
+?? public/audio/lessons/us-ca-math/us-ca-math-s6-chapter-01/us-ca-math-s6-chapter-01-concept.mp3
+?? public/audio/lessons/us-ca-math/us-ca-math-s6-chapter-02/us-ca-math-s6-chapter-02-concept.mp3
+?? public/audio/lessons/us-ca-math/us-ca-math-s6-chapter-03/us-ca-math-s6-chapter-03-concept.mp3
+?? public/audio/lessons/us-ca-math/us-ca-math-s6-chapter-04/us-ca-math-s6-chapter-04-concept.mp3
+?? public/audio/lessons/us-ca-math/us-ca-math-s6-chapter-05/us-ca-math-s6-chapter-05-concept.mp3
+?? public/auth/register-adventure-map.png
+?? public/forum-assets/clay-math-props-sheet.png
+?? public/forum-assets/primary-math-park-hero.png
+?? public/forum-assets/primary-problem-island.png
+?? public/forum-assets/secondary-adventure-island-hero.png
+?? public/forum-assets/secondary-forum-plaza.png
+?? public/games/math-match-quest/board-reference.png
+?? public/games/math-match-quest/map-reference.png
+?? public/games/math-match-quest/user-reference-screens.png
+?? public/games/math-virus-blaster/math-master-virus-blaster-design.png
+?? public/games/mighty-tank-battle/desktop-reference.png
+?? public/games/mighty-tank-battle/mobile-reference.png
+?? public/lesson-illustrations/us-ca-k5/grade1-operations-algebraic-thinking/add-subtract-concrete-to-abstract.svg
+?? public/lesson-illustrations/us-ca-k5/grade1-operations-algebraic-thinking/add-subtract-stories-single-panel-reference.png
+?? public/lesson-illustrations/us-ca-k5/grade1-operations-algebraic-thinking/add-subtract-stories-single-panel-source-hd.png
+?? public/lesson-illustrations/us-ca-k5/grade1-operations-algebraic-thinking/add-subtract-stories-two-panel-reference.png
+?? public/lesson-illustrations/us-ca-k5/grade1-operations-algebraic-thinking/lena-7-plus-4-stickers-worked-example.svg
+?? public/practice/adaptive-mission/README.md
+?? public/practice/adaptive-mission/asset-manifest.json
+?? public/practice/adaptive-mission/checkpoint-active-shell.svg
+?? public/practice/adaptive-mission/checkpoint-active-shell@2x.png
+?? public/practice/adaptive-mission/checkpoint-locked-gpt-image2.png
+?? public/practice/adaptive-mission/checkpoint-locked-shell.svg
+?? public/practice/adaptive-mission/checkpoint-locked-shell@2x.png
+?? public/practice/adaptive-mission/finish-pad.svg
+?? public/practice/adaptive-mission/finish-pad@2x.png
+?? public/practice/adaptive-mission/icon-ai-sparkle.svg
+?? public/practice/adaptive-mission/icon-difficulty.svg
+?? public/practice/adaptive-mission/icon-lock.svg
+?? public/practice/adaptive-mission/icon-question-type.svg
+?? public/practice/adaptive-mission/icon-target.svg
+?? public/practice/adaptive-mission/map-base.svg
+?? public/practice/adaptive-mission/map-base@2x.png
+?? public/practice/adaptive-mission/map-base@3x.png
+?? public/practice/adaptive-mission/progress-dial-base.svg
+?? public/practice/adaptive-mission/start-pad.svg
+?? public/practice/adaptive-mission/start-pad@2x.png
+?? public/question-illustrations/mainland-hjb-primary/candidates/hjb-primary-area-square-units-imagegen-2026-06-04.png
+?? public/robots.txt
+?? scripts/ai-tutor-live-latency-smoke.mjs
+?? scripts/audit-mainland-high-rag-v4-candidate-solvability.ts
+?? scripts/bug-triage.js
+?? scripts/build-hk-up-junior-english-exercise-manifest.py
+?? scripts/build-hk-up-junior-english-textbook-manifest.py
+?? scripts/build-hk-up-junior-resource-manifest.py
+?? scripts/build-hk-up-junior-textbook-manifest.py
+?? scripts/build-us-ca-private-raw-corpus.py
+?? scripts/cleanup-generated-artifacts.mjs
+?? scripts/cleanup-generated-artifacts.test.mjs
+?? scripts/dashboard-latency-smoke.mjs
+?? scripts/dashboard-smoke-auth-precheck.mjs
+?? scripts/dashboard-smoke-auth-precheck.test.mjs
+?? scripts/dashboard-ui-loading-smoke.mjs
+?? scripts/deploy-vercel-preview.mjs
+?? scripts/deploy-vercel-preview.test.mjs
+?? scripts/deploy-vercel-production.mjs
+?? scripts/deploy-vercel-production.test.mjs
+?? scripts/generate-us-ca-lesson-audio.mjs
+?? scripts/next-clean-build.mjs
+?? scripts/next-clean-build.test.mjs
+?? scripts/prepare-vercel-staging.mjs
+?? scripts/query-us-ca-private-raw-corpus.py
+?? scripts/refresh-dirty-tree-map.mjs
+?? scripts/release-build-gate.mjs
+?? scripts/release-build-gate.test.mjs
+?? scripts/release-env-guard.mjs
+?? scripts/release-env-guard.test.mjs
+?? scripts/resend-local-smoke.mjs
+?? scripts/run-analytics-tests.mjs
+?? scripts/storage-admin-snapshot-merge.mjs
+?? tests/e2e/auth-login-stability.spec.ts
+?? tests/e2e/california-grade1-micro-lessons.spec.ts
+?? tests/e2e/california-high-school-textbook-review.spec.ts
+?? tests/e2e/california-high-school-textbook-student-release.spec.ts
+?? tests/e2e/california-k5-textbook-lessons.spec.ts
+?? tests/e2e/california-middle-school-textbook-english-only.spec.ts
+?? tests/e2e/california-student-assignment-flow.spec.ts
+?? tests/e2e/class-forum.spec.ts
+?? tests/e2e/guest-login-prompt.spec.ts
+?? tests/e2e/lesson-ai-selection.spec.ts
+?? tests/e2e/login-input-width.spec.ts
+?? tests/e2e/mainland-pep-high-lessons.spec.ts
+?? tests/e2e/mainland-pep-junior-lessons-smoke.spec.ts
+?? tests/e2e/nova-lens-api.spec.ts
+?? tests/e2e/production-auth-api-preflight.spec.ts
+?? tests/e2e/release-matrix-continuation.spec.ts
+?? tests/e2e/reported-bug-regressions.spec.ts
+?? tests/e2e/reported-bug-source-regressions.test.ts
+?? tests/e2e/shirleen-navbar-three-minute-auth.spec.ts
+?? tests/e2e/shirleen-visualization-auth-regression.spec.ts
+?? tests/e2e/student-learning-analytics-backend.spec.ts
+?? tests/e2e/teacher-operations.spec.ts
+?? tests/e2e/teacher-parent-hydration.spec.ts
+?? tests/e2e/teacher-parent-p1-regressions.spec.ts
+?? tests/e2e/teacher-prep-toolchain.spec.ts
+?? tests/e2e/teacher-review-lesson.spec.ts
+?? tests/e2e/visualization-persistence.spec.ts
+?? tsconfig.analytics.json
+?? tsconfig.next.json

@@ -1,0 +1,6 @@
+.env.local.example                |  114 +-
+ app/api/ai-tutor/route.ts         | 2365 ++++---------------------------------
+ app/api/ai-tutor/status/route.ts  |   41 +-
+ components/ai/AITutorButton.tsx   |   10 +-
+ components/ai/AITutorProvider.tsx | 2027 ++++++++++++++++++++++++++++---
+ 5 files changed, 2194 insertions(+), 2363 deletions(-)

@@ -1,0 +1,724 @@
+{
+  "generatedAt": "2026-07-10T17:09:53.945Z",
+  "repoRoot": "/Users/dongpinhu/Desktop/MAIS-MVP",
+  "dirtyMapStatusSignature": "e30d647e1b51432945713f42ac78b0a2466fcb17192de0235a801ac877a0801f",
+  "expandedStatusEntries": 7636,
+  "sourceArtifacts": {
+    "dirtyMap": {
+      "key": "dirtyMap",
+      "path": "coordination/release-intake/latest-A25-dirty-tree-map.json",
+      "generatedAt": "2026-07-10T17:07:27.521Z",
+      "dirtyMapStatusSignature": "e30d647e1b51432945713f42ac78b0a2466fcb17192de0235a801ac877a0801f",
+      "expandedStatusEntries": 7636
+    },
+    "cleanReleaseSourceRunway": {
+      "key": "cleanReleaseSourceRunway",
+      "path": "coordination/release-intake/latest-A22-clean-release-source-runway.json",
+      "generatedAt": "2026-07-10T17:06:29.991Z",
+      "dirtyMapStatusSignature": "e30d647e1b51432945713f42ac78b0a2466fcb17192de0235a801ac877a0801f",
+      "expandedStatusEntries": 7636
+    },
+    "worktreeDashboard": {
+      "key": "worktreeDashboard",
+      "path": "coordination/release-intake/latest-A25-worktree-hygiene-dashboard.json",
+      "generatedAt": "2026-07-11, 01:08:14 GMT+8",
+      "dirtyMapStatusSignature": "e30d647e1b51432945713f42ac78b0a2466fcb17192de0235a801ac877a0801f",
+      "expandedStatusEntries": null
+    },
+    "worktreeLifecycleGate": {
+      "key": "worktreeLifecycleGate",
+      "path": "coordination/release-intake/latest-A25-worktree-lifecycle-gate.json",
+      "generatedAt": "2026-07-10T17:09:46.609Z",
+      "dirtyMapStatusSignature": null,
+      "expandedStatusEntries": null
+    },
+    "validateToMergeExitCriteria": {
+      "key": "validateToMergeExitCriteria",
+      "path": "coordination/release-intake/latest-A25-validate-to-merge-exit-criteria.json",
+      "generatedAt": "2026-07-10T17:06:29.659Z",
+      "dirtyMapStatusSignature": "e30d647e1b51432945713f42ac78b0a2466fcb17192de0235a801ac877a0801f",
+      "expandedStatusEntries": 7636
+    },
+    "authorizationTransitionForecast": {
+      "key": "authorizationTransitionForecast",
+      "path": "coordination/release-intake/latest-A25-authorization-transition-forecast.json",
+      "generatedAt": "2026-07-10T17:06:29.769Z",
+      "dirtyMapStatusSignature": "e30d647e1b51432945713f42ac78b0a2466fcb17192de0235a801ac877a0801f",
+      "expandedStatusEntries": 7636
+    },
+    "sevenStepClosureBridge": {
+      "key": "sevenStepClosureBridge",
+      "path": "coordination/release-intake/latest-A25-seven-step-closure-bridge.json",
+      "generatedAt": "2026-07-10T17:06:29.880Z",
+      "dirtyMapStatusSignature": "e30d647e1b51432945713f42ac78b0a2466fcb17192de0235a801ac877a0801f",
+      "expandedStatusEntries": 7636
+    },
+    "rootParityCandidateMutation": {
+      "key": "rootParityCandidateMutation",
+      "path": "coordination/release-intake/latest-A22-root-parity-candidate-mutation-dry-run.json",
+      "generatedAt": "2026-07-10T17:03:44.889Z",
+      "dirtyMapStatusSignature": "e30d647e1b51432945713f42ac78b0a2466fcb17192de0235a801ac877a0801f",
+      "expandedStatusEntries": 7636
+    },
+    "ownerRemediationCandidateDirtyAllowlist": {
+      "key": "ownerRemediationCandidateDirtyAllowlist",
+      "path": "coordination/release-intake/latest-A22-owner-remediation-candidate-dirty-allowlist.json",
+      "generatedAt": "2026-07-10T17:09:53.715Z",
+      "dirtyMapStatusSignature": "e30d647e1b51432945713f42ac78b0a2466fcb17192de0235a801ac877a0801f",
+      "expandedStatusEntries": 7636
+    }
+  },
+  "sourceCurrentnessFailures": [],
+  "promotionStatus": "blocked-before-clean-source-promotion",
+  "topCandidate": {
+    "branch": "codex/A22-us-region-alignment",
+    "path": "/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A22-us-region-alignment",
+    "head": "80b8546af59def9ea4c91fa4b8a892973874504d",
+    "promotionRank": 1,
+    "promotionLane": "controlled-mutated-root-parity-recovery",
+    "promotionEligibleNow": false,
+    "allowedDirtyStatusRows": [
+      " M package-lock.json",
+      " M package.json",
+      "?? app/visualization-lab/VisualizationLabBackToTopButton.tsx",
+      "?? data/gameBasedLearning.ts",
+      "?? data/mathVirusBlaster.ts",
+      "?? data/mightyTankBattle.ts",
+      "?? data/usCaliforniaHighSchoolLessonIllustrations.ts"
+    ],
+    "authorizedMutationUnitIds": [
+      "a06-visualization-back-to-top-import-parity",
+      "a20-math-virus-blaster-data-parity",
+      "a20-mighty-tank-battle-data-parity",
+      "a05-california-high-school-lesson-illustration-data-parity",
+      "a20-math-match-quest-data-parity",
+      "a10-a22-package-json-dependency-parity",
+      "a10-a22-package-lock-dependency-parity"
+    ],
+    "candidateTargetsVerified": 7
+  },
+  "candidateRows": [
+    {
+      "branch": "codex/A22-us-region-alignment",
+      "path": "/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A22-us-region-alignment",
+      "head": "80b8546af59def9ea4c91fa4b8a892973874504d",
+      "divergence": {
+        "behind": 2,
+        "ahead": 1
+      },
+      "lifecycleState": "controlled-mutated-root-parity-recovery",
+      "statusCounts": {
+        "total": 7,
+        "modified": 2,
+        "deleted": 0,
+        "untracked": 5
+      },
+      "promotionLane": "controlled-mutated-root-parity-recovery",
+      "promotionRank": 1,
+      "promotionEligibleNow": false,
+      "releaseSourceSelected": false,
+      "allowedDirtyStatusRows": [
+        " M package-lock.json",
+        " M package.json",
+        "?? app/visualization-lab/VisualizationLabBackToTopButton.tsx",
+        "?? data/gameBasedLearning.ts",
+        "?? data/mathVirusBlaster.ts",
+        "?? data/mightyTankBattle.ts",
+        "?? data/usCaliforniaHighSchoolLessonIllustrations.ts"
+      ],
+      "authorizedMutationUnitIds": [
+        "a06-visualization-back-to-top-import-parity",
+        "a20-math-virus-blaster-data-parity",
+        "a20-mighty-tank-battle-data-parity",
+        "a05-california-high-school-lesson-illustration-data-parity",
+        "a20-math-match-quest-data-parity",
+        "a10-a22-package-json-dependency-parity",
+        "a10-a22-package-lock-dependency-parity"
+      ],
+      "candidateTargetsVerified": 7,
+      "rootParityDirtyStatusRows": [
+        "?? app/visualization-lab/VisualizationLabBackToTopButton.tsx",
+        "?? data/mathVirusBlaster.ts",
+        "?? data/mightyTankBattle.ts",
+        "?? data/usCaliforniaHighSchoolLessonIllustrations.ts"
+      ],
+      "ownerRemediationDirtyStatusRows": [
+        "?? data/gameBasedLearning.ts",
+        " M package.json",
+        " M package-lock.json"
+      ],
+      "recommendedReviewAction": "Validate as a bounded A22 recovery candidate only; the worktree may stay dirty only by the authorized root-parity and owner-remediation target rows until an explicit owner staging/commit decision exists.",
+      "blockerCount": 9,
+      "blockers": [
+        "candidate is a controlled recovery candidate, not a clean release source",
+        "bounded dirty status must remain exactly the authorized root-parity and owner-remediation target rows",
+        "no candidate-specific type/build/regression gate is recorded after extraction",
+        "no owner instruction authorizes staging or commit of the recovery slice",
+        "no merge instruction is recorded",
+        "no deploy instruction is recorded",
+        "branch is behind main by 2 commit(s) and needs resync/review",
+        "40 canonical authorization row(s) remain pending",
+        "9907 package/worktree type-check error line(s) remain"
+      ],
+      "requiredEvidenceBeforePromotion": [
+        "bounded dirty status exactly matches the authorized root-parity and owner-remediation target rows",
+        "candidate-specific git status/log/diff evidence",
+        "candidate-specific npm run type-check",
+        "candidate-specific npm run build",
+        "candidate-specific focused regression smoke",
+        "A22 clean-source or reviewed-slice selection record",
+        "separate owner staging/commit instruction",
+        "separate owner merge instruction"
+      ],
+      "boundary": {
+        "evidenceOnly": true,
+        "selectsReleaseSource": false,
+        "recordsOwnerApproval": false,
+        "recordsExecutionInstruction": false,
+        "stagesFiles": false,
+        "commits": false,
+        "merges": false,
+        "deploys": false,
+        "cleanupAuthorized": false,
+        "executableNow": false,
+        "destructiveGitAuthorized": false,
+        "physicalLifecycleCleanupAuthorized": false
+      }
+    },
+    {
+      "branch": "codex/A10-A22-release-governance",
+      "path": "/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A10-A22-release-governance",
+      "head": "f8143dab082575d321a00ac9e022bf5ef86fe2d2",
+      "divergence": {
+        "behind": 2,
+        "ahead": 2
+      },
+      "lifecycleState": "clean-branch-diverged-review",
+      "statusCounts": {
+        "total": 0,
+        "modified": 0,
+        "deleted": 0,
+        "untracked": 0
+      },
+      "promotionLane": "clean-diverged-slice-review",
+      "promotionRank": 2,
+      "promotionEligibleNow": false,
+      "releaseSourceSelected": false,
+      "recommendedReviewAction": "Review as a clean diverged slice candidate only after owner-package authorization backlog and candidate-specific gates are green.",
+      "blockerCount": 8,
+      "blockers": [
+        "candidate is not selected as release source",
+        "no candidate-specific build/type/regression gate is recorded",
+        "no owner instruction authorizes clean-source promotion",
+        "no merge instruction is recorded",
+        "no deploy instruction is recorded",
+        "branch is behind main by 2 commit(s) and needs resync/review",
+        "40 canonical authorization row(s) remain pending",
+        "9907 package/worktree type-check error line(s) remain"
+      ],
+      "requiredEvidenceBeforePromotion": [
+        "explicit owner clean-source promotion instruction",
+        "candidate-specific git status/log/diff evidence",
+        "candidate-specific npm run type-check",
+        "candidate-specific npm run build",
+        "candidate-specific focused regression smoke",
+        "A22 clean-source selection record",
+        "separate owner merge instruction"
+      ],
+      "boundary": {
+        "evidenceOnly": true,
+        "selectsReleaseSource": false,
+        "recordsOwnerApproval": false,
+        "recordsExecutionInstruction": false,
+        "stagesFiles": false,
+        "commits": false,
+        "merges": false,
+        "deploys": false,
+        "cleanupAuthorized": false,
+        "executableNow": false,
+        "destructiveGitAuthorized": false,
+        "physicalLifecycleCleanupAuthorized": false
+      }
+    },
+    {
+      "branch": "codex/A19-vercel-postgres-region",
+      "path": "/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A19-vercel-postgres-region",
+      "head": "28aa4d5eaf306c169864e2bc3cebc2153fad0c90",
+      "divergence": {
+        "behind": 2,
+        "ahead": 8
+      },
+      "lifecycleState": "clean-branch-diverged-review",
+      "statusCounts": {
+        "total": 0,
+        "modified": 0,
+        "deleted": 0,
+        "untracked": 0
+      },
+      "promotionLane": "clean-diverged-slice-review",
+      "promotionRank": 3,
+      "promotionEligibleNow": false,
+      "releaseSourceSelected": false,
+      "recommendedReviewAction": "Review as a clean diverged slice candidate only after owner-package authorization backlog and candidate-specific gates are green.",
+      "blockerCount": 8,
+      "blockers": [
+        "candidate is not selected as release source",
+        "no candidate-specific build/type/regression gate is recorded",
+        "no owner instruction authorizes clean-source promotion",
+        "no merge instruction is recorded",
+        "no deploy instruction is recorded",
+        "branch is behind main by 2 commit(s) and needs resync/review",
+        "40 canonical authorization row(s) remain pending",
+        "9907 package/worktree type-check error line(s) remain"
+      ],
+      "requiredEvidenceBeforePromotion": [
+        "explicit owner clean-source promotion instruction",
+        "candidate-specific git status/log/diff evidence",
+        "candidate-specific npm run type-check",
+        "candidate-specific npm run build",
+        "candidate-specific focused regression smoke",
+        "A22 clean-source selection record",
+        "separate owner merge instruction"
+      ],
+      "boundary": {
+        "evidenceOnly": true,
+        "selectsReleaseSource": false,
+        "recordsOwnerApproval": false,
+        "recordsExecutionInstruction": false,
+        "stagesFiles": false,
+        "commits": false,
+        "merges": false,
+        "deploys": false,
+        "cleanupAuthorized": false,
+        "executableNow": false,
+        "destructiveGitAuthorized": false,
+        "physicalLifecycleCleanupAuthorized": false
+      }
+    },
+    {
+      "branch": "codex/california-practice-beta-clean",
+      "path": "/Users/dongpinhu/Desktop/MAIS-MVP-worktrees/MAIS-MVP-california-practice-beta-clean",
+      "head": "fb6776be92ca341044282558a7f7e3ce7c57edf5",
+      "divergence": {
+        "behind": 14,
+        "ahead": 1
+      },
+      "lifecycleState": "clean-branch-diverged-review",
+      "statusCounts": {
+        "total": 0,
+        "modified": 0,
+        "deleted": 0,
+        "untracked": 0
+      },
+      "promotionLane": "clean-diverged-slice-review",
+      "promotionRank": 4,
+      "promotionEligibleNow": false,
+      "releaseSourceSelected": false,
+      "recommendedReviewAction": "Review as a clean diverged slice candidate only after owner-package authorization backlog and candidate-specific gates are green.",
+      "blockerCount": 8,
+      "blockers": [
+        "candidate is not selected as release source",
+        "no candidate-specific build/type/regression gate is recorded",
+        "no owner instruction authorizes clean-source promotion",
+        "no merge instruction is recorded",
+        "no deploy instruction is recorded",
+        "branch is behind main by 14 commit(s) and needs resync/review",
+        "40 canonical authorization row(s) remain pending",
+        "9907 package/worktree type-check error line(s) remain"
+      ],
+      "requiredEvidenceBeforePromotion": [
+        "explicit owner clean-source promotion instruction",
+        "candidate-specific git status/log/diff evidence",
+        "candidate-specific npm run type-check",
+        "candidate-specific npm run build",
+        "candidate-specific focused regression smoke",
+        "A22 clean-source selection record",
+        "separate owner merge instruction"
+      ],
+      "boundary": {
+        "evidenceOnly": true,
+        "selectsReleaseSource": false,
+        "recordsOwnerApproval": false,
+        "recordsExecutionInstruction": false,
+        "stagesFiles": false,
+        "commits": false,
+        "merges": false,
+        "deploys": false,
+        "cleanupAuthorized": false,
+        "executableNow": false,
+        "destructiveGitAuthorized": false,
+        "physicalLifecycleCleanupAuthorized": false
+      }
+    },
+    {
+      "branch": "codex/s22-release-hygiene-2026-06-15",
+      "path": "/Users/dongpinhu/Desktop/MAIS-MVP-worktrees/s22-release-hygiene-2026-06-15",
+      "head": "6fc558bd1db17d7024279b82e1be4007ee18ca1a",
+      "divergence": {
+        "behind": 14,
+        "ahead": 1
+      },
+      "lifecycleState": "clean-branch-diverged-review",
+      "statusCounts": {
+        "total": 0,
+        "modified": 0,
+        "deleted": 0,
+        "untracked": 0
+      },
+      "promotionLane": "clean-diverged-slice-review",
+      "promotionRank": 5,
+      "promotionEligibleNow": false,
+      "releaseSourceSelected": false,
+      "recommendedReviewAction": "Review as a clean diverged slice candidate only after owner-package authorization backlog and candidate-specific gates are green.",
+      "blockerCount": 8,
+      "blockers": [
+        "candidate is not selected as release source",
+        "no candidate-specific build/type/regression gate is recorded",
+        "no owner instruction authorizes clean-source promotion",
+        "no merge instruction is recorded",
+        "no deploy instruction is recorded",
+        "branch is behind main by 14 commit(s) and needs resync/review",
+        "40 canonical authorization row(s) remain pending",
+        "9907 package/worktree type-check error line(s) remain"
+      ],
+      "requiredEvidenceBeforePromotion": [
+        "explicit owner clean-source promotion instruction",
+        "candidate-specific git status/log/diff evidence",
+        "candidate-specific npm run type-check",
+        "candidate-specific npm run build",
+        "candidate-specific focused regression smoke",
+        "A22 clean-source selection record",
+        "separate owner merge instruction"
+      ],
+      "boundary": {
+        "evidenceOnly": true,
+        "selectsReleaseSource": false,
+        "recordsOwnerApproval": false,
+        "recordsExecutionInstruction": false,
+        "stagesFiles": false,
+        "commits": false,
+        "merges": false,
+        "deploys": false,
+        "cleanupAuthorized": false,
+        "executableNow": false,
+        "destructiveGitAuthorized": false,
+        "physicalLifecycleCleanupAuthorized": false
+      }
+    },
+    {
+      "branch": "codex/A25-ci-backup-workflow",
+      "path": "/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A25-ci-backup-workflow",
+      "head": "e909992b098ce7f8b57ca7f7ede6c97e50ccdc45",
+      "divergence": {
+        "behind": 1,
+        "ahead": 0
+      },
+      "lifecycleState": "clean-branch-diverged-review",
+      "statusCounts": {
+        "total": 0,
+        "modified": 0,
+        "deleted": 0,
+        "untracked": 0
+      },
+      "promotionLane": "stale-clean-branch-review",
+      "promotionRank": 6,
+      "promotionEligibleNow": false,
+      "releaseSourceSelected": false,
+      "recommendedReviewAction": "Review for archive or retirement before treating it as release-source evidence.",
+      "blockerCount": 9,
+      "blockers": [
+        "candidate is not selected as release source",
+        "no candidate-specific build/type/regression gate is recorded",
+        "no owner instruction authorizes clean-source promotion",
+        "no merge instruction is recorded",
+        "no deploy instruction is recorded",
+        "branch is behind main by 1 commit(s) and needs resync/review",
+        "branch has no ahead commits, so it is a retirement/archive candidate before it is a release slice",
+        "40 canonical authorization row(s) remain pending",
+        "9907 package/worktree type-check error line(s) remain"
+      ],
+      "requiredEvidenceBeforePromotion": [
+        "explicit owner clean-source promotion instruction",
+        "candidate-specific git status/log/diff evidence",
+        "candidate-specific npm run type-check",
+        "candidate-specific npm run build",
+        "candidate-specific focused regression smoke",
+        "A22 clean-source selection record",
+        "separate owner merge instruction"
+      ],
+      "boundary": {
+        "evidenceOnly": true,
+        "selectsReleaseSource": false,
+        "recordsOwnerApproval": false,
+        "recordsExecutionInstruction": false,
+        "stagesFiles": false,
+        "commits": false,
+        "merges": false,
+        "deploys": false,
+        "cleanupAuthorized": false,
+        "executableNow": false,
+        "destructiveGitAuthorized": false,
+        "physicalLifecycleCleanupAuthorized": false
+      }
+    },
+    {
+      "branch": "codex/A05-lesson-checklist-p0",
+      "path": "/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A05-lesson-checklist-p0",
+      "head": "cef544e09bee8118ddcf3bf3005e570bdf4977e3",
+      "divergence": {
+        "behind": 2,
+        "ahead": 0
+      },
+      "lifecycleState": "clean-branch-diverged-review",
+      "statusCounts": {
+        "total": 0,
+        "modified": 0,
+        "deleted": 0,
+        "untracked": 0
+      },
+      "promotionLane": "stale-clean-branch-review",
+      "promotionRank": 7,
+      "promotionEligibleNow": false,
+      "releaseSourceSelected": false,
+      "recommendedReviewAction": "Review for archive or retirement before treating it as release-source evidence.",
+      "blockerCount": 9,
+      "blockers": [
+        "candidate is not selected as release source",
+        "no candidate-specific build/type/regression gate is recorded",
+        "no owner instruction authorizes clean-source promotion",
+        "no merge instruction is recorded",
+        "no deploy instruction is recorded",
+        "branch is behind main by 2 commit(s) and needs resync/review",
+        "branch has no ahead commits, so it is a retirement/archive candidate before it is a release slice",
+        "40 canonical authorization row(s) remain pending",
+        "9907 package/worktree type-check error line(s) remain"
+      ],
+      "requiredEvidenceBeforePromotion": [
+        "explicit owner clean-source promotion instruction",
+        "candidate-specific git status/log/diff evidence",
+        "candidate-specific npm run type-check",
+        "candidate-specific npm run build",
+        "candidate-specific focused regression smoke",
+        "A22 clean-source selection record",
+        "separate owner merge instruction"
+      ],
+      "boundary": {
+        "evidenceOnly": true,
+        "selectsReleaseSource": false,
+        "recordsOwnerApproval": false,
+        "recordsExecutionInstruction": false,
+        "stagesFiles": false,
+        "commits": false,
+        "merges": false,
+        "deploys": false,
+        "cleanupAuthorized": false,
+        "executableNow": false,
+        "destructiveGitAuthorized": false,
+        "physicalLifecycleCleanupAuthorized": false
+      }
+    },
+    {
+      "branch": "codex/A05-lesson-pep-load",
+      "path": "/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A05-lesson-pep-load",
+      "head": "cef544e09bee8118ddcf3bf3005e570bdf4977e3",
+      "divergence": {
+        "behind": 2,
+        "ahead": 0
+      },
+      "lifecycleState": "clean-branch-diverged-review",
+      "statusCounts": {
+        "total": 0,
+        "modified": 0,
+        "deleted": 0,
+        "untracked": 0
+      },
+      "promotionLane": "stale-clean-branch-review",
+      "promotionRank": 8,
+      "promotionEligibleNow": false,
+      "releaseSourceSelected": false,
+      "recommendedReviewAction": "Review for archive or retirement before treating it as release-source evidence.",
+      "blockerCount": 9,
+      "blockers": [
+        "candidate is not selected as release source",
+        "no candidate-specific build/type/regression gate is recorded",
+        "no owner instruction authorizes clean-source promotion",
+        "no merge instruction is recorded",
+        "no deploy instruction is recorded",
+        "branch is behind main by 2 commit(s) and needs resync/review",
+        "branch has no ahead commits, so it is a retirement/archive candidate before it is a release slice",
+        "40 canonical authorization row(s) remain pending",
+        "9907 package/worktree type-check error line(s) remain"
+      ],
+      "requiredEvidenceBeforePromotion": [
+        "explicit owner clean-source promotion instruction",
+        "candidate-specific git status/log/diff evidence",
+        "candidate-specific npm run type-check",
+        "candidate-specific npm run build",
+        "candidate-specific focused regression smoke",
+        "A22 clean-source selection record",
+        "separate owner merge instruction"
+      ],
+      "boundary": {
+        "evidenceOnly": true,
+        "selectsReleaseSource": false,
+        "recordsOwnerApproval": false,
+        "recordsExecutionInstruction": false,
+        "stagesFiles": false,
+        "commits": false,
+        "merges": false,
+        "deploys": false,
+        "cleanupAuthorized": false,
+        "executableNow": false,
+        "destructiveGitAuthorized": false,
+        "physicalLifecycleCleanupAuthorized": false
+      }
+    },
+    {
+      "branch": "codex/A05-next-item-button-scroll",
+      "path": "/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A05-next-item-button-scroll",
+      "head": "cef544e09bee8118ddcf3bf3005e570bdf4977e3",
+      "divergence": {
+        "behind": 2,
+        "ahead": 0
+      },
+      "lifecycleState": "clean-branch-diverged-review",
+      "statusCounts": {
+        "total": 0,
+        "modified": 0,
+        "deleted": 0,
+        "untracked": 0
+      },
+      "promotionLane": "stale-clean-branch-review",
+      "promotionRank": 9,
+      "promotionEligibleNow": false,
+      "releaseSourceSelected": false,
+      "recommendedReviewAction": "Review for archive or retirement before treating it as release-source evidence.",
+      "blockerCount": 9,
+      "blockers": [
+        "candidate is not selected as release source",
+        "no candidate-specific build/type/regression gate is recorded",
+        "no owner instruction authorizes clean-source promotion",
+        "no merge instruction is recorded",
+        "no deploy instruction is recorded",
+        "branch is behind main by 2 commit(s) and needs resync/review",
+        "branch has no ahead commits, so it is a retirement/archive candidate before it is a release slice",
+        "40 canonical authorization row(s) remain pending",
+        "9907 package/worktree type-check error line(s) remain"
+      ],
+      "requiredEvidenceBeforePromotion": [
+        "explicit owner clean-source promotion instruction",
+        "candidate-specific git status/log/diff evidence",
+        "candidate-specific npm run type-check",
+        "candidate-specific npm run build",
+        "candidate-specific focused regression smoke",
+        "A22 clean-source selection record",
+        "separate owner merge instruction"
+      ],
+      "boundary": {
+        "evidenceOnly": true,
+        "selectsReleaseSource": false,
+        "recordsOwnerApproval": false,
+        "recordsExecutionInstruction": false,
+        "stagesFiles": false,
+        "commits": false,
+        "merges": false,
+        "deploys": false,
+        "cleanupAuthorized": false,
+        "executableNow": false,
+        "destructiveGitAuthorized": false,
+        "physicalLifecycleCleanupAuthorized": false
+      }
+    }
+  ],
+  "promotionBlockers": [
+    {
+      "id": "no-selected-clean-source",
+      "owner": "A22 production reliability and release engineering",
+      "status": "blocked",
+      "count": 1,
+      "detail": "No clean worktree, clean clone, reviewed clean slice, or owner-approved pruned staging package has been selected.",
+      "promotionEligibleNow": false,
+      "releaseSourceSelected": false,
+      "cleanupAuthorized": false,
+      "executableNow": false
+    },
+    {
+      "id": "candidate-specific-gates-missing",
+      "owner": "A22 production reliability and release engineering",
+      "status": "blocked",
+      "count": 9,
+      "detail": "No candidate-specific type/build/regression gate is recorded for any clean worktree candidate.",
+      "promotionEligibleNow": false,
+      "releaseSourceSelected": false,
+      "cleanupAuthorized": false,
+      "executableNow": false
+    },
+    {
+      "id": "canonical-authorization-backlog",
+      "owner": "A25 git hygiene and release intake",
+      "status": "blocked",
+      "count": 40,
+      "detail": "Canonical authorization rows remain before validate-to-merge can advance.",
+      "promotionEligibleNow": false,
+      "releaseSourceSelected": false,
+      "cleanupAuthorized": false,
+      "executableNow": false
+    },
+    {
+      "id": "merge-not-authorized",
+      "owner": "Owner",
+      "status": "not-authorized",
+      "count": 1,
+      "detail": "No separate owner merge instruction is recorded.",
+      "promotionEligibleNow": false,
+      "releaseSourceSelected": false,
+      "cleanupAuthorized": false,
+      "executableNow": false
+    }
+  ],
+  "safeValidationCommands": [
+    "npm run release:dirty-map -- --assert-current --max-age-minutes 60",
+    "node coordination/release-intake/assert-a22-clean-release-source-runway-current.mjs",
+    "node coordination/release-intake/assert-worktree-lifecycle.mjs",
+    "node coordination/release-intake/assert-validate-to-merge-exit-criteria-current.mjs",
+    "node coordination/release-intake/assert-a22-clean-source-candidate-promotion-packet-current.mjs"
+  ],
+  "summary": {
+    "promotionEligibleNow": false,
+    "releaseSourceSelected": false,
+    "candidateRows": 9,
+    "cleanCandidateRows": 8,
+    "controlledRecoveryCandidateRows": 1,
+    "reviewableCleanSliceRows": 4,
+    "staleCleanBranchRows": 4,
+    "topCandidateBranch": "codex/A22-us-region-alignment",
+    "topCandidatePromotionLane": "controlled-mutated-root-parity-recovery",
+    "cleanWorktreeCandidates": 8,
+    "dirtyWorktrees": 31,
+    "pendingCanonicalAuthorizationRows": 40,
+    "currentFocusRows": 0,
+    "packageWorktreeTypeCheckErrorLines": 9907,
+    "validateExitReady": false,
+    "readyForMerge": false,
+    "cleanupAuthorizedRows": 0,
+    "executableRows": 0,
+    "sourceCurrentnessFailures": 0
+  },
+  "boundary": {
+    "evidenceOnly": true,
+    "createsClone": false,
+    "createsWorktree": false,
+    "selectsReleaseSource": false,
+    "recordsOwnerApproval": false,
+    "recordsExecutionInstruction": false,
+    "stagesFiles": false,
+    "commits": false,
+    "merges": false,
+    "pushes": false,
+    "deploys": false,
+    "cleanupAuthorized": false,
+    "executableNow": false,
+    "destructiveGitAuthorized": false,
+    "physicalLifecycleCleanupAuthorized": false
+  }
+}

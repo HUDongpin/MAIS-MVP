@@ -1,0 +1,201 @@
+{
+  "generatedAt": "2026-07-09T14:00:27.554Z",
+  "repoRoot": "/Users/dongpinhu/Desktop/MAIS-MVP",
+  "dirtyMapStatusSignature": "b3d232fd2b9ef81d4efc95903d2e3b316db664d6e9ec6ab366181395b3966be7",
+  "expandedStatusEntries": 6604,
+  "sourceArtifacts": {
+    "readyCandidateCapsuleGeneratedAt": "2026-07-09T14:00:27.432Z",
+    "readyCandidateCapsulePath": "coordination/release-intake/latest-A25-ready-candidate-owner-review-capsule.json"
+  },
+  "sourceCurrentnessFailures": [],
+  "candidate": {
+    "candidateId": "",
+    "waveId": "",
+    "packageId": "",
+    "packageName": "",
+    "owners": [],
+    "approvalIds": [],
+    "physicalLifecycleApprovalIds": [],
+    "worktree": null,
+    "statusEntries": 0,
+    "coveredEntries": 0,
+    "uncoveredEntries": 0,
+    "failedChecks": 0,
+    "typeCheckErrorLines": 0,
+    "pathspecFiles": [],
+    "pathspecChecksum": "",
+    "recommendedOwnerAction": "",
+    "readyForOwnerReview": false
+  },
+  "ownerReviewRound": {
+    "id": "ready-candidate-owner-review",
+    "order": 1,
+    "label": "Ready candidate owner review",
+    "ownerAction": "The previous ready candidate has been post-extraction verified; proceed to Wave 01 package-resync authorization review.",
+    "why": "A16 owner-package approval was consumed by the committed package extraction, while the physical lifecycle final-state row remains tracked separately.",
+    "candidateId": "wave-05-visualization-ai-runtime:a16-research-evidence",
+    "packageId": "a16-research-evidence",
+    "rowCount": 0,
+    "pendingRows": 0,
+    "authorizedRows": 0,
+    "approvalIds": [],
+    "consumedApprovalIds": [
+      "a16-research-and-learning-science"
+    ],
+    "postExtractionState": {
+      "reportPath": "coordination/release-intake/latest-A25-a16-post-extraction-verification-report.json",
+      "reportPresent": true,
+      "verified": true,
+      "lifecycleStatus": "post-extraction-verified",
+      "packageStatusRows": 0,
+      "stagedPackageRows": 0,
+      "latestPackageCommit": {
+        "hash": "ce2ae5258013ca5bd79dd0cc56e7b1681d5cd411",
+        "subject": "Add A16 research evidence package",
+        "fileCount": 6
+      }
+    },
+    "cleanupAuthorizedRows": 0,
+    "executableRows": 0
+  },
+  "evidenceDigest": {
+    "statusRows": [],
+    "untrackedRows": [],
+    "fileInventory": [],
+    "trackedDiffstatText": "",
+    "trackedDiffPresent": false,
+    "trackedPatchNonEmptyLines": 0,
+    "aheadLogText": "",
+    "aheadCommitsPresent": false,
+    "dirtyDivergedDiffstatText": "",
+    "dirtyDivergedDiffPresent": false,
+    "dirtyDivergedPatchNonEmptyLines": 0
+  },
+  "acceptanceChecks": [
+    {
+      "id": "ready-candidate-consumed",
+      "label": "Ready candidate is consumed by post-extraction verification",
+      "passed": true,
+      "evidence": "candidate=wave-05-visualization-ai-runtime:a16-research-evidence",
+      "status": "pass"
+    },
+    {
+      "id": "post-extraction-verified",
+      "label": "A16 post-extraction verification is complete",
+      "passed": true,
+      "evidence": "commit=ce2ae5258013ca5bd79dd0cc56e7b1681d5cd411",
+      "status": "pass"
+    },
+    {
+      "id": "no-active-approval-rows",
+      "label": "No ready-candidate approval rows remain active",
+      "passed": true,
+      "evidence": "active=0 pending=0 authorized=0",
+      "status": "pass"
+    },
+    {
+      "id": "consumed-owner-package-recorded",
+      "label": "A16 owner-package approval is recorded as consumed",
+      "passed": true,
+      "evidence": "a16-research-and-learning-science",
+      "status": "pass"
+    },
+    {
+      "id": "non-executable",
+      "label": "Consumed ready-candidate surface remains non-executable",
+      "passed": true,
+      "evidence": "cleanup=0 executable=0",
+      "status": "pass"
+    },
+    {
+      "id": "authorization-target-present",
+      "label": "Canonical authorization target is identified",
+      "passed": true,
+      "evidence": "coordination/release-intake/latest-A25-next-owner-authorizations.json",
+      "status": "pass"
+    }
+  ],
+  "ownerDecisionDocket": {
+    "status": "post-extraction-consumed",
+    "ownerDecisionRequired": false,
+    "candidateSummary": "A16 research evidence package has already been committed and post-extraction verified; no active ready-candidate owner-decision row remains.",
+    "requiredApprovalIds": [],
+    "consumedApprovalIds": [
+      "a16-research-and-learning-science"
+    ],
+    "postExtractionState": {
+      "reportPath": "coordination/release-intake/latest-A25-a16-post-extraction-verification-report.json",
+      "reportPresent": true,
+      "verified": true,
+      "lifecycleStatus": "post-extraction-verified",
+      "packageStatusRows": 0,
+      "stagedPackageRows": 0,
+      "latestPackageCommit": {
+        "hash": "ce2ae5258013ca5bd79dd0cc56e7b1681d5cd411",
+        "subject": "Add A16 research evidence package",
+        "fileCount": 6
+      }
+    },
+    "decisionOptions": [],
+    "targetAuthorizationFile": "coordination/release-intake/latest-A25-next-owner-authorizations.json",
+    "copyableAuthorizationTexts": [],
+    "postDecisionValidationCommands": [
+      "node coordination/release-intake/assert-next-owner-authorizations-current.mjs",
+      "node coordination/release-intake/generate-next-owner-authorization-execution-preview.mjs",
+      "node coordination/release-intake/assert-next-owner-authorization-execution-preview-current.mjs",
+      "node coordination/release-intake/assert-owner-package-blocker-report-records-current.mjs",
+      "node coordination/release-intake/assert-owner-closure-input-readiness-current.mjs"
+    ],
+    "deferredAggregateValidationCommands": [
+      "node coordination/release-intake/refresh-linked-worktree-archive-evidence.mjs",
+      "node coordination/release-intake/assert-linked-worktree-archive-evidence-current.mjs",
+      "node coordination/release-intake/generate-wave06-final-root-lifecycle-readiness.mjs",
+      "node coordination/release-intake/assert-wave06-final-root-lifecycle-readiness-current.mjs",
+      "node coordination/release-intake/refresh-dirty-worktree-remediation-evidence.mjs --reason \"owner input action packet post-input verification\"",
+      "node coordination/release-intake/assert-dirty-worktree-remediation-current.mjs",
+      "node coordination/release-intake/generate-dirty-worktree-remediation-completion-audit.mjs",
+      "node coordination/release-intake/assert-dirty-worktree-remediation-completion-audit-current.mjs"
+    ],
+    "validationHold": {
+      "status": "waiting-for-owner-compose-deletion-confirmation",
+      "activeWorktreePath": "/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A10-A22-A08-A12-A06-compose-20260628",
+      "reason": "Owner reported active exact deletion in this compose worktree; linked-worktree archive, Wave 06, aggregate remediation, and completion-audit refreshes should wait for owner confirmation.",
+      "resumeCondition": "Owner confirms exact deletion in the compose worktree is complete."
+    }
+  },
+  "summary": {
+    "candidateId": "wave-05-visualization-ai-runtime:a16-research-evidence",
+    "fileInventoryRows": 0,
+    "rootFilesPresent": 0,
+    "rootFilesMissing": 0,
+    "statusRows": 0,
+    "untrackedRows": 0,
+    "ownerScopeRows": 0,
+    "trackedDiffPresent": false,
+    "aheadCommitsPresent": false,
+    "dirtyDivergedDiffPresent": false,
+    "acceptanceChecks": 6,
+    "passingAcceptanceChecks": 6,
+    "failedAcceptanceChecks": 0,
+    "sourceCurrentnessFailures": 0,
+    "approvalRows": 0,
+    "consumedApprovalRows": 1,
+    "pendingApprovalRows": 0,
+    "authorizedApprovalRows": 0,
+    "cleanupAuthorizedRows": 0,
+    "executableRows": 0,
+    "ownerDecisionRequired": false,
+    "readyForOwnerDecision": false,
+    "postExtractionConsumed": true
+  },
+  "boundary": {
+    "evidenceOnly": true,
+    "createsAuthorizationFile": false,
+    "recordsOwnerApproval": false,
+    "mergeAuthorized": false,
+    "cleanupAuthorized": false,
+    "executableNow": false,
+    "destructiveGitAuthorized": false,
+    "deployAuthorized": false
+  }
+}

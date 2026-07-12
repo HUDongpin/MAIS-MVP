@@ -1,0 +1,15 @@
+app/adaptive-learning/loading.tsx                  |   4 +-
+ app/adaptive-learning/page.tsx                     |   4 +-
+ app/api/adaptive-learning/next/route.ts            |  21 +-
+ app/api/adaptive-learning/refresh/route.ts         |  10 +
+ app/assessment/[assessmentId]/page.tsx             | 181 +----
+ app/dashboard/page.tsx                             | 536 +++++++++++++-
+ components/dashboard/AdaptiveLearningContent.tsx   | 816 +++++++++++++--------
+ components/dashboard/DashboardBackToTopButton.tsx  |   6 +-
+ .../dashboard/DashboardGradeSelectorGrid.tsx       |  53 +-
+ components/dashboard/StudentProfilePanel.tsx       | 201 +++--
+ components/dashboard/StudentRewardsPanel.tsx       | 328 ++++++---
+ lib/adaptiveLearning.test.ts                       | 141 +++-
+ lib/adaptiveLearning.ts                            | 112 ++-
+ lib/curriculumProfile.ts                           |  43 +-
+ 14 files changed, 1731 insertions(+), 725 deletions(-)

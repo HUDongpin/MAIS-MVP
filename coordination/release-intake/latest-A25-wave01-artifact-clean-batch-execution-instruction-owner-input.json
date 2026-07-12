@@ -1,0 +1,33 @@
+{
+  "generatedAt": "2026-07-06T02:00:05.166Z",
+  "inputKind": "wave01-artifact-clean-batch-execution-instruction-owner-input",
+  "instructions": [
+    "Paste the exact batchCopyableOwnerExecutionText into ownerExecutionText only when the owner explicitly instructs A25 to record the six execution-instruction rows.",
+    "This file is input only. It does not execute cleanup and does not record execution instructions by itself."
+  ],
+  "sourceBatchRequestGeneratedAt": "2026-07-06T02:00:05.057Z",
+  "sourceBatchRequest": "coordination/release-intake/latest-A25-wave01-artifact-clean-batch-execution-instruction-request.json",
+  "applyToApprovalIds": [
+    "wave01-resync-02-coordination-release-intake-2026-06-30-a25-dirty-tree-map-20260630t072027z-json",
+    "wave01-resync-03-coordination-release-intake-2026-06-30-a25-dirty-tree-map-20260630t072027z-md",
+    "wave01-resync-04-coordination-release-intake-2026-06-30-a25-dirty-tree-map-20260630t073137z-json",
+    "wave01-resync-05-coordination-release-intake-2026-06-30-a25-dirty-tree-map-20260630t073137z-md",
+    "wave01-resync-06-coordination-release-intake-2026-06-30-a25-dirty-tree-map-20260630t130221z-json",
+    "wave01-resync-07-coordination-release-intake-2026-06-30-a25-dirty-tree-map-20260630t130221z-md"
+  ],
+  "ownerExecutionText": "Authorize separate Wave01 A25 artifact-clean batch execution; approvalId=wave01-resync-02-coordination-release-intake-2026-06-30-a25-dirty-tree-map-20260630t072027z-json; approvalId=wave01-resync-03-coordination-release-intake-2026-06-30-a25-dirty-tree-map-20260630t072027z-md; approvalId=wave01-resync-04-coordination-release-intake-2026-06-30-a25-dirty-tree-map-20260630t073137z-json; approvalId=wave01-resync-05-coordination-release-intake-2026-06-30-a25-dirty-tree-map-20260630t073137z-md; approvalId=wave01-resync-06-coordination-release-intake-2026-06-30-a25-dirty-tree-map-20260630t130221z-json; approvalId=wave01-resync-07-coordination-release-intake-2026-06-30-a25-dirty-tree-map-20260630t130221z-md; cwd=/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A25-dirty-closure-governance; command=git clean -f -- coordination/release-intake/2026-06-30-A25-dirty-tree-map-20260630T072027Z.json; command=git clean -f -- coordination/release-intake/2026-06-30-A25-dirty-tree-map-20260630T072027Z.md; command=git clean -f -- coordination/release-intake/2026-06-30-A25-dirty-tree-map-20260630T073137Z.json; command=git clean -f -- coordination/release-intake/2026-06-30-A25-dirty-tree-map-20260630T073137Z.md; command=git clean -f -- coordination/release-intake/2026-06-30-A25-dirty-tree-map-20260630T130221Z.json; command=git clean -f -- coordination/release-intake/2026-06-30-A25-dirty-tree-map-20260630T130221Z.md; No cleanup beyond the exact listed command sequence; no broad staging, commit, merge, push, reset, branch deletion, worktree removal, deploy, or unrelated file operation is authorized; approvedBy=<owner>; approvedAt=<ISO-8601>; notes=<scope, evidence reviewed, accepted risk>",
+  "approvedBy": "owner-chat-instruction",
+  "approvedAt": "2026-07-06T02:01:00Z",
+  "notes": "Owner instructed Codex to first let A25/A22 turn cleanable items into executableRows > 0, then check whether the clean slice satisfies build/type/regression gates. Scope is limited to recording the six Wave01 A25 artifact-clean execution-instruction rows; no broad staging, commit, merge, push, reset, branch deletion, worktree removal, deploy, or unrelated file operation is authorized.",
+  "cleanupAuthorized": false,
+  "executableNow": false,
+  "deployAuthorized": false,
+  "boundary": {
+    "ownerInputOnly": true,
+    "recordsExecutionInstruction": false,
+    "cleanupAuthorized": false,
+    "executableNow": false,
+    "destructiveGitAuthorized": false,
+    "deployAuthorized": false
+  }
+}

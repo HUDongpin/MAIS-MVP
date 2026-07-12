@@ -1,5 +1,6 @@
 import { mainlandPepJuniorPaperPatternCards } from "../../data/rag/mainlandPepJuniorPaperPatterns";
 import { mainlandPepJuniorRagCards } from "../../data/rag/mainlandPepJunior";
+import { illustrationTextMatchStandardForRag } from "./illustrationTextMatchStandard";
 import type {
   MainlandPepJuniorPaperAssessmentFamily,
   MainlandPepJuniorPaperEvidencePack,
@@ -102,12 +103,16 @@ function scoreCard(card: MainlandPepJuniorPaperPatternCard, query: MainlandPepJu
   const skillMatches = countMatches(keywordQueries, card.skillTags ?? []);
   const misconceptionMatches = countMatches(keywordQueries, card.misconceptionTags);
   const difficultyMatch = query.difficultyBand && card.difficultyBand === query.difficultyBand ? 1 : 0;
-  const broadReviewPenalty =
+  const isBroadReviewCard =
     card.materialKinds.includes("midterm-final") &&
+    (card.conceptIds.some((conceptId) => conceptId.includes("integrated-review")) || card.unitTitles.some((unitTitle) => unitTitle.includes("综合")));
+  const isAggregateOwnerPack = card.conceptIds.some((conceptId) => conceptId.includes("owner-unit-test-pack"));
+  const broadReviewPenalty =
+    (isBroadReviewCard || isAggregateOwnerPack) &&
     Boolean(query.conceptIds?.length || query.unitTitle) &&
     !query.materialKind &&
     !query.assessmentFamily
-      ? 12
+      ? 24
       : 0;
 
   return (
@@ -190,6 +195,7 @@ export function buildMainlandPepJuniorPaperEvidencePack(query: MainlandPepJunior
     "Use these aggregated patterns only to create original MAIS assessment support, diagnostics, and future question drafts.",
     "Junior paper-pattern cards summarize unit, synchronous practice, topic practice, and term-review design tendencies; they do not authorize copying protected wording, answer wording, worked responses, tables, diagrams, layouts, or item order.",
     "Use only the pattern summaries, tags, misconceptions, and originality guidance below.",
+    ...illustrationTextMatchStandardForRag,
     ...cards.flatMap((card, index) => [
       `Junior paper pattern ${index + 1}: ${card.grade} ${card.semester} ${card.unitTitles.join(" / ")} (${card.difficultyBand}).`,
       `Material kinds: ${card.materialKinds.join(", ")}.`,
@@ -223,6 +229,7 @@ export function buildMainlandPepJuniorPaperGenerationEvidencePack(
     "MAIS-safe combined evidence pack for MAINLAND_PEP junior paper-pattern support.",
     "Layer 1 answers what to teach from curriculum safe cards. Layer 2 answers how junior school-paper tasks are commonly structured from aggregated pattern cards.",
     "Generate only new MAIS-authored questions, contexts, diagrams, values, distractors, and explanations.",
+    ...illustrationTextMatchStandardForRag,
     "Curriculum layer:",
     ...curriculumCards.map((card, index) => `${index + 1}. ${card.grade} ${card.semester} ${card.unitTitle}: ${card.safeSummary}`),
     "Junior paper-pattern layer:",

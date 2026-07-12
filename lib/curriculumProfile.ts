@@ -8,18 +8,21 @@ import type {
 
 export const curriculumRegions = ["MAINLAND", "US", "HK"] as const satisfies CurriculumRegion[];
 export const textbookPublishers = [
+  "HK_MODERN_EDUCATIONAL_RESEARCH_SOCIETY",
   "HK_UNITED_PRIME_MIA",
   "HK_EPH_MIF",
   "MAINLAND_PEP",
   "MAINLAND_BNU",
   "MAINLAND_HJB",
   "US_CA_MATH",
-  "US_NC_MATH"
+  "US_NC_MATH",
+  "US_AR_MATH",
+  "US_FL_MATH"
 ] as const satisfies TextbookPublisher[];
 
 export const defaultHongKongCurriculumProfile: CurriculumProfile = {
   region: "HK",
-  publisher: "HK_UNITED_PRIME_MIA"
+  publisher: "HK_MODERN_EDUCATIONAL_RESEARCH_SOCIETY"
 };
 
 export const defaultMainlandCurriculumProfile: CurriculumProfile = {
@@ -35,16 +38,24 @@ export const defaultUnitedStatesCurriculumProfile: CurriculumProfile = {
 export const defaultCurriculumProfile = defaultHongKongCurriculumProfile;
 
 const publisherRegion: Record<TextbookPublisher, CurriculumRegion> = {
+  HK_MODERN_EDUCATIONAL_RESEARCH_SOCIETY: "HK",
   HK_UNITED_PRIME_MIA: "HK",
   HK_EPH_MIF: "HK",
   MAINLAND_PEP: "MAINLAND",
   MAINLAND_BNU: "MAINLAND",
   MAINLAND_HJB: "MAINLAND",
   US_CA_MATH: "US",
-  US_NC_MATH: "US"
+  US_NC_MATH: "US",
+  US_AR_MATH: "US",
+  US_FL_MATH: "US"
 };
 
 export const publisherLabels: Record<TextbookPublisher, LocalizedText> = {
+  HK_MODERN_EDUCATIONAL_RESEARCH_SOCIETY: {
+    en: "HK Modern Primary Math",
+    zh: "香港現代小學數學",
+    zhHans: "香港现代小学数学"
+  },
   HK_UNITED_PRIME_MIA: {
     en: "DSE UP",
     zh: "DSE UP",
@@ -71,14 +82,24 @@ export const publisherLabels: Record<TextbookPublisher, LocalizedText> = {
     zhHans: "沪教版数学"
   },
   US_CA_MATH: {
-    en: "California Curriculum",
-    zh: "加州課程",
-    zhHans: "加州课程"
+    en: "California Math Practice Beta",
+    zh: "California Math Practice Beta",
+    zhHans: "California Math Practice Beta"
   },
   US_NC_MATH: {
     en: "North Carolina Curriculum",
     zh: "北卡課程",
     zhHans: "北卡课程"
+  },
+  US_AR_MATH: {
+    en: "Arkansas Curriculum",
+    zh: "阿肯色州課程",
+    zhHans: "阿肯色州课程"
+  },
+  US_FL_MATH: {
+    en: "Florida Curriculum",
+    zh: "佛州課程",
+    zhHans: "佛州课程"
   }
 };
 
@@ -99,7 +120,7 @@ export function isTextbookPublisher(value: unknown): value is TextbookPublisher 
 export function publisherForRegion(region: CurriculumRegion): TextbookPublisher {
   if (region === "MAINLAND") return "MAINLAND_PEP";
   if (region === "US") return "US_CA_MATH";
-  return "HK_UNITED_PRIME_MIA";
+  return "HK_MODERN_EDUCATIONAL_RESEARCH_SOCIETY";
 }
 
 export function curriculumProfileForPublisher(publisher: TextbookPublisher): CurriculumProfile {
@@ -113,12 +134,16 @@ export function curriculumProfileForTrack(track?: CurriculumTrack | null): Curri
   if (track === "MAINLAND_PEP_HIGH") return defaultMainlandCurriculumProfile;
   if (track === "US_CA_MATH") return defaultUnitedStatesCurriculumProfile;
   if (track === "US_NC_MATH") return { region: "US", publisher: "US_NC_MATH" };
+  if (track === "US_AR_MATH") return { region: "US", publisher: "US_AR_MATH" };
+  if (track === "US_FL_MATH") return { region: "US", publisher: "US_FL_MATH" };
   return defaultHongKongCurriculumProfile;
 }
 
 export function curriculumTrackForProfile(profile?: CurriculumProfile | null): CurriculumTrack {
   if (profile?.publisher === "US_CA_MATH") return "US_CA_MATH";
   if (profile?.publisher === "US_NC_MATH") return "US_NC_MATH";
+  if (profile?.publisher === "US_AR_MATH") return "US_AR_MATH";
+  if (profile?.publisher === "US_FL_MATH") return "US_FL_MATH";
   if (profile?.region === "MAINLAND") return "MAINLAND_PEP_HIGH";
   return "HK";
 }
@@ -165,8 +190,10 @@ export function contentMatchesCurriculumProfile(
   if (content.curriculumTrack === "MAINLAND_PEP_HIGH") return content.publisher ? content.publisher === profile.publisher : profile.publisher === "MAINLAND_PEP";
   if (content.curriculumTrack === "US_CA_MATH") return profile.publisher === "US_CA_MATH";
   if (content.curriculumTrack === "US_NC_MATH") return profile.publisher === "US_NC_MATH";
-  if (content.curriculumTrack === "HK") return profile.region === "HK";
+  if (content.curriculumTrack === "US_AR_MATH") return profile.publisher === "US_AR_MATH";
+  if (content.curriculumTrack === "US_FL_MATH") return profile.publisher === "US_FL_MATH";
   if (content.publisher) return content.publisher === profile.publisher;
+  if (content.curriculumTrack === "HK") return profile.region === "HK";
   if (content.region) return content.region === profile.region;
   return false;
 }

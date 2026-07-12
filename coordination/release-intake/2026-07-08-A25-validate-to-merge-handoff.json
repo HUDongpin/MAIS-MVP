@@ -1,0 +1,204 @@
+{
+  "generatedAt": "2026-07-08T14:14:36.936Z",
+  "repoRoot": "/Users/dongpinhu/Desktop/MAIS-MVP",
+  "dirtyMapStatusSignature": "4892e406613fc3846378621b84ba0f486bb8ebf371c35837eae544472596f318",
+  "expandedStatusEntries": 6130,
+  "sourceArtifacts": {
+    "closureLoopStateGeneratedAt": "2026-07-08T14:14:36.821Z",
+    "completionAuditGeneratedAt": "2026-07-08T14:14:23.129Z",
+    "ownerClosureInputReadinessGeneratedAt": "2026-07-08T14:14:26.468Z",
+    "ownerInputActionPacketGeneratedAt": "2026-07-08T14:14:26.985Z",
+    "ownerClosureWorkOrderBundleGeneratedAt": "2026-07-08T14:14:27.608Z",
+    "focusBatchRecordingIntakeGeneratedAt": "2026-07-08T14:14:26.881Z",
+    "authorizationExecutionPreviewGeneratedAt": "2026-07-08T14:14:13.819Z",
+    "executionInstructionsGateCheckedAt": "2026-07-08T14:14:17.116Z",
+    "a16PostExtractionVerificationReportGeneratedAt": "2026-07-08T14:14:16.856Z",
+    "a22ReleaseSourceBlockerGeneratedAt": "2026-07-08T14:14:08.358Z",
+    "a25StrictLifecycleBlockerGeneratedAt": "2026-07-08T14:14:32.011Z",
+    "noDirtyRootDeployEvidenceGeneratedAt": "2026-07-08T14:14:09.665Z"
+  },
+  "handoffStatus": "blocked-before-merge",
+  "readyForMerge": false,
+  "summary": {
+    "activeStep": "validate",
+    "completedSteps": 2,
+    "blockedSteps": 2,
+    "ownerInputsReady": false,
+    "pendingCanonicalAuthorizationRows": 39,
+    "validAuthorizationRows": 24,
+    "focusBatchRecordingIntakeStatus": "no-focus-batch",
+    "focusBatchRows": 0,
+    "focusBatchAcceptedRows": 0,
+    "focusBatchPendingRows": 0,
+    "focusBatchOwnerInputVisibleRows": 0,
+    "preAuthorizationReadyRows": 63,
+    "preAuthorizationAttentionRows": 0,
+    "authorizationStarterRows": 63,
+    "exactCommandRows": 1,
+    "exactCommandTargetReadyRows": 1,
+    "readyExecutionInstructionRows": 0,
+    "validExecutionInstructionRows": 0,
+    "effectiveReadyExecutionInstructionRows": 1,
+    "effectiveValidExecutionInstructionRows": 1,
+    "effectivePendingReadyExecutionInstructionRows": 0,
+    "executionInstructionRowsInFile": 0,
+    "invalidExecutionInstructionRows": 0,
+    "a16PostExtractionLifecycleStatus": "post-extraction-verified",
+    "a16PostExtractionVerified": true,
+    "a16PostExtractionFailedChecks": 0,
+    "validationHoldStatus": "waiting-for-owner-compose-deletion-confirmation",
+    "releaseSourceClean": false,
+    "releaseSourceBlocked": true,
+    "strictLifecycleClean": false,
+    "strictLifecycleBlocked": true,
+    "noDirtyRootDeployPassed": true,
+    "ownerClosurePendingItems": 123,
+    "workOrderPendingItems": 123,
+    "cleanupAuthorizedRows": 0,
+    "executableRows": 0,
+    "sourceCurrentnessFailures": 0
+  },
+  "mergeChecks": [
+    {
+      "id": "sources-current",
+      "label": "All handoff sources match the current dirty map",
+      "passed": true,
+      "blocker": "",
+      "evidence": [
+        "coordination/release-intake/latest-A25-dirty-tree-map.json",
+        "coordination/release-intake/latest-A25-dirty-worktree-closure-loop-state.json",
+        "coordination/release-intake/latest-A25-dirty-worktree-remediation-completion-audit.json",
+        "coordination/release-intake/latest-A25-owner-closure-input-readiness.json",
+        "coordination/release-intake/latest-A25-owner-input-action-packet.json",
+        "coordination/release-intake/latest-A25-owner-closure-work-order-bundle.json",
+        "coordination/release-intake/latest-A25-next-owner-authorization-focus-batch-recording-intake.json",
+        "coordination/release-intake/latest-A25-next-owner-authorization-execution-preview.json",
+        "coordination/release-intake/latest-A25-next-owner-execution-instructions-current-gate.json",
+        "coordination/release-intake/latest-A25-a16-post-extraction-verification-report.json",
+        "coordination/release-intake/latest-A22-release-source-clean-blocker-evidence.json",
+        "coordination/release-intake/latest-A25-strict-worktree-lifecycle-blocker-evidence.json",
+        "coordination/release-intake/latest-A25-no-dirty-root-deploy-evidence.json",
+        "coordination/release-intake/latest-A25-validate-to-merge-handoff.json",
+        "coordination/release-intake/latest-A25-validate-to-merge-handoff.md"
+      ]
+    },
+    {
+      "id": "closure-loop-validate",
+      "label": "Closure loop is still at validate until owner inputs are complete",
+      "passed": true,
+      "blocker": "",
+      "evidence": [
+        "coordination/release-intake/latest-A25-dirty-worktree-closure-loop-state.json"
+      ]
+    },
+    {
+      "id": "preauthorization-clean",
+      "label": "Authorization pre-checks have no attention rows",
+      "passed": true,
+      "blocker": "",
+      "evidence": [
+        "coordination/release-intake/latest-A25-next-owner-authorization-execution-preview.json"
+      ]
+    },
+    {
+      "id": "focus-batch-recorded",
+      "label": "Current focus batch is recorded as canonical owner authorizations",
+      "passed": true,
+      "blocker": "",
+      "evidence": [
+        "coordination/release-intake/latest-A25-next-owner-authorization-focus-batch-recording-intake.json"
+      ]
+    },
+    {
+      "id": "canonical-authorizations-complete",
+      "label": "All canonical owner authorization rows are recorded",
+      "passed": false,
+      "blocker": "39 canonical authorization row(s) still pending",
+      "evidence": [
+        "coordination/release-intake/latest-A25-owner-closure-input-readiness.json",
+        "coordination/release-intake/latest-A25-next-owner-authorization-execution-preview.json"
+      ]
+    },
+    {
+      "id": "owner-inputs-ready",
+      "label": "Owner input readiness gate is green",
+      "passed": false,
+      "blocker": "owner inputs are not ready",
+      "evidence": [
+        "coordination/release-intake/latest-A25-owner-closure-input-readiness.json"
+      ]
+    },
+    {
+      "id": "execution-instructions-complete",
+      "label": "Ready owner execution inputs have valid separate execution instructions",
+      "passed": true,
+      "blocker": "",
+      "evidence": [
+        "coordination/release-intake/latest-A25-next-owner-execution-instructions-current-gate.json"
+      ]
+    },
+    {
+      "id": "validation-hold-released",
+      "label": "Owner-active compose-worktree validation hold is released",
+      "passed": false,
+      "blocker": "validation hold is waiting for owner compose deletion confirmation",
+      "evidence": [
+        "coordination/release-intake/latest-A25-owner-input-action-packet.json"
+      ]
+    },
+    {
+      "id": "release-source-clean",
+      "label": "A22 release-source blocker is clear before merge",
+      "passed": false,
+      "blocker": "A22 release source is not clean",
+      "evidence": [
+        "coordination/release-intake/latest-A22-release-source-clean-blocker-evidence.json"
+      ]
+    },
+    {
+      "id": "no-dirty-root-deploy",
+      "label": "No dirty-root deploy evidence is present",
+      "passed": true,
+      "blocker": "",
+      "evidence": [
+        "coordination/release-intake/latest-A25-no-dirty-root-deploy-evidence.json"
+      ]
+    },
+    {
+      "id": "non-executable-boundary",
+      "label": "Handoff remains non-executable",
+      "passed": true,
+      "blocker": "",
+      "evidence": [
+        "coordination/release-intake/latest-A25-dirty-worktree-closure-loop-state.json",
+        "coordination/release-intake/latest-A25-owner-input-action-packet.json"
+      ]
+    },
+    {
+      "id": "strict-lifecycle-not-yet-clean",
+      "label": "Strict lifecycle cleanup remains blocked until after merge verification",
+      "passed": true,
+      "blocker": "",
+      "evidence": [
+        "coordination/release-intake/latest-A25-strict-worktree-lifecycle-blocker-evidence.json"
+      ]
+    }
+  ],
+  "nextActions": [
+    "Shrink the remaining 39 pending canonical authorization row(s) through owner-reviewed focus batches.",
+    "Wait for owner confirmation that the active compose-worktree exact deletion is complete before aggregate refreshes that depend on it.",
+    "Keep A22 merge/release work on a clean worktree, clean clone, reviewed clean slice, or pruned staging directory; do not use dirty root.",
+    "Keep physical worktree/branch/root cleanup blocked until after merge verification and exact owner cleanup instructions."
+  ],
+  "sourceCurrentnessFailures": [],
+  "boundary": {
+    "evidenceOnly": true,
+    "mergeAuthorized": false,
+    "cleanupAuthorized": false,
+    "executableNow": false,
+    "destructiveGitAuthorized": false,
+    "deployAuthorized": false,
+    "dirtyRootDeployAuthorized": false,
+    "physicalCleanupAuthorized": false
+  }
+}

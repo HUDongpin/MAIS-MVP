@@ -1,0 +1,409 @@
+{
+  "generatedAt": "2026-07-07T15:48:17.250Z",
+  "dirtyMapStatusSignature": "21bf7897e245ce5bceb31315d088e7024d2e12aa53a9a098945ea69c3440b015",
+  "expandedStatusEntries": 5728,
+  "completionAuditGeneratedAt": "2026-07-07T15:48:17.203Z",
+  "completionAuditSummary": {
+    "totalRequirements": 13,
+    "completedRequirements": 9,
+    "incompleteRequirements": 4,
+    "totalPlanTasks": 10,
+    "completedPlanTasks": 3,
+    "incompletePlanTasks": 7
+  },
+  "sourceArtifacts": {
+    "dirtyMap": "coordination/release-intake/latest-A25-dirty-tree-map.json",
+    "completionAudit": "coordination/release-intake/latest-A25-dirty-worktree-remediation-completion-audit.json",
+    "nextOwnerPacket": "coordination/release-intake/latest-A25-next-owner-approval-packet.json",
+    "ownerPackageAssignments": "coordination/release-intake/latest-A25-owner-package-blocker-assignment-packet.json",
+    "wave01Assignments": "coordination/release-intake/latest-A25-wave01-typecheck-owner-assignment-packet.json",
+    "wave01ResyncTemplate": "coordination/release-intake/latest-A25-wave01-package-resync-owner-authorization-template.json",
+    "wave01Frontier": "coordination/release-intake/latest-A25-wave01-governance-frontier-readiness.json",
+    "closureSequence": "coordination/release-intake/latest-A25-dirty-worktree-closure-execution-sequence.json",
+    "physicalQueue": "coordination/release-intake/latest-A25-physical-closure-authorization-queue.json",
+    "latestJson": "coordination/release-intake/latest-A25-remaining-completion-blocker-assignment-packet.json",
+    "latestMarkdown": "coordination/release-intake/latest-A25-remaining-completion-blocker-assignment-packet.md",
+    "datedJson": "coordination/release-intake/2026-07-07-A25-remaining-completion-blocker-assignment-packet.json",
+    "datedMarkdown": "coordination/release-intake/2026-07-07-A25-remaining-completion-blocker-assignment-packet.md"
+  },
+  "note": "Assignment evidence only. A separate explicit owner instruction is required for any Git or physical cleanup operation.",
+  "summary": {
+    "assignments": 5,
+    "incompleteRequirements": 4,
+    "incompletePlanTasks": 7,
+    "cleanupAuthorizedRows": 0,
+    "executableRows": 0,
+    "agentIds": [
+      "A01",
+      "A02",
+      "A03",
+      "A04",
+      "A05",
+      "A06",
+      "A07",
+      "A08",
+      "A10",
+      "A11",
+      "A12",
+      "A13",
+      "A15",
+      "A18",
+      "A20",
+      "A21",
+      "A22",
+      "A23",
+      "A24",
+      "A25"
+    ]
+  },
+  "assignments": [
+    {
+      "assignmentId": "remaining-completion-release-source-clean",
+      "agentIds": [
+        "A22",
+        "A25",
+        "A10"
+      ],
+      "owner": "A22 release engineering with A25/A10 release-intake support",
+      "objective": "Make release-source clean possible without using dirty root as a deploy source.",
+      "nextActions": [
+        "Keep root main inventory-only until owner-package closure drains dirty entries.",
+        "Use clean worktree, clean clone, reviewed clean release slice, or owner-approved pruned staging only.",
+        "After package closure, rerun release-source clean and dirty-map zero gates."
+      ],
+      "blockerRows": [
+        {
+          "id": "root-status-clean",
+          "label": "Root git status is clean",
+          "status": "incomplete",
+          "blockingReasons": [],
+          "command": "git status --short",
+          "commandStatus": 0
+        },
+        {
+          "id": "dirty-map-current-and-zero",
+          "label": "Dirty map is current and reports zero expanded entries",
+          "status": "incomplete",
+          "blockingReasons": [],
+          "command": "npm run release:dirty-map -- --assert-current --max-age-minutes 60",
+          "commandStatus": 0
+        },
+        {
+          "id": "release-source-clean",
+          "label": "A22 release-source clean gate passes",
+          "status": "incomplete",
+          "blockingReasons": [],
+          "command": "node coordination/release-intake/assert-release-source-clean.mjs",
+          "commandStatus": 1
+        },
+        {
+          "id": "task-7-root-disposition",
+          "label": "Task 7 root dispositions",
+          "status": "blocked",
+          "blockingReasons": [
+            "Root dispositions are represented as blocker rows; no cleanup-authorized or executable root action exists."
+          ],
+          "command": null,
+          "commandStatus": null
+        }
+      ],
+      "evidence": [
+        "coordination/release-intake/latest-A25-dirty-worktree-remediation-completion-audit.json",
+        "coordination/release-intake/latest-A25-physical-closure-authorization-queue.json",
+        "coordination/release-intake/latest-A25-dirty-worktree-closure-execution-sequence.json",
+        "coordination/release-intake/latest-A25-next-owner-approval-packet.json"
+      ],
+      "acceptanceCriteria": [
+        "The blocker is resolved only by current source evidence, not by intent.",
+        "All owner work happens in isolated owner worktrees or clean release slices.",
+        "No dirty-root deploy, broad staging, restore, reset, clean, delete, branch deletion, worktree removal, or prune operation is authorized by this packet.",
+        "A25 reruns the refresh runner, aggregate currentness gate, and no-staged gate after the owner package changes state."
+      ],
+      "cleanupAuthorized": false,
+      "executableNow": false,
+      "rootStatusEntries": 1464,
+      "expandedStatusEntries": 5728,
+      "ownerPackageApprovals": 23,
+      "cleanupAuthorizedRows": 0,
+      "executableRows": 0
+    },
+    {
+      "assignmentId": "remaining-completion-worktree-lifecycle",
+      "agentIds": [
+        "A25",
+        "A22"
+      ],
+      "owner": "A25 git hygiene with A22 release-source consumer",
+      "objective": "Close strict worktree lifecycle decisions only after owner-reviewed package extraction, PR/review package, archive, retirement, or blocker decisions exist.",
+      "nextActions": [
+        "Use physical lifecycle approval rows as the source of truth.",
+        "Do not remove/prune worktrees or delete branches until exact owner authorization names the approval ID and command.",
+        "Rerun strict lifecycle only after every dirty or clean-diverged row has a reviewed final state."
+      ],
+      "blockerRows": [
+        {
+          "id": "strict-worktree-lifecycle",
+          "label": "A25 strict worktree lifecycle gate passes",
+          "status": "incomplete",
+          "blockingReasons": [],
+          "command": "node coordination/release-intake/assert-worktree-lifecycle.mjs --strict",
+          "commandStatus": null
+        },
+        {
+          "id": "task-8-linked-worktrees",
+          "label": "Task 8 linked worktree lifecycle closure",
+          "status": "incomplete",
+          "blockingReasons": [
+            "A25 strict worktree lifecycle gate passes"
+          ],
+          "command": null,
+          "commandStatus": null
+        }
+      ],
+      "evidence": [
+        "coordination/release-intake/latest-A25-dirty-worktree-remediation-completion-audit.json",
+        "coordination/release-intake/latest-A25-physical-closure-authorization-queue.json",
+        "coordination/release-intake/latest-A25-dirty-worktree-closure-execution-sequence.json"
+      ],
+      "acceptanceCriteria": [
+        "The blocker is resolved only by current source evidence, not by intent.",
+        "All owner work happens in isolated owner worktrees or clean release slices.",
+        "No dirty-root deploy, broad staging, restore, reset, clean, delete, branch deletion, worktree removal, or prune operation is authorized by this packet.",
+        "A25 reruns the refresh runner, aggregate currentness gate, and no-staged gate after the owner package changes state."
+      ],
+      "cleanupAuthorized": false,
+      "executableNow": false,
+      "physicalLifecycleApprovals": 39,
+      "dirtyLinkedApprovals": 29,
+      "cleanDivergedApprovals": 9
+    },
+    {
+      "assignmentId": "remaining-completion-wave01-governance",
+      "agentIds": [
+        "A25",
+        "A10",
+        "A22"
+      ],
+      "owner": "A25/A10/A22 governance and release-hygiene package",
+      "objective": "Make Wave 01 reviewable by resolving the current artifact-clean execution frontier, preserving the tsconfig hold, and routing remaining release-helper/type-check failures.",
+      "nextActions": [
+        "Use the Wave01 governance frontier as the current source of truth: six A25 artifact-clean rows are owner-authorized but still need a separate execution instruction.",
+        "Keep wave01-resync-01-tsconfig-json held; do not restore tsconfig.json until the owner explicitly changes that hold.",
+        "Do not run restore, clean, discard, or file deletion in the package worktree until an exact owner execution instruction is recorded.",
+        "Keep remaining npm audit, release-helper, and type-check failures routed as blockers, not as cleanup authorization."
+      ],
+      "blockerRows": [
+        {
+          "id": "task-3-wave01",
+          "label": "Task 3 governance/release-hygiene package closure",
+          "status": "incomplete",
+          "blockingReasons": [
+            "1 held package-resync row remains: wave01-resync-01-tsconfig-json",
+            "6 A25 artifact-clean row(s) still need owner authorization",
+            "npm audit --audit-level=high failed or unavailable",
+            "release helper tests failed",
+            "npm run type-check failed"
+          ],
+          "command": null,
+          "commandStatus": null
+        }
+      ],
+      "evidence": [
+        "coordination/release-intake/latest-A25-wave01-typecheck-owner-assignment-packet.json",
+        "coordination/release-intake/latest-A25-wave01-package-resync-owner-authorization-template.json",
+        "coordination/release-intake/latest-A25-wave01-governance-frontier-readiness.json",
+        "coordination/release-intake/latest-A25-wave01-governance-readiness.json"
+      ],
+      "acceptanceCriteria": [
+        "The blocker is resolved only by current source evidence, not by intent.",
+        "All owner work happens in isolated owner worktrees or clean release slices.",
+        "No dirty-root deploy, broad staging, restore, reset, clean, delete, branch deletion, worktree removal, or prune operation is authorized by this packet.",
+        "A25 reruns the refresh runner, aggregate currentness gate, and no-staged gate after the owner package changes state."
+      ],
+      "cleanupAuthorized": false,
+      "executableNow": false,
+      "wave01Assignments": 6,
+      "wave01ResyncTemplateRows": 1,
+      "wave01FrontierGeneratedAt": "2026-07-07T15:48:15.205Z",
+      "wave01FrontierStatus": "post-clean-verified",
+      "wave01ArtifactCleanAuthorizedRows": 0,
+      "wave01ArtifactCleanTargetDirtyRows": 0,
+      "wave01HeldRows": 1,
+      "wave01ValidExecutionInstructionRows": 0,
+      "wave01CleanupAuthorizedRows": 0,
+      "wave01ExecutableRows": 0
+    },
+    {
+      "assignmentId": "remaining-completion-owner-packages",
+      "agentIds": [
+        "A01",
+        "A02",
+        "A03",
+        "A04",
+        "A05",
+        "A06",
+        "A07",
+        "A08",
+        "A11",
+        "A12",
+        "A13",
+        "A15",
+        "A18",
+        "A20",
+        "A21",
+        "A23",
+        "A24"
+      ],
+      "owner": "Routed owner package sessions",
+      "objective": "Resolve or formally block Wave 02-05 owner package readiness failures in isolated owner worktrees.",
+      "nextActions": [
+        "Consume latest-A25-owner-package-blocker-assignment-packet.json.",
+        "Fix only inside each owner allowed write scope, or write an owner-routed blocker report.",
+        "Return targeted checks so A25/A22/A11 can re-evaluate readiness."
+      ],
+      "blockerRows": [
+        {
+          "id": "task-4-wave02",
+          "label": "Task 4 shared contract/backend package closure",
+          "status": "incomplete",
+          "blockingReasons": [
+            "testAnalytics failed",
+            "testBackend failed",
+            "typeCheck failed",
+            "build failed"
+          ],
+          "command": null,
+          "commandStatus": null
+        },
+        {
+          "id": "task-5-waves03-05",
+          "label": "Task 5 runtime owner package closure",
+          "status": "incomplete",
+          "blockingReasons": [
+            "A01 app shell typeCheck failed",
+            "A01 app shell appShellPlaywright failed",
+            "A02/A15 dashboard adaptive testAnalytics failed",
+            "A02/A15 dashboard adaptive typeCheck failed",
+            "A02/A15 dashboard adaptive dashboardAdaptivePlaywright failed",
+            "A03 roadmap typeCheck failed",
+            "A03 roadmap roadmapPlaywright failed",
+            "A04 practice testQuestionBank failed",
+            "A04 practice typeCheck failed",
+            "A04 practice practicePlaywright failed",
+            "A05 lesson typeCheck failed",
+            "A05 lesson lessonPlaywright failed",
+            "A18/A21/A23/A24 content evidence has 110 dirty entries outside its pathspec union",
+            "A18/A21/A23/A24 content evidence testRag failed",
+            "A18/A21/A23/A24 content evidence testQuestionBank failed",
+            "A18/A21/A23/A24 content evidence typeCheck failed",
+            "A06 visualization typeCheck failed",
+            "A06 visualization visualizationNodeTests failed",
+            "A06 visualization visualizationPlaywright failed",
+            "A07 AI tutor typeCheck failed",
+            "A07 AI tutor aiTutorPlaywright failed",
+            "A09 copy/i18n/accessibility typeCheck failed",
+            "A11 regression evidence typeCheck failed",
+            "A11 regression evidence regressionPlaywright failed",
+            "A13/A14 console typeCheck failed",
+            "A13/A14 console consolePlaywright failed",
+            "A17/A20 games and motivation typeCheck failed",
+            "A17/A20 games and motivation gameMotivationPlaywright failed"
+          ],
+          "command": null,
+          "commandStatus": null
+        },
+        {
+          "id": "task-6-content-qa",
+          "label": "Task 6 content/RAG/QA evidence closure",
+          "status": "incomplete",
+          "blockingReasons": [
+            "A04 practice testQuestionBank failed",
+            "A04 practice typeCheck failed",
+            "A04 practice practicePlaywright failed",
+            "A05 lesson typeCheck failed",
+            "A05 lesson lessonPlaywright failed",
+            "A18/A21/A23/A24 content evidence has 110 dirty entries outside its pathspec union",
+            "A18/A21/A23/A24 content evidence testRag failed",
+            "A18/A21/A23/A24 content evidence testQuestionBank failed",
+            "A18/A21/A23/A24 content evidence typeCheck failed",
+            "A06 visualization typeCheck failed",
+            "A06 visualization visualizationNodeTests failed",
+            "A06 visualization visualizationPlaywright failed",
+            "A07 AI tutor typeCheck failed",
+            "A07 AI tutor aiTutorPlaywright failed",
+            "A09 copy/i18n/accessibility typeCheck failed",
+            "A11 regression evidence typeCheck failed",
+            "A11 regression evidence regressionPlaywright failed",
+            "A13/A14 console typeCheck failed",
+            "A13/A14 console consolePlaywright failed",
+            "A17/A20 games and motivation typeCheck failed",
+            "A17/A20 games and motivation gameMotivationPlaywright failed"
+          ],
+          "command": null,
+          "commandStatus": null
+        }
+      ],
+      "evidence": [
+        "coordination/release-intake/latest-A25-owner-package-blocker-assignment-packet.json",
+        "coordination/release-intake/latest-A25-owner-package-readiness-blocker-matrix.json",
+        "coordination/release-intake/latest-A25-owner-package-blocker-routing.json"
+      ],
+      "acceptanceCriteria": [
+        "The blocker is resolved only by current source evidence, not by intent.",
+        "All owner work happens in isolated owner worktrees or clean release slices.",
+        "No dirty-root deploy, broad staging, restore, reset, clean, delete, branch deletion, worktree removal, or prune operation is authorized by this packet.",
+        "A25 reruns the refresh runner, aggregate currentness gate, and no-staged gate after the owner package changes state."
+      ],
+      "cleanupAuthorized": false,
+      "executableNow": false,
+      "routedAssignments": 11,
+      "readScopeFileLinks": 152,
+      "writeScopeFiles": 20,
+      "coordinationRequiredFiles": 32
+    },
+    {
+      "assignmentId": "remaining-completion-final-release-source",
+      "agentIds": [
+        "A22",
+        "A25",
+        "A11"
+      ],
+      "owner": "A22 release engineering with A25 release intake and A11 regression quality",
+      "objective": "Run final release-source and regression verification only after root and lifecycle closure are complete.",
+      "nextActions": [
+        "Wait for root status zero, dirty-map zero, release-source clean, and strict lifecycle green.",
+        "Then run A22 clean-source build gate and A11 targeted regression.",
+        "Do not treat current dirty-root checks as release evidence."
+      ],
+      "blockerRows": [
+        {
+          "id": "task-9-final-release-source",
+          "label": "Task 9 final release-source verification",
+          "status": "incomplete",
+          "blockingReasons": [
+            "Root git status is clean",
+            "Dirty map is current and reports zero expanded entries",
+            "A22 release-source clean gate passes",
+            "A25 strict worktree lifecycle gate passes"
+          ],
+          "command": null,
+          "commandStatus": null
+        }
+      ],
+      "evidence": [
+        "coordination/release-intake/latest-A25-dirty-worktree-remediation-completion-audit.json",
+        "coordination/release-intake/latest-A25-dirty-worktree-closure-execution-sequence.json",
+        "coordination/release-intake/latest-A25-physical-closure-authorization-queue.json"
+      ],
+      "acceptanceCriteria": [
+        "The blocker is resolved only by current source evidence, not by intent.",
+        "All owner work happens in isolated owner worktrees or clean release slices.",
+        "No dirty-root deploy, broad staging, restore, reset, clean, delete, branch deletion, worktree removal, or prune operation is authorized by this packet.",
+        "A25 reruns the refresh runner, aggregate currentness gate, and no-staged gate after the owner package changes state."
+      ],
+      "cleanupAuthorized": false,
+      "executableNow": false,
+      "prerequisite": "root-status-clean, dirty-map-current-and-zero, release-source-clean, and strict-worktree-lifecycle must all be complete first"
+    }
+  ]
+}

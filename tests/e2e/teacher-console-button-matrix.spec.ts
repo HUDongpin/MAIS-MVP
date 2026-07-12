@@ -1,8 +1,9 @@
 import { expect, test, type Locator, type Page } from "@playwright/test";
 import {
+  authenticateAsDemoStudent,
+  authenticateAsTeacher,
   collectPageErrors,
   demoStudent,
-  demoTeacher,
   expectDownloadFrom,
   expectNoPageErrors,
   fixturePath,
@@ -17,16 +18,18 @@ type TeacherNavItem = {
 };
 
 const teacherNavItems: TeacherNavItem[] = [
-  { label: "Overview", path: "/teacher", heading: /Today.?s teaching queue/i },
+  { label: "Overview", path: "/teacher/dashboard", heading: /Today.?s teaching queue/i },
   { label: "Classes", path: "/teacher/classes", heading: /Class and student management/i },
   { label: "Analytics", path: "/teacher/analytics", heading: /Class insight and intervention/i },
   { label: "Rewards", path: "/teacher/rewards", heading: /Rewards and gift redemptions/i },
-  { label: "Live", path: "/teacher/live", heading: /S3A quadratic checkpoint|Start a classroom check/i },
+  { label: "Live", path: "/teacher/classroom-sessions", heading: /S3A quadratic checkpoint|Start a classroom check/i },
   { label: "Assignments", path: "/teacher/assignments", heading: /Assignment distribution/i },
   { label: "Resources", path: "/teacher/resources", heading: /Teaching resources and papers/i },
   { label: "Assessments", path: "/teacher/assessments", heading: /Quiz, test, and mock exam management/i },
   { label: "Reports", path: "/teacher/reports", heading: /Bilingual learning reports/i },
-  { label: "Inbox", path: "/teacher/inbox", heading: /^Inbox$/i }
+  { label: "Inbox", path: "/teacher/communications/inbox", heading: /^Inbox$/i },
+  { label: "Lesson kits", path: "/teacher/lesson-kits", heading: /Lesson Kit Center/i },
+  { label: "Operations", path: "/teacher/operations/notices", heading: /Teacher operations|S1 Foundation Group|S3A Mathematics/i }
 ];
 
 function escapeRegex(value: string) {
@@ -53,19 +56,6 @@ async function expectTeacherPageReady(page: Page, item: TeacherNavItem) {
   await expect(page.getByRole("heading", { name: /This page is not available|Page not found/i })).toHaveCount(0);
   const mainText = await page.locator("main").innerText();
   expect(mainText.trim().length, `${item.label} should render meaningful main content`).toBeGreaterThan(60);
-}
-
-async function loginThroughApi(page: Page, username: string, password: string) {
-  const response = await page.request.post("/api/auth/login", {
-    data: {
-      username,
-      password,
-      grade: "S3",
-      language: "en",
-      theme: "light"
-    }
-  });
-  expect(response.ok()).toBeTruthy();
 }
 
 async function logoutThroughApi(page: Page) {
@@ -104,6 +94,26 @@ test.describe("teacher console button matrix", () => {
     test.skip(testInfo.project.name !== "desktop-chrome", "Full teacher console matrix runs on desktop; mobile has a smoke pass.");
   });
 
+  test("teacher area enforces guest, student, and teacher role routing", async ({ page }) => {
+    const pageErrors = collectPageErrors(page);
+
+    await page.goto("/teacher/dashboard");
+    await expect(page).toHaveURL(/\/login\?next=(?:%2Fteacher%2Fdashboard|\/teacher\/dashboard)/);
+
+    await authenticateAsDemoStudent(page);
+    await page.goto("/teacher/dashboard");
+    await expect(page).toHaveURL(/\/dashboard$/);
+
+    await logoutThroughApi(page);
+    await authenticateAsTeacher(page);
+    await page.goto("/teacher");
+    await expect(page).toHaveURL(/\/teacher\/dashboard$/);
+    await expect(page.getByRole("navigation", { name: /Teacher navigation/i })).toBeVisible();
+    await expect(navLink(page, "Overview")).toHaveAttribute("aria-current", "page");
+
+    expectNoPageErrors(pageErrors);
+  });
+
   test("left-side console buttons navigate, activate, and render their pages", async ({ page }) => {
     const pageErrors = collectPageErrors(page);
 
@@ -125,11 +135,11 @@ test.describe("teacher console button matrix", () => {
     const classFocus = page.getByLabel(/Class focus/i);
     await expectSelectHasOptions(classFocus, ["all", "class-s3a-2026"]);
     await classFocus.selectOption("class-s3a-2026");
-    await expect(page).toHaveURL(/\/teacher\?classId=class-s3a-2026$/);
+    await expect(page).toHaveURL(/\/teacher\/dashboard\?classId=class-s3a-2026$/);
     await expect(classFocus).toHaveValue("class-s3a-2026");
 
     await classFocus.selectOption("all");
-    await expect(page).toHaveURL(/\/teacher$/);
+    await expect(page).toHaveURL(/\/teacher\/dashboard$/);
 
     expectNoPageErrors(pageErrors);
   });
@@ -145,7 +155,7 @@ test.describe("teacher console button matrix", () => {
 
     await clickTeacherNav(page, teacherNavItems[0]);
     await page.locator("main").getByRole("link", { name: /Unreplied messages/i }).click();
-    await expect(page).toHaveURL(/\/teacher\/inbox\?filter=open$/);
+    await expect(page).toHaveURL(/\/teacher\/communications\/inbox\?filter=open$/);
 
     await clickTeacherNav(page, teacherNavItems[0]);
     await page.locator("main").getByRole("link", { name: /Weekly completion/i }).click();
@@ -153,7 +163,7 @@ test.describe("teacher console button matrix", () => {
 
     await clickTeacherNav(page, teacherNavItems[0]);
     await page.locator("main").getByRole("link", { name: /Needs attention/i }).click();
-    await expect(page).toHaveURL(/\/teacher\/classes\?filter=attention$/);
+    await expect(page).toHaveURL(/\/teacher\/analytics$/);
 
     await clickTeacherNav(page, teacherNavItems[0]);
     const classStatus = page.locator("section").filter({ hasText: /Class learning status/i }).first();
@@ -165,16 +175,16 @@ test.describe("teacher console button matrix", () => {
     await clickTeacherNav(page, teacherNavItems[0]);
     const heatmap = page.locator("section").filter({ hasText: /Weak topics by class/i }).first();
     const firstHeatmapCell = heatmap.getByRole("link").first();
-    await expect(firstHeatmapCell).toHaveAttribute("href", /\/teacher\/classes\?/);
+    await expect(firstHeatmapCell).toHaveAttribute("href", /\/teacher\/classes\/[^?]+\?/);
     await firstHeatmapCell.click();
-    await expect(page).toHaveURL(/\/teacher\/classes\?/);
+    await expect(page).toHaveURL(/\/teacher\/classes\/[^?]+\?/);
 
     await clickTeacherNav(page, teacherNavItems[0]);
     const actionQueue = page.locator("aside").filter({ hasText: /What needs attention/i }).first();
     const firstAction = actionQueue.getByRole("link").first();
-    await expect(firstAction).toHaveAttribute("href", /\/teacher\/(assignments|classes|inbox)/);
+    await expect(firstAction).toHaveAttribute("href", /\/teacher\/(assignments|classes|communications\/inbox)/);
     await firstAction.click();
-    await expect(page).toHaveURL(/\/teacher\/(assignments|classes|inbox)/);
+    await expect(page).toHaveURL(/\/teacher\/(assignments|classes|communications\/inbox)/);
 
     await clickTeacherNav(page, teacherNavItems[0]);
     await page.locator("main").getByRole("link", { name: /Open rewards/i }).click();
@@ -195,7 +205,7 @@ test.describe("teacher action endpoint sanity", () => {
   test("page-control endpoints are mounted before deep UI workflows rely on them", async ({ page }) => {
     await loginAsTeacher(page);
 
-    const rewardAwardValidation = await page.request.post("/api/teacher/rewards/award", { data: {} });
+    const rewardAwardValidation = await page.request.post("/api/teacher/reward-awards", { data: {} });
     expect.soft([400, 422], "reward award route should exist and reject invalid bodies with validation, not 404").toContain(rewardAwardValidation.status());
 
     const redemptionValidation = await page.request.patch("/api/teacher/rewards/redemptions/reward-redemption-peter-eraser", {
@@ -203,20 +213,20 @@ test.describe("teacher action endpoint sanity", () => {
     });
     expect.soft([400, 409, 422], "reward redemption route should exist and reject invalid status transitions, not 404").toContain(redemptionValidation.status());
 
-    const resourceDownload = await page.request.get("/api/teacher/resources/resource-s3-quadratics-slides/download");
+    const resourceDownload = await page.request.get("/api/teacher/resources/resource-s3-quadratics-slides/downloads");
     expect.soft(resourceDownload.status(), "teacher resource download route should return the seeded file").toBe(200);
     if (resourceDownload.ok()) {
       expect.soft(resourceDownload.headers()["content-disposition"]).toContain("s3-quadratics-intro.txt");
       expect.soft(await resourceDownload.text()).toContain("File name: s3-quadratics-intro.pptx");
     }
 
-    const reportPdf = await page.request.get("/api/teacher/reports/pdf?type=class&language=en&classId=class-s3a-2026&remarks=Endpoint%20sanity");
+    const reportPdf = await page.request.get("/api/teacher/report-exports?format=pdf&type=class&language=en&classId=class-s3a-2026&remarks=Endpoint%20sanity");
     expect.soft(reportPdf.status(), "teacher report PDF route should return a PDF").toBe(200);
     if (reportPdf.ok()) {
       expect.soft(reportPdf.headers()["content-type"]).toContain("application/pdf");
     }
 
-    const reportSave = await page.request.post("/api/teacher/reports/save", {
+    const reportSave = await page.request.post("/api/teacher/saved-reports", {
       data: {
         type: "class",
         language: "en",
@@ -226,7 +236,7 @@ test.describe("teacher action endpoint sanity", () => {
     });
     expect.soft([200, 201], "teacher report save route should persist a valid report request").toContain(reportSave.status());
 
-    const draftReply = await page.request.post("/api/teacher/inbox/message-thread-quadratic-help/draft");
+    const draftReply = await page.request.post("/api/teacher/inbox/message-thread-quadratic-help/draft-replies");
     expect.soft(draftReply.status(), "teacher inbox draft route should return a suggested reply").toBe(200);
     if (draftReply.ok()) {
       const payload = await draftReply.json() as { draft?: string };
@@ -285,10 +295,10 @@ test.describe("teacher console page workflows", () => {
     const studentLink = page.getByRole("link", { name: /HK Student Peter/i });
     await expect(studentLink).toBeVisible();
     await studentLink.click();
-    await expect(page).toHaveURL(/\/teacher\/students\/student-peter$/);
+    await expect(page).toHaveURL(/\/teacher\/classes\/[^/]+\/students\/student-peter$/);
     await expect(page.getByRole("heading", { name: /HK Student Peter/i })).toBeVisible();
     await page.getByRole("link", { name: /Back to classes/i }).click();
-    await expect(page).toHaveURL(/\/teacher\/classes$/);
+    await expect(page).toHaveURL(/\/teacher\/classes\/[^/]+$/);
 
     expectNoPageErrors(pageErrors);
   });
@@ -313,7 +323,7 @@ test.describe("teacher console page workflows", () => {
     await expect(heatmap.getByRole("link").first()).toHaveAttribute("href", /\/teacher\//);
 
     const riskList = page.locator("section").filter({ hasText: /Student risk list/i }).first();
-    await expect(riskList.getByRole("link").first()).toHaveAttribute("href", /\/teacher\/students\//);
+    await expect(riskList.getByRole("link").first()).toHaveAttribute("href", /\/teacher\/classes\/[^/]+\/students\//);
 
     const followUp = page.getByRole("button", { name: /Create follow-up/i }).first();
     await expect(followUp).toBeVisible();
@@ -345,7 +355,7 @@ test.describe("teacher console page workflows", () => {
     await pointsInput.fill("30");
     await page.getByRole("textbox", { name: /^Note$/i }).fill("Matrix coverage: clear working and persistence.");
     const awardResponse = page.waitForResponse((response) =>
-      response.url().endsWith("/api/teacher/rewards/award") && response.request().method() === "POST"
+      response.url().endsWith("/api/teacher/reward-awards") && response.request().method() === "POST"
     );
     await page.getByRole("button", { name: /^Award points$/i }).click();
     expect((await awardResponse).ok()).toBeTruthy();
@@ -353,14 +363,14 @@ test.describe("teacher console page workflows", () => {
     await expect(page.getByText(/Teacher bonus: Completed challenge/i).first()).toBeVisible();
 
     await logoutThroughApi(page);
-    await loginThroughApi(page, demoStudent.username, demoStudent.password);
+    await authenticateAsDemoStudent(page);
     const redemptionResponse = await page.request.post("/api/rewards/redeem", {
       data: { itemId: "reward-eraser" }
     });
     expect(redemptionResponse.ok()).toBeTruthy();
 
     await logoutThroughApi(page);
-    await loginThroughApi(page, demoTeacher.username, demoTeacher.password);
+    await authenticateAsTeacher(page);
     await page.goto("/teacher/rewards");
     await expect(page.getByRole("heading", { name: /Rewards and gift redemptions/i })).toBeVisible();
 
@@ -389,10 +399,10 @@ test.describe("teacher console page workflows", () => {
     await expect(page.getByText(/^Fulfilled$/i).first()).toBeVisible();
 
     const studentBalanceLink = page.locator("section").filter({ hasText: /Student balances/i }).getByRole("link", { name: /HK Student Peter/i }).first();
-    await expect(studentBalanceLink).toHaveAttribute("href", /\/teacher\/students\/student-peter/);
+    await expect(studentBalanceLink).toHaveAttribute("href", /\/teacher\/(?:students\/student-peter|classes\/class-s3a-2026\/students\/student-peter)/);
     await expectBackToTopWorks(page);
     await studentBalanceLink.click();
-    await expect(page).toHaveURL(/\/teacher\/students\/student-peter$/);
+    await expect(page).toHaveURL(/\/teacher\/(?:students\/student-peter|classes\/class-s3a-2026\/students\/student-peter)$/);
 
     expectNoPageErrors(pageErrors);
   });
@@ -420,16 +430,16 @@ test.describe("teacher console page workflows", () => {
     await answerSelect.selectOption("a");
     await startSection.getByRole("textbox", { name: /Topic ID/i }).fill("quadratic-patterns");
     const startResponse = page.waitForResponse((response) =>
-      response.url().endsWith("/api/teacher/live") && response.request().method() === "POST"
+      response.url().endsWith("/api/teacher/classroom-sessions") && response.request().method() === "POST"
     );
     await startSection.getByRole("button", { name: /^Start$/i }).click();
     expect((await startResponse).ok()).toBeTruthy();
     await expect(page.getByText(/Join code/i).first()).toBeVisible();
     const visualizationLink = page.locator("section").filter({ hasText: /Student-facing prompt/i }).first().getByRole("link").first();
-    await expect(visualizationLink).toHaveAttribute("href", /\/lesson\/|\/visualization-lab/);
+    await expect(visualizationLink).toHaveAttribute("href", /\/student\/lessons\/|\/student\/tools\/visualizations/);
     await visualizationLink.click();
-    await expect(page).toHaveURL(/\/lesson\/|\/visualization-lab/);
-    await page.goto("/teacher/live");
+    await expect(page).toHaveURL(/\/student\/lessons\/|\/student\/tools\/visualizations/);
+    await page.goto("/teacher/classroom-sessions");
     await expect(page.getByRole("button", { name: /End session/i })).toBeVisible();
     const currentJoinCode = (await page.locator("text=/^[A-Z0-9]{5,8}$/").first().innerText()).trim();
 
@@ -442,9 +452,9 @@ test.describe("teacher console page workflows", () => {
     await expect(page.getByRole("button", { name: /^A ·/i }).first()).toBeDisabled();
     await expect(page.getByRole("button", { name: /Preview only/i })).toBeDisabled();
 
-    await page.goto("/teacher/live");
+    await page.goto("/teacher/classroom-sessions");
     const endResponse = page.waitForResponse((response) =>
-      response.url().endsWith("/api/teacher/live") && response.request().method() === "PATCH"
+      response.url().endsWith("/api/teacher/classroom-sessions") && response.request().method() === "PATCH"
     );
     await page.getByRole("button", { name: /End session/i }).click();
     expect((await endResponse).ok()).toBeTruthy();
@@ -492,10 +502,17 @@ test.describe("teacher console page workflows", () => {
 
     await expect(page).toHaveURL(/\/teacher\/assignments\/assignment-/);
     await expect(page.getByRole("heading", { name: new RegExp(escapeRegex(assignmentTitle), "i") })).toBeVisible();
-    const submissionRow = page.locator("tr").filter({ hasText: /HK Student Peter/i }).first();
-    await submissionRow.locator("input").fill("91");
-    await submissionRow.getByRole("button", { name: /Save/i }).click();
-    await expect(submissionRow.getByText("91")).toBeVisible();
+    const submissionCard = page.locator("article").filter({ hasText: /HK Student Peter/i }).first();
+    await expect(submissionCard).toBeVisible();
+    await submissionCard.getByRole("spinbutton", { name: /^Score$/i }).fill("91");
+    const scoreResponse = page.waitForResponse((response) =>
+      response.url().includes("/api/teacher/submissions/") &&
+      response.url().includes("/reviews") &&
+      response.request().method() === "PATCH"
+    );
+    await submissionCard.getByRole("button", { name: /Save score/i }).click();
+    expect((await scoreResponse).ok()).toBeTruthy();
+    await expect(page.getByText(/Review recorded/i)).toBeVisible();
     await page.getByRole("link", { name: /Back to assignments/i }).click();
     await expect(page).toHaveURL(/\/teacher\/assignments$/);
 
@@ -518,11 +535,11 @@ test.describe("teacher console page workflows", () => {
     const uploadDifficulty = uploadSection.getByLabel(/Difficulty/i);
     await expectSelectHasOptions(uploadGrade, ["P1", "S3", "S6"]);
     await expectSelectHasOptions(uploadType, ["slides", "practice", "worksheet", "exam-paper", "document"]);
-    await expectSelectHasOptions(uploadDifficulty, ["Foundation", "Core", "Challenge", "Exam"]);
+    await expectSelectHasOptions(uploadDifficulty, ["Low", "Medium", "High"]);
     await uploadGrade.selectOption("S3");
     await uploadType.selectOption("worksheet");
     await uploadTopic.selectOption("quadratic-patterns");
-    await uploadDifficulty.selectOption("Core");
+    await uploadDifficulty.selectOption("Medium");
     await uploadSection.locator('input[name="file"]').setInputFiles(fixturePath("sample-resource.pdf"));
     const uploadResponse = page.waitForResponse((response) =>
       response.url().includes("/api/teacher/resources") && response.request().method() === "POST"
@@ -559,26 +576,22 @@ test.describe("teacher console page workflows", () => {
     await expectSelectHasOptions(classSelect, ["class-s3a-2026"]);
     await expectSelectHasOptions(assessmentTypeSelect, ["quiz", "test", "mock-exam", "exam"]);
     await classSelect.selectOption("class-s3a-2026");
-    await page.getByRole("button", { name: /Question bank/i }).click();
-    await expect(page.getByLabel(/Quadratic/i).first()).toBeVisible();
-    await page.getByRole("button", { name: /Manual entry/i }).click();
-    await expect(page.getByPlaceholder(/One per line/i)).toBeVisible();
-    await page.getByRole("button", { name: /Uploaded resource/i }).click();
-    await expect(page.getByLabel(/Uploaded paper\/resource/i)).toBeVisible();
-    await page.getByLabel(/Uploaded paper\/resource/i).selectOption("resource-s3-quadratics-slides");
-    await page.getByRole("button", { name: /Mistake generated/i }).click();
-    await expect(page.getByRole("button", { name: /Mistake generated/i })).toBeVisible();
-    await page.getByRole("button", { name: /Manual entry/i }).click();
     await assessmentTypeSelect.selectOption("quiz");
     await page.getByRole("textbox", { name: /^Title$/i }).fill(assessmentTitle);
-    await page.getByPlaceholder(/One per line/i).fill("What is 2 + 2? | 4 | 10");
     await page.getByRole("spinbutton", { name: /Time limit/i }).fill("20");
     await page.getByRole("spinbutton", { name: /Weight/i }).fill("10");
     await page.getByRole("spinbutton", { name: /Attempts/i }).fill("2");
+    await page.getByRole("button", { name: /2\. Select/i }).click();
+    await expect(page.getByRole("button", { name: /Question bank/i })).toBeVisible();
+    await page.getByRole("button", { name: /3\. Custom/i }).click();
+    await page.getByPlaceholder(/Question prompt/i).fill("What is 2 + 2?");
+    await page.getByRole("textbox", { name: /^Answer$/i }).fill("4");
+    await page.getByRole("button", { name: /Add manual question/i }).click();
+    await expect(page.locator("aside").getByText(/What is 2 \+ 2\?/i)).toBeVisible();
     const createAssessmentResponse = page.waitForResponse((response) =>
       response.url().includes("/api/teacher/assessments") && response.request().method() === "POST"
     );
-    await page.getByRole("button", { name: /^Create assessment$/i }).click();
+    await page.getByRole("button", { name: /^Publish assessment$/i }).click();
     expect((await createAssessmentResponse).ok()).toBeTruthy();
 
     await expect(page).toHaveURL(/\/teacher\/assessments\/assessment-/);
@@ -629,7 +642,7 @@ test.describe("teacher console page workflows", () => {
     await expectDownloadFrom(page, () => page.getByRole("link", { name: /Export CSV/i }).click({ force: true }), /student-report-.*\.csv/);
     await expectDownloadFrom(page, () => page.getByRole("link", { name: /Export PDF/i }).click({ force: true }), /student-report-.*\.pdf/);
     await page.getByRole("button", { name: /Save report/i }).click({ force: true });
-    await expect(page.getByText(/Report saved to history/i)).toBeVisible();
+    await expect(page.getByText(/Report saved and added to history/i)).toBeVisible();
     await expectBackToTopWorks(page);
 
     expectNoPageErrors(pageErrors);
@@ -644,15 +657,15 @@ test.describe("teacher console page workflows", () => {
     await clickTeacherNav(page, teacherNavItems[9]);
 
     await page.getByRole("link", { name: /Need help with vertex form/i }).click();
-    await expect(page).toHaveURL(/\/teacher\/inbox\?thread=message-thread-quadratic-help$/);
+    await expect(page).toHaveURL(/\/teacher\/communications\/inbox\?thread=message-thread-quadratic-help$/);
     const currentAssignmentLink = page.locator("aside").filter({ hasText: /Current assignments/i }).getByRole("link").first();
     await expect(currentAssignmentLink).toHaveAttribute("href", /\/teacher\/assignments\//);
     await currentAssignmentLink.click();
     await expect(page).toHaveURL(/\/teacher\/assignments\//);
-    await page.goto("/teacher/inbox?thread=message-thread-quadratic-help");
+    await page.goto("/teacher/communications/inbox?thread=message-thread-quadratic-help");
 
     const draftResponse = page.waitForResponse((response) =>
-      response.url().endsWith("/api/teacher/inbox/message-thread-quadratic-help/draft") && response.request().method() === "POST"
+      response.url().endsWith("/api/teacher/inbox/message-thread-quadratic-help/draft-replies") && response.request().method() === "POST"
     );
     await page.getByRole("button", { name: /Draft reply/i }).click();
     expect((await draftResponse).ok()).toBeTruthy();
@@ -676,7 +689,7 @@ test.describe("teacher console page workflows", () => {
 
     await replyBox.fill(reply);
     const replyResponse = page.waitForResponse((response) =>
-      response.url().endsWith("/api/teacher/inbox/message-thread-quadratic-help/reply") && response.request().method() === "POST"
+      response.url().endsWith("/api/teacher/inbox/message-thread-quadratic-help/replies") && response.request().method() === "POST"
     );
     await page.getByRole("button", { name: /Send reply/i }).click();
     expect((await replyResponse).ok()).toBeTruthy();
@@ -691,9 +704,9 @@ test.describe("teacher console mobile smoke", () => {
   test("mobile teacher console keeps every nav destination reachable", async ({ page }, testInfo) => {
     test.skip(testInfo.project.name !== "mobile-chrome", "Mobile smoke runs only in the mobile project.");
 
-    await loginThroughApi(page, demoTeacher.username, demoTeacher.password);
+    await authenticateAsTeacher(page);
     await page.goto("/teacher");
-    await expect(page).toHaveURL(/\/teacher$/);
+    await expect(page).toHaveURL(/\/teacher\/dashboard$/);
 
     for (const item of teacherNavItems) {
       await page.goto(item.path);

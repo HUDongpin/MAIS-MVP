@@ -47,10 +47,10 @@ type AttemptCheck = {
 
 const fishingRoundStorageKey = "hk-math-practice-fishing-round";
 const adventureRoundStorageKey = "hk-math-practice-adventure-round";
-const fishingAppOptions = { warmPaths: ["/practice/fishing-game"] };
-const fatalFishingRuntimePattern = /Application error|ChunkLoadError|Loading chunk \d+ failed|\/_next\/static\/chunks\/app\/practice\/fishing-game/i;
+const fishingAppOptions = { warmPaths: ["/student/practice/games/fishing-master"] };
+const fatalFishingRuntimePattern = /Application error|ChunkLoadError|Loading chunk \d+ failed|\/_next\/static\/chunks\/app\/student\/practice\/games/i;
 
-test.setTimeout(150_000);
+test.setTimeout(210_000);
 
 function practiceRegion(page: Page) {
   return page.getByRole("region", { name: /Practice questions/i });
@@ -295,7 +295,7 @@ function attachFishingRuntimeDiagnostics(page: Page) {
 
   page.on("requestfailed", (request) => {
     const url = request.url();
-    if (url.includes("/_next/static/") || url.includes("/practice/fishing-game")) {
+    if (url.includes("/_next/static/") || url.includes("/student/practice/games/fishing-master")) {
       record("requestfailed", `${request.method()} ${url} ${request.failure()?.errorText ?? "unknown failure"}`);
     }
   });
@@ -394,7 +394,12 @@ test.describe.serial("Practice Arena Fishing Game", () => {
       await page.evaluate(({ key, payload }) => {
         window.sessionStorage.setItem(key, JSON.stringify(payload));
       }, { key: fishingRoundStorageKey, payload: secondPayload });
-      await page.goto(app.url("/practice/fishing-game"), { waitUntil: "domcontentloaded" });
+
+      const legacyRoute = await page.request.get(app.url("/practice/fishing-game"), { maxRedirects: 0 });
+      expect([307, 308]).toContain(legacyRoute.status());
+      expect(legacyRoute.headers().location ?? "").toContain("/student/practice/games/fishing-master");
+
+      await page.goto(app.url("/student/practice/games/fishing-master"), { waitUntil: "domcontentloaded" });
       diagnostics.expectNoFatalErrors();
       await expect(page.getByText(/Application error: a client-side exception/i)).toHaveCount(0);
       await expect(page.getByRole("heading", { name: /Fishing Master/i })).toBeVisible();
@@ -402,7 +407,7 @@ test.describe.serial("Practice Arena Fishing Game", () => {
       if (testInfo.project.name === "mobile-chrome") {
         await expect(page.getByRole("navigation", { name: /Main navigation/i })).toBeHidden();
         await expect(page.getByRole("contentinfo")).toBeHidden();
-        await expect(page.getByRole("button", { name: /AI Tutor/i })).toHaveCount(0);
+        await expect(page.getByRole("button", { name: /Nova Tutor/i })).toHaveCount(0);
         await expect(page.getByRole("link", { name: /Back to Practice/i })).toBeVisible();
       }
       const stage = page.getByTestId("fishing-game-stage");
@@ -410,35 +415,70 @@ test.describe.serial("Practice Arena Fishing Game", () => {
       await expect(stage).toHaveAttribute("data-nets", "10");
       await expect(stage).toHaveAttribute("data-coins", "0");
       await expect(stage).toHaveAttribute("data-elapsed", "0");
-      await expect(stage).toHaveAttribute("data-fish-count", /\d+/, { timeout: 20_000 });
-      await expect(stage).toHaveAttribute("data-creature-names", /Stingray/, { timeout: 20_000 });
+      await expect(stage).toHaveAttribute("data-renderer-load", "ready", { timeout: 45_000 });
+      await expect(stage).toHaveAttribute("data-fish-count", /\d+/);
+      await expect(stage).toHaveAttribute("data-creature-names", /Stingray/);
       await expect(page.getByTestId("fishing-welcome")).toBeVisible();
 
       await page.getByTestId("fishing-start-button").click();
       await expect(stage).toHaveAttribute("data-phase", "ready", { timeout: 10_000 });
+      await expect(page.getByTestId("fishing-aim-controls")).toBeVisible();
+      await expect(stage).toHaveAttribute("data-cannon-angle", /-?\d+/, { timeout: 10_000 });
+
+      const readCannonAngle = async () => Number(await stage.getAttribute("data-cannon-angle"));
+      const initialCannonAngle = await readCannonAngle();
+      await page.keyboard.press("ArrowRight");
+      await expect.poll(readCannonAngle, { timeout: 5_000 }).toBeGreaterThan(initialCannonAngle);
+      const afterRightTapAngle = await readCannonAngle();
+      await page.keyboard.down("ArrowLeft");
+      await page.waitForTimeout(260);
+      await page.keyboard.up("ArrowLeft");
+      await expect.poll(readCannonAngle, { timeout: 5_000 }).toBeLessThan(afterRightTapAngle - 8);
+
+      const canvas = page.locator("canvas").first();
+      await expect(canvas).toBeVisible({ timeout: 10_000 });
+      const canvasBox = await canvas.boundingBox();
+      expect(canvasBox).toBeTruthy();
+      await page.mouse.click((canvasBox?.x ?? 0) + (canvasBox?.width ?? 0) * 0.76, (canvasBox?.y ?? 0) + (canvasBox?.height ?? 0) * 0.36);
+      await expect.poll(readCannonAngle, { timeout: 5_000 }).toBeGreaterThan(-115);
+      await page.mouse.click((canvasBox?.x ?? 0) + (canvasBox?.width ?? 0) * 0.14, (canvasBox?.y ?? 0) + (canvasBox?.height ?? 0) * 0.22);
+      await expect.poll(readCannonAngle, { timeout: 5_000 }).toBeLessThan(-145);
 
       const topicQuestions = questions.filter((question) => question.topicId === "quadratic-patterns");
       const answersById = new Map(questions.map((question) => [question.id, question.answer]));
       const fireButton = page.getByRole("button", { name: /Fire net/i });
       await fireButton.click();
       await expect(stage).toHaveAttribute("data-last-cast", "hit", { timeout: 10_000 });
+      await expect(page.getByTestId("fishing-impact-feedback")).toContainText(/Nice catch/i);
       await expect(stage).toHaveAttribute("data-phase", "challenge", { timeout: 10_000 });
       const fishingChallenge = page.getByTestId("fishing-challenge");
       const challengeQuestionId = await fishingChallenge.getAttribute("data-question-id");
       expect(challengeQuestionId).toBeTruthy();
       const caughtAttempt = await answerVisibleQuestion(page, answersById.get(challengeQuestionId ?? "") ?? "wrong", fishingChallenge);
       expect(caughtAttempt.correct).toBe(true);
+      await expect(page.getByTestId("fishing-reward-feedback")).toContainText(/\+1 coin/i);
       await expect(stage).toHaveAttribute("data-phase", "ready", { timeout: 10_000 });
       await expect(stage).toHaveAttribute("data-coins", "1", { timeout: 10_000 });
       await expect(stage).toHaveAttribute("data-nets", "9");
       await expect.poll(async () => Number(await stage.getAttribute("data-elapsed"))).toBeGreaterThan(0);
 
-      for (let index = 0; index < 16; index += 1) await page.keyboard.press("ArrowRight");
+      for (let index = 0; index < 32; index += 1) await page.keyboard.press("ArrowRight");
+      await expect.poll(readCannonAngle, { timeout: 5_000 }).toBeGreaterThan(-45);
       await fireButton.click();
       await expect(stage).toHaveAttribute("data-last-cast", "miss", { timeout: 10_000 });
+      await expect(page.getByTestId("fishing-impact-feedback")).toContainText(/miss/i);
       await expect(stage).toHaveAttribute("data-phase", "ready", { timeout: 10_000 });
       await expect(stage).toHaveAttribute("data-nets", "8");
       await expect(page.getByTestId("fishing-challenge")).toHaveCount(0);
+
+      let delayedCompletionRequest = false;
+      await page.route("**/api/gamification/fishing-game/complete", async (route) => {
+        if (!delayedCompletionRequest && route.request().method() === "POST") {
+          delayedCompletionRequest = true;
+          await page.waitForTimeout(6500);
+        }
+        await route.continue();
+      });
 
       for (let expectedNets = 7; expectedNets >= 0; expectedNets -= 1) {
         await fireButton.click();
@@ -448,9 +488,13 @@ test.describe.serial("Practice Arena Fishing Game", () => {
         }
       }
 
+      await expect(page.getByTestId("fishing-settlement-panel")).toContainText(/Securing your reward/i);
+      await expect(page.getByTestId("fishing-settlement-progress")).toBeVisible();
+      await expect(page.getByTestId("fishing-retry-submit")).toBeVisible({ timeout: 8_000 });
       await expect(stage).toHaveAttribute("data-phase", "submitted", { timeout: 15_000 });
       await expect(page.getByText(/Fishing Master complete/i)).toBeVisible();
       await expect(page.getByText(/coin\(s\) converted into/i)).toBeVisible();
+      await page.unroute("**/api/gamification/fishing-game/complete");
 
       const before = await readJson<StudentGamificationPayload>(await page.request.get(app.url("/api/gamification/summary")));
       await submitCorrectAttempts(app, page, topicQuestions.slice(1, 2).map((question) => question.id));

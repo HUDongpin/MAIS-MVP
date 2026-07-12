@@ -1,0 +1,2151 @@
+{
+  "generatedAt": "2026-07-03T08:46:01.537Z",
+  "dirtyMapStatusSignature": "c01ea98a87118c49adfca945884588d4008699e1175537903861425d2ff30ffc",
+  "expandedStatusEntries": 4023,
+  "sourceArtifacts": {
+    "blockerReportStarterGeneratedAt": "2026-07-03T08:38:46.081Z",
+    "blockerReportsGeneratedAt": "2026-07-03T08:38:46.298Z",
+    "nextOwnerAuthorizationsStarterGeneratedAt": "2026-07-03T08:38:56.915Z",
+    "a22GeneratedArtifactResidualAuthorizationsGeneratedAt": "2026-07-03T08:38:46.933Z",
+    "remainingCompletionAssignmentsGeneratedAt": "2026-07-03T08:38:57.275Z",
+    "ownerClosureActionQueueGeneratedAt": "2026-07-03T08:38:57.375Z"
+  },
+  "note": "Coordination evidence only. These rows narrow the next owner decisions but do not authorize physical cleanup or execution.",
+  "summary": {
+    "sourceOwnerClosurePendingItems": 138,
+    "wave01PackageResyncApprovals": 7,
+    "generatedArtifactResidualApprovals": 0,
+    "pendingOwnerBlockerReports": 10,
+    "remainingCompletionAssignments": 5,
+    "totalDecisionRows": 22,
+    "cleanupAuthorizedRows": 0,
+    "executableRows": 0
+  },
+  "criticalPath": {
+    "status": "waiting-for-owner-input",
+    "targetInputFiles": [
+      "coordination/release-intake/latest-A25-next-owner-authorizations.json",
+      "coordination/release-intake/latest-A25-wave01-package-resync-owner-authorizations.json",
+      "coordination/release-intake/latest-A25-owner-package-blocker-report-records.json"
+    ],
+    "priorityOrder": [
+      {
+        "order": 1,
+        "id": "wave01-package-resync-approvals",
+        "ownerAction": "Approve, reject, or defer the exact Wave 01 package-resync rows.",
+        "why": "These rows unblock the governance/package baseline before broader owner package closure can become reviewable.",
+        "rows": 7,
+        "approvalIds": [
+          "wave01-resync-01-tsconfig-json",
+          "wave01-resync-02-coordination-release-intake-2026-06-30-a25-dirty-tree-map-20260630t072027z-json",
+          "wave01-resync-03-coordination-release-intake-2026-06-30-a25-dirty-tree-map-20260630t072027z-md",
+          "wave01-resync-04-coordination-release-intake-2026-06-30-a25-dirty-tree-map-20260630t073137z-json",
+          "wave01-resync-05-coordination-release-intake-2026-06-30-a25-dirty-tree-map-20260630t073137z-md",
+          "wave01-resync-06-coordination-release-intake-2026-06-30-a25-dirty-tree-map-20260630t130221z-json",
+          "wave01-resync-07-coordination-release-intake-2026-06-30-a25-dirty-tree-map-20260630t130221z-md"
+        ],
+        "exactCommands": [
+          {
+            "approvalId": "wave01-resync-01-tsconfig-json",
+            "worktreePath": "/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A25-dirty-closure-governance",
+            "path": "tsconfig.json",
+            "selectedAction": "owner-approved-package-restore",
+            "exactCommand": "git restore --source=HEAD -- tsconfig.json",
+            "requiredAuthorizationText": "Authorize approvalId=wave01-resync-01-tsconfig-json; worktree=/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A25-dirty-closure-governance; path=tsconfig.json; selectedAction=owner-approved-package-restore; command=git restore --source=HEAD -- tsconfig.json; approvedBy=<owner>; approvedAt=<ISO-8601>; notes=<scope, evidence reviewed, accepted risk>"
+          },
+          {
+            "approvalId": "wave01-resync-02-coordination-release-intake-2026-06-30-a25-dirty-tree-map-20260630t072027z-json",
+            "worktreePath": "/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A25-dirty-closure-governance",
+            "path": "coordination/release-intake/2026-06-30-A25-dirty-tree-map-20260630T072027Z.json",
+            "selectedAction": "owner-approved-package-untracked-clean",
+            "exactCommand": "git clean -f -- coordination/release-intake/2026-06-30-A25-dirty-tree-map-20260630T072027Z.json",
+            "requiredAuthorizationText": "Authorize approvalId=wave01-resync-02-coordination-release-intake-2026-06-30-a25-dirty-tree-map-20260630t072027z-json; worktree=/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A25-dirty-closure-governance; path=coordination/release-intake/2026-06-30-A25-dirty-tree-map-20260630T072027Z.json; selectedAction=owner-approved-package-untracked-clean; command=git clean -f -- coordination/release-intake/2026-06-30-A25-dirty-tree-map-20260630T072027Z.json; approvedBy=<owner>; approvedAt=<ISO-8601>; notes=<scope, evidence reviewed, accepted risk>"
+          },
+          {
+            "approvalId": "wave01-resync-03-coordination-release-intake-2026-06-30-a25-dirty-tree-map-20260630t072027z-md",
+            "worktreePath": "/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A25-dirty-closure-governance",
+            "path": "coordination/release-intake/2026-06-30-A25-dirty-tree-map-20260630T072027Z.md",
+            "selectedAction": "owner-approved-package-untracked-clean",
+            "exactCommand": "git clean -f -- coordination/release-intake/2026-06-30-A25-dirty-tree-map-20260630T072027Z.md",
+            "requiredAuthorizationText": "Authorize approvalId=wave01-resync-03-coordination-release-intake-2026-06-30-a25-dirty-tree-map-20260630t072027z-md; worktree=/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A25-dirty-closure-governance; path=coordination/release-intake/2026-06-30-A25-dirty-tree-map-20260630T072027Z.md; selectedAction=owner-approved-package-untracked-clean; command=git clean -f -- coordination/release-intake/2026-06-30-A25-dirty-tree-map-20260630T072027Z.md; approvedBy=<owner>; approvedAt=<ISO-8601>; notes=<scope, evidence reviewed, accepted risk>"
+          },
+          {
+            "approvalId": "wave01-resync-04-coordination-release-intake-2026-06-30-a25-dirty-tree-map-20260630t073137z-json",
+            "worktreePath": "/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A25-dirty-closure-governance",
+            "path": "coordination/release-intake/2026-06-30-A25-dirty-tree-map-20260630T073137Z.json",
+            "selectedAction": "owner-approved-package-untracked-clean",
+            "exactCommand": "git clean -f -- coordination/release-intake/2026-06-30-A25-dirty-tree-map-20260630T073137Z.json",
+            "requiredAuthorizationText": "Authorize approvalId=wave01-resync-04-coordination-release-intake-2026-06-30-a25-dirty-tree-map-20260630t073137z-json; worktree=/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A25-dirty-closure-governance; path=coordination/release-intake/2026-06-30-A25-dirty-tree-map-20260630T073137Z.json; selectedAction=owner-approved-package-untracked-clean; command=git clean -f -- coordination/release-intake/2026-06-30-A25-dirty-tree-map-20260630T073137Z.json; approvedBy=<owner>; approvedAt=<ISO-8601>; notes=<scope, evidence reviewed, accepted risk>"
+          },
+          {
+            "approvalId": "wave01-resync-05-coordination-release-intake-2026-06-30-a25-dirty-tree-map-20260630t073137z-md",
+            "worktreePath": "/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A25-dirty-closure-governance",
+            "path": "coordination/release-intake/2026-06-30-A25-dirty-tree-map-20260630T073137Z.md",
+            "selectedAction": "owner-approved-package-untracked-clean",
+            "exactCommand": "git clean -f -- coordination/release-intake/2026-06-30-A25-dirty-tree-map-20260630T073137Z.md",
+            "requiredAuthorizationText": "Authorize approvalId=wave01-resync-05-coordination-release-intake-2026-06-30-a25-dirty-tree-map-20260630t073137z-md; worktree=/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A25-dirty-closure-governance; path=coordination/release-intake/2026-06-30-A25-dirty-tree-map-20260630T073137Z.md; selectedAction=owner-approved-package-untracked-clean; command=git clean -f -- coordination/release-intake/2026-06-30-A25-dirty-tree-map-20260630T073137Z.md; approvedBy=<owner>; approvedAt=<ISO-8601>; notes=<scope, evidence reviewed, accepted risk>"
+          },
+          {
+            "approvalId": "wave01-resync-06-coordination-release-intake-2026-06-30-a25-dirty-tree-map-20260630t130221z-json",
+            "worktreePath": "/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A25-dirty-closure-governance",
+            "path": "coordination/release-intake/2026-06-30-A25-dirty-tree-map-20260630T130221Z.json",
+            "selectedAction": "owner-approved-package-untracked-clean",
+            "exactCommand": "git clean -f -- coordination/release-intake/2026-06-30-A25-dirty-tree-map-20260630T130221Z.json",
+            "requiredAuthorizationText": "Authorize approvalId=wave01-resync-06-coordination-release-intake-2026-06-30-a25-dirty-tree-map-20260630t130221z-json; worktree=/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A25-dirty-closure-governance; path=coordination/release-intake/2026-06-30-A25-dirty-tree-map-20260630T130221Z.json; selectedAction=owner-approved-package-untracked-clean; command=git clean -f -- coordination/release-intake/2026-06-30-A25-dirty-tree-map-20260630T130221Z.json; approvedBy=<owner>; approvedAt=<ISO-8601>; notes=<scope, evidence reviewed, accepted risk>"
+          },
+          {
+            "approvalId": "wave01-resync-07-coordination-release-intake-2026-06-30-a25-dirty-tree-map-20260630t130221z-md",
+            "worktreePath": "/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A25-dirty-closure-governance",
+            "path": "coordination/release-intake/2026-06-30-A25-dirty-tree-map-20260630T130221Z.md",
+            "selectedAction": "owner-approved-package-untracked-clean",
+            "exactCommand": "git clean -f -- coordination/release-intake/2026-06-30-A25-dirty-tree-map-20260630T130221Z.md",
+            "requiredAuthorizationText": "Authorize approvalId=wave01-resync-07-coordination-release-intake-2026-06-30-a25-dirty-tree-map-20260630t130221z-md; worktree=/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A25-dirty-closure-governance; path=coordination/release-intake/2026-06-30-A25-dirty-tree-map-20260630T130221Z.md; selectedAction=owner-approved-package-untracked-clean; command=git clean -f -- coordination/release-intake/2026-06-30-A25-dirty-tree-map-20260630T130221Z.md; approvedBy=<owner>; approvedAt=<ISO-8601>; notes=<scope, evidence reviewed, accepted risk>"
+          }
+        ],
+        "cleanupAuthorizedRows": 0,
+        "executableRows": 0
+      },
+      {
+        "order": 2,
+        "id": "owner-package-blocker-report-records",
+        "ownerAction": "Ask each routed owner to either resolve blockers in its recommended worktree or record a concrete blocker report.",
+        "why": "Completion cannot advance while owner package checks remain red without scoped fixes or recorded blockers.",
+        "rows": 10,
+        "reportIds": [
+          "owner-package-blocker-report-a06",
+          "owner-package-blocker-report-a13",
+          "owner-package-blocker-report-a18",
+          "owner-package-blocker-report-a03",
+          "owner-package-blocker-report-a04",
+          "owner-package-blocker-report-a20",
+          "owner-package-blocker-report-a15",
+          "owner-package-blocker-report-a11",
+          "owner-package-blocker-report-a12",
+          "owner-package-blocker-report-a07"
+        ],
+        "agents": [
+          "A06",
+          "A13",
+          "A18",
+          "A03",
+          "A04",
+          "A20",
+          "A15",
+          "A11",
+          "A12",
+          "A07"
+        ],
+        "reports": [
+          {
+            "reportId": "owner-package-blocker-report-a06",
+            "agentId": "A06",
+            "owner": "A06 visualization lead",
+            "recommendedWorktree": "/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A06-visualization-closure",
+            "packageRows": 14,
+            "firstCheck": "npm run type-check -- --pretty false"
+          },
+          {
+            "reportId": "owner-package-blocker-report-a13",
+            "agentId": "A13",
+            "owner": "A13 teacher console lead",
+            "recommendedWorktree": "/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A13-teacher-console-closure",
+            "packageRows": 13,
+            "firstCheck": "npm run type-check -- --pretty false"
+          },
+          {
+            "reportId": "owner-package-blocker-report-a18",
+            "agentId": "A18",
+            "owner": "A18 curriculum QA and content quality lead",
+            "recommendedWorktree": "/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A18-content-qa-closure",
+            "packageRows": 4,
+            "firstCheck": "npm run test:analytics"
+          },
+          {
+            "reportId": "owner-package-blocker-report-a03",
+            "agentId": "A03",
+            "owner": "A03 curriculum roadmap lead",
+            "recommendedWorktree": "/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A03-roadmap-closure",
+            "packageRows": 3,
+            "firstCheck": "npm run test:analytics"
+          },
+          {
+            "reportId": "owner-package-blocker-report-a04",
+            "agentId": "A04",
+            "owner": "A04 practice lead",
+            "recommendedWorktree": "/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A04-practice-closure",
+            "packageRows": 2,
+            "firstCheck": "npm run test:analytics"
+          },
+          {
+            "reportId": "owner-package-blocker-report-a20",
+            "agentId": "A20",
+            "owner": "A20 game design and game-based learning lead",
+            "recommendedWorktree": "/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A17-A20-game-motivation-closure",
+            "packageRows": 8,
+            "firstCheck": "npm run type-check -- --pretty false"
+          },
+          {
+            "reportId": "owner-package-blocker-report-a15",
+            "agentId": "A15",
+            "owner": "A15 adaptive engine lead",
+            "recommendedWorktree": "/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A15-adaptive-engine-closure",
+            "packageRows": 2,
+            "firstCheck": "npm run test:analytics"
+          },
+          {
+            "reportId": "owner-package-blocker-report-a11",
+            "agentId": "A11",
+            "owner": "A11 QA and release quality lead",
+            "recommendedWorktree": "/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A11-regression-closure",
+            "packageRows": 1,
+            "firstCheck": "npm run type-check -- --pretty false"
+          },
+          {
+            "reportId": "owner-package-blocker-report-a12",
+            "agentId": "A12",
+            "owner": "A12 backend/API platform lead",
+            "recommendedWorktree": "/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A12-backend-api-closure",
+            "packageRows": 2,
+            "firstCheck": "npm run type-check -- --pretty false"
+          },
+          {
+            "reportId": "owner-package-blocker-report-a07",
+            "agentId": "A07",
+            "owner": "A07 AI tutor lead",
+            "recommendedWorktree": "/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A07-ai-tutor-closure",
+            "packageRows": 1,
+            "firstCheck": "npm run type-check -- --pretty false"
+          }
+        ],
+        "cleanupAuthorizedRows": 0,
+        "executableRows": 0
+      },
+      {
+        "order": 3,
+        "id": "canonical-final-state-decisions",
+        "ownerAction": "Select final states for the remaining owner-package and physical-lifecycle rows only after package evidence is reviewed.",
+        "why": "Strict lifecycle and dirty-map zero require reviewed final states for owner packages and linked worktrees.",
+        "rows": 61,
+        "ownerPackageRows": 24,
+        "physicalLifecycleRows": 37,
+        "authorizationGroups": [
+          {
+            "approvalKind": "owner-package",
+            "rows": 24,
+            "approvalIds": [
+              "a25-git-hygiene-and-release-intake",
+              "a22-production-reliability-and-release-engineering",
+              "a06-visualization-lead",
+              "a12-backend-api-platform",
+              "a11-qa-and-release-quality",
+              "a10-tooling-docs-and-report",
+              "a18-curriculum-qa-a21-content-pipeline",
+              "a05-lesson-lead",
+              "a21-content-pipeline-and-rag-operations",
+              "a04-practice-lead",
+              "a03-curriculum-roadmap-lead",
+              "a13-teacher-console",
+              "a01-app-shell-lead",
+              "a02-dashboard-lead",
+              "a20-game-design-and-game-based-learning",
+              "a07-ai-tutor-lead",
+              "a08-state-and-analytics-lead",
+              "a15-adaptive-engine-lead",
+              "a24-illustration-exact-layer",
+              "a14-parent-console",
+              "a16-research-and-learning-science",
+              "a09-copy-i18n-accessibility",
+              "a17-gamification-and-motivation",
+              "a23-integration-and-promotion-lead"
+            ],
+            "owners": [
+              "A01 app shell lead",
+              "A02 dashboard lead",
+              "A03 curriculum roadmap lead",
+              "A04 practice lead",
+              "A05 lesson lead",
+              "A06 visualization lead",
+              "A07 AI tutor lead",
+              "A08 state and analytics lead",
+              "A09 copy, i18n, accessibility",
+              "A10 tooling, docs, and report",
+              "A11 QA and release quality",
+              "A12 backend/API platform",
+              "A13 teacher console",
+              "A14 parent console",
+              "A15 adaptive engine lead",
+              "A16 research and learning science",
+              "A17 gamification and motivation",
+              "A18 curriculum QA / A21 content pipeline",
+              "A20 game design and game-based learning",
+              "A21 content pipeline and RAG operations",
+              "A22 production reliability and release engineering",
+              "A23 integration and promotion lead",
+              "A24 illustration exact-layer",
+              "A25 git hygiene and release intake"
+            ],
+            "cleanupAuthorizedRows": 0,
+            "executableRows": 0
+          },
+          {
+            "approvalKind": "physical-lifecycle",
+            "rows": 37,
+            "approvalIds": [
+              "root-main",
+              "codex-a01-app-shell-closure",
+              "codex-a01-shell-lazy-load",
+              "codex-a02-a15-dashboard-adaptive-closure",
+              "codex-a03-roadmap-closure",
+              "codex-a04-practice-closure",
+              "codex-a05-lesson-checklist-p0",
+              "codex-a05-lesson-closure",
+              "codex-a05-lesson-pep-load",
+              "codex-a05-next-item-button-scroll",
+              "codex-a06-manim-three-closure",
+              "codex-a06-visualization-closure",
+              "codex-a07-a15-a08-ai-adaptive-types",
+              "codex-a07-ai-tutor-classroom-switches",
+              "codex-a07-ai-tutor-closure",
+              "codex-a08-a12-shared-contract-closure",
+              "codex-a09-copy-i18n-accessibility-closure",
+              "codex-a10-a22-a08-a12-a06-compose-20260628",
+              "codex-a10-a22-release-governance",
+              "codex-a11-fix-126-128-129",
+              "codex-a11-regression-evidence-closure",
+              "codex-a12-google-oauth-login",
+              "codex-a12-userstore-storage-contract",
+              "codex-a13-a14-console-closure",
+              "codex-a16-research-evidence-closure",
+              "codex-a17-a20-game-motivation-closure",
+              "codex-a18-a21-content-evidence-closure",
+              "codex-a19-vercel-postgres-region",
+              "codex-a22-missing-module-release-slice",
+              "codex-a22-next-15-5-19-audit",
+              "codex-a22-p1-release-hygiene-security",
+              "codex-a22-us-region-alignment",
+              "codex-a25-dirty-closure-governance",
+              "codex-a25-full-dirty-compose-verification",
+              "codex-visualization-production-release",
+              "codex-california-practice-beta-clean",
+              "codex-s22-release-hygiene-2026-06-15"
+            ],
+            "owners": [
+              "A01",
+              "A02, A15",
+              "A03",
+              "A04",
+              "A05",
+              "A06",
+              "A06, A08, A10, A12, A22",
+              "A06, A22",
+              "A07",
+              "A07, A08, A15",
+              "A08, A12",
+              "A09",
+              "A10, A22",
+              "A11",
+              "A12",
+              "A13, A14",
+              "A16",
+              "A17, A20",
+              "A18, A21",
+              "A19",
+              "A21, A18, A04, A22",
+              "A22",
+              "A22, A10",
+              "A25",
+              "A25, A10, A22, effective file owners"
+            ],
+            "cleanupAuthorizedRows": 0,
+            "executableRows": 0
+          }
+        ],
+        "cleanupAuthorizedRows": 0,
+        "executableRows": 0
+      },
+      {
+        "order": 4,
+        "id": "final-clean-source-verification",
+        "ownerAction": "Run final A22/A25/A11 release-source checks only after root status, dirty-map zero, and strict lifecycle are green.",
+        "why": "Dirty-root evidence cannot prove release readiness.",
+        "rows": 5,
+        "assignmentIds": [
+          "remaining-completion-release-source-clean",
+          "remaining-completion-worktree-lifecycle",
+          "remaining-completion-wave01-governance",
+          "remaining-completion-owner-packages",
+          "remaining-completion-final-release-source"
+        ],
+        "cleanupAuthorizedRows": 0,
+        "executableRows": 0
+      }
+    ],
+    "postInputValidationCommands": [
+      "node coordination/release-intake/assert-next-owner-authorizations-current.mjs",
+      "node coordination/release-intake/generate-next-owner-authorization-execution-preview.mjs",
+      "node coordination/release-intake/assert-next-owner-authorization-execution-preview-current.mjs",
+      "node coordination/release-intake/assert-owner-package-blocker-report-records-current.mjs",
+      "node coordination/release-intake/assert-owner-closure-input-readiness-current.mjs",
+      "node coordination/release-intake/refresh-dirty-worktree-remediation-evidence.mjs --reason \"owner critical path input verification\""
+    ],
+    "cleanupAuthorizedRows": 0,
+    "executableRows": 0
+  },
+  "wave01PackageResyncApprovals": [
+    {
+      "approvalId": "wave01-resync-01-tsconfig-json",
+      "owner": "A10 tooling, docs, and report",
+      "subject": "tsconfig.json",
+      "path": "tsconfig.json",
+      "branch": "codex/A25-dirty-closure-governance",
+      "worktreePath": "/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A25-dirty-closure-governance",
+      "selectedAction": "owner-approved-package-restore",
+      "exactCommand": "git restore --source=HEAD -- tsconfig.json",
+      "requiredAuthorizationText": "Authorize approvalId=wave01-resync-01-tsconfig-json; worktree=/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A25-dirty-closure-governance; path=tsconfig.json; selectedAction=owner-approved-package-restore; command=git restore --source=HEAD -- tsconfig.json; approvedBy=<owner>; approvedAt=<ISO-8601>; notes=<scope, evidence reviewed, accepted risk>",
+      "evidence": [
+        "coordination/release-intake/latest-A25-wave01-package-resync-approval-requests.json",
+        "coordination/release-intake/latest-A25-wave01-package-resync-execution-packet.json",
+        "coordination/release-intake/latest-A25-wave01-package-resync-owner-authorization-template.json"
+      ],
+      "postApprovalChecks": [
+        "node coordination/release-intake/generate-wave01-governance-readiness.mjs",
+        "node coordination/release-intake/assert-wave01-governance-readiness-current.mjs",
+        "node coordination/release-intake/generate-wave01-package-resync-approval-requests.mjs",
+        "node coordination/release-intake/assert-wave01-package-resync-approval-requests-current.mjs",
+        "node coordination/release-intake/assert-dirty-worktree-remediation-current.mjs"
+      ],
+      "cleanupAuthorized": false,
+      "executableNow": false
+    },
+    {
+      "approvalId": "wave01-resync-02-coordination-release-intake-2026-06-30-a25-dirty-tree-map-20260630t072027z-json",
+      "owner": "A25 git hygiene and release intake",
+      "subject": "coordination/release-intake/2026-06-30-A25-dirty-tree-map-20260630T072027Z.json",
+      "path": "coordination/release-intake/2026-06-30-A25-dirty-tree-map-20260630T072027Z.json",
+      "branch": "codex/A25-dirty-closure-governance",
+      "worktreePath": "/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A25-dirty-closure-governance",
+      "selectedAction": "owner-approved-package-untracked-clean",
+      "exactCommand": "git clean -f -- coordination/release-intake/2026-06-30-A25-dirty-tree-map-20260630T072027Z.json",
+      "requiredAuthorizationText": "Authorize approvalId=wave01-resync-02-coordination-release-intake-2026-06-30-a25-dirty-tree-map-20260630t072027z-json; worktree=/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A25-dirty-closure-governance; path=coordination/release-intake/2026-06-30-A25-dirty-tree-map-20260630T072027Z.json; selectedAction=owner-approved-package-untracked-clean; command=git clean -f -- coordination/release-intake/2026-06-30-A25-dirty-tree-map-20260630T072027Z.json; approvedBy=<owner>; approvedAt=<ISO-8601>; notes=<scope, evidence reviewed, accepted risk>",
+      "evidence": [
+        "coordination/release-intake/latest-A25-wave01-package-resync-approval-requests.json",
+        "coordination/release-intake/latest-A25-wave01-package-resync-execution-packet.json",
+        "coordination/release-intake/latest-A25-wave01-package-resync-owner-authorization-template.json"
+      ],
+      "postApprovalChecks": [
+        "node coordination/release-intake/generate-wave01-governance-readiness.mjs",
+        "node coordination/release-intake/assert-wave01-governance-readiness-current.mjs",
+        "node coordination/release-intake/generate-wave01-package-resync-approval-requests.mjs",
+        "node coordination/release-intake/assert-wave01-package-resync-approval-requests-current.mjs",
+        "node coordination/release-intake/assert-dirty-worktree-remediation-current.mjs"
+      ],
+      "cleanupAuthorized": false,
+      "executableNow": false
+    },
+    {
+      "approvalId": "wave01-resync-03-coordination-release-intake-2026-06-30-a25-dirty-tree-map-20260630t072027z-md",
+      "owner": "A25 git hygiene and release intake",
+      "subject": "coordination/release-intake/2026-06-30-A25-dirty-tree-map-20260630T072027Z.md",
+      "path": "coordination/release-intake/2026-06-30-A25-dirty-tree-map-20260630T072027Z.md",
+      "branch": "codex/A25-dirty-closure-governance",
+      "worktreePath": "/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A25-dirty-closure-governance",
+      "selectedAction": "owner-approved-package-untracked-clean",
+      "exactCommand": "git clean -f -- coordination/release-intake/2026-06-30-A25-dirty-tree-map-20260630T072027Z.md",
+      "requiredAuthorizationText": "Authorize approvalId=wave01-resync-03-coordination-release-intake-2026-06-30-a25-dirty-tree-map-20260630t072027z-md; worktree=/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A25-dirty-closure-governance; path=coordination/release-intake/2026-06-30-A25-dirty-tree-map-20260630T072027Z.md; selectedAction=owner-approved-package-untracked-clean; command=git clean -f -- coordination/release-intake/2026-06-30-A25-dirty-tree-map-20260630T072027Z.md; approvedBy=<owner>; approvedAt=<ISO-8601>; notes=<scope, evidence reviewed, accepted risk>",
+      "evidence": [
+        "coordination/release-intake/latest-A25-wave01-package-resync-approval-requests.json",
+        "coordination/release-intake/latest-A25-wave01-package-resync-execution-packet.json",
+        "coordination/release-intake/latest-A25-wave01-package-resync-owner-authorization-template.json"
+      ],
+      "postApprovalChecks": [
+        "node coordination/release-intake/generate-wave01-governance-readiness.mjs",
+        "node coordination/release-intake/assert-wave01-governance-readiness-current.mjs",
+        "node coordination/release-intake/generate-wave01-package-resync-approval-requests.mjs",
+        "node coordination/release-intake/assert-wave01-package-resync-approval-requests-current.mjs",
+        "node coordination/release-intake/assert-dirty-worktree-remediation-current.mjs"
+      ],
+      "cleanupAuthorized": false,
+      "executableNow": false
+    },
+    {
+      "approvalId": "wave01-resync-04-coordination-release-intake-2026-06-30-a25-dirty-tree-map-20260630t073137z-json",
+      "owner": "A25 git hygiene and release intake",
+      "subject": "coordination/release-intake/2026-06-30-A25-dirty-tree-map-20260630T073137Z.json",
+      "path": "coordination/release-intake/2026-06-30-A25-dirty-tree-map-20260630T073137Z.json",
+      "branch": "codex/A25-dirty-closure-governance",
+      "worktreePath": "/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A25-dirty-closure-governance",
+      "selectedAction": "owner-approved-package-untracked-clean",
+      "exactCommand": "git clean -f -- coordination/release-intake/2026-06-30-A25-dirty-tree-map-20260630T073137Z.json",
+      "requiredAuthorizationText": "Authorize approvalId=wave01-resync-04-coordination-release-intake-2026-06-30-a25-dirty-tree-map-20260630t073137z-json; worktree=/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A25-dirty-closure-governance; path=coordination/release-intake/2026-06-30-A25-dirty-tree-map-20260630T073137Z.json; selectedAction=owner-approved-package-untracked-clean; command=git clean -f -- coordination/release-intake/2026-06-30-A25-dirty-tree-map-20260630T073137Z.json; approvedBy=<owner>; approvedAt=<ISO-8601>; notes=<scope, evidence reviewed, accepted risk>",
+      "evidence": [
+        "coordination/release-intake/latest-A25-wave01-package-resync-approval-requests.json",
+        "coordination/release-intake/latest-A25-wave01-package-resync-execution-packet.json",
+        "coordination/release-intake/latest-A25-wave01-package-resync-owner-authorization-template.json"
+      ],
+      "postApprovalChecks": [
+        "node coordination/release-intake/generate-wave01-governance-readiness.mjs",
+        "node coordination/release-intake/assert-wave01-governance-readiness-current.mjs",
+        "node coordination/release-intake/generate-wave01-package-resync-approval-requests.mjs",
+        "node coordination/release-intake/assert-wave01-package-resync-approval-requests-current.mjs",
+        "node coordination/release-intake/assert-dirty-worktree-remediation-current.mjs"
+      ],
+      "cleanupAuthorized": false,
+      "executableNow": false
+    },
+    {
+      "approvalId": "wave01-resync-05-coordination-release-intake-2026-06-30-a25-dirty-tree-map-20260630t073137z-md",
+      "owner": "A25 git hygiene and release intake",
+      "subject": "coordination/release-intake/2026-06-30-A25-dirty-tree-map-20260630T073137Z.md",
+      "path": "coordination/release-intake/2026-06-30-A25-dirty-tree-map-20260630T073137Z.md",
+      "branch": "codex/A25-dirty-closure-governance",
+      "worktreePath": "/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A25-dirty-closure-governance",
+      "selectedAction": "owner-approved-package-untracked-clean",
+      "exactCommand": "git clean -f -- coordination/release-intake/2026-06-30-A25-dirty-tree-map-20260630T073137Z.md",
+      "requiredAuthorizationText": "Authorize approvalId=wave01-resync-05-coordination-release-intake-2026-06-30-a25-dirty-tree-map-20260630t073137z-md; worktree=/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A25-dirty-closure-governance; path=coordination/release-intake/2026-06-30-A25-dirty-tree-map-20260630T073137Z.md; selectedAction=owner-approved-package-untracked-clean; command=git clean -f -- coordination/release-intake/2026-06-30-A25-dirty-tree-map-20260630T073137Z.md; approvedBy=<owner>; approvedAt=<ISO-8601>; notes=<scope, evidence reviewed, accepted risk>",
+      "evidence": [
+        "coordination/release-intake/latest-A25-wave01-package-resync-approval-requests.json",
+        "coordination/release-intake/latest-A25-wave01-package-resync-execution-packet.json",
+        "coordination/release-intake/latest-A25-wave01-package-resync-owner-authorization-template.json"
+      ],
+      "postApprovalChecks": [
+        "node coordination/release-intake/generate-wave01-governance-readiness.mjs",
+        "node coordination/release-intake/assert-wave01-governance-readiness-current.mjs",
+        "node coordination/release-intake/generate-wave01-package-resync-approval-requests.mjs",
+        "node coordination/release-intake/assert-wave01-package-resync-approval-requests-current.mjs",
+        "node coordination/release-intake/assert-dirty-worktree-remediation-current.mjs"
+      ],
+      "cleanupAuthorized": false,
+      "executableNow": false
+    },
+    {
+      "approvalId": "wave01-resync-06-coordination-release-intake-2026-06-30-a25-dirty-tree-map-20260630t130221z-json",
+      "owner": "A25 git hygiene and release intake",
+      "subject": "coordination/release-intake/2026-06-30-A25-dirty-tree-map-20260630T130221Z.json",
+      "path": "coordination/release-intake/2026-06-30-A25-dirty-tree-map-20260630T130221Z.json",
+      "branch": "codex/A25-dirty-closure-governance",
+      "worktreePath": "/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A25-dirty-closure-governance",
+      "selectedAction": "owner-approved-package-untracked-clean",
+      "exactCommand": "git clean -f -- coordination/release-intake/2026-06-30-A25-dirty-tree-map-20260630T130221Z.json",
+      "requiredAuthorizationText": "Authorize approvalId=wave01-resync-06-coordination-release-intake-2026-06-30-a25-dirty-tree-map-20260630t130221z-json; worktree=/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A25-dirty-closure-governance; path=coordination/release-intake/2026-06-30-A25-dirty-tree-map-20260630T130221Z.json; selectedAction=owner-approved-package-untracked-clean; command=git clean -f -- coordination/release-intake/2026-06-30-A25-dirty-tree-map-20260630T130221Z.json; approvedBy=<owner>; approvedAt=<ISO-8601>; notes=<scope, evidence reviewed, accepted risk>",
+      "evidence": [
+        "coordination/release-intake/latest-A25-wave01-package-resync-approval-requests.json",
+        "coordination/release-intake/latest-A25-wave01-package-resync-execution-packet.json",
+        "coordination/release-intake/latest-A25-wave01-package-resync-owner-authorization-template.json"
+      ],
+      "postApprovalChecks": [
+        "node coordination/release-intake/generate-wave01-governance-readiness.mjs",
+        "node coordination/release-intake/assert-wave01-governance-readiness-current.mjs",
+        "node coordination/release-intake/generate-wave01-package-resync-approval-requests.mjs",
+        "node coordination/release-intake/assert-wave01-package-resync-approval-requests-current.mjs",
+        "node coordination/release-intake/assert-dirty-worktree-remediation-current.mjs"
+      ],
+      "cleanupAuthorized": false,
+      "executableNow": false
+    },
+    {
+      "approvalId": "wave01-resync-07-coordination-release-intake-2026-06-30-a25-dirty-tree-map-20260630t130221z-md",
+      "owner": "A25 git hygiene and release intake",
+      "subject": "coordination/release-intake/2026-06-30-A25-dirty-tree-map-20260630T130221Z.md",
+      "path": "coordination/release-intake/2026-06-30-A25-dirty-tree-map-20260630T130221Z.md",
+      "branch": "codex/A25-dirty-closure-governance",
+      "worktreePath": "/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A25-dirty-closure-governance",
+      "selectedAction": "owner-approved-package-untracked-clean",
+      "exactCommand": "git clean -f -- coordination/release-intake/2026-06-30-A25-dirty-tree-map-20260630T130221Z.md",
+      "requiredAuthorizationText": "Authorize approvalId=wave01-resync-07-coordination-release-intake-2026-06-30-a25-dirty-tree-map-20260630t130221z-md; worktree=/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A25-dirty-closure-governance; path=coordination/release-intake/2026-06-30-A25-dirty-tree-map-20260630T130221Z.md; selectedAction=owner-approved-package-untracked-clean; command=git clean -f -- coordination/release-intake/2026-06-30-A25-dirty-tree-map-20260630T130221Z.md; approvedBy=<owner>; approvedAt=<ISO-8601>; notes=<scope, evidence reviewed, accepted risk>",
+      "evidence": [
+        "coordination/release-intake/latest-A25-wave01-package-resync-approval-requests.json",
+        "coordination/release-intake/latest-A25-wave01-package-resync-execution-packet.json",
+        "coordination/release-intake/latest-A25-wave01-package-resync-owner-authorization-template.json"
+      ],
+      "postApprovalChecks": [
+        "node coordination/release-intake/generate-wave01-governance-readiness.mjs",
+        "node coordination/release-intake/assert-wave01-governance-readiness-current.mjs",
+        "node coordination/release-intake/generate-wave01-package-resync-approval-requests.mjs",
+        "node coordination/release-intake/assert-wave01-package-resync-approval-requests-current.mjs",
+        "node coordination/release-intake/assert-dirty-worktree-remediation-current.mjs"
+      ],
+      "cleanupAuthorized": false,
+      "executableNow": false
+    }
+  ],
+  "generatedArtifactResidualApprovals": [],
+  "pendingOwnerBlockerReports": [
+    {
+      "reportId": "owner-package-blocker-report-a06",
+      "assignmentId": "owner-package-blocker-a06",
+      "agentId": "A06",
+      "owner": "A06 visualization lead",
+      "objective": "Resolve or formally block the owner-package blockers routed to A06 without widening beyond AGENTS.md owner scope.",
+      "recommendedWorktree": "/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A06-visualization-closure",
+      "packageRows": [
+        {
+          "matrixId": "wave-01-governance-release-hygiene:wave-01-governance-release-hygiene",
+          "packageName": "A25/A10/A22 governance and release hygiene",
+          "packageOwnerIds": [
+            "A25",
+            "A22",
+            "A10"
+          ],
+          "blockingReasons": [
+            "7 dirty entries are outside the A25/A10/A22 pathspec union",
+            "npm run type-check failed"
+          ],
+          "failedCheckNames": [
+            "typeCheck"
+          ]
+        },
+        {
+          "matrixId": "wave-02-shared-contracts:wave-02-shared-contracts",
+          "packageName": "A08/A12 shared contracts and storage/API stability",
+          "packageOwnerIds": [
+            "A08",
+            "A12"
+          ],
+          "blockingReasons": [
+            "testAnalytics failed",
+            "testBackend failed",
+            "typeCheck failed",
+            "build failed"
+          ],
+          "failedCheckNames": [
+            "testAnalytics",
+            "testBackend",
+            "typeCheck",
+            "build"
+          ]
+        },
+        {
+          "matrixId": "wave-03-shell-dashboard-roadmap:a01-app-shell",
+          "packageName": "A01 app shell",
+          "packageOwnerIds": [
+            "A01"
+          ],
+          "blockingReasons": [
+            "A01 app shell typeCheck failed",
+            "A01 app shell appShellPlaywright failed"
+          ],
+          "failedCheckNames": [
+            "typeCheck",
+            "appShellPlaywright"
+          ]
+        },
+        {
+          "matrixId": "wave-03-shell-dashboard-roadmap:a02-a15-dashboard-adaptive",
+          "packageName": "A02/A15 dashboard adaptive",
+          "packageOwnerIds": [
+            "A02",
+            "A15"
+          ],
+          "blockingReasons": [
+            "A02/A15 dashboard adaptive testAnalytics failed",
+            "A02/A15 dashboard adaptive typeCheck failed",
+            "A02/A15 dashboard adaptive dashboardAdaptivePlaywright failed"
+          ],
+          "failedCheckNames": [
+            "testAnalytics",
+            "typeCheck",
+            "dashboardAdaptivePlaywright"
+          ]
+        },
+        {
+          "matrixId": "wave-03-shell-dashboard-roadmap:a03-roadmap",
+          "packageName": "A03 roadmap",
+          "packageOwnerIds": [
+            "A03"
+          ],
+          "blockingReasons": [
+            "A03 roadmap typeCheck failed",
+            "A03 roadmap roadmapPlaywright failed"
+          ],
+          "failedCheckNames": [
+            "typeCheck",
+            "roadmapPlaywright"
+          ]
+        },
+        {
+          "matrixId": "wave-04-practice-lesson-content:a04-practice",
+          "packageName": "A04 practice",
+          "packageOwnerIds": [
+            "A04"
+          ],
+          "blockingReasons": [
+            "A04 practice testQuestionBank failed",
+            "A04 practice typeCheck failed",
+            "A04 practice practicePlaywright failed"
+          ],
+          "failedCheckNames": [
+            "testQuestionBank",
+            "typeCheck",
+            "practicePlaywright"
+          ]
+        },
+        {
+          "matrixId": "wave-04-practice-lesson-content:a05-lesson",
+          "packageName": "A05 lesson",
+          "packageOwnerIds": [
+            "A05"
+          ],
+          "blockingReasons": [
+            "A05 lesson typeCheck failed",
+            "A05 lesson lessonPlaywright failed"
+          ],
+          "failedCheckNames": [
+            "typeCheck",
+            "lessonPlaywright"
+          ]
+        },
+        {
+          "matrixId": "wave-04-practice-lesson-content:a18-a21-a23-a24-content-evidence",
+          "packageName": "A18/A21/A23/A24 content evidence",
+          "packageOwnerIds": [
+            "A18",
+            "A21",
+            "A23",
+            "A24"
+          ],
+          "blockingReasons": [
+            "A18/A21/A23/A24 content evidence testRag failed",
+            "A18/A21/A23/A24 content evidence testQuestionBank failed",
+            "A18/A21/A23/A24 content evidence typeCheck failed"
+          ],
+          "failedCheckNames": [
+            "testRag",
+            "testQuestionBank",
+            "typeCheck"
+          ]
+        },
+        {
+          "matrixId": "wave-05-visualization-ai-runtime:a06-visualization",
+          "packageName": "A06 visualization",
+          "packageOwnerIds": [
+            "A06"
+          ],
+          "blockingReasons": [
+            "A06 visualization typeCheck failed",
+            "A06 visualization visualizationNodeTests failed",
+            "A06 visualization visualizationPlaywright failed"
+          ],
+          "failedCheckNames": [
+            "typeCheck",
+            "visualizationNodeTests",
+            "visualizationPlaywright"
+          ]
+        },
+        {
+          "matrixId": "wave-05-visualization-ai-runtime:a07-ai-tutor",
+          "packageName": "A07 AI tutor",
+          "packageOwnerIds": [
+            "A07"
+          ],
+          "blockingReasons": [
+            "A07 AI tutor typeCheck failed",
+            "A07 AI tutor aiTutorPlaywright failed"
+          ],
+          "failedCheckNames": [
+            "typeCheck",
+            "aiTutorPlaywright"
+          ]
+        },
+        {
+          "matrixId": "wave-05-visualization-ai-runtime:a09-copy-i18n-accessibility",
+          "packageName": "A09 copy/i18n/accessibility",
+          "packageOwnerIds": [
+            "A09"
+          ],
+          "blockingReasons": [
+            "A09 copy/i18n/accessibility typeCheck failed"
+          ],
+          "failedCheckNames": [
+            "typeCheck"
+          ]
+        },
+        {
+          "matrixId": "wave-05-visualization-ai-runtime:a11-regression-evidence",
+          "packageName": "A11 regression evidence",
+          "packageOwnerIds": [
+            "A11"
+          ],
+          "blockingReasons": [
+            "A11 regression evidence typeCheck failed",
+            "A11 regression evidence regressionPlaywright failed"
+          ],
+          "failedCheckNames": [
+            "typeCheck",
+            "regressionPlaywright"
+          ]
+        },
+        {
+          "matrixId": "wave-05-visualization-ai-runtime:a13-a14-console",
+          "packageName": "A13/A14 console",
+          "packageOwnerIds": [
+            "A13",
+            "A14"
+          ],
+          "blockingReasons": [
+            "A13/A14 console typeCheck failed",
+            "A13/A14 console consolePlaywright failed"
+          ],
+          "failedCheckNames": [
+            "typeCheck",
+            "consolePlaywright"
+          ]
+        },
+        {
+          "matrixId": "wave-05-visualization-ai-runtime:a17-a20-game-motivation",
+          "packageName": "A17/A20 games and motivation",
+          "packageOwnerIds": [
+            "A17",
+            "A20"
+          ],
+          "blockingReasons": [
+            "A17/A20 games and motivation typeCheck failed",
+            "A17/A20 games and motivation gameMotivationPlaywright failed"
+          ],
+          "failedCheckNames": [
+            "typeCheck",
+            "gameMotivationPlaywright"
+          ]
+        }
+      ],
+      "writeScope": [
+        "components/visualizations/three/manim/MathSceneRuntime.tsx",
+        "components/visualizations/three/scenes/TemplatePrimitiveScene.tsx",
+        "components/visualizations/three/ThreeDGraphCanvas.tsx",
+        "components/visualizations/three/ThreeDLabCanvas.tsx",
+        "components/visualizations/three/threeDSceneMath.catalog.test.ts",
+        "components/visualizations/VisualizationLabPage.tsx"
+      ],
+      "coordinationRequired": [
+        {
+          "file": "components/visualizations/three/manim/MathSceneRuntime.tsx",
+          "reason": "cross-owner blocker; coordinate with package owner before editing"
+        },
+        {
+          "file": "components/visualizations/three/scenes/TemplatePrimitiveScene.tsx",
+          "reason": "cross-owner blocker; coordinate with package owner before editing"
+        },
+        {
+          "file": "components/visualizations/three/ThreeDGraphCanvas.tsx",
+          "reason": "cross-owner blocker; coordinate with package owner before editing"
+        },
+        {
+          "file": "components/visualizations/three/threeDSceneMath.catalog.test.ts",
+          "reason": "cross-owner blocker; coordinate with package owner before editing"
+        },
+        {
+          "file": "components/visualizations/VisualizationLabPage.tsx",
+          "reason": "cross-owner blocker; coordinate with package owner before editing"
+        }
+      ],
+      "checks": [
+        "npm run type-check -- --pretty false",
+        "npm run test:analytics",
+        "npm run test:backend",
+        "npm run build",
+        "npx playwright test tests/e2e/app-shell-auth.spec.ts tests/e2e/home-functional.spec.ts --project=desktop-chrome",
+        "npx playwright test tests/e2e/student-smoke.spec.ts tests/e2e/adaptive-llm-smoke.spec.ts --project=desktop-chrome",
+        "npx playwright test tests/e2e/mainland-hjb-roadmaps.spec.ts tests/e2e/mainland-pep-roadmaps.spec.ts --project=desktop-chrome",
+        "npm run test:question-bank",
+        "npx playwright test tests/e2e/practice-pager.spec.ts tests/e2e/student-smoke.spec.ts --project=desktop-chrome",
+        "npx playwright test tests/e2e/lesson-all.spec.ts tests/e2e/mainland-pep-high-lessons.spec.ts tests/e2e/california-k5-textbook-lessons.spec.ts --project=desktop-chrome",
+        "npm run test:rag",
+        "node --test components/visualizations/configuredVisualizationLabRegressions.test.ts components/visualizations/three/threeDCanvasContract.test.ts components/visualizations/visualizationDiagnostics.test.ts",
+        "npx playwright test tests/e2e/visualization-values.spec.ts tests/e2e/visualization-overlap.spec.ts --project=desktop-chrome",
+        "npx playwright test tests/e2e/ai-tutor-deepseek.spec.ts tests/e2e/ai-tutor-live-text.spec.ts --project=desktop-chrome",
+        "npx playwright test tests/e2e/student-smoke.spec.ts tests/e2e/backend-api.spec.ts --project=desktop-chrome",
+        "npx playwright test tests/e2e/teacher-workspace.spec.ts tests/e2e/parent-console.spec.ts tests/e2e/class-forum.spec.ts --project=desktop-chrome",
+        "npx playwright test tests/e2e/adventure-island.spec.ts tests/e2e/fishing-game.spec.ts tests/e2e/gamification.spec.ts --project=desktop-chrome",
+        "node coordination/release-intake/generate-owner-package-readiness-blocker-matrix.mjs",
+        "node coordination/release-intake/assert-owner-package-blocker-routing-current.mjs",
+        "node coordination/release-intake/assert-owner-package-blocker-assignment-packet-current.mjs",
+        "node coordination/release-intake/assert-dirty-worktree-remediation-current.mjs"
+      ],
+      "stopConditions": [
+        "Stop if the fix requires adding/removing package dependencies without A10/A22 approval.",
+        "Stop if the fix requires shared type/schema changes without A08 coordination.",
+        "Stop if a routed file is outside this owner's write scope and no explicit scope expansion exists.",
+        "Stop if the assignment needs owner-approved Git operations; A25 evidence alone is not authorization.",
+        "Stop if the work would expose or edit real secrets."
+      ],
+      "cleanupAuthorized": false,
+      "executableNow": false
+    },
+    {
+      "reportId": "owner-package-blocker-report-a13",
+      "assignmentId": "owner-package-blocker-a13",
+      "agentId": "A13",
+      "owner": "A13 teacher console lead",
+      "objective": "Resolve or formally block the owner-package blockers routed to A13 without widening beyond AGENTS.md owner scope.",
+      "recommendedWorktree": "/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A13-teacher-console-closure",
+      "packageRows": [
+        {
+          "matrixId": "wave-01-governance-release-hygiene:wave-01-governance-release-hygiene",
+          "packageName": "A25/A10/A22 governance and release hygiene",
+          "packageOwnerIds": [
+            "A25",
+            "A22",
+            "A10"
+          ],
+          "blockingReasons": [
+            "7 dirty entries are outside the A25/A10/A22 pathspec union",
+            "npm run type-check failed"
+          ],
+          "failedCheckNames": [
+            "typeCheck"
+          ]
+        },
+        {
+          "matrixId": "wave-03-shell-dashboard-roadmap:a01-app-shell",
+          "packageName": "A01 app shell",
+          "packageOwnerIds": [
+            "A01"
+          ],
+          "blockingReasons": [
+            "A01 app shell typeCheck failed",
+            "A01 app shell appShellPlaywright failed"
+          ],
+          "failedCheckNames": [
+            "typeCheck",
+            "appShellPlaywright"
+          ]
+        },
+        {
+          "matrixId": "wave-03-shell-dashboard-roadmap:a02-a15-dashboard-adaptive",
+          "packageName": "A02/A15 dashboard adaptive",
+          "packageOwnerIds": [
+            "A02",
+            "A15"
+          ],
+          "blockingReasons": [
+            "A02/A15 dashboard adaptive testAnalytics failed",
+            "A02/A15 dashboard adaptive typeCheck failed",
+            "A02/A15 dashboard adaptive dashboardAdaptivePlaywright failed"
+          ],
+          "failedCheckNames": [
+            "testAnalytics",
+            "typeCheck",
+            "dashboardAdaptivePlaywright"
+          ]
+        },
+        {
+          "matrixId": "wave-03-shell-dashboard-roadmap:a03-roadmap",
+          "packageName": "A03 roadmap",
+          "packageOwnerIds": [
+            "A03"
+          ],
+          "blockingReasons": [
+            "A03 roadmap typeCheck failed",
+            "A03 roadmap roadmapPlaywright failed"
+          ],
+          "failedCheckNames": [
+            "typeCheck",
+            "roadmapPlaywright"
+          ]
+        },
+        {
+          "matrixId": "wave-04-practice-lesson-content:a04-practice",
+          "packageName": "A04 practice",
+          "packageOwnerIds": [
+            "A04"
+          ],
+          "blockingReasons": [
+            "A04 practice testQuestionBank failed",
+            "A04 practice typeCheck failed",
+            "A04 practice practicePlaywright failed"
+          ],
+          "failedCheckNames": [
+            "testQuestionBank",
+            "typeCheck",
+            "practicePlaywright"
+          ]
+        },
+        {
+          "matrixId": "wave-04-practice-lesson-content:a05-lesson",
+          "packageName": "A05 lesson",
+          "packageOwnerIds": [
+            "A05"
+          ],
+          "blockingReasons": [
+            "A05 lesson typeCheck failed",
+            "A05 lesson lessonPlaywright failed"
+          ],
+          "failedCheckNames": [
+            "typeCheck",
+            "lessonPlaywright"
+          ]
+        },
+        {
+          "matrixId": "wave-04-practice-lesson-content:a18-a21-a23-a24-content-evidence",
+          "packageName": "A18/A21/A23/A24 content evidence",
+          "packageOwnerIds": [
+            "A18",
+            "A21",
+            "A23",
+            "A24"
+          ],
+          "blockingReasons": [
+            "A18/A21/A23/A24 content evidence testRag failed",
+            "A18/A21/A23/A24 content evidence testQuestionBank failed",
+            "A18/A21/A23/A24 content evidence typeCheck failed"
+          ],
+          "failedCheckNames": [
+            "testRag",
+            "testQuestionBank",
+            "typeCheck"
+          ]
+        },
+        {
+          "matrixId": "wave-05-visualization-ai-runtime:a06-visualization",
+          "packageName": "A06 visualization",
+          "packageOwnerIds": [
+            "A06"
+          ],
+          "blockingReasons": [
+            "A06 visualization typeCheck failed",
+            "A06 visualization visualizationNodeTests failed",
+            "A06 visualization visualizationPlaywright failed"
+          ],
+          "failedCheckNames": [
+            "typeCheck",
+            "visualizationNodeTests",
+            "visualizationPlaywright"
+          ]
+        },
+        {
+          "matrixId": "wave-05-visualization-ai-runtime:a07-ai-tutor",
+          "packageName": "A07 AI tutor",
+          "packageOwnerIds": [
+            "A07"
+          ],
+          "blockingReasons": [
+            "A07 AI tutor typeCheck failed",
+            "A07 AI tutor aiTutorPlaywright failed"
+          ],
+          "failedCheckNames": [
+            "typeCheck",
+            "aiTutorPlaywright"
+          ]
+        },
+        {
+          "matrixId": "wave-05-visualization-ai-runtime:a09-copy-i18n-accessibility",
+          "packageName": "A09 copy/i18n/accessibility",
+          "packageOwnerIds": [
+            "A09"
+          ],
+          "blockingReasons": [
+            "A09 copy/i18n/accessibility typeCheck failed"
+          ],
+          "failedCheckNames": [
+            "typeCheck"
+          ]
+        },
+        {
+          "matrixId": "wave-05-visualization-ai-runtime:a11-regression-evidence",
+          "packageName": "A11 regression evidence",
+          "packageOwnerIds": [
+            "A11"
+          ],
+          "blockingReasons": [
+            "A11 regression evidence typeCheck failed",
+            "A11 regression evidence regressionPlaywright failed"
+          ],
+          "failedCheckNames": [
+            "typeCheck",
+            "regressionPlaywright"
+          ]
+        },
+        {
+          "matrixId": "wave-05-visualization-ai-runtime:a13-a14-console",
+          "packageName": "A13/A14 console",
+          "packageOwnerIds": [
+            "A13",
+            "A14"
+          ],
+          "blockingReasons": [
+            "A13/A14 console typeCheck failed",
+            "A13/A14 console consolePlaywright failed"
+          ],
+          "failedCheckNames": [
+            "typeCheck",
+            "consolePlaywright"
+          ]
+        },
+        {
+          "matrixId": "wave-05-visualization-ai-runtime:a17-a20-game-motivation",
+          "packageName": "A17/A20 games and motivation",
+          "packageOwnerIds": [
+            "A17",
+            "A20"
+          ],
+          "blockingReasons": [
+            "A17/A20 games and motivation typeCheck failed",
+            "A17/A20 games and motivation gameMotivationPlaywright failed"
+          ],
+          "failedCheckNames": [
+            "typeCheck",
+            "gameMotivationPlaywright"
+          ]
+        }
+      ],
+      "writeScope": [
+        "components/teacher/TeacherLiveView.tsx",
+        "components/teacher/TeacherManagementViews.tsx",
+        "components/teacher/TeacherOperationsView.tsx",
+        "components/teacher/TeacherPrepViews.tsx",
+        "components/teacher/TeacherResourceAssessmentViews.tsx",
+        "components/teacher/TeacherReviewLessonView.tsx"
+      ],
+      "coordinationRequired": [
+        {
+          "file": "app/api/teacher/review-lessons/[reviewLessonId]/route.ts",
+          "reason": "outside this owner's AGENTS.md write scope"
+        },
+        {
+          "file": "components/teacher/TeacherOperationsView.tsx",
+          "reason": "cross-owner blocker; coordinate with package owner before editing"
+        },
+        {
+          "file": "components/teacher/TeacherPrepViews.tsx",
+          "reason": "cross-owner blocker; coordinate with package owner before editing"
+        },
+        {
+          "file": "components/teacher/TeacherReviewLessonView.tsx",
+          "reason": "cross-owner blocker; coordinate with package owner before editing"
+        },
+        {
+          "file": "lib/teacherReviewLesson.ts",
+          "reason": "outside this owner's AGENTS.md write scope"
+        },
+        {
+          "file": "lib/teacherReviewLessonPptx.ts",
+          "reason": "outside this owner's AGENTS.md write scope"
+        }
+      ],
+      "checks": [
+        "npm run type-check -- --pretty false",
+        "npx playwright test tests/e2e/app-shell-auth.spec.ts tests/e2e/home-functional.spec.ts --project=desktop-chrome",
+        "npm run test:analytics",
+        "npx playwright test tests/e2e/student-smoke.spec.ts tests/e2e/adaptive-llm-smoke.spec.ts --project=desktop-chrome",
+        "npx playwright test tests/e2e/mainland-hjb-roadmaps.spec.ts tests/e2e/mainland-pep-roadmaps.spec.ts --project=desktop-chrome",
+        "npm run test:question-bank",
+        "npx playwright test tests/e2e/practice-pager.spec.ts tests/e2e/student-smoke.spec.ts --project=desktop-chrome",
+        "npx playwright test tests/e2e/lesson-all.spec.ts tests/e2e/mainland-pep-high-lessons.spec.ts tests/e2e/california-k5-textbook-lessons.spec.ts --project=desktop-chrome",
+        "npm run test:rag",
+        "node --test components/visualizations/configuredVisualizationLabRegressions.test.ts components/visualizations/three/threeDCanvasContract.test.ts components/visualizations/visualizationDiagnostics.test.ts",
+        "npx playwright test tests/e2e/visualization-values.spec.ts tests/e2e/visualization-overlap.spec.ts --project=desktop-chrome",
+        "npx playwright test tests/e2e/ai-tutor-deepseek.spec.ts tests/e2e/ai-tutor-live-text.spec.ts --project=desktop-chrome",
+        "npx playwright test tests/e2e/student-smoke.spec.ts tests/e2e/backend-api.spec.ts --project=desktop-chrome",
+        "npx playwright test tests/e2e/teacher-workspace.spec.ts tests/e2e/parent-console.spec.ts tests/e2e/class-forum.spec.ts --project=desktop-chrome",
+        "npx playwright test tests/e2e/adventure-island.spec.ts tests/e2e/fishing-game.spec.ts tests/e2e/gamification.spec.ts --project=desktop-chrome",
+        "node coordination/release-intake/generate-owner-package-readiness-blocker-matrix.mjs",
+        "node coordination/release-intake/assert-owner-package-blocker-routing-current.mjs",
+        "node coordination/release-intake/assert-owner-package-blocker-assignment-packet-current.mjs",
+        "node coordination/release-intake/assert-dirty-worktree-remediation-current.mjs"
+      ],
+      "stopConditions": [
+        "Stop if the fix requires adding/removing package dependencies without A10/A22 approval.",
+        "Stop if the fix requires shared type/schema changes without A08 coordination.",
+        "Stop if a routed file is outside this owner's write scope and no explicit scope expansion exists.",
+        "Stop if the assignment needs owner-approved Git operations; A25 evidence alone is not authorization.",
+        "Stop if the work would expose or edit real secrets."
+      ],
+      "cleanupAuthorized": false,
+      "executableNow": false
+    },
+    {
+      "reportId": "owner-package-blocker-report-a18",
+      "assignmentId": "owner-package-blocker-a18",
+      "agentId": "A18",
+      "owner": "A18 curriculum QA and content quality lead",
+      "objective": "Resolve or formally block the owner-package blockers routed to A18 without widening beyond AGENTS.md owner scope.",
+      "recommendedWorktree": "/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A18-content-qa-closure",
+      "packageRows": [
+        {
+          "matrixId": "wave-02-shared-contracts:wave-02-shared-contracts",
+          "packageName": "A08/A12 shared contracts and storage/API stability",
+          "packageOwnerIds": [
+            "A08",
+            "A12"
+          ],
+          "blockingReasons": [
+            "testAnalytics failed",
+            "testBackend failed",
+            "typeCheck failed",
+            "build failed"
+          ],
+          "failedCheckNames": [
+            "testAnalytics",
+            "testBackend",
+            "typeCheck",
+            "build"
+          ]
+        },
+        {
+          "matrixId": "wave-03-shell-dashboard-roadmap:a03-roadmap",
+          "packageName": "A03 roadmap",
+          "packageOwnerIds": [
+            "A03"
+          ],
+          "blockingReasons": [
+            "A03 roadmap typeCheck failed",
+            "A03 roadmap roadmapPlaywright failed"
+          ],
+          "failedCheckNames": [
+            "typeCheck",
+            "roadmapPlaywright"
+          ]
+        },
+        {
+          "matrixId": "wave-04-practice-lesson-content:a04-practice",
+          "packageName": "A04 practice",
+          "packageOwnerIds": [
+            "A04"
+          ],
+          "blockingReasons": [
+            "A04 practice testQuestionBank failed",
+            "A04 practice typeCheck failed",
+            "A04 practice practicePlaywright failed"
+          ],
+          "failedCheckNames": [
+            "testQuestionBank",
+            "typeCheck",
+            "practicePlaywright"
+          ]
+        },
+        {
+          "matrixId": "wave-04-practice-lesson-content:a05-lesson",
+          "packageName": "A05 lesson",
+          "packageOwnerIds": [
+            "A05"
+          ],
+          "blockingReasons": [
+            "A05 lesson typeCheck failed",
+            "A05 lesson lessonPlaywright failed"
+          ],
+          "failedCheckNames": [
+            "typeCheck",
+            "lessonPlaywright"
+          ]
+        }
+      ],
+      "writeScope": [],
+      "coordinationRequired": [
+        {
+          "file": "data/mainlandPepHighTopics.ts",
+          "reason": "outside this owner's AGENTS.md write scope"
+        },
+        {
+          "file": "data/mainlandPepPrimaryTopics.ts",
+          "reason": "outside this owner's AGENTS.md write scope"
+        },
+        {
+          "file": "data/questions.ts",
+          "reason": "outside this owner's AGENTS.md write scope"
+        },
+        {
+          "file": "data/topics.ts",
+          "reason": "outside this owner's AGENTS.md write scope"
+        },
+        {
+          "file": "data/usCaliforniaLessons.test.ts",
+          "reason": "outside this owner's AGENTS.md write scope"
+        },
+        {
+          "file": "data/usCaliforniaLessons.ts",
+          "reason": "outside this owner's AGENTS.md write scope"
+        }
+      ],
+      "checks": [
+        "npm run test:analytics",
+        "npm run test:backend",
+        "npm run type-check -- --pretty false",
+        "npm run build",
+        "npx playwright test tests/e2e/mainland-hjb-roadmaps.spec.ts tests/e2e/mainland-pep-roadmaps.spec.ts --project=desktop-chrome",
+        "npm run test:question-bank",
+        "npx playwright test tests/e2e/practice-pager.spec.ts tests/e2e/student-smoke.spec.ts --project=desktop-chrome",
+        "npx playwright test tests/e2e/lesson-all.spec.ts tests/e2e/mainland-pep-high-lessons.spec.ts tests/e2e/california-k5-textbook-lessons.spec.ts --project=desktop-chrome",
+        "node coordination/release-intake/generate-owner-package-readiness-blocker-matrix.mjs",
+        "node coordination/release-intake/assert-owner-package-blocker-routing-current.mjs",
+        "node coordination/release-intake/assert-owner-package-blocker-assignment-packet-current.mjs",
+        "node coordination/release-intake/assert-dirty-worktree-remediation-current.mjs"
+      ],
+      "stopConditions": [
+        "Stop if the fix requires adding/removing package dependencies without A10/A22 approval.",
+        "Stop if the fix requires shared type/schema changes without A08 coordination.",
+        "Stop if a routed file is outside this owner's write scope and no explicit scope expansion exists.",
+        "Stop if the assignment needs owner-approved Git operations; A25 evidence alone is not authorization.",
+        "Stop if the work would expose or edit real secrets."
+      ],
+      "cleanupAuthorized": false,
+      "executableNow": false
+    },
+    {
+      "reportId": "owner-package-blocker-report-a03",
+      "assignmentId": "owner-package-blocker-a03",
+      "agentId": "A03",
+      "owner": "A03 curriculum roadmap lead",
+      "objective": "Resolve or formally block the owner-package blockers routed to A03 without widening beyond AGENTS.md owner scope.",
+      "recommendedWorktree": "/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A03-roadmap-closure",
+      "packageRows": [
+        {
+          "matrixId": "wave-02-shared-contracts:wave-02-shared-contracts",
+          "packageName": "A08/A12 shared contracts and storage/API stability",
+          "packageOwnerIds": [
+            "A08",
+            "A12"
+          ],
+          "blockingReasons": [
+            "testAnalytics failed",
+            "testBackend failed",
+            "typeCheck failed",
+            "build failed"
+          ],
+          "failedCheckNames": [
+            "testAnalytics",
+            "testBackend",
+            "typeCheck",
+            "build"
+          ]
+        },
+        {
+          "matrixId": "wave-03-shell-dashboard-roadmap:a03-roadmap",
+          "packageName": "A03 roadmap",
+          "packageOwnerIds": [
+            "A03"
+          ],
+          "blockingReasons": [
+            "A03 roadmap typeCheck failed",
+            "A03 roadmap roadmapPlaywright failed"
+          ],
+          "failedCheckNames": [
+            "typeCheck",
+            "roadmapPlaywright"
+          ]
+        },
+        {
+          "matrixId": "wave-04-practice-lesson-content:a05-lesson",
+          "packageName": "A05 lesson",
+          "packageOwnerIds": [
+            "A05"
+          ],
+          "blockingReasons": [
+            "A05 lesson typeCheck failed",
+            "A05 lesson lessonPlaywright failed"
+          ],
+          "failedCheckNames": [
+            "typeCheck",
+            "lessonPlaywright"
+          ]
+        }
+      ],
+      "writeScope": [
+        "data/topics.ts"
+      ],
+      "coordinationRequired": [
+        {
+          "file": "data/mainlandPepHighTopics.ts",
+          "reason": "outside this owner's AGENTS.md write scope"
+        },
+        {
+          "file": "data/mainlandPepPrimaryTopics.ts",
+          "reason": "outside this owner's AGENTS.md write scope"
+        },
+        {
+          "file": "data/topics.ts",
+          "reason": "cross-owner blocker; coordinate with package owner before editing"
+        },
+        {
+          "file": "data/usCaliforniaLessons.test.ts",
+          "reason": "outside this owner's AGENTS.md write scope"
+        },
+        {
+          "file": "data/usCaliforniaLessons.ts",
+          "reason": "outside this owner's AGENTS.md write scope"
+        }
+      ],
+      "checks": [
+        "npm run test:analytics",
+        "npm run test:backend",
+        "npm run type-check -- --pretty false",
+        "npm run build",
+        "npx playwright test tests/e2e/mainland-hjb-roadmaps.spec.ts tests/e2e/mainland-pep-roadmaps.spec.ts --project=desktop-chrome",
+        "npx playwright test tests/e2e/lesson-all.spec.ts tests/e2e/mainland-pep-high-lessons.spec.ts tests/e2e/california-k5-textbook-lessons.spec.ts --project=desktop-chrome",
+        "node coordination/release-intake/generate-owner-package-readiness-blocker-matrix.mjs",
+        "node coordination/release-intake/assert-owner-package-blocker-routing-current.mjs",
+        "node coordination/release-intake/assert-owner-package-blocker-assignment-packet-current.mjs",
+        "node coordination/release-intake/assert-dirty-worktree-remediation-current.mjs"
+      ],
+      "stopConditions": [
+        "Stop if the fix requires adding/removing package dependencies without A10/A22 approval.",
+        "Stop if the fix requires shared type/schema changes without A08 coordination.",
+        "Stop if a routed file is outside this owner's write scope and no explicit scope expansion exists.",
+        "Stop if the assignment needs owner-approved Git operations; A25 evidence alone is not authorization.",
+        "Stop if the work would expose or edit real secrets."
+      ],
+      "cleanupAuthorized": false,
+      "executableNow": false
+    },
+    {
+      "reportId": "owner-package-blocker-report-a04",
+      "assignmentId": "owner-package-blocker-a04",
+      "agentId": "A04",
+      "owner": "A04 practice lead",
+      "objective": "Resolve or formally block the owner-package blockers routed to A04 without widening beyond AGENTS.md owner scope.",
+      "recommendedWorktree": "/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A04-practice-closure",
+      "packageRows": [
+        {
+          "matrixId": "wave-02-shared-contracts:wave-02-shared-contracts",
+          "packageName": "A08/A12 shared contracts and storage/API stability",
+          "packageOwnerIds": [
+            "A08",
+            "A12"
+          ],
+          "blockingReasons": [
+            "testAnalytics failed",
+            "testBackend failed",
+            "typeCheck failed",
+            "build failed"
+          ],
+          "failedCheckNames": [
+            "testAnalytics",
+            "testBackend",
+            "typeCheck",
+            "build"
+          ]
+        },
+        {
+          "matrixId": "wave-04-practice-lesson-content:a04-practice",
+          "packageName": "A04 practice",
+          "packageOwnerIds": [
+            "A04"
+          ],
+          "blockingReasons": [
+            "A04 practice testQuestionBank failed",
+            "A04 practice typeCheck failed",
+            "A04 practice practicePlaywright failed"
+          ],
+          "failedCheckNames": [
+            "testQuestionBank",
+            "typeCheck",
+            "practicePlaywright"
+          ]
+        }
+      ],
+      "writeScope": [
+        "data/questions.ts"
+      ],
+      "coordinationRequired": [
+        {
+          "file": "data/questions.ts",
+          "reason": "cross-owner blocker; coordinate with package owner before editing"
+        }
+      ],
+      "checks": [
+        "npm run test:analytics",
+        "npm run test:backend",
+        "npm run type-check -- --pretty false",
+        "npm run build",
+        "npm run test:question-bank",
+        "npx playwright test tests/e2e/practice-pager.spec.ts tests/e2e/student-smoke.spec.ts --project=desktop-chrome",
+        "node coordination/release-intake/generate-owner-package-readiness-blocker-matrix.mjs",
+        "node coordination/release-intake/assert-owner-package-blocker-routing-current.mjs",
+        "node coordination/release-intake/assert-owner-package-blocker-assignment-packet-current.mjs",
+        "node coordination/release-intake/assert-dirty-worktree-remediation-current.mjs"
+      ],
+      "stopConditions": [
+        "Stop if the fix requires adding/removing package dependencies without A10/A22 approval.",
+        "Stop if the fix requires shared type/schema changes without A08 coordination.",
+        "Stop if a routed file is outside this owner's write scope and no explicit scope expansion exists.",
+        "Stop if the assignment needs owner-approved Git operations; A25 evidence alone is not authorization.",
+        "Stop if the work would expose or edit real secrets."
+      ],
+      "cleanupAuthorized": false,
+      "executableNow": false
+    },
+    {
+      "reportId": "owner-package-blocker-report-a20",
+      "assignmentId": "owner-package-blocker-a20",
+      "agentId": "A20",
+      "owner": "A20 game design and game-based learning lead",
+      "objective": "Resolve or formally block the owner-package blockers routed to A20 without widening beyond AGENTS.md owner scope.",
+      "recommendedWorktree": "/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A17-A20-game-motivation-closure",
+      "packageRows": [
+        {
+          "matrixId": "wave-01-governance-release-hygiene:wave-01-governance-release-hygiene",
+          "packageName": "A25/A10/A22 governance and release hygiene",
+          "packageOwnerIds": [
+            "A25",
+            "A22",
+            "A10"
+          ],
+          "blockingReasons": [
+            "7 dirty entries are outside the A25/A10/A22 pathspec union",
+            "npm run type-check failed"
+          ],
+          "failedCheckNames": [
+            "typeCheck"
+          ]
+        },
+        {
+          "matrixId": "wave-02-shared-contracts:wave-02-shared-contracts",
+          "packageName": "A08/A12 shared contracts and storage/API stability",
+          "packageOwnerIds": [
+            "A08",
+            "A12"
+          ],
+          "blockingReasons": [
+            "testAnalytics failed",
+            "testBackend failed",
+            "typeCheck failed",
+            "build failed"
+          ],
+          "failedCheckNames": [
+            "testAnalytics",
+            "testBackend",
+            "typeCheck",
+            "build"
+          ]
+        },
+        {
+          "matrixId": "wave-03-shell-dashboard-roadmap:a01-app-shell",
+          "packageName": "A01 app shell",
+          "packageOwnerIds": [
+            "A01"
+          ],
+          "blockingReasons": [
+            "A01 app shell typeCheck failed",
+            "A01 app shell appShellPlaywright failed"
+          ],
+          "failedCheckNames": [
+            "typeCheck",
+            "appShellPlaywright"
+          ]
+        },
+        {
+          "matrixId": "wave-04-practice-lesson-content:a18-a21-a23-a24-content-evidence",
+          "packageName": "A18/A21/A23/A24 content evidence",
+          "packageOwnerIds": [
+            "A18",
+            "A21",
+            "A23",
+            "A24"
+          ],
+          "blockingReasons": [
+            "A18/A21/A23/A24 content evidence testRag failed",
+            "A18/A21/A23/A24 content evidence testQuestionBank failed",
+            "A18/A21/A23/A24 content evidence typeCheck failed"
+          ],
+          "failedCheckNames": [
+            "testRag",
+            "testQuestionBank",
+            "typeCheck"
+          ]
+        },
+        {
+          "matrixId": "wave-05-visualization-ai-runtime:a06-visualization",
+          "packageName": "A06 visualization",
+          "packageOwnerIds": [
+            "A06"
+          ],
+          "blockingReasons": [
+            "A06 visualization typeCheck failed",
+            "A06 visualization visualizationNodeTests failed",
+            "A06 visualization visualizationPlaywright failed"
+          ],
+          "failedCheckNames": [
+            "typeCheck",
+            "visualizationNodeTests",
+            "visualizationPlaywright"
+          ]
+        },
+        {
+          "matrixId": "wave-05-visualization-ai-runtime:a07-ai-tutor",
+          "packageName": "A07 AI tutor",
+          "packageOwnerIds": [
+            "A07"
+          ],
+          "blockingReasons": [
+            "A07 AI tutor typeCheck failed",
+            "A07 AI tutor aiTutorPlaywright failed"
+          ],
+          "failedCheckNames": [
+            "typeCheck",
+            "aiTutorPlaywright"
+          ]
+        },
+        {
+          "matrixId": "wave-05-visualization-ai-runtime:a09-copy-i18n-accessibility",
+          "packageName": "A09 copy/i18n/accessibility",
+          "packageOwnerIds": [
+            "A09"
+          ],
+          "blockingReasons": [
+            "A09 copy/i18n/accessibility typeCheck failed"
+          ],
+          "failedCheckNames": [
+            "typeCheck"
+          ]
+        },
+        {
+          "matrixId": "wave-05-visualization-ai-runtime:a11-regression-evidence",
+          "packageName": "A11 regression evidence",
+          "packageOwnerIds": [
+            "A11"
+          ],
+          "blockingReasons": [
+            "A11 regression evidence typeCheck failed",
+            "A11 regression evidence regressionPlaywright failed"
+          ],
+          "failedCheckNames": [
+            "typeCheck",
+            "regressionPlaywright"
+          ]
+        }
+      ],
+      "writeScope": [
+        "components/games/MathVirusBlasterGame.tsx",
+        "components/games/MightyTankBattleGame.tsx"
+      ],
+      "coordinationRequired": [
+        {
+          "file": "components/games/MathVirusBlasterGame.tsx",
+          "reason": "cross-owner blocker; coordinate with package owner before editing"
+        },
+        {
+          "file": "components/games/MightyTankBattleGame.tsx",
+          "reason": "cross-owner blocker; coordinate with package owner before editing"
+        }
+      ],
+      "checks": [
+        "npm run type-check -- --pretty false",
+        "npm run test:analytics",
+        "npm run test:backend",
+        "npm run build",
+        "npx playwright test tests/e2e/app-shell-auth.spec.ts tests/e2e/home-functional.spec.ts --project=desktop-chrome",
+        "npm run test:rag",
+        "npm run test:question-bank",
+        "node --test components/visualizations/configuredVisualizationLabRegressions.test.ts components/visualizations/three/threeDCanvasContract.test.ts components/visualizations/visualizationDiagnostics.test.ts",
+        "npx playwright test tests/e2e/visualization-values.spec.ts tests/e2e/visualization-overlap.spec.ts --project=desktop-chrome",
+        "npx playwright test tests/e2e/ai-tutor-deepseek.spec.ts tests/e2e/ai-tutor-live-text.spec.ts --project=desktop-chrome",
+        "npx playwright test tests/e2e/student-smoke.spec.ts tests/e2e/backend-api.spec.ts --project=desktop-chrome",
+        "node coordination/release-intake/generate-owner-package-readiness-blocker-matrix.mjs",
+        "node coordination/release-intake/assert-owner-package-blocker-routing-current.mjs",
+        "node coordination/release-intake/assert-owner-package-blocker-assignment-packet-current.mjs",
+        "node coordination/release-intake/assert-dirty-worktree-remediation-current.mjs"
+      ],
+      "stopConditions": [
+        "Stop if the fix requires adding/removing package dependencies without A10/A22 approval.",
+        "Stop if the fix requires shared type/schema changes without A08 coordination.",
+        "Stop if a routed file is outside this owner's write scope and no explicit scope expansion exists.",
+        "Stop if the assignment needs owner-approved Git operations; A25 evidence alone is not authorization.",
+        "Stop if the work would expose or edit real secrets."
+      ],
+      "cleanupAuthorized": false,
+      "executableNow": false
+    },
+    {
+      "reportId": "owner-package-blocker-report-a15",
+      "assignmentId": "owner-package-blocker-a15",
+      "agentId": "A15",
+      "owner": "A15 adaptive engine lead",
+      "objective": "Resolve or formally block the owner-package blockers routed to A15 without widening beyond AGENTS.md owner scope.",
+      "recommendedWorktree": "/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A15-adaptive-engine-closure",
+      "packageRows": [
+        {
+          "matrixId": "wave-02-shared-contracts:wave-02-shared-contracts",
+          "packageName": "A08/A12 shared contracts and storage/API stability",
+          "packageOwnerIds": [
+            "A08",
+            "A12"
+          ],
+          "blockingReasons": [
+            "testAnalytics failed",
+            "testBackend failed",
+            "typeCheck failed",
+            "build failed"
+          ],
+          "failedCheckNames": [
+            "testAnalytics",
+            "testBackend",
+            "typeCheck",
+            "build"
+          ]
+        },
+        {
+          "matrixId": "wave-03-shell-dashboard-roadmap:a02-a15-dashboard-adaptive",
+          "packageName": "A02/A15 dashboard adaptive",
+          "packageOwnerIds": [
+            "A02",
+            "A15"
+          ],
+          "blockingReasons": [
+            "A02/A15 dashboard adaptive testAnalytics failed",
+            "A02/A15 dashboard adaptive typeCheck failed",
+            "A02/A15 dashboard adaptive dashboardAdaptivePlaywright failed"
+          ],
+          "failedCheckNames": [
+            "testAnalytics",
+            "typeCheck",
+            "dashboardAdaptivePlaywright"
+          ]
+        }
+      ],
+      "writeScope": [
+        "lib/adaptiveLearning.ts"
+      ],
+      "coordinationRequired": [
+        {
+          "file": "lib/adaptiveLearning.ts",
+          "reason": "cross-owner blocker; coordinate with package owner before editing"
+        }
+      ],
+      "checks": [
+        "npm run test:analytics",
+        "npm run test:backend",
+        "npm run type-check -- --pretty false",
+        "npm run build",
+        "npx playwright test tests/e2e/student-smoke.spec.ts tests/e2e/adaptive-llm-smoke.spec.ts --project=desktop-chrome",
+        "node coordination/release-intake/generate-owner-package-readiness-blocker-matrix.mjs",
+        "node coordination/release-intake/assert-owner-package-blocker-routing-current.mjs",
+        "node coordination/release-intake/assert-owner-package-blocker-assignment-packet-current.mjs",
+        "node coordination/release-intake/assert-dirty-worktree-remediation-current.mjs"
+      ],
+      "stopConditions": [
+        "Stop if the fix requires adding/removing package dependencies without A10/A22 approval.",
+        "Stop if the fix requires shared type/schema changes without A08 coordination.",
+        "Stop if a routed file is outside this owner's write scope and no explicit scope expansion exists.",
+        "Stop if the assignment needs owner-approved Git operations; A25 evidence alone is not authorization.",
+        "Stop if the work would expose or edit real secrets."
+      ],
+      "cleanupAuthorized": false,
+      "executableNow": false
+    },
+    {
+      "reportId": "owner-package-blocker-report-a11",
+      "assignmentId": "owner-package-blocker-a11",
+      "agentId": "A11",
+      "owner": "A11 QA and release quality lead",
+      "objective": "Resolve or formally block the owner-package blockers routed to A11 without widening beyond AGENTS.md owner scope.",
+      "recommendedWorktree": "/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A11-regression-closure",
+      "packageRows": [
+        {
+          "matrixId": "wave-05-visualization-ai-runtime:a11-regression-evidence",
+          "packageName": "A11 regression evidence",
+          "packageOwnerIds": [
+            "A11"
+          ],
+          "blockingReasons": [
+            "A11 regression evidence typeCheck failed",
+            "A11 regression evidence regressionPlaywright failed"
+          ],
+          "failedCheckNames": [
+            "typeCheck",
+            "regressionPlaywright"
+          ]
+        }
+      ],
+      "writeScope": [
+        "lib/mvpReadiness.test.ts"
+      ],
+      "coordinationRequired": [],
+      "checks": [
+        "npm run type-check -- --pretty false",
+        "npx playwright test tests/e2e/student-smoke.spec.ts tests/e2e/backend-api.spec.ts --project=desktop-chrome",
+        "node coordination/release-intake/generate-owner-package-readiness-blocker-matrix.mjs",
+        "node coordination/release-intake/assert-owner-package-blocker-routing-current.mjs",
+        "node coordination/release-intake/assert-owner-package-blocker-assignment-packet-current.mjs",
+        "node coordination/release-intake/assert-dirty-worktree-remediation-current.mjs"
+      ],
+      "stopConditions": [
+        "Stop if the fix requires adding/removing package dependencies without A10/A22 approval.",
+        "Stop if the fix requires shared type/schema changes without A08 coordination.",
+        "Stop if a routed file is outside this owner's write scope and no explicit scope expansion exists.",
+        "Stop if the assignment needs owner-approved Git operations; A25 evidence alone is not authorization.",
+        "Stop if the work would expose or edit real secrets."
+      ],
+      "cleanupAuthorized": false,
+      "executableNow": false
+    },
+    {
+      "reportId": "owner-package-blocker-report-a12",
+      "assignmentId": "owner-package-blocker-a12",
+      "agentId": "A12",
+      "owner": "A12 backend/API platform lead",
+      "objective": "Resolve or formally block the owner-package blockers routed to A12 without widening beyond AGENTS.md owner scope.",
+      "recommendedWorktree": "/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A12-backend-api-closure",
+      "packageRows": [
+        {
+          "matrixId": "wave-01-governance-release-hygiene:wave-01-governance-release-hygiene",
+          "packageName": "A25/A10/A22 governance and release hygiene",
+          "packageOwnerIds": [
+            "A25",
+            "A22",
+            "A10"
+          ],
+          "blockingReasons": [
+            "7 dirty entries are outside the A25/A10/A22 pathspec union",
+            "npm run type-check failed"
+          ],
+          "failedCheckNames": [
+            "typeCheck"
+          ]
+        },
+        {
+          "matrixId": "wave-05-visualization-ai-runtime:a07-ai-tutor",
+          "packageName": "A07 AI tutor",
+          "packageOwnerIds": [
+            "A07"
+          ],
+          "blockingReasons": [
+            "A07 AI tutor typeCheck failed",
+            "A07 AI tutor aiTutorPlaywright failed"
+          ],
+          "failedCheckNames": [
+            "typeCheck",
+            "aiTutorPlaywright"
+          ]
+        }
+      ],
+      "writeScope": [
+        "app/api/teacher/review-lessons/[reviewLessonId]/route.ts"
+      ],
+      "coordinationRequired": [
+        {
+          "file": "app/api/ai-tutor/resolve/route.ts",
+          "reason": "outside this owner's AGENTS.md write scope"
+        },
+        {
+          "file": "app/api/teacher/review-lessons/[reviewLessonId]/route.ts",
+          "reason": "cross-owner blocker; coordinate with package owner before editing"
+        }
+      ],
+      "checks": [
+        "npm run type-check -- --pretty false",
+        "npx playwright test tests/e2e/ai-tutor-deepseek.spec.ts tests/e2e/ai-tutor-live-text.spec.ts --project=desktop-chrome",
+        "node coordination/release-intake/generate-owner-package-readiness-blocker-matrix.mjs",
+        "node coordination/release-intake/assert-owner-package-blocker-routing-current.mjs",
+        "node coordination/release-intake/assert-owner-package-blocker-assignment-packet-current.mjs",
+        "node coordination/release-intake/assert-dirty-worktree-remediation-current.mjs"
+      ],
+      "stopConditions": [
+        "Stop if the fix requires adding/removing package dependencies without A10/A22 approval.",
+        "Stop if the fix requires shared type/schema changes without A08 coordination.",
+        "Stop if a routed file is outside this owner's write scope and no explicit scope expansion exists.",
+        "Stop if the assignment needs owner-approved Git operations; A25 evidence alone is not authorization.",
+        "Stop if the work would expose or edit real secrets."
+      ],
+      "cleanupAuthorized": false,
+      "executableNow": false
+    },
+    {
+      "reportId": "owner-package-blocker-report-a07",
+      "assignmentId": "owner-package-blocker-a07",
+      "agentId": "A07",
+      "owner": "A07 AI tutor lead",
+      "objective": "Resolve or formally block the owner-package blockers routed to A07 without widening beyond AGENTS.md owner scope.",
+      "recommendedWorktree": "/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A07-ai-tutor-closure",
+      "packageRows": [
+        {
+          "matrixId": "wave-05-visualization-ai-runtime:a07-ai-tutor",
+          "packageName": "A07 AI tutor",
+          "packageOwnerIds": [
+            "A07"
+          ],
+          "blockingReasons": [
+            "A07 AI tutor typeCheck failed",
+            "A07 AI tutor aiTutorPlaywright failed"
+          ],
+          "failedCheckNames": [
+            "typeCheck",
+            "aiTutorPlaywright"
+          ]
+        }
+      ],
+      "writeScope": [
+        "app/api/ai-tutor/resolve/route.ts"
+      ],
+      "coordinationRequired": [],
+      "checks": [
+        "npm run type-check -- --pretty false",
+        "npx playwright test tests/e2e/ai-tutor-deepseek.spec.ts tests/e2e/ai-tutor-live-text.spec.ts --project=desktop-chrome",
+        "node coordination/release-intake/generate-owner-package-readiness-blocker-matrix.mjs",
+        "node coordination/release-intake/assert-owner-package-blocker-routing-current.mjs",
+        "node coordination/release-intake/assert-owner-package-blocker-assignment-packet-current.mjs",
+        "node coordination/release-intake/assert-dirty-worktree-remediation-current.mjs"
+      ],
+      "stopConditions": [
+        "Stop if the fix requires adding/removing package dependencies without A10/A22 approval.",
+        "Stop if the fix requires shared type/schema changes without A08 coordination.",
+        "Stop if a routed file is outside this owner's write scope and no explicit scope expansion exists.",
+        "Stop if the assignment needs owner-approved Git operations; A25 evidence alone is not authorization.",
+        "Stop if the work would expose or edit real secrets."
+      ],
+      "cleanupAuthorized": false,
+      "executableNow": false
+    }
+  ],
+  "remainingCompletionAssignments": [
+    {
+      "assignmentId": "remaining-completion-release-source-clean",
+      "agentIds": [
+        "A22",
+        "A25",
+        "A10"
+      ],
+      "owner": "A22 release engineering with A25/A10 release-intake support",
+      "objective": "Make release-source clean possible without using dirty root as a deploy source.",
+      "nextActions": [
+        "Keep root main inventory-only until owner-package closure drains dirty entries.",
+        "Use clean worktree, clean clone, reviewed clean release slice, or owner-approved pruned staging only.",
+        "After package closure, rerun release-source clean and dirty-map zero gates."
+      ],
+      "blockerRows": [
+        {
+          "id": "root-status-clean",
+          "label": "Root git status is clean",
+          "status": "incomplete",
+          "blockingReasons": [],
+          "command": "git status --short",
+          "commandStatus": 0
+        },
+        {
+          "id": "dirty-map-current-and-zero",
+          "label": "Dirty map is current and reports zero expanded entries",
+          "status": "incomplete",
+          "blockingReasons": [],
+          "command": "npm run release:dirty-map -- --assert-current --max-age-minutes 60",
+          "commandStatus": 0
+        },
+        {
+          "id": "release-source-clean",
+          "label": "A22 release-source clean gate passes",
+          "status": "incomplete",
+          "blockingReasons": [],
+          "command": "node coordination/release-intake/assert-release-source-clean.mjs",
+          "commandStatus": 1
+        },
+        {
+          "id": "task-7-root-disposition",
+          "label": "Task 7 root dispositions",
+          "status": "blocked",
+          "blockingReasons": [
+            "Root dispositions are represented as blocker rows; no cleanup-authorized or executable root action exists."
+          ],
+          "command": "",
+          "commandStatus": null
+        }
+      ],
+      "cleanupAuthorized": false,
+      "executableNow": false
+    },
+    {
+      "assignmentId": "remaining-completion-worktree-lifecycle",
+      "agentIds": [
+        "A25",
+        "A22"
+      ],
+      "owner": "A25 git hygiene with A22 release-source consumer",
+      "objective": "Close strict worktree lifecycle decisions only after owner-reviewed package extraction, PR/review package, archive, retirement, or blocker decisions exist.",
+      "nextActions": [
+        "Use physical lifecycle approval rows as the source of truth.",
+        "Do not remove/prune worktrees or delete branches until exact owner authorization names the approval ID and command.",
+        "Rerun strict lifecycle only after every dirty or clean-diverged row has a reviewed final state."
+      ],
+      "blockerRows": [
+        {
+          "id": "strict-worktree-lifecycle",
+          "label": "A25 strict worktree lifecycle gate passes",
+          "status": "incomplete",
+          "blockingReasons": [],
+          "command": "node coordination/release-intake/assert-worktree-lifecycle.mjs --strict",
+          "commandStatus": 1
+        },
+        {
+          "id": "task-8-linked-worktrees",
+          "label": "Task 8 linked worktree lifecycle closure",
+          "status": "incomplete",
+          "blockingReasons": [
+            "A25 strict worktree lifecycle gate passes"
+          ],
+          "command": "",
+          "commandStatus": null
+        }
+      ],
+      "cleanupAuthorized": false,
+      "executableNow": false
+    },
+    {
+      "assignmentId": "remaining-completion-wave01-governance",
+      "agentIds": [
+        "A25",
+        "A10",
+        "A22"
+      ],
+      "owner": "A25/A10/A22 governance and release-hygiene package",
+      "objective": "Make Wave 01 reviewable by resolving package-resync blockers and routing off-scope type-check failures.",
+      "nextActions": [
+        "Use Wave 01 resync authorization template for the 7 uncovered package-worktree rows.",
+        "Do not run restore/clean in the package worktree until the owner authorizes exact rows.",
+        "Keep off-scope type-check failures routed to owning feature/API sessions."
+      ],
+      "blockerRows": [
+        {
+          "id": "task-3-wave01",
+          "label": "Task 3 governance/release-hygiene package closure",
+          "status": "incomplete",
+          "blockingReasons": [
+            "7 dirty entries are outside the A25/A10/A22 pathspec union",
+            "npm run type-check failed"
+          ],
+          "command": "",
+          "commandStatus": null
+        }
+      ],
+      "cleanupAuthorized": false,
+      "executableNow": false
+    },
+    {
+      "assignmentId": "remaining-completion-owner-packages",
+      "agentIds": [
+        "A01",
+        "A02",
+        "A03",
+        "A04",
+        "A05",
+        "A06",
+        "A07",
+        "A08",
+        "A11",
+        "A12",
+        "A13",
+        "A15",
+        "A18",
+        "A20",
+        "A21",
+        "A23",
+        "A24"
+      ],
+      "owner": "Routed owner package sessions",
+      "objective": "Resolve or formally block Wave 02-05 owner package readiness failures in isolated owner worktrees.",
+      "nextActions": [
+        "Consume latest-A25-owner-package-blocker-assignment-packet.json.",
+        "Fix only inside each owner allowed write scope, or write an owner-routed blocker report.",
+        "Return targeted checks so A25/A22/A11 can re-evaluate readiness."
+      ],
+      "blockerRows": [
+        {
+          "id": "task-4-wave02",
+          "label": "Task 4 shared contract/backend package closure",
+          "status": "incomplete",
+          "blockingReasons": [
+            "testAnalytics failed",
+            "testBackend failed",
+            "typeCheck failed",
+            "build failed"
+          ],
+          "command": "",
+          "commandStatus": null
+        },
+        {
+          "id": "task-5-waves03-05",
+          "label": "Task 5 runtime owner package closure",
+          "status": "incomplete",
+          "blockingReasons": [
+            "A01 app shell typeCheck failed",
+            "A01 app shell appShellPlaywright failed",
+            "A02/A15 dashboard adaptive testAnalytics failed",
+            "A02/A15 dashboard adaptive typeCheck failed",
+            "A02/A15 dashboard adaptive dashboardAdaptivePlaywright failed",
+            "A03 roadmap typeCheck failed",
+            "A03 roadmap roadmapPlaywright failed",
+            "A04 practice testQuestionBank failed",
+            "A04 practice typeCheck failed",
+            "A04 practice practicePlaywright failed",
+            "A05 lesson typeCheck failed",
+            "A05 lesson lessonPlaywright failed",
+            "A18/A21/A23/A24 content evidence testRag failed",
+            "A18/A21/A23/A24 content evidence testQuestionBank failed",
+            "A18/A21/A23/A24 content evidence typeCheck failed",
+            "A06 visualization typeCheck failed",
+            "A06 visualization visualizationNodeTests failed",
+            "A06 visualization visualizationPlaywright failed",
+            "A07 AI tutor typeCheck failed",
+            "A07 AI tutor aiTutorPlaywright failed",
+            "A09 copy/i18n/accessibility typeCheck failed",
+            "A11 regression evidence typeCheck failed",
+            "A11 regression evidence regressionPlaywright failed",
+            "A13/A14 console typeCheck failed",
+            "A13/A14 console consolePlaywright failed",
+            "A17/A20 games and motivation typeCheck failed",
+            "A17/A20 games and motivation gameMotivationPlaywright failed"
+          ],
+          "command": "",
+          "commandStatus": null
+        },
+        {
+          "id": "task-6-content-qa",
+          "label": "Task 6 content/RAG/QA evidence closure",
+          "status": "incomplete",
+          "blockingReasons": [
+            "A04 practice testQuestionBank failed",
+            "A04 practice typeCheck failed",
+            "A04 practice practicePlaywright failed",
+            "A05 lesson typeCheck failed",
+            "A05 lesson lessonPlaywright failed",
+            "A18/A21/A23/A24 content evidence testRag failed",
+            "A18/A21/A23/A24 content evidence testQuestionBank failed",
+            "A18/A21/A23/A24 content evidence typeCheck failed",
+            "A06 visualization typeCheck failed",
+            "A06 visualization visualizationNodeTests failed",
+            "A06 visualization visualizationPlaywright failed",
+            "A07 AI tutor typeCheck failed",
+            "A07 AI tutor aiTutorPlaywright failed",
+            "A09 copy/i18n/accessibility typeCheck failed",
+            "A11 regression evidence typeCheck failed",
+            "A11 regression evidence regressionPlaywright failed",
+            "A13/A14 console typeCheck failed",
+            "A13/A14 console consolePlaywright failed",
+            "A17/A20 games and motivation typeCheck failed",
+            "A17/A20 games and motivation gameMotivationPlaywright failed"
+          ],
+          "command": "",
+          "commandStatus": null
+        }
+      ],
+      "cleanupAuthorized": false,
+      "executableNow": false
+    },
+    {
+      "assignmentId": "remaining-completion-final-release-source",
+      "agentIds": [
+        "A22",
+        "A25",
+        "A11"
+      ],
+      "owner": "A22 release engineering with A25 release intake and A11 regression quality",
+      "objective": "Run final release-source and regression verification only after root and lifecycle closure are complete.",
+      "nextActions": [
+        "Wait for root status zero, dirty-map zero, release-source clean, and strict lifecycle green.",
+        "Then run A22 clean-source build gate and A11 targeted regression.",
+        "Do not treat current dirty-root checks as release evidence."
+      ],
+      "blockerRows": [
+        {
+          "id": "task-9-final-release-source",
+          "label": "Task 9 final release-source verification",
+          "status": "incomplete",
+          "blockingReasons": [
+            "Root git status is clean",
+            "Dirty map is current and reports zero expanded entries",
+            "A22 release-source clean gate passes",
+            "A25 strict worktree lifecycle gate passes"
+          ],
+          "command": "",
+          "commandStatus": null
+        }
+      ],
+      "cleanupAuthorized": false,
+      "executableNow": false
+    }
+  ]
+}

@@ -1,0 +1,217 @@
+{
+  "generatedAt": "2026-07-09T13:58:05.436Z",
+  "localEvidenceOnly": true,
+  "externalVercelAudit": false,
+  "dirtyMapStatusSignature": "b3d232fd2b9ef81d4efc95903d2e3b316db664d6e9ec6ab366181395b3966be7",
+  "expandedStatusEntries": 6604,
+  "rootStatusSummary": {
+    "statusEntries": 6604,
+    "trackedModified": 390,
+    "trackedDeleted": 1,
+    "untrackedStatusEntries": 6213,
+    "untrackedFiles": 6213
+  },
+  "commands": {
+    "dirtyMapCurrent": {
+      "command": "npm run release:dirty-map -- --assert-current --max-age-minutes 60",
+      "status": 0,
+      "passed": true,
+      "stdout": [
+        "> hk-math-lab-template@0.1.0 release:dirty-map",
+        "> node scripts/refresh-dirty-tree-map.mjs --assert-current --max-age-minutes 60",
+        "A25 dirty-tree map is current for runtime release preflight",
+        "Latest map: coordination/release-intake/latest-A25-dirty-tree-map.json",
+        "Expanded status entries: 6604"
+      ],
+      "stderr": [],
+      "expectedSafeState": true
+    },
+    "rootDeployGuard": {
+      "command": "MAIS_RELEASE_MIN_FREE_GB=0.001 node scripts/release-env-guard.mjs root-deploy --json",
+      "status": 1,
+      "passed": false,
+      "stdout": [],
+      "stderr": [
+        "A22 release-source clean gate failed.",
+        "Release source is dirty: 6604 expanded status entries in /Users/dongpinhu/Desktop/MAIS-MVP.",
+        "Branch: main",
+        "HEAD: ce2ae5258",
+        "Sample:",
+        "M .env.local.example",
+        " M .gitignore",
+        " M .vercelignore",
+        " M AGENTS.md",
+        " M README.md",
+        " M app/adaptive-learning/loading.tsx",
+        " M app/adaptive-learning/page.tsx",
+        "... 7 lines omitted ...",
+        " M app/api/auth/login/route.ts",
+        " M app/api/auth/logout/route.ts",
+        " M app/api/auth/password-change/route.ts",
+        " M app/api/auth/password-reset/confirm/route.ts",
+        " M app/api/auth/password-reset/request/route.ts",
+        " M app/api/auth/register/route.ts",
+        " M app/api/dashboard/route.ts",
+        " M app/api/handwriting-recognition/route.ts",
+        " M app/api/learning-events/route.ts",
+        " M app/api/lesson-entry/route.ts",
+        " M app/api/lessons/[slug]/route.ts",
+        "Allowed sources: clean worktree, clean clone, reviewed clean release slice, or explicitly owner-approved pruned staging package."
+      ],
+      "expectedBlocked": true,
+      "failureClassification": {
+        "hasDirtyMapStaleBlock": false,
+        "hasDiskBlock": false,
+        "hasReleaseSourceBlock": true,
+        "hasStrictLifecycleBlock": false,
+        "hasDirectDirtyRootBlock": false
+      }
+    },
+    "previewGuard": {
+      "command": "MAIS_RELEASE_MIN_FREE_GB=0.001 node scripts/release-env-guard.mjs preview --json",
+      "status": 1,
+      "passed": false,
+      "stdout": [],
+      "stderr": [
+        "A22 release-source clean gate failed.",
+        "Release source is dirty: 6604 expanded status entries in /Users/dongpinhu/Desktop/MAIS-MVP.",
+        "Branch: main",
+        "HEAD: ce2ae5258",
+        "Sample:",
+        "M .env.local.example",
+        " M .gitignore",
+        " M .vercelignore",
+        " M AGENTS.md",
+        " M README.md",
+        " M app/adaptive-learning/loading.tsx",
+        " M app/adaptive-learning/page.tsx",
+        "... 7 lines omitted ...",
+        " M app/api/auth/login/route.ts",
+        " M app/api/auth/logout/route.ts",
+        " M app/api/auth/password-change/route.ts",
+        " M app/api/auth/password-reset/confirm/route.ts",
+        " M app/api/auth/password-reset/request/route.ts",
+        " M app/api/auth/register/route.ts",
+        " M app/api/dashboard/route.ts",
+        " M app/api/handwriting-recognition/route.ts",
+        " M app/api/learning-events/route.ts",
+        " M app/api/lesson-entry/route.ts",
+        " M app/api/lessons/[slug]/route.ts",
+        "Allowed sources: clean worktree, clean clone, reviewed clean release slice, or explicitly owner-approved pruned staging package."
+      ],
+      "expectedBlocked": true,
+      "failureClassification": {
+        "hasDirtyMapStaleBlock": false,
+        "hasDiskBlock": false,
+        "hasReleaseSourceBlock": true,
+        "hasStrictLifecycleBlock": false,
+        "hasDirectDirtyRootBlock": false
+      }
+    },
+    "stagedPublishGuard": {
+      "command": "MAIS_RELEASE_MIN_FREE_GB=0.001 node scripts/release-env-guard.mjs staged-publish --json",
+      "status": 1,
+      "passed": false,
+      "stdout": [],
+      "stderr": [
+        "A22 release-source clean gate failed.",
+        "Release source is dirty: 6604 expanded status entries in /Users/dongpinhu/Desktop/MAIS-MVP.",
+        "Branch: main",
+        "HEAD: ce2ae5258",
+        "Sample:",
+        "M .env.local.example",
+        " M .gitignore",
+        " M .vercelignore",
+        " M AGENTS.md",
+        " M README.md",
+        " M app/adaptive-learning/loading.tsx",
+        " M app/adaptive-learning/page.tsx",
+        "... 7 lines omitted ...",
+        " M app/api/auth/login/route.ts",
+        " M app/api/auth/logout/route.ts",
+        " M app/api/auth/password-change/route.ts",
+        " M app/api/auth/password-reset/confirm/route.ts",
+        " M app/api/auth/password-reset/request/route.ts",
+        " M app/api/auth/register/route.ts",
+        " M app/api/dashboard/route.ts",
+        " M app/api/handwriting-recognition/route.ts",
+        " M app/api/learning-events/route.ts",
+        " M app/api/lesson-entry/route.ts",
+        " M app/api/lessons/[slug]/route.ts",
+        "Allowed sources: clean worktree, clean clone, reviewed clean release slice, or explicitly owner-approved pruned staging package."
+      ],
+      "expectedBlocked": true,
+      "failureClassification": {
+        "hasDirtyMapStaleBlock": false,
+        "hasDiskBlock": false,
+        "hasReleaseSourceBlock": true,
+        "hasStrictLifecycleBlock": false,
+        "hasDirectDirtyRootBlock": false
+      }
+    }
+  },
+  "wrapperChecks": {
+    "preview": {
+      "path": "scripts/deploy-vercel-preview.mjs",
+      "passed": true,
+      "checks": [
+        {
+          "id": "preview-preflight",
+          "label": "Preview wrapper runs the release-env preview preflight before deploy",
+          "passed": true,
+          "missingNeedles": []
+        },
+        {
+          "id": "preview-staging-source",
+          "label": "Preview wrapper deploys the prepared staging directory",
+          "passed": true,
+          "missingNeedles": []
+        },
+        {
+          "id": "preview-target",
+          "label": "Preview wrapper is constrained to the preview target",
+          "passed": true,
+          "missingNeedles": []
+        }
+      ]
+    },
+    "production": {
+      "path": "scripts/deploy-vercel-production.mjs",
+      "passed": true,
+      "checks": [
+        {
+          "id": "production-preflight",
+          "label": "Production wrapper runs the staged-publish preflight before deploy",
+          "passed": true,
+          "missingNeedles": []
+        },
+        {
+          "id": "production-staging-source",
+          "label": "Production wrapper deploys the prepared staging directory",
+          "passed": true,
+          "missingNeedles": []
+        },
+        {
+          "id": "production-skip-domain",
+          "label": "Production wrapper deploys with --skip-domain before promotion gates",
+          "passed": true,
+          "missingNeedles": []
+        }
+      ]
+    }
+  },
+  "localDeploymentRecords": {
+    "stagingRoot": ".tmp/vercel-staging",
+    "recordCount": 0,
+    "invalidCount": 0,
+    "records": []
+  },
+  "deployCommandsExecutedByThisScript": [],
+  "boundary": [
+    "A25 evidence only; this script does not run vercel deploy, vercel promote, or vercel inspect.",
+    "This is local repository and wrapper evidence, not an external historical Vercel deployment audit.",
+    "The real release guard still uses its normal disk threshold; this probe lowers only the probe process threshold so dirty-root/source blockers can be observed."
+  ],
+  "failures": [],
+  "passed": true
+}

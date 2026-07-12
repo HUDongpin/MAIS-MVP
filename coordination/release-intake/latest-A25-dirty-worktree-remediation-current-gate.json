@@ -1,0 +1,1208 @@
+{
+  "checkedAt": "2026-07-09T18:27:04.135Z",
+  "root": "/Users/dongpinhu/Desktop/MAIS-MVP",
+  "strict": false,
+  "result": "fail",
+  "summary": {
+    "currentTotal": 159,
+    "currentPassed": 130,
+    "strictTotal": 0,
+    "strictPassed": 0
+  },
+  "artifacts": {
+    "dirtyMap": {
+      "generatedAt": "2026-07-09T18:09:47.307Z",
+      "statusSignature": "476e1b41a0d7a979e4ad322d00bf51fd7a2e7324dae88e4c0b219b36bc660ef7",
+      "expandedStatusEntries": 7018
+    },
+    "finalStateLedger": {
+      "entries": 65,
+      "pending": 0,
+      "approved": 65,
+      "invalid": 0
+    },
+    "worktreeLifecycle": {
+      "strict": true,
+      "worktreeCount": 39,
+      "dirtyCount": 31,
+      "divergedCleanCount": 8,
+      "openDecisions": 39
+    }
+  },
+  "failures": [
+    "A25 dirty-tree map current failed",
+    "A25 unmapped manual proposals current failed",
+    "A25 physical lifecycle blocker coverage current failed",
+    "A25 remaining strict blocker authorization packet current failed",
+    "A25 strict worktree lifecycle blocker evidence current failed",
+    "A25 Wave 06 final root lifecycle readiness current failed",
+    "A25 owner package readiness blocker matrix current failed",
+    "A25 root type-check status current failed",
+    "A22 generated-artifact residual evidence current failed",
+    "A22 release-source clean blocker evidence current failed",
+    "A25 ledger-to-canonical authorization bridge current failed",
+    "A22 generated-artifact guarded cleanup current failed",
+    "A25 Wave 01 governance frontier readiness current failed",
+    "A25 remaining completion blocker assignment packet current failed",
+    "A25 next owner authorization focus batch canonical recording current failed",
+    "A22 top clean candidate root-parity extraction instruction request current failed",
+    "A22 top clean candidate root-parity extraction instruction intake current failed",
+    "A22 top clean candidate root-parity extraction instruction recording current failed",
+    "A22 top clean candidate root-parity guarded extraction current failed",
+    "A22 root-parity candidate mutation current failed",
+    "A22 top clean candidate root-parity owner action packet current failed",
+    "A22 top clean candidate root-parity owner action acceptance docket current failed",
+    "A25/A22 validate frontier owner input request capsule current failed",
+    "A25/A22 validate frontier transition forecast current failed",
+    "A25/A22 validate frontier post-input runway current failed",
+    "A25 no dirty root deploy evidence current failed",
+    "A25 dirty-worktree remediation completion audit current failed",
+    "A25 current cleanup status snapshot current failed",
+    "A22 owner-remediation candidate dirty allowlist current failed"
+  ],
+  "currentChecks": [
+    {
+      "name": "A25 dirty-tree map current",
+      "command": "npm run release:dirty-map -- --assert-current --max-age-minutes 60",
+      "status": 1,
+      "passed": false,
+      "stdout": "> hk-math-lab-template@0.1.0 release:dirty-map\n> node scripts/refresh-dirty-tree-map.mjs --assert-current --max-age-minutes 60",
+      "stderr": "A25 dirty-tree map is stale; current git status no longer matches the latest map.\nLatest map: coordination/release-intake/latest-A25-dirty-tree-map.json\nSaved signature: 476e1b41a0d7a979e4ad322d00bf51fd7a2e7324dae88e4c0b219b36bc660ef7\nCurrent signature: 8d8103242e89d5df8e75a233757f4eeffc03233f30db092815eb339bbfe3a22e\nSaved expanded entries: 7018\nCurrent expanded entries: 7181\nRefresh with `npm run release:dirty-map -- --reason \"runtime release preflight\"` before runtime release."
+    },
+    {
+      "name": "A25 owner pathspecs current",
+      "command": "node coordination/release-intake/assert-owner-pathspecs-current.mjs",
+      "status": 0,
+      "passed": true,
+      "stdout": "A25 owner pathspec current gate passed\nOwners checked: 24"
+    },
+    {
+      "name": "A25 unmapped runtime proposals current",
+      "command": "node coordination/release-intake/assert-unmapped-owner-proposals-current.mjs",
+      "status": 0,
+      "passed": true,
+      "stdout": "A25 unmapped owner proposal gate passed\nCovered paths: 0\nProposed owner buckets: 0"
+    },
+    {
+      "name": "A25 unmapped manual proposals current",
+      "command": "node coordination/release-intake/assert-unmapped-manual-proposals-current.mjs",
+      "status": 1,
+      "passed": false,
+      "stdout": "",
+      "stderr": "A25 unmapped manual proposal gate failed.\nUnassigned proposal paths: MAIS_Competitive_Analysis_K12_Math.docx"
+    },
+    {
+      "name": "A25 effective owner overlay current",
+      "command": "node coordination/release-intake/assert-effective-owner-overlay-current.mjs",
+      "status": 0,
+      "passed": true,
+      "stdout": "A25 effective owner overlay gate passed\nEffective owners: 26\nOverlay entries: 7018"
+    },
+    {
+      "name": "A25 effective disposition queue current",
+      "command": "node coordination/release-intake/assert-effective-disposition-queue-current.mjs",
+      "status": 0,
+      "passed": true,
+      "stdout": "A25 effective disposition queue gate passed\nQueue items: 26"
+    },
+    {
+      "name": "A25 worktree lifecycle inventory current",
+      "command": "node coordination/release-intake/assert-worktree-lifecycle.mjs",
+      "status": 0,
+      "passed": true,
+      "stdout": "A25 worktree lifecycle gate\nWorktrees: 39\nPrunable: 0\nDirty open decisions: 31\nClean diverged open decisions: 8\nOpen decisions:\n- main: dirty (7181 entries)\n... 31 lines omitted ...\n- codex/A25-ci-backup-workflow: behind 1, ahead 0\n- codex/A25-dirty-closure-governance: dirty (1012 entries)\n- codex/A25-full-dirty-compose-verification: dirty (2423 entries)\n- codex/A14-profile-avatar-save: dirty (10 entries)\n- codex/visualization-production-release: dirty (16 entries)\n- codex/california-practice-beta-clean: behind 14, ahead 1\n- codex/s22-release-hygiene-2026-06-15: behind 14, ahead 1"
+    },
+    {
+      "name": "A25 physical lifecycle blocker coverage current",
+      "command": "node coordination/release-intake/assert-physical-lifecycle-blocker-coverage-current.mjs",
+      "status": 1,
+      "passed": false,
+      "stdout": "A25 physical lifecycle final-state coverage gate\nOpen decisions: 39\nCovered final-state rows: 39\nFailures: 2",
+      "stderr": "A25 physical lifecycle blocker coverage gate failed.\n- main: physical approval currentBlocker is stale (dirty 7018 != dirty 7181)\n- physical:root-main: ledger currentBlocker is stale (dirty 7018 != dirty 7181)"
+    },
+    {
+      "name": "A25 remaining strict blocker authorization packet current",
+      "command": "node coordination/release-intake/assert-remaining-strict-blocker-authorization-packet-current.mjs",
+      "status": 1,
+      "passed": false,
+      "stdout": "A25 remaining strict blocker authorization packet gate\nRemaining strict blockers: 2\nPhysical approvals needed: 39\nFailures: 1",
+      "stderr": "A25 remaining strict blocker authorization packet gate failed.\n- physical:root-main: currentBlocker is stale"
+    },
+    {
+      "name": "A25 physical closure authorization queue current",
+      "command": "node coordination/release-intake/assert-physical-closure-authorization-queue-current.mjs",
+      "status": 0,
+      "passed": true,
+      "stdout": "A25 physical closure authorization queue gate\nOwner package approvals: 26\nPhysical lifecycle approvals: 39\nFailures: 0"
+    },
+    {
+      "name": "A25 strict worktree lifecycle blocker evidence current",
+      "command": "node coordination/release-intake/assert-a25-strict-worktree-lifecycle-blocker-evidence-current.mjs",
+      "status": 1,
+      "passed": false,
+      "stdout": "A25 strict worktree lifecycle blocker evidence gate\nStrict lifecycle clean: no\nOpen decision rows: 39\nFailures: 1",
+      "stderr": "A25 strict worktree lifecycle blocker evidence gate failed.\n- A25 strict worktree lifecycle blocker evidence is stale relative to worktree lifecycle gate, dirty-map, or physical closure queue"
+    },
+    {
+      "name": "A25 dirty-worktree closure execution sequence current",
+      "command": "node coordination/release-intake/assert-dirty-worktree-closure-execution-sequence-current.mjs",
+      "status": 0,
+      "passed": true,
+      "stdout": "A25 dirty-worktree closure execution sequence gate\nWaves: 6\nTotal approvals: 65\nFailures: 0"
+    },
+    {
+      "name": "A25 Wave 01 governance readiness current",
+      "command": "node coordination/release-intake/assert-wave01-governance-readiness-current.mjs",
+      "status": 0,
+      "passed": true,
+      "stdout": "A25 Wave 01 governance readiness gate\nCommit ready: no\nFailures: 0"
+    },
+    {
+      "name": "A25 Wave 01 type-check blocker routing current",
+      "command": "node coordination/release-intake/assert-wave01-typecheck-blocker-routing-current.mjs",
+      "status": 0,
+      "passed": true,
+      "stdout": "A25 Wave 01 type-check blocker routing gate\nTop files routed: 20\nFailures: 0"
+    },
+    {
+      "name": "A25 Wave 01 type-check owner handoff packet current",
+      "command": "node coordination/release-intake/assert-wave01-typecheck-owner-handoff-packet-current.mjs",
+      "status": 0,
+      "passed": true,
+      "stdout": "A25 Wave 01 type-check owner handoff packet gate\nHandoffs: 6\nFailures: 0"
+    },
+    {
+      "name": "A25 Wave 01 type-check owner assignment packet current",
+      "command": "node coordination/release-intake/assert-wave01-typecheck-owner-assignment-packet-current.mjs",
+      "status": 0,
+      "passed": true,
+      "stdout": "A25 Wave 01 type-check owner assignment packet gate\nAssignments: 6\nFailures: 0"
+    },
+    {
+      "name": "A25 Wave 01 package resync approval requests current",
+      "command": "node coordination/release-intake/assert-wave01-package-resync-approval-requests-current.mjs",
+      "status": 0,
+      "passed": true,
+      "stdout": "A25 Wave 01 package resync approval-request gate\nRequests: 1\nFailures: 0"
+    },
+    {
+      "name": "A25 Wave 01 package resync execution packet current",
+      "command": "node coordination/release-intake/assert-wave01-package-resync-execution-packet-current.mjs",
+      "status": 0,
+      "passed": true,
+      "stdout": "A25 Wave 01 package resync execution-packet gate\nExecution rows: 1\nFailures: 0"
+    },
+    {
+      "name": "A25 Wave 01 package resync evidence pack current",
+      "command": "node coordination/release-intake/assert-wave01-package-resync-evidence-pack-current.mjs",
+      "status": 0,
+      "passed": true,
+      "stdout": "A25 Wave 01 package resync evidence-pack gate\nEvidence rows: 1\nFailures: 0"
+    },
+    {
+      "name": "A25 Wave 01 package resync owner authorization template current",
+      "command": "node coordination/release-intake/assert-wave01-package-resync-owner-authorization-template-current.mjs",
+      "status": 0,
+      "passed": true,
+      "stdout": "A25 Wave 01 package resync owner-authorization template gate\nTemplate rows: 1\nFailures: 0"
+    },
+    {
+      "name": "A25 Wave 01 package resync owner authorizations starter current",
+      "command": "node coordination/release-intake/assert-wave01-package-resync-owner-authorizations-starter-current.mjs",
+      "status": 0,
+      "passed": true,
+      "stdout": "A25 Wave 01 package resync owner-authorizations starter gate\nStarter rows: 1\nExecutable rows: 0\nFailures: 0"
+    },
+    {
+      "name": "A25 Wave 01 package resync owner authorizations current",
+      "command": "node coordination/release-intake/assert-wave01-package-resync-owner-authorizations-current.mjs",
+      "status": 0,
+      "passed": true,
+      "stdout": "A25 Wave 01 package resync owner-authorizations gate\nAuthorization file present: yes\nTemplate rows: 1\nAuthorized rows: 0\nExecutable rows: 0\nFailures: 0"
+    },
+    {
+      "name": "A25 Wave 01 package resync owner-review capsule current",
+      "command": "node coordination/release-intake/assert-wave01-package-resync-owner-review-capsule-current.mjs",
+      "status": 0,
+      "passed": true,
+      "stdout": "A25 Wave01 package-resync owner-review capsule gate\nRows: 1\nReady for owner decision: yes\nAcceptance checks: 13/13\nFailures: 0"
+    },
+    {
+      "name": "A25 Wave 01 A25 artifact clean owner approval capsule current",
+      "command": "node coordination/release-intake/assert-wave01-a25-artifact-clean-owner-approval-capsule-current.mjs",
+      "status": 0,
+      "passed": true,
+      "stdout": "A25 Wave01 A25 artifact-clean owner approval capsule gate\nClean approval rows: 0\nHeld rows: 1\nAcceptance checks: 10/10\nFailures: 0"
+    },
+    {
+      "name": "A25 Wave 01 package resync owner acceptance docket current",
+      "command": "node coordination/release-intake/assert-wave01-package-resync-owner-acceptance-docket-current.mjs",
+      "status": 0,
+      "passed": true,
+      "stdout": "A25 Wave01 package-resync owner acceptance docket gate\nDecision status: ready-for-owner-decision\nRows: 1\nAcceptance checks: 13/13\nFailures: 0"
+    },
+    {
+      "name": "A25 Wave 02 shared contract readiness current",
+      "command": "node coordination/release-intake/assert-wave02-shared-contract-readiness-current.mjs",
+      "status": 0,
+      "passed": true,
+      "stdout": "A25 Wave 02 shared contract readiness gate\nCommit ready: no\nFailures: 0"
+    },
+    {
+      "name": "A25 Wave 03 shell dashboard roadmap readiness current",
+      "command": "node coordination/release-intake/assert-wave03-shell-dashboard-roadmap-readiness-current.mjs",
+      "status": 0,
+      "passed": true,
+      "stdout": "A25 Wave 03 shell dashboard roadmap readiness gate\nCommit ready: no\nFailures: 0"
+    },
+    {
+      "name": "A25 Wave 04 practice lesson content readiness current",
+      "command": "node coordination/release-intake/assert-wave04-practice-lesson-content-readiness-current.mjs",
+      "status": 0,
+      "passed": true,
+      "stdout": "A25 Wave 04 practice lesson content readiness gate\nCommit ready: no\nFailures: 0"
+    },
+    {
+      "name": "A25 Wave 05 visualization AI runtime readiness current",
+      "command": "node coordination/release-intake/assert-wave05-visualization-ai-runtime-readiness-current.mjs",
+      "status": 0,
+      "passed": true,
+      "stdout": "A25 Wave 05 visualization AI runtime readiness gate\nCommit ready: no\nFailures: 0"
+    },
+    {
+      "name": "A25 Wave 06 final root lifecycle readiness current",
+      "command": "node coordination/release-intake/assert-wave06-final-root-lifecycle-readiness-current.mjs",
+      "status": 1,
+      "passed": false,
+      "stdout": "A25 Wave 06 final root lifecycle readiness gate\nFinal closure ready: no\nFailures: 2",
+      "stderr": "A25 Wave 06 final root lifecycle readiness gate failed.\n- remainingStrictPacketCurrent: passed flag is stale\n- remainingStrictPacketCurrent: status is stale"
+    },
+    {
+      "name": "A25 linked-worktree archive evidence current",
+      "command": "node coordination/release-intake/assert-linked-worktree-archive-evidence-current.mjs",
+      "status": 0,
+      "passed": true,
+      "stdout": "A25 linked-worktree archive evidence gate\nOpen linked decisions: 38\nFailures: 0"
+    },
+    {
+      "name": "A25 lifecycle decision requests current",
+      "command": "node coordination/release-intake/assert-lifecycle-decision-requests-current.mjs",
+      "status": 0,
+      "passed": true,
+      "stdout": "A25 lifecycle decision requests gate\nStrict: no\nRequests: 4\nOpen decisions: 0"
+    },
+    {
+      "name": "A25 lifecycle decision ledger current",
+      "command": "node coordination/release-intake/assert-lifecycle-decision-ledger-current.mjs",
+      "status": 0,
+      "passed": true,
+      "stdout": "A25 lifecycle decision ledger gate\nStrict: no\nDecisions: 4\nOpen decisions: 0"
+    },
+    {
+      "name": "A25 owner approval matrix current",
+      "command": "node coordination/release-intake/assert-owner-approval-matrix-current.mjs",
+      "status": 0,
+      "passed": true,
+      "stdout": "A25 owner approval matrix gate\nStrict: no\nRows: 4\nPending approvals: 0"
+    },
+    {
+      "name": "A25 lifecycle closure runbook current",
+      "command": "node coordination/release-intake/assert-lifecycle-closure-runbook-current.mjs",
+      "status": 0,
+      "passed": true,
+      "stdout": "A25 lifecycle closure runbook gate\nStrict: no\nClosure plans: 4\nOpen decisions: 0"
+    },
+    {
+      "name": "A19 secret/env quarantine clean",
+      "command": "node coordination/release-intake/assert-secret-env-quarantine.mjs",
+      "status": 0,
+      "passed": true,
+      "stdout": "A25 secret/env quarantine gate passed\nEnv status entries: 0\nBlocked secret entries: 0"
+    },
+    {
+      "name": "A25 disposition evidence current",
+      "command": "node coordination/release-intake/assert-disposition-evidence-current.mjs",
+      "status": 0,
+      "passed": true,
+      "stdout": "A25 disposition evidence current gate passed\nEvidence checks: 3"
+    },
+    {
+      "name": "A25 physical lifecycle approval requests current",
+      "command": "node coordination/release-intake/assert-physical-lifecycle-approval-requests-current.mjs",
+      "status": 0,
+      "passed": true,
+      "stdout": "A25 physical lifecycle approval requests gate\nRequests: 39\nExpanded dirty entries: 7018"
+    },
+    {
+      "name": "A25 owner package approval requests current",
+      "command": "node coordination/release-intake/assert-owner-package-approval-requests-current.mjs",
+      "status": 0,
+      "passed": true,
+      "stdout": "A25 owner package approval requests gate\nRequests: 26\nExpanded dirty entries: 7018"
+    },
+    {
+      "name": "A25 dirty-worktree final-state ledger current",
+      "command": "node coordination/release-intake/assert-dirty-worktree-final-state-ledger-current.mjs",
+      "status": 0,
+      "passed": true,
+      "stdout": "A25 dirty-worktree final-state ledger gate\nStrict: no\nLedger entries: 65\nPending decisions: 0"
+    },
+    {
+      "name": "A25 dirty-worktree final-state owner decision packet current",
+      "command": "node coordination/release-intake/assert-dirty-worktree-final-state-owner-decision-packet-current.mjs",
+      "status": 0,
+      "passed": true,
+      "stdout": "A25 dirty-worktree final-state owner decision packet gate\nDecisions: 65\nFailures: 0"
+    },
+    {
+      "name": "A25 dirty-worktree final-state selection draft current",
+      "command": "node coordination/release-intake/assert-dirty-worktree-final-state-selection-draft-current.mjs",
+      "status": 0,
+      "passed": true,
+      "stdout": "A25 dirty-worktree final-state selection draft gate\nDecisions: 65\nReal selection present: yes\nFailures: 0"
+    },
+    {
+      "name": "A25 dirty-worktree final-state action runbook current",
+      "command": "node coordination/release-intake/assert-dirty-worktree-final-state-action-runbook-current.mjs",
+      "status": 0,
+      "passed": true,
+      "stdout": "A25 dirty-worktree final-state action runbook gate\nActions: 65\nExecutable now: 0\nFailures: 0"
+    },
+    {
+      "name": "A25 dirty-worktree blocker report index current",
+      "command": "node coordination/release-intake/assert-dirty-worktree-blocker-report-index-current.mjs",
+      "status": 0,
+      "passed": true,
+      "stdout": "A25 dirty-worktree blocker report index gate\nBlocker reports: 0\nRecorded blockers: 0\nFailures: 0"
+    },
+    {
+      "name": "A25 owner package readiness blocker matrix current",
+      "command": "node coordination/release-intake/assert-owner-package-readiness-blocker-matrix-current.mjs",
+      "status": 1,
+      "passed": false,
+      "stdout": "A25 owner package readiness blocker matrix gate\nRows: 16\nBlocked rows: 15\nFailures: 11",
+      "stderr": "A25 owner package readiness blocker matrix gate failed.\n- matrix owner-package approval timestamp is stale\n- matrix physical-closure queue timestamp is stale\n- matrix Wave01 artifact-clean approval timestamp is stale\n- matrix Wave01 package acceptance timestamp is stale\n- matrix wave-01-governance-release-hygiene timestamp is stale\n- matrix wave-02-shared-contracts timestamp is stale\n- matrix wave-03-shell-dashboard-roadmap timestamp is stale\n- matrix wave-04-practice-lesson-content timestamp is stale\n- matrix wave-05-visualization-ai-runtime timestamp is stale\n- matrix wave-06-final-root-and-compose-lifecycle timestamp is stale\n- wave-01-governance-release-hygiene:wave-01-governance-release-hygiene: wave01FrontierGeneratedAt is stale"
+    },
+    {
+      "name": "A25 owner package blocker routing current",
+      "command": "node coordination/release-intake/assert-owner-package-blocker-routing-current.mjs",
+      "status": 0,
+      "passed": true,
+      "stdout": "A25 owner package blocker routing gate\nRouting rows: 15\nFailures: 0"
+    },
+    {
+      "name": "A25 owner package blocker assignment packet current",
+      "command": "node coordination/release-intake/assert-owner-package-blocker-assignment-packet-current.mjs",
+      "status": 0,
+      "passed": true,
+      "stdout": "A25 owner package blocker assignment packet gate\nAssignments: 11\nFailures: 0"
+    },
+    {
+      "name": "A25 type-check critical path frontier current",
+      "command": "node coordination/release-intake/assert-typecheck-critical-path-frontier-current.mjs",
+      "status": 0,
+      "passed": true,
+      "stdout": "A25 type-check critical path frontier gate\nFrontier rows: 12\nCritical owner rows: 6\nFailures: 0"
+    },
+    {
+      "name": "A25 root type-check status current",
+      "command": "node coordination/release-intake/assert-root-typecheck-status-current.mjs",
+      "status": 1,
+      "passed": false,
+      "stdout": "A25 root type-check status gate\nRoot type-check passed: yes\nPackage/worktree type-check error lines: 9907\nFailures: 1",
+      "stderr": "A25 root type-check status gate failed.\n- A25 root type-check status is stale relative to current root/package type-check evidence"
+    },
+    {
+      "name": "A25 owner package blocker report starter current",
+      "command": "node coordination/release-intake/assert-owner-package-blocker-report-starter-current.mjs",
+      "status": 0,
+      "passed": true,
+      "stdout": "A25 owner package blocker report starter gate\nStarter rows: 11\nExecutable rows: 0\nFailures: 0"
+    },
+    {
+      "name": "A25 owner package blocker report records current",
+      "command": "node coordination/release-intake/assert-owner-package-blocker-report-records-current.mjs",
+      "status": 0,
+      "passed": true,
+      "stdout": "A25 owner package blocker report records gate\nRecords file present: yes\nTemplate rows: 10\nValid records: 10\nFailures: 0"
+    },
+    {
+      "name": "A25 owner package blocker reports current",
+      "command": "node coordination/release-intake/assert-owner-package-blocker-reports-current.mjs",
+      "status": 0,
+      "passed": true,
+      "stdout": "A25 owner package blocker reports gate\nReport file present: yes\nStarter rows: 11\nRecorded reports: 11\nExecutable rows: 0\nFailures: 0"
+    },
+    {
+      "name": "A22 generated-artifact residual evidence current",
+      "command": "node coordination/release-intake/assert-a22-generated-artifact-residual-evidence-current.mjs",
+      "status": 1,
+      "passed": false,
+      "stdout": "A22 generated-artifact residual evidence gate\nResidual targets: 2\nFailures: 1",
+      "stderr": "A22 generated-artifact residual evidence gate failed.\n- A22 generated-artifact residual evidence is stale relative to cleanup dry-run and filesystem manifests"
+    },
+    {
+      "name": "A22 generated-artifact residual authorization packet current",
+      "command": "node coordination/release-intake/assert-a22-generated-artifact-residual-authorization-packet-current.mjs",
+      "status": 0,
+      "passed": true,
+      "stdout": "A22 generated-artifact residual authorization packet gate\nResidual targets: 2\nExecutable rows: 0\nFailures: 0"
+    },
+    {
+      "name": "A22 generated-artifact residual acceptance docket current",
+      "command": "node coordination/release-intake/assert-a22-generated-artifact-residual-acceptance-docket-current.mjs",
+      "status": 0,
+      "passed": true,
+      "stdout": "A22 generated-artifact residual acceptance docket gate\nDecision status: ready-for-owner-decision\nResidual targets: 2\nAcceptance checks: 9/9\nFailures: 0"
+    },
+    {
+      "name": "A22 release-source clean blocker evidence current",
+      "command": "node coordination/release-intake/assert-a22-release-source-clean-blocker-evidence-current.mjs",
+      "status": 1,
+      "passed": false,
+      "stdout": "A22 release-source clean blocker evidence gate\nRelease source clean: no\nRoot status entries: 7018\nFailures: 1",
+      "stderr": "A22 release-source clean blocker evidence gate failed.\n- A22 release-source clean blocker evidence is stale relative to git status, dirty-map, or release-source clean gate"
+    },
+    {
+      "name": "A25 next owner approval packet current",
+      "command": "node coordination/release-intake/assert-next-owner-approval-packet-current.mjs",
+      "status": 0,
+      "passed": true,
+      "stdout": "A25 next owner approval packet gate\nPackage resync approvals: 1\nOwner package approvals: 26\nPhysical lifecycle approvals: 39\nFailures: 0"
+    },
+    {
+      "name": "A25 next owner authorizations starter current",
+      "command": "node coordination/release-intake/assert-next-owner-authorizations-starter-current.mjs",
+      "status": 0,
+      "passed": true,
+      "stdout": "A25 next owner authorizations starter gate\nStarter rows: 68\nExecutable rows: 0\nFailures: 0"
+    },
+    {
+      "name": "A25 next owner authorizations current",
+      "command": "node coordination/release-intake/assert-next-owner-authorizations-current.mjs",
+      "status": 0,
+      "passed": true,
+      "stdout": "A25 next owner authorizations gate\nAuthorization file present: yes\nStarter rows: 68\nAuthorized rows: 26\nExecutable rows: 0\nFailures: 0"
+    },
+    {
+      "name": "A25 ledger-to-canonical authorization bridge current",
+      "command": "node coordination/release-intake/assert-ledger-to-canonical-authorization-bridge-current.mjs",
+      "status": 1,
+      "passed": false,
+      "stdout": "A25 ledger-to-canonical authorization bridge gate\nLedger-backed pending canonical rows: 39\nNon-ledger draft rows: 3\nFailures: 1",
+      "stderr": "A25 ledger-to-canonical authorization bridge gate failed.\n- A25 ledger-to-canonical authorization bridge is stale"
+    },
+    {
+      "name": "A25 next owner authorization execution preview current",
+      "command": "node coordination/release-intake/assert-next-owner-authorization-execution-preview-current.mjs",
+      "status": 0,
+      "passed": true,
+      "stdout": "A25 next-owner authorization execution preview gate\nStarter rows: 68\nValid authorization rows: 26\nCommand preview rows: 0\nFailures: 0"
+    },
+    {
+      "name": "A25 next owner authorized command manifest current",
+      "command": "node coordination/release-intake/assert-next-owner-authorized-command-manifest-current.mjs",
+      "status": 0,
+      "passed": true,
+      "stdout": "A25 next-owner authorized command manifest gate\nAuthorized candidates: 26\nReady for separate instruction: 0\nFailures: 0"
+    },
+    {
+      "name": "A25 next owner execution instructions current",
+      "command": "node coordination/release-intake/assert-next-owner-execution-instructions-current.mjs",
+      "status": 0,
+      "passed": true,
+      "stdout": "A25 next-owner execution instructions gate\nInstruction rows: 0\nValid instruction rows: 0\nFailures: 0"
+    },
+    {
+      "name": "A25 next owner execution instruction request packet current",
+      "command": "node coordination/release-intake/assert-next-owner-execution-instruction-request-packet-current.mjs",
+      "status": 0,
+      "passed": true,
+      "stdout": "A25 next-owner execution instruction request packet gate\nReady request rows: 0\nFailures: 0"
+    },
+    {
+      "name": "A25 Wave 01 artifact-clean execution preflight current",
+      "command": "node coordination/release-intake/assert-wave01-artifact-clean-execution-preflight-current.mjs",
+      "status": 0,
+      "passed": true,
+      "stdout": "A25 Wave01 artifact-clean execution preflight gate\nPreflight rows: 6\nFailures: 0"
+    },
+    {
+      "name": "A25 Wave 01 artifact-clean execution-instruction capsule current",
+      "command": "node coordination/release-intake/assert-wave01-artifact-clean-execution-instruction-capsule-current.mjs",
+      "status": 0,
+      "passed": true,
+      "stdout": "A25 Wave01 artifact-clean execution-instruction capsule gate\nInstruction rows: 6\nFailures: 0"
+    },
+    {
+      "name": "A25 Wave 01 artifact-clean guarded execution plan current",
+      "command": "node coordination/release-intake/assert-wave01-artifact-clean-guarded-execution-plan-current.mjs",
+      "status": 0,
+      "passed": true,
+      "stdout": "A25 Wave01 artifact-clean guarded execution plan gate\nPlan status: already-cleaned-and-verified\nFailures: 0"
+    },
+    {
+      "name": "A25 Wave 01 artifact-clean batch execution-instruction request current",
+      "command": "node coordination/release-intake/assert-wave01-artifact-clean-batch-execution-instruction-request-current.mjs",
+      "status": 0,
+      "passed": true,
+      "stdout": "A25 Wave01 artifact-clean batch execution-instruction request gate\nBatch status: post-clean-verified\nRequest rows: 6\nFailures: 0"
+    },
+    {
+      "name": "A25 Wave 01 artifact-clean batch execution-instruction intake current",
+      "command": "node coordination/release-intake/assert-wave01-artifact-clean-batch-execution-instruction-intake-current.mjs",
+      "status": 0,
+      "passed": true,
+      "stdout": "A25 Wave01 artifact-clean batch execution-instruction intake gate\nIntake status: post-clean-verified\nExpected rows: 6\nFailures: 0"
+    },
+    {
+      "name": "A25 Wave 01 artifact-clean execution-instruction recording current",
+      "command": "node coordination/release-intake/assert-wave01-artifact-clean-execution-instruction-recording-current.mjs",
+      "status": 0,
+      "passed": true,
+      "stdout": "A25 Wave01 artifact-clean execution-instruction recording gate\nRecorder status: post-clean-verified\nFailures: 0"
+    },
+    {
+      "name": "A25 Wave 01 artifact-clean guarded executor current",
+      "command": "node coordination/release-intake/assert-wave01-artifact-clean-guarded-executor-current.mjs",
+      "status": 0,
+      "passed": true,
+      "stdout": "A25 Wave01 artifact-clean guarded executor gate\nExecutor status: already-cleaned-and-verified\nApply permitted: no\nFailures: 0"
+    },
+    {
+      "name": "A25 Wave 01 artifact-clean owner execution focus packet current",
+      "command": "node coordination/release-intake/assert-wave01-artifact-clean-owner-execution-focus-packet-current.mjs",
+      "status": 0,
+      "passed": true,
+      "stdout": "A25 Wave01 artifact-clean owner execution focus packet gate\nFocus status: post-clean-verified\nRequest rows: 6\nFailures: 0"
+    },
+    {
+      "name": "A25 Wave 01 artifact-clean post-clean verification plan current",
+      "command": "node coordination/release-intake/assert-wave01-artifact-clean-post-clean-verification-plan-current.mjs",
+      "status": 0,
+      "passed": true,
+      "stdout": "A25 Wave01 artifact-clean post-clean verification plan gate\nVerification status: post-clean-verified\nPost-clean verified: yes\nFailures: 0"
+    },
+    {
+      "name": "A25 next owner execution instruction acceptance docket current",
+      "command": "node coordination/release-intake/assert-next-owner-execution-instruction-acceptance-docket-current.mjs",
+      "status": 0,
+      "passed": true,
+      "stdout": "A25 next-owner execution instruction acceptance docket gate\nAcceptance rows: 0\nFailures: 0"
+    },
+    {
+      "name": "A22 generated-artifact guarded cleanup current",
+      "command": "node coordination/release-intake/assert-a22-generated-artifact-guarded-cleanup-current.mjs",
+      "status": 1,
+      "passed": false,
+      "stdout": "A22 generated-artifact guarded cleanup gate\nPlan status: pending-a22-generated-artifact-owner-decision\nExecutable rows: 0\nFailures: 2",
+      "stderr": "A22 generated-artifact guarded cleanup gate failed.\n- A22 guarded cleanup plan is stale\n- A22 guarded cleanup dry-run evidence is stale"
+    },
+    {
+      "name": "A25 Wave 01 artifact-clean execution-instruction readiness current",
+      "command": "node coordination/release-intake/assert-wave01-artifact-clean-execution-instruction-readiness-current.mjs",
+      "status": 0,
+      "passed": true,
+      "stdout": "A25 Wave01 artifact-clean execution-instruction readiness gate\nReadiness status: post-clean-verified\nTarget dirty rows: 0\nFailures: 0"
+    },
+    {
+      "name": "A25 Wave 01 governance frontier readiness current",
+      "command": "node coordination/release-intake/assert-wave01-governance-frontier-readiness-current.mjs",
+      "status": 1,
+      "passed": false,
+      "stdout": "A25 Wave01 governance frontier readiness gate\nFrontier status: post-clean-verified\nFailures: 1",
+      "stderr": "A25 Wave01 governance frontier readiness gate failed.\n- frontier source artifact timestamps are stale"
+    },
+    {
+      "name": "A25 remaining completion blocker assignment packet current",
+      "command": "node coordination/release-intake/assert-remaining-completion-blocker-assignment-packet-current.mjs",
+      "status": 1,
+      "passed": false,
+      "stdout": "A25 remaining completion blocker assignment packet gate\nAssignments: 5\nFailures: 1",
+      "stderr": "A25 remaining completion blocker assignment packet gate failed.\n- packet completion audit timestamp is stale"
+    },
+    {
+      "name": "A25 owner closure action queue current",
+      "command": "node coordination/release-intake/assert-owner-closure-action-queue-current.mjs",
+      "status": 0,
+      "passed": true,
+      "stdout": "A25 owner closure action queue gate\nOwners: 25\nPending items: 131\nFailures: 0"
+    },
+    {
+      "name": "A25 next owner decision focus packet current",
+      "command": "node coordination/release-intake/assert-next-owner-decision-focus-packet-current.mjs",
+      "status": 0,
+      "passed": true,
+      "stdout": "A25 next owner decision focus packet gate\nDecision rows: 8\nFailures: 0"
+    },
+    {
+      "name": "A25 owner closure input readiness current",
+      "command": "node coordination/release-intake/assert-owner-closure-input-readiness-current.mjs",
+      "status": 0,
+      "passed": true,
+      "stdout": "A25 owner closure input readiness gate\nOwner inputs ready: no\nPending canonical authorization rows: 42\nPending owner blocker report records: 0\nFailures: 0"
+    },
+    {
+      "name": "A25 validation hold release confirmation scaffold current",
+      "command": "node coordination/release-intake/assert-validation-hold-release-confirmation-scaffold-current.mjs",
+      "status": 0,
+      "passed": true,
+      "stdout": "A25 validation hold release confirmation scaffold gate\nScaffold status: owner-confirmation-recorded-awaiting-separate-release-gate\nOwner confirmation accepted: yes\nRelease review ready: yes\nFailures: 0"
+    },
+    {
+      "name": "A25 validation hold release confirmation recording current",
+      "command": "node coordination/release-intake/assert-validation-hold-release-confirmation-recording-current.mjs",
+      "status": 0,
+      "passed": true,
+      "stdout": "A25 validation hold release confirmation recording gate\nRecorder status: dry-run-ready-requires-explicit-apply\nOwner confirmation accepted: yes\nRecords owner-confirmation rows: 0\nValidation hold released: no\nFailures: 0"
+    },
+    {
+      "name": "A25 validation hold release gate current",
+      "command": "node coordination/release-intake/assert-validation-hold-release-gate-current.mjs",
+      "status": 0,
+      "passed": true,
+      "stdout": "A25 validation hold release gate current\nRelease gate status: blocked-worktree-still-registered\nWorktree still registered: yes\nWorktree path exists: yes\nWorktree dirty status entries: 896\nValidation hold released: no\nFailures: 0"
+    },
+    {
+      "name": "A25/A22 validate frontier owner response packet current",
+      "command": "node coordination/release-intake/assert-validate-frontier-owner-response-packet-current.mjs",
+      "status": 0,
+      "passed": true,
+      "stdout": "A25/A22 validate-frontier owner response packet gate\nPacket status: waiting-for-owner-response\nResponse blocks: 3\nFrontier owner rows: 1\nFailures: 0"
+    },
+    {
+      "name": "A25/A22 validate frontier post-response execution plan current",
+      "command": "node coordination/release-intake/assert-validate-frontier-post-response-execution-plan-current.mjs",
+      "status": 0,
+      "passed": true,
+      "stdout": "A25/A22 validate-frontier post-response execution plan gate\nPlan status: waiting-for-owner-response\nFrontier owner rows: 1\nRecorder rows: 3\nFailures: 0"
+    },
+    {
+      "name": "A25/A22 validate frontier owner response readiness ledger current",
+      "command": "node coordination/release-intake/assert-validate-frontier-owner-response-readiness-ledger-current.mjs",
+      "status": 0,
+      "passed": true,
+      "stdout": "A25/A22 validate-frontier owner response readiness ledger gate\nLedger status: waiting-for-owner-response\nOwner response rows: 6\nBlocked rows: 6\nFailures: 0"
+    },
+    {
+      "name": "A25 pending owner blocker report bundle current",
+      "command": "node coordination/release-intake/assert-pending-owner-blocker-report-bundle-current.mjs",
+      "status": 0,
+      "passed": true,
+      "stdout": "A25 pending owner blocker report bundle gate\nPending reports: 0\nFailures: 0"
+    },
+    {
+      "name": "A25 owner input action packet current",
+      "command": "node coordination/release-intake/assert-owner-input-action-packet-current.mjs",
+      "status": 0,
+      "passed": true,
+      "stdout": "A25 owner input action packet gate\nOwner inputs ready: no\nMissing input files: 0\nPending canonical authorization rows: 42\nPending owner blocker report records: 0\nFailures: 0"
+    },
+    {
+      "name": "A25 authorization gap shrink map current",
+      "command": "node coordination/release-intake/assert-authorization-gap-shrink-map-current.mjs",
+      "status": 0,
+      "passed": true,
+      "stdout": "A25 authorization gap shrink map gate\nAuthorization rounds: 5\nPending canonical authorization rows: 42\nFailures: 0"
+    },
+    {
+      "name": "A25 next owner authorization focus batch current",
+      "command": "node coordination/release-intake/assert-next-owner-authorization-focus-batch-current.mjs",
+      "status": 0,
+      "passed": true,
+      "stdout": "A25 next-owner authorization focus batch gate\nNext batch rows: 1\nHeld rows: 1\nFailures: 0"
+    },
+    {
+      "name": "A25 authorization backlog queue current",
+      "command": "node coordination/release-intake/assert-authorization-backlog-queue-current.mjs",
+      "status": 0,
+      "passed": true,
+      "stdout": "A25 authorization backlog queue gate\nQueue rows: 42\nCurrent focus rows: 1\nFailures: 0"
+    },
+    {
+      "name": "A25 next owner authorization focus batch acceptance docket current",
+      "command": "node coordination/release-intake/assert-next-owner-authorization-focus-batch-acceptance-docket-current.mjs",
+      "status": 0,
+      "passed": true,
+      "stdout": "A25 next-owner authorization focus batch acceptance docket gate\nBatch status: waiting-for-owner-authorization\nAccepted rows: 0/1\nFailures: 0"
+    },
+    {
+      "name": "A25 next owner authorization focus batch owner-input scaffold current",
+      "command": "node coordination/release-intake/assert-next-owner-authorization-focus-batch-owner-input-scaffold-current.mjs",
+      "status": 0,
+      "passed": true,
+      "stdout": "A25 next-owner authorization focus batch owner-input scaffold gate\nBatch status: waiting-for-owner-authorization\nOwner-input visible rows: 1/1\nFailures: 0"
+    },
+    {
+      "name": "A25 next owner authorization focus batch recording intake current",
+      "command": "node coordination/release-intake/assert-next-owner-authorization-focus-batch-recording-intake-current.mjs",
+      "status": 0,
+      "passed": true,
+      "stdout": "A25 next-owner authorization focus batch recording intake gate\nIntake status: waiting-for-owner-authorization\nFocus rows: 1\nPending rows: 1\nFailures: 0"
+    },
+    {
+      "name": "A25 next owner authorization focus batch canonical preview current",
+      "command": "node coordination/release-intake/assert-next-owner-authorization-focus-batch-canonical-preview-current.mjs",
+      "status": 0,
+      "passed": true,
+      "stdout": "A25 next-owner authorization focus batch canonical preview gate\nPreview status: ready-for-owner-review\nPreview rows: 1\nFailures: 0"
+    },
+    {
+      "name": "A25 next owner authorization focus batch canonical recording current",
+      "command": "node coordination/release-intake/assert-next-owner-authorization-focus-batch-canonical-recording-current.mjs",
+      "status": 1,
+      "passed": false,
+      "stdout": "A25 next-owner authorization focus batch canonical recording dry-run gate\nRecorder status: dry-run-blocked-owner-approval-placeholders\nProposed authorization rows: 1\nFailures: 1",
+      "stderr": "A25 next-owner authorization focus batch canonical recording dry-run gate failed.\n- A25 next-owner authorization focus batch canonical recording dry-run is stale"
+    },
+    {
+      "name": "A25 next owner authorization focus batch tail current",
+      "command": "node coordination/release-intake/assert-next-owner-authorization-focus-batch-tail-current.mjs",
+      "status": 0,
+      "passed": true,
+      "stdout": "A25 next-owner authorization focus batch tail gate\nTail batch status: owner-package-tail-batch\nFocus rows: 1\nFailures: 0"
+    },
+    {
+      "name": "A25 next owner authorization stale apply guard current",
+      "command": "node coordination/release-intake/assert-next-owner-authorization-stale-apply-guard-current.mjs",
+      "status": 0,
+      "passed": true,
+      "stdout": "A25 next-owner authorization stale apply guard\nLatest apply status: stale-idempotent-artifact\nCurrent focus rows: 1\nFailures: 0"
+    },
+    {
+      "name": "A25 ready candidate owner-review capsule current",
+      "command": "node coordination/release-intake/assert-ready-candidate-owner-review-capsule-current.mjs",
+      "status": 0,
+      "passed": true,
+      "stdout": "A25 ready candidate owner-review capsule gate\nCandidate: \nApproval rows: 0\nFailures: 0"
+    },
+    {
+      "name": "A25 ready candidate owner acceptance docket current",
+      "command": "node coordination/release-intake/assert-ready-candidate-owner-acceptance-docket-current.mjs",
+      "status": 0,
+      "passed": true,
+      "stdout": "A25 ready candidate owner acceptance docket gate\nCandidate: wave-05-visualization-ai-runtime:a16-research-evidence\nDecision status: post-extraction-consumed\nAcceptance checks: 6/6\nFailures: 0"
+    },
+    {
+      "name": "A25 A16 authorized package extraction request current",
+      "command": "node coordination/release-intake/assert-a16-authorized-package-extraction-request-current.mjs",
+      "status": 0,
+      "passed": true,
+      "stdout": "A25 A16 authorized package extraction request gate\nApproved rows: 2\nPackage files: 6\nProposed command rows: 2\nFailures: 0"
+    },
+    {
+      "name": "A25 A16 execution authorization docket current",
+      "command": "node coordination/release-intake/assert-a16-execution-authorization-docket-current.mjs",
+      "status": 0,
+      "passed": true,
+      "stdout": "A25 A16 execution authorization docket gate\nAuthorization rows: 1\nExact command rows: 2\nFailures: 0"
+    },
+    {
+      "name": "A25 A16 pre-execution validation report current",
+      "command": "node coordination/release-intake/assert-a16-pre-execution-validation-report-current.mjs",
+      "status": 0,
+      "passed": true,
+      "stdout": "A25 A16 pre-execution validation report gate\nPre-execution validation ready: yes\nChecks: 13/13\nFailures: 0"
+    },
+    {
+      "name": "A25 A16 execution-instruction input scaffold current",
+      "command": "node coordination/release-intake/assert-a16-execution-instruction-input-scaffold-current.mjs",
+      "status": 0,
+      "passed": true,
+      "stdout": "A25 A16 execution-instruction input scaffold gate\nDraft instruction rows: 1\nReady for separate instruction rows: 0\nFailures: 0"
+    },
+    {
+      "name": "A25 A16 execution-instruction owner input current",
+      "command": "node coordination/release-intake/assert-a16-execution-instruction-owner-input-current.mjs",
+      "status": 0,
+      "passed": true,
+      "stdout": "A25 A16 execution-instruction owner input gate\nInstruction rows: 1\nValid instruction rows: 1\nFailures: 0"
+    },
+    {
+      "name": "A25 A16 post-extraction verification report current",
+      "command": "node coordination/release-intake/assert-a16-post-extraction-verification-report-current.mjs",
+      "status": 0,
+      "passed": true,
+      "stdout": "A25 A16 post-extraction verification report gate\nLifecycle status: post-extraction-verified\nChecks: 7/7\nFailures: 0"
+    },
+    {
+      "name": "A25 A16 extraction closeout docket current",
+      "command": "node coordination/release-intake/assert-a16-extraction-closeout-docket-current.mjs",
+      "status": 0,
+      "passed": true,
+      "stdout": "A25 A16 extraction closeout docket gate\nLifecycle status: post-extraction-verified\nPackage dirty rows: 0\nFailures: 0"
+    },
+    {
+      "name": "A25 A16 extraction execution readiness current",
+      "command": "node coordination/release-intake/assert-a16-extraction-execution-readiness-current.mjs",
+      "status": 0,
+      "passed": true,
+      "stdout": "A25 A16 extraction execution readiness gate\nReadiness status: post-extraction-verified\nPackage dirty rows: 0\nFailures: 0"
+    },
+    {
+      "name": "A25 A16 guarded extraction execution plan current",
+      "command": "node coordination/release-intake/assert-a16-guarded-extraction-execution-plan-current.mjs",
+      "status": 0,
+      "passed": true,
+      "stdout": "A25 A16 guarded extraction execution plan gate\nPlan status: already-extracted-and-verified\nPackage dirty rows: 0\nFailures: 0"
+    },
+    {
+      "name": "A25 A16 guarded extraction executor current",
+      "command": "node coordination/release-intake/assert-a16-guarded-extraction-executor-current.mjs",
+      "status": 0,
+      "passed": true,
+      "stdout": "A25 A16 guarded extraction executor gate\nExecutor status: already-extracted-and-verified\nApply permitted: no\nFailures: 0"
+    },
+    {
+      "name": "A25 authorization round validation plan current",
+      "command": "node coordination/release-intake/assert-authorization-round-validation-plan-current.mjs",
+      "status": 0,
+      "passed": true,
+      "stdout": "A25 authorization round validation plan gate\nAuthorization rounds: 5\nRound rows: 68\nFailures: 0"
+    },
+    {
+      "name": "A25 owner input scaffold files current",
+      "command": "node coordination/release-intake/assert-owner-input-scaffold-files-current.mjs",
+      "status": 0,
+      "passed": true,
+      "stdout": "A25 owner input scaffold files gate\nTarget files: 3\nEmpty scaffold files: 1\nOwner input files: 2\nOwner rows: 36\nDraft rows: 53\nCleanup/executable rows: 0\nFailures: 0"
+    },
+    {
+      "name": "A25 owner closure work-order bundle current",
+      "command": "node coordination/release-intake/assert-owner-closure-work-order-bundle-current.mjs",
+      "status": 0,
+      "passed": true,
+      "stdout": "A25 owner closure work-order bundle gate\nOwners: 25\nPending items: 131\nFailures: 0"
+    },
+    {
+      "name": "A25 dirty-worktree closure loop state current",
+      "command": "node coordination/release-intake/assert-dirty-worktree-closure-loop-state-current.mjs",
+      "status": 0,
+      "passed": true,
+      "stdout": "A25 dirty-worktree closure loop-state gate\nActive step: validate\nSteps: 5\nFailures: 0"
+    },
+    {
+      "name": "A25 validate-to-merge handoff current",
+      "command": "node coordination/release-intake/assert-validate-to-merge-handoff-current.mjs",
+      "status": 0,
+      "passed": true,
+      "stdout": "A25 validate-to-merge handoff current gate passed: /Users/dongpinhu/Desktop/MAIS-MVP/coordination/release-intake/latest-A25-validate-to-merge-handoff-current-gate.json"
+    },
+    {
+      "name": "A25 validation hold release gate current before blocker frontier",
+      "command": "node coordination/release-intake/assert-validation-hold-release-gate-current.mjs",
+      "status": 0,
+      "passed": true,
+      "stdout": "A25 validation hold release gate current\nRelease gate status: blocked-worktree-still-registered\nWorktree still registered: yes\nWorktree path exists: yes\nWorktree dirty status entries: 896\nValidation hold released: no\nFailures: 0"
+    },
+    {
+      "name": "A25 validate-to-merge blocker frontier current",
+      "command": "node coordination/release-intake/assert-validate-to-merge-blocker-frontier-current.mjs",
+      "status": 0,
+      "passed": true,
+      "stdout": "A25 validate-to-merge blocker frontier gate\nFrontier rows: 5\nFailures: 0"
+    },
+    {
+      "name": "A25 next owner compact request bundle current",
+      "command": "node coordination/release-intake/assert-next-owner-compact-request-bundle-current.mjs",
+      "status": 0,
+      "passed": true,
+      "stdout": "A25 next owner compact request bundle gate\nCompact status: waiting-for-owner-input\nFocus-batch pending rows: 1\nExecution instruction request rows: 0\nFailures: 0"
+    },
+    {
+      "name": "A25 next owner compact request recorder dry-run current",
+      "command": "node coordination/release-intake/assert-next-owner-compact-request-recorder-dry-run-current.mjs",
+      "status": 0,
+      "passed": true,
+      "stdout": "A25 next-owner compact request recorder dry-run gate\nRecorder status: dry-run-ready-requires-explicit-apply\nFocus-batch pending rows: 1\nFailures: 0"
+    },
+    {
+      "name": "A25 dirty-worktree final-state selection template current",
+      "command": "node coordination/release-intake/assert-dirty-worktree-final-state-selection-template-current.mjs",
+      "status": 0,
+      "passed": true,
+      "stdout": "A25 dirty-worktree final-state selection template gate\nTemplate decisions: 65\nExpanded dirty entries: 7018"
+    },
+    {
+      "name": "A25 dirty-worktree final-state selection current",
+      "command": "node coordination/release-intake/assert-dirty-worktree-final-state-selection-current.mjs",
+      "status": 0,
+      "passed": true,
+      "stdout": "A25 dirty-worktree final-state selection gate\nStrict: no\nSelection file: present\nTemplate decisions: 65\nComplete selections: 65"
+    },
+    {
+      "name": "A25 dirty-worktree recurrence prevention current",
+      "command": "node coordination/release-intake/assert-dirty-worktree-recurrence-prevention-current.mjs",
+      "status": 0,
+      "passed": true,
+      "stdout": "A25 dirty-worktree recurrence-prevention currentness gate\nChecks: 9/9\nFailures: 0"
+    },
+    {
+      "name": "A25 dirty-worktree remediation refresh runner current",
+      "command": "node coordination/release-intake/assert-dirty-worktree-remediation-refresh-runner-current.mjs",
+      "status": 0,
+      "passed": true,
+      "stdout": "A25 dirty-worktree remediation refresh-runner gate\nSteps: 976\nFailures: 0"
+    },
+    {
+      "name": "A22 top clean candidate root-parity extraction instruction request current",
+      "command": "node coordination/release-intake/assert-a22-top-clean-candidate-root-parity-extraction-instruction-request-current.mjs",
+      "status": 1,
+      "passed": false,
+      "stdout": "A22 top clean candidate root-parity extraction instruction request gate\nRequest status: waiting-for-owner-execution-instruction\nTop candidate: codex/A22-us-region-alignment\nInstruction rows: 4\nFailures: 1",
+      "stderr": "A22 top clean candidate root-parity extraction instruction request gate failed.\n- A22 root-parity extraction instruction request is stale"
+    },
+    {
+      "name": "A22 top clean candidate root-parity extraction instruction intake current",
+      "command": "node coordination/release-intake/assert-a22-top-clean-candidate-root-parity-extraction-instruction-intake-current.mjs",
+      "status": 1,
+      "passed": false,
+      "stdout": "A22 top clean candidate root-parity extraction instruction intake gate\nIntake status: ready-to-record-extraction-instruction-rows\nExpected rows: 4\nProposed instruction rows: 4\nFailures: 2",
+      "stderr": "A22 top clean candidate root-parity extraction instruction intake gate failed.\n- A22 root-parity extraction instruction intake is stale\n- intake instruction-request gate failure count is stale"
+    },
+    {
+      "name": "A22 top clean candidate root-parity extraction instruction recording current",
+      "command": "node coordination/release-intake/assert-a22-top-clean-candidate-root-parity-extraction-instruction-recording-current.mjs",
+      "status": 1,
+      "passed": false,
+      "stdout": "A22 root-parity extraction instruction recording gate\nRecorder status: already-recorded\nProposed instruction rows: 4\nFailures: 2",
+      "stderr": "A22 root-parity extraction instruction recording gate failed.\n- A22 root-parity extraction instruction recording dry-run is stale\n- recording dry-run intake gate failure count is stale"
+    },
+    {
+      "name": "A22 top clean candidate root-parity guarded extraction current",
+      "command": "node coordination/release-intake/assert-a22-top-clean-candidate-root-parity-guarded-extraction-current.mjs",
+      "status": 1,
+      "passed": false,
+      "stdout": "A22 root-parity guarded extraction gate\nExecutor status: already-extracted-and-verified\nRecorded instruction rows: 4\nFailures: 1",
+      "stderr": "A22 root-parity guarded extraction gate failed.\n- A22 root-parity guarded extraction dry-run evidence is stale"
+    },
+    {
+      "name": "A22 root-parity candidate mutation current",
+      "command": "node coordination/release-intake/assert-a22-root-parity-candidate-mutation-current.mjs",
+      "status": 1,
+      "passed": false,
+      "stdout": "A22 root-parity candidate mutation gate\nExecutor status: already-extracted-and-verified\nRecorded instruction rows: 4/4\nCandidate mutation rows: 0\nFailures: 1",
+      "stderr": "A22 root-parity candidate mutation gate failed.\n- A22 root-parity candidate mutation dry-run is stale"
+    },
+    {
+      "name": "A22 top clean candidate root-parity owner action packet current",
+      "command": "node coordination/release-intake/assert-a22-top-clean-candidate-root-parity-owner-action-packet-current.mjs",
+      "status": 1,
+      "passed": false,
+      "stdout": "A22 root-parity owner action packet gate\nFocus status: post-extraction-verified\nFocus rows: 4\nFailures: 1",
+      "stderr": "A22 root-parity owner action packet gate failed.\n- A22 root-parity owner action packet is stale"
+    },
+    {
+      "name": "A22 top clean candidate root-parity owner action acceptance docket current",
+      "command": "node coordination/release-intake/assert-a22-top-clean-candidate-root-parity-owner-action-acceptance-docket-current.mjs",
+      "status": 1,
+      "passed": false,
+      "stdout": "A22 root-parity owner action acceptance docket gate\nAcceptance status: post-extraction-verified\nAcceptance rows: 4\nFailures: 1",
+      "stderr": "A22 root-parity owner action acceptance docket gate failed.\n- A22 root-parity owner action acceptance docket is stale"
+    },
+    {
+      "name": "A25/A22 validate frontier owner input request capsule current",
+      "command": "node coordination/release-intake/assert-validate-frontier-owner-input-request-capsule-current.mjs",
+      "status": 1,
+      "passed": false,
+      "stdout": "A25/A22 validate frontier owner input request capsule gate\nCapsule status: waiting-for-owner-frontier-input\nOwner input groups: 2\nTotal frontier owner rows: 5\nFailures: 2",
+      "stderr": "A25/A22 validate frontier owner input request capsule gate failed.\n- A25/A22 validate frontier owner input request capsule is stale\n- A22 candidate mutation current gate failures must be 0"
+    },
+    {
+      "name": "A25/A22 validate frontier transition forecast current",
+      "command": "node coordination/release-intake/assert-validate-frontier-transition-forecast-current.mjs",
+      "status": 1,
+      "passed": false,
+      "stdout": "A25/A22 validate frontier transition forecast gate\nForecast status: current-frontier-projection-ready\nCombined frontier rows: 1\nProjected pending canonical rows: 41\nFailures: 2",
+      "stderr": "A25/A22 validate frontier transition forecast gate failed.\n- A25/A22 validate frontier transition forecast is stale\n- A22 candidate mutation current gate failures must be 0"
+    },
+    {
+      "name": "A25/A22 validate frontier post-input runway current",
+      "command": "node coordination/release-intake/assert-validate-frontier-post-input-runway-current.mjs",
+      "status": 1,
+      "passed": false,
+      "stdout": "A25/A22 validate frontier post-input runway gate\nRunway status: waiting-for-owner-frontier-approval\nOwner frontier rows: 1\nPhase rows: 7\nFailures: 2",
+      "stderr": "A25/A22 validate frontier post-input runway gate failed.\n- A25/A22 validate frontier post-input runway is stale\n- A22 candidate mutation current gate failures must be 0"
+    },
+    {
+      "name": "A25 no dirty root deploy evidence current",
+      "command": "node coordination/release-intake/assert-no-dirty-root-deploy-evidence-current.mjs",
+      "status": 1,
+      "passed": false,
+      "stdout": "A25 no-dirty-root-deploy evidence gate\nPassed: no\nFailures: 1",
+      "stderr": "A25 no-dirty-root-deploy evidence gate failed.\n- no-dirty-root-deploy evidence is stale relative to current guard/source/record probes"
+    },
+    {
+      "name": "A25 dirty-worktree remediation completion audit current",
+      "command": "node coordination/release-intake/assert-dirty-worktree-remediation-completion-audit-current.mjs",
+      "status": 1,
+      "passed": false,
+      "stdout": "A25 dirty-worktree remediation completion-audit currentness gate\nComplete: no\nFailures: 5",
+      "stderr": "A25 dirty-worktree remediation completion-audit currentness gate failed.\n- audit root status entry count is stale\n- dirty-map-current-and-zero: command status is stale\n- dirty-map-current-and-zero: command passed flag is stale\n- no-dirty-root-deploy-evidence: command status is stale\n- no-dirty-root-deploy-evidence: command passed flag is stale"
+    },
+    {
+      "name": "A25 current cleanup status snapshot current",
+      "command": "node coordination/release-intake/assert-a25-current-cleanup-status-snapshot-current.mjs",
+      "status": 1,
+      "passed": false,
+      "stdout": "A25 current cleanup status snapshot gate\nComplete: no\nExpanded status entries: 7018\nDecision rows: 8\nFailures: 1",
+      "stderr": "A25 current cleanup status snapshot gate failed.\n- A25 current cleanup status snapshot is stale relative to upstream dirty-worktree cleanup evidence"
+    },
+    {
+      "name": "A25 validate-to-merge exit criteria current",
+      "command": "node coordination/release-intake/assert-validate-to-merge-exit-criteria-current.mjs",
+      "status": 0,
+      "passed": true,
+      "stdout": "A25 validate-to-merge exit criteria gate\nValidate exit ready: no\nFailures: 0"
+    },
+    {
+      "name": "A25 authorization transition forecast current",
+      "command": "node coordination/release-intake/assert-authorization-transition-forecast-current.mjs",
+      "status": 0,
+      "passed": true,
+      "stdout": "A25 authorization transition forecast gate\nCurrent focus rows: 1\nProjected pending canonical rows: 41\nBlockers after current focus: 6\nFailures: 0"
+    },
+    {
+      "name": "A25 seven-step closure bridge current",
+      "command": "node coordination/release-intake/assert-seven-step-closure-bridge-current.mjs",
+      "status": 0,
+      "passed": true,
+      "stdout": "A25 seven-step closure bridge gate\nActive phase: validate\nFailures: 0"
+    },
+    {
+      "name": "A22 clean release source runway current",
+      "command": "node coordination/release-intake/assert-a22-clean-release-source-runway-current.mjs",
+      "status": 0,
+      "passed": true,
+      "stdout": "A22 clean release source runway gate\nRunway status: blocked-before-clean-source-selection\nRelease source eligible now: no\nBlocked allowed source options: 4\nFailures: 0"
+    },
+    {
+      "name": "A22 owner-remediation candidate dirty allowlist current",
+      "command": "node coordination/release-intake/assert-a22-owner-remediation-candidate-dirty-allowlist-current.mjs",
+      "status": 1,
+      "passed": false,
+      "stdout": "",
+      "stderr": "A22 owner-remediation candidate dirty allowlist current gate failed:\n- A22 owner-remediation candidate dirty allowlist is stale"
+    },
+    {
+      "name": "A22 clean source candidate promotion packet current",
+      "command": "node coordination/release-intake/assert-a22-clean-source-candidate-promotion-packet-current.mjs",
+      "status": 0,
+      "passed": true,
+      "stdout": "A22 clean source candidate promotion packet gate\nPromotion status: blocked-before-clean-source-promotion\nCandidate rows: 9\nTop candidate: codex/A22-us-region-alignment\nFailures: 0"
+    },
+    {
+      "name": "A22 top clean candidate focused smoke current",
+      "command": "node coordination/release-intake/assert-a22-top-clean-candidate-focused-smoke-current.mjs",
+      "status": 0,
+      "passed": true,
+      "stdout": "A22 top clean candidate focused smoke gate\nSmoke status: passed\nTop candidate: codex/A22-us-region-alignment\nTests: 2\nFailures: 0"
+    },
+    {
+      "name": "A22 top clean candidate type-check current",
+      "command": "node coordination/release-intake/assert-a22-top-clean-candidate-typecheck-current.mjs",
+      "status": 0,
+      "passed": true,
+      "stdout": "A22 top clean candidate type-check gate\nType-check status: failed\nTop candidate: codex/A22-us-region-alignment\nTypeScript error lines: 360\nFailures: 0"
+    },
+    {
+      "name": "A22 top clean candidate type-check remediation routing current",
+      "command": "node coordination/release-intake/assert-a22-top-clean-candidate-typecheck-remediation-routing-current.mjs",
+      "status": 0,
+      "passed": true,
+      "stdout": "A22 top clean candidate type-check remediation routing gate\nRemediation status: owner-routed-cross-owner-remediation-required\nOwner routes: 5\nRouted error rows: 360\nFailures: 0"
+    },
+    {
+      "name": "A22 typecheck remediation owner work orders current",
+      "command": "node coordination/release-intake/assert-a22-typecheck-remediation-owner-work-orders-current.mjs",
+      "status": 0,
+      "passed": true,
+      "stdout": "A22 typecheck remediation owner work orders gate\nStatus: ready-for-owner-remediation\nWork orders: 5\nFailures: 0"
+    },
+    {
+      "name": "A22 top clean candidate build snapshot current",
+      "command": "node coordination/release-intake/assert-a22-top-clean-candidate-build-snapshot-current.mjs",
+      "status": 0,
+      "passed": true,
+      "stdout": "A22 top clean candidate build snapshot gate\nBuild status: blocked-build-refresh-required\nTop candidate: codex/A22-us-region-alignment\nModule blockers: 0/5\nFailures: 0"
+    },
+    {
+      "name": "A22 top clean candidate build blocker routing current",
+      "command": "node coordination/release-intake/assert-a22-top-clean-candidate-build-blocker-routing-current.mjs",
+      "status": 0,
+      "passed": true,
+      "stdout": "A22 top clean candidate build blocker routing gate\nRouting status: routing-not-required-build-refresh-required\nTop candidate: codex/A22-us-region-alignment\nModule blockers: 0/5\nFailures: 0"
+    },
+    {
+      "name": "A22 fallback clean candidate validation snapshot current",
+      "command": "node coordination/release-intake/assert-a22-fallback-clean-candidate-validation-snapshot-current.mjs",
+      "status": 0,
+      "passed": true,
+      "stdout": "A22 fallback clean candidate validation snapshot gate\nCandidate: codex/s22-release-hygiene-2026-06-15\nValidation passed: yes\nType-check error lines: 0\nBuild passed: yes\nFailures: 0"
+    },
+    {
+      "name": "A22 top clean candidate root-parity extraction plan current",
+      "command": "node coordination/release-intake/assert-a22-top-clean-candidate-root-parity-extraction-plan-current.mjs",
+      "status": 0,
+      "passed": true,
+      "stdout": "A22 top clean candidate root-parity extraction plan gate\nPlan status: reviewable-non-executable\nTop candidate: codex/A22-us-region-alignment\nExtraction units: 4\nFailures: 0"
+    },
+    {
+      "name": "A22 root-parity selectedAction canonical preview current",
+      "command": "node coordination/release-intake/assert-a22-root-parity-selected-action-canonical-preview-current.mjs",
+      "status": 0,
+      "passed": true,
+      "stdout": "A22 root-parity selectedAction canonical preview gate\nPreview status: owner-approved-post-extraction-verified-check-remediation\nPreview rows: 4\nPending rows: 0\nFailures: 0"
+    },
+    {
+      "name": "A22 root-parity owner-input landing runway current",
+      "command": "node coordination/release-intake/assert-a22-root-parity-owner-input-landing-runway-current.mjs",
+      "status": 0,
+      "passed": true,
+      "stdout": "A22 root-parity owner-input landing runway gate\nRunway status: owner-input-recorded-post-runway\nPatch rows: 4\nPost-owner-input validation commands: 8\nFailures: 0"
+    },
+    {
+      "name": "A22 root-parity owner-input recording current",
+      "command": "node coordination/release-intake/assert-a22-root-parity-owner-input-recording-current.mjs",
+      "status": 0,
+      "passed": true,
+      "stdout": "A22 root-parity owner-input recording gate\nRecorder status: already-recorded\nPatch rows: 4\nRecords owner-input rows: 0\nFailures: 0"
+    },
+    {
+      "name": "A22 top clean candidate review packet current",
+      "command": "node coordination/release-intake/assert-a22-top-clean-candidate-review-packet-current.mjs",
+      "status": 0,
+      "passed": true,
+      "stdout": "A22 top clean candidate review packet gate\nPacket status: controlled-recovery-evidence-ready-promotion-blocked\nTop candidate: codex/A22-us-region-alignment\nGit/archive evidence ready: yes\nFailures: 0"
+    },
+    {
+      "name": "A22 clean candidate gate coverage matrix current",
+      "command": "node coordination/release-intake/assert-a22-clean-candidate-gate-coverage-matrix-current.mjs",
+      "status": 0,
+      "passed": true,
+      "stdout": "A22 clean candidate gate coverage matrix gate\nMatrix status: coverage-current-top-candidate-red\nCandidates with gate evidence: 1\nCandidates gate red: 1\nCandidates awaiting gate evidence: 8\nFailures: 0"
+    },
+    {
+      "name": "A22 clean source validation queue current",
+      "command": "node coordination/release-intake/assert-a22-clean-source-validation-queue-current.mjs",
+      "status": 0,
+      "passed": true,
+      "stdout": "A22 clean source validation queue gate\nQueue status: fallback-candidate-green-await-clean-source-selection-review\nTop candidate: codex/A22-us-region-alignment\nTop candidate queue action: needs-typecheck-remediation-and-fresh-build-observation\nQueue rows: 9\nFailures: 0"
+    },
+    {
+      "name": "A22 clean source selection review current",
+      "command": "node coordination/release-intake/assert-a22-clean-source-selection-review-current.mjs",
+      "status": 0,
+      "passed": true,
+      "stdout": "A22 clean source selection review gate\nSelection review status: reviewed-fallback-green-not-selected\nFallback green candidate: codex/s22-release-hygiene-2026-06-15\nRelease source selected: no\nFailures: 0"
+    },
+    {
+      "name": "A22 fallback clean candidate validation sweep current",
+      "command": "node coordination/release-intake/assert-a22-fallback-clean-candidate-validation-sweep-current.mjs",
+      "status": 0,
+      "passed": true,
+      "stdout": "A22 fallback clean candidate validation sweep gate\nSelected rows: 7\nValidation passed rows: 0\nValidation failed rows: 7\nMutation rows: 0\nFailures: 0"
+    }
+  ],
+  "strictChecks": []
+}

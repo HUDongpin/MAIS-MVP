@@ -1,0 +1,431 @@
+{
+  "generatedAt": "2026-07-07T15:08:02.465Z",
+  "repoRoot": "/Users/dongpinhu/Desktop/MAIS-MVP",
+  "dirtyMapStatusSignature": "84e0553381630f5c29322b7cd071032a65d4d5b479cd222bba15314f9269b4e0",
+  "expandedStatusEntries": 5717,
+  "sourceArtifacts": {
+    "dirtyMap": {
+      "path": "coordination/release-intake/latest-A25-dirty-tree-map.json",
+      "dirtyMapStatusSignature": "84e0553381630f5c29322b7cd071032a65d4d5b479cd222bba15314f9269b4e0",
+      "expandedStatusEntries": 5717
+    },
+    "rootParityExtractionPlan": {
+      "path": "coordination/release-intake/latest-A22-top-clean-candidate-root-parity-extraction-plan.json",
+      "generatedAt": "2026-07-07T15:08:02.297Z",
+      "dirtyMapStatusSignature": "84e0553381630f5c29322b7cd071032a65d4d5b479cd222bba15314f9269b4e0",
+      "expandedStatusEntries": 5717,
+      "planStatus": "reviewable-non-executable"
+    }
+  },
+  "sourceCurrentnessFailures": [],
+  "requestStatus": "waiting-for-owner-execution-instruction",
+  "topCandidate": {
+    "branch": "codex/A22-us-region-alignment",
+    "path": "/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A22-us-region-alignment",
+    "head": "80b8546af59def9ea4c91fa4b8a892973874504d",
+    "releaseSourceSelected": false,
+    "promotionEligibleNow": false
+  },
+  "instructionRows": [
+    {
+      "instructionId": "a22-root-parity-a06-visualization-back-to-top-import-parity",
+      "unitId": "a06-visualization-back-to-top-import-parity",
+      "approvalKind": "a22-root-parity-extraction-instruction",
+      "instructionStatus": "waiting-for-owner-execution-instruction",
+      "topCandidate": {
+        "branch": "codex/A22-us-region-alignment",
+        "path": "/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A22-us-region-alignment",
+        "head": "80b8546af59def9ea4c91fa4b8a892973874504d"
+      },
+      "primaryOwnerIds": [
+        "A06"
+      ],
+      "coordinationOwnerIds": [
+        "A22",
+        "A25"
+      ],
+      "actionMode": "owner-reviewed-reexport-or-import-align",
+      "rootSource": {
+        "path": "components/visualizations/VisualizationLabBackToTopButton.tsx",
+        "existsInRoot": true,
+        "bytes": 3954,
+        "sha256": "efef3f7c3590ebbd6b21ca56a3d4fcdcab1c0e3dd591bf08ee5a6ccc58707155",
+        "lineCount": 85
+      },
+      "candidateTargetPath": "app/visualization-lab/VisualizationLabBackToTopButton.tsx",
+      "candidateTargetExists": false,
+      "coveredBlockerRows": 1,
+      "importerRows": [
+        {
+          "importer": "app/visualization-lab/page.tsx",
+          "moduleSpecifier": "@/app/visualization-lab/VisualizationLabBackToTopButton",
+          "blockerConfirmed": true,
+          "candidateExpectedPaths": [
+            {
+              "path": "app/visualization-lab/VisualizationLabBackToTopButton.tsx",
+              "exists": false
+            }
+          ],
+          "candidateObservedAlternatePaths": [
+            {
+              "path": "components/visualizations/VisualizationLabBackToTopButton.tsx",
+              "exists": true
+            }
+          ]
+        }
+      ],
+      "proposedActionOptions": [
+        {
+          "optionId": "a06-visualization-back-to-top-import-parity:reexport",
+          "label": "A06 app-level re-export",
+          "proposedFiles": [
+            "app/visualization-lab/VisualizationLabBackToTopButton.tsx"
+          ],
+          "draftCommandsDoNotRun": [
+            "mkdir -p \"/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A22-us-region-alignment/app/visualization-lab\"",
+            "create \"/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A22-us-region-alignment/app/visualization-lab/VisualizationLabBackToTopButton.tsx\" with: export { VisualizationLabBackToTopButton } from \"@/components/visualizations/VisualizationLabBackToTopButton\";"
+          ],
+          "ownerReviewNote": "Use only if A06 confirms an app-level re-export is the narrowest parity fix for the candidate import path."
+        },
+        {
+          "optionId": "a06-visualization-back-to-top-import-parity:import-align",
+          "label": "A06 importer alignment",
+          "proposedFiles": [
+            "app/visualization-lab/page.tsx"
+          ],
+          "draftCommandsDoNotRun": [
+            "edit the candidate importer from @/app/visualization-lab/VisualizationLabBackToTopButton to @/components/visualizations/VisualizationLabBackToTopButton"
+          ],
+          "ownerReviewNote": "Use only if A06 confirms changing the import path is preferable to adding an app-level re-export."
+        }
+      ],
+      "authorizationText": "Authorize A22 root-parity extraction instruction for unitId=a06-visualization-back-to-top-import-parity; topCandidate=codex/A22-us-region-alignment; targetWorktree=/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A22-us-region-alignment; primaryOwnerIds=A06; coordinationOwnerIds=A22,A25; actionMode=owner-reviewed-reexport-or-import-align; rootSource=components/visualizations/VisualizationLabBackToTopButton.tsx; rootSourceSha256=efef3f7c3590ebbd6b21ca56a3d4fcdcab1c0e3dd591bf08ee5a6ccc58707155; candidateTarget=app/visualization-lab/VisualizationLabBackToTopButton.tsx; coveredBlockerRows=1; selectedAction=<reexport|import-align|same-path-copy>; approvedBy=<owner>; approvedAt=<ISO-8601>; notes=<scope and checks>; No cleanup; No deploy; No merge; No broad staging; No destructive git; No physical lifecycle cleanup.",
+      "requiredPostInstructionEvidence": [
+        "owner instruction row recorded with exact unitId, selectedAction, approvedBy, approvedAt, and notes",
+        "candidate mutation happens only in the named A22 clean candidate worktree or an owner-approved replacement clean slice",
+        "post-change candidate npm run type-check evidence",
+        "post-change candidate npm run build evidence",
+        "A22 review packet refresh showing candidate-build and root-parity blocker status after extraction"
+      ],
+      "cleanupAuthorized": false,
+      "executableNow": false,
+      "deployAuthorized": false,
+      "mergeAuthorized": false,
+      "stageAuthorized": false,
+      "destructiveGitAuthorized": false
+    },
+    {
+      "instructionId": "a22-root-parity-a20-math-virus-blaster-data-parity",
+      "unitId": "a20-math-virus-blaster-data-parity",
+      "approvalKind": "a22-root-parity-extraction-instruction",
+      "instructionStatus": "waiting-for-owner-execution-instruction",
+      "topCandidate": {
+        "branch": "codex/A22-us-region-alignment",
+        "path": "/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A22-us-region-alignment",
+        "head": "80b8546af59def9ea4c91fa4b8a892973874504d"
+      },
+      "primaryOwnerIds": [
+        "A20"
+      ],
+      "coordinationOwnerIds": [
+        "A10",
+        "A22",
+        "A25"
+      ],
+      "actionMode": "owner-reviewed-same-path-data-extraction",
+      "rootSource": {
+        "path": "data/mathVirusBlaster.ts",
+        "existsInRoot": true,
+        "bytes": 9259,
+        "sha256": "e7e7edfe35ada99e17be43cdfea5cea36e409d52e8a4c3966476209687b495fa",
+        "lineCount": 319
+      },
+      "candidateTargetPath": "data/mathVirusBlaster.ts",
+      "candidateTargetExists": false,
+      "coveredBlockerRows": 1,
+      "importerRows": [
+        {
+          "importer": "components/games/MathVirusBlasterGame.tsx",
+          "moduleSpecifier": "@/data/mathVirusBlaster",
+          "blockerConfirmed": true,
+          "candidateExpectedPaths": [
+            {
+              "path": "data/mathVirusBlaster.ts",
+              "exists": false
+            },
+            {
+              "path": "data/mathVirusBlaster.tsx",
+              "exists": false
+            }
+          ],
+          "candidateObservedAlternatePaths": []
+        }
+      ],
+      "proposedActionOptions": [
+        {
+          "optionId": "a20-math-virus-blaster-data-parity:same-path-copy",
+          "label": "owner-reviewed same-path parity extraction",
+          "proposedFiles": [
+            "data/mathVirusBlaster.ts"
+          ],
+          "draftCommandsDoNotRun": [
+            "mkdir -p \"/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A22-us-region-alignment/data\"",
+            "cp \"/Users/dongpinhu/Desktop/MAIS-MVP/data/mathVirusBlaster.ts\" \"/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A22-us-region-alignment/data/mathVirusBlaster.ts\""
+          ],
+          "ownerReviewNote": "Use only after the owning content/runtime session confirms the root-local source is the correct parity source for this candidate."
+        }
+      ],
+      "authorizationText": "Authorize A22 root-parity extraction instruction for unitId=a20-math-virus-blaster-data-parity; topCandidate=codex/A22-us-region-alignment; targetWorktree=/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A22-us-region-alignment; primaryOwnerIds=A20; coordinationOwnerIds=A10,A22,A25; actionMode=owner-reviewed-same-path-data-extraction; rootSource=data/mathVirusBlaster.ts; rootSourceSha256=e7e7edfe35ada99e17be43cdfea5cea36e409d52e8a4c3966476209687b495fa; candidateTarget=data/mathVirusBlaster.ts; coveredBlockerRows=1; selectedAction=<reexport|import-align|same-path-copy>; approvedBy=<owner>; approvedAt=<ISO-8601>; notes=<scope and checks>; No cleanup; No deploy; No merge; No broad staging; No destructive git; No physical lifecycle cleanup.",
+      "requiredPostInstructionEvidence": [
+        "owner instruction row recorded with exact unitId, selectedAction, approvedBy, approvedAt, and notes",
+        "candidate mutation happens only in the named A22 clean candidate worktree or an owner-approved replacement clean slice",
+        "post-change candidate npm run type-check evidence",
+        "post-change candidate npm run build evidence",
+        "A22 review packet refresh showing candidate-build and root-parity blocker status after extraction"
+      ],
+      "cleanupAuthorized": false,
+      "executableNow": false,
+      "deployAuthorized": false,
+      "mergeAuthorized": false,
+      "stageAuthorized": false,
+      "destructiveGitAuthorized": false
+    },
+    {
+      "instructionId": "a22-root-parity-a20-mighty-tank-battle-data-parity",
+      "unitId": "a20-mighty-tank-battle-data-parity",
+      "approvalKind": "a22-root-parity-extraction-instruction",
+      "instructionStatus": "waiting-for-owner-execution-instruction",
+      "topCandidate": {
+        "branch": "codex/A22-us-region-alignment",
+        "path": "/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A22-us-region-alignment",
+        "head": "80b8546af59def9ea4c91fa4b8a892973874504d"
+      },
+      "primaryOwnerIds": [
+        "A20"
+      ],
+      "coordinationOwnerIds": [
+        "A10",
+        "A22",
+        "A25"
+      ],
+      "actionMode": "owner-reviewed-same-path-data-extraction",
+      "rootSource": {
+        "path": "data/mightyTankBattle.ts",
+        "existsInRoot": true,
+        "bytes": 7014,
+        "sha256": "d74bfa43d60d766f818bd7b8e958b386cdff38fc91d3ae5d84889c957c2138e7",
+        "lineCount": 205
+      },
+      "candidateTargetPath": "data/mightyTankBattle.ts",
+      "candidateTargetExists": false,
+      "coveredBlockerRows": 1,
+      "importerRows": [
+        {
+          "importer": "components/games/MightyTankBattleGame.tsx",
+          "moduleSpecifier": "@/data/mightyTankBattle",
+          "blockerConfirmed": true,
+          "candidateExpectedPaths": [
+            {
+              "path": "data/mightyTankBattle.ts",
+              "exists": false
+            },
+            {
+              "path": "data/mightyTankBattle.tsx",
+              "exists": false
+            }
+          ],
+          "candidateObservedAlternatePaths": []
+        }
+      ],
+      "proposedActionOptions": [
+        {
+          "optionId": "a20-mighty-tank-battle-data-parity:same-path-copy",
+          "label": "owner-reviewed same-path parity extraction",
+          "proposedFiles": [
+            "data/mightyTankBattle.ts"
+          ],
+          "draftCommandsDoNotRun": [
+            "mkdir -p \"/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A22-us-region-alignment/data\"",
+            "cp \"/Users/dongpinhu/Desktop/MAIS-MVP/data/mightyTankBattle.ts\" \"/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A22-us-region-alignment/data/mightyTankBattle.ts\""
+          ],
+          "ownerReviewNote": "Use only after the owning content/runtime session confirms the root-local source is the correct parity source for this candidate."
+        }
+      ],
+      "authorizationText": "Authorize A22 root-parity extraction instruction for unitId=a20-mighty-tank-battle-data-parity; topCandidate=codex/A22-us-region-alignment; targetWorktree=/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A22-us-region-alignment; primaryOwnerIds=A20; coordinationOwnerIds=A10,A22,A25; actionMode=owner-reviewed-same-path-data-extraction; rootSource=data/mightyTankBattle.ts; rootSourceSha256=d74bfa43d60d766f818bd7b8e958b386cdff38fc91d3ae5d84889c957c2138e7; candidateTarget=data/mightyTankBattle.ts; coveredBlockerRows=1; selectedAction=<reexport|import-align|same-path-copy>; approvedBy=<owner>; approvedAt=<ISO-8601>; notes=<scope and checks>; No cleanup; No deploy; No merge; No broad staging; No destructive git; No physical lifecycle cleanup.",
+      "requiredPostInstructionEvidence": [
+        "owner instruction row recorded with exact unitId, selectedAction, approvedBy, approvedAt, and notes",
+        "candidate mutation happens only in the named A22 clean candidate worktree or an owner-approved replacement clean slice",
+        "post-change candidate npm run type-check evidence",
+        "post-change candidate npm run build evidence",
+        "A22 review packet refresh showing candidate-build and root-parity blocker status after extraction"
+      ],
+      "cleanupAuthorized": false,
+      "executableNow": false,
+      "deployAuthorized": false,
+      "mergeAuthorized": false,
+      "stageAuthorized": false,
+      "destructiveGitAuthorized": false
+    },
+    {
+      "instructionId": "a22-root-parity-a05-california-high-school-lesson-illustration-data-parity",
+      "unitId": "a05-california-high-school-lesson-illustration-data-parity",
+      "approvalKind": "a22-root-parity-extraction-instruction",
+      "instructionStatus": "waiting-for-owner-execution-instruction",
+      "topCandidate": {
+        "branch": "codex/A22-us-region-alignment",
+        "path": "/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A22-us-region-alignment",
+        "head": "80b8546af59def9ea4c91fa4b8a892973874504d"
+      },
+      "primaryOwnerIds": [
+        "A05"
+      ],
+      "coordinationOwnerIds": [
+        "A18",
+        "A21",
+        "A24",
+        "A22",
+        "A25"
+      ],
+      "actionMode": "owner-reviewed-same-path-data-extraction-with-content-signoff",
+      "rootSource": {
+        "path": "data/usCaliforniaHighSchoolLessonIllustrations.ts",
+        "existsInRoot": true,
+        "bytes": 125131,
+        "sha256": "366c5b3a2e8ea9a67f1c13e005377f0be4d903d7d4657e15ad2d9f2da0507a28",
+        "lineCount": 2781
+      },
+      "candidateTargetPath": "data/usCaliforniaHighSchoolLessonIllustrations.ts",
+      "candidateTargetExists": false,
+      "coveredBlockerRows": 2,
+      "importerRows": [
+        {
+          "importer": "components/lesson/CaliforniaHighSchoolTextbookPage.tsx",
+          "moduleSpecifier": "@/data/usCaliforniaHighSchoolLessonIllustrations",
+          "blockerConfirmed": true,
+          "candidateExpectedPaths": [
+            {
+              "path": "data/usCaliforniaHighSchoolLessonIllustrations.ts",
+              "exists": false
+            },
+            {
+              "path": "data/usCaliforniaHighSchoolLessonIllustrations.tsx",
+              "exists": false
+            }
+          ],
+          "candidateObservedAlternatePaths": []
+        },
+        {
+          "importer": "components/lesson/CaliforniaHighSchoolTextbookStudentPage.tsx",
+          "moduleSpecifier": "@/data/usCaliforniaHighSchoolLessonIllustrations",
+          "blockerConfirmed": true,
+          "candidateExpectedPaths": [
+            {
+              "path": "data/usCaliforniaHighSchoolLessonIllustrations.ts",
+              "exists": false
+            },
+            {
+              "path": "data/usCaliforniaHighSchoolLessonIllustrations.tsx",
+              "exists": false
+            }
+          ],
+          "candidateObservedAlternatePaths": []
+        }
+      ],
+      "proposedActionOptions": [
+        {
+          "optionId": "a05-california-high-school-lesson-illustration-data-parity:same-path-copy",
+          "label": "owner-reviewed same-path parity extraction",
+          "proposedFiles": [
+            "data/usCaliforniaHighSchoolLessonIllustrations.ts"
+          ],
+          "draftCommandsDoNotRun": [
+            "mkdir -p \"/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A22-us-region-alignment/data\"",
+            "cp \"/Users/dongpinhu/Desktop/MAIS-MVP/data/usCaliforniaHighSchoolLessonIllustrations.ts\" \"/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A22-us-region-alignment/data/usCaliforniaHighSchoolLessonIllustrations.ts\""
+          ],
+          "ownerReviewNote": "Use only after the owning content/runtime session confirms the root-local source is the correct parity source for this candidate."
+        }
+      ],
+      "authorizationText": "Authorize A22 root-parity extraction instruction for unitId=a05-california-high-school-lesson-illustration-data-parity; topCandidate=codex/A22-us-region-alignment; targetWorktree=/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A22-us-region-alignment; primaryOwnerIds=A05; coordinationOwnerIds=A18,A21,A24,A22,A25; actionMode=owner-reviewed-same-path-data-extraction-with-content-signoff; rootSource=data/usCaliforniaHighSchoolLessonIllustrations.ts; rootSourceSha256=366c5b3a2e8ea9a67f1c13e005377f0be4d903d7d4657e15ad2d9f2da0507a28; candidateTarget=data/usCaliforniaHighSchoolLessonIllustrations.ts; coveredBlockerRows=2; selectedAction=<reexport|import-align|same-path-copy>; approvedBy=<owner>; approvedAt=<ISO-8601>; notes=<scope and checks>; No cleanup; No deploy; No merge; No broad staging; No destructive git; No physical lifecycle cleanup.",
+      "requiredPostInstructionEvidence": [
+        "owner instruction row recorded with exact unitId, selectedAction, approvedBy, approvedAt, and notes",
+        "candidate mutation happens only in the named A22 clean candidate worktree or an owner-approved replacement clean slice",
+        "post-change candidate npm run type-check evidence",
+        "post-change candidate npm run build evidence",
+        "A22 review packet refresh showing candidate-build and root-parity blocker status after extraction"
+      ],
+      "cleanupAuthorized": false,
+      "executableNow": false,
+      "deployAuthorized": false,
+      "mergeAuthorized": false,
+      "stageAuthorized": false,
+      "destructiveGitAuthorized": false
+    }
+  ],
+  "validationRows": [
+    {
+      "id": "root-parity-plan-current",
+      "passed": true,
+      "status": "passed",
+      "detail": "Root-parity extraction plan projection is current."
+    },
+    {
+      "id": "owner-instruction-texts-prepared",
+      "passed": true,
+      "status": "passed",
+      "detail": "4 owner instruction text row(s) prepared for the 4 root-parity extraction units."
+    },
+    {
+      "id": "candidate-targets-still-missing",
+      "passed": true,
+      "status": "passed",
+      "detail": "4/4 candidate target path(s) remain missing before extraction."
+    },
+    {
+      "id": "request-non-executable",
+      "passed": true,
+      "status": "passed",
+      "detail": "Instruction request does not authorize cleanup or execution."
+    }
+  ],
+  "safeValidationCommands": [
+    "npm run release:dirty-map -- --assert-current --max-age-minutes 60",
+    "node coordination/release-intake/assert-a22-top-clean-candidate-root-parity-extraction-plan-current.mjs",
+    "node coordination/release-intake/assert-a22-top-clean-candidate-root-parity-extraction-instruction-request-current.mjs",
+    "node coordination/release-intake/assert-a22-top-clean-candidate-review-packet-current.mjs"
+  ],
+  "summary": {
+    "instructionRows": 4,
+    "readyForOwnerInstructionRows": 4,
+    "rootSourceRows": 4,
+    "rootSourcesAvailable": 4,
+    "candidateTargetsMissing": 4,
+    "blockerRowsCovered": 5,
+    "proposedActionOptionRows": 5,
+    "cleanupAuthorizedRows": 0,
+    "executableRows": 0,
+    "sourceCurrentnessFailures": 0
+  },
+  "boundary": {
+    "evidenceOnly": true,
+    "ownerInstructionRequestOnly": true,
+    "writesOwnerInput": false,
+    "recordsOwnerApproval": false,
+    "recordsExecutionInstruction": false,
+    "modifiesCandidate": false,
+    "copiesRootFiles": false,
+    "writesRootSourceFiles": false,
+    "selectsReleaseSource": false,
+    "runsTypeCheck": false,
+    "runsBuild": false,
+    "runsRegression": false,
+    "stagesFiles": false,
+    "commits": false,
+    "merges": false,
+    "pushes": false,
+    "deploys": false,
+    "cleanupAuthorized": false,
+    "executableNow": false,
+    "destructiveGitAuthorized": false,
+    "physicalLifecycleCleanupAuthorized": false
+  }
+}

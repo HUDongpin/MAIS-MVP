@@ -21,7 +21,7 @@ Suggested clip names:
 
 - `01-home-grade-selector.mov`
 - `02-student-dashboard.mov`
-- `03-adaptive-learning-analytics.mov`
+- `03-personalized-learning-analytics.mov`
 - `04-learning-roadmap.mov`
 - `05-visualization-lab.mov`
 - `06-practice-feedback.mov`

@@ -1,0 +1,94 @@
+{
+  "generatedAt": "2026-07-08T14:14:20.226Z",
+  "repoRoot": "/Users/dongpinhu/Desktop/MAIS-MVP",
+  "docketKind": "next-owner-execution-instruction-acceptance",
+  "dirtyMapStatusSignature": "4892e406613fc3846378621b84ba0f486bb8ebf371c35837eae544472596f318",
+  "expandedStatusEntries": 6130,
+  "sourceArtifacts": {
+    "executionInstructionsGeneratedAt": "2026-07-08T14:14:17.057Z",
+    "executionInstructionsGatePath": "coordination/release-intake/latest-A25-next-owner-execution-instructions-current-gate.json",
+    "requestPacketGeneratedAt": "2026-07-08T14:14:17.164Z",
+    "requestPacketGatePath": "coordination/release-intake/latest-A25-next-owner-execution-instruction-request-packet-current-gate.json",
+    "a16OwnerInputGeneratedAt": "2026-07-08T14:14:16.638Z",
+    "a16OwnerInputGatePath": "coordination/release-intake/latest-A25-a16-execution-instruction-owner-input-current-gate.json",
+    "a16PreExecutionReportGeneratedAt": "2026-07-08T14:14:16.070Z"
+  },
+  "sourceCurrentnessFailures": [],
+  "acceptanceRows": [],
+  "acceptanceChecks": [
+    {
+      "id": "source-current",
+      "status": "pass",
+      "detail": "source currentness failures=0"
+    },
+    {
+      "id": "ready-request-rows-aligned",
+      "status": "pass",
+      "detail": "ready request rows=0"
+    },
+    {
+      "id": "pending-ready-instruction-row",
+      "status": "pass",
+      "detail": "pending=0, instructionGatePending=0, ownerInputReady=0"
+    },
+    {
+      "id": "execution-instruction-state",
+      "status": "pass",
+      "detail": "The pending request has been consumed by 0 valid recorded instruction row(s)."
+    },
+    {
+      "id": "a16-pre-execution-ready",
+      "status": "pass",
+      "detail": "pre-execution checks=13/13"
+    },
+    {
+      "id": "package-files-present",
+      "status": "pass",
+      "detail": "request rows=0"
+    },
+    {
+      "id": "exact-commands-present",
+      "status": "pass",
+      "detail": "request rows=0"
+    },
+    {
+      "id": "copyable-execution-text-complete",
+      "status": "pass",
+      "detail": "Request row carries the exact owner-facing execution instruction text."
+    },
+    {
+      "id": "non-executable-boundary",
+      "status": "pass",
+      "detail": "Acceptance docket does not authorize cleanup or executable rows."
+    }
+  ],
+  "summary": {
+    "acceptanceRows": 0,
+    "readyInstructionRequestRows": 0,
+    "effectivePendingReadyInstructionRows": 0,
+    "instructionRowsInFile": 0,
+    "validInstructionRows": 0,
+    "ownerInputInstructionRows": 1,
+    "ownerInputValidInstructionRows": 1,
+    "acceptanceChecks": 9,
+    "passingAcceptanceChecks": 9,
+    "failedAcceptanceChecks": 0,
+    "sourceCurrentnessFailures": 0,
+    "preExecutionValidationReady": true,
+    "cleanupAuthorizedRows": 0,
+    "executableRows": 0
+  },
+  "boundary": {
+    "evidenceOnly": true,
+    "acceptanceDocketOnly": true,
+    "recordsExecutionInstruction": false,
+    "stageAuthorized": false,
+    "commitAuthorized": false,
+    "mergeAuthorized": false,
+    "cleanupAuthorized": false,
+    "executableNow": false,
+    "destructiveGitAuthorized": false,
+    "deployAuthorized": false,
+    "requiresSeparateOwnerExecutionInstruction": false
+  }
+}

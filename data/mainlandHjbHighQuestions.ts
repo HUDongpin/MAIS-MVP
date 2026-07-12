@@ -4,7 +4,8 @@ import v3RemediatedQuestionPackJson from "./generated-content/mainland-hjb-high-
 import v4RemediatedQuestionPackJson from "./generated-content/mainland-hjb-high-generated-bank-v4-remediated/question-pack.json";
 import { localizedHjbGeneratedAcceptedAnswers, localizeHjbGeneratedText } from "./hjbQuestionLocalization";
 import { mainlandHjbHighTopics } from "./mainlandHjbHighTopics";
-import type { Difficulty, GradeId, Question, QuestionType } from "@/types";
+import { mapDifficultyToActive } from "@/lib/difficulty";
+import type { Difficulty, DifficultyRecord, GradeId, Question, QuestionType } from "@/types";
 
 type GeneratedHjbQuestion = {
   id: string;
@@ -14,7 +15,7 @@ type GeneratedHjbQuestion = {
   volume: string;
   chapter: string;
   conceptIds: string[];
-  difficulty: Difficulty;
+  difficulty: DifficultyRecord;
   type: Exclude<QuestionType, "graph">;
   evidenceCardIds: string[];
   examPatternCardIds: string[];
@@ -78,7 +79,7 @@ function toQuestion(question: GeneratedHjbQuestion): Question {
     grade: question.grade,
     topicId,
     topic: topic.title,
-    difficulty: question.difficulty,
+    difficulty: mapDifficultyToActive(question.difficulty),
     type: question.type,
     prompt: localizeHjbGeneratedText(question.promptZhHans),
     options: question.type === "multiple-choice" ? question.optionsZhHans.map(localizeHjbGeneratedText) : undefined,
@@ -99,7 +100,7 @@ export const mainlandHjbHighQuestionGenerationMetadata: Record<string, MainlandH
         volume: question.volume,
         chapter: question.chapter,
         type: question.type,
-        difficulty: question.difficulty,
+        difficulty: mapDifficultyToActive(question.difficulty),
         evidenceCardIds: question.evidenceCardIds,
         examPatternCardIds: question.examPatternCardIds,
         sourceDistanceStatus: question.sourceDistanceStatus,
@@ -123,9 +124,6 @@ export const mainlandHjbHighV3RemediatedQuestions: Question[] = v3RemediatedQues
 
 export const mainlandHjbHighV4RemediatedQuestions: Question[] = v4RemediatedQuestionPack.questions.map(toQuestion);
 
-export const mainlandHjbHighQuestions: Question[] = [
-  ...mainlandHjbHighV1Questions,
-  ...mainlandHjbHighV2Questions,
-  ...mainlandHjbHighV3RemediatedQuestions,
-  ...mainlandHjbHighV4RemediatedQuestions
-];
+// V2 is the stable default HJB high-school bank for production surfaces.
+// V1, V3-remediated, and V4-remediated remain available through explicit exports.
+export const mainlandHjbHighQuestions: Question[] = mainlandHjbHighV2Questions;

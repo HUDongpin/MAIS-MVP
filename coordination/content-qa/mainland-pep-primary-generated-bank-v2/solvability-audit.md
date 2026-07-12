@@ -1,6 +1,6 @@
 # Mainland PEP Primary Generated Bank V2 Solvability Audit
 
-- Generated: 2026-05-23T15:42:46.281Z
+- Generated: 2026-06-02T04:30:57.934Z
 - Input: `questions.jsonl`
 - Scope: offline candidate-only QA; no app data or production question-bank files modified.
 - Candidate package decision: candidate-complete.

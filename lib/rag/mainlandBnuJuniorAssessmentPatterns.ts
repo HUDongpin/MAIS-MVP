@@ -1,5 +1,6 @@
 import { mainlandBnuJuniorAssessmentPatternCards } from "../../data/rag/mainlandBnuJuniorAssessmentPatterns";
 import { mainlandBnuJuniorRagCards } from "../../data/rag/mainlandBnuJunior";
+import { illustrationTextMatchStandardForRag } from "./illustrationTextMatchStandard";
 import { getMainlandJuniorZhongkaoExamPatternCards } from "./mainlandJuniorZhongkaoExamPatterns";
 import type {
   GradeId,
@@ -244,6 +245,7 @@ export function buildMainlandBnuJuniorAssessmentPatternEvidencePack(
     "Use these aggregated patterns only to create original MAIS assessment support, diagnostics, review plans, and future question drafts.",
     "BNU junior assessment-pattern cards summarize unit checks and term-review design tendencies; they do not authorize copying protected wording, worked-response wording, tables, diagrams, layouts, or item order.",
     "Use only the pattern summaries, tags, misconceptions, and originality guidance below.",
+    ...illustrationTextMatchStandardForRag,
     ...cards.flatMap((card, index) => [
       `BNU junior assessment pattern ${index + 1}: ${card.grade} ${card.semester} ${card.unitTitles.join(" / ")} (${card.difficultyBand}).`,
       `Material kinds: ${card.materialKinds.join(", ")}.`,
@@ -280,6 +282,7 @@ export function buildMainlandBnuJuniorGenerationEvidencePack(
     "MAIS-safe combined evidence pack for MAINLAND_BNU junior assessment support.",
     "Layer 1 answers what to teach from BNU junior curriculum safe cards. Layer 2 answers how BNU junior assessment tasks are commonly structured from aggregated pattern cards. Layer 3 is the single shared Mainland junior zhongkao layer used across Mainland publishers.",
     "Generate only new MAIS-authored questions, contexts, diagrams, values, distractors, hints, explanations, and checking prompts.",
+    ...illustrationTextMatchStandardForRag,
     "Curriculum layer:",
     ...curriculumCards.map((card, index) => `${index + 1}. ${card.grade} ${card.semester} ${card.unitTitle}: ${card.safeSummary}`),
     "Assessment-pattern layer:",

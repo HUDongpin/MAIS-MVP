@@ -1,0 +1,89 @@
+{
+  "generatedAt": "2026-07-07T15:48:14.890Z",
+  "repoRoot": "/Users/dongpinhu/Desktop/MAIS-MVP",
+  "executorKind": "a22-generated-artifact-guarded-cleanup-executor",
+  "mode": "dry-run",
+  "executorStatus": "already-cleaned-and-verified",
+  "dirtyMapStatusSignature": "21bf7897e245ce5bceb31315d088e7024d2e12aa53a9a098945ea69c3440b015",
+  "expandedStatusEntries": 5728,
+  "sourceArtifacts": {
+    "planGeneratedAt": "2026-07-07T15:48:14.797Z"
+  },
+  "sourceCurrentnessFailures": [],
+  "planStatus": "already-cleaned-and-verified",
+  "exactCommand": "node scripts/cleanup-generated-artifacts.mjs --apply --scope all",
+  "commandSequence": [],
+  "commandCwd": "/Users/dongpinhu/Desktop/MAIS-MVP",
+  "targetRows": [],
+  "commandLog": [],
+  "preflightChecks": [
+    {
+      "id": "mode-is-explicit",
+      "status": "pass",
+      "detail": "mode=dry-run"
+    },
+    {
+      "id": "source-current",
+      "status": "pass",
+      "detail": "source currentness failures=0"
+    },
+    {
+      "id": "plan-ready-or-clean",
+      "status": "pass",
+      "detail": "planStatus=already-cleaned-and-verified"
+    },
+    {
+      "id": "exact-command",
+      "status": "pass",
+      "detail": "commandSequenceRows=0"
+    },
+    {
+      "id": "executable-rows-before-apply-or-clean-after",
+      "status": "pass",
+      "detail": "executableRows=0"
+    },
+    {
+      "id": "apply-requires-ready-status",
+      "status": "pass",
+      "detail": "mode=dry-run; status=already-cleaned-and-verified"
+    },
+    {
+      "id": "no-stage-commit-merge-deploy",
+      "status": "pass",
+      "detail": "executor only calls the guarded A22 generated-artifact cleanup command sequence in apply mode"
+    }
+  ],
+  "summary": {
+    "mode": "dry-run",
+    "executorStatus": "already-cleaned-and-verified",
+    "planStatus": "already-cleaned-and-verified",
+    "targetRows": 0,
+    "cleanupAuthorizedRows": 0,
+    "executableRows": 0,
+    "preflightChecks": 7,
+    "passingPreflightChecks": 7,
+    "failedPreflightChecks": 0,
+    "sourceCurrentnessFailures": 0,
+    "applyRequested": false,
+    "applyPermitted": false,
+    "mutationsPerformed": false
+  },
+  "boundary": {
+    "evidenceOnly": true,
+    "dryRunOnly": true,
+    "applyModeRequested": false,
+    "recordsOwnerApproval": false,
+    "recordsExecutionInstruction": false,
+    "stageAuthorized": false,
+    "commitAuthorized": false,
+    "mergeAuthorized": false,
+    "cleanupAuthorized": false,
+    "executableNow": false,
+    "destructiveGitAuthorized": false,
+    "fileDeletionAuthorized": false,
+    "deployAuthorized": false,
+    "requiresExplicitApplyFlag": true,
+    "allowedCommand": "node scripts/cleanup-generated-artifacts.mjs --apply --scope all",
+    "allowedCommandSequence": []
+  }
+}

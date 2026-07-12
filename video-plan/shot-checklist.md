@@ -22,7 +22,7 @@ Use `/Users/peter/Desktop/MAIS-MVP` as the product source. Record from a clean d
 - `/` home page: MAIS brand and grade selector.
 - Language toggle or bilingual UI moment.
 - `/dashboard`: mastery circle, streak, selected grade, profile panel.
-- `/adaptive-learning`: progress metrics, assigned work, personalized analytics, recommended next lesson.
+- `/personalized-learning`: progress metrics, assigned work, personalized analytics, recommended next lesson.
 - `/learning-path`: roadmap/pathway view.
 - `/lesson/quadratic-functions` or another visually strong lesson route.
 - `/visualization-lab`: one interactive module with visible movement.

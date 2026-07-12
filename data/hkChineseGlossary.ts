@@ -427,11 +427,11 @@ export const hkChineseGlossary = [
     notes: "產品目前採視覺化實驗室作為固定命名。"
   },
   {
-    preferredZh: "智能導師",
-    allowedZh: ["AI Tutor", "AI 導師"],
+    preferredZh: "Nova 導師",
+    allowedZh: ["Nova Tutor", "Nova 导师"],
     domain: "ui",
     sourceRefs: ["maisProductDecision"],
-    notes: "AI tutor 的學生向稱呼。"
+    notes: "Nova Tutor 的學生向稱呼。"
   },
   {
     preferredZh: "適性學習",

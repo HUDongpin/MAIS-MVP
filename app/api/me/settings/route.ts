@@ -43,7 +43,7 @@ export async function PATCH(request: Request) {
   const patch = {
     language: isValidLanguage(body.language) ? body.language : undefined,
     theme: validThemes.has(body.theme as ThemeMode) ? (body.theme as ThemeMode) : undefined,
-    selectedGrade: authenticated.user.role === "student" ? authenticated.user.grade : requestedGrade
+    selectedGrade: requestedGrade
   };
 
   const updated = await updateUserSettings(authenticated.user.id, patch);

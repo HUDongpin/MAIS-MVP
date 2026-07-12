@@ -1,0 +1,347 @@
+{
+  "generatedAt": "2026-07-04T15:56:41.740Z",
+  "dirtyMapStatusSignature": "0ed815279a9afc7897df7ef48f2e250da494e4a227adc0a6da14547ba9048571",
+  "expandedStatusEntries": 4323,
+  "readinessGeneratedAt": "2026-07-04T15:56:40.882Z",
+  "approvalRequestsGeneratedAt": "2026-07-04T15:56:41.208Z",
+  "executionPacketGeneratedAt": "2026-07-04T15:56:41.254Z",
+  "worktree": {
+    "path": "/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A25-dirty-closure-governance",
+    "branch": "codex/A25-dirty-closure-governance",
+    "head": "cef544e09",
+    "statusSignature": "b923a0433c569fc5a69993f809e7e6e4f629dabde84ead1caab992e03c28b607",
+    "nodeModulesPresent": true
+  },
+  "summary": {
+    "evidenceRows": 7,
+    "packageOnlyRows": 7,
+    "worktreePresentRows": 7,
+    "rootMissingRows": 6,
+    "modifiedRows": 1,
+    "untrackedRows": 6,
+    "contentCapturedRows": 0,
+    "cleanupAuthorizedRows": 0,
+    "executableRows": 0
+  },
+  "rows": [
+    {
+      "evidenceIndex": 1,
+      "approvalId": "wave01-resync-01-tsconfig-json",
+      "owner": "A10 tooling, docs, and report",
+      "path": "tsconfig.json",
+      "worktreePath": "/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A25-dirty-closure-governance",
+      "branch": "codex/A25-dirty-closure-governance",
+      "actionKind": "owner-approved-package-restore",
+      "exactCommandIfLaterAuthorized": "git restore --source=HEAD -- tsconfig.json",
+      "packageOnly": true,
+      "rootPathExists": true,
+      "worktreePathExists": true,
+      "rootStatusLines": [],
+      "worktreeStatusLines": [
+        " M tsconfig.json"
+      ],
+      "rootEvidence": {
+        "exists": true,
+        "type": "file",
+        "bytes": 667,
+        "sha256": "4c4c756bcc9dacd3e9e701491bf7a5ecf8f041e715b15a4a6bd2750705ff8273",
+        "childCount": 0
+      },
+      "worktreeEvidence": {
+        "exists": true,
+        "type": "file",
+        "bytes": 1093,
+        "sha256": "843bde564302f0b648e9b2d765184b5a1bdac17ff7838e87a3a0459738fd6936",
+        "childCount": 0
+      },
+      "worktreeDiffEvidence": {
+        "hasTrackedDiff": true,
+        "nameStatus": [
+          "M\ttsconfig.json"
+        ],
+        "numstat": [
+          "25\t1\ttsconfig.json"
+        ],
+        "diffSha256": "5d341f05c11f6762ae42bc7aa4b90c933cbc5d7a0c11f97bb0aa1efa205af652",
+        "diffBytes": 677
+      },
+      "approvalRequestPresent": true,
+      "executionRowPresent": true,
+      "evidenceOnly": true,
+      "contentCaptured": false,
+      "cleanupAuthorized": false,
+      "executableNow": false,
+      "stopCondition": "Do not execute cleanup, restore, discard, or deletion from this evidence pack. Use it only to support exact owner authorization review."
+    },
+    {
+      "evidenceIndex": 2,
+      "approvalId": "wave01-resync-02-coordination-release-intake-2026-06-30-a25-dirty-tree-map-20260630t072027z-json",
+      "owner": "A25 git hygiene and release intake",
+      "path": "coordination/release-intake/2026-06-30-A25-dirty-tree-map-20260630T072027Z.json",
+      "worktreePath": "/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A25-dirty-closure-governance",
+      "branch": "codex/A25-dirty-closure-governance",
+      "actionKind": "owner-approved-package-untracked-clean",
+      "exactCommandIfLaterAuthorized": "git clean -f -- coordination/release-intake/2026-06-30-A25-dirty-tree-map-20260630T072027Z.json",
+      "packageOnly": true,
+      "rootPathExists": false,
+      "worktreePathExists": true,
+      "rootStatusLines": [],
+      "worktreeStatusLines": [
+        "?? coordination/release-intake/2026-06-30-A25-dirty-tree-map-20260630T072027Z.json"
+      ],
+      "rootEvidence": {
+        "exists": false,
+        "type": "missing",
+        "bytes": 0,
+        "sha256": null,
+        "childCount": 0
+      },
+      "worktreeEvidence": {
+        "exists": true,
+        "type": "file",
+        "bytes": 237783,
+        "sha256": "f108e1f2be417a70b73f25a7b88718791d8f7c3ff23d89275d540f5e23bfe429",
+        "childCount": 0
+      },
+      "worktreeDiffEvidence": {
+        "hasTrackedDiff": false,
+        "nameStatus": [],
+        "numstat": [],
+        "diffSha256": null,
+        "diffBytes": 0
+      },
+      "approvalRequestPresent": true,
+      "executionRowPresent": true,
+      "evidenceOnly": true,
+      "contentCaptured": false,
+      "cleanupAuthorized": false,
+      "executableNow": false,
+      "stopCondition": "Do not execute cleanup, restore, discard, or deletion from this evidence pack. Use it only to support exact owner authorization review."
+    },
+    {
+      "evidenceIndex": 3,
+      "approvalId": "wave01-resync-03-coordination-release-intake-2026-06-30-a25-dirty-tree-map-20260630t072027z-md",
+      "owner": "A25 git hygiene and release intake",
+      "path": "coordination/release-intake/2026-06-30-A25-dirty-tree-map-20260630T072027Z.md",
+      "worktreePath": "/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A25-dirty-closure-governance",
+      "branch": "codex/A25-dirty-closure-governance",
+      "actionKind": "owner-approved-package-untracked-clean",
+      "exactCommandIfLaterAuthorized": "git clean -f -- coordination/release-intake/2026-06-30-A25-dirty-tree-map-20260630T072027Z.md",
+      "packageOnly": true,
+      "rootPathExists": false,
+      "worktreePathExists": true,
+      "rootStatusLines": [],
+      "worktreeStatusLines": [
+        "?? coordination/release-intake/2026-06-30-A25-dirty-tree-map-20260630T072027Z.md"
+      ],
+      "rootEvidence": {
+        "exists": false,
+        "type": "missing",
+        "bytes": 0,
+        "sha256": null,
+        "childCount": 0
+      },
+      "worktreeEvidence": {
+        "exists": true,
+        "type": "file",
+        "bytes": 3372,
+        "sha256": "1cfac1c4e9d83aa9a1b0c05335fb3be5401a4b9558be0012c7012832b4b55014",
+        "childCount": 0
+      },
+      "worktreeDiffEvidence": {
+        "hasTrackedDiff": false,
+        "nameStatus": [],
+        "numstat": [],
+        "diffSha256": null,
+        "diffBytes": 0
+      },
+      "approvalRequestPresent": true,
+      "executionRowPresent": true,
+      "evidenceOnly": true,
+      "contentCaptured": false,
+      "cleanupAuthorized": false,
+      "executableNow": false,
+      "stopCondition": "Do not execute cleanup, restore, discard, or deletion from this evidence pack. Use it only to support exact owner authorization review."
+    },
+    {
+      "evidenceIndex": 4,
+      "approvalId": "wave01-resync-04-coordination-release-intake-2026-06-30-a25-dirty-tree-map-20260630t073137z-json",
+      "owner": "A25 git hygiene and release intake",
+      "path": "coordination/release-intake/2026-06-30-A25-dirty-tree-map-20260630T073137Z.json",
+      "worktreePath": "/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A25-dirty-closure-governance",
+      "branch": "codex/A25-dirty-closure-governance",
+      "actionKind": "owner-approved-package-untracked-clean",
+      "exactCommandIfLaterAuthorized": "git clean -f -- coordination/release-intake/2026-06-30-A25-dirty-tree-map-20260630T073137Z.json",
+      "packageOnly": true,
+      "rootPathExists": false,
+      "worktreePathExists": true,
+      "rootStatusLines": [],
+      "worktreeStatusLines": [
+        "?? coordination/release-intake/2026-06-30-A25-dirty-tree-map-20260630T073137Z.json"
+      ],
+      "rootEvidence": {
+        "exists": false,
+        "type": "missing",
+        "bytes": 0,
+        "sha256": null,
+        "childCount": 0
+      },
+      "worktreeEvidence": {
+        "exists": true,
+        "type": "file",
+        "bytes": 238255,
+        "sha256": "89a4e067205059048b63266f9842506bb3a6e36477c3e35c30091243e80a4afa",
+        "childCount": 0
+      },
+      "worktreeDiffEvidence": {
+        "hasTrackedDiff": false,
+        "nameStatus": [],
+        "numstat": [],
+        "diffSha256": null,
+        "diffBytes": 0
+      },
+      "approvalRequestPresent": true,
+      "executionRowPresent": true,
+      "evidenceOnly": true,
+      "contentCaptured": false,
+      "cleanupAuthorized": false,
+      "executableNow": false,
+      "stopCondition": "Do not execute cleanup, restore, discard, or deletion from this evidence pack. Use it only to support exact owner authorization review."
+    },
+    {
+      "evidenceIndex": 5,
+      "approvalId": "wave01-resync-05-coordination-release-intake-2026-06-30-a25-dirty-tree-map-20260630t073137z-md",
+      "owner": "A25 git hygiene and release intake",
+      "path": "coordination/release-intake/2026-06-30-A25-dirty-tree-map-20260630T073137Z.md",
+      "worktreePath": "/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A25-dirty-closure-governance",
+      "branch": "codex/A25-dirty-closure-governance",
+      "actionKind": "owner-approved-package-untracked-clean",
+      "exactCommandIfLaterAuthorized": "git clean -f -- coordination/release-intake/2026-06-30-A25-dirty-tree-map-20260630T073137Z.md",
+      "packageOnly": true,
+      "rootPathExists": false,
+      "worktreePathExists": true,
+      "rootStatusLines": [],
+      "worktreeStatusLines": [
+        "?? coordination/release-intake/2026-06-30-A25-dirty-tree-map-20260630T073137Z.md"
+      ],
+      "rootEvidence": {
+        "exists": false,
+        "type": "missing",
+        "bytes": 0,
+        "sha256": null,
+        "childCount": 0
+      },
+      "worktreeEvidence": {
+        "exists": true,
+        "type": "file",
+        "bytes": 3388,
+        "sha256": "b541cf441a9bb66254b8685fcf3d8641aab948648c6e28a7d92f585dc22c889b",
+        "childCount": 0
+      },
+      "worktreeDiffEvidence": {
+        "hasTrackedDiff": false,
+        "nameStatus": [],
+        "numstat": [],
+        "diffSha256": null,
+        "diffBytes": 0
+      },
+      "approvalRequestPresent": true,
+      "executionRowPresent": true,
+      "evidenceOnly": true,
+      "contentCaptured": false,
+      "cleanupAuthorized": false,
+      "executableNow": false,
+      "stopCondition": "Do not execute cleanup, restore, discard, or deletion from this evidence pack. Use it only to support exact owner authorization review."
+    },
+    {
+      "evidenceIndex": 6,
+      "approvalId": "wave01-resync-06-coordination-release-intake-2026-06-30-a25-dirty-tree-map-20260630t130221z-json",
+      "owner": "A25 git hygiene and release intake",
+      "path": "coordination/release-intake/2026-06-30-A25-dirty-tree-map-20260630T130221Z.json",
+      "worktreePath": "/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A25-dirty-closure-governance",
+      "branch": "codex/A25-dirty-closure-governance",
+      "actionKind": "owner-approved-package-untracked-clean",
+      "exactCommandIfLaterAuthorized": "git clean -f -- coordination/release-intake/2026-06-30-A25-dirty-tree-map-20260630T130221Z.json",
+      "packageOnly": true,
+      "rootPathExists": false,
+      "worktreePathExists": true,
+      "rootStatusLines": [],
+      "worktreeStatusLines": [
+        "?? coordination/release-intake/2026-06-30-A25-dirty-tree-map-20260630T130221Z.json"
+      ],
+      "rootEvidence": {
+        "exists": false,
+        "type": "missing",
+        "bytes": 0,
+        "sha256": null,
+        "childCount": 0
+      },
+      "worktreeEvidence": {
+        "exists": true,
+        "type": "file",
+        "bytes": 238695,
+        "sha256": "eece257a6505f973bd8cce146415b3968374f5e2894fcf5eee37d71edc67fcc7",
+        "childCount": 0
+      },
+      "worktreeDiffEvidence": {
+        "hasTrackedDiff": false,
+        "nameStatus": [],
+        "numstat": [],
+        "diffSha256": null,
+        "diffBytes": 0
+      },
+      "approvalRequestPresent": true,
+      "executionRowPresent": true,
+      "evidenceOnly": true,
+      "contentCaptured": false,
+      "cleanupAuthorized": false,
+      "executableNow": false,
+      "stopCondition": "Do not execute cleanup, restore, discard, or deletion from this evidence pack. Use it only to support exact owner authorization review."
+    },
+    {
+      "evidenceIndex": 7,
+      "approvalId": "wave01-resync-07-coordination-release-intake-2026-06-30-a25-dirty-tree-map-20260630t130221z-md",
+      "owner": "A25 git hygiene and release intake",
+      "path": "coordination/release-intake/2026-06-30-A25-dirty-tree-map-20260630T130221Z.md",
+      "worktreePath": "/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A25-dirty-closure-governance",
+      "branch": "codex/A25-dirty-closure-governance",
+      "actionKind": "owner-approved-package-untracked-clean",
+      "exactCommandIfLaterAuthorized": "git clean -f -- coordination/release-intake/2026-06-30-A25-dirty-tree-map-20260630T130221Z.md",
+      "packageOnly": true,
+      "rootPathExists": false,
+      "worktreePathExists": true,
+      "rootStatusLines": [],
+      "worktreeStatusLines": [
+        "?? coordination/release-intake/2026-06-30-A25-dirty-tree-map-20260630T130221Z.md"
+      ],
+      "rootEvidence": {
+        "exists": false,
+        "type": "missing",
+        "bytes": 0,
+        "sha256": null,
+        "childCount": 0
+      },
+      "worktreeEvidence": {
+        "exists": true,
+        "type": "file",
+        "bytes": 3372,
+        "sha256": "991ced4d0a6c29331fe366f00ce925ffdf0869a9f9b4357709bcbad46b61df9a",
+        "childCount": 0
+      },
+      "worktreeDiffEvidence": {
+        "hasTrackedDiff": false,
+        "nameStatus": [],
+        "numstat": [],
+        "diffSha256": null,
+        "diffBytes": 0
+      },
+      "approvalRequestPresent": true,
+      "executionRowPresent": true,
+      "evidenceOnly": true,
+      "contentCaptured": false,
+      "cleanupAuthorized": false,
+      "executableNow": false,
+      "stopCondition": "Do not execute cleanup, restore, discard, or deletion from this evidence pack. Use it only to support exact owner authorization review."
+    }
+  ]
+}

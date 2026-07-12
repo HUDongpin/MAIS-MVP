@@ -1,0 +1,1476 @@
+{
+  "generatedAtHkt": "2026-07-11, 01:08:14 GMT+8",
+  "baseline": {
+    "branch": "main",
+    "head": "ce2ae5258",
+    "dirtyMap": "coordination/release-intake/latest-A25-dirty-tree-map.json",
+    "dirtyMapGeneratedAt": "2026-07-10T17:07:27.521Z",
+    "dirtyMapStatusSignature": "e30d647e1b51432945713f42ac78b0a2466fcb17192de0235a801ac877a0801f"
+  },
+  "objective": "Enterprise dirty-root and worktree hygiene execution board",
+  "ownerBoard": [
+    {
+      "owner": "A25 git hygiene and release intake",
+      "dirtyEntries": 5702,
+      "sliceBuckets": {
+        "docs/coordination evidence": 5701,
+        "release hygiene tooling/config": 1
+      },
+      "statusBuckets": {
+        "??": 5702
+      },
+      "pathspec": "coordination/release-intake/2026-07-11-A25-owner-a25-git-hygiene-and-release-intake.pathspec",
+      "latestPathspec": "coordination/release-intake/latest-A25-owner-a25-git-hygiene-and-release-intake.pathspec",
+      "acceptanceCheck": "A25 refreshes dirty map, emits pathspecs, and records non-destructive intake evidence only.",
+      "finalStates": "commit reviewed slice, owner-approved discard, archive evidence, or defer with blocker"
+    },
+    {
+      "owner": "A10 tooling, docs, and report",
+      "dirtyEntries": 490,
+      "sliceBuckets": {
+        "docs/coordination evidence": 482,
+        "unmapped/manual": 5,
+        "release hygiene tooling/config": 3
+      },
+      "statusBuckets": {
+        "??": 469,
+        " M": 21
+      },
+      "pathspec": "coordination/release-intake/2026-07-11-A25-owner-a10-tooling-docs-and-report.pathspec",
+      "latestPathspec": "coordination/release-intake/latest-A25-owner-a10-tooling-docs-and-report.pathspec",
+      "acceptanceCheck": "A10 validates docs/config/tooling changes and preserves release coordination conventions.",
+      "finalStates": "commit reviewed slice, owner-approved discard, archive evidence, or defer with blocker"
+    },
+    {
+      "owner": "A06 visualization lead",
+      "dirtyEntries": 460,
+      "sliceBuckets": {
+        "runtime app/API/data/public": 242,
+        "tests/regression evidence": 218
+      },
+      "statusBuckets": {
+        "??": 396,
+        " M": 64
+      },
+      "pathspec": "coordination/release-intake/2026-07-11-A25-owner-a06-visualization-lead.pathspec",
+      "latestPathspec": "coordination/release-intake/latest-A25-owner-a06-visualization-lead.pathspec",
+      "acceptanceCheck": "A06 validates focused visualization/Manim tests plus app type-check before packaging.",
+      "finalStates": "commit reviewed slice, owner-approved discard, archive evidence, or defer with blocker"
+    },
+    {
+      "owner": "A12 backend/API platform",
+      "dirtyEntries": 178,
+      "sliceBuckets": {
+        "runtime app/API/data/public": 119,
+        "tests/regression evidence": 59
+      },
+      "statusBuckets": {
+        "??": 134,
+        " M": 44
+      },
+      "pathspec": "coordination/release-intake/2026-07-11-A25-owner-a12-backend-api-platform.pathspec",
+      "latestPathspec": "coordination/release-intake/latest-A25-owner-a12-backend-api-platform.pathspec",
+      "acceptanceCheck": "A12 validates API/storage contract tests and confirms no provider/env secret exposure.",
+      "finalStates": "commit reviewed slice, owner-approved discard, archive evidence, or defer with blocker"
+    },
+    {
+      "owner": "A24 illustration exact-layer",
+      "dirtyEntries": 168,
+      "sliceBuckets": {
+        "runtime app/API/data/public": 168
+      },
+      "statusBuckets": {
+        "??": 168
+      },
+      "pathspec": "coordination/release-intake/2026-07-11-A25-owner-a24-illustration-exact-layer.pathspec",
+      "latestPathspec": "coordination/release-intake/latest-A25-owner-a24-illustration-exact-layer.pathspec",
+      "acceptanceCheck": "A24 validates exact-layer assets and keeps final curriculum approval with A18.",
+      "finalStates": "commit reviewed slice, owner-approved discard, archive evidence, or defer with blocker"
+    },
+    {
+      "owner": "A05 lesson lead",
+      "dirtyEntries": 129,
+      "sliceBuckets": {
+        "runtime app/API/data/public": 117,
+        "tests/regression evidence": 11,
+        "unmapped/manual": 1
+      },
+      "statusBuckets": {
+        "??": 101,
+        " M": 27,
+        " D": 1
+      },
+      "pathspec": "coordination/release-intake/2026-07-11-A25-owner-a05-lesson-lead.pathspec",
+      "latestPathspec": "coordination/release-intake/latest-A25-owner-a05-lesson-lead.pathspec",
+      "acceptanceCheck": "A05 validates lesson route/content behavior and coordinates curriculum correctness with A18.",
+      "finalStates": "commit reviewed slice, owner-approved discard, archive evidence, or defer with blocker"
+    },
+    {
+      "owner": "A21 content pipeline and RAG operations",
+      "dirtyEntries": 76,
+      "sliceBuckets": {
+        "generated/content/RAG backlog": 67,
+        "tests/regression evidence": 8,
+        "unmapped/manual": 1
+      },
+      "statusBuckets": {
+        " M": 41,
+        "??": 35
+      },
+      "pathspec": "coordination/release-intake/2026-07-11-A25-owner-a21-content-pipeline-and-rag-operations.pathspec",
+      "latestPathspec": "coordination/release-intake/latest-A25-owner-a21-content-pipeline-and-rag-operations.pathspec",
+      "acceptanceCheck": "A21 proves candidate package provenance and keeps raw/private corpus material out of tracked runtime surfaces.",
+      "finalStates": "commit reviewed slice, owner-approved discard, archive evidence, or defer with blocker"
+    },
+    {
+      "owner": "A22 production reliability and release engineering",
+      "dirtyEntries": 68,
+      "sliceBuckets": {
+        "docs/coordination evidence": 51,
+        "release hygiene tooling/config": 16,
+        "unmapped/manual": 1
+      },
+      "statusBuckets": {
+        "??": 66,
+        " M": 2
+      },
+      "pathspec": "coordination/release-intake/2026-07-11-A25-owner-a22-production-reliability-and-release-engineering.pathspec",
+      "latestPathspec": "coordination/release-intake/latest-A25-owner-a22-production-reliability-and-release-engineering.pathspec",
+      "acceptanceCheck": "A22 verifies clean release source, release env guard, and deploy-size/build isolation before any publish.",
+      "finalStates": "commit reviewed slice, owner-approved discard, archive evidence, or defer with blocker"
+    },
+    {
+      "owner": "A11 QA and release quality",
+      "dirtyEntries": 64,
+      "sliceBuckets": {
+        "tests/regression evidence": 64
+      },
+      "statusBuckets": {
+        " M": 37,
+        "??": 27
+      },
+      "pathspec": "coordination/release-intake/2026-07-11-A25-owner-a11-qa-and-release-quality.pathspec",
+      "latestPathspec": "coordination/release-intake/latest-A25-owner-a11-qa-and-release-quality.pathspec",
+      "acceptanceCheck": "A11 runs or routes targeted regression evidence and records failing gates by owning product surface.",
+      "finalStates": "commit reviewed slice, owner-approved discard, archive evidence, or defer with blocker"
+    },
+    {
+      "owner": "A04 practice lead",
+      "dirtyEntries": 60,
+      "sliceBuckets": {
+        "runtime app/API/data/public": 49,
+        "tests/regression evidence": 11
+      },
+      "statusBuckets": {
+        "??": 36,
+        " M": 24
+      },
+      "pathspec": "coordination/release-intake/2026-07-11-A25-owner-a04-practice-lead.pathspec",
+      "latestPathspec": "coordination/release-intake/latest-A25-owner-a04-practice-lead.pathspec",
+      "acceptanceCheck": "A04 validates Practice Arena/question-bank behavior and coordinates content correctness with A18.",
+      "finalStates": "commit reviewed slice, owner-approved discard, archive evidence, or defer with blocker"
+    },
+    {
+      "owner": "A18 curriculum QA / A21 content pipeline",
+      "dirtyEntries": 45,
+      "sliceBuckets": {
+        "docs/coordination evidence": 43,
+        "runtime app/API/data/public": 1,
+        "tests/regression evidence": 1
+      },
+      "statusBuckets": {
+        " M": 28,
+        "??": 17
+      },
+      "pathspec": "coordination/release-intake/2026-07-11-A25-owner-a18-curriculum-qa-a21-content-pipeline.pathspec",
+      "latestPathspec": "coordination/release-intake/latest-A25-owner-a18-curriculum-qa-a21-content-pipeline.pathspec",
+      "acceptanceCheck": "A18/A21 split candidate content from final QA signoff; no live promotion without A23/A11/A22 gates.",
+      "finalStates": "commit reviewed slice, owner-approved discard, archive evidence, or defer with blocker"
+    },
+    {
+      "owner": "A13 teacher console",
+      "dirtyEntries": 37,
+      "sliceBuckets": {
+        "runtime app/API/data/public": 36,
+        "tests/regression evidence": 1
+      },
+      "statusBuckets": {
+        " M": 34,
+        "??": 3
+      },
+      "pathspec": "coordination/release-intake/2026-07-11-A25-owner-a13-teacher-console.pathspec",
+      "latestPathspec": "coordination/release-intake/latest-A25-owner-a13-teacher-console.pathspec",
+      "acceptanceCheck": "A13 validates teacher-console product flow and coordinates shared API/storage needs with A12.",
+      "finalStates": "commit reviewed slice, owner-approved discard, archive evidence, or defer with blocker"
+    },
+    {
+      "owner": "A01 app shell lead",
+      "dirtyEntries": 31,
+      "sliceBuckets": {
+        "runtime app/API/data/public": 29,
+        "tests/regression evidence": 2
+      },
+      "statusBuckets": {
+        " M": 18,
+        "??": 13
+      },
+      "pathspec": "coordination/release-intake/2026-07-11-A25-owner-a01-app-shell-lead.pathspec",
+      "latestPathspec": "coordination/release-intake/latest-A25-owner-a01-app-shell-lead.pathspec",
+      "acceptanceCheck": "A01 validates app shell/auth entry/navigation behavior and bilingual shell copy.",
+      "finalStates": "commit reviewed slice, owner-approved discard, archive evidence, or defer with blocker"
+    },
+    {
+      "owner": "A03 curriculum roadmap lead",
+      "dirtyEntries": 30,
+      "sliceBuckets": {
+        "runtime app/API/data/public": 29,
+        "tests/regression evidence": 1
+      },
+      "statusBuckets": {
+        " M": 21,
+        "??": 9
+      },
+      "pathspec": "coordination/release-intake/2026-07-11-A25-owner-a03-curriculum-roadmap-lead.pathspec",
+      "latestPathspec": "coordination/release-intake/latest-A25-owner-a03-curriculum-roadmap-lead.pathspec",
+      "acceptanceCheck": "A03 validates roadmap/topic structure and coordinates content correctness with A18.",
+      "finalStates": "commit reviewed slice, owner-approved discard, archive evidence, or defer with blocker"
+    },
+    {
+      "owner": "A02 dashboard lead",
+      "dirtyEntries": 22,
+      "sliceBuckets": {
+        "runtime app/API/data/public": 14,
+        "tests/regression evidence": 5,
+        "unmapped/manual": 3
+      },
+      "statusBuckets": {
+        "??": 15,
+        " M": 7
+      },
+      "pathspec": "coordination/release-intake/2026-07-11-A25-owner-a02-dashboard-lead.pathspec",
+      "latestPathspec": "coordination/release-intake/latest-A25-owner-a02-dashboard-lead.pathspec",
+      "acceptanceCheck": "A02 validates dashboard/progress UI behavior and coordinates adaptive semantics with A15.",
+      "finalStates": "commit reviewed slice, owner-approved discard, archive evidence, or defer with blocker"
+    },
+    {
+      "owner": "A20 game design and game-based learning",
+      "dirtyEntries": 16,
+      "sliceBuckets": {
+        "runtime app/API/data/public": 15,
+        "tests/regression evidence": 1
+      },
+      "statusBuckets": {
+        "??": 11,
+        " M": 5
+      },
+      "pathspec": "coordination/release-intake/2026-07-11-A25-owner-a20-game-design-and-game-based-learning.pathspec",
+      "latestPathspec": "coordination/release-intake/latest-A25-owner-a20-game-design-and-game-based-learning.pathspec",
+      "acceptanceCheck": "A20 validates game-loop behavior and keeps reward economy changes coordinated with A17.",
+      "finalStates": "commit reviewed slice, owner-approved discard, archive evidence, or defer with blocker"
+    },
+    {
+      "owner": "A07 AI tutor lead",
+      "dirtyEntries": 12,
+      "sliceBuckets": {
+        "runtime app/API/data/public": 9,
+        "secret/env quarantine": 1,
+        "tests/regression evidence": 1,
+        "unmapped/manual": 1
+      },
+      "statusBuckets": {
+        "??": 7,
+        " M": 5
+      },
+      "pathspec": "coordination/release-intake/2026-07-11-A25-owner-a07-ai-tutor-lead.pathspec",
+      "latestPathspec": "coordination/release-intake/latest-A25-owner-a07-ai-tutor-lead.pathspec",
+      "acceptanceCheck": "A07 validates tutor/provider behavior without logging secrets or changing env ownership.",
+      "finalStates": "commit reviewed slice, owner-approved discard, archive evidence, or defer with blocker"
+    },
+    {
+      "owner": "A08 state and analytics lead",
+      "dirtyEntries": 11,
+      "sliceBuckets": {
+        "runtime app/API/data/public": 5,
+        "tests/regression evidence": 4,
+        "unmapped/manual": 2
+      },
+      "statusBuckets": {
+        "??": 6,
+        " M": 5
+      },
+      "pathspec": "coordination/release-intake/2026-07-11-A25-owner-a08-state-and-analytics-lead.pathspec",
+      "latestPathspec": "coordination/release-intake/latest-A25-owner-a08-state-and-analytics-lead.pathspec",
+      "acceptanceCheck": "A08 validates shared type/state/analytics semantics and coordinates schema drift with A10/A22.",
+      "finalStates": "commit reviewed slice, owner-approved discard, archive evidence, or defer with blocker"
+    },
+    {
+      "owner": "A15 adaptive engine lead",
+      "dirtyEntries": 9,
+      "sliceBuckets": {
+        "runtime app/API/data/public": 8,
+        "tests/regression evidence": 1
+      },
+      "statusBuckets": {
+        " M": 7,
+        "??": 2
+      },
+      "pathspec": "coordination/release-intake/2026-07-11-A25-owner-a15-adaptive-engine-lead.pathspec",
+      "latestPathspec": "coordination/release-intake/latest-A25-owner-a15-adaptive-engine-lead.pathspec",
+      "acceptanceCheck": "A15 validates adaptive-engine tests and coordinates LLM/provider behavior with A07.",
+      "finalStates": "commit reviewed slice, owner-approved discard, archive evidence, or defer with blocker"
+    },
+    {
+      "owner": "A14 parent console",
+      "dirtyEntries": 7,
+      "sliceBuckets": {
+        "runtime app/API/data/public": 7
+      },
+      "statusBuckets": {
+        " M": 4,
+        "??": 3
+      },
+      "pathspec": "coordination/release-intake/2026-07-11-A25-owner-a14-parent-console.pathspec",
+      "latestPathspec": "coordination/release-intake/latest-A25-owner-a14-parent-console.pathspec",
+      "acceptanceCheck": "A14 validates parent-console behavior and coordinates shared storage/API needs with A12.",
+      "finalStates": "commit reviewed slice, owner-approved discard, archive evidence, or defer with blocker"
+    },
+    {
+      "owner": "Unmapped/manual owner needed",
+      "dirtyEntries": 6,
+      "sliceBuckets": {
+        "unmapped/manual": 6
+      },
+      "statusBuckets": {
+        "??": 6
+      },
+      "pathspec": "coordination/release-intake/2026-07-11-A25-owner-unmapped-manual-owner-needed.pathspec",
+      "latestPathspec": "coordination/release-intake/latest-A25-owner-unmapped-manual-owner-needed.pathspec",
+      "acceptanceCheck": "A10/A25 must classify manually before packaging or release.",
+      "finalStates": "commit reviewed slice, owner-approved discard, archive evidence, or defer with blocker"
+    },
+    {
+      "owner": "A09 copy, i18n, accessibility",
+      "dirtyEntries": 5,
+      "sliceBuckets": {
+        "runtime app/API/data/public": 5
+      },
+      "statusBuckets": {
+        " M": 4,
+        "??": 1
+      },
+      "pathspec": "coordination/release-intake/2026-07-11-A25-owner-a09-copy-i18n-accessibility.pathspec",
+      "latestPathspec": "coordination/release-intake/latest-A25-owner-a09-copy-i18n-accessibility.pathspec",
+      "acceptanceCheck": "A09 validates bilingual copy/accessibility selectors without changing business logic.",
+      "finalStates": "commit reviewed slice, owner-approved discard, archive evidence, or defer with blocker"
+    },
+    {
+      "owner": "A17 gamification and motivation",
+      "dirtyEntries": 5,
+      "sliceBuckets": {
+        "runtime app/API/data/public": 3,
+        "tests/regression evidence": 2
+      },
+      "statusBuckets": {
+        " M": 3,
+        "??": 2
+      },
+      "pathspec": "coordination/release-intake/2026-07-11-A25-owner-a17-gamification-and-motivation.pathspec",
+      "latestPathspec": "coordination/release-intake/latest-A25-owner-a17-gamification-and-motivation.pathspec",
+      "acceptanceCheck": "A17 validates reward economy/badge/streak logic and coordinates game loops with A20.",
+      "finalStates": "commit reviewed slice, owner-approved discard, archive evidence, or defer with blocker"
+    },
+    {
+      "owner": "Unmapped runtime owner review needed",
+      "dirtyEntries": 3,
+      "sliceBuckets": {
+        "runtime app/API/data/public": 2,
+        "tests/regression evidence": 1
+      },
+      "statusBuckets": {
+        "??": 2,
+        " M": 1
+      },
+      "pathspec": "coordination/release-intake/2026-07-11-A25-owner-unmapped-runtime-owner-review-needed.pathspec",
+      "latestPathspec": "coordination/release-intake/latest-A25-owner-unmapped-runtime-owner-review-needed.pathspec",
+      "acceptanceCheck": "A10/A25 must assign an owner before packaging or release.",
+      "finalStates": "commit reviewed slice, owner-approved discard, archive evidence, or defer with blocker"
+    },
+    {
+      "owner": "A23 integration and promotion lead",
+      "dirtyEntries": 2,
+      "sliceBuckets": {
+        "docs/coordination evidence": 2
+      },
+      "statusBuckets": {
+        "??": 2
+      },
+      "pathspec": "coordination/release-intake/2026-07-11-A25-owner-a23-integration-and-promotion-lead.pathspec",
+      "latestPathspec": "coordination/release-intake/latest-A25-owner-a23-integration-and-promotion-lead.pathspec",
+      "acceptanceCheck": "Owning agent must define and run a targeted acceptance check before packaging.",
+      "finalStates": "commit reviewed slice, owner-approved discard, archive evidence, or defer with blocker"
+    }
+  ],
+  "worktreeLedger": [
+    {
+      "path": "/Users/dongpinhu/Desktop/MAIS-MVP",
+      "exists": true,
+      "branch": "main",
+      "head": "ce2ae5258013ca5bd79dd0cc56e7b1681d5cd411",
+      "prunable": false,
+      "prunableReason": "",
+      "statusCounts": {
+        "total": 7636,
+        "modified": 403,
+        "deleted": 1,
+        "untracked": 7233
+      },
+      "divergence": {
+        "behind": 0,
+        "ahead": 0
+      },
+      "topLevels": {
+        "coordination": 6254,
+        "components": 562,
+        "public": 277,
+        "lib": 190,
+        "app": 126,
+        "data": 85,
+        "tests": 63,
+        "scripts": 36
+      },
+      "lifecycleState": "dirty-active-review-required",
+      "nextAction": "Owning agent must package, commit, archive patch, or explicitly discard after review."
+    },
+    {
+      "path": "/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A01-app-shell-closure",
+      "exists": true,
+      "branch": "codex/A01-app-shell-closure",
+      "head": "cef544e09bee8118ddcf3bf3005e570bdf4977e3",
+      "prunable": false,
+      "prunableReason": "",
+      "statusCounts": {
+        "total": 26,
+        "modified": 17,
+        "deleted": 0,
+        "untracked": 9
+      },
+      "divergence": {
+        "behind": 2,
+        "ahead": 0
+      },
+      "topLevels": {
+        "components": 16,
+        "app": 8,
+        "pp": 1,
+        "public": 1
+      },
+      "lifecycleState": "dirty-active-review-required",
+      "nextAction": "Owning agent must package, commit, archive patch, or explicitly discard after review."
+    },
+    {
+      "path": "/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A01-shell-lazy-load",
+      "exists": true,
+      "branch": "codex/A01-shell-lazy-load",
+      "head": "cef544e09bee8118ddcf3bf3005e570bdf4977e3",
+      "prunable": false,
+      "prunableReason": "",
+      "statusCounts": {
+        "total": 8,
+        "modified": 3,
+        "deleted": 0,
+        "untracked": 5
+      },
+      "divergence": {
+        "behind": 2,
+        "ahead": 0
+      },
+      "topLevels": {
+        "components": 6,
+        "coordination": 1,
+        "pp": 1
+      },
+      "lifecycleState": "dirty-active-review-required",
+      "nextAction": "Owning agent must package, commit, archive patch, or explicitly discard after review."
+    },
+    {
+      "path": "/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A02-A15-dashboard-adaptive-closure",
+      "exists": true,
+      "branch": "codex/A02-A15-dashboard-adaptive-closure",
+      "head": "cef544e09bee8118ddcf3bf3005e570bdf4977e3",
+      "prunable": false,
+      "prunableReason": "",
+      "statusCounts": {
+        "total": 30,
+        "modified": 14,
+        "deleted": 0,
+        "untracked": 16
+      },
+      "divergence": {
+        "behind": 2,
+        "ahead": 0
+      },
+      "topLevels": {
+        "app": 11,
+        "components": 11,
+        "scripts": 4,
+        "lib": 3,
+        "pp": 1
+      },
+      "lifecycleState": "dirty-active-review-required",
+      "nextAction": "Owning agent must package, commit, archive patch, or explicitly discard after review."
+    },
+    {
+      "path": "/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A03-roadmap-closure",
+      "exists": true,
+      "branch": "codex/A03-roadmap-closure",
+      "head": "cef544e09bee8118ddcf3bf3005e570bdf4977e3",
+      "prunable": false,
+      "prunableReason": "",
+      "statusCounts": {
+        "total": 30,
+        "modified": 21,
+        "deleted": 0,
+        "untracked": 9
+      },
+      "divergence": {
+        "behind": 2,
+        "ahead": 0
+      },
+      "topLevels": {
+        "data": 17,
+        "components": 7,
+        "app": 5,
+        "pp": 1
+      },
+      "lifecycleState": "dirty-active-review-required",
+      "nextAction": "Owning agent must package, commit, archive patch, or explicitly discard after review."
+    },
+    {
+      "path": "/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A04-practice-closure",
+      "exists": true,
+      "branch": "codex/A04-practice-closure",
+      "head": "cef544e09bee8118ddcf3bf3005e570bdf4977e3",
+      "prunable": false,
+      "prunableReason": "",
+      "statusCounts": {
+        "total": 56,
+        "modified": 23,
+        "deleted": 0,
+        "untracked": 33
+      },
+      "divergence": {
+        "behind": 2,
+        "ahead": 0
+      },
+      "topLevels": {
+        "public": 20,
+        "data": 15,
+        "components": 11,
+        "lib": 7,
+        "app": 2,
+        "pp": 1
+      },
+      "lifecycleState": "dirty-active-review-required",
+      "nextAction": "Owning agent must package, commit, archive patch, or explicitly discard after review."
+    },
+    {
+      "path": "/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A05-lesson-checklist-p0",
+      "exists": true,
+      "branch": "codex/A05-lesson-checklist-p0",
+      "head": "cef544e09bee8118ddcf3bf3005e570bdf4977e3",
+      "prunable": false,
+      "prunableReason": "",
+      "statusCounts": {
+        "total": 0,
+        "modified": 0,
+        "deleted": 0,
+        "untracked": 0
+      },
+      "divergence": {
+        "behind": 2,
+        "ahead": 0
+      },
+      "topLevels": {},
+      "lifecycleState": "clean-branch-diverged-review",
+      "nextAction": "Owning agent should convert the ahead commit to PR/archive tag or retire branch after review."
+    },
+    {
+      "path": "/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A05-lesson-closure",
+      "exists": true,
+      "branch": "codex/A05-lesson-closure",
+      "head": "cef544e09bee8118ddcf3bf3005e570bdf4977e3",
+      "prunable": false,
+      "prunableReason": "",
+      "statusCounts": {
+        "total": 126,
+        "modified": 27,
+        "deleted": 1,
+        "untracked": 99
+      },
+      "divergence": {
+        "behind": 2,
+        "ahead": 0
+      },
+      "topLevels": {
+        "public": 76,
+        "components": 23,
+        "data": 17,
+        "app": 6,
+        "lib": 2,
+        "pp": 1,
+        "scripts": 1
+      },
+      "lifecycleState": "dirty-active-review-required",
+      "nextAction": "Owning agent must package, commit, archive patch, or explicitly discard after review."
+    },
+    {
+      "path": "/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A05-lesson-pep-load",
+      "exists": true,
+      "branch": "codex/A05-lesson-pep-load",
+      "head": "cef544e09bee8118ddcf3bf3005e570bdf4977e3",
+      "prunable": false,
+      "prunableReason": "",
+      "statusCounts": {
+        "total": 0,
+        "modified": 0,
+        "deleted": 0,
+        "untracked": 0
+      },
+      "divergence": {
+        "behind": 2,
+        "ahead": 0
+      },
+      "topLevels": {},
+      "lifecycleState": "clean-branch-diverged-review",
+      "nextAction": "Owning agent should convert the ahead commit to PR/archive tag or retire branch after review."
+    },
+    {
+      "path": "/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A05-next-item-button-scroll",
+      "exists": true,
+      "branch": "codex/A05-next-item-button-scroll",
+      "head": "cef544e09bee8118ddcf3bf3005e570bdf4977e3",
+      "prunable": false,
+      "prunableReason": "",
+      "statusCounts": {
+        "total": 0,
+        "modified": 0,
+        "deleted": 0,
+        "untracked": 0
+      },
+      "divergence": {
+        "behind": 2,
+        "ahead": 0
+      },
+      "topLevels": {},
+      "lifecycleState": "clean-branch-diverged-review",
+      "nextAction": "Owning agent should convert the ahead commit to PR/archive tag or retire branch after review."
+    },
+    {
+      "path": "/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A06-manim-three-closure",
+      "exists": true,
+      "branch": "codex/A06-manim-three-closure",
+      "head": "cef544e09bee8118ddcf3bf3005e570bdf4977e3",
+      "prunable": false,
+      "prunableReason": "",
+      "statusCounts": {
+        "total": 351,
+        "modified": 63,
+        "deleted": 0,
+        "untracked": 288
+      },
+      "divergence": {
+        "behind": 2,
+        "ahead": 0
+      },
+      "topLevels": {
+        "components": 344,
+        "app": 4,
+        "coordination": 1,
+        "data": 1,
+        "pp": 1
+      },
+      "lifecycleState": "dirty-active-review-required",
+      "nextAction": "Owning agent must package, commit, archive patch, or explicitly discard after review."
+    },
+    {
+      "path": "/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A06-visualization-closure",
+      "exists": true,
+      "branch": "codex/A06-visualization-closure",
+      "head": "cef544e09bee8118ddcf3bf3005e570bdf4977e3",
+      "prunable": false,
+      "prunableReason": "",
+      "statusCounts": {
+        "total": 437,
+        "modified": 64,
+        "deleted": 0,
+        "untracked": 373
+      },
+      "divergence": {
+        "behind": 2,
+        "ahead": 0
+      },
+      "topLevels": {
+        "components": 431,
+        "app": 4,
+        "data": 1,
+        "pp": 1
+      },
+      "lifecycleState": "dirty-active-review-required",
+      "nextAction": "Owning agent must package, commit, archive patch, or explicitly discard after review."
+    },
+    {
+      "path": "/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A07-A15-A08-ai-adaptive-types",
+      "exists": true,
+      "branch": "codex/A07-A15-A08-ai-adaptive-types",
+      "head": "cef544e09bee8118ddcf3bf3005e570bdf4977e3",
+      "prunable": false,
+      "prunableReason": "",
+      "statusCounts": {
+        "total": 30,
+        "modified": 17,
+        "deleted": 0,
+        "untracked": 13
+      },
+      "divergence": {
+        "behind": 2,
+        "ahead": 0
+      },
+      "topLevels": {
+        "app": 10,
+        "lib": 8,
+        "components": 7,
+        "coordination": 1,
+        "env.local.example": 1,
+        "scripts": 1,
+        "tsconfig.analytics.json": 1,
+        "types": 1
+      },
+      "lifecycleState": "dirty-active-review-required",
+      "nextAction": "Owning agent must package, commit, archive patch, or explicitly discard after review."
+    },
+    {
+      "path": "/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A07-ai-tutor-classroom-switches",
+      "exists": true,
+      "branch": "codex/A07-ai-tutor-classroom-switches",
+      "head": "cef544e09bee8118ddcf3bf3005e570bdf4977e3",
+      "prunable": false,
+      "prunableReason": "",
+      "statusCounts": {
+        "total": 82,
+        "modified": 12,
+        "deleted": 0,
+        "untracked": 70
+      },
+      "divergence": {
+        "behind": 2,
+        "ahead": 0
+      },
+      "topLevels": {
+        "lib": 65,
+        "app": 7,
+        "components": 7,
+        "data": 1,
+        "pp": 1,
+        "types": 1
+      },
+      "lifecycleState": "dirty-active-review-required",
+      "nextAction": "Owning agent must package, commit, archive patch, or explicitly discard after review."
+    },
+    {
+      "path": "/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A07-ai-tutor-closure",
+      "exists": true,
+      "branch": "codex/A07-ai-tutor-closure",
+      "head": "cef544e09bee8118ddcf3bf3005e570bdf4977e3",
+      "prunable": false,
+      "prunableReason": "",
+      "statusCounts": {
+        "total": 12,
+        "modified": 5,
+        "deleted": 0,
+        "untracked": 7
+      },
+      "divergence": {
+        "behind": 2,
+        "ahead": 0
+      },
+      "topLevels": {
+        "app": 5,
+        "components": 5,
+        "env.local.example": 1,
+        "scripts": 1
+      },
+      "lifecycleState": "dirty-active-review-required",
+      "nextAction": "Owning agent must package, commit, archive patch, or explicitly discard after review."
+    },
+    {
+      "path": "/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A08-A12-shared-contract-closure",
+      "exists": true,
+      "branch": "codex/A08-A12-shared-contract-closure",
+      "head": "cef544e09bee8118ddcf3bf3005e570bdf4977e3",
+      "prunable": false,
+      "prunableReason": "",
+      "statusCounts": {
+        "total": 186,
+        "modified": 46,
+        "deleted": 0,
+        "untracked": 140
+      },
+      "divergence": {
+        "behind": 2,
+        "ahead": 0
+      },
+      "topLevels": {
+        "lib": 129,
+        "app": 42,
+        "public": 5,
+        "components": 3,
+        "coordination": 1,
+        "data": 1,
+        "middleware.ts": 1,
+        "pp": 1
+      },
+      "lifecycleState": "dirty-active-review-required",
+      "nextAction": "Owning agent must package, commit, archive patch, or explicitly discard after review."
+    },
+    {
+      "path": "/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A09-copy-i18n-accessibility-closure",
+      "exists": true,
+      "branch": "codex/A09-copy-i18n-accessibility-closure",
+      "head": "cef544e09bee8118ddcf3bf3005e570bdf4977e3",
+      "prunable": false,
+      "prunableReason": "",
+      "statusCounts": {
+        "total": 5,
+        "modified": 4,
+        "deleted": 0,
+        "untracked": 1
+      },
+      "divergence": {
+        "behind": 2,
+        "ahead": 0
+      },
+      "topLevels": {
+        "data": 2,
+        "components": 1,
+        "lib": 1,
+        "omponents": 1
+      },
+      "lifecycleState": "dirty-active-review-required",
+      "nextAction": "Owning agent must package, commit, archive patch, or explicitly discard after review."
+    },
+    {
+      "path": "/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A10-A22-A08-A12-A06-compose-20260628",
+      "exists": true,
+      "branch": "codex/A10-A22-A08-A12-A06-compose-20260628",
+      "head": "f8143dab082575d321a00ac9e022bf5ef86fe2d2",
+      "prunable": false,
+      "prunableReason": "",
+      "statusCounts": {
+        "total": 954,
+        "modified": 456,
+        "deleted": 210,
+        "untracked": 498
+      },
+      "divergence": {
+        "behind": 2,
+        "ahead": 2
+      },
+      "topLevels": {
+        "components": 402,
+        "coordination": 221,
+        "lib": 171,
+        "data": 77,
+        "app": 55,
+        "scripts": 10,
+        "tests": 6,
+        ".gitignore": 1
+      },
+      "lifecycleState": "dirty-active-review-required",
+      "nextAction": "Owning agent must package, commit, archive patch, or explicitly discard after review."
+    },
+    {
+      "path": "/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A10-A22-release-governance",
+      "exists": true,
+      "branch": "codex/A10-A22-release-governance",
+      "head": "f8143dab082575d321a00ac9e022bf5ef86fe2d2",
+      "prunable": false,
+      "prunableReason": "",
+      "statusCounts": {
+        "total": 0,
+        "modified": 0,
+        "deleted": 0,
+        "untracked": 0
+      },
+      "divergence": {
+        "behind": 2,
+        "ahead": 2
+      },
+      "topLevels": {},
+      "lifecycleState": "clean-branch-diverged-review",
+      "nextAction": "Owning agent should convert the ahead commit to PR/archive tag or retire branch after review."
+    },
+    {
+      "path": "/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A11-fix-126-128-129",
+      "exists": true,
+      "branch": "codex/A11-fix-126-128-129",
+      "head": "cef544e09bee8118ddcf3bf3005e570bdf4977e3",
+      "prunable": false,
+      "prunableReason": "",
+      "statusCounts": {
+        "total": 41,
+        "modified": 9,
+        "deleted": 0,
+        "untracked": 32
+      },
+      "divergence": {
+        "behind": 2,
+        "ahead": 0
+      },
+      "topLevels": {
+        "public": 20,
+        "components": 9,
+        "app": 5,
+        "coordination": 2,
+        "lib": 1,
+        "package-lock.json": 1,
+        "package.json": 1,
+        "pp": 1
+      },
+      "lifecycleState": "dirty-active-review-required",
+      "nextAction": "Owning agent must package, commit, archive patch, or explicitly discard after review."
+    },
+    {
+      "path": "/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A11-regression-evidence-closure",
+      "exists": true,
+      "branch": "codex/A11-regression-evidence-closure",
+      "head": "cef544e09bee8118ddcf3bf3005e570bdf4977e3",
+      "prunable": false,
+      "prunableReason": "",
+      "statusCounts": {
+        "total": 62,
+        "modified": 35,
+        "deleted": 0,
+        "untracked": 27
+      },
+      "divergence": {
+        "behind": 2,
+        "ahead": 0
+      },
+      "topLevels": {
+        "tests": 61,
+        "ib": 1
+      },
+      "lifecycleState": "dirty-active-review-required",
+      "nextAction": "Owning agent must package, commit, archive patch, or explicitly discard after review."
+    },
+    {
+      "path": "/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A12-google-oauth-login",
+      "exists": true,
+      "branch": "codex/A12-google-oauth-login",
+      "head": "cef544e09bee8118ddcf3bf3005e570bdf4977e3",
+      "prunable": false,
+      "prunableReason": "",
+      "statusCounts": {
+        "total": 16,
+        "modified": 3,
+        "deleted": 0,
+        "untracked": 13
+      },
+      "divergence": {
+        "behind": 2,
+        "ahead": 0
+      },
+      "topLevels": {
+        "app": 5,
+        "lib": 4,
+        "coordination": 2,
+        "scripts": 2,
+        "env.local.example": 1,
+        "tests": 1,
+        "tsconfig.google-auth-tests.json": 1
+      },
+      "lifecycleState": "dirty-active-review-required",
+      "nextAction": "Owning agent must package, commit, archive patch, or explicitly discard after review."
+    },
+    {
+      "path": "/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A12-userstore-storage-contract",
+      "exists": true,
+      "branch": "codex/A12-userstore-storage-contract",
+      "head": "cef544e09bee8118ddcf3bf3005e570bdf4977e3",
+      "prunable": false,
+      "prunableReason": "",
+      "statusCounts": {
+        "total": 170,
+        "modified": 37,
+        "deleted": 0,
+        "untracked": 133
+      },
+      "divergence": {
+        "behind": 2,
+        "ahead": 0
+      },
+      "topLevels": {
+        "lib": 121,
+        "app": 39,
+        "public": 5,
+        "components": 1,
+        "coordination": 1,
+        "data": 1,
+        "middleware.ts": 1,
+        "pp": 1
+      },
+      "lifecycleState": "dirty-active-review-required",
+      "nextAction": "Owning agent must package, commit, archive patch, or explicitly discard after review."
+    },
+    {
+      "path": "/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A13-A14-console-closure",
+      "exists": true,
+      "branch": "codex/A13-A14-console-closure",
+      "head": "cef544e09bee8118ddcf3bf3005e570bdf4977e3",
+      "prunable": false,
+      "prunableReason": "",
+      "statusCounts": {
+        "total": 43,
+        "modified": 37,
+        "deleted": 0,
+        "untracked": 6
+      },
+      "divergence": {
+        "behind": 2,
+        "ahead": 0
+      },
+      "topLevels": {
+        "app": 25,
+        "components": 16,
+        "lib": 1,
+        "pp": 1
+      },
+      "lifecycleState": "dirty-active-review-required",
+      "nextAction": "Owning agent must package, commit, archive patch, or explicitly discard after review."
+    },
+    {
+      "path": "/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A16-research-evidence-closure",
+      "exists": true,
+      "branch": "codex/A16-research-evidence-closure",
+      "head": "cef544e09bee8118ddcf3bf3005e570bdf4977e3",
+      "prunable": false,
+      "prunableReason": "",
+      "statusCounts": {
+        "total": 6,
+        "modified": 0,
+        "deleted": 0,
+        "untracked": 6
+      },
+      "divergence": {
+        "behind": 2,
+        "ahead": 0
+      },
+      "topLevels": {
+        "coordination": 6
+      },
+      "lifecycleState": "dirty-active-review-required",
+      "nextAction": "Owning agent must package, commit, archive patch, or explicitly discard after review."
+    },
+    {
+      "path": "/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A17-A20-game-motivation-closure",
+      "exists": true,
+      "branch": "codex/A17-A20-game-motivation-closure",
+      "head": "cef544e09bee8118ddcf3bf3005e570bdf4977e3",
+      "prunable": false,
+      "prunableReason": "",
+      "statusCounts": {
+        "total": 21,
+        "modified": 8,
+        "deleted": 0,
+        "untracked": 13
+      },
+      "divergence": {
+        "behind": 2,
+        "ahead": 0
+      },
+      "topLevels": {
+        "public": 6,
+        "components": 5,
+        "app": 4,
+        "data": 3,
+        "lib": 2,
+        "pp": 1
+      },
+      "lifecycleState": "dirty-active-review-required",
+      "nextAction": "Owning agent must package, commit, archive patch, or explicitly discard after review."
+    },
+    {
+      "path": "/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A18-A21-content-evidence-closure",
+      "exists": true,
+      "branch": "codex/A18-A21-content-evidence-closure",
+      "head": "cef544e09bee8118ddcf3bf3005e570bdf4977e3",
+      "prunable": false,
+      "prunableReason": "",
+      "statusCounts": {
+        "total": 222,
+        "modified": 67,
+        "deleted": 0,
+        "untracked": 155
+      },
+      "divergence": {
+        "behind": 2,
+        "ahead": 0
+      },
+      "topLevels": {
+        "coordination": 139,
+        "lib": 40,
+        "data": 25,
+        "scripts": 11,
+        "public": 6,
+        "oordination": 1
+      },
+      "lifecycleState": "dirty-active-review-required",
+      "nextAction": "Owning agent must package, commit, archive patch, or explicitly discard after review."
+    },
+    {
+      "path": "/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A19-vercel-postgres-region",
+      "exists": true,
+      "branch": "codex/A19-vercel-postgres-region",
+      "head": "28aa4d5eaf306c169864e2bc3cebc2153fad0c90",
+      "prunable": false,
+      "prunableReason": "",
+      "statusCounts": {
+        "total": 0,
+        "modified": 0,
+        "deleted": 0,
+        "untracked": 0
+      },
+      "divergence": {
+        "behind": 2,
+        "ahead": 8
+      },
+      "topLevels": {},
+      "lifecycleState": "clean-branch-diverged-review",
+      "nextAction": "Owning agent should convert the ahead commit to PR/archive tag or retire branch after review."
+    },
+    {
+      "path": "/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A22-missing-module-release-slice",
+      "exists": true,
+      "branch": "codex/A22-missing-module-release-slice",
+      "head": "cef544e09bee8118ddcf3bf3005e570bdf4977e3",
+      "prunable": false,
+      "prunableReason": "",
+      "statusCounts": {
+        "total": 1017,
+        "modified": 338,
+        "deleted": 1,
+        "untracked": 679
+      },
+      "divergence": {
+        "behind": 2,
+        "ahead": 0
+      },
+      "topLevels": {
+        "components": 521,
+        "lib": 187,
+        "app": 120,
+        "data": 81,
+        "tests": 61,
+        "scripts": 35,
+        "coordination": 2,
+        "middleware.ts": 1
+      },
+      "lifecycleState": "dirty-active-review-required",
+      "nextAction": "Owning agent must package, commit, archive patch, or explicitly discard after review."
+    },
+    {
+      "path": "/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A22-next-15-5-19-audit",
+      "exists": true,
+      "branch": "codex/A22-next-15-5-19-audit",
+      "head": "cef544e09bee8118ddcf3bf3005e570bdf4977e3",
+      "prunable": false,
+      "prunableReason": "",
+      "statusCounts": {
+        "total": 4,
+        "modified": 2,
+        "deleted": 0,
+        "untracked": 2
+      },
+      "divergence": {
+        "behind": 2,
+        "ahead": 0
+      },
+      "topLevels": {
+        "coordination": 2,
+        "ackage-lock.json": 1,
+        "package.json": 1
+      },
+      "lifecycleState": "dirty-active-review-required",
+      "nextAction": "Owning agent must package, commit, archive patch, or explicitly discard after review."
+    },
+    {
+      "path": "/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A22-p1-release-hygiene-security",
+      "exists": true,
+      "branch": "codex/A22-p1-release-hygiene-security",
+      "head": "cef544e09bee8118ddcf3bf3005e570bdf4977e3",
+      "prunable": false,
+      "prunableReason": "",
+      "statusCounts": {
+        "total": 27,
+        "modified": 5,
+        "deleted": 0,
+        "untracked": 22
+      },
+      "divergence": {
+        "behind": 2,
+        "ahead": 0
+      },
+      "topLevels": {
+        "scripts": 19,
+        "coordination": 2,
+        "next.config.ts": 1,
+        "package-lock.json": 1,
+        "package.json": 1,
+        "playwright.config.ts": 1,
+        "tsconfig.next.json": 1,
+        "vercelignore": 1
+      },
+      "lifecycleState": "dirty-active-review-required",
+      "nextAction": "Owning agent must package, commit, archive patch, or explicitly discard after review."
+    },
+    {
+      "path": "/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A22-us-region-alignment",
+      "exists": true,
+      "branch": "codex/A22-us-region-alignment",
+      "head": "80b8546af59def9ea4c91fa4b8a892973874504d",
+      "prunable": false,
+      "prunableReason": "",
+      "statusCounts": {
+        "total": 7,
+        "modified": 2,
+        "deleted": 0,
+        "untracked": 5
+      },
+      "divergence": {
+        "behind": 2,
+        "ahead": 1
+      },
+      "topLevels": {
+        "data": 4,
+        "ackage-lock.json": 1,
+        "app": 1,
+        "package.json": 1
+      },
+      "lifecycleState": "dirty-active-review-required",
+      "nextAction": "Owning agent must package, commit, archive patch, or explicitly discard after review."
+    },
+    {
+      "path": "/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A25-ci-backup-workflow",
+      "exists": true,
+      "branch": "codex/A25-ci-backup-workflow",
+      "head": "e909992b098ce7f8b57ca7f7ede6c97e50ccdc45",
+      "prunable": false,
+      "prunableReason": "",
+      "statusCounts": {
+        "total": 0,
+        "modified": 0,
+        "deleted": 0,
+        "untracked": 0
+      },
+      "divergence": {
+        "behind": 1,
+        "ahead": 0
+      },
+      "topLevels": {},
+      "lifecycleState": "clean-branch-diverged-review",
+      "nextAction": "Owning agent should convert the ahead commit to PR/archive tag or retire branch after review."
+    },
+    {
+      "path": "/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A25-dirty-closure-governance",
+      "exists": true,
+      "branch": "codex/A25-dirty-closure-governance",
+      "head": "cef544e09bee8118ddcf3bf3005e570bdf4977e3",
+      "prunable": false,
+      "prunableReason": "",
+      "statusCounts": {
+        "total": 1012,
+        "modified": 22,
+        "deleted": 0,
+        "untracked": 990
+      },
+      "divergence": {
+        "behind": 2,
+        "ahead": 0
+      },
+      "topLevels": {
+        "coordination": 979,
+        "scripts": 14,
+        "video-plan": 5,
+        "docs": 4,
+        ".vercelignore": 1,
+        "AGENTS.md": 1,
+        "gitignore": 1,
+        "next.config.ts": 1
+      },
+      "lifecycleState": "dirty-active-review-required",
+      "nextAction": "Owning agent must package, commit, archive patch, or explicitly discard after review."
+    },
+    {
+      "path": "/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A25-full-dirty-compose-verification",
+      "exists": true,
+      "branch": "codex/A25-full-dirty-compose-verification",
+      "head": "cef544e09bee8118ddcf3bf3005e570bdf4977e3",
+      "prunable": false,
+      "prunableReason": "",
+      "statusCounts": {
+        "total": 2423,
+        "modified": 390,
+        "deleted": 1,
+        "untracked": 2033
+      },
+      "divergence": {
+        "behind": 2,
+        "ahead": 0
+      },
+      "topLevels": {
+        "coordination": 1269,
+        "components": 530,
+        "lib": 187,
+        "app": 123,
+        "public": 115,
+        "data": 81,
+        "tests": 61,
+        "scripts": 34
+      },
+      "lifecycleState": "dirty-active-review-required",
+      "nextAction": "Owning agent must package, commit, archive patch, or explicitly discard after review."
+    },
+    {
+      "path": "/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/codex-A14-profile-avatar-save",
+      "exists": true,
+      "branch": "codex/A14-profile-avatar-save",
+      "head": "e909992b098ce7f8b57ca7f7ede6c97e50ccdc45",
+      "prunable": false,
+      "prunableReason": "",
+      "statusCounts": {
+        "total": 10,
+        "modified": 5,
+        "deleted": 0,
+        "untracked": 5
+      },
+      "divergence": {
+        "behind": 1,
+        "ahead": 0
+      },
+      "topLevels": {
+        "components": 4,
+        "lib": 3,
+        "pp": 1,
+        "tests": 1,
+        "types": 1
+      },
+      "lifecycleState": "dirty-active-review-required",
+      "nextAction": "Owning agent must package, commit, archive patch, or explicitly discard after review."
+    },
+    {
+      "path": "/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/visualization-production-release",
+      "exists": true,
+      "branch": "codex/visualization-production-release",
+      "head": "11f79d4f16ee044f476dee3668fe82ea699ea532",
+      "prunable": false,
+      "prunableReason": "",
+      "statusCounts": {
+        "total": 16,
+        "modified": 1,
+        "deleted": 0,
+        "untracked": 15
+      },
+      "divergence": {
+        "behind": 14,
+        "ahead": 0
+      },
+      "topLevels": {
+        "coordination": 8,
+        "scripts": 4,
+        "components": 2,
+        "omponents": 1,
+        "tsconfig.next.json": 1
+      },
+      "lifecycleState": "dirty-active-review-required",
+      "nextAction": "Owning agent must package, commit, archive patch, or explicitly discard after review."
+    },
+    {
+      "path": "/Users/dongpinhu/Desktop/MAIS-MVP-worktrees/MAIS-MVP-california-practice-beta-clean",
+      "exists": true,
+      "branch": "codex/california-practice-beta-clean",
+      "head": "fb6776be92ca341044282558a7f7e3ce7c57edf5",
+      "prunable": false,
+      "prunableReason": "",
+      "statusCounts": {
+        "total": 0,
+        "modified": 0,
+        "deleted": 0,
+        "untracked": 0
+      },
+      "divergence": {
+        "behind": 14,
+        "ahead": 1
+      },
+      "topLevels": {},
+      "lifecycleState": "clean-branch-diverged-review",
+      "nextAction": "Owning agent should convert the ahead commit to PR/archive tag or retire branch after review."
+    },
+    {
+      "path": "/Users/dongpinhu/Desktop/MAIS-MVP-worktrees/s22-release-hygiene-2026-06-15",
+      "exists": true,
+      "branch": "codex/s22-release-hygiene-2026-06-15",
+      "head": "6fc558bd1db17d7024279b82e1be4007ee18ca1a",
+      "prunable": false,
+      "prunableReason": "",
+      "statusCounts": {
+        "total": 0,
+        "modified": 0,
+        "deleted": 0,
+        "untracked": 0
+      },
+      "divergence": {
+        "behind": 14,
+        "ahead": 1
+      },
+      "topLevels": {},
+      "lifecycleState": "clean-branch-diverged-review",
+      "nextAction": "Owning agent should convert the ahead commit to PR/archive tag or retire branch after review."
+    }
+  ],
+  "releaseGate": {
+    "rule": "A22 must not deploy from a dirty source. Allowed release sources are clean worktree, clean clone, reviewed clean slice, or owner-approved pruned staging package.",
+    "verifier": "node coordination/release-intake/assert-release-source-clean.mjs"
+  },
+  "lifecycleGate": {
+    "rule": "A25 worktree registry must have no prunable or missing-path entries. Strict mode additionally fails on dirty/diverged open decisions.",
+    "verifier": "node coordination/release-intake/assert-worktree-lifecycle.mjs",
+    "strictVerifier": "node coordination/release-intake/assert-worktree-lifecycle.mjs --strict"
+  },
+  "governanceGates": [
+    {
+      "name": "owner pathspec currency",
+      "command": "node coordination/release-intake/assert-owner-pathspecs-current.mjs"
+    },
+    {
+      "name": "secret/env quarantine",
+      "command": "node coordination/release-intake/assert-secret-env-quarantine.mjs"
+    },
+    {
+      "name": "disposition evidence currency",
+      "command": "node coordination/release-intake/assert-disposition-evidence-current.mjs"
+    },
+    {
+      "name": "effective owner overlay currency",
+      "command": "node coordination/release-intake/assert-effective-owner-overlay-current.mjs"
+    },
+    {
+      "name": "unmapped manual owner proposal currency",
+      "command": "node coordination/release-intake/assert-unmapped-manual-proposals-current.mjs"
+    }
+  ],
+  "artifactQuarantine": [
+    "Keep generated evidence in coordination/release-intake, coordination/reports, or ignored staging directories.",
+    "Keep raw/private RAG material out of tracked runtime surfaces unless rights and owner approval are documented.",
+    "Do not mix local/generated artifacts into runtime app/API/data/public pathspecs."
+  ]
+}

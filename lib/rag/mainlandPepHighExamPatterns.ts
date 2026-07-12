@@ -1,4 +1,5 @@
 import { mainlandPepHighExamPatternCards } from "../../data/rag/mainlandPepHighExamPatterns";
+import { illustrationTextMatchStandardForRag } from "./illustrationTextMatchStandard";
 import { getMainlandPepHighRagCards } from "./mainlandPepHigh";
 import type {
   MainlandPepHighExamEvidencePack,
@@ -162,6 +163,7 @@ export function buildMainlandPepHighExamEvidencePack(query: MainlandPepHighExamP
     "MAIS-safe exam-pattern evidence pack for MAINLAND_PEP_HIGH.",
     "Use these aggregated patterns only to create original MAIS items and explanations.",
     "Do not quote, paraphrase, reconstruct, or lightly modify any source stem, worked solution, figure, table, or scoring wording.",
+    ...illustrationTextMatchStandardForRag,
     ...cards.flatMap((card, index) => [
       `Exam pattern ${index + 1}: ${card.chapter} (${card.yearRange}; ${card.difficultyBand}).`,
       `Exam families: ${card.examFamilies.join(", ")}.`,
@@ -191,6 +193,7 @@ export function buildMainlandPepHighExamGenerationEvidencePack(
     "MAIS-safe combined evidence pack for MAINLAND_PEP_HIGH.",
     "Layer 1 answers what to teach from curriculum safe cards. Layer 2 answers how exam-style tasks are commonly structured from aggregated pattern cards.",
     "Generate only new MAIS-authored questions, contexts, diagrams, values, and explanations.",
+    ...illustrationTextMatchStandardForRag,
     "Curriculum layer:",
     ...curriculumCards.map((card, index) => `${index + 1}. ${card.chapter}: ${card.safeSummary}`),
     "Exam-pattern layer:",

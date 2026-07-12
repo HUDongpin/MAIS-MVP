@@ -1,9 +1,15 @@
 import questionPackJson from "./generated-content/mainland-bnu-junior-generated-bank-v1-1500/approved-question-pack.json";
-import { localizedHjbGeneratedAcceptedAnswers, localizeHjbGeneratedText } from "./hjbQuestionLocalization";
+import {
+  localizedHjbGeneratedAcceptedAnswers,
+  stripHjbGeneratorPromptPrefix,
+  toTraditionalHjbText
+} from "./hjbQuestionLocalization";
 import { mainlandBnuJuniorTopics } from "./mainlandBnuJuniorTopics";
+import { mapDifficultyToActive } from "@/lib/difficulty";
 import type {
   CurriculumProfile,
   Difficulty,
+  DifficultyRecord,
   MainlandBnuJuniorGradeId,
   MainlandPepSemester,
   Question,
@@ -24,7 +30,7 @@ type GeneratedBnuJuniorQuestion = {
   competencyTags: string[];
   skillTags: string[];
   misconceptionTags: string[];
-  difficulty: Difficulty;
+  difficulty: DifficultyRecord;
   type: Exclude<QuestionType, "graph">;
   evidenceCardIds: string[];
   assessmentPatternCardIds: string[];
@@ -68,6 +74,15 @@ const questionPack = questionPackJson as GeneratedBnuJuniorQuestionPack;
 const mainlandBnuJuniorProfile = { region: "MAINLAND", publisher: "MAINLAND_BNU" } satisfies CurriculumProfile;
 const topicById = new Map(mainlandBnuJuniorTopics.map((topic) => [topic.id, topic]));
 
+function localizeBnuJuniorGeneratedText(value: string) {
+  const zhHans = stripHjbGeneratorPromptPrefix(value);
+  return {
+    en: zhHans,
+    zh: toTraditionalHjbText(zhHans),
+    zhHans
+  };
+}
+
 function toQuestion(question: GeneratedBnuJuniorQuestion): Question {
   const topic = topicById.get(question.topicId);
   if (!topic) throw new Error(`Missing Mainland BNU junior topic for ${question.topicId}`);
@@ -82,13 +97,13 @@ function toQuestion(question: GeneratedBnuJuniorQuestion): Question {
     grade: question.grade,
     topicId: question.topicId,
     topic: topic.title,
-    difficulty: question.difficulty,
+    difficulty: mapDifficultyToActive(question.difficulty),
     type: question.type,
-    prompt: localizeHjbGeneratedText(question.promptZhHans),
-    options: question.type === "multiple-choice" ? question.optionsZhHans.map(localizeHjbGeneratedText) : undefined,
+    prompt: localizeBnuJuniorGeneratedText(question.promptZhHans),
+    options: question.type === "multiple-choice" ? question.optionsZhHans.map(localizeBnuJuniorGeneratedText) : undefined,
     answer: question.answer,
     acceptedAnswers: localizedHjbGeneratedAcceptedAnswers(question),
-    explanation: localizeHjbGeneratedText(question.explanationZhHans)
+    explanation: localizeBnuJuniorGeneratedText(question.explanationZhHans)
   };
 }
 
@@ -104,7 +119,7 @@ export const mainlandBnuJuniorQuestionGenerationMetadata: Record<string, Mainlan
         volume: question.volume,
         unitTitle: question.unitTitle,
         type: question.type,
-        difficulty: question.difficulty,
+        difficulty: mapDifficultyToActive(question.difficulty),
         evidenceCardIds: question.evidenceCardIds,
         assessmentPatternCardIds: question.assessmentPatternCardIds,
         zhongkaoPatternCardIds: question.zhongkaoPatternCardIds,

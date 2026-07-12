@@ -1,49 +1,57 @@
 "use client";
 
-import Image from "next/image";
+import dynamic from "next/dynamic";
 import type { ComponentType } from "react";
-import { useEffect, useMemo, useRef, useState } from "react";
-import { ConfiguredVisualizationLab } from "@/components/visualizations/ConfiguredVisualizationLab";
+import { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } from "react";
 import { VisualizationCard } from "@/components/visualizations/VisualizationCard";
-import labIcon0 from "@/components/visualizations/assets/lab-icons/lab-icon-0.png";
-import labIcon1 from "@/components/visualizations/assets/lab-icons/lab-icon-1.png";
-import labIcon2 from "@/components/visualizations/assets/lab-icons/lab-icon-2.png";
-import labIcon3 from "@/components/visualizations/assets/lab-icons/lab-icon-3.png";
-import labIcon4 from "@/components/visualizations/assets/lab-icons/lab-icon-4.png";
-import labIcon5 from "@/components/visualizations/assets/lab-icons/lab-icon-5.png";
-import labIcon6 from "@/components/visualizations/assets/lab-icons/lab-icon-6.png";
-import labIcon7 from "@/components/visualizations/assets/lab-icons/lab-icon-7.png";
-import labQuestIslandMapEn from "@/components/visualizations/assets/lab-quest-island-map-en-4k.webp";
-import labQuestIslandMap from "@/components/visualizations/assets/lab-quest-island-map-4k.webp";
+import VisualizationLabLoading from "@/components/visualizations/VisualizationLabLoading";
+import labQuestIslandMapEn from "@/components/visualizations/assets/lab-quest-island-map-en.png";
+import labQuestIslandMap from "@/components/visualizations/assets/lab-quest-island-map.png";
 import { dictionary, useSettings } from "@/components/providers/AppProviders";
 import { buildVisualizationLabHref, buildVisualizationPracticeHref, buildVisualizationSessionModuleId, buildVisualizationSnapshotMarkSample } from "@/components/visualizations/visualizationDiagnostics";
-import {
-  filterVisualizationLabsByTrack,
-  type FeaturedLabDefinition,
-  type GradeLabGroupDefinition,
-  getVisualizationLabByLabId,
-  gradeLabGroups,
-  visualizationLabCount,
-  type VisualizationLabModuleId,
-  type VisualizationCurriculumTrack,
-  visualizationTrackLabels,
-  type VisualizationTrackFilter
-} from "@/data/visualizationLabs";
 import { gradeIds } from "@/data/grades";
 import { publisherLabels } from "@/lib/curriculumProfile";
-import { formatGradeLabel, formatGradeLabelForCurriculum, formatGradeRange, formatLearnerName, isChineseLanguage, simplifyChineseText } from "@/lib/i18n";
+import { formatGradeLabel, formatGradeLabelForCurriculum, formatUnitedStatesGradeLabel, simplifyChineseText } from "@/lib/i18n";
 import { cn } from "@/lib/utils";
-import { studentVisualizationToolsPath, visualizationLabPath } from "@/lib/visualizationRoutes";
-import type { GradeId, StudentSession, TextbookPublisher } from "@/types";
+import { studentVisualizationToolsPath } from "@/lib/visualizationRoutes";
+import type { CurriculumTrack, GradeId, StudentSession, TextbookPublisher } from "@/types";
 
-type LabComponentProps = { topicId: string; labId?: string };
+type VisualizationCatalogModule = typeof import("@/data/visualizationLabs");
+type FeaturedLabDefinition = VisualizationCatalogModule["visualizationLabCatalog"][number];
+type GradeLabGroupDefinition = VisualizationCatalogModule["gradeLabGroups"][number];
+type VisualizationLabModuleId = FeaturedLabDefinition["moduleId"];
+type VisualizationCurriculumTrack = FeaturedLabDefinition["curriculumTrack"];
+type VisualizationTrackFilter = "all" | VisualizationCurriculumTrack;
+type VisualizationTrackLabels = VisualizationCatalogModule["visualizationTrackLabels"];
+type VisualizationCatalogState = {
+  getVisualizationLabByLabId: VisualizationCatalogModule["getVisualizationLabByLabId"];
+  gradeLabGroups: VisualizationCatalogModule["gradeLabGroups"];
+  visualizationLabCount: VisualizationCatalogModule["visualizationLabCount"];
+  visualizationTrackLabels: VisualizationTrackLabels;
+};
+type LabComponentRuntimeProps = { lab?: FeaturedLabDefinition | null; topicId: string; labId?: string };
+type LabComponentProps = LabComponentRuntimeProps & { onRuntimeReady?: (labId: string) => void };
 type PanelMode = "control" | "lab";
 type DirectLinkStatus = "idle" | "ok" | "missing" | "unavailable";
 type ShareState = "idle" | "copied" | "error" | "blocked";
 type SnapshotState = "idle" | "copied" | "error" | "blocked";
+type VisualizationLabRouteLocation = {
+  pathname: string;
+  search: string;
+};
+type VisualizationLabInitialRouteState = {
+  activeDirectoryGrade: GradeId | null;
+  activeLabId: string | null;
+  directLinkStatus: DirectLinkStatus;
+  panelMode: PanelMode;
+  requestedLabId: string | null;
+  trackFilter: VisualizationTrackFilter;
+};
 type VisualizationLabPageProps = {
   initialGrade?: GradeId | null;
   initialLabId?: string | null;
+  onRouteShellReady?: () => void;
+  suppressLoadingWorkspaceSelector?: boolean;
 };
 type VisualizationSessionsResponse = {
   sessions?: Array<{
@@ -52,74 +60,192 @@ type VisualizationSessionsResponse = {
   }>;
 };
 
+function createRuntimeReadyLabComponent(LoadedLabComponent: ComponentType<LabComponentRuntimeProps>): ComponentType<LabComponentProps> {
+  return function RuntimeReadyLabComponent({ onRuntimeReady, ...props }: LabComponentProps) {
+    const runtimeRootRef = useRef<HTMLDivElement>(null);
+    const readyLabId = props.lab?.labId ?? props.labId ?? props.topicId;
+
+    useEffect(() => {
+      if (!onRuntimeReady || !readyLabId || typeof window === "undefined") return;
+
+      let animationFrame = 0;
+      let cancelled = false;
+
+      const probeRuntimeReady = () => {
+        if (cancelled) return;
+
+        const runtimeRoot = runtimeRootRef.current;
+        const surface = runtimeRoot?.querySelector("[data-viz-surface]");
+        const mark = surface?.querySelector("[data-viz-mark]");
+
+        if (surface && mark) {
+          onRuntimeReady(readyLabId);
+          return;
+        }
+
+        animationFrame = window.requestAnimationFrame(probeRuntimeReady);
+      };
+
+      animationFrame = window.requestAnimationFrame(probeRuntimeReady);
+
+      return () => {
+        cancelled = true;
+        window.cancelAnimationFrame(animationFrame);
+      };
+    }, [onRuntimeReady, readyLabId]);
+
+    return (
+      <div ref={runtimeRootRef} data-viz-lab-runtime-root data-viz-lab-runtime-ready-probe={readyLabId}>
+        <LoadedLabComponent {...props} />
+      </div>
+    );
+  };
+}
+
+const ConfiguredVisualizationLab = dynamic<LabComponentProps>(
+  () => import("@/components/visualizations/ConfiguredVisualizationLab").then((module) => createRuntimeReadyLabComponent(module.ConfiguredVisualizationLab as ComponentType<LabComponentRuntimeProps>)),
+  { loading: () => <LabRuntimeLoading /> }
+);
+
 const labComponentRegistry: Record<VisualizationLabModuleId, ComponentType<LabComponentProps>> = {
   "configured-visualization-lab": ConfiguredVisualizationLab
 };
+
+function componentForDirectoryLab(lab: FeaturedLabDefinition | null) {
+  if (!lab) return null;
+  return labComponentRegistry[lab.moduleId] ?? ConfiguredVisualizationLab;
+}
 
 const trackFilterOptions: VisualizationTrackFilter[] = ["all", "HK", "US", "MAINLAND_PEP_PRIMARY", "MAINLAND_PEP_JUNIOR", "MAINLAND_PEP_HIGH", "MAINLAND_HJB", "MAINLAND_BNU", "CAPSTONE"];
 const mainlandPepVisualizationTracks: readonly VisualizationCurriculumTrack[] = ["MAINLAND_PEP_PRIMARY", "MAINLAND_PEP_JUNIOR", "MAINLAND_PEP_HIGH"];
 const hongKongPublishers = new Set<TextbookPublisher>(["HK_MODERN_EDUCATIONAL_RESEARCH_SOCIETY", "HK_UNITED_PRIME_MIA", "HK_EPH_MIF"]);
 const unitedStatesPublishers = new Set<TextbookPublisher>(["US_CA_MATH", "US_NC_MATH", "US_AR_MATH", "US_FL_MATH"]);
+const unitedStatesCurriculumTracks = new Set<CurriculumTrack>(["US_CA_MATH", "US_NC_MATH", "US_AR_MATH", "US_FL_MATH"]);
 
 const labTileThemes = [
   {
-    bg: "from-emerald-200 to-emerald-50",
-    border: "border-emerald-300",
-    bar: "bg-emerald-500"
+    accent: "from-emerald-500 to-teal-400",
+    bar: "bg-emerald-500",
+    glass: "from-emerald-200/95 via-teal-100/80 to-white/50 dark:from-emerald-300/30 dark:via-teal-200/20 dark:to-white/10",
+    glyph: "text-emerald-950 dark:text-emerald-50",
+    ribbon: "from-emerald-500 to-teal-400",
+    hover: "hover:border-emerald-300 hover:shadow-emerald-500/15",
+    active: "ring-emerald-500/25"
   },
   {
-    bg: "from-orange-200 to-rose-100",
-    border: "border-orange-300",
-    bar: "bg-orange-500"
+    accent: "from-orange-500 to-rose-400",
+    bar: "bg-orange-500",
+    glass: "from-orange-200/95 via-rose-100/80 to-white/50 dark:from-orange-300/30 dark:via-rose-200/20 dark:to-white/10",
+    glyph: "text-orange-950 dark:text-orange-50",
+    ribbon: "from-orange-500 to-rose-400",
+    hover: "hover:border-orange-300 hover:shadow-orange-500/15",
+    active: "ring-orange-500/25"
   },
   {
-    bg: "from-sky-200 to-cyan-50",
-    border: "border-sky-300",
-    bar: "bg-sky-500"
+    accent: "from-sky-500 to-cyan-400",
+    bar: "bg-sky-500",
+    glass: "from-sky-200/95 via-cyan-100/80 to-white/50 dark:from-sky-300/30 dark:via-cyan-200/20 dark:to-white/10",
+    glyph: "text-sky-950 dark:text-sky-50",
+    ribbon: "from-sky-500 to-cyan-400",
+    hover: "hover:border-sky-300 hover:shadow-sky-500/15",
+    active: "ring-sky-500/25"
   },
   {
-    bg: "from-violet-200 to-fuchsia-50",
-    border: "border-violet-300",
-    bar: "bg-violet-500"
+    accent: "from-violet-500 to-fuchsia-400",
+    bar: "bg-violet-500",
+    glass: "from-violet-200/95 via-fuchsia-100/80 to-white/50 dark:from-violet-300/30 dark:via-fuchsia-200/20 dark:to-white/10",
+    glyph: "text-violet-950 dark:text-violet-50",
+    ribbon: "from-violet-500 to-fuchsia-400",
+    hover: "hover:border-violet-300 hover:shadow-violet-500/15",
+    active: "ring-violet-500/25"
   },
   {
-    bg: "from-amber-200 to-yellow-50",
-    border: "border-amber-300",
-    bar: "bg-amber-500"
+    accent: "from-amber-500 to-yellow-400",
+    bar: "bg-amber-500",
+    glass: "from-amber-200/95 via-yellow-100/80 to-white/50 dark:from-amber-300/30 dark:via-yellow-200/20 dark:to-white/10",
+    glyph: "text-amber-950 dark:text-amber-50",
+    ribbon: "from-amber-500 to-yellow-400",
+    hover: "hover:border-amber-300 hover:shadow-amber-500/15",
+    active: "ring-amber-500/25"
   },
   {
-    bg: "from-teal-200 to-cyan-50",
-    border: "border-teal-300",
-    bar: "bg-teal-500"
+    accent: "from-teal-500 to-cyan-400",
+    bar: "bg-teal-500",
+    glass: "from-teal-200/95 via-cyan-100/80 to-white/50 dark:from-teal-300/30 dark:via-cyan-200/20 dark:to-white/10",
+    glyph: "text-teal-950 dark:text-teal-50",
+    ribbon: "from-teal-500 to-cyan-400",
+    hover: "hover:border-teal-300 hover:shadow-teal-500/15",
+    active: "ring-teal-500/25"
   },
   {
-    bg: "from-rose-200 to-red-50",
-    border: "border-rose-300",
-    bar: "bg-rose-500"
+    accent: "from-rose-500 to-red-400",
+    bar: "bg-rose-500",
+    glass: "from-rose-200/95 via-red-100/80 to-white/50 dark:from-rose-300/30 dark:via-red-200/20 dark:to-white/10",
+    glyph: "text-rose-950 dark:text-rose-50",
+    ribbon: "from-rose-500 to-red-400",
+    hover: "hover:border-rose-300 hover:shadow-rose-500/15",
+    active: "ring-rose-500/25"
   },
   {
-    bg: "from-blue-200 to-indigo-50",
-    border: "border-blue-300",
-    bar: "bg-blue-500"
+    accent: "from-blue-500 to-indigo-400",
+    bar: "bg-blue-500",
+    glass: "from-blue-200/95 via-indigo-100/80 to-white/50 dark:from-blue-300/30 dark:via-indigo-200/20 dark:to-white/10",
+    glyph: "text-blue-950 dark:text-blue-50",
+    ribbon: "from-blue-500 to-indigo-400",
+    hover: "hover:border-blue-300 hover:shadow-blue-500/15",
+    active: "ring-blue-500/25"
   }
 ] as const;
 
-const labIconImages = [labIcon0, labIcon1, labIcon2, labIcon3, labIcon4, labIcon5, labIcon6, labIcon7] as const;
+const fallbackLogoGlyphs = ["123", "10+", "A=B", "xy", "f(x)", "p", "cm", "3D"] as const;
+const templateLogoGlyphs: Partial<Record<FeaturedLabDefinition["templateId"], string>> = {
+  "number-line": "123",
+  "base-ten": "10+",
+  "array-area": "NxM",
+  "fraction-bar": "1/2",
+  "clock-money-data": "data",
+  "measurement-scale": "cm",
+  "angle-geometry": "shape",
+  "right-triangle-pythagorean": "a2+b2",
+  "coordinate-transform": "xy",
+  "equation-balance": "A=B",
+  "function-graph": "f(x)",
+  "function-family": "f(x)",
+  "complex-plane": "a+bi",
+  "trig-unit-wave": "sin",
+  "probability-simulation": "p",
+  "statistics-distribution": "data",
+  "calculus-rate-area": "dy/dx",
+  "vector-conic-3d/strategy-map": "3D"
+};
+const kindergartenCaliforniaLogoGlyphs: Record<string, string> = {
+  "us-ca-math-k-k-cc-count-sequence": "123",
+  "us-ca-math-k-k-cc-cardinality-compare": "3>2",
+  "us-ca-math-k-k-oa-compose-decompose": "2+3",
+  "us-ca-math-k-k-nbt-teen-numbers": "10+",
+  "us-ca-math-k-k-md-attributes-data": "sort",
+  "us-ca-math-k-k-g-shapes-position": "shape"
+};
 const snapshotControlSampleLimit = 24;
 
 function isVisualizationTrackFilter(value: string | null): value is VisualizationTrackFilter {
   return trackFilterOptions.includes(value as VisualizationTrackFilter);
 }
 
-function isGradeId(value: string | null): value is GradeId {
-  return gradeLabGroups.some((group) => group.grade === value);
+function isGradeId(value: string | null, groups: GradeLabGroupDefinition[]): value is GradeId {
+  return groups.some((group) => group.grade === value);
+}
+
+function filterVisualizationLabsByTrackForPage(labs: FeaturedLabDefinition[], track: VisualizationTrackFilter) {
+  if (track === "all") return labs;
+  return labs.filter((lab) => lab.curriculumTrack === track);
 }
 
 function filterGradeLabGroups(groups: GradeLabGroupDefinition[], track: VisualizationTrackFilter) {
   return groups
     .map((group) => ({
       ...group,
-      labs: filterVisualizationLabsByTrack(group.labs, track)
+      labs: filterVisualizationLabsByTrackForPage(group.labs, track)
     }))
     .filter((group) => group.labs.length > 0);
 }
@@ -133,22 +259,108 @@ function isMainlandPepVisualizationTrack(track: VisualizationCurriculumTrack) {
   return mainlandPepVisualizationTracks.includes(track);
 }
 
+function isUnitedStatesMathUser(currentUser: StudentSession) {
+  return currentUser.curriculumProfile.region === "US" ||
+    unitedStatesPublishers.has(currentUser.curriculumProfile.publisher) ||
+    unitedStatesCurriculumTracks.has(currentUser.curriculumTrack);
+}
+
 function labMatchesLearnerCurriculum(lab: FeaturedLabDefinition, currentUser: StudentSession | null) {
   if (!currentUser) return true;
 
   const publisher = currentUser.curriculumProfile.publisher;
+  if (isUnitedStatesMathUser(currentUser)) return lab.curriculumTrack === "US" && lab.publisher === publisher;
+  if (lab.curriculumTrack === "CAPSTONE" && lab.threeD?.premiumLaunch) return true;
+
   if (publisher === "MAINLAND_PEP") return isMainlandPepVisualizationTrack(lab.curriculumTrack);
   if (publisher === "MAINLAND_HJB") return lab.curriculumTrack === "MAINLAND_HJB";
   if (publisher === "MAINLAND_BNU") return lab.curriculumTrack === "MAINLAND_BNU";
-  if (unitedStatesPublishers.has(publisher)) return lab.curriculumTrack === "US" && lab.publisher === publisher;
   if (hongKongPublishers.has(publisher)) return lab.curriculumTrack === "HK";
 
   return false;
 }
 
+function scopeGradeLabGroupsForLearner(groups: GradeLabGroupDefinition[], currentUser: StudentSession | null) {
+  return groups
+    .map((group) => ({
+      ...group,
+      labs: group.labs.filter((lab) => labMatchesLearnerCurriculum(lab, currentUser))
+    }))
+    .filter((group) => group.labs.length > 0);
+}
+
 function labAllowsExternalDistribution(lab: FeaturedLabDefinition | null) {
   if (!lab?.safeguard) return true;
   return lab.safeguard.status === "approved";
+}
+
+function getVisualizationLabRouteLocation(): VisualizationLabRouteLocation {
+  if (typeof window === "undefined") return { pathname: "", search: "" };
+  return {
+    pathname: window.location.pathname,
+    search: window.location.search
+  };
+}
+
+function getInitialVisualizationLabRequestedLabId(initialLabId: string | null | undefined, location: VisualizationLabRouteLocation) {
+  const params = new URLSearchParams(location.search);
+  return params.get("lab") ?? initialLabId ?? null;
+}
+
+function buildInitialVisualizationLabRouteState({
+  activeGroupGrade,
+  currentUser,
+  getVisualizationLabByLabId,
+  gradeLabGroups,
+  initialGrade,
+  initialLabId,
+  location
+}: {
+  activeGroupGrade: GradeId;
+  currentUser: StudentSession | null;
+  getVisualizationLabByLabId: VisualizationCatalogState["getVisualizationLabByLabId"];
+  gradeLabGroups: GradeLabGroupDefinition[];
+  initialGrade: GradeId | null;
+  initialLabId: string | null;
+  location: VisualizationLabRouteLocation;
+}): VisualizationLabInitialRouteState {
+  const params = new URLSearchParams(location.search);
+  const queryLabId = params.get("lab") ?? initialLabId;
+  const requestedTrackParam = params.get("track");
+  const requestedTrack = !currentUser && isVisualizationTrackFilter(requestedTrackParam)
+    ? requestedTrackParam
+    : "all";
+  const requestedGradeParam = params.get("grade");
+  const requestedGrade = isGradeId(requestedGradeParam, gradeLabGroups) ? requestedGradeParam : initialGrade;
+  const curriculumScopedGroups = scopeGradeLabGroupsForLearner(gradeLabGroups, currentUser);
+  const groupsForRequestedTrack = filterGradeLabGroups(curriculumScopedGroups, requestedTrack);
+  const labGroup = findGroupForLab(groupsForRequestedTrack, queryLabId);
+  const linkedCatalogLab = getVisualizationLabByLabId(queryLabId);
+  const fallbackGradeGroup =
+    (requestedGrade ? groupsForRequestedTrack.find((group) => group.grade === requestedGrade) : null) ??
+    (linkedCatalogLab ? groupsForRequestedTrack.find((group) => group.grade === linkedCatalogLab.grade) : null) ??
+    groupsForRequestedTrack.find((group) => group.grade === activeGroupGrade) ??
+    groupsForRequestedTrack[0] ??
+    null;
+  const nextGrade = labGroup?.grade ?? fallbackGradeGroup?.grade ?? activeGroupGrade;
+  const nextGroup = groupsForRequestedTrack.find((group) => group.grade === nextGrade) ?? fallbackGradeGroup;
+  const queryLabIsAvailable = Boolean(queryLabId && labGroup);
+  const directLinkStatus: DirectLinkStatus = !queryLabId
+    ? "idle"
+    : queryLabIsAvailable
+      ? "ok"
+      : linkedCatalogLab
+        ? "unavailable"
+        : "missing";
+
+  return {
+    activeDirectoryGrade: nextGrade,
+    activeLabId: queryLabIsAvailable ? queryLabId : nextGroup?.labs[0]?.labId ?? null,
+    directLinkStatus,
+    panelMode: queryLabIsAvailable ? "lab" : "control",
+    requestedLabId: queryLabId,
+    trackFilter: requestedTrack
+  };
 }
 
 function compactTitle(title: string) {
@@ -246,20 +458,45 @@ function labTitleSizeClass(title: string) {
   return "text-lg leading-tight";
 }
 
-function progressForIndex(index: number) {
-  const done = [20, 12, 16, 14, 18, 15, 10, 17][index % 8];
-  return { done, total: 30, percent: Math.round((done / 30) * 100) };
+function labTileGlyphForLab(lab: FeaturedLabDefinition, index: number) {
+  return kindergartenCaliforniaLogoGlyphs[lab.labId] ?? templateLogoGlyphs[lab.templateId] ?? fallbackLogoGlyphs[index % fallbackLogoGlyphs.length];
 }
 
-function Stars({ count = 3, muted = 2 }: { count?: number; muted?: number }) {
+function LabRuntimeLoading() {
   return (
-    <span className="inline-flex items-center gap-0.5" aria-label={`${count} stars`}>
-      {Array.from({ length: count }).map((_, index) => (
-        <span key={`star-${index}`} className="text-sm leading-none text-amber-400">★</span>
-      ))}
-      {Array.from({ length: muted }).map((_, index) => (
-        <span key={`muted-${index}`} className="text-sm leading-none text-slate-300">★</span>
-      ))}
+    <div
+      className="grid min-h-[28rem] place-items-center rounded-2xl border border-cyan-200 bg-cyan-50/70 p-6 text-center text-sm font-black text-cyan-800 shadow-inner"
+      data-viz-lab-runtime-loading
+    >
+      Loading lab runtime...
+    </div>
+  );
+}
+
+function LiquidGlassLabLogo({
+  className,
+  glyph,
+  theme
+}: {
+  className?: string;
+  glyph: string;
+  theme: (typeof labTileThemes)[number];
+}) {
+  return (
+    <span
+      aria-hidden="true"
+      data-viz-lab-logo-glyph={glyph}
+      className={cn(
+        "relative grid h-20 w-20 shrink-0 place-items-center overflow-hidden rounded-[1.45rem] border border-white/70 bg-white/45 shadow-[0_18px_35px_-18px_rgba(15,23,42,0.65)] ring-1 ring-white/75 transition duration-200 group-hover:scale-[1.03] dark:border-white/15 dark:bg-white/10 dark:ring-white/10",
+        className
+      )}
+    >
+      <span className={cn("absolute inset-0 bg-gradient-to-br", theme.glass)} />
+      <span className="absolute inset-[7px] rounded-[1.08rem] border border-white/60 bg-white/25 shadow-[inset_0_1px_0_rgba(255,255,255,0.75),inset_0_-18px_30px_rgba(255,255,255,0.18)] dark:border-white/20 dark:bg-white/10" />
+      <span className="absolute left-3 right-5 top-2.5 h-4 rounded-full bg-white/70 blur-sm dark:bg-white/30" />
+      <span className={cn("relative z-10 font-black leading-none tracking-normal drop-shadow-[0_1px_1px_rgba(255,255,255,0.65)]", glyph.length > 4 ? "text-[0.95rem]" : glyph.length > 2 ? "text-[1.15rem]" : "text-[1.55rem]", theme.glyph)}>
+        {glyph}
+      </span>
     </span>
   );
 }
@@ -288,13 +525,13 @@ function LabQuestMap({
       }}
       data-viz-lab-quest-map-link
       data-viz-recommended-lab-id={recommendedLabId}
-      className="focus-ring relative block aspect-[484/169] w-full self-start overflow-hidden rounded-[1.35rem] border-0 bg-transparent p-0 text-left transition hover:-translate-y-0.5"
+      className="focus-ring group/map absolute inset-0 block overflow-hidden"
       aria-label={isEnglish ? "Open recommended lab" : "打开推荐实验"}
     >
       <img
         src={mapImage.src}
         alt={isEnglish ? "Math lab quest island map" : "数学实验岛地图"}
-        className="h-full w-full origin-center scale-[1.028] object-cover"
+        className="h-full w-full object-cover object-[70%_38%] transition duration-500 group-hover/map:scale-[1.03]"
         decoding="async"
         fetchPriority="high"
       />
@@ -336,10 +573,15 @@ function GradeChip({
       data-viz-grade-chip-grade={grade}
       data-viz-grade-chip-has-labs={String(hasLabs)}
       className={cn(
-        "focus-ring h-11 min-w-14 rounded-lg border px-4 text-sm font-black shadow-sm transition hover:-translate-y-0.5",
+        "focus-ring inline-flex h-12 min-w-[3.4rem] items-center justify-center rounded-xl border-2 px-4 text-center text-base font-black leading-none transition",
         active
-          ? "border-blue-600 bg-blue-600 text-white shadow-lg shadow-blue-600/25"
-          : "border-slate-200 bg-white text-slate-600 hover:border-blue-200 hover:bg-blue-50 hover:text-blue-700"
+          ? "border-blue-600 bg-blue-600 text-white shadow-lg shadow-blue-600/30"
+          : "border-slate-200 bg-white text-slate-700 shadow-sm dark:border-white/15 dark:bg-white/5 dark:text-slate-200",
+        hasLabs
+          ? active
+            ? "hover:-translate-y-0.5"
+            : "hover:-translate-y-0.5 hover:border-blue-300 hover:bg-blue-50 hover:text-blue-700 dark:hover:bg-blue-950/40 dark:hover:text-blue-200"
+          : "cursor-not-allowed opacity-35"
       )}
     >
       {label}
@@ -349,22 +591,30 @@ function GradeChip({
 
 function LabTile({
   active,
+  exploredLabel,
   href,
   index,
+  isExplored,
   lab,
   onOpen,
+  readyLabel,
+  recommended = false,
+  recommendedLabel,
   title
 }: {
   active: boolean;
+  exploredLabel: string;
   href: string;
   index: number;
+  isExplored: boolean;
   lab: FeaturedLabDefinition;
   onOpen: () => void;
+  readyLabel: string;
+  recommended?: boolean;
+  recommendedLabel?: string;
   title: string;
 }) {
   const theme = labTileThemes[index % labTileThemes.length];
-  const icon = labIconImages[index % labIconImages.length];
-  const progress = progressForIndex(index);
 
   return (
     <a
@@ -378,65 +628,137 @@ function LabTile({
       aria-current={active ? "page" : undefined}
       data-lab-id={lab.labId}
       data-viz-lab-tile
+      {...(recommended ? { "data-viz-recommended-lab-link": true, "data-viz-recommended-lab-id": lab.labId } : {})}
       className={cn(
-        "focus-ring group flex min-h-[14.25rem] flex-col rounded-xl border bg-gradient-to-br p-4 text-left shadow-sm transition duration-200 hover:-translate-y-1 hover:shadow-xl",
-        theme.bg,
-        theme.border,
-        active ? "ring-4 ring-blue-500/20" : ""
+        "focus-ring group relative flex min-h-[13.5rem] flex-col overflow-hidden rounded-2xl border-2 border-slate-200 bg-white p-4 pt-6 text-center shadow-sm shadow-slate-900/5 transition duration-200 hover:-translate-y-1 hover:shadow-xl dark:border-white/10 dark:bg-slate-950/80 dark:shadow-black/20",
+        theme.hover,
+        active ? cn("ring-4", theme.active) : "",
+        recommended ? "border-amber-300 dark:border-amber-400/50" : ""
       )}
     >
-      <span className="block h-14 w-14 shrink-0 overflow-hidden rounded-full shadow-lg shadow-slate-900/15">
-        <Image src={icon} alt="" width={56} height={56} className="h-full w-full object-cover" />
-      </span>
-      <span className="mt-3 grid min-h-[5.6rem] min-w-0 flex-1 items-center">
+      <span aria-hidden="true" className={cn("absolute inset-x-0 top-0 h-1.5 bg-gradient-to-r", theme.accent)} />
+      {recommended && recommendedLabel ? (
+        <span className="absolute right-2.5 top-3 inline-flex items-center gap-1 rounded-full bg-amber-400 px-2.5 py-1 text-[0.68rem] font-black leading-none text-amber-950 shadow-md shadow-amber-500/30">
+          <span aria-hidden="true">★</span>
+          {recommendedLabel}
+        </span>
+      ) : null}
+      <LiquidGlassLabLogo glyph={labTileGlyphForLab(lab, index)} theme={theme} className="mx-auto" />
+      <span className="mt-4 grid min-h-[5.2rem] min-w-0 flex-1 items-center">
         <span
           lang={/^[\x00-\x7F\s'-]+$/.test(title) ? "en" : undefined}
           title={title}
           className={cn(
-            "line-clamp-4 block min-w-0 overflow-hidden break-words font-black text-slate-900 [hyphens:auto] [overflow-wrap:anywhere]",
+            "line-clamp-4 block min-w-0 overflow-hidden break-words font-black text-slate-950 [hyphens:auto] [overflow-wrap:anywhere] dark:text-white",
             labTitleSizeClass(title)
           )}
         >
           {title}
         </span>
       </span>
-      <span className="mt-2 flex shrink-0 items-center justify-between gap-3">
-        <Stars count={index % 3 === 1 ? 2 : 3} muted={index % 3 === 1 ? 2 : 1} />
-        <span className="shrink-0 text-xs font-black text-slate-600">{progress.done}/{progress.total}</span>
-      </span>
-      <span className="mt-3 block h-2 shrink-0 overflow-hidden rounded-full bg-white/70">
-        <span className={cn("block h-full rounded-full", theme.bar)} style={{ width: `${progress.percent}%` }} />
+      <span
+        className={cn(
+          "mx-auto mt-3 inline-flex shrink-0 items-center gap-1.5 rounded-full px-3.5 py-1.5 text-xs font-black leading-none",
+          isExplored
+            ? "bg-emerald-100 text-emerald-800 dark:bg-emerald-500/20 dark:text-emerald-200"
+            : "bg-slate-100 text-slate-600 dark:bg-white/10 dark:text-slate-300"
+        )}
+      >
+        <span aria-hidden="true">{isExplored ? "✓" : "▶"}</span>
+        {isExplored ? exploredLabel : readyLabel}
       </span>
       <span className="sr-only">{lab.labId}</span>
     </a>
   );
 }
 
-export function VisualizationLabPage({ initialGrade = null, initialLabId = null }: VisualizationLabPageProps = {}) {
+export function VisualizationLabPage(props: VisualizationLabPageProps = {}) {
+  const { onRouteShellReady } = props;
+  const [catalog, setCatalog] = useState<VisualizationCatalogState | null>(null);
+  const [catalogLoadFailed, setCatalogLoadFailed] = useState(false);
+  const loadingWorkspaceLabId = getInitialVisualizationLabRequestedLabId(props.initialLabId, getVisualizationLabRouteLocation());
+  const loadingWorkspaceSectionId = props.suppressLoadingWorkspaceSelector ? null : loadingWorkspaceLabId;
+
+  useLayoutEffect(() => {
+    if (!catalog) return;
+    onRouteShellReady?.();
+  }, [catalog, onRouteShellReady]);
+
+  useEffect(() => {
+    let mounted = true;
+
+    import("@/data/visualizationLabs")
+      .then((module) => {
+        if (!mounted) return;
+        setCatalog({
+          getVisualizationLabByLabId: module.getVisualizationLabByLabId,
+          gradeLabGroups: module.gradeLabGroups,
+          visualizationLabCount: module.visualizationLabCount,
+          visualizationTrackLabels: module.visualizationTrackLabels
+        });
+      })
+      .catch(() => {
+        if (mounted) setCatalogLoadFailed(true);
+      });
+
+    return () => {
+      mounted = false;
+    };
+  }, []);
+
+  if (!catalog) {
+    return (
+      <section
+        id={loadingWorkspaceSectionId ? `lab-example-${loadingWorkspaceSectionId}` : undefined}
+        aria-label="Visualization Lab workspace"
+        data-viz-catalog-deferred
+        data-viz-catalog-load-status={catalogLoadFailed ? "error" : "loading"}
+        data-viz-panel-mode="loading"
+        data-viz-requested-lab-id={loadingWorkspaceLabId ?? ""}
+      >
+        <VisualizationLabLoading />
+      </section>
+    );
+  }
+
+  return <VisualizationLabPageContent {...props} catalog={catalog} />;
+}
+
+function VisualizationLabPageContent({
+  catalog,
+  initialGrade = null,
+  initialLabId = null
+}: VisualizationLabPageProps & { catalog: VisualizationCatalogState }) {
   const { currentUser, language, recordLearningEvent, selectedGrade, t, text } = useSettings();
   const panelRef = useRef<HTMLDivElement>(null);
-  const [panelMode, setPanelMode] = useState<PanelMode>("control");
-  const [trackFilter, setTrackFilter] = useState<VisualizationTrackFilter>("all");
-  const [activeDirectoryGrade, setActiveDirectoryGrade] = useState<GradeId | null>(null);
-  const [activeLabId, setActiveLabId] = useState<string | null>(null);
-  const [directLinkStatus, setDirectLinkStatus] = useState<DirectLinkStatus>("idle");
+  const { getVisualizationLabByLabId, gradeLabGroups, visualizationTrackLabels } = catalog;
+  const currentUserGrade = selectedGrade;
+  const baseActiveGroup = gradeLabGroups.find((group) => group.grade === currentUserGrade) ?? gradeLabGroups[0];
+  const initialRouteState = buildInitialVisualizationLabRouteState({
+    activeGroupGrade: baseActiveGroup.grade,
+    currentUser,
+    getVisualizationLabByLabId,
+    gradeLabGroups,
+    initialGrade,
+    initialLabId,
+    location: getVisualizationLabRouteLocation()
+  });
+  const [panelMode, setPanelMode] = useState<PanelMode>(initialRouteState.panelMode);
+  const [trackFilter, setTrackFilter] = useState<VisualizationTrackFilter>(initialRouteState.trackFilter);
+  const [activeDirectoryGrade, setActiveDirectoryGrade] = useState<GradeId | null>(initialRouteState.activeDirectoryGrade);
+  const [activeLabId, setActiveLabId] = useState<string | null>(initialRouteState.activeLabId);
+  const [directLinkStatus, setDirectLinkStatus] = useState<DirectLinkStatus>(initialRouteState.directLinkStatus);
   const [exploredSessionIds, setExploredSessionIds] = useState<Set<string>>(() => new Set());
-  const [requestedLabId, setRequestedLabId] = useState<string | null>(null);
+  const [requestedLabId, setRequestedLabId] = useState<string | null>(initialRouteState.requestedLabId);
   const [shareState, setShareState] = useState<ShareState>("idle");
   const [snapshotState, setSnapshotState] = useState<SnapshotState>("idle");
   const [isHydrated, setIsHydrated] = useState(false);
+  const [activeLabRuntimeReadyId, setActiveLabRuntimeReadyId] = useState<string | null>(null);
 
-  const currentUserGrade = selectedGrade;
-  const baseActiveGroup = gradeLabGroups.find((group) => group.grade === currentUserGrade) ?? gradeLabGroups[0];
   const effectiveTrackFilter: VisualizationTrackFilter = currentUser ? "all" : trackFilter;
   const curriculumScopedGroups = useMemo(() => {
-    return gradeLabGroups
-      .map((group) => ({
-        ...group,
-        labs: group.labs.filter((lab) => labMatchesLearnerCurriculum(lab, currentUser))
-      }))
-      .filter((group) => group.labs.length > 0);
-  }, [currentUser]);
+    return scopeGradeLabGroupsForLearner(gradeLabGroups, currentUser);
+  }, [currentUser, gradeLabGroups]);
   const activeGroup = curriculumScopedGroups.find((group) => group.grade === currentUserGrade) ?? { ...baseActiveGroup, labs: [] };
   const directoryGroups = useMemo(() => filterGradeLabGroups(curriculumScopedGroups, effectiveTrackFilter), [curriculumScopedGroups, effectiveTrackFilter]);
   const activeDirectoryGroup = useMemo(() => {
@@ -453,16 +775,15 @@ export function VisualizationLabPage({ initialGrade = null, initialLabId = null 
   }, [activeDirectoryGroup, activeLabId]);
   const recommendedLab = visibleLabs[1] ?? activeDirectoryLab ?? visibleLabs[0] ?? null;
   const currentCurriculumLabel = currentUser ? text(publisherLabels[currentUser.curriculumProfile.publisher]) : null;
-  const curriculumScopedLabCount = useMemo(() => curriculumScopedGroups.reduce((sum, group) => sum + group.labs.length, 0), [curriculumScopedGroups]);
-  const totalAvailableLabCount = currentUser ? curriculumScopedLabCount : visualizationLabCount;
-  const learnerName = currentUser ? formatLearnerName(currentUser.name, language) : t(dictionary.common.selectedLearner);
-  const curriculumGradeRangeLabel = currentUser?.curriculumTrack === "MAINLAND_PEP_HIGH"
-    ? t({ en: "P1-S6", zh: "小一至高三", zhHans: "小一至高三" })
-    : formatGradeRange(language, true);
+  const useUnitedStatesGradeLabels = currentUser
+    ? currentUser.curriculumProfile.region === "US" ||
+      unitedStatesPublishers.has(currentUser.curriculumProfile.publisher) ||
+      unitedStatesCurriculumTracks.has(currentUser.curriculumTrack)
+    : effectiveTrackFilter === "US";
   const activeGradeLabel = activeDirectoryGroup
     ? displayGradeLabel(activeDirectoryGroup.grade)
     : displayGradeLabel(activeGroup.grade);
-  const ActiveDirectoryLabComponent = activeDirectoryLab ? labComponentRegistry[activeDirectoryLab.moduleId] : null;
+  const ActiveDirectoryLabComponent = componentForDirectoryLab(activeDirectoryLab);
   const activeDirectorySessionModuleId = activeDirectoryLab ? buildVisualizationSessionModuleId(activeDirectoryLab) : null;
   const activeDirectoryLabHref = activeDirectoryLab ? buildVisualizationLabHref(activeDirectoryLab, effectiveTrackFilter) : null;
   const activeLabCanDistribute = labAllowsExternalDistribution(activeDirectoryLab);
@@ -480,6 +801,16 @@ export function VisualizationLabPage({ initialGrade = null, initialLabId = null 
   const activePracticeHref = activeDirectoryLab
     ? buildVisualizationPracticeHref(activeDirectoryLab)
     : "/practice";
+  const workspaceSectionLabId = panelMode === "lab"
+    ? requestedLabId ?? activeDirectoryLab?.labId ?? activeLabId
+    : activeDirectoryLab?.labId ?? activeLabId;
+  const visiblePanelMode = panelMode === "lab" && activeDirectoryLab?.labId !== activeLabRuntimeReadyId
+    ? "loading"
+    : panelMode;
+
+  const handleActiveLabRuntimeReady = useCallback((labId: string) => {
+    setActiveLabRuntimeReadyId(labId);
+  }, []);
 
   useEffect(() => {
     setIsHydrated(true);
@@ -492,7 +823,7 @@ export function VisualizationLabPage({ initialGrade = null, initialLabId = null 
       const requestedTrack = !currentUser && isVisualizationTrackFilter(params.get("track")) ? params.get("track") as VisualizationTrackFilter : "all";
       const groupsForRequestedTrack = filterGradeLabGroups(curriculumScopedGroups, requestedTrack);
       const labGroup = findGroupForLab(groupsForRequestedTrack, queryLabId);
-      const requestedGrade = isGradeId(params.get("grade")) ? params.get("grade") : initialGrade;
+      const requestedGrade = isGradeId(params.get("grade"), gradeLabGroups) ? params.get("grade") : initialGrade;
       const linkedCatalogLab = getVisualizationLabByLabId(queryLabId);
       const fallbackGradeGroup =
         (requestedGrade ? groupsForRequestedTrack.find((group) => group.grade === requestedGrade) : null) ??
@@ -519,7 +850,7 @@ export function VisualizationLabPage({ initialGrade = null, initialLabId = null 
         canonicalParams.set("grade", labGroup.grade);
         if (!currentUser) canonicalParams.set("track", requestedTrack);
         canonicalParams.set("lab", queryLabId);
-        const canonicalPath = `${visualizationLabPath}?${canonicalParams.toString()}`;
+        const canonicalPath = `${studentVisualizationToolsPath}?${canonicalParams.toString()}`;
         if (`${window.location.pathname}${window.location.search}` !== canonicalPath) {
           window.history.replaceState(null, "", canonicalPath);
         }
@@ -589,19 +920,34 @@ export function VisualizationLabPage({ initialGrade = null, initialLabId = null 
   }, [currentUser]);
 
   function displayGradeLabel(grade: GradeId) {
-    return currentUser
-      ? formatGradeLabelForCurriculum(grade, language, currentUser.curriculumTrack, true)
-      : formatGradeLabel(grade, language, true);
+    if (currentUser) return formatGradeLabelForCurriculum(grade, language, currentUser.curriculumTrack, true);
+    if (useUnitedStatesGradeLabels) return formatUnitedStatesGradeLabel(grade, language, true);
+    return formatGradeLabel(grade, language, true);
   }
 
-  function displayGradeGroupTitle(grade: GradeId, name: GradeLabGroupDefinition["name"]) {
-    return isChineseLanguage(language) ? displayGradeLabel(grade) : text(name);
+  function displayGradeChipLabel(grade: GradeId) {
+    return displayGradeLabel(grade);
+  }
+
+  function displayCatalogText(value: string) {
+    return simplifyChineseText(value, language);
   }
 
   function displayLabGradeLabel(lab: FeaturedLabDefinition) {
     return currentCurriculumLabel
       ? `${displayGradeLabel(lab.grade)} ${currentCurriculumLabel}`
-      : text(lab.gradeLabel);
+      : displayCatalogText(text(lab.gradeLabel));
+  }
+
+  function buildVisualizationHistoryHref(lab: FeaturedLabDefinition, track: VisualizationTrackFilter) {
+    const directHref = buildVisualizationLabHref(lab, track);
+    if (directHref.startsWith(`${studentVisualizationToolsPath}/`)) return directHref;
+
+    const params = new URLSearchParams();
+    params.set("grade", lab.grade);
+    if (!currentUser) params.set("track", track);
+    params.set("lab", lab.labId);
+    return `${studentVisualizationToolsPath}?${params.toString()}`;
   }
 
   function replaceVisualizationUrl({
@@ -622,7 +968,7 @@ export function VisualizationLabPage({ initialGrade = null, initialLabId = null 
     if (mode === "lab" && lab) {
       const targetLab = getVisualizationLabByLabId(lab);
       if (targetLab) {
-        const nextPath = buildVisualizationLabHref(targetLab, track ?? effectiveTrackFilter);
+        const nextPath = buildVisualizationHistoryHref(targetLab, track ?? effectiveTrackFilter);
         if (`${window.location.pathname}${window.location.search}` === nextPath) return;
         window.history[history === "push" ? "pushState" : "replaceState"](null, "", nextPath);
         return;
@@ -635,7 +981,7 @@ export function VisualizationLabPage({ initialGrade = null, initialLabId = null 
     if (mode === "lab" && lab) params.set("lab", lab);
 
     const query = params.toString();
-    const nextPath = `${visualizationLabPath}${query ? `?${query}` : ""}`;
+    const nextPath = `${studentVisualizationToolsPath}${query ? `?${query}` : ""}`;
     if (`${window.location.pathname}${window.location.search}` === nextPath) return;
     window.history[history === "push" ? "pushState" : "replaceState"](null, "", nextPath);
   }
@@ -651,7 +997,7 @@ export function VisualizationLabPage({ initialGrade = null, initialLabId = null 
     if (grade) params.set("grade", grade);
     if (!currentUser) params.set("track", track ?? effectiveTrackFilter);
     const query = params.toString();
-    return `${visualizationLabPath}${query ? `?${query}` : ""}`;
+    return `${studentVisualizationToolsPath}${query ? `?${query}` : ""}`;
   }
 
   function focusPanel() {
@@ -701,6 +1047,7 @@ export function VisualizationLabPage({ initialGrade = null, initialLabId = null 
   }
 
   function returnToControlPanel() {
+    recordVisualizationWorkflowEvent(activeDirectoryLab);
     setPanelMode("control");
     setDirectLinkStatus("idle");
     setRequestedLabId(null);
@@ -947,10 +1294,13 @@ export function VisualizationLabPage({ initialGrade = null, initialLabId = null 
     zh: "選擇年級，打開一個實驗，完成觀察任務。",
     zhHans: "选择年级，打开一个实验，完成观察任务。"
   });
-  const controlTitle = t({ en: "Control Panel", zh: "控制面板", zhHans: "控制面板" });
-  const labEntryTitle = isChineseLanguage(language)
-    ? simplifyChineseText(`${activeGradeLabel}實驗入口`, language)
-    : `${activeGradeLabel} lab entrances`;
+  const pickGradeTitle = t({ en: "Pick your grade", zh: "選擇你的年級", zhHans: "选择你的年级" });
+  const pickLabTitle = t({ en: "Pick a lab", zh: "選擇一個實驗", zhHans: "选择一个实验" });
+  const nextUpLabel = t({ en: "Next up", zh: "下一站", zhHans: "下一站" });
+  const tryThisLabel = t({ en: "Try this!", zh: "試試這個！", zhHans: "试试这个！" });
+  const backToLabsLabel = t({ en: "Back to Labs", zh: "返回實驗列表", zhHans: "返回实验列表" });
+  const exploredLabel = t({ en: "Explored", zh: "已探索", zhHans: "已探索" });
+  const readyLabel = t({ en: "Ready", zh: "待探索", zhHans: "待探索" });
   const emptyStateText = currentUser
     ? t({ en: "No labs match this account curriculum and grade yet.", zh: "此帳號課程與年級暫時沒有相符實驗。", zhHans: "此账号课程与年级暂时没有相符实验。" })
     : t({ en: "No labs match this grade and track filter yet.", zh: "此年級與路線篩選暫時沒有相符實驗。", zhHans: "此年级与路线筛选暂时没有相符实验。" });
@@ -963,82 +1313,110 @@ export function VisualizationLabPage({ initialGrade = null, initialLabId = null 
   return (
     <div className="min-h-full overflow-hidden bg-transparent text-slate-950">
       <div className="relative mx-auto w-full max-w-[1500px] px-4 py-6 sm:py-8">
-        {panelMode === "control" ? (
-          <section className="grid gap-6 lg:grid-cols-[minmax(22rem,0.78fr)_minmax(0,1.7fr)]" aria-labelledby="visualization-lab-title">
-            <div className="relative rounded-[1.35rem] bg-white p-8 shadow-2xl shadow-cyan-800/15 sm:p-10">
-              <div className="absolute -right-4 -top-5 grid h-16 w-16 place-items-center rounded-full border-4 border-white bg-yellow-300 text-3xl font-black text-orange-500 shadow-xl shadow-cyan-800/15">
-                ★
-              </div>
-              <h1 id="visualization-lab-title" className="max-w-md text-5xl font-black leading-[0.98] tracking-tight text-[#15245a] sm:text-6xl">
-                {t({ en: "Visualization Lab", zh: "可視化實驗室", zhHans: "可视化实验室" })}
-              </h1>
-              <p className="mt-5 text-3xl font-black text-emerald-600">Lab Quest</p>
-              <p className="mt-4 max-w-md text-lg font-bold leading-8 text-slate-700">
-                {introText}
-              </p>
-              <div className="mt-7 flex flex-wrap gap-3 sm:flex-nowrap">
-                <a
-                  href={recommendedLabHref}
-                  onClick={(event) => {
-                    if (event.metaKey || event.ctrlKey || event.shiftKey || event.altKey || event.button !== 0) return;
-                    if (!recommendedLab) return;
-                    event.preventDefault();
-                    if (recommendedLab) selectDirectoryLab(recommendedLab);
-                  }}
-                  data-viz-start-quest-link
-                  data-viz-recommended-lab-id={recommendedLab?.labId ?? ""}
-                  className="focus-ring inline-flex min-h-12 items-center justify-center whitespace-nowrap rounded-xl bg-red-500 px-5 text-base font-black text-white shadow-xl shadow-red-500/25 transition hover:-translate-y-0.5 hover:bg-red-400 active:translate-y-0"
-                >
-                  {t({ en: "Start Quest", zh: "開始探索", zhHans: "开始探索" })}
-                </a>
-                <button
-                  type="button"
-                  onClick={focusPanel}
-                  className="focus-ring inline-flex min-h-12 items-center justify-center whitespace-nowrap rounded-xl border-2 border-blue-600 bg-white px-5 text-base font-black text-blue-700 shadow-lg shadow-blue-600/10 transition hover:-translate-y-0.5 hover:bg-blue-50 active:translate-y-0"
-                >
-                  {t({ en: "Choose Topic", zh: "選擇主題", zhHans: "选择主题" })}
-                </button>
-              </div>
-            </div>
-
-            <LabQuestMap
-              href={recommendedLabHref}
-              language={language}
-              onNodeClick={() => {
-                if (recommendedLab) selectDirectoryLab(recommendedLab);
-              }}
-              recommendedLabId={recommendedLab?.labId ?? ""}
-            />
-          </section>
-        ) : null}
-
         <section
           ref={panelRef}
+          id={workspaceSectionLabId ? `lab-example-${workspaceSectionLabId}` : undefined}
           aria-label={t({ en: "Visualization Lab workspace", zh: "可視化實驗室工作區", zhHans: "可视化实验室工作区" })}
-          className={cn("scroll-mt-24", panelMode === "control" ? "mt-7" : "mt-2")}
-          data-viz-panel-mode={panelMode}
+          className="scroll-mt-24"
+          data-viz-panel-mode={visiblePanelMode}
           data-viz-active-grade={activeDirectoryGroup?.grade ?? ""}
           data-viz-active-lab-id={activeDirectoryLab?.labId ?? ""}
           data-viz-direct-lab-href={activeDirectoryLabHref ?? ""}
+          data-viz-lab-runtime-status={panelMode === "lab" ? visiblePanelMode : "idle"}
           data-viz-link-status={directLinkStatus}
           data-viz-requested-lab-id={requestedLabId ?? ""}
         >
           {panelMode === "control" ? (
-            <section className="rounded-[1.35rem] bg-white/95 p-6 shadow-2xl shadow-cyan-900/15 ring-1 ring-cyan-100 sm:p-8">
-              <div className="flex flex-col gap-4 xl:flex-row xl:items-center xl:justify-between">
-                <div className="flex flex-wrap items-center gap-4">
-                  <h2 className="text-4xl font-black tracking-tight text-[#15245a]">{controlTitle}</h2>
-                  <span className="rounded-full border border-slate-200 bg-white px-4 py-2 text-sm font-black text-slate-600 shadow-sm">
-                    {t({ en: "Current grade", zh: "當前年級", zhHans: "当前年级" })} <span className="ml-2 text-emerald-600">{activeGradeLabel}</span>
-                  </span>
-                  {currentCurriculumLabel ? (
-                    <span className="rounded-full border border-emerald-200 bg-emerald-50 px-4 py-2 text-sm font-black text-emerald-700">
-                      {currentCurriculumLabel}
-                    </span>
-                  ) : null}
+            <section
+              aria-labelledby="visualization-lab-title"
+              className="overflow-hidden rounded-[1.75rem] bg-white shadow-2xl shadow-cyan-900/15 ring-1 ring-cyan-100 dark:bg-slate-950 dark:ring-white/10"
+            >
+              <div className="relative isolate">
+                <LabQuestMap
+                  href={recommendedLabHref}
+                  language={language}
+                  onNodeClick={() => {
+                    if (recommendedLab) selectDirectoryLab(recommendedLab);
+                  }}
+                  recommendedLabId={recommendedLab?.labId ?? ""}
+                />
+                <div className="pointer-events-none relative z-10 flex min-h-[16rem] items-center p-4 sm:min-h-[20rem] sm:p-8">
+                  <div className="pointer-events-auto max-w-xl rounded-3xl bg-white/85 p-5 shadow-2xl shadow-cyan-900/20 ring-1 ring-white/70 backdrop-blur-md dark:bg-slate-950/75 dark:ring-white/15 sm:p-7">
+                    <h1 id="visualization-lab-title" className="text-3xl font-black leading-[1.02] tracking-tight text-[#15245a] dark:text-white sm:text-5xl">
+                      {t({ en: "Visualization Lab", zh: "可視化實驗室", zhHans: "可视化实验室" })}
+                    </h1>
+                    <p className="mt-3 max-w-md text-base font-bold leading-7 text-slate-700 dark:text-slate-200 sm:text-lg sm:leading-8">
+                      {introText}
+                    </p>
+                    <div className="mt-5 flex flex-wrap items-center gap-x-4 gap-y-3">
+                      <a
+                        href={recommendedLabHref}
+                        onClick={(event) => {
+                          if (event.metaKey || event.ctrlKey || event.shiftKey || event.altKey || event.button !== 0) return;
+                          if (!recommendedLab) return;
+                          event.preventDefault();
+                          selectDirectoryLab(recommendedLab);
+                        }}
+                        data-viz-start-quest-link
+                        data-viz-recommended-lab-id={recommendedLab?.labId ?? ""}
+                        className="focus-ring inline-flex min-h-[3.25rem] items-center justify-center gap-2 whitespace-nowrap rounded-2xl bg-red-500 px-7 text-lg font-black text-white shadow-xl shadow-red-500/30 transition hover:-translate-y-0.5 hover:bg-red-400 active:translate-y-0"
+                      >
+                        {t({ en: "Start Quest", zh: "開始探索", zhHans: "开始探索" })}
+                        <span aria-hidden="true">▶</span>
+                      </a>
+                      {recommendedLab ? (
+                        <span className="min-w-0 text-sm font-bold leading-6 text-slate-600 dark:text-slate-300">
+                          {nextUpLabel}:{" "}
+                          <span className="text-[#15245a] dark:text-white">{displayCatalogText(compactTitle(text(recommendedLab.title)))}</span>
+                        </span>
+                      ) : null}
+                    </div>
+                  </div>
                 </div>
+              </div>
+
+              <div className="p-4 sm:p-8">
+                {directLinkWarningText ? (
+                  <div
+                    className="mb-6 rounded-xl border border-amber-300 bg-amber-50 px-4 py-3 text-sm font-bold leading-6 text-amber-900 shadow-sm"
+                    data-viz-link-warning
+                    data-viz-link-warning-requested-lab-id={requestedLabId ?? ""}
+                    data-viz-link-warning-status={directLinkStatus}
+                    role="status"
+                  >
+                    <span>{directLinkWarningText}</span>
+                    {requestedLabId ? (
+                      <code className="ml-2 rounded-md bg-white/80 px-2 py-1 text-xs font-black text-amber-950">
+                        {requestedLabId}
+                      </code>
+                    ) : null}
+                  </div>
+                ) : null}
+
+                <div className="flex flex-wrap items-center justify-between gap-x-4 gap-y-3">
+                  <h2 className="flex items-center gap-3 text-2xl font-black tracking-tight text-[#15245a] dark:text-white">
+                    <span aria-hidden="true" className="grid h-9 w-9 shrink-0 place-items-center rounded-xl bg-gradient-to-br from-blue-600 to-cyan-500 text-lg text-white shadow-lg shadow-blue-600/25">
+                      1
+                    </span>
+                    {pickGradeTitle}
+                  </h2>
+                  <div className="flex flex-wrap items-center gap-2">
+                    <span className="rounded-full border border-slate-200 bg-white px-3.5 py-1.5 text-xs font-black text-slate-600 shadow-sm dark:border-white/15 dark:bg-white/5 dark:text-slate-300">
+                      {t({ en: "Current grade", zh: "當前年級", zhHans: "当前年级" })} <span className="ml-1 text-emerald-600 dark:text-emerald-400">{activeGradeLabel}</span>
+                    </span>
+                    {currentCurriculumLabel ? (
+                      <span className="rounded-full border border-emerald-200 bg-emerald-50 px-3.5 py-1.5 text-xs font-black text-emerald-700 dark:border-emerald-400/30 dark:bg-emerald-500/15 dark:text-emerald-200">
+                        {currentCurriculumLabel}
+                      </span>
+                    ) : null}
+                  </div>
+                </div>
+
                 {!currentUser ? (
-                  <div className="flex flex-wrap gap-2" aria-label={t({ en: "Filter by curriculum track", zh: "按課程路線篩選", zhHans: "按课程路线筛选" })}>
+                  <div className="mt-4 flex flex-wrap items-center gap-2" aria-label={t({ en: "Filter by curriculum track", zh: "按課程路線篩選", zhHans: "按课程路线筛选" })}>
+                    <span className="mr-1 text-xs font-black uppercase tracking-wider text-slate-400 dark:text-slate-500">
+                      {t({ en: "Curriculum", zh: "課程路線", zhHans: "课程路线" })}
+                    </span>
                     {trackFilterOptions.map((option) => (
                       <a
                         key={option}
@@ -1057,10 +1435,10 @@ export function VisualizationLabPage({ initialGrade = null, initialLabId = null 
                         data-viz-track-filter-active={String(trackFilter === option)}
                         data-viz-track-filter-value={option}
                         className={cn(
-                          "focus-ring rounded-full border px-4 py-2 text-xs font-black transition hover:-translate-y-0.5",
+                          "focus-ring rounded-full border px-3 py-1.5 text-xs font-black leading-none transition hover:-translate-y-0.5",
                           trackFilter === option
-                            ? "border-cyan-400 bg-cyan-400 text-slate-950 shadow-lg shadow-cyan-500/20"
-                            : "border-slate-200 bg-white text-slate-600 hover:bg-cyan-50"
+                            ? "border-cyan-400 bg-cyan-400 text-slate-950 shadow-md shadow-cyan-500/20"
+                            : "border-slate-200 bg-white text-slate-500 hover:bg-cyan-50 dark:border-white/15 dark:bg-white/5 dark:text-slate-300 dark:hover:bg-cyan-950/40"
                         )}
                       >
                         {trackLabel(option)}
@@ -1068,118 +1446,69 @@ export function VisualizationLabPage({ initialGrade = null, initialLabId = null 
                     ))}
                   </div>
                 ) : null}
-              </div>
 
-              {directLinkWarningText ? (
-                <div
-                  className="mt-5 rounded-xl border border-amber-300 bg-amber-50 px-4 py-3 text-sm font-bold leading-6 text-amber-900 shadow-sm"
-                  data-viz-link-warning
-                  data-viz-link-warning-requested-lab-id={requestedLabId ?? ""}
-                  data-viz-link-warning-status={directLinkStatus}
-                  role="status"
-                >
-                  <span>{directLinkWarningText}</span>
-                  {requestedLabId ? (
-                    <code className="ml-2 rounded-md bg-white/80 px-2 py-1 text-xs font-black text-amber-950">
-                      {requestedLabId}
-                    </code>
-                  ) : null}
-                </div>
-              ) : null}
-
-              <div className="mt-7 flex flex-wrap items-center gap-3" aria-label={t({ en: "Select grade", zh: "選擇年級", zhHans: "选择年级" })}>
-                <span className="mr-2 text-sm font-black text-[#15245a]">{t({ en: "Select Grade", zh: "選擇年級", zhHans: "选择年级" })}</span>
-                {gradeIds.map((grade) => {
-                  const group = directoryGroups.find((item) => item.grade === grade);
-                  return (
-                    <GradeChip
-                      key={grade}
-                      active={activeDirectoryGroup?.grade === grade}
-                      grade={grade}
-                      hasLabs={Boolean(group)}
-                      href={buildControlPanelHref({
-                        grade,
-                        track: effectiveTrackFilter
-                      })}
-                      label={grade}
-                      onClick={() => {
-                        if (group) selectDirectoryGrade(group);
-                      }}
-                    />
-                  );
-                })}
-              </div>
-
-              <div className="mt-7 grid gap-5 xl:grid-cols-[minmax(0,1fr)_minmax(20rem,24rem)]">
-                <div className="rounded-2xl border border-slate-200 bg-white p-5 shadow-lg shadow-slate-900/5">
-                  <div className="flex items-center justify-between gap-3">
-                    <h3 className="text-2xl font-black text-[#15245a]">{labEntryTitle}</h3>
-                    <span className="text-sm font-black text-blue-700">{visibleLabs.length} {t(dictionary.common.labs)}</span>
-                  </div>
-                  {visibleLabs.length > 0 ? (
-                    <div className="mt-5 grid auto-rows-fr gap-4 sm:grid-cols-2 lg:grid-cols-4 xl:grid-cols-3 2xl:grid-cols-4">
-                      {visibleLabs.map((lab, index) => (
-                        <LabTile
-                          key={lab.labId}
-                          active={activeDirectoryLab?.labId === lab.labId}
-                          index={index}
-                          lab={lab}
-                          href={buildVisualizationLabHref(lab, effectiveTrackFilter)}
-                          onOpen={() => selectDirectoryLab(lab)}
-                          title={compactTitle(text(lab.title))}
-                        />
-                      ))}
-                    </div>
-                  ) : (
-                    <div className="mt-5 rounded-xl border border-slate-200 bg-slate-50 p-6 text-sm font-bold text-slate-600">
-                      {emptyStateText}
-                    </div>
-                  )}
-                </div>
-
-                <aside className="self-start rounded-2xl border border-blue-300 bg-white p-5 shadow-lg shadow-blue-600/10">
-                  <div className="flex items-center gap-3">
-                    <span className="grid h-10 w-10 place-items-center rounded-full bg-yellow-300 text-xl font-black text-orange-500">★</span>
-                    <h3 className="text-xl font-black text-[#15245a]">{t({ en: "Recommended Next", zh: "推薦下一個", zhHans: "推荐下一个" })}</h3>
-                  </div>
-                  {recommendedLab ? (
-                    <>
-                      <div className="mt-5 flex items-center justify-between gap-4">
-                        <div>
-                          <h4 className="break-words text-2xl font-black leading-tight text-[#15245a] [overflow-wrap:anywhere]">{compactTitle(text(recommendedLab.title))}</h4>
-                          <p className="mt-3 line-clamp-4 text-sm font-semibold leading-6 text-slate-600">
-                            {text(recommendedLab.description)}
-                          </p>
-                        </div>
-                        <div className="grid h-20 w-24 shrink-0 place-items-center rounded-2xl bg-sky-100 text-4xl font-black text-blue-600">
-                          v
-                        </div>
-                      </div>
-                      <div className="mt-4">
-                        <Stars count={3} muted={2} />
-                      </div>
-                      <a
-                        href={buildVisualizationLabHref(recommendedLab, effectiveTrackFilter)}
-                        onClick={(event) => {
-                          if (event.metaKey || event.ctrlKey || event.shiftKey || event.altKey || event.button !== 0) return;
-                          event.preventDefault();
-                          selectDirectoryLab(recommendedLab);
+                <div className="mt-5 flex flex-wrap gap-2.5" aria-label={t({ en: "Select grade", zh: "選擇年級", zhHans: "选择年级" })}>
+                  {gradeIds.map((grade) => {
+                    const group = directoryGroups.find((item) => item.grade === grade);
+                    return (
+                      <GradeChip
+                        key={grade}
+                        active={activeDirectoryGroup?.grade === grade}
+                        grade={grade}
+                        hasLabs={Boolean(group)}
+                        href={buildControlPanelHref({
+                          grade,
+                          track: effectiveTrackFilter
+                        })}
+                        label={displayGradeChipLabel(grade)}
+                        onClick={() => {
+                          if (group) selectDirectoryGrade(group);
                         }}
-                        data-viz-recommended-lab-link
-                        data-viz-recommended-lab-id={recommendedLab.labId}
-                        className="focus-ring mt-5 inline-flex w-full items-center justify-center rounded-xl bg-blue-600 px-5 py-4 text-base font-black text-white shadow-xl shadow-blue-600/25 transition hover:-translate-y-0.5 hover:bg-blue-500"
-                      >
-                        {t({ en: "Enter Lab", zh: "進入實驗", zhHans: "进入实验" })}
-                      </a>
-                    </>
-                  ) : null}
-                </aside>
+                      />
+                    );
+                  })}
+                </div>
 
+                <div aria-hidden="true" className="my-7 h-px w-full bg-slate-200/90 dark:bg-white/10" />
+
+                <div className="flex flex-wrap items-center justify-between gap-x-4 gap-y-3">
+                  <h2 className="flex items-center gap-3 text-2xl font-black tracking-tight text-[#15245a] dark:text-white">
+                    <span aria-hidden="true" className="grid h-9 w-9 shrink-0 place-items-center rounded-xl bg-gradient-to-br from-emerald-500 to-teal-400 text-lg text-white shadow-lg shadow-emerald-600/25">
+                      2
+                    </span>
+                    {pickLabTitle}
+                  </h2>
+                  <span className="text-sm font-black text-blue-700 dark:text-blue-300">{visibleLabs.length} {t(dictionary.common.labs)}</span>
+                </div>
+
+                {visibleLabs.length > 0 ? (
+                  <div className="mt-5 grid auto-rows-fr gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5">
+                    {visibleLabs.map((lab, index) => (
+                      <LabTile
+                        key={lab.labId}
+                        active={activeDirectoryLab?.labId === lab.labId}
+                        index={index}
+                        isExplored={exploredSessionIds.has(buildVisualizationSessionModuleId(lab))}
+                        lab={lab}
+                        href={buildVisualizationLabHref(lab, effectiveTrackFilter)}
+                        onOpen={() => selectDirectoryLab(lab)}
+                        recommended={recommendedLab?.labId === lab.labId}
+                        recommendedLabel={tryThisLabel}
+                        exploredLabel={exploredLabel}
+                        readyLabel={readyLabel}
+                        title={displayCatalogText(compactTitle(text(lab.title)))}
+                      />
+                    ))}
+                  </div>
+                ) : (
+                  <div className="mt-5 rounded-xl border border-slate-200 bg-slate-50 p-6 text-sm font-bold text-slate-600 dark:border-white/10 dark:bg-white/5 dark:text-slate-300">
+                    {emptyStateText}
+                  </div>
+                )}
               </div>
             </section>
           ) : activeDirectoryLab && ActiveDirectoryLabComponent && activeDirectorySessionModuleId ? (
             <section
-              id={`lab-example-${activeDirectoryLab.labId}`}
               data-lab-id={activeDirectoryLab.labId}
               data-viz-current-grade={activeDirectoryLab.grade}
               data-viz-current-track={activeDirectoryLab.curriculumTrack}
@@ -1201,7 +1530,7 @@ export function VisualizationLabPage({ initialGrade = null, initialLabId = null 
                     data-viz-back-to-control-panel-track={effectiveTrackFilter}
                     className="focus-ring inline-flex items-center justify-center rounded-lg border border-slate-200 bg-white px-4 py-2 text-sm font-black text-slate-700 shadow-sm transition hover:-translate-y-0.5 hover:bg-slate-50"
                   >
-                    ← {t({ en: "Back to Control Panel", zh: "返回控制面板", zhHans: "返回控制面板" })}
+                    ← {backToLabsLabel}
                   </a>
                   <span className="rounded-full border border-blue-200 bg-blue-50 px-4 py-2 text-sm font-black text-blue-700">
                     {displayLabGradeLabel(activeDirectoryLab)}
@@ -1248,30 +1577,13 @@ export function VisualizationLabPage({ initialGrade = null, initialLabId = null 
                       {t({ en: "Snapshot unavailable.", zh: "未能複製快照。", zhHans: "未能复制快照。" })}
                     </span>
                   ) : null}
-                  {shareState === "blocked" || snapshotState === "blocked" || (!activeLabCanDistribute && activeDirectoryLab.safeguard) ? (
-                    <span className="text-xs font-bold text-amber-700 dark:text-amber-300" role="status">
-                      {t({
-                        en: "Safeguard review is recorded, but teacher approval is required before external sharing.",
-                        zh: "已記錄 Safeguard 審查，但外部分發前需要教師批准。",
-                        zhHans: "已记录 Safeguard 审查，但外部分发前需要教师批准。"
-                      })}
-                    </span>
-                  ) : null}
                 </div>
-                <a
-                  href={activePracticeHref}
-                  data-viz-start-practice-link
-                  onClick={() => { if (activeDirectoryLab) recordVisualizationWorkflowEvent(activeDirectoryLab); }}
-                  className="focus-ring inline-flex items-center justify-center rounded-lg bg-red-500 px-5 py-3 text-sm font-black text-white shadow-lg shadow-red-500/20 transition hover:-translate-y-0.5 hover:bg-red-400"
-                >
-                  {t({ en: "Start Practice", zh: "開始練習", zhHans: "开始练习" })}
-                </a>
               </div>
 
               <div className="min-w-0">
                 <VisualizationCard
-                  title={text(activeDirectoryLab.title)}
-                  description={text(activeDirectoryLab.description)}
+                  title={displayCatalogText(text(activeDirectoryLab.title))}
+                  description={displayCatalogText(text(activeDirectoryLab.description))}
                   analyticsSource={activeDirectoryLab.analyticsSource}
                   explorationScopeKey={currentUser?.id ?? "guest"}
                   formula={
@@ -1291,7 +1603,12 @@ export function VisualizationLabPage({ initialGrade = null, initialLabId = null 
                   }}
                   topicId={activeDirectoryLab.topicId}
                 >
-                  <ActiveDirectoryLabComponent topicId={activeDirectoryLab.topicId} labId={activeDirectoryLab.labId} />
+                  <ActiveDirectoryLabComponent
+                    lab={activeDirectoryLab}
+                    topicId={activeDirectoryLab.topicId}
+                    labId={activeDirectoryLab.labId}
+                    onRuntimeReady={handleActiveLabRuntimeReady}
+                  />
                 </VisualizationCard>
               </div>
             </section>
@@ -1310,7 +1627,7 @@ export function VisualizationLabPage({ initialGrade = null, initialLabId = null 
                 data-viz-back-to-control-panel-track={effectiveTrackFilter}
                 className="focus-ring mt-4 rounded-xl bg-blue-600 px-5 py-3 text-sm font-black text-white"
               >
-                {t({ en: "Back to Control Panel", zh: "返回控制面板", zhHans: "返回控制面板" })}
+                {backToLabsLabel}
               </a>
             </section>
           )}

@@ -8549,13 +8549,15 @@
       "terminologyQaStatus": "pass",
       "manualQaStatus": "approved",
       "reviewNotes": "S18 approved after DeepSeek V4 Pro issue review and deterministic remediation in approved-question-pack.json.",
-      "promptZhHans": "已知点A、B、C在同一直线上，AB=15 cm，BC=7 cm，点M是线段AC的中点，点N是线段BC的中点。求线段MN的长度。",
+      "promptZhHans": "已知点A、B、C在同一直线上，点B在A、C之间，AB=15 cm，BC=7 cm，点M是线段AC的中点，点N是线段BC的中点。求线段MN的长度。",
       "optionsZhHans": [],
-      "answer": "7.5 cm 或 3.5 cm",
+      "answer": "7.5 cm",
       "acceptedAnswers": [
-        "7.5 cm 或 3.5 cm"
+        "7.5 cm",
+        "7.5厘米",
+        "15/2 cm"
       ],
-      "explanationZhHans": "根据题意复核计算，正确结果为7.5 cm 或 3.5 cm。 复核要点：题目未明确点C的位置，需分类讨论：C在AB延长线上时MN=7.5 cm；C在线段AB上时MN=3.5 cm。原记录仅给出一种情况，不完整。"
+      "explanationZhHans": "因为点B在A、C之间，所以AC=AB+BC=15+7=22(cm)。M是AC的中点，AM=11 cm；N是BC的中点，BN=3.5 cm，所以AN=AB+BN=18.5 cm。故MN=AN-AM=18.5-11=7.5(cm)。"
     },
     {
       "id": "bnu-junior-ds-v1-s1-138",
@@ -19017,18 +19019,18 @@
       "terminologyQaStatus": "pass",
       "manualQaStatus": "approved",
       "reviewNotes": "S18 approved after DeepSeek V4 Pro issue review and deterministic remediation in approved-question-pack.json.",
-      "promptZhHans": "已知直线 AB 与 CD 相交于点 O，OE ⊥ AB。若 ∠COE = 55°，则 ∠AOD 的度数是（ ）",
+      "promptZhHans": "已知直线 AB 与 CD 相交于点 O，OE ⊥ AB，射线 OC 在∠AOE内部。若 ∠COE = 55°，则 ∠AOC 的度数是（ ）",
       "optionsZhHans": [
         "35°",
         "45°",
         "55°",
         "125°"
       ],
-      "answer": "125°",
+      "answer": "35°",
       "acceptedAnswers": [
-        "125°"
+        "35°"
       ],
-      "explanationZhHans": "根据题意复核计算，正确结果为125°。 复核要点：题目求∠AOD，由OE⊥AB得∠AOE=90°，∠AOC=90°-55°=35°，∠AOD与∠AOC是邻补角，∠AOD=180°-35°=145°，但选项无145°。若考虑∠AOD与∠BOC对顶，∠BOC=90°+55°=145°，仍无匹配。检查解释：解释中计算了∠AOC=35°，但未求∠AOD，答案35°错误。正确应为∠AOD=180°-35°=145°或∠AOD=∠BOC=145°，但选项无145°。若∠COE=55°在∠AOE内部，则∠AOC=35°，∠AOD=145°；若∠COE在∠AOE外部，则∠AOC=90°+55°=145°，∠AOD=35°。题目未明确射线位置，但常见情况∠AOD=145°。选项无145°，故"
+      "explanationZhHans": "由OE⊥AB可知∠AOE=90°。又因为射线OC在∠AOE内部，且∠COE=55°，所以∠AOC=90°-55°=35°。"
     },
     {
       "id": "bnu-junior-ds-v1-s1-308",
@@ -20134,7 +20136,7 @@
       "terminologyQaStatus": "pass",
       "manualQaStatus": "approved",
       "reviewNotes": "S18 approved after DeepSeek V4 Pro issue review and deterministic remediation in approved-question-pack.json.",
-      "promptZhHans": "已知直线 AB 与 CD 相交于点 O，射线 OE 在角 AOD 内部，且角 AOE = 35°。若角 AOC = 50°，则角 EOD 的度数为（ ）。",
+      "promptZhHans": "已知直线 AB 与 CD 相交于点 O，射线 OE 在∠AOD内部，且∠AOE = 35°。若∠AOD = 50°，则∠EOD的度数为（ ）。",
       "optionsZhHans": [
         "15°",
         "35°",
@@ -20145,7 +20147,7 @@
       "acceptedAnswers": [
         "15°"
       ],
-      "explanationZhHans": "根据题意复核计算，正确结果为15°。 复核要点：题目中∠AOC=50°，但解释中错误地认为∠AOD=50°，实际∠AOD=180°-50°=130°，∠EOD=130°-35°=95°，与答案15°不符。题目条件与答案矛盾，无法得出15°。"
+      "explanationZhHans": "射线OE在∠AOD内部，所以∠AOD=∠AOE+∠EOD。已知∠AOD=50°，∠AOE=35°，因此∠EOD=50°-35°=15°。"
     },
     {
       "id": "bnu-junior-ds-v1-s1-326",
@@ -46894,7 +46896,7 @@
       "terminologyQaStatus": "pass",
       "manualQaStatus": "approved",
       "reviewNotes": "S18 approved after DeepSeek V4 Pro issue review and deterministic remediation in approved-question-pack.json.",
-      "promptZhHans": "已知直线AB与直线CD被直线EF所截，交点分别为G和H。给出以下四个条件：①∠EGB = 50°，∠GHD = 50°；②∠AGH = 130°，∠GHD = 50°；③∠BGH = 130°，∠CHF = 130°；④∠AGH = 50°，∠CHF = 130°。其中能判定AB∥CD的条件是哪一个？",
+      "promptZhHans": "已知直线AB与直线CD被直线EF所截，交点分别为G和H。给出以下四个条件：①∠EGB = 50°，∠GHD = 50°；②∠AGH = 120°，∠GHD = 50°；③∠BGH = 130°，∠CHF = 130°；④∠AGH = 50°，∠CHF = 130°。其中能判定AB∥CD的条件是哪一个？",
       "optionsZhHans": [
         "①",
         "②",
@@ -46905,7 +46907,7 @@
       "acceptedAnswers": [
         "①"
       ],
-      "explanationZhHans": "根据题意复核计算，正确结果为①。 复核要点：解释中条件①同位角相等可判定平行，但答案选②，且条件②同旁内角互补也可判定，导致多解，选项不唯一。"
+      "explanationZhHans": "条件①中∠EGB与∠GHD是一组对应角，且二者相等，可判定AB∥CD。②中120°+50°≠180°，不能用同旁内角互补判定；③、④给出的角关系也不能形成相等的对应角或互补的同旁内角。因此选①。"
     },
     {
       "id": "bnu-junior-ds-v1-s2-257",
@@ -61333,11 +61335,11 @@
         "4",
         "5"
       ],
-      "answer": "3",
+      "answer": "4",
       "acceptedAnswers": [
-        "3"
+        "4"
       ],
-      "explanationZhHans": "根据题意复核计算，正确结果为3。 复核要点：题目要求从四个条件中任选两个判定平行四边形。正确组合为①②、①③、①④、②③、②④、③④共6组，但①③和①④需结合全等推导，②③和②④同理。根据北师大版教材，直接能判定的组合为①②、③④，加上可推导的①③、①④、②③、②④，实际有效组合为6组。但题目选项最大为5，且常见教学认为能判定的组合为①②、①③、①④、③④共4组（②③与①④等价，②④与①③等价，不重复计数）。然而，严格数学上，所有6组均能判定，但题目选项无6，且答案给出4，解释中列举了①②、①③、①④、③④，但遗漏了②③和②④，且解释自相矛盾。实际上，根据平行四边形判定定理，①③组合：AB∥CD，OA=OC，可证△AOB≌△COD，得OB=OD，从而对角线互相平分，能判定；①④同理；②③：AB=CD，OA=OC，可证△AOB≌△COD，得AB∥CD，转化为①②，能判定；②④同理。因此所有6组均能判定。但考虑到题目选项和常见教学处理，通常认为能判定的组合为4组（①②、①③、①④、③④），但解释中未提及②③和②④，且答案4与解释不完全一致。更严重的是，题目问“能判定四边形ABCD是平行四边形的组合共有几种”，若严格按判定定理，应为6种，但选项无6，故题目本身有缺陷。答案4可能基于“不重复等价组合”的考虑，但解释中未明确说明，且存在逻辑漏洞。因此，答案与题目不匹配，应修正为3或6？实际上，常见考题答案为4，但需明确说明排除等价组合。本题解释混乱，答案4不合理，建议修正为3（仅直接判定）或6（所有组合）。但根据选项，最接近的正确答案应为3（①②、①③、①④？不对）。重新分析：能直接由定理判定的组合：①②（一组对边平行且相等）、③④（对角线互相平分）。①③、①④、②③、②④需通过全等推导，但推导后仍能判定。若题目要求“能判定”即存在判定方法，则6组均可。但选项无6，故题目错误。若按“不添加辅助线直接判定”，则只有①②和③④，共2组，但选项有2，答案却是4，矛盾。因此，本题存在严重缺陷，答案4错误，应判定为fail。"
+      "explanationZhHans": "能判定四边形ABCD为平行四边形的组合共有4种：①②表示一组对边平行且相等；③④表示对角线互相平分；①③和①④可分别通过平行线角关系与三角形全等推出另一半对角线也被平分。因此共有4种。"
     },
     {
       "id": "bnu-junior-ds-v1-s2-486",
@@ -61516,13 +61518,14 @@
       "terminologyQaStatus": "pass",
       "manualQaStatus": "approved",
       "reviewNotes": "S18 approved after DeepSeek V4 Pro issue review and deterministic remediation in approved-question-pack.json.",
-      "promptZhHans": "在四边形ABCD中，对角线AC与BD相交于点O。已知AB∥CD，且AB=CD。点E、F分别是边AD、BC的中点。若AC=10，BD=8，求线段EF的长度。",
+      "promptZhHans": "在四边形ABCD中，对角线AC与BD相交于点O。已知AB∥CD，且AB=CD，AC⊥BD。点E、F分别是边AD、BC的中点。若AC=10，BD=8，求线段EF的长度。",
       "optionsZhHans": [],
       "answer": "√41",
       "acceptedAnswers": [
-        "√41"
+        "√41",
+        "根号41"
       ],
-      "explanationZhHans": "根据题意复核计算，正确结果为√41。 复核要点：由AB∥CD且AB=CD得平行四边形，对角线互相平分，OA=5，OB=4。在△AOB中，无垂直条件，不能使用勾股定理。解释中错误使用勾股定理得出AB=√41，但实际AB长度无法确定。EF为连接对边中点的线段，在平行四边形中等于对边长度，但AB未知。因此答案√41错误，题目不可解。"
+      "explanationZhHans": "由AB∥CD且AB=CD可知四边形ABCD是平行四边形，对角线互相平分，所以OA=5，OB=4。又AC⊥BD，△AOB为直角三角形，AB=√(5²+4²)=√41。点E、F分别是AD、BC的中点，在平行四边形中EF与AB平行且相等，所以EF=√41。"
     },
     {
       "id": "bnu-junior-ds-v1-s2-489",
@@ -63104,11 +63107,11 @@
         "③④",
         "①④"
       ],
-      "answer": "②③",
+      "answer": "③④",
       "acceptedAnswers": [
-        "②③"
+        "③④"
       ],
-      "explanationZhHans": "根据题意复核计算，正确结果为②③。 复核要点：题目要求选择能判定正方形的条件组合。②∠ABC=90°且AB=BC，只能得到等腰直角三角形，不能直接得正方形；③AC=BD且AC⊥BD，是对角线相等且垂直，可判定正方形。但②单独不能判定正方形，需结合其他条件。解析中称②③组合可判定正方形，但②本身不充分，且③已足够判定正方形，组合②③并不必要。实际上，③单独即可判定正方形，但选项中没有单独③，只有组合。②③组合中②多余，但组合仍能判定正方形。然而解析说②得等腰直角三角形，缺直角条件，不能得正方形，自相矛盾。正确答案应为③④？重新分析：①平行四边形；②等腰直角三角形，不是正方形；③对角线相等且垂直，是正方形；④对角线互相平分且相等，是矩形。组合②③：②不是正方形，③是正方形，组合后仍可判定正方形，但②多余。选项中有②③，无单独③。但解析错误地认为②不能得正方形，却又说②③组合可判定，逻辑混乱。实际上，③单独即可，但选项中没有，只能选②③。但解析说②得等腰直角三角形，缺直角条件，不能得正方形，这是错误的，因为②中已有∠ABC=90°，是直角。所以解析有误。但答案②③仍可能是正确选项，因为③是正方形判定，②虽不充分但组合后仍能判定。然而解析错误，导致答案匹配但解释不匹配。"
+      "explanationZhHans": "条件④说明对角线互相平分且相等，因此四边形ABCD是矩形；再结合条件③中的AC⊥BD，矩形的对角线互相垂直，说明相邻边相等，因此矩形同时也是菱形。矩形且菱形即为正方形，所以③④能判定四边形ABCD为正方形。"
     },
     {
       "id": "bnu-junior-ds-v1-s3-014",
@@ -63226,13 +63229,14 @@
       "terminologyQaStatus": "pass",
       "manualQaStatus": "approved",
       "reviewNotes": "S18 approved after DeepSeek V4 Pro issue review and deterministic remediation in approved-question-pack.json.",
-      "promptZhHans": "已知四边形ABCD中，对角线AC与BD相交于点O。给出以下四个条件：①AB=CD，AD=BC；②AC⊥BD；③OA=OC，OB=OD；④∠ABC=90°。若要使四边形ABCD为正方形，需要同时满足哪几个条件？",
+      "promptZhHans": "已知四边形ABCD中，对角线AC与BD相交于点O。已知条件③成立：OA=OC，OB=OD。若要使四边形ABCD为正方形，还需要同时满足下面哪几个条件？①AB=CD，AD=BC；②AC⊥BD；④∠ABC=90°。",
       "optionsZhHans": [],
-      "answer": "①③④",
+      "answer": "②④",
       "acceptedAnswers": [
-        "①③④"
+        "②④",
+        "④②"
       ],
-      "explanationZhHans": "根据题意复核计算，正确结果为①③④。 复核要点：题目要求选择使四边形为正方形的条件。解析中认为需同时满足①③④，但①③④只能得到矩形，缺少对角线垂直条件②。正方形需矩形+菱形，即需①③④（矩形）加上②（对角线垂直）或③④加上一组邻边相等。实际上，①③④：①得平行四边形，③得对角线互相平分，④得直角，故为矩形，不是正方形。正确组合应为①③④②或②③④等。但解析错误地认为①③④可得正方形，遗漏了垂直条件。答案①③④不正确。"
+      "explanationZhHans": "条件③说明对角线互相平分，所以四边形ABCD是平行四边形。再满足④时，平行四边形有一个直角，可判定为矩形；再满足②时，平行四边形的对角线互相垂直，可判定为菱形。矩形且菱形即为正方形，因此还需要同时满足②④。"
     },
     {
       "id": "bnu-junior-ds-v1-s3-016",
@@ -63864,7 +63868,7 @@
       "terminologyQaStatus": "pass",
       "manualQaStatus": "approved",
       "reviewNotes": "S18 approved after DeepSeek V4 Pro issue review and deterministic remediation in approved-question-pack.json.",
-      "promptZhHans": "已知四边形ABCD中，对角线AC与BD相交于点O。给出下列四个条件：①AB=CD，AD=BC；②∠ABC=90°，AC=BD；③AB=BC=CD=DA；④AC⊥BD，OA=OC，OB=OD。若四边形ABCD是正方形，则必须同时满足的条件是（ ）。",
+      "promptZhHans": "已知四边形ABCD中，对角线AC与BD相交于点O。给出下列四个条件：①AB=CD，AD=BC；②∠ABC=90°，AC=BD；③AB=BC=CD=DA；④AC⊥BD，OA=OC，OB=OD。若要判定四边形ABCD是正方形，下列哪组条件足够？",
       "optionsZhHans": [
         "①②",
         "②③",
@@ -63875,7 +63879,7 @@
       "acceptedAnswers": [
         "②③"
       ],
-      "explanationZhHans": "根据题意复核计算，正确结果为②③。 复核要点：正方形需平行四边形+邻边相等+一个直角。条件①得平行四边形，②得矩形，③得菱形，④得菱形。②③组合：矩形+菱形=正方形，但缺少平行四边形条件，无法保证是平行四边形。正确组合应为①③④或①③等，但选项无此组合。选项②③不能保证是平行四边形，故"
+      "explanationZhHans": "③说明四边相等，四边形ABCD可判定为菱形；②给出∠ABC=90°。菱形有一个内角为直角时就是正方形，因此②③足够判定四边形ABCD是正方形。相比之下，其他组合不能同时提供四边相等与直角信息。"
     },
     {
       "id": "bnu-junior-ds-v1-s3-026",
@@ -65523,13 +65527,13 @@
       "terminologyQaStatus": "pass",
       "manualQaStatus": "approved",
       "reviewNotes": "S18 approved after DeepSeek V4 Pro issue review and deterministic remediation in approved-question-pack.json.",
-      "promptZhHans": "已知关于 x 的一元二次方程 (k-1)x² + 2x - 3 = 0 有两个不相等的实数根，且 k 为正整数。求 k 的值。",
+      "promptZhHans": "已知关于 x 的一元二次方程 (k-1)x² + 2x - 3 = 0 有两个不相等的实数根，且 k 为正整数。求k的最小正整数值。",
       "optionsZhHans": [],
       "answer": "2",
       "acceptedAnswers": [
         "2"
       ],
-      "explanationZhHans": "根据题意复核计算，正确结果为2。 复核要点：题目要求k为正整数且方程有两个不等实根，k>2/3且k≠1，k=2满足，但答案仅为2，解释中却写“取最小正整数k=2”，未说明是否唯一，但答案2正确，然而解释中“k≥2”与答案2不完全一致，但答案本身正确，故标记为答案匹配，但解释有歧义。实际上答案2正确，解释合理，但需注意k=2是唯一解吗？k=3,4,...也满足，但题目未要求所有值，只求k的值，可能默认求最小或某个值，但表述模糊。严格来说，题目“求k的值”暗示唯一解，但条件不足，k可为2,3,4,...，因此题目条件不足，无法确定唯一k。"
+      "explanationZhHans": "因为这是一元二次方程，所以k-1≠0，即k≠1。判别式Δ=2²-4(k-1)(-3)=4+12(k-1)=12k-8。两个不相等的实数根要求Δ>0，所以k>2/3。k为正整数且k≠1，因此最小正整数值为2。"
     },
     {
       "id": "bnu-junior-ds-v1-s3-052",
@@ -78856,14 +78860,14 @@
       "optionsZhHans": [
         "该函数的图象位于第一、三象限",
         "当 x > 0 时，y 随 x 的增大而增大",
-        "k 的值为 -6",
-        "若点 B(-1, 6) 在该函数图象上，则点 B 满足关系"
+        "k 的值为 6",
+        "点 B(-1, -6) 在该函数图象上"
       ],
       "answer": "当 x > 0 时，y 随 x 的增大而增大",
       "acceptedAnswers": [
         "当 x > 0 时，y 随 x 的增大而增大"
       ],
-      "explanationZhHans": "根据题意复核计算，正确结果为当 x > 0 时，y 随 x 的增大而增大。 复核要点：题目要求选择正确的说法。选项B和C均正确，但答案只选了C，且解释中承认B正确但非直接结论，导致答案不唯一。根据单选题要求，存在多个正确选项，应判定为失败。"
+      "explanationZhHans": "函数经过A(2,-3)，所以k=2×(-3)=-6。k<0，图象在第二、四象限；在每个象限内，y随x的增大而增大，因此当x>0时，y随x的增大而增大。选项C把k写成6，选项D中点(-1,-6)不满足y=-6/x，故只有选项B正确。"
     },
     {
       "id": "bnu-junior-ds-v1-s3-263",
@@ -89203,7 +89207,7 @@
       "terminologyQaStatus": "pass",
       "manualQaStatus": "approved",
       "reviewNotes": "S18 approved after DeepSeek V4 Pro issue review and deterministic remediation in approved-question-pack.json.",
-      "promptZhHans": "已知圆O中，弦AB将圆分成两段弧，且优弧AB所对的圆周角为30°，则劣弧AB所对的圆心角为（ ）。",
+      "promptZhHans": "已知圆O中，弦AB所对的圆周角为30°，则同弧AB所对的圆心角为（ ）。",
       "optionsZhHans": [
         "60°",
         "120°",
@@ -89214,7 +89218,7 @@
       "acceptedAnswers": [
         "60°"
       ],
-      "explanationZhHans": "根据题意复核计算，正确结果为60°。 复核要点：优弧所对圆周角30°，则优弧所对圆心角60°，劣弧所对圆心角为360°-60°=300°，但题目问劣弧所对的圆心角，应为300°，而答案给出60°，解释混乱且错误。正确选项应为300°，但选项中无300°，故题目选项设置错误。"
+      "explanationZhHans": "同弧所对的圆心角等于圆周角的2倍。已知弦AB所对的圆周角为30°，所以同弧AB所对的圆心角为2×30°=60°。"
     },
     {
       "id": "bnu-junior-ds-v1-s3-428",

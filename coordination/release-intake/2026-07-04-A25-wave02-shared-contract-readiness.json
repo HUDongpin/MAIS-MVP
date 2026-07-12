@@ -1,0 +1,412 @@
+{
+  "generatedAt": "2026-07-04T15:59:06.889Z",
+  "dirtyMapStatusSignature": "0ed815279a9afc7897df7ef48f2e250da494e4a227adc0a6da14547ba9048571",
+  "expandedStatusEntries": 4323,
+  "executionSequenceGeneratedAt": "2026-07-04T15:56:25.716Z",
+  "wave": {
+    "waveId": "wave-02-shared-contracts",
+    "name": "A08/A12 shared contracts and storage/API stability",
+    "ownerApprovals": [
+      "a08-state-and-analytics-lead",
+      "a12-backend-api-platform"
+    ],
+    "physicalLifecycleApprovals": [
+      "codex-a08-a12-shared-contract-closure",
+      "codex-a12-userstore-storage-contract",
+      "codex-a12-google-oauth-login",
+      "codex-a07-a15-a08-ai-adaptive-types"
+    ]
+  },
+  "worktree": {
+    "path": "/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A08-A12-shared-contract-closure",
+    "branch": "codex/A08-A12-shared-contract-closure",
+    "head": "cef544e09",
+    "statusSignature": "84588e7f451aa19d8db152cc156f73cdc68b0c6ef0bac5d70b7c0fcf8f6380cf",
+    "nodeModulesPresent": true
+  },
+  "pathspecs": {
+    "files": [
+      "coordination/release-intake/latest-A25-owner-a08-state-and-analytics-lead.pathspec",
+      "coordination/release-intake/latest-A25-owner-a12-backend-api-platform.pathspec"
+    ],
+    "checksum": "73127b8a750beaa9f0054cbe95a218338f77288bca45b4981e9266acda9d39bd",
+    "allowedPaths": 186
+  },
+  "pathspecCoverage": {
+    "statusEntries": 185,
+    "coveredEntries": 185,
+    "uncoveredEntries": 0,
+    "uncovered": []
+  },
+  "checks": {
+    "testAnalytics": {
+      "command": "npm run test:analytics",
+      "status": 1,
+      "passed": false,
+      "stdout": [
+        "> hk-math-lab-template@0.1.0 test:analytics",
+        "> rm -rf .tmp/analytics-tests && tsc -p tsconfig.json --outDir .tmp/analytics-tests --noEmit false --incremental false --module commonjs --moduleResolution node && node --test .tmp/analytics-tests/lib/learningAnalytics.test.js .tmp/analytics-tests/lib/adaptiveLearning.test.js && rm -rf .tmp"
+      ],
+      "stderr": [
+        "rm: .tmp/analytics-tests/types/index.js: Operation not permitted",
+        "rm: .tmp/analytics-tests/types: Operation not permitted",
+        "rm: .tmp/analytics-tests/tailwind.config.js: Operation not permitted",
+        "rm: .tmp/analytics-tests/coordination/content-qa/mainland-bnu-junior-generated-bank-v1-1500/approved-question-pack.json: Operation not permitted",
+        "rm: .tmp/analytics-tests/coordination/content-qa/mainland-bnu-junior-generated-bank-v1-1500: Operation not permitted",
+        "rm: .tmp/analytics-tests/coordination/content-qa: Operation not permitted",
+        "rm: .tmp/analytics-tests/coordination: Operation not permitted",
+        "rm: .tmp/analytics-tests/app/visualization-lab/page.jsx: Operation not permitted",
+        "rm: .tmp/analytics-tests/app/visualization-lab/loading.jsx: Operation not permitted",
+        "rm: .tmp/analytics-tests/app/visualization-lab: Operation not permitted",
+        "rm: .tmp/analytics-tests/app/layout.jsx: Operation not permitted",
+        "rm: .tmp/analytics-tests/app/messages/page.jsx: Operation not permitted",
+        "rm: .tmp/analytics-tests/app/messages: Operation not permitted",
+        "rm: .tmp/analytics-tests/app/progress/page.jsx: Operation not permitted",
+        "rm: .tmp/analytics-tests/app/progress: Operation not permitted",
+        "rm: .tmp/analytics-tests/app/primary-roadmap/page.jsx: Operation not permitted",
+        "rm: .tmp/analytics-tests/app/primary-roadmap: Operation not permitted",
+        "rm: .tmp/analytics-tests/app/not-found.jsx: Operation not permitted",
+        "rm: .tmp/analytics-tests/app/student/tools/visualizations/page.jsx: Operation not permitted",
+        "rm: .tmp/analytics-tests/app/student/tools/visualizations/[labId]/page.jsx: Operation not permitted",
+        "rm: .tmp/analytics-tests/app/student/tools/visualizations/[labId]: Operation not permitted",
+        "rm: .tmp/analytics-tests/app/student/tools/visualizations/loading.jsx: Operation not permitted",
+        "rm: .tmp/analytics-tests/app/student/tools/visualizations: Operation not permitted",
+        "rm: .tmp/analytics-tests/app/student/tools: Operation not permitted",
+        "rm: .tmp/analytics-tests/app/student/lessons/california-middle-school-textbook/page.jsx: Operation not permitted",
+        "rm: .tmp/analytics-tests/app/student/lessons/california-middle-school-textbook: Operation not permitted",
+        "rm: .tmp/analytics-tests/app/student/lessons/california-high-school-textbook/page.jsx: Operation not permitted",
+        "rm: .tmp/analytics-tests/app/student/lessons/california-high-school-textbook: Operation not permitted",
+        "rm: .tmp/analytics-tests/app/student/lessons/page.jsx: Operation not permitted",
+        "rm: .tmp/analytics-tests/app/student/lessons/loading.jsx: Operation not permitted",
+        "rm: .tmp/analytics-tests/app/student/lessons/[lessonSlug]/page.jsx: Operation not permitted",
+        "rm: .tmp/analytics-tests/app/student/lessons/[lessonSlug]: Operation not permitted",
+        "rm: .tmp/analytics-tests/app/student/lessons: Operation not permitted",
+        "rm: .tmp/analytics-tests/app/student: Operation not permitted",
+        "rm: .tmp/analytics-tests/app/page.jsx: Operation not permitted",
+        "rm: .tmp/analytics-tests/app/learning-path/page.jsx: Operation not permitted",
+        "rm: .tmp/analytics-tests/app/learning-path: Operation not permitted",
+        "rm: .tmp/analytics-tests/app/classroom/join/page.jsx: Operation not permitted",
+        "rm: .tmp/analytics-tests/app/classroom/join: Operation not permitted",
+        "rm: .tmp/analytics-tests/app/classroom/page.jsx: Operation not permitted",
+        "rm: .tmp/analytics-tests/app/classroom: Operation not permitted",
+        "rm: .tmp/analytics-tests/app/assessment/[assessmentId]/page.jsx: Operation not permitted",
+        "rm: .tmp/analytics-tests/app/assessment/[assessmentId]: Operation not permitted",
+        "rm: .tmp/analytics-tests/app/assessment: Operation not permitted",
+        "rm: .tmp/analytics-tests/app/secondary-roadmap/page.jsx: Operation not permitted",
+        "rm: .tmp/analytics-tests/app/secondary-roadmap: Operation not permitted",
+        "rm: .tmp/analytics-tests/app/dashboard/page.jsx: Operation not permitted",
+        "rm: .tmp/analytics-tests/app/dashboard: Operation not permitted",
+        "rm: .tmp/analytics-tests/app/forum/page.jsx: Operation not permitted",
+        "rm: .tmp/analytics-tests/app/forum: Operation not permitted",
+        "... 1612 lines omitted ...",
+        "rm: .tmp/analytics-tests/data/mainlandPepPrimaryTopics.js: Operation not permitted",
+        "rm: .tmp/analytics-tests/data/mainlandPepHighLessonIllustrations.js: Operation not permitted",
+        "rm: .tmp/analytics-tests/data/mainlandHjbJuniorQuestions.js: Operation not permitted",
+        "rm: .tmp/analytics-tests/data/mainlandBnuPrimaryTopics.js: Operation not permitted",
+        "rm: .tmp/analytics-tests/data/gamification.js: Operation not permitted",
+        "rm: .tmp/analytics-tests/data/mainlandHjbPrimaryLessons.js: Operation not permitted",
+        "rm: .tmp/analytics-tests/data/mainlandBnuJuniorQuestions.js: Operation not permitted",
+        "rm: .tmp/analytics-tests/data/mainlandHjbHighLessonIllustrations.js: Operation not permitted",
+        "rm: .tmp/analytics-tests/data/mainlandHjbPrimaryTopics.js: Operation not permitted",
+        "rm: .tmp/analytics-tests/data/topics.js: Operation not permitted",
+        "rm: .tmp/analytics-tests/data/mainlandPepJuniorTopics.js: Operation not permitted",
+        "rm: .tmp/analytics-tests/data/mainlandBnuPrimaryLessons.js: Operation not permitted",
+        "rm: .tmp/analytics-tests/data/mainlandPepJuniorQuestions.js: Operation not permitted",
+        "rm: .tmp/analytics-tests/data/hkChineseGlossary.js: Operation not permitted",
+        "rm: .tmp/analytics-tests/data/mainlandBnuHighTopics.js: Operation not permitted",
+        "rm: .tmp/analytics-tests/data/generated-content/mainland-bnu-junior-generated-bank-v1-1500/approved-question-pack.json: Operation not permitted",
+        "rm: .tmp/analytics-tests/data/generated-content/mainland-bnu-junior-generated-bank-v1-1500: Operation not permitted",
+        "rm: .tmp/analytics-tests/data/generated-content/mainland-hjb-junior-generated-bank-v2-1500/question-pack.json: Operation not permitted",
+        "rm: .tmp/analytics-tests/data/generated-content/mainland-hjb-junior-generated-bank-v2-1500: Operation not permitted",
+        "rm: .tmp/analytics-tests/data/generated-content/mainland-hjb-primary-generated-bank-v1-1500/question-pack.json: Operation not permitted",
+        "rm: .tmp/analytics-tests/data/generated-content/mainland-hjb-primary-generated-bank-v1-1500: Operation not permitted",
+        "rm: .tmp/analytics-tests/data/generated-content/mainland-pep-junior-lessons-v1/lessons.json: Operation not permitted",
+        "rm: .tmp/analytics-tests/data/generated-content/mainland-pep-junior-lessons-v1: Operation not permitted",
+        "rm: .tmp/analytics-tests/data/generated-content/mainland-bnu-primary-generated-bank-v1-1500/question-pack.json: Operation not permitted",
+        "rm: .tmp/analytics-tests/data/generated-content/mainland-bnu-primary-generated-bank-v1-1500: Operation not permitted",
+        "rm: .tmp/analytics-tests/data/generated-content/mainland-hjb-junior-lessons-v1/lessons.json: Operation not permitted",
+        "rm: .tmp/analytics-tests/data/generated-content/mainland-hjb-junior-lessons-v1: Operation not permitted",
+        "rm: .tmp/analytics-tests/data/generated-content/mainland-hjb-high-generated-bank-v1/question-pack.json: Operation not permitted",
+        "rm: .tmp/analytics-tests/data/generated-content/mainland-hjb-high-generated-bank-v1: Operation not permitted",
+        "rm: .tmp/analytics-tests/data/generated-content/mainland-pep-junior-generated-bank-v2-1200/question-pack.json: Operation not permitted",
+        "rm: .tmp/analytics-tests/data/generated-content/mainland-pep-junior-generated-bank-v2-1200: Operation not permitted",
+        "rm: .tmp/analytics-tests/data/generated-content/mainland-pep-high-lessons-v1/lessons.json: Operation not permitted",
+        "rm: .tmp/analytics-tests/data/generated-content/mainland-pep-high-lessons-v1: Operation not permitted",
+        "rm: .tmp/analytics-tests/data/generated-content/mainland-bnu-high-generated-bank-v1-1500/question-pack.approved.json: Operation not permitted",
+        "rm: .tmp/analytics-tests/data/generated-content/mainland-bnu-high-generated-bank-v1-1500: Operation not permitted",
+        "rm: .tmp/analytics-tests/data/generated-content/mainland-pep-primary-lessons-v1/lessons.json: Operation not permitted",
+        "rm: .tmp/analytics-tests/data/generated-content/mainland-pep-primary-lessons-v1: Operation not permitted",
+        "rm: .tmp/analytics-tests/data/generated-content/mainland-bnu-primary-generated-bank-v2-1500/question-pack.json: Operation not permitted",
+        "rm: .tmp/analytics-tests/data/generated-content/mainland-bnu-primary-generated-bank-v2-1500: Operation not permitted",
+        "rm: .tmp/analytics-tests/data/generated-content/mainland-hjb-high-generated-bank-v4-remediated/question-pack.json: Operation not permitted",
+        "rm: .tmp/analytics-tests/data/generated-content/mainland-hjb-high-generated-bank-v4-remediated: Operation not permitted",
+        "rm: .tmp/analytics-tests/data/generated-content/mainland-hjb-high-generated-bank-v3-remediated/question-pack.json: Operation not permitted",
+        "rm: .tmp/analytics-tests/data/generated-content/mainland-hjb-high-generated-bank-v3-remediated: Operation not permitted",
+        "rm: .tmp/analytics-tests/data/generated-content/mainland-hjb-high-generated-bank-v2/question-pack.json: Operation not permitted",
+        "rm: .tmp/analytics-tests/data/generated-content/mainland-hjb-high-generated-bank-v2: Operation not permitted",
+        "rm: .tmp/analytics-tests/data/generated-content: Operation not permitted",
+        "rm: .tmp/analytics-tests/data/mainlandHjbJuniorTopics.js: Operation not permitted",
+        "rm: .tmp/analytics-tests/data/forum.js: Operation not permitted",
+        "rm: .tmp/analytics-tests/data: Operation not permitted",
+        "rm: .tmp/analytics-tests: Operation not permitted"
+      ]
+    },
+    "testBackend": {
+      "command": "npm run test:backend",
+      "status": 1,
+      "passed": false,
+      "stdout": [
+        "> hk-math-lab-template@0.1.0 test:backend",
+        "> playwright test tests/e2e/backend-api.spec.ts --project=desktop-chrome",
+        "Error: EPERM: operation not permitted, unlink '/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A08-A12-shared-contract-closure/test-results/.last-run.json'"
+      ],
+      "stderr": [
+        "Error in reporter Error: EPERM: operation not permitted, open '/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A08-A12-shared-contract-closure/output/playwright-report/index.html'",
+        "    at open (node:internal/fs/promises:640:25)",
+        "    at Object.writeFile (node:internal/fs/promises:1257:14)",
+        "    at HtmlBuilder._writeStaticAssets (/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A08-A12-shared-contract-closure/node_modules/playwright/lib/reporters/html.js:330:7)",
+        "    at HtmlBuilder.build (/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A08-A12-shared-contract-closure/node_modules/playwright/lib/reporters/html.js:292:29)",
+        "    at HtmlReporter.onEnd (/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A08-A12-shared-contract-closure/node_modules/playwright/lib/reporters/html.js:128:25)",
+        "    at wrapAsync (/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A08-A12-shared-contract-closure/node_modules/playwright/lib/reporters/multiplexer.js:101:12)",
+        "    at Multiplexer.onEnd (/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A08-A12-shared-contract-closure/node_modules/playwright/lib/reporters/multiplexer.js:69:25)",
+        "    at InternalReporter.onEnd (/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A08-A12-shared-contract-closure/node_modules/playwright/lib/reporters/internalReporter.js:81:12)",
+        "    at finishTaskRun (/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A08-A12-shared-contract-closure/node_modules/playwright/lib/runner/tasks.js:94:26)",
+        "    at runTasks (/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A08-A12-shared-contract-closure/node_modules/playwright/lib/runner/tasks.js:81:10)",
+        "    at runAllTestsWithConfig (/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A08-A12-shared-contract-closure/node_modules/playwright/lib/runner/testRunner.js:388:18)",
+        "    at runTests (/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A08-A12-shared-contract-closure/node_modules/playwright/lib/testActions.js:96:18)",
+        "    at i.<anonymous> (/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A08-A12-shared-contract-closure/node_modules/playwright/lib/program.js:56:7) {",
+        "  errno: -1,",
+        "  code: 'EPERM',",
+        "  syscall: 'open',",
+        "  path: '/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A08-A12-shared-contract-closure/output/playwright-report/index.html'",
+        "}",
+        "Error in reporter Error: EPERM: operation not permitted, open '/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A08-A12-shared-contract-closure/test-results/.last-run.json'",
+        "    at open (node:internal/fs/promises:640:25)",
+        "    at Object.writeFile (node:internal/fs/promises:1257:14)",
+        "    at LastRunReporter.onEnd (/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A08-A12-shared-contract-closure/node_modules/playwright/lib/runner/lastRun.js:71:5)",
+        "    at wrapAsync (/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A08-A12-shared-contract-closure/node_modules/playwright/lib/reporters/multiplexer.js:101:12)",
+        "    at Multiplexer.onEnd (/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A08-A12-shared-contract-closure/node_modules/playwright/lib/reporters/multiplexer.js:69:25)",
+        "    at InternalReporter.onEnd (/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A08-A12-shared-contract-closure/node_modules/playwright/lib/reporters/internalReporter.js:81:12)",
+        "    at finishTaskRun (/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A08-A12-shared-contract-closure/node_modules/playwright/lib/runner/tasks.js:94:26)",
+        "    at runTasks (/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A08-A12-shared-contract-closure/node_modules/playwright/lib/runner/tasks.js:81:10)",
+        "    at runAllTestsWithConfig (/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A08-A12-shared-contract-closure/node_modules/playwright/lib/runner/testRunner.js:388:18)",
+        "    at runTests (/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A08-A12-shared-contract-closure/node_modules/playwright/lib/testActions.js:96:18)",
+        "    at i.<anonymous> (/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A08-A12-shared-contract-closure/node_modules/playwright/lib/program.js:56:7) {",
+        "  errno: -1,",
+        "  code: 'EPERM',",
+        "  syscall: 'open',",
+        "  path: '/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A08-A12-shared-contract-closure/test-results/.last-run.json'",
+        "}"
+      ]
+    },
+    "typeCheck": {
+      "command": "npm run type-check -- --pretty false",
+      "status": 2,
+      "passed": false,
+      "stdout": [
+        "> hk-math-lab-template@0.1.0 type-check",
+        "> tsc --noEmit --incremental false --pretty false",
+        "app/api/ai-tutor/route.ts(357,5): error TS2322: Type '\"deepseek\" | \"openai-compatible\" | \"openai\"' is not assignable to type 'LLMProviderName'.",
+        "  Type '\"openai\"' is not assignable to type 'LLMProviderName'.",
+        "app/api/lesson-audio/route.ts(5,40): error TS2307: Cannot find module '@/components/lesson/lessonAudioQueue' or its corresponding type declarations.",
+        "app/lesson/page.tsx(3,35): error TS2307: Cannot find module '@/app/lesson/LessonEntryClient' or its corresponding type declarations.",
+        "app/practice/page.tsx(102,37): error TS2322: Type '\"Foundation\"' is not assignable to type 'Difficulty'.",
+        "app/practice/page.tsx(102,51): error TS2322: Type '\"Core\"' is not assignable to type 'Difficulty'.",
+        "app/practice/page.tsx(102,59): error TS2322: Type '\"Challenge\"' is not assignable to type 'Difficulty'.",
+        "app/practice/page.tsx(102,72): error TS2322: Type '\"Exam\"' is not assignable to type 'Difficulty'.",
+        "app/student/tools/visualizations/[labId]/page.tsx(32,13): error TS2339: Property 'threeD' does not exist on type 'FeaturedLabDefinition'.",
+        "app/teacher/assessments/[assessmentId]/edit/page.tsx(19,7): error TS2322: Type '{ data: TeacherAssessmentCreateData; initialAssessment: Assessment; }' is not assignable to type 'IntrinsicAttributes & { data: TeacherAssessmentCreateData; }'.",
+        "  Property 'initialAssessment' does not exist on type 'IntrinsicAttributes & { data: TeacherAssessmentCreateData; }'.",
+        "app/teacher/assessments/new/page.tsx(9,36): error TS2322: Type 'TeacherAssessmentCreateData | { classes: TeacherClass[]; resources: never[]; questionBank: never[]; }' is not assignable to type 'TeacherAssessmentCreateData'.",
+        "  Property 'topicOptions' is missing in type '{ classes: TeacherClass[]; resources: never[]; questionBank: never[]; }' but required in type 'TeacherAssessmentCreateData'.",
+        "app/teacher/assignments/[assignmentId]/submissions/[submissionId]/page.tsx(19,55): error TS2322: Type '{ detail: TeacherAssignmentDetailData; initialSubmissionId: string; }' is not assignable to type 'IntrinsicAttributes & { detail: TeacherAssignmentDetailData; }'.",
+        "  Property 'initialSubmissionId' does not exist on type 'IntrinsicAttributes & { detail: TeacherAssignmentDetailData; }'.",
+        "app/teacher/classes/[classId]/students/[studentId]/page.tsx(15,55): error TS2322: Type '{ profile: TeacherStudentProfileData; backHref: string; activeClassId: string; }' is not assignable to type 'IntrinsicAttributes & { profile: TeacherStudentProfileData; }'.",
+        "  Property 'backHref' does not exist on type 'IntrinsicAttributes & { profile: TeacherStudentProfileData; }'.",
+        "app/teacher/classroom-sessions/page.tsx(15,39): error TS2322: Type '{ live: TeacherLiveData; initialClassId: string; }' is not assignable to type 'IntrinsicAttributes & { live: TeacherLiveData; }'.",
+        "  Property 'initialClassId' does not exist on type 'IntrinsicAttributes & { live: TeacherLiveData; }'.",
+        "app/visualization-lab/page.tsx(22,49): error TS2307: Cannot find module '@/app/visualization-lab/VisualizationLabBackToTopButton' or its corresponding type declarations.",
+        "components/games/MathMatchQuestGame.tsx(10,8): error TS2307: Cannot find module '@/data/gameBasedLearning' or its corresponding type declarations.",
+        "components/games/MathMatchQuestGame.tsx(215,54): error TS7006: Parameter 'question' implicitly has an 'any' type.",
+        "components/games/MathMatchQuestGame.tsx(371,38): error TS7006: Parameter 'level' implicitly has an 'any' type.",
+        "... 683 lines omitted ...",
+        "lib/server/userStore/curriculumAvailability.ts(81,26): error TS2345: Argument of type 'GradeId' is not assignable to parameter of type '\"P1\" | \"P2\" | \"P3\" | \"P4\" | \"P5\" | \"P6\" | \"S1\" | \"S2\" | \"S3\" | \"S4\" | \"S5\" | \"S6\"'.",
+        "  Type '\"K\"' is not assignable to type '\"P1\" | \"P2\" | \"P3\" | \"P4\" | \"P5\" | \"P6\" | \"S1\" | \"S2\" | \"S3\" | \"S4\" | \"S5\" | \"S6\"'.",
+        "lib/server/userStore/parentAccessPersistence.ts(2,43): error TS2307: Cannot find module '@/lib/parentConstraints' or its corresponding type declarations.",
+        "lib/server/userStore/parentMessagePersistence.ts(2,75): error TS2307: Cannot find module '@/lib/parentConstraints' or its corresponding type declarations.",
+        "lib/server/userStore/questionFilter.ts(24,42): error TS2345: Argument of type 'GradeId' is not assignable to parameter of type '\"P1\" | \"P2\" | \"P3\" | \"P4\" | \"P5\" | \"P6\" | \"S1\" | \"S2\" | \"S3\" | \"S4\" | \"S5\" | \"S6\"'.",
+        "  Type '\"K\"' is not assignable to type '\"P1\" | \"P2\" | \"P3\" | \"P4\" | \"P5\" | \"P6\" | \"S1\" | \"S2\" | \"S3\" | \"S4\" | \"S5\" | \"S6\"'.",
+        "lib/server/userStore/teacherOpsLessonKitPersistence.ts(468,44): error TS2345: Argument of type 'GradeId' is not assignable to parameter of type '\"P1\" | \"P2\" | \"P3\" | \"P4\" | \"P5\" | \"P6\" | \"S1\" | \"S2\" | \"S3\" | \"S4\" | \"S5\" | \"S6\"'.",
+        "  Type '\"K\"' is not assignable to type '\"P1\" | \"P2\" | \"P3\" | \"P4\" | \"P5\" | \"P6\" | \"S1\" | \"S2\" | \"S3\" | \"S4\" | \"S5\" | \"S6\"'.",
+        "lib/server/userStore/teacherOpsRosterImportPersistence.ts(321,43): error TS2345: Argument of type 'GradeId' is not assignable to parameter of type '\"P1\" | \"P2\" | \"P3\" | \"P4\" | \"P5\" | \"P6\" | \"S1\" | \"S2\" | \"S3\" | \"S4\" | \"S5\" | \"S6\"'.",
+        "  Type '\"K\"' is not assignable to type '\"P1\" | \"P2\" | \"P3\" | \"P4\" | \"P5\" | \"P6\" | \"S1\" | \"S2\" | \"S3\" | \"S4\" | \"S5\" | \"S6\"'.",
+        "lib/server/userStore/teacherOpsRosterImportPersistence.ts(343,32): error TS2345: Argument of type 'GradeId' is not assignable to parameter of type '\"P1\" | \"P2\" | \"P3\" | \"P4\" | \"P5\" | \"P6\" | \"S1\" | \"S2\" | \"S3\" | \"S4\" | \"S5\" | \"S6\"'.",
+        "  Type '\"K\"' is not assignable to type '\"P1\" | \"P2\" | \"P3\" | \"P4\" | \"P5\" | \"P6\" | \"S1\" | \"S2\" | \"S3\" | \"S4\" | \"S5\" | \"S6\"'.",
+        "lib/server/userStoreParentMessagePersistence.test.ts(7,44): error TS2307: Cannot find module '@/lib/parentConstraints' or its corresponding type declarations.",
+        "lib/teacherReviewLessonPptx.ts(383,35): error TS2307: Cannot find module 'pptxgenjs' or its corresponding type declarations.",
+        "scripts/audit-mainland-pep-roadmap.ts(11,7): error TS2741: Property 'K' is missing in type '{ P1: number; P2: number; P3: number; P4: number; P5: number; P6: number; S1: number; S2: number; S3: number; S4: number; S5: number; S6: number; }' but required in type 'Record<GradeId, number>'.",
+        "tests/e2e/lesson-all.spec.ts(61,47): error TS2769: No overload matches this call.",
+        "  Overload 1 of 2, '(iterable?: Iterable<Difficulty> | null | undefined): Set<Difficulty>', gave the following error.",
+        "    Argument of type '(\"Foundation\" | \"Core\" | \"Challenge\" | \"Exam\")[]' is not assignable to parameter of type 'Iterable<Difficulty>'.",
+        "      The types returned by '[Symbol.iterator]().next(...)' are incompatible between these types.",
+        "        Type 'IteratorResult<\"Foundation\" | \"Core\" | \"Challenge\" | \"Exam\", undefined>' is not assignable to type 'IteratorResult<Difficulty, any>'.",
+        "          Type 'IteratorYieldResult<\"Foundation\" | \"Core\" | \"Challenge\" | \"Exam\">' is not assignable to type 'IteratorResult<Difficulty, any>'.",
+        "            Type 'IteratorYieldResult<\"Foundation\" | \"Core\" | \"Challenge\" | \"Exam\">' is not assignable to type 'IteratorYieldResult<Difficulty>'.",
+        "              Type '\"Foundation\" | \"Core\" | \"Challenge\" | \"Exam\"' is not assignable to type 'Difficulty'.",
+        "                Type '\"Foundation\"' is not assignable to type 'Difficulty'.",
+        "tests/e2e/mainland-pep-primary-lessons.spec.ts(12,7): error TS2741: Property 'K' is missing in type '{ P1: number; P2: number; P3: number; P4: number; P5: number; P6: number; S1: number; S2: number; S3: number; S4: number; S5: number; S6: number; }' but required in type 'Record<GradeId, number>'."
+      ]
+    },
+    "build": {
+      "command": "npm run build",
+      "status": 1,
+      "passed": false,
+      "stdout": [
+        "> hk-math-lab-template@0.1.0 build",
+        "> next build",
+        "   ▲ Next.js 15.5.15"
+      ],
+      "stderr": [
+        "uncaughtException [Error: EPERM: operation not permitted, open '/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A08-A12-shared-contract-closure/.next/trace'] {",
+        "  errno: -1,",
+        "  code: 'EPERM',",
+        "  syscall: 'open',",
+        "  path: '/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A08-A12-shared-contract-closure/.next/trace'",
+        "}"
+      ]
+    }
+  },
+  "typeCheck": {
+    "passed": false,
+    "status": 2,
+    "summary": {
+      "errorLines": 689,
+      "byTop": {
+        "app": 14,
+        "components": 343,
+        "data": 267,
+        "lib": 62,
+        "scripts": 1,
+        "tests": 2
+      },
+      "topFiles": [
+        {
+          "file": "components/visualizations/three/scenes/TemplatePrimitiveScene.tsx",
+          "errors": 206
+        },
+        {
+          "file": "data/questions.ts",
+          "errors": 91
+        },
+        {
+          "file": "data/topics.ts",
+          "errors": 49
+        },
+        {
+          "file": "data/mainlandPepPrimaryTopics.ts",
+          "errors": 24
+        },
+        {
+          "file": "lib/adaptiveLearning.ts",
+          "errors": 24
+        },
+        {
+          "file": "data/mainlandPepHighTopics.ts",
+          "errors": 22
+        },
+        {
+          "file": "components/visualizations/three/ThreeDGraphCanvas.tsx",
+          "errors": 21
+        },
+        {
+          "file": "components/visualizations/VisualizationLabPage.tsx",
+          "errors": 14
+        },
+        {
+          "file": "components/games/MathVirusBlasterGame.tsx",
+          "errors": 13
+        },
+        {
+          "file": "components/visualizations/three/manim/MathSceneRuntime.tsx",
+          "errors": 12
+        },
+        {
+          "file": "data/mainlandPepHighQuestions.ts",
+          "errors": 11
+        },
+        {
+          "file": "components/games/MightyTankBattleGame.tsx",
+          "errors": 10
+        },
+        {
+          "file": "components/visualizations/three/ThreeDLabCanvas.tsx",
+          "errors": 10
+        },
+        {
+          "file": "data/mainlandPepPrimaryQuestions.ts",
+          "errors": 10
+        },
+        {
+          "file": "components/visualizations/three/threeDSceneMath.catalog.test.ts",
+          "errors": 9
+        },
+        {
+          "file": "data/mainlandBnuJuniorTopics.ts",
+          "errors": 9
+        },
+        {
+          "file": "components/lesson/CaliforniaHighSchoolTextbookPage.tsx",
+          "errors": 7
+        },
+        {
+          "file": "components/lesson/CaliforniaHighSchoolTextbookStudentPage.tsx",
+          "errors": 7
+        },
+        {
+          "file": "components/games/MathMatchQuestGame.tsx",
+          "errors": 6
+        },
+        {
+          "file": "lib/adaptiveLearning.test.ts",
+          "errors": 6
+        }
+      ],
+      "firstErrors": [
+        "app/api/ai-tutor/route.ts(357,5): error TS2322: Type '\"deepseek\" | \"openai-compatible\" | \"openai\"' is not assignable to type 'LLMProviderName'.",
+        "app/api/lesson-audio/route.ts(5,40): error TS2307: Cannot find module '@/components/lesson/lessonAudioQueue' or its corresponding type declarations.",
+        "app/lesson/page.tsx(3,35): error TS2307: Cannot find module '@/app/lesson/LessonEntryClient' or its corresponding type declarations.",
+        "app/practice/page.tsx(102,37): error TS2322: Type '\"Foundation\"' is not assignable to type 'Difficulty'.",
+        "app/practice/page.tsx(102,51): error TS2322: Type '\"Core\"' is not assignable to type 'Difficulty'.",
+        "app/practice/page.tsx(102,59): error TS2322: Type '\"Challenge\"' is not assignable to type 'Difficulty'.",
+        "app/practice/page.tsx(102,72): error TS2322: Type '\"Exam\"' is not assignable to type 'Difficulty'.",
+        "app/student/tools/visualizations/[labId]/page.tsx(32,13): error TS2339: Property 'threeD' does not exist on type 'FeaturedLabDefinition'.",
+        "app/teacher/assessments/[assessmentId]/edit/page.tsx(19,7): error TS2322: Type '{ data: TeacherAssessmentCreateData; initialAssessment: Assessment; }' is not assignable to type 'IntrinsicAttributes & { data: TeacherAssessmentCreateData; }'.",
+        "app/teacher/assessments/new/page.tsx(9,36): error TS2322: Type 'TeacherAssessmentCreateData | { classes: TeacherClass[]; resources: never[]; questionBank: never[]; }' is not assignable to type 'TeacherAssessmentCreateData'.",
+        "app/teacher/assignments/[assignmentId]/submissions/[submissionId]/page.tsx(19,55): error TS2322: Type '{ detail: TeacherAssignmentDetailData; initialSubmissionId: string; }' is not assignable to type 'IntrinsicAttributes & { detail: TeacherAssignmentDetailData; }'.",
+        "app/teacher/classes/[classId]/students/[studentId]/page.tsx(15,55): error TS2322: Type '{ profile: TeacherStudentProfileData; backHref: string; activeClassId: string; }' is not assignable to type 'IntrinsicAttributes & { profile: TeacherStudentProfileData; }'.",
+        "app/teacher/classroom-sessions/page.tsx(15,39): error TS2322: Type '{ live: TeacherLiveData; initialClassId: string; }' is not assignable to type 'IntrinsicAttributes & { live: TeacherLiveData; }'.",
+        "app/visualization-lab/page.tsx(22,49): error TS2307: Cannot find module '@/app/visualization-lab/VisualizationLabBackToTopButton' or its corresponding type declarations.",
+        "components/games/MathMatchQuestGame.tsx(10,8): error TS2307: Cannot find module '@/data/gameBasedLearning' or its corresponding type declarations.",
+        "components/games/MathMatchQuestGame.tsx(215,54): error TS7006: Parameter 'question' implicitly has an 'any' type.",
+        "components/games/MathMatchQuestGame.tsx(371,38): error TS7006: Parameter 'level' implicitly has an 'any' type.",
+        "components/games/MathMatchQuestGame.tsx(567,46): error TS7006: Parameter 'option' implicitly has an 'any' type.",
+        "components/games/MathMatchQuestGame.tsx(643,60): error TS7006: Parameter 'level' implicitly has an 'any' type.",
+        "components/games/MathMatchQuestGame.tsx(890,38): error TS7006: Parameter 'option' implicitly has an 'any' type.",
+        "components/games/MathVirusBlasterGame.tsx(13,8): error TS2307: Cannot find module '@/data/mathVirusBlaster' or its corresponding type declarations.",
+        "components/games/MathVirusBlasterGame.tsx(69,29): error TS7006: Parameter 'virus' implicitly has an 'any' type.",
+        "components/games/MathVirusBlasterGame.tsx(77,48): error TS7006: Parameter 'levels' implicitly has an 'any' type.",
+        "components/games/MathVirusBlasterGame.tsx(77,56): error TS7006: Parameter 'upgrade' implicitly has an 'any' type.",
+        "components/games/MathVirusBlasterGame.tsx(91,56): error TS7006: Parameter 'question' implicitly has an 'any' type."
+      ]
+    }
+  },
+  "commitReady": false,
+  "cleanupAuthorized": false,
+  "executableNow": false,
+  "blockingReasons": [
+    "testAnalytics failed",
+    "testBackend failed",
+    "typeCheck failed",
+    "build failed"
+  ]
+}

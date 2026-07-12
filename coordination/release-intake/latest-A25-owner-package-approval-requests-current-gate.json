@@ -1,0 +1,208 @@
+{
+  "checkedAt": "2026-07-09T18:26:17.833Z",
+  "dirtyMapStatusSignature": "476e1b41a0d7a979e4ad322d00bf51fd7a2e7324dae88e4c0b219b36bc660ef7",
+  "expandedStatusEntries": 7018,
+  "requestCount": 26,
+  "summary": {
+    "total": 26,
+    "entries": 7018,
+    "byPriority": {
+      "P1": 2,
+      "P2": 3,
+      "P3": 6,
+      "P4": 15
+    },
+    "byKind": {
+      "release-hygiene": 3,
+      "runtime": 17,
+      "regression-evidence": 2,
+      "coordination-evidence": 1,
+      "mixed-owner-package": 3
+    }
+  },
+  "failures": [],
+  "requests": [
+    {
+      "approvalId": "a25-git-hygiene-and-release-intake",
+      "owner": "A25 git hygiene and release intake",
+      "entries": 5285,
+      "kind": "release-hygiene",
+      "priority": 1
+    },
+    {
+      "approvalId": "a22-production-reliability-and-release-engineering",
+      "owner": "A22 production reliability and release engineering",
+      "entries": 68,
+      "kind": "release-hygiene",
+      "priority": 1
+    },
+    {
+      "approvalId": "a06-visualization-lead",
+      "owner": "A06 visualization lead",
+      "entries": 460,
+      "kind": "runtime",
+      "priority": 2
+    },
+    {
+      "approvalId": "a12-backend-api-platform",
+      "owner": "A12 backend/API platform",
+      "entries": 175,
+      "kind": "runtime",
+      "priority": 2
+    },
+    {
+      "approvalId": "a11-qa-and-release-quality",
+      "owner": "A11 QA and release quality",
+      "entries": 62,
+      "kind": "regression-evidence",
+      "priority": 2
+    },
+    {
+      "approvalId": "a10-tooling-docs-and-report",
+      "owner": "A10 tooling, docs, and report",
+      "entries": 482,
+      "kind": "release-hygiene",
+      "priority": 3
+    },
+    {
+      "approvalId": "a05-lesson-lead",
+      "owner": "A05 lesson lead",
+      "entries": 128,
+      "kind": "runtime",
+      "priority": 3
+    },
+    {
+      "approvalId": "a21-content-pipeline-and-rag-operations",
+      "owner": "A21 content pipeline and RAG operations",
+      "entries": 74,
+      "kind": "regression-evidence",
+      "priority": 3
+    },
+    {
+      "approvalId": "a04-practice-lead",
+      "owner": "A04 practice lead",
+      "entries": 59,
+      "kind": "runtime",
+      "priority": 3
+    },
+    {
+      "approvalId": "a03-curriculum-roadmap-lead",
+      "owner": "A03 curriculum roadmap lead",
+      "entries": 30,
+      "kind": "runtime",
+      "priority": 3
+    },
+    {
+      "approvalId": "a18-curriculum-qa-a21-content-pipeline",
+      "owner": "A18 curriculum QA / A21 content pipeline",
+      "entries": 30,
+      "kind": "runtime",
+      "priority": 3
+    },
+    {
+      "approvalId": "a13-teacher-console",
+      "owner": "A13 teacher console",
+      "entries": 36,
+      "kind": "runtime",
+      "priority": 4
+    },
+    {
+      "approvalId": "a01-app-shell-lead",
+      "owner": "A01 app shell lead",
+      "entries": 31,
+      "kind": "runtime",
+      "priority": 4
+    },
+    {
+      "approvalId": "a02-dashboard-lead",
+      "owner": "A02 dashboard lead",
+      "entries": 22,
+      "kind": "runtime",
+      "priority": 4
+    },
+    {
+      "approvalId": "a20-game-design-and-game-based-learning",
+      "owner": "A20 game design and game-based learning",
+      "entries": 16,
+      "kind": "runtime",
+      "priority": 4
+    },
+    {
+      "approvalId": "a07-ai-tutor-lead",
+      "owner": "A07 AI tutor lead",
+      "entries": 12,
+      "kind": "runtime",
+      "priority": 4
+    },
+    {
+      "approvalId": "a08-state-and-analytics-lead",
+      "owner": "A08 state and analytics lead",
+      "entries": 11,
+      "kind": "runtime",
+      "priority": 4
+    },
+    {
+      "approvalId": "a15-adaptive-engine-lead",
+      "owner": "A15 adaptive engine lead",
+      "entries": 9,
+      "kind": "runtime",
+      "priority": 4
+    },
+    {
+      "approvalId": "a14-parent-console",
+      "owner": "A14 parent console",
+      "entries": 7,
+      "kind": "runtime",
+      "priority": 4
+    },
+    {
+      "approvalId": "a24-illustration-exact-layer",
+      "owner": "A24 illustration exact-layer",
+      "entries": 6,
+      "kind": "runtime",
+      "priority": 4
+    },
+    {
+      "approvalId": "a09-copy-i18n-accessibility",
+      "owner": "A09 copy, i18n, accessibility",
+      "entries": 5,
+      "kind": "runtime",
+      "priority": 4
+    },
+    {
+      "approvalId": "a17-gamification-and-motivation",
+      "owner": "A17 gamification and motivation",
+      "entries": 5,
+      "kind": "runtime",
+      "priority": 4
+    },
+    {
+      "approvalId": "a23-integration-and-promotion-lead",
+      "owner": "A23 integration and promotion lead",
+      "entries": 2,
+      "kind": "coordination-evidence",
+      "priority": 4
+    },
+    {
+      "approvalId": "a13-teacher-console-lead",
+      "owner": "A13 teacher console lead",
+      "entries": 1,
+      "kind": "mixed-owner-package",
+      "priority": 4
+    },
+    {
+      "approvalId": "a18-curriculum-qa-and-content-quality-lead",
+      "owner": "A18 curriculum QA and content quality lead",
+      "entries": 1,
+      "kind": "mixed-owner-package",
+      "priority": 4
+    },
+    {
+      "approvalId": "manual-a10-a25-owner-assignment-required",
+      "owner": "Manual A10/A25 owner assignment required",
+      "entries": 1,
+      "kind": "mixed-owner-package",
+      "priority": 4
+    }
+  ]
+}

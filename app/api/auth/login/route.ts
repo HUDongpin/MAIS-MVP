@@ -1,25 +1,53 @@
 import { NextResponse } from "next/server";
 import { isValidGradeId } from "@/data/grades";
-import { createSessionToken, SESSION_COOKIE_NAME, SESSION_MAX_AGE_SECONDS } from "@/lib/session";
-import { authenticateUserForLogin, completeStudentCurriculumTrackSelection, getLessonEntryTarget, updateUserSettings } from "@/lib/server/userStore";
+import {
+  authRateLimitRules,
+  consumeAuthRateLimit,
+  withAuthRouteJsonBoundary
+} from "@/lib/server/authRouteGuards";
+import { sessionSecretMissingResponse, setSessionCookie } from "@/lib/server/sessionCookie";
+import { shouldCompleteCurriculumTrackSelectionForLogin } from "@/lib/server/authLoginFlow";
+import { authenticateInternalCaliforniaFastLogin } from "@/lib/server/internalCaliforniaFastLogin";
 import { isValidLanguage } from "@/lib/i18n";
-import { curriculumProfileForTrack, normalizeCurriculumProfile } from "@/lib/curriculumProfile";
-import type { CurriculumTrack, ThemeMode } from "@/types";
+import { curriculumProfileForTrack, curriculumTrackForProfile, normalizeCurriculumProfile } from "@/lib/curriculumProfile";
+import type { CurriculumProfile, CurriculumTrack, TextbookPublisher, ThemeMode } from "@/types";
 
 export const runtime = "nodejs";
 
 const validThemes = new Set<ThemeMode>(["dark", "light"]);
-const validCurriculumTracks = new Set<CurriculumTrack>(["HK", "MAINLAND_PEP_HIGH", "US_CA_MATH", "US_NC_MATH"]);
+const validCurriculumTracks = new Set<CurriculumTrack>(["HK", "MAINLAND_PEP_HIGH", "US_CA_MATH", "US_NC_MATH", "US_AR_MATH", "US_FL_MATH"]);
+const visibleLoginPublishers = new Set<TextbookPublisher>([
+  "MAINLAND_PEP",
+  "MAINLAND_HJB",
+  "MAINLAND_BNU",
+  "HK_MODERN_EDUCATIONAL_RESEARCH_SOCIETY",
+  "HK_UNITED_PRIME_MIA",
+  "HK_EPH_MIF",
+  "US_CA_MATH"
+]);
 
 function isRecord(value: unknown): value is Record<string, unknown> {
   return typeof value === "object" && value !== null;
 }
 
-function isSecureRequest(request: Request) {
-  return request.headers.get("x-forwarded-proto") === "https" || new URL(request.url).protocol === "https:";
+function isVisibleLoginCurriculumProfile(profile: CurriculumProfile | undefined): profile is CurriculumProfile {
+  return Boolean(profile && visibleLoginPublishers.has(profile.publisher));
+}
+
+function settingsMatch(
+  settings: { selectedGrade: unknown; language: unknown; theme: unknown },
+  selectedGrade: string,
+  language: string,
+  theme: string
+) {
+  return settings.selectedGrade === selectedGrade && settings.language === language && settings.theme === theme;
 }
 
 export async function POST(request: Request) {
+  return withAuthRouteJsonBoundary("auth-login", () => handleLogin(request));
+}
+
+async function handleLogin(request: Request) {
   let body: unknown;
   try {
     body = await request.json();
@@ -38,17 +66,89 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: "Email/username and password are required." }, { status: 400 });
   }
 
-  const selectedCurriculumTrack = validCurriculumTracks.has(body.curriculumTrack as CurriculumTrack)
+  const ipRateLimit = consumeAuthRateLimit({
+    request,
+    scope: "login-ip",
+    rule: authRateLimitRules.loginIp
+  });
+  if (ipRateLimit) return ipRateLimit;
+
+  const identifierRateLimit = consumeAuthRateLimit({
+    request,
+    scope: "login-identifier",
+    subject: username,
+    rule: authRateLimitRules.loginIdentifier
+  });
+  if (identifierRateLimit) return identifierRateLimit;
+
+  const internalCaliforniaFastLogin = await authenticateInternalCaliforniaFastLogin({
+    username,
+    password,
+    grade: body.grade,
+    curriculumTrack: body.curriculumTrack,
+    curriculumProfile: body.curriculumProfile,
+    language: body.language,
+    theme: body.theme
+  });
+  if (internalCaliforniaFastLogin?.status === "invalid") {
+    return NextResponse.json({ error: "Invalid email/username or password." }, { status: 401 });
+  }
+  if (internalCaliforniaFastLogin?.status === "authenticated") {
+    const response = NextResponse.json(internalCaliforniaFastLogin.session);
+    try {
+      await setSessionCookie(response, internalCaliforniaFastLogin.session.user.id, request);
+    } catch {
+      return sessionSecretMissingResponse();
+    }
+    return response;
+  }
+
+  const rawSelectedCurriculumTrack = validCurriculumTracks.has(body.curriculumTrack as CurriculumTrack)
     ? (body.curriculumTrack as CurriculumTrack)
     : undefined;
-  const selectedCurriculumProfile = isRecord(body.curriculumProfile)
-    ? normalizeCurriculumProfile(body.curriculumProfile, curriculumProfileForTrack(selectedCurriculumTrack))
+  const rawSelectedCurriculumProfile = isRecord(body.curriculumProfile)
+    ? normalizeCurriculumProfile(body.curriculumProfile, curriculumProfileForTrack(rawSelectedCurriculumTrack))
+    : rawSelectedCurriculumTrack
+      ? curriculumProfileForTrack(rawSelectedCurriculumTrack)
+      : undefined;
+  const selectedCurriculumProfile = isVisibleLoginCurriculumProfile(rawSelectedCurriculumProfile)
+    ? rawSelectedCurriculumProfile
     : undefined;
+  const selectedCurriculumTrack = selectedCurriculumProfile ? curriculumTrackForProfile(selectedCurriculumProfile) : undefined;
   const hasCurriculumSelection = Boolean(selectedCurriculumTrack || selectedCurriculumProfile);
-  let authenticated = await authenticateUserForLogin(username, password);
+  let flexibleExampleAccountApplied = false;
+  const authStore = await import("@/lib/server/userStore/auth");
+  const studentActivityStore = await import("@/lib/server/userStore/studentActivity");
+  let authenticated: Awaited<ReturnType<typeof authStore.authenticateUserForLogin>> | undefined;
 
-  if (hasCurriculumSelection && (authenticated.status === "authenticated" || authenticated.status === "requires-curriculum-track")) {
-    const curriculumSelection = await completeStudentCurriculumTrackSelection({
+  if (hasCurriculumSelection) {
+    const flexibleExampleAccount = await authStore.authenticateFlexibleExampleAccountForLogin({
+      username,
+      password,
+      curriculumProfile: selectedCurriculumProfile,
+      selectedGrade: isValidGradeId(body.grade) ? body.grade : undefined,
+      language: isValidLanguage(body.language) ? body.language : undefined,
+      theme: validThemes.has(body.theme as ThemeMode) ? (body.theme as ThemeMode) : undefined
+    });
+
+    if (flexibleExampleAccount.status === "authenticated") {
+      flexibleExampleAccountApplied = true;
+      authenticated = flexibleExampleAccount;
+    } else if (flexibleExampleAccount.status === "invalid") {
+      authenticated = flexibleExampleAccount;
+    }
+  }
+
+  authenticated ??= await authStore.authenticateUserForLogin(username, password);
+
+  if (
+    shouldCompleteCurriculumTrackSelectionForLogin({
+      authenticatedStatus: authenticated.status,
+      flexibleExampleAccountApplied,
+      hasCurriculumSelection
+    })
+  ) {
+    const curriculumSelection = await authStore.completeStudentCurriculumTrackSelection({
       username,
       password,
       curriculumTrack: selectedCurriculumTrack,
@@ -76,33 +176,32 @@ export async function POST(request: Request) {
 
   const requestedGrade = isValidGradeId(body.grade) ? body.grade : authenticated.session.settings.selectedGrade;
   const selectedGrade = authenticated.session.user.role === "student"
-    ? authenticated.session.user.grade
+    ? isValidGradeId(body.grade)
+      ? body.grade
+      : authenticated.session.user.grade
     : requestedGrade;
   const language = isValidLanguage(body.language) ? body.language : authenticated.session.settings.language;
   const theme = validThemes.has(body.theme as ThemeMode) ? (body.theme as ThemeMode) : authenticated.session.settings.theme;
-  const sessionData =
-    (await updateUserSettings(authenticated.session.user.id, { selectedGrade, language, theme })) ?? authenticated.session;
-  let token: string;
-  try {
-    token = await createSessionToken(sessionData.user.id);
-  } catch {
-    return NextResponse.json(
-      { error: "Server session secret is not configured." },
-      { status: 500 }
-    );
+  let sessionData = authenticated.session;
+  let lessonEntryDatabase = authenticated.database;
+  if (!settingsMatch(authenticated.session.settings, selectedGrade, language, theme)) {
+    sessionData = (await authStore.updateUserSettings(authenticated.session.user.id, { selectedGrade, language, theme })) ?? authenticated.session;
+    lessonEntryDatabase = undefined;
   }
-
   const lessonEntryTarget = sessionData.user.role === "student"
-    ? await getLessonEntryTarget(sessionData.user.id, sessionData.user.grade, sessionData.user.curriculumProfile)
+    ? await studentActivityStore.getLessonEntryTargetForLogin(
+        sessionData.user.id,
+        sessionData.settings.selectedGrade,
+        sessionData.user.curriculumProfile,
+        lessonEntryDatabase
+      )
     : null;
   const response = NextResponse.json({ ...sessionData, lessonEntryTarget });
-  response.cookies.set(SESSION_COOKIE_NAME, token, {
-    httpOnly: true,
-    sameSite: "lax",
-    secure: isSecureRequest(request),
-    path: "/",
-    maxAge: SESSION_MAX_AGE_SECONDS
-  });
+  try {
+    await setSessionCookie(response, sessionData.user.id, request);
+  } catch {
+    return sessionSecretMissingResponse();
+  }
 
   return response;
 }

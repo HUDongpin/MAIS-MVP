@@ -1,9 +1,15 @@
 "use client";
 
 import { useAITutor } from "@/components/ai/AITutorProvider";
-import { dictionary, useSettings } from "@/components/providers/AppProviders";
+import { useSettings } from "@/components/providers/AppProviders";
 import type { TutorContext } from "@/components/ai/AITutorProvider";
 import { cn } from "@/lib/utils";
+
+const askAiTutorLabel = {
+  en: "Ask AI Tutor",
+  zh: "詢問 AI Tutor",
+  zhHans: "询问 AI Tutor"
+} as const;
 
 export function AITutorButton({
   context,
@@ -43,7 +49,7 @@ export function AITutorButton({
         <span className="absolute inset-[2px] rounded-full border border-cyan-100/70 border-t-fuchsia-200/90 animate-[spin_5s_linear_infinite]" />
         <span className="h-2 w-2 rounded-full bg-cyan-100 shadow-[0_0_16px_rgba(103,232,249,0.95)] transition duration-300 group-hover:bg-fuchsia-100 group-hover:shadow-[0_0_18px_rgba(240,171,252,0.95)]" />
       </span>
-      <span className="truncate">{label ?? t(dictionary.aiTutor.ask)}</span>
+      <span className="truncate">{label ?? t(askAiTutorLabel)}</span>
     </button>
   );
 }

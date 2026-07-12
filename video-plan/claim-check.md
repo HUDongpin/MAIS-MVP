@@ -8,7 +8,7 @@ Purpose: keep the pitch ambitious without accidentally inventing evidence.
 |---|---|---|
 | MAIS is a bilingual mathematics learning platform. | Current MVP capability | Home page, language toggle, bilingual copy. |
 | MAIS supports P1-S6/S1-S6 style learning pathways. | Current MVP capability | Grade selector, learning path, roadmap. |
-| Student dashboard shows mastery/progress/recommended next steps. | Current MVP capability | `/dashboard`, `/adaptive-learning`. |
+| Student dashboard shows mastery/progress/recommended next steps. | Current MVP capability | `/dashboard`, `/personalized-learning`. |
 | Practice records answers and shows feedback. | Current MVP capability | `/practice` and feedback panel. |
 | Mistakes can become review targets. | Current MVP capability | Practice feedback/mistake-book flow if available. |
 | AI Tutor is connected through a server-side route and can operate in configured or local-helper mode. | Current MVP capability | AI Tutor panel; avoid saying the live model is deployed unless API key is configured. |

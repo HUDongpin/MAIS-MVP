@@ -1,0 +1,170 @@
+diff --git a/coordination/reports/2026-06-29-A22-us-region-alignment.md b/coordination/reports/2026-06-29-A22-us-region-alignment.md
+new file mode 100644
+index 000000000..372779294
+--- /dev/null
++++ b/coordination/reports/2026-06-29-A22-us-region-alignment.md
+@@ -0,0 +1,50 @@
++# 2026-06-29 A22 US Region Alignment
++
++## Scope
++
++- Agent: A22, production reliability and release engineering.
++- Coordination: A19 owns Postgres/Neon env parity; A12 owns core classroom API contracts; A07 owns AI Tutor route behavior.
++- Branch/worktree: `codex/A22-us-region-alignment` at `/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A22-us-region-alignment`.
++- Baseline: `main` commit `cef544e09`.
++- Secrets: no real `.env*`, Vercel, Neon, or provider credential values were read, copied, printed, or changed.
++
++## Decision
++
++- Set Vercel project-level Function region in `vercel.json` to `pdx1`.
++- `pdx1` is Vercel Portland / `us-west-2`, matching Neon AWS US West Oregon (`aws-us-west-2`) when the production `POSTGRES_URL` points at a US West Neon project.
++- This intentionally optimizes the high-chatter path for US West classrooms as: California browser -> Vercel CDN/PoP -> `pdx1` Node function -> Neon/Postgres US West.
++- I did not add multi-region function execution because DB-backed classroom APIs should avoid picking a compute region far from the single primary database unless A12/A19 add read replicas or a multi-region data strategy.
++
++## AI Tutor Handoff
++
++- Dirty root currently reports `preferredRegion = "hkg1"` in A07-owned AI Tutor routes, including `app/api/ai-tutor/route.ts`, `app/api/ai-tutor/status/route.ts`, and the untracked `app/api/ai-tutor/resolve/route.ts`.
++- This A22 slice does not change AI Tutor provider behavior or route semantics.
++- A07 should separately decide whether US classroom AI Tutor requests should remain Hong Kong-pinned, become `auto`, or use a US-region resolver path. Next.js route segment `preferredRegion` is per-route and can override inherited/default placement, so AI Tutor must be evaluated independently from core classroom APIs.
++
++## A19 Database/Env Handoff
++
++- A19 should verify, without exposing secrets, that Vercel Preview and Production `POSTGRES_URL` values point at the intended Neon US West project/branch before release.
++- If the current Neon project is not in AWS US West Oregon, A19 should create or request the appropriate Neon target and migrate data rather than assuming `pdx1` compute alone solves the cross-region path.
++- Do not expose database URLs in reports or logs; record only redacted present/missing status and region/provider names.
++
++## Guardrail
++
++- Added `scripts/vercel-region-config.test.mjs`.
++- The guard asserts:
++  - `vercel.json` exists and defaults Vercel Functions to `["pdx1"]`.
++  - selected core classroom APIs remain `runtime = "nodejs"`.
++  - selected core classroom APIs do not export `preferredRegion = "hkg1"`.
++
++## Verification
++
++- `node --test scripts/vercel-region-config.test.mjs`: passed, 2/2 tests.
++- `git diff --check`: passed.
++- `npm run type-check`: failed on the clean baseline with broad pre-existing missing-module/missing-export/type drift outside this slice, including `@/lib/server/aiGovernance`, `@/lib/difficulty`, teacher operations/review lesson exports, visualization lab type drift, and userStore API drift. This slice only adds JSON, a Node guard script, and coordination markdown.
++- `npm run build`: not run because the full type-check gate is already red.
++
++## Sources Checked
++
++- Vercel Functions region configuration: https://vercel.com/docs/functions/configuring-functions/region
++- Vercel region list: https://vercel.com/docs/regions
++- Neon region list: https://neon.com/docs/introduction/regions
++- Next.js `preferredRegion` route segment config: https://nextjs.org/docs/app/api-reference/file-conventions/route-segment-config/preferredRegion
+diff --git a/coordination/session-logs/2026-06-29-A22-us-region-alignment.md b/coordination/session-logs/2026-06-29-A22-us-region-alignment.md
+new file mode 100644
+index 000000000..b909ed748
+--- /dev/null
++++ b/coordination/session-logs/2026-06-29-A22-us-region-alignment.md
+@@ -0,0 +1,39 @@
++# 2026-06-29 A22 US Region Alignment
++
++- Agent: A22, production reliability and release engineering.
++- Coordination: A19 owns provider/env parity; A12 owns core classroom API contracts; A07 owns AI Tutor route behavior.
++- Baseline: branch `codex/A22-us-region-alignment` from `main` at `cef544e09`.
++- Dependency state: `npm install` completed in isolated worktree; no root dependency files changed.
++- Objective: align US classroom Vercel Node functions with a US West Postgres/Neon region and guard core classroom APIs from Hong Kong route pinning.
++
++## Plan
++
++1. Add a failing guard test for Vercel region config and core classroom API route pinning. Completed; first run failed because `vercel.json` was missing.
++2. Add deploy config for US West Node functions without changing provider credentials or secrets. Completed with `regions: ["pdx1"]`.
++3. Record A22/A19/A07/A12 handoff notes for Neon/Postgres and AI Tutor region ownership. Completed in `coordination/reports/2026-06-29-A22-us-region-alignment.md`.
++4. Run focused guard test and type-check/build checks as feasible. Completed with focused guard green, full type-check red from baseline drift.
++
++## Intended Write Scope
++
++- `vercel.json`
++- `scripts/vercel-region-config.test.mjs`
++- `coordination/session-logs/2026-06-29-A22-us-region-alignment.md`
++- `coordination/reports/2026-06-29-A22-us-region-alignment.md`
++
++## Forbidden Scope
++
++- Real `.env*` secret files, Vercel secret values, database URLs, provider behavior, live deployments, and unrelated dirty-root changes.
++
++## Notes
++
++- Official Vercel docs say `vercel.json` `regions` changes the default Function region, while per-route `preferredRegion` is route segment metadata.
++- Official Vercel region docs list `pdx1` as Portland / `us-west-2`.
++- Official Neon docs list AWS US West Oregon as `aws-us-west-2` and recommend choosing the Neon region closest to the application server.
++
++## Verification
++
++- Red test: `node --test scripts/vercel-region-config.test.mjs` failed because `vercel.json` was missing.
++- Green test: `node --test scripts/vercel-region-config.test.mjs` passed, 2/2 tests.
++- `git diff --check` passed.
++- `npm run type-check` failed before build on broad baseline drift unrelated to this slice. Representative failures included missing `@/lib/server/aiGovernance`, missing `@/lib/difficulty`, userStore export drift, teacher operations/review lesson type drift, and visualization lab type drift.
++- `npm run build` not run after the type-check blocker.
+diff --git a/scripts/vercel-region-config.test.mjs b/scripts/vercel-region-config.test.mjs
+new file mode 100644
+index 000000000..db1b5c94d
+--- /dev/null
++++ b/scripts/vercel-region-config.test.mjs
+@@ -0,0 +1,53 @@
++import assert from "node:assert/strict";
++import { existsSync, readFileSync } from "node:fs";
++import path from "node:path";
++import test from "node:test";
++
++const projectRoot = process.cwd();
++const vercelConfigPath = path.join(projectRoot, "vercel.json");
++const expectedClassroomRegion = "pdx1";
++const coreClassroomRoutes = [
++  "app/api/auth/login/route.ts",
++  "app/api/auth/register/route.ts",
++  "app/api/dashboard/route.ts",
++  "app/api/teacher/dashboard/route.ts",
++  "app/api/me/route.ts",
++  "app/api/me/profile/route.ts",
++  "app/api/progress/route.ts",
++  "app/api/learning-events/route.ts",
++  "app/api/attempts/route.ts",
++  "app/api/questions/route.ts",
++  "app/api/lesson-entry/route.ts",
++  "app/api/lesson-progress/route.ts",
++  "app/api/classroom/live/route.ts",
++  "app/api/classroom/live/actions/route.ts",
++  "app/api/parent/foundation/route.ts",
++  "app/api/teacher/foundation/route.ts"
++];
++
++function readProjectText(relativePath) {
++  return readFileSync(path.join(projectRoot, relativePath), "utf8");
++}
++
++test("Vercel Node functions default to the US West Postgres-adjacent region", () => {
++  assert.equal(existsSync(vercelConfigPath), true, "vercel.json must define the deployment region");
++  const config = JSON.parse(readFileSync(vercelConfigPath, "utf8"));
++
++  assert.deepEqual(
++    config.regions,
++    [expectedClassroomRegion],
++    "Vercel Node functions should run in pdx1 to colocate with Neon/Postgres US West Oregon"
++  );
++});
++
++test("core classroom APIs stay Node runtime and do not pin US traffic to Hong Kong", () => {
++  for (const route of coreClassroomRoutes) {
++    const source = readProjectText(route);
++    assert.match(source, /export const runtime = ["']nodejs["'];/, `${route} must stay on the Node runtime`);
++    assert.doesNotMatch(
++      source,
++      /export const preferredRegion\s*=\s*["']hkg1["'];/,
++      `${route} must not override US classroom traffic to hkg1`
++    );
++  }
++});
+diff --git a/vercel.json b/vercel.json
+new file mode 100644
+index 000000000..960ffd324
+--- /dev/null
++++ b/vercel.json
+@@ -0,0 +1,4 @@
++{
++  "$schema": "https://openapi.vercel.sh/vercel.json",
++  "regions": ["pdx1"]
++}

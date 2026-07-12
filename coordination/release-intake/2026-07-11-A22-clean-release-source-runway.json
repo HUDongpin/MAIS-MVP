@@ -1,0 +1,403 @@
+{
+  "generatedAt": "2026-07-10T17:12:29.274Z",
+  "repoRoot": "/Users/dongpinhu/Desktop/MAIS-MVP",
+  "dirtyMapStatusSignature": "e30d647e1b51432945713f42ac78b0a2466fcb17192de0235a801ac877a0801f",
+  "expandedStatusEntries": 7636,
+  "sourceArtifacts": {
+    "dirtyMap": {
+      "key": "dirtyMap",
+      "path": "coordination/release-intake/latest-A25-dirty-tree-map.json",
+      "generatedAt": "2026-07-10T17:07:27.521Z",
+      "dirtyMapStatusSignature": "e30d647e1b51432945713f42ac78b0a2466fcb17192de0235a801ac877a0801f",
+      "expandedStatusEntries": 7636
+    },
+    "releaseSourceBlocker": {
+      "key": "releaseSourceBlocker",
+      "path": "coordination/release-intake/latest-A22-release-source-clean-blocker-evidence.json",
+      "generatedAt": "2026-07-10T17:12:28.857Z",
+      "dirtyMapStatusSignature": "e30d647e1b51432945713f42ac78b0a2466fcb17192de0235a801ac877a0801f",
+      "expandedStatusEntries": 7636
+    },
+    "noDirtyRootDeployEvidence": {
+      "key": "noDirtyRootDeployEvidence",
+      "path": "coordination/release-intake/latest-A25-no-dirty-root-deploy-evidence.json",
+      "generatedAt": "2026-07-10T17:12:20.243Z",
+      "dirtyMapStatusSignature": "e30d647e1b51432945713f42ac78b0a2466fcb17192de0235a801ac877a0801f",
+      "expandedStatusEntries": 7636
+    },
+    "worktreeDashboard": {
+      "key": "worktreeDashboard",
+      "path": "coordination/release-intake/latest-A25-worktree-hygiene-dashboard.json",
+      "generatedAt": "2026-07-11, 01:08:14 GMT+8",
+      "dirtyMapStatusSignature": "e30d647e1b51432945713f42ac78b0a2466fcb17192de0235a801ac877a0801f",
+      "expandedStatusEntries": null
+    },
+    "ownerPackageReadiness": {
+      "key": "ownerPackageReadiness",
+      "path": "coordination/release-intake/latest-A25-owner-package-readiness-blocker-matrix.json",
+      "generatedAt": "2026-07-10T17:05:38.573Z",
+      "dirtyMapStatusSignature": "e30d647e1b51432945713f42ac78b0a2466fcb17192de0235a801ac877a0801f",
+      "expandedStatusEntries": 7636
+    },
+    "validateToMergeExitCriteria": {
+      "key": "validateToMergeExitCriteria",
+      "path": "coordination/release-intake/latest-A25-validate-to-merge-exit-criteria.json",
+      "generatedAt": "2026-07-10T17:12:28.246Z",
+      "dirtyMapStatusSignature": "e30d647e1b51432945713f42ac78b0a2466fcb17192de0235a801ac877a0801f",
+      "expandedStatusEntries": 7636
+    },
+    "authorizationTransitionForecast": {
+      "key": "authorizationTransitionForecast",
+      "path": "coordination/release-intake/latest-A25-authorization-transition-forecast.json",
+      "generatedAt": "2026-07-10T17:12:28.357Z",
+      "dirtyMapStatusSignature": "e30d647e1b51432945713f42ac78b0a2466fcb17192de0235a801ac877a0801f",
+      "expandedStatusEntries": 7636
+    },
+    "sevenStepClosureBridge": {
+      "key": "sevenStepClosureBridge",
+      "path": "coordination/release-intake/latest-A25-seven-step-closure-bridge.json",
+      "generatedAt": "2026-07-10T17:12:28.472Z",
+      "dirtyMapStatusSignature": "e30d647e1b51432945713f42ac78b0a2466fcb17192de0235a801ac877a0801f",
+      "expandedStatusEntries": 7636
+    }
+  },
+  "sourceCurrentnessFailures": [],
+  "runwayStatus": "blocked-before-clean-source-selection",
+  "recommendedNextPath": "reviewed clean release slice after current focus authorization, package/worktree validation, clean-source evidence, and explicit owner merge instruction",
+  "allowedSourceOptions": [
+    {
+      "id": "current-root-clean-worktree",
+      "allowedSource": "clean worktree",
+      "status": "blocked",
+      "releaseSourceEligibleNow": false,
+      "blockerCount": 3,
+      "evidence": {
+        "rootStatusEntries": 7636,
+        "releaseSourceClean": false,
+        "noDirtyRootDeployPassed": true
+      },
+      "blockers": [
+        "7636 root dirty status entries remain in integration inventory",
+        "dirty-root deploy guard is expected to block direct preview/production publish",
+        "A22 policy requires a clean worktree, clean clone, reviewed clean release slice, or owner-approved pruned staging package"
+      ]
+    },
+    {
+      "id": "fresh-clean-clone",
+      "allowedSource": "clean clone",
+      "status": "not-materialized",
+      "releaseSourceEligibleNow": false,
+      "blockerCount": 4,
+      "evidence": {
+        "cleanCloneArtifactPresent": false,
+        "cleanDivergedWorktreeCandidates": 8
+      },
+      "blockers": [
+        "no owner-assigned clean clone path is recorded in release-intake evidence",
+        "no clean clone build/type/regression gate is recorded",
+        "clean diverged worktrees are evidence candidates only, not a selected clean clone",
+        "no deploy or merge instruction is recorded"
+      ]
+    },
+    {
+      "id": "reviewed-clean-release-slice",
+      "allowedSource": "reviewed clean release slice",
+      "status": "blocked",
+      "releaseSourceEligibleNow": false,
+      "blockerCount": 5,
+      "evidence": {
+        "readyOwnerPackageRows": 1,
+        "blockedOwnerPackageRows": 15,
+        "typeCheckErrorLines": 9907,
+        "packageWorktreeTypeCheckErrorLines": 9907,
+        "failedMergeChecks": 4
+      },
+      "blockers": [
+        "15 owner-package row(s) remain blocked before a reviewed release slice can be trusted",
+        "9907 package/worktree type-check error line(s) remain on the critical path",
+        "40 canonical authorization row(s) remain pending now",
+        "40 canonical authorization row(s) would still remain after the current 0-row focus batch",
+        "validate-to-merge exit criteria are not green"
+      ]
+    },
+    {
+      "id": "owner-approved-pruned-staging-package",
+      "allowedSource": "explicitly owner-approved pruned staging package",
+      "status": "blocked",
+      "releaseSourceEligibleNow": false,
+      "blockerCount": 5,
+      "evidence": {
+        "cleanupAuthorizedRows": 0,
+        "executableRows": 0,
+        "mergeAuthorized": false,
+        "deployAuthorized": false
+      },
+      "blockers": [
+        "no explicit owner authorization exists for pruned staging package creation",
+        "no staging pathspec/package manifest is selected for release",
+        "no merge instruction is recorded",
+        "no deploy instruction is recorded",
+        "cleanup and executable rows remain 0"
+      ]
+    }
+  ],
+  "cleanWorktreeCandidates": [
+    {
+      "branch": "codex/A05-lesson-checklist-p0",
+      "path": "/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A05-lesson-checklist-p0",
+      "head": "cef544e09bee8118ddcf3bf3005e570bdf4977e3",
+      "divergence": {
+        "behind": 2,
+        "ahead": 0
+      },
+      "lifecycleState": "clean-branch-diverged-review",
+      "nextAction": "Owning agent should convert the ahead commit to PR/archive tag or retire branch after review.",
+      "releaseSourceEligibleNow": false,
+      "blockers": [
+        "clean-diverged-worktree-still-needs-owner review",
+        "no reviewed clean release slice gate is green for this branch",
+        "no deploy or merge instruction is recorded"
+      ]
+    },
+    {
+      "branch": "codex/A05-lesson-pep-load",
+      "path": "/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A05-lesson-pep-load",
+      "head": "cef544e09bee8118ddcf3bf3005e570bdf4977e3",
+      "divergence": {
+        "behind": 2,
+        "ahead": 0
+      },
+      "lifecycleState": "clean-branch-diverged-review",
+      "nextAction": "Owning agent should convert the ahead commit to PR/archive tag or retire branch after review.",
+      "releaseSourceEligibleNow": false,
+      "blockers": [
+        "clean-diverged-worktree-still-needs-owner review",
+        "no reviewed clean release slice gate is green for this branch",
+        "no deploy or merge instruction is recorded"
+      ]
+    },
+    {
+      "branch": "codex/A05-next-item-button-scroll",
+      "path": "/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A05-next-item-button-scroll",
+      "head": "cef544e09bee8118ddcf3bf3005e570bdf4977e3",
+      "divergence": {
+        "behind": 2,
+        "ahead": 0
+      },
+      "lifecycleState": "clean-branch-diverged-review",
+      "nextAction": "Owning agent should convert the ahead commit to PR/archive tag or retire branch after review.",
+      "releaseSourceEligibleNow": false,
+      "blockers": [
+        "clean-diverged-worktree-still-needs-owner review",
+        "no reviewed clean release slice gate is green for this branch",
+        "no deploy or merge instruction is recorded"
+      ]
+    },
+    {
+      "branch": "codex/A10-A22-release-governance",
+      "path": "/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A10-A22-release-governance",
+      "head": "f8143dab082575d321a00ac9e022bf5ef86fe2d2",
+      "divergence": {
+        "behind": 2,
+        "ahead": 2
+      },
+      "lifecycleState": "clean-branch-diverged-review",
+      "nextAction": "Owning agent should convert the ahead commit to PR/archive tag or retire branch after review.",
+      "releaseSourceEligibleNow": false,
+      "blockers": [
+        "clean-diverged-worktree-still-needs-owner review",
+        "no reviewed clean release slice gate is green for this branch",
+        "no deploy or merge instruction is recorded"
+      ]
+    },
+    {
+      "branch": "codex/A19-vercel-postgres-region",
+      "path": "/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A19-vercel-postgres-region",
+      "head": "28aa4d5eaf306c169864e2bc3cebc2153fad0c90",
+      "divergence": {
+        "behind": 2,
+        "ahead": 8
+      },
+      "lifecycleState": "clean-branch-diverged-review",
+      "nextAction": "Owning agent should convert the ahead commit to PR/archive tag or retire branch after review.",
+      "releaseSourceEligibleNow": false,
+      "blockers": [
+        "clean-diverged-worktree-still-needs-owner review",
+        "no reviewed clean release slice gate is green for this branch",
+        "no deploy or merge instruction is recorded"
+      ]
+    },
+    {
+      "branch": "codex/A25-ci-backup-workflow",
+      "path": "/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A25-ci-backup-workflow",
+      "head": "e909992b098ce7f8b57ca7f7ede6c97e50ccdc45",
+      "divergence": {
+        "behind": 1,
+        "ahead": 0
+      },
+      "lifecycleState": "clean-branch-diverged-review",
+      "nextAction": "Owning agent should convert the ahead commit to PR/archive tag or retire branch after review.",
+      "releaseSourceEligibleNow": false,
+      "blockers": [
+        "clean-diverged-worktree-still-needs-owner review",
+        "no reviewed clean release slice gate is green for this branch",
+        "no deploy or merge instruction is recorded"
+      ]
+    },
+    {
+      "branch": "codex/california-practice-beta-clean",
+      "path": "/Users/dongpinhu/Desktop/MAIS-MVP-worktrees/MAIS-MVP-california-practice-beta-clean",
+      "head": "fb6776be92ca341044282558a7f7e3ce7c57edf5",
+      "divergence": {
+        "behind": 14,
+        "ahead": 1
+      },
+      "lifecycleState": "clean-branch-diverged-review",
+      "nextAction": "Owning agent should convert the ahead commit to PR/archive tag or retire branch after review.",
+      "releaseSourceEligibleNow": false,
+      "blockers": [
+        "clean-diverged-worktree-still-needs-owner review",
+        "no reviewed clean release slice gate is green for this branch",
+        "no deploy or merge instruction is recorded"
+      ]
+    },
+    {
+      "branch": "codex/s22-release-hygiene-2026-06-15",
+      "path": "/Users/dongpinhu/Desktop/MAIS-MVP-worktrees/s22-release-hygiene-2026-06-15",
+      "head": "6fc558bd1db17d7024279b82e1be4007ee18ca1a",
+      "divergence": {
+        "behind": 14,
+        "ahead": 1
+      },
+      "lifecycleState": "clean-branch-diverged-review",
+      "nextAction": "Owning agent should convert the ahead commit to PR/archive tag or retire branch after review.",
+      "releaseSourceEligibleNow": false,
+      "blockers": [
+        "clean-diverged-worktree-still-needs-owner review",
+        "no reviewed clean release slice gate is green for this branch",
+        "no deploy or merge instruction is recorded"
+      ]
+    }
+  ],
+  "runwayBlockers": [
+    {
+      "id": "a22-release-source-not-clean",
+      "owner": "A22 production reliability and release engineering",
+      "status": "blocked",
+      "count": 7636,
+      "detail": "The current root remains a dirty integration inventory and cannot be used as the release source.",
+      "releaseSourceEligibleNow": false,
+      "mergeAuthorized": false,
+      "cleanupAuthorized": false,
+      "executableNow": false,
+      "blockedAllowedSources": 4
+    },
+    {
+      "id": "current-focus-authorization-pending",
+      "owner": "A25 git hygiene and release intake",
+      "status": "waiting-for-owner-input",
+      "count": 0,
+      "detail": "A09/A17/A23 owner-package canonical authorization preview remains pending.",
+      "releaseSourceEligibleNow": false,
+      "mergeAuthorized": false,
+      "cleanupAuthorized": false,
+      "executableNow": false,
+      "blockedAllowedSources": 4
+    },
+    {
+      "id": "canonical-authorization-backlog",
+      "owner": "A25 git hygiene and release intake",
+      "status": "blocked",
+      "count": 40,
+      "detail": "Canonical authorization backlog remains before owner inputs can be green.",
+      "releaseSourceEligibleNow": false,
+      "mergeAuthorized": false,
+      "cleanupAuthorized": false,
+      "executableNow": false,
+      "blockedAllowedSources": 4
+    },
+    {
+      "id": "validation-hold",
+      "owner": "A25 git hygiene and release intake",
+      "status": "waiting-for-owner-confirmation",
+      "count": 1,
+      "detail": "Validation hold remains waiting for owner compose deletion confirmation.",
+      "releaseSourceEligibleNow": false,
+      "mergeAuthorized": false,
+      "cleanupAuthorized": false,
+      "executableNow": false,
+      "blockedAllowedSources": 4
+    },
+    {
+      "id": "package-worktree-typecheck-red",
+      "owner": "A08/A10/A22 plus owning package sessions",
+      "status": "blocked",
+      "count": 9907,
+      "detail": "Package/worktree type-check evidence remains red even though root type-check is green.",
+      "releaseSourceEligibleNow": false,
+      "mergeAuthorized": false,
+      "cleanupAuthorized": false,
+      "executableNow": false,
+      "blockedAllowedSources": 4
+    },
+    {
+      "id": "merge-not-authorized",
+      "owner": "Owner",
+      "status": "not-authorized",
+      "count": 1,
+      "detail": "No explicit merge instruction is recorded.",
+      "releaseSourceEligibleNow": false,
+      "mergeAuthorized": false,
+      "cleanupAuthorized": false,
+      "executableNow": false,
+      "blockedAllowedSources": 4
+    }
+  ],
+  "safeValidationCommands": [
+    "npm run release:dirty-map -- --assert-current --max-age-minutes 60",
+    "node coordination/release-intake/assert-a22-release-source-clean-blocker-evidence-current.mjs",
+    "node coordination/release-intake/assert-no-dirty-root-deploy-evidence-current.mjs",
+    "node coordination/release-intake/assert-validate-to-merge-exit-criteria-current.mjs",
+    "node coordination/release-intake/assert-authorization-transition-forecast-current.mjs",
+    "node coordination/release-intake/assert-seven-step-closure-bridge-current.mjs",
+    "node coordination/release-intake/assert-a22-clean-release-source-runway-current.mjs"
+  ],
+  "summary": {
+    "releaseSourceEligibleNow": false,
+    "allowedSourceOptions": 4,
+    "blockedAllowedSourceOptions": 4,
+    "cleanWorktreeCandidates": 8,
+    "dirtyWorktrees": 31,
+    "rootStatusEntries": 7636,
+    "dirtyMapExpandedEntries": 7636,
+    "ownerPackageReadyRows": 1,
+    "ownerPackageBlockedRows": 15,
+    "pendingCanonicalAuthorizationRows": 40,
+    "currentFocusRows": 0,
+    "projectedPendingCanonicalAuthorizationRows": 40,
+    "validateExitReady": false,
+    "readyForMerge": false,
+    "releaseSourceClean": false,
+    "directFailedMergeChecks": 4,
+    "cleanupAuthorizedRows": 0,
+    "executableRows": 0,
+    "sourceCurrentnessFailures": 0
+  },
+  "boundary": {
+    "evidenceOnly": true,
+    "createsClone": false,
+    "createsWorktree": false,
+    "selectsReleaseSource": false,
+    "recordsOwnerApproval": false,
+    "recordsExecutionInstruction": false,
+    "stagesFiles": false,
+    "commits": false,
+    "merges": false,
+    "pushes": false,
+    "deploys": false,
+    "cleanupAuthorized": false,
+    "executableNow": false,
+    "destructiveGitAuthorized": false,
+    "physicalLifecycleCleanupAuthorized": false
+  }
+}

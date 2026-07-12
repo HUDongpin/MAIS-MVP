@@ -1,5 +1,7 @@
 # S18 Promotability Decision - Mainland HJB High Generated Bank V3 Remediated
 
+> Superseding note, 2026-06-12: the 2026-05-24 line below saying to keep V1 as production default is historical. Current package-default governance is now resolved in `coordination/integration/2026-06-12-S23-mainland-hjb-high-default-package-governance.md`: HJB V2 is the current default / integration baseline; V3-remediated remains an explicit-export candidate and is not promoted over V2.
+
 - Date: 2026-05-24
 - Session ID: S18
 - Decision: manual-re-review-green-pending-owner-approval

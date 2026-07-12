@@ -1,10 +1,17 @@
 import type { Grade } from "@/types";
 
-export const primaryGradeIds = ["P1", "P2", "P3", "P4", "P5", "P6"] as const;
+export const primaryGradeIds = ["K", "P1", "P2", "P3", "P4", "P5", "P6"] as const;
 export const secondaryGradeIds = ["S1", "S2", "S3", "S4", "S5", "S6"] as const;
 export const gradeIds = [...primaryGradeIds, ...secondaryGradeIds] as const;
 
 export const grades: Grade[] = [
+  {
+    id: "K",
+    name: { en: "Kindergarten", zh: "幼稚園高班", zhHans: "幼儿园大班" },
+    ageRange: "5-6",
+    focus: { en: "Counting, comparing quantities, early shapes, and measurement language", zh: "數數、比較數量、初階圖形與度量語言", zhHans: "数数、比较数量、初阶图形与测量语言" },
+    color: "from-emerald-300 to-teal-500"
+  },
   {
     id: "P1",
     name: { en: "Primary 1", zh: "小一", zhHans: "小学一年级" },

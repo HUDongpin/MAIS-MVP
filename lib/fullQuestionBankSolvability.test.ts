@@ -1,9 +1,16 @@
 import assert from "node:assert/strict";
 import test from "node:test";
 import {
+  hongKongEasePracticeQuestionGenerationMetadata,
+  hongKongEasePracticeQuestions
+} from "../data/hongKongEasePracticeQuestions";
+import { contentMatchesCurriculumProfile } from "./curriculumProfile";
+import {
   buildFullQuestionBankSolvabilityAudit,
+  expectedHkBaseQuestionCount,
   buildMainlandPepFullQuestionBankQaReport,
   expectedFullQuestionBankCount,
+  expectedHongKongEasePracticeQuestionCount,
   expectedHkQuestionCount,
   expectedMainlandPepJuniorQuestionCount,
   expectedMainlandPepFullQuestionBankCount,
@@ -14,7 +21,15 @@ import {
   expectedMainlandBnuJuniorQuestionCount,
   expectedMainlandHjbJuniorQuestionCount,
   expectedMainlandHjbPrimaryQuestionCount,
-  expectedMainlandHjbHighQuestionCount
+  expectedMainlandHjbHighQuestionCount,
+  expectedUnitedStatesCaliforniaG6G12QuestionCount,
+  expectedUnitedStatesCaliforniaK5QuestionCount,
+  expectedUnitedStatesCaliforniaQuestionCount,
+  expectedUnitedStatesNorthCarolinaQuestionCount,
+  expectedUnitedStatesArkansasG6G12QuestionCount,
+  expectedUnitedStatesArkansasK5QuestionCount,
+  expectedUnitedStatesArkansasQuestionCount,
+  expectedUnitedStatesFloridaMiddleSchoolQuestionCount
 } from "./questionBankSolvability";
 
 test("full question bank is independently solvable and answer-key matched", () => {
@@ -31,7 +46,12 @@ test("full question bank is independently solvable and answer-key matched", () =
   assert.equal(report.summary.mainlandHjbJuniorQuestions, expectedMainlandHjbJuniorQuestionCount);
   assert.equal(report.summary.mainlandHjbPrimaryQuestions, expectedMainlandHjbPrimaryQuestionCount);
   assert.equal(report.summary.mainlandHjbHighQuestions, expectedMainlandHjbHighQuestionCount);
-  assert.equal(report.summary.batchCounts.hk, expectedHkQuestionCount);
+  assert.equal(report.summary.unitedStatesCaliforniaQuestions, expectedUnitedStatesCaliforniaQuestionCount);
+  assert.equal(report.summary.unitedStatesNorthCarolinaQuestions, expectedUnitedStatesNorthCarolinaQuestionCount);
+  assert.equal(report.summary.unitedStatesArkansasQuestions, expectedUnitedStatesArkansasQuestionCount);
+  assert.equal(report.summary.unitedStatesFloridaMiddleSchoolQuestions, expectedUnitedStatesFloridaMiddleSchoolQuestionCount);
+  assert.equal(report.summary.batchCounts.hk, expectedHkBaseQuestionCount);
+  assert.equal(report.summary.batchCounts["hk-ease-practice-v1"], expectedHongKongEasePracticeQuestionCount);
   assert.equal(report.summary.batchCounts["primary-rag-v1"], expectedMainlandPepPrimaryQuestionCount);
   assert.equal(report.summary.batchCounts["junior-rag-v2-1200"], expectedMainlandPepJuniorQuestionCount);
   assert.equal(report.summary.batchCounts["seed-v1"], 900);
@@ -44,14 +64,48 @@ test("full question bank is independently solvable and answer-key matched", () =
   assert.equal(report.summary.batchCounts["bnu-high-v1-approved"] ?? 0, expectedMainlandBnuHighQuestionCount);
   assert.equal(report.summary.batchCounts["hjb-junior-v2-1500"] ?? 0, expectedMainlandHjbJuniorQuestionCount);
   assert.equal(report.summary.batchCounts["hjb-primary-v1"] ?? 0, expectedMainlandHjbPrimaryQuestionCount);
-  assert.equal(report.summary.batchCounts["hjb-v1"] ?? 0, 1500);
-  assert.equal(report.summary.batchCounts["hjb-v2"] ?? 0, 1500);
-  assert.equal(report.summary.batchCounts["hjb-v3-remediated"] ?? 0, 1500);
-  assert.equal(report.summary.batchCounts["hjb-v4-remediated"] ?? 0, 1500);
+  assert.equal(report.summary.batchCounts["hjb-v1"] ?? 0, 0);
+  assert.equal(report.summary.batchCounts["hjb-v2"] ?? 0, expectedMainlandHjbHighQuestionCount);
+  assert.equal(report.summary.batchCounts["hjb-v3-remediated"] ?? 0, 0);
+  assert.equal(report.summary.batchCounts["hjb-v4-remediated"] ?? 0, 0);
+  assert.equal(report.summary.batchCounts["us-ca-k5-knowledge-point-practice-v1"] ?? 0, expectedUnitedStatesCaliforniaK5QuestionCount);
+  assert.equal(report.summary.batchCounts["us-ca-k-g5-v3-deepseek"] ?? 0, 0);
+  assert.equal(report.summary.batchCounts["us-ca-g6-g12-v2"] ?? 0, expectedUnitedStatesCaliforniaG6G12QuestionCount);
+  assert.equal(report.summary.batchCounts["us-ca-live-v1"] ?? 0, 0);
+  assert.equal(report.summary.batchCounts["us-nc-live-v1"] ?? 0, expectedUnitedStatesNorthCarolinaQuestionCount);
+  assert.equal(report.summary.batchCounts["us-ar-k-g5-v1"] ?? 0, expectedUnitedStatesArkansasK5QuestionCount);
+  assert.equal(report.summary.batchCounts["us-ar-g6-g12-v1"] ?? 0, expectedUnitedStatesArkansasG6G12QuestionCount);
+  assert.equal(report.summary.batchCounts["us-fl-ms-v1"] ?? 0, expectedUnitedStatesFloridaMiddleSchoolQuestionCount);
   assert.equal(report.rows.length, expectedFullQuestionBankCount);
   assert.equal(report.summary.passRows, expectedFullQuestionBankCount);
   assert.equal(report.summary.failingRows, 0);
   assert.deepEqual(report.failingRows, []);
+});
+
+test("Hong Kong EASE Practice V1 exposes only S18 green text-only questions across HK publishers", () => {
+  assert.equal(hongKongEasePracticeQuestions.length, expectedHongKongEasePracticeQuestionCount);
+  assert.equal(Object.keys(hongKongEasePracticeQuestionGenerationMetadata).length, expectedHongKongEasePracticeQuestionCount);
+
+  const ids = new Set(hongKongEasePracticeQuestions.map((question) => question.id));
+  assert.equal(ids.size, hongKongEasePracticeQuestions.length);
+
+  for (const question of hongKongEasePracticeQuestions) {
+    const metadata = hongKongEasePracticeQuestionGenerationMetadata[question.id];
+    assert.ok(metadata, `${question.id} should have EASE QA metadata`);
+    assert.equal(question.curriculumTrack, "HK");
+    assert.equal(question.region, "HK");
+    assert.equal(question.publisher, undefined);
+    assert.equal(question.questionAssets, undefined);
+    assert.equal(metadata.sourceDistanceStatus, "passed-s18-ease-text-only-source-scan");
+    assert.equal(metadata.mathQaStatus, "pass");
+    assert.equal(metadata.answerQaStatus, "pass");
+    assert.equal(metadata.assetQaStatus, "text-only");
+    assert.equal(metadata.manualQaStatus, "approved-text-only-green-batch");
+    assert.ok(metadata.independentAnswer.trim());
+    assert.ok(question.acceptedAnswers?.includes(metadata.independentAnswer) || question.answer === metadata.independentAnswer);
+    assert.ok(contentMatchesCurriculumProfile(question, { region: "HK", publisher: "HK_UNITED_PRIME_MIA" }));
+    assert.ok(contentMatchesCurriculumProfile(question, { region: "HK", publisher: "HK_EPH_MIF" }));
+  }
 });
 
 test("Mainland PEP full question bank emits row-level solvability and answer-key QA verdicts", () => {

@@ -2,9 +2,9 @@
 
 import { useEffect, useId, useMemo, useRef, useState, type KeyboardEvent } from "react";
 import { primaryGrades, secondaryGrades } from "@/data/grades";
-import { formatGradeLabel } from "@/lib/i18n";
+import { formatGradeLabelForCurriculum } from "@/lib/i18n";
 import { cn } from "@/lib/utils";
-import type { Grade, GradeId, Language, LocalizedText } from "@/types";
+import type { CurriculumTrack, Grade, GradeId, Language, LocalizedText } from "@/types";
 
 type GradeFilter = GradeId | "all";
 
@@ -12,6 +12,7 @@ type PracticeGradeRadarSelectProps = {
   value: GradeFilter;
   onChange: (value: GradeFilter) => void;
   language: Language;
+  curriculumTrack?: CurriculumTrack;
   text: (localized: LocalizedText) => string;
   t: (localized: LocalizedText) => string;
 };
@@ -80,16 +81,15 @@ function ageRangeLabel(ageRange: string, language: Language) {
   return `${normalized} 歲`;
 }
 
-function gradeShortLabel(grade: Grade, language: Language) {
-  if (language === "en") return grade.id;
-  return formatGradeLabel(grade.id, language, true);
+function gradeShortLabel(grade: Grade, language: Language, curriculumTrack: CurriculumTrack) {
+  return formatGradeLabelForCurriculum(grade.id, language, curriculumTrack, true);
 }
 
 function optionId(listboxId: string, value: GradeFilter) {
   return `${listboxId}-option-${value}`;
 }
 
-export function PracticeGradeRadarSelect({ value, onChange, language, text, t }: PracticeGradeRadarSelectProps) {
+export function PracticeGradeRadarSelect({ value, onChange, language, curriculumTrack = "HK", text, t }: PracticeGradeRadarSelectProps) {
   const [open, setOpen] = useState(false);
   const [activeStage, setActiveStage] = useState<"primary" | "secondary">(() => (typeof value === "string" && value.startsWith("S") ? "secondary" : "primary"));
   const [activeIndex, setActiveIndex] = useState(0);
@@ -100,8 +100,8 @@ export function PracticeGradeRadarSelect({ value, onChange, language, text, t }:
   const options = useMemo<GradeRadarOption[]>(() => {
     const gradeOptions = [...primaryGrades, ...secondaryGrades].map((grade) => ({
       value: grade.id,
-      label: text(grade.name),
-      shortLabel: gradeShortLabel(grade, language),
+      label: formatGradeLabelForCurriculum(grade.id, language, curriculumTrack),
+      shortLabel: gradeShortLabel(grade, language, curriculumTrack),
       focus: text(grade.focus),
       stage: grade.id.startsWith("P") ? "primary" : "secondary",
       grade
@@ -117,7 +117,7 @@ export function PracticeGradeRadarSelect({ value, onChange, language, text, t }:
       },
       ...gradeOptions
     ];
-  }, [language, t, text]);
+  }, [curriculumTrack, language, t, text]);
 
   const selectedOption = options.find((option) => option.value === value) ?? options[0];
   const stagedOptions = options.filter((option) => option.stage === activeStage);

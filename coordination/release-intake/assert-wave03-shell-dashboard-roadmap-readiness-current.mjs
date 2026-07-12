@@ -1,0 +1,288 @@
+#!/usr/bin/env node
+import { execFileSync } from "node:child_process";
+import crypto from "node:crypto";
+import fs from "node:fs";
+import path from "node:path";
+
+const root = git(["rev-parse", "--show-toplevel"], process.cwd());
+const outputPath = path.join(root, "coordination", "release-intake", "latest-A25-wave03-shell-dashboard-roadmap-readiness-current-gate.json");
+const json = process.argv.includes("--json");
+
+const paths = {
+  dirtyMap: "coordination/release-intake/latest-A25-dirty-tree-map.json",
+  executionSequence: "coordination/release-intake/latest-A25-dirty-worktree-closure-execution-sequence.json",
+  readiness: "coordination/release-intake/latest-A25-wave03-shell-dashboard-roadmap-readiness.json",
+  readinessMarkdown: "coordination/release-intake/latest-A25-wave03-shell-dashboard-roadmap-readiness.md"
+};
+
+const packageConfigs = [
+  {
+    packageId: "a01-app-shell",
+    name: "A01 app shell",
+    worktreePath: "/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A01-app-shell-closure",
+    pathspecs: ["coordination/release-intake/latest-A25-owner-a01-app-shell-lead.pathspec"],
+    checkNames: ["typeCheck", "appShellPlaywright"]
+  },
+  {
+    packageId: "a02-a15-dashboard-adaptive",
+    name: "A02/A15 dashboard adaptive",
+    worktreePath: "/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A02-A15-dashboard-adaptive-closure",
+    pathspecs: [
+      "coordination/release-intake/latest-A25-owner-a02-dashboard-lead.pathspec",
+      "coordination/release-intake/latest-A25-owner-a15-adaptive-engine-lead.pathspec"
+    ],
+    checkNames: ["testAnalytics", "typeCheck", "dashboardAdaptivePlaywright"]
+  },
+  {
+    packageId: "a03-roadmap",
+    name: "A03 roadmap",
+    worktreePath: "/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A03-roadmap-closure",
+    pathspecs: ["coordination/release-intake/latest-A25-owner-a03-curriculum-roadmap-lead.pathspec"],
+    checkNames: ["typeCheck", "roadmapPlaywright"]
+  }
+];
+
+function git(args, cwd) {
+  return execFileSync("git", args, {
+    cwd,
+    encoding: "utf8",
+    maxBuffer: 512 * 1024 * 1024,
+    stdio: ["ignore", "pipe", "pipe"]
+  }).trim();
+}
+
+function exists(relativePath) {
+  return fs.existsSync(path.join(root, relativePath));
+}
+
+function readJson(relativePath) {
+  return JSON.parse(fs.readFileSync(path.join(root, relativePath), "utf8"));
+}
+
+function readText(relativePath) {
+  return fs.readFileSync(path.join(root, relativePath), "utf8");
+}
+
+function sha256(value) {
+  return crypto.createHash("sha256").update(value).digest("hex");
+}
+
+function statusEntries(cwd) {
+  const output = execFileSync("git", ["status", "--porcelain=v1", "-uall"], {
+    cwd,
+    encoding: "utf8",
+    maxBuffer: 512 * 1024 * 1024,
+    stdio: ["ignore", "pipe", "pipe"]
+  });
+  return output.split("\n").filter(Boolean);
+}
+
+function statusPath(line) {
+  return line.includes(" -> ") ? line.split(" -> ").pop() : line.slice(3);
+}
+
+function pathspecInfo(files) {
+  const contents = files.map((file) => `${file}\n${readText(file)}`).join("\n---\n");
+  const allowedPaths = new Set(
+    files.flatMap((file) => readText(file).split("\n").map((line) => line.trim()).filter(Boolean))
+  );
+  return {
+    files,
+    checksum: sha256(contents),
+    allowedPaths
+  };
+}
+
+function coverage(entries, allowedPaths) {
+  const uncovered = entries
+    .map((line) => ({ line, path: statusPath(line) }))
+    .filter((entry) => !allowedPaths.has(entry.path));
+  return {
+    statusEntries: entries.length,
+    coveredEntries: entries.length - uncovered.length,
+    uncoveredEntries: uncovered.length,
+    uncovered
+  };
+}
+
+function sameJson(left, right) {
+  return JSON.stringify(left ?? null) === JSON.stringify(right ?? null);
+}
+
+function wave03(sequence) {
+  return (sequence.waves ?? []).find((wave) => wave.waveId === "wave-03-shell-dashboard-roadmap");
+}
+
+function expectedCoverage(config) {
+  const info = pathspecInfo(config.pathspecs);
+  if (!fs.existsSync(config.worktreePath)) {
+    return {
+      pathspec: info,
+      worktree: {
+        exists: false,
+        branch: "",
+        head: "",
+        statusSignature: "",
+        nodeModulesPresent: false
+      },
+      coverage: {
+        statusEntries: 0,
+        coveredEntries: 0,
+        uncoveredEntries: 0,
+        uncovered: []
+      }
+    };
+  }
+
+  const entries = statusEntries(config.worktreePath);
+  return {
+    pathspec: info,
+    worktree: {
+      exists: true,
+      branch: git(["branch", "--show-current"], config.worktreePath),
+      head: git(["rev-parse", "--short", "HEAD"], config.worktreePath),
+      statusSignature: sha256(entries.slice().sort().join("\0")),
+      nodeModulesPresent: fs.existsSync(path.join(config.worktreePath, "node_modules"))
+    },
+    coverage: coverage(entries, info.allowedPaths)
+  };
+}
+
+function expectedReasons(config, pkg, current) {
+  const reasons = [];
+  if (!current.worktree.exists) return [`${config.name} package worktree is missing`];
+  if (current.coverage.uncoveredEntries > 0) {
+    reasons.push(`${config.name} has ${current.coverage.uncoveredEntries} dirty entries outside its pathspec union`);
+  }
+  if (current.worktree.exists && !current.worktree.nodeModulesPresent) reasons.push(`${config.name} node_modules is missing`);
+  for (const checkName of config.checkNames) {
+    const check = pkg.checks?.[checkName];
+    if (check?.skipped) reasons.push(`${config.name} ${checkName} skipped: ${check.skipReason}`);
+    else if (check?.passed === false) reasons.push(`${config.name} ${checkName} failed`);
+  }
+  return reasons;
+}
+
+function summarize(packages) {
+  const checks = packages.flatMap((pkg) => Object.values(pkg.checks ?? {}));
+  return {
+    packages: packages.length,
+    readyPackages: packages.filter((pkg) => pkg.ready).length,
+    missingWorktrees: packages.filter((pkg) => !pkg.worktree.exists).length,
+    statusEntries: packages.reduce((sum, pkg) => sum + pkg.pathspecCoverage.statusEntries, 0),
+    coveredEntries: packages.reduce((sum, pkg) => sum + pkg.pathspecCoverage.coveredEntries, 0),
+    uncoveredEntries: packages.reduce((sum, pkg) => sum + pkg.pathspecCoverage.uncoveredEntries, 0),
+    checkCount: checks.length,
+    passedChecks: checks.filter((check) => check.passed).length,
+    failedChecks: checks.filter((check) => !check.passed && !check.skipped).length,
+    skippedChecks: checks.filter((check) => check.skipped).length,
+    typeCheckErrors: packages.reduce((sum, pkg) => sum + (pkg.typeCheck?.summary?.errorLines ?? 0), 0)
+  };
+}
+
+function main() {
+  const failures = [];
+  for (const requiredPath of Object.values(paths)) {
+    if (!exists(requiredPath)) failures.push(`missing required file: ${requiredPath}`);
+  }
+  for (const config of packageConfigs) {
+    for (const pathspec of config.pathspecs) {
+      if (!exists(pathspec)) failures.push(`missing required file: ${pathspec}`);
+    }
+  }
+  if (failures.length > 0) return finish({ failures, commitReady: false });
+
+  const dirtyMap = readJson(paths.dirtyMap);
+  const sequence = readJson(paths.executionSequence);
+  const readiness = readJson(paths.readiness);
+  const sequenceWave = wave03(sequence);
+
+  if (!sequenceWave) failures.push("Wave 03 is missing from the closure execution sequence");
+  if (readiness.dirtyMapStatusSignature !== dirtyMap.statusSignature) failures.push("readiness dirty-map signature is stale");
+  if (readiness.expandedStatusEntries !== dirtyMap.statusCounts.expandedStatusEntries) {
+    failures.push("readiness expanded dirty entry count is stale");
+  }
+  if (readiness.executionSequenceGeneratedAt !== sequence.generatedAt) failures.push("readiness sequence timestamp is stale");
+  if (readiness.wave?.waveId !== "wave-03-shell-dashboard-roadmap") failures.push("readiness wave id is stale");
+  if (sequenceWave && !sameJson(readiness.wave?.ownerApprovals, sequenceWave.ownerApprovals.map((row) => row.approvalId))) {
+    failures.push("readiness owner approval list is stale");
+  }
+  if (sequenceWave && !sameJson(readiness.wave?.physicalLifecycleApprovals, sequenceWave.physicalLifecycleApprovals.map((row) => row.approvalId))) {
+    failures.push("readiness physical lifecycle approval list is stale");
+  }
+
+  const packagesById = new Map((readiness.packages ?? []).map((pkg) => [pkg.packageId, pkg]));
+  const allExpectedReasons = [];
+  for (const config of packageConfigs) {
+    const pkg = packagesById.get(config.packageId);
+    if (!pkg) {
+      failures.push(`missing readiness package: ${config.packageId}`);
+      continue;
+    }
+
+    const current = expectedCoverage(config);
+    if (!sameJson(pkg.worktree, { path: config.worktreePath, ...current.worktree })) failures.push(`${config.packageId}: worktree metadata is stale`);
+    if (pkg.pathspecs?.checksum !== current.pathspec.checksum) failures.push(`${config.packageId}: pathspec checksum is stale`);
+    if (pkg.pathspecs?.allowedPaths !== current.pathspec.allowedPaths.size) failures.push(`${config.packageId}: pathspec allowed path count is stale`);
+    if (!sameJson(pkg.pathspecCoverage, current.coverage)) failures.push(`${config.packageId}: pathspec coverage is stale`);
+
+    for (const checkName of config.checkNames) {
+      const check = pkg.checks?.[checkName];
+      if (!check) failures.push(`${config.packageId}: missing readiness check ${checkName}`);
+      if (typeof check?.passed !== "boolean") failures.push(`${config.packageId} ${checkName}: passed must be boolean`);
+      if (!check?.skipped && typeof check?.status !== "number") failures.push(`${config.packageId} ${checkName}: status must be numeric unless skipped`);
+      if (check?.skipped && typeof check.skipReason !== "string") failures.push(`${config.packageId} ${checkName}: skipped checks need a reason`);
+    }
+    if (typeof pkg.typeCheck?.summary?.errorLines !== "number") failures.push(`${config.packageId}: typeCheck summary errorLines must be numeric`);
+
+    const reasons = expectedReasons(config, pkg, current);
+    allExpectedReasons.push(...reasons);
+    if (!sameJson(pkg.blockingReasons, reasons)) failures.push(`${config.packageId}: blocking reasons are stale`);
+    if (pkg.ready !== (reasons.length === 0)) failures.push(`${config.packageId}: ready flag is stale`);
+  }
+
+  const expectedSummary = summarize(readiness.packages ?? []);
+  if (!sameJson(readiness.summary, expectedSummary)) failures.push("readiness summary is stale");
+  if (!sameJson(readiness.blockingReasons, allExpectedReasons)) failures.push("readiness blocking reasons are stale");
+  if (readiness.commitReady !== (allExpectedReasons.length === 0)) failures.push("readiness commitReady is stale");
+  if (readiness.cleanupAuthorized !== false) failures.push("readiness cleanupAuthorized must be false");
+  if (readiness.executableNow !== false) failures.push("readiness executableNow must be false");
+
+  const markdown = readText(paths.readinessMarkdown);
+  if (markdown.includes("undefined")) failures.push("readiness markdown contains undefined");
+  if (!markdown.includes("readiness evidence only")) failures.push("readiness markdown missing non-authorization boundary");
+
+  finish({
+    checkedAt: new Date().toISOString(),
+    dirtyMapStatusSignature: dirtyMap.statusSignature,
+    expandedStatusEntries: dirtyMap.statusCounts.expandedStatusEntries,
+    commitReady: readiness.commitReady,
+    readyPackages: readiness.summary?.readyPackages ?? null,
+    missingWorktrees: readiness.summary?.missingWorktrees ?? null,
+    statusEntries: readiness.summary?.statusEntries ?? null,
+    uncoveredEntries: readiness.summary?.uncoveredEntries ?? null,
+    passedChecks: readiness.summary?.passedChecks ?? null,
+    failedChecks: readiness.summary?.failedChecks ?? null,
+    skippedChecks: readiness.summary?.skippedChecks ?? null,
+    typeCheckErrors: readiness.summary?.typeCheckErrors ?? null,
+    failures
+  });
+}
+
+function finish(payload) {
+  fs.writeFileSync(outputPath, `${JSON.stringify(payload, null, 2)}\n`);
+  if (json) {
+    console.log(JSON.stringify(payload, null, 2));
+  } else {
+    console.log("A25 Wave 03 shell dashboard roadmap readiness gate");
+    console.log(`Commit ready: ${payload.commitReady ? "yes" : "no"}`);
+    console.log(`Failures: ${payload.failures.length}`);
+  }
+  if (payload.failures.length > 0) {
+    console.error("A25 Wave 03 shell dashboard roadmap readiness gate failed.");
+    for (const failure of payload.failures) console.error(`- ${failure}`);
+    process.exit(1);
+  }
+}
+
+main();

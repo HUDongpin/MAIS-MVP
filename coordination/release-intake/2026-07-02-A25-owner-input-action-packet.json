@@ -1,0 +1,569 @@
+{
+  "generatedAt": "2026-07-02T15:48:19.368Z",
+  "repoRoot": "/Users/dongpinhu/Desktop/MAIS-MVP",
+  "dirtyMapStatusSignature": "aab9818713f7df7ad2d9e281c7534227bc41a877b346ef4339ea49f3b0123cb2",
+  "expandedStatusEntries": 3505,
+  "sourceArtifacts": {
+    "ownerClosureInputReadinessGeneratedAt": "2026-07-02T15:48:19.177Z",
+    "nextOwnerAuthorizationsStarterGeneratedAt": "2026-07-02T15:48:18.578Z",
+    "ownerPackageBlockerReportRecordsTemplateGeneratedAt": "2026-07-02T15:47:38.166Z",
+    "pendingOwnerBlockerReportBundleGeneratedAt": "2026-07-02T15:48:19.280Z",
+    "nextOwnerDecisionFocusGeneratedAt": "2026-07-02T15:48:19.088Z"
+  },
+  "requiredInputs": [
+    {
+      "id": "canonical-next-owner-authorizations",
+      "label": "Canonical next-owner authorizations",
+      "path": "coordination/release-intake/latest-A25-next-owner-authorizations.json",
+      "filePresent": true,
+      "totalRows": 67,
+      "validRows": 0,
+      "pendingRows": 67,
+      "ready": false,
+      "status": "waiting-for-owner-input",
+      "targetRole": "canonical authorization input",
+      "createOrEdit": "edit existing file"
+    },
+    {
+      "id": "wave01-package-resync-authorizations",
+      "label": "Wave 01 package-resync owner authorizations",
+      "path": "coordination/release-intake/latest-A25-wave01-package-resync-owner-authorizations.json",
+      "filePresent": true,
+      "totalRows": 7,
+      "validRows": 0,
+      "pendingRows": 7,
+      "ready": false,
+      "status": "waiting-for-owner-input",
+      "targetRole": "Wave 01 package-resync compatibility input",
+      "createOrEdit": "edit existing file"
+    },
+    {
+      "id": "owner-package-blocker-report-records",
+      "label": "Owner package blocker report records",
+      "path": "coordination/release-intake/latest-A25-owner-package-blocker-report-records.json",
+      "filePresent": true,
+      "totalRows": 10,
+      "validRows": 0,
+      "pendingRows": 10,
+      "ready": false,
+      "status": "waiting-for-owner-input",
+      "targetRole": "owner blocker report records input",
+      "createOrEdit": "edit existing file"
+    }
+  ],
+  "authorizationGroups": [
+    {
+      "approvalKind": "wave01-package-resync",
+      "rows": 7,
+      "approvalIds": [
+        "wave01-resync-01-tsconfig-json",
+        "wave01-resync-02-coordination-release-intake-2026-06-30-a25-dirty-tree-map-20260630t072027z-json",
+        "wave01-resync-03-coordination-release-intake-2026-06-30-a25-dirty-tree-map-20260630t072027z-md",
+        "wave01-resync-04-coordination-release-intake-2026-06-30-a25-dirty-tree-map-20260630t073137z-json",
+        "wave01-resync-05-coordination-release-intake-2026-06-30-a25-dirty-tree-map-20260630t073137z-md",
+        "wave01-resync-06-coordination-release-intake-2026-06-30-a25-dirty-tree-map-20260630t130221z-json",
+        "wave01-resync-07-coordination-release-intake-2026-06-30-a25-dirty-tree-map-20260630t130221z-md"
+      ],
+      "owners": [
+        "A10 tooling, docs, and report",
+        "A25 git hygiene and release intake"
+      ],
+      "sampleSubjects": [
+        "tsconfig.json",
+        "coordination/release-intake/2026-06-30-A25-dirty-tree-map-20260630T072027Z.json",
+        "coordination/release-intake/2026-06-30-A25-dirty-tree-map-20260630T072027Z.md",
+        "coordination/release-intake/2026-06-30-A25-dirty-tree-map-20260630T073137Z.json",
+        "coordination/release-intake/2026-06-30-A25-dirty-tree-map-20260630T073137Z.md"
+      ],
+      "cleanupAuthorizedRows": 0,
+      "executableRows": 0
+    },
+    {
+      "approvalKind": "owner-package",
+      "rows": 24,
+      "approvalIds": [
+        "a25-git-hygiene-and-release-intake",
+        "a22-production-reliability-and-release-engineering",
+        "a06-visualization-lead",
+        "a12-backend-api-platform",
+        "a11-qa-and-release-quality",
+        "a10-tooling-docs-and-report",
+        "a18-curriculum-qa-a21-content-pipeline",
+        "a05-lesson-lead",
+        "a21-content-pipeline-and-rag-operations",
+        "a04-practice-lead",
+        "a03-curriculum-roadmap-lead",
+        "a13-teacher-console",
+        "a01-app-shell-lead",
+        "a02-dashboard-lead",
+        "a20-game-design-and-game-based-learning",
+        "a07-ai-tutor-lead",
+        "a08-state-and-analytics-lead",
+        "a15-adaptive-engine-lead",
+        "a24-illustration-exact-layer",
+        "a14-parent-console",
+        "a16-research-and-learning-science",
+        "a09-copy-i18n-accessibility",
+        "a17-gamification-and-motivation",
+        "a23-integration-and-promotion-lead"
+      ],
+      "owners": [
+        "A01 app shell lead",
+        "A02 dashboard lead",
+        "A03 curriculum roadmap lead",
+        "A04 practice lead",
+        "A05 lesson lead",
+        "A06 visualization lead",
+        "A07 AI tutor lead",
+        "A08 state and analytics lead",
+        "A09 copy, i18n, accessibility",
+        "A10 tooling, docs, and report",
+        "A11 QA and release quality",
+        "A12 backend/API platform",
+        "A13 teacher console",
+        "A14 parent console",
+        "A15 adaptive engine lead",
+        "A16 research and learning science",
+        "A17 gamification and motivation",
+        "A18 curriculum QA / A21 content pipeline",
+        "A20 game design and game-based learning",
+        "A21 content pipeline and RAG operations",
+        "A22 production reliability and release engineering",
+        "A23 integration and promotion lead",
+        "A24 illustration exact-layer",
+        "A25 git hygiene and release intake"
+      ],
+      "sampleSubjects": [
+        "coordination/release-intake/latest-A25-effective-owner-a25-git-hygiene-and-release-intake.pathspec",
+        "coordination/release-intake/latest-A25-effective-owner-a22-production-reliability-and-release-engineering.pathspec",
+        "coordination/release-intake/latest-A25-effective-owner-a06-visualization-lead.pathspec",
+        "coordination/release-intake/latest-A25-effective-owner-a12-backend-api-platform.pathspec",
+        "coordination/release-intake/latest-A25-effective-owner-a11-qa-and-release-quality.pathspec"
+      ],
+      "cleanupAuthorizedRows": 0,
+      "executableRows": 0
+    },
+    {
+      "approvalKind": "physical-lifecycle",
+      "rows": 33,
+      "approvalIds": [
+        "root-main",
+        "codex-a01-app-shell-closure",
+        "codex-a01-shell-lazy-load",
+        "codex-a02-a15-dashboard-adaptive-closure",
+        "codex-a03-roadmap-closure",
+        "codex-a04-practice-closure",
+        "codex-a05-lesson-closure",
+        "codex-a06-manim-three-closure",
+        "codex-a06-visualization-closure",
+        "codex-a07-a15-a08-ai-adaptive-types",
+        "codex-a07-ai-tutor-classroom-switches",
+        "codex-a07-ai-tutor-closure",
+        "codex-a08-a12-shared-contract-closure",
+        "codex-a09-copy-i18n-accessibility-closure",
+        "codex-a10-a22-a08-a12-a06-compose-20260628",
+        "codex-a10-a22-release-governance",
+        "codex-a11-regression-evidence-closure",
+        "codex-a12-google-oauth-login",
+        "codex-a12-userstore-storage-contract",
+        "codex-a13-a14-console-closure",
+        "codex-a16-research-evidence-closure",
+        "codex-a17-a20-game-motivation-closure",
+        "codex-a18-a21-content-evidence-closure",
+        "codex-a19-vercel-postgres-region",
+        "codex-a22-missing-module-release-slice",
+        "codex-a22-next-15-5-19-audit",
+        "codex-a22-p1-release-hygiene-security",
+        "codex-a22-us-region-alignment",
+        "codex-a25-dirty-closure-governance",
+        "codex-a25-full-dirty-compose-verification",
+        "codex-visualization-production-release",
+        "codex-california-practice-beta-clean",
+        "codex-s22-release-hygiene-2026-06-15"
+      ],
+      "owners": [
+        "A01",
+        "A02, A15",
+        "A03",
+        "A04",
+        "A05",
+        "A06",
+        "A06, A08, A10, A12, A22",
+        "A06, A22",
+        "A07",
+        "A07, A08, A15",
+        "A08, A12",
+        "A09",
+        "A10, A22",
+        "A11",
+        "A12",
+        "A13, A14",
+        "A16",
+        "A17, A20",
+        "A18, A21",
+        "A19",
+        "A21, A18, A04, A22",
+        "A22",
+        "A22, A10",
+        "A25",
+        "A25, A10, A22, effective file owners"
+      ],
+      "sampleSubjects": [
+        "main",
+        "codex/A01-app-shell-closure",
+        "codex/A01-shell-lazy-load",
+        "codex/A02-A15-dashboard-adaptive-closure",
+        "codex/A03-roadmap-closure"
+      ],
+      "cleanupAuthorizedRows": 0,
+      "executableRows": 0
+    },
+    {
+      "approvalKind": "a22-generated-artifact-residual-cleanup",
+      "rows": 3,
+      "approvalIds": [
+        "a22-generated-residual-s11-parent-audit-next3",
+        "a22-generated-residual-s11-parent-audit-next4",
+        "a22-generated-residual-tmp"
+      ],
+      "owners": [
+        "A22 production reliability and release engineering"
+      ],
+      "sampleSubjects": [
+        ".s11-parent-audit-next3",
+        ".s11-parent-audit-next4",
+        ".tmp"
+      ],
+      "cleanupAuthorizedRows": 0,
+      "executableRows": 0
+    }
+  ],
+  "pendingOwnerBlockerReports": [
+    {
+      "reportId": "owner-package-blocker-report-a06",
+      "agentId": "A06",
+      "owner": "A06 visualization lead",
+      "packageRows": 14,
+      "writeScopeFiles": 6,
+      "coordinationRequiredFiles": 5,
+      "template": "coordination/release-intake/latest-A25-pending-owner-blocker-report-a06.md",
+      "cleanupAuthorized": false,
+      "executableNow": false
+    },
+    {
+      "reportId": "owner-package-blocker-report-a13",
+      "agentId": "A13",
+      "owner": "A13 teacher console lead",
+      "packageRows": 13,
+      "writeScopeFiles": 6,
+      "coordinationRequiredFiles": 6,
+      "template": "coordination/release-intake/latest-A25-pending-owner-blocker-report-a13.md",
+      "cleanupAuthorized": false,
+      "executableNow": false
+    },
+    {
+      "reportId": "owner-package-blocker-report-a18",
+      "agentId": "A18",
+      "owner": "A18 curriculum QA and content quality lead",
+      "packageRows": 4,
+      "writeScopeFiles": 0,
+      "coordinationRequiredFiles": 6,
+      "template": "coordination/release-intake/latest-A25-pending-owner-blocker-report-a18.md",
+      "cleanupAuthorized": false,
+      "executableNow": false
+    },
+    {
+      "reportId": "owner-package-blocker-report-a03",
+      "agentId": "A03",
+      "owner": "A03 curriculum roadmap lead",
+      "packageRows": 3,
+      "writeScopeFiles": 1,
+      "coordinationRequiredFiles": 5,
+      "template": "coordination/release-intake/latest-A25-pending-owner-blocker-report-a03.md",
+      "cleanupAuthorized": false,
+      "executableNow": false
+    },
+    {
+      "reportId": "owner-package-blocker-report-a04",
+      "agentId": "A04",
+      "owner": "A04 practice lead",
+      "packageRows": 2,
+      "writeScopeFiles": 1,
+      "coordinationRequiredFiles": 1,
+      "template": "coordination/release-intake/latest-A25-pending-owner-blocker-report-a04.md",
+      "cleanupAuthorized": false,
+      "executableNow": false
+    },
+    {
+      "reportId": "owner-package-blocker-report-a20",
+      "agentId": "A20",
+      "owner": "A20 game design and game-based learning lead",
+      "packageRows": 8,
+      "writeScopeFiles": 2,
+      "coordinationRequiredFiles": 2,
+      "template": "coordination/release-intake/latest-A25-pending-owner-blocker-report-a20.md",
+      "cleanupAuthorized": false,
+      "executableNow": false
+    },
+    {
+      "reportId": "owner-package-blocker-report-a15",
+      "agentId": "A15",
+      "owner": "A15 adaptive engine lead",
+      "packageRows": 2,
+      "writeScopeFiles": 1,
+      "coordinationRequiredFiles": 1,
+      "template": "coordination/release-intake/latest-A25-pending-owner-blocker-report-a15.md",
+      "cleanupAuthorized": false,
+      "executableNow": false
+    },
+    {
+      "reportId": "owner-package-blocker-report-a11",
+      "agentId": "A11",
+      "owner": "A11 QA and release quality lead",
+      "packageRows": 1,
+      "writeScopeFiles": 1,
+      "coordinationRequiredFiles": 0,
+      "template": "coordination/release-intake/latest-A25-pending-owner-blocker-report-a11.md",
+      "cleanupAuthorized": false,
+      "executableNow": false
+    },
+    {
+      "reportId": "owner-package-blocker-report-a12",
+      "agentId": "A12",
+      "owner": "A12 backend/API platform lead",
+      "packageRows": 2,
+      "writeScopeFiles": 1,
+      "coordinationRequiredFiles": 2,
+      "template": "coordination/release-intake/latest-A25-pending-owner-blocker-report-a12.md",
+      "cleanupAuthorized": false,
+      "executableNow": false
+    },
+    {
+      "reportId": "owner-package-blocker-report-a07",
+      "agentId": "A07",
+      "owner": "A07 AI tutor lead",
+      "packageRows": 1,
+      "writeScopeFiles": 1,
+      "coordinationRequiredFiles": 0,
+      "template": "coordination/release-intake/latest-A25-pending-owner-blocker-report-a07.md",
+      "cleanupAuthorized": false,
+      "executableNow": false
+    }
+  ],
+  "decisionFocus": {
+    "wave01PackageResyncApprovals": [
+      {
+        "approvalId": "wave01-resync-01-tsconfig-json",
+        "owner": "A10 tooling, docs, and report",
+        "subject": "tsconfig.json",
+        "path": "tsconfig.json",
+        "selectedAction": "owner-approved-package-restore",
+        "exactCommand": "git restore --source=HEAD -- tsconfig.json",
+        "cleanupAuthorized": false,
+        "executableNow": false
+      },
+      {
+        "approvalId": "wave01-resync-02-coordination-release-intake-2026-06-30-a25-dirty-tree-map-20260630t072027z-json",
+        "owner": "A25 git hygiene and release intake",
+        "subject": "coordination/release-intake/2026-06-30-A25-dirty-tree-map-20260630T072027Z.json",
+        "path": "coordination/release-intake/2026-06-30-A25-dirty-tree-map-20260630T072027Z.json",
+        "selectedAction": "owner-approved-package-untracked-clean",
+        "exactCommand": "git clean -f -- coordination/release-intake/2026-06-30-A25-dirty-tree-map-20260630T072027Z.json",
+        "cleanupAuthorized": false,
+        "executableNow": false
+      },
+      {
+        "approvalId": "wave01-resync-03-coordination-release-intake-2026-06-30-a25-dirty-tree-map-20260630t072027z-md",
+        "owner": "A25 git hygiene and release intake",
+        "subject": "coordination/release-intake/2026-06-30-A25-dirty-tree-map-20260630T072027Z.md",
+        "path": "coordination/release-intake/2026-06-30-A25-dirty-tree-map-20260630T072027Z.md",
+        "selectedAction": "owner-approved-package-untracked-clean",
+        "exactCommand": "git clean -f -- coordination/release-intake/2026-06-30-A25-dirty-tree-map-20260630T072027Z.md",
+        "cleanupAuthorized": false,
+        "executableNow": false
+      },
+      {
+        "approvalId": "wave01-resync-04-coordination-release-intake-2026-06-30-a25-dirty-tree-map-20260630t073137z-json",
+        "owner": "A25 git hygiene and release intake",
+        "subject": "coordination/release-intake/2026-06-30-A25-dirty-tree-map-20260630T073137Z.json",
+        "path": "coordination/release-intake/2026-06-30-A25-dirty-tree-map-20260630T073137Z.json",
+        "selectedAction": "owner-approved-package-untracked-clean",
+        "exactCommand": "git clean -f -- coordination/release-intake/2026-06-30-A25-dirty-tree-map-20260630T073137Z.json",
+        "cleanupAuthorized": false,
+        "executableNow": false
+      },
+      {
+        "approvalId": "wave01-resync-05-coordination-release-intake-2026-06-30-a25-dirty-tree-map-20260630t073137z-md",
+        "owner": "A25 git hygiene and release intake",
+        "subject": "coordination/release-intake/2026-06-30-A25-dirty-tree-map-20260630T073137Z.md",
+        "path": "coordination/release-intake/2026-06-30-A25-dirty-tree-map-20260630T073137Z.md",
+        "selectedAction": "owner-approved-package-untracked-clean",
+        "exactCommand": "git clean -f -- coordination/release-intake/2026-06-30-A25-dirty-tree-map-20260630T073137Z.md",
+        "cleanupAuthorized": false,
+        "executableNow": false
+      },
+      {
+        "approvalId": "wave01-resync-06-coordination-release-intake-2026-06-30-a25-dirty-tree-map-20260630t130221z-json",
+        "owner": "A25 git hygiene and release intake",
+        "subject": "coordination/release-intake/2026-06-30-A25-dirty-tree-map-20260630T130221Z.json",
+        "path": "coordination/release-intake/2026-06-30-A25-dirty-tree-map-20260630T130221Z.json",
+        "selectedAction": "owner-approved-package-untracked-clean",
+        "exactCommand": "git clean -f -- coordination/release-intake/2026-06-30-A25-dirty-tree-map-20260630T130221Z.json",
+        "cleanupAuthorized": false,
+        "executableNow": false
+      },
+      {
+        "approvalId": "wave01-resync-07-coordination-release-intake-2026-06-30-a25-dirty-tree-map-20260630t130221z-md",
+        "owner": "A25 git hygiene and release intake",
+        "subject": "coordination/release-intake/2026-06-30-A25-dirty-tree-map-20260630T130221Z.md",
+        "path": "coordination/release-intake/2026-06-30-A25-dirty-tree-map-20260630T130221Z.md",
+        "selectedAction": "owner-approved-package-untracked-clean",
+        "exactCommand": "git clean -f -- coordination/release-intake/2026-06-30-A25-dirty-tree-map-20260630T130221Z.md",
+        "cleanupAuthorized": false,
+        "executableNow": false
+      }
+    ],
+    "generatedArtifactResidualApprovals": [
+      {
+        "approvalId": "a22-generated-residual-s11-parent-audit-next3",
+        "owner": "A22 production reliability and release engineering",
+        "path": ".s11-parent-audit-next3",
+        "selectedAction": "owner-approved-exact-generated-directory-removal",
+        "exactCommand": "git clean -fd -- .s11-parent-audit-next3",
+        "cleanupAuthorized": false,
+        "executableNow": false
+      },
+      {
+        "approvalId": "a22-generated-residual-s11-parent-audit-next4",
+        "owner": "A22 production reliability and release engineering",
+        "path": ".s11-parent-audit-next4",
+        "selectedAction": "owner-approved-exact-generated-directory-removal",
+        "exactCommand": "git clean -fd -- .s11-parent-audit-next4",
+        "cleanupAuthorized": false,
+        "executableNow": false
+      },
+      {
+        "approvalId": "a22-generated-residual-tmp",
+        "owner": "A22 production reliability and release engineering",
+        "path": ".tmp",
+        "selectedAction": "owner-approved-generated-artifact-cleanup-script-apply",
+        "exactCommand": "node scripts/cleanup-generated-artifacts.mjs --apply --scope all",
+        "cleanupAuthorized": false,
+        "executableNow": false
+      }
+    ],
+    "remainingCompletionAssignments": [
+      {
+        "assignmentId": "remaining-completion-release-source-clean",
+        "agentIds": [
+          "A22",
+          "A25",
+          "A10"
+        ],
+        "owner": "A22 release engineering with A25/A10 release-intake support",
+        "objective": "Make release-source clean possible without using dirty root as a deploy source.",
+        "blockerRows": 4,
+        "cleanupAuthorized": false,
+        "executableNow": false
+      },
+      {
+        "assignmentId": "remaining-completion-worktree-lifecycle",
+        "agentIds": [
+          "A25",
+          "A22"
+        ],
+        "owner": "A25 git hygiene with A22 release-source consumer",
+        "objective": "Close strict worktree lifecycle decisions only after owner-reviewed package extraction, PR/review package, archive, retirement, or blocker decisions exist.",
+        "blockerRows": 2,
+        "cleanupAuthorized": false,
+        "executableNow": false
+      },
+      {
+        "assignmentId": "remaining-completion-wave01-governance",
+        "agentIds": [
+          "A25",
+          "A10",
+          "A22"
+        ],
+        "owner": "A25/A10/A22 governance and release-hygiene package",
+        "objective": "Make Wave 01 reviewable by resolving package-resync blockers and routing off-scope type-check failures.",
+        "blockerRows": 1,
+        "cleanupAuthorized": false,
+        "executableNow": false
+      },
+      {
+        "assignmentId": "remaining-completion-owner-packages",
+        "agentIds": [
+          "A01",
+          "A02",
+          "A03",
+          "A04",
+          "A05",
+          "A06",
+          "A07",
+          "A08",
+          "A11",
+          "A12",
+          "A13",
+          "A15",
+          "A18",
+          "A20",
+          "A21",
+          "A23",
+          "A24"
+        ],
+        "owner": "Routed owner package sessions",
+        "objective": "Resolve or formally block Wave 02-05 owner package readiness failures in isolated owner worktrees.",
+        "blockerRows": 3,
+        "cleanupAuthorized": false,
+        "executableNow": false
+      },
+      {
+        "assignmentId": "remaining-completion-final-release-source",
+        "agentIds": [
+          "A22",
+          "A25",
+          "A11"
+        ],
+        "owner": "A22 release engineering with A25 release intake and A11 regression quality",
+        "objective": "Run final release-source and regression verification only after root and lifecycle closure are complete.",
+        "blockerRows": 1,
+        "cleanupAuthorized": false,
+        "executableNow": false
+      }
+    ]
+  },
+  "nextValidationCommands": [
+    "node coordination/release-intake/assert-next-owner-authorizations-current.mjs",
+    "node coordination/release-intake/generate-next-owner-authorization-execution-preview.mjs",
+    "node coordination/release-intake/assert-next-owner-authorization-execution-preview-current.mjs",
+    "node coordination/release-intake/assert-owner-package-blocker-report-records-current.mjs",
+    "node coordination/release-intake/assert-owner-closure-input-readiness-current.mjs",
+    "node coordination/release-intake/refresh-dirty-worktree-remediation-evidence.mjs --reason \"owner input action packet post-input verification\""
+  ],
+  "summary": {
+    "ownerInputsReady": false,
+    "requiredInputFiles": 3,
+    "missingInputFiles": 0,
+    "pendingCanonicalAuthorizationRows": 67,
+    "pendingWave01AuthorizationRows": 7,
+    "pendingOwnerBlockerReportRecords": 10,
+    "authorizationStarterRows": 67,
+    "pendingOwnerBlockerReports": 10,
+    "nextOwnerDecisionRows": 25,
+    "ownerClosurePendingItems": 140,
+    "cleanupAuthorizedRows": 0,
+    "executableRows": 0,
+    "sourceCurrentnessFailures": 0
+  },
+  "sourceCurrentnessFailures": [],
+  "boundary": {
+    "evidenceOnly": true,
+    "createsAuthorizationFile": false,
+    "cleanupAuthorized": false,
+    "executableNow": false,
+    "destructiveGitAuthorized": false,
+    "deployAuthorized": false,
+    "contentCaptured": false
+  }
+}

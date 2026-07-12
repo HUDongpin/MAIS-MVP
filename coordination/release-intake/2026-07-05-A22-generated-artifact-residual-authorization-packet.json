@@ -1,0 +1,123 @@
+{
+  "generatedAt": "2026-07-05T11:15:30.859Z",
+  "repoRoot": "/Users/dongpinhu/Desktop/MAIS-MVP",
+  "dirtyMapStatusSignature": "fc405946dbb9033f749aa5e537f14edc23d82355d6b8e796759a4856fcbefeef",
+  "expandedStatusEntries": 4737,
+  "sourceResidualEvidence": {
+    "generatedAt": "2026-07-05T11:15:28.078Z",
+    "summary": {
+      "residualTargets": 2,
+      "scratchBaselineTargets": 0,
+      "totalBytes": 48689219667,
+      "activeWriterBlockedRows": 0,
+      "activeWriterOpenFileCount": 0,
+      "datalessTargets": 0,
+      "contentCapturedRows": 0,
+      "cleanupAuthorizedRows": 0,
+      "executableRows": 0
+    }
+  },
+  "summary": {
+    "residualTargets": 2,
+    "zeroByteTargets": 0,
+    "cleanupScriptApplyRows": 2,
+    "exactDirectoryRemovalRows": 0,
+    "cleanupAuthorizedRows": 0,
+    "executableRows": 0
+  },
+  "rows": [
+    {
+      "approvalId": "a22-generated-residual-tmp",
+      "approvalKind": "a22-generated-artifact-residual-cleanup",
+      "owner": "A22 production reliability and release engineering",
+      "supportingOwner": "A25 git hygiene and release intake",
+      "priority": 1,
+      "path": ".tmp",
+      "targetType": "directory",
+      "manifestType": "directory",
+      "manifestBytes": 48405782949,
+      "directoryCount": 18888,
+      "fileCount": 37624,
+      "manifestSha256": "50d3d48b4be77f67b33b9c355e8bbdd7ba6452766b4eda1cfc0607e98965d44b",
+      "dryRunBytes": 48405782949,
+      "residualSkipReason": "cleanup script recreates .tmp as an empty scratch directory after apply",
+      "dirtyMapStatusSignature": "fc405946dbb9033f749aa5e537f14edc23d82355d6b8e796759a4856fcbefeef",
+      "expandedStatusEntries": 4737,
+      "selectedAction": "owner-approved-generated-artifact-cleanup-script-apply",
+      "exactCommand": "node scripts/cleanup-generated-artifacts.mjs --apply --scope all",
+      "commandCwd": "/Users/dongpinhu/Desktop/MAIS-MVP",
+      "actionNote": "The cleanup script reported this target in dry-run and removes generated targets it is allowed to remove; .tmp is recreated as an empty scratch directory after apply.",
+      "evidence": [
+        "coordination/release-intake/latest-A22-generated-artifact-residual-evidence.json",
+        "coordination/release-intake/latest-A25-dirty-tree-map.json"
+      ],
+      "preChecks": [
+        "node scripts/cleanup-generated-artifacts.mjs --dry-run",
+        "node coordination/release-intake/assert-a22-generated-artifact-residual-evidence-current.mjs",
+        "node coordination/release-intake/assert-no-staged-changes.mjs"
+      ],
+      "postApprovalChecks": [
+        "node coordination/release-intake/generate-a22-generated-artifact-residual-evidence.mjs",
+        "node coordination/release-intake/assert-a22-generated-artifact-residual-evidence-current.mjs",
+        "npm run release:dirty-map -- --reason \"A22 residual generated-artifact cleanup authorization post-check\" --no-report",
+        "node coordination/release-intake/refresh-dirty-worktree-remediation-evidence.mjs --reason \"A22 residual generated-artifact cleanup authorization post-check\"",
+        "node coordination/release-intake/assert-dirty-worktree-remediation-current.mjs",
+        "node coordination/release-intake/assert-no-staged-changes.mjs"
+      ],
+      "cleanupAuthorized": false,
+      "executableNow": false,
+      "requiredAuthorizationText": "Authorize approvalId=a22-generated-residual-tmp; target=.tmp; selectedAction=owner-approved-generated-artifact-cleanup-script-apply; command=node scripts/cleanup-generated-artifacts.mjs --apply --scope all; evidenceReviewed=coordination/release-intake/latest-A22-generated-artifact-residual-evidence.json, coordination/release-intake/latest-A22-generated-artifact-residual-authorization-packet.json; approvedBy=<owner/A22>; approvedAt=<ISO-8601>; notes=<scope, evidence reviewed, accepted risk>"
+    },
+    {
+      "approvalId": "a22-generated-residual-next",
+      "approvalKind": "a22-generated-artifact-residual-cleanup",
+      "owner": "A22 production reliability and release engineering",
+      "supportingOwner": "A25 git hygiene and release intake",
+      "priority": 2,
+      "path": ".next",
+      "targetType": "directory",
+      "manifestType": "directory",
+      "manifestBytes": 283436718,
+      "directoryCount": 49,
+      "fileCount": 170,
+      "manifestSha256": "c2a1554fe695b50b7c683da3e11e7ff282045bb0acb5da1341944e5f09326900",
+      "dryRunBytes": 283436718,
+      "residualSkipReason": "generated artifact target reported by cleanup dry-run",
+      "dirtyMapStatusSignature": "fc405946dbb9033f749aa5e537f14edc23d82355d6b8e796759a4856fcbefeef",
+      "expandedStatusEntries": 4737,
+      "selectedAction": "owner-approved-generated-artifact-cleanup-script-apply",
+      "exactCommand": "node scripts/cleanup-generated-artifacts.mjs --apply --scope all",
+      "commandCwd": "/Users/dongpinhu/Desktop/MAIS-MVP",
+      "actionNote": "The cleanup script reported this target in dry-run and removes generated targets it is allowed to remove; .tmp is recreated as an empty scratch directory after apply.",
+      "evidence": [
+        "coordination/release-intake/latest-A22-generated-artifact-residual-evidence.json",
+        "coordination/release-intake/latest-A25-dirty-tree-map.json"
+      ],
+      "preChecks": [
+        "node scripts/cleanup-generated-artifacts.mjs --dry-run",
+        "node coordination/release-intake/assert-a22-generated-artifact-residual-evidence-current.mjs",
+        "node coordination/release-intake/assert-no-staged-changes.mjs"
+      ],
+      "postApprovalChecks": [
+        "node coordination/release-intake/generate-a22-generated-artifact-residual-evidence.mjs",
+        "node coordination/release-intake/assert-a22-generated-artifact-residual-evidence-current.mjs",
+        "npm run release:dirty-map -- --reason \"A22 residual generated-artifact cleanup authorization post-check\" --no-report",
+        "node coordination/release-intake/refresh-dirty-worktree-remediation-evidence.mjs --reason \"A22 residual generated-artifact cleanup authorization post-check\"",
+        "node coordination/release-intake/assert-dirty-worktree-remediation-current.mjs",
+        "node coordination/release-intake/assert-no-staged-changes.mjs"
+      ],
+      "cleanupAuthorized": false,
+      "executableNow": false,
+      "requiredAuthorizationText": "Authorize approvalId=a22-generated-residual-next; target=.next; selectedAction=owner-approved-generated-artifact-cleanup-script-apply; command=node scripts/cleanup-generated-artifacts.mjs --apply --scope all; evidenceReviewed=coordination/release-intake/latest-A22-generated-artifact-residual-evidence.json, coordination/release-intake/latest-A22-generated-artifact-residual-authorization-packet.json; approvedBy=<owner/A22>; approvedAt=<ISO-8601>; notes=<scope, evidence reviewed, accepted risk>"
+    }
+  ],
+  "boundary": {
+    "evidenceOnly": true,
+    "cleanupAuthorized": false,
+    "executableNow": false,
+    "destructiveGitAuthorized": false,
+    "fileDeletionAuthorized": false,
+    "deployAuthorized": false,
+    "contentCaptured": false
+  }
+}

@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128">
+  <defs>
+    <linearGradient id="mais-icon-gradient" x1="18" x2="110" y1="16" y2="116" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#22d3ee"/>
+      <stop offset="0.52" stop-color="#8b5cf6"/>
+      <stop offset="1" stop-color="#f472b6"/>
+    </linearGradient>
+  </defs>
+  <rect width="128" height="128" rx="30" fill="#020617"/>
+  <path d="M24 86 48 34l16 34 16-34 24 52" fill="none" stroke="url(#mais-icon-gradient)" stroke-linecap="round" stroke-linejoin="round" stroke-width="10"/>
+  <path d="M34 84c19-9 39-9 60 0" fill="none" stroke="#a5f3fc" stroke-linecap="round" stroke-width="6" opacity=".86"/>
+  <circle cx="96" cy="30" r="8" fill="#f0abfc"/>
+</svg>

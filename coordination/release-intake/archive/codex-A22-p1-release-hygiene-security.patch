@@ -1,0 +1,512 @@
+diff --git a/.vercelignore b/.vercelignore
+index d0a2f24d6..b791b16b2 100644
+--- a/.vercelignore
++++ b/.vercelignore
+@@ -5,6 +5,8 @@
+ # Dependencies and build output
+ node_modules/
+ .next/
++.next*/
++.next-register-slider/
+ out/
+ dist/
+ build/
+@@ -20,20 +22,40 @@ video-plan/
+ 
+ # Local/generated output
+ .local/
++private/
+ .tmp/
++.s11*/
++MAIS-MVP-*/
++Users/
++var/
+ tmp/
+ temp/
+ output/
+ outputs/
+ coverage/
+ .cache/
++coordination/reports/*-render/
++coordination/session-logs/*-failures/
++**/lo-profile/
++
++# Raw source data and inactive generated assets kept out of deploy uploads
++data/ease/
++
++# Generated public assets not referenced by the current app build.
++# Keep lesson-illustrations and ease_question_assets; they are referenced.
++public/question-illustrations/
+ 
+ # Logs and local-only files
+ *.log
+ *.tsbuildinfo
++tsconfig.*.tmp.json
+ .DS_Store
+ .Rhistory
+ default accounts.md
++All API Keys.docx
++~$*.docx
++~$*.pptx
++~$*.xlsx
+ .env
+ .env.*
+ *.local
+diff --git a/next.config.ts b/next.config.ts
+index 465422545..b0c938bfe 100644
+--- a/next.config.ts
++++ b/next.config.ts
+@@ -1,8 +1,13 @@
+ import type { NextConfig } from "next";
+ 
++const distDir = process.env.NEXT_DIST_DIR?.trim();
++const tsconfigPath = process.env.NEXT_TSCONFIG_PATH?.trim();
++
+ const nextConfig: NextConfig = {
+   outputFileTracingRoot: process.cwd(),
+-  reactStrictMode: true
++  reactStrictMode: true,
++  ...(distDir ? { distDir } : {}),
++  ...(tsconfigPath ? { typescript: { tsconfigPath } } : {})
+ };
+ 
+ export default nextConfig;
+diff --git a/package-lock.json b/package-lock.json
+index 93147c8f2..cba101567 100644
+--- a/package-lock.json
++++ b/package-lock.json
+@@ -11,7 +11,7 @@
+         "@vercel/analytics": "^2.0.1",
+         "framer-motion": "12.23.12",
+         "katex": "^0.16.45",
+-        "next": "^15.4.6",
++        "next": "^15.5.19",
+         "phaser": "4.1.0",
+         "postgres": "^3.4.9",
+         "react": "^19.1.0",
+@@ -23,7 +23,7 @@
+         "@types/react": "^19.0.12",
+         "@types/react-dom": "^19.0.4",
+         "autoprefixer": "^10.4.21",
+-        "postcss": "^8.5.3",
++        "postcss": "8.5.16",
+         "tailwindcss": "^3.4.17",
+         "typescript": "5.8.3"
+       }
+@@ -589,11 +589,15 @@
+       }
+     },
+     "node_modules/@next/env": {
+-      "version": "15.5.15",
++      "version": "15.5.19",
++      "resolved": "https://registry.npmjs.org/@next/env/-/env-15.5.19.tgz",
++      "integrity": "sha512-sWWluFvcv5v3Fxznmf2ZfjyoVQt/64oCnYqS90inQWGzMPK1VjvekPiz3OPHKmFT30EnHrjlbyaHLt3M0vWabw==",
+       "license": "MIT"
+     },
+     "node_modules/@next/swc-darwin-arm64": {
+-      "version": "15.5.15",
++      "version": "15.5.19",
++      "resolved": "https://registry.npmjs.org/@next/swc-darwin-arm64/-/swc-darwin-arm64-15.5.19.tgz",
++      "integrity": "sha512-jx9wWlTKueHKPvVOndyr7WuaevWCkuYqsQ8gC0TMPKAVWG3MhcdMrjfo9tvIZNXd0QOUYXXvAcZ325y8Uq7uzg==",
+       "cpu": [
+         "arm64"
+       ],
+@@ -607,9 +611,9 @@
+       }
+     },
+     "node_modules/@next/swc-darwin-x64": {
+-      "version": "15.5.15",
+-      "resolved": "https://registry.npmjs.org/@next/swc-darwin-x64/-/swc-darwin-x64-15.5.15.tgz",
+-      "integrity": "sha512-G+YNV+z6FDZTp/+IdGyIMFqalBTaQSnvAA+X/hrt+eaTRFSznRMz9K7rTmzvM6tDmKegNtyzgufZW0HwVzEqaQ==",
++      "version": "15.5.19",
++      "resolved": "https://registry.npmjs.org/@next/swc-darwin-x64/-/swc-darwin-x64-15.5.19.tgz",
++      "integrity": "sha512-291KFcsIQ3OenRdiUDFOR6W3wezzH4auENXm1gbm1Bjd4ANMMRgxPrWTUztQN43BnVoVuMnHCrLeECIMwgFKbA==",
+       "cpu": [
+         "x64"
+       ],
+@@ -623,9 +627,9 @@
+       }
+     },
+     "node_modules/@next/swc-linux-arm64-gnu": {
+-      "version": "15.5.15",
+-      "resolved": "https://registry.npmjs.org/@next/swc-linux-arm64-gnu/-/swc-linux-arm64-gnu-15.5.15.tgz",
+-      "integrity": "sha512-eVkrMcVIBqGfXB+QUC7jjZ94Z6uX/dNStbQFabewAnk13Uy18Igd1YZ/GtPRzdhtm7QwC0e6o7zOQecul4iC1w==",
++      "version": "15.5.19",
++      "resolved": "https://registry.npmjs.org/@next/swc-linux-arm64-gnu/-/swc-linux-arm64-gnu-15.5.19.tgz",
++      "integrity": "sha512-WeH+nelQyyMeE2f8FxBRZNrGipya5zHZV2vjzfCOAYyiI6am+NbnWAAldOBFQBB2w0DjJcsvrKqoFT2b7+5YoA==",
+       "cpu": [
+         "arm64"
+       ],
+@@ -642,9 +646,9 @@
+       }
+     },
+     "node_modules/@next/swc-linux-arm64-musl": {
+-      "version": "15.5.15",
+-      "resolved": "https://registry.npmjs.org/@next/swc-linux-arm64-musl/-/swc-linux-arm64-musl-15.5.15.tgz",
+-      "integrity": "sha512-RwSHKMQ7InLy5GfkY2/n5PcFycKA08qI1VST78n09nN36nUPqCvGSMiLXlfUmzmpQpF6XeBYP2KRWHi0UW3uNg==",
++      "version": "15.5.19",
++      "resolved": "https://registry.npmjs.org/@next/swc-linux-arm64-musl/-/swc-linux-arm64-musl-15.5.19.tgz",
++      "integrity": "sha512-5xTOE0lDlDCSSfp+BAif7j17VRRCjWp//ZPZy6NI0QpdrhxtQnsZguSx0xAAZ0c9XZLrLLwCe/XVe5YPrRilKw==",
+       "cpu": [
+         "arm64"
+       ],
+@@ -661,9 +665,9 @@
+       }
+     },
+     "node_modules/@next/swc-linux-x64-gnu": {
+-      "version": "15.5.15",
+-      "resolved": "https://registry.npmjs.org/@next/swc-linux-x64-gnu/-/swc-linux-x64-gnu-15.5.15.tgz",
+-      "integrity": "sha512-nplqvY86LakS+eeiuWsNWvfmK8pFcOEW7ZtVRt4QH70lL+0x6LG/m1OpJ/tvrbwjmR8HH9/fH2jzW1GlL03TIg==",
++      "version": "15.5.19",
++      "resolved": "https://registry.npmjs.org/@next/swc-linux-x64-gnu/-/swc-linux-x64-gnu-15.5.19.tgz",
++      "integrity": "sha512-LTxRmMgqqMv05Had879W00Fm53quiJd3Zuz8h1JSNJ3nGSlbZ/7Tjs1tKyScgN3Au3t3MyPsjPlq60fMmSHLsg==",
+       "cpu": [
+         "x64"
+       ],
+@@ -680,9 +684,9 @@
+       }
+     },
+     "node_modules/@next/swc-linux-x64-musl": {
+-      "version": "15.5.15",
+-      "resolved": "https://registry.npmjs.org/@next/swc-linux-x64-musl/-/swc-linux-x64-musl-15.5.15.tgz",
+-      "integrity": "sha512-eAgl9NKQ84/sww0v81DQINl/vL2IBxD7sMybd0cWRw6wqgouVI53brVRBrggqBRP/NWeIAE1dm5cbKYoiMlqDQ==",
++      "version": "15.5.19",
++      "resolved": "https://registry.npmjs.org/@next/swc-linux-x64-musl/-/swc-linux-x64-musl-15.5.19.tgz",
++      "integrity": "sha512-eoNQSpA5PQfB9wBO4RA47MTDXWz1fizy9Y3Z6e4DetYIF3dvjuu8sj7aIGn/bFCU6lnFzTK34NtCaffP4NsQ7Q==",
+       "cpu": [
+         "x64"
+       ],
+@@ -699,9 +703,9 @@
+       }
+     },
+     "node_modules/@next/swc-win32-arm64-msvc": {
+-      "version": "15.5.15",
+-      "resolved": "https://registry.npmjs.org/@next/swc-win32-arm64-msvc/-/swc-win32-arm64-msvc-15.5.15.tgz",
+-      "integrity": "sha512-GJVZC86lzSquh0MtvZT+L7G8+jMnJcldloOjA8Kf3wXvBrvb6OGe2MzPuALxFshSm/IpwUtD2mIoof39ymf52A==",
++      "version": "15.5.19",
++      "resolved": "https://registry.npmjs.org/@next/swc-win32-arm64-msvc/-/swc-win32-arm64-msvc-15.5.19.tgz",
++      "integrity": "sha512-6UNt2dFuCHOe446sm/Kp69nUe8/wIhnh9bm6Xcqw4qEWCOppLMOvhTBVgvM7invVUNr4SPpP6NOQsACtn2IN9Q==",
+       "cpu": [
+         "arm64"
+       ],
+@@ -715,9 +719,9 @@
+       }
+     },
+     "node_modules/@next/swc-win32-x64-msvc": {
+-      "version": "15.5.15",
+-      "resolved": "https://registry.npmjs.org/@next/swc-win32-x64-msvc/-/swc-win32-x64-msvc-15.5.15.tgz",
+-      "integrity": "sha512-nFucjVdwlFqxh/JG3hWSJ4p8+YJV7Ii8aPDuBQULB6DzUF4UNZETXLfEUk+oI2zEznWWULPt7MeuTE6xtK1HSA==",
++      "version": "15.5.19",
++      "resolved": "https://registry.npmjs.org/@next/swc-win32-x64-msvc/-/swc-win32-x64-msvc-15.5.19.tgz",
++      "integrity": "sha512-PhmojAHyqMne56HBLGu9dhDnHPuFmEjrXSQMM/nW0J6j849lk3ESrVtqNJcCk8CKOV7brpTTbaYAjwKPzKM69w==",
+       "cpu": [
+         "x64"
+       ],
+@@ -1398,10 +1402,12 @@
+       }
+     },
+     "node_modules/next": {
+-      "version": "15.5.15",
++      "version": "15.5.19",
++      "resolved": "https://registry.npmjs.org/next/-/next-15.5.19.tgz",
++      "integrity": "sha512-xNOW6tYshGX1/Oi3F8uuk4gpDeWsSUE/1Z0G5uUMekIxaQ0xc03UXd9II0VQHYMWviMeA0OHpJFAKsHf8bTYVg==",
+       "license": "MIT",
+       "dependencies": {
+-        "@next/env": "15.5.15",
++        "@next/env": "15.5.19",
+         "@swc/helpers": "0.5.15",
+         "caniuse-lite": "^1.0.30001579",
+         "postcss": "8.4.31",
+@@ -1414,14 +1420,14 @@
+         "node": "^18.18.0 || ^19.8.0 || >= 20.0.0"
+       },
+       "optionalDependencies": {
+-        "@next/swc-darwin-arm64": "15.5.15",
+-        "@next/swc-darwin-x64": "15.5.15",
+-        "@next/swc-linux-arm64-gnu": "15.5.15",
+-        "@next/swc-linux-arm64-musl": "15.5.15",
+-        "@next/swc-linux-x64-gnu": "15.5.15",
+-        "@next/swc-linux-x64-musl": "15.5.15",
+-        "@next/swc-win32-arm64-msvc": "15.5.15",
+-        "@next/swc-win32-x64-msvc": "15.5.15",
++        "@next/swc-darwin-arm64": "15.5.19",
++        "@next/swc-darwin-x64": "15.5.19",
++        "@next/swc-linux-arm64-gnu": "15.5.19",
++        "@next/swc-linux-arm64-musl": "15.5.19",
++        "@next/swc-linux-x64-gnu": "15.5.19",
++        "@next/swc-linux-x64-musl": "15.5.19",
++        "@next/swc-win32-arm64-msvc": "15.5.19",
++        "@next/swc-win32-x64-msvc": "15.5.19",
+         "sharp": "^0.34.3"
+       },
+       "peerDependencies": {
+@@ -1447,32 +1453,6 @@
+         }
+       }
+     },
+-    "node_modules/next/node_modules/postcss": {
+-      "version": "8.4.31",
+-      "funding": [
+-        {
+-          "type": "opencollective",
+-          "url": "https://opencollective.com/postcss/"
+-        },
+-        {
+-          "type": "tidelift",
+-          "url": "https://tidelift.com/funding/github/npm/postcss"
+-        },
+-        {
+-          "type": "github",
+-          "url": "https://github.com/sponsors/ai"
+-        }
+-      ],
+-      "license": "MIT",
+-      "dependencies": {
+-        "nanoid": "^3.3.6",
+-        "picocolors": "^1.0.0",
+-        "source-map-js": "^1.0.2"
+-      },
+-      "engines": {
+-        "node": "^10 || ^12 || >=14"
+-      }
+-    },
+     "node_modules/node-releases": {
+       "version": "2.0.38",
+       "dev": true,
+@@ -1594,7 +1574,9 @@
+       }
+     },
+     "node_modules/postcss": {
+-      "version": "8.5.14",
++      "version": "8.5.16",
++      "resolved": "https://registry.npmjs.org/postcss/-/postcss-8.5.16.tgz",
++      "integrity": "sha512-vuwillviilfKZsg0VGj5R/YwwcHx4SLsIOI/7K6mQkWx+l5cUHTjj5g0AasTBcyXsbfTgrwsUNmVUb5xVwyPwg==",
+       "dev": true,
+       "funding": [
+         {
+@@ -1612,7 +1594,7 @@
+       ],
+       "license": "MIT",
+       "dependencies": {
+-        "nanoid": "^3.3.11",
++        "nanoid": "^3.3.12",
+         "picocolors": "^1.1.1",
+         "source-map-js": "^1.2.1"
+       },
+diff --git a/package.json b/package.json
+index ca4f889fd..b781d52cf 100644
+--- a/package.json
++++ b/package.json
+@@ -4,7 +4,7 @@
+   "private": true,
+   "scripts": {
+     "dev": "next dev --turbo",
+-    "build": "next build",
++    "build": "node scripts/next-clean-build.mjs",
+     "start": "next start",
+     "type-check": "tsc --noEmit --incremental false",
+     "check:hk-zh": "node scripts/audit-hk-chinese.mjs --self-test && node scripts/audit-hk-chinese.mjs --mode=report",
+@@ -47,8 +47,27 @@
+     "rag:hk-edb-manifest": "python3 scripts/build-hk-math-edb-manifest.py",
+     "rag:us-math-manifest": "python3 scripts/build-us-math-safe-library-manifest.py",
+     "smoke:simpletex:local": "node scripts/simpletex-local-smoke.mjs",
++    "smoke:ai-tutor-live-latency": "node scripts/ai-tutor-live-latency-smoke.mjs",
++    "smoke:dashboard-auth-ready": "node scripts/dashboard-smoke-auth-precheck.mjs",
++    "smoke:dashboard-latency": "node scripts/dashboard-latency-smoke.mjs",
++    "smoke:dashboard-ui-loading": "node scripts/dashboard-ui-loading-smoke.mjs",
++    "clean:generated": "node scripts/cleanup-generated-artifacts.mjs --dry-run",
++    "clean:vercel-staging": "node scripts/cleanup-generated-artifacts.mjs --scope vercel-staging --dry-run",
++    "clean:next-builds": "node scripts/cleanup-generated-artifacts.mjs --scope next-builds --dry-run",
++    "clean:generated:apply": "node scripts/cleanup-generated-artifacts.mjs --apply",
++    "release:dirty-map": "node scripts/refresh-dirty-tree-map.mjs",
++    "release:build-gate": "node scripts/release-build-gate.mjs",
++    "release:preflight": "node scripts/release-env-guard.mjs",
++    "release:env-preflight": "node scripts/release-env-guard.mjs env",
++    "release:runtime-preflight": "node scripts/release-env-guard.mjs runtime-release",
++    "release:publish-preflight": "node scripts/release-env-guard.mjs publish",
++    "release:staged-publish-preflight": "node scripts/release-env-guard.mjs staged-publish",
++    "release:root-deploy-preflight": "node scripts/release-env-guard.mjs root-deploy",
++    "vercel:stage": "node scripts/release-env-guard.mjs staging && node scripts/prepare-vercel-staging.mjs",
++    "vercel:preview": "node scripts/deploy-vercel-preview.mjs",
++    "vercel:production": "node scripts/deploy-vercel-production.mjs",
+     "test:backend": "playwright test tests/e2e/backend-api.spec.ts --project=desktop-chrome",
+-    "test:e2e": "playwright test",
++    "test:e2e": "node scripts/release-env-guard.mjs e2e && playwright test",
+     "test:question-bank": "rm -rf .tmp/question-bank-tests .tmp/question-bank-db && tsc -p tsconfig.json --outDir .tmp/question-bank-tests --noEmit false --incremental false --module commonjs --moduleResolution node && mkdir -p .tmp/question-bank-tests/node_modules/@ && ln -s ../../data .tmp/question-bank-tests/node_modules/@/data && ln -s ../../lib .tmp/question-bank-tests/node_modules/@/lib && HK_MATH_DB_DIR=.tmp/question-bank-db node --test .tmp/question-bank-tests/lib/mainlandPepHighQuestionBank.test.js .tmp/question-bank-tests/lib/mainlandPepPrimaryQuestionBank.test.js .tmp/question-bank-tests/lib/mainlandPepJuniorQuestionBank.test.js .tmp/question-bank-tests/lib/mainlandBnuPrimaryQuestionBank.test.js .tmp/question-bank-tests/lib/mainlandBnuJuniorQuestionBank.test.js .tmp/question-bank-tests/lib/fullQuestionBankSolvability.test.js && rm -rf .tmp/question-bank-tests .tmp/question-bank-db",
+     "test:rag": "python3 scripts/build-mainland-high-abstract.py --self-test && python3 scripts/build-mainland-hjb-high-textbook-manifest.py --self-test && python3 scripts/build-mainland-hjb-primary-manifest.py --self-test && python3 scripts/build-mainland-bnu-primary-manifest.py --self-test && python3 scripts/build-mainland-bnu-junior-manifest.py --self-test && python3 scripts/build-mainland-bnu-high-textbook-manifest.py --self-test && python3 scripts/build-mainland-bnu-high-assessment-manifest.py --self-test && python3 scripts/build-mainland-bnu-high-s4-upper-assessment-manifest.py --self-test && python3 scripts/build-mainland-bnu-high-s4-lower-assessment-manifest.py --self-test && python3 scripts/build-mainland-bnu-junior-assessment-manifest.py --self-test && python3 scripts/build-mainland-bnu-junior-s1-upper-assessment-manifest.py --self-test && python3 scripts/build-mainland-bnu-primary-assessment-manifest.py --self-test && python3 scripts/build-mainland-hjb-primary-assessment-manifest.py --self-test && python3 scripts/build-mainland-hjb-primary-paper-manifest.py --self-test && python3 scripts/build-mainland-hjb-junior-manifest.py --self-test && python3 scripts/build-mainland-hjb-junior-assessment-manifest.py --self-test && python3 scripts/build-mainland-hjb-junior-paper-manifest.py --self-test && python3 scripts/build-mainland-hjb-high-exam-manifest.py --self-test && python3 scripts/build-mainland-junior-zhongkao-manifest.py --self-test && python3 scripts/build-mainland-pep-primary-manifest.py --self-test && python3 scripts/build-mainland-pep-junior-manifest.py --self-test && python3 scripts/build-mainland-pep-junior-exam-manifest.py --self-test && python3 scripts/build-mainland-pep-junior-paper-manifest.py --self-test && python3 scripts/build-mainland-pep-primary-paper-manifest.py --self-test && python3 scripts/build-mainland-pep-primary-abstract.py --self-test && python3 scripts/build-mainland-pep-primary-exam-manifest.py --self-test && python3 scripts/build-hk-dse-math-manifest.py --self-test && python3 scripts/build-hk-dse-topic-practice-manifest.py --self-test && python3 scripts/build-hk-dse-mock-manifest.py --self-test && python3 scripts/build-hk-dse-eph-textbook-manifest.py --self-test && python3 scripts/build-hk-dse-up-textbook-manifest.py --self-test && python3 scripts/build-us-math-safe-library-manifest.py --self-test && rm -rf .tmp/rag-tests && tsc -p tsconfig.rag.json && node --test .tmp/rag-tests/lib/rag/mainlandPep.test.js .tmp/rag-tests/lib/rag/mainlandPepHigh.test.js .tmp/rag-tests/lib/rag/mainlandHjbHigh.test.js .tmp/rag-tests/lib/rag/mainlandHjbPrimary.test.js .tmp/rag-tests/lib/rag/mainlandHjbJunior.test.js .tmp/rag-tests/lib/rag/mainlandBnuPrimary.test.js .tmp/rag-tests/lib/rag/mainlandBnuJunior.test.js .tmp/rag-tests/lib/rag/mainlandBnuHigh.test.js .tmp/rag-tests/lib/rag/mainlandBnuHighAssessmentPatterns.test.js .tmp/rag-tests/lib/rag/hongKongMathEdB.test.js .tmp/rag-tests/lib/rag/hongKongDseMath.test.js .tmp/rag-tests/lib/rag/hongKongDseEph.test.js .tmp/rag-tests/lib/rag/hongKongDseUp.test.js .tmp/rag-tests/lib/rag/usMath.test.js && rm -rf .tmp/rag-tests",
+     "test:analytics": "rm -rf .tmp/analytics-tests && tsc -p tsconfig.json --outDir .tmp/analytics-tests --noEmit false --incremental false --module commonjs --moduleResolution node && node --test .tmp/analytics-tests/lib/learningAnalytics.test.js .tmp/analytics-tests/lib/adaptiveLearning.test.js && rm -rf .tmp",
+@@ -59,7 +78,7 @@
+     "@vercel/analytics": "^2.0.1",
+     "framer-motion": "12.23.12",
+     "katex": "^0.16.45",
+-    "next": "^15.4.6",
++    "next": "^15.5.19",
+     "phaser": "4.1.0",
+     "postgres": "^3.4.9",
+     "react": "^19.1.0",
+@@ -67,7 +86,8 @@
+   },
+   "overrides": {
+     "motion-dom": "12.23.12",
+-    "motion-utils": "12.23.6"
++    "motion-utils": "12.23.6",
++    "postcss": "8.5.16"
+   },
+   "devDependencies": {
+     "@playwright/test": "^1.59.1",
+@@ -75,7 +95,7 @@
+     "@types/react": "^19.0.12",
+     "@types/react-dom": "^19.0.4",
+     "autoprefixer": "^10.4.21",
+-    "postcss": "^8.5.3",
++    "postcss": "8.5.16",
+     "tailwindcss": "^3.4.17",
+     "typescript": "5.8.3"
+   }
+diff --git a/playwright.config.ts b/playwright.config.ts
+index 39cca113e..a713ef7bd 100644
+--- a/playwright.config.ts
++++ b/playwright.config.ts
+@@ -1,13 +1,44 @@
+ import { defineConfig, devices } from "@playwright/test";
++import path from "node:path";
+ 
+ const port = Number(process.env.PLAYWRIGHT_PORT ?? 3020);
+ const baseURL = process.env.PLAYWRIGHT_BASE_URL ?? `http://127.0.0.1:${port}`;
+ const browserChannel = process.env.PLAYWRIGHT_BROWSER_CHANNEL ?? "chrome";
++const runId = sanitizePathSegment(process.env.PLAYWRIGHT_RUN_ID ?? `${port}-${process.pid}`);
++const e2eRunRoot = process.env.PLAYWRIGHT_E2E_ROOT?.trim() || path.join(".tmp", `e2e-run-${runId}`);
++const e2eNextDistDir = process.env.PLAYWRIGHT_NEXT_DIST_DIR ?? path.join(e2eRunRoot, "next-dist");
++const e2eNextTsconfigPath = process.env.PLAYWRIGHT_NEXT_TSCONFIG_PATH ?? `tsconfig.playwright-${runId}.tmp.json`;
++const e2eDbPath = path.resolve(process.env.HK_MATH_DB_PATH?.trim() || path.join(e2eRunRoot, "hk-math-db.sqlite"));
++const e2eOutputDir = process.env.PLAYWRIGHT_OUTPUT_DIR?.trim() || path.join(e2eRunRoot, "test-results");
++const e2eReportDir = process.env.PLAYWRIGHT_REPORT_DIR?.trim() || path.join(e2eRunRoot, "playwright-report");
++process.env.PLAYWRIGHT_RUN_ID = runId;
++process.env.PLAYWRIGHT_E2E_ROOT = e2eRunRoot;
++process.env.HK_MATH_DB_PATH = e2eDbPath;
++const disabledProviderEnv = [
++  "LLM_API_KEY=",
++  "OPENAI_API_KEY=",
++  "LLM_MODEL=",
++  "OPENAI_MODEL=",
++  "LLM_API_URL=",
++  "DEEPSEEK_API_KEY=",
++  "DEEPSEEK_MODEL=",
++  "DEEPSEEK_API_URL=",
++  "QWEN_API_KEY=",
++  "QWEN_API_URL=",
++  "QWEN_MODEL=",
++  "QWEN_TEXT_MODEL=qwen3.7-plus",
++  "QWEN_IMAGE_MODEL=",
++  "QWEN_IMAGE_API_URL=",
++  "QWEN_REALTIME_MODEL=",
++  "QWEN_REALTIME_API_URL=",
++  "AI_TUTOR_PROVIDER_PROFILE=offline-fixture"
++].join(" ");
+ const isolatedStatefulSpecs = [
+   "tests/e2e/rewards.spec.ts",
+   "tests/e2e/gamification.spec.ts",
+   "tests/e2e/fishing-game.spec.ts",
+-  "tests/e2e/adventure-island.spec.ts"
++  "tests/e2e/adventure-island.spec.ts",
++  "tests/e2e/parent-console-stress.spec.ts"
+ ];
+ const selectedSpecArgs = process.argv
+   .slice(2)
+@@ -18,12 +49,77 @@ const runsOnlyIsolatedStatefulSpecs =
+   selectedSpecArgs.every((arg) => isolatedStatefulSpecs.some((spec) => arg === spec || arg.endsWith(`/${spec}`)));
+ const useGlobalWebServer = !process.env.PLAYWRIGHT_SKIP_WEBSERVER && !runsOnlyIsolatedStatefulSpecs;
+ 
++assertSafeE2eGeneratedPath("PLAYWRIGHT_E2E_ROOT", e2eRunRoot);
++assertSafeE2eGeneratedPath("PLAYWRIGHT_NEXT_DIST_DIR", e2eNextDistDir);
++
++function sanitizePathSegment(value: string) {
++  return value
++    .trim()
++    .replace(/[^a-zA-Z0-9._-]+/g, "-")
++    .replace(/^-+|-+$/g, "") || "default";
++}
++
++function isPathInside(absolutePath: string, root: string) {
++  const relative = path.relative(root, absolutePath);
++  return relative === "" || (!relative.startsWith("..") && !path.isAbsolute(relative));
++}
++
++function assertSafeE2eGeneratedPath(label: string, value: string) {
++  const absolutePath = path.resolve(value);
++  const defaultNextDir = path.resolve(".next");
++  const tmpDir = path.resolve(".tmp");
++
++  if (absolutePath === defaultNextDir || isPathInside(absolutePath, defaultNextDir)) {
++    throw new Error(`${label} must not point at the shared .next directory for Playwright release runs.`);
++  }
++
++  if (process.env.MAIS_ALLOW_EXTERNAL_ARTIFACTS !== "1" && !isPathInside(absolutePath, tmpDir)) {
++    throw new Error(`${label} must stay under .tmp unless MAIS_ALLOW_EXTERNAL_ARTIFACTS=1 is set.`);
++  }
++}
++
++function shellQuote(value: string) {
++  return `'${value.replace(/'/g, "'\\''")}'`;
++}
++
++function writeTempTsconfigCommand(tsconfigPath: string, nextDistDir: string) {
++  const content = JSON.stringify({
++    extends: "./tsconfig.json",
++    include: [
++      "next-env.d.ts",
++      "**/*.ts",
++      "**/*.tsx",
++      ".next/types/**/*.ts",
++      `${nextDistDir}/types/**/*.ts`
++    ],
++    exclude: [
++      "node_modules",
++      ".next-*",
++      ".s??-*",
++      "tmp",
++      "temp",
++      "output",
++      "outputs",
++      "coverage",
++      "playwright-report",
++      "test-results",
++      "var",
++      "var/**/*",
++      "MAIS-MVP-*",
++      "MAIS-MVP-*/**/*"
++    ]
++  }, null, 2);
++  const script = `require("fs").writeFileSync(${JSON.stringify(tsconfigPath)}, ${JSON.stringify(content)})`;
++  return `node -e ${shellQuote(script)}`;
++}
++
+ export default defineConfig({
+   testDir: "./tests/e2e",
++  outputDir: e2eOutputDir,
+   fullyParallel: false,
+   workers: 1,
+   retries: process.env.CI ? 1 : 0,
+-  reporter: [["list"], ["html", { open: "never", outputFolder: "output/playwright-report" }]],
++  reporter: [["list"], ["html", { open: "never", outputFolder: e2eReportDir }]],
+   use: {
+     baseURL,
+     channel: browserChannel || undefined,
+@@ -35,10 +131,13 @@ export default defineConfig({
+     ? undefined
+     : {
+         command: [
+-          "rm -rf .tmp/e2e",
+-          "mkdir -p .tmp/e2e",
+-          "env LLM_API_KEY= OPENAI_API_KEY= LLM_MODEL= OPENAI_MODEL= LLM_API_URL= npm run build",
+-          `env LLM_API_KEY= OPENAI_API_KEY= LLM_MODEL= OPENAI_MODEL= LLM_API_URL= AUTH_SESSION_SECRET=e2e-session-secret HK_MATH_DB_PATH="$PWD/.tmp/e2e/hk-math-db.sqlite" HK_MATH_EXPOSE_LOCAL_RESET_LINKS=true HK_MATH_ENABLE_DEMO_USER=true AI_TUTOR_MAX_REQUESTS_PER_MINUTE=2 npm run start -- --hostname 127.0.0.1 --port ${port}`
++          `rm -rf ${shellQuote(e2eRunRoot)} ${shellQuote(e2eNextDistDir)}`,
++          `rm -f ${shellQuote(e2eNextTsconfigPath)}`,
++          `mkdir -p ${shellQuote(path.dirname(e2eDbPath))} ${shellQuote(path.dirname(e2eNextTsconfigPath))} ${shellQuote(e2eOutputDir)}`,
++          writeTempTsconfigCommand(e2eNextTsconfigPath, e2eNextDistDir),
++          `env NEXT_DIST_DIR=${shellQuote(e2eNextDistDir)} NEXT_TSCONFIG_PATH=${shellQuote(e2eNextTsconfigPath)} ${disabledProviderEnv} npm run build`,
++          `rm -f ${shellQuote(e2eNextTsconfigPath)}`,
++          `env NEXT_DIST_DIR=${shellQuote(e2eNextDistDir)} ${disabledProviderEnv} AUTH_SESSION_SECRET=e2e-session-secret HK_MATH_DB_PATH=${shellQuote(e2eDbPath)} HK_MATH_EXPOSE_LOCAL_RESET_LINKS=true HK_MATH_ENABLE_DEMO_USER=true AI_TUTOR_MAX_REQUESTS_PER_MINUTE=2 npm run start -- --hostname 127.0.0.1 --port ${port}`
+         ].join(" && "),
+         url: baseURL,
+         reuseExistingServer: false,

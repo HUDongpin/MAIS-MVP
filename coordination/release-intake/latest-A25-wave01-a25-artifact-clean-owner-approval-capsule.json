@@ -1,0 +1,122 @@
+{
+  "generatedAt": "2026-07-10T17:09:02.682Z",
+  "repoRoot": "/Users/dongpinhu/Desktop/MAIS-MVP",
+  "dirtyMapStatusSignature": "e30d647e1b51432945713f42ac78b0a2466fcb17192de0235a801ac877a0801f",
+  "expandedStatusEntries": 7636,
+  "sourceArtifacts": {
+    "ownerReviewCapsuleGeneratedAt": "2026-07-10T17:09:02.556Z",
+    "ownerReviewCapsuleGateCheckedAt": "2026-07-10T17:09:02.617Z",
+    "ownerAuthorizationsGeneratedAt": "2026-07-10T17:09:02.461Z"
+  },
+  "sourceCurrentnessFailures": [],
+  "approvalScope": {
+    "id": "wave01-a25-artifact-clean-only",
+    "owner": "A25 git hygiene and release intake",
+    "worktreePath": "/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A25-dirty-closure-governance",
+    "targetAuthorizationFile": "coordination/release-intake/latest-A25-wave01-package-resync-owner-authorizations.json",
+    "strategy": "no-a25-artifact-clean-rows-currently-required",
+    "cleanApprovalIds": [],
+    "heldApprovalIds": [],
+    "ownerDecisionText": "No Wave01 A25 artifact-clean owner decision is currently required because the source owner-review capsule has 0 approval rows."
+  },
+  "cleanApprovalRows": [],
+  "heldRows": [],
+  "acceptanceChecks": [
+    {
+      "id": "source-currentness-green",
+      "label": "Source Wave01 owner-review capsule and gate are current",
+      "passed": true,
+      "evidence": "sourceCurrentnessFailures=0",
+      "status": "pass"
+    },
+    {
+      "id": "review-capsule-ready",
+      "label": "The source Wave01 owner-review capsule is ready for owner decision",
+      "passed": true,
+      "evidence": "ready=false failedChecks=0",
+      "status": "pass"
+    },
+    {
+      "id": "six-a25-clean-rows",
+      "label": "A25 artifact clean rows reflect the current remaining scope",
+      "passed": true,
+      "evidence": "cleanRows=0",
+      "status": "pass"
+    },
+    {
+      "id": "single-held-tsconfig-row",
+      "label": "Exactly one tsconfig restore row is held for A10/A22 review",
+      "passed": true,
+      "evidence": "heldRows=0 held=none",
+      "status": "pass"
+    },
+    {
+      "id": "tsconfig-not-in-clean-scope",
+      "label": "The clean approval scope excludes tsconfig.json",
+      "passed": true,
+      "evidence": "tsconfigCleanRows=0",
+      "status": "pass"
+    },
+    {
+      "id": "clean-commands-allowlisted",
+      "label": "Every clean row is limited to a Wave01 A25 dirty-map artifact git clean command",
+      "passed": true,
+      "evidence": "allowed=0/0",
+      "status": "pass"
+    },
+    {
+      "id": "clean-file-impact-positive",
+      "label": "The clean rows have concrete file-size impact evidence",
+      "passed": true,
+      "evidence": "totalCleanFileBytes=0",
+      "status": "pass"
+    },
+    {
+      "id": "copyable-clean-authorization-texts",
+      "label": "Each clean row has copyable owner authorization text",
+      "passed": true,
+      "evidence": "texts=0/0",
+      "status": "pass"
+    },
+    {
+      "id": "authorization-input-clean-approval-recorded",
+      "label": "Wave01 owner authorization input matches current clean/hold state",
+      "passed": true,
+      "evidence": "authorized=0 pending=0 executable=0",
+      "status": "pass"
+    },
+    {
+      "id": "non-executable-clean-approval-capsule",
+      "label": "The capsule is evidence-only and non-executable",
+      "passed": true,
+      "evidence": "cleanup=0 executable=0",
+      "status": "pass"
+    }
+  ],
+  "copyableCleanAuthorizationTexts": [],
+  "summary": {
+    "readyForOwnerDecision": false,
+    "cleanApprovalRows": 0,
+    "heldRows": 0,
+    "totalCleanFileBytes": 0,
+    "copyableCleanAuthorizationTexts": 0,
+    "acceptanceChecks": 10,
+    "passingAcceptanceChecks": 10,
+    "failedAcceptanceChecks": 0,
+    "sourceCurrentnessFailures": 0,
+    "cleanupAuthorizedRows": 0,
+    "executableRows": 0
+  },
+  "boundary": {
+    "evidenceOnly": true,
+    "recordsOwnerApproval": false,
+    "createsAuthorizationFile": false,
+    "cleanAuthorized": false,
+    "restoreAuthorized": false,
+    "cleanupAuthorized": false,
+    "executableNow": false,
+    "destructiveGitAuthorized": false,
+    "deployAuthorized": false,
+    "heldTsconfigRestore": false
+  }
+}

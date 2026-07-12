@@ -1,15 +1,152 @@
 import assert from "node:assert/strict";
 import test from "node:test";
 import {
+  buildLLMProviderTransportPlan,
   buildLLMProviderRequestBody,
+  createLLMProviderCircuitBreaker,
   extractLLMProviderReply,
-  extractLLMProviderUsage
+  extractLLMProviderUsage,
+  readLLMProviderConfig,
+  readQwenTextProviderConfig,
+  resolveAITutorProviderTimeoutMs,
+  resolveLLMMaxCompletionTokens,
+  resolveLLMProviderTimeoutMs,
+  resolveProviderApiPinnedIp,
+  selectAvailableLLMProviderConfig
 } from "./llmProvider";
 
 const messages = [
   { role: "system" as const, content: "Tutor rules" },
   { role: "user" as const, content: "Give one hint." }
 ];
+
+async function withProviderEnv(env: Record<string, string | undefined>, run: () => void | Promise<void>) {
+  const keys = [
+    "DEEPSEEK_API_KEY",
+    "DEEPSEEK_API_URL",
+    "DEEPSEEK_MODEL",
+    "LLM_API_KEY",
+    "LLM_API_URL",
+    "LLM_MODEL",
+    "QWEN_API_KEY",
+    "QWEN_API_URL",
+    "QWEN_IMAGE_MODEL",
+    "QWEN_TEXT_MODEL"
+  ];
+  const original = Object.fromEntries(keys.map((key) => [key, process.env[key]]));
+
+  keys.forEach((key) => {
+    delete process.env[key];
+  });
+  Object.entries(env).forEach(([key, value]) => {
+    if (value === undefined) delete process.env[key];
+    else process.env[key] = value;
+  });
+
+  try {
+    await run();
+  } finally {
+    keys.forEach((key) => {
+      const value = original[key];
+      if (value === undefined) delete process.env[key];
+      else process.env[key] = value;
+    });
+  }
+}
+
+test("text provider config accepts legacy production LLM aliases", async () => {
+  await withProviderEnv({
+    LLM_API_KEY: "legacy-test-key",
+    LLM_API_URL: "https://api.deepseek.com/chat/completions",
+    LLM_MODEL: "legacy-deepseek-model"
+  }, () => {
+    const config = readLLMProviderConfig();
+
+    assert.equal(config.apiKey, "legacy-test-key");
+    assert.equal(config.apiUrl, "https://api.deepseek.com/chat/completions");
+    assert.equal(config.model, "legacy-deepseek-model");
+    assert.equal(config.provider, "deepseek");
+  });
+});
+
+test("Qwen text fallback config uses shared DashScope credentials without exposing DeepSeek state", async () => {
+  await withProviderEnv({
+    QWEN_API_KEY: "qwen-test-key",
+    QWEN_API_URL: "https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions",
+    QWEN_TEXT_MODEL: "qwen3.7-plus"
+  }, () => {
+    const config = readQwenTextProviderConfig();
+
+    assert.equal(config.apiKey, "qwen-test-key");
+    assert.equal(config.apiUrl, "https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions");
+    assert.equal(config.model, "qwen3.7-plus");
+    assert.equal(config.provider, "qwen");
+  });
+});
+
+test("Qwen text fallback falls back to Qwen image model when a text model is not set", async () => {
+  await withProviderEnv({
+    QWEN_API_KEY: "qwen-test-key",
+    QWEN_API_URL: "https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions",
+    QWEN_IMAGE_MODEL: "qwen3.7-max"
+  }, () => {
+    const config = readQwenTextProviderConfig();
+
+    assert.equal(config.model, "qwen3.7-max");
+    assert.equal(config.provider, "qwen");
+  });
+});
+
+test("provider circuit breaker skips an open primary and selects the fallback", () => {
+  let now = 1_000;
+  const primary = {
+    apiKey: "deepseek-test-key",
+    apiUrl: "https://api.deepseek.com/chat/completions",
+    model: "deepseek-v4-pro",
+    provider: "deepseek" as const
+  };
+  const fallback = {
+    apiKey: "qwen-test-key",
+    apiUrl: "https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions",
+    model: "qwen3.7-plus",
+    provider: "qwen" as const
+  };
+  const circuitBreaker = createLLMProviderCircuitBreaker({
+    failureThreshold: 1,
+    cooldownMs: 60_000,
+    now: () => now
+  });
+
+  assert.equal(selectAvailableLLMProviderConfig([primary, fallback], circuitBreaker), primary);
+
+  circuitBreaker.recordFailure(primary);
+
+  assert.equal(circuitBreaker.isOpen(primary), true);
+  assert.equal(selectAvailableLLMProviderConfig([primary, fallback], circuitBreaker), fallback);
+
+  now += 60_001;
+
+  assert.equal(circuitBreaker.isOpen(primary), false);
+  assert.equal(selectAvailableLLMProviderConfig([primary, fallback], circuitBreaker), primary);
+});
+
+test("text provider config prefers DEEPSEEK variables over legacy LLM aliases", async () => {
+  await withProviderEnv({
+    DEEPSEEK_API_KEY: "deepseek-test-key",
+    DEEPSEEK_API_URL: "https://api.deepseek.com/chat/completions",
+    DEEPSEEK_MODEL: "deepseek-v4-pro",
+    LLM_API_KEY: "legacy-test-key",
+    LLM_API_URL: "https://example.invalid/chat",
+    LLM_MODEL: "legacy-model"
+  }, () => {
+    const config = readLLMProviderConfig();
+
+    assert.equal(config.apiKey, "deepseek-test-key");
+    assert.equal(config.apiUrl, "https://api.deepseek.com/chat/completions");
+    assert.equal(config.model, "deepseek-v4-pro");
+    assert.equal(config.provider, "deepseek");
+  });
+});
 
 test("DeepSeek request body uses the V4 Pro chat-completion contract", () => {
   const body = buildLLMProviderRequestBody({
@@ -44,18 +181,68 @@ test("DeepSeek JSON mode can disable thinking for short structured reranks", () 
   assert.equal(body.max_tokens, 1200);
 });
 
-test("OpenAI-compatible request body keeps max_completion_tokens", () => {
+test("Qwen request body uses DashScope chat-completion limits", () => {
   const body = buildLLMProviderRequestBody({
-    model: "gpt-4.1-mini",
+    model: "qwen3.7-max",
     messages,
     maxTokens: 400,
-    provider: "openai"
+    provider: "qwen"
   }) as Record<string, unknown>;
 
-  assert.equal(body.model, "gpt-4.1-mini");
-  assert.equal(body.max_completion_tokens, 400);
+  assert.equal(body.model, "qwen3.7-max");
+  assert.equal(body.max_tokens, 400);
+  assert.equal(body.stream, false);
   assert.equal("thinking" in body, false);
-  assert.equal("max_tokens" in body, false);
+  assert.equal("max_completion_tokens" in body, false);
+});
+
+test("provider timeout keeps AI Tutor below the serverless hard timeout edge", () => {
+  assert.equal(resolveLLMProviderTimeoutMs(undefined), 8_000);
+  assert.equal(resolveLLMProviderTimeoutMs("60000"), 12_000);
+  assert.equal(resolveLLMProviderTimeoutMs("50"), 250);
+  assert.equal(resolveLLMProviderTimeoutMs("not-a-number"), 8_000);
+});
+
+test("AI Tutor text provider timeout preserves the Qwen-only deadline cap", () => {
+  assert.equal(resolveAITutorProviderTimeoutMs(undefined), 8_000);
+  assert.equal(resolveAITutorProviderTimeoutMs("60000"), 12_000);
+  assert.equal(resolveAITutorProviderTimeoutMs("50"), 250);
+  assert.equal(resolveAITutorProviderTimeoutMs("not-a-number"), 8_000);
+});
+
+test("DeepSeek resolved-IP transport preserves HTTPS server name and host metadata", () => {
+  const config = {
+    apiKey: "deepseek-test-key",
+    apiUrl: "https://api.deepseek.com/chat/completions",
+    model: "deepseek-v4-pro",
+    provider: "deepseek" as const
+  };
+
+  assert.equal(resolveProviderApiPinnedIp(" 171.108.209.197 "), "171.108.209.197");
+  assert.equal(resolveProviderApiPinnedIp("api.deepseek.com"), undefined);
+
+  assert.deepEqual(
+    buildLLMProviderTransportPlan(config, "171.108.209.197"),
+    {
+      mode: "pinned-ip",
+      requestHostname: "171.108.209.197",
+      requestPort: 443,
+      servername: "api.deepseek.com",
+      hostHeader: "api.deepseek.com"
+    }
+  );
+
+  assert.deepEqual(
+    buildLLMProviderTransportPlan({ ...config, provider: "qwen" }, "171.108.209.197"),
+    { mode: "fetch" }
+  );
+});
+
+test("provider completion budget stays aligned with concise tutor replies", () => {
+  assert.equal(resolveLLMMaxCompletionTokens(undefined), 450);
+  assert.equal(resolveLLMMaxCompletionTokens("900"), 600);
+  assert.equal(resolveLLMMaxCompletionTokens("50"), 100);
+  assert.equal(resolveLLMMaxCompletionTokens("not-a-number"), 450);
 });
 
 test("provider reply extraction accepts string and array content", () => {

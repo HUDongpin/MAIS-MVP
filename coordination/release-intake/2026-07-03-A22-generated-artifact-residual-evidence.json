@@ -1,0 +1,50 @@
+{
+  "generatedAt": "2026-07-03T10:00:50.333Z",
+  "cleanupCommand": "node scripts/cleanup-generated-artifacts.mjs --dry-run --json",
+  "dryRun": {
+    "scope": "all",
+    "targetCount": 1,
+    "totalBytes": 0,
+    "apply": false,
+    "dryRun": true
+  },
+  "summary": {
+    "residualTargets": 0,
+    "scratchBaselineTargets": 1,
+    "totalBytes": 0,
+    "activeWriterBlockedRows": 0,
+    "activeWriterOpenFileCount": 0,
+    "datalessTargets": 0,
+    "contentCapturedRows": 0,
+    "cleanupAuthorizedRows": 0,
+    "executableRows": 0
+  },
+  "scratchBaselineRows": [
+    {
+      "residualIndex": 1,
+      "path": ".tmp",
+      "targetType": "directory",
+      "dryRunBytes": 0,
+      "dryRunBytesVolatile": false,
+      "exists": true,
+      "manifestType": "directory",
+      "manifestBytes": 0,
+      "directoryCount": 0,
+      "fileCount": 0,
+      "manifestSha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+      "activeWriterBlocked": false,
+      "activeWriterProbeAvailable": true,
+      "activeWriterCount": 0,
+      "activeWriterPaths": [],
+      "activeWriters": [],
+      "activeWriterSampleTruncated": false,
+      "skipReason": "cleanup script recreates .tmp as an empty scratch directory after apply",
+      "evidenceOnly": true,
+      "cleanupAuthorized": false,
+      "executableNow": false,
+      "contentCaptured": false,
+      "manifestEntries": []
+    }
+  ],
+  "rows": []
+}

@@ -11,6 +11,12 @@ export async function GET(request: Request) {
   if (!authenticated) {
     return NextResponse.json({ error: "Not authenticated." }, { status: 401 });
   }
+  if (authenticated.user.role !== "student") {
+    return NextResponse.json({
+      error: "Student access required.",
+      reason: "student-only"
+    }, { status: 403 });
+  }
 
   const url = new URL(request.url);
   const gradeParam = url.searchParams.get("grade");

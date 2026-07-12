@@ -1,0 +1,173 @@
+diff --git a/package-lock.json b/package-lock.json
+index 93147c8f2..14c7b2dcf 100644
+--- a/package-lock.json
++++ b/package-lock.json
+@@ -11,7 +11,7 @@
+         "@vercel/analytics": "^2.0.1",
+         "framer-motion": "12.23.12",
+         "katex": "^0.16.45",
+-        "next": "^15.4.6",
++        "next": "^15.5.19",
+         "phaser": "4.1.0",
+         "postgres": "^3.4.9",
+         "react": "^19.1.0",
+@@ -589,11 +589,15 @@
+       }
+     },
+     "node_modules/@next/env": {
+-      "version": "15.5.15",
++      "version": "15.5.19",
++      "resolved": "https://registry.npmjs.org/@next/env/-/env-15.5.19.tgz",
++      "integrity": "sha512-sWWluFvcv5v3Fxznmf2ZfjyoVQt/64oCnYqS90inQWGzMPK1VjvekPiz3OPHKmFT30EnHrjlbyaHLt3M0vWabw==",
+       "license": "MIT"
+     },
+     "node_modules/@next/swc-darwin-arm64": {
+-      "version": "15.5.15",
++      "version": "15.5.19",
++      "resolved": "https://registry.npmjs.org/@next/swc-darwin-arm64/-/swc-darwin-arm64-15.5.19.tgz",
++      "integrity": "sha512-jx9wWlTKueHKPvVOndyr7WuaevWCkuYqsQ8gC0TMPKAVWG3MhcdMrjfo9tvIZNXd0QOUYXXvAcZ325y8Uq7uzg==",
+       "cpu": [
+         "arm64"
+       ],
+@@ -607,9 +611,9 @@
+       }
+     },
+     "node_modules/@next/swc-darwin-x64": {
+-      "version": "15.5.15",
+-      "resolved": "https://registry.npmjs.org/@next/swc-darwin-x64/-/swc-darwin-x64-15.5.15.tgz",
+-      "integrity": "sha512-G+YNV+z6FDZTp/+IdGyIMFqalBTaQSnvAA+X/hrt+eaTRFSznRMz9K7rTmzvM6tDmKegNtyzgufZW0HwVzEqaQ==",
++      "version": "15.5.19",
++      "resolved": "https://registry.npmjs.org/@next/swc-darwin-x64/-/swc-darwin-x64-15.5.19.tgz",
++      "integrity": "sha512-291KFcsIQ3OenRdiUDFOR6W3wezzH4auENXm1gbm1Bjd4ANMMRgxPrWTUztQN43BnVoVuMnHCrLeECIMwgFKbA==",
+       "cpu": [
+         "x64"
+       ],
+@@ -623,9 +627,9 @@
+       }
+     },
+     "node_modules/@next/swc-linux-arm64-gnu": {
+-      "version": "15.5.15",
+-      "resolved": "https://registry.npmjs.org/@next/swc-linux-arm64-gnu/-/swc-linux-arm64-gnu-15.5.15.tgz",
+-      "integrity": "sha512-eVkrMcVIBqGfXB+QUC7jjZ94Z6uX/dNStbQFabewAnk13Uy18Igd1YZ/GtPRzdhtm7QwC0e6o7zOQecul4iC1w==",
++      "version": "15.5.19",
++      "resolved": "https://registry.npmjs.org/@next/swc-linux-arm64-gnu/-/swc-linux-arm64-gnu-15.5.19.tgz",
++      "integrity": "sha512-WeH+nelQyyMeE2f8FxBRZNrGipya5zHZV2vjzfCOAYyiI6am+NbnWAAldOBFQBB2w0DjJcsvrKqoFT2b7+5YoA==",
+       "cpu": [
+         "arm64"
+       ],
+@@ -642,9 +646,9 @@
+       }
+     },
+     "node_modules/@next/swc-linux-arm64-musl": {
+-      "version": "15.5.15",
+-      "resolved": "https://registry.npmjs.org/@next/swc-linux-arm64-musl/-/swc-linux-arm64-musl-15.5.15.tgz",
+-      "integrity": "sha512-RwSHKMQ7InLy5GfkY2/n5PcFycKA08qI1VST78n09nN36nUPqCvGSMiLXlfUmzmpQpF6XeBYP2KRWHi0UW3uNg==",
++      "version": "15.5.19",
++      "resolved": "https://registry.npmjs.org/@next/swc-linux-arm64-musl/-/swc-linux-arm64-musl-15.5.19.tgz",
++      "integrity": "sha512-5xTOE0lDlDCSSfp+BAif7j17VRRCjWp//ZPZy6NI0QpdrhxtQnsZguSx0xAAZ0c9XZLrLLwCe/XVe5YPrRilKw==",
+       "cpu": [
+         "arm64"
+       ],
+@@ -661,9 +665,9 @@
+       }
+     },
+     "node_modules/@next/swc-linux-x64-gnu": {
+-      "version": "15.5.15",
+-      "resolved": "https://registry.npmjs.org/@next/swc-linux-x64-gnu/-/swc-linux-x64-gnu-15.5.15.tgz",
+-      "integrity": "sha512-nplqvY86LakS+eeiuWsNWvfmK8pFcOEW7ZtVRt4QH70lL+0x6LG/m1OpJ/tvrbwjmR8HH9/fH2jzW1GlL03TIg==",
++      "version": "15.5.19",
++      "resolved": "https://registry.npmjs.org/@next/swc-linux-x64-gnu/-/swc-linux-x64-gnu-15.5.19.tgz",
++      "integrity": "sha512-LTxRmMgqqMv05Had879W00Fm53quiJd3Zuz8h1JSNJ3nGSlbZ/7Tjs1tKyScgN3Au3t3MyPsjPlq60fMmSHLsg==",
+       "cpu": [
+         "x64"
+       ],
+@@ -680,9 +684,9 @@
+       }
+     },
+     "node_modules/@next/swc-linux-x64-musl": {
+-      "version": "15.5.15",
+-      "resolved": "https://registry.npmjs.org/@next/swc-linux-x64-musl/-/swc-linux-x64-musl-15.5.15.tgz",
+-      "integrity": "sha512-eAgl9NKQ84/sww0v81DQINl/vL2IBxD7sMybd0cWRw6wqgouVI53brVRBrggqBRP/NWeIAE1dm5cbKYoiMlqDQ==",
++      "version": "15.5.19",
++      "resolved": "https://registry.npmjs.org/@next/swc-linux-x64-musl/-/swc-linux-x64-musl-15.5.19.tgz",
++      "integrity": "sha512-eoNQSpA5PQfB9wBO4RA47MTDXWz1fizy9Y3Z6e4DetYIF3dvjuu8sj7aIGn/bFCU6lnFzTK34NtCaffP4NsQ7Q==",
+       "cpu": [
+         "x64"
+       ],
+@@ -699,9 +703,9 @@
+       }
+     },
+     "node_modules/@next/swc-win32-arm64-msvc": {
+-      "version": "15.5.15",
+-      "resolved": "https://registry.npmjs.org/@next/swc-win32-arm64-msvc/-/swc-win32-arm64-msvc-15.5.15.tgz",
+-      "integrity": "sha512-GJVZC86lzSquh0MtvZT+L7G8+jMnJcldloOjA8Kf3wXvBrvb6OGe2MzPuALxFshSm/IpwUtD2mIoof39ymf52A==",
++      "version": "15.5.19",
++      "resolved": "https://registry.npmjs.org/@next/swc-win32-arm64-msvc/-/swc-win32-arm64-msvc-15.5.19.tgz",
++      "integrity": "sha512-6UNt2dFuCHOe446sm/Kp69nUe8/wIhnh9bm6Xcqw4qEWCOppLMOvhTBVgvM7invVUNr4SPpP6NOQsACtn2IN9Q==",
+       "cpu": [
+         "arm64"
+       ],
+@@ -715,9 +719,9 @@
+       }
+     },
+     "node_modules/@next/swc-win32-x64-msvc": {
+-      "version": "15.5.15",
+-      "resolved": "https://registry.npmjs.org/@next/swc-win32-x64-msvc/-/swc-win32-x64-msvc-15.5.15.tgz",
+-      "integrity": "sha512-nFucjVdwlFqxh/JG3hWSJ4p8+YJV7Ii8aPDuBQULB6DzUF4UNZETXLfEUk+oI2zEznWWULPt7MeuTE6xtK1HSA==",
++      "version": "15.5.19",
++      "resolved": "https://registry.npmjs.org/@next/swc-win32-x64-msvc/-/swc-win32-x64-msvc-15.5.19.tgz",
++      "integrity": "sha512-PhmojAHyqMne56HBLGu9dhDnHPuFmEjrXSQMM/nW0J6j849lk3ESrVtqNJcCk8CKOV7brpTTbaYAjwKPzKM69w==",
+       "cpu": [
+         "x64"
+       ],
+@@ -1398,10 +1402,12 @@
+       }
+     },
+     "node_modules/next": {
+-      "version": "15.5.15",
++      "version": "15.5.19",
++      "resolved": "https://registry.npmjs.org/next/-/next-15.5.19.tgz",
++      "integrity": "sha512-xNOW6tYshGX1/Oi3F8uuk4gpDeWsSUE/1Z0G5uUMekIxaQ0xc03UXd9II0VQHYMWviMeA0OHpJFAKsHf8bTYVg==",
+       "license": "MIT",
+       "dependencies": {
+-        "@next/env": "15.5.15",
++        "@next/env": "15.5.19",
+         "@swc/helpers": "0.5.15",
+         "caniuse-lite": "^1.0.30001579",
+         "postcss": "8.4.31",
+@@ -1414,14 +1420,14 @@
+         "node": "^18.18.0 || ^19.8.0 || >= 20.0.0"
+       },
+       "optionalDependencies": {
+-        "@next/swc-darwin-arm64": "15.5.15",
+-        "@next/swc-darwin-x64": "15.5.15",
+-        "@next/swc-linux-arm64-gnu": "15.5.15",
+-        "@next/swc-linux-arm64-musl": "15.5.15",
+-        "@next/swc-linux-x64-gnu": "15.5.15",
+-        "@next/swc-linux-x64-musl": "15.5.15",
+-        "@next/swc-win32-arm64-msvc": "15.5.15",
+-        "@next/swc-win32-x64-msvc": "15.5.15",
++        "@next/swc-darwin-arm64": "15.5.19",
++        "@next/swc-darwin-x64": "15.5.19",
++        "@next/swc-linux-arm64-gnu": "15.5.19",
++        "@next/swc-linux-arm64-musl": "15.5.19",
++        "@next/swc-linux-x64-gnu": "15.5.19",
++        "@next/swc-linux-x64-musl": "15.5.19",
++        "@next/swc-win32-arm64-msvc": "15.5.19",
++        "@next/swc-win32-x64-msvc": "15.5.19",
+         "sharp": "^0.34.3"
+       },
+       "peerDependencies": {
+diff --git a/package.json b/package.json
+index ca4f889fd..79321327b 100644
+--- a/package.json
++++ b/package.json
+@@ -59,7 +59,7 @@
+     "@vercel/analytics": "^2.0.1",
+     "framer-motion": "12.23.12",
+     "katex": "^0.16.45",
+-    "next": "^15.4.6",
++    "next": "^15.5.19",
+     "phaser": "4.1.0",
+     "postgres": "^3.4.9",
+     "react": "^19.1.0",

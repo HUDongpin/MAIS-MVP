@@ -54,7 +54,7 @@ const stageLabels: Record<MainlandHjbRoadmapStage, LocalizedText> = {
   "senior-secondary": { en: "HJB Senior-secondary Mathematics", zh: "滬教版高中數學", zhHans: "沪教版高中数学" }
 };
 
-const gradeLabels: Record<GradeId, LocalizedText> = {
+const gradeLabels: Partial<Record<GradeId, LocalizedText>> = {
   P1: { en: "Primary 1", zh: "小學一年級", zhHans: "小学一年级" },
   P2: { en: "Primary 2", zh: "小學二年級", zhHans: "小学二年级" },
   P3: { en: "Primary 3", zh: "小學三年級", zhHans: "小学三年级" },
@@ -220,7 +220,7 @@ function practiceLabelFor(metadata: HjbTopicMetadata) {
 }
 
 function buildStations(topic: Topic, metadata: HjbTopicMetadata) {
-  const gradeLabel = gradeLabels[topic.grade];
+  const gradeLabel = gradeLabels[topic.grade] ?? topic.title;
   const stage = stageLabels[metadata.stage];
   const semesterLabel = semesterLabels[metadata.semester];
   const titleZh = textOf(topic.title);
@@ -258,7 +258,7 @@ function buildStations(topic: Topic, metadata: HjbTopicMetadata) {
 
 function buildRoadmapNode(topic: Topic): MainlandHjbRoadmapNode {
   const metadata = metadataForTopic(topic);
-  const gradeLabel = gradeLabels[topic.grade];
+  const gradeLabel = gradeLabels[topic.grade] ?? topic.title;
   const stage = metadata.stage;
 
   return {

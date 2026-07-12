@@ -3,6 +3,7 @@ import {
   unitedStatesMathSourceRegistry,
   unitedStatesMathStateProfiles
 } from "../../data/rag/usMath";
+import { illustrationTextMatchStandardForRag } from "./illustrationTextMatchStandard";
 import type {
   UnitedStatesMathEvidencePack,
   UnitedStatesMathLibraryLane,
@@ -172,6 +173,7 @@ export function getUnitedStatesMathSafeCards(query: UnitedStatesMathRagQuery): U
   const minimumScore = minimumRelevantScore(query);
   const scored = unitedStatesMathSafeCards
     .filter((card) => card.curriculumTrack === track && card.state === stateForTrack(track))
+    .filter((card) => !query.grade || card.grade === query.grade)
     .filter((card) => !query.cardKinds?.length || query.cardKinds.includes(card.cardKind))
     .filter((card) => !query.libraryLanes?.length || query.libraryLanes.includes(card.libraryLane))
     .map((card, index) => ({ card, index, score: scoreCard(card, query) }))
@@ -199,6 +201,7 @@ export function buildUnitedStatesMathEvidencePack(query: UnitedStatesMathRagQuer
     `Aligned to ${profile.displayName} standards; MAIS-authored original content. ${profile.noEndorsementNotice}`,
     "Do not quote, translate, paraphrase, reconstruct, or lightly modify standards text, textbook examples, released assessment items, choices, diagrams, tables, rubrics, scoring language, or source passages.",
     "Generate fresh MAIS-authored contexts, numbers, diagrams, prompts, hints, explanations, and distractors.",
+    ...illustrationTextMatchStandardForRag,
     `Crosswalk policy: ${profile.crosswalkNotes.join(" ")}`,
     ...sourceRegistry.flatMap((source, index) => [
       `Source ${index + 1}: ${source.id}.`,

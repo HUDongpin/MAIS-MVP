@@ -1,0 +1,3908 @@
+{
+  "generatedAt": "2026-07-09T14:04:44.164Z",
+  "repoRoot": "/Users/dongpinhu/Desktop/MAIS-MVP",
+  "frontierKind": "typecheck-critical-path-frontier",
+  "dirtyMapStatusSignature": "b3d232fd2b9ef81d4efc95903d2e3b316db664d6e9ec6ab366181395b3966be7",
+  "expandedStatusEntries": 6604,
+  "sourceArtifacts": {
+    "matrixGeneratedAt": "2026-07-09T14:00:21.777Z",
+    "routingGeneratedAt": "2026-07-09T14:00:21.899Z",
+    "assignmentPacketGeneratedAt": "2026-07-09T14:04:43.989Z"
+  },
+  "sourceCurrentnessFailures": [],
+  "summary": {
+    "typeCheckErrorLines": 9907,
+    "topTypeCheckFiles": 12,
+    "frontierRows": 12,
+    "criticalOwnerRows": 6,
+    "failedChecks": 34,
+    "blockedOwnerPackageRows": 14,
+    "cleanupAuthorizedRows": 0,
+    "executableRows": 0,
+    "sourceCurrentnessFailures": 0
+  },
+  "ownerFrontierRows": [
+    {
+      "ownerId": "A06",
+      "owner": "A06 visualization lead",
+      "files": 3,
+      "frontierRows": 3,
+      "impactedPackageRows": 37,
+      "totalMatchedErrors": 3134,
+      "recommendedWorktree": "/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A06-visualization-closure",
+      "cleanupAuthorized": false,
+      "executableNow": false
+    },
+    {
+      "ownerId": "A13",
+      "owner": "A13 teacher console lead",
+      "files": 6,
+      "frontierRows": 6,
+      "impactedPackageRows": 66,
+      "totalMatchedErrors": 1941,
+      "recommendedWorktree": "/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A13-A14-console-closure",
+      "cleanupAuthorized": false,
+      "executableNow": false
+    },
+    {
+      "ownerId": "A18",
+      "owner": "A18 curriculum QA and content quality lead",
+      "files": 2,
+      "frontierRows": 2,
+      "impactedPackageRows": 4,
+      "totalMatchedErrors": 280,
+      "recommendedWorktree": "/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A18-A21-content-evidence-closure",
+      "cleanupAuthorized": false,
+      "executableNow": false
+    },
+    {
+      "ownerId": "A04",
+      "owner": "A04 practice lead",
+      "files": 1,
+      "frontierRows": 1,
+      "impactedPackageRows": 2,
+      "totalMatchedErrors": 182,
+      "recommendedWorktree": "/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A04-practice-closure",
+      "cleanupAuthorized": false,
+      "executableNow": false
+    },
+    {
+      "ownerId": "A20",
+      "owner": "A20 game design and game-based learning lead",
+      "files": 1,
+      "frontierRows": 1,
+      "impactedPackageRows": 8,
+      "totalMatchedErrors": 104,
+      "recommendedWorktree": "/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A17-A20-game-motivation-closure",
+      "cleanupAuthorized": false,
+      "executableNow": false
+    },
+    {
+      "ownerId": "A03",
+      "owner": "A03 curriculum roadmap lead",
+      "files": 1,
+      "frontierRows": 1,
+      "impactedPackageRows": 2,
+      "totalMatchedErrors": 98,
+      "recommendedWorktree": "/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A03-roadmap-closure",
+      "cleanupAuthorized": false,
+      "executableNow": false
+    }
+  ],
+  "frontierRows": [
+    {
+      "rank": 1,
+      "file": "components/visualizations/three/scenes/TemplatePrimitiveScene.tsx",
+      "totalErrors": 2688,
+      "matchedRouteErrors": 2688,
+      "primaryOwnerId": "A06",
+      "primaryOwner": "A06 visualization lead",
+      "primaryRouteKind": "package-owner",
+      "recommendedWorktree": "/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A06-visualization-closure",
+      "writeScope": [
+        "components/visualizations/three/manim/MathSceneRuntime.tsx",
+        "components/visualizations/three/scenes/TemplatePrimitiveScene.tsx",
+        "components/visualizations/three/ThreeDGraphCanvas.tsx",
+        "components/visualizations/three/ThreeDLabCanvas.tsx",
+        "components/visualizations/three/threeDSceneMath.catalog.test.ts",
+        "components/visualizations/VisualizationLabPage.tsx"
+      ],
+      "impactedPackageRows": 13,
+      "impactedWaves": [
+        "wave-02-shared-contracts",
+        "wave-03-shell-dashboard-roadmap",
+        "wave-04-practice-lesson-content",
+        "wave-05-visualization-ai-runtime"
+      ],
+      "impactedPackages": [
+        "a01-app-shell",
+        "a02-a15-dashboard-adaptive",
+        "a03-roadmap",
+        "a04-practice",
+        "a05-lesson",
+        "a06-visualization",
+        "a07-ai-tutor",
+        "a09-copy-i18n-accessibility",
+        "a11-regression-evidence",
+        "a13-a14-console",
+        "a17-a20-game-motivation",
+        "a18-a21-a23-a24-content-evidence",
+        "wave-02-shared-contracts"
+      ],
+      "ownerRoutes": [
+        {
+          "ownerId": "A06",
+          "owner": "A06 visualization lead",
+          "routeKinds": [
+            "cross-owner-blocker",
+            "package-owner"
+          ],
+          "files": 1,
+          "frontierRows": 1,
+          "impactedPackageRows": 13,
+          "impactedWaves": [
+            "wave-02-shared-contracts",
+            "wave-03-shell-dashboard-roadmap",
+            "wave-04-practice-lesson-content",
+            "wave-05-visualization-ai-runtime"
+          ],
+          "totalMatchedErrors": 2688,
+          "recommendedWorktree": "/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A06-visualization-closure",
+          "writeScope": [
+            "components/visualizations/three/manim/MathSceneRuntime.tsx",
+            "components/visualizations/three/scenes/TemplatePrimitiveScene.tsx",
+            "components/visualizations/three/ThreeDGraphCanvas.tsx",
+            "components/visualizations/three/ThreeDLabCanvas.tsx",
+            "components/visualizations/three/threeDSceneMath.catalog.test.ts",
+            "components/visualizations/VisualizationLabPage.tsx"
+          ],
+          "cleanupAuthorized": false,
+          "executableNow": false
+        }
+      ],
+      "packageImpacts": [
+        {
+          "matrixId": "wave-02-shared-contracts:wave-02-shared-contracts",
+          "waveId": "wave-02-shared-contracts",
+          "packageId": "wave-02-shared-contracts",
+          "packageName": "A08/A12 shared contracts and storage/API stability",
+          "readiness": "blocked",
+          "failedCheckNames": [
+            "testAnalytics",
+            "testBackend",
+            "typeCheck",
+            "build"
+          ],
+          "blockingReasons": [
+            "testAnalytics failed",
+            "testBackend failed",
+            "typeCheck failed",
+            "build failed"
+          ],
+          "typeCheckErrorsInPackage": 206,
+          "ownerRoutes": [
+            {
+              "ownerId": "A06",
+              "owner": "A06 visualization lead",
+              "routeKind": "cross-owner-blocker",
+              "errors": 206
+            }
+          ]
+        },
+        {
+          "matrixId": "wave-03-shell-dashboard-roadmap:a01-app-shell",
+          "waveId": "wave-03-shell-dashboard-roadmap",
+          "packageId": "a01-app-shell",
+          "packageName": "A01 app shell",
+          "readiness": "blocked",
+          "failedCheckNames": [
+            "typeCheck",
+            "appShellPlaywright"
+          ],
+          "blockingReasons": [
+            "A01 app shell typeCheck failed",
+            "A01 app shell appShellPlaywright failed"
+          ],
+          "typeCheckErrorsInPackage": 206,
+          "ownerRoutes": [
+            {
+              "ownerId": "A06",
+              "owner": "A06 visualization lead",
+              "routeKind": "cross-owner-blocker",
+              "errors": 206
+            }
+          ]
+        },
+        {
+          "matrixId": "wave-03-shell-dashboard-roadmap:a02-a15-dashboard-adaptive",
+          "waveId": "wave-03-shell-dashboard-roadmap",
+          "packageId": "a02-a15-dashboard-adaptive",
+          "packageName": "A02/A15 dashboard adaptive",
+          "readiness": "blocked",
+          "failedCheckNames": [
+            "testAnalytics",
+            "typeCheck",
+            "dashboardAdaptivePlaywright"
+          ],
+          "blockingReasons": [
+            "A02/A15 dashboard adaptive testAnalytics failed",
+            "A02/A15 dashboard adaptive typeCheck failed",
+            "A02/A15 dashboard adaptive dashboardAdaptivePlaywright failed"
+          ],
+          "typeCheckErrorsInPackage": 206,
+          "ownerRoutes": [
+            {
+              "ownerId": "A06",
+              "owner": "A06 visualization lead",
+              "routeKind": "cross-owner-blocker",
+              "errors": 206
+            }
+          ]
+        },
+        {
+          "matrixId": "wave-03-shell-dashboard-roadmap:a03-roadmap",
+          "waveId": "wave-03-shell-dashboard-roadmap",
+          "packageId": "a03-roadmap",
+          "packageName": "A03 roadmap",
+          "readiness": "blocked",
+          "failedCheckNames": [
+            "typeCheck",
+            "roadmapPlaywright"
+          ],
+          "blockingReasons": [
+            "A03 roadmap typeCheck failed",
+            "A03 roadmap roadmapPlaywright failed"
+          ],
+          "typeCheckErrorsInPackage": 206,
+          "ownerRoutes": [
+            {
+              "ownerId": "A06",
+              "owner": "A06 visualization lead",
+              "routeKind": "cross-owner-blocker",
+              "errors": 206
+            }
+          ]
+        },
+        {
+          "matrixId": "wave-04-practice-lesson-content:a04-practice",
+          "waveId": "wave-04-practice-lesson-content",
+          "packageId": "a04-practice",
+          "packageName": "A04 practice",
+          "readiness": "blocked",
+          "failedCheckNames": [
+            "testQuestionBank",
+            "typeCheck",
+            "practicePlaywright"
+          ],
+          "blockingReasons": [
+            "A04 practice testQuestionBank failed",
+            "A04 practice typeCheck failed",
+            "A04 practice practicePlaywright failed"
+          ],
+          "typeCheckErrorsInPackage": 206,
+          "ownerRoutes": [
+            {
+              "ownerId": "A06",
+              "owner": "A06 visualization lead",
+              "routeKind": "cross-owner-blocker",
+              "errors": 206
+            }
+          ]
+        },
+        {
+          "matrixId": "wave-04-practice-lesson-content:a05-lesson",
+          "waveId": "wave-04-practice-lesson-content",
+          "packageId": "a05-lesson",
+          "packageName": "A05 lesson",
+          "readiness": "blocked",
+          "failedCheckNames": [
+            "typeCheck",
+            "lessonPlaywright"
+          ],
+          "blockingReasons": [
+            "A05 lesson typeCheck failed",
+            "A05 lesson lessonPlaywright failed"
+          ],
+          "typeCheckErrorsInPackage": 206,
+          "ownerRoutes": [
+            {
+              "ownerId": "A06",
+              "owner": "A06 visualization lead",
+              "routeKind": "cross-owner-blocker",
+              "errors": 206
+            }
+          ]
+        },
+        {
+          "matrixId": "wave-04-practice-lesson-content:a18-a21-a23-a24-content-evidence",
+          "waveId": "wave-04-practice-lesson-content",
+          "packageId": "a18-a21-a23-a24-content-evidence",
+          "packageName": "A18/A21/A23/A24 content evidence",
+          "readiness": "blocked",
+          "failedCheckNames": [
+            "testRag",
+            "testQuestionBank",
+            "typeCheck"
+          ],
+          "blockingReasons": [
+            "A18/A21/A23/A24 content evidence has 110 dirty entries outside its pathspec union",
+            "A18/A21/A23/A24 content evidence testRag failed",
+            "A18/A21/A23/A24 content evidence testQuestionBank failed",
+            "A18/A21/A23/A24 content evidence typeCheck failed"
+          ],
+          "typeCheckErrorsInPackage": 206,
+          "ownerRoutes": [
+            {
+              "ownerId": "A06",
+              "owner": "A06 visualization lead",
+              "routeKind": "cross-owner-blocker",
+              "errors": 206
+            }
+          ]
+        },
+        {
+          "matrixId": "wave-05-visualization-ai-runtime:a06-visualization",
+          "waveId": "wave-05-visualization-ai-runtime",
+          "packageId": "a06-visualization",
+          "packageName": "A06 visualization",
+          "readiness": "blocked",
+          "failedCheckNames": [
+            "typeCheck",
+            "visualizationNodeTests",
+            "visualizationPlaywright"
+          ],
+          "blockingReasons": [
+            "A06 visualization typeCheck failed",
+            "A06 visualization visualizationNodeTests failed",
+            "A06 visualization visualizationPlaywright failed"
+          ],
+          "typeCheckErrorsInPackage": 216,
+          "ownerRoutes": [
+            {
+              "ownerId": "A06",
+              "owner": "A06 visualization lead",
+              "routeKind": "package-owner",
+              "errors": 216
+            }
+          ]
+        },
+        {
+          "matrixId": "wave-05-visualization-ai-runtime:a07-ai-tutor",
+          "waveId": "wave-05-visualization-ai-runtime",
+          "packageId": "a07-ai-tutor",
+          "packageName": "A07 AI tutor",
+          "readiness": "blocked",
+          "failedCheckNames": [
+            "typeCheck",
+            "aiTutorPlaywright"
+          ],
+          "blockingReasons": [
+            "A07 AI tutor typeCheck failed",
+            "A07 AI tutor aiTutorPlaywright failed"
+          ],
+          "typeCheckErrorsInPackage": 206,
+          "ownerRoutes": [
+            {
+              "ownerId": "A06",
+              "owner": "A06 visualization lead",
+              "routeKind": "cross-owner-blocker",
+              "errors": 206
+            }
+          ]
+        },
+        {
+          "matrixId": "wave-05-visualization-ai-runtime:a09-copy-i18n-accessibility",
+          "waveId": "wave-05-visualization-ai-runtime",
+          "packageId": "a09-copy-i18n-accessibility",
+          "packageName": "A09 copy/i18n/accessibility",
+          "readiness": "blocked",
+          "failedCheckNames": [
+            "typeCheck"
+          ],
+          "blockingReasons": [
+            "A09 copy/i18n/accessibility typeCheck failed"
+          ],
+          "typeCheckErrorsInPackage": 206,
+          "ownerRoutes": [
+            {
+              "ownerId": "A06",
+              "owner": "A06 visualization lead",
+              "routeKind": "cross-owner-blocker",
+              "errors": 206
+            }
+          ]
+        },
+        {
+          "matrixId": "wave-05-visualization-ai-runtime:a11-regression-evidence",
+          "waveId": "wave-05-visualization-ai-runtime",
+          "packageId": "a11-regression-evidence",
+          "packageName": "A11 regression evidence",
+          "readiness": "blocked",
+          "failedCheckNames": [
+            "typeCheck",
+            "regressionPlaywright"
+          ],
+          "blockingReasons": [
+            "A11 regression evidence typeCheck failed",
+            "A11 regression evidence regressionPlaywright failed"
+          ],
+          "typeCheckErrorsInPackage": 206,
+          "ownerRoutes": [
+            {
+              "ownerId": "A06",
+              "owner": "A06 visualization lead",
+              "routeKind": "cross-owner-blocker",
+              "errors": 206
+            }
+          ]
+        },
+        {
+          "matrixId": "wave-05-visualization-ai-runtime:a13-a14-console",
+          "waveId": "wave-05-visualization-ai-runtime",
+          "packageId": "a13-a14-console",
+          "packageName": "A13/A14 console",
+          "readiness": "blocked",
+          "failedCheckNames": [
+            "typeCheck",
+            "consolePlaywright"
+          ],
+          "blockingReasons": [
+            "A13/A14 console typeCheck failed",
+            "A13/A14 console consolePlaywright failed"
+          ],
+          "typeCheckErrorsInPackage": 206,
+          "ownerRoutes": [
+            {
+              "ownerId": "A06",
+              "owner": "A06 visualization lead",
+              "routeKind": "cross-owner-blocker",
+              "errors": 206
+            }
+          ]
+        },
+        {
+          "matrixId": "wave-05-visualization-ai-runtime:a17-a20-game-motivation",
+          "waveId": "wave-05-visualization-ai-runtime",
+          "packageId": "a17-a20-game-motivation",
+          "packageName": "A17/A20 games and motivation",
+          "readiness": "blocked",
+          "failedCheckNames": [
+            "typeCheck",
+            "gameMotivationPlaywright"
+          ],
+          "blockingReasons": [
+            "A17/A20 games and motivation typeCheck failed",
+            "A17/A20 games and motivation gameMotivationPlaywright failed"
+          ],
+          "typeCheckErrorsInPackage": 206,
+          "ownerRoutes": [
+            {
+              "ownerId": "A06",
+              "owner": "A06 visualization lead",
+              "routeKind": "cross-owner-blocker",
+              "errors": 206
+            }
+          ]
+        }
+      ],
+      "nextAction": "A06 should inspect `components/visualizations/three/scenes/TemplatePrimitiveScene.tsx` in /Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A06-visualization-closure, fix only its assigned owner scope, then rerun the impacted package checks for 13 package row(s) before A25 refreshes the aggregate gates.",
+      "evidence": [
+        "coordination/release-intake/latest-A25-owner-package-readiness-blocker-matrix.json",
+        "coordination/release-intake/latest-A25-owner-package-blocker-routing.json",
+        "coordination/release-intake/latest-A25-owner-package-blocker-assignment-packet.json"
+      ],
+      "mergeAuthorized": false,
+      "cleanupAuthorized": false,
+      "executableNow": false
+    },
+    {
+      "rank": 2,
+      "file": "components/teacher/TeacherPrepViews.tsx",
+      "totalErrors": 468,
+      "matchedRouteErrors": 468,
+      "primaryOwnerId": "A13",
+      "primaryOwner": "A13 teacher console lead",
+      "primaryRouteKind": "package-owner",
+      "recommendedWorktree": "/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A13-A14-console-closure",
+      "writeScope": [
+        "components/teacher/TeacherLiveView.tsx",
+        "components/teacher/TeacherManagementViews.tsx",
+        "components/teacher/TeacherOperationsView.tsx",
+        "components/teacher/TeacherPrepViews.tsx",
+        "components/teacher/TeacherResourceAssessmentViews.tsx",
+        "components/teacher/TeacherReviewLessonView.tsx"
+      ],
+      "impactedPackageRows": 13,
+      "impactedWaves": [
+        "wave-01-governance-release-hygiene",
+        "wave-03-shell-dashboard-roadmap",
+        "wave-04-practice-lesson-content",
+        "wave-05-visualization-ai-runtime"
+      ],
+      "impactedPackages": [
+        "a01-app-shell",
+        "a02-a15-dashboard-adaptive",
+        "a03-roadmap",
+        "a04-practice",
+        "a05-lesson",
+        "a06-visualization",
+        "a07-ai-tutor",
+        "a09-copy-i18n-accessibility",
+        "a11-regression-evidence",
+        "a13-a14-console",
+        "a17-a20-game-motivation",
+        "a18-a21-a23-a24-content-evidence",
+        "wave-01-governance-release-hygiene"
+      ],
+      "ownerRoutes": [
+        {
+          "ownerId": "A13",
+          "owner": "A13 teacher console lead",
+          "routeKinds": [
+            "cross-owner-blocker",
+            "package-owner"
+          ],
+          "files": 1,
+          "frontierRows": 1,
+          "impactedPackageRows": 13,
+          "impactedWaves": [
+            "wave-01-governance-release-hygiene",
+            "wave-03-shell-dashboard-roadmap",
+            "wave-04-practice-lesson-content",
+            "wave-05-visualization-ai-runtime"
+          ],
+          "totalMatchedErrors": 468,
+          "recommendedWorktree": "/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A13-A14-console-closure",
+          "writeScope": [
+            "components/teacher/TeacherLiveView.tsx",
+            "components/teacher/TeacherManagementViews.tsx",
+            "components/teacher/TeacherOperationsView.tsx",
+            "components/teacher/TeacherPrepViews.tsx",
+            "components/teacher/TeacherResourceAssessmentViews.tsx",
+            "components/teacher/TeacherReviewLessonView.tsx"
+          ],
+          "cleanupAuthorized": false,
+          "executableNow": false
+        }
+      ],
+      "packageImpacts": [
+        {
+          "matrixId": "wave-01-governance-release-hygiene:wave-01-governance-release-hygiene",
+          "waveId": "wave-01-governance-release-hygiene",
+          "packageId": "wave-01-governance-release-hygiene",
+          "packageName": "A25/A10/A22 governance and release hygiene",
+          "readiness": "blocked",
+          "failedCheckNames": [
+            "typeCheck"
+          ],
+          "blockingReasons": [
+            "1 held package-resync row remains: wave01-resync-01-tsconfig-json",
+            "npm run type-check failed"
+          ],
+          "typeCheckErrorsInPackage": 36,
+          "ownerRoutes": [
+            {
+              "ownerId": "A13",
+              "owner": "A13 teacher console lead",
+              "routeKind": "cross-owner-blocker",
+              "errors": 36
+            }
+          ]
+        },
+        {
+          "matrixId": "wave-03-shell-dashboard-roadmap:a01-app-shell",
+          "waveId": "wave-03-shell-dashboard-roadmap",
+          "packageId": "a01-app-shell",
+          "packageName": "A01 app shell",
+          "readiness": "blocked",
+          "failedCheckNames": [
+            "typeCheck",
+            "appShellPlaywright"
+          ],
+          "blockingReasons": [
+            "A01 app shell typeCheck failed",
+            "A01 app shell appShellPlaywright failed"
+          ],
+          "typeCheckErrorsInPackage": 36,
+          "ownerRoutes": [
+            {
+              "ownerId": "A13",
+              "owner": "A13 teacher console lead",
+              "routeKind": "cross-owner-blocker",
+              "errors": 36
+            }
+          ]
+        },
+        {
+          "matrixId": "wave-03-shell-dashboard-roadmap:a02-a15-dashboard-adaptive",
+          "waveId": "wave-03-shell-dashboard-roadmap",
+          "packageId": "a02-a15-dashboard-adaptive",
+          "packageName": "A02/A15 dashboard adaptive",
+          "readiness": "blocked",
+          "failedCheckNames": [
+            "testAnalytics",
+            "typeCheck",
+            "dashboardAdaptivePlaywright"
+          ],
+          "blockingReasons": [
+            "A02/A15 dashboard adaptive testAnalytics failed",
+            "A02/A15 dashboard adaptive typeCheck failed",
+            "A02/A15 dashboard adaptive dashboardAdaptivePlaywright failed"
+          ],
+          "typeCheckErrorsInPackage": 36,
+          "ownerRoutes": [
+            {
+              "ownerId": "A13",
+              "owner": "A13 teacher console lead",
+              "routeKind": "cross-owner-blocker",
+              "errors": 36
+            }
+          ]
+        },
+        {
+          "matrixId": "wave-03-shell-dashboard-roadmap:a03-roadmap",
+          "waveId": "wave-03-shell-dashboard-roadmap",
+          "packageId": "a03-roadmap",
+          "packageName": "A03 roadmap",
+          "readiness": "blocked",
+          "failedCheckNames": [
+            "typeCheck",
+            "roadmapPlaywright"
+          ],
+          "blockingReasons": [
+            "A03 roadmap typeCheck failed",
+            "A03 roadmap roadmapPlaywright failed"
+          ],
+          "typeCheckErrorsInPackage": 36,
+          "ownerRoutes": [
+            {
+              "ownerId": "A13",
+              "owner": "A13 teacher console lead",
+              "routeKind": "cross-owner-blocker",
+              "errors": 36
+            }
+          ]
+        },
+        {
+          "matrixId": "wave-04-practice-lesson-content:a04-practice",
+          "waveId": "wave-04-practice-lesson-content",
+          "packageId": "a04-practice",
+          "packageName": "A04 practice",
+          "readiness": "blocked",
+          "failedCheckNames": [
+            "testQuestionBank",
+            "typeCheck",
+            "practicePlaywright"
+          ],
+          "blockingReasons": [
+            "A04 practice testQuestionBank failed",
+            "A04 practice typeCheck failed",
+            "A04 practice practicePlaywright failed"
+          ],
+          "typeCheckErrorsInPackage": 36,
+          "ownerRoutes": [
+            {
+              "ownerId": "A13",
+              "owner": "A13 teacher console lead",
+              "routeKind": "cross-owner-blocker",
+              "errors": 36
+            }
+          ]
+        },
+        {
+          "matrixId": "wave-04-practice-lesson-content:a05-lesson",
+          "waveId": "wave-04-practice-lesson-content",
+          "packageId": "a05-lesson",
+          "packageName": "A05 lesson",
+          "readiness": "blocked",
+          "failedCheckNames": [
+            "typeCheck",
+            "lessonPlaywright"
+          ],
+          "blockingReasons": [
+            "A05 lesson typeCheck failed",
+            "A05 lesson lessonPlaywright failed"
+          ],
+          "typeCheckErrorsInPackage": 36,
+          "ownerRoutes": [
+            {
+              "ownerId": "A13",
+              "owner": "A13 teacher console lead",
+              "routeKind": "cross-owner-blocker",
+              "errors": 36
+            }
+          ]
+        },
+        {
+          "matrixId": "wave-04-practice-lesson-content:a18-a21-a23-a24-content-evidence",
+          "waveId": "wave-04-practice-lesson-content",
+          "packageId": "a18-a21-a23-a24-content-evidence",
+          "packageName": "A18/A21/A23/A24 content evidence",
+          "readiness": "blocked",
+          "failedCheckNames": [
+            "testRag",
+            "testQuestionBank",
+            "typeCheck"
+          ],
+          "blockingReasons": [
+            "A18/A21/A23/A24 content evidence has 110 dirty entries outside its pathspec union",
+            "A18/A21/A23/A24 content evidence testRag failed",
+            "A18/A21/A23/A24 content evidence testQuestionBank failed",
+            "A18/A21/A23/A24 content evidence typeCheck failed"
+          ],
+          "typeCheckErrorsInPackage": 36,
+          "ownerRoutes": [
+            {
+              "ownerId": "A13",
+              "owner": "A13 teacher console lead",
+              "routeKind": "cross-owner-blocker",
+              "errors": 36
+            }
+          ]
+        },
+        {
+          "matrixId": "wave-05-visualization-ai-runtime:a06-visualization",
+          "waveId": "wave-05-visualization-ai-runtime",
+          "packageId": "a06-visualization",
+          "packageName": "A06 visualization",
+          "readiness": "blocked",
+          "failedCheckNames": [
+            "typeCheck",
+            "visualizationNodeTests",
+            "visualizationPlaywright"
+          ],
+          "blockingReasons": [
+            "A06 visualization typeCheck failed",
+            "A06 visualization visualizationNodeTests failed",
+            "A06 visualization visualizationPlaywright failed"
+          ],
+          "typeCheckErrorsInPackage": 36,
+          "ownerRoutes": [
+            {
+              "ownerId": "A13",
+              "owner": "A13 teacher console lead",
+              "routeKind": "cross-owner-blocker",
+              "errors": 36
+            }
+          ]
+        },
+        {
+          "matrixId": "wave-05-visualization-ai-runtime:a07-ai-tutor",
+          "waveId": "wave-05-visualization-ai-runtime",
+          "packageId": "a07-ai-tutor",
+          "packageName": "A07 AI tutor",
+          "readiness": "blocked",
+          "failedCheckNames": [
+            "typeCheck",
+            "aiTutorPlaywright"
+          ],
+          "blockingReasons": [
+            "A07 AI tutor typeCheck failed",
+            "A07 AI tutor aiTutorPlaywright failed"
+          ],
+          "typeCheckErrorsInPackage": 36,
+          "ownerRoutes": [
+            {
+              "ownerId": "A13",
+              "owner": "A13 teacher console lead",
+              "routeKind": "cross-owner-blocker",
+              "errors": 36
+            }
+          ]
+        },
+        {
+          "matrixId": "wave-05-visualization-ai-runtime:a09-copy-i18n-accessibility",
+          "waveId": "wave-05-visualization-ai-runtime",
+          "packageId": "a09-copy-i18n-accessibility",
+          "packageName": "A09 copy/i18n/accessibility",
+          "readiness": "blocked",
+          "failedCheckNames": [
+            "typeCheck"
+          ],
+          "blockingReasons": [
+            "A09 copy/i18n/accessibility typeCheck failed"
+          ],
+          "typeCheckErrorsInPackage": 36,
+          "ownerRoutes": [
+            {
+              "ownerId": "A13",
+              "owner": "A13 teacher console lead",
+              "routeKind": "cross-owner-blocker",
+              "errors": 36
+            }
+          ]
+        },
+        {
+          "matrixId": "wave-05-visualization-ai-runtime:a11-regression-evidence",
+          "waveId": "wave-05-visualization-ai-runtime",
+          "packageId": "a11-regression-evidence",
+          "packageName": "A11 regression evidence",
+          "readiness": "blocked",
+          "failedCheckNames": [
+            "typeCheck",
+            "regressionPlaywright"
+          ],
+          "blockingReasons": [
+            "A11 regression evidence typeCheck failed",
+            "A11 regression evidence regressionPlaywright failed"
+          ],
+          "typeCheckErrorsInPackage": 36,
+          "ownerRoutes": [
+            {
+              "ownerId": "A13",
+              "owner": "A13 teacher console lead",
+              "routeKind": "cross-owner-blocker",
+              "errors": 36
+            }
+          ]
+        },
+        {
+          "matrixId": "wave-05-visualization-ai-runtime:a13-a14-console",
+          "waveId": "wave-05-visualization-ai-runtime",
+          "packageId": "a13-a14-console",
+          "packageName": "A13/A14 console",
+          "readiness": "blocked",
+          "failedCheckNames": [
+            "typeCheck",
+            "consolePlaywright"
+          ],
+          "blockingReasons": [
+            "A13/A14 console typeCheck failed",
+            "A13/A14 console consolePlaywright failed"
+          ],
+          "typeCheckErrorsInPackage": 36,
+          "ownerRoutes": [
+            {
+              "ownerId": "A13",
+              "owner": "A13 teacher console lead",
+              "routeKind": "package-owner",
+              "errors": 36
+            }
+          ]
+        },
+        {
+          "matrixId": "wave-05-visualization-ai-runtime:a17-a20-game-motivation",
+          "waveId": "wave-05-visualization-ai-runtime",
+          "packageId": "a17-a20-game-motivation",
+          "packageName": "A17/A20 games and motivation",
+          "readiness": "blocked",
+          "failedCheckNames": [
+            "typeCheck",
+            "gameMotivationPlaywright"
+          ],
+          "blockingReasons": [
+            "A17/A20 games and motivation typeCheck failed",
+            "A17/A20 games and motivation gameMotivationPlaywright failed"
+          ],
+          "typeCheckErrorsInPackage": 36,
+          "ownerRoutes": [
+            {
+              "ownerId": "A13",
+              "owner": "A13 teacher console lead",
+              "routeKind": "cross-owner-blocker",
+              "errors": 36
+            }
+          ]
+        }
+      ],
+      "nextAction": "A13 should inspect `components/teacher/TeacherPrepViews.tsx` in /Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A13-A14-console-closure, fix only its assigned owner scope, then rerun the impacted package checks for 13 package row(s) before A25 refreshes the aggregate gates.",
+      "evidence": [
+        "coordination/release-intake/latest-A25-owner-package-readiness-blocker-matrix.json",
+        "coordination/release-intake/latest-A25-owner-package-blocker-routing.json",
+        "coordination/release-intake/latest-A25-owner-package-blocker-assignment-packet.json"
+      ],
+      "mergeAuthorized": false,
+      "cleanupAuthorized": false,
+      "executableNow": false
+    },
+    {
+      "rank": 3,
+      "file": "components/teacher/TeacherOperationsView.tsx",
+      "totalErrors": 416,
+      "matchedRouteErrors": 416,
+      "primaryOwnerId": "A13",
+      "primaryOwner": "A13 teacher console lead",
+      "primaryRouteKind": "package-owner",
+      "recommendedWorktree": "/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A13-A14-console-closure",
+      "writeScope": [
+        "components/teacher/TeacherLiveView.tsx",
+        "components/teacher/TeacherManagementViews.tsx",
+        "components/teacher/TeacherOperationsView.tsx",
+        "components/teacher/TeacherPrepViews.tsx",
+        "components/teacher/TeacherResourceAssessmentViews.tsx",
+        "components/teacher/TeacherReviewLessonView.tsx"
+      ],
+      "impactedPackageRows": 13,
+      "impactedWaves": [
+        "wave-01-governance-release-hygiene",
+        "wave-03-shell-dashboard-roadmap",
+        "wave-04-practice-lesson-content",
+        "wave-05-visualization-ai-runtime"
+      ],
+      "impactedPackages": [
+        "a01-app-shell",
+        "a02-a15-dashboard-adaptive",
+        "a03-roadmap",
+        "a04-practice",
+        "a05-lesson",
+        "a06-visualization",
+        "a07-ai-tutor",
+        "a09-copy-i18n-accessibility",
+        "a11-regression-evidence",
+        "a13-a14-console",
+        "a17-a20-game-motivation",
+        "a18-a21-a23-a24-content-evidence",
+        "wave-01-governance-release-hygiene"
+      ],
+      "ownerRoutes": [
+        {
+          "ownerId": "A13",
+          "owner": "A13 teacher console lead",
+          "routeKinds": [
+            "cross-owner-blocker",
+            "package-owner"
+          ],
+          "files": 1,
+          "frontierRows": 1,
+          "impactedPackageRows": 13,
+          "impactedWaves": [
+            "wave-01-governance-release-hygiene",
+            "wave-03-shell-dashboard-roadmap",
+            "wave-04-practice-lesson-content",
+            "wave-05-visualization-ai-runtime"
+          ],
+          "totalMatchedErrors": 416,
+          "recommendedWorktree": "/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A13-A14-console-closure",
+          "writeScope": [
+            "components/teacher/TeacherLiveView.tsx",
+            "components/teacher/TeacherManagementViews.tsx",
+            "components/teacher/TeacherOperationsView.tsx",
+            "components/teacher/TeacherPrepViews.tsx",
+            "components/teacher/TeacherResourceAssessmentViews.tsx",
+            "components/teacher/TeacherReviewLessonView.tsx"
+          ],
+          "cleanupAuthorized": false,
+          "executableNow": false
+        }
+      ],
+      "packageImpacts": [
+        {
+          "matrixId": "wave-01-governance-release-hygiene:wave-01-governance-release-hygiene",
+          "waveId": "wave-01-governance-release-hygiene",
+          "packageId": "wave-01-governance-release-hygiene",
+          "packageName": "A25/A10/A22 governance and release hygiene",
+          "readiness": "blocked",
+          "failedCheckNames": [
+            "typeCheck"
+          ],
+          "blockingReasons": [
+            "1 held package-resync row remains: wave01-resync-01-tsconfig-json",
+            "npm run type-check failed"
+          ],
+          "typeCheckErrorsInPackage": 32,
+          "ownerRoutes": [
+            {
+              "ownerId": "A13",
+              "owner": "A13 teacher console lead",
+              "routeKind": "cross-owner-blocker",
+              "errors": 32
+            }
+          ]
+        },
+        {
+          "matrixId": "wave-03-shell-dashboard-roadmap:a01-app-shell",
+          "waveId": "wave-03-shell-dashboard-roadmap",
+          "packageId": "a01-app-shell",
+          "packageName": "A01 app shell",
+          "readiness": "blocked",
+          "failedCheckNames": [
+            "typeCheck",
+            "appShellPlaywright"
+          ],
+          "blockingReasons": [
+            "A01 app shell typeCheck failed",
+            "A01 app shell appShellPlaywright failed"
+          ],
+          "typeCheckErrorsInPackage": 32,
+          "ownerRoutes": [
+            {
+              "ownerId": "A13",
+              "owner": "A13 teacher console lead",
+              "routeKind": "cross-owner-blocker",
+              "errors": 32
+            }
+          ]
+        },
+        {
+          "matrixId": "wave-03-shell-dashboard-roadmap:a02-a15-dashboard-adaptive",
+          "waveId": "wave-03-shell-dashboard-roadmap",
+          "packageId": "a02-a15-dashboard-adaptive",
+          "packageName": "A02/A15 dashboard adaptive",
+          "readiness": "blocked",
+          "failedCheckNames": [
+            "testAnalytics",
+            "typeCheck",
+            "dashboardAdaptivePlaywright"
+          ],
+          "blockingReasons": [
+            "A02/A15 dashboard adaptive testAnalytics failed",
+            "A02/A15 dashboard adaptive typeCheck failed",
+            "A02/A15 dashboard adaptive dashboardAdaptivePlaywright failed"
+          ],
+          "typeCheckErrorsInPackage": 32,
+          "ownerRoutes": [
+            {
+              "ownerId": "A13",
+              "owner": "A13 teacher console lead",
+              "routeKind": "cross-owner-blocker",
+              "errors": 32
+            }
+          ]
+        },
+        {
+          "matrixId": "wave-03-shell-dashboard-roadmap:a03-roadmap",
+          "waveId": "wave-03-shell-dashboard-roadmap",
+          "packageId": "a03-roadmap",
+          "packageName": "A03 roadmap",
+          "readiness": "blocked",
+          "failedCheckNames": [
+            "typeCheck",
+            "roadmapPlaywright"
+          ],
+          "blockingReasons": [
+            "A03 roadmap typeCheck failed",
+            "A03 roadmap roadmapPlaywright failed"
+          ],
+          "typeCheckErrorsInPackage": 32,
+          "ownerRoutes": [
+            {
+              "ownerId": "A13",
+              "owner": "A13 teacher console lead",
+              "routeKind": "cross-owner-blocker",
+              "errors": 32
+            }
+          ]
+        },
+        {
+          "matrixId": "wave-04-practice-lesson-content:a04-practice",
+          "waveId": "wave-04-practice-lesson-content",
+          "packageId": "a04-practice",
+          "packageName": "A04 practice",
+          "readiness": "blocked",
+          "failedCheckNames": [
+            "testQuestionBank",
+            "typeCheck",
+            "practicePlaywright"
+          ],
+          "blockingReasons": [
+            "A04 practice testQuestionBank failed",
+            "A04 practice typeCheck failed",
+            "A04 practice practicePlaywright failed"
+          ],
+          "typeCheckErrorsInPackage": 32,
+          "ownerRoutes": [
+            {
+              "ownerId": "A13",
+              "owner": "A13 teacher console lead",
+              "routeKind": "cross-owner-blocker",
+              "errors": 32
+            }
+          ]
+        },
+        {
+          "matrixId": "wave-04-practice-lesson-content:a05-lesson",
+          "waveId": "wave-04-practice-lesson-content",
+          "packageId": "a05-lesson",
+          "packageName": "A05 lesson",
+          "readiness": "blocked",
+          "failedCheckNames": [
+            "typeCheck",
+            "lessonPlaywright"
+          ],
+          "blockingReasons": [
+            "A05 lesson typeCheck failed",
+            "A05 lesson lessonPlaywright failed"
+          ],
+          "typeCheckErrorsInPackage": 32,
+          "ownerRoutes": [
+            {
+              "ownerId": "A13",
+              "owner": "A13 teacher console lead",
+              "routeKind": "cross-owner-blocker",
+              "errors": 32
+            }
+          ]
+        },
+        {
+          "matrixId": "wave-04-practice-lesson-content:a18-a21-a23-a24-content-evidence",
+          "waveId": "wave-04-practice-lesson-content",
+          "packageId": "a18-a21-a23-a24-content-evidence",
+          "packageName": "A18/A21/A23/A24 content evidence",
+          "readiness": "blocked",
+          "failedCheckNames": [
+            "testRag",
+            "testQuestionBank",
+            "typeCheck"
+          ],
+          "blockingReasons": [
+            "A18/A21/A23/A24 content evidence has 110 dirty entries outside its pathspec union",
+            "A18/A21/A23/A24 content evidence testRag failed",
+            "A18/A21/A23/A24 content evidence testQuestionBank failed",
+            "A18/A21/A23/A24 content evidence typeCheck failed"
+          ],
+          "typeCheckErrorsInPackage": 32,
+          "ownerRoutes": [
+            {
+              "ownerId": "A13",
+              "owner": "A13 teacher console lead",
+              "routeKind": "cross-owner-blocker",
+              "errors": 32
+            }
+          ]
+        },
+        {
+          "matrixId": "wave-05-visualization-ai-runtime:a06-visualization",
+          "waveId": "wave-05-visualization-ai-runtime",
+          "packageId": "a06-visualization",
+          "packageName": "A06 visualization",
+          "readiness": "blocked",
+          "failedCheckNames": [
+            "typeCheck",
+            "visualizationNodeTests",
+            "visualizationPlaywright"
+          ],
+          "blockingReasons": [
+            "A06 visualization typeCheck failed",
+            "A06 visualization visualizationNodeTests failed",
+            "A06 visualization visualizationPlaywright failed"
+          ],
+          "typeCheckErrorsInPackage": 32,
+          "ownerRoutes": [
+            {
+              "ownerId": "A13",
+              "owner": "A13 teacher console lead",
+              "routeKind": "cross-owner-blocker",
+              "errors": 32
+            }
+          ]
+        },
+        {
+          "matrixId": "wave-05-visualization-ai-runtime:a07-ai-tutor",
+          "waveId": "wave-05-visualization-ai-runtime",
+          "packageId": "a07-ai-tutor",
+          "packageName": "A07 AI tutor",
+          "readiness": "blocked",
+          "failedCheckNames": [
+            "typeCheck",
+            "aiTutorPlaywright"
+          ],
+          "blockingReasons": [
+            "A07 AI tutor typeCheck failed",
+            "A07 AI tutor aiTutorPlaywright failed"
+          ],
+          "typeCheckErrorsInPackage": 32,
+          "ownerRoutes": [
+            {
+              "ownerId": "A13",
+              "owner": "A13 teacher console lead",
+              "routeKind": "cross-owner-blocker",
+              "errors": 32
+            }
+          ]
+        },
+        {
+          "matrixId": "wave-05-visualization-ai-runtime:a09-copy-i18n-accessibility",
+          "waveId": "wave-05-visualization-ai-runtime",
+          "packageId": "a09-copy-i18n-accessibility",
+          "packageName": "A09 copy/i18n/accessibility",
+          "readiness": "blocked",
+          "failedCheckNames": [
+            "typeCheck"
+          ],
+          "blockingReasons": [
+            "A09 copy/i18n/accessibility typeCheck failed"
+          ],
+          "typeCheckErrorsInPackage": 32,
+          "ownerRoutes": [
+            {
+              "ownerId": "A13",
+              "owner": "A13 teacher console lead",
+              "routeKind": "cross-owner-blocker",
+              "errors": 32
+            }
+          ]
+        },
+        {
+          "matrixId": "wave-05-visualization-ai-runtime:a11-regression-evidence",
+          "waveId": "wave-05-visualization-ai-runtime",
+          "packageId": "a11-regression-evidence",
+          "packageName": "A11 regression evidence",
+          "readiness": "blocked",
+          "failedCheckNames": [
+            "typeCheck",
+            "regressionPlaywright"
+          ],
+          "blockingReasons": [
+            "A11 regression evidence typeCheck failed",
+            "A11 regression evidence regressionPlaywright failed"
+          ],
+          "typeCheckErrorsInPackage": 32,
+          "ownerRoutes": [
+            {
+              "ownerId": "A13",
+              "owner": "A13 teacher console lead",
+              "routeKind": "cross-owner-blocker",
+              "errors": 32
+            }
+          ]
+        },
+        {
+          "matrixId": "wave-05-visualization-ai-runtime:a13-a14-console",
+          "waveId": "wave-05-visualization-ai-runtime",
+          "packageId": "a13-a14-console",
+          "packageName": "A13/A14 console",
+          "readiness": "blocked",
+          "failedCheckNames": [
+            "typeCheck",
+            "consolePlaywright"
+          ],
+          "blockingReasons": [
+            "A13/A14 console typeCheck failed",
+            "A13/A14 console consolePlaywright failed"
+          ],
+          "typeCheckErrorsInPackage": 32,
+          "ownerRoutes": [
+            {
+              "ownerId": "A13",
+              "owner": "A13 teacher console lead",
+              "routeKind": "package-owner",
+              "errors": 32
+            }
+          ]
+        },
+        {
+          "matrixId": "wave-05-visualization-ai-runtime:a17-a20-game-motivation",
+          "waveId": "wave-05-visualization-ai-runtime",
+          "packageId": "a17-a20-game-motivation",
+          "packageName": "A17/A20 games and motivation",
+          "readiness": "blocked",
+          "failedCheckNames": [
+            "typeCheck",
+            "gameMotivationPlaywright"
+          ],
+          "blockingReasons": [
+            "A17/A20 games and motivation typeCheck failed",
+            "A17/A20 games and motivation gameMotivationPlaywright failed"
+          ],
+          "typeCheckErrorsInPackage": 32,
+          "ownerRoutes": [
+            {
+              "ownerId": "A13",
+              "owner": "A13 teacher console lead",
+              "routeKind": "cross-owner-blocker",
+              "errors": 32
+            }
+          ]
+        }
+      ],
+      "nextAction": "A13 should inspect `components/teacher/TeacherOperationsView.tsx` in /Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A13-A14-console-closure, fix only its assigned owner scope, then rerun the impacted package checks for 13 package row(s) before A25 refreshes the aggregate gates.",
+      "evidence": [
+        "coordination/release-intake/latest-A25-owner-package-readiness-blocker-matrix.json",
+        "coordination/release-intake/latest-A25-owner-package-blocker-routing.json",
+        "coordination/release-intake/latest-A25-owner-package-blocker-assignment-packet.json"
+      ],
+      "mergeAuthorized": false,
+      "cleanupAuthorized": false,
+      "executableNow": false
+    },
+    {
+      "rank": 4,
+      "file": "lib/teacherReviewLesson.ts",
+      "totalErrors": 390,
+      "matchedRouteErrors": 390,
+      "primaryOwnerId": "A13",
+      "primaryOwner": "A13 teacher console lead",
+      "primaryRouteKind": "package-owner",
+      "recommendedWorktree": "/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A13-A14-console-closure",
+      "writeScope": [
+        "components/teacher/TeacherLiveView.tsx",
+        "components/teacher/TeacherManagementViews.tsx",
+        "components/teacher/TeacherOperationsView.tsx",
+        "components/teacher/TeacherPrepViews.tsx",
+        "components/teacher/TeacherResourceAssessmentViews.tsx",
+        "components/teacher/TeacherReviewLessonView.tsx"
+      ],
+      "impactedPackageRows": 13,
+      "impactedWaves": [
+        "wave-01-governance-release-hygiene",
+        "wave-03-shell-dashboard-roadmap",
+        "wave-04-practice-lesson-content",
+        "wave-05-visualization-ai-runtime"
+      ],
+      "impactedPackages": [
+        "a01-app-shell",
+        "a02-a15-dashboard-adaptive",
+        "a03-roadmap",
+        "a04-practice",
+        "a05-lesson",
+        "a06-visualization",
+        "a07-ai-tutor",
+        "a09-copy-i18n-accessibility",
+        "a11-regression-evidence",
+        "a13-a14-console",
+        "a17-a20-game-motivation",
+        "a18-a21-a23-a24-content-evidence",
+        "wave-01-governance-release-hygiene"
+      ],
+      "ownerRoutes": [
+        {
+          "ownerId": "A13",
+          "owner": "A13 teacher console lead",
+          "routeKinds": [
+            "cross-owner-blocker",
+            "package-owner"
+          ],
+          "files": 1,
+          "frontierRows": 1,
+          "impactedPackageRows": 13,
+          "impactedWaves": [
+            "wave-01-governance-release-hygiene",
+            "wave-03-shell-dashboard-roadmap",
+            "wave-04-practice-lesson-content",
+            "wave-05-visualization-ai-runtime"
+          ],
+          "totalMatchedErrors": 390,
+          "recommendedWorktree": "/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A13-A14-console-closure",
+          "writeScope": [
+            "components/teacher/TeacherLiveView.tsx",
+            "components/teacher/TeacherManagementViews.tsx",
+            "components/teacher/TeacherOperationsView.tsx",
+            "components/teacher/TeacherPrepViews.tsx",
+            "components/teacher/TeacherResourceAssessmentViews.tsx",
+            "components/teacher/TeacherReviewLessonView.tsx"
+          ],
+          "cleanupAuthorized": false,
+          "executableNow": false
+        }
+      ],
+      "packageImpacts": [
+        {
+          "matrixId": "wave-01-governance-release-hygiene:wave-01-governance-release-hygiene",
+          "waveId": "wave-01-governance-release-hygiene",
+          "packageId": "wave-01-governance-release-hygiene",
+          "packageName": "A25/A10/A22 governance and release hygiene",
+          "readiness": "blocked",
+          "failedCheckNames": [
+            "typeCheck"
+          ],
+          "blockingReasons": [
+            "1 held package-resync row remains: wave01-resync-01-tsconfig-json",
+            "npm run type-check failed"
+          ],
+          "typeCheckErrorsInPackage": 30,
+          "ownerRoutes": [
+            {
+              "ownerId": "A13",
+              "owner": "A13 teacher console lead",
+              "routeKind": "cross-owner-blocker",
+              "errors": 30
+            }
+          ]
+        },
+        {
+          "matrixId": "wave-03-shell-dashboard-roadmap:a01-app-shell",
+          "waveId": "wave-03-shell-dashboard-roadmap",
+          "packageId": "a01-app-shell",
+          "packageName": "A01 app shell",
+          "readiness": "blocked",
+          "failedCheckNames": [
+            "typeCheck",
+            "appShellPlaywright"
+          ],
+          "blockingReasons": [
+            "A01 app shell typeCheck failed",
+            "A01 app shell appShellPlaywright failed"
+          ],
+          "typeCheckErrorsInPackage": 30,
+          "ownerRoutes": [
+            {
+              "ownerId": "A13",
+              "owner": "A13 teacher console lead",
+              "routeKind": "cross-owner-blocker",
+              "errors": 30
+            }
+          ]
+        },
+        {
+          "matrixId": "wave-03-shell-dashboard-roadmap:a02-a15-dashboard-adaptive",
+          "waveId": "wave-03-shell-dashboard-roadmap",
+          "packageId": "a02-a15-dashboard-adaptive",
+          "packageName": "A02/A15 dashboard adaptive",
+          "readiness": "blocked",
+          "failedCheckNames": [
+            "testAnalytics",
+            "typeCheck",
+            "dashboardAdaptivePlaywright"
+          ],
+          "blockingReasons": [
+            "A02/A15 dashboard adaptive testAnalytics failed",
+            "A02/A15 dashboard adaptive typeCheck failed",
+            "A02/A15 dashboard adaptive dashboardAdaptivePlaywright failed"
+          ],
+          "typeCheckErrorsInPackage": 30,
+          "ownerRoutes": [
+            {
+              "ownerId": "A13",
+              "owner": "A13 teacher console lead",
+              "routeKind": "cross-owner-blocker",
+              "errors": 30
+            }
+          ]
+        },
+        {
+          "matrixId": "wave-03-shell-dashboard-roadmap:a03-roadmap",
+          "waveId": "wave-03-shell-dashboard-roadmap",
+          "packageId": "a03-roadmap",
+          "packageName": "A03 roadmap",
+          "readiness": "blocked",
+          "failedCheckNames": [
+            "typeCheck",
+            "roadmapPlaywright"
+          ],
+          "blockingReasons": [
+            "A03 roadmap typeCheck failed",
+            "A03 roadmap roadmapPlaywright failed"
+          ],
+          "typeCheckErrorsInPackage": 30,
+          "ownerRoutes": [
+            {
+              "ownerId": "A13",
+              "owner": "A13 teacher console lead",
+              "routeKind": "cross-owner-blocker",
+              "errors": 30
+            }
+          ]
+        },
+        {
+          "matrixId": "wave-04-practice-lesson-content:a04-practice",
+          "waveId": "wave-04-practice-lesson-content",
+          "packageId": "a04-practice",
+          "packageName": "A04 practice",
+          "readiness": "blocked",
+          "failedCheckNames": [
+            "testQuestionBank",
+            "typeCheck",
+            "practicePlaywright"
+          ],
+          "blockingReasons": [
+            "A04 practice testQuestionBank failed",
+            "A04 practice typeCheck failed",
+            "A04 practice practicePlaywright failed"
+          ],
+          "typeCheckErrorsInPackage": 30,
+          "ownerRoutes": [
+            {
+              "ownerId": "A13",
+              "owner": "A13 teacher console lead",
+              "routeKind": "cross-owner-blocker",
+              "errors": 30
+            }
+          ]
+        },
+        {
+          "matrixId": "wave-04-practice-lesson-content:a05-lesson",
+          "waveId": "wave-04-practice-lesson-content",
+          "packageId": "a05-lesson",
+          "packageName": "A05 lesson",
+          "readiness": "blocked",
+          "failedCheckNames": [
+            "typeCheck",
+            "lessonPlaywright"
+          ],
+          "blockingReasons": [
+            "A05 lesson typeCheck failed",
+            "A05 lesson lessonPlaywright failed"
+          ],
+          "typeCheckErrorsInPackage": 30,
+          "ownerRoutes": [
+            {
+              "ownerId": "A13",
+              "owner": "A13 teacher console lead",
+              "routeKind": "cross-owner-blocker",
+              "errors": 30
+            }
+          ]
+        },
+        {
+          "matrixId": "wave-04-practice-lesson-content:a18-a21-a23-a24-content-evidence",
+          "waveId": "wave-04-practice-lesson-content",
+          "packageId": "a18-a21-a23-a24-content-evidence",
+          "packageName": "A18/A21/A23/A24 content evidence",
+          "readiness": "blocked",
+          "failedCheckNames": [
+            "testRag",
+            "testQuestionBank",
+            "typeCheck"
+          ],
+          "blockingReasons": [
+            "A18/A21/A23/A24 content evidence has 110 dirty entries outside its pathspec union",
+            "A18/A21/A23/A24 content evidence testRag failed",
+            "A18/A21/A23/A24 content evidence testQuestionBank failed",
+            "A18/A21/A23/A24 content evidence typeCheck failed"
+          ],
+          "typeCheckErrorsInPackage": 30,
+          "ownerRoutes": [
+            {
+              "ownerId": "A13",
+              "owner": "A13 teacher console lead",
+              "routeKind": "cross-owner-blocker",
+              "errors": 30
+            }
+          ]
+        },
+        {
+          "matrixId": "wave-05-visualization-ai-runtime:a06-visualization",
+          "waveId": "wave-05-visualization-ai-runtime",
+          "packageId": "a06-visualization",
+          "packageName": "A06 visualization",
+          "readiness": "blocked",
+          "failedCheckNames": [
+            "typeCheck",
+            "visualizationNodeTests",
+            "visualizationPlaywright"
+          ],
+          "blockingReasons": [
+            "A06 visualization typeCheck failed",
+            "A06 visualization visualizationNodeTests failed",
+            "A06 visualization visualizationPlaywright failed"
+          ],
+          "typeCheckErrorsInPackage": 30,
+          "ownerRoutes": [
+            {
+              "ownerId": "A13",
+              "owner": "A13 teacher console lead",
+              "routeKind": "cross-owner-blocker",
+              "errors": 30
+            }
+          ]
+        },
+        {
+          "matrixId": "wave-05-visualization-ai-runtime:a07-ai-tutor",
+          "waveId": "wave-05-visualization-ai-runtime",
+          "packageId": "a07-ai-tutor",
+          "packageName": "A07 AI tutor",
+          "readiness": "blocked",
+          "failedCheckNames": [
+            "typeCheck",
+            "aiTutorPlaywright"
+          ],
+          "blockingReasons": [
+            "A07 AI tutor typeCheck failed",
+            "A07 AI tutor aiTutorPlaywright failed"
+          ],
+          "typeCheckErrorsInPackage": 30,
+          "ownerRoutes": [
+            {
+              "ownerId": "A13",
+              "owner": "A13 teacher console lead",
+              "routeKind": "cross-owner-blocker",
+              "errors": 30
+            }
+          ]
+        },
+        {
+          "matrixId": "wave-05-visualization-ai-runtime:a09-copy-i18n-accessibility",
+          "waveId": "wave-05-visualization-ai-runtime",
+          "packageId": "a09-copy-i18n-accessibility",
+          "packageName": "A09 copy/i18n/accessibility",
+          "readiness": "blocked",
+          "failedCheckNames": [
+            "typeCheck"
+          ],
+          "blockingReasons": [
+            "A09 copy/i18n/accessibility typeCheck failed"
+          ],
+          "typeCheckErrorsInPackage": 30,
+          "ownerRoutes": [
+            {
+              "ownerId": "A13",
+              "owner": "A13 teacher console lead",
+              "routeKind": "cross-owner-blocker",
+              "errors": 30
+            }
+          ]
+        },
+        {
+          "matrixId": "wave-05-visualization-ai-runtime:a11-regression-evidence",
+          "waveId": "wave-05-visualization-ai-runtime",
+          "packageId": "a11-regression-evidence",
+          "packageName": "A11 regression evidence",
+          "readiness": "blocked",
+          "failedCheckNames": [
+            "typeCheck",
+            "regressionPlaywright"
+          ],
+          "blockingReasons": [
+            "A11 regression evidence typeCheck failed",
+            "A11 regression evidence regressionPlaywright failed"
+          ],
+          "typeCheckErrorsInPackage": 30,
+          "ownerRoutes": [
+            {
+              "ownerId": "A13",
+              "owner": "A13 teacher console lead",
+              "routeKind": "cross-owner-blocker",
+              "errors": 30
+            }
+          ]
+        },
+        {
+          "matrixId": "wave-05-visualization-ai-runtime:a13-a14-console",
+          "waveId": "wave-05-visualization-ai-runtime",
+          "packageId": "a13-a14-console",
+          "packageName": "A13/A14 console",
+          "readiness": "blocked",
+          "failedCheckNames": [
+            "typeCheck",
+            "consolePlaywright"
+          ],
+          "blockingReasons": [
+            "A13/A14 console typeCheck failed",
+            "A13/A14 console consolePlaywright failed"
+          ],
+          "typeCheckErrorsInPackage": 30,
+          "ownerRoutes": [
+            {
+              "ownerId": "A13",
+              "owner": "A13 teacher console lead",
+              "routeKind": "package-owner",
+              "errors": 30
+            }
+          ]
+        },
+        {
+          "matrixId": "wave-05-visualization-ai-runtime:a17-a20-game-motivation",
+          "waveId": "wave-05-visualization-ai-runtime",
+          "packageId": "a17-a20-game-motivation",
+          "packageName": "A17/A20 games and motivation",
+          "readiness": "blocked",
+          "failedCheckNames": [
+            "typeCheck",
+            "gameMotivationPlaywright"
+          ],
+          "blockingReasons": [
+            "A17/A20 games and motivation typeCheck failed",
+            "A17/A20 games and motivation gameMotivationPlaywright failed"
+          ],
+          "typeCheckErrorsInPackage": 30,
+          "ownerRoutes": [
+            {
+              "ownerId": "A13",
+              "owner": "A13 teacher console lead",
+              "routeKind": "cross-owner-blocker",
+              "errors": 30
+            }
+          ]
+        }
+      ],
+      "nextAction": "A13 should inspect `lib/teacherReviewLesson.ts` in /Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A13-A14-console-closure, fix only its assigned owner scope, then rerun the impacted package checks for 13 package row(s) before A25 refreshes the aggregate gates.",
+      "evidence": [
+        "coordination/release-intake/latest-A25-owner-package-readiness-blocker-matrix.json",
+        "coordination/release-intake/latest-A25-owner-package-blocker-routing.json",
+        "coordination/release-intake/latest-A25-owner-package-blocker-assignment-packet.json"
+      ],
+      "mergeAuthorized": false,
+      "cleanupAuthorized": false,
+      "executableNow": false
+    },
+    {
+      "rank": 5,
+      "file": "components/teacher/TeacherReviewLessonView.tsx",
+      "totalErrors": 325,
+      "matchedRouteErrors": 325,
+      "primaryOwnerId": "A13",
+      "primaryOwner": "A13 teacher console lead",
+      "primaryRouteKind": "package-owner",
+      "recommendedWorktree": "/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A13-A14-console-closure",
+      "writeScope": [
+        "components/teacher/TeacherLiveView.tsx",
+        "components/teacher/TeacherManagementViews.tsx",
+        "components/teacher/TeacherOperationsView.tsx",
+        "components/teacher/TeacherPrepViews.tsx",
+        "components/teacher/TeacherResourceAssessmentViews.tsx",
+        "components/teacher/TeacherReviewLessonView.tsx"
+      ],
+      "impactedPackageRows": 13,
+      "impactedWaves": [
+        "wave-01-governance-release-hygiene",
+        "wave-03-shell-dashboard-roadmap",
+        "wave-04-practice-lesson-content",
+        "wave-05-visualization-ai-runtime"
+      ],
+      "impactedPackages": [
+        "a01-app-shell",
+        "a02-a15-dashboard-adaptive",
+        "a03-roadmap",
+        "a04-practice",
+        "a05-lesson",
+        "a06-visualization",
+        "a07-ai-tutor",
+        "a09-copy-i18n-accessibility",
+        "a11-regression-evidence",
+        "a13-a14-console",
+        "a17-a20-game-motivation",
+        "a18-a21-a23-a24-content-evidence",
+        "wave-01-governance-release-hygiene"
+      ],
+      "ownerRoutes": [
+        {
+          "ownerId": "A13",
+          "owner": "A13 teacher console lead",
+          "routeKinds": [
+            "cross-owner-blocker",
+            "package-owner"
+          ],
+          "files": 1,
+          "frontierRows": 1,
+          "impactedPackageRows": 13,
+          "impactedWaves": [
+            "wave-01-governance-release-hygiene",
+            "wave-03-shell-dashboard-roadmap",
+            "wave-04-practice-lesson-content",
+            "wave-05-visualization-ai-runtime"
+          ],
+          "totalMatchedErrors": 325,
+          "recommendedWorktree": "/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A13-A14-console-closure",
+          "writeScope": [
+            "components/teacher/TeacherLiveView.tsx",
+            "components/teacher/TeacherManagementViews.tsx",
+            "components/teacher/TeacherOperationsView.tsx",
+            "components/teacher/TeacherPrepViews.tsx",
+            "components/teacher/TeacherResourceAssessmentViews.tsx",
+            "components/teacher/TeacherReviewLessonView.tsx"
+          ],
+          "cleanupAuthorized": false,
+          "executableNow": false
+        }
+      ],
+      "packageImpacts": [
+        {
+          "matrixId": "wave-01-governance-release-hygiene:wave-01-governance-release-hygiene",
+          "waveId": "wave-01-governance-release-hygiene",
+          "packageId": "wave-01-governance-release-hygiene",
+          "packageName": "A25/A10/A22 governance and release hygiene",
+          "readiness": "blocked",
+          "failedCheckNames": [
+            "typeCheck"
+          ],
+          "blockingReasons": [
+            "1 held package-resync row remains: wave01-resync-01-tsconfig-json",
+            "npm run type-check failed"
+          ],
+          "typeCheckErrorsInPackage": 25,
+          "ownerRoutes": [
+            {
+              "ownerId": "A13",
+              "owner": "A13 teacher console lead",
+              "routeKind": "cross-owner-blocker",
+              "errors": 25
+            }
+          ]
+        },
+        {
+          "matrixId": "wave-03-shell-dashboard-roadmap:a01-app-shell",
+          "waveId": "wave-03-shell-dashboard-roadmap",
+          "packageId": "a01-app-shell",
+          "packageName": "A01 app shell",
+          "readiness": "blocked",
+          "failedCheckNames": [
+            "typeCheck",
+            "appShellPlaywright"
+          ],
+          "blockingReasons": [
+            "A01 app shell typeCheck failed",
+            "A01 app shell appShellPlaywright failed"
+          ],
+          "typeCheckErrorsInPackage": 25,
+          "ownerRoutes": [
+            {
+              "ownerId": "A13",
+              "owner": "A13 teacher console lead",
+              "routeKind": "cross-owner-blocker",
+              "errors": 25
+            }
+          ]
+        },
+        {
+          "matrixId": "wave-03-shell-dashboard-roadmap:a02-a15-dashboard-adaptive",
+          "waveId": "wave-03-shell-dashboard-roadmap",
+          "packageId": "a02-a15-dashboard-adaptive",
+          "packageName": "A02/A15 dashboard adaptive",
+          "readiness": "blocked",
+          "failedCheckNames": [
+            "testAnalytics",
+            "typeCheck",
+            "dashboardAdaptivePlaywright"
+          ],
+          "blockingReasons": [
+            "A02/A15 dashboard adaptive testAnalytics failed",
+            "A02/A15 dashboard adaptive typeCheck failed",
+            "A02/A15 dashboard adaptive dashboardAdaptivePlaywright failed"
+          ],
+          "typeCheckErrorsInPackage": 25,
+          "ownerRoutes": [
+            {
+              "ownerId": "A13",
+              "owner": "A13 teacher console lead",
+              "routeKind": "cross-owner-blocker",
+              "errors": 25
+            }
+          ]
+        },
+        {
+          "matrixId": "wave-03-shell-dashboard-roadmap:a03-roadmap",
+          "waveId": "wave-03-shell-dashboard-roadmap",
+          "packageId": "a03-roadmap",
+          "packageName": "A03 roadmap",
+          "readiness": "blocked",
+          "failedCheckNames": [
+            "typeCheck",
+            "roadmapPlaywright"
+          ],
+          "blockingReasons": [
+            "A03 roadmap typeCheck failed",
+            "A03 roadmap roadmapPlaywright failed"
+          ],
+          "typeCheckErrorsInPackage": 25,
+          "ownerRoutes": [
+            {
+              "ownerId": "A13",
+              "owner": "A13 teacher console lead",
+              "routeKind": "cross-owner-blocker",
+              "errors": 25
+            }
+          ]
+        },
+        {
+          "matrixId": "wave-04-practice-lesson-content:a04-practice",
+          "waveId": "wave-04-practice-lesson-content",
+          "packageId": "a04-practice",
+          "packageName": "A04 practice",
+          "readiness": "blocked",
+          "failedCheckNames": [
+            "testQuestionBank",
+            "typeCheck",
+            "practicePlaywright"
+          ],
+          "blockingReasons": [
+            "A04 practice testQuestionBank failed",
+            "A04 practice typeCheck failed",
+            "A04 practice practicePlaywright failed"
+          ],
+          "typeCheckErrorsInPackage": 25,
+          "ownerRoutes": [
+            {
+              "ownerId": "A13",
+              "owner": "A13 teacher console lead",
+              "routeKind": "cross-owner-blocker",
+              "errors": 25
+            }
+          ]
+        },
+        {
+          "matrixId": "wave-04-practice-lesson-content:a05-lesson",
+          "waveId": "wave-04-practice-lesson-content",
+          "packageId": "a05-lesson",
+          "packageName": "A05 lesson",
+          "readiness": "blocked",
+          "failedCheckNames": [
+            "typeCheck",
+            "lessonPlaywright"
+          ],
+          "blockingReasons": [
+            "A05 lesson typeCheck failed",
+            "A05 lesson lessonPlaywright failed"
+          ],
+          "typeCheckErrorsInPackage": 25,
+          "ownerRoutes": [
+            {
+              "ownerId": "A13",
+              "owner": "A13 teacher console lead",
+              "routeKind": "cross-owner-blocker",
+              "errors": 25
+            }
+          ]
+        },
+        {
+          "matrixId": "wave-04-practice-lesson-content:a18-a21-a23-a24-content-evidence",
+          "waveId": "wave-04-practice-lesson-content",
+          "packageId": "a18-a21-a23-a24-content-evidence",
+          "packageName": "A18/A21/A23/A24 content evidence",
+          "readiness": "blocked",
+          "failedCheckNames": [
+            "testRag",
+            "testQuestionBank",
+            "typeCheck"
+          ],
+          "blockingReasons": [
+            "A18/A21/A23/A24 content evidence has 110 dirty entries outside its pathspec union",
+            "A18/A21/A23/A24 content evidence testRag failed",
+            "A18/A21/A23/A24 content evidence testQuestionBank failed",
+            "A18/A21/A23/A24 content evidence typeCheck failed"
+          ],
+          "typeCheckErrorsInPackage": 25,
+          "ownerRoutes": [
+            {
+              "ownerId": "A13",
+              "owner": "A13 teacher console lead",
+              "routeKind": "cross-owner-blocker",
+              "errors": 25
+            }
+          ]
+        },
+        {
+          "matrixId": "wave-05-visualization-ai-runtime:a06-visualization",
+          "waveId": "wave-05-visualization-ai-runtime",
+          "packageId": "a06-visualization",
+          "packageName": "A06 visualization",
+          "readiness": "blocked",
+          "failedCheckNames": [
+            "typeCheck",
+            "visualizationNodeTests",
+            "visualizationPlaywright"
+          ],
+          "blockingReasons": [
+            "A06 visualization typeCheck failed",
+            "A06 visualization visualizationNodeTests failed",
+            "A06 visualization visualizationPlaywright failed"
+          ],
+          "typeCheckErrorsInPackage": 25,
+          "ownerRoutes": [
+            {
+              "ownerId": "A13",
+              "owner": "A13 teacher console lead",
+              "routeKind": "cross-owner-blocker",
+              "errors": 25
+            }
+          ]
+        },
+        {
+          "matrixId": "wave-05-visualization-ai-runtime:a07-ai-tutor",
+          "waveId": "wave-05-visualization-ai-runtime",
+          "packageId": "a07-ai-tutor",
+          "packageName": "A07 AI tutor",
+          "readiness": "blocked",
+          "failedCheckNames": [
+            "typeCheck",
+            "aiTutorPlaywright"
+          ],
+          "blockingReasons": [
+            "A07 AI tutor typeCheck failed",
+            "A07 AI tutor aiTutorPlaywright failed"
+          ],
+          "typeCheckErrorsInPackage": 25,
+          "ownerRoutes": [
+            {
+              "ownerId": "A13",
+              "owner": "A13 teacher console lead",
+              "routeKind": "cross-owner-blocker",
+              "errors": 25
+            }
+          ]
+        },
+        {
+          "matrixId": "wave-05-visualization-ai-runtime:a09-copy-i18n-accessibility",
+          "waveId": "wave-05-visualization-ai-runtime",
+          "packageId": "a09-copy-i18n-accessibility",
+          "packageName": "A09 copy/i18n/accessibility",
+          "readiness": "blocked",
+          "failedCheckNames": [
+            "typeCheck"
+          ],
+          "blockingReasons": [
+            "A09 copy/i18n/accessibility typeCheck failed"
+          ],
+          "typeCheckErrorsInPackage": 25,
+          "ownerRoutes": [
+            {
+              "ownerId": "A13",
+              "owner": "A13 teacher console lead",
+              "routeKind": "cross-owner-blocker",
+              "errors": 25
+            }
+          ]
+        },
+        {
+          "matrixId": "wave-05-visualization-ai-runtime:a11-regression-evidence",
+          "waveId": "wave-05-visualization-ai-runtime",
+          "packageId": "a11-regression-evidence",
+          "packageName": "A11 regression evidence",
+          "readiness": "blocked",
+          "failedCheckNames": [
+            "typeCheck",
+            "regressionPlaywright"
+          ],
+          "blockingReasons": [
+            "A11 regression evidence typeCheck failed",
+            "A11 regression evidence regressionPlaywright failed"
+          ],
+          "typeCheckErrorsInPackage": 25,
+          "ownerRoutes": [
+            {
+              "ownerId": "A13",
+              "owner": "A13 teacher console lead",
+              "routeKind": "cross-owner-blocker",
+              "errors": 25
+            }
+          ]
+        },
+        {
+          "matrixId": "wave-05-visualization-ai-runtime:a13-a14-console",
+          "waveId": "wave-05-visualization-ai-runtime",
+          "packageId": "a13-a14-console",
+          "packageName": "A13/A14 console",
+          "readiness": "blocked",
+          "failedCheckNames": [
+            "typeCheck",
+            "consolePlaywright"
+          ],
+          "blockingReasons": [
+            "A13/A14 console typeCheck failed",
+            "A13/A14 console consolePlaywright failed"
+          ],
+          "typeCheckErrorsInPackage": 25,
+          "ownerRoutes": [
+            {
+              "ownerId": "A13",
+              "owner": "A13 teacher console lead",
+              "routeKind": "package-owner",
+              "errors": 25
+            }
+          ]
+        },
+        {
+          "matrixId": "wave-05-visualization-ai-runtime:a17-a20-game-motivation",
+          "waveId": "wave-05-visualization-ai-runtime",
+          "packageId": "a17-a20-game-motivation",
+          "packageName": "A17/A20 games and motivation",
+          "readiness": "blocked",
+          "failedCheckNames": [
+            "typeCheck",
+            "gameMotivationPlaywright"
+          ],
+          "blockingReasons": [
+            "A17/A20 games and motivation typeCheck failed",
+            "A17/A20 games and motivation gameMotivationPlaywright failed"
+          ],
+          "typeCheckErrorsInPackage": 25,
+          "ownerRoutes": [
+            {
+              "ownerId": "A13",
+              "owner": "A13 teacher console lead",
+              "routeKind": "cross-owner-blocker",
+              "errors": 25
+            }
+          ]
+        }
+      ],
+      "nextAction": "A13 should inspect `components/teacher/TeacherReviewLessonView.tsx` in /Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A13-A14-console-closure, fix only its assigned owner scope, then rerun the impacted package checks for 13 package row(s) before A25 refreshes the aggregate gates.",
+      "evidence": [
+        "coordination/release-intake/latest-A25-owner-package-readiness-blocker-matrix.json",
+        "coordination/release-intake/latest-A25-owner-package-blocker-routing.json",
+        "coordination/release-intake/latest-A25-owner-package-blocker-assignment-packet.json"
+      ],
+      "mergeAuthorized": false,
+      "cleanupAuthorized": false,
+      "executableNow": false
+    },
+    {
+      "rank": 6,
+      "file": "components/visualizations/three/ThreeDGraphCanvas.tsx",
+      "totalErrors": 272,
+      "matchedRouteErrors": 272,
+      "primaryOwnerId": "A06",
+      "primaryOwner": "A06 visualization lead",
+      "primaryRouteKind": "package-owner",
+      "recommendedWorktree": "/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A06-visualization-closure",
+      "writeScope": [
+        "components/visualizations/three/manim/MathSceneRuntime.tsx",
+        "components/visualizations/three/scenes/TemplatePrimitiveScene.tsx",
+        "components/visualizations/three/ThreeDGraphCanvas.tsx",
+        "components/visualizations/three/ThreeDLabCanvas.tsx",
+        "components/visualizations/three/threeDSceneMath.catalog.test.ts",
+        "components/visualizations/VisualizationLabPage.tsx"
+      ],
+      "impactedPackageRows": 13,
+      "impactedWaves": [
+        "wave-02-shared-contracts",
+        "wave-03-shell-dashboard-roadmap",
+        "wave-04-practice-lesson-content",
+        "wave-05-visualization-ai-runtime"
+      ],
+      "impactedPackages": [
+        "a01-app-shell",
+        "a02-a15-dashboard-adaptive",
+        "a03-roadmap",
+        "a04-practice",
+        "a05-lesson",
+        "a06-visualization",
+        "a07-ai-tutor",
+        "a09-copy-i18n-accessibility",
+        "a11-regression-evidence",
+        "a13-a14-console",
+        "a17-a20-game-motivation",
+        "a18-a21-a23-a24-content-evidence",
+        "wave-02-shared-contracts"
+      ],
+      "ownerRoutes": [
+        {
+          "ownerId": "A06",
+          "owner": "A06 visualization lead",
+          "routeKinds": [
+            "cross-owner-blocker",
+            "package-owner"
+          ],
+          "files": 1,
+          "frontierRows": 1,
+          "impactedPackageRows": 13,
+          "impactedWaves": [
+            "wave-02-shared-contracts",
+            "wave-03-shell-dashboard-roadmap",
+            "wave-04-practice-lesson-content",
+            "wave-05-visualization-ai-runtime"
+          ],
+          "totalMatchedErrors": 272,
+          "recommendedWorktree": "/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A06-visualization-closure",
+          "writeScope": [
+            "components/visualizations/three/manim/MathSceneRuntime.tsx",
+            "components/visualizations/three/scenes/TemplatePrimitiveScene.tsx",
+            "components/visualizations/three/ThreeDGraphCanvas.tsx",
+            "components/visualizations/three/ThreeDLabCanvas.tsx",
+            "components/visualizations/three/threeDSceneMath.catalog.test.ts",
+            "components/visualizations/VisualizationLabPage.tsx"
+          ],
+          "cleanupAuthorized": false,
+          "executableNow": false
+        }
+      ],
+      "packageImpacts": [
+        {
+          "matrixId": "wave-02-shared-contracts:wave-02-shared-contracts",
+          "waveId": "wave-02-shared-contracts",
+          "packageId": "wave-02-shared-contracts",
+          "packageName": "A08/A12 shared contracts and storage/API stability",
+          "readiness": "blocked",
+          "failedCheckNames": [
+            "testAnalytics",
+            "testBackend",
+            "typeCheck",
+            "build"
+          ],
+          "blockingReasons": [
+            "testAnalytics failed",
+            "testBackend failed",
+            "typeCheck failed",
+            "build failed"
+          ],
+          "typeCheckErrorsInPackage": 21,
+          "ownerRoutes": [
+            {
+              "ownerId": "A06",
+              "owner": "A06 visualization lead",
+              "routeKind": "cross-owner-blocker",
+              "errors": 21
+            }
+          ]
+        },
+        {
+          "matrixId": "wave-03-shell-dashboard-roadmap:a01-app-shell",
+          "waveId": "wave-03-shell-dashboard-roadmap",
+          "packageId": "a01-app-shell",
+          "packageName": "A01 app shell",
+          "readiness": "blocked",
+          "failedCheckNames": [
+            "typeCheck",
+            "appShellPlaywright"
+          ],
+          "blockingReasons": [
+            "A01 app shell typeCheck failed",
+            "A01 app shell appShellPlaywright failed"
+          ],
+          "typeCheckErrorsInPackage": 21,
+          "ownerRoutes": [
+            {
+              "ownerId": "A06",
+              "owner": "A06 visualization lead",
+              "routeKind": "cross-owner-blocker",
+              "errors": 21
+            }
+          ]
+        },
+        {
+          "matrixId": "wave-03-shell-dashboard-roadmap:a02-a15-dashboard-adaptive",
+          "waveId": "wave-03-shell-dashboard-roadmap",
+          "packageId": "a02-a15-dashboard-adaptive",
+          "packageName": "A02/A15 dashboard adaptive",
+          "readiness": "blocked",
+          "failedCheckNames": [
+            "testAnalytics",
+            "typeCheck",
+            "dashboardAdaptivePlaywright"
+          ],
+          "blockingReasons": [
+            "A02/A15 dashboard adaptive testAnalytics failed",
+            "A02/A15 dashboard adaptive typeCheck failed",
+            "A02/A15 dashboard adaptive dashboardAdaptivePlaywright failed"
+          ],
+          "typeCheckErrorsInPackage": 21,
+          "ownerRoutes": [
+            {
+              "ownerId": "A06",
+              "owner": "A06 visualization lead",
+              "routeKind": "cross-owner-blocker",
+              "errors": 21
+            }
+          ]
+        },
+        {
+          "matrixId": "wave-03-shell-dashboard-roadmap:a03-roadmap",
+          "waveId": "wave-03-shell-dashboard-roadmap",
+          "packageId": "a03-roadmap",
+          "packageName": "A03 roadmap",
+          "readiness": "blocked",
+          "failedCheckNames": [
+            "typeCheck",
+            "roadmapPlaywright"
+          ],
+          "blockingReasons": [
+            "A03 roadmap typeCheck failed",
+            "A03 roadmap roadmapPlaywright failed"
+          ],
+          "typeCheckErrorsInPackage": 21,
+          "ownerRoutes": [
+            {
+              "ownerId": "A06",
+              "owner": "A06 visualization lead",
+              "routeKind": "cross-owner-blocker",
+              "errors": 21
+            }
+          ]
+        },
+        {
+          "matrixId": "wave-04-practice-lesson-content:a04-practice",
+          "waveId": "wave-04-practice-lesson-content",
+          "packageId": "a04-practice",
+          "packageName": "A04 practice",
+          "readiness": "blocked",
+          "failedCheckNames": [
+            "testQuestionBank",
+            "typeCheck",
+            "practicePlaywright"
+          ],
+          "blockingReasons": [
+            "A04 practice testQuestionBank failed",
+            "A04 practice typeCheck failed",
+            "A04 practice practicePlaywright failed"
+          ],
+          "typeCheckErrorsInPackage": 21,
+          "ownerRoutes": [
+            {
+              "ownerId": "A06",
+              "owner": "A06 visualization lead",
+              "routeKind": "cross-owner-blocker",
+              "errors": 21
+            }
+          ]
+        },
+        {
+          "matrixId": "wave-04-practice-lesson-content:a05-lesson",
+          "waveId": "wave-04-practice-lesson-content",
+          "packageId": "a05-lesson",
+          "packageName": "A05 lesson",
+          "readiness": "blocked",
+          "failedCheckNames": [
+            "typeCheck",
+            "lessonPlaywright"
+          ],
+          "blockingReasons": [
+            "A05 lesson typeCheck failed",
+            "A05 lesson lessonPlaywright failed"
+          ],
+          "typeCheckErrorsInPackage": 21,
+          "ownerRoutes": [
+            {
+              "ownerId": "A06",
+              "owner": "A06 visualization lead",
+              "routeKind": "cross-owner-blocker",
+              "errors": 21
+            }
+          ]
+        },
+        {
+          "matrixId": "wave-04-practice-lesson-content:a18-a21-a23-a24-content-evidence",
+          "waveId": "wave-04-practice-lesson-content",
+          "packageId": "a18-a21-a23-a24-content-evidence",
+          "packageName": "A18/A21/A23/A24 content evidence",
+          "readiness": "blocked",
+          "failedCheckNames": [
+            "testRag",
+            "testQuestionBank",
+            "typeCheck"
+          ],
+          "blockingReasons": [
+            "A18/A21/A23/A24 content evidence has 110 dirty entries outside its pathspec union",
+            "A18/A21/A23/A24 content evidence testRag failed",
+            "A18/A21/A23/A24 content evidence testQuestionBank failed",
+            "A18/A21/A23/A24 content evidence typeCheck failed"
+          ],
+          "typeCheckErrorsInPackage": 21,
+          "ownerRoutes": [
+            {
+              "ownerId": "A06",
+              "owner": "A06 visualization lead",
+              "routeKind": "cross-owner-blocker",
+              "errors": 21
+            }
+          ]
+        },
+        {
+          "matrixId": "wave-05-visualization-ai-runtime:a06-visualization",
+          "waveId": "wave-05-visualization-ai-runtime",
+          "packageId": "a06-visualization",
+          "packageName": "A06 visualization",
+          "readiness": "blocked",
+          "failedCheckNames": [
+            "typeCheck",
+            "visualizationNodeTests",
+            "visualizationPlaywright"
+          ],
+          "blockingReasons": [
+            "A06 visualization typeCheck failed",
+            "A06 visualization visualizationNodeTests failed",
+            "A06 visualization visualizationPlaywright failed"
+          ],
+          "typeCheckErrorsInPackage": 21,
+          "ownerRoutes": [
+            {
+              "ownerId": "A06",
+              "owner": "A06 visualization lead",
+              "routeKind": "package-owner",
+              "errors": 21
+            }
+          ]
+        },
+        {
+          "matrixId": "wave-05-visualization-ai-runtime:a07-ai-tutor",
+          "waveId": "wave-05-visualization-ai-runtime",
+          "packageId": "a07-ai-tutor",
+          "packageName": "A07 AI tutor",
+          "readiness": "blocked",
+          "failedCheckNames": [
+            "typeCheck",
+            "aiTutorPlaywright"
+          ],
+          "blockingReasons": [
+            "A07 AI tutor typeCheck failed",
+            "A07 AI tutor aiTutorPlaywright failed"
+          ],
+          "typeCheckErrorsInPackage": 21,
+          "ownerRoutes": [
+            {
+              "ownerId": "A06",
+              "owner": "A06 visualization lead",
+              "routeKind": "cross-owner-blocker",
+              "errors": 21
+            }
+          ]
+        },
+        {
+          "matrixId": "wave-05-visualization-ai-runtime:a09-copy-i18n-accessibility",
+          "waveId": "wave-05-visualization-ai-runtime",
+          "packageId": "a09-copy-i18n-accessibility",
+          "packageName": "A09 copy/i18n/accessibility",
+          "readiness": "blocked",
+          "failedCheckNames": [
+            "typeCheck"
+          ],
+          "blockingReasons": [
+            "A09 copy/i18n/accessibility typeCheck failed"
+          ],
+          "typeCheckErrorsInPackage": 20,
+          "ownerRoutes": [
+            {
+              "ownerId": "A06",
+              "owner": "A06 visualization lead",
+              "routeKind": "cross-owner-blocker",
+              "errors": 20
+            }
+          ]
+        },
+        {
+          "matrixId": "wave-05-visualization-ai-runtime:a11-regression-evidence",
+          "waveId": "wave-05-visualization-ai-runtime",
+          "packageId": "a11-regression-evidence",
+          "packageName": "A11 regression evidence",
+          "readiness": "blocked",
+          "failedCheckNames": [
+            "typeCheck",
+            "regressionPlaywright"
+          ],
+          "blockingReasons": [
+            "A11 regression evidence typeCheck failed",
+            "A11 regression evidence regressionPlaywright failed"
+          ],
+          "typeCheckErrorsInPackage": 21,
+          "ownerRoutes": [
+            {
+              "ownerId": "A06",
+              "owner": "A06 visualization lead",
+              "routeKind": "cross-owner-blocker",
+              "errors": 21
+            }
+          ]
+        },
+        {
+          "matrixId": "wave-05-visualization-ai-runtime:a13-a14-console",
+          "waveId": "wave-05-visualization-ai-runtime",
+          "packageId": "a13-a14-console",
+          "packageName": "A13/A14 console",
+          "readiness": "blocked",
+          "failedCheckNames": [
+            "typeCheck",
+            "consolePlaywright"
+          ],
+          "blockingReasons": [
+            "A13/A14 console typeCheck failed",
+            "A13/A14 console consolePlaywright failed"
+          ],
+          "typeCheckErrorsInPackage": 21,
+          "ownerRoutes": [
+            {
+              "ownerId": "A06",
+              "owner": "A06 visualization lead",
+              "routeKind": "cross-owner-blocker",
+              "errors": 21
+            }
+          ]
+        },
+        {
+          "matrixId": "wave-05-visualization-ai-runtime:a17-a20-game-motivation",
+          "waveId": "wave-05-visualization-ai-runtime",
+          "packageId": "a17-a20-game-motivation",
+          "packageName": "A17/A20 games and motivation",
+          "readiness": "blocked",
+          "failedCheckNames": [
+            "typeCheck",
+            "gameMotivationPlaywright"
+          ],
+          "blockingReasons": [
+            "A17/A20 games and motivation typeCheck failed",
+            "A17/A20 games and motivation gameMotivationPlaywright failed"
+          ],
+          "typeCheckErrorsInPackage": 21,
+          "ownerRoutes": [
+            {
+              "ownerId": "A06",
+              "owner": "A06 visualization lead",
+              "routeKind": "cross-owner-blocker",
+              "errors": 21
+            }
+          ]
+        }
+      ],
+      "nextAction": "A06 should inspect `components/visualizations/three/ThreeDGraphCanvas.tsx` in /Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A06-visualization-closure, fix only its assigned owner scope, then rerun the impacted package checks for 13 package row(s) before A25 refreshes the aggregate gates.",
+      "evidence": [
+        "coordination/release-intake/latest-A25-owner-package-readiness-blocker-matrix.json",
+        "coordination/release-intake/latest-A25-owner-package-blocker-routing.json",
+        "coordination/release-intake/latest-A25-owner-package-blocker-assignment-packet.json"
+      ],
+      "mergeAuthorized": false,
+      "cleanupAuthorized": false,
+      "executableNow": false
+    },
+    {
+      "rank": 7,
+      "file": "lib/teacherReviewLessonPptx.ts",
+      "totalErrors": 246,
+      "matchedRouteErrors": 246,
+      "primaryOwnerId": "A13",
+      "primaryOwner": "A13 teacher console lead",
+      "primaryRouteKind": "package-owner",
+      "recommendedWorktree": "/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A13-A14-console-closure",
+      "writeScope": [
+        "components/teacher/TeacherLiveView.tsx",
+        "components/teacher/TeacherManagementViews.tsx",
+        "components/teacher/TeacherOperationsView.tsx",
+        "components/teacher/TeacherPrepViews.tsx",
+        "components/teacher/TeacherResourceAssessmentViews.tsx",
+        "components/teacher/TeacherReviewLessonView.tsx"
+      ],
+      "impactedPackageRows": 13,
+      "impactedWaves": [
+        "wave-01-governance-release-hygiene",
+        "wave-03-shell-dashboard-roadmap",
+        "wave-04-practice-lesson-content",
+        "wave-05-visualization-ai-runtime"
+      ],
+      "impactedPackages": [
+        "a01-app-shell",
+        "a02-a15-dashboard-adaptive",
+        "a03-roadmap",
+        "a04-practice",
+        "a05-lesson",
+        "a06-visualization",
+        "a07-ai-tutor",
+        "a09-copy-i18n-accessibility",
+        "a11-regression-evidence",
+        "a13-a14-console",
+        "a17-a20-game-motivation",
+        "a18-a21-a23-a24-content-evidence",
+        "wave-01-governance-release-hygiene"
+      ],
+      "ownerRoutes": [
+        {
+          "ownerId": "A13",
+          "owner": "A13 teacher console lead",
+          "routeKinds": [
+            "cross-owner-blocker",
+            "package-owner"
+          ],
+          "files": 1,
+          "frontierRows": 1,
+          "impactedPackageRows": 13,
+          "impactedWaves": [
+            "wave-01-governance-release-hygiene",
+            "wave-03-shell-dashboard-roadmap",
+            "wave-04-practice-lesson-content",
+            "wave-05-visualization-ai-runtime"
+          ],
+          "totalMatchedErrors": 246,
+          "recommendedWorktree": "/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A13-A14-console-closure",
+          "writeScope": [
+            "components/teacher/TeacherLiveView.tsx",
+            "components/teacher/TeacherManagementViews.tsx",
+            "components/teacher/TeacherOperationsView.tsx",
+            "components/teacher/TeacherPrepViews.tsx",
+            "components/teacher/TeacherResourceAssessmentViews.tsx",
+            "components/teacher/TeacherReviewLessonView.tsx"
+          ],
+          "cleanupAuthorized": false,
+          "executableNow": false
+        }
+      ],
+      "packageImpacts": [
+        {
+          "matrixId": "wave-01-governance-release-hygiene:wave-01-governance-release-hygiene",
+          "waveId": "wave-01-governance-release-hygiene",
+          "packageId": "wave-01-governance-release-hygiene",
+          "packageName": "A25/A10/A22 governance and release hygiene",
+          "readiness": "blocked",
+          "failedCheckNames": [
+            "typeCheck"
+          ],
+          "blockingReasons": [
+            "1 held package-resync row remains: wave01-resync-01-tsconfig-json",
+            "npm run type-check failed"
+          ],
+          "typeCheckErrorsInPackage": 18,
+          "ownerRoutes": [
+            {
+              "ownerId": "A13",
+              "owner": "A13 teacher console lead",
+              "routeKind": "cross-owner-blocker",
+              "errors": 18
+            }
+          ]
+        },
+        {
+          "matrixId": "wave-03-shell-dashboard-roadmap:a01-app-shell",
+          "waveId": "wave-03-shell-dashboard-roadmap",
+          "packageId": "a01-app-shell",
+          "packageName": "A01 app shell",
+          "readiness": "blocked",
+          "failedCheckNames": [
+            "typeCheck",
+            "appShellPlaywright"
+          ],
+          "blockingReasons": [
+            "A01 app shell typeCheck failed",
+            "A01 app shell appShellPlaywright failed"
+          ],
+          "typeCheckErrorsInPackage": 19,
+          "ownerRoutes": [
+            {
+              "ownerId": "A13",
+              "owner": "A13 teacher console lead",
+              "routeKind": "cross-owner-blocker",
+              "errors": 19
+            }
+          ]
+        },
+        {
+          "matrixId": "wave-03-shell-dashboard-roadmap:a02-a15-dashboard-adaptive",
+          "waveId": "wave-03-shell-dashboard-roadmap",
+          "packageId": "a02-a15-dashboard-adaptive",
+          "packageName": "A02/A15 dashboard adaptive",
+          "readiness": "blocked",
+          "failedCheckNames": [
+            "testAnalytics",
+            "typeCheck",
+            "dashboardAdaptivePlaywright"
+          ],
+          "blockingReasons": [
+            "A02/A15 dashboard adaptive testAnalytics failed",
+            "A02/A15 dashboard adaptive typeCheck failed",
+            "A02/A15 dashboard adaptive dashboardAdaptivePlaywright failed"
+          ],
+          "typeCheckErrorsInPackage": 19,
+          "ownerRoutes": [
+            {
+              "ownerId": "A13",
+              "owner": "A13 teacher console lead",
+              "routeKind": "cross-owner-blocker",
+              "errors": 19
+            }
+          ]
+        },
+        {
+          "matrixId": "wave-03-shell-dashboard-roadmap:a03-roadmap",
+          "waveId": "wave-03-shell-dashboard-roadmap",
+          "packageId": "a03-roadmap",
+          "packageName": "A03 roadmap",
+          "readiness": "blocked",
+          "failedCheckNames": [
+            "typeCheck",
+            "roadmapPlaywright"
+          ],
+          "blockingReasons": [
+            "A03 roadmap typeCheck failed",
+            "A03 roadmap roadmapPlaywright failed"
+          ],
+          "typeCheckErrorsInPackage": 19,
+          "ownerRoutes": [
+            {
+              "ownerId": "A13",
+              "owner": "A13 teacher console lead",
+              "routeKind": "cross-owner-blocker",
+              "errors": 19
+            }
+          ]
+        },
+        {
+          "matrixId": "wave-04-practice-lesson-content:a04-practice",
+          "waveId": "wave-04-practice-lesson-content",
+          "packageId": "a04-practice",
+          "packageName": "A04 practice",
+          "readiness": "blocked",
+          "failedCheckNames": [
+            "testQuestionBank",
+            "typeCheck",
+            "practicePlaywright"
+          ],
+          "blockingReasons": [
+            "A04 practice testQuestionBank failed",
+            "A04 practice typeCheck failed",
+            "A04 practice practicePlaywright failed"
+          ],
+          "typeCheckErrorsInPackage": 19,
+          "ownerRoutes": [
+            {
+              "ownerId": "A13",
+              "owner": "A13 teacher console lead",
+              "routeKind": "cross-owner-blocker",
+              "errors": 19
+            }
+          ]
+        },
+        {
+          "matrixId": "wave-04-practice-lesson-content:a05-lesson",
+          "waveId": "wave-04-practice-lesson-content",
+          "packageId": "a05-lesson",
+          "packageName": "A05 lesson",
+          "readiness": "blocked",
+          "failedCheckNames": [
+            "typeCheck",
+            "lessonPlaywright"
+          ],
+          "blockingReasons": [
+            "A05 lesson typeCheck failed",
+            "A05 lesson lessonPlaywright failed"
+          ],
+          "typeCheckErrorsInPackage": 19,
+          "ownerRoutes": [
+            {
+              "ownerId": "A13",
+              "owner": "A13 teacher console lead",
+              "routeKind": "cross-owner-blocker",
+              "errors": 19
+            }
+          ]
+        },
+        {
+          "matrixId": "wave-04-practice-lesson-content:a18-a21-a23-a24-content-evidence",
+          "waveId": "wave-04-practice-lesson-content",
+          "packageId": "a18-a21-a23-a24-content-evidence",
+          "packageName": "A18/A21/A23/A24 content evidence",
+          "readiness": "blocked",
+          "failedCheckNames": [
+            "testRag",
+            "testQuestionBank",
+            "typeCheck"
+          ],
+          "blockingReasons": [
+            "A18/A21/A23/A24 content evidence has 110 dirty entries outside its pathspec union",
+            "A18/A21/A23/A24 content evidence testRag failed",
+            "A18/A21/A23/A24 content evidence testQuestionBank failed",
+            "A18/A21/A23/A24 content evidence typeCheck failed"
+          ],
+          "typeCheckErrorsInPackage": 19,
+          "ownerRoutes": [
+            {
+              "ownerId": "A13",
+              "owner": "A13 teacher console lead",
+              "routeKind": "cross-owner-blocker",
+              "errors": 19
+            }
+          ]
+        },
+        {
+          "matrixId": "wave-05-visualization-ai-runtime:a06-visualization",
+          "waveId": "wave-05-visualization-ai-runtime",
+          "packageId": "a06-visualization",
+          "packageName": "A06 visualization",
+          "readiness": "blocked",
+          "failedCheckNames": [
+            "typeCheck",
+            "visualizationNodeTests",
+            "visualizationPlaywright"
+          ],
+          "blockingReasons": [
+            "A06 visualization typeCheck failed",
+            "A06 visualization visualizationNodeTests failed",
+            "A06 visualization visualizationPlaywright failed"
+          ],
+          "typeCheckErrorsInPackage": 19,
+          "ownerRoutes": [
+            {
+              "ownerId": "A13",
+              "owner": "A13 teacher console lead",
+              "routeKind": "cross-owner-blocker",
+              "errors": 19
+            }
+          ]
+        },
+        {
+          "matrixId": "wave-05-visualization-ai-runtime:a07-ai-tutor",
+          "waveId": "wave-05-visualization-ai-runtime",
+          "packageId": "a07-ai-tutor",
+          "packageName": "A07 AI tutor",
+          "readiness": "blocked",
+          "failedCheckNames": [
+            "typeCheck",
+            "aiTutorPlaywright"
+          ],
+          "blockingReasons": [
+            "A07 AI tutor typeCheck failed",
+            "A07 AI tutor aiTutorPlaywright failed"
+          ],
+          "typeCheckErrorsInPackage": 19,
+          "ownerRoutes": [
+            {
+              "ownerId": "A13",
+              "owner": "A13 teacher console lead",
+              "routeKind": "cross-owner-blocker",
+              "errors": 19
+            }
+          ]
+        },
+        {
+          "matrixId": "wave-05-visualization-ai-runtime:a09-copy-i18n-accessibility",
+          "waveId": "wave-05-visualization-ai-runtime",
+          "packageId": "a09-copy-i18n-accessibility",
+          "packageName": "A09 copy/i18n/accessibility",
+          "readiness": "blocked",
+          "failedCheckNames": [
+            "typeCheck"
+          ],
+          "blockingReasons": [
+            "A09 copy/i18n/accessibility typeCheck failed"
+          ],
+          "typeCheckErrorsInPackage": 19,
+          "ownerRoutes": [
+            {
+              "ownerId": "A13",
+              "owner": "A13 teacher console lead",
+              "routeKind": "cross-owner-blocker",
+              "errors": 19
+            }
+          ]
+        },
+        {
+          "matrixId": "wave-05-visualization-ai-runtime:a11-regression-evidence",
+          "waveId": "wave-05-visualization-ai-runtime",
+          "packageId": "a11-regression-evidence",
+          "packageName": "A11 regression evidence",
+          "readiness": "blocked",
+          "failedCheckNames": [
+            "typeCheck",
+            "regressionPlaywright"
+          ],
+          "blockingReasons": [
+            "A11 regression evidence typeCheck failed",
+            "A11 regression evidence regressionPlaywright failed"
+          ],
+          "typeCheckErrorsInPackage": 19,
+          "ownerRoutes": [
+            {
+              "ownerId": "A13",
+              "owner": "A13 teacher console lead",
+              "routeKind": "cross-owner-blocker",
+              "errors": 19
+            }
+          ]
+        },
+        {
+          "matrixId": "wave-05-visualization-ai-runtime:a13-a14-console",
+          "waveId": "wave-05-visualization-ai-runtime",
+          "packageId": "a13-a14-console",
+          "packageName": "A13/A14 console",
+          "readiness": "blocked",
+          "failedCheckNames": [
+            "typeCheck",
+            "consolePlaywright"
+          ],
+          "blockingReasons": [
+            "A13/A14 console typeCheck failed",
+            "A13/A14 console consolePlaywright failed"
+          ],
+          "typeCheckErrorsInPackage": 19,
+          "ownerRoutes": [
+            {
+              "ownerId": "A13",
+              "owner": "A13 teacher console lead",
+              "routeKind": "package-owner",
+              "errors": 19
+            }
+          ]
+        },
+        {
+          "matrixId": "wave-05-visualization-ai-runtime:a17-a20-game-motivation",
+          "waveId": "wave-05-visualization-ai-runtime",
+          "packageId": "a17-a20-game-motivation",
+          "packageName": "A17/A20 games and motivation",
+          "readiness": "blocked",
+          "failedCheckNames": [
+            "typeCheck",
+            "gameMotivationPlaywright"
+          ],
+          "blockingReasons": [
+            "A17/A20 games and motivation typeCheck failed",
+            "A17/A20 games and motivation gameMotivationPlaywright failed"
+          ],
+          "typeCheckErrorsInPackage": 19,
+          "ownerRoutes": [
+            {
+              "ownerId": "A13",
+              "owner": "A13 teacher console lead",
+              "routeKind": "cross-owner-blocker",
+              "errors": 19
+            }
+          ]
+        }
+      ],
+      "nextAction": "A13 should inspect `lib/teacherReviewLessonPptx.ts` in /Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A13-A14-console-closure, fix only its assigned owner scope, then rerun the impacted package checks for 13 package row(s) before A25 refreshes the aggregate gates.",
+      "evidence": [
+        "coordination/release-intake/latest-A25-owner-package-readiness-blocker-matrix.json",
+        "coordination/release-intake/latest-A25-owner-package-blocker-routing.json",
+        "coordination/release-intake/latest-A25-owner-package-blocker-assignment-packet.json"
+      ],
+      "mergeAuthorized": false,
+      "cleanupAuthorized": false,
+      "executableNow": false
+    },
+    {
+      "rank": 8,
+      "file": "data/questions.ts",
+      "totalErrors": 182,
+      "matchedRouteErrors": 364,
+      "primaryOwnerId": "A04",
+      "primaryOwner": "A04 practice lead",
+      "primaryRouteKind": "package-owner",
+      "recommendedWorktree": "/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A04-practice-closure",
+      "writeScope": [
+        "data/questions.ts"
+      ],
+      "impactedPackageRows": 2,
+      "impactedWaves": [
+        "wave-02-shared-contracts",
+        "wave-04-practice-lesson-content"
+      ],
+      "impactedPackages": [
+        "a04-practice",
+        "wave-02-shared-contracts"
+      ],
+      "ownerRoutes": [
+        {
+          "ownerId": "A04",
+          "owner": "A04 practice lead",
+          "routeKinds": [
+            "cross-owner-blocker",
+            "package-owner"
+          ],
+          "files": 1,
+          "frontierRows": 1,
+          "impactedPackageRows": 2,
+          "impactedWaves": [
+            "wave-02-shared-contracts",
+            "wave-04-practice-lesson-content"
+          ],
+          "totalMatchedErrors": 182,
+          "recommendedWorktree": "/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A04-practice-closure",
+          "writeScope": [
+            "data/questions.ts"
+          ],
+          "cleanupAuthorized": false,
+          "executableNow": false
+        },
+        {
+          "ownerId": "A18",
+          "owner": "A18 curriculum QA and content quality lead",
+          "routeKinds": [
+            "cross-owner-blocker"
+          ],
+          "files": 1,
+          "frontierRows": 1,
+          "impactedPackageRows": 2,
+          "impactedWaves": [
+            "wave-02-shared-contracts",
+            "wave-04-practice-lesson-content"
+          ],
+          "totalMatchedErrors": 182,
+          "recommendedWorktree": "/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A18-A21-content-evidence-closure",
+          "writeScope": [],
+          "cleanupAuthorized": false,
+          "executableNow": false
+        }
+      ],
+      "packageImpacts": [
+        {
+          "matrixId": "wave-02-shared-contracts:wave-02-shared-contracts",
+          "waveId": "wave-02-shared-contracts",
+          "packageId": "wave-02-shared-contracts",
+          "packageName": "A08/A12 shared contracts and storage/API stability",
+          "readiness": "blocked",
+          "failedCheckNames": [
+            "testAnalytics",
+            "testBackend",
+            "typeCheck",
+            "build"
+          ],
+          "blockingReasons": [
+            "testAnalytics failed",
+            "testBackend failed",
+            "typeCheck failed",
+            "build failed"
+          ],
+          "typeCheckErrorsInPackage": 91,
+          "ownerRoutes": [
+            {
+              "ownerId": "A04",
+              "owner": "A04 practice lead",
+              "routeKind": "cross-owner-blocker",
+              "errors": 91
+            },
+            {
+              "ownerId": "A18",
+              "owner": "A18 curriculum QA and content quality lead",
+              "routeKind": "cross-owner-blocker",
+              "errors": 91
+            }
+          ]
+        },
+        {
+          "matrixId": "wave-04-practice-lesson-content:a04-practice",
+          "waveId": "wave-04-practice-lesson-content",
+          "packageId": "a04-practice",
+          "packageName": "A04 practice",
+          "readiness": "blocked",
+          "failedCheckNames": [
+            "testQuestionBank",
+            "typeCheck",
+            "practicePlaywright"
+          ],
+          "blockingReasons": [
+            "A04 practice testQuestionBank failed",
+            "A04 practice typeCheck failed",
+            "A04 practice practicePlaywright failed"
+          ],
+          "typeCheckErrorsInPackage": 91,
+          "ownerRoutes": [
+            {
+              "ownerId": "A04",
+              "owner": "A04 practice lead",
+              "routeKind": "package-owner",
+              "errors": 91
+            },
+            {
+              "ownerId": "A18",
+              "owner": "A18 curriculum QA and content quality lead",
+              "routeKind": "cross-owner-blocker",
+              "errors": 91
+            }
+          ]
+        }
+      ],
+      "nextAction": "A04 should inspect `data/questions.ts` in /Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A04-practice-closure, fix only its assigned owner scope, then rerun the impacted package checks for 2 package row(s) before A25 refreshes the aggregate gates.",
+      "evidence": [
+        "coordination/release-intake/latest-A25-owner-package-readiness-blocker-matrix.json",
+        "coordination/release-intake/latest-A25-owner-package-blocker-routing.json",
+        "coordination/release-intake/latest-A25-owner-package-blocker-assignment-packet.json"
+      ],
+      "mergeAuthorized": false,
+      "cleanupAuthorized": false,
+      "executableNow": false
+    },
+    {
+      "rank": 9,
+      "file": "components/visualizations/VisualizationLabPage.tsx",
+      "totalErrors": 174,
+      "matchedRouteErrors": 174,
+      "primaryOwnerId": "A06",
+      "primaryOwner": "A06 visualization lead",
+      "primaryRouteKind": "cross-owner-blocker",
+      "recommendedWorktree": "/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A06-visualization-closure",
+      "writeScope": [
+        "components/visualizations/three/manim/MathSceneRuntime.tsx",
+        "components/visualizations/three/scenes/TemplatePrimitiveScene.tsx",
+        "components/visualizations/three/ThreeDGraphCanvas.tsx",
+        "components/visualizations/three/ThreeDLabCanvas.tsx",
+        "components/visualizations/three/threeDSceneMath.catalog.test.ts",
+        "components/visualizations/VisualizationLabPage.tsx"
+      ],
+      "impactedPackageRows": 11,
+      "impactedWaves": [
+        "wave-01-governance-release-hygiene",
+        "wave-02-shared-contracts",
+        "wave-03-shell-dashboard-roadmap",
+        "wave-04-practice-lesson-content",
+        "wave-05-visualization-ai-runtime"
+      ],
+      "impactedPackages": [
+        "a01-app-shell",
+        "a02-a15-dashboard-adaptive",
+        "a04-practice",
+        "a05-lesson",
+        "a07-ai-tutor",
+        "a09-copy-i18n-accessibility",
+        "a11-regression-evidence",
+        "a17-a20-game-motivation",
+        "a18-a21-a23-a24-content-evidence",
+        "wave-01-governance-release-hygiene",
+        "wave-02-shared-contracts"
+      ],
+      "ownerRoutes": [
+        {
+          "ownerId": "A06",
+          "owner": "A06 visualization lead",
+          "routeKinds": [
+            "cross-owner-blocker"
+          ],
+          "files": 1,
+          "frontierRows": 1,
+          "impactedPackageRows": 11,
+          "impactedWaves": [
+            "wave-01-governance-release-hygiene",
+            "wave-02-shared-contracts",
+            "wave-03-shell-dashboard-roadmap",
+            "wave-04-practice-lesson-content",
+            "wave-05-visualization-ai-runtime"
+          ],
+          "totalMatchedErrors": 174,
+          "recommendedWorktree": "/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A06-visualization-closure",
+          "writeScope": [
+            "components/visualizations/three/manim/MathSceneRuntime.tsx",
+            "components/visualizations/three/scenes/TemplatePrimitiveScene.tsx",
+            "components/visualizations/three/ThreeDGraphCanvas.tsx",
+            "components/visualizations/three/ThreeDLabCanvas.tsx",
+            "components/visualizations/three/threeDSceneMath.catalog.test.ts",
+            "components/visualizations/VisualizationLabPage.tsx"
+          ],
+          "cleanupAuthorized": false,
+          "executableNow": false
+        }
+      ],
+      "packageImpacts": [
+        {
+          "matrixId": "wave-01-governance-release-hygiene:wave-01-governance-release-hygiene",
+          "waveId": "wave-01-governance-release-hygiene",
+          "packageId": "wave-01-governance-release-hygiene",
+          "packageName": "A25/A10/A22 governance and release hygiene",
+          "readiness": "blocked",
+          "failedCheckNames": [
+            "typeCheck"
+          ],
+          "blockingReasons": [
+            "1 held package-resync row remains: wave01-resync-01-tsconfig-json",
+            "npm run type-check failed"
+          ],
+          "typeCheckErrorsInPackage": 16,
+          "ownerRoutes": [
+            {
+              "ownerId": "A06",
+              "owner": "A06 visualization lead",
+              "routeKind": "cross-owner-blocker",
+              "errors": 16
+            }
+          ]
+        },
+        {
+          "matrixId": "wave-02-shared-contracts:wave-02-shared-contracts",
+          "waveId": "wave-02-shared-contracts",
+          "packageId": "wave-02-shared-contracts",
+          "packageName": "A08/A12 shared contracts and storage/API stability",
+          "readiness": "blocked",
+          "failedCheckNames": [
+            "testAnalytics",
+            "testBackend",
+            "typeCheck",
+            "build"
+          ],
+          "blockingReasons": [
+            "testAnalytics failed",
+            "testBackend failed",
+            "typeCheck failed",
+            "build failed"
+          ],
+          "typeCheckErrorsInPackage": 14,
+          "ownerRoutes": [
+            {
+              "ownerId": "A06",
+              "owner": "A06 visualization lead",
+              "routeKind": "cross-owner-blocker",
+              "errors": 14
+            }
+          ]
+        },
+        {
+          "matrixId": "wave-03-shell-dashboard-roadmap:a01-app-shell",
+          "waveId": "wave-03-shell-dashboard-roadmap",
+          "packageId": "a01-app-shell",
+          "packageName": "A01 app shell",
+          "readiness": "blocked",
+          "failedCheckNames": [
+            "typeCheck",
+            "appShellPlaywright"
+          ],
+          "blockingReasons": [
+            "A01 app shell typeCheck failed",
+            "A01 app shell appShellPlaywright failed"
+          ],
+          "typeCheckErrorsInPackage": 16,
+          "ownerRoutes": [
+            {
+              "ownerId": "A06",
+              "owner": "A06 visualization lead",
+              "routeKind": "cross-owner-blocker",
+              "errors": 16
+            }
+          ]
+        },
+        {
+          "matrixId": "wave-03-shell-dashboard-roadmap:a02-a15-dashboard-adaptive",
+          "waveId": "wave-03-shell-dashboard-roadmap",
+          "packageId": "a02-a15-dashboard-adaptive",
+          "packageName": "A02/A15 dashboard adaptive",
+          "readiness": "blocked",
+          "failedCheckNames": [
+            "testAnalytics",
+            "typeCheck",
+            "dashboardAdaptivePlaywright"
+          ],
+          "blockingReasons": [
+            "A02/A15 dashboard adaptive testAnalytics failed",
+            "A02/A15 dashboard adaptive typeCheck failed",
+            "A02/A15 dashboard adaptive dashboardAdaptivePlaywright failed"
+          ],
+          "typeCheckErrorsInPackage": 16,
+          "ownerRoutes": [
+            {
+              "ownerId": "A06",
+              "owner": "A06 visualization lead",
+              "routeKind": "cross-owner-blocker",
+              "errors": 16
+            }
+          ]
+        },
+        {
+          "matrixId": "wave-04-practice-lesson-content:a04-practice",
+          "waveId": "wave-04-practice-lesson-content",
+          "packageId": "a04-practice",
+          "packageName": "A04 practice",
+          "readiness": "blocked",
+          "failedCheckNames": [
+            "testQuestionBank",
+            "typeCheck",
+            "practicePlaywright"
+          ],
+          "blockingReasons": [
+            "A04 practice testQuestionBank failed",
+            "A04 practice typeCheck failed",
+            "A04 practice practicePlaywright failed"
+          ],
+          "typeCheckErrorsInPackage": 16,
+          "ownerRoutes": [
+            {
+              "ownerId": "A06",
+              "owner": "A06 visualization lead",
+              "routeKind": "cross-owner-blocker",
+              "errors": 16
+            }
+          ]
+        },
+        {
+          "matrixId": "wave-04-practice-lesson-content:a05-lesson",
+          "waveId": "wave-04-practice-lesson-content",
+          "packageId": "a05-lesson",
+          "packageName": "A05 lesson",
+          "readiness": "blocked",
+          "failedCheckNames": [
+            "typeCheck",
+            "lessonPlaywright"
+          ],
+          "blockingReasons": [
+            "A05 lesson typeCheck failed",
+            "A05 lesson lessonPlaywright failed"
+          ],
+          "typeCheckErrorsInPackage": 16,
+          "ownerRoutes": [
+            {
+              "ownerId": "A06",
+              "owner": "A06 visualization lead",
+              "routeKind": "cross-owner-blocker",
+              "errors": 16
+            }
+          ]
+        },
+        {
+          "matrixId": "wave-04-practice-lesson-content:a18-a21-a23-a24-content-evidence",
+          "waveId": "wave-04-practice-lesson-content",
+          "packageId": "a18-a21-a23-a24-content-evidence",
+          "packageName": "A18/A21/A23/A24 content evidence",
+          "readiness": "blocked",
+          "failedCheckNames": [
+            "testRag",
+            "testQuestionBank",
+            "typeCheck"
+          ],
+          "blockingReasons": [
+            "A18/A21/A23/A24 content evidence has 110 dirty entries outside its pathspec union",
+            "A18/A21/A23/A24 content evidence testRag failed",
+            "A18/A21/A23/A24 content evidence testQuestionBank failed",
+            "A18/A21/A23/A24 content evidence typeCheck failed"
+          ],
+          "typeCheckErrorsInPackage": 16,
+          "ownerRoutes": [
+            {
+              "ownerId": "A06",
+              "owner": "A06 visualization lead",
+              "routeKind": "cross-owner-blocker",
+              "errors": 16
+            }
+          ]
+        },
+        {
+          "matrixId": "wave-05-visualization-ai-runtime:a07-ai-tutor",
+          "waveId": "wave-05-visualization-ai-runtime",
+          "packageId": "a07-ai-tutor",
+          "packageName": "A07 AI tutor",
+          "readiness": "blocked",
+          "failedCheckNames": [
+            "typeCheck",
+            "aiTutorPlaywright"
+          ],
+          "blockingReasons": [
+            "A07 AI tutor typeCheck failed",
+            "A07 AI tutor aiTutorPlaywright failed"
+          ],
+          "typeCheckErrorsInPackage": 16,
+          "ownerRoutes": [
+            {
+              "ownerId": "A06",
+              "owner": "A06 visualization lead",
+              "routeKind": "cross-owner-blocker",
+              "errors": 16
+            }
+          ]
+        },
+        {
+          "matrixId": "wave-05-visualization-ai-runtime:a09-copy-i18n-accessibility",
+          "waveId": "wave-05-visualization-ai-runtime",
+          "packageId": "a09-copy-i18n-accessibility",
+          "packageName": "A09 copy/i18n/accessibility",
+          "readiness": "blocked",
+          "failedCheckNames": [
+            "typeCheck"
+          ],
+          "blockingReasons": [
+            "A09 copy/i18n/accessibility typeCheck failed"
+          ],
+          "typeCheckErrorsInPackage": 16,
+          "ownerRoutes": [
+            {
+              "ownerId": "A06",
+              "owner": "A06 visualization lead",
+              "routeKind": "cross-owner-blocker",
+              "errors": 16
+            }
+          ]
+        },
+        {
+          "matrixId": "wave-05-visualization-ai-runtime:a11-regression-evidence",
+          "waveId": "wave-05-visualization-ai-runtime",
+          "packageId": "a11-regression-evidence",
+          "packageName": "A11 regression evidence",
+          "readiness": "blocked",
+          "failedCheckNames": [
+            "typeCheck",
+            "regressionPlaywright"
+          ],
+          "blockingReasons": [
+            "A11 regression evidence typeCheck failed",
+            "A11 regression evidence regressionPlaywright failed"
+          ],
+          "typeCheckErrorsInPackage": 16,
+          "ownerRoutes": [
+            {
+              "ownerId": "A06",
+              "owner": "A06 visualization lead",
+              "routeKind": "cross-owner-blocker",
+              "errors": 16
+            }
+          ]
+        },
+        {
+          "matrixId": "wave-05-visualization-ai-runtime:a17-a20-game-motivation",
+          "waveId": "wave-05-visualization-ai-runtime",
+          "packageId": "a17-a20-game-motivation",
+          "packageName": "A17/A20 games and motivation",
+          "readiness": "blocked",
+          "failedCheckNames": [
+            "typeCheck",
+            "gameMotivationPlaywright"
+          ],
+          "blockingReasons": [
+            "A17/A20 games and motivation typeCheck failed",
+            "A17/A20 games and motivation gameMotivationPlaywright failed"
+          ],
+          "typeCheckErrorsInPackage": 16,
+          "ownerRoutes": [
+            {
+              "ownerId": "A06",
+              "owner": "A06 visualization lead",
+              "routeKind": "cross-owner-blocker",
+              "errors": 16
+            }
+          ]
+        }
+      ],
+      "nextAction": "A06 should inspect `components/visualizations/VisualizationLabPage.tsx` in /Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A06-visualization-closure, fix only its assigned owner scope, then rerun the impacted package checks for 11 package row(s) before A25 refreshes the aggregate gates.",
+      "evidence": [
+        "coordination/release-intake/latest-A25-owner-package-readiness-blocker-matrix.json",
+        "coordination/release-intake/latest-A25-owner-package-blocker-routing.json",
+        "coordination/release-intake/latest-A25-owner-package-blocker-assignment-packet.json"
+      ],
+      "mergeAuthorized": false,
+      "cleanupAuthorized": false,
+      "executableNow": false
+    },
+    {
+      "rank": 10,
+      "file": "components/games/MathVirusBlasterGame.tsx",
+      "totalErrors": 104,
+      "matchedRouteErrors": 104,
+      "primaryOwnerId": "A20",
+      "primaryOwner": "A20 game design and game-based learning lead",
+      "primaryRouteKind": "cross-owner-blocker",
+      "recommendedWorktree": "/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A17-A20-game-motivation-closure",
+      "writeScope": [
+        "components/games/MathVirusBlasterGame.tsx",
+        "components/games/MightyTankBattleGame.tsx"
+      ],
+      "impactedPackageRows": 8,
+      "impactedWaves": [
+        "wave-01-governance-release-hygiene",
+        "wave-02-shared-contracts",
+        "wave-03-shell-dashboard-roadmap",
+        "wave-04-practice-lesson-content",
+        "wave-05-visualization-ai-runtime"
+      ],
+      "impactedPackages": [
+        "a01-app-shell",
+        "a06-visualization",
+        "a07-ai-tutor",
+        "a09-copy-i18n-accessibility",
+        "a11-regression-evidence",
+        "a18-a21-a23-a24-content-evidence",
+        "wave-01-governance-release-hygiene",
+        "wave-02-shared-contracts"
+      ],
+      "ownerRoutes": [
+        {
+          "ownerId": "A20",
+          "owner": "A20 game design and game-based learning lead",
+          "routeKinds": [
+            "cross-owner-blocker"
+          ],
+          "files": 1,
+          "frontierRows": 1,
+          "impactedPackageRows": 8,
+          "impactedWaves": [
+            "wave-01-governance-release-hygiene",
+            "wave-02-shared-contracts",
+            "wave-03-shell-dashboard-roadmap",
+            "wave-04-practice-lesson-content",
+            "wave-05-visualization-ai-runtime"
+          ],
+          "totalMatchedErrors": 104,
+          "recommendedWorktree": "/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A17-A20-game-motivation-closure",
+          "writeScope": [
+            "components/games/MathVirusBlasterGame.tsx",
+            "components/games/MightyTankBattleGame.tsx"
+          ],
+          "cleanupAuthorized": false,
+          "executableNow": false
+        }
+      ],
+      "packageImpacts": [
+        {
+          "matrixId": "wave-01-governance-release-hygiene:wave-01-governance-release-hygiene",
+          "waveId": "wave-01-governance-release-hygiene",
+          "packageId": "wave-01-governance-release-hygiene",
+          "packageName": "A25/A10/A22 governance and release hygiene",
+          "readiness": "blocked",
+          "failedCheckNames": [
+            "typeCheck"
+          ],
+          "blockingReasons": [
+            "1 held package-resync row remains: wave01-resync-01-tsconfig-json",
+            "npm run type-check failed"
+          ],
+          "typeCheckErrorsInPackage": 13,
+          "ownerRoutes": [
+            {
+              "ownerId": "A20",
+              "owner": "A20 game design and game-based learning lead",
+              "routeKind": "cross-owner-blocker",
+              "errors": 13
+            }
+          ]
+        },
+        {
+          "matrixId": "wave-02-shared-contracts:wave-02-shared-contracts",
+          "waveId": "wave-02-shared-contracts",
+          "packageId": "wave-02-shared-contracts",
+          "packageName": "A08/A12 shared contracts and storage/API stability",
+          "readiness": "blocked",
+          "failedCheckNames": [
+            "testAnalytics",
+            "testBackend",
+            "typeCheck",
+            "build"
+          ],
+          "blockingReasons": [
+            "testAnalytics failed",
+            "testBackend failed",
+            "typeCheck failed",
+            "build failed"
+          ],
+          "typeCheckErrorsInPackage": 13,
+          "ownerRoutes": [
+            {
+              "ownerId": "A20",
+              "owner": "A20 game design and game-based learning lead",
+              "routeKind": "cross-owner-blocker",
+              "errors": 13
+            }
+          ]
+        },
+        {
+          "matrixId": "wave-03-shell-dashboard-roadmap:a01-app-shell",
+          "waveId": "wave-03-shell-dashboard-roadmap",
+          "packageId": "a01-app-shell",
+          "packageName": "A01 app shell",
+          "readiness": "blocked",
+          "failedCheckNames": [
+            "typeCheck",
+            "appShellPlaywright"
+          ],
+          "blockingReasons": [
+            "A01 app shell typeCheck failed",
+            "A01 app shell appShellPlaywright failed"
+          ],
+          "typeCheckErrorsInPackage": 13,
+          "ownerRoutes": [
+            {
+              "ownerId": "A20",
+              "owner": "A20 game design and game-based learning lead",
+              "routeKind": "cross-owner-blocker",
+              "errors": 13
+            }
+          ]
+        },
+        {
+          "matrixId": "wave-04-practice-lesson-content:a18-a21-a23-a24-content-evidence",
+          "waveId": "wave-04-practice-lesson-content",
+          "packageId": "a18-a21-a23-a24-content-evidence",
+          "packageName": "A18/A21/A23/A24 content evidence",
+          "readiness": "blocked",
+          "failedCheckNames": [
+            "testRag",
+            "testQuestionBank",
+            "typeCheck"
+          ],
+          "blockingReasons": [
+            "A18/A21/A23/A24 content evidence has 110 dirty entries outside its pathspec union",
+            "A18/A21/A23/A24 content evidence testRag failed",
+            "A18/A21/A23/A24 content evidence testQuestionBank failed",
+            "A18/A21/A23/A24 content evidence typeCheck failed"
+          ],
+          "typeCheckErrorsInPackage": 13,
+          "ownerRoutes": [
+            {
+              "ownerId": "A20",
+              "owner": "A20 game design and game-based learning lead",
+              "routeKind": "cross-owner-blocker",
+              "errors": 13
+            }
+          ]
+        },
+        {
+          "matrixId": "wave-05-visualization-ai-runtime:a06-visualization",
+          "waveId": "wave-05-visualization-ai-runtime",
+          "packageId": "a06-visualization",
+          "packageName": "A06 visualization",
+          "readiness": "blocked",
+          "failedCheckNames": [
+            "typeCheck",
+            "visualizationNodeTests",
+            "visualizationPlaywright"
+          ],
+          "blockingReasons": [
+            "A06 visualization typeCheck failed",
+            "A06 visualization visualizationNodeTests failed",
+            "A06 visualization visualizationPlaywright failed"
+          ],
+          "typeCheckErrorsInPackage": 13,
+          "ownerRoutes": [
+            {
+              "ownerId": "A20",
+              "owner": "A20 game design and game-based learning lead",
+              "routeKind": "cross-owner-blocker",
+              "errors": 13
+            }
+          ]
+        },
+        {
+          "matrixId": "wave-05-visualization-ai-runtime:a07-ai-tutor",
+          "waveId": "wave-05-visualization-ai-runtime",
+          "packageId": "a07-ai-tutor",
+          "packageName": "A07 AI tutor",
+          "readiness": "blocked",
+          "failedCheckNames": [
+            "typeCheck",
+            "aiTutorPlaywright"
+          ],
+          "blockingReasons": [
+            "A07 AI tutor typeCheck failed",
+            "A07 AI tutor aiTutorPlaywright failed"
+          ],
+          "typeCheckErrorsInPackage": 13,
+          "ownerRoutes": [
+            {
+              "ownerId": "A20",
+              "owner": "A20 game design and game-based learning lead",
+              "routeKind": "cross-owner-blocker",
+              "errors": 13
+            }
+          ]
+        },
+        {
+          "matrixId": "wave-05-visualization-ai-runtime:a09-copy-i18n-accessibility",
+          "waveId": "wave-05-visualization-ai-runtime",
+          "packageId": "a09-copy-i18n-accessibility",
+          "packageName": "A09 copy/i18n/accessibility",
+          "readiness": "blocked",
+          "failedCheckNames": [
+            "typeCheck"
+          ],
+          "blockingReasons": [
+            "A09 copy/i18n/accessibility typeCheck failed"
+          ],
+          "typeCheckErrorsInPackage": 13,
+          "ownerRoutes": [
+            {
+              "ownerId": "A20",
+              "owner": "A20 game design and game-based learning lead",
+              "routeKind": "cross-owner-blocker",
+              "errors": 13
+            }
+          ]
+        },
+        {
+          "matrixId": "wave-05-visualization-ai-runtime:a11-regression-evidence",
+          "waveId": "wave-05-visualization-ai-runtime",
+          "packageId": "a11-regression-evidence",
+          "packageName": "A11 regression evidence",
+          "readiness": "blocked",
+          "failedCheckNames": [
+            "typeCheck",
+            "regressionPlaywright"
+          ],
+          "blockingReasons": [
+            "A11 regression evidence typeCheck failed",
+            "A11 regression evidence regressionPlaywright failed"
+          ],
+          "typeCheckErrorsInPackage": 13,
+          "ownerRoutes": [
+            {
+              "ownerId": "A20",
+              "owner": "A20 game design and game-based learning lead",
+              "routeKind": "cross-owner-blocker",
+              "errors": 13
+            }
+          ]
+        }
+      ],
+      "nextAction": "A20 should inspect `components/games/MathVirusBlasterGame.tsx` in /Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A17-A20-game-motivation-closure, fix only its assigned owner scope, then rerun the impacted package checks for 8 package row(s) before A25 refreshes the aggregate gates.",
+      "evidence": [
+        "coordination/release-intake/latest-A25-owner-package-readiness-blocker-matrix.json",
+        "coordination/release-intake/latest-A25-owner-package-blocker-routing.json",
+        "coordination/release-intake/latest-A25-owner-package-blocker-assignment-packet.json"
+      ],
+      "mergeAuthorized": false,
+      "cleanupAuthorized": false,
+      "executableNow": false
+    },
+    {
+      "rank": 11,
+      "file": "data/topics.ts",
+      "totalErrors": 98,
+      "matchedRouteErrors": 196,
+      "primaryOwnerId": "A03",
+      "primaryOwner": "A03 curriculum roadmap lead",
+      "primaryRouteKind": "package-owner",
+      "recommendedWorktree": "/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A03-roadmap-closure",
+      "writeScope": [
+        "data/topics.ts"
+      ],
+      "impactedPackageRows": 2,
+      "impactedWaves": [
+        "wave-02-shared-contracts",
+        "wave-03-shell-dashboard-roadmap"
+      ],
+      "impactedPackages": [
+        "a03-roadmap",
+        "wave-02-shared-contracts"
+      ],
+      "ownerRoutes": [
+        {
+          "ownerId": "A03",
+          "owner": "A03 curriculum roadmap lead",
+          "routeKinds": [
+            "cross-owner-blocker",
+            "package-owner"
+          ],
+          "files": 1,
+          "frontierRows": 1,
+          "impactedPackageRows": 2,
+          "impactedWaves": [
+            "wave-02-shared-contracts",
+            "wave-03-shell-dashboard-roadmap"
+          ],
+          "totalMatchedErrors": 98,
+          "recommendedWorktree": "/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A03-roadmap-closure",
+          "writeScope": [
+            "data/topics.ts"
+          ],
+          "cleanupAuthorized": false,
+          "executableNow": false
+        },
+        {
+          "ownerId": "A18",
+          "owner": "A18 curriculum QA and content quality lead",
+          "routeKinds": [
+            "cross-owner-blocker"
+          ],
+          "files": 1,
+          "frontierRows": 1,
+          "impactedPackageRows": 2,
+          "impactedWaves": [
+            "wave-02-shared-contracts",
+            "wave-03-shell-dashboard-roadmap"
+          ],
+          "totalMatchedErrors": 98,
+          "recommendedWorktree": "/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A18-A21-content-evidence-closure",
+          "writeScope": [],
+          "cleanupAuthorized": false,
+          "executableNow": false
+        }
+      ],
+      "packageImpacts": [
+        {
+          "matrixId": "wave-02-shared-contracts:wave-02-shared-contracts",
+          "waveId": "wave-02-shared-contracts",
+          "packageId": "wave-02-shared-contracts",
+          "packageName": "A08/A12 shared contracts and storage/API stability",
+          "readiness": "blocked",
+          "failedCheckNames": [
+            "testAnalytics",
+            "testBackend",
+            "typeCheck",
+            "build"
+          ],
+          "blockingReasons": [
+            "testAnalytics failed",
+            "testBackend failed",
+            "typeCheck failed",
+            "build failed"
+          ],
+          "typeCheckErrorsInPackage": 49,
+          "ownerRoutes": [
+            {
+              "ownerId": "A03",
+              "owner": "A03 curriculum roadmap lead",
+              "routeKind": "cross-owner-blocker",
+              "errors": 49
+            },
+            {
+              "ownerId": "A18",
+              "owner": "A18 curriculum QA and content quality lead",
+              "routeKind": "cross-owner-blocker",
+              "errors": 49
+            }
+          ]
+        },
+        {
+          "matrixId": "wave-03-shell-dashboard-roadmap:a03-roadmap",
+          "waveId": "wave-03-shell-dashboard-roadmap",
+          "packageId": "a03-roadmap",
+          "packageName": "A03 roadmap",
+          "readiness": "blocked",
+          "failedCheckNames": [
+            "typeCheck",
+            "roadmapPlaywright"
+          ],
+          "blockingReasons": [
+            "A03 roadmap typeCheck failed",
+            "A03 roadmap roadmapPlaywright failed"
+          ],
+          "typeCheckErrorsInPackage": 49,
+          "ownerRoutes": [
+            {
+              "ownerId": "A03",
+              "owner": "A03 curriculum roadmap lead",
+              "routeKind": "package-owner",
+              "errors": 49
+            },
+            {
+              "ownerId": "A18",
+              "owner": "A18 curriculum QA and content quality lead",
+              "routeKind": "cross-owner-blocker",
+              "errors": 49
+            }
+          ]
+        }
+      ],
+      "nextAction": "A03 should inspect `data/topics.ts` in /Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A03-roadmap-closure, fix only its assigned owner scope, then rerun the impacted package checks for 2 package row(s) before A25 refreshes the aggregate gates.",
+      "evidence": [
+        "coordination/release-intake/latest-A25-owner-package-readiness-blocker-matrix.json",
+        "coordination/release-intake/latest-A25-owner-package-blocker-routing.json",
+        "coordination/release-intake/latest-A25-owner-package-blocker-assignment-packet.json"
+      ],
+      "mergeAuthorized": false,
+      "cleanupAuthorized": false,
+      "executableNow": false
+    },
+    {
+      "rank": 12,
+      "file": "components/teacher/TeacherResourceAssessmentViews.tsx",
+      "totalErrors": 96,
+      "matchedRouteErrors": 96,
+      "primaryOwnerId": "A13",
+      "primaryOwner": "A13 teacher console lead",
+      "primaryRouteKind": "package-owner",
+      "recommendedWorktree": "/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A13-A14-console-closure",
+      "writeScope": [
+        "components/teacher/TeacherLiveView.tsx",
+        "components/teacher/TeacherManagementViews.tsx",
+        "components/teacher/TeacherOperationsView.tsx",
+        "components/teacher/TeacherPrepViews.tsx",
+        "components/teacher/TeacherResourceAssessmentViews.tsx",
+        "components/teacher/TeacherReviewLessonView.tsx"
+      ],
+      "impactedPackageRows": 1,
+      "impactedWaves": [
+        "wave-05-visualization-ai-runtime"
+      ],
+      "impactedPackages": [
+        "a13-a14-console"
+      ],
+      "ownerRoutes": [
+        {
+          "ownerId": "A13",
+          "owner": "A13 teacher console lead",
+          "routeKinds": [
+            "package-owner"
+          ],
+          "files": 1,
+          "frontierRows": 1,
+          "impactedPackageRows": 1,
+          "impactedWaves": [
+            "wave-05-visualization-ai-runtime"
+          ],
+          "totalMatchedErrors": 96,
+          "recommendedWorktree": "/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A13-A14-console-closure",
+          "writeScope": [
+            "components/teacher/TeacherLiveView.tsx",
+            "components/teacher/TeacherManagementViews.tsx",
+            "components/teacher/TeacherOperationsView.tsx",
+            "components/teacher/TeacherPrepViews.tsx",
+            "components/teacher/TeacherResourceAssessmentViews.tsx",
+            "components/teacher/TeacherReviewLessonView.tsx"
+          ],
+          "cleanupAuthorized": false,
+          "executableNow": false
+        }
+      ],
+      "packageImpacts": [
+        {
+          "matrixId": "wave-05-visualization-ai-runtime:a13-a14-console",
+          "waveId": "wave-05-visualization-ai-runtime",
+          "packageId": "a13-a14-console",
+          "packageName": "A13/A14 console",
+          "readiness": "blocked",
+          "failedCheckNames": [
+            "typeCheck",
+            "consolePlaywright"
+          ],
+          "blockingReasons": [
+            "A13/A14 console typeCheck failed",
+            "A13/A14 console consolePlaywright failed"
+          ],
+          "typeCheckErrorsInPackage": 96,
+          "ownerRoutes": [
+            {
+              "ownerId": "A13",
+              "owner": "A13 teacher console lead",
+              "routeKind": "package-owner",
+              "errors": 96
+            }
+          ]
+        }
+      ],
+      "nextAction": "A13 should inspect `components/teacher/TeacherResourceAssessmentViews.tsx` in /Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A13-A14-console-closure, fix only its assigned owner scope, then rerun the impacted package checks for 1 package row(s) before A25 refreshes the aggregate gates.",
+      "evidence": [
+        "coordination/release-intake/latest-A25-owner-package-readiness-blocker-matrix.json",
+        "coordination/release-intake/latest-A25-owner-package-blocker-routing.json",
+        "coordination/release-intake/latest-A25-owner-package-blocker-assignment-packet.json"
+      ],
+      "mergeAuthorized": false,
+      "cleanupAuthorized": false,
+      "executableNow": false
+    }
+  ],
+  "boundary": {
+    "evidenceOnly": true,
+    "recordsAuthorization": false,
+    "recordsExecutionInstruction": false,
+    "stageAuthorized": false,
+    "commitAuthorized": false,
+    "mergeAuthorized": false,
+    "cleanupAuthorized": false,
+    "executableNow": false,
+    "destructiveGitAuthorized": false,
+    "deployAuthorized": false,
+    "dirtyRootDeployAuthorized": false,
+    "physicalCleanupAuthorized": false
+  }
+}

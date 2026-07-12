@@ -16,7 +16,8 @@
 - Duplicate exact prompts: 0
 - Inventory issues: 0
 - Independent review queue rows: 220
-- Release recommendation: blocked-human-review
+- Manual pending rows: 0
+- Release recommendation: approved-for-promotion-review
 
 ## Status Counts
 
@@ -77,5 +78,6 @@
 
 ## Human Review Requirement
 
-- Complete every row in `manual-review-results.csv` before promotion.
+- S18 manual review queue is complete; no pending manual-review rows remain.
 - Do not use manual notes to bypass solver gaps; fix the solver or candidate row and rerun this audit.
+- Public integration is not performed by this S18 package audit; S04/S08/S11 still need an explicit owner-approved integration task before student-facing use.

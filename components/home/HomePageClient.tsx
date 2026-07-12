@@ -1,8 +1,8 @@
 "use client";
 
-import Link from "next/link";
 import Image, { type StaticImageData } from "next/image";
 import { HeroSection } from "@/components/home/HeroSection";
+import { PersonalizedPracticeMissionShowcase } from "@/components/practice/PersonalizedPracticeMissionShowcase";
 import examReadinessIcon from "@/components/home/feature-icons/exam-readiness.png";
 import geometryExplorerIcon from "@/components/home/feature-icons/geometry-explorer.png";
 import interactiveGraphsIcon from "@/components/home/feature-icons/interactive-graphs.png";
@@ -26,13 +26,15 @@ type HomeFeature = {
 
 type HomePageClientProps = {
   practiceQuestionTotal: number;
+  visualizationLabCount: number;
 };
 
 const adaptiveLearning = {
-  title: { en: "Adaptive learning that responds to each student", zh: "回應每位學生的適性學習" },
+  title: { en: "Personalized learning that responds to each student", zh: "回應每位學生的個人化學習", zhHans: "回应每位学生的个性化学习" },
   description: {
-    en: "Adaptive learning connects each student's grade, activity, mastery, and mistakes to recommend the right lesson, practice, and review path.",
-    zh: "適性學習會把學生的年級、活動、掌握度和錯題連起來，推薦合適的課堂、練習與重溫路徑。"
+    en: "Personalized learning connects each student's grade, activity, mastery, and mistakes to recommend the right lesson, practice, and review path.",
+    zh: "個人化學習會把學生的年級、活動、掌握度和錯題連起來，推薦合適的課堂、練習與重溫路徑。",
+    zhHans: "个性化学习会把学生的年级、活动、掌握度和错题连起来，推荐合适的课堂、练习与重温路径。"
   }
 };
 
@@ -119,12 +121,12 @@ function FeatureGrid({ items }: { items: HomeFeature[] }) {
   );
 }
 
-export function HomePageClient({ practiceQuestionTotal }: HomePageClientProps) {
+export function HomePageClient({ practiceQuestionTotal, visualizationLabCount }: HomePageClientProps) {
   const { t, text } = useSettings();
 
   return (
     <>
-      <HeroSection practiceQuestionTotal={practiceQuestionTotal} />
+      <HeroSection practiceQuestionTotal={practiceQuestionTotal} visualizationLabCount={visualizationLabCount} />
       <section className="page-container pb-10 pt-16 sm:pb-12 sm:pt-20">
         <SectionHeader title={text(adaptiveLearning.title)} description={text(adaptiveLearning.description)} />
         <FeatureGrid items={adaptiveFeatures} />
@@ -135,21 +137,8 @@ export function HomePageClient({ practiceQuestionTotal }: HomePageClientProps) {
         <FeatureGrid items={features} />
       </section>
 
-      <section className="page-container pb-16 sm:pb-24">
-        <div className="glass-panel relative overflow-hidden p-6 sm:p-8 lg:p-10">
-          <div className="relative grid gap-8 lg:grid-cols-[1fr_auto] lg:items-center">
-            <div>
-              <p className="text-sm font-bold uppercase tracking-[0.24em] text-cyan-500 dark:text-cyan-300">{t(dictionary.home.ctaEyebrow)}</p>
-              <h2 className="mt-3 text-3xl font-black text-slate-950 dark:text-white">{t(dictionary.home.ctaTitle)}</h2>
-              <p className="mt-3 max-w-2xl text-slate-600 dark:text-slate-300">
-                {t(dictionary.home.ctaText)}
-              </p>
-            </div>
-            <Link href="/visualization-lab" className="focus-ring rounded-full bg-gradient-to-r from-cyan-500 to-indigo-500 px-6 py-3 text-center font-black text-white shadow-sm transition hover:-translate-y-1">
-              {t(dictionary.common.exploreVisualizations)}
-            </Link>
-          </div>
-        </div>
+      <section className="page-container pb-16 pt-2 sm:pb-20">
+        <PersonalizedPracticeMissionShowcase />
       </section>
     </>
   );

@@ -1,0 +1,39 @@
+{
+  "approvedAt": "2026-06-26T11:11:01Z",
+  "approvedBy": "owner via Codex thread",
+  "approvalSource": "user message selecting final states",
+  "dirtyMapStatusSignatureAtRecord": "8c55a609f4ff42e1b227341b9895110a8899d6f996a73e7ceb07d68317f4663c",
+  "expandedStatusEntriesAtRecord": 1641,
+  "decisions": {
+    "root-dirty-packages": {
+      "selectedFinalState": "evidence archive",
+      "ownerDecision": "Owner selected conservative non-destructive evidence archive final state."
+    },
+    "dirty-visualization-production-release": {
+      "selectedFinalState": "evidence archive with worktree removal blocker",
+      "ownerDecision": "Owner selected conservative non-destructive evidence archive with worktree removal blocker final state."
+    },
+    "california-practice-beta-clean": {
+      "selectedFinalState": "archive tag",
+      "ownerDecision": "Owner selected conservative non-destructive archive tag final state. A25 records this as an archive-state approval and does not create a Git tag without separate explicit tag instruction."
+    },
+    "s22-release-hygiene-2026-06-15": {
+      "selectedFinalState": "archive tag",
+      "ownerDecision": "Owner selected conservative non-destructive archive tag final state. A25 records this as an archive-state approval and does not create a Git tag without separate explicit tag instruction."
+    }
+  },
+  "forbiddenWithoutSeparateExplicitApproval": [
+    "stage",
+    "commit",
+    "branch",
+    "merge",
+    "rebase",
+    "push",
+    "delete",
+    "reset",
+    "revert",
+    "clean",
+    "deploy",
+    "create git tag"
+  ]
+}

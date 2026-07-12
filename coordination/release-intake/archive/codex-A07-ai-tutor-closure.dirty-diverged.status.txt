@@ -1,0 +1,12 @@
+M .env.local.example
+ M app/api/ai-tutor/route.ts
+ M app/api/ai-tutor/status/route.ts
+ M components/ai/AITutorButton.tsx
+ M components/ai/AITutorProvider.tsx
+?? app/api/ai-tutor/resolve/route.ts
+?? app/api/ai-tutor/speech/route.ts
+?? app/api/ai-tutor/voice/route.ts
+?? components/ai/NovaLensGlobalOverlay.tsx
+?? components/ai/tutorVoiceInput.test.ts
+?? components/ai/tutorVoiceInput.ts
+?? scripts/ai-tutor-live-latency-smoke.mjs

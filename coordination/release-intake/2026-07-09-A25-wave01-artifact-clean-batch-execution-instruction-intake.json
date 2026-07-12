@@ -1,0 +1,129 @@
+{
+  "generatedAt": "2026-07-09T13:58:14.396Z",
+  "repoRoot": "/Users/dongpinhu/Desktop/MAIS-MVP",
+  "intakeKind": "wave01-artifact-clean-batch-execution-instruction-intake",
+  "dirtyMapStatusSignature": "b3d232fd2b9ef81d4efc95903d2e3b316db664d6e9ec6ab366181395b3966be7",
+  "expandedStatusEntries": 6604,
+  "sourceArtifacts": {
+    "batchRequestGeneratedAt": "2026-07-09T13:58:14.285Z",
+    "batchRequestGateFailureCount": 0,
+    "executionInstructionsGeneratedAt": "2026-07-09T13:58:13.054Z",
+    "executionInstructionsGateFailureCount": 0,
+    "ownerInputGeneratedAt": "2026-07-06T02:00:05.166Z"
+  },
+  "ownerInputFile": "coordination/release-intake/latest-A25-wave01-artifact-clean-batch-execution-instruction-owner-input.json",
+  "ownerInputAction": "preserve-existing-owner-input",
+  "intakeStatus": "post-clean-verified",
+  "batchStatus": "post-clean-verified",
+  "approvalIds": [
+    "wave01-resync-02-coordination-release-intake-2026-06-30-a25-dirty-tree-map-20260630t072027z-json",
+    "wave01-resync-03-coordination-release-intake-2026-06-30-a25-dirty-tree-map-20260630t072027z-md",
+    "wave01-resync-04-coordination-release-intake-2026-06-30-a25-dirty-tree-map-20260630t073137z-json",
+    "wave01-resync-05-coordination-release-intake-2026-06-30-a25-dirty-tree-map-20260630t073137z-md",
+    "wave01-resync-06-coordination-release-intake-2026-06-30-a25-dirty-tree-map-20260630t130221z-json",
+    "wave01-resync-07-coordination-release-intake-2026-06-30-a25-dirty-tree-map-20260630t130221z-md"
+  ],
+  "exactCommandSequence": [
+    "git clean -f -- coordination/release-intake/2026-06-30-A25-dirty-tree-map-20260630T072027Z.json",
+    "git clean -f -- coordination/release-intake/2026-06-30-A25-dirty-tree-map-20260630T072027Z.md",
+    "git clean -f -- coordination/release-intake/2026-06-30-A25-dirty-tree-map-20260630T073137Z.json",
+    "git clean -f -- coordination/release-intake/2026-06-30-A25-dirty-tree-map-20260630T073137Z.md",
+    "git clean -f -- coordination/release-intake/2026-06-30-A25-dirty-tree-map-20260630T130221Z.json",
+    "git clean -f -- coordination/release-intake/2026-06-30-A25-dirty-tree-map-20260630T130221Z.md"
+  ],
+  "ownerInputBlank": false,
+  "ownerInputProjection": {
+    "applyToApprovalIds": [
+      "wave01-resync-02-coordination-release-intake-2026-06-30-a25-dirty-tree-map-20260630t072027z-json",
+      "wave01-resync-03-coordination-release-intake-2026-06-30-a25-dirty-tree-map-20260630t072027z-md",
+      "wave01-resync-04-coordination-release-intake-2026-06-30-a25-dirty-tree-map-20260630t073137z-json",
+      "wave01-resync-05-coordination-release-intake-2026-06-30-a25-dirty-tree-map-20260630t073137z-md",
+      "wave01-resync-06-coordination-release-intake-2026-06-30-a25-dirty-tree-map-20260630t130221z-json",
+      "wave01-resync-07-coordination-release-intake-2026-06-30-a25-dirty-tree-map-20260630t130221z-md"
+    ],
+    "ownerExecutionTextProvided": true,
+    "approvedByProvided": true,
+    "approvedAt": "2026-07-06T02:01:00Z",
+    "approvedAtValid": true,
+    "notesProvided": true,
+    "cleanupAuthorized": false,
+    "executableNow": false,
+    "deployAuthorized": false
+  },
+  "ownerInputChecks": [
+    {
+      "id": "source-current",
+      "status": "pass",
+      "detail": "expanded=6604"
+    },
+    {
+      "id": "source-gates-passing",
+      "status": "pass",
+      "detail": "batchGateFailures=0; instructionGateFailures=0"
+    },
+    {
+      "id": "batch-request-ready",
+      "status": "pass",
+      "detail": "batchStatus=post-clean-verified"
+    },
+    {
+      "id": "six-draft-rows-available",
+      "status": "pass",
+      "detail": "draftRows=0; existingRows=0"
+    },
+    {
+      "id": "owner-input-targets-batch",
+      "status": "pass",
+      "detail": "inputApprovalIds=6; batchApprovalIds=6"
+    },
+    {
+      "id": "blank-owner-input-scaffold-current",
+      "status": "pass",
+      "detail": "ownerInputBlank=false; sourceBatchRequestGeneratedAt=2026-07-06T02:00:05.057Z"
+    },
+    {
+      "id": "owner-input-no-execution-boundary",
+      "status": "pass",
+      "detail": "owner input preserves no-cleanup, non-executable, and no-deploy boundary"
+    },
+    {
+      "id": "owner-execution-text-complete",
+      "status": "pass",
+      "detail": "execution text must include every approvalId, exact command, cwd, no-cleanup, no-broad-staging, and no-deploy terms"
+    },
+    {
+      "id": "owner-metadata-valid",
+      "status": "pass",
+      "detail": "approvedBy, ISO approvedAt, and notes are required"
+    }
+  ],
+  "proposedInstructionRowsDoNotRecord": [],
+  "summary": {
+    "expectedRows": 6,
+    "draftRows": 0,
+    "existingInstructionRows": 0,
+    "proposedInstructionRows": 0,
+    "ownerInputChecks": 9,
+    "passingOwnerInputChecks": 9,
+    "waitingOwnerInputChecks": 0,
+    "failedOwnerInputChecks": 0,
+    "recordsExecutionInstructionRows": 0,
+    "cleanupAuthorizedRows": 0,
+    "executableRows": 0
+  },
+  "boundary": {
+    "evidenceOnly": true,
+    "intakeOnly": true,
+    "recordsOwnerInput": false,
+    "recordsExecutionInstruction": false,
+    "stageAuthorized": false,
+    "commitAuthorized": false,
+    "mergeAuthorized": false,
+    "cleanupAuthorized": false,
+    "executableNow": false,
+    "destructiveGitAuthorized": false,
+    "deployAuthorized": false,
+    "requiresSeparateRecordingStep": false,
+    "requiresSeparateGuardedExecutor": false
+  }
+}

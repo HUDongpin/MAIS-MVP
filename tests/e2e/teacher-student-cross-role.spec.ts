@@ -1,5 +1,5 @@
 import { expect, test } from "@playwright/test";
-import { loginAs, loginAsTeacher, logoutIfVisible, registerStudent, uniqueSuffix } from "./helpers";
+import { loginAs, loginAsTeacher, logoutIfVisible, registerStudentApi, uniqueSuffix } from "./helpers";
 
 function escapeRegex(value: string) {
   return value.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
@@ -18,8 +18,8 @@ test.describe.serial("teacher-student cross-role workflows", () => {
     const messageSubject = `QA help request ${suffix}`;
     const teacherReply = `QA reply ${suffix}: show the vertex step first.`;
 
-    const student = await registerStudent(page, testInfo, "S3");
-    await logoutIfVisible(page);
+    const student = await registerStudentApi(page, testInfo, "S3");
+    await page.request.post("/api/auth/logout");
 
     await loginAsTeacher(page);
     const classResponse = await page.request.post("/api/teacher/classes", {
@@ -52,7 +52,7 @@ test.describe.serial("teacher-student cross-role workflows", () => {
     await expect(page.getByRole("heading", { name: new RegExp(escapeRegex(className), "i") })).toBeVisible();
     await expect(page.getByRole("link", { name: new RegExp(escapeRegex(student.name), "i") })).toBeVisible();
 
-    await page.goto("/teacher/inbox");
+    await page.goto("/teacher/communications/inbox");
     const teacherThread = page.getByRole("link", { name: new RegExp(escapeRegex(messageSubject), "i") });
     await expect(teacherThread).toBeVisible();
     await teacherThread.click();
@@ -76,8 +76,8 @@ test.describe.serial("teacher-student cross-role workflows", () => {
     expect(assignmentResponse.ok()).toBeTruthy();
     const assignmentPayload = (await assignmentResponse.json()) as { assignment: { id: string } };
     await page.goto(`/teacher/assignments/${assignmentPayload.assignment.id}`);
-    const newSubmissionRow = page.locator("tr").filter({ hasText: student.name }).first();
-    await expect(newSubmissionRow).toContainText(/not-started/i);
+    const newSubmissionCard = page.locator("article").filter({ hasText: student.name }).first();
+    await expect(newSubmissionCard).toContainText(/not started/i);
     await logoutIfVisible(page);
 
     await loginAs(page, student.username, student.password, /\/dashboard/);
@@ -86,20 +86,32 @@ test.describe.serial("teacher-student cross-role workflows", () => {
     if (await studentThread.isVisible().catch(() => false)) await studentThread.click();
     await expect(page.locator("main").getByText(teacherReply).last()).toBeVisible();
 
-    await page.goto("/adaptive-learning");
+    await page.goto("/personalized-learning");
     await expect(page.getByRole("link", { name: new RegExp(escapeRegex(assignmentTitle), "i") })).toBeVisible();
-    await page.goto("/lesson/quadratic-functions");
-    await page.locator('input[type="checkbox"]').first().check();
-    await page.getByRole("button", { name: /Mark lesson complete/i }).click();
-    await expect(page.getByText(/Mastery: 85%|Mastery: 100%/i)).toBeVisible();
-    await page.goto("/adaptive-learning");
-    await expect(page.getByRole("link", { name: new RegExp(escapeRegex(assignmentTitle), "i") })).toContainText(/graded/i);
+    const studentSubmissionResponse = await page.request.post(`/api/assignments/${assignmentPayload.assignment.id}/submissions`, {
+      data: {
+        answerText: "I completed the linked quadratic lesson and can explain the vertex step.",
+        inputType: "text"
+      }
+    });
+    expect(studentSubmissionResponse.ok()).toBeTruthy();
+    await page.goto("/personalized-learning");
+    await expect(page.getByRole("link", { name: new RegExp(escapeRegex(assignmentTitle), "i") })).toBeVisible();
     await logoutIfVisible(page);
 
     await loginAsTeacher(page);
     await page.goto(`/teacher/assignments/${assignmentPayload.assignment.id}`);
-    const completedSubmissionRow = page.locator("tr").filter({ hasText: student.name }).first();
-    await expect(completedSubmissionRow).toContainText(/graded/i);
-    await expect(completedSubmissionRow).toContainText(/100/);
+    const completedSubmissionCard = page.locator("article").filter({ hasText: student.name }).first();
+    await expect(completedSubmissionCard).toContainText(/submitted/i);
+    await completedSubmissionCard.getByRole("spinbutton", { name: /^Score$/i }).fill("100");
+    const scoreResponse = page.waitForResponse((response) =>
+      response.url().includes("/api/teacher/submissions/") &&
+      response.url().includes("/reviews") &&
+      response.request().method() === "PATCH"
+    );
+    await completedSubmissionCard.getByRole("button", { name: /Save score/i }).click();
+    expect((await scoreResponse).ok()).toBeTruthy();
+    await expect(completedSubmissionCard).toContainText(/graded/i);
+    await expect(completedSubmissionCard).toContainText(/100/);
   });
 });

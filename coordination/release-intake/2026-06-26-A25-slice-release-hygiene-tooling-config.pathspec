@@ -1,0 +1,12 @@
+.vercelignore
+next.config.ts
+package-lock.json
+package.json
+playwright.config.ts
+scripts/cleanup-generated-artifacts.mjs
+scripts/deploy-vercel-preview.mjs
+scripts/deploy-vercel-production.mjs
+scripts/prepare-vercel-staging.mjs
+scripts/release-env-guard.mjs
+scripts/release-env-guard.test.mjs
+tsconfig.next.json

@@ -1,0 +1,226 @@
+{
+  "generatedAt": "2026-07-10T17:09:02.822Z",
+  "repoRoot": "/Users/dongpinhu/Desktop/MAIS-MVP",
+  "dirtyMapStatusSignature": "e30d647e1b51432945713f42ac78b0a2466fcb17192de0235a801ac877a0801f",
+  "expandedStatusEntries": 7636,
+  "sourceArtifacts": {
+    "wave01OwnerReviewCapsuleGeneratedAt": "2026-07-10T17:09:02.556Z",
+    "wave01OwnerReviewCapsulePath": "coordination/release-intake/latest-A25-wave01-package-resync-owner-review-capsule.json"
+  },
+  "sourceCurrentnessFailures": [],
+  "reviewRound": {
+    "id": "wave01-package-resync-authorizations",
+    "label": "Wave 01 package resync authorizations",
+    "ownerAction": "Review, approve, reject, or defer the seven exact Wave01 package-worktree resync rows.",
+    "why": "These rows unblock the governance/package baseline without treating dirty root as a deploy source.",
+    "worktreePath": "/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A25-dirty-closure-governance",
+    "branch": "codex/A25-dirty-closure-governance",
+    "commitReady": false,
+    "blockingReasons": [
+      "npm run type-check failed"
+    ]
+  },
+  "reviewInputs": [
+    {
+      "id": "dirty-map",
+      "path": "coordination/release-intake/latest-A25-dirty-tree-map.json",
+      "exists": true,
+      "description": "Current dirty-tree inventory."
+    },
+    {
+      "id": "governance-readiness-json",
+      "path": "coordination/release-intake/latest-A25-wave01-governance-readiness.json",
+      "exists": true,
+      "description": "Wave01 readiness and package-only resync recommendation source."
+    },
+    {
+      "id": "governance-readiness-md",
+      "path": "coordination/release-intake/latest-A25-wave01-governance-readiness.md",
+      "exists": true,
+      "description": "Human-readable Wave01 readiness packet."
+    },
+    {
+      "id": "approval-requests",
+      "path": "coordination/release-intake/latest-A25-wave01-package-resync-approval-requests.json",
+      "exists": true,
+      "description": "Exact approval request rows."
+    },
+    {
+      "id": "execution-packet",
+      "path": "coordination/release-intake/latest-A25-wave01-package-resync-execution-packet.json",
+      "exists": true,
+      "description": "Exact command packet, still non-executable."
+    },
+    {
+      "id": "evidence-pack",
+      "path": "coordination/release-intake/latest-A25-wave01-package-resync-evidence-pack.json",
+      "exists": true,
+      "description": "Root/worktree evidence digest for each row."
+    },
+    {
+      "id": "authorization-template",
+      "path": "coordination/release-intake/latest-A25-wave01-package-resync-owner-authorization-template.json",
+      "exists": true,
+      "description": "Owner authorization text template."
+    },
+    {
+      "id": "authorizations-starter",
+      "path": "coordination/release-intake/latest-A25-wave01-package-resync-owner-authorizations-starter.json",
+      "exists": true,
+      "description": "Blank owner authorization starter."
+    },
+    {
+      "id": "authorizations-input",
+      "path": "coordination/release-intake/latest-A25-wave01-package-resync-owner-authorizations.json",
+      "exists": true,
+      "description": "Owner input file for Wave01 approvals."
+    }
+  ],
+  "worktreeEvidenceDigest": [],
+  "acceptanceChecks": [
+    {
+      "id": "source-currentness-green",
+      "label": "Wave01 owner-review capsule is current against its sources",
+      "passed": true,
+      "evidence": "sourceCurrentnessFailures=0",
+      "status": "pass"
+    },
+    {
+      "id": "capsule-ready-for-owner-decision",
+      "label": "Capsule has passed its owner-review acceptance checks",
+      "passed": true,
+      "evidence": "ready=false checks=13/13",
+      "status": "pass"
+    },
+    {
+      "id": "seven-resync-rows",
+      "label": "Wave01 package-resync rows reflect the current remaining scope",
+      "passed": true,
+      "evidence": "rows=0 capsuleRows=0",
+      "status": "pass"
+    },
+    {
+      "id": "authorization-input-safe-state",
+      "label": "All current rows are accounted for by the owner authorization input without becoming executable",
+      "passed": true,
+      "evidence": "pending=0 authorized=0",
+      "status": "pass"
+    },
+    {
+      "id": "package-only-worktree-scope",
+      "label": "Every row is package-worktree-only",
+      "passed": true,
+      "evidence": "packageOnly=0/0",
+      "status": "pass"
+    },
+    {
+      "id": "non-executable-boundary",
+      "label": "No row is cleanup-authorized or executable",
+      "passed": true,
+      "evidence": "cleanup=0 executable=0",
+      "status": "pass"
+    },
+    {
+      "id": "root-worktree-evidence-shape",
+      "label": "Evidence shape matches current restore and clean rows",
+      "passed": true,
+      "evidence": "rootPresent=0 rootMissing=0 worktreePresent=0",
+      "status": "pass"
+    },
+    {
+      "id": "command-shapes-allowlisted",
+      "label": "Commands are limited to the held tsconfig restore and A25 dirty-map artifact cleans",
+      "passed": true,
+      "evidence": "restore=0 clean=0",
+      "status": "pass"
+    },
+    {
+      "id": "copyable-authorization-texts-present",
+      "label": "Each row has copyable exact authorization text",
+      "passed": true,
+      "evidence": "texts=0/0",
+      "status": "pass"
+    },
+    {
+      "id": "review-inputs-complete",
+      "label": "All named review inputs exist",
+      "passed": true,
+      "evidence": "present=9/9",
+      "status": "pass"
+    },
+    {
+      "id": "pre-post-checks-present",
+      "label": "Every row names pre-execution and post-execution checks",
+      "passed": true,
+      "evidence": "rowsWithChecks=0/0",
+      "status": "pass"
+    },
+    {
+      "id": "governance-readiness-still-blocked",
+      "label": "Wave01 governance remains blocked and cannot auto-merge",
+      "passed": true,
+      "evidence": "commitReady=false blockers=1",
+      "status": "pass"
+    },
+    {
+      "id": "validation-hold-active",
+      "label": "Validation hold requires owner compose/deletion confirmation before execution",
+      "passed": true,
+      "evidence": "status=waiting-for-owner-compose-deletion-confirmation",
+      "status": "pass"
+    }
+  ],
+  "ownerDecisionDocket": {
+    "status": "no-current-package-resync-owner-decision-required",
+    "ownerDecisionRequired": false,
+    "decisionSummary": "No Wave01 package-worktree resync owner decision is currently required because the current owner-review capsule has 0 approval rows.",
+    "targetAuthorizationFile": "coordination/release-intake/latest-A25-wave01-package-resync-owner-authorizations.json",
+    "requiredApprovalIds": [],
+    "decisionOptions": [],
+    "copyableAuthorizationTexts": [],
+    "postDecisionValidationCommands": [
+      "node coordination/release-intake/assert-next-owner-authorizations-current.mjs",
+      "node coordination/release-intake/generate-next-owner-authorization-execution-preview.mjs",
+      "node coordination/release-intake/assert-next-owner-authorization-execution-preview-current.mjs",
+      "node coordination/release-intake/assert-owner-package-blocker-report-records-current.mjs",
+      "node coordination/release-intake/assert-owner-closure-input-readiness-current.mjs"
+    ],
+    "validationHold": {
+      "status": "waiting-for-owner-compose-deletion-confirmation",
+      "activeWorktreePath": "/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A10-A22-A08-A12-A06-compose-20260628",
+      "reason": "Owner reported active exact deletion in this compose worktree; linked-worktree archive, Wave 06, aggregate remediation, and completion-audit refreshes should wait for owner confirmation.",
+      "resumeCondition": "Owner confirms exact deletion in the compose worktree is complete."
+    }
+  },
+  "summary": {
+    "readyForOwnerDecision": false,
+    "rowCount": 0,
+    "pendingRows": 0,
+    "authorizedRows": 0,
+    "packageOnlyRows": 0,
+    "rootPresentRows": 0,
+    "rootMissingRows": 0,
+    "worktreePresentRows": 0,
+    "restoreRows": 0,
+    "cleanRows": 0,
+    "trackedDiffRows": 0,
+    "untrackedCleanRows": 0,
+    "copyableAuthorizationTexts": 0,
+    "acceptanceChecks": 13,
+    "passingAcceptanceChecks": 13,
+    "failedAcceptanceChecks": 0,
+    "sourceCurrentnessFailures": 0,
+    "cleanupAuthorizedRows": 0,
+    "executableRows": 0
+  },
+  "boundary": {
+    "evidenceOnly": true,
+    "createsAuthorizationFile": false,
+    "recordsOwnerApproval": false,
+    "mergeAuthorized": false,
+    "cleanupAuthorized": false,
+    "executableNow": false,
+    "destructiveGitAuthorized": false,
+    "deployAuthorized": false
+  }
+}

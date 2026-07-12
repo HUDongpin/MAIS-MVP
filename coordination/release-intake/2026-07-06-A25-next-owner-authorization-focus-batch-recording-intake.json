@@ -1,0 +1,196 @@
+{
+  "generatedAt": "2026-07-06T15:50:22.107Z",
+  "repoRoot": "/Users/dongpinhu/Desktop/MAIS-MVP",
+  "dirtyMapStatusSignature": "b26fe39c438a20cdbb9cf3943e3d000d9dc8dc04ccccedc13792c457c5942d3b",
+  "expandedStatusEntries": 5183,
+  "sourceArtifacts": {
+    "acceptanceDocketGeneratedAt": "2026-07-06T15:50:21.890Z",
+    "ownerInputScaffoldGeneratedAt": "2026-07-06T15:50:21.998Z",
+    "ownerInputScaffoldGateCheckedAt": "2026-07-06T15:50:22.059Z",
+    "canonicalAuthorizationsGeneratedAt": "2026-07-06T15:50:09.101Z",
+    "canonicalAuthorizationsGateCheckedAt": "2026-07-06T15:50:13.398Z"
+  },
+  "sourceCurrentnessFailures": [],
+  "canonicalTarget": "coordination/release-intake/latest-A25-next-owner-authorizations.json",
+  "batchId": "next-owner-package-final-state-batch-01",
+  "intakeStatus": "waiting-for-owner-authorization",
+  "focusBatchRows": [
+    {
+      "approvalId": "a09-copy-i18n-accessibility",
+      "approvalKind": "owner-package",
+      "owner": "A09 copy, i18n, accessibility",
+      "path": "coordination/release-intake/latest-A25-effective-owner-a09-copy-i18n-accessibility.pathspec",
+      "sourceRoundId": "remaining-owner-package-final-states",
+      "canonicalDraftRowPresent": true,
+      "canonicalRowPresent": false,
+      "accepted": false,
+      "rowStatus": "waiting-for-owner-authorization",
+      "nextOwnerInputAction": "Review this draft row, choose selectedFinalState, then copy/update it into the canonical authorizations array with owner approval fields.",
+      "requiredAuthorizationText": "Authorize approvalId=a09-copy-i18n-accessibility for owner=A09 copy, i18n, accessibility; selectedFinalState=reviewed commit; evidenceReviewed=coordination/release-intake/latest-A25-effective-owner-a09-copy-i18n-accessibility.pathspec, coordination/release-intake/latest-A25-effective-work-order-a09-copy-i18n-accessibility.md, coordination/release-intake/latest-A25-owner-package-approval-requests.json, coordination/release-intake/latest-A25-dirty-worktree-final-state-selection-draft.json, coordination/release-intake/latest-A25-next-owner-approval-packet.json, coordination/release-intake/latest-A25-next-owner-authorizations-starter.json; approvedBy=<owner>; approvedAt=<ISO-8601>; notes=<scope and checks>.",
+      "recommendedAuthorizationText": "Authorize approvalId=a09-copy-i18n-accessibility for owner=A09 copy, i18n, accessibility; selectedFinalState=reviewed commit; evidenceReviewed=coordination/release-intake/latest-A25-effective-owner-a09-copy-i18n-accessibility.pathspec, coordination/release-intake/latest-A25-effective-work-order-a09-copy-i18n-accessibility.md, coordination/release-intake/latest-A25-owner-package-approval-requests.json, coordination/release-intake/latest-A25-dirty-worktree-final-state-selection-draft.json, coordination/release-intake/latest-A25-next-owner-approval-packet.json, coordination/release-intake/latest-A25-next-owner-authorizations-starter.json; approvedBy=<owner>; approvedAt=<ISO-8601>; notes=<scope and checks>.",
+      "ledgerSelectedFinalState": "reviewed commit",
+      "ledgerDecisionStatus": "approved-reviewed-commit",
+      "cleanupAuthorized": false,
+      "executableNow": false
+    },
+    {
+      "approvalId": "a17-gamification-and-motivation",
+      "approvalKind": "owner-package",
+      "owner": "A17 gamification and motivation",
+      "path": "coordination/release-intake/latest-A25-effective-owner-a17-gamification-and-motivation.pathspec",
+      "sourceRoundId": "remaining-owner-package-final-states",
+      "canonicalDraftRowPresent": true,
+      "canonicalRowPresent": false,
+      "accepted": false,
+      "rowStatus": "waiting-for-owner-authorization",
+      "nextOwnerInputAction": "Review this draft row, choose selectedFinalState, then copy/update it into the canonical authorizations array with owner approval fields.",
+      "requiredAuthorizationText": "Authorize approvalId=a17-gamification-and-motivation for owner=A17 gamification and motivation; selectedFinalState=reviewed commit; evidenceReviewed=coordination/release-intake/latest-A25-effective-owner-a17-gamification-and-motivation.pathspec, coordination/release-intake/latest-A25-effective-work-order-a17-gamification-and-motivation.md, coordination/release-intake/latest-A25-owner-package-approval-requests.json, coordination/release-intake/latest-A25-dirty-worktree-final-state-selection-draft.json, coordination/release-intake/latest-A25-next-owner-approval-packet.json, coordination/release-intake/latest-A25-next-owner-authorizations-starter.json; approvedBy=<owner>; approvedAt=<ISO-8601>; notes=<scope and checks>.",
+      "recommendedAuthorizationText": "Authorize approvalId=a17-gamification-and-motivation for owner=A17 gamification and motivation; selectedFinalState=reviewed commit; evidenceReviewed=coordination/release-intake/latest-A25-effective-owner-a17-gamification-and-motivation.pathspec, coordination/release-intake/latest-A25-effective-work-order-a17-gamification-and-motivation.md, coordination/release-intake/latest-A25-owner-package-approval-requests.json, coordination/release-intake/latest-A25-dirty-worktree-final-state-selection-draft.json, coordination/release-intake/latest-A25-next-owner-approval-packet.json, coordination/release-intake/latest-A25-next-owner-authorizations-starter.json; approvedBy=<owner>; approvedAt=<ISO-8601>; notes=<scope and checks>.",
+      "ledgerSelectedFinalState": "reviewed commit",
+      "ledgerDecisionStatus": "approved-reviewed-commit",
+      "cleanupAuthorized": false,
+      "executableNow": false
+    },
+    {
+      "approvalId": "a23-integration-and-promotion-lead",
+      "approvalKind": "owner-package",
+      "owner": "A23 integration and promotion lead",
+      "path": "coordination/release-intake/latest-A25-effective-owner-a23-integration-and-promotion-lead.pathspec",
+      "sourceRoundId": "remaining-owner-package-final-states",
+      "canonicalDraftRowPresent": true,
+      "canonicalRowPresent": false,
+      "accepted": false,
+      "rowStatus": "waiting-for-owner-authorization",
+      "nextOwnerInputAction": "Review this draft row, choose selectedFinalState, then copy/update it into the canonical authorizations array with owner approval fields.",
+      "requiredAuthorizationText": "Authorize approvalId=a23-integration-and-promotion-lead for owner=A23 integration and promotion lead; selectedFinalState=reviewed commit; evidenceReviewed=coordination/release-intake/latest-A25-effective-owner-a23-integration-and-promotion-lead.pathspec, coordination/release-intake/latest-A25-effective-work-order-a23-integration-and-promotion-lead.md, coordination/release-intake/latest-A25-owner-package-approval-requests.json, coordination/release-intake/latest-A25-dirty-worktree-final-state-selection-draft.json, coordination/release-intake/latest-A25-next-owner-approval-packet.json, coordination/release-intake/latest-A25-next-owner-authorizations-starter.json; approvedBy=<owner>; approvedAt=<ISO-8601>; notes=<scope and checks>.",
+      "recommendedAuthorizationText": "Authorize approvalId=a23-integration-and-promotion-lead for owner=A23 integration and promotion lead; selectedFinalState=reviewed commit; evidenceReviewed=coordination/release-intake/latest-A25-effective-owner-a23-integration-and-promotion-lead.pathspec, coordination/release-intake/latest-A25-effective-work-order-a23-integration-and-promotion-lead.md, coordination/release-intake/latest-A25-owner-package-approval-requests.json, coordination/release-intake/latest-A25-dirty-worktree-final-state-selection-draft.json, coordination/release-intake/latest-A25-next-owner-approval-packet.json, coordination/release-intake/latest-A25-next-owner-authorizations-starter.json; approvedBy=<owner>; approvedAt=<ISO-8601>; notes=<scope and checks>.",
+      "ledgerSelectedFinalState": "reviewed commit",
+      "ledgerDecisionStatus": "approved-reviewed-commit",
+      "cleanupAuthorized": false,
+      "executableNow": false
+    }
+  ],
+  "heldRows": [
+    {
+      "approvalId": "wave01-resync-01-tsconfig-json",
+      "approvalKind": "wave01-package-resync",
+      "owner": "A10 tooling, docs, and report",
+      "subject": "tsconfig.json",
+      "path": "tsconfig.json",
+      "branch": "codex/A25-dirty-closure-governance",
+      "worktreePath": "/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A25-dirty-closure-governance",
+      "selectedFinalState": "",
+      "ledgerSelectedFinalState": "",
+      "ledgerDecisionStatus": "",
+      "selectedAction": "owner-approved-package-restore",
+      "exactCommand": "git restore --source=HEAD -- tsconfig.json",
+      "authorizationText": "Authorize approvalId=wave01-resync-01-tsconfig-json; worktree=/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A25-dirty-closure-governance; path=tsconfig.json; selectedAction=owner-approved-package-restore; command=git restore --source=HEAD -- tsconfig.json; approvedBy=<owner>; approvedAt=<ISO-8601>; notes=<scope, evidence reviewed, accepted risk>",
+      "evidenceReviewed": [
+        "coordination/release-intake/latest-A25-next-owner-approval-packet.json",
+        "coordination/release-intake/latest-A25-next-owner-authorizations-starter.json",
+        "coordination/release-intake/latest-A25-wave01-package-resync-approval-requests.json",
+        "coordination/release-intake/latest-A25-wave01-package-resync-execution-packet.json",
+        "coordination/release-intake/latest-A25-wave01-package-resync-owner-authorization-template.json"
+      ],
+      "postApprovalChecks": [
+        "node coordination/release-intake/generate-wave01-governance-readiness.mjs",
+        "node coordination/release-intake/assert-wave01-governance-readiness-current.mjs",
+        "node coordination/release-intake/generate-wave01-package-resync-approval-requests.mjs",
+        "node coordination/release-intake/assert-wave01-package-resync-approval-requests-current.mjs",
+        "node coordination/release-intake/assert-dirty-worktree-remediation-current.mjs"
+      ],
+      "sourceRoundId": "wave01-package-resync-authorizations",
+      "sourceRoundLabel": "Wave 01 package resync authorizations",
+      "authorized": false,
+      "held": true,
+      "cleanupAuthorized": false,
+      "executableNow": false
+    }
+  ],
+  "postInputValidationCommands": [
+    "node coordination/release-intake/assert-next-owner-authorizations-current.mjs",
+    "node coordination/release-intake/generate-next-owner-authorization-execution-preview.mjs",
+    "node coordination/release-intake/assert-next-owner-authorization-execution-preview-current.mjs",
+    "node coordination/release-intake/assert-owner-package-blocker-report-records-current.mjs",
+    "node coordination/release-intake/assert-owner-closure-input-readiness-current.mjs"
+  ],
+  "deferredAggregateValidationCommands": [
+    "node coordination/release-intake/refresh-linked-worktree-archive-evidence.mjs",
+    "node coordination/release-intake/assert-linked-worktree-archive-evidence-current.mjs",
+    "node coordination/release-intake/generate-wave06-final-root-lifecycle-readiness.mjs",
+    "node coordination/release-intake/assert-wave06-final-root-lifecycle-readiness-current.mjs",
+    "node coordination/release-intake/refresh-dirty-worktree-remediation-evidence.mjs --reason \"owner input action packet post-input verification\"",
+    "node coordination/release-intake/assert-dirty-worktree-remediation-current.mjs",
+    "node coordination/release-intake/generate-dirty-worktree-remediation-completion-audit.mjs",
+    "node coordination/release-intake/assert-dirty-worktree-remediation-completion-audit-current.mjs"
+  ],
+  "checks": [
+    {
+      "id": "source-current",
+      "status": "pass",
+      "detail": "source currentness failures=0"
+    },
+    {
+      "id": "focus-rows-present",
+      "status": "pass",
+      "detail": "focusBatchRows=3"
+    },
+    {
+      "id": "owner-input-visible",
+      "status": "pass",
+      "detail": "ownerInputVisibleRows=3/3"
+    },
+    {
+      "id": "accepted-plus-pending",
+      "status": "pass",
+      "detail": "accepted=0; pending=3; rows=3"
+    },
+    {
+      "id": "pending-rows-have-drafts",
+      "status": "pass",
+      "detail": "pending rows must remain visible as canonical draft rows"
+    },
+    {
+      "id": "accepted-rows-have-canonical-records",
+      "status": "pass",
+      "detail": "accepted rows must have canonical authorization rows"
+    },
+    {
+      "id": "safe-non-executable",
+      "status": "pass",
+      "detail": "cleanupAuthorizedRows=0; executableRows=0"
+    },
+    {
+      "id": "intake-status-coherent",
+      "status": "pass",
+      "detail": "intakeStatus=waiting-for-owner-authorization"
+    }
+  ],
+  "summary": {
+    "focusBatchRows": 3,
+    "acceptedRows": 0,
+    "pendingRows": 3,
+    "heldRows": 1,
+    "canonicalDraftVisibleRows": 3,
+    "canonicalAuthorizationVisibleRows": 0,
+    "ownerInputVisibleRows": 3,
+    "canonicalAuthorizationsGateAuthorizedRows": 21,
+    "canonicalAuthorizationsGatePendingRows": 42,
+    "postInputValidationCommands": 5,
+    "deferredAggregateValidationCommands": 8,
+    "cleanupAuthorizedRows": 0,
+    "executableRows": 0,
+    "sourceCurrentnessFailures": 0
+  },
+  "boundary": {
+    "evidenceOnly": true,
+    "createsAuthorizationFile": false,
+    "recordsOwnerApproval": false,
+    "recordsExecutionInstruction": false,
+    "mergeAuthorized": false,
+    "cleanupAuthorized": false,
+    "executableNow": false,
+    "destructiveGitAuthorized": false,
+    "deployAuthorized": false
+  }
+}

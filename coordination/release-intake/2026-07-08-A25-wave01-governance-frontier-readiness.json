@@ -1,0 +1,121 @@
+{
+  "generatedAt": "2026-07-08T14:14:20.820Z",
+  "repoRoot": "/Users/dongpinhu/Desktop/MAIS-MVP",
+  "dirtyMapStatusSignature": "4892e406613fc3846378621b84ba0f486bb8ebf371c35837eae544472596f318",
+  "expandedStatusEntries": 6130,
+  "frontierKind": "wave01-governance-frontier-readiness",
+  "frontierStatus": "post-clean-verified",
+  "sourceArtifacts": {
+    "wave01ReadinessGeneratedAt": "2026-07-08T14:13:17.484Z",
+    "artifactCleanApprovalCapsuleGeneratedAt": "2026-07-08T14:13:18.618Z",
+    "packageResyncAcceptanceDocketGeneratedAt": "2026-07-08T14:13:18.798Z",
+    "executionInstructionReadinessGeneratedAt": "2026-07-08T14:14:20.695Z"
+  },
+  "sourceCurrentness": [
+    {
+      "label": "wave01-governance-readiness",
+      "generatedAt": "2026-07-08T14:13:17.484Z",
+      "dirtyMapStatusSignature": "4892e406613fc3846378621b84ba0f486bb8ebf371c35837eae544472596f318",
+      "expandedStatusEntries": 6130,
+      "signatureMatches": true,
+      "entryCountMatches": true,
+      "current": true
+    },
+    {
+      "label": "artifact-clean-owner-approval-capsule",
+      "generatedAt": "2026-07-08T14:13:18.618Z",
+      "dirtyMapStatusSignature": "4892e406613fc3846378621b84ba0f486bb8ebf371c35837eae544472596f318",
+      "expandedStatusEntries": 6130,
+      "signatureMatches": true,
+      "entryCountMatches": true,
+      "current": true
+    },
+    {
+      "label": "package-resync-owner-acceptance-docket",
+      "generatedAt": "2026-07-08T14:13:18.798Z",
+      "dirtyMapStatusSignature": "4892e406613fc3846378621b84ba0f486bb8ebf371c35837eae544472596f318",
+      "expandedStatusEntries": 6130,
+      "signatureMatches": true,
+      "entryCountMatches": true,
+      "current": true
+    },
+    {
+      "label": "artifact-clean-execution-instruction-readiness",
+      "generatedAt": "2026-07-08T14:14:20.695Z",
+      "dirtyMapStatusSignature": "4892e406613fc3846378621b84ba0f486bb8ebf371c35837eae544472596f318",
+      "expandedStatusEntries": 6130,
+      "signatureMatches": true,
+      "entryCountMatches": true,
+      "current": true
+    }
+  ],
+  "summary": {
+    "packageOnlyRows": 1,
+    "originalOwnerAuthorizationRequiredRows": 1,
+    "packageAcceptanceRows": 1,
+    "packageAuthorizedRows": 0,
+    "packagePendingRows": 1,
+    "cleanApprovalRows": 0,
+    "heldRows": 1,
+    "requestRows": 0,
+    "acceptanceRows": 0,
+    "targetRows": 6,
+    "targetDirtyRows": 0,
+    "targetAlreadyCleanRows": 6,
+    "validInstructionRows": 0,
+    "readinessStatus": "post-clean-verified",
+    "recorderStatus": "post-clean-verified",
+    "executorStatus": "already-cleaned-and-verified",
+    "postCleanVerificationStatus": "post-clean-verified",
+    "sourceCurrentnessFailures": 0,
+    "cleanupAuthorizedRows": 0,
+    "executableRows": 0,
+    "deployAuthorized": false
+  },
+  "normalizedBlockingReasons": [
+    "1 held package-resync row remains: wave01-resync-01-tsconfig-json",
+    "6 A25 artifact-clean row(s) still need owner authorization",
+    "npm run type-check failed"
+  ],
+  "checks": [
+    {
+      "id": "source-current",
+      "status": "pass",
+      "detail": "failures=0"
+    },
+    {
+      "id": "authorization-frontier-normalized",
+      "status": "fail",
+      "detail": "cleanApprovalRows=0; heldRows=1; packageAuthorizedRows=0"
+    },
+    {
+      "id": "execution-instruction-frontier",
+      "status": "fail",
+      "detail": "requestRows=0; targetDirtyRows=0; validInstructionRows=0"
+    },
+    {
+      "id": "tsconfig-hold-preserved",
+      "status": "pass",
+      "detail": "heldRows=1; heldTsconfigRestore=true"
+    },
+    {
+      "id": "non-executable-boundary",
+      "status": "pass",
+      "detail": "cleanupAuthorizedRows=0; executableRows=0; deployAuthorized=false"
+    }
+  ],
+  "commitReady": false,
+  "boundary": {
+    "evidenceOnly": true,
+    "frontierOnly": true,
+    "stageAuthorized": false,
+    "commitAuthorized": false,
+    "mergeAuthorized": false,
+    "cleanupAuthorized": false,
+    "executableNow": false,
+    "destructiveGitAuthorized": false,
+    "deployAuthorized": false,
+    "requiresSeparateOwnerExecutionInstruction": false,
+    "requiresSeparateGuardedExecutorApply": false
+  }
+}

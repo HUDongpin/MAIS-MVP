@@ -1,0 +1,97 @@
+{
+  "generatedAt": "2026-07-02T15:58:54.930Z",
+  "cleanupCommand": "node scripts/cleanup-generated-artifacts.mjs --dry-run --json",
+  "dryRun": {
+    "scope": "all",
+    "targetCount": 3,
+    "totalBytes": 0,
+    "apply": false,
+    "dryRun": true
+  },
+  "summary": {
+    "residualTargets": 3,
+    "totalBytes": 0,
+    "datalessTargets": 3,
+    "contentCapturedRows": 0,
+    "cleanupAuthorizedRows": 0,
+    "executableRows": 0
+  },
+  "rows": [
+    {
+      "residualIndex": 1,
+      "path": ".s11-parent-audit-next3",
+      "targetType": "directory",
+      "dryRunBytes": 0,
+      "exists": true,
+      "manifestType": "directory",
+      "manifestBytes": 0,
+      "directoryCount": 2,
+      "fileCount": 0,
+      "manifestSha256": "174e139bea1ac59948cf49be782d880c5b713bbbc727a0dae19aba5046273336",
+      "skipReason": "cleanup script apply skips this anomalous dataless generated directory until evidence is preserved and separate owner/A22 handling is authorized",
+      "evidenceOnly": true,
+      "cleanupAuthorized": false,
+      "executableNow": false,
+      "contentCaptured": false,
+      "manifestEntries": [
+        {
+          "path": "server",
+          "type": "directory",
+          "bytes": 0
+        },
+        {
+          "path": "server/app",
+          "type": "directory",
+          "bytes": 0
+        }
+      ]
+    },
+    {
+      "residualIndex": 2,
+      "path": ".s11-parent-audit-next4",
+      "targetType": "directory",
+      "dryRunBytes": 0,
+      "exists": true,
+      "manifestType": "directory",
+      "manifestBytes": 0,
+      "directoryCount": 2,
+      "fileCount": 0,
+      "manifestSha256": "174e139bea1ac59948cf49be782d880c5b713bbbc727a0dae19aba5046273336",
+      "skipReason": "cleanup script apply skips this anomalous dataless generated directory until evidence is preserved and separate owner/A22 handling is authorized",
+      "evidenceOnly": true,
+      "cleanupAuthorized": false,
+      "executableNow": false,
+      "contentCaptured": false,
+      "manifestEntries": [
+        {
+          "path": "server",
+          "type": "directory",
+          "bytes": 0
+        },
+        {
+          "path": "server/app",
+          "type": "directory",
+          "bytes": 0
+        }
+      ]
+    },
+    {
+      "residualIndex": 3,
+      "path": ".tmp",
+      "targetType": "directory",
+      "dryRunBytes": 0,
+      "exists": true,
+      "manifestType": "directory",
+      "manifestBytes": 0,
+      "directoryCount": 0,
+      "fileCount": 0,
+      "manifestSha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+      "skipReason": "cleanup script recreates .tmp as an empty scratch directory after apply",
+      "evidenceOnly": true,
+      "cleanupAuthorized": false,
+      "executableNow": false,
+      "contentCaptured": false,
+      "manifestEntries": []
+    }
+  ]
+}

@@ -1,0 +1,235 @@
+{
+  "generatedAt": "2026-07-02T15:47:38.297Z",
+  "dirtyMapStatusSignature": "aab9818713f7df7ad2d9e281c7534227bc41a877b346ef4339ea49f3b0123cb2",
+  "expandedStatusEntries": 3505,
+  "sourceStarterGeneratedAt": "2026-07-02T15:47:38.079Z",
+  "cleanupAuthorized": false,
+  "executableNow": false,
+  "summary": {
+    "starterRows": 11,
+    "recordedReports": 1,
+    "pendingReports": 10,
+    "cleanupAuthorizedRows": 0,
+    "executableRows": 0,
+    "agents": [
+      "A25"
+    ]
+  },
+  "reports": [
+    {
+      "reportId": "owner-package-blocker-report-a25",
+      "reportFingerprint": "8b484c25c7fa8e4750059d06307fc91fa22542a4020b2a5e6523455af6ce37c5",
+      "assignmentId": "owner-package-blocker-a25",
+      "agentId": "A25",
+      "owner": "A25 git hygiene and release intake lead",
+      "role": "Git hygiene and release intake lead",
+      "objective": "Resolve or formally block the owner-package blockers routed to A25 without widening beyond AGENTS.md owner scope.",
+      "recommendedWorktree": "/Users/dongpinhu/Desktop/MAIS-MVP",
+      "packageRows": [
+        {
+          "matrixId": "wave-03-shell-dashboard-roadmap:a01-app-shell",
+          "waveId": "wave-03-shell-dashboard-roadmap",
+          "packageId": "a01-app-shell",
+          "packageName": "A01 app shell",
+          "packageOwnerIds": [
+            "A01"
+          ],
+          "blockingReasons": [
+            "A01 app shell typeCheck failed",
+            "A01 app shell appShellPlaywright failed"
+          ],
+          "failedCheckNames": [
+            "typeCheck",
+            "appShellPlaywright"
+          ],
+          "failedChecks": [
+            {
+              "name": "typeCheck",
+              "command": "npm run type-check -- --pretty false",
+              "status": 2
+            },
+            {
+              "name": "appShellPlaywright",
+              "command": "npx playwright test tests/e2e/app-shell-auth.spec.ts tests/e2e/home-functional.spec.ts --project=desktop-chrome",
+              "status": 1
+            }
+          ]
+        },
+        {
+          "matrixId": "wave-03-shell-dashboard-roadmap:a02-a15-dashboard-adaptive",
+          "waveId": "wave-03-shell-dashboard-roadmap",
+          "packageId": "a02-a15-dashboard-adaptive",
+          "packageName": "A02/A15 dashboard adaptive",
+          "packageOwnerIds": [
+            "A02",
+            "A15"
+          ],
+          "blockingReasons": [
+            "A02/A15 dashboard adaptive testAnalytics failed",
+            "A02/A15 dashboard adaptive typeCheck failed",
+            "A02/A15 dashboard adaptive dashboardAdaptivePlaywright failed"
+          ],
+          "failedCheckNames": [
+            "testAnalytics",
+            "typeCheck",
+            "dashboardAdaptivePlaywright"
+          ],
+          "failedChecks": [
+            {
+              "name": "testAnalytics",
+              "command": "npm run test:analytics",
+              "status": 2
+            },
+            {
+              "name": "typeCheck",
+              "command": "npm run type-check -- --pretty false",
+              "status": 2
+            },
+            {
+              "name": "dashboardAdaptivePlaywright",
+              "command": "npx playwright test tests/e2e/student-smoke.spec.ts tests/e2e/adaptive-llm-smoke.spec.ts --project=desktop-chrome",
+              "status": 1
+            }
+          ]
+        },
+        {
+          "matrixId": "wave-04-practice-lesson-content:a04-practice",
+          "waveId": "wave-04-practice-lesson-content",
+          "packageId": "a04-practice",
+          "packageName": "A04 practice",
+          "packageOwnerIds": [
+            "A04"
+          ],
+          "blockingReasons": [
+            "A04 practice testQuestionBank failed",
+            "A04 practice typeCheck failed",
+            "A04 practice practicePlaywright failed"
+          ],
+          "failedCheckNames": [
+            "testQuestionBank",
+            "typeCheck",
+            "practicePlaywright"
+          ],
+          "failedChecks": [
+            {
+              "name": "testQuestionBank",
+              "command": "npm run test:question-bank",
+              "status": 2
+            },
+            {
+              "name": "typeCheck",
+              "command": "npm run type-check -- --pretty false",
+              "status": 2
+            },
+            {
+              "name": "practicePlaywright",
+              "command": "npx playwright test tests/e2e/practice-pager.spec.ts tests/e2e/student-smoke.spec.ts --project=desktop-chrome",
+              "status": 1
+            }
+          ]
+        },
+        {
+          "matrixId": "wave-04-practice-lesson-content:a18-a21-a23-a24-content-evidence",
+          "waveId": "wave-04-practice-lesson-content",
+          "packageId": "a18-a21-a23-a24-content-evidence",
+          "packageName": "A18/A21/A23/A24 content evidence",
+          "packageOwnerIds": [
+            "A18",
+            "A21",
+            "A23",
+            "A24"
+          ],
+          "blockingReasons": [
+            "A18/A21/A23/A24 content evidence testRag failed",
+            "A18/A21/A23/A24 content evidence testQuestionBank failed",
+            "A18/A21/A23/A24 content evidence typeCheck failed"
+          ],
+          "failedCheckNames": [
+            "testRag",
+            "testQuestionBank",
+            "typeCheck"
+          ],
+          "failedChecks": [
+            {
+              "name": "testRag",
+              "command": "npm run test:rag",
+              "status": 2
+            },
+            {
+              "name": "testQuestionBank",
+              "command": "npm run test:question-bank",
+              "status": 2
+            },
+            {
+              "name": "typeCheck",
+              "command": "npm run type-check -- --pretty false",
+              "status": 2
+            }
+          ]
+        }
+      ],
+      "uniqueReadFiles": [
+        "app/login/page.tsx",
+        "lib/curriculumProfile.ts",
+        "lib/mainlandPepHighQuestionBank.test.ts",
+        "lib/rag/hongKongMath.ts"
+      ],
+      "writeScope": [],
+      "coordinationRequired": [
+        {
+          "file": "app/login/page.tsx",
+          "reason": "outside this owner's AGENTS.md write scope"
+        },
+        {
+          "file": "lib/curriculumProfile.ts",
+          "reason": "outside this owner's AGENTS.md write scope"
+        },
+        {
+          "file": "lib/mainlandPepHighQuestionBank.test.ts",
+          "reason": "outside this owner's AGENTS.md write scope"
+        },
+        {
+          "file": "lib/rag/hongKongMath.ts",
+          "reason": "outside this owner's AGENTS.md write scope"
+        }
+      ],
+      "checks": [
+        "npm run type-check -- --pretty false",
+        "npx playwright test tests/e2e/app-shell-auth.spec.ts tests/e2e/home-functional.spec.ts --project=desktop-chrome",
+        "npm run test:analytics",
+        "npx playwright test tests/e2e/student-smoke.spec.ts tests/e2e/adaptive-llm-smoke.spec.ts --project=desktop-chrome",
+        "npm run test:question-bank",
+        "npx playwright test tests/e2e/practice-pager.spec.ts tests/e2e/student-smoke.spec.ts --project=desktop-chrome",
+        "npm run test:rag",
+        "node coordination/release-intake/generate-owner-package-readiness-blocker-matrix.mjs",
+        "node coordination/release-intake/assert-owner-package-blocker-routing-current.mjs",
+        "node coordination/release-intake/assert-owner-package-blocker-assignment-packet-current.mjs",
+        "node coordination/release-intake/assert-dirty-worktree-remediation-current.mjs"
+      ],
+      "stopConditions": [
+        "Stop if the fix requires adding/removing package dependencies without A10/A22 approval.",
+        "Stop if the fix requires shared type/schema changes without A08 coordination.",
+        "Stop if a routed file is outside this owner's write scope and no explicit scope expansion exists.",
+        "Stop if the assignment needs owner-approved Git operations; A25 evidence alone is not authorization.",
+        "Stop if the work would expose or edit real secrets."
+      ],
+      "dirtyStateFinalAction": "pending owner reviewed commit, owner-routed blocker, evidence archive, or exact owner-approved final state",
+      "worktreeLifecycleAction": "retain isolated worktree until owner handoff is reviewed",
+      "reportStatus": "recorded-owner-blocker",
+      "reportedBy": "A25",
+      "reportedAt": "2026-07-02T15:47:38.297Z",
+      "blockerSummary": "A25 cannot resolve these routed owner-package failures inside A25 write scope. The starter row has no A25 write-scope files; affected package owners must handle A01 app shell, A02/A15 dashboard adaptive, A04 practice, A18/A21/A23/A24 content evidence, and the coordination-required files are app/login/page.tsx, lib/curriculumProfile.ts, lib/mainlandPepHighQuestionBank.test.ts, lib/rag/hongKongMath.ts.",
+      "ownerDecision": "owner-routed-blocker",
+      "evidenceReviewed": [
+        "coordination/release-intake/latest-A25-owner-package-blocker-report-starter.json",
+        "coordination/release-intake/latest-A25-owner-package-blocker-assignment-packet.json",
+        "coordination/release-intake/latest-A25-owner-package-readiness-blocker-matrix.json",
+        "coordination/release-intake/latest-A25-owner-closure-work-order-a25.md"
+      ],
+      "nextAction": "Route the package rows to the owning sessions (A01, A02, A04, A15, A18, A21, A23, A24) for scoped fixes or owner-authored blocker reports, then rerun A25 refresh/currentness gates.",
+      "notes": "A25 records this blocker report as release-intake evidence only; no cleanup or feature-code action is authorized.",
+      "cleanupAuthorized": false,
+      "executableNow": false
+    }
+  ]
+}

@@ -22,8 +22,12 @@ from docx.shared import Inches, Pt, RGBColor
 
 
 PROJECT_ROOT = Path(__file__).resolve().parents[2]
-OUT_PATH = PROJECT_ROOT / "coordination" / "content-qa" / "2026-05-26-S18-us-top10-math-rag-standards-guide.docx"
+OUT_PATH = PROJECT_ROOT / "coordination" / "content-qa" / "2026-06-01-S18-us-top11-math-rag-standards-guide.docx"
 BUILD_DIR = PROJECT_ROOT / ".tmp" / "us-rag-docx-build"
+REPORT_DATE = "2026-06-01"
+GUIDE_TITLE = "MAIS U.S. Top-11 Math RAG"
+GUIDE_HEADER = "MAIS U.S. Top-11 Math RAG Standards Guide"
+GUIDE_STATE_LIST = "California, Texas, Florida, New York, Pennsylvania, Illinois, Ohio, Georgia, North Carolina, Michigan, and Arkansas"
 
 BUNDLED_NODE = Path("/Users/dongpinhu/.cache/codex-runtimes/codex-primary-runtime/dependencies/node/bin/node")
 
@@ -95,7 +99,7 @@ def compile_and_extract_us_rag() -> dict[str, Any]:
     compiled_data = BUILD_DIR / "data" / "rag" / "usMath.js"
     js = r"""
 const data = require(process.argv[1]);
-const gradeOrder = ["P1","P2","P3","P4","P5","P6","S1","S2","S3","S4","S5","S6"];
+const gradeOrder = ["K","P1","P2","P3","P4","P5","P6","S1","S2","S3","S4","S5","S6"];
 const profiles = data.unitedStatesMathStateProfiles
   .slice()
   .sort((a, b) => a.populationRank - b.populationRank);
@@ -307,14 +311,14 @@ def configure_document(doc: Document):
     header = section.header.paragraphs[0]
     header.text = ""
     header.alignment = WD_ALIGN_PARAGRAPH.LEFT
-    run = header.add_run("MAIS U.S. Top-10 Math RAG Standards Guide")
+    run = header.add_run(GUIDE_HEADER)
     set_run_font(run, size=9, color=MUTED, bold=True)
     paragraph_border_bottom(header, color="D9E2EC", size="6", space="4")
 
     footer = section.footer.paragraphs[0]
     footer.text = ""
     footer.alignment = WD_ALIGN_PARAGRAPH.RIGHT
-    run = footer.add_run("Prepared 2026-05-26 | Page ")
+    run = footer.add_run(f"Prepared {REPORT_DATE} | Page ")
     set_run_font(run, size=9, color=MUTED)
     add_page_number(footer)
 
@@ -475,11 +479,11 @@ def standards_cell(standards: list[dict[str, Any]]) -> str:
 
 def add_cover(doc: Document, data: dict[str, Any]):
     add_para(doc, "CURRICULUM REFERENCE GUIDE", size=10, color=GOLD, bold=True, after=18, align=WD_ALIGN_PARAGRAPH.CENTER)
-    add_para(doc, "MAIS U.S. Top-10 Math RAG", size=28, color=NAVY, bold=True, after=6, align=WD_ALIGN_PARAGRAPH.CENTER, line_spacing=1.0)
+    add_para(doc, GUIDE_TITLE, size=28, color=NAVY, bold=True, after=6, align=WD_ALIGN_PARAGRAPH.CENTER, line_spacing=1.0)
     add_para(doc, "State Standards Safe-Card Display", size=17, color=DARK_BLUE, bold=True, after=18, align=WD_ALIGN_PARAGRAPH.CENTER, line_spacing=1.1)
     add_para(
         doc,
-        "A polished DOCX output of the committed U.S. math RAG files for California, Texas, Florida, New York, Pennsylvania, Illinois, Ohio, Georgia, North Carolina, and Michigan.",
+        f"A polished DOCX output of the committed U.S. math RAG files for {GUIDE_STATE_LIST}.",
         size=11,
         color=MUTED,
         after=24,
@@ -489,7 +493,7 @@ def add_cover(doc: Document, data: dict[str, Any]):
 
     totals = data["totals"]
     rows = [
-        ["States", str(totals["stateCount"]), "Top-10 population-priority states"],
+        ["States", str(totals["stateCount"]), "Eleven-state owner-priority safe-RAG set"],
         ["Safe cards", str(totals["cards"]), "Committed standards-safe abstractions"],
         ["Standards-family cards", str(totals["byKind"]["standards"]), "Identifier/domain/topic coverage"],
         ["Raw corpus allowed", str(totals["rawCorpusAllowedCount"]), "No raw official, assessment, textbook, or OER body text"],
@@ -507,15 +511,15 @@ def add_cover(doc: Document, data: dict[str, Any]):
         fill=FILL_GOLD,
         accent=GOLD,
     )
-    add_para(doc, "Prepared for Dr. Peter Hu | S18 Curriculum QA | 2026-05-26", size=9.5, color=MUTED, align=WD_ALIGN_PARAGRAPH.CENTER, after=0)
+    add_para(doc, f"Prepared for Dr. Peter Hu | S18 Curriculum QA | {REPORT_DATE}", size=9.5, color=MUTED, align=WD_ALIGN_PARAGRAPH.CENTER, after=0)
     doc.add_page_break()
 
 
 def add_overview(doc: Document, data: dict[str, Any]):
-    add_heading(doc, "1. Ten-State Coverage Dashboard", 1)
+    add_heading(doc, "1. Eleven-State Coverage Dashboard", 1)
     add_para(
         doc,
-        "The committed U.S. RAG layer is organized as safe cards. Each state has grade-overview, standards-family, textbook-compatibility, and exam-pattern cards, while all raw corpus flags remain off.",
+        "The committed U.S. RAG layer is organized as safe cards. Each state has grade-overview, standards-family, textbook-compatibility, and exam-pattern cards, while all raw corpus flags remain off. Arkansas is included as the eleventh owner-priority state expansion.",
         size=10.5,
         color=BLACK,
         after=8,
@@ -553,9 +557,9 @@ def add_overview(doc: Document, data: dict[str, Any]):
     doc.add_page_break()
 
 
-def add_state_section(doc: Document, state: dict[str, Any]):
+def add_state_section(doc: Document, state: dict[str, Any], display_index: int):
     profile = state["profile"]
-    add_heading(doc, f"{profile['populationRank']}. {profile['displayName']} ({profile['state']})", 1)
+    add_heading(doc, f"{display_index}. {profile['displayName']} ({profile['state']})", 1)
     add_para(
         doc,
         f"{profile['standardsName']} | {profile['standardsVersion']}",
@@ -669,7 +673,7 @@ def add_appendix(doc: Document, data: dict[str, Any]):
     add_heading(doc, "Appendix C. Provenance Note", 1)
     add_para(
         doc,
-        "Generated from `data/rag/usMath.ts`, related U.S. RAG retrieval exports, and the project decision record dated 2026-05-23. The document intentionally summarizes standards as identifiers and metadata because the committed RAG layer is designed to avoid protected source-body retention.",
+        "Generated from `data/rag/usMath.ts`, related U.S. RAG retrieval exports, the project decision record dated 2026-05-23, and the 2026-06-01 Arkansas Top-11 expansion. The document intentionally summarizes standards as identifiers and metadata because the committed RAG layer is designed to avoid protected source-body retention.",
         size=10,
         color=BLACK,
         after=6,
@@ -693,8 +697,8 @@ def build_docx(data: dict[str, Any]):
     configure_document(doc)
     add_cover(doc, data)
     add_overview(doc, data)
-    for state in data["states"]:
-        add_state_section(doc, state)
+    for index, state in enumerate(data["states"], 1):
+        add_state_section(doc, state, index)
     add_appendix(doc, data)
     remove_trailing_page_break(doc)
     doc.save(OUT_PATH)

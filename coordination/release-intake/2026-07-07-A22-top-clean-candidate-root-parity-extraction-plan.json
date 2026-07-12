@@ -1,0 +1,336 @@
+{
+  "generatedAt": "2026-07-07T15:08:02.297Z",
+  "repoRoot": "/Users/dongpinhu/Desktop/MAIS-MVP",
+  "dirtyMapStatusSignature": "84e0553381630f5c29322b7cd071032a65d4d5b479cd222bba15314f9269b4e0",
+  "expandedStatusEntries": 5717,
+  "sourceArtifacts": {
+    "dirtyMap": {
+      "key": "dirtyMap",
+      "path": "coordination/release-intake/latest-A25-dirty-tree-map.json",
+      "generatedAt": "2026-07-07T15:02:49.974Z",
+      "dirtyMapStatusSignature": "84e0553381630f5c29322b7cd071032a65d4d5b479cd222bba15314f9269b4e0",
+      "expandedStatusEntries": 5717
+    },
+    "topCleanCandidateBuildBlockerRouting": {
+      "key": "topCleanCandidateBuildBlockerRouting",
+      "path": "coordination/release-intake/latest-A22-top-clean-candidate-build-blocker-routing.json",
+      "generatedAt": "2026-07-07T15:08:02.156Z",
+      "dirtyMapStatusSignature": "84e0553381630f5c29322b7cd071032a65d4d5b479cd222bba15314f9269b4e0",
+      "expandedStatusEntries": 5717
+    }
+  },
+  "sourceCurrentnessFailures": [],
+  "planStatus": "reviewable-non-executable",
+  "topCandidate": {
+    "branch": "codex/A22-us-region-alignment",
+    "path": "/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A22-us-region-alignment",
+    "head": "80b8546af59def9ea4c91fa4b8a892973874504d",
+    "releaseSourceSelected": false,
+    "promotionEligibleNow": false
+  },
+  "extractionUnits": [
+    {
+      "unitId": "a06-visualization-back-to-top-import-parity",
+      "actionMode": "owner-reviewed-reexport-or-import-align",
+      "rootSource": {
+        "path": "components/visualizations/VisualizationLabBackToTopButton.tsx",
+        "existsInRoot": true,
+        "bytes": 3954,
+        "sha256": "efef3f7c3590ebbd6b21ca56a3d4fcdcab1c0e3dd591bf08ee5a6ccc58707155",
+        "lineCount": 85
+      },
+      "candidateTargetPath": "app/visualization-lab/VisualizationLabBackToTopButton.tsx",
+      "candidateTargetExists": false,
+      "coveredBlockerRows": 1,
+      "importerRows": [
+        {
+          "importer": "app/visualization-lab/page.tsx",
+          "moduleSpecifier": "@/app/visualization-lab/VisualizationLabBackToTopButton",
+          "blockerConfirmed": true,
+          "candidateExpectedPaths": [
+            {
+              "path": "app/visualization-lab/VisualizationLabBackToTopButton.tsx",
+              "exists": false
+            }
+          ],
+          "candidateObservedAlternatePaths": [
+            {
+              "path": "components/visualizations/VisualizationLabBackToTopButton.tsx",
+              "exists": true
+            }
+          ]
+        }
+      ],
+      "primaryOwnerIds": [
+        "A06"
+      ],
+      "coordinationOwnerIds": [
+        "A22",
+        "A25"
+      ],
+      "targetDescription": "A06 may create an app-level re-export or rewrite the importer to the existing visualization component path after owner review.",
+      "requiredOwnerEvidenceBeforeExecution": [
+        "owner-reviewed source parity decision",
+        "owner-scoped package or branch where the file/import parity change will be applied",
+        "post-change candidate npm run type-check evidence",
+        "post-change candidate npm run build evidence",
+        "A22 review packet refresh showing the build blocker is gone before promotion"
+      ],
+      "executionInstructionRecorded": false,
+      "cleanupAuthorized": false,
+      "executableNow": false,
+      "deployAuthorized": false,
+      "mergeAuthorized": false
+    },
+    {
+      "unitId": "a20-math-virus-blaster-data-parity",
+      "actionMode": "owner-reviewed-same-path-data-extraction",
+      "rootSource": {
+        "path": "data/mathVirusBlaster.ts",
+        "existsInRoot": true,
+        "bytes": 9259,
+        "sha256": "e7e7edfe35ada99e17be43cdfea5cea36e409d52e8a4c3966476209687b495fa",
+        "lineCount": 319
+      },
+      "candidateTargetPath": "data/mathVirusBlaster.ts",
+      "candidateTargetExists": false,
+      "coveredBlockerRows": 1,
+      "importerRows": [
+        {
+          "importer": "components/games/MathVirusBlasterGame.tsx",
+          "moduleSpecifier": "@/data/mathVirusBlaster",
+          "blockerConfirmed": true,
+          "candidateExpectedPaths": [
+            {
+              "path": "data/mathVirusBlaster.ts",
+              "exists": false
+            },
+            {
+              "path": "data/mathVirusBlaster.tsx",
+              "exists": false
+            }
+          ],
+          "candidateObservedAlternatePaths": []
+        }
+      ],
+      "primaryOwnerIds": [
+        "A20"
+      ],
+      "coordinationOwnerIds": [
+        "A10",
+        "A22",
+        "A25"
+      ],
+      "targetDescription": "A20 may extract the root-local data module into the candidate at the same path after reviewing game-data scope.",
+      "requiredOwnerEvidenceBeforeExecution": [
+        "owner-reviewed source parity decision",
+        "owner-scoped package or branch where the file/import parity change will be applied",
+        "post-change candidate npm run type-check evidence",
+        "post-change candidate npm run build evidence",
+        "A22 review packet refresh showing the build blocker is gone before promotion"
+      ],
+      "executionInstructionRecorded": false,
+      "cleanupAuthorized": false,
+      "executableNow": false,
+      "deployAuthorized": false,
+      "mergeAuthorized": false
+    },
+    {
+      "unitId": "a20-mighty-tank-battle-data-parity",
+      "actionMode": "owner-reviewed-same-path-data-extraction",
+      "rootSource": {
+        "path": "data/mightyTankBattle.ts",
+        "existsInRoot": true,
+        "bytes": 7014,
+        "sha256": "d74bfa43d60d766f818bd7b8e958b386cdff38fc91d3ae5d84889c957c2138e7",
+        "lineCount": 205
+      },
+      "candidateTargetPath": "data/mightyTankBattle.ts",
+      "candidateTargetExists": false,
+      "coveredBlockerRows": 1,
+      "importerRows": [
+        {
+          "importer": "components/games/MightyTankBattleGame.tsx",
+          "moduleSpecifier": "@/data/mightyTankBattle",
+          "blockerConfirmed": true,
+          "candidateExpectedPaths": [
+            {
+              "path": "data/mightyTankBattle.ts",
+              "exists": false
+            },
+            {
+              "path": "data/mightyTankBattle.tsx",
+              "exists": false
+            }
+          ],
+          "candidateObservedAlternatePaths": []
+        }
+      ],
+      "primaryOwnerIds": [
+        "A20"
+      ],
+      "coordinationOwnerIds": [
+        "A10",
+        "A22",
+        "A25"
+      ],
+      "targetDescription": "A20 may extract the root-local data module into the candidate at the same path after reviewing game-data scope.",
+      "requiredOwnerEvidenceBeforeExecution": [
+        "owner-reviewed source parity decision",
+        "owner-scoped package or branch where the file/import parity change will be applied",
+        "post-change candidate npm run type-check evidence",
+        "post-change candidate npm run build evidence",
+        "A22 review packet refresh showing the build blocker is gone before promotion"
+      ],
+      "executionInstructionRecorded": false,
+      "cleanupAuthorized": false,
+      "executableNow": false,
+      "deployAuthorized": false,
+      "mergeAuthorized": false
+    },
+    {
+      "unitId": "a05-california-high-school-lesson-illustration-data-parity",
+      "actionMode": "owner-reviewed-same-path-data-extraction-with-content-signoff",
+      "rootSource": {
+        "path": "data/usCaliforniaHighSchoolLessonIllustrations.ts",
+        "existsInRoot": true,
+        "bytes": 125131,
+        "sha256": "366c5b3a2e8ea9a67f1c13e005377f0be4d903d7d4657e15ad2d9f2da0507a28",
+        "lineCount": 2781
+      },
+      "candidateTargetPath": "data/usCaliforniaHighSchoolLessonIllustrations.ts",
+      "candidateTargetExists": false,
+      "coveredBlockerRows": 2,
+      "importerRows": [
+        {
+          "importer": "components/lesson/CaliforniaHighSchoolTextbookPage.tsx",
+          "moduleSpecifier": "@/data/usCaliforniaHighSchoolLessonIllustrations",
+          "blockerConfirmed": true,
+          "candidateExpectedPaths": [
+            {
+              "path": "data/usCaliforniaHighSchoolLessonIllustrations.ts",
+              "exists": false
+            },
+            {
+              "path": "data/usCaliforniaHighSchoolLessonIllustrations.tsx",
+              "exists": false
+            }
+          ],
+          "candidateObservedAlternatePaths": []
+        },
+        {
+          "importer": "components/lesson/CaliforniaHighSchoolTextbookStudentPage.tsx",
+          "moduleSpecifier": "@/data/usCaliforniaHighSchoolLessonIllustrations",
+          "blockerConfirmed": true,
+          "candidateExpectedPaths": [
+            {
+              "path": "data/usCaliforniaHighSchoolLessonIllustrations.ts",
+              "exists": false
+            },
+            {
+              "path": "data/usCaliforniaHighSchoolLessonIllustrations.tsx",
+              "exists": false
+            }
+          ],
+          "candidateObservedAlternatePaths": []
+        }
+      ],
+      "primaryOwnerIds": [
+        "A05"
+      ],
+      "coordinationOwnerIds": [
+        "A18",
+        "A21",
+        "A24",
+        "A22",
+        "A25"
+      ],
+      "targetDescription": "A05 may extract the root-local illustration data after A18/A21/A24 curriculum, content-pipeline, and exact-layer coordination.",
+      "requiredOwnerEvidenceBeforeExecution": [
+        "owner-reviewed source parity decision",
+        "owner-scoped package or branch where the file/import parity change will be applied",
+        "post-change candidate npm run type-check evidence",
+        "post-change candidate npm run build evidence",
+        "A22 review packet refresh showing the build blocker is gone before promotion"
+      ],
+      "executionInstructionRecorded": false,
+      "cleanupAuthorized": false,
+      "executableNow": false,
+      "deployAuthorized": false,
+      "mergeAuthorized": false
+    }
+  ],
+  "validationRows": [
+    {
+      "id": "build-blocker-routing-current",
+      "owner": "A25 git hygiene and release intake",
+      "passed": true,
+      "status": "passed",
+      "detail": "A22 build-blocker routing is current and all blockers are owner-routed."
+    },
+    {
+      "id": "root-parity-sources-fingerprinted",
+      "owner": "A25 git hygiene and release intake",
+      "passed": true,
+      "status": "passed",
+      "detail": "4/4 extraction unit root source(s) exist and have SHA-256 fingerprints."
+    },
+    {
+      "id": "candidate-targets-still-missing",
+      "owner": "A22 production reliability and release engineering",
+      "passed": true,
+      "status": "passed",
+      "detail": "Candidate target paths are still missing, matching the observed module blockers."
+    },
+    {
+      "id": "extraction-plan-non-executable",
+      "owner": "A25 git hygiene and release intake",
+      "passed": true,
+      "status": "passed",
+      "detail": "The plan records no execution instruction and authorizes no cleanup, merge, deploy, staging, or destructive Git."
+    }
+  ],
+  "safeValidationCommands": [
+    "npm run release:dirty-map -- --assert-current --max-age-minutes 60",
+    "node coordination/release-intake/assert-a22-top-clean-candidate-build-blocker-routing-current.mjs",
+    "node coordination/release-intake/assert-a22-top-clean-candidate-root-parity-extraction-plan-current.mjs",
+    "node coordination/release-intake/assert-a22-top-clean-candidate-review-packet-current.mjs"
+  ],
+  "summary": {
+    "blockerRowsCovered": 5,
+    "extractionUnitRows": 4,
+    "rootSourceRows": 4,
+    "rootSourcesAvailable": 4,
+    "candidateTargetsMissing": 4,
+    "allRootSourcesAvailable": true,
+    "allCandidateTargetsMissing": true,
+    "allRowsNonExecutable": true,
+    "buildBlockerRouteGroupRows": 3,
+    "buildBlockerRows": 5,
+    "cleanupAuthorizedRows": 0,
+    "executableRows": 0,
+    "sourceCurrentnessFailures": 0
+  },
+  "boundary": {
+    "evidenceOnly": true,
+    "rootParityPlanOnly": true,
+    "modifiesCandidate": false,
+    "copiesRootFiles": false,
+    "writesRootSourceFiles": false,
+    "selectsReleaseSource": false,
+    "recordsOwnerApproval": false,
+    "recordsExecutionInstruction": false,
+    "runsTypeCheck": false,
+    "runsBuild": false,
+    "runsRegression": false,
+    "stagesFiles": false,
+    "commits": false,
+    "merges": false,
+    "pushes": false,
+    "deploys": false,
+    "cleanupAuthorized": false,
+    "executableNow": false,
+    "destructiveGitAuthorized": false,
+    "physicalLifecycleCleanupAuthorized": false
+  }
+}

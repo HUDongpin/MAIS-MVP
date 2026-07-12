@@ -1,0 +1,41 @@
+{
+  "generatedAt": "2026-07-09T14:09:04.379Z",
+  "dirtyMapStatusSignature": "b3d232fd2b9ef81d4efc95903d2e3b316db664d6e9ec6ab366181395b3966be7",
+  "expandedStatusEntries": 6604,
+  "sourceTemplateGeneratedAt": "2026-07-09T14:09:04.290Z",
+  "sourceExecutionPacketGeneratedAt": "2026-07-09T14:09:03.998Z",
+  "authorizationTarget": "coordination/release-intake/latest-A25-wave01-package-resync-owner-authorizations.json",
+  "cleanupAuthorized": false,
+  "executableNow": false,
+  "summary": {
+    "starterRows": 1,
+    "blankApprovalRows": 1,
+    "cleanupAuthorizedRows": 0,
+    "executableRows": 0
+  },
+  "authorizations": [
+    {
+      "approvalId": "wave01-resync-01-tsconfig-json",
+      "approvalFingerprint": "e3cdccbdb301375f78dce66d44f8ea1a77695e46d0af596b4c9ecab22118c991",
+      "owner": "A10 tooling, docs, and report",
+      "worktreePath": "/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A25-dirty-closure-governance",
+      "branch": "codex/A25-dirty-closure-governance",
+      "path": "tsconfig.json",
+      "selectedAction": "owner-approved-package-restore",
+      "exactCommand": "git restore --source=HEAD -- tsconfig.json",
+      "commandCwd": "/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A25-dirty-closure-governance",
+      "approvedBy": "",
+      "approvedAt": "",
+      "evidenceReviewed": [
+        "coordination/release-intake/latest-A25-wave01-package-resync-owner-authorization-template.json",
+        "coordination/release-intake/latest-A25-wave01-package-resync-execution-packet.json",
+        "coordination/release-intake/latest-A25-wave01-package-resync-owner-authorization-template-current-gate.json",
+        "coordination/release-intake/latest-A25-wave01-package-resync-execution-packet-current-gate.json"
+      ],
+      "notes": "",
+      "authorizationText": "Authorize approvalId=wave01-resync-01-tsconfig-json; worktree=/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A25-dirty-closure-governance; path=tsconfig.json; selectedAction=owner-approved-package-restore; command=git restore --source=HEAD -- tsconfig.json; approvedBy=<owner>; approvedAt=<ISO-8601>; notes=<scope, evidence reviewed, accepted risk>",
+      "cleanupAuthorized": false,
+      "executableNow": false
+    }
+  ]
+}

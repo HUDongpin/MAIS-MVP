@@ -1,0 +1,1731 @@
+{
+  "generatedAt": "2026-07-10T17:09:41.843Z",
+  "dirtyMapStatusSignature": "e30d647e1b51432945713f42ac78b0a2466fcb17192de0235a801ac877a0801f",
+  "expandedStatusEntries": 7636,
+  "executionSequenceGeneratedAt": "2026-07-10T17:08:37.363Z",
+  "wave": {
+    "waveId": "wave-05-visualization-ai-runtime",
+    "name": "A06/A07/A09/A11/A13/A14/A16/A17/A20 runtime and QA surfaces",
+    "ownerApprovals": [
+      "a06-visualization-lead",
+      "a07-ai-tutor-lead",
+      "a09-copy-i18n-accessibility",
+      "a11-qa-and-release-quality",
+      "a13-teacher-console",
+      "a14-parent-console",
+      "a17-gamification-and-motivation",
+      "a20-game-design-and-game-based-learning",
+      "a13-teacher-console-lead"
+    ],
+    "physicalLifecycleApprovals": [
+      "codex-a06-manim-three-closure",
+      "codex-a06-visualization-closure",
+      "codex-visualization-production-release",
+      "codex-a07-ai-tutor-classroom-switches",
+      "codex-a07-ai-tutor-closure",
+      "codex-a09-copy-i18n-accessibility-closure",
+      "codex-a11-fix-126-128-129",
+      "codex-a11-regression-evidence-closure",
+      "codex-a14-profile-avatar-save",
+      "codex-a13-a14-console-closure",
+      "codex-a16-research-evidence-closure",
+      "codex-a17-a20-game-motivation-closure"
+    ]
+  },
+  "packages": [
+    {
+      "packageId": "a06-visualization",
+      "name": "A06 visualization",
+      "owners": [
+        "A06 visualization lead"
+      ],
+      "approvalIds": [
+        "a06-visualization-lead"
+      ],
+      "worktree": {
+        "path": "/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A06-visualization-closure",
+        "exists": true,
+        "branch": "codex/A06-visualization-closure",
+        "head": "cef544e09",
+        "statusSignature": "3a1daba658778cba93ac9ae07000f107bd8bf3c930aeae22e76267996ee1be87",
+        "nodeModulesPresent": true
+      },
+      "pathspecs": {
+        "files": [
+          "coordination/release-intake/latest-A25-owner-a06-visualization-lead.pathspec"
+        ],
+        "checksum": "3f909bf57b86775e4589d9472d1611ce55239ba58f646b7cccfb47b14c742a4b",
+        "allowedPaths": 460
+      },
+      "pathspecCoverage": {
+        "statusEntries": 437,
+        "coveredEntries": 437,
+        "uncoveredEntries": 0,
+        "uncovered": []
+      },
+      "checks": {
+        "typeCheck": {
+          "command": "npm run type-check -- --pretty false",
+          "status": 2,
+          "passed": false,
+          "stdout": [
+            "> hk-math-lab-template@0.1.0 type-check",
+            "> tsc --noEmit --incremental false --pretty false",
+            "app/api/admin/ai-governance/summary/route.ts(3,43): error TS2307: Cannot find module '@/lib/server/aiGovernance' or its corresponding type declarations.",
+            "app/api/admin/ai-governance/summary/route.ts(4,10): error TS2305: Module '\"@/lib/server/userStore\"' has no exported member 'getAiGovernanceSummaryForAdmin'.",
+            "app/api/admin/nova-lens/policy/route.ts(3,10): error TS2305: Module '\"@/lib/server/userStore\"' has no exported member 'getNovaLensPolicy'.",
+            "app/api/admin/nova-lens/policy/route.ts(3,29): error TS2305: Module '\"@/lib/server/userStore\"' has no exported member 'listNovaLensPolicyEventsForAdmin'.",
+            "app/api/admin/nova-lens/policy/route.ts(3,63): error TS2305: Module '\"@/lib/server/userStore\"' has no exported member 'updateNovaLensPolicy'.",
+            "app/api/admin/nova-lens/policy/route.ts(4,15): error TS2305: Module '\"@/types\"' has no exported member 'NovaLensPolicy'.",
+            "app/api/admin/storage/hot-auth/backfill/route.ts(3,10): error TS2305: Module '\"@/lib/server/userStore\"' has no exported member 'backfillPostgresHotAuthTablesForAdmin'.",
+            "app/api/admin/storage/temporary-bootstrap-admins/route.ts(3,10): error TS2305: Module '\"@/lib/server/userStore\"' has no exported member 'cleanupTemporaryBootstrapAdminsForAdmin'.",
+            "app/api/assignments/[assignmentId]/corrections/route.ts(3,10): error TS2305: Module '\"@/lib/server/userStore\"' has no exported member 'recordAiGovernanceEvent'.",
+            "app/api/assignments/[assignmentId]/corrections/route.ts(3,35): error TS2305: Module '\"@/lib/server/userStore\"' has no exported member 'submitAssignmentWork'.",
+            "app/api/assignments/[assignmentId]/corrections/route.ts(4,100): error TS2307: Cannot find module '@/lib/server/aiGovernance' or its corresponding type declarations.",
+            "app/api/assignments/[assignmentId]/corrections/route.ts(10,15): error TS2305: Module '\"@/types\"' has no exported member 'AssignmentSubmissionInputType'.",
+            "app/api/assignments/[assignmentId]/corrections/route.ts(10,46): error TS2305: Module '\"@/types\"' has no exported member 'AssignmentSubmissionOcrResult'.",
+            "app/api/assignments/[assignmentId]/corrections/route.ts(34,13): error TS7006: Parameter 'error' implicitly has an 'any' type.",
+            "app/api/assignments/[assignmentId]/corrections/route.ts(72,15): error TS7006: Parameter 'error' implicitly has an 'any' type.",
+            "app/api/assignments/[assignmentId]/corrections/route.ts(94,15): error TS7006: Parameter 'error' implicitly has an 'any' type.",
+            "app/api/assignments/[assignmentId]/submissions/route.ts(3,10): error TS2305: Module '\"@/lib/server/userStore\"' has no exported member 'recordAiGovernanceEvent'.",
+            "app/api/assignments/[assignmentId]/submissions/route.ts(3,35): error TS2305: Module '\"@/lib/server/userStore\"' has no exported member 'submitAssignmentWork'.",
+            "app/api/assignments/[assignmentId]/submissions/route.ts(4,100): error TS2307: Cannot find module '@/lib/server/aiGovernance' or its corresponding type declarations.",
+            "app/api/assignments/[assignmentId]/submissions/route.ts(10,15): error TS2305: Module '\"@/types\"' has no exported member 'AssignmentSubmissionInputType'.",
+            "app/api/assignments/[assignmentId]/submissions/route.ts(10,46): error TS2305: Module '\"@/types\"' has no exported member 'AssignmentSubmissionOcrResult'.",
+            "app/api/assignments/[assignmentId]/submissions/route.ts(34,13): error TS7006: Parameter 'error' implicitly has an 'any' type.",
+            "app/api/assignments/[assignmentId]/submissions/route.ts(72,15): error TS7006: Parameter 'error' implicitly has an 'any' type.",
+            "... 660 lines omitted ...",
+            "lib/teacherReviewLesson.ts(498,28): error TS7006: Parameter 'objective' implicitly has an 'any' type.",
+            "lib/teacherReviewLesson.ts(501,26): error TS7006: Parameter 'entry' implicitly has an 'any' type.",
+            "lib/teacherReviewLesson.ts(515,30): error TS7006: Parameter 'column' implicitly has an 'any' type.",
+            "lib/teacherReviewLesson.ts(517,28): error TS7006: Parameter 'block' implicitly has an 'any' type.",
+            "lib/teacherReviewLesson.ts(521,38): error TS7006: Parameter 'question' implicitly has an 'any' type.",
+            "lib/teacherReviewLesson.ts(521,48): error TS7006: Parameter 'index' implicitly has an 'any' type.",
+            "lib/teacherReviewLessonPptx.ts(4,3): error TS2305: Module '\"@/types\"' has no exported member 'TeacherReviewLessonItem'.",
+            "lib/teacherReviewLessonPptx.ts(5,3): error TS2305: Module '\"@/types\"' has no exported member 'TeacherReviewLessonItemCategory'.",
+            "lib/teacherReviewLessonPptx.ts(6,3): error TS2305: Module '\"@/types\"' has no exported member 'TeacherReviewLessonPlan'.",
+            "lib/teacherReviewLessonPptx.ts(7,3): error TS2305: Module '\"@/types\"' has no exported member 'TeacherReviewLessonPracticeQuestion'.",
+            "lib/teacherReviewLessonPptx.ts(147,14): error TS7006: Parameter 'item' implicitly has an 'any' type.",
+            "lib/teacherReviewLessonPptx.ts(148,12): error TS7006: Parameter 'a' implicitly has an 'any' type.",
+            "lib/teacherReviewLessonPptx.ts(148,15): error TS7006: Parameter 'b' implicitly has an 'any' type.",
+            "lib/teacherReviewLessonPptx.ts(196,26): error TS7006: Parameter 'objective' implicitly has an 'any' type.",
+            "lib/teacherReviewLessonPptx.ts(212,24): error TS7006: Parameter 'item' implicitly has an 'any' type.",
+            "lib/teacherReviewLessonPptx.ts(257,18): error TS7006: Parameter 'item' implicitly has an 'any' type.",
+            "lib/teacherReviewLessonPptx.ts(270,14): error TS7006: Parameter 'item' implicitly has an 'any' type.",
+            "lib/teacherReviewLessonPptx.ts(271,12): error TS7006: Parameter 'a' implicitly has an 'any' type.",
+            "lib/teacherReviewLessonPptx.ts(271,15): error TS7006: Parameter 'b' implicitly has an 'any' type.",
+            "lib/teacherReviewLessonPptx.ts(347,20): error TS7006: Parameter 'column' implicitly has an 'any' type.",
+            "lib/teacherReviewLessonPptx.ts(347,28): error TS7006: Parameter 'index' implicitly has an 'any' type.",
+            "lib/teacherReviewLessonPptx.ts(353,26): error TS7006: Parameter 'block' implicitly has an 'any' type.",
+            "lib/teacherReviewLessonPptx.ts(376,62): error TS7006: Parameter 'question' implicitly has an 'any' type.",
+            "lib/teacherReviewLessonPptx.ts(378,64): error TS7006: Parameter 'question' implicitly has an 'any' type.",
+            "lib/teacherReviewLessonPptx.ts(383,35): error TS2307: Cannot find module 'pptxgenjs' or its corresponding type declarations."
+          ]
+        },
+        "visualizationNodeTests": {
+          "command": "node --test components/visualizations/configuredVisualizationLabRegressions.test.ts components/visualizations/three/threeDCanvasContract.test.ts components/visualizations/visualizationDiagnostics.test.ts",
+          "status": 1,
+          "passed": false,
+          "stdout": [
+            "(node:8031) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A06-visualization-closure/components/visualizations/configuredVisualizationLabRegressions.test.ts is not specified and it doesn't parse as CommonJS.",
+            "Reparsing as ES module because module syntax was detected. This incurs a performance overhead.",
+            "To eliminate this warning, add \"type\": \"module\" to /Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A06-visualization-closure/package.json.",
+            "(Use `node --trace-warnings ...` to show where the warning was created)",
+            "✔ measurement ruler exposes visible numeric centimeter labels (0.432083ms)",
+            "✔ number-line lab labels every integer unit from 0 to 18 (0.201083ms)",
+            "✔ grade 1 add-subtract number-line lab uses Set, Start, and Step controls (0.322167ms)",
+            "✔ probability lab reports both decimal and percent notation (0.06525ms)",
+            "✔ array-area layout keeps cells below the title badge clearance zone (0.178417ms)",
+            "✔ configured visualization mode buttons produce distinct visible model states (0.591791ms)",
+            "✔ clock-money-data value uses fractional hours instead of raw minute steps (0.101292ms)",
+            "✔ 3D labs show the 2D configured surface while the heavy runtime loads (0.126542ms)",
+            "✔ right-triangle lab fits max geometry, emphasizes squares, and labels square values (0.150834ms)",
+            "✔ angle geometry keeps extreme rays inside the panel and combines equal-angle labels (0.135958ms)",
+            "✔ array and statistics summaries avoid graph collisions at reported slider extremes (0.10775ms)",
+            "✔ mode buttons use distinct active colors for visual emphasis (0.164583ms)",
+            "✔ configured visualization renderer omits introductory metadata panels from lab and lesson embeds (0.191041ms)",
+            "✔ configured visualization lab exposes a footer action slot for lesson embeds (0.414709ms)",
+            "(node:8032) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A06-visualization-closure/components/visualizations/three/threeDCanvasContract.test.ts is not specified and it doesn't parse as CommonJS.",
+            "Reparsing as ES module because module syntax was detected. This incurs a performance overhead.",
+            "To eliminate this warning, add \"type\": \"module\" to /Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A06-visualization-closure/package.json.",
+            "(Use `node --trace-warnings ...` to show where the warning was created)",
+            "node:internal/modules/esm/resolve:271",
+            "    throw new ERR_MODULE_NOT_FOUND(",
+            "          ^",
+            "... 29 lines omitted ...",
+            "    at ModuleLoader.resolveSync (node:internal/modules/esm/loader:746:52)",
+            "    at #resolve (node:internal/modules/esm/loader:679:17)",
+            "    at ModuleLoader.getOrCreateModuleJob (node:internal/modules/esm/loader:599:35)",
+            "    at ModuleJob.syncLink (node:internal/modules/esm/module_job:162:33)",
+            "    at ModuleJob.link (node:internal/modules/esm/module_job:252:17) {",
+            "  code: 'ERR_MODULE_NOT_FOUND',",
+            "  url: 'file:///Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A06-visualization-closure/data/visualizationLabs'",
+            "}",
+            "Node.js v24.15.0",
+            "✖ components/visualizations/visualizationDiagnostics.test.ts (54.502875ms)",
+            "ℹ tests 16",
+            "ℹ suites 0",
+            "ℹ pass 14",
+            "ℹ fail 2",
+            "ℹ cancelled 0",
+            "ℹ skipped 0",
+            "ℹ todo 0",
+            "ℹ duration_ms 86.3795",
+            "✖ failing tests:",
+            "test at components/visualizations/three/threeDCanvasContract.test.ts:1:1",
+            "✖ components/visualizations/three/threeDCanvasContract.test.ts (81.292ms)",
+            "  'test failed'",
+            "test at components/visualizations/visualizationDiagnostics.test.ts:1:1",
+            "✖ components/visualizations/visualizationDiagnostics.test.ts (54.502875ms)",
+            "  'test failed'"
+          ]
+        },
+        "visualizationPlaywright": {
+          "command": "npx playwright test tests/e2e/visualization-values.spec.ts tests/e2e/visualization-overlap.spec.ts --project=desktop-chrome",
+          "status": 1,
+          "passed": false,
+          "stdout": [
+            "Error: EPERM: operation not permitted, unlink '/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A06-visualization-closure/test-results/.last-run.json'"
+          ],
+          "stderr": [
+            "Error in reporter Error: EPERM: operation not permitted, open '/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A06-visualization-closure/output/playwright-report/index.html'",
+            "    at open (node:internal/fs/promises:640:25)",
+            "    at Object.writeFile (node:internal/fs/promises:1257:14)",
+            "    at HtmlBuilder._writeStaticAssets (/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A06-visualization-closure/node_modules/playwright/lib/reporters/html.js:330:7)",
+            "    at HtmlBuilder.build (/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A06-visualization-closure/node_modules/playwright/lib/reporters/html.js:292:29)",
+            "    at HtmlReporter.onEnd (/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A06-visualization-closure/node_modules/playwright/lib/reporters/html.js:128:25)",
+            "    at wrapAsync (/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A06-visualization-closure/node_modules/playwright/lib/reporters/multiplexer.js:101:12)",
+            "    at Multiplexer.onEnd (/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A06-visualization-closure/node_modules/playwright/lib/reporters/multiplexer.js:69:25)",
+            "    at InternalReporter.onEnd (/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A06-visualization-closure/node_modules/playwright/lib/reporters/internalReporter.js:81:12)",
+            "    at finishTaskRun (/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A06-visualization-closure/node_modules/playwright/lib/runner/tasks.js:94:26)",
+            "    at runTasks (/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A06-visualization-closure/node_modules/playwright/lib/runner/tasks.js:81:10)",
+            "    at runAllTestsWithConfig (/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A06-visualization-closure/node_modules/playwright/lib/runner/testRunner.js:388:18)",
+            "    at runTests (/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A06-visualization-closure/node_modules/playwright/lib/testActions.js:96:18)",
+            "    at i.<anonymous> (/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A06-visualization-closure/node_modules/playwright/lib/program.js:56:7) {",
+            "  errno: -1,",
+            "  code: 'EPERM',",
+            "  syscall: 'open',",
+            "  path: '/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A06-visualization-closure/output/playwright-report/index.html'",
+            "}",
+            "Error in reporter Error: EPERM: operation not permitted, open '/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A06-visualization-closure/test-results/.last-run.json'",
+            "    at open (node:internal/fs/promises:640:25)",
+            "    at Object.writeFile (node:internal/fs/promises:1257:14)",
+            "    at LastRunReporter.onEnd (/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A06-visualization-closure/node_modules/playwright/lib/runner/lastRun.js:71:5)",
+            "    at wrapAsync (/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A06-visualization-closure/node_modules/playwright/lib/reporters/multiplexer.js:101:12)",
+            "    at Multiplexer.onEnd (/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A06-visualization-closure/node_modules/playwright/lib/reporters/multiplexer.js:69:25)",
+            "    at InternalReporter.onEnd (/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A06-visualization-closure/node_modules/playwright/lib/reporters/internalReporter.js:81:12)",
+            "    at finishTaskRun (/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A06-visualization-closure/node_modules/playwright/lib/runner/tasks.js:94:26)",
+            "    at runTasks (/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A06-visualization-closure/node_modules/playwright/lib/runner/tasks.js:81:10)",
+            "    at runAllTestsWithConfig (/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A06-visualization-closure/node_modules/playwright/lib/runner/testRunner.js:388:18)",
+            "    at runTests (/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A06-visualization-closure/node_modules/playwright/lib/testActions.js:96:18)",
+            "    at i.<anonymous> (/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A06-visualization-closure/node_modules/playwright/lib/program.js:56:7) {",
+            "  errno: -1,",
+            "  code: 'EPERM',",
+            "  syscall: 'open',",
+            "  path: '/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A06-visualization-closure/test-results/.last-run.json'",
+            "}"
+          ]
+        }
+      },
+      "typeCheck": {
+        "passed": false,
+        "status": 2,
+        "skipped": false,
+        "summary": {
+          "errorLines": 655,
+          "byTop": {
+            "app": 118,
+            "components": 435,
+            "data": 1,
+            "lib": 101
+          },
+          "topFiles": [
+            {
+              "file": "components/visualizations/three/scenes/TemplatePrimitiveScene.tsx",
+              "errors": 216
+            },
+            {
+              "file": "components/teacher/TeacherPrepViews.tsx",
+              "errors": 36
+            },
+            {
+              "file": "components/teacher/TeacherOperationsView.tsx",
+              "errors": 32
+            },
+            {
+              "file": "lib/teacherReviewLesson.ts",
+              "errors": 30
+            },
+            {
+              "file": "components/teacher/TeacherReviewLessonView.tsx",
+              "errors": 25
+            },
+            {
+              "file": "components/visualizations/three/manim/MathSceneRuntime.tsx",
+              "errors": 25
+            },
+            {
+              "file": "components/visualizations/three/ThreeDGraphCanvas.tsx",
+              "errors": 21
+            },
+            {
+              "file": "lib/teacherReviewLessonPptx.ts",
+              "errors": 19
+            },
+            {
+              "file": "components/games/MathVirusBlasterGame.tsx",
+              "errors": 13
+            },
+            {
+              "file": "components/visualizations/three/ThreeDLabCanvas.tsx",
+              "errors": 12
+            },
+            {
+              "file": "components/games/MightyTankBattleGame.tsx",
+              "errors": 10
+            },
+            {
+              "file": "app/api/teacher/review-lessons/[reviewLessonId]/route.ts",
+              "errors": 9
+            },
+            {
+              "file": "lib/server/teacherReviewLessonLLM.ts",
+              "errors": 9
+            },
+            {
+              "file": "lib/teacherAssessmentAnalysis.ts",
+              "errors": 9
+            },
+            {
+              "file": "app/api/assignments/[assignmentId]/corrections/route.ts",
+              "errors": 8
+            },
+            {
+              "file": "app/api/assignments/[assignmentId]/submissions/route.ts",
+              "errors": 8
+            },
+            {
+              "file": "app/api/classroom/live/[sessionId]/work-samples/route.ts",
+              "errors": 8
+            },
+            {
+              "file": "app/api/me/learner-profile/route.ts",
+              "errors": 7
+            },
+            {
+              "file": "components/lesson/CaliforniaHighSchoolTextbookPage.tsx",
+              "errors": 7
+            },
+            {
+              "file": "components/lesson/CaliforniaHighSchoolTextbookStudentPage.tsx",
+              "errors": 7
+            }
+          ],
+          "firstErrors": [
+            "app/api/admin/ai-governance/summary/route.ts(3,43): error TS2307: Cannot find module '@/lib/server/aiGovernance' or its corresponding type declarations.",
+            "app/api/admin/ai-governance/summary/route.ts(4,10): error TS2305: Module '\"@/lib/server/userStore\"' has no exported member 'getAiGovernanceSummaryForAdmin'.",
+            "app/api/admin/nova-lens/policy/route.ts(3,10): error TS2305: Module '\"@/lib/server/userStore\"' has no exported member 'getNovaLensPolicy'.",
+            "app/api/admin/nova-lens/policy/route.ts(3,29): error TS2305: Module '\"@/lib/server/userStore\"' has no exported member 'listNovaLensPolicyEventsForAdmin'.",
+            "app/api/admin/nova-lens/policy/route.ts(3,63): error TS2305: Module '\"@/lib/server/userStore\"' has no exported member 'updateNovaLensPolicy'.",
+            "app/api/admin/nova-lens/policy/route.ts(4,15): error TS2305: Module '\"@/types\"' has no exported member 'NovaLensPolicy'.",
+            "app/api/admin/storage/hot-auth/backfill/route.ts(3,10): error TS2305: Module '\"@/lib/server/userStore\"' has no exported member 'backfillPostgresHotAuthTablesForAdmin'.",
+            "app/api/admin/storage/temporary-bootstrap-admins/route.ts(3,10): error TS2305: Module '\"@/lib/server/userStore\"' has no exported member 'cleanupTemporaryBootstrapAdminsForAdmin'.",
+            "app/api/assignments/[assignmentId]/corrections/route.ts(3,10): error TS2305: Module '\"@/lib/server/userStore\"' has no exported member 'recordAiGovernanceEvent'.",
+            "app/api/assignments/[assignmentId]/corrections/route.ts(3,35): error TS2305: Module '\"@/lib/server/userStore\"' has no exported member 'submitAssignmentWork'.",
+            "app/api/assignments/[assignmentId]/corrections/route.ts(4,100): error TS2307: Cannot find module '@/lib/server/aiGovernance' or its corresponding type declarations.",
+            "app/api/assignments/[assignmentId]/corrections/route.ts(10,15): error TS2305: Module '\"@/types\"' has no exported member 'AssignmentSubmissionInputType'.",
+            "app/api/assignments/[assignmentId]/corrections/route.ts(10,46): error TS2305: Module '\"@/types\"' has no exported member 'AssignmentSubmissionOcrResult'.",
+            "app/api/assignments/[assignmentId]/corrections/route.ts(34,13): error TS7006: Parameter 'error' implicitly has an 'any' type.",
+            "app/api/assignments/[assignmentId]/corrections/route.ts(72,15): error TS7006: Parameter 'error' implicitly has an 'any' type.",
+            "app/api/assignments/[assignmentId]/corrections/route.ts(94,15): error TS7006: Parameter 'error' implicitly has an 'any' type.",
+            "app/api/assignments/[assignmentId]/submissions/route.ts(3,10): error TS2305: Module '\"@/lib/server/userStore\"' has no exported member 'recordAiGovernanceEvent'.",
+            "app/api/assignments/[assignmentId]/submissions/route.ts(3,35): error TS2305: Module '\"@/lib/server/userStore\"' has no exported member 'submitAssignmentWork'.",
+            "app/api/assignments/[assignmentId]/submissions/route.ts(4,100): error TS2307: Cannot find module '@/lib/server/aiGovernance' or its corresponding type declarations.",
+            "app/api/assignments/[assignmentId]/submissions/route.ts(10,15): error TS2305: Module '\"@/types\"' has no exported member 'AssignmentSubmissionInputType'.",
+            "app/api/assignments/[assignmentId]/submissions/route.ts(10,46): error TS2305: Module '\"@/types\"' has no exported member 'AssignmentSubmissionOcrResult'.",
+            "app/api/assignments/[assignmentId]/submissions/route.ts(34,13): error TS7006: Parameter 'error' implicitly has an 'any' type.",
+            "app/api/assignments/[assignmentId]/submissions/route.ts(72,15): error TS7006: Parameter 'error' implicitly has an 'any' type.",
+            "app/api/assignments/[assignmentId]/submissions/route.ts(94,15): error TS7006: Parameter 'error' implicitly has an 'any' type.",
+            "app/api/classroom/live/[sessionId]/work-samples/route.ts(3,10): error TS2305: Module '\"@/lib/server/userStore\"' has no exported member 'createClassroomWorkSample'."
+          ]
+        }
+      },
+      "blockingReasons": [
+        "A06 visualization typeCheck failed",
+        "A06 visualization visualizationNodeTests failed",
+        "A06 visualization visualizationPlaywright failed"
+      ],
+      "ready": false,
+      "checkExecutionMode": "reused",
+      "checkReuseSourceGeneratedAt": "2026-07-10T17:02:09.863Z",
+      "checkReuseReason": "worktree head/status, pathspec coverage, node_modules, and check commands are unchanged"
+    },
+    {
+      "packageId": "a07-ai-tutor",
+      "name": "A07 AI tutor",
+      "owners": [
+        "A07 AI tutor lead"
+      ],
+      "approvalIds": [
+        "a07-ai-tutor-lead"
+      ],
+      "worktree": {
+        "path": "/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A07-ai-tutor-closure",
+        "exists": true,
+        "branch": "codex/A07-ai-tutor-closure",
+        "head": "cef544e09",
+        "statusSignature": "4b398218679db02a7c15071338bc23aefe5b50612c658eadb83d998604fcf2d5",
+        "nodeModulesPresent": true
+      },
+      "pathspecs": {
+        "files": [
+          "coordination/release-intake/latest-A25-owner-a07-ai-tutor-lead.pathspec"
+        ],
+        "checksum": "04eeb68a01cae11a3abd7a8457e9a98b44a336edc2c12d557cd4653311456a87",
+        "allowedPaths": 12
+      },
+      "pathspecCoverage": {
+        "statusEntries": 12,
+        "coveredEntries": 12,
+        "uncoveredEntries": 0,
+        "uncovered": []
+      },
+      "checks": {
+        "typeCheck": {
+          "command": "npm run type-check -- --pretty false",
+          "status": 2,
+          "passed": false,
+          "stdout": [
+            "> hk-math-lab-template@0.1.0 type-check",
+            "> tsc --noEmit --incremental false --pretty false",
+            "app/api/admin/ai-governance/summary/route.ts(3,43): error TS2307: Cannot find module '@/lib/server/aiGovernance' or its corresponding type declarations.",
+            "app/api/admin/ai-governance/summary/route.ts(4,10): error TS2305: Module '\"@/lib/server/userStore\"' has no exported member 'getAiGovernanceSummaryForAdmin'.",
+            "app/api/admin/nova-lens/policy/route.ts(3,10): error TS2305: Module '\"@/lib/server/userStore\"' has no exported member 'getNovaLensPolicy'.",
+            "app/api/admin/nova-lens/policy/route.ts(3,29): error TS2305: Module '\"@/lib/server/userStore\"' has no exported member 'listNovaLensPolicyEventsForAdmin'.",
+            "app/api/admin/nova-lens/policy/route.ts(3,63): error TS2305: Module '\"@/lib/server/userStore\"' has no exported member 'updateNovaLensPolicy'.",
+            "app/api/admin/nova-lens/policy/route.ts(4,15): error TS2305: Module '\"@/types\"' has no exported member 'NovaLensPolicy'.",
+            "app/api/admin/storage/hot-auth/backfill/route.ts(3,10): error TS2305: Module '\"@/lib/server/userStore\"' has no exported member 'backfillPostgresHotAuthTablesForAdmin'.",
+            "app/api/admin/storage/temporary-bootstrap-admins/route.ts(3,10): error TS2305: Module '\"@/lib/server/userStore\"' has no exported member 'cleanupTemporaryBootstrapAdminsForAdmin'.",
+            "app/api/ai-tutor/resolve/route.ts(29,3): error TS2305: Module '\"@/lib/server/userStore\"' has no exported member 'consumeAiCapabilityRateLimit'.",
+            "app/api/ai-tutor/resolve/route.ts(31,3): error TS2305: Module '\"@/lib/server/userStore\"' has no exported member 'recordAiGovernanceEvent'.",
+            "app/api/ai-tutor/resolve/route.ts(35,51): error TS2307: Cannot find module '@/lib/server/aiGovernance' or its corresponding type declarations.",
+            "app/api/ai-tutor/resolve/route.ts(39,3): error TS2305: Module '\"@/lib/server/llmProvider\"' has no exported member 'createLLMProviderCircuitBreaker'.",
+            "app/api/ai-tutor/resolve/route.ts(43,3): error TS2305: Module '\"@/lib/server/llmProvider\"' has no exported member 'fetchLLMProviderResponse'.",
+            "app/api/ai-tutor/resolve/route.ts(44,3): error TS2305: Module '\"@/lib/server/llmProvider\"' has no exported member 'readAITutorProviderProfile'.",
+            "app/api/ai-tutor/resolve/route.ts(45,3): error TS2305: Module '\"@/lib/server/llmProvider\"' has no exported member 'readAITutorTextProviderConfigs'.",
+            "app/api/ai-tutor/resolve/route.ts(46,3): error TS2724: '\"@/lib/server/llmProvider\"' has no exported member named 'readQwenImageProviderConfig'. Did you mean 'readLLMProviderConfig'?",
+            "app/api/ai-tutor/resolve/route.ts(47,3): error TS2305: Module '\"@/lib/server/llmProvider\"' has no exported member 'resolveAITutorProviderTimeoutMs'.",
+            "app/api/ai-tutor/resolve/route.ts(48,3): error TS2305: Module '\"@/lib/server/llmProvider\"' has no exported member 'resolveLLMMaxCompletionTokens'.",
+            "app/api/ai-tutor/resolve/route.ts(49,3): error TS2305: Module '\"@/lib/server/llmProvider\"' has no exported member 'selectAvailableLLMProviderConfig'.",
+            "app/api/ai-tutor/resolve/route.ts(193,53): error TS2769: No overload matches this call.",
+            "  Overload 1 of 2, '(iterable?: Iterable<CurriculumTrack> | null | undefined): Set<CurriculumTrack>', gave the following error.",
+            "    Argument of type '(\"HK\" | \"MAINLAND_PEP_HIGH\" | \"US_CA_MATH\" | \"US_NC_MATH\" | \"US_FL_MATH\" | \"US_AR_MATH\")[]' is not assignable to parameter of type 'Iterable<CurriculumTrack>'.",
+            "      The types returned by '[Symbol.iterator]().next(...)' are incompatible between these types.",
+            "... 700 lines omitted ...",
+            "lib/teacherReviewLesson.ts(498,28): error TS7006: Parameter 'objective' implicitly has an 'any' type.",
+            "lib/teacherReviewLesson.ts(501,26): error TS7006: Parameter 'entry' implicitly has an 'any' type.",
+            "lib/teacherReviewLesson.ts(515,30): error TS7006: Parameter 'column' implicitly has an 'any' type.",
+            "lib/teacherReviewLesson.ts(517,28): error TS7006: Parameter 'block' implicitly has an 'any' type.",
+            "lib/teacherReviewLesson.ts(521,38): error TS7006: Parameter 'question' implicitly has an 'any' type.",
+            "lib/teacherReviewLesson.ts(521,48): error TS7006: Parameter 'index' implicitly has an 'any' type.",
+            "lib/teacherReviewLessonPptx.ts(4,3): error TS2305: Module '\"@/types\"' has no exported member 'TeacherReviewLessonItem'.",
+            "lib/teacherReviewLessonPptx.ts(5,3): error TS2305: Module '\"@/types\"' has no exported member 'TeacherReviewLessonItemCategory'.",
+            "lib/teacherReviewLessonPptx.ts(6,3): error TS2305: Module '\"@/types\"' has no exported member 'TeacherReviewLessonPlan'.",
+            "lib/teacherReviewLessonPptx.ts(7,3): error TS2305: Module '\"@/types\"' has no exported member 'TeacherReviewLessonPracticeQuestion'.",
+            "lib/teacherReviewLessonPptx.ts(147,14): error TS7006: Parameter 'item' implicitly has an 'any' type.",
+            "lib/teacherReviewLessonPptx.ts(148,12): error TS7006: Parameter 'a' implicitly has an 'any' type.",
+            "lib/teacherReviewLessonPptx.ts(148,15): error TS7006: Parameter 'b' implicitly has an 'any' type.",
+            "lib/teacherReviewLessonPptx.ts(196,26): error TS7006: Parameter 'objective' implicitly has an 'any' type.",
+            "lib/teacherReviewLessonPptx.ts(212,24): error TS7006: Parameter 'item' implicitly has an 'any' type.",
+            "lib/teacherReviewLessonPptx.ts(257,18): error TS7006: Parameter 'item' implicitly has an 'any' type.",
+            "lib/teacherReviewLessonPptx.ts(270,14): error TS7006: Parameter 'item' implicitly has an 'any' type.",
+            "lib/teacherReviewLessonPptx.ts(271,12): error TS7006: Parameter 'a' implicitly has an 'any' type.",
+            "lib/teacherReviewLessonPptx.ts(271,15): error TS7006: Parameter 'b' implicitly has an 'any' type.",
+            "lib/teacherReviewLessonPptx.ts(347,20): error TS7006: Parameter 'column' implicitly has an 'any' type.",
+            "lib/teacherReviewLessonPptx.ts(347,28): error TS7006: Parameter 'index' implicitly has an 'any' type.",
+            "lib/teacherReviewLessonPptx.ts(353,26): error TS7006: Parameter 'block' implicitly has an 'any' type.",
+            "lib/teacherReviewLessonPptx.ts(376,62): error TS7006: Parameter 'question' implicitly has an 'any' type.",
+            "lib/teacherReviewLessonPptx.ts(378,64): error TS7006: Parameter 'question' implicitly has an 'any' type.",
+            "lib/teacherReviewLessonPptx.ts(383,35): error TS2307: Cannot find module 'pptxgenjs' or its corresponding type declarations."
+          ]
+        },
+        "aiTutorPlaywright": {
+          "command": "npx playwright test tests/e2e/ai-tutor-deepseek.spec.ts tests/e2e/ai-tutor-live-text.spec.ts --project=desktop-chrome",
+          "status": 1,
+          "passed": false,
+          "stdout": [
+            "Error: EPERM: operation not permitted, unlink '/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A07-ai-tutor-closure/test-results/.last-run.json'"
+          ],
+          "stderr": [
+            "Error in reporter Error: EPERM: operation not permitted, open '/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A07-ai-tutor-closure/output/playwright-report/index.html'",
+            "    at open (node:internal/fs/promises:640:25)",
+            "    at Object.writeFile (node:internal/fs/promises:1257:14)",
+            "    at HtmlBuilder._writeStaticAssets (/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A07-ai-tutor-closure/node_modules/playwright/lib/reporters/html.js:330:7)",
+            "    at HtmlBuilder.build (/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A07-ai-tutor-closure/node_modules/playwright/lib/reporters/html.js:292:29)",
+            "    at HtmlReporter.onEnd (/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A07-ai-tutor-closure/node_modules/playwright/lib/reporters/html.js:128:25)",
+            "    at wrapAsync (/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A07-ai-tutor-closure/node_modules/playwright/lib/reporters/multiplexer.js:101:12)",
+            "    at Multiplexer.onEnd (/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A07-ai-tutor-closure/node_modules/playwright/lib/reporters/multiplexer.js:69:25)",
+            "    at InternalReporter.onEnd (/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A07-ai-tutor-closure/node_modules/playwright/lib/reporters/internalReporter.js:81:12)",
+            "    at finishTaskRun (/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A07-ai-tutor-closure/node_modules/playwright/lib/runner/tasks.js:94:26)",
+            "    at runTasks (/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A07-ai-tutor-closure/node_modules/playwright/lib/runner/tasks.js:81:10)",
+            "    at runAllTestsWithConfig (/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A07-ai-tutor-closure/node_modules/playwright/lib/runner/testRunner.js:388:18)",
+            "    at runTests (/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A07-ai-tutor-closure/node_modules/playwright/lib/testActions.js:96:18)",
+            "    at i.<anonymous> (/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A07-ai-tutor-closure/node_modules/playwright/lib/program.js:56:7) {",
+            "  errno: -1,",
+            "  code: 'EPERM',",
+            "  syscall: 'open',",
+            "  path: '/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A07-ai-tutor-closure/output/playwright-report/index.html'",
+            "}",
+            "Error in reporter Error: EPERM: operation not permitted, open '/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A07-ai-tutor-closure/test-results/.last-run.json'",
+            "    at open (node:internal/fs/promises:640:25)",
+            "    at Object.writeFile (node:internal/fs/promises:1257:14)",
+            "    at LastRunReporter.onEnd (/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A07-ai-tutor-closure/node_modules/playwright/lib/runner/lastRun.js:71:5)",
+            "    at wrapAsync (/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A07-ai-tutor-closure/node_modules/playwright/lib/reporters/multiplexer.js:101:12)",
+            "    at Multiplexer.onEnd (/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A07-ai-tutor-closure/node_modules/playwright/lib/reporters/multiplexer.js:69:25)",
+            "    at InternalReporter.onEnd (/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A07-ai-tutor-closure/node_modules/playwright/lib/reporters/internalReporter.js:81:12)",
+            "    at finishTaskRun (/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A07-ai-tutor-closure/node_modules/playwright/lib/runner/tasks.js:94:26)",
+            "    at runTasks (/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A07-ai-tutor-closure/node_modules/playwright/lib/runner/tasks.js:81:10)",
+            "    at runAllTestsWithConfig (/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A07-ai-tutor-closure/node_modules/playwright/lib/runner/testRunner.js:388:18)",
+            "    at runTests (/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A07-ai-tutor-closure/node_modules/playwright/lib/testActions.js:96:18)",
+            "    at i.<anonymous> (/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A07-ai-tutor-closure/node_modules/playwright/lib/program.js:56:7) {",
+            "  errno: -1,",
+            "  code: 'EPERM',",
+            "  syscall: 'open',",
+            "  path: '/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A07-ai-tutor-closure/test-results/.last-run.json'",
+            "}"
+          ]
+        }
+      },
+      "typeCheck": {
+        "passed": false,
+        "status": 2,
+        "skipped": false,
+        "summary": {
+          "errorLines": 680,
+          "byTop": {
+            "app": 139,
+            "components": 440,
+            "lib": 101
+          },
+          "topFiles": [
+            {
+              "file": "components/visualizations/three/scenes/TemplatePrimitiveScene.tsx",
+              "errors": 206
+            },
+            {
+              "file": "components/teacher/TeacherPrepViews.tsx",
+              "errors": 36
+            },
+            {
+              "file": "components/teacher/TeacherOperationsView.tsx",
+              "errors": 32
+            },
+            {
+              "file": "lib/teacherReviewLesson.ts",
+              "errors": 30
+            },
+            {
+              "file": "components/teacher/TeacherReviewLessonView.tsx",
+              "errors": 25
+            },
+            {
+              "file": "components/visualizations/three/ThreeDGraphCanvas.tsx",
+              "errors": 21
+            },
+            {
+              "file": "lib/teacherReviewLessonPptx.ts",
+              "errors": 19
+            },
+            {
+              "file": "components/visualizations/VisualizationLabPage.tsx",
+              "errors": 16
+            },
+            {
+              "file": "components/games/MathVirusBlasterGame.tsx",
+              "errors": 13
+            },
+            {
+              "file": "app/api/ai-tutor/resolve/route.ts",
+              "errors": 12
+            },
+            {
+              "file": "components/visualizations/three/manim/MathSceneRuntime.tsx",
+              "errors": 12
+            },
+            {
+              "file": "components/games/MightyTankBattleGame.tsx",
+              "errors": 10
+            },
+            {
+              "file": "components/visualizations/three/ThreeDLabCanvas.tsx",
+              "errors": 10
+            },
+            {
+              "file": "app/api/teacher/review-lessons/[reviewLessonId]/route.ts",
+              "errors": 9
+            },
+            {
+              "file": "components/visualizations/three/threeDSceneMath.catalog.test.ts",
+              "errors": 9
+            },
+            {
+              "file": "lib/server/teacherReviewLessonLLM.ts",
+              "errors": 9
+            },
+            {
+              "file": "lib/teacherAssessmentAnalysis.ts",
+              "errors": 9
+            },
+            {
+              "file": "app/api/assignments/[assignmentId]/corrections/route.ts",
+              "errors": 8
+            },
+            {
+              "file": "app/api/assignments/[assignmentId]/submissions/route.ts",
+              "errors": 8
+            },
+            {
+              "file": "app/api/classroom/live/[sessionId]/work-samples/route.ts",
+              "errors": 8
+            }
+          ],
+          "firstErrors": [
+            "app/api/admin/ai-governance/summary/route.ts(3,43): error TS2307: Cannot find module '@/lib/server/aiGovernance' or its corresponding type declarations.",
+            "app/api/admin/ai-governance/summary/route.ts(4,10): error TS2305: Module '\"@/lib/server/userStore\"' has no exported member 'getAiGovernanceSummaryForAdmin'.",
+            "app/api/admin/nova-lens/policy/route.ts(3,10): error TS2305: Module '\"@/lib/server/userStore\"' has no exported member 'getNovaLensPolicy'.",
+            "app/api/admin/nova-lens/policy/route.ts(3,29): error TS2305: Module '\"@/lib/server/userStore\"' has no exported member 'listNovaLensPolicyEventsForAdmin'.",
+            "app/api/admin/nova-lens/policy/route.ts(3,63): error TS2305: Module '\"@/lib/server/userStore\"' has no exported member 'updateNovaLensPolicy'.",
+            "app/api/admin/nova-lens/policy/route.ts(4,15): error TS2305: Module '\"@/types\"' has no exported member 'NovaLensPolicy'.",
+            "app/api/admin/storage/hot-auth/backfill/route.ts(3,10): error TS2305: Module '\"@/lib/server/userStore\"' has no exported member 'backfillPostgresHotAuthTablesForAdmin'.",
+            "app/api/admin/storage/temporary-bootstrap-admins/route.ts(3,10): error TS2305: Module '\"@/lib/server/userStore\"' has no exported member 'cleanupTemporaryBootstrapAdminsForAdmin'.",
+            "app/api/ai-tutor/resolve/route.ts(29,3): error TS2305: Module '\"@/lib/server/userStore\"' has no exported member 'consumeAiCapabilityRateLimit'.",
+            "app/api/ai-tutor/resolve/route.ts(31,3): error TS2305: Module '\"@/lib/server/userStore\"' has no exported member 'recordAiGovernanceEvent'.",
+            "app/api/ai-tutor/resolve/route.ts(35,51): error TS2307: Cannot find module '@/lib/server/aiGovernance' or its corresponding type declarations.",
+            "app/api/ai-tutor/resolve/route.ts(39,3): error TS2305: Module '\"@/lib/server/llmProvider\"' has no exported member 'createLLMProviderCircuitBreaker'.",
+            "app/api/ai-tutor/resolve/route.ts(43,3): error TS2305: Module '\"@/lib/server/llmProvider\"' has no exported member 'fetchLLMProviderResponse'.",
+            "app/api/ai-tutor/resolve/route.ts(44,3): error TS2305: Module '\"@/lib/server/llmProvider\"' has no exported member 'readAITutorProviderProfile'.",
+            "app/api/ai-tutor/resolve/route.ts(45,3): error TS2305: Module '\"@/lib/server/llmProvider\"' has no exported member 'readAITutorTextProviderConfigs'.",
+            "app/api/ai-tutor/resolve/route.ts(46,3): error TS2724: '\"@/lib/server/llmProvider\"' has no exported member named 'readQwenImageProviderConfig'. Did you mean 'readLLMProviderConfig'?",
+            "app/api/ai-tutor/resolve/route.ts(47,3): error TS2305: Module '\"@/lib/server/llmProvider\"' has no exported member 'resolveAITutorProviderTimeoutMs'.",
+            "app/api/ai-tutor/resolve/route.ts(48,3): error TS2305: Module '\"@/lib/server/llmProvider\"' has no exported member 'resolveLLMMaxCompletionTokens'.",
+            "app/api/ai-tutor/resolve/route.ts(49,3): error TS2305: Module '\"@/lib/server/llmProvider\"' has no exported member 'selectAvailableLLMProviderConfig'.",
+            "app/api/ai-tutor/resolve/route.ts(193,53): error TS2769: No overload matches this call.",
+            "app/api/ai-tutor/speech/route.ts(2,10): error TS2305: Module '\"@/lib/server/llmProvider\"' has no exported member 'readQwenAsrRealtimeProviderConfig'.",
+            "app/api/ai-tutor/speech/route.ts(4,10): error TS2305: Module '\"@/lib/server/userStore\"' has no exported member 'consumeAiCapabilityRateLimit'.",
+            "app/api/ai-tutor/speech/route.ts(5,51): error TS2307: Cannot find module '@/lib/server/aiGovernance' or its corresponding type declarations.",
+            "app/api/ai-tutor/status/route.ts(2,10): error TS2305: Module '\"@/lib/server/llmProvider\"' has no exported member 'readAITutorProviderStatus'.",
+            "app/api/ai-tutor/voice/route.ts(2,10): error TS2724: '\"@/lib/server/llmProvider\"' has no exported member named 'readQwenRealtimeProviderConfig'. Did you mean 'readLLMProviderConfig'?"
+          ]
+        }
+      },
+      "blockingReasons": [
+        "A07 AI tutor typeCheck failed",
+        "A07 AI tutor aiTutorPlaywright failed"
+      ],
+      "ready": false,
+      "checkExecutionMode": "reused",
+      "checkReuseSourceGeneratedAt": "2026-07-10T17:02:09.863Z",
+      "checkReuseReason": "worktree head/status, pathspec coverage, node_modules, and check commands are unchanged"
+    },
+    {
+      "packageId": "a09-copy-i18n-accessibility",
+      "name": "A09 copy/i18n/accessibility",
+      "owners": [
+        "A09 copy, i18n, accessibility"
+      ],
+      "approvalIds": [
+        "a09-copy-i18n-accessibility"
+      ],
+      "worktree": {
+        "path": "/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A09-copy-i18n-accessibility-closure",
+        "exists": true,
+        "branch": "codex/A09-copy-i18n-accessibility-closure",
+        "head": "cef544e09",
+        "statusSignature": "8e5a9892f8b271b880ee2b3a61320c017763798369c957b73ae259a75fd3f12a",
+        "nodeModulesPresent": true
+      },
+      "pathspecs": {
+        "files": [
+          "coordination/release-intake/latest-A25-owner-a09-copy-i18n-accessibility.pathspec"
+        ],
+        "checksum": "9d5b2ec557fa6e999234668e2d0eab3e0a9544ca625c09db8da0fe86473ea0e9",
+        "allowedPaths": 5
+      },
+      "pathspecCoverage": {
+        "statusEntries": 5,
+        "coveredEntries": 5,
+        "uncoveredEntries": 0,
+        "uncovered": []
+      },
+      "checks": {
+        "typeCheck": {
+          "command": "npm run type-check -- --pretty false",
+          "status": 2,
+          "passed": false,
+          "stdout": [
+            "> hk-math-lab-template@0.1.0 type-check",
+            "> tsc --noEmit --incremental false --pretty false",
+            "app/api/admin/ai-governance/summary/route.ts(3,43): error TS2307: Cannot find module '@/lib/server/aiGovernance' or its corresponding type declarations.",
+            "app/api/admin/ai-governance/summary/route.ts(4,10): error TS2305: Module '\"@/lib/server/userStore\"' has no exported member 'getAiGovernanceSummaryForAdmin'.",
+            "app/api/admin/nova-lens/policy/route.ts(3,10): error TS2305: Module '\"@/lib/server/userStore\"' has no exported member 'getNovaLensPolicy'.",
+            "app/api/admin/nova-lens/policy/route.ts(3,29): error TS2305: Module '\"@/lib/server/userStore\"' has no exported member 'listNovaLensPolicyEventsForAdmin'.",
+            "app/api/admin/nova-lens/policy/route.ts(3,63): error TS2305: Module '\"@/lib/server/userStore\"' has no exported member 'updateNovaLensPolicy'.",
+            "app/api/admin/nova-lens/policy/route.ts(4,15): error TS2305: Module '\"@/types\"' has no exported member 'NovaLensPolicy'.",
+            "app/api/admin/storage/hot-auth/backfill/route.ts(3,10): error TS2305: Module '\"@/lib/server/userStore\"' has no exported member 'backfillPostgresHotAuthTablesForAdmin'.",
+            "app/api/admin/storage/temporary-bootstrap-admins/route.ts(3,10): error TS2305: Module '\"@/lib/server/userStore\"' has no exported member 'cleanupTemporaryBootstrapAdminsForAdmin'.",
+            "app/api/assignments/[assignmentId]/corrections/route.ts(3,10): error TS2305: Module '\"@/lib/server/userStore\"' has no exported member 'recordAiGovernanceEvent'.",
+            "app/api/assignments/[assignmentId]/corrections/route.ts(3,35): error TS2305: Module '\"@/lib/server/userStore\"' has no exported member 'submitAssignmentWork'.",
+            "app/api/assignments/[assignmentId]/corrections/route.ts(4,100): error TS2307: Cannot find module '@/lib/server/aiGovernance' or its corresponding type declarations.",
+            "app/api/assignments/[assignmentId]/corrections/route.ts(10,15): error TS2305: Module '\"@/types\"' has no exported member 'AssignmentSubmissionInputType'.",
+            "app/api/assignments/[assignmentId]/corrections/route.ts(10,46): error TS2305: Module '\"@/types\"' has no exported member 'AssignmentSubmissionOcrResult'.",
+            "app/api/assignments/[assignmentId]/corrections/route.ts(34,13): error TS7006: Parameter 'error' implicitly has an 'any' type.",
+            "app/api/assignments/[assignmentId]/corrections/route.ts(72,15): error TS7006: Parameter 'error' implicitly has an 'any' type.",
+            "app/api/assignments/[assignmentId]/corrections/route.ts(94,15): error TS7006: Parameter 'error' implicitly has an 'any' type.",
+            "app/api/assignments/[assignmentId]/submissions/route.ts(3,10): error TS2305: Module '\"@/lib/server/userStore\"' has no exported member 'recordAiGovernanceEvent'.",
+            "app/api/assignments/[assignmentId]/submissions/route.ts(3,35): error TS2305: Module '\"@/lib/server/userStore\"' has no exported member 'submitAssignmentWork'.",
+            "app/api/assignments/[assignmentId]/submissions/route.ts(4,100): error TS2307: Cannot find module '@/lib/server/aiGovernance' or its corresponding type declarations.",
+            "app/api/assignments/[assignmentId]/submissions/route.ts(10,15): error TS2305: Module '\"@/types\"' has no exported member 'AssignmentSubmissionInputType'.",
+            "app/api/assignments/[assignmentId]/submissions/route.ts(10,46): error TS2305: Module '\"@/types\"' has no exported member 'AssignmentSubmissionOcrResult'.",
+            "app/api/assignments/[assignmentId]/submissions/route.ts(34,13): error TS7006: Parameter 'error' implicitly has an 'any' type.",
+            "app/api/assignments/[assignmentId]/submissions/route.ts(72,15): error TS7006: Parameter 'error' implicitly has an 'any' type.",
+            "... 645 lines omitted ...",
+            "lib/teacherReviewLesson.ts(498,28): error TS7006: Parameter 'objective' implicitly has an 'any' type.",
+            "lib/teacherReviewLesson.ts(501,26): error TS7006: Parameter 'entry' implicitly has an 'any' type.",
+            "lib/teacherReviewLesson.ts(515,30): error TS7006: Parameter 'column' implicitly has an 'any' type.",
+            "lib/teacherReviewLesson.ts(517,28): error TS7006: Parameter 'block' implicitly has an 'any' type.",
+            "lib/teacherReviewLesson.ts(521,38): error TS7006: Parameter 'question' implicitly has an 'any' type.",
+            "lib/teacherReviewLesson.ts(521,48): error TS7006: Parameter 'index' implicitly has an 'any' type.",
+            "lib/teacherReviewLessonPptx.ts(4,3): error TS2305: Module '\"@/types\"' has no exported member 'TeacherReviewLessonItem'.",
+            "lib/teacherReviewLessonPptx.ts(5,3): error TS2305: Module '\"@/types\"' has no exported member 'TeacherReviewLessonItemCategory'.",
+            "lib/teacherReviewLessonPptx.ts(6,3): error TS2305: Module '\"@/types\"' has no exported member 'TeacherReviewLessonPlan'.",
+            "lib/teacherReviewLessonPptx.ts(7,3): error TS2305: Module '\"@/types\"' has no exported member 'TeacherReviewLessonPracticeQuestion'.",
+            "lib/teacherReviewLessonPptx.ts(147,14): error TS7006: Parameter 'item' implicitly has an 'any' type.",
+            "lib/teacherReviewLessonPptx.ts(148,12): error TS7006: Parameter 'a' implicitly has an 'any' type.",
+            "lib/teacherReviewLessonPptx.ts(148,15): error TS7006: Parameter 'b' implicitly has an 'any' type.",
+            "lib/teacherReviewLessonPptx.ts(196,26): error TS7006: Parameter 'objective' implicitly has an 'any' type.",
+            "lib/teacherReviewLessonPptx.ts(212,24): error TS7006: Parameter 'item' implicitly has an 'any' type.",
+            "lib/teacherReviewLessonPptx.ts(257,18): error TS7006: Parameter 'item' implicitly has an 'any' type.",
+            "lib/teacherReviewLessonPptx.ts(270,14): error TS7006: Parameter 'item' implicitly has an 'any' type.",
+            "lib/teacherReviewLessonPptx.ts(271,12): error TS7006: Parameter 'a' implicitly has an 'any' type.",
+            "lib/teacherReviewLessonPptx.ts(271,15): error TS7006: Parameter 'b' implicitly has an 'any' type.",
+            "lib/teacherReviewLessonPptx.ts(347,20): error TS7006: Parameter 'column' implicitly has an 'any' type.",
+            "lib/teacherReviewLessonPptx.ts(347,28): error TS7006: Parameter 'index' implicitly has an 'any' type.",
+            "lib/teacherReviewLessonPptx.ts(353,26): error TS7006: Parameter 'block' implicitly has an 'any' type.",
+            "lib/teacherReviewLessonPptx.ts(376,62): error TS7006: Parameter 'question' implicitly has an 'any' type.",
+            "lib/teacherReviewLessonPptx.ts(378,64): error TS7006: Parameter 'question' implicitly has an 'any' type.",
+            "lib/teacherReviewLessonPptx.ts(383,35): error TS2307: Cannot find module 'pptxgenjs' or its corresponding type declarations."
+          ]
+        }
+      },
+      "typeCheck": {
+        "passed": false,
+        "status": 2,
+        "skipped": false,
+        "summary": {
+          "errorLines": 654,
+          "byTop": {
+            "app": 121,
+            "components": 428,
+            "lib": 105
+          },
+          "topFiles": [
+            {
+              "file": "components/visualizations/three/scenes/TemplatePrimitiveScene.tsx",
+              "errors": 206
+            },
+            {
+              "file": "components/teacher/TeacherPrepViews.tsx",
+              "errors": 36
+            },
+            {
+              "file": "components/teacher/TeacherOperationsView.tsx",
+              "errors": 32
+            },
+            {
+              "file": "lib/teacherReviewLesson.ts",
+              "errors": 30
+            },
+            {
+              "file": "components/teacher/TeacherReviewLessonView.tsx",
+              "errors": 25
+            },
+            {
+              "file": "components/visualizations/three/ThreeDGraphCanvas.tsx",
+              "errors": 20
+            },
+            {
+              "file": "lib/teacherReviewLessonPptx.ts",
+              "errors": 19
+            },
+            {
+              "file": "components/visualizations/VisualizationLabPage.tsx",
+              "errors": 16
+            },
+            {
+              "file": "components/games/MathVirusBlasterGame.tsx",
+              "errors": 13
+            },
+            {
+              "file": "components/visualizations/three/manim/MathSceneRuntime.tsx",
+              "errors": 12
+            },
+            {
+              "file": "components/games/MightyTankBattleGame.tsx",
+              "errors": 10
+            },
+            {
+              "file": "app/api/teacher/review-lessons/[reviewLessonId]/route.ts",
+              "errors": 9
+            },
+            {
+              "file": "components/visualizations/three/ThreeDLabCanvas.tsx",
+              "errors": 9
+            },
+            {
+              "file": "components/visualizations/three/threeDSceneMath.catalog.test.ts",
+              "errors": 9
+            },
+            {
+              "file": "lib/server/teacherReviewLessonLLM.ts",
+              "errors": 9
+            },
+            {
+              "file": "lib/teacherAssessmentAnalysis.ts",
+              "errors": 9
+            },
+            {
+              "file": "app/api/assignments/[assignmentId]/corrections/route.ts",
+              "errors": 8
+            },
+            {
+              "file": "app/api/assignments/[assignmentId]/submissions/route.ts",
+              "errors": 8
+            },
+            {
+              "file": "app/api/classroom/live/[sessionId]/work-samples/route.ts",
+              "errors": 8
+            },
+            {
+              "file": "app/api/me/learner-profile/route.ts",
+              "errors": 7
+            }
+          ],
+          "firstErrors": [
+            "app/api/admin/ai-governance/summary/route.ts(3,43): error TS2307: Cannot find module '@/lib/server/aiGovernance' or its corresponding type declarations.",
+            "app/api/admin/ai-governance/summary/route.ts(4,10): error TS2305: Module '\"@/lib/server/userStore\"' has no exported member 'getAiGovernanceSummaryForAdmin'.",
+            "app/api/admin/nova-lens/policy/route.ts(3,10): error TS2305: Module '\"@/lib/server/userStore\"' has no exported member 'getNovaLensPolicy'.",
+            "app/api/admin/nova-lens/policy/route.ts(3,29): error TS2305: Module '\"@/lib/server/userStore\"' has no exported member 'listNovaLensPolicyEventsForAdmin'.",
+            "app/api/admin/nova-lens/policy/route.ts(3,63): error TS2305: Module '\"@/lib/server/userStore\"' has no exported member 'updateNovaLensPolicy'.",
+            "app/api/admin/nova-lens/policy/route.ts(4,15): error TS2305: Module '\"@/types\"' has no exported member 'NovaLensPolicy'.",
+            "app/api/admin/storage/hot-auth/backfill/route.ts(3,10): error TS2305: Module '\"@/lib/server/userStore\"' has no exported member 'backfillPostgresHotAuthTablesForAdmin'.",
+            "app/api/admin/storage/temporary-bootstrap-admins/route.ts(3,10): error TS2305: Module '\"@/lib/server/userStore\"' has no exported member 'cleanupTemporaryBootstrapAdminsForAdmin'.",
+            "app/api/assignments/[assignmentId]/corrections/route.ts(3,10): error TS2305: Module '\"@/lib/server/userStore\"' has no exported member 'recordAiGovernanceEvent'.",
+            "app/api/assignments/[assignmentId]/corrections/route.ts(3,35): error TS2305: Module '\"@/lib/server/userStore\"' has no exported member 'submitAssignmentWork'.",
+            "app/api/assignments/[assignmentId]/corrections/route.ts(4,100): error TS2307: Cannot find module '@/lib/server/aiGovernance' or its corresponding type declarations.",
+            "app/api/assignments/[assignmentId]/corrections/route.ts(10,15): error TS2305: Module '\"@/types\"' has no exported member 'AssignmentSubmissionInputType'.",
+            "app/api/assignments/[assignmentId]/corrections/route.ts(10,46): error TS2305: Module '\"@/types\"' has no exported member 'AssignmentSubmissionOcrResult'.",
+            "app/api/assignments/[assignmentId]/corrections/route.ts(34,13): error TS7006: Parameter 'error' implicitly has an 'any' type.",
+            "app/api/assignments/[assignmentId]/corrections/route.ts(72,15): error TS7006: Parameter 'error' implicitly has an 'any' type.",
+            "app/api/assignments/[assignmentId]/corrections/route.ts(94,15): error TS7006: Parameter 'error' implicitly has an 'any' type.",
+            "app/api/assignments/[assignmentId]/submissions/route.ts(3,10): error TS2305: Module '\"@/lib/server/userStore\"' has no exported member 'recordAiGovernanceEvent'.",
+            "app/api/assignments/[assignmentId]/submissions/route.ts(3,35): error TS2305: Module '\"@/lib/server/userStore\"' has no exported member 'submitAssignmentWork'.",
+            "app/api/assignments/[assignmentId]/submissions/route.ts(4,100): error TS2307: Cannot find module '@/lib/server/aiGovernance' or its corresponding type declarations.",
+            "app/api/assignments/[assignmentId]/submissions/route.ts(10,15): error TS2305: Module '\"@/types\"' has no exported member 'AssignmentSubmissionInputType'.",
+            "app/api/assignments/[assignmentId]/submissions/route.ts(10,46): error TS2305: Module '\"@/types\"' has no exported member 'AssignmentSubmissionOcrResult'.",
+            "app/api/assignments/[assignmentId]/submissions/route.ts(34,13): error TS7006: Parameter 'error' implicitly has an 'any' type.",
+            "app/api/assignments/[assignmentId]/submissions/route.ts(72,15): error TS7006: Parameter 'error' implicitly has an 'any' type.",
+            "app/api/assignments/[assignmentId]/submissions/route.ts(94,15): error TS7006: Parameter 'error' implicitly has an 'any' type.",
+            "app/api/classroom/live/[sessionId]/work-samples/route.ts(3,10): error TS2305: Module '\"@/lib/server/userStore\"' has no exported member 'createClassroomWorkSample'."
+          ]
+        }
+      },
+      "blockingReasons": [
+        "A09 copy/i18n/accessibility typeCheck failed"
+      ],
+      "ready": false,
+      "checkExecutionMode": "reused",
+      "checkReuseSourceGeneratedAt": "2026-07-10T17:02:09.863Z",
+      "checkReuseReason": "worktree head/status, pathspec coverage, node_modules, and check commands are unchanged"
+    },
+    {
+      "packageId": "a11-regression-evidence",
+      "name": "A11 regression evidence",
+      "owners": [
+        "A11 QA and release quality"
+      ],
+      "approvalIds": [
+        "a11-qa-and-release-quality"
+      ],
+      "worktree": {
+        "path": "/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A11-regression-evidence-closure",
+        "exists": true,
+        "branch": "codex/A11-regression-evidence-closure",
+        "head": "cef544e09",
+        "statusSignature": "ded201c97362aa6f8053865ad2091efdce58fc181d0ad5e37eb3f221045093ca",
+        "nodeModulesPresent": true
+      },
+      "pathspecs": {
+        "files": [
+          "coordination/release-intake/latest-A25-owner-a11-qa-and-release-quality.pathspec"
+        ],
+        "checksum": "219ec53cb4a7263d12720a35de8ccddafdddf30ace950dd363fe61c2574688de",
+        "allowedPaths": 64
+      },
+      "pathspecCoverage": {
+        "statusEntries": 62,
+        "coveredEntries": 62,
+        "uncoveredEntries": 0,
+        "uncovered": []
+      },
+      "checkExecutionMode": "reused",
+      "checks": {
+        "typeCheck": {
+          "command": "npm run type-check -- --pretty false",
+          "status": 2,
+          "passed": false,
+          "stdout": [
+            "> hk-math-lab-template@0.1.0 type-check",
+            "> tsc --noEmit --incremental false --pretty false",
+            "app/api/admin/ai-governance/summary/route.ts(3,43): error TS2307: Cannot find module '@/lib/server/aiGovernance' or its corresponding type declarations.",
+            "app/api/admin/ai-governance/summary/route.ts(4,10): error TS2305: Module '\"@/lib/server/userStore\"' has no exported member 'getAiGovernanceSummaryForAdmin'.",
+            "app/api/admin/nova-lens/policy/route.ts(3,10): error TS2305: Module '\"@/lib/server/userStore\"' has no exported member 'getNovaLensPolicy'.",
+            "app/api/admin/nova-lens/policy/route.ts(3,29): error TS2305: Module '\"@/lib/server/userStore\"' has no exported member 'listNovaLensPolicyEventsForAdmin'.",
+            "app/api/admin/nova-lens/policy/route.ts(3,63): error TS2305: Module '\"@/lib/server/userStore\"' has no exported member 'updateNovaLensPolicy'.",
+            "app/api/admin/nova-lens/policy/route.ts(4,15): error TS2305: Module '\"@/types\"' has no exported member 'NovaLensPolicy'.",
+            "app/api/admin/storage/hot-auth/backfill/route.ts(3,10): error TS2305: Module '\"@/lib/server/userStore\"' has no exported member 'backfillPostgresHotAuthTablesForAdmin'.",
+            "app/api/admin/storage/temporary-bootstrap-admins/route.ts(3,10): error TS2305: Module '\"@/lib/server/userStore\"' has no exported member 'cleanupTemporaryBootstrapAdminsForAdmin'.",
+            "app/api/assignments/[assignmentId]/corrections/route.ts(3,10): error TS2305: Module '\"@/lib/server/userStore\"' has no exported member 'recordAiGovernanceEvent'.",
+            "app/api/assignments/[assignmentId]/corrections/route.ts(3,35): error TS2305: Module '\"@/lib/server/userStore\"' has no exported member 'submitAssignmentWork'.",
+            "app/api/assignments/[assignmentId]/corrections/route.ts(4,100): error TS2307: Cannot find module '@/lib/server/aiGovernance' or its corresponding type declarations.",
+            "app/api/assignments/[assignmentId]/corrections/route.ts(10,15): error TS2305: Module '\"@/types\"' has no exported member 'AssignmentSubmissionInputType'.",
+            "app/api/assignments/[assignmentId]/corrections/route.ts(10,46): error TS2305: Module '\"@/types\"' has no exported member 'AssignmentSubmissionOcrResult'.",
+            "app/api/assignments/[assignmentId]/corrections/route.ts(34,13): error TS7006: Parameter 'error' implicitly has an 'any' type.",
+            "app/api/assignments/[assignmentId]/corrections/route.ts(72,15): error TS7006: Parameter 'error' implicitly has an 'any' type.",
+            "app/api/assignments/[assignmentId]/corrections/route.ts(94,15): error TS7006: Parameter 'error' implicitly has an 'any' type.",
+            "app/api/assignments/[assignmentId]/submissions/route.ts(3,10): error TS2305: Module '\"@/lib/server/userStore\"' has no exported member 'recordAiGovernanceEvent'.",
+            "app/api/assignments/[assignmentId]/submissions/route.ts(3,35): error TS2305: Module '\"@/lib/server/userStore\"' has no exported member 'submitAssignmentWork'.",
+            "app/api/assignments/[assignmentId]/submissions/route.ts(4,100): error TS2307: Cannot find module '@/lib/server/aiGovernance' or its corresponding type declarations.",
+            "app/api/assignments/[assignmentId]/submissions/route.ts(10,15): error TS2305: Module '\"@/types\"' has no exported member 'AssignmentSubmissionInputType'.",
+            "app/api/assignments/[assignmentId]/submissions/route.ts(10,46): error TS2305: Module '\"@/types\"' has no exported member 'AssignmentSubmissionOcrResult'.",
+            "app/api/assignments/[assignmentId]/submissions/route.ts(34,13): error TS7006: Parameter 'error' implicitly has an 'any' type.",
+            "app/api/assignments/[assignmentId]/submissions/route.ts(72,15): error TS7006: Parameter 'error' implicitly has an 'any' type.",
+            "... 699 lines omitted ...",
+            "lib/teacherReviewLessonPptx.ts(378,64): error TS7006: Parameter 'question' implicitly has an 'any' type.",
+            "lib/teacherReviewLessonPptx.ts(383,35): error TS2307: Cannot find module 'pptxgenjs' or its corresponding type declarations.",
+            "tests/e2e/lesson-all.spec.ts(7,32): error TS2305: Module '\"../../lib/lessonLinks\"' has no exported member 'studentLessonsPath'.",
+            "tests/e2e/lesson-all.spec.ts(61,47): error TS2769: No overload matches this call.",
+            "  Overload 1 of 2, '(iterable?: Iterable<Difficulty> | null | undefined): Set<Difficulty>', gave the following error.",
+            "    Argument of type '(\"Medium\" | \"Low\" | \"High\")[]' is not assignable to parameter of type 'Iterable<Difficulty>'.",
+            "      The types returned by '[Symbol.iterator]().next(...)' are incompatible between these types.",
+            "        Type 'IteratorResult<\"Medium\" | \"Low\" | \"High\", undefined>' is not assignable to type 'IteratorResult<Difficulty, any>'.",
+            "          Type 'IteratorYieldResult<\"Medium\" | \"Low\" | \"High\">' is not assignable to type 'IteratorResult<Difficulty, any>'.",
+            "            Type 'IteratorYieldResult<\"Medium\" | \"Low\" | \"High\">' is not assignable to type 'IteratorYieldResult<Difficulty>'.",
+            "              Type '\"Medium\" | \"Low\" | \"High\"' is not assignable to type 'Difficulty'.",
+            "                Type '\"Medium\"' is not assignable to type 'Difficulty'.",
+            "tests/e2e/mainland-pep-high-lessons.spec.ts(3,3): error TS2724: '\"../../data/mainlandPepHighLessonIllustrations\"' has no exported member named 'mainlandPepHighLessonIllustrationWithdrawal'. Did you mean 'MainlandPepHighLessonIllustration'?",
+            "tests/e2e/mainland-pep-primary-lessons.spec.ts(13,3): error TS2353: Object literal may only specify known properties, and 'K' does not exist in type 'Record<GradeId, number>'.",
+            "tests/e2e/parent-console.spec.ts(4,75): error TS2307: Cannot find module '../../lib/parentConstraints' or its corresponding type declarations.",
+            "tests/e2e/release-matrix-continuation.spec.ts(337,52): error TS2367: This comparison appears to be unintentional because the types '\"P1\" | \"P2\" | \"P3\" | \"P4\" | \"P5\" | \"P6\" | \"S1\" | \"S2\" | \"S3\" | \"S4\" | \"S5\" | \"S6\"' and '\"K\"' have no overlap.",
+            "tests/e2e/release-matrix-continuation.spec.ts(349,36): error TS2339: Property 'questionAssets' does not exist on type 'PublicQuestion'.",
+            "tests/e2e/shirleen-visualization-auth-regression.spec.ts(25,5): error TS2367: This comparison appears to be unintentional because the types 'VisualizationCurriculumTrack' and '\"US\"' have no overlap.",
+            "tests/e2e/shirleen-visualization-auth-regression.spec.ts(26,9): error TS2339: Property 'publisher' does not exist on type 'FeaturedLabDefinition'.",
+            "tests/e2e/visualization-overlap.spec.ts(234,28): error TS2339: Property 'publisher' does not exist on type 'FeaturedLabDefinition'.",
+            "tests/e2e/visualization-overlap.spec.ts(235,72): error TS2339: Property 'publisher' does not exist on type 'FeaturedLabDefinition'.",
+            "tests/e2e/visualization-overlap.spec.ts(248,50): error TS2339: Property 'publisher' does not exist on type 'FeaturedLabDefinition'.",
+            "tests/e2e/visualization-values.spec.ts(294,28): error TS2339: Property 'publisher' does not exist on type 'FeaturedLabDefinition'.",
+            "tests/e2e/visualization-values.spec.ts(295,72): error TS2339: Property 'publisher' does not exist on type 'FeaturedLabDefinition'.",
+            "tests/e2e/visualization-values.spec.ts(308,50): error TS2339: Property 'publisher' does not exist on type 'FeaturedLabDefinition'."
+          ]
+        },
+        "regressionPlaywright": {
+          "command": "npx playwright test tests/e2e/student-smoke.spec.ts tests/e2e/backend-api.spec.ts --project=desktop-chrome",
+          "status": 1,
+          "passed": false,
+          "stdout": [
+            "Error: Process from config.webServer was not able to start. Exit code: 1"
+          ],
+          "stderr": [
+            "\u001b[2m[WebServer] \u001b[22m(node:18393) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.",
+            "\u001b[2m[WebServer] \u001b[22m(Use `node --trace-warnings ...` to show where the warning was created)",
+            "\u001b[2m[WebServer] \u001b[22m(node:18455) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.",
+            "\u001b[2m[WebServer] \u001b[22m(Use `node --trace-warnings ...` to show where the warning was created)",
+            "\u001b[2m[WebServer] \u001b[22mFailed to compile.",
+            "\u001b[2m[WebServer] \u001b[22m",
+            "\u001b[2m[WebServer] \u001b[22m./app/visualization-lab/page.tsx",
+            "\u001b[2m[WebServer] \u001b[22mModule not found: Can't resolve '@/app/visualization-lab/VisualizationLabBackToTopButton'",
+            "\u001b[2m[WebServer] \u001b[22m",
+            "\u001b[2m[WebServer] \u001b[22mhttps://nextjs.org/docs/messages/module-not-found",
+            "\u001b[2m[WebServer] \u001b[22m",
+            "\u001b[2m[WebServer] \u001b[22m./components/games/MathVirusBlasterGame.tsx",
+            "\u001b[2m[WebServer] \u001b[22mModule not found: Can't resolve '@/data/mathVirusBlaster'",
+            "\u001b[2m[WebServer] \u001b[22m",
+            "\u001b[2m[WebServer] \u001b[22mhttps://nextjs.org/docs/messages/module-not-found",
+            "\u001b[2m[WebServer] \u001b[22m",
+            "\u001b[2m[WebServer] \u001b[22m./components/games/MightyTankBattleGame.tsx",
+            "\u001b[2m[WebServer] \u001b[22mModule not found: Can't resolve '@/data/mightyTankBattle'",
+            "\u001b[2m[WebServer] \u001b[22m",
+            "\u001b[2m[WebServer] \u001b[22mhttps://nextjs.org/docs/messages/module-not-found",
+            "\u001b[2m[WebServer] \u001b[22m",
+            "\u001b[2m[WebServer] \u001b[22m./components/lesson/CaliforniaHighSchoolTextbookPage.tsx",
+            "\u001b[2m[WebServer] \u001b[22mModule not found: Can't resolve '@/data/usCaliforniaHighSchoolLessonIllustrations'",
+            "\u001b[2m[WebServer] \u001b[22m",
+            "\u001b[2m[WebServer] \u001b[22mhttps://nextjs.org/docs/messages/module-not-found",
+            "\u001b[2m[WebServer] \u001b[22m",
+            "\u001b[2m[WebServer] \u001b[22m./components/lesson/CaliforniaHighSchoolTextbookStudentPage.tsx",
+            "\u001b[2m[WebServer] \u001b[22mModule not found: Can't resolve '@/data/usCaliforniaHighSchoolLessonIllustrations'",
+            "\u001b[2m[WebServer] \u001b[22m",
+            "\u001b[2m[WebServer] \u001b[22mhttps://nextjs.org/docs/messages/module-not-found",
+            "\u001b[2m[WebServer] \u001b[22m",
+            "\u001b[2m[WebServer] \u001b[22m",
+            "\u001b[2m[WebServer] \u001b[22m> Build failed because of webpack errors"
+          ]
+        }
+      },
+      "typeCheck": {
+        "passed": false,
+        "status": 2,
+        "skipped": false,
+        "summary": {
+          "errorLines": 697,
+          "byTop": {
+            "app": 120,
+            "components": 431,
+            "lib": 131,
+            "tests": 15
+          },
+          "topFiles": [
+            {
+              "file": "components/visualizations/three/scenes/TemplatePrimitiveScene.tsx",
+              "errors": 206
+            },
+            {
+              "file": "components/teacher/TeacherPrepViews.tsx",
+              "errors": 36
+            },
+            {
+              "file": "components/teacher/TeacherOperationsView.tsx",
+              "errors": 32
+            },
+            {
+              "file": "lib/mvpReadiness.test.ts",
+              "errors": 30
+            },
+            {
+              "file": "lib/teacherReviewLesson.ts",
+              "errors": 30
+            },
+            {
+              "file": "components/teacher/TeacherReviewLessonView.tsx",
+              "errors": 25
+            },
+            {
+              "file": "components/visualizations/three/ThreeDGraphCanvas.tsx",
+              "errors": 21
+            },
+            {
+              "file": "lib/teacherReviewLessonPptx.ts",
+              "errors": 19
+            },
+            {
+              "file": "components/visualizations/VisualizationLabPage.tsx",
+              "errors": 16
+            },
+            {
+              "file": "components/games/MathVirusBlasterGame.tsx",
+              "errors": 13
+            },
+            {
+              "file": "components/visualizations/three/manim/MathSceneRuntime.tsx",
+              "errors": 12
+            },
+            {
+              "file": "components/games/MightyTankBattleGame.tsx",
+              "errors": 10
+            },
+            {
+              "file": "components/visualizations/three/ThreeDLabCanvas.tsx",
+              "errors": 10
+            },
+            {
+              "file": "app/api/teacher/review-lessons/[reviewLessonId]/route.ts",
+              "errors": 9
+            },
+            {
+              "file": "components/visualizations/three/threeDSceneMath.catalog.test.ts",
+              "errors": 9
+            },
+            {
+              "file": "lib/server/teacherReviewLessonLLM.ts",
+              "errors": 9
+            },
+            {
+              "file": "lib/teacherAssessmentAnalysis.ts",
+              "errors": 9
+            },
+            {
+              "file": "app/api/assignments/[assignmentId]/corrections/route.ts",
+              "errors": 8
+            },
+            {
+              "file": "app/api/assignments/[assignmentId]/submissions/route.ts",
+              "errors": 8
+            },
+            {
+              "file": "app/api/classroom/live/[sessionId]/work-samples/route.ts",
+              "errors": 8
+            }
+          ],
+          "firstErrors": [
+            "app/api/admin/ai-governance/summary/route.ts(3,43): error TS2307: Cannot find module '@/lib/server/aiGovernance' or its corresponding type declarations.",
+            "app/api/admin/ai-governance/summary/route.ts(4,10): error TS2305: Module '\"@/lib/server/userStore\"' has no exported member 'getAiGovernanceSummaryForAdmin'.",
+            "app/api/admin/nova-lens/policy/route.ts(3,10): error TS2305: Module '\"@/lib/server/userStore\"' has no exported member 'getNovaLensPolicy'.",
+            "app/api/admin/nova-lens/policy/route.ts(3,29): error TS2305: Module '\"@/lib/server/userStore\"' has no exported member 'listNovaLensPolicyEventsForAdmin'.",
+            "app/api/admin/nova-lens/policy/route.ts(3,63): error TS2305: Module '\"@/lib/server/userStore\"' has no exported member 'updateNovaLensPolicy'.",
+            "app/api/admin/nova-lens/policy/route.ts(4,15): error TS2305: Module '\"@/types\"' has no exported member 'NovaLensPolicy'.",
+            "app/api/admin/storage/hot-auth/backfill/route.ts(3,10): error TS2305: Module '\"@/lib/server/userStore\"' has no exported member 'backfillPostgresHotAuthTablesForAdmin'.",
+            "app/api/admin/storage/temporary-bootstrap-admins/route.ts(3,10): error TS2305: Module '\"@/lib/server/userStore\"' has no exported member 'cleanupTemporaryBootstrapAdminsForAdmin'.",
+            "app/api/assignments/[assignmentId]/corrections/route.ts(3,10): error TS2305: Module '\"@/lib/server/userStore\"' has no exported member 'recordAiGovernanceEvent'.",
+            "app/api/assignments/[assignmentId]/corrections/route.ts(3,35): error TS2305: Module '\"@/lib/server/userStore\"' has no exported member 'submitAssignmentWork'.",
+            "app/api/assignments/[assignmentId]/corrections/route.ts(4,100): error TS2307: Cannot find module '@/lib/server/aiGovernance' or its corresponding type declarations.",
+            "app/api/assignments/[assignmentId]/corrections/route.ts(10,15): error TS2305: Module '\"@/types\"' has no exported member 'AssignmentSubmissionInputType'.",
+            "app/api/assignments/[assignmentId]/corrections/route.ts(10,46): error TS2305: Module '\"@/types\"' has no exported member 'AssignmentSubmissionOcrResult'.",
+            "app/api/assignments/[assignmentId]/corrections/route.ts(34,13): error TS7006: Parameter 'error' implicitly has an 'any' type.",
+            "app/api/assignments/[assignmentId]/corrections/route.ts(72,15): error TS7006: Parameter 'error' implicitly has an 'any' type.",
+            "app/api/assignments/[assignmentId]/corrections/route.ts(94,15): error TS7006: Parameter 'error' implicitly has an 'any' type.",
+            "app/api/assignments/[assignmentId]/submissions/route.ts(3,10): error TS2305: Module '\"@/lib/server/userStore\"' has no exported member 'recordAiGovernanceEvent'.",
+            "app/api/assignments/[assignmentId]/submissions/route.ts(3,35): error TS2305: Module '\"@/lib/server/userStore\"' has no exported member 'submitAssignmentWork'.",
+            "app/api/assignments/[assignmentId]/submissions/route.ts(4,100): error TS2307: Cannot find module '@/lib/server/aiGovernance' or its corresponding type declarations.",
+            "app/api/assignments/[assignmentId]/submissions/route.ts(10,15): error TS2305: Module '\"@/types\"' has no exported member 'AssignmentSubmissionInputType'.",
+            "app/api/assignments/[assignmentId]/submissions/route.ts(10,46): error TS2305: Module '\"@/types\"' has no exported member 'AssignmentSubmissionOcrResult'.",
+            "app/api/assignments/[assignmentId]/submissions/route.ts(34,13): error TS7006: Parameter 'error' implicitly has an 'any' type.",
+            "app/api/assignments/[assignmentId]/submissions/route.ts(72,15): error TS7006: Parameter 'error' implicitly has an 'any' type.",
+            "app/api/assignments/[assignmentId]/submissions/route.ts(94,15): error TS7006: Parameter 'error' implicitly has an 'any' type.",
+            "app/api/classroom/live/[sessionId]/work-samples/route.ts(3,10): error TS2305: Module '\"@/lib/server/userStore\"' has no exported member 'createClassroomWorkSample'."
+          ]
+        }
+      },
+      "blockingReasons": [
+        "A11 regression evidence typeCheck failed",
+        "A11 regression evidence regressionPlaywright failed"
+      ],
+      "ready": false,
+      "checkReuseSourceGeneratedAt": "2026-07-10T17:02:09.863Z",
+      "checkReuseReason": "worktree head/status, pathspec coverage, node_modules, and check commands are unchanged"
+    },
+    {
+      "packageId": "a13-a14-console",
+      "name": "A13/A14 console",
+      "owners": [
+        "A13 teacher console",
+        "A14 parent console"
+      ],
+      "approvalIds": [
+        "a13-teacher-console",
+        "a14-parent-console"
+      ],
+      "worktree": {
+        "path": "/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A13-A14-console-closure",
+        "exists": true,
+        "branch": "codex/A13-A14-console-closure",
+        "head": "cef544e09",
+        "statusSignature": "9e36424fd6eb6b29c2a11fe5b5ad8d98be6502ef2021f60dce342f695ee504d5",
+        "nodeModulesPresent": true
+      },
+      "pathspecs": {
+        "files": [
+          "coordination/release-intake/latest-A25-owner-a13-teacher-console.pathspec",
+          "coordination/release-intake/latest-A25-owner-a14-parent-console.pathspec"
+        ],
+        "checksum": "258f530c87d790fbe91dc1445a28033bd4293f68f0a06327c0053997961e319a",
+        "allowedPaths": 44
+      },
+      "pathspecCoverage": {
+        "statusEntries": 43,
+        "coveredEntries": 43,
+        "uncoveredEntries": 0,
+        "uncovered": []
+      },
+      "checkExecutionMode": "reused",
+      "checks": {
+        "typeCheck": {
+          "command": "npm run type-check -- --pretty false",
+          "status": 2,
+          "passed": false,
+          "stdout": [
+            "> hk-math-lab-template@0.1.0 type-check",
+            "> tsc --noEmit --incremental false --pretty false",
+            "app/api/admin/ai-governance/summary/route.ts(3,43): error TS2307: Cannot find module '@/lib/server/aiGovernance' or its corresponding type declarations.",
+            "app/api/admin/ai-governance/summary/route.ts(4,10): error TS2305: Module '\"@/lib/server/userStore\"' has no exported member 'getAiGovernanceSummaryForAdmin'.",
+            "app/api/admin/nova-lens/policy/route.ts(3,10): error TS2305: Module '\"@/lib/server/userStore\"' has no exported member 'getNovaLensPolicy'.",
+            "app/api/admin/nova-lens/policy/route.ts(3,29): error TS2305: Module '\"@/lib/server/userStore\"' has no exported member 'listNovaLensPolicyEventsForAdmin'.",
+            "app/api/admin/nova-lens/policy/route.ts(3,63): error TS2305: Module '\"@/lib/server/userStore\"' has no exported member 'updateNovaLensPolicy'.",
+            "app/api/admin/nova-lens/policy/route.ts(4,15): error TS2305: Module '\"@/types\"' has no exported member 'NovaLensPolicy'.",
+            "app/api/admin/storage/hot-auth/backfill/route.ts(3,10): error TS2305: Module '\"@/lib/server/userStore\"' has no exported member 'backfillPostgresHotAuthTablesForAdmin'.",
+            "app/api/admin/storage/temporary-bootstrap-admins/route.ts(3,10): error TS2305: Module '\"@/lib/server/userStore\"' has no exported member 'cleanupTemporaryBootstrapAdminsForAdmin'.",
+            "app/api/assignments/[assignmentId]/corrections/route.ts(3,10): error TS2305: Module '\"@/lib/server/userStore\"' has no exported member 'recordAiGovernanceEvent'.",
+            "app/api/assignments/[assignmentId]/corrections/route.ts(3,35): error TS2305: Module '\"@/lib/server/userStore\"' has no exported member 'submitAssignmentWork'.",
+            "app/api/assignments/[assignmentId]/corrections/route.ts(4,100): error TS2307: Cannot find module '@/lib/server/aiGovernance' or its corresponding type declarations.",
+            "app/api/assignments/[assignmentId]/corrections/route.ts(10,15): error TS2305: Module '\"@/types\"' has no exported member 'AssignmentSubmissionInputType'.",
+            "app/api/assignments/[assignmentId]/corrections/route.ts(10,46): error TS2305: Module '\"@/types\"' has no exported member 'AssignmentSubmissionOcrResult'.",
+            "app/api/assignments/[assignmentId]/corrections/route.ts(34,13): error TS7006: Parameter 'error' implicitly has an 'any' type.",
+            "app/api/assignments/[assignmentId]/corrections/route.ts(72,15): error TS7006: Parameter 'error' implicitly has an 'any' type.",
+            "app/api/assignments/[assignmentId]/corrections/route.ts(94,15): error TS7006: Parameter 'error' implicitly has an 'any' type.",
+            "app/api/assignments/[assignmentId]/submissions/route.ts(3,10): error TS2305: Module '\"@/lib/server/userStore\"' has no exported member 'recordAiGovernanceEvent'.",
+            "app/api/assignments/[assignmentId]/submissions/route.ts(3,35): error TS2305: Module '\"@/lib/server/userStore\"' has no exported member 'submitAssignmentWork'.",
+            "app/api/assignments/[assignmentId]/submissions/route.ts(4,100): error TS2307: Cannot find module '@/lib/server/aiGovernance' or its corresponding type declarations.",
+            "app/api/assignments/[assignmentId]/submissions/route.ts(10,15): error TS2305: Module '\"@/types\"' has no exported member 'AssignmentSubmissionInputType'.",
+            "app/api/assignments/[assignmentId]/submissions/route.ts(10,46): error TS2305: Module '\"@/types\"' has no exported member 'AssignmentSubmissionOcrResult'.",
+            "app/api/assignments/[assignmentId]/submissions/route.ts(34,13): error TS7006: Parameter 'error' implicitly has an 'any' type.",
+            "app/api/assignments/[assignmentId]/submissions/route.ts(72,15): error TS7006: Parameter 'error' implicitly has an 'any' type.",
+            "... 857 lines omitted ...",
+            "lib/teacherReviewLesson.ts(498,28): error TS7006: Parameter 'objective' implicitly has an 'any' type.",
+            "lib/teacherReviewLesson.ts(501,26): error TS7006: Parameter 'entry' implicitly has an 'any' type.",
+            "lib/teacherReviewLesson.ts(515,30): error TS7006: Parameter 'column' implicitly has an 'any' type.",
+            "lib/teacherReviewLesson.ts(517,28): error TS7006: Parameter 'block' implicitly has an 'any' type.",
+            "lib/teacherReviewLesson.ts(521,38): error TS7006: Parameter 'question' implicitly has an 'any' type.",
+            "lib/teacherReviewLesson.ts(521,48): error TS7006: Parameter 'index' implicitly has an 'any' type.",
+            "lib/teacherReviewLessonPptx.ts(4,3): error TS2305: Module '\"@/types\"' has no exported member 'TeacherReviewLessonItem'.",
+            "lib/teacherReviewLessonPptx.ts(5,3): error TS2305: Module '\"@/types\"' has no exported member 'TeacherReviewLessonItemCategory'.",
+            "lib/teacherReviewLessonPptx.ts(6,3): error TS2305: Module '\"@/types\"' has no exported member 'TeacherReviewLessonPlan'.",
+            "lib/teacherReviewLessonPptx.ts(7,3): error TS2305: Module '\"@/types\"' has no exported member 'TeacherReviewLessonPracticeQuestion'.",
+            "lib/teacherReviewLessonPptx.ts(147,14): error TS7006: Parameter 'item' implicitly has an 'any' type.",
+            "lib/teacherReviewLessonPptx.ts(148,12): error TS7006: Parameter 'a' implicitly has an 'any' type.",
+            "lib/teacherReviewLessonPptx.ts(148,15): error TS7006: Parameter 'b' implicitly has an 'any' type.",
+            "lib/teacherReviewLessonPptx.ts(196,26): error TS7006: Parameter 'objective' implicitly has an 'any' type.",
+            "lib/teacherReviewLessonPptx.ts(212,24): error TS7006: Parameter 'item' implicitly has an 'any' type.",
+            "lib/teacherReviewLessonPptx.ts(257,18): error TS7006: Parameter 'item' implicitly has an 'any' type.",
+            "lib/teacherReviewLessonPptx.ts(270,14): error TS7006: Parameter 'item' implicitly has an 'any' type.",
+            "lib/teacherReviewLessonPptx.ts(271,12): error TS7006: Parameter 'a' implicitly has an 'any' type.",
+            "lib/teacherReviewLessonPptx.ts(271,15): error TS7006: Parameter 'b' implicitly has an 'any' type.",
+            "lib/teacherReviewLessonPptx.ts(347,20): error TS7006: Parameter 'column' implicitly has an 'any' type.",
+            "lib/teacherReviewLessonPptx.ts(347,28): error TS7006: Parameter 'index' implicitly has an 'any' type.",
+            "lib/teacherReviewLessonPptx.ts(353,26): error TS7006: Parameter 'block' implicitly has an 'any' type.",
+            "lib/teacherReviewLessonPptx.ts(376,62): error TS7006: Parameter 'question' implicitly has an 'any' type.",
+            "lib/teacherReviewLessonPptx.ts(378,64): error TS7006: Parameter 'question' implicitly has an 'any' type.",
+            "lib/teacherReviewLessonPptx.ts(383,35): error TS2307: Cannot find module 'pptxgenjs' or its corresponding type declarations."
+          ]
+        },
+        "consolePlaywright": {
+          "command": "npx playwright test tests/e2e/teacher-workspace.spec.ts tests/e2e/parent-console.spec.ts tests/e2e/class-forum.spec.ts --project=desktop-chrome",
+          "status": 1,
+          "passed": false,
+          "stdout": [
+            "Error: Process from config.webServer was not able to start. Exit code: 1"
+          ],
+          "stderr": [
+            "\u001b[2m[WebServer] \u001b[22m(node:36266) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.",
+            "\u001b[2m[WebServer] \u001b[22m(Use `node --trace-warnings ...` to show where the warning was created)",
+            "\u001b[2m[WebServer] \u001b[22m(node:36271) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.",
+            "\u001b[2m[WebServer] \u001b[22m(Use `node --trace-warnings ...` to show where the warning was created)",
+            "\u001b[2m[WebServer] \u001b[22mFailed to compile.",
+            "\u001b[2m[WebServer] \u001b[22m",
+            "\u001b[2m[WebServer] \u001b[22m./app/visualization-lab/page.tsx",
+            "\u001b[2m[WebServer] \u001b[22mModule not found: Can't resolve '@/app/visualization-lab/VisualizationLabBackToTopButton'",
+            "\u001b[2m[WebServer] \u001b[22m",
+            "\u001b[2m[WebServer] \u001b[22mhttps://nextjs.org/docs/messages/module-not-found",
+            "\u001b[2m[WebServer] \u001b[22m",
+            "\u001b[2m[WebServer] \u001b[22m./components/games/MathVirusBlasterGame.tsx",
+            "\u001b[2m[WebServer] \u001b[22mModule not found: Can't resolve '@/data/mathVirusBlaster'",
+            "\u001b[2m[WebServer] \u001b[22m",
+            "\u001b[2m[WebServer] \u001b[22mhttps://nextjs.org/docs/messages/module-not-found",
+            "\u001b[2m[WebServer] \u001b[22m",
+            "\u001b[2m[WebServer] \u001b[22m./components/games/MightyTankBattleGame.tsx",
+            "\u001b[2m[WebServer] \u001b[22mModule not found: Can't resolve '@/data/mightyTankBattle'",
+            "\u001b[2m[WebServer] \u001b[22m",
+            "\u001b[2m[WebServer] \u001b[22mhttps://nextjs.org/docs/messages/module-not-found",
+            "\u001b[2m[WebServer] \u001b[22m",
+            "\u001b[2m[WebServer] \u001b[22m./components/lesson/CaliforniaHighSchoolTextbookPage.tsx",
+            "\u001b[2m[WebServer] \u001b[22mModule not found: Can't resolve '@/data/usCaliforniaHighSchoolLessonIllustrations'",
+            "\u001b[2m[WebServer] \u001b[22m",
+            "\u001b[2m[WebServer] \u001b[22mhttps://nextjs.org/docs/messages/module-not-found",
+            "\u001b[2m[WebServer] \u001b[22m",
+            "\u001b[2m[WebServer] \u001b[22m./components/lesson/CaliforniaHighSchoolTextbookStudentPage.tsx",
+            "\u001b[2m[WebServer] \u001b[22mModule not found: Can't resolve '@/data/usCaliforniaHighSchoolLessonIllustrations'",
+            "\u001b[2m[WebServer] \u001b[22m",
+            "\u001b[2m[WebServer] \u001b[22mhttps://nextjs.org/docs/messages/module-not-found",
+            "\u001b[2m[WebServer] \u001b[22m",
+            "\u001b[2m[WebServer] \u001b[22m",
+            "\u001b[2m[WebServer] \u001b[22m> Build failed because of webpack errors"
+          ]
+        }
+      },
+      "typeCheck": {
+        "passed": false,
+        "status": 2,
+        "skipped": false,
+        "summary": {
+          "errorLines": 865,
+          "byTop": {
+            "app": 132,
+            "components": 632,
+            "lib": 101
+          },
+          "topFiles": [
+            {
+              "file": "components/visualizations/three/scenes/TemplatePrimitiveScene.tsx",
+              "errors": 206
+            },
+            {
+              "file": "components/teacher/TeacherResourceAssessmentViews.tsx",
+              "errors": 96
+            },
+            {
+              "file": "components/teacher/TeacherLiveView.tsx",
+              "errors": 36
+            },
+            {
+              "file": "components/teacher/TeacherPrepViews.tsx",
+              "errors": 36
+            },
+            {
+              "file": "components/teacher/TeacherOperationsView.tsx",
+              "errors": 32
+            },
+            {
+              "file": "components/teacher/TeacherManagementViews.tsx",
+              "errors": 31
+            },
+            {
+              "file": "lib/teacherReviewLesson.ts",
+              "errors": 30
+            },
+            {
+              "file": "components/teacher/TeacherReviewLessonView.tsx",
+              "errors": 25
+            },
+            {
+              "file": "components/visualizations/three/ThreeDGraphCanvas.tsx",
+              "errors": 21
+            },
+            {
+              "file": "lib/teacherReviewLessonPptx.ts",
+              "errors": 19
+            },
+            {
+              "file": "components/parent/ParentNoticesView.tsx",
+              "errors": 17
+            },
+            {
+              "file": "components/visualizations/VisualizationLabPage.tsx",
+              "errors": 16
+            },
+            {
+              "file": "components/games/MathVirusBlasterGame.tsx",
+              "errors": 13
+            },
+            {
+              "file": "components/visualizations/three/manim/MathSceneRuntime.tsx",
+              "errors": 12
+            },
+            {
+              "file": "components/games/MightyTankBattleGame.tsx",
+              "errors": 10
+            },
+            {
+              "file": "components/visualizations/three/ThreeDLabCanvas.tsx",
+              "errors": 10
+            },
+            {
+              "file": "app/api/teacher/review-lessons/[reviewLessonId]/route.ts",
+              "errors": 9
+            },
+            {
+              "file": "components/parent/ParentViews.tsx",
+              "errors": 9
+            },
+            {
+              "file": "components/visualizations/three/threeDSceneMath.catalog.test.ts",
+              "errors": 9
+            },
+            {
+              "file": "lib/server/teacherReviewLessonLLM.ts",
+              "errors": 9
+            }
+          ],
+          "firstErrors": [
+            "app/api/admin/ai-governance/summary/route.ts(3,43): error TS2307: Cannot find module '@/lib/server/aiGovernance' or its corresponding type declarations.",
+            "app/api/admin/ai-governance/summary/route.ts(4,10): error TS2305: Module '\"@/lib/server/userStore\"' has no exported member 'getAiGovernanceSummaryForAdmin'.",
+            "app/api/admin/nova-lens/policy/route.ts(3,10): error TS2305: Module '\"@/lib/server/userStore\"' has no exported member 'getNovaLensPolicy'.",
+            "app/api/admin/nova-lens/policy/route.ts(3,29): error TS2305: Module '\"@/lib/server/userStore\"' has no exported member 'listNovaLensPolicyEventsForAdmin'.",
+            "app/api/admin/nova-lens/policy/route.ts(3,63): error TS2305: Module '\"@/lib/server/userStore\"' has no exported member 'updateNovaLensPolicy'.",
+            "app/api/admin/nova-lens/policy/route.ts(4,15): error TS2305: Module '\"@/types\"' has no exported member 'NovaLensPolicy'.",
+            "app/api/admin/storage/hot-auth/backfill/route.ts(3,10): error TS2305: Module '\"@/lib/server/userStore\"' has no exported member 'backfillPostgresHotAuthTablesForAdmin'.",
+            "app/api/admin/storage/temporary-bootstrap-admins/route.ts(3,10): error TS2305: Module '\"@/lib/server/userStore\"' has no exported member 'cleanupTemporaryBootstrapAdminsForAdmin'.",
+            "app/api/assignments/[assignmentId]/corrections/route.ts(3,10): error TS2305: Module '\"@/lib/server/userStore\"' has no exported member 'recordAiGovernanceEvent'.",
+            "app/api/assignments/[assignmentId]/corrections/route.ts(3,35): error TS2305: Module '\"@/lib/server/userStore\"' has no exported member 'submitAssignmentWork'.",
+            "app/api/assignments/[assignmentId]/corrections/route.ts(4,100): error TS2307: Cannot find module '@/lib/server/aiGovernance' or its corresponding type declarations.",
+            "app/api/assignments/[assignmentId]/corrections/route.ts(10,15): error TS2305: Module '\"@/types\"' has no exported member 'AssignmentSubmissionInputType'.",
+            "app/api/assignments/[assignmentId]/corrections/route.ts(10,46): error TS2305: Module '\"@/types\"' has no exported member 'AssignmentSubmissionOcrResult'.",
+            "app/api/assignments/[assignmentId]/corrections/route.ts(34,13): error TS7006: Parameter 'error' implicitly has an 'any' type.",
+            "app/api/assignments/[assignmentId]/corrections/route.ts(72,15): error TS7006: Parameter 'error' implicitly has an 'any' type.",
+            "app/api/assignments/[assignmentId]/corrections/route.ts(94,15): error TS7006: Parameter 'error' implicitly has an 'any' type.",
+            "app/api/assignments/[assignmentId]/submissions/route.ts(3,10): error TS2305: Module '\"@/lib/server/userStore\"' has no exported member 'recordAiGovernanceEvent'.",
+            "app/api/assignments/[assignmentId]/submissions/route.ts(3,35): error TS2305: Module '\"@/lib/server/userStore\"' has no exported member 'submitAssignmentWork'.",
+            "app/api/assignments/[assignmentId]/submissions/route.ts(4,100): error TS2307: Cannot find module '@/lib/server/aiGovernance' or its corresponding type declarations.",
+            "app/api/assignments/[assignmentId]/submissions/route.ts(10,15): error TS2305: Module '\"@/types\"' has no exported member 'AssignmentSubmissionInputType'.",
+            "app/api/assignments/[assignmentId]/submissions/route.ts(10,46): error TS2305: Module '\"@/types\"' has no exported member 'AssignmentSubmissionOcrResult'.",
+            "app/api/assignments/[assignmentId]/submissions/route.ts(34,13): error TS7006: Parameter 'error' implicitly has an 'any' type.",
+            "app/api/assignments/[assignmentId]/submissions/route.ts(72,15): error TS7006: Parameter 'error' implicitly has an 'any' type.",
+            "app/api/assignments/[assignmentId]/submissions/route.ts(94,15): error TS7006: Parameter 'error' implicitly has an 'any' type.",
+            "app/api/classroom/live/[sessionId]/work-samples/route.ts(3,10): error TS2305: Module '\"@/lib/server/userStore\"' has no exported member 'createClassroomWorkSample'."
+          ]
+        }
+      },
+      "blockingReasons": [
+        "A13/A14 console typeCheck failed",
+        "A13/A14 console consolePlaywright failed"
+      ],
+      "ready": false,
+      "checkReuseSourceGeneratedAt": "2026-07-10T17:02:09.863Z",
+      "checkReuseReason": "worktree head/status, pathspec coverage, node_modules, and check commands are unchanged"
+    },
+    {
+      "packageId": "a16-research-evidence",
+      "name": "A16 research evidence",
+      "owners": [
+        "A16 research and learning science"
+      ],
+      "approvalIds": [
+        "a16-research-and-learning-science"
+      ],
+      "worktree": {
+        "path": "/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A16-research-evidence-closure",
+        "exists": true,
+        "branch": "codex/A16-research-evidence-closure",
+        "head": "cef544e09",
+        "statusSignature": "5c16bd55641262fe40be892952805688e66b2d56a11063c11279ccf867c4b9ef",
+        "nodeModulesPresent": true
+      },
+      "pathspecs": {
+        "files": [
+          "coordination/release-intake/latest-A25-owner-a16-research-and-learning-science.pathspec"
+        ],
+        "checksum": "5b370baf388a9116bf0951d86fe2b70582fefced82b19bed03dbb785d3aeb77e",
+        "allowedPaths": 6
+      },
+      "pathspecCoverage": {
+        "statusEntries": 6,
+        "coveredEntries": 6,
+        "uncoveredEntries": 0,
+        "uncovered": []
+      },
+      "checks": {},
+      "typeCheck": {
+        "passed": false,
+        "status": null,
+        "skipped": true,
+        "summary": {
+          "errorLines": 0,
+          "byTop": {},
+          "topFiles": [],
+          "firstErrors": []
+        }
+      },
+      "blockingReasons": [],
+      "ready": true,
+      "checkExecutionMode": "reused",
+      "checkReuseSourceGeneratedAt": "2026-07-10T17:02:09.863Z",
+      "checkReuseReason": "worktree head/status, pathspec coverage, node_modules, and check commands are unchanged"
+    },
+    {
+      "packageId": "a17-a20-game-motivation",
+      "name": "A17/A20 games and motivation",
+      "owners": [
+        "A17 gamification and motivation",
+        "A20 game design and game-based learning"
+      ],
+      "approvalIds": [
+        "a17-gamification-and-motivation",
+        "a20-game-design-and-game-based-learning"
+      ],
+      "worktree": {
+        "path": "/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A17-A20-game-motivation-closure",
+        "exists": true,
+        "branch": "codex/A17-A20-game-motivation-closure",
+        "head": "cef544e09",
+        "statusSignature": "c185e4dae6f766445676ecbf830e0e814110c9ac1a4cf9c616f2476f0a320d83",
+        "nodeModulesPresent": true
+      },
+      "pathspecs": {
+        "files": [
+          "coordination/release-intake/latest-A25-owner-a17-gamification-and-motivation.pathspec",
+          "coordination/release-intake/latest-A25-owner-a20-game-design-and-game-based-learning.pathspec"
+        ],
+        "checksum": "533ebc0e5e14ebee517d70136efd8e4745e152a9b10ab6f8115efead7b264be0",
+        "allowedPaths": 21
+      },
+      "pathspecCoverage": {
+        "statusEntries": 21,
+        "coveredEntries": 21,
+        "uncoveredEntries": 0,
+        "uncovered": []
+      },
+      "checks": {
+        "typeCheck": {
+          "command": "npm run type-check -- --pretty false",
+          "status": 2,
+          "passed": false,
+          "stdout": [
+            "> hk-math-lab-template@0.1.0 type-check",
+            "> tsc --noEmit --incremental false --pretty false",
+            "app/api/admin/ai-governance/summary/route.ts(3,43): error TS2307: Cannot find module '@/lib/server/aiGovernance' or its corresponding type declarations.",
+            "app/api/admin/ai-governance/summary/route.ts(4,10): error TS2305: Module '\"@/lib/server/userStore\"' has no exported member 'getAiGovernanceSummaryForAdmin'.",
+            "app/api/admin/nova-lens/policy/route.ts(3,10): error TS2305: Module '\"@/lib/server/userStore\"' has no exported member 'getNovaLensPolicy'.",
+            "app/api/admin/nova-lens/policy/route.ts(3,29): error TS2305: Module '\"@/lib/server/userStore\"' has no exported member 'listNovaLensPolicyEventsForAdmin'.",
+            "app/api/admin/nova-lens/policy/route.ts(3,63): error TS2305: Module '\"@/lib/server/userStore\"' has no exported member 'updateNovaLensPolicy'.",
+            "app/api/admin/nova-lens/policy/route.ts(4,15): error TS2305: Module '\"@/types\"' has no exported member 'NovaLensPolicy'.",
+            "app/api/admin/storage/hot-auth/backfill/route.ts(3,10): error TS2305: Module '\"@/lib/server/userStore\"' has no exported member 'backfillPostgresHotAuthTablesForAdmin'.",
+            "app/api/admin/storage/temporary-bootstrap-admins/route.ts(3,10): error TS2305: Module '\"@/lib/server/userStore\"' has no exported member 'cleanupTemporaryBootstrapAdminsForAdmin'.",
+            "app/api/assignments/[assignmentId]/corrections/route.ts(3,10): error TS2305: Module '\"@/lib/server/userStore\"' has no exported member 'recordAiGovernanceEvent'.",
+            "app/api/assignments/[assignmentId]/corrections/route.ts(3,35): error TS2305: Module '\"@/lib/server/userStore\"' has no exported member 'submitAssignmentWork'.",
+            "app/api/assignments/[assignmentId]/corrections/route.ts(4,100): error TS2307: Cannot find module '@/lib/server/aiGovernance' or its corresponding type declarations.",
+            "app/api/assignments/[assignmentId]/corrections/route.ts(10,15): error TS2305: Module '\"@/types\"' has no exported member 'AssignmentSubmissionInputType'.",
+            "app/api/assignments/[assignmentId]/corrections/route.ts(10,46): error TS2305: Module '\"@/types\"' has no exported member 'AssignmentSubmissionOcrResult'.",
+            "app/api/assignments/[assignmentId]/corrections/route.ts(34,13): error TS7006: Parameter 'error' implicitly has an 'any' type.",
+            "app/api/assignments/[assignmentId]/corrections/route.ts(72,15): error TS7006: Parameter 'error' implicitly has an 'any' type.",
+            "app/api/assignments/[assignmentId]/corrections/route.ts(94,15): error TS7006: Parameter 'error' implicitly has an 'any' type.",
+            "app/api/assignments/[assignmentId]/submissions/route.ts(3,10): error TS2305: Module '\"@/lib/server/userStore\"' has no exported member 'recordAiGovernanceEvent'.",
+            "app/api/assignments/[assignmentId]/submissions/route.ts(3,35): error TS2305: Module '\"@/lib/server/userStore\"' has no exported member 'submitAssignmentWork'.",
+            "app/api/assignments/[assignmentId]/submissions/route.ts(4,100): error TS2307: Cannot find module '@/lib/server/aiGovernance' or its corresponding type declarations.",
+            "app/api/assignments/[assignmentId]/submissions/route.ts(10,15): error TS2305: Module '\"@/types\"' has no exported member 'AssignmentSubmissionInputType'.",
+            "app/api/assignments/[assignmentId]/submissions/route.ts(10,46): error TS2305: Module '\"@/types\"' has no exported member 'AssignmentSubmissionOcrResult'.",
+            "app/api/assignments/[assignmentId]/submissions/route.ts(34,13): error TS7006: Parameter 'error' implicitly has an 'any' type.",
+            "app/api/assignments/[assignmentId]/submissions/route.ts(72,15): error TS7006: Parameter 'error' implicitly has an 'any' type.",
+            "... 617 lines omitted ...",
+            "lib/teacherReviewLesson.ts(498,28): error TS7006: Parameter 'objective' implicitly has an 'any' type.",
+            "lib/teacherReviewLesson.ts(501,26): error TS7006: Parameter 'entry' implicitly has an 'any' type.",
+            "lib/teacherReviewLesson.ts(515,30): error TS7006: Parameter 'column' implicitly has an 'any' type.",
+            "lib/teacherReviewLesson.ts(517,28): error TS7006: Parameter 'block' implicitly has an 'any' type.",
+            "lib/teacherReviewLesson.ts(521,38): error TS7006: Parameter 'question' implicitly has an 'any' type.",
+            "lib/teacherReviewLesson.ts(521,48): error TS7006: Parameter 'index' implicitly has an 'any' type.",
+            "lib/teacherReviewLessonPptx.ts(4,3): error TS2305: Module '\"@/types\"' has no exported member 'TeacherReviewLessonItem'.",
+            "lib/teacherReviewLessonPptx.ts(5,3): error TS2305: Module '\"@/types\"' has no exported member 'TeacherReviewLessonItemCategory'.",
+            "lib/teacherReviewLessonPptx.ts(6,3): error TS2305: Module '\"@/types\"' has no exported member 'TeacherReviewLessonPlan'.",
+            "lib/teacherReviewLessonPptx.ts(7,3): error TS2305: Module '\"@/types\"' has no exported member 'TeacherReviewLessonPracticeQuestion'.",
+            "lib/teacherReviewLessonPptx.ts(147,14): error TS7006: Parameter 'item' implicitly has an 'any' type.",
+            "lib/teacherReviewLessonPptx.ts(148,12): error TS7006: Parameter 'a' implicitly has an 'any' type.",
+            "lib/teacherReviewLessonPptx.ts(148,15): error TS7006: Parameter 'b' implicitly has an 'any' type.",
+            "lib/teacherReviewLessonPptx.ts(196,26): error TS7006: Parameter 'objective' implicitly has an 'any' type.",
+            "lib/teacherReviewLessonPptx.ts(212,24): error TS7006: Parameter 'item' implicitly has an 'any' type.",
+            "lib/teacherReviewLessonPptx.ts(257,18): error TS7006: Parameter 'item' implicitly has an 'any' type.",
+            "lib/teacherReviewLessonPptx.ts(270,14): error TS7006: Parameter 'item' implicitly has an 'any' type.",
+            "lib/teacherReviewLessonPptx.ts(271,12): error TS7006: Parameter 'a' implicitly has an 'any' type.",
+            "lib/teacherReviewLessonPptx.ts(271,15): error TS7006: Parameter 'b' implicitly has an 'any' type.",
+            "lib/teacherReviewLessonPptx.ts(347,20): error TS7006: Parameter 'column' implicitly has an 'any' type.",
+            "lib/teacherReviewLessonPptx.ts(347,28): error TS7006: Parameter 'index' implicitly has an 'any' type.",
+            "lib/teacherReviewLessonPptx.ts(353,26): error TS7006: Parameter 'block' implicitly has an 'any' type.",
+            "lib/teacherReviewLessonPptx.ts(376,62): error TS7006: Parameter 'question' implicitly has an 'any' type.",
+            "lib/teacherReviewLessonPptx.ts(378,64): error TS7006: Parameter 'question' implicitly has an 'any' type.",
+            "lib/teacherReviewLessonPptx.ts(383,35): error TS2307: Cannot find module 'pptxgenjs' or its corresponding type declarations."
+          ]
+        },
+        "gameMotivationPlaywright": {
+          "command": "npx playwright test tests/e2e/adventure-island.spec.ts tests/e2e/fishing-game.spec.ts tests/e2e/gamification.spec.ts --project=desktop-chrome",
+          "status": 1,
+          "passed": false,
+          "stdout": [
+            "Error: EPERM: operation not permitted, unlink '/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A17-A20-game-motivation-closure/test-results/.last-run.json'"
+          ],
+          "stderr": [
+            "Error in reporter Error: EPERM: operation not permitted, open '/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A17-A20-game-motivation-closure/output/playwright-report/index.html'",
+            "    at open (node:internal/fs/promises:640:25)",
+            "    at Object.writeFile (node:internal/fs/promises:1257:14)",
+            "    at HtmlBuilder._writeStaticAssets (/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A17-A20-game-motivation-closure/node_modules/playwright/lib/reporters/html.js:330:7)",
+            "    at HtmlBuilder.build (/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A17-A20-game-motivation-closure/node_modules/playwright/lib/reporters/html.js:292:29)",
+            "    at HtmlReporter.onEnd (/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A17-A20-game-motivation-closure/node_modules/playwright/lib/reporters/html.js:128:25)",
+            "    at wrapAsync (/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A17-A20-game-motivation-closure/node_modules/playwright/lib/reporters/multiplexer.js:101:12)",
+            "    at Multiplexer.onEnd (/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A17-A20-game-motivation-closure/node_modules/playwright/lib/reporters/multiplexer.js:69:25)",
+            "    at InternalReporter.onEnd (/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A17-A20-game-motivation-closure/node_modules/playwright/lib/reporters/internalReporter.js:81:12)",
+            "    at finishTaskRun (/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A17-A20-game-motivation-closure/node_modules/playwright/lib/runner/tasks.js:94:26)",
+            "    at runTasks (/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A17-A20-game-motivation-closure/node_modules/playwright/lib/runner/tasks.js:81:10)",
+            "    at runAllTestsWithConfig (/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A17-A20-game-motivation-closure/node_modules/playwright/lib/runner/testRunner.js:388:18)",
+            "    at runTests (/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A17-A20-game-motivation-closure/node_modules/playwright/lib/testActions.js:96:18)",
+            "    at i.<anonymous> (/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A17-A20-game-motivation-closure/node_modules/playwright/lib/program.js:56:7) {",
+            "  errno: -1,",
+            "  code: 'EPERM',",
+            "  syscall: 'open',",
+            "  path: '/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A17-A20-game-motivation-closure/output/playwright-report/index.html'",
+            "}",
+            "Error in reporter Error: EPERM: operation not permitted, open '/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A17-A20-game-motivation-closure/test-results/.last-run.json'",
+            "    at open (node:internal/fs/promises:640:25)",
+            "    at Object.writeFile (node:internal/fs/promises:1257:14)",
+            "    at LastRunReporter.onEnd (/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A17-A20-game-motivation-closure/node_modules/playwright/lib/runner/lastRun.js:71:5)",
+            "    at wrapAsync (/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A17-A20-game-motivation-closure/node_modules/playwright/lib/reporters/multiplexer.js:101:12)",
+            "    at Multiplexer.onEnd (/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A17-A20-game-motivation-closure/node_modules/playwright/lib/reporters/multiplexer.js:69:25)",
+            "    at InternalReporter.onEnd (/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A17-A20-game-motivation-closure/node_modules/playwright/lib/reporters/internalReporter.js:81:12)",
+            "    at finishTaskRun (/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A17-A20-game-motivation-closure/node_modules/playwright/lib/runner/tasks.js:94:26)",
+            "    at runTasks (/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A17-A20-game-motivation-closure/node_modules/playwright/lib/runner/tasks.js:81:10)",
+            "    at runAllTestsWithConfig (/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A17-A20-game-motivation-closure/node_modules/playwright/lib/runner/testRunner.js:388:18)",
+            "    at runTests (/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A17-A20-game-motivation-closure/node_modules/playwright/lib/testActions.js:96:18)",
+            "    at i.<anonymous> (/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A17-A20-game-motivation-closure/node_modules/playwright/lib/program.js:56:7) {",
+            "  errno: -1,",
+            "  code: 'EPERM',",
+            "  syscall: 'open',",
+            "  path: '/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A17-A20-game-motivation-closure/test-results/.last-run.json'",
+            "}"
+          ]
+        }
+      },
+      "typeCheck": {
+        "passed": false,
+        "status": 2,
+        "skipped": false,
+        "summary": {
+          "errorLines": 623,
+          "byTop": {
+            "app": 120,
+            "components": 402,
+            "lib": 101
+          },
+          "topFiles": [
+            {
+              "file": "components/visualizations/three/scenes/TemplatePrimitiveScene.tsx",
+              "errors": 206
+            },
+            {
+              "file": "components/teacher/TeacherPrepViews.tsx",
+              "errors": 36
+            },
+            {
+              "file": "components/teacher/TeacherOperationsView.tsx",
+              "errors": 32
+            },
+            {
+              "file": "lib/teacherReviewLesson.ts",
+              "errors": 30
+            },
+            {
+              "file": "components/teacher/TeacherReviewLessonView.tsx",
+              "errors": 25
+            },
+            {
+              "file": "components/visualizations/three/ThreeDGraphCanvas.tsx",
+              "errors": 21
+            },
+            {
+              "file": "lib/teacherReviewLessonPptx.ts",
+              "errors": 19
+            },
+            {
+              "file": "components/visualizations/VisualizationLabPage.tsx",
+              "errors": 16
+            },
+            {
+              "file": "components/visualizations/three/manim/MathSceneRuntime.tsx",
+              "errors": 12
+            },
+            {
+              "file": "components/visualizations/three/ThreeDLabCanvas.tsx",
+              "errors": 10
+            },
+            {
+              "file": "app/api/teacher/review-lessons/[reviewLessonId]/route.ts",
+              "errors": 9
+            },
+            {
+              "file": "components/visualizations/three/threeDSceneMath.catalog.test.ts",
+              "errors": 9
+            },
+            {
+              "file": "lib/server/teacherReviewLessonLLM.ts",
+              "errors": 9
+            },
+            {
+              "file": "lib/teacherAssessmentAnalysis.ts",
+              "errors": 9
+            },
+            {
+              "file": "app/api/assignments/[assignmentId]/corrections/route.ts",
+              "errors": 8
+            },
+            {
+              "file": "app/api/assignments/[assignmentId]/submissions/route.ts",
+              "errors": 8
+            },
+            {
+              "file": "app/api/classroom/live/[sessionId]/work-samples/route.ts",
+              "errors": 8
+            },
+            {
+              "file": "app/api/me/learner-profile/route.ts",
+              "errors": 7
+            },
+            {
+              "file": "components/lesson/CaliforniaHighSchoolTextbookPage.tsx",
+              "errors": 7
+            },
+            {
+              "file": "components/lesson/CaliforniaHighSchoolTextbookStudentPage.tsx",
+              "errors": 7
+            }
+          ],
+          "firstErrors": [
+            "app/api/admin/ai-governance/summary/route.ts(3,43): error TS2307: Cannot find module '@/lib/server/aiGovernance' or its corresponding type declarations.",
+            "app/api/admin/ai-governance/summary/route.ts(4,10): error TS2305: Module '\"@/lib/server/userStore\"' has no exported member 'getAiGovernanceSummaryForAdmin'.",
+            "app/api/admin/nova-lens/policy/route.ts(3,10): error TS2305: Module '\"@/lib/server/userStore\"' has no exported member 'getNovaLensPolicy'.",
+            "app/api/admin/nova-lens/policy/route.ts(3,29): error TS2305: Module '\"@/lib/server/userStore\"' has no exported member 'listNovaLensPolicyEventsForAdmin'.",
+            "app/api/admin/nova-lens/policy/route.ts(3,63): error TS2305: Module '\"@/lib/server/userStore\"' has no exported member 'updateNovaLensPolicy'.",
+            "app/api/admin/nova-lens/policy/route.ts(4,15): error TS2305: Module '\"@/types\"' has no exported member 'NovaLensPolicy'.",
+            "app/api/admin/storage/hot-auth/backfill/route.ts(3,10): error TS2305: Module '\"@/lib/server/userStore\"' has no exported member 'backfillPostgresHotAuthTablesForAdmin'.",
+            "app/api/admin/storage/temporary-bootstrap-admins/route.ts(3,10): error TS2305: Module '\"@/lib/server/userStore\"' has no exported member 'cleanupTemporaryBootstrapAdminsForAdmin'.",
+            "app/api/assignments/[assignmentId]/corrections/route.ts(3,10): error TS2305: Module '\"@/lib/server/userStore\"' has no exported member 'recordAiGovernanceEvent'.",
+            "app/api/assignments/[assignmentId]/corrections/route.ts(3,35): error TS2305: Module '\"@/lib/server/userStore\"' has no exported member 'submitAssignmentWork'.",
+            "app/api/assignments/[assignmentId]/corrections/route.ts(4,100): error TS2307: Cannot find module '@/lib/server/aiGovernance' or its corresponding type declarations.",
+            "app/api/assignments/[assignmentId]/corrections/route.ts(10,15): error TS2305: Module '\"@/types\"' has no exported member 'AssignmentSubmissionInputType'.",
+            "app/api/assignments/[assignmentId]/corrections/route.ts(10,46): error TS2305: Module '\"@/types\"' has no exported member 'AssignmentSubmissionOcrResult'.",
+            "app/api/assignments/[assignmentId]/corrections/route.ts(34,13): error TS7006: Parameter 'error' implicitly has an 'any' type.",
+            "app/api/assignments/[assignmentId]/corrections/route.ts(72,15): error TS7006: Parameter 'error' implicitly has an 'any' type.",
+            "app/api/assignments/[assignmentId]/corrections/route.ts(94,15): error TS7006: Parameter 'error' implicitly has an 'any' type.",
+            "app/api/assignments/[assignmentId]/submissions/route.ts(3,10): error TS2305: Module '\"@/lib/server/userStore\"' has no exported member 'recordAiGovernanceEvent'.",
+            "app/api/assignments/[assignmentId]/submissions/route.ts(3,35): error TS2305: Module '\"@/lib/server/userStore\"' has no exported member 'submitAssignmentWork'.",
+            "app/api/assignments/[assignmentId]/submissions/route.ts(4,100): error TS2307: Cannot find module '@/lib/server/aiGovernance' or its corresponding type declarations.",
+            "app/api/assignments/[assignmentId]/submissions/route.ts(10,15): error TS2305: Module '\"@/types\"' has no exported member 'AssignmentSubmissionInputType'.",
+            "app/api/assignments/[assignmentId]/submissions/route.ts(10,46): error TS2305: Module '\"@/types\"' has no exported member 'AssignmentSubmissionOcrResult'.",
+            "app/api/assignments/[assignmentId]/submissions/route.ts(34,13): error TS7006: Parameter 'error' implicitly has an 'any' type.",
+            "app/api/assignments/[assignmentId]/submissions/route.ts(72,15): error TS7006: Parameter 'error' implicitly has an 'any' type.",
+            "app/api/assignments/[assignmentId]/submissions/route.ts(94,15): error TS7006: Parameter 'error' implicitly has an 'any' type.",
+            "app/api/classroom/live/[sessionId]/work-samples/route.ts(3,10): error TS2305: Module '\"@/lib/server/userStore\"' has no exported member 'createClassroomWorkSample'."
+          ]
+        }
+      },
+      "blockingReasons": [
+        "A17/A20 games and motivation typeCheck failed",
+        "A17/A20 games and motivation gameMotivationPlaywright failed"
+      ],
+      "ready": false,
+      "checkExecutionMode": "reused",
+      "checkReuseSourceGeneratedAt": "2026-07-10T17:02:09.863Z",
+      "checkReuseReason": "worktree head/status, pathspec coverage, node_modules, and check commands are unchanged"
+    }
+  ],
+  "summary": {
+    "packages": 7,
+    "readyPackages": 1,
+    "missingWorktrees": 0,
+    "statusEntries": 586,
+    "coveredEntries": 586,
+    "uncoveredEntries": 0,
+    "checkCount": 12,
+    "passedChecks": 0,
+    "failedChecks": 12,
+    "skippedChecks": 0,
+    "typeCheckErrors": 4174
+  },
+  "commitReady": false,
+  "cleanupAuthorized": false,
+  "executableNow": false,
+  "blockingReasons": [
+    "A06 visualization typeCheck failed",
+    "A06 visualization visualizationNodeTests failed",
+    "A06 visualization visualizationPlaywright failed",
+    "A07 AI tutor typeCheck failed",
+    "A07 AI tutor aiTutorPlaywright failed",
+    "A09 copy/i18n/accessibility typeCheck failed",
+    "A11 regression evidence typeCheck failed",
+    "A11 regression evidence regressionPlaywright failed",
+    "A13/A14 console typeCheck failed",
+    "A13/A14 console consolePlaywright failed",
+    "A17/A20 games and motivation typeCheck failed",
+    "A17/A20 games and motivation gameMotivationPlaywright failed"
+  ]
+}

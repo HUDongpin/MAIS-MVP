@@ -1,0 +1,754 @@
+diff --git a/coordination/reports/2026-06-29-A19-vercel-postgres-region.md b/coordination/reports/2026-06-29-A19-vercel-postgres-region.md
+new file mode 100644
+index 000000000..f207e8390
+--- /dev/null
++++ b/coordination/reports/2026-06-29-A19-vercel-postgres-region.md
+@@ -0,0 +1,109 @@
++# 2026-06-29 A19 Vercel Postgres Region Verification
++
++## Scope
++
++- Agent: A19, API configuration and deployment env readiness.
++- Consuming owner: A22 release engineering.
++- Objective: confirm, in redacted form, whether Vercel Preview and Production `POSTGRES_URL` point to Neon US West.
++- Provider/variable: Neon/Postgres, server-only `POSTGRES_URL`.
++- Targets: Vercel Preview and Vercel Production.
++- Secret handling: no raw Vercel token, org ID, project ID, Postgres URL, database hostname, password, or credential string was written to this report.
++
++## Current Result
++
++Status: verified and aligned.
++
++Authoritative Vercel cloud env evidence:
++
++- Preview `POSTGRES_URL`: present; provider `neon`; region `aws-us-west-2`; `usWestNeon: true`.
++- Production `POSTGRES_URL`: present; provider `neon`; region `aws-us-west-2`; `usWestNeon: true`.
++
++This satisfies the requested redacted confirmation: Vercel Preview and Production `POSTGRES_URL` now point to US West Neon.
++
++Evidence gathered:
++
++- Local Vercel project link: present in the dirty root checkout.
++- Vercel CLI auth: present.
++- Shell `VERCEL_TOKEN`: missing, but CLI auth was sufficient for cloud env reads.
++- Shell `VERCEL_ORG_ID` / `VERCEL_PROJECT_ID`: missing; linked root `.vercel/project.json` supplied project targeting to the child process without printing IDs.
++- Owner-approved `All API Keys.docx`: present, but no Vercel entry/token pattern, no Neon signal, no Postgres URL, and no US West signal found.
++- Safe local secret-file name scan: no Vercel auth variable names surfaced.
++- Existing `/api/admin/storage/health` route: useful for durable Postgres readiness after authenticated admin access, but it does not prove Neon region.
++- Owner authorized creating a US West Neon/Postgres target after the initial blocker.
++- Vercel Neon Marketplace resource `mais-us-west-postgres` was provisioned with metadata `region=pdx1`, `auth=false`, plan `free_v3`, and connected to Preview and Production with `USWEST_`-prefixed variables.
++- The prefixed `USWEST_POSTGRES_URL`, `USWEST_DATABASE_URL`, and `USWEST_POSTGRES_HOST` classified as Neon `aws-us-west-2` in both Preview and Production before promotion.
++- A stray unconnected probe resource created during CLI capability discovery was removed before the intended resource was created.
++
++## App State Copy
++
++- Local TCP Postgres transport to Neon timed out from this machine for both old and new targets, so direct `postgres` TCP migration was not used.
++- Neon HTTPS/serverless SQL connectivity succeeded to both the old source and new US West target.
++- Production `app_state` was copied from the old `POSTGRES_URL` target to `USWEST_POSTGRES_URL` before promoting `POSTGRES_URL`.
++- Redacted copy evidence: source row count `1`, target row count after copy `1`, source hash `51a59c6fa492782b`, target hash `51a59c6fa492782b`.
++
++No payloads, database URLs, hostnames, passwords, project IDs, or row contents were printed or stored.
++
++## Promotion Notes
++
++- `POSTGRES_URL` was first removed from the prior Singapore-backed env target, then restored from the verified US West value.
++- Vercel CLI rejected stdin for all-Preview-branches noninteractive add, so the final Preview/Production `POSTGRES_URL` promotion used authenticated `vercel api` with request body from stdin.
++- `POSTGRES_URL` is now one encrypted Vercel env record targeting both Production and Preview.
++- The non-secret runtime provider flag `HK_MATH_STORAGE_PROVIDER=postgres` was converted from old sensitive records to readable encrypted env records for Production and Preview so CLI-created deployments can pick it up consistently; no credential values were involved.
++- The legacy unprefixed Neon env family (`DATABASE_URL`, `POSTGRES_PRISMA_URL`, `POSTGRES_URL_NON_POOLING`, `DATABASE_URL_UNPOOLED`, `POSTGRES_URL_NO_SSL`, `POSTGRES_HOST`, etc.) still points at the older Neon project/region. MAIS runtime storage uses `POSTGRES_URL`, but A19/A22 should not treat the broader DB env family as region-aligned until those variables are intentionally reconciled.
++- A22 later redeployed Production and confirmed live production auth/storage writes landed in the current Production `POSTGRES_URL` target. See `coordination/reports/2026-06-29-A22-us-region-alignment.md` for deployment and runtime pickup evidence.
++
++## Added Verifier
++
++Added `scripts/verify-vercel-postgres-region.mjs`.
++
++The verifier:
++
++- Reads Vercel project linkage from `.vercel/project.json` or accepts project/team via env/flags.
++- Requires a runtime-only `VERCEL_TOKEN`.
++- Uses Vercel REST API env metadata with `decrypt=true` in process memory only.
++- Also supports `--from-process-env` for the safer Vercel CLI `env run` path.
++- Prints only `POSTGRES_URL` target status, provider classification, and region classification.
++- Does not print or persist the raw Postgres URL.
++- Treats only Neon `aws-us-west-2` as aligned for the US West classroom objective.
++
++Preferred run path from the linked root checkout after Vercel CLI auth is available:
++
++```bash
++vercel env run -e preview -- node /Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A19-vercel-postgres-region/scripts/verify-vercel-postgres-region.mjs --from-process-env --target preview
++vercel env run -e production -- node /Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A19-vercel-postgres-region/scripts/verify-vercel-postgres-region.mjs --from-process-env --target production
++```
++
++Alternate run path when a runtime-only `VERCEL_TOKEN` is available to the process:
++
++```bash
++node /Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A19-vercel-postgres-region/scripts/verify-vercel-postgres-region.mjs
++```
++
++Expected completion evidence:
++
++- `ok: true`
++- `targets[].target` includes both `preview` and `production`
++- each target has `status: "verified"`
++- each target has `provider: "neon"`
++- each target has `region: "aws-us-west-2"`
++- each target has `usWestNeon: true`
++
++Any `missing`, `unreadable`, `api-error`, or non-`aws-us-west-2` result means A19 must update Vercel env placement before A22 treats the US classroom release as region-aligned.
++
++## Verification Run
++
++- `node --test scripts/verify-vercel-postgres-region.test.mjs`: passed, 4/4.
++- Linked-root Vercel cloud env run for Preview after promotion: verified `POSTGRES_URL` as Neon `aws-us-west-2`; `usWestNeon: true`.
++- Linked-root Vercel cloud env run for Production after promotion: verified `POSTGRES_URL` as Neon `aws-us-west-2`; `usWestNeon: true`.
++- Linked-root Vercel cloud env run after the stable-source `pdx1` deployment: Preview and Production `POSTGRES_URL` still verify as Neon `aws-us-west-2`; `usWestNeon: true`.
++- Linked-root Vercel cloud env run: Preview and Production `HK_MATH_STORAGE_PROVIDER` are present and equal to `postgres`.
++- A22 final live deployment `dpl_CtyFaCuufrFmU971k2nN8ZTFPKMQ` passed production auth/storage smoke on `https://www.mais.hk`: registration, login, and `/api/me` all returned `200` with same-user verification.
++- Linked-root Vercel cloud env equality check: Preview and Production `POSTGRES_URL` both equal the verified `USWEST_POSTGRES_URL` value in process memory.
++- `vercel env ls` redacted name-only check: `POSTGRES_URL` exists for Production and Preview.
++- `git diff --check`: passed.
++
++## Sources Checked
++
++- Vercel REST API project environment variables: https://vercel.com/docs/rest-api/reference/endpoints/projects
++- Vercel CLI token guidance: https://vercel.com/docs/cli
++- Neon regions: https://neon.com/docs/introduction/regions
+diff --git a/coordination/reports/2026-06-29-A22-us-region-alignment.md b/coordination/reports/2026-06-29-A22-us-region-alignment.md
+new file mode 100644
+index 000000000..7ba1bc40b
+--- /dev/null
++++ b/coordination/reports/2026-06-29-A22-us-region-alignment.md
+@@ -0,0 +1,94 @@
++# 2026-06-29 A22 US Region Alignment
++
++## Scope
++
++- Agent: A22, production reliability and release engineering.
++- Coordination: A19 owns Postgres/Neon env parity; A12 owns core classroom API contracts; A07 owns AI Tutor route behavior.
++- Branch/worktree: `codex/A22-us-region-alignment` at `/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A22-us-region-alignment`.
++- Baseline: `main` commit `cef544e09`.
++- Secrets: no real `.env*`, Vercel, Neon, or provider credential values were read, copied, printed, or changed.
++
++## Decision
++
++- Set Vercel project-level Function region in `vercel.json` to `pdx1`.
++- `pdx1` is Vercel Portland / `us-west-2`, matching Neon AWS US West Oregon (`aws-us-west-2`) when the production `POSTGRES_URL` points at a US West Neon project.
++- This intentionally optimizes the high-chatter path for US West classrooms as: California browser -> Vercel CDN/PoP -> `pdx1` Node function -> Neon/Postgres US West.
++- I did not add multi-region function execution because DB-backed classroom APIs should avoid picking a compute region far from the single primary database unless A12/A19 add read replicas or a multi-region data strategy.
++
++## AI Tutor Handoff
++
++- Current committed branch state has no `preferredRegion = "hkg1"` in `app/api/ai-tutor/`.
++- A07 dirty worktree route pins were also narrowed in place by removing `preferredRegion = "hkg1"` from `app/api/ai-tutor/route.ts`, `app/api/ai-tutor/status/route.ts`, and `app/api/ai-tutor/resolve/route.ts`.
++- This does not change AI Tutor provider behavior, prompts, model choice, or quota semantics.
++- Added guard coverage so committed AI Tutor routes fail the release check if a hard Hong Kong pin is reintroduced.
++
++## A19 Database/Env Handoff
++
++- A19 verified, without exposing secrets, that Vercel Preview and Production `POSTGRES_URL` now point at Neon `aws-us-west-2`.
++- A19 created `mais-us-west-postgres`, copied `app_state`, and promoted the verified US West value to Preview and Production `POSTGRES_URL`.
++- Runtime code usage scan found app durable storage reads `process.env.POSTGRES_URL` in `lib/server/userStore.ts`; no app runtime code directly reads the legacy non-`POSTGRES_URL` Neon env family.
++- Therefore the legacy non-`POSTGRES_URL` DB variables were left untouched for now; they should be reconciled only if an owning session proves a runtime dependency.
++- Do not expose database URLs in reports or logs; record only redacted present/missing status and region/provider names.
++
++## Production Runtime Pickup
++
++- Latest pre-update Production deployment was older than the A19 `POSTGRES_URL` promotion.
++- A22 redeployed the latest ready Production deployment with Vercel `redeploy`, target `production`, scope `peter-dongpin-hu-s-projects`.
++- New Production deployment: `dpl_AUAo4JFVMhWRpyM2sTCKHQ5tom9n`, URL `https://mais-7gqsmkz5w-peter-dongpin-hu-s-projects.vercel.app`, aliased to `https://www.mais.hk` and related production aliases, status `Ready`, created `2026-06-29 18:24:45 HKT`.
++- Live production auth/storage smoke against `https://www.mais.hk` passed 3/3 register -> login -> `/api/me` probes with same-user verification.
++- Redacted US West `app_state` evidence: production `POSTGRES_URL` row hash changed from `ef3048a1385102b0` before the smoke to `6e4e984f2fd3f644` after the smoke, and the target row contained the `a22-runtime-smoke-` prefix after the live writes.
++- This proves the redeployed Production runtime is writing to the current Vercel Production `POSTGRES_URL`, which A19 separately verified as Neon `aws-us-west-2`.
++
++## Function Region Deployment Status
++
++- A22 updated the Vercel project-level `serverlessFunctionRegion` from `iad1` to `pdx1` through the official Vercel project API and verified `resourceConfig.functionDefaultRegions: ["pdx1"]`.
++- Direct Production deploy from the clean branch commit `5994e5b0d` failed before publish because the current branch still has baseline missing-module build drift: `VisualizationLabBackToTopButton`, `data/mathVirusBlaster`, `data/mightyTankBattle`, `data/usCaliforniaHighSchoolLessonIllustrations`, and then `@/lib/server/aiGovernance`.
++- A22 then redeployed the last known-good Production source again after the project-level region update.
++- Second redeploy: `dpl_EpthhHmZA498xrCVxeu5ctDimfKs`, URL `https://mais-3xuha98ni-peter-dongpin-hu-s-projects.vercel.app`, aliased to `https://www.mais.hk`, status `Ready`, created `2026-06-29 18:41:40 HKT`.
++- Vercel inspect for the second redeploy still showed generated functions in `iad1`; JSON inspect did not expose function-region fields.
++- Therefore Production env/runtime pickup is proven, Vercel project default is now `pdx1`, and the branch carries `vercel.json` `regions: ["pdx1"]`, but live Production function placement is not yet proven as `pdx1`.
++- Remaining A22/A10 release blocker: integrate or slice the missing-module/build fixes before deploying this branch's `pdx1` config, then inspect the resulting deployment for `pdx1`.
++
++## Guardrail
++
++- Added `scripts/vercel-region-config.test.mjs`.
++- The guard asserts:
++  - `vercel.json` exists and defaults Vercel Functions to `["pdx1"]`.
++  - selected core classroom APIs remain `runtime = "nodejs"`.
++  - selected core classroom APIs do not export `preferredRegion = "hkg1"`.
++  - committed AI Tutor routes do not export `preferredRegion = "hkg1"`.
++
++## Verification
++
++- `node --test scripts/vercel-region-config.test.mjs`: passed, 3/3 tests.
++- A07 worktree check: `rg "preferredRegion\\s*=\\s*[\\\"']hkg1|hkg1" app/api/ai-tutor next.config.ts` returned no matches.
++- Production redeploy inspect: status `Ready`; aliases include `https://www.mais.hk`; generated functions still showed `iad1` because the redeployed source predated this branch's `vercel.json`.
++- Production auth/storage smoke: passed 3/3 register -> login -> `/api/me` probes with same-user verification.
++- Production `POSTGRES_URL` target hash check: changed after smoke and contained the smoke prefix, proving live writes hit the current Production `POSTGRES_URL`.
++- Vercel project API setting update: `serverlessFunctionRegion: "pdx1"` and `resourceConfig.functionDefaultRegions: ["pdx1"]`.
++- Direct clean-branch Production deploy: failed before publish on baseline missing modules; no alias was promoted from the failed deployment.
++- Second known-good-source Production redeploy after project setting update: status `Ready`, alias restored to `https://www.mais.hk`; inspect text still showed functions in `iad1`.
++- Final live Production auth/storage smoke after second redeploy: warmed one-user register -> login -> `/api/me` passed with same-user verification.
++- Final redacted `POSTGRES_URL` target hash moved to `d3cef03e72431f41` with `a22-runtime-smoke-warm-` prefix present, proving the current alias still writes to the US West target.
++- `git diff --check`: passed.
++- `npm run type-check`: failed on the clean baseline with broad pre-existing missing-module/missing-export/type drift outside this slice, including `@/lib/server/aiGovernance`, `@/lib/difficulty`, teacher operations/review lesson exports, visualization lab type drift, and userStore API drift. This slice only adds JSON, a Node guard script, and coordination markdown.
++- `npm run build`: failed on missing modules, starting with `@/lib/server/aiGovernance`, after the direct Vercel deploy exposed earlier missing data/component modules.
++
++## Final Live PDX1 Update
++
++- A22 tested the dirty-root `a22-us-west-region-20260629T1111` package first; it inspected as `[pdx1]`, but live registration returned `503`, so A22 rolled back immediately to `dpl_EpthhHmZA498xrCVxeu5ctDimfKs`.
++- A22 then copied the older stable pruned package `.tmp/vercel-staging/20260628-www-mais` to `.tmp/vercel-staging/a22-stable-us-west-20260629T1138` and applied only the region-policy delta: added `vercel.json` with `regions: ["pdx1"]` and removed `preferredRegion = "hkg1"` from the three AI Tutor routes.
++- Stable-source Production deployment `dpl_CtyFaCuufrFmU971k2nN8ZTFPKMQ`, URL `https://mais-iu4g07g4l-peter-dongpin-hu-s-projects.vercel.app`, is now live on `https://www.mais.hk`.
++- Vercel inspect for `dpl_CtyFaCuufrFmU971k2nN8ZTFPKMQ` shows generated functions in `[pdx1]`.
++- Live production auth/storage smoke passed: disposable `a22-stable-pdx-smoke-` registration `200`, login `200`, `/api/me` `200`, and same-user hash match.
++- Dashboard UI loading smoke passed: ready in `3242ms` under the `12000ms` threshold.
++- Warmed dashboard latency smoke passed: `/api/me`, `/api/dashboard?grade=P1`, `/api/assignments`, `/api/gamification/summary`, and `/api/rewards` all returned `200`; dashboard p95 was `3711ms` under the `6000ms` threshold.
++- A19 redacted env checks after this release verified Preview and Production `POSTGRES_URL` as Neon `aws-us-west-2`, and Preview/Production `HK_MATH_STORAGE_PROVIDER` as present and equal to `postgres`.
++- Runtime code scan in the deployed stable package found DB env reads only at `lib/server/userStore.ts` and `lib/server/practiceAttemptStore.ts`, both using `process.env.POSTGRES_URL`; the legacy non-`POSTGRES_URL` DB env variables remain present but are not used by the classroom runtime path, so they were left unmigrated.
++
++## Sources Checked
++
++- Vercel Functions region configuration: https://vercel.com/docs/functions/configuring-functions/region
++- Vercel region list: https://vercel.com/docs/regions
++- Neon region list: https://neon.com/docs/introduction/regions
++- Next.js `preferredRegion` route segment config: https://nextjs.org/docs/app/api-reference/file-conventions/route-segment-config/preferredRegion
+diff --git a/coordination/session-logs/2026-06-29-A19-vercel-postgres-region.md b/coordination/session-logs/2026-06-29-A19-vercel-postgres-region.md
+new file mode 100644
+index 000000000..a98ba4ed1
+--- /dev/null
++++ b/coordination/session-logs/2026-06-29-A19-vercel-postgres-region.md
+@@ -0,0 +1,51 @@
++# 2026-06-29 A19 Vercel Postgres Region
++
++- Agent: A19, API configuration and deployment env readiness.
++- Branch/worktree: `codex/A19-vercel-postgres-region` at `/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A19-vercel-postgres-region`.
++- Baseline: `main` commit `cef544e09`.
++- Objective: redacted confirmation that Vercel Preview/Production `POSTGRES_URL` points to Neon US West.
++
++## Plan
++
++1. Inspect current root/linkage and available auth without printing secrets. Completed.
++2. Check approved local DOCX for Vercel credential presence only. Completed; no Vercel entry/token pattern found.
++3. Add a no-print verifier for Vercel `POSTGRES_URL` region classification. Completed with both REST and `vercel env run` process-env modes.
++4. Record current blocker and exact completion evidence. Completed.
++5. After owner authorization, provision US West Neon/Postgres target, copy production `app_state`, update Vercel Preview/Production `POSTGRES_URL`, and reverify. Completed.
++
++## Evidence
++
++- Vercel CLI installed.
++- Root project link present.
++- No shell Vercel token/project env vars, but Vercel CLI auth is present.
++- No Vercel entry/token pattern in approved DOCX.
++- No Neon/Postgres URL or US West signal in approved DOCX.
++- Initial cloud Preview `POSTGRES_URL` verified as Neon `aws-ap-southeast-1`, not US West.
++- Initial cloud Production `POSTGRES_URL` verified as Neon `aws-ap-southeast-1`, not US West.
++- Cloud Preview/Production related DB env family also classifies as Neon `aws-ap-southeast-1`; no US West fallback variable found.
++- Owner authorized creating a US West Neon/Postgres target.
++- Created Vercel Neon Marketplace resource `mais-us-west-postgres` with `region=pdx1`, `auth=false`, plan `free_v3`.
++- Verified `USWEST_` prefixed resource variables as Neon `aws-us-west-2`.
++- Copied production `app_state` from old source to US West target with matching redacted row hash.
++- Promoted US West value to Vercel `POSTGRES_URL` for both Preview and Production.
++- Final cloud Preview `POSTGRES_URL` verified as Neon `aws-us-west-2`.
++- Final cloud Production `POSTGRES_URL` verified as Neon `aws-us-west-2`.
++- Converted non-secret `HK_MATH_STORAGE_PROVIDER=postgres` to readable encrypted env records for Production and Preview after CLI-created deployments missed the old sensitive provider flag.
++- A22 final stable-source `pdx1` deployment `dpl_CtyFaCuufrFmU971k2nN8ZTFPKMQ` passed live auth/storage smoke on `https://www.mais.hk`.
++- Existing admin storage health route does not prove Neon region.
++
++## Verification
++
++- Red test: verifier test initially failed because implementation file was missing.
++- Green test: `node --test scripts/verify-vercel-postgres-region.test.mjs` passed, 4/4.
++- Safe Vercel cloud env run from clean A19 worktree returned no secrets and classified both Preview and Production as Neon `aws-ap-southeast-1`.
++- Safe Vercel cloud env family scan returned no secrets and found no US West DB variable to promote.
++- Safe final Vercel cloud env run through the linked root returned no secrets and classified both Preview and Production `POSTGRES_URL` as Neon `aws-us-west-2`.
++- Safe final Vercel cloud env run confirmed Preview and Production `HK_MATH_STORAGE_PROVIDER` are present and equal to `postgres`.
++- Safe final equality check confirmed Preview and Production `POSTGRES_URL` equals `USWEST_POSTGRES_URL` in the Vercel target env.
++- `git diff --check` passed.
++
++## Follow-Up
++
++- A22 redeployed Production and verified live function runtime pickup with auth/storage smoke plus redacted US West `POSTGRES_URL` target hash evidence.
++- Legacy non-`POSTGRES_URL` Neon env variables still point to the older region and should be reconciled only if an owning session confirms they are used by runtime code.
+diff --git a/coordination/session-logs/2026-06-29-A22-us-region-alignment.md b/coordination/session-logs/2026-06-29-A22-us-region-alignment.md
+new file mode 100644
+index 000000000..577a01843
+--- /dev/null
++++ b/coordination/session-logs/2026-06-29-A22-us-region-alignment.md
+@@ -0,0 +1,66 @@
++# 2026-06-29 A22 US Region Alignment
++
++- Agent: A22, production reliability and release engineering.
++- Coordination: A19 owns provider/env parity; A12 owns core classroom API contracts; A07 owns AI Tutor route behavior.
++- Baseline: branch `codex/A22-us-region-alignment` from `main` at `cef544e09`.
++- Dependency state: `npm install` completed in isolated worktree; no root dependency files changed.
++- Objective: align US classroom Vercel Node functions with a US West Postgres/Neon region, guard classroom/AI Tutor APIs from Hong Kong route pinning, and collect A22 runtime pickup evidence after A19's Production `POSTGRES_URL` promotion.
++
++## Plan
++
++1. Add a failing guard test for Vercel region config and core classroom API route pinning. Completed; first run failed because `vercel.json` was missing.
++2. Add deploy config for US West Node functions without changing provider credentials or secrets. Completed with `regions: ["pdx1"]`.
++3. Record A22/A19/A07/A12 handoff notes for Neon/Postgres and AI Tutor region ownership. Completed in `coordination/reports/2026-06-29-A22-us-region-alignment.md`.
++4. Fold in A19 US West `POSTGRES_URL` completion evidence and verify app runtime usage of legacy DB variables. Completed; app runtime uses `POSTGRES_URL`, so legacy DB env family was not migrated.
++5. Redeploy Production to pick up the updated Vercel env and prove live writes hit the current `POSTGRES_URL`. Completed with redacted smoke/hash evidence.
++6. Set project-level default Function region to `pdx1` and attempt to deploy the branch region config. Partially completed; Vercel project setting is `pdx1`, but clean-branch Production deploy is blocked by baseline missing modules and live inspect still shows `iad1`.
++7. Run focused guard test and type-check/build checks as feasible. Completed with focused guard green, full type-check/build red from baseline drift.
++
++## Intended Write Scope
++
++- `vercel.json`
++- `scripts/vercel-region-config.test.mjs`
++- `coordination/session-logs/2026-06-29-A22-us-region-alignment.md`
++- `coordination/reports/2026-06-29-A22-us-region-alignment.md`
++
++## Forbidden Scope
++
++- Real `.env*` secret files, Vercel secret values, database URLs, provider behavior, live deployments, and unrelated dirty-root changes.
++
++## Notes
++
++- Official Vercel docs say `vercel.json` `regions` changes the default Function region, while per-route `preferredRegion` is route segment metadata.
++- Official Vercel region docs list `pdx1` as Portland / `us-west-2`.
++- Official Neon docs list AWS US West Oregon as `aws-us-west-2` and recommend choosing the Neon region closest to the application server.
++- A19 verified Preview and Production `POSTGRES_URL` as Neon `aws-us-west-2`.
++- Current app runtime code scans show durable storage reads `POSTGRES_URL`; no app runtime code directly reads the older non-`POSTGRES_URL` Neon env family.
++- Production redeploy `dpl_AUAo4JFVMhWRpyM2sTCKHQ5tom9n` is Ready and aliased to `https://www.mais.hk`.
++- Production live auth/storage smoke passed 3/3 register -> login -> `/api/me` same-user probes.
++- Production `POSTGRES_URL` target hash changed from `ef3048a1385102b0` to `6e4e984f2fd3f644` after the smoke and contained the `a22-runtime-smoke-` prefix, proving live writes hit the current Production `POSTGRES_URL`.
++- Vercel inspect for the redeployed previous production source still showed functions in `iad1`; this proves env pickup but not deployment of this branch's `pdx1` `vercel.json`.
++- Vercel project API was updated and verified as `serverlessFunctionRegion: "pdx1"` / `resourceConfig.functionDefaultRegions: ["pdx1"]`.
++- Direct clean-branch Production deploy from `5994e5b0d` failed before publish on baseline missing modules; no alias was promoted from the failed deployment.
++- After the project setting update, A22 redeployed the known-good production source as `dpl_EpthhHmZA498xrCVxeu5ctDimfKs`; it is Ready and aliased to `https://www.mais.hk`, but inspect text still shows generated functions in `iad1`.
++- Final warmed live auth/storage smoke passed 1/1 after the second redeploy; final `POSTGRES_URL` target hash is `d3cef03e72431f41` and contains the `a22-runtime-smoke-warm-` prefix.
++- A07 dirty worktree AI Tutor route pins were narrowed by removing `preferredRegion = "hkg1"` from route, status, and resolve routes; no provider behavior was changed.
++
++## Verification
++
++- Red test: `node --test scripts/vercel-region-config.test.mjs` failed because `vercel.json` was missing.
++- Green test: `node --test scripts/vercel-region-config.test.mjs` passed, 3/3 tests.
++- A07 worktree `rg "preferredRegion\\s*=\\s*[\\\"']hkg1|hkg1" app/api/ai-tutor next.config.ts` returned no matches.
++- Vercel Production redeploy inspect returned status `Ready` and production aliases.
++- Live Production auth/storage smoke passed 3/3 same-user probes.
++- Redacted Production `POSTGRES_URL` target hash/prefix check confirmed live writes landed in the current US West target.
++- Vercel project API setting check passed for `pdx1`.
++- Direct clean-branch Vercel deploy failed on missing modules, so this branch's `vercel.json` `pdx1` config is not yet live.
++- Second known-good-source Production redeploy passed; final warmed live Production auth/storage smoke passed 1/1, but inspect text still showed `iad1`.
++- Dirty-root `pdx1` package `a22-us-west-region-20260629T1111` was deployed and inspected as `[pdx1]`, but live registration returned `503`; A22 rolled it back immediately to `dpl_EpthhHmZA498xrCVxeu5ctDimfKs`.
++- A22 copied the older stable pruned package `.tmp/vercel-staging/20260628-www-mais` to `.tmp/vercel-staging/a22-stable-us-west-20260629T1138` and applied only the `vercel.json` `pdx1` default plus AI Tutor `hkg1` pin removals.
++- Stable-source Production deployment `dpl_CtyFaCuufrFmU971k2nN8ZTFPKMQ` is now live on `https://www.mais.hk`; inspect shows generated functions in `[pdx1]`.
++- Live auth/storage smoke on the stable-source `pdx1` deployment passed: registration `200`, login `200`, `/api/me` `200`, same-user hash match.
++- Dashboard UI smoke passed with ready time `3242ms`; warmed dashboard API latency smoke passed with dashboard p95 `3711ms`.
++- A19 converted non-secret `HK_MATH_STORAGE_PROVIDER=postgres` to readable encrypted env form for Production and Preview after CLI deployments missed the old sensitive provider flag.
++- `git diff --check` passed.
++- `npm run type-check` failed before build on broad baseline drift unrelated to this slice. Representative failures included missing `@/lib/server/aiGovernance`, missing `@/lib/difficulty`, userStore export drift, teacher operations/review lesson type drift, and visualization lab type drift.
++- `npm run build` failed on baseline missing modules, starting with `@/lib/server/aiGovernance`.
+diff --git a/scripts/vercel-region-config.test.mjs b/scripts/vercel-region-config.test.mjs
+new file mode 100644
+index 000000000..657226cb2
+--- /dev/null
++++ b/scripts/vercel-region-config.test.mjs
+@@ -0,0 +1,78 @@
++import assert from "node:assert/strict";
++import { existsSync, readdirSync, readFileSync } from "node:fs";
++import path from "node:path";
++import test from "node:test";
++
++const projectRoot = process.cwd();
++const vercelConfigPath = path.join(projectRoot, "vercel.json");
++const expectedClassroomRegion = "pdx1";
++const coreClassroomRoutes = [
++  "app/api/auth/login/route.ts",
++  "app/api/auth/register/route.ts",
++  "app/api/dashboard/route.ts",
++  "app/api/teacher/dashboard/route.ts",
++  "app/api/me/route.ts",
++  "app/api/me/profile/route.ts",
++  "app/api/progress/route.ts",
++  "app/api/learning-events/route.ts",
++  "app/api/attempts/route.ts",
++  "app/api/questions/route.ts",
++  "app/api/lesson-entry/route.ts",
++  "app/api/lesson-progress/route.ts",
++  "app/api/classroom/live/route.ts",
++  "app/api/classroom/live/actions/route.ts",
++  "app/api/parent/foundation/route.ts",
++  "app/api/teacher/foundation/route.ts"
++];
++
++function readProjectText(relativePath) {
++  return readFileSync(path.join(projectRoot, relativePath), "utf8");
++}
++
++function routeFilesUnder(relativeDirectory) {
++  const absoluteDirectory = path.join(projectRoot, relativeDirectory);
++  if (!existsSync(absoluteDirectory)) return [];
++
++  return readdirSync(absoluteDirectory, { withFileTypes: true }).flatMap((entry) => {
++    const relativePath = path.join(relativeDirectory, entry.name);
++    if (entry.isDirectory()) return routeFilesUnder(relativePath);
++    return entry.isFile() && entry.name === "route.ts" ? [relativePath] : [];
++  });
++}
++
++test("Vercel Node functions default to the US West Postgres-adjacent region", () => {
++  assert.equal(existsSync(vercelConfigPath), true, "vercel.json must define the deployment region");
++  const config = JSON.parse(readFileSync(vercelConfigPath, "utf8"));
++
++  assert.deepEqual(
++    config.regions,
++    [expectedClassroomRegion],
++    "Vercel Node functions should run in pdx1 to colocate with Neon/Postgres US West Oregon"
++  );
++});
++
++test("core classroom APIs stay Node runtime and do not pin US traffic to Hong Kong", () => {
++  for (const route of coreClassroomRoutes) {
++    const source = readProjectText(route);
++    assert.match(source, /export const runtime = ["']nodejs["'];/, `${route} must stay on the Node runtime`);
++    assert.doesNotMatch(
++      source,
++      /export const preferredRegion\s*=\s*["']hkg1["'];/,
++      `${route} must not override US classroom traffic to hkg1`
++    );
++  }
++});
++
++test("AI Tutor routes do not pin US classroom traffic to Hong Kong", () => {
++  const aiTutorRoutes = routeFilesUnder("app/api/ai-tutor");
++  assert.ok(aiTutorRoutes.length > 0, "AI Tutor route files should be present for region guard coverage");
++
++  for (const route of aiTutorRoutes) {
++    const source = readProjectText(route);
++    assert.doesNotMatch(
++      source,
++      /export const preferredRegion\s*=\s*["']hkg1["'];/,
++      `${route} must not hard-pin US classroom AI Tutor traffic to hkg1`
++    );
++  }
++});
+diff --git a/scripts/verify-vercel-postgres-region.mjs b/scripts/verify-vercel-postgres-region.mjs
+new file mode 100644
+index 000000000..998f2d21a
+--- /dev/null
++++ b/scripts/verify-vercel-postgres-region.mjs
+@@ -0,0 +1,244 @@
++#!/usr/bin/env node
++import { existsSync, readFileSync } from "node:fs";
++import path from "node:path";
++
++const variableName = "POSTGRES_URL";
++const expectedTargets = ["preview", "production"];
++const defaultVercelApiOrigin = "https://api.vercel.com";
++
++function parseArgs(argv) {
++  const options = {};
++  for (let index = 0; index < argv.length; index += 1) {
++    const arg = argv[index];
++    if (arg === "--project") options.project = argv[index + 1], index += 1;
++    else if (arg === "--team") options.team = argv[index + 1], index += 1;
++    else if (arg === "--from-process-env") options.fromProcessEnv = true;
++    else if (arg === "--target") options.target = argv[index + 1], index += 1;
++    else if (arg === "--json") options.json = true;
++  }
++  return options;
++}
++
++function readVercelProjectLink(cwd = process.cwd()) {
++  const projectFile = path.join(cwd, ".vercel", "project.json");
++  if (!existsSync(projectFile)) return {};
++
++  try {
++    const parsed = JSON.parse(readFileSync(projectFile, "utf8"));
++    return {
++      project: typeof parsed.projectId === "string" ? parsed.projectId : undefined,
++      team: typeof parsed.orgId === "string" ? parsed.orgId : undefined
++    };
++  } catch {
++    return {};
++  }
++}
++
++function normalizeTargets(env) {
++  const target = env?.target ?? env?.targets;
++  if (Array.isArray(target)) return target.filter((value) => typeof value === "string");
++  if (typeof target === "string") return [target];
++  if (target && typeof target === "object") {
++    return Object.entries(target)
++      .filter(([, enabled]) => Boolean(enabled))
++      .map(([key]) => key);
++  }
++  return [];
++}
++
++function matchesTarget(env, target) {
++  const targets = normalizeTargets(env);
++  return targets.length === 0 || targets.includes(target);
++}
++
++function apiUrl(pathname, params = {}) {
++  const url = new URL(pathname, defaultVercelApiOrigin);
++  for (const [key, value] of Object.entries(params)) {
++    if (value) url.searchParams.set(key, value);
++  }
++  return url;
++}
++
++async function vercelApiJson({ token, pathname, params }) {
++  const response = await fetch(apiUrl(pathname, params), {
++    headers: {
++      Authorization: `Bearer ${token}`,
++      "Content-Type": "application/json"
++    }
++  });
++
++  if (!response.ok) {
++    return {
++      ok: false,
++      status: response.status
++    };
++  }
++
++  return {
++    ok: true,
++    status: response.status,
++    body: await response.json()
++  };
++}
++
++function extractEnvList(body) {
++  if (Array.isArray(body)) return body;
++  if (Array.isArray(body?.envs)) return body.envs;
++  if (Array.isArray(body?.environmentVariables)) return body.environmentVariables;
++  return [];
++}
++
++function redactUrlClassification(value) {
++  try {
++    const parsed = new URL(value);
++    return parsed.hostname.toLowerCase();
++  } catch {
++    return "";
++  }
++}
++
++export function classifyPostgresUrl(value) {
++  const hostname = redactUrlClassification(value);
++  const provider = hostname.endsWith(".neon.tech") || hostname.includes(".neon.") ? "neon" : "unknown";
++  const regionMatch = hostname.match(/\.([a-z]{2}-[a-z]+-\d)\.aws\.neon\.tech$/);
++  const region = regionMatch ? `aws-${regionMatch[1]}` : "unknown";
++
++  return {
++    provider,
++    region,
++    usWestNeon: provider === "neon" && region === "aws-us-west-2"
++  };
++}
++
++export function summarizeVerification(results) {
++  const missingTargets = results
++    .filter((result) => result.status !== "verified")
++    .map((result) => result.target);
++  const misalignedTargets = results
++    .filter((result) => result.status === "verified" && !result.usWestNeon)
++    .map((result) => result.target);
++
++  return {
++    ok: missingTargets.length === 0 && misalignedTargets.length === 0,
++    missingTargets,
++    misalignedTargets
++  };
++}
++
++async function verifyEnvironmentTarget({ token, project, team, target }) {
++  const listResponse = await vercelApiJson({
++    token,
++    pathname: `/v10/projects/${encodeURIComponent(project)}/env`,
++    params: {
++      decrypt: "true",
++      source: "vercel-cli:pull",
++      teamId: team
++    }
++  });
++
++  if (!listResponse.ok) {
++    return {
++      target,
++      status: "api-error",
++      httpStatus: listResponse.status
++    };
++  }
++
++  const env = extractEnvList(listResponse.body)
++    .find((candidate) => candidate?.key === variableName && matchesTarget(candidate, target));
++
++  if (!env?.id) {
++    return {
++      target,
++      status: "missing"
++    };
++  }
++
++  if (typeof env.value !== "string") {
++    return {
++      target,
++      status: "unreadable",
++      note: "value-not-returned"
++    };
++  }
++
++  return {
++    target,
++    status: "verified",
++    ...classifyPostgresUrl(env.value)
++  };
++}
++
++async function main() {
++  const args = parseArgs(process.argv.slice(2));
++  if (args.fromProcessEnv) {
++    const target = typeof args.target === "string" ? args.target : "unknown";
++    const value = process.env.POSTGRES_URL?.trim();
++    const result = value
++      ? {
++          ok: classifyPostgresUrl(value).usWestNeon,
++          variable: variableName,
++          target,
++          status: "verified",
++          ...classifyPostgresUrl(value)
++        }
++      : {
++          ok: false,
++          variable: variableName,
++          target,
++          status: "missing"
++        };
++    console.log(JSON.stringify(result, null, 2));
++    process.exitCode = result.ok ? 0 : 1;
++    return;
++  }
++
++  const link = readVercelProjectLink();
++  const token = process.env.VERCEL_TOKEN?.trim();
++  const project = args.project ?? process.env.VERCEL_PROJECT_ID ?? link.project;
++  const team = args.team ?? process.env.VERCEL_ORG_ID ?? process.env.VERCEL_TEAM_ID ?? link.team;
++
++  if (!token || !project) {
++    const result = {
++      ok: false,
++      variable: variableName,
++      status: "missing-auth-or-project",
++      token: token ? "present" : "missing",
++      project: project ? "present" : "missing"
++    };
++    console.log(JSON.stringify(result, null, 2));
++    process.exitCode = 2;
++    return;
++  }
++
++  const results = [];
++  for (const target of expectedTargets) {
++    results.push(await verifyEnvironmentTarget({ token, project, team, target }));
++  }
++
++  const summary = summarizeVerification(results);
++  const result = {
++    ok: summary.ok,
++    variable: variableName,
++    expected: {
++      provider: "neon",
++      region: "aws-us-west-2"
++    },
++    targets: results,
++    summary
++  };
++
++  console.log(JSON.stringify(result, null, 2));
++  process.exitCode = summary.ok ? 0 : 1;
++}
++
++if (import.meta.url === `file://${process.argv[1]}`) {
++  main().catch((error) => {
++    console.error(JSON.stringify({
++      ok: false,
++      status: "unexpected-error",
++      message: error instanceof Error ? error.name : "unknown"
++    }));
++    process.exitCode = 1;
++  });
++}
+diff --git a/scripts/verify-vercel-postgres-region.test.mjs b/scripts/verify-vercel-postgres-region.test.mjs
+new file mode 100644
+index 000000000..ae87aa377
+--- /dev/null
++++ b/scripts/verify-vercel-postgres-region.test.mjs
+@@ -0,0 +1,60 @@
++import assert from "node:assert/strict";
++import { spawnSync } from "node:child_process";
++import test from "node:test";
++import {
++  classifyPostgresUrl,
++  summarizeVerification
++} from "./verify-vercel-postgres-region.mjs";
++
++test("classifies Neon US West Oregon POSTGRES_URL without returning the raw URL", () => {
++  const rawUrl = "postgresql://user:password@ep-example-pooler.us-west-2.aws.neon.tech/db?sslmode=require";
++  const classification = classifyPostgresUrl(rawUrl);
++
++  assert.equal(classification.provider, "neon");
++  assert.equal(classification.region, "aws-us-west-2");
++  assert.equal(classification.usWestNeon, true);
++  assert.equal(JSON.stringify(classification).includes(rawUrl), false);
++  assert.equal(JSON.stringify(classification).includes("password"), false);
++});
++
++test("classifies non-US-West Neon hosts as not aligned", () => {
++  const classification = classifyPostgresUrl(
++    "postgresql://user:password@ep-example.us-east-1.aws.neon.tech/db?sslmode=require"
++  );
++
++  assert.equal(classification.provider, "neon");
++  assert.equal(classification.region, "aws-us-east-1");
++  assert.equal(classification.usWestNeon, false);
++});
++
++test("summary fails when either Preview or Production is missing", () => {
++  const summary = summarizeVerification([
++    { target: "preview", status: "verified", usWestNeon: true },
++    { target: "production", status: "missing" }
++  ]);
++
++  assert.equal(summary.ok, false);
++  assert.equal(summary.missingTargets.includes("production"), true);
++});
++
++test("process-env mode prints only redacted classification", () => {
++  const rawUrl = "postgresql://user:password@ep-example.us-west-2.aws.neon.tech/db?sslmode=require";
++  const result = spawnSync(
++    process.execPath,
++    ["scripts/verify-vercel-postgres-region.mjs", "--from-process-env", "--target", "preview"],
++    {
++      cwd: process.cwd(),
++      encoding: "utf8",
++      env: {
++        ...process.env,
++        POSTGRES_URL: rawUrl
++      }
++    }
++  );
++
++  assert.equal(result.status, 0);
++  assert.match(result.stdout, /"target": "preview"/);
++  assert.match(result.stdout, /"region": "aws-us-west-2"/);
++  assert.equal(result.stdout.includes(rawUrl), false);
++  assert.equal(result.stdout.includes("password"), false);
++});
+diff --git a/vercel.json b/vercel.json
+new file mode 100644
+index 000000000..960ffd324
+--- /dev/null
++++ b/vercel.json
+@@ -0,0 +1,4 @@
++{
++  "$schema": "https://openapi.vercel.sh/vercel.json",
++  "regions": ["pdx1"]
++}

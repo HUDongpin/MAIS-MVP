@@ -1,6 +1,8 @@
 import { expect, test, type Locator, type Page, type TestInfo } from "@playwright/test";
+import { buildVisualizationLabHref, visualizationLabSectionSelector } from "../../components/visualizations/visualizationDiagnostics";
 import { visualizationLabCatalog } from "../../data/visualizationLabs";
-import { collectPageErrors, expectNoPageErrors, loginAsDemoStudent } from "./helpers";
+import { collectPageErrors, expectNoPageErrors, uniqueSuffix } from "./helpers";
+import type { FeaturedLabDefinition } from "../../data/visualizationLabs";
 
 type SliderInfo = {
   index: number;
@@ -41,6 +43,7 @@ type SurfaceCoverage = {
 type DetectionResult = {
   issues: OverlapIssue[];
   coverage: SurfaceCoverage[];
+  canvasSurfaceCount: number;
 };
 
 type FailureRecord = {
@@ -52,21 +55,48 @@ type FailureRecord = {
   issues: OverlapIssue[];
 };
 
-const allVisualizationLabs = visualizationLabCatalog.map((lab) => ({
-  grade: lab.grade,
-  labId: lab.labId,
-  title: lab.title.en,
-  topicId: lab.topicId,
-  moduleId: lab.moduleId
-}));
+// VIZ_OVERLAP_SAMPLE=N audits every Nth lab (smoke runs); default sweeps all labs.
+const overlapSampleStride = Math.max(1, Number(process.env.VIZ_OVERLAP_SAMPLE ?? "1") || 1);
+const allVisualizationLabs = visualizationLabCatalog.filter((_, index) => index % overlapSampleStride === 0);
 
 const expectedLabIds = new Set(allVisualizationLabs.map((lab) => lab.labId));
+const htmlLangByLanguage = { en: /^en/, zh: /^zh-Hant/, "zh-Hans": /^zh-Hans/ } as const;
 const maxAttachedFailures = 4;
+
+async function dismissGuestGate(page: Page) {
+  const guestButton = page.getByRole("button", { name: /continue as guest|以訪客身份繼續|以访客身份继续/i });
+  if (await guestButton.isVisible().catch(() => false)) {
+    await guestButton.click();
+    await expect(guestButton).toBeHidden();
+  }
+}
+
+async function switchLanguage(page: Page, optionPattern: RegExp, expectedLang: string) {
+  await page.goto("/visualization-lab");
+  await dismissGuestGate(page);
+  // The dropdown's click handler hydrates late, so the first trusted click can
+  // land before the menu is interactive; retry open-until-visible.
+  const option = page.getByRole("menuitemradio", { name: optionPattern }).first();
+  await expect(async () => {
+    // The selector button's accessible name localizes with the active UI
+    // language (Language selector / 語言選擇 / 语言选择).
+    await page.getByRole("button", { name: /language selector|語言選擇|语言选择/i }).click();
+    await expect(option).toBeVisible({ timeout: 1_500 });
+  }).toPass({ timeout: 30_000 });
+  // The header language menu renders options as menuitemradio buttons
+  // (e.g. aria-label "Use Traditional Chinese").
+  await option.click();
+  await expect(page.locator("html")).toHaveAttribute("lang", expectedLang);
+}
 
 test.describe("Visualization Lab overlap detection", () => {
   test("detects text labels overlapping graph marks after slider changes", async ({ page }, testInfo) => {
     test.slow();
-    test.setTimeout(240_000);
+    // The guest catalog spans every track (689 labs x 3 languages) via direct
+    // per-lab navigation at roughly 25-35s per visit. Within this 60-minute
+    // budget use VIZ_OVERLAP_SAMPLE >= 18; full-catalog sweeps should shard
+    // (per language or track) across nightly jobs.
+    test.setTimeout(3_600_000);
     const pageErrors = collectPageErrors(page);
     const failures: FailureRecord[] = [];
     const visitedLabIds = new Set<string>();
@@ -74,22 +104,25 @@ test.describe("Visualization Lab overlap detection", () => {
     const exercisedRangeLabIds = new Set<string>();
     let attachedFailures = 0;
 
-    await loginAsDemoStudent(page);
+    // Guests see the full multi-track catalog; logged-in students are scoped
+    // to their own curriculum, which would hide most labs from the audit.
+    // The guest sign-in gate re-opens periodically while browsing, so a
+    // locator handler dismisses it whenever it would block an interaction.
+    const guestGateButton = page.getByRole("button", { name: /continue as guest|以訪客身份繼續|以访客身份继续/i });
+    await page.addLocatorHandler(guestGateButton, async (button) => {
+      await button.click();
+    });
     await page.goto("/visualization-lab");
     await disableMotion(page);
-    await expect(page.getByRole("heading", { name: /Visualization Lab/i })).toBeVisible();
-    await ensureAllGradesVisible(page);
+    await dismissGuestGate(page);
+    await expect(page.getByRole("heading", { name: /Visualization Lab/i }).first()).toBeVisible();
 
     await auditLanguage("en");
 
-    await page.getByRole("button", { name: "使用繁體中文" }).click();
-    await expect(page.locator("html")).toHaveAttribute("lang", "zh-Hant-HK");
-    await ensureAllGradesVisible(page);
+    await switchLanguage(page, /Use Traditional Chinese|使用繁體中文|使用繁体中文/, "zh-Hant-HK");
     await auditLanguage("zh");
 
-    await page.getByRole("button", { name: "使用簡體中文" }).click();
-    await expect(page.locator("html")).toHaveAttribute("lang", "zh-Hans-CN");
-    await ensureAllGradesVisible(page);
+    await switchLanguage(page, /Use Simplified Chinese|使用簡體中文|使用简体中文/, "zh-Hans-CN");
     await auditLanguage("zh-Hans");
 
     expect(visitedLabIds).toEqual(expectedLabIds);
@@ -102,83 +135,191 @@ test.describe("Visualization Lab overlap detection", () => {
 
     async function auditLanguage(language: "en" | "zh" | "zh-Hans") {
       for (const lab of allVisualizationLabs) {
-        const labCard = page.locator(`#lab-example-${lab.labId}`);
-        await expect(labCard, `${lab.topicId} should render in ${language}`).toBeVisible();
-        await labCard.scrollIntoViewIfNeeded();
-        visitedLabIds.add(lab.labId);
-        await openLabIfNeeded(labCard);
+        // Direct navigation covers both lab routes (standard directory panel
+        // and premium Three.js topic pages) without brittle tile scrolling.
+        // domcontentloaded keeps heavy Three.js chunk downloads off the
+        // critical path; the surface-visibility wait below gates readiness.
+        await page.goto(buildVisualizationLabHref(lab), { waitUntil: "domcontentloaded" });
+        await disableMotion(page);
+        await dismissGuestGate(page);
 
-        const sliders = await collectSliderInfo(labCard);
+        // The stored language preference re-applies shortly after hydration;
+        // gate on it so every scan sees localized strings.
+        await expect(page.locator("html")).toHaveAttribute("lang", htmlLangByLanguage[language]);
+
+        const labRoot = page.locator("main").first();
+        await expect(
+          labRoot.locator("[data-viz-surface]").first(),
+          `${lab.topicId} should render a visualization surface in ${language}`
+        ).toBeVisible({ timeout: 15_000 });
+        visitedLabIds.add(lab.labId);
+
+        const sliders = await collectSliderInfo(labRoot);
         const sliderStates = buildSliderStates(sliders);
         if (sliders.length > 0) rangeControlledLabIds.add(lab.labId);
 
         for (const state of sliderStates) {
-          await applySliderState(labCard, sliders, state);
+          await applySliderState(labRoot, sliders, state);
           if (sliders.length > 0) exercisedRangeLabIds.add(lab.labId);
+          await recordIssues(labRoot, lab, language, state.name);
+        }
 
-          const result = await detectVisualizationOverlaps(labCard);
-          const coverageProblems = result.coverage
-            .filter((surface) => surface.marks === 0)
-            .map((surface) => ({
-              surface: surface.surface,
-              label: "coverage",
-              mark: "missing data-viz-mark",
-              labelRect: { x: 0, y: 0, width: 0, height: 0 },
-              markRect: { x: 0, y: 0, width: 0, height: 0 },
-              intersection: { x: 0, y: 0, width: 0, height: 0 }
-            }));
-          const issues = [...coverageProblems, ...result.issues];
+        // Every mode button must hold the no-collision contract too.
+        const modeButtons = labRoot.locator("[data-viz-mode-button]");
+        const modeCount = await modeButtons.count();
+        for (let modeIndex = 1; modeIndex < modeCount; modeIndex += 1) {
+          await modeButtons.nth(modeIndex).click();
+          await page.waitForTimeout(30);
+          await recordIssues(labRoot, lab, language, `mode=${modeIndex}`);
+        }
+      }
 
-          if (result.coverage.length === 0) {
-            issues.unshift({
-              surface: "missing data-viz-surface",
-              label: "coverage",
-              mark: "missing checked visualization surface",
-              labelRect: { x: 0, y: 0, width: 0, height: 0 },
-              markRect: { x: 0, y: 0, width: 0, height: 0 },
-              intersection: { x: 0, y: 0, width: 0, height: 0 }
-            });
-          }
+      async function recordIssues(
+        labSection: Locator,
+        lab: (typeof allVisualizationLabs)[number],
+        recordLanguage: "en" | "zh" | "zh-Hans",
+        stateName: string
+      ) {
+        const result = await detectVisualizationOverlaps(labSection);
+        const coverageProblems = result.coverage
+          .filter((surface) => surface.marks === 0)
+          .map((surface) => ({
+            surface: surface.surface,
+            label: "coverage",
+            mark: "missing data-viz-mark",
+            labelRect: { x: 0, y: 0, width: 0, height: 0 },
+            markRect: { x: 0, y: 0, width: 0, height: 0 },
+            intersection: { x: 0, y: 0, width: 0, height: 0 }
+          }));
+        const issues = [...coverageProblems, ...result.issues];
 
-          if (issues.length === 0) continue;
-
-          const sliderValues = await collectCurrentSliderValues(labCard);
-          failures.push({
-            language,
-            topicId: lab.topicId,
-            title: lab.title,
-            state: state.name,
-            sliderValues,
-            issues
+        if (result.coverage.length === 0 && result.canvasSurfaceCount === 0) {
+          issues.unshift({
+            surface: "missing data-viz-surface",
+            label: "coverage",
+            mark: "missing checked visualization surface",
+            labelRect: { x: 0, y: 0, width: 0, height: 0 },
+            markRect: { x: 0, y: 0, width: 0, height: 0 },
+            intersection: { x: 0, y: 0, width: 0, height: 0 }
           });
+        }
 
-          if (attachedFailures < maxAttachedFailures) {
-            attachedFailures += 1;
-            await attachLabScreenshot(testInfo, labCard, `${language}-${lab.topicId}-${attachedFailures}`);
-          }
+        if (issues.length === 0) return;
+
+        const sliderValues = await collectCurrentSliderValues(labSection);
+        failures.push({
+          language: recordLanguage,
+          topicId: lab.topicId,
+          title: lab.title.en,
+          state: stateName,
+          sliderValues,
+          issues
+        });
+
+        if (attachedFailures < maxAttachedFailures) {
+          attachedFailures += 1;
+          await attachLabScreenshot(testInfo, labSection, `${recordLanguage}-${lab.topicId}-${attachedFailures}`);
         }
       }
     }
   });
+
+  test("premium Three.js regional labs stay visible on mobile", async ({ browser }, testInfo) => {
+    test.setTimeout(120_000);
+    const targetLabs = [
+      { expectedFamilyId: "three-conic-sections-deep", expectedSceneVariant: "conic-section-deep", labId: "pep-high-s5-conics" },
+      { expectedFamilyId: "three-statistical-inference-lab", expectedSceneVariant: "statistical-inference", labId: "us-ca-math-s6-chapter-03" },
+      { expectedFamilyId: "three-calculus-rate-area", expectedSceneVariant: "function-ribbon", labId: "calculus" }
+    ];
+
+    for (const { expectedFamilyId, expectedSceneVariant, labId } of targetLabs) {
+      // Each premium lab gets a fresh browser context: sequential WebGL
+      // canvases in one page exhaust headless GL contexts, which unmounts the
+      // r3f surface mid-assertion and flakes the attribute checks.
+      const context = await browser.newContext({ viewport: { width: 390, height: 844 } });
+      const page = await context.newPage();
+      const pageErrors = collectPageErrors(page);
+
+      const lab = visualizationLabCatalog.find((candidate) => candidate.labId === labId);
+      expect(lab, `${labId} should exist`).toBeTruthy();
+      await registerVisualizationStudentForLab(page, testInfo, lab!);
+      await page.goto(buildVisualizationLabHref(lab!));
+      await disableMotion(page);
+
+      const section = page.locator(visualizationLabSectionSelector(lab!));
+      await expect(section).toBeVisible();
+      const surface = section.locator('[data-viz-surface][data-viz-renderer="three-r3f"]');
+      await expect(surface).toBeVisible({ timeout: 20_000 });
+      await expect(surface).toHaveAttribute("data-viz-canvas-ready", "true");
+      await expect(surface).toHaveAttribute("data-viz-family-id", expectedFamilyId);
+      await expect(surface).toHaveAttribute("data-viz-scene-variant", expectedSceneVariant);
+      const box = await surface.boundingBox();
+      expect(box?.width ?? 0).toBeGreaterThan(250);
+      expect(box?.height ?? 0).toBeGreaterThan(130);
+
+      expectNoPageErrors(pageErrors);
+      await context.close();
+    }
+  });
+
+  test("MAIS Manim function graph surface stays visible on mobile", async ({ page }, testInfo) => {
+    const pageErrors = collectPageErrors(page);
+    const lab = visualizationLabCatalog.find((candidate) => candidate.labId === "functions");
+
+    expect(lab, "function graph lab should exist").toBeTruthy();
+
+    await page.setViewportSize({ width: 390, height: 844 });
+    await registerVisualizationStudentForLab(page, testInfo, lab!);
+    await page.goto(buildVisualizationLabHref(lab!), { waitUntil: "domcontentloaded" });
+    await disableMotion(page);
+
+    const section = page.locator(visualizationLabSectionSelector(lab!));
+    await expect(section).toBeVisible();
+    const surface = section.locator('[data-viz-surface][data-viz-renderer="three-r3f"]');
+    await expect(surface).toBeVisible({ timeout: 20_000 });
+    await expect(surface).toHaveAttribute("data-viz-canvas-ready", "true");
+    await expect(surface).toHaveAttribute("data-viz-runtime", "mais-manim");
+    await expect(surface).toHaveAttribute("data-viz-scene-id", "mais-manim-function-graph");
+    await expect(surface.locator("[data-viz-manim-formula-overlay]")).toBeVisible();
+
+    const surfaceBox = await surface.boundingBox();
+    const overlayBox = await surface.locator("[data-viz-manim-formula-overlay]").boundingBox();
+    expect(surfaceBox?.width ?? 0).toBeGreaterThan(250);
+    expect(surfaceBox?.height ?? 0).toBeGreaterThan(130);
+    expect(overlayBox?.width ?? 0).toBeGreaterThan(40);
+    expect(overlayBox?.height ?? 0).toBeGreaterThan(20);
+    expect((overlayBox?.x ?? 0) + (overlayBox?.width ?? 0)).toBeLessThanOrEqual((surfaceBox?.x ?? 0) + (surfaceBox?.width ?? 0) + 1);
+    expect((overlayBox?.y ?? 0) + (overlayBox?.height ?? 0)).toBeLessThanOrEqual((surfaceBox?.y ?? 0) + (surfaceBox?.height ?? 0) + 1);
+
+    expectNoPageErrors(pageErrors);
+  });
 });
 
-async function ensureAllGradesVisible(page: Page) {
-  const lastLab = allVisualizationLabs[allVisualizationLabs.length - 1];
-  const lastLabCard = page.locator(`#lab-example-${lastLab.labId}`);
-  if (await lastLabCard.isVisible().catch(() => false)) return;
+async function registerVisualizationStudentForLab(page: Page, testInfo: TestInfo, lab: FeaturedLabDefinition) {
+  const suffix = `${uniqueSuffix(testInfo)}-${lab.labId}`.replace(/[^a-z0-9-]+/gi, "-").toLowerCase().slice(0, 48);
+  const username = `visualization-mobile-${suffix}@example.test`;
+  const isCalifornia = lab.publisher === "US_CA_MATH";
+  const isMainland = lab.curriculumTrack.startsWith("MAINLAND") || lab.publisher?.startsWith("MAINLAND");
+  const response = await page.request.post("/api/auth/register", {
+    data: {
+      role: "student",
+      name: `Visualization Mobile ${suffix}`,
+      username,
+      email: username,
+      password: "start12345",
+      grade: lab.grade,
+      curriculumTrack: isCalifornia ? "US_CA_MATH" : isMainland ? "MAINLAND_PEP_HIGH" : "HK",
+      curriculumProfile: isCalifornia
+        ? { region: "US", publisher: "US_CA_MATH" }
+        : isMainland
+          ? { region: "MAINLAND", publisher: lab.publisher ?? "MAINLAND_PEP" }
+          : { region: "HK", publisher: "HK_UNITED_PRIME_MIA" },
+      language: "en",
+      theme: "dark"
+    }
+  });
 
-  await page.getByRole("button", { name: /Explore all labs|Explore other grades|探索全部實驗|探索全部实验|探索其他年級/i }).click();
-  await expect(lastLabCard).toBeVisible();
-}
-
-async function openLabIfNeeded(card: Locator) {
-  if ((await card.locator("[data-viz-surface]").count()) > 0) return;
-
-  const openButton = card.getByRole("button", { name: /Open lab|開啟實驗|开启实验/i });
-  if (await openButton.isVisible().catch(() => false)) {
-    await openButton.click();
-  }
-  await expect(card.locator("[data-viz-surface]").first()).toBeVisible();
+  expect(response.status(), `register visualization student for ${lab.labId}`).toBe(200);
 }
 
 async function disableMotion(page: Page) {
@@ -354,7 +495,11 @@ async function collectCurrentSliderValues(card: Locator) {
 async function detectVisualizationOverlaps(card: Locator): Promise<DetectionResult> {
   return await card.evaluate((root) => {
     const tolerance = 4;
-    const surfaces = Array.from(root.querySelectorAll<HTMLElement | SVGElement>("[data-viz-surface]"));
+    // WebGL canvas surfaces (data-viz-renderer) carry no SVG text/marks; the
+    // 2D SVG surface is the collision-checkable model, so canvases are skipped.
+    const allSurfaces = Array.from(root.querySelectorAll<HTMLElement | SVGElement>("[data-viz-surface]"));
+    const surfaces = allSurfaces.filter((surface) => !surface.hasAttribute("data-viz-renderer") && !surface.closest('[aria-hidden="true"]'));
+    const canvasSurfaceCount = allSurfaces.length - surfaces.length;
     const issues: OverlapIssue[] = [];
     const coverage: SurfaceCoverage[] = [];
 
@@ -432,7 +577,7 @@ async function detectVisualizationOverlaps(card: Locator): Promise<DetectionResu
       });
     });
 
-    return { issues, coverage };
+    return { issues, coverage, canvasSurfaceCount };
   });
 }
 

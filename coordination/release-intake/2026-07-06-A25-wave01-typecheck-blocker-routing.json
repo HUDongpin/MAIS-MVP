@@ -1,0 +1,355 @@
+{
+  "generatedAt": "2026-07-06T15:47:23.007Z",
+  "dirtyMapStatusSignature": "b26fe39c438a20cdbb9cf3943e3d000d9dc8dc04ccccedc13792c457c5942d3b",
+  "expandedStatusEntries": 5183,
+  "wave01ReadinessGeneratedAt": "2026-07-06T15:47:22.947Z",
+  "wave01CommitReady": false,
+  "wave01BlockingReasons": [
+    "1 package-only dirty entries need owner-approved package resync authorization",
+    "npm audit --audit-level=high failed",
+    "release helper tests failed",
+    "npm run type-check failed"
+  ],
+  "typeCheck": {
+    "passed": false,
+    "status": 2,
+    "errorLines": 404,
+    "byTop": {
+      "app": 120,
+      "components": 184,
+      "lib": 100
+    },
+    "firstErrors": [
+      "app/api/admin/ai-governance/summary/route.ts(3,43): error TS2307: Cannot find module '@/lib/server/aiGovernance' or its corresponding type declarations.",
+      "app/api/admin/ai-governance/summary/route.ts(4,10): error TS2305: Module '\"@/lib/server/userStore\"' has no exported member 'getAiGovernanceSummaryForAdmin'.",
+      "app/api/admin/nova-lens/policy/route.ts(3,10): error TS2305: Module '\"@/lib/server/userStore\"' has no exported member 'getNovaLensPolicy'.",
+      "app/api/admin/nova-lens/policy/route.ts(3,29): error TS2305: Module '\"@/lib/server/userStore\"' has no exported member 'listNovaLensPolicyEventsForAdmin'.",
+      "app/api/admin/nova-lens/policy/route.ts(3,63): error TS2305: Module '\"@/lib/server/userStore\"' has no exported member 'updateNovaLensPolicy'.",
+      "app/api/admin/nova-lens/policy/route.ts(4,15): error TS2305: Module '\"@/types\"' has no exported member 'NovaLensPolicy'.",
+      "app/api/admin/storage/hot-auth/backfill/route.ts(3,10): error TS2305: Module '\"@/lib/server/userStore\"' has no exported member 'backfillPostgresHotAuthTablesForAdmin'.",
+      "app/api/admin/storage/temporary-bootstrap-admins/route.ts(3,10): error TS2305: Module '\"@/lib/server/userStore\"' has no exported member 'cleanupTemporaryBootstrapAdminsForAdmin'.",
+      "app/api/assignments/[assignmentId]/corrections/route.ts(3,10): error TS2305: Module '\"@/lib/server/userStore\"' has no exported member 'recordAiGovernanceEvent'.",
+      "app/api/assignments/[assignmentId]/corrections/route.ts(3,35): error TS2305: Module '\"@/lib/server/userStore\"' has no exported member 'submitAssignmentWork'.",
+      "app/api/assignments/[assignmentId]/corrections/route.ts(4,100): error TS2307: Cannot find module '@/lib/server/aiGovernance' or its corresponding type declarations.",
+      "app/api/assignments/[assignmentId]/corrections/route.ts(10,15): error TS2305: Module '\"@/types\"' has no exported member 'AssignmentSubmissionInputType'.",
+      "app/api/assignments/[assignmentId]/corrections/route.ts(10,46): error TS2305: Module '\"@/types\"' has no exported member 'AssignmentSubmissionOcrResult'.",
+      "app/api/assignments/[assignmentId]/corrections/route.ts(34,13): error TS7006: Parameter 'error' implicitly has an 'any' type.",
+      "app/api/assignments/[assignmentId]/corrections/route.ts(72,15): error TS7006: Parameter 'error' implicitly has an 'any' type.",
+      "app/api/assignments/[assignmentId]/corrections/route.ts(94,15): error TS7006: Parameter 'error' implicitly has an 'any' type.",
+      "app/api/assignments/[assignmentId]/submissions/route.ts(3,10): error TS2305: Module '\"@/lib/server/userStore\"' has no exported member 'recordAiGovernanceEvent'.",
+      "app/api/assignments/[assignmentId]/submissions/route.ts(3,35): error TS2305: Module '\"@/lib/server/userStore\"' has no exported member 'submitAssignmentWork'.",
+      "app/api/assignments/[assignmentId]/submissions/route.ts(4,100): error TS2307: Cannot find module '@/lib/server/aiGovernance' or its corresponding type declarations.",
+      "app/api/assignments/[assignmentId]/submissions/route.ts(10,15): error TS2305: Module '\"@/types\"' has no exported member 'AssignmentSubmissionInputType'.",
+      "app/api/assignments/[assignmentId]/submissions/route.ts(10,46): error TS2305: Module '\"@/types\"' has no exported member 'AssignmentSubmissionOcrResult'.",
+      "app/api/assignments/[assignmentId]/submissions/route.ts(34,13): error TS7006: Parameter 'error' implicitly has an 'any' type.",
+      "app/api/assignments/[assignmentId]/submissions/route.ts(72,15): error TS7006: Parameter 'error' implicitly has an 'any' type.",
+      "app/api/assignments/[assignmentId]/submissions/route.ts(94,15): error TS7006: Parameter 'error' implicitly has an 'any' type.",
+      "app/api/classroom/live/[sessionId]/work-samples/route.ts(3,10): error TS2305: Module '\"@/lib/server/userStore\"' has no exported member 'createClassroomWorkSample'."
+    ]
+  },
+  "wave01Owners": [
+    {
+      "ownerId": "A25",
+      "owner": "A25 git hygiene and release intake lead"
+    },
+    {
+      "ownerId": "A10",
+      "owner": "A10 tooling, docs, and report lead"
+    },
+    {
+      "ownerId": "A22",
+      "owner": "A22 production reliability and release engineering lead"
+    }
+  ],
+  "ownerRoutes": [
+    {
+      "ownerId": "A13",
+      "owner": "A13 teacher console lead",
+      "routeKind": "cross-owner-blocker",
+      "files": 8,
+      "errors": 168
+    },
+    {
+      "ownerId": "A12",
+      "owner": "A12 backend/API platform lead",
+      "routeKind": "cross-owner-blocker",
+      "files": 7,
+      "errors": 55
+    },
+    {
+      "ownerId": "A20",
+      "owner": "A20 game design and game-based learning lead",
+      "routeKind": "cross-owner-blocker",
+      "files": 3,
+      "errors": 29
+    },
+    {
+      "ownerId": "A06",
+      "owner": "A06 visualization lead",
+      "routeKind": "cross-owner-blocker",
+      "files": 2,
+      "errors": 25
+    },
+    {
+      "ownerId": "A05",
+      "owner": "A05 lesson lead",
+      "routeKind": "cross-owner-blocker",
+      "files": 2,
+      "errors": 14
+    },
+    {
+      "ownerId": "A07",
+      "owner": "A07 AI tutor lead",
+      "routeKind": "cross-owner-blocker",
+      "files": 1,
+      "errors": 9
+    }
+  ],
+  "typeCheckTopFiles": [
+    {
+      "file": "components/teacher/TeacherPrepViews.tsx",
+      "errors": 36,
+      "inferredOwners": [
+        {
+          "ownerId": "A13",
+          "owner": "A13 teacher console lead",
+          "routeKind": "cross-owner-blocker"
+        }
+      ]
+    },
+    {
+      "file": "components/teacher/TeacherOperationsView.tsx",
+      "errors": 32,
+      "inferredOwners": [
+        {
+          "ownerId": "A13",
+          "owner": "A13 teacher console lead",
+          "routeKind": "cross-owner-blocker"
+        }
+      ]
+    },
+    {
+      "file": "lib/teacherReviewLesson.ts",
+      "errors": 30,
+      "inferredOwners": [
+        {
+          "ownerId": "A13",
+          "owner": "A13 teacher console lead",
+          "routeKind": "cross-owner-blocker"
+        }
+      ]
+    },
+    {
+      "file": "components/teacher/TeacherReviewLessonView.tsx",
+      "errors": 25,
+      "inferredOwners": [
+        {
+          "ownerId": "A13",
+          "owner": "A13 teacher console lead",
+          "routeKind": "cross-owner-blocker"
+        }
+      ]
+    },
+    {
+      "file": "lib/teacherReviewLessonPptx.ts",
+      "errors": 18,
+      "inferredOwners": [
+        {
+          "ownerId": "A13",
+          "owner": "A13 teacher console lead",
+          "routeKind": "cross-owner-blocker"
+        }
+      ]
+    },
+    {
+      "file": "components/visualizations/VisualizationLabPage.tsx",
+      "errors": 16,
+      "inferredOwners": [
+        {
+          "ownerId": "A06",
+          "owner": "A06 visualization lead",
+          "routeKind": "cross-owner-blocker"
+        }
+      ]
+    },
+    {
+      "file": "components/games/MathVirusBlasterGame.tsx",
+      "errors": 13,
+      "inferredOwners": [
+        {
+          "ownerId": "A20",
+          "owner": "A20 game design and game-based learning lead",
+          "routeKind": "cross-owner-blocker"
+        }
+      ]
+    },
+    {
+      "file": "components/games/MightyTankBattleGame.tsx",
+      "errors": 10,
+      "inferredOwners": [
+        {
+          "ownerId": "A20",
+          "owner": "A20 game design and game-based learning lead",
+          "routeKind": "cross-owner-blocker"
+        }
+      ]
+    },
+    {
+      "file": "app/api/teacher/review-lessons/[reviewLessonId]/route.ts",
+      "errors": 9,
+      "inferredOwners": [
+        {
+          "ownerId": "A12",
+          "owner": "A12 backend/API platform lead",
+          "routeKind": "cross-owner-blocker"
+        },
+        {
+          "ownerId": "A13",
+          "owner": "A13 teacher console lead",
+          "routeKind": "cross-owner-blocker"
+        }
+      ]
+    },
+    {
+      "file": "components/visualizations/three/threeDSceneMath.catalog.test.ts",
+      "errors": 9,
+      "inferredOwners": [
+        {
+          "ownerId": "A06",
+          "owner": "A06 visualization lead",
+          "routeKind": "cross-owner-blocker"
+        }
+      ]
+    },
+    {
+      "file": "lib/server/teacherReviewLessonLLM.ts",
+      "errors": 9,
+      "inferredOwners": [
+        {
+          "ownerId": "A13",
+          "owner": "A13 teacher console lead",
+          "routeKind": "cross-owner-blocker"
+        },
+        {
+          "ownerId": "A12",
+          "owner": "A12 backend/API platform lead",
+          "routeKind": "cross-owner-blocker"
+        },
+        {
+          "ownerId": "A07",
+          "owner": "A07 AI tutor lead",
+          "routeKind": "cross-owner-blocker"
+        }
+      ]
+    },
+    {
+      "file": "lib/teacherAssessmentAnalysis.ts",
+      "errors": 9,
+      "inferredOwners": [
+        {
+          "ownerId": "A13",
+          "owner": "A13 teacher console lead",
+          "routeKind": "cross-owner-blocker"
+        }
+      ]
+    },
+    {
+      "file": "app/api/assignments/[assignmentId]/corrections/route.ts",
+      "errors": 8,
+      "inferredOwners": [
+        {
+          "ownerId": "A12",
+          "owner": "A12 backend/API platform lead",
+          "routeKind": "cross-owner-blocker"
+        }
+      ]
+    },
+    {
+      "file": "app/api/assignments/[assignmentId]/submissions/route.ts",
+      "errors": 8,
+      "inferredOwners": [
+        {
+          "ownerId": "A12",
+          "owner": "A12 backend/API platform lead",
+          "routeKind": "cross-owner-blocker"
+        }
+      ]
+    },
+    {
+      "file": "app/api/classroom/live/[sessionId]/work-samples/route.ts",
+      "errors": 8,
+      "inferredOwners": [
+        {
+          "ownerId": "A12",
+          "owner": "A12 backend/API platform lead",
+          "routeKind": "cross-owner-blocker"
+        }
+      ]
+    },
+    {
+      "file": "app/api/me/learner-profile/route.ts",
+      "errors": 7,
+      "inferredOwners": [
+        {
+          "ownerId": "A12",
+          "owner": "A12 backend/API platform lead",
+          "routeKind": "cross-owner-blocker"
+        }
+      ]
+    },
+    {
+      "file": "components/lesson/CaliforniaHighSchoolTextbookPage.tsx",
+      "errors": 7,
+      "inferredOwners": [
+        {
+          "ownerId": "A05",
+          "owner": "A05 lesson lead",
+          "routeKind": "cross-owner-blocker"
+        }
+      ]
+    },
+    {
+      "file": "components/lesson/CaliforniaHighSchoolTextbookStudentPage.tsx",
+      "errors": 7,
+      "inferredOwners": [
+        {
+          "ownerId": "A05",
+          "owner": "A05 lesson lead",
+          "routeKind": "cross-owner-blocker"
+        }
+      ]
+    },
+    {
+      "file": "app/api/classroom/live/actions/route.ts",
+      "errors": 6,
+      "inferredOwners": [
+        {
+          "ownerId": "A12",
+          "owner": "A12 backend/API platform lead",
+          "routeKind": "cross-owner-blocker"
+        }
+      ]
+    },
+    {
+      "file": "components/games/MathMatchQuestGame.tsx",
+      "errors": 6,
+      "inferredOwners": [
+        {
+          "ownerId": "A20",
+          "owner": "A20 game design and game-based learning lead",
+          "routeKind": "cross-owner-blocker"
+        }
+      ]
+    }
+  ],
+  "cleanupAuthorized": false,
+  "executableNow": false,
+  "summary": {
+    "topFilesRouted": 20,
+    "ownerRoutes": 6,
+    "crossOwnerFiles": 20,
+    "wave01OwnerFiles": 0,
+    "cleanupAuthorizedRows": 0,
+    "executableRows": 0
+  }
+}

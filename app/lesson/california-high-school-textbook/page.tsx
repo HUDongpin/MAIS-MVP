@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
-import { CaliforniaHighSchoolTextbookStudentPage } from "@/components/lesson/CaliforniaHighSchoolTextbookStudentPage";
-import { requireLessonAuthentication } from "@/components/lesson/lessonAuthGate";
+import { redirect } from "next/navigation";
 
 export const runtime = "nodejs";
 
@@ -10,7 +9,5 @@ export const metadata: Metadata = {
 };
 
 export default async function CaliforniaHighSchoolTextbookRoute() {
-  await requireLessonAuthentication("/lesson/california-high-school-textbook");
-
-  return <CaliforniaHighSchoolTextbookStudentPage />;
+  redirect("/lesson/california-high-school-textbook/review");
 }

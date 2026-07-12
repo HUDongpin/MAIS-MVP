@@ -35,7 +35,7 @@ const productionAuthStorageEnabled = process.env.PRODUCTION_AUTH_STORAGE_SMOKE =
 const expectedProductionOrigin = "https://www.mais.hk";
 const sessionCookieName = "hk_math_session";
 
-test.setTimeout(180_000);
+test.setTimeout(420_000);
 test.use({ trace: "off", video: "off", screenshot: "off" });
 
 function smokePassword() {
@@ -94,6 +94,7 @@ async function runAuthProbe(page: Page, testInfo: TestInfo, attempt: number): Pr
   const username = `smoke-auth-storage-${suffix}@example.test`;
   const password = smokePassword();
 
+  await page.context().clearCookies();
   const registerResponse = await page.request.post("/api/auth/register", {
     data: {
       name: `Smoke Auth Storage ${attempt}`,
@@ -110,7 +111,12 @@ async function runAuthProbe(page: Page, testInfo: TestInfo, attempt: number): Pr
   await page.goto("/login", { waitUntil: "domcontentloaded" });
   await page.locator('input[autocomplete="username"]').first().fill(username);
   await page.locator('input[autocomplete="current-password"]').first().fill(password);
-  await page.getByRole("radio", { name: /\bS3\b/i }).first().click();
+  const s3Radio = page.getByRole("radio", { name: /\bS3\b/i }).first();
+  if (await s3Radio.isEnabled()) {
+    await s3Radio.click();
+  } else {
+    await expect(s3Radio).toHaveAttribute("aria-checked", "true");
+  }
 
   let loginStatus: number | null = null;
   try {

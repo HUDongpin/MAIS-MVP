@@ -9,6 +9,7 @@ import type { GradeId } from "@/types";
 
 const outputDir = path.join(process.cwd(), "coordination", "content-qa", "mainland-pep-roadmaps-v1");
 const expectedCountsByGrade: Record<GradeId, number> = {
+  K: 0,
   P1: 4,
   P2: 4,
   P3: 4,

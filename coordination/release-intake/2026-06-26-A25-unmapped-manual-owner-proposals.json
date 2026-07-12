@@ -1,0 +1,121 @@
+{
+  "generatedAt": "2026-06-26T11:15:03.887Z",
+  "dirtyMap": {
+    "latestJson": "coordination/release-intake/latest-A25-dirty-tree-map.json",
+    "generatedAt": "2026-06-26T11:14:52.368Z",
+    "statusSignature": "ad33e80de3e1e213eaec9b4d2357a4bb9dfe72de91ba552e65c8ff0679e28c50"
+  },
+  "sourceOwner": "Unmapped/manual owner needed",
+  "sourceCount": 8,
+  "proposalBuckets": {
+    "A10 tooling, docs, and report": 3,
+    "A08 state and analytics lead": 2,
+    "A22 production reliability and release engineering": 1,
+    "A23 integration and promotion lead": 1,
+    "A25 git hygiene and release intake": 1
+  },
+  "confidenceBuckets": {
+    "medium": 5,
+    "high": 3
+  },
+  "proposals": [
+    {
+      "status": " M",
+      "path": "next-env.d.ts",
+      "owner": "Unmapped/manual owner needed",
+      "slice": "unmapped/manual",
+      "proposedOwner": "A10 tooling, docs, and report",
+      "coordination": [
+        "A22 production reliability and release engineering"
+      ],
+      "confidence": "medium",
+      "rationale": "Next.js generated type surface should be reviewed as tooling/build metadata."
+    },
+    {
+      "status": "??",
+      "path": "coordination/integration/2026-06-21-S23-generated-content-source-package-gate.md",
+      "owner": "Unmapped/manual owner needed",
+      "slice": "docs/coordination evidence",
+      "proposedOwner": "A23 integration and promotion lead",
+      "coordination": [
+        "A18 curriculum QA / A21 content pipeline",
+        "A25 git hygiene and release intake"
+      ],
+      "confidence": "high",
+      "rationale": "Integration gate evidence is A23-owned by coordination contract."
+    },
+    {
+      "status": "??",
+      "path": "design-qa.md",
+      "owner": "Unmapped/manual owner needed",
+      "slice": "unmapped/manual",
+      "proposedOwner": "A10 tooling, docs, and report",
+      "coordination": [
+        "A11 QA and release quality"
+      ],
+      "confidence": "medium",
+      "rationale": "Root design QA note is coordination/report evidence unless a feature owner claims it."
+    },
+    {
+      "status": "??",
+      "path": "scripts/bug-triage.js",
+      "owner": "Unmapped/manual owner needed",
+      "slice": "unmapped/manual",
+      "proposedOwner": "A10 tooling, docs, and report",
+      "coordination": [
+        "A11 QA and release quality"
+      ],
+      "confidence": "high",
+      "rationale": "General triage tooling belongs with A10 coordination/tooling."
+    },
+    {
+      "status": "??",
+      "path": "scripts/refresh-dirty-tree-map.mjs",
+      "owner": "Unmapped/manual owner needed",
+      "slice": "unmapped/manual",
+      "proposedOwner": "A25 git hygiene and release intake",
+      "coordination": [
+        "A10 tooling, docs, and report"
+      ],
+      "confidence": "high",
+      "rationale": "Dirty-tree map generation is A25 release-intake tooling."
+    },
+    {
+      "status": "??",
+      "path": "scripts/resend-local-smoke.mjs",
+      "owner": "Unmapped/manual owner needed",
+      "slice": "unmapped/manual",
+      "proposedOwner": "A22 production reliability and release engineering",
+      "coordination": [
+        "A19 API configuration and deployment env lead"
+      ],
+      "confidence": "medium",
+      "rationale": "Local smoke tooling affects release/deployment readiness and env parity."
+    },
+    {
+      "status": "??",
+      "path": "scripts/run-analytics-tests.mjs",
+      "owner": "Unmapped/manual owner needed",
+      "slice": "unmapped/manual",
+      "proposedOwner": "A08 state and analytics lead",
+      "coordination": [
+        "A10 tooling, docs, and report"
+      ],
+      "confidence": "medium",
+      "rationale": "Analytics test runner should be reviewed by A08 with A10 tooling coordination."
+    },
+    {
+      "status": "??",
+      "path": "tsconfig.analytics.json",
+      "owner": "Unmapped/manual owner needed",
+      "slice": "unmapped/manual",
+      "proposedOwner": "A08 state and analytics lead",
+      "coordination": [
+        "A10 tooling, docs, and report",
+        "A22 production reliability and release engineering"
+      ],
+      "confidence": "medium",
+      "rationale": "Analytics TypeScript config supports A08 analytics checks with A10/A22 build coordination."
+    }
+  ]
+}

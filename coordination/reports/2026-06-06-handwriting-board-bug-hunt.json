@@ -1,0 +1,73 @@
+{
+  "generatedAt": "2026-06-18T16:52:16.051Z",
+  "scope": "Lesson and Practice handwriting board bug hunt",
+  "findingCount": 1,
+  "findings": [
+    {
+      "id": "HWB-01",
+      "severity": "P2",
+      "surface": "API",
+      "title": "Live OCR route returns empty text for clear common math expressions",
+      "expected": "Clear math images for equations and trigonometric expressions return recognized text or at least non-empty alternatives for learner review.",
+      "actual": "3/5 live OCR calls returned HTTP 200 from a provider but `accepted=false` with empty text.",
+      "repro": "POST generated PNG data URLs for common math expressions such as `2x+3=9` and `sin30=1/2` to `/api/handwriting-recognition`.",
+      "evidence": "[{\"caseId\":\"live-1\",\"input\":\"x^2+4x\",\"httpStatus\":200,\"provider\":\"simpletex\",\"accepted\":false,\"text\":\"\",\"reason\":\"Recognition requires review: low-confidence.\",\"alternativesCount\":1,\"latencyMs\":9144},{\"caseId\":\"live-4\",\"input\":\"2x+3=9\",\"httpStatus\":200,\"provider\":\"simpletex\",\"accepted\":false,\"text\":\"\",\"reason\":\"Recognition requires review: low-confidence.\",\"alternativesCount\":1,\"latencyMs\":2485},{\"caseId\":\"live-5\",\"input\":\"sin30=1/2\",\"httpStatus\":200,\"provider\":\"simpletex\",\"accepted\":false,\"text\":\"\",\"reason\":\"Recognition requires review: low-confidence.\",\"alternativesCount\":1,\"latencyMs\":2190}]",
+      "rootCause": "The route/provider acceptance threshold or post-processing may be dropping usable OCR candidates instead of surfacing them for learner review."
+    }
+  ],
+  "liveOcrRows": [
+    {
+      "caseId": "live-1",
+      "input": "x^2+4x",
+      "httpStatus": 200,
+      "provider": "simpletex",
+      "accepted": false,
+      "text": "",
+      "reason": "Recognition requires review: low-confidence.",
+      "alternativesCount": 1,
+      "latencyMs": 9144
+    },
+    {
+      "caseId": "live-2",
+      "input": "3/5+1/2",
+      "httpStatus": 200,
+      "provider": "simpletex",
+      "accepted": true,
+      "text": "3/5+1/2",
+      "alternativesCount": 1,
+      "latencyMs": 2968
+    },
+    {
+      "caseId": "live-3",
+      "input": "0.9+0.1",
+      "httpStatus": 200,
+      "provider": "simpletex",
+      "accepted": true,
+      "text": "0.9+0.1",
+      "alternativesCount": 1,
+      "latencyMs": 1985
+    },
+    {
+      "caseId": "live-4",
+      "input": "2x+3=9",
+      "httpStatus": 200,
+      "provider": "simpletex",
+      "accepted": false,
+      "text": "",
+      "reason": "Recognition requires review: low-confidence.",
+      "alternativesCount": 1,
+      "latencyMs": 2485
+    },
+    {
+      "caseId": "live-5",
+      "input": "sin30=1/2",
+      "httpStatus": 200,
+      "provider": "simpletex",
+      "accepted": false,
+      "text": "",
+      "reason": "Recognition requires review: low-confidence.",
+      "alternativesCount": 1,
+      "latencyMs": 2190
+    }
+  ]
+}

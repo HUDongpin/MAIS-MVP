@@ -1,0 +1,739 @@
+{
+  "generatedAt": "2026-06-26T11:15:10.735Z",
+  "dirtyMap": {
+    "latestJson": "coordination/release-intake/latest-A25-dirty-tree-map.json",
+    "generatedAt": "2026-06-26T11:14:52.368Z",
+    "statusSignature": "ad33e80de3e1e213eaec9b4d2357a4bb9dfe72de91ba552e65c8ff0679e28c50",
+    "expandedStatusEntries": 1648
+  },
+  "gates": [
+    {
+      "name": "dirty map current",
+      "command": "npm run release:dirty-map -- --assert-current --max-age-minutes 60"
+    },
+    {
+      "name": "owner pathspecs current",
+      "command": "node coordination/release-intake/assert-owner-pathspecs-current.mjs"
+    },
+    {
+      "name": "unmapped runtime owner proposals current",
+      "command": "node coordination/release-intake/assert-unmapped-owner-proposals-current.mjs"
+    },
+    {
+      "name": "effective owner overlay current",
+      "command": "node coordination/release-intake/assert-effective-owner-overlay-current.mjs"
+    },
+    {
+      "name": "unmapped manual owner proposals current",
+      "command": "node coordination/release-intake/assert-unmapped-manual-proposals-current.mjs"
+    },
+    {
+      "name": "secret/env quarantine",
+      "command": "node coordination/release-intake/assert-secret-env-quarantine.mjs"
+    },
+    {
+      "name": "disposition evidence current",
+      "command": "node coordination/release-intake/assert-disposition-evidence-current.mjs"
+    },
+    {
+      "name": "worktree lifecycle normal",
+      "command": "node coordination/release-intake/assert-worktree-lifecycle.mjs"
+    },
+    {
+      "name": "release source clean",
+      "command": "node coordination/release-intake/assert-release-source-clean.mjs"
+    },
+    {
+      "name": "worktree lifecycle strict closure",
+      "command": "node coordination/release-intake/assert-worktree-lifecycle.mjs --strict"
+    }
+  ],
+  "queue": [
+    {
+      "owner": "Unmapped runtime owner review needed",
+      "dirtyEntries": 100,
+      "sliceBuckets": {
+        "runtime app/API/data/public": 90,
+        "tests/regression evidence": 10
+      },
+      "statusBuckets": {
+        " M": 51,
+        "??": 49
+      },
+      "pathspec": "coordination/release-intake/2026-06-26-A25-owner-unmapped-runtime-owner-review-needed.pathspec",
+      "latestPathspec": "coordination/release-intake/latest-A25-owner-unmapped-runtime-owner-review-needed.pathspec",
+      "acceptanceCheck": "A10/A25 must assign an owner before packaging or release.",
+      "finalStates": "commit reviewed slice, owner-approved discard, archive evidence, or defer with blocker",
+      "priority": 0,
+      "priorityReason": "Assign owner before any release or commit package.",
+      "dominantSlice": {
+        "name": "runtime app/API/data/public",
+        "count": 90
+      },
+      "recommendedCommands": [
+        "git status --short --pathspec-from-file=coordination/release-intake/latest-A25-owner-unmapped-runtime-owner-review-needed.pathspec",
+        "git diff --stat --pathspec-from-file=coordination/release-intake/latest-A25-owner-unmapped-runtime-owner-review-needed.pathspec",
+        "A10/A25 must assign an owner before packaging or release."
+      ],
+      "requiredFinalState": "reviewed commit, owner-approved discard, evidence archive, or blocker"
+    },
+    {
+      "owner": "A25 git hygiene and release intake",
+      "dirtyEntries": 471,
+      "sliceBuckets": {
+        "docs/coordination evidence": 471
+      },
+      "statusBuckets": {
+        "??": 471
+      },
+      "pathspec": "coordination/release-intake/2026-06-26-A25-owner-a25-git-hygiene-and-release-intake.pathspec",
+      "latestPathspec": "coordination/release-intake/latest-A25-owner-a25-git-hygiene-and-release-intake.pathspec",
+      "acceptanceCheck": "A25 refreshes dirty map, emits pathspecs, and records non-destructive intake evidence only.",
+      "finalStates": "commit reviewed slice, owner-approved discard, archive evidence, or defer with blocker",
+      "priority": 1,
+      "priorityReason": "Release-intake evidence should be reviewed/committed as one coordination package.",
+      "dominantSlice": {
+        "name": "docs/coordination evidence",
+        "count": 471
+      },
+      "recommendedCommands": [
+        "git status --short --pathspec-from-file=coordination/release-intake/latest-A25-owner-a25-git-hygiene-and-release-intake.pathspec",
+        "git diff --stat --pathspec-from-file=coordination/release-intake/latest-A25-owner-a25-git-hygiene-and-release-intake.pathspec",
+        "A25 refreshes dirty map, emits pathspecs, and records non-destructive intake evidence only."
+      ],
+      "requiredFinalState": "reviewed commit, owner-approved discard, evidence archive, or blocker"
+    },
+    {
+      "owner": "A22 production reliability and release engineering",
+      "dirtyEntries": 24,
+      "sliceBuckets": {
+        "docs/coordination evidence": 15,
+        "release hygiene tooling/config": 9
+      },
+      "statusBuckets": {
+        "??": 22,
+        " M": 2
+      },
+      "pathspec": "coordination/release-intake/2026-06-26-A25-owner-a22-production-reliability-and-release-engineering.pathspec",
+      "latestPathspec": "coordination/release-intake/latest-A25-owner-a22-production-reliability-and-release-engineering.pathspec",
+      "acceptanceCheck": "A22 verifies clean release source, release env guard, and deploy-size/build isolation before any publish.",
+      "finalStates": "commit reviewed slice, owner-approved discard, archive evidence, or defer with blocker",
+      "priority": 1,
+      "priorityReason": "Release gate and deploy-source hygiene.",
+      "dominantSlice": {
+        "name": "docs/coordination evidence",
+        "count": 15
+      },
+      "recommendedCommands": [
+        "git status --short --pathspec-from-file=coordination/release-intake/latest-A25-owner-a22-production-reliability-and-release-engineering.pathspec",
+        "git diff --stat --pathspec-from-file=coordination/release-intake/latest-A25-owner-a22-production-reliability-and-release-engineering.pathspec",
+        "A22 verifies clean release source, release env guard, and deploy-size/build isolation before any publish."
+      ],
+      "requiredFinalState": "reviewed commit, owner-approved discard, evidence archive, or blocker"
+    },
+    {
+      "owner": "A06 visualization lead",
+      "dirtyEntries": 307,
+      "sliceBuckets": {
+        "runtime app/API/data/public": 163,
+        "tests/regression evidence": 144
+      },
+      "statusBuckets": {
+        "??": 247,
+        " M": 60
+      },
+      "pathspec": "coordination/release-intake/2026-06-26-A25-owner-a06-visualization-lead.pathspec",
+      "latestPathspec": "coordination/release-intake/latest-A25-owner-a06-visualization-lead.pathspec",
+      "acceptanceCheck": "A06 validates focused visualization/Manim tests plus app type-check before packaging.",
+      "finalStates": "commit reviewed slice, owner-approved discard, archive evidence, or defer with blocker",
+      "priority": 2,
+      "priorityReason": "Largest dirty owner package; also linked to dirty visualization worktree.",
+      "dominantSlice": {
+        "name": "runtime app/API/data/public",
+        "count": 163
+      },
+      "recommendedCommands": [
+        "git status --short --pathspec-from-file=coordination/release-intake/latest-A25-owner-a06-visualization-lead.pathspec",
+        "git diff --stat --pathspec-from-file=coordination/release-intake/latest-A25-owner-a06-visualization-lead.pathspec",
+        "A06 validates focused visualization/Manim tests plus app type-check before packaging."
+      ],
+      "requiredFinalState": "reviewed commit, owner-approved discard, evidence archive, or blocker"
+    },
+    {
+      "owner": "A12 backend/API platform",
+      "dirtyEntries": 160,
+      "sliceBuckets": {
+        "runtime app/API/data/public": 104,
+        "tests/regression evidence": 56
+      },
+      "statusBuckets": {
+        "??": 123,
+        " M": 37
+      },
+      "pathspec": "coordination/release-intake/2026-06-26-A25-owner-a12-backend-api-platform.pathspec",
+      "latestPathspec": "coordination/release-intake/latest-A25-owner-a12-backend-api-platform.pathspec",
+      "acceptanceCheck": "A12 validates API/storage contract tests and confirms no provider/env secret exposure.",
+      "finalStates": "commit reviewed slice, owner-approved discard, archive evidence, or defer with blocker",
+      "priority": 2,
+      "priorityReason": "High-risk API/storage surface; requires contract tests.",
+      "dominantSlice": {
+        "name": "runtime app/API/data/public",
+        "count": 104
+      },
+      "recommendedCommands": [
+        "git status --short --pathspec-from-file=coordination/release-intake/latest-A25-owner-a12-backend-api-platform.pathspec",
+        "git diff --stat --pathspec-from-file=coordination/release-intake/latest-A25-owner-a12-backend-api-platform.pathspec",
+        "A12 validates API/storage contract tests and confirms no provider/env secret exposure."
+      ],
+      "requiredFinalState": "reviewed commit, owner-approved discard, evidence archive, or blocker"
+    },
+    {
+      "owner": "A11 QA and release quality",
+      "dirtyEntries": 61,
+      "sliceBuckets": {
+        "tests/regression evidence": 61
+      },
+      "statusBuckets": {
+        " M": 34,
+        "??": 27
+      },
+      "pathspec": "coordination/release-intake/2026-06-26-A25-owner-a11-qa-and-release-quality.pathspec",
+      "latestPathspec": "coordination/release-intake/latest-A25-owner-a11-qa-and-release-quality.pathspec",
+      "acceptanceCheck": "A11 runs or routes targeted regression evidence and records failing gates by owning product surface.",
+      "finalStates": "commit reviewed slice, owner-approved discard, archive evidence, or defer with blocker",
+      "priority": 2,
+      "priorityReason": "Regression evidence should be split by owning product surface.",
+      "dominantSlice": {
+        "name": "tests/regression evidence",
+        "count": 61
+      },
+      "recommendedCommands": [
+        "git status --short --pathspec-from-file=coordination/release-intake/latest-A25-owner-a11-qa-and-release-quality.pathspec",
+        "git diff --stat --pathspec-from-file=coordination/release-intake/latest-A25-owner-a11-qa-and-release-quality.pathspec",
+        "A11 runs or routes targeted regression evidence and records failing gates by owning product surface."
+      ],
+      "requiredFinalState": "reviewed commit, owner-approved discard, evidence archive, or blocker"
+    },
+    {
+      "owner": "A10 tooling, docs, and report",
+      "dirtyEntries": 149,
+      "sliceBuckets": {
+        "docs/coordination evidence": 145,
+        "release hygiene tooling/config": 3,
+        "unmapped/manual": 1
+      },
+      "statusBuckets": {
+        "??": 130,
+        " M": 19
+      },
+      "pathspec": "coordination/release-intake/2026-06-26-A25-owner-a10-tooling-docs-and-report.pathspec",
+      "latestPathspec": "coordination/release-intake/latest-A25-owner-a10-tooling-docs-and-report.pathspec",
+      "acceptanceCheck": "A10 validates docs/config/tooling changes and preserves release coordination conventions.",
+      "finalStates": "commit reviewed slice, owner-approved discard, archive evidence, or defer with blocker",
+      "priority": 3,
+      "priorityReason": "Shared coordination/config surface.",
+      "dominantSlice": {
+        "name": "docs/coordination evidence",
+        "count": 145
+      },
+      "recommendedCommands": [
+        "git status --short --pathspec-from-file=coordination/release-intake/latest-A25-owner-a10-tooling-docs-and-report.pathspec",
+        "git diff --stat --pathspec-from-file=coordination/release-intake/latest-A25-owner-a10-tooling-docs-and-report.pathspec",
+        "A10 validates docs/config/tooling changes and preserves release coordination conventions."
+      ],
+      "requiredFinalState": "reviewed commit, owner-approved discard, evidence archive, or blocker"
+    },
+    {
+      "owner": "A18 curriculum QA / A21 content pipeline",
+      "dirtyEntries": 130,
+      "sliceBuckets": {
+        "docs/coordination evidence": 130
+      },
+      "statusBuckets": {
+        "??": 102,
+        " M": 28
+      },
+      "pathspec": "coordination/release-intake/2026-06-26-A25-owner-a18-curriculum-qa-a21-content-pipeline.pathspec",
+      "latestPathspec": "coordination/release-intake/latest-A25-owner-a18-curriculum-qa-a21-content-pipeline.pathspec",
+      "acceptanceCheck": "A18/A21 split candidate content from final QA signoff; no live promotion without A23/A11/A22 gates.",
+      "finalStates": "commit reviewed slice, owner-approved discard, archive evidence, or defer with blocker",
+      "priority": 3,
+      "priorityReason": "Content QA and generation pipeline must stay separated.",
+      "dominantSlice": {
+        "name": "docs/coordination evidence",
+        "count": 130
+      },
+      "recommendedCommands": [
+        "git status --short --pathspec-from-file=coordination/release-intake/latest-A25-owner-a18-curriculum-qa-a21-content-pipeline.pathspec",
+        "git diff --stat --pathspec-from-file=coordination/release-intake/latest-A25-owner-a18-curriculum-qa-a21-content-pipeline.pathspec",
+        "A18/A21 split candidate content from final QA signoff; no live promotion without A23/A11/A22 gates."
+      ],
+      "requiredFinalState": "reviewed commit, owner-approved discard, evidence archive, or blocker"
+    },
+    {
+      "owner": "A21 content pipeline and RAG operations",
+      "dirtyEntries": 74,
+      "sliceBuckets": {
+        "generated/content/RAG backlog": 65,
+        "tests/regression evidence": 8,
+        "unmapped/manual": 1
+      },
+      "statusBuckets": {
+        " M": 39,
+        "??": 35
+      },
+      "pathspec": "coordination/release-intake/2026-06-26-A25-owner-a21-content-pipeline-and-rag-operations.pathspec",
+      "latestPathspec": "coordination/release-intake/latest-A25-owner-a21-content-pipeline-and-rag-operations.pathspec",
+      "acceptanceCheck": "A21 proves candidate package provenance and keeps raw/private corpus material out of tracked runtime surfaces.",
+      "finalStates": "commit reviewed slice, owner-approved discard, archive evidence, or defer with blocker",
+      "priority": 3,
+      "priorityReason": "Generated/RAG backlog requires provenance review.",
+      "dominantSlice": {
+        "name": "generated/content/RAG backlog",
+        "count": 65
+      },
+      "recommendedCommands": [
+        "git status --short --pathspec-from-file=coordination/release-intake/latest-A25-owner-a21-content-pipeline-and-rag-operations.pathspec",
+        "git diff --stat --pathspec-from-file=coordination/release-intake/latest-A25-owner-a21-content-pipeline-and-rag-operations.pathspec",
+        "A21 proves candidate package provenance and keeps raw/private corpus material out of tracked runtime surfaces."
+      ],
+      "requiredFinalState": "reviewed commit, owner-approved discard, evidence archive, or blocker"
+    },
+    {
+      "owner": "Unmapped/manual owner needed",
+      "dirtyEntries": 8,
+      "sliceBuckets": {
+        "unmapped/manual": 7,
+        "docs/coordination evidence": 1
+      },
+      "statusBuckets": {
+        "??": 7,
+        " M": 1
+      },
+      "pathspec": "coordination/release-intake/2026-06-26-A25-owner-unmapped-manual-owner-needed.pathspec",
+      "latestPathspec": "coordination/release-intake/latest-A25-owner-unmapped-manual-owner-needed.pathspec",
+      "acceptanceCheck": "A10/A25 must classify manually before packaging or release.",
+      "finalStates": "commit reviewed slice, owner-approved discard, archive evidence, or defer with blocker",
+      "priority": 3,
+      "priorityReason": "Manual classification required.",
+      "dominantSlice": {
+        "name": "unmapped/manual",
+        "count": 7
+      },
+      "recommendedCommands": [
+        "git status --short --pathspec-from-file=coordination/release-intake/latest-A25-owner-unmapped-manual-owner-needed.pathspec",
+        "git diff --stat --pathspec-from-file=coordination/release-intake/latest-A25-owner-unmapped-manual-owner-needed.pathspec",
+        "A10/A25 must classify manually before packaging or release."
+      ],
+      "requiredFinalState": "reviewed commit, owner-approved discard, evidence archive, or blocker"
+    },
+    {
+      "owner": "A13 teacher console",
+      "dirtyEntries": 35,
+      "sliceBuckets": {
+        "runtime app/API/data/public": 34,
+        "tests/regression evidence": 1
+      },
+      "statusBuckets": {
+        " M": 32,
+        "??": 3
+      },
+      "pathspec": "coordination/release-intake/2026-06-26-A25-owner-a13-teacher-console.pathspec",
+      "latestPathspec": "coordination/release-intake/latest-A25-owner-a13-teacher-console.pathspec",
+      "acceptanceCheck": "A13 validates teacher-console product flow and coordinates shared API/storage needs with A12.",
+      "finalStates": "commit reviewed slice, owner-approved discard, archive evidence, or defer with blocker",
+      "priority": 4,
+      "priorityReason": "Standard owner review package.",
+      "dominantSlice": {
+        "name": "runtime app/API/data/public",
+        "count": 34
+      },
+      "recommendedCommands": [
+        "git status --short --pathspec-from-file=coordination/release-intake/latest-A25-owner-a13-teacher-console.pathspec",
+        "git diff --stat --pathspec-from-file=coordination/release-intake/latest-A25-owner-a13-teacher-console.pathspec",
+        "A13 validates teacher-console product flow and coordinates shared API/storage needs with A12."
+      ],
+      "requiredFinalState": "reviewed commit, owner-approved discard, evidence archive, or blocker"
+    },
+    {
+      "owner": "A04 practice lead",
+      "dirtyEntries": 32,
+      "sliceBuckets": {
+        "runtime app/API/data/public": 27,
+        "tests/regression evidence": 5
+      },
+      "statusBuckets": {
+        "??": 27,
+        " M": 5
+      },
+      "pathspec": "coordination/release-intake/2026-06-26-A25-owner-a04-practice-lead.pathspec",
+      "latestPathspec": "coordination/release-intake/latest-A25-owner-a04-practice-lead.pathspec",
+      "acceptanceCheck": "A04 validates Practice Arena/question-bank behavior and coordinates content correctness with A18.",
+      "finalStates": "commit reviewed slice, owner-approved discard, archive evidence, or defer with blocker",
+      "priority": 4,
+      "priorityReason": "Standard owner review package.",
+      "dominantSlice": {
+        "name": "runtime app/API/data/public",
+        "count": 27
+      },
+      "recommendedCommands": [
+        "git status --short --pathspec-from-file=coordination/release-intake/latest-A25-owner-a04-practice-lead.pathspec",
+        "git diff --stat --pathspec-from-file=coordination/release-intake/latest-A25-owner-a04-practice-lead.pathspec",
+        "A04 validates Practice Arena/question-bank behavior and coordinates content correctness with A18."
+      ],
+      "requiredFinalState": "reviewed commit, owner-approved discard, evidence archive, or blocker"
+    },
+    {
+      "owner": "A01 app shell lead",
+      "dirtyEntries": 25,
+      "sliceBuckets": {
+        "runtime app/API/data/public": 25
+      },
+      "statusBuckets": {
+        " M": 17,
+        "??": 8
+      },
+      "pathspec": "coordination/release-intake/2026-06-26-A25-owner-a01-app-shell-lead.pathspec",
+      "latestPathspec": "coordination/release-intake/latest-A25-owner-a01-app-shell-lead.pathspec",
+      "acceptanceCheck": "A01 validates app shell/auth entry/navigation behavior and bilingual shell copy.",
+      "finalStates": "commit reviewed slice, owner-approved discard, archive evidence, or defer with blocker",
+      "priority": 4,
+      "priorityReason": "Standard owner review package.",
+      "dominantSlice": {
+        "name": "runtime app/API/data/public",
+        "count": 25
+      },
+      "recommendedCommands": [
+        "git status --short --pathspec-from-file=coordination/release-intake/latest-A25-owner-a01-app-shell-lead.pathspec",
+        "git diff --stat --pathspec-from-file=coordination/release-intake/latest-A25-owner-a01-app-shell-lead.pathspec",
+        "A01 validates app shell/auth entry/navigation behavior and bilingual shell copy."
+      ],
+      "requiredFinalState": "reviewed commit, owner-approved discard, evidence archive, or blocker"
+    },
+    {
+      "owner": "A05 lesson lead",
+      "dirtyEntries": 11,
+      "sliceBuckets": {
+        "runtime app/API/data/public": 8,
+        "tests/regression evidence": 3
+      },
+      "statusBuckets": {
+        " M": 11
+      },
+      "pathspec": "coordination/release-intake/2026-06-26-A25-owner-a05-lesson-lead.pathspec",
+      "latestPathspec": "coordination/release-intake/latest-A25-owner-a05-lesson-lead.pathspec",
+      "acceptanceCheck": "A05 validates lesson route/content behavior and coordinates curriculum correctness with A18.",
+      "finalStates": "commit reviewed slice, owner-approved discard, archive evidence, or defer with blocker",
+      "priority": 4,
+      "priorityReason": "Standard owner review package.",
+      "dominantSlice": {
+        "name": "runtime app/API/data/public",
+        "count": 8
+      },
+      "recommendedCommands": [
+        "git status --short --pathspec-from-file=coordination/release-intake/latest-A25-owner-a05-lesson-lead.pathspec",
+        "git diff --stat --pathspec-from-file=coordination/release-intake/latest-A25-owner-a05-lesson-lead.pathspec",
+        "A05 validates lesson route/content behavior and coordinates curriculum correctness with A18."
+      ],
+      "requiredFinalState": "reviewed commit, owner-approved discard, evidence archive, or blocker"
+    },
+    {
+      "owner": "A20 game design and game-based learning",
+      "dirtyEntries": 11,
+      "sliceBuckets": {
+        "runtime app/API/data/public": 11
+      },
+      "statusBuckets": {
+        "??": 8,
+        " M": 3
+      },
+      "pathspec": "coordination/release-intake/2026-06-26-A25-owner-a20-game-design-and-game-based-learning.pathspec",
+      "latestPathspec": "coordination/release-intake/latest-A25-owner-a20-game-design-and-game-based-learning.pathspec",
+      "acceptanceCheck": "A20 validates game-loop behavior and keeps reward economy changes coordinated with A17.",
+      "finalStates": "commit reviewed slice, owner-approved discard, archive evidence, or defer with blocker",
+      "priority": 4,
+      "priorityReason": "Standard owner review package.",
+      "dominantSlice": {
+        "name": "runtime app/API/data/public",
+        "count": 11
+      },
+      "recommendedCommands": [
+        "git status --short --pathspec-from-file=coordination/release-intake/latest-A25-owner-a20-game-design-and-game-based-learning.pathspec",
+        "git diff --stat --pathspec-from-file=coordination/release-intake/latest-A25-owner-a20-game-design-and-game-based-learning.pathspec",
+        "A20 validates game-loop behavior and keeps reward economy changes coordinated with A17."
+      ],
+      "requiredFinalState": "reviewed commit, owner-approved discard, evidence archive, or blocker"
+    },
+    {
+      "owner": "A02 dashboard lead",
+      "dirtyEntries": 10,
+      "sliceBuckets": {
+        "runtime app/API/data/public": 8,
+        "tests/regression evidence": 2
+      },
+      "statusBuckets": {
+        " M": 5,
+        "??": 5
+      },
+      "pathspec": "coordination/release-intake/2026-06-26-A25-owner-a02-dashboard-lead.pathspec",
+      "latestPathspec": "coordination/release-intake/latest-A25-owner-a02-dashboard-lead.pathspec",
+      "acceptanceCheck": "A02 validates dashboard/progress UI behavior and coordinates adaptive semantics with A15.",
+      "finalStates": "commit reviewed slice, owner-approved discard, archive evidence, or defer with blocker",
+      "priority": 4,
+      "priorityReason": "Standard owner review package.",
+      "dominantSlice": {
+        "name": "runtime app/API/data/public",
+        "count": 8
+      },
+      "recommendedCommands": [
+        "git status --short --pathspec-from-file=coordination/release-intake/latest-A25-owner-a02-dashboard-lead.pathspec",
+        "git diff --stat --pathspec-from-file=coordination/release-intake/latest-A25-owner-a02-dashboard-lead.pathspec",
+        "A02 validates dashboard/progress UI behavior and coordinates adaptive semantics with A15."
+      ],
+      "requiredFinalState": "reviewed commit, owner-approved discard, evidence archive, or blocker"
+    },
+    {
+      "owner": "A07 AI tutor lead",
+      "dirtyEntries": 10,
+      "sliceBuckets": {
+        "runtime app/API/data/public": 8,
+        "secret/env quarantine": 1,
+        "tests/regression evidence": 1
+      },
+      "statusBuckets": {
+        " M": 5,
+        "??": 5
+      },
+      "pathspec": "coordination/release-intake/2026-06-26-A25-owner-a07-ai-tutor-lead.pathspec",
+      "latestPathspec": "coordination/release-intake/latest-A25-owner-a07-ai-tutor-lead.pathspec",
+      "acceptanceCheck": "A07 validates tutor/provider behavior without logging secrets or changing env ownership.",
+      "finalStates": "commit reviewed slice, owner-approved discard, archive evidence, or defer with blocker",
+      "priority": 4,
+      "priorityReason": "Standard owner review package.",
+      "dominantSlice": {
+        "name": "runtime app/API/data/public",
+        "count": 8
+      },
+      "recommendedCommands": [
+        "git status --short --pathspec-from-file=coordination/release-intake/latest-A25-owner-a07-ai-tutor-lead.pathspec",
+        "git diff --stat --pathspec-from-file=coordination/release-intake/latest-A25-owner-a07-ai-tutor-lead.pathspec",
+        "A07 validates tutor/provider behavior without logging secrets or changing env ownership."
+      ],
+      "requiredFinalState": "reviewed commit, owner-approved discard, evidence archive, or blocker"
+    },
+    {
+      "owner": "A03 curriculum roadmap lead",
+      "dirtyEntries": 6,
+      "sliceBuckets": {
+        "runtime app/API/data/public": 6
+      },
+      "statusBuckets": {
+        " M": 5,
+        "??": 1
+      },
+      "pathspec": "coordination/release-intake/2026-06-26-A25-owner-a03-curriculum-roadmap-lead.pathspec",
+      "latestPathspec": "coordination/release-intake/latest-A25-owner-a03-curriculum-roadmap-lead.pathspec",
+      "acceptanceCheck": "A03 validates roadmap/topic structure and coordinates content correctness with A18.",
+      "finalStates": "commit reviewed slice, owner-approved discard, archive evidence, or defer with blocker",
+      "priority": 4,
+      "priorityReason": "Standard owner review package.",
+      "dominantSlice": {
+        "name": "runtime app/API/data/public",
+        "count": 6
+      },
+      "recommendedCommands": [
+        "git status --short --pathspec-from-file=coordination/release-intake/latest-A25-owner-a03-curriculum-roadmap-lead.pathspec",
+        "git diff --stat --pathspec-from-file=coordination/release-intake/latest-A25-owner-a03-curriculum-roadmap-lead.pathspec",
+        "A03 validates roadmap/topic structure and coordinates content correctness with A18."
+      ],
+      "requiredFinalState": "reviewed commit, owner-approved discard, evidence archive, or blocker"
+    },
+    {
+      "owner": "A16 research and learning science",
+      "dirtyEntries": 6,
+      "sliceBuckets": {
+        "docs/coordination evidence": 6
+      },
+      "statusBuckets": {
+        "??": 6
+      },
+      "pathspec": "coordination/release-intake/2026-06-26-A25-owner-a16-research-and-learning-science.pathspec",
+      "latestPathspec": "coordination/release-intake/latest-A25-owner-a16-research-and-learning-science.pathspec",
+      "acceptanceCheck": "A16 records source-backed research evidence without implying feature-code approval.",
+      "finalStates": "commit reviewed slice, owner-approved discard, archive evidence, or defer with blocker",
+      "priority": 4,
+      "priorityReason": "Standard owner review package.",
+      "dominantSlice": {
+        "name": "docs/coordination evidence",
+        "count": 6
+      },
+      "recommendedCommands": [
+        "git status --short --pathspec-from-file=coordination/release-intake/latest-A25-owner-a16-research-and-learning-science.pathspec",
+        "git diff --stat --pathspec-from-file=coordination/release-intake/latest-A25-owner-a16-research-and-learning-science.pathspec",
+        "A16 records source-backed research evidence without implying feature-code approval."
+      ],
+      "requiredFinalState": "reviewed commit, owner-approved discard, evidence archive, or blocker"
+    },
+    {
+      "owner": "A14 parent console",
+      "dirtyEntries": 5,
+      "sliceBuckets": {
+        "runtime app/API/data/public": 5
+      },
+      "statusBuckets": {
+        " M": 3,
+        "??": 2
+      },
+      "pathspec": "coordination/release-intake/2026-06-26-A25-owner-a14-parent-console.pathspec",
+      "latestPathspec": "coordination/release-intake/latest-A25-owner-a14-parent-console.pathspec",
+      "acceptanceCheck": "A14 validates parent-console behavior and coordinates shared storage/API needs with A12.",
+      "finalStates": "commit reviewed slice, owner-approved discard, archive evidence, or defer with blocker",
+      "priority": 4,
+      "priorityReason": "Standard owner review package.",
+      "dominantSlice": {
+        "name": "runtime app/API/data/public",
+        "count": 5
+      },
+      "recommendedCommands": [
+        "git status --short --pathspec-from-file=coordination/release-intake/latest-A25-owner-a14-parent-console.pathspec",
+        "git diff --stat --pathspec-from-file=coordination/release-intake/latest-A25-owner-a14-parent-console.pathspec",
+        "A14 validates parent-console behavior and coordinates shared storage/API needs with A12."
+      ],
+      "requiredFinalState": "reviewed commit, owner-approved discard, evidence archive, or blocker"
+    },
+    {
+      "owner": "A15 adaptive engine lead",
+      "dirtyEntries": 4,
+      "sliceBuckets": {
+        "runtime app/API/data/public": 3,
+        "tests/regression evidence": 1
+      },
+      "statusBuckets": {
+        " M": 4
+      },
+      "pathspec": "coordination/release-intake/2026-06-26-A25-owner-a15-adaptive-engine-lead.pathspec",
+      "latestPathspec": "coordination/release-intake/latest-A25-owner-a15-adaptive-engine-lead.pathspec",
+      "acceptanceCheck": "A15 validates adaptive-engine tests and coordinates LLM/provider behavior with A07.",
+      "finalStates": "commit reviewed slice, owner-approved discard, archive evidence, or defer with blocker",
+      "priority": 4,
+      "priorityReason": "Standard owner review package.",
+      "dominantSlice": {
+        "name": "runtime app/API/data/public",
+        "count": 3
+      },
+      "recommendedCommands": [
+        "git status --short --pathspec-from-file=coordination/release-intake/latest-A25-owner-a15-adaptive-engine-lead.pathspec",
+        "git diff --stat --pathspec-from-file=coordination/release-intake/latest-A25-owner-a15-adaptive-engine-lead.pathspec",
+        "A15 validates adaptive-engine tests and coordinates LLM/provider behavior with A07."
+      ],
+      "requiredFinalState": "reviewed commit, owner-approved discard, evidence archive, or blocker"
+    },
+    {
+      "owner": "A17 gamification and motivation",
+      "dirtyEntries": 4,
+      "sliceBuckets": {
+        "runtime app/API/data/public": 3,
+        "tests/regression evidence": 1
+      },
+      "statusBuckets": {
+        " M": 3,
+        "??": 1
+      },
+      "pathspec": "coordination/release-intake/2026-06-26-A25-owner-a17-gamification-and-motivation.pathspec",
+      "latestPathspec": "coordination/release-intake/latest-A25-owner-a17-gamification-and-motivation.pathspec",
+      "acceptanceCheck": "A17 validates reward economy/badge/streak logic and coordinates game loops with A20.",
+      "finalStates": "commit reviewed slice, owner-approved discard, archive evidence, or defer with blocker",
+      "priority": 4,
+      "priorityReason": "Standard owner review package.",
+      "dominantSlice": {
+        "name": "runtime app/API/data/public",
+        "count": 3
+      },
+      "recommendedCommands": [
+        "git status --short --pathspec-from-file=coordination/release-intake/latest-A25-owner-a17-gamification-and-motivation.pathspec",
+        "git diff --stat --pathspec-from-file=coordination/release-intake/latest-A25-owner-a17-gamification-and-motivation.pathspec",
+        "A17 validates reward economy/badge/streak logic and coordinates game loops with A20."
+      ],
+      "requiredFinalState": "reviewed commit, owner-approved discard, evidence archive, or blocker"
+    },
+    {
+      "owner": "A08 state and analytics lead",
+      "dirtyEntries": 2,
+      "sliceBuckets": {
+        "runtime app/API/data/public": 2
+      },
+      "statusBuckets": {
+        " M": 2
+      },
+      "pathspec": "coordination/release-intake/2026-06-26-A25-owner-a08-state-and-analytics-lead.pathspec",
+      "latestPathspec": "coordination/release-intake/latest-A25-owner-a08-state-and-analytics-lead.pathspec",
+      "acceptanceCheck": "A08 validates shared type/state/analytics semantics and coordinates schema drift with A10/A22.",
+      "finalStates": "commit reviewed slice, owner-approved discard, archive evidence, or defer with blocker",
+      "priority": 4,
+      "priorityReason": "Standard owner review package.",
+      "dominantSlice": {
+        "name": "runtime app/API/data/public",
+        "count": 2
+      },
+      "recommendedCommands": [
+        "git status --short --pathspec-from-file=coordination/release-intake/latest-A25-owner-a08-state-and-analytics-lead.pathspec",
+        "git diff --stat --pathspec-from-file=coordination/release-intake/latest-A25-owner-a08-state-and-analytics-lead.pathspec",
+        "A08 validates shared type/state/analytics semantics and coordinates schema drift with A10/A22."
+      ],
+      "requiredFinalState": "reviewed commit, owner-approved discard, evidence archive, or blocker"
+    },
+    {
+      "owner": "A24 illustration exact-layer",
+      "dirtyEntries": 2,
+      "sliceBuckets": {
+        "docs/coordination evidence": 1,
+        "runtime app/API/data/public": 1
+      },
+      "statusBuckets": {
+        "??": 2
+      },
+      "pathspec": "coordination/release-intake/2026-06-26-A25-owner-a24-illustration-exact-layer.pathspec",
+      "latestPathspec": "coordination/release-intake/latest-A25-owner-a24-illustration-exact-layer.pathspec",
+      "acceptanceCheck": "A24 validates exact-layer assets and keeps final curriculum approval with A18.",
+      "finalStates": "commit reviewed slice, owner-approved discard, archive evidence, or defer with blocker",
+      "priority": 4,
+      "priorityReason": "Standard owner review package.",
+      "dominantSlice": {
+        "name": "docs/coordination evidence",
+        "count": 1
+      },
+      "recommendedCommands": [
+        "git status --short --pathspec-from-file=coordination/release-intake/latest-A25-owner-a24-illustration-exact-layer.pathspec",
+        "git diff --stat --pathspec-from-file=coordination/release-intake/latest-A25-owner-a24-illustration-exact-layer.pathspec",
+        "A24 validates exact-layer assets and keeps final curriculum approval with A18."
+      ],
+      "requiredFinalState": "reviewed commit, owner-approved discard, evidence archive, or blocker"
+    },
+    {
+      "owner": "A09 copy, i18n, accessibility",
+      "dirtyEntries": 1,
+      "sliceBuckets": {
+        "runtime app/API/data/public": 1
+      },
+      "statusBuckets": {
+        " M": 1
+      },
+      "pathspec": "coordination/release-intake/2026-06-26-A25-owner-a09-copy-i18n-accessibility.pathspec",
+      "latestPathspec": "coordination/release-intake/latest-A25-owner-a09-copy-i18n-accessibility.pathspec",
+      "acceptanceCheck": "A09 validates bilingual copy/accessibility selectors without changing business logic.",
+      "finalStates": "commit reviewed slice, owner-approved discard, archive evidence, or defer with blocker",
+      "priority": 4,
+      "priorityReason": "Standard owner review package.",
+      "dominantSlice": {
+        "name": "runtime app/API/data/public",
+        "count": 1
+      },
+      "recommendedCommands": [
+        "git status --short --pathspec-from-file=coordination/release-intake/latest-A25-owner-a09-copy-i18n-accessibility.pathspec",
+        "git diff --stat --pathspec-from-file=coordination/release-intake/latest-A25-owner-a09-copy-i18n-accessibility.pathspec",
+        "A09 validates bilingual copy/accessibility selectors without changing business logic."
+      ],
+      "requiredFinalState": "reviewed commit, owner-approved discard, evidence archive, or blocker"
+    }
+  ]
+}

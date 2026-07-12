@@ -5,6 +5,8 @@
 # Dependencies and build output
 node_modules/
 .next/
+.next*/
+.next-register-slider/
 out/
 dist/
 build/
@@ -20,20 +22,40 @@ video-plan/
 
 # Local/generated output
 .local/
+private/
 .tmp/
+.s11*/
+MAIS-MVP-*/
+Users/
+var/
 tmp/
 temp/
 output/
 outputs/
 coverage/
 .cache/
+coordination/reports/*-render/
+coordination/session-logs/*-failures/
+**/lo-profile/
+
+# Raw source data and inactive generated assets kept out of deploy uploads
+data/ease/
+
+# Generated public assets not referenced by the current app build.
+# Keep lesson-illustrations and ease_question_assets; they are referenced.
+public/question-illustrations/
 
 # Logs and local-only files
 *.log
 *.tsbuildinfo
+tsconfig.*.tmp.json
 .DS_Store
 .Rhistory
 default accounts.md
+All API Keys.docx
+~$*.docx
+~$*.pptx
+~$*.xlsx
 .env
 .env.*
 *.local

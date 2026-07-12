@@ -1,0 +1,127 @@
+{
+  "generatedAt": "2026-07-10T17:12:18.357Z",
+  "repoRoot": "/Users/dongpinhu/Desktop/MAIS-MVP",
+  "recorderKind": "next-owner-authorization-focus-batch-canonical-recording",
+  "mode": "dry-run",
+  "recorderStatus": "no-pending-focus-rows",
+  "dirtyMapStatusSignature": "e30d647e1b51432945713f42ac78b0a2466fcb17192de0235a801ac877a0801f",
+  "expandedStatusEntries": 7636,
+  "sourceArtifacts": {
+    "canonicalPreviewGeneratedAt": "2026-07-10T17:12:18.205Z",
+    "canonicalPreviewGateFailureCount": 0,
+    "canonicalAuthorizationsGeneratedAt": "2026-07-10T17:12:01.042Z",
+    "canonicalAuthorizationsGateFailureCount": 0
+  },
+  "sourceCurrentnessFailures": [],
+  "targetInputFile": "coordination/release-intake/latest-A25-next-owner-authorizations.json",
+  "approvalIds": [],
+  "existingAuthorizationRows": [],
+  "proposedAuthorizationRowsDoNotApply": [],
+  "recordingChecks": [
+    {
+      "id": "mode-is-explicit",
+      "status": "pass",
+      "detail": "mode=dry-run"
+    },
+    {
+      "id": "source-current",
+      "status": "pass",
+      "detail": "sourceCurrentnessFailures=0"
+    },
+    {
+      "id": "preview-rows-match-current-focus-batch",
+      "status": "pass",
+      "detail": "previewRows=0; pendingRows=0; previewStatus=no-pending-focus-rows"
+    },
+    {
+      "id": "no-partial-existing-authorizations",
+      "status": "pass",
+      "detail": "existingTargetRows=0"
+    },
+    {
+      "id": "owner-approval-text-covers-rows",
+      "status": "pass",
+      "detail": "approvalTextCoversRows=false"
+    },
+    {
+      "id": "owner-approval-text-keeps-negative-boundaries",
+      "status": "pass",
+      "detail": "cleanup=false; deploy=false; merge=false; destructive-git=false; physical-lifecycle-cleanup=false"
+    },
+    {
+      "id": "proposed-rows-safe-boundary",
+      "status": "pass",
+      "detail": "proposed authorization rows must not authorize cleanup or execution"
+    },
+    {
+      "id": "recording-status-coherent",
+      "status": "pass",
+      "detail": "recordingStatus=no-pending-focus-rows"
+    },
+    {
+      "id": "apply-requires-ready-status",
+      "status": "pass",
+      "detail": "mode=dry-run; status=no-pending-focus-rows"
+    }
+  ],
+  "summary": {
+    "mode": "dry-run",
+    "recorderStatus": "no-pending-focus-rows",
+    "approvalRows": 0,
+    "existingAuthorizationRows": 0,
+    "proposedAuthorizationRows": 0,
+    "ownerApprovalFieldsPresent": 0,
+    "ownerApprovalTextCoversRows": false,
+    "ownerApprovalTextHasNegativeBoundaries": false,
+    "ownerApprovalTextBoundaryCoverage": [
+      {
+        "id": "cleanup",
+        "covered": false
+      },
+      {
+        "id": "deploy",
+        "covered": false
+      },
+      {
+        "id": "merge",
+        "covered": false
+      },
+      {
+        "id": "destructive-git",
+        "covered": false
+      },
+      {
+        "id": "physical-lifecycle-cleanup",
+        "covered": false
+      }
+    ],
+    "recordingChecks": 9,
+    "passingRecordingChecks": 9,
+    "failedRecordingChecks": 0,
+    "sourceCurrentnessFailures": 0,
+    "applyRequested": false,
+    "applyPermitted": false,
+    "mutationsPerformed": false,
+    "recordsAuthorizationRows": 0,
+    "cleanupAuthorizedRows": 0,
+    "executableRows": 0
+  },
+  "boundary": {
+    "evidenceOnly": true,
+    "dryRunOnly": true,
+    "recordsOwnerApproval": false,
+    "promotesCanonicalRows": false,
+    "recordsExecutionInstruction": false,
+    "stageAuthorized": false,
+    "commitAuthorized": false,
+    "mergeAuthorized": false,
+    "cleanupAuthorized": false,
+    "executableNow": false,
+    "destructiveGitAuthorized": false,
+    "deployAuthorized": false,
+    "requiresExplicitApplyRecordingFlag": true,
+    "requiresOwnerApprovalTextCoveringAllRows": true,
+    "requiresOwnerApprovalTextNegativeBoundaries": true
+  },
+  "nextCanonicalAuthorizationsPreview": null
+}

@@ -1,0 +1,18 @@
+app/change-password/page.tsx                     |   18 +-
+ app/forgot-password/page.tsx                     |    7 +-
+ app/layout.tsx                                   |    8 +-
+ app/login/page.tsx                               |  701 ++++++------
+ app/not-found.tsx                                |    3 +-
+ app/page.tsx                                     |   18 +-
+ app/register/page.tsx                            | 1255 ++++++++++++++++------
+ app/reset-password/page.tsx                      |   13 +-
+ components/background/AnimatedMathBackground.tsx |   43 +-
+ components/home/HeroSection.tsx                  |  179 +--
+ components/home/HomePageClient.tsx               |   31 +-
+ components/layout/Footer.tsx                     |    5 +-
+ components/layout/MapLikeLogoMark.tsx            |   47 +-
+ components/layout/Navbar.tsx                     |  148 ++-
+ components/layout/StudentBackToTopButton.tsx     |   22 +-
+ components/ui/LanguageToggle.tsx                 |  178 ++-
+ components/ui/ThemeToggle.tsx                    |    2 +-
+ 17 files changed, 1694 insertions(+), 984 deletions(-)

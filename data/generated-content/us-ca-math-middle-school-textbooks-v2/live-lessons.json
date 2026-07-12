@@ -1,0 +1,2826 @@
+{
+  "packageId": "us-ca-math-middle-school-textbooks-v2",
+  "schemaVersion": "mais-content-package.v1",
+  "generatedAt": "2026-06-19",
+  "generator": "S21 deterministic California middle-school textbook generator",
+  "sessionId": "S21",
+  "curriculumTrack": "US_CA_MATH",
+  "state": "CA",
+  "scope": {
+    "gradeSpan": [
+      "P6",
+      "S1",
+      "S2"
+    ],
+    "usGradeLabels": [
+      "Grade 6",
+      "Grade 7",
+      "Grade 8"
+    ],
+    "intendedSurface": "candidate textbook package for future lesson route integration"
+  },
+  "languageVariant": "en-primary",
+  "sourceEvidencePolicy": "public-standards-structure-only",
+  "sourcePolicy": {
+    "rawCorpusAllowed": false,
+    "committedSourceTextAllowed": false,
+    "safeUse": "Use standard identifiers, grade/domain structure, topic tags, misconceptions, item-design affordances, and MAIS-authored summaries only.",
+    "prohibitedUse": [
+      "Do not copy, translate, paraphrase, reconstruct, or lightly modify official standards wording.",
+      "Do not copy IXL item text, skill previews, screenshots, exercise layouts, answer choices, or item sequences.",
+      "Do not copy commercial textbook body text, exercises, solutions, or figures."
+    ]
+  },
+  "packageStatus": "approved-for-production",
+  "reviewStatus": "s18-full-scope-qa-approved-owner-conditional-release",
+  "integrationStatus": "integrated-into-california-middle-school-textbook-route",
+  "nextOwner": "S11/S22 release verification",
+  "claimsNotAllowed": [
+    "complete California curriculum",
+    "official California course",
+    "fully launched California middle-school textbook",
+    "IXL-equivalent exercises"
+  ],
+  "lessons": [
+    {
+      "id": "us-ca-math-middle-school-textbooks-v2-p6-6-rp-ratios",
+      "packageId": "us-ca-math-middle-school-textbooks-v2",
+      "reviewStatus": "s18-full-scope-qa-approved",
+      "integrationStatus": "integrated-into-california-middle-school-textbook-route",
+      "metadata": {
+        "curriculumTrack": "US_CA_MATH",
+        "state": "CA",
+        "grade": "P6",
+        "usGradeLabel": "Grade 6",
+        "courseLabel": "California Grade 6 Mathematics",
+        "sequenceNumber": 1,
+        "topicId": "us-ca-math-p6-6-rp-ratios",
+        "domainId": "6.RP",
+        "domainTitle": "Ratios and Proportional Relationships",
+        "clusterId": "6.RP.ratios",
+        "clusterTitle": "Ratios",
+        "standardIds": [
+          "6.RP.1",
+          "6.RP.2",
+          "6.RP.3"
+        ],
+        "difficulty": "Medium",
+        "estimatedMinutes": 40,
+        "languageVariant": "en-primary",
+        "sourceSafetyStatus": "MAIS-authored-original-from-public-standards-structure",
+        "evidenceCardIds": [
+          "ca-ccss-structure-6-rp-ratios"
+        ],
+        "conceptIds": [
+          "ratios",
+          "6-rp-1",
+          "6-rp-2",
+          "6-rp-3"
+        ],
+        "competencyTags": [
+          "double number lines",
+          "ratio tables",
+          "tape diagrams",
+          "misconception:ratio order reversed",
+          "misconception:unit rate not normalized"
+        ],
+        "generationGuidance": {
+          "sourcePolicy": "Use only standard IDs, domain structure, local MAIS summaries, and original examples.",
+          "visualPolicy": "text-only-v2; future visuals must be deterministic math-svg when answer-critical."
+        }
+      },
+      "studentLesson": {
+        "en": {
+          "title": "Grade 6 Ratios and Proportional Relationships: Ratios",
+          "objectives": [
+            "Represent use ratios, rates, percent, and equivalent relationships to solve contextual problems.",
+            "Use ratio table or double number line to explain the reasoning, not only the answer.",
+            "Check units, signs, labels, or constraints before finalizing the solution."
+          ],
+          "launch": "A smoothie recipe says 2 cups of fruit make 5 small servings. Before scaling the recipe, the class names which quantities are being compared.",
+          "conceptExplanation": "A ratio story keeps two quantities moving together. If the recipe doubles, both fruit and servings double; if it triples, both triple. Ratio tables, double number lines, unit rates, and percents are different maps of the same relationship. A good answer keeps the order and the units visible so the comparison still means what the story says.",
+          "workedExamples": [
+            {
+              "title": "ratio table or double number line",
+              "prompt": "Four lab notebooks cost $7.20 at a school store. At the same price per notebook, how much do 10 notebooks cost?",
+              "answer": "$18.00",
+              "explanation": "The unit price is 7.20 / 4 = 1.80 dollars per notebook. Ten notebooks cost 1.80 x 10 = 18.00 dollars."
+            }
+          ],
+          "guidedPractice": [
+            {
+              "prompt": "A drink mix uses 5 scoops for 2 pitchers. How many scoops are needed for 6 pitchers?",
+              "answer": "15 scoops",
+              "explanation": "Six pitchers is 3 times 2 pitchers, so 5 x 3 = 15 scoops."
+            }
+          ],
+          "independentPractice": [
+            {
+              "prompt": "Create a new ratios problem with different numbers and solve it using ratio table or double number line.",
+              "answer": "Student-generated; must include a labeled representation, computation, and reasonableness check.",
+              "explanation": "S18/S05 review should sample student-facing examples before live integration."
+            }
+          ],
+          "checkpointPrompts": [
+            "A drink mix uses 5 scoops for 2 pitchers. How many scoops are needed for 6 pitchers?",
+            "Explain which representation made the structure of the problem easiest to see."
+          ],
+          "checkpointAnswers": [
+            "15 scoops",
+            "A strong response names ratio table or double number line, labels the quantities, and connects the calculation to the context."
+          ],
+          "checkpointExplanations": [
+            "Six pitchers is 3 times 2 pitchers, so 5 x 3 = 15 scoops.",
+            "The representation is useful when it keeps the relationship, unit, sign, or scale visible throughout the solution."
+          ],
+          "commonPitfalls": [
+            {
+              "pitfall": "ratio order reversed",
+              "repairMove": "Return to the representation, relabel each quantity, and compare the result with the original context."
+            },
+            {
+              "pitfall": "unit rate not normalized",
+              "repairMove": "Return to the representation, relabel each quantity, and compare the result with the original context."
+            }
+          ],
+          "teacherNotes": [
+            "Ask students to state the unit or mathematical object before computing.",
+            "Use error analysis when students choose the correct operation but lose a label, sign, or constraint.",
+            "Keep official standard prose and external exercise wording out of student-facing copy."
+          ],
+          "exitTicket": "Write one sentence explaining how ratio table or double number line helped solve today's ratios and proportional relationships task."
+        }
+      },
+      "answerKey": {
+        "workedExamples": [
+          {
+            "answer": "$18.00",
+            "acceptedAnswers": [
+              "$18.00",
+              "$18"
+            ],
+            "solutionSteps": [
+              "The unit price is 7.20 / 4 = 1.80 dollars per notebook. Ten notebooks cost 1.80 x 10 = 18.00 dollars."
+            ]
+          }
+        ],
+        "checkpoints": [
+          {
+            "answer": "15 scoops",
+            "acceptedAnswers": [
+              "15 scoops",
+              "15"
+            ],
+            "solutionSteps": [
+              "Six pitchers is 3 times 2 pitchers, so 5 x 3 = 15 scoops."
+            ]
+          }
+        ]
+      },
+      "validation": {
+        "deterministicChecks": [
+          {
+            "check": "worked-example-answer",
+            "status": "pass",
+            "kind": "unit-rate",
+            "values": {
+              "totalCost": 7.2,
+              "count": 4,
+              "requestedCount": 10
+            },
+            "answer": "$18.00"
+          },
+          {
+            "check": "checkpoint-answer",
+            "status": "pass",
+            "answer": "15 scoops"
+          }
+        ],
+        "unresolvedRisks": []
+      },
+      "illustration": {
+        "visualPolicy": "text-only-v2",
+        "plannedAssets": [
+          {
+            "assetClassification": "math-svg",
+            "needTier": "future-live-enhancement",
+            "brief": "If this lesson gets visual integration, render ratio table or double number line as deterministic SVG/math-svg with exact labels and coordinates where applicable."
+          }
+        ],
+        "notes": "No answer-critical bitmap is generated in this package. Any future coordinate, graph, geometry, or dense math visual must be rendered deterministically before student-facing use."
+      },
+      "review": {
+        "sourceDistanceStatus": "passed-local-source-policy",
+        "mathQaStatus": "passed-deterministic-checks",
+        "languageQaStatus": "plain-english-en-primary",
+        "pedagogyNotes": "Lesson follows context -> representation -> computation -> check for middle-school learners."
+      },
+      "approval": {
+        "status": "approved-for-production",
+        "reviewer": "S18 full-scope QA plus owner conditional release request",
+        "nextOwner": "S11/S22 release verification"
+      }
+    },
+    {
+      "id": "us-ca-math-middle-school-textbooks-v2-p6-6-ns-rational-numbers",
+      "packageId": "us-ca-math-middle-school-textbooks-v2",
+      "reviewStatus": "s18-full-scope-qa-approved",
+      "integrationStatus": "integrated-into-california-middle-school-textbook-route",
+      "metadata": {
+        "curriculumTrack": "US_CA_MATH",
+        "state": "CA",
+        "grade": "P6",
+        "usGradeLabel": "Grade 6",
+        "courseLabel": "California Grade 6 Mathematics",
+        "sequenceNumber": 2,
+        "topicId": "us-ca-math-p6-6-ns-rational-numbers",
+        "domainId": "6.NS",
+        "domainTitle": "The Number System",
+        "clusterId": "6.NS.rational-numbers",
+        "clusterTitle": "Rational Numbers",
+        "standardIds": [
+          "6.NS.1",
+          "6.NS.2",
+          "6.NS.3",
+          "6.NS.4",
+          "6.NS.5",
+          "6.NS.6",
+          "6.NS.7",
+          "6.NS.8"
+        ],
+        "difficulty": "Medium",
+        "estimatedMinutes": 40,
+        "languageVariant": "en-primary",
+        "sourceSafetyStatus": "MAIS-authored-original-from-public-standards-structure",
+        "evidenceCardIds": [
+          "ca-ccss-structure-6-ns-rational-numbers"
+        ],
+        "conceptIds": [
+          "rational-numbers",
+          "6-ns-1",
+          "6-ns-2",
+          "6-ns-3",
+          "6-ns-4",
+          "6-ns-5",
+          "6-ns-6",
+          "6-ns-7",
+          "6-ns-8"
+        ],
+        "competencyTags": [
+          "number lines",
+          "coordinate plane",
+          "gcf/lcm contexts",
+          "misconception:absolute value as negative",
+          "misconception:integer order on number line"
+        ],
+        "generationGuidance": {
+          "sourcePolicy": "Use only standard IDs, domain structure, local MAIS summaries, and original examples.",
+          "visualPolicy": "text-only-v2; future visuals must be deterministic math-svg when answer-critical."
+        }
+      },
+      "studentLesson": {
+        "en": {
+          "title": "Grade 6 The Number System: Rational Numbers",
+          "objectives": [
+            "Represent compute with fractions/decimals and reason about integers, opposites, absolute value, and coordinate quadrants.",
+            "Use vertical number line to explain the reasoning, not only the answer.",
+            "Check units, signs, labels, or constraints before finalizing the solution."
+          ],
+          "launch": "A hiker starts at sea level, climbs above it, then walks down into a tunnel. The number line becomes a map of direction and distance.",
+          "conceptExplanation": "Rational numbers include fractions, decimals, zero, and signed numbers. Positive and negative signs tell direction from zero, while absolute value tells distance from zero. Operations make sense when you track both size and direction. A point, equation, or coordinate should match the story before you decide the answer is reasonable.",
+          "workedExamples": [
+            {
+              "title": "vertical number line",
+              "prompt": "A diver starts at -3.5 meters relative to sea level and rises to 2 meters. How far does the diver move?",
+              "answer": "5.5 meters",
+              "explanation": "The distance is 2 - (-3.5) = 5.5 meters. Distance is positive because it measures how far apart the positions are."
+            }
+          ],
+          "guidedPractice": [
+            {
+              "prompt": "Find the distance between -6 and 1.5 on a number line.",
+              "answer": "7.5 units",
+              "explanation": "The distance is 1.5 - (-6) = 7.5 units."
+            }
+          ],
+          "independentPractice": [
+            {
+              "prompt": "Create a new rational numbers problem with different numbers and solve it using vertical number line.",
+              "answer": "Student-generated; must include a labeled representation, computation, and reasonableness check.",
+              "explanation": "S18/S05 review should sample student-facing examples before live integration."
+            }
+          ],
+          "checkpointPrompts": [
+            "Find the distance between -6 and 1.5 on a number line.",
+            "Explain which representation made the structure of the problem easiest to see."
+          ],
+          "checkpointAnswers": [
+            "7.5 units",
+            "A strong response names vertical number line, labels the quantities, and connects the calculation to the context."
+          ],
+          "checkpointExplanations": [
+            "The distance is 1.5 - (-6) = 7.5 units.",
+            "The representation is useful when it keeps the relationship, unit, sign, or scale visible throughout the solution."
+          ],
+          "commonPitfalls": [
+            {
+              "pitfall": "absolute value as negative",
+              "repairMove": "Return to the representation, relabel each quantity, and compare the result with the original context."
+            },
+            {
+              "pitfall": "integer order on number line",
+              "repairMove": "Return to the representation, relabel each quantity, and compare the result with the original context."
+            }
+          ],
+          "teacherNotes": [
+            "Ask students to state the unit or mathematical object before computing.",
+            "Use error analysis when students choose the correct operation but lose a label, sign, or constraint.",
+            "Keep official standard prose and external exercise wording out of student-facing copy."
+          ],
+          "exitTicket": "Write one sentence explaining how vertical number line helped solve today's the number system task."
+        }
+      },
+      "answerKey": {
+        "workedExamples": [
+          {
+            "answer": "5.5 meters",
+            "acceptedAnswers": [
+              "5.5 meters",
+              "5.5",
+              "11/2 meters"
+            ],
+            "solutionSteps": [
+              "The distance is 2 - (-3.5) = 5.5 meters. Distance is positive because it measures how far apart the positions are."
+            ]
+          }
+        ],
+        "checkpoints": [
+          {
+            "answer": "7.5 units",
+            "acceptedAnswers": [
+              "7.5 units",
+              "7.5",
+              "15/2 units"
+            ],
+            "solutionSteps": [
+              "The distance is 1.5 - (-6) = 7.5 units."
+            ]
+          }
+        ]
+      },
+      "validation": {
+        "deterministicChecks": [
+          {
+            "check": "worked-example-answer",
+            "status": "pass",
+            "kind": "distance-on-number-line",
+            "values": {
+              "start": -3.5,
+              "end": 2
+            },
+            "answer": "5.5 meters"
+          },
+          {
+            "check": "checkpoint-answer",
+            "status": "pass",
+            "answer": "7.5 units"
+          }
+        ],
+        "unresolvedRisks": []
+      },
+      "illustration": {
+        "visualPolicy": "text-only-v2",
+        "plannedAssets": [
+          {
+            "assetClassification": "math-svg",
+            "needTier": "future-live-enhancement",
+            "brief": "If this lesson gets visual integration, render vertical number line as deterministic SVG/math-svg with exact labels and coordinates where applicable."
+          }
+        ],
+        "notes": "No answer-critical bitmap is generated in this package. Any future coordinate, graph, geometry, or dense math visual must be rendered deterministically before student-facing use."
+      },
+      "review": {
+        "sourceDistanceStatus": "passed-local-source-policy",
+        "mathQaStatus": "passed-deterministic-checks",
+        "languageQaStatus": "plain-english-en-primary",
+        "pedagogyNotes": "Lesson follows context -> representation -> computation -> check for middle-school learners."
+      },
+      "approval": {
+        "status": "approved-for-production",
+        "reviewer": "S18 full-scope QA plus owner conditional release request",
+        "nextOwner": "S11/S22 release verification"
+      }
+    },
+    {
+      "id": "us-ca-math-middle-school-textbooks-v2-p6-6-ee-expressions-equations",
+      "packageId": "us-ca-math-middle-school-textbooks-v2",
+      "reviewStatus": "s18-full-scope-qa-approved",
+      "integrationStatus": "integrated-into-california-middle-school-textbook-route",
+      "metadata": {
+        "curriculumTrack": "US_CA_MATH",
+        "state": "CA",
+        "grade": "P6",
+        "usGradeLabel": "Grade 6",
+        "courseLabel": "California Grade 6 Mathematics",
+        "sequenceNumber": 3,
+        "topicId": "us-ca-math-p6-6-ee-expressions-equations",
+        "domainId": "6.EE",
+        "domainTitle": "Expressions and Equations",
+        "clusterId": "6.EE.expressions-equations",
+        "clusterTitle": "Expressions Equations",
+        "standardIds": [
+          "6.EE.1",
+          "6.EE.2",
+          "6.EE.3",
+          "6.EE.4",
+          "6.EE.5",
+          "6.EE.6",
+          "6.EE.7",
+          "6.EE.8",
+          "6.EE.9"
+        ],
+        "difficulty": "Medium",
+        "estimatedMinutes": 40,
+        "languageVariant": "en-primary",
+        "sourceSafetyStatus": "MAIS-authored-original-from-public-standards-structure",
+        "evidenceCardIds": [
+          "ca-ccss-structure-6-ee-expressions-equations"
+        ],
+        "conceptIds": [
+          "expressions-equations",
+          "6-ee-1",
+          "6-ee-2",
+          "6-ee-3",
+          "6-ee-4",
+          "6-ee-5",
+          "6-ee-6",
+          "6-ee-7",
+          "6-ee-8",
+          "6-ee-9"
+        ],
+        "competencyTags": [
+          "substitution",
+          "equivalent expressions",
+          "one-step equations",
+          "misconception:variable as label only",
+          "misconception:solution check skipped"
+        ],
+        "generationGuidance": {
+          "sourcePolicy": "Use only standard IDs, domain structure, local MAIS summaries, and original examples.",
+          "visualPolicy": "text-only-v2; future visuals must be deterministic math-svg when answer-critical."
+        }
+      },
+      "studentLesson": {
+        "en": {
+          "title": "Grade 6 Expressions and Equations: Expressions Equations",
+          "objectives": [
+            "Represent write, evaluate, transform, and solve expressions/equations/inequalities from contexts.",
+            "Use equation with one variable to explain the reasoning, not only the answer.",
+            "Check units, signs, labels, or constraints before finalizing the solution."
+          ],
+          "launch": "A club buys notebooks with a fixed delivery fee and a cost for each notebook. A variable lets the class describe any order size.",
+          "conceptExplanation": "Expressions and equations are story machines. A variable stands for a changing or unknown number, and each operation tells what happens to it. Evaluating means sending one value through the machine. Solving means finding the value that keeps both sides of an equation or inequality true.",
+          "workedExamples": [
+            {
+              "title": "equation with one variable",
+              "prompt": "A tutoring club has a $12 setup fee and then charges $4 per session. The total is $40. How many sessions are included?",
+              "answer": "7 sessions",
+              "explanation": "Let s be the number of sessions. 12 + 4s = 40, so 4s = 28 and s = 7."
+            }
+          ],
+          "guidedPractice": [
+            {
+              "prompt": "Solve 5 + 3x = 23.",
+              "answer": "x = 6",
+              "explanation": "Subtract 5 to get 3x = 18, then divide by 3."
+            }
+          ],
+          "independentPractice": [
+            {
+              "prompt": "Create a new expressions equations problem with different numbers and solve it using equation with one variable.",
+              "answer": "Student-generated; must include a labeled representation, computation, and reasonableness check.",
+              "explanation": "S18/S05 review should sample student-facing examples before live integration."
+            }
+          ],
+          "checkpointPrompts": [
+            "Solve 5 + 3x = 23.",
+            "Explain which representation made the structure of the problem easiest to see."
+          ],
+          "checkpointAnswers": [
+            "x = 6",
+            "A strong response names equation with one variable, labels the quantities, and connects the calculation to the context."
+          ],
+          "checkpointExplanations": [
+            "Subtract 5 to get 3x = 18, then divide by 3.",
+            "The representation is useful when it keeps the relationship, unit, sign, or scale visible throughout the solution."
+          ],
+          "commonPitfalls": [
+            {
+              "pitfall": "variable as label only",
+              "repairMove": "Return to the representation, relabel each quantity, and compare the result with the original context."
+            },
+            {
+              "pitfall": "solution check skipped",
+              "repairMove": "Return to the representation, relabel each quantity, and compare the result with the original context."
+            }
+          ],
+          "teacherNotes": [
+            "Ask students to state the unit or mathematical object before computing.",
+            "Use error analysis when students choose the correct operation but lose a label, sign, or constraint.",
+            "Keep official standard prose and external exercise wording out of student-facing copy."
+          ],
+          "exitTicket": "Write one sentence explaining how equation with one variable helped solve today's expressions and equations task."
+        }
+      },
+      "answerKey": {
+        "workedExamples": [
+          {
+            "answer": "7 sessions",
+            "acceptedAnswers": [
+              "7 sessions",
+              "7"
+            ],
+            "solutionSteps": [
+              "Let s be the number of sessions. 12 + 4s = 40, so 4s = 28 and s = 7."
+            ]
+          }
+        ],
+        "checkpoints": [
+          {
+            "answer": "x = 6",
+            "acceptedAnswers": [
+              "x = 6",
+              "6"
+            ],
+            "solutionSteps": [
+              "Subtract 5 to get 3x = 18, then divide by 3."
+            ]
+          }
+        ]
+      },
+      "validation": {
+        "deterministicChecks": [
+          {
+            "check": "worked-example-answer",
+            "status": "pass",
+            "kind": "one-step-equation",
+            "values": {
+              "total": 40,
+              "fixed": 12,
+              "rate": 4
+            },
+            "answer": "7 sessions"
+          },
+          {
+            "check": "checkpoint-answer",
+            "status": "pass",
+            "answer": "x = 6"
+          }
+        ],
+        "unresolvedRisks": []
+      },
+      "illustration": {
+        "visualPolicy": "text-only-v2",
+        "plannedAssets": [
+          {
+            "assetClassification": "math-svg",
+            "needTier": "future-live-enhancement",
+            "brief": "If this lesson gets visual integration, render equation with one variable as deterministic SVG/math-svg with exact labels and coordinates where applicable."
+          }
+        ],
+        "notes": "No answer-critical bitmap is generated in this package. Any future coordinate, graph, geometry, or dense math visual must be rendered deterministically before student-facing use."
+      },
+      "review": {
+        "sourceDistanceStatus": "passed-local-source-policy",
+        "mathQaStatus": "passed-deterministic-checks",
+        "languageQaStatus": "plain-english-en-primary",
+        "pedagogyNotes": "Lesson follows context -> representation -> computation -> check for middle-school learners."
+      },
+      "approval": {
+        "status": "approved-for-production",
+        "reviewer": "S18 full-scope QA plus owner conditional release request",
+        "nextOwner": "S11/S22 release verification"
+      }
+    },
+    {
+      "id": "us-ca-math-middle-school-textbooks-v2-p6-6-g-area-volume",
+      "packageId": "us-ca-math-middle-school-textbooks-v2",
+      "reviewStatus": "s18-full-scope-qa-approved",
+      "integrationStatus": "integrated-into-california-middle-school-textbook-route",
+      "metadata": {
+        "curriculumTrack": "US_CA_MATH",
+        "state": "CA",
+        "grade": "P6",
+        "usGradeLabel": "Grade 6",
+        "courseLabel": "California Grade 6 Mathematics",
+        "sequenceNumber": 4,
+        "topicId": "us-ca-math-p6-6-g-area-volume",
+        "domainId": "6.G",
+        "domainTitle": "Geometry",
+        "clusterId": "6.G.area-volume",
+        "clusterTitle": "Area Volume",
+        "standardIds": [
+          "6.G.1",
+          "6.G.2",
+          "6.G.3",
+          "6.G.4"
+        ],
+        "difficulty": "Medium",
+        "estimatedMinutes": 40,
+        "languageVariant": "en-primary",
+        "sourceSafetyStatus": "MAIS-authored-original-from-public-standards-structure",
+        "evidenceCardIds": [
+          "ca-ccss-structure-6-g-area-volume"
+        ],
+        "conceptIds": [
+          "area-volume",
+          "6-g-1",
+          "6-g-2",
+          "6-g-3",
+          "6-g-4"
+        ],
+        "competencyTags": [
+          "nets",
+          "polygon decomposition",
+          "coordinate vertices",
+          "misconception:surface area versus volume",
+          "misconception:coordinate sign errors"
+        ],
+        "generationGuidance": {
+          "sourcePolicy": "Use only standard IDs, domain structure, local MAIS summaries, and original examples.",
+          "visualPolicy": "text-only-v2; future visuals must be deterministic math-svg when answer-critical."
+        }
+      },
+      "studentLesson": {
+        "en": {
+          "title": "Grade 6 Geometry: Area Volume",
+          "objectives": [
+            "Represent solve area, surface area, volume, coordinate, and net problems.",
+            "Use labeled prism or unit-cube model to explain the reasoning, not only the answer.",
+            "Check units, signs, labels, or constraints before finalizing the solution."
+          ],
+          "launch": "The stage crew needs carpet for the floor, paper for a display wall, and boxes for props. Each job asks for a different measure.",
+          "conceptExplanation": "Geometry starts by naming the object, dimensions, and unit. Area covers a flat region, surface area wraps the outside of a solid, and volume fills the inside with cubic units. Nets, coordinate drawings, and formulas are tools for the same spatial story. The unit tells whether the answer is length, square units, or cubic units.",
+          "workedExamples": [
+            {
+              "title": "labeled prism or unit-cube model",
+              "prompt": "A rectangular prism has length 8 cm, width 5 cm, and height 3 cm. What is its volume?",
+              "answer": "120 cubic centimeters",
+              "explanation": "Volume is length x width x height, so 8 x 5 x 3 = 120 cubic centimeters."
+            }
+          ],
+          "guidedPractice": [
+            {
+              "prompt": "A box is 6 cm by 4 cm by 5 cm. What is its volume?",
+              "answer": "120 cubic centimeters",
+              "explanation": "Volume is 6 x 4 x 5 = 120 cubic centimeters."
+            }
+          ],
+          "independentPractice": [
+            {
+              "prompt": "Create a new area volume problem with different numbers and solve it using labeled prism or unit-cube model.",
+              "answer": "Student-generated; must include a labeled representation, computation, and reasonableness check.",
+              "explanation": "S18/S05 review should sample student-facing examples before live integration."
+            }
+          ],
+          "checkpointPrompts": [
+            "A box is 6 cm by 4 cm by 5 cm. What is its volume?",
+            "Explain which representation made the structure of the problem easiest to see."
+          ],
+          "checkpointAnswers": [
+            "120 cubic centimeters",
+            "A strong response names labeled prism or unit-cube model, labels the quantities, and connects the calculation to the context."
+          ],
+          "checkpointExplanations": [
+            "Volume is 6 x 4 x 5 = 120 cubic centimeters.",
+            "The representation is useful when it keeps the relationship, unit, sign, or scale visible throughout the solution."
+          ],
+          "commonPitfalls": [
+            {
+              "pitfall": "surface area versus volume",
+              "repairMove": "Return to the representation, relabel each quantity, and compare the result with the original context."
+            },
+            {
+              "pitfall": "coordinate sign errors",
+              "repairMove": "Return to the representation, relabel each quantity, and compare the result with the original context."
+            }
+          ],
+          "teacherNotes": [
+            "Ask students to state the unit or mathematical object before computing.",
+            "Use error analysis when students choose the correct operation but lose a label, sign, or constraint.",
+            "Keep official standard prose and external exercise wording out of student-facing copy."
+          ],
+          "exitTicket": "Write one sentence explaining how labeled prism or unit-cube model helped solve today's geometry task."
+        }
+      },
+      "answerKey": {
+        "workedExamples": [
+          {
+            "answer": "120 cubic centimeters",
+            "acceptedAnswers": [
+              "120 cubic centimeters",
+              "120 cm^3",
+              "120"
+            ],
+            "solutionSteps": [
+              "Volume is length x width x height, so 8 x 5 x 3 = 120 cubic centimeters."
+            ]
+          }
+        ],
+        "checkpoints": [
+          {
+            "answer": "120 cubic centimeters",
+            "acceptedAnswers": [
+              "120 cubic centimeters",
+              "120 cm^3",
+              "120"
+            ],
+            "solutionSteps": [
+              "Volume is 6 x 4 x 5 = 120 cubic centimeters."
+            ]
+          }
+        ]
+      },
+      "validation": {
+        "deterministicChecks": [
+          {
+            "check": "worked-example-answer",
+            "status": "pass",
+            "kind": "rectangular-prism-volume",
+            "values": {
+              "length": 8,
+              "width": 5,
+              "height": 3
+            },
+            "answer": "120 cubic centimeters"
+          },
+          {
+            "check": "checkpoint-answer",
+            "status": "pass",
+            "answer": "120 cubic centimeters"
+          }
+        ],
+        "unresolvedRisks": []
+      },
+      "illustration": {
+        "visualPolicy": "text-only-v2",
+        "plannedAssets": [
+          {
+            "assetClassification": "math-svg",
+            "needTier": "future-live-enhancement",
+            "brief": "If this lesson gets visual integration, render labeled prism or unit-cube model as deterministic SVG/math-svg with exact labels and coordinates where applicable."
+          }
+        ],
+        "notes": "No answer-critical bitmap is generated in this package. Any future coordinate, graph, geometry, or dense math visual must be rendered deterministically before student-facing use."
+      },
+      "review": {
+        "sourceDistanceStatus": "passed-local-source-policy",
+        "mathQaStatus": "passed-deterministic-checks",
+        "languageQaStatus": "plain-english-en-primary",
+        "pedagogyNotes": "Lesson follows context -> representation -> computation -> check for middle-school learners."
+      },
+      "approval": {
+        "status": "approved-for-production",
+        "reviewer": "S18 full-scope QA plus owner conditional release request",
+        "nextOwner": "S11/S22 release verification"
+      }
+    },
+    {
+      "id": "us-ca-math-middle-school-textbooks-v2-p6-6-sp-distributions",
+      "packageId": "us-ca-math-middle-school-textbooks-v2",
+      "reviewStatus": "s18-full-scope-qa-approved",
+      "integrationStatus": "integrated-into-california-middle-school-textbook-route",
+      "metadata": {
+        "curriculumTrack": "US_CA_MATH",
+        "state": "CA",
+        "grade": "P6",
+        "usGradeLabel": "Grade 6",
+        "courseLabel": "California Grade 6 Mathematics",
+        "sequenceNumber": 5,
+        "topicId": "us-ca-math-p6-6-sp-distributions",
+        "domainId": "6.SP",
+        "domainTitle": "Statistics and Probability",
+        "clusterId": "6.SP.distributions",
+        "clusterTitle": "Distributions",
+        "standardIds": [
+          "6.SP.1",
+          "6.SP.2",
+          "6.SP.3",
+          "6.SP.4",
+          "6.SP.5"
+        ],
+        "difficulty": "Medium",
+        "estimatedMinutes": 40,
+        "languageVariant": "en-primary",
+        "sourceSafetyStatus": "MAIS-authored-original-from-public-standards-structure",
+        "evidenceCardIds": [
+          "ca-ccss-structure-6-sp-distributions"
+        ],
+        "conceptIds": [
+          "distributions",
+          "6-sp-1",
+          "6-sp-2",
+          "6-sp-3",
+          "6-sp-4",
+          "6-sp-5"
+        ],
+        "competencyTags": [
+          "dot plots",
+          "histograms",
+          "box plots",
+          "summary measures",
+          "misconception:mean as always typical",
+          "misconception:range as only variability"
+        ],
+        "generationGuidance": {
+          "sourcePolicy": "Use only standard IDs, domain structure, local MAIS summaries, and original examples.",
+          "visualPolicy": "text-only-v2; future visuals must be deterministic math-svg when answer-critical."
+        }
+      },
+      "studentLesson": {
+        "en": {
+          "title": "Grade 6 Statistics and Probability: Distributions",
+          "objectives": [
+            "Represent describe statistical questions, distributions, centers, spreads, and data displays.",
+            "Use dot plot and summary table to explain the reasoning, not only the answer.",
+            "Check units, signs, labels, or constraints before finalizing the solution."
+          ],
+          "launch": "A class asks how many minutes students read each night. The answers vary, so one number cannot tell the whole story.",
+          "conceptExplanation": "Statistics begins with a question that expects variability. A distribution shows all the data, while center and spread summarize what is typical and how much the values differ. Dot plots, histograms, box plots, and numerical summaries each highlight a different part of the story. Claims should describe the group, not just one favorite value.",
+          "workedExamples": [
+            {
+              "title": "dot plot and summary table",
+              "prompt": "Five quiz scores are 6, 7, 7, 9, and 11. Find the mean, median, and range.",
+              "answer": "mean 8, median 7, range 5",
+              "explanation": "The total is 40, so the mean is 40 / 5 = 8. The middle value is 7. The range is 11 - 6 = 5."
+            }
+          ],
+          "guidedPractice": [
+            {
+              "prompt": "Find the range of 3, 5, 8, 8, 12.",
+              "answer": "9",
+              "explanation": "Range is greatest minus least: 12 - 3 = 9."
+            }
+          ],
+          "independentPractice": [
+            {
+              "prompt": "Create a new distributions problem with different numbers and solve it using dot plot and summary table.",
+              "answer": "Student-generated; must include a labeled representation, computation, and reasonableness check.",
+              "explanation": "S18/S05 review should sample student-facing examples before live integration."
+            }
+          ],
+          "checkpointPrompts": [
+            "Find the range of 3, 5, 8, 8, 12.",
+            "Explain which representation made the structure of the problem easiest to see."
+          ],
+          "checkpointAnswers": [
+            "9",
+            "A strong response names dot plot and summary table, labels the quantities, and connects the calculation to the context."
+          ],
+          "checkpointExplanations": [
+            "Range is greatest minus least: 12 - 3 = 9.",
+            "The representation is useful when it keeps the relationship, unit, sign, or scale visible throughout the solution."
+          ],
+          "commonPitfalls": [
+            {
+              "pitfall": "mean as always typical",
+              "repairMove": "Return to the representation, relabel each quantity, and compare the result with the original context."
+            },
+            {
+              "pitfall": "range as only variability",
+              "repairMove": "Return to the representation, relabel each quantity, and compare the result with the original context."
+            }
+          ],
+          "teacherNotes": [
+            "Ask students to state the unit or mathematical object before computing.",
+            "Use error analysis when students choose the correct operation but lose a label, sign, or constraint.",
+            "Keep official standard prose and external exercise wording out of student-facing copy."
+          ],
+          "exitTicket": "Write one sentence explaining how dot plot and summary table helped solve today's statistics and probability task."
+        }
+      },
+      "answerKey": {
+        "workedExamples": [
+          {
+            "answer": "mean 8, median 7, range 5",
+            "acceptedAnswers": [
+              "mean 8, median 7, range 5"
+            ],
+            "solutionSteps": [
+              "The total is 40, so the mean is 40 / 5 = 8. The middle value is 7. The range is 11 - 6 = 5."
+            ]
+          }
+        ],
+        "checkpoints": [
+          {
+            "answer": "9",
+            "acceptedAnswers": [
+              "9"
+            ],
+            "solutionSteps": [
+              "Range is greatest minus least: 12 - 3 = 9."
+            ]
+          }
+        ]
+      },
+      "validation": {
+        "deterministicChecks": [
+          {
+            "check": "worked-example-answer",
+            "status": "pass",
+            "kind": "mean-median-range",
+            "values": {
+              "data": [
+                6,
+                7,
+                7,
+                9,
+                11
+              ]
+            },
+            "answer": "mean 8, median 7, range 5"
+          },
+          {
+            "check": "checkpoint-answer",
+            "status": "pass",
+            "answer": "9"
+          }
+        ],
+        "unresolvedRisks": []
+      },
+      "illustration": {
+        "visualPolicy": "text-only-v2",
+        "plannedAssets": [
+          {
+            "assetClassification": "math-svg",
+            "needTier": "future-live-enhancement",
+            "brief": "If this lesson gets visual integration, render dot plot and summary table as deterministic SVG/math-svg with exact labels and coordinates where applicable."
+          }
+        ],
+        "notes": "No answer-critical bitmap is generated in this package. Any future coordinate, graph, geometry, or dense math visual must be rendered deterministically before student-facing use."
+      },
+      "review": {
+        "sourceDistanceStatus": "passed-local-source-policy",
+        "mathQaStatus": "passed-deterministic-checks",
+        "languageQaStatus": "plain-english-en-primary",
+        "pedagogyNotes": "Lesson follows context -> representation -> computation -> check for middle-school learners."
+      },
+      "approval": {
+        "status": "approved-for-production",
+        "reviewer": "S18 full-scope QA plus owner conditional release request",
+        "nextOwner": "S11/S22 release verification"
+      }
+    },
+    {
+      "id": "us-ca-math-middle-school-textbooks-v2-s1-7-rp-proportions",
+      "packageId": "us-ca-math-middle-school-textbooks-v2",
+      "reviewStatus": "s18-full-scope-qa-approved",
+      "integrationStatus": "integrated-into-california-middle-school-textbook-route",
+      "metadata": {
+        "curriculumTrack": "US_CA_MATH",
+        "state": "CA",
+        "grade": "S1",
+        "usGradeLabel": "Grade 7",
+        "courseLabel": "California Grade 7 Mathematics",
+        "sequenceNumber": 1,
+        "topicId": "us-ca-math-s1-7-rp-proportions",
+        "domainId": "7.RP",
+        "domainTitle": "Ratios and Proportional Relationships",
+        "clusterId": "7.RP.proportions",
+        "clusterTitle": "Proportions",
+        "standardIds": [
+          "7.RP.1",
+          "7.RP.2",
+          "7.RP.3"
+        ],
+        "difficulty": "Medium-High",
+        "estimatedMinutes": 40,
+        "languageVariant": "en-primary",
+        "sourceSafetyStatus": "MAIS-authored-original-from-public-standards-structure",
+        "evidenceCardIds": [
+          "ca-ccss-structure-7-rp-proportions"
+        ],
+        "conceptIds": [
+          "proportions",
+          "7-rp-1",
+          "7-rp-2",
+          "7-rp-3"
+        ],
+        "competencyTags": [
+          "graphs through origin",
+          "unit rates",
+          "percent change",
+          "misconception:linear but non-proportional treated as proportional"
+        ],
+        "generationGuidance": {
+          "sourcePolicy": "Use only standard IDs, domain structure, local MAIS summaries, and original examples.",
+          "visualPolicy": "text-only-v2; future visuals must be deterministic math-svg when answer-critical."
+        }
+      },
+      "studentLesson": {
+        "en": {
+          "title": "Grade 7 Ratios and Proportional Relationships: Proportions",
+          "objectives": [
+            "Represent recognize, represent, and solve proportional relationships and percent problems.",
+            "Use scale table to explain the reasoning, not only the answer.",
+            "Check units, signs, labels, or constraints before finalizing the solution."
+          ],
+          "launch": "A bike moves at a steady pace, so every extra hour adds the same number of miles. That steady relationship can be seen in a table, graph, or equation.",
+          "conceptExplanation": "A proportional relationship keeps the same ratio between two quantities. The constant of proportionality tells how much one unit is worth, and it appears in tables, graphs, equations, and percent situations. When the relationship is truly proportional, doubling one quantity doubles the other. The representation should explain both the rate and the context.",
+          "workedExamples": [
+            {
+              "title": "scale table",
+              "prompt": "A map uses 3 centimeters to represent 15 kilometers. How many kilometers are represented by 8 centimeters?",
+              "answer": "40 kilometers",
+              "explanation": "The scale rate is 15 / 3 = 5 kilometers per centimeter. Eight centimeters represent 8 x 5 = 40 kilometers."
+            }
+          ],
+          "guidedPractice": [
+            {
+              "prompt": "If 6 tickets cost $42, what do 9 tickets cost at the same price?",
+              "answer": "$63",
+              "explanation": "The unit price is 42 / 6 = 7 dollars, and 7 x 9 = 63."
+            }
+          ],
+          "independentPractice": [
+            {
+              "prompt": "Create a new proportions problem with different numbers and solve it using scale table.",
+              "answer": "Student-generated; must include a labeled representation, computation, and reasonableness check.",
+              "explanation": "S18/S05 review should sample student-facing examples before live integration."
+            }
+          ],
+          "checkpointPrompts": [
+            "If 6 tickets cost $42, what do 9 tickets cost at the same price?",
+            "Explain which representation made the structure of the problem easiest to see."
+          ],
+          "checkpointAnswers": [
+            "$63",
+            "A strong response names scale table, labels the quantities, and connects the calculation to the context."
+          ],
+          "checkpointExplanations": [
+            "The unit price is 42 / 6 = 7 dollars, and 7 x 9 = 63.",
+            "The representation is useful when it keeps the relationship, unit, sign, or scale visible throughout the solution."
+          ],
+          "commonPitfalls": [
+            {
+              "pitfall": "linear but non-proportional treated as proportional",
+              "repairMove": "Return to the representation, relabel each quantity, and compare the result with the original context."
+            }
+          ],
+          "teacherNotes": [
+            "Ask students to state the unit or mathematical object before computing.",
+            "Use error analysis when students choose the correct operation but lose a label, sign, or constraint.",
+            "Keep official standard prose and external exercise wording out of student-facing copy."
+          ],
+          "exitTicket": "Write one sentence explaining how scale table helped solve today's ratios and proportional relationships task."
+        }
+      },
+      "answerKey": {
+        "workedExamples": [
+          {
+            "answer": "40 kilometers",
+            "acceptedAnswers": [
+              "40 kilometers",
+              "40 km",
+              "40"
+            ],
+            "solutionSteps": [
+              "The scale rate is 15 / 3 = 5 kilometers per centimeter. Eight centimeters represent 8 x 5 = 40 kilometers."
+            ]
+          }
+        ],
+        "checkpoints": [
+          {
+            "answer": "$63",
+            "acceptedAnswers": [
+              "$63",
+              "63 dollars",
+              "63"
+            ],
+            "solutionSteps": [
+              "The unit price is 42 / 6 = 7 dollars, and 7 x 9 = 63."
+            ]
+          }
+        ]
+      },
+      "validation": {
+        "deterministicChecks": [
+          {
+            "check": "worked-example-answer",
+            "status": "pass",
+            "kind": "proportional-relationship",
+            "values": {
+              "mapCm": 3,
+              "realKm": 15,
+              "requestedCm": 8
+            },
+            "answer": "40 kilometers"
+          },
+          {
+            "check": "checkpoint-answer",
+            "status": "pass",
+            "answer": "$63"
+          }
+        ],
+        "unresolvedRisks": []
+      },
+      "illustration": {
+        "visualPolicy": "text-only-v2",
+        "plannedAssets": [
+          {
+            "assetClassification": "math-svg",
+            "needTier": "future-live-enhancement",
+            "brief": "If this lesson gets visual integration, render scale table as deterministic SVG/math-svg with exact labels and coordinates where applicable."
+          }
+        ],
+        "notes": "No answer-critical bitmap is generated in this package. Any future coordinate, graph, geometry, or dense math visual must be rendered deterministically before student-facing use."
+      },
+      "review": {
+        "sourceDistanceStatus": "passed-local-source-policy",
+        "mathQaStatus": "passed-deterministic-checks",
+        "languageQaStatus": "plain-english-en-primary",
+        "pedagogyNotes": "Lesson follows context -> representation -> computation -> check for middle-school learners."
+      },
+      "approval": {
+        "status": "approved-for-production",
+        "reviewer": "S18 full-scope QA plus owner conditional release request",
+        "nextOwner": "S11/S22 release verification"
+      }
+    },
+    {
+      "id": "us-ca-math-middle-school-textbooks-v2-s1-7-ns-rational-operations",
+      "packageId": "us-ca-math-middle-school-textbooks-v2",
+      "reviewStatus": "s18-full-scope-qa-approved",
+      "integrationStatus": "integrated-into-california-middle-school-textbook-route",
+      "metadata": {
+        "curriculumTrack": "US_CA_MATH",
+        "state": "CA",
+        "grade": "S1",
+        "usGradeLabel": "Grade 7",
+        "courseLabel": "California Grade 7 Mathematics",
+        "sequenceNumber": 2,
+        "topicId": "us-ca-math-s1-7-ns-rational-operations",
+        "domainId": "7.NS",
+        "domainTitle": "The Number System",
+        "clusterId": "7.NS.rational-operations",
+        "clusterTitle": "Rational Operations",
+        "standardIds": [
+          "7.NS.1",
+          "7.NS.2",
+          "7.NS.3"
+        ],
+        "difficulty": "Medium-High",
+        "estimatedMinutes": 40,
+        "languageVariant": "en-primary",
+        "sourceSafetyStatus": "MAIS-authored-original-from-public-standards-structure",
+        "evidenceCardIds": [
+          "ca-ccss-structure-7-ns-rational-operations"
+        ],
+        "conceptIds": [
+          "rational-operations",
+          "7-ns-1",
+          "7-ns-2",
+          "7-ns-3"
+        ],
+        "competencyTags": [
+          "number-line operations",
+          "contextual profit/loss",
+          "error analysis",
+          "misconception:subtracting negatives",
+          "misconception:multiplication sign rules memorized without model"
+        ],
+        "generationGuidance": {
+          "sourcePolicy": "Use only standard IDs, domain structure, local MAIS summaries, and original examples.",
+          "visualPolicy": "text-only-v2; future visuals must be deterministic math-svg when answer-critical."
+        }
+      },
+      "studentLesson": {
+        "en": {
+          "title": "Grade 7 The Number System: Rational Operations",
+          "objectives": [
+            "Represent apply signed rational operations in arithmetic and context.",
+            "Use signed number line to explain the reasoning, not only the answer.",
+            "Check units, signs, labels, or constraints before finalizing the solution."
+          ],
+          "launch": "A student account records deposits as positive numbers and withdrawals as negative numbers. The balance changes only when direction and size work together.",
+          "conceptExplanation": "Operations with rational numbers extend arithmetic to signed fractions and decimals. The sign tells direction, the absolute value tells distance, and the operation tells the action. Adding, subtracting, multiplying, or dividing signed numbers should match the situation being modeled. A number-line or context check helps catch sign errors.",
+          "workedExamples": [
+            {
+              "title": "signed number line",
+              "prompt": "During a science demo, the temperature changes by -4.5 degrees and then by 7.25 degrees. What is the net change?",
+              "answer": "2.75 degrees",
+              "explanation": "-4.5 + 7.25 = 2.75, so the temperature has a positive net change of 2.75 degrees."
+            }
+          ],
+          "guidedPractice": [
+            {
+              "prompt": "Compute -2.5 + 6.75.",
+              "answer": "4.25",
+              "explanation": "The positive amount is 4.25 greater than the negative amount."
+            }
+          ],
+          "independentPractice": [
+            {
+              "prompt": "Create a new rational operations problem with different numbers and solve it using signed number line.",
+              "answer": "Student-generated; must include a labeled representation, computation, and reasonableness check.",
+              "explanation": "S18/S05 review should sample student-facing examples before live integration."
+            }
+          ],
+          "checkpointPrompts": [
+            "Compute -2.5 + 6.75.",
+            "Explain which representation made the structure of the problem easiest to see."
+          ],
+          "checkpointAnswers": [
+            "4.25",
+            "A strong response names signed number line, labels the quantities, and connects the calculation to the context."
+          ],
+          "checkpointExplanations": [
+            "The positive amount is 4.25 greater than the negative amount.",
+            "The representation is useful when it keeps the relationship, unit, sign, or scale visible throughout the solution."
+          ],
+          "commonPitfalls": [
+            {
+              "pitfall": "subtracting negatives",
+              "repairMove": "Return to the representation, relabel each quantity, and compare the result with the original context."
+            },
+            {
+              "pitfall": "multiplication sign rules memorized without model",
+              "repairMove": "Return to the representation, relabel each quantity, and compare the result with the original context."
+            }
+          ],
+          "teacherNotes": [
+            "Ask students to state the unit or mathematical object before computing.",
+            "Use error analysis when students choose the correct operation but lose a label, sign, or constraint.",
+            "Keep official standard prose and external exercise wording out of student-facing copy."
+          ],
+          "exitTicket": "Write one sentence explaining how signed number line helped solve today's the number system task."
+        }
+      },
+      "answerKey": {
+        "workedExamples": [
+          {
+            "answer": "2.75 degrees",
+            "acceptedAnswers": [
+              "2.75 degrees",
+              "2.75",
+              "11/4 degrees"
+            ],
+            "solutionSteps": [
+              "-4.5 + 7.25 = 2.75, so the temperature has a positive net change of 2.75 degrees."
+            ]
+          }
+        ],
+        "checkpoints": [
+          {
+            "answer": "4.25",
+            "acceptedAnswers": [
+              "4.25",
+              "17/4"
+            ],
+            "solutionSteps": [
+              "The positive amount is 4.25 greater than the negative amount."
+            ]
+          }
+        ]
+      },
+      "validation": {
+        "deterministicChecks": [
+          {
+            "check": "worked-example-answer",
+            "status": "pass",
+            "kind": "signed-rational-sum",
+            "values": {
+              "first": -4.5,
+              "second": 7.25
+            },
+            "answer": "2.75 degrees"
+          },
+          {
+            "check": "checkpoint-answer",
+            "status": "pass",
+            "answer": "4.25"
+          }
+        ],
+        "unresolvedRisks": []
+      },
+      "illustration": {
+        "visualPolicy": "text-only-v2",
+        "plannedAssets": [
+          {
+            "assetClassification": "math-svg",
+            "needTier": "future-live-enhancement",
+            "brief": "If this lesson gets visual integration, render signed number line as deterministic SVG/math-svg with exact labels and coordinates where applicable."
+          }
+        ],
+        "notes": "No answer-critical bitmap is generated in this package. Any future coordinate, graph, geometry, or dense math visual must be rendered deterministically before student-facing use."
+      },
+      "review": {
+        "sourceDistanceStatus": "passed-local-source-policy",
+        "mathQaStatus": "passed-deterministic-checks",
+        "languageQaStatus": "plain-english-en-primary",
+        "pedagogyNotes": "Lesson follows context -> representation -> computation -> check for middle-school learners."
+      },
+      "approval": {
+        "status": "approved-for-production",
+        "reviewer": "S18 full-scope QA plus owner conditional release request",
+        "nextOwner": "S11/S22 release verification"
+      }
+    },
+    {
+      "id": "us-ca-math-middle-school-textbooks-v2-s1-7-ee-linear-expressions",
+      "packageId": "us-ca-math-middle-school-textbooks-v2",
+      "reviewStatus": "s18-full-scope-qa-approved",
+      "integrationStatus": "integrated-into-california-middle-school-textbook-route",
+      "metadata": {
+        "curriculumTrack": "US_CA_MATH",
+        "state": "CA",
+        "grade": "S1",
+        "usGradeLabel": "Grade 7",
+        "courseLabel": "California Grade 7 Mathematics",
+        "sequenceNumber": 3,
+        "topicId": "us-ca-math-s1-7-ee-linear-expressions",
+        "domainId": "7.EE",
+        "domainTitle": "Expressions and Equations",
+        "clusterId": "7.EE.linear-expressions",
+        "clusterTitle": "Linear Expressions",
+        "standardIds": [
+          "7.EE.1",
+          "7.EE.2",
+          "7.EE.3",
+          "7.EE.4"
+        ],
+        "difficulty": "Medium-High",
+        "estimatedMinutes": 40,
+        "languageVariant": "en-primary",
+        "sourceSafetyStatus": "MAIS-authored-original-from-public-standards-structure",
+        "evidenceCardIds": [
+          "ca-ccss-structure-7-ee-linear-expressions"
+        ],
+        "conceptIds": [
+          "linear-expressions",
+          "7-ee-1",
+          "7-ee-2",
+          "7-ee-3",
+          "7-ee-4"
+        ],
+        "competencyTags": [
+          "expression comparison",
+          "multi-step equations",
+          "inequality graphs",
+          "misconception:distributive property direction",
+          "misconception:inequality boundary inclusion"
+        ],
+        "generationGuidance": {
+          "sourcePolicy": "Use only standard IDs, domain structure, local MAIS summaries, and original examples.",
+          "visualPolicy": "text-only-v2; future visuals must be deterministic math-svg when answer-critical."
+        }
+      },
+      "studentLesson": {
+        "en": {
+          "title": "Grade 7 Expressions and Equations: Linear Expressions",
+          "objectives": [
+            "Represent use equivalent expressions and solve multi-step equations/inequalities.",
+            "Use inequality and number line to explain the reasoning, not only the answer.",
+            "Check units, signs, labels, or constraints before finalizing the solution."
+          ],
+          "launch": "At a school fair, a booth has a setup cost and then earns the same amount for each ticket. The expression tells the booth story without listing every ticket count.",
+          "conceptExplanation": "Linear expressions and equations describe totals, constraints, and unknown values that change in steady ways. Equivalent expressions are different forms of the same relationship. Solving an equation means making balanced moves until the unknown is revealed. Inequalities tell a range of possible answers, so the final statement must fit the context.",
+          "workedExamples": [
+            {
+              "title": "inequality and number line",
+              "prompt": "A student has $18 and earns $6 per hour. How many whole hours must the student work to have at least $45?",
+              "answer": "5 hours",
+              "explanation": "Solve 18 + 6h >= 45. Then 6h >= 27, so h >= 4.5. Whole hours means at least 5 hours."
+            }
+          ],
+          "guidedPractice": [
+            {
+              "prompt": "Solve 9 + 4x >= 29 for whole-number x.",
+              "answer": "x >= 5",
+              "explanation": "Subtract 9, then divide by 4: x >= 5."
+            }
+          ],
+          "independentPractice": [
+            {
+              "prompt": "Create a new linear expressions problem with different numbers and solve it using inequality and number line.",
+              "answer": "Student-generated; must include a labeled representation, computation, and reasonableness check.",
+              "explanation": "S18/S05 review should sample student-facing examples before live integration."
+            }
+          ],
+          "checkpointPrompts": [
+            "Solve 9 + 4x >= 29 for whole-number x.",
+            "Explain which representation made the structure of the problem easiest to see."
+          ],
+          "checkpointAnswers": [
+            "x >= 5",
+            "A strong response names inequality and number line, labels the quantities, and connects the calculation to the context."
+          ],
+          "checkpointExplanations": [
+            "Subtract 9, then divide by 4: x >= 5.",
+            "The representation is useful when it keeps the relationship, unit, sign, or scale visible throughout the solution."
+          ],
+          "commonPitfalls": [
+            {
+              "pitfall": "distributive property direction",
+              "repairMove": "Return to the representation, relabel each quantity, and compare the result with the original context."
+            },
+            {
+              "pitfall": "inequality boundary inclusion",
+              "repairMove": "Return to the representation, relabel each quantity, and compare the result with the original context."
+            }
+          ],
+          "teacherNotes": [
+            "Ask students to state the unit or mathematical object before computing.",
+            "Use error analysis when students choose the correct operation but lose a label, sign, or constraint.",
+            "Keep official standard prose and external exercise wording out of student-facing copy."
+          ],
+          "exitTicket": "Write one sentence explaining how inequality and number line helped solve today's expressions and equations task."
+        }
+      },
+      "answerKey": {
+        "workedExamples": [
+          {
+            "answer": "5 hours",
+            "acceptedAnswers": [
+              "5 hours",
+              "5"
+            ],
+            "solutionSteps": [
+              "Solve 18 + 6h >= 45. Then 6h >= 27, so h >= 4.5. Whole hours means at least 5 hours."
+            ]
+          }
+        ],
+        "checkpoints": [
+          {
+            "answer": "x >= 5",
+            "acceptedAnswers": [
+              "x >= 5",
+              "5 or more"
+            ],
+            "solutionSteps": [
+              "Subtract 9, then divide by 4: x >= 5."
+            ]
+          }
+        ]
+      },
+      "validation": {
+        "deterministicChecks": [
+          {
+            "check": "worked-example-answer",
+            "status": "pass",
+            "kind": "two-step-inequality",
+            "values": {
+              "start": 18,
+              "rate": 6,
+              "target": 45
+            },
+            "answer": "5 hours"
+          },
+          {
+            "check": "checkpoint-answer",
+            "status": "pass",
+            "answer": "x >= 5"
+          }
+        ],
+        "unresolvedRisks": []
+      },
+      "illustration": {
+        "visualPolicy": "text-only-v2",
+        "plannedAssets": [
+          {
+            "assetClassification": "math-svg",
+            "needTier": "future-live-enhancement",
+            "brief": "If this lesson gets visual integration, render inequality and number line as deterministic SVG/math-svg with exact labels and coordinates where applicable."
+          }
+        ],
+        "notes": "No answer-critical bitmap is generated in this package. Any future coordinate, graph, geometry, or dense math visual must be rendered deterministically before student-facing use."
+      },
+      "review": {
+        "sourceDistanceStatus": "passed-local-source-policy",
+        "mathQaStatus": "passed-deterministic-checks",
+        "languageQaStatus": "plain-english-en-primary",
+        "pedagogyNotes": "Lesson follows context -> representation -> computation -> check for middle-school learners."
+      },
+      "approval": {
+        "status": "approved-for-production",
+        "reviewer": "S18 full-scope QA plus owner conditional release request",
+        "nextOwner": "S11/S22 release verification"
+      }
+    },
+    {
+      "id": "us-ca-math-middle-school-textbooks-v2-s1-7-g-scale-circles-angles",
+      "packageId": "us-ca-math-middle-school-textbooks-v2",
+      "reviewStatus": "s18-full-scope-qa-approved",
+      "integrationStatus": "integrated-into-california-middle-school-textbook-route",
+      "metadata": {
+        "curriculumTrack": "US_CA_MATH",
+        "state": "CA",
+        "grade": "S1",
+        "usGradeLabel": "Grade 7",
+        "courseLabel": "California Grade 7 Mathematics",
+        "sequenceNumber": 4,
+        "topicId": "us-ca-math-s1-7-g-scale-circles-angles",
+        "domainId": "7.G",
+        "domainTitle": "Geometry",
+        "clusterId": "7.G.scale-circles-angles",
+        "clusterTitle": "Scale Circles Angles",
+        "standardIds": [
+          "7.G.1",
+          "7.G.2",
+          "7.G.3",
+          "7.G.4",
+          "7.G.5",
+          "7.G.6"
+        ],
+        "difficulty": "Medium-High",
+        "estimatedMinutes": 40,
+        "languageVariant": "en-primary",
+        "sourceSafetyStatus": "MAIS-authored-original-from-public-standards-structure",
+        "evidenceCardIds": [
+          "ca-ccss-structure-7-g-scale-circles-angles"
+        ],
+        "conceptIds": [
+          "scale-circles-angles",
+          "7-g-1",
+          "7-g-2",
+          "7-g-3",
+          "7-g-4",
+          "7-g-5",
+          "7-g-6"
+        ],
+        "competencyTags": [
+          "scale drawings",
+          "circle formulas",
+          "angle equations",
+          "misconception:scale factor applied additively",
+          "misconception:diameter/radius confusion"
+        ],
+        "generationGuidance": {
+          "sourcePolicy": "Use only standard IDs, domain structure, local MAIS summaries, and original examples.",
+          "visualPolicy": "text-only-v2; future visuals must be deterministic math-svg when answer-critical."
+        }
+      },
+      "studentLesson": {
+        "en": {
+          "title": "Grade 7 Geometry: Scale Circles Angles",
+          "objectives": [
+            "Represent work with scale drawings, constructions, cross sections, circles, angles, area, volume, and surface area.",
+            "Use labeled circle to explain the reasoning, not only the answer.",
+            "Check units, signs, labels, or constraints before finalizing the solution."
+          ],
+          "launch": "An architect draws a room smaller than real life, then uses angle, circle, and area facts to plan what will actually fit.",
+          "conceptExplanation": "Scale drawings connect a model to the real object through a scale factor. Geometry keeps track of lengths, angles, circles, area, volume, and cross sections so the drawing does not become a guess. A construction or formula is useful only when its labels match the figure. The final answer should return to the real size or measure asked for.",
+          "workedExamples": [
+            {
+              "title": "labeled circle",
+              "prompt": "A circular badge has radius 4 cm. Using pi = 3.14, what is its area?",
+              "answer": "50.24 square centimeters",
+              "explanation": "Area is pi r^2. Using pi = 3.14 gives 3.14 x 4^2 = 3.14 x 16 = 50.24 square centimeters."
+            }
+          ],
+          "guidedPractice": [
+            {
+              "prompt": "Using pi = 3.14, find the circumference of a circle with radius 5 cm.",
+              "answer": "31.4 centimeters",
+              "explanation": "Circumference is 2 pi r = 2 x 3.14 x 5 = 31.4 centimeters."
+            }
+          ],
+          "independentPractice": [
+            {
+              "prompt": "Create a new scale circles angles problem with different numbers and solve it using labeled circle.",
+              "answer": "Student-generated; must include a labeled representation, computation, and reasonableness check.",
+              "explanation": "S18/S05 review should sample student-facing examples before live integration."
+            }
+          ],
+          "checkpointPrompts": [
+            "Using pi = 3.14, find the circumference of a circle with radius 5 cm.",
+            "Explain which representation made the structure of the problem easiest to see."
+          ],
+          "checkpointAnswers": [
+            "31.4 centimeters",
+            "A strong response names labeled circle, labels the quantities, and connects the calculation to the context."
+          ],
+          "checkpointExplanations": [
+            "Circumference is 2 pi r = 2 x 3.14 x 5 = 31.4 centimeters.",
+            "The representation is useful when it keeps the relationship, unit, sign, or scale visible throughout the solution."
+          ],
+          "commonPitfalls": [
+            {
+              "pitfall": "scale factor applied additively",
+              "repairMove": "Return to the representation, relabel each quantity, and compare the result with the original context."
+            },
+            {
+              "pitfall": "diameter/radius confusion",
+              "repairMove": "Return to the representation, relabel each quantity, and compare the result with the original context."
+            }
+          ],
+          "teacherNotes": [
+            "Ask students to state the unit or mathematical object before computing.",
+            "Use error analysis when students choose the correct operation but lose a label, sign, or constraint.",
+            "Keep official standard prose and external exercise wording out of student-facing copy."
+          ],
+          "exitTicket": "Write one sentence explaining how labeled circle helped solve today's geometry task."
+        }
+      },
+      "answerKey": {
+        "workedExamples": [
+          {
+            "answer": "50.24 square centimeters",
+            "acceptedAnswers": [
+              "50.24 square centimeters",
+              "50.24 cm^2",
+              "50.24"
+            ],
+            "solutionSteps": [
+              "Area is pi r^2. Using pi = 3.14 gives 3.14 x 4^2 = 3.14 x 16 = 50.24 square centimeters."
+            ]
+          }
+        ],
+        "checkpoints": [
+          {
+            "answer": "31.4 centimeters",
+            "acceptedAnswers": [
+              "31.4 centimeters",
+              "31.4 cm",
+              "31.4"
+            ],
+            "solutionSteps": [
+              "Circumference is 2 pi r = 2 x 3.14 x 5 = 31.4 centimeters."
+            ]
+          }
+        ]
+      },
+      "validation": {
+        "deterministicChecks": [
+          {
+            "check": "worked-example-answer",
+            "status": "pass",
+            "kind": "circle-area",
+            "values": {
+              "radius": 4,
+              "pi": 3.14
+            },
+            "answer": "50.24 square centimeters"
+          },
+          {
+            "check": "checkpoint-answer",
+            "status": "pass",
+            "answer": "31.4 centimeters"
+          }
+        ],
+        "unresolvedRisks": []
+      },
+      "illustration": {
+        "visualPolicy": "text-only-v2",
+        "plannedAssets": [
+          {
+            "assetClassification": "math-svg",
+            "needTier": "future-live-enhancement",
+            "brief": "If this lesson gets visual integration, render labeled circle as deterministic SVG/math-svg with exact labels and coordinates where applicable."
+          }
+        ],
+        "notes": "No answer-critical bitmap is generated in this package. Any future coordinate, graph, geometry, or dense math visual must be rendered deterministically before student-facing use."
+      },
+      "review": {
+        "sourceDistanceStatus": "passed-local-source-policy",
+        "mathQaStatus": "passed-deterministic-checks",
+        "languageQaStatus": "plain-english-en-primary",
+        "pedagogyNotes": "Lesson follows context -> representation -> computation -> check for middle-school learners."
+      },
+      "approval": {
+        "status": "approved-for-production",
+        "reviewer": "S18 full-scope QA plus owner conditional release request",
+        "nextOwner": "S11/S22 release verification"
+      }
+    },
+    {
+      "id": "us-ca-math-middle-school-textbooks-v2-s1-7-sp-inference-probability",
+      "packageId": "us-ca-math-middle-school-textbooks-v2",
+      "reviewStatus": "s18-full-scope-qa-approved",
+      "integrationStatus": "integrated-into-california-middle-school-textbook-route",
+      "metadata": {
+        "curriculumTrack": "US_CA_MATH",
+        "state": "CA",
+        "grade": "S1",
+        "usGradeLabel": "Grade 7",
+        "courseLabel": "California Grade 7 Mathematics",
+        "sequenceNumber": 5,
+        "topicId": "us-ca-math-s1-7-sp-inference-probability",
+        "domainId": "7.SP",
+        "domainTitle": "Statistics and Probability",
+        "clusterId": "7.SP.inference-probability",
+        "clusterTitle": "Inference Probability",
+        "standardIds": [
+          "7.SP.1",
+          "7.SP.2",
+          "7.SP.3",
+          "7.SP.4",
+          "7.SP.5",
+          "7.SP.6",
+          "7.SP.7",
+          "7.SP.8"
+        ],
+        "difficulty": "Medium-High",
+        "estimatedMinutes": 40,
+        "languageVariant": "en-primary",
+        "sourceSafetyStatus": "MAIS-authored-original-from-public-standards-structure",
+        "evidenceCardIds": [
+          "ca-ccss-structure-7-sp-inference-probability"
+        ],
+        "conceptIds": [
+          "inference-probability",
+          "7-sp-1",
+          "7-sp-2",
+          "7-sp-3",
+          "7-sp-4",
+          "7-sp-5",
+          "7-sp-6",
+          "7-sp-7",
+          "7-sp-8"
+        ],
+        "competencyTags": [
+          "simulations",
+          "sample comparisons",
+          "tree diagrams",
+          "misconception:sample bias ignored",
+          "misconception:probability as guaranteed outcome"
+        ],
+        "generationGuidance": {
+          "sourcePolicy": "Use only standard IDs, domain structure, local MAIS summaries, and original examples.",
+          "visualPolicy": "text-only-v2; future visuals must be deterministic math-svg when answer-critical."
+        }
+      },
+      "studentLesson": {
+        "en": {
+          "title": "Grade 7 Statistics and Probability: Inference Probability",
+          "objectives": [
+            "Represent use samples, compare populations, and reason about probability models and compound events.",
+            "Use tree diagram to explain the reasoning, not only the answer.",
+            "Check units, signs, labels, or constraints before finalizing the solution."
+          ],
+          "launch": "A student council cannot ask every family about lunch choices, so it uses a random sample and then checks how strong the evidence is.",
+          "conceptExplanation": "Inference uses sample data to say something careful about a larger population. Random samples are fairer because they reduce hidden bias. Probability describes how likely outcomes are, and compound events combine more than one step. A strong conclusion names the sample, the population, and the uncertainty instead of pretending the data says more than it can.",
+          "workedExamples": [
+            {
+              "title": "tree diagram",
+              "prompt": "A bag has 3 red tiles and 5 blue tiles. A fair coin is flipped after one tile is drawn. What is the probability of drawing a red tile and flipping heads?",
+              "answer": "3/16",
+              "explanation": "The probability of red is 3/8 and the probability of heads is 1/2. For independent events, multiply: 3/8 x 1/2 = 3/16."
+            }
+          ],
+          "guidedPractice": [
+            {
+              "prompt": "A spinner has 2 green sections and 6 equal sections total. What is the probability of green?",
+              "answer": "1/3",
+              "explanation": "Two of the six equally likely outcomes are green, so 2/6 = 1/3."
+            }
+          ],
+          "independentPractice": [
+            {
+              "prompt": "Create a new inference probability problem with different numbers and solve it using tree diagram.",
+              "answer": "Student-generated; must include a labeled representation, computation, and reasonableness check.",
+              "explanation": "S18/S05 review should sample student-facing examples before live integration."
+            }
+          ],
+          "checkpointPrompts": [
+            "A spinner has 2 green sections and 6 equal sections total. What is the probability of green?",
+            "Explain which representation made the structure of the problem easiest to see."
+          ],
+          "checkpointAnswers": [
+            "1/3",
+            "A strong response names tree diagram, labels the quantities, and connects the calculation to the context."
+          ],
+          "checkpointExplanations": [
+            "Two of the six equally likely outcomes are green, so 2/6 = 1/3.",
+            "The representation is useful when it keeps the relationship, unit, sign, or scale visible throughout the solution."
+          ],
+          "commonPitfalls": [
+            {
+              "pitfall": "sample bias ignored",
+              "repairMove": "Return to the representation, relabel each quantity, and compare the result with the original context."
+            },
+            {
+              "pitfall": "probability as guaranteed outcome",
+              "repairMove": "Return to the representation, relabel each quantity, and compare the result with the original context."
+            }
+          ],
+          "teacherNotes": [
+            "Ask students to state the unit or mathematical object before computing.",
+            "Use error analysis when students choose the correct operation but lose a label, sign, or constraint.",
+            "Keep official standard prose and external exercise wording out of student-facing copy."
+          ],
+          "exitTicket": "Write one sentence explaining how tree diagram helped solve today's statistics and probability task."
+        }
+      },
+      "answerKey": {
+        "workedExamples": [
+          {
+            "answer": "3/16",
+            "acceptedAnswers": [
+              "3/16",
+              "0.1875"
+            ],
+            "solutionSteps": [
+              "The probability of red is 3/8 and the probability of heads is 1/2. For independent events, multiply: 3/8 x 1/2 = 3/16."
+            ]
+          }
+        ],
+        "checkpoints": [
+          {
+            "answer": "1/3",
+            "acceptedAnswers": [
+              "1/3",
+              "2/6",
+              "0.333..."
+            ],
+            "solutionSteps": [
+              "Two of the six equally likely outcomes are green, so 2/6 = 1/3."
+            ]
+          }
+        ]
+      },
+      "validation": {
+        "deterministicChecks": [
+          {
+            "check": "worked-example-answer",
+            "status": "pass",
+            "kind": "compound-probability",
+            "values": {
+              "red": 3,
+              "total": 8,
+              "heads": 0.5
+            },
+            "answer": "3/16"
+          },
+          {
+            "check": "checkpoint-answer",
+            "status": "pass",
+            "answer": "1/3"
+          }
+        ],
+        "unresolvedRisks": []
+      },
+      "illustration": {
+        "visualPolicy": "text-only-v2",
+        "plannedAssets": [
+          {
+            "assetClassification": "math-svg",
+            "needTier": "future-live-enhancement",
+            "brief": "If this lesson gets visual integration, render tree diagram as deterministic SVG/math-svg with exact labels and coordinates where applicable."
+          }
+        ],
+        "notes": "No answer-critical bitmap is generated in this package. Any future coordinate, graph, geometry, or dense math visual must be rendered deterministically before student-facing use."
+      },
+      "review": {
+        "sourceDistanceStatus": "passed-local-source-policy",
+        "mathQaStatus": "passed-deterministic-checks",
+        "languageQaStatus": "plain-english-en-primary",
+        "pedagogyNotes": "Lesson follows context -> representation -> computation -> check for middle-school learners."
+      },
+      "approval": {
+        "status": "approved-for-production",
+        "reviewer": "S18 full-scope QA plus owner conditional release request",
+        "nextOwner": "S11/S22 release verification"
+      }
+    },
+    {
+      "id": "us-ca-math-middle-school-textbooks-v2-s2-8-ns-real-numbers",
+      "packageId": "us-ca-math-middle-school-textbooks-v2",
+      "reviewStatus": "s18-full-scope-qa-approved",
+      "integrationStatus": "integrated-into-california-middle-school-textbook-route",
+      "metadata": {
+        "curriculumTrack": "US_CA_MATH",
+        "state": "CA",
+        "grade": "S2",
+        "usGradeLabel": "Grade 8",
+        "courseLabel": "California Grade 8 Mathematics",
+        "sequenceNumber": 1,
+        "topicId": "us-ca-math-s2-8-ns-real-numbers",
+        "domainId": "8.NS",
+        "domainTitle": "The Number System",
+        "clusterId": "8.NS.real-numbers",
+        "clusterTitle": "Real Numbers",
+        "standardIds": [
+          "8.NS.1",
+          "8.NS.2"
+        ],
+        "difficulty": "High",
+        "estimatedMinutes": 40,
+        "languageVariant": "en-primary",
+        "sourceSafetyStatus": "MAIS-authored-original-from-public-standards-structure",
+        "evidenceCardIds": [
+          "ca-ccss-structure-8-ns-real-numbers"
+        ],
+        "conceptIds": [
+          "real-numbers",
+          "8-ns-1",
+          "8-ns-2"
+        ],
+        "competencyTags": [
+          "decimal expansions",
+          "number-line estimates",
+          "misconception:non-terminating means irrational",
+          "misconception:square-root estimate off by place"
+        ],
+        "generationGuidance": {
+          "sourcePolicy": "Use only standard IDs, domain structure, local MAIS summaries, and original examples.",
+          "visualPolicy": "text-only-v2; future visuals must be deterministic math-svg when answer-critical."
+        }
+      },
+      "studentLesson": {
+        "en": {
+          "title": "Grade 8 The Number System: Real Numbers",
+          "objectives": [
+            "Represent distinguish rational and irrational numbers and approximate them.",
+            "Use number line between perfect squares to explain the reasoning, not only the answer.",
+            "Check units, signs, labels, or constraints before finalizing the solution."
+          ],
+          "launch": "A square garden has side length 1 meter, and its diagonal does not land neatly on a familiar fraction. The number line still has a place for it.",
+          "conceptExplanation": "Real numbers include rational numbers that can be written as fractions and irrational numbers that cannot. Square roots and decimals may need approximation, but they still have locations on the number line. Estimating between perfect squares gives a sensible size. The goal is to know what kind of number you have and how close your approximation is.",
+          "workedExamples": [
+            {
+              "title": "number line between perfect squares",
+              "prompt": "Between which two consecutive whole numbers is sqrt(70)?",
+              "answer": "between 8 and 9",
+              "explanation": "Since 8^2 = 64 and 9^2 = 81, sqrt(70) lies between 8 and 9."
+            }
+          ],
+          "guidedPractice": [
+            {
+              "prompt": "Between which whole numbers is sqrt(50)?",
+              "answer": "between 7 and 8",
+              "explanation": "Because 7^2 = 49 and 8^2 = 64, sqrt(50) is between 7 and 8."
+            }
+          ],
+          "independentPractice": [
+            {
+              "prompt": "Create a new real numbers problem with different numbers and solve it using number line between perfect squares.",
+              "answer": "Student-generated; must include a labeled representation, computation, and reasonableness check.",
+              "explanation": "S18/S05 review should sample student-facing examples before live integration."
+            }
+          ],
+          "checkpointPrompts": [
+            "Between which whole numbers is sqrt(50)?",
+            "Explain which representation made the structure of the problem easiest to see."
+          ],
+          "checkpointAnswers": [
+            "between 7 and 8",
+            "A strong response names number line between perfect squares, labels the quantities, and connects the calculation to the context."
+          ],
+          "checkpointExplanations": [
+            "Because 7^2 = 49 and 8^2 = 64, sqrt(50) is between 7 and 8.",
+            "The representation is useful when it keeps the relationship, unit, sign, or scale visible throughout the solution."
+          ],
+          "commonPitfalls": [
+            {
+              "pitfall": "non-terminating means irrational",
+              "repairMove": "Return to the representation, relabel each quantity, and compare the result with the original context."
+            },
+            {
+              "pitfall": "square-root estimate off by place",
+              "repairMove": "Return to the representation, relabel each quantity, and compare the result with the original context."
+            }
+          ],
+          "teacherNotes": [
+            "Ask students to state the unit or mathematical object before computing.",
+            "Use error analysis when students choose the correct operation but lose a label, sign, or constraint.",
+            "Keep official standard prose and external exercise wording out of student-facing copy."
+          ],
+          "exitTicket": "Write one sentence explaining how number line between perfect squares helped solve today's the number system task."
+        }
+      },
+      "answerKey": {
+        "workedExamples": [
+          {
+            "answer": "between 8 and 9",
+            "acceptedAnswers": [
+              "between 8 and 9",
+              "8 and 9"
+            ],
+            "solutionSteps": [
+              "Since 8^2 = 64 and 9^2 = 81, sqrt(70) lies between 8 and 9."
+            ]
+          }
+        ],
+        "checkpoints": [
+          {
+            "answer": "between 7 and 8",
+            "acceptedAnswers": [
+              "between 7 and 8",
+              "7 and 8"
+            ],
+            "solutionSteps": [
+              "Because 7^2 = 49 and 8^2 = 64, sqrt(50) is between 7 and 8."
+            ]
+          }
+        ]
+      },
+      "validation": {
+        "deterministicChecks": [
+          {
+            "check": "worked-example-answer",
+            "status": "pass",
+            "kind": "square-root-estimate",
+            "values": {
+              "radicand": 70,
+              "lower": 8,
+              "upper": 9
+            },
+            "answer": "between 8 and 9"
+          },
+          {
+            "check": "checkpoint-answer",
+            "status": "pass",
+            "answer": "between 7 and 8"
+          }
+        ],
+        "unresolvedRisks": []
+      },
+      "illustration": {
+        "visualPolicy": "text-only-v2",
+        "plannedAssets": [
+          {
+            "assetClassification": "math-svg",
+            "needTier": "future-live-enhancement",
+            "brief": "If this lesson gets visual integration, render number line between perfect squares as deterministic SVG/math-svg with exact labels and coordinates where applicable."
+          }
+        ],
+        "notes": "No answer-critical bitmap is generated in this package. Any future coordinate, graph, geometry, or dense math visual must be rendered deterministically before student-facing use."
+      },
+      "review": {
+        "sourceDistanceStatus": "passed-local-source-policy",
+        "mathQaStatus": "passed-deterministic-checks",
+        "languageQaStatus": "plain-english-en-primary",
+        "pedagogyNotes": "Lesson follows context -> representation -> computation -> check for middle-school learners."
+      },
+      "approval": {
+        "status": "approved-for-production",
+        "reviewer": "S18 full-scope QA plus owner conditional release request",
+        "nextOwner": "S11/S22 release verification"
+      }
+    },
+    {
+      "id": "us-ca-math-middle-school-textbooks-v2-s2-8-ee-exponents-linear-systems",
+      "packageId": "us-ca-math-middle-school-textbooks-v2",
+      "reviewStatus": "s18-full-scope-qa-approved",
+      "integrationStatus": "integrated-into-california-middle-school-textbook-route",
+      "metadata": {
+        "curriculumTrack": "US_CA_MATH",
+        "state": "CA",
+        "grade": "S2",
+        "usGradeLabel": "Grade 8",
+        "courseLabel": "California Grade 8 Mathematics",
+        "sequenceNumber": 2,
+        "topicId": "us-ca-math-s2-8-ee-exponents-linear-systems",
+        "domainId": "8.EE",
+        "domainTitle": "Expressions and Equations",
+        "clusterId": "8.EE.exponents-linear-systems",
+        "clusterTitle": "Exponents Linear Systems",
+        "standardIds": [
+          "8.EE.1",
+          "8.EE.2",
+          "8.EE.3",
+          "8.EE.4",
+          "8.EE.5",
+          "8.EE.6",
+          "8.EE.7",
+          "8.EE.8"
+        ],
+        "difficulty": "High",
+        "estimatedMinutes": 40,
+        "languageVariant": "en-primary",
+        "sourceSafetyStatus": "MAIS-authored-original-from-public-standards-structure",
+        "evidenceCardIds": [
+          "ca-ccss-structure-8-ee-exponents-linear-systems"
+        ],
+        "conceptIds": [
+          "exponents-linear-systems",
+          "8-ee-1",
+          "8-ee-2",
+          "8-ee-3",
+          "8-ee-4",
+          "8-ee-5",
+          "8-ee-6",
+          "8-ee-7",
+          "8-ee-8"
+        ],
+        "competencyTags": [
+          "scientific notation contexts",
+          "linear graphs",
+          "system intersections",
+          "misconception:negative exponent as negative value",
+          "misconception:slope as y-intercept"
+        ],
+        "generationGuidance": {
+          "sourcePolicy": "Use only standard IDs, domain structure, local MAIS summaries, and original examples.",
+          "visualPolicy": "text-only-v2; future visuals must be deterministic math-svg when answer-critical."
+        }
+      },
+      "studentLesson": {
+        "en": {
+          "title": "Grade 8 Expressions and Equations: Exponents Linear Systems",
+          "objectives": [
+            "Represent use exponent rules, radicals, scientific notation, linear equations, slope, and systems.",
+            "Use graph and substitution to explain the reasoning, not only the answer.",
+            "Check units, signs, labels, or constraints before finalizing the solution."
+          ],
+          "launch": "A science team writes very large distances with powers of 10, then compares two phone plans that each follow a line.",
+          "conceptExplanation": "Exponent rules help compress repeated multiplication, and scientific notation keeps very large or very small numbers readable. Linear equations show steady change, with slope describing rate and intercept describing a starting value. A system asks where two relationships are true at the same time. Graphs, tables, and algebra should point to the same solution.",
+          "workedExamples": [
+            {
+              "title": "graph and substitution",
+              "prompt": "Solve the system y = 2x + 1 and y = -x + 10.",
+              "answer": "(3, 7)",
+              "explanation": "Set the expressions equal: 2x + 1 = -x + 10. Then 3x = 9, so x = 3. Substitute to get y = 7."
+            }
+          ],
+          "guidedPractice": [
+            {
+              "prompt": "Solve y = x + 4 and y = 3x - 2.",
+              "answer": "(3, 7)",
+              "explanation": "Set x + 4 = 3x - 2, so 6 = 2x and x = 3. Then y = 7."
+            }
+          ],
+          "independentPractice": [
+            {
+              "prompt": "Create a new exponents linear systems problem with different numbers and solve it using graph and substitution.",
+              "answer": "Student-generated; must include a labeled representation, computation, and reasonableness check.",
+              "explanation": "S18/S05 review should sample student-facing examples before live integration."
+            }
+          ],
+          "checkpointPrompts": [
+            "Solve y = x + 4 and y = 3x - 2.",
+            "Explain which representation made the structure of the problem easiest to see."
+          ],
+          "checkpointAnswers": [
+            "(3, 7)",
+            "A strong response names graph and substitution, labels the quantities, and connects the calculation to the context."
+          ],
+          "checkpointExplanations": [
+            "Set x + 4 = 3x - 2, so 6 = 2x and x = 3. Then y = 7.",
+            "The representation is useful when it keeps the relationship, unit, sign, or scale visible throughout the solution."
+          ],
+          "commonPitfalls": [
+            {
+              "pitfall": "negative exponent as negative value",
+              "repairMove": "Return to the representation, relabel each quantity, and compare the result with the original context."
+            },
+            {
+              "pitfall": "slope as y-intercept",
+              "repairMove": "Return to the representation, relabel each quantity, and compare the result with the original context."
+            }
+          ],
+          "teacherNotes": [
+            "Ask students to state the unit or mathematical object before computing.",
+            "Use error analysis when students choose the correct operation but lose a label, sign, or constraint.",
+            "Keep official standard prose and external exercise wording out of student-facing copy."
+          ],
+          "exitTicket": "Write one sentence explaining how graph and substitution helped solve today's expressions and equations task."
+        }
+      },
+      "answerKey": {
+        "workedExamples": [
+          {
+            "answer": "(3, 7)",
+            "acceptedAnswers": [
+              "(3, 7)",
+              "x = 3, y = 7"
+            ],
+            "solutionSteps": [
+              "Set the expressions equal: 2x + 1 = -x + 10. Then 3x = 9, so x = 3. Substitute to get y = 7."
+            ]
+          }
+        ],
+        "checkpoints": [
+          {
+            "answer": "(3, 7)",
+            "acceptedAnswers": [
+              "(3, 7)",
+              "x = 3, y = 7"
+            ],
+            "solutionSteps": [
+              "Set x + 4 = 3x - 2, so 6 = 2x and x = 3. Then y = 7."
+            ]
+          }
+        ]
+      },
+      "validation": {
+        "deterministicChecks": [
+          {
+            "check": "worked-example-answer",
+            "status": "pass",
+            "kind": "linear-system",
+            "values": {
+              "m1": 2,
+              "b1": 1,
+              "m2": -1,
+              "b2": 10
+            },
+            "answer": "(3, 7)"
+          },
+          {
+            "check": "checkpoint-answer",
+            "status": "pass",
+            "answer": "(3, 7)"
+          }
+        ],
+        "unresolvedRisks": []
+      },
+      "illustration": {
+        "visualPolicy": "text-only-v2",
+        "plannedAssets": [
+          {
+            "assetClassification": "math-svg",
+            "needTier": "future-live-enhancement",
+            "brief": "If this lesson gets visual integration, render graph and substitution as deterministic SVG/math-svg with exact labels and coordinates where applicable."
+          }
+        ],
+        "notes": "No answer-critical bitmap is generated in this package. Any future coordinate, graph, geometry, or dense math visual must be rendered deterministically before student-facing use."
+      },
+      "review": {
+        "sourceDistanceStatus": "passed-local-source-policy",
+        "mathQaStatus": "passed-deterministic-checks",
+        "languageQaStatus": "plain-english-en-primary",
+        "pedagogyNotes": "Lesson follows context -> representation -> computation -> check for middle-school learners."
+      },
+      "approval": {
+        "status": "approved-for-production",
+        "reviewer": "S18 full-scope QA plus owner conditional release request",
+        "nextOwner": "S11/S22 release verification"
+      }
+    },
+    {
+      "id": "us-ca-math-middle-school-textbooks-v2-s2-8-f-function-relationships",
+      "packageId": "us-ca-math-middle-school-textbooks-v2",
+      "reviewStatus": "s18-full-scope-qa-approved",
+      "integrationStatus": "integrated-into-california-middle-school-textbook-route",
+      "metadata": {
+        "curriculumTrack": "US_CA_MATH",
+        "state": "CA",
+        "grade": "S2",
+        "usGradeLabel": "Grade 8",
+        "courseLabel": "California Grade 8 Mathematics",
+        "sequenceNumber": 3,
+        "topicId": "us-ca-math-s2-8-f-function-relationships",
+        "domainId": "8.F",
+        "domainTitle": "Functions",
+        "clusterId": "8.F.function-relationships",
+        "clusterTitle": "Function Relationships",
+        "standardIds": [
+          "8.F.1",
+          "8.F.2",
+          "8.F.3",
+          "8.F.4",
+          "8.F.5"
+        ],
+        "difficulty": "High",
+        "estimatedMinutes": 40,
+        "languageVariant": "en-primary",
+        "sourceSafetyStatus": "MAIS-authored-original-from-public-standards-structure",
+        "evidenceCardIds": [
+          "ca-ccss-structure-8-f-function-relationships"
+        ],
+        "conceptIds": [
+          "function-relationships",
+          "8-f-1",
+          "8-f-2",
+          "8-f-3",
+          "8-f-4",
+          "8-f-5"
+        ],
+        "competencyTags": [
+          "tables graphs equations",
+          "function comparison",
+          "verbal interpretation",
+          "misconception:any graph is a function",
+          "misconception:rate of change confused with output"
+        ],
+        "generationGuidance": {
+          "sourcePolicy": "Use only standard IDs, domain structure, local MAIS summaries, and original examples.",
+          "visualPolicy": "text-only-v2; future visuals must be deterministic math-svg when answer-critical."
+        }
+      },
+      "studentLesson": {
+        "en": {
+          "title": "Grade 8 Functions: Function Relationships",
+          "objectives": [
+            "Represent define, compare, interpret, and model functions across representations.",
+            "Use equation and two-point rate table to explain the reasoning, not only the answer.",
+            "Check units, signs, labels, or constraints before finalizing the solution."
+          ],
+          "launch": "A vending machine takes one code as input and gives exactly one snack as output. A function follows that same one-output rule.",
+          "conceptExplanation": "A function assigns exactly one output to each input. Tables, graphs, equations, and descriptions can all represent the same function if they preserve that rule. Rate of change tells how outputs move as inputs change, and the starting value tells where the relationship begins. Comparing functions means comparing their stories, not just their symbols.",
+          "workedExamples": [
+            {
+              "title": "equation and two-point rate table",
+              "prompt": "Function A is y = 3x + 2. Function B passes through (0, 5) and (4, 13). Which function has the greater rate of change?",
+              "answer": "Function A",
+              "explanation": "Function A has rate 3. Function B has rate (13 - 5) / (4 - 0) = 2. Since 3 > 2, Function A has the greater rate."
+            }
+          ],
+          "guidedPractice": [
+            {
+              "prompt": "A function has points (2, 9) and (5, 21). What is its rate of change?",
+              "answer": "4",
+              "explanation": "Rate of change is change in output over change in input: 12 / 3 = 4."
+            }
+          ],
+          "independentPractice": [
+            {
+              "prompt": "Create a new function relationships problem with different numbers and solve it using equation and two-point rate table.",
+              "answer": "Student-generated; must include a labeled representation, computation, and reasonableness check.",
+              "explanation": "S18/S05 review should sample student-facing examples before live integration."
+            }
+          ],
+          "checkpointPrompts": [
+            "A function has points (2, 9) and (5, 21). What is its rate of change?",
+            "Explain which representation made the structure of the problem easiest to see."
+          ],
+          "checkpointAnswers": [
+            "4",
+            "A strong response names equation and two-point rate table, labels the quantities, and connects the calculation to the context."
+          ],
+          "checkpointExplanations": [
+            "Rate of change is change in output over change in input: 12 / 3 = 4.",
+            "The representation is useful when it keeps the relationship, unit, sign, or scale visible throughout the solution."
+          ],
+          "commonPitfalls": [
+            {
+              "pitfall": "any graph is a function",
+              "repairMove": "Return to the representation, relabel each quantity, and compare the result with the original context."
+            },
+            {
+              "pitfall": "rate of change confused with output",
+              "repairMove": "Return to the representation, relabel each quantity, and compare the result with the original context."
+            }
+          ],
+          "teacherNotes": [
+            "Ask students to state the unit or mathematical object before computing.",
+            "Use error analysis when students choose the correct operation but lose a label, sign, or constraint.",
+            "Keep official standard prose and external exercise wording out of student-facing copy."
+          ],
+          "exitTicket": "Write one sentence explaining how equation and two-point rate table helped solve today's functions task."
+        }
+      },
+      "answerKey": {
+        "workedExamples": [
+          {
+            "answer": "Function A",
+            "acceptedAnswers": [
+              "Function A",
+              "A"
+            ],
+            "solutionSteps": [
+              "Function A has rate 3. Function B has rate (13 - 5) / (4 - 0) = 2. Since 3 > 2, Function A has the greater rate."
+            ]
+          }
+        ],
+        "checkpoints": [
+          {
+            "answer": "4",
+            "acceptedAnswers": [
+              "4"
+            ],
+            "solutionSteps": [
+              "Rate of change is change in output over change in input: 12 / 3 = 4."
+            ]
+          }
+        ]
+      },
+      "validation": {
+        "deterministicChecks": [
+          {
+            "check": "worked-example-answer",
+            "status": "pass",
+            "kind": "function-rate",
+            "values": {
+              "aRate": 3,
+              "bY1": 5,
+              "bY2": 13,
+              "bX1": 0,
+              "bX2": 4
+            },
+            "answer": "Function A"
+          },
+          {
+            "check": "checkpoint-answer",
+            "status": "pass",
+            "answer": "4"
+          }
+        ],
+        "unresolvedRisks": []
+      },
+      "illustration": {
+        "visualPolicy": "text-only-v2",
+        "plannedAssets": [
+          {
+            "assetClassification": "math-svg",
+            "needTier": "future-live-enhancement",
+            "brief": "If this lesson gets visual integration, render equation and two-point rate table as deterministic SVG/math-svg with exact labels and coordinates where applicable."
+          }
+        ],
+        "notes": "No answer-critical bitmap is generated in this package. Any future coordinate, graph, geometry, or dense math visual must be rendered deterministically before student-facing use."
+      },
+      "review": {
+        "sourceDistanceStatus": "passed-local-source-policy",
+        "mathQaStatus": "passed-deterministic-checks",
+        "languageQaStatus": "plain-english-en-primary",
+        "pedagogyNotes": "Lesson follows context -> representation -> computation -> check for middle-school learners."
+      },
+      "approval": {
+        "status": "approved-for-production",
+        "reviewer": "S18 full-scope QA plus owner conditional release request",
+        "nextOwner": "S11/S22 release verification"
+      }
+    },
+    {
+      "id": "us-ca-math-middle-school-textbooks-v2-s2-8-g-transformations-pythagorean-volume",
+      "packageId": "us-ca-math-middle-school-textbooks-v2",
+      "reviewStatus": "s18-full-scope-qa-approved",
+      "integrationStatus": "integrated-into-california-middle-school-textbook-route",
+      "metadata": {
+        "curriculumTrack": "US_CA_MATH",
+        "state": "CA",
+        "grade": "S2",
+        "usGradeLabel": "Grade 8",
+        "courseLabel": "California Grade 8 Mathematics",
+        "sequenceNumber": 4,
+        "topicId": "us-ca-math-s2-8-g-transformations-pythagorean-volume",
+        "domainId": "8.G",
+        "domainTitle": "Geometry",
+        "clusterId": "8.G.transformations-pythagorean-volume",
+        "clusterTitle": "Transformations Pythagorean Volume",
+        "standardIds": [
+          "8.G.1",
+          "8.G.2",
+          "8.G.3",
+          "8.G.4",
+          "8.G.5",
+          "8.G.6",
+          "8.G.7",
+          "8.G.8",
+          "8.G.9"
+        ],
+        "difficulty": "High",
+        "estimatedMinutes": 40,
+        "languageVariant": "en-primary",
+        "sourceSafetyStatus": "MAIS-authored-original-from-public-standards-structure",
+        "evidenceCardIds": [
+          "ca-ccss-structure-8-g-transformations-pythagorean-volume"
+        ],
+        "conceptIds": [
+          "transformations-pythagorean-volume",
+          "8-g-1",
+          "8-g-2",
+          "8-g-3",
+          "8-g-4",
+          "8-g-5",
+          "8-g-6",
+          "8-g-7",
+          "8-g-8",
+          "8-g-9"
+        ],
+        "competencyTags": [
+          "coordinate transformations",
+          "proof prompts",
+          "Pythagorean distance",
+          "misconception:rotation direction",
+          "misconception:similarity versus congruence"
+        ],
+        "generationGuidance": {
+          "sourcePolicy": "Use only standard IDs, domain structure, local MAIS summaries, and original examples.",
+          "visualPolicy": "text-only-v2; future visuals must be deterministic math-svg when answer-critical."
+        }
+      },
+      "studentLesson": {
+        "en": {
+          "title": "Grade 8 Geometry: Transformations Pythagorean Volume",
+          "objectives": [
+            "Represent use transformations, congruence, similarity, angle relationships, pythagorean theorem, and volume.",
+            "Use right triangle with labeled legs to explain the reasoning, not only the answer.",
+            "Check units, signs, labels, or constraints before finalizing the solution."
+          ],
+          "launch": "A designer slides, flips, turns, and enlarges a logo on a grid, then checks a ramp length with a right-triangle model.",
+          "conceptExplanation": "Transformations describe how figures move or resize while certain properties stay the same. Translations, reflections, rotations, and dilations help explain congruence and similarity. The Pythagorean theorem connects right-triangle side lengths and coordinate distance. Volume formulas extend the same careful measuring idea into three-dimensional space.",
+          "workedExamples": [
+            {
+              "title": "right triangle with labeled legs",
+              "prompt": "A right triangle has legs 9 units and 12 units. What is the length of the hypotenuse?",
+              "answer": "15 units",
+              "explanation": "Use a^2 + b^2 = c^2. Then 9^2 + 12^2 = 81 + 144 = 225, so c = 15."
+            }
+          ],
+          "guidedPractice": [
+            {
+              "prompt": "A right triangle has legs 5 and 12. Find the hypotenuse.",
+              "answer": "13",
+              "explanation": "5^2 + 12^2 = 25 + 144 = 169, so the hypotenuse is 13."
+            }
+          ],
+          "independentPractice": [
+            {
+              "prompt": "Create a new transformations pythagorean volume problem with different numbers and solve it using right triangle with labeled legs.",
+              "answer": "Student-generated; must include a labeled representation, computation, and reasonableness check.",
+              "explanation": "S18/S05 review should sample student-facing examples before live integration."
+            }
+          ],
+          "checkpointPrompts": [
+            "A right triangle has legs 5 and 12. Find the hypotenuse.",
+            "Explain which representation made the structure of the problem easiest to see."
+          ],
+          "checkpointAnswers": [
+            "13",
+            "A strong response names right triangle with labeled legs, labels the quantities, and connects the calculation to the context."
+          ],
+          "checkpointExplanations": [
+            "5^2 + 12^2 = 25 + 144 = 169, so the hypotenuse is 13.",
+            "The representation is useful when it keeps the relationship, unit, sign, or scale visible throughout the solution."
+          ],
+          "commonPitfalls": [
+            {
+              "pitfall": "rotation direction",
+              "repairMove": "Return to the representation, relabel each quantity, and compare the result with the original context."
+            },
+            {
+              "pitfall": "similarity versus congruence",
+              "repairMove": "Return to the representation, relabel each quantity, and compare the result with the original context."
+            }
+          ],
+          "teacherNotes": [
+            "Ask students to state the unit or mathematical object before computing.",
+            "Use error analysis when students choose the correct operation but lose a label, sign, or constraint.",
+            "Keep official standard prose and external exercise wording out of student-facing copy."
+          ],
+          "exitTicket": "Write one sentence explaining how right triangle with labeled legs helped solve today's geometry task."
+        }
+      },
+      "answerKey": {
+        "workedExamples": [
+          {
+            "answer": "15 units",
+            "acceptedAnswers": [
+              "15 units",
+              "15"
+            ],
+            "solutionSteps": [
+              "Use a^2 + b^2 = c^2. Then 9^2 + 12^2 = 81 + 144 = 225, so c = 15."
+            ]
+          }
+        ],
+        "checkpoints": [
+          {
+            "answer": "13",
+            "acceptedAnswers": [
+              "13",
+              "13 units"
+            ],
+            "solutionSteps": [
+              "5^2 + 12^2 = 25 + 144 = 169, so the hypotenuse is 13."
+            ]
+          }
+        ]
+      },
+      "validation": {
+        "deterministicChecks": [
+          {
+            "check": "worked-example-answer",
+            "status": "pass",
+            "kind": "pythagorean-distance",
+            "values": {
+              "a": 9,
+              "b": 12
+            },
+            "answer": "15 units"
+          },
+          {
+            "check": "checkpoint-answer",
+            "status": "pass",
+            "answer": "13"
+          }
+        ],
+        "unresolvedRisks": []
+      },
+      "illustration": {
+        "visualPolicy": "text-only-v2",
+        "plannedAssets": [
+          {
+            "assetClassification": "math-svg",
+            "needTier": "future-live-enhancement",
+            "brief": "If this lesson gets visual integration, render right triangle with labeled legs as deterministic SVG/math-svg with exact labels and coordinates where applicable."
+          }
+        ],
+        "notes": "No answer-critical bitmap is generated in this package. Any future coordinate, graph, geometry, or dense math visual must be rendered deterministically before student-facing use."
+      },
+      "review": {
+        "sourceDistanceStatus": "passed-local-source-policy",
+        "mathQaStatus": "passed-deterministic-checks",
+        "languageQaStatus": "plain-english-en-primary",
+        "pedagogyNotes": "Lesson follows context -> representation -> computation -> check for middle-school learners."
+      },
+      "approval": {
+        "status": "approved-for-production",
+        "reviewer": "S18 full-scope QA plus owner conditional release request",
+        "nextOwner": "S11/S22 release verification"
+      }
+    },
+    {
+      "id": "us-ca-math-middle-school-textbooks-v2-s2-8-sp-bivariate-data",
+      "packageId": "us-ca-math-middle-school-textbooks-v2",
+      "reviewStatus": "s18-full-scope-qa-approved",
+      "integrationStatus": "integrated-into-california-middle-school-textbook-route",
+      "metadata": {
+        "curriculumTrack": "US_CA_MATH",
+        "state": "CA",
+        "grade": "S2",
+        "usGradeLabel": "Grade 8",
+        "courseLabel": "California Grade 8 Mathematics",
+        "sequenceNumber": 5,
+        "topicId": "us-ca-math-s2-8-sp-bivariate-data",
+        "domainId": "8.SP",
+        "domainTitle": "Statistics and Probability",
+        "clusterId": "8.SP.bivariate-data",
+        "clusterTitle": "Bivariate Data",
+        "standardIds": [
+          "8.SP.1",
+          "8.SP.2",
+          "8.SP.3",
+          "8.SP.4"
+        ],
+        "difficulty": "High",
+        "estimatedMinutes": 40,
+        "languageVariant": "en-primary",
+        "sourceSafetyStatus": "MAIS-authored-original-from-public-standards-structure",
+        "evidenceCardIds": [
+          "ca-ccss-structure-8-sp-bivariate-data"
+        ],
+        "conceptIds": [
+          "bivariate-data",
+          "8-sp-1",
+          "8-sp-2",
+          "8-sp-3",
+          "8-sp-4"
+        ],
+        "competencyTags": [
+          "scatter plots",
+          "trend lines",
+          "two-way tables",
+          "misconception:correlation as causation",
+          "misconception:outlier ignored"
+        ],
+        "generationGuidance": {
+          "sourcePolicy": "Use only standard IDs, domain structure, local MAIS summaries, and original examples.",
+          "visualPolicy": "text-only-v2; future visuals must be deterministic math-svg when answer-critical."
+        }
+      },
+      "studentLesson": {
+        "en": {
+          "title": "Grade 8 Statistics and Probability: Bivariate Data",
+          "objectives": [
+            "Represent analyze scatter plots, association, linear models, and two-way tables.",
+            "Use categorical data table to explain the reasoning, not only the answer.",
+            "Check units, signs, labels, or constraints before finalizing the solution."
+          ],
+          "launch": "A scatter plot pairs study time with quiz score for each student. The points may lean upward, spread out, or show surprises.",
+          "conceptExplanation": "Bivariate data follows two measurements at a time. Scatter plots reveal association, trend lines model the general pattern, and residuals show how far individual points sit from the model. A two-way table organizes two categories at once. Association can support a claim about a pattern, but by itself it does not prove one thing caused the other.",
+          "workedExamples": [
+            {
+              "title": "categorical data table",
+              "prompt": "In a survey, 18 students chose robotics, 12 chose art, and 10 chose music. What percent chose robotics?",
+              "answer": "45%",
+              "explanation": "The total is 18 + 12 + 10 = 40. Robotics is 18 / 40 = 0.45 = 45%."
+            }
+          ],
+          "guidedPractice": [
+            {
+              "prompt": "A club has 14 sixth graders and 21 seventh graders. What percent are sixth graders?",
+              "answer": "40%",
+              "explanation": "There are 35 students total, and 14 / 35 = 0.4 = 40%."
+            }
+          ],
+          "independentPractice": [
+            {
+              "prompt": "Create a new bivariate data problem with different numbers and solve it using categorical data table.",
+              "answer": "Student-generated; must include a labeled representation, computation, and reasonableness check.",
+              "explanation": "S18/S05 review should sample student-facing examples before live integration."
+            }
+          ],
+          "checkpointPrompts": [
+            "A club has 14 sixth graders and 21 seventh graders. What percent are sixth graders?",
+            "Explain which representation made the structure of the problem easiest to see."
+          ],
+          "checkpointAnswers": [
+            "40%",
+            "A strong response names categorical data table, labels the quantities, and connects the calculation to the context."
+          ],
+          "checkpointExplanations": [
+            "There are 35 students total, and 14 / 35 = 0.4 = 40%.",
+            "The representation is useful when it keeps the relationship, unit, sign, or scale visible throughout the solution."
+          ],
+          "commonPitfalls": [
+            {
+              "pitfall": "correlation as causation",
+              "repairMove": "Return to the representation, relabel each quantity, and compare the result with the original context."
+            },
+            {
+              "pitfall": "outlier ignored",
+              "repairMove": "Return to the representation, relabel each quantity, and compare the result with the original context."
+            }
+          ],
+          "teacherNotes": [
+            "Ask students to state the unit or mathematical object before computing.",
+            "Use error analysis when students choose the correct operation but lose a label, sign, or constraint.",
+            "Keep official standard prose and external exercise wording out of student-facing copy."
+          ],
+          "exitTicket": "Write one sentence explaining how categorical data table helped solve today's statistics and probability task."
+        }
+      },
+      "answerKey": {
+        "workedExamples": [
+          {
+            "answer": "45%",
+            "acceptedAnswers": [
+              "45%",
+              "45 percent",
+              "0.45"
+            ],
+            "solutionSteps": [
+              "The total is 18 + 12 + 10 = 40. Robotics is 18 / 40 = 0.45 = 45%."
+            ]
+          }
+        ],
+        "checkpoints": [
+          {
+            "answer": "40%",
+            "acceptedAnswers": [
+              "40%",
+              "40 percent",
+              "0.4"
+            ],
+            "solutionSteps": [
+              "There are 35 students total, and 14 / 35 = 0.4 = 40%."
+            ]
+          }
+        ]
+      },
+      "validation": {
+        "deterministicChecks": [
+          {
+            "check": "worked-example-answer",
+            "status": "pass",
+            "kind": "two-way-table",
+            "values": {
+              "robotics": 18,
+              "art": 12,
+              "music": 10
+            },
+            "answer": "45%"
+          },
+          {
+            "check": "checkpoint-answer",
+            "status": "pass",
+            "answer": "40%"
+          }
+        ],
+        "unresolvedRisks": []
+      },
+      "illustration": {
+        "visualPolicy": "text-only-v2",
+        "plannedAssets": [
+          {
+            "assetClassification": "math-svg",
+            "needTier": "future-live-enhancement",
+            "brief": "If this lesson gets visual integration, render categorical data table as deterministic SVG/math-svg with exact labels and coordinates where applicable."
+          }
+        ],
+        "notes": "No answer-critical bitmap is generated in this package. Any future coordinate, graph, geometry, or dense math visual must be rendered deterministically before student-facing use."
+      },
+      "review": {
+        "sourceDistanceStatus": "passed-local-source-policy",
+        "mathQaStatus": "passed-deterministic-checks",
+        "languageQaStatus": "plain-english-en-primary",
+        "pedagogyNotes": "Lesson follows context -> representation -> computation -> check for middle-school learners."
+      },
+      "approval": {
+        "status": "approved-for-production",
+        "reviewer": "S18 full-scope QA plus owner conditional release request",
+        "nextOwner": "S11/S22 release verification"
+      }
+    }
+  ],
+  "livePromotion": {
+    "promotedAt": "2026-06-19T11:05:00.000Z",
+    "promotedBy": "S23 live promotion under owner conditional release request",
+    "s18Decision": "coordination/content-qa/us-ca-math-middle-school-textbooks-v2/s18-full-scope-qa-decision.md",
+    "s23Decision": "coordination/content-qa/us-ca-math-middle-school-textbooks-v2/s23-live-promotion-decision.md",
+    "publicClaimLimits": [
+      "California middle-school mathematics replacement lessons",
+      "California standards-aligned lesson coverage"
+    ],
+    "forbiddenClaims": [
+      "complete California curriculum",
+      "official California course",
+      "fully launched California middle-school textbook",
+      "IXL-equivalent exercises"
+    ]
+  }
+}

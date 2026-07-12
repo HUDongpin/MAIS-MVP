@@ -25,6 +25,7 @@ export const threeDFamilyIds = [
   "three-space-vectors-lines-planes",
   "three-conic-sections-deep",
   "three-optimization-modeling",
+  "three-projection-views",
   "three-statistical-inference-lab",
   "three-curriculum-crosswalk-map",
   "three-exam-strategy-capstone"
@@ -47,6 +48,7 @@ export type ThreeDSceneVariant =
   | "measurement-rail"
   | "optimization-landscape"
   | "place-value-blocks"
+  | "projection-views"
   | "solid-net-fold"
   | "space-vector-plane"
   | "statistical-inference"
@@ -95,6 +97,7 @@ export type ThreeDLabCanvasProps = {
   coverageTier?: ThreeDCoverageTier;
   fallback: ReactNode;
   label: string;
+  onCanvasReady?: () => void;
   premiumLaunch?: boolean;
   regionalPriority?: ThreeDRegionalPriority;
   runtime?: ThreeDCanvasRuntime;

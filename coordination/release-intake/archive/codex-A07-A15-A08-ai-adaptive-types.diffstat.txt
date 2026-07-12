@@ -1,0 +1,18 @@
+.env.local.example                         |  110 +-
+ app/adaptive-learning/loading.tsx          |    4 +-
+ app/adaptive-learning/page.tsx             |    4 +-
+ app/api/adaptive-learning/next/route.ts    |   21 +-
+ app/api/adaptive-learning/refresh/route.ts |   10 +
+ app/api/ai-tutor/route.ts                  | 2352 +++-------------------------
+ app/api/ai-tutor/status/route.ts           |  143 +-
+ components/ai/AITutorButton.tsx            |   10 +-
+ components/ai/AITutorProvider.tsx          | 2028 +++++++++++++++++++++---
+ components/providers/AppProviders.tsx      |  101 +-
+ lib/adaptiveLearning.test.ts               |  141 +-
+ lib/adaptiveLearning.ts                    |  112 +-
+ lib/curriculumProfile.ts                   |   43 +-
+ lib/server/llmProvider.test.ts             |  201 ++-
+ lib/server/llmProvider.ts                  |  376 ++++-
+ lib/utils.ts                               |   11 +-
+ types/index.ts                             | 1447 ++++++++++++++++-
+ 17 files changed, 4587 insertions(+), 2527 deletions(-)

@@ -1,0 +1,914 @@
+diff --git a/app/api/me/profile/route.ts b/app/api/me/profile/route.ts
+index ef7e5cdc3..9e2bcd98f 100644
+--- a/app/api/me/profile/route.ts
++++ b/app/api/me/profile/route.ts
+@@ -1,6 +1,12 @@
+ import { NextResponse } from "next/server";
+ import { requireAuthenticatedUser } from "@/lib/server/auth";
+-import { updateUserProfile } from "@/lib/server/userStore";
++import { recordAiGovernanceEvent, updateUserProfile } from "@/lib/server/userStore";
++import { evaluateMediaStoragePolicy, imageDataUrlMediaDescriptor, mediaStoragePolicyFromEnv } from "@/lib/server/aiGovernance";
++import {
++  mediaObjectReferenceFromUnknown,
++  readStoredMediaObject,
++  type StoredMediaObjectReference
++} from "@/lib/server/mediaObjectStore";
+ import type { StudentAvatarId } from "@/types";
+ 
+ export const runtime = "nodejs";
+@@ -21,6 +27,13 @@ function isValidAvatarImageDataUrl(value: unknown): value is string {
+   );
+ }
+ 
++function statusForMediaObjectRead(status: "not-found" | "forbidden" | "expired" | "rejected") {
++  if (status === "forbidden") return 403;
++  if (status === "expired") return 410;
++  if (status === "rejected") return 503;
++  return 404;
++}
++
+ export async function PATCH(request: Request) {
+   const authenticated = await requireAuthenticatedUser(request);
+   if (!authenticated) {
+@@ -38,7 +51,27 @@ export async function PATCH(request: Request) {
+     return NextResponse.json({ error: "Request body must be an object." }, { status: 400 });
+   }
+ 
+-  const patch: Partial<{ name: string; avatarId: StudentAvatarId; avatarImageDataUrl: string | null }> = {};
++  const hasAvatarImageDataUrlValue =
++    "avatarImageDataUrl" in body &&
++    body.avatarImageDataUrl !== null &&
++    body.avatarImageDataUrl !== "";
++  const hasAvatarImageObjectValue =
++    "avatarImageObject" in body &&
++    body.avatarImageObject !== null &&
++    body.avatarImageObject !== "";
++  if (hasAvatarImageDataUrlValue && hasAvatarImageObjectValue) {
++    return NextResponse.json(
++      { error: "Choose either an avatar image data URL or an avatar image object, not both." },
++      { status: 400 }
++    );
++  }
++
++  const patch: Partial<{
++    name: string;
++    avatarId: StudentAvatarId;
++    avatarImageDataUrl: string | null;
++    avatarImageObject: StoredMediaObjectReference | null;
++  }> = {};
+ 
+   if ("name" in body) {
+     if (typeof body.name !== "string") {
+@@ -58,12 +91,97 @@ export async function PATCH(request: Request) {
+     if (body.avatarImageDataUrl === null || body.avatarImageDataUrl === "") {
+       patch.avatarImageDataUrl = null;
+     } else if (isValidAvatarImageDataUrl(body.avatarImageDataUrl)) {
++      const media = imageDataUrlMediaDescriptor(body.avatarImageDataUrl);
++      const storageDecision = media
++        ? evaluateMediaStoragePolicy({
++            policy: mediaStoragePolicyFromEnv(),
++            capability: "profile-avatar",
++            media
++          })
++        : null;
++      if (!storageDecision?.allowed) {
++        await recordAiGovernanceEvent({
++          userId: authenticated.user.id,
++          capability: "profile-avatar",
++          action: "media-policy-blocked",
++          reason: storageDecision?.code ?? "media-object-reference-invalid",
++          metadata: {
++            code: storageDecision?.code ?? "media-object-reference-invalid"
++          }
++        }).catch((error) => {
++          console.error("Avatar media governance event recording failed", error instanceof Error ? error.name : typeof error);
++        });
++        return NextResponse.json(
++          {
++            code: storageDecision?.code ?? "media-object-reference-invalid",
++            error: storageDecision?.message ?? "Avatar image storage policy could not validate this upload."
++          },
++          { status: storageDecision?.code === "object-storage-required" ? 409 : 400 }
++        );
++      }
+       patch.avatarImageDataUrl = body.avatarImageDataUrl;
+     } else {
+       return NextResponse.json({ error: "Avatar image is invalid or too large." }, { status: 400 });
+     }
+   }
+ 
++  if ("avatarImageObject" in body) {
++    if (body.avatarImageObject === null || body.avatarImageObject === "") {
++      patch.avatarImageObject = null;
++    } else {
++      const media = mediaObjectReferenceFromUnknown(body.avatarImageObject);
++      if (!media || !media.objectKey.startsWith("profile-avatar/")) {
++        return NextResponse.json({ error: "Avatar image object reference is invalid." }, { status: 400 });
++      }
++
++      const storageDecision = evaluateMediaStoragePolicy({
++        policy: mediaStoragePolicyFromEnv(),
++        capability: "profile-avatar",
++        media
++      });
++      if (!storageDecision.allowed) {
++        await recordAiGovernanceEvent({
++          userId: authenticated.user.id,
++          capability: "profile-avatar",
++          action: "media-policy-blocked",
++          reason: storageDecision.code,
++          metadata: { code: storageDecision.code }
++        }).catch((error) => {
++          console.error("Avatar object governance event recording failed", error instanceof Error ? error.name : typeof error);
++        });
++        return NextResponse.json(
++          { code: storageDecision.code, error: storageDecision.message },
++          { status: 400 }
++        );
++      }
++
++      const stored = await readStoredMediaObject({
++        objectKey: media.objectKey,
++        requester: {
++          id: authenticated.user.id,
++          role: authenticated.user.role
++        }
++      });
++      if (stored.status !== "ok") {
++        await recordAiGovernanceEvent({
++          userId: authenticated.user.id,
++          capability: "profile-avatar",
++          action: "media-policy-blocked",
++          reason: stored.code,
++          metadata: { code: stored.code }
++        }).catch((error) => {
++          console.error("Avatar object read governance event recording failed", error instanceof Error ? error.name : typeof error);
++        });
++        return NextResponse.json(
++          { code: stored.code, error: stored.message },
++          { status: statusForMediaObjectRead(stored.status) }
++        );
++      }
++
++      patch.avatarImageObject = media;
++    }
++  }
++
+   const updated = await updateUserProfile(authenticated.user.id, patch);
+   if (!updated) {
+     return NextResponse.json({ error: "Could not update profile." }, { status: 400 });
+diff --git a/components/dashboard/StudentProfilePanel.tsx b/components/dashboard/StudentProfilePanel.tsx
+index 1afbb0011..445d600d5 100644
+--- a/components/dashboard/StudentProfilePanel.tsx
++++ b/components/dashboard/StudentProfilePanel.tsx
+@@ -6,6 +6,7 @@ import { curriculumProfileLabel } from "@/lib/curriculumProfile";
+ import { formatGradeLabel, formatLearnerName } from "@/lib/i18n";
+ import { cn } from "@/lib/utils";
+ import type { LocalizedText, StudentAvatarId } from "@/types";
++import { avatarUploadAccept, avatarUploadImageDataUrl, isSupportedAvatarUploadFile } from "./studentProfileAvatarUpload";
+ 
+ type AvatarPreset = {
+   id: StudentAvatarId;
+@@ -53,8 +54,6 @@ const avatarPresets: AvatarPreset[] = [
+   }
+ ];
+ 
+-const avatarUploadAccept = "image/jpeg,image/png,image/webp";
+-const maxAvatarUploadBytes = 5 * 1024 * 1024;
+ const maxAvatarImageDataUrlLength = 900_000;
+ const avatarCanvasSize = 384;
+ 
+@@ -87,11 +86,11 @@ function loadImage(dataUrl: string) {
+ }
+ 
+ async function prepareAvatarImage(file: File) {
+-  if (!avatarUploadAccept.split(",").includes(file.type) || file.size > maxAvatarUploadBytes) {
++  if (!isSupportedAvatarUploadFile(file)) {
+     throw new Error("Unsupported profile image.");
+   }
+ 
+-  const image = await loadImage(await readFileAsDataUrl(file));
++  const image = await loadImage(avatarUploadImageDataUrl(file, await readFileAsDataUrl(file)));
+   const canvas = document.createElement("canvas");
+   canvas.width = avatarCanvasSize;
+   canvas.height = avatarCanvasSize;
+@@ -122,7 +121,8 @@ export function StudentProfilePanel() {
+   const fileInputRef = useRef<HTMLInputElement | null>(null);
+   const [draftName, setDraftName] = useState("");
+   const [draftAvatarId, setDraftAvatarId] = useState<StudentAvatarId>("delta");
+-  const [draftAvatarImageDataUrl, setDraftAvatarImageDataUrl] = useState<string | undefined>();
++  const [draftAvatarImagePreviewUrl, setDraftAvatarImagePreviewUrl] = useState<string | undefined>();
++  const [freshAvatarImageDataUrl, setFreshAvatarImageDataUrl] = useState<string | undefined>();
+   const [isPreparingImage, setIsPreparingImage] = useState(false);
+   const [uploadError, setUploadError] = useState("");
+   const [isSaving, setIsSaving] = useState(false);
+@@ -131,7 +131,8 @@ export function StudentProfilePanel() {
+   useEffect(() => {
+     setDraftName(currentUser?.name ?? "");
+     setDraftAvatarId(currentUser?.avatarId ?? "delta");
+-    setDraftAvatarImageDataUrl(currentUser?.avatarImageDataUrl);
++    setDraftAvatarImagePreviewUrl(currentUser?.avatarImageDataUrl);
++    setFreshAvatarImageDataUrl(undefined);
+     setUploadError("");
+   }, [currentUser?.id, currentUser?.name, currentUser?.avatarId, currentUser?.avatarImageDataUrl]);
+ 
+@@ -142,7 +143,7 @@ export function StudentProfilePanel() {
+   const activeAvatar = avatarFor(draftAvatarId);
+   const cleanDraftName = draftName.trim().replace(/\s+/g, " ");
+   const currentAvatarImageDataUrl = currentUser?.avatarImageDataUrl ?? "";
+-  const draftAvatarImageValue = draftAvatarImageDataUrl ?? "";
++  const draftAvatarImageValue = draftAvatarImagePreviewUrl ?? "";
+   const uploadErrorCopy = t({ en: "Choose a JPG, PNG, or WebP image under 5 MB.", zh: "請選擇 5 MB 以下的 JPG、PNG 或 WebP 圖像。" });
+   const isDirty = Boolean(
+     currentUser &&
+@@ -165,13 +166,23 @@ export function StudentProfilePanel() {
+ 
+     setIsSaving(true);
+     setStatus("idle");
+-    const result = await updateProfile({
+-      name: cleanDraftName,
+-      avatarId: draftAvatarId,
+-      avatarImageDataUrl: draftAvatarImageDataUrl ?? null
+-    });
+-    setStatus(result.ok ? "saved" : "error");
+-    setIsSaving(false);
++    try {
++      const avatarImageDataUrl = freshAvatarImageDataUrl
++        ? freshAvatarImageDataUrl
++        : !draftAvatarImagePreviewUrl && currentAvatarImageDataUrl
++          ? null
++          : undefined;
++      const result = await updateProfile({
++        name: cleanDraftName,
++        avatarId: draftAvatarId,
++        avatarImageDataUrl
++      });
++      setStatus(result.ok ? "saved" : "error");
++    } catch {
++      setStatus("error");
++    } finally {
++      setIsSaving(false);
++    }
+   };
+ 
+   const handleAvatarUpload = async (event: ChangeEvent<HTMLInputElement>) => {
+@@ -184,7 +195,9 @@ export function StudentProfilePanel() {
+     setStatus("idle");
+ 
+     try {
+-      setDraftAvatarImageDataUrl(await prepareAvatarImage(file));
++      const dataUrl = await prepareAvatarImage(file);
++      setDraftAvatarImagePreviewUrl(dataUrl);
++      setFreshAvatarImageDataUrl(dataUrl);
+     } catch {
+       setUploadError(uploadErrorCopy);
+     } finally {
+@@ -198,12 +211,12 @@ export function StudentProfilePanel() {
+         <div
+           className={cn(
+             "grid h-20 w-20 shrink-0 place-items-center overflow-hidden rounded-[1.75rem] text-4xl font-black text-white shadow-glow ring-1 ring-white/35",
+-            draftAvatarImageDataUrl ? "bg-slate-100 dark:bg-slate-900" : `bg-gradient-to-br ${activeAvatar.className}`
++            draftAvatarImagePreviewUrl ? "bg-slate-100 dark:bg-slate-900" : `bg-gradient-to-br ${activeAvatar.className}`
+           )}
+           aria-hidden="true"
+         >
+-          {draftAvatarImageDataUrl ? (
+-            <img src={draftAvatarImageDataUrl} alt="" className="h-full w-full object-cover" />
++          {draftAvatarImagePreviewUrl ? (
++            <img src={draftAvatarImagePreviewUrl} alt="" className="h-full w-full object-cover" />
+           ) : (
+             activeAvatar.symbol
+           )}
+@@ -235,7 +248,7 @@ export function StudentProfilePanel() {
+         <legend className="text-sm font-bold text-slate-600 dark:text-slate-300">{t({ en: "Avatar", zh: "頭像" })}</legend>
+         <div className="mt-3 grid grid-cols-3 gap-2">
+           {avatarPresets.map((avatar) => {
+-            const selected = !draftAvatarImageDataUrl && avatar.id === draftAvatarId;
++            const selected = !draftAvatarImagePreviewUrl && avatar.id === draftAvatarId;
+             return (
+               <button
+                 key={avatar.id}
+@@ -244,7 +257,8 @@ export function StudentProfilePanel() {
+                 aria-label={text(avatar.label)}
+                 onClick={() => {
+                   setDraftAvatarId(avatar.id);
+-                  setDraftAvatarImageDataUrl(undefined);
++                  setDraftAvatarImagePreviewUrl(undefined);
++                  setFreshAvatarImageDataUrl(undefined);
+                   setUploadError("");
+                   setStatus("idle");
+                 }}
+@@ -260,19 +274,19 @@ export function StudentProfilePanel() {
+           })}
+           <button
+             type="button"
+-            aria-pressed={Boolean(draftAvatarImageDataUrl)}
++            aria-pressed={Boolean(draftAvatarImagePreviewUrl)}
+             onClick={() => fileInputRef.current?.click()}
+             disabled={isPreparingImage}
+             className={cn(
+               "focus-ring col-span-3 flex min-h-12 items-center justify-center rounded-2xl border border-dashed px-3 text-sm font-black transition hover:-translate-y-0.5 disabled:cursor-wait disabled:opacity-70",
+-              draftAvatarImageDataUrl
++              draftAvatarImagePreviewUrl
+                 ? "border-cyan-300 bg-cyan-50 text-cyan-700 ring-2 ring-cyan-300/70 dark:bg-cyan-300/10 dark:text-cyan-100"
+                 : "border-slate-300 bg-white/80 text-slate-700 hover:border-cyan-300 dark:border-white/15 dark:bg-white/[0.06] dark:text-slate-200"
+             )}
+           >
+             {isPreparingImage
+               ? t({ en: "Preparing photo...", zh: "正在準備相片..." })
+-              : draftAvatarImageDataUrl
++              : draftAvatarImagePreviewUrl
+                 ? t({ en: "Photo selected", zh: "已選相片" })
+                 : t({ en: "Upload photo", zh: "上載相片" })}
+           </button>
+@@ -289,7 +303,7 @@ export function StudentProfilePanel() {
+         {uploadError ? <p className="mt-2 text-xs font-bold text-rose-600 dark:text-rose-300">{uploadError}</p> : null}
+       </fieldset>
+ 
+-      <div className="mt-5 flex flex-wrap items-center gap-3">
++      <div className="mt-5 flex flex-wrap items-center gap-3" aria-live="polite">
+         <button
+           type="button"
+           onClick={handleSave}
+diff --git a/components/providers/AppProviders.tsx b/components/providers/AppProviders.tsx
+index acfe1dcf7..fec3f8ae7 100644
+--- a/components/providers/AppProviders.tsx
++++ b/components/providers/AppProviders.tsx
+@@ -121,6 +121,16 @@ type ProfileUpdateInput = {
+   avatarImageDataUrl?: string | null;
+ };
+ 
++type ProfileAvatarImageObject = {
++  kind: "object-reference";
++  objectKey: string;
++  mimeType: string;
++  byteLength: number;
++  encrypted: boolean;
++  scanStatus: "pending" | "passed" | "failed";
++  retentionExpiresAt: string;
++};
++
+ type AuthActionResult = {
+   ok: boolean;
+   role?: StudentSession["role"];
+@@ -138,6 +148,7 @@ const isGrade = isValidGradeId;
+ const validAvatarIds = new Set<StudentAvatarId>(["delta", "pi", "sigma", "theta", "function", "radical"]);
+ const maxAvatarImageDataUrlLength = 900_000;
+ const avatarImageDataUrlPattern = /^data:image\/(?:jpeg|jpg|png|webp);base64,[A-Za-z0-9+/]+=*$/;
++const avatarMediaObjectUrlPattern = /^\/api\/media-objects\/[A-Za-z0-9._~!$&'()*+,;=:@%/-]+$/;
+ 
+ function readAvatarId(value: unknown): StudentAvatarId {
+   return validAvatarIds.has(value as StudentAvatarId) ? (value as StudentAvatarId) : "delta";
+@@ -145,10 +156,50 @@ function readAvatarId(value: unknown): StudentAvatarId {
+ 
+ function readAvatarImageDataUrl(value: unknown) {
+   if (typeof value !== "string") return undefined;
++  if (avatarMediaObjectUrlPattern.test(value)) return value;
+   if (value.length > maxAvatarImageDataUrlLength) return undefined;
+   return avatarImageDataUrlPattern.test(value) ? value : undefined;
+ }
+ 
++function readAvatarImageObjectKey(value: unknown) {
++  return typeof value === "string" && value.startsWith("profile-avatar/") ? value : undefined;
++}
++
++function readAvatarImageUrl(value: unknown) {
++  return typeof value === "string" && avatarMediaObjectUrlPattern.test(value) ? value : undefined;
++}
++
++function readProfileAvatarImageObject(value: unknown): ProfileAvatarImageObject | null {
++  if (typeof value !== "object" || value === null) return null;
++  const record = value as Partial<ProfileAvatarImageObject>;
++  if (record.kind !== "object-reference") return null;
++  if (typeof record.objectKey !== "string" || !record.objectKey.startsWith("profile-avatar/")) return null;
++  if (typeof record.mimeType !== "string" || !/^image\/(?:jpeg|jpg|png|webp)$/.test(record.mimeType)) return null;
++  if (typeof record.byteLength !== "number" || !Number.isFinite(record.byteLength) || record.byteLength <= 0) return null;
++  if (record.encrypted !== true) return null;
++  if (record.scanStatus !== "passed" && record.scanStatus !== "pending" && record.scanStatus !== "failed") return null;
++  if (typeof record.retentionExpiresAt !== "string" || !Number.isFinite(Date.parse(record.retentionExpiresAt))) return null;
++
++  return {
++    kind: "object-reference",
++    objectKey: record.objectKey,
++    mimeType: record.mimeType,
++    byteLength: record.byteLength,
++    encrypted: true,
++    scanStatus: record.scanStatus,
++    retentionExpiresAt: record.retentionExpiresAt
++  };
++}
++
++async function readResponseErrorCode(response: Response) {
++  try {
++    const body = await response.clone().json() as { code?: unknown } | null;
++    return typeof body?.code === "string" ? body.code : "";
++  } catch {
++    return "";
++  }
++}
++
+ function readLessonEntryTarget(value: unknown): LessonEntryTarget | null {
+   const target = value as Partial<LessonEntryTarget> | null;
+ 
+@@ -232,6 +283,8 @@ function readAuthSession(value: unknown): AuthSessionResponse | null {
+       passwordMustChange: typeof user.passwordMustChange === "boolean" ? user.passwordMustChange : undefined,
+       avatarId: readAvatarId(user.avatarId),
+       avatarImageDataUrl: readAvatarImageDataUrl(user.avatarImageDataUrl),
++      avatarImageObjectKey: readAvatarImageObjectKey(user.avatarImageObjectKey),
++      avatarImageUrl: readAvatarImageUrl(user.avatarImageUrl),
+       grade: user.grade,
+       curriculumTrack,
+       curriculumProfile,
+@@ -779,24 +832,66 @@ export function AppProviders({ children }: { children: ReactNode }) {
+   }, [applyAuthSession]);
+ 
+   const updateProfile = useCallback(async ({ name, avatarId, avatarImageDataUrl }: ProfileUpdateInput): Promise<AuthActionResult> => {
+-    const response = await fetch("/api/me/profile", {
+-      method: "PATCH",
+-      headers: {
+-        "Content-Type": "application/json"
+-      },
+-      body: JSON.stringify({ name, avatarId, avatarImageDataUrl })
+-    });
++    const patchProfile = async (body: {
++      name?: string;
++      avatarId?: StudentAvatarId;
++      avatarImageDataUrl?: string | null;
++      avatarImageObject?: ProfileAvatarImageObject | null;
++    }) => {
++      const response = await fetch("/api/me/profile", {
++        method: "PATCH",
++        headers: {
++          "Content-Type": "application/json"
++        },
++        body: JSON.stringify(body)
++      });
+ 
+-    if (!response.ok) {
+-      if (response.status === 400) return { ok: false, reason: "invalid" };
+-      return { ok: false, reason: "error" };
+-    }
++      if (!response.ok) {
++        if (response.status === 400) return { ok: false, reason: "invalid" } satisfies AuthActionResult;
++        return { ok: false, reason: "error" } satisfies AuthActionResult;
++      }
+ 
+-    const session = readAuthSession(await response.json());
+-    if (!session) return { ok: false, reason: "error" };
++      const session = readAuthSession(await response.json());
++      if (!session) return { ok: false, reason: "error" } satisfies AuthActionResult;
+ 
+-    applyAuthSession(session);
+-    return { ok: true, role: session.user.role };
++      applyAuthSession(session);
++      return { ok: true, role: session.user.role } satisfies AuthActionResult;
++    };
++
++    try {
++      const isFreshAvatarDataUrl =
++        typeof avatarImageDataUrl === "string" &&
++        avatarImageDataUrlPattern.test(avatarImageDataUrl);
++      if (isFreshAvatarDataUrl) {
++        const uploadResponse = await fetch("/api/media-objects", {
++          method: "POST",
++          headers: {
++            "Content-Type": "application/json"
++          },
++          body: JSON.stringify({ capability: "profile-avatar", dataUrl: avatarImageDataUrl })
++        });
++
++        if (uploadResponse.status === 201) {
++          const uploadPayload = await uploadResponse.json().catch(() => null) as { media?: unknown } | null;
++          const avatarImageObject = readProfileAvatarImageObject(uploadPayload?.media);
++          if (!avatarImageObject) return { ok: false, reason: "error" };
++          return await patchProfile({ name, avatarId, avatarImageObject });
++        }
++
++        if ((await readResponseErrorCode(uploadResponse)) !== "media-encryption-key-missing") {
++          return { ok: false, reason: "error" };
++        }
++      }
++
++      const patchAvatarImageDataUrl = avatarImageDataUrl === null
++        ? null
++        : isFreshAvatarDataUrl
++          ? avatarImageDataUrl
++          : undefined;
++      return await patchProfile({ name, avatarId, avatarImageDataUrl: patchAvatarImageDataUrl });
++    } catch {
++      return { ok: false, reason: "error" };
++    }
+   }, [applyAuthSession]);
+ 
+   const logout = useCallback(async () => {
+diff --git a/lib/server/userStore.ts b/lib/server/userStore.ts
+index fa7ed0e8a..67e4b53b5 100644
+--- a/lib/server/userStore.ts
++++ b/lib/server/userStore.ts
+@@ -62,7 +62,16 @@ import {
+   readLLMProviderConfig,
+   type LLMProviderMessage
+ } from "@/lib/server/llmProvider";
++import {
++  evaluateAiCapabilityRateLimit,
++  summarizeAiGovernanceEvents,
++  type AiCapability,
++  type AiCapabilityRateLimitDecision,
++  type AiCapabilityRateLimitRule,
++  type AiGovernanceAuditAction
++} from "@/lib/server/aiGovernance";
+ import { normalizeAnswer, questionAnswerMatches } from "@/lib/server/answerGrading";
++import { mediaObjectAccessUrl, type StoredMediaObjectReference } from "@/lib/server/mediaObjectStore";
+ import type {
+   AdaptiveLearningCandidate,
+   AdaptiveLearningDecision,
+@@ -240,6 +249,7 @@ export type StudentProfileRecord = {
+   textbook_publisher?: TextbookPublisher;
+   avatar_id?: StudentAvatarId;
+   avatar_image_data_url?: string;
++  avatar_media_object_key?: string;
+ };
+ 
+ export type UserSettingsRecord = {
+@@ -461,6 +471,16 @@ export type AITutorUsageRecord = {
+   created_at: string;
+ };
+ 
++export type AIGovernanceEventRecord = {
++  id: string;
++  user_id: string;
++  capability: AiCapability;
++  action: AiGovernanceAuditAction;
++  reason: string;
++  metadata_json: Record<string, unknown> | null;
++  created_at: string;
++};
++
+ export type TeacherClassRecord = {
+   id: string;
+   teacher_id: string;
+@@ -810,6 +830,7 @@ type Database = {
+   visualization_sessions: VisualizationSessionRecord[];
+   ai_tutor_messages: AITutorMessageRecord[];
+   ai_tutor_usage: AITutorUsageRecord[];
++  ai_governance_events: AIGovernanceEventRecord[];
+   teacher_classes: TeacherClassRecord[];
+   class_enrollments: ClassEnrollmentRecord[];
+   assignments: AssignmentRecord[];
+@@ -975,6 +996,59 @@ const validStudentAvatarIds = new Set<StudentAvatarId>(["delta", "pi", "sigma",
+ const maxStudentAvatarImageDataUrlLength = 900_000;
+ const studentAvatarImageDataUrlPattern = /^data:image\/(?:jpeg|jpg|png|webp);base64,[A-Za-z0-9+/]+=*$/;
+ const validRewardCatalogCategories = new Set<RewardCatalogCategory>(["toy", "stationery", "learning-tool"]);
++const aiCapabilitySet = new Set<AiCapability>([
++  "ai-tutor-chat",
++  "ai-tutor-ocr",
++  "ai-tutor-speech",
++  "ai-tutor-voice",
++  "lesson-audio",
++  "profile-avatar",
++  "assignment-image",
++  "classroom-work-sample"
++]);
++const aiGovernanceActionSet = new Set<AiGovernanceAuditAction>([
++  "request-admitted",
++  "rate-limit-blocked",
++  "media-policy-blocked"
++]);
++
++function aiGovernanceEventTime(record: AIGovernanceEventRecord) {
++  const timestamp = Date.parse(record.created_at);
++  return Number.isFinite(timestamp) ? timestamp : 0;
++}
++
++function cleanAiGovernanceMetadata(value: unknown): Record<string, unknown> | null {
++  if (typeof value !== "object" || value === null) return null;
++  return JSON.parse(JSON.stringify(value)) as Record<string, unknown>;
++}
++
++function normalizeAiGovernanceEventRecord(
++  value: unknown,
++  now = new Date().toISOString()
++): AIGovernanceEventRecord | null {
++  const record = typeof value === "object" && value !== null ? value as Partial<AIGovernanceEventRecord> : null;
++  if (!record || typeof record.user_id !== "string" || !record.user_id.trim()) return null;
++  if (!aiCapabilitySet.has(record.capability as AiCapability)) return null;
++
++  return {
++    id: typeof record.id === "string" && record.id ? record.id : `ai-governance-${randomUUID()}`,
++    user_id: record.user_id.trim(),
++    capability: record.capability as AiCapability,
++    action: aiGovernanceActionSet.has(record.action as AiGovernanceAuditAction)
++      ? record.action as AiGovernanceAuditAction
++      : "request-admitted",
++    reason: typeof record.reason === "string" && record.reason.trim() ? record.reason.trim().slice(0, 160) : "ok",
++    metadata_json: cleanAiGovernanceMetadata(record.metadata_json),
++    created_at: typeof record.created_at === "string" && record.created_at ? record.created_at : now
++  };
++}
++
++function normalizeAiGovernanceEventRecords(records: unknown[] | undefined, now = new Date().toISOString()) {
++  return (records ?? [])
++    .map((record) => normalizeAiGovernanceEventRecord(record, now))
++    .filter((record): record is AIGovernanceEventRecord => Boolean(record))
++    .slice(-5000);
++}
+ 
+ function isValidCurriculumTrack(value: unknown): value is CurriculumTrack {
+   return validCurriculumTracks.has(value as CurriculumTrack);
+@@ -1210,6 +1284,13 @@ function normalizeStudentAvatarImageDataUrl(value: unknown) {
+   return isValidStudentAvatarImageDataUrl(value) ? value : undefined;
+ }
+ 
++function normalizeStudentAvatarMediaObjectKey(value: unknown) {
++  if (typeof value !== "string") return undefined;
++  const trimmed = value.trim();
++  if (!trimmed.startsWith("profile-avatar/")) return undefined;
++  return mediaObjectAccessUrl(trimmed) ? trimmed : undefined;
++}
++
+ function cleanStudentProfileName(value: string) {
+   return value.trim().replace(/\s+/g, " ");
+ }
+@@ -2612,6 +2693,7 @@ function createInitialDatabase(): Database {
+     visualization_sessions: [],
+     ai_tutor_messages: [],
+     ai_tutor_usage: [],
++    ai_governance_events: [],
+     teacher_classes: seedTeacherClasses(now),
+     class_enrollments: seedClassEnrollments(now),
+     assignments: seedAssignments(now),
+@@ -2879,18 +2961,27 @@ function normalizeDatabase(database: Partial<Database>) {
+     };
+   });
+   const studentProfiles = (database.student_profiles ?? []).map((profile): StudentProfileRecord => {
+-    const avatarImageDataUrl = normalizeStudentAvatarImageDataUrl(profile.avatar_image_data_url);
++    const avatarImageObjectKey = normalizeStudentAvatarMediaObjectKey(profile.avatar_media_object_key);
++    const avatarImageDataUrl = avatarImageObjectKey
++      ? undefined
++      : normalizeStudentAvatarImageDataUrl(profile.avatar_image_data_url);
+     const curriculumProfile = normalizeStoredCurriculumProfile({
+       curriculumTrack: normalizeCurriculumTrack(profile.curriculum_track),
+       region: profile.curriculum_region,
+       publisher: profile.textbook_publisher
+     });
++    const {
++      avatar_image_data_url: _avatarImageDataUrl,
++      avatar_media_object_key: _avatarMediaObjectKey,
++      ...profileFields
++    } = profile;
+     return {
+-      ...profile,
++      ...profileFields,
+       avatar_id: isValidStudentAvatarId(profile.avatar_id) ? profile.avatar_id : defaultStudentAvatarId,
+       curriculum_track: curriculumTrackForProfile(curriculumProfile),
+       curriculum_region: curriculumProfile.region,
+       textbook_publisher: curriculumProfile.publisher,
++      ...(avatarImageObjectKey ? { avatar_media_object_key: avatarImageObjectKey } : {}),
+       ...(avatarImageDataUrl ? { avatar_image_data_url: avatarImageDataUrl } : {})
+     };
+   });
+@@ -3006,6 +3097,7 @@ function normalizeDatabase(database: Partial<Database>) {
+     visualization_sessions: database.visualization_sessions ?? [],
+     ai_tutor_messages: database.ai_tutor_messages ?? [],
+     ai_tutor_usage: database.ai_tutor_usage ?? [],
++    ai_governance_events: normalizeAiGovernanceEventRecords(database.ai_governance_events, now),
+     teacher_classes: mergeSeedRecordsPreservingExisting(database.teacher_classes, seedTeacherClasses(now), (teacherClass) => teacherClass.id)
+       .map((teacherClass) => ({
+         ...teacherClass,
+@@ -3175,6 +3267,7 @@ function databaseNeedsPersistenceSync(parsed: Partial<Database>, database: Datab
+     !Array.isArray(parsed.visualization_sessions) ||
+     !Array.isArray(parsed.ai_tutor_messages) ||
+     !Array.isArray(parsed.ai_tutor_usage) ||
++    !Array.isArray(parsed.ai_governance_events) ||
+     !Array.isArray(parsed.teacher_classes) ||
+     !Array.isArray(parsed.class_enrollments) ||
+     !Array.isArray(parsed.assignments) ||
+@@ -4072,6 +4165,8 @@ function toAuthenticatedUser(database: Database, user: UserRecord): Authenticate
+   const settings =
+     database.user_settings.find((candidate) => candidate.user_id === user.id) ??
+     defaultSettings(user.id, profile.grade);
++  const avatarImageObjectKey = normalizeStudentAvatarMediaObjectKey(profile.avatar_media_object_key);
++  const avatarImageUrl = avatarImageObjectKey ? mediaObjectAccessUrl(avatarImageObjectKey) || undefined : undefined;
+ 
+   return {
+     user: {
+@@ -4082,7 +4177,9 @@ function toAuthenticatedUser(database: Database, user: UserRecord): Authenticate
+       schoolId: user.school_id,
+       passwordMustChange: user.password_must_change ?? false,
+       avatarId: isValidStudentAvatarId(profile.avatar_id) ? profile.avatar_id : defaultStudentAvatarId,
+-      avatarImageDataUrl: normalizeStudentAvatarImageDataUrl(profile.avatar_image_data_url),
++      avatarImageDataUrl: avatarImageUrl ?? normalizeStudentAvatarImageDataUrl(profile.avatar_image_data_url),
++      avatarImageObjectKey,
++      avatarImageUrl,
+       grade: profile.grade,
+       curriculumTrack,
+       curriculumProfile,
+@@ -11393,7 +11490,12 @@ export async function updateUserSettings(
+ 
+ export async function updateUserProfile(
+   userId: string,
+-  patch: Partial<{ name: string; avatarId: StudentAvatarId; avatarImageDataUrl: string | null }>
++  patch: Partial<{
++    name: string;
++    avatarId: StudentAvatarId;
++    avatarImageDataUrl: string | null;
++    avatarImageObject: StoredMediaObjectReference | null;
++  }>
+ ) {
+   return mutateDatabase((database) => {
+     const user = database.users.find((candidate) => candidate.id === userId);
+@@ -11418,8 +11520,10 @@ export async function updateUserProfile(
+     if ("avatarImageDataUrl" in patch) {
+       if (patch.avatarImageDataUrl === null || patch.avatarImageDataUrl === "") {
+         delete profile.avatar_image_data_url;
++        delete profile.avatar_media_object_key;
+       } else if (isValidStudentAvatarImageDataUrl(patch.avatarImageDataUrl)) {
+         profile.avatar_image_data_url = patch.avatarImageDataUrl;
++        delete profile.avatar_media_object_key;
+       } else {
+         return null;
+       }
+@@ -11427,6 +11531,19 @@ export async function updateUserProfile(
+       profile.avatar_image_data_url = normalizeStudentAvatarImageDataUrl(profile.avatar_image_data_url);
+     }
+ 
++    if ("avatarImageObject" in patch) {
++      if (patch.avatarImageObject === null) {
++        delete profile.avatar_media_object_key;
++      } else {
++        const objectKey = normalizeStudentAvatarMediaObjectKey(patch.avatarImageObject?.objectKey);
++        if (!objectKey) return null;
++        profile.avatar_media_object_key = objectKey;
++        delete profile.avatar_image_data_url;
++      }
++    } else {
++      profile.avatar_media_object_key = normalizeStudentAvatarMediaObjectKey(profile.avatar_media_object_key);
++    }
++
+     return toAuthenticatedUser(database, user);
+   });
+ }
+@@ -13448,6 +13565,150 @@ function cleanTutorContextValue(value: unknown): Record<string, unknown> | null
+   return JSON.parse(JSON.stringify(value)) as Record<string, unknown>;
+ }
+ 
++function aiTutorUsageTotalTokens(usage: AITutorUsageRecord) {
++  if (typeof usage.total_tokens === "number") return usage.total_tokens;
++  return (usage.prompt_tokens ?? 0) + (usage.completion_tokens ?? 0);
++}
++
++export async function consumeAiCapabilityRateLimit({
++  capability,
++  rules,
++  userId,
++  now = new Date()
++}: {
++  capability: AiCapability;
++  rules: AiCapabilityRateLimitRule[];
++  userId: string;
++  now?: Date;
++}): Promise<AiCapabilityRateLimitDecision> {
++  return mutateDatabase((database) => {
++    const nowMs = now.getTime();
++    const maxWindowMs = Math.max(...rules.map((rule) => rule.windowMs), 60 * 1000);
++    const retentionCutoffMs = nowMs - Math.max(maxWindowMs, 24 * 60 * 60 * 1000);
++
++    database.ai_governance_events = database.ai_governance_events.filter((record) =>
++      aiGovernanceEventTime(record) >= retentionCutoffMs
++    );
++
++    const decision = evaluateAiCapabilityRateLimit({
++      capability,
++      events: database.ai_governance_events
++        .filter((record) => record.action === "request-admitted")
++        .map((record) => ({
++          capability: record.capability,
++          userId: record.user_id,
++          createdAt: record.created_at
++        })),
++      now,
++      rules,
++      userId
++    });
++
++    database.ai_governance_events.push({
++      id: `ai-governance-${randomUUID()}`,
++      user_id: userId,
++      capability,
++      action: decision.allowed ? "request-admitted" : "rate-limit-blocked",
++      reason: decision.reason,
++      metadata_json: {
++        remaining: decision.remaining,
++        resetAt: decision.resetAt.toISOString(),
++        retryAfterSeconds: decision.retryAfterSeconds,
++        ...(decision.rule ? { rule: decision.rule.name } : {})
++      },
++      created_at: now.toISOString()
++    });
++    database.ai_governance_events = database.ai_governance_events.slice(-5000);
++
++    return decision;
++  });
++}
++
++export async function recordAiGovernanceEvent({
++  action,
++  capability,
++  metadata,
++  reason,
++  userId,
++  now = new Date()
++}: {
++  action: AiGovernanceAuditAction;
++  capability: AiCapability;
++  metadata?: Record<string, unknown> | null;
++  reason: string;
++  userId: string;
++  now?: Date;
++}) {
++  await mutateDatabase((database) => {
++    database.ai_governance_events.push({
++      id: `ai-governance-${randomUUID()}`,
++      user_id: userId,
++      capability,
++      action,
++      reason: reason.slice(0, 160),
++      metadata_json: cleanAiGovernanceMetadata(metadata),
++      created_at: now.toISOString()
++    });
++    database.ai_governance_events = database.ai_governance_events.slice(-5000);
++  });
++}
++
++export async function getAiGovernanceSummaryForAdmin({
++  adminId,
++  now = new Date(),
++  windowMs = 60 * 60 * 1000
++}: {
++  adminId: string;
++  now?: Date;
++  windowMs?: number;
++}) {
++  const database = await readDatabase();
++  const admin = database.users.find((candidate) => candidate.id === adminId);
++  if (admin?.role !== "admin") return null;
++
++  const cutoffMs = now.getTime() - windowMs;
++  const usageRows = database.ai_tutor_usage.filter((usage) => {
++    const createdAt = Date.parse(usage.created_at);
++    return Number.isFinite(createdAt) && createdAt > cutoffMs && createdAt <= now.getTime();
++  });
++  const blockedEvents = database.ai_governance_events.filter((event) => {
++    const createdAt = Date.parse(event.created_at);
++    return Number.isFinite(createdAt) && createdAt > cutoffMs && createdAt <= now.getTime() && event.action !== "request-admitted";
++  });
++
++  return {
++    generatedAt: now.toISOString(),
++    windowMs,
++    governance: summarizeAiGovernanceEvents({
++      events: database.ai_governance_events.map((event) => ({
++        action: event.action,
++        capability: event.capability,
++        createdAt: event.created_at,
++        reason: event.reason,
++        userId: event.user_id
++      })),
++      now,
++      windowMs
++    }),
++    aiTutorUsage: {
++      requestCount: usageRows.length,
++      errorCount: usageRows.filter((usage) => usage.error).length,
++      promptTokens: usageRows.reduce((total, usage) => total + (usage.prompt_tokens ?? 0), 0),
++      completionTokens: usageRows.reduce((total, usage) => total + (usage.completion_tokens ?? 0), 0),
++      totalTokens: usageRows.reduce((total, usage) => total + aiTutorUsageTotalTokens(usage), 0)
++    },
++    recentBlockedEvents: blockedEvents
++      .slice(-20)
++      .reverse()
++      .map((event) => ({
++        action: event.action,
++        capability: event.capability,
++        reason: event.reason,
++        createdAt: event.created_at
++      }))
++  };
++}
++
+ export async function recordAITutorMessage({
+   userId,
+   role,
+diff --git a/types/index.ts b/types/index.ts
+index db14327b5..1b12478cb 100644
+--- a/types/index.ts
++++ b/types/index.ts
+@@ -1364,6 +1364,8 @@ export type StudentSession = {
+   passwordMustChange?: boolean;
+   avatarId: StudentAvatarId;
+   avatarImageDataUrl?: string;
++  avatarImageObjectKey?: string;
++  avatarImageUrl?: string;
+   grade: GradeId;
+   curriculumTrack: CurriculumTrack;
+   curriculumProfile: CurriculumProfile;

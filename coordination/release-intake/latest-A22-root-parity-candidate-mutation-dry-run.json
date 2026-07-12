@@ -1,0 +1,325 @@
+{
+  "generatedAt": "2026-07-10T17:03:44.889Z",
+  "repoRoot": "/Users/dongpinhu/Desktop/MAIS-MVP",
+  "executorKind": "a22-root-parity-candidate-mutation",
+  "mode": "dry-run",
+  "executorStatus": "already-extracted-and-verified",
+  "dirtyMapStatusSignature": "e30d647e1b51432945713f42ac78b0a2466fcb17192de0235a801ac877a0801f",
+  "expandedStatusEntries": 7636,
+  "sourceArtifacts": {
+    "guardedExtractionGeneratedAt": "2026-07-10T17:03:44.423Z",
+    "guardedExtractionGateFailureCount": 0,
+    "ownerInputFileExists": true
+  },
+  "sourceCurrentnessFailures": [],
+  "ownerInputFile": "coordination/release-intake/latest-A22-root-parity-candidate-mutation-owner-input.json",
+  "targetWorktree": "/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A22-us-region-alignment",
+  "targetWorktreePrefix": "/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/",
+  "mutationRows": [
+    {
+      "unitId": "a06-visualization-back-to-top-import-parity",
+      "selectedAction": "reexport",
+      "rootSourcePath": "components/visualizations/VisualizationLabBackToTopButton.tsx",
+      "rootSourceSha256": "efef3f7c3590ebbd6b21ca56a3d4fcdcab1c0e3dd591bf08ee5a6ccc58707155",
+      "candidateTargetPath": "app/visualization-lab/VisualizationLabBackToTopButton.tsx",
+      "targetWorktree": "/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A22-us-region-alignment",
+      "rootSourceExists": true,
+      "rootShaMatchesPlan": true,
+      "candidateTargetExists": true,
+      "candidateTargetMatchesRoot": true,
+      "instructionRecorded": true,
+      "cleanupAuthorized": false,
+      "executableNow": false,
+      "deployAuthorized": false,
+      "mergeAuthorized": false,
+      "stageAuthorized": false,
+      "destructiveGitAuthorized": false,
+      "physicalLifecycleCleanupAuthorized": false
+    },
+    {
+      "unitId": "a20-math-virus-blaster-data-parity",
+      "selectedAction": "same-path-copy",
+      "rootSourcePath": "data/mathVirusBlaster.ts",
+      "rootSourceSha256": "e7e7edfe35ada99e17be43cdfea5cea36e409d52e8a4c3966476209687b495fa",
+      "candidateTargetPath": "data/mathVirusBlaster.ts",
+      "targetWorktree": "/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A22-us-region-alignment",
+      "rootSourceExists": true,
+      "rootShaMatchesPlan": true,
+      "candidateTargetExists": true,
+      "candidateTargetMatchesRoot": true,
+      "instructionRecorded": true,
+      "cleanupAuthorized": false,
+      "executableNow": false,
+      "deployAuthorized": false,
+      "mergeAuthorized": false,
+      "stageAuthorized": false,
+      "destructiveGitAuthorized": false,
+      "physicalLifecycleCleanupAuthorized": false
+    },
+    {
+      "unitId": "a20-mighty-tank-battle-data-parity",
+      "selectedAction": "same-path-copy",
+      "rootSourcePath": "data/mightyTankBattle.ts",
+      "rootSourceSha256": "d74bfa43d60d766f818bd7b8e958b386cdff38fc91d3ae5d84889c957c2138e7",
+      "candidateTargetPath": "data/mightyTankBattle.ts",
+      "targetWorktree": "/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A22-us-region-alignment",
+      "rootSourceExists": true,
+      "rootShaMatchesPlan": true,
+      "candidateTargetExists": true,
+      "candidateTargetMatchesRoot": true,
+      "instructionRecorded": true,
+      "cleanupAuthorized": false,
+      "executableNow": false,
+      "deployAuthorized": false,
+      "mergeAuthorized": false,
+      "stageAuthorized": false,
+      "destructiveGitAuthorized": false,
+      "physicalLifecycleCleanupAuthorized": false
+    },
+    {
+      "unitId": "a05-california-high-school-lesson-illustration-data-parity",
+      "selectedAction": "same-path-copy",
+      "rootSourcePath": "data/usCaliforniaHighSchoolLessonIllustrations.ts",
+      "rootSourceSha256": "366c5b3a2e8ea9a67f1c13e005377f0be4d903d7d4657e15ad2d9f2da0507a28",
+      "candidateTargetPath": "data/usCaliforniaHighSchoolLessonIllustrations.ts",
+      "targetWorktree": "/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A22-us-region-alignment",
+      "rootSourceExists": true,
+      "rootShaMatchesPlan": true,
+      "candidateTargetExists": true,
+      "candidateTargetMatchesRoot": true,
+      "instructionRecorded": true,
+      "cleanupAuthorized": false,
+      "executableNow": false,
+      "deployAuthorized": false,
+      "mergeAuthorized": false,
+      "stageAuthorized": false,
+      "destructiveGitAuthorized": false,
+      "physicalLifecycleCleanupAuthorized": false
+    }
+  ],
+  "ownerInputBlank": false,
+  "ownerInputProjection": {
+    "candidateMutationAuthorized": true,
+    "ownerExecutionTextProvided": true,
+    "ownerExecutionTextCoversRows": true,
+    "ownerExecutionTextKeepsBoundaries": true,
+    "approvedByProvided": true,
+    "approvedAt": "2026-07-08T13:32:49Z",
+    "approvedAtValid": true,
+    "notesProvided": true,
+    "cleanupAuthorized": false,
+    "executableNow": false,
+    "deployAuthorized": false,
+    "mergeAuthorized": false,
+    "stageAuthorized": false,
+    "destructiveGitAuthorized": false,
+    "physicalLifecycleCleanupAuthorized": false
+  },
+  "ownerInputTemplateDoNotApply": {
+    "inputKind": "a22-root-parity-candidate-mutation-owner-input",
+    "sourceGuardedExtractionGeneratedAt": "2026-07-10T17:03:44.423Z",
+    "sourceGuardedExtraction": "coordination/release-intake/latest-A22-top-clean-candidate-root-parity-guarded-extraction-dry-run.json",
+    "targetWorktree": "/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A22-us-region-alignment",
+    "applyToUnitIds": [
+      "a06-visualization-back-to-top-import-parity",
+      "a20-math-virus-blaster-data-parity",
+      "a20-mighty-tank-battle-data-parity",
+      "a05-california-high-school-lesson-illustration-data-parity"
+    ],
+    "ownerExecutionText": "Authorize A22 candidate mutation for unitId=a06-visualization-back-to-top-import-parity; targetWorktree=/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A22-us-region-alignment; rootSource=components/visualizations/VisualizationLabBackToTopButton.tsx; rootSourceSha256=efef3f7c3590ebbd6b21ca56a3d4fcdcab1c0e3dd591bf08ee5a6ccc58707155; candidateTarget=app/visualization-lab/VisualizationLabBackToTopButton.tsx; selectedAction=reexport; candidateMutationAuthorized=true; No cleanup; No deploy; No merge; No broad staging; No destructive git; No physical lifecycle cleanup.\nAuthorize A22 candidate mutation for unitId=a20-math-virus-blaster-data-parity; targetWorktree=/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A22-us-region-alignment; rootSource=data/mathVirusBlaster.ts; rootSourceSha256=e7e7edfe35ada99e17be43cdfea5cea36e409d52e8a4c3966476209687b495fa; candidateTarget=data/mathVirusBlaster.ts; selectedAction=same-path-copy; candidateMutationAuthorized=true; No cleanup; No deploy; No merge; No broad staging; No destructive git; No physical lifecycle cleanup.\nAuthorize A22 candidate mutation for unitId=a20-mighty-tank-battle-data-parity; targetWorktree=/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A22-us-region-alignment; rootSource=data/mightyTankBattle.ts; rootSourceSha256=d74bfa43d60d766f818bd7b8e958b386cdff38fc91d3ae5d84889c957c2138e7; candidateTarget=data/mightyTankBattle.ts; selectedAction=same-path-copy; candidateMutationAuthorized=true; No cleanup; No deploy; No merge; No broad staging; No destructive git; No physical lifecycle cleanup.\nAuthorize A22 candidate mutation for unitId=a05-california-high-school-lesson-illustration-data-parity; targetWorktree=/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A22-us-region-alignment; rootSource=data/usCaliforniaHighSchoolLessonIllustrations.ts; rootSourceSha256=366c5b3a2e8ea9a67f1c13e005377f0be4d903d7d4657e15ad2d9f2da0507a28; candidateTarget=data/usCaliforniaHighSchoolLessonIllustrations.ts; selectedAction=same-path-copy; candidateMutationAuthorized=true; No cleanup; No deploy; No merge; No broad staging; No destructive git; No physical lifecycle cleanup.",
+    "approvedBy": "<owner>",
+    "approvedAt": "<ISO-8601>",
+    "notes": "<scope and checks>",
+    "candidateMutationAuthorized": true,
+    "cleanupAuthorized": false,
+    "executableNow": false,
+    "deployAuthorized": false,
+    "mergeAuthorized": false,
+    "stageAuthorized": false,
+    "destructiveGitAuthorized": false,
+    "physicalLifecycleCleanupAuthorized": false,
+    "boundary": {
+      "ownerInputOnly": true,
+      "candidateMutationOnly": true,
+      "recordsExtractionInstruction": false,
+      "modifiesCandidate": true,
+      "copiesRootFiles": true,
+      "runsTypeCheck": false,
+      "runsBuild": false,
+      "runsRegression": false,
+      "cleanupAuthorized": false,
+      "executableNow": false,
+      "deployAuthorized": false,
+      "mergeAuthorized": false,
+      "stageAuthorized": false,
+      "destructiveGitAuthorized": false,
+      "physicalLifecycleCleanupAuthorized": false
+    }
+  },
+  "candidateGitStatusRows": [
+    "M package-lock.json",
+    " M package.json",
+    "?? app/visualization-lab/VisualizationLabBackToTopButton.tsx",
+    "?? data/gameBasedLearning.ts",
+    "?? data/mathVirusBlaster.ts",
+    "?? data/mightyTankBattle.ts",
+    "?? data/usCaliforniaHighSchoolLessonIllustrations.ts"
+  ],
+  "targetFingerprints": [
+    {
+      "unitId": "a06-visualization-back-to-top-import-parity",
+      "before": {
+        "exists": true,
+        "bytes": 3954,
+        "sha256": "efef3f7c3590ebbd6b21ca56a3d4fcdcab1c0e3dd591bf08ee5a6ccc58707155"
+      },
+      "root": {
+        "exists": true,
+        "bytes": 3954,
+        "sha256": "efef3f7c3590ebbd6b21ca56a3d4fcdcab1c0e3dd591bf08ee5a6ccc58707155"
+      }
+    },
+    {
+      "unitId": "a20-math-virus-blaster-data-parity",
+      "before": {
+        "exists": true,
+        "bytes": 9259,
+        "sha256": "e7e7edfe35ada99e17be43cdfea5cea36e409d52e8a4c3966476209687b495fa"
+      },
+      "root": {
+        "exists": true,
+        "bytes": 9259,
+        "sha256": "e7e7edfe35ada99e17be43cdfea5cea36e409d52e8a4c3966476209687b495fa"
+      }
+    },
+    {
+      "unitId": "a20-mighty-tank-battle-data-parity",
+      "before": {
+        "exists": true,
+        "bytes": 7014,
+        "sha256": "d74bfa43d60d766f818bd7b8e958b386cdff38fc91d3ae5d84889c957c2138e7"
+      },
+      "root": {
+        "exists": true,
+        "bytes": 7014,
+        "sha256": "d74bfa43d60d766f818bd7b8e958b386cdff38fc91d3ae5d84889c957c2138e7"
+      }
+    },
+    {
+      "unitId": "a05-california-high-school-lesson-illustration-data-parity",
+      "before": {
+        "exists": true,
+        "bytes": 125131,
+        "sha256": "366c5b3a2e8ea9a67f1c13e005377f0be4d903d7d4657e15ad2d9f2da0507a28"
+      },
+      "root": {
+        "exists": true,
+        "bytes": 125131,
+        "sha256": "366c5b3a2e8ea9a67f1c13e005377f0be4d903d7d4657e15ad2d9f2da0507a28"
+      }
+    }
+  ],
+  "preflightChecks": [
+    {
+      "id": "mode-is-explicit",
+      "status": "pass",
+      "detail": "mode=dry-run"
+    },
+    {
+      "id": "source-current",
+      "status": "pass",
+      "detail": "sourceCurrentnessFailures=0; post-extraction target hashes verified"
+    },
+    {
+      "id": "target-worktree-contained",
+      "status": "pass",
+      "detail": "targetWorktree=/Users/dongpinhu/.config/superpowers/worktrees/MAIS-MVP/A22-us-region-alignment"
+    },
+    {
+      "id": "four-mutation-units",
+      "status": "pass",
+      "detail": "mutationUnits=4"
+    },
+    {
+      "id": "recorded-instruction-state-coherent",
+      "status": "pass",
+      "detail": "recordedRows=4; status=already-extracted-and-verified"
+    },
+    {
+      "id": "root-source-fingerprints-ready-or-waiting",
+      "status": "pass",
+      "detail": "rootShaMatched=4/4"
+    },
+    {
+      "id": "candidate-targets-safe",
+      "status": "pass",
+      "detail": "missing=0; verified=4"
+    },
+    {
+      "id": "candidate-git-status-clean",
+      "status": "pass",
+      "detail": "candidateGitStatusRows=7; allTargetsVerified=true"
+    },
+    {
+      "id": "owner-candidate-mutation-input-state",
+      "status": "pass",
+      "detail": "ownerInputBlank=false; ownerReady=true"
+    },
+    {
+      "id": "apply-requires-ready-status",
+      "status": "pass",
+      "detail": "mode=dry-run; status=already-extracted-and-verified"
+    },
+    {
+      "id": "no-cleanup-merge-deploy-boundary",
+      "status": "pass",
+      "detail": "candidate mutation input must not authorize cleanup, merge, deploy, broad staging, destructive git, or physical lifecycle cleanup"
+    }
+  ],
+  "summary": {
+    "mode": "dry-run",
+    "executorStatus": "already-extracted-and-verified",
+    "expectedRows": 4,
+    "recordedInstructionRows": 4,
+    "rootSourcesAvailable": 4,
+    "rootSourcesShaMatched": 4,
+    "candidateTargetsMissing": 0,
+    "candidateTargetsVerified": 4,
+    "candidateGitStatusRows": 7,
+    "preflightChecks": 11,
+    "passingPreflightChecks": 11,
+    "failedPreflightChecks": 0,
+    "sourceCurrentnessFailures": 0,
+    "applyRequested": false,
+    "applyPermitted": false,
+    "mutationsPerformed": false,
+    "rootCopyRows": 0,
+    "candidateMutationRows": 0,
+    "cleanupAuthorizedRows": 0,
+    "executableRows": 0
+  },
+  "boundary": {
+    "evidenceOnly": true,
+    "dryRunOnly": true,
+    "applyModeRequested": false,
+    "recordsOwnerApproval": false,
+    "recordsExtractionInstruction": false,
+    "modifiesCandidate": false,
+    "copiesRootFiles": false,
+    "writesRootSourceFiles": false,
+    "runsTypeCheck": false,
+    "runsBuild": false,
+    "runsRegression": false,
+    "stageAuthorized": false,
+    "commitAuthorized": false,
+    "mergeAuthorized": false,
+    "cleanupAuthorized": false,
+    "executableNow": false,
+    "destructiveGitAuthorized": false,
+    "deployAuthorized": false,
+    "physicalLifecycleCleanupAuthorized": false,
+    "requiresRecordedExtractionInstructions": false,
+    "requiresSeparateOwnerCandidateMutationInput": false,
+    "requiresExplicitApplyCandidateMutationFlag": true
+  }
+}

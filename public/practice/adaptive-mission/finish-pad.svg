@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="260" height="260" viewBox="0 0 260 260" role="img" aria-label="Finish pad with crystal">
+  <defs>
+    <radialGradient id="finishGlow" cx=".5" cy=".5" r=".5">
+      <stop offset="0" stop-color="#ccfbf1" stop-opacity=".95"/>
+      <stop offset=".48" stop-color="#67e8f9" stop-opacity=".50"/>
+      <stop offset="1" stop-color="#67e8f9" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="finishBase" x1="0" x2="0" y1="0" y2="1">
+      <stop offset="0" stop-color="#ffffff"/>
+      <stop offset="1" stop-color="#d7dde7"/>
+    </linearGradient>
+    <linearGradient id="gem" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0" stop-color="#99f6e4"/>
+      <stop offset=".5" stop-color="#2dd4bf"/>
+      <stop offset="1" stop-color="#0284c7"/>
+    </linearGradient>
+    <filter id="finishShadow" x="-25%" y="-25%" width="150%" height="150%">
+      <feDropShadow dx="0" dy="16" stdDeviation="13" flood-color="#0f172a" flood-opacity=".20"/>
+    </filter>
+    <filter id="gemGlow" x="-50%" y="-50%" width="200%" height="200%">
+      <feDropShadow dx="0" dy="0" stdDeviation="14" flood-color="#2dd4bf" flood-opacity=".64"/>
+      <feDropShadow dx="0" dy="14" stdDeviation="8" flood-color="#0f766e" flood-opacity=".20"/>
+    </filter>
+  </defs>
+  <circle cx="130" cy="132" r="126" fill="url(#finishGlow)"/>
+  <path d="M83 28h94l-47 104Z" fill="#ecfeff" opacity=".44"/>
+  <path d="M67 42h126l-63 121Z" fill="#ecfeff" opacity=".25"/>
+  <circle cx="130" cy="148" r="80" fill="url(#finishBase)" filter="url(#finishShadow)"/>
+  <circle cx="130" cy="148" r="62" fill="#ecfdf5"/>
+  <circle cx="130" cy="148" r="40" fill="#ffffff" fill-opacity=".62" stroke="#a7f3d0" stroke-width="10"/>
+  <g transform="translate(130 124) rotate(45)" filter="url(#gemGlow)">
+    <rect x="-31" y="-31" width="62" height="62" rx="5" fill="url(#gem)"/>
+    <rect x="-21" y="-21" width="42" height="42" fill="none" stroke="#ffffff" stroke-opacity=".60" stroke-width="2"/>
+    <path d="M0-31v62M-31 0h62" stroke="#ffffff" stroke-opacity=".30" stroke-width="2"/>
+    <path d="M-22-22h44v16h-44Z" fill="#ffffff" opacity=".18"/>
+  </g>
+</svg>
