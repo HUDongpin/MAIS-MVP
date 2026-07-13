@@ -859,12 +859,14 @@ const {
   stoppedPath,
   scratch,
   parentPidText,
+  requestedWatchModeText,
   sessionId,
   terminalQuietMsText,
   recursiveAvailableText
 } = bootstrap;
 const parentPid = Number(parentPidText);
 const terminalQuietMs = Number(terminalQuietMsText);
+const requestedWatchMode = requestedWatchModeText;
 const recursiveAvailable = recursiveAvailableText === "true";
 const recursiveWatchers = [];
 const rootDescriptors = [];
@@ -1236,6 +1238,7 @@ const scheduleTerminalStop = () => {
 try {
   if (!Array.isArray(configuration) || !Number.isSafeInteger(parentPid) || parentPid <= 1
     || !Number.isSafeInteger(terminalQuietMs) || terminalQuietMs < 25
+    || !["auto", "descriptor-sentinel"].includes(requestedWatchMode)
     || !["true", "false"].includes(recursiveAvailableText)
     || typeof sessionId !== "string" || sessionId.length === 0) throw new Error("invalid monitor bootstrap");
   for (const policy of configuration) {
@@ -1256,7 +1259,7 @@ try {
       shape: statShape(fs.fstatSync(descriptor, { bigint: true }))
     });
   }
-  if (recursiveAvailable) {
+  if (requestedWatchMode === "auto" && recursiveAvailable) {
     for (const policy of configuration) {
       let watcher;
       try {
@@ -1519,8 +1522,12 @@ function cleanupMutationMonitor(monitor, signal = "SIGKILL") {
 export function startMutationEpochMonitor(paths, {
   startupTimeoutMs = 120_000,
   terminalQuietMs = 100,
-  transactionMetadata
+  transactionMetadata,
+  watchMode = "auto"
 } = {}) {
+  if (!["auto", "descriptor-sentinel"].includes(watchMode)) {
+    throw new Error("mutation monitor watch mode must be auto or descriptor-sentinel");
+  }
   const roots = [...new Set(paths.map((item) => fs.realpathSync(item)))];
   if (roots.length === 0) throw new Error("mutation monitor requires at least one watched root");
   for (const root of roots) {
@@ -1562,7 +1569,7 @@ export function startMutationEpochMonitor(paths, {
   const errorPath = path.join(scratch, "error");
   const stoppedPath = path.join(scratch, "stopped");
   const sessionId = crypto.randomUUID();
-  const supportsRecursiveWatch = recursiveWatchAvailable();
+  const supportsRecursiveWatch = watchMode === "auto" ? recursiveWatchAvailable() : false;
   const configurationPath = path.join(scratch, "bootstrap.json");
   const configurationBuffer = Buffer.from(`${JSON.stringify({
     configuration: policies,
@@ -1572,6 +1579,7 @@ export function startMutationEpochMonitor(paths, {
     stoppedPath,
     scratch,
     parentPidText: String(process.pid),
+    requestedWatchModeText: watchMode,
     sessionId,
     terminalQuietMsText: String(terminalQuietMs),
     recursiveAvailableText: String(supportsRecursiveWatch)
@@ -1623,6 +1631,7 @@ export function startMutationEpochMonitor(paths, {
     scratch,
     roots,
     policies,
+    requestedWatchMode: watchMode,
     sessionId,
     stopped: false,
     stopAcknowledged: false,
@@ -8506,8 +8515,13 @@ export function bootstrapMutationEpochMonitor({
   commonDir,
   transactionMetadata
 }) {
+  const watchModeOverride = process.env.MAIS_EVIDENCE_MUTATION_MONITOR_MODE;
+  const watchMode = watchModeOverride === undefined ? "auto" : watchModeOverride;
+  if (watchModeOverride !== undefined && watchModeOverride !== "descriptor-sentinel") {
+    throw new Error("MAIS_EVIDENCE_MUTATION_MONITOR_MODE must be descriptor-sentinel when defined");
+  }
   const canonicalCommonDir = fs.realpathSync(commonDir);
-  const commonMonitor = startMutationEpochMonitor([canonicalCommonDir]);
+  const commonMonitor = startMutationEpochMonitor([canonicalCommonDir], { watchMode });
   let expandedMonitor;
   try {
     const commonEpoch = settleMutationEpoch(commonMonitor);
@@ -8529,7 +8543,8 @@ export function bootstrapMutationEpochMonitor({
       policy?.root && watchedCanonicalRoots.has(fs.realpathSync(policy.root))
     ));
     expandedMonitor = startMutationEpochMonitor(watchedRoots, {
-      transactionMetadata: activeTransactionMetadata.length > 0 ? activeTransactionMetadata : undefined
+      transactionMetadata: activeTransactionMetadata.length > 0 ? activeTransactionMetadata : undefined,
+      watchMode
     });
     const secondInventory = listWorktrees(repoRoot);
     const commonFinalEpoch = settleMutationEpoch(commonMonitor);

@@ -9028,6 +9028,196 @@ test("flock owner proof is portable and contains no Darwin struct ABI", () => {
   assert.match(source, /stdio: \["ignore", "pipe", "pipe", descriptor\]/u);
 });
 
+test("mutation monitor rejects unsupported watch modes", async (t) => {
+  const fixture = makeFixture();
+  t.after(() => fs.rmSync(fixture.parent, { recursive: true, force: true }));
+  const {
+    abortMutationEpochMonitor,
+    startMutationEpochMonitor
+  } = await import(libraryUrl);
+  let leakedMonitor;
+  try {
+    assert.throws(
+      () => {
+        leakedMonitor = startMutationEpochMonitor([fixture.linked], { watchMode: "recursive" });
+      },
+      /watch mode.*auto.*descriptor-sentinel/i
+    );
+  } finally {
+    abortMutationEpochMonitor(leakedMonitor);
+  }
+});
+
+test("mutation monitor forces descriptor-sentinel mode through its effective attestation", async (t) => {
+  const fixture = makeFixture();
+  t.after(() => fs.rmSync(fixture.parent, { recursive: true, force: true }));
+  const {
+    abortMutationEpochMonitor,
+    settleMutationEpochState,
+    startMutationEpochMonitor,
+    stopMutationEpochMonitor
+  } = await import(libraryUrl);
+  const monitor = startMutationEpochMonitor([fixture.linked], {
+    watchMode: "descriptor-sentinel"
+  });
+  t.after(() => abortMutationEpochMonitor(monitor));
+  assert.equal(monitor.requestedWatchMode, "descriptor-sentinel");
+  const bootstrap = JSON.parse(fs.readFileSync(path.join(monitor.scratch, "bootstrap.json"), "utf8"));
+  assert.equal(bootstrap.requestedWatchModeText, "descriptor-sentinel");
+  const state = settleMutationEpochState(monitor);
+  assert.equal(monitor.watchMode, "descriptor-sentinel");
+  assert.equal(state.watchMode, "descriptor-sentinel");
+  const attestation = stopMutationEpochMonitor(monitor, {
+    expectedEpoch: state.sourceEpoch,
+    expectedMetadataEpoch: state.metadataEpoch
+  });
+  assert.equal(attestation.watchMode, "descriptor-sentinel");
+});
+
+test("closure monitor override rejects every unsupported defined mode before bootstrap", async (t) => {
+  const fixture = makeFixture();
+  t.after(() => fs.rmSync(fixture.parent, { recursive: true, force: true }));
+  const {
+    abortMutationEpochMonitor,
+    bootstrapMutationEpochMonitor
+  } = await import(libraryUrl);
+  const variable = "MAIS_EVIDENCE_MUTATION_MONITOR_MODE";
+  const previous = process.env[variable];
+  t.after(() => {
+    if (previous === undefined) delete process.env[variable];
+    else process.env[variable] = previous;
+  });
+  let leakedMonitor;
+  try {
+    for (const invalidMode of ["", "auto", "recursive", "descriptor-sentinel "]) {
+      process.env[variable] = invalidMode;
+      assert.throws(
+        () => {
+          leakedMonitor = bootstrapMutationEpochMonitor({
+            repoRoot: fixture.repo,
+            commonDir: path.join(fixture.repo, ".git")
+          }).monitor;
+        },
+        /MAIS_EVIDENCE_MUTATION_MONITOR_MODE.*descriptor-sentinel/i
+      );
+    }
+  } finally {
+    abortMutationEpochMonitor(leakedMonitor);
+  }
+});
+
+test("closure descriptor override ignores read-only churn inside an ignored directory", async (t) => {
+  const fixture = makeFixture();
+  t.after(() => fs.rmSync(fixture.parent, { recursive: true, force: true }));
+  fs.writeFileSync(path.join(fixture.linked, ".gitignore"), ".ignored-cache/\n");
+  git(fixture.linked, "add", ".gitignore");
+  git(fixture.linked, "commit", "-m", "ignore local cache");
+  const ignoredDirectory = path.join(fixture.linked, ".ignored-cache");
+  fs.mkdirSync(ignoredDirectory);
+  fs.writeFileSync(path.join(ignoredDirectory, "baseline.txt"), "ignored baseline\n");
+  const {
+    abortMutationEpochMonitor,
+    bootstrapMutationEpochMonitor,
+    settleMutationEpochState,
+    stopMutationEpochMonitor
+  } = await import(libraryUrl);
+  const variable = "MAIS_EVIDENCE_MUTATION_MONITOR_MODE";
+  const previous = process.env[variable];
+  process.env[variable] = "descriptor-sentinel";
+  t.after(() => {
+    if (previous === undefined) delete process.env[variable];
+    else process.env[variable] = previous;
+  });
+  const { monitor } = bootstrapMutationEpochMonitor({
+    repoRoot: fixture.repo,
+    commonDir: path.join(fixture.repo, ".git")
+  });
+  t.after(() => abortMutationEpochMonitor(monitor));
+  const baseline = settleMutationEpochState(monitor);
+  assert.equal(baseline.watchMode, "descriptor-sentinel");
+  const churn = path.join(ignoredDirectory, "read-only-churn.txt");
+  fs.writeFileSync(churn, "ignored churn\n");
+  fs.readFileSync(path.join(fixture.linked, "tracked.txt"));
+  execFileSync("git", ["status", "--short"], {
+    cwd: fixture.linked,
+    env: { ...process.env, GIT_OPTIONAL_LOCKS: "0" },
+    stdio: "ignore",
+    timeout: TEST_CHILD_TIMEOUT_MS
+  });
+  fs.rmSync(churn);
+  const observed = settleMutationEpochState(monitor);
+  assert.equal(observed.sourceEpoch, baseline.sourceEpoch);
+  stopMutationEpochMonitor(monitor, {
+    expectedEpoch: observed.sourceEpoch,
+    expectedMetadataEpoch: observed.metadataEpoch
+  });
+});
+
+test("closure descriptor override still detects a true tracked mutation", async (t) => {
+  const fixture = makeFixture();
+  t.after(() => fs.rmSync(fixture.parent, { recursive: true, force: true }));
+  const {
+    abortMutationEpochMonitor,
+    bootstrapMutationEpochMonitor,
+    settleMutationEpochState,
+    stopMutationEpochMonitor
+  } = await import(libraryUrl);
+  const variable = "MAIS_EVIDENCE_MUTATION_MONITOR_MODE";
+  const previous = process.env[variable];
+  process.env[variable] = "descriptor-sentinel";
+  t.after(() => {
+    if (previous === undefined) delete process.env[variable];
+    else process.env[variable] = previous;
+  });
+  const { monitor } = bootstrapMutationEpochMonitor({
+    repoRoot: fixture.repo,
+    commonDir: path.join(fixture.repo, ".git")
+  });
+  t.after(() => abortMutationEpochMonitor(monitor));
+  const baseline = settleMutationEpochState(monitor);
+  assert.equal(baseline.watchMode, "descriptor-sentinel");
+  fs.appendFileSync(path.join(fixture.linked, "tracked.txt"), "true mutation\n");
+  const observed = settleMutationEpochState(monitor);
+  assert.ok(observed.sourceEpoch > baseline.sourceEpoch);
+  stopMutationEpochMonitor(monitor, {
+    expectedEpoch: observed.sourceEpoch,
+    expectedMetadataEpoch: observed.metadataEpoch
+  });
+});
+
+test("writer and currentness gate inherit the strict closure monitor override", () => {
+  const librarySource = fs.readFileSync(path.join(here, "evidence-archive-lib.mjs"), "utf8");
+  assert.match(librarySource, /MAIS_EVIDENCE_MUTATION_MONITOR_MODE/u);
+  for (const executable of [writer, gate]) {
+    const source = fs.readFileSync(executable, "utf8");
+    assert.match(source, /bootstrapMutationEpochMonitor\(\{/u);
+    assert.doesNotMatch(source, /watchMode\s*:\s*["']descriptor-sentinel["']/u);
+  }
+});
+
+test("closure monitor override reaches the writer and currentness gate end to end", (t) => {
+  const fixture = makeFixture();
+  t.after(() => fs.rmSync(fixture.parent, { recursive: true, force: true }));
+  dirtyFixture(fixture);
+  const environment = {
+    MAIS_EVIDENCE_MUTATION_MONITOR_MODE: "descriptor-sentinel"
+  };
+  const archived = run(writer, fixture, environment);
+  assert.equal(archived.status, 0, archived.stderr || archived.stdout);
+  const checked = run(gate, fixture, environment);
+  assert.equal(checked.status, 0, checked.stderr || checked.stdout);
+  const report = JSON.parse(fs.readFileSync(path.join(
+    fixture.evidenceRoot,
+    "reports",
+    "latest-A25-linked-worktree-archive-evidence-current-gate.json"
+  ), "utf8"));
+  const attestation = JSON.parse(fs.readFileSync(path.join(
+    fixture.evidenceRoot,
+    ...report.terminalProtocol.attestationFile.split("/")
+  ), "utf8"));
+  assert.equal(attestation.watchMode, "descriptor-sentinel");
+});
+
 test("mutation epoch monitoring observes writes and fails closed on invalid roots or child crash", async (t) => {
   const fixture = makeFixture();
   t.after(() => fs.rmSync(fixture.parent, { recursive: true, force: true }));
