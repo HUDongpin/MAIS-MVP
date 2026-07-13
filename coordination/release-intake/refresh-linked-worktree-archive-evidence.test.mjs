@@ -1,5 +1,5 @@
 import assert from "node:assert/strict";
-import { constants as bufferConstants } from "node:buffer";
+import { constants as bufferConstants, isUtf8 } from "node:buffer";
 import { execFileSync, spawn, spawnSync } from "node:child_process";
 import crypto from "node:crypto";
 import fs from "node:fs";
@@ -96,6 +96,145 @@ const REVIEWED_LEGACY_PARENT_CONSOLE_REPORT = Object.freeze({
   bytes: 9_680,
   sha256: "a756524e2ad3323edb4ed89c94fc51507dd82da337fabd97e3c6efe21a4d558b"
 });
+const REVIEWED_LEGACY_CURRENT_HEAD_TEXT_ENTRIES = Object.freeze([
+  Object.freeze({
+    revision: REVIEWED_LEGACY_TERMINAL_PATCH_HEAD,
+    path: "coordination/reports/2026-06-04-teacher-console-p0-p1-bug-audit.md",
+    mode: "100644",
+    type: "blob",
+    objectId: "e2fe2b0b560596ba7855440a2eef4763755eb85d",
+    bytes: 12_067,
+    sha256: "d0419a4e7c5cb41c0b7f0ff159f9d359a945428bf3757203f0ee742026e630b0"
+  }),
+  Object.freeze({
+    revision: REVIEWED_LEGACY_TERMINAL_PATCH_HEAD,
+    path: "coordination/reports/2026-06-06-production-auth-storage-health-S12.md",
+    mode: "100644",
+    type: "blob",
+    objectId: "b730a971c90e785cb8ee61f82d478d32fcf908f9",
+    bytes: 9_960,
+    sha256: "dd8f1b94f8979fd3fe6ac8467c95f5fbbf78842e10f3bb9cdb2f0dcc18e8a1f7"
+  }),
+  Object.freeze({
+    revision: REVIEWED_LEGACY_TERMINAL_PATCH_HEAD,
+    path: "coordination/reports/2026-06-22-s19-production-db-smoke.mjs",
+    mode: "100644",
+    type: "blob",
+    objectId: "e6428e7865337eda45874fdffe6b736999bb35b3",
+    bytes: 25_465,
+    sha256: "8f96568cb49fe81e6fd11402dd8fd97e88ffe63ca0c793c560ce8d6e29631f75"
+  }),
+  Object.freeze({
+    revision: REVIEWED_LEGACY_TERMINAL_PATCH_HEAD,
+    path: "coordination/reports/cloudflare-ai-crawl-control-preflight.mjs",
+    mode: "100644",
+    type: "blob",
+    objectId: "05347bdf32b2ef81cd57dc2199b15a4255828118",
+    bytes: 9_554,
+    sha256: "76a8655b71762bd703d4e27b387b85116a1f2eb71065d650f0b3fe10d1144e6a"
+  }),
+  Object.freeze({
+    revision: REVIEWED_LEGACY_TERMINAL_PATCH_HEAD,
+    path: "coordination/reports/cloudflare-ai-crawl-control-waf-upsert.mjs",
+    mode: "100644",
+    type: "blob",
+    objectId: "4a39be077b60637e765c2e3639a7991be2042cf5",
+    bytes: 6_896,
+    sha256: "f2acc322167a0a20f0acf3e62225484a93f87acc53538bccf1c650cc5747263d"
+  }),
+  Object.freeze({
+    revision: REVIEWED_LEGACY_TERMINAL_PATCH_HEAD,
+    path: "coordination/session-logs/2026-06-22-S12.md",
+    mode: "100644",
+    type: "blob",
+    objectId: "413cdde2afedc515509debf4a65f12bc1597730e",
+    bytes: 329_406,
+    sha256: "7ec332cd113113e7ebced5b9a4b6066583d126dc8891788f600306e797cdf7de"
+  }),
+  Object.freeze({
+    revision: REVIEWED_LEGACY_TERMINAL_PATCH_HEAD,
+    path: "lib/server/userStoreAuthSessionPersistence.test.ts",
+    mode: "100644",
+    type: "blob",
+    objectId: "22aa14abb83cfe3d394db56c9380c4afd28160da",
+    bytes: 122_464,
+    sha256: "9fa01a390189bc54b7c19778265e9fb02a8cf15c51121ed2455ec87f7d64aec9"
+  }),
+  Object.freeze({
+    revision: REVIEWED_LEGACY_TERMINAL_PATCH_HEAD,
+    path: "scripts/build-us-ca-private-raw-corpus.py",
+    mode: "100644",
+    type: "blob",
+    objectId: "806dddda94a408e1b1d825c65ce32d066d3ae316",
+    bytes: 23_075,
+    sha256: "8e5bd542ff992ebfb9e07ee5edd8ffcd6e50820ae121c5c69e57a7a10e9f86b3"
+  }),
+  Object.freeze({
+    revision: REVIEWED_LEGACY_TERMINAL_PATCH_HEAD,
+    path: "tests/e2e/ai-tutor-live-text.spec.ts",
+    mode: "100644",
+    type: "blob",
+    objectId: "5c147d03752413a0a3810402c5389d0d1fcb67d4",
+    bytes: 41_043,
+    sha256: "d9da19f937882290b748b62e423fb316af770222ba66b6aba3adaafaa8d762e4"
+  }),
+  Object.freeze({
+    revision: REVIEWED_LEGACY_TERMINAL_PATCH_HEAD,
+    path: "tests/e2e/practice-bank-solvability.spec.ts",
+    mode: "100644",
+    type: "blob",
+    objectId: "c76bcb1a9fb9e7eed64bf8fe8302d01f51ce7138",
+    bytes: 35_613,
+    sha256: "df7ed7bc39862e204cf9e0e12e8eccacefd2c359c974cc75a2244d127f7d9c6b"
+  }),
+  Object.freeze({
+    revision: REVIEWED_LEGACY_TERMINAL_PATCH_HEAD,
+    path: "coordination/reports/2026-06-06-S11-forgot-password-recovery-smoke.md",
+    mode: "100644",
+    type: "blob",
+    objectId: "dd1143549fe13b5c9256860eab571cf65693d175",
+    bytes: 2_793,
+    sha256: "61c584aef1feaf7fe3edc06d3f5f24cdbbe1dfbcb108fb6711a3fe46532ac672"
+  }),
+  Object.freeze({
+    revision: REVIEWED_LEGACY_TERMINAL_PATCH_HEAD,
+    path: "coordination/reports/2026-06-07-S19-password-reset-resend-vercel-env-plan.md",
+    mode: "100644",
+    type: "blob",
+    objectId: "7b4fcf5710a47db240f4020501ed641ef2beeda4",
+    bytes: 5_076,
+    sha256: "d4cfa5685964dfde1e650678725017e01366e33e7d9dd2ddf19c1450c896bef1"
+  }),
+  Object.freeze({
+    revision: REVIEWED_LEGACY_TERMINAL_PATCH_HEAD,
+    path: "coordination/reports/2026-06-29-A07-A19-A11-ai-tutor-env-gate-enterprise-solution.md",
+    mode: "100644",
+    type: "blob",
+    objectId: "af926ab100ac3582d69aceb806e78e639b3bd4a4",
+    bytes: 9_686,
+    sha256: "6c08b1f1673ad6d399d29a2c94f3777e0eacc8bf816159983d04c92bfa42579e"
+  })
+]);
+const REVIEWED_LEGACY_BRANCH_BASE_TEXT_ENTRIES = Object.freeze([
+  Object.freeze({
+    revision: REVIEWED_LEGACY_TERMINAL_PATCH_BASE,
+    path: "tests/e2e/ai-tutor-live-text.spec.ts",
+    mode: "100644",
+    type: "blob",
+    objectId: "ed9342d2a744fd8c5271c9059d7343b4597431f5",
+    bytes: 36_203,
+    sha256: "a14c24644b0e85b8366e3a6117d8727603891b7be79c1ed5b9c3b65e2c82ff93"
+  }),
+  Object.freeze({
+    revision: REVIEWED_LEGACY_TERMINAL_PATCH_BASE,
+    path: "tests/e2e/practice-bank-solvability.spec.ts",
+    mode: "100644",
+    type: "blob",
+    objectId: "6022d27b763c6e47a4f182df110cf98fedd58b43",
+    bytes: 34_397,
+    sha256: "d8536e02956827c9e8ba173356b799f3d6b4273322179b86c1109f2134d57bd5"
+  })
+]);
 const REVIEWED_REAL_PATCH_CORPUS_EXTRA_ENTRY = Object.freeze({
   path: "coordination/release-intake/archive/codex-A10-A22-A08-A12-A06-compose-20260628.patch",
   objectId: "a2bbb64104ca4d1854ac0d2fe6004f4b6bdc2c87",
@@ -169,6 +308,35 @@ function maybeReviewedLegacyParentConsoleReportRepository() {
   }
 }
 
+function maybeReviewedLegacyExactTextRepository() {
+  const repository = path.resolve(here, "..", "..");
+  try {
+    for (const revision of new Set([
+      ...REVIEWED_LEGACY_CURRENT_HEAD_TEXT_ENTRIES,
+      ...REVIEWED_LEGACY_BRANCH_BASE_TEXT_ENTRIES
+    ].map((entry) => entry.revision))) {
+      execFileSync("git", ["cat-file", "-e", `${revision}^{commit}`], {
+        cwd: repository,
+        stdio: "ignore",
+        timeout: TEST_CHILD_TIMEOUT_MS
+      });
+    }
+    for (const entry of [
+      ...REVIEWED_LEGACY_CURRENT_HEAD_TEXT_ENTRIES,
+      ...REVIEWED_LEGACY_BRANCH_BASE_TEXT_ENTRIES
+    ]) {
+      execFileSync("git", ["cat-file", "-e", `${entry.objectId}^{blob}`], {
+        cwd: repository,
+        stdio: "ignore",
+        timeout: TEST_CHILD_TIMEOUT_MS
+      });
+    }
+    return repository;
+  } catch {
+    return null;
+  }
+}
+
 function gitBlob(cwd, objectId) {
   return execFileSync("git", ["cat-file", "blob", objectId], {
     cwd,
@@ -193,6 +361,19 @@ function reviewedLegacyOfficeLockBytes(root) {
   const entry = REVIEWED_LEGACY_OFFICE_LOCK;
   const buffer = gitBlob(root, entry.objectId);
   assert.equal(buffer.length, entry.bytes);
+  assert.equal(
+    crypto.createHash("sha1").update(Buffer.from(`blob ${buffer.length}\0`)).update(buffer).digest("hex"),
+    entry.objectId
+  );
+  assert.equal(crypto.createHash("sha256").update(buffer).digest("hex"), entry.sha256);
+  return buffer;
+}
+
+function reviewedLegacyExactTextBytes(root, entry) {
+  const buffer = gitBlob(root, entry.objectId);
+  assert.equal(buffer.length, entry.bytes);
+  assert.equal(isUtf8(buffer), true);
+  assert.equal(buffer.includes(0), false);
   assert.equal(
     crypto.createHash("sha1").update(Buffer.from(`blob ${buffer.length}\0`)).update(buffer).digest("hex"),
     entry.objectId
@@ -336,6 +517,64 @@ function withReviewedLegacyParentConsoleReportGitShim(t, mutation, callback) {
   } finally {
     process.env.PATH = originalPath;
   }
+}
+
+function withReviewedLegacyExactTextGitShim(t, entry, mutation, callback) {
+  const bin = fs.mkdtempSync(path.join(os.tmpdir(), "mais-reviewed-exact-text-git-"));
+  t.after(() => fs.rmSync(bin, { recursive: true, force: true }));
+  const realGit = execFileSync("which", ["git"], { encoding: "utf8", timeout: TEST_CHILD_TIMEOUT_MS }).trim();
+  const shim = path.join(bin, "git");
+  fs.writeFileSync(shim, [
+    "#!/usr/bin/env node",
+    'import { spawnSync } from "node:child_process";',
+    `const realGit = ${JSON.stringify(realGit)};`,
+    `const entry = ${JSON.stringify(entry)};`,
+    `const mutation = ${JSON.stringify(mutation)};`,
+    "const args = process.argv.slice(2);",
+    "const result = spawnSync(realGit, args, { encoding: null, env: process.env, maxBuffer: 1024 * 1024 * 1024 });",
+    "if (result.error) throw result.error;",
+    "if (result.status !== 0) { process.stderr.write(result.stderr); process.exit(result.status ?? 1); }",
+    "let output = result.stdout;",
+    "if (args[0] === 'ls-tree' && args.includes(`:(literal)${entry.path}`)) {",
+    "  const original = Buffer.from(`${entry.mode} ${entry.type} ${entry.objectId}\\t${entry.path}\\0`);",
+    "  let replacement = original;",
+    "  if (mutation === 'mode') replacement = Buffer.from(`100755 ${entry.type} ${entry.objectId}\\t${entry.path}\\0`);",
+    "  if (mutation === 'type') replacement = Buffer.from(`${entry.mode} tree ${entry.objectId}\\t${entry.path}\\0`);",
+    "  if (mutation === 'object') replacement = Buffer.from(`${entry.mode} ${entry.type} ${'0'.repeat(40)}\\t${entry.path}\\0`);",
+    "  if (mutation === 'path') replacement = Buffer.from(`${entry.mode} ${entry.type} ${entry.objectId}\\t${entry.path}.copy\\0`);",
+    "  if (mutation === 'missing') replacement = Buffer.alloc(0);",
+    "  const offset = output.indexOf(original);",
+    "  if (offset < 0) process.exit(97);",
+    "  output = Buffer.concat([output.subarray(0, offset), replacement, output.subarray(offset + original.length)]);",
+    "}",
+    "if (args[0] === 'cat-file' && args[1] === 'blob' && args[2] === entry.objectId) {",
+    "  if (mutation === 'bytes') { output = Buffer.from(output); output[output.length - 1] ^= 1; }",
+    "  if (mutation === 'size') output = Buffer.concat([output, Buffer.from([0])]);",
+    "}",
+    "process.stdout.write(output);"
+  ].join("\n"));
+  fs.chmodSync(shim, 0o755);
+  const originalPath = process.env.PATH;
+  try {
+    process.env.PATH = `${bin}:${originalPath}`;
+    return callback();
+  } finally {
+    process.env.PATH = originalPath;
+  }
+}
+
+function assertFixedReviewedLegacyTextError(callback, expected) {
+  let error;
+  assert.throws(() => {
+    try {
+      callback();
+    } catch (caught) {
+      error = caught;
+      throw caught;
+    }
+  }, expected);
+  assert.doesNotMatch(error.message, /[0-9a-f]{40}|coordination\/|lib\/server\/|scripts\/|tests\/e2e\//iu);
+  return error;
 }
 
 function makeFixture() {
@@ -1556,6 +1795,299 @@ test("supplementary legacy parent console report allowance stays out of non-pinn
   assert.throws(
     () => collectWorktreeSnapshot(fixtureLinkedWorktree(branchFixture), { includeTar: false }),
     /reviewed legacy parent console report is restricted to its pinned current branch HEAD/i
+  );
+});
+
+test("supplementary reviewed legacy exact text registries match every pinned Git identity", async (t) => {
+  const {
+    scanBranchBaseHistoricalTrackedPaths,
+    scanBuffer,
+    scanCurrentBranchHeadTrackedPaths
+  } = await import(libraryUrl);
+  const repository = maybeReviewedLegacyExactTextRepository();
+  if (repository === null) {
+    t.skip("reviewed legacy exact text commits and blobs are not available in this clone");
+    return;
+  }
+  for (const entry of REVIEWED_LEGACY_CURRENT_HEAD_TEXT_ENTRIES) {
+    await t.test(`current HEAD ${entry.path}`, () => {
+      assert.equal(
+        git(repository, "ls-tree", entry.revision, "--", entry.path),
+        `${entry.mode} ${entry.type} ${entry.objectId}\t${entry.path}`
+      );
+      const buffer = reviewedLegacyExactTextBytes(repository, entry);
+      assert.throws(
+        () => scanBuffer(buffer, { displayPath: `generic/${entry.path}` }),
+        /high-confidence token assignment/i
+      );
+      assert.deepEqual(
+        scanCurrentBranchHeadTrackedPaths(repository, entry.revision, [entry.path]),
+        { scanned: 1, reviewed: 0 }
+      );
+    });
+  }
+  for (const entry of REVIEWED_LEGACY_BRANCH_BASE_TEXT_ENTRIES) {
+    await t.test(`branch base ${entry.path}`, () => {
+      assert.equal(
+        git(repository, "ls-tree", entry.revision, "--", entry.path),
+        `${entry.mode} ${entry.type} ${entry.objectId}\t${entry.path}`
+      );
+      const buffer = reviewedLegacyExactTextBytes(repository, entry);
+      assert.throws(
+        () => scanBuffer(buffer, { displayPath: `generic/${entry.path}` }),
+        /high-confidence token assignment/i
+      );
+      assert.deepEqual(
+        scanBranchBaseHistoricalTrackedPaths(repository, entry.revision, [entry.path]),
+        { scanned: 1, reviewed: 0 }
+      );
+    });
+  }
+  assert.deepEqual(
+    scanCurrentBranchHeadTrackedPaths(
+      repository,
+      REVIEWED_LEGACY_TERMINAL_PATCH_HEAD,
+      REVIEWED_LEGACY_CURRENT_HEAD_TEXT_ENTRIES.map((entry) => entry.path)
+    ),
+    { scanned: REVIEWED_LEGACY_CURRENT_HEAD_TEXT_ENTRIES.length, reviewed: 0 }
+  );
+  assert.deepEqual(
+    scanBranchBaseHistoricalTrackedPaths(
+      repository,
+      REVIEWED_LEGACY_TERMINAL_PATCH_BASE,
+      REVIEWED_LEGACY_BRANCH_BASE_TEXT_ENTRIES.map((entry) => entry.path)
+    ),
+    { scanned: REVIEWED_LEGACY_BRANCH_BASE_TEXT_ENTRIES.length, reviewed: 0 }
+  );
+});
+
+test("supplementary reviewed legacy exact text payload policy stays private and keeps portable secret rejection", async () => {
+  const library = await import(libraryUrl);
+  const { scanBuffer, scanOpaqueRawSignatures } = library;
+  assert.equal("scanReviewedLegacyExactTextPayload" in library, false);
+  const reviewedFalsePositive = Buffer.from('const password = "portable-fixture-value-928374";\n');
+  assert.throws(
+    () => scanBuffer(reviewedFalsePositive, { displayPath: "generic/reviewed-false-positive.md" }),
+    /high-confidence token assignment/i
+  );
+  for (const [name, buffer, expected] of [
+    ["provider token", Buffer.from(`prefix sk-${"Z".repeat(40)} suffix`), /high-confidence token/i],
+    ["private key", Buffer.from("-----BEGIN PRIVATE KEY-----\nredacted\n"), /private-key header/i],
+    ["oversize", Buffer.alloc(1024 * 1024 + 1, 0x61), /opaque binary size limit exceeded/i]
+  ]) {
+    let error;
+    assert.throws(() => {
+      try {
+        scanOpaqueRawSignatures(buffer, "portable-reviewed-legacy-text/content.txt");
+      } catch (caught) {
+        error = caught;
+        throw caught;
+      }
+    }, expected, name);
+    assert.doesNotMatch(error.message, /sk-Z|redacted|prefix|suffix/u);
+  }
+  assert.throws(
+    () => scanBuffer(Buffer.from([0xc3, 0x28, 0x0a]), {
+      displayPath: "branch.patch",
+      aggregatePatch: true
+    }),
+    /UTF-8|binary|text/i
+  );
+  assert.throws(
+    () => scanBuffer(Buffer.from("reviewed\0text"), {
+      displayPath: "branch.patch",
+      aggregatePatch: true
+    }),
+    /NUL|binary|text/i
+  );
+  const source = fs.readFileSync(path.join(here, "evidence-archive-lib.mjs"), "utf8");
+  assert.match(source, /function scanReviewedLegacyExactTextPayload\(buffer\)/u);
+  assert.match(source, /buffer\.includes\(0\) \|\| !isUtf8\(buffer\)/u);
+  assert.match(source, /scanOpaqueRawSignatures\(buffer, REVIEWED_LEGACY_EXACT_TEXT_DISPLAY_PATH\)/u);
+});
+
+test("supplementary reviewed legacy text registries use purpose revisions and prototype-safe lookup", async (t) => {
+  const {
+    scanBranchBaseHistoricalTrackedPaths,
+    scanCurrentBranchHeadTrackedPaths
+  } = await import(libraryUrl);
+  const source = fs.readFileSync(path.join(here, "evidence-archive-lib.mjs"), "utf8");
+  assert.match(source, /const REVIEWED_LEGACY_CURRENT_HEAD_TEXT_REVISION = "ec22a29b55a4329e81d96e02417f8925ccec54c3";/u);
+  assert.match(source, /const REVIEWED_LEGACY_BRANCH_BASE_TEXT_REVISION = "e909992b098ce7f8b57ca7f7ede6c97e50ccdc45";/u);
+
+  const fixture = makeFixture();
+  t.after(() => fs.rmSync(fixture.parent, { recursive: true, force: true }));
+  const revision = git(fixture.repo, "rev-parse", "HEAD");
+  for (const inheritedName of ["constructor", "toString", "__proto__"]) {
+    assert.throws(
+      () => scanCurrentBranchHeadTrackedPaths(fixture.repo, revision, [inheritedName]),
+      /current branch HEAD Git blob is missing/i
+    );
+    assert.throws(
+      () => scanBranchBaseHistoricalTrackedPaths(fixture.repo, revision, [inheritedName]),
+      /historical Git blob is missing/i
+    );
+  }
+});
+
+test("supplementary reviewed legacy current HEAD text rejects every wrong pinned identity field", async (t) => {
+  const { scanCurrentBranchHeadTrackedPaths } = await import(libraryUrl);
+  const repository = maybeReviewedLegacyExactTextRepository();
+  if (repository === null) {
+    t.skip("reviewed legacy exact text commits and blobs are not available in this clone");
+    return;
+  }
+  for (const entry of REVIEWED_LEGACY_CURRENT_HEAD_TEXT_ENTRIES) {
+    await t.test(entry.path, async (t) => {
+      assertFixedReviewedLegacyTextError(
+        () => scanCurrentBranchHeadTrackedPaths(repository, "0".repeat(40), [entry.path]),
+        /reviewed legacy current HEAD text is restricted to its pinned revision/i
+      );
+      for (const mutation of ["path", "mode", "type", "object", "missing", "bytes", "size"]) {
+        await t.test(mutation, () => {
+          const expected = mutation === "path" || mutation === "missing"
+            ? /reviewed legacy current HEAD text Git blob is missing/i
+            : mutation === "bytes" || mutation === "size"
+              ? /reviewed legacy current HEAD text Git blob integrity mismatch/i
+              : /reviewed legacy current HEAD text metadata mismatch/i;
+          assertFixedReviewedLegacyTextError(
+            () => withReviewedLegacyExactTextGitShim(t, entry, mutation, () => (
+              scanCurrentBranchHeadTrackedPaths(repository, entry.revision, [entry.path])
+            )),
+            expected
+          );
+        });
+      }
+    });
+  }
+});
+
+test("supplementary reviewed legacy branch-base text rejects every wrong pinned identity field", async (t) => {
+  const { scanBranchBaseHistoricalTrackedPaths } = await import(libraryUrl);
+  const repository = maybeReviewedLegacyExactTextRepository();
+  if (repository === null) {
+    t.skip("reviewed legacy exact text commits and blobs are not available in this clone");
+    return;
+  }
+  for (const entry of REVIEWED_LEGACY_BRANCH_BASE_TEXT_ENTRIES) {
+    await t.test(entry.path, async (t) => {
+      assertFixedReviewedLegacyTextError(
+        () => scanBranchBaseHistoricalTrackedPaths(repository, "0".repeat(40), [entry.path]),
+        /reviewed legacy branch-base text is restricted to its pinned revision/i
+      );
+      for (const mutation of ["path", "mode", "type", "object", "missing", "bytes", "size"]) {
+        await t.test(mutation, () => {
+          const expected = mutation === "path" || mutation === "missing"
+            ? /reviewed legacy branch-base text Git blob is missing/i
+            : mutation === "bytes" || mutation === "size"
+              ? /reviewed legacy branch-base text Git blob integrity mismatch/i
+              : /reviewed legacy branch-base text metadata mismatch/i;
+          assertFixedReviewedLegacyTextError(
+            () => withReviewedLegacyExactTextGitShim(t, entry, mutation, () => (
+              scanBranchBaseHistoricalTrackedPaths(repository, entry.revision, [entry.path])
+            )),
+            expected
+          );
+        });
+      }
+    });
+  }
+});
+
+test("supplementary reviewed legacy text allowances stay confined to current-HEAD and branch-base wrappers", async (t) => {
+  const {
+    buildInventory,
+    collectWorktreeSnapshot,
+    scanBranchBaseHistoricalTrackedPaths,
+    scanCurrentBranchHeadTrackedPaths
+  } = await import(libraryUrl);
+  const current = REVIEWED_LEGACY_CURRENT_HEAD_TEXT_ENTRIES[0];
+  const historical = REVIEWED_LEGACY_BRANCH_BASE_TEXT_ENTRIES[0];
+  const currentBuffer = Buffer.from('const password = "portable-fixture-value-928374";\n');
+  const historicalBuffer = Buffer.from('const apiKey = "portable-fixture-value-837492";\n');
+
+  const branchBaseFixture = makeFixture();
+  t.after(() => fs.rmSync(branchBaseFixture.parent, { recursive: true, force: true }));
+  const currentPath = path.join(branchBaseFixture.repo, current.path);
+  fs.mkdirSync(path.dirname(currentPath), { recursive: true });
+  fs.writeFileSync(currentPath, currentBuffer);
+  git(branchBaseFixture.repo, "add", "--", current.path);
+  git(branchBaseFixture.repo, "commit", "-m", "portable non-registry branch-base fixture");
+
+  assert.throws(
+    () => scanBranchBaseHistoricalTrackedPaths(
+      branchBaseFixture.repo,
+      git(branchBaseFixture.repo, "rev-parse", "HEAD"),
+      [current.path]
+    ),
+    /high-confidence token assignment/i
+  );
+  assertFixedReviewedLegacyTextError(
+    () => scanCurrentBranchHeadTrackedPaths(process.cwd(), historical.revision, [historical.path]),
+    /reviewed legacy current HEAD text is restricted to its pinned revision/i
+  );
+
+  const untrackedFixture = makeFixture();
+  t.after(() => fs.rmSync(untrackedFixture.parent, { recursive: true, force: true }));
+  const untrackedPath = path.join(untrackedFixture.linked, current.path);
+  fs.mkdirSync(path.dirname(untrackedPath), { recursive: true });
+  fs.writeFileSync(untrackedPath, currentBuffer);
+  assert.throws(
+    () => buildInventory(untrackedFixture.linked, [current.path]),
+    /high-confidence token assignment/i
+  );
+
+  const indexFixture = makeFixture();
+  t.after(() => fs.rmSync(indexFixture.parent, { recursive: true, force: true }));
+  const indexPath = path.join(indexFixture.linked, historical.path);
+  fs.mkdirSync(path.dirname(indexPath), { recursive: true });
+  fs.writeFileSync(indexPath, historicalBuffer);
+  git(indexFixture.linked, "add", "--", historical.path);
+  assert.throws(
+    () => collectWorktreeSnapshot(fixtureLinkedWorktree(indexFixture), { includeTar: false }),
+    /high-confidence token assignment/i
+  );
+
+  const worktreeFixture = makeFixture();
+  t.after(() => fs.rmSync(worktreeFixture.parent, { recursive: true, force: true }));
+  const worktreePath = path.join(worktreeFixture.repo, current.path);
+  fs.mkdirSync(path.dirname(worktreePath), { recursive: true });
+  fs.writeFileSync(worktreePath, "safe baseline\n");
+  git(worktreeFixture.repo, "add", "--", current.path);
+  git(worktreeFixture.repo, "commit", "-m", "safe exact-path baseline");
+  git(worktreeFixture.linked, "merge", "--ff-only", "main");
+  fs.writeFileSync(path.join(worktreeFixture.linked, current.path), currentBuffer);
+  assert.throws(
+    () => collectWorktreeSnapshot(fixtureLinkedWorktree(worktreeFixture), { includeTar: false }),
+    /high-confidence token assignment/i
+  );
+
+  const copiedFixture = makeFixture();
+  t.after(() => fs.rmSync(copiedFixture.parent, { recursive: true, force: true }));
+  const copiedPath = `copied/${path.basename(historical.path)}`;
+  const copiedAbsolutePath = path.join(copiedFixture.linked, copiedPath);
+  fs.mkdirSync(path.dirname(copiedAbsolutePath), { recursive: true });
+  fs.writeFileSync(copiedAbsolutePath, historicalBuffer);
+  assert.throws(
+    () => buildInventory(copiedFixture.linked, [copiedPath]),
+    /high-confidence token assignment/i
+  );
+});
+
+test("supplementary reviewed legacy text registry preserves the b2cb parent-console exception", async (t) => {
+  const { scanCurrentBranchHeadTrackedPaths } = await import(libraryUrl);
+  const repository = maybeReviewedLegacyParentConsoleReportRepository();
+  if (repository === null) {
+    t.skip("reviewed legacy parent console report commit and blob are not available in this clone");
+    return;
+  }
+  assert.deepEqual(
+    scanCurrentBranchHeadTrackedPaths(
+      repository,
+      REVIEWED_LEGACY_PARENT_CONSOLE_REPORT.headRevision,
+      [REVIEWED_LEGACY_PARENT_CONSOLE_REPORT.path]
+    ),
+    { scanned: 1, reviewed: 0 }
   );
 });
 

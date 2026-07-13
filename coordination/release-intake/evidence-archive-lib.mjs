@@ -170,9 +170,9 @@ const REVIEWED_LEGACY_TERMINAL_PATCH_ENTRIES = Object.freeze([
     sha256: "78851c7c27a3684d298c9f672f33c0a4aaf29d47d90fd91cb4f2173de39c7dfa"
   })
 ]);
-const REVIEWED_LEGACY_TERMINAL_PATCH_BY_PATH = Object.freeze(Object.fromEntries(
+const REVIEWED_LEGACY_TERMINAL_PATCH_BY_PATH = new Map(
   REVIEWED_LEGACY_TERMINAL_PATCH_ENTRIES.map((entry) => [entry.path, entry])
-));
+);
 const REVIEWED_LEGACY_TERMINAL_PATCH_DISPLAY_PREFIX = "reviewed-current-branch-head-terminal-truncated";
 const REVIEWED_LEGACY_OFFICE_LOCK = Object.freeze({
   headRevision: "ec22a29b55a4329e81d96e02417f8925ccec54c3",
@@ -193,6 +193,154 @@ const REVIEWED_LEGACY_PARENT_CONSOLE_REPORT = Object.freeze({
   sha256: "a756524e2ad3323edb4ed89c94fc51507dd82da337fabd97e3c6efe21a4d558b"
 });
 const REVIEWED_LEGACY_PARENT_CONSOLE_REPORT_DISPLAY_PATH = "reviewed-legacy-parent-console-report/content.md";
+const REVIEWED_LEGACY_CURRENT_HEAD_TEXT_REVISION = "ec22a29b55a4329e81d96e02417f8925ccec54c3";
+const REVIEWED_LEGACY_BRANCH_BASE_TEXT_REVISION = "e909992b098ce7f8b57ca7f7ede6c97e50ccdc45";
+const REVIEWED_LEGACY_CURRENT_HEAD_TEXT_ENTRIES = Object.freeze([
+  Object.freeze({
+    revision: REVIEWED_LEGACY_CURRENT_HEAD_TEXT_REVISION,
+    path: "coordination/reports/2026-06-04-teacher-console-p0-p1-bug-audit.md",
+    mode: "100644",
+    type: "blob",
+    objectId: "e2fe2b0b560596ba7855440a2eef4763755eb85d",
+    bytes: 12_067,
+    sha256: "d0419a4e7c5cb41c0b7f0ff159f9d359a945428bf3757203f0ee742026e630b0"
+  }),
+  Object.freeze({
+    revision: REVIEWED_LEGACY_CURRENT_HEAD_TEXT_REVISION,
+    path: "coordination/reports/2026-06-06-production-auth-storage-health-S12.md",
+    mode: "100644",
+    type: "blob",
+    objectId: "b730a971c90e785cb8ee61f82d478d32fcf908f9",
+    bytes: 9_960,
+    sha256: "dd8f1b94f8979fd3fe6ac8467c95f5fbbf78842e10f3bb9cdb2f0dcc18e8a1f7"
+  }),
+  Object.freeze({
+    revision: REVIEWED_LEGACY_CURRENT_HEAD_TEXT_REVISION,
+    path: "coordination/reports/2026-06-22-s19-production-db-smoke.mjs",
+    mode: "100644",
+    type: "blob",
+    objectId: "e6428e7865337eda45874fdffe6b736999bb35b3",
+    bytes: 25_465,
+    sha256: "8f96568cb49fe81e6fd11402dd8fd97e88ffe63ca0c793c560ce8d6e29631f75"
+  }),
+  Object.freeze({
+    revision: REVIEWED_LEGACY_CURRENT_HEAD_TEXT_REVISION,
+    path: "coordination/reports/cloudflare-ai-crawl-control-preflight.mjs",
+    mode: "100644",
+    type: "blob",
+    objectId: "05347bdf32b2ef81cd57dc2199b15a4255828118",
+    bytes: 9_554,
+    sha256: "76a8655b71762bd703d4e27b387b85116a1f2eb71065d650f0b3fe10d1144e6a"
+  }),
+  Object.freeze({
+    revision: REVIEWED_LEGACY_CURRENT_HEAD_TEXT_REVISION,
+    path: "coordination/reports/cloudflare-ai-crawl-control-waf-upsert.mjs",
+    mode: "100644",
+    type: "blob",
+    objectId: "4a39be077b60637e765c2e3639a7991be2042cf5",
+    bytes: 6_896,
+    sha256: "f2acc322167a0a20f0acf3e62225484a93f87acc53538bccf1c650cc5747263d"
+  }),
+  Object.freeze({
+    revision: REVIEWED_LEGACY_CURRENT_HEAD_TEXT_REVISION,
+    path: "coordination/session-logs/2026-06-22-S12.md",
+    mode: "100644",
+    type: "blob",
+    objectId: "413cdde2afedc515509debf4a65f12bc1597730e",
+    bytes: 329_406,
+    sha256: "7ec332cd113113e7ebced5b9a4b6066583d126dc8891788f600306e797cdf7de"
+  }),
+  Object.freeze({
+    revision: REVIEWED_LEGACY_CURRENT_HEAD_TEXT_REVISION,
+    path: "lib/server/userStoreAuthSessionPersistence.test.ts",
+    mode: "100644",
+    type: "blob",
+    objectId: "22aa14abb83cfe3d394db56c9380c4afd28160da",
+    bytes: 122_464,
+    sha256: "9fa01a390189bc54b7c19778265e9fb02a8cf15c51121ed2455ec87f7d64aec9"
+  }),
+  Object.freeze({
+    revision: REVIEWED_LEGACY_CURRENT_HEAD_TEXT_REVISION,
+    path: "scripts/build-us-ca-private-raw-corpus.py",
+    mode: "100644",
+    type: "blob",
+    objectId: "806dddda94a408e1b1d825c65ce32d066d3ae316",
+    bytes: 23_075,
+    sha256: "8e5bd542ff992ebfb9e07ee5edd8ffcd6e50820ae121c5c69e57a7a10e9f86b3"
+  }),
+  Object.freeze({
+    revision: REVIEWED_LEGACY_CURRENT_HEAD_TEXT_REVISION,
+    path: "tests/e2e/ai-tutor-live-text.spec.ts",
+    mode: "100644",
+    type: "blob",
+    objectId: "5c147d03752413a0a3810402c5389d0d1fcb67d4",
+    bytes: 41_043,
+    sha256: "d9da19f937882290b748b62e423fb316af770222ba66b6aba3adaafaa8d762e4"
+  }),
+  Object.freeze({
+    revision: REVIEWED_LEGACY_CURRENT_HEAD_TEXT_REVISION,
+    path: "tests/e2e/practice-bank-solvability.spec.ts",
+    mode: "100644",
+    type: "blob",
+    objectId: "c76bcb1a9fb9e7eed64bf8fe8302d01f51ce7138",
+    bytes: 35_613,
+    sha256: "df7ed7bc39862e204cf9e0e12e8eccacefd2c359c974cc75a2244d127f7d9c6b"
+  }),
+  Object.freeze({
+    revision: REVIEWED_LEGACY_CURRENT_HEAD_TEXT_REVISION,
+    path: "coordination/reports/2026-06-06-S11-forgot-password-recovery-smoke.md",
+    mode: "100644",
+    type: "blob",
+    objectId: "dd1143549fe13b5c9256860eab571cf65693d175",
+    bytes: 2_793,
+    sha256: "61c584aef1feaf7fe3edc06d3f5f24cdbbe1dfbcb108fb6711a3fe46532ac672"
+  }),
+  Object.freeze({
+    revision: REVIEWED_LEGACY_CURRENT_HEAD_TEXT_REVISION,
+    path: "coordination/reports/2026-06-07-S19-password-reset-resend-vercel-env-plan.md",
+    mode: "100644",
+    type: "blob",
+    objectId: "7b4fcf5710a47db240f4020501ed641ef2beeda4",
+    bytes: 5_076,
+    sha256: "d4cfa5685964dfde1e650678725017e01366e33e7d9dd2ddf19c1450c896bef1"
+  }),
+  Object.freeze({
+    revision: REVIEWED_LEGACY_CURRENT_HEAD_TEXT_REVISION,
+    path: "coordination/reports/2026-06-29-A07-A19-A11-ai-tutor-env-gate-enterprise-solution.md",
+    mode: "100644",
+    type: "blob",
+    objectId: "af926ab100ac3582d69aceb806e78e639b3bd4a4",
+    bytes: 9_686,
+    sha256: "6c08b1f1673ad6d399d29a2c94f3777e0eacc8bf816159983d04c92bfa42579e"
+  })
+]);
+const REVIEWED_LEGACY_CURRENT_HEAD_TEXT_BY_PATH = new Map(
+  REVIEWED_LEGACY_CURRENT_HEAD_TEXT_ENTRIES.map((entry) => [entry.path, entry])
+);
+const REVIEWED_LEGACY_BRANCH_BASE_TEXT_ENTRIES = Object.freeze([
+  Object.freeze({
+    revision: REVIEWED_LEGACY_BRANCH_BASE_TEXT_REVISION,
+    path: "tests/e2e/ai-tutor-live-text.spec.ts",
+    mode: "100644",
+    type: "blob",
+    objectId: "ed9342d2a744fd8c5271c9059d7343b4597431f5",
+    bytes: 36_203,
+    sha256: "a14c24644b0e85b8366e3a6117d8727603891b7be79c1ed5b9c3b65e2c82ff93"
+  }),
+  Object.freeze({
+    revision: REVIEWED_LEGACY_BRANCH_BASE_TEXT_REVISION,
+    path: "tests/e2e/practice-bank-solvability.spec.ts",
+    mode: "100644",
+    type: "blob",
+    objectId: "6022d27b763c6e47a4f182df110cf98fedd58b43",
+    bytes: 34_397,
+    sha256: "d8536e02956827c9e8ba173356b799f3d6b4273322179b86c1109f2134d57bd5"
+  })
+]);
+const REVIEWED_LEGACY_BRANCH_BASE_TEXT_BY_PATH = new Map(
+  REVIEWED_LEGACY_BRANCH_BASE_TEXT_ENTRIES.map((entry) => [entry.path, entry])
+);
+const REVIEWED_LEGACY_EXACT_TEXT_DISPLAY_PATH = "reviewed-legacy-exact-text/content.txt";
 const SECRET_ASSIGNMENT = /(?:^|[^A-Za-z0-9_$])["'`]?([A-Za-z_$][A-Za-z0-9_$-]*)["'`]?(?:[\t ]*\])?[\t ]*(:|>>>=|<<=|>>=|\*\*=|&&=|\|\|=|\?\?=|\+=|-=|\*=|\/=|%=|&=|\|=|\^=|=(?![=>]))[\t ]*/gmu;
 const TOKEN_PATTERNS = [
   /\bsk-[A-Za-z0-9_-]{20,}(?![A-Za-z0-9_-])/g,
@@ -6267,10 +6415,20 @@ function scanBufferForPath(buffer, relativePath, labelPrefix) {
   return scanBuffer(buffer, { displayPath });
 }
 
-function scanHistoricalTrackedPaths(worktreePath, revision, paths, labelPrefix = "historical") {
+function scanHistoricalTrackedPaths(
+  worktreePath,
+  revision,
+  paths,
+  labelPrefix = "historical",
+  reviewedLegacyTextByPath = null
+) {
   let scanned = 0;
   let reviewed = 0;
   for (const relativePath of paths) {
+    const reviewedLegacyText = reviewedLegacyTextByPath?.get(relativePath) ?? null;
+    if (reviewedLegacyText !== null && revision !== reviewedLegacyText.revision) {
+      throw new Error("reviewed legacy branch-base text is restricted to its pinned revision");
+    }
     scanArchivePath(relativePath);
     const records = parseNul(gitBuffer(["ls-tree", "-z", revision, "--", `:(literal)${relativePath}`], worktreePath));
     let matched = false;
@@ -6278,6 +6436,23 @@ function scanHistoricalTrackedPaths(worktreePath, revision, paths, labelPrefix =
       const separator = record.indexOf("\t");
       if (separator < 0 || record.slice(separator + 1) !== relativePath) continue;
       const [mode, type, objectId] = record.slice(0, separator).split(" ");
+      if (reviewedLegacyText !== null) {
+        if (mode !== reviewedLegacyText.mode
+          || type !== reviewedLegacyText.type
+          || objectId !== reviewedLegacyText.objectId) {
+          throw new Error("reviewed legacy branch-base text metadata mismatch");
+        }
+        const buffer = gitBuffer(["cat-file", "blob", objectId], worktreePath);
+        if (buffer.length !== reviewedLegacyText.bytes
+          || gitSha1BlobObjectId(buffer) !== reviewedLegacyText.objectId
+          || sha256Buffer(buffer) !== reviewedLegacyText.sha256) {
+          throw new Error("reviewed legacy branch-base text Git blob integrity mismatch");
+        }
+        scanReviewedLegacyExactTextPayload(buffer);
+        matched = true;
+        scanned += 1;
+        continue;
+      }
       if (type !== "blob" || !mode || !objectId) throw new Error(`unsupported historical Git object for ${JSON.stringify(relativePath)}`);
       const buffer = gitBuffer(["cat-file", "blob", objectId], worktreePath);
       if (mode === "120000") {
@@ -6294,9 +6469,24 @@ function scanHistoricalTrackedPaths(worktreePath, revision, paths, labelPrefix =
       scanned += 1;
       if (result.kind === "reviewed-binary") reviewed += 1;
     }
-    if (!matched) throw new Error(`historical Git blob is missing for ${JSON.stringify(relativePath)}`);
+    if (!matched) {
+      if (reviewedLegacyText !== null) {
+        throw new Error("reviewed legacy branch-base text Git blob is missing");
+      }
+      throw new Error(`historical Git blob is missing for ${JSON.stringify(relativePath)}`);
+    }
   }
   return { scanned, reviewed };
+}
+
+export function scanBranchBaseHistoricalTrackedPaths(worktreePath, revision, paths) {
+  return scanHistoricalTrackedPaths(
+    worktreePath,
+    revision,
+    paths,
+    "branch-base",
+    REVIEWED_LEGACY_BRANCH_BASE_TEXT_BY_PATH
+  );
 }
 
 function scanReviewedLegacyTerminalPatch(buffer, relativePath) {
@@ -6338,6 +6528,17 @@ function scanReviewedLegacyParentConsoleReport(buffer) {
   return { kind: "text", status: "passed" };
 }
 
+function scanReviewedLegacyExactTextPayload(buffer) {
+  if (!Buffer.isBuffer(buffer)) {
+    throw new Error("reviewed legacy exact text payload must be a Buffer");
+  }
+  if (buffer.includes(0) || !isUtf8(buffer)) {
+    throw new Error("reviewed legacy exact text payload is not strict UTF-8 text");
+  }
+  scanOpaqueRawSignatures(buffer, REVIEWED_LEGACY_EXACT_TEXT_DISPLAY_PATH);
+  return { kind: "text", status: "passed" };
+}
+
 export function isReviewedLegacyTerminalPatchEntry({
   headRevision,
   relativePath,
@@ -6345,7 +6546,7 @@ export function isReviewedLegacyTerminalPatchEntry({
   type,
   objectId
 } = {}) {
-  const entry = REVIEWED_LEGACY_TERMINAL_PATCH_BY_PATH[relativePath] ?? null;
+  const entry = REVIEWED_LEGACY_TERMINAL_PATCH_BY_PATH.get(relativePath) ?? null;
   return entry !== null
     && headRevision === REVIEWED_LEGACY_TERMINAL_PATCH_HEAD
     && mode === entry.mode
@@ -6404,9 +6605,10 @@ export function scanCurrentBranchHeadTrackedPaths(worktreePath, headRevision, pa
   const parentConsoleReport = REVIEWED_LEGACY_PARENT_CONSOLE_REPORT;
   for (const relativePath of paths) {
     const exactPath = relativePath === exact.path;
-    const terminalPatch = REVIEWED_LEGACY_TERMINAL_PATCH_BY_PATH[relativePath] ?? null;
+    const terminalPatch = REVIEWED_LEGACY_TERMINAL_PATCH_BY_PATH.get(relativePath) ?? null;
     const officeLockPath = relativePath === officeLock.path;
     const parentConsoleReportPath = relativePath === parentConsoleReport.path;
+    const reviewedLegacyText = REVIEWED_LEGACY_CURRENT_HEAD_TEXT_BY_PATH.get(relativePath) ?? null;
     if (terminalPatch !== null && headRevision !== REVIEWED_LEGACY_TERMINAL_PATCH_HEAD) {
       throw new Error(`reviewed legacy terminal patch is restricted to its pinned current branch HEAD: ${JSON.stringify(relativePath)}`);
     }
@@ -6416,7 +6618,12 @@ export function scanCurrentBranchHeadTrackedPaths(worktreePath, headRevision, pa
     if (parentConsoleReportPath && headRevision !== parentConsoleReport.headRevision) {
       throw new Error(`reviewed legacy parent console report is restricted to its pinned current branch HEAD: ${JSON.stringify(relativePath)}`);
     }
-    if (!exactPath && !officeLockPath && !parentConsoleReportPath) scanArchivePath(relativePath);
+    if (reviewedLegacyText !== null && headRevision !== reviewedLegacyText.revision) {
+      throw new Error("reviewed legacy current HEAD text is restricted to its pinned revision");
+    }
+    if (!exactPath && !officeLockPath && !parentConsoleReportPath && reviewedLegacyText === null) {
+      scanArchivePath(relativePath);
+    }
     const records = parseNul(gitBuffer(["ls-tree", "-z", headRevision, "--", `:(literal)${relativePath}`], worktreePath));
     let matched = false;
     for (const record of records) {
@@ -6496,6 +6703,23 @@ export function scanCurrentBranchHeadTrackedPaths(worktreePath, headRevision, pa
         scanned += 1;
         continue;
       }
+      if (reviewedLegacyText !== null) {
+        if (mode !== reviewedLegacyText.mode
+          || type !== reviewedLegacyText.type
+          || objectId !== reviewedLegacyText.objectId) {
+          throw new Error("reviewed legacy current HEAD text metadata mismatch");
+        }
+        const buffer = gitBuffer(["cat-file", "blob", objectId], worktreePath);
+        if (buffer.length !== reviewedLegacyText.bytes
+          || gitSha1BlobObjectId(buffer) !== reviewedLegacyText.objectId
+          || sha256Buffer(buffer) !== reviewedLegacyText.sha256) {
+          throw new Error("reviewed legacy current HEAD text Git blob integrity mismatch");
+        }
+        scanReviewedLegacyExactTextPayload(buffer);
+        matched = true;
+        scanned += 1;
+        continue;
+      }
       if (terminalPatch !== null) {
         throw new Error(`reviewed legacy terminal patch metadata mismatch: ${JSON.stringify(relativePath)}`);
       }
@@ -6531,6 +6755,9 @@ export function scanCurrentBranchHeadTrackedPaths(worktreePath, headRevision, pa
       }
       if (parentConsoleReportPath) {
         throw new Error(`reviewed legacy parent console report Git blob is missing: ${JSON.stringify(relativePath)}`);
+      }
+      if (reviewedLegacyText !== null) {
+        throw new Error("reviewed legacy current HEAD text Git blob is missing");
       }
       if (exactPath) scanArchivePath(relativePath);
       throw new Error(`current branch HEAD Git blob is missing for ${JSON.stringify(relativePath)}`);
@@ -6926,7 +7153,11 @@ export function collectWorktreeSnapshot(worktree, {
     ? changedPathSets(worktree.path, branchRange, pathSetOptions)
     : { currentPaths: [], historicalPaths: [] };
   const branchScan = scanCurrentBranchHeadTrackedPaths(worktree.path, initialHead, branchPaths.currentPaths);
-  const branchHistoricalScan = scanHistoricalTrackedPaths(worktree.path, mergeBase, branchPaths.historicalPaths, "branch-base");
+  const branchHistoricalScan = scanBranchBaseHistoricalTrackedPaths(
+    worktree.path,
+    mergeBase,
+    branchPaths.historicalPaths
+  );
   const { inventory, reviewedBinaryPaths } = buildInventory(worktree.path, untracked);
   const inventoryBuffer = Buffer.from(`${JSON.stringify(inventory, null, 2)}\n`);
   beforeDriftCheck?.();
