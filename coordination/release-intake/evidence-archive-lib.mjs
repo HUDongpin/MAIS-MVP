@@ -486,7 +486,7 @@ const REVIEWED_PROTECTED_OVERLAY_TRACKED_POLICIES = Object.freeze([
       sourcePath: entry.path,
       sourceRevision: REVIEWED_PROTECTED_OVERLAY_TARGET,
       sourceMode: entry.mode,
-      sourceKinds: Object.freeze(["index-before-worktree"]),
+      sourceKinds: Object.freeze(["index-before-worktree", "historical"]),
       fileMode: 0o644,
       payloadKind: "exact-text"
     })),

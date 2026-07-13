@@ -3745,8 +3745,15 @@ test("reviewed protected overlay accepts only the exact A02 index-before-worktre
     exactEntry,
     context
   )?.reviewedProtectedOverlay, true);
+  assert.equal(scanReviewedProtectedOverlayGitBlob(
+    fixture.linked,
+    entry.path,
+    "historical",
+    exactEntry,
+    context
+  )?.reviewedProtectedOverlay, true);
 
-  for (const sourceKind of ["tracked-current", "worktree-current", "historical"]) {
+  for (const sourceKind of ["tracked-current", "worktree-current"]) {
     assert.equal(scanReviewedProtectedOverlayGitBlob(
       fixture.linked,
       entry.path,
