@@ -8551,6 +8551,88 @@ test("a real lock-losing writer stops mutating while a second F_WRLCK owner excl
   assert.deepEqual(fs.readdirSync(archiveDir).filter((name) => name.startsWith(".evidence-publish-")), []);
 });
 
+function writeLockedEvidenceWriterProbe(scriptPath) {
+  fs.writeFileSync(scriptPath, [
+    "import fs from 'node:fs';",
+    `import { assertEvidenceWriterLockOwned } from ${JSON.stringify(libraryUrl)};`,
+    "const [commonDir,delayText,marker]=process.argv.slice(2);",
+    "assertEvidenceWriterLockOwned({commonDir});",
+    "const delayMs=Number(delayText);",
+    "if(delayMs>0) Atomics.wait(new Int32Array(new SharedArrayBuffer(4)),0,0,delayMs);",
+    "if(marker!=='-') fs.writeFileSync(marker,'completed\\n');"
+  ].join("\n"));
+}
+
+test("locked evidence writer has no default full-run timeout", async (t) => {
+  const fixture = makeFixture();
+  t.after(() => fs.rmSync(fixture.parent, { recursive: true, force: true }));
+  const commonDir = path.join(fixture.repo, ".git");
+  const scriptPath = path.join(fixture.parent, "default-timeout-writer.mjs");
+  const marker = path.join(fixture.parent, "default-timeout-completed");
+  writeLockedEvidenceWriterProbe(scriptPath);
+  const { runEvidenceWriterUnderLock } = await import(libraryUrl);
+  assert.doesNotThrow(() => runEvidenceWriterUnderLock({
+    commonDir,
+    scriptPath,
+    args: [commonDir, "125", marker]
+  }));
+  assert.equal(fs.readFileSync(marker, "utf8"), "completed\n");
+});
+
+test("locked evidence writer classifies an explicit full-run timeout", async (t) => {
+  const fixture = makeFixture();
+  t.after(() => fs.rmSync(fixture.parent, { recursive: true, force: true }));
+  const commonDir = path.join(fixture.repo, ".git");
+  const scriptPath = path.join(fixture.parent, "explicit-timeout-writer.mjs");
+  writeLockedEvidenceWriterProbe(scriptPath);
+  const { runEvidenceWriterUnderLock } = await import(libraryUrl);
+  assert.throws(() => runEvidenceWriterUnderLock({
+    commonDir,
+    scriptPath,
+    args: [commonDir, "250", "-"],
+    timeoutMs: 25
+  }), /locked evidence writer exceeded configured full-run timeout/i);
+});
+
+test("locked evidence writer timeout releases the lock for a later writer", async (t) => {
+  const fixture = makeFixture();
+  t.after(() => fs.rmSync(fixture.parent, { recursive: true, force: true }));
+  const commonDir = path.join(fixture.repo, ".git");
+  const scriptPath = path.join(fixture.parent, "timeout-reacquire-writer.mjs");
+  const marker = path.join(fixture.parent, "timeout-reacquired");
+  writeLockedEvidenceWriterProbe(scriptPath);
+  const { runEvidenceWriterUnderLock } = await import(libraryUrl);
+  assert.throws(() => runEvidenceWriterUnderLock({
+    commonDir,
+    scriptPath,
+    args: [commonDir, "250", "-"],
+    timeoutMs: 25
+  }), /locked evidence writer exceeded configured full-run timeout/i);
+  assert.doesNotThrow(() => runEvidenceWriterUnderLock({
+    commonDir,
+    scriptPath,
+    args: [commonDir, "0", marker]
+  }));
+  assert.equal(fs.readFileSync(marker, "utf8"), "completed\n");
+});
+
+test("locked evidence writer rejects invalid explicit full-run timeouts", async (t) => {
+  const fixture = makeFixture();
+  t.after(() => fs.rmSync(fixture.parent, { recursive: true, force: true }));
+  const commonDir = path.join(fixture.repo, ".git");
+  const scriptPath = path.join(fixture.parent, "invalid-timeout-writer.mjs");
+  writeLockedEvidenceWriterProbe(scriptPath);
+  const { runEvidenceWriterUnderLock } = await import(libraryUrl);
+  for (const timeoutMs of [0, -1, 1.5, Number.MAX_SAFE_INTEGER + 1, Number.POSITIVE_INFINITY]) {
+    assert.throws(() => runEvidenceWriterUnderLock({
+      commonDir,
+      scriptPath,
+      args: [commonDir, "0", "-"],
+      timeoutMs
+    }), /configured full-run timeout must be a positive safe integer/i);
+  }
+});
+
 test("advisory writer locking fails closed when the system lock utility is unavailable", async (t) => {
   const fixture = makeFixture();
   t.after(() => fs.rmSync(fixture.parent, { recursive: true, force: true }));

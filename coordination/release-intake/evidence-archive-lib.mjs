@@ -3355,17 +3355,28 @@ export function assertEvidenceWriterLockOwned({ commonDir, pythonPath, descripto
   if (probe.error || probe.signal || probe.status !== 0) throw new Error("evidence writer lock owner probe failed");
 }
 
-export function runEvidenceWriterUnderLock({ commonDir, scriptPath, args = [], pythonPath }) {
+export function runEvidenceWriterUnderLock({ commonDir, scriptPath, args = [], pythonPath, timeoutMs }) {
+  if (timeoutMs !== undefined && (!Number.isSafeInteger(timeoutMs) || timeoutMs <= 0)) {
+    throw new Error("configured full-run timeout must be a positive safe integer");
+  }
   const canonicalCommonDir = fs.realpathSync(commonDir);
   const resolvedPythonPath = resolvePythonUtility(pythonPath);
   const lockPath = path.join(canonicalCommonDir, "mais-evidence-writer.lock");
   if (fs.existsSync(lockPath) && fs.lstatSync(lockPath).isSymbolicLink()) throw new Error("evidence writer lock path is a symlink");
-  const result = spawnSync(resolvedPythonPath, ["-c", PYTHON_LOCK_LAUNCHER, lockPath, process.execPath, scriptPath, ...args], {
+  const spawnOptions = {
     cwd: process.cwd(),
     env: process.env,
-    stdio: "inherit",
-    timeout: 15 * 60_000
-  });
+    stdio: "inherit"
+  };
+  if (timeoutMs !== undefined) spawnOptions.timeout = timeoutMs;
+  const result = spawnSync(
+    resolvedPythonPath,
+    ["-c", PYTHON_LOCK_LAUNCHER, lockPath, process.execPath, scriptPath, ...args],
+    spawnOptions
+  );
+  if (result.error?.code === "ETIMEDOUT") {
+    throw new Error("locked evidence writer exceeded configured full-run timeout");
+  }
   if (result.error) throw new Error(`system Python lock launcher failed: ${result.error.message}`);
   if (result.signal) throw new Error(`locked evidence writer terminated by ${result.signal}`);
   if (result.status !== 0) throw new Error("another evidence writer is active or the locked writer failed");
