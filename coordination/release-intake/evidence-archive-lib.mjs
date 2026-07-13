@@ -341,6 +341,67 @@ const REVIEWED_LEGACY_BRANCH_BASE_TEXT_BY_PATH = new Map(
   REVIEWED_LEGACY_BRANCH_BASE_TEXT_ENTRIES.map((entry) => [entry.path, entry])
 );
 const REVIEWED_LEGACY_EXACT_TEXT_DISPLAY_PATH = "reviewed-legacy-exact-text/content.txt";
+const REVIEWED_LEGACY_CURRENT_HEAD_JPEG_UNDER_PNG_REVISION = "ec22a29b55a4329e81d96e02417f8925ccec54c3";
+const REVIEWED_LEGACY_CURRENT_HEAD_JPEG_UNDER_PNG_ENTRIES = Object.freeze([
+  Object.freeze({
+    revision: REVIEWED_LEGACY_CURRENT_HEAD_JPEG_UNDER_PNG_REVISION,
+    path: "coordination/reports/2026-06-12-mighty-tank-battle-design/desktop-asset-browser.png",
+    mode: "100644",
+    type: "blob",
+    objectId: "c59beafea4fc0d5f2e8a5f36bbc010650c1ab85a",
+    bytes: 275_555,
+    sha256: "eb644a75f13a3875b742cef48ca040f6ae393b861185e5584d9dc05329a9e89d"
+  }),
+  Object.freeze({
+    revision: REVIEWED_LEGACY_CURRENT_HEAD_JPEG_UNDER_PNG_REVISION,
+    path: "coordination/reports/2026-06-12-mighty-tank-battle-design/desktop-browser-smoke.png",
+    mode: "100644",
+    type: "blob",
+    objectId: "2f2bd1590f20c886212180ffb7bc63b5251361b0",
+    bytes: 70_176,
+    sha256: "b5f8f919854112ee80dd6d535649f53c0ddc5aba2ea5b2f5f590e4de75bdf3d2"
+  }),
+  Object.freeze({
+    revision: REVIEWED_LEGACY_CURRENT_HEAD_JPEG_UNDER_PNG_REVISION,
+    path: "coordination/reports/2026-06-12-mighty-tank-battle-design/mobile-asset-browser.png",
+    mode: "100644",
+    type: "blob",
+    objectId: "844ac165dd379f328b2f1ecae57d5f245115ca0f",
+    bytes: 247_159,
+    sha256: "ae4e0426d65867ea2f691bf1608cb6001a4b143507adbe9c9f0391654b960164"
+  }),
+  Object.freeze({
+    revision: REVIEWED_LEGACY_CURRENT_HEAD_JPEG_UNDER_PNG_REVISION,
+    path: "coordination/reports/2026-06-12-mighty-tank-battle-design/mobile-browser-smoke.png",
+    mode: "100644",
+    type: "blob",
+    objectId: "becb8d30a180b524ec218a354a1d4d8eb82bdd5b",
+    bytes: 43_175,
+    sha256: "9a2b87752ecd3d87e48ac1707edc228c304f20b0d7d8195e373fceb63fcf595f"
+  }),
+  Object.freeze({
+    revision: REVIEWED_LEGACY_CURRENT_HEAD_JPEG_UNDER_PNG_REVISION,
+    path: "coordination/reports/screenshots/2026-05-20-login-teacher-demo.png",
+    mode: "100644",
+    type: "blob",
+    objectId: "1a0f941218246920797bbdbccb81c985b0b134f5",
+    bytes: 74_083,
+    sha256: "bb2abf75b5e8a519b4d1318bdbeb08a9f61af0fde680cf3a1b4b51ef24f92df5"
+  }),
+  Object.freeze({
+    revision: REVIEWED_LEGACY_CURRENT_HEAD_JPEG_UNDER_PNG_REVISION,
+    path: "coordination/reports/screenshots/2026-05-20-teacher-console.png",
+    mode: "100644",
+    type: "blob",
+    objectId: "3e1131aaf632a01cac8590d224ed5fd1131a7fa6",
+    bytes: 186_962,
+    sha256: "99ae3f6663d7281945006b2b1517f3f1bfa7656c9f67850a2da035930c836ad8"
+  })
+]);
+const REVIEWED_LEGACY_CURRENT_HEAD_JPEG_UNDER_PNG_BY_PATH = new Map(
+  REVIEWED_LEGACY_CURRENT_HEAD_JPEG_UNDER_PNG_ENTRIES.map((entry) => [entry.path, entry])
+);
+const REVIEWED_LEGACY_JPEG_UNDER_PNG_DISPLAY_PATH = "reviewed-legacy-jpeg-under-png/content.jpeg";
 const SECRET_ASSIGNMENT = /(?:^|[^A-Za-z0-9_$])["'`]?([A-Za-z_$][A-Za-z0-9_$-]*)["'`]?(?:[\t ]*\])?[\t ]*(:|>>>=|<<=|>>=|\*\*=|&&=|\|\|=|\?\?=|\+=|-=|\*=|\/=|%=|&=|\|=|\^=|=(?![=>]))[\t ]*/gmu;
 const TOKEN_PATTERNS = [
   /\bsk-[A-Za-z0-9_-]{20,}(?![A-Za-z0-9_-])/g,
@@ -6539,6 +6600,141 @@ function scanReviewedLegacyExactTextPayload(buffer) {
   return { kind: "text", status: "passed" };
 }
 
+function assertStructurallyValidJpegUnderPng(buffer) {
+  if (!Buffer.isBuffer(buffer)) {
+    throw new Error("reviewed legacy JPEG-under-PNG payload must be a Buffer");
+  }
+  if (buffer.length < 2 || buffer[0] !== 0xff || buffer[1] !== 0xd8) {
+    throw new Error("reviewed legacy JPEG-under-PNG is missing SOI marker");
+  }
+
+  const sofMarkers = new Set([
+    0xc0, 0xc1, 0xc2, 0xc3,
+    0xc5, 0xc6, 0xc7,
+    0xc9, 0xca, 0xcb,
+    0xcd, 0xce, 0xcf
+  ]);
+  let offset = 2;
+  let inEntropy = false;
+  let markerFromEntropy = false;
+  let sofSegments = 0;
+  let sosSegments = 0;
+
+  while (offset < buffer.length) {
+    if (inEntropy) {
+      while (offset < buffer.length) {
+        if (buffer[offset] !== 0xff) {
+          offset += 1;
+          continue;
+        }
+        if (offset + 1 >= buffer.length) {
+          throw new Error("reviewed legacy JPEG-under-PNG has a dangling entropy marker");
+        }
+        const entropyMarker = buffer[offset + 1];
+        if (entropyMarker === 0x00 || (entropyMarker >= 0xd0 && entropyMarker <= 0xd7)) {
+          offset += 2;
+          continue;
+        }
+        inEntropy = false;
+        markerFromEntropy = true;
+        break;
+      }
+      if (inEntropy) break;
+    }
+
+    if (buffer[offset] !== 0xff) {
+      throw new Error("reviewed legacy JPEG-under-PNG marker prefix is invalid");
+    }
+    while (offset < buffer.length && buffer[offset] === 0xff) offset += 1;
+    if (offset >= buffer.length) {
+      throw new Error("reviewed legacy JPEG-under-PNG marker is truncated");
+    }
+    const marker = buffer[offset];
+    offset += 1;
+
+    if (marker === 0x00) {
+      throw new Error("reviewed legacy JPEG-under-PNG has a stuffed byte outside entropy");
+    }
+    if (marker === 0xd8) {
+      throw new Error("reviewed legacy JPEG-under-PNG has an unexpected SOI marker");
+    }
+    if (marker >= 0xd0 && marker <= 0xd7) {
+      throw new Error("reviewed legacy JPEG-under-PNG has a restart marker outside entropy");
+    }
+    if (marker === 0xd9) {
+      if (offset !== buffer.length) {
+        throw new Error("reviewed legacy JPEG-under-PNG EOI marker is not terminal");
+      }
+      if (sofSegments === 0) {
+        throw new Error("reviewed legacy JPEG-under-PNG is missing SOF marker");
+      }
+      if (sosSegments === 0) {
+        throw new Error("reviewed legacy JPEG-under-PNG is missing SOS marker");
+      }
+      return { sofSegments, sosSegments, status: "passed" };
+    }
+    if (marker === 0x01) {
+      inEntropy = markerFromEntropy;
+      markerFromEntropy = false;
+      continue;
+    }
+    if (offset + 2 > buffer.length) {
+      throw new Error("reviewed legacy JPEG-under-PNG segment length is truncated");
+    }
+    const segmentLength = buffer.readUInt16BE(offset);
+    if (segmentLength < 2) {
+      throw new Error("reviewed legacy JPEG-under-PNG segment length is invalid");
+    }
+    const payloadOffset = offset + 2;
+    const segmentEnd = offset + segmentLength;
+    if (segmentEnd > buffer.length) {
+      throw new Error("reviewed legacy JPEG-under-PNG segment exceeds payload");
+    }
+
+    if (sofMarkers.has(marker)) {
+      if (segmentLength < 11) {
+        throw new Error("reviewed legacy JPEG-under-PNG SOF segment length mismatch");
+      }
+      const componentCount = buffer[payloadOffset + 5];
+      if (componentCount === 0 || segmentLength !== 8 + (3 * componentCount)) {
+        throw new Error("reviewed legacy JPEG-under-PNG SOF segment length mismatch");
+      }
+      const height = buffer.readUInt16BE(payloadOffset + 1);
+      const width = buffer.readUInt16BE(payloadOffset + 3);
+      if (height === 0 || width === 0) {
+        throw new Error("reviewed legacy JPEG-under-PNG SOF dimensions are invalid");
+      }
+      sofSegments += 1;
+    } else if (marker === 0xda) {
+      if (sofSegments === 0) {
+        throw new Error("reviewed legacy JPEG-under-PNG SOS precedes SOF");
+      }
+      if (segmentLength < 8) {
+        throw new Error("reviewed legacy JPEG-under-PNG SOS segment length mismatch");
+      }
+      const componentCount = buffer[payloadOffset];
+      if (componentCount === 0 || segmentLength !== 6 + (2 * componentCount)) {
+        throw new Error("reviewed legacy JPEG-under-PNG SOS segment length mismatch");
+      }
+      sosSegments += 1;
+      inEntropy = true;
+    } else if (marker === 0xdc && markerFromEntropy) {
+      inEntropy = true;
+    }
+
+    markerFromEntropy = false;
+    offset = segmentEnd;
+  }
+
+  throw new Error("reviewed legacy JPEG-under-PNG is missing EOI marker");
+}
+
+function scanReviewedLegacyJpegUnderPngPayload(buffer) {
+  assertStructurallyValidJpegUnderPng(buffer);
+  scanOpaqueRawSignatures(buffer, REVIEWED_LEGACY_JPEG_UNDER_PNG_DISPLAY_PATH);
+  return { kind: "reviewed-binary", status: "passed" };
+}
+
 export function isReviewedLegacyTerminalPatchEntry({
   headRevision,
   relativePath,
@@ -6609,6 +6805,7 @@ export function scanCurrentBranchHeadTrackedPaths(worktreePath, headRevision, pa
     const officeLockPath = relativePath === officeLock.path;
     const parentConsoleReportPath = relativePath === parentConsoleReport.path;
     const reviewedLegacyText = REVIEWED_LEGACY_CURRENT_HEAD_TEXT_BY_PATH.get(relativePath) ?? null;
+    const reviewedLegacyJpegUnderPng = REVIEWED_LEGACY_CURRENT_HEAD_JPEG_UNDER_PNG_BY_PATH.get(relativePath) ?? null;
     if (terminalPatch !== null && headRevision !== REVIEWED_LEGACY_TERMINAL_PATCH_HEAD) {
       throw new Error(`reviewed legacy terminal patch is restricted to its pinned current branch HEAD: ${JSON.stringify(relativePath)}`);
     }
@@ -6621,7 +6818,15 @@ export function scanCurrentBranchHeadTrackedPaths(worktreePath, headRevision, pa
     if (reviewedLegacyText !== null && headRevision !== reviewedLegacyText.revision) {
       throw new Error("reviewed legacy current HEAD text is restricted to its pinned revision");
     }
-    if (!exactPath && !officeLockPath && !parentConsoleReportPath && reviewedLegacyText === null) {
+    if (reviewedLegacyJpegUnderPng !== null
+      && headRevision !== REVIEWED_LEGACY_CURRENT_HEAD_JPEG_UNDER_PNG_REVISION) {
+      throw new Error("reviewed legacy JPEG-under-PNG is restricted to its pinned current branch HEAD");
+    }
+    if (!exactPath
+      && !officeLockPath
+      && !parentConsoleReportPath
+      && reviewedLegacyText === null
+      && reviewedLegacyJpegUnderPng === null) {
       scanArchivePath(relativePath);
     }
     const records = parseNul(gitBuffer(["ls-tree", "-z", headRevision, "--", `:(literal)${relativePath}`], worktreePath));
@@ -6720,6 +6925,24 @@ export function scanCurrentBranchHeadTrackedPaths(worktreePath, headRevision, pa
         scanned += 1;
         continue;
       }
+      if (reviewedLegacyJpegUnderPng !== null) {
+        if (mode !== reviewedLegacyJpegUnderPng.mode
+          || type !== reviewedLegacyJpegUnderPng.type
+          || objectId !== reviewedLegacyJpegUnderPng.objectId) {
+          throw new Error("reviewed legacy JPEG-under-PNG metadata mismatch");
+        }
+        const buffer = gitBuffer(["cat-file", "blob", objectId], worktreePath);
+        if (buffer.length !== reviewedLegacyJpegUnderPng.bytes
+          || gitSha1BlobObjectId(buffer) !== reviewedLegacyJpegUnderPng.objectId
+          || sha256Buffer(buffer) !== reviewedLegacyJpegUnderPng.sha256) {
+          throw new Error("reviewed legacy JPEG-under-PNG Git blob integrity mismatch");
+        }
+        scanReviewedLegacyJpegUnderPngPayload(buffer);
+        matched = true;
+        scanned += 1;
+        reviewed += 1;
+        continue;
+      }
       if (terminalPatch !== null) {
         throw new Error(`reviewed legacy terminal patch metadata mismatch: ${JSON.stringify(relativePath)}`);
       }
@@ -6758,6 +6981,9 @@ export function scanCurrentBranchHeadTrackedPaths(worktreePath, headRevision, pa
       }
       if (reviewedLegacyText !== null) {
         throw new Error("reviewed legacy current HEAD text Git blob is missing");
+      }
+      if (reviewedLegacyJpegUnderPng !== null) {
+        throw new Error("reviewed legacy JPEG-under-PNG Git blob is missing");
       }
       if (exactPath) scanArchivePath(relativePath);
       throw new Error(`current branch HEAD Git blob is missing for ${JSON.stringify(relativePath)}`);
@@ -7941,7 +8167,11 @@ export function verifyTarPayload(tarBuffer, expected, label, failures) {
     const actual = buildInventory(extractRoot, walkFiles(extractRoot));
     if (stableJson(actual.inventory) !== stableJson(expected)) failures.push(`${label}: extracted tar inventory mismatch`);
   } catch (error) {
-    failures.push(`${label}: gzip/tar archive is unreadable or unsafe`);
+    if (/reviewed binary magic mismatch/iu.test(error?.message ?? "")) {
+      failures.push(`${label}: extracted tar reviewed binary magic mismatch`);
+    } else {
+      failures.push(`${label}: gzip/tar archive is unreadable or unsafe`);
+    }
   } finally {
     fs.rmSync(extractRoot, { recursive: true, force: true });
   }

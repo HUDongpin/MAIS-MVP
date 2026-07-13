@@ -8,6 +8,7 @@ import path from "node:path";
 import test from "node:test";
 import { pathToFileURL } from "node:url";
 import { inflateRawSync } from "node:zlib";
+import ts from "typescript";
 
 const here = path.dirname(new URL(import.meta.url).pathname);
 const writer = path.join(here, "refresh-linked-worktree-archive-evidence.mjs");
@@ -235,6 +236,63 @@ const REVIEWED_LEGACY_BRANCH_BASE_TEXT_ENTRIES = Object.freeze([
     sha256: "d8536e02956827c9e8ba173356b799f3d6b4273322179b86c1109f2134d57bd5"
   })
 ]);
+const REVIEWED_LEGACY_CURRENT_HEAD_JPEG_UNDER_PNG_REVISION = "ec22a29b55a4329e81d96e02417f8925ccec54c3";
+const REVIEWED_LEGACY_CURRENT_HEAD_JPEG_UNDER_PNG_ENTRIES = Object.freeze([
+  Object.freeze({
+    revision: REVIEWED_LEGACY_CURRENT_HEAD_JPEG_UNDER_PNG_REVISION,
+    path: "coordination/reports/2026-06-12-mighty-tank-battle-design/desktop-asset-browser.png",
+    mode: "100644",
+    type: "blob",
+    objectId: "c59beafea4fc0d5f2e8a5f36bbc010650c1ab85a",
+    bytes: 275_555,
+    sha256: "eb644a75f13a3875b742cef48ca040f6ae393b861185e5584d9dc05329a9e89d"
+  }),
+  Object.freeze({
+    revision: REVIEWED_LEGACY_CURRENT_HEAD_JPEG_UNDER_PNG_REVISION,
+    path: "coordination/reports/2026-06-12-mighty-tank-battle-design/desktop-browser-smoke.png",
+    mode: "100644",
+    type: "blob",
+    objectId: "2f2bd1590f20c886212180ffb7bc63b5251361b0",
+    bytes: 70_176,
+    sha256: "b5f8f919854112ee80dd6d535649f53c0ddc5aba2ea5b2f5f590e4de75bdf3d2"
+  }),
+  Object.freeze({
+    revision: REVIEWED_LEGACY_CURRENT_HEAD_JPEG_UNDER_PNG_REVISION,
+    path: "coordination/reports/2026-06-12-mighty-tank-battle-design/mobile-asset-browser.png",
+    mode: "100644",
+    type: "blob",
+    objectId: "844ac165dd379f328b2f1ecae57d5f245115ca0f",
+    bytes: 247_159,
+    sha256: "ae4e0426d65867ea2f691bf1608cb6001a4b143507adbe9c9f0391654b960164"
+  }),
+  Object.freeze({
+    revision: REVIEWED_LEGACY_CURRENT_HEAD_JPEG_UNDER_PNG_REVISION,
+    path: "coordination/reports/2026-06-12-mighty-tank-battle-design/mobile-browser-smoke.png",
+    mode: "100644",
+    type: "blob",
+    objectId: "becb8d30a180b524ec218a354a1d4d8eb82bdd5b",
+    bytes: 43_175,
+    sha256: "9a2b87752ecd3d87e48ac1707edc228c304f20b0d7d8195e373fceb63fcf595f"
+  }),
+  Object.freeze({
+    revision: REVIEWED_LEGACY_CURRENT_HEAD_JPEG_UNDER_PNG_REVISION,
+    path: "coordination/reports/screenshots/2026-05-20-login-teacher-demo.png",
+    mode: "100644",
+    type: "blob",
+    objectId: "1a0f941218246920797bbdbccb81c985b0b134f5",
+    bytes: 74_083,
+    sha256: "bb2abf75b5e8a519b4d1318bdbeb08a9f61af0fde680cf3a1b4b51ef24f92df5"
+  }),
+  Object.freeze({
+    revision: REVIEWED_LEGACY_CURRENT_HEAD_JPEG_UNDER_PNG_REVISION,
+    path: "coordination/reports/screenshots/2026-05-20-teacher-console.png",
+    mode: "100644",
+    type: "blob",
+    objectId: "3e1131aaf632a01cac8590d224ed5fd1131a7fa6",
+    bytes: 186_962,
+    sha256: "99ae3f6663d7281945006b2b1517f3f1bfa7656c9f67850a2da035930c836ad8"
+  })
+]);
 const REVIEWED_REAL_PATCH_CORPUS_EXTRA_ENTRY = Object.freeze({
   path: "coordination/release-intake/archive/codex-A10-A22-A08-A12-A06-compose-20260628.patch",
   objectId: "a2bbb64104ca4d1854ac0d2fe6004f4b6bdc2c87",
@@ -337,6 +395,31 @@ function maybeReviewedLegacyExactTextRepository() {
   }
 }
 
+function maybeReviewedLegacyJpegUnderPngRepository() {
+  const repository = path.resolve(here, "..", "..");
+  try {
+    execFileSync("git", [
+      "cat-file",
+      "-e",
+      `${REVIEWED_LEGACY_CURRENT_HEAD_JPEG_UNDER_PNG_REVISION}^{commit}`
+    ], {
+      cwd: repository,
+      stdio: "ignore",
+      timeout: TEST_CHILD_TIMEOUT_MS
+    });
+    for (const entry of REVIEWED_LEGACY_CURRENT_HEAD_JPEG_UNDER_PNG_ENTRIES) {
+      execFileSync("git", ["cat-file", "-e", `${entry.objectId}^{blob}`], {
+        cwd: repository,
+        stdio: "ignore",
+        timeout: TEST_CHILD_TIMEOUT_MS
+      });
+    }
+    return repository;
+  } catch {
+    return null;
+  }
+}
+
 function gitBlob(cwd, objectId) {
   return execFileSync("git", ["cat-file", "blob", objectId], {
     cwd,
@@ -380,6 +463,99 @@ function reviewedLegacyExactTextBytes(root, entry) {
   );
   assert.equal(crypto.createHash("sha256").update(buffer).digest("hex"), entry.sha256);
   return buffer;
+}
+
+function reviewedLegacyJpegUnderPngBytes(root, entry) {
+  const buffer = gitBlob(root, entry.objectId);
+  assert.equal(buffer.length, entry.bytes);
+  assert.equal(
+    crypto.createHash("sha1").update(Buffer.from(`blob ${buffer.length}\0`)).update(buffer).digest("hex"),
+    entry.objectId
+  );
+  assert.equal(crypto.createHash("sha256").update(buffer).digest("hex"), entry.sha256);
+  assert.deepEqual([...buffer.subarray(0, 2)], [0xff, 0xd8]);
+  assert.deepEqual([...buffer.subarray(-2)], [0xff, 0xd9]);
+  return buffer;
+}
+
+function loadPrivateFunction(functionName) {
+  const source = fs.readFileSync(path.join(here, "evidence-archive-lib.mjs"), "utf8");
+  const sourceFile = ts.createSourceFile(
+    "evidence-archive-lib.mjs",
+    source,
+    ts.ScriptTarget.Latest,
+    true,
+    ts.ScriptKind.JS
+  );
+  const declaration = sourceFile.statements.find((statement) => (
+    ts.isFunctionDeclaration(statement) && statement.name?.text === functionName
+  ));
+  assert.ok(declaration, `missing private function ${functionName}`);
+  return Function("Buffer", `"use strict"; return (${declaration.getText(sourceFile)});`)(Buffer);
+}
+
+function jpegSegment(marker, payload) {
+  assert.ok(Buffer.isBuffer(payload));
+  const length = payload.length + 2;
+  assert.ok(length <= 0xffff);
+  return Buffer.concat([
+    Buffer.from([0xff, marker, length >> 8, length & 0xff]),
+    payload
+  ]);
+}
+
+function portableJpegParts({ appPayload = Buffer.from("portable-jpeg") } = {}) {
+  return {
+    soi: Buffer.from([0xff, 0xd8]),
+    app: jpegSegment(0xe0, appPayload),
+    sof: jpegSegment(0xc0, Buffer.from([
+      0x08,
+      0x00, 0x01,
+      0x00, 0x01,
+      0x01,
+      0x01, 0x11, 0x00
+    ])),
+    sos: jpegSegment(0xda, Buffer.from([
+      0x01,
+      0x01, 0x00,
+      0x00, 0x3f, 0x00
+    ])),
+    entropy: Buffer.from([
+      0x11,
+      0xff, 0x00,
+      0x22,
+      0xff, 0xd0,
+      0x33,
+      0xff, 0xd7,
+      0x44
+    ]),
+    eoi: Buffer.from([0xff, 0xd9])
+  };
+}
+
+function portableStructuredJpeg(options = {}) {
+  const parts = portableJpegParts(options);
+  return Buffer.concat([parts.soi, parts.app, parts.sof, parts.sos, parts.entropy, parts.eoi]);
+}
+
+function portableSingleFileTarGzip(relativePath, buffer) {
+  return execFileSync("python3", ["-c", [
+    "import io,sys,tarfile",
+    "payload=sys.stdin.buffer.read()",
+    "output=io.BytesIO()",
+    "with tarfile.open(fileobj=output, mode='w:gz') as archive:",
+    " info=tarfile.TarInfo(sys.argv[1])",
+    " info.mode=0o644",
+    " info.mtime=0",
+    " info.size=len(payload)",
+    " archive.addfile(info, io.BytesIO(payload))",
+    "sys.stdout.buffer.write(output.getvalue())"
+  ].join("\n"), relativePath], {
+    input: buffer,
+    encoding: null,
+    maxBuffer: 1024 * 1024 * 1024,
+    timeout: TEST_CHILD_TIMEOUT_MS
+  });
 }
 
 function writeReviewedLegacyOfficeLock(root, buffer, {
@@ -519,7 +695,7 @@ function withReviewedLegacyParentConsoleReportGitShim(t, mutation, callback) {
   }
 }
 
-function withReviewedLegacyExactTextGitShim(t, entry, mutation, callback) {
+function withReviewedLegacyPinnedBlobGitShim(t, entry, mutation, callback) {
   const bin = fs.mkdtempSync(path.join(os.tmpdir(), "mais-reviewed-exact-text-git-"));
   t.after(() => fs.rmSync(bin, { recursive: true, force: true }));
   const realGit = execFileSync("which", ["git"], { encoding: "utf8", timeout: TEST_CHILD_TIMEOUT_MS }).trim();
@@ -574,6 +750,20 @@ function assertFixedReviewedLegacyTextError(callback, expected) {
     }
   }, expected);
   assert.doesNotMatch(error.message, /[0-9a-f]{40}|coordination\/|lib\/server\/|scripts\/|tests\/e2e\//iu);
+  return error;
+}
+
+function assertFixedReviewedLegacyJpegError(callback, expected) {
+  let error;
+  assert.throws(() => {
+    try {
+      callback();
+    } catch (caught) {
+      error = caught;
+      throw caught;
+    }
+  }, expected);
+  assert.doesNotMatch(error.message, /[0-9a-f]{40}|coordination\/|desktop-|mobile-|teacher-console|login-teacher/iu);
   return error;
 }
 
@@ -1951,7 +2141,7 @@ test("supplementary reviewed legacy current HEAD text rejects every wrong pinned
               ? /reviewed legacy current HEAD text Git blob integrity mismatch/i
               : /reviewed legacy current HEAD text metadata mismatch/i;
           assertFixedReviewedLegacyTextError(
-            () => withReviewedLegacyExactTextGitShim(t, entry, mutation, () => (
+            () => withReviewedLegacyPinnedBlobGitShim(t, entry, mutation, () => (
               scanCurrentBranchHeadTrackedPaths(repository, entry.revision, [entry.path])
             )),
             expected
@@ -1983,7 +2173,7 @@ test("supplementary reviewed legacy branch-base text rejects every wrong pinned 
               ? /reviewed legacy branch-base text Git blob integrity mismatch/i
               : /reviewed legacy branch-base text metadata mismatch/i;
           assertFixedReviewedLegacyTextError(
-            () => withReviewedLegacyExactTextGitShim(t, entry, mutation, () => (
+            () => withReviewedLegacyPinnedBlobGitShim(t, entry, mutation, () => (
               scanBranchBaseHistoricalTrackedPaths(repository, entry.revision, [entry.path])
             )),
             expected
@@ -2089,6 +2279,299 @@ test("supplementary reviewed legacy text registry preserves the b2cb parent-cons
     ),
     { scanned: 1, reviewed: 0 }
   );
+});
+
+test("supplementary JPEG-under-PNG registry matches all six pinned current-HEAD Git identities", async (t) => {
+  const {
+    scanBuffer,
+    scanCurrentBranchHeadTrackedPaths,
+    scanOpaqueRawSignatures
+  } = await import(libraryUrl);
+  const repository = maybeReviewedLegacyJpegUnderPngRepository();
+  if (repository === null) {
+    t.skip("reviewed legacy JPEG-under-PNG commit and blobs are not available in this clone");
+    return;
+  }
+  for (const entry of REVIEWED_LEGACY_CURRENT_HEAD_JPEG_UNDER_PNG_ENTRIES) {
+    await t.test(entry.path, () => {
+      assert.equal(
+        git(repository, "ls-tree", entry.revision, "--", entry.path),
+        `${entry.mode} ${entry.type} ${entry.objectId}\t${entry.path}`
+      );
+      const buffer = reviewedLegacyJpegUnderPngBytes(repository, entry);
+      assert.throws(
+        () => scanBuffer(buffer, { displayPath: `generic/${entry.path}` }),
+        /reviewed binary magic mismatch/i
+      );
+      assert.doesNotThrow(() => scanOpaqueRawSignatures(
+        buffer,
+        "reviewed-legacy-jpeg-under-png/content.jpeg"
+      ));
+      assert.deepEqual(
+        scanCurrentBranchHeadTrackedPaths(repository, entry.revision, [entry.path]),
+        { scanned: 1, reviewed: 1 }
+      );
+    });
+  }
+  assert.deepEqual(
+    scanCurrentBranchHeadTrackedPaths(
+      repository,
+      REVIEWED_LEGACY_CURRENT_HEAD_JPEG_UNDER_PNG_REVISION,
+      [
+        ...REVIEWED_LEGACY_CURRENT_HEAD_TEXT_ENTRIES.map((entry) => entry.path),
+        ...REVIEWED_LEGACY_CURRENT_HEAD_JPEG_UNDER_PNG_ENTRIES.map((entry) => entry.path)
+      ]
+    ),
+    { scanned: 19, reviewed: 6 }
+  );
+});
+
+test("supplementary JPEG-under-PNG parser and payload scanner stay private and reject opaque secrets", async () => {
+  const library = await import(libraryUrl);
+  const { scanBuffer, scanOpaqueRawSignatures } = library;
+  assert.equal("assertStructurallyValidJpegUnderPng" in library, false);
+  assert.equal("scanReviewedLegacyJpegUnderPngPayload" in library, false);
+
+  const parse = loadPrivateFunction("assertStructurallyValidJpegUnderPng");
+  assert.deepEqual(
+    parse(portableStructuredJpeg()),
+    { sofSegments: 1, sosSegments: 1, status: "passed" }
+  );
+  const parts = portableJpegParts();
+  assert.deepEqual(
+    parse(Buffer.concat([
+      parts.soi,
+      parts.app,
+      parts.sof,
+      parts.sos,
+      parts.entropy,
+      parts.sos,
+      parts.entropy,
+      parts.eoi
+    ])),
+    { sofSegments: 1, sosSegments: 2, status: "passed" }
+  );
+  assert.throws(
+    () => scanBuffer(portableStructuredJpeg(), { displayPath: "generic/portable.png" }),
+    /reviewed binary magic mismatch/i
+  );
+
+  const secret = `sk-${"Q".repeat(40)}`;
+  const privateKey = "-----BEGIN PRIVATE KEY-----";
+  for (const payload of [Buffer.from(secret), Buffer.from(privateKey)]) {
+    const buffer = portableStructuredJpeg({ appPayload: payload });
+    assert.deepEqual(parse(buffer), { sofSegments: 1, sosSegments: 1, status: "passed" });
+    let error;
+    assert.throws(() => {
+      try {
+        scanOpaqueRawSignatures(buffer, "reviewed-legacy-jpeg-under-png/content.jpeg");
+      } catch (caught) {
+        error = caught;
+        throw caught;
+      }
+    }, /high-confidence token|private-key header/i);
+    assert.doesNotMatch(error.message, /sk-Q|BEGIN PRIVATE KEY/u);
+  }
+
+  const source = fs.readFileSync(path.join(here, "evidence-archive-lib.mjs"), "utf8");
+  assert.match(source, /function assertStructurallyValidJpegUnderPng\(buffer\)/u);
+  assert.match(source, /function scanReviewedLegacyJpegUnderPngPayload\(buffer\)/u);
+  assert.match(source, /assertStructurallyValidJpegUnderPng\(buffer\)/u);
+  assert.match(source, /scanOpaqueRawSignatures\(buffer, REVIEWED_LEGACY_JPEG_UNDER_PNG_DISPLAY_PATH\)/u);
+});
+
+test("supplementary JPEG-under-PNG parser rejects malformed marker, frame, scan, and terminal structure", async (t) => {
+  const parse = loadPrivateFunction("assertStructurallyValidJpegUnderPng");
+  const parts = portableJpegParts();
+  const malformedSofCount = jpegSegment(0xc0, Buffer.from([
+    0x08,
+    0x00, 0x01,
+    0x00, 0x01,
+    0x02,
+    0x01, 0x11, 0x00
+  ]));
+  const zeroHeightSof = jpegSegment(0xc0, Buffer.from([
+    0x08,
+    0x00, 0x00,
+    0x00, 0x01,
+    0x01,
+    0x01, 0x11, 0x00
+  ]));
+  const malformedSosCount = jpegSegment(0xda, Buffer.from([
+    0x02,
+    0x01, 0x00,
+    0x00, 0x3f, 0x00
+  ]));
+  const cases = [
+    ["non-Buffer", "not-a-buffer", /payload must be a Buffer/i],
+    ["missing SOI", Buffer.from([0x00, 0x00, 0xff, 0xd9]), /missing SOI marker/i],
+    ["truncated after SOI", parts.soi, /missing EOI marker/i],
+    ["marker prefix", Buffer.concat([parts.soi, Buffer.from([0x11]), parts.eoi]), /marker prefix/i],
+    ["segment length below two", Buffer.concat([parts.soi, Buffer.from([0xff, 0xe0, 0x00, 0x01]), parts.eoi]), /segment length is invalid/i],
+    ["segment overrun", Buffer.concat([parts.soi, Buffer.from([0xff, 0xe0, 0x00, 0x10, 0x00]), parts.eoi]), /segment exceeds payload/i],
+    ["missing SOF", Buffer.concat([parts.soi, parts.app, parts.eoi]), /missing SOF marker/i],
+    ["malformed SOF component count", Buffer.concat([parts.soi, parts.app, malformedSofCount, parts.eoi]), /SOF segment length mismatch/i],
+    ["zero frame dimensions", Buffer.concat([parts.soi, parts.app, zeroHeightSof, parts.eoi]), /SOF dimensions are invalid/i],
+    ["missing SOS", Buffer.concat([parts.soi, parts.app, parts.sof, parts.eoi]), /missing SOS marker/i],
+    ["malformed SOS component count", Buffer.concat([parts.soi, parts.app, parts.sof, malformedSosCount, parts.eoi]), /SOS segment length mismatch/i],
+    ["SOS before SOF", Buffer.concat([parts.soi, parts.app, parts.sos, parts.sof, parts.eoi]), /SOS precedes SOF/i],
+    ["missing EOI", Buffer.concat([parts.soi, parts.app, parts.sof, parts.sos, parts.entropy]), /missing EOI marker/i],
+    ["trailing bytes", Buffer.concat([portableStructuredJpeg(), Buffer.from([0x00])]), /EOI marker is not terminal/i],
+    ["second SOI", Buffer.concat([parts.soi, parts.app, parts.soi, parts.eoi]), /unexpected SOI marker/i],
+    ["restart outside entropy", Buffer.concat([parts.soi, Buffer.from([0xff, 0xd0]), parts.eoi]), /restart marker outside entropy/i],
+    ["stuffed byte outside entropy", Buffer.concat([parts.soi, Buffer.from([0xff, 0x00]), parts.eoi]), /stuffed byte outside entropy/i],
+    ["dangling entropy marker", Buffer.concat([parts.soi, parts.app, parts.sof, parts.sos, Buffer.from([0x11, 0xff])]), /dangling entropy marker/i]
+  ];
+  for (const [name, buffer, expected] of cases) {
+    await t.test(name, () => {
+      let error;
+      assert.throws(() => {
+        try {
+          parse(buffer);
+        } catch (caught) {
+          error = caught;
+          throw caught;
+        }
+      }, expected);
+      assert.doesNotMatch(error.message, /not-a-buffer|portable-jpeg|coordination\/|sk-/iu);
+    });
+  }
+});
+
+test("supplementary JPEG-under-PNG registry rejects every wrong pinned identity field with fixed errors", async (t) => {
+  const { scanCurrentBranchHeadTrackedPaths } = await import(libraryUrl);
+  const repository = maybeReviewedLegacyJpegUnderPngRepository();
+  if (repository === null) {
+    t.skip("reviewed legacy JPEG-under-PNG commit and blobs are not available in this clone");
+    return;
+  }
+  for (const entry of REVIEWED_LEGACY_CURRENT_HEAD_JPEG_UNDER_PNG_ENTRIES) {
+    await t.test(entry.path, async (t) => {
+      assertFixedReviewedLegacyJpegError(
+        () => scanCurrentBranchHeadTrackedPaths(repository, "0".repeat(40), [entry.path]),
+        /reviewed legacy JPEG-under-PNG is restricted to its pinned current branch HEAD/i
+      );
+      for (const mutation of ["path", "mode", "type", "object", "missing", "bytes", "size"]) {
+        await t.test(mutation, () => {
+          const expected = mutation === "path" || mutation === "missing"
+            ? /reviewed legacy JPEG-under-PNG Git blob is missing/i
+            : mutation === "bytes" || mutation === "size"
+              ? /reviewed legacy JPEG-under-PNG Git blob integrity mismatch/i
+              : /reviewed legacy JPEG-under-PNG metadata mismatch/i;
+          assertFixedReviewedLegacyJpegError(
+            () => withReviewedLegacyPinnedBlobGitShim(t, entry, mutation, () => (
+              scanCurrentBranchHeadTrackedPaths(repository, entry.revision, [entry.path])
+            )),
+            expected
+          );
+        });
+      }
+    });
+  }
+});
+
+test("supplementary JPEG-under-PNG allowance does not leak into historical, index, worktree, untracked, copied, or tar scopes", async (t) => {
+  const {
+    buildInventory,
+    collectWorktreeSnapshot,
+    scanBranchBaseHistoricalTrackedPaths,
+    scanCurrentBranchHeadTrackedPaths,
+    verifyTarPayload
+  } = await import(libraryUrl);
+  const entry = REVIEWED_LEGACY_CURRENT_HEAD_JPEG_UNDER_PNG_ENTRIES[0];
+  const buffer = portableStructuredJpeg();
+  const expectedGenericRejection = /reviewed binary magic mismatch/i;
+
+  assertFixedReviewedLegacyJpegError(
+    () => scanCurrentBranchHeadTrackedPaths(process.cwd(), "0".repeat(40), [entry.path]),
+    /reviewed legacy JPEG-under-PNG is restricted to its pinned current branch HEAD/i
+  );
+
+  const historicalFixture = makeFixture();
+  t.after(() => fs.rmSync(historicalFixture.parent, { recursive: true, force: true }));
+  const historicalPath = path.join(historicalFixture.repo, entry.path);
+  fs.mkdirSync(path.dirname(historicalPath), { recursive: true });
+  fs.writeFileSync(historicalPath, buffer);
+  git(historicalFixture.repo, "add", "--", entry.path);
+  git(historicalFixture.repo, "commit", "-m", "portable historical JPEG-under-PNG fixture");
+  assert.throws(
+    () => scanBranchBaseHistoricalTrackedPaths(
+      historicalFixture.repo,
+      git(historicalFixture.repo, "rev-parse", "HEAD"),
+      [entry.path]
+    ),
+    expectedGenericRejection
+  );
+
+  const untrackedFixture = makeFixture();
+  t.after(() => fs.rmSync(untrackedFixture.parent, { recursive: true, force: true }));
+  const untrackedPath = path.join(untrackedFixture.linked, entry.path);
+  fs.mkdirSync(path.dirname(untrackedPath), { recursive: true });
+  fs.writeFileSync(untrackedPath, buffer);
+  assert.throws(
+    () => buildInventory(untrackedFixture.linked, [entry.path]),
+    expectedGenericRejection
+  );
+
+  const indexFixture = makeFixture();
+  t.after(() => fs.rmSync(indexFixture.parent, { recursive: true, force: true }));
+  const indexPath = path.join(indexFixture.linked, entry.path);
+  fs.mkdirSync(path.dirname(indexPath), { recursive: true });
+  fs.writeFileSync(indexPath, buffer);
+  git(indexFixture.linked, "add", "--", entry.path);
+  assert.throws(
+    () => collectWorktreeSnapshot(fixtureLinkedWorktree(indexFixture), { includeTar: false }),
+    expectedGenericRejection
+  );
+
+  const worktreeFixture = makeFixture();
+  t.after(() => fs.rmSync(worktreeFixture.parent, { recursive: true, force: true }));
+  const worktreePath = path.join(worktreeFixture.repo, entry.path);
+  const safePng = Buffer.from([0x89, 0x50, 0x4e, 0x47, 0x0d, 0x0a, 0x1a, 0x0a, 0x00]);
+  fs.mkdirSync(path.dirname(worktreePath), { recursive: true });
+  fs.writeFileSync(worktreePath, safePng);
+  git(worktreeFixture.repo, "add", "--", entry.path);
+  git(worktreeFixture.repo, "commit", "-m", "safe PNG baseline");
+  git(worktreeFixture.linked, "merge", "--ff-only", "main");
+  fs.writeFileSync(path.join(worktreeFixture.linked, entry.path), buffer);
+  assert.throws(
+    () => collectWorktreeSnapshot(fixtureLinkedWorktree(worktreeFixture), { includeTar: false }),
+    expectedGenericRejection
+  );
+
+  const copiedFixture = makeFixture();
+  t.after(() => fs.rmSync(copiedFixture.parent, { recursive: true, force: true }));
+  const copiedPath = `copied/${path.basename(entry.path)}`;
+  const copiedAbsolutePath = path.join(copiedFixture.linked, copiedPath);
+  fs.mkdirSync(path.dirname(copiedAbsolutePath), { recursive: true });
+  fs.writeFileSync(copiedAbsolutePath, buffer);
+  assert.throws(
+    () => buildInventory(copiedFixture.linked, [copiedPath]),
+    expectedGenericRejection
+  );
+
+  const inventory = Object.freeze({
+    mode: 0o644,
+    path: entry.path,
+    sha256: crypto.createHash("sha256").update(buffer).digest("hex"),
+    size: buffer.length,
+    type: "file"
+  });
+  const failures = [];
+  verifyTarPayload(
+    portableSingleFileTarGzip(entry.path, buffer),
+    [inventory],
+    "portable JPEG-under-PNG tar",
+    failures
+  );
+  assert.ok(failures.some((failure) => expectedGenericRejection.test(failure)), failures.join("\n"));
+});
+
+test("supplementary JPEG-under-PNG registry uses a purpose revision and prototype-safe Map lookup", async () => {
+  const source = fs.readFileSync(path.join(here, "evidence-archive-lib.mjs"), "utf8");
+  assert.match(source, /const REVIEWED_LEGACY_CURRENT_HEAD_JPEG_UNDER_PNG_REVISION = "ec22a29b55a4329e81d96e02417f8925ccec54c3";/u);
+  assert.match(source, /const REVIEWED_LEGACY_CURRENT_HEAD_JPEG_UNDER_PNG_BY_PATH = new Map\(/u);
+  assert.match(source, /REVIEWED_LEGACY_CURRENT_HEAD_JPEG_UNDER_PNG_BY_PATH\.get\(relativePath\) \?\? null/u);
 });
 
 test("supplementary pinned terminal patch integration rejects wrong HEAD mode and object", async (t) => {
