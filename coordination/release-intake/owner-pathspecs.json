@@ -76,7 +76,9 @@
         "scripts/deploy-vercel-*.mjs",
         "scripts/prepare-vercel-staging.mjs",
         "scripts/cleanup-generated-artifacts.mjs",
+        "scripts/cleanup-generated-artifacts.test.mjs",
         "scripts/next-clean-build.mjs",
+        "scripts/next-clean-build.test.mjs",
         "scripts/resend-local-smoke.mjs"
       ]
     },
@@ -487,6 +489,11 @@
     { "path": "coordination/release-intake/assert-release-source-clean.mjs", "expectedOwner": "A22" },
     { "path": "coordination/release-intake/assert-worktree-lifecycle.mjs", "expectedOwner": "A22" },
     { "path": "scripts/release-env-guard.mjs", "expectedOwner": "A22" },
+    { "path": "scripts/cleanup-generated-artifacts.mjs", "expectedOwner": "A22" },
+    { "path": "scripts/cleanup-generated-artifacts.test.mjs", "expectedOwner": "A22" },
+    { "path": "scripts/next-clean-build.mjs", "expectedOwner": "A22" },
+    { "path": "scripts/next-clean-build.test.mjs", "expectedOwner": "A22" },
+    { "path": "scripts/unrelated-release-helper.test.mjs", "expectedOwner": "A10" },
     { "path": "scripts/bug-triage.js", "expectedOwner": "A10" },
     { "path": "package-lock.json", "expectedOwner": "A10" },
     { "path": "app/api/ai-tutor/route.ts", "expectedOwner": "A07" },

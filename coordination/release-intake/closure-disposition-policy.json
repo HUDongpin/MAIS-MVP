@@ -1,0 +1,93 @@
+{
+  "version": 1,
+  "authorization": "Owner-authorized preserve-first seven-step closure with external evidence rebuild.",
+  "humanInputPaths": [
+    "coordination/release-intake/closure-disposition-policy.json",
+    "coordination/release-intake/generate-closure-disposition-manifest.mjs",
+    "coordination/release-intake/assert-closure-disposition-manifest-current.mjs",
+    "coordination/release-intake/generate-closure-disposition-manifest.test.mjs",
+    "coordination/release-intake/owner-pathspecs.json",
+    "coordination/release-intake/owner-package-manifest.json"
+  ],
+  "externalEvidence": {
+    "archivePrefixes": [
+      "coordination/release-intake/archive/"
+    ],
+    "evidenceDirectoryPatterns": [
+      "^coordination/release-intake/[0-9]{4}-[0-9]{2}-[0-9]{2}-A25-(?:branch|worktree)-evidence-[^/]+/"
+    ],
+    "latestPattern": "^coordination/release-intake/latest-.*\\.(?:json|md|pathspec)$",
+    "dirtyMapPattern": "^coordination/release-intake/[0-9]{4}-[0-9]{2}-[0-9]{2}-(?:A25|S25)-dirty-tree-map-.*\\.(?:json|md)$",
+    "repeatedSelectionPattern": "^coordination/release-intake/[0-9]{4}-[0-9]{2}-[0-9]{2}-A25-dirty-worktree-final-state-(?:blocker-selection|owner-approved-selection)\\.(?:json|md)$",
+    "rawSuffixes": [
+      ".pathspec",
+      ".patch",
+      ".tar",
+      ".tar-list"
+    ],
+    "officeLockPattern": "(?:^|/)(?:\\.~lock\\.[^/]+#|\\.~[^/]+\\.(?:docx|xlsx|pptx)|~\\$[^/]+\\.(?:docx|xlsx|pptx))$",
+    "datedLatestPairs": true
+  },
+  "externalPackage": {
+    "packageId": "P8-external-generated-evidence",
+    "wave": "P8",
+    "finalState": "evidence archive"
+  },
+  "packageAssignments": [
+    { "sourcePackageId": "A01-app-shell", "packageId": "P3-A01-app-shell", "wave": "P3", "finalState": "reviewed commit" },
+    { "sourcePackageId": "A02-dashboard", "packageId": "P3-A02-dashboard", "wave": "P3", "finalState": "reviewed commit" },
+    { "sourcePackageId": "A03-roadmap", "packageId": "P3-A03-roadmap", "wave": "P3", "finalState": "reviewed commit" },
+    { "sourcePackageId": "A04-hjb-question-localization", "packageId": "P3-A04-hjb-question-localization", "wave": "P3", "finalState": "reviewed commit" },
+    { "sourcePackageId": "A04-practice", "packageId": "P3-A04-practice", "wave": "P3", "finalState": "reviewed commit" },
+    { "sourcePackageId": "A05-lessons", "packageId": "P3-A05-lessons", "wave": "P3", "finalState": "reviewed commit" },
+    { "sourcePackageId": "A06-visualization-runtime", "packageId": "P5-A06-visualization-runtime", "wave": "P5", "finalState": "reviewed commit" },
+    { "sourcePackageId": "A07-ai-tutor", "packageId": "P3-A07-ai-tutor", "wave": "P3", "finalState": "reviewed commit" },
+    { "sourcePackageId": "A08-shared-state-types", "packageId": "P2-A08-shared-state-types", "wave": "P2", "finalState": "reviewed commit" },
+    { "sourcePackageId": "A09-copy-i18n-accessibility", "packageId": "P3-A09-copy-i18n-accessibility", "wave": "P3", "finalState": "reviewed commit" },
+    { "sourcePackageId": "A10-competitive-analysis-report", "packageId": "P8-A10-competitive-analysis-report", "wave": "P8", "finalState": "reviewed commit" },
+    { "sourcePackageId": "A10-tooling-docs-config", "packageId": "P8-A10-tooling-docs-source", "wave": "P8", "finalState": "reviewed commit" },
+    { "sourcePackageId": "A11-regression-evidence", "packageId": "P7-A11-regression-evidence", "wave": "P7", "finalState": "reviewed commit" },
+    { "sourcePackageId": "A11-teacher-console-qa-report", "packageId": "P7-A11-teacher-console-qa-report", "wave": "P7", "finalState": "reviewed commit" },
+    { "sourcePackageId": "A12-backend-api-storage", "packageId": "P2-A12-backend-api-storage", "wave": "P2", "finalState": "reviewed commit" },
+    { "sourcePackageId": "A13-teacher-console", "packageId": "P4-A13-teacher-console", "wave": "P4", "finalState": "reviewed commit" },
+    { "sourcePackageId": "A14-parent-console", "packageId": "P4-A14-parent-console", "wave": "P4", "finalState": "reviewed commit" },
+    { "sourcePackageId": "A15-adaptive-engine", "packageId": "P3-A15-adaptive-engine", "wave": "P3", "finalState": "reviewed commit" },
+    { "sourcePackageId": "A17-gamification", "packageId": "P3-A17-gamification", "wave": "P3", "finalState": "reviewed commit" },
+    { "sourcePackageId": "A18-california-content-qa-report", "packageId": "P6-A18-california-content-qa-report", "wave": "P6", "finalState": "reviewed commit" },
+    { "sourcePackageId": "A18-content-qa", "packageId": "P6-A18-content-qa", "wave": "P6", "finalState": "reviewed commit" },
+    { "sourcePackageId": "A19-api-environment-contract", "packageId": "P1-A19-api-environment-contract", "wave": "P1", "finalState": "reviewed commit" },
+    { "sourcePackageId": "A20-game-based-learning", "packageId": "P3-A20-game-based-learning", "wave": "P3", "finalState": "reviewed commit" },
+    { "sourcePackageId": "A21-content-rag-candidates", "packageId": "P6-A21-content-rag-candidates", "wave": "P6", "finalState": "reviewed commit" },
+    {
+      "sourcePackageId": "A22-release-hygiene-tooling",
+      "includePaths": [
+        "scripts/cleanup-generated-artifacts.mjs",
+        "scripts/cleanup-generated-artifacts.test.mjs",
+        "scripts/next-clean-build.mjs",
+        "scripts/next-clean-build.test.mjs"
+      ],
+      "packageId": "P1-A22-cleanup-build-helpers",
+      "wave": "P1",
+      "finalState": "reviewed commit"
+    },
+    {
+      "sourcePackageId": "A22-release-hygiene-tooling",
+      "excludePaths": [
+        "scripts/cleanup-generated-artifacts.mjs",
+        "scripts/cleanup-generated-artifacts.test.mjs",
+        "scripts/next-clean-build.mjs",
+        "scripts/next-clean-build.test.mjs"
+      ],
+      "packageId": "P1-A22-release-hygiene-held",
+      "wave": "P1",
+      "finalState": "blocker report"
+    },
+    { "sourcePackageId": "A23-promotion-gate", "packageId": "P6-A23-promotion-gate", "wave": "P6", "finalState": "reviewed commit" },
+    { "sourcePackageId": "A24-content-exact-layer", "packageId": "P6-A24-content-exact-layer", "wave": "P6", "finalState": "reviewed commit" },
+    { "sourcePackageId": "A24-question-figure-source-contract", "packageId": "P3-A24-question-figure-source-contract", "wave": "P3", "finalState": "reviewed commit" },
+    { "sourcePackageId": "A24-question-figure-test-contract", "packageId": "P3-A24-question-figure-test-contract", "wave": "P3", "finalState": "reviewed commit" },
+    { "sourcePackageId": "A25-A22-external-evidence-archive", "packageId": "P1-A25-A22-external-evidence-archive", "wave": "P1", "finalState": "reviewed commit" },
+    { "sourcePackageId": "A25-release-intake", "packageId": "P8-A25-closure-governance-source", "wave": "P8", "finalState": "reviewed commit" },
+    { "sourcePackageId": "local-generated-quarantine", "packageId": "P8-local-generated-quarantine", "wave": "P8", "finalState": "blocker report" }
+  ]
+}

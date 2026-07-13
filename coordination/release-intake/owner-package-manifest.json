@@ -37,6 +37,10 @@
       "owner": "A25/A10",
       "objective": "Freeze owner pathspecs, strict dirty-map ownership, package final states, and pathspec-only staging.",
       "pathspecs": [
+        "coordination/release-intake/closure-disposition-policy.json",
+        "coordination/release-intake/generate-closure-disposition-manifest.mjs",
+        "coordination/release-intake/assert-closure-disposition-manifest-current.mjs",
+        "coordination/release-intake/generate-closure-disposition-manifest.test.mjs",
         "coordination/release-intake/owner-pathspecs.json",
         "coordination/release-intake/owner-package-manifest.json",
         "scripts/refresh-dirty-tree-map.mjs",
@@ -46,6 +50,7 @@
         "AGENTS.md"
       ],
       "checks": [
+        "node --test coordination/release-intake/generate-closure-disposition-manifest.test.mjs",
         "npm run test:release-governance",
         "npm run release:package-gate -- --json",
         "npm run release:dirty-map -- --assert-current --max-age-minutes 60"
@@ -62,6 +67,10 @@
         "coordination/release-intake/assert-release-source-clean.mjs",
         "coordination/release-intake/assert-worktree-lifecycle.mjs",
         "scripts/release-env-guard.mjs",
+        "scripts/cleanup-generated-artifacts.mjs",
+        "scripts/cleanup-generated-artifacts.test.mjs",
+        "scripts/next-clean-build.mjs",
+        "scripts/next-clean-build.test.mjs",
         "package.json",
         "package-lock.json",
         "next.config.ts"

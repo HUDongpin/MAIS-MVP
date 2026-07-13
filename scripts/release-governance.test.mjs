@@ -1548,6 +1548,10 @@ test("default package gate and exact owner mappings are valid", async () => {
   assertOwnerMapping(pathspecManifest, ".claude/launch.json", "A22", ["A10", "A11"]);
   assertOwnerMapping(pathspecManifest, "scripts/dev-isolated.mjs", "A22", ["A10", "A11"]);
   assertOwnerMapping(pathspecManifest, "scripts/kill-port.mjs", "A22", ["A10", "A11"]);
+  assertOwnerMapping(pathspecManifest, "scripts/cleanup-generated-artifacts.mjs", "A22", ["A10", "A11"]);
+  assertOwnerMapping(pathspecManifest, "scripts/cleanup-generated-artifacts.test.mjs", "A22", ["A10", "A11"]);
+  assertOwnerMapping(pathspecManifest, "scripts/next-clean-build.mjs", "A22", ["A10", "A11"]);
+  assertOwnerMapping(pathspecManifest, "scripts/next-clean-build.test.mjs", "A22", ["A10", "A11"]);
   assertOwnerMapping(pathspecManifest, "coordination/release-intake/assert-release-source-clean.mjs", "A22", ["A10", "A25"]);
   assertOwnerMapping(pathspecManifest, "coordination/release-intake/assert-worktree-lifecycle.mjs", "A22", ["A10", "A25"]);
   assertOwnerMapping(pathspecManifest, "MAIS_Competitive_Analysis_K12_Math.docx", "A10", ["A16"]);
@@ -1562,6 +1566,17 @@ test("default package gate and exact owner mappings are valid", async () => {
   const nextConfigReleasePackage = packageWithExactPathspec(packageManifest, "next.config.ts");
   assert.ok(nextConfigReleasePackage, "next.config.ts must be explicit in the P0 release-hygiene package");
   assert.equal(nextConfigReleasePackage.id, "foundation-release-hygiene-A22-A10");
+
+  for (const helperPath of [
+    "scripts/cleanup-generated-artifacts.mjs",
+    "scripts/cleanup-generated-artifacts.test.mjs",
+    "scripts/next-clean-build.mjs",
+    "scripts/next-clean-build.test.mjs"
+  ]) {
+    const helperPackage = packageWithExactPathspec(packageManifest, helperPath);
+    assert.ok(helperPackage, `${helperPath} must be explicit in the joint A22/A10 release-hygiene package`);
+    assert.equal(helperPackage.id, "foundation-release-hygiene-A22-A10");
+  }
 
   const evidencePackage = packageManifest.packages.find((pkg) => pkg.id === "external-worktree-evidence-A25-A22");
   assert.ok(evidencePackage, "external worktree evidence package must remain explicit");
@@ -1607,6 +1622,11 @@ test("shared owner resolver selects one most-specific owner across overlapping p
     ["coordination/release-intake/assert-release-source-clean.mjs", "A22"],
     ["coordination/release-intake/assert-worktree-lifecycle.mjs", "A22"],
     ["scripts/release-env-guard.mjs", "A22"],
+    ["scripts/cleanup-generated-artifacts.mjs", "A22"],
+    ["scripts/cleanup-generated-artifacts.test.mjs", "A22"],
+    ["scripts/next-clean-build.mjs", "A22"],
+    ["scripts/next-clean-build.test.mjs", "A22"],
+    ["scripts/unrelated-release-helper.test.mjs", "A10"],
     ["scripts/bug-triage.js", "A10"],
     ["app/api/ai-tutor/route.ts", "A07"],
     ["app/api/adaptive-learning/route.ts", "A15"],
