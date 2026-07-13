@@ -1,12 +1,15 @@
 from __future__ import annotations
 
 import importlib.util
+import re
 import sys
 import tempfile
 import unittest
+import warnings
 import zipfile
 from collections import Counter
-from pathlib import Path
+from pathlib import Path, PurePosixPath
+from urllib.parse import unquote, urlsplit
 
 from docx import Document
 from lxml import etree
@@ -16,62 +19,471 @@ HERE = Path(__file__).resolve().parent
 PROJECT_ROOT = HERE.parents[2]
 BUILDER_PATH = HERE / "build_california_k5_content_qa_template.py"
 HANDOFF_PATH = HERE / "MAIS_CA-Math_K-5_Content_QA_Template.docx"
+RELATIONSHIPS_NAMESPACE = "http://schemas.openxmlformats.org/package/2006/relationships"
+CONTENT_TYPES_NAMESPACE = "http://schemas.openxmlformats.org/package/2006/content-types"
+THUMBNAIL_RELATIONSHIP_TYPE = (
+    "http://schemas.openxmlformats.org/package/2006/relationships/metadata/thumbnail"
+)
+CUSTOM_PROPERTIES_RELATIONSHIP_TYPE = (
+    "http://schemas.openxmlformats.org/officeDocument/2006/relationships/custom-properties"
+)
+CUSTOM_PROPERTIES_CONTENT_TYPE = (
+    "application/vnd.openxmlformats-officedocument.custom-properties+xml"
+)
+WORD_NAMESPACE = "http://schemas.openxmlformats.org/wordprocessingml/2006/main"
 
 
-class HandoffArtifactTests(unittest.TestCase):
-    def test_handoff_artifact_has_scanner_safe_ooxml_metadata(self):
-        word_namespace = "http://schemas.openxmlformats.org/wordprocessingml/2006/main"
+def _require_package_contract(condition, message):
+    if not condition:
+        raise AssertionError(message)
+
+
+def _resolve_internal_package_target(target, target_mode):
+    _require_package_contract(
+        (target_mode or "Internal").casefold() == "internal",
+        "Thumbnail relationship must be internal",
+    )
+    parsed = urlsplit(target or "")
+    _require_package_contract(
+        not any((parsed.scheme, parsed.netloc, parsed.query, parsed.fragment)),
+        "Thumbnail relationship target must be an in-package part",
+    )
+    decoded_path = unquote(parsed.path)
+    _require_package_contract(
+        decoded_path and "\\" not in decoded_path and "\x00" not in decoded_path,
+        "Thumbnail relationship target is invalid",
+    )
+    package_path = decoded_path[1:] if decoded_path.startswith("/") else decoded_path
+    segments = package_path.split("/")
+    _require_package_contract(
+        all(segment not in ("", ".", "..") for segment in segments),
+        "Thumbnail relationship target escapes or ambiguously names the package",
+    )
+    return "/".join(segments)
+
+
+def _resolve_content_type(content_types_root, member_name):
+    defaults = content_types_root.findall(
+        f"{{{CONTENT_TYPES_NAMESPACE}}}Default"
+    )
+    overrides = content_types_root.findall(
+        f"{{{CONTENT_TYPES_NAMESPACE}}}Override"
+    )
+    _require_package_contract(
+        not any(
+            (element.get("ContentType") or "").casefold()
+            == CUSTOM_PROPERTIES_CONTENT_TYPE.casefold()
+            for element in defaults + overrides
+        ),
+        "Custom-properties content type is not allowed",
+    )
+
+    matching_overrides = [
+        element
+        for element in overrides
+        if element.get("PartName") == f"/{member_name}"
+    ]
+    _require_package_contract(
+        len(matching_overrides) <= 1,
+        "Thumbnail part has duplicate content-type overrides",
+    )
+    if matching_overrides:
+        return matching_overrides[0].get("ContentType") or ""
+
+    extension = PurePosixPath(member_name).suffix.removeprefix(".").casefold()
+    matching_defaults = [
+        element
+        for element in defaults
+        if (element.get("Extension") or "").casefold() == extension
+    ]
+    _require_package_contract(
+        len(matching_defaults) == 1,
+        "Thumbnail content type must resolve through one package default",
+    )
+    return matching_defaults[0].get("ContentType") or ""
+
+
+def assert_scanner_safe_handoff_package(path):
+    with zipfile.ZipFile(path) as archive:
+        member_names = [member.filename for member in archive.infolist()]
+        member_counts = Counter(member_names)
+        _require_package_contract(
+            all(count == 1 for count in member_counts.values()),
+            "OOXML package must not contain duplicate member entries",
+        )
+        _require_package_contract(
+            not any(PurePosixPath(name).suffix.casefold() == ".emf" for name in member_names),
+            "OOXML package must not contain EMF members",
+        )
+        _require_package_contract(
+            not any(name.casefold() == "docprops/custom.xml" for name in member_names),
+            "Conventional custom-properties member is not allowed",
+        )
+
+        for required_member in (
+            "[Content_Types].xml",
+            "_rels/.rels",
+            "docProps/core.xml",
+            "word/document.xml",
+        ):
+            _require_package_contract(
+                member_counts[required_member] == 1,
+                f"Required OOXML package member is missing: {required_member}",
+            )
+
+        relationships = etree.fromstring(archive.read("_rels/.rels"))
+        relationship_elements = relationships.findall(
+            f"{{{RELATIONSHIPS_NAMESPACE}}}Relationship"
+        )
+        _require_package_contract(
+            not any(
+                (relationship.get("Type") or "")
+                == CUSTOM_PROPERTIES_RELATIONSHIP_TYPE
+                for relationship in relationship_elements
+            ),
+            "Custom-properties relationship is not allowed",
+        )
+        thumbnail_relationships = [
+            relationship
+            for relationship in relationship_elements
+            if (relationship.get("Type") or "") == THUMBNAIL_RELATIONSHIP_TYPE
+        ]
+        _require_package_contract(
+            len(thumbnail_relationships) == 1,
+            "OOXML package must contain exactly one thumbnail relationship",
+        )
+        thumbnail_relationship = thumbnail_relationships[0]
+        thumbnail_member = _resolve_internal_package_target(
+            thumbnail_relationship.get("Target") or "",
+            thumbnail_relationship.get("TargetMode"),
+        )
+        _require_package_contract(
+            member_counts[thumbnail_member] == 1,
+            "Thumbnail relationship must resolve to exactly one package member",
+        )
+        _require_package_contract(
+            PurePosixPath(thumbnail_member).suffix.casefold() in (".jpg", ".jpeg"),
+            "Thumbnail package member must use a JPEG extension",
+        )
+
+        content_types = etree.fromstring(archive.read("[Content_Types].xml"))
+        resolved_content_type = _resolve_content_type(content_types, thumbnail_member)
+        _require_package_contract(
+            resolved_content_type.casefold() == "image/jpeg",
+            "Thumbnail package member must resolve to image/jpeg",
+        )
+        _require_package_contract(
+            archive.read(thumbnail_member).startswith(b"\xff\xd8\xff"),
+            "Thumbnail package member must have JPEG magic",
+        )
+
+        core = etree.fromstring(archive.read("docProps/core.xml"))
+        core_namespaces = {
+            "cp": "http://schemas.openxmlformats.org/package/2006/metadata/core-properties",
+            "dc": "http://purl.org/dc/elements/1.1/",
+        }
+        creator = core.xpath("string(dc:creator)", namespaces=core_namespaces).strip()
+        last_modified_by = core.xpath(
+            "string(cp:lastModifiedBy)", namespaces=core_namespaces
+        ).strip()
+        _require_package_contract(
+            creator in ("", "MAIS"), "Core creator must be blank or MAIS"
+        )
+        _require_package_contract(
+            last_modified_by in ("", "MAIS"),
+            "Core lastModifiedBy must be blank or MAIS",
+        )
+
         story_parts = {
             "word/document.xml",
             "word/footnotes.xml",
             "word/endnotes.xml",
             "word/comments.xml",
         }
-
-        with zipfile.ZipFile(HANDOFF_PATH) as archive:
-            names = set(archive.namelist())
-            self.assertNotIn("docProps/thumbnail.emf", names)
-            jpeg_names = names & {
-                "docProps/thumbnail.jpeg",
-                "docProps/thumbnail.jpg",
-            }
-            self.assertEqual(1, len(jpeg_names))
-            jpeg_payload = archive.read(jpeg_names.pop())
-            self.assertTrue(jpeg_payload.startswith(b"\xff\xd8\xff"))
-            self.assertNotIn("docProps/custom.xml", names)
-
-            core = etree.fromstring(archive.read("docProps/core.xml"))
-            core_namespaces = {
-                "cp": "http://schemas.openxmlformats.org/package/2006/metadata/core-properties",
-                "dc": "http://purl.org/dc/elements/1.1/",
-            }
-            creator = core.xpath("string(dc:creator)", namespaces=core_namespaces).strip()
-            last_modified_by = core.xpath(
-                "string(cp:lastModifiedBy)", namespaces=core_namespaces
-            ).strip()
-            self.assertTrue(creator in ("", "MAIS"), "Core creator must be blank or MAIS")
-            self.assertTrue(
-                last_modified_by in ("", "MAIS"),
-                "Core lastModifiedBy must be blank or MAIS",
+        story_parts.update(
+            name
+            for name in member_names
+            if re.fullmatch(r"word/(?:header|footer)\d+\.xml", name)
+        )
+        for story_part in sorted(story_parts & member_counts.keys()):
+            root = etree.fromstring(archive.read(story_part))
+            has_revision_attribute = any(
+                etree.QName(attribute_name).namespace == WORD_NAMESPACE
+                and etree.QName(attribute_name).localname.startswith("rsid")
+                for element in root.iter()
+                for attribute_name in element.attrib
+            )
+            _require_package_contract(
+                not has_revision_attribute,
+                f"Word story part contains revision-session attributes: {story_part}",
             )
 
-            story_parts.update(
-                name
-                for name in names
-                if name.startswith("word/header") or name.startswith("word/footer")
+
+class HandoffArtifactTests(unittest.TestCase):
+    def test_handoff_artifact_has_scanner_safe_ooxml_metadata(self):
+        assert_scanner_safe_handoff_package(HANDOFF_PATH)
+
+
+class CraftedHandoffPackageTests(unittest.TestCase):
+    JPEG_PAYLOAD = b"\xff\xd8\xffscanner-supported-jpeg"
+
+    def setUp(self):
+        self.temp_dir = tempfile.TemporaryDirectory(prefix="california_k5_opc_gate_")
+
+    def tearDown(self):
+        self.temp_dir.cleanup()
+
+    def _base_entries(self):
+        relationships = etree.Element(
+            f"{{{RELATIONSHIPS_NAMESPACE}}}Relationships",
+            nsmap={None: RELATIONSHIPS_NAMESPACE},
+        )
+        etree.SubElement(
+            relationships,
+            f"{{{RELATIONSHIPS_NAMESPACE}}}Relationship",
+            Id="rIdThumbnail",
+            Type=THUMBNAIL_RELATIONSHIP_TYPE,
+            Target="docProps/thumbnail.jpeg",
+        )
+
+        content_types = etree.Element(
+            f"{{{CONTENT_TYPES_NAMESPACE}}}Types",
+            nsmap={None: CONTENT_TYPES_NAMESPACE},
+        )
+        etree.SubElement(
+            content_types,
+            f"{{{CONTENT_TYPES_NAMESPACE}}}Default",
+            Extension="jpeg",
+            ContentType="image/jpeg",
+        )
+        etree.SubElement(
+            content_types,
+            f"{{{CONTENT_TYPES_NAMESPACE}}}Default",
+            Extension="jpg",
+            ContentType="image/jpeg",
+        )
+        etree.SubElement(
+            content_types,
+            f"{{{CONTENT_TYPES_NAMESPACE}}}Default",
+            Extension="xml",
+            ContentType="application/xml",
+        )
+
+        core = etree.fromstring(
+            b'<cp:coreProperties xmlns:cp="http://schemas.openxmlformats.org/package/2006/metadata/core-properties" '
+            b'xmlns:dc="http://purl.org/dc/elements/1.1/">'
+            b"<dc:creator></dc:creator><cp:lastModifiedBy></cp:lastModifiedBy>"
+            b"</cp:coreProperties>"
+        )
+        document = etree.fromstring(
+            b'<w:document xmlns:w="http://schemas.openxmlformats.org/wordprocessingml/2006/main">'
+            b"<w:body><w:p/></w:body></w:document>"
+        )
+        return [
+            ("[Content_Types].xml", etree.tostring(content_types)),
+            ("_rels/.rels", etree.tostring(relationships)),
+            ("docProps/core.xml", etree.tostring(core)),
+            ("word/document.xml", etree.tostring(document)),
+            ("docProps/thumbnail.jpeg", self.JPEG_PAYLOAD),
+        ]
+
+    def _write_fixture(self, name, entries):
+        path = Path(self.temp_dir.name) / name
+        with warnings.catch_warnings():
+            warnings.simplefilter("ignore", UserWarning)
+            with zipfile.ZipFile(path, "w", compression=zipfile.ZIP_DEFLATED) as archive:
+                for member_name, payload in entries:
+                    archive.writestr(member_name, payload)
+        return path
+
+    def _replace_xml(self, entries, member_name, mutate):
+        rewritten = []
+        for name, payload in entries:
+            if name == member_name:
+                root = etree.fromstring(payload)
+                mutate(root)
+                payload = etree.tostring(root)
+            rewritten.append((name, payload))
+        return rewritten
+
+    def _run_actual_gate(self, path):
+        global HANDOFF_PATH
+        original_path = HANDOFF_PATH
+        HANDOFF_PATH = path
+        try:
+            HandoffArtifactTests(
+                "test_handoff_artifact_has_scanner_safe_ooxml_metadata"
+            ).test_handoff_artifact_has_scanner_safe_ooxml_metadata()
+        finally:
+            HANDOFF_PATH = original_path
+
+    def test_rejects_case_variant_emf_member_anywhere(self):
+        entries = self._base_entries() + [("metadata/previews/Preview.EMF", b"emf")]
+        fixture = self._write_fixture("case-variant-emf.docx", entries)
+        with self.assertRaises(AssertionError):
+            self._run_actual_gate(fixture)
+
+    def test_rejects_duplicate_thumbnail_member_entries(self):
+        entries = self._base_entries() + [
+            ("docProps/thumbnail.jpeg", self.JPEG_PAYLOAD)
+        ]
+        fixture = self._write_fixture("duplicate-thumbnail-member.docx", entries)
+        with self.assertRaises(AssertionError):
+            self._run_actual_gate(fixture)
+
+    def test_rejects_duplicate_thumbnail_relationships(self):
+        def add_duplicate(root):
+            etree.SubElement(
+                root,
+                f"{{{RELATIONSHIPS_NAMESPACE}}}Relationship",
+                Id="rIdThumbnailDuplicate",
+                Type=THUMBNAIL_RELATIONSHIP_TYPE,
+                Target="docProps/thumbnail.jpeg",
             )
-            for story_part in sorted(story_parts & names):
-                root = etree.fromstring(archive.read(story_part))
-                has_revision_attribute = any(
-                    etree.QName(attribute_name).namespace == word_namespace
-                    and etree.QName(attribute_name).localname.startswith("rsid")
-                    for element in root.iter()
-                    for attribute_name in element.attrib
-                )
-                self.assertFalse(
-                    has_revision_attribute,
-                    f"Word story part contains revision-session attributes: {story_part}",
-                )
+
+        entries = self._replace_xml(self._base_entries(), "_rels/.rels", add_duplicate)
+        fixture = self._write_fixture("duplicate-thumbnail-relationship.docx", entries)
+        with self.assertRaises(AssertionError):
+            self._run_actual_gate(fixture)
+
+    def test_accepts_relationship_discovered_nonconventional_jpeg(self):
+        target = "metadata/previews/cover.jpg"
+
+        def point_to_nonconventional_target(root):
+            relationship = root[0]
+            relationship.set("Target", target)
+
+        def add_override(root):
+            etree.SubElement(
+                root,
+                f"{{{CONTENT_TYPES_NAMESPACE}}}Override",
+                PartName=f"/{target}",
+                ContentType="image/jpeg",
+            )
+
+        entries = self._replace_xml(
+            self._base_entries(), "_rels/.rels", point_to_nonconventional_target
+        )
+        entries = self._replace_xml(entries, "[Content_Types].xml", add_override)
+        entries = [
+            (name, payload)
+            for name, payload in entries
+            if name != "docProps/thumbnail.jpeg"
+        ]
+        entries.append((target, self.JPEG_PAYLOAD))
+        fixture = self._write_fixture("nonconventional-thumbnail.docx", entries)
+        self._run_actual_gate(fixture)
+
+    def test_rejects_missing_thumbnail_relationship(self):
+        def remove_thumbnail(root):
+            root.remove(root[0])
+
+        entries = self._replace_xml(self._base_entries(), "_rels/.rels", remove_thumbnail)
+        fixture = self._write_fixture("missing-thumbnail-relationship.docx", entries)
+        with self.assertRaises(AssertionError):
+            self._run_actual_gate(fixture)
+
+    def test_rejects_external_thumbnail_target(self):
+        def make_external(root):
+            relationship = root[0]
+            relationship.set("Target", "https://example.invalid/thumbnail.jpeg")
+            relationship.set("TargetMode", "External")
+
+        entries = self._replace_xml(self._base_entries(), "_rels/.rels", make_external)
+        fixture = self._write_fixture("external-thumbnail.docx", entries)
+        with self.assertRaises(AssertionError):
+            self._run_actual_gate(fixture)
+
+    def test_rejects_traversing_thumbnail_target(self):
+        def make_traversing(root):
+            root[0].set("Target", "../docProps/thumbnail.jpeg")
+
+        entries = self._replace_xml(self._base_entries(), "_rels/.rels", make_traversing)
+        fixture = self._write_fixture("traversing-thumbnail.docx", entries)
+        with self.assertRaises(AssertionError):
+            self._run_actual_gate(fixture)
+
+    def test_rejects_non_jpeg_thumbnail_content_type(self):
+        def add_wrong_override(root):
+            etree.SubElement(
+                root,
+                f"{{{CONTENT_TYPES_NAMESPACE}}}Override",
+                PartName="/docProps/thumbnail.jpeg",
+                ContentType="image/png",
+            )
+
+        entries = self._replace_xml(
+            self._base_entries(), "[Content_Types].xml", add_wrong_override
+        )
+        fixture = self._write_fixture("wrong-thumbnail-content-type.docx", entries)
+        with self.assertRaises(AssertionError):
+            self._run_actual_gate(fixture)
+
+    def test_rejects_non_jpeg_thumbnail_extension(self):
+        def point_to_png(root):
+            root[0].set("Target", "metadata/thumbnail.png")
+
+        def add_jpeg_override(root):
+            etree.SubElement(
+                root,
+                f"{{{CONTENT_TYPES_NAMESPACE}}}Override",
+                PartName="/metadata/thumbnail.png",
+                ContentType="image/jpeg",
+            )
+
+        entries = self._replace_xml(self._base_entries(), "_rels/.rels", point_to_png)
+        entries = self._replace_xml(entries, "[Content_Types].xml", add_jpeg_override)
+        entries.append(("metadata/thumbnail.png", self.JPEG_PAYLOAD))
+        fixture = self._write_fixture("wrong-thumbnail-extension.docx", entries)
+        with self.assertRaises(AssertionError):
+            self._run_actual_gate(fixture)
+
+    def test_rejects_invalid_jpeg_magic(self):
+        def point_to_invalid_jpeg(root):
+            root[0].set("Target", "metadata/invalid.jpeg")
+
+        entries = self._replace_xml(
+            self._base_entries(), "_rels/.rels", point_to_invalid_jpeg
+        )
+        entries.append(("metadata/invalid.jpeg", b"not-a-jpeg"))
+        fixture = self._write_fixture("invalid-thumbnail-magic.docx", entries)
+        with self.assertRaises(AssertionError):
+            self._run_actual_gate(fixture)
+
+    def test_rejects_nonconventional_custom_properties_relationship(self):
+        def add_custom_relationship(root):
+            etree.SubElement(
+                root,
+                f"{{{RELATIONSHIPS_NAMESPACE}}}Relationship",
+                Id="rIdCustomProperties",
+                Type=CUSTOM_PROPERTIES_RELATIONSHIP_TYPE,
+                Target="metadata/private-properties.xml",
+            )
+
+        entries = self._replace_xml(
+            self._base_entries(), "_rels/.rels", add_custom_relationship
+        )
+        entries.append(("metadata/private-properties.xml", b"<properties/>"))
+        fixture = self._write_fixture("custom-properties-relationship.docx", entries)
+        with self.assertRaises(AssertionError):
+            self._run_actual_gate(fixture)
+
+    def test_rejects_nonconventional_custom_properties_content_type(self):
+        def add_custom_content_type(root):
+            etree.SubElement(
+                root,
+                f"{{{CONTENT_TYPES_NAMESPACE}}}Override",
+                PartName="/metadata/private-properties.xml",
+                ContentType=CUSTOM_PROPERTIES_CONTENT_TYPE,
+            )
+
+        entries = self._replace_xml(
+            self._base_entries(), "[Content_Types].xml", add_custom_content_type
+        )
+        entries.append(("metadata/private-properties.xml", b"<properties/>"))
+        fixture = self._write_fixture("custom-properties-content-type.docx", entries)
+        with self.assertRaises(AssertionError):
+            self._run_actual_gate(fixture)
 
 
 def load_builder():
