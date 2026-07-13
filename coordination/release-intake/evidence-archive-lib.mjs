@@ -499,6 +499,9 @@ const REVIEWED_PROTECTED_OVERLAY_TRACKED_POLICIES = Object.freeze([
       sourceMode: entry.mode,
       sourceKinds: Object.freeze(["worktree-current", "tracked-current"]),
       fileMode: 0o644,
+      ...(entry.path === "tests/e2e/ai-tutor-live-text.spec.ts"
+        ? { allowedFileModes: Object.freeze([0o600, 0o644]) }
+        : {}),
       payloadKind: "exact-text"
     })),
   ...REVIEWED_LEGACY_BRANCH_BASE_TEXT_ENTRIES.map((entry) => Object.freeze({
@@ -7023,10 +7026,11 @@ function exactReviewedProtectedOverlayFileCandidate(worktreePath, policy) {
   const absolutePath = path.join(worktreePath, policy.path);
   const pathStat = lstatIfPresent(absolutePath, "reviewed protected overlay file");
   if (!pathStat) throw new Error("reviewed protected overlay file is missing");
+  const allowedFileModes = policy.allowedFileModes ?? [policy.fileMode];
   if (pathStat.isSymbolicLink()
     || !pathStat.isFile()
     || pathStat.nlink !== 1
-    || (pathStat.mode & 0o7777) !== policy.fileMode) {
+    || !allowedFileModes.includes(pathStat.mode & 0o7777)) {
     throw new Error("reviewed protected overlay file metadata mismatch");
   }
   if (pathStat.size !== policy.bytes) {
@@ -7036,7 +7040,7 @@ function exactReviewedProtectedOverlayFileCandidate(worktreePath, policy) {
   const opened = openStrictEvidenceFile(
     absolutePath,
     "reviewed protected overlay file",
-    [policy.fileMode],
+    allowedFileModes,
     { expectedBytes: policy.bytes }
   );
   if (!opened) return null;

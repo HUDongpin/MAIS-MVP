@@ -3799,6 +3799,54 @@ test("reviewed protected overlay accepts only the exact A02 index-before-worktre
   );
 });
 
+test("reviewed protected overlay accepts exact ai-tutor live text only at 0600 or 0644", async (t) => {
+  const {
+    resolveReviewedProtectedOverlayContext,
+    scanReviewedProtectedOverlayFile
+  } = await import(libraryUrl);
+  const repository = maybeReviewedProtectedOverlayRepository();
+  if (!repository) return t.skip("pinned protected-overlay Git objects are unavailable");
+  const entry = REVIEWED_LEGACY_CURRENT_HEAD_TEXT_ENTRIES.find(({ path: relativePath }) => (
+    relativePath === "tests/e2e/ai-tutor-live-text.spec.ts"
+  ));
+  assert.ok(entry);
+  const buffer = reviewedLegacyExactTextBytes(repository, entry);
+  const fixture = makeFixture();
+  t.after(() => fs.rmSync(fixture.parent, { recursive: true, force: true }));
+  enableReviewedProtectedOverlayFixture(fixture, repository);
+  const absolutePath = writeReviewedProtectedOverlayFile(fixture.linked, entry, buffer, { mode: 0o600 });
+  const context = resolveReviewedProtectedOverlayContext(fixture.linked, {
+    expectedRepositoryId: reviewedProtectedOverlayFixtureRepositoryId(fixture)
+  });
+
+  for (const mode of [0o600, 0o644]) {
+    fs.chmodSync(absolutePath, mode);
+    for (const sourceKind of ["worktree-current", "tracked-current"]) {
+      const scan = scanReviewedProtectedOverlayFile(
+        fixture.linked,
+        entry.path,
+        sourceKind,
+        context
+      );
+      assert.equal(scan?.reviewedProtectedOverlay, true);
+      assert.equal(scan?.mode, mode);
+    }
+  }
+
+  fs.chmodSync(absolutePath, 0o664);
+  for (const sourceKind of ["worktree-current", "tracked-current"]) {
+    assert.throws(
+      () => scanReviewedProtectedOverlayFile(
+        fixture.linked,
+        entry.path,
+        sourceKind,
+        context
+      ),
+      /reviewed protected overlay file metadata mismatch/i
+    );
+  }
+});
+
 test("reviewed protected overlay confines e909 and protected-tree blobs to their exact tracked source kinds", async (t) => {
   const {
     collectWorktreeSnapshot,
