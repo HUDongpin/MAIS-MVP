@@ -1,5 +1,5 @@
 import assert from "node:assert/strict";
-import { chmod, copyFile, mkdir, mkdtemp, readFile, realpath, rm, symlink, writeFile } from "node:fs/promises";
+import { chmod, copyFile, link, mkdir, mkdtemp, readFile, readdir, realpath, rm, stat, symlink, truncate, writeFile } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import path from "node:path";
 import { fileURLToPath, pathToFileURL } from "node:url";
@@ -190,12 +190,14 @@ async function createDirtyMapFixtureRepo() {
   return {
     root,
     refreshScript: path.join(scriptsDir, "refresh-dirty-tree-map.mjs"),
-    latestJson: path.join(releaseIntakeDir, "latest-A25-dirty-tree-map.json")
+    releaseIntakeDir,
+    latestJson: path.join(releaseIntakeDir, "latest-A25-dirty-tree-map.json"),
+    latestMarkdown: path.join(releaseIntakeDir, "latest-A25-dirty-tree-map.md")
   };
 }
 
-function runDirtyMapFixture(fixture, args) {
-  return runNodeAt(fixture.root, [fixture.refreshScript, ...args]);
+function runDirtyMapFixture(fixture, args, options = {}) {
+  return runNodeAt(fixture.root, [fixture.refreshScript, ...args], options);
 }
 
 function readGitObjectJson(objectPath) {
@@ -333,6 +335,1083 @@ test("dirty map assert-current enforces a 60 minute freshness window", async () 
     assert.match(combinedOutput(fail), /older than 60 minutes/i);
   } finally {
     await rm(fixture.root, { recursive: true, force: true });
+  }
+});
+
+test("dirty map report refresh is immediately current with all four recorded outputs", async () => {
+  const fixture = await createDirtyMapFixtureRepo();
+
+  try {
+    const refresh = runDirtyMapFixture(fixture, [
+      "--latest-json",
+      fixture.latestJson,
+      "--latest-md",
+      fixture.latestMarkdown,
+      "--report-dir",
+      fixture.releaseIntakeDir,
+      "--run-id",
+      "self-current-regression",
+      "--json",
+      "--reason",
+      "four-output self-current regression"
+    ]);
+    assert.equal(refresh.status, 0, combinedOutput(refresh));
+
+    const saved = await readJson(fixture.latestJson);
+    assert.deepEqual(Object.keys(saved.outputPaths).sort(), [
+      "latestJson",
+      "latestMarkdown",
+      "reportJson",
+      "reportMarkdown"
+    ]);
+    for (const outputPath of Object.values(saved.outputPaths)) {
+      assert.ok((await readFile(path.join(fixture.root, outputPath))).length > 0, outputPath);
+    }
+
+    const current = runDirtyMapFixture(fixture, [
+      "--assert-current",
+      "--latest-json",
+      fixture.latestJson,
+      "--latest-md",
+      fixture.latestMarkdown,
+      "--report-dir",
+      fixture.releaseIntakeDir,
+      "--max-age-minutes",
+      "60",
+      "--json"
+    ]);
+    assert.equal(current.status, 0, combinedOutput(current));
+  } finally {
+    await rm(fixture.root, { recursive: true, force: true });
+  }
+});
+
+test("dirty map refresh rejects unsafe output nodes before writing any generated output", async (t) => {
+  const cases = [
+    ["symlink", (source, destination) => symlink(source, destination)],
+    ["hardlink", (source, destination) => link(source, destination)]
+  ];
+
+  for (const [nodeType, createUnsafeNode] of cases) {
+    await t.test(nodeType, async () => {
+      const fixture = await createDirtyMapFixtureRepo();
+      const externalRoot = await realpath(
+        await mkdtemp(path.join(tmpdir(), "mais-dirty-map-do-not-disclose-writer-target-"))
+      );
+      const externalTarget = path.join(externalRoot, "sentinel.md");
+      const runId = `unsafe-${nodeType}-writer-regression`;
+      const reportDateFormatter = new Intl.DateTimeFormat("en-CA", {
+        timeZone: "Asia/Hong_Kong",
+        year: "numeric",
+        month: "2-digit",
+        day: "2-digit"
+      });
+      const reportDates = [
+        ...new Set([-300_000, 0, 300_000].map((offset) =>
+          reportDateFormatter.format(new Date(Date.now() + offset))
+        ))
+      ];
+      const reportJsonPaths = reportDates.map((reportDate) => path.join(
+        fixture.releaseIntakeDir,
+        `${reportDate}-A25-dirty-tree-map-${runId}.json`
+      ));
+      const reportMarkdownPaths = reportDates.map((reportDate) => path.join(
+        fixture.releaseIntakeDir,
+        `${reportDate}-A25-dirty-tree-map-${runId}.md`
+      ));
+      const latestJsonBefore = "latest JSON must remain untouched\n";
+      const latestMarkdownBefore = "latest Markdown must remain untouched\n";
+      const reportJsonBefore = "report JSON must remain untouched\n";
+      const externalBefore = "external sentinel must remain untouched\n";
+
+      try {
+        await writeFile(fixture.latestJson, latestJsonBefore);
+        await writeFile(fixture.latestMarkdown, latestMarkdownBefore);
+        for (const reportJson of reportJsonPaths) {
+          await writeFile(reportJson, reportJsonBefore);
+        }
+        await writeFile(externalTarget, externalBefore);
+        for (const reportMarkdown of reportMarkdownPaths) {
+          await createUnsafeNode(externalTarget, reportMarkdown);
+        }
+
+        const refresh = runDirtyMapFixture(fixture, [
+          "--latest-json",
+          fixture.latestJson,
+          "--latest-md",
+          fixture.latestMarkdown,
+          "--report-dir",
+          fixture.releaseIntakeDir,
+          "--run-id",
+          runId,
+          "--json",
+          "--reason",
+          `unsafe ${nodeType} writer regression`
+        ]);
+
+        assert.notEqual(refresh.status, 0, combinedOutput(refresh));
+        assert.match(combinedOutput(refresh), /generated output write target is invalid/i);
+        assert.doesNotMatch(combinedOutput(refresh), /do-not-disclose-writer-target/i);
+        assert.equal(await readFile(fixture.latestJson, "utf8"), latestJsonBefore);
+        assert.equal(await readFile(fixture.latestMarkdown, "utf8"), latestMarkdownBefore);
+        for (const reportJson of reportJsonPaths) {
+          assert.equal(await readFile(reportJson, "utf8"), reportJsonBefore);
+        }
+        assert.equal(await readFile(externalTarget, "utf8"), externalBefore);
+      } finally {
+        await rm(fixture.root, { recursive: true, force: true });
+        await rm(externalRoot, { recursive: true, force: true });
+      }
+    });
+  }
+});
+
+test("dirty map refresh rejects ancestor symlink output escapes without creating external files", async () => {
+  const fixture = await createDirtyMapFixtureRepo();
+  const externalRoot = await realpath(
+    await mkdtemp(path.join(tmpdir(), "mais-dirty-map-do-not-disclose-ancestor-target-"))
+  );
+  const linkedOutputDir = path.join(
+    fixture.root,
+    "coordination",
+    "do-not-disclose-ancestor-output"
+  );
+
+  try {
+    await symlink(externalRoot, linkedOutputDir, "dir");
+    const refresh = runDirtyMapFixture(fixture, [
+      "--latest-json",
+      path.join(linkedOutputDir, "latest.json"),
+      "--latest-md",
+      path.join(linkedOutputDir, "latest.md"),
+      "--report-dir",
+      linkedOutputDir,
+      "--run-id",
+      "ancestor-symlink-writer-regression",
+      "--json",
+      "--reason",
+      "ancestor symlink writer regression"
+    ]);
+
+    assert.notEqual(refresh.status, 0, combinedOutput(refresh));
+    assert.match(combinedOutput(refresh), /generated output write target is invalid/i);
+    assert.doesNotMatch(combinedOutput(refresh), /do-not-disclose-ancestor/i);
+    assert.deepEqual(await readdir(externalRoot), []);
+  } finally {
+    await rm(fixture.root, { recursive: true, force: true });
+    await rm(externalRoot, { recursive: true, force: true });
+  }
+});
+
+test("dirty map no-report refresh validates and writes only latestJson", async () => {
+  const fixture = await createDirtyMapFixtureRepo();
+  const externalRoot = await realpath(
+    await mkdtemp(path.join(tmpdir(), "mais-dirty-map-no-report-writer-"))
+  );
+  const externalTarget = path.join(externalRoot, "latest-markdown-sentinel.md");
+  const externalBefore = "no-report must not touch this target\n";
+
+  try {
+    await writeFile(externalTarget, externalBefore);
+    await symlink(externalTarget, fixture.latestMarkdown);
+    const refresh = runDirtyMapFixture(fixture, [
+      "--latest-json",
+      fixture.latestJson,
+      "--latest-md",
+      fixture.latestMarkdown,
+      "--report-dir",
+      path.join(fixture.root, "coordination", "unused-no-report-output"),
+      "--run-id",
+      "latest-only-safe-writer",
+      "--no-report",
+      "--json",
+      "--reason",
+      "latest-only safe writer regression"
+    ]);
+
+    assert.equal(refresh.status, 0, combinedOutput(refresh));
+    assert.equal(await readFile(externalTarget, "utf8"), externalBefore);
+    assert.ok((await readFile(fixture.latestJson)).length > 0);
+  } finally {
+    await rm(fixture.root, { recursive: true, force: true });
+    await rm(externalRoot, { recursive: true, force: true });
+  }
+});
+
+test("dirty map no-report refresh rejects an unsafe latestJson without changing its target", async (t) => {
+  const cases = [
+    ["symlink", (source, destination) => symlink(source, destination)],
+    ["hardlink", (source, destination) => link(source, destination)]
+  ];
+
+  for (const [nodeType, createUnsafeNode] of cases) {
+    await t.test(nodeType, async () => {
+      const fixture = await createDirtyMapFixtureRepo();
+      const externalRoot = await realpath(
+        await mkdtemp(path.join(tmpdir(), "mais-dirty-map-do-not-disclose-latest-target-"))
+      );
+      const externalTarget = path.join(externalRoot, "latest-json-sentinel.json");
+      const externalBefore = "unsafe latestJson target must remain untouched\n";
+
+      try {
+        await writeFile(externalTarget, externalBefore);
+        await createUnsafeNode(externalTarget, fixture.latestJson);
+        const refresh = runDirtyMapFixture(fixture, [
+          "--latest-json",
+          fixture.latestJson,
+          "--no-report",
+          "--json",
+          "--reason",
+          `unsafe latest-only ${nodeType} writer regression`
+        ]);
+
+        assert.notEqual(refresh.status, 0, combinedOutput(refresh));
+        assert.match(combinedOutput(refresh), /generated output write target is invalid/i);
+        assert.doesNotMatch(combinedOutput(refresh), /do-not-disclose-latest-target/i);
+        assert.equal(await readFile(externalTarget, "utf8"), externalBefore);
+      } finally {
+        await rm(fixture.root, { recursive: true, force: true });
+        await rm(externalRoot, { recursive: true, force: true });
+      }
+    });
+  }
+});
+
+test("dirty map refresh rejects out-of-repository output paths before writing", async () => {
+  const fixture = await createDirtyMapFixtureRepo();
+  const externalRoot = await realpath(
+    await mkdtemp(path.join(tmpdir(), "mais-dirty-map-do-not-disclose-outside-output-"))
+  );
+  const latestJsonBefore = "in-repository output must remain untouched\n";
+
+  try {
+    await writeFile(fixture.latestJson, latestJsonBefore);
+    const refresh = runDirtyMapFixture(fixture, [
+      "--latest-json",
+      fixture.latestJson,
+      "--latest-md",
+      fixture.latestMarkdown,
+      "--report-dir",
+      externalRoot,
+      "--run-id",
+      "outside-output-writer-regression",
+      "--json",
+      "--reason",
+      "outside output writer regression"
+    ]);
+
+    assert.notEqual(refresh.status, 0, combinedOutput(refresh));
+    assert.match(combinedOutput(refresh), /generated output write target is invalid/i);
+    assert.doesNotMatch(combinedOutput(refresh), /do-not-disclose-outside-output/i);
+    assert.equal(await readFile(fixture.latestJson, "utf8"), latestJsonBefore);
+    assert.deepEqual(await readdir(externalRoot), []);
+  } finally {
+    await rm(fixture.root, { recursive: true, force: true });
+    await rm(externalRoot, { recursive: true, force: true });
+  }
+});
+
+test("dirty map no-report refresh safely creates missing nested repository parents", async () => {
+  const fixture = await createDirtyMapFixtureRepo();
+  const nestedLatestJson = path.join(
+    fixture.root,
+    "coordination",
+    "release-intake",
+    "nested",
+    "deeper",
+    "latest.json"
+  );
+
+  try {
+    const refresh = runDirtyMapFixture(fixture, [
+      "--latest-json",
+      nestedLatestJson,
+      "--no-report",
+      "--json",
+      "--reason",
+      "missing nested parent writer regression"
+    ]);
+    assert.equal(refresh.status, 0, combinedOutput(refresh));
+
+    const current = runDirtyMapFixture(fixture, [
+      "--assert-current",
+      "--latest-json",
+      nestedLatestJson,
+      "--max-age-minutes",
+      "60",
+      "--json"
+    ]);
+    assert.equal(current.status, 0, combinedOutput(current));
+  } finally {
+    await rm(fixture.root, { recursive: true, force: true });
+  }
+});
+
+test("dirty map atomic refresh preserves restrictive existing output permissions", async () => {
+  const fixture = await createDirtyMapFixtureRepo();
+
+  try {
+    await writeFile(fixture.latestJson, "existing restrictive output\n");
+    await chmod(fixture.latestJson, 0o600);
+    const before = await stat(fixture.latestJson);
+    const refresh = runDirtyMapFixture(fixture, [
+      "--latest-json",
+      fixture.latestJson,
+      "--no-report",
+      "--json",
+      "--reason",
+      "restrictive output mode regression"
+    ]);
+    assert.equal(refresh.status, 0, combinedOutput(refresh));
+
+    const after = await stat(fixture.latestJson);
+    assert.equal(after.mode & 0o777, 0o600);
+    assert.notEqual(after.ino, before.ino, "atomic replacement must install the staged inode");
+  } finally {
+    await rm(fixture.root, { recursive: true, force: true });
+  }
+});
+
+test("dirty map refresh rejects a write-only existing output before changing it", async () => {
+  const fixture = await createDirtyMapFixtureRepo();
+  const originalBytes = "write-only output must remain unchanged\n";
+
+  try {
+    await writeFile(fixture.latestJson, originalBytes);
+    await chmod(fixture.latestJson, 0o200);
+    const before = await stat(fixture.latestJson);
+    const refresh = runDirtyMapFixture(fixture, [
+      "--latest-json",
+      fixture.latestJson,
+      "--no-report",
+      "--json",
+      "--reason",
+      "write-only output regression"
+    ]);
+
+    assert.notEqual(refresh.status, 0, combinedOutput(refresh));
+    assert.match(combinedOutput(refresh), /generated output write target is invalid/i);
+    const after = await stat(fixture.latestJson);
+    assert.equal(after.ino, before.ino);
+    assert.equal(after.mode & 0o777, 0o200);
+    await chmod(fixture.latestJson, 0o600);
+    assert.equal(await readFile(fixture.latestJson, "utf8"), originalBytes);
+  } finally {
+    await rm(fixture.root, { recursive: true, force: true });
+  }
+});
+
+test("dirty map creates absent outputs with mode 0600 even under umask 000", async () => {
+  const fixture = await createDirtyMapFixtureRepo();
+  const wrapperPath = path.join(fixture.root, "scripts", "refresh-with-open-umask.mjs");
+  const firstCreatedParent = path.join(fixture.releaseIntakeDir, "umask-open-parent");
+  const secondCreatedParent = path.join(firstCreatedParent, "nested");
+  const nestedLatestJson = path.join(secondCreatedParent, "latest.json");
+
+  try {
+    await writeFile(
+      wrapperPath,
+      [
+        "process.umask(0);",
+        "const args = process.argv.slice(2);",
+        `process.argv = [process.argv[0], ${JSON.stringify(fixture.refreshScript)}, ...args];`,
+        `await import(${JSON.stringify(pathToFileURL(fixture.refreshScript).href)});`,
+        ""
+      ].join("\n")
+    );
+    const refresh = runNodeAt(fixture.root, [
+      wrapperPath,
+      "--latest-json",
+      nestedLatestJson,
+      "--no-report",
+      "--json",
+      "--reason",
+      "open umask output mode regression"
+    ]);
+    assert.equal(refresh.status, 0, combinedOutput(refresh));
+
+    const created = await stat(nestedLatestJson);
+    assert.equal(created.mode & 0o777, 0o600);
+    assert.equal(created.mode & 0o077, 0, "group/other permissions must remain closed");
+    for (const createdParent of [firstCreatedParent, secondCreatedParent]) {
+      const parentStat = await stat(createdParent);
+      assert.equal(parentStat.mode & 0o777, 0o700);
+      assert.equal(parentStat.mode & 0o022, 0, "created parents must not be group/other writable");
+    }
+  } finally {
+    await rm(fixture.root, { recursive: true, force: true });
+  }
+});
+
+test("dirty map refresh rejects an existing group-or-other-writable output parent", async () => {
+  const fixture = await createDirtyMapFixtureRepo();
+  const unsafeParent = path.join(
+    fixture.root,
+    "coordination",
+    "do-not-disclose-world-writable-output-parent"
+  );
+  const unsafeLatestJson = path.join(unsafeParent, "latest.json");
+  const originalBytes = "unsafe-parent output must remain unchanged\n";
+
+  try {
+    await mkdir(unsafeParent, { mode: 0o700 });
+    await writeFile(unsafeLatestJson, originalBytes, { mode: 0o600 });
+    await chmod(unsafeParent, 0o777);
+    const before = await stat(unsafeLatestJson);
+    const refresh = runDirtyMapFixture(fixture, [
+      "--latest-json",
+      unsafeLatestJson,
+      "--no-report",
+      "--json",
+      "--reason",
+      "unsafe output parent permission regression"
+    ]);
+
+    assert.notEqual(refresh.status, 0, combinedOutput(refresh));
+    assert.match(combinedOutput(refresh), /generated output write target is invalid/i);
+    assert.doesNotMatch(combinedOutput(refresh), /do-not-disclose-world-writable/i);
+    const after = await stat(unsafeLatestJson);
+    assert.equal(after.ino, before.ino);
+    assert.equal(await readFile(unsafeLatestJson, "utf8"), originalBytes);
+  } finally {
+    await rm(fixture.root, { recursive: true, force: true });
+  }
+});
+
+test("dirty map no-report refresh after a full refresh ignores only its latest JSON output", async () => {
+  const fixture = await createDirtyMapFixtureRepo();
+
+  try {
+    const fullRefresh = runDirtyMapFixture(fixture, [
+      "--latest-json",
+      fixture.latestJson,
+      "--latest-md",
+      fixture.latestMarkdown,
+      "--report-dir",
+      fixture.releaseIntakeDir,
+      "--run-id",
+      "full-before-no-report",
+      "--json",
+      "--reason",
+      "full refresh before no-report regression"
+    ]);
+    assert.equal(fullRefresh.status, 0, combinedOutput(fullRefresh));
+
+    const noReportRefresh = runDirtyMapFixture(fixture, [
+      "--latest-json",
+      fixture.latestJson,
+      "--latest-md",
+      fixture.latestMarkdown,
+      "--report-dir",
+      fixture.releaseIntakeDir,
+      "--run-id",
+      "latest-only-after-full",
+      "--no-report",
+      "--json",
+      "--reason",
+      "latest-only output regression"
+    ]);
+    assert.equal(noReportRefresh.status, 0, combinedOutput(noReportRefresh));
+
+    const saved = await readJson(fixture.latestJson);
+    assert.deepEqual(Object.keys(saved.outputPaths), ["latestJson"]);
+    const current = runDirtyMapFixture(fixture, [
+      "--assert-current",
+      "--latest-json",
+      fixture.latestJson,
+      "--latest-md",
+      fixture.latestMarkdown,
+      "--report-dir",
+      fixture.releaseIntakeDir,
+      "--max-age-minutes",
+      "60",
+      "--json"
+    ]);
+    assert.equal(current.status, 0, combinedOutput(current));
+  } finally {
+    await rm(fixture.root, { recursive: true, force: true });
+  }
+});
+
+test("dirty map opens generated outputs nonblocking before descriptor type validation", async () => {
+  const source = await readFile(path.join(repoRoot, "scripts", "refresh-dirty-tree-map.mjs"), "utf8");
+  const openFlags = source.match(/function directRegularOpenFlags\(\) \{[\s\S]*?\n\}/u)?.[0] ?? "";
+  assert.match(source, /fs\.open\(filePath, directRegularOpenFlags\(\)\)/u);
+  assert.match(openFlags, /fsConstants\.O_RDONLY/u);
+  assert.match(openFlags, /fsConstants\.O_NOFOLLOW/u);
+  assert.match(openFlags, /fsConstants\.O_NONBLOCK/u);
+  assert.doesNotMatch(openFlags, /\?\?\s*0/u);
+  assert.match(source, /Number\.isInteger\(fsConstants\.O_NOFOLLOW\)/u);
+  assert.match(source, /Number\.isInteger\(fsConstants\.O_NONBLOCK\)/u);
+});
+
+test("dirty map assert-current rejects untrusted saved output-path schemas without disclosing values", async (t) => {
+  const redactedMarker = "do-not-disclose-output-path";
+  const cases = [
+    ["missing outputPaths", (saved) => delete saved.outputPaths],
+    ["array outputPaths", (saved) => { saved.outputPaths = []; }],
+    ["missing key", (saved) => delete saved.outputPaths.reportMarkdown],
+    ["unknown key", (saved) => { saved.outputPaths.unknown = `coordination/release-intake/${redactedMarker}`; }],
+    ["absolute path", (saved, fixture) => { saved.outputPaths.reportJson = path.join(fixture.root, redactedMarker); }],
+    ["traversal path", (saved) => { saved.outputPaths.reportJson = `../../${redactedMarker}`; }],
+    ["non-canonical path", (saved) => { saved.outputPaths.reportJson = saved.outputPaths.reportJson.replace("release-intake/", "release-intake/./"); }],
+    ["wrong directory", (saved) => { saved.outputPaths.reportJson = `app/${redactedMarker}.json`; }],
+    ["unknown report filename", (saved) => { saved.outputPaths.reportJson = `coordination/release-intake/${redactedMarker}.json`; }],
+    ["mismatched report pair", (saved) => { saved.outputPaths.reportMarkdown = `coordination/release-intake/2026-01-01-A25-dirty-tree-map-${redactedMarker}.md`; }],
+    ["duplicate output", (saved) => { saved.outputPaths.reportJson = saved.outputPaths.latestJson; }],
+    ["unexpected latest path", (saved) => { saved.outputPaths.latestJson = `coordination/release-intake/${redactedMarker}.json`; }]
+  ];
+
+  for (const [name, mutate] of cases) {
+    await t.test(name, async () => {
+      const fixture = await createDirtyMapFixtureRepo();
+      try {
+        const refresh = runDirtyMapFixture(fixture, [
+          "--latest-json",
+          fixture.latestJson,
+          "--latest-md",
+          fixture.latestMarkdown,
+          "--report-dir",
+          fixture.releaseIntakeDir,
+          "--run-id",
+          "saved-output-validation",
+          "--json",
+          "--reason",
+          "saved output validation regression"
+        ]);
+        assert.equal(refresh.status, 0, combinedOutput(refresh));
+
+        const saved = await readJson(fixture.latestJson);
+        mutate(saved, fixture);
+        await writeFile(fixture.latestJson, `${JSON.stringify(saved, null, 2)}\n`);
+
+        const result = runDirtyMapFixture(fixture, [
+          "--assert-current",
+          "--latest-json",
+          fixture.latestJson,
+          "--latest-md",
+          fixture.latestMarkdown,
+          "--report-dir",
+          fixture.releaseIntakeDir,
+          "--max-age-minutes",
+          "60",
+          "--json"
+        ]);
+        const output = combinedOutput(result);
+        assert.notEqual(result.status, 0);
+        assert.match(output, /dirty-tree map outputPaths is invalid/i);
+        assert.doesNotMatch(output, new RegExp(redactedMarker));
+      } finally {
+        await rm(fixture.root, { recursive: true, force: true });
+      }
+    });
+  }
+});
+
+test("dirty map assert-current redacts invalid saved JSON contents", async () => {
+  const fixture = await createDirtyMapFixtureRepo();
+  const redactedMarker = "do-not-disclose-invalid-map-content";
+
+  try {
+    const refresh = runDirtyMapFixture(fixture, [
+      "--latest-json",
+      fixture.latestJson,
+      "--no-report",
+      "--json",
+      "--reason",
+      "invalid JSON redaction regression"
+    ]);
+    assert.equal(refresh.status, 0, combinedOutput(refresh));
+    await writeFile(fixture.latestJson, `invalid JSON ${redactedMarker}\n`);
+
+    const result = runDirtyMapFixture(fixture, [
+      "--assert-current",
+      "--latest-json",
+      fixture.latestJson,
+      "--max-age-minutes",
+      "60",
+      "--json"
+    ]);
+    const output = combinedOutput(result);
+    assert.notEqual(result.status, 0);
+    assert.match(output, /dirty-tree map JSON is invalid/i);
+    assert.doesNotMatch(output, new RegExp(redactedMarker));
+  } finally {
+    await rm(fixture.root, { recursive: true, force: true });
+  }
+});
+
+test("dirty map assert-current validates reflected saved metadata before diagnostics", async (t) => {
+  const redactedMarker = "do-not-disclose-saved-metadata";
+  const cases = [
+    ["signature characters", (saved) => { saved.statusSignature = `${redactedMarker}\n`; }],
+    ["uppercase signature", (saved) => { saved.statusSignature = "A".repeat(64); }],
+    ["missing expanded count", (saved) => { delete saved.statusCounts.expandedStatusEntries; }],
+    ["non-integer expanded count", (saved) => { saved.statusCounts.expandedStatusEntries = `${redactedMarker}\n`; }],
+    ["unknown count key", (saved) => { saved.statusCounts.unknown = redactedMarker; }],
+    ["other count string", (saved) => { saved.statusCounts.trackedModified = redactedMarker; }],
+    ["other count object", (saved) => { saved.statusCounts.trackedDeleted = { value: redactedMarker }; }],
+    ["noncanonical generated timestamp", (saved) => { saved.generatedAt = `2026-07-13 ${redactedMarker}`; }]
+  ];
+
+  for (const [name, mutate] of cases) {
+    await t.test(name, async () => {
+      const fixture = await createDirtyMapFixtureRepo();
+      try {
+        const refresh = runDirtyMapFixture(fixture, [
+          "--latest-json",
+          fixture.latestJson,
+          "--latest-md",
+          fixture.latestMarkdown,
+          "--report-dir",
+          fixture.releaseIntakeDir,
+          "--run-id",
+          "saved-metadata-validation",
+          "--json",
+          "--reason",
+          "saved metadata validation regression"
+        ]);
+        assert.equal(refresh.status, 0, combinedOutput(refresh));
+
+        const saved = await readJson(fixture.latestJson);
+        mutate(saved);
+        await writeFile(fixture.latestJson, `${JSON.stringify(saved, null, 2)}\n`);
+        const result = runDirtyMapFixture(fixture, [
+          "--assert-current",
+          "--latest-json",
+          fixture.latestJson,
+          "--latest-md",
+          fixture.latestMarkdown,
+          "--report-dir",
+          fixture.releaseIntakeDir,
+          "--max-age-minutes",
+          "60",
+          "--json"
+        ]);
+        const output = combinedOutput(result);
+        assert.notEqual(result.status, 0);
+        assert.match(output, /dirty-tree map assertion metadata is invalid/i);
+        assert.doesNotMatch(output, new RegExp(redactedMarker));
+      } finally {
+        await rm(fixture.root, { recursive: true, force: true });
+      }
+    });
+  }
+});
+
+test("dirty map saved outputs cannot hide an unrelated dirty entry", async () => {
+  const fixture = await createDirtyMapFixtureRepo();
+  const redactedMarker = "do-not-disclose-hidden-dirty-entry";
+
+  try {
+    const refresh = runDirtyMapFixture(fixture, [
+      "--latest-json",
+      fixture.latestJson,
+      "--latest-md",
+      fixture.latestMarkdown,
+      "--report-dir",
+      fixture.releaseIntakeDir,
+      "--run-id",
+      "hidden-dirty-entry",
+      "--json",
+      "--reason",
+      "saved output trust-boundary regression"
+    ]);
+    assert.equal(refresh.status, 0, combinedOutput(refresh));
+
+    const saved = await readJson(fixture.latestJson);
+    await rm(path.join(fixture.root, saved.outputPaths.reportJson));
+    await rm(path.join(fixture.root, saved.outputPaths.reportMarkdown));
+    const unrelatedStem = `2026-01-01-A25-dirty-tree-map-${redactedMarker}`;
+    const unrelatedJson = path.join(fixture.releaseIntakeDir, `${unrelatedStem}.json`);
+    const unrelatedMarkdown = path.join(fixture.releaseIntakeDir, `${unrelatedStem}.md`);
+    await writeFile(unrelatedJson, "unrelated dirty JSON fixture\n");
+    await writeFile(unrelatedMarkdown, "unrelated dirty Markdown fixture\n");
+    saved.outputPaths.reportJson = path.posix.join(
+      "coordination/release-intake",
+      `${unrelatedStem}.json`
+    );
+    saved.outputPaths.reportMarkdown = path.posix.join(
+      "coordination/release-intake",
+      `${unrelatedStem}.md`
+    );
+    await writeFile(fixture.latestJson, `${JSON.stringify(saved, null, 2)}\n`);
+
+    const result = runDirtyMapFixture(fixture, [
+      "--assert-current",
+      "--latest-json",
+      fixture.latestJson,
+      "--latest-md",
+      fixture.latestMarkdown,
+      "--report-dir",
+      fixture.releaseIntakeDir,
+      "--max-age-minutes",
+      "60",
+      "--json"
+    ]);
+    const output = combinedOutput(result);
+    assert.notEqual(result.status, 0);
+    assert.match(output, /generated output artifacts are invalid/i);
+    assert.doesNotMatch(output, new RegExp(redactedMarker));
+  } finally {
+    await rm(fixture.root, { recursive: true, force: true });
+  }
+});
+
+test("dirty map assert-current rejects partial or symlinked generated output sets", async (t) => {
+  const cases = [
+    ["missing report", async (fixture, saved) => {
+      await rm(path.join(fixture.root, saved.outputPaths.reportMarkdown));
+    }],
+    ["symlinked report", async (fixture, saved) => {
+      const reportJson = path.join(fixture.root, saved.outputPaths.reportJson);
+      await rm(reportJson);
+      await symlink(path.basename(saved.outputPaths.latestJson), reportJson);
+    }],
+    ["hardlinked report", async (fixture, saved) => {
+      const reportJson = path.join(fixture.root, saved.outputPaths.reportJson);
+      await rm(reportJson);
+      await link(fixture.latestJson, reportJson);
+    }]
+  ];
+
+  for (const [name, mutate] of cases) {
+    await t.test(name, async () => {
+      const fixture = await createDirtyMapFixtureRepo();
+      try {
+        const refresh = runDirtyMapFixture(fixture, [
+          "--latest-json",
+          fixture.latestJson,
+          "--latest-md",
+          fixture.latestMarkdown,
+          "--report-dir",
+          fixture.releaseIntakeDir,
+          "--run-id",
+          "generated-output-node-validation",
+          "--json",
+          "--reason",
+          "generated output node validation regression"
+        ]);
+        assert.equal(refresh.status, 0, combinedOutput(refresh));
+
+        const saved = await readJson(fixture.latestJson);
+        await mutate(fixture, saved);
+        const result = runDirtyMapFixture(fixture, [
+          "--assert-current",
+          "--latest-json",
+          fixture.latestJson,
+          "--latest-md",
+          fixture.latestMarkdown,
+          "--report-dir",
+          fixture.releaseIntakeDir,
+          "--max-age-minutes",
+          "60",
+          "--json"
+        ]);
+        assert.notEqual(result.status, 0);
+        assert.match(combinedOutput(result), /generated output artifacts (?:are invalid|changed during assertion)/i);
+      } finally {
+        await rm(fixture.root, { recursive: true, force: true });
+      }
+    });
+  }
+});
+
+test("dirty map assert-current rejects a sparse generated output above the fixed size limit", async () => {
+  const fixture = await createDirtyMapFixtureRepo();
+
+  try {
+    const refresh = runDirtyMapFixture(fixture, [
+      "--latest-json",
+      fixture.latestJson,
+      "--latest-md",
+      fixture.latestMarkdown,
+      "--report-dir",
+      fixture.releaseIntakeDir,
+      "--run-id",
+      "generated-output-size-limit",
+      "--json",
+      "--reason",
+      "generated output size limit regression"
+    ]);
+    assert.equal(refresh.status, 0, combinedOutput(refresh));
+
+    const saved = await readJson(fixture.latestJson);
+    await truncate(
+      path.join(fixture.root, saved.outputPaths.reportJson),
+      128 * 1024 * 1024 + 1
+    );
+    const result = runDirtyMapFixture(fixture, [
+      "--assert-current",
+      "--latest-json",
+      fixture.latestJson,
+      "--latest-md",
+      fixture.latestMarkdown,
+      "--report-dir",
+      fixture.releaseIntakeDir,
+      "--max-age-minutes",
+      "60",
+      "--json"
+    ], { timeout: 5000 });
+    assert.notEqual(result.status, 0);
+    assert.match(combinedOutput(result), /generated output artifact exceeds the 128 MiB safety limit/i);
+  } finally {
+    await rm(fixture.root, { recursive: true, force: true });
+  }
+});
+
+test("dirty map assert-current rejects generated outputs reached through an intermediate directory symlink", async () => {
+  const fixture = await createDirtyMapFixtureRepo();
+  const redactedMarker = "do-not-disclose-canonical-output-root";
+  const externalRoot = await mkdtemp(path.join(tmpdir(), `${redactedMarker}-`));
+  const externalReportDir = path.join(externalRoot, "reports");
+  const linkedAncestor = path.join(fixture.releaseIntakeDir, "external-ancestor");
+  const lexicalReportDir = path.join(linkedAncestor, "reports");
+  const repoRelative = (absolutePath) =>
+    path.relative(fixture.root, absolutePath).split(path.sep).join("/");
+
+  try {
+    await mkdir(externalReportDir, { recursive: true });
+    await symlink(externalRoot, linkedAncestor, "dir");
+    const refresh = runDirtyMapFixture(fixture, [
+      "--latest-json",
+      fixture.latestJson,
+      "--latest-md",
+      fixture.latestMarkdown,
+      "--report-dir",
+      fixture.releaseIntakeDir,
+      "--run-id",
+      "canonical-output-source",
+      "--json",
+      "--reason",
+      "intermediate directory symlink regression"
+    ]);
+    assert.equal(refresh.status, 0, combinedOutput(refresh));
+
+    const saved = await readJson(fixture.latestJson);
+    const originalPaths = Object.values(saved.outputPaths).map((outputPath) =>
+      path.join(fixture.root, outputPath)
+    );
+    const latestMarkdownBytes = await readFile(fixture.latestMarkdown);
+    const externalLatestJson = path.join(lexicalReportDir, "latest-A25-dirty-tree-map.json");
+    const externalLatestMarkdown = path.join(lexicalReportDir, "latest-A25-dirty-tree-map.md");
+    const externalReportJson = path.join(
+      lexicalReportDir,
+      path.basename(saved.outputPaths.reportJson)
+    );
+    const externalReportMarkdown = path.join(
+      lexicalReportDir,
+      path.basename(saved.outputPaths.reportMarkdown)
+    );
+    saved.outputPaths = {
+      latestJson: repoRelative(externalLatestJson),
+      latestMarkdown: repoRelative(externalLatestMarkdown),
+      reportJson: repoRelative(externalReportJson),
+      reportMarkdown: repoRelative(externalReportMarkdown)
+    };
+    const savedBytes = `${JSON.stringify(saved, null, 2)}\n`;
+    for (const originalPath of originalPaths) {
+      await rm(originalPath);
+    }
+    await writeFile(externalLatestJson, savedBytes);
+    await writeFile(externalLatestMarkdown, latestMarkdownBytes);
+    await writeFile(externalReportJson, savedBytes);
+    await writeFile(externalReportMarkdown, latestMarkdownBytes);
+
+    const result = runDirtyMapFixture(fixture, [
+      "--assert-current",
+      "--latest-json",
+      externalLatestJson,
+      "--latest-md",
+      externalLatestMarkdown,
+      "--report-dir",
+      lexicalReportDir,
+      "--max-age-minutes",
+      "60",
+      "--json"
+    ]);
+    const output = combinedOutput(result);
+    assert.notEqual(result.status, 0);
+    assert.match(output, /generated output canonical path is invalid/i);
+    assert.doesNotMatch(output, new RegExp(redactedMarker));
+  } finally {
+    await rm(fixture.root, { recursive: true, force: true });
+    await rm(externalRoot, { recursive: true, force: true });
+  }
+});
+
+test("dirty map assert-current enforces one aggregate buffer limit across four generated outputs", async () => {
+  const fixture = await createDirtyMapFixtureRepo();
+
+  try {
+    const refresh = runDirtyMapFixture(fixture, [
+      "--latest-json",
+      fixture.latestJson,
+      "--latest-md",
+      fixture.latestMarkdown,
+      "--report-dir",
+      fixture.releaseIntakeDir,
+      "--run-id",
+      "generated-output-aggregate-limit",
+      "--json",
+      "--reason",
+      "generated output aggregate buffer regression"
+    ]);
+    assert.equal(refresh.status, 0, combinedOutput(refresh));
+
+    const saved = await readJson(fixture.latestJson);
+    for (const key of ["latestMarkdown", "reportJson", "reportMarkdown"]) {
+      await truncate(path.join(fixture.root, saved.outputPaths[key]), 48 * 1024 * 1024);
+    }
+    const result = runDirtyMapFixture(fixture, [
+      "--assert-current",
+      "--latest-json",
+      fixture.latestJson,
+      "--latest-md",
+      fixture.latestMarkdown,
+      "--report-dir",
+      fixture.releaseIntakeDir,
+      "--max-age-minutes",
+      "60",
+      "--json"
+    ], { timeout: 5000 });
+    assert.notEqual(result.status, 0);
+    assert.match(combinedOutput(result), /generated outputs exceed the 128 MiB aggregate buffer limit/i);
+  } finally {
+    await rm(fixture.root, { recursive: true, force: true });
+  }
+});
+
+test("dirty map assert-current rejects timestamped report names the producer cannot generate", async (t) => {
+  const cases = [
+    ["invalid calendar date", "2026-13-40-A25-dirty-tree-map-valid-run"],
+    ["leading run-id hyphen", "2026-01-01-A25-dirty-tree-map--invalid-run"],
+    ["hyphen-only run id", "2026-01-01-A25-dirty-tree-map--"]
+  ];
+
+  for (const [name, reportStem] of cases) {
+    await t.test(name, async () => {
+      const fixture = await createDirtyMapFixtureRepo();
+      try {
+        const refresh = runDirtyMapFixture(fixture, [
+          "--latest-json",
+          fixture.latestJson,
+          "--latest-md",
+          fixture.latestMarkdown,
+          "--report-dir",
+          fixture.releaseIntakeDir,
+          "--run-id",
+          "producer-name-grammar",
+          "--json",
+          "--reason",
+          "generated report name grammar regression"
+        ]);
+        assert.equal(refresh.status, 0, combinedOutput(refresh));
+
+        const saved = await readJson(fixture.latestJson);
+        const oldReportJson = path.join(fixture.root, saved.outputPaths.reportJson);
+        const oldReportMarkdown = path.join(fixture.root, saved.outputPaths.reportMarkdown);
+        saved.outputPaths.reportJson = path.posix.join(
+          "coordination/release-intake",
+          `${reportStem}.json`
+        );
+        saved.outputPaths.reportMarkdown = path.posix.join(
+          "coordination/release-intake",
+          `${reportStem}.md`
+        );
+        await writeFile(fixture.latestJson, `${JSON.stringify(saved, null, 2)}\n`);
+        await copyFile(fixture.latestJson, path.join(fixture.root, saved.outputPaths.reportJson));
+        await copyFile(fixture.latestMarkdown, path.join(fixture.root, saved.outputPaths.reportMarkdown));
+        await rm(oldReportJson);
+        await rm(oldReportMarkdown);
+
+        const result = runDirtyMapFixture(fixture, [
+          "--assert-current",
+          "--latest-json",
+          fixture.latestJson,
+          "--latest-md",
+          fixture.latestMarkdown,
+          "--report-dir",
+          fixture.releaseIntakeDir,
+          "--max-age-minutes",
+          "60",
+          "--json"
+        ]);
+        assert.notEqual(result.status, 0);
+        assert.match(combinedOutput(result), /dirty-tree map outputPaths is invalid/i);
+      } finally {
+        await rm(fixture.root, { recursive: true, force: true });
+      }
+    });
+  }
+});
+
+test("dirty map assert-current detects an ignored report mutation during status capture", async () => {
+  const fixture = await createDirtyMapFixtureRepo();
+  const raceRoot = await mkdtemp(path.join(tmpdir(), "mais-dirty-map-race-"));
+
+  try {
+    const refresh = runDirtyMapFixture(fixture, [
+      "--latest-json",
+      fixture.latestJson,
+      "--latest-md",
+      fixture.latestMarkdown,
+      "--report-dir",
+      fixture.releaseIntakeDir,
+      "--run-id",
+      "generated-output-race",
+      "--json",
+      "--reason",
+      "generated output race regression"
+    ]);
+    assert.equal(refresh.status, 0, combinedOutput(refresh));
+
+    const saved = await readJson(fixture.latestJson);
+    const lookup = spawnSync("/bin/sh", ["-c", "command -v git"], {
+      cwd: fixture.root,
+      encoding: "utf8"
+    });
+    assert.equal(lookup.status, 0, combinedOutput(lookup));
+    const fakeBin = path.join(raceRoot, "fake-bin");
+    const fakeGit = path.join(fakeBin, "git");
+    const raceMarker = path.join(raceRoot, "git-race-fired");
+    await mkdir(fakeBin, { recursive: true });
+    await writeFile(
+      fakeGit,
+      `#!/bin/sh
+if [ "$1" = "status" ] && [ ! -e "$DIRTY_MAP_RACE_MARKER" ]; then
+  printf '%s\\n' 'mutated during status capture' > "$DIRTY_MAP_RACE_TARGET"
+  : > "$DIRTY_MAP_RACE_MARKER"
+fi
+exec "$REAL_GIT_PATH" "$@"
+`
+    );
+    await chmod(fakeGit, 0o755);
+
+    const result = runDirtyMapFixture(fixture, [
+      "--assert-current",
+      "--latest-json",
+      fixture.latestJson,
+      "--latest-md",
+      fixture.latestMarkdown,
+      "--report-dir",
+      fixture.releaseIntakeDir,
+      "--max-age-minutes",
+      "60",
+      "--json"
+    ], {
+      env: {
+        PATH: `${fakeBin}:${process.env.PATH}`,
+        REAL_GIT_PATH: lookup.stdout.trim(),
+        DIRTY_MAP_RACE_MARKER: raceMarker,
+        DIRTY_MAP_RACE_TARGET: path.join(fixture.root, saved.outputPaths.reportJson)
+      }
+    });
+    assert.notEqual(result.status, 0);
+    assert.match(combinedOutput(result), /generated output artifacts changed during assertion/i);
+  } finally {
+    await rm(fixture.root, { recursive: true, force: true });
+    await rm(raceRoot, { recursive: true, force: true });
   }
 });
 
