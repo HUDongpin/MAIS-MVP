@@ -88,6 +88,14 @@ const REVIEWED_LEGACY_OFFICE_LOCK = Object.freeze({
   bytes: 162,
   sha256: "f1c330d653b2e1c687da72ddd50bb55bed27fc5141c897aa6824022c571dbe45"
 });
+const REVIEWED_LEGACY_PARENT_CONSOLE_REPORT = Object.freeze({
+  headRevision: "ec22a29b55a4329e81d96e02417f8925ccec54c3",
+  path: "coordination/reports/2026-06-04-parent-console-p0-p1-bug-audit.md",
+  mode: "100644",
+  objectId: "4df3bce80ebd1ed120ed918ba49e9d62f474fb0a",
+  bytes: 9_680,
+  sha256: "a756524e2ad3323edb4ed89c94fc51507dd82da337fabd97e3c6efe21a4d558b"
+});
 const REVIEWED_REAL_PATCH_CORPUS_EXTRA_ENTRY = Object.freeze({
   path: "coordination/release-intake/archive/codex-A10-A22-A08-A12-A06-compose-20260628.patch",
   objectId: "a2bbb64104ca4d1854ac0d2fe6004f4b6bdc2c87",
@@ -124,6 +132,26 @@ function maybePinnedLegacyTerminalPatchRepository() {
 function maybeReviewedLegacyOfficeLockRepository() {
   const repository = path.resolve(here, "..", "..");
   const entry = REVIEWED_LEGACY_OFFICE_LOCK;
+  try {
+    execFileSync("git", ["cat-file", "-e", `${entry.headRevision}^{commit}`], {
+      cwd: repository,
+      stdio: "ignore",
+      timeout: TEST_CHILD_TIMEOUT_MS
+    });
+    execFileSync("git", ["cat-file", "-e", `${entry.objectId}^{blob}`], {
+      cwd: repository,
+      stdio: "ignore",
+      timeout: TEST_CHILD_TIMEOUT_MS
+    });
+    return repository;
+  } catch {
+    return null;
+  }
+}
+
+function maybeReviewedLegacyParentConsoleReportRepository() {
+  const repository = path.resolve(here, "..", "..");
+  const entry = REVIEWED_LEGACY_PARENT_CONSOLE_REPORT;
   try {
     execFileSync("git", ["cat-file", "-e", `${entry.headRevision}^{commit}`], {
       cwd: repository,
@@ -244,6 +272,51 @@ function withReviewedLegacyOfficeLockGitShim(t, mutation, callback) {
     "  if (mutation === 'mode') replacement = Buffer.from(`100755 blob ${entry.objectId}\\t${entry.path}\\0`);",
     "  if (mutation === 'type') replacement = Buffer.from(`${entry.branchMode} tree ${entry.objectId}\\t${entry.path}\\0`);",
     "  if (mutation === 'object') replacement = Buffer.from(`${entry.branchMode} blob ${'0'.repeat(40)}\\t${entry.path}\\0`);",
+    "  if (mutation === 'missing') replacement = Buffer.alloc(0);",
+    "  const offset = output.indexOf(original);",
+    "  if (offset < 0) process.exit(97);",
+    "  output = Buffer.concat([output.subarray(0, offset), replacement, output.subarray(offset + original.length)]);",
+    "}",
+    "if (args[0] === 'cat-file' && args[1] === 'blob' && args[2] === entry.objectId) {",
+    "  if (mutation === 'bytes') { output = Buffer.from(output); output[output.length - 1] ^= 1; }",
+    "  if (mutation === 'size') output = Buffer.concat([output, Buffer.from([0])]);",
+    "}",
+    "process.stdout.write(output);"
+  ].join("\n"));
+  fs.chmodSync(shim, 0o755);
+  const originalPath = process.env.PATH;
+  try {
+    process.env.PATH = `${bin}:${originalPath}`;
+    return callback();
+  } finally {
+    process.env.PATH = originalPath;
+  }
+}
+
+function withReviewedLegacyParentConsoleReportGitShim(t, mutation, callback) {
+  const entry = REVIEWED_LEGACY_PARENT_CONSOLE_REPORT;
+  const bin = fs.mkdtempSync(path.join(os.tmpdir(), "mais-reviewed-parent-report-git-"));
+  t.after(() => fs.rmSync(bin, { recursive: true, force: true }));
+  const realGit = execFileSync("which", ["git"], { encoding: "utf8", timeout: TEST_CHILD_TIMEOUT_MS }).trim();
+  const shim = path.join(bin, "git");
+  fs.writeFileSync(shim, [
+    "#!/usr/bin/env node",
+    'import { spawnSync } from "node:child_process";',
+    `const realGit = ${JSON.stringify(realGit)};`,
+    `const entry = ${JSON.stringify(entry)};`,
+    `const mutation = ${JSON.stringify(mutation)};`,
+    "const args = process.argv.slice(2);",
+    "const result = spawnSync(realGit, args, { encoding: null, env: process.env, maxBuffer: 1024 * 1024 * 1024 });",
+    "if (result.error) throw result.error;",
+    "if (result.status !== 0) { process.stderr.write(result.stderr); process.exit(result.status ?? 1); }",
+    "let output = result.stdout;",
+    "if (args[0] === 'ls-tree' && args.includes(`:(literal)${entry.path}`)) {",
+    "  const original = Buffer.from(`${entry.mode} blob ${entry.objectId}\\t${entry.path}\\0`);",
+    "  let replacement = original;",
+    "  if (mutation === 'mode') replacement = Buffer.from(`100755 blob ${entry.objectId}\\t${entry.path}\\0`);",
+    "  if (mutation === 'type') replacement = Buffer.from(`${entry.mode} tree ${entry.objectId}\\t${entry.path}\\0`);",
+    "  if (mutation === 'object') replacement = Buffer.from(`${entry.mode} blob ${'0'.repeat(40)}\\t${entry.path}\\0`);",
+    "  if (mutation === 'path') replacement = Buffer.from(`${entry.mode} blob ${entry.objectId}\\t${entry.path}.copy\\0`);",
     "  if (mutation === 'missing') replacement = Buffer.alloc(0);",
     "  const offset = output.indexOf(original);",
     "  if (offset < 0) process.exit(97);",
@@ -1394,6 +1467,98 @@ test("supplementary repository scan accepts only the three exact pinned terminal
   );
 });
 
+test("supplementary exact legacy parent console report is accepted only at its pinned identity", async (t) => {
+  const { scanBuffer, scanCurrentBranchHeadTrackedPaths } = await import(libraryUrl);
+  const repository = maybeReviewedLegacyParentConsoleReportRepository();
+  if (repository === null) {
+    t.skip("reviewed legacy parent console report commit and blob are not available in this clone");
+    return;
+  }
+  const entry = REVIEWED_LEGACY_PARENT_CONSOLE_REPORT;
+  const treeRecord = git(repository, "ls-tree", entry.headRevision, "--", entry.path);
+  assert.equal(treeRecord, `${entry.mode} blob ${entry.objectId}\t${entry.path}`);
+  const buffer = gitBlob(repository, entry.objectId);
+  assert.equal(buffer.length, entry.bytes);
+  assert.equal(
+    crypto.createHash("sha1").update(Buffer.from(`blob ${buffer.length}\0`)).update(buffer).digest("hex"),
+    entry.objectId
+  );
+  assert.equal(crypto.createHash("sha256").update(buffer).digest("hex"), entry.sha256);
+  assert.throws(
+    () => scanBuffer(buffer, { displayPath: `branch-head/${entry.path}` }),
+    /token assignment/i
+  );
+  assert.deepEqual(
+    scanCurrentBranchHeadTrackedPaths(repository, entry.headRevision, [entry.path]),
+    { scanned: 1, reviewed: 0 }
+  );
+});
+
+test("supplementary legacy parent console report rejects wrong HEAD metadata and integrity", async (t) => {
+  const { scanCurrentBranchHeadTrackedPaths } = await import(libraryUrl);
+  const repository = maybeReviewedLegacyParentConsoleReportRepository();
+  if (repository === null) {
+    t.skip("reviewed legacy parent console report commit and blob are not available in this clone");
+    return;
+  }
+  const entry = REVIEWED_LEGACY_PARENT_CONSOLE_REPORT;
+  assert.throws(
+    () => scanCurrentBranchHeadTrackedPaths(repository, "0".repeat(40), [entry.path]),
+    /reviewed legacy parent console report is restricted to its pinned current branch HEAD/i
+  );
+  for (const [mutation, expected] of [
+    ["mode", /reviewed legacy parent console report metadata mismatch/i],
+    ["type", /reviewed legacy parent console report metadata mismatch/i],
+    ["object", /reviewed legacy parent console report metadata mismatch/i],
+    ["path", /reviewed legacy parent console report Git blob is missing/i],
+    ["missing", /reviewed legacy parent console report Git blob is missing/i],
+    ["bytes", /reviewed legacy parent console report Git blob integrity mismatch/i],
+    ["size", /reviewed legacy parent console report Git blob integrity mismatch/i]
+  ]) {
+    await t.test(mutation, () => {
+      assert.throws(
+        () => withReviewedLegacyParentConsoleReportGitShim(t, mutation, () => (
+          scanCurrentBranchHeadTrackedPaths(repository, entry.headRevision, [entry.path])
+        )),
+        expected
+      );
+    });
+  }
+});
+
+test("supplementary legacy parent console report allowance stays out of non-pinned and untracked scopes", async (t) => {
+  const { buildInventory, collectWorktreeSnapshot } = await import(libraryUrl);
+  const repository = maybeReviewedLegacyParentConsoleReportRepository();
+  if (repository === null) {
+    t.skip("reviewed legacy parent console report commit and blob are not available in this clone");
+    return;
+  }
+  const entry = REVIEWED_LEGACY_PARENT_CONSOLE_REPORT;
+  const buffer = gitBlob(repository, entry.objectId);
+
+  const untrackedFixture = makeFixture();
+  t.after(() => fs.rmSync(untrackedFixture.parent, { recursive: true, force: true }));
+  const untrackedPath = path.join(untrackedFixture.linked, entry.path);
+  fs.mkdirSync(path.dirname(untrackedPath), { recursive: true });
+  fs.writeFileSync(untrackedPath, buffer);
+  assert.throws(
+    () => buildInventory(untrackedFixture.linked, [entry.path]),
+    /token assignment/i
+  );
+
+  const branchFixture = makeFixture();
+  t.after(() => fs.rmSync(branchFixture.parent, { recursive: true, force: true }));
+  const branchPath = path.join(branchFixture.linked, entry.path);
+  fs.mkdirSync(path.dirname(branchPath), { recursive: true });
+  fs.writeFileSync(branchPath, buffer);
+  git(branchFixture.linked, "add", "--", entry.path);
+  git(branchFixture.linked, "commit", "-m", "add non-pinned parent report blob");
+  assert.throws(
+    () => collectWorktreeSnapshot(fixtureLinkedWorktree(branchFixture), { includeTar: false }),
+    /reviewed legacy parent console report is restricted to its pinned current branch HEAD/i
+  );
+});
+
 test("supplementary pinned terminal patch integration rejects wrong HEAD mode and object", async (t) => {
   const { scanCurrentBranchHeadTrackedPaths } = await import(libraryUrl);
   const repository = maybePinnedLegacyTerminalPatchRepository();
@@ -2246,6 +2411,53 @@ test("fixture secret placeholders are exact and do not whitelist nearby real val
     assert.throws(
       () => scanBuffer(Buffer.from(source), { displayPath: "README.md" }),
       /token assignment/i
+    );
+  }
+});
+
+test("generic Markdown scanning stays fail closed for ambiguous backtick contexts", async () => {
+  const { scanBuffer } = await import(libraryUrl);
+  for (const source of [
+    "`password=12345`",
+    "Request: `GET /login?username=student%40example.invalid&password=12345`.",
+    "Masked request: `GET /login?username=...&password=...`.",
+    "Empty example: `password=`.",
+    "Redacted example: `password=***`.",
+    `Request: \`GET /login?username=student&password=${"A".repeat(40)}\`.`,
+    `Password: \`password=${"B".repeat(40)}\`.`,
+    `Provider: \`OPENAI_API_KEY=sk-proj-${"C".repeat(40)}\`.`,
+    "Shell: ``PASSWORD=re_abcd`printf efgh` ``.",
+    `\`password=\${PASSWORD}\``,
+    `\`password=${"D".repeat(10)}\`${"E".repeat(10)}`,
+    `\`\`\`password=${"F".repeat(10)}\`\`\`${"G".repeat(10)}`,
+    `    \`password=${"H".repeat(10)}\`${"I".repeat(10)}`,
+    `<div data-example="\`password=${"J".repeat(10)}\`${"K".repeat(10)}">`
+  ]) {
+    assert.throws(
+      () => scanBuffer(Buffer.from(source), { displayPath: "audit.md" }),
+      /high-confidence token|token assignment/i
+    );
+  }
+  const tick = "`";
+  for (const source of [
+    `${"\\"}${tick}PASSWORD=${"D".repeat(10)}${tick}${"E".repeat(10)}`,
+    `${"\\".repeat(3)}${tick}PASSWORD=${"F".repeat(10)}${tick}${"G".repeat(10)}`,
+    `${tick}PASSWORD=${"H".repeat(10)}${"\\"}${tick}${"I".repeat(10)}${tick}`,
+    `${tick}PASSWORD=${"J".repeat(10)}${"\\".repeat(3)}${tick}${"K".repeat(10)}${tick}`,
+    `${"\\"}${tick.repeat(2)}PASSWORD=${"L".repeat(10)}${tick.repeat(2)}${"M".repeat(10)}`,
+    `${tick.repeat(2)}PASSWORD=${"N".repeat(10)}${"\\"}${tick.repeat(2)}${"O".repeat(10)}${tick.repeat(2)}`,
+    `${"\\".repeat(2)}${tick}password=12345${tick}`,
+    `${"\\".repeat(4)}${tick}password=12345${tick}`,
+    `${tick}password=12345${"\\".repeat(2)}${tick}`,
+    `${tick}password=12345${"\\".repeat(4)}${tick}`,
+    `${"\\".repeat(2)}${tick.repeat(2)}password=***${tick.repeat(2)}`,
+    `${tick.repeat(2)}password=${"\\".repeat(2)}${tick.repeat(2)}`,
+    `${"\\".repeat(2)}${tick}password=${"P".repeat(40)}${tick}`,
+    `${tick.repeat(2)}OPENAI_API_KEY=sk-proj-${"Q".repeat(40)}${"\\".repeat(2)}${tick.repeat(2)}`
+  ]) {
+    assert.throws(
+      () => scanBuffer(Buffer.from(source), { displayPath: "audit.md" }),
+      /high-confidence token|token assignment/i
     );
   }
 });

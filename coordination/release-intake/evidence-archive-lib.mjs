@@ -184,6 +184,15 @@ const REVIEWED_LEGACY_OFFICE_LOCK = Object.freeze({
   sha256: "f1c330d653b2e1c687da72ddd50bb55bed27fc5141c897aa6824022c571dbe45"
 });
 const REVIEWED_LEGACY_OFFICE_LOCK_DISPLAY_PATH = "reviewed-legacy-office-lock/content.bin";
+const REVIEWED_LEGACY_PARENT_CONSOLE_REPORT = Object.freeze({
+  headRevision: "ec22a29b55a4329e81d96e02417f8925ccec54c3",
+  path: "coordination/reports/2026-06-04-parent-console-p0-p1-bug-audit.md",
+  mode: "100644",
+  objectId: "4df3bce80ebd1ed120ed918ba49e9d62f474fb0a",
+  bytes: 9_680,
+  sha256: "a756524e2ad3323edb4ed89c94fc51507dd82da337fabd97e3c6efe21a4d558b"
+});
+const REVIEWED_LEGACY_PARENT_CONSOLE_REPORT_DISPLAY_PATH = "reviewed-legacy-parent-console-report/content.md";
 const SECRET_ASSIGNMENT = /(?:^|[^A-Za-z0-9_$])["'`]?([A-Za-z_$][A-Za-z0-9_$-]*)["'`]?(?:[\t ]*\])?[\t ]*(:|>>>=|<<=|>>=|\*\*=|&&=|\|\|=|\?\?=|\+=|-=|\*=|\/=|%=|&=|\|=|\^=|=(?![=>]))[\t ]*/gmu;
 const TOKEN_PATTERNS = [
   /\bsk-[A-Za-z0-9_-]{20,}(?![A-Za-z0-9_-])/g,
@@ -6297,6 +6306,38 @@ function scanReviewedLegacyTerminalPatch(buffer, relativePath) {
   return { kind: "text", status: "passed" };
 }
 
+function scanReviewedLegacyParentConsoleReport(buffer) {
+  const displayPath = REVIEWED_LEGACY_PARENT_CONSOLE_REPORT_DISPLAY_PATH;
+  scanArchivePath(displayPath);
+  if (buffer.includes(0) || !isUtf8(buffer)) {
+    throw new Error("reviewed legacy parent console report is not strict UTF-8 text");
+  }
+  scanOpaqueRawSignatures(buffer, displayPath);
+  const text = buffer.toString("utf8");
+  SECRET_ASSIGNMENT.lastIndex = 0;
+  let assignmentCount = 0;
+  let match;
+  while ((match = SECRET_ASSIGNMENT.exec(text)) !== null) {
+    if (!isSecretName(match[1])) continue;
+    if (match[1] !== "password" || match[2] !== "=") {
+      throw new Error("reviewed legacy parent console report secret assignment grammar mismatch");
+    }
+    const lineEnd = text.indexOf("\n", SECRET_ASSIGNMENT.lastIndex);
+    const rawValue = text.slice(SECRET_ASSIGNMENT.lastIndex, lineEnd === -1 ? text.length : lineEnd);
+    let immediateEnd = 0;
+    while (immediateEnd < rawValue.length && !/[\t `]/u.test(rawValue[immediateEnd])) immediateEnd += 1;
+    const immediateValue = rawValue.slice(0, immediateEnd);
+    if (!/^(?:[0-9]{1,5}|\.{3})?$/u.test(immediateValue)) {
+      throw new Error("reviewed legacy parent console report secret assignment value mismatch");
+    }
+    assignmentCount += 1;
+  }
+  if (assignmentCount !== 7) {
+    throw new Error("reviewed legacy parent console report secret assignment count mismatch");
+  }
+  return { kind: "text", status: "passed" };
+}
+
 export function isReviewedLegacyTerminalPatchEntry({
   headRevision,
   relativePath,
@@ -6327,6 +6368,21 @@ export function isReviewedLegacyOfficeLockBranchHeadEntry({
     && objectId === entry.objectId;
 }
 
+function isReviewedLegacyParentConsoleReportEntry({
+  headRevision,
+  relativePath,
+  mode,
+  type,
+  objectId
+} = {}) {
+  const entry = REVIEWED_LEGACY_PARENT_CONSOLE_REPORT;
+  return headRevision === entry.headRevision
+    && relativePath === entry.path
+    && mode === entry.mode
+    && type === "blob"
+    && objectId === entry.objectId;
+}
+
 export function isReviewedLegacyOfficeLockInventory(item) {
   const entry = REVIEWED_LEGACY_OFFICE_LOCK;
   return item !== null
@@ -6345,17 +6401,22 @@ export function scanCurrentBranchHeadTrackedPaths(worktreePath, headRevision, pa
   let reviewed = 0;
   const exact = REVIEWED_CURRENT_BRANCH_HEAD_TRACKED_ENTRY;
   const officeLock = REVIEWED_LEGACY_OFFICE_LOCK;
+  const parentConsoleReport = REVIEWED_LEGACY_PARENT_CONSOLE_REPORT;
   for (const relativePath of paths) {
     const exactPath = relativePath === exact.path;
     const terminalPatch = REVIEWED_LEGACY_TERMINAL_PATCH_BY_PATH[relativePath] ?? null;
     const officeLockPath = relativePath === officeLock.path;
+    const parentConsoleReportPath = relativePath === parentConsoleReport.path;
     if (terminalPatch !== null && headRevision !== REVIEWED_LEGACY_TERMINAL_PATCH_HEAD) {
       throw new Error(`reviewed legacy terminal patch is restricted to its pinned current branch HEAD: ${JSON.stringify(relativePath)}`);
     }
     if (officeLockPath && headRevision !== officeLock.headRevision) {
       throw new Error(`reviewed legacy Office lock is restricted to its pinned current branch HEAD: ${JSON.stringify(relativePath)}`);
     }
-    if (!exactPath && !officeLockPath) scanArchivePath(relativePath);
+    if (parentConsoleReportPath && headRevision !== parentConsoleReport.headRevision) {
+      throw new Error(`reviewed legacy parent console report is restricted to its pinned current branch HEAD: ${JSON.stringify(relativePath)}`);
+    }
+    if (!exactPath && !officeLockPath && !parentConsoleReportPath) scanArchivePath(relativePath);
     const records = parseNul(gitBuffer(["ls-tree", "-z", headRevision, "--", `:(literal)${relativePath}`], worktreePath));
     let matched = false;
     for (const record of records) {
@@ -6416,11 +6477,33 @@ export function scanCurrentBranchHeadTrackedPaths(worktreePath, headRevision, pa
         scanned += 1;
         continue;
       }
+      const exactParentConsoleReport = isReviewedLegacyParentConsoleReportEntry({
+        headRevision,
+        relativePath,
+        mode,
+        type,
+        objectId
+      });
+      if (exactParentConsoleReport) {
+        const buffer = gitBuffer(["cat-file", "blob", objectId], worktreePath);
+        if (buffer.length !== parentConsoleReport.bytes
+          || gitSha1BlobObjectId(buffer) !== parentConsoleReport.objectId
+          || sha256Buffer(buffer) !== parentConsoleReport.sha256) {
+          throw new Error("reviewed legacy parent console report Git blob integrity mismatch");
+        }
+        scanReviewedLegacyParentConsoleReport(buffer);
+        matched = true;
+        scanned += 1;
+        continue;
+      }
       if (terminalPatch !== null) {
         throw new Error(`reviewed legacy terminal patch metadata mismatch: ${JSON.stringify(relativePath)}`);
       }
       if (officeLockPath) {
         throw new Error(`reviewed legacy Office lock metadata mismatch: ${JSON.stringify(relativePath)}`);
+      }
+      if (parentConsoleReportPath) {
+        throw new Error(`reviewed legacy parent console report metadata mismatch: ${JSON.stringify(relativePath)}`);
       }
       if (exactPath) scanArchivePath(relativePath);
       if (type !== "blob" || !mode || !objectId) throw new Error(`unsupported current branch HEAD Git object for ${JSON.stringify(relativePath)}`);
@@ -6445,6 +6528,9 @@ export function scanCurrentBranchHeadTrackedPaths(worktreePath, headRevision, pa
       }
       if (officeLockPath) {
         throw new Error(`reviewed legacy Office lock Git blob is missing: ${JSON.stringify(relativePath)}`);
+      }
+      if (parentConsoleReportPath) {
+        throw new Error(`reviewed legacy parent console report Git blob is missing: ${JSON.stringify(relativePath)}`);
       }
       if (exactPath) scanArchivePath(relativePath);
       throw new Error(`current branch HEAD Git blob is missing for ${JSON.stringify(relativePath)}`);
