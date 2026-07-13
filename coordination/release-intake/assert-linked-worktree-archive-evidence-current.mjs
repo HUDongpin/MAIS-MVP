@@ -44,6 +44,11 @@ const commonDir = path.resolve(root, gitText(["rev-parse", "--git-common-dir"], 
 const outDir = path.join(root, "coordination", "release-intake");
 const jsonOutput = process.argv.includes("--json");
 const gateReportFilename = "latest-A25-linked-worktree-archive-evidence-current-gate.json";
+const LEGACY_ARCHIVE_SCHEMA_VERSION = 2;
+const READABLE_ARCHIVE_SCHEMA_VERSIONS = new Set([
+  LEGACY_ARCHIVE_SCHEMA_VERSION,
+  EVIDENCE_SCHEMA_VERSION
+]);
 const attestationSlots = [
   "gate-monitor-attestation-slot-a.json",
   "gate-monitor-attestation-slot-b.json"
@@ -80,6 +85,23 @@ function snapshotOptions(worktree, extra = {}) {
     ...extra,
     transactionMetadataExclusions: transactionMetadataExclusionsFor(worktree)
   };
+}
+
+function snapshotFingerprintForArchiveSchema(snapshot, schemaVersion) {
+  if (schemaVersion === EVIDENCE_SCHEMA_VERSION) return snapshot.currentStateFingerprint;
+  if (schemaVersion !== LEGACY_ARCHIVE_SCHEMA_VERSION) {
+    throw new Error("unsupported archive evidence schema");
+  }
+  const {
+    buffers: _buffers,
+    cleanup: _cleanup,
+    currentStateFingerprint: _currentStateFingerprint,
+    inventory: _inventory,
+    reviewedProtectedOverlayPaths: _reviewedProtectedOverlayPaths,
+    secretScanner: _secretScanner,
+    ...legacyBasis
+  } = snapshot;
+  return fingerprint(legacyBasis);
 }
 
 function readJson(absolutePath) {
@@ -157,7 +179,7 @@ function revalidateGlobalCandidateState(initialCandidates, linked, monitor, base
             expectedBuffers: snapshot.buffers
           }, failures);
           if (entry.head !== worktree.head) failures.push(`${worktree.branch}: final HEAD identity is stale`);
-          if (entry.currentStateFingerprint !== snapshot.currentStateFingerprint) {
+          if (entry.currentStateFingerprint !== snapshotFingerprintForArchiveSchema(snapshot, linked.schemaVersion)) {
             failures.push(`${worktree.branch}: global final current-state fingerprint drifted`);
           }
           roundEntries.push({
@@ -470,14 +492,15 @@ function validateV2({ dirtyMap, linked, clean, dirty, allWorktrees, candidates, 
     try {
       if (entry.path !== undefined) failures.push(`${worktree.branch}: v2 entry must not retain a local absolute path`);
       snapshot = collectWorktreeSnapshot(worktree, snapshotOptions(worktree, { includeTar: true }));
-      currentFingerprints.push(snapshot.currentStateFingerprint);
+      const currentStateFingerprint = snapshotFingerprintForArchiveSchema(snapshot, linked.schemaVersion);
+      currentFingerprints.push(currentStateFingerprint);
       verifyArchiveEntrySchema(entry, {
         archiveSetFingerprint: linked.archiveSetFingerprint,
         expectedBuffers: snapshot.buffers
       }, failures);
-      if (entry.schemaVersion !== EVIDENCE_SCHEMA_VERSION) failures.push(`${worktree.branch}: entry schema is stale`);
+      if (entry.schemaVersion !== linked.schemaVersion) failures.push(`${worktree.branch}: entry schema is stale`);
       if (entry.head !== worktree.head) failures.push(`${worktree.branch}: head is stale`);
-      if (entry.currentStateFingerprint !== snapshot.currentStateFingerprint) failures.push(`${worktree.branch}: current-state fingerprint is stale`);
+      if (entry.currentStateFingerprint !== currentStateFingerprint) failures.push(`${worktree.branch}: current-state fingerprint is stale`);
       if (entry.archiveSetFingerprint !== linked.archiveSetFingerprint) failures.push(`${worktree.branch}: archive-set fingerprint is stale`);
       if (entry.secretScanner?.status !== "passed") failures.push(`${worktree.branch}: secret scanner status is not passed`);
     } catch (error) {
@@ -490,7 +513,7 @@ function validateV2({ dirtyMap, linked, clean, dirty, allWorktrees, candidates, 
   for (const branch of byBranch.keys()) if (!currentBranches.has(branch)) failures.push(`unexpected v2 archive entry: ${branch}`);
   verifyArchiveSetEvidence(evidenceRoot, linked, failures);
   const expectedSetFingerprint = fingerprint({
-    schemaVersion: EVIDENCE_SCHEMA_VERSION,
+    schemaVersion: linked.schemaVersion,
     dirtyMapStatusSignature: dirtyMap.statusSignature,
     expandedStatusEntries: dirtyMap.statusCounts.expandedStatusEntries,
     entries: currentFingerprints.sort()
@@ -557,7 +580,7 @@ function main() {
     const dirty = JSON.parse(manifestBuffers.get(paths.dirty).toString("utf8"));
     const candidates = currentCandidates(allWorktrees);
     let finalEpoch = baselineEpoch;
-    if (linked.schemaVersion === EVIDENCE_SCHEMA_VERSION) {
+    if (READABLE_ARCHIVE_SCHEMA_VERSIONS.has(linked.schemaVersion)) {
       finalEpoch = validateV2({ dirtyMap, linked, clean, dirty, allWorktrees, candidates, monitor, baselineEpoch, failures });
       verifyManifestBytesUnchanged(manifestBuffers, failures);
       if (finalEpoch !== null && finalEpoch !== undefined) {
@@ -592,7 +615,7 @@ function main() {
       failures,
       branches: candidates.map((entry) => ({ branch: entry.branch, head: entry.head }))
     };
-    if (linked.schemaVersion === EVIDENCE_SCHEMA_VERSION) {
+    if (READABLE_ARCHIVE_SCHEMA_VERSIONS.has(linked.schemaVersion)) {
       const evidenceRoot = resolveEvidenceRoot({
         repoRoot: root,
         commonDir,

@@ -7,7 +7,12 @@ import path from "node:path";
 import ts from "typescript";
 import { isAlias, isMap, isPair, isScalar, isSeq, parseAllDocuments } from "yaml";
 
-export const EVIDENCE_SCHEMA_VERSION = 2;
+export const EVIDENCE_SCHEMA_VERSION = 3;
+const LEGACY_EVIDENCE_SCHEMA_VERSION = 2;
+const READABLE_EVIDENCE_SCHEMA_VERSIONS = new Set([
+  LEGACY_EVIDENCE_SCHEMA_VERSION,
+  EVIDENCE_SCHEMA_VERSION
+]);
 export const MARKER_NAME = ".mais-evidence-root.json";
 export const MARKER_SCHEMA_VERSION = 1;
 export const TRANSACTION_METADATA_PATHS = Object.freeze([
@@ -402,6 +407,111 @@ const REVIEWED_LEGACY_CURRENT_HEAD_JPEG_UNDER_PNG_BY_PATH = new Map(
   REVIEWED_LEGACY_CURRENT_HEAD_JPEG_UNDER_PNG_ENTRIES.map((entry) => [entry.path, entry])
 );
 const REVIEWED_LEGACY_JPEG_UNDER_PNG_DISPLAY_PATH = "reviewed-legacy-jpeg-under-png/content.jpeg";
+const REVIEWED_PROTECTED_OVERLAY_REF = "refs/mais-preservation/2026-07-12-dirty-root-snapshot";
+const REVIEWED_PROTECTED_OVERLAY_TARGET = "93346c724961435789bd66de9e31d3979a93c45c";
+const REVIEWED_PROTECTED_OVERLAY_BASE = REVIEWED_LEGACY_BRANCH_BASE_TEXT_REVISION;
+const REVIEWED_PROTECTED_OVERLAY_REPOSITORY_ID = "ca188a8ce0d53e55e1a9e9a2d8d47c5b71ca224435adb0556b228bc3734c8b6f";
+const REVIEWED_PROTECTED_OVERLAY_DISPLAY_PREFIX = "reviewed-protected-overlay";
+const ISSUED_REVIEWED_PROTECTED_OVERLAY_CONTEXTS = new WeakSet();
+const REVIEWED_PROTECTED_OVERLAY_OFFICE_LOCK_ALIAS = Object.freeze({
+  path: "coordination/content-qa/templates/.~IS_CA-Math_K-5_Content_QA_Template.docx",
+  sourcePath: REVIEWED_LEGACY_OFFICE_LOCK.path,
+  sourceRevision: REVIEWED_PROTECTED_OVERLAY_TARGET,
+  sourceMode: REVIEWED_LEGACY_OFFICE_LOCK.branchMode,
+  sourceKinds: Object.freeze(["untracked"]),
+  fileMode: 0o644,
+  type: "blob",
+  objectId: REVIEWED_LEGACY_OFFICE_LOCK.objectId,
+  bytes: REVIEWED_LEGACY_OFFICE_LOCK.bytes,
+  sha256: REVIEWED_LEGACY_OFFICE_LOCK.sha256,
+  payloadKind: "office-lock"
+});
+const REVIEWED_PROTECTED_OVERLAY_PRIVATE_TEXT_0600_PATHS = new Set([
+  "coordination/reports/2026-06-04-teacher-console-p0-p1-bug-audit.md",
+  "coordination/reports/2026-06-06-production-auth-storage-health-S12.md",
+  "coordination/reports/cloudflare-ai-crawl-control-preflight.mjs",
+  "coordination/reports/cloudflare-ai-crawl-control-waf-upsert.mjs",
+  "coordination/reports/2026-06-06-S11-forgot-password-recovery-smoke.md",
+  "coordination/reports/2026-06-07-S19-password-reset-resend-vercel-env-plan.md"
+]);
+const REVIEWED_PROTECTED_OVERLAY_UNTRACKED_POLICIES = Object.freeze([
+  ...REVIEWED_LEGACY_TERMINAL_PATCH_ENTRIES.map((entry) => Object.freeze({
+    ...entry,
+    sourcePath: entry.path,
+    sourceRevision: REVIEWED_PROTECTED_OVERLAY_TARGET,
+    sourceMode: entry.mode,
+    sourceKinds: Object.freeze(["untracked"]),
+    fileMode: 0o644,
+    type: "blob",
+    payloadKind: "terminal-patch",
+    allowGenericFallbackOnPayloadMismatch: true
+  })),
+  Object.freeze({
+    ...REVIEWED_LEGACY_PARENT_CONSOLE_REPORT,
+    sourcePath: REVIEWED_LEGACY_PARENT_CONSOLE_REPORT.path,
+    sourceRevision: REVIEWED_PROTECTED_OVERLAY_TARGET,
+    sourceMode: REVIEWED_LEGACY_PARENT_CONSOLE_REPORT.mode,
+    sourceKinds: Object.freeze(["untracked"]),
+    fileMode: 0o600,
+    type: "blob",
+    payloadKind: "parent-console-report"
+  }),
+  ...REVIEWED_LEGACY_CURRENT_HEAD_TEXT_ENTRIES
+    .filter((entry) => !entry.path.startsWith("tests/e2e/"))
+    .map((entry) => Object.freeze({
+      ...entry,
+      sourcePath: entry.path,
+      sourceRevision: REVIEWED_PROTECTED_OVERLAY_TARGET,
+      sourceMode: entry.mode,
+      sourceKinds: Object.freeze(["untracked"]),
+      fileMode: REVIEWED_PROTECTED_OVERLAY_PRIVATE_TEXT_0600_PATHS.has(entry.path) ? 0o600 : 0o644,
+      payloadKind: "exact-text"
+    })),
+  ...REVIEWED_LEGACY_CURRENT_HEAD_JPEG_UNDER_PNG_ENTRIES.map((entry) => Object.freeze({
+    ...entry,
+    sourcePath: entry.path,
+    sourceRevision: REVIEWED_PROTECTED_OVERLAY_TARGET,
+    sourceMode: entry.mode,
+    sourceKinds: Object.freeze(["untracked"]),
+    fileMode: 0o600,
+    payloadKind: "jpeg-under-png"
+  })),
+  REVIEWED_PROTECTED_OVERLAY_OFFICE_LOCK_ALIAS
+]);
+const REVIEWED_PROTECTED_OVERLAY_TRACKED_POLICIES = Object.freeze([
+  ...REVIEWED_LEGACY_CURRENT_HEAD_TEXT_ENTRIES
+    .filter((entry) => entry.path.startsWith("tests/e2e/"))
+    .map((entry) => Object.freeze({
+      ...entry,
+      sourcePath: entry.path,
+      sourceRevision: REVIEWED_PROTECTED_OVERLAY_TARGET,
+      sourceMode: entry.mode,
+      sourceKinds: Object.freeze(["worktree-current", "tracked-current"]),
+      fileMode: 0o644,
+      payloadKind: "exact-text"
+    })),
+  ...REVIEWED_LEGACY_BRANCH_BASE_TEXT_ENTRIES.map((entry) => Object.freeze({
+    ...entry,
+    sourcePath: entry.path,
+    sourceRevision: REVIEWED_PROTECTED_OVERLAY_BASE,
+    sourceMode: entry.mode,
+    sourceKinds: Object.freeze(["index-before-worktree", "historical"]),
+    fileMode: 0o644,
+    payloadKind: "exact-text"
+  }))
+]);
+const REVIEWED_PROTECTED_OVERLAY_POLICIES = Object.freeze([
+  ...REVIEWED_PROTECTED_OVERLAY_UNTRACKED_POLICIES,
+  ...REVIEWED_PROTECTED_OVERLAY_TRACKED_POLICIES
+]);
+const REVIEWED_PROTECTED_OVERLAY_UNTRACKED_BY_PATH = new Map(
+  REVIEWED_PROTECTED_OVERLAY_UNTRACKED_POLICIES.map((entry) => [entry.path, entry])
+);
+const REVIEWED_PROTECTED_OVERLAY_BY_SOURCE_AND_PATH = new Map(
+  REVIEWED_PROTECTED_OVERLAY_POLICIES.flatMap((entry) => (
+    entry.sourceKinds.map((sourceKind) => [`${sourceKind}\0${entry.path}`, entry])
+  ))
+);
 const SECRET_ASSIGNMENT = /(?:^|[^A-Za-z0-9_$])["'`]?([A-Za-z_$][A-Za-z0-9_$-]*)["'`]?(?:[\t ]*\])?[\t ]*(:|>>>=|<<=|>>=|\*\*=|&&=|\|\|=|\?\?=|\+=|-=|\*=|\/=|%=|&=|\|=|\^=|=(?![=>]))[\t ]*/gmu;
 const TOKEN_PATTERNS = [
   /\bsk-[A-Za-z0-9_-]{20,}(?![A-Za-z0-9_-])/g,
@@ -3121,7 +3231,7 @@ export function assertEvidenceGateReport(report) {
     "terminalProtocol"
   ];
   if (!exactKeys(report, keys)) throw new Error("evidence gate report fields are invalid");
-  if (report.schemaVersion !== EVIDENCE_SCHEMA_VERSION
+  if (!READABLE_EVIDENCE_SCHEMA_VERSIONS.has(report.schemaVersion)
     || typeof report.checkedAt !== "string"
     || !Number.isFinite(Date.parse(report.checkedAt))
     || typeof report.archiveSetFingerprint !== "string"
@@ -6481,10 +6591,13 @@ function scanHistoricalTrackedPaths(
   revision,
   paths,
   labelPrefix = "historical",
-  reviewedLegacyTextByPath = null
+  reviewedLegacyTextByPath = null,
+  protectedOverlayContext = null,
+  protectedSourceKind = labelPrefix
 ) {
   let scanned = 0;
   let reviewed = 0;
+  let reviewedProtected = 0;
   for (const relativePath of paths) {
     const reviewedLegacyText = reviewedLegacyTextByPath?.get(relativePath) ?? null;
     if (reviewedLegacyText !== null && revision !== reviewedLegacyText.revision) {
@@ -6497,6 +6610,19 @@ function scanHistoricalTrackedPaths(
       const separator = record.indexOf("\t");
       if (separator < 0 || record.slice(separator + 1) !== relativePath) continue;
       const [mode, type, objectId] = record.slice(0, separator).split(" ");
+      const protectedOverlayScan = scanReviewedProtectedOverlayGitBlob(
+        worktreePath,
+        relativePath,
+        protectedSourceKind,
+        { mode, type, objectId },
+        protectedOverlayContext
+      );
+      if (protectedOverlayScan !== null) {
+        matched = true;
+        scanned += 1;
+        reviewedProtected += 1;
+        continue;
+      }
       if (reviewedLegacyText !== null) {
         if (mode !== reviewedLegacyText.mode
           || type !== reviewedLegacyText.type
@@ -6537,7 +6663,7 @@ function scanHistoricalTrackedPaths(
       throw new Error(`historical Git blob is missing for ${JSON.stringify(relativePath)}`);
     }
   }
-  return { scanned, reviewed };
+  return { scanned, reviewed, reviewedProtected };
 }
 
 export function scanBranchBaseHistoricalTrackedPaths(worktreePath, revision, paths) {
@@ -6733,6 +6859,242 @@ function scanReviewedLegacyJpegUnderPngPayload(buffer) {
   assertStructurallyValidJpegUnderPng(buffer);
   scanOpaqueRawSignatures(buffer, REVIEWED_LEGACY_JPEG_UNDER_PNG_DISPLAY_PATH);
   return { kind: "reviewed-binary", status: "passed" };
+}
+
+function readReviewedProtectedOverlayRef(worktreePath) {
+  const existence = spawnSync(
+    "git",
+    ["show-ref", "--verify", "--quiet", REVIEWED_PROTECTED_OVERLAY_REF],
+    {
+      cwd: worktreePath,
+      env: { ...process.env, GIT_OPTIONAL_LOCKS: "0" },
+      encoding: "utf8",
+      timeout: CHILD_PROCESS_TIMEOUT_MS,
+      stdio: ["ignore", "pipe", "pipe"]
+    }
+  );
+  if (existence.error) throw new Error("reviewed protected overlay reference inspection failed");
+  if (existence.status === 1) return null;
+  if (existence.status !== 0) throw new Error("reviewed protected overlay reference inspection failed");
+  const result = spawnSync(
+    "git",
+    ["show-ref", "--verify", "--hash", REVIEWED_PROTECTED_OVERLAY_REF],
+    {
+      cwd: worktreePath,
+      env: { ...process.env, GIT_OPTIONAL_LOCKS: "0" },
+      encoding: "utf8",
+      timeout: CHILD_PROCESS_TIMEOUT_MS,
+      stdio: ["ignore", "pipe", "pipe"]
+    }
+  );
+  if (result.error) throw new Error("reviewed protected overlay reference inspection failed");
+  if (result.status !== 0 || !/^[0-9a-f]{40}$/u.test(result.stdout.trim())) {
+    throw new Error("reviewed protected overlay reference inspection failed");
+  }
+  return result.stdout.trim();
+}
+
+function reviewedProtectedOverlayCommonDir(worktreePath) {
+  const reported = gitText(["rev-parse", "--git-common-dir"], worktreePath);
+  return fs.realpathSync(path.resolve(worktreePath, reported));
+}
+
+function assertReviewedProtectedOverlayBaseAncestry(worktreePath) {
+  const result = spawnSync(
+    "git",
+    ["merge-base", "--is-ancestor", REVIEWED_PROTECTED_OVERLAY_BASE, REVIEWED_PROTECTED_OVERLAY_TARGET],
+    {
+      cwd: worktreePath,
+      env: { ...process.env, GIT_OPTIONAL_LOCKS: "0" },
+      encoding: "utf8",
+      timeout: CHILD_PROCESS_TIMEOUT_MS,
+      stdio: ["ignore", "pipe", "pipe"]
+    }
+  );
+  if (result.error || result.status !== 0) {
+    throw new Error("reviewed protected overlay base ancestry mismatch");
+  }
+}
+
+export function resolveReviewedProtectedOverlayContext(worktreePath, {
+  expectedRepositoryId = REVIEWED_PROTECTED_OVERLAY_REPOSITORY_ID
+} = {}) {
+  const targetRevision = readReviewedProtectedOverlayRef(worktreePath);
+  if (targetRevision === null) return null;
+  if (typeof expectedRepositoryId !== "string" || !SHA256_PATTERN.test(expectedRepositoryId)) {
+    throw new Error("reviewed protected overlay expected repository identity is invalid");
+  }
+  const commonDir = reviewedProtectedOverlayCommonDir(worktreePath);
+  const actualRepositoryId = repositoryIdentity(commonDir);
+  if (actualRepositoryId !== expectedRepositoryId) {
+    throw new Error("reviewed protected overlay repository identity mismatch");
+  }
+  if (targetRevision !== REVIEWED_PROTECTED_OVERLAY_TARGET) {
+    throw new Error("reviewed protected overlay reference mismatch");
+  }
+  try {
+    gitBuffer(["cat-file", "-e", `${REVIEWED_PROTECTED_OVERLAY_TARGET}^{commit}`], worktreePath);
+  } catch {
+    throw new Error("reviewed protected overlay target commit is unavailable");
+  }
+  assertReviewedProtectedOverlayBaseAncestry(worktreePath);
+  const context = Object.freeze({
+    commonDir,
+    refName: REVIEWED_PROTECTED_OVERLAY_REF,
+    repositoryId: actualRepositoryId,
+    targetRevision: REVIEWED_PROTECTED_OVERLAY_TARGET
+  });
+  ISSUED_REVIEWED_PROTECTED_OVERLAY_CONTEXTS.add(context);
+  return context;
+}
+
+function assertReviewedProtectedOverlayContext(worktreePath, context) {
+  if (context === null
+    || typeof context !== "object"
+    || !ISSUED_REVIEWED_PROTECTED_OVERLAY_CONTEXTS.has(context)
+    || !exactKeys(context, ["commonDir", "refName", "repositoryId", "targetRevision"])
+    || context.refName !== REVIEWED_PROTECTED_OVERLAY_REF
+    || context.targetRevision !== REVIEWED_PROTECTED_OVERLAY_TARGET
+    || context.commonDir !== reviewedProtectedOverlayCommonDir(worktreePath)
+    || context.repositoryId !== repositoryIdentity(context.commonDir)) {
+    throw new Error("reviewed protected overlay context mismatch");
+  }
+  const targetRevision = readReviewedProtectedOverlayRef(worktreePath);
+  if (targetRevision !== REVIEWED_PROTECTED_OVERLAY_TARGET) {
+    throw new Error("reviewed protected overlay reference mismatch");
+  }
+}
+
+function readReviewedProtectedOverlayTreeEntry(worktreePath, policy) {
+  const records = parseNul(gitBuffer([
+    "ls-tree",
+    "-z",
+    policy.sourceRevision,
+    "--",
+    `:(literal)${policy.sourcePath}`
+  ], worktreePath));
+  if (records.length !== 1) throw new Error("reviewed protected overlay source entry mismatch");
+  const separator = records[0].indexOf("\t");
+  if (separator < 0 || records[0].slice(separator + 1) !== policy.sourcePath) {
+    throw new Error("reviewed protected overlay source entry mismatch");
+  }
+  const [mode, type, objectId] = records[0].slice(0, separator).split(" ");
+  if (mode !== policy.sourceMode || type !== policy.type || objectId !== policy.objectId) {
+    throw new Error("reviewed protected overlay source metadata mismatch");
+  }
+  return { mode, type, objectId };
+}
+
+function scanReviewedProtectedOverlayPayload(policy, buffer) {
+  if (policy.payloadKind === "terminal-patch") {
+    return scanReviewedLegacyTerminalPatch(buffer, policy.path);
+  }
+  if (policy.payloadKind === "parent-console-report") {
+    return scanReviewedLegacyParentConsoleReport(buffer);
+  }
+  if (policy.payloadKind === "exact-text") {
+    return scanReviewedLegacyExactTextPayload(buffer);
+  }
+  if (policy.payloadKind === "jpeg-under-png") {
+    return scanReviewedLegacyJpegUnderPngPayload(buffer);
+  }
+  if (policy.payloadKind === "office-lock") {
+    scanOpaqueRawSignatures(
+      buffer,
+      `${REVIEWED_PROTECTED_OVERLAY_DISPLAY_PREFIX}/office-lock/content.bin`
+    );
+    return { kind: "text", status: "passed" };
+  }
+  throw new Error("reviewed protected overlay payload policy is invalid");
+}
+
+function exactReviewedProtectedOverlayFileCandidate(worktreePath, policy) {
+  const absolutePath = path.join(worktreePath, policy.path);
+  const pathStat = lstatIfPresent(absolutePath, "reviewed protected overlay file");
+  if (!pathStat) throw new Error("reviewed protected overlay file is missing");
+  if (pathStat.isSymbolicLink()
+    || !pathStat.isFile()
+    || pathStat.nlink !== 1
+    || (pathStat.mode & 0o7777) !== policy.fileMode) {
+    throw new Error("reviewed protected overlay file metadata mismatch");
+  }
+  if (pathStat.size !== policy.bytes) {
+    if (policy.allowGenericFallbackOnPayloadMismatch === true) return null;
+    throw new Error("reviewed protected overlay file size mismatch");
+  }
+  const opened = openStrictEvidenceFile(
+    absolutePath,
+    "reviewed protected overlay file",
+    [policy.fileMode],
+    { expectedBytes: policy.bytes }
+  );
+  if (!opened) return null;
+  try {
+    if (opened.buffer.length !== policy.bytes
+      || gitSha1BlobObjectId(opened.buffer) !== policy.objectId
+      || sha256Buffer(opened.buffer) !== policy.sha256) {
+      if (policy.allowGenericFallbackOnPayloadMismatch === true) return null;
+      throw new Error("reviewed protected overlay file integrity mismatch");
+    }
+    return { buffer: opened.buffer, mode: opened.mode };
+  } finally {
+    closeStrictEvidenceFile(opened);
+  }
+}
+
+export function scanReviewedProtectedOverlayFile(
+  worktreePath,
+  relativePath,
+  sourceKind = "untracked",
+  context = undefined
+) {
+  const policy = REVIEWED_PROTECTED_OVERLAY_BY_SOURCE_AND_PATH.get(`${sourceKind}\0${relativePath}`) ?? null;
+  if (policy === null) return null;
+  const effectiveContext = context === undefined
+    ? resolveReviewedProtectedOverlayContext(worktreePath)
+    : context;
+  if (effectiveContext === null) return null;
+  assertReviewedProtectedOverlayContext(worktreePath, effectiveContext);
+  readReviewedProtectedOverlayTreeEntry(worktreePath, policy);
+  const candidate = exactReviewedProtectedOverlayFileCandidate(worktreePath, policy);
+  if (candidate === null) return null;
+  const scan = scanReviewedProtectedOverlayPayload(policy, candidate.buffer);
+  return {
+    ...scan,
+    buffer: candidate.buffer,
+    mode: candidate.mode,
+    reviewedProtectedOverlay: true
+  };
+}
+
+export function scanReviewedProtectedOverlayGitBlob(
+  worktreePath,
+  relativePath,
+  sourceKind,
+  entry,
+  context = undefined
+) {
+  const policy = REVIEWED_PROTECTED_OVERLAY_BY_SOURCE_AND_PATH.get(`${sourceKind}\0${relativePath}`) ?? null;
+  if (policy === null) return null;
+  const effectiveContext = context === undefined
+    ? resolveReviewedProtectedOverlayContext(worktreePath)
+    : context;
+  if (effectiveContext === null) return null;
+  assertReviewedProtectedOverlayContext(worktreePath, effectiveContext);
+  readReviewedProtectedOverlayTreeEntry(worktreePath, policy);
+  if (entry?.mode !== policy.mode
+    || entry?.type !== policy.type
+    || entry?.objectId !== policy.objectId) {
+    throw new Error("reviewed protected overlay Git metadata mismatch");
+  }
+  const buffer = gitBuffer(["cat-file", "blob", entry.objectId], worktreePath);
+  if (buffer.length !== policy.bytes
+    || gitSha1BlobObjectId(buffer) !== policy.objectId
+    || sha256Buffer(buffer) !== policy.sha256) {
+    throw new Error("reviewed protected overlay Git blob integrity mismatch");
+  }
+  const scan = scanReviewedProtectedOverlayPayload(policy, buffer);
+  return { ...scan, reviewedProtectedOverlay: true };
 }
 
 export function isReviewedLegacyTerminalPatchEntry({
@@ -7117,18 +7479,56 @@ function scanReviewedUntrackedLegacyOfficeLock(worktreePath, relativePath) {
   );
 }
 
-function scanReviewedUntrackedFile(worktreePath, relativePath) {
-  return scanReviewedUntrackedCoordinationReport(worktreePath, relativePath)
-    ?? scanReviewedUntrackedLegacyOfficeLock(worktreePath, relativePath);
+function scanReviewedProtectedOverlayArchiveFile(worktreePath, relativePath) {
+  const policy = REVIEWED_PROTECTED_OVERLAY_UNTRACKED_BY_PATH.get(relativePath) ?? null;
+  if (policy === null) return null;
+  const candidate = exactReviewedProtectedOverlayFileCandidate(worktreePath, policy);
+  if (candidate === null) return null;
+  const scan = scanReviewedProtectedOverlayPayload(policy, candidate.buffer);
+  return {
+    ...scan,
+    buffer: candidate.buffer,
+    mode: candidate.mode,
+    reviewedProtectedOverlay: true
+  };
 }
 
-export function buildInventory(worktreePath, paths) {
+function scanReviewedUntrackedFile(
+  worktreePath,
+  relativePath,
+  protectedOverlayContext,
+  { archiveProtectedOverlayPaths = null } = {}
+) {
+  return scanReviewedUntrackedCoordinationReport(worktreePath, relativePath)
+    ?? scanReviewedUntrackedLegacyOfficeLock(worktreePath, relativePath)
+    ?? (archiveProtectedOverlayPaths?.has(relativePath) === true
+      ? scanReviewedProtectedOverlayArchiveFile(worktreePath, relativePath)
+      : scanReviewedProtectedOverlayFile(
+        worktreePath,
+        relativePath,
+        "untracked",
+        protectedOverlayContext
+      ));
+}
+
+function buildInventoryInternal(worktreePath, paths, {
+  protectedOverlayContext = null,
+  archiveProtectedOverlayPaths = null
+} = {}) {
   const inventory = [];
   let reviewedBinaryPaths = 0;
+  let reviewedProtectedOverlayPaths = 0;
   for (const relativePath of [...paths].sort((left, right) => Buffer.compare(Buffer.from(left), Buffer.from(right)))) {
-    const reviewedUntrackedFile = scanReviewedUntrackedFile(worktreePath, relativePath);
+    const reviewedUntrackedFile = scanReviewedUntrackedFile(
+      worktreePath,
+      relativePath,
+      protectedOverlayContext,
+      { archiveProtectedOverlayPaths }
+    );
     if (!reviewedUntrackedFile) scanArchivePath(relativePath);
     if (reviewedUntrackedFile) {
+      if (reviewedUntrackedFile.kind === "reviewed-binary") reviewedBinaryPaths += 1;
+      if (reviewedUntrackedFile.reviewedProtectedOverlay === true) reviewedProtectedOverlayPaths += 1;
       inventory.push({
         path: relativePath,
         type: "file",
@@ -7154,7 +7554,17 @@ export function buildInventory(worktreePath, paths) {
       throw new Error(`unsupported untracked path type: ${JSON.stringify(relativePath)}`);
     }
   }
-  return { inventory, reviewedBinaryPaths };
+  return { inventory, reviewedBinaryPaths, reviewedProtectedOverlayPaths };
+}
+
+export function buildInventory(worktreePath, paths, {
+  protectedOverlayExpectedRepositoryId = REVIEWED_PROTECTED_OVERLAY_REPOSITORY_ID
+} = {}) {
+  return buildInventoryInternal(worktreePath, paths, {
+    protectedOverlayContext: resolveReviewedProtectedOverlayContext(worktreePath, {
+      expectedRepositoryId: protectedOverlayExpectedRepositoryId
+    })
+  });
 }
 
 function sortGitPaths(paths) {
@@ -7251,11 +7661,31 @@ function readIndexStage0Entry(indexByPath, relativePath) {
   return entry;
 }
 
-function scanIndexStage0Paths(worktreePath, indexByPath, paths, labelPrefix = "index") {
+function scanIndexStage0Paths(
+  worktreePath,
+  indexByPath,
+  paths,
+  labelPrefix = "index",
+  protectedOverlayContext = null,
+  protectedSourceKind = labelPrefix
+) {
   let scanned = 0;
   let reviewed = 0;
+  let reviewedProtected = 0;
   for (const relativePath of paths) {
     const entry = readIndexStage0Entry(indexByPath, relativePath);
+    const protectedOverlayScan = scanReviewedProtectedOverlayGitBlob(
+      worktreePath,
+      relativePath,
+      protectedSourceKind,
+      { mode: entry.mode, type: "blob", objectId: entry.objectId },
+      protectedOverlayContext
+    );
+    if (protectedOverlayScan !== null) {
+      scanned += 1;
+      reviewedProtected += 1;
+      continue;
+    }
     const buffer = gitBuffer(["cat-file", "blob", entry.objectId], worktreePath);
     if (entry.mode === "120000") {
       assertSafeSymlink(worktreePath, relativePath, buffer.toString("utf8"));
@@ -7269,12 +7699,18 @@ function scanIndexStage0Paths(worktreePath, indexByPath, paths, labelPrefix = "i
     scanned += 1;
     if (result.kind === "reviewed-binary") reviewed += 1;
   }
-  return { scanned, reviewed };
+  return { scanned, reviewed, reviewedProtected };
 }
 
-function scanChangedWorkingTree(worktreePath, paths) {
+function scanChangedWorkingTree(
+  worktreePath,
+  paths,
+  protectedOverlayContext = null,
+  protectedSourceKind = "worktree-current"
+) {
   let scanned = 0;
   let reviewed = 0;
+  let reviewedProtected = 0;
   for (const relativePath of paths) {
     scanArchivePath(relativePath);
     const absolutePath = path.join(worktreePath, relativePath);
@@ -7290,11 +7726,22 @@ function scanChangedWorkingTree(worktreePath, paths) {
       continue;
     }
     if (!stat.isFile()) throw new Error(`unsupported changed working-tree path type: ${JSON.stringify(relativePath)}`);
+    const protectedOverlayScan = scanReviewedProtectedOverlayFile(
+      worktreePath,
+      relativePath,
+      protectedSourceKind,
+      protectedOverlayContext
+    );
+    if (protectedOverlayScan !== null) {
+      scanned += 1;
+      reviewedProtected += 1;
+      continue;
+    }
     const result = scanFile(absolutePath, relativePath);
     scanned += 1;
     if (result.kind === "reviewed-binary") reviewed += 1;
   }
-  return { scanned, reviewed };
+  return { scanned, reviewed, reviewedProtected };
 }
 
 function createTar(worktreePath, paths0) {
@@ -7336,9 +7783,13 @@ export function collectWorktreeSnapshot(worktree, {
   mainRef = "main",
   includeTar = true,
   beforeDriftCheck,
+  protectedOverlayExpectedRepositoryId = REVIEWED_PROTECTED_OVERLAY_REPOSITORY_ID,
   transactionMetadataExclusions: requestedTransactionMetadataExclusions = [],
   ephemeralTransactionMetadataRoots: requestedEphemeralTransactionMetadataRoots = []
 } = {}) {
+  const protectedOverlayContext = resolveReviewedProtectedOverlayContext(worktree.path, {
+    expectedRepositoryId: protectedOverlayExpectedRepositoryId
+  });
   const transactionMetadataExclusions = normalizeTransactionMetadataExclusions(requestedTransactionMetadataExclusions);
   const ephemeralTransactionMetadataRoots = normalizeEphemeralTransactionMetadataRoots(requestedEphemeralTransactionMetadataRoots);
   const pathspec = gitPathspec(transactionMetadataExclusions, ephemeralTransactionMetadataRoots);
@@ -7361,14 +7812,54 @@ export function collectWorktreeSnapshot(worktree, {
   scanBuffer(worktreePatch, { displayPath: "worktree.patch", aggregatePatch: true });
   const pathSetOptions = { transactionMetadataExclusions, ephemeralTransactionMetadataRoots };
   const indexPaths = changedPathSets(worktree.path, "HEAD", { cached: true, ...pathSetOptions });
-  const indexScan = scanIndexStage0Paths(worktree.path, indexByPath, indexPaths.currentPaths);
-  const indexHistoricalScan = scanHistoricalTrackedPaths(worktree.path, "HEAD", indexPaths.historicalPaths, "head-before-index");
+  const indexScan = scanIndexStage0Paths(
+    worktree.path,
+    indexByPath,
+    indexPaths.currentPaths,
+    "index",
+    protectedOverlayContext,
+    "index"
+  );
+  const indexHistoricalScan = scanHistoricalTrackedPaths(
+    worktree.path,
+    "HEAD",
+    indexPaths.historicalPaths,
+    "head-before-index",
+    null,
+    protectedOverlayContext,
+    "head-before-index"
+  );
   const worktreePaths = changedPathSets(worktree.path, null, pathSetOptions);
-  const worktreeScan = scanChangedWorkingTree(worktree.path, worktreePaths.currentPaths);
-  const worktreeHistoricalScan = scanIndexStage0Paths(worktree.path, indexByPath, worktreePaths.historicalPaths, "index-before-worktree");
+  const worktreeScan = scanChangedWorkingTree(
+    worktree.path,
+    worktreePaths.currentPaths,
+    protectedOverlayContext,
+    "worktree-current"
+  );
+  const worktreeHistoricalScan = scanIndexStage0Paths(
+    worktree.path,
+    indexByPath,
+    worktreePaths.historicalPaths,
+    "index-before-worktree",
+    protectedOverlayContext,
+    "index-before-worktree"
+  );
   const trackedPaths = changedPathSets(worktree.path, "HEAD", pathSetOptions);
-  const trackedScan = scanChangedWorkingTree(worktree.path, trackedPaths.currentPaths);
-  const trackedHistoricalScan = scanHistoricalTrackedPaths(worktree.path, "HEAD", trackedPaths.historicalPaths, "historical");
+  const trackedScan = scanChangedWorkingTree(
+    worktree.path,
+    trackedPaths.currentPaths,
+    protectedOverlayContext,
+    "tracked-current"
+  );
+  const trackedHistoricalScan = scanHistoricalTrackedPaths(
+    worktree.path,
+    "HEAD",
+    trackedPaths.historicalPaths,
+    "historical",
+    null,
+    protectedOverlayContext,
+    "historical"
+  );
   const branchRange = `${baseHead}...${initialHead}`;
   const mergeBase = gitText(["merge-base", baseHead, initialHead], worktree.path);
   const [behind, ahead] = gitText(["rev-list", "--left-right", "--count", branchRange], worktree.path).split(/\s+/u).map(Number);
@@ -7384,9 +7875,16 @@ export function collectWorktreeSnapshot(worktree, {
     mergeBase,
     branchPaths.historicalPaths
   );
-  const { inventory, reviewedBinaryPaths } = buildInventory(worktree.path, untracked);
+  const {
+    inventory,
+    reviewedBinaryPaths,
+    reviewedProtectedOverlayPaths
+  } = buildInventoryInternal(worktree.path, untracked, { protectedOverlayContext });
   const inventoryBuffer = Buffer.from(`${JSON.stringify(inventory, null, 2)}\n`);
   beforeDriftCheck?.();
+  if (protectedOverlayContext !== null) {
+    assertReviewedProtectedOverlayContext(worktree.path, protectedOverlayContext);
+  }
   const finalHead = gitText(["rev-parse", "HEAD"], worktree.path);
   const finalBaseHead = gitText(["rev-parse", mainRef], worktree.path);
   const finalStatusBuffer = gitBuffer(["status", "--porcelain=v1", "-z", "-uall", "--", ...pathspec], worktree.path);
@@ -7401,7 +7899,11 @@ export function collectWorktreeSnapshot(worktree, {
   const finalBranchPatch = finalBaseHead !== finalHead
     ? gitBuffer(["diff", "--binary", finalBranchRange, "--", ...pathspec], worktree.path)
     : null;
-  const finalInventoryBuffer = Buffer.from(`${JSON.stringify(buildInventory(worktree.path, finalUntracked).inventory, null, 2)}\n`);
+  const finalInventoryBuffer = Buffer.from(`${JSON.stringify(buildInventoryInternal(
+    worktree.path,
+    finalUntracked,
+    { protectedOverlayContext }
+  ).inventory, null, 2)}\n`);
   if (finalHead !== initialHead
     || finalBaseHead !== baseHead
     || !finalStatusBuffer.equals(statusBuffer)
@@ -7415,6 +7917,9 @@ export function collectWorktreeSnapshot(worktree, {
     throw new Error(`${worktree.branch}: worktree drift detected during evidence snapshot`);
   }
   const tar = includeTar ? createTar(worktree.path, untrackedPaths0) : null;
+  if (protectedOverlayContext !== null) {
+    assertReviewedProtectedOverlayContext(worktree.path, protectedOverlayContext);
+  }
   const postHead = gitText(["rev-parse", "HEAD"], worktree.path);
   const postBaseHead = gitText(["rev-parse", mainRef], worktree.path);
   const postStatusBuffer = gitBuffer(["status", "--porcelain=v1", "-z", "-uall", "--", ...pathspec], worktree.path);
@@ -7429,7 +7934,11 @@ export function collectWorktreeSnapshot(worktree, {
   const postBranchPatch = postBaseHead !== postHead
     ? gitBuffer(["diff", "--binary", postBranchRange, "--", ...pathspec], worktree.path)
     : null;
-  const postInventoryBuffer = Buffer.from(`${JSON.stringify(buildInventory(worktree.path, postUntracked).inventory, null, 2)}\n`);
+  const postInventoryBuffer = Buffer.from(`${JSON.stringify(buildInventoryInternal(
+    worktree.path,
+    postUntracked,
+    { protectedOverlayContext }
+  ).inventory, null, 2)}\n`);
   if (postHead !== initialHead
     || postBaseHead !== baseHead
     || !postStatusBuffer.equals(statusBuffer)
@@ -7444,6 +7953,10 @@ export function collectWorktreeSnapshot(worktree, {
     throw new Error(`${worktree.branch}: worktree drift detected while writing evidence archive`);
   }
   const archiveKind = status.length > 0 ? "dirty-worktree" : "clean-diverged-branch";
+  const totalReviewedProtectedOverlayPaths = indexScan.reviewedProtected + indexHistoricalScan.reviewedProtected
+    + worktreeScan.reviewedProtected + worktreeHistoricalScan.reviewedProtected
+    + trackedScan.reviewedProtected + trackedHistoricalScan.reviewedProtected
+    + reviewedProtectedOverlayPaths;
   const currentStateBasis = {
     branch: worktree.branch,
     archiveKind,
@@ -7460,7 +7973,8 @@ export function collectWorktreeSnapshot(worktree, {
     worktreePatchSha256: sha256Buffer(worktreePatch),
     branchPatchSha256: branchPatch ? sha256Buffer(branchPatch) : null,
     untrackedPaths0Sha256: sha256Buffer(untrackedPaths0),
-    untrackedInventorySha256: sha256Buffer(inventoryBuffer)
+    untrackedInventorySha256: sha256Buffer(inventoryBuffer),
+    reviewedProtectedOverlayPaths: totalReviewedProtectedOverlayPaths
   };
   return {
     ...currentStateBasis,
@@ -7481,7 +7995,8 @@ export function collectWorktreeSnapshot(worktree, {
       reviewedBinaryPaths: indexScan.reviewed + indexHistoricalScan.reviewed
         + worktreeScan.reviewed + worktreeHistoricalScan.reviewed
         + trackedScan.reviewed + trackedHistoricalScan.reviewed
-        + branchScan.reviewed + branchHistoricalScan.reviewed + reviewedBinaryPaths
+        + branchScan.reviewed + branchHistoricalScan.reviewed + reviewedBinaryPaths,
+      reviewedProtectedOverlayPaths: totalReviewedProtectedOverlayPaths
     },
     buffers: {
       statusInventory: statusBuffer,
@@ -7601,10 +8116,12 @@ export function verifyArchiveEntrySchema(entry, { archiveSetFingerprint, expecte
   const start = failures.length;
   const label = archiveEntryLabel(entry);
   if (!exactKeys(entry, ARCHIVE_ENTRY_KEYS)) {
-    failures.push(`${label}: v2 archive entry fields are invalid`);
+    failures.push(`${label}: archive entry fields are invalid`);
     return false;
   }
-  if (entry.schemaVersion !== EVIDENCE_SCHEMA_VERSION) failures.push(`${label}: entry schema is stale`);
+  if (!READABLE_EVIDENCE_SCHEMA_VERSIONS.has(entry.schemaVersion)) {
+    failures.push(`${label}: entry schema is stale`);
+  }
   if (typeof entry.branch !== "string" || entry.branch.length === 0) failures.push(`${label}: branch is invalid`);
   if (!isGitObjectId(entry.head) || !isGitObjectId(entry.baseHead)) failures.push(`${label}: Git object identity is invalid`);
   if (!exactKeys(entry.divergence, ["ahead", "behind"])
@@ -7642,10 +8159,15 @@ export function verifyArchiveEntrySchema(entry, { archiveSetFingerprint, expecte
   if (archiveSetFingerprint !== undefined && entry.archiveSetFingerprint !== archiveSetFingerprint) {
     failures.push(`${label}: archive-set fingerprint is stale`);
   }
-  if (!exactKeys(entry.secretScanner, ["reviewedBinaryPaths", "scannedPaths", "status"])
+  const secretScannerKeys = entry.schemaVersion === LEGACY_EVIDENCE_SCHEMA_VERSION
+    ? ["reviewedBinaryPaths", "scannedPaths", "status"]
+    : ["reviewedBinaryPaths", "reviewedProtectedOverlayPaths", "scannedPaths", "status"];
+  if (!exactKeys(entry.secretScanner, secretScannerKeys)
     || entry.secretScanner.status !== "passed"
     || !isNonnegativeInteger(entry.secretScanner.scannedPaths)
-    || !isNonnegativeInteger(entry.secretScanner.reviewedBinaryPaths)) {
+    || !isNonnegativeInteger(entry.secretScanner.reviewedBinaryPaths)
+    || (entry.schemaVersion !== LEGACY_EVIDENCE_SCHEMA_VERSION
+      && !isNonnegativeInteger(entry.secretScanner.reviewedProtectedOverlayPaths))) {
     failures.push(`${label}: secret scanner fields are invalid`);
   }
   if (!exactKeys(entry.artifacts, ARCHIVE_ARTIFACT_KEYS)) {
@@ -7710,10 +8232,12 @@ export function verifyArchiveSetSchema(manifest, index, failures = []) {
     "schemaVersion"
   ];
   if (!exactKeys(manifest, manifestKeys)) {
-    failures.push("v2 linked manifest fields are invalid");
+    failures.push("linked manifest fields are invalid");
     return false;
   }
-  if (manifest.schemaVersion !== EVIDENCE_SCHEMA_VERSION) failures.push("linked manifest schema is stale");
+  if (!READABLE_EVIDENCE_SCHEMA_VERSIONS.has(manifest.schemaVersion)) {
+    failures.push("linked manifest schema is stale");
+  }
   if (typeof manifest.generatedAt !== "string" || !Number.isFinite(Date.parse(manifest.generatedAt))) failures.push("linked manifest timestamp is invalid");
   if (typeof manifest.evidenceRootId !== "string" || !UUID_PATTERN.test(manifest.evidenceRootId)) failures.push("linked manifest evidence root ID is invalid");
   if (typeof manifest.archiveSetFingerprint !== "string" || !SHA256_PATTERN.test(manifest.archiveSetFingerprint)) failures.push("linked manifest archive-set fingerprint is invalid");
@@ -7725,6 +8249,9 @@ export function verifyArchiveSetSchema(manifest, index, failures = []) {
   }
   for (const entry of manifest.archivedWorktrees) {
     verifyArchiveEntrySchema(entry, { archiveSetFingerprint: manifest.archiveSetFingerprint }, failures);
+    if (entry?.schemaVersion !== manifest.schemaVersion) {
+      failures.push(`${archiveEntryLabel(entry)}: entry schema does not match its linked manifest`);
+    }
   }
   const branches = manifest.archivedWorktrees.map((entry) => entry?.branch);
   if (stableJson(branches) !== stableJson([...branches].sort((left, right) => String(left).localeCompare(String(right))))
@@ -7735,7 +8262,7 @@ export function verifyArchiveSetSchema(manifest, index, failures = []) {
     failures.push("archive-set index fields are invalid");
     return false;
   }
-  if (index.schemaVersion !== EVIDENCE_SCHEMA_VERSION
+  if (index.schemaVersion !== manifest.schemaVersion
     || index.evidenceRootId !== manifest.evidenceRootId
     || index.archiveSetFingerprint !== manifest.archiveSetFingerprint
     || stableJson(index.entries) !== stableJson(manifest.archivedWorktrees)) {
@@ -7745,7 +8272,7 @@ export function verifyArchiveSetSchema(manifest, index, failures = []) {
     failures.push("archive-set basis fields are invalid");
   } else {
     const expectedBasis = {
-      schemaVersion: EVIDENCE_SCHEMA_VERSION,
+      schemaVersion: manifest.schemaVersion,
       dirtyMapStatusSignature: manifest.dirtyMapStatusSignature,
       expandedStatusEntries: manifest.expandedStatusEntries,
       entries: manifest.archivedWorktrees.map((entry) => entry.currentStateFingerprint).sort()
@@ -8084,12 +8611,30 @@ function isExactReviewedUntrackedCoordinationReportInventory(item) {
     && item.sha256 === reviewed.sha256;
 }
 
+function isReviewedProtectedOverlayUntrackedInventory(item) {
+  if (item === null
+    || typeof item !== "object"
+    || !exactKeys(item, ["mode", "path", "sha256", "size", "type"])) {
+    return false;
+  }
+  const policy = REVIEWED_PROTECTED_OVERLAY_UNTRACKED_BY_PATH.get(item.path) ?? null;
+  return policy !== null
+    && item.type === "file"
+    && item.mode === policy.fileMode
+    && item.size === policy.bytes
+    && item.sha256 === policy.sha256;
+}
+
 function isReviewedUntrackedExactInventory(item) {
   return isExactReviewedUntrackedCoordinationReportInventory(item)
-    || isReviewedLegacyOfficeLockInventory(item);
+    || isReviewedLegacyOfficeLockInventory(item)
+    || isReviewedProtectedOverlayUntrackedInventory(item);
 }
 
 export function verifyTarPayload(tarBuffer, expected, label, failures) {
+  const reviewedProtectedOverlayPaths = new Set(
+    expected.filter(isReviewedProtectedOverlayUntrackedInventory).map((item) => item.path)
+  );
   try {
     for (const item of expected) {
       if (!isReviewedUntrackedExactInventory(item)) scanArchivePath(item.path);
@@ -8164,7 +8709,9 @@ export function verifyTarPayload(tarBuffer, expected, label, failures) {
       " archive.extractall(sys.argv[1], filter='data')"
     ].join("\n");
     execFileSync("python3", ["-c", extractionScript, extractRoot], { input: tarBuffer, stdio: ["pipe", "pipe", "pipe"], timeout: CHILD_PROCESS_TIMEOUT_MS });
-    const actual = buildInventory(extractRoot, walkFiles(extractRoot));
+    const actual = buildInventoryInternal(extractRoot, walkFiles(extractRoot), {
+      archiveProtectedOverlayPaths: reviewedProtectedOverlayPaths
+    });
     if (stableJson(actual.inventory) !== stableJson(expected)) failures.push(`${label}: extracted tar inventory mismatch`);
   } catch (error) {
     if (/reviewed binary magic mismatch/iu.test(error?.message ?? "")) {

@@ -16,6 +16,12 @@ const gate = path.join(here, "assert-linked-worktree-archive-evidence-current.mj
 const libraryUrl = pathToFileURL(path.join(here, "evidence-archive-lib.mjs")).href;
 const TEST_CHILD_TIMEOUT_MS = 15_000;
 const TEST_REPOSITORY_ID = "a".repeat(64);
+const pemHeaderFixture = () => ["-----BEGIN", "PRIVATE", "KEY-----"].join(" ");
+const providerTokenFixture = (suffix) => ["s", "k", "-"].join("") + suffix;
+const githubTokenFixture = (suffix) => ["g", "h", "p", "_"].join("") + suffix;
+const awsAccessKeyFixture = (suffix) => ["A", "K", "I", "A"].join("") + suffix;
+const googleApiKeyFixture = (suffix) => ["A", "I", "z", "a"].join("") + suffix;
+const resendTokenFixture = (suffix) => ["r", "e", "_"].join("") + suffix;
 const REVIEWED_LEGACY_STAGE0_ENTRIES = Object.freeze([
   Object.freeze({
     path: "coordination/blockers/2026-05-26-S18-hjb-junior-deepseek-pro-v4-credentials.md",
@@ -293,6 +299,32 @@ const REVIEWED_LEGACY_CURRENT_HEAD_JPEG_UNDER_PNG_ENTRIES = Object.freeze([
     sha256: "99ae3f6663d7281945006b2b1517f3f1bfa7656c9f67850a2da035930c836ad8"
   })
 ]);
+const REVIEWED_PROTECTED_OVERLAY_REF = "refs/mais-preservation/2026-07-12-dirty-root-snapshot";
+const REVIEWED_PROTECTED_OVERLAY_TARGET = "93346c724961435789bd66de9e31d3979a93c45c";
+const REVIEWED_PROTECTED_OVERLAY_OFFICE_LOCK_ALIAS = Object.freeze({
+  sourcePath: REVIEWED_LEGACY_OFFICE_LOCK.path,
+  path: "coordination/content-qa/templates/.~IS_CA-Math_K-5_Content_QA_Template.docx",
+  mode: 0o644,
+  objectId: REVIEWED_LEGACY_OFFICE_LOCK.objectId,
+  bytes: REVIEWED_LEGACY_OFFICE_LOCK.bytes,
+  sha256: REVIEWED_LEGACY_OFFICE_LOCK.sha256
+});
+const REVIEWED_PROTECTED_OVERLAY_UNTRACKED_MODES = new Map([
+  ...REVIEWED_LEGACY_TERMINAL_PATCH_ENTRIES.map((entry) => [entry.path, 0o644]),
+  [REVIEWED_LEGACY_PARENT_CONSOLE_REPORT.path, 0o600],
+  ...REVIEWED_LEGACY_CURRENT_HEAD_TEXT_ENTRIES
+    .filter((entry) => !entry.path.startsWith("tests/e2e/"))
+    .map((entry) => [entry.path, new Set([
+      "coordination/reports/2026-06-04-teacher-console-p0-p1-bug-audit.md",
+      "coordination/reports/2026-06-06-production-auth-storage-health-S12.md",
+      "coordination/reports/cloudflare-ai-crawl-control-preflight.mjs",
+      "coordination/reports/cloudflare-ai-crawl-control-waf-upsert.mjs",
+      "coordination/reports/2026-06-06-S11-forgot-password-recovery-smoke.md",
+      "coordination/reports/2026-06-07-S19-password-reset-resend-vercel-env-plan.md"
+    ]).has(entry.path) ? 0o600 : 0o644]),
+  ...REVIEWED_LEGACY_CURRENT_HEAD_JPEG_UNDER_PNG_ENTRIES.map((entry) => [entry.path, 0o600]),
+  [REVIEWED_PROTECTED_OVERLAY_OFFICE_LOCK_ALIAS.path, REVIEWED_PROTECTED_OVERLAY_OFFICE_LOCK_ALIAS.mode]
+]);
 const REVIEWED_REAL_PATCH_CORPUS_EXTRA_ENTRY = Object.freeze({
   path: "coordination/release-intake/archive/codex-A10-A22-A08-A12-A06-compose-20260628.patch",
   objectId: "a2bbb64104ca4d1854ac0d2fe6004f4b6bdc2c87",
@@ -409,6 +441,25 @@ function maybeReviewedLegacyJpegUnderPngRepository() {
     });
     for (const entry of REVIEWED_LEGACY_CURRENT_HEAD_JPEG_UNDER_PNG_ENTRIES) {
       execFileSync("git", ["cat-file", "-e", `${entry.objectId}^{blob}`], {
+        cwd: repository,
+        stdio: "ignore",
+        timeout: TEST_CHILD_TIMEOUT_MS
+      });
+    }
+    return repository;
+  } catch {
+    return null;
+  }
+}
+
+function maybeReviewedProtectedOverlayRepository() {
+  const repository = path.resolve(here, "..", "..");
+  try {
+    for (const revision of [
+      REVIEWED_PROTECTED_OVERLAY_TARGET,
+      REVIEWED_LEGACY_TERMINAL_PATCH_BASE
+    ]) {
+      execFileSync("git", ["cat-file", "-e", `${revision}^{commit}`], {
         cwd: repository,
         stdio: "ignore",
         timeout: TEST_CHILD_TIMEOUT_MS
@@ -538,24 +589,63 @@ function portableStructuredJpeg(options = {}) {
   return Buffer.concat([parts.soi, parts.app, parts.sof, parts.sos, parts.entropy, parts.eoi]);
 }
 
-function portableSingleFileTarGzip(relativePath, buffer) {
+function portableSingleFileTarGzip(relativePath, buffer, { mode = 0o644 } = {}) {
   return execFileSync("python3", ["-c", [
     "import io,sys,tarfile",
     "payload=sys.stdin.buffer.read()",
     "output=io.BytesIO()",
     "with tarfile.open(fileobj=output, mode='w:gz') as archive:",
     " info=tarfile.TarInfo(sys.argv[1])",
-    " info.mode=0o644",
+    " info.mode=int(sys.argv[2], 8)",
     " info.mtime=0",
     " info.size=len(payload)",
     " archive.addfile(info, io.BytesIO(payload))",
     "sys.stdout.buffer.write(output.getvalue())"
-  ].join("\n"), relativePath], {
+  ].join("\n"), relativePath, mode.toString(8)], {
     input: buffer,
     encoding: null,
     maxBuffer: 1024 * 1024 * 1024,
     timeout: TEST_CHILD_TIMEOUT_MS
   });
+}
+
+function enableReviewedProtectedOverlayFixture(fixture, repository, {
+  target = REVIEWED_PROTECTED_OVERLAY_TARGET
+} = {}) {
+  const fixtureCommonDir = path.resolve(fixture.repo, git(fixture.repo, "rev-parse", "--git-common-dir"));
+  const repositoryCommonDir = path.resolve(repository, git(repository, "rev-parse", "--git-common-dir"));
+  const alternatesPath = path.join(fixtureCommonDir, "objects", "info", "alternates");
+  fs.mkdirSync(path.dirname(alternatesPath), { recursive: true });
+  fs.writeFileSync(alternatesPath, `${path.join(repositoryCommonDir, "objects")}\n`);
+  git(fixture.repo, "update-ref", REVIEWED_PROTECTED_OVERLAY_REF, target);
+}
+
+function reviewedProtectedOverlayFixtureRepositoryId(fixture) {
+  const commonDir = fs.realpathSync(path.resolve(
+    fixture.repo,
+    git(fixture.repo, "rev-parse", "--git-common-dir")
+  ));
+  return crypto.createHash("sha256")
+    .update(JSON.stringify({ gitCommonDir: commonDir }))
+    .digest("hex");
+}
+
+function reviewedProtectedOverlayFixtureOptions(fixture) {
+  return {
+    protectedOverlayExpectedRepositoryId: reviewedProtectedOverlayFixtureRepositoryId(fixture)
+  };
+}
+
+function writeReviewedProtectedOverlayFile(root, entry, buffer, {
+  relativePath = entry.path,
+  mode = REVIEWED_PROTECTED_OVERLAY_UNTRACKED_MODES.get(entry.path)
+} = {}) {
+  assert.ok(Number.isInteger(mode));
+  const absolutePath = path.join(root, relativePath);
+  fs.mkdirSync(path.dirname(absolutePath), { recursive: true });
+  fs.writeFileSync(absolutePath, buffer);
+  fs.chmodSync(absolutePath, mode);
+  return absolutePath;
 }
 
 function writeReviewedLegacyOfficeLock(root, buffer, {
@@ -1137,6 +1227,109 @@ function dirtyFixture(fixture) {
   }
 }
 
+function legacyV2SnapshotFingerprint(snapshot, fingerprint) {
+  const {
+    buffers: _buffers,
+    cleanup: _cleanup,
+    currentStateFingerprint: _currentStateFingerprint,
+    inventory: _inventory,
+    reviewedProtectedOverlayPaths: _reviewedProtectedOverlayPaths,
+    secretScanner: _secretScanner,
+    ...legacyBasis
+  } = snapshot;
+  return fingerprint(legacyBasis);
+}
+
+async function downgradeFixtureArchiveSetToV2(fixture) {
+  const {
+    collectWorktreeSnapshot,
+    fingerprint,
+    renderArchiveManifestMarkdown
+  } = await import(libraryUrl);
+  const archive = path.join(fixture.repo, "coordination", "release-intake", "archive");
+  const linkedPath = path.join(archive, "2026-06-30-A25-linked-worktree-archive-manifest.json");
+  const linked = JSON.parse(fs.readFileSync(linkedPath, "utf8"));
+  const snapshot = collectWorktreeSnapshot(fixtureLinkedWorktree(fixture), { includeTar: true });
+  const legacyCurrentStateFingerprint = legacyV2SnapshotFingerprint(snapshot, fingerprint);
+  snapshot.cleanup();
+  assert.equal(linked.archivedWorktrees.length, 1);
+  const legacyBasis = {
+    schemaVersion: 2,
+    dirtyMapStatusSignature: linked.dirtyMapStatusSignature,
+    expandedStatusEntries: linked.expandedStatusEntries,
+    entries: [legacyCurrentStateFingerprint]
+  };
+  const legacyArchiveSetFingerprint = fingerprint(legacyBasis);
+  const currentArchiveSetFingerprint = linked.archiveSetFingerprint;
+  const legacyEntries = linked.archivedWorktrees.map((entry) => ({
+    ...entry,
+    schemaVersion: 2,
+    currentStateFingerprint: legacyCurrentStateFingerprint,
+    archiveSetFingerprint: legacyArchiveSetFingerprint,
+    secretScanner: Object.fromEntries(
+      Object.entries(entry.secretScanner).filter(([key]) => key !== "reviewedProtectedOverlayPaths")
+    ),
+    artifacts: Object.fromEntries(Object.entries(entry.artifacts).map(([key, artifact]) => [
+      key,
+      artifact === null ? null : {
+        ...artifact,
+        path: artifact.path.replace(
+          `sets/${currentArchiveSetFingerprint}/`,
+          `sets/${legacyArchiveSetFingerprint}/`
+        )
+      }
+    ]))
+  }));
+  const currentSet = path.join(fixture.evidenceRoot, "sets", currentArchiveSetFingerprint);
+  const legacySet = path.join(fixture.evidenceRoot, "sets", legacyArchiveSetFingerprint);
+  fs.renameSync(currentSet, legacySet);
+  const marker = JSON.parse(fs.readFileSync(path.join(fixture.evidenceRoot, ".mais-evidence-root.json"), "utf8"));
+  const legacyIndex = {
+    schemaVersion: 2,
+    evidenceRootId: marker.rootId,
+    archiveSetFingerprint: legacyArchiveSetFingerprint,
+    basis: legacyBasis,
+    entries: legacyEntries
+  };
+  fs.writeFileSync(path.join(legacySet, "archive-set.json"), `${JSON.stringify(legacyIndex, null, 2)}\n`);
+  fs.chmodSync(path.join(legacySet, "archive-set.json"), 0o600);
+
+  const manifestBase = {
+    schemaVersion: 2,
+    generatedAt: linked.generatedAt,
+    evidenceRootId: linked.evidenceRootId,
+    archiveSetFingerprint: legacyArchiveSetFingerprint,
+    dirtyMapStatusSignature: linked.dirtyMapStatusSignature,
+    expandedStatusEntries: linked.expandedStatusEntries
+  };
+  const manifests = {
+    linked: { ...manifestBase, archivedWorktrees: legacyEntries },
+    clean: {
+      ...manifestBase,
+      archivedBranches: legacyEntries.filter((entry) => entry.archiveKind === "clean-diverged-branch")
+    },
+    dirty: {
+      ...manifestBase,
+      archivedBranches: legacyEntries.filter((entry) => (
+        entry.archiveKind === "dirty-worktree"
+        && entry.divergence.behind + entry.divergence.ahead > 0
+      ))
+    }
+  };
+  for (const [kind, manifest, basename] of [
+    ["linked", manifests.linked, "2026-06-30-A25-linked-worktree-archive-manifest"],
+    ["clean", manifests.clean, "2026-06-30-A25-clean-diverged-branch-archive-manifest"],
+    ["dirty", manifests.dirty, "2026-06-30-A25-dirty-diverged-branch-archive-manifest"]
+  ]) {
+    const jsonPath = path.join(archive, `${basename}.json`);
+    const markdownPath = path.join(archive, `${basename}.md`);
+    fs.writeFileSync(jsonPath, `${JSON.stringify(manifest, null, 2)}\n`);
+    fs.writeFileSync(markdownPath, renderArchiveManifestMarkdown(kind, manifest));
+    fs.chmodSync(jsonPath, 0o600);
+    fs.chmodSync(markdownPath, 0o600);
+  }
+}
+
 function repositoryArchiveManifestPaths(fixture) {
   const archive = path.join(fixture.repo, "coordination", "release-intake", "archive");
   return [
@@ -1325,7 +1518,7 @@ test("secret scanner rejects paths, private keys, tokens, and unknown binary wit
   assert.throws(() => scanArchivePath("All API Keys.docx"), /secret-looking path/i);
   assert.throws(() => scanArchivePath(".env.local"), /secret-looking path/i);
   assert.doesNotThrow(() => scanArchivePath(".env.local.example"));
-  const token = `sk-${"A".repeat(40)}`;
+  const token = providerTokenFixture("A".repeat(40));
   assert.throws(() => scanBuffer(Buffer.from(`OPENAI_API_KEY=${token}`), { displayPath: "config.txt" }), (error) => {
     assert.match(error.message, /high-confidence token/i);
     assert.doesNotMatch(error.message, new RegExp(token));
@@ -1391,12 +1584,12 @@ test("secret scanner rejects paths, private keys, tokens, and unknown binary wit
   assert.doesNotThrow(() => scanBuffer(Buffer.from(`const key = dynamicName; const config = { [key]: "${"B".repeat(40)}" };`), { displayPath: "dynamic-computed.ts" }));
   assert.doesNotThrow(() => scanBuffer(Buffer.from(`const config = { password: process.env.DASHBOARD_SMOKE_PASSWORD }; // password: "${"Z".repeat(40)}"`), { displayPath: "comments.ts" }));
   assert.doesNotThrow(() => scanBuffer(Buffer.from(`// benign note ${"B".repeat(60)}`), { displayPath: "comments.ts" }));
-  assert.throws(() => scanBuffer(Buffer.from(`// leaked sk-${"R".repeat(40)}`), { displayPath: "comments.ts" }), /high-confidence token/i);
-  assert.throws(() => scanBuffer(Buffer.from("// -----BEGIN PRIVATE KEY-----"), { displayPath: "comments.ts" }), /private-key header/i);
+  assert.throws(() => scanBuffer(Buffer.from(`// leaked ${providerTokenFixture("R".repeat(40))}`), { displayPath: "comments.ts" }), /high-confidence token/i);
+  assert.throws(() => scanBuffer(Buffer.from(`// ${pemHeaderFixture()}`), { displayPath: "comments.ts" }), /private-key header/i);
   assert.throws(() => scanBuffer(Buffer.from("const config = { password: ("), { displayPath: "broken.ts" }), /parse failed closed/i);
   assert.throws(() => scanBuffer(Buffer.from(`const config = { password: "${"S".repeat(40)}" };`), { displayPath: "dashboard-smoke.ts" }), /token assignment/i);
   assert.throws(() => scanBuffer(Buffer.from(`DASHBOARD_SMOKE_PASSWORD=${"U".repeat(40)}`), { displayPath: "dashboard.env.example" }), /token assignment/i);
-  assert.throws(() => scanBuffer(Buffer.from("-----BEGIN PRIVATE KEY-----\nabc"), { displayPath: "note.txt" }), /private-key header/i);
+  assert.throws(() => scanBuffer(Buffer.from(`${pemHeaderFixture()}\nabc`), { displayPath: "note.txt" }), /private-key header/i);
   assert.doesNotThrow(() => scanBuffer(Buffer.from("OPENAI_API_KEY=<your-key-here>\nTOKEN=placeholder"), { displayPath: "example.txt" }));
   assert.throws(() => scanBuffer(Buffer.from([0, 1, 2, 3, 4]), { displayPath: "unknown.bin" }), /unreviewed binary/i);
   assert.doesNotThrow(() => scanBuffer(Buffer.from([0x89, 0x50, 0x4e, 0x47, 0x0d, 0x0a, 0x1a, 0x0a]), { displayPath: "reviewed.png" }));
@@ -1606,8 +1799,8 @@ test("opaque raw signature scanning covers Latin-1 UTF-16LE UTF-16BE and NUL-str
   const { scanOpaqueRawSignatures } = await import(libraryUrl);
   assert.equal(typeof scanOpaqueRawSignatures, "function");
   const signatures = [
-    { name: "private key", value: "-----BEGIN PRIVATE KEY-----", expected: /private-key header/i },
-    { name: "provider token", value: `sk-${"A".repeat(40)}`, expected: /high-confidence token/i }
+    { name: "private key", value: pemHeaderFixture(), expected: /private-key header/i },
+    { name: "provider token", value: providerTokenFixture("A".repeat(40)), expected: /high-confidence token/i }
   ];
   const encodings = [
     { name: "Latin-1", encode: (value) => Buffer.from(value, "latin1") },
@@ -2029,7 +2222,7 @@ test("supplementary reviewed legacy exact text registries match every pinned Git
       );
       assert.deepEqual(
         scanBranchBaseHistoricalTrackedPaths(repository, entry.revision, [entry.path]),
-        { scanned: 1, reviewed: 0 }
+        { scanned: 1, reviewed: 0, reviewedProtected: 0 }
       );
     });
   }
@@ -2047,7 +2240,11 @@ test("supplementary reviewed legacy exact text registries match every pinned Git
       REVIEWED_LEGACY_TERMINAL_PATCH_BASE,
       REVIEWED_LEGACY_BRANCH_BASE_TEXT_ENTRIES.map((entry) => entry.path)
     ),
-    { scanned: REVIEWED_LEGACY_BRANCH_BASE_TEXT_ENTRIES.length, reviewed: 0 }
+    {
+      scanned: REVIEWED_LEGACY_BRANCH_BASE_TEXT_ENTRIES.length,
+      reviewed: 0,
+      reviewedProtected: 0
+    }
   );
 });
 
@@ -2061,8 +2258,8 @@ test("supplementary reviewed legacy exact text payload policy stays private and 
     /high-confidence token assignment/i
   );
   for (const [name, buffer, expected] of [
-    ["provider token", Buffer.from(`prefix sk-${"Z".repeat(40)} suffix`), /high-confidence token/i],
-    ["private key", Buffer.from("-----BEGIN PRIVATE KEY-----\nredacted\n"), /private-key header/i],
+    ["provider token", Buffer.from(`prefix ${providerTokenFixture("Z".repeat(40))} suffix`), /high-confidence token/i],
+    ["private key", Buffer.from(`${pemHeaderFixture()}\nredacted\n`), /private-key header/i],
     ["oversize", Buffer.alloc(1024 * 1024 + 1, 0x61), /opaque binary size limit exceeded/i]
   ]) {
     let error;
@@ -2356,8 +2553,8 @@ test("supplementary JPEG-under-PNG parser and payload scanner stay private and r
     /reviewed binary magic mismatch/i
   );
 
-  const secret = `sk-${"Q".repeat(40)}`;
-  const privateKey = "-----BEGIN PRIVATE KEY-----";
+  const secret = providerTokenFixture("Q".repeat(40));
+  const privateKey = pemHeaderFixture();
   for (const payload of [Buffer.from(secret), Buffer.from(privateKey)]) {
     const buffer = portableStructuredJpeg({ appPayload: payload });
     assert.deepEqual(parse(buffer), { sofSegments: 1, sosSegments: 1, status: "passed" });
@@ -2633,7 +2830,8 @@ test("supplementary exact legacy Office lock passes only current-HEAD and exact 
   }];
   assert.deepEqual(buildInventory(fixture.linked, [entry.path]), {
     inventory: exactInventory,
-    reviewedBinaryPaths: 0
+    reviewedBinaryPaths: 0,
+    reviewedProtectedOverlayPaths: 0
   });
   const snapshot = collectWorktreeSnapshot(fixtureLinkedWorktree(fixture), { includeTar: true });
   t.after(() => snapshot.cleanup());
@@ -2679,7 +2877,8 @@ test("supplementary available real untracked legacy Office lock copies pass writ
         size: entry.bytes,
         sha256: entry.sha256
       }],
-      reviewedBinaryPaths: 0
+      reviewedBinaryPaths: 0,
+      reviewedProtectedOverlayPaths: 0
     });
   }
   if (available.length === 0) t.skip("no exact real untracked legacy Office lock copies are currently available");
@@ -3135,7 +3334,7 @@ test("exact reviewed untracked coordination report uses a safe display path whil
     displayPath: REVIEWED_UNTRACKED_COORDINATION_REPORT_DISPLAY_PATH
   }));
   assert.throws(
-    () => scanBuffer(Buffer.concat([buffer, Buffer.from(`\nleaked sk-${"R".repeat(40)}\n`)]), {
+    () => scanBuffer(Buffer.concat([buffer, Buffer.from(`\nleaked ${providerTokenFixture("R".repeat(40))}\n`)]), {
       displayPath: REVIEWED_UNTRACKED_COORDINATION_REPORT_DISPLAY_PATH
     }),
     /high-confidence token/i
@@ -3157,7 +3356,8 @@ test("buildInventory accepts only the exact reviewed untracked coordination repo
       size: entry.bytes,
       sha256: entry.sha256
     }],
-    reviewedBinaryPaths: 0
+    reviewedBinaryPaths: 0,
+    reviewedProtectedOverlayPaths: 0
   });
 });
 
@@ -3299,6 +3499,591 @@ test("reviewed untracked coordination report rejects byte, size, hash, path, mod
   }
 });
 
+test("reviewed protected overlay requires the exact preservation ref before accepting exact untracked text", async (t) => {
+  const { buildInventory } = await import(libraryUrl);
+  const repository = maybeReviewedProtectedOverlayRepository();
+  if (!repository) return t.skip("pinned protected-overlay Git objects are unavailable");
+  const entry = REVIEWED_LEGACY_CURRENT_HEAD_TEXT_ENTRIES.find(({ path: relativePath }) => (
+    relativePath === "coordination/reports/2026-06-04-teacher-console-p0-p1-bug-audit.md"
+  ));
+  assert.ok(entry);
+  const buffer = reviewedLegacyExactTextBytes(repository, entry);
+  const fixture = makeFixture();
+  t.after(() => fs.rmSync(fixture.parent, { recursive: true, force: true }));
+  writeReviewedProtectedOverlayFile(fixture.linked, entry, buffer);
+
+  assert.throws(
+    () => buildInventory(fixture.linked, [entry.path]),
+    /secret scanner rejected|secret-looking path/i
+  );
+
+  enableReviewedProtectedOverlayFixture(fixture, repository);
+  const fixtureOptions = reviewedProtectedOverlayFixtureOptions(fixture);
+  assert.deepEqual(buildInventory(fixture.linked, [entry.path], fixtureOptions), {
+    inventory: [{
+      path: entry.path,
+      type: "file",
+      mode: REVIEWED_PROTECTED_OVERLAY_UNTRACKED_MODES.get(entry.path),
+      size: entry.bytes,
+      sha256: entry.sha256
+    }],
+    reviewedBinaryPaths: 0,
+    reviewedProtectedOverlayPaths: 1
+  });
+
+  git(fixture.repo, "update-ref", REVIEWED_PROTECTED_OVERLAY_REF, git(fixture.repo, "rev-parse", "HEAD"));
+  assert.throws(
+    () => buildInventory(fixture.linked, [entry.path], fixtureOptions),
+    /reviewed protected overlay reference mismatch/i
+  );
+});
+
+test("reviewed protected overlay returns to generic scanning before exact file and blob checks when its ref is absent", async (t) => {
+  const {
+    scanReviewedProtectedOverlayFile,
+    scanReviewedProtectedOverlayGitBlob
+  } = await import(libraryUrl);
+  const fixture = makeFixture();
+  t.after(() => fs.rmSync(fixture.parent, { recursive: true, force: true }));
+  const untracked = REVIEWED_LEGACY_PARENT_CONSOLE_REPORT;
+  const absolutePath = path.join(fixture.linked, untracked.path);
+  fs.mkdirSync(path.dirname(absolutePath), { recursive: true });
+  fs.writeFileSync(absolutePath, "portable generic report\n", { mode: 0o644 });
+
+  assert.equal(
+    scanReviewedProtectedOverlayFile(fixture.linked, untracked.path, "untracked"),
+    null
+  );
+
+  const tracked = REVIEWED_LEGACY_CURRENT_HEAD_TEXT_ENTRIES.find(({ path: relativePath }) => (
+    relativePath === "tests/e2e/ai-tutor-live-text.spec.ts"
+  ));
+  assert.ok(tracked);
+  assert.equal(scanReviewedProtectedOverlayGitBlob(
+    fixture.linked,
+    tracked.path,
+    "tracked-current",
+    { mode: "100755", type: "blob", objectId: "0".repeat(40) }
+  ), null);
+});
+
+test("tar verification applies protected-overlay strictness only to exact protected inventory identities", async () => {
+  const { verifyTarPayload } = await import(libraryUrl);
+  const entry = REVIEWED_LEGACY_PARENT_CONSOLE_REPORT;
+  const buffer = Buffer.from("portable generic report\n");
+  const inventory = [{
+    path: entry.path,
+    type: "file",
+    mode: 0o644,
+    size: buffer.length,
+    sha256: crypto.createHash("sha256").update(buffer).digest("hex")
+  }];
+  const failures = [];
+  verifyTarPayload(
+    portableSingleFileTarGzip(entry.path, buffer),
+    inventory,
+    "generic protected-path tar",
+    failures
+  );
+  assert.deepEqual(failures, []);
+});
+
+test("reviewed protected overlay rejects a different repository even when ref and objects are copied", async (t) => {
+  const { resolveReviewedProtectedOverlayContext } = await import(libraryUrl);
+  const repository = maybeReviewedProtectedOverlayRepository();
+  if (!repository) return t.skip("pinned protected-overlay Git objects are unavailable");
+  const fixture = makeFixture();
+  t.after(() => fs.rmSync(fixture.parent, { recursive: true, force: true }));
+  enableReviewedProtectedOverlayFixture(fixture, repository);
+  assert.throws(
+    () => resolveReviewedProtectedOverlayContext(fixture.linked),
+    /reviewed protected overlay repository identity mismatch/i
+  );
+  assert.doesNotThrow(() => resolveReviewedProtectedOverlayContext(fixture.linked, {
+    expectedRepositoryId: reviewedProtectedOverlayFixtureRepositoryId(fixture)
+  }));
+});
+
+test("reviewed protected overlay accepts every approved exact untracked identity", async (t) => {
+  const { buildInventory } = await import(libraryUrl);
+  const repository = maybeReviewedProtectedOverlayRepository();
+  if (!repository) return t.skip("pinned protected-overlay Git objects are unavailable");
+  const approved = [
+    ...REVIEWED_LEGACY_TERMINAL_PATCH_ENTRIES.map((entry) => ({
+      entry,
+      buffer: reviewedLegacyTerminalPatchBytes(repository, entry)
+    })),
+    {
+      entry: REVIEWED_LEGACY_PARENT_CONSOLE_REPORT,
+      buffer: reviewedLegacyExactTextBytes(repository, REVIEWED_LEGACY_PARENT_CONSOLE_REPORT)
+    },
+    ...REVIEWED_LEGACY_CURRENT_HEAD_TEXT_ENTRIES
+      .filter((entry) => !entry.path.startsWith("tests/e2e/"))
+      .map((entry) => ({ entry, buffer: reviewedLegacyExactTextBytes(repository, entry) })),
+    ...REVIEWED_LEGACY_CURRENT_HEAD_JPEG_UNDER_PNG_ENTRIES
+      .map((entry) => ({ entry, buffer: reviewedLegacyJpegUnderPngBytes(repository, entry) })),
+    {
+      entry: REVIEWED_PROTECTED_OVERLAY_OFFICE_LOCK_ALIAS,
+      buffer: reviewedLegacyOfficeLockBytes(repository)
+    }
+  ];
+  const fixture = makeFixture();
+  t.after(() => fs.rmSync(fixture.parent, { recursive: true, force: true }));
+  enableReviewedProtectedOverlayFixture(fixture, repository);
+  for (const { entry, buffer } of approved) {
+    writeReviewedProtectedOverlayFile(fixture.linked, entry, buffer);
+  }
+  const result = buildInventory(
+    fixture.linked,
+    approved.map(({ entry }) => entry.path),
+    reviewedProtectedOverlayFixtureOptions(fixture)
+  );
+  assert.equal(result.inventory.length, approved.length);
+  assert.equal(result.reviewedProtectedOverlayPaths, approved.length);
+  assert.equal(result.reviewedBinaryPaths, REVIEWED_LEGACY_CURRENT_HEAD_JPEG_UNDER_PNG_ENTRIES.length);
+});
+
+test("reviewed protected overlay exact untracked policy rejects copied, mode, byte, symlink, and hardlink variants", async (t) => {
+  const { buildInventory } = await import(libraryUrl);
+  const repository = maybeReviewedProtectedOverlayRepository();
+  if (!repository) return t.skip("pinned protected-overlay Git objects are unavailable");
+  const entry = REVIEWED_LEGACY_CURRENT_HEAD_TEXT_ENTRIES.find(({ path: relativePath }) => (
+    relativePath === "coordination/reports/2026-06-04-teacher-console-p0-p1-bug-audit.md"
+  ));
+  assert.ok(entry);
+  const exact = reviewedLegacyExactTextBytes(repository, entry);
+  const mutation = Buffer.from(exact);
+  mutation[mutation.length - 1] ^= 1;
+  const variants = [
+    {
+      name: "copied path",
+      relativePath: `${entry.path}.copy`,
+      prepare: (root) => writeReviewedProtectedOverlayFile(root, entry, exact, {
+        relativePath: `${entry.path}.copy`
+      })
+    },
+    {
+      name: "wrong mode",
+      relativePath: entry.path,
+      prepare: (root) => writeReviewedProtectedOverlayFile(root, entry, exact, { mode: 0o644 })
+    },
+    {
+      name: "same-size byte mutation",
+      relativePath: entry.path,
+      prepare: (root) => writeReviewedProtectedOverlayFile(root, entry, mutation)
+    },
+    {
+      name: "symlink",
+      relativePath: entry.path,
+      prepare(root) {
+        const donor = writeReviewedProtectedOverlayFile(root, entry, exact, {
+          relativePath: "protected-overlay-symlink-donor.md"
+        });
+        const target = path.join(root, entry.path);
+        fs.mkdirSync(path.dirname(target), { recursive: true });
+        fs.symlinkSync(path.relative(path.dirname(target), donor), target);
+      }
+    },
+    {
+      name: "hardlink",
+      relativePath: entry.path,
+      prepare(root) {
+        const donor = writeReviewedProtectedOverlayFile(root, entry, exact, {
+          relativePath: "protected-overlay-hardlink-donor.md"
+        });
+        const target = path.join(root, entry.path);
+        fs.mkdirSync(path.dirname(target), { recursive: true });
+        fs.linkSync(donor, target);
+      }
+    }
+  ];
+  for (const variant of variants) {
+    await t.test(variant.name, () => {
+      const fixture = makeFixture();
+      t.after(() => fs.rmSync(fixture.parent, { recursive: true, force: true }));
+      enableReviewedProtectedOverlayFixture(fixture, repository);
+      variant.prepare(fixture.linked);
+      assert.throws(
+        () => buildInventory(
+          fixture.linked,
+          [variant.relativePath],
+          reviewedProtectedOverlayFixtureOptions(fixture)
+        ),
+        /reviewed protected overlay|secret scanner rejected|secret-looking path/i
+      );
+    });
+  }
+});
+
+test("reviewed protected overlay confines e909 and protected-tree blobs to their exact tracked source kinds", async (t) => {
+  const {
+    collectWorktreeSnapshot,
+    resolveReviewedProtectedOverlayContext,
+    scanReviewedProtectedOverlayGitBlob
+  } = await import(libraryUrl);
+  const repository = maybeReviewedProtectedOverlayRepository();
+  if (!repository) return t.skip("pinned protected-overlay Git objects are unavailable");
+  const current = REVIEWED_LEGACY_CURRENT_HEAD_TEXT_ENTRIES.find(({ path: relativePath }) => (
+    relativePath === "tests/e2e/ai-tutor-live-text.spec.ts"
+  ));
+  const historical = REVIEWED_LEGACY_BRANCH_BASE_TEXT_ENTRIES.find(({ path: relativePath }) => (
+    relativePath === "tests/e2e/ai-tutor-live-text.spec.ts"
+  ));
+  assert.ok(current);
+  assert.ok(historical);
+  const currentBuffer = reviewedLegacyExactTextBytes(repository, current);
+  const historicalBuffer = reviewedLegacyExactTextBytes(repository, historical);
+  const fixture = makeFixture();
+  t.after(() => fs.rmSync(fixture.parent, { recursive: true, force: true }));
+  enableReviewedProtectedOverlayFixture(fixture, repository);
+  commitFixtureBlob(fixture, historical.path, historicalBuffer);
+  git(fixture.linked, "merge", "--ff-only", "main");
+  writeReviewedProtectedOverlayFile(fixture.linked, current, currentBuffer, { mode: 0o644 });
+
+  const context = resolveReviewedProtectedOverlayContext(fixture.linked, {
+    expectedRepositoryId: reviewedProtectedOverlayFixtureRepositoryId(fixture)
+  });
+  const currentGitEntry = { mode: current.mode, type: current.type, objectId: current.objectId };
+  const historicalGitEntry = { mode: historical.mode, type: historical.type, objectId: historical.objectId };
+  assert.equal(
+    scanReviewedProtectedOverlayGitBlob(
+      fixture.linked,
+      current.path,
+      "worktree-current",
+      currentGitEntry,
+      context
+    )?.reviewedProtectedOverlay,
+    true
+  );
+  assert.equal(
+    scanReviewedProtectedOverlayGitBlob(
+      fixture.linked,
+      current.path,
+      "tracked-current",
+      currentGitEntry,
+      context
+    )?.reviewedProtectedOverlay,
+    true
+  );
+  assert.equal(
+    scanReviewedProtectedOverlayGitBlob(
+      fixture.linked,
+      historical.path,
+      "index-before-worktree",
+      historicalGitEntry,
+      context
+    )?.reviewedProtectedOverlay,
+    true
+  );
+  assert.equal(
+    scanReviewedProtectedOverlayGitBlob(
+      fixture.linked,
+      historical.path,
+      "historical",
+      historicalGitEntry,
+      context
+    )?.reviewedProtectedOverlay,
+    true
+  );
+  for (const [sourceKind, relativePath, entry] of [
+    ["index", historical.path, historicalGitEntry],
+    ["worktree-current", `${current.path}.copy`, currentGitEntry]
+  ]) {
+    assert.equal(
+      scanReviewedProtectedOverlayGitBlob(fixture.linked, relativePath, sourceKind, entry, context),
+      null
+    );
+  }
+  for (const [sourceKind, relativePath, entry] of [
+    ["historical", current.path, currentGitEntry],
+    ["worktree-current", current.path, { ...currentGitEntry, mode: "100755" }],
+    ["worktree-current", current.path, { ...currentGitEntry, objectId: "0".repeat(40) }]
+  ]) {
+    assert.throws(
+      () => scanReviewedProtectedOverlayGitBlob(
+        fixture.linked,
+        relativePath,
+        sourceKind,
+        entry,
+        context
+      ),
+      /reviewed protected overlay Git metadata mismatch/i
+    );
+  }
+  for (const mutation of ["mode", "path", "bytes"]) {
+    withReviewedLegacyPinnedBlobGitShim(t, current, mutation, () => {
+      assert.throws(
+        () => scanReviewedProtectedOverlayGitBlob(
+          fixture.linked,
+          current.path,
+          "tracked-current",
+          currentGitEntry,
+          context
+        ),
+        /reviewed protected overlay (?:source|Git blob)/i
+      );
+    });
+  }
+
+  const practiceCurrent = REVIEWED_LEGACY_CURRENT_HEAD_TEXT_ENTRIES.find(({ path: relativePath }) => (
+    relativePath === "tests/e2e/practice-bank-solvability.spec.ts"
+  ));
+  const practiceHistorical = REVIEWED_LEGACY_BRANCH_BASE_TEXT_ENTRIES.find(({ path: relativePath }) => (
+    relativePath === "tests/e2e/practice-bank-solvability.spec.ts"
+  ));
+  assert.ok(practiceCurrent);
+  assert.ok(practiceHistorical);
+  assert.equal(scanReviewedProtectedOverlayGitBlob(
+    fixture.linked,
+    practiceCurrent.path,
+    "tracked-current",
+    { mode: practiceCurrent.mode, type: practiceCurrent.type, objectId: practiceCurrent.objectId },
+    context
+  )?.reviewedProtectedOverlay, true);
+  assert.equal(scanReviewedProtectedOverlayGitBlob(
+    fixture.linked,
+    practiceHistorical.path,
+    "historical",
+    { mode: practiceHistorical.mode, type: practiceHistorical.type, objectId: practiceHistorical.objectId },
+    context
+  )?.reviewedProtectedOverlay, true);
+
+  const snapshot = collectWorktreeSnapshot(fixtureLinkedWorktree(fixture), {
+    includeTar: false,
+    ...reviewedProtectedOverlayFixtureOptions(fixture)
+  });
+  assert.equal(snapshot.secretScanner.reviewedProtectedOverlayPaths, 4);
+});
+
+test("reviewed protected overlay accepts only the exact A18 Office-lock alias and verifies it from tar", async (t) => {
+  const { buildInventory, verifyTarPayload } = await import(libraryUrl);
+  const repository = maybeReviewedProtectedOverlayRepository();
+  if (!repository) return t.skip("pinned protected-overlay Git objects are unavailable");
+  const entry = REVIEWED_PROTECTED_OVERLAY_OFFICE_LOCK_ALIAS;
+  const buffer = reviewedLegacyOfficeLockBytes(repository);
+  const fixture = makeFixture();
+  t.after(() => fs.rmSync(fixture.parent, { recursive: true, force: true }));
+  enableReviewedProtectedOverlayFixture(fixture, repository);
+  writeReviewedProtectedOverlayFile(fixture.linked, entry, buffer);
+  const exactInventory = {
+    path: entry.path,
+    type: "file",
+    mode: entry.mode,
+    size: entry.bytes,
+    sha256: entry.sha256
+  };
+  assert.deepEqual(buildInventory(
+    fixture.linked,
+    [entry.path],
+    reviewedProtectedOverlayFixtureOptions(fixture)
+  ), {
+    inventory: [exactInventory],
+    reviewedBinaryPaths: 0,
+    reviewedProtectedOverlayPaths: 1
+  });
+
+  const failures = [];
+  verifyTarPayload(
+    portableSingleFileTarGzip(entry.path, buffer),
+    [exactInventory],
+    "reviewed-protected-overlay-office-lock-alias",
+    failures
+  );
+  assert.deepEqual(failures, []);
+
+  for (const [name, tarBuffer, inventory] of [
+    [
+      "path",
+      portableSingleFileTarGzip(`${entry.path}.copy`, buffer),
+      [{ ...exactInventory, path: `${entry.path}.copy` }]
+    ],
+    [
+      "mode",
+      portableSingleFileTarGzip(entry.path, buffer, { mode: 0o600 }),
+      [{ ...exactInventory, mode: 0o600 }]
+    ],
+    [
+      "sha256",
+      portableSingleFileTarGzip(entry.path, buffer),
+      [{ ...exactInventory, sha256: "0".repeat(64) }]
+    ]
+  ]) {
+    await t.test(`tar ${name}`, () => {
+      const candidateFailures = [];
+      verifyTarPayload(tarBuffer, inventory, `reviewed-protected-overlay-${name}`, candidateFailures);
+      assert.ok(candidateFailures.length > 0);
+    });
+  }
+
+  for (const kind of ["symlink", "hardlink"]) {
+    await t.test(kind, () => {
+      const variant = makeFixture();
+      t.after(() => fs.rmSync(variant.parent, { recursive: true, force: true }));
+      enableReviewedProtectedOverlayFixture(variant, repository);
+      const donor = writeReviewedProtectedOverlayFile(variant.linked, entry, buffer, {
+        relativePath: `protected-overlay-office-${kind}-donor.docx`
+      });
+      const target = path.join(variant.linked, entry.path);
+      fs.mkdirSync(path.dirname(target), { recursive: true });
+      if (kind === "symlink") fs.symlinkSync(path.relative(path.dirname(target), donor), target);
+      else fs.linkSync(donor, target);
+      assert.throws(
+        () => buildInventory(
+          variant.linked,
+          [entry.path],
+          reviewedProtectedOverlayFixtureOptions(variant)
+        ),
+        /reviewed protected overlay|secret scanner rejected/i
+      );
+    });
+  }
+});
+
+test("reviewed protected overlay never covers unique blockers and lets altered safe patches fall through", async (t) => {
+  const {
+    buildInventory,
+    resolveReviewedProtectedOverlayContext,
+    scanReviewedProtectedOverlayGitBlob
+  } = await import(libraryUrl);
+  const repository = maybeReviewedProtectedOverlayRepository();
+  if (!repository) return t.skip("pinned protected-overlay Git objects are unavailable");
+  const fixture = makeFixture();
+  t.after(() => fs.rmSync(fixture.parent, { recursive: true, force: true }));
+  enableReviewedProtectedOverlayFixture(fixture, repository);
+  const context = resolveReviewedProtectedOverlayContext(fixture.linked, {
+    expectedRepositoryId: reviewedProtectedOverlayFixtureRepositoryId(fixture)
+  });
+  for (const [relativePath, objectId] of [
+    ["app/api/ai-tutor/status/route.ts", "a16874db8875dc16c0c47aaef1476b7f27c5e1b0"],
+    ["app/api/ai-tutor/status/route.ts", "c71948a1bea37c9d2a325a2a7a12a3b90b3e2b2d"],
+    ["lib/server/userStoreAuthSessionPersistence.test.ts", "56214c0000000000000000000000000000000000"],
+    ["coordination/release-intake/refresh-linked-worktree-archive-evidence.test.mjs", "b290c000000000000000000000000000000000000"]
+  ]) {
+    assert.equal(scanReviewedProtectedOverlayGitBlob(
+      fixture.linked,
+      relativePath,
+      "tracked-current",
+      { mode: "100644", type: "blob", objectId },
+      context
+    ), null);
+  }
+
+  const terminalPatch = REVIEWED_LEGACY_TERMINAL_PATCH_ENTRIES[0];
+  const safeAlteredPatch = Buffer.from([
+    "diff --git a/reviewed.ts b/reviewed.ts",
+    "@@ -0,0 +1 @@",
+    "+const reviewed = true;"
+  ].join("\n"));
+  writeReviewedProtectedOverlayFile(fixture.linked, terminalPatch, safeAlteredPatch);
+  assert.deepEqual(buildInventory(
+    fixture.linked,
+    [terminalPatch.path],
+    reviewedProtectedOverlayFixtureOptions(fixture)
+  ), {
+    inventory: [{
+      path: terminalPatch.path,
+      type: "file",
+      mode: 0o644,
+      size: safeAlteredPatch.length,
+      sha256: crypto.createHash("sha256").update(safeAlteredPatch).digest("hex")
+    }],
+    reviewedBinaryPaths: 0,
+    reviewedProtectedOverlayPaths: 0
+  });
+});
+
+test("archive schema v3 binds protected-overlay counts while exact legacy v2 entries remain readable", async () => {
+  const {
+    ARCHIVE_ARTIFACT_KEYS,
+    EVIDENCE_SCHEMA_VERSION,
+    fingerprint,
+    verifyArchiveEntrySchema,
+    verifyArchiveSetSchema
+  } = await import(libraryUrl);
+  assert.equal(EVIDENCE_SCHEMA_VERSION, 3);
+  const schemaFixture = (schemaVersion) => {
+    const branch = "feature/archive";
+    const head = "b".repeat(40);
+    const currentStateFingerprint = "c".repeat(64);
+    const basis = {
+      schemaVersion,
+      dirtyMapStatusSignature: "legacy-v2-signature",
+      expandedStatusEntries: 1,
+      entries: [currentStateFingerprint]
+    };
+    const archiveSetFingerprint = fingerprint(basis);
+    const entryId = fingerprint({ branch, head }).slice(0, 24);
+    const artifacts = Object.fromEntries(ARCHIVE_ARTIFACT_KEYS.map((key) => [
+      key,
+      key === "branchPatch" || key === "untrackedTar"
+        ? null
+        : {
+          bytes: 0,
+          path: path.posix.join("sets", archiveSetFingerprint, entryId, {
+            statusInventory: "status.porcelain-v1.z",
+            trackedPatch: "tracked.patch",
+            indexInventory: "index.ls-files-stage.z",
+            indexPatch: "index.patch",
+            worktreePatch: "worktree.patch",
+            untrackedPaths0: "untracked.paths0",
+            untrackedInventory: "untracked.inventory.json"
+          }[key]),
+          sha256: "d".repeat(64)
+        }
+    ]));
+    const secretScanner = {
+      status: "passed",
+      scannedPaths: 1,
+      reviewedBinaryPaths: 0,
+      ...(schemaVersion === 3 ? { reviewedProtectedOverlayPaths: 0 } : {})
+    };
+    const entry = {
+      schemaVersion,
+      branch,
+      archiveKind: "dirty-worktree",
+      head,
+      baseHead: head,
+      divergence: { behind: 0, ahead: 0 },
+      statusEntries: 1,
+      untrackedEntries: 0,
+      transactionMetadataExclusions: [],
+      currentStateFingerprint,
+      archiveSetFingerprint,
+      secretScanner,
+      artifacts
+    };
+    const manifest = {
+      schemaVersion,
+      generatedAt: "2026-07-13T00:00:00.000Z",
+      evidenceRootId: "00000000-0000-4000-8000-000000000001",
+      archiveSetFingerprint,
+      dirtyMapStatusSignature: basis.dirtyMapStatusSignature,
+      expandedStatusEntries: 1,
+      archivedWorktrees: [entry]
+    };
+    const index = {
+      schemaVersion,
+      evidenceRootId: manifest.evidenceRootId,
+      archiveSetFingerprint,
+      basis,
+      entries: [entry]
+    };
+    return { entry, index, manifest };
+  };
+
+  for (const schemaVersion of [2, 3]) {
+    const fixture = schemaFixture(schemaVersion);
+    assert.equal(verifyArchiveEntrySchema(fixture.entry, {}, []), true);
+    assert.equal(verifyArchiveSetSchema(fixture.manifest, fixture.index, []), true);
+  }
+  const legacyWithNewCount = structuredClone(schemaFixture(2).entry);
+  legacyWithNewCount.secretScanner.reviewedProtectedOverlayPaths = 0;
+  assert.equal(verifyArchiveEntrySchema(legacyWithNewCount, {}, []), false);
+  const currentWithoutCount = structuredClone(schemaFixture(3).entry);
+  delete currentWithoutCount.secretScanner.reviewedProtectedOverlayPaths;
+  assert.equal(verifyArchiveEntrySchema(currentWithoutCount, {}, []), false);
+});
+
 test("fixture secret placeholders are exact and do not whitelist nearby real values", async () => {
   const { scanBuffer } = await import(libraryUrl);
   for (const source of [
@@ -3318,8 +4103,8 @@ test("fixture secret placeholders are exact and do not whitelist nearby real val
     "prod-secret-password-value",
     "fixture-credential-value2",
     "fixture-api-key-value-prod",
-    "re_xxxxxxxxx-prod",
-    "re_xxxxxxxx-",
+    resendTokenFixture("xxxxxxxxx-prod"),
+    resendTokenFixture("xxxxxxxx-"),
     "your-managed-provider-key-prod",
     "your-openai-server-side-key",
     "your-deepseek-server-side-key-prod",
@@ -3335,11 +4120,11 @@ test("fixture secret placeholders are exact and do not whitelist nearby real val
     );
   }
   assert.throws(
-    () => scanBuffer(Buffer.from(`sk-example-${"C".repeat(30)}`), { displayPath: "nearby-real.txt" }),
+    () => scanBuffer(Buffer.from(providerTokenFixture(`example-${"C".repeat(30)}`)), { displayPath: "nearby-real.txt" }),
     /high-confidence token/i
   );
   assert.throws(
-    () => scanBuffer(Buffer.from("sk-placeholder-xxxxxxxx-"), { displayPath: "nearby-real.txt" }),
+    () => scanBuffer(Buffer.from(providerTokenFixture("placeholder-xxxxxxxx-")), { displayPath: "nearby-real.txt" }),
     /high-confidence token/i
   );
   for (const separator of ["!", " ", ":"]) {
@@ -3386,7 +4171,7 @@ test("fixture secret placeholders are exact and do not whitelist nearby real val
     { source: '{"password":"fixture-password-value","model":"chat"}', displayPath: "placeholder.json" },
     { source: "DASHBOARD_SMOKE_PASSWORD=fixture-password-value; model=chat", displayPath: "placeholder.env.example" },
     { source: "DASHBOARD_SMOKE_PASSWORD=${OWNER_PROVIDED_PASSWORD}", displayPath: "placeholder.env.example" },
-    { source: "RESEND_API_KEY=re_xxxxxxxxx node scripts/resend-local-smoke.mjs --to recipient@example.invalid --dry-run", displayPath: "README.md" },
+    { source: `RESEND_API_KEY=${resendTokenFixture("xxxxxxxxx")} node scripts/resend-local-smoke.mjs --to recipient@example.invalid --dry-run`, displayPath: "README.md" },
     { source: "RESEND_API_KEY=re_xxxx\"\"xxxxx node scripts/resend-local-smoke.mjs --dry-run", displayPath: "README.md" },
     { source: "AUTH_SESSION_SECRET=deepseek-e2e-session-secret npm run smoke", displayPath: "README.md" },
     { source: "Password: enter the code shown by your teacher.", displayPath: "guide.md" },
@@ -3440,7 +4225,7 @@ test("generic Markdown scanning stays fail closed for ambiguous backtick context
     "Redacted example: `password=***`.",
     `Request: \`GET /login?username=student&password=${"A".repeat(40)}\`.`,
     `Password: \`password=${"B".repeat(40)}\`.`,
-    `Provider: \`OPENAI_API_KEY=sk-proj-${"C".repeat(40)}\`.`,
+    `Provider: \`OPENAI_API_KEY=${providerTokenFixture(`proj-${"C".repeat(40)}`)}\`.`,
     "Shell: ``PASSWORD=re_abcd`printf efgh` ``.",
     `\`password=\${PASSWORD}\``,
     `\`password=${"D".repeat(10)}\`${"E".repeat(10)}`,
@@ -3468,7 +4253,7 @@ test("generic Markdown scanning stays fail closed for ambiguous backtick context
     `${"\\".repeat(2)}${tick.repeat(2)}password=***${tick.repeat(2)}`,
     `${tick.repeat(2)}password=${"\\".repeat(2)}${tick.repeat(2)}`,
     `${"\\".repeat(2)}${tick}password=${"P".repeat(40)}${tick}`,
-    `${tick.repeat(2)}OPENAI_API_KEY=sk-proj-${"Q".repeat(40)}${"\\".repeat(2)}${tick.repeat(2)}`
+    `${tick.repeat(2)}OPENAI_API_KEY=${providerTokenFixture(`proj-${"Q".repeat(40)}`)}${"\\".repeat(2)}${tick.repeat(2)}`
   ]) {
     assert.throws(
       () => scanBuffer(Buffer.from(source), { displayPath: "audit.md" }),
@@ -3559,10 +4344,10 @@ test("text secret assignments preserve same-line raw-token and placeholder bound
     );
   }
   for (const token of [
-    `sk-${"C".repeat(40)}`,
-    `ghp_${"D".repeat(36)}`,
-    `AKIA${"E".repeat(16)}`,
-    `AIza${"F".repeat(32)}`
+    providerTokenFixture("C".repeat(40)),
+    githubTokenFixture("D".repeat(36)),
+    awsAccessKeyFixture("E".repeat(16)),
+    googleApiKeyFixture("F".repeat(32))
   ]) {
     assert.throws(
       () => scanBuffer(Buffer.from(`safe-first\n${token}\nsafe-last`), { displayPath: "provider.txt" }),
@@ -3591,7 +4376,7 @@ test("JSON secret scanning uses decoded property structure instead of string-val
     { source: `{"safe":true}\n{"api\\u004bey":"${"H".repeat(40)}"}`, displayPath: "provider.jsonl" },
     { source: `{"password":1234567890123456789012345678901234567890}`, displayPath: "provider.json" },
     { source: `{"pass\\u0077ord":"${"I".repeat(40)}","password":"fixture-api-key-value"}`, displayPath: "provider.json" },
-    { source: `{"description":"sk-\\u0041${"A".repeat(23)}"}`, displayPath: "provider.json" }
+    { source: `{"description":"${providerTokenFixture("\\u0041")}${"A".repeat(23)}"}`, displayPath: "provider.json" }
   ]) {
     assert.throws(
       () => scanBuffer(Buffer.from(source), { displayPath }),
@@ -3640,14 +4425,14 @@ test("JSON independent budgets still reject provider tokens and escaped secret k
   ]);
   const cases = [
     {
-      suffix: Buffer.from(`,"note":"sk-${"T".repeat(24)}"}`),
+      suffix: Buffer.from(`,"note":"${providerTokenFixture("T".repeat(24))}"}`),
       expected: /large-tail\.json": high-confidence token$/i,
-      redacted: `sk-${"T".repeat(24)}`
+      redacted: providerTokenFixture("T".repeat(24))
     },
     {
-      suffix: Buffer.from(`,"note":"sk-\\u0054${"T".repeat(23)}"}`),
+      suffix: Buffer.from(`,"note":"${providerTokenFixture("\\u0054")}${"T".repeat(23)}"}`),
       expected: /large-tail\.json": high-confidence token$/i,
-      redacted: `sk-${"T".repeat(24)}`
+      redacted: providerTokenFixture("T".repeat(24))
     },
     {
       suffix: Buffer.from(`,"pass\\u0077ord":"${"S".repeat(40)}"}`),
@@ -3771,8 +4556,8 @@ test("JSON independent AST node budget fails closed without relying on source ma
 
 test("JSON independent document budget scans the final JSONL document and redacts its token", async () => {
   const { scanBuffer } = await import(libraryUrl);
-  const token = `sk-${"L".repeat(24)}`;
-  const encodedToken = `sk-\\u004c${"L".repeat(23)}`;
+  const token = providerTokenFixture("L".repeat(24));
+  const encodedToken = providerTokenFixture(`\\u004c${"L".repeat(23)}`);
   const safeDocuments = Array.from({ length: 2_047 }, () => '{"safe":true}');
   const buffer = Buffer.from([...safeDocuments, `{"note":"${encodedToken}"}`].join("\n"));
   let error;
@@ -4202,14 +4987,14 @@ test("patch evidence scans raw secret signatures without parsing generic assignm
   assert.doesNotThrow(() => scanBuffer(benignPatch, { displayPath: "index.patch", aggregatePatch: true }));
   assert.doesNotThrow(() => scanBuffer(benignPatch, { displayPath: "worktree.patch", aggregatePatch: true }));
   assert.doesNotThrow(() => scanBuffer(benignPatch, { displayPath: "branch.patch", aggregatePatch: true }));
-  const token = `sk-${"P".repeat(40)}`;
+  const token = providerTokenFixture("P".repeat(40));
   assert.throws(() => scanBuffer(Buffer.from(`+  password: "${token}"`), { displayPath: "tracked.patch", aggregatePatch: true }), (error) => {
     assert.match(error.message, /high-confidence token/i);
     assert.doesNotMatch(error.message, new RegExp(token));
     return true;
   });
   assert.throws(
-    () => scanBuffer(Buffer.from("+ -----BEGIN PRIVATE KEY-----"), { displayPath: "branch.patch", aggregatePatch: true }),
+    () => scanBuffer(Buffer.from(`+ ${pemHeaderFixture()}`), { displayPath: "branch.patch", aggregatePatch: true }),
     /private-key header/i
   );
   assert.throws(
@@ -4261,7 +5046,7 @@ test("real patch scanning permits parseable code expressions without weakening a
   assert.doesNotThrow(() => scanBuffer(Buffer.from([
     "diff --git a/runbook.md b/runbook.md",
     "@@ -0,0 +1 @@",
-    "+RESEND_API_KEY=re_xxxxxxxxxxxx npm run smoke"
+    `+RESEND_API_KEY=${resendTokenFixture("xxxxxxxxxxxx")} npm run smoke`
   ].join("\n")), { displayPath: "runbook-review.patch" }));
   assert.throws(
     () => scanBuffer(Buffer.from([
@@ -4274,7 +5059,7 @@ test("real patch scanning permits parseable code expressions without weakening a
   assert.doesNotThrow(() => scanBuffer(Buffer.from([
     "diff --git a/runbook.md b/auth.ts",
     "@@ -1 +1 @@",
-    "-RESEND_API_KEY=re_xxxxxxxxxxxx npm run smoke",
+    `-RESEND_API_KEY=${resendTokenFixture("xxxxxxxxxxxx")} npm run smoke`,
     "+const password = hashPassword(candidate);"
   ].join("\n")), { displayPath: "rename-review.patch" }));
   assert.throws(
@@ -4323,7 +5108,7 @@ test("real patch scanning permits parseable code expressions without weakening a
       "--- a/runbook.md",
       "+++ b/auth.ts",
       "@@ -1 +1 @@",
-      "-RESEND_API_KEY=re_xxxxxxxxx npm run smoke",
+      `-RESEND_API_KEY=${resendTokenFixture("xxxxxxxxx")} npm run smoke`,
       "+const password = hashPassword(candidate);"
     ],
     [
@@ -4435,11 +5220,11 @@ test("real patch scanning permits parseable code expressions without weakening a
     );
   }
   assert.throws(
-    () => scanBuffer(Buffer.from(`+const token = "sk-${"R".repeat(40)}";`), { displayPath: "auth-review.patch" }),
+    () => scanBuffer(Buffer.from(`+const token = "${providerTokenFixture("R".repeat(40))}";`), { displayPath: "auth-review.patch" }),
     /high-confidence token/i
   );
   assert.throws(
-    () => scanBuffer(Buffer.from("+-----BEGIN PRIVATE KEY-----"), { displayPath: "auth-review.patch" }),
+    () => scanBuffer(Buffer.from(`+${pemHeaderFixture()}`), { displayPath: "auth-review.patch" }),
     /private-key header/i
   );
 });
@@ -4468,14 +5253,14 @@ test("real patch raw scanning skips only structurally valid Git binary payload b
     { displayPath: "binary-review.patch" }
   ));
 
-  const providerToken = `sk-${"P".repeat(20)}`;
+  const providerToken = providerTokenFixture("P".repeat(20));
   assert.throws(() => scanBuffer(Buffer.from([
     "diff --git a/config.txt b/config.txt",
     "@@ -0,0 +1 @@",
     `+${providerToken}`
   ].join("\n")), { displayPath: "binary-review.patch" }), /high-confidence token/i);
   assert.throws(() => scanBuffer(
-    Buffer.from("diff --git a/config.txt b/config.txt\n+-----BEGIN PRIVATE KEY-----"),
+    Buffer.from(`diff --git a/config.txt b/config.txt\n+${pemHeaderFixture()}`),
     { displayPath: "binary-review.patch" }
   ), /private-key header/i);
 
@@ -4605,8 +5390,8 @@ test("aggregate patch scanning stays bounded above Node MAX_STRING_LENGTH", asyn
 test("aggregate patch scanning detects raw signatures independently on every line", async () => {
   const { scanBuffer } = await import(libraryUrl);
   const signatures = [
-    `sk-${"R".repeat(40)}`,
-    "-----BEGIN PRIVATE KEY-----"
+    providerTokenFixture("R".repeat(40)),
+    pemHeaderFixture()
   ];
   for (const signature of signatures) {
     for (const position of [0, 1, 2]) {
@@ -4619,11 +5404,11 @@ test("aggregate patch scanning detects raw signatures independently on every lin
     }
   }
   assert.doesNotThrow(() => scanBuffer(
-    Buffer.from(`sk-${"A".repeat(10)}\n${"A".repeat(20)}`),
+    Buffer.from(`${providerTokenFixture("A".repeat(10))}\n${"A".repeat(20)}`),
     { displayPath: "branch.patch", aggregatePatch: true }
   ));
   assert.doesNotThrow(() => scanBuffer(
-    Buffer.from(`sk-placeholder-${"x".repeat(24)}`),
+    Buffer.from(providerTokenFixture(`placeholder-${"x".repeat(24)}`)),
     { displayPath: "branch.patch", aggregatePatch: true }
   ));
 });
@@ -4658,7 +5443,7 @@ test("aggregate patch scanning enforces UTF-8 NUL and eight MiB line limits", as
 
 test("aggregate patch scanning skips raw tokens only on structurally valid Git binary payload lines", async () => {
   const { scanBuffer } = await import(libraryUrl);
-  const token = `sk-${"B".repeat(20)}`;
+  const token = providerTokenFixture("B".repeat(20));
   const tokenPayloadLine = `T!${token}!`;
   const patch = Buffer.from([
     "diff --git a/public/forum-assets/island.png b/public/forum-assets/island.png",
@@ -4686,7 +5471,7 @@ test("aggregate patch scanning skips raw tokens only on structurally valid Git b
 
 test("aggregate patch binary suppression is section-bound and exact-marker-only", async () => {
   const { scanBuffer } = await import(libraryUrl);
-  const token = `sk-${"C".repeat(20)}`;
+  const token = providerTokenFixture("C".repeat(20));
   const tokenPayloadLine = `T!${token}!`;
   const binarySection = [
     "diff --git a/public/forum-assets/island.png b/public/forum-assets/island.png",
@@ -4711,7 +5496,7 @@ test("aggregate patch binary suppression is section-bound and exact-marker-only"
 
 test("aggregate patch binary suppression fails closed on malformed structure and scans section metadata", async () => {
   const { scanBuffer } = await import(libraryUrl);
-  const token = `sk-${"D".repeat(20)}`;
+  const token = providerTokenFixture("D".repeat(20));
   const tokenPayloadLine = `T!${token}!`;
   const diffHeader = "diff --git a/public/forum-assets/island.png b/public/forum-assets/island.png";
   const options = { displayPath: "branch.patch", aggregatePatch: true };
@@ -4722,7 +5507,7 @@ test("aggregate patch binary suppression fails closed on malformed structure and
   for (const lines of [
     ["GIT binary patch", "literal 20", tokenPayloadLine],
     [diffHeader, "GIT binary patch", tokenPayloadLine],
-    [diffHeader, "GIT binary patch", "literal 20", "-----BEGIN PRIVATE KEY-----"],
+    [diffHeader, "GIT binary patch", "literal 20", pemHeaderFixture()],
     [diffHeader, "GIT binary patch", "literal 20", "arbitrary plain text"],
     [diffHeader, "GIT binary patch", "literal 20 garbage", tokenPayloadLine],
     [diffHeader, "GIT binary patch"]
@@ -4745,7 +5530,7 @@ test("aggregate patch binary suppression fails closed on malformed structure and
 
 test("aggregate patch binary suppression rejects malformed diff headers", async () => {
   const { scanBuffer } = await import(libraryUrl);
-  const token = `sk-${"E".repeat(20)}`;
+  const token = providerTokenFixture("E".repeat(20));
   const tokenPayloadLine = `T!${token}!`;
   const options = { displayPath: "branch.patch", aggregatePatch: true };
   for (const header of [
@@ -5003,7 +5788,7 @@ test("secret scanner bounded deep calls still reject global provider signatures"
   assert.throws(
     () => scanBuffer(Buffer.from([
       'import { useCallback } from "react";',
-      `function inner() { localStorage.setItem("provider", "sk-${"A".repeat(40)}"); }`,
+      `function inner() { localStorage.setItem("provider", "${providerTokenFixture("A".repeat(40))}"); }`,
       "function outer() { inner(); }",
       "const dependency = () => { outer(); };",
       "const changePassword = useCallback(password => { vault.stored = password; }, [dependency]);"
@@ -5581,7 +6366,19 @@ test("secret scanner unions reliable local setter indices and falls back for unr
   }
 });
 
-test("writer v2 externalizes exact NUL-safe evidence, captures index and worktree edits, and reuses a stable set", (t) => {
+test("current gate dispatches a structurally exact immutable v2 archive through legacy compatibility", async (t) => {
+  const fixture = makeFixture();
+  t.after(() => fs.rmSync(fixture.parent, { recursive: true, force: true }));
+  dirtyFixture(fixture);
+  const archived = run(writer, fixture);
+  assert.equal(archived.status, 0, archived.stderr || archived.stdout);
+  await downgradeFixtureArchiveSetToV2(fixture);
+  const result = run(gate, fixture);
+  assert.equal(result.status, 0, result.stderr || result.stdout);
+});
+
+test("writer v3 externalizes exact NUL-safe evidence, captures index and worktree edits, and reuses a stable set", async (t) => {
+  const { EVIDENCE_SCHEMA_VERSION } = await import(libraryUrl);
   const fixture = makeFixture();
   t.after(() => fs.rmSync(fixture.parent, { recursive: true, force: true }));
   dirtyFixture(fixture);
@@ -5589,12 +6386,12 @@ test("writer v2 externalizes exact NUL-safe evidence, captures index and worktre
   assert.equal(first.status, 0, first.stderr || first.stdout);
   const manifestPath = path.join(fixture.repo, "coordination", "release-intake", "archive", "2026-06-30-A25-linked-worktree-archive-manifest.json");
   const manifest = JSON.parse(fs.readFileSync(manifestPath, "utf8"));
-  assert.equal(manifest.schemaVersion, 2);
+  assert.equal(manifest.schemaVersion, EVIDENCE_SCHEMA_VERSION);
   assert.match(manifest.evidenceRootId, /^[0-9a-f-]{36}$/i);
   assert.match(manifest.archiveSetFingerprint, /^[0-9a-f]{64}$/);
   assert.equal(manifest.archivedWorktrees.length, 1);
   const entry = manifest.archivedWorktrees[0];
-  assert.equal(entry.schemaVersion, 2);
+  assert.equal(entry.schemaVersion, EVIDENCE_SCHEMA_VERSION);
   assert.equal(entry.archiveSetFingerprint, manifest.archiveSetFingerprint);
   assert.equal(entry.secretScanner.status, "passed");
   assert.deepEqual(Object.keys(entry.artifacts).sort(), [
@@ -7180,7 +7977,7 @@ test("current gate verifies restore inventory and rejects artifact tampering", a
 test("writer blocks secret content with redacted output and accepts placeholders", (t) => {
   const fixture = makeFixture();
   t.after(() => fs.rmSync(fixture.parent, { recursive: true, force: true }));
-  const token = `ghp_${"Z".repeat(36)}`;
+  const token = githubTokenFixture("Z".repeat(36));
   fs.writeFileSync(path.join(fixture.linked, "config.txt"), `TOKEN=${token}\n`);
   const blocked = run(writer, fixture);
   assert.notEqual(blocked.status, 0);
@@ -7326,7 +8123,7 @@ test("legacy v1 gate fails closed on missing integrity fields and staged index s
 test("writer rejects a deleted tracked binary secret without printing the secret", (t) => {
   const fixture = makeFixture();
   t.after(() => fs.rmSync(fixture.parent, { recursive: true, force: true }));
-  const token = `sk-${"D".repeat(42)}`;
+  const token = providerTokenFixture("D".repeat(42));
   const binaryPath = path.join(fixture.linked, "tracked-secret.png");
   fs.writeFileSync(binaryPath, Buffer.concat([
     Buffer.from([0x89, 0x50, 0x4e, 0x47, 0x0d, 0x0a, 0x1a, 0x0a]),
