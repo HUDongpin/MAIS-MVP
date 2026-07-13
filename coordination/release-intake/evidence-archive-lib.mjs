@@ -152,6 +152,10 @@ const REVIEWED_CURRENT_BRANCH_HEAD_TRACKED_ENTRY = Object.freeze({
 });
 const REVIEWED_CURRENT_BRANCH_HEAD_TRACKED_DISPLAY_PATH = "reviewed-current-branch-head-tracked/content.md";
 const REVIEWED_LEGACY_TERMINAL_PATCH_HEAD = "ec22a29b55a4329e81d96e02417f8925ccec54c3";
+const REVIEWED_EXACT_A18_FINAL_HEAD = "e17471e6bc296828db591f4f060a868e075653e9";
+function isReviewedLegacyCurrentHeadRevision(headRevision, pinnedRevision) {
+  return headRevision === pinnedRevision || headRevision === REVIEWED_EXACT_A18_FINAL_HEAD;
+}
 const REVIEWED_LEGACY_TERMINAL_PATCH_ENTRIES = Object.freeze([
   Object.freeze({
     path: "coordination/release-intake/archive/codex-A06-manim-three-closure.patch",
@@ -7132,7 +7136,7 @@ export function isReviewedLegacyTerminalPatchEntry({
 } = {}) {
   const entry = REVIEWED_LEGACY_TERMINAL_PATCH_BY_PATH.get(relativePath) ?? null;
   return entry !== null
-    && headRevision === REVIEWED_LEGACY_TERMINAL_PATCH_HEAD
+    && isReviewedLegacyCurrentHeadRevision(headRevision, REVIEWED_LEGACY_TERMINAL_PATCH_HEAD)
     && mode === entry.mode
     && type === "blob"
     && objectId === entry.objectId;
@@ -7146,7 +7150,7 @@ export function isReviewedLegacyOfficeLockBranchHeadEntry({
   objectId
 } = {}) {
   const entry = REVIEWED_LEGACY_OFFICE_LOCK;
-  return headRevision === entry.headRevision
+  return isReviewedLegacyCurrentHeadRevision(headRevision, entry.headRevision)
     && relativePath === entry.path
     && mode === entry.branchMode
     && type === "blob"
@@ -7161,7 +7165,7 @@ function isReviewedLegacyParentConsoleReportEntry({
   objectId
 } = {}) {
   const entry = REVIEWED_LEGACY_PARENT_CONSOLE_REPORT;
-  return headRevision === entry.headRevision
+  return isReviewedLegacyCurrentHeadRevision(headRevision, entry.headRevision)
     && relativePath === entry.path
     && mode === entry.mode
     && type === "blob"
@@ -7194,20 +7198,26 @@ export function scanCurrentBranchHeadTrackedPaths(worktreePath, headRevision, pa
     const parentConsoleReportPath = relativePath === parentConsoleReport.path;
     const reviewedLegacyText = REVIEWED_LEGACY_CURRENT_HEAD_TEXT_BY_PATH.get(relativePath) ?? null;
     const reviewedLegacyJpegUnderPng = REVIEWED_LEGACY_CURRENT_HEAD_JPEG_UNDER_PNG_BY_PATH.get(relativePath) ?? null;
-    if (terminalPatch !== null && headRevision !== REVIEWED_LEGACY_TERMINAL_PATCH_HEAD) {
+    if (terminalPatch !== null
+      && !isReviewedLegacyCurrentHeadRevision(headRevision, REVIEWED_LEGACY_TERMINAL_PATCH_HEAD)) {
       throw new Error(`reviewed legacy terminal patch is restricted to its pinned current branch HEAD: ${JSON.stringify(relativePath)}`);
     }
-    if (officeLockPath && headRevision !== officeLock.headRevision) {
+    if (officeLockPath && !isReviewedLegacyCurrentHeadRevision(headRevision, officeLock.headRevision)) {
       throw new Error(`reviewed legacy Office lock is restricted to its pinned current branch HEAD: ${JSON.stringify(relativePath)}`);
     }
-    if (parentConsoleReportPath && headRevision !== parentConsoleReport.headRevision) {
+    if (parentConsoleReportPath
+      && !isReviewedLegacyCurrentHeadRevision(headRevision, parentConsoleReport.headRevision)) {
       throw new Error(`reviewed legacy parent console report is restricted to its pinned current branch HEAD: ${JSON.stringify(relativePath)}`);
     }
-    if (reviewedLegacyText !== null && headRevision !== reviewedLegacyText.revision) {
+    if (reviewedLegacyText !== null
+      && !isReviewedLegacyCurrentHeadRevision(headRevision, reviewedLegacyText.revision)) {
       throw new Error("reviewed legacy current HEAD text is restricted to its pinned revision");
     }
     if (reviewedLegacyJpegUnderPng !== null
-      && headRevision !== REVIEWED_LEGACY_CURRENT_HEAD_JPEG_UNDER_PNG_REVISION) {
+      && !isReviewedLegacyCurrentHeadRevision(
+        headRevision,
+        REVIEWED_LEGACY_CURRENT_HEAD_JPEG_UNDER_PNG_REVISION
+      )) {
       throw new Error("reviewed legacy JPEG-under-PNG is restricted to its pinned current branch HEAD");
     }
     if (!exactPath

@@ -63,6 +63,7 @@ const REVIEWED_UNTRACKED_COORDINATION_REPORT = Object.freeze({
 const REVIEWED_UNTRACKED_COORDINATION_REPORT_DISPLAY_PATH = "reviewed-untracked-coordination-report/content.md";
 const REVIEWED_LEGACY_TERMINAL_PATCH_HEAD = "ec22a29b55a4329e81d96e02417f8925ccec54c3";
 const REVIEWED_LEGACY_TERMINAL_PATCH_BASE = "e909992b098ce7f8b57ca7f7ede6c97e50ccdc45";
+const REVIEWED_EXACT_A18_FINAL_HEAD = "e17471e6bc296828db591f4f060a868e075653e9";
 const REVIEWED_LEGACY_TERMINAL_PATCH_ENTRIES = Object.freeze([
   Object.freeze({
     path: "coordination/release-intake/archive/codex-A06-manim-three-closure.patch",
@@ -2086,6 +2087,36 @@ test("supplementary repository scan accepts only the three exact pinned terminal
       REVIEWED_LEGACY_TERMINAL_PATCH_ENTRIES.map((entry) => entry.path)
     ),
     { scanned: REVIEWED_LEGACY_TERMINAL_PATCH_ENTRIES.length, reviewed: 0 }
+  );
+});
+
+test("supplementary current-HEAD policies accept only the exact reviewed A18 final HEAD", async (t) => {
+  const { scanCurrentBranchHeadTrackedPaths } = await import(libraryUrl);
+  const repository = path.resolve(here, "..", "..");
+  try {
+    execFileSync("git", ["cat-file", "-e", `${REVIEWED_EXACT_A18_FINAL_HEAD}^{commit}`], {
+      cwd: repository,
+      stdio: "ignore",
+      timeout: TEST_CHILD_TIMEOUT_MS
+    });
+  } catch {
+    t.skip("exact reviewed A18 final HEAD is not available in this clone");
+    return;
+  }
+  const representativePaths = [
+    REVIEWED_LEGACY_TERMINAL_PATCH_ENTRIES[0].path,
+    REVIEWED_LEGACY_OFFICE_LOCK.path,
+    REVIEWED_LEGACY_PARENT_CONSOLE_REPORT.path,
+    REVIEWED_LEGACY_CURRENT_HEAD_TEXT_ENTRIES[0].path,
+    REVIEWED_LEGACY_CURRENT_HEAD_JPEG_UNDER_PNG_ENTRIES[0].path
+  ];
+  assert.deepEqual(
+    scanCurrentBranchHeadTrackedPaths(repository, REVIEWED_EXACT_A18_FINAL_HEAD, representativePaths),
+    { scanned: 5, reviewed: 1 }
+  );
+  assert.throws(
+    () => scanCurrentBranchHeadTrackedPaths(repository, "0".repeat(40), representativePaths),
+    /restricted to its pinned current branch HEAD/i
   );
 });
 
