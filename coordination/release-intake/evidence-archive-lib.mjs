@@ -1420,7 +1420,29 @@ function mutationMonitorOperationTimeout(monitor, minimumMs = 5_000) {
   return Math.min(120_000, Math.max(minimumMs, minimumMs + Math.ceil(coverage / 5_000) * 1_000));
 }
 
-function requestMutationMonitorSample(monitor) {
+export function calculateMutationMonitorQuiescenceTimeout({
+  coveragePathCount,
+  quietMs = 300
+} = {}) {
+  if (!Number.isSafeInteger(coveragePathCount) || coveragePathCount < 1) {
+    throw new Error("mutation monitor coverage path count must be a positive safe integer");
+  }
+  if (!Number.isSafeInteger(quietMs) || quietMs < 25 || quietMs > 2_000) {
+    throw new Error("mutation monitor quiescence quiet period must be a safe integer from 25 through 2000 milliseconds");
+  }
+  const sampleTimeoutMs = mutationMonitorOperationTimeout({ coveragePathCount });
+  return (sampleTimeoutMs * 2) + quietMs + 1_000;
+}
+
+function requestMutationMonitorSample(monitor, maximumWaitMs) {
+  if (maximumWaitMs !== undefined && (!Number.isSafeInteger(maximumWaitMs) || maximumWaitMs <= 0)) {
+    throw new Error("mutation monitor descriptor sample maximum wait must be a positive safe integer");
+  }
+  const operationTimeoutMs = mutationMonitorOperationTimeout(monitor);
+  const timeoutMs = maximumWaitMs === undefined
+    ? operationTimeoutMs
+    : Math.min(operationTimeoutMs, maximumWaitMs);
+  const deadline = Date.now() + timeoutMs;
   const requestId = crypto.randomUUID();
   const acknowledgementPath = path.join(monitor.scratch, `sample-${requestId}.json`);
   let sent = false;
@@ -1430,7 +1452,6 @@ function requestMutationMonitorSample(monitor) {
     throw new Error("mutation monitor descriptor sample request failed");
   }
   if (!sent) throw new Error("mutation monitor descriptor sample request failed");
-  const deadline = Date.now() + mutationMonitorOperationTimeout(monitor);
   while (!fs.existsSync(acknowledgementPath)) {
     if (fs.existsSync(monitor.errorPath) || !processIsAlive(monitor.child.pid)) {
       const detail = fs.existsSync(monitor.errorPath)
@@ -1439,7 +1460,11 @@ function requestMutationMonitorSample(monitor) {
       throw new Error(`mutation monitor descriptor sample failed closed (${detail})`);
     }
     if (Date.now() >= deadline) throw new Error("mutation monitor descriptor sample acknowledgement timed out");
-    synchronousWait(20);
+    synchronousWait(Math.min(20, Math.max(1, deadline - Date.now())));
+  }
+  if (Date.now() >= deadline) {
+    fs.rmSync(acknowledgementPath, { force: true });
+    throw new Error("mutation monitor descriptor sample acknowledgement timed out");
   }
   let acknowledgement;
   try {
@@ -1467,7 +1492,11 @@ function requestMutationMonitorSample(monitor) {
   }
 }
 
-export function readMutationEpochState(monitor, { requireAlive = true, requestSample = true } = {}) {
+export function readMutationEpochState(monitor, {
+  requireAlive = true,
+  requestSample = true,
+  sampleTimeoutMs
+} = {}) {
   if (!monitor || monitor.stopped) throw new Error("mutation monitor is not active");
   if (fs.existsSync(monitor.errorPath) || (requireAlive && !processIsAlive(monitor.child.pid))) {
     const detail = fs.existsSync(monitor.errorPath)
@@ -1475,7 +1504,7 @@ export function readMutationEpochState(monitor, { requireAlive = true, requestSa
       : "monitor child exited";
     throw new Error(`mutation monitor crashed; final evidence fails closed (${detail})`);
   }
-  if (requestSample && requireAlive) requestMutationMonitorSample(monitor);
+  if (requestSample && requireAlive) requestMutationMonitorSample(monitor, sampleTimeoutMs);
   let value;
   try {
     value = JSON.parse(fs.readFileSync(monitor.epochPath, "utf8"));
@@ -1731,14 +1760,32 @@ export function readMutationEpoch(monitor) {
   return readMutationEpochState(monitor).sourceEpoch;
 }
 
-export function settleMutationEpochState(monitor, { quietMs = 300, timeoutMs = 5_000 } = {}) {
-  const deadline = Date.now() + timeoutMs;
-  let state = readMutationEpochState(monitor);
+export function settleMutationEpochState(monitor, { quietMs = 300, timeoutMs } = {}) {
+  const absoluteCapMs = calculateMutationMonitorQuiescenceTimeout({
+    coveragePathCount: monitor?.coveragePathCount,
+    quietMs
+  });
+  if (timeoutMs !== undefined && (!Number.isSafeInteger(timeoutMs) || timeoutMs <= 0)) {
+    throw new Error("mutation monitor explicit timeout must be a positive safe integer");
+  }
+  if (timeoutMs !== undefined && timeoutMs > absoluteCapMs) {
+    throw new Error("mutation monitor explicit timeout exceeds the coverage-scaled absolute cap");
+  }
+  const effectiveTimeoutMs = timeoutMs ?? absoluteCapMs;
+  const deadline = Date.now() + effectiveTimeoutMs;
+  const readBeforeDeadline = () => {
+    const remainingMs = deadline - Date.now();
+    if (remainingMs <= 0) throw new Error("mutation monitor did not reach bounded quiescence");
+    const state = readMutationEpochState(monitor, { sampleTimeoutMs: remainingMs });
+    if (Date.now() >= deadline) throw new Error("mutation monitor did not reach bounded quiescence");
+    return state;
+  };
+  let state = readBeforeDeadline();
   let stableSince = Date.now();
   while (Date.now() - stableSince < quietMs) {
     if (Date.now() >= deadline) throw new Error("mutation monitor did not reach bounded quiescence");
-    synchronousWait(Math.min(25, quietMs));
-    const current = readMutationEpochState(monitor);
+    synchronousWait(Math.min(25, quietMs, Math.max(1, deadline - Date.now())));
+    const current = readBeforeDeadline();
     if (current.sourceEpoch !== state.sourceEpoch || current.metadataEpoch !== state.metadataEpoch) {
       state = current;
       stableSince = Date.now();

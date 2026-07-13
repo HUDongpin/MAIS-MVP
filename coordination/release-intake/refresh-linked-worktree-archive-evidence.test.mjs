@@ -9048,6 +9048,129 @@ test("mutation monitor rejects unsupported watch modes", async (t) => {
   }
 });
 
+test("default mutation quiescence timeout budgets two coverage-scaled samples", async () => {
+  const { calculateMutationMonitorQuiescenceTimeout } = await import(libraryUrl);
+  assert.equal(calculateMutationMonitorQuiescenceTimeout({
+    coveragePathCount: 300_000,
+    quietMs: 300
+  }), 131_300);
+  assert.equal(calculateMutationMonitorQuiescenceTimeout({
+    coveragePathCount: 1,
+    quietMs: 300
+  }), 13_300);
+  assert.equal(calculateMutationMonitorQuiescenceTimeout({
+    coveragePathCount: 600_000,
+    quietMs: 2_000
+  }), 243_000);
+});
+
+test("mutation quiescence timeout rejects invalid coverage quiet and explicit bounds", async () => {
+  const {
+    calculateMutationMonitorQuiescenceTimeout,
+    settleMutationEpochState
+  } = await import(libraryUrl);
+  for (const coveragePathCount of [0, -1, 1.5, Number.POSITIVE_INFINITY]) {
+    assert.throws(() => calculateMutationMonitorQuiescenceTimeout({
+      coveragePathCount,
+      quietMs: 300
+    }), /coverage path count must be a positive safe integer/i);
+  }
+  for (const quietMs of [24, 2_001, 1.5, Number.POSITIVE_INFINITY]) {
+    assert.throws(() => calculateMutationMonitorQuiescenceTimeout({
+      coveragePathCount: 1,
+      quietMs
+    }), /quiet period must be a safe integer from 25 through 2000 milliseconds/i);
+  }
+  const monitor = { coveragePathCount: 1 };
+  for (const timeoutMs of [0, -1, 1.5, Number.POSITIVE_INFINITY]) {
+    assert.throws(() => settleMutationEpochState(monitor, {
+      quietMs: 300,
+      timeoutMs
+    }), /explicit timeout must be a positive safe integer/i);
+  }
+  const absoluteCap = calculateMutationMonitorQuiescenceTimeout({
+    coveragePathCount: monitor.coveragePathCount,
+    quietMs: 300
+  });
+  assert.throws(() => settleMutationEpochState(monitor, {
+    quietMs: 300,
+    timeoutMs: absoluteCap + 1
+  }), /explicit timeout exceeds the coverage-scaled absolute cap/i);
+});
+
+test("explicit mutation quiescence timeout caps a stalled sample acknowledgement", async (t) => {
+  if (process.platform === "win32") {
+    t.skip("SIGSTOP is unavailable on Windows");
+    return;
+  }
+  const fixture = makeFixture();
+  t.after(() => fs.rmSync(fixture.parent, { recursive: true, force: true }));
+  const probe = path.join(fixture.parent, "explicit-quiescence-timeout-probe.mjs");
+  fs.writeFileSync(probe, [
+    `import { abortMutationEpochMonitor, settleMutationEpochState, startMutationEpochMonitor } from ${JSON.stringify(libraryUrl)};`,
+    `const watchedRoot = ${JSON.stringify(fixture.linked)};`,
+    "const monitor = startMutationEpochMonitor([watchedRoot], { watchMode: 'descriptor-sentinel' });",
+    "try {",
+    "  process.kill(monitor.child.pid, 'SIGSTOP');",
+    "  const startedAt = Date.now();",
+    "  let observedError = null;",
+    "  try { settleMutationEpochState(monitor, { quietMs: 25, timeoutMs: 25 }); }",
+    "  catch (error) { observedError = error; }",
+    "  const elapsedMs = Date.now() - startedAt;",
+    "  if (!(observedError instanceof Error) || !/bounded quiescence|sample acknowledgement timed out/i.test(observedError.message)) process.exitCode = 81;",
+    "  else if (elapsedMs > 250) process.exitCode = 82;",
+    "} finally { abortMutationEpochMonitor(monitor); }"
+  ].join("\n"));
+  const result = spawnSync(process.execPath, [probe], {
+    encoding: "utf8",
+    timeout: TEST_CHILD_TIMEOUT_MS
+  });
+  assert.equal(result.status, 0, result.error?.message || result.stderr || result.stdout);
+});
+
+test("sample acknowledgement at the explicit deadline fails closed", async (t) => {
+  const scratch = fs.mkdtempSync(path.join(os.tmpdir(), "mais-sample-deadline-"));
+  t.after(() => fs.rmSync(scratch, { recursive: true, force: true }));
+  const sessionId = crypto.randomUUID();
+  const epoch = {
+    coverageFingerprint: "b".repeat(64),
+    coveragePathCount: 1,
+    fdCount: 1,
+    metadataEpoch: 0,
+    rootFdCount: 1,
+    schemaVersion: 1,
+    sessionId,
+    sourceEpoch: 0,
+    watchMode: "descriptor-sentinel"
+  };
+  const monitor = {
+    child: {
+      pid: process.pid,
+      send(message) {
+        Atomics.wait(new Int32Array(new SharedArrayBuffer(4)), 0, 0, 35);
+        fs.writeFileSync(path.join(scratch, `sample-${message.requestId}.json`), `${JSON.stringify({
+          ...epoch,
+          requestId: message.requestId,
+          status: "sampled"
+        })}\n`);
+        return true;
+      }
+    },
+    coveragePathCount: 1,
+    epochPath: path.join(scratch, "epoch"),
+    errorPath: path.join(scratch, "error"),
+    scratch,
+    sessionId,
+    stopped: false
+  };
+  fs.writeFileSync(monitor.epochPath, `${JSON.stringify(epoch)}\n`);
+  const { readMutationEpochState } = await import(libraryUrl);
+  assert.throws(
+    () => readMutationEpochState(monitor, { sampleTimeoutMs: 25 }),
+    /sample acknowledgement timed out/i
+  );
+});
+
 test("mutation monitor forces descriptor-sentinel mode through its effective attestation", async (t) => {
   const fixture = makeFixture();
   t.after(() => fs.rmSync(fixture.parent, { recursive: true, force: true }));
