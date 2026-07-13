@@ -3715,6 +3715,83 @@ test("reviewed protected overlay exact untracked policy rejects copied, mode, by
   }
 });
 
+test("reviewed protected overlay accepts only the exact A02 index-before-worktree snapshot blob", async (t) => {
+  const {
+    resolveReviewedProtectedOverlayContext,
+    scanReviewedProtectedOverlayGitBlob
+  } = await import(libraryUrl);
+  const repository = maybeReviewedProtectedOverlayRepository();
+  if (!repository) return t.skip("pinned protected-overlay Git objects are unavailable");
+  const entry = REVIEWED_LEGACY_CURRENT_HEAD_TEXT_ENTRIES.find(({ path: relativePath }) => (
+    relativePath === "lib/server/userStoreAuthSessionPersistence.test.ts"
+  ));
+  assert.ok(entry);
+  const fixture = makeFixture();
+  t.after(() => fs.rmSync(fixture.parent, { recursive: true, force: true }));
+  enableReviewedProtectedOverlayFixture(fixture, repository);
+
+  assert.throws(
+    () => resolveReviewedProtectedOverlayContext(fixture.linked),
+    /reviewed protected overlay repository identity mismatch/i
+  );
+  const context = resolveReviewedProtectedOverlayContext(fixture.linked, {
+    expectedRepositoryId: reviewedProtectedOverlayFixtureRepositoryId(fixture)
+  });
+  const exactEntry = { mode: entry.mode, type: entry.type, objectId: entry.objectId };
+  assert.equal(scanReviewedProtectedOverlayGitBlob(
+    fixture.linked,
+    entry.path,
+    "index-before-worktree",
+    exactEntry,
+    context
+  )?.reviewedProtectedOverlay, true);
+
+  for (const sourceKind of ["tracked-current", "worktree-current", "historical"]) {
+    assert.equal(scanReviewedProtectedOverlayGitBlob(
+      fixture.linked,
+      entry.path,
+      sourceKind,
+      exactEntry,
+      context
+    ), null);
+  }
+  assert.equal(scanReviewedProtectedOverlayGitBlob(
+    fixture.linked,
+    `${entry.path}.copy`,
+    "index-before-worktree",
+    exactEntry,
+    context
+  ), null);
+  for (const candidate of [
+    { ...exactEntry, mode: "100755" },
+    { ...exactEntry, type: "tree" },
+    { ...exactEntry, objectId: "0".repeat(40) }
+  ]) {
+    assert.throws(
+      () => scanReviewedProtectedOverlayGitBlob(
+        fixture.linked,
+        entry.path,
+        "index-before-worktree",
+        candidate,
+        context
+      ),
+      /reviewed protected overlay Git metadata mismatch/i
+    );
+  }
+
+  git(fixture.repo, "update-ref", REVIEWED_PROTECTED_OVERLAY_REF, git(fixture.repo, "rev-parse", "HEAD"));
+  assert.throws(
+    () => scanReviewedProtectedOverlayGitBlob(
+      fixture.linked,
+      entry.path,
+      "index-before-worktree",
+      exactEntry,
+      context
+    ),
+    /reviewed protected overlay reference mismatch/i
+  );
+});
+
 test("reviewed protected overlay confines e909 and protected-tree blobs to their exact tracked source kinds", async (t) => {
   const {
     collectWorktreeSnapshot,

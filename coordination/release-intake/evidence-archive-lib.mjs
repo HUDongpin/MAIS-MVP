@@ -480,6 +480,17 @@ const REVIEWED_PROTECTED_OVERLAY_UNTRACKED_POLICIES = Object.freeze([
 ]);
 const REVIEWED_PROTECTED_OVERLAY_TRACKED_POLICIES = Object.freeze([
   ...REVIEWED_LEGACY_CURRENT_HEAD_TEXT_ENTRIES
+    .filter((entry) => entry.path === "lib/server/userStoreAuthSessionPersistence.test.ts")
+    .map((entry) => Object.freeze({
+      ...entry,
+      sourcePath: entry.path,
+      sourceRevision: REVIEWED_PROTECTED_OVERLAY_TARGET,
+      sourceMode: entry.mode,
+      sourceKinds: Object.freeze(["index-before-worktree"]),
+      fileMode: 0o644,
+      payloadKind: "exact-text"
+    })),
+  ...REVIEWED_LEGACY_CURRENT_HEAD_TEXT_ENTRIES
     .filter((entry) => entry.path.startsWith("tests/e2e/"))
     .map((entry) => Object.freeze({
       ...entry,
