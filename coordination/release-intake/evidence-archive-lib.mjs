@@ -1064,6 +1064,18 @@ const statShape = (stat) => ({
   ctimeNs: String(stat.ctimeNs)
 });
 const sameShape = (left, right) => JSON.stringify(left) === JSON.stringify(right);
+const sameClosureDirectoryShape = (left, right) => (
+  left.dev === right.dev
+  && left.ino === right.ino
+  && left.mode === right.mode
+  && left.nlink === right.nlink
+  && left.size === right.size
+);
+const sameSentinelShape = (left, right, record) => (
+  requestedWatchMode === "descriptor-sentinel" && record.type === "directory"
+    ? sameClosureDirectoryShape(left, right)
+    : sameShape(left, right)
+);
 const openSentinelRecord = (absolutePath) => {
   const policy = policyForPath(absolutePath);
   if (!policy) throw new Error("descriptor sentinel path is outside every policy root");
@@ -1158,7 +1170,7 @@ const sampleSentinels = () => {
   for (const [absolutePath, record] of sentinelRecords) {
     if (Number.isInteger(record.descriptor)) {
       const currentHeld = statShape(fs.fstatSync(record.descriptor, { bigint: true }));
-      if (!sameShape(currentHeld, record.shape)) deltaPaths.add(absolutePath);
+      if (!sameSentinelShape(currentHeld, record.shape, record)) deltaPaths.add(absolutePath);
     }
     let currentLstat = null;
     try { currentLstat = fs.lstatSync(absolutePath, { bigint: true }); } catch (error) {
@@ -1169,11 +1181,17 @@ const sampleSentinels = () => {
       continue;
     }
     const currentShape = statShape(currentLstat);
-    if (!sameShape(currentShape, record.shape)
+    if (!sameSentinelShape(currentShape, record.shape, record)
       || (record.type === "symlink" && fs.readlinkSync(absolutePath) !== record.linkTarget)) {
       deltaPaths.add(absolutePath);
     }
     if (record.type === "directory") {
+      // Explicit closure mode compares a directory as a fixed point: stable
+      // identity/security/size fields plus this exact sorted namespace; only
+      // directory mtime/ctime are non-semantic. Auto mode stays strict so its
+      // descriptor fallback still records transient mutations. ACLs, xattrs,
+      // and ownership are outside the repository-currentness contract; this
+      // explicit closure mode does not attest them.
       const listing = fs.readdirSync(absolutePath).sort();
       if (JSON.stringify(listing) !== JSON.stringify(record.listing)) {
         deltaPaths.add(absolutePath);

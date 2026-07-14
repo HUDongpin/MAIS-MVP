@@ -9276,6 +9276,161 @@ test("closure descriptor override ignores read-only churn inside an ignored dire
   });
 });
 
+test("explicit closure descriptor treats directory timestamp churn as the same semantic fixed point", async (t) => {
+  const fixture = makeFixture();
+  t.after(() => fs.rmSync(fixture.parent, { recursive: true, force: true }));
+  const watchedDirectory = path.join(fixture.linked, "stable-directory");
+  fs.mkdirSync(watchedDirectory);
+  fs.writeFileSync(path.join(watchedDirectory, "tracked.txt"), "stable payload\n");
+  git(fixture.linked, "add", "stable-directory/tracked.txt");
+  git(fixture.linked, "commit", "-m", "add stable directory fixture");
+  const {
+    abortMutationEpochMonitor,
+    settleMutationEpochState,
+    startMutationEpochMonitor,
+    stopMutationEpochMonitor
+  } = await import(libraryUrl);
+  const monitor = startMutationEpochMonitor([fixture.linked], {
+    watchMode: "descriptor-sentinel"
+  });
+  t.after(() => abortMutationEpochMonitor(monitor));
+  const baseline = settleMutationEpochState(monitor);
+  const before = fs.lstatSync(watchedDirectory);
+  fs.utimesSync(
+    watchedDirectory,
+    new Date(before.atimeMs + 2_000),
+    new Date(before.mtimeMs + 2_000)
+  );
+  const after = fs.lstatSync(watchedDirectory);
+  assert.notEqual(after.mtimeMs, before.mtimeMs);
+  assert.deepEqual(
+    Object.fromEntries(["dev", "ino", "mode", "nlink", "size"].map((key) => [key, after[key]])),
+    Object.fromEntries(["dev", "ino", "mode", "nlink", "size"].map((key) => [key, before[key]]))
+  );
+  assert.deepEqual(fs.readdirSync(watchedDirectory).sort(), ["tracked.txt"]);
+  const observed = settleMutationEpochState(monitor);
+  assert.equal(observed.sourceEpoch, baseline.sourceEpoch);
+  stopMutationEpochMonitor(monitor, {
+    expectedEpoch: observed.sourceEpoch,
+    expectedMetadataEpoch: observed.metadataEpoch
+  });
+});
+
+test("auto mutation monitoring keeps directory timestamp churn strict", async (t) => {
+  const fixture = makeFixture();
+  t.after(() => fs.rmSync(fixture.parent, { recursive: true, force: true }));
+  const watchedDirectory = path.join(fixture.linked, "strict-directory");
+  fs.mkdirSync(watchedDirectory);
+  fs.writeFileSync(path.join(watchedDirectory, "tracked.txt"), "strict payload\n");
+  git(fixture.linked, "add", "strict-directory/tracked.txt");
+  git(fixture.linked, "commit", "-m", "add strict directory fixture");
+  const {
+    abortMutationEpochMonitor,
+    settleMutationEpochState,
+    startMutationEpochMonitor,
+    stopMutationEpochMonitor
+  } = await import(libraryUrl);
+  const monitor = startMutationEpochMonitor([fixture.linked], { watchMode: "auto" });
+  t.after(() => abortMutationEpochMonitor(monitor));
+  const baseline = settleMutationEpochState(monitor);
+  const before = fs.lstatSync(watchedDirectory);
+  fs.utimesSync(
+    watchedDirectory,
+    new Date(before.atimeMs + 2_000),
+    new Date(before.mtimeMs + 2_000)
+  );
+  const observed = settleMutationEpochState(monitor);
+  assert.ok(observed.sourceEpoch > baseline.sourceEpoch);
+  stopMutationEpochMonitor(monitor, {
+    expectedEpoch: observed.sourceEpoch,
+    expectedMetadataEpoch: observed.metadataEpoch
+  });
+});
+
+test("explicit closure descriptor still detects persistent namespace, mode, identity, and file changes", async (t) => {
+  const fixture = makeFixture();
+  t.after(() => fs.rmSync(fixture.parent, { recursive: true, force: true }));
+  const watchedDirectory = path.join(fixture.linked, "semantic-directory");
+  const originalFile = path.join(watchedDirectory, "original.txt");
+  fs.mkdirSync(watchedDirectory);
+  fs.writeFileSync(originalFile, "semantic payload\n");
+  git(fixture.linked, "add", "semantic-directory/original.txt");
+  git(fixture.linked, "commit", "-m", "add semantic directory fixture");
+  const {
+    abortMutationEpochMonitor,
+    settleMutationEpochState,
+    startMutationEpochMonitor,
+    stopMutationEpochMonitor
+  } = await import(libraryUrl);
+  const monitor = startMutationEpochMonitor([fixture.linked], {
+    watchMode: "descriptor-sentinel"
+  });
+  t.after(() => abortMutationEpochMonitor(monitor));
+  let state = settleMutationEpochState(monitor);
+
+  const createdFile = path.join(watchedDirectory, "created.txt");
+  fs.writeFileSync(createdFile, "created payload\n");
+  let next = settleMutationEpochState(monitor);
+  assert.ok(next.sourceEpoch > state.sourceEpoch);
+  state = next;
+
+  fs.rmSync(createdFile);
+  next = settleMutationEpochState(monitor);
+  assert.ok(next.sourceEpoch > state.sourceEpoch);
+  state = next;
+
+  const renamedFile = path.join(watchedDirectory, "renamed.txt");
+  fs.renameSync(originalFile, renamedFile);
+  next = settleMutationEpochState(monitor);
+  assert.ok(next.sourceEpoch > state.sourceEpoch);
+  state = next;
+
+  const createdDirectory = path.join(watchedDirectory, "created-directory");
+  fs.mkdirSync(createdDirectory);
+  fs.writeFileSync(path.join(createdDirectory, "nested.txt"), "nested payload\n");
+  next = settleMutationEpochState(monitor);
+  assert.ok(next.sourceEpoch > state.sourceEpoch);
+  state = next;
+
+  const renamedDirectory = path.join(watchedDirectory, "renamed-directory");
+  fs.renameSync(createdDirectory, renamedDirectory);
+  next = settleMutationEpochState(monitor);
+  assert.ok(next.sourceEpoch > state.sourceEpoch);
+  state = next;
+
+  fs.rmSync(renamedDirectory, { recursive: true });
+  next = settleMutationEpochState(monitor);
+  assert.ok(next.sourceEpoch > state.sourceEpoch);
+  state = next;
+
+  const originalMode = fs.lstatSync(watchedDirectory).mode & 0o777;
+  fs.chmodSync(watchedDirectory, originalMode ^ 0o020);
+  next = settleMutationEpochState(monitor);
+  assert.ok(next.sourceEpoch > state.sourceEpoch);
+  state = next;
+  fs.chmodSync(watchedDirectory, originalMode);
+  state = settleMutationEpochState(monitor);
+
+  const oldDirectory = `${watchedDirectory}-old`;
+  fs.renameSync(watchedDirectory, oldDirectory);
+  fs.mkdirSync(watchedDirectory, { mode: originalMode });
+  fs.writeFileSync(path.join(watchedDirectory, "renamed.txt"), "semantic payload\n");
+  next = settleMutationEpochState(monitor);
+  assert.ok(next.sourceEpoch > state.sourceEpoch);
+  state = next;
+
+  const trackedFile = path.join(watchedDirectory, "renamed.txt");
+  const trackedBaseline = fs.readFileSync(trackedFile);
+  fs.writeFileSync(trackedFile, "transient tracked mutation\n");
+  fs.writeFileSync(trackedFile, trackedBaseline);
+  next = settleMutationEpochState(monitor);
+  assert.ok(next.sourceEpoch > state.sourceEpoch);
+  stopMutationEpochMonitor(monitor, {
+    expectedEpoch: next.sourceEpoch,
+    expectedMetadataEpoch: next.metadataEpoch
+  });
+});
+
 test("closure descriptor override still detects a true tracked mutation", async (t) => {
   const fixture = makeFixture();
   t.after(() => fs.rmSync(fixture.parent, { recursive: true, force: true }));
@@ -9490,6 +9645,7 @@ test("mutation monitor rejects prefix policies and classifies only one dynamical
     abortMutationEpochMonitor(forbiddenMonitor);
   }
   const monitor = startMutationEpochMonitor([fixture.linked], {
+    watchMode: "descriptor-sentinel",
     transactionMetadata: {
       root: fixture.linked,
       exactRelativePaths: ["coordination/release-intake/archive/exact-manifest.json"]
