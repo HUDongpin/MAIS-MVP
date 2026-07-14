@@ -7943,8 +7943,14 @@ function createTar(worktreePath, paths0) {
   const listPath = path.join(scratch, "paths0");
   const plainTarPath = path.join(scratch, "untracked.tar");
   const tarPath = path.join(scratch, "untracked.tar.gz");
-  writePrivate(listPath, paths0);
+  let cleaned = false;
+  const cleanup = () => {
+    if (cleaned) return;
+    fs.rmSync(scratch, { recursive: true, force: true });
+    cleaned = true;
+  };
   try {
+    writePrivate(listPath, paths0);
     execFileSync("tar", ["-cf", plainTarPath, "-C", worktreePath, "--null", "-T", listPath], {
       env: { ...process.env, COPYFILE_DISABLE: "1" },
       stdio: ["ignore", "pipe", "pipe"],
@@ -7965,9 +7971,11 @@ function createTar(worktreePath, paths0) {
     ].join("\n");
     execFileSync("python3", ["-c", canonicalizeScript, plainTarPath, tarPath], { stdio: ["ignore", "pipe", "pipe"], timeout: CHILD_PROCESS_TIMEOUT_MS });
     fs.chmodSync(tarPath, 0o600);
-    return { buffer: fs.readFileSync(tarPath), cleanup: () => fs.rmSync(scratch, { recursive: true, force: true }) };
+    const buffer = fs.readFileSync(tarPath);
+    cleanup();
+    return { buffer, cleanup };
   } catch (error) {
-    fs.rmSync(scratch, { recursive: true, force: true });
+    cleanup();
     throw error;
   }
 }

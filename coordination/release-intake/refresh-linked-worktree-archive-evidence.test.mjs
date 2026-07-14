@@ -3417,6 +3417,30 @@ test("snapshot and tar preserve the exact reviewed untracked coordination report
   assert.deepEqual(failures, []);
 });
 
+test("snapshot releases tar scratch before returning its materialized buffer", async (t) => {
+  const { collectWorktreeSnapshot, verifyTarPayload } = await import(libraryUrl);
+  const fixture = makeFixture();
+  t.after(() => fs.rmSync(fixture.parent, { recursive: true, force: true }));
+  fs.writeFileSync(path.join(fixture.linked, "safe-untracked.txt"), "materialized tar payload\n");
+  const scratchBefore = new Set(
+    fs.readdirSync(os.tmpdir()).filter((name) => name.startsWith("mais-evidence-tar-"))
+  );
+  const snapshot = collectWorktreeSnapshot(fixtureLinkedWorktree(fixture), { includeTar: true });
+  t.after(() => snapshot.cleanup());
+
+  const newScratch = fs.readdirSync(os.tmpdir()).filter(
+    (name) => name.startsWith("mais-evidence-tar-") && !scratchBefore.has(name)
+  );
+  assert.deepEqual(newScratch, []);
+  assert.ok(Buffer.isBuffer(snapshot.buffers.untrackedTar));
+  assert.ok(snapshot.buffers.untrackedTar.length > 0);
+  const failures = [];
+  verifyTarPayload(snapshot.buffers.untrackedTar, snapshot.inventory, "released-tar-scratch", failures);
+  assert.deepEqual(failures, []);
+  assert.doesNotThrow(() => snapshot.cleanup());
+  assert.doesNotThrow(() => snapshot.cleanup());
+});
+
 test("writer archives the exact reviewed untracked coordination report", (t) => {
   const fixture = makeFixture();
   t.after(() => fs.rmSync(fixture.parent, { recursive: true, force: true }));
