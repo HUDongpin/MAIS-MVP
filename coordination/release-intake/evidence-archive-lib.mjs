@@ -4,6 +4,7 @@ import crypto from "node:crypto";
 import fs from "node:fs";
 import os from "node:os";
 import path from "node:path";
+import { fileURLToPath } from "node:url";
 import ts from "typescript";
 import { isAlias, isMap, isPair, isScalar, isSeq, parseAllDocuments } from "yaml";
 
@@ -542,6 +543,27 @@ const TOKEN_PATTERNS = [
 
 export function sha256Buffer(buffer) {
   return crypto.createHash("sha256").update(buffer).digest("hex");
+}
+
+export const TYPED_FSEVENTS_HELPER_SOURCE_PATH = fileURLToPath(new URL(
+  "./native/mais-fsevents-journal.c",
+  import.meta.url
+));
+
+const TYPED_FSEVENTS_KNOWN_FLAG_MASK = 0x007fffff;
+const TYPED_FSEVENTS_FATAL_FLAG_MASK = 0x000000ff;
+const TYPED_FSEVENTS_EXACT_XATTR_ONLY_FLAGS = 0x00018000;
+
+export function classifyTypedFseventsFlags(rawFlags) {
+  if (!Number.isInteger(rawFlags) || rawFlags < 0 || rawFlags > 0xffffffff) {
+    throw new Error("typed FSEvents flags must be a UInt32 value");
+  }
+  const flags = rawFlags >>> 0;
+  if ((flags & ~TYPED_FSEVENTS_KNOWN_FLAG_MASK) !== 0
+    || (flags & TYPED_FSEVENTS_FATAL_FLAG_MASK) !== 0) {
+    throw new Error("typed FSEvents flags fail closed on fatal or unsupported bits");
+  }
+  return flags === TYPED_FSEVENTS_EXACT_XATTR_ONLY_FLAGS ? "xattr-only" : "source";
 }
 
 export function stableJson(value) {
