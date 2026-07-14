@@ -6770,14 +6770,16 @@ test("external gate report promotion is marker-bound, private, ignores partial t
   );
 });
 
-test("gate report and terminal attestation schemas reject missing and extra fields", async () => {
+test("gate report and terminal attestation schemas bind requested mode and directory policy", async () => {
   const { assertEvidenceGateReport, assertMutationTerminalAttestation } = await import(libraryUrl);
   const attestation = {
-    schemaVersion: 1,
+    schemaVersion: 2,
     sessionId: crypto.randomUUID(),
     sourceEpoch: 7,
     metadataEpoch: 3,
     watchMode: "descriptor-sentinel",
+    requestedWatchMode: "descriptor-sentinel",
+    directoryTimestampPolicy: "semantic-directory",
     coverageFingerprint: "d".repeat(64),
     coveragePathCount: 12,
     fdCount: 4,
@@ -6787,22 +6789,28 @@ test("gate report and terminal attestation schemas reject missing and extra fiel
   assert.doesNotThrow(() => assertMutationTerminalAttestation(attestation, {
     sessionId: attestation.sessionId,
     sourceEpoch: 7,
-    metadataEpoch: 3
+    metadataEpoch: 3,
+    requestedWatchMode: "descriptor-sentinel",
+    directoryTimestampPolicy: "semantic-directory"
   }));
   for (const invalid of [
     { ...attestation, extra: true },
-    Object.fromEntries(Object.entries(attestation).filter(([key]) => key !== "sourceEpoch"))
+    Object.fromEntries(Object.entries(attestation).filter(([key]) => key !== "sourceEpoch")),
+    { ...attestation, directoryTimestampPolicy: "strict" },
+    { ...attestation, requestedWatchMode: "auto" }
   ]) {
     assert.throws(
       () => assertMutationTerminalAttestation(invalid, {
         sessionId: attestation.sessionId,
         sourceEpoch: 7,
-        metadataEpoch: 3
+        metadataEpoch: 3,
+        requestedWatchMode: "descriptor-sentinel",
+        directoryTimestampPolicy: "semantic-directory"
       }),
-      /attestation|fields|epoch/i
+      /attestation|fields|epoch|requested|policy/i
     );
   }
-  const report = {
+  const reportBasis = {
     checkedAt: new Date().toISOString(),
     schemaVersion: 2,
     archiveSetFingerprint: "b".repeat(64),
@@ -6810,7 +6818,10 @@ test("gate report and terminal attestation schemas reject missing and extra fiel
     expandedStatusEntries: 1,
     openLinkedDecisions: 1,
     failures: [],
-    branches: [{ branch: "feature/archive", head: "c".repeat(40) }],
+    branches: [{ branch: "feature/archive", head: "c".repeat(40) }]
+  };
+  const legacyReport = {
+    ...reportBasis,
     terminalProtocol: {
       attestationFile: "reports/gate-monitor-attestation-slot-a.json",
       expectedMetadataEpoch: 3,
@@ -6819,10 +6830,42 @@ test("gate report and terminal attestation schemas reject missing and extra fiel
       schemaVersion: 1
     }
   };
+  assert.throws(
+    () => assertEvidenceGateReport(legacyReport),
+    /terminal protocol/i
+  );
+  assert.doesNotThrow(() => assertEvidenceGateReport(legacyReport, {
+    allowLegacyTerminalProtocol: true
+  }));
+  const report = {
+    ...reportBasis,
+    terminalProtocol: {
+      attestationFile: "reports/gate-monitor-attestation-slot-a.json",
+      directoryTimestampPolicy: "semantic-directory",
+      expectedMetadataEpoch: 3,
+      expectedSourceEpoch: 7,
+      monitorSessionId: attestation.sessionId,
+      requestedWatchMode: "descriptor-sentinel",
+      schemaVersion: 2
+    }
+  };
   assert.doesNotThrow(() => assertEvidenceGateReport(report));
+  for (const invalidOptions of [
+    null,
+    true,
+    { allowLegacyTerminalProtocol: "true" },
+    { allowLegacyTerminalProtocol: true, extra: true }
+  ]) {
+    assert.throws(
+      () => assertEvidenceGateReport(report, invalidOptions),
+      /gate report validator options/i
+    );
+  }
   for (const invalid of [
     { ...report, extra: true },
     { ...report, terminalProtocol: { ...report.terminalProtocol, extra: true } },
+    { ...report, terminalProtocol: { ...report.terminalProtocol, directoryTimestampPolicy: "strict" } },
+    { ...report, terminalProtocol: { ...report.terminalProtocol, requestedWatchMode: "auto" } },
     Object.fromEntries(Object.entries(report).filter(([key]) => key !== "failures"))
   ]) {
     assert.throws(() => assertEvidenceGateReport(invalid), /gate report|fields|terminal protocol/i);
@@ -9021,6 +9064,51 @@ test("six current-gate publications alternate two attestation slots without repo
   ]);
 });
 
+test("current gate alternates away from a readable legacy v1 terminal protocol", (t) => {
+  const fixture = makeFixture();
+  t.after(() => fs.rmSync(fixture.parent, { recursive: true, force: true }));
+  dirtyFixture(fixture);
+  const environment = {
+    MAIS_EVIDENCE_MUTATION_MONITOR_MODE: "descriptor-sentinel"
+  };
+  const archived = run(writer, fixture, environment);
+  assert.equal(archived.status, 0, archived.stderr || archived.stdout);
+  const reportsDirectory = path.join(fixture.evidenceRoot, "reports");
+  const reportPath = path.join(
+    reportsDirectory,
+    "latest-A25-linked-worktree-archive-evidence-current-gate.json"
+  );
+  fs.mkdirSync(reportsDirectory, { mode: 0o700 });
+  const legacyReport = {
+    archiveSetFingerprint: "b".repeat(64),
+    branches: [{ branch: "feature/archive", head: "c".repeat(40) }],
+    checkedAt: new Date().toISOString(),
+    dirtyMapStatusSignature: "legacy-readable-report",
+    expandedStatusEntries: 1,
+    failures: [],
+    openLinkedDecisions: 1,
+    schemaVersion: 2,
+    terminalProtocol: {
+      attestationFile: "reports/gate-monitor-attestation-slot-a.json",
+      expectedMetadataEpoch: 0,
+      expectedSourceEpoch: 0,
+      monitorSessionId: crypto.randomUUID(),
+      schemaVersion: 1
+    }
+  };
+  fs.writeFileSync(reportPath, `${JSON.stringify(legacyReport)}\n`, { mode: 0o600 });
+  const checked = run(gate, fixture, environment);
+  assert.equal(checked.status, 0, checked.stderr || checked.stdout);
+  const current = JSON.parse(fs.readFileSync(reportPath, "utf8"));
+  assert.equal(
+    current.terminalProtocol.attestationFile,
+    "reports/gate-monitor-attestation-slot-b.json"
+  );
+  assert.equal(current.terminalProtocol.schemaVersion, 2);
+  assert.equal(current.terminalProtocol.requestedWatchMode, "descriptor-sentinel");
+  assert.equal(current.terminalProtocol.directoryTimestampPolicy, "semantic-directory");
+});
+
 test("flock owner proof is portable and contains no Darwin struct ABI", () => {
   const source = fs.readFileSync(path.join(here, "evidence-archive-lib.mjs"), "utf8");
   assert.doesNotMatch(source, /F_GETLK|struct\.pack|qqihh/u);
@@ -9171,6 +9259,107 @@ test("sample acknowledgement at the explicit deadline fails closed", async (t) =
   );
 });
 
+test("mutation state and sample provenance distinguish strict auto fallback from semantic descriptor mode", async (t) => {
+  const scratch = fs.mkdtempSync(path.join(os.tmpdir(), "mais-monitor-provenance-"));
+  t.after(() => fs.rmSync(scratch, { recursive: true, force: true }));
+  const { readMutationEpochState } = await import(libraryUrl);
+  const sessionId = crypto.randomUUID();
+  const state = {
+    coverageFingerprint: "b".repeat(64),
+    coveragePathCount: 1,
+    directoryTimestampPolicy: "strict",
+    fdCount: 1,
+    metadataEpoch: 0,
+    requestedWatchMode: "auto",
+    rootFdCount: 1,
+    schemaVersion: 2,
+    sessionId,
+    sourceEpoch: 0,
+    watchMode: "descriptor-sentinel"
+  };
+  const epochPath = path.join(scratch, "epoch");
+  const errorPath = path.join(scratch, "error");
+  const makeMonitor = (
+    sampleMutation = (value) => value,
+    expectedProvenance = {
+      directoryTimestampPolicy: "strict",
+      requestedWatchMode: "auto"
+    }
+  ) => ({
+    child: {
+      pid: process.pid,
+      send(message) {
+        fs.writeFileSync(path.join(scratch, `sample-${message.requestId}.json`), `${JSON.stringify(sampleMutation({
+          ...state,
+          requestId: message.requestId,
+          status: "sampled"
+        }))}\n`);
+        return true;
+      }
+    },
+    coveragePathCount: 1,
+    directoryTimestampPolicy: expectedProvenance.directoryTimestampPolicy,
+    epochPath,
+    errorPath,
+    requestedWatchMode: expectedProvenance.requestedWatchMode,
+    scratch,
+    sessionId,
+    stopped: false
+  });
+  fs.writeFileSync(epochPath, `${JSON.stringify(state)}\n`);
+  const observed = readMutationEpochState(makeMonitor());
+  assert.equal(observed.watchMode, "descriptor-sentinel");
+  assert.equal(observed.requestedWatchMode, "auto");
+  assert.equal(observed.directoryTimestampPolicy, "strict");
+
+  for (const mutate of [
+    (value) => ({ ...value, extra: true }),
+    (value) => ({ ...value, requestedWatchMode: "descriptor-sentinel" }),
+    (value) => ({ ...value, directoryTimestampPolicy: "semantic-directory" })
+  ]) {
+    assert.throws(
+      () => readMutationEpochState(makeMonitor(mutate)),
+      /sample acknowledgement schema is invalid/i
+    );
+  }
+
+  for (const invalidState of [
+    { ...state, extra: true },
+    { ...state, requestedWatchMode: "descriptor-sentinel" },
+    { ...state, directoryTimestampPolicy: "semantic-directory" }
+  ]) {
+    fs.writeFileSync(epochPath, `${JSON.stringify(invalidState)}\n`);
+    assert.throws(
+      () => readMutationEpochState(makeMonitor(), { requestSample: false }),
+      /mutation monitor epoch is invalid/i
+    );
+  }
+
+  for (const invalidProvenance of [
+    { requestedWatchMode: "bogus", directoryTimestampPolicy: null },
+    { requestedWatchMode: null, directoryTimestampPolicy: null },
+    { requestedWatchMode: "auto", directoryTimestampPolicy: null },
+    { requestedWatchMode: "auto", directoryTimestampPolicy: "loose" }
+  ]) {
+    const invalidState = { ...state, ...invalidProvenance };
+    fs.writeFileSync(epochPath, `${JSON.stringify(invalidState)}\n`);
+    assert.throws(
+      () => readMutationEpochState(makeMonitor(
+        (value) => ({ ...value, ...invalidProvenance }),
+        invalidProvenance
+      )),
+      /sample acknowledgement schema is invalid/i
+    );
+    assert.throws(
+      () => readMutationEpochState(
+        makeMonitor((value) => value, invalidProvenance),
+        { requestSample: false }
+      ),
+      /mutation monitor epoch is invalid/i
+    );
+  }
+});
+
 test("mutation monitor forces descriptor-sentinel mode through its effective attestation", async (t) => {
   const fixture = makeFixture();
   t.after(() => fs.rmSync(fixture.parent, { recursive: true, force: true }));
@@ -9188,13 +9377,19 @@ test("mutation monitor forces descriptor-sentinel mode through its effective att
   const bootstrap = JSON.parse(fs.readFileSync(path.join(monitor.scratch, "bootstrap.json"), "utf8"));
   assert.equal(bootstrap.requestedWatchModeText, "descriptor-sentinel");
   const state = settleMutationEpochState(monitor);
+  assert.equal(state.schemaVersion, 2);
   assert.equal(monitor.watchMode, "descriptor-sentinel");
   assert.equal(state.watchMode, "descriptor-sentinel");
+  assert.equal(state.requestedWatchMode, "descriptor-sentinel");
+  assert.equal(state.directoryTimestampPolicy, "semantic-directory");
   const attestation = stopMutationEpochMonitor(monitor, {
     expectedEpoch: state.sourceEpoch,
     expectedMetadataEpoch: state.metadataEpoch
   });
+  assert.equal(attestation.schemaVersion, 2);
   assert.equal(attestation.watchMode, "descriptor-sentinel");
+  assert.equal(attestation.requestedWatchMode, "descriptor-sentinel");
+  assert.equal(attestation.directoryTimestampPolicy, "semantic-directory");
 });
 
 test("closure monitor override rejects every unsupported defined mode before bootstrap", async (t) => {
@@ -9333,6 +9528,8 @@ test("auto mutation monitoring keeps directory timestamp churn strict", async (t
   const monitor = startMutationEpochMonitor([fixture.linked], { watchMode: "auto" });
   t.after(() => abortMutationEpochMonitor(monitor));
   const baseline = settleMutationEpochState(monitor);
+  assert.equal(baseline.requestedWatchMode, "auto");
+  assert.equal(baseline.directoryTimestampPolicy, "strict");
   const before = fs.lstatSync(watchedDirectory);
   fs.utimesSync(
     watchedDirectory,
@@ -9341,10 +9538,12 @@ test("auto mutation monitoring keeps directory timestamp churn strict", async (t
   );
   const observed = settleMutationEpochState(monitor);
   assert.ok(observed.sourceEpoch > baseline.sourceEpoch);
-  stopMutationEpochMonitor(monitor, {
+  const attestation = stopMutationEpochMonitor(monitor, {
     expectedEpoch: observed.sourceEpoch,
     expectedMetadataEpoch: observed.metadataEpoch
   });
+  assert.equal(attestation.requestedWatchMode, "auto");
+  assert.equal(attestation.directoryTimestampPolicy, "strict");
 });
 
 test("explicit closure descriptor still detects persistent namespace, mode, identity, and file changes", async (t) => {
@@ -9493,7 +9692,13 @@ test("closure monitor override reaches the writer and currentness gate end to en
     fixture.evidenceRoot,
     ...report.terminalProtocol.attestationFile.split("/")
   ), "utf8"));
+  assert.equal(report.terminalProtocol.schemaVersion, 2);
+  assert.equal(report.terminalProtocol.requestedWatchMode, "descriptor-sentinel");
+  assert.equal(report.terminalProtocol.directoryTimestampPolicy, "semantic-directory");
+  assert.equal(attestation.schemaVersion, 2);
   assert.equal(attestation.watchMode, "descriptor-sentinel");
+  assert.equal(attestation.requestedWatchMode, "descriptor-sentinel");
+  assert.equal(attestation.directoryTimestampPolicy, "semantic-directory");
 });
 
 test("mutation epoch monitoring observes writes and fails closed on invalid roots or child crash", async (t) => {

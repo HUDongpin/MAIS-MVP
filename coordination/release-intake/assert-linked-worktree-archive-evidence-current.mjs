@@ -112,7 +112,9 @@ function inactiveAttestationSlot(evidenceRoot) {
   const reportPath = path.join(evidenceRoot, "reports", gateReportFilename);
   if (!fs.existsSync(reportPath)) return attestationSlots[0];
   try {
-    const current = assertEvidenceGateReport(readJson(reportPath));
+    const current = assertEvidenceGateReport(readJson(reportPath), {
+      allowLegacyTerminalProtocol: true
+    });
     const active = path.posix.basename(current.terminalProtocol.attestationFile);
     return active === attestationSlots[0] ? attestationSlots[1] : attestationSlots[0];
   } catch {
@@ -631,10 +633,12 @@ function main() {
         ...payload,
         terminalProtocol: {
           attestationFile: `reports/${attestationFilename}`,
+          directoryTimestampPolicy: terminalState.directoryTimestampPolicy,
           expectedMetadataEpoch: terminalState.metadataEpoch,
           expectedSourceEpoch: finalEpoch,
           monitorSessionId: monitor.sessionId,
-          schemaVersion: 1
+          requestedWatchMode: terminalState.requestedWatchMode,
+          schemaVersion: 2
         }
       };
       assertEvidenceGateReport(provisionalReportPayload);
@@ -652,10 +656,12 @@ function main() {
           evidenceRootId: linked.evidenceRootId,
           filename: attestationFilename,
           payload: {
-            schemaVersion: 1,
+            schemaVersion: 2,
             sessionId: monitor.sessionId,
             sourceEpoch: finalEpoch,
             metadataEpoch: terminalState.metadataEpoch,
+            requestedWatchMode: terminalState.requestedWatchMode,
+            directoryTimestampPolicy: terminalState.directoryTimestampPolicy,
             status: "pending"
           }
         });
@@ -667,10 +673,12 @@ function main() {
           ...payload,
           terminalProtocol: {
             attestationFile: `reports/${attestationFilename}`,
+            directoryTimestampPolicy: attestation.directoryTimestampPolicy,
             expectedMetadataEpoch: attestation.metadataEpoch,
             expectedSourceEpoch: attestation.sourceEpoch,
             monitorSessionId: attestation.sessionId,
-            schemaVersion: 1
+            requestedWatchMode: attestation.requestedWatchMode,
+            schemaVersion: 2
           }
         };
         assertEvidenceGateReport(reportPayload);

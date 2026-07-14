@@ -48,6 +48,7 @@ const OPAQUE_RAW_SCAN_MAX_BYTES = 1024 * 1024;
 
 const SHA256_PATTERN = /^[0-9a-f]{64}$/u;
 const UUID_PATTERN = /^[0-9a-f]{8}-[0-9a-f]{4}-[1-8][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/iu;
+const MUTATION_MONITOR_SCHEMA_VERSION = 2;
 const EVIDENCE_REPORT_RECOVERY_NAME_PATTERN = /^(.+\.json)\.recovery-([0-9a-f]{8}-[0-9a-f]{4}-[1-8][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12})\.json$/iu;
 const EVIDENCE_REPORT_RECOVERY_STATES = new Set([
   "committed-cleanup-pending",
@@ -867,6 +868,9 @@ const {
 const parentPid = Number(parentPidText);
 const terminalQuietMs = Number(terminalQuietMsText);
 const requestedWatchMode = requestedWatchModeText;
+const directoryTimestampPolicy = requestedWatchMode === "descriptor-sentinel"
+  ? "semantic-directory"
+  : "strict";
 const recursiveAvailable = recursiveAvailableText === "true";
 const recursiveWatchers = [];
 const rootDescriptors = [];
@@ -909,11 +913,13 @@ const coverageFingerprint = () => crypto.createHash("sha256")
   .update(JSON.stringify([...sentinelRecords.keys()].sort()))
   .digest("hex");
 const state = () => ({
-  schemaVersion: 1,
+  schemaVersion: 2,
   sessionId,
   sourceEpoch,
   metadataEpoch,
   watchMode,
+  requestedWatchMode,
+  directoryTimestampPolicy,
   coverageFingerprint: coverageFingerprint(),
   coveragePathCount: configuredSentinelPaths.size,
   fdCount: rootDescriptors.length,
@@ -1438,6 +1444,41 @@ function mutationMonitorOperationTimeout(monitor, minimumMs = 5_000) {
   return Math.min(120_000, Math.max(minimumMs, minimumMs + Math.ceil(coverage / 5_000) * 1_000));
 }
 
+function directoryTimestampPolicyForRequestedWatchMode(requestedWatchMode) {
+  if (requestedWatchMode === "auto") return "strict";
+  if (requestedWatchMode === "descriptor-sentinel") return "semantic-directory";
+  return null;
+}
+
+function validMutationMonitorStateValues(value, monitor) {
+  const expectedDirectoryTimestampPolicy = directoryTimestampPolicyForRequestedWatchMode(
+    value.requestedWatchMode
+  );
+  const monitorDirectoryTimestampPolicy = directoryTimestampPolicyForRequestedWatchMode(
+    monitor.requestedWatchMode
+  );
+  return value.schemaVersion === MUTATION_MONITOR_SCHEMA_VERSION
+    && value.sessionId === monitor.sessionId
+    && ["auto", "descriptor-sentinel"].includes(value.requestedWatchMode)
+    && ["strict", "semantic-directory"].includes(value.directoryTimestampPolicy)
+    && ["auto", "descriptor-sentinel"].includes(monitor.requestedWatchMode)
+    && ["strict", "semantic-directory"].includes(monitor.directoryTimestampPolicy)
+    && monitor.directoryTimestampPolicy === monitorDirectoryTimestampPolicy
+    && value.requestedWatchMode === monitor.requestedWatchMode
+    && value.directoryTimestampPolicy === monitor.directoryTimestampPolicy
+    && value.directoryTimestampPolicy === expectedDirectoryTimestampPolicy
+    && Number.isSafeInteger(value.sourceEpoch) && value.sourceEpoch >= 0
+    && Number.isSafeInteger(value.metadataEpoch) && value.metadataEpoch >= 0
+    && Number.isSafeInteger(value.coveragePathCount) && value.coveragePathCount >= 1
+    && Number.isSafeInteger(value.fdCount) && value.fdCount >= 1
+    && Number.isSafeInteger(value.rootFdCount) && value.rootFdCount >= 1
+    && value.fdCount === value.rootFdCount
+    && ["recursive", "descriptor-sentinel"].includes(value.watchMode)
+    && (value.requestedWatchMode !== "descriptor-sentinel" || value.watchMode === "descriptor-sentinel")
+    && typeof value.coverageFingerprint === "string"
+    && SHA256_PATTERN.test(value.coverageFingerprint);
+}
+
 export function calculateMutationMonitorQuiescenceTimeout({
   coveragePathCount,
   quietMs = 300
@@ -1495,9 +1536,11 @@ function requestMutationMonitorSample(monitor, maximumWaitMs) {
   if (!exactKeys(acknowledgement, [
     "coverageFingerprint",
     "coveragePathCount",
+    "directoryTimestampPolicy",
     "fdCount",
     "metadataEpoch",
     "requestId",
+    "requestedWatchMode",
     "rootFdCount",
     "schemaVersion",
     "sessionId",
@@ -1505,7 +1548,7 @@ function requestMutationMonitorSample(monitor, maximumWaitMs) {
     "status",
     "watchMode"
   ]) || acknowledgement.status !== "sampled" || acknowledgement.requestId !== requestId
-    || acknowledgement.sessionId !== monitor.sessionId) {
+    || !validMutationMonitorStateValues(acknowledgement, monitor)) {
     throw new Error("mutation monitor descriptor sample acknowledgement schema is invalid");
   }
 }
@@ -1532,23 +1575,16 @@ export function readMutationEpochState(monitor, {
   if (!exactKeys(value, [
     "coverageFingerprint",
     "coveragePathCount",
+    "directoryTimestampPolicy",
     "fdCount",
     "metadataEpoch",
+    "requestedWatchMode",
     "rootFdCount",
     "schemaVersion",
     "sessionId",
     "sourceEpoch",
     "watchMode"
-  ])
-    || value.schemaVersion !== 1 || value.sessionId !== monitor.sessionId
-    || !Number.isSafeInteger(value.sourceEpoch) || value.sourceEpoch < 0
-    || !Number.isSafeInteger(value.metadataEpoch) || value.metadataEpoch < 0
-    || !Number.isSafeInteger(value.coveragePathCount) || value.coveragePathCount < 1
-    || !Number.isSafeInteger(value.fdCount) || value.fdCount < 1
-    || !Number.isSafeInteger(value.rootFdCount) || value.rootFdCount < 1
-    || value.fdCount !== value.rootFdCount
-    || !["recursive", "descriptor-sentinel"].includes(value.watchMode)
-    || typeof value.coverageFingerprint !== "string" || !SHA256_PATTERN.test(value.coverageFingerprint)) {
+  ]) || !validMutationMonitorStateValues(value, monitor)) {
     throw new Error("mutation monitor epoch is invalid");
   }
   return value;
@@ -1671,6 +1707,7 @@ export function startMutationEpochMonitor(paths, {
   }
   const monitor = {
     child,
+    directoryTimestampPolicy: directoryTimestampPolicyForRequestedWatchMode(watchMode),
     epochPath,
     readyPath,
     errorPath,
@@ -1826,6 +1863,8 @@ export function assertMutationTerminalAttestation(attestation, {
   sourceEpoch,
   metadataEpoch,
   watchMode,
+  requestedWatchMode,
+  directoryTimestampPolicy,
   coverageFingerprint,
   coveragePathCount,
   fdCount,
@@ -1834,8 +1873,10 @@ export function assertMutationTerminalAttestation(attestation, {
   if (!exactKeys(attestation, [
     "coverageFingerprint",
     "coveragePathCount",
+    "directoryTimestampPolicy",
     "fdCount",
     "metadataEpoch",
+    "requestedWatchMode",
     "rootFdCount",
     "schemaVersion",
     "sessionId",
@@ -1843,7 +1884,7 @@ export function assertMutationTerminalAttestation(attestation, {
     "status",
     "watchMode"
   ])
-    || attestation.schemaVersion !== 1
+    || attestation.schemaVersion !== MUTATION_MONITOR_SCHEMA_VERSION
     || attestation.status !== "stopped"
     || typeof attestation.sessionId !== "string"
     || !UUID_PATTERN.test(attestation.sessionId)
@@ -1856,6 +1897,11 @@ export function assertMutationTerminalAttestation(attestation, {
     || !Number.isSafeInteger(attestation.rootFdCount) || attestation.rootFdCount < 1
     || attestation.fdCount !== attestation.rootFdCount
     || !["recursive", "descriptor-sentinel"].includes(attestation.watchMode)
+    || !["auto", "descriptor-sentinel"].includes(attestation.requestedWatchMode)
+    || attestation.directoryTimestampPolicy
+      !== directoryTimestampPolicyForRequestedWatchMode(attestation.requestedWatchMode)
+    || (attestation.requestedWatchMode === "descriptor-sentinel"
+      && attestation.watchMode !== "descriptor-sentinel")
     || typeof attestation.coverageFingerprint !== "string"
     || !SHA256_PATTERN.test(attestation.coverageFingerprint)) {
     throw new Error("mutation monitor terminal attestation fields are invalid");
@@ -1871,6 +1917,13 @@ export function assertMutationTerminalAttestation(attestation, {
   }
   if (watchMode !== undefined && attestation.watchMode !== watchMode) {
     throw new Error("mutation monitor terminal attestation watch mode is invalid");
+  }
+  if (requestedWatchMode !== undefined && attestation.requestedWatchMode !== requestedWatchMode) {
+    throw new Error("mutation monitor terminal attestation requested watch mode is invalid");
+  }
+  if (directoryTimestampPolicy !== undefined
+    && attestation.directoryTimestampPolicy !== directoryTimestampPolicy) {
+    throw new Error("mutation monitor terminal attestation directory timestamp policy is invalid");
   }
   if (coverageFingerprint !== undefined && attestation.coverageFingerprint !== coverageFingerprint) {
     throw new Error("mutation monitor terminal attestation coverage fingerprint is invalid");
@@ -1945,6 +1998,8 @@ export function stopMutationEpochMonitor(monitor, {
       sourceEpoch: requiredEpoch,
       metadataEpoch: requiredMetadataEpoch,
       watchMode: beforeStop.watchMode,
+      requestedWatchMode: beforeStop.requestedWatchMode,
+      directoryTimestampPolicy: beforeStop.directoryTimestampPolicy,
       coverageFingerprint: beforeStop.coverageFingerprint,
       coveragePathCount: beforeStop.coveragePathCount,
       fdCount: beforeStop.fdCount,
@@ -1956,6 +2011,8 @@ export function stopMutationEpochMonitor(monitor, {
     const terminalState = readMutationEpochState(monitor, { requireAlive: false });
     if (terminalState.sourceEpoch !== requiredEpoch || terminalState.metadataEpoch !== attestation.metadataEpoch
       || terminalState.watchMode !== attestation.watchMode
+      || terminalState.requestedWatchMode !== attestation.requestedWatchMode
+      || terminalState.directoryTimestampPolicy !== attestation.directoryTimestampPolicy
       || terminalState.coverageFingerprint !== attestation.coverageFingerprint
       || terminalState.coveragePathCount !== attestation.coveragePathCount
       || terminalState.fdCount !== attestation.fdCount
@@ -3310,7 +3367,16 @@ export function writeEvidenceReport({
   }
 }
 
-export function assertEvidenceGateReport(report) {
+export function assertEvidenceGateReport(report, options = {}) {
+  const hasDefaultOptions = exactKeys(options, []);
+  const hasLegacyOption = exactKeys(options, ["allowLegacyTerminalProtocol"])
+    && typeof options.allowLegacyTerminalProtocol === "boolean";
+  if (!hasDefaultOptions && !hasLegacyOption) {
+    throw new Error("evidence gate report validator options are invalid");
+  }
+  const allowLegacyTerminalProtocol = hasLegacyOption
+    ? options.allowLegacyTerminalProtocol
+    : false;
   const keys = [
     "archiveSetFingerprint",
     "branches",
@@ -3340,21 +3406,38 @@ export function assertEvidenceGateReport(report) {
     throw new Error("evidence gate report values are invalid");
   }
   const protocol = report.terminalProtocol;
-  if (!exactKeys(protocol, [
+  const commonProtocolValuesAreValid = protocol !== null
+    && typeof protocol === "object"
+    && !Array.isArray(protocol)
+    && typeof protocol.monitorSessionId === "string"
+    && UUID_PATTERN.test(protocol.monitorSessionId)
+    && isNonnegativeInteger(protocol.expectedSourceEpoch)
+    && isNonnegativeInteger(protocol.expectedMetadataEpoch)
+    && [
+      "reports/gate-monitor-attestation-slot-a.json",
+      "reports/gate-monitor-attestation-slot-b.json"
+    ].includes(protocol.attestationFile);
+  const legacyProtocolIsValid = exactKeys(protocol, [
     "attestationFile",
     "expectedMetadataEpoch",
     "expectedSourceEpoch",
     "monitorSessionId",
     "schemaVersion"
-  ]) || protocol.schemaVersion !== 1
-    || typeof protocol.monitorSessionId !== "string"
-    || !UUID_PATTERN.test(protocol.monitorSessionId)
-    || !isNonnegativeInteger(protocol.expectedSourceEpoch)
-    || !isNonnegativeInteger(protocol.expectedMetadataEpoch)
-    || ![
-      "reports/gate-monitor-attestation-slot-a.json",
-      "reports/gate-monitor-attestation-slot-b.json"
-    ].includes(protocol.attestationFile)) {
+  ]) && protocol.schemaVersion === 1;
+  const currentProtocolIsValid = exactKeys(protocol, [
+    "attestationFile",
+    "directoryTimestampPolicy",
+    "expectedMetadataEpoch",
+    "expectedSourceEpoch",
+    "monitorSessionId",
+    "requestedWatchMode",
+    "schemaVersion"
+  ]) && protocol.schemaVersion === 2
+    && ["auto", "descriptor-sentinel"].includes(protocol.requestedWatchMode)
+    && protocol.directoryTimestampPolicy
+      === directoryTimestampPolicyForRequestedWatchMode(protocol.requestedWatchMode);
+  if (!commonProtocolValuesAreValid
+    || (!currentProtocolIsValid && !(allowLegacyTerminalProtocol && legacyProtocolIsValid))) {
     throw new Error("evidence gate report terminal protocol fields are invalid");
   }
   return report;
