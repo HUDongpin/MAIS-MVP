@@ -11213,6 +11213,8 @@ const task3aRegularProof = (overrides = {}) => Object.freeze({
   type: "regular-file",
   dev: "11",
   ino: "22",
+  uid: "501",
+  gid: "20",
   mode: "33188",
   nlink: "1",
   size: "7",
@@ -11592,6 +11594,8 @@ test("Task 3A pure classification compares every regular semantic proof dimensio
   for (const [field, value] of [
     ["dev", "12"],
     ["ino", "23"],
+    ["uid", "502"],
+    ["gid", "21"],
     ["mode", "33152"],
     ["nlink", "2"],
     ["size", "8"],
@@ -11775,7 +11779,7 @@ test("Task 3B1 stable proof snapshot includes ignored generated symlink and trac
   const repeated = captureStableProofSnapshot(options);
   const proof = (relativePath) => snapshot.proofByPath[path.join(root, ...relativePath.split("/"))];
 
-  assert.equal(snapshot.schemaVersion, 1);
+  assert.equal(snapshot.schemaVersion, 2);
   assert.equal(snapshot.sha256, repeated.sha256);
   assert.match(snapshot.sha256, /^[0-9a-f]{64}$/u);
   assert.equal(snapshot.pathCount, snapshot.entries.length);
@@ -12101,6 +12105,8 @@ function writeTypedFseventsV2Endpoint(scratch, {
   entryCount = 0n,
   journal = Buffer.alloc(0),
   lastEventId = 0n,
+  sequence = 0n,
+  type = 1,
   rootsBuffer = Buffer.from("/tmp/typed-root\0")
 } = {}) {
   const journalPath = path.join(scratch, "journal.bin");
@@ -12110,8 +12116,8 @@ function writeTypedFseventsV2Endpoint(scratch, {
   fs.chmodSync(journalPath, 0o600);
   const journalStatus = fs.lstatSync(journalPath, { bigint: true });
   let acknowledgement = typedFseventsAck({
-    type: 1,
-    sequence: 0n,
+    type,
+    sequence,
     journalHighWater: BigInt(journal.length),
     entryCount,
     lastEventId,
@@ -13365,4 +13371,1741 @@ test("stable proof snapshot captures 15000 real files with repeatable fingerprin
   assert.ok(elapsedMs < 30_000, `two 15000-file snapshots took ${elapsedMs.toFixed(1)} ms`);
   assert.ok(heapGrowth < 128 * 1024 * 1024, `snapshot heap grew by ${heapGrowth} bytes`);
   assert.ok(stableProofOpenDescriptorCount() <= descriptorsBefore + 1);
+});
+
+test("Task 3B2 fixed-point reconciliation exports the five pure state-machine APIs", async () => {
+  const library = await import(libraryUrl);
+  for (const name of [
+    "normalizeTypedFseventsAckCheckpoint",
+    "readAndValidateJournalExtension",
+    "reconcileFixedPoint",
+    "commitReconciliation",
+    "sealTerminal"
+  ]) {
+    assert.equal(typeof library[name], "function", `${name} export is missing`);
+  }
+});
+
+test("Task 3B2 detached ACK reader embeds its private provenance dependencies", () => {
+  const source = fs.readFileSync(path.join(here, "evidence-archive-lib.mjs"), "utf8");
+  const start = source.indexOf("const TYPED_FSEVENTS_ACK_READER_CHILD_SOURCE = [");
+  const end = source.indexOf("].map((implementation) => implementation.toString()).join", start);
+  assert.ok(start >= 0 && end > start, "embedded ACK reader source array is missing");
+  const embedded = source.slice(start, end);
+  const dependencies = [
+    "TYPED_FSEVENTS_MAX_UINT64 =",
+    "TYPED_FSEVENTS_PROVENANCE_ORDINAL = 0n",
+    "TYPED_FSEVENTS_COMMITTED_ACKNOWLEDGEMENTS = new WeakMap",
+    "typedFseventsNextProvenanceOrdinal,",
+    "sameTypedFseventsJournalIdentity,",
+    "readCommittedTypedFseventsAcknowledgement"
+  ];
+  let priorIndex = -1;
+  for (const dependency of dependencies) {
+    const index = embedded.indexOf(dependency);
+    assert.ok(index > priorIndex, `${dependency} must be embedded in dependency order`);
+    priorIndex = index;
+  }
+});
+
+function task3b2ReadAcknowledgement(library, scratch, {
+  entryCount = 0n,
+  journal = Buffer.alloc(0),
+  lastEventId = 0n,
+  root,
+  sequence,
+  type = 2
+}) {
+  const published = writeTypedFseventsV2Endpoint(scratch, {
+    entryCount,
+    journal,
+    lastEventId,
+    rootsBuffer: Buffer.from(`${root}\0`),
+    sequence,
+    type
+  });
+  const acknowledgement = library.readCommittedTypedFseventsAcknowledgement(
+    published.acknowledgementPath,
+    {
+      expectedEventRootCount: published.eventRootCount,
+      expectedEventRootFingerprint: published.eventRootFingerprint
+    }
+  );
+  assert.notEqual(acknowledgement, null, "the real committed ACK fixture must be readable");
+  return acknowledgement;
+}
+
+function task3b2NormalizeEndpoint(library, scratch, options) {
+  const acknowledgement = task3b2ReadAcknowledgement(library, scratch, options);
+  return {
+    acknowledgement,
+    endpoint: library.normalizeTypedFseventsAckCheckpoint({
+      acknowledgement,
+      eventRoots: [options.root]
+    })
+  };
+}
+
+function task3b2Capture(library, root) {
+  return library.captureStableProofSnapshot({
+    policies: [{ root, trackedRelativePaths: [] }]
+  });
+}
+
+function task3b2ReadExtension(library, {
+  candidateSnapshot,
+  endpoint,
+  eventRoots,
+  exactMetadataPaths = [],
+  exactMetadataRoots = [],
+  priorCheckpoint,
+  priorSnapshot
+}) {
+  return library.readAndValidateJournalExtension({
+    candidateSnapshot,
+    endpoint,
+    eventRoots,
+    exactMetadataPaths,
+    exactMetadataRoots,
+    priorCheckpoint,
+    priorSnapshot
+  });
+}
+
+function task3b2Scratch(t, label) {
+  const scratch = fs.mkdtempSync(path.join(os.tmpdir(), `mais-task3b2-${label}-`));
+  fs.chmodSync(scratch, 0o700);
+  t.after(() => fs.rmSync(scratch, { force: true, recursive: true }));
+  return scratch;
+}
+
+function task3b2TerminalAttestation(extension, reconciliation) {
+  const { classification, checkpoint } = extension;
+  return {
+    schemaVersion: 2,
+    checkpoint: {
+      entryCount: checkpoint.entryCount,
+      highWater: checkpoint.highWater,
+      lastEventId: checkpoint.lastEventId,
+      sha256: checkpoint.sha256
+    },
+    endpointSequence: extension.sequence,
+    journalFirstEventId: reconciliation.journalFirstEventId ?? extension.firstDeltaEventId,
+    journalLastEventId: checkpoint.lastEventId,
+    journalSessionFingerprint: reconciliation.journalSessionFingerprint,
+    metadataPolicyFingerprint: reconciliation.metadataPolicyFingerprint,
+    pendingEvidenceFingerprint: reconciliation.pendingEvidenceFingerprint,
+    pendingMetadataPathCount: reconciliation.pendingMetadataPathCount,
+    pendingSourcePathCount: reconciliation.pendingSourcePathCount,
+    pendingXattrPathCount: reconciliation.pendingXattrPathCount,
+    roundCount: reconciliation.roundCount,
+    snapshotSha256: extension.snapshotSha256,
+    sourceEpoch: reconciliation.sourceEpoch + (classification.sourceEpochBatch ? 1n : 0n),
+    metadataEpoch: reconciliation.metadataEpoch + (classification.metadataEpochBatch ? 1n : 0n),
+    xattrEpoch: reconciliation.xattrEpoch + classification.xattrEpochIncrement,
+    counters: {
+      journalEntryCount: checkpoint.entryCount,
+      materialEventCount: reconciliation.counters.materialEventCount
+        + classification.materialEventCount,
+      sourceEventCount: reconciliation.counters.sourceEventCount
+        + classification.sourceEventCount,
+      transactionMetadataEventCount: reconciliation.counters.transactionMetadataEventCount
+        + classification.transactionMetadataEventCount,
+      xattrOnlyEventCount: reconciliation.counters.xattrOnlyEventCount
+        + classification.xattrOnlyEventCount,
+      droppedEventCount: reconciliation.counters.droppedEventCount,
+      unknownEventCount: reconciliation.counters.unknownEventCount,
+      unmatchedDeltaCount: reconciliation.counters.unmatchedDeltaCount
+    }
+  };
+}
+
+function task3b2SetXattr(target, value) {
+  const attribute = process.platform === "darwin"
+    ? "com.mais.task3b2"
+    : "user.mais.task3b2";
+  if (process.platform === "darwin") {
+    execFileSync("/usr/bin/xattr", ["-w", attribute, value, target], {
+      stdio: ["ignore", "ignore", "pipe"]
+    });
+    return;
+  }
+  execFileSync("python3", [
+    "-c",
+    [
+      "import ctypes,os,sys",
+      "libc=ctypes.CDLL(None,use_errno=True)",
+      "p=os.fsencode(sys.argv[1]); n=os.fsencode(sys.argv[2]); v=sys.argv[3].encode()",
+      "r=libc.setxattr(p,n,v,len(v),0)",
+      "r == 0 or (_ for _ in ()).throw(OSError(ctypes.get_errno(), 'setxattr failed'))"
+    ].join(";"),
+    target,
+    attribute,
+    value
+  ], { stdio: ["ignore", "ignore", "pipe"] });
+}
+
+function task3b2ReachFixedPoint(library, t, label) {
+  const { root } = makeStableProofTestRoot(t, `task3b2-${label}`);
+  const scratch = task3b2Scratch(t, label);
+  const target = path.join(root, "source.txt");
+  fs.writeFileSync(target, "stable source\n");
+  let snapshot = task3b2Capture(library, root);
+  const baseline = task3b2NormalizeEndpoint(library, scratch, {
+    root,
+    sequence: 1n,
+    type: 2
+  }).endpoint;
+  let previous = null;
+  let priorCheckpoint = baseline.checkpoint;
+  const startedAtNs = 10_000n;
+  for (const sequence of [2n, 3n]) {
+    const candidateSnapshot = task3b2Capture(library, root);
+    const endpoint = task3b2NormalizeEndpoint(library, scratch, {
+      root,
+      sequence,
+      type: 2
+    }).endpoint;
+    const extension = task3b2ReadExtension(library, {
+      candidateSnapshot,
+      endpoint,
+      eventRoots: [root],
+      priorCheckpoint,
+      priorSnapshot: snapshot
+    });
+    const proposal = library.reconcileFixedPoint({
+      previous,
+      ...(previous === null ? {
+        baseline: {
+          ackEndpoint: baseline,
+          snapshot,
+          sourceEpoch: 0n,
+          metadataEpoch: 0n,
+          xattrEpoch: 0n,
+          startedAtNs
+        }
+      } : {}),
+      extension,
+      observedAtNs: startedAtNs + sequence
+    });
+    previous = library.commitReconciliation({
+      proposal,
+      committedAtNs: startedAtNs + sequence
+    });
+    priorCheckpoint = extension.checkpoint;
+    snapshot = candidateSnapshot;
+  }
+  assert.equal(previous.phase, "fixed-point");
+  return { checkpoint: priorCheckpoint, reconciliation: previous, root, scratch, snapshot, target };
+}
+
+test("Task 3B2 ACK normalization brands committed endpoints and canonicalizes the empty checkpoint", async (t) => {
+  const library = await import(libraryUrl);
+  const { root } = makeStableProofTestRoot(t, "task3b2-normalize");
+  const scratch = task3b2Scratch(t, "normalize");
+  const { acknowledgement, endpoint } = task3b2NormalizeEndpoint(library, scratch, {
+    root,
+    sequence: 7n,
+    type: 2
+  });
+  assert.deepEqual(endpoint, {
+    schemaVersion: 2,
+    ackType: 2,
+    sequence: 7n,
+    journalSessionFingerprint: endpoint.journalSessionFingerprint,
+    checkpoint: endpoint.checkpoint
+  });
+  assert.match(endpoint.journalSessionFingerprint, /^[0-9a-f]{64}$/u);
+  assert.deepEqual(endpoint.checkpoint, {
+    entryCount: 0n,
+    highWater: 0n,
+    lastEventId: null,
+    sha256: crypto.createHash("sha256").update(Buffer.alloc(0)).digest("hex")
+  });
+  assert.ok(Object.isFrozen(endpoint));
+  assert.ok(Object.isFrozen(endpoint.checkpoint));
+  assert.throws(
+    () => library.normalizeTypedFseventsAckCheckpoint({
+      acknowledgement: { ...acknowledgement },
+      eventRoots: [root]
+    }),
+    /module|validated|committed|brand|acknowledgement/i
+  );
+
+  const malformedEmpty = task3b2ReadAcknowledgement(library, scratch, {
+    root,
+    sequence: 8n,
+    type: 2,
+    lastEventId: 99n
+  });
+  assert.throws(
+    () => library.normalizeTypedFseventsAckCheckpoint({
+      acknowledgement: malformedEmpty,
+      eventRoots: [root]
+    }),
+    /empty|count|high-water|last event|checkpoint/i
+  );
+});
+
+test("Task 3B2 ACK buffers are cloned and each disk publication normalizes once", async (t) => {
+  const library = await import(libraryUrl);
+  const { root } = makeStableProofTestRoot(t, "task3b2-ack-buffer");
+  const scratch = task3b2Scratch(t, "ack-buffer");
+  const target = path.join(root, "source.txt");
+  fs.writeFileSync(target, "stable\n");
+  const baselineSnapshot = task3b2Capture(library, root);
+  const baseline = task3b2NormalizeEndpoint(library, scratch, {
+    root, sequence: 1n, type: 2
+  }).endpoint;
+  const candidateSnapshot = task3b2Capture(library, root);
+  const journal = typedFseventsJournalRecord({
+    sequence: 1n,
+    eventId: 31n,
+    flags: 0x11400,
+    path: target
+  });
+  const published = writeTypedFseventsV2Endpoint(scratch, {
+    entryCount: 1n,
+    journal,
+    lastEventId: 31n,
+    rootsBuffer: Buffer.from(`${root}\0`),
+    sequence: 2n,
+    type: 2
+  });
+  const readPublished = () => {
+    const acknowledgement = library.readCommittedTypedFseventsAcknowledgement(
+      published.acknowledgementPath,
+      {
+        expectedEventRootCount: published.eventRootCount,
+        expectedEventRootFingerprint: published.eventRootFingerprint
+      }
+    );
+    assert.notEqual(acknowledgement, null);
+    return acknowledgement;
+  };
+
+  const mutatedBeforeNormalization = readPublished();
+  mutatedBeforeNormalization.journalPrefix[0] ^= 0xff;
+  assert.throws(() => library.normalizeTypedFseventsAckCheckpoint({
+    acknowledgement: mutatedBeforeNormalization,
+    eventRoots: [root]
+  }), /changed|checkpoint|digest|journal|sha/i);
+
+  const acknowledgement = readPublished();
+  const endpoint = library.normalizeTypedFseventsAckCheckpoint({
+    acknowledgement,
+    eventRoots: [root]
+  });
+  acknowledgement.journalPrefix.fill(0);
+  const extension = task3b2ReadExtension(library, {
+    candidateSnapshot,
+    endpoint,
+    eventRoots: [root],
+    priorCheckpoint: baseline.checkpoint,
+    priorSnapshot: baselineSnapshot
+  });
+  assert.equal(extension.classification.sourceEventCount, 1n);
+  assert.equal(extension.checkpoint.lastEventId, 31n);
+  assert.throws(() => library.normalizeTypedFseventsAckCheckpoint({
+    acknowledgement,
+    eventRoots: [root]
+  }), /already|consumed|one.shot|replay/i);
+
+  const replay = readPublished();
+  assert.throws(() => library.normalizeTypedFseventsAckCheckpoint({
+    acknowledgement: replay,
+    eventRoots: [root]
+  }), /already|publication|replay|normalized/i);
+});
+
+test("Task 3B2 event roots use strict UTF-8 byte order rather than UTF-16 order", async (t) => {
+  const library = await import(libraryUrl);
+  const parent = fs.mkdtempSync(path.join(os.tmpdir(), "mais-task3b2-utf8-roots-"));
+  fs.chmodSync(parent, 0o700);
+  t.after(() => fs.rmSync(parent, { force: true, recursive: true }));
+  const bmpRoot = path.join(parent, "\uE000");
+  const astralRoot = path.join(parent, "\u{10000}");
+  fs.mkdirSync(bmpRoot);
+  fs.mkdirSync(astralRoot);
+  const jsOrder = [bmpRoot, astralRoot].sort();
+  const byteOrder = [bmpRoot, astralRoot].sort((left, right) => (
+    Buffer.compare(Buffer.from(left), Buffer.from(right))
+  ));
+  assert.notDeepEqual(jsOrder, byteOrder);
+  const scratch = task3b2Scratch(t, "utf8-roots");
+  const rootsBuffer = Buffer.concat(byteOrder.flatMap((root) => [
+    Buffer.from(root),
+    Buffer.from([0])
+  ]));
+  const published = writeTypedFseventsV2Endpoint(scratch, {
+    rootsBuffer,
+    sequence: 7n,
+    type: 2
+  });
+  const acknowledgement = library.readCommittedTypedFseventsAcknowledgement(
+    published.acknowledgementPath,
+    {
+      expectedEventRootCount: published.eventRootCount,
+      expectedEventRootFingerprint: published.eventRootFingerprint
+    }
+  );
+  assert.notEqual(acknowledgement, null);
+  assert.throws(() => library.normalizeTypedFseventsAckCheckpoint({
+    acknowledgement,
+    eventRoots: jsOrder
+  }), /byte order|ordered|utf-8|roots/i);
+  const endpoint = library.normalizeTypedFseventsAckCheckpoint({
+    acknowledgement,
+    eventRoots: byteOrder
+  });
+  assert.equal(endpoint.schemaVersion, 2);
+  assert.match(endpoint.journalSessionFingerprint, /^[0-9a-f]{64}$/u);
+});
+
+test("Task 3B2 zero-delta extensions require two exact rounds and proposals are one-shot", async (t) => {
+  const library = await import(libraryUrl);
+  const { root } = makeStableProofTestRoot(t, "task3b2-two-rounds");
+  const scratch = task3b2Scratch(t, "two-rounds");
+  fs.writeFileSync(path.join(root, "source.txt"), "unchanged\n");
+  const baselineSnapshot = task3b2Capture(library, root);
+  const baseline = task3b2NormalizeEndpoint(library, scratch, {
+    root,
+    sequence: 1n,
+    type: 2
+  }).endpoint;
+  const firstSnapshot = task3b2Capture(library, root);
+  const firstEndpoint = task3b2NormalizeEndpoint(library, scratch, {
+    root,
+    sequence: 2n,
+    type: 2
+  }).endpoint;
+  const firstExtension = task3b2ReadExtension(library, {
+    candidateSnapshot: firstSnapshot,
+    endpoint: firstEndpoint,
+    eventRoots: [root],
+    priorCheckpoint: baseline.checkpoint,
+    priorSnapshot: baselineSnapshot
+  });
+  assert.equal(firstExtension.deltaEntryCount, 0n);
+  assert.equal(firstExtension.deltaHighWater, 0n);
+  assert.equal(firstExtension.firstDeltaEventId, null);
+  assert.equal(firstExtension.lastDeltaEventId, null);
+  assert.equal(firstExtension.snapshotRelation, "exact");
+  assert.deepEqual(firstExtension.classification, {
+    journalEntryCount: 0n,
+    materialEventCount: 0n,
+    metadataEpochBatch: false,
+    sourceEpochBatch: false,
+    sourceEventCount: 0n,
+    transactionMetadataEventCount: 0n,
+    xattrEpochIncrement: 0n,
+    xattrOnlyEventCount: 0n
+  });
+  assert.ok(Object.isFrozen(firstExtension));
+  assert.equal(firstExtension.schemaVersion, 2);
+  assert.equal(firstExtension.journalSessionFingerprint, firstEndpoint.journalSessionFingerprint);
+  assert.match(firstExtension.metadataPolicyFingerprint, /^[0-9a-f]{64}$/u);
+  assert.equal(firstExtension.snapshotSha256, firstSnapshot.sha256);
+  const invalidCheckpointSnapshot = task3b2Capture(library, root);
+  const invalidCheckpointEndpoint = task3b2NormalizeEndpoint(library, scratch, {
+    root,
+    sequence: 99n,
+    type: 2
+  }).endpoint;
+  assert.throws(() => task3b2ReadExtension(library, {
+    candidateSnapshot: invalidCheckpointSnapshot,
+    endpoint: invalidCheckpointEndpoint,
+    eventRoots: [root],
+    priorCheckpoint: { ...baseline.checkpoint },
+    priorSnapshot: baselineSnapshot
+  }), /module|validated|checkpoint|brand/i);
+
+  const startedAtNs = 1_000n;
+  const firstProposal = library.reconcileFixedPoint({
+    previous: null,
+    baseline: {
+      ackEndpoint: baseline,
+      snapshot: baselineSnapshot,
+      sourceEpoch: 0n,
+      metadataEpoch: 0n,
+      xattrEpoch: 0n,
+      startedAtNs
+    },
+    extension: firstExtension,
+    observedAtNs: 2_000n
+  });
+  assert.equal(firstProposal.schemaVersion, 2);
+  assert.equal(firstProposal.journalSessionFingerprint, firstExtension.journalSessionFingerprint);
+  assert.equal(firstProposal.metadataPolicyFingerprint, firstExtension.metadataPolicyFingerprint);
+  assert.equal(firstProposal.snapshotSha256, firstSnapshot.sha256);
+  assert.equal("snapshot" in firstProposal, false);
+  assert.throws(
+    () => library.commitReconciliation({ proposal: { ...firstProposal }, committedAtNs: 2_001n }),
+    /module|validated|proposal|brand/i
+  );
+  const firstState = library.commitReconciliation({
+    proposal: firstProposal,
+    committedAtNs: 2_001n
+  });
+  assert.equal(firstState.phase, "reconciling");
+  assert.equal(firstState.journalSessionFingerprint, firstProposal.journalSessionFingerprint);
+  assert.equal(firstState.metadataPolicyFingerprint, firstProposal.metadataPolicyFingerprint);
+  assert.equal(firstState.snapshotSha256, firstProposal.snapshotSha256);
+  assert.equal("snapshot" in firstState, false);
+  assert.throws(
+    () => library.commitReconciliation({ proposal: firstProposal, committedAtNs: 2_002n }),
+    /already|consumed|one-shot|stale|proposal/i
+  );
+
+  const secondSnapshot = task3b2Capture(library, root);
+  const secondEndpoint = task3b2NormalizeEndpoint(library, scratch, {
+    root,
+    sequence: 3n,
+    type: 2
+  }).endpoint;
+  const secondExtension = task3b2ReadExtension(library, {
+    candidateSnapshot: secondSnapshot,
+    endpoint: secondEndpoint,
+    eventRoots: [root],
+    priorCheckpoint: firstExtension.checkpoint,
+    priorSnapshot: firstSnapshot
+  });
+  const secondProposal = library.reconcileFixedPoint({
+    previous: firstState,
+    extension: secondExtension,
+    observedAtNs: 3_000n
+  });
+  const fixed = library.commitReconciliation({
+    proposal: secondProposal,
+    committedAtNs: 3_001n
+  });
+  assert.equal(fixed.phase, "fixed-point");
+  assert.throws(
+    () => library.reconcileFixedPoint({
+      previous: firstState,
+      extension: secondExtension,
+      observedAtNs: 3_002n
+    }),
+    /consumed|stale|state|successor/i
+  );
+});
+
+test("Task 3B2 rejects stale snapshot replay and cross-journal identity splicing", async (t) => {
+  const library = await import(libraryUrl);
+  await t.test("stale branded snapshot", (subtest) => {
+    const { root } = makeStableProofTestRoot(subtest, "task3b2-stale-snapshot");
+    const scratch = task3b2Scratch(subtest, "stale-snapshot");
+    fs.writeFileSync(path.join(root, "source.txt"), "baseline\n");
+    const baselineSnapshot = task3b2Capture(library, root);
+    const baseline = task3b2NormalizeEndpoint(library, scratch, {
+      root, sequence: 1n, type: 2
+    }).endpoint;
+    const endpoint = task3b2NormalizeEndpoint(library, scratch, {
+      root, sequence: 2n, type: 2
+    }).endpoint;
+    assert.throws(() => task3b2ReadExtension(library, {
+      candidateSnapshot: baselineSnapshot,
+      endpoint,
+      eventRoots: [root],
+      priorCheckpoint: baseline.checkpoint,
+      priorSnapshot: baselineSnapshot
+    }), /capture|fresh|provenance|replay|snapshot|stale/i);
+  });
+
+  await t.test("distinct snapshot captured before the baseline ACK", (subtest) => {
+    const { root } = makeStableProofTestRoot(subtest, "task3b2-precaptured-snapshot");
+    const scratch = task3b2Scratch(subtest, "precaptured-snapshot");
+    fs.writeFileSync(path.join(root, "source.txt"), "baseline\n");
+    const baselineSnapshot = task3b2Capture(library, root);
+    const staleCandidateSnapshot = task3b2Capture(library, root);
+    const baseline = task3b2NormalizeEndpoint(library, scratch, {
+      root, sequence: 1n, type: 2
+    }).endpoint;
+    const endpoint = task3b2NormalizeEndpoint(library, scratch, {
+      root, sequence: 2n, type: 2
+    }).endpoint;
+    const extension = task3b2ReadExtension(library, {
+      candidateSnapshot: staleCandidateSnapshot,
+      endpoint,
+      eventRoots: [root],
+      priorCheckpoint: baseline.checkpoint,
+      priorSnapshot: baselineSnapshot
+    });
+    assert.throws(() => library.reconcileFixedPoint({
+      previous: null,
+      baseline: {
+        ackEndpoint: baseline,
+        snapshot: baselineSnapshot,
+        sourceEpoch: 0n,
+        metadataEpoch: 0n,
+        xattrEpoch: 0n,
+        startedAtNs: 1_000n
+      },
+      extension,
+      observedAtNs: 2_000n
+    }), /capture|fresh|order|provenance|replay|snapshot|stale/i);
+  });
+
+  await t.test("ACK read before candidate capture remains stale after delayed normalization", (subtest) => {
+    const { root } = makeStableProofTestRoot(subtest, "task3b2-held-ack");
+    const scratch = task3b2Scratch(subtest, "held-ack");
+    fs.writeFileSync(path.join(root, "source.txt"), "baseline\n");
+    const baselineSnapshot = task3b2Capture(library, root);
+    const baseline = task3b2NormalizeEndpoint(library, scratch, {
+      root, sequence: 1n, type: 2
+    }).endpoint;
+    const acknowledgement = task3b2ReadAcknowledgement(library, scratch, {
+      root, sequence: 2n, type: 2
+    });
+    const candidateSnapshot = task3b2Capture(library, root);
+    const endpoint = library.normalizeTypedFseventsAckCheckpoint({
+      acknowledgement,
+      eventRoots: [root]
+    });
+    assert.throws(() => task3b2ReadExtension(library, {
+      candidateSnapshot,
+      endpoint,
+      eventRoots: [root],
+      priorCheckpoint: baseline.checkpoint,
+      priorSnapshot: baselineSnapshot
+    }), /capture|fresh|order|provenance|replay|snapshot|stale/i);
+  });
+
+  await t.test("replacement journal identity", (subtest) => {
+    const { root } = makeStableProofTestRoot(subtest, "task3b2-journal-splice");
+    const scratch = task3b2Scratch(subtest, "journal-splice");
+    fs.writeFileSync(path.join(root, "source.txt"), "baseline\n");
+    const baselineSnapshot = task3b2Capture(library, root);
+    const baseline = task3b2NormalizeEndpoint(library, scratch, {
+      root, sequence: 1n, type: 2
+    }).endpoint;
+    const candidateSnapshot = task3b2Capture(library, root);
+    fs.unlinkSync(path.join(scratch, "journal.bin"));
+    const endpoint = task3b2NormalizeEndpoint(library, scratch, {
+      root, sequence: 2n, type: 2
+    }).endpoint;
+    const extension = task3b2ReadExtension(library, {
+      candidateSnapshot,
+      endpoint,
+      eventRoots: [root],
+      priorCheckpoint: baseline.checkpoint,
+      priorSnapshot: baselineSnapshot
+    });
+    assert.throws(() => library.reconcileFixedPoint({
+      previous: null,
+      baseline: {
+        ackEndpoint: baseline,
+        snapshot: baselineSnapshot,
+        sourceEpoch: 0n,
+        metadataEpoch: 0n,
+        xattrEpoch: 0n,
+        startedAtNs: 1_000n
+      },
+      extension,
+      observedAtNs: 2_000n
+    }), /journal|device|inode|identity|session|splice/i);
+  });
+});
+
+test("Task 3B2 correlates changed paths and freezes the bounded metadata policy", async (t) => {
+  const library = await import(libraryUrl);
+
+  await t.test("source event at A cannot explain a source change at B", (subtest) => {
+    const { root } = makeStableProofTestRoot(subtest, "task3b2-source-correlation");
+    const scratch = task3b2Scratch(subtest, "source-correlation");
+    const sourceA = path.join(root, "a.txt");
+    const sourceB = path.join(root, "b.txt");
+    fs.writeFileSync(sourceA, "A\n");
+    fs.writeFileSync(sourceB, "B\n");
+    const baselineSnapshot = task3b2Capture(library, root);
+    const baseline = task3b2NormalizeEndpoint(library, scratch, {
+      root, sequence: 1n, type: 2
+    }).endpoint;
+    fs.writeFileSync(sourceB, "B changed\n");
+    const candidateSnapshot = task3b2Capture(library, root);
+    const journal = typedFseventsJournalRecord({
+      sequence: 1n, eventId: 41n, flags: 0x11400, path: sourceA
+    });
+    const endpoint = task3b2NormalizeEndpoint(library, scratch, {
+      entryCount: 1n,
+      journal,
+      lastEventId: 41n,
+      root,
+      sequence: 2n,
+      type: 2
+    }).endpoint;
+    assert.throws(() => task3b2ReadExtension(library, {
+      candidateSnapshot,
+      endpoint,
+      eventRoots: [root],
+      priorCheckpoint: baseline.checkpoint,
+      priorSnapshot: baselineSnapshot
+    }), /source.*unmatched|unmatched.*source|path.*delta/i);
+  });
+
+  await t.test("descendant event cannot explain an ancestor directory chmod", (subtest) => {
+    const { root } = makeStableProofTestRoot(subtest, "task3b2-directory-semantics");
+    const scratch = task3b2Scratch(subtest, "directory-semantics");
+    const directory = path.join(root, "directory");
+    const child = path.join(directory, "child.txt");
+    fs.mkdirSync(directory, { mode: 0o755 });
+    fs.writeFileSync(child, "stable\n");
+    const baselineSnapshot = task3b2Capture(library, root);
+    const baseline = task3b2NormalizeEndpoint(library, scratch, {
+      root, sequence: 1n, type: 2
+    }).endpoint;
+    fs.chmodSync(directory, 0o700);
+    const candidateSnapshot = task3b2Capture(library, root);
+    const journal = typedFseventsJournalRecord({
+      sequence: 1n, eventId: 46n, flags: 0x11400, path: child
+    });
+    const endpoint = task3b2NormalizeEndpoint(library, scratch, {
+      entryCount: 1n,
+      journal,
+      lastEventId: 46n,
+      root,
+      sequence: 2n,
+      type: 2
+    }).endpoint;
+    assert.throws(() => task3b2ReadExtension(library, {
+      candidateSnapshot,
+      endpoint,
+      eventRoots: [root],
+      priorCheckpoint: baseline.checkpoint,
+      priorSnapshot: baselineSnapshot
+    }), /source.*unmatched|metadata.*unmatched|path.*delta/i);
+  });
+
+  await t.test("metadata event at approved A cannot explain approved B", (subtest) => {
+    const { root } = makeStableProofTestRoot(subtest, "task3b2-metadata-correlation");
+    const scratch = task3b2Scratch(subtest, "metadata-correlation");
+    const metadataA = path.join(root, library.TRANSACTION_METADATA_PATHS[0]);
+    const metadataB = path.join(root, library.TRANSACTION_METADATA_PATHS[1]);
+    fs.mkdirSync(path.dirname(metadataA), { recursive: true });
+    fs.writeFileSync(metadataA, "A\n");
+    fs.writeFileSync(metadataB, "B\n");
+    const baselineSnapshot = task3b2Capture(library, root);
+    const baseline = task3b2NormalizeEndpoint(library, scratch, {
+      root, sequence: 1n, type: 2
+    }).endpoint;
+    fs.writeFileSync(metadataB, "B changed\n");
+    const candidateSnapshot = task3b2Capture(library, root);
+    const journal = typedFseventsJournalRecord({
+      sequence: 1n, eventId: 51n, flags: 0x11400, path: metadataA
+    });
+    const endpoint = task3b2NormalizeEndpoint(library, scratch, {
+      entryCount: 1n,
+      journal,
+      lastEventId: 51n,
+      root,
+      sequence: 2n,
+      type: 2
+    }).endpoint;
+    assert.throws(() => task3b2ReadExtension(library, {
+      candidateSnapshot,
+      endpoint,
+      eventRoots: [root],
+      exactMetadataPaths: [metadataA, metadataB],
+      priorCheckpoint: baseline.checkpoint,
+      priorSnapshot: baselineSnapshot
+    }), /metadata.*unmatched|unmatched.*metadata|path.*delta/i);
+  });
+
+  await t.test("approved metadata replace explains only its parent namespace timestamps", (subtest) => {
+    const { root } = makeStableProofTestRoot(subtest, "task3b2-metadata-parent");
+    const scratch = task3b2Scratch(subtest, "metadata-parent");
+    const metadataPath = path.join(root, library.TRANSACTION_METADATA_PATHS[0]);
+    fs.mkdirSync(path.dirname(metadataPath), { recursive: true });
+    fs.writeFileSync(metadataPath, "before\n");
+    const baselineSnapshot = task3b2Capture(library, root);
+    const baseline = task3b2NormalizeEndpoint(library, scratch, {
+      root, sequence: 1n, type: 2
+    }).endpoint;
+    const replacement = path.join(path.dirname(metadataPath), `.replace-${crypto.randomUUID()}`);
+    fs.writeFileSync(replacement, "after\n");
+    fs.renameSync(replacement, metadataPath);
+    const candidateSnapshot = task3b2Capture(library, root);
+    const journal = typedFseventsJournalRecord({
+      sequence: 1n, eventId: 56n, flags: 0x11400, path: metadataPath
+    });
+    const endpoint = task3b2NormalizeEndpoint(library, scratch, {
+      entryCount: 1n,
+      journal,
+      lastEventId: 56n,
+      root,
+      sequence: 2n,
+      type: 2
+    }).endpoint;
+    const extension = task3b2ReadExtension(library, {
+      candidateSnapshot,
+      endpoint,
+      eventRoots: [root],
+      exactMetadataPaths: [metadataPath],
+      priorCheckpoint: baseline.checkpoint,
+      priorSnapshot: baselineSnapshot
+    });
+    assert.equal(extension.snapshotRelation, "metadata-only");
+    assert.equal(extension.classification.transactionMetadataEventCount, 1n);
+    assert.equal(extension.classification.sourceEventCount, 0n);
+  });
+
+  await t.test("metadata policy fingerprint cannot drift and input counts are capped", (subtest) => {
+    const { root } = makeStableProofTestRoot(subtest, "task3b2-metadata-policy");
+    const scratch = task3b2Scratch(subtest, "metadata-policy");
+    fs.writeFileSync(path.join(root, "source.txt"), "stable\n");
+    const approvedMetadataPath = path.join(root, library.TRANSACTION_METADATA_PATHS[0]);
+    const baselineSnapshot = task3b2Capture(library, root);
+    const baseline = task3b2NormalizeEndpoint(library, scratch, {
+      root, sequence: 1n, type: 2
+    }).endpoint;
+    const firstSnapshot = task3b2Capture(library, root);
+    const firstEndpoint = task3b2NormalizeEndpoint(library, scratch, {
+      root, sequence: 2n, type: 2
+    }).endpoint;
+    const firstExtension = task3b2ReadExtension(library, {
+      candidateSnapshot: firstSnapshot,
+      endpoint: firstEndpoint,
+      eventRoots: [root],
+      priorCheckpoint: baseline.checkpoint,
+      priorSnapshot: baselineSnapshot
+    });
+    const firstProposal = library.reconcileFixedPoint({
+      previous: null,
+      baseline: {
+        ackEndpoint: baseline,
+        snapshot: baselineSnapshot,
+        sourceEpoch: 0n,
+        metadataEpoch: 0n,
+        xattrEpoch: 0n,
+        startedAtNs: 1_000n
+      },
+      extension: firstExtension,
+      observedAtNs: 2_000n
+    });
+    const firstState = library.commitReconciliation({
+      proposal: firstProposal,
+      committedAtNs: 2_001n
+    });
+    const secondSnapshot = task3b2Capture(library, root);
+    const secondEndpoint = task3b2NormalizeEndpoint(library, scratch, {
+      root, sequence: 3n, type: 2
+    }).endpoint;
+    assert.throws(() => task3b2ReadExtension(library, {
+      candidateSnapshot: secondSnapshot,
+      endpoint: secondEndpoint,
+      eventRoots: [root],
+      exactMetadataPaths: [approvedMetadataPath],
+      priorCheckpoint: firstExtension.checkpoint,
+      priorSnapshot: firstSnapshot
+    }), /metadata.*policy|policy.*changed|fingerprint|pending evidence/i);
+
+    const cappedSnapshot = task3b2Capture(library, root);
+    const cappedEndpoint = task3b2NormalizeEndpoint(library, scratch, {
+      root, sequence: 4n, type: 2
+    }).endpoint;
+    assert.throws(() => task3b2ReadExtension(library, {
+      candidateSnapshot: cappedSnapshot,
+      endpoint: cappedEndpoint,
+      eventRoots: [root],
+      exactMetadataPaths: Array(7).fill(approvedMetadataPath),
+      priorCheckpoint: firstExtension.checkpoint,
+      priorSnapshot: firstSnapshot
+    }), /count cap|exceeds|metadata policy/i);
+    assert.throws(() => task3b2ReadExtension(library, {
+      candidateSnapshot: cappedSnapshot,
+      endpoint: cappedEndpoint,
+      eventRoots: [root],
+      exactMetadataRoots: [path.join(root, "one"), path.join(root, "two")],
+      priorCheckpoint: firstExtension.checkpoint,
+      priorSnapshot: firstSnapshot
+    }), /count cap|exceeds|metadata policy/i);
+  });
+});
+
+test("Task 3B2 carries post-snapshot pre-ACK evidence for exactly one successor", async (t) => {
+  const library = await import(libraryUrl);
+  const scenarios = [
+    {
+      label: "source",
+      eventId: 61n,
+      flags: 0x11400,
+      relation: "source-material",
+      expectedEpochs: { sourceEpoch: 1n, metadataEpoch: 0n, xattrEpoch: 0n },
+      prepare(root) {
+        const target = path.join(root, "source.txt");
+        fs.writeFileSync(target, "before\n");
+        return { target, exactMetadataPaths: [], mutate() { fs.writeFileSync(target, "after\n"); } };
+      }
+    },
+    {
+      label: "metadata",
+      eventId: 62n,
+      flags: 0x11400,
+      relation: "metadata-only",
+      expectedEpochs: { sourceEpoch: 0n, metadataEpoch: 1n, xattrEpoch: 0n },
+      prepare(root) {
+        const target = path.join(root, library.TRANSACTION_METADATA_PATHS[0]);
+        fs.mkdirSync(path.dirname(target), { recursive: true });
+        fs.writeFileSync(target, "before\n");
+        return {
+          target,
+          exactMetadataPaths: [target],
+          mutate() { fs.writeFileSync(target, "after\n"); }
+        };
+      }
+    },
+    {
+      label: "xattr",
+      eventId: 63n,
+      flags: 0x18000,
+      relation: "xattr-ctime-only",
+      expectedEpochs: { sourceEpoch: 0n, metadataEpoch: 0n, xattrEpoch: 1n },
+      prepare(root) {
+        const target = path.join(root, "xattr.txt");
+        fs.writeFileSync(target, "stable\n");
+        return {
+          target,
+          exactMetadataPaths: [],
+          mutate() { task3b2SetXattr(target, "boundary"); }
+        };
+      }
+    }
+  ];
+
+  for (const scenario of scenarios) {
+    await t.test(scenario.label, (subtest) => {
+      const { root } = makeStableProofTestRoot(subtest, `task3b2-boundary-${scenario.label}`);
+      const scratch = task3b2Scratch(subtest, `boundary-${scenario.label}`);
+      const fixture = scenario.prepare(root);
+      const baselineSnapshot = task3b2Capture(library, root);
+      const baseline = task3b2NormalizeEndpoint(library, scratch, {
+        root, sequence: 1n, type: 2
+      }).endpoint;
+
+      const firstSnapshot = task3b2Capture(library, root);
+      fixture.mutate();
+      const journal = typedFseventsJournalRecord({
+        sequence: 1n,
+        eventId: scenario.eventId,
+        flags: scenario.flags,
+        path: fixture.target
+      });
+      const firstEndpoint = task3b2NormalizeEndpoint(library, scratch, {
+        entryCount: 1n,
+        journal,
+        lastEventId: scenario.eventId,
+        root,
+        sequence: 2n,
+        type: 2
+      }).endpoint;
+      const firstExtension = task3b2ReadExtension(library, {
+        candidateSnapshot: firstSnapshot,
+        endpoint: firstEndpoint,
+        eventRoots: [root],
+        exactMetadataPaths: fixture.exactMetadataPaths,
+        priorCheckpoint: baseline.checkpoint,
+        priorSnapshot: baselineSnapshot
+      });
+      assert.equal(firstExtension.snapshotSha256, baselineSnapshot.sha256);
+      assert.equal(firstExtension.snapshotRelation, scenario.relation);
+      const firstProposal = library.reconcileFixedPoint({
+        previous: null,
+        baseline: {
+          ackEndpoint: baseline,
+          snapshot: baselineSnapshot,
+          sourceEpoch: 0n,
+          metadataEpoch: 0n,
+          xattrEpoch: 0n,
+          startedAtNs: 1_000n
+        },
+        extension: firstExtension,
+        observedAtNs: 2_000n
+      });
+      let state = library.commitReconciliation({
+        proposal: firstProposal,
+        committedAtNs: 2_001n
+      });
+      assert.equal(state.phase, "reconciling");
+      assert.equal(
+        state.pendingSourcePathCount
+          + state.pendingMetadataPathCount
+          + state.pendingXattrPathCount,
+        1n
+      );
+
+      const catchupSnapshot = task3b2Capture(library, root);
+      const catchupEndpoint = task3b2NormalizeEndpoint(library, scratch, {
+        entryCount: 1n,
+        journal,
+        lastEventId: scenario.eventId,
+        root,
+        sequence: 3n,
+        type: 2
+      }).endpoint;
+      const catchupExtension = task3b2ReadExtension(library, {
+        candidateSnapshot: catchupSnapshot,
+        endpoint: catchupEndpoint,
+        eventRoots: [root],
+        exactMetadataPaths: fixture.exactMetadataPaths,
+        priorCheckpoint: firstExtension.checkpoint,
+        priorSnapshot: firstSnapshot
+      });
+      assert.equal(catchupExtension.deltaEntryCount, 0n);
+      assert.equal(catchupExtension.snapshotRelation, scenario.relation);
+      const catchupProposal = library.reconcileFixedPoint({
+        previous: state,
+        extension: catchupExtension,
+        observedAtNs: 3_000n
+      });
+      state = library.commitReconciliation({
+        proposal: catchupProposal,
+        committedAtNs: 3_001n
+      });
+      assert.equal(state.phase, "reconciling");
+      assert.equal(state.pendingSourcePathCount, 0n);
+      assert.equal(state.pendingMetadataPathCount, 0n);
+      assert.equal(state.pendingXattrPathCount, 0n);
+      for (const [key, value] of Object.entries(scenario.expectedEpochs)) {
+        assert.equal(state[key], value);
+      }
+
+      let priorSnapshot = catchupSnapshot;
+      let priorCheckpoint = catchupExtension.checkpoint;
+      for (const sequence of [4n, 5n]) {
+        const candidateSnapshot = task3b2Capture(library, root);
+        const endpoint = task3b2NormalizeEndpoint(library, scratch, {
+          entryCount: 1n,
+          journal,
+          lastEventId: scenario.eventId,
+          root,
+          sequence,
+          type: 2
+        }).endpoint;
+        const extension = task3b2ReadExtension(library, {
+          candidateSnapshot,
+          endpoint,
+          eventRoots: [root],
+          exactMetadataPaths: fixture.exactMetadataPaths,
+          priorCheckpoint,
+          priorSnapshot
+        });
+        assert.equal(extension.snapshotRelation, "exact");
+        const proposal = library.reconcileFixedPoint({
+          previous: state,
+          extension,
+          observedAtNs: 1_000n + sequence * 1_000n
+        });
+        state = library.commitReconciliation({
+          proposal,
+          committedAtNs: 1_001n + sequence * 1_000n
+        });
+        priorSnapshot = candidateSnapshot;
+        priorCheckpoint = extension.checkpoint;
+      }
+      assert.equal(state.phase, "fixed-point");
+      assert.equal(state.roundCount, 4n);
+      assert.equal(state.consecutiveExactRounds, 2n);
+    });
+  }
+
+  await t.test("an unmatched pending event clears before either exact round counts", (subtest) => {
+    const { root } = makeStableProofTestRoot(subtest, "task3b2-boundary-no-delta");
+    const scratch = task3b2Scratch(subtest, "boundary-no-delta");
+    const target = path.join(root, "source.txt");
+    fs.writeFileSync(target, "stable\n");
+    const baselineSnapshot = task3b2Capture(library, root);
+    const baseline = task3b2NormalizeEndpoint(library, scratch, {
+      root, sequence: 1n, type: 2
+    }).endpoint;
+    const journal = typedFseventsJournalRecord({
+      sequence: 1n, eventId: 64n, flags: 0x11400, path: target
+    });
+    let priorSnapshot = task3b2Capture(library, root);
+    const firstEndpoint = task3b2NormalizeEndpoint(library, scratch, {
+      entryCount: 1n,
+      journal,
+      lastEventId: 64n,
+      root,
+      sequence: 2n,
+      type: 2
+    }).endpoint;
+    let extension = task3b2ReadExtension(library, {
+      candidateSnapshot: priorSnapshot,
+      endpoint: firstEndpoint,
+      eventRoots: [root],
+      priorCheckpoint: baseline.checkpoint,
+      priorSnapshot: baselineSnapshot
+    });
+    let proposal = library.reconcileFixedPoint({
+      previous: null,
+      baseline: {
+        ackEndpoint: baseline,
+        snapshot: baselineSnapshot,
+        sourceEpoch: 0n,
+        metadataEpoch: 0n,
+        xattrEpoch: 0n,
+        startedAtNs: 1_000n
+      },
+      extension,
+      observedAtNs: 2_000n
+    });
+    let state = library.commitReconciliation({ proposal, committedAtNs: 2_001n });
+    let priorCheckpoint = extension.checkpoint;
+    assert.equal(state.pendingSourcePathCount, 1n);
+
+    for (const sequence of [3n, 4n, 5n]) {
+      const candidateSnapshot = task3b2Capture(library, root);
+      const endpoint = task3b2NormalizeEndpoint(library, scratch, {
+        entryCount: 1n,
+        journal,
+        lastEventId: 64n,
+        root,
+        sequence,
+        type: 2
+      }).endpoint;
+      extension = task3b2ReadExtension(library, {
+        candidateSnapshot,
+        endpoint,
+        eventRoots: [root],
+        priorCheckpoint,
+        priorSnapshot
+      });
+      proposal = library.reconcileFixedPoint({
+        previous: state,
+        extension,
+        observedAtNs: 1_000n + sequence * 1_000n
+      });
+      state = library.commitReconciliation({
+        proposal,
+        committedAtNs: 1_001n + sequence * 1_000n
+      });
+      if (sequence === 3n) {
+        assert.equal(state.pendingSourcePathCount, 0n);
+        assert.equal(state.consecutiveExactRounds, 0n);
+      }
+      priorSnapshot = candidateSnapshot;
+      priorCheckpoint = extension.checkpoint;
+    }
+    assert.equal(state.phase, "fixed-point");
+    assert.equal(state.roundCount, 4n);
+    assert.equal(state.consecutiveExactRounds, 2n);
+  });
+});
+
+test("Task 3B2 terminal seal accepts only exact same-path xattr ctime drift", async (t) => {
+  const library = await import(libraryUrl);
+  const fixed = task3b2ReachFixedPoint(library, t, "terminal-xattr");
+  const beforeProof = fixed.snapshot.lookup(fixed.target);
+  task3b2SetXattr(fixed.target, "accepted");
+  const terminalSnapshot = task3b2Capture(library, fixed.root);
+  const afterProof = terminalSnapshot.lookup(fixed.target);
+  for (const field of ["dev", "ino", "uid", "gid", "mode", "nlink", "size", "mtimeNs", "sha256"]) {
+    assert.equal(afterProof[field], beforeProof[field], `${field} must remain semantic-equal`);
+  }
+  assert.notEqual(afterProof.ctimeNs, beforeProof.ctimeNs, "the xattr mutation must advance ctime");
+  const journal = typedFseventsJournalRecord({
+    sequence: 1n,
+    eventId: 101n,
+    flags: 0x18000,
+    path: fixed.target
+  });
+  const endpoint = task3b2NormalizeEndpoint(library, fixed.scratch, {
+    entryCount: 1n,
+    journal,
+    lastEventId: 101n,
+    root: fixed.root,
+    // A pre-STOP FLUSH may consume sequence 4; STOP must be strictly newer,
+    // but it is intentionally not required to be the exact +1 successor.
+    sequence: 5n,
+    type: 3
+  }).endpoint;
+  const terminalExtension = task3b2ReadExtension(library, {
+    candidateSnapshot: terminalSnapshot,
+    endpoint,
+    eventRoots: [fixed.root],
+    priorCheckpoint: fixed.checkpoint,
+    priorSnapshot: fixed.snapshot
+  });
+  assert.equal(terminalExtension.snapshotRelation, "xattr-ctime-only");
+  assert.equal(terminalExtension.classification.xattrOnlyEventCount, 1n);
+  assert.equal(terminalExtension.classification.materialEventCount, 0n);
+  const terminalAttestation = task3b2TerminalAttestation(
+    terminalExtension,
+    fixed.reconciliation
+  );
+  const sealed = library.sealTerminal({
+    reconciliation: fixed.reconciliation,
+    terminalExtension,
+    terminalAttestation,
+    sealedAtNs: 20_000n
+  });
+  assert.equal(sealed.phase, "sealed");
+  assert.ok(Object.isFrozen(sealed));
+  assert.throws(() => library.sealTerminal({
+    reconciliation: fixed.reconciliation,
+    terminalExtension,
+    terminalAttestation,
+    sealedAtNs: 20_001n
+  }), /already|consumed|one-shot|sealed|stale/i);
+});
+
+test("Task 3B2 terminal seal preserves cumulative source and xattr evidence", async (t) => {
+  const library = await import(libraryUrl);
+  const { root } = makeStableProofTestRoot(t, "task3b2-cumulative-terminal");
+  const scratch = task3b2Scratch(t, "cumulative-terminal");
+  const target = path.join(root, "source.txt");
+  fs.writeFileSync(target, "before\n");
+  const baselineSnapshot = task3b2Capture(library, root);
+  const baseline = task3b2NormalizeEndpoint(library, scratch, {
+    root, sequence: 1n, type: 2
+  }).endpoint;
+
+  fs.writeFileSync(target, "after source event\n");
+  const sourceSnapshot = task3b2Capture(library, root);
+  const sourceRecord = typedFseventsJournalRecord({
+    sequence: 1n,
+    eventId: 100n,
+    flags: 0x11400,
+    path: target
+  });
+  const sourceEndpoint = task3b2NormalizeEndpoint(library, scratch, {
+    entryCount: 1n,
+    journal: sourceRecord,
+    lastEventId: 100n,
+    root,
+    sequence: 2n,
+    type: 2
+  }).endpoint;
+  const sourceExtension = task3b2ReadExtension(library, {
+    candidateSnapshot: sourceSnapshot,
+    endpoint: sourceEndpoint,
+    eventRoots: [root],
+    priorCheckpoint: baseline.checkpoint,
+    priorSnapshot: baselineSnapshot
+  });
+  const sourceProposal = library.reconcileFixedPoint({
+    previous: null,
+    baseline: {
+      ackEndpoint: baseline,
+      snapshot: baselineSnapshot,
+      sourceEpoch: 0n,
+      metadataEpoch: 0n,
+      xattrEpoch: 0n,
+      startedAtNs: 1_000n
+    },
+    extension: sourceExtension,
+    observedAtNs: 2_000n
+  });
+  let state = library.commitReconciliation({
+    proposal: sourceProposal,
+    committedAtNs: 2_001n
+  });
+  assert.equal(state.sourceEpoch, 1n);
+  assert.equal(state.counters.sourceEventCount, 1n);
+
+  let priorSnapshot = sourceSnapshot;
+  let priorCheckpoint = sourceExtension.checkpoint;
+  for (const sequence of [3n, 4n, 5n]) {
+    const candidateSnapshot = task3b2Capture(library, root);
+    const endpoint = task3b2NormalizeEndpoint(library, scratch, {
+      entryCount: 1n,
+      journal: sourceRecord,
+      lastEventId: 100n,
+      root,
+      sequence,
+      type: 2
+    }).endpoint;
+    const extension = task3b2ReadExtension(library, {
+      candidateSnapshot,
+      endpoint,
+      eventRoots: [root],
+      priorCheckpoint,
+      priorSnapshot
+    });
+    const proposal = library.reconcileFixedPoint({
+      previous: state,
+      extension,
+      observedAtNs: 1_000n + sequence * 1_000n
+    });
+    state = library.commitReconciliation({
+      proposal,
+      committedAtNs: 1_001n + sequence * 1_000n
+    });
+    priorSnapshot = candidateSnapshot;
+    priorCheckpoint = extension.checkpoint;
+  }
+  assert.equal(state.phase, "fixed-point");
+  assert.equal(state.roundCount, 4n);
+  assert.equal(state.counters.journalEntryCount, 1n);
+  assert.equal(state.journalFirstEventId, 100n);
+  assert.equal(state.journalLastEventId, 100n);
+  assert.equal("snapshot" in state, false);
+  assert.match(state.snapshotSha256, /^[0-9a-f]{64}$/u);
+
+  task3b2SetXattr(target, "cumulative");
+  const terminalSnapshot = task3b2Capture(library, root);
+  const terminalJournal = Buffer.concat([sourceRecord, typedFseventsJournalRecord({
+    sequence: 2n,
+    eventId: 101n,
+    flags: 0x18000,
+    path: target
+  })]);
+  const terminalEndpoint = task3b2NormalizeEndpoint(library, scratch, {
+    entryCount: 2n,
+    journal: terminalJournal,
+    lastEventId: 101n,
+    root,
+    // Sequence 5 may be the helper's pre-STOP FLUSH acknowledgement.
+    sequence: 6n,
+    type: 3
+  }).endpoint;
+  const terminalExtension = task3b2ReadExtension(library, {
+    candidateSnapshot: terminalSnapshot,
+    endpoint: terminalEndpoint,
+    eventRoots: [root],
+    priorCheckpoint,
+    priorSnapshot
+  });
+  const terminalAttestation = task3b2TerminalAttestation(terminalExtension, state);
+  const sealed = library.sealTerminal({
+    reconciliation: state,
+    terminalExtension,
+    terminalAttestation,
+    sealedAtNs: 7_000n
+  });
+  assert.equal(sealed.phase, "sealed");
+  assert.equal(sealed.schemaVersion, 2);
+  assert.equal(sealed.endpointSequence, 6n);
+  assert.equal(sealed.roundCount, 4n);
+  assert.equal(sealed.sourceEpoch, 1n);
+  assert.equal(sealed.metadataEpoch, 0n);
+  assert.equal(sealed.xattrEpoch, 1n);
+  assert.equal(sealed.counters.journalEntryCount, 2n);
+  assert.equal(sealed.counters.materialEventCount, 1n);
+  assert.equal(sealed.counters.sourceEventCount, 1n);
+  assert.equal(sealed.counters.xattrOnlyEventCount, 1n);
+  assert.equal(sealed.journalFirstEventId, 100n);
+  assert.equal(sealed.journalLastEventId, 101n);
+  assert.equal(sealed.journalSessionFingerprint, state.journalSessionFingerprint);
+  assert.equal(sealed.metadataPolicyFingerprint, state.metadataPolicyFingerprint);
+  assert.equal(sealed.snapshotSha256, terminalSnapshot.sha256);
+  assert.equal("snapshot" in sealed, false);
+});
+
+test("Task 3B2 terminal attestation binds schema session policy snapshot and event bounds", async (t) => {
+  const library = await import(libraryUrl);
+
+  await t.test("tampered durable fields fail closed before a valid seal", (subtest) => {
+    const fixed = task3b2ReachFixedPoint(library, subtest, "terminal-attestation");
+    const terminalSnapshot = task3b2Capture(library, fixed.root);
+    const endpoint = task3b2NormalizeEndpoint(library, fixed.scratch, {
+      root: fixed.root,
+      sequence: 5n,
+      type: 3
+    }).endpoint;
+    const terminalExtension = task3b2ReadExtension(library, {
+      candidateSnapshot: terminalSnapshot,
+      endpoint,
+      eventRoots: [fixed.root],
+      priorCheckpoint: fixed.checkpoint,
+      priorSnapshot: fixed.snapshot
+    });
+    const attestation = task3b2TerminalAttestation(
+      terminalExtension,
+      fixed.reconciliation
+    );
+    const mutations = [
+      (value) => ({ ...value, schemaVersion: 1 }),
+      (value) => ({ ...value, journalSessionFingerprint: "0".repeat(64) }),
+      (value) => ({ ...value, metadataPolicyFingerprint: "1".repeat(64) }),
+      (value) => ({ ...value, pendingEvidenceFingerprint: "4".repeat(64) }),
+      (value) => ({ ...value, pendingMetadataPathCount: 1n }),
+      (value) => ({ ...value, pendingSourcePathCount: 1n }),
+      (value) => ({ ...value, pendingXattrPathCount: 1n }),
+      (value) => ({ ...value, snapshotSha256: "2".repeat(64) }),
+      (value) => ({ ...value, roundCount: value.roundCount + 1n }),
+      (value) => ({ ...value, journalFirstEventId: 0n }),
+      (value) => ({
+        ...value,
+        checkpoint: { ...value.checkpoint, sha256: "3".repeat(64) }
+      })
+    ];
+    for (const mutate of mutations) {
+      assert.throws(() => library.sealTerminal({
+        reconciliation: fixed.reconciliation,
+        terminalExtension,
+        terminalAttestation: mutate(attestation),
+        sealedAtNs: 20_000n
+      }), /attestation|fingerprint|schema|sealed state|match/i);
+    }
+    const sealed = library.sealTerminal({
+      reconciliation: fixed.reconciliation,
+      terminalExtension,
+      terminalAttestation: attestation,
+      sealedAtNs: 20_000n
+    });
+    assert.equal(sealed.phase, "sealed");
+  });
+
+  await t.test("STOP cannot switch to another approved metadata policy", (subtest) => {
+    const fixed = task3b2ReachFixedPoint(library, subtest, "terminal-policy-switch");
+    const terminalSnapshot = task3b2Capture(library, fixed.root);
+    const endpoint = task3b2NormalizeEndpoint(library, fixed.scratch, {
+      root: fixed.root,
+      sequence: 5n,
+      type: 3
+    }).endpoint;
+    assert.throws(() => task3b2ReadExtension(library, {
+      candidateSnapshot: terminalSnapshot,
+      endpoint,
+      eventRoots: [fixed.root],
+      exactMetadataPaths: [path.join(fixed.root, library.TRANSACTION_METADATA_PATHS[0])],
+      priorCheckpoint: fixed.checkpoint,
+      priorSnapshot: fixed.snapshot
+    }), /metadata.*policy|policy.*changed|fingerprint|pending evidence/i);
+  });
+
+  await t.test("STOP rejects xattr evidence observed after its candidate snapshot", (subtest) => {
+    const fixed = task3b2ReachFixedPoint(library, subtest, "terminal-post-snapshot-xattr");
+    const terminalSnapshot = task3b2Capture(library, fixed.root);
+    task3b2SetXattr(fixed.target, "after-terminal-snapshot");
+    const journal = typedFseventsJournalRecord({
+      sequence: 1n,
+      eventId: 301n,
+      flags: 0x18000,
+      path: fixed.target
+    });
+    const endpoint = task3b2NormalizeEndpoint(library, fixed.scratch, {
+      entryCount: 1n,
+      journal,
+      lastEventId: 301n,
+      root: fixed.root,
+      sequence: 5n,
+      type: 3
+    }).endpoint;
+    const terminalExtension = task3b2ReadExtension(library, {
+      candidateSnapshot: terminalSnapshot,
+      endpoint,
+      eventRoots: [fixed.root],
+      priorCheckpoint: fixed.checkpoint,
+      priorSnapshot: fixed.snapshot
+    });
+    assert.equal(terminalExtension.snapshotRelation, "xattr-ctime-only");
+    assert.equal(terminalExtension.pendingXattrPathCount, 1n);
+    assert.throws(() => library.sealTerminal({
+      reconciliation: fixed.reconciliation,
+      terminalExtension,
+      terminalAttestation: task3b2TerminalAttestation(
+        terminalExtension,
+        fixed.reconciliation
+      ),
+      sealedAtNs: 20_000n
+    }), /pending|semantic|source metadata|terminal seal|xattr/i);
+  });
+
+  await t.test("STOP rejects same-path xattr events straddling its candidate snapshot", (subtest) => {
+    const fixed = task3b2ReachFixedPoint(library, subtest, "terminal-straddled-xattr");
+    task3b2SetXattr(fixed.target, "before-terminal-snapshot");
+    const terminalSnapshot = task3b2Capture(library, fixed.root);
+    task3b2SetXattr(fixed.target, "after-terminal-snapshot");
+    const journal = Buffer.concat([
+      typedFseventsJournalRecord({
+        sequence: 1n,
+        eventId: 302n,
+        flags: 0x18000,
+        path: fixed.target
+      }),
+      typedFseventsJournalRecord({
+        sequence: 2n,
+        eventId: 303n,
+        flags: 0x18000,
+        path: fixed.target
+      })
+    ]);
+    const endpoint = task3b2NormalizeEndpoint(library, fixed.scratch, {
+      entryCount: 2n,
+      journal,
+      lastEventId: 303n,
+      root: fixed.root,
+      sequence: 5n,
+      type: 3
+    }).endpoint;
+    const terminalExtension = task3b2ReadExtension(library, {
+      candidateSnapshot: terminalSnapshot,
+      endpoint,
+      eventRoots: [fixed.root],
+      priorCheckpoint: fixed.checkpoint,
+      priorSnapshot: fixed.snapshot
+    });
+    assert.equal(terminalExtension.snapshotRelation, "xattr-ctime-only");
+    assert.equal(terminalExtension.classification.xattrOnlyEventCount, 2n);
+    assert.equal(terminalExtension.pendingXattrPathCount, 1n);
+    assert.throws(() => library.sealTerminal({
+      reconciliation: fixed.reconciliation,
+      terminalExtension,
+      terminalAttestation: task3b2TerminalAttestation(
+        terminalExtension,
+        fixed.reconciliation
+      ),
+      sealedAtNs: 20_000n
+    }), /pending|semantic|terminal seal|xattr/i);
+  });
+});
+
+test("Task 3B2 terminal seal rejects source metadata namespace semantic and unexplained ctime deltas", async (t) => {
+  const library = await import(libraryUrl);
+  const scenarios = [
+    {
+      label: "source",
+      mutate(fixed) { fs.writeFileSync(fixed.target, "source changed\n"); },
+      record(fixed) {
+        return typedFseventsJournalRecord({
+          sequence: 1n, eventId: 201n, flags: 0x11400, path: fixed.target
+        });
+      }
+    },
+    {
+      label: "metadata",
+      exactMetadataPaths(fixed) { return [fixed.target]; },
+      record(fixed) {
+        return typedFseventsJournalRecord({
+          sequence: 1n, eventId: 202n, flags: 0x11400, path: fixed.target
+        });
+      }
+    },
+    {
+      label: "namespace",
+      mutate(fixed) { fs.writeFileSync(path.join(fixed.root, "added.txt"), "added\n"); }
+    },
+    {
+      label: "semantic",
+      mutate(fixed) { fs.writeFileSync(fixed.target, "semantic changed\n"); },
+      record(fixed) {
+        return typedFseventsJournalRecord({
+          sequence: 1n, eventId: 203n, flags: 0x18000, path: fixed.target
+        });
+      }
+    },
+    {
+      label: "unexplained-ctime",
+      mutate(fixed) { task3b2SetXattr(fixed.target, "unexplained"); }
+    }
+  ];
+  for (const scenario of scenarios) {
+    await t.test(scenario.label, (subtest) => {
+      const fixed = task3b2ReachFixedPoint(library, subtest, `reject-${scenario.label}`);
+      scenario.mutate?.(fixed);
+      const candidateSnapshot = task3b2Capture(library, fixed.root);
+      const journal = scenario.record?.(fixed) ?? Buffer.alloc(0);
+      const hasRecord = journal.length > 0;
+      assert.throws(() => {
+        const endpoint = task3b2NormalizeEndpoint(library, fixed.scratch, {
+          entryCount: hasRecord ? 1n : 0n,
+          journal,
+          lastEventId: hasRecord
+            ? (scenario.label === "metadata" ? 202n : scenario.label === "semantic" ? 203n : 201n)
+            : 0n,
+          root: fixed.root,
+          sequence: 4n,
+          type: 3
+        }).endpoint;
+        const terminalExtension = task3b2ReadExtension(library, {
+          candidateSnapshot,
+          endpoint,
+          eventRoots: [fixed.root],
+          exactMetadataPaths: scenario.exactMetadataPaths?.(fixed) ?? [],
+          priorCheckpoint: fixed.checkpoint,
+          priorSnapshot: fixed.snapshot
+        });
+        library.sealTerminal({
+          reconciliation: fixed.reconciliation,
+          terminalExtension,
+          terminalAttestation: task3b2TerminalAttestation(
+            terminalExtension,
+            fixed.reconciliation
+          ),
+          sealedAtNs: 20_000n
+        });
+      }, /terminal|source|metadata|namespace|semantic|ctime|seal|snapshot|delta/i);
+    });
+  }
+});
+
+test("Task 3B2 FLUSH sequences require an overflow-checked exact successor", async (t) => {
+  const library = await import(libraryUrl);
+  const maxUint64 = (1n << 64n) - 1n;
+
+  const buildFirstRound = (subtest, label, baselineSequence, endpointSequence) => {
+    const { root } = makeStableProofTestRoot(subtest, `task3b2-${label}`);
+    const scratch = task3b2Scratch(subtest, label);
+    fs.writeFileSync(path.join(root, "source.txt"), "stable\n");
+    const baselineSnapshot = task3b2Capture(library, root);
+    const baseline = task3b2NormalizeEndpoint(library, scratch, {
+      root, sequence: baselineSequence, type: 2
+    }).endpoint;
+    const candidateSnapshot = task3b2Capture(library, root);
+    const endpoint = task3b2NormalizeEndpoint(library, scratch, {
+      root, sequence: endpointSequence, type: 2
+    }).endpoint;
+    const extension = task3b2ReadExtension(library, {
+      candidateSnapshot,
+      endpoint,
+      eventRoots: [root],
+      priorCheckpoint: baseline.checkpoint,
+      priorSnapshot: baselineSnapshot
+    });
+    return () => library.reconcileFixedPoint({
+      previous: null,
+      baseline: {
+        ackEndpoint: baseline,
+        snapshot: baselineSnapshot,
+        sourceEpoch: 0n,
+        metadataEpoch: 0n,
+        xattrEpoch: 0n,
+        startedAtNs: 1_000n
+      },
+      extension,
+      observedAtNs: 2_000n
+    });
+  };
+
+  await t.test("a skipped FLUSH sequence fails closed", (subtest) => {
+    const reconcile = buildFirstRound(subtest, "sequence-gap", 1n, 3n);
+    assert.throws(reconcile, /sequence|successor|stale|order/i);
+  });
+  await t.test("the UInt64 maximum has no FLUSH successor", (subtest) => {
+    const reconcile = buildFirstRound(subtest, "sequence-overflow", maxUint64, 1n);
+    assert.throws(reconcile, /uint64|overflow|exceeds|sequence/i);
+  });
+  await t.test("maximum minus one may advance exactly to maximum", (subtest) => {
+    const reconcile = buildFirstRound(
+      subtest,
+      "sequence-maximum",
+      maxUint64 - 1n,
+      maxUint64
+    );
+    const proposal = reconcile();
+    const state = library.commitReconciliation({ proposal, committedAtNs: 2_001n });
+    assert.equal(state.endpointSequence, maxUint64);
+    assert.equal(state.phase, "reconciling");
+  });
+});
+
+test("Task 3B2 enforces eight-round and five-minute fixed-point boundaries", async (t) => {
+  const library = await import(libraryUrl);
+  const runEightRounds = (subtest, label, mutateThroughRound, expectFixed) => {
+    const { root } = makeStableProofTestRoot(subtest, `task3b2-${label}`);
+    const scratch = task3b2Scratch(subtest, label);
+    const target = path.join(root, "source.txt");
+    fs.writeFileSync(target, "round 0\n");
+    let priorSnapshot = task3b2Capture(library, root);
+    const baselineSnapshot = priorSnapshot;
+    const baseline = task3b2NormalizeEndpoint(library, scratch, {
+      root,
+      sequence: 1n,
+      type: 2
+    }).endpoint;
+    let priorCheckpoint = baseline.checkpoint;
+    let previous = null;
+    let journal = Buffer.alloc(0);
+    const startedAtNs = 1_000n;
+    for (let round = 1; round <= 8; round += 1) {
+      if (round <= mutateThroughRound) {
+        fs.writeFileSync(target, `round ${round}\n`);
+        journal = Buffer.concat([journal, typedFseventsJournalRecord({
+          sequence: BigInt(round),
+          eventId: 300n + BigInt(round),
+          flags: 0x11400,
+          path: target
+        })]);
+      }
+      const candidateSnapshot = task3b2Capture(library, root);
+      const endpoint = task3b2NormalizeEndpoint(library, scratch, {
+        entryCount: BigInt(Math.min(round, mutateThroughRound)),
+        journal,
+        lastEventId: journal.length === 0 ? 0n : 300n + BigInt(Math.min(round, mutateThroughRound)),
+        root,
+        sequence: BigInt(round + 1),
+        type: 2
+      }).endpoint;
+      const extension = task3b2ReadExtension(library, {
+        candidateSnapshot,
+        endpoint,
+        eventRoots: [root],
+        priorCheckpoint,
+        priorSnapshot
+      });
+      const observedAtNs = round === 8
+        ? startedAtNs + 300_000_000_000n
+        : startedAtNs + BigInt(round) * 1_000_000_000n;
+      const advance = () => {
+        const proposal = library.reconcileFixedPoint({
+          previous,
+          ...(previous === null ? {
+            baseline: {
+              ackEndpoint: baseline,
+              snapshot: baselineSnapshot,
+              sourceEpoch: 0n,
+              metadataEpoch: 0n,
+              xattrEpoch: 0n,
+              startedAtNs
+            }
+          } : {}),
+          extension,
+          observedAtNs
+        });
+        return library.commitReconciliation({ proposal, committedAtNs: observedAtNs });
+      };
+      if (!expectFixed && round === 8) {
+        assert.throws(advance, /round|eight|fixed.point|consecutive|limit/i);
+        return;
+      }
+      previous = advance();
+      assert.equal(previous.phase, round === 8 ? "fixed-point" : "reconciling");
+      priorCheckpoint = extension.checkpoint;
+      priorSnapshot = candidateSnapshot;
+    }
+    assert.equal(previous.phase, "fixed-point");
+  };
+
+  await t.test("round eight may be the second exact round at the exact deadline", (subtest) => {
+    runEightRounds(subtest, "round-eight-success", 5, true);
+  });
+  await t.test("round eight cannot be only the first exact round", (subtest) => {
+    runEightRounds(subtest, "round-eight-first-exact", 6, false);
+  });
+  await t.test("one nanosecond beyond five minutes fails closed", (subtest) => {
+    const { root } = makeStableProofTestRoot(subtest, "task3b2-deadline-overrun");
+    const scratch = task3b2Scratch(subtest, "deadline-overrun");
+    fs.writeFileSync(path.join(root, "source.txt"), "stable\n");
+    const baselineSnapshot = task3b2Capture(library, root);
+    const baseline = task3b2NormalizeEndpoint(library, scratch, {
+      root, sequence: 1n, type: 2
+    }).endpoint;
+    const candidateSnapshot = task3b2Capture(library, root);
+    const endpoint = task3b2NormalizeEndpoint(library, scratch, {
+      root, sequence: 2n, type: 2
+    }).endpoint;
+    const extension = task3b2ReadExtension(library, {
+      candidateSnapshot,
+      endpoint,
+      eventRoots: [root],
+      priorCheckpoint: baseline.checkpoint,
+      priorSnapshot: baselineSnapshot
+    });
+    const startedAtNs = 1_000n;
+    assert.throws(() => library.reconcileFixedPoint({
+      previous: null,
+      baseline: {
+        ackEndpoint: baseline,
+        snapshot: baselineSnapshot,
+        sourceEpoch: 0n,
+        metadataEpoch: 0n,
+        xattrEpoch: 0n,
+        startedAtNs
+      },
+      extension,
+      observedAtNs: startedAtNs + 300_000_000_001n
+    }), /deadline|five.minute|time|300000000000/i);
+  });
 });

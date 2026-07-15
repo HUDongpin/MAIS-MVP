@@ -610,9 +610,35 @@ const TYPED_FSEVENTS_MAX_RECORD_BYTES = TYPED_FSEVENTS_JOURNAL_HEADER_BYTES
   + TYPED_FSEVENTS_MAX_EVENT_PATH_BYTES;
 const TYPED_FSEVENTS_MAX_UINT64 = (1n << 64n) - 1n;
 const TYPED_FSEVENTS_VALIDATED_CHECKPOINTS = new WeakMap();
+const TYPED_FSEVENTS_COMMITTED_ACKNOWLEDGEMENTS = new WeakMap();
+const TYPED_FSEVENTS_VALIDATED_ACK_ENDPOINTS = new WeakMap();
+const TYPED_FSEVENTS_VALIDATED_JOURNAL_EXTENSIONS = new WeakMap();
+const TYPED_FSEVENTS_RECONCILIATION_PROPOSALS = new WeakMap();
+const TYPED_FSEVENTS_COMMITTED_RECONCILIATIONS = new WeakMap();
+const TYPED_FSEVENTS_PENDING_SNAPSHOT_EVIDENCE = new WeakMap();
+const TYPED_FSEVENTS_TERMINAL_SEALS = new WeakSet();
+const TYPED_FSEVENTS_CONSUMED_ACKNOWLEDGEMENTS = new WeakSet();
+const TYPED_FSEVENTS_CONSUMED_ACK_ENDPOINTS = new WeakSet();
+const TYPED_FSEVENTS_CONSUMED_CANDIDATE_SNAPSHOTS = new WeakSet();
+const TYPED_FSEVENTS_CONSUMED_JOURNAL_EXTENSIONS = new WeakSet();
+const TYPED_FSEVENTS_CONSUMED_RECONCILIATION_PROPOSALS = new WeakSet();
+const TYPED_FSEVENTS_CONSUMED_RECONCILIATIONS = new WeakSet();
+const TYPED_FSEVENTS_NORMALIZED_ACK_PUBLICATIONS = new Set();
+const TYPED_FSEVENTS_RECONCILIATION_SCHEMA_VERSION = 2;
+const TYPED_FSEVENTS_RECONCILIATION_MAX_ROUNDS = 8n;
+const TYPED_FSEVENTS_RECONCILIATION_MAX_DURATION_NS = 300_000_000_000n;
+let TYPED_FSEVENTS_PROVENANCE_ORDINAL = 0n;
 const TYPED_FSEVENTS_REGULAR_SEMANTIC_FIELDS = Object.freeze([
-  "dev", "ino", "mode", "nlink", "size", "mtimeNs", "sha256"
+  "dev", "ino", "uid", "gid", "mode", "nlink", "size", "mtimeNs", "sha256"
 ]);
+
+function typedFseventsNextProvenanceOrdinal() {
+  if (TYPED_FSEVENTS_PROVENANCE_ORDINAL === TYPED_FSEVENTS_MAX_UINT64) {
+    throw new Error("typed FSEvents provenance ordinal exceeds UInt64");
+  }
+  TYPED_FSEVENTS_PROVENANCE_ORDINAL += 1n;
+  return TYPED_FSEVENTS_PROVENANCE_ORDINAL;
+}
 
 export function classifyTypedFseventsFlags(rawFlags) {
   if (!Number.isInteger(rawFlags) || rawFlags < 0 || rawFlags > 0xffffffff) {
@@ -978,7 +1004,7 @@ export function classifyTypedFseventsTransaction({
   });
 }
 
-const STABLE_PROOF_SNAPSHOT_SCHEMA_VERSION = 1;
+const STABLE_PROOF_SNAPSHOT_SCHEMA_VERSION = 2;
 const STABLE_PROOF_MAX_PATHS = 600_000;
 const STABLE_PROOF_MAX_POLICIES = 4_096;
 const STABLE_PROOF_MAX_TRACKED_PATHS = 600_000;
@@ -996,8 +1022,9 @@ const STABLE_PROOF_HELPER_MAX_PEAK_RSS_BYTES = 4 * 1024 * 1024 * 1024;
 const STABLE_PROOF_HELPER_MAX_OPEN_FDS = STABLE_PROOF_MAX_POLICIES + STABLE_PROOF_MAX_DEPTH + 64;
 const STABLE_PROOF_HELPER_TIMEOUT_MS = 5 * 60 * 1000;
 const STABLE_PROOF_VALIDATED_SNAPSHOTS = new WeakSet();
+const STABLE_PROOF_SNAPSHOT_PROVENANCE = new WeakMap();
 const STABLE_PROOF_OBSERVATION_FIELDS = Object.freeze([
-  "dev", "ino", "mode", "nlink", "size", "mtimeNs", "ctimeNs"
+  "dev", "ino", "uid", "gid", "mode", "nlink", "size", "mtimeNs", "ctimeNs"
 ]);
 const STABLE_PROOF_HOOK_KEYS = Object.freeze([
   "afterDirectoryRead",
@@ -1016,7 +1043,7 @@ import resource
 import stat
 import sys
 
-OBSERVATION_FIELDS = ("dev", "ino", "mode", "nlink", "size", "mtimeNs", "ctimeNs")
+OBSERVATION_FIELDS = ("dev", "ino", "uid", "gid", "mode", "nlink", "size", "mtimeNs", "ctimeNs")
 F_GETPATH = 50
 READ_CHUNK_BYTES = 64 * 1024
 
@@ -1027,6 +1054,8 @@ def observation(value):
     return {
         "dev": str(value.st_dev),
         "ino": str(value.st_ino),
+        "uid": str(value.st_uid),
+        "gid": str(value.st_gid),
         "mode": str(value.st_mode),
         "nlink": str(value.st_nlink),
         "size": str(value.st_size),
@@ -1614,6 +1643,10 @@ function stableProofBuildSnapshot(normalizedPolicies, walked) {
     sha256: sha256Buffer(Buffer.from(JSON.stringify(fingerprintBasis)))
   });
   STABLE_PROOF_VALIDATED_SNAPSHOTS.add(snapshot);
+  STABLE_PROOF_SNAPSHOT_PROVENANCE.set(
+    snapshot,
+    Object.freeze({ captureOrdinal: typedFseventsNextProvenanceOrdinal() })
+  );
   return snapshot;
 }
 
@@ -1757,6 +1790,7 @@ function secureTypedFseventsJournal(status, minimumBytes) {
 function sameTypedFseventsJournalIdentity(left, right) {
   return left.dev === right.dev
     && left.ino === right.ino
+    && left.birthtimeNs === right.birthtimeNs
     && left.mode === right.mode
     && left.uid === right.uid
     && left.nlink === right.nlink;
@@ -1846,6 +1880,7 @@ export function readCommittedTypedFseventsAcknowledgement(
       const highWater = acknowledgement.readBigUInt64LE(24);
       if (highWater <= BigInt(Number.MAX_SAFE_INTEGER)
         && highWater <= BigInt(TYPED_FSEVENTS_MAX_BUFFER_BYTES)
+        && highWater <= BigInt(TYPED_FSEVENTS_MAX_JOURNAL_BYTES)
         && highWater <= journalBefore.size) {
         parsedHighWater = Number(highWater);
         journalPrefix = readTypedFseventsPrefix(journalDescriptor, parsedHighWater);
@@ -1934,7 +1969,7 @@ export function readCommittedTypedFseventsAcknowledgement(
       && eventRootCount !== BigInt(expectedEventRootCount))
     || (expectedEventRootFingerprint !== undefined
       && eventRootFingerprint !== expectedEventRootFingerprint)) return null;
-  return {
+  const committedAcknowledgement = Object.freeze({
     commitVisibleInode: commitVisible.ino,
     entryCount: acknowledgement.readBigUInt64LE(32),
     eventRootCount,
@@ -1948,7 +1983,1443 @@ export function readCommittedTypedFseventsAcknowledgement(
     sequence,
     type,
     visibleInode: acknowledgementVisible.ino
+  });
+  TYPED_FSEVENTS_COMMITTED_ACKNOWLEDGEMENTS.set(
+    committedAcknowledgement,
+    Object.freeze({
+      ackObservationOrdinal: typedFseventsNextProvenanceOrdinal(),
+      journalBirthtimeNs: journalFinal.birthtimeNs,
+      journalPrefix,
+      publicationIdentity: [
+        acknowledgementFinal.dev,
+        acknowledgementFinal.ino,
+        acknowledgementFinal.birthtimeNs,
+        commitFinal.dev,
+        commitFinal.ino,
+        commitFinal.birthtimeNs,
+        crypto.createHash("sha256").update(acknowledgement).digest("hex"),
+        crypto.createHash("sha256").update(commit).digest("hex"),
+        journalFinal.dev,
+        journalFinal.ino,
+        journalFinal.birthtimeNs
+      ].join(":")
+    })
+  );
+  return committedAcknowledgement;
+}
+
+function typedFseventsExactObjectKeys(value, expectedKeys, label) {
+  if (value === null || typeof value !== "object" || Array.isArray(value)
+    || JSON.stringify(Object.keys(value).sort()) !== JSON.stringify([...expectedKeys].sort())) {
+    throw new Error(`${label} fields are invalid`);
+  }
+  return value;
+}
+
+function typedFseventsOrderedEventRoots(eventRoots, label = "typed FSEvents event roots") {
+  const roots = typedFseventsCanonicalPathSet(eventRoots, label);
+  if (roots.length > STABLE_PROOF_MAX_POLICIES) {
+    throw new Error(`${label} exceeds the root-count cap`);
+  }
+  let totalBytes = 0;
+  for (let index = 0; index < roots.length; index += 1) {
+    totalBytes += Buffer.byteLength(roots[index]) + 1;
+    if (Buffer.byteLength(roots[index]) > STABLE_PROOF_MAX_PATH_BYTES
+      || totalBytes > 16 * 1024 * 1024) {
+      throw new Error(`${label} exceeds the byte cap`);
+    }
+    if (index > 0 && stableProofByteOrder(roots[index - 1], roots[index]) >= 0) {
+      throw new Error(`${label} must use strict UTF-8 byte order`);
+    }
+  }
+  return roots;
+}
+
+function typedFseventsEventRootFingerprint(roots) {
+  return sha256Buffer(Buffer.concat(
+    roots.flatMap((root) => [Buffer.from(root, "utf8"), Buffer.from([0])])
+  ));
+}
+
+function typedFseventsSameOrderedStrings(left, right) {
+  return Array.isArray(left) && Array.isArray(right)
+    && left.length === right.length
+    && left.every((value, index) => value === right[index]);
+}
+
+function typedFseventsValidatedSnapshot(value, label) {
+  if ((typeof value !== "object" && typeof value !== "function")
+    || value === null
+    || !STABLE_PROOF_VALIDATED_SNAPSHOTS.has(value)) {
+    throw new Error(`${label} must be a module-validated stable proof snapshot`);
+  }
+  return value;
+}
+
+function typedFseventsValidatedAckEndpoint(value, label) {
+  if ((typeof value === "object" || typeof value === "function")
+    && value !== null
+    && TYPED_FSEVENTS_CONSUMED_ACK_ENDPOINTS.has(value)) {
+    throw new Error(`${label} is already consumed`);
+  }
+  if ((typeof value !== "object" && typeof value !== "function")
+    || value === null
+    || !TYPED_FSEVENTS_VALIDATED_ACK_ENDPOINTS.has(value)) {
+    throw new Error(`${label} must be a module-validated ACK endpoint`);
+  }
+  return TYPED_FSEVENTS_VALIDATED_ACK_ENDPOINTS.get(value);
+}
+
+function typedFseventsCheckpointEquals(left, right) {
+  return left.entryCount === right.entryCount
+    && left.highWater === right.highWater
+    && left.lastEventId === right.lastEventId
+    && left.sha256 === right.sha256;
+}
+
+function typedFseventsSameJournalIdentity(left, right) {
+  return left.device === right.device
+    && left.inode === right.inode
+    && left.birthtimeNs === right.birthtimeNs;
+}
+
+function typedFseventsJournalSessionFingerprint(identity) {
+  return sha256Buffer(Buffer.from([
+    identity.device,
+    identity.inode,
+    identity.birthtimeNs
+  ].map((value) => value.toString()).join(":"), "ascii"));
+}
+
+/**
+ * Normalize one descriptor-authenticated native ACK into a root-bound,
+ * immutable checkpoint. A plain ACK-shaped object can never mint provenance.
+ */
+export function normalizeTypedFseventsAckCheckpoint({
+  acknowledgement,
+  eventRoots
+} = {}) {
+  if ((typeof acknowledgement === "object" || typeof acknowledgement === "function")
+    && acknowledgement !== null
+    && TYPED_FSEVENTS_CONSUMED_ACKNOWLEDGEMENTS.has(acknowledgement)) {
+    throw new Error("typed FSEvents committed acknowledgement is already consumed");
+  }
+  if ((typeof acknowledgement !== "object" && typeof acknowledgement !== "function")
+    || acknowledgement === null
+    || !TYPED_FSEVENTS_COMMITTED_ACKNOWLEDGEMENTS.has(acknowledgement)) {
+    throw new Error("typed FSEvents acknowledgement must be module-validated and committed");
+  }
+  if (TYPED_FSEVENTS_CONSUMED_ACKNOWLEDGEMENTS.has(acknowledgement)) {
+    throw new Error("typed FSEvents committed acknowledgement is already consumed");
+  }
+  const roots = typedFseventsOrderedEventRoots(eventRoots);
+  const committed = TYPED_FSEVENTS_COMMITTED_ACKNOWLEDGEMENTS.get(acknowledgement);
+  const type = acknowledgement.type;
+  const sequence = typedFseventsUint64(
+    acknowledgement.sequence,
+    "typed FSEvents acknowledgement sequence"
+  );
+  if (![1, 2, 3].includes(type)
+    || (type === 1 && sequence !== 0n)
+    || (type !== 1 && sequence === 0n)) {
+    throw new Error("typed FSEvents acknowledgement type or sequence is invalid");
+  }
+  if (acknowledgement.eventRootCount !== BigInt(roots.length)
+    || acknowledgement.eventRootFingerprint !== typedFseventsEventRootFingerprint(roots)) {
+    throw new Error("typed FSEvents acknowledgement event-root binding is invalid");
+  }
+  const entryCount = typedFseventsUint64(
+    acknowledgement.entryCount,
+    "typed FSEvents acknowledgement entry count"
+  );
+  const highWater = typedFseventsUint64(
+    acknowledgement.journalHighWater,
+    "typed FSEvents acknowledgement high-water"
+  );
+  const rawLastEventId = typedFseventsUint64(
+    acknowledgement.lastEventId,
+    "typed FSEvents acknowledgement last event ID"
+  );
+  const journalPrefix = committed.journalPrefix;
+  const journalIdentity = Object.freeze({
+    device: typedFseventsUint64(
+      acknowledgement.journalDevice,
+      "typed FSEvents acknowledgement journal device"
+    ),
+    inode: typedFseventsUint64(
+      acknowledgement.journalInode,
+      "typed FSEvents acknowledgement journal inode"
+    ),
+    birthtimeNs: typedFseventsUint64(
+      committed.journalBirthtimeNs,
+      "typed FSEvents acknowledgement journal birth time"
+    )
+  });
+  const emptySha256 = sha256Buffer(Buffer.alloc(0));
+  const actualSha256 = sha256Buffer(journalPrefix);
+  if (highWater > BigInt(TYPED_FSEVENTS_MAX_JOURNAL_BYTES)
+    || entryCount > TYPED_FSEVENTS_MAX_JOURNAL_ENTRIES
+    || highWater !== BigInt(journalPrefix.length)
+    || acknowledgement.journalSha256 !== actualSha256) {
+    throw new Error("typed FSEvents acknowledgement journal checkpoint is invalid");
+  }
+  const emptyTuple = entryCount === 0n
+    && highWater === 0n
+    && journalPrefix.length === 0
+    && actualSha256 === emptySha256
+    && rawLastEventId === 0n;
+  if (entryCount === 0n || highWater === 0n || journalPrefix.length === 0
+    || actualSha256 === emptySha256 || rawLastEventId === 0n) {
+    if (!emptyTuple) {
+      throw new Error("typed FSEvents empty checkpoint tuple is inconsistent");
+    }
+  } else if (highWater < entryCount * BigInt(TYPED_FSEVENTS_JOURNAL_HEADER_BYTES + 1)) {
+    throw new Error("typed FSEvents nonempty checkpoint count or high-water is invalid");
+  }
+  const authenticatedJournalPrefix = Buffer.from(journalPrefix);
+  if (sha256Buffer(authenticatedJournalPrefix) !== actualSha256) {
+    throw new Error("typed FSEvents acknowledgement journal changed during normalization");
+  }
+  const publicationIdentity = committed.publicationIdentity;
+  if (TYPED_FSEVENTS_NORMALIZED_ACK_PUBLICATIONS.has(publicationIdentity)) {
+    throw new Error("typed FSEvents ACK publication was already normalized");
+  }
+  if (TYPED_FSEVENTS_NORMALIZED_ACK_PUBLICATIONS.size >= 4_096) {
+    throw new Error("typed FSEvents normalized ACK publication cap exceeded");
+  }
+  const checkpoint = markTypedFseventsCheckpoint({
+    entryCount,
+    highWater,
+    lastEventId: emptyTuple ? null : rawLastEventId,
+    sha256: actualSha256
+  }, roots);
+  const journalSessionFingerprint = typedFseventsJournalSessionFingerprint(journalIdentity);
+  const endpoint = Object.freeze({
+    schemaVersion: TYPED_FSEVENTS_RECONCILIATION_SCHEMA_VERSION,
+    ackType: type,
+    sequence,
+    journalSessionFingerprint,
+    checkpoint
+  });
+  TYPED_FSEVENTS_VALIDATED_ACK_ENDPOINTS.set(endpoint, Object.freeze({
+    checkpoint,
+    journalPrefix: authenticatedJournalPrefix,
+    journalIdentity,
+    journalSessionFingerprint,
+    provenanceOrdinal: committed.ackObservationOrdinal,
+    roots,
+    sequence,
+    type
+  }));
+  TYPED_FSEVENTS_NORMALIZED_ACK_PUBLICATIONS.add(publicationIdentity);
+  TYPED_FSEVENTS_CONSUMED_ACKNOWLEDGEMENTS.add(acknowledgement);
+  TYPED_FSEVENTS_COMMITTED_ACKNOWLEDGEMENTS.delete(acknowledgement);
+  return endpoint;
+}
+
+function typedFseventsRelativeToAnyRoot(candidate, roots) {
+  for (const root of roots) {
+    if (!typedFseventsPathIsWithin(candidate, root) || candidate === root) continue;
+    const relativePath = path.posix.relative(root, candidate);
+    if (relativePath.length > 0
+      && relativePath !== ".."
+      && !relativePath.startsWith("../")
+      && !path.posix.isAbsolute(relativePath)) return relativePath;
+  }
+  return null;
+}
+
+function typedFseventsMetadataPolicy(exactMetadataPaths, exactMetadataRoots, roots) {
+  if (!Array.isArray(exactMetadataPaths)
+    || exactMetadataPaths.length > TRANSACTION_METADATA_PATHS.length
+    || !Array.isArray(exactMetadataRoots)
+    || exactMetadataRoots.length > 1) {
+    throw new Error("typed FSEvents metadata policy exceeds its count cap");
+  }
+  const metadataPaths = [...typedFseventsCanonicalPathSet(
+    exactMetadataPaths,
+    "typed FSEvents exact metadata paths",
+    roots
+  )].sort(stableProofByteOrder);
+  const metadataRoots = [...typedFseventsCanonicalPathSet(
+    exactMetadataRoots,
+    "typed FSEvents exact metadata roots",
+    roots
+  )].sort(stableProofByteOrder);
+  let totalBytes = 0;
+  for (const candidate of [...metadataPaths, ...metadataRoots]) {
+    const candidateBytes = Buffer.byteLength(candidate);
+    totalBytes += candidateBytes;
+    if (candidateBytes > STABLE_PROOF_MAX_PATH_BYTES || totalBytes > 64 * 1024) {
+      throw new Error("typed FSEvents metadata policy exceeds its byte cap");
+    }
+  }
+  for (const candidate of metadataPaths) {
+    const relativePath = typedFseventsRelativeToAnyRoot(candidate, roots);
+    if (relativePath === null || !TRANSACTION_METADATA_PATHS.includes(relativePath)) {
+      throw new Error("typed FSEvents exact metadata path is not module-approved");
+    }
+  }
+  const expectedParent = path.posix.dirname(TRANSACTION_METADATA_PATHS[0]);
+  for (const candidate of metadataRoots) {
+    const relativePath = typedFseventsRelativeToAnyRoot(candidate, roots);
+    const match = relativePath === null
+      ? null
+      : path.posix.basename(relativePath).match(/^\.evidence-publish-([1-9][0-9]*)-([0-9a-f-]+)$/iu);
+    if (relativePath === null
+      || path.posix.dirname(relativePath) !== expectedParent
+      || !match
+      || Number(match[1]) !== process.pid
+      || !UUID_PATTERN.test(match[2])) {
+      throw new Error("typed FSEvents exact metadata root is not module-approved");
+    }
+  }
+  const frozenPaths = Object.freeze(metadataPaths);
+  const frozenRoots = Object.freeze(metadataRoots);
+  return Object.freeze({
+    fingerprint: sha256Buffer(Buffer.from(JSON.stringify({
+      exactMetadataPaths: frozenPaths,
+      exactMetadataRoots: frozenRoots
+    }))),
+    pathSet: new Set(frozenPaths),
+    paths: frozenPaths,
+    roots: frozenRoots
+  });
+}
+
+function typedFseventsMetadataPath(eventPath, metadataPathSet, metadataRoots) {
+  return metadataPathSet.has(eventPath)
+    || metadataRoots.some((root) => typedFseventsPathIsWithin(eventPath, root));
+}
+
+function typedFseventsEventPathIndex(eventPaths) {
+  const ordered = [...eventPaths].sort();
+  return Object.freeze({
+    exact: new Set(ordered),
+    ordered: Object.freeze(ordered)
+  });
+}
+
+function typedFseventsEventEvidence({
+  journalSessionFingerprint,
+  metadataEventPaths,
+  metadataPolicyFingerprint,
+  sourcePaths,
+  xattrPaths
+}) {
+  const metadataPathIndex = typedFseventsEventPathIndex(metadataEventPaths);
+  const sourcePathIndex = typedFseventsEventPathIndex(sourcePaths);
+  const orderedXattrPaths = [...xattrPaths].sort();
+  const xattrPathSet = new Set(orderedXattrPaths);
+  const digest = crypto.createHash("sha256");
+  digest.update("MFSE2\0", "ascii");
+  digest.update(journalSessionFingerprint, "ascii");
+  digest.update("\0", "ascii");
+  digest.update(metadataPolicyFingerprint, "ascii");
+  for (const [category, paths] of [
+    ["metadata", metadataPathIndex.ordered],
+    ["source", sourcePathIndex.ordered],
+    ["xattr", orderedXattrPaths]
+  ]) {
+    digest.update(`\0${category}\0`, "ascii");
+    for (const eventPath of paths) {
+      digest.update(eventPath, "utf8");
+      digest.update("\0", "ascii");
+    }
+  }
+  return Object.freeze({
+    fingerprint: digest.digest("hex"),
+    journalSessionFingerprint,
+    metadataPathCount: BigInt(metadataPathIndex.exact.size),
+    metadataPathIndex,
+    metadataPolicyFingerprint,
+    sourcePathCount: BigInt(sourcePathIndex.exact.size),
+    sourcePathIndex,
+    xattrPathCount: BigInt(xattrPathSet.size),
+    xattrPathSet
+  });
+}
+
+function typedFseventsEvidenceIsEmpty(evidence) {
+  return evidence.metadataPathCount === 0n
+    && evidence.sourcePathCount === 0n
+    && evidence.xattrPathCount === 0n;
+}
+
+function typedFseventsEvidenceSummary(evidence) {
+  return Object.freeze({
+    pendingEvidenceFingerprint: evidence.fingerprint,
+    pendingMetadataPathCount: evidence.metadataPathCount,
+    pendingSourcePathCount: evidence.sourcePathCount,
+    pendingXattrPathCount: evidence.xattrPathCount
+  });
+}
+
+function typedFseventsHasIndexedDescendant(pathIndex, changedPath) {
+  const prefix = changedPath === "/" ? "/" : `${changedPath}/`;
+  let low = 0;
+  let high = pathIndex.ordered.length;
+  while (low < high) {
+    const middle = low + Math.floor((high - low) / 2);
+    if (pathIndex.ordered[middle] < prefix) low = middle + 1;
+    else high = middle;
+  }
+  return low < pathIndex.ordered.length && pathIndex.ordered[low].startsWith(prefix);
+}
+
+function typedFseventsDirectoryDescendantChangeIsNamespaceOnly(priorProof, candidateProof) {
+  if (priorProof?.type !== "directory" || candidateProof?.type !== "directory") return false;
+  return ["dev", "ino", "uid", "gid", "mode"].every((field) => (
+    priorProof[field] === candidateProof[field]
+  ));
+}
+
+function typedFseventsEventPathExplainsChange(
+  pathIndex,
+  changedPath,
+  priorProof,
+  candidateProof
+) {
+  if (pathIndex.exact.has(changedPath)) return true;
+  return typedFseventsDirectoryDescendantChangeIsNamespaceOnly(priorProof, candidateProof)
+    && typedFseventsHasIndexedDescendant(pathIndex, changedPath);
+}
+
+function typedFseventsAnyEventPathExplainsChange(
+  pathIndexes,
+  changedPath,
+  priorProof,
+  candidateProof
+) {
+  return pathIndexes.some((pathIndex) => typedFseventsEventPathExplainsChange(
+    pathIndex,
+    changedPath,
+    priorProof,
+    candidateProof
+  ));
+}
+
+function typedFseventsSnapshotPoliciesEqual(left, right) {
+  return stableJson(left.policies) === stableJson(right.policies)
+    && typedFseventsSameOrderedStrings(left.roots, right.roots);
+}
+
+function typedFseventsSnapshotDifference({
+  classification,
+  currentEvidence,
+  metadataPathSet,
+  metadataRoots,
+  priorEvidence,
+  priorSnapshot,
+  candidateSnapshot,
+}) {
+  let priorIndex = 0;
+  let candidateIndex = 0;
+  let changed = false;
+  let metadataChanged = false;
+  let sourceChanged = false;
+  let xattrCtimeChanged = false;
+  const matchedCurrentXattrPaths = new Set();
+  while (priorIndex < priorSnapshot.entries.length
+    || candidateIndex < candidateSnapshot.entries.length) {
+    const priorEntry = priorSnapshot.entries[priorIndex];
+    const candidateEntry = candidateSnapshot.entries[candidateIndex];
+    let eventPath;
+    let priorProof;
+    let candidateProof;
+    if (priorEntry === undefined) {
+      eventPath = candidateEntry.path;
+      candidateProof = candidateEntry.proof;
+      candidateIndex += 1;
+    } else if (candidateEntry === undefined) {
+      eventPath = priorEntry.path;
+      priorProof = priorEntry.proof;
+      priorIndex += 1;
+    } else {
+      const ordering = stableProofByteOrder(priorEntry.path, candidateEntry.path);
+      if (ordering < 0) {
+        eventPath = priorEntry.path;
+        priorProof = priorEntry.proof;
+        priorIndex += 1;
+      } else if (ordering > 0) {
+        eventPath = candidateEntry.path;
+        candidateProof = candidateEntry.proof;
+        candidateIndex += 1;
+      } else {
+        eventPath = priorEntry.path;
+        priorProof = priorEntry.proof;
+        candidateProof = candidateEntry.proof;
+        priorIndex += 1;
+        candidateIndex += 1;
+        if (stableJson(priorProof) === stableJson(candidateProof)) continue;
+      }
+    }
+    changed = true;
+    if (typedFseventsMetadataPath(eventPath, metadataPathSet, metadataRoots)) {
+      if (!typedFseventsAnyEventPathExplainsChange(
+        [currentEvidence.metadataPathIndex, priorEvidence.metadataPathIndex],
+        eventPath,
+        priorProof,
+        candidateProof
+      )) {
+        throw new Error("typed FSEvents snapshot metadata path delta is unmatched");
+      }
+      metadataChanged = true;
+      continue;
+    }
+    if (priorProof !== undefined
+      && candidateProof !== undefined
+      && typedFseventsSameRegularSemanticProof(priorProof, candidateProof)
+      && priorProof.ctimeNs !== candidateProof.ctimeNs
+      && (currentEvidence.xattrPathSet.has(eventPath)
+        || priorEvidence.xattrPathSet.has(eventPath))) {
+      xattrCtimeChanged = true;
+      if (currentEvidence.xattrPathSet.has(eventPath)) {
+        matchedCurrentXattrPaths.add(eventPath);
+      }
+      continue;
+    }
+    if (typedFseventsAnyEventPathExplainsChange(
+      [currentEvidence.sourcePathIndex, priorEvidence.sourcePathIndex],
+      eventPath,
+      priorProof,
+      candidateProof
+    )) {
+      sourceChanged = true;
+      continue;
+    }
+    if (typedFseventsAnyEventPathExplainsChange(
+      [currentEvidence.metadataPathIndex, priorEvidence.metadataPathIndex],
+      eventPath,
+      priorProof,
+      candidateProof
+    )) {
+      metadataChanged = true;
+      continue;
+    }
+    throw new Error("typed FSEvents snapshot source or metadata path delta is unmatched");
+  }
+  if (changed && classification.journalEntryCount === 0n) {
+    if (typedFseventsEvidenceIsEmpty(priorEvidence)) {
+      throw new Error("typed FSEvents snapshot changed without current or pending journal evidence");
+    }
+  }
+  const relation = classification.sourceEventCount > 0n || sourceChanged
+    ? "source-material"
+    : classification.transactionMetadataEventCount > 0n || metadataChanged
+      ? "metadata-only"
+      : classification.xattrOnlyEventCount > 0n || xattrCtimeChanged
+        ? "xattr-ctime-only"
+        : "exact";
+  return Object.freeze({
+    relation,
+    unmatchedCurrentXattrEventCount: classification.xattrOnlyEventCount
+      - BigInt(matchedCurrentXattrPaths.size)
+  });
+}
+
+/**
+ * Stream and classify only the authenticated journal suffix while binding it
+ * to two module-branded full-namespace snapshots. No record array is retained.
+ */
+export function readAndValidateJournalExtension({
+  candidateSnapshot,
+  endpoint,
+  eventRoots,
+  exactMetadataPaths = [],
+  exactMetadataRoots = [],
+  priorCheckpoint,
+  priorSnapshot
+} = {}) {
+  const endpointBinding = typedFseventsValidatedAckEndpoint(
+    endpoint,
+    "typed FSEvents journal endpoint"
+  );
+  if (![2, 3].includes(endpointBinding.type)) {
+    throw new Error("typed FSEvents journal extension requires FLUSH or STOP ACK");
+  }
+  const roots = typedFseventsOrderedEventRoots(eventRoots);
+  if (!typedFseventsSameOrderedStrings(roots, endpointBinding.roots)) {
+    throw new Error("typed FSEvents journal endpoint roots binding changed");
+  }
+  const prior = typedFseventsValidatedSnapshot(priorSnapshot, "typed FSEvents prior snapshot");
+  const candidate = typedFseventsValidatedSnapshot(
+    candidateSnapshot,
+    "typed FSEvents candidate snapshot"
+  );
+  const priorSnapshotProvenance = STABLE_PROOF_SNAPSHOT_PROVENANCE.get(prior);
+  const candidateSnapshotProvenance = STABLE_PROOF_SNAPSHOT_PROVENANCE.get(candidate);
+  if (!typedFseventsSnapshotPoliciesEqual(prior, candidate)
+    || !typedFseventsSameOrderedStrings(prior.roots, roots)
+    || !typedFseventsSameOrderedStrings(candidate.roots, roots)) {
+    throw new Error("typed FSEvents snapshot policies or ordered roots changed");
+  }
+  const validatedPriorCheckpoint = validatedTypedFseventsCheckpoint(
+    priorCheckpoint,
+    "typed FSEvents prior checkpoint",
+    roots
+  );
+  if (TYPED_FSEVENTS_CONSUMED_ACK_ENDPOINTS.has(endpoint)) {
+    throw new Error("typed FSEvents ACK endpoint is already consumed");
+  }
+  if (candidate === prior
+    || TYPED_FSEVENTS_CONSUMED_CANDIDATE_SNAPSHOTS.has(candidate)
+    || candidateSnapshotProvenance.captureOrdinal <= priorSnapshotProvenance.captureOrdinal
+    || candidateSnapshotProvenance.captureOrdinal >= endpointBinding.provenanceOrdinal) {
+    throw new Error("typed FSEvents candidate snapshot capture is stale or replayed");
+  }
+  const metadataPolicy = typedFseventsMetadataPolicy(
+    exactMetadataPaths,
+    exactMetadataRoots,
+    roots
+  );
+  const metadataPathSet = metadataPolicy.pathSet;
+  const metadataRoots = metadataPolicy.roots;
+  let firstDeltaEventId = null;
+  let lastDeltaEventId = null;
+  let sourceEventCount = 0n;
+  let transactionMetadataEventCount = 0n;
+  let xattrOnlyEventCount = 0n;
+  const metadataEventPaths = new Set();
+  const sourcePaths = new Set();
+  const xattrPaths = new Set();
+  const checkpoint = visitTypedFseventsJournalExtension({
+    endpoint: endpointBinding.checkpoint,
+    eventRoots: roots,
+    journalPrefix: endpointBinding.journalPrefix,
+    priorCheckpoint,
+    visitor(record) {
+      if (firstDeltaEventId === null) firstDeltaEventId = record.eventId;
+      lastDeltaEventId = record.eventId;
+      if (typedFseventsMetadataPath(record.path, metadataPathSet, metadataRoots)) {
+        transactionMetadataEventCount += 1n;
+        metadataEventPaths.add(record.path);
+        return;
+      }
+      if (record.flagClass === "xattr-only"
+        && typedFseventsSameRegularSemanticProof(
+          prior.lookup(record.path),
+          candidate.lookup(record.path)
+        )) {
+        xattrOnlyEventCount += 1n;
+        xattrPaths.add(record.path);
+        return;
+      }
+      sourceEventCount += 1n;
+      sourcePaths.add(record.path);
+    }
+  });
+  if (!typedFseventsCheckpointEquals(checkpoint, endpointBinding.checkpoint)
+    || checkpoint.entryCount - validatedPriorCheckpoint.entryCount !== checkpoint.deltaEntryCount
+    || checkpoint.highWater - validatedPriorCheckpoint.highWater !== checkpoint.deltaHighWater) {
+    throw new Error("typed FSEvents journal extension checkpoint is inconsistent");
+  }
+  const materialEventCount = sourceEventCount + transactionMetadataEventCount;
+  const classification = Object.freeze({
+    journalEntryCount: materialEventCount + xattrOnlyEventCount,
+    materialEventCount,
+    metadataEpochBatch: transactionMetadataEventCount > 0n,
+    sourceEpochBatch: sourceEventCount > 0n,
+    sourceEventCount,
+    transactionMetadataEventCount,
+    xattrEpochIncrement: xattrOnlyEventCount,
+    xattrOnlyEventCount
+  });
+  if (classification.journalEntryCount !== checkpoint.deltaEntryCount) {
+    throw new Error("typed FSEvents journal extension classification count is inconsistent");
+  }
+  const currentEvidence = typedFseventsEventEvidence({
+    journalSessionFingerprint: endpointBinding.journalSessionFingerprint,
+    metadataEventPaths,
+    metadataPolicyFingerprint: metadataPolicy.fingerprint,
+    sourcePaths,
+    xattrPaths
+  });
+  const storedPriorEvidence = TYPED_FSEVENTS_PENDING_SNAPSHOT_EVIDENCE.get(prior);
+  const priorEvidence = storedPriorEvidence ?? typedFseventsEventEvidence({
+    journalSessionFingerprint: endpointBinding.journalSessionFingerprint,
+    metadataEventPaths: [],
+    metadataPolicyFingerprint: metadataPolicy.fingerprint,
+    sourcePaths: [],
+    xattrPaths: []
+  });
+  if (priorEvidence.journalSessionFingerprint !== endpointBinding.journalSessionFingerprint
+    || priorEvidence.metadataPolicyFingerprint !== metadataPolicy.fingerprint) {
+    throw new Error("typed FSEvents pending evidence session or metadata policy changed");
+  }
+  const snapshotDifference = typedFseventsSnapshotDifference({
+    classification,
+    currentEvidence,
+    metadataPathSet,
+    metadataRoots,
+    priorEvidence,
+    priorSnapshot: prior,
+    candidateSnapshot: candidate
+  });
+  if (endpointBinding.type === 3
+    && (sourceEventCount !== 0n || transactionMetadataEventCount !== 0n)) {
+    throw new Error("typed FSEvents terminal extension contains source or metadata events");
+  }
+  const extension = Object.freeze({
+    schemaVersion: TYPED_FSEVENTS_RECONCILIATION_SCHEMA_VERSION,
+    ackType: endpointBinding.type,
+    sequence: endpointBinding.sequence,
+    journalSessionFingerprint: endpointBinding.journalSessionFingerprint,
+    metadataPolicyFingerprint: metadataPolicy.fingerprint,
+    priorCheckpoint,
+    checkpoint,
+    deltaEntryCount: checkpoint.deltaEntryCount,
+    deltaHighWater: checkpoint.deltaHighWater,
+    firstDeltaEventId,
+    lastDeltaEventId,
+    ...typedFseventsEvidenceSummary(currentEvidence),
+    snapshotSha256: candidate.sha256,
+    snapshotRelation: snapshotDifference.relation,
+    classification
+  });
+  TYPED_FSEVENTS_VALIDATED_JOURNAL_EXTENSIONS.set(extension, Object.freeze({
+    candidateSnapshot: candidate,
+    candidateCaptureOrdinal: candidateSnapshotProvenance.captureOrdinal,
+    checkpoint,
+    endpointProvenanceOrdinal: endpointBinding.provenanceOrdinal,
+    journalIdentity: endpointBinding.journalIdentity,
+    journalSessionFingerprint: endpointBinding.journalSessionFingerprint,
+    currentEvidence,
+    metadataPolicyFingerprint: metadataPolicy.fingerprint,
+    priorCheckpoint,
+    priorEvidence,
+    priorSnapshot: prior,
+    unmatchedCurrentXattrEventCount: snapshotDifference.unmatchedCurrentXattrEventCount
+  }));
+  TYPED_FSEVENTS_CONSUMED_ACK_ENDPOINTS.add(endpoint);
+  TYPED_FSEVENTS_CONSUMED_CANDIDATE_SNAPSHOTS.add(candidate);
+  TYPED_FSEVENTS_VALIDATED_ACK_ENDPOINTS.delete(endpoint);
+  return extension;
+}
+
+function typedFseventsValidatedJournalExtension(value, label) {
+  if ((typeof value === "object" || typeof value === "function")
+    && value !== null
+    && TYPED_FSEVENTS_CONSUMED_JOURNAL_EXTENSIONS.has(value)) {
+    throw new Error(`${label} is already consumed`);
+  }
+  if ((typeof value !== "object" && typeof value !== "function")
+    || value === null
+    || !TYPED_FSEVENTS_VALIDATED_JOURNAL_EXTENSIONS.has(value)) {
+    throw new Error(`${label} must be a module-validated journal extension`);
+  }
+  return TYPED_FSEVENTS_VALIDATED_JOURNAL_EXTENSIONS.get(value);
+}
+
+function typedFseventsNanoseconds(value, label) {
+  return typedFseventsUint64(value, label);
+}
+
+function typedFseventsCheckedAdd(left, right, label) {
+  const result = typedFseventsUint64(left, `${label} base`)
+    + typedFseventsUint64(right, `${label} increment`);
+  if (result > TYPED_FSEVENTS_MAX_UINT64) {
+    throw new Error(`${label} exceeds UInt64`);
+  }
+  return result;
+}
+
+function typedFseventsAssertWithinReconciliationWindow(startedAtNs, nowNs, label) {
+  const started = typedFseventsNanoseconds(startedAtNs, "typed FSEvents reconciliation start");
+  const now = typedFseventsNanoseconds(nowNs, label);
+  if (now < started) throw new Error(`${label} regressed before the reconciliation start`);
+  if (now - started > TYPED_FSEVENTS_RECONCILIATION_MAX_DURATION_NS) {
+    throw new Error(`${label} exceeded the five-minute 300000000000ns deadline`);
+  }
+  return now;
+}
+
+function typedFseventsEmptyCounters() {
+  return Object.freeze({
+    journalEntryCount: 0n,
+    materialEventCount: 0n,
+    sourceEventCount: 0n,
+    transactionMetadataEventCount: 0n,
+    xattrOnlyEventCount: 0n,
+    droppedEventCount: 0n,
+    unknownEventCount: 0n,
+    unmatchedDeltaCount: 0n
+  });
+}
+
+function typedFseventsCountersEqual(left, right) {
+  return [
+    "journalEntryCount",
+    "materialEventCount",
+    "sourceEventCount",
+    "transactionMetadataEventCount",
+    "xattrOnlyEventCount",
+    "droppedEventCount",
+    "unknownEventCount",
+    "unmatchedDeltaCount"
+  ].every((key) => left[key] === right[key]);
+}
+
+function typedFseventsAdvanceCounters(previousCounters, classification, checkpoint) {
+  const counters = Object.freeze({
+    journalEntryCount: typedFseventsCheckedAdd(
+      previousCounters.journalEntryCount,
+      classification.journalEntryCount,
+      "typed FSEvents journal entry count"
+    ),
+    materialEventCount: typedFseventsCheckedAdd(
+      previousCounters.materialEventCount,
+      classification.materialEventCount,
+      "typed FSEvents material event count"
+    ),
+    sourceEventCount: typedFseventsCheckedAdd(
+      previousCounters.sourceEventCount,
+      classification.sourceEventCount,
+      "typed FSEvents source event count"
+    ),
+    transactionMetadataEventCount: typedFseventsCheckedAdd(
+      previousCounters.transactionMetadataEventCount,
+      classification.transactionMetadataEventCount,
+      "typed FSEvents transaction metadata event count"
+    ),
+    xattrOnlyEventCount: typedFseventsCheckedAdd(
+      previousCounters.xattrOnlyEventCount,
+      classification.xattrOnlyEventCount,
+      "typed FSEvents xattr-only event count"
+    ),
+    droppedEventCount: previousCounters.droppedEventCount,
+    unknownEventCount: previousCounters.unknownEventCount,
+    unmatchedDeltaCount: previousCounters.unmatchedDeltaCount
+  });
+  if (counters.sourceEventCount + counters.transactionMetadataEventCount
+      !== counters.materialEventCount
+    || counters.materialEventCount + counters.xattrOnlyEventCount
+      !== counters.journalEntryCount
+    || counters.journalEntryCount !== checkpoint.entryCount
+    || counters.droppedEventCount !== 0n
+    || counters.unknownEventCount !== 0n
+    || counters.unmatchedDeltaCount !== 0n) {
+    throw new Error("typed FSEvents cumulative event counters are inconsistent");
+  }
+  return counters;
+}
+
+function typedFseventsValidatedReconciliation(value, label) {
+  if ((typeof value === "object" || typeof value === "function")
+    && value !== null
+    && TYPED_FSEVENTS_CONSUMED_RECONCILIATIONS.has(value)) {
+    throw new Error(`${label} is already consumed or stale`);
+  }
+  if ((typeof value !== "object" && typeof value !== "function")
+    || value === null
+    || !TYPED_FSEVENTS_COMMITTED_RECONCILIATIONS.has(value)) {
+    throw new Error(`${label} must be a module-validated committed reconciliation state`);
+  }
+  return TYPED_FSEVENTS_COMMITTED_RECONCILIATIONS.get(value);
+}
+
+/**
+ * Propose exactly one immutable reconciliation transition. Successful proposal
+ * construction consumes its predecessor, preventing forks and retry inflation.
+ */
+export function reconcileFixedPoint({
+  previous,
+  baseline,
+  extension,
+  observedAtNs
+} = {}) {
+  const extensionBinding = typedFseventsValidatedJournalExtension(
+    extension,
+    "typed FSEvents reconciliation extension"
+  );
+  if (TYPED_FSEVENTS_CONSUMED_JOURNAL_EXTENSIONS.has(extension)) {
+    throw new Error("typed FSEvents reconciliation extension is already consumed");
+  }
+  if (extension.ackType !== 2) {
+    throw new Error("typed FSEvents fixed-point reconciliation requires a FLUSH extension");
+  }
+
+  let predecessor = null;
+  let predecessorEndpoint = null;
+  let priorSnapshot;
+  let priorCheckpoint;
+  let priorEndpointSequence;
+  let priorEndpointProvenanceOrdinal;
+  let priorJournalIdentity;
+  let priorJournalSessionFingerprint;
+  let priorMetadataPolicyFingerprint;
+  let priorPendingEvidence;
+  let priorRoundCount;
+  let priorConsecutiveExactRounds;
+  let priorSourceEpoch;
+  let priorMetadataEpoch;
+  let priorXattrEpoch;
+  let priorCounters;
+  let priorFirstEventId;
+  let startedAtNs;
+  let minimumObservedAtNs;
+  if (previous === null) {
+    typedFseventsExactObjectKeys(baseline, [
+      "ackEndpoint",
+      "metadataEpoch",
+      "snapshot",
+      "sourceEpoch",
+      "startedAtNs",
+      "xattrEpoch"
+    ], "typed FSEvents reconciliation baseline");
+    const baselineEndpoint = typedFseventsValidatedAckEndpoint(
+      baseline.ackEndpoint,
+      "typed FSEvents reconciliation baseline ACK endpoint"
+    );
+    if (TYPED_FSEVENTS_CONSUMED_ACK_ENDPOINTS.has(baseline.ackEndpoint)) {
+      throw new Error("typed FSEvents reconciliation baseline ACK endpoint is already consumed");
+    }
+    priorSnapshot = typedFseventsValidatedSnapshot(
+      baseline.snapshot,
+      "typed FSEvents reconciliation baseline snapshot"
+    );
+    const baselineSnapshotProvenance = STABLE_PROOF_SNAPSHOT_PROVENANCE.get(priorSnapshot);
+    if (baselineEndpoint.type !== 2
+      || TYPED_FSEVENTS_CONSUMED_CANDIDATE_SNAPSHOTS.has(priorSnapshot)
+      || TYPED_FSEVENTS_PENDING_SNAPSHOT_EVIDENCE.has(priorSnapshot)
+      || !typedFseventsSameOrderedStrings(priorSnapshot.roots, baselineEndpoint.roots)
+      || baselineSnapshotProvenance.captureOrdinal >= baselineEndpoint.provenanceOrdinal
+      || baselineEndpoint.checkpoint.entryCount !== 0n
+      || baselineEndpoint.checkpoint.highWater !== 0n
+      || baselineEndpoint.checkpoint.lastEventId !== null
+      || baseline.sourceEpoch !== 0n
+      || baseline.metadataEpoch !== 0n
+      || baseline.xattrEpoch !== 0n) {
+      throw new Error("typed FSEvents reconciliation baseline must be exact and empty");
+    }
+    predecessorEndpoint = baseline.ackEndpoint;
+    priorCheckpoint = baselineEndpoint.checkpoint;
+    priorEndpointSequence = baselineEndpoint.sequence;
+    priorEndpointProvenanceOrdinal = baselineEndpoint.provenanceOrdinal;
+    priorJournalIdentity = baselineEndpoint.journalIdentity;
+    priorJournalSessionFingerprint = baselineEndpoint.journalSessionFingerprint;
+    priorMetadataPolicyFingerprint = extensionBinding.metadataPolicyFingerprint;
+    priorPendingEvidence = extensionBinding.priorEvidence;
+    priorRoundCount = 0n;
+    priorConsecutiveExactRounds = 0n;
+    priorSourceEpoch = 0n;
+    priorMetadataEpoch = 0n;
+    priorXattrEpoch = 0n;
+    priorCounters = typedFseventsEmptyCounters();
+    priorFirstEventId = null;
+    startedAtNs = typedFseventsNanoseconds(
+      baseline.startedAtNs,
+      "typed FSEvents reconciliation baseline start"
+    );
+    minimumObservedAtNs = startedAtNs;
+  } else {
+    if (baseline !== undefined) {
+      throw new Error("typed FSEvents reconciliation baseline is only valid for the first round");
+    }
+    const previousBinding = typedFseventsValidatedReconciliation(
+      previous,
+      "typed FSEvents previous reconciliation state"
+    );
+    if (TYPED_FSEVENTS_CONSUMED_RECONCILIATIONS.has(previous)) {
+      throw new Error("typed FSEvents previous reconciliation state is consumed or stale");
+    }
+    if (previous.phase !== "reconciling") {
+      throw new Error("typed FSEvents fixed-point state has no reconciliation successor");
+    }
+    predecessor = previous;
+    priorSnapshot = previousBinding.snapshot;
+    priorCheckpoint = previousBinding.checkpoint;
+    priorEndpointSequence = previousBinding.endpointSequence;
+    priorEndpointProvenanceOrdinal = previousBinding.endpointProvenanceOrdinal;
+    priorJournalIdentity = previousBinding.journalIdentity;
+    priorJournalSessionFingerprint = previousBinding.journalSessionFingerprint;
+    priorMetadataPolicyFingerprint = previousBinding.metadataPolicyFingerprint;
+    priorPendingEvidence = previousBinding.pendingEvidence;
+    priorRoundCount = previousBinding.roundCount;
+    priorConsecutiveExactRounds = previousBinding.consecutiveExactRounds;
+    priorSourceEpoch = previousBinding.sourceEpoch;
+    priorMetadataEpoch = previousBinding.metadataEpoch;
+    priorXattrEpoch = previousBinding.xattrEpoch;
+    priorCounters = previousBinding.counters;
+    priorFirstEventId = previousBinding.journalFirstEventId;
+    startedAtNs = previousBinding.startedAtNs;
+    minimumObservedAtNs = previousBinding.committedAtNs;
+  }
+
+  const observed = typedFseventsAssertWithinReconciliationWindow(
+    startedAtNs,
+    observedAtNs,
+    "typed FSEvents reconciliation observation time"
+  );
+  if (observed < minimumObservedAtNs) {
+    throw new Error("typed FSEvents reconciliation observation time regressed");
+  }
+  if (!typedFseventsSameJournalIdentity(
+    extensionBinding.journalIdentity,
+    priorJournalIdentity
+  ) || extensionBinding.journalSessionFingerprint !== priorJournalSessionFingerprint) {
+    throw new Error("typed FSEvents reconciliation journal identity changed");
+  }
+  if (extensionBinding.metadataPolicyFingerprint !== priorMetadataPolicyFingerprint) {
+    throw new Error("typed FSEvents reconciliation metadata policy changed");
+  }
+  if (extensionBinding.priorEvidence !== priorPendingEvidence
+    || (previous !== null
+      && TYPED_FSEVENTS_PENDING_SNAPSHOT_EVIDENCE.get(priorSnapshot)
+        !== priorPendingEvidence)
+    || (previous === null && !typedFseventsEvidenceIsEmpty(priorPendingEvidence))) {
+    throw new Error("typed FSEvents reconciliation pending evidence is stale or mismatched");
+  }
+  if (extensionBinding.priorSnapshot !== priorSnapshot
+    || extensionBinding.priorCheckpoint !== priorCheckpoint
+    || extension.sequence !== typedFseventsCheckedAdd(
+      priorEndpointSequence,
+      1n,
+      "typed FSEvents FLUSH endpoint sequence"
+    )
+    || extensionBinding.candidateCaptureOrdinal <= priorEndpointProvenanceOrdinal
+    || extensionBinding.endpointProvenanceOrdinal <= extensionBinding.candidateCaptureOrdinal) {
+    throw new Error("typed FSEvents reconciliation extension is stale or out of order");
+  }
+  const nextRoundCount = typedFseventsCheckedAdd(
+    priorRoundCount,
+    1n,
+    "typed FSEvents reconciliation round count"
+  );
+  if (nextRoundCount > TYPED_FSEVENTS_RECONCILIATION_MAX_ROUNDS) {
+    throw new Error("typed FSEvents reconciliation exceeds eight rounds");
+  }
+  const classification = extension.classification;
+  const sourceEpoch = typedFseventsCheckedAdd(
+    priorSourceEpoch,
+    classification.sourceEpochBatch ? 1n : 0n,
+    "typed FSEvents source epoch"
+  );
+  const metadataEpoch = typedFseventsCheckedAdd(
+    priorMetadataEpoch,
+    classification.metadataEpochBatch ? 1n : 0n,
+    "typed FSEvents metadata epoch"
+  );
+  const xattrEpoch = typedFseventsCheckedAdd(
+    priorXattrEpoch,
+    classification.xattrEpochIncrement,
+    "typed FSEvents xattr epoch"
+  );
+  const counters = typedFseventsAdvanceCounters(
+    priorCounters,
+    classification,
+    extensionBinding.checkpoint
+  );
+  const exactRound = extensionBinding.priorSnapshot.sha256
+      === extensionBinding.candidateSnapshot.sha256
+    && extension.deltaEntryCount === 0n
+    && extension.deltaHighWater === 0n
+    && typedFseventsEvidenceIsEmpty(priorPendingEvidence)
+    && sourceEpoch === priorSourceEpoch
+    && metadataEpoch === priorMetadataEpoch
+    && xattrEpoch === priorXattrEpoch
+    && typedFseventsCountersEqual(counters, priorCounters);
+  const consecutiveExactRounds = exactRound
+    ? priorConsecutiveExactRounds + 1n
+    : 0n;
+  if (consecutiveExactRounds > 2n) {
+    throw new Error("typed FSEvents reconciliation cannot exceed two exact rounds");
+  }
+  const readyToSeal = consecutiveExactRounds === 2n;
+  if (readyToSeal && !typedFseventsEvidenceIsEmpty(extensionBinding.currentEvidence)) {
+    throw new Error("typed FSEvents fixed point retains pending event evidence");
+  }
+  if (nextRoundCount === TYPED_FSEVENTS_RECONCILIATION_MAX_ROUNDS && !readyToSeal) {
+    throw new Error("typed FSEvents eighth round did not establish the fixed point");
+  }
+  const journalFirstEventId = priorFirstEventId ?? extension.firstDeltaEventId;
+  const journalLastEventId = extensionBinding.checkpoint.lastEventId;
+  if ((counters.journalEntryCount === 0n)
+      !== (journalFirstEventId === null && journalLastEventId === null)) {
+    throw new Error("typed FSEvents reconciliation event-ID bounds are inconsistent");
+  }
+  const proposal = Object.freeze({
+    schemaVersion: TYPED_FSEVENTS_RECONCILIATION_SCHEMA_VERSION,
+    roundCount: nextRoundCount,
+    consecutiveExactRounds,
+    exactRound,
+    readyToSeal,
+    startedAtNs,
+    observedAtNs: observed,
+    endpointSequence: extension.sequence,
+    journalSessionFingerprint: extensionBinding.journalSessionFingerprint,
+    metadataPolicyFingerprint: extensionBinding.metadataPolicyFingerprint,
+    ...typedFseventsEvidenceSummary(extensionBinding.currentEvidence),
+    snapshotSha256: extensionBinding.candidateSnapshot.sha256,
+    checkpoint: extensionBinding.checkpoint,
+    sourceEpoch,
+    metadataEpoch,
+    xattrEpoch,
+    counters,
+    journalFirstEventId,
+    journalLastEventId
+  });
+  TYPED_FSEVENTS_RECONCILIATION_PROPOSALS.set(proposal, Object.freeze({
+    checkpoint: extensionBinding.checkpoint,
+    consecutiveExactRounds,
+    counters,
+    endpointSequence: extension.sequence,
+    endpointProvenanceOrdinal: extensionBinding.endpointProvenanceOrdinal,
+    journalFirstEventId,
+    journalIdentity: extensionBinding.journalIdentity,
+    journalSessionFingerprint: extensionBinding.journalSessionFingerprint,
+    journalLastEventId,
+    metadataEpoch,
+    metadataPolicyFingerprint: extensionBinding.metadataPolicyFingerprint,
+    pendingEvidence: extensionBinding.currentEvidence,
+    observedAtNs: observed,
+    readyToSeal,
+    roundCount: nextRoundCount,
+    snapshot: extensionBinding.candidateSnapshot,
+    sourceEpoch,
+    startedAtNs,
+    xattrEpoch
+  }));
+  TYPED_FSEVENTS_CONSUMED_JOURNAL_EXTENSIONS.add(extension);
+  TYPED_FSEVENTS_VALIDATED_JOURNAL_EXTENSIONS.delete(extension);
+  if (predecessor === null) {
+    TYPED_FSEVENTS_CONSUMED_ACK_ENDPOINTS.add(predecessorEndpoint);
+    TYPED_FSEVENTS_CONSUMED_CANDIDATE_SNAPSHOTS.add(priorSnapshot);
+    TYPED_FSEVENTS_VALIDATED_ACK_ENDPOINTS.delete(predecessorEndpoint);
+  } else {
+    TYPED_FSEVENTS_CONSUMED_RECONCILIATIONS.add(predecessor);
+    TYPED_FSEVENTS_COMMITTED_RECONCILIATIONS.delete(predecessor);
+    TYPED_FSEVENTS_PENDING_SNAPSHOT_EVIDENCE.delete(priorSnapshot);
+  }
+  return proposal;
+}
+
+/** Commit one branded reconciliation proposal exactly once. */
+export function commitReconciliation({ proposal, committedAtNs } = {}) {
+  if ((typeof proposal === "object" || typeof proposal === "function")
+    && proposal !== null
+    && TYPED_FSEVENTS_CONSUMED_RECONCILIATION_PROPOSALS.has(proposal)) {
+    throw new Error("typed FSEvents reconciliation proposal is already consumed");
+  }
+  if ((typeof proposal !== "object" && typeof proposal !== "function")
+    || proposal === null
+    || !TYPED_FSEVENTS_RECONCILIATION_PROPOSALS.has(proposal)) {
+    throw new Error("typed FSEvents proposal must be module-validated");
+  }
+  if (TYPED_FSEVENTS_CONSUMED_RECONCILIATION_PROPOSALS.has(proposal)) {
+    throw new Error("typed FSEvents reconciliation proposal is already consumed");
+  }
+  const binding = TYPED_FSEVENTS_RECONCILIATION_PROPOSALS.get(proposal);
+  const committed = typedFseventsAssertWithinReconciliationWindow(
+    binding.startedAtNs,
+    committedAtNs,
+    "typed FSEvents reconciliation commit time"
+  );
+  if (committed < binding.observedAtNs) {
+    throw new Error("typed FSEvents reconciliation commit time regressed");
+  }
+  const phase = binding.readyToSeal ? "fixed-point" : "reconciling";
+  const state = Object.freeze({
+    schemaVersion: TYPED_FSEVENTS_RECONCILIATION_SCHEMA_VERSION,
+    phase,
+    roundCount: binding.roundCount,
+    consecutiveExactRounds: binding.consecutiveExactRounds,
+    startedAtNs: binding.startedAtNs,
+    observedAtNs: binding.observedAtNs,
+    committedAtNs: committed,
+    endpointSequence: binding.endpointSequence,
+    journalSessionFingerprint: binding.journalSessionFingerprint,
+    metadataPolicyFingerprint: binding.metadataPolicyFingerprint,
+    ...typedFseventsEvidenceSummary(binding.pendingEvidence),
+    snapshotSha256: binding.snapshot.sha256,
+    checkpoint: binding.checkpoint,
+    sourceEpoch: binding.sourceEpoch,
+    metadataEpoch: binding.metadataEpoch,
+    xattrEpoch: binding.xattrEpoch,
+    counters: binding.counters,
+    journalFirstEventId: binding.journalFirstEventId,
+    journalLastEventId: binding.journalLastEventId
+  });
+  TYPED_FSEVENTS_COMMITTED_RECONCILIATIONS.set(state, Object.freeze({
+    checkpoint: binding.checkpoint,
+    committedAtNs: committed,
+    consecutiveExactRounds: binding.consecutiveExactRounds,
+    counters: binding.counters,
+    endpointSequence: binding.endpointSequence,
+    endpointProvenanceOrdinal: binding.endpointProvenanceOrdinal,
+    journalFirstEventId: binding.journalFirstEventId,
+    journalIdentity: binding.journalIdentity,
+    journalSessionFingerprint: binding.journalSessionFingerprint,
+    journalLastEventId: binding.journalLastEventId,
+    metadataEpoch: binding.metadataEpoch,
+    metadataPolicyFingerprint: binding.metadataPolicyFingerprint,
+    pendingEvidence: binding.pendingEvidence,
+    roundCount: binding.roundCount,
+    snapshot: binding.snapshot,
+    sourceEpoch: binding.sourceEpoch,
+    startedAtNs: binding.startedAtNs,
+    xattrEpoch: binding.xattrEpoch
+  }));
+  TYPED_FSEVENTS_PENDING_SNAPSHOT_EVIDENCE.set(binding.snapshot, binding.pendingEvidence);
+  TYPED_FSEVENTS_CONSUMED_RECONCILIATION_PROPOSALS.add(proposal);
+  TYPED_FSEVENTS_RECONCILIATION_PROPOSALS.delete(proposal);
+  return state;
+}
+
+function typedFseventsValidateTerminalAttestation(value, expected) {
+  typedFseventsExactObjectKeys(value, [
+    "checkpoint",
+    "counters",
+    "endpointSequence",
+    "journalFirstEventId",
+    "journalLastEventId",
+    "journalSessionFingerprint",
+    "metadataEpoch",
+    "metadataPolicyFingerprint",
+    "pendingEvidenceFingerprint",
+    "pendingMetadataPathCount",
+    "pendingSourcePathCount",
+    "pendingXattrPathCount",
+    "roundCount",
+    "schemaVersion",
+    "snapshotSha256",
+    "sourceEpoch",
+    "xattrEpoch"
+  ], "typed FSEvents terminal attestation");
+  typedFseventsExactObjectKeys(value.checkpoint, [
+    "entryCount", "highWater", "lastEventId", "sha256"
+  ], "typed FSEvents terminal attestation checkpoint");
+  typedFseventsExactObjectKeys(value.counters, [
+    "droppedEventCount",
+    "journalEntryCount",
+    "materialEventCount",
+    "sourceEventCount",
+    "transactionMetadataEventCount",
+    "unknownEventCount",
+    "unmatchedDeltaCount",
+    "xattrOnlyEventCount"
+  ], "typed FSEvents terminal attestation counters");
+  const checkpoint = typedFseventsCheckpoint(
+    value.checkpoint,
+    "typed FSEvents terminal attestation checkpoint"
+  );
+  const counters = Object.fromEntries(Object.entries(value.counters).map(([key, item]) => [
+    key,
+    typedFseventsUint64(item, `typed FSEvents terminal attestation ${key}`)
+  ]));
+  const journalFirstEventId = value.journalFirstEventId === null
+    ? null
+    : typedFseventsUint64(
+      value.journalFirstEventId,
+      "typed FSEvents terminal attestation first event ID"
+    );
+  const journalLastEventId = value.journalLastEventId === null
+    ? null
+    : typedFseventsUint64(
+      value.journalLastEventId,
+      "typed FSEvents terminal attestation last event ID"
+    );
+  if (value.schemaVersion !== TYPED_FSEVENTS_RECONCILIATION_SCHEMA_VERSION
+    || typeof value.journalSessionFingerprint !== "string"
+    || !SHA256_PATTERN.test(value.journalSessionFingerprint)
+    || typeof value.metadataPolicyFingerprint !== "string"
+    || !SHA256_PATTERN.test(value.metadataPolicyFingerprint)
+    || typeof value.pendingEvidenceFingerprint !== "string"
+    || !SHA256_PATTERN.test(value.pendingEvidenceFingerprint)
+    || typeof value.snapshotSha256 !== "string"
+    || !SHA256_PATTERN.test(value.snapshotSha256)) {
+    throw new Error("typed FSEvents terminal attestation schema or fingerprints are invalid");
+  }
+  const normalized = {
+    checkpoint,
+    counters,
+    endpointSequence: typedFseventsUint64(
+      value.endpointSequence,
+      "typed FSEvents terminal attestation endpoint sequence"
+    ),
+    journalFirstEventId,
+    journalLastEventId,
+    journalSessionFingerprint: value.journalSessionFingerprint,
+    metadataEpoch: typedFseventsUint64(
+      value.metadataEpoch,
+      "typed FSEvents terminal attestation metadata epoch"
+    ),
+    metadataPolicyFingerprint: value.metadataPolicyFingerprint,
+    pendingEvidenceFingerprint: value.pendingEvidenceFingerprint,
+    pendingMetadataPathCount: typedFseventsUint64(
+      value.pendingMetadataPathCount,
+      "typed FSEvents terminal attestation pending metadata path count"
+    ),
+    pendingSourcePathCount: typedFseventsUint64(
+      value.pendingSourcePathCount,
+      "typed FSEvents terminal attestation pending source path count"
+    ),
+    pendingXattrPathCount: typedFseventsUint64(
+      value.pendingXattrPathCount,
+      "typed FSEvents terminal attestation pending xattr path count"
+    ),
+    roundCount: typedFseventsUint64(
+      value.roundCount,
+      "typed FSEvents terminal attestation round count"
+    ),
+    snapshotSha256: value.snapshotSha256,
+    sourceEpoch: typedFseventsUint64(
+      value.sourceEpoch,
+      "typed FSEvents terminal attestation source epoch"
+    ),
+    xattrEpoch: typedFseventsUint64(
+      value.xattrEpoch,
+      "typed FSEvents terminal attestation xattr epoch"
+    )
   };
+  if (!typedFseventsCheckpointEquals(normalized.checkpoint, expected.checkpoint)
+    || normalized.endpointSequence !== expected.endpointSequence
+    || normalized.journalFirstEventId !== expected.journalFirstEventId
+    || normalized.journalLastEventId !== expected.journalLastEventId
+    || normalized.journalSessionFingerprint !== expected.journalSessionFingerprint
+    || normalized.sourceEpoch !== expected.sourceEpoch
+    || normalized.metadataEpoch !== expected.metadataEpoch
+    || normalized.metadataPolicyFingerprint !== expected.metadataPolicyFingerprint
+    || normalized.pendingEvidenceFingerprint !== expected.pendingEvidenceFingerprint
+    || normalized.pendingMetadataPathCount !== expected.pendingMetadataPathCount
+    || normalized.pendingSourcePathCount !== expected.pendingSourcePathCount
+    || normalized.pendingXattrPathCount !== expected.pendingXattrPathCount
+    || normalized.roundCount !== expected.roundCount
+    || normalized.snapshotSha256 !== expected.snapshotSha256
+    || normalized.xattrEpoch !== expected.xattrEpoch
+    || !typedFseventsCountersEqual(normalized.counters, expected.counters)) {
+    throw new Error("typed FSEvents terminal attestation does not match the sealed state");
+  }
+}
+
+/** Seal a fixed point with one strict STOP extension and exact attestation. */
+export function sealTerminal({
+  reconciliation,
+  terminalExtension,
+  terminalAttestation,
+  sealedAtNs
+} = {}) {
+  const reconciliationBinding = typedFseventsValidatedReconciliation(
+    reconciliation,
+    "typed FSEvents terminal reconciliation"
+  );
+  if (TYPED_FSEVENTS_CONSUMED_RECONCILIATIONS.has(reconciliation)) {
+    throw new Error("typed FSEvents reconciliation is already consumed or sealed");
+  }
+  if (reconciliation.phase !== "fixed-point"
+    || reconciliationBinding.consecutiveExactRounds !== 2n) {
+    throw new Error("typed FSEvents terminal seal requires a two-round fixed point");
+  }
+  if (!typedFseventsEvidenceIsEmpty(reconciliationBinding.pendingEvidence)
+    || TYPED_FSEVENTS_PENDING_SNAPSHOT_EVIDENCE.get(reconciliationBinding.snapshot)
+      !== reconciliationBinding.pendingEvidence) {
+    throw new Error("typed FSEvents terminal seal retains pending event evidence");
+  }
+  const extensionBinding = typedFseventsValidatedJournalExtension(
+    terminalExtension,
+    "typed FSEvents terminal extension"
+  );
+  if (TYPED_FSEVENTS_CONSUMED_JOURNAL_EXTENSIONS.has(terminalExtension)) {
+    throw new Error("typed FSEvents terminal extension is already consumed");
+  }
+  if (!typedFseventsSameJournalIdentity(
+    extensionBinding.journalIdentity,
+    reconciliationBinding.journalIdentity
+  ) || extensionBinding.journalSessionFingerprint
+      !== reconciliationBinding.journalSessionFingerprint) {
+    throw new Error("typed FSEvents terminal journal identity changed");
+  }
+  if (extensionBinding.metadataPolicyFingerprint
+      !== reconciliationBinding.metadataPolicyFingerprint) {
+    throw new Error("typed FSEvents terminal metadata policy changed");
+  }
+  if (terminalExtension.ackType !== 3
+    || extensionBinding.priorSnapshot !== reconciliationBinding.snapshot
+    || extensionBinding.priorCheckpoint !== reconciliationBinding.checkpoint
+    || extensionBinding.priorEvidence !== reconciliationBinding.pendingEvidence
+    || terminalExtension.sequence <= reconciliationBinding.endpointSequence
+    || extensionBinding.candidateCaptureOrdinal
+      <= reconciliationBinding.endpointProvenanceOrdinal
+    || extensionBinding.endpointProvenanceOrdinal
+      <= extensionBinding.candidateCaptureOrdinal) {
+    throw new Error("typed FSEvents terminal extension is stale or out of order");
+  }
+  const classification = terminalExtension.classification;
+  if (classification.sourceEventCount !== 0n
+    || classification.transactionMetadataEventCount !== 0n
+    || classification.materialEventCount !== 0n
+    || extensionBinding.unmatchedCurrentXattrEventCount !== 0n
+    || !["exact", "xattr-ctime-only"].includes(terminalExtension.snapshotRelation)) {
+    throw new Error("typed FSEvents terminal seal contains source metadata or semantic change");
+  }
+  const sealed = typedFseventsAssertWithinReconciliationWindow(
+    reconciliationBinding.startedAtNs,
+    sealedAtNs,
+    "typed FSEvents terminal seal time"
+  );
+  if (sealed < reconciliationBinding.committedAtNs) {
+    throw new Error("typed FSEvents terminal seal time regressed");
+  }
+  const sourceEpoch = reconciliationBinding.sourceEpoch;
+  const metadataEpoch = reconciliationBinding.metadataEpoch;
+  const xattrEpoch = typedFseventsCheckedAdd(
+    reconciliationBinding.xattrEpoch,
+    classification.xattrEpochIncrement,
+    "typed FSEvents terminal xattr epoch"
+  );
+  const counters = typedFseventsAdvanceCounters(
+    reconciliationBinding.counters,
+    classification,
+    extensionBinding.checkpoint
+  );
+  const journalFirstEventId = reconciliationBinding.journalFirstEventId
+    ?? terminalExtension.firstDeltaEventId;
+  const journalLastEventId = extensionBinding.checkpoint.lastEventId;
+  if ((counters.journalEntryCount === 0n)
+      !== (journalFirstEventId === null && journalLastEventId === null)) {
+    throw new Error("typed FSEvents terminal event-ID bounds are inconsistent");
+  }
+  typedFseventsValidateTerminalAttestation(terminalAttestation, {
+    checkpoint: extensionBinding.checkpoint,
+    counters,
+    endpointSequence: terminalExtension.sequence,
+    journalFirstEventId,
+    journalLastEventId,
+    journalSessionFingerprint: reconciliationBinding.journalSessionFingerprint,
+    metadataEpoch,
+    metadataPolicyFingerprint: reconciliationBinding.metadataPolicyFingerprint,
+    ...typedFseventsEvidenceSummary(reconciliationBinding.pendingEvidence),
+    roundCount: reconciliationBinding.roundCount,
+    snapshotSha256: extensionBinding.candidateSnapshot.sha256,
+    sourceEpoch,
+    xattrEpoch
+  });
+  const terminalSeal = Object.freeze({
+    schemaVersion: TYPED_FSEVENTS_RECONCILIATION_SCHEMA_VERSION,
+    phase: "sealed",
+    sealedAtNs: sealed,
+    startedAtNs: reconciliationBinding.startedAtNs,
+    roundCount: reconciliationBinding.roundCount,
+    endpointSequence: terminalExtension.sequence,
+    journalSessionFingerprint: reconciliationBinding.journalSessionFingerprint,
+    metadataPolicyFingerprint: reconciliationBinding.metadataPolicyFingerprint,
+    ...typedFseventsEvidenceSummary(reconciliationBinding.pendingEvidence),
+    snapshotSha256: extensionBinding.candidateSnapshot.sha256,
+    checkpoint: extensionBinding.checkpoint,
+    sourceEpoch,
+    metadataEpoch,
+    xattrEpoch,
+    counters,
+    journalFirstEventId,
+    journalLastEventId
+  });
+  TYPED_FSEVENTS_TERMINAL_SEALS.add(terminalSeal);
+  TYPED_FSEVENTS_CONSUMED_RECONCILIATIONS.add(reconciliation);
+  TYPED_FSEVENTS_CONSUMED_JOURNAL_EXTENSIONS.add(terminalExtension);
+  TYPED_FSEVENTS_COMMITTED_RECONCILIATIONS.delete(reconciliation);
+  TYPED_FSEVENTS_PENDING_SNAPSHOT_EVIDENCE.delete(reconciliationBinding.snapshot);
+  TYPED_FSEVENTS_VALIDATED_JOURNAL_EXTENSIONS.delete(terminalExtension);
+  return terminalSeal;
 }
 
 // Embed the exact reviewed reader implementation into the detached monitor
@@ -1956,6 +3427,11 @@ export function readCommittedTypedFseventsAcknowledgement(
 // a replace/restore injection window between bootstrap and each ACK read.
 const TYPED_FSEVENTS_ACK_READER_CHILD_SOURCE = [
   `const TYPED_FSEVENTS_MAX_BUFFER_BYTES = ${TYPED_FSEVENTS_MAX_BUFFER_BYTES};`,
+  `const TYPED_FSEVENTS_MAX_JOURNAL_BYTES = ${TYPED_FSEVENTS_MAX_JOURNAL_BYTES};`,
+  `const TYPED_FSEVENTS_MAX_UINT64 = ${TYPED_FSEVENTS_MAX_UINT64}n;`,
+  "let TYPED_FSEVENTS_PROVENANCE_ORDINAL = 0n;",
+  "const TYPED_FSEVENTS_COMMITTED_ACKNOWLEDGEMENTS = new WeakMap();",
+  typedFseventsNextProvenanceOrdinal,
   decideTypedFseventsAcknowledgementWait,
   sameTypedFseventsFrameSnapshot,
   secureTypedFseventsFrame,
@@ -2564,7 +4040,7 @@ function prepareTypedFseventsBootstrap({ roots, scratch, watchMode }) {
   const runtimeScratch = path.join(scratch, "typed-fsevents-runtime");
   fs.mkdirSync(runtimeScratch, { mode: 0o700 });
   fs.chmodSync(runtimeScratch, 0o700);
-  const canonicalRoots = [...roots].sort();
+  const canonicalRoots = [...roots].sort(stableProofByteOrder);
   const rootsBuffer = Buffer.concat(canonicalRoots.flatMap((root) => [Buffer.from(root), Buffer.from([0])]));
   const rootsPath = path.join(runtimeScratch, "roots.config");
   const commandPath = path.join(runtimeScratch, "command.bin");
