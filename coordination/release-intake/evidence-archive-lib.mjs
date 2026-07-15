@@ -978,6 +978,732 @@ export function classifyTypedFseventsTransaction({
   });
 }
 
+const STABLE_PROOF_SNAPSHOT_SCHEMA_VERSION = 1;
+const STABLE_PROOF_MAX_PATHS = 600_000;
+const STABLE_PROOF_MAX_POLICIES = 4_096;
+const STABLE_PROOF_MAX_TRACKED_PATHS = 600_000;
+const STABLE_PROOF_MAX_DEPTH = 1_024;
+const STABLE_PROOF_MAX_PATH_BYTES = 4 * 1024;
+const STABLE_PROOF_MAX_POLICY_BYTES = 256 * 1024 * 1024;
+const STABLE_PROOF_MAX_NAMESPACE_PATH_BYTES = 512 * 1024 * 1024;
+const STABLE_PROOF_MAX_FILE_BYTES = 8 * 1024 * 1024 * 1024;
+const STABLE_PROOF_MAX_TOTAL_BYTES = 64 * 1024 * 1024 * 1024;
+const STABLE_PROOF_MAX_SYMLINK_TARGET_BYTES = 64 * 1024;
+const STABLE_PROOF_MAX_TOTAL_SYMLINK_BYTES = 256 * 1024 * 1024;
+const STABLE_PROOF_MAX_DIRECTORY_NAME_BYTES = 256 * 1024 * 1024;
+const STABLE_PROOF_HELPER_MAX_BUFFER_BYTES = 1024 * 1024 * 1024;
+const STABLE_PROOF_HELPER_MAX_PEAK_RSS_BYTES = 4 * 1024 * 1024 * 1024;
+const STABLE_PROOF_HELPER_MAX_OPEN_FDS = STABLE_PROOF_MAX_POLICIES + STABLE_PROOF_MAX_DEPTH + 64;
+const STABLE_PROOF_HELPER_TIMEOUT_MS = 5 * 60 * 1000;
+const STABLE_PROOF_VALIDATED_SNAPSHOTS = new WeakSet();
+const STABLE_PROOF_OBSERVATION_FIELDS = Object.freeze([
+  "dev", "ino", "mode", "nlink", "size", "mtimeNs", "ctimeNs"
+]);
+const STABLE_PROOF_HOOK_KEYS = Object.freeze([
+  "afterDirectoryRead",
+  "afterRegularRead",
+  "afterSymlinkRead",
+  "beforeRootFinalValidation",
+  "beforeRootRevalidate"
+]);
+const STABLE_PROOF_DESCRIPTOR_WALKER = String.raw`
+import errno
+import fcntl
+import hashlib
+import json
+import os
+import resource
+import stat
+import sys
+
+OBSERVATION_FIELDS = ("dev", "ino", "mode", "nlink", "size", "mtimeNs", "ctimeNs")
+F_GETPATH = 50
+READ_CHUNK_BYTES = 64 * 1024
+
+def fail(message):
+    raise RuntimeError(message)
+
+def observation(value):
+    return {
+        "dev": str(value.st_dev),
+        "ino": str(value.st_ino),
+        "mode": str(value.st_mode),
+        "nlink": str(value.st_nlink),
+        "size": str(value.st_size),
+        "mtimeNs": str(value.st_mtime_ns),
+        "ctimeNs": str(value.st_ctime_ns),
+    }
+
+def assert_same(left, right, label):
+    if observation(left) != observation(right):
+        fail(label + " changed during descriptor-relative observation")
+
+def assert_type(value, expected, label):
+    mode = value.st_mode
+    matches = ((expected == "regular-file" and stat.S_ISREG(mode))
+        or (expected == "directory" and stat.S_ISDIR(mode))
+        or (expected == "symlink" and stat.S_ISLNK(mode)))
+    if not matches or value.st_nlink < 1:
+        fail(label + " direct identity is invalid")
+
+def strict_text(value, label, maximum_bytes):
+    raw = os.fsencode(value)
+    if len(raw) == 0 or len(raw) > maximum_bytes or b"\x00" in raw:
+        fail(label + " byte length is invalid")
+    try:
+        decoded = raw.decode("utf-8", "strict")
+    except UnicodeDecodeError:
+        fail(label + " is not strict UTF-8")
+    return decoded, raw
+
+def descriptor_path(descriptor):
+    if sys.platform == "darwin":
+        raw = fcntl.fcntl(descriptor, F_GETPATH, b"\x00" * 1024)
+        return raw.split(b"\x00", 1)[0].decode("utf-8", "strict")
+    proc_path = "/proc/self/fd/" + str(descriptor)
+    if os.path.exists(proc_path):
+        return os.path.realpath(proc_path)
+    fail("stable proof descriptor path binding is unsupported on this platform")
+
+def list_names(descriptor, entry_limit, maximum_directory_name_bytes, maximum_path_bytes):
+    scan_descriptor = os.open(
+        ".",
+        os.O_RDONLY | os.O_DIRECTORY | os.O_NOFOLLOW | getattr(os, "O_CLOEXEC", 0),
+        dir_fd=descriptor,
+    )
+    try:
+        normalized = []
+        total_name_bytes = 0
+        with os.scandir(scan_descriptor) as iterator:
+            for entry in iterator:
+                if len(normalized) >= entry_limit:
+                    fail("stable proof path limit exceeded during directory enumeration")
+                name, raw = strict_text(
+                    entry.name,
+                    "stable proof directory child name",
+                    maximum_path_bytes,
+                )
+                if name in (".", "..") or "/" in name:
+                    fail("stable proof directory contains an unsafe child name")
+                total_name_bytes += len(raw)
+                if total_name_bytes > maximum_directory_name_bytes:
+                    fail("stable proof directory names exceed the byte cap")
+                normalized.append((raw, name))
+    finally:
+        os.close(scan_descriptor)
+    normalized.sort(key=lambda item: item[0])
+    return [item[1] for item in normalized]
+
+def main():
+    request = json.load(sys.stdin)
+    policies = request["policies"]
+    maximum_paths = request["maxPaths"]
+    maximum_depth = request["maxDepth"]
+    maximum_directory_name_bytes = request["maxDirectoryNameBytes"]
+    maximum_path_bytes = request["maxPathBytes"]
+    maximum_namespace_path_bytes = request["maxNamespacePathBytes"]
+    maximum_file_bytes = request["maxFileBytes"]
+    maximum_total_bytes = request["maxTotalBytes"]
+    maximum_symlink_target_bytes = request["maxSymlinkTargetBytes"]
+    maximum_total_symlink_bytes = request["maxTotalSymlinkBytes"]
+    maximum_open_fds = request["maxOpenFds"]
+    current_fd_soft, current_fd_hard = resource.getrlimit(resource.RLIMIT_NOFILE)
+    descriptor_soft = maximum_open_fds
+    if current_fd_soft != resource.RLIM_INFINITY:
+        descriptor_soft = min(descriptor_soft, current_fd_soft)
+    if current_fd_hard != resource.RLIM_INFINITY:
+        descriptor_soft = min(descriptor_soft, current_fd_hard)
+    resource.setrlimit(resource.RLIMIT_NOFILE, (descriptor_soft, current_fd_hard))
+    sys.setrecursionlimit(maximum_depth + 256)
+    records = {}
+    reserved = set()
+    discovered_path_bytes = 0
+    regular_bytes = 0
+    symlink_bytes = 0
+    anchors = []
+
+    def reserve(display_path):
+        nonlocal discovered_path_bytes
+        if display_path in records or display_path in reserved:
+            fail("stable proof captured a duplicate absolute path")
+        _, raw_path = strict_text(display_path, "stable proof absolute path", maximum_path_bytes)
+        if len(records) + len(reserved) >= maximum_paths:
+            fail("stable proof path limit exceeded before content read")
+        if discovered_path_bytes + len(raw_path) > maximum_namespace_path_bytes:
+            fail("stable proof namespace paths exceed the cumulative byte cap")
+        discovered_path_bytes += len(raw_path)
+        reserved.add(display_path)
+
+    def add(display_path, proof):
+        if display_path not in reserved:
+            reserve(display_path)
+        reserved.remove(display_path)
+        records[display_path] = proof
+
+    def capture_regular(parent_descriptor, name, display_path, initial):
+        nonlocal regular_bytes
+        descriptor = os.open(
+            name,
+            os.O_RDONLY | os.O_NOFOLLOW | os.O_NONBLOCK | getattr(os, "O_CLOEXEC", 0),
+            dir_fd=parent_descriptor,
+        )
+        try:
+            before = os.fstat(descriptor)
+            assert_type(before, "regular-file", "stable proof held file")
+            assert_same(initial, before, "stable proof file open")
+            size = before.st_size
+            if size < 0 or size > maximum_file_bytes:
+                fail("stable proof regular file exceeds the per-file byte cap")
+            if regular_bytes + size > maximum_total_bytes:
+                fail("stable proof regular files exceed the cumulative byte cap")
+            digest = hashlib.sha256()
+            position = 0
+            while position < size:
+                chunk = os.pread(descriptor, min(READ_CHUNK_BYTES, size - position), position)
+                if not chunk:
+                    fail("stable proof regular file was truncated during read")
+                digest.update(chunk)
+                position += len(chunk)
+            after = os.fstat(descriptor)
+            visible = os.stat(name, dir_fd=parent_descriptor, follow_symlinks=False)
+            assert_same(before, after, "stable proof held file")
+            assert_same(before, visible, "stable proof descriptor-relative file rebind")
+            assert_type(visible, "regular-file", "stable proof visible file")
+            regular_bytes += size
+            add(display_path, {
+                "type": "regular-file",
+                **observation(before),
+                "sha256": digest.hexdigest(),
+            })
+        finally:
+            os.close(descriptor)
+
+    def capture_symlink(parent_descriptor, name, display_path, initial):
+        nonlocal symlink_bytes
+        assert_type(initial, "symlink", "stable proof symlink")
+        target_value = os.readlink(name, dir_fd=parent_descriptor)
+        target, raw_target = strict_text(
+            target_value,
+            "stable proof symlink target",
+            maximum_symlink_target_bytes,
+        )
+        if symlink_bytes + len(raw_target) > maximum_total_symlink_bytes:
+            fail("stable proof symlink targets exceed the cumulative byte cap")
+        after = os.stat(name, dir_fd=parent_descriptor, follow_symlinks=False)
+        assert_type(after, "symlink", "stable proof symlink")
+        assert_same(initial, after, "stable proof symlink")
+        symlink_bytes += len(raw_target)
+        add(display_path, {"type": "symlink", **observation(after), "target": target})
+
+    def capture_directory(descriptor, display_path, initial, depth):
+        if depth > maximum_depth:
+            fail("stable proof directory depth exceeds the hard cap")
+        before = os.fstat(descriptor)
+        assert_type(before, "directory", "stable proof held directory")
+        assert_same(initial, before, "stable proof directory open")
+        remaining_paths = maximum_paths - len(records) - len(reserved)
+        names = list_names(
+            descriptor,
+            remaining_paths,
+            maximum_directory_name_bytes,
+            maximum_path_bytes,
+        )
+        for name in names:
+            reserve(os.path.join(display_path, name))
+        for name in names:
+            child_display = os.path.join(display_path, name)
+            child_initial = os.stat(name, dir_fd=descriptor, follow_symlinks=False)
+            if stat.S_ISLNK(child_initial.st_mode):
+                capture_symlink(descriptor, name, child_display, child_initial)
+            elif stat.S_ISREG(child_initial.st_mode):
+                capture_regular(descriptor, name, child_display, child_initial)
+            elif stat.S_ISDIR(child_initial.st_mode):
+                child_descriptor = os.open(
+                    name,
+                    os.O_RDONLY | os.O_DIRECTORY | os.O_NOFOLLOW | getattr(os, "O_CLOEXEC", 0),
+                    dir_fd=descriptor,
+                )
+                try:
+                    opened = os.fstat(child_descriptor)
+                    assert_same(child_initial, opened, "stable proof child directory open")
+                    capture_directory(child_descriptor, child_display, opened, depth + 1)
+                    rebound = os.stat(name, dir_fd=descriptor, follow_symlinks=False)
+                    assert_same(opened, rebound, "stable proof descriptor-relative directory rebind")
+                finally:
+                    os.close(child_descriptor)
+            else:
+                fail("stable proof namespace contains an unsupported special file type")
+        names_after = list_names(
+            descriptor,
+            len(names),
+            maximum_directory_name_bytes,
+            maximum_path_bytes,
+        )
+        if names_after != names:
+            fail("stable proof directory namespace changed during capture")
+        after = os.fstat(descriptor)
+        assert_same(before, after, "stable proof held directory")
+        add(display_path, {"type": "directory", **observation(after), "names": names})
+
+    def capture_tombstone(root_descriptor, relative_path, display_path):
+        reserve(display_path)
+        descriptors = [os.dup(root_descriptor)]
+        ancestors = []
+        try:
+            segments = relative_path.split("/")
+            if len(segments) > maximum_depth:
+                fail("stable proof tombstone depth exceeds the hard cap")
+            missing = False
+            for index, segment in enumerate(segments):
+                descriptor = descriptors[-1]
+                try:
+                    current = os.stat(segment, dir_fd=descriptor, follow_symlinks=False)
+                except FileNotFoundError:
+                    missing = True
+                    break
+                if stat.S_ISLNK(current.st_mode):
+                    fail("stable proof tracked tombstone has a symlink ancestor")
+                if index == len(segments) - 1:
+                    fail("stable proof tracked tombstone unexpectedly exists")
+                if not stat.S_ISDIR(current.st_mode):
+                    fail("stable proof tracked tombstone has a non-directory ancestor")
+                child = os.open(
+                    segment,
+                    os.O_RDONLY | os.O_DIRECTORY | os.O_NOFOLLOW | getattr(os, "O_CLOEXEC", 0),
+                    dir_fd=descriptor,
+                )
+                opened = os.fstat(child)
+                try:
+                    assert_same(current, opened, "stable proof tombstone ancestor open")
+                except Exception:
+                    os.close(child)
+                    raise
+                ancestors.append((descriptor, segment, current, child))
+                descriptors.append(child)
+            if not missing:
+                fail("stable proof tombstone traversal terminated unexpectedly")
+            for parent, segment, expected, child in reversed(ancestors):
+                held = os.fstat(child)
+                rebound = os.stat(segment, dir_fd=parent, follow_symlinks=False)
+                assert_same(expected, held, "stable proof held tombstone ancestor")
+                assert_same(expected, rebound, "stable proof rebound tombstone ancestor")
+            add(display_path, {"type": "tombstone"})
+        finally:
+            for descriptor in reversed(descriptors):
+                os.close(descriptor)
+
+    try:
+        for policy in policies:
+            root = policy["root"]
+            descriptor = os.open(
+                root,
+                os.O_RDONLY | os.O_DIRECTORY | os.O_NOFOLLOW | getattr(os, "O_CLOEXEC", 0),
+            )
+            try:
+                opened = os.fstat(descriptor)
+                assert_type(opened, "directory", "stable proof root anchor")
+                if descriptor_path(descriptor) != root:
+                    fail("stable proof root descriptor escaped its canonical path")
+            except Exception:
+                os.close(descriptor)
+                raise
+            anchors.append((root, descriptor, opened))
+
+        for policy, anchor in zip(policies, anchors):
+            root, descriptor, opened = anchor
+            if root not in records:
+                reserve(root)
+                capture_directory(descriptor, root, opened, 0)
+            for relative_path in policy["trackedRelativePaths"]:
+                display_path = os.path.join(root, *relative_path.split("/"))
+                if display_path not in records:
+                    capture_tombstone(descriptor, relative_path, display_path)
+
+        for root, descriptor, opened in anchors:
+            held = os.fstat(descriptor)
+            assert_same(opened, held, "stable proof root anchor")
+            if descriptor_path(descriptor) != root:
+                fail("stable proof root anchor path changed during capture")
+            visible = os.lstat(root)
+            assert_type(visible, "directory", "stable proof visible root")
+            assert_same(opened, visible, "stable proof visible root")
+
+        ordered = [
+            {"path": path_value, "proof": records[path_value]}
+            for path_value in sorted(records, key=lambda value: os.fsencode(value))
+        ]
+        peak_rss = resource.getrusage(resource.RUSAGE_SELF).ru_maxrss
+        if sys.platform != "darwin":
+            peak_rss *= 1024
+        json.dump(
+            {
+                "entries": ordered,
+                "helperPeakRssBytes": peak_rss,
+                "regularBytes": regular_bytes,
+            },
+            sys.stdout,
+            ensure_ascii=False,
+            separators=(",", ":"),
+        )
+    finally:
+        for _, descriptor, _ in anchors:
+            try:
+                os.close(descriptor)
+            except OSError:
+                pass
+
+try:
+    main()
+except Exception as error:
+    sys.stderr.write("stable proof descriptor walker failed closed: " + str(error))
+    sys.exit(2)
+`;
+
+function stableProofByteOrder(left, right) {
+  return Buffer.compare(Buffer.from(left), Buffer.from(right));
+}
+
+function stableProofCanonicalRoot(value, label) {
+  if (typeof value !== "string" || value.length === 0 || value.includes("\0")
+    || !path.isAbsolute(value) || path.normalize(value) !== value
+    || (value !== path.parse(value).root && value.endsWith(path.sep))) {
+    throw new Error(`${label} must be a canonical absolute root path`);
+  }
+  let real;
+  let status;
+  try {
+    real = fs.realpathSync(value);
+    status = fs.lstatSync(value, { bigint: true });
+  } catch {
+    throw new Error(`${label} must be an existing canonical root directory`);
+  }
+  if (real !== value || status.isSymbolicLink() || !status.isDirectory()) {
+    throw new Error(`${label} must be its direct canonical real path directory`);
+  }
+  return value;
+}
+
+function stableProofTrackedRelativePath(value, label) {
+  if (typeof value !== "string" || value.length === 0 || value.includes("\0")
+    || value.includes("\\") || path.posix.isAbsolute(value)
+    || path.posix.normalize(value) !== value
+    || value.endsWith("/") || value === "." || value.split("/").includes("..")) {
+    throw new Error(`${label} must be a canonical repository-relative POSIX path`);
+  }
+  return value;
+}
+
+function stableProofHooks(value = {}) {
+  if (value === null || typeof value !== "object" || Array.isArray(value)) {
+    throw new Error("stable proof hooks must be an object");
+  }
+  const keys = Object.keys(value).sort();
+  if (JSON.stringify(keys) !== JSON.stringify([...STABLE_PROOF_HOOK_KEYS].filter((key) => (
+    value[key] !== undefined
+  )).sort())) {
+    throw new Error("stable proof hooks contain an unknown seam");
+  }
+  for (const key of keys) {
+    if (typeof value[key] !== "function") throw new Error(`stable proof hook ${key} must be a function`);
+  }
+  return value;
+}
+
+function stableProofExactKeys(value, expected, label) {
+  if (value === null || typeof value !== "object" || Array.isArray(value)
+    || JSON.stringify(Object.keys(value).sort()) !== JSON.stringify([...expected].sort())) {
+    throw new Error(`${label} fields are invalid`);
+  }
+}
+
+function stableProofFreezeProof(value, label) {
+  if (value === null || typeof value !== "object" || Array.isArray(value)
+    || typeof value.type !== "string") {
+    throw new Error(`${label} is invalid`);
+  }
+  if (value.type === "tombstone") {
+    stableProofExactKeys(value, ["type"], label);
+    return Object.freeze({ type: "tombstone" });
+  }
+  const suffix = value.type === "regular-file"
+    ? ["sha256"]
+    : value.type === "directory"
+      ? ["names"]
+      : value.type === "symlink"
+        ? ["target"]
+        : null;
+  if (suffix === null) throw new Error(`${label} type is invalid`);
+  stableProofExactKeys(value, ["type", ...STABLE_PROOF_OBSERVATION_FIELDS, ...suffix], label);
+  for (const field of STABLE_PROOF_OBSERVATION_FIELDS) {
+    if (typeof value[field] !== "string" || !UINT64_DECIMAL_PATTERN.test(value[field])) {
+      throw new Error(`${label} ${field} is invalid`);
+    }
+  }
+  if (BigInt(value.nlink) < 1n) throw new Error(`${label} link count is invalid`);
+  const fileType = BigInt(value.mode) & 0o170000n;
+  const expectedType = value.type === "regular-file"
+    ? 0o100000n
+    : value.type === "directory"
+      ? 0o040000n
+      : 0o120000n;
+  if (fileType !== expectedType) throw new Error(`${label} mode/type binding is invalid`);
+  if (value.type === "regular-file") {
+    if (!SHA256_PATTERN.test(value.sha256)) throw new Error(`${label} SHA-256 is invalid`);
+    return Object.freeze({ ...value });
+  }
+  if (value.type === "symlink") {
+    if (typeof value.target !== "string" || value.target.includes("\0")
+      || Buffer.byteLength(value.target) > STABLE_PROOF_MAX_SYMLINK_TARGET_BYTES) {
+      throw new Error(`${label} target is invalid`);
+    }
+    return Object.freeze({ ...value });
+  }
+  if (!Array.isArray(value.names)) throw new Error(`${label} names are invalid`);
+  const names = value.names.map((name, index) => {
+    if (typeof name !== "string" || name.length === 0 || name === "." || name === ".."
+      || name.includes("\0") || name.includes(path.sep)
+      || Buffer.byteLength(name) > STABLE_PROOF_MAX_PATH_BYTES) {
+      throw new Error(`${label} name ${index} is invalid`);
+    }
+    return name;
+  });
+  for (let index = 1; index < names.length; index += 1) {
+    if (stableProofByteOrder(names[index - 1], names[index]) >= 0) {
+      throw new Error(`${label} names are not strict byte ordered`);
+    }
+  }
+  return Object.freeze({ ...value, names: Object.freeze(names) });
+}
+
+function stableProofRunDescriptorWalker(normalizedPolicies, maxPaths) {
+  const policyRootSet = new Set(normalizedPolicies.map((policy) => policy.root));
+  const belongsToPolicyRoot = (candidate) => {
+    let cursor = candidate;
+    while (true) {
+      if (policyRootSet.has(cursor)) return true;
+      const parent = path.dirname(cursor);
+      if (parent === cursor) return false;
+      cursor = parent;
+    }
+  };
+  const request = Buffer.from(JSON.stringify({
+    maxDepth: STABLE_PROOF_MAX_DEPTH,
+    maxDirectoryNameBytes: STABLE_PROOF_MAX_DIRECTORY_NAME_BYTES,
+    maxFileBytes: STABLE_PROOF_MAX_FILE_BYTES,
+    maxNamespacePathBytes: STABLE_PROOF_MAX_NAMESPACE_PATH_BYTES,
+    maxOpenFds: STABLE_PROOF_HELPER_MAX_OPEN_FDS,
+    maxPathBytes: STABLE_PROOF_MAX_PATH_BYTES,
+    maxPaths,
+    maxSymlinkTargetBytes: STABLE_PROOF_MAX_SYMLINK_TARGET_BYTES,
+    maxTotalSymlinkBytes: STABLE_PROOF_MAX_TOTAL_SYMLINK_BYTES,
+    maxTotalBytes: STABLE_PROOF_MAX_TOTAL_BYTES,
+    policies: normalizedPolicies
+  }));
+  const result = spawnSync(
+    "/usr/bin/python3",
+    ["-I", "-S", "-c", STABLE_PROOF_DESCRIPTOR_WALKER],
+    {
+      encoding: null,
+      input: request,
+      maxBuffer: STABLE_PROOF_HELPER_MAX_BUFFER_BYTES,
+      timeout: STABLE_PROOF_HELPER_TIMEOUT_MS
+    }
+  );
+  if (result.error || result.signal || result.status !== 0) {
+    const stderr = Buffer.isBuffer(result.stderr) && isUtf8(result.stderr)
+      ? result.stderr.toString("utf8").slice(0, 8_192)
+      : "";
+    throw new Error(stderr || `stable proof descriptor walker failed closed (${result.signal ?? result.status ?? result.error?.code ?? "unknown"})`);
+  }
+  if (!Buffer.isBuffer(result.stdout) || result.stdout.length === 0 || !isUtf8(result.stdout)) {
+    throw new Error("stable proof descriptor walker output is not strict UTF-8 JSON");
+  }
+  let decoded;
+  try {
+    decoded = JSON.parse(result.stdout.toString("utf8"));
+  } catch {
+    throw new Error("stable proof descriptor walker output is invalid JSON");
+  }
+  stableProofExactKeys(
+    decoded,
+    ["entries", "helperPeakRssBytes", "regularBytes"],
+    "stable proof descriptor result"
+  );
+  if (!Number.isSafeInteger(decoded.helperPeakRssBytes) || decoded.helperPeakRssBytes < 1
+    || decoded.helperPeakRssBytes > STABLE_PROOF_HELPER_MAX_PEAK_RSS_BYTES) {
+    throw new Error("stable proof descriptor helper peak RSS is invalid");
+  }
+  if (!Number.isSafeInteger(decoded.regularBytes) || decoded.regularBytes < 0
+    || decoded.regularBytes > STABLE_PROOF_MAX_TOTAL_BYTES) {
+    throw new Error("stable proof descriptor result byte count is invalid");
+  }
+  if (!Array.isArray(decoded.entries) || decoded.entries.length === 0 || decoded.entries.length > maxPaths) {
+    throw new Error("stable proof descriptor result path count is invalid");
+  }
+  const entries = decoded.entries.map((entry, index) => {
+    stableProofExactKeys(entry, ["path", "proof"], `stable proof entry ${index}`);
+    if (typeof entry.path !== "string" || !path.isAbsolute(entry.path)
+      || path.normalize(entry.path) !== entry.path || entry.path.includes("\0")
+      || Buffer.byteLength(entry.path) > STABLE_PROOF_MAX_PATH_BYTES
+      || !belongsToPolicyRoot(entry.path)) {
+      throw new Error(`stable proof entry ${index} path is invalid`);
+    }
+    return Object.freeze({
+      path: entry.path,
+      proof: stableProofFreezeProof(entry.proof, `stable proof entry ${index} proof`)
+    });
+  });
+  for (let index = 1; index < entries.length; index += 1) {
+    if (stableProofByteOrder(entries[index - 1].path, entries[index].path) >= 0) {
+      throw new Error("stable proof descriptor entries are not strict byte ordered");
+    }
+  }
+  const proofByPath = Object.create(null);
+  let observedRegularBytes = 0;
+  for (const entry of entries) {
+    proofByPath[entry.path] = entry.proof;
+    if (entry.proof.type === "regular-file") observedRegularBytes += Number(entry.proof.size);
+  }
+  if (!Number.isSafeInteger(observedRegularBytes) || observedRegularBytes !== decoded.regularBytes) {
+    throw new Error("stable proof descriptor result regular byte sum is inconsistent");
+  }
+  for (const entry of entries) {
+    if (entry.proof.type !== "directory") continue;
+    for (const name of entry.proof.names) {
+      const child = path.join(entry.path, name);
+      if (!Object.hasOwn(proofByPath, child) || proofByPath[child].type === "tombstone") {
+        throw new Error("stable proof directory namespace is incomplete");
+      }
+    }
+  }
+  Object.freeze(proofByPath);
+  return {
+    entries: Object.freeze(entries),
+    helperPeakRssBytes: decoded.helperPeakRssBytes,
+    proofByPath,
+    regularBytes: decoded.regularBytes
+  };
+}
+
+function stableProofBuildSnapshot(normalizedPolicies, walked) {
+  const policies = Object.freeze(normalizedPolicies.map((policy) => Object.freeze({
+    root: policy.root,
+    trackedRelativePaths: Object.freeze([...policy.trackedRelativePaths])
+  })));
+  const roots = Object.freeze(policies.map((policy) => policy.root));
+  const fingerprintBasis = {
+    entries: walked.entries,
+    policies,
+    schemaVersion: STABLE_PROOF_SNAPSHOT_SCHEMA_VERSION
+  };
+  const lookup = Object.freeze((absolutePath) => (
+    typeof absolutePath === "string" && Object.hasOwn(walked.proofByPath, absolutePath)
+      ? walked.proofByPath[absolutePath]
+      : undefined
+  ));
+  const snapshot = Object.freeze({
+    schemaVersion: STABLE_PROOF_SNAPSHOT_SCHEMA_VERSION,
+    entries: walked.entries,
+    helperPeakRssBytes: walked.helperPeakRssBytes,
+    lookup,
+    pathCount: walked.entries.length,
+    policies,
+    proofByPath: walked.proofByPath,
+    regularBytes: walked.regularBytes,
+    roots,
+    sha256: sha256Buffer(Buffer.from(JSON.stringify(fingerprintBasis)))
+  });
+  STABLE_PROOF_VALIDATED_SNAPSHOTS.add(snapshot);
+  return snapshot;
+}
+
+function stableProofInvokeHooks(snapshot, hooks) {
+  for (const entry of snapshot.entries) {
+    const event = Object.freeze({ absolutePath: entry.path, path: entry.path });
+    if (entry.proof.type === "regular-file") hooks.afterRegularRead?.(event);
+    if (entry.proof.type === "directory") hooks.afterDirectoryRead?.(event);
+    if (entry.proof.type === "symlink") hooks.afterSymlinkRead?.(event);
+  }
+  for (const root of snapshot.roots) {
+    const event = Object.freeze({ absolutePath: root, path: root });
+    hooks.beforeRootFinalValidation?.(event);
+    hooks.beforeRootRevalidate?.(event);
+  }
+}
+
+export function captureStableProofSnapshot({ policies, hooks: rawHooks = {}, maxPaths = STABLE_PROOF_MAX_PATHS } = {}) {
+  if (!Array.isArray(policies) || policies.length === 0) {
+    throw new Error("stable proof policies must be a nonempty array");
+  }
+  if (policies.length > STABLE_PROOF_MAX_POLICIES) {
+    throw new Error(`stable proof policies exceed the ${STABLE_PROOF_MAX_POLICIES} hard cap`);
+  }
+  if (!Number.isSafeInteger(maxPaths) || maxPaths < 1 || maxPaths > STABLE_PROOF_MAX_PATHS) {
+    throw new Error(`stable proof maxPaths must be between 1 and ${STABLE_PROOF_MAX_PATHS}`);
+  }
+  const hooks = stableProofHooks(rawHooks);
+  let totalPolicyBytes = 0;
+  let totalTrackedPaths = 0;
+  const normalizedPolicies = policies.map((policy, policyIndex) => {
+    if (policy === null || typeof policy !== "object" || Array.isArray(policy)
+      || JSON.stringify(Object.keys(policy).sort()) !== JSON.stringify(["root", "trackedRelativePaths"])) {
+      throw new Error(`stable proof policy ${policyIndex} fields are invalid`);
+    }
+    if (typeof policy.root !== "string" || Buffer.byteLength(policy.root) > STABLE_PROOF_MAX_PATH_BYTES) {
+      throw new Error(`stable proof policy ${policyIndex} root exceeds the path byte cap`);
+    }
+    const root = stableProofCanonicalRoot(policy.root, `stable proof policy ${policyIndex} root`);
+    if (!Array.isArray(policy.trackedRelativePaths)) {
+      throw new Error(`stable proof policy ${policyIndex} tracked paths must be an array`);
+    }
+    totalTrackedPaths += policy.trackedRelativePaths.length;
+    if (totalTrackedPaths > STABLE_PROOF_MAX_TRACKED_PATHS) {
+      throw new Error(`stable proof tracked paths exceed the ${STABLE_PROOF_MAX_TRACKED_PATHS} hard cap`);
+    }
+    totalPolicyBytes += Buffer.byteLength(root);
+    const trackedRelativePaths = policy.trackedRelativePaths.map((relativePath, pathIndex) => {
+      const normalized = stableProofTrackedRelativePath(
+        relativePath,
+        `stable proof policy ${policyIndex} tracked path ${pathIndex}`
+      );
+      const relativeBytes = Buffer.byteLength(normalized);
+      if (relativeBytes > STABLE_PROOF_MAX_PATH_BYTES) {
+        throw new Error(`stable proof policy ${policyIndex} tracked path ${pathIndex} exceeds the byte cap`);
+      }
+      totalPolicyBytes += relativeBytes;
+      if (totalPolicyBytes > STABLE_PROOF_MAX_POLICY_BYTES) {
+        throw new Error("stable proof policy input exceeds the cumulative byte cap");
+      }
+      return normalized;
+    });
+    if (new Set(trackedRelativePaths).size !== trackedRelativePaths.length) {
+      throw new Error(`stable proof policy ${policyIndex} contains duplicate tracked paths`);
+    }
+    trackedRelativePaths.sort(stableProofByteOrder);
+    return Object.freeze({ root, trackedRelativePaths: Object.freeze(trackedRelativePaths) });
+  }).sort((left, right) => stableProofByteOrder(left.root, right.root));
+  for (let index = 1; index < normalizedPolicies.length; index += 1) {
+    if (normalizedPolicies[index - 1].root === normalizedPolicies[index].root) {
+      throw new Error("stable proof policy roots duplicate one another");
+    }
+  }
+
+  const first = stableProofBuildSnapshot(
+    normalizedPolicies,
+    stableProofRunDescriptorWalker(normalizedPolicies, maxPaths)
+  );
+  if (Object.keys(hooks).length === 0) return first;
+  stableProofInvokeHooks(first, hooks);
+  const second = stableProofBuildSnapshot(
+    normalizedPolicies,
+    stableProofRunDescriptorWalker(normalizedPolicies, maxPaths)
+  );
+  if (first.sha256 !== second.sha256) {
+    throw new Error("stable proof root/namespace snapshot changed across the deterministic hook seam");
+  }
+  return second;
+}
+
 export function decideTypedFseventsAcknowledgementWait({
   childAlive,
   exitCode,

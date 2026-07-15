@@ -11753,6 +11753,314 @@ test("Task 3A journal visitor processes 300000 virtual records with bounded reta
   );
 });
 
+test("Task 3B1 stable proof snapshot includes ignored generated symlink and tracked tombstone namespace", async (t) => {
+  const { captureStableProofSnapshot } = await import(libraryUrl);
+  assert.equal(typeof captureStableProofSnapshot, "function");
+  const parent = fs.mkdtempSync(path.join(os.tmpdir(), "mais-stable-proof-"));
+  t.after(() => fs.rmSync(parent, { recursive: true, force: true }));
+  const root = fs.realpathSync(parent);
+  fs.mkdirSync(path.join(root, "normal"));
+  fs.mkdirSync(path.join(root, ".ignored", "cache"), { recursive: true });
+  fs.writeFileSync(path.join(root, "normal", "file.txt"), "alpha\n");
+  fs.writeFileSync(path.join(root, ".ignored", "cache", "generated.bin"), "beta");
+  fs.symlinkSync("normal/file.txt", path.join(root, "link-to-normal"));
+
+  const options = {
+    policies: [{
+      root,
+      trackedRelativePaths: ["gone/tracked.txt", "link-to-normal", "normal/file.txt"]
+    }]
+  };
+  const snapshot = captureStableProofSnapshot(options);
+  const repeated = captureStableProofSnapshot(options);
+  const proof = (relativePath) => snapshot.proofByPath[path.join(root, ...relativePath.split("/"))];
+
+  assert.equal(snapshot.schemaVersion, 1);
+  assert.equal(snapshot.sha256, repeated.sha256);
+  assert.match(snapshot.sha256, /^[0-9a-f]{64}$/u);
+  assert.equal(snapshot.pathCount, snapshot.entries.length);
+  assert.equal(snapshot.regularBytes, 10);
+  assert.equal(Object.getPrototypeOf(snapshot.proofByPath), null);
+  assert.equal(Object.isFrozen(snapshot), true);
+  assert.equal(Object.isFrozen(snapshot.entries), true);
+  assert.equal(Object.isFrozen(snapshot.proofByPath), true);
+  assert.deepEqual(snapshot.entries.map((entry) => entry.path), [...snapshot.entries.map((entry) => entry.path)].sort());
+
+  assert.deepEqual(proof("gone/tracked.txt"), { type: "tombstone" });
+  assert.equal(proof("normal/file.txt").type, "regular-file");
+  assert.equal(proof("normal/file.txt").sha256, crypto.createHash("sha256").update("alpha\n").digest("hex"));
+  assert.equal(proof(".ignored/cache/generated.bin").type, "regular-file");
+  assert.equal(proof("link-to-normal").type, "symlink");
+  assert.equal(proof("link-to-normal").target, "normal/file.txt");
+  assert.deepEqual(snapshot.proofByPath[root].names, [".ignored", "link-to-normal", "normal"]);
+  assert.deepEqual(proof(".ignored/cache").names, ["generated.bin"]);
+  for (const entry of snapshot.entries) {
+    assert.equal(Object.isFrozen(entry), true);
+    assert.equal(Object.isFrozen(entry.proof), true);
+    if (entry.proof.type === "directory") assert.equal(Object.isFrozen(entry.proof.names), true);
+  }
+  assert.throws(() => snapshot.entries.push("forged"), TypeError);
+});
+
+test("Task 3B1 stable proof snapshot rejects unsafe policies traversal duplicates and special files", async (t) => {
+  const { captureStableProofSnapshot } = await import(libraryUrl);
+  assert.equal(typeof captureStableProofSnapshot, "function");
+  const parent = fs.mkdtempSync(path.join(os.tmpdir(), "mais-stable-proof-policy-"));
+  t.after(() => fs.rmSync(parent, { recursive: true, force: true }));
+  const root = fs.realpathSync(parent);
+  const nested = path.join(root, "nested");
+  fs.mkdirSync(nested);
+  fs.writeFileSync(path.join(root, "file.txt"), "x");
+
+  for (const trackedRelativePaths of [
+    ["../escape"],
+    ["/absolute"],
+    ["a//b"],
+    ["duplicate", "duplicate"]
+  ]) {
+    assert.throws(
+      () => captureStableProofSnapshot({ policies: [{ root, trackedRelativePaths }] }),
+      /canonical|relative|duplicate|unsafe/i,
+      JSON.stringify(trackedRelativePaths)
+    );
+  }
+  assert.throws(
+    () => captureStableProofSnapshot({ policies: [{ root: `${root}/.`, trackedRelativePaths: [] }] }),
+    /canonical|real path/i
+  );
+  assert.throws(
+    () => captureStableProofSnapshot({
+      policies: [
+        { root, trackedRelativePaths: [] },
+        { root, trackedRelativePaths: [] }
+      ]
+    }),
+    /duplicate|overlap/i
+  );
+  const nestedPolicies = captureStableProofSnapshot({
+    policies: [
+      { root, trackedRelativePaths: [] },
+      { root: nested, trackedRelativePaths: ["nested-missing.txt"] }
+    ]
+  });
+  assert.deepEqual(nestedPolicies.roots, [root, nested]);
+  assert.equal(
+    new Set(nestedPolicies.entries.map((entry) => entry.path)).size,
+    nestedPolicies.entries.length,
+    "nested worktree roots must not duplicate full-namespace entries"
+  );
+  assert.deepEqual(
+    nestedPolicies.proofByPath[path.join(nested, "nested-missing.txt")],
+    { type: "tombstone" }
+  );
+  fs.symlinkSync("nested", path.join(root, "linked-dir"));
+  assert.throws(
+    () => captureStableProofSnapshot({
+      policies: [{ root, trackedRelativePaths: ["linked-dir/missing.txt"] }]
+    }),
+    /tombstone.*symlink|symlink.*ancestor/i
+  );
+  assert.throws(
+    () => captureStableProofSnapshot({ policies: [{ root, trackedRelativePaths: [] }], maxPaths: 1 }),
+    /path.*limit|maximum.*path/i
+  );
+
+  const fifo = path.join(root, "special.fifo");
+  execFileSync("mkfifo", [fifo]);
+  assert.throws(
+    () => captureStableProofSnapshot({ policies: [{ root, trackedRelativePaths: [] }] }),
+    /special|unsupported.*type|regular.*directory.*symlink/i
+  );
+});
+
+test("Task 3B1 stable proof snapshot fails closed on regular directory and root races without fd leaks", async (t) => {
+  const { captureStableProofSnapshot } = await import(libraryUrl);
+  assert.equal(typeof captureStableProofSnapshot, "function");
+  const parents = [];
+  t.after(() => {
+    for (const parent of parents) fs.rmSync(parent, { recursive: true, force: true });
+  });
+  const fixture = () => {
+    const parent = fs.mkdtempSync(path.join(os.tmpdir(), "mais-stable-proof-race-"));
+    parents.push(parent);
+    const root = fs.realpathSync(parent);
+    fs.mkdirSync(path.join(root, "dir"));
+    fs.writeFileSync(path.join(root, "dir", "file.txt"), "stable\n");
+    return { parent, root };
+  };
+  const fdCount = () => fs.readdirSync("/dev/fd").length;
+  const beforeFds = fdCount();
+
+  {
+    const { root } = fixture();
+    let fired = false;
+    assert.throws(() => captureStableProofSnapshot({
+      policies: [{ root, trackedRelativePaths: ["dir/file.txt"] }],
+      hooks: {
+        afterRegularRead: ({ absolutePath }) => {
+          if (!fired && absolutePath === path.join(root, "dir", "file.txt")) {
+            fired = true;
+            fs.writeFileSync(absolutePath, "stable\n");
+          }
+        }
+      }
+    }), /changed|stable|ctime|observation/i);
+    assert.equal(fired, true);
+  }
+  {
+    const { root } = fixture();
+    let fired = false;
+    assert.throws(() => captureStableProofSnapshot({
+      policies: [{ root, trackedRelativePaths: ["dir/file.txt"] }],
+      hooks: {
+        afterRegularRead: ({ absolutePath }) => {
+          if (!fired && absolutePath === path.join(root, "dir", "file.txt")) {
+            fired = true;
+            fs.renameSync(absolutePath, `${absolutePath}.held-old`);
+            fs.writeFileSync(absolutePath, "stable\n");
+          }
+        }
+      }
+    }), /changed|identity|inode|visible/i);
+    assert.equal(fired, true);
+  }
+  {
+    const { root } = fixture();
+    let fired = false;
+    assert.throws(() => captureStableProofSnapshot({
+      policies: [{ root, trackedRelativePaths: [] }],
+      hooks: {
+        afterDirectoryRead: ({ absolutePath }) => {
+          if (!fired && absolutePath === path.join(root, "dir")) {
+            fired = true;
+            const transient = path.join(absolutePath, "transient");
+            fs.writeFileSync(transient, "x");
+            fs.unlinkSync(transient);
+          }
+        }
+      }
+    }), /changed|stable|directory|namespace/i);
+    assert.equal(fired, true);
+  }
+  {
+    const { root } = fixture();
+    let fired = false;
+    assert.throws(() => captureStableProofSnapshot({
+      policies: [{ root, trackedRelativePaths: [] }],
+      hooks: {
+        beforeRootFinalValidation: ({ absolutePath }) => {
+          if (!fired && absolutePath === root) {
+            fired = true;
+            const heldOld = `${root}.held-old`;
+            fs.renameSync(root, heldOld);
+            parents.push(heldOld);
+            fs.mkdirSync(root);
+          }
+        }
+      }
+    }), /root.*changed|anchor|identity|inode/i);
+    assert.equal(fired, true);
+  }
+  assert.ok(fdCount() <= beforeFds + 2, `descriptor leak: before=${beforeFds} after=${fdCount()}`);
+});
+
+test("Task 3B1 stable proof snapshot never opens a root-external file through an ancestor symlink race", async (t) => {
+  const { captureStableProofSnapshot } = await import(libraryUrl);
+  const parent = fs.mkdtempSync(path.join(os.tmpdir(), "mais-stable-proof-escape-race-"));
+  t.after(() => fs.rmSync(parent, { recursive: true, force: true }));
+  const rootPath = path.join(parent, "root");
+  const outside = path.join(parent, "outside");
+  fs.mkdirSync(rootPath);
+  const root = fs.realpathSync(rootPath);
+  const nested = path.join(root, "nested");
+  fs.mkdirSync(outside);
+  fs.mkdirSync(nested);
+  fs.writeFileSync(path.join(nested, "secret.txt"), "inside\n");
+  fs.writeFileSync(path.join(outside, "secret.txt"), "must-not-open\n");
+  fs.chmodSync(path.join(outside, "secret.txt"), 0o000);
+
+  let seamInvoked = false;
+  let failure;
+  try {
+    captureStableProofSnapshot({
+      hooks: {
+        afterDirectoryRead(event) {
+          if (seamInvoked || (event.absolutePath ?? event.path) !== nested) return;
+          seamInvoked = true;
+          fs.renameSync(nested, `${nested}.held-original`);
+          fs.symlinkSync(outside, nested, "dir");
+        }
+      },
+      policies: [{ root, trackedRelativePaths: [] }]
+    });
+  } catch (error) {
+    failure = error;
+  }
+  assert.equal(seamInvoked, true);
+  assert.ok(failure instanceof Error, "the ancestor replacement must fail closed");
+  assert.match(failure.message, /stable proof|snapshot|namespace|identity|changed|rebind/i);
+  assert.doesNotMatch(
+    `${failure.code ?? ""} ${failure.message}`,
+    /EACCES|EPERM|permission denied/i,
+    "the failure must occur without opening the root-external unreadable file"
+  );
+});
+
+test("Task 3B1 stable proof snapshot captures 15000 real files with bounded runtime heap and descriptors", {
+  timeout: 40_000
+}, () => {
+  const script = String.raw`
+    import fs from "node:fs";
+    import os from "node:os";
+    import path from "node:path";
+    import { captureStableProofSnapshot } from ${JSON.stringify(libraryUrl)};
+    const parent = fs.mkdtempSync(path.join(os.tmpdir(), "mais-stable-proof-scale-"));
+    try {
+      const root = fs.realpathSync(parent);
+      for (let directory = 0; directory < 150; directory += 1) {
+        const dir = path.join(root, "d" + String(directory).padStart(3, "0"));
+        fs.mkdirSync(dir);
+        for (let file = 0; file < 100; file += 1) {
+          fs.writeFileSync(path.join(dir, "f" + String(file).padStart(3, "0")), "x");
+        }
+      }
+      global.gc();
+      const beforeHeap = process.memoryUsage().heapUsed;
+      const beforeFds = fs.readdirSync("/dev/fd").length;
+      const started = performance.now();
+      const first = captureStableProofSnapshot({ policies: [{ root, trackedRelativePaths: [] }] });
+      const second = captureStableProofSnapshot({ policies: [{ root, trackedRelativePaths: [] }] });
+      const elapsedMs = performance.now() - started;
+      global.gc();
+      process.stdout.write(JSON.stringify({
+        elapsedMs,
+        fdDelta: fs.readdirSync("/dev/fd").length - beforeFds,
+        heapDelta: process.memoryUsage().heapUsed - beforeHeap,
+        helperPeakRssBytes: Math.max(first.helperPeakRssBytes, second.helperPeakRssBytes),
+        pathCount: first.pathCount,
+        regularBytes: first.regularBytes,
+        repeatMatches: first.sha256 === second.sha256
+      }));
+    } finally {
+      fs.rmSync(parent, { recursive: true, force: true });
+    }
+  `;
+  const child = spawnSync(process.execPath, ["--expose-gc", "--input-type=module", "-e", script], {
+    encoding: "utf8",
+    maxBuffer: 1024 * 1024,
+    timeout: 35_000
+  });
+  assert.equal(child.status, 0, child.stderr || child.stdout);
+  const observed = JSON.parse(child.stdout);
+  assert.equal(observed.pathCount, 15_151);
+  assert.equal(observed.regularBytes, 15_000);
+  assert.equal(observed.repeatMatches, true);
+  assert.ok(observed.fdDelta <= 2, JSON.stringify(observed));
+  assert.ok(observed.heapDelta <= 128 * 1024 * 1024, JSON.stringify(observed));
+  assert.ok(observed.helperPeakRssBytes <= 512 * 1024 * 1024, JSON.stringify(observed));
+  assert.ok(observed.elapsedMs <= 25_000, JSON.stringify(observed));
+});
+
 test("typed FSEvents ACK wait decision binds acceptance to the owned child lifecycle", async () => {
   const { decideTypedFseventsAcknowledgementWait } = await import(libraryUrl);
   const decide = (overrides = {}) => decideTypedFseventsAcknowledgementWait({
@@ -12768,4 +13076,293 @@ test("typed FSEvents native helper compiles reproducibly rejects unsafe config a
   assert.equal(BigInt(fs.statSync(journalPath).size), stopped.journalHighWater);
   assert.equal(sha256Buffer(fs.readFileSync(TYPED_FSEVENTS_HELPER_SOURCE_PATH)), sourceSha256);
   assert.equal(sha256Buffer(fs.readFileSync(binaryA)), binarySha256);
+});
+
+function makeStableProofTestRoot(t, label) {
+  const parent = fs.mkdtempSync(path.join(os.tmpdir(), `mais-stable-proof-${label}-`));
+  t.after(() => fs.rmSync(parent, { force: true, recursive: true }));
+  const root = path.join(parent, "root");
+  fs.mkdirSync(root);
+  return { parent, root: fs.realpathSync(root) };
+}
+
+function stableProofEntryMap(snapshot) {
+  return new Map(snapshot.entries.map((entry) => [entry.path, entry.proof]));
+}
+
+function stableProofOpenDescriptorCount() {
+  return fs.readdirSync("/dev/fd").length;
+}
+
+test("stable proof snapshot export and complete ignored generated tombstone namespace", async (t) => {
+  const { captureStableProofSnapshot } = await import(libraryUrl);
+  assert.equal(typeof captureStableProofSnapshot, "function", "captureStableProofSnapshot export is missing");
+  const { root } = makeStableProofTestRoot(t, "complete");
+  fs.writeFileSync(path.join(root, ".gitignore"), "ignored/\n");
+  fs.mkdirSync(path.join(root, "ignored", "generated"), { recursive: true });
+  fs.writeFileSync(path.join(root, "ignored", "generated", "cache.bin"), "cache\n");
+  fs.writeFileSync(path.join(root, "tracked.txt"), "tracked\n");
+  const policy = Object.freeze({
+    root,
+    trackedRelativePaths: Object.freeze(["missing.txt", "tracked.txt"])
+  });
+  const snapshot = captureStableProofSnapshot({ policies: [policy] });
+  const byPath = stableProofEntryMap(snapshot);
+  const expectedPaths = [
+    root,
+    path.join(root, ".gitignore"),
+    path.join(root, "ignored"),
+    path.join(root, "ignored", "generated"),
+    path.join(root, "ignored", "generated", "cache.bin"),
+    path.join(root, "missing.txt"),
+    path.join(root, "tracked.txt")
+  ].sort((left, right) => Buffer.compare(Buffer.from(left), Buffer.from(right)));
+  assert.deepEqual(snapshot.entries.map((entry) => entry.path), expectedPaths);
+  assert.equal(snapshot.pathCount, expectedPaths.length);
+  assert.equal(snapshot.regularBytes, Buffer.byteLength("ignored/\ncache\ntracked\n"));
+  assert.match(snapshot.sha256, /^[0-9a-f]{64}$/u);
+  assert.deepEqual(byPath.get(path.join(root, "missing.txt")), { type: "tombstone" });
+  assert.equal(byPath.get(path.join(root, "ignored", "generated", "cache.bin")).type, "regular-file");
+  assert.equal(snapshot.lookup(path.join(root, "tracked.txt")), byPath.get(path.join(root, "tracked.txt")));
+  assert.ok(Object.isFrozen(snapshot));
+  assert.ok(Object.isFrozen(snapshot.entries));
+  assert.ok(Object.isFrozen(snapshot.entries[0]));
+  assert.ok(Object.isFrozen(snapshot.entries[0].proof));
+  assert.ok(Object.isFrozen(snapshot.lookup));
+  assert.ok(Object.isFrozen(snapshot.policies));
+});
+
+test("stable proof snapshot records symlink and directory types without traversal and rejects specials", async (t) => {
+  const { captureStableProofSnapshot } = await import(libraryUrl);
+  assert.equal(typeof captureStableProofSnapshot, "function", "captureStableProofSnapshot export is missing");
+  const { parent, root } = makeStableProofTestRoot(t, "types");
+  const outside = path.join(parent, "outside");
+  fs.mkdirSync(outside);
+  fs.writeFileSync(path.join(outside, "secret.txt"), "outside\n");
+  fs.symlinkSync("../outside", path.join(root, "link"));
+  fs.mkdirSync(path.join(root, "directory"));
+  const snapshot = captureStableProofSnapshot({ policies: [{ root, trackedRelativePaths: [] }] });
+  const byPath = stableProofEntryMap(snapshot);
+  assert.equal(byPath.get(root).type, "directory");
+  assert.equal(byPath.get(path.join(root, "link")).type, "symlink");
+  assert.equal(byPath.get(path.join(root, "link")).target, "../outside");
+  assert.equal(byPath.has(path.join(root, "link", "secret.txt")), false);
+  const fifo = path.join(root, "special.fifo");
+  const madeFifo = spawnSync("mkfifo", [fifo], { encoding: "utf8" });
+  assert.equal(madeFifo.status, 0, madeFifo.stderr);
+  assert.throws(
+    () => captureStableProofSnapshot({ policies: [{ root, trackedRelativePaths: [] }] }),
+    /special|regular file|directory|symlink|unsupported/i
+  );
+});
+
+test("stable proof snapshot fails closed on deterministic regular pwrite write-restore and rename races", async (t) => {
+  const { captureStableProofSnapshot } = await import(libraryUrl);
+  assert.equal(typeof captureStableProofSnapshot, "function", "captureStableProofSnapshot export is missing");
+  const scenarios = [
+    ["pwrite", (target) => {
+      const descriptor = fs.openSync(target, "r+");
+      try { fs.writeSync(descriptor, Buffer.from("Z"), 0, 1, 0); } finally { fs.closeSync(descriptor); }
+    }],
+    ["write-restore", (target, original, baseline) => {
+      fs.writeFileSync(target, "temporary replacement bytes\n");
+      fs.writeFileSync(target, original);
+      fs.utimesSync(target, baseline.atime, baseline.mtime);
+    }],
+    ["visible-rename", (target, original) => {
+      fs.renameSync(target, `${target}.held-original`);
+      fs.writeFileSync(target, original);
+    }]
+  ];
+  for (const [label, mutate] of scenarios) {
+    await t.test(label, () => {
+      const { root } = makeStableProofTestRoot(t, `race-${label}`);
+      const target = path.join(root, "target.txt");
+      const original = Buffer.from("original stable bytes\n");
+      fs.writeFileSync(target, original);
+      const baseline = fs.statSync(target);
+      const descriptorCount = stableProofOpenDescriptorCount();
+      let seamInvoked = false;
+      assert.throws(() => captureStableProofSnapshot({
+        hooks: {
+          afterRegularRead(event) {
+            if (event.path !== target) return;
+            seamInvoked = true;
+            mutate(target, original, baseline);
+          }
+        },
+        policies: [{ root, trackedRelativePaths: ["target.txt"] }]
+      }), /changed|rebind|stable|observation|namespace/i);
+      assert.equal(seamInvoked, true);
+      assert.ok(stableProofOpenDescriptorCount() <= descriptorCount + 1);
+    });
+  }
+});
+
+test("stable proof snapshot fails closed on deterministic directory and root races", async (t) => {
+  const { captureStableProofSnapshot } = await import(libraryUrl);
+  assert.equal(typeof captureStableProofSnapshot, "function", "captureStableProofSnapshot export is missing");
+  const directoryFixture = makeStableProofTestRoot(t, "directory-race");
+  const directory = path.join(directoryFixture.root, "nested");
+  fs.mkdirSync(directory);
+  fs.writeFileSync(path.join(directory, "before.txt"), "before\n");
+  let directorySeamInvoked = false;
+  assert.throws(() => captureStableProofSnapshot({
+    hooks: {
+      afterDirectoryRead(event) {
+        if (event.path !== directory) return;
+        directorySeamInvoked = true;
+        fs.writeFileSync(path.join(directory, "after.txt"), "after\n");
+      }
+    },
+    policies: [{ root: directoryFixture.root, trackedRelativePaths: [] }]
+  }), /directory|namespace|changed|stable/i);
+  assert.equal(directorySeamInvoked, true);
+
+  const rootFixture = makeStableProofTestRoot(t, "root-race");
+  fs.writeFileSync(path.join(rootFixture.root, "file.txt"), "root\n");
+  const moved = `${rootFixture.root}.held-original`;
+  let rootSeamInvoked = false;
+  assert.throws(() => captureStableProofSnapshot({
+    hooks: {
+      beforeRootRevalidate(event) {
+        if (event.path !== rootFixture.root) return;
+        rootSeamInvoked = true;
+        fs.renameSync(rootFixture.root, moved);
+        fs.mkdirSync(rootFixture.root);
+      }
+    },
+    policies: [{ root: rootFixture.root, trackedRelativePaths: [] }]
+  }), /root|anchor|rebind|changed|stable/i);
+  assert.equal(rootSeamInvoked, true);
+});
+
+test("stable proof snapshot rejects noncanonical escaping duplicate and over-cap policies", async (t) => {
+  const { captureStableProofSnapshot } = await import(libraryUrl);
+  assert.equal(typeof captureStableProofSnapshot, "function", "captureStableProofSnapshot export is missing");
+  const { root } = makeStableProofTestRoot(t, "policy");
+  fs.writeFileSync(path.join(root, "present.txt"), "present\n");
+  const capture = (policies, options = {}) => captureStableProofSnapshot({ policies, ...options });
+  assert.throws(() => capture([{ root: `${root}${path.sep}.`, trackedRelativePaths: [] }]), /canonical.*root|root.*canonical/i);
+  assert.throws(() => capture([{ root: path.join(root, "absent"), trackedRelativePaths: [] }]), /existing|root|ENOENT/i);
+  assert.throws(() => capture([{ root, trackedRelativePaths: ["../escape"] }]), /tracked|relative|canonical|escape/i);
+  assert.throws(() => capture([{ root, trackedRelativePaths: ["/absolute"] }]), /tracked|relative|canonical/i);
+  assert.throws(() => capture([{ root, trackedRelativePaths: ["back\\slash"] }]), /tracked|relative|canonical/i);
+  assert.throws(() => capture([{ root, trackedRelativePaths: ["missing/"] }]), /tracked|relative|canonical/i);
+  assert.throws(
+    () => capture([{ root, trackedRelativePaths: [`${"a/".repeat(1_024)}missing`] }]),
+    /tombstone depth|depth.*hard cap/i
+  );
+  assert.throws(() => capture([{
+    root,
+    trackedRelativePaths: [`long-${"x".repeat(4_096)}`]
+  }]), /byte cap|tracked.*path/i);
+  assert.throws(() => capture([{ root, trackedRelativePaths: ["same", "same"] }]), /duplicate.*tracked|tracked.*duplicate/i);
+  assert.throws(() => capture([
+    { root, trackedRelativePaths: [] },
+    { root, trackedRelativePaths: [] }
+  ]), /duplicate.*root|root.*duplicate/i);
+  assert.throws(
+    () => capture(Array.from({ length: 4_097 }, () => ({ root, trackedRelativePaths: [] }))),
+    /4096|polic.*hard cap/i
+  );
+  assert.throws(() => capture([{ root, trackedRelativePaths: [] }], { maxPaths: 600_001 }), /600000|hard.*cap|maxPaths/i);
+  const unreadable = path.join(root, "blocked.txt");
+  fs.writeFileSync(unreadable, "must not be opened\n");
+  fs.chmodSync(unreadable, 0o000);
+  assert.throws(() => capture([{ root, trackedRelativePaths: [] }], { maxPaths: 1 }), /path.*limit|maxPaths|cap/i);
+});
+
+test("stable proof snapshot binds canonical policy and UTF-8 byte order into its fingerprint", async (t) => {
+  const { captureStableProofSnapshot } = await import(libraryUrl);
+  const { root } = makeStableProofTestRoot(t, "policy-fingerprint");
+  const present = path.join(root, "present.txt");
+  fs.writeFileSync(present, "present\n");
+  fs.writeFileSync(path.join(root, "z.txt"), "z\n");
+  fs.writeFileSync(path.join(root, "é.txt"), "accent\n");
+  fs.writeFileSync(path.join(root, "\uE000.txt"), "private-use\n");
+  fs.writeFileSync(path.join(root, "\u{10000}.txt"), "astral\n");
+  const withoutTrackedPolicy = captureStableProofSnapshot({
+    policies: [{ root, trackedRelativePaths: [] }]
+  });
+  const withTrackedPolicy = captureStableProofSnapshot({
+    policies: [{ root, trackedRelativePaths: ["present.txt"] }]
+  });
+  assert.notEqual(withoutTrackedPolicy.sha256, withTrackedPolicy.sha256);
+  assert.deepEqual(withTrackedPolicy.policies, [{ root, trackedRelativePaths: ["present.txt"] }]);
+  assert.ok(Object.isFrozen(withTrackedPolicy.policies));
+  assert.ok(Object.isFrozen(withTrackedPolicy.policies[0]));
+  assert.ok(Object.isFrozen(withTrackedPolicy.policies[0].trackedRelativePaths));
+  assert.deepEqual(
+    withTrackedPolicy.lookup(root).names,
+    ["present.txt", "z.txt", "é.txt", "\uE000.txt", "\u{10000}.txt"],
+    "UTF-8 byte ordering must differ from a default UTF-16 .sort() regression"
+  );
+  fs.writeFileSync(present, "changed\n");
+  const changed = captureStableProofSnapshot({
+    policies: [{ root, trackedRelativePaths: ["present.txt"] }]
+  });
+  assert.notEqual(withTrackedPolicy.sha256, changed.sha256);
+});
+
+test("stable proof snapshot detects a symlink target mutation through the unified hook seam", async (t) => {
+  const { captureStableProofSnapshot } = await import(libraryUrl);
+  const { root } = makeStableProofTestRoot(t, "symlink-race");
+  fs.writeFileSync(path.join(root, "target-a"), "a\n");
+  fs.writeFileSync(path.join(root, "target-b"), "b\n");
+  const link = path.join(root, "link");
+  fs.symlinkSync("target-a", link);
+  let seamInvoked = false;
+  assert.throws(() => captureStableProofSnapshot({
+    hooks: {
+      afterSymlinkRead(event) {
+        if (event.path !== link) return;
+        seamInvoked = true;
+        fs.unlinkSync(link);
+        fs.symlinkSync("target-b", link);
+      }
+    },
+    policies: [{ root, trackedRelativePaths: [] }]
+  }), /stable proof|snapshot|namespace|changed/i);
+  assert.equal(seamInvoked, true);
+});
+
+test("stable proof snapshot rejects a huge sparse file before reading content", async (t) => {
+  const { captureStableProofSnapshot } = await import(libraryUrl);
+  const { root } = makeStableProofTestRoot(t, "huge-file-cap");
+  const huge = path.join(root, "huge.bin");
+  fs.writeFileSync(huge, "");
+  fs.truncateSync(huge, (8 * 1024 * 1024 * 1024) + 1);
+  assert.throws(
+    () => captureStableProofSnapshot({ policies: [{ root, trackedRelativePaths: [] }] }),
+    /per-file byte cap|file.*cap/i
+  );
+});
+
+test("stable proof snapshot captures 15000 real files with repeatable fingerprint and bounded resources", async (t) => {
+  const { captureStableProofSnapshot } = await import(libraryUrl);
+  assert.equal(typeof captureStableProofSnapshot, "function", "captureStableProofSnapshot export is missing");
+  const { root } = makeStableProofTestRoot(t, "scale");
+  const bulk = path.join(root, "bulk");
+  fs.mkdirSync(bulk);
+  for (let index = 0; index < 15_000; index += 1) {
+    fs.writeFileSync(path.join(bulk, `${String(index).padStart(5, "0")}.txt`), "x");
+  }
+  const policy = { root, trackedRelativePaths: [] };
+  const descriptorsBefore = stableProofOpenDescriptorCount();
+  const heapBefore = process.memoryUsage().heapUsed;
+  const startedAt = performance.now();
+  const first = captureStableProofSnapshot({ policies: [policy] });
+  const second = captureStableProofSnapshot({ policies: [policy] });
+  const elapsedMs = performance.now() - startedAt;
+  const heapGrowth = process.memoryUsage().heapUsed - heapBefore;
+  assert.equal(first.pathCount, 15_002);
+  assert.equal(first.regularBytes, 15_000);
+  assert.equal(first.sha256, second.sha256);
+  assert.equal(first.lookup(path.join(bulk, "00000.txt")).type, "regular-file");
+  assert.ok(first.helperPeakRssBytes <= 512 * 1024 * 1024, `helper RSS ${first.helperPeakRssBytes}`);
+  assert.ok(second.helperPeakRssBytes <= 512 * 1024 * 1024, `helper RSS ${second.helperPeakRssBytes}`);
+  assert.ok(elapsedMs < 30_000, `two 15000-file snapshots took ${elapsedMs.toFixed(1)} ms`);
+  assert.ok(heapGrowth < 128 * 1024 * 1024, `snapshot heap grew by ${heapGrowth} bytes`);
+  assert.ok(stableProofOpenDescriptorCount() <= descriptorsBefore + 1);
 });
