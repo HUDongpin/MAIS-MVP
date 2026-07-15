@@ -13459,7 +13459,8 @@ function task3b2ReadExtension(library, {
   exactMetadataPaths = [],
   exactMetadataRoots = [],
   priorCheckpoint,
-  priorSnapshot
+  priorSnapshot,
+  trustedGitCommonDir = null
 }) {
   return library.readAndValidateJournalExtension({
     candidateSnapshot,
@@ -13468,7 +13469,8 @@ function task3b2ReadExtension(library, {
     exactMetadataPaths,
     exactMetadataRoots,
     priorCheckpoint,
-    priorSnapshot
+    priorSnapshot,
+    trustedGitCommonDir
   });
 }
 
@@ -13545,11 +13547,12 @@ function task3b2SetXattr(target, value) {
   ], { stdio: ["ignore", "ignore", "pipe"] });
 }
 
-function task3b2ReachFixedPoint(library, t, label) {
+function task3b2ReachFixedPoint(library, t, label, prepareRoot = null) {
   const { root } = makeStableProofTestRoot(t, `task3b2-${label}`);
   const scratch = task3b2Scratch(t, label);
   const target = path.join(root, "source.txt");
   fs.writeFileSync(target, "stable source\n");
+  if (prepareRoot !== null) prepareRoot({ root, target });
   let snapshot = task3b2Capture(library, root);
   const baseline = task3b2NormalizeEndpoint(library, scratch, {
     root,
@@ -14190,13 +14193,18 @@ test("Task 3B2 correlates changed paths and freezes the bounded metadata policy"
     const secondEndpoint = task3b2NormalizeEndpoint(library, scratch, {
       root, sequence: 3n, type: 2
     }).endpoint;
-    assert.throws(() => task3b2ReadExtension(library, {
+    const driftExtension = task3b2ReadExtension(library, {
       candidateSnapshot: secondSnapshot,
       endpoint: secondEndpoint,
       eventRoots: [root],
       exactMetadataPaths: [approvedMetadataPath],
       priorCheckpoint: firstExtension.checkpoint,
       priorSnapshot: firstSnapshot
+    });
+    assert.throws(() => library.reconcileFixedPoint({
+      previous: firstState,
+      extension: driftExtension,
+      observedAtNs: 3_000n
     }), /metadata.*policy|policy.*changed|fingerprint|pending evidence/i);
 
     const cappedSnapshot = task3b2Capture(library, root);
@@ -14207,7 +14215,7 @@ test("Task 3B2 correlates changed paths and freezes the bounded metadata policy"
       candidateSnapshot: cappedSnapshot,
       endpoint: cappedEndpoint,
       eventRoots: [root],
-      exactMetadataPaths: Array(7).fill(approvedMetadataPath),
+      exactMetadataPaths: Array(8).fill(approvedMetadataPath),
       priorCheckpoint: firstExtension.checkpoint,
       priorSnapshot: firstSnapshot
     }), /count cap|exceeds|metadata policy/i);
@@ -14755,13 +14763,22 @@ test("Task 3B2 terminal attestation binds schema session policy snapshot and eve
       sequence: 5n,
       type: 3
     }).endpoint;
-    assert.throws(() => task3b2ReadExtension(library, {
+    const terminalExtension = task3b2ReadExtension(library, {
       candidateSnapshot: terminalSnapshot,
       endpoint,
       eventRoots: [fixed.root],
       exactMetadataPaths: [path.join(fixed.root, library.TRANSACTION_METADATA_PATHS[0])],
       priorCheckpoint: fixed.checkpoint,
       priorSnapshot: fixed.snapshot
+    });
+    assert.throws(() => library.sealTerminal({
+      reconciliation: fixed.reconciliation,
+      terminalExtension,
+      terminalAttestation: task3b2TerminalAttestation(
+        terminalExtension,
+        fixed.reconciliation
+      ),
+      sealedAtNs: 20_000n
     }), /metadata.*policy|policy.*changed|fingerprint|pending evidence/i);
   });
 
@@ -15108,4 +15125,805 @@ test("Task 3B2 enforces eight-round and five-minute fixed-point boundaries", asy
       observedAtNs: startedAtNs + 300_000_000_001n
     }), /deadline|five.minute|time|300000000000/i);
   });
+});
+
+test("Task 3B3A fixed successor cycles reset local bounds and preserve cumulative state", async (t) => {
+  const library = await import(libraryUrl);
+  const fixed = task3b2ReachFixedPoint(library, t, "cycle-restart");
+  const journal = typedFseventsJournalRecord({
+    sequence: 1n,
+    eventId: 501n,
+    flags: 0x11400,
+    path: fixed.target
+  });
+  fs.writeFileSync(fixed.target, "cycle mutation\n");
+  let candidateSnapshot = task3b2Capture(library, fixed.root);
+  let endpoint = task3b2NormalizeEndpoint(library, fixed.scratch, {
+    entryCount: 1n,
+    journal,
+    lastEventId: 501n,
+    root: fixed.root,
+    sequence: 4n,
+    type: 2
+  }).endpoint;
+  let extension = task3b2ReadExtension(library, {
+    candidateSnapshot,
+    endpoint,
+    eventRoots: [fixed.root],
+    priorCheckpoint: fixed.checkpoint,
+    priorSnapshot: fixed.snapshot
+  });
+  let proposal = library.reconcileFixedPoint({
+    previous: fixed.reconciliation,
+    cycleStartedAtNs: 20_000n,
+    extension,
+    observedAtNs: 20_001n
+  });
+  let state = library.commitReconciliation({ proposal, committedAtNs: 20_002n });
+  assert.equal(state.phase, "reconciling");
+  assert.equal(state.roundCount, 1n);
+  assert.equal(state.consecutiveExactRounds, 0n);
+  assert.equal(state.startedAtNs, 20_000n);
+  assert.equal(state.sourceEpoch, fixed.reconciliation.sourceEpoch + 1n);
+  assert.equal(state.counters.sourceEventCount, 1n);
+  assert.equal(state.journalFirstEventId, 501n);
+  assert.equal(state.journalLastEventId, 501n);
+
+  let priorSnapshot = candidateSnapshot;
+  let priorCheckpoint = extension.checkpoint;
+  for (const sequence of [5n, 6n, 7n]) {
+    candidateSnapshot = task3b2Capture(library, fixed.root);
+    endpoint = task3b2NormalizeEndpoint(library, fixed.scratch, {
+      entryCount: 1n,
+      journal,
+      lastEventId: 501n,
+      root: fixed.root,
+      sequence,
+      type: 2
+    }).endpoint;
+    extension = task3b2ReadExtension(library, {
+      candidateSnapshot,
+      endpoint,
+      eventRoots: [fixed.root],
+      priorCheckpoint,
+      priorSnapshot
+    });
+    proposal = library.reconcileFixedPoint({
+      previous: state,
+      extension,
+      observedAtNs: 20_000n + (sequence * 100n)
+    });
+    state = library.commitReconciliation({
+      proposal,
+      committedAtNs: 20_001n + (sequence * 100n)
+    });
+    priorSnapshot = candidateSnapshot;
+    priorCheckpoint = extension.checkpoint;
+  }
+  assert.equal(state.phase, "fixed-point");
+  assert.equal(state.roundCount, 4n);
+  assert.equal(state.consecutiveExactRounds, 2n);
+
+  const cumulative = {
+    checkpoint: state.checkpoint,
+    counters: state.counters,
+    journalFirstEventId: state.journalFirstEventId,
+    journalLastEventId: state.journalLastEventId,
+    journalSessionFingerprint: state.journalSessionFingerprint,
+    metadataEpoch: state.metadataEpoch,
+    metadataPolicyFingerprint: state.metadataPolicyFingerprint,
+    snapshotSha256: state.snapshotSha256,
+    sourceEpoch: state.sourceEpoch,
+    xattrEpoch: state.xattrEpoch
+  };
+  candidateSnapshot = task3b2Capture(library, fixed.root);
+  endpoint = task3b2NormalizeEndpoint(library, fixed.scratch, {
+    entryCount: 1n,
+    journal,
+    lastEventId: 501n,
+    root: fixed.root,
+    sequence: 8n,
+    type: 2
+  }).endpoint;
+  extension = task3b2ReadExtension(library, {
+    candidateSnapshot,
+    endpoint,
+    eventRoots: [fixed.root],
+    priorCheckpoint,
+    priorSnapshot
+  });
+  proposal = library.reconcileFixedPoint({
+    previous: state,
+    cycleStartedAtNs: 30_000n,
+    extension,
+    observedAtNs: 30_001n
+  });
+  assert.equal(proposal.roundCount, 1n);
+  assert.equal(proposal.consecutiveExactRounds, 1n);
+  assert.equal(proposal.startedAtNs, 30_000n);
+  assert.equal(proposal.endpointSequence, 8n);
+  assert.deepEqual(proposal.checkpoint, cumulative.checkpoint);
+  assert.deepEqual(proposal.counters, cumulative.counters);
+  for (const key of [
+    "journalFirstEventId",
+    "journalLastEventId",
+    "journalSessionFingerprint",
+    "metadataEpoch",
+    "metadataPolicyFingerprint",
+    "snapshotSha256",
+    "sourceEpoch",
+    "xattrEpoch"
+  ]) assert.equal(proposal[key], cumulative[key], key);
+});
+
+test("Task 3B3A cycle restart enforces exact sequence and phase-bound start input", async (t) => {
+  const library = await import(libraryUrl);
+  const fixedSuccessor = (subtest, label) => {
+    const fixed = task3b2ReachFixedPoint(library, subtest, label);
+    const candidateSnapshot = task3b2Capture(library, fixed.root);
+    const endpoint = task3b2NormalizeEndpoint(library, fixed.scratch, {
+      root: fixed.root, sequence: 4n, type: 2
+    }).endpoint;
+    const extension = task3b2ReadExtension(library, {
+      candidateSnapshot,
+      endpoint,
+      eventRoots: [fixed.root],
+      priorCheckpoint: fixed.checkpoint,
+      priorSnapshot: fixed.snapshot
+    });
+    return { extension, fixed };
+  };
+  await t.test("a fixed successor requires cycleStartedAtNs", (subtest) => {
+    const fixed = task3b2ReachFixedPoint(library, subtest, "fixed-needs-cycle-start");
+    const candidateSnapshot = task3b2Capture(library, fixed.root);
+    const endpoint = task3b2NormalizeEndpoint(library, fixed.scratch, {
+      root: fixed.root, sequence: 4n, type: 2
+    }).endpoint;
+    const extension = task3b2ReadExtension(library, {
+      candidateSnapshot,
+      endpoint,
+      eventRoots: [fixed.root],
+      priorCheckpoint: fixed.checkpoint,
+      priorSnapshot: fixed.snapshot
+    });
+    assert.throws(() => library.reconcileFixedPoint({
+      previous: fixed.reconciliation,
+      extension,
+      observedAtNs: 20_001n
+    }), /cycle|start|fixed|successor/i);
+  });
+  await t.test("a reconciling successor rejects cycleStartedAtNs", (subtest) => {
+    const { root } = makeStableProofTestRoot(subtest, "task3b3a-mid-cycle-start");
+    const scratch = task3b2Scratch(subtest, "mid-cycle-start");
+    fs.writeFileSync(path.join(root, "source.txt"), "stable\n");
+    const baselineSnapshot = task3b2Capture(library, root);
+    const baseline = task3b2NormalizeEndpoint(library, scratch, {
+      root, sequence: 1n, type: 2
+    }).endpoint;
+    const firstSnapshot = task3b2Capture(library, root);
+    const firstEndpoint = task3b2NormalizeEndpoint(library, scratch, {
+      root, sequence: 2n, type: 2
+    }).endpoint;
+    const firstExtension = task3b2ReadExtension(library, {
+      candidateSnapshot: firstSnapshot,
+      endpoint: firstEndpoint,
+      eventRoots: [root],
+      priorCheckpoint: baseline.checkpoint,
+      priorSnapshot: baselineSnapshot
+    });
+    const firstProposal = library.reconcileFixedPoint({
+      previous: null,
+      baseline: {
+        ackEndpoint: baseline,
+        snapshot: baselineSnapshot,
+        sourceEpoch: 0n,
+        metadataEpoch: 0n,
+        xattrEpoch: 0n,
+        startedAtNs: 1_000n
+      },
+      extension: firstExtension,
+      observedAtNs: 2_000n
+    });
+    const firstState = library.commitReconciliation({
+      proposal: firstProposal,
+      committedAtNs: 2_001n
+    });
+    const secondSnapshot = task3b2Capture(library, root);
+    const secondEndpoint = task3b2NormalizeEndpoint(library, scratch, {
+      root, sequence: 3n, type: 2
+    }).endpoint;
+    const secondExtension = task3b2ReadExtension(library, {
+      candidateSnapshot: secondSnapshot,
+      endpoint: secondEndpoint,
+      eventRoots: [root],
+      priorCheckpoint: firstExtension.checkpoint,
+      priorSnapshot: firstSnapshot
+    });
+    assert.throws(() => library.reconcileFixedPoint({
+      previous: firstState,
+      cycleStartedAtNs: 3_000n,
+      extension: secondExtension,
+      observedAtNs: 3_001n
+    }), /cycle|start|mid|reconcil/i);
+  });
+  await t.test("a fixed successor still requires the exact next FLUSH sequence", (subtest) => {
+    const fixed = task3b2ReachFixedPoint(library, subtest, "fixed-sequence-gap");
+    const candidateSnapshot = task3b2Capture(library, fixed.root);
+    const endpoint = task3b2NormalizeEndpoint(library, fixed.scratch, {
+      root: fixed.root, sequence: 5n, type: 2
+    }).endpoint;
+    const extension = task3b2ReadExtension(library, {
+      candidateSnapshot,
+      endpoint,
+      eventRoots: [fixed.root],
+      priorCheckpoint: fixed.checkpoint,
+      priorSnapshot: fixed.snapshot
+    });
+    assert.throws(() => library.reconcileFixedPoint({
+      previous: fixed.reconciliation,
+      cycleStartedAtNs: 20_000n,
+      extension,
+      observedAtNs: 20_001n
+    }), /sequence|successor|stale|order/i);
+  });
+  await t.test("a restarted cycle cannot predate the prior fixed commit", (subtest) => {
+    const { extension, fixed } = fixedSuccessor(subtest, "fixed-cycle-regression");
+    assert.throws(() => library.reconcileFixedPoint({
+      previous: fixed.reconciliation,
+      cycleStartedAtNs: fixed.reconciliation.committedAtNs - 1n,
+      extension,
+      observedAtNs: fixed.reconciliation.committedAtNs
+    }), /cycle|start|regress|commit/i);
+  });
+  await t.test("a restarted cycle start rejects UInt64 overflow", (subtest) => {
+    const { extension, fixed } = fixedSuccessor(subtest, "fixed-cycle-overflow");
+    assert.throws(() => library.reconcileFixedPoint({
+      previous: fixed.reconciliation,
+      cycleStartedAtNs: 1n << 64n,
+      extension,
+      observedAtNs: 1n << 64n
+    }), /uint64|overflow|range|cycle|start/i);
+  });
+  await t.test("a restarted cycle accepts the inclusive five-minute boundary", (subtest) => {
+    const { extension, fixed } = fixedSuccessor(subtest, "fixed-cycle-deadline-exact");
+    const cycleStartedAtNs = fixed.reconciliation.committedAtNs;
+    const observedAtNs = cycleStartedAtNs + 300_000_000_000n;
+    const proposal = library.reconcileFixedPoint({
+      previous: fixed.reconciliation,
+      cycleStartedAtNs,
+      extension,
+      observedAtNs
+    });
+    assert.equal(proposal.startedAtNs, cycleStartedAtNs);
+    assert.equal(proposal.observedAtNs, observedAtNs);
+  });
+  await t.test("a restarted cycle rejects one nanosecond after five minutes", (subtest) => {
+    const { extension, fixed } = fixedSuccessor(subtest, "fixed-cycle-deadline-overrun");
+    const cycleStartedAtNs = fixed.reconciliation.committedAtNs;
+    assert.throws(() => library.reconcileFixedPoint({
+      previous: fixed.reconciliation,
+      cycleStartedAtNs,
+      extension,
+      observedAtNs: cycleStartedAtNs + 300_000_000_001n
+    }), /deadline|five.minute|time|300000000000/i);
+  });
+});
+
+test("Task 3B3A metadata policy changes only at an empty fixed boundary", async (t) => {
+  const library = await import(libraryUrl);
+  await t.test("an empty fixed boundary may adopt another exact approved policy", (subtest) => {
+    const fixed = task3b2ReachFixedPoint(library, subtest, "fixed-policy-transition");
+    const exactMetadataPaths = [path.join(
+      fixed.root,
+      library.TRANSACTION_METADATA_PATHS[0]
+    )];
+    const candidateSnapshot = task3b2Capture(library, fixed.root);
+    const endpoint = task3b2NormalizeEndpoint(library, fixed.scratch, {
+      root: fixed.root, sequence: 4n, type: 2
+    }).endpoint;
+    const extension = task3b2ReadExtension(library, {
+      candidateSnapshot,
+      endpoint,
+      eventRoots: [fixed.root],
+      exactMetadataPaths,
+      priorCheckpoint: fixed.checkpoint,
+      priorSnapshot: fixed.snapshot
+    });
+    assert.notEqual(
+      extension.metadataPolicyFingerprint,
+      fixed.reconciliation.metadataPolicyFingerprint
+    );
+    const proposal = library.reconcileFixedPoint({
+      previous: fixed.reconciliation,
+      cycleStartedAtNs: 20_000n,
+      extension,
+      observedAtNs: 20_001n
+    });
+    const state = library.commitReconciliation({ proposal, committedAtNs: 20_002n });
+    assert.equal(state.metadataPolicyFingerprint, extension.metadataPolicyFingerprint);
+    assert.equal(state.roundCount, 1n);
+  });
+  await t.test("an empty reconciling boundary cannot change policy", (subtest) => {
+    const { root } = makeStableProofTestRoot(subtest, "task3b3a-mid-policy-transition");
+    const scratch = task3b2Scratch(subtest, "mid-policy-transition");
+    fs.writeFileSync(path.join(root, "source.txt"), "stable\n");
+    const baselineSnapshot = task3b2Capture(library, root);
+    const baseline = task3b2NormalizeEndpoint(library, scratch, {
+      root, sequence: 1n, type: 2
+    }).endpoint;
+    const firstSnapshot = task3b2Capture(library, root);
+    const firstEndpoint = task3b2NormalizeEndpoint(library, scratch, {
+      root, sequence: 2n, type: 2
+    }).endpoint;
+    const firstExtension = task3b2ReadExtension(library, {
+      candidateSnapshot: firstSnapshot,
+      endpoint: firstEndpoint,
+      eventRoots: [root],
+      priorCheckpoint: baseline.checkpoint,
+      priorSnapshot: baselineSnapshot
+    });
+    const firstProposal = library.reconcileFixedPoint({
+      previous: null,
+      baseline: {
+        ackEndpoint: baseline,
+        snapshot: baselineSnapshot,
+        sourceEpoch: 0n,
+        metadataEpoch: 0n,
+        xattrEpoch: 0n,
+        startedAtNs: 1_000n
+      },
+      extension: firstExtension,
+      observedAtNs: 2_000n
+    });
+    const state = library.commitReconciliation({
+      proposal: firstProposal,
+      committedAtNs: 2_001n
+    });
+    const secondSnapshot = task3b2Capture(library, root);
+    const secondEndpoint = task3b2NormalizeEndpoint(library, scratch, {
+      root, sequence: 3n, type: 2
+    }).endpoint;
+    const secondExtension = task3b2ReadExtension(library, {
+      candidateSnapshot: secondSnapshot,
+      endpoint: secondEndpoint,
+      eventRoots: [root],
+      exactMetadataPaths: [path.join(root, library.TRANSACTION_METADATA_PATHS[0])],
+      priorCheckpoint: firstExtension.checkpoint,
+      priorSnapshot: firstSnapshot
+    });
+    assert.throws(() => library.reconcileFixedPoint({
+      previous: state,
+      extension: secondExtension,
+      observedAtNs: 3_000n
+    }), /metadata policy|policy.*changed/i);
+  });
+  await t.test("nonempty pending evidence cannot change policy", (subtest) => {
+    const { root } = makeStableProofTestRoot(subtest, "task3b3a-pending-policy-transition");
+    const scratch = task3b2Scratch(subtest, "pending-policy-transition");
+    const target = path.join(root, "source.txt");
+    fs.writeFileSync(target, "stable\n");
+    const baselineSnapshot = task3b2Capture(library, root);
+    const baseline = task3b2NormalizeEndpoint(library, scratch, {
+      root, sequence: 1n, type: 2
+    }).endpoint;
+    const firstSnapshot = task3b2Capture(library, root);
+    const journal = typedFseventsJournalRecord({
+      sequence: 1n,
+      eventId: 701n,
+      flags: 0x11400,
+      path: target
+    });
+    const firstEndpoint = task3b2NormalizeEndpoint(library, scratch, {
+      entryCount: 1n,
+      journal,
+      lastEventId: 701n,
+      root,
+      sequence: 2n,
+      type: 2
+    }).endpoint;
+    const firstExtension = task3b2ReadExtension(library, {
+      candidateSnapshot: firstSnapshot,
+      endpoint: firstEndpoint,
+      eventRoots: [root],
+      priorCheckpoint: baseline.checkpoint,
+      priorSnapshot: baselineSnapshot
+    });
+    const firstProposal = library.reconcileFixedPoint({
+      previous: null,
+      baseline: {
+        ackEndpoint: baseline,
+        snapshot: baselineSnapshot,
+        sourceEpoch: 0n,
+        metadataEpoch: 0n,
+        xattrEpoch: 0n,
+        startedAtNs: 1_000n
+      },
+      extension: firstExtension,
+      observedAtNs: 2_000n
+    });
+    library.commitReconciliation({ proposal: firstProposal, committedAtNs: 2_001n });
+    const secondSnapshot = task3b2Capture(library, root);
+    const secondEndpoint = task3b2NormalizeEndpoint(library, scratch, {
+      entryCount: 1n,
+      journal,
+      lastEventId: 701n,
+      root,
+      sequence: 3n,
+      type: 2
+    }).endpoint;
+    assert.throws(() => task3b2ReadExtension(library, {
+      candidateSnapshot: secondSnapshot,
+      endpoint: secondEndpoint,
+      eventRoots: [root],
+      exactMetadataPaths: [path.join(root, library.TRANSACTION_METADATA_PATHS[0])],
+      priorCheckpoint: firstExtension.checkpoint,
+      priorSnapshot: firstSnapshot
+    }), /pending evidence|metadata policy|policy.*changed/i);
+  });
+  for (const scenario of [
+    {
+      expectedCounter: "sourceEventCount",
+      flags: 0x11400,
+      label: "source",
+      mutate(fixed) {
+        fs.writeFileSync(fixed.target, "source during policy rebind\n");
+        return fixed.target;
+      }
+    },
+    {
+      expectedCounter: "transactionMetadataEventCount",
+      flags: 0x11400,
+      label: "metadata",
+      mutate(fixed, exactMetadataPath) {
+        fs.mkdirSync(path.dirname(exactMetadataPath), { recursive: true });
+        fs.writeFileSync(exactMetadataPath, "metadata during policy rebind\n");
+        return exactMetadataPath;
+      }
+    },
+    {
+      expectedCounter: "xattrOnlyEventCount",
+      flags: 0x18000,
+      label: "xattr",
+      mutate(fixed) {
+        task3b2SetXattr(fixed.target, "xattr-during-policy-rebind");
+        return fixed.target;
+      }
+    }
+  ]) {
+    await t.test(`a policy rebind rejects a current ${scenario.label} delta`, (subtest) => {
+      const fixed = task3b2ReachFixedPoint(
+        library,
+        subtest,
+        `fixed-policy-${scenario.label}-delta`,
+        scenario.label === "metadata"
+          ? ({ root }) => fs.mkdirSync(path.dirname(path.join(
+            root,
+            library.TRANSACTION_METADATA_PATHS[0]
+          )), { recursive: true })
+          : null
+      );
+      const exactMetadataPath = path.join(
+        fixed.root,
+        library.TRANSACTION_METADATA_PATHS[0]
+      );
+      const eventPath = scenario.mutate(fixed, exactMetadataPath);
+      const candidateSnapshot = task3b2Capture(library, fixed.root);
+      const journal = typedFseventsJournalRecord({
+        sequence: 1n,
+        eventId: 720n,
+        flags: scenario.flags,
+        path: eventPath
+      });
+      const endpoint = task3b2NormalizeEndpoint(library, fixed.scratch, {
+        entryCount: 1n,
+        journal,
+        lastEventId: 720n,
+        root: fixed.root,
+        sequence: 4n,
+        type: 2
+      }).endpoint;
+      const extension = task3b2ReadExtension(library, {
+        candidateSnapshot,
+        endpoint,
+        eventRoots: [fixed.root],
+        exactMetadataPaths: [exactMetadataPath],
+        priorCheckpoint: fixed.checkpoint,
+        priorSnapshot: fixed.snapshot
+      });
+      assert.equal(extension.classification[scenario.expectedCounter], 1n);
+      assert.throws(() => library.reconcileFixedPoint({
+        previous: fixed.reconciliation,
+        cycleStartedAtNs: 20_000n,
+        extension,
+        observedAtNs: 20_001n
+      }), /metadata policy|policy rebind|wholly empty|exact extension/i);
+    });
+  }
+});
+
+test("Task 3B3A post-rebind STOP keeps the rebound policy and attestation", async (t) => {
+  const library = await import(libraryUrl);
+  const reachReboundFixedPoint = (subtest, label) => {
+    const fixed = task3b2ReachFixedPoint(library, subtest, label);
+    const exactMetadataPaths = [path.join(
+      fixed.root,
+      library.TRANSACTION_METADATA_PATHS[0]
+    )];
+    let candidateSnapshot = task3b2Capture(library, fixed.root);
+    let endpoint = task3b2NormalizeEndpoint(library, fixed.scratch, {
+      root: fixed.root, sequence: 4n, type: 2
+    }).endpoint;
+    let extension = task3b2ReadExtension(library, {
+      candidateSnapshot,
+      endpoint,
+      eventRoots: [fixed.root],
+      exactMetadataPaths,
+      priorCheckpoint: fixed.checkpoint,
+      priorSnapshot: fixed.snapshot
+    });
+    let proposal = library.reconcileFixedPoint({
+      previous: fixed.reconciliation,
+      cycleStartedAtNs: 20_000n,
+      extension,
+      observedAtNs: 20_001n
+    });
+    let reconciliation = library.commitReconciliation({
+      proposal,
+      committedAtNs: 20_002n
+    });
+    let priorCheckpoint = extension.checkpoint;
+    let priorSnapshot = candidateSnapshot;
+    candidateSnapshot = task3b2Capture(library, fixed.root);
+    endpoint = task3b2NormalizeEndpoint(library, fixed.scratch, {
+      root: fixed.root, sequence: 5n, type: 2
+    }).endpoint;
+    extension = task3b2ReadExtension(library, {
+      candidateSnapshot,
+      endpoint,
+      eventRoots: [fixed.root],
+      exactMetadataPaths,
+      priorCheckpoint,
+      priorSnapshot
+    });
+    proposal = library.reconcileFixedPoint({
+      previous: reconciliation,
+      extension,
+      observedAtNs: 20_003n
+    });
+    reconciliation = library.commitReconciliation({
+      proposal,
+      committedAtNs: 20_004n
+    });
+    assert.equal(reconciliation.phase, "fixed-point");
+    return {
+      checkpoint: extension.checkpoint,
+      exactMetadataPaths,
+      fixed,
+      reconciliation,
+      snapshot: candidateSnapshot
+    };
+  };
+
+  await t.test("STOP rejects policy drift after a successful policy rebind", (subtest) => {
+    const rebound = reachReboundFixedPoint(subtest, "post-rebind-stop-policy");
+    const terminalSnapshot = task3b2Capture(library, rebound.fixed.root);
+    const endpoint = task3b2NormalizeEndpoint(library, rebound.fixed.scratch, {
+      root: rebound.fixed.root, sequence: 6n, type: 3
+    }).endpoint;
+    const terminalExtension = task3b2ReadExtension(library, {
+      candidateSnapshot: terminalSnapshot,
+      endpoint,
+      eventRoots: [rebound.fixed.root],
+      priorCheckpoint: rebound.checkpoint,
+      priorSnapshot: rebound.snapshot
+    });
+    assert.throws(() => library.sealTerminal({
+      reconciliation: rebound.reconciliation,
+      terminalExtension,
+      terminalAttestation: task3b2TerminalAttestation(
+        terminalExtension,
+        rebound.reconciliation
+      ),
+      sealedAtNs: 20_005n
+    }), /metadata.*policy|policy.*changed|fingerprint|attestation/i);
+  });
+
+  await t.test("STOP rejects attestation drift after a successful policy rebind", (subtest) => {
+    const rebound = reachReboundFixedPoint(subtest, "post-rebind-stop-attestation");
+    const terminalSnapshot = task3b2Capture(library, rebound.fixed.root);
+    const endpoint = task3b2NormalizeEndpoint(library, rebound.fixed.scratch, {
+      root: rebound.fixed.root, sequence: 6n, type: 3
+    }).endpoint;
+    const terminalExtension = task3b2ReadExtension(library, {
+      candidateSnapshot: terminalSnapshot,
+      endpoint,
+      eventRoots: [rebound.fixed.root],
+      exactMetadataPaths: rebound.exactMetadataPaths,
+      priorCheckpoint: rebound.checkpoint,
+      priorSnapshot: rebound.snapshot
+    });
+    const terminalAttestation = task3b2TerminalAttestation(
+      terminalExtension,
+      rebound.reconciliation
+    );
+    assert.throws(() => library.sealTerminal({
+      reconciliation: rebound.reconciliation,
+      terminalExtension,
+      terminalAttestation: {
+        ...terminalAttestation,
+        metadataPolicyFingerprint: "f".repeat(64)
+      },
+      sealedAtNs: 20_005n
+    }), /attestation|metadata.*policy|fingerprint|match/i);
+  });
+});
+
+test("Task 3B3A approves the writer lock only at a direct Git common-directory root", async (t) => {
+  const library = await import(libraryUrl);
+  await t.test("the exact lock in an explicitly trusted real Git common directory is metadata", (subtest) => {
+    const { root } = makeStableProofTestRoot(subtest, "task3b3a-common-dir-lock");
+    const scratch = task3b2Scratch(subtest, "common-dir-lock");
+    execFileSync("git", ["init", "--bare", root], {
+      stdio: ["ignore", "ignore", "pipe"]
+    });
+    const trustedGitCommonDir = fs.realpathSync(execFileSync(
+      "git",
+      ["--git-dir", root, "rev-parse", "--absolute-git-dir"],
+      { encoding: "utf8", stdio: ["ignore", "pipe", "pipe"] }
+    ).trim());
+    assert.equal(trustedGitCommonDir, fs.realpathSync(root));
+    const lockPath = path.join(root, "mais-evidence-writer.lock");
+    fs.writeFileSync(lockPath, "old\n");
+    const baselineSnapshot = task3b2Capture(library, root);
+    const baseline = task3b2NormalizeEndpoint(library, scratch, {
+      root, sequence: 1n, type: 2
+    }).endpoint;
+    fs.writeFileSync(lockPath, "new\n");
+    const candidateSnapshot = task3b2Capture(library, root);
+    const journal = typedFseventsJournalRecord({
+      sequence: 1n,
+      eventId: 801n,
+      flags: 0x11400,
+      path: lockPath
+    });
+    const endpoint = task3b2NormalizeEndpoint(library, scratch, {
+      entryCount: 1n,
+      journal,
+      lastEventId: 801n,
+      root,
+      sequence: 2n,
+      type: 2
+    }).endpoint;
+    const extension = task3b2ReadExtension(library, {
+      candidateSnapshot,
+      endpoint,
+      eventRoots: [root],
+      exactMetadataPaths: [lockPath],
+      priorCheckpoint: baseline.checkpoint,
+      priorSnapshot: baselineSnapshot,
+      trustedGitCommonDir
+    });
+    assert.equal(extension.classification.transactionMetadataEventCount, 1n);
+    assert.equal(extension.classification.sourceEventCount, 0n);
+    assert.equal(extension.snapshotRelation, "metadata-only");
+  });
+
+  await t.test("the trusted common-directory identity is policy-bound", (subtest) => {
+    const { root } = makeStableProofTestRoot(subtest, "task3b3a-common-dir-fingerprint");
+    const scratch = task3b2Scratch(subtest, "common-dir-fingerprint");
+    execFileSync("git", ["init", "--bare", root], {
+      stdio: ["ignore", "ignore", "pipe"]
+    });
+    const trustedGitCommonDir = fs.realpathSync(root);
+    const baselineSnapshot = task3b2Capture(library, root);
+    const baseline = task3b2NormalizeEndpoint(library, scratch, {
+      root, sequence: 1n, type: 2
+    }).endpoint;
+    const trustedSnapshot = task3b2Capture(library, root);
+    const trustedEndpoint = task3b2NormalizeEndpoint(library, scratch, {
+      root, sequence: 2n, type: 2
+    }).endpoint;
+    const trustedExtension = task3b2ReadExtension(library, {
+      candidateSnapshot: trustedSnapshot,
+      endpoint: trustedEndpoint,
+      eventRoots: [root],
+      priorCheckpoint: baseline.checkpoint,
+      priorSnapshot: baselineSnapshot,
+      trustedGitCommonDir
+    });
+    const ordinarySnapshot = task3b2Capture(library, root);
+    const ordinaryEndpoint = task3b2NormalizeEndpoint(library, scratch, {
+      root, sequence: 3n, type: 2
+    }).endpoint;
+    const ordinaryExtension = task3b2ReadExtension(library, {
+      candidateSnapshot: ordinarySnapshot,
+      endpoint: ordinaryEndpoint,
+      eventRoots: [root],
+      priorCheckpoint: trustedExtension.checkpoint,
+      priorSnapshot: trustedSnapshot
+    });
+    assert.notEqual(
+      trustedExtension.metadataPolicyFingerprint,
+      ordinaryExtension.metadataPolicyFingerprint
+    );
+  });
+
+  const rejectLockPolicy = async (
+    label,
+    setup,
+    { useTrustedRealGitCommonDir = false } = {}
+  ) => t.test(label, (subtest) => {
+    const { root } = makeStableProofTestRoot(
+      subtest,
+      `task3b3a-${label.replaceAll(/[^a-z0-9]+/giu, "-")}`
+    );
+    const scratch = task3b2Scratch(subtest, "common-dir-negative");
+    if (useTrustedRealGitCommonDir) {
+      execFileSync("git", ["init", "--bare", root], {
+        stdio: ["ignore", "ignore", "pipe"]
+      });
+    }
+    const trustedGitCommonDir = useTrustedRealGitCommonDir
+      ? fs.realpathSync(root)
+      : null;
+    const lockPath = path.join(root, "mais-evidence-writer.lock");
+    const baselineSnapshot = task3b2Capture(library, root);
+    const baseline = task3b2NormalizeEndpoint(library, scratch, {
+      root, sequence: 1n, type: 2
+    }).endpoint;
+    const candidateSnapshot = task3b2Capture(library, root);
+    setup({ lockPath, root, scratch });
+    const endpoint = task3b2NormalizeEndpoint(library, scratch, {
+      root, sequence: 2n, type: 2
+    }).endpoint;
+    assert.throws(() => task3b2ReadExtension(library, {
+      candidateSnapshot,
+      endpoint,
+      eventRoots: [root],
+      exactMetadataPaths: [lockPath],
+      priorCheckpoint: baseline.checkpoint,
+      priorSnapshot: baselineSnapshot,
+      trustedGitCommonDir
+    }), /module-approved|trusted|common director|regular|no.follow|metadata path/i);
+  });
+
+  await rejectLockPolicy(
+    "a fake HEAD objects refs marker shape cannot authorize the lock",
+    ({ lockPath, root }) => {
+      fs.writeFileSync(path.join(root, "HEAD"), "ref: refs/heads/main\n");
+      fs.mkdirSync(path.join(root, "objects"));
+      fs.mkdirSync(path.join(root, "refs"));
+      fs.writeFileSync(lockPath, "fake marker lock\n");
+    }
+  );
+  await rejectLockPolicy(
+    "a symlink lock is rejected in an explicitly trusted real common directory",
+    ({ lockPath, scratch }) => {
+      const target = path.join(scratch, "lock-target");
+      fs.writeFileSync(target, "symlink target\n");
+      fs.symlinkSync(target, lockPath);
+    },
+    { useTrustedRealGitCommonDir: true }
+  );
+  await rejectLockPolicy(
+    "a nonregular lock is rejected in an explicitly trusted real common directory",
+    ({ lockPath }) => {
+      fs.mkdirSync(lockPath);
+    },
+    { useTrustedRealGitCommonDir: true }
+  );
+  await rejectLockPolicy(
+    "symlink HEAD objects refs marker shapes cannot authorize the lock",
+    ({ lockPath, root, scratch }) => {
+      const markerTarget = path.join(scratch, "marker-target");
+      fs.mkdirSync(markerTarget);
+      fs.writeFileSync(path.join(markerTarget, "HEAD"), "ref: refs/heads/main\n");
+      fs.mkdirSync(path.join(markerTarget, "objects"));
+      fs.mkdirSync(path.join(markerTarget, "refs"));
+      fs.symlinkSync(path.join(markerTarget, "HEAD"), path.join(root, "HEAD"));
+      fs.symlinkSync(path.join(markerTarget, "objects"), path.join(root, "objects"));
+      fs.symlinkSync(path.join(markerTarget, "refs"), path.join(root, "refs"));
+      fs.writeFileSync(lockPath, "symlink marker lock\n");
+    }
+  );
 });

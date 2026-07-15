@@ -2229,9 +2229,82 @@ function typedFseventsRelativeToAnyRoot(candidate, roots) {
   return null;
 }
 
-function typedFseventsMetadataPolicy(exactMetadataPaths, exactMetadataRoots, roots) {
+function typedFseventsTrustedGitCommonDir(value, roots) {
+  if (value === null) return null;
+  const commonDir = typedFseventsCanonicalAbsolutePath(
+    value,
+    "typed FSEvents trusted Git common directory"
+  );
+  if (!roots.includes(commonDir)) {
+    throw new Error("typed FSEvents trusted Git common directory must be an exact event root");
+  }
+  if (!Number.isInteger(fs.constants.O_NOFOLLOW)
+    || !Number.isInteger(fs.constants.O_DIRECTORY)) {
+    throw new Error("typed FSEvents trusted Git common directory requires no-follow support");
+  }
+  let descriptor = -1;
+  try {
+    descriptor = fs.openSync(
+      commonDir,
+      fs.constants.O_RDONLY | fs.constants.O_DIRECTORY | fs.constants.O_NOFOLLOW
+    );
+    const held = fs.fstatSync(descriptor, { bigint: true });
+    const visible = fs.lstatSync(commonDir, { bigint: true });
+    const final = fs.fstatSync(descriptor, { bigint: true });
+    if (!held.isDirectory()
+      || !visible.isDirectory()
+      || visible.isSymbolicLink()
+      || !final.isDirectory()
+      || !sameTypedFseventsJournalIdentity(held, visible)
+      || !sameTypedFseventsJournalIdentity(visible, final)
+      || fs.realpathSync(commonDir) !== commonDir) {
+      throw new Error("typed FSEvents trusted Git common directory is not direct and stable");
+    }
+    return commonDir;
+  } catch {
+    throw new Error("typed FSEvents trusted Git common directory is not direct and stable");
+  } finally {
+    if (descriptor >= 0) fs.closeSync(descriptor);
+  }
+}
+
+function typedFseventsDirectRegularNoFollowLock(candidate, trustedGitCommonDir) {
+  if (trustedGitCommonDir === null
+    || candidate !== path.posix.join(trustedGitCommonDir, "mais-evidence-writer.lock")
+    || !Number.isInteger(fs.constants.O_NOFOLLOW)) return false;
+  let descriptor = -1;
+  try {
+    descriptor = fs.openSync(
+      candidate,
+      fs.constants.O_RDONLY
+        | fs.constants.O_NOFOLLOW
+        | (fs.constants.O_NONBLOCK ?? 0)
+    );
+    const held = fs.fstatSync(descriptor, { bigint: true });
+    const visible = fs.lstatSync(candidate, { bigint: true });
+    const final = fs.fstatSync(descriptor, { bigint: true });
+    return held.isFile()
+      && visible.isFile()
+      && !visible.isSymbolicLink()
+      && final.isFile()
+      && sameTypedFseventsFrameSnapshot(held, visible)
+      && sameTypedFseventsFrameSnapshot(visible, final)
+      && fs.realpathSync(candidate) === candidate;
+  } catch {
+    return false;
+  } finally {
+    if (descriptor >= 0) fs.closeSync(descriptor);
+  }
+}
+
+function typedFseventsMetadataPolicy(
+  exactMetadataPaths,
+  exactMetadataRoots,
+  roots,
+  trustedGitCommonDir
+) {
   if (!Array.isArray(exactMetadataPaths)
-    || exactMetadataPaths.length > TRANSACTION_METADATA_PATHS.length
+    || exactMetadataPaths.length > TRANSACTION_METADATA_PATHS.length + 1
     || !Array.isArray(exactMetadataRoots)
     || exactMetadataRoots.length > 1) {
     throw new Error("typed FSEvents metadata policy exceeds its count cap");
@@ -2246,6 +2319,7 @@ function typedFseventsMetadataPolicy(exactMetadataPaths, exactMetadataRoots, roo
     "typed FSEvents exact metadata roots",
     roots
   )].sort(stableProofByteOrder);
+  const trustedCommonDir = typedFseventsTrustedGitCommonDir(trustedGitCommonDir, roots);
   let totalBytes = 0;
   for (const candidate of [...metadataPaths, ...metadataRoots]) {
     const candidateBytes = Buffer.byteLength(candidate);
@@ -2256,7 +2330,9 @@ function typedFseventsMetadataPolicy(exactMetadataPaths, exactMetadataRoots, roo
   }
   for (const candidate of metadataPaths) {
     const relativePath = typedFseventsRelativeToAnyRoot(candidate, roots);
-    if (relativePath === null || !TRANSACTION_METADATA_PATHS.includes(relativePath)) {
+    if (relativePath === null
+      || (!TRANSACTION_METADATA_PATHS.includes(relativePath)
+        && !typedFseventsDirectRegularNoFollowLock(candidate, trustedCommonDir))) {
       throw new Error("typed FSEvents exact metadata path is not module-approved");
     }
   }
@@ -2279,7 +2355,8 @@ function typedFseventsMetadataPolicy(exactMetadataPaths, exactMetadataRoots, roo
   return Object.freeze({
     fingerprint: sha256Buffer(Buffer.from(JSON.stringify({
       exactMetadataPaths: frozenPaths,
-      exactMetadataRoots: frozenRoots
+      exactMetadataRoots: frozenRoots,
+      trustedGitCommonDir: trustedCommonDir
     }))),
     pathSet: new Set(frozenPaths),
     paths: frozenPaths,
@@ -2529,7 +2606,8 @@ export function readAndValidateJournalExtension({
   exactMetadataPaths = [],
   exactMetadataRoots = [],
   priorCheckpoint,
-  priorSnapshot
+  priorSnapshot,
+  trustedGitCommonDir = null
 } = {}) {
   const endpointBinding = typedFseventsValidatedAckEndpoint(
     endpoint,
@@ -2571,7 +2649,8 @@ export function readAndValidateJournalExtension({
   const metadataPolicy = typedFseventsMetadataPolicy(
     exactMetadataPaths,
     exactMetadataRoots,
-    roots
+    roots,
+    trustedGitCommonDir
   );
   const metadataPathSet = metadataPolicy.pathSet;
   const metadataRoots = metadataPolicy.roots;
@@ -2636,16 +2715,27 @@ export function readAndValidateJournalExtension({
     xattrPaths
   });
   const storedPriorEvidence = TYPED_FSEVENTS_PENDING_SNAPSHOT_EVIDENCE.get(prior);
-  const priorEvidence = storedPriorEvidence ?? typedFseventsEventEvidence({
+  let priorEvidence = storedPriorEvidence ?? typedFseventsEventEvidence({
     journalSessionFingerprint: endpointBinding.journalSessionFingerprint,
     metadataEventPaths: [],
     metadataPolicyFingerprint: metadataPolicy.fingerprint,
     sourcePaths: [],
     xattrPaths: []
   });
-  if (priorEvidence.journalSessionFingerprint !== endpointBinding.journalSessionFingerprint
-    || priorEvidence.metadataPolicyFingerprint !== metadataPolicy.fingerprint) {
-    throw new Error("typed FSEvents pending evidence session or metadata policy changed");
+  if (priorEvidence.journalSessionFingerprint !== endpointBinding.journalSessionFingerprint) {
+    throw new Error("typed FSEvents pending evidence journal session changed");
+  }
+  if (priorEvidence.metadataPolicyFingerprint !== metadataPolicy.fingerprint) {
+    if (!typedFseventsEvidenceIsEmpty(priorEvidence)) {
+      throw new Error("typed FSEvents nonempty pending evidence metadata policy changed");
+    }
+    priorEvidence = typedFseventsEventEvidence({
+      journalSessionFingerprint: endpointBinding.journalSessionFingerprint,
+      metadataEventPaths: [],
+      metadataPolicyFingerprint: metadataPolicy.fingerprint,
+      sourcePaths: [],
+      xattrPaths: []
+    });
   }
   const snapshotDifference = typedFseventsSnapshotDifference({
     classification,
@@ -2826,6 +2916,7 @@ export function reconcileFixedPoint({
   previous,
   baseline,
   extension,
+  cycleStartedAtNs,
   observedAtNs
 } = {}) {
   const extensionBinding = typedFseventsValidatedJournalExtension(
@@ -2858,7 +2949,11 @@ export function reconcileFixedPoint({
   let priorFirstEventId;
   let startedAtNs;
   let minimumObservedAtNs;
+  let cycleRestart = false;
   if (previous === null) {
+    if (cycleStartedAtNs !== undefined) {
+      throw new Error("typed FSEvents cycle start is only valid after a fixed point");
+    }
     typedFseventsExactObjectKeys(baseline, [
       "ackEndpoint",
       "metadataEpoch",
@@ -2923,8 +3018,17 @@ export function reconcileFixedPoint({
     if (TYPED_FSEVENTS_CONSUMED_RECONCILIATIONS.has(previous)) {
       throw new Error("typed FSEvents previous reconciliation state is consumed or stale");
     }
-    if (previous.phase !== "reconciling") {
-      throw new Error("typed FSEvents fixed-point state has no reconciliation successor");
+    if (previous.phase === "fixed-point") {
+      if (cycleStartedAtNs === undefined) {
+        throw new Error("typed FSEvents fixed-point successor requires cycleStartedAtNs");
+      }
+      cycleRestart = true;
+    } else if (previous.phase === "reconciling") {
+      if (cycleStartedAtNs !== undefined) {
+        throw new Error("typed FSEvents reconciling successor cannot reset its cycle start");
+      }
+    } else {
+      throw new Error("typed FSEvents reconciliation state phase is invalid");
     }
     predecessor = previous;
     priorSnapshot = previousBinding.snapshot;
@@ -2935,15 +3039,28 @@ export function reconcileFixedPoint({
     priorJournalSessionFingerprint = previousBinding.journalSessionFingerprint;
     priorMetadataPolicyFingerprint = previousBinding.metadataPolicyFingerprint;
     priorPendingEvidence = previousBinding.pendingEvidence;
-    priorRoundCount = previousBinding.roundCount;
-    priorConsecutiveExactRounds = previousBinding.consecutiveExactRounds;
+    priorRoundCount = cycleRestart ? 0n : previousBinding.roundCount;
+    priorConsecutiveExactRounds = cycleRestart
+      ? 0n
+      : previousBinding.consecutiveExactRounds;
     priorSourceEpoch = previousBinding.sourceEpoch;
     priorMetadataEpoch = previousBinding.metadataEpoch;
     priorXattrEpoch = previousBinding.xattrEpoch;
     priorCounters = previousBinding.counters;
     priorFirstEventId = previousBinding.journalFirstEventId;
-    startedAtNs = previousBinding.startedAtNs;
-    minimumObservedAtNs = previousBinding.committedAtNs;
+    if (cycleRestart) {
+      startedAtNs = typedFseventsNanoseconds(
+        cycleStartedAtNs,
+        "typed FSEvents reconciliation cycle start"
+      );
+      if (startedAtNs < previousBinding.committedAtNs) {
+        throw new Error("typed FSEvents reconciliation cycle start regressed");
+      }
+      minimumObservedAtNs = startedAtNs;
+    } else {
+      startedAtNs = previousBinding.startedAtNs;
+      minimumObservedAtNs = previousBinding.committedAtNs;
+    }
   }
 
   const observed = typedFseventsAssertWithinReconciliationWindow(
@@ -2960,14 +3077,33 @@ export function reconcileFixedPoint({
   ) || extensionBinding.journalSessionFingerprint !== priorJournalSessionFingerprint) {
     throw new Error("typed FSEvents reconciliation journal identity changed");
   }
-  if (extensionBinding.metadataPolicyFingerprint !== priorMetadataPolicyFingerprint) {
+  const metadataPolicyChanged = extensionBinding.metadataPolicyFingerprint
+    !== priorMetadataPolicyFingerprint;
+  if (metadataPolicyChanged && !cycleRestart) {
     throw new Error("typed FSEvents reconciliation metadata policy changed");
   }
-  if (extensionBinding.priorEvidence !== priorPendingEvidence
+  if (metadataPolicyChanged && cycleRestart
+    && (extension.deltaEntryCount !== 0n
+      || extension.deltaHighWater !== 0n
+      || extension.classification.journalEntryCount !== 0n
+      || !typedFseventsEvidenceIsEmpty(extensionBinding.currentEvidence)
+      || extension.snapshotRelation !== "exact"
+      || extensionBinding.priorSnapshot.sha256
+        !== extensionBinding.candidateSnapshot.sha256)) {
+    throw new Error(
+      "typed FSEvents metadata policy rebind requires a wholly empty exact extension"
+    );
+  }
+  const reboundEmptyEvidence = cycleRestart
+    && metadataPolicyChanged
+    && typedFseventsEvidenceIsEmpty(priorPendingEvidence)
+    && typedFseventsEvidenceIsEmpty(extensionBinding.priorEvidence);
+  if ((!reboundEmptyEvidence && extensionBinding.priorEvidence !== priorPendingEvidence)
     || (previous !== null
       && TYPED_FSEVENTS_PENDING_SNAPSHOT_EVIDENCE.get(priorSnapshot)
         !== priorPendingEvidence)
-    || (previous === null && !typedFseventsEvidenceIsEmpty(priorPendingEvidence))) {
+    || (previous === null && !typedFseventsEvidenceIsEmpty(priorPendingEvidence))
+    || (cycleRestart && !typedFseventsEvidenceIsEmpty(priorPendingEvidence))) {
     throw new Error("typed FSEvents reconciliation pending evidence is stale or mismatched");
   }
   if (extensionBinding.priorSnapshot !== priorSnapshot
