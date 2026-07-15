@@ -13386,19 +13386,23 @@ test("Task 3B2 fixed-point reconciliation exports the five pure state-machine AP
   }
 });
 
-test("Task 3B2 detached ACK reader embeds its private provenance dependencies", () => {
+test("Task 3B2 detached reconciliation closure embeds one ACK provenance domain", () => {
   const source = fs.readFileSync(path.join(here, "evidence-archive-lib.mjs"), "utf8");
-  const start = source.indexOf("const TYPED_FSEVENTS_ACK_READER_CHILD_SOURCE = [");
+  const start = source.indexOf("const TYPED_FSEVENTS_RECONCILIATION_CHILD_SOURCE = [");
   const end = source.indexOf("].map((implementation) => implementation.toString()).join", start);
-  assert.ok(start >= 0 && end > start, "embedded ACK reader source array is missing");
+  assert.ok(start >= 0 && end > start, "embedded reconciliation source array is missing");
   const embedded = source.slice(start, end);
   const dependencies = [
     "TYPED_FSEVENTS_MAX_UINT64 =",
+    "TYPED_FSEVENTS_VALIDATED_CHECKPOINTS = new WeakMap",
     "TYPED_FSEVENTS_PROVENANCE_ORDINAL = 0n",
     "TYPED_FSEVENTS_COMMITTED_ACKNOWLEDGEMENTS = new WeakMap",
+    "STABLE_PROOF_DESCRIPTOR_WALKER =",
     "typedFseventsNextProvenanceOrdinal,",
+    "captureStableProofSnapshot,",
     "sameTypedFseventsJournalIdentity,",
-    "readCommittedTypedFseventsAcknowledgement"
+    "readCommittedTypedFseventsAcknowledgement,",
+    "runTypedFseventsFixedCycle,"
   ];
   let priorIndex = -1;
   for (const dependency of dependencies) {
@@ -15926,4 +15930,653 @@ test("Task 3B3A approves the writer lock only at a direct Git common-directory r
       fs.writeFileSync(lockPath, "symlink marker lock\n");
     }
   );
+});
+
+test("Task 3B3B fixed-cycle adapter publishes only complete fixed-point packages", async (t) => {
+  const library = await import(libraryUrl);
+  assert.equal(typeof library.runTypedFseventsFixedCycle, "function");
+  const makeClock = (initial = 10_000n) => {
+    let value = initial;
+    return () => {
+      const observed = value;
+      value += 1n;
+      return observed;
+    };
+  };
+  const makeAcknowledgementDriver = (scratch, root, plans) => {
+    let callCount = 0;
+    return {
+      flushAcknowledgement() {
+        const plan = plans[callCount];
+        if (plan instanceof Error) throw plan;
+        assert.notEqual(plan, undefined, "adapter requested an unexpected FLUSH");
+        callCount += 1;
+        return task3b2ReadAcknowledgement(library, scratch, { root, ...plan });
+      },
+      get callCount() { return callCount; }
+    };
+  };
+
+  await t.test("zero events reach a fixed point in exactly two rounds", (subtest) => {
+    const { root } = makeStableProofTestRoot(subtest, "task3b3b-adapter-empty");
+    const scratch = task3b2Scratch(subtest, "adapter-empty");
+    fs.writeFileSync(path.join(root, "source.txt"), "stable\n");
+    const baselineSnapshot = task3b2Capture(library, root);
+    const baselineEndpoint = task3b2NormalizeEndpoint(library, scratch, {
+      root, sequence: 1n, type: 2
+    }).endpoint;
+    const driver = makeAcknowledgementDriver(scratch, root, [
+      { sequence: 2n, type: 2 },
+      { sequence: 3n, type: 2 }
+    ]);
+    const fixed = library.runTypedFseventsFixedCycle({
+      baseline: {
+        ackEndpoint: baselineEndpoint,
+        metadataEpoch: 0n,
+        snapshot: baselineSnapshot,
+        sourceEpoch: 0n,
+        startedAtNs: 10_000n,
+        xattrEpoch: 0n
+      },
+      captureSnapshot: () => task3b2Capture(library, root),
+      eventRoots: [root],
+      flushAcknowledgement: driver.flushAcknowledgement,
+      nowNs: makeClock(10_001n),
+      previous: null
+    });
+    assert.deepEqual(Object.keys(fixed).sort(), ["checkpoint", "reconciliation", "snapshot"]);
+    assert.equal(Object.isFrozen(fixed), true);
+    assert.equal(fixed.reconciliation.phase, "fixed-point");
+    assert.equal(fixed.reconciliation.roundCount, 2n);
+    assert.equal(fixed.reconciliation.checkpoint, fixed.checkpoint);
+    assert.equal(fixed.reconciliation.snapshotSha256, fixed.snapshot.sha256);
+    assert.equal(driver.callCount, 2);
+  });
+
+  await t.test("only an exact module-published package may start a later cycle", (subtest) => {
+    const { root } = makeStableProofTestRoot(subtest, "task3b3b-adapter-package-brand");
+    const scratch = task3b2Scratch(subtest, "adapter-package-brand");
+    fs.writeFileSync(path.join(root, "source.txt"), "stable\n");
+    const baselineSnapshot = task3b2Capture(library, root);
+    const baselineEndpoint = task3b2NormalizeEndpoint(library, scratch, {
+      root, sequence: 1n, type: 2
+    }).endpoint;
+    const driver = makeAcknowledgementDriver(scratch, root, [
+      { sequence: 2n, type: 2 },
+      { sequence: 3n, type: 2 }
+    ]);
+    const published = library.runTypedFseventsFixedCycle({
+      baseline: {
+        ackEndpoint: baselineEndpoint,
+        metadataEpoch: 0n,
+        snapshot: baselineSnapshot,
+        sourceEpoch: 0n,
+        startedAtNs: 15_000n,
+        xattrEpoch: 0n
+      },
+      captureSnapshot: () => task3b2Capture(library, root),
+      eventRoots: [root],
+      flushAcknowledgement: driver.flushAcknowledgement,
+      nowNs: makeClock(15_001n)
+    });
+    const common = {
+      captureSnapshot: () => task3b2Capture(library, root),
+      eventRoots: [root],
+      flushAcknowledgement: () => {
+        throw new Error("unbranded package reached FLUSH");
+      },
+      nowNs: makeClock(15_100n)
+    };
+    assert.throws(
+      () => library.runTypedFseventsFixedCycle({ ...common, previous: { ...published } }),
+      /module-published|package|brand/i
+    );
+    let proxyTrapCount = 0;
+    const proxied = new Proxy(published, {
+      get(target, property, receiver) {
+        proxyTrapCount += 1;
+        return Reflect.get(target, property, receiver);
+      },
+      ownKeys(target) {
+        proxyTrapCount += 1;
+        return Reflect.ownKeys(target);
+      }
+    });
+    assert.throws(
+      () => library.runTypedFseventsFixedCycle({ ...common, previous: proxied }),
+      /module-published|package|brand/i
+    );
+    assert.equal(proxyTrapCount, 0, "package branding must reject a Proxy before any trap");
+  });
+
+  await t.test("one source event and its carry clear in four rounds", (subtest) => {
+    const { root } = makeStableProofTestRoot(subtest, "task3b3b-adapter-event");
+    const scratch = task3b2Scratch(subtest, "adapter-event");
+    const target = path.join(root, "source.txt");
+    fs.writeFileSync(target, "before\n");
+    const journal = typedFseventsJournalRecord({
+      sequence: 1n,
+      eventId: 901n,
+      flags: 0x11400,
+      path: target
+    });
+    const baselineSnapshot = task3b2Capture(library, root);
+    const baselineEndpoint = task3b2NormalizeEndpoint(library, scratch, {
+      root, sequence: 1n, type: 2
+    }).endpoint;
+    const plans = [];
+    for (const sequence of [2n, 3n, 4n, 5n]) {
+      plans.push({
+        entryCount: 1n,
+        journal,
+        lastEventId: 901n,
+        sequence,
+        type: 2
+      });
+    }
+    const driver = makeAcknowledgementDriver(scratch, root, plans);
+    let captureCount = 0;
+    const clock = makeClock(20_001n);
+    const firstFixed = library.runTypedFseventsFixedCycle({
+      baseline: {
+        ackEndpoint: baselineEndpoint,
+        metadataEpoch: 0n,
+        snapshot: baselineSnapshot,
+        sourceEpoch: 0n,
+        startedAtNs: 20_000n,
+        xattrEpoch: 0n
+      },
+      captureSnapshot() {
+        captureCount += 1;
+        if (captureCount === 1) fs.writeFileSync(target, "after\n");
+        return task3b2Capture(library, root);
+      },
+      eventRoots: [root],
+      flushAcknowledgement: driver.flushAcknowledgement,
+      nowNs: clock,
+      previous: null
+    });
+    assert.equal(firstFixed.reconciliation.phase, "fixed-point");
+    assert.equal(firstFixed.reconciliation.roundCount, 4n);
+    assert.equal(firstFixed.reconciliation.counters.sourceEventCount, 1n);
+    assert.equal(firstFixed.reconciliation.journalFirstEventId, 901n);
+    assert.equal(firstFixed.reconciliation.journalLastEventId, 901n);
+    assert.equal(driver.callCount, 4);
+
+    const repeatedDriver = makeAcknowledgementDriver(scratch, root, [
+      { entryCount: 1n, journal, lastEventId: 901n, sequence: 6n, type: 2 },
+      { entryCount: 1n, journal, lastEventId: 901n, sequence: 7n, type: 2 }
+    ]);
+    const repeated = library.runTypedFseventsFixedCycle({
+      captureSnapshot: () => task3b2Capture(library, root),
+      eventRoots: [root],
+      flushAcknowledgement: repeatedDriver.flushAcknowledgement,
+      nowNs: clock,
+      previous: firstFixed
+    });
+    assert.equal(repeated.reconciliation.phase, "fixed-point");
+    assert.equal(repeated.reconciliation.roundCount, 2n);
+    assert.deepEqual(repeated.reconciliation.counters, firstFixed.reconciliation.counters);
+    assert.equal(repeated.reconciliation.journalFirstEventId, 901n);
+    assert.equal(repeated.reconciliation.journalLastEventId, 901n);
+    assert.equal(repeatedDriver.callCount, 2);
+  });
+
+  await t.test("a failed later cycle preserves its published predecessor transactionally", (subtest) => {
+    const { root } = makeStableProofTestRoot(subtest, "task3b3b-adapter-transaction");
+    const scratch = task3b2Scratch(subtest, "adapter-transaction");
+    fs.writeFileSync(path.join(root, "source.txt"), "stable\n");
+    const baselineSnapshot = task3b2Capture(library, root);
+    const baselineEndpoint = task3b2NormalizeEndpoint(library, scratch, {
+      root, sequence: 1n, type: 2
+    }).endpoint;
+    const initialDriver = makeAcknowledgementDriver(scratch, root, [
+      { sequence: 2n, type: 2 },
+      { sequence: 3n, type: 2 }
+    ]);
+    const published = library.runTypedFseventsFixedCycle({
+      baseline: {
+        ackEndpoint: baselineEndpoint,
+        metadataEpoch: 0n,
+        snapshot: baselineSnapshot,
+        sourceEpoch: 0n,
+        startedAtNs: 40_000n,
+        xattrEpoch: 0n
+      },
+      captureSnapshot: () => task3b2Capture(library, root),
+      eventRoots: [root],
+      flushAcknowledgement: initialDriver.flushAcknowledgement,
+      nowNs: makeClock(40_001n)
+    });
+    const failedDriver = makeAcknowledgementDriver(scratch, root, [
+      { sequence: 4n, type: 2 },
+      new Error("later-cycle injected FLUSH failure")
+    ]);
+    assert.throws(() => library.runTypedFseventsFixedCycle({
+      captureSnapshot: () => task3b2Capture(library, root),
+      eventRoots: [root],
+      flushAcknowledgement: failedDriver.flushAcknowledgement,
+      nowNs: makeClock(40_100n),
+      previous: published
+    }), /later-cycle injected FLUSH failure/i);
+    assert.equal(failedDriver.callCount, 1);
+
+    let preservedCycleStart = false;
+    assert.throws(() => library.runTypedFseventsFixedCycle({
+      captureSnapshot: () => task3b2Capture(library, root),
+      eventRoots: [root],
+      flushAcknowledgement: () => {
+        throw new Error("preserved predecessor reached FLUSH");
+      },
+      nowNs(label) {
+        assert.equal(label, "cycle-start");
+        preservedCycleStart = true;
+        throw new Error("preserved predecessor brand probe");
+      },
+      previous: published
+    }), /preserved predecessor brand probe/i);
+    assert.equal(preservedCycleStart, true);
+  });
+
+  await t.test("a transactional cycle rejects a reentrant fork of its predecessor", (subtest) => {
+    const { root } = makeStableProofTestRoot(subtest, "task3b3b-adapter-reentrant");
+    const scratch = task3b2Scratch(subtest, "adapter-reentrant");
+    fs.writeFileSync(path.join(root, "source.txt"), "stable\n");
+    const baselineSnapshot = task3b2Capture(library, root);
+    const baselineEndpoint = task3b2NormalizeEndpoint(library, scratch, {
+      root, sequence: 1n, type: 2
+    }).endpoint;
+    const initialDriver = makeAcknowledgementDriver(scratch, root, [
+      { sequence: 2n, type: 2 },
+      { sequence: 3n, type: 2 }
+    ]);
+    const published = library.runTypedFseventsFixedCycle({
+      baseline: {
+        ackEndpoint: baselineEndpoint,
+        metadataEpoch: 0n,
+        snapshot: baselineSnapshot,
+        sourceEpoch: 0n,
+        startedAtNs: 50_000n,
+        xattrEpoch: 0n
+      },
+      captureSnapshot: () => task3b2Capture(library, root),
+      eventRoots: [root],
+      flushAcknowledgement: initialDriver.flushAcknowledgement,
+      nowNs: makeClock(50_001n)
+    });
+    const outerDriver = makeAcknowledgementDriver(scratch, root, [
+      { sequence: 4n, type: 2 },
+      { sequence: 5n, type: 2 }
+    ]);
+    let attemptedReentry = false;
+    let reentrantCallbackCount = 0;
+    let reentrantError = null;
+    const replacement = library.runTypedFseventsFixedCycle({
+      captureSnapshot() {
+        if (!attemptedReentry) {
+          attemptedReentry = true;
+          try {
+            library.runTypedFseventsFixedCycle({
+              captureSnapshot() {
+                reentrantCallbackCount += 1;
+                return task3b2Capture(library, root);
+              },
+              eventRoots: [root],
+              flushAcknowledgement() {
+                reentrantCallbackCount += 1;
+                throw new Error("reentrant FLUSH must not run");
+              },
+              nowNs: makeClock(50_100n),
+              previous: published
+            });
+          } catch (error) {
+            reentrantError = error;
+          }
+        }
+        return task3b2Capture(library, root);
+      },
+      eventRoots: [root],
+      flushAcknowledgement: outerDriver.flushAcknowledgement,
+      nowNs: makeClock(50_200n),
+      previous: published
+    });
+    assert.equal(replacement.reconciliation.phase, "fixed-point");
+    assert.match(reentrantError?.message ?? "", /transaction|active|reentrant/i);
+    assert.equal(reentrantCallbackCount, 0);
+    assert.equal(outerDriver.callCount, 2);
+    let staleCallbackCount = 0;
+    assert.throws(() => library.runTypedFseventsFixedCycle({
+      captureSnapshot() {
+        staleCallbackCount += 1;
+        return task3b2Capture(library, root);
+      },
+      eventRoots: [root],
+      flushAcknowledgement() {
+        staleCallbackCount += 1;
+        throw new Error("stale predecessor reached FLUSH");
+      },
+      nowNs: makeClock(50_300n),
+      previous: published
+    }), /consumed|stale/i);
+    assert.equal(staleCallbackCount, 0, "successful replacement must consume its predecessor before callbacks");
+  });
+
+  for (const scenario of [
+    {
+      label: "an injected FLUSH sequence gap",
+      plans: [{ sequence: 2n, type: 2 }, { sequence: 4n, type: 2 }],
+      pattern: /sequence|successor|stale|order/i
+    },
+    {
+      label: "an injected FLUSH failure",
+      plans: [{ sequence: 2n, type: 2 }, new Error("injected FLUSH failure")],
+      pattern: /injected FLUSH failure/i
+    }
+  ]) {
+    await t.test(`${scenario.label} leaves caller publication unchanged`, (subtest) => {
+      const { root } = makeStableProofTestRoot(
+        subtest,
+        `task3b3b-${scenario.label.replaceAll(/[^a-z0-9]+/giu, "-")}`
+      );
+      const scratch = task3b2Scratch(subtest, "adapter-failure");
+      fs.writeFileSync(path.join(root, "source.txt"), "stable\n");
+      const baselineSnapshot = task3b2Capture(library, root);
+      const baselineEndpoint = task3b2NormalizeEndpoint(library, scratch, {
+        root, sequence: 1n, type: 2
+      }).endpoint;
+      const driver = makeAcknowledgementDriver(scratch, root, scenario.plans);
+      const callerPublication = { current: Object.freeze({ status: "before" }) };
+      const original = callerPublication.current;
+      assert.throws(() => {
+        callerPublication.current = library.runTypedFseventsFixedCycle({
+          baseline: {
+            ackEndpoint: baselineEndpoint,
+            metadataEpoch: 0n,
+            snapshot: baselineSnapshot,
+            sourceEpoch: 0n,
+            startedAtNs: 30_000n,
+            xattrEpoch: 0n
+          },
+          captureSnapshot: () => task3b2Capture(library, root),
+          eventRoots: [root],
+          flushAcknowledgement: driver.flushAcknowledgement,
+          nowNs: makeClock(30_001n),
+          previous: null
+        });
+      }, scenario.pattern);
+      assert.equal(callerPublication.current, original);
+      assert.deepEqual(callerPublication.current, { status: "before" });
+    });
+  }
+});
+
+test("Task 3B3B detached monitor source is complete bounded and provenance-coherent", async (t) => {
+  const library = await import(libraryUrl);
+  assert.equal(typeof library.inspectMutationMonitorChildSource, "function");
+  assert.equal(typeof library.inspectTypedFseventsReconciliationChildSource, "function");
+  const inspection = library.inspectMutationMonitorChildSource();
+  const reconciliationInspection = library.inspectTypedFseventsReconciliationChildSource();
+  assert.deepEqual(Object.keys(inspection).sort(), ["bytes", "sha256", "source"]);
+  assert.equal(Buffer.byteLength(inspection.source), inspection.bytes);
+  assert.equal(library.sha256Buffer(Buffer.from(inspection.source)), inspection.sha256);
+  assert.ok(inspection.bytes > 128 * 1024, `assembled source has only ${inspection.bytes} bytes`);
+  for (const name of [
+    "captureStableProofSnapshot",
+    "normalizeTypedFseventsAckCheckpoint",
+    "readAndValidateJournalExtension",
+    "reconcileFixedPoint",
+    "commitReconciliation",
+    "sealTerminal",
+    "runTypedFseventsFixedCycle"
+  ]) assert.match(inspection.source, new RegExp(`function ${name}\\b`, "u"), name);
+  assert.equal(
+    inspection.source.match(/TYPED_FSEVENTS_COMMITTED_ACKNOWLEDGEMENTS = new WeakMap/g)?.length,
+    1
+  );
+  assert.equal(
+    inspection.source.match(/TYPED_FSEVENTS_PROVENANCE_ORDINAL = 0n/g)?.length,
+    1
+  );
+  assert.equal(inspection.source.match(/TYPED_FSEVENTS_MAX_UINT64 =/g)?.length, 1);
+  assert.equal(
+    inspection.source.match(/TYPED_FSEVENTS_FIXED_CYCLE_PACKAGES = new WeakMap/g)?.length,
+    1
+  );
+  assert.equal(
+    inspection.source.match(/TYPED_FSEVENTS_ACTIVE_FIXED_CYCLE_SESSIONS = new Set/g)?.length,
+    1
+  );
+  assert.equal(
+    inspection.source.match(/TYPED_FSEVENTS_FIXED_CYCLE_WORKING_RECONCILIATIONS = new WeakSet/g)?.length,
+    1
+  );
+  assert.match(inspection.source, /import \{ execFileSync, spawn, spawnSync \} from "node:child_process"/u);
+  assert.match(inspection.source, /process\.argv\.slice\(-2\)/u);
+  assert.match(inspection.source, /return acknowledgement;/u);
+  assert.doesNotMatch(inspection.source, /return \{\s*\.\.\.acknowledgement/gu);
+  assert.match(inspection.source, /candidate\.commitVisibleInode !== previousCommitInode/u);
+  assert.doesNotMatch(
+    inspection.source,
+    /(?:from\s+|import\s*\()["'](?:file:|\.{1,2}\/|\/Users\/)/u
+  );
+
+  const scratch = task3b2Scratch(t, "assembled-source-check");
+  const sourcePath = path.join(scratch, "assembled-child.mjs");
+  fs.writeFileSync(sourcePath, inspection.source, { mode: 0o400 });
+  const syntax = spawnSync(process.execPath, ["--check", sourcePath], {
+    encoding: "utf8",
+    timeout: TEST_CHILD_TIMEOUT_MS
+  });
+  assert.equal(syntax.status, 0, syntax.stderr || syntax.stdout);
+
+  const { root: captureRoot } = makeStableProofTestRoot(t, "task3b3b-child-capture");
+  fs.writeFileSync(path.join(captureRoot, "source.txt"), "stable\n");
+  const runtimePath = path.join(scratch, "reconciliation-runtime.mjs");
+  fs.writeFileSync(runtimePath, [
+    'import { spawnSync } from "node:child_process";',
+    'import { isUtf8 } from "node:buffer";',
+    'import crypto from "node:crypto";',
+    'import fs from "node:fs";',
+    'import path from "node:path";',
+    reconciliationInspection.source,
+    "const root = fs.realpathSync(process.argv.at(-1));",
+    "const snapshot = captureStableProofSnapshot({ policies: [{ root, trackedRelativePaths: [] }] });",
+    "process.stdout.write(JSON.stringify({ pathCount: snapshot.pathCount, sha256: snapshot.sha256 }));"
+  ].join("\n"), { mode: 0o400 });
+  const runtime = spawnSync(process.execPath, [runtimePath, captureRoot], {
+    encoding: "utf8",
+    timeout: TEST_CHILD_TIMEOUT_MS
+  });
+  assert.equal(runtime.status, 0, runtime.stderr || runtime.stdout);
+  const captured = JSON.parse(runtime.stdout);
+  assert.ok(captured.pathCount >= 2);
+  assert.match(captured.sha256, /^[0-9a-f]{64}$/u);
+
+  const { root } = makeStableProofTestRoot(t, "task3b3b-raw-ack-brand");
+  const ackScratch = task3b2Scratch(t, "raw-ack-brand");
+  fs.writeFileSync(path.join(root, "source.txt"), "stable\n");
+  const acknowledgement = task3b2ReadAcknowledgement(library, ackScratch, {
+    root, sequence: 1n, type: 2
+  });
+  assert.throws(() => library.normalizeTypedFseventsAckCheckpoint({
+    acknowledgement: { ...acknowledgement },
+    eventRoots: [root]
+  }), /module|validated|committed|brand/i);
+  const endpoint = library.normalizeTypedFseventsAckCheckpoint({
+    acknowledgement,
+    eventRoots: [root]
+  });
+  assert.equal(endpoint.sequence, 1n);
+});
+
+test("Task 3B3B monitor starts from private fd4 source with small argv", async (t) => {
+  const { root } = makeStableProofTestRoot(t, "task3b3b-monitor-fd4");
+  execFileSync("git", ["init", root], { stdio: ["ignore", "ignore", "pipe"] });
+  fs.writeFileSync(path.join(root, "source.txt"), "stable\n");
+  const {
+    abortMutationEpochMonitor,
+    readMutationEpochState,
+    sha256Buffer,
+    startMutationEpochMonitor
+  } = await import(libraryUrl);
+  const monitor = startMutationEpochMonitor([root], {
+    startupTimeoutMs: 30_000,
+    watchMode: "auto"
+  });
+  t.after(() => abortMutationEpochMonitor(monitor));
+  const sourceStatus = fs.lstatSync(monitor.childSourcePath);
+  assert.equal(sourceStatus.isFile(), true);
+  assert.equal(sourceStatus.isSymbolicLink(), false);
+  assert.equal(sourceStatus.mode & 0o7777, 0o400);
+  assert.equal(sourceStatus.nlink, 1);
+  const source = fs.readFileSync(monitor.childSourcePath);
+  assert.equal(source.length, monitor.childSourceBytes);
+  assert.equal(sha256Buffer(source), monitor.childSourceSha256);
+  assert.equal(monitor.childSourceExecutionPath, "/dev/fd/4");
+  assert.equal(monitor.childSourceDescriptorNumber, 4);
+  assert.deepEqual(monitor.child.spawnargs.slice(1, 3), ["--import=/dev/fd/4", "-"]);
+  assert.equal(monitor.child.spawnargs.includes("-e"), false);
+  assert.ok(monitor.childSourceBytes > 128 * 1024);
+  assert.ok(monitor.bootstrapArgBytes < 4 * 1024);
+  assert.equal(readMutationEpochState(monitor, { requestSample: false }).schemaVersion, 3);
+});
+
+test("Task 3B3B READY monitor fails closed promptly after its child becomes a zombie", async (t) => {
+  const { root } = makeStableProofTestRoot(t, "task3b3b-monitor-ready-exit");
+  execFileSync("git", ["init", root], { stdio: ["ignore", "ignore", "pipe"] });
+  fs.writeFileSync(path.join(root, "source.txt"), "stable\n");
+  const {
+    abortMutationEpochMonitor,
+    readMutationEpochState,
+    startMutationEpochMonitor
+  } = await import(libraryUrl);
+  const monitor = startMutationEpochMonitor([root], {
+    startupTimeoutMs: 30_000,
+    watchMode: "auto"
+  });
+  t.after(() => abortMutationEpochMonitor(monitor));
+  assert.equal(fs.existsSync(monitor.readyPath), true, "fixture requires an observed READY side effect");
+  process.kill(monitor.child.pid, "SIGKILL");
+  const zombieDeadline = Date.now() + 5_000;
+  let processState = "";
+  while (Date.now() < zombieDeadline) {
+    const observed = spawnSync("/bin/ps", ["-o", "state=", "-p", String(monitor.child.pid)], {
+      encoding: "utf8",
+      stdio: ["ignore", "pipe", "ignore"]
+    });
+    processState = observed.status === 0 ? observed.stdout.trim() : "exited";
+    if (processState === "exited" || processState.startsWith("Z")) break;
+    Atomics.wait(new Int32Array(new SharedArrayBuffer(4)), 0, 0, 20);
+  }
+  assert.match(processState, /^(?:Z|exited)/u, `child did not exit or become zombie: ${processState}`);
+  Atomics.wait(new Int32Array(new SharedArrayBuffer(4)), 0, 0, 100);
+  const startedAt = Date.now();
+  assert.throws(
+    () => readMutationEpochState(monitor, { requestSample: false }),
+    /crashed|exited|fails closed/i
+  );
+  assert.ok(Date.now() - startedAt < 1_000, "zombie child detection must not wait for an operation timeout");
+});
+
+test("Task 3B3B monitor liveness bounds ps inspections by reads and 75ms polling", async (t) => {
+  const { root } = makeStableProofTestRoot(t, "task3b3b-monitor-liveness-budget");
+  execFileSync("git", ["init", root], { stdio: ["ignore", "ignore", "pipe"] });
+  fs.writeFileSync(path.join(root, "source.txt"), "stable\n");
+  const {
+    abortMutationEpochMonitor,
+    inspectMutationMonitorLivenessDiagnostics,
+    readMutationEpochState,
+    settleMutationEpochState,
+    startMutationEpochMonitor
+  } = await import(libraryUrl);
+  const monitor = startMutationEpochMonitor([root], {
+    startupTimeoutMs: 30_000,
+    watchMode: "auto"
+  });
+  t.after(() => abortMutationEpochMonitor(monitor));
+  const before = inspectMutationMonitorLivenessDiagnostics();
+  const startedAt = Date.now();
+  for (let index = 0; index < 4; index += 1) readMutationEpochState(monitor);
+  settleMutationEpochState(monitor, { quietMs: 75 });
+  const elapsedMs = Math.max(1, Date.now() - startedAt);
+  const after = inspectMutationMonitorLivenessDiagnostics();
+  const logicalReads = after.logicalReadCount - before.logicalReadCount;
+  const psInspections = after.psInspectionCount - before.psInspectionCount;
+  assert.ok(logicalReads >= 6, `expected repeated logical reads, observed ${logicalReads}`);
+  const periodicInspectionBudget = Math.ceil(elapsedMs / 75);
+  if (["darwin", "linux"].includes(process.platform) && fs.existsSync("/bin/ps")) {
+    assert.ok(psInspections > 0, "supported platforms must exercise real ps inspection");
+  }
+  assert.ok(
+    psInspections <= logicalReads + periodicInspectionBudget,
+    `ps inspections exceeded logical boundaries plus 75ms polling budget: ${psInspections}/${logicalReads}+${periodicInspectionBudget}`
+  );
+});
+
+test("Task 3B3B default sample detects a zombie child before its bounded ACK timeout", async (t) => {
+  const { root } = makeStableProofTestRoot(t, "task3b3b-monitor-sample-zombie");
+  execFileSync("git", ["init", root], { stdio: ["ignore", "ignore", "pipe"] });
+  fs.writeFileSync(path.join(root, "source.txt"), "stable\n");
+  const {
+    abortMutationEpochMonitor,
+    readMutationEpochState,
+    startMutationEpochMonitor
+  } = await import(libraryUrl);
+  const monitor = startMutationEpochMonitor([root], {
+    startupTimeoutMs: 30_000,
+    watchMode: "auto"
+  });
+  t.after(() => abortMutationEpochMonitor(monitor));
+  process.kill(monitor.child.pid, "SIGKILL");
+  const zombieDeadline = Date.now() + 5_000;
+  let processState = "";
+  while (Date.now() < zombieDeadline) {
+    const observed = spawnSync("/bin/ps", ["-o", "state=", "-p", String(monitor.child.pid)], {
+      encoding: "utf8",
+      stdio: ["ignore", "pipe", "ignore"]
+    });
+    processState = observed.status === 0 ? observed.stdout.trim() : "exited";
+    if (processState === "exited" || processState.startsWith("Z")) break;
+    Atomics.wait(new Int32Array(new SharedArrayBuffer(4)), 0, 0, 20);
+  }
+  assert.match(processState, /^(?:Z|exited)/u, `child did not exit or become zombie: ${processState}`);
+  const startedAt = Date.now();
+  assert.throws(
+    () => readMutationEpochState(monitor, { sampleTimeoutMs: 700 }),
+    /child exited|failed closed|crashed/i
+  );
+  assert.ok(Date.now() - startedAt < 700, "zombie sample must fail before its bounded ACK timeout");
+});
+
+test("Task 3B3B registration detects a child killed at IPC send without late EPIPE", async (t) => {
+  const { root } = makeStableProofTestRoot(t, "task3b3b-monitor-registration-zombie");
+  execFileSync("git", ["init", root], { stdio: ["ignore", "ignore", "pipe"] });
+  fs.writeFileSync(path.join(root, "source.txt"), "stable\n");
+  const {
+    abortMutationEpochMonitor,
+    registerMutationMetadataRoot,
+    startMutationEpochMonitor
+  } = await import(libraryUrl);
+  const monitor = startMutationEpochMonitor([root], {
+    startupTimeoutMs: 30_000,
+    watchMode: "auto"
+  });
+  t.after(() => abortMutationEpochMonitor(monitor));
+  const originalSend = monitor.child.send.bind(monitor.child);
+  let killedAtRegistrationSend = false;
+  monitor.child.send = (message, ...args) => {
+    if (message?.type === "register-metadata-root" && !killedAtRegistrationSend) {
+      killedAtRegistrationSend = true;
+      process.kill(monitor.child.pid, "SIGKILL");
+    }
+    return originalSend(message, ...args);
+  };
+  const relativePath = `coordination/release-intake/archive/.evidence-publish-${process.pid}-${crypto.randomUUID()}`;
+  const startedAt = Date.now();
+  assert.throws(
+    () => registerMutationMetadataRoot(monitor, { root, relativePath }),
+    /registration.*failed closed|child exited|crashed/i
+  );
+  assert.equal(killedAtRegistrationSend, true, "fixture must kill only at registration IPC send");
+  assert.ok(Date.now() - startedAt < 1_000, "registration zombie must fail closed within one second");
 });

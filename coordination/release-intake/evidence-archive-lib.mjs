@@ -623,6 +623,10 @@ const TYPED_FSEVENTS_CONSUMED_CANDIDATE_SNAPSHOTS = new WeakSet();
 const TYPED_FSEVENTS_CONSUMED_JOURNAL_EXTENSIONS = new WeakSet();
 const TYPED_FSEVENTS_CONSUMED_RECONCILIATION_PROPOSALS = new WeakSet();
 const TYPED_FSEVENTS_CONSUMED_RECONCILIATIONS = new WeakSet();
+const TYPED_FSEVENTS_ACTIVE_FIXED_CYCLES = new WeakSet();
+const TYPED_FSEVENTS_ACTIVE_FIXED_CYCLE_SESSIONS = new Set();
+const TYPED_FSEVENTS_FIXED_CYCLE_WORKING_RECONCILIATIONS = new WeakSet();
+const TYPED_FSEVENTS_FIXED_CYCLE_PACKAGES = new WeakMap();
 const TYPED_FSEVENTS_NORMALIZED_ACK_PUBLICATIONS = new Set();
 const TYPED_FSEVENTS_RECONCILIATION_SCHEMA_VERSION = 2;
 const TYPED_FSEVENTS_RECONCILIATION_MAX_ROUNDS = 8n;
@@ -2897,6 +2901,11 @@ function typedFseventsAdvanceCounters(previousCounters, classification, checkpoi
 function typedFseventsValidatedReconciliation(value, label) {
   if ((typeof value === "object" || typeof value === "function")
     && value !== null
+    && TYPED_FSEVENTS_ACTIVE_FIXED_CYCLES.has(value)) {
+    throw new Error(`${label} has an active transactional fixed cycle`);
+  }
+  if ((typeof value === "object" || typeof value === "function")
+    && value !== null
     && TYPED_FSEVENTS_CONSUMED_RECONCILIATIONS.has(value)) {
     throw new Error(`${label} is already consumed or stale`);
   }
@@ -2905,7 +2914,12 @@ function typedFseventsValidatedReconciliation(value, label) {
     || !TYPED_FSEVENTS_COMMITTED_RECONCILIATIONS.has(value)) {
     throw new Error(`${label} must be a module-validated committed reconciliation state`);
   }
-  return TYPED_FSEVENTS_COMMITTED_RECONCILIATIONS.get(value);
+  const binding = TYPED_FSEVENTS_COMMITTED_RECONCILIATIONS.get(value);
+  if (TYPED_FSEVENTS_ACTIVE_FIXED_CYCLE_SESSIONS.has(binding.journalSessionFingerprint)
+    && !TYPED_FSEVENTS_FIXED_CYCLE_WORKING_RECONCILIATIONS.has(value)) {
+    throw new Error(`${label} journal session has an active transactional fixed cycle`);
+  }
+  return binding;
 }
 
 /**
@@ -3558,16 +3572,410 @@ export function sealTerminal({
   return terminalSeal;
 }
 
-// Embed the exact reviewed reader implementation into the detached monitor
-// child. Importing this mutable workspace module from that child would create
-// a replace/restore injection window between bootstrap and each ACK read.
-const TYPED_FSEVENTS_ACK_READER_CHILD_SOURCE = [
+function typedFseventsForkPublishedReconciliation(reconciliation, binding) {
+  if (TYPED_FSEVENTS_CONSUMED_RECONCILIATIONS.has(reconciliation)
+    || TYPED_FSEVENTS_COMMITTED_RECONCILIATIONS.get(reconciliation) !== binding
+    || TYPED_FSEVENTS_PENDING_SNAPSHOT_EVIDENCE.get(binding.snapshot)
+      !== binding.pendingEvidence) {
+    throw new Error("typed FSEvents transactional predecessor cannot be forked from stale bindings");
+  }
+  const fork = Object.freeze({ ...reconciliation });
+  TYPED_FSEVENTS_COMMITTED_RECONCILIATIONS.set(fork, binding);
+  TYPED_FSEVENTS_FIXED_CYCLE_WORKING_RECONCILIATIONS.add(fork);
+  return fork;
+}
+
+function typedFseventsRestorePublishedReconciliation(reconciliation, binding) {
+  if (TYPED_FSEVENTS_CONSUMED_RECONCILIATIONS.has(reconciliation)
+    || TYPED_FSEVENTS_COMMITTED_RECONCILIATIONS.get(reconciliation) !== binding) {
+    throw new Error("typed FSEvents transactional predecessor cannot be restored from stale bindings");
+  }
+  TYPED_FSEVENTS_PENDING_SNAPSHOT_EVIDENCE.set(binding.snapshot, binding.pendingEvidence);
+}
+
+function typedFseventsConsumePublishedReconciliation(reconciliation, binding) {
+  if (!TYPED_FSEVENTS_ACTIVE_FIXED_CYCLES.has(reconciliation)
+    || TYPED_FSEVENTS_CONSUMED_RECONCILIATIONS.has(reconciliation)
+    || TYPED_FSEVENTS_COMMITTED_RECONCILIATIONS.get(reconciliation) !== binding
+    || TYPED_FSEVENTS_PENDING_SNAPSHOT_EVIDENCE.get(binding.snapshot)
+      !== binding.pendingEvidence) {
+    throw new Error("typed FSEvents transactional predecessor binding changed");
+  }
+  TYPED_FSEVENTS_CONSUMED_RECONCILIATIONS.add(reconciliation);
+  TYPED_FSEVENTS_COMMITTED_RECONCILIATIONS.delete(reconciliation);
+  TYPED_FSEVENTS_PENDING_SNAPSHOT_EVIDENCE.delete(binding.snapshot);
+}
+
+function typedFseventsInvalidateFixedCycleArtifacts({
+  endpoints,
+  extensions,
+  proposals,
+  reconciliations
+}) {
+  for (const item of reconciliations) {
+    TYPED_FSEVENTS_FIXED_CYCLE_WORKING_RECONCILIATIONS.delete(item.reconciliation);
+    TYPED_FSEVENTS_CONSUMED_RECONCILIATIONS.add(item.reconciliation);
+    TYPED_FSEVENTS_COMMITTED_RECONCILIATIONS.delete(item.reconciliation);
+    if (TYPED_FSEVENTS_PENDING_SNAPSHOT_EVIDENCE.get(item.binding.snapshot)
+      === item.binding.pendingEvidence) {
+      TYPED_FSEVENTS_PENDING_SNAPSHOT_EVIDENCE.delete(item.binding.snapshot);
+    }
+  }
+  for (const proposal of proposals) {
+    TYPED_FSEVENTS_CONSUMED_RECONCILIATION_PROPOSALS.add(proposal);
+    TYPED_FSEVENTS_RECONCILIATION_PROPOSALS.delete(proposal);
+  }
+  for (const extension of extensions) {
+    TYPED_FSEVENTS_CONSUMED_JOURNAL_EXTENSIONS.add(extension);
+    TYPED_FSEVENTS_VALIDATED_JOURNAL_EXTENSIONS.delete(extension);
+  }
+  for (const endpoint of endpoints) {
+    TYPED_FSEVENTS_CONSUMED_ACK_ENDPOINTS.add(endpoint);
+    TYPED_FSEVENTS_VALIDATED_ACK_ENDPOINTS.delete(endpoint);
+  }
+}
+
+function typedFseventsPublishFixedCyclePackage({ checkpoint, reconciliation, snapshot }) {
+  const fixedPackage = Object.freeze({ checkpoint, reconciliation, snapshot });
+  TYPED_FSEVENTS_FIXED_CYCLE_PACKAGES.set(fixedPackage, Object.freeze({
+    checkpoint,
+    reconciliation,
+    snapshot
+  }));
+  return fixedPackage;
+}
+
+function typedFseventsValidatedFixedCyclePackage(value, label) {
+  if ((typeof value !== "object" && typeof value !== "function")
+    || value === null
+    || !TYPED_FSEVENTS_FIXED_CYCLE_PACKAGES.has(value)) {
+    throw new Error(`${label} must be an exact module-published fixed-cycle package`);
+  }
+  return TYPED_FSEVENTS_FIXED_CYCLE_PACKAGES.get(value);
+}
+
+/**
+ * Drive one complete FLUSH reconciliation cycle without exposing a partial
+ * reconciliation. The initial path consumes an already captured and
+ * normalized empty baseline; a later path consumes the exact package returned
+ * by an earlier successful cycle. Each round captures before requesting FLUSH.
+ */
+export function runTypedFseventsFixedCycle({
+  baseline,
+  captureSnapshot,
+  eventRoots,
+  exactMetadataPaths = [],
+  exactMetadataRoots = [],
+  flushAcknowledgement,
+  nowNs,
+  previous = null,
+  trustedGitCommonDir = null
+} = {}) {
+  if (typeof captureSnapshot !== "function"
+    || typeof flushAcknowledgement !== "function"
+    || typeof nowNs !== "function"
+    || !Array.isArray(exactMetadataPaths)
+    || !Array.isArray(exactMetadataRoots)) {
+    throw new Error("typed FSEvents fixed-cycle callbacks are invalid");
+  }
+  const roots = Object.freeze([...typedFseventsOrderedEventRoots(eventRoots)]);
+  const metadataPaths = Object.freeze([...exactMetadataPaths]);
+  const metadataRoots = Object.freeze([...exactMetadataRoots]);
+  const initialCycle = previous === null;
+  if (initialCycle === (baseline === undefined || baseline === null)) {
+    throw new Error(
+      "typed FSEvents fixed cycle requires exactly one initial baseline or previous package"
+    );
+  }
+
+  let reconciliation = null;
+  let priorCheckpoint;
+  let priorSnapshot;
+  let cycleStartedAtNs;
+  let reconciliationBaseline;
+  let publishedPredecessor = null;
+  let publishedPredecessorBinding = null;
+  let transactionActive = false;
+  let transactionSessionFingerprint;
+  let transactionSessionActive = false;
+  const artifacts = {
+    endpoints: [],
+    extensions: [],
+    proposals: [],
+    reconciliations: []
+  };
+  if (initialCycle) {
+    typedFseventsExactObjectKeys(baseline, [
+      "ackEndpoint",
+      "metadataEpoch",
+      "snapshot",
+      "sourceEpoch",
+      "startedAtNs",
+      "xattrEpoch"
+    ], "typed FSEvents fixed-cycle baseline");
+    const baselineEndpoint = typedFseventsValidatedAckEndpoint(
+      baseline.ackEndpoint,
+      "typed FSEvents fixed-cycle baseline ACK endpoint"
+    );
+    priorSnapshot = typedFseventsValidatedSnapshot(
+      baseline.snapshot,
+      "typed FSEvents fixed-cycle baseline snapshot"
+    );
+    if (baseline.ackEndpoint.checkpoint !== baselineEndpoint.checkpoint) {
+      throw new Error("typed FSEvents fixed-cycle baseline checkpoint binding changed");
+    }
+    if (baselineEndpoint.type !== 2
+      || baselineEndpoint.checkpoint.entryCount !== 0n
+      || baselineEndpoint.checkpoint.highWater !== 0n
+      || baselineEndpoint.checkpoint.lastEventId !== null
+      || baseline.sourceEpoch !== 0n
+      || baseline.metadataEpoch !== 0n
+      || baseline.xattrEpoch !== 0n
+      || !typedFseventsSameOrderedStrings(priorSnapshot.roots, roots)) {
+      throw new Error("typed FSEvents fixed-cycle baseline must be exact and empty");
+    }
+    typedFseventsNanoseconds(
+      baseline.startedAtNs,
+      "typed FSEvents fixed-cycle baseline start"
+    );
+    reconciliationBaseline = Object.freeze({ ...baseline });
+    priorCheckpoint = baselineEndpoint.checkpoint;
+    transactionSessionFingerprint = baselineEndpoint.journalSessionFingerprint;
+  } else {
+    const previousPackageBinding = typedFseventsValidatedFixedCyclePackage(
+      previous,
+      "typed FSEvents previous fixed-cycle package"
+    );
+    typedFseventsExactObjectKeys(previous, [
+      "checkpoint", "reconciliation", "snapshot"
+    ], "typed FSEvents previous fixed-cycle package");
+    const previousBinding = typedFseventsValidatedReconciliation(
+      previousPackageBinding.reconciliation,
+      "typed FSEvents previous fixed-cycle reconciliation"
+    );
+    priorSnapshot = typedFseventsValidatedSnapshot(
+      previousPackageBinding.snapshot,
+      "typed FSEvents previous fixed-cycle snapshot"
+    );
+    if (previous.checkpoint !== previousPackageBinding.checkpoint
+      || previous.reconciliation !== previousPackageBinding.reconciliation
+      || previous.snapshot !== previousPackageBinding.snapshot
+      || previousPackageBinding.reconciliation.phase !== "fixed-point"
+      || previousBinding.snapshot !== priorSnapshot
+      || previousBinding.checkpoint !== previousPackageBinding.checkpoint
+      || !typedFseventsSameOrderedStrings(priorSnapshot.roots, roots)) {
+      throw new Error("typed FSEvents previous fixed-cycle package is not exact");
+    }
+    publishedPredecessor = previousPackageBinding.reconciliation;
+    publishedPredecessorBinding = previousBinding;
+    priorCheckpoint = previousPackageBinding.checkpoint;
+    transactionSessionFingerprint = previousBinding.journalSessionFingerprint;
+  }
+
+  try {
+    if (TYPED_FSEVENTS_ACTIVE_FIXED_CYCLE_SESSIONS.has(transactionSessionFingerprint)) {
+      throw new Error("typed FSEvents journal session has an active transactional fixed cycle");
+    }
+    TYPED_FSEVENTS_ACTIVE_FIXED_CYCLE_SESSIONS.add(transactionSessionFingerprint);
+    transactionSessionActive = true;
+    if (publishedPredecessor !== null) {
+      TYPED_FSEVENTS_ACTIVE_FIXED_CYCLES.add(publishedPredecessor);
+      transactionActive = true;
+      reconciliation = typedFseventsForkPublishedReconciliation(
+        publishedPredecessor,
+        publishedPredecessorBinding
+      );
+      artifacts.reconciliations.push({
+        binding: publishedPredecessorBinding,
+        reconciliation
+      });
+      cycleStartedAtNs = typedFseventsNanoseconds(
+        nowNs("cycle-start"),
+        "typed FSEvents fixed-cycle start"
+      );
+    }
+    for (let round = 1; round <= Number(TYPED_FSEVENTS_RECONCILIATION_MAX_ROUNDS); round += 1) {
+      const candidateSnapshot = captureSnapshot(Object.freeze({
+        priorCheckpoint,
+        priorSnapshot,
+        round
+      }));
+      const acknowledgement = flushAcknowledgement(Object.freeze({
+        candidateSnapshot,
+        priorCheckpoint,
+        priorSnapshot,
+        round
+      }));
+      const endpoint = normalizeTypedFseventsAckCheckpoint({
+        acknowledgement,
+        eventRoots: roots
+      });
+      artifacts.endpoints.push(endpoint);
+      const extension = readAndValidateJournalExtension({
+        candidateSnapshot,
+        endpoint,
+        eventRoots: roots,
+        exactMetadataPaths: metadataPaths,
+        exactMetadataRoots: metadataRoots,
+        priorCheckpoint,
+        priorSnapshot,
+        trustedGitCommonDir
+      });
+      artifacts.extensions.push(extension);
+      const proposal = reconcileFixedPoint({
+        previous: reconciliation,
+        ...(reconciliation === null ? { baseline: reconciliationBaseline } : {}),
+        ...(reconciliation !== null && reconciliation.phase === "fixed-point"
+          ? { cycleStartedAtNs }
+          : {}),
+        extension,
+        observedAtNs: nowNs("round-observed")
+      });
+      artifacts.proposals.push(proposal);
+      if (transactionActive) {
+        typedFseventsRestorePublishedReconciliation(
+          publishedPredecessor,
+          publishedPredecessorBinding
+        );
+      }
+      const committed = commitReconciliation({
+        proposal,
+        committedAtNs: nowNs("round-committed")
+      });
+      const committedBinding = TYPED_FSEVENTS_COMMITTED_RECONCILIATIONS.get(committed);
+      TYPED_FSEVENTS_FIXED_CYCLE_WORKING_RECONCILIATIONS.add(committed);
+      artifacts.reconciliations.push({ binding: committedBinding, reconciliation: committed });
+      if (committed.phase === "fixed-point") {
+        if (transactionActive) {
+          typedFseventsConsumePublishedReconciliation(
+            publishedPredecessor,
+            publishedPredecessorBinding
+          );
+        }
+        return typedFseventsPublishFixedCyclePackage({
+          checkpoint: extension.checkpoint,
+          reconciliation: committed,
+          snapshot: candidateSnapshot
+        });
+      }
+      reconciliation = committed;
+      priorCheckpoint = extension.checkpoint;
+      priorSnapshot = candidateSnapshot;
+    }
+    throw new Error("typed FSEvents fixed cycle did not establish a fixed point in eight rounds");
+  } catch (error) {
+    typedFseventsInvalidateFixedCycleArtifacts(artifacts);
+    if (transactionActive) {
+      typedFseventsRestorePublishedReconciliation(
+        publishedPredecessor,
+        publishedPredecessorBinding
+      );
+    }
+    throw error;
+  } finally {
+    for (const item of artifacts.reconciliations) {
+      TYPED_FSEVENTS_FIXED_CYCLE_WORKING_RECONCILIATIONS.delete(item.reconciliation);
+    }
+    if (transactionActive) {
+      TYPED_FSEVENTS_ACTIVE_FIXED_CYCLES.delete(publishedPredecessor);
+    }
+    if (transactionSessionActive) {
+      TYPED_FSEVENTS_ACTIVE_FIXED_CYCLE_SESSIONS.delete(transactionSessionFingerprint);
+    }
+  }
+}
+
+// Assemble the reviewed snapshot/ACK/reconciliation closure exclusively from
+// functions and constants already loaded in this process. The detached child
+// never imports or rereads this mutable workspace module.
+const TYPED_FSEVENTS_RECONCILIATION_CHILD_SOURCE = [
+  `const TRANSACTION_METADATA_PATHS = Object.freeze(${JSON.stringify(TRANSACTION_METADATA_PATHS)});`,
+  `const SHA256_PATTERN = ${SHA256_PATTERN};`,
+  `const UUID_PATTERN = ${UUID_PATTERN};`,
+  `const UINT64_DECIMAL_PATTERN = ${UINT64_DECIMAL_PATTERN};`,
   `const TYPED_FSEVENTS_MAX_BUFFER_BYTES = ${TYPED_FSEVENTS_MAX_BUFFER_BYTES};`,
+  `const TYPED_FSEVENTS_KNOWN_FLAG_MASK = ${TYPED_FSEVENTS_KNOWN_FLAG_MASK};`,
+  `const TYPED_FSEVENTS_FATAL_FLAG_MASK = ${TYPED_FSEVENTS_FATAL_FLAG_MASK};`,
+  `const TYPED_FSEVENTS_EXACT_XATTR_ONLY_FLAGS = ${TYPED_FSEVENTS_EXACT_XATTR_ONLY_FLAGS};`,
+  `const TYPED_FSEVENTS_JOURNAL_HEADER_BYTES = ${TYPED_FSEVENTS_JOURNAL_HEADER_BYTES};`,
   `const TYPED_FSEVENTS_MAX_JOURNAL_BYTES = ${TYPED_FSEVENTS_MAX_JOURNAL_BYTES};`,
+  `const TYPED_FSEVENTS_MAX_JOURNAL_ENTRIES = ${TYPED_FSEVENTS_MAX_JOURNAL_ENTRIES}n;`,
+  `const TYPED_FSEVENTS_MAX_EVENT_PATH_BYTES = ${TYPED_FSEVENTS_MAX_EVENT_PATH_BYTES};`,
+  `const TYPED_FSEVENTS_MAX_RECORD_BYTES = ${TYPED_FSEVENTS_MAX_RECORD_BYTES};`,
   `const TYPED_FSEVENTS_MAX_UINT64 = ${TYPED_FSEVENTS_MAX_UINT64}n;`,
+  "const TYPED_FSEVENTS_VALIDATED_CHECKPOINTS = new WeakMap();",
   "let TYPED_FSEVENTS_PROVENANCE_ORDINAL = 0n;",
   "const TYPED_FSEVENTS_COMMITTED_ACKNOWLEDGEMENTS = new WeakMap();",
+  "const TYPED_FSEVENTS_VALIDATED_ACK_ENDPOINTS = new WeakMap();",
+  "const TYPED_FSEVENTS_VALIDATED_JOURNAL_EXTENSIONS = new WeakMap();",
+  "const TYPED_FSEVENTS_RECONCILIATION_PROPOSALS = new WeakMap();",
+  "const TYPED_FSEVENTS_COMMITTED_RECONCILIATIONS = new WeakMap();",
+  "const TYPED_FSEVENTS_PENDING_SNAPSHOT_EVIDENCE = new WeakMap();",
+  "const TYPED_FSEVENTS_TERMINAL_SEALS = new WeakSet();",
+  "const TYPED_FSEVENTS_CONSUMED_ACKNOWLEDGEMENTS = new WeakSet();",
+  "const TYPED_FSEVENTS_CONSUMED_ACK_ENDPOINTS = new WeakSet();",
+  "const TYPED_FSEVENTS_CONSUMED_CANDIDATE_SNAPSHOTS = new WeakSet();",
+  "const TYPED_FSEVENTS_CONSUMED_JOURNAL_EXTENSIONS = new WeakSet();",
+  "const TYPED_FSEVENTS_CONSUMED_RECONCILIATION_PROPOSALS = new WeakSet();",
+  "const TYPED_FSEVENTS_CONSUMED_RECONCILIATIONS = new WeakSet();",
+  "const TYPED_FSEVENTS_ACTIVE_FIXED_CYCLES = new WeakSet();",
+  "const TYPED_FSEVENTS_ACTIVE_FIXED_CYCLE_SESSIONS = new Set();",
+  "const TYPED_FSEVENTS_FIXED_CYCLE_WORKING_RECONCILIATIONS = new WeakSet();",
+  "const TYPED_FSEVENTS_FIXED_CYCLE_PACKAGES = new WeakMap();",
+  "const TYPED_FSEVENTS_NORMALIZED_ACK_PUBLICATIONS = new Set();",
+  `const TYPED_FSEVENTS_RECONCILIATION_SCHEMA_VERSION = ${TYPED_FSEVENTS_RECONCILIATION_SCHEMA_VERSION};`,
+  `const TYPED_FSEVENTS_RECONCILIATION_MAX_ROUNDS = ${TYPED_FSEVENTS_RECONCILIATION_MAX_ROUNDS}n;`,
+  `const TYPED_FSEVENTS_RECONCILIATION_MAX_DURATION_NS = ${TYPED_FSEVENTS_RECONCILIATION_MAX_DURATION_NS}n;`,
+  `const TYPED_FSEVENTS_REGULAR_SEMANTIC_FIELDS = Object.freeze(${JSON.stringify(TYPED_FSEVENTS_REGULAR_SEMANTIC_FIELDS)});`,
+  `const STABLE_PROOF_SNAPSHOT_SCHEMA_VERSION = ${STABLE_PROOF_SNAPSHOT_SCHEMA_VERSION};`,
+  `const STABLE_PROOF_MAX_PATHS = ${STABLE_PROOF_MAX_PATHS};`,
+  `const STABLE_PROOF_MAX_POLICIES = ${STABLE_PROOF_MAX_POLICIES};`,
+  `const STABLE_PROOF_MAX_TRACKED_PATHS = ${STABLE_PROOF_MAX_TRACKED_PATHS};`,
+  `const STABLE_PROOF_MAX_DEPTH = ${STABLE_PROOF_MAX_DEPTH};`,
+  `const STABLE_PROOF_MAX_PATH_BYTES = ${STABLE_PROOF_MAX_PATH_BYTES};`,
+  `const STABLE_PROOF_MAX_POLICY_BYTES = ${STABLE_PROOF_MAX_POLICY_BYTES};`,
+  `const STABLE_PROOF_MAX_NAMESPACE_PATH_BYTES = ${STABLE_PROOF_MAX_NAMESPACE_PATH_BYTES};`,
+  `const STABLE_PROOF_MAX_FILE_BYTES = ${STABLE_PROOF_MAX_FILE_BYTES};`,
+  `const STABLE_PROOF_MAX_TOTAL_BYTES = ${STABLE_PROOF_MAX_TOTAL_BYTES};`,
+  `const STABLE_PROOF_MAX_SYMLINK_TARGET_BYTES = ${STABLE_PROOF_MAX_SYMLINK_TARGET_BYTES};`,
+  `const STABLE_PROOF_MAX_TOTAL_SYMLINK_BYTES = ${STABLE_PROOF_MAX_TOTAL_SYMLINK_BYTES};`,
+  `const STABLE_PROOF_MAX_DIRECTORY_NAME_BYTES = ${STABLE_PROOF_MAX_DIRECTORY_NAME_BYTES};`,
+  `const STABLE_PROOF_HELPER_MAX_BUFFER_BYTES = ${STABLE_PROOF_HELPER_MAX_BUFFER_BYTES};`,
+  `const STABLE_PROOF_HELPER_MAX_PEAK_RSS_BYTES = ${STABLE_PROOF_HELPER_MAX_PEAK_RSS_BYTES};`,
+  `const STABLE_PROOF_HELPER_MAX_OPEN_FDS = ${STABLE_PROOF_HELPER_MAX_OPEN_FDS};`,
+  `const STABLE_PROOF_HELPER_TIMEOUT_MS = ${STABLE_PROOF_HELPER_TIMEOUT_MS};`,
+  "const STABLE_PROOF_VALIDATED_SNAPSHOTS = new WeakSet();",
+  "const STABLE_PROOF_SNAPSHOT_PROVENANCE = new WeakMap();",
+  `const STABLE_PROOF_OBSERVATION_FIELDS = Object.freeze(${JSON.stringify(STABLE_PROOF_OBSERVATION_FIELDS)});`,
+  `const STABLE_PROOF_HOOK_KEYS = Object.freeze(${JSON.stringify(STABLE_PROOF_HOOK_KEYS)});`,
+  `const STABLE_PROOF_DESCRIPTOR_WALKER = ${JSON.stringify(STABLE_PROOF_DESCRIPTOR_WALKER)};`,
+  sha256Buffer,
   typedFseventsNextProvenanceOrdinal,
+  classifyTypedFseventsFlags,
+  typedFseventsUint64,
+  typedFseventsCheckpoint,
+  typedFseventsRootBinding,
+  markTypedFseventsCheckpoint,
+  validatedTypedFseventsCheckpoint,
+  createEmptyTypedFseventsJournalCheckpoint,
+  typedFseventsCanonicalAbsolutePath,
+  typedFseventsCanonicalPathSet,
+  typedFseventsPathIsWithin,
+  walkTypedFseventsJournalExtension,
+  visitTypedFseventsJournalExtension,
+  parseTypedFseventsJournalPrefix,
+  typedFseventsDirectRegularProof,
+  typedFseventsSameRegularSemanticProof,
+  stableProofByteOrder,
+  stableProofCanonicalRoot,
+  stableProofTrackedRelativePath,
+  stableProofHooks,
+  stableProofExactKeys,
+  stableProofFreezeProof,
+  stableProofRunDescriptorWalker,
+  stableProofBuildSnapshot,
+  stableProofInvokeHooks,
+  captureStableProofSnapshot,
   decideTypedFseventsAcknowledgementWait,
   sameTypedFseventsFrameSnapshot,
   secureTypedFseventsFrame,
@@ -3575,7 +3983,54 @@ const TYPED_FSEVENTS_ACK_READER_CHILD_SOURCE = [
   sameTypedFseventsJournalIdentity,
   readTypedFseventsPrefix,
   readStableRegularFileNoFollow,
-  readCommittedTypedFseventsAcknowledgement
+  readCommittedTypedFseventsAcknowledgement,
+  typedFseventsExactObjectKeys,
+  typedFseventsOrderedEventRoots,
+  typedFseventsEventRootFingerprint,
+  typedFseventsSameOrderedStrings,
+  typedFseventsValidatedSnapshot,
+  typedFseventsValidatedAckEndpoint,
+  typedFseventsCheckpointEquals,
+  typedFseventsSameJournalIdentity,
+  typedFseventsJournalSessionFingerprint,
+  normalizeTypedFseventsAckCheckpoint,
+  typedFseventsRelativeToAnyRoot,
+  typedFseventsTrustedGitCommonDir,
+  typedFseventsDirectRegularNoFollowLock,
+  typedFseventsMetadataPolicy,
+  typedFseventsMetadataPath,
+  typedFseventsEventPathIndex,
+  typedFseventsEventEvidence,
+  typedFseventsEvidenceIsEmpty,
+  typedFseventsEvidenceSummary,
+  typedFseventsHasIndexedDescendant,
+  typedFseventsDirectoryDescendantChangeIsNamespaceOnly,
+  typedFseventsEventPathExplainsChange,
+  typedFseventsAnyEventPathExplainsChange,
+  typedFseventsSnapshotPoliciesEqual,
+  typedFseventsSnapshotDifference,
+  stableJson,
+  readAndValidateJournalExtension,
+  typedFseventsValidatedJournalExtension,
+  typedFseventsNanoseconds,
+  typedFseventsCheckedAdd,
+  typedFseventsAssertWithinReconciliationWindow,
+  typedFseventsEmptyCounters,
+  typedFseventsCountersEqual,
+  typedFseventsAdvanceCounters,
+  typedFseventsValidatedReconciliation,
+  reconcileFixedPoint,
+  commitReconciliation,
+  typedFseventsValidateTerminalAttestation,
+  sealTerminal,
+  typedFseventsForkPublishedReconciliation,
+  typedFseventsRestorePublishedReconciliation,
+  typedFseventsConsumePublishedReconciliation,
+  typedFseventsInvalidateFixedCycleArtifacts,
+  typedFseventsPublishFixedCyclePackage,
+  typedFseventsValidatedFixedCyclePackage,
+  runTypedFseventsFixedCycle,
+  isCanonicalUint64Decimal
 ].map((implementation) => implementation.toString()).join("\n");
 
 export function stableJson(value) {
@@ -4221,16 +4676,16 @@ function prepareTypedFseventsBootstrap({ roots, scratch, watchMode }) {
 }
 
 const MUTATION_MONITOR_CHILD_SOURCE = String.raw`
-import { execFileSync, spawn } from "node:child_process";
+import { execFileSync, spawn, spawnSync } from "node:child_process";
 import { isUtf8 } from "node:buffer";
 import crypto from "node:crypto";
 import fs from "node:fs";
 import path from "node:path";
-${TYPED_FSEVENTS_ACK_READER_CHILD_SOURCE}
+${TYPED_FSEVENTS_RECONCILIATION_CHILD_SOURCE}
 const [
   configurationPath,
   expectedConfigurationHash
-] = process.argv.slice(1);
+] = process.argv.slice(-2);
 const configurationEndpoint = readStableRegularFileNoFollow(configurationPath, {
   expectedMode: 0o600,
   maxBytes: 16 * 1024 * 1024
@@ -4353,10 +4808,7 @@ const readCommittedTypedAcknowledgement = () => {
       }
     );
     if (acknowledgement === null) return null;
-    return {
-      ...acknowledgement,
-      commitInode: acknowledgement.commitVisibleInode
-    };
+    return acknowledgement;
   } catch {
     return null;
   }
@@ -4388,14 +4840,15 @@ const publishTypedCommand = (type, commandSequence) => {
 };
 const waitTypedAcknowledgement = (type, commandSequence, terminal = false) => {
   const previousAckInode = typedAcknowledgement?.visibleInode;
-  const previousCommitInode = typedAcknowledgement?.commitInode;
+  const previousCommitInode = typedAcknowledgement?.commitVisibleInode;
   const deadline = Date.now() + 15_000;
   const observe = () => {
     const candidate = readCommittedTypedAcknowledgement();
     const matches = candidate !== null && candidate.type === type
       && candidate.sequence === commandSequence
       && (previousAckInode === undefined || candidate.visibleInode !== previousAckInode)
-      && (previousCommitInode === undefined || candidate.commitInode !== previousCommitInode);
+      && (previousCommitInode === undefined
+        || candidate.commitVisibleInode !== previousCommitInode);
     const decision = decideTypedFseventsAcknowledgementWait({
       childAlive: typedChildAlive(typedFseventsChild),
       exitCode: typedFseventsChild?.exitCode ?? null,
@@ -5211,6 +5664,24 @@ setInterval(() => {
 }, 100);
 `;
 
+export function inspectMutationMonitorChildSource() {
+  const source = MUTATION_MONITOR_CHILD_SOURCE;
+  return Object.freeze({
+    bytes: Buffer.byteLength(source),
+    sha256: sha256Buffer(Buffer.from(source)),
+    source
+  });
+}
+
+export function inspectTypedFseventsReconciliationChildSource() {
+  const source = TYPED_FSEVENTS_RECONCILIATION_CHILD_SOURCE;
+  return Object.freeze({
+    bytes: Buffer.byteLength(source),
+    sha256: sha256Buffer(Buffer.from(source)),
+    source
+  });
+}
+
 function synchronousWait(milliseconds) {
   Atomics.wait(new Int32Array(new SharedArrayBuffer(4)), 0, 0, milliseconds);
 }
@@ -5222,6 +5693,75 @@ function processIsAlive(pid) {
   } catch {
     return false;
   }
+}
+
+const MUTATION_MONITOR_CHILD_STATUS_CACHE = new WeakMap();
+const MUTATION_MONITOR_CHILD_ERRORS = new WeakMap();
+const MUTATION_MONITOR_CHILD_STATUS_CACHE_MS = 75;
+let MUTATION_MONITOR_LOGICAL_READ_COUNT = 0;
+let MUTATION_MONITOR_PS_INSPECTION_COUNT = 0;
+
+export function inspectMutationMonitorLivenessDiagnostics() {
+  return Object.freeze({
+    logicalReadCount: MUTATION_MONITOR_LOGICAL_READ_COUNT,
+    psInspectionCount: MUTATION_MONITOR_PS_INSPECTION_COUNT
+  });
+}
+
+function recordMutationMonitorChildError(child, error) {
+  const code = typeof error?.code === "string" && error.code.length > 0
+    ? error.code
+    : "CHILD_PROCESS_ERROR";
+  MUTATION_MONITOR_CHILD_ERRORS.set(child, code);
+  MUTATION_MONITOR_CHILD_STATUS_CACHE.set(child, {
+    alive: false,
+    checkedAtMs: Date.now()
+  });
+}
+
+function observeMutationMonitorChildErrors(child) {
+  const record = (error) => recordMutationMonitorChildError(child, error);
+  child.on("error", record);
+  child.channel?.on?.("error", record);
+}
+
+function mutationMonitorChildIsAlive(child, {
+  cachedOnly = false,
+  fresh = false
+} = {}) {
+  if (!child || child.exitCode !== null || child.signalCode !== null
+    || !Number.isSafeInteger(child.pid) || child.pid <= 1) return false;
+  if (MUTATION_MONITOR_CHILD_ERRORS.has(child)) return false;
+  if (!processIsAlive(child.pid)) return false;
+  const now = Date.now();
+  const cached = MUTATION_MONITOR_CHILD_STATUS_CACHE.get(child);
+  if (cachedOnly) return cached?.alive ?? true;
+  if (!fresh && cached && now - cached.checkedAtMs < MUTATION_MONITOR_CHILD_STATUS_CACHE_MS) {
+    return cached.alive;
+  }
+  const supportsProcessStateInspection = ["darwin", "linux"].includes(process.platform)
+    && fs.existsSync("/bin/ps");
+  if (!supportsProcessStateInspection) {
+    const alive = processIsAlive(child.pid);
+    MUTATION_MONITOR_CHILD_STATUS_CACHE.set(child, {
+      alive,
+      checkedAtMs: Date.now()
+    });
+    return alive;
+  }
+  MUTATION_MONITOR_PS_INSPECTION_COUNT += 1;
+  const status = spawnSync("/bin/ps", ["-o", "state=", "-p", String(child.pid)], {
+    encoding: "utf8",
+    stdio: ["ignore", "pipe", "ignore"],
+    timeout: 250
+  });
+  const state = typeof status.stdout === "string" ? status.stdout.trim() : "";
+  const inspectionFailed = Boolean(status.error) || status.status !== 0 || state.length === 0;
+  const alive = inspectionFailed
+    ? process.platform !== "darwin" && processIsAlive(child.pid)
+    : !state.startsWith("Z");
+  MUTATION_MONITOR_CHILD_STATUS_CACHE.set(child, { alive, checkedAtMs: Date.now() });
+  return alive;
 }
 
 function assertRelativeMonitorPath(value, label) {
@@ -5308,13 +5848,18 @@ function requestMutationMonitorSample(monitor, maximumWaitMs) {
   const acknowledgementPath = path.join(monitor.scratch, `sample-${requestId}.json`);
   let sent = false;
   try {
-    sent = monitor.child.send({ type: "sample", sessionId: monitor.sessionId, requestId });
+    sent = monitor.child.send(
+      { type: "sample", sessionId: monitor.sessionId, requestId },
+      (error) => {
+        if (error) recordMutationMonitorChildError(monitor.child, error);
+      }
+    );
   } catch {
     throw new Error("mutation monitor descriptor sample request failed");
   }
   if (!sent) throw new Error("mutation monitor descriptor sample request failed");
   while (!fs.existsSync(acknowledgementPath)) {
-    if (fs.existsSync(monitor.errorPath) || !processIsAlive(monitor.child.pid)) {
+    if (fs.existsSync(monitor.errorPath) || !mutationMonitorChildIsAlive(monitor.child)) {
       const detail = fs.existsSync(monitor.errorPath)
         ? fs.readFileSync(monitor.errorPath, "utf8").trim()
         : "monitor child exited";
@@ -5343,6 +5888,10 @@ function requestMutationMonitorSample(monitor, maximumWaitMs) {
     || !validMutationMonitorStateValues(acknowledgement, monitor)) {
     throw new Error("mutation monitor descriptor sample acknowledgement schema is invalid");
   }
+  if (fs.existsSync(monitor.errorPath)
+    || !mutationMonitorChildIsAlive(monitor.child, { fresh: true })) {
+    throw new Error("mutation monitor descriptor sample child exited after acknowledgement");
+  }
 }
 
 export function readMutationEpochState(monitor, {
@@ -5351,7 +5900,10 @@ export function readMutationEpochState(monitor, {
   sampleTimeoutMs
 } = {}) {
   if (!monitor || monitor.stopped) throw new Error("mutation monitor is not active");
-  if (fs.existsSync(monitor.errorPath) || (requireAlive && !processIsAlive(monitor.child.pid))) {
+  MUTATION_MONITOR_LOGICAL_READ_COUNT += 1;
+  if (fs.existsSync(monitor.errorPath)
+    || (requireAlive
+      && !mutationMonitorChildIsAlive(monitor.child, { cachedOnly: true }))) {
     const detail = fs.existsSync(monitor.errorPath)
       ? fs.readFileSync(monitor.errorPath, "utf8").trim()
       : "monitor child exited";
@@ -5367,12 +5919,21 @@ export function readMutationEpochState(monitor, {
   if (!exactKeys(value, MUTATION_MONITOR_STATE_KEYS) || !validMutationMonitorStateValues(value, monitor)) {
     throw new Error("mutation monitor epoch is invalid");
   }
+  if (requireAlive && (fs.existsSync(monitor.errorPath)
+    || !mutationMonitorChildIsAlive(
+      monitor.child,
+      requestSample ? { cachedOnly: true } : { fresh: true }
+    ))) {
+    const detail = fs.existsSync(monitor.errorPath)
+      ? fs.readFileSync(monitor.errorPath, "utf8").trim()
+      : "monitor child exited";
+    throw new Error(`mutation monitor crashed; final evidence fails closed (${detail})`);
+  }
   return value;
 }
 
 function childProcessHandleAlive(child) {
-  if (!child || child.exitCode !== null || child.signalCode !== null) return false;
-  try { return child.kill(0); } catch { return false; }
+  return mutationMonitorChildIsAlive(child);
 }
 
 function readDiagnosticTypedHelperPid(pidPath) {
@@ -5508,20 +6069,54 @@ export function startMutationEpochMonitor(paths, {
   fsyncDirectory(scratch);
   const configurationHash = sha256Buffer(configurationBuffer);
   const bootstrapArgs = [configurationPath, configurationHash];
-  const child = spawn(process.execPath, [
-    "--input-type=module",
-    "-e",
-    MUTATION_MONITOR_CHILD_SOURCE,
-    ...bootstrapArgs
-  ], {
-    env: process.env,
-    stdio: ["ignore", "ignore", "ignore", "ipc"]
+  const childSourcePath = path.join(scratch, "mutation-monitor-child.mjs");
+  const childSourceBuffer = Buffer.from(MUTATION_MONITOR_CHILD_SOURCE);
+  const childSourceSha256 = sha256Buffer(childSourceBuffer);
+  createPrivateMonitorFile(childSourcePath, childSourceBuffer, 0o400);
+  fsyncDirectory(scratch);
+  const childSourceEndpoint = readStableRegularFileNoFollow(childSourcePath, {
+    expectedMode: 0o400,
+    maxBytes: 16 * 1024 * 1024
   });
+  if (childSourceEndpoint === null
+    || !childSourceEndpoint.buffer.equals(childSourceBuffer)
+    || sha256Buffer(childSourceEndpoint.buffer) !== childSourceSha256) {
+    fs.rmSync(scratch, { recursive: true, force: true });
+    throw new Error("mutation monitor child source is unsafe");
+  }
+  let childSourceDescriptor = -1;
+  let child;
+  try {
+    childSourceDescriptor = fs.openSync(
+      childSourcePath,
+      fs.constants.O_RDONLY | fs.constants.O_NOFOLLOW
+    );
+    const heldSource = fs.fstatSync(childSourceDescriptor, { bigint: true });
+    const visibleSource = fs.lstatSync(childSourcePath, { bigint: true });
+    if (!sameTypedFseventsFrameSnapshot(heldSource, childSourceEndpoint.status)
+      || !sameTypedFseventsFrameSnapshot(childSourceEndpoint.status, visibleSource)
+      || !heldSource.isFile()
+      || (heldSource.mode & 0o7777n) !== 0o400n
+      || heldSource.uid !== BigInt(process.geteuid())
+      || heldSource.nlink !== 1n) {
+      throw new Error("mutation monitor child source descriptor is unsafe");
+    }
+    child = spawn(process.execPath, ["--import=/dev/fd/4", "-", ...bootstrapArgs], {
+      env: process.env,
+      stdio: ["ignore", "ignore", "ignore", "ipc", childSourceDescriptor]
+    });
+    observeMutationMonitorChildErrors(child);
+  } catch (error) {
+    fs.rmSync(scratch, { recursive: true, force: true });
+    throw error;
+  } finally {
+    if (childSourceDescriptor >= 0) fs.closeSync(childSourceDescriptor);
+  }
   child.unref();
   child.channel?.unref?.();
   const deadline = Date.now() + startupTimeoutMs;
   while (!fs.existsSync(readyPath)) {
-    if (fs.existsSync(errorPath) || !processIsAlive(child.pid)) {
+    if (fs.existsSync(errorPath) || !mutationMonitorChildIsAlive(child)) {
       const detail = fs.existsSync(errorPath) ? fs.readFileSync(errorPath, "utf8").trim() : "monitor child exited";
       cleanupMutationMonitor({ child, scratch, stopped: false });
       throw new Error(`mutation monitor startup failed closed (${detail})`);
@@ -5552,6 +6147,11 @@ export function startMutationEpochMonitor(paths, {
     terminalAttestation: null,
     registeredMetadataRoot: null,
     bootstrapArgBytes: Buffer.byteLength(bootstrapArgs.join("\0")),
+    childSourceBytes: childSourceBuffer.length,
+    childSourceDescriptorNumber: 4,
+    childSourceExecutionPath: "/dev/fd/4",
+    childSourcePath,
+    childSourceSha256,
     typedFseventsAckCommitPath: typedFseventsBootstrap?.ackCommitPath ?? null,
     typedFseventsAckPath: typedFseventsBootstrap?.ackPath ?? null,
     typedFseventsBinaryPath: typedFseventsBootstrap?.binaryPath ?? null,
@@ -5624,14 +6224,16 @@ export function registerMutationMetadataRoot(monitor, {
   };
   let sent = false;
   try {
-    sent = monitor.child.send(request);
+    sent = monitor.child.send(request, (error) => {
+      if (error) recordMutationMonitorChildError(monitor.child, error);
+    });
   } catch {
     throw new Error("mutation monitor exact metadata registration request failed");
   }
   if (!sent) throw new Error("mutation monitor exact metadata registration request failed");
   const deadline = Date.now() + 3_000;
   while (!fs.existsSync(acknowledgementPath)) {
-    if (fs.existsSync(monitor.errorPath) || !processIsAlive(monitor.child.pid)) {
+    if (fs.existsSync(monitor.errorPath) || !mutationMonitorChildIsAlive(monitor.child)) {
       throw new Error("mutation monitor exact metadata registration acknowledgement failed closed");
     }
     if (Date.now() >= deadline) throw new Error("mutation monitor exact metadata registration acknowledgement timed out");
@@ -5656,6 +6258,10 @@ export function registerMutationMetadataRoot(monitor, {
     || acknowledgement.sessionId !== monitor.sessionId || acknowledgement.requestId !== requestId
     || acknowledgement.root !== canonicalRoot || acknowledgement.relativePath !== normalizedRelativePath) {
     throw new Error("mutation monitor exact metadata registration acknowledgement schema is invalid");
+  }
+  if (fs.existsSync(monitor.errorPath)
+    || !mutationMonitorChildIsAlive(monitor.child, { fresh: true })) {
+    throw new Error("mutation monitor exact metadata registration child exited after acknowledgement");
   }
   policy.exactMetadataRoots.push(absoluteRoot);
   monitor.registeredMetadataRoot = absoluteRoot;
@@ -5690,7 +6296,11 @@ export function settleMutationEpochState(monitor, { quietMs = 300, timeoutMs } =
   let stableSince = Date.now();
   while (Date.now() - stableSince < quietMs) {
     if (Date.now() >= deadline) throw new Error("mutation monitor did not reach bounded quiescence");
-    synchronousWait(Math.min(25, quietMs, Math.max(1, deadline - Date.now())));
+    synchronousWait(Math.min(
+      MUTATION_MONITOR_CHILD_STATUS_CACHE_MS,
+      quietMs,
+      Math.max(1, deadline - Date.now())
+    ));
     const current = readBeforeDeadline();
     if (current.sourceEpoch !== state.sourceEpoch || current.metadataEpoch !== state.metadataEpoch) {
       stableSince = Date.now();
@@ -5847,11 +6457,15 @@ export function stopMutationEpochMonitor(monitor, {
       expectedSourceEpoch: requiredEpoch,
       expectedMetadataEpoch: requiredMetadataEpoch,
       terminalAttestationPath
+    }, (error) => {
+      if (error) recordMutationMonitorChildError(monitor.child, error);
     })) {
       throw new Error("mutation monitor terminal stop message failed");
     }
     const deadline = Date.now() + mutationMonitorOperationTimeout(monitor, 3_000);
-    while (!fs.existsSync(monitor.stoppedPath) && processIsAlive(monitor.child.pid) && Date.now() < deadline) synchronousWait(20);
+    while (!fs.existsSync(monitor.stoppedPath)
+      && mutationMonitorChildIsAlive(monitor.child)
+      && Date.now() < deadline) synchronousWait(20);
     if (!fs.existsSync(monitor.stoppedPath)) throw new Error("mutation monitor terminal acknowledgement is missing");
     try {
       attestation = JSON.parse(fs.readFileSync(monitor.stoppedPath, "utf8"));
