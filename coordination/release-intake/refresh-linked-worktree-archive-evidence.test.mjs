@@ -6794,49 +6794,199 @@ test("external gate report promotion is marker-bound, private, ignores partial t
   );
 });
 
-test("gate report and terminal attestation schemas bind requested mode and directory policy", async () => {
-  const { assertEvidenceGateReport, assertMutationTerminalAttestation } = await import(libraryUrl);
+test("v3 gate report and terminal attestation schemas bind exact typed provenance", async () => {
+  const {
+    assertEvidenceGateReport,
+    assertMutationTerminalAttestation,
+    assertTypedFseventsTerminalAdvance
+  } = await import(libraryUrl);
+  const nonTyped = {
+    enabled: false,
+    eventRootCount: 0,
+    eventRootFingerprint: null,
+    helperBinarySha256: null,
+    helperSourceSha256: null,
+    journalEntryCount: "0",
+    journalFirstEventId: null,
+    journalFlushSequence: "0",
+    journalHighWater: "0",
+    journalLastEventId: null,
+    journalLastFlushedEventId: null,
+    journalSha256: null,
+    materialEventCount: "0",
+    droppedEventCount: "0",
+    sourceEventCount: "0",
+    transactionMetadataEventCount: "0",
+    unknownEventCount: "0",
+    unmatchedDeltaCount: "0",
+    xattrOnlyEventCount: "0"
+  };
   const attestation = {
-    schemaVersion: 2,
+    schemaVersion: 3,
     sessionId: crypto.randomUUID(),
     sourceEpoch: 7,
     metadataEpoch: 3,
+    xattrEpoch: 0,
     watchMode: "descriptor-sentinel",
     requestedWatchMode: "descriptor-sentinel",
     directoryTimestampPolicy: "semantic-directory",
+    eventBackend: "none",
+    helperProtocolVersion: null,
+    regularFileCtimePolicy: "strict",
     coverageFingerprint: "d".repeat(64),
     coveragePathCount: 12,
     fdCount: 4,
     rootFdCount: 4,
+    typedFsevents: nonTyped,
     status: "stopped"
   };
   assert.doesNotThrow(() => assertMutationTerminalAttestation(attestation, {
     sessionId: attestation.sessionId,
     sourceEpoch: 7,
     metadataEpoch: 3,
+    xattrEpoch: 0,
     requestedWatchMode: "descriptor-sentinel",
-    directoryTimestampPolicy: "semantic-directory"
+    directoryTimestampPolicy: "semantic-directory",
+    eventBackend: "none",
+    helperProtocolVersion: null,
+    regularFileCtimePolicy: "strict",
+    typedFsevents: nonTyped
   }));
+  assert.throws(
+    () => assertMutationTerminalAttestation({ ...attestation, schemaVersion: 2 }),
+    /attestation|schema|fields/i
+  );
+  assert.throws(
+    () => assertMutationTerminalAttestation({ ...attestation, xattrEpoch: 1 }),
+    /attestation|fields|typed/i
+  );
   for (const invalid of [
     { ...attestation, extra: true },
     Object.fromEntries(Object.entries(attestation).filter(([key]) => key !== "sourceEpoch")),
     { ...attestation, directoryTimestampPolicy: "strict" },
-    { ...attestation, requestedWatchMode: "auto" }
+    { ...attestation, eventBackend: "darwin-fsevents-file-events" },
+    { ...attestation, regularFileCtimePolicy: "typed-xattr-only" },
+    { ...attestation, watchMode: "descriptor-sentinel-fsevents" },
+    { ...attestation, typedFsevents: { ...nonTyped, journalHighWater: 0 } },
+    { ...attestation, typedFsevents: { ...nonTyped, helperSourceSha256: "a".repeat(64) } }
   ]) {
     assert.throws(
       () => assertMutationTerminalAttestation(invalid, {
         sessionId: attestation.sessionId,
         sourceEpoch: 7,
         metadataEpoch: 3,
+        xattrEpoch: 0,
         requestedWatchMode: "descriptor-sentinel",
-        directoryTimestampPolicy: "semantic-directory"
+        directoryTimestampPolicy: "semantic-directory",
+        eventBackend: "none",
+        helperProtocolVersion: null,
+        regularFileCtimePolicy: "strict",
+        typedFsevents: nonTyped
       }),
-      /attestation|fields|epoch|requested|policy/i
+      /attestation|fields|epoch|requested|policy|typed|backend/i
     );
   }
+  const emptyTyped = {
+    ...nonTyped,
+    enabled: true,
+    eventRootCount: 4,
+    eventRootFingerprint: "1".repeat(64),
+    helperBinarySha256: "2".repeat(64),
+    helperSourceSha256: "3".repeat(64),
+    journalFlushSequence: "1",
+    journalSha256: crypto.createHash("sha256").update(Buffer.alloc(0)).digest("hex")
+  };
+  const typedAttestation = {
+    ...attestation,
+    eventBackend: "darwin-fsevents-file-events",
+    helperProtocolVersion: 2,
+    regularFileCtimePolicy: "typed-xattr-only",
+    typedFsevents: emptyTyped,
+    watchMode: "descriptor-sentinel-fsevents"
+  };
+  assert.doesNotThrow(() => assertMutationTerminalAttestation(typedAttestation));
+  const oneMaterial = {
+    ...emptyTyped,
+    journalEntryCount: "1",
+    journalFirstEventId: "42",
+    journalHighWater: "41",
+    journalLastEventId: "42",
+    journalLastFlushedEventId: "42",
+    journalSha256: "4".repeat(64),
+    materialEventCount: "1",
+    sourceEventCount: "1"
+  };
+  assert.doesNotThrow(() => assertMutationTerminalAttestation({
+    ...typedAttestation,
+    typedFsevents: oneMaterial
+  }));
+  for (const invalidTyped of [
+    { ...typedAttestation, watchMode: "recursive" },
+    { ...typedAttestation, typedFsevents: { ...emptyTyped, journalFlushSequence: "0" } },
+    { ...typedAttestation, typedFsevents: { ...oneMaterial, materialEventCount: "0" } },
+    { ...typedAttestation, typedFsevents: { ...oneMaterial, journalHighWater: "0" } },
+    { ...typedAttestation, typedFsevents: { ...oneMaterial, journalHighWater: "40" } },
+    { ...typedAttestation, typedFsevents: { ...oneMaterial, journalLastFlushedEventId: "41" } },
+    {
+      ...typedAttestation,
+      typedFsevents: { ...oneMaterial, journalLastEventId: "43", journalLastFlushedEventId: "43" }
+    },
+    {
+      ...typedAttestation,
+      typedFsevents: {
+        ...oneMaterial,
+        journalEntryCount: "2",
+        journalHighWater: "1",
+        journalLastEventId: "43",
+        journalLastFlushedEventId: "43",
+        materialEventCount: "2",
+        sourceEventCount: "2"
+      }
+    },
+    {
+      ...typedAttestation,
+      typedFsevents: {
+        ...oneMaterial,
+        journalSha256: crypto.createHash("sha256").update(Buffer.alloc(0)).digest("hex")
+      }
+    }
+  ]) assert.throws(() => assertMutationTerminalAttestation(invalidTyped), /attestation|fields|typed/i);
+  assert.throws(
+    () => assertTypedFseventsTerminalAdvance(emptyTyped, emptyTyped),
+    /terminal|flush|sequence/i
+  );
+  assert.throws(
+    () => assertTypedFseventsTerminalAdvance(emptyTyped, {
+      ...oneMaterial,
+      journalFlushSequence: "2",
+      journalSha256: emptyTyped.journalSha256
+    }),
+    /terminal|journal|digest/i
+  );
+  assert.throws(
+    () => assertTypedFseventsTerminalAdvance(oneMaterial, {
+      ...oneMaterial,
+      journalFlushSequence: "2",
+      journalLastEventId: "43",
+      journalLastFlushedEventId: "43"
+    }),
+    /terminal|journal|event ID/i
+  );
+  const oneXattr = {
+    ...emptyTyped,
+    journalEntryCount: "1",
+    journalFirstEventId: "44",
+    journalFlushSequence: "2",
+    journalHighWater: "41",
+    journalLastEventId: "44",
+    journalLastFlushedEventId: "44",
+    journalSha256: "5".repeat(64),
+    xattrOnlyEventCount: "1"
+  };
+  assert.doesNotThrow(() => assertTypedFseventsTerminalAdvance(emptyTyped, oneXattr));
   const reportBasis = {
     checkedAt: new Date().toISOString(),
-    schemaVersion: 2,
+    schemaVersion: 3,
     archiveSetFingerprint: "b".repeat(64),
     dirtyMapStatusSignature: "signature",
     expandedStatusEntries: 1,
@@ -6861,7 +7011,7 @@ test("gate report and terminal attestation schemas bind requested mode and direc
   assert.doesNotThrow(() => assertEvidenceGateReport(legacyReport, {
     allowLegacyTerminalProtocol: true
   }));
-  const report = {
+  const legacyV2Report = {
     ...reportBasis,
     terminalProtocol: {
       attestationFile: "reports/gate-monitor-attestation-slot-a.json",
@@ -6873,7 +7023,42 @@ test("gate report and terminal attestation schemas bind requested mode and direc
       schemaVersion: 2
     }
   };
+  assert.throws(() => assertEvidenceGateReport(legacyV2Report), /terminal protocol/i);
+  assert.doesNotThrow(() => assertEvidenceGateReport(legacyV2Report, {
+    allowLegacyTerminalProtocol: true
+  }));
+  const report = {
+    ...reportBasis,
+    terminalProtocol: {
+      attestationFile: "reports/gate-monitor-attestation-slot-a.json",
+      attestationSha256: "e".repeat(64),
+      directoryTimestampPolicy: "semantic-directory",
+      eventBackend: "none",
+      expectedMetadataEpoch: 3,
+      expectedSourceEpoch: 7,
+      expectedXattrEpoch: 0,
+      helperProtocolVersion: null,
+      monitorSessionId: attestation.sessionId,
+      regularFileCtimePolicy: "strict",
+      requestedWatchMode: "descriptor-sentinel",
+      schemaVersion: 3,
+      typedFsevents: nonTyped,
+      watchMode: "descriptor-sentinel"
+    }
+  };
   assert.doesNotThrow(() => assertEvidenceGateReport(report));
+  assert.doesNotThrow(() => assertEvidenceGateReport({
+    ...report,
+    terminalProtocol: {
+      ...report.terminalProtocol,
+      eventBackend: "darwin-fsevents-file-events",
+      expectedXattrEpoch: 0,
+      helperProtocolVersion: 2,
+      regularFileCtimePolicy: "typed-xattr-only",
+      typedFsevents: emptyTyped,
+      watchMode: "descriptor-sentinel-fsevents"
+    }
+  }));
   for (const invalidOptions of [
     null,
     true,
@@ -6887,9 +7072,12 @@ test("gate report and terminal attestation schemas bind requested mode and direc
   }
   for (const invalid of [
     { ...report, extra: true },
+    { ...report, schemaVersion: 2 },
     { ...report, terminalProtocol: { ...report.terminalProtocol, extra: true } },
     { ...report, terminalProtocol: { ...report.terminalProtocol, directoryTimestampPolicy: "strict" } },
-    { ...report, terminalProtocol: { ...report.terminalProtocol, requestedWatchMode: "auto" } },
+    { ...report, terminalProtocol: { ...report.terminalProtocol, attestationSha256: null } },
+    { ...report, terminalProtocol: { ...report.terminalProtocol, expectedXattrEpoch: "0" } },
+    { ...report, terminalProtocol: { ...report.terminalProtocol, typedFsevents: { ...nonTyped, unknownEventCount: "1" } } },
     Object.fromEntries(Object.entries(report).filter(([key]) => key !== "failures"))
   ]) {
     assert.throws(() => assertEvidenceGateReport(invalid), /gate report|fields|terminal protocol/i);
@@ -9401,7 +9589,7 @@ test("mutation monitor forces descriptor-sentinel mode through its effective att
   const bootstrap = JSON.parse(fs.readFileSync(path.join(monitor.scratch, "bootstrap.json"), "utf8"));
   assert.equal(bootstrap.requestedWatchModeText, "descriptor-sentinel");
   const state = settleMutationEpochState(monitor);
-  assert.equal(state.schemaVersion, 2);
+  assert.equal(state.schemaVersion, 3);
   assert.equal(monitor.watchMode, "descriptor-sentinel");
   assert.equal(state.watchMode, "descriptor-sentinel");
   assert.equal(state.requestedWatchMode, "descriptor-sentinel");
@@ -9410,10 +9598,209 @@ test("mutation monitor forces descriptor-sentinel mode through its effective att
     expectedEpoch: state.sourceEpoch,
     expectedMetadataEpoch: state.metadataEpoch
   });
-  assert.equal(attestation.schemaVersion, 2);
+  assert.equal(attestation.schemaVersion, 3);
   assert.equal(attestation.watchMode, "descriptor-sentinel");
   assert.equal(attestation.requestedWatchMode, "descriptor-sentinel");
   assert.equal(attestation.directoryTimestampPolicy, "semantic-directory");
+});
+
+test("Darwin explicit descriptor monitoring binds a native typed FSEvents READY endpoint", {
+  skip: process.platform !== "darwin"
+}, async (t) => {
+  const fixture = makeFixture();
+  t.after(() => fs.rmSync(fixture.parent, { recursive: true, force: true }));
+  const {
+    abortMutationEpochMonitor,
+    readMutationEpochState,
+    sha256Buffer,
+    startMutationEpochMonitor,
+    stopMutationEpochMonitor,
+    TYPED_FSEVENTS_HELPER_SOURCE_PATH
+  } = await import(libraryUrl);
+  const monitor = startMutationEpochMonitor([fixture.linked], {
+    watchMode: "descriptor-sentinel"
+  });
+  t.after(() => abortMutationEpochMonitor(monitor));
+  const state = readMutationEpochState(monitor, { requestSample: false });
+  assert.equal(monitor.typedHelperReadyBeforeDescriptorBaseline, true);
+  assert.equal(fs.lstatSync(monitor.typedFseventsRuntimeScratch).mode & 0o777, 0o700);
+  assert.equal(processIsAlive(monitor.typedFseventsPid), true);
+  const typedFseventsPid = monitor.typedFseventsPid;
+  assert.equal(state.schemaVersion, 3);
+  assert.equal(state.eventBackend, "darwin-fsevents-file-events");
+  assert.equal(state.helperProtocolVersion, 2);
+  assert.equal(state.regularFileCtimePolicy, "typed-xattr-only");
+  assert.equal(state.typedFsevents.enabled, true);
+  assert.equal(
+    state.typedFsevents.helperSourceSha256,
+    sha256Buffer(fs.readFileSync(TYPED_FSEVENTS_HELPER_SOURCE_PATH))
+  );
+  assert.equal(state.typedFsevents.eventRootCount, state.rootFdCount);
+  assert.match(state.typedFsevents.helperBinarySha256, /^[0-9a-f]{64}$/u);
+  assert.match(state.typedFsevents.eventRootFingerprint, /^[0-9a-f]{64}$/u);
+  assert.equal(state.typedFsevents.journalSha256, sha256Buffer(Buffer.alloc(0)));
+  assert.equal(state.typedFsevents.journalEntryCount, "0");
+  assert.equal(state.typedFsevents.journalFirstEventId, null);
+  assert.equal(state.typedFsevents.journalLastEventId, null);
+  assert.equal(state.typedFsevents.journalLastFlushedEventId, null);
+  assert.ok(BigInt(state.typedFsevents.journalFlushSequence) >= 2n);
+  for (const absolutePath of [
+    monitor.typedFseventsBinaryPath,
+    monitor.typedFseventsRootsPath,
+    monitor.typedFseventsCommandPath,
+    monitor.typedFseventsJournalPath,
+    monitor.typedFseventsAckPath,
+    monitor.typedFseventsAckCommitPath
+  ]) {
+    const stat = fs.lstatSync(absolutePath);
+    assert.equal(stat.isSymbolicLink(), false);
+    assert.equal(stat.isFile(), true);
+    assert.equal(stat.mode & 0o777, absolutePath === monitor.typedFseventsBinaryPath ? 0o500 : 0o600);
+    assert.equal(stat.nlink, 1);
+  }
+  const attestation = stopMutationEpochMonitor(monitor, {
+    expectedEpoch: state.sourceEpoch,
+    expectedMetadataEpoch: state.metadataEpoch
+  });
+  assert.equal(attestation.eventBackend, "darwin-fsevents-file-events");
+  assert.equal(attestation.typedFsevents.helperBinarySha256, state.typedFsevents.helperBinarySha256);
+  assert.equal(processIsAlive(typedFseventsPid), false);
+});
+
+test("Darwin outer cleanup signals only its monitor ChildProcess handle", {
+  skip: process.platform !== "darwin"
+}, async (t) => {
+  const fixture = makeFixture();
+  t.after(() => fs.rmSync(fixture.parent, { recursive: true, force: true }));
+  const { abortMutationEpochMonitor, startMutationEpochMonitor } = await import(libraryUrl);
+  const monitor = startMutationEpochMonitor([fixture.linked], {
+    watchMode: "descriptor-sentinel"
+  });
+  const nativePid = monitor.typedFseventsPid;
+  const scratch = monitor.scratch;
+  const numericSignals = [];
+  const originalKill = process.kill;
+  process.kill = function monitoredKill(pid, signal) {
+    if (signal !== undefined && signal !== 0) numericSignals.push({ pid, signal });
+    return originalKill.call(process, pid, signal);
+  };
+  try {
+    abortMutationEpochMonitor(monitor);
+  } finally {
+    process.kill = originalKill;
+  }
+  assert.deepEqual(numericSignals, []);
+  assert.equal(fs.existsSync(scratch), false);
+  assert.equal(await waitForCondition(() => !processIsAlive(nativePid), 2_000), true);
+});
+
+test("Darwin monitor-child death closes native stdin while leaving scratch diagnostic state", {
+  skip: process.platform !== "darwin"
+}, async (t) => {
+  const fixture = makeFixture();
+  t.after(() => fs.rmSync(fixture.parent, { recursive: true, force: true }));
+  const { abortMutationEpochMonitor, startMutationEpochMonitor } = await import(libraryUrl);
+  const monitor = startMutationEpochMonitor([fixture.linked], {
+    watchMode: "descriptor-sentinel"
+  });
+  t.after(() => abortMutationEpochMonitor(monitor));
+  const nativePid = monitor.typedFseventsPid;
+  monitor.child.kill("SIGKILL");
+  assert.equal(await waitForCondition(
+    () => !processIsAlive(monitor.child.pid) && !processIsAlive(nativePid),
+    3_000
+  ), true, "monitor-child SIGKILL did not close the native helper parent channel");
+  assert.equal(fs.existsSync(monitor.scratch), true, "scratch should remain for outer diagnostic cleanup");
+});
+
+test("Darwin diagnostic native-pid sidecar tampering never targets an unrelated process", {
+  skip: process.platform !== "darwin"
+}, async (t) => {
+  const fixture = makeFixture();
+  t.after(() => fs.rmSync(fixture.parent, { recursive: true, force: true }));
+  const { abortMutationEpochMonitor, startMutationEpochMonitor } = await import(libraryUrl);
+  for (const tamperKind of ["replacement", "deletion", "symlink", "fifo"]) {
+    await t.test(tamperKind, async (subtest) => {
+      const monitor = startMutationEpochMonitor([fixture.linked], {
+        watchMode: "descriptor-sentinel"
+      });
+      const sentinel = spawn(process.execPath, ["-e", "setInterval(() => {}, 60000)"], {
+        stdio: "ignore"
+      });
+      subtest.after(() => {
+        abortMutationEpochMonitor(monitor);
+        if (processIsAlive(sentinel.pid)) sentinel.kill("SIGKILL");
+      });
+      assert.equal(await waitForCondition(() => processIsAlive(sentinel.pid), 1_000), true);
+      const sidecarPath = path.join(monitor.scratch, "typed-helper-pid");
+      if (tamperKind === "deletion") {
+        fs.unlinkSync(sidecarPath);
+      } else if (tamperKind === "fifo") {
+        const fifoPath = path.join(monitor.scratch, `.unrelated-pid-fifo-${crypto.randomUUID()}`);
+        execFileSync("/usr/bin/mkfifo", [fifoPath], { timeout: TEST_CHILD_TIMEOUT_MS });
+        fs.chmodSync(fifoPath, 0o600);
+        fs.renameSync(fifoPath, sidecarPath);
+        assert.equal(fs.lstatSync(sidecarPath).isFIFO(), true);
+      } else if (tamperKind === "symlink") {
+        const backingPath = path.join(fixture.parent, `unrelated-pid-${crypto.randomUUID()}.json`);
+        fs.writeFileSync(backingPath, `${JSON.stringify({ pid: sentinel.pid })}\n`, { mode: 0o600 });
+        fs.unlinkSync(sidecarPath);
+        fs.symlinkSync(backingPath, sidecarPath);
+      } else {
+        fs.writeFileSync(sidecarPath, `${JSON.stringify({ pid: sentinel.pid })}\n`, { mode: 0o600 });
+      }
+      abortMutationEpochMonitor(monitor);
+      assert.equal(processIsAlive(sentinel.pid), true, "diagnostic sidecar controlled cleanup authority");
+    });
+  }
+});
+
+test("Darwin typed descriptor separates exact xattr churn from write-restore material drift", {
+  skip: process.platform !== "darwin"
+}, async (t) => {
+  const fixture = makeFixture();
+  t.after(() => fs.rmSync(fixture.parent, { recursive: true, force: true }));
+  const target = path.join(fixture.linked, "tracked.txt");
+  const {
+    abortMutationEpochMonitor,
+    settleMutationEpochState,
+    startMutationEpochMonitor,
+    stopMutationEpochMonitor
+  } = await import(libraryUrl);
+  const monitor = startMutationEpochMonitor([fixture.linked], {
+    watchMode: "descriptor-sentinel"
+  });
+  t.after(() => abortMutationEpochMonitor(monitor));
+  const baseline = settleMutationEpochState(monitor);
+  execFileSync("/usr/bin/xattr", ["-w", "com.mais.task2", "metadata-only", target], {
+    stdio: "ignore",
+    timeout: TEST_CHILD_TIMEOUT_MS
+  });
+  const xattrState = settleMutationEpochState(monitor);
+  assert.equal(xattrState.sourceEpoch, baseline.sourceEpoch);
+  assert.equal(xattrState.metadataEpoch, baseline.metadataEpoch);
+  assert.ok(xattrState.xattrEpoch > baseline.xattrEpoch);
+  assert.ok(
+    BigInt(xattrState.typedFsevents.xattrOnlyEventCount)
+      > BigInt(baseline.typedFsevents.xattrOnlyEventCount)
+  );
+
+  const original = fs.readFileSync(target);
+  const originalStat = fs.statSync(target);
+  fs.writeFileSync(target, "temporary material mutation\n");
+  fs.writeFileSync(target, original);
+  fs.utimesSync(target, originalStat.atime, originalStat.mtime);
+  const materialState = settleMutationEpochState(monitor);
+  assert.ok(materialState.sourceEpoch > xattrState.sourceEpoch);
+  assert.equal(materialState.xattrEpoch, xattrState.xattrEpoch);
+  assert.ok(
+    BigInt(materialState.typedFsevents.materialEventCount)
+      > BigInt(xattrState.typedFsevents.materialEventCount)
+  );
+  stopMutationEpochMonitor(monitor, {
+    expectedEpoch: materialState.sourceEpoch,
+    expectedMetadataEpoch: materialState.metadataEpoch
+  });
 });
 
 test("closure monitor override rejects every unsupported defined mode before bootstrap", async (t) => {
@@ -9716,10 +10103,10 @@ test("closure monitor override reaches the writer and currentness gate end to en
     fixture.evidenceRoot,
     ...report.terminalProtocol.attestationFile.split("/")
   ), "utf8"));
-  assert.equal(report.terminalProtocol.schemaVersion, 2);
+  assert.equal(report.terminalProtocol.schemaVersion, 3);
   assert.equal(report.terminalProtocol.requestedWatchMode, "descriptor-sentinel");
   assert.equal(report.terminalProtocol.directoryTimestampPolicy, "semantic-directory");
-  assert.equal(attestation.schemaVersion, 2);
+  assert.equal(attestation.schemaVersion, 3);
   assert.equal(attestation.watchMode, "descriptor-sentinel");
   assert.equal(attestation.requestedWatchMode, "descriptor-sentinel");
   assert.equal(attestation.directoryTimestampPolicy, "semantic-directory");
@@ -10296,16 +10683,17 @@ test("internal symlinks restore, escaping symlinks fail, and invalid artifacts a
 });
 
 const TYPED_FSEVENTS_COMMAND_BYTES = 20;
-const TYPED_FSEVENTS_ACK_BYTES = 48;
+const TYPED_FSEVENTS_ACK_BYTES = 136;
 const TYPED_FSEVENTS_ACK_COMMIT_BYTES = 72;
 const TYPED_FSEVENTS_ACK_COMMIT_MAGIC = "MFAC";
+const TYPED_FSEVENTS_PROTOCOL_VERSION = 2;
 const TYPED_FSEVENTS_JOURNAL_HEADER_BYTES = 40;
 const TYPED_FSEVENTS_JOURNAL_MAGIC = "MFSJ";
 
 function typedFseventsCommand(type, sequence) {
   const command = Buffer.alloc(TYPED_FSEVENTS_COMMAND_BYTES);
   command.write("MFSC", 0, "ascii");
-  command.writeUInt16LE(1, 4);
+  command.writeUInt16LE(TYPED_FSEVENTS_PROTOCOL_VERSION, 4);
   command.writeUInt16LE(type, 6);
   command.writeUInt32LE(TYPED_FSEVENTS_COMMAND_BYTES, 8);
   command.writeBigUInt64LE(BigInt(sequence), 12);
@@ -10356,7 +10744,8 @@ function publishTypedFseventsCommand(commandPath, type, sequence) {
 function parseTypedFseventsAck(buffer) {
   if (buffer.length !== TYPED_FSEVENTS_ACK_BYTES) throw new Error("typed FSEvents acknowledgement is truncated");
   if (buffer.toString("ascii", 0, 4) !== "MFSA") throw new Error("typed FSEvents acknowledgement magic is invalid");
-  if (buffer.readUInt16LE(4) !== 1 || buffer.readUInt32LE(8) !== TYPED_FSEVENTS_ACK_BYTES) {
+  if (buffer.readUInt16LE(4) !== TYPED_FSEVENTS_PROTOCOL_VERSION
+    || buffer.readUInt32LE(8) !== TYPED_FSEVENTS_ACK_BYTES) {
     throw new Error("typed FSEvents acknowledgement framing is invalid");
   }
   return {
@@ -10365,14 +10754,32 @@ function parseTypedFseventsAck(buffer) {
     sequence: buffer.readBigUInt64LE(16),
     journalHighWater: buffer.readBigUInt64LE(24),
     entryCount: buffer.readBigUInt64LE(32),
-    lastEventId: buffer.readBigUInt64LE(40)
+    lastEventId: buffer.readBigUInt64LE(40),
+    eventRootCount: buffer.readBigUInt64LE(48),
+    eventRootFingerprint: buffer.subarray(56, 88),
+    journalDevice: buffer.readBigUInt64LE(88),
+    journalInode: buffer.readBigUInt64LE(96),
+    journalSha256: buffer.subarray(104, 136)
   };
 }
 
-function typedFseventsAck({ type, sequence, journalHighWater = 0n, entryCount = 0n, lastEventId = 0n }) {
+function typedFseventsAck({
+  type,
+  sequence,
+  journalHighWater = 0n,
+  entryCount = 0n,
+  lastEventId = 0n,
+  eventRootCount = 1n,
+  eventRootFingerprint = crypto.createHash("sha256").update("default-root\0").digest(),
+  journalDevice = 0n,
+  journalInode = 0n,
+  journalSha256 = crypto.createHash("sha256").update(Buffer.alloc(0)).digest()
+}) {
+  assert.equal(eventRootFingerprint.length, 32);
+  assert.equal(journalSha256.length, 32);
   const acknowledgement = Buffer.alloc(TYPED_FSEVENTS_ACK_BYTES);
   acknowledgement.write("MFSA", 0, "ascii");
-  acknowledgement.writeUInt16LE(1, 4);
+  acknowledgement.writeUInt16LE(TYPED_FSEVENTS_PROTOCOL_VERSION, 4);
   acknowledgement.writeUInt16LE(type, 6);
   acknowledgement.writeUInt32LE(TYPED_FSEVENTS_ACK_BYTES, 8);
   acknowledgement.writeUInt32LE(0, 12);
@@ -10380,18 +10787,22 @@ function typedFseventsAck({ type, sequence, journalHighWater = 0n, entryCount = 
   acknowledgement.writeBigUInt64LE(BigInt(journalHighWater), 24);
   acknowledgement.writeBigUInt64LE(BigInt(entryCount), 32);
   acknowledgement.writeBigUInt64LE(BigInt(lastEventId), 40);
+  acknowledgement.writeBigUInt64LE(BigInt(eventRootCount), 48);
+  eventRootFingerprint.copy(acknowledgement, 56);
+  acknowledgement.writeBigUInt64LE(BigInt(journalDevice), 88);
+  acknowledgement.writeBigUInt64LE(BigInt(journalInode), 96);
+  journalSha256.copy(acknowledgement, 104);
   return acknowledgement;
 }
 
 function typedFseventsAckCommit(acknowledgement, published) {
-  const parsed = parseTypedFseventsAck(acknowledgement);
   const commit = Buffer.alloc(TYPED_FSEVENTS_ACK_COMMIT_BYTES);
   commit.write(TYPED_FSEVENTS_ACK_COMMIT_MAGIC, 0, "ascii");
-  commit.writeUInt16LE(1, 4);
-  commit.writeUInt16LE(parsed.type, 6);
+  commit.writeUInt16LE(TYPED_FSEVENTS_PROTOCOL_VERSION, 4);
+  commit.writeUInt16LE(acknowledgement.readUInt16LE(6), 6);
   commit.writeUInt32LE(TYPED_FSEVENTS_ACK_COMMIT_BYTES, 8);
   commit.writeUInt32LE(0, 12);
-  commit.writeBigUInt64LE(parsed.sequence, 16);
+  commit.writeBigUInt64LE(acknowledgement.readBigUInt64LE(16), 16);
   commit.writeBigUInt64LE(BigInt(published.dev), 24);
   commit.writeBigUInt64LE(BigInt(published.ino), 32);
   crypto.createHash("sha256").update(acknowledgement).digest().copy(commit, 40);
@@ -10405,7 +10816,7 @@ function parseTypedFseventsAckCommit(buffer) {
   if (buffer.toString("ascii", 0, 4) !== TYPED_FSEVENTS_ACK_COMMIT_MAGIC) {
     throw new Error("typed FSEvents acknowledgement commit magic is invalid");
   }
-  if (buffer.readUInt16LE(4) !== 1
+  if (buffer.readUInt16LE(4) !== TYPED_FSEVENTS_PROTOCOL_VERSION
     || buffer.readUInt32LE(8) !== TYPED_FSEVENTS_ACK_COMMIT_BYTES
     || buffer.readUInt32LE(12) !== 0) {
     throw new Error("typed FSEvents acknowledgement commit framing is invalid");
@@ -10437,17 +10848,51 @@ function secureTypedFseventsFrame(status, expectedBytes) {
     && status.size === BigInt(expectedBytes);
 }
 
-function readCommittedTypedFseventsAck(ackPath, { beforeVisibleValidation } = {}) {
+function secureTypedFseventsJournalFrame(status, minimumBytes) {
+  return status.isFile()
+    && (status.mode & 0o7777n) === 0o600n
+    && status.nlink === 1n
+    && status.size >= BigInt(minimumBytes);
+}
+
+function sameTypedFseventsJournalIdentity(left, right) {
+  return left.dev === right.dev
+    && left.ino === right.ino
+    && left.mode === right.mode
+    && left.nlink === right.nlink;
+}
+
+function readTypedFseventsPrefix(descriptor, byteLength) {
+  const prefix = Buffer.alloc(byteLength);
+  let offset = 0;
+  while (offset < byteLength) {
+    const amount = fs.readSync(descriptor, prefix, offset, byteLength - offset, offset);
+    if (amount <= 0) return null;
+    offset += amount;
+  }
+  return prefix;
+}
+
+function readCommittedTypedFseventsAck(ackPath, {
+  beforeVisibleValidation,
+  expectedEventRootCount,
+  expectedEventRootFingerprint
+} = {}) {
   const commitPath = path.join(path.dirname(ackPath), "ack.commit");
+  const journalPath = path.join(path.dirname(ackPath), "journal.bin");
   const noFollow = fs.constants.O_NOFOLLOW ?? 0;
+  const nonBlock = fs.constants.O_NONBLOCK ?? 0;
   let acknowledgementDescriptor = -1;
   let commitDescriptor = -1;
+  let journalDescriptor = -1;
   try {
-    acknowledgementDescriptor = fs.openSync(ackPath, fs.constants.O_RDONLY | noFollow);
-    commitDescriptor = fs.openSync(commitPath, fs.constants.O_RDONLY | noFollow);
+    acknowledgementDescriptor = fs.openSync(ackPath, fs.constants.O_RDONLY | noFollow | nonBlock);
+    commitDescriptor = fs.openSync(commitPath, fs.constants.O_RDONLY | noFollow | nonBlock);
+    journalDescriptor = fs.openSync(journalPath, fs.constants.O_RDONLY | noFollow | nonBlock);
   } catch (error) {
     if (acknowledgementDescriptor >= 0) fs.closeSync(acknowledgementDescriptor);
     if (commitDescriptor >= 0) fs.closeSync(commitDescriptor);
+    if (journalDescriptor >= 0) fs.closeSync(journalDescriptor);
     if (error?.code === "ENOENT") return null;
     throw error;
   }
@@ -10462,29 +10907,51 @@ function readCommittedTypedFseventsAck(ackPath, { beforeVisibleValidation } = {}
   let commitAfter;
   let commitVisible;
   let commitFinal;
+  let journalBefore;
+  let journalAfter;
+  let journalVisible;
+  let journalFinal;
+  let journalPrefix;
+  let journalVerification;
   let transientRace = false;
   try {
     acknowledgementBefore = fs.fstatSync(acknowledgementDescriptor, { bigint: true });
     commitBefore = fs.fstatSync(commitDescriptor, { bigint: true });
+    journalBefore = fs.fstatSync(journalDescriptor, { bigint: true });
     acknowledgement = fs.readFileSync(acknowledgementDescriptor);
     commit = fs.readFileSync(commitDescriptor);
+    if (!secureTypedFseventsFrame(acknowledgementBefore, TYPED_FSEVENTS_ACK_BYTES)
+      || !secureTypedFseventsFrame(commitBefore, TYPED_FSEVENTS_ACK_COMMIT_BYTES)
+      || !secureTypedFseventsJournalFrame(journalBefore, 0)
+      || acknowledgement.length !== TYPED_FSEVENTS_ACK_BYTES) return null;
+    const highWater = acknowledgement.readBigUInt64LE(24);
+    if (highWater > BigInt(Number.MAX_SAFE_INTEGER)
+      || highWater > BigInt(bufferConstants.MAX_LENGTH)
+      || highWater > journalBefore.size) return null;
+    journalPrefix = readTypedFseventsPrefix(journalDescriptor, Number(highWater));
     acknowledgementAfter = fs.fstatSync(acknowledgementDescriptor, { bigint: true });
     commitAfter = fs.fstatSync(commitDescriptor, { bigint: true });
-    beforeVisibleValidation?.({ ackPath, commitPath });
+    journalAfter = fs.fstatSync(journalDescriptor, { bigint: true });
+    beforeVisibleValidation?.({ ackPath, commitPath, journalPath });
     acknowledgementVisible = fs.lstatSync(ackPath, { bigint: true });
     commitVisible = fs.lstatSync(commitPath, { bigint: true });
+    journalVisible = fs.lstatSync(journalPath, { bigint: true });
+    journalVerification = readTypedFseventsPrefix(journalDescriptor, Number(highWater));
     acknowledgementFinal = fs.fstatSync(acknowledgementDescriptor, { bigint: true });
     commitFinal = fs.fstatSync(commitDescriptor, { bigint: true });
+    journalFinal = fs.fstatSync(journalDescriptor, { bigint: true });
   } catch (error) {
     if (error?.code === "ENOENT") transientRace = true;
     else throw error;
   } finally {
     fs.closeSync(acknowledgementDescriptor);
     fs.closeSync(commitDescriptor);
+    fs.closeSync(journalDescriptor);
   }
 
   if (transientRace) return null;
-  if (!secureTypedFseventsFrame(acknowledgementBefore, TYPED_FSEVENTS_ACK_BYTES)
+  if (journalPrefix === null || journalVerification === null
+    || !secureTypedFseventsFrame(acknowledgementBefore, TYPED_FSEVENTS_ACK_BYTES)
     || !secureTypedFseventsFrame(acknowledgementAfter, TYPED_FSEVENTS_ACK_BYTES)
     || !secureTypedFseventsFrame(acknowledgementVisible, TYPED_FSEVENTS_ACK_BYTES)
     || !secureTypedFseventsFrame(acknowledgementFinal, TYPED_FSEVENTS_ACK_BYTES)
@@ -10497,7 +10964,15 @@ function readCommittedTypedFseventsAck(ackPath, { beforeVisibleValidation } = {}
     || !sameTypedFseventsFrameSnapshot(acknowledgementVisible, acknowledgementFinal)
     || !sameTypedFseventsFrameSnapshot(commitBefore, commitAfter)
     || !sameTypedFseventsFrameSnapshot(commitAfter, commitVisible)
-    || !sameTypedFseventsFrameSnapshot(commitVisible, commitFinal)) {
+    || !sameTypedFseventsFrameSnapshot(commitVisible, commitFinal)
+    || !secureTypedFseventsJournalFrame(journalBefore, acknowledgement.readBigUInt64LE(24))
+    || !secureTypedFseventsJournalFrame(journalAfter, acknowledgement.readBigUInt64LE(24))
+    || !secureTypedFseventsJournalFrame(journalVisible, acknowledgement.readBigUInt64LE(24))
+    || !secureTypedFseventsJournalFrame(journalFinal, acknowledgement.readBigUInt64LE(24))
+    || !sameTypedFseventsJournalIdentity(journalBefore, journalAfter)
+    || !sameTypedFseventsJournalIdentity(journalAfter, journalVisible)
+    || !sameTypedFseventsJournalIdentity(journalVisible, journalFinal)
+    || !journalPrefix.equals(journalVerification)) {
     return null;
   }
 
@@ -10509,11 +10984,24 @@ function readCommittedTypedFseventsAck(ackPath, { beforeVisibleValidation } = {}
     || parsedCommit.sequence !== parsedAcknowledgement.sequence
     || parsedCommit.publishedDevice !== acknowledgementFinal.dev
     || parsedCommit.publishedInode !== acknowledgementFinal.ino
-    || !parsedCommit.acknowledgementSha256.equals(acknowledgementSha256)) {
+    || !parsedCommit.acknowledgementSha256.equals(acknowledgementSha256)
+    || parsedAcknowledgement.eventRootCount < 1n
+    || parsedAcknowledgement.journalDevice !== journalFinal.dev
+    || parsedAcknowledgement.journalInode !== journalFinal.ino
+    || !parsedAcknowledgement.journalSha256.equals(
+      crypto.createHash("sha256").update(journalPrefix).digest()
+    )
+    || (expectedEventRootCount !== undefined
+      && parsedAcknowledgement.eventRootCount !== BigInt(expectedEventRootCount))
+    || (expectedEventRootFingerprint !== undefined
+      && !parsedAcknowledgement.eventRootFingerprint.equals(
+        Buffer.from(expectedEventRootFingerprint, "hex")
+      ))) {
     return null;
   }
   return {
     ...parsedAcknowledgement,
+    journalPrefix,
     visibleInode: acknowledgementVisible.ino,
     commitVisibleInode: commitVisible.ino
   };
@@ -10668,7 +11156,7 @@ function makeTypedFseventsScratch(parent, configSetup) {
 
 test("typed FSEvents flag classifier is exact-benign and fail-closed", async () => {
   const { classifyTypedFseventsFlags } = await import(libraryUrl);
-  const conservativeSource = [0, 0x11400, 0x19000, 0x10000, 0x8000, 0x7f0000];
+  const conservativeSource = [0, 0x11400, 0x19000, 0x10000, 0x8000, 0x00080000, 0x7f0000];
   assert.equal(classifyTypedFseventsFlags(0x18000), "xattr-only");
   for (const flags of conservativeSource) assert.equal(classifyTypedFseventsFlags(flags), "source", flags.toString(16));
   for (const fatal of [0x1, 0x2, 0x4, 0x8, 0x10, 0x20, 0x40, 0x80, 0x00800000, 0x80000000]) {
@@ -10678,48 +11166,867 @@ test("typed FSEvents flag classifier is exact-benign and fail-closed", async () 
   assert.throws(() => classifyTypedFseventsFlags(2 ** 32), /uint32/i);
 });
 
-test("typed FSEvents journal parser rejects unsafe framing and preserves uint64 event IDs", () => {
+test("typed FSEvents journal parser rejects unsafe framing and preserves uint64 event IDs", async () => {
+  const { parseTypedFseventsJournalPrefix } = await import(libraryUrl);
   const first = typedFseventsJournalRecord({ sequence: 1n, eventId: 9_007_199_254_740_993n, flags: 0x18000, path: "/tmp/a" });
   const second = typedFseventsJournalRecord({ sequence: 2n, eventId: 18_446_744_073_709_551_000n, flags: 0x11400, path: "/tmp/b" });
-  const parsed = parseTypedFseventsJournal(Buffer.concat([first, second]));
+  const parsed = parseTypedFseventsJournalPrefix(Buffer.concat([first, second]));
   assert.equal(parsed[0].eventId, 9_007_199_254_740_993n);
   assert.equal(parsed[0].eventIdDecimal, "9007199254740993");
   assert.equal(parsed[1].eventIdDecimal, "18446744073709551000");
-  assert.throws(() => parseTypedFseventsJournal(first.subarray(0, first.length - 1)), /truncated|overflow/i);
+  assert.equal(parsed[1].endOffset, BigInt(first.length + second.length));
+  assert.throws(() => parseTypedFseventsJournalPrefix(first.subarray(0, first.length - 1)), /truncated|overflow/i);
   const overflow = Buffer.from(first);
   overflow.writeUInt32LE(0xfffffff0, 8);
-  assert.throws(() => parseTypedFseventsJournal(overflow), /overflow/i);
-  assert.throws(() => parseTypedFseventsJournal(Buffer.concat([
+  assert.throws(() => parseTypedFseventsJournalPrefix(overflow), /overflow/i);
+  assert.throws(() => parseTypedFseventsJournalPrefix(Buffer.concat([
     first,
     typedFseventsJournalRecord({ sequence: 3n, eventId: 4n, flags: 0, path: "/tmp/c" })
   ])), /non-contiguous/i);
-  assert.throws(() => parseTypedFseventsJournal(typedFseventsJournalRecord({
+  assert.throws(() => parseTypedFseventsJournalPrefix(typedFseventsJournalRecord({
     sequence: 1n,
     eventId: 1n,
     flags: 0,
     path: "/tmp/unknown",
     type: 9
   })), /unknown/i);
+  const zeroPath = typedFseventsJournalRecord({ sequence: 1n, eventId: 1n, flags: 0, path: "" });
+  assert.throws(() => parseTypedFseventsJournalPrefix(zeroPath), /empty|path length/i);
+  const invalidUtf8 = typedFseventsJournalRecord({ sequence: 1n, eventId: 1n, flags: 0, path: "/tmp/x" });
+  invalidUtf8[invalidUtf8.length - 1] = 0xff;
+  assert.throws(() => parseTypedFseventsJournalPrefix(invalidUtf8), /UTF-8/i);
+  const embeddedNul = typedFseventsJournalRecord({ sequence: 1n, eventId: 1n, flags: 0, path: "/tmp/\0x" });
+  assert.throws(() => parseTypedFseventsJournalPrefix(embeddedNul), /NUL/i);
+  const reserved = Buffer.from(first);
+  reserved.writeUInt32LE(1, 36);
+  assert.throws(() => parseTypedFseventsJournalPrefix(reserved), /unknown|reserved/i);
+});
+
+const task3aJournalEndpoint = (journal, entryCount, lastEventId) => ({
+  entryCount: BigInt(entryCount),
+  highWater: BigInt(journal.length),
+  lastEventId: lastEventId === null ? null : BigInt(lastEventId),
+  sha256: crypto.createHash("sha256").update(journal).digest("hex")
+});
+
+const task3aRegularProof = (overrides = {}) => Object.freeze({
+  type: "regular-file",
+  dev: "11",
+  ino: "22",
+  mode: "33188",
+  nlink: "1",
+  size: "7",
+  mtimeNs: "123456789",
+  ctimeNs: "987654321",
+  sha256: "a".repeat(64),
+  ...overrides
+});
+
+test("Task 3A native append limits reject exact cap overflow before the first pwrite", () => {
+  const source = fs.readFileSync(
+    path.join(here, "native", "mais-fsevents-journal.c"),
+    "utf8"
+  );
+  assert.match(source, /#define MAX_JOURNAL_BYTES \(UINT64_C\(512\) \* 1024U \* 1024U\)/u);
+  assert.match(source, /#define MAX_JOURNAL_ENTRIES UINT64_C\(1000000\)/u);
+  assert.match(source, /#define MAX_EVENT_PATH_BYTES \(1024U \* 1024U\)/u);
+  const appendBody = source.slice(
+    source.indexOf("static void append_events("),
+    source.indexOf("static void callback_queue_barrier(")
+  );
+  const firstWrite = appendBody.indexOf("pwrite_exact(");
+  assert.ok(firstWrite > 0, "append_events must contain a journal pwrite");
+  for (const guard of [
+    "path_length > MAX_EVENT_PATH_BYTES",
+    "state->entry_count >= MAX_JOURNAL_ENTRIES",
+    "state->journal_offset > MAX_JOURNAL_BYTES - (uint64_t)record_length"
+  ]) {
+    const guardOffset = appendBody.indexOf(guard);
+    assert.ok(guardOffset >= 0, `missing native append guard: ${guard}`);
+    assert.ok(guardOffset < firstWrite, `native append guard must precede pwrite: ${guard}`);
+  }
+});
+
+test("Task 3A journal extension visits only the checkpoint delta and preserves collector compatibility", async () => {
+  const {
+    createEmptyTypedFseventsJournalCheckpoint,
+    parseTypedFseventsJournalPrefix,
+    visitTypedFseventsJournalExtension
+  } = await import(libraryUrl);
+  assert.equal(typeof visitTypedFseventsJournalExtension, "function");
+  const records = [
+    typedFseventsJournalRecord({ sequence: 1n, eventId: 10n, flags: 0, path: "/repo/one" }),
+    typedFseventsJournalRecord({ sequence: 2n, eventId: 11n, flags: 0x18000, path: "/repo/two" }),
+    typedFseventsJournalRecord({ sequence: 3n, eventId: 12n, flags: 0x11400, path: "/repo/three" })
+  ];
+  const priorPrefix = records[0];
+  const journal = Buffer.concat(records);
+  const priorCheckpoint = visitTypedFseventsJournalExtension({
+    endpoint: task3aJournalEndpoint(priorPrefix, 1n, 10n),
+    eventRoots: ["/repo"],
+    journalPrefix: priorPrefix,
+    priorCheckpoint: createEmptyTypedFseventsJournalCheckpoint(),
+    visitor: () => {}
+  });
+  const visited = [];
+  const result = visitTypedFseventsJournalExtension({
+    endpoint: task3aJournalEndpoint(journal, 3n, 12n),
+    eventRoots: ["/repo"],
+    journalPrefix: journal,
+    priorCheckpoint,
+    visitor: (record) => visited.push(record)
+  });
+  assert.deepEqual(visited.map((record) => record.sequence), [2n, 3n]);
+  assert.deepEqual(visited.map((record) => record.flagClass), ["xattr-only", "source"]);
+  assert.equal(result.deltaEntryCount, 2n);
+  assert.equal(result.entryCount, 3n);
+  assert.equal(result.highWater, BigInt(journal.length));
+  assert.equal(result.lastEventId, 12n);
+  assert.equal(result.sha256, task3aJournalEndpoint(journal, 3n, 12n).sha256);
+  assert.equal(Object.hasOwn(result, "records"), false);
+  const compatibleRecords = parseTypedFseventsJournalPrefix(journal);
+  assert.deepEqual(compatibleRecords.map((record) => record.sequence), [1n, 2n, 3n]);
+  assert.deepEqual(
+    Object.keys(compatibleRecords[0]).sort(),
+    ["endOffset", "eventId", "eventIdDecimal", "flags", "path", "sequence"],
+    "the compatibility collector must preserve its pre-visitor record shape"
+  );
+});
+
+test("Task 3A journal extension binds prior and endpoint count highwater lastID and digests", async () => {
+  const {
+    createEmptyTypedFseventsJournalCheckpoint,
+    visitTypedFseventsJournalExtension
+  } = await import(libraryUrl);
+  assert.equal(typeof visitTypedFseventsJournalExtension, "function");
+  const first = typedFseventsJournalRecord({ sequence: 1n, eventId: 41n, flags: 0, path: "/repo/a" });
+  const second = typedFseventsJournalRecord({ sequence: 2n, eventId: 42n, flags: 0, path: "/repo/b" });
+  const journal = Buffer.concat([first, second]);
+  const prior = visitTypedFseventsJournalExtension({
+    endpoint: task3aJournalEndpoint(first, 1n, 41n),
+    eventRoots: ["/repo"],
+    journalPrefix: first,
+    priorCheckpoint: createEmptyTypedFseventsJournalCheckpoint(),
+    visitor: () => {}
+  });
+  const endpoint = task3aJournalEndpoint(journal, 2n, 42n);
+  const run = (overrides = {}) => visitTypedFseventsJournalExtension({
+    endpoint,
+    eventRoots: ["/repo"],
+    journalPrefix: journal,
+    priorCheckpoint: prior,
+    visitor: () => {},
+    ...overrides
+  });
+  assert.doesNotThrow(run);
+  for (const [label, field, value, pattern] of [
+    ["endpoint count", "entryCount", 3n, /count/i],
+    ["endpoint highwater", "highWater", BigInt(journal.length - 1), /high.?water|length/i],
+    ["endpoint lastID", "lastEventId", 43n, /last.*event|event.*id/i],
+    ["endpoint digest", "sha256", "0".repeat(64), /digest|sha/i]
+  ]) {
+    assert.throws(
+      () => run({ endpoint: { ...endpoint, [field]: value } }),
+      pattern,
+      label
+    );
+  }
+  for (const [label, field, value] of [
+    ["prior count", "entryCount", 0n],
+    ["prior highwater", "highWater", BigInt(first.length - 1)],
+    ["prior lastID", "lastEventId", 42n],
+    ["prior digest", "sha256", "f".repeat(64)]
+  ]) {
+    const changed = { ...prior, [field]: value };
+    if (field === "highWater") {
+      changed.sha256 = crypto.createHash("sha256")
+        .update(journal.subarray(0, Number(value)))
+        .digest("hex");
+    }
+    assert.throws(
+      () => run({ priorCheckpoint: changed }),
+      /validated.*checkpoint|checkpoint.*validated/i,
+      label
+    );
+  }
+});
+
+test("Task 3A journal extension rejects unvalidated and forged zero-delta checkpoints", async () => {
+  const {
+    createEmptyTypedFseventsJournalCheckpoint,
+    visitTypedFseventsJournalExtension
+  } = await import(libraryUrl);
+  assert.equal(typeof createEmptyTypedFseventsJournalCheckpoint, "function");
+  const journal = typedFseventsJournalRecord({
+    sequence: 1n,
+    eventId: 77n,
+    flags: 0,
+    path: "/repo/one"
+  });
+  const endpoint = task3aJournalEndpoint(journal, 1n, 77n);
+  const run = (priorCheckpoint) => visitTypedFseventsJournalExtension({
+    endpoint,
+    eventRoots: ["/repo"],
+    journalPrefix: journal,
+    priorCheckpoint,
+    visitor: () => {}
+  });
+  assert.throws(
+    () => run(endpoint),
+    /validated.*checkpoint|checkpoint.*validated/i,
+    "a matching plain object must not authenticate a zero-delta prefix"
+  );
+  const validated = visitTypedFseventsJournalExtension({
+    endpoint,
+    eventRoots: ["/repo"],
+    journalPrefix: journal,
+    priorCheckpoint: createEmptyTypedFseventsJournalCheckpoint(),
+    visitor: () => {}
+  });
+  assert.doesNotThrow(() => run(validated));
+  assert.throws(
+    () => run({ ...validated }),
+    /validated.*checkpoint|checkpoint.*validated/i,
+    "copying a checkpoint must not copy its module-private provenance"
+  );
+  assert.equal(Object.isFrozen(validated), true);
+
+  const outside = typedFseventsJournalRecord({
+    sequence: 1n,
+    eventId: 88n,
+    flags: 0,
+    path: "/outside/one"
+  });
+  const outsideCheckpoint = visitTypedFseventsJournalExtension({
+    endpoint: task3aJournalEndpoint(outside, 1n, 88n),
+    eventRoots: ["/"],
+    journalPrefix: outside,
+    priorCheckpoint: createEmptyTypedFseventsJournalCheckpoint(),
+    visitor: () => {}
+  });
+  const inside = typedFseventsJournalRecord({
+    sequence: 2n,
+    eventId: 89n,
+    flags: 0,
+    path: "/repo/two"
+  });
+  const crossRootJournal = Buffer.concat([outside, inside]);
+  assert.throws(() => visitTypedFseventsJournalExtension({
+    endpoint: task3aJournalEndpoint(crossRootJournal, 2n, 89n),
+    eventRoots: ["/repo"],
+    journalPrefix: crossRootJournal,
+    priorCheckpoint: outsideCheckpoint,
+    visitor: () => {}
+  }), /checkpoint.*event roots|event roots.*checkpoint/i);
+
+  const tupleJournal = typedFseventsJournalRecord({
+    sequence: 1n,
+    eventId: 90n,
+    flags: 0,
+    path: "/repo/a/one"
+  });
+  const tupleEndpoint = task3aJournalEndpoint(tupleJournal, 1n, 90n);
+  const tupleCheckpoint = visitTypedFseventsJournalExtension({
+    endpoint: tupleEndpoint,
+    eventRoots: ["/repo/a", "/repo/b"],
+    journalPrefix: tupleJournal,
+    priorCheckpoint: createEmptyTypedFseventsJournalCheckpoint(),
+    visitor: () => {}
+  });
+  for (const changedRoots of [
+    ["/repo"],
+    ["/repo/a"],
+    ["/other"],
+    ["/repo/b", "/repo/a"]
+  ]) {
+    assert.throws(() => visitTypedFseventsJournalExtension({
+      endpoint: tupleEndpoint,
+      eventRoots: changedRoots,
+      journalPrefix: tupleJournal,
+      priorCheckpoint: tupleCheckpoint,
+      visitor: () => {}
+    }), /checkpoint.*event roots|event roots.*checkpoint/i, JSON.stringify(changedRoots));
+  }
+});
+
+test("Task 3A journal extension decodes only the digest-bound delta after its prior checkpoint", async () => {
+  const {
+    createEmptyTypedFseventsJournalCheckpoint,
+    visitTypedFseventsJournalExtension
+  } = await import(libraryUrl);
+  const priorBytes = typedFseventsJournalRecord({
+    sequence: 1n,
+    eventId: 10n,
+    flags: 0,
+    path: "/repo/prior"
+  });
+  const deltaBytes = typedFseventsJournalRecord({
+    sequence: 2n,
+    eventId: 11n,
+    flags: 0,
+    path: "/repo/delta"
+  });
+  const priorCheckpoint = visitTypedFseventsJournalExtension({
+    endpoint: task3aJournalEndpoint(priorBytes, 1n, 10n),
+    eventRoots: ["/repo"],
+    journalPrefix: priorBytes,
+    priorCheckpoint: createEmptyTypedFseventsJournalCheckpoint(),
+    visitor: () => {}
+  });
+  const journal = Buffer.concat([priorBytes, deltaBytes]);
+  const readUInt16LE = journal.readUInt16LE.bind(journal);
+  journal.readUInt16LE = (offset) => {
+    if (offset < priorBytes.length) throw new Error("prior record was decoded again");
+    return readUInt16LE(offset);
+  };
+  const visited = [];
+  assert.doesNotThrow(() => visitTypedFseventsJournalExtension({
+    endpoint: task3aJournalEndpoint(journal, 2n, 11n),
+    eventRoots: ["/repo"],
+    journalPrefix: journal,
+    priorCheckpoint,
+    visitor: (record) => visited.push(record.path)
+  }));
+  assert.deepEqual(visited, ["/repo/delta"]);
+});
+
+test("Task 3A journal extension rejects unsafe paths flags framing and nonincreasing host event IDs", async () => {
+  const {
+    createEmptyTypedFseventsJournalCheckpoint,
+    visitTypedFseventsJournalExtension
+  } = await import(libraryUrl);
+  assert.equal(typeof visitTypedFseventsJournalExtension, "function");
+  const emptyCheckpoint = createEmptyTypedFseventsJournalCheckpoint();
+  const visit = (journal, entryCount, lastEventId, eventRoots = ["/repo"]) => (
+    visitTypedFseventsJournalExtension({
+      endpoint: task3aJournalEndpoint(journal, entryCount, lastEventId),
+      eventRoots,
+      journalPrefix: journal,
+      priorCheckpoint: emptyCheckpoint,
+      visitor: () => {}
+    })
+  );
+  for (const [label, eventPath, pattern] of [
+    ["relative", "repo/a", /absolute|canonical/i],
+    ["dot segment", "/repo/sub/../a", /canonical/i],
+    ["duplicate separator", "/repo//a", /canonical/i],
+    ["outside", "/other/a", /outside|root|contain/i]
+  ]) {
+    const journal = typedFseventsJournalRecord({ sequence: 1n, eventId: 1n, flags: 0, path: eventPath });
+    assert.throws(() => visit(journal, 1n, 1n), pattern, label);
+  }
+  const rootSelf = typedFseventsJournalRecord({ sequence: 1n, eventId: 1n, flags: 0, path: "/repo" });
+  assert.doesNotThrow(() => visit(rootSelf, 1n, 1n));
+  for (const [label, flags] of [["fatal", 0x1], ["unknown", 0x80000000]]) {
+    const journal = typedFseventsJournalRecord({ sequence: 1n, eventId: 1n, flags, path: "/repo/a" });
+    assert.throws(() => visit(journal, 1n, 1n), /fatal|unsupported|fail.closed/i, label);
+  }
+  for (const [label, eventIds] of [["equal", [7n, 7n]], ["decreasing", [7n, 6n]]]) {
+    const journal = Buffer.concat(eventIds.map((eventId, index) => typedFseventsJournalRecord({
+      sequence: BigInt(index + 1), eventId, flags: 0, path: `/repo/${index}`
+    })));
+    assert.throws(() => visit(journal, 2n, eventIds[1]), /strict|increase|event.*id/i, label);
+  }
+  const noncontiguous = Buffer.concat([
+    typedFseventsJournalRecord({ sequence: 1n, eventId: 1n, flags: 0, path: "/repo/a" }),
+    typedFseventsJournalRecord({ sequence: 3n, eventId: 2n, flags: 0, path: "/repo/b" })
+  ]);
+  assert.throws(() => visit(noncontiguous, 2n, 2n), /non-contiguous|sequence/i);
+  const oversizedPath = `/repo/${"x".repeat(1024 * 1024)}`;
+  const oversized = typedFseventsJournalRecord({ sequence: 1n, eventId: 1n, flags: 0, path: oversizedPath });
+  assert.throws(() => visit(oversized, 1n, 1n), /path|record|1 MiB|limit/i);
+});
+
+test("Task 3A pure classification compares every regular semantic proof dimension and ignores ctime", async () => {
+  const { classifyTypedFseventsTransaction } = await import(libraryUrl);
+  assert.equal(typeof classifyTypedFseventsTransaction, "function");
+  const eventPath = "/repo/file.txt";
+  const priorProof = task3aRegularProof();
+  const classify = (candidateProof) => classifyTypedFseventsTransaction({
+    candidateProofLookup: new Map([[eventPath, candidateProof]]),
+    eventRoots: ["/repo"],
+    exactMetadataPaths: [],
+    exactMetadataRoots: [],
+    priorProofLookup: new Map([[eventPath, priorProof]]),
+    streamedRecords: [{ eventId: 1n, flags: 0x18000, path: eventPath, sequence: 1n }]
+  });
+  const exact = classify(task3aRegularProof({ ctimeNs: "987654322" }));
+  assert.equal(exact.xattrOnlyEventCount, 1n);
+  assert.equal(exact.materialEventCount, 0n);
+  assert.equal(exact.xattrEpochIncrement, 1n);
+  for (const ctimeNs of [undefined, "not-a-number", "-1", "01", "18446744073709551616"]) {
+    const result = classify(task3aRegularProof({ ctimeNs }));
+    assert.equal(result.sourceEventCount, 1n, `candidate ctimeNs=${String(ctimeNs)}`);
+    assert.equal(result.xattrOnlyEventCount, 0n, `candidate ctimeNs=${String(ctimeNs)}`);
+  }
+  for (const ctimeNs of [undefined, "not-a-number", "-1", "01", "18446744073709551616"]) {
+    const result = classifyTypedFseventsTransaction({
+      candidateProofLookup: new Map([[eventPath, task3aRegularProof()]]),
+      eventRoots: ["/repo"],
+      exactMetadataPaths: [],
+      exactMetadataRoots: [],
+      priorProofLookup: new Map([[eventPath, task3aRegularProof({ ctimeNs })]]),
+      streamedRecords: [{ eventId: 1n, flags: 0x18000, path: eventPath, sequence: 1n }]
+    });
+    assert.equal(result.sourceEventCount, 1n, `prior ctimeNs=${String(ctimeNs)}`);
+    assert.equal(result.xattrOnlyEventCount, 0n, `prior ctimeNs=${String(ctimeNs)}`);
+  }
+  for (const [field, value] of [
+    ["mode", "16877"],
+    ["mode", "41471"],
+    ["mode", "4295000484"],
+    ["nlink", "0"]
+  ]) {
+    const malformedProof = task3aRegularProof({ [field]: value });
+    const result = classifyTypedFseventsTransaction({
+      candidateProofLookup: new Map([[eventPath, malformedProof]]),
+      eventRoots: ["/repo"],
+      exactMetadataPaths: [],
+      exactMetadataRoots: [],
+      priorProofLookup: new Map([[eventPath, malformedProof]]),
+      streamedRecords: [{ eventId: 1n, flags: 0x18000, path: eventPath, sequence: 1n }]
+    });
+    assert.equal(result.sourceEventCount, 1n, `${field}=${value}`);
+    assert.equal(result.xattrOnlyEventCount, 0n, `${field}=${value}`);
+  }
+  for (const [field, value] of [
+    ["dev", "12"],
+    ["ino", "23"],
+    ["mode", "33152"],
+    ["nlink", "2"],
+    ["size", "8"],
+    ["mtimeNs", "123456790"],
+    ["sha256", "b".repeat(64)]
+  ]) {
+    const result = classify(task3aRegularProof({ [field]: value }));
+    assert.equal(result.sourceEventCount, 1n, field);
+    assert.equal(result.materialEventCount, 1n, field);
+    assert.equal(result.xattrOnlyEventCount, 0n, field);
+    assert.equal(result.sourceEpochBatch, true, field);
+  }
+});
+
+test("Task 3A pure classification applies metadata precedence and keeps ancestors ignored and nonregular paths material", async () => {
+  const { classifyTypedFseventsTransaction } = await import(libraryUrl);
+  assert.equal(typeof classifyTypedFseventsTransaction, "function");
+  const exactProof = task3aRegularProof();
+  const prior = new Map([["/repo/ordinary", exactProof]]);
+  const candidate = new Map([["/repo/ordinary", task3aRegularProof({ ctimeNs: "987654322" })]]);
+  const streamedRecords = Object.freeze([
+    Object.freeze({ eventId: 1n, flags: 0x18000, path: "/repo/.metadata/exact", sequence: 1n }),
+    Object.freeze({ eventId: 2n, flags: 0x18000, path: "/repo/.transaction", sequence: 2n }),
+    Object.freeze({ eventId: 3n, flags: 0x18000, path: "/repo/.transaction/child", sequence: 3n }),
+    Object.freeze({ eventId: 4n, flags: 0x18000, path: "/repo", sequence: 4n }),
+    Object.freeze({ eventId: 5n, flags: 0x18000, path: "/repo/.metadata/exact/child", sequence: 5n }),
+    Object.freeze({ eventId: 6n, flags: 0x18000, path: "/repo/ordinary", sequence: 6n }),
+    Object.freeze({ eventId: 7n, flags: 0x18000, path: "/repo/.next/ignored", sequence: 7n }),
+    Object.freeze({ eventId: 8n, flags: 0x18000, path: "/repo/generated/missing", sequence: 8n })
+  ]);
+  const result = classifyTypedFseventsTransaction({
+    candidateProofLookup: candidate,
+    eventRoots: ["/repo"],
+    exactMetadataPaths: ["/repo/.metadata/exact"],
+    exactMetadataRoots: ["/repo/.transaction"],
+    priorProofLookup: prior,
+    streamedRecords
+  });
+  assert.equal(result.transactionMetadataEventCount, 3n);
+  assert.equal(result.sourceEventCount, 4n);
+  assert.equal(result.xattrOnlyEventCount, 1n);
+  assert.equal(result.materialEventCount, 7n);
+  assert.equal(result.metadataEpochBatch, true);
+  assert.equal(result.sourceEpochBatch, true);
+  assert.equal(result.xattrEpochIncrement, 1n);
+  assert.equal(Object.isFrozen(result), true);
+  assert.equal(prior.size, 1);
+  assert.equal(candidate.size, 1);
+  assert.equal(streamedRecords.length, 8);
+
+  for (const type of ["directory", "symlink", "tombstone"]) {
+    const proof = Object.freeze({ type });
+    const nonregular = classifyTypedFseventsTransaction({
+      candidateProofLookup: new Map([["/repo/node", proof]]),
+      eventRoots: ["/repo"],
+      exactMetadataPaths: [],
+      exactMetadataRoots: [],
+      priorProofLookup: new Map([["/repo/node", proof]]),
+      streamedRecords: [{ eventId: 1n, flags: 0x18000, path: "/repo/node", sequence: 1n }]
+    });
+    assert.equal(nonregular.sourceEventCount, 1n, type);
+  }
+  assert.throws(() => classifyTypedFseventsTransaction({
+    candidateProofLookup: new Map(),
+    eventRoots: ["/repo"],
+    exactMetadataPaths: ["/repo/.metadata/exact"],
+    exactMetadataRoots: [],
+    priorProofLookup: new Map(),
+    streamedRecords: [{ eventId: 1n, flags: 0x1, path: "/repo/.metadata/exact", sequence: 1n }]
+  }), /fatal|unsupported|fail.closed/i, "fatal flags precede metadata classification");
+});
+
+test("Task 3A journal visitor processes 300000 virtual records with bounded retained heap and runtime", {
+  timeout: 30_000
+}, () => {
+  const script = String.raw`
+    import crypto from "node:crypto";
+    import {
+      createEmptyTypedFseventsJournalCheckpoint,
+      visitTypedFseventsJournalExtension
+    } from ${JSON.stringify(libraryUrl)};
+    const count = 300000;
+    const headerBytes = 40;
+    const pathBytes = Buffer.from("/repo/f");
+    const recordBytes = headerBytes + pathBytes.length;
+    const journal = Buffer.allocUnsafe(recordBytes * count);
+    for (let index = 0; index < count; index += 1) {
+      const offset = index * recordBytes;
+      journal.write("MFSJ", offset, "ascii");
+      journal.writeUInt16LE(1, offset + 4);
+      journal.writeUInt16LE(1, offset + 6);
+      journal.writeUInt32LE(recordBytes, offset + 8);
+      journal.writeBigUInt64LE(BigInt(index + 1), offset + 12);
+      journal.writeBigUInt64LE(BigInt(index + 1), offset + 20);
+      journal.writeUInt32LE(0, offset + 28);
+      journal.writeUInt32LE(pathBytes.length, offset + 32);
+      journal.writeUInt32LE(0, offset + 36);
+      pathBytes.copy(journal, offset + headerBytes);
+    }
+    const fullDigest = crypto.createHash("sha256").update(journal).digest("hex");
+    const run = (retainRecords) => {
+      global.gc();
+      const before = process.memoryUsage().heapUsed;
+      let peak = before;
+      let visited = 0;
+      const retained = retainRecords ? [] : null;
+      const started = performance.now();
+      const result = visitTypedFseventsJournalExtension({
+        endpoint: { entryCount: BigInt(count), highWater: BigInt(journal.length), lastEventId: BigInt(count), sha256: fullDigest },
+        eventRoots: ["/repo"],
+        journalPrefix: journal,
+        priorCheckpoint: createEmptyTypedFseventsJournalCheckpoint(),
+        visitor: (record) => {
+          visited += 1;
+          if (retained !== null) retained.push(record);
+          if ((visited & 2047) === 0) peak = Math.max(peak, process.memoryUsage().heapUsed);
+        }
+      });
+      const afterReturn = process.memoryUsage().heapUsed;
+      peak = Math.max(peak, afterReturn);
+      return {
+        afterReturnHeapBytes: afterReturn - before,
+        deltaEntryCount: result.deltaEntryCount.toString(),
+        elapsedMs: performance.now() - started,
+        hasRecords: Object.hasOwn(result, "records"),
+        peakHeapBytes: peak - before,
+        retainedCount: retained?.length ?? 0,
+        visited
+      };
+    };
+    const streaming = run(false);
+    global.gc();
+    const retainedHeapBytes = process.memoryUsage().heapUsed;
+    const collectorCalibration = run(true);
+    process.stdout.write(JSON.stringify({
+      collectorCalibration,
+      retainedHeapBytes,
+      streaming
+    }));
+  `;
+  const child = spawnSync(process.execPath, ["--expose-gc", "--input-type=module", "-e", script], {
+    encoding: "utf8",
+    maxBuffer: 1024 * 1024,
+    timeout: 25_000
+  });
+  assert.equal(child.status, 0, child.stderr || child.stdout);
+  const observed = JSON.parse(child.stdout);
+  assert.equal(observed.streaming.visited, 300_000);
+  assert.equal(observed.streaming.deltaEntryCount, "300000");
+  assert.equal(observed.streaming.hasRecords, false);
+  assert.equal(observed.streaming.retainedCount, 0);
+  assert.ok(observed.streaming.peakHeapBytes <= 32 * 1024 * 1024, JSON.stringify(observed));
+  assert.ok(observed.streaming.afterReturnHeapBytes <= 32 * 1024 * 1024, JSON.stringify(observed));
+  assert.ok(observed.streaming.elapsedMs <= 20_000, JSON.stringify(observed));
+  assert.equal(observed.collectorCalibration.retainedCount, 300_000);
+  assert.ok(
+    observed.collectorCalibration.peakHeapBytes > 32 * 1024 * 1024,
+    `peak-memory gate is not sensitive to a 300000-record collector: ${JSON.stringify(observed)}`
+  );
+});
+
+test("typed FSEvents ACK wait decision binds acceptance to the owned child lifecycle", async () => {
+  const { decideTypedFseventsAcknowledgementWait } = await import(libraryUrl);
+  const decide = (overrides = {}) => decideTypedFseventsAcknowledgementWait({
+    childAlive: true,
+    exitCode: null,
+    matches: true,
+    signalCode: null,
+    terminal: false,
+    ...overrides
+  });
+
+  assert.equal(decide(), "accept", "a matching nonterminal ACK requires a live child");
+  assert.equal(decide({ childAlive: false, exitCode: 0 }), "reject", "a dead child cannot authenticate a nonterminal ACK");
+  assert.equal(decide({ terminal: true }), "wait", "a terminal ACK cannot be accepted while the child is running");
+  assert.equal(
+    decide({ childAlive: false, exitCode: 0, terminal: true }),
+    "accept",
+    "a matching terminal ACK is accepted only after a clean child exit"
+  );
+  assert.equal(decide({ childAlive: false, exitCode: 9, terminal: true }), "reject");
+  assert.equal(decide({ childAlive: false, signalCode: "SIGTERM", terminal: true }), "reject");
+});
+
+test("typed FSEvents production STOP requests terminal ACK handling", () => {
+  const source = fs.readFileSync(path.join(here, "evidence-archive-lib.mjs"), "utf8");
+  assert.match(
+    source,
+    /const stopTypedFsevents = async \(\) => \{[\s\S]*?await waitTypedAcknowledgement\(3, typedCommandSequence, true\)/u
+  );
+  assert.match(
+    source,
+    /if \(typedFseventsEnabled\) \{\s*await stopTypedFsevents\(\);\s*await awaitTypedFseventsExit\(\);/u
+  );
+});
+
+function writeTypedFseventsV2Endpoint(scratch, {
+  acknowledgementMutator,
+  entryCount = 0n,
+  journal = Buffer.alloc(0),
+  lastEventId = 0n,
+  rootsBuffer = Buffer.from("/tmp/typed-root\0")
+} = {}) {
+  const journalPath = path.join(scratch, "journal.bin");
+  const acknowledgementPath = path.join(scratch, "ack.bin");
+  const commitPath = path.join(scratch, "ack.commit");
+  fs.writeFileSync(journalPath, journal, { mode: 0o600 });
+  fs.chmodSync(journalPath, 0o600);
+  const journalStatus = fs.lstatSync(journalPath, { bigint: true });
+  let acknowledgement = typedFseventsAck({
+    type: 1,
+    sequence: 0n,
+    journalHighWater: BigInt(journal.length),
+    entryCount,
+    lastEventId,
+    eventRootCount: BigInt(rootsBuffer.filter((byte) => byte === 0).length),
+    eventRootFingerprint: crypto.createHash("sha256").update(rootsBuffer).digest(),
+    journalDevice: journalStatus.dev,
+    journalInode: journalStatus.ino,
+    journalSha256: crypto.createHash("sha256").update(journal).digest()
+  });
+  acknowledgement = acknowledgementMutator?.(Buffer.from(acknowledgement)) ?? acknowledgement;
+  fs.writeFileSync(acknowledgementPath, acknowledgement, { mode: 0o600 });
+  fs.chmodSync(acknowledgementPath, 0o600);
+  const acknowledgementStatus = fs.lstatSync(acknowledgementPath, { bigint: true });
+  fs.writeFileSync(
+    commitPath,
+    typedFseventsAckCommit(acknowledgement, acknowledgementStatus),
+    { mode: 0o600 }
+  );
+  fs.chmodSync(commitPath, 0o600);
+  return {
+    acknowledgementPath,
+    commitPath,
+    eventRootCount: rootsBuffer.filter((byte) => byte === 0).length,
+    eventRootFingerprint: crypto.createHash("sha256").update(rootsBuffer).digest("hex"),
+    journal,
+    journalPath
+  };
+}
+
+test("typed FSEvents v2 ACK reader accepts one fully bound roots and held-journal endpoint", async (t) => {
+  const { readCommittedTypedFseventsAcknowledgement } = await import(libraryUrl);
+  const scratch = fs.mkdtempSync(path.join(os.tmpdir(), "mais-typed-v2-positive-"));
+  fs.chmodSync(scratch, 0o700);
+  t.after(() => fs.rmSync(scratch, { recursive: true, force: true }));
+  const journal = typedFseventsJournalRecord({
+    sequence: 1n,
+    eventId: 9007199254740993n,
+    flags: 0x11400,
+    path: "/tmp/held-journal-prefix"
+  });
+  const endpoint = writeTypedFseventsV2Endpoint(scratch, {
+    entryCount: 1n,
+    journal,
+    lastEventId: 9007199254740993n,
+    rootsBuffer: Buffer.from("/tmp/typed\nroot-a\0/tmp/typed-root-b\0")
+  });
+  const observed = readCommittedTypedFseventsAcknowledgement(endpoint.acknowledgementPath, {
+    expectedEventRootCount: endpoint.eventRootCount,
+    expectedEventRootFingerprint: endpoint.eventRootFingerprint
+  });
+  assert.notEqual(observed, null);
+  assert.equal(observed.eventRootCount, BigInt(endpoint.eventRootCount));
+  assert.equal(observed.eventRootFingerprint, endpoint.eventRootFingerprint);
+  assert.equal(observed.journalSha256, crypto.createHash("sha256").update(endpoint.journal).digest("hex"));
+  assert.deepEqual(observed.journalPrefix, endpoint.journal);
+});
+
+test("typed FSEvents v2 ACK reader rejects legacy, mixed, truncated, and full-digest mismatches", async (t) => {
+  const { readCommittedTypedFseventsAcknowledgement } = await import(libraryUrl);
+  const baselineScratch = fs.mkdtempSync(path.join(os.tmpdir(), "mais-typed-v2-negative-baseline-"));
+  fs.chmodSync(baselineScratch, 0o700);
+  t.after(() => fs.rmSync(baselineScratch, { recursive: true, force: true }));
+  const baseline = writeTypedFseventsV2Endpoint(baselineScratch);
+  assert.notEqual(readCommittedTypedFseventsAcknowledgement(baseline.acknowledgementPath, {
+    expectedEventRootCount: baseline.eventRootCount,
+    expectedEventRootFingerprint: baseline.eventRootFingerprint
+  }), null, "the valid v2 control endpoint must be accepted before negative variants are meaningful");
+  for (const tamperKind of [
+    "ack-v1",
+    "commit-v1",
+    "truncated",
+    "root-count",
+    "root-last-byte",
+    "journal-last-byte",
+    "journal-device",
+    "journal-inode"
+  ]) {
+    await t.test(tamperKind, () => {
+      const scratch = fs.mkdtempSync(path.join(os.tmpdir(), `mais-typed-v2-${tamperKind}-`));
+      t.after(() => fs.rmSync(scratch, { recursive: true, force: true }));
+      const endpoint = writeTypedFseventsV2Endpoint(scratch, {
+        acknowledgementMutator: (acknowledgement) => {
+          if (tamperKind === "ack-v1") acknowledgement.writeUInt16LE(1, 4);
+          else if (tamperKind === "truncated") return acknowledgement.subarray(0, 135);
+          else if (tamperKind === "root-count") {
+            acknowledgement.writeBigUInt64LE(acknowledgement.readBigUInt64LE(48) + 1n, 48);
+          } else if (tamperKind === "root-last-byte") acknowledgement[87] ^= 0xff;
+          else if (tamperKind === "journal-last-byte") acknowledgement[135] ^= 0xff;
+          else if (tamperKind === "journal-device") {
+            acknowledgement.writeBigUInt64LE(acknowledgement.readBigUInt64LE(88) + 1n, 88);
+          } else if (tamperKind === "journal-inode") {
+            acknowledgement.writeBigUInt64LE(acknowledgement.readBigUInt64LE(96) + 1n, 96);
+          }
+          return acknowledgement;
+        },
+        journal: Buffer.from("bound endpoint\n")
+      });
+      if (tamperKind === "commit-v1") {
+        const commit = fs.readFileSync(endpoint.commitPath);
+        commit.writeUInt16LE(1, 4);
+        fs.writeFileSync(endpoint.commitPath, commit, { mode: 0o600 });
+      }
+      assert.equal(readCommittedTypedFseventsAcknowledgement(endpoint.acknowledgementPath, {
+        expectedEventRootCount: endpoint.eventRootCount,
+        expectedEventRootFingerprint: endpoint.eventRootFingerprint
+      }), null);
+    });
+  }
+});
+
+test("typed FSEvents v2 ACK reader rejects held-journal pwrite and visible replacement races", async (t) => {
+  const { readCommittedTypedFseventsAcknowledgement } = await import(libraryUrl);
+  for (const tamperKind of ["pwrite", "replacement"]) {
+    await t.test(tamperKind, () => {
+      const scratch = fs.mkdtempSync(path.join(os.tmpdir(), `mais-typed-v2-held-${tamperKind}-`));
+      t.after(() => fs.rmSync(scratch, { recursive: true, force: true }));
+      const endpoint = writeTypedFseventsV2Endpoint(scratch, {
+        journal: Buffer.from("immutable journal endpoint\n")
+      });
+      assert.notEqual(readCommittedTypedFseventsAcknowledgement(endpoint.acknowledgementPath, {
+        expectedEventRootCount: endpoint.eventRootCount,
+        expectedEventRootFingerprint: endpoint.eventRootFingerprint
+      }), null, "the stable held-journal endpoint must be accepted before the race is injected");
+      const observed = readCommittedTypedFseventsAcknowledgement(endpoint.acknowledgementPath, {
+        beforeVisibleValidation: ({
+          journalPath = endpoint.journalPath,
+          phase
+        }) => {
+          assert.equal(phase, "afterJournalReadBeforeVisibleValidation");
+          if (tamperKind === "replacement") {
+            fs.renameSync(journalPath, `${journalPath}.held`);
+            fs.writeFileSync(journalPath, endpoint.journal, { mode: 0o600 });
+            return;
+          }
+          const descriptor = fs.openSync(journalPath, fs.constants.O_RDWR | fs.constants.O_NOFOLLOW);
+          try {
+            const byte = Buffer.alloc(1);
+            assert.equal(fs.readSync(descriptor, byte, 0, 1, 0), 1);
+            byte[0] ^= 0xff;
+            assert.equal(fs.writeSync(descriptor, byte, 0, 1, 0), 1);
+            fs.fsyncSync(descriptor);
+          } finally {
+            fs.closeSync(descriptor);
+          }
+        },
+        expectedEventRootCount: endpoint.eventRootCount,
+        expectedEventRootFingerprint: endpoint.eventRootFingerprint
+      });
+      assert.equal(observed, null);
+    });
+  }
+});
+
+test("typed FSEvents v2 ACK reader rejects FIFO endpoints without blocking", async (t) => {
+  for (const targetName of ["ack.bin", "ack.commit", "journal.bin"]) {
+    await t.test(targetName, () => {
+      const scratch = fs.mkdtempSync(path.join(os.tmpdir(), `mais-typed-v2-fifo-${targetName}-`));
+      t.after(() => fs.rmSync(scratch, { recursive: true, force: true }));
+      const endpoint = writeTypedFseventsV2Endpoint(scratch, {
+        journal: Buffer.from("bounded FIFO rejection\n")
+      });
+      const targetPath = path.join(scratch, targetName);
+      fs.unlinkSync(targetPath);
+      execFileSync("/usr/bin/mkfifo", [targetPath], { timeout: TEST_CHILD_TIMEOUT_MS });
+      fs.chmodSync(targetPath, 0o600);
+      const result = execFileSync(process.execPath, [
+        "--input-type=module",
+        "-e",
+        [
+          "const libraryUrl = process.argv[1];",
+          "const acknowledgementPath = process.argv[2];",
+          "const expectedEventRootCount = Number(process.argv[3]);",
+          "const expectedEventRootFingerprint = process.argv[4];",
+          "const { readCommittedTypedFseventsAcknowledgement } = await import(libraryUrl);",
+          "const observed = readCommittedTypedFseventsAcknowledgement(acknowledgementPath, { expectedEventRootCount, expectedEventRootFingerprint });",
+          "process.stdout.write(observed === null ? 'null\\n' : 'accepted\\n');"
+        ].join("\n"),
+        libraryUrl,
+        endpoint.acknowledgementPath,
+        String(endpoint.eventRootCount),
+        endpoint.eventRootFingerprint
+      ], {
+        encoding: "utf8",
+        stdio: ["ignore", "pipe", "pipe"],
+        timeout: 1_000
+      });
+      assert.equal(result, "null\n");
+    });
+  }
 });
 
 test("typed FSEvents ACK reader rejects the post-ACK pre-commit publication window", (t) => {
   const scratch = fs.mkdtempSync(path.join(os.tmpdir(), "mais-typed-fsevents-commit-reader-"));
   fs.chmodSync(scratch, 0o700);
   t.after(() => fs.rmSync(scratch, { recursive: true, force: true }));
-  const ackPath = path.join(scratch, "ack.bin");
-  const commitPath = path.join(scratch, "ack.commit");
-  const ready = typedFseventsAck({ type: 1, sequence: 0n });
-  fs.writeFileSync(ackPath, ready, { mode: 0o600 });
-  fs.chmodSync(ackPath, 0o600);
+  const endpoint = writeTypedFseventsV2Endpoint(scratch, {
+    journal: Buffer.from("committed publication endpoint\n"),
+    rootsBuffer: Buffer.from("/tmp/commit-window-root\0")
+  });
+  const ackPath = endpoint.acknowledgementPath;
+  const commitPath = endpoint.commitPath;
   const readyAckStatus = fs.lstatSync(ackPath, { bigint: true });
-  fs.writeFileSync(commitPath, typedFseventsAckCommit(ready, readyAckStatus), { mode: 0o600 });
-  fs.chmodSync(commitPath, 0o600);
   const readyCommitStatus = fs.lstatSync(commitPath, { bigint: true });
-  const committedReady = readCommittedTypedFseventsAck(ackPath);
+  const expectedRoots = {
+    expectedEventRootCount: endpoint.eventRootCount,
+    expectedEventRootFingerprint: endpoint.eventRootFingerprint
+  };
+  const committedReady = readCommittedTypedFseventsAck(ackPath, expectedRoots);
   assert.equal(committedReady.type, 1);
   assert.equal(committedReady.sequence, 0n);
 
-  const flush = typedFseventsAck({ type: 2, sequence: 1n });
+  const flush = typedFseventsAck({
+    type: 2,
+    sequence: 1n,
+    journalHighWater: committedReady.journalHighWater,
+    entryCount: committedReady.entryCount,
+    lastEventId: committedReady.lastEventId,
+    eventRootCount: committedReady.eventRootCount,
+    eventRootFingerprint: committedReady.eventRootFingerprint,
+    journalDevice: committedReady.journalDevice,
+    journalInode: committedReady.journalInode,
+    journalSha256: committedReady.journalSha256
+  });
   const temporaryAckPath = path.join(scratch, `.ack-unit-${crypto.randomUUID()}`);
   fs.writeFileSync(temporaryAckPath, flush, { mode: 0o600 });
   fs.chmodSync(temporaryAckPath, 0o600);
@@ -10727,7 +12034,7 @@ test("typed FSEvents ACK reader rejects the post-ACK pre-commit publication wind
   const flushAckStatus = fs.lstatSync(ackPath, { bigint: true });
   assert.notEqual(flushAckStatus.ino, readyAckStatus.ino);
   assert.equal(
-    readCommittedTypedFseventsAck(ackPath),
+    readCommittedTypedFseventsAck(ackPath, expectedRoots),
     null,
     "a syntactically valid new ACK must not match the prior commit"
   );
@@ -10740,7 +12047,7 @@ test("typed FSEvents ACK reader rejects the post-ACK pre-commit publication wind
   );
   fs.chmodSync(temporaryCommitPath, 0o600);
   fs.renameSync(temporaryCommitPath, commitPath);
-  const committedFlush = readCommittedTypedFseventsAck(ackPath);
+  const committedFlush = readCommittedTypedFseventsAck(ackPath, expectedRoots);
   assert.equal(committedFlush.type, 2);
   assert.equal(committedFlush.sequence, 1n);
   assert.equal(committedFlush.visibleInode, flushAckStatus.ino);
@@ -10748,29 +12055,27 @@ test("typed FSEvents ACK reader rejects the post-ACK pre-commit publication wind
 });
 
 test("typed FSEvents ACK reader rejects post-read same-inode same-size frame mutations", async (t) => {
+  const { readCommittedTypedFseventsAcknowledgement } = await import(libraryUrl);
   for (const targetKind of ["ACK", "ack.commit"]) {
     const targetLabel = targetKind === "ACK" ? "an ACK" : "an ack.commit";
     await t.test(`typed FSEvents ACK reader rejects ${targetLabel} mutation before visible validation`, (subtest) => {
       const scratch = fs.mkdtempSync(path.join(os.tmpdir(), "mais-typed-fsevents-reader-race-"));
       fs.chmodSync(scratch, 0o700);
       subtest.after(() => fs.rmSync(scratch, { recursive: true, force: true }));
-      const ackPath = path.join(scratch, "ack.bin");
-      const commitPath = path.join(scratch, "ack.commit");
-      const acknowledgement = typedFseventsAck({ type: 1, sequence: 0n });
-      fs.writeFileSync(ackPath, acknowledgement, { mode: 0o600 });
-      fs.chmodSync(ackPath, 0o600);
-      const acknowledgementStatus = fs.lstatSync(ackPath, { bigint: true });
-      fs.writeFileSync(
-        commitPath,
-        typedFseventsAckCommit(acknowledgement, acknowledgementStatus),
-        { mode: 0o600 }
-      );
-      fs.chmodSync(commitPath, 0o600);
+      const endpoint = writeTypedFseventsV2Endpoint(scratch, {
+        journal: Buffer.from("bound race endpoint\n"),
+        rootsBuffer: Buffer.from("/tmp/race-root-a\0/tmp/race-root-b\0")
+      });
+      const ackPath = endpoint.acknowledgementPath;
+      const commitPath = endpoint.commitPath;
       const targetPath = targetKind === "ACK" ? ackPath : commitPath;
       const targetBefore = fs.lstatSync(targetPath, { bigint: true });
+      let seamInvoked = false;
 
-      const observed = readCommittedTypedFseventsAck(ackPath, {
-        beforeVisibleValidation: () => {
+      const observed = readCommittedTypedFseventsAcknowledgement(ackPath, {
+        beforeVisibleValidation: ({ phase }) => {
+          seamInvoked = true;
+          assert.equal(phase, "afterJournalReadBeforeVisibleValidation");
           const descriptor = fs.openSync(targetPath, fs.constants.O_RDWR | fs.constants.O_NOFOLLOW);
           try {
             const finalByteOffset = Number(targetBefore.size - 1n);
@@ -10791,11 +12096,149 @@ test("typed FSEvents ACK reader rejects post-read same-inode same-size frame mut
           assert.equal(targetAfter.dev, targetBefore.dev);
           assert.equal(targetAfter.ino, targetBefore.ino);
           assert.equal(targetAfter.size, targetBefore.size);
-        }
+        },
+        expectedEventRootCount: endpoint.eventRootCount,
+        expectedEventRootFingerprint: endpoint.eventRootFingerprint
       });
+      assert.equal(seamInvoked, true, "the post-read race seam must execute for a valid v2 endpoint");
       assert.equal(observed, null);
     });
   }
+});
+
+test("Darwin typed FSEvents helper requires a live silent stdin parent channel", {
+  timeout: 30_000,
+  skip: process.platform !== "darwin"
+}, async (t) => {
+  const { TYPED_FSEVENTS_HELPER_SOURCE_PATH } = await import(libraryUrl);
+  const parent = fs.mkdtempSync(path.join(os.tmpdir(), "mais-typed-fsevents-parent-channel-"));
+  fs.chmodSync(parent, 0o700);
+  t.after(() => fs.rmSync(parent, { recursive: true, force: true }));
+  const binary = path.join(parent, "mais-fsevents-parent-channel");
+  compileTypedFseventsHelper(TYPED_FSEVENTS_HELPER_SOURCE_PATH, binary);
+
+  for (const channelEvent of ["eof", "unexpected-data"]) {
+    await t.test(channelEvent, async (subtest) => {
+      const fixture = makeTypedFseventsScratch(parent, ({ configPath, watched }) => {
+        fs.writeFileSync(configPath, Buffer.from(`${fs.realpathSync(watched)}\0`), { mode: 0o600 });
+      });
+      let stderr = "";
+      const child = spawn(binary, [fixture.scratch], { stdio: ["pipe", "ignore", "pipe"] });
+      child.stderr.on("data", (chunk) => { stderr += chunk; });
+      subtest.after(() => {
+        if (child.exitCode === null && child.signalCode === null) child.kill("SIGKILL");
+      });
+      assert.equal(await waitForCondition(
+        () => fs.existsSync(path.join(fixture.scratch, "ack.bin"))
+          || child.exitCode !== null || child.signalCode !== null,
+        5_000
+      ), true, stderr);
+      assert.equal(child.exitCode, null, stderr);
+      if (channelEvent === "eof") child.stdin.destroy();
+      else child.stdin.write("unexpected parent-channel data");
+      assert.equal(await waitForCondition(
+        () => child.exitCode !== null || child.signalCode !== null,
+        2_000
+      ), true, `native helper ignored stdin ${channelEvent}: ${stderr}`);
+      assert.notEqual(child.exitCode, 0, stderr);
+    });
+  }
+
+  await t.test("non-pipe-fd0", async (subtest) => {
+    const fixture = makeTypedFseventsScratch(parent, ({ configPath, watched }) => {
+      fs.writeFileSync(configPath, Buffer.from(`${fs.realpathSync(watched)}\0`), { mode: 0o600 });
+    });
+    let stderr = "";
+    const child = spawn(binary, [fixture.scratch], { stdio: ["ignore", "ignore", "pipe"] });
+    child.stderr.on("data", (chunk) => { stderr += chunk; });
+    subtest.after(() => {
+      if (child.exitCode === null && child.signalCode === null) child.kill("SIGKILL");
+    });
+    assert.equal(await waitForCondition(
+      () => child.exitCode !== null || child.signalCode !== null,
+      2_000
+    ), true, `native helper accepted a non-pipe fd0: ${stderr}`);
+    assert.notEqual(child.exitCode, 0, stderr);
+  });
+
+  await t.test("read-write-fifo-fd0", async (subtest) => {
+    const fixture = makeTypedFseventsScratch(parent, ({ configPath, watched }) => {
+      fs.writeFileSync(configPath, Buffer.from(`${fs.realpathSync(watched)}\0`), { mode: 0o600 });
+    });
+    const fifoPath = path.join(parent, `parent-channel-${crypto.randomUUID()}.fifo`);
+    execFileSync("/usr/bin/mkfifo", [fifoPath], { timeout: TEST_CHILD_TIMEOUT_MS });
+    fs.chmodSync(fifoPath, 0o600);
+    const fifoDescriptor = fs.openSync(
+      fifoPath,
+      fs.constants.O_RDWR | (fs.constants.O_NONBLOCK ?? 0)
+    );
+    let stderr = "";
+    const child = spawn(binary, [fixture.scratch], { stdio: [fifoDescriptor, "ignore", "pipe"] });
+    fs.closeSync(fifoDescriptor);
+    child.stderr.on("data", (chunk) => { stderr += chunk; });
+    subtest.after(() => {
+      if (child.exitCode === null && child.signalCode === null) child.kill("SIGKILL");
+    });
+    assert.equal(await waitForCondition(
+      () => child.exitCode !== null || child.signalCode !== null,
+      2_000
+    ), true, `native helper accepted a self-held read-write FIFO parent channel: ${stderr}`);
+    assert.notEqual(child.exitCode, 0, stderr);
+  });
+});
+
+test("Darwin typed FSEvents helper rejects FIFO roots and command endpoints without blocking", {
+  timeout: 30_000,
+  skip: process.platform !== "darwin"
+}, async (t) => {
+  const { TYPED_FSEVENTS_HELPER_SOURCE_PATH } = await import(libraryUrl);
+  const parent = fs.mkdtempSync(path.join(os.tmpdir(), "mais-typed-fsevents-native-fifo-"));
+  fs.chmodSync(parent, 0o700);
+  t.after(() => fs.rmSync(parent, { recursive: true, force: true }));
+  const binary = path.join(parent, "mais-fsevents-native-fifo");
+  compileTypedFseventsHelper(TYPED_FSEVENTS_HELPER_SOURCE_PATH, binary);
+
+  await t.test("roots.config FIFO", async (subtest) => {
+    const fixture = makeTypedFseventsScratch(parent, ({ configPath }) => {
+      execFileSync("/usr/bin/mkfifo", [configPath], { timeout: TEST_CHILD_TIMEOUT_MS });
+      fs.chmodSync(configPath, 0o600);
+    });
+    let stderr = "";
+    const child = spawn(binary, [fixture.scratch], { stdio: ["pipe", "ignore", "pipe"] });
+    child.stderr.on("data", (chunk) => { stderr += chunk; });
+    subtest.after(() => {
+      if (child.exitCode === null && child.signalCode === null) child.kill("SIGKILL");
+    });
+    assert.equal(await waitForCondition(
+      () => child.exitCode !== null || child.signalCode !== null,
+      2_000
+    ), true, `native helper blocked opening roots.config FIFO: ${stderr}`);
+    assert.notEqual(child.exitCode, 0, stderr);
+  });
+
+  await t.test("command.bin FIFO", async (subtest) => {
+    const fixture = makeTypedFseventsScratch(parent, ({ configPath, watched }) => {
+      fs.writeFileSync(configPath, Buffer.from(`${fs.realpathSync(watched)}\0`), { mode: 0o600 });
+    });
+    let stderr = "";
+    const child = spawn(binary, [fixture.scratch], { stdio: ["pipe", "ignore", "pipe"] });
+    child.stderr.on("data", (chunk) => { stderr += chunk; });
+    subtest.after(() => {
+      if (child.exitCode === null && child.signalCode === null) child.kill("SIGKILL");
+    });
+    const ackPath = path.join(fixture.scratch, "ack.bin");
+    await waitForTypedFseventsAck(ackPath, { type: 1, sequence: 0n }, child, () => stderr);
+    const fifoPath = path.join(fixture.scratch, `.command-fifo-${crypto.randomUUID()}`);
+    execFileSync("/usr/bin/mkfifo", [fifoPath], { timeout: TEST_CHILD_TIMEOUT_MS });
+    fs.chmodSync(fifoPath, 0o600);
+    fs.renameSync(fifoPath, fixture.commandPath);
+    assert.equal(fs.lstatSync(fixture.commandPath).isFIFO(), true);
+    assert.equal(await waitForCondition(
+      () => child.exitCode !== null || child.signalCode !== null,
+      2_000
+    ), true, `native helper blocked opening command.bin FIFO: ${stderr}`);
+    assert.notEqual(child.exitCode, 0, stderr);
+  });
 });
 
 test("typed FSEvents native helper compiles reproducibly rejects unsafe config and journals flush endpoints", {
@@ -10833,7 +12276,7 @@ test("typed FSEvents native helper compiles reproducibly rejects unsafe config a
   assert.equal(fs.statSync(binaryA).mode & 0o777, 0o500);
 
   for (const unsafeKind of ["mode", "special-file-mode", "special-scratch-mode", "symlink", "hardlink"]) {
-    await t.test(`typed FSEvents helper rejects ${unsafeKind} config`, () => {
+    await t.test(`typed FSEvents helper rejects ${unsafeKind} config`, async (subtest) => {
       const fixture = makeTypedFseventsScratch(parent, ({ configPath, watched }) => {
         const content = Buffer.from(`${fs.realpathSync(watched)}\0`);
         if (unsafeKind === "mode") {
@@ -10851,13 +12294,27 @@ test("typed FSEvents native helper compiles reproducibly rejects unsafe config a
         }
       });
       if (unsafeKind === "special-scratch-mode") fs.chmodSync(fixture.scratch, 0o1700);
-      const rejected = spawnSync(binaryA, [fixture.scratch], {
-        encoding: "utf8",
-        timeout: 5_000
+      let stdout = "";
+      let stderr = "";
+      const child = spawn(binaryA, [fixture.scratch], {
+        stdio: ["pipe", "pipe", "pipe"]
       });
-      assert.equal(Number.isInteger(rejected.status), true, `${unsafeKind} config timed out instead of failing closed`);
-      assert.notEqual(rejected.status, 0, `${unsafeKind} config unexpectedly started helper`);
-      assert.match(`${rejected.stdout}\n${rejected.stderr}`, /config|scratch|safe|mode|link|regular/i);
+      child.stdout.on("data", (chunk) => { stdout += chunk; });
+      child.stderr.on("data", (chunk) => { stderr += chunk; });
+      const completed = new Promise((resolve) => child.once("close", (code, signal) => resolve({ code, signal })));
+      subtest.after(() => {
+        if (child.exitCode === null && child.signalCode === null) child.kill("SIGKILL");
+      });
+      const rejected = await Promise.race([
+        completed,
+        new Promise((_, reject) => setTimeout(
+          () => reject(new Error(`${unsafeKind} config timed out instead of failing closed`)),
+          5_000
+        ))
+      ]);
+      assert.equal(Number.isInteger(rejected.code), true, `${unsafeKind} config did not exit normally`);
+      assert.notEqual(rejected.code, 0, `${unsafeKind} config unexpectedly started helper`);
+      assert.match(`${stdout}\n${stderr}`, /config|scratch|safe|mode|link|regular/i);
     });
   }
 
@@ -10866,7 +12323,7 @@ test("typed FSEvents native helper compiles reproducibly rejects unsafe config a
       fs.writeFileSync(configPath, Buffer.from(`${fs.realpathSync(watched)}\0`), { mode: 0o600 });
     });
     let stderr = "";
-    const child = spawn(binaryA, [fixture.scratch], { stdio: ["ignore", "ignore", "pipe"] });
+    const child = spawn(binaryA, [fixture.scratch], { stdio: ["pipe", "ignore", "pipe"] });
     child.stderr.on("data", (chunk) => { stderr += chunk; });
     const completed = new Promise((resolve) => child.once("close", (code, signal) => resolve({ code, signal })));
     subtest.after(async () => {
@@ -10908,12 +12365,52 @@ test("typed FSEvents native helper compiles reproducibly rejects unsafe config a
     assert.equal(remainingCommit.commitVisibleInode, ready.commitVisibleInode);
   });
 
+  await t.test("typed FSEvents helper rejects a fresh-inode MFSC v1 command", async (subtest) => {
+    const fixture = makeTypedFseventsScratch(parent, ({ configPath, watched }) => {
+      fs.writeFileSync(configPath, Buffer.from(`${fs.realpathSync(watched)}\0`), { mode: 0o600 });
+    });
+    let stderr = "";
+    const child = spawn(binaryA, [fixture.scratch], { stdio: ["pipe", "ignore", "pipe"] });
+    child.stderr.on("data", (chunk) => { stderr += chunk; });
+    const completed = new Promise((resolve) => child.once("close", (code, signal) => resolve({ code, signal })));
+    subtest.after(async () => {
+      if (child.exitCode === null && child.signalCode === null) child.kill("SIGKILL");
+      await Promise.race([completed, new Promise((resolve) => setTimeout(resolve, 2_000))]);
+    });
+    const ackPath = path.join(fixture.scratch, "ack.bin");
+    const ready = await waitForTypedFseventsAck(ackPath, { type: 1, sequence: 0n }, child, () => stderr);
+    const legacyCommand = typedFseventsCommand(1, 1n);
+    legacyCommand.writeUInt16LE(1, 4);
+    const temporaryCommandPath = path.join(fixture.scratch, `.command-v1-${crypto.randomUUID()}`);
+    fs.writeFileSync(temporaryCommandPath, legacyCommand, { mode: 0o600 });
+    fs.chmodSync(temporaryCommandPath, 0o600);
+    const temporaryDescriptor = fs.openSync(temporaryCommandPath, fs.constants.O_RDONLY | fs.constants.O_NOFOLLOW);
+    try { fs.fsyncSync(temporaryDescriptor); } finally { fs.closeSync(temporaryDescriptor); }
+    fs.renameSync(temporaryCommandPath, fixture.commandPath);
+    const directoryDescriptor = fs.openSync(fixture.scratch, fs.constants.O_RDONLY);
+    try { fs.fsyncSync(directoryDescriptor); } finally { fs.closeSync(directoryDescriptor); }
+
+    const exit = await Promise.race([
+      completed,
+      new Promise((_, reject) => setTimeout(
+        () => reject(new Error("typed FSEvents MFSC v1 command did not fail closed")),
+        5_000
+      ))
+    ]);
+    assert.notEqual(exit.code, 0, stderr);
+    const remaining = readCommittedTypedFseventsAck(ackPath);
+    assert.equal(remaining.type, ready.type);
+    assert.equal(remaining.sequence, ready.sequence);
+    assert.equal(remaining.visibleInode, ready.visibleInode);
+    assert.equal(remaining.commitVisibleInode, ready.commitVisibleInode);
+  });
+
   await t.test("typed FSEvents helper rejects a fresh-inode duplicate kept visible for a bounded observation window", async (subtest) => {
     const fixture = makeTypedFseventsScratch(parent, ({ configPath, watched }) => {
       fs.writeFileSync(configPath, Buffer.from(`${fs.realpathSync(watched)}\0`), { mode: 0o600 });
     });
     let stderr = "";
-    const child = spawn(binaryA, [fixture.scratch], { stdio: ["ignore", "ignore", "pipe"] });
+    const child = spawn(binaryA, [fixture.scratch], { stdio: ["pipe", "ignore", "pipe"] });
     child.stderr.on("data", (chunk) => { stderr += chunk; });
     const completed = new Promise((resolve) => child.once("close", (code, signal) => resolve({ code, signal })));
     subtest.after(async () => {
@@ -10980,7 +12477,7 @@ test("typed FSEvents native helper compiles reproducibly rejects unsafe config a
         fs.writeFileSync(configPath, Buffer.from(`${fs.realpathSync(watched)}\0`), { mode: 0o600 });
       });
       let stderr = "";
-      const child = spawn(binaryA, [fixture.scratch], { stdio: ["ignore", "ignore", "pipe"] });
+      const child = spawn(binaryA, [fixture.scratch], { stdio: ["pipe", "ignore", "pipe"] });
       child.stderr.on("data", (chunk) => { stderr += chunk; });
       const completed = new Promise((resolve) => child.once("close", (code, signal) => resolve({ code, signal })));
       subtest.after(async () => {
@@ -10988,8 +12485,11 @@ test("typed FSEvents native helper compiles reproducibly rejects unsafe config a
         await Promise.race([completed, new Promise((resolve) => setTimeout(resolve, 2_000))]);
       });
       const ackPath = path.join(fixture.scratch, "ack.bin");
+      const commitPath = path.join(fixture.scratch, "ack.commit");
       const journalPath = path.join(fixture.scratch, "journal.bin");
       const ready = await waitForTypedFseventsAck(ackPath, { type: 1, sequence: 0n }, child, () => stderr);
+      const readyAckBytes = fs.readFileSync(ackPath);
+      const readyCommitBytes = fs.readFileSync(commitPath);
       if (tamperKind === "chmod") {
         fs.chmodSync(journalPath, 0o644);
       } else {
@@ -11005,15 +12505,16 @@ test("typed FSEvents native helper compiles reproducibly rejects unsafe config a
         ))
       ]);
       assert.notEqual(exit.code, 0, stderr);
-      const remainingAck = parseTypedFseventsAck(fs.readFileSync(ackPath));
+      const remainingAckBytes = fs.readFileSync(ackPath);
+      const remainingAck = parseTypedFseventsAck(remainingAckBytes);
       const remainingAckStat = fs.lstatSync(ackPath, { bigint: true });
+      assert.deepEqual(remainingAckBytes, readyAckBytes);
+      assert.deepEqual(fs.readFileSync(commitPath), readyCommitBytes);
       assert.equal(remainingAck.type, 1);
       assert.equal(remainingAck.sequence, 0n);
       assert.equal(remainingAckStat.ino, ready.visibleInode);
-      const remainingCommit = readCommittedTypedFseventsAck(ackPath);
-      assert.equal(remainingCommit.type, 1);
-      assert.equal(remainingCommit.sequence, 0n);
-      assert.equal(remainingCommit.commitVisibleInode, ready.commitVisibleInode);
+      assert.equal(readCommittedTypedFseventsAck(ackPath), null);
+      assert.equal(fs.lstatSync(commitPath, { bigint: true }).ino, ready.commitVisibleInode);
     });
   }
 
@@ -11022,7 +12523,7 @@ test("typed FSEvents native helper compiles reproducibly rejects unsafe config a
       fs.writeFileSync(configPath, Buffer.from(`${fs.realpathSync(watched)}\0`), { mode: 0o600 });
     });
     let stderr = "";
-    const child = spawn(binaryA, [fixture.scratch], { stdio: ["ignore", "ignore", "pipe"] });
+    const child = spawn(binaryA, [fixture.scratch], { stdio: ["pipe", "ignore", "pipe"] });
     child.stderr.on("data", (chunk) => { stderr += chunk; });
     const completed = new Promise((resolve) => child.once("close", (code, signal) => resolve({ code, signal })));
     subtest.after(async () => {
@@ -11030,6 +12531,7 @@ test("typed FSEvents native helper compiles reproducibly rejects unsafe config a
       await Promise.race([completed, new Promise((resolve) => setTimeout(resolve, 2_000))]);
     });
     const ackPath = path.join(fixture.scratch, "ack.bin");
+    const commitPath = path.join(fixture.scratch, "ack.commit");
     const journalPath = path.join(fixture.scratch, "journal.bin");
     const target = path.join(fixture.watched, "digest-target.txt");
     const ready = await waitForTypedFseventsAck(
@@ -11050,6 +12552,8 @@ test("typed FSEvents native helper compiles reproducibly rejects unsafe config a
       label: "journal event"
     });
     const committedAck = eventFlush.acknowledgement;
+    const committedAckBytes = fs.readFileSync(ackPath);
+    const committedCommitBytes = fs.readFileSync(commitPath);
     const journalBefore = fs.lstatSync(journalPath, { bigint: true });
     const journalDescriptor = fs.openSync(
       journalPath,
@@ -11079,15 +12583,16 @@ test("typed FSEvents native helper compiles reproducibly rejects unsafe config a
       ))
     ]);
     assert.notEqual(exit.code, 0, stderr);
-    const remainingAck = parseTypedFseventsAck(fs.readFileSync(ackPath));
+    const remainingAckBytes = fs.readFileSync(ackPath);
+    const remainingAck = parseTypedFseventsAck(remainingAckBytes);
     const remainingAckStat = fs.lstatSync(ackPath, { bigint: true });
+    assert.deepEqual(remainingAckBytes, committedAckBytes);
+    assert.deepEqual(fs.readFileSync(commitPath), committedCommitBytes);
     assert.equal(remainingAck.type, committedAck.type);
     assert.equal(remainingAck.sequence, committedAck.sequence);
     assert.equal(remainingAckStat.ino, committedAck.visibleInode);
-    const remainingCommit = readCommittedTypedFseventsAck(ackPath);
-    assert.equal(remainingCommit.type, committedAck.type);
-    assert.equal(remainingCommit.sequence, committedAck.sequence);
-    assert.equal(remainingCommit.commitVisibleInode, committedAck.commitVisibleInode);
+    assert.equal(readCommittedTypedFseventsAck(ackPath), null);
+    assert.equal(fs.lstatSync(commitPath, { bigint: true }).ino, committedAck.commitVisibleInode);
   });
 
   const fixture = makeTypedFseventsScratch(parent, ({ configPath, watched }) => {
@@ -11105,7 +12610,7 @@ test("typed FSEvents native helper compiles reproducibly rejects unsafe config a
   const materialBaseline = fs.statSync(materialTarget);
 
   let stderr = "";
-  const child = spawn(binaryA, [fixture.scratch], { stdio: ["ignore", "ignore", "pipe"] });
+  const child = spawn(binaryA, [fixture.scratch], { stdio: ["pipe", "ignore", "pipe"] });
   child.stderr.on("data", (chunk) => { stderr += chunk; });
   const completed = new Promise((resolve) => child.once("close", (code, signal) => resolve({ code, signal })));
   t.after(async () => {
@@ -11116,8 +12621,29 @@ test("typed FSEvents native helper compiles reproducibly rejects unsafe config a
   const ackPath = path.join(fixture.scratch, "ack.bin");
   const ackCommitPath = path.join(fixture.scratch, "ack.commit");
   const journalPath = path.join(fixture.scratch, "journal.bin");
+  const rootsConfigBytes = fs.readFileSync(fixture.configPath);
+  const expectedNativeRootCount = rootsConfigBytes.filter((byte) => byte === 0).length;
+  const expectedNativeRootFingerprint = crypto.createHash("sha256").update(rootsConfigBytes).digest("hex");
+  const assertNativeEndpointBinding = (acknowledgement) => {
+    assert.equal(acknowledgement.eventRootCount, BigInt(expectedNativeRootCount));
+    assert.equal(acknowledgement.eventRootFingerprint.toString("hex"), expectedNativeRootFingerprint);
+    const journalStatus = fs.lstatSync(journalPath, { bigint: true });
+    assert.equal(acknowledgement.journalDevice, journalStatus.dev);
+    assert.equal(acknowledgement.journalInode, journalStatus.ino);
+    const journalPrefix = fs.readFileSync(journalPath).subarray(
+      0,
+      Number(acknowledgement.journalHighWater)
+    );
+    assert.equal(BigInt(journalPrefix.length), acknowledgement.journalHighWater);
+    assert.equal(
+      acknowledgement.journalSha256.toString("hex"),
+      crypto.createHash("sha256").update(journalPrefix).digest("hex")
+    );
+    assert.deepEqual(acknowledgement.journalPrefix, journalPrefix);
+  };
   const ready = await waitForTypedFseventsAck(ackPath, { type: 1, sequence: 0n }, child, () => stderr);
   assert.equal(ready.status, 0);
+  assertNativeEndpointBinding(ready);
   for (const securePath of [fixture.configPath, fixture.commandPath, ackPath, ackCommitPath, journalPath]) {
     const stat = fs.lstatSync(securePath);
     assert.equal(stat.isFile(), true);
@@ -11137,6 +12663,7 @@ test("typed FSEvents native helper compiles reproducibly rejects unsafe config a
     previousInode: ready.visibleInode,
     previousCommitInode: ready.commitVisibleInode
   }, child, () => stderr);
+  assertNativeEndpointBinding(baselineAck);
   execFileSync("/usr/bin/xattr", ["-w", "com.mais.task1", "metadata-only", target], {
     timeout: TEST_CHILD_TIMEOUT_MS
   });
@@ -11157,6 +12684,7 @@ test("typed FSEvents native helper compiles reproducibly rejects unsafe config a
     label: "xattr event"
   });
   const xattrAck = xattrFlush.acknowledgement;
+  assertNativeEndpointBinding(xattrAck);
   nextCommandSequence = xattrFlush.nextSequence;
   const xattrHighWater = Number(xattrAck.journalHighWater);
   assert.ok(BigInt(xattrHighWater) === xattrAck.journalHighWater);
@@ -11191,6 +12719,7 @@ test("typed FSEvents native helper compiles reproducibly rejects unsafe config a
     label: "write-and-restore event"
   });
   const restoredAck = restoredFlush.acknowledgement;
+  assertNativeEndpointBinding(restoredAck);
   nextCommandSequence = restoredFlush.nextSequence;
   const restoredRecords = parseTypedFseventsJournal(fs.readFileSync(journalPath).subarray(0, Number(restoredAck.journalHighWater)));
   const materialEvent = restoredRecords.findLast((record) => (
@@ -11208,6 +12737,7 @@ test("typed FSEvents native helper compiles reproducibly rejects unsafe config a
     previousInode: restoredAck.visibleInode,
     previousCommitInode: restoredAck.commitVisibleInode
   }, child, () => stderr);
+  assertNativeEndpointBinding(secondConsecutiveFlush);
   assert.ok(xattrAck.sequence > baselineAck.sequence);
   assert.ok(xattrAck.journalHighWater >= baselineAck.journalHighWater);
   assert.ok(xattrAck.entryCount >= baselineAck.entryCount);
@@ -11227,6 +12757,7 @@ test("typed FSEvents native helper compiles reproducibly rejects unsafe config a
     previousCommitInode: secondConsecutiveFlush.commitVisibleInode,
     terminal: true
   }, child, () => stderr);
+  assertNativeEndpointBinding(stopped);
   const exit = await Promise.race([
     completed,
     new Promise((_, reject) => setTimeout(() => reject(new Error("typed FSEvents STOP timed out")), 5_000))

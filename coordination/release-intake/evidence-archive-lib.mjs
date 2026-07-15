@@ -1,5 +1,5 @@
 import { execFileSync, spawn, spawnSync } from "node:child_process";
-import { isUtf8 } from "node:buffer";
+import { constants as bufferConstants, isUtf8 } from "node:buffer";
 import crypto from "node:crypto";
 import fs from "node:fs";
 import os from "node:os";
@@ -49,7 +49,53 @@ const OPAQUE_RAW_SCAN_MAX_BYTES = 1024 * 1024;
 
 const SHA256_PATTERN = /^[0-9a-f]{64}$/u;
 const UUID_PATTERN = /^[0-9a-f]{8}-[0-9a-f]{4}-[1-8][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/iu;
-const MUTATION_MONITOR_SCHEMA_VERSION = 2;
+const MUTATION_MONITOR_SCHEMA_VERSION = 3;
+const TYPED_FSEVENTS_HELPER_PROTOCOL_VERSION = 2;
+const TYPED_FSEVENTS_MAX_BUFFER_BYTES = bufferConstants.MAX_LENGTH;
+const TYPED_FSEVENTS_EVENT_BACKEND = "darwin-fsevents-file-events";
+const TYPED_FSEVENTS_CTIME_POLICY = "typed-xattr-only";
+const NON_TYPED_EVENT_BACKEND = "none";
+const STRICT_CTIME_POLICY = "strict";
+const UINT64_DECIMAL_PATTERN = /^(?:0|[1-9][0-9]*)$/u;
+const TYPED_FSEVENTS_STATE_KEYS = Object.freeze([
+  "droppedEventCount",
+  "enabled",
+  "eventRootCount",
+  "eventRootFingerprint",
+  "helperBinarySha256",
+  "helperSourceSha256",
+  "journalEntryCount",
+  "journalFirstEventId",
+  "journalFlushSequence",
+  "journalHighWater",
+  "journalLastEventId",
+  "journalLastFlushedEventId",
+  "journalSha256",
+  "materialEventCount",
+  "sourceEventCount",
+  "transactionMetadataEventCount",
+  "unknownEventCount",
+  "unmatchedDeltaCount",
+  "xattrOnlyEventCount"
+]);
+const MUTATION_MONITOR_STATE_KEYS = Object.freeze([
+  "coverageFingerprint",
+  "coveragePathCount",
+  "directoryTimestampPolicy",
+  "eventBackend",
+  "fdCount",
+  "helperProtocolVersion",
+  "metadataEpoch",
+  "regularFileCtimePolicy",
+  "requestedWatchMode",
+  "rootFdCount",
+  "schemaVersion",
+  "sessionId",
+  "sourceEpoch",
+  "typedFsevents",
+  "watchMode",
+  "xattrEpoch"
+]);
 const EVIDENCE_REPORT_RECOVERY_NAME_PATTERN = /^(.+\.json)\.recovery-([0-9a-f]{8}-[0-9a-f]{4}-[1-8][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12})\.json$/iu;
 const EVIDENCE_REPORT_RECOVERY_STATES = new Set([
   "committed-cleanup-pending",
@@ -550,9 +596,23 @@ export const TYPED_FSEVENTS_HELPER_SOURCE_PATH = fileURLToPath(new URL(
   import.meta.url
 ));
 
+// Exact union of the flags defined by the macOS FSEvents SDK, including
+// OwnEvent (0x00080000). The helper does not request MarkSelf today, but an
+// observed defined bit is still conservatively material rather than unknown.
 const TYPED_FSEVENTS_KNOWN_FLAG_MASK = 0x007fffff;
 const TYPED_FSEVENTS_FATAL_FLAG_MASK = 0x000000ff;
 const TYPED_FSEVENTS_EXACT_XATTR_ONLY_FLAGS = 0x00018000;
+const TYPED_FSEVENTS_JOURNAL_HEADER_BYTES = 40;
+const TYPED_FSEVENTS_MAX_JOURNAL_BYTES = 512 * 1024 * 1024;
+const TYPED_FSEVENTS_MAX_JOURNAL_ENTRIES = 1_000_000n;
+const TYPED_FSEVENTS_MAX_EVENT_PATH_BYTES = 1024 * 1024;
+const TYPED_FSEVENTS_MAX_RECORD_BYTES = TYPED_FSEVENTS_JOURNAL_HEADER_BYTES
+  + TYPED_FSEVENTS_MAX_EVENT_PATH_BYTES;
+const TYPED_FSEVENTS_MAX_UINT64 = (1n << 64n) - 1n;
+const TYPED_FSEVENTS_VALIDATED_CHECKPOINTS = new WeakMap();
+const TYPED_FSEVENTS_REGULAR_SEMANTIC_FIELDS = Object.freeze([
+  "dev", "ino", "mode", "nlink", "size", "mtimeNs", "sha256"
+]);
 
 export function classifyTypedFseventsFlags(rawFlags) {
   if (!Number.isInteger(rawFlags) || rawFlags < 0 || rawFlags > 0xffffffff) {
@@ -565,6 +625,620 @@ export function classifyTypedFseventsFlags(rawFlags) {
   }
   return flags === TYPED_FSEVENTS_EXACT_XATTR_ONLY_FLAGS ? "xattr-only" : "source";
 }
+
+function typedFseventsUint64(value, label) {
+  if (typeof value !== "bigint" || value < 0n || value > TYPED_FSEVENTS_MAX_UINT64) {
+    throw new Error(`${label} must be a UInt64 bigint`);
+  }
+  return value;
+}
+
+function typedFseventsCheckpoint(value, label) {
+  if (value === null || typeof value !== "object" || Array.isArray(value)) {
+    throw new Error(`${label} must be an object`);
+  }
+  const highWater = typedFseventsUint64(value.highWater, `${label} high-water`);
+  const entryCount = typedFseventsUint64(value.entryCount, `${label} entry count`);
+  const lastEventId = value.lastEventId === null
+    ? null
+    : typedFseventsUint64(value.lastEventId, `${label} last event ID`);
+  if (highWater > BigInt(TYPED_FSEVENTS_MAX_JOURNAL_BYTES)
+    || entryCount > TYPED_FSEVENTS_MAX_JOURNAL_ENTRIES
+    || (entryCount === 0n) !== (highWater === 0n)
+    || (entryCount === 0n) !== (lastEventId === null)
+    || typeof value.sha256 !== "string"
+    || !SHA256_PATTERN.test(value.sha256)) {
+    throw new Error(`${label} count, high-water, last event ID, or SHA-256 is invalid`);
+  }
+  return Object.freeze({ entryCount, highWater, lastEventId, sha256: value.sha256 });
+}
+
+function typedFseventsRootBinding(eventRoots) {
+  return eventRoots === null ? null : JSON.stringify(eventRoots);
+}
+
+function markTypedFseventsCheckpoint(value, eventRoots) {
+  const checkpoint = Object.freeze(value);
+  TYPED_FSEVENTS_VALIDATED_CHECKPOINTS.set(
+    checkpoint,
+    typedFseventsRootBinding(eventRoots)
+  );
+  return checkpoint;
+}
+
+function validatedTypedFseventsCheckpoint(value, label, eventRoots) {
+  if ((typeof value !== "object" && typeof value !== "function")
+    || value === null
+    || !TYPED_FSEVENTS_VALIDATED_CHECKPOINTS.has(value)) {
+    throw new Error(`${label} must be a module-validated checkpoint`);
+  }
+  const checkpoint = typedFseventsCheckpoint(value, label);
+  const boundRoots = TYPED_FSEVENTS_VALIDATED_CHECKPOINTS.get(value);
+  if (boundRoots === null) {
+    if (checkpoint.entryCount !== 0n
+      || checkpoint.highWater !== 0n
+      || checkpoint.lastEventId !== null) {
+      throw new Error(`${label} has invalid root-neutral provenance`);
+    }
+  } else if (boundRoots !== typedFseventsRootBinding(eventRoots)) {
+    throw new Error(`${label} event roots binding changed`);
+  }
+  return checkpoint;
+}
+
+export function createEmptyTypedFseventsJournalCheckpoint() {
+  return markTypedFseventsCheckpoint({
+    deltaEntryCount: 0n,
+    deltaHighWater: 0n,
+    entryCount: 0n,
+    highWater: 0n,
+    lastEventId: null,
+    sha256: sha256Buffer(Buffer.alloc(0))
+  }, null);
+}
+
+function typedFseventsCanonicalAbsolutePath(value, label) {
+  if (typeof value !== "string" || value.length === 0 || value.includes("\0")
+    || !path.posix.isAbsolute(value)
+    || path.posix.normalize(value) !== value
+    || (value.length > 1 && value.endsWith("/"))) {
+    throw new Error(`${label} must be a canonical absolute path`);
+  }
+  return value;
+}
+
+function typedFseventsCanonicalPathSet(values, label, eventRoots = null) {
+  if (!Array.isArray(values) || (eventRoots === null && values.length === 0)) {
+    throw new Error(`${label} must be ${eventRoots === null ? "a nonempty" : "an"} array`);
+  }
+  const canonical = values.map((value, index) => typedFseventsCanonicalAbsolutePath(
+    value,
+    `${label}[${index}]`
+  ));
+  if (new Set(canonical).size !== canonical.length) {
+    throw new Error(`${label} contains duplicate paths`);
+  }
+  if (eventRoots !== null && canonical.some((candidate) => (
+    !eventRoots.some((root) => typedFseventsPathIsWithin(candidate, root))
+  ))) {
+    throw new Error(`${label} contains a path outside every event root`);
+  }
+  return Object.freeze(canonical);
+}
+
+function typedFseventsPathIsWithin(candidate, root) {
+  return root === "/" || candidate === root || candidate.startsWith(`${root}/`);
+}
+
+function walkTypedFseventsJournalExtension({
+  endpoint,
+  eventRoots,
+  journalPrefix,
+  priorCheckpoint,
+  visitor
+}, requireEndpoint) {
+  if (!Buffer.isBuffer(journalPrefix)) {
+    throw new Error("typed FSEvents journal prefix must be a Buffer");
+  }
+  if (journalPrefix.length > TYPED_FSEVENTS_MAX_JOURNAL_BYTES) {
+    throw new Error("typed FSEvents journal exceeds the 512 MiB limit");
+  }
+  if (typeof visitor !== "function") {
+    throw new Error("typed FSEvents journal visitor must be a function");
+  }
+  const roots = typedFseventsCanonicalPathSet(eventRoots, "typed FSEvents event roots");
+  const prior = validatedTypedFseventsCheckpoint(
+    priorCheckpoint,
+    "typed FSEvents prior checkpoint",
+    roots
+  );
+  const expectedEndpoint = requireEndpoint
+    ? typedFseventsCheckpoint(endpoint, "typed FSEvents endpoint")
+    : null;
+  if (prior.highWater > BigInt(journalPrefix.length)) {
+    throw new Error("typed FSEvents prior checkpoint high-water exceeds the journal");
+  }
+  if (expectedEndpoint !== null
+    && (expectedEndpoint.highWater !== BigInt(journalPrefix.length)
+      || prior.highWater > expectedEndpoint.highWater
+      || prior.entryCount > expectedEndpoint.entryCount)) {
+    throw new Error("typed FSEvents endpoint high-water or count is inconsistent");
+  }
+  const priorBytes = Number(prior.highWater);
+  const actualPriorDigest = sha256Buffer(journalPrefix.subarray(0, priorBytes));
+  if (actualPriorDigest !== prior.sha256) {
+    throw new Error("typed FSEvents prior checkpoint digest does not match the journal prefix");
+  }
+  const fullDigest = sha256Buffer(journalPrefix);
+  if (expectedEndpoint !== null && fullDigest !== expectedEndpoint.sha256) {
+    throw new Error("typed FSEvents endpoint journal digest does not match");
+  }
+
+  // The prior checkpoint is a previously validated record boundary. Its exact
+  // prefix digest carries that validation forward, so an extension walk starts
+  // at highWater and never decodes or re-visits committed records.
+  let offset = priorBytes;
+  let entryCount = prior.entryCount;
+  let lastEventId = prior.lastEventId;
+  while (offset < journalPrefix.length) {
+    const remaining = journalPrefix.length - offset;
+    if (remaining < TYPED_FSEVENTS_JOURNAL_HEADER_BYTES) {
+      throw new Error("typed FSEvents journal record is truncated");
+    }
+    if (journalPrefix.toString("ascii", offset, offset + 4) !== "MFSJ") {
+      throw new Error("typed FSEvents journal magic is invalid");
+    }
+    const version = journalPrefix.readUInt16LE(offset + 4);
+    const type = journalPrefix.readUInt16LE(offset + 6);
+    const recordLength = journalPrefix.readUInt32LE(offset + 8);
+    const sequence = journalPrefix.readBigUInt64LE(offset + 12);
+    const eventId = journalPrefix.readBigUInt64LE(offset + 20);
+    const flags = journalPrefix.readUInt32LE(offset + 28);
+    const pathLength = journalPrefix.readUInt32LE(offset + 32);
+    const reserved = journalPrefix.readUInt32LE(offset + 36);
+    if (version !== 1 || type !== 1 || reserved !== 0) {
+      throw new Error("typed FSEvents journal record type or reserved field is unknown");
+    }
+    if (pathLength === 0) throw new Error("typed FSEvents journal path length is empty");
+    if (pathLength > TYPED_FSEVENTS_MAX_EVENT_PATH_BYTES
+      || recordLength > TYPED_FSEVENTS_MAX_RECORD_BYTES) {
+      throw new Error("typed FSEvents journal record length overflow or path exceeds the 1 MiB limit");
+    }
+    if (recordLength !== TYPED_FSEVENTS_JOURNAL_HEADER_BYTES + pathLength
+      || recordLength > remaining) {
+      throw new Error("typed FSEvents journal record length overflow");
+    }
+    const expectedSequence = entryCount + 1n;
+    if (expectedSequence > TYPED_FSEVENTS_MAX_JOURNAL_ENTRIES) {
+      throw new Error("typed FSEvents journal exceeds the 1000000 entry limit");
+    }
+    if (sequence !== expectedSequence) {
+      throw new Error("typed FSEvents journal sequence is non-contiguous");
+    }
+    if (lastEventId !== null && eventId <= lastEventId) {
+      throw new Error("typed FSEvents host event IDs must strictly increase");
+    }
+    const flagClass = classifyTypedFseventsFlags(flags);
+    const pathBuffer = journalPrefix.subarray(
+      offset + TYPED_FSEVENTS_JOURNAL_HEADER_BYTES,
+      offset + recordLength
+    );
+    if (!isUtf8(pathBuffer)) throw new Error("typed FSEvents journal path is not UTF-8");
+    if (pathBuffer.includes(0)) throw new Error("typed FSEvents journal path contains NUL");
+    const eventPath = typedFseventsCanonicalAbsolutePath(
+      pathBuffer.toString("utf8"),
+      "typed FSEvents journal event path"
+    );
+    if (!roots.some((root) => typedFseventsPathIsWithin(eventPath, root))) {
+      throw new Error("typed FSEvents journal event path is outside every event root");
+    }
+    const endOffset = offset + recordLength;
+    if (offset >= priorBytes) {
+      visitor(Object.freeze({
+        endOffset: BigInt(endOffset),
+        eventId,
+        eventIdDecimal: eventId.toString(10),
+        flagClass,
+        flags,
+        path: eventPath,
+        sequence
+      }));
+    }
+    offset = endOffset;
+    entryCount = expectedSequence;
+    lastEventId = eventId;
+  }
+  if (expectedEndpoint !== null
+    && (entryCount !== expectedEndpoint.entryCount
+      || lastEventId !== expectedEndpoint.lastEventId)) {
+    throw new Error("typed FSEvents endpoint entry count or last event ID does not match");
+  }
+  return markTypedFseventsCheckpoint({
+    deltaEntryCount: entryCount - prior.entryCount,
+    deltaHighWater: BigInt(journalPrefix.length) - prior.highWater,
+    entryCount,
+    highWater: BigInt(journalPrefix.length),
+    lastEventId,
+    sha256: fullDigest
+  }, roots);
+}
+
+export function visitTypedFseventsJournalExtension(options = {}) {
+  return walkTypedFseventsJournalExtension(options, true);
+}
+
+export function parseTypedFseventsJournalPrefix(buffer) {
+  const records = [];
+  walkTypedFseventsJournalExtension({
+    endpoint: null,
+    eventRoots: ["/"],
+    journalPrefix: buffer,
+    priorCheckpoint: createEmptyTypedFseventsJournalCheckpoint(),
+    visitor: ({ flagClass: _flagClass, ...compatibleRecord }) => records.push(compatibleRecord)
+  }, false);
+  return records;
+}
+
+function typedFseventsLookupProof(lookup, eventPath, label) {
+  if (lookup instanceof Map) return lookup.get(eventPath);
+  if (typeof lookup === "function") return lookup(eventPath);
+  throw new Error(`${label} must be a Map or lookup function`);
+}
+
+function typedFseventsDirectRegularProof(value) {
+  if (value === null || typeof value !== "object" || Array.isArray(value)
+    || value.type !== "regular-file") return null;
+  for (const field of TYPED_FSEVENTS_REGULAR_SEMANTIC_FIELDS) {
+    if (field === "sha256") {
+      if (typeof value[field] !== "string" || !SHA256_PATTERN.test(value[field])) return null;
+    } else if (!isCanonicalUint64Decimal(value[field])) {
+      return null;
+    }
+  }
+  // ctime is an observation/reuse binding, not a semantic equality field.
+  // Both proofs must nevertheless carry one canonical value before an exact
+  // xattr-only event may be downgraded from source material.
+  if (!isCanonicalUint64Decimal(value.ctimeNs)) return null;
+  const mode = BigInt(value.mode);
+  if (mode > 0xffffffffn
+    || (mode & 0o170000n) !== 0o100000n
+    || BigInt(value.nlink) < 1n) return null;
+  return value;
+}
+
+function typedFseventsSameRegularSemanticProof(leftValue, rightValue) {
+  const left = typedFseventsDirectRegularProof(leftValue);
+  const right = typedFseventsDirectRegularProof(rightValue);
+  return left !== null && right !== null
+    && TYPED_FSEVENTS_REGULAR_SEMANTIC_FIELDS.every((field) => left[field] === right[field]);
+}
+
+export function classifyTypedFseventsTransaction({
+  candidateProofLookup,
+  eventRoots,
+  exactMetadataPaths = [],
+  exactMetadataRoots = [],
+  priorProofLookup,
+  streamedRecords
+} = {}) {
+  const roots = typedFseventsCanonicalPathSet(eventRoots, "typed FSEvents event roots");
+  const metadataPaths = typedFseventsCanonicalPathSet(
+    exactMetadataPaths,
+    "typed FSEvents exact metadata paths",
+    roots
+  );
+  const metadataRoots = typedFseventsCanonicalPathSet(
+    exactMetadataRoots,
+    "typed FSEvents exact metadata roots",
+    roots
+  );
+  if (streamedRecords === null || streamedRecords === undefined
+    || typeof streamedRecords[Symbol.iterator] !== "function") {
+    throw new Error("typed FSEvents streamed records must be iterable");
+  }
+  let sourceEventCount = 0n;
+  let transactionMetadataEventCount = 0n;
+  let xattrOnlyEventCount = 0n;
+  for (const record of streamedRecords) {
+    if (record === null || typeof record !== "object" || Array.isArray(record)) {
+      throw new Error("typed FSEvents streamed record must be an object");
+    }
+    const flagClass = classifyTypedFseventsFlags(record.flags);
+    const eventPath = typedFseventsCanonicalAbsolutePath(
+      record.path,
+      "typed FSEvents streamed record path"
+    );
+    if (!roots.some((root) => typedFseventsPathIsWithin(eventPath, root))) {
+      throw new Error("typed FSEvents streamed record path is outside every event root");
+    }
+    if (metadataPaths.includes(eventPath)
+      || metadataRoots.some((root) => typedFseventsPathIsWithin(eventPath, root))) {
+      transactionMetadataEventCount += 1n;
+      continue;
+    }
+    if (flagClass === "xattr-only" && typedFseventsSameRegularSemanticProof(
+      typedFseventsLookupProof(priorProofLookup, eventPath, "typed FSEvents prior proof lookup"),
+      typedFseventsLookupProof(candidateProofLookup, eventPath, "typed FSEvents candidate proof lookup")
+    )) {
+      xattrOnlyEventCount += 1n;
+      continue;
+    }
+    sourceEventCount += 1n;
+  }
+  const materialEventCount = sourceEventCount + transactionMetadataEventCount;
+  return Object.freeze({
+    journalEntryCount: materialEventCount + xattrOnlyEventCount,
+    materialEventCount,
+    metadataEpochBatch: transactionMetadataEventCount > 0n,
+    sourceEpochBatch: sourceEventCount > 0n,
+    sourceEventCount,
+    transactionMetadataEventCount,
+    xattrEpochIncrement: xattrOnlyEventCount,
+    xattrOnlyEventCount
+  });
+}
+
+export function decideTypedFseventsAcknowledgementWait({
+  childAlive,
+  exitCode,
+  matches,
+  signalCode,
+  terminal
+} = {}) {
+  if (typeof childAlive !== "boolean"
+    || typeof matches !== "boolean"
+    || typeof terminal !== "boolean"
+    || (exitCode !== null && (!Number.isInteger(exitCode) || exitCode < 0))
+    || (signalCode !== null && (typeof signalCode !== "string" || signalCode.length === 0))) {
+    throw new Error("typed FSEvents acknowledgement wait state is invalid");
+  }
+  if (!terminal) {
+    if (!childAlive || exitCode !== null || signalCode !== null) return "reject";
+    return matches ? "accept" : "wait";
+  }
+  if (exitCode === null && signalCode === null) return "wait";
+  if (childAlive || exitCode !== 0 || signalCode !== null) return "reject";
+  return matches ? "accept" : "reject";
+}
+
+function sameTypedFseventsFrameSnapshot(left, right) {
+  return left.dev === right.dev
+    && left.ino === right.ino
+    && left.mode === right.mode
+    && left.uid === right.uid
+    && left.nlink === right.nlink
+    && left.size === right.size
+    && left.mtimeNs === right.mtimeNs
+    && left.ctimeNs === right.ctimeNs;
+}
+
+function secureTypedFseventsFrame(status, expectedBytes) {
+  return status.isFile()
+    && (status.mode & 0o7777n) === 0o600n
+    && status.uid === BigInt(process.geteuid())
+    && status.nlink === 1n
+    && status.size === BigInt(expectedBytes);
+}
+
+function secureTypedFseventsJournal(status, minimumBytes) {
+  return status.isFile()
+    && (status.mode & 0o7777n) === 0o600n
+    && status.uid === BigInt(process.geteuid())
+    && status.nlink === 1n
+    && status.size >= BigInt(minimumBytes);
+}
+
+function sameTypedFseventsJournalIdentity(left, right) {
+  return left.dev === right.dev
+    && left.ino === right.ino
+    && left.mode === right.mode
+    && left.uid === right.uid
+    && left.nlink === right.nlink;
+}
+
+function readTypedFseventsPrefix(descriptor, byteLength) {
+  const prefix = Buffer.alloc(byteLength);
+  let offset = 0;
+  while (offset < byteLength) {
+    const amount = fs.readSync(descriptor, prefix, offset, byteLength - offset, offset);
+    if (amount <= 0) return null;
+    offset += amount;
+  }
+  return prefix;
+}
+
+/**
+ * Read one native-helper ACK/commit pair through held, no-follow descriptors.
+ * The optional callback is a deterministic test seam that runs after both
+ * frames have been read but before their visible names are rebound.
+ */
+export function readCommittedTypedFseventsAcknowledgement(
+  acknowledgementPath,
+  {
+    beforeVisibleValidation,
+    expectedEventRootCount,
+    expectedEventRootFingerprint
+  } = {}
+) {
+  const commitPath = path.join(path.dirname(acknowledgementPath), "ack.commit");
+  const journalPath = path.join(path.dirname(acknowledgementPath), "journal.bin");
+  if (expectedEventRootCount !== undefined
+    && (!Number.isSafeInteger(expectedEventRootCount) || expectedEventRootCount < 1)) return null;
+  if (expectedEventRootFingerprint !== undefined
+    && (typeof expectedEventRootFingerprint !== "string"
+      || !/^[0-9a-f]{64}$/u.test(expectedEventRootFingerprint))) return null;
+  const noFollow = fs.constants.O_NOFOLLOW ?? 0;
+  const nonBlock = fs.constants.O_NONBLOCK ?? 0;
+  let acknowledgementDescriptor = -1;
+  let commitDescriptor = -1;
+  let journalDescriptor = -1;
+  let acknowledgementBefore;
+  let commitBefore;
+  let journalBefore;
+  try {
+    acknowledgementDescriptor = fs.openSync(
+      acknowledgementPath,
+      fs.constants.O_RDONLY | noFollow | nonBlock
+    );
+    acknowledgementBefore = fs.fstatSync(acknowledgementDescriptor, { bigint: true });
+    if (!secureTypedFseventsFrame(acknowledgementBefore, 136)) throw new Error("unsafe ACK endpoint");
+    commitDescriptor = fs.openSync(commitPath, fs.constants.O_RDONLY | noFollow | nonBlock);
+    commitBefore = fs.fstatSync(commitDescriptor, { bigint: true });
+    if (!secureTypedFseventsFrame(commitBefore, 72)) throw new Error("unsafe ACK commit endpoint");
+    journalDescriptor = fs.openSync(journalPath, fs.constants.O_RDONLY | noFollow | nonBlock);
+    journalBefore = fs.fstatSync(journalDescriptor, { bigint: true });
+    if (!secureTypedFseventsJournal(journalBefore, 0)) throw new Error("unsafe journal endpoint");
+  } catch (error) {
+    if (acknowledgementDescriptor >= 0) fs.closeSync(acknowledgementDescriptor);
+    if (commitDescriptor >= 0) fs.closeSync(commitDescriptor);
+    if (journalDescriptor >= 0) fs.closeSync(journalDescriptor);
+    return null;
+  }
+
+  let acknowledgement;
+  let commit;
+  let acknowledgementAfter;
+  let acknowledgementVisible;
+  let acknowledgementFinal;
+  let commitAfter;
+  let commitVisible;
+  let commitFinal;
+  let journalAfter;
+  let journalVisible;
+  let journalFinal;
+  let journalPrefix;
+  let journalVerification;
+  let parsedHighWater = null;
+  let transientRace = false;
+  try {
+    acknowledgement = fs.readFileSync(acknowledgementDescriptor);
+    commit = fs.readFileSync(commitDescriptor);
+    if (acknowledgement.length === 136
+      && acknowledgement.toString("ascii", 0, 4) === "MFSA"
+      && acknowledgement.readUInt16LE(4) === 2
+      && acknowledgement.readUInt32LE(8) === 136) {
+      const highWater = acknowledgement.readBigUInt64LE(24);
+      if (highWater <= BigInt(Number.MAX_SAFE_INTEGER)
+        && highWater <= BigInt(TYPED_FSEVENTS_MAX_BUFFER_BYTES)
+        && highWater <= journalBefore.size) {
+        parsedHighWater = Number(highWater);
+        journalPrefix = readTypedFseventsPrefix(journalDescriptor, parsedHighWater);
+      }
+    }
+    acknowledgementAfter = fs.fstatSync(acknowledgementDescriptor, { bigint: true });
+    commitAfter = fs.fstatSync(commitDescriptor, { bigint: true });
+    journalAfter = fs.fstatSync(journalDescriptor, { bigint: true });
+    beforeVisibleValidation?.({
+      acknowledgementPath,
+      commitPath,
+      journalPath,
+      phase: "afterJournalReadBeforeVisibleValidation"
+    });
+    acknowledgementVisible = fs.lstatSync(acknowledgementPath, { bigint: true });
+    commitVisible = fs.lstatSync(commitPath, { bigint: true });
+    journalVisible = fs.lstatSync(journalPath, { bigint: true });
+    if (parsedHighWater !== null) {
+      journalVerification = readTypedFseventsPrefix(journalDescriptor, parsedHighWater);
+    }
+    acknowledgementFinal = fs.fstatSync(acknowledgementDescriptor, { bigint: true });
+    commitFinal = fs.fstatSync(commitDescriptor, { bigint: true });
+    journalFinal = fs.fstatSync(journalDescriptor, { bigint: true });
+  } catch (error) {
+    if (error?.code === "ENOENT") transientRace = true;
+    else throw error;
+  } finally {
+    fs.closeSync(acknowledgementDescriptor);
+    fs.closeSync(commitDescriptor);
+    fs.closeSync(journalDescriptor);
+  }
+  if (transientRace) return null;
+  if (parsedHighWater === null || journalPrefix === null || journalVerification === null
+    || !secureTypedFseventsFrame(acknowledgementBefore, 136)
+    || !secureTypedFseventsFrame(acknowledgementAfter, 136)
+    || !secureTypedFseventsFrame(acknowledgementVisible, 136)
+    || !secureTypedFseventsFrame(acknowledgementFinal, 136)
+    || !secureTypedFseventsFrame(commitBefore, 72)
+    || !secureTypedFseventsFrame(commitAfter, 72)
+    || !secureTypedFseventsFrame(commitVisible, 72)
+    || !secureTypedFseventsFrame(commitFinal, 72)
+    || !sameTypedFseventsFrameSnapshot(acknowledgementBefore, acknowledgementAfter)
+    || !sameTypedFseventsFrameSnapshot(acknowledgementAfter, acknowledgementVisible)
+    || !sameTypedFseventsFrameSnapshot(acknowledgementVisible, acknowledgementFinal)
+    || !sameTypedFseventsFrameSnapshot(commitBefore, commitAfter)
+    || !sameTypedFseventsFrameSnapshot(commitAfter, commitVisible)
+    || !sameTypedFseventsFrameSnapshot(commitVisible, commitFinal)
+    || !secureTypedFseventsJournal(journalBefore, parsedHighWater)
+    || !secureTypedFseventsJournal(journalAfter, parsedHighWater)
+    || !secureTypedFseventsJournal(journalVisible, parsedHighWater)
+    || !secureTypedFseventsJournal(journalFinal, parsedHighWater)
+    || !sameTypedFseventsJournalIdentity(journalBefore, journalAfter)
+    || !sameTypedFseventsJournalIdentity(journalAfter, journalVisible)
+    || !sameTypedFseventsJournalIdentity(journalVisible, journalFinal)
+    || !journalPrefix.equals(journalVerification)) {
+    return null;
+  }
+  if (acknowledgement.toString("ascii", 0, 4) !== "MFSA"
+    || acknowledgement.readUInt16LE(4) !== 2
+    || acknowledgement.readUInt32LE(8) !== 136
+    || acknowledgement.readUInt32LE(12) !== 0
+    || commit.toString("ascii", 0, 4) !== "MFAC"
+    || commit.readUInt16LE(4) !== 2
+    || commit.readUInt32LE(8) !== 72
+    || commit.readUInt32LE(12) !== 0) return null;
+  const type = acknowledgement.readUInt16LE(6);
+  const sequence = acknowledgement.readBigUInt64LE(16);
+  const eventRootCount = acknowledgement.readBigUInt64LE(48);
+  const eventRootFingerprint = acknowledgement.subarray(56, 88).toString("hex");
+  const journalDevice = acknowledgement.readBigUInt64LE(88);
+  const journalInode = acknowledgement.readBigUInt64LE(96);
+  const journalSha256 = acknowledgement.subarray(104, 136).toString("hex");
+  const acknowledgementDigest = crypto.createHash("sha256").update(acknowledgement).digest();
+  const actualJournalSha256 = crypto.createHash("sha256").update(journalPrefix).digest("hex");
+  if (commit.readUInt16LE(6) !== type
+    || commit.readBigUInt64LE(16) !== sequence
+    || commit.readBigUInt64LE(24) !== acknowledgementFinal.dev
+    || commit.readBigUInt64LE(32) !== acknowledgementFinal.ino
+    || !commit.subarray(40, 72).equals(acknowledgementDigest)
+    || ![1, 2, 3, 4].includes(type)
+    || eventRootCount < 1n
+    || journalDevice !== journalFinal.dev
+    || journalInode !== journalFinal.ino
+    || journalSha256 !== actualJournalSha256
+    || (expectedEventRootCount !== undefined
+      && eventRootCount !== BigInt(expectedEventRootCount))
+    || (expectedEventRootFingerprint !== undefined
+      && eventRootFingerprint !== expectedEventRootFingerprint)) return null;
+  return {
+    commitVisibleInode: commitVisible.ino,
+    entryCount: acknowledgement.readBigUInt64LE(32),
+    eventRootCount,
+    eventRootFingerprint,
+    journalDevice,
+    journalHighWater: acknowledgement.readBigUInt64LE(24),
+    journalInode,
+    journalPrefix,
+    journalSha256,
+    lastEventId: acknowledgement.readBigUInt64LE(40),
+    sequence,
+    type,
+    visibleInode: acknowledgementVisible.ino
+  };
+}
+
+// Embed the exact reviewed reader implementation into the detached monitor
+// child. Importing this mutable workspace module from that child would create
+// a replace/restore injection window between bootstrap and each ACK read.
+const TYPED_FSEVENTS_ACK_READER_CHILD_SOURCE = [
+  `const TYPED_FSEVENTS_MAX_BUFFER_BYTES = ${TYPED_FSEVENTS_MAX_BUFFER_BYTES};`,
+  decideTypedFseventsAcknowledgementWait,
+  sameTypedFseventsFrameSnapshot,
+  secureTypedFseventsFrame,
+  secureTypedFseventsJournal,
+  sameTypedFseventsJournalIdentity,
+  readTypedFseventsPrefix,
+  readStableRegularFileNoFollow,
+  readCommittedTypedFseventsAcknowledgement
+].map((implementation) => implementation.toString()).join("\n");
 
 export function stableJson(value) {
   if (Array.isArray(value)) return `[${value.map(stableJson).join(",")}]`;
@@ -617,6 +1291,190 @@ function exactKeys(value, expected) {
     && typeof value === "object"
     && !Array.isArray(value)
     && stableJson(Object.keys(value).sort()) === stableJson([...expected].sort());
+}
+
+function isCanonicalUint64Decimal(value) {
+  if (typeof value !== "string" || !UINT64_DECIMAL_PATTERN.test(value)) return false;
+  try {
+    return BigInt(value) <= 0xffffffffffffffffn;
+  } catch {
+    return false;
+  }
+}
+
+function nonTypedFseventsState() {
+  return {
+    droppedEventCount: "0",
+    enabled: false,
+    eventRootCount: 0,
+    eventRootFingerprint: null,
+    helperBinarySha256: null,
+    helperSourceSha256: null,
+    journalEntryCount: "0",
+    journalFirstEventId: null,
+    journalFlushSequence: "0",
+    journalHighWater: "0",
+    journalLastEventId: null,
+    journalLastFlushedEventId: null,
+    journalSha256: null,
+    materialEventCount: "0",
+    sourceEventCount: "0",
+    transactionMetadataEventCount: "0",
+    unknownEventCount: "0",
+    unmatchedDeltaCount: "0",
+    xattrOnlyEventCount: "0"
+  };
+}
+
+function validTypedFseventsState(value, {
+  eventBackend,
+  helperProtocolVersion,
+  regularFileCtimePolicy,
+  requestedWatchMode,
+  rootFdCount,
+  watchMode,
+  xattrEpoch,
+  expectedXattrEpoch
+} = {}) {
+  if (!exactKeys(value, TYPED_FSEVENTS_STATE_KEYS)
+    || typeof value.enabled !== "boolean"
+    || !Number.isSafeInteger(value.eventRootCount) || value.eventRootCount < 0
+    || ![
+      "journalEntryCount",
+      "journalFlushSequence",
+      "journalHighWater",
+      "materialEventCount",
+      "sourceEventCount",
+      "transactionMetadataEventCount",
+      "unknownEventCount",
+      "unmatchedDeltaCount",
+      "xattrOnlyEventCount",
+      "droppedEventCount"
+    ].every((key) => isCanonicalUint64Decimal(value[key]))) return false;
+  if (!value.enabled) {
+    const nonTypedModeIsValid = requestedWatchMode === "auto"
+      ? ["recursive", "descriptor-sentinel"].includes(watchMode)
+      : requestedWatchMode === "descriptor-sentinel" && watchMode === "descriptor-sentinel";
+    return eventBackend === NON_TYPED_EVENT_BACKEND
+      && helperProtocolVersion === null
+      && regularFileCtimePolicy === STRICT_CTIME_POLICY
+      && nonTypedModeIsValid
+      && (xattrEpoch ?? expectedXattrEpoch ?? 0) === 0
+      && stableJson(value) === stableJson(nonTypedFseventsState());
+  }
+  if (eventBackend !== TYPED_FSEVENTS_EVENT_BACKEND
+    || helperProtocolVersion !== TYPED_FSEVENTS_HELPER_PROTOCOL_VERSION
+    || regularFileCtimePolicy !== TYPED_FSEVENTS_CTIME_POLICY
+    || requestedWatchMode !== "descriptor-sentinel"
+    || watchMode !== "descriptor-sentinel-fsevents"
+    || value.eventRootCount < 1
+    || (Number.isSafeInteger(rootFdCount) && value.eventRootCount !== rootFdCount)
+    || ![
+      value.eventRootFingerprint,
+      value.helperBinarySha256,
+      value.helperSourceSha256,
+      value.journalSha256
+    ].every((item) => typeof item === "string" && SHA256_PATTERN.test(item))
+    || value.droppedEventCount !== "0"
+    || value.unknownEventCount !== "0"
+    || value.unmatchedDeltaCount !== "0") return false;
+  const entryCount = BigInt(value.journalEntryCount);
+  const highWater = BigInt(value.journalHighWater);
+  const xattrCount = BigInt(value.xattrOnlyEventCount);
+  const sourceCount = BigInt(value.sourceEventCount);
+  const materialCount = BigInt(value.materialEventCount);
+  const transactionCount = BigInt(value.transactionMetadataEventCount);
+  const boundXattrEpoch = xattrEpoch ?? expectedXattrEpoch;
+  if (!Number.isSafeInteger(boundXattrEpoch) || boundXattrEpoch < 0
+    || BigInt(boundXattrEpoch) !== xattrCount
+    || sourceCount + transactionCount !== materialCount
+    || xattrCount + materialCount !== entryCount
+    || BigInt(value.journalFlushSequence) < 1n) return false;
+  if (entryCount === 0n) {
+    return highWater === 0n
+      && value.journalFirstEventId === null
+      && value.journalLastEventId === null
+      && value.journalLastFlushedEventId === null
+      && value.journalSha256 === sha256Buffer(Buffer.alloc(0));
+  }
+  if (highWater === 0n
+    || highWater < entryCount * 41n
+    || !isCanonicalUint64Decimal(value.journalFirstEventId)
+    || !isCanonicalUint64Decimal(value.journalLastEventId)
+    || !isCanonicalUint64Decimal(value.journalLastFlushedEventId)
+    || value.journalSha256 === sha256Buffer(Buffer.alloc(0))) return false;
+  return BigInt(value.journalFirstEventId) <= BigInt(value.journalLastEventId)
+    && (entryCount !== 1n || value.journalFirstEventId === value.journalLastEventId)
+    && value.journalLastFlushedEventId === value.journalLastEventId;
+}
+
+export function assertTypedFseventsTerminalAdvance(before, after) {
+  for (const key of [
+    "enabled",
+    "eventRootCount",
+    "eventRootFingerprint",
+    "helperBinarySha256",
+    "helperSourceSha256"
+  ]) {
+    if (before[key] !== after[key]) {
+      throw new Error("mutation monitor terminal typed FSEvents immutable binding changed");
+    }
+  }
+  if (!before.enabled) {
+    if (stableJson(before) !== stableJson(after)) {
+      throw new Error("mutation monitor terminal non-typed binding changed");
+    }
+    return;
+  }
+  if (BigInt(after.journalFlushSequence) <= BigInt(before.journalFlushSequence)) {
+    throw new Error("mutation monitor terminal typed FSEvents flush sequence did not advance");
+  }
+  for (const key of [
+    "journalEntryCount",
+    "journalFlushSequence",
+    "journalHighWater",
+    "unknownEventCount",
+    "unmatchedDeltaCount",
+    "xattrOnlyEventCount",
+    "droppedEventCount"
+  ]) {
+    if (BigInt(after[key]) < BigInt(before[key])) {
+      throw new Error("mutation monitor terminal typed FSEvents counter regressed");
+    }
+  }
+  for (const key of [
+    "materialEventCount",
+    "sourceEventCount",
+    "transactionMetadataEventCount"
+  ]) {
+    if (after[key] !== before[key]) {
+      throw new Error("mutation monitor terminal material event counter changed");
+    }
+  }
+  const entryGrew = BigInt(after.journalEntryCount) > BigInt(before.journalEntryCount);
+  const highWaterGrew = BigInt(after.journalHighWater) > BigInt(before.journalHighWater);
+  if (entryGrew !== highWaterGrew) {
+    throw new Error("mutation monitor terminal journal entry and high-water growth diverged");
+  }
+  if (before.journalHighWater === after.journalHighWater
+    && before.journalSha256 !== after.journalSha256) {
+    throw new Error("mutation monitor terminal typed FSEvents journal digest changed without growth");
+  }
+  if (highWaterGrew && before.journalSha256 === after.journalSha256) {
+    throw new Error("mutation monitor terminal typed FSEvents journal grew without a new digest");
+  }
+  if (before.journalFirstEventId !== null
+    && before.journalFirstEventId !== after.journalFirstEventId) {
+    throw new Error("mutation monitor terminal typed FSEvents first event ID changed");
+  }
+  for (const key of ["journalLastEventId", "journalLastFlushedEventId"]) {
+    if (before[key] !== null && (after[key] === null || BigInt(after[key]) < BigInt(before[key]))) {
+      throw new Error("mutation monitor terminal typed FSEvents event ID regressed");
+    }
+    if (!entryGrew && before[key] !== after[key]) {
+      throw new Error("mutation monitor terminal typed FSEvents event ID changed without journal growth");
+    }
+  }
 }
 
 export function liveSnapshotSignature(snapshot) {
@@ -853,23 +1711,196 @@ function recursiveWatchAvailable() {
   throw new Error(`mutation monitor recursive watch probe failed closed (${result.stderr || result.stdout || result.signal || result.status})`);
 }
 
+function createPrivateMonitorFile(absolutePath, buffer, mode) {
+  const descriptor = fs.openSync(
+    absolutePath,
+    fs.constants.O_WRONLY | fs.constants.O_CREAT | fs.constants.O_EXCL
+      | (fs.constants.O_NOFOLLOW ?? 0),
+    mode
+  );
+  try {
+    fs.fchmodSync(descriptor, mode);
+    fs.writeFileSync(descriptor, buffer);
+    fs.fsyncSync(descriptor);
+  } finally {
+    fs.closeSync(descriptor);
+  }
+  const stat = fs.lstatSync(absolutePath);
+  if (stat.isSymbolicLink() || !stat.isFile() || stat.nlink !== 1
+    || (stat.mode & 0o7777) !== mode) {
+    throw new Error("typed FSEvents private bootstrap file is unsafe");
+  }
+}
+
+function readStableRegularFileNoFollow(absolutePath, {
+  expectedMode,
+  maxBytes,
+  minBytes = 1
+} = {}) {
+  if (!Number.isSafeInteger(expectedMode) || expectedMode < 0
+    || !Number.isSafeInteger(maxBytes) || maxBytes < 1
+    || !Number.isSafeInteger(minBytes) || minBytes < 0 || minBytes > maxBytes) return null;
+  let descriptor = -1;
+  try {
+    descriptor = fs.openSync(
+      absolutePath,
+      fs.constants.O_RDONLY
+        | (fs.constants.O_NOFOLLOW ?? 0)
+        | (fs.constants.O_NONBLOCK ?? 0)
+    );
+    const before = fs.fstatSync(descriptor, { bigint: true });
+    if (!before.isFile()
+      || (before.mode & 0o7777n) !== BigInt(expectedMode)
+      || before.uid !== BigInt(process.geteuid())
+      || before.nlink !== 1n
+      || before.size < BigInt(minBytes)
+      || before.size > BigInt(maxBytes)
+      || before.size > BigInt(TYPED_FSEVENTS_MAX_BUFFER_BYTES)) return null;
+    const buffer = readTypedFseventsPrefix(descriptor, Number(before.size));
+    const after = fs.fstatSync(descriptor, { bigint: true });
+    const visible = fs.lstatSync(absolutePath, { bigint: true });
+    const final = fs.fstatSync(descriptor, { bigint: true });
+    if (buffer === null
+      || !sameTypedFseventsFrameSnapshot(before, after)
+      || !sameTypedFseventsFrameSnapshot(after, visible)
+      || !sameTypedFseventsFrameSnapshot(visible, final)) return null;
+    return { buffer, status: final };
+  } catch {
+    return null;
+  } finally {
+    if (descriptor >= 0) fs.closeSync(descriptor);
+  }
+}
+
+function prepareTypedFseventsBootstrap({ roots, scratch, watchMode }) {
+  if (process.platform !== "darwin" || watchMode !== "descriptor-sentinel") return null;
+  const sourceEndpoint = readStableRegularFileNoFollow(TYPED_FSEVENTS_HELPER_SOURCE_PATH, {
+    expectedMode: 0o644,
+    maxBytes: 16 * 1024 * 1024
+  });
+  if (sourceEndpoint === null) throw new Error("typed FSEvents helper source is unsafe");
+  const sourceBuffer = sourceEndpoint.buffer;
+  const helperSourceSha256 = sha256Buffer(sourceBuffer);
+  const sourceVerification = readStableRegularFileNoFollow(TYPED_FSEVENTS_HELPER_SOURCE_PATH, {
+    expectedMode: 0o644,
+    maxBytes: 16 * 1024 * 1024
+  });
+  if (sourceVerification === null
+    || helperSourceSha256 !== sha256Buffer(sourceVerification.buffer)) {
+    throw new Error("typed FSEvents helper source changed during bootstrap");
+  }
+  const sourceSnapshotPath = path.join(scratch, "typed-fsevents-helper.c");
+  createPrivateMonitorFile(sourceSnapshotPath, sourceBuffer, 0o400);
+  const binaryPath = path.join(scratch, "typed-fsevents-helper");
+  const compile = spawnSync("/usr/bin/xcrun", [
+    "--sdk", "macosx", "clang",
+    "-std=c11", "-O2", "-Wall", "-Wextra", "-Werror", "-pthread", "-Wl,-no_uuid",
+    sourceSnapshotPath, "-o", binaryPath,
+    "-framework", "CoreServices"
+  ], {
+    encoding: "utf8",
+    timeout: 30_000,
+    stdio: ["ignore", "pipe", "pipe"]
+  });
+  if (compile.status !== 0) {
+    throw new Error(`typed FSEvents helper compilation failed closed (${compile.signal ?? compile.status})`);
+  }
+  const signing = spawnSync("/usr/bin/codesign", [
+    "--force", "--sign", "-", "--identifier", "hk.mais.typed-fsevents-journal", binaryPath
+  ], {
+    encoding: "utf8",
+    timeout: 30_000,
+    stdio: ["ignore", "pipe", "pipe"]
+  });
+  if (signing.status !== 0) {
+    throw new Error(`typed FSEvents helper signing failed closed (${signing.signal ?? signing.status})`);
+  }
+  fs.chmodSync(binaryPath, 0o500);
+  const sourceSnapshotEndpoint = readStableRegularFileNoFollow(sourceSnapshotPath, {
+    expectedMode: 0o400,
+    maxBytes: 16 * 1024 * 1024
+  });
+  const currentSourceEndpoint = readStableRegularFileNoFollow(TYPED_FSEVENTS_HELPER_SOURCE_PATH, {
+    expectedMode: 0o644,
+    maxBytes: 16 * 1024 * 1024
+  });
+  const binaryEndpoint = readStableRegularFileNoFollow(binaryPath, {
+    expectedMode: 0o500,
+    maxBytes: 64 * 1024 * 1024
+  });
+  if (sourceSnapshotEndpoint === null || currentSourceEndpoint === null || binaryEndpoint === null
+    || sha256Buffer(sourceSnapshotEndpoint.buffer) !== helperSourceSha256
+    || sha256Buffer(currentSourceEndpoint.buffer) !== helperSourceSha256) {
+    throw new Error("typed FSEvents helper binary is unsafe");
+  }
+  const binaryStat = binaryEndpoint.status;
+  const helperBinarySha256 = sha256Buffer(binaryEndpoint.buffer);
+  const runtimeScratch = path.join(scratch, "typed-fsevents-runtime");
+  fs.mkdirSync(runtimeScratch, { mode: 0o700 });
+  fs.chmodSync(runtimeScratch, 0o700);
+  const canonicalRoots = [...roots].sort();
+  const rootsBuffer = Buffer.concat(canonicalRoots.flatMap((root) => [Buffer.from(root), Buffer.from([0])]));
+  const rootsPath = path.join(runtimeScratch, "roots.config");
+  const commandPath = path.join(runtimeScratch, "command.bin");
+  createPrivateMonitorFile(rootsPath, rootsBuffer, 0o600);
+  createPrivateMonitorFile(commandPath, Buffer.alloc(0), 0o600);
+  fsyncDirectory(runtimeScratch);
+  const rootsEndpoint = readStableRegularFileNoFollow(rootsPath, {
+    expectedMode: 0o600,
+    maxBytes: 16 * 1024 * 1024
+  });
+  if (rootsEndpoint === null || !rootsEndpoint.buffer.equals(rootsBuffer)) {
+    throw new Error("typed FSEvents roots config is unsafe");
+  }
+  const rootsStat = rootsEndpoint.status;
+  return {
+    ackCommitPath: path.join(runtimeScratch, "ack.commit"),
+    ackPath: path.join(runtimeScratch, "ack.bin"),
+    binaryCtimeNs: binaryStat.ctimeNs.toString(10),
+    binaryDevice: binaryStat.dev.toString(10),
+    binaryInode: binaryStat.ino.toString(10),
+    binaryMtimeNs: binaryStat.mtimeNs.toString(10),
+    binaryPath,
+    binarySize: binaryStat.size.toString(10),
+    commandPath,
+    eventRootCount: canonicalRoots.length,
+    eventRootFingerprint: sha256Buffer(rootsBuffer),
+    helperBinarySha256,
+    helperSourceSha256,
+    journalPath: path.join(runtimeScratch, "journal.bin"),
+    roots: canonicalRoots,
+    rootsConfigCtimeNs: rootsStat.ctimeNs.toString(10),
+    rootsConfigDevice: rootsStat.dev.toString(10),
+    rootsConfigInode: rootsStat.ino.toString(10),
+    rootsConfigMtimeNs: rootsStat.mtimeNs.toString(10),
+    rootsConfigSha256: sha256Buffer(rootsBuffer),
+    rootsConfigSize: rootsStat.size.toString(10),
+    rootsPath,
+    runtimeScratch,
+    sourceSnapshotPath,
+    typedHelperPidPath: path.join(scratch, "typed-helper-pid")
+  };
+}
+
 const MUTATION_MONITOR_CHILD_SOURCE = String.raw`
-import { execFileSync } from "node:child_process";
+import { execFileSync, spawn } from "node:child_process";
+import { isUtf8 } from "node:buffer";
 import crypto from "node:crypto";
 import fs from "node:fs";
 import path from "node:path";
+${TYPED_FSEVENTS_ACK_READER_CHILD_SOURCE}
 const [
   configurationPath,
   expectedConfigurationHash
 ] = process.argv.slice(1);
-const configurationStat = fs.lstatSync(configurationPath);
-if (configurationStat.isSymbolicLink() || !configurationStat.isFile()
-  || (configurationStat.mode & 0o777) !== 0o600 || configurationStat.nlink !== 1) {
+const configurationEndpoint = readStableRegularFileNoFollow(configurationPath, {
+  expectedMode: 0o600,
+  maxBytes: 16 * 1024 * 1024
+});
+if (configurationEndpoint === null) {
   throw new Error("unsafe mutation monitor bootstrap configuration");
 }
-const configurationDescriptor = fs.openSync(configurationPath, fs.constants.O_RDONLY | (fs.constants.O_NOFOLLOW ?? 0));
-const configurationBuffer = fs.readFileSync(configurationDescriptor);
-fs.closeSync(configurationDescriptor);
+const configurationBuffer = configurationEndpoint.buffer;
 if (crypto.createHash("sha256").update(configurationBuffer).digest("hex") !== expectedConfigurationHash) {
   throw new Error("mutation monitor bootstrap configuration hash mismatch");
 }
@@ -885,7 +1916,8 @@ const {
   requestedWatchModeText,
   sessionId,
   terminalQuietMsText,
-  recursiveAvailableText
+  recursiveAvailableText,
+  typedFseventsBootstrap
 } = bootstrap;
 const parentPid = Number(parentPidText);
 const terminalQuietMs = Number(terminalQuietMsText);
@@ -894,6 +1926,7 @@ const directoryTimestampPolicy = requestedWatchMode === "descriptor-sentinel"
   ? "semantic-directory"
   : "strict";
 const recursiveAvailable = recursiveAvailableText === "true";
+const typedFseventsEnabled = typedFseventsBootstrap !== null;
 const recursiveWatchers = [];
 const rootDescriptors = [];
 const rootDescriptorRecords = [];
@@ -903,6 +1936,7 @@ const dynamicSentinelPaths = new Set();
 const MAX_SENTINEL_PATHS = 600000;
 let sourceEpoch = 0;
 let metadataEpoch = 0;
+let xattrEpoch = 0;
 let sequence = 0;
 let stopping = false;
 let stopped = false;
@@ -913,10 +1947,36 @@ let expectedMetadataEpoch = null;
 let watchMode = "bootstrap";
 let recursiveProbeActive = true;
 let recursiveUnavailable = false;
+let typedFseventsChild = null;
+let typedFseventsPid = null;
+let typedCommandSequence = 1n;
+let typedAcknowledgement = null;
+let typedFsevents = null;
 const exactKeys = (value, keys) => value !== null
   && typeof value === "object"
   && !Array.isArray(value)
   && JSON.stringify(Object.keys(value).sort()) === JSON.stringify([...keys].sort());
+const nonTypedFseventsState = () => ({
+  droppedEventCount: "0",
+  enabled: false,
+  eventRootCount: 0,
+  eventRootFingerprint: null,
+  helperBinarySha256: null,
+  helperSourceSha256: null,
+  journalEntryCount: "0",
+  journalFirstEventId: null,
+  journalFlushSequence: "0",
+  journalHighWater: "0",
+  journalLastEventId: null,
+  journalLastFlushedEventId: null,
+  journalSha256: null,
+  materialEventCount: "0",
+  sourceEventCount: "0",
+  transactionMetadataEventCount: "0",
+  unknownEventCount: "0",
+  unmatchedDeltaCount: "0",
+  xattrOnlyEventCount: "0"
+});
 const publishJson = (absolutePath, value) => {
   const temporaryPath = absolutePath + ".tmp-" + process.pid + "-" + (++sequence);
   const flags = fs.constants.O_WRONLY | fs.constants.O_CREAT | fs.constants.O_EXCL | (fs.constants.O_NOFOLLOW ?? 0);
@@ -931,23 +1991,387 @@ const publishJson = (absolutePath, value) => {
   const directoryDescriptor = fs.openSync(path.dirname(absolutePath), "r");
   try { fs.fsyncSync(directoryDescriptor); } finally { fs.closeSync(directoryDescriptor); }
 };
+const typedWait = (milliseconds) => {
+  Atomics.wait(new Int32Array(new SharedArrayBuffer(4)), 0, 0, milliseconds);
+};
+const typedChildAlive = (child) => {
+  if (child === null || child.exitCode !== null || child.signalCode !== null) return false;
+  try { return child.kill(0); } catch { return false; }
+};
+const sameTypedStat = (left, right) => left.dev === right.dev
+  && left.ino === right.ino
+  && left.mode === right.mode
+  && left.nlink === right.nlink
+  && left.size === right.size
+  && left.mtimeNs === right.mtimeNs
+  && left.ctimeNs === right.ctimeNs;
+const readCommittedTypedAcknowledgement = () => {
+  try {
+    const acknowledgement = readCommittedTypedFseventsAcknowledgement(
+      typedFseventsBootstrap.ackPath,
+      {
+        expectedEventRootCount: typedFseventsBootstrap.eventRootCount,
+        expectedEventRootFingerprint: typedFseventsBootstrap.eventRootFingerprint
+      }
+    );
+    if (acknowledgement === null) return null;
+    return {
+      ...acknowledgement,
+      commitInode: acknowledgement.commitVisibleInode
+    };
+  } catch {
+    return null;
+  }
+};
+const publishTypedCommand = (type, commandSequence) => {
+  const command = Buffer.alloc(20);
+  command.write("MFSC", 0, "ascii");
+  command.writeUInt16LE(2, 4);
+  command.writeUInt16LE(type, 6);
+  command.writeUInt32LE(20, 8);
+  command.writeBigUInt64LE(commandSequence, 12);
+  const temporaryPath = path.join(
+    typedFseventsBootstrap.runtimeScratch,
+    ".command.tmp." + process.pid + "." + commandSequence.toString(10)
+  );
+  const descriptor = fs.openSync(
+    temporaryPath,
+    fs.constants.O_WRONLY | fs.constants.O_CREAT | fs.constants.O_EXCL | (fs.constants.O_NOFOLLOW ?? 0),
+    0o600
+  );
+  try {
+    fs.fchmodSync(descriptor, 0o600);
+    fs.writeFileSync(descriptor, command);
+    fs.fsyncSync(descriptor);
+  } finally { fs.closeSync(descriptor); }
+  fs.renameSync(temporaryPath, typedFseventsBootstrap.commandPath);
+  const directoryDescriptor = fs.openSync(typedFseventsBootstrap.runtimeScratch, "r");
+  try { fs.fsyncSync(directoryDescriptor); } finally { fs.closeSync(directoryDescriptor); }
+};
+const waitTypedAcknowledgement = (type, commandSequence, terminal = false) => {
+  const previousAckInode = typedAcknowledgement?.visibleInode;
+  const previousCommitInode = typedAcknowledgement?.commitInode;
+  const deadline = Date.now() + 15_000;
+  const observe = () => {
+    const candidate = readCommittedTypedAcknowledgement();
+    const matches = candidate !== null && candidate.type === type
+      && candidate.sequence === commandSequence
+      && (previousAckInode === undefined || candidate.visibleInode !== previousAckInode)
+      && (previousCommitInode === undefined || candidate.commitInode !== previousCommitInode);
+    const decision = decideTypedFseventsAcknowledgementWait({
+      childAlive: typedChildAlive(typedFseventsChild),
+      exitCode: typedFseventsChild?.exitCode ?? null,
+      matches,
+      signalCode: typedFseventsChild?.signalCode ?? null,
+      terminal
+    });
+    return { candidate, decision };
+  };
+  const accept = (candidate) => {
+    if (candidate === null) throw new Error("typed FSEvents acknowledgement decision lost its candidate");
+    typedAcknowledgement = candidate;
+    return candidate;
+  };
+  if (terminal) {
+    return new Promise((resolve, reject) => {
+      const poll = () => {
+        try {
+          const { candidate, decision } = observe();
+          if (decision === "accept") {
+            resolve(accept(candidate));
+            return;
+          }
+          if (decision === "reject") {
+            reject(new Error("typed FSEvents helper terminal exit or acknowledgement was invalid"));
+            return;
+          }
+          if (Date.now() >= deadline) {
+            reject(new Error("typed FSEvents helper acknowledgement timed out"));
+            return;
+          }
+          setTimeout(poll, 10);
+        } catch (error) {
+          reject(error);
+        }
+      };
+      poll();
+    });
+  }
+  while (Date.now() < deadline) {
+    const { candidate, decision } = observe();
+    if (decision === "accept") {
+      return accept(candidate);
+    }
+    if (decision === "reject") throw new Error("typed FSEvents helper crashed before acknowledgement");
+    typedWait(10);
+  }
+  throw new Error("typed FSEvents helper acknowledgement timed out");
+};
+const typedJournalPrefix = (endpoint) => {
+  if (!Buffer.isBuffer(endpoint.journalPrefix)
+    || BigInt(endpoint.journalPrefix.length) !== endpoint.journalHighWater
+    || crypto.createHash("sha256").update(endpoint.journalPrefix).digest("hex")
+      !== endpoint.journalSha256) {
+    throw new Error("typed FSEvents held journal endpoint is invalid");
+  }
+  return endpoint.journalPrefix;
+};
+const startTypedFsevents = () => {
+  if (!typedFseventsEnabled) return;
+  const expectedKeys = [
+    "ackCommitPath", "ackPath", "binaryCtimeNs", "binaryDevice", "binaryInode",
+    "binaryMtimeNs", "binaryPath", "binarySize", "commandPath", "eventRootCount",
+    "eventRootFingerprint", "helperBinarySha256", "helperSourceSha256", "journalPath",
+    "roots", "rootsConfigCtimeNs", "rootsConfigDevice", "rootsConfigInode",
+    "rootsConfigMtimeNs", "rootsConfigSha256", "rootsConfigSize", "rootsPath",
+    "runtimeScratch", "sourceSnapshotPath", "typedHelperPidPath"
+  ];
+  if (!exactKeys(typedFseventsBootstrap, expectedKeys)
+    || requestedWatchMode !== "descriptor-sentinel"
+    || !Array.isArray(typedFseventsBootstrap.roots)
+    || typedFseventsBootstrap.eventRootCount !== typedFseventsBootstrap.roots.length
+    || typedFseventsBootstrap.eventRootCount < 1) {
+    throw new Error("typed FSEvents bootstrap is invalid");
+  }
+  const sourceSnapshotEndpoint = readStableRegularFileNoFollow(
+    typedFseventsBootstrap.sourceSnapshotPath,
+    { expectedMode: 0o400, maxBytes: 16 * 1024 * 1024 }
+  );
+  const binaryEndpoint = readStableRegularFileNoFollow(
+    typedFseventsBootstrap.binaryPath,
+    { expectedMode: 0o500, maxBytes: 64 * 1024 * 1024 }
+  );
+  if (sourceSnapshotEndpoint === null || binaryEndpoint === null) {
+    throw new Error("typed FSEvents helper binary provenance is invalid");
+  }
+  const binaryStat = binaryEndpoint.status;
+  if (crypto.createHash("sha256").update(sourceSnapshotEndpoint.buffer).digest("hex")
+      !== typedFseventsBootstrap.helperSourceSha256
+    || binaryStat.dev.toString(10) !== typedFseventsBootstrap.binaryDevice
+    || binaryStat.ino.toString(10) !== typedFseventsBootstrap.binaryInode
+    || binaryStat.size.toString(10) !== typedFseventsBootstrap.binarySize
+    || binaryStat.mtimeNs.toString(10) !== typedFseventsBootstrap.binaryMtimeNs
+    || binaryStat.ctimeNs.toString(10) !== typedFseventsBootstrap.binaryCtimeNs
+    || crypto.createHash("sha256").update(binaryEndpoint.buffer).digest("hex")
+      !== typedFseventsBootstrap.helperBinarySha256) {
+    throw new Error("typed FSEvents helper binary provenance is invalid");
+  }
+  typedFseventsChild = spawn(typedFseventsBootstrap.binaryPath, [typedFseventsBootstrap.runtimeScratch], {
+    stdio: ["pipe", "ignore", "ignore"]
+  });
+  const postSpawnBinaryEndpoint = readStableRegularFileNoFollow(
+    typedFseventsBootstrap.binaryPath,
+    { expectedMode: 0o500, maxBytes: 64 * 1024 * 1024 }
+  );
+  if (postSpawnBinaryEndpoint === null
+    || !sameTypedStat(binaryStat, postSpawnBinaryEndpoint.status)
+    || crypto.createHash("sha256").update(postSpawnBinaryEndpoint.buffer).digest("hex")
+      !== typedFseventsBootstrap.helperBinarySha256) {
+    try { typedFseventsChild.kill("SIGKILL"); } catch {}
+    throw new Error("typed FSEvents helper binary changed across spawn");
+  }
+  typedFseventsPid = typedFseventsChild.pid;
+  const executableDeadline = Date.now() + 5_000;
+  let loadedExecutableIdentityIsBound = false;
+  while (!loadedExecutableIdentityIsBound && Date.now() < executableDeadline) {
+    if (!typedChildAlive(typedFseventsChild)) {
+      throw new Error("typed FSEvents helper exited before executable identity binding");
+    }
+    try {
+      const listing = execFileSync("/usr/sbin/lsof", [
+        "-a", "-p", String(typedFseventsPid), "-d", "txt", "-F", "Din"
+      ], { encoding: "utf8", timeout: 2_000, stdio: ["ignore", "pipe", "ignore"] });
+      let device = null;
+      let inode = null;
+      for (const line of listing.split("\n")) {
+        if (line.startsWith("D")) device = line.slice(1);
+        else if (line.startsWith("i")) inode = line.slice(1);
+        else if (line.startsWith("n")) {
+          const loadedPath = line.slice(1);
+          if (loadedPath === fs.realpathSync(typedFseventsBootstrap.binaryPath)
+            && device !== null && inode !== null
+            && BigInt(device) === binaryStat.dev
+            && BigInt(inode) === binaryStat.ino) {
+            loadedExecutableIdentityIsBound = true;
+            break;
+          }
+          device = null;
+          inode = null;
+        }
+      }
+    } catch {}
+    if (!loadedExecutableIdentityIsBound) typedWait(10);
+  }
+  if (!loadedExecutableIdentityIsBound) {
+    try { typedFseventsChild.kill("SIGKILL"); } catch {}
+    throw new Error("typed FSEvents loaded executable identity is not the hashed binary inode");
+  }
+  publishJson(typedFseventsBootstrap.typedHelperPidPath, { pid: typedFseventsPid });
+  typedAcknowledgement = waitTypedAcknowledgement(1, 0n);
+  const rootsEndpoint = readStableRegularFileNoFollow(
+    typedFseventsBootstrap.rootsPath,
+    { expectedMode: 0o600, maxBytes: 16 * 1024 * 1024 }
+  );
+  if (rootsEndpoint === null) {
+    throw new Error("typed FSEvents roots config visible provenance changed before READY");
+  }
+  const rootsVisible = rootsEndpoint.status;
+  if (
+    rootsVisible.dev.toString(10) !== typedFseventsBootstrap.rootsConfigDevice
+    || rootsVisible.ino.toString(10) !== typedFseventsBootstrap.rootsConfigInode
+    || rootsVisible.size.toString(10) !== typedFseventsBootstrap.rootsConfigSize
+    || rootsVisible.mtimeNs.toString(10) !== typedFseventsBootstrap.rootsConfigMtimeNs
+    || rootsVisible.ctimeNs.toString(10) !== typedFseventsBootstrap.rootsConfigCtimeNs
+    || crypto.createHash("sha256").update(rootsEndpoint.buffer).digest("hex")
+      !== typedFseventsBootstrap.rootsConfigSha256) {
+    throw new Error("typed FSEvents roots config visible provenance changed before READY");
+  }
+  let heldRootsConfigIdentityIsBound = false;
+  try {
+    const listing = execFileSync("/usr/sbin/lsof", [
+      "-a", "-p", String(typedFseventsPid), "-F", "fDin"
+    ], { encoding: "utf8", timeout: 2_000, stdio: ["ignore", "pipe", "ignore"] });
+    let device = null;
+    let inode = null;
+    for (const line of listing.split("\n")) {
+      if (line.startsWith("f")) { device = null; inode = null; }
+      else if (line.startsWith("D")) device = line.slice(1);
+      else if (line.startsWith("i")) inode = line.slice(1);
+      else if (line.startsWith("n")) {
+        if (line.slice(1) === fs.realpathSync(typedFseventsBootstrap.rootsPath)
+          && device !== null && inode !== null
+          && BigInt(device) === rootsVisible.dev && BigInt(inode) === rootsVisible.ino) {
+          heldRootsConfigIdentityIsBound = true;
+          break;
+        }
+      }
+    }
+  } catch {}
+  if (!heldRootsConfigIdentityIsBound) {
+    throw new Error("typed FSEvents READY did not retain the exact roots config inode");
+  }
+  for (let index = 0; index < 2; index += 1) {
+    publishTypedCommand(1, typedCommandSequence);
+    waitTypedAcknowledgement(2, typedCommandSequence);
+    typedCommandSequence += 1n;
+  }
+  const journal = typedJournalPrefix(typedAcknowledgement);
+  if (typedAcknowledgement.entryCount !== 0n || typedAcknowledgement.journalHighWater !== 0n
+    || journal.length !== 0) {
+    throw new Error("typed FSEvents journal was not empty before descriptor baseline");
+  }
+  typedFsevents = {
+    droppedEventCount: "0",
+    enabled: true,
+    eventRootCount: Number(typedAcknowledgement.eventRootCount),
+    eventRootFingerprint: typedAcknowledgement.eventRootFingerprint,
+    helperBinarySha256: typedFseventsBootstrap.helperBinarySha256,
+    helperSourceSha256: typedFseventsBootstrap.helperSourceSha256,
+    journalEntryCount: "0",
+    journalFirstEventId: null,
+    journalFlushSequence: (typedCommandSequence - 1n).toString(10),
+    journalHighWater: "0",
+    journalLastEventId: null,
+    journalLastFlushedEventId: null,
+    journalSha256: crypto.createHash("sha256").update(journal).digest("hex"),
+    materialEventCount: "0",
+    sourceEventCount: "0",
+    transactionMetadataEventCount: "0",
+    unknownEventCount: "0",
+    unmatchedDeltaCount: "0",
+    xattrOnlyEventCount: "0"
+  };
+};
+const updateTypedFseventsEndpointWithoutEvents = (endpoint) => {
+  const journal = typedJournalPrefix(endpoint);
+  if (endpoint.entryCount !== BigInt(typedFsevents.journalEntryCount)
+    || endpoint.journalHighWater !== BigInt(typedFsevents.journalHighWater)) {
+    throw new Error("typed FSEvents journal event classification is not yet reconciled");
+  }
+  typedFsevents = {
+    ...typedFsevents,
+    journalFlushSequence: endpoint.sequence.toString(10),
+    journalSha256: crypto.createHash("sha256").update(journal).digest("hex")
+  };
+};
+const flushTypedFsevents = () => {
+  if (!typedFseventsEnabled) return null;
+  publishTypedCommand(1, typedCommandSequence);
+  const endpoint = waitTypedAcknowledgement(2, typedCommandSequence);
+  typedCommandSequence += 1n;
+  updateTypedFseventsEndpointWithoutEvents(endpoint);
+  return endpoint;
+};
+const stopTypedFsevents = async () => {
+  if (!typedFseventsEnabled) return null;
+  publishTypedCommand(2, typedCommandSequence);
+  const endpoint = await waitTypedAcknowledgement(3, typedCommandSequence, true);
+  typedCommandSequence += 1n;
+  updateTypedFseventsEndpointWithoutEvents(endpoint);
+  return endpoint;
+};
+const awaitTypedFseventsExit = async () => {
+  if (!typedFseventsEnabled) return;
+  await new Promise((resolve, reject) => {
+    if (typedFseventsChild.exitCode !== null || typedFseventsChild.signalCode !== null) {
+      if (typedFseventsChild.exitCode === 0) resolve();
+      else reject(new Error("typed FSEvents helper terminal exit was not successful"));
+      return;
+    }
+    const timer = setTimeout(() => {
+      cleanup();
+      reject(new Error("typed FSEvents helper terminal exit timed out"));
+    }, 5_000);
+    const cleanup = () => {
+      clearTimeout(timer);
+      typedFseventsChild.off("exit", onExit);
+      typedFseventsChild.off("error", onError);
+    };
+    const onExit = (code, signal) => {
+      cleanup();
+      if (code === 0 && signal === null) resolve();
+      else reject(new Error("typed FSEvents helper terminal exit was not successful"));
+    };
+    const onError = () => {
+      cleanup();
+      reject(new Error("typed FSEvents helper terminal exit failed"));
+    };
+    typedFseventsChild.once("exit", onExit);
+    typedFseventsChild.once("error", onError);
+  });
+};
 const coverageFingerprint = () => crypto.createHash("sha256")
   .update(JSON.stringify([...sentinelRecords.keys()].sort()))
   .digest("hex");
 const state = () => ({
-  schemaVersion: 2,
+  schemaVersion: 3,
   sessionId,
   sourceEpoch,
   metadataEpoch,
+  xattrEpoch,
   watchMode,
   requestedWatchMode,
   directoryTimestampPolicy,
+  eventBackend: typedFseventsEnabled ? "darwin-fsevents-file-events" : "none",
+  helperProtocolVersion: typedFseventsEnabled ? 2 : null,
+  regularFileCtimePolicy: typedFseventsEnabled ? "typed-xattr-only" : "strict",
+  typedFsevents: typedFseventsEnabled ? typedFsevents : nonTypedFseventsState(),
   coverageFingerprint: coverageFingerprint(),
   coveragePathCount: configuredSentinelPaths.size,
   fdCount: rootDescriptors.length,
   rootFdCount: rootDescriptors.length
 });
 const publishEpoch = () => publishJson(epochPath, state());
+const closeTypedFsevents = () => {
+  if (!typedFseventsEnabled || typedFseventsChild === null) return;
+  if (typedChildAlive(typedFseventsChild)) {
+    try { typedFseventsChild.kill("SIGKILL"); } catch {}
+    const deadline = Date.now() + 1_000;
+    while (typedChildAlive(typedFseventsChild) && Date.now() < deadline) typedWait(10);
+  }
+  typedFseventsPid = null;
+  typedFseventsChild = null;
+};
 const closeWatchers = () => {
   for (const watcher of recursiveWatchers) {
     try { watcher.close(); } catch {}
@@ -963,6 +2387,7 @@ const closeWatchers = () => {
   }
   rootDescriptors.length = 0;
   rootDescriptorRecords.length = 0;
+  closeTypedFsevents();
 };
 const orphan = () => {
   if (stopped) return;
@@ -1256,10 +2681,15 @@ const recordRecursiveEvent = (policy, filename) => {
   try { publishEpoch(); } catch (error) { return fail(error); }
   if (stopping) scheduleTerminalStop();
 };
-const finalizeStop = () => {
+const finalizeStop = async () => {
   if (stopped) return;
   try {
+    if (typedFseventsEnabled) flushTypedFsevents();
     sampleSentinels();
+    if (typedFseventsEnabled) {
+      await stopTypedFsevents();
+      await awaitTypedFseventsExit();
+    }
     publishEpoch();
     if (sourceEpoch !== expectedSourceEpoch || metadataEpoch !== expectedMetadataEpoch) {
       throw new Error("terminal epochs changed after the strict stop request");
@@ -1294,6 +2724,7 @@ try {
       throw new Error("invalid monitor policy");
     }
   }
+  startTypedFsevents();
   refreshConfiguredSentinelPaths();
   for (const policy of configuration) {
     const descriptor = fs.openSync(policy.root, fs.constants.O_RDONLY | fs.constants.O_NOFOLLOW
@@ -1347,7 +2778,7 @@ try {
       try { watcher.close(); } catch {}
     }
     recursiveWatchers.length = 0;
-    watchMode = "descriptor-sentinel";
+    watchMode = typedFseventsEnabled ? "descriptor-sentinel-fsevents" : "descriptor-sentinel";
     rebuildSentinelRecords();
   } else {
     watchMode = "recursive";
@@ -1366,7 +2797,9 @@ process.on("message", (message) => {
     const uuidPattern = /^[0-9a-f]{8}-[0-9a-f]{4}-[1-8][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/iu;
     if (stopping || message.sessionId !== sessionId || !uuidPattern.test(message.requestId)) return fail();
     try {
+      if (typedFseventsEnabled) flushTypedFsevents();
       sampleSentinels();
+      if (typedFseventsEnabled) flushTypedFsevents();
       publishEpoch();
       publishJson(path.join(scratch, "sample-" + message.requestId + ".json"), {
         ...state(),
@@ -1491,14 +2924,23 @@ function validMutationMonitorStateValues(value, monitor) {
     && value.directoryTimestampPolicy === expectedDirectoryTimestampPolicy
     && Number.isSafeInteger(value.sourceEpoch) && value.sourceEpoch >= 0
     && Number.isSafeInteger(value.metadataEpoch) && value.metadataEpoch >= 0
+    && Number.isSafeInteger(value.xattrEpoch) && value.xattrEpoch >= 0
     && Number.isSafeInteger(value.coveragePathCount) && value.coveragePathCount >= 1
     && Number.isSafeInteger(value.fdCount) && value.fdCount >= 1
     && Number.isSafeInteger(value.rootFdCount) && value.rootFdCount >= 1
     && value.fdCount === value.rootFdCount
-    && ["recursive", "descriptor-sentinel"].includes(value.watchMode)
-    && (value.requestedWatchMode !== "descriptor-sentinel" || value.watchMode === "descriptor-sentinel")
+    && ["recursive", "descriptor-sentinel", "descriptor-sentinel-fsevents"].includes(value.watchMode)
+    && (value.requestedWatchMode !== "descriptor-sentinel"
+      || ["descriptor-sentinel", "descriptor-sentinel-fsevents"].includes(value.watchMode))
     && typeof value.coverageFingerprint === "string"
-    && SHA256_PATTERN.test(value.coverageFingerprint);
+    && SHA256_PATTERN.test(value.coverageFingerprint)
+    && [NON_TYPED_EVENT_BACKEND, TYPED_FSEVENTS_EVENT_BACKEND].includes(value.eventBackend)
+    && [null, TYPED_FSEVENTS_HELPER_PROTOCOL_VERSION].includes(value.helperProtocolVersion)
+    && [STRICT_CTIME_POLICY, TYPED_FSEVENTS_CTIME_POLICY].includes(value.regularFileCtimePolicy)
+    && validTypedFseventsState(value.typedFsevents, value)
+    && value.eventBackend === monitor.eventBackend
+    && value.helperProtocolVersion === monitor.helperProtocolVersion
+    && value.regularFileCtimePolicy === monitor.regularFileCtimePolicy;
 }
 
 export function calculateMutationMonitorQuiescenceTimeout({
@@ -1556,19 +2998,9 @@ function requestMutationMonitorSample(monitor, maximumWaitMs) {
     fs.rmSync(acknowledgementPath, { force: true });
   }
   if (!exactKeys(acknowledgement, [
-    "coverageFingerprint",
-    "coveragePathCount",
-    "directoryTimestampPolicy",
-    "fdCount",
-    "metadataEpoch",
+    ...MUTATION_MONITOR_STATE_KEYS,
     "requestId",
-    "requestedWatchMode",
-    "rootFdCount",
-    "schemaVersion",
-    "sessionId",
-    "sourceEpoch",
-    "status",
-    "watchMode"
+    "status"
   ]) || acknowledgement.status !== "sampled" || acknowledgement.requestId !== requestId
     || !validMutationMonitorStateValues(acknowledgement, monitor)) {
     throw new Error("mutation monitor descriptor sample acknowledgement schema is invalid");
@@ -1594,30 +3026,57 @@ export function readMutationEpochState(monitor, {
   } catch {
     throw new Error("mutation monitor epoch is unavailable or invalid");
   }
-  if (!exactKeys(value, [
-    "coverageFingerprint",
-    "coveragePathCount",
-    "directoryTimestampPolicy",
-    "fdCount",
-    "metadataEpoch",
-    "requestedWatchMode",
-    "rootFdCount",
-    "schemaVersion",
-    "sessionId",
-    "sourceEpoch",
-    "watchMode"
-  ]) || !validMutationMonitorStateValues(value, monitor)) {
+  if (!exactKeys(value, MUTATION_MONITOR_STATE_KEYS) || !validMutationMonitorStateValues(value, monitor)) {
     throw new Error("mutation monitor epoch is invalid");
   }
   return value;
 }
 
+function childProcessHandleAlive(child) {
+  if (!child || child.exitCode !== null || child.signalCode !== null) return false;
+  try { return child.kill(0); } catch { return false; }
+}
+
+function readDiagnosticTypedHelperPid(pidPath) {
+  let descriptor = -1;
+  try {
+    descriptor = fs.openSync(
+      pidPath,
+      fs.constants.O_RDONLY
+        | (fs.constants.O_NOFOLLOW ?? 0)
+        | (fs.constants.O_NONBLOCK ?? 0)
+    );
+    const before = fs.fstatSync(descriptor, { bigint: true });
+    if (!before.isFile()
+      || (before.mode & 0o7777n) !== 0o600n
+      || before.uid !== BigInt(process.geteuid())
+      || before.nlink !== 1n
+      || before.size < 10n
+      || before.size > 128n) return null;
+    const payloadBuffer = fs.readFileSync(descriptor);
+    const after = fs.fstatSync(descriptor, { bigint: true });
+    const visible = fs.lstatSync(pidPath, { bigint: true });
+    if (!sameTypedFseventsFrameSnapshot(before, after)
+      || !sameTypedFseventsFrameSnapshot(after, visible)
+      || payloadBuffer.length !== Number(before.size)) return null;
+    const payload = JSON.parse(payloadBuffer.toString("utf8"));
+    if (!exactKeys(payload, ["pid"])
+      || !Number.isSafeInteger(payload.pid)
+      || payload.pid <= 1) return null;
+    return payload.pid;
+  } catch {
+    return null;
+  } finally {
+    if (descriptor >= 0) fs.closeSync(descriptor);
+  }
+}
+
 function cleanupMutationMonitor(monitor, signal = "SIGKILL") {
   if (!monitor) return;
-  if (processIsAlive(monitor.child?.pid)) {
+  if (childProcessHandleAlive(monitor.child)) {
     try { monitor.child.kill(signal); } catch {}
     const deadline = Date.now() + 1_000;
-    while (processIsAlive(monitor.child.pid) && Date.now() < deadline) synchronousWait(20);
+    while (childProcessHandleAlive(monitor.child) && Date.now() < deadline) synchronousWait(20);
   }
   try { monitor.child?.disconnect?.(); } catch {}
   fs.rmSync(monitor.scratch, { recursive: true, force: true });
@@ -1675,6 +3134,13 @@ export function startMutationEpochMonitor(paths, {
   const stoppedPath = path.join(scratch, "stopped");
   const sessionId = crypto.randomUUID();
   const supportsRecursiveWatch = watchMode === "auto" ? recursiveWatchAvailable() : false;
+  let typedFseventsBootstrap = null;
+  try {
+    typedFseventsBootstrap = prepareTypedFseventsBootstrap({ roots, scratch, watchMode });
+  } catch (error) {
+    fs.rmSync(scratch, { recursive: true, force: true });
+    throw error;
+  }
   const configurationPath = path.join(scratch, "bootstrap.json");
   const configurationBuffer = Buffer.from(`${JSON.stringify({
     configuration: policies,
@@ -1687,7 +3153,8 @@ export function startMutationEpochMonitor(paths, {
     requestedWatchModeText: watchMode,
     sessionId,
     terminalQuietMsText: String(terminalQuietMs),
-    recursiveAvailableText: String(supportsRecursiveWatch)
+    recursiveAvailableText: String(supportsRecursiveWatch),
+    typedFseventsBootstrap
   })}\n`);
   const configurationDescriptor = fs.openSync(
     configurationPath,
@@ -1730,6 +3197,9 @@ export function startMutationEpochMonitor(paths, {
   const monitor = {
     child,
     directoryTimestampPolicy: directoryTimestampPolicyForRequestedWatchMode(watchMode),
+    eventBackend: typedFseventsBootstrap ? TYPED_FSEVENTS_EVENT_BACKEND : NON_TYPED_EVENT_BACKEND,
+    helperProtocolVersion: typedFseventsBootstrap ? TYPED_FSEVENTS_HELPER_PROTOCOL_VERSION : null,
+    regularFileCtimePolicy: typedFseventsBootstrap ? TYPED_FSEVENTS_CTIME_POLICY : STRICT_CTIME_POLICY,
     epochPath,
     readyPath,
     errorPath,
@@ -1743,7 +3213,16 @@ export function startMutationEpochMonitor(paths, {
     stopAcknowledged: false,
     terminalAttestation: null,
     registeredMetadataRoot: null,
-    bootstrapArgBytes: Buffer.byteLength(bootstrapArgs.join("\0"))
+    bootstrapArgBytes: Buffer.byteLength(bootstrapArgs.join("\0")),
+    typedFseventsAckCommitPath: typedFseventsBootstrap?.ackCommitPath ?? null,
+    typedFseventsAckPath: typedFseventsBootstrap?.ackPath ?? null,
+    typedFseventsBinaryPath: typedFseventsBootstrap?.binaryPath ?? null,
+    typedFseventsCommandPath: typedFseventsBootstrap?.commandPath ?? null,
+    typedFseventsJournalPath: typedFseventsBootstrap?.journalPath ?? null,
+    typedFseventsRootsPath: typedFseventsBootstrap?.rootsPath ?? null,
+    typedFseventsRuntimeScratch: typedFseventsBootstrap?.runtimeScratch ?? null,
+    typedFseventsPid: null,
+    typedHelperReadyBeforeDescriptorBaseline: false
   };
   try {
     const initialState = readMutationEpochState(monitor, { requestSample: false });
@@ -1751,6 +3230,18 @@ export function startMutationEpochMonitor(paths, {
     monitor.coverageFingerprint = initialState.coverageFingerprint;
     monitor.coveragePathCount = initialState.coveragePathCount;
     monitor.rootFdCount = initialState.rootFdCount;
+    if (typedFseventsBootstrap) {
+      const typedFseventsPid = readDiagnosticTypedHelperPid(typedFseventsBootstrap.typedHelperPidPath);
+      if (typedFseventsPid === null
+        || !processIsAlive(typedFseventsPid)
+        || initialState.watchMode !== "descriptor-sentinel-fsevents"
+        || initialState.eventBackend !== TYPED_FSEVENTS_EVENT_BACKEND
+        || !initialState.typedFsevents.enabled) {
+        throw new Error("typed FSEvents READY provenance is invalid");
+      }
+      monitor.typedFseventsPid = typedFseventsPid;
+      monitor.typedHelperReadyBeforeDescriptorBaseline = true;
+    }
     return monitor;
   } catch (error) {
     cleanupMutationMonitor(monitor);
@@ -1864,9 +3355,9 @@ export function settleMutationEpochState(monitor, { quietMs = 300, timeoutMs } =
     synchronousWait(Math.min(25, quietMs, Math.max(1, deadline - Date.now())));
     const current = readBeforeDeadline();
     if (current.sourceEpoch !== state.sourceEpoch || current.metadataEpoch !== state.metadataEpoch) {
-      state = current;
       stableSince = Date.now();
     }
+    state = current;
   }
   return state;
 }
@@ -1884,28 +3375,20 @@ export function assertMutationTerminalAttestation(attestation, {
   sessionId,
   sourceEpoch,
   metadataEpoch,
+  xattrEpoch,
   watchMode,
   requestedWatchMode,
   directoryTimestampPolicy,
+  eventBackend,
+  helperProtocolVersion,
+  regularFileCtimePolicy,
+  typedFsevents,
   coverageFingerprint,
   coveragePathCount,
   fdCount,
   rootFdCount
 } = {}) {
-  if (!exactKeys(attestation, [
-    "coverageFingerprint",
-    "coveragePathCount",
-    "directoryTimestampPolicy",
-    "fdCount",
-    "metadataEpoch",
-    "requestedWatchMode",
-    "rootFdCount",
-    "schemaVersion",
-    "sessionId",
-    "sourceEpoch",
-    "status",
-    "watchMode"
-  ])
+  if (!exactKeys(attestation, [...MUTATION_MONITOR_STATE_KEYS, "status"])
     || attestation.schemaVersion !== MUTATION_MONITOR_SCHEMA_VERSION
     || attestation.status !== "stopped"
     || typeof attestation.sessionId !== "string"
@@ -1914,18 +3397,24 @@ export function assertMutationTerminalAttestation(attestation, {
     || attestation.sourceEpoch < 0
     || !Number.isSafeInteger(attestation.metadataEpoch)
     || attestation.metadataEpoch < 0
+    || !Number.isSafeInteger(attestation.xattrEpoch)
+    || attestation.xattrEpoch < 0
     || !Number.isSafeInteger(attestation.coveragePathCount) || attestation.coveragePathCount < 1
     || !Number.isSafeInteger(attestation.fdCount) || attestation.fdCount < 1
     || !Number.isSafeInteger(attestation.rootFdCount) || attestation.rootFdCount < 1
     || attestation.fdCount !== attestation.rootFdCount
-    || !["recursive", "descriptor-sentinel"].includes(attestation.watchMode)
+    || !["recursive", "descriptor-sentinel", "descriptor-sentinel-fsevents"].includes(attestation.watchMode)
     || !["auto", "descriptor-sentinel"].includes(attestation.requestedWatchMode)
     || attestation.directoryTimestampPolicy
       !== directoryTimestampPolicyForRequestedWatchMode(attestation.requestedWatchMode)
     || (attestation.requestedWatchMode === "descriptor-sentinel"
-      && attestation.watchMode !== "descriptor-sentinel")
+      && !["descriptor-sentinel", "descriptor-sentinel-fsevents"].includes(attestation.watchMode))
     || typeof attestation.coverageFingerprint !== "string"
-    || !SHA256_PATTERN.test(attestation.coverageFingerprint)) {
+    || !SHA256_PATTERN.test(attestation.coverageFingerprint)
+    || ![NON_TYPED_EVENT_BACKEND, TYPED_FSEVENTS_EVENT_BACKEND].includes(attestation.eventBackend)
+    || ![null, TYPED_FSEVENTS_HELPER_PROTOCOL_VERSION].includes(attestation.helperProtocolVersion)
+    || ![STRICT_CTIME_POLICY, TYPED_FSEVENTS_CTIME_POLICY].includes(attestation.regularFileCtimePolicy)
+    || !validTypedFseventsState(attestation.typedFsevents, attestation)) {
     throw new Error("mutation monitor terminal attestation fields are invalid");
   }
   if (sessionId !== undefined && attestation.sessionId !== sessionId) {
@@ -1937,6 +3426,9 @@ export function assertMutationTerminalAttestation(attestation, {
   if (metadataEpoch !== undefined && attestation.metadataEpoch !== metadataEpoch) {
     throw new Error("mutation monitor terminal attestation metadata epoch is invalid");
   }
+  if (xattrEpoch !== undefined && attestation.xattrEpoch !== xattrEpoch) {
+    throw new Error("mutation monitor terminal attestation xattr epoch is invalid");
+  }
   if (watchMode !== undefined && attestation.watchMode !== watchMode) {
     throw new Error("mutation monitor terminal attestation watch mode is invalid");
   }
@@ -1946,6 +3438,19 @@ export function assertMutationTerminalAttestation(attestation, {
   if (directoryTimestampPolicy !== undefined
     && attestation.directoryTimestampPolicy !== directoryTimestampPolicy) {
     throw new Error("mutation monitor terminal attestation directory timestamp policy is invalid");
+  }
+  if (eventBackend !== undefined && attestation.eventBackend !== eventBackend) {
+    throw new Error("mutation monitor terminal attestation event backend is invalid");
+  }
+  if (helperProtocolVersion !== undefined && attestation.helperProtocolVersion !== helperProtocolVersion) {
+    throw new Error("mutation monitor terminal attestation helper protocol is invalid");
+  }
+  if (regularFileCtimePolicy !== undefined
+    && attestation.regularFileCtimePolicy !== regularFileCtimePolicy) {
+    throw new Error("mutation monitor terminal attestation regular file ctime policy is invalid");
+  }
+  if (typedFsevents !== undefined && stableJson(attestation.typedFsevents) !== stableJson(typedFsevents)) {
+    throw new Error("mutation monitor terminal attestation typed FSEvents binding is invalid");
   }
   if (coverageFingerprint !== undefined && attestation.coverageFingerprint !== coverageFingerprint) {
     throw new Error("mutation monitor terminal attestation coverage fingerprint is invalid");
@@ -2022,19 +3527,31 @@ export function stopMutationEpochMonitor(monitor, {
       watchMode: beforeStop.watchMode,
       requestedWatchMode: beforeStop.requestedWatchMode,
       directoryTimestampPolicy: beforeStop.directoryTimestampPolicy,
+      eventBackend: beforeStop.eventBackend,
+      helperProtocolVersion: beforeStop.helperProtocolVersion,
+      regularFileCtimePolicy: beforeStop.regularFileCtimePolicy,
       coverageFingerprint: beforeStop.coverageFingerprint,
       coveragePathCount: beforeStop.coveragePathCount,
       fdCount: beforeStop.fdCount,
       rootFdCount: beforeStop.rootFdCount
     });
+    if (attestation.xattrEpoch < beforeStop.xattrEpoch) {
+      throw new Error("mutation monitor terminal xattr epoch is not monotonic");
+    }
+    assertTypedFseventsTerminalAdvance(beforeStop.typedFsevents, attestation.typedFsevents);
     if (attestation.metadataEpoch !== requiredMetadataEpoch) {
       throw new Error("mutation monitor terminal acknowledgement does not match the expected epoch");
     }
     const terminalState = readMutationEpochState(monitor, { requireAlive: false });
     if (terminalState.sourceEpoch !== requiredEpoch || terminalState.metadataEpoch !== attestation.metadataEpoch
+      || terminalState.xattrEpoch !== attestation.xattrEpoch
       || terminalState.watchMode !== attestation.watchMode
       || terminalState.requestedWatchMode !== attestation.requestedWatchMode
       || terminalState.directoryTimestampPolicy !== attestation.directoryTimestampPolicy
+      || terminalState.eventBackend !== attestation.eventBackend
+      || terminalState.helperProtocolVersion !== attestation.helperProtocolVersion
+      || terminalState.regularFileCtimePolicy !== attestation.regularFileCtimePolicy
+      || stableJson(terminalState.typedFsevents) !== stableJson(attestation.typedFsevents)
       || terminalState.coverageFingerprint !== attestation.coverageFingerprint
       || terminalState.coveragePathCount !== attestation.coveragePathCount
       || terminalState.fdCount !== attestation.fdCount
@@ -3446,7 +4963,7 @@ export function assertEvidenceGateReport(report, options = {}) {
     "monitorSessionId",
     "schemaVersion"
   ]) && protocol.schemaVersion === 1;
-  const currentProtocolIsValid = exactKeys(protocol, [
+  const legacyV2ProtocolIsValid = exactKeys(protocol, [
     "attestationFile",
     "directoryTimestampPolicy",
     "expectedMetadataEpoch",
@@ -3458,8 +4975,34 @@ export function assertEvidenceGateReport(report, options = {}) {
     && ["auto", "descriptor-sentinel"].includes(protocol.requestedWatchMode)
     && protocol.directoryTimestampPolicy
       === directoryTimestampPolicyForRequestedWatchMode(protocol.requestedWatchMode);
+  const currentProtocolIsValid = report.schemaVersion === EVIDENCE_SCHEMA_VERSION
+    && exactKeys(protocol, [
+    "attestationFile",
+    "attestationSha256",
+    "directoryTimestampPolicy",
+    "eventBackend",
+    "expectedMetadataEpoch",
+    "expectedSourceEpoch",
+    "expectedXattrEpoch",
+    "helperProtocolVersion",
+    "monitorSessionId",
+    "regularFileCtimePolicy",
+    "requestedWatchMode",
+    "schemaVersion",
+    "typedFsevents",
+    "watchMode"
+  ]) && protocol.schemaVersion === 3
+    && ["auto", "descriptor-sentinel"].includes(protocol.requestedWatchMode)
+    && ["recursive", "descriptor-sentinel", "descriptor-sentinel-fsevents"].includes(protocol.watchMode)
+    && protocol.directoryTimestampPolicy
+      === directoryTimestampPolicyForRequestedWatchMode(protocol.requestedWatchMode)
+    && isNonnegativeInteger(protocol.expectedXattrEpoch)
+    && typeof protocol.attestationSha256 === "string"
+    && SHA256_PATTERN.test(protocol.attestationSha256)
+    && validTypedFseventsState(protocol.typedFsevents, protocol);
   if (!commonProtocolValuesAreValid
-    || (!currentProtocolIsValid && !(allowLegacyTerminalProtocol && legacyProtocolIsValid))) {
+    || (!currentProtocolIsValid
+      && !(allowLegacyTerminalProtocol && (legacyProtocolIsValid || legacyV2ProtocolIsValid)))) {
     throw new Error("evidence gate report terminal protocol fields are invalid");
   }
   return report;

@@ -7,12 +7,14 @@
 #include <errno.h>
 #include <fcntl.h>
 #include <limits.h>
+#include <poll.h>
 #include <pthread.h>
 #include <stdbool.h>
 #include <stdint.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <sys/socket.h>
 #include <sys/stat.h>
 #include <sys/types.h>
 #include <time.h>
@@ -25,12 +27,14 @@
 #define JOURNAL_NAME "journal.bin"
 
 #define COMMAND_BYTES 20U
-#define ACK_BYTES 48U
+#define ACK_BYTES 136U
 #define ACK_COMMIT_BYTES 72U
 #define JOURNAL_HEADER_BYTES 40U
 #define SHA256_READ_CHUNK_BYTES (64U * 1024U)
 #define MAX_CONFIG_BYTES (16U * 1024U * 1024U)
-#define MAX_EVENT_PATH_BYTES (16U * 1024U * 1024U)
+#define MAX_JOURNAL_BYTES (UINT64_C(512) * 1024U * 1024U)
+#define MAX_JOURNAL_ENTRIES UINT64_C(1000000)
+#define MAX_EVENT_PATH_BYTES (1024U * 1024U)
 
 #define COMMAND_FLUSH 1U
 #define COMMAND_STOP 2U
@@ -59,7 +63,15 @@ typedef struct {
   uint64_t journal_high_water;
   uint64_t entry_count;
   uint64_t last_event_id;
+  uint64_t journal_device;
+  uint64_t journal_inode;
+  uint8_t journal_digest[CC_SHA256_DIGEST_LENGTH];
 } journal_endpoint;
+
+typedef struct {
+  uint64_t count;
+  uint8_t digest[CC_SHA256_DIGEST_LENGTH];
+} roots_attestation;
 
 typedef struct {
   dev_t device;
@@ -220,6 +232,55 @@ static bool same_file_identity(const file_identity *identity, const struct stat 
   return identity->device == status->st_dev && identity->inode == status->st_ino;
 }
 
+static int validate_parent_channel(void) {
+  struct stat status;
+  int flags = fcntl(STDIN_FILENO, F_GETFL);
+  if (fstat(STDIN_FILENO, &status) < 0 || flags < 0) return -1;
+  int access_mode = flags & O_ACCMODE;
+  if (S_ISFIFO(status.st_mode)) return access_mode == O_RDONLY ? 0 : -1;
+  if (!S_ISSOCK(status.st_mode) || access_mode == O_WRONLY) return -1;
+  int socket_type = 0;
+  socklen_t socket_type_length = sizeof(socket_type);
+  struct sockaddr_storage peer;
+  socklen_t peer_length = sizeof(peer);
+  if (getsockopt(
+      STDIN_FILENO,
+      SOL_SOCKET,
+      SO_TYPE,
+      &socket_type,
+      &socket_type_length
+    ) < 0
+    || socket_type != SOCK_STREAM
+    || getpeername(STDIN_FILENO, (struct sockaddr *)&peer, &peer_length) < 0) {
+    return -1;
+  }
+  return 0;
+}
+
+static int poll_parent_channel(int timeout_milliseconds) {
+  struct pollfd parent = {
+    .fd = STDIN_FILENO,
+    .events = POLLIN,
+    .revents = 0
+  };
+  int status;
+  do {
+    status = poll(&parent, 1U, timeout_milliseconds);
+  } while (status < 0 && errno == EINTR);
+  if (status < 0) return -1;
+  if (status == 0) return 0;
+  if ((parent.revents & (POLLHUP | POLLERR | POLLNVAL)) != 0) return -1;
+  if ((parent.revents & POLLIN) != 0) {
+    uint8_t unexpected;
+    ssize_t amount;
+    do {
+      amount = read(STDIN_FILENO, &unexpected, 1U);
+    } while (amount < 0 && errno == EINTR);
+    return -1;
+  }
+  return -1;
+}
+
 static int validate_open_file_at(int directory_fd, const char *name, int descriptor, mode_t expected_mode) {
   struct stat opened;
   struct stat visible;
@@ -240,7 +301,7 @@ static int open_existing_secure(int directory_fd, const char *name, int flags) {
     || !secure_regular_stat(&visible, 0600U)) {
     return -1;
   }
-  int descriptor = openat(directory_fd, name, flags | O_CLOEXEC | O_NOFOLLOW);
+  int descriptor = openat(directory_fd, name, flags | O_CLOEXEC | O_NOFOLLOW | O_NONBLOCK);
   if (descriptor < 0) return -1;
   if (validate_open_file_at(directory_fd, name, descriptor, 0600U) < 0) {
     close(descriptor);
@@ -289,7 +350,11 @@ static int open_scratch(const char *scratch_path) {
   return descriptor;
 }
 
-static CFArrayRef read_roots_config(int scratch_fd, int config_fd) {
+static CFArrayRef read_roots_config(
+  int scratch_fd,
+  int config_fd,
+  roots_attestation *attestation
+) {
   if (validate_open_file_at(scratch_fd, ROOTS_CONFIG_NAME, config_fd, 0600U) < 0) return NULL;
   struct stat before;
   if (fstat(config_fd, &before) < 0
@@ -364,11 +429,15 @@ static CFArrayRef read_roots_config(int scratch_fd, int config_fd) {
     || before.st_ctimespec.tv_nsec != after.st_ctimespec.tv_nsec) {
     valid = false;
   }
-  free(buffer);
-  if (!valid || CFArrayGetCount(roots) == 0) {
+  CFIndex root_count = CFArrayGetCount(roots);
+  if (!valid || root_count <= 0
+    || sha256_bytes(buffer, length, attestation->digest) < 0) {
+    free(buffer);
     CFRelease(roots);
     return NULL;
   }
+  attestation->count = (uint64_t)root_count;
+  free(buffer);
   return roots;
 }
 
@@ -401,12 +470,20 @@ static void append_events(
     }
     size_t path_length = strnlen(paths[index], MAX_EVENT_PATH_BYTES + 1U);
     if (path_length == 0U || path_length > MAX_EVENT_PATH_BYTES
-      || state->journal_offset > (uint64_t)INT64_MAX - JOURNAL_HEADER_BYTES - path_length
-      || state->entry_count == UINT64_MAX) {
+      || path_length > (size_t)UINT32_MAX - JOURNAL_HEADER_BYTES) {
       set_journal_failure(state);
       break;
     }
     uint32_t record_length = (uint32_t)(JOURNAL_HEADER_BYTES + path_length);
+    if ((uint64_t)record_length > MAX_JOURNAL_BYTES
+      || state->journal_offset > UINT64_MAX - (uint64_t)record_length
+      || state->journal_offset > (uint64_t)INT64_MAX - (uint64_t)record_length
+      || state->entry_count == UINT64_MAX
+      || state->entry_count >= MAX_JOURNAL_ENTRIES
+      || state->journal_offset > MAX_JOURNAL_BYTES - (uint64_t)record_length) {
+      set_journal_failure(state);
+      break;
+    }
     uint64_t sequence = state->entry_count + 1U;
     uint8_t header[JOURNAL_HEADER_BYTES] = {0};
     memcpy(header, "MFSJ", 4U);
@@ -466,16 +543,28 @@ static int validate_journal_endpoint_file(journal_state *state) {
   return 0;
 }
 
-static int validate_journal_endpoint_digest(journal_state *state) {
+static int validate_journal_endpoint_digest(
+  journal_state *state,
+  journal_endpoint *endpoint
+) {
   uint8_t actual[CC_SHA256_DIGEST_LENGTH];
   uint8_t expected[CC_SHA256_DIGEST_LENGTH];
+  struct stat opened;
   if (validate_journal_endpoint_file(state) < 0
     || sha256_file_prefix(state->journal_fd, state->journal_offset, actual) < 0
     || validate_journal_endpoint_file(state) < 0
+    || fstat(state->journal_fd, &opened) < 0
+    || !secure_regular_stat(&opened, 0600U)
+    || opened.st_size < 0
+    || (uint64_t)opened.st_size != state->journal_offset
     || sha256_context_digest(&state->expected_digest, expected) < 0) {
     return -1;
   }
-  return memcmp(actual, expected, sizeof(actual)) == 0 ? 0 : -1;
+  if (memcmp(actual, expected, sizeof(actual)) != 0) return -1;
+  endpoint->journal_device = (uint64_t)opened.st_dev;
+  endpoint->journal_inode = (uint64_t)opened.st_ino;
+  memcpy(endpoint->journal_digest, actual, sizeof(actual));
+  return 0;
 }
 
 static int capture_endpoint(
@@ -493,7 +582,7 @@ static int capture_endpoint(
   if (state->failed
     || validate_journal_endpoint_file(state) < 0
     || fsync_retry(state->journal_fd) < 0
-    || validate_journal_endpoint_digest(state) < 0) {
+    || validate_journal_endpoint_digest(state, endpoint) < 0) {
     state->failed = true;
     result = -1;
   } else {
@@ -510,12 +599,15 @@ static int write_ack(
   int scratch_fd,
   uint16_t type,
   uint64_t sequence,
+  const roots_attestation *roots,
   const journal_endpoint *endpoint
 ) {
   struct stat scratch_status;
   struct stat existing_ack;
   struct stat existing_commit;
-  if (fstat(scratch_fd, &scratch_status) < 0 || !secure_directory_stat(&scratch_status)) return -1;
+  if (poll_parent_channel(0) < 0
+    || fstat(scratch_fd, &scratch_status) < 0
+    || !secure_directory_stat(&scratch_status)) return -1;
   int existing_ack_status = fstatat(scratch_fd, ACK_NAME, &existing_ack, AT_SYMLINK_NOFOLLOW);
   bool ack_missing = existing_ack_status < 0 && errno == ENOENT;
   int existing_commit_status = fstatat(
@@ -538,7 +630,7 @@ static int write_ack(
 
   uint8_t acknowledgement[ACK_BYTES] = {0};
   memcpy(acknowledgement, "MFSA", 4U);
-  put_u16_le(acknowledgement + 4U, 1U);
+  put_u16_le(acknowledgement + 4U, 2U);
   put_u16_le(acknowledgement + 6U, type);
   put_u32_le(acknowledgement + 8U, ACK_BYTES);
   put_u32_le(acknowledgement + 12U, 0U);
@@ -546,6 +638,11 @@ static int write_ack(
   put_u64_le(acknowledgement + 24U, endpoint->journal_high_water);
   put_u64_le(acknowledgement + 32U, endpoint->entry_count);
   put_u64_le(acknowledgement + 40U, endpoint->last_event_id);
+  put_u64_le(acknowledgement + 48U, roots->count);
+  memcpy(acknowledgement + 56U, roots->digest, sizeof(roots->digest));
+  put_u64_le(acknowledgement + 88U, endpoint->journal_device);
+  put_u64_le(acknowledgement + 96U, endpoint->journal_inode);
+  memcpy(acknowledgement + 104U, endpoint->journal_digest, sizeof(endpoint->journal_digest));
 
   char acknowledgement_temporary_name[128];
   char commit_temporary_name[128];
@@ -632,7 +729,7 @@ static int write_ack(
     goto ack_cleanup;
   }
   memcpy(commit, "MFAC", 4U);
-  put_u16_le(commit + 4U, 1U);
+  put_u16_le(commit + 4U, 2U);
   put_u16_le(commit + 6U, type);
   put_u32_le(commit + 8U, ACK_COMMIT_BYTES);
   put_u32_le(commit + 12U, 0U);
@@ -675,7 +772,8 @@ static int write_ack(
    * This rename is the ACK visibility/linearization point. No later operation
    * may turn it into a failure or make an additional durability claim.
    */
-  if (renameat(
+  if (poll_parent_channel(0) < 0
+    || renameat(
       scratch_fd,
       commit_temporary_name,
       scratch_fd,
@@ -709,7 +807,11 @@ static int read_command(
   off_t command_size = 0;
   struct stat stable_visible;
   for (unsigned int attempt = 0U; attempt < 4U && !stable_command; attempt += 1U) {
-    int command_fd = openat(scratch_fd, COMMAND_NAME, O_RDONLY | O_CLOEXEC | O_NOFOLLOW);
+    int command_fd = openat(
+      scratch_fd,
+      COMMAND_NAME,
+      O_RDONLY | O_CLOEXEC | O_NOFOLLOW | O_NONBLOCK
+    );
     if (command_fd < 0) return -1;
     struct stat before;
     struct stat between;
@@ -760,7 +862,7 @@ static int read_command(
   if (!stable_command) return -1;
   if (command_size == 0) return same_file_identity(last_identity, &stable_visible) ? 0 : -1;
   if (memcmp(command, "MFSC", 4U) != 0
-    || get_u16_le(command + 4U) != 1U
+    || get_u16_le(command + 4U) != 2U
     || get_u32_le(command + 8U) != COMMAND_BYTES) {
     return -1;
   }
@@ -816,13 +918,14 @@ static int wait_for_commands(
   FSEventStreamRef *stream,
   dispatch_queue_t callback_queue,
   journal_state *state,
+  const roots_attestation *roots,
   const file_identity *startup_command_identity
 ) {
   uint64_t last_sequence = 0U;
   uint16_t last_type = 0U;
   file_identity last_identity = *startup_command_identity;
   for (;;) {
-    if (journal_has_failed(state)) return -1;
+    if (poll_parent_channel(0) < 0 || journal_has_failed(state)) return -1;
     uint16_t command_type = 0U;
     uint64_t command_sequence = 0U;
     file_identity command_identity = {0};
@@ -839,7 +942,9 @@ static int wait_for_commands(
     if (command_status > 0) {
       bool terminal = command_type == COMMAND_STOP || command_type == COMMAND_SEAL;
       journal_endpoint endpoint = {0};
+      if (poll_parent_channel(0) < 0) return -1;
       if (capture_endpoint(*stream, callback_queue, state, terminal, &endpoint) < 0) return -1;
+      if (poll_parent_channel(0) < 0) return -1;
       if (terminal) {
         FSEventStreamStop(*stream);
         dispatch_sync_f(callback_queue, NULL, callback_queue_barrier);
@@ -847,16 +952,15 @@ static int wait_for_commands(
         FSEventStreamRelease(*stream);
         *stream = NULL;
         uint16_t ack_type = command_type == COMMAND_STOP ? ACK_STOP : ACK_SEAL;
-        if (write_ack(scratch_fd, ack_type, command_sequence, &endpoint) < 0) return -1;
+        if (write_ack(scratch_fd, ack_type, command_sequence, roots, &endpoint) < 0) return -1;
         return 0;
       }
-      if (write_ack(scratch_fd, ACK_FLUSH, command_sequence, &endpoint) < 0) return -1;
+      if (write_ack(scratch_fd, ACK_FLUSH, command_sequence, roots, &endpoint) < 0) return -1;
       last_sequence = command_sequence;
       last_type = command_type;
       last_identity = command_identity;
     }
-    struct timespec delay = { .tv_sec = 0, .tv_nsec = 10L * 1000L * 1000L };
-    while (nanosleep(&delay, &delay) < 0 && errno == EINTR) {}
+    if (poll_parent_channel(10) < 0) return -1;
   }
 }
 
@@ -881,6 +985,12 @@ int main(int argc, char **argv) {
   state.journal_fd = -1;
   bool mutex_initialized = false;
   file_identity startup_command_identity = {0};
+  roots_attestation root_attestation = {0};
+
+  if (validate_parent_channel() < 0 || poll_parent_channel(0) < 0) {
+    fprintf(stderr, "stdin parent channel is not one live silent pipe or socket\n");
+    goto cleanup;
+  }
 
   scratch_fd = open_scratch(argv[1]);
   if (scratch_fd < 0) {
@@ -902,7 +1012,7 @@ int main(int argc, char **argv) {
   startup_command_identity.inode = startup_command_status.st_ino;
   close(command_fd);
   command_fd = -1;
-  roots = read_roots_config(scratch_fd, config_fd);
+  roots = read_roots_config(scratch_fd, config_fd, &root_attestation);
   if (roots == NULL) {
     fprintf(stderr, "roots config is invalid or unsafe\n");
     goto cleanup;
@@ -955,8 +1065,10 @@ int main(int argc, char **argv) {
   stream_started = true;
 
   journal_endpoint ready_endpoint = {0};
-  if (capture_endpoint(stream, callback_queue, &state, false, &ready_endpoint) < 0
-    || write_ack(scratch_fd, ACK_READY, 0U, &ready_endpoint) < 0) {
+  if (poll_parent_channel(0) < 0
+    || capture_endpoint(stream, callback_queue, &state, false, &ready_endpoint) < 0
+    || poll_parent_channel(0) < 0
+    || write_ack(scratch_fd, ACK_READY, 0U, &root_attestation, &ready_endpoint) < 0) {
     fprintf(stderr, "READY acknowledgement failed\n");
     goto cleanup;
   }
@@ -965,6 +1077,7 @@ int main(int argc, char **argv) {
     &stream,
     callback_queue,
     &state,
+    &root_attestation,
     &startup_command_identity
   ) < 0) {
     fprintf(stderr, "command, callback, or journal processing failed closed\n");
