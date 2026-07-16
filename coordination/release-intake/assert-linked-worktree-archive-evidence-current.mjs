@@ -1,12 +1,14 @@
 #!/usr/bin/env node
 import fs from "node:fs";
 import path from "node:path";
+import { fileURLToPath } from "node:url";
 import {
   EVIDENCE_SCHEMA_VERSION,
   MARKER_NAME,
   TRANSACTION_METADATA_PATHS,
   abortEvidenceReport,
   abortMutationEpochMonitor,
+  assertEvidenceWriterLockOwned,
   assertEvidenceGateReport,
   assertEvidenceRootLayout,
   bootstrapMutationEpochMonitor,
@@ -27,6 +29,7 @@ import {
   renderArchiveManifestMarkdown,
   repositoryIdentity,
   resolveEvidenceRoot,
+  runEvidenceWriterUnderLock,
   settleMutationEpoch,
   settleMutationEpochState,
   sha256Buffer,
@@ -120,6 +123,41 @@ function inactiveAttestationSlot(evidenceRoot) {
   } catch {
     return attestationSlots[0];
   }
+}
+
+function terminalProtocolForState({
+  attestationFile,
+  attestationSha256,
+  legacy,
+  state
+}) {
+  if (legacy) {
+    return {
+      attestationFile,
+      directoryTimestampPolicy: state.directoryTimestampPolicy,
+      expectedMetadataEpoch: state.metadataEpoch,
+      expectedSourceEpoch: state.sourceEpoch,
+      monitorSessionId: state.sessionId,
+      requestedWatchMode: state.requestedWatchMode,
+      schemaVersion: 2
+    };
+  }
+  return {
+    attestationFile,
+    attestationSha256,
+    directoryTimestampPolicy: state.directoryTimestampPolicy,
+    eventBackend: state.eventBackend,
+    expectedMetadataEpoch: state.metadataEpoch,
+    expectedSourceEpoch: state.sourceEpoch,
+    expectedXattrEpoch: state.xattrEpoch,
+    helperProtocolVersion: state.helperProtocolVersion,
+    monitorSessionId: state.sessionId,
+    regularFileCtimePolicy: state.regularFileCtimePolicy,
+    requestedWatchMode: state.requestedWatchMode,
+    schemaVersion: 3,
+    typedFsevents: state.typedFsevents,
+    watchMode: state.watchMode
+  };
 }
 
 function currentCandidates(allWorktrees) {
@@ -543,7 +581,8 @@ function validateV2({ dirtyMap, linked, clean, dirty, allWorktrees, candidates, 
   return null;
 }
 
-function main() {
+function mainLocked(assertLockHealthy) {
+  assertLockHealthy();
   const failures = [];
   const { allWorktrees, baselineEpoch, monitor } = bootstrapMutationEpochMonitor({
     repoRoot: root,
@@ -559,6 +598,7 @@ function main() {
       }
     ]
   });
+  assertLockHealthy();
   try {
     for (const requiredPath of Object.values(paths)) {
       if (!fs.existsSync(requiredPath)) failures.push(`missing required file: ${path.relative(root, requiredPath)}`);
@@ -629,22 +669,38 @@ function main() {
         rootId: linked.evidenceRootId
       });
       const attestationFilename = inactiveAttestationSlot(evidenceRoot);
+      const attestationFile = `reports/${attestationFilename}`;
+      const legacyTerminalProtocol = linked.schemaVersion !== EVIDENCE_SCHEMA_VERSION;
+      const provisionalAttestation = legacyTerminalProtocol
+        ? {
+            schemaVersion: 2,
+            sessionId: monitor.sessionId,
+            sourceEpoch: finalEpoch,
+            metadataEpoch: terminalState.metadataEpoch,
+            requestedWatchMode: terminalState.requestedWatchMode,
+            directoryTimestampPolicy: terminalState.directoryTimestampPolicy,
+            status: "pending"
+          }
+        : { ...terminalState, status: "pending" };
+      const provisionalAttestationSha256 = sha256Buffer(Buffer.from(
+        `${JSON.stringify(provisionalAttestation, null, 2)}\n`
+      ));
       const provisionalReportPayload = {
         ...payload,
-        terminalProtocol: {
-          attestationFile: `reports/${attestationFilename}`,
-          directoryTimestampPolicy: terminalState.directoryTimestampPolicy,
-          expectedMetadataEpoch: terminalState.metadataEpoch,
-          expectedSourceEpoch: finalEpoch,
-          monitorSessionId: monitor.sessionId,
-          requestedWatchMode: terminalState.requestedWatchMode,
-          schemaVersion: 2
-        }
+        terminalProtocol: terminalProtocolForState({
+          attestationFile,
+          attestationSha256: provisionalAttestationSha256,
+          legacy: legacyTerminalProtocol,
+          state: { ...terminalState, sourceEpoch: finalEpoch }
+        })
       };
-      assertEvidenceGateReport(provisionalReportPayload);
+      assertEvidenceGateReport(provisionalReportPayload, {
+        allowLegacyTerminalProtocol: legacyTerminalProtocol
+      });
       let preparedReport;
       let preparedAttestation;
       try {
+        assertLockHealthy();
         preparedReport = prepareEvidenceReport({
           evidenceRoot,
           evidenceRootId: linked.evidenceRootId,
@@ -655,35 +711,32 @@ function main() {
           evidenceRoot,
           evidenceRootId: linked.evidenceRootId,
           filename: attestationFilename,
-          payload: {
-            schemaVersion: 2,
-            sessionId: monitor.sessionId,
-            sourceEpoch: finalEpoch,
-            metadataEpoch: terminalState.metadataEpoch,
-            requestedWatchMode: terminalState.requestedWatchMode,
-            directoryTimestampPolicy: terminalState.directoryTimestampPolicy,
-            status: "pending"
-          }
+          payload: provisionalAttestation
         });
+        assertLockHealthy();
         const attestation = stopMutationEpochMonitor(monitor, {
           expectedEpoch: finalEpoch,
           expectedMetadataEpoch: terminalState.metadataEpoch
         });
+        assertLockHealthy();
         const reportPayload = {
           ...payload,
-          terminalProtocol: {
-            attestationFile: `reports/${attestationFilename}`,
-            directoryTimestampPolicy: attestation.directoryTimestampPolicy,
-            expectedMetadataEpoch: attestation.metadataEpoch,
-            expectedSourceEpoch: attestation.sourceEpoch,
-            monitorSessionId: attestation.sessionId,
-            requestedWatchMode: attestation.requestedWatchMode,
-            schemaVersion: 2
-          }
+          terminalProtocol: terminalProtocolForState({
+            attestationFile,
+            attestationSha256: sha256Buffer(Buffer.from(
+              `${JSON.stringify(attestation, null, 2)}\n`
+            )),
+            legacy: legacyTerminalProtocol,
+            state: attestation
+          })
         };
-        assertEvidenceGateReport(reportPayload);
+        assertEvidenceGateReport(reportPayload, {
+          allowLegacyTerminalProtocol: legacyTerminalProtocol
+        });
         commitEvidenceReport(preparedAttestation, { payload: attestation });
+        assertLockHealthy();
         commitEvidenceReport(preparedReport, { payload: reportPayload });
+        assertLockHealthy();
       } finally {
         abortEvidenceReport(preparedAttestation);
         abortEvidenceReport(preparedReport);
@@ -694,10 +747,27 @@ function main() {
         expectedMetadataEpoch: terminalState.metadataEpoch
       });
     }
+    assertLockHealthy();
     finish(payload);
   } finally {
     abortMutationEpochMonitor(monitor);
   }
+}
+
+function main() {
+  const assertLockHealthy = () => assertEvidenceWriterLockOwned({ commonDir });
+  try {
+    assertLockHealthy();
+  } catch {
+    runEvidenceWriterUnderLock({
+      commonDir,
+      scriptPath: fileURLToPath(import.meta.url),
+      args: process.argv.slice(2)
+    });
+    return;
+  }
+  assertLockHealthy();
+  mainLocked(assertLockHealthy);
 }
 
 function finish(payload) {

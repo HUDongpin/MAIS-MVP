@@ -4,6 +4,7 @@ import path from "node:path";
 import { fileURLToPath } from "node:url";
 import {
   EVIDENCE_SCHEMA_VERSION,
+  MANIFEST_TRANSACTION_MONITOR_METADATA_PATHS,
   TRANSACTION_METADATA_PATHS,
   abortMutationEpochMonitor,
   assertArchiveSetEvidence,
@@ -215,7 +216,7 @@ function mainLocked(assertLockHealthy) {
     transactionMetadata: [
       {
         root: canonicalRoot,
-        exactRelativePaths: TRANSACTION_METADATA_PATHS
+        exactRelativePaths: MANIFEST_TRANSACTION_MONITOR_METADATA_PATHS
       },
       {
         root: commonDir,

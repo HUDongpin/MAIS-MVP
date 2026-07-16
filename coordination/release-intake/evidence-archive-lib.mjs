@@ -24,7 +24,17 @@ export const TRANSACTION_METADATA_PATHS = Object.freeze([
   "coordination/release-intake/archive/2026-06-30-A25-linked-worktree-archive-manifest.json",
   "coordination/release-intake/archive/2026-06-30-A25-linked-worktree-archive-manifest.md"
 ]);
+export const MANIFEST_TRANSACTION_MONITOR_METADATA_PATHS = Object.freeze([
+  ...TRANSACTION_METADATA_PATHS,
+  "coordination/release-intake/archive"
+]);
 const CHILD_PROCESS_TIMEOUT_MS = 120_000;
+const TAR_VERIFIER_MAX_TIMEOUT_MS = 15 * 60_000;
+const TAR_PAYLOAD_ERROR_STATUS = 65;
+const TAR_PAYLOAD_ERROR_SENTINEL = "MAIS_TAR_PAYLOAD_ERROR";
+const FILE_HASH_CHUNK_BYTES = 1024 * 1024;
+const ARCHIVE_ARTIFACT_MAX_BYTES = 8 * 1024 * 1024 * 1024;
+const ARCHIVE_INVENTORY_MAX_BYTES = 512 * 1024 * 1024;
 const AGGREGATE_PATCH_MAX_LINE_BYTES = 8 * 1024 * 1024;
 const YAML_MAX_TEXT_BYTES = 8 * 1024 * 1024;
 const YAML_MAX_DOCUMENT_COUNT = 1_024;
@@ -1025,8 +1035,14 @@ const STABLE_PROOF_HELPER_MAX_BUFFER_BYTES = 1024 * 1024 * 1024;
 const STABLE_PROOF_HELPER_MAX_PEAK_RSS_BYTES = 4 * 1024 * 1024 * 1024;
 const STABLE_PROOF_HELPER_MAX_OPEN_FDS = STABLE_PROOF_MAX_POLICIES + STABLE_PROOF_MAX_DEPTH + 64;
 const STABLE_PROOF_HELPER_TIMEOUT_MS = 5 * 60 * 1000;
+const GIT_CURRENTNESS_CAPTURE_MODE = "git-currentness-sparse-v1";
+const FULL_NAMESPACE_CAPTURE_MODE = "full-namespace-v2";
+const GIT_CURRENTNESS_SCOPE_TIMEOUT_MS = 5 * 60 * 1000;
+const GIT_CURRENTNESS_GIT_TIMEOUT_MS = 30 * 1000;
+const TYPED_FSEVENTS_ACK_TIMEOUT_MS = 60_000;
 const STABLE_PROOF_VALIDATED_SNAPSHOTS = new WeakSet();
 const STABLE_PROOF_SNAPSHOT_PROVENANCE = new WeakMap();
+const GIT_CURRENTNESS_PROOF_SCOPES = new WeakMap();
 const STABLE_PROOF_OBSERVATION_FIELDS = Object.freeze([
   "dev", "ino", "uid", "gid", "mode", "nlink", "size", "mtimeNs", "ctimeNs"
 ]);
@@ -1130,6 +1146,9 @@ def list_names(descriptor, entry_limit, maximum_directory_name_bytes, maximum_pa
 def main():
     request = json.load(sys.stdin)
     policies = request["policies"]
+    capture_mode = request.get("captureMode", "full-namespace-v2")
+    if capture_mode not in ("full-namespace-v2", "git-currentness-sparse-v1"):
+        fail("stable proof capture mode is invalid")
     maximum_paths = request["maxPaths"]
     maximum_depth = request["maxDepth"]
     maximum_directory_name_bytes = request["maxDirectoryNameBytes"]
@@ -1325,6 +1344,103 @@ def main():
             for descriptor in reversed(descriptors):
                 os.close(descriptor)
 
+    def capture_selected_directory(parent_descriptor, name, display_path, initial):
+        descriptor = os.open(
+            name,
+            os.O_RDONLY | os.O_DIRECTORY | os.O_NOFOLLOW | getattr(os, "O_CLOEXEC", 0),
+            dir_fd=parent_descriptor,
+        )
+        try:
+            before = os.fstat(descriptor)
+            assert_type(before, "directory", "stable proof selected directory")
+            assert_same(initial, before, "stable proof selected directory open")
+            names = list_names(
+                descriptor,
+                maximum_paths,
+                maximum_directory_name_bytes,
+                maximum_path_bytes,
+            )
+            names_after = list_names(
+                descriptor,
+                len(names),
+                maximum_directory_name_bytes,
+                maximum_path_bytes,
+            )
+            if names_after != names:
+                fail("stable proof selected directory namespace changed during capture")
+            after = os.fstat(descriptor)
+            visible = os.stat(name, dir_fd=parent_descriptor, follow_symlinks=False)
+            assert_same(before, after, "stable proof held selected directory")
+            assert_same(before, visible, "stable proof selected directory rebind")
+            add(display_path, {"type": "directory", **observation(after), "names": names})
+        finally:
+            os.close(descriptor)
+
+    def capture_selected(root_descriptor, relative_path, display_path):
+        reserve(display_path)
+        descriptors = [os.dup(root_descriptor)]
+        ancestors = []
+        missing_parent = None
+        missing_segment = None
+        try:
+            segments = relative_path.split("/")
+            if len(segments) > maximum_depth:
+                fail("stable proof selected path depth exceeds the hard cap")
+            captured = False
+            for index, segment in enumerate(segments):
+                parent_descriptor = descriptors[-1]
+                try:
+                    current = os.stat(segment, dir_fd=parent_descriptor, follow_symlinks=False)
+                except FileNotFoundError:
+                    missing_parent = parent_descriptor
+                    missing_segment = segment
+                    add(display_path, {"type": "tombstone"})
+                    captured = True
+                    break
+                if index < len(segments) - 1:
+                    if stat.S_ISLNK(current.st_mode) or not stat.S_ISDIR(current.st_mode):
+                        fail("stable proof selected path has an unsafe ancestor")
+                    child = os.open(
+                        segment,
+                        os.O_RDONLY | os.O_DIRECTORY | os.O_NOFOLLOW | getattr(os, "O_CLOEXEC", 0),
+                        dir_fd=parent_descriptor,
+                    )
+                    opened = os.fstat(child)
+                    try:
+                        assert_same(current, opened, "stable proof selected ancestor open")
+                    except Exception:
+                        os.close(child)
+                        raise
+                    ancestors.append((parent_descriptor, segment, current, child))
+                    descriptors.append(child)
+                    continue
+                if stat.S_ISLNK(current.st_mode):
+                    capture_symlink(parent_descriptor, segment, display_path, current)
+                elif stat.S_ISREG(current.st_mode):
+                    capture_regular(parent_descriptor, segment, display_path, current)
+                elif stat.S_ISDIR(current.st_mode):
+                    capture_selected_directory(parent_descriptor, segment, display_path, current)
+                else:
+                    fail("stable proof selected path has an unsupported special file type")
+                captured = True
+            if not captured:
+                fail("stable proof selected path traversal terminated unexpectedly")
+            for parent, segment, expected, child in reversed(ancestors):
+                held = os.fstat(child)
+                rebound = os.stat(segment, dir_fd=parent, follow_symlinks=False)
+                assert_same(expected, held, "stable proof held selected ancestor")
+                assert_same(expected, rebound, "stable proof rebound selected ancestor")
+            if missing_parent is not None:
+                try:
+                    os.stat(missing_segment, dir_fd=missing_parent, follow_symlinks=False)
+                except FileNotFoundError:
+                    pass
+                else:
+                    fail("stable proof selected tombstone appeared during capture")
+        finally:
+            for descriptor in reversed(descriptors):
+                os.close(descriptor)
+
     try:
         for policy in policies:
             root = policy["root"]
@@ -1344,13 +1460,20 @@ def main():
 
         for policy, anchor in zip(policies, anchors):
             root, descriptor, opened = anchor
-            if root not in records:
-                reserve(root)
-                capture_directory(descriptor, root, opened, 0)
-            for relative_path in policy["trackedRelativePaths"]:
-                display_path = os.path.join(root, *relative_path.split("/"))
-                if display_path not in records:
-                    capture_tombstone(descriptor, relative_path, display_path)
+            if capture_mode == "full-namespace-v2":
+                if root not in records:
+                    reserve(root)
+                    capture_directory(descriptor, root, opened, 0)
+                for relative_path in policy["trackedRelativePaths"]:
+                    display_path = os.path.join(root, *relative_path.split("/"))
+                    if display_path not in records:
+                        capture_tombstone(descriptor, relative_path, display_path)
+            else:
+                for relative_path in policy["trackedRelativePaths"]:
+                    display_path = os.path.join(root, *relative_path.split("/"))
+                    if display_path in records:
+                        fail("stable proof sparse policy selected a duplicate absolute path")
+                    capture_selected(descriptor, relative_path, display_path)
 
         for root, descriptor, opened in anchors:
             held = os.fstat(descriptor)
@@ -1508,7 +1631,14 @@ function stableProofFreezeProof(value, label) {
   return Object.freeze({ ...value, names: Object.freeze(names) });
 }
 
-function stableProofRunDescriptorWalker(normalizedPolicies, maxPaths) {
+function stableProofRunDescriptorWalker(
+  normalizedPolicies,
+  maxPaths,
+  captureMode = FULL_NAMESPACE_CAPTURE_MODE
+) {
+  if (![FULL_NAMESPACE_CAPTURE_MODE, GIT_CURRENTNESS_CAPTURE_MODE].includes(captureMode)) {
+    throw new Error("stable proof capture mode is invalid");
+  }
   const policyRootSet = new Set(normalizedPolicies.map((policy) => policy.root));
   const belongsToPolicyRoot = (candidate) => {
     let cursor = candidate;
@@ -1520,6 +1650,7 @@ function stableProofRunDescriptorWalker(normalizedPolicies, maxPaths) {
     }
   };
   const request = Buffer.from(JSON.stringify({
+    captureMode,
     maxDepth: STABLE_PROOF_MAX_DEPTH,
     maxDirectoryNameBytes: STABLE_PROOF_MAX_DIRECTORY_NAME_BYTES,
     maxFileBytes: STABLE_PROOF_MAX_FILE_BYTES,
@@ -1600,13 +1731,26 @@ function stableProofRunDescriptorWalker(normalizedPolicies, maxPaths) {
   if (!Number.isSafeInteger(observedRegularBytes) || observedRegularBytes !== decoded.regularBytes) {
     throw new Error("stable proof descriptor result regular byte sum is inconsistent");
   }
-  for (const entry of entries) {
-    if (entry.proof.type !== "directory") continue;
-    for (const name of entry.proof.names) {
-      const child = path.join(entry.path, name);
-      if (!Object.hasOwn(proofByPath, child) || proofByPath[child].type === "tombstone") {
-        throw new Error("stable proof directory namespace is incomplete");
+  if (captureMode === FULL_NAMESPACE_CAPTURE_MODE) {
+    for (const entry of entries) {
+      if (entry.proof.type !== "directory") continue;
+      for (const name of entry.proof.names) {
+        const child = path.join(entry.path, name);
+        if (!Object.hasOwn(proofByPath, child) || proofByPath[child].type === "tombstone") {
+          throw new Error("stable proof directory namespace is incomplete");
+        }
       }
+    }
+  } else {
+    const selectedPaths = new Set(normalizedPolicies.flatMap((policy) => (
+      policy.trackedRelativePaths.map((relativePath) => path.join(
+        policy.root,
+        ...relativePath.split("/")
+      ))
+    )));
+    if (selectedPaths.size !== entries.length
+      || entries.some((entry) => !selectedPaths.has(entry.path))) {
+      throw new Error("stable proof sparse descriptor result escaped its frozen selection");
     }
   }
   Object.freeze(proofByPath);
@@ -1618,7 +1762,12 @@ function stableProofRunDescriptorWalker(normalizedPolicies, maxPaths) {
   };
 }
 
-function stableProofBuildSnapshot(normalizedPolicies, walked) {
+function stableProofBuildSnapshot(normalizedPolicies, walked, {
+  captureMode = FULL_NAMESPACE_CAPTURE_MODE,
+  contractFingerprint = null,
+  scopeToken = null,
+  selectionFingerprint = null
+} = {}) {
   const policies = Object.freeze(normalizedPolicies.map((policy) => Object.freeze({
     root: policy.root,
     trackedRelativePaths: Object.freeze([...policy.trackedRelativePaths])
@@ -1627,7 +1776,12 @@ function stableProofBuildSnapshot(normalizedPolicies, walked) {
   const fingerprintBasis = {
     entries: walked.entries,
     policies,
-    schemaVersion: STABLE_PROOF_SNAPSHOT_SCHEMA_VERSION
+    schemaVersion: STABLE_PROOF_SNAPSHOT_SCHEMA_VERSION,
+    ...(captureMode === GIT_CURRENTNESS_CAPTURE_MODE ? {
+      captureMode,
+      contractFingerprint,
+      selectionFingerprint
+    } : {})
   };
   const lookup = Object.freeze((absolutePath) => (
     typeof absolutePath === "string" && Object.hasOwn(walked.proofByPath, absolutePath)
@@ -1649,7 +1803,13 @@ function stableProofBuildSnapshot(normalizedPolicies, walked) {
   STABLE_PROOF_VALIDATED_SNAPSHOTS.add(snapshot);
   STABLE_PROOF_SNAPSHOT_PROVENANCE.set(
     snapshot,
-    Object.freeze({ captureOrdinal: typedFseventsNextProvenanceOrdinal() })
+    Object.freeze({
+      captureMode,
+      captureOrdinal: typedFseventsNextProvenanceOrdinal(),
+      contractFingerprint,
+      scopeToken,
+      selectionFingerprint
+    })
   );
   return snapshot;
 }
@@ -1668,17 +1828,13 @@ function stableProofInvokeHooks(snapshot, hooks) {
   }
 }
 
-export function captureStableProofSnapshot({ policies, hooks: rawHooks = {}, maxPaths = STABLE_PROOF_MAX_PATHS } = {}) {
+function stableProofNormalizePolicies(policies) {
   if (!Array.isArray(policies) || policies.length === 0) {
     throw new Error("stable proof policies must be a nonempty array");
   }
   if (policies.length > STABLE_PROOF_MAX_POLICIES) {
     throw new Error(`stable proof policies exceed the ${STABLE_PROOF_MAX_POLICIES} hard cap`);
   }
-  if (!Number.isSafeInteger(maxPaths) || maxPaths < 1 || maxPaths > STABLE_PROOF_MAX_PATHS) {
-    throw new Error(`stable proof maxPaths must be between 1 and ${STABLE_PROOF_MAX_PATHS}`);
-  }
-  const hooks = stableProofHooks(rawHooks);
   let totalPolicyBytes = 0;
   let totalTrackedPaths = 0;
   const normalizedPolicies = policies.map((policy, policyIndex) => {
@@ -1724,19 +1880,443 @@ export function captureStableProofSnapshot({ policies, hooks: rawHooks = {}, max
       throw new Error("stable proof policy roots duplicate one another");
     }
   }
+  return Object.freeze(normalizedPolicies);
+}
+
+export function captureStableProofSnapshot({ policies, hooks: rawHooks = {}, maxPaths = STABLE_PROOF_MAX_PATHS } = {}) {
+  if (!Number.isSafeInteger(maxPaths) || maxPaths < 1 || maxPaths > STABLE_PROOF_MAX_PATHS) {
+    throw new Error(`stable proof maxPaths must be between 1 and ${STABLE_PROOF_MAX_PATHS}`);
+  }
+  const hooks = stableProofHooks(rawHooks);
+  const normalizedPolicies = stableProofNormalizePolicies(policies);
 
   const first = stableProofBuildSnapshot(
     normalizedPolicies,
-    stableProofRunDescriptorWalker(normalizedPolicies, maxPaths)
+    stableProofRunDescriptorWalker(normalizedPolicies, maxPaths, FULL_NAMESPACE_CAPTURE_MODE)
   );
   if (Object.keys(hooks).length === 0) return first;
   stableProofInvokeHooks(first, hooks);
   const second = stableProofBuildSnapshot(
     normalizedPolicies,
-    stableProofRunDescriptorWalker(normalizedPolicies, maxPaths)
+    stableProofRunDescriptorWalker(normalizedPolicies, maxPaths, FULL_NAMESPACE_CAPTURE_MODE)
   );
   if (first.sha256 !== second.sha256) {
     throw new Error("stable proof root/namespace snapshot changed across the deterministic hook seam");
+  }
+  return second;
+}
+
+function gitCurrentnessPathIsWithin(candidate, root) {
+  const relative = path.relative(root, candidate);
+  return relative === "" || (!relative.startsWith(`..${path.sep}`) && relative !== "..");
+}
+
+function gitCurrentnessGitBuffer(
+  root,
+  args,
+  deadlineMs = Date.now() + GIT_CURRENTNESS_SCOPE_TIMEOUT_MS
+) {
+  const remainingMs = deadlineMs - Date.now();
+  if (!Number.isSafeInteger(deadlineMs) || remainingMs <= 0) {
+    throw new Error("Git currentness scope exceeded its absolute deadline");
+  }
+  return execFileSync("git", args, {
+    cwd: root,
+    encoding: null,
+    env: { ...process.env, GIT_OPTIONAL_LOCKS: "0" },
+    maxBuffer: STABLE_PROOF_MAX_POLICY_BYTES,
+    timeout: Math.max(1, Math.min(GIT_CURRENTNESS_GIT_TIMEOUT_MS, remainingMs)),
+    stdio: ["ignore", "pipe", "pipe"]
+  });
+}
+
+function gitCurrentnessGitPath(root, argument, label, deadlineMs) {
+  const output = gitCurrentnessGitBuffer(root, [
+    "rev-parse",
+    "--path-format=absolute",
+    argument
+  ], deadlineMs);
+  if (!Buffer.isBuffer(output) || output.length < 2 || output.at(-1) !== 0x0a
+    || !isUtf8(output.subarray(0, -1))) {
+    throw new Error(`${label} is not one canonical UTF-8 path`);
+  }
+  const decoded = output.subarray(0, -1).toString("utf8");
+  if (decoded.length === 0 || decoded.includes("\n") || decoded.includes("\0")) {
+    throw new Error(`${label} is not one canonical UTF-8 path`);
+  }
+  return stableProofCanonicalRoot(fs.realpathSync(decoded), label);
+}
+
+function gitCurrentnessStatusPaths(root, deadlineMs, maxPaths = STABLE_PROOF_MAX_PATHS) {
+  const args = [
+    "status",
+    "--porcelain=v1",
+    "-z",
+    "--untracked-files=all",
+    "--ignored=no"
+  ];
+  const first = gitCurrentnessGitBuffer(root, args, deadlineMs);
+  const second = gitCurrentnessGitBuffer(root, args, deadlineMs);
+  if (!first.equals(second)) {
+    throw new Error("Git currentness baseline inventory changed across its double read");
+  }
+  if (first.length === 0) return Object.freeze([]);
+  if (first.at(-1) !== 0 || !isUtf8(first)) {
+    throw new Error("Git currentness baseline inventory is not strict NUL-terminated UTF-8");
+  }
+  const records = first.subarray(0, -1).toString("utf8").split("\0");
+  const selected = [];
+  const addPath = (value, label) => {
+    selected.push(stableProofTrackedRelativePath(value, label));
+    if (selected.length > maxPaths) {
+      throw new Error("Git currentness baseline inventory exceeds its path budget");
+    }
+  };
+  for (let index = 0; index < records.length; index += 1) {
+    const record = records[index];
+    if (record.length < 4 || record[2] !== " ") {
+      throw new Error("Git currentness baseline status record is invalid");
+    }
+    const status = record.slice(0, 2);
+    if (!/^(?:[ MADRCUT?][ MADRCUT?]|\?\?)$/u.test(status) || status === "!!") {
+      throw new Error("Git currentness baseline status code is invalid");
+    }
+    addPath(record.slice(3), `Git currentness status path ${index}`);
+    if (/[RC]/u.test(status)) {
+      index += 1;
+      if (index >= records.length) {
+        throw new Error("Git currentness rename status is missing its origin path");
+      }
+      addPath(records[index], `Git currentness rename origin ${index}`);
+    }
+  }
+  return Object.freeze([...new Set(selected)].sort(stableProofByteOrder));
+}
+
+function gitCurrentnessAddExistingLeaf(leaves, candidate, containmentRoot, label) {
+  let status;
+  try {
+    status = fs.lstatSync(candidate);
+  } catch (error) {
+    if (error?.code === "ENOENT") return;
+    throw error;
+  }
+  if (!gitCurrentnessPathIsWithin(candidate, containmentRoot)) {
+    throw new Error(`${label} escaped the trusted Git common directory`);
+  }
+  if (status.isSymbolicLink() || status.isFile()) {
+    leaves.add(path.normalize(candidate));
+    return;
+  }
+  if (!status.isDirectory()) throw new Error(`${label} is an unsupported special file`);
+}
+
+function gitCurrentnessAddTreeLeaves(
+  leaves,
+  candidate,
+  containmentRoot,
+  label,
+  deadlineMs,
+  maxPaths
+) {
+  const pending = [candidate];
+  while (pending.length > 0) {
+    if (Date.now() >= deadlineMs) {
+      throw new Error("Git currentness scope exceeded its absolute deadline");
+    }
+    const current = pending.pop();
+    let status;
+    try {
+      status = fs.lstatSync(current);
+    } catch (error) {
+      if (error?.code === "ENOENT") continue;
+      throw error;
+    }
+    if (!gitCurrentnessPathIsWithin(current, containmentRoot)) {
+      throw new Error(`${label} escaped the trusted Git common directory`);
+    }
+    if (status.isSymbolicLink() || status.isFile()) {
+      leaves.add(path.normalize(current));
+      if (leaves.size > maxPaths) {
+        throw new Error("Git currentness controls exceed their path budget");
+      }
+      continue;
+    }
+    if (!status.isDirectory()) throw new Error(`${label} contains an unsupported special file`);
+    const names = fs.readdirSync(current).sort(stableProofByteOrder).reverse();
+    for (const name of names) pending.push(path.join(current, name));
+    if (pending.length + leaves.size > maxPaths) {
+      throw new Error("Git currentness controls exceed their path budget");
+    }
+  }
+}
+
+function gitCurrentnessControlLeaves(trustedGitCommonDir, deadlineMs, maxPaths) {
+  const leaves = new Set();
+  for (const relativePath of [
+    "HEAD",
+    "index",
+    "packed-refs",
+    "config",
+    "config.worktree",
+    "info/exclude",
+    "info/sparse-checkout"
+  ]) {
+    gitCurrentnessAddExistingLeaf(
+      leaves,
+      path.join(trustedGitCommonDir, ...relativePath.split("/")),
+      trustedGitCommonDir,
+      "Git currentness control leaf"
+    );
+    if (leaves.size > maxPaths) throw new Error("Git currentness controls exceed their path budget");
+  }
+  gitCurrentnessAddTreeLeaves(
+    leaves,
+    path.join(trustedGitCommonDir, "refs", "heads"),
+    trustedGitCommonDir,
+    "Git currentness branch refs",
+    deadlineMs,
+    maxPaths
+  );
+  const worktreesRoot = path.join(trustedGitCommonDir, "worktrees");
+  let entries = [];
+  try {
+    entries = fs.readdirSync(worktreesRoot).sort(stableProofByteOrder);
+  } catch (error) {
+    if (error?.code !== "ENOENT") throw error;
+  }
+  for (const entry of entries) {
+    if (Date.now() >= deadlineMs) {
+      throw new Error("Git currentness scope exceeded its absolute deadline");
+    }
+    const entryRoot = path.join(worktreesRoot, entry);
+    const status = fs.lstatSync(entryRoot);
+    if (status.isSymbolicLink() || !status.isDirectory()) {
+      throw new Error("Git currentness linked-worktree control entry is unsafe");
+    }
+    for (const name of ["HEAD", "index", "gitdir", "commondir", "locked"]) {
+      gitCurrentnessAddExistingLeaf(
+        leaves,
+        path.join(entryRoot, name),
+        trustedGitCommonDir,
+        "Git currentness linked-worktree control leaf"
+      );
+      if (leaves.size > maxPaths) throw new Error("Git currentness controls exceed their path budget");
+    }
+  }
+  return leaves;
+}
+
+export function createGitCurrentnessProofScope({
+  maxPaths = STABLE_PROOF_MAX_PATHS,
+  policies,
+  trustedGitCommonDir
+} = {}) {
+  if (!Number.isSafeInteger(maxPaths) || maxPaths < 1 || maxPaths > STABLE_PROOF_MAX_PATHS) {
+    throw new Error(`Git currentness maxPaths must be between 1 and ${STABLE_PROOF_MAX_PATHS}`);
+  }
+  if (!Array.isArray(policies) || policies.length === 0
+    || policies.length > STABLE_PROOF_MAX_POLICIES) {
+    throw new Error("Git currentness policies must be a bounded nonempty array");
+  }
+  const deadlineMs = Date.now() + GIT_CURRENTNESS_SCOPE_TIMEOUT_MS;
+  const contractPolicies = policies.map((policy, policyIndex) => {
+    stableProofExactKeys(
+      policy,
+      ["exactMetadataPaths", "exactMetadataRoots", "root"],
+      `Git currentness policy ${policyIndex}`
+    );
+    const root = stableProofCanonicalRoot(policy.root, `Git currentness policy ${policyIndex} root`);
+    if (!Array.isArray(policy.exactMetadataPaths) || !Array.isArray(policy.exactMetadataRoots)) {
+      throw new Error(`Git currentness policy ${policyIndex} metadata selections are invalid`);
+    }
+    const exactMetadataPaths = policy.exactMetadataPaths.map((relativePath, pathIndex) => (
+      stableProofTrackedRelativePath(
+        relativePath,
+        `Git currentness policy ${policyIndex} metadata path ${pathIndex}`
+      )
+    ));
+    if (new Set(exactMetadataPaths).size !== exactMetadataPaths.length) {
+      throw new Error(`Git currentness policy ${policyIndex} metadata paths duplicate`);
+    }
+    const exactMetadataRoots = policy.exactMetadataRoots.map((metadataRoot, rootIndex) => {
+      if (typeof metadataRoot !== "string" || !path.isAbsolute(metadataRoot)
+        || path.normalize(metadataRoot) !== metadataRoot
+        || !gitCurrentnessPathIsWithin(metadataRoot, root)) {
+        throw new Error(`Git currentness policy ${policyIndex} metadata root ${rootIndex} is invalid`);
+      }
+      return metadataRoot;
+    });
+    return Object.freeze({
+      exactMetadataPaths: Object.freeze([...exactMetadataPaths].sort(stableProofByteOrder)),
+      exactMetadataRoots: Object.freeze([...new Set(exactMetadataRoots)].sort(stableProofByteOrder)),
+      root
+    });
+  }).sort((left, right) => stableProofByteOrder(left.root, right.root));
+  if (new Set(contractPolicies.map((policy) => policy.root)).size !== contractPolicies.length) {
+    throw new Error("Git currentness policy roots duplicate one another");
+  }
+  const commonDirectoryWasExplicit = trustedGitCommonDir !== null
+    && trustedGitCommonDir !== undefined;
+  let commonDirectoryCandidate = trustedGitCommonDir;
+  if (!commonDirectoryWasExplicit) {
+    const sourcePolicy = contractPolicies.find((policy) => {
+      try {
+        const dotGit = fs.lstatSync(path.join(policy.root, ".git"));
+        return dotGit.isFile() || dotGit.isDirectory() || dotGit.isSymbolicLink();
+      } catch {
+        return false;
+      }
+    });
+    if (!sourcePolicy) {
+      throw new Error("Git currentness could not derive a source common directory");
+    }
+    commonDirectoryCandidate = gitCurrentnessGitPath(
+      sourcePolicy.root,
+      "--git-common-dir",
+      "Git currentness derived common directory",
+      deadlineMs
+    );
+  }
+  const canonicalCommonDir = stableProofCanonicalRoot(
+    commonDirectoryCandidate,
+    "Git currentness trusted common directory"
+  );
+  const commonDirectoryIsPolicyRoot = contractPolicies.some(
+    (policy) => policy.root === canonicalCommonDir
+  );
+  if (commonDirectoryWasExplicit && !commonDirectoryIsPolicyRoot) {
+    throw new Error("Git currentness trusted common directory must be an exact policy root");
+  }
+
+  const selectedAbsolutePaths = commonDirectoryIsPolicyRoot
+    ? gitCurrentnessControlLeaves(canonicalCommonDir, deadlineMs, maxPaths)
+    : new Set();
+  const sourceAdminDirectories = [];
+  for (const policy of contractPolicies) {
+    if (Date.now() >= deadlineMs) {
+      throw new Error("Git currentness scope exceeded its absolute deadline");
+    }
+    for (const relativePath of policy.exactMetadataPaths) {
+      selectedAbsolutePaths.add(path.resolve(policy.root, ...relativePath.split("/")));
+    }
+    if (policy.root === canonicalCommonDir) continue;
+    const observedCommonDir = gitCurrentnessGitPath(
+      policy.root,
+      "--git-common-dir",
+      "Git currentness observed common directory",
+      deadlineMs
+    );
+    if (observedCommonDir !== canonicalCommonDir) {
+      throw new Error("Git currentness source root is bound to a different common directory");
+    }
+    const adminDir = gitCurrentnessGitPath(
+      policy.root,
+      "--git-dir",
+      "Git currentness source admin directory",
+      deadlineMs
+    );
+    const linkedAdminRoot = path.join(canonicalCommonDir, "worktrees");
+    if (adminDir !== canonicalCommonDir && !gitCurrentnessPathIsWithin(adminDir, linkedAdminRoot)) {
+      throw new Error("Git currentness source admin directory escaped the trusted worktree controls");
+    }
+    sourceAdminDirectories.push(Object.freeze({ adminDir, sourceRoot: policy.root }));
+    const dotGit = path.join(policy.root, ".git");
+    const dotGitStatus = fs.lstatSync(dotGit);
+    if (dotGitStatus.isFile() || dotGitStatus.isSymbolicLink()) {
+      selectedAbsolutePaths.add(dotGit);
+    } else if (!dotGitStatus.isDirectory() || fs.realpathSync(dotGit) !== canonicalCommonDir) {
+      throw new Error("Git currentness source .git control is unsafe");
+    }
+    for (const relativePath of gitCurrentnessStatusPaths(policy.root, deadlineMs, maxPaths)) {
+      selectedAbsolutePaths.add(path.resolve(policy.root, ...relativePath.split("/")));
+      if (selectedAbsolutePaths.size > maxPaths) {
+        throw new Error("Git currentness frozen selection exceeds its path budget");
+      }
+    }
+  }
+
+  const selectedByRoot = new Map(contractPolicies.map((policy) => [policy.root, new Set()]));
+  const orderedOwners = [...contractPolicies].sort((left, right) => (
+    right.root.length - left.root.length || stableProofByteOrder(left.root, right.root)
+  ));
+  for (const absolutePath of selectedAbsolutePaths) {
+    const owner = orderedOwners.find((policy) => gitCurrentnessPathIsWithin(absolutePath, policy.root));
+    if (!owner) throw new Error("Git currentness selected path escaped every logical root");
+    const relativePath = path.relative(owner.root, absolutePath).split(path.sep).join("/");
+    if (relativePath === "") throw new Error("Git currentness selection cannot use a policy root as a leaf");
+    selectedByRoot.get(owner.root).add(stableProofTrackedRelativePath(
+      relativePath,
+      "Git currentness selected relative path"
+    ));
+  }
+  const normalizedPolicies = stableProofNormalizePolicies(contractPolicies.map((policy) => ({
+    root: policy.root,
+    trackedRelativePaths: [...selectedByRoot.get(policy.root)].sort(stableProofByteOrder)
+  })));
+  const pathCount = normalizedPolicies.reduce(
+    (sum, policy) => sum + policy.trackedRelativePaths.length,
+    0
+  );
+  if (pathCount < 1 || pathCount > maxPaths) {
+    throw new Error("Git currentness frozen selection exceeds its path budget");
+  }
+  const contractFingerprint = sha256Buffer(Buffer.from(stableJson({
+    policies: contractPolicies,
+    sourceAdminDirectories: sourceAdminDirectories.sort((left, right) => (
+      stableProofByteOrder(left.sourceRoot, right.sourceRoot)
+    )),
+    trustedGitCommonDir: canonicalCommonDir
+  })));
+  const selectionFingerprint = sha256Buffer(Buffer.from(stableJson(normalizedPolicies)));
+  const scope = Object.freeze({
+    captureMode: GIT_CURRENTNESS_CAPTURE_MODE,
+    contractFingerprint,
+    pathCount,
+    selectionFingerprint
+  });
+  GIT_CURRENTNESS_PROOF_SCOPES.set(scope, Object.freeze({
+    contractFingerprint,
+    maxPaths,
+    normalizedPolicies,
+    scopeToken: Object.freeze({}),
+    selectionFingerprint
+  }));
+  return scope;
+}
+
+export function captureGitCurrentnessProofSnapshot({
+  hooks: rawHooks = {},
+  scope
+} = {}) {
+  const binding = (typeof scope === "object" || typeof scope === "function")
+    && scope !== null
+    ? GIT_CURRENTNESS_PROOF_SCOPES.get(scope)
+    : undefined;
+  if (binding === undefined) {
+    throw new Error("Git currentness capture requires an exact module-branded proof scope");
+  }
+  const hooks = stableProofHooks(rawHooks);
+  const build = () => stableProofBuildSnapshot(
+    binding.normalizedPolicies,
+    stableProofRunDescriptorWalker(
+      binding.normalizedPolicies,
+      binding.maxPaths,
+      GIT_CURRENTNESS_CAPTURE_MODE
+    ),
+    {
+      captureMode: GIT_CURRENTNESS_CAPTURE_MODE,
+      contractFingerprint: binding.contractFingerprint,
+      scopeToken: binding.scopeToken,
+      selectionFingerprint: binding.selectionFingerprint
+    }
+  );
+  const first = build();
+  if (Object.keys(hooks).length === 0) return first;
+  stableProofInvokeHooks(first, hooks);
+  const second = build();
+  if (first.sha256 !== second.sha256) {
+    throw new Error("Git currentness snapshot changed across the deterministic hook seam");
   }
   return second;
 }
@@ -2222,15 +2802,21 @@ export function normalizeTypedFseventsAckCheckpoint({
 }
 
 function typedFseventsRelativeToAnyRoot(candidate, roots) {
+  let selectedRoot = null;
   for (const root of roots) {
     if (!typedFseventsPathIsWithin(candidate, root) || candidate === root) continue;
-    const relativePath = path.posix.relative(root, candidate);
-    if (relativePath.length > 0
-      && relativePath !== ".."
-      && !relativePath.startsWith("../")
-      && !path.posix.isAbsolute(relativePath)) return relativePath;
+    if (selectedRoot === null || Buffer.byteLength(root) > Buffer.byteLength(selectedRoot)) {
+      selectedRoot = root;
+    }
   }
-  return null;
+  if (selectedRoot === null) return null;
+  const relativePath = path.posix.relative(selectedRoot, candidate);
+  return relativePath.length > 0
+    && relativePath !== ".."
+    && !relativePath.startsWith("../")
+    && !path.posix.isAbsolute(relativePath)
+    ? relativePath
+    : null;
 }
 
 function typedFseventsTrustedGitCommonDir(value, roots) {
@@ -2305,12 +2891,15 @@ function typedFseventsMetadataPolicy(
   exactMetadataPaths,
   exactMetadataRoots,
   roots,
-  trustedGitCommonDir
+  trustedGitCommonDir,
+  metadataOwnerPid
 ) {
   if (!Array.isArray(exactMetadataPaths)
     || exactMetadataPaths.length > TRANSACTION_METADATA_PATHS.length + 1
     || !Array.isArray(exactMetadataRoots)
-    || exactMetadataRoots.length > 1) {
+    || exactMetadataRoots.length > 1
+    || !Number.isSafeInteger(metadataOwnerPid)
+    || metadataOwnerPid <= 1) {
     throw new Error("typed FSEvents metadata policy exceeds its count cap");
   }
   const metadataPaths = [...typedFseventsCanonicalPathSet(
@@ -2349,7 +2938,7 @@ function typedFseventsMetadataPolicy(
     if (relativePath === null
       || path.posix.dirname(relativePath) !== expectedParent
       || !match
-      || Number(match[1]) !== process.pid
+      || Number(match[1]) !== metadataOwnerPid
       || !UUID_PATTERN.test(match[2])) {
       throw new Error("typed FSEvents exact metadata root is not module-approved");
     }
@@ -2360,6 +2949,7 @@ function typedFseventsMetadataPolicy(
     fingerprint: sha256Buffer(Buffer.from(JSON.stringify({
       exactMetadataPaths: frozenPaths,
       exactMetadataRoots: frozenRoots,
+      metadataOwnerPid,
       trustedGitCommonDir: trustedCommonDir
     }))),
     pathSet: new Set(frozenPaths),
@@ -2448,6 +3038,17 @@ function typedFseventsHasIndexedDescendant(pathIndex, changedPath) {
   return low < pathIndex.ordered.length && pathIndex.ordered[low].startsWith(prefix);
 }
 
+function typedFseventsHasIndexedAncestor(pathIndex, changedPath) {
+  let candidate = path.posix.dirname(changedPath);
+  while (true) {
+    if (pathIndex.exact.has(candidate)) return true;
+    if (candidate === "/") return false;
+    const parent = path.posix.dirname(candidate);
+    if (parent === candidate) return false;
+    candidate = parent;
+  }
+}
+
 function typedFseventsDirectoryDescendantChangeIsNamespaceOnly(priorProof, candidateProof) {
   if (priorProof?.type !== "directory" || candidateProof?.type !== "directory") return false;
   return ["dev", "ino", "uid", "gid", "mode"].every((field) => (
@@ -2481,8 +3082,17 @@ function typedFseventsAnyEventPathExplainsChange(
 }
 
 function typedFseventsSnapshotPoliciesEqual(left, right) {
-  return stableJson(left.policies) === stableJson(right.policies)
+  const leftProvenance = STABLE_PROOF_SNAPSHOT_PROVENANCE.get(left);
+  const rightProvenance = STABLE_PROOF_SNAPSHOT_PROVENANCE.get(right);
+  if (leftProvenance?.captureMode !== rightProvenance?.captureMode) return false;
+  const commonPolicy = stableJson(left.policies) === stableJson(right.policies)
     && typedFseventsSameOrderedStrings(left.roots, right.roots);
+  if (!commonPolicy) return false;
+  if (leftProvenance.captureMode === FULL_NAMESPACE_CAPTURE_MODE) return true;
+  return leftProvenance.captureMode === GIT_CURRENTNESS_CAPTURE_MODE
+    && leftProvenance.scopeToken === rightProvenance.scopeToken
+    && leftProvenance.contractFingerprint === rightProvenance.contractFingerprint
+    && leftProvenance.selectionFingerprint === rightProvenance.selectionFingerprint;
 }
 
 function typedFseventsSnapshotDifference({
@@ -2500,6 +3110,10 @@ function typedFseventsSnapshotDifference({
   let metadataChanged = false;
   let sourceChanged = false;
   let xattrCtimeChanged = false;
+  const priorProvenance = STABLE_PROOF_SNAPSHOT_PROVENANCE.get(priorSnapshot);
+  const candidateProvenance = STABLE_PROOF_SNAPSHOT_PROVENANCE.get(candidateSnapshot);
+  const sparseSourceAncestorMatching = priorProvenance?.captureMode === GIT_CURRENTNESS_CAPTURE_MODE
+    && candidateProvenance?.captureMode === GIT_CURRENTNESS_CAPTURE_MODE;
   const matchedCurrentXattrPaths = new Set();
   while (priorIndex < priorSnapshot.entries.length
     || candidateIndex < candidateSnapshot.entries.length) {
@@ -2560,12 +3174,18 @@ function typedFseventsSnapshotDifference({
       }
       continue;
     }
+    const sourcePathIndexes = [
+      currentEvidence.sourcePathIndex,
+      priorEvidence.sourcePathIndex
+    ];
     if (typedFseventsAnyEventPathExplainsChange(
-      [currentEvidence.sourcePathIndex, priorEvidence.sourcePathIndex],
+      sourcePathIndexes,
       eventPath,
       priorProof,
       candidateProof
-    )) {
+    ) || (sparseSourceAncestorMatching && sourcePathIndexes.some(
+      (pathIndex) => typedFseventsHasIndexedAncestor(pathIndex, eventPath)
+    ))) {
       sourceChanged = true;
       continue;
     }
@@ -2609,6 +3229,7 @@ export function readAndValidateJournalExtension({
   eventRoots,
   exactMetadataPaths = [],
   exactMetadataRoots = [],
+  metadataOwnerPid = process.pid,
   priorCheckpoint,
   priorSnapshot,
   trustedGitCommonDir = null
@@ -2654,7 +3275,8 @@ export function readAndValidateJournalExtension({
     exactMetadataPaths,
     exactMetadataRoots,
     roots,
-    trustedGitCommonDir
+    trustedGitCommonDir,
+    metadataOwnerPid
   );
   const metadataPathSet = metadataPolicy.pathSet;
   const metadataRoots = metadataPolicy.roots;
@@ -2679,7 +3301,10 @@ export function readAndValidateJournalExtension({
         metadataEventPaths.add(record.path);
         return;
       }
-      if (record.flagClass === "xattr-only"
+      const xattrSemanticCandidate = record.flagClass === "xattr-only"
+        || record.flags === 0x19000
+        || record.flags === 0x19100;
+      if (xattrSemanticCandidate
         && typedFseventsSameRegularSemanticProof(
           prior.lookup(record.path),
           candidate.lookup(record.path)
@@ -3667,6 +4292,7 @@ export function runTypedFseventsFixedCycle({
   exactMetadataPaths = [],
   exactMetadataRoots = [],
   flushAcknowledgement,
+  metadataOwnerPid = process.pid,
   nowNs,
   previous = null,
   trustedGitCommonDir = null
@@ -3675,7 +4301,9 @@ export function runTypedFseventsFixedCycle({
     || typeof flushAcknowledgement !== "function"
     || typeof nowNs !== "function"
     || !Array.isArray(exactMetadataPaths)
-    || !Array.isArray(exactMetadataRoots)) {
+    || !Array.isArray(exactMetadataRoots)
+    || !Number.isSafeInteger(metadataOwnerPid)
+    || metadataOwnerPid <= 1) {
     throw new Error("typed FSEvents fixed-cycle callbacks are invalid");
   }
   const roots = Object.freeze([...typedFseventsOrderedEventRoots(eventRoots)]);
@@ -3817,6 +4445,7 @@ export function runTypedFseventsFixedCycle({
         eventRoots: roots,
         exactMetadataPaths: metadataPaths,
         exactMetadataRoots: metadataRoots,
+        metadataOwnerPid,
         priorCheckpoint,
         priorSnapshot,
         trustedGitCommonDir
@@ -3944,8 +4573,14 @@ const TYPED_FSEVENTS_RECONCILIATION_CHILD_SOURCE = [
   `const STABLE_PROOF_HELPER_MAX_PEAK_RSS_BYTES = ${STABLE_PROOF_HELPER_MAX_PEAK_RSS_BYTES};`,
   `const STABLE_PROOF_HELPER_MAX_OPEN_FDS = ${STABLE_PROOF_HELPER_MAX_OPEN_FDS};`,
   `const STABLE_PROOF_HELPER_TIMEOUT_MS = ${STABLE_PROOF_HELPER_TIMEOUT_MS};`,
+  `const GIT_CURRENTNESS_CAPTURE_MODE = ${JSON.stringify(GIT_CURRENTNESS_CAPTURE_MODE)};`,
+  `const FULL_NAMESPACE_CAPTURE_MODE = ${JSON.stringify(FULL_NAMESPACE_CAPTURE_MODE)};`,
+  `const GIT_CURRENTNESS_SCOPE_TIMEOUT_MS = ${GIT_CURRENTNESS_SCOPE_TIMEOUT_MS};`,
+  `const GIT_CURRENTNESS_GIT_TIMEOUT_MS = ${GIT_CURRENTNESS_GIT_TIMEOUT_MS};`,
+  `const TYPED_FSEVENTS_ACK_TIMEOUT_MS = ${TYPED_FSEVENTS_ACK_TIMEOUT_MS};`,
   "const STABLE_PROOF_VALIDATED_SNAPSHOTS = new WeakSet();",
   "const STABLE_PROOF_SNAPSHOT_PROVENANCE = new WeakMap();",
+  "const GIT_CURRENTNESS_PROOF_SCOPES = new WeakMap();",
   `const STABLE_PROOF_OBSERVATION_FIELDS = Object.freeze(${JSON.stringify(STABLE_PROOF_OBSERVATION_FIELDS)});`,
   `const STABLE_PROOF_HOOK_KEYS = Object.freeze(${JSON.stringify(STABLE_PROOF_HOOK_KEYS)});`,
   `const STABLE_PROOF_DESCRIPTOR_WALKER = ${JSON.stringify(STABLE_PROOF_DESCRIPTOR_WALKER)};`,
@@ -3975,7 +4610,17 @@ const TYPED_FSEVENTS_RECONCILIATION_CHILD_SOURCE = [
   stableProofRunDescriptorWalker,
   stableProofBuildSnapshot,
   stableProofInvokeHooks,
+  stableProofNormalizePolicies,
   captureStableProofSnapshot,
+  gitCurrentnessPathIsWithin,
+  gitCurrentnessGitBuffer,
+  gitCurrentnessGitPath,
+  gitCurrentnessStatusPaths,
+  gitCurrentnessAddExistingLeaf,
+  gitCurrentnessAddTreeLeaves,
+  gitCurrentnessControlLeaves,
+  createGitCurrentnessProofScope,
+  captureGitCurrentnessProofSnapshot,
   decideTypedFseventsAcknowledgementWait,
   sameTypedFseventsFrameSnapshot,
   secureTypedFseventsFrame,
@@ -4004,6 +4649,7 @@ const TYPED_FSEVENTS_RECONCILIATION_CHILD_SOURCE = [
   typedFseventsEvidenceIsEmpty,
   typedFseventsEvidenceSummary,
   typedFseventsHasIndexedDescendant,
+  typedFseventsHasIndexedAncestor,
   typedFseventsDirectoryDescendantChangeIsNamespaceOnly,
   typedFseventsEventPathExplainsChange,
   typedFseventsAnyEventPathExplainsChange,
@@ -4565,7 +5211,7 @@ function readStableRegularFileNoFollow(absolutePath, {
   }
 }
 
-function prepareTypedFseventsBootstrap({ roots, scratch, watchMode }) {
+function prepareTypedFseventsBootstrap({ roots, scratch, trustedGitCommonDir, watchMode }) {
   if (process.platform !== "darwin" || watchMode !== "descriptor-sentinel") return null;
   const sourceEndpoint = readStableRegularFileNoFollow(TYPED_FSEVENTS_HELPER_SOURCE_PATH, {
     expectedMode: 0o644,
@@ -4632,6 +5278,9 @@ function prepareTypedFseventsBootstrap({ roots, scratch, watchMode }) {
   fs.mkdirSync(runtimeScratch, { mode: 0o700 });
   fs.chmodSync(runtimeScratch, 0o700);
   const canonicalRoots = [...roots].sort(stableProofByteOrder);
+  const canonicalTrustedGitCommonDir = trustedGitCommonDir === null
+    ? null
+    : typedFseventsTrustedGitCommonDir(trustedGitCommonDir, canonicalRoots);
   const rootsBuffer = Buffer.concat(canonicalRoots.flatMap((root) => [Buffer.from(root), Buffer.from([0])]));
   const rootsPath = path.join(runtimeScratch, "roots.config");
   const commandPath = path.join(runtimeScratch, "command.bin");
@@ -4671,6 +5320,7 @@ function prepareTypedFseventsBootstrap({ roots, scratch, watchMode }) {
     rootsPath,
     runtimeScratch,
     sourceSnapshotPath,
+    trustedGitCommonDir: canonicalTrustedGitCommonDir,
     typedHelperPidPath: path.join(scratch, "typed-helper-pid")
   };
 }
@@ -4726,6 +5376,9 @@ const rootDescriptorRecords = [];
 const sentinelRecords = new Map();
 const configuredSentinelPaths = new Set();
 const dynamicSentinelPaths = new Set();
+const objectControlObservations = new Map();
+const packedRefsObservations = new Map();
+const packedRefsObjectIdWidths = new Map();
 const MAX_SENTINEL_PATHS = 600000;
 let sourceEpoch = 0;
 let metadataEpoch = 0;
@@ -4740,11 +5393,15 @@ let expectedMetadataEpoch = null;
 let watchMode = "bootstrap";
 let recursiveProbeActive = true;
 let recursiveUnavailable = false;
+let bootstrapSentinelsCaptured = false;
 let typedFseventsChild = null;
 let typedFseventsPid = null;
 let typedCommandSequence = 1n;
 let typedAcknowledgement = null;
 let typedFsevents = null;
+let typedFseventsBaseline = null;
+let typedFseventsFixedPackage = null;
+let typedFseventsProofScope = null;
 const exactKeys = (value, keys) => value !== null
   && typeof value === "object"
   && !Array.isArray(value)
@@ -4841,7 +5498,7 @@ const publishTypedCommand = (type, commandSequence) => {
 const waitTypedAcknowledgement = (type, commandSequence, terminal = false) => {
   const previousAckInode = typedAcknowledgement?.visibleInode;
   const previousCommitInode = typedAcknowledgement?.commitVisibleInode;
-  const deadline = Date.now() + 15_000;
+  const deadline = Date.now() + TYPED_FSEVENTS_ACK_TIMEOUT_MS;
   const observe = () => {
     const candidate = readCommittedTypedAcknowledgement();
     const matches = candidate !== null && candidate.type === type
@@ -4907,6 +5564,151 @@ const typedJournalPrefix = (endpoint) => {
   }
   return endpoint.journalPrefix;
 };
+const typedExactMetadataPaths = () => Object.freeze(configuration.flatMap((policy) => (
+  policy.exactMetadataPaths.map((relativePath) => path.resolve(
+    policy.root,
+    ...relativePath.split("/")
+  ))
+)));
+const typedExactMetadataRoots = () => Object.freeze(configuration.flatMap((policy) => (
+  [...policy.exactMetadataRoots]
+)));
+const captureTypedFseventsSnapshot = () => {
+  if (typedFseventsProofScope === null) {
+    throw new Error("typed FSEvents Git-currentness proof scope is unavailable");
+  }
+  return captureGitCurrentnessProofSnapshot({ scope: typedFseventsProofScope });
+};
+const requestTypedFseventsFlush = () => {
+  publishTypedCommand(1, typedCommandSequence);
+  const acknowledgement = waitTypedAcknowledgement(2, typedCommandSequence);
+  typedCommandSequence += 1n;
+  return acknowledgement;
+};
+const typedFseventsSafeNumber = (value, label) => {
+  const normalized = typedFseventsUint64(value, label);
+  if (normalized > BigInt(Number.MAX_SAFE_INTEGER)) {
+    throw new Error(label + " exceeds the public safe-integer range");
+  }
+  return Number(normalized);
+};
+const typedFseventsDecimalOrNull = (value, label) => value === null
+  ? null
+  : typedFseventsUint64(value, label).toString(10);
+const typedFseventsPublication = (reconciliation) => {
+  if (reconciliation === null
+    || typeof reconciliation !== "object"
+    || !["fixed-point", "sealed"].includes(reconciliation.phase)) {
+    throw new Error("typed FSEvents public reconciliation is incomplete");
+  }
+  const checkpoint = reconciliation.checkpoint;
+  const counters = reconciliation.counters;
+  const publication = {
+    sourceEpoch: typedFseventsSafeNumber(reconciliation.sourceEpoch, "typed FSEvents source epoch"),
+    metadataEpoch: typedFseventsSafeNumber(reconciliation.metadataEpoch, "typed FSEvents metadata epoch"),
+    xattrEpoch: typedFseventsSafeNumber(reconciliation.xattrEpoch, "typed FSEvents xattr epoch"),
+    typedFsevents: {
+      droppedEventCount: counters.droppedEventCount.toString(10),
+      enabled: true,
+      eventRootCount: typedFseventsBootstrap.eventRootCount,
+      eventRootFingerprint: typedFseventsBootstrap.eventRootFingerprint,
+      helperBinarySha256: typedFseventsBootstrap.helperBinarySha256,
+      helperSourceSha256: typedFseventsBootstrap.helperSourceSha256,
+      journalEntryCount: counters.journalEntryCount.toString(10),
+      journalFirstEventId: typedFseventsDecimalOrNull(
+        reconciliation.journalFirstEventId,
+        "typed FSEvents first event ID"
+      ),
+      journalFlushSequence: reconciliation.endpointSequence.toString(10),
+      journalHighWater: checkpoint.highWater.toString(10),
+      journalLastEventId: typedFseventsDecimalOrNull(
+        reconciliation.journalLastEventId,
+        "typed FSEvents last event ID"
+      ),
+      journalLastFlushedEventId: typedFseventsDecimalOrNull(
+        reconciliation.journalLastEventId,
+        "typed FSEvents last flushed event ID"
+      ),
+      journalSha256: checkpoint.sha256,
+      materialEventCount: counters.materialEventCount.toString(10),
+      sourceEventCount: counters.sourceEventCount.toString(10),
+      transactionMetadataEventCount: counters.transactionMetadataEventCount.toString(10),
+      unknownEventCount: counters.unknownEventCount.toString(10),
+      unmatchedDeltaCount: counters.unmatchedDeltaCount.toString(10),
+      xattrOnlyEventCount: counters.xattrOnlyEventCount.toString(10)
+    }
+  };
+  return Object.freeze({
+    ...publication,
+    typedFsevents: Object.freeze(publication.typedFsevents)
+  });
+};
+const applyTypedFseventsPublication = (publication) => {
+  sourceEpoch = publication.sourceEpoch;
+  metadataEpoch = publication.metadataEpoch;
+  xattrEpoch = publication.xattrEpoch;
+  typedFsevents = publication.typedFsevents;
+};
+const reconcileTypedFseventsCycle = ({ exactMetadataRoots = null } = {}) => {
+  if (typedFseventsBaseline === null && typedFseventsFixedPackage === null) {
+    throw new Error("typed FSEvents reconciliation baseline is unavailable");
+  }
+  const nextPackage = runTypedFseventsFixedCycle({
+    ...(typedFseventsFixedPackage === null
+      ? { baseline: typedFseventsBaseline }
+      : { previous: typedFseventsFixedPackage }),
+    captureSnapshot: captureTypedFseventsSnapshot,
+    eventRoots: typedFseventsBootstrap.roots,
+    exactMetadataPaths: typedExactMetadataPaths(),
+    exactMetadataRoots: exactMetadataRoots === null
+      ? typedExactMetadataRoots()
+      : Object.freeze([...exactMetadataRoots]),
+    flushAcknowledgement: requestTypedFseventsFlush,
+    metadataOwnerPid: parentPid,
+    nowNs: () => process.hrtime.bigint(),
+    trustedGitCommonDir: typedFseventsBootstrap.trustedGitCommonDir
+  });
+  return Object.freeze({
+    fixedPackage: nextPackage,
+    publication: typedFseventsPublication(nextPackage.reconciliation)
+  });
+};
+const typedFseventsTerminalAttestation = (terminalExtension, reconciliation) => {
+  const classification = terminalExtension.classification;
+  const checkpoint = terminalExtension.checkpoint;
+  const counters = typedFseventsAdvanceCounters(
+    reconciliation.counters,
+    classification,
+    checkpoint
+  );
+  return Object.freeze({
+    schemaVersion: TYPED_FSEVENTS_RECONCILIATION_SCHEMA_VERSION,
+    checkpoint: Object.freeze({
+      entryCount: checkpoint.entryCount,
+      highWater: checkpoint.highWater,
+      lastEventId: checkpoint.lastEventId,
+      sha256: checkpoint.sha256
+    }),
+    counters,
+    endpointSequence: terminalExtension.sequence,
+    journalFirstEventId: reconciliation.journalFirstEventId
+      ?? terminalExtension.firstDeltaEventId,
+    journalLastEventId: checkpoint.lastEventId,
+    journalSessionFingerprint: reconciliation.journalSessionFingerprint,
+    metadataEpoch: reconciliation.metadataEpoch
+      + (classification.metadataEpochBatch ? 1n : 0n),
+    metadataPolicyFingerprint: reconciliation.metadataPolicyFingerprint,
+    pendingEvidenceFingerprint: reconciliation.pendingEvidenceFingerprint,
+    pendingMetadataPathCount: reconciliation.pendingMetadataPathCount,
+    pendingSourcePathCount: reconciliation.pendingSourcePathCount,
+    pendingXattrPathCount: reconciliation.pendingXattrPathCount,
+    roundCount: reconciliation.roundCount,
+    snapshotSha256: terminalExtension.snapshotSha256,
+    sourceEpoch: reconciliation.sourceEpoch
+      + (classification.sourceEpochBatch ? 1n : 0n),
+    xattrEpoch: reconciliation.xattrEpoch + classification.xattrEpochIncrement
+  });
+};
 const startTypedFsevents = () => {
   if (!typedFseventsEnabled) return;
   const expectedKeys = [
@@ -4915,13 +5717,15 @@ const startTypedFsevents = () => {
     "eventRootFingerprint", "helperBinarySha256", "helperSourceSha256", "journalPath",
     "roots", "rootsConfigCtimeNs", "rootsConfigDevice", "rootsConfigInode",
     "rootsConfigMtimeNs", "rootsConfigSha256", "rootsConfigSize", "rootsPath",
-    "runtimeScratch", "sourceSnapshotPath", "typedHelperPidPath"
+    "runtimeScratch", "sourceSnapshotPath", "trustedGitCommonDir", "typedHelperPidPath"
   ];
   if (!exactKeys(typedFseventsBootstrap, expectedKeys)
     || requestedWatchMode !== "descriptor-sentinel"
     || !Array.isArray(typedFseventsBootstrap.roots)
     || typedFseventsBootstrap.eventRootCount !== typedFseventsBootstrap.roots.length
-    || typedFseventsBootstrap.eventRootCount < 1) {
+    || typedFseventsBootstrap.eventRootCount < 1
+    || (typedFseventsBootstrap.trustedGitCommonDir !== null
+      && !typedFseventsBootstrap.roots.includes(typedFseventsBootstrap.trustedGitCommonDir))) {
     throw new Error("typed FSEvents bootstrap is invalid");
   }
   const sourceSnapshotEndpoint = readStableRegularFileNoFollow(
@@ -5041,16 +5845,37 @@ const startTypedFsevents = () => {
   if (!heldRootsConfigIdentityIsBound) {
     throw new Error("typed FSEvents READY did not retain the exact roots config inode");
   }
-  for (let index = 0; index < 2; index += 1) {
-    publishTypedCommand(1, typedCommandSequence);
-    waitTypedAcknowledgement(2, typedCommandSequence);
-    typedCommandSequence += 1n;
-  }
-  const journal = typedJournalPrefix(typedAcknowledgement);
-  if (typedAcknowledgement.entryCount !== 0n || typedAcknowledgement.journalHighWater !== 0n
-    || journal.length !== 0) {
+  typedFseventsProofScope = createGitCurrentnessProofScope({
+    policies: configuration,
+    trustedGitCommonDir: typedFseventsBootstrap.trustedGitCommonDir
+  });
+  const drainedAcknowledgement = requestTypedFseventsFlush();
+  const drainedJournal = typedJournalPrefix(drainedAcknowledgement);
+  if (drainedAcknowledgement.entryCount !== 0n
+    || drainedAcknowledgement.journalHighWater !== 0n
+    || drainedJournal.length !== 0) {
     throw new Error("typed FSEvents journal was not empty before descriptor baseline");
   }
+  const baselineSnapshot = captureTypedFseventsSnapshot();
+  const baselineAcknowledgement = requestTypedFseventsFlush();
+  const baselineJournal = typedJournalPrefix(baselineAcknowledgement);
+  if (baselineAcknowledgement.entryCount !== 0n
+    || baselineAcknowledgement.journalHighWater !== 0n
+    || baselineJournal.length !== 0) {
+    throw new Error("typed FSEvents journal was not empty at the descriptor baseline");
+  }
+  const baselineEndpoint = normalizeTypedFseventsAckCheckpoint({
+    acknowledgement: baselineAcknowledgement,
+    eventRoots: typedFseventsBootstrap.roots
+  });
+  typedFseventsBaseline = Object.freeze({
+    ackEndpoint: baselineEndpoint,
+    metadataEpoch: 0n,
+    snapshot: baselineSnapshot,
+    sourceEpoch: 0n,
+    startedAtNs: process.hrtime.bigint(),
+    xattrEpoch: 0n
+  });
   typedFsevents = {
     droppedEventCount: "0",
     enabled: true,
@@ -5060,11 +5885,11 @@ const startTypedFsevents = () => {
     helperSourceSha256: typedFseventsBootstrap.helperSourceSha256,
     journalEntryCount: "0",
     journalFirstEventId: null,
-    journalFlushSequence: (typedCommandSequence - 1n).toString(10),
+    journalFlushSequence: baselineEndpoint.sequence.toString(10),
     journalHighWater: "0",
     journalLastEventId: null,
     journalLastFlushedEventId: null,
-    journalSha256: crypto.createHash("sha256").update(journal).digest("hex"),
+    journalSha256: baselineEndpoint.checkpoint.sha256,
     materialEventCount: "0",
     sourceEventCount: "0",
     transactionMetadataEventCount: "0",
@@ -5073,33 +5898,12 @@ const startTypedFsevents = () => {
     xattrOnlyEventCount: "0"
   };
 };
-const updateTypedFseventsEndpointWithoutEvents = (endpoint) => {
-  const journal = typedJournalPrefix(endpoint);
-  if (endpoint.entryCount !== BigInt(typedFsevents.journalEntryCount)
-    || endpoint.journalHighWater !== BigInt(typedFsevents.journalHighWater)) {
-    throw new Error("typed FSEvents journal event classification is not yet reconciled");
-  }
-  typedFsevents = {
-    ...typedFsevents,
-    journalFlushSequence: endpoint.sequence.toString(10),
-    journalSha256: crypto.createHash("sha256").update(journal).digest("hex")
-  };
-};
-const flushTypedFsevents = () => {
-  if (!typedFseventsEnabled) return null;
-  publishTypedCommand(1, typedCommandSequence);
-  const endpoint = waitTypedAcknowledgement(2, typedCommandSequence);
-  typedCommandSequence += 1n;
-  updateTypedFseventsEndpointWithoutEvents(endpoint);
-  return endpoint;
-};
 const stopTypedFsevents = async () => {
   if (!typedFseventsEnabled) return null;
   publishTypedCommand(2, typedCommandSequence);
-  const endpoint = await waitTypedAcknowledgement(3, typedCommandSequence, true);
+  const acknowledgement = await waitTypedAcknowledgement(3, typedCommandSequence, true);
   typedCommandSequence += 1n;
-  updateTypedFseventsEndpointWithoutEvents(endpoint);
-  return endpoint;
+  return acknowledgement;
 };
 const awaitTypedFseventsExit = async () => {
   if (!typedFseventsEnabled) return;
@@ -5131,9 +5935,11 @@ const awaitTypedFseventsExit = async () => {
     typedFseventsChild.once("error", onError);
   });
 };
-const coverageFingerprint = () => crypto.createHash("sha256")
-  .update(JSON.stringify([...sentinelRecords.keys()].sort()))
-  .digest("hex");
+const coverageFingerprint = () => typedFseventsEnabled
+  ? typedFseventsProofScope.selectionFingerprint
+  : crypto.createHash("sha256")
+    .update(JSON.stringify([...sentinelRecords.keys()].sort()))
+    .digest("hex");
 const state = () => ({
   schemaVersion: 3,
   sessionId,
@@ -5148,7 +5954,9 @@ const state = () => ({
   regularFileCtimePolicy: typedFseventsEnabled ? "typed-xattr-only" : "strict",
   typedFsevents: typedFseventsEnabled ? typedFsevents : nonTypedFseventsState(),
   coverageFingerprint: coverageFingerprint(),
-  coveragePathCount: configuredSentinelPaths.size,
+  coveragePathCount: typedFseventsEnabled
+    ? typedFseventsProofScope.pathCount
+    : configuredSentinelPaths.size,
   fdCount: rootDescriptors.length,
   rootFdCount: rootDescriptors.length
 });
@@ -5308,6 +6116,246 @@ const statShape = (stat) => ({
   ctimeNs: String(stat.ctimeNs)
 });
 const sameShape = (left, right) => JSON.stringify(left) === JSON.stringify(right);
+const CODEX_PRIVATE_REF_ROOT = "refs/codex";
+const codexPrivateRefPath = (relativePath) => relativePath === CODEX_PRIVATE_REF_ROOT
+  || relativePath.startsWith(CODEX_PRIVATE_REF_ROOT + "/");
+const validPackedRefName = (ref) => {
+  if (!ref.startsWith("refs/") || ref.length > 4096 || ref.endsWith("/") || ref.endsWith(".")
+    || ref.includes("//") || ref.includes("..") || ref.includes("@{")) return false;
+  for (const character of ref) {
+    const code = character.codePointAt(0);
+    if (code <= 0x20 || code === 0x7f
+      || ["~", "^", ":", "?", "*", "[", "\\"].includes(character)) return false;
+  }
+  const components = ref.split("/");
+  return components.length >= 3
+    && components.every((component) => component.length > 0
+      && !component.startsWith(".") && !component.endsWith(".lock"));
+};
+const packedRefsObjectIdWidth = (policy) => {
+  const cached = packedRefsObjectIdWidths.get(policy.root);
+  if (cached !== undefined) return cached;
+  const result = spawnSync("git", ["rev-parse", "--show-object-format"], {
+    cwd: policy.root,
+    encoding: "utf8",
+    env: { ...process.env, GIT_OPTIONAL_LOCKS: "0" },
+    stdio: ["ignore", "pipe", "pipe"],
+    timeout: 5_000
+  });
+  if (result.error || result.signal || result.status !== 0) {
+    throw new Error("packed-refs object format lookup failed closed");
+  }
+  const objectFormat = result.stdout.trim();
+  const width = objectFormat === "sha1" ? 40 : objectFormat === "sha256" ? 64 : null;
+  if (width === null) throw new Error("packed-refs object format is unsupported");
+  packedRefsObjectIdWidths.set(policy.root, width);
+  return width;
+};
+const parsePackedRefs = (buffer, expectedObjectIdWidth) => {
+  let text;
+  try { text = new TextDecoder("utf-8", { fatal: true }).decode(buffer); } catch {
+    throw new Error("packed-refs observation is not UTF-8");
+  }
+  if (text.length > 0 && !text.endsWith("\n")) {
+    throw new Error("packed-refs observation is not newline terminated");
+  }
+  const rows = [];
+  const comments = [];
+  const seenRefs = new Set();
+  let prior = null;
+  let priorRef = null;
+  let rowsStarted = false;
+  let sorted = false;
+  const lines = text.length === 0 ? [] : text.slice(0, -1).split("\n");
+  for (let lineIndex = 0; lineIndex < lines.length; lineIndex += 1) {
+    const line = lines[lineIndex];
+    if (line.length === 0) throw new Error("packed-refs observation contains an empty record");
+    if (line.startsWith("#")) {
+      if (rowsStarted) throw new Error("packed-refs observation contains a comment after ref records");
+      if (lineIndex === 0 && line.startsWith("# pack-refs with:")) {
+        const traits = line.slice("# pack-refs with:".length).trim().split(/ +/u).filter(Boolean);
+        if (new Set(traits).size !== traits.length) {
+          throw new Error("packed-refs observation contains duplicate header traits");
+        }
+        sorted = traits.includes("sorted");
+      }
+      comments.push(line);
+      prior = null;
+      continue;
+    }
+    rowsStarted = true;
+    if (line.startsWith("^")) {
+      const peeled = line.slice(1);
+      if (!prior || !/^[0-9a-f]{40}(?:[0-9a-f]{24})?$/u.test(peeled)
+        || peeled.length !== expectedObjectIdWidth || /^0+$/u.test(peeled)
+        || prior.peeled !== null) {
+        throw new Error("packed-refs observation contains an invalid peeled record");
+      }
+      prior.peeled = peeled;
+      prior = null;
+      continue;
+    }
+    const match = line.match(/^([0-9a-f]{40}(?:[0-9a-f]{24})?) (refs\/[^\u0000-\u0020\u007f]+)$/u);
+    if (!match || !validPackedRefName(match[2])) {
+      throw new Error("packed-refs observation contains an invalid ref record");
+    }
+    if (match[1].length !== expectedObjectIdWidth || /^0+$/u.test(match[1])
+      || seenRefs.has(match[2])) {
+      throw new Error("packed-refs observation contains duplicate or mixed-format refs");
+    }
+    if (sorted && priorRef !== null
+      && Buffer.from(priorRef).compare(Buffer.from(match[2])) >= 0) {
+      throw new Error("packed-refs observation violates its sorted header trait");
+    }
+    seenRefs.add(match[2]);
+    const row = { objectId: match[1], peeled: null, ref: match[2] };
+    rows.push(row);
+    prior = row;
+    priorRef = match[2];
+  }
+  return {
+    filteredProjection: JSON.stringify({
+      comments,
+      rows: rows.filter((row) => !codexPrivateRefPath(row.ref))
+    }),
+    fullProjection: JSON.stringify({ comments, rows })
+  };
+};
+const packedRefsObservation = (policy) => {
+  const packedRefsPath = path.join(policy.root, "packed-refs");
+  let descriptor = -1;
+  try {
+    descriptor = fs.openSync(packedRefsPath, fs.constants.O_RDONLY | fs.constants.O_NOFOLLOW);
+  } catch (error) {
+    if (error?.code === "ENOENT") {
+      const emptyProjection = JSON.stringify({ comments: [], rows: [] });
+      return {
+        exists: false,
+        filteredProjection: emptyProjection,
+        fullProjection: emptyProjection,
+        rawSha256: null,
+        shape: null
+      };
+    }
+    throw error;
+  }
+  try {
+    const before = fs.fstatSync(descriptor, { bigint: true });
+    if (!before.isFile() || before.uid !== BigInt(process.geteuid()) || before.nlink !== 1n
+      || (before.mode & 0o22n) !== 0n || before.size > 16n * 1024n * 1024n) {
+      throw new Error("packed-refs observation source is unsafe");
+    }
+    const buffer = fs.readFileSync(descriptor);
+    const after = fs.fstatSync(descriptor, { bigint: true });
+    const visible = fs.lstatSync(packedRefsPath, { bigint: true });
+    const final = fs.fstatSync(descriptor, { bigint: true });
+    const shape = statShape(final);
+    if (!sameShape(statShape(before), statShape(after))
+      || !sameShape(statShape(after), statShape(visible))
+      || !sameShape(statShape(visible), shape)
+      || BigInt(buffer.length) !== final.size) {
+      throw new Error("packed-refs changed during descriptor-bound observation");
+    }
+    return {
+      exists: true,
+      ...parsePackedRefs(buffer, packedRefsObjectIdWidth(policy)),
+      rawSha256: crypto.createHash("sha256").update(buffer).digest("hex"),
+      shape
+    };
+  } finally {
+    fs.closeSync(descriptor);
+  }
+};
+const samePackedRefsObservation = (left, right) => JSON.stringify(left) === JSON.stringify(right);
+const classifyPackedRefsObservation = (policy) => {
+  const previous = packedRefsObservations.get(policy.root);
+  if (previous === undefined) throw new Error("packed-refs observation baseline is unavailable");
+  const current = packedRefsObservation(policy);
+  packedRefsObservations.set(policy.root, current);
+  if (samePackedRefsObservation(current, previous)) return true;
+  return current.filteredProjection === previous.filteredProjection
+    && current.fullProjection !== previous.fullProjection;
+};
+const packedRefsTemporaryPresent = (policy) => {
+  for (const name of ["packed-refs.lock", "packed-refs.new"]) {
+    try {
+      fs.lstatSync(path.join(policy.root, name));
+      return true;
+    } catch (error) {
+      if (error?.code !== "ENOENT") throw error;
+    }
+  }
+  return false;
+};
+const packedRefsWaitCell = new Int32Array(new SharedArrayBuffer(4));
+const awaitPackedRefsTemporaryQuiescence = (policy) => {
+  const deadline = Date.now() + 2_000;
+  while (packedRefsTemporaryPresent(policy) && Date.now() < deadline) {
+    Atomics.wait(packedRefsWaitCell, 0, 0, 10);
+  }
+  return !packedRefsTemporaryPresent(policy);
+};
+const samplePackedRefsObservations = ({ recordEpochs = true } = {}) => {
+  let changes = 0;
+  for (const policy of configuration) {
+    if (!isGitCommonRoot(policy.root)) continue;
+    if (!awaitPackedRefsTemporaryQuiescence(policy)
+      || !classifyPackedRefsObservation(policy)) changes += 1;
+  }
+  if (recordEpochs && changes > 0) sourceEpoch += changes;
+  return changes;
+};
+const objectControlObservation = (policy) => {
+  const scan = () => {
+    const entries = [];
+    const visit = (absolutePath, relativePath) => {
+      let stat;
+      try { stat = fs.lstatSync(absolutePath, { bigint: true }); } catch (error) {
+        if (error?.code === "ENOENT") {
+          entries.push({ path: relativePath, shape: null, type: "missing" });
+          return;
+        }
+        throw error;
+      }
+      if (stat.isSymbolicLink() || (!stat.isDirectory() && !stat.isFile())) {
+        throw new Error("Git object control path is unsafe");
+      }
+      entries.push({
+        path: relativePath,
+        shape: statShape(stat),
+        type: stat.isDirectory() ? "directory" : "file"
+      });
+      if (entries.length > 10_000) throw new Error("Git object control observation exceeds its path cap");
+      if (!stat.isDirectory()) return;
+      const names = fs.readdirSync(absolutePath)
+        .sort((left, right) => Buffer.from(left).compare(Buffer.from(right)));
+      for (const name of names) visit(path.join(absolutePath, name), relativePath + "/" + name);
+    };
+    for (const relativePath of ["objects/info", "objects/pack"]) {
+      visit(path.join(policy.root, ...relativePath.split("/")), relativePath);
+    }
+    return JSON.stringify(entries);
+  };
+  const first = scan();
+  const second = scan();
+  if (first !== second) throw new Error("Git object control state changed during observation");
+  return first;
+};
+const classifyObjectControlObservation = (policy) => {
+  const previous = objectControlObservations.get(policy.root);
+  if (previous === undefined) throw new Error("Git object control baseline is unavailable");
+  const current = objectControlObservation(policy);
+  objectControlObservations.set(policy.root, current);
+  return current === previous;
+};
+const sampleObjectControlObservations = ({ recordEpochs = true } = {}) => {
+  let changes = 0;
+  for (const policy of configuration) {
+    if (isGitCommonRoot(policy.root) && !classifyObjectControlObservation(policy)) changes += 1;
+  }
+  if (recordEpochs && changes > 0) sourceEpoch += changes;
+  return changes;
+};
 const sameClosureDirectoryShape = (left, right) => (
   left.dev === right.dev
   && left.ino === right.ino
@@ -5399,7 +6447,47 @@ const metadataDeltaOnly = (deltaPaths) => {
     ));
   });
 };
-const sampleSentinels = () => {
+const recursiveGitCommonPathIsIgnored = (policy, relativePath) => (
+  isGitCommonRoot(policy.root)
+  && (
+    ((relativePath === "objects" || relativePath.startsWith("objects/"))
+      && classifyObjectControlObservation(policy))
+    || codexPrivateRefPath(relativePath)
+    || relativePath === "packed-refs.lock"
+    || relativePath === "packed-refs.new"
+    || (relativePath === "packed-refs" && classifyPackedRefsObservation(policy))
+  )
+);
+const recursiveWorkingTreePathIsIgnored = (policy, absolutePath, relativePath) => {
+  if (isTransactionMetadata(policy, relativePath)) return false;
+  // Object creation and the refs/codex private maintenance namespace are
+  // explicitly outside dirty-worktree currentness: Gate A never consumes either
+  // namespace as a branch, HEAD, index, tracked byte, or untracked byte.
+  // This is a namespace policy, not an assertion about the writer process.
+  // A packed-refs transition is ignored only when descriptor-bound observations
+  // prove that its complete non-Codex projection is unchanged and at least one
+  // shaped private ref changed. Identity-only rewrites and restored transient
+  // changes remain source. Every other common-dir event remains fail-closed.
+  if (recursiveGitCommonPathIsIgnored(policy, relativePath)) return true;
+  if (configuredSentinelPaths.has(absolutePath)
+    || dynamicSentinelPaths.has(absolutePath)) return false;
+  if (isGitCommonRoot(policy.root)) return false;
+  const ignored = spawnSync(
+    "git",
+    ["check-ignore", "--quiet", "--no-index", "--", relativePath],
+    {
+      cwd: policy.root,
+      env: { ...process.env, GIT_OPTIONAL_LOCKS: "0" },
+      stdio: ["ignore", "ignore", "pipe"],
+      timeout: 5_000
+    }
+  );
+  if (ignored.error || ignored.signal || ![0, 1].includes(ignored.status)) {
+    throw new Error("recursive watcher Git-ignore classification failed closed");
+  }
+  return ignored.status === 0;
+};
+const validateTypedRootAnchors = () => {
   for (const record of rootDescriptorRecords) {
     const held = statShape(fs.fstatSync(record.descriptor, { bigint: true }));
     const current = statShape(fs.lstatSync(record.root, { bigint: true }));
@@ -5408,13 +6496,33 @@ const sampleSentinels = () => {
       throw new Error("mutation monitor root anchor changed");
     }
   }
-  if (watchMode === "recursive") return 0;
+};
+const sampleSentinels = ({
+  excludePackedRefs = false,
+  recordEpochs = true,
+  semanticDirectories = false
+} = {}) => {
+  validateTypedRootAnchors();
+  if (watchMode === "recursive") {
+    return samplePackedRefsObservations({ recordEpochs })
+      + sampleObjectControlObservations({ recordEpochs });
+  }
   refreshConfiguredSentinelPaths();
+  const excludedFromBootstrap = (absolutePath) => {
+    if (!excludePackedRefs || path.basename(absolutePath) !== "packed-refs") return false;
+    const policy = policyForPath(absolutePath);
+    return policy !== null && isGitCommonRoot(policy.root)
+      && absolutePath === path.join(policy.root, "packed-refs");
+  };
   const deltaPaths = new Set();
   for (const [absolutePath, record] of sentinelRecords) {
+    if (excludedFromBootstrap(absolutePath)) continue;
+    const shapesMatch = (left, right) => semanticDirectories && record.type === "directory"
+      ? sameClosureDirectoryShape(left, right)
+      : sameSentinelShape(left, right, record);
     if (Number.isInteger(record.descriptor)) {
       const currentHeld = statShape(fs.fstatSync(record.descriptor, { bigint: true }));
-      if (!sameSentinelShape(currentHeld, record.shape, record)) deltaPaths.add(absolutePath);
+      if (!shapesMatch(currentHeld, record.shape)) deltaPaths.add(absolutePath);
     }
     let currentLstat = null;
     try { currentLstat = fs.lstatSync(absolutePath, { bigint: true }); } catch (error) {
@@ -5425,7 +6533,7 @@ const sampleSentinels = () => {
       continue;
     }
     const currentShape = statShape(currentLstat);
-    if (!sameSentinelShape(currentShape, record.shape, record)
+    if (!shapesMatch(currentShape, record.shape)
       || (record.type === "symlink" && fs.readlinkSync(absolutePath) !== record.linkTarget)) {
       deltaPaths.add(absolutePath);
     }
@@ -5447,7 +6555,7 @@ const sampleSentinels = () => {
     }
   }
   for (const absolutePath of [...configuredSentinelPaths, ...dynamicSentinelPaths]) {
-    if (sentinelRecords.has(absolutePath)) continue;
+    if (sentinelRecords.has(absolutePath) || excludedFromBootstrap(absolutePath)) continue;
     try {
       fs.lstatSync(absolutePath);
       deltaPaths.add(absolutePath);
@@ -5456,17 +6564,29 @@ const sampleSentinels = () => {
       if (error?.code !== "ENOENT") throw error;
     }
   }
-  if (deltaPaths.size > 0) {
+  if (recordEpochs && deltaPaths.size > 0) {
     if (metadataDeltaOnly(deltaPaths)) metadataEpoch += 1;
     else sourceEpoch += 1;
   }
   rebuildSentinelRecords();
-  return deltaPaths.size;
+  return deltaPaths.size + sampleObjectControlObservations({ recordEpochs });
 };
-const recordRecursiveEvent = (policy, filename) => {
+const recordRecursiveEvent = (subscriptionPolicy, filename) => {
   if (stopped) return;
-  const relativePath = canonicalRelative(filename);
-  if (relativePath === null) return fail("recursive watcher returned a null filename");
+  const subscriptionRelativePath = canonicalRelative(filename);
+  if (subscriptionRelativePath === null) return fail("recursive watcher returned a null filename");
+  const absolutePath = absoluteWatchedPath(subscriptionPolicy, subscriptionRelativePath);
+  if (!isContainedBy(absolutePath, subscriptionPolicy.root)) {
+    return fail("recursive watcher event escaped its subscription root");
+  }
+  const policy = policyForPath(absolutePath);
+  if (!policy) return fail("recursive watcher event escaped every logical policy root");
+  const relativePath = path.relative(policy.root, absolutePath).split(path.sep).join("/") || ".";
+  try {
+    if (recursiveWorkingTreePathIsIgnored(policy, absolutePath, relativePath)) return;
+  } catch (error) {
+    return fail(error);
+  }
   if (isTransactionMetadata(policy, relativePath)) metadataEpoch += 1;
   else sourceEpoch += 1;
   try { publishEpoch(); } catch (error) { return fail(error); }
@@ -5475,11 +6595,41 @@ const recordRecursiveEvent = (policy, filename) => {
 const finalizeStop = async () => {
   if (stopped) return;
   try {
-    if (typedFseventsEnabled) flushTypedFsevents();
-    sampleSentinels();
     if (typedFseventsEnabled) {
-      await stopTypedFsevents();
+      validateTypedRootAnchors();
+      const fixed = reconcileTypedFseventsCycle();
+      typedFseventsFixedPackage = fixed.fixedPackage;
+      const terminalSnapshot = captureTypedFseventsSnapshot();
+      const terminalAcknowledgement = await stopTypedFsevents();
       await awaitTypedFseventsExit();
+      const terminalEndpoint = normalizeTypedFseventsAckCheckpoint({
+        acknowledgement: terminalAcknowledgement,
+        eventRoots: typedFseventsBootstrap.roots
+      });
+      const terminalExtension = readAndValidateJournalExtension({
+        candidateSnapshot: terminalSnapshot,
+        endpoint: terminalEndpoint,
+        eventRoots: typedFseventsBootstrap.roots,
+        exactMetadataPaths: typedExactMetadataPaths(),
+        exactMetadataRoots: typedExactMetadataRoots(),
+        metadataOwnerPid: parentPid,
+        priorCheckpoint: typedFseventsFixedPackage.checkpoint,
+        priorSnapshot: typedFseventsFixedPackage.snapshot,
+        trustedGitCommonDir: typedFseventsBootstrap.trustedGitCommonDir
+      });
+      const terminalAttestation = typedFseventsTerminalAttestation(
+        terminalExtension,
+        typedFseventsFixedPackage.reconciliation
+      );
+      const terminalSeal = sealTerminal({
+        reconciliation: typedFseventsFixedPackage.reconciliation,
+        terminalExtension,
+        terminalAttestation,
+        sealedAtNs: process.hrtime.bigint()
+      });
+      applyTypedFseventsPublication(typedFseventsPublication(terminalSeal));
+    } else {
+      sampleSentinels();
     }
     publishEpoch();
     if (sourceEpoch !== expectedSourceEpoch || metadataEpoch !== expectedMetadataEpoch) {
@@ -5515,8 +6665,20 @@ try {
       throw new Error("invalid monitor policy");
     }
   }
+  for (const policy of configuration) {
+    if (isGitCommonRoot(policy.root)) {
+      objectControlObservations.set(policy.root, objectControlObservation(policy));
+      packedRefsObservations.set(policy.root, packedRefsObservation(policy));
+    }
+  }
   startTypedFsevents();
-  refreshConfiguredSentinelPaths();
+  if (!typedFseventsEnabled) {
+    refreshConfiguredSentinelPaths();
+    if (requestedWatchMode === "auto" && recursiveAvailable) {
+      rebuildSentinelRecords();
+      bootstrapSentinelsCaptured = true;
+    }
+  }
   for (const policy of configuration) {
     const descriptor = fs.openSync(policy.root, fs.constants.O_RDONLY | fs.constants.O_NOFOLLOW
       | (fs.constants.O_DIRECTORY ?? 0));
@@ -5565,19 +6727,24 @@ try {
   await new Promise((resolve) => setTimeout(resolve, 150));
   recursiveProbeActive = false;
   if (recursiveUnavailable) {
+    if (bootstrapSentinelsCaptured) {
+      sampleSentinels({ excludePackedRefs: true, semanticDirectories: true });
+      samplePackedRefsObservations();
+      sampleObjectControlObservations();
+    }
     for (const watcher of recursiveWatchers) {
       try { watcher.close(); } catch {}
     }
     recursiveWatchers.length = 0;
     watchMode = typedFseventsEnabled ? "descriptor-sentinel-fsevents" : "descriptor-sentinel";
-    rebuildSentinelRecords();
+    if (!typedFseventsEnabled && !bootstrapSentinelsCaptured) rebuildSentinelRecords();
   } else {
+    sampleSentinels({ excludePackedRefs: true, semanticDirectories: true });
+    samplePackedRefsObservations();
+    sampleObjectControlObservations();
+    closeSentinelRecords();
     watchMode = "recursive";
   }
-  // A descriptor-sentinel baseline was just captured by rebuildSentinelRecords().
-  // Sampling it again before readiness doubles large-tree startup work without
-  // observing a newer baseline. Recursive mode still validates its root anchors.
-  if (watchMode === "recursive") sampleSentinels();
   publishEpoch();
   fs.writeFileSync(readyPath, "ready\n", { mode: 0o600 });
 } catch (error) {
@@ -5588,9 +6755,14 @@ process.on("message", (message) => {
     const uuidPattern = /^[0-9a-f]{8}-[0-9a-f]{4}-[1-8][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/iu;
     if (stopping || message.sessionId !== sessionId || !uuidPattern.test(message.requestId)) return fail();
     try {
-      if (typedFseventsEnabled) flushTypedFsevents();
-      sampleSentinels();
-      if (typedFseventsEnabled) flushTypedFsevents();
+      if (typedFseventsEnabled) {
+        validateTypedRootAnchors();
+        const fixed = reconcileTypedFseventsCycle();
+        typedFseventsFixedPackage = fixed.fixedPackage;
+        applyTypedFseventsPublication(fixed.publication);
+      } else {
+        sampleSentinels();
+      }
       publishEpoch();
       publishJson(path.join(scratch, "sample-" + message.requestId + ".json"), {
         ...state(),
@@ -5624,9 +6796,31 @@ process.on("message", (message) => {
     }
     if (normalized !== message.relativePath || !isContainedBy(absoluteRoot, policy.root)
       || !rootIsAbsent) return fail();
-    policy.exactMetadataRoots.push(absoluteRoot);
-    dynamicSentinelPaths.add(absoluteRoot);
     try {
+      if (typedFseventsEnabled) {
+        if (typedFseventsFixedPackage === null) {
+          throw new Error("typed FSEvents metadata registration requires a fixed predecessor");
+        }
+        const previous = typedFseventsFixedPackage.reconciliation;
+        const fixed = reconcileTypedFseventsCycle({
+          exactMetadataRoots: [...typedExactMetadataRoots(), absoluteRoot]
+        });
+        const replacement = fixed.fixedPackage.reconciliation;
+        if (replacement.sourceEpoch !== previous.sourceEpoch
+          || replacement.metadataEpoch !== previous.metadataEpoch
+          || replacement.xattrEpoch !== previous.xattrEpoch
+          || !typedFseventsCountersEqual(replacement.counters, previous.counters)) {
+          throw new Error("typed FSEvents metadata registration rebind was not empty");
+        }
+        policy.exactMetadataRoots.push(absoluteRoot);
+        validateTypedRootAnchors();
+        typedFseventsFixedPackage = fixed.fixedPackage;
+        applyTypedFseventsPublication(fixed.publication);
+        publishEpoch();
+      } else {
+        policy.exactMetadataRoots.push(absoluteRoot);
+        dynamicSentinelPaths.add(absoluteRoot);
+      }
       publishJson(path.join(scratch, "registration-" + message.requestId + ".json"), {
         schemaVersion: 1,
         status: "registered",
@@ -5773,6 +6967,7 @@ function assertRelativeMonitorPath(value, label) {
 }
 
 function mutationMonitorOperationTimeout(monitor, minimumMs = 5_000) {
+  if (monitor?.eventBackend === TYPED_FSEVENTS_EVENT_BACKEND) return 325_000;
   const coverage = Number.isSafeInteger(monitor?.coveragePathCount) ? monitor.coveragePathCount : 0;
   return Math.min(120_000, Math.max(minimumMs, minimumMs + Math.ceil(coverage / 5_000) * 1_000));
 }
@@ -5986,6 +7181,7 @@ export function startMutationEpochMonitor(paths, {
   startupTimeoutMs = 120_000,
   terminalQuietMs = 100,
   transactionMetadata,
+  trustedGitCommonDir = null,
   watchMode = "auto"
 } = {}) {
   if (!["auto", "descriptor-sentinel"].includes(watchMode)) {
@@ -6035,7 +7231,12 @@ export function startMutationEpochMonitor(paths, {
   const supportsRecursiveWatch = watchMode === "auto" ? recursiveWatchAvailable() : false;
   let typedFseventsBootstrap = null;
   try {
-    typedFseventsBootstrap = prepareTypedFseventsBootstrap({ roots, scratch, watchMode });
+    typedFseventsBootstrap = prepareTypedFseventsBootstrap({
+      roots,
+      scratch,
+      trustedGitCommonDir,
+      watchMode
+    });
   } catch (error) {
     fs.rmSync(scratch, { recursive: true, force: true });
     throw error;
@@ -6114,7 +7315,10 @@ export function startMutationEpochMonitor(paths, {
   }
   child.unref();
   child.channel?.unref?.();
-  const deadline = Date.now() + startupTimeoutMs;
+  const effectiveStartupTimeoutMs = typedFseventsBootstrap
+    ? Math.max(startupTimeoutMs, 350_000)
+    : startupTimeoutMs;
+  const deadline = Date.now() + effectiveStartupTimeoutMs;
   while (!fs.existsSync(readyPath)) {
     if (fs.existsSync(errorPath) || !mutationMonitorChildIsAlive(child)) {
       const detail = fs.existsSync(errorPath) ? fs.readFileSync(errorPath, "utf8").trim() : "monitor child exited";
@@ -6132,6 +7336,7 @@ export function startMutationEpochMonitor(paths, {
     directoryTimestampPolicy: directoryTimestampPolicyForRequestedWatchMode(watchMode),
     eventBackend: typedFseventsBootstrap ? TYPED_FSEVENTS_EVENT_BACKEND : NON_TYPED_EVENT_BACKEND,
     helperProtocolVersion: typedFseventsBootstrap ? TYPED_FSEVENTS_HELPER_PROTOCOL_VERSION : null,
+    metadataOwnerPid: process.pid,
     regularFileCtimePolicy: typedFseventsBootstrap ? TYPED_FSEVENTS_CTIME_POLICY : STRICT_CTIME_POLICY,
     epochPath,
     readyPath,
@@ -6201,7 +7406,7 @@ export function registerMutationMetadataRoot(monitor, {
   const transactionName = path.posix.basename(normalizedRelativePath);
   const transactionMatch = transactionName.match(/^\.evidence-publish-([1-9][0-9]*)-([0-9a-f]{8}-[0-9a-f]{4}-[1-8][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12})$/iu);
   if (path.posix.dirname(normalizedRelativePath) !== expectedParent
-    || !transactionMatch || Number(transactionMatch[1]) !== process.pid
+    || !transactionMatch || Number(transactionMatch[1]) !== monitor.metadataOwnerPid
     || !UUID_PATTERN.test(transactionMatch[2])) {
     throw new Error("transaction metadata root must be one exact writer-owned PID and canonical UUID path");
   }
@@ -6231,7 +7436,7 @@ export function registerMutationMetadataRoot(monitor, {
     throw new Error("mutation monitor exact metadata registration request failed");
   }
   if (!sent) throw new Error("mutation monitor exact metadata registration request failed");
-  const deadline = Date.now() + 3_000;
+  const deadline = Date.now() + mutationMonitorOperationTimeout(monitor);
   while (!fs.existsSync(acknowledgementPath)) {
     if (fs.existsSync(monitor.errorPath) || !mutationMonitorChildIsAlive(monitor.child)) {
       throw new Error("mutation monitor exact metadata registration acknowledgement failed closed");
@@ -6273,6 +7478,22 @@ export function readMutationEpoch(monitor) {
 }
 
 export function settleMutationEpochState(monitor, { quietMs = 300, timeoutMs } = {}) {
+  if (monitor?.eventBackend === TYPED_FSEVENTS_EVENT_BACKEND) {
+    calculateMutationMonitorQuiescenceTimeout({
+      coveragePathCount: monitor.coveragePathCount,
+      quietMs
+    });
+    if (timeoutMs !== undefined && (!Number.isSafeInteger(timeoutMs) || timeoutMs <= 0)) {
+      throw new Error("mutation monitor explicit timeout must be a positive safe integer");
+    }
+    const typedCapMs = mutationMonitorOperationTimeout(monitor);
+    if (timeoutMs !== undefined && timeoutMs > typedCapMs) {
+      throw new Error("mutation monitor explicit timeout exceeds the typed-operation absolute cap");
+    }
+    return readMutationEpochState(monitor, {
+      sampleTimeoutMs: timeoutMs ?? typedCapMs
+    });
+  }
   const absoluteCapMs = calculateMutationMonitorQuiescenceTimeout({
     coveragePathCount: monitor?.coveragePathCount,
     quietMs
@@ -12458,8 +13679,6 @@ function createTar(worktreePath, paths0) {
   if (paths0.length === 0) return null;
   const scratch = fs.mkdtempSync(path.join(os.tmpdir(), "mais-evidence-tar-"));
   const listPath = path.join(scratch, "paths0");
-  const plainTarPath = path.join(scratch, "untracked.tar");
-  const tarPath = path.join(scratch, "untracked.tar.gz");
   let cleaned = false;
   const cleanup = () => {
     if (cleaned) return;
@@ -12468,27 +13687,40 @@ function createTar(worktreePath, paths0) {
   };
   try {
     writePrivate(listPath, paths0);
-    execFileSync("tar", ["-cf", plainTarPath, "-C", worktreePath, "--null", "-T", listPath], {
-      env: { ...process.env, COPYFILE_DISABLE: "1" },
-      stdio: ["ignore", "pipe", "pipe"],
-      timeout: CHILD_PROCESS_TIMEOUT_MS
-    });
     const canonicalizeScript = [
-      "import copy,gzip,sys,tarfile",
-      "with tarfile.open(sys.argv[1], 'r:') as source, open(sys.argv[2], 'wb') as raw:",
-      " with gzip.GzipFile(filename='', mode='wb', fileobj=raw, mtime=0) as compressed:",
-      "  with tarfile.open(fileobj=compressed, mode='w', format=tarfile.PAX_FORMAT) as target:",
-      "   for member in source.getmembers():",
-      "    clean=copy.copy(member)",
-      "    clean.uid=clean.gid=0",
-      "    clean.uname=clean.gname=''",
-      "    clean.mtime=0",
-      "    clean.pax_headers={}",
-      "    target.addfile(clean, source.extractfile(member) if member.isfile() else None)"
+      "import copy,gzip,os,subprocess,sys,tarfile",
+      "environment=os.environ.copy()",
+      "environment['COPYFILE_DISABLE']='1'",
+      "command=['tar','-cf','-','-C',sys.argv[1],'--null','-T',sys.argv[2]]",
+      "process=subprocess.Popen(command,stdout=subprocess.PIPE,stderr=sys.stderr,env=environment)",
+      "try:",
+      " if process.stdout is None: raise RuntimeError('tar stdout is unavailable')",
+      " with process.stdout as raw_source:",
+      "  with tarfile.open(fileobj=raw_source, mode='r|') as source:",
+      "   with gzip.GzipFile(filename='', mode='wb', fileobj=sys.stdout.buffer, mtime=0) as compressed:",
+      "    with tarfile.open(fileobj=compressed, mode='w', format=tarfile.PAX_FORMAT) as target:",
+      "     for member in source:",
+      "      clean=copy.copy(member)",
+      "      clean.uid=clean.gid=0",
+      "      clean.uname=clean.gname=''",
+      "      clean.mtime=0",
+      "      clean.pax_headers={}",
+      "      target.addfile(clean, source.extractfile(member) if member.isfile() else None)",
+      "finally:",
+      " status=process.wait()",
+      "if status != 0: raise SystemExit(status)"
     ].join("\n");
-    execFileSync("python3", ["-c", canonicalizeScript, plainTarPath, tarPath], { stdio: ["ignore", "pipe", "pipe"], timeout: CHILD_PROCESS_TIMEOUT_MS });
-    fs.chmodSync(tarPath, 0o600);
-    const buffer = fs.readFileSync(tarPath);
+    const buffer = execFileSync(
+      "python3",
+      ["-c", canonicalizeScript, worktreePath, listPath],
+      {
+        encoding: null,
+        env: { ...process.env, COPYFILE_DISABLE: "1" },
+        maxBuffer: 1024 * 1024 * 1024,
+        stdio: ["ignore", "pipe", "pipe"],
+        timeout: CHILD_PROCESS_TIMEOUT_MS
+      }
+    );
     cleanup();
     return { buffer, cleanup };
   } catch (error) {
@@ -13194,7 +14426,10 @@ export function bootstrapMutationEpochMonitor({
     throw new Error("MAIS_EVIDENCE_MUTATION_MONITOR_MODE must be descriptor-sentinel when defined");
   }
   const canonicalCommonDir = fs.realpathSync(commonDir);
-  const commonMonitor = startMutationEpochMonitor([canonicalCommonDir], { watchMode });
+  const commonMonitor = startMutationEpochMonitor([canonicalCommonDir], {
+    trustedGitCommonDir: canonicalCommonDir,
+    watchMode
+  });
   let expandedMonitor;
   try {
     const commonEpoch = settleMutationEpoch(commonMonitor);
@@ -13217,6 +14452,7 @@ export function bootstrapMutationEpochMonitor({
     ));
     expandedMonitor = startMutationEpochMonitor(watchedRoots, {
       transactionMetadata: activeTransactionMetadata.length > 0 ? activeTransactionMetadata : undefined,
+      trustedGitCommonDir: canonicalCommonDir,
       watchMode
     });
     const secondInventory = listWorktrees(repoRoot);
@@ -13243,7 +14479,104 @@ export function artifactAbsolutePath(evidenceRoot, relativePath) {
   return absolutePath;
 }
 
-export function verifyArtifact(evidenceRoot, artifact, label, failures) {
+function openRegularFileNoFollow(absolutePath) {
+  let descriptor = -1;
+  try {
+    descriptor = fs.openSync(
+      absolutePath,
+      fs.constants.O_RDONLY | (fs.constants.O_NOFOLLOW ?? 0)
+    );
+    const held = fs.fstatSync(descriptor, { bigint: true });
+    const visible = fs.lstatSync(absolutePath, { bigint: true });
+    const final = fs.fstatSync(descriptor, { bigint: true });
+    if (!held.isFile()
+      || visible.isSymbolicLink()
+      || !visible.isFile()
+      || !final.isFile()
+      || !sameTypedFseventsFrameSnapshot(held, visible)
+      || !sameTypedFseventsFrameSnapshot(visible, final)) {
+      throw new Error("not one direct stable regular file");
+    }
+    const result = { absolutePath, descriptor, openingStatus: final };
+    descriptor = -1;
+    return result;
+  } finally {
+    if (descriptor >= 0) fs.closeSync(descriptor);
+  }
+}
+
+function assertHeldRegularFileNoFollow(held, {
+  expectedBytes = null,
+  maxBytes = ARCHIVE_ARTIFACT_MAX_BYTES
+} = {}) {
+  if ((expectedBytes !== null && (!Number.isSafeInteger(expectedBytes) || expectedBytes < 0))
+    || !Number.isSafeInteger(maxBytes)
+    || maxBytes < 0) {
+    throw new Error("regular file bounds are invalid");
+  }
+  const heldStatus = fs.fstatSync(held.descriptor, { bigint: true });
+  const visible = fs.lstatSync(held.absolutePath, { bigint: true });
+  const final = fs.fstatSync(held.descriptor, { bigint: true });
+  if (!heldStatus.isFile()
+    || visible.isSymbolicLink()
+    || !visible.isFile()
+    || !final.isFile()
+    || !sameTypedFseventsFrameSnapshot(held.openingStatus, heldStatus)
+    || !sameTypedFseventsFrameSnapshot(heldStatus, visible)
+    || !sameTypedFseventsFrameSnapshot(visible, final)) {
+    throw new Error("regular file path binding changed during verification");
+  }
+  if (expectedBytes !== null && final.size !== BigInt(expectedBytes)) {
+    throw new Error("regular file bytes mismatch before reading");
+  }
+  if (final.size > BigInt(maxBytes)) {
+    throw new Error(`regular file exceeds the ${maxBytes}-byte materialization cap`);
+  }
+  return final;
+}
+
+function observeHeldRegularFileNoFollow(held, {
+  captureBuffer = false,
+  expectedBytes = null,
+  maxBytes = ARCHIVE_ARTIFACT_MAX_BYTES
+} = {}) {
+  const before = assertHeldRegularFileNoFollow(held, { expectedBytes, maxBytes });
+  if (captureBuffer && before.size > BigInt(bufferConstants.MAX_LENGTH)) {
+    throw new Error("regular file exceeds the Buffer materialization cap");
+  }
+  const fileBytes = Number(before.size);
+  const output = captureBuffer ? Buffer.allocUnsafe(fileBytes) : null;
+  const chunk = captureBuffer ? output : Buffer.allocUnsafe(FILE_HASH_CHUNK_BYTES);
+  const hash = crypto.createHash("sha256");
+  let bytes = 0;
+  while (bytes < fileBytes) {
+    const offset = captureBuffer ? bytes : 0;
+    const read = fs.readSync(
+      held.descriptor,
+      chunk,
+      offset,
+      Math.min(captureBuffer ? fileBytes - bytes : chunk.length, fileBytes - bytes),
+      bytes
+    );
+    if (read === 0) throw new Error("regular file ended before its recorded size");
+    hash.update(chunk.subarray(offset, offset + read));
+    bytes += read;
+  }
+  const final = assertHeldRegularFileNoFollow(held, { expectedBytes, maxBytes });
+  if (!sameTypedFseventsFrameSnapshot(before, final)) {
+    throw new Error("regular file changed during held verification");
+  }
+  return {
+    buffer: output,
+    bytes,
+    sha256: hash.digest("hex"),
+    status: final
+  };
+}
+
+export function verifyArtifact(evidenceRoot, artifact, label, failures, {
+  maxBytes = ARCHIVE_ARTIFACT_MAX_BYTES
+} = {}) {
   if (!artifact) return true;
   let absolutePath;
   try {
@@ -13260,40 +14593,65 @@ export function verifyArtifact(evidenceRoot, artifact, label, failures) {
     failures.push(`${label}: artifact must not be a symlink`);
     return false;
   }
-  const buffer = fs.readFileSync(absolutePath);
-  let valid = true;
-  if (buffer.length !== artifact.bytes) {
-    failures.push(`${label}: artifact bytes mismatch`);
-    valid = false;
-  }
-  if (sha256Buffer(buffer) !== artifact.sha256) {
-    failures.push(`${label}: artifact sha256 mismatch`);
-    valid = false;
-  }
   const blobPath = path.join(evidenceRoot, "blobs", "sha256", artifact.sha256.slice(0, 2), artifact.sha256);
+  let artifactHeld = null;
+  let blobHeld = null;
   try {
     assertManagedPath(evidenceRoot, blobPath);
-    if (!fs.existsSync(blobPath) || fs.lstatSync(blobPath).isSymbolicLink()) {
-      failures.push(`${label}: content-addressed blob is missing or unsafe`);
-      valid = false;
-    } else {
-      const blob = fs.readFileSync(blobPath);
-      if (blob.length !== artifact.bytes || sha256Buffer(blob) !== artifact.sha256) {
-        failures.push(`${label}: content-addressed blob mismatch`);
-        valid = false;
-      }
-      const artifactStat = fs.statSync(absolutePath);
-      const blobStat = fs.statSync(blobPath);
-      if (artifactStat.dev !== blobStat.dev || artifactStat.ino !== blobStat.ino || artifactStat.nlink < 2) {
-        failures.push(`${label}: artifact is not a reused content-addressed hardlink`);
-        valid = false;
+    artifactHeld = openRegularFileNoFollow(absolutePath);
+    const artifactEvidence = observeHeldRegularFileNoFollow(artifactHeld, {
+      expectedBytes: artifact.bytes,
+      maxBytes
+    });
+    if (artifactEvidence.sha256 !== artifact.sha256) {
+      failures.push(`${label}: artifact sha256 mismatch`);
+      return false;
+    }
+    blobHeld = openRegularFileNoFollow(blobPath);
+    const blobEvidence = observeHeldRegularFileNoFollow(blobHeld, {
+      expectedBytes: artifact.bytes,
+      maxBytes
+    });
+    if (blobEvidence.sha256 !== artifact.sha256) {
+      failures.push(`${label}: content-addressed blob mismatch`);
+      return false;
+    }
+    if (artifactEvidence.status.dev !== blobEvidence.status.dev
+      || artifactEvidence.status.ino !== blobEvidence.status.ino
+      || artifactEvidence.status.nlink < 2n
+      || blobEvidence.status.nlink < 2n) {
+      failures.push(`${label}: artifact is not a reused content-addressed hardlink`);
+      return false;
+    }
+    const finalArtifactStatus = assertHeldRegularFileNoFollow(artifactHeld, {
+      expectedBytes: artifact.bytes,
+      maxBytes
+    });
+    const finalBlobStatus = assertHeldRegularFileNoFollow(blobHeld, {
+      expectedBytes: artifact.bytes,
+      maxBytes
+    });
+    if (finalArtifactStatus.dev !== finalBlobStatus.dev
+      || finalArtifactStatus.ino !== finalBlobStatus.ino
+      || finalArtifactStatus.nlink < 2n
+      || finalBlobStatus.nlink < 2n) {
+      failures.push(`${label}: content-addressed hardlink changed during verification`);
+      return false;
+    }
+    return true;
+  } catch (error) {
+    failures.push(`${label}: artifact/content-addressed validation failed (${error.message})`);
+    return false;
+  } finally {
+    for (const held of [blobHeld, artifactHeld]) {
+      if (held === null) continue;
+      try {
+        fs.closeSync(held.descriptor);
+      } catch {
+        // Descriptor cleanup does not alter the already recorded validation result.
       }
     }
-  } catch (error) {
-    failures.push(`${label}: content-addressed blob validation failed (${error.message})`);
-    valid = false;
   }
-  return valid;
 }
 
 function walkFiles(root, prefix = "") {
@@ -13355,7 +14713,49 @@ function isReviewedUntrackedExactInventory(item) {
     || isReviewedProtectedOverlayUntrackedInventory(item);
 }
 
-export function verifyTarPayload(tarBuffer, expected, label, failures) {
+function tarVerifierTimeoutMs(tarBytes, entryCount) {
+  if (!Number.isSafeInteger(tarBytes) || tarBytes < 0
+    || !Number.isSafeInteger(entryCount) || entryCount < 0) {
+    return CHILD_PROCESS_TIMEOUT_MS;
+  }
+  const sizeAllowance = Math.ceil(tarBytes / (1024 * 1024)) * 1_000;
+  const entryAllowance = Math.ceil(entryCount / 1_000) * 5_000;
+  return Math.min(
+    TAR_VERIFIER_MAX_TIMEOUT_MS,
+    CHILD_PROCESS_TIMEOUT_MS + sizeAllowance + entryAllowance
+  );
+}
+
+function tarVerifierStderrMetadata(error) {
+  const raw = Buffer.isBuffer(error?.stderr)
+    ? error.stderr
+    : typeof error?.stderr === "string"
+      ? Buffer.from(error.stderr)
+      : Buffer.alloc(0);
+  return `stderrBytes=${raw.length}, stderrSha256=${sha256Buffer(raw)}`;
+}
+
+function tarVerifierField(value) {
+  return typeof value === "string" && /^[A-Za-z0-9_-]{1,64}$/u.test(value) ? value : "none";
+}
+
+function tarVerifierDiagnostic(error) {
+  const status = Number.isInteger(error?.status) ? String(error.status) : "none";
+  const signal = tarVerifierField(error?.signal);
+  const code = tarVerifierField(error?.code);
+  return `status=${status}, signal=${signal}, code=${code}, ${tarVerifierStderrMetadata(error)}`;
+}
+
+function tarPayloadVerifierFailure(error) {
+  const raw = Buffer.isBuffer(error?.stderr)
+    ? error.stderr.toString("utf8")
+    : typeof error?.stderr === "string"
+      ? error.stderr
+      : "";
+  return error?.status === TAR_PAYLOAD_ERROR_STATUS && raw.trim() === TAR_PAYLOAD_ERROR_SENTINEL;
+}
+
+function verifyTarPayloadSource({ buffer = null, tarDescriptor = null, tarBytes }, expected, label, failures) {
   const reviewedProtectedOverlayPaths = new Set(
     expected.filter(isReviewedProtectedOverlayUntrackedInventory).map((item) => item.path)
   );
@@ -13372,17 +14772,51 @@ export function verifyTarPayload(tarBuffer, expected, label, failures) {
     failures.push(`${label}: invalid untracked inventory (${error.message})`);
     return;
   }
+  const descriptorSource = Number.isInteger(tarDescriptor) && tarDescriptor >= 0;
+  const bufferSource = Buffer.isBuffer(buffer);
+  if (descriptorSource === bufferSource) {
+    failures.push(`${label}: tar verifier source configuration is invalid`);
+    return;
+  }
+  const timeout = tarVerifierTimeoutMs(tarBytes, expected.length);
+  const descriptorPath = "/dev/fd/4";
+  const listingSource = descriptorSource
+    ? [
+      "source_fd=int(sys.argv[1].rsplit('/',1)[-1])",
+      "os.lseek(source_fd,0,os.SEEK_SET)",
+      "source=os.fdopen(os.dup(source_fd),'rb')"
+    ]
+    : ["source=io.BytesIO(sys.stdin.buffer.read())"];
   let members;
   try {
     const listingScript = [
-      "import base64,io,json,os,sys,tarfile",
-      "payload=sys.stdin.buffer.read()",
-      "with tarfile.open(fileobj=io.BytesIO(payload), mode='r:gz') as archive:",
-      " print(json.dumps([{'name':base64.b64encode(os.fsencode(m.name)).decode('ascii'),'link':base64.b64encode(os.fsencode(m.linkname or '')).decode('ascii'),'type':('file' if m.isfile() else 'symlink' if m.issym() else 'hardlink' if m.islnk() else 'dir' if m.isdir() else 'other'),'mode':m.mode,'size':m.size} for m in archive.getmembers()]))"
+      "import base64,gzip,io,json,os,sys,tarfile,zlib",
+      ...listingSource,
+      "try:",
+      " with source:",
+      "  with tarfile.open(fileobj=source, mode='r:gz') as archive:",
+      "   members=[{'name':base64.b64encode(os.fsencode(m.name)).decode('ascii'),'link':base64.b64encode(os.fsencode(m.linkname or '')).decode('ascii'),'type':('file' if m.isfile() else 'symlink' if m.issym() else 'hardlink' if m.islnk() else 'dir' if m.isdir() else 'other'),'mode':m.mode,'size':m.size} for m in archive.getmembers()]",
+      " print(json.dumps(members))",
+      "except (tarfile.TarError, EOFError, gzip.BadGzipFile, zlib.error):",
+      ` sys.stderr.write('${TAR_PAYLOAD_ERROR_SENTINEL}\\n')`,
+      ` sys.exit(${TAR_PAYLOAD_ERROR_STATUS})`
     ].join("\n");
-    members = JSON.parse(execFileSync("python3", ["-c", listingScript], { input: tarBuffer, encoding: "utf8", maxBuffer: 512 * 1024 * 1024, timeout: CHILD_PROCESS_TIMEOUT_MS }));
-  } catch {
-    failures.push(`${label}: gzip/tar archive is unreadable`);
+    members = JSON.parse(execFileSync(
+      "python3",
+      ["-c", listingScript, ...(descriptorSource ? [descriptorPath] : [])],
+      descriptorSource
+        ? {
+          encoding: "utf8",
+          maxBuffer: 512 * 1024 * 1024,
+          stdio: ["ignore", "pipe", "pipe", "ignore", tarDescriptor],
+          timeout
+        }
+        : { input: buffer, encoding: "utf8", maxBuffer: 512 * 1024 * 1024, timeout }
+    ));
+  } catch (error) {
+    failures.push(tarPayloadVerifierFailure(error)
+      ? `${label}: gzip/tar archive is unreadable`
+      : `${label}: tar listing verifier infrastructure failure (${tarVerifierDiagnostic(error)})`);
     return;
   }
   const expectedByPath = new Map(expected.map((item) => [item.path, item]));
@@ -13426,13 +14860,35 @@ export function verifyTarPayload(tarBuffer, expected, label, failures) {
   if (!safeToExtract) return;
   const extractRoot = fs.mkdtempSync(path.join(os.tmpdir(), "mais-evidence-verify-"));
   try {
+    const extractionSource = descriptorSource
+      ? [
+        "source_fd=int(sys.argv[1].rsplit('/',1)[-1])",
+        "os.lseek(source_fd,0,os.SEEK_SET)",
+        "source=os.fdopen(os.dup(source_fd),'rb')",
+        "extract_root=sys.argv[2]"
+      ]
+      : [
+        "source=io.BytesIO(sys.stdin.buffer.read())",
+        "extract_root=sys.argv[1]"
+      ];
     const extractionScript = [
-      "import io,sys,tarfile",
-      "payload=sys.stdin.buffer.read()",
-      "with tarfile.open(fileobj=io.BytesIO(payload), mode='r:gz') as archive:",
-      " archive.extractall(sys.argv[1], filter='data')"
+      "import gzip,io,os,sys,tarfile,zlib",
+      ...extractionSource,
+      "try:",
+      " with source:",
+      "  with tarfile.open(fileobj=source, mode='r:gz') as archive:",
+      "   archive.extractall(extract_root, filter='data')",
+      "except (tarfile.TarError, EOFError, gzip.BadGzipFile, zlib.error):",
+      ` sys.stderr.write('${TAR_PAYLOAD_ERROR_SENTINEL}\\n')`,
+      ` sys.exit(${TAR_PAYLOAD_ERROR_STATUS})`
     ].join("\n");
-    execFileSync("python3", ["-c", extractionScript, extractRoot], { input: tarBuffer, stdio: ["pipe", "pipe", "pipe"], timeout: CHILD_PROCESS_TIMEOUT_MS });
+    execFileSync(
+      "python3",
+      ["-c", extractionScript, ...(descriptorSource ? [descriptorPath, extractRoot] : [extractRoot])],
+      descriptorSource
+        ? { stdio: ["ignore", "pipe", "pipe", "ignore", tarDescriptor], timeout }
+        : { input: buffer, stdio: ["pipe", "pipe", "pipe"], timeout }
+    );
     const actual = buildInventoryInternal(extractRoot, walkFiles(extractRoot), {
       archiveProtectedOverlayPaths: reviewedProtectedOverlayPaths
     });
@@ -13440,12 +14896,22 @@ export function verifyTarPayload(tarBuffer, expected, label, failures) {
   } catch (error) {
     if (/reviewed binary magic mismatch/iu.test(error?.message ?? "")) {
       failures.push(`${label}: extracted tar reviewed binary magic mismatch`);
-    } else {
+    } else if (tarPayloadVerifierFailure(error)) {
       failures.push(`${label}: gzip/tar archive is unreadable or unsafe`);
+    } else {
+      failures.push(`${label}: tar extraction verifier infrastructure failure (${tarVerifierDiagnostic(error)})`);
     }
   } finally {
     fs.rmSync(extractRoot, { recursive: true, force: true });
   }
+}
+
+export function verifyTarPayload(tarBuffer, expected, label, failures) {
+  if (!Buffer.isBuffer(tarBuffer)) {
+    failures.push(`${label}: tar payload must be a Buffer`);
+    return;
+  }
+  verifyTarPayloadSource({ buffer: tarBuffer, tarBytes: tarBuffer.length }, expected, label, failures);
 }
 
 export function verifyTarInventory(evidenceRoot, entry, failures) {
@@ -13459,29 +14925,156 @@ export function verifyTarInventory(evidenceRoot, entry, failures) {
     failures.push(`${entry.branch}: missing untracked inventory artifact`);
     return;
   }
-  const tarPath = artifactAbsolutePath(evidenceRoot, tarArtifact.path);
-  const inventoryPath = artifactAbsolutePath(evidenceRoot, inventoryArtifact.path);
-  if (!fs.existsSync(tarPath) || !fs.existsSync(inventoryPath)) return;
-  const tarBuffer = fs.readFileSync(tarPath);
-  const inventoryBuffer = fs.readFileSync(inventoryPath);
-  if (tarBuffer.length !== tarArtifact.bytes || sha256Buffer(tarBuffer) !== tarArtifact.sha256) {
-    failures.push(`${entry.branch}: tar bytes or sha256 mismatch before verification`);
-    return;
-  }
-  if (inventoryBuffer.length !== inventoryArtifact.bytes || sha256Buffer(inventoryBuffer) !== inventoryArtifact.sha256) {
-    failures.push(`${entry.branch}: inventory bytes or sha256 mismatch before verification`);
-    return;
-  }
-  let expected;
+  let tarPath;
+  let inventoryPath;
+  let tarBlobPath;
+  let inventoryBlobPath;
   try {
-    expected = JSON.parse(inventoryBuffer.toString("utf8"));
+    tarPath = artifactAbsolutePath(evidenceRoot, tarArtifact.path);
+    inventoryPath = artifactAbsolutePath(evidenceRoot, inventoryArtifact.path);
+    tarBlobPath = path.join(
+      evidenceRoot,
+      "blobs",
+      "sha256",
+      tarArtifact.sha256.slice(0, 2),
+      tarArtifact.sha256
+    );
+    inventoryBlobPath = path.join(
+      evidenceRoot,
+      "blobs",
+      "sha256",
+      inventoryArtifact.sha256.slice(0, 2),
+      inventoryArtifact.sha256
+    );
+    assertManagedPath(evidenceRoot, tarBlobPath);
+    assertManagedPath(evidenceRoot, inventoryBlobPath);
   } catch (error) {
-    failures.push(`${entry.branch}: invalid untracked inventory (${error.message})`);
+    failures.push(`${entry.branch}: archive artifact path validation failed (${error.message})`);
     return;
   }
-  verifyTarPayload(tarBuffer, expected, entry.branch, failures);
-  if (!fs.readFileSync(tarPath).equals(tarBuffer) || !fs.readFileSync(inventoryPath).equals(inventoryBuffer)) {
-    failures.push(`${entry.branch}: archive artifacts changed during verification`);
+  const heldFiles = [];
+  let tarHeld;
+  let tarBlobHeld;
+  let inventoryHeld;
+  let inventoryBlobHeld;
+  try {
+    try {
+      tarHeld = openRegularFileNoFollow(tarPath);
+      heldFiles.push(tarHeld);
+      tarBlobHeld = openRegularFileNoFollow(tarBlobPath);
+      heldFiles.push(tarBlobHeld);
+      inventoryHeld = openRegularFileNoFollow(inventoryPath);
+      heldFiles.push(inventoryHeld);
+      inventoryBlobHeld = openRegularFileNoFollow(inventoryBlobPath);
+      heldFiles.push(inventoryBlobHeld);
+    } catch (error) {
+      failures.push(`${entry.branch}: archive artifact validation failed (${error.message})`);
+      return;
+    }
+    let tarEvidence;
+    let tarBlobEvidence;
+    let inventoryEvidence;
+    let inventoryBlobEvidence;
+    try {
+      tarEvidence = observeHeldRegularFileNoFollow(tarHeld, { expectedBytes: tarArtifact.bytes });
+      tarBlobEvidence = observeHeldRegularFileNoFollow(tarBlobHeld, { expectedBytes: tarArtifact.bytes });
+      inventoryEvidence = observeHeldRegularFileNoFollow(inventoryHeld, {
+        captureBuffer: true,
+        expectedBytes: inventoryArtifact.bytes,
+        maxBytes: ARCHIVE_INVENTORY_MAX_BYTES
+      });
+      inventoryBlobEvidence = observeHeldRegularFileNoFollow(inventoryBlobHeld, {
+        expectedBytes: inventoryArtifact.bytes,
+        maxBytes: ARCHIVE_INVENTORY_MAX_BYTES
+      });
+    } catch (error) {
+      failures.push(`${entry.branch}: archive artifact validation failed (${error.message})`);
+      return;
+    }
+    const initialFailureCount = failures.length;
+    if (tarEvidence.bytes !== tarArtifact.bytes || tarEvidence.sha256 !== tarArtifact.sha256
+      || tarBlobEvidence.bytes !== tarArtifact.bytes || tarBlobEvidence.sha256 !== tarArtifact.sha256) {
+      failures.push(`${entry.branch}: tar bytes or sha256 mismatch before verification`);
+    }
+    if (tarEvidence.status.dev !== tarBlobEvidence.status.dev
+      || tarEvidence.status.ino !== tarBlobEvidence.status.ino
+      || tarEvidence.status.nlink < 2n
+      || tarBlobEvidence.status.nlink < 2n) {
+      failures.push(`${entry.branch}: tar artifact is not a reused content-addressed hardlink`);
+    }
+    if (inventoryEvidence.bytes !== inventoryArtifact.bytes
+      || inventoryEvidence.sha256 !== inventoryArtifact.sha256
+      || inventoryBlobEvidence.bytes !== inventoryArtifact.bytes
+      || inventoryBlobEvidence.sha256 !== inventoryArtifact.sha256) {
+      failures.push(`${entry.branch}: inventory bytes or sha256 mismatch before verification`);
+    }
+    if (inventoryEvidence.status.dev !== inventoryBlobEvidence.status.dev
+      || inventoryEvidence.status.ino !== inventoryBlobEvidence.status.ino
+      || inventoryEvidence.status.nlink < 2n
+      || inventoryBlobEvidence.status.nlink < 2n) {
+      failures.push(`${entry.branch}: inventory artifact is not a reused content-addressed hardlink`);
+    }
+    if (failures.length !== initialFailureCount) return;
+    let expected;
+    try {
+      expected = JSON.parse(inventoryEvidence.buffer.toString("utf8"));
+    } catch (error) {
+      failures.push(`${entry.branch}: invalid untracked inventory (${error.message})`);
+      return;
+    }
+    verifyTarPayloadSource({
+      tarDescriptor: tarHeld.descriptor,
+      tarBytes: tarArtifact.bytes
+    }, expected, entry.branch, failures);
+    let finalTarEvidence;
+    let finalTarBlobEvidence;
+    let finalInventoryEvidence;
+    let finalInventoryBlobEvidence;
+    try {
+      finalTarEvidence = observeHeldRegularFileNoFollow(tarHeld, { expectedBytes: tarArtifact.bytes });
+      finalTarBlobEvidence = observeHeldRegularFileNoFollow(tarBlobHeld, { expectedBytes: tarArtifact.bytes });
+      finalInventoryEvidence = observeHeldRegularFileNoFollow(inventoryHeld, {
+        captureBuffer: true,
+        expectedBytes: inventoryArtifact.bytes,
+        maxBytes: ARCHIVE_INVENTORY_MAX_BYTES
+      });
+      finalInventoryBlobEvidence = observeHeldRegularFileNoFollow(inventoryBlobHeld, {
+        expectedBytes: inventoryArtifact.bytes,
+        maxBytes: ARCHIVE_INVENTORY_MAX_BYTES
+      });
+    } catch (error) {
+      failures.push(`${entry.branch}: archive artifacts changed during verification (${error.message})`);
+      return;
+    }
+    if (finalTarEvidence.bytes !== tarEvidence.bytes
+      || finalTarEvidence.sha256 !== tarEvidence.sha256
+      || finalTarBlobEvidence.bytes !== tarBlobEvidence.bytes
+      || finalTarBlobEvidence.sha256 !== tarBlobEvidence.sha256
+      || finalTarEvidence.status.dev !== finalTarBlobEvidence.status.dev
+      || finalTarEvidence.status.ino !== finalTarBlobEvidence.status.ino
+      || finalTarEvidence.status.nlink < 2n
+      || finalTarBlobEvidence.status.nlink < 2n
+      || finalInventoryEvidence.bytes !== inventoryEvidence.bytes
+      || finalInventoryEvidence.sha256 !== inventoryEvidence.sha256
+      || finalInventoryBlobEvidence.bytes !== inventoryBlobEvidence.bytes
+      || finalInventoryBlobEvidence.sha256 !== inventoryBlobEvidence.sha256
+      || finalInventoryEvidence.status.dev !== finalInventoryBlobEvidence.status.dev
+      || finalInventoryEvidence.status.ino !== finalInventoryBlobEvidence.status.ino
+      || finalInventoryEvidence.status.nlink < 2n
+      || finalInventoryBlobEvidence.status.nlink < 2n
+      || !finalInventoryEvidence.buffer.equals(inventoryEvidence.buffer)) {
+      failures.push(`${entry.branch}: archive artifacts changed during verification`);
+    }
+  } catch (error) {
+    failures.push(`${entry.branch}: archive verification failed (${error.message})`);
+  } finally {
+    for (const held of heldFiles.reverse()) {
+      try {
+        fs.closeSync(held.descriptor);
+      } catch {
+        // A descriptor close failure cannot change the already recorded validation result.
+      }
+    }
   }
 }
 
@@ -13505,7 +15098,13 @@ export function verifyArchiveSetEvidence(evidenceRoot, manifest, failures = []) 
     if (!verifyArchiveEntrySchema(entry, { archiveSetFingerprint: manifest.archiveSetFingerprint }, [])) continue;
     const validity = {};
     for (const [name, artifact] of Object.entries(entry.artifacts ?? {})) {
-      validity[name] = verifyArtifact(evidenceRoot, artifact, `${entry.branch}:${name}`, failures);
+      validity[name] = verifyArtifact(
+        evidenceRoot,
+        artifact,
+        `${entry.branch}:${name}`,
+        failures,
+        { maxBytes: name === "untrackedInventory" ? ARCHIVE_INVENTORY_MAX_BYTES : ARCHIVE_ARTIFACT_MAX_BYTES }
+      );
       if (artifact) {
         const absolutePath = artifactAbsolutePath(evidenceRoot, artifact.path);
         if (fs.existsSync(absolutePath) && (fs.statSync(absolutePath).mode & 0o777) !== 0o600) {

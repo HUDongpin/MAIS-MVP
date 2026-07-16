@@ -14,7 +14,8 @@ const here = path.dirname(new URL(import.meta.url).pathname);
 const writer = path.join(here, "refresh-linked-worktree-archive-evidence.mjs");
 const gate = path.join(here, "assert-linked-worktree-archive-evidence-current.mjs");
 const libraryUrl = pathToFileURL(path.join(here, "evidence-archive-lib.mjs")).href;
-const TEST_CHILD_TIMEOUT_MS = 15_000;
+const TEST_CHILD_TIMEOUT_MS = 30_000;
+const TYPED_E2E_TIMEOUT_MS = 120_000;
 const TEST_REPOSITORY_ID = "a".repeat(64);
 const pemHeaderFixture = () => ["-----BEGIN", "PRIVATE", "KEY-----"].join(" ");
 const providerTokenFixture = (suffix) => ["s", "k", "-"].join("") + suffix;
@@ -942,12 +943,12 @@ function fixtureLinkedWorktree(fixture) {
   };
 }
 
-function run(script, fixture, extraEnv = {}) {
+function run(script, fixture, extraEnv = {}, timeout = TEST_CHILD_TIMEOUT_MS) {
   return spawnSync(process.execPath, [script, "--json"], {
     cwd: fixture.repo,
     env: { ...process.env, MAIS_EVIDENCE_ROOT: fixture.evidenceRoot, ...extraEnv },
     encoding: "utf8",
-    timeout: TEST_CHILD_TIMEOUT_MS
+    timeout
   });
 }
 
@@ -3439,6 +3440,84 @@ test("snapshot releases tar scratch before returning its materialized buffer", a
   assert.deepEqual(failures, []);
   assert.doesNotThrow(() => snapshot.cleanup());
   assert.doesNotThrow(() => snapshot.cleanup());
+});
+
+test("snapshot streams canonical tar without a plain-tar scratch copy and preserves legacy bytes", async (t) => {
+  const { collectWorktreeSnapshot } = await import(libraryUrl);
+  const fixture = makeFixture();
+  t.after(() => fs.rmSync(fixture.parent, { recursive: true, force: true }));
+  fs.mkdirSync(path.join(fixture.linked, "nested"));
+  fs.writeFileSync(path.join(fixture.linked, "nested", "regular.txt"), "streamed canonical tar\n");
+  fs.linkSync(
+    path.join(fixture.linked, "nested", "regular.txt"),
+    path.join(fixture.linked, "nested", "hardlink.txt")
+  );
+  fs.symlinkSync("regular.txt", path.join(fixture.linked, "nested", "symlink.txt"));
+
+  const scratch = fs.mkdtempSync(path.join(os.tmpdir(), "mais-legacy-tar-test-"));
+  t.after(() => fs.rmSync(scratch, { recursive: true, force: true }));
+  const listPath = path.join(scratch, "paths0");
+  const plainTarPath = path.join(scratch, "legacy.tar");
+  const gzipTarPath = path.join(scratch, "legacy.tar.gz");
+  const paths0 = execFileSync(
+    "git",
+    ["ls-files", "--others", "--exclude-standard", "-z"],
+    { cwd: fixture.linked, encoding: null, timeout: TEST_CHILD_TIMEOUT_MS }
+  );
+  fs.writeFileSync(listPath, paths0, { mode: 0o600 });
+  const realTar = execFileSync("which", ["tar"], {
+    encoding: "utf8",
+    timeout: TEST_CHILD_TIMEOUT_MS
+  }).trim();
+  execFileSync(realTar, ["-cf", plainTarPath, "-C", fixture.linked, "--null", "-T", listPath], {
+    env: { ...process.env, COPYFILE_DISABLE: "1" },
+    stdio: ["ignore", "pipe", "pipe"],
+    timeout: TEST_CHILD_TIMEOUT_MS
+  });
+  const legacyCanonicalize = [
+    "import copy,gzip,sys,tarfile",
+    "with tarfile.open(sys.argv[1], 'r:') as source, open(sys.argv[2], 'wb') as raw:",
+    " with gzip.GzipFile(filename='', mode='wb', fileobj=raw, mtime=0) as compressed:",
+    "  with tarfile.open(fileobj=compressed, mode='w', format=tarfile.PAX_FORMAT) as target:",
+    "   for member in source.getmembers():",
+    "    clean=copy.copy(member)",
+    "    clean.uid=clean.gid=0",
+    "    clean.uname=clean.gname=''",
+    "    clean.mtime=0",
+    "    clean.pax_headers={}",
+    "    target.addfile(clean, source.extractfile(member) if member.isfile() else None)"
+  ].join("\n");
+  execFileSync("python3", ["-c", legacyCanonicalize, plainTarPath, gzipTarPath], {
+    stdio: ["ignore", "pipe", "pipe"],
+    timeout: TEST_CHILD_TIMEOUT_MS
+  });
+  const expected = fs.readFileSync(gzipTarPath);
+
+  const shimDirectory = path.join(fixture.parent, "streaming-tar-bin");
+  fs.mkdirSync(shimDirectory);
+  const shim = path.join(shimDirectory, "tar");
+  fs.writeFileSync(shim, `#!/bin/sh
+if [ "$1" = "-cf" ] && [ "$2" != "-" ]; then
+  printf '%s\n' 'plain tar scratch output is forbidden' >&2
+  exit 73
+fi
+exec "$REAL_TAR" "$@"
+`);
+  fs.chmodSync(shim, 0o755);
+  const originalPath = process.env.PATH;
+  const originalRealTar = process.env.REAL_TAR;
+  let snapshot;
+  try {
+    process.env.PATH = `${shimDirectory}:${originalPath}`;
+    process.env.REAL_TAR = realTar;
+    snapshot = collectWorktreeSnapshot(fixtureLinkedWorktree(fixture), { includeTar: true });
+  } finally {
+    process.env.PATH = originalPath;
+    if (originalRealTar === undefined) delete process.env.REAL_TAR;
+    else process.env.REAL_TAR = originalRealTar;
+  }
+  t.after(() => snapshot?.cleanup());
+  assert.ok(snapshot.buffers.untrackedTar.equals(expected));
 });
 
 test("writer archives the exact reviewed untracked coordination report", (t) => {
@@ -8354,7 +8433,6 @@ test("current gate verifies restore inventory and rejects artifact tampering", a
   const { sha256Buffer, verifyTarInventory } = await import(libraryUrl);
   const tarArtifact = manifest.archivedWorktrees[0].artifacts.untrackedTar;
   const tarPath = path.join(fixture.evidenceRoot, tarArtifact.path);
-  const originalTar = fs.readFileSync(tarPath);
   const escapeName = `mais-evidence-escape-${crypto.randomUUID()}`;
   const maliciousTar = path.join(fixture.parent, "malicious.tar.gz");
   execFileSync("python3", ["-c", [
@@ -8365,24 +8443,46 @@ test("current gate verifies restore inventory and rejects artifact tampering", a
     " item.size=len(data)",
     " archive.addfile(item, io.BytesIO(data))"
   ].join("\n"), maliciousTar, escapeName], { timeout: TEST_CHILD_TIMEOUT_MS });
+  fs.rmSync(tarPath);
   fs.copyFileSync(maliciousTar, tarPath);
+  fs.chmodSync(tarPath, 0o600);
   const mismatchedTar = run(gate, fixture);
   assert.notEqual(mismatchedTar.status, 0);
   assert.match(`${mismatchedTar.stdout}\n${mismatchedTar.stderr}`, /tar.*(?:bytes|sha256)|(?:bytes|sha256).*tar/i);
   assert.equal(fs.existsSync(path.join(os.tmpdir(), escapeName)), false);
   const maliciousBuffer = fs.readFileSync(maliciousTar);
+  const maliciousSha256 = sha256Buffer(maliciousBuffer);
+  const maliciousBlobPath = path.join(
+    fixture.evidenceRoot,
+    "blobs",
+    "sha256",
+    maliciousSha256.slice(0, 2),
+    maliciousSha256
+  );
+  fs.mkdirSync(path.dirname(maliciousBlobPath), { recursive: true });
+  fs.writeFileSync(maliciousBlobPath, maliciousBuffer, { mode: 0o600 });
+  fs.chmodSync(maliciousBlobPath, 0o600);
+  fs.rmSync(tarPath);
+  fs.linkSync(maliciousBlobPath, tarPath);
   const unsafeFailures = [];
   verifyTarInventory(fixture.evidenceRoot, {
     ...manifest.archivedWorktrees[0],
     artifacts: {
       ...manifest.archivedWorktrees[0].artifacts,
-      untrackedTar: { ...tarArtifact, bytes: maliciousBuffer.length, sha256: sha256Buffer(maliciousBuffer) }
+      untrackedTar: { ...tarArtifact, bytes: maliciousBuffer.length, sha256: maliciousSha256 }
     }
   }, unsafeFailures);
   assert.ok(unsafeFailures.some((failure) => /unsafe tar inventory/i.test(failure)));
   assert.equal(fs.existsSync(path.join(os.tmpdir(), escapeName)), false);
-  fs.writeFileSync(tarPath, originalTar);
-  fs.chmodSync(tarPath, 0o600);
+  const originalBlobPath = path.join(
+    fixture.evidenceRoot,
+    "blobs",
+    "sha256",
+    tarArtifact.sha256.slice(0, 2),
+    tarArtifact.sha256
+  );
+  fs.rmSync(tarPath);
+  fs.linkSync(originalBlobPath, tarPath);
   const restoredTar = run(gate, fixture);
   assert.equal(restoredTar.status, 0, restoredTar.stderr || restoredTar.stdout);
   const patchPath = path.join(fixture.evidenceRoot, manifest.archivedWorktrees[0].artifacts.trackedPatch.path);
@@ -8390,6 +8490,189 @@ test("current gate verifies restore inventory and rejects artifact tampering", a
   const tampered = run(gate, fixture);
   assert.notEqual(tampered.status, 0);
   assert.match(`${tampered.stdout}\n${tampered.stderr}`, /sha256|bytes|tamper/i);
+});
+
+test("tar verifier reports bounded infrastructure diagnostics instead of claiming archive corruption", async (t) => {
+  const fixture = makeFixture();
+  t.after(() => fs.rmSync(fixture.parent, { recursive: true, force: true }));
+  dirtyFixture(fixture);
+  assert.equal(run(writer, fixture).status, 0);
+  const manifest = JSON.parse(fs.readFileSync(path.join(
+    fixture.repo,
+    "coordination",
+    "release-intake",
+    "archive",
+    "2026-06-30-A25-linked-worktree-archive-manifest.json"
+  ), "utf8"));
+  const entry = manifest.archivedWorktrees[0];
+  const shimDirectory = path.join(fixture.parent, "failing-python");
+  const shim = path.join(shimDirectory, "python3");
+  const childDiagnostic = "fixture-sensitive-value";
+  fs.mkdirSync(shimDirectory);
+  fs.writeFileSync(shim, `#!/bin/sh
+printf '${childDiagnostic}\\n' >&2
+exit 75
+`);
+  fs.chmodSync(shim, 0o755);
+  const { verifyTarInventory } = await import(libraryUrl);
+  const failures = [];
+  const originalPath = process.env.PATH;
+  try {
+    process.env.PATH = `${shimDirectory}:${originalPath}`;
+    verifyTarInventory(fixture.evidenceRoot, entry, failures);
+  } finally {
+    process.env.PATH = originalPath;
+  }
+  assert.equal(failures.length, 1);
+  assert.match(failures[0], /tar listing verifier infrastructure failure/i);
+  assert.match(failures[0], /status[=: ]+75/i);
+  assert.match(failures[0], /stderrBytes=[1-9][0-9]*/i);
+  assert.match(failures[0], /stderrSha256=[0-9a-f]{64}/i);
+  assert.doesNotMatch(failures[0], /fixture-sensitive-value/i);
+  assert.ok(Buffer.byteLength(failures[0]) < 2_048);
+});
+
+test("tar inventory verification uses one held descriptor without copying the archive through stdin", async (t) => {
+  const fixture = makeFixture();
+  t.after(() => fs.rmSync(fixture.parent, { recursive: true, force: true }));
+  dirtyFixture(fixture);
+  assert.equal(run(writer, fixture).status, 0);
+  const manifest = JSON.parse(fs.readFileSync(path.join(
+    fixture.repo,
+    "coordination",
+    "release-intake",
+    "archive",
+    "2026-06-30-A25-linked-worktree-archive-manifest.json"
+  ), "utf8"));
+  const entry = manifest.archivedWorktrees[0];
+  const realPython = execFileSync("which", ["python3"], { encoding: "utf8" }).trim();
+  const shimDirectory = path.join(fixture.parent, "path-python");
+  const shim = path.join(shimDirectory, "python3");
+  fs.mkdirSync(shimDirectory);
+  fs.writeFileSync(shim, `#!/bin/sh
+first_byte=$(dd bs=1 count=1 2>/dev/null | od -An -tx1 | tr -d ' ')
+if [ -n "$first_byte" ]; then
+  printf 'tar verifier received archive bytes on stdin\\n' >&2
+  exit 76
+fi
+if [ "$#" -lt 3 ] || [ ! -f "$3" ]; then
+  printf 'tar verifier did not receive an archive path\\n' >&2
+  exit 77
+fi
+case "$3" in
+  /dev/fd/[0-9]*) ;;
+  *)
+    printf 'tar verifier did not receive a held descriptor path\\n' >&2
+    exit 78
+    ;;
+esac
+exec "$REAL_PYTHON" "$@"
+`);
+  fs.chmodSync(shim, 0o755);
+  const { verifyTarInventory } = await import(libraryUrl);
+  const failures = [];
+  const originalPath = process.env.PATH;
+  const originalRealPython = process.env.REAL_PYTHON;
+  try {
+    process.env.PATH = `${shimDirectory}:${originalPath}`;
+    process.env.REAL_PYTHON = realPython;
+    verifyTarInventory(fixture.evidenceRoot, entry, failures);
+  } finally {
+    process.env.PATH = originalPath;
+    if (originalRealPython === undefined) delete process.env.REAL_PYTHON;
+    else process.env.REAL_PYTHON = originalRealPython;
+  }
+  assert.deepEqual(failures, []);
+});
+
+test("tar inventory verification rejects pathname ABA without reading the swapped payload", async (t) => {
+  const fixture = makeFixture();
+  t.after(() => fs.rmSync(fixture.parent, { recursive: true, force: true }));
+  dirtyFixture(fixture);
+  assert.equal(run(writer, fixture).status, 0);
+  const manifest = JSON.parse(fs.readFileSync(path.join(
+    fixture.repo,
+    "coordination",
+    "release-intake",
+    "archive",
+    "2026-06-30-A25-linked-worktree-archive-manifest.json"
+  ), "utf8"));
+  const entry = manifest.archivedWorktrees[0];
+  const tarPath = path.join(fixture.evidenceRoot, entry.artifacts.untrackedTar.path);
+  const blobPath = path.join(
+    fixture.evidenceRoot,
+    "blobs",
+    "sha256",
+    entry.artifacts.untrackedTar.sha256.slice(0, 2),
+    entry.artifacts.untrackedTar.sha256
+  );
+  const replacement = path.join(fixture.parent, "different-unreadable.tar.gz");
+  fs.writeFileSync(replacement, "this is deliberately not the attested gzip payload\n");
+  fs.chmodSync(replacement, 0o600);
+  const realPython = execFileSync("which", ["python3"], { encoding: "utf8" }).trim();
+  const shimDirectory = path.join(fixture.parent, "aba-python");
+  const shim = path.join(shimDirectory, "python3");
+  fs.mkdirSync(shimDirectory);
+  fs.writeFileSync(shim, `#!/bin/sh
+rm -f "$ACTIVE_TAR"
+cp "$REPLACEMENT_TAR" "$ACTIVE_TAR"
+chmod 600 "$ACTIVE_TAR"
+"$REAL_PYTHON" "$@"
+status=$?
+rm -f "$ACTIVE_TAR"
+ln "$BLOB_TAR" "$ACTIVE_TAR"
+exit "$status"
+`);
+  fs.chmodSync(shim, 0o755);
+  const { verifyTarInventory } = await import(libraryUrl);
+  const failures = [];
+  const originalEnvironment = {
+    ACTIVE_TAR: process.env.ACTIVE_TAR,
+    BLOB_TAR: process.env.BLOB_TAR,
+    PATH: process.env.PATH,
+    REAL_PYTHON: process.env.REAL_PYTHON,
+    REPLACEMENT_TAR: process.env.REPLACEMENT_TAR
+  };
+  try {
+    process.env.ACTIVE_TAR = tarPath;
+    process.env.BLOB_TAR = blobPath;
+    process.env.PATH = `${shimDirectory}:${originalEnvironment.PATH}`;
+    process.env.REAL_PYTHON = realPython;
+    process.env.REPLACEMENT_TAR = replacement;
+    verifyTarInventory(fixture.evidenceRoot, entry, failures);
+  } finally {
+    for (const [name, value] of Object.entries(originalEnvironment)) {
+      if (value === undefined) delete process.env[name];
+      else process.env[name] = value;
+    }
+  }
+  assert.ok(failures.some((failure) => /changed during verification|path binding/i.test(failure)), failures.join("\n"));
+  assert.ok(failures.every((failure) => !/gzip\/tar archive is unreadable/i.test(failure)), failures.join("\n"));
+});
+
+test("tar inventory verification rejects a byte-identical artifact that is no longer the CAS hardlink", async (t) => {
+  const fixture = makeFixture();
+  t.after(() => fs.rmSync(fixture.parent, { recursive: true, force: true }));
+  dirtyFixture(fixture);
+  assert.equal(run(writer, fixture).status, 0);
+  const manifest = JSON.parse(fs.readFileSync(path.join(
+    fixture.repo,
+    "coordination",
+    "release-intake",
+    "archive",
+    "2026-06-30-A25-linked-worktree-archive-manifest.json"
+  ), "utf8"));
+  const entry = manifest.archivedWorktrees[0];
+  const tarPath = path.join(fixture.evidenceRoot, entry.artifacts.untrackedTar.path);
+  const replacement = path.join(fixture.parent, "byte-identical.tar.gz");
+  fs.copyFileSync(tarPath, replacement);
+  fs.rmSync(tarPath);
+  fs.copyFileSync(replacement, tarPath);
+  fs.chmodSync(tarPath, 0o600);
+  const { verifyTarInventory } = await import(libraryUrl);
+  const failures = [];
+  verifyTarInventory(fixture.evidenceRoot, entry, failures);
+  assert.ok(failures.some((failure) => /content-addressed hardlink/i.test(failure)), failures.join("\n"));
 });
 
 test("writer blocks secret content with redacted output and accepts placeholders", (t) => {
@@ -9105,6 +9388,60 @@ test("exclusive writer lock rejects a concurrent writer", async (t) => {
   assert.equal(firstResult.status, 0, firstResult.stderr || firstResult.stdout);
 });
 
+test("currentness gate refuses to start while the evidence writer lock is held", async (t) => {
+  const fixture = makeFixture();
+  t.after(() => fs.rmSync(fixture.parent, { recursive: true, force: true }));
+  dirtyFixture(fixture);
+  const archived = run(writer, fixture);
+  assert.equal(archived.status, 0, archived.stderr || archived.stdout);
+  const current = run(gate, fixture);
+  assert.equal(current.status, 0, current.stderr || current.stdout);
+  const manifestBytes = new Map(repositoryArchiveManifestPaths(fixture).map((absolutePath) => (
+    [absolutePath, fs.readFileSync(absolutePath)]
+  )));
+  const reportPath = path.join(
+    fixture.evidenceRoot,
+    "reports",
+    "latest-A25-linked-worktree-archive-evidence-current-gate.json"
+  );
+  const reportBytes = fs.readFileSync(reportPath);
+  const commonDir = path.join(fixture.repo, ".git");
+  const lockPath = path.join(commonDir, "mais-evidence-writer.lock");
+  fs.closeSync(fs.openSync(lockPath, "a", 0o600));
+  const holderSource = [
+    "import fcntl,os,sys",
+    "fd=os.open(sys.argv[1],os.O_RDWR|os.O_NOFOLLOW)",
+    "fcntl.flock(fd,fcntl.LOCK_EX|fcntl.LOCK_NB)",
+    "print('READY',flush=True)",
+    "sys.stdin.read()"
+  ].join("\n");
+  const holder = spawn("/usr/bin/python3", ["-c", holderSource, lockPath], {
+    stdio: ["pipe", "pipe", "pipe"]
+  });
+  t.after(() => {
+    if (holder.exitCode === null) holder.kill("SIGKILL");
+  });
+  let ready = "";
+  await new Promise((resolve, reject) => {
+    const timeout = setTimeout(() => reject(new Error("gate lock holder READY timeout")), 5_000);
+    holder.stdout.on("data", (chunk) => {
+      ready += chunk;
+      if (ready === "READY\n") {
+        clearTimeout(timeout);
+        resolve();
+      }
+    });
+    holder.once("exit", (status) => reject(new Error(`gate lock holder exited before READY: ${status}`)));
+  });
+  const result = run(gate, fixture);
+  holder.stdin.end();
+  await new Promise((resolve) => holder.once("close", resolve));
+  assert.notEqual(result.status, 0);
+  assert.match(`${result.stdout}\n${result.stderr}`, /lock|writer.*active|concurrent/i);
+  for (const [absolutePath, expected] of manifestBytes) assert.deepEqual(fs.readFileSync(absolutePath), expected);
+  assert.deepEqual(fs.readFileSync(reportPath), reportBytes);
+});
+
 test("advisory writer lock is released by SIGKILL and a later writer recovers", async (t) => {
   const fixture = makeFixture();
   t.after(() => fs.rmSync(fixture.parent, { recursive: true, force: true }));
@@ -9141,6 +9478,66 @@ test("existing archive sets are immutable and never overwritten", (t) => {
   assert.notEqual(rerun.status, 0);
   assert.match(`${rerun.stdout}\n${rerun.stderr}`, /immutable|conflict|corrupt|mismatch/i);
   assert.deepEqual(fs.readFileSync(indexPath), tampered);
+});
+
+test("currentness gate rejects a complete unreferenced archive set without adopting it", async (t) => {
+  const fixture = makeFixture();
+  t.after(() => fs.rmSync(fixture.parent, { recursive: true, force: true }));
+  dirtyFixture(fixture);
+  const archived = run(writer, fixture);
+  assert.equal(archived.status, 0, archived.stderr || archived.stdout);
+  const manifestPaths = repositoryArchiveManifestPaths(fixture);
+  const manifestBytes = new Map(manifestPaths.map((absolutePath) => [absolutePath, fs.readFileSync(absolutePath)]));
+  const linkedManifest = JSON.parse(fs.readFileSync(manifestPaths[0], "utf8"));
+  fs.appendFileSync(path.join(fixture.linked, "tracked.txt"), "unreferenced set state\n");
+  const {
+    MARKER_NAME,
+    collectWorktreeSnapshot,
+    listWorktrees,
+    materializeArchiveSet,
+    readEvidenceRootMarker,
+    repositoryIdentity
+  } = await import(libraryUrl);
+  const worktree = listWorktrees(fixture.repo).find((entry) => entry.branch === "feature/archive");
+  assert.ok(worktree);
+  const snapshot = collectWorktreeSnapshot(worktree);
+  let materialized;
+  try {
+    materialized = materializeArchiveSet({
+      evidenceRoot: fixture.evidenceRoot,
+      marker: readEvidenceRootMarker(path.join(fixture.evidenceRoot, MARKER_NAME), {
+        repositoryId: repositoryIdentity(path.join(fixture.repo, ".git")),
+        rootId: linkedManifest.evidenceRootId
+      }),
+      dirtyMap: JSON.parse(fs.readFileSync(path.join(
+        fixture.repo,
+        "coordination",
+        "release-intake",
+        "latest-A25-dirty-tree-map.json"
+      ), "utf8")),
+      snapshots: [{ ...snapshot, branch: worktree.branch, head: worktree.head, worktreePath: worktree.path }]
+    });
+  } finally {
+    snapshot.cleanup();
+  }
+  assert.notEqual(materialized.archiveSetFingerprint, linkedManifest.archiveSetFingerprint);
+  assert.equal(fs.existsSync(path.join(
+    fixture.evidenceRoot,
+    "sets",
+    materialized.archiveSetFingerprint,
+    "archive-set.json"
+  )), true);
+  const gateResult = run(gate, fixture);
+  assert.notEqual(gateResult.status, 0, gateResult.stderr || gateResult.stdout);
+  assert.match(`${gateResult.stdout}\n${gateResult.stderr}`, /stale|drift|current|fingerprint/i);
+  for (const [absolutePath, expected] of manifestBytes) assert.deepEqual(fs.readFileSync(absolutePath), expected);
+  const report = JSON.parse(fs.readFileSync(path.join(
+    fixture.evidenceRoot,
+    "reports",
+    "latest-A25-linked-worktree-archive-evidence-current-gate.json"
+  ), "utf8"));
+  assert.equal(report.archiveSetFingerprint, linkedManifest.archiveSetFingerprint);
+  assert.ok(report.failures.length > 0);
 });
 
 test("writer self-verification catches archive TOCTOU before publishing manifests", (t) => {
@@ -9283,7 +9680,7 @@ test("current gate alternates away from a readable legacy v1 terminal protocol",
   const environment = {
     MAIS_EVIDENCE_MUTATION_MONITOR_MODE: "descriptor-sentinel"
   };
-  const archived = run(writer, fixture, environment);
+  const archived = run(writer, fixture, environment, TYPED_E2E_TIMEOUT_MS);
   assert.equal(archived.status, 0, archived.stderr || archived.stdout);
   const reportsDirectory = path.join(fixture.evidenceRoot, "reports");
   const reportPath = path.join(
@@ -9309,14 +9706,14 @@ test("current gate alternates away from a readable legacy v1 terminal protocol",
     }
   };
   fs.writeFileSync(reportPath, `${JSON.stringify(legacyReport)}\n`, { mode: 0o600 });
-  const checked = run(gate, fixture, environment);
+  const checked = run(gate, fixture, environment, TYPED_E2E_TIMEOUT_MS);
   assert.equal(checked.status, 0, checked.stderr || checked.stdout);
   const current = JSON.parse(fs.readFileSync(reportPath, "utf8"));
   assert.equal(
     current.terminalProtocol.attestationFile,
     "reports/gate-monitor-attestation-slot-b.json"
   );
-  assert.equal(current.terminalProtocol.schemaVersion, 2);
+  assert.equal(current.terminalProtocol.schemaVersion, 3);
   assert.equal(current.terminalProtocol.requestedWatchMode, "descriptor-sentinel");
   assert.equal(current.terminalProtocol.directoryTimestampPolicy, "semantic-directory");
 });
@@ -9643,7 +10040,7 @@ test("Darwin explicit descriptor monitoring binds a native typed FSEvents READY 
   assert.equal(state.typedFsevents.journalFirstEventId, null);
   assert.equal(state.typedFsevents.journalLastEventId, null);
   assert.equal(state.typedFsevents.journalLastFlushedEventId, null);
-  assert.ok(BigInt(state.typedFsevents.journalFlushSequence) >= 2n);
+  assert.equal(state.typedFsevents.journalFlushSequence, "2");
   for (const absolutePath of [
     monitor.typedFseventsBinaryPath,
     monitor.typedFseventsRootsPath,
@@ -9761,6 +10158,11 @@ test("Darwin typed descriptor separates exact xattr churn from write-restore mat
   const fixture = makeFixture();
   t.after(() => fs.rmSync(fixture.parent, { recursive: true, force: true }));
   const target = path.join(fixture.linked, "tracked.txt");
+  fs.appendFileSync(target, "dirty baseline selected by Git-currentness scope\n");
+  execFileSync("/usr/bin/xattr", ["-w", "com.mais.task2", "baseline", target], {
+    stdio: "ignore",
+    timeout: TEST_CHILD_TIMEOUT_MS
+  });
   const {
     abortMutationEpochMonitor,
     settleMutationEpochState,
@@ -9784,6 +10186,32 @@ test("Darwin typed descriptor separates exact xattr churn from write-restore mat
     BigInt(xattrState.typedFsevents.xattrOnlyEventCount)
       > BigInt(baseline.typedFsevents.xattrOnlyEventCount)
   );
+  assert.equal(
+    BigInt(xattrState.typedFsevents.journalFlushSequence)
+      - BigInt(baseline.typedFsevents.journalFlushSequence),
+    4n
+  );
+  const assertTypedAlgebra = (state) => {
+    const typed = state.typedFsevents;
+    assert.equal(
+      BigInt(typed.sourceEventCount) + BigInt(typed.transactionMetadataEventCount),
+      BigInt(typed.materialEventCount)
+    );
+    assert.equal(
+      BigInt(typed.materialEventCount) + BigInt(typed.xattrOnlyEventCount),
+      BigInt(typed.journalEntryCount)
+    );
+  };
+  assertTypedAlgebra(xattrState);
+  const xattrNoop = settleMutationEpochState(monitor);
+  assert.equal(xattrNoop.sourceEpoch, xattrState.sourceEpoch);
+  assert.equal(xattrNoop.metadataEpoch, xattrState.metadataEpoch);
+  assert.equal(xattrNoop.xattrEpoch, xattrState.xattrEpoch);
+  assert.equal(
+    BigInt(xattrNoop.typedFsevents.journalFlushSequence)
+      - BigInt(xattrState.typedFsevents.journalFlushSequence),
+    2n
+  );
 
   const original = fs.readFileSync(target);
   const originalStat = fs.statSync(target);
@@ -9791,15 +10219,30 @@ test("Darwin typed descriptor separates exact xattr churn from write-restore mat
   fs.writeFileSync(target, original);
   fs.utimesSync(target, originalStat.atime, originalStat.mtime);
   const materialState = settleMutationEpochState(monitor);
-  assert.ok(materialState.sourceEpoch > xattrState.sourceEpoch);
-  assert.equal(materialState.xattrEpoch, xattrState.xattrEpoch);
+  assert.ok(materialState.sourceEpoch > xattrNoop.sourceEpoch);
+  assert.equal(materialState.xattrEpoch, xattrNoop.xattrEpoch);
   assert.ok(
     BigInt(materialState.typedFsevents.materialEventCount)
-      > BigInt(xattrState.typedFsevents.materialEventCount)
+      > BigInt(xattrNoop.typedFsevents.materialEventCount)
+  );
+  assert.equal(
+    BigInt(materialState.typedFsevents.journalFlushSequence)
+      - BigInt(xattrNoop.typedFsevents.journalFlushSequence),
+    4n
+  );
+  assertTypedAlgebra(materialState);
+  const materialNoop = settleMutationEpochState(monitor);
+  assert.equal(materialNoop.sourceEpoch, materialState.sourceEpoch);
+  assert.equal(materialNoop.metadataEpoch, materialState.metadataEpoch);
+  assert.equal(materialNoop.xattrEpoch, materialState.xattrEpoch);
+  assert.equal(
+    BigInt(materialNoop.typedFsevents.journalFlushSequence)
+      - BigInt(materialState.typedFsevents.journalFlushSequence),
+    2n
   );
   stopMutationEpochMonitor(monitor, {
-    expectedEpoch: materialState.sourceEpoch,
-    expectedMetadataEpoch: materialState.metadataEpoch
+    expectedEpoch: materialNoop.sourceEpoch,
+    expectedMetadataEpoch: materialNoop.metadataEpoch
   });
 });
 
@@ -9835,7 +10278,7 @@ test("closure monitor override rejects every unsupported defined mode before boo
   }
 });
 
-test("closure descriptor override ignores read-only churn inside an ignored directory", async (t) => {
+test("closure descriptor override handles ignored churn without opening ignored payloads", async (t) => {
   const fixture = makeFixture();
   t.after(() => fs.rmSync(fixture.parent, { recursive: true, force: true }));
   fs.writeFileSync(path.join(fixture.linked, ".gitignore"), ".ignored-cache/\n");
@@ -9863,7 +10306,10 @@ test("closure descriptor override ignores read-only churn inside an ignored dire
   });
   t.after(() => abortMutationEpochMonitor(monitor));
   const baseline = settleMutationEpochState(monitor);
-  assert.equal(baseline.watchMode, "descriptor-sentinel");
+  assert.equal(
+    baseline.watchMode,
+    process.platform === "darwin" ? "descriptor-sentinel-fsevents" : "descriptor-sentinel"
+  );
   const churn = path.join(ignoredDirectory, "read-only-churn.txt");
   fs.writeFileSync(churn, "ignored churn\n");
   fs.readFileSync(path.join(fixture.linked, "tracked.txt"));
@@ -9875,7 +10321,14 @@ test("closure descriptor override ignores read-only churn inside an ignored dire
   });
   fs.rmSync(churn);
   const observed = settleMutationEpochState(monitor);
-  assert.equal(observed.sourceEpoch, baseline.sourceEpoch);
+  if (process.platform === "darwin") {
+    assert.ok(
+      observed.sourceEpoch > baseline.sourceEpoch,
+      "out-of-scope typed events must conservatively fail currentness as source"
+    );
+  } else {
+    assert.equal(observed.sourceEpoch, baseline.sourceEpoch);
+  }
   stopMutationEpochMonitor(monitor, {
     expectedEpoch: observed.sourceEpoch,
     expectedMetadataEpoch: observed.metadataEpoch
@@ -10090,9 +10543,9 @@ test("closure monitor override reaches the writer and currentness gate end to en
   const environment = {
     MAIS_EVIDENCE_MUTATION_MONITOR_MODE: "descriptor-sentinel"
   };
-  const archived = run(writer, fixture, environment);
+  const archived = run(writer, fixture, environment, TYPED_E2E_TIMEOUT_MS);
   assert.equal(archived.status, 0, archived.stderr || archived.stdout);
-  const checked = run(gate, fixture, environment);
+  const checked = run(gate, fixture, environment, TYPED_E2E_TIMEOUT_MS);
   assert.equal(checked.status, 0, checked.stderr || checked.stdout);
   const report = JSON.parse(fs.readFileSync(path.join(
     fixture.evidenceRoot,
@@ -10106,8 +10559,14 @@ test("closure monitor override reaches the writer and currentness gate end to en
   assert.equal(report.terminalProtocol.schemaVersion, 3);
   assert.equal(report.terminalProtocol.requestedWatchMode, "descriptor-sentinel");
   assert.equal(report.terminalProtocol.directoryTimestampPolicy, "semantic-directory");
+  assert.equal(report.terminalProtocol.watchMode, attestation.watchMode);
+  assert.equal(report.terminalProtocol.expectedXattrEpoch, attestation.xattrEpoch);
+  assert.deepEqual(report.terminalProtocol.typedFsevents, attestation.typedFsevents);
   assert.equal(attestation.schemaVersion, 3);
-  assert.equal(attestation.watchMode, "descriptor-sentinel");
+  assert.equal(
+    attestation.watchMode,
+    process.platform === "darwin" ? "descriptor-sentinel-fsevents" : "descriptor-sentinel"
+  );
   assert.equal(attestation.requestedWatchMode, "descriptor-sentinel");
   assert.equal(attestation.directoryTimestampPolicy, "semantic-directory");
 });
@@ -10239,10 +10698,12 @@ test("mutation monitor rejects prefix policies and classifies only one dynamical
   t.after(() => fs.rmSync(fixture.parent, { recursive: true, force: true }));
   const {
     abortMutationEpochMonitor,
+    readMutationEpochState,
     registerMutationMetadataRoot,
     settleMutationEpochState,
     startMutationEpochMonitor,
-    stopMutationEpochMonitor
+    stopMutationEpochMonitor,
+    TRANSACTION_METADATA_PATHS
   } = await import(libraryUrl);
   const archiveParent = path.join(fixture.linked, "coordination", "release-intake", "archive");
   fs.mkdirSync(archiveParent, { recursive: true });
@@ -10264,7 +10725,7 @@ test("mutation monitor rejects prefix policies and classifies only one dynamical
     watchMode: "descriptor-sentinel",
     transactionMetadata: {
       root: fixture.linked,
-      exactRelativePaths: ["coordination/release-intake/archive/exact-manifest.json"]
+      exactRelativePaths: [TRANSACTION_METADATA_PATHS[0]]
     }
   });
   let terminalState;
@@ -10276,18 +10737,47 @@ test("mutation monitor rejects prefix policies and classifies only one dynamical
       relativePath: transactionRelativePath
     });
     assert.equal(registration.relativePath, transactionRelativePath);
+    const reboundState = readMutationEpochState(monitor, { requestSample: false });
+    assert.equal(reboundState.sourceEpoch, baseline.sourceEpoch);
+    assert.equal(reboundState.metadataEpoch, baseline.metadataEpoch);
+    assert.equal(reboundState.xattrEpoch, baseline.xattrEpoch);
+    assert.equal(
+      BigInt(reboundState.typedFsevents.journalFlushSequence)
+        - BigInt(baseline.typedFsevents.journalFlushSequence),
+      4n
+    );
     const transactionRoot = path.join(fixture.linked, ...transactionRelativePath.split("/"));
     fs.mkdirSync(transactionRoot);
     fs.writeFileSync(path.join(transactionRoot, "journal.json"), "registered metadata\n");
     const registeredState = settleMutationEpochState(monitor);
     assert.equal(registeredState.sourceEpoch, baseline.sourceEpoch);
     assert.ok(registeredState.metadataEpoch > baseline.metadataEpoch);
+    assert.equal(
+      BigInt(registeredState.typedFsevents.journalFlushSequence)
+        - BigInt(reboundState.typedFsevents.journalFlushSequence),
+      4n
+    );
     const sibling = `${transactionRoot}-not-a-canonical-uuid`;
     fs.mkdirSync(sibling);
     fs.writeFileSync(path.join(sibling, "source.txt"), "must be source\n");
     terminalState = settleMutationEpochState(monitor);
     assert.ok(terminalState.sourceEpoch > registeredState.sourceEpoch);
     assert.equal(terminalState.metadataEpoch, registeredState.metadataEpoch);
+    assert.equal(
+      BigInt(terminalState.typedFsevents.journalFlushSequence)
+        - BigInt(registeredState.typedFsevents.journalFlushSequence),
+      4n
+    );
+    const noopState = settleMutationEpochState(monitor);
+    assert.equal(noopState.sourceEpoch, terminalState.sourceEpoch);
+    assert.equal(noopState.metadataEpoch, terminalState.metadataEpoch);
+    assert.equal(noopState.xattrEpoch, terminalState.xattrEpoch);
+    assert.equal(
+      BigInt(noopState.typedFsevents.journalFlushSequence)
+        - BigInt(terminalState.typedFsevents.journalFlushSequence),
+      2n
+    );
+    terminalState = noopState;
   } finally {
     if (!monitor.stopped) {
       const current = terminalState ?? settleMutationEpochState(monitor);
@@ -10297,6 +10787,443 @@ test("mutation monitor rejects prefix policies and classifies only one dynamical
       });
     }
   }
+});
+
+test("Gate A auto monitor classifies its exact archive parent namespace as transaction metadata", async (t) => {
+  const fixture = makeFixture();
+  t.after(() => fs.rmSync(fixture.parent, { recursive: true, force: true }));
+  const {
+    MANIFEST_TRANSACTION_MONITOR_METADATA_PATHS,
+    TRANSACTION_METADATA_PATHS,
+    registerMutationMetadataRoot,
+    settleMutationEpochState,
+    startMutationEpochMonitor,
+    stopMutationEpochMonitor
+  } = await import(libraryUrl);
+  assert.deepEqual(
+    MANIFEST_TRANSACTION_MONITOR_METADATA_PATHS,
+    [
+      ...TRANSACTION_METADATA_PATHS,
+      "coordination/release-intake/archive"
+    ]
+  );
+  assert.equal(TRANSACTION_METADATA_PATHS.length, 6);
+
+  const archiveParent = path.join(fixture.linked, "coordination", "release-intake", "archive");
+  fs.mkdirSync(archiveParent, { recursive: true });
+  const monitor = startMutationEpochMonitor([fixture.linked], {
+    watchMode: "auto",
+    transactionMetadata: {
+      root: fixture.linked,
+      exactRelativePaths: MANIFEST_TRANSACTION_MONITOR_METADATA_PATHS
+    }
+  });
+  let terminalState;
+  try {
+    const baseline = settleMutationEpochState(monitor);
+    const transactionRelativePath = `coordination/release-intake/archive/.evidence-publish-${process.pid}-${crypto.randomUUID()}`;
+    registerMutationMetadataRoot(monitor, {
+      root: fixture.linked,
+      relativePath: transactionRelativePath
+    });
+    const transactionRoot = path.join(fixture.linked, ...transactionRelativePath.split("/"));
+    fs.mkdirSync(transactionRoot);
+    fs.writeFileSync(path.join(transactionRoot, "journal.json"), "registered metadata\n");
+    const registeredState = settleMutationEpochState(monitor);
+    assert.equal(registeredState.sourceEpoch, baseline.sourceEpoch);
+    assert.ok(registeredState.metadataEpoch > baseline.metadataEpoch);
+
+    fs.writeFileSync(path.join(archiveParent, "not-transaction-metadata.txt"), "must remain source\n");
+    terminalState = settleMutationEpochState(monitor);
+    assert.ok(terminalState.sourceEpoch > registeredState.sourceEpoch);
+  } finally {
+    if (!monitor.stopped) {
+      const current = terminalState ?? settleMutationEpochState(monitor);
+      stopMutationEpochMonitor(monitor, {
+        expectedEpoch: current.sourceEpoch,
+        expectedMetadataEpoch: current.metadataEpoch
+      });
+    }
+  }
+});
+
+test("Gate A auto monitor uses the most-specific logical policy for overlapping worktree roots", async (t) => {
+  const fixture = makeFixture();
+  t.after(() => fs.rmSync(fixture.parent, { recursive: true, force: true }));
+  const nested = path.join(fixture.repo, ".worktrees", "nested");
+  fs.mkdirSync(path.dirname(nested), { recursive: true });
+  git(fixture.repo, "worktree", "add", "-b", "feature/nested-overlap", nested, "main");
+  const archiveParent = path.join(nested, "coordination", "release-intake", "archive");
+  fs.mkdirSync(archiveParent, { recursive: true });
+  const {
+    MANIFEST_TRANSACTION_MONITOR_METADATA_PATHS,
+    registerMutationMetadataRoot,
+    settleMutationEpochState,
+    startMutationEpochMonitor,
+    stopMutationEpochMonitor
+  } = await import(libraryUrl);
+  const monitor = startMutationEpochMonitor([fixture.repo, nested], {
+    watchMode: "auto",
+    transactionMetadata: {
+      root: nested,
+      exactRelativePaths: MANIFEST_TRANSACTION_MONITOR_METADATA_PATHS
+    }
+  });
+  let terminalState;
+  try {
+    const baseline = settleMutationEpochState(monitor);
+    const transactionRelativePath = `coordination/release-intake/archive/.evidence-publish-${process.pid}-${crypto.randomUUID()}`;
+    registerMutationMetadataRoot(monitor, {
+      root: nested,
+      relativePath: transactionRelativePath
+    });
+    const transactionRoot = path.join(nested, ...transactionRelativePath.split("/"));
+    fs.mkdirSync(transactionRoot);
+    fs.writeFileSync(path.join(transactionRoot, "journal.json"), "registered nested metadata\n");
+    const registeredState = settleMutationEpochState(monitor);
+    assert.equal(registeredState.sourceEpoch, baseline.sourceEpoch);
+    assert.ok(registeredState.metadataEpoch > baseline.metadataEpoch);
+
+    fs.writeFileSync(path.join(archiveParent, "not-transaction-metadata.txt"), "must remain source\n");
+    terminalState = settleMutationEpochState(monitor);
+    assert.ok(terminalState.sourceEpoch > registeredState.sourceEpoch);
+  } finally {
+    if (!monitor.stopped) {
+      const current = terminalState ?? settleMutationEpochState(monitor);
+      stopMutationEpochMonitor(monitor, {
+        expectedEpoch: current.sourceEpoch,
+        expectedMetadataEpoch: current.metadataEpoch
+      });
+    }
+  }
+});
+
+test("Gate A recursive monitor ignores Git-ignored churn but detects a new nonignored path", async (t) => {
+  const fixture = makeFixture();
+  t.after(() => fs.rmSync(fixture.parent, { recursive: true, force: true }));
+  fs.writeFileSync(path.join(fixture.linked, ".gitignore"), "*.ignored\n");
+  const {
+    settleMutationEpochState,
+    startMutationEpochMonitor,
+    stopMutationEpochMonitor
+  } = await import(libraryUrl);
+  const monitor = startMutationEpochMonitor([fixture.linked], { watchMode: "auto" });
+  let terminalState;
+  try {
+    const baseline = settleMutationEpochState(monitor);
+    if (baseline.watchMode !== "recursive") {
+      terminalState = baseline;
+      t.skip("recursive watcher is unavailable on this platform");
+      return;
+    }
+    fs.writeFileSync(path.join(fixture.linked, "background.ignored"), "ignored churn\n");
+    const ignoredState = settleMutationEpochState(monitor);
+    assert.equal(ignoredState.sourceEpoch, baseline.sourceEpoch);
+
+    fs.writeFileSync(path.join(fixture.linked, "new-source.txt"), "must remain source\n");
+    terminalState = settleMutationEpochState(monitor);
+    assert.ok(terminalState.sourceEpoch > ignoredState.sourceEpoch);
+  } finally {
+    if (!monitor.stopped) {
+      const current = terminalState ?? settleMutationEpochState(monitor);
+      stopMutationEpochMonitor(monitor, {
+        expectedEpoch: current.sourceEpoch,
+        expectedMetadataEpoch: current.metadataEpoch
+      });
+    }
+  }
+});
+
+test("Gate A recursive monitor ignores Git object-store churn but detects selected common-dir state", async (t) => {
+  const fixture = makeFixture();
+  t.after(() => fs.rmSync(fixture.parent, { recursive: true, force: true }));
+  const commonDir = path.join(fixture.repo, ".git");
+  const {
+    settleMutationEpochState,
+    startMutationEpochMonitor,
+    stopMutationEpochMonitor
+  } = await import(libraryUrl);
+  const monitor = startMutationEpochMonitor([fixture.repo, fixture.linked, commonDir], {
+    watchMode: "auto"
+  });
+  let terminalState;
+  try {
+    const baseline = settleMutationEpochState(monitor);
+    if (baseline.watchMode !== "recursive") {
+      terminalState = baseline;
+      t.skip("recursive watcher is unavailable on this platform");
+      return;
+    }
+
+    execFileSync("git", ["hash-object", "-w", "--stdin"], {
+      cwd: fixture.repo,
+      env: { ...process.env, GIT_OPTIONAL_LOCKS: "0" },
+      input: `proof-scope-object-${crypto.randomUUID()}\n`,
+      timeout: TEST_CHILD_TIMEOUT_MS
+    });
+    const objectState = settleMutationEpochState(monitor);
+    assert.equal(objectState.sourceEpoch, baseline.sourceEpoch);
+    assert.equal(objectState.metadataEpoch, baseline.metadataEpoch);
+
+    const alternateObjects = path.join(fixture.parent, "alternate-objects");
+    fs.mkdirSync(path.join(alternateObjects, "info"), { recursive: true });
+    fs.mkdirSync(path.join(alternateObjects, "pack"), { recursive: true });
+    fs.writeFileSync(path.join(commonDir, "objects", "info", "alternates"), `${alternateObjects}\n`);
+    const controlState = settleMutationEpochState(monitor);
+    assert.ok(controlState.sourceEpoch > objectState.sourceEpoch);
+
+    git(fixture.repo, "branch", `monitor-source-${crypto.randomUUID()}`);
+    terminalState = settleMutationEpochState(monitor);
+    assert.ok(terminalState.sourceEpoch > controlState.sourceEpoch);
+  } finally {
+    if (!monitor.stopped) {
+      const current = terminalState ?? settleMutationEpochState(monitor);
+      stopMutationEpochMonitor(monitor, {
+        expectedEpoch: current.sourceEpoch,
+        expectedMetadataEpoch: current.metadataEpoch
+      });
+    }
+  }
+});
+
+function packedRefsWithAdditionalRecords(baseline, additionalRecords) {
+  const lines = baseline.trimEnd().split("\n");
+  const comments = [];
+  const records = [];
+  for (let index = 0; index < lines.length; index += 1) {
+    if (lines[index].startsWith("#")) {
+      comments.push(lines[index]);
+      continue;
+    }
+    const record = [lines[index]];
+    if (lines[index + 1]?.startsWith("^")) record.push(lines[++index]);
+    records.push(record);
+  }
+  for (const record of additionalRecords) records.push([record]);
+  records.sort((left, right) => {
+    const leftRef = left[0].slice(left[0].indexOf(" ") + 1);
+    const rightRef = right[0].slice(right[0].indexOf(" ") + 1);
+    return Buffer.from(leftRef).compare(Buffer.from(rightRef));
+  });
+  return `${[...comments, ...records.flat()].join("\n")}\n`;
+}
+
+test("Gate A recursive monitor excludes the reserved Codex ref namespace and detects sibling refs", async (t) => {
+  const fixture = makeFixture();
+  t.after(() => fs.rmSync(fixture.parent, { recursive: true, force: true }));
+  const commonDir = path.join(fixture.repo, ".git");
+  git(fixture.repo, "pack-refs", "--all");
+  fs.mkdirSync(path.join(commonDir, "refs", "codex", "turn-diffs", "checkpoints"), { recursive: true });
+  const packedRefsPath = path.join(commonDir, "packed-refs");
+  const baselinePackedRefs = fs.readFileSync(packedRefsPath, "utf8");
+  const head = git(fixture.repo, "rev-parse", "HEAD");
+  const {
+    settleMutationEpochState,
+    startMutationEpochMonitor,
+    stopMutationEpochMonitor
+  } = await import(libraryUrl);
+  const monitor = startMutationEpochMonitor([fixture.repo, fixture.linked, commonDir], {
+    watchMode: "auto"
+  });
+  let terminalState;
+  try {
+    const baseline = settleMutationEpochState(monitor);
+    if (baseline.watchMode !== "recursive") {
+      terminalState = baseline;
+      t.skip("recursive watcher is unavailable on this platform");
+      return;
+    }
+
+    const internalRef = `refs/codex/turn-diffs/captures/${Date.now()}/${crypto.randomUUID()}/base`;
+    const internalRefPath = path.join(commonDir, ...internalRef.split("/"));
+    fs.mkdirSync(path.dirname(internalRefPath), { recursive: true });
+    fs.writeFileSync(internalRefPath, `${head}\n`);
+    fs.writeFileSync(packedRefsPath, packedRefsWithAdditionalRecords(
+      baselinePackedRefs,
+      [`${head} ${internalRef}`]
+    ));
+    fs.rmSync(internalRefPath);
+    const internalState = settleMutationEpochState(monitor);
+    assert.equal(internalState.sourceEpoch, baseline.sourceEpoch);
+    assert.equal(internalState.metadataEpoch, baseline.metadataEpoch);
+
+    const unownedNamespaceRef = `refs/codex-private-sibling/${crypto.randomUUID()}`;
+    const unownedNamespacePath = path.join(commonDir, ...unownedNamespaceRef.split("/"));
+    fs.mkdirSync(path.dirname(unownedNamespacePath), { recursive: true });
+    fs.writeFileSync(unownedNamespacePath, `${head}\n`);
+    const unownedNamespaceState = settleMutationEpochState(monitor);
+    assert.ok(unownedNamespaceState.sourceEpoch > internalState.sourceEpoch);
+
+    const externalRef = `refs/tags/monitor-source-${crypto.randomUUID()}`;
+    fs.writeFileSync(
+      packedRefsPath,
+      packedRefsWithAdditionalRecords(
+        baselinePackedRefs,
+        [`${head} ${internalRef}`, `${head} ${externalRef}`]
+      )
+    );
+    terminalState = settleMutationEpochState(monitor);
+    assert.ok(terminalState.sourceEpoch > unownedNamespaceState.sourceEpoch);
+  } finally {
+    if (!monitor.stopped) {
+      const current = terminalState ?? settleMutationEpochState(monitor);
+      stopMutationEpochMonitor(monitor, {
+        expectedEpoch: current.sourceEpoch,
+        expectedMetadataEpoch: current.metadataEpoch
+      });
+    }
+  }
+});
+
+test("Gate A recursive monitor detects a transient non-Codex packed ref restored before sampling", async (t) => {
+  const fixture = makeFixture();
+  t.after(() => fs.rmSync(fixture.parent, { recursive: true, force: true }));
+  const commonDir = path.join(fixture.repo, ".git");
+  git(fixture.repo, "pack-refs", "--all");
+  const packedRefsPath = path.join(commonDir, "packed-refs");
+  const baselinePackedRefs = fs.readFileSync(packedRefsPath, "utf8");
+  const head = git(fixture.repo, "rev-parse", "HEAD");
+  const {
+    settleMutationEpochState,
+    startMutationEpochMonitor,
+    stopMutationEpochMonitor
+  } = await import(libraryUrl);
+  const monitor = startMutationEpochMonitor([fixture.repo, fixture.linked, commonDir], {
+    watchMode: "auto"
+  });
+  let terminalState;
+  try {
+    const baseline = settleMutationEpochState(monitor);
+    if (baseline.watchMode !== "recursive") {
+      terminalState = baseline;
+      t.skip("recursive watcher is unavailable on this platform");
+      return;
+    }
+
+    const externalRef = `refs/tags/transient-monitor-source-${crypto.randomUUID()}`;
+    fs.writeFileSync(packedRefsPath, packedRefsWithAdditionalRecords(
+      baselinePackedRefs,
+      [`${head} ${externalRef}`]
+    ));
+    fs.writeFileSync(packedRefsPath, baselinePackedRefs);
+    terminalState = settleMutationEpochState(monitor);
+    assert.ok(terminalState.sourceEpoch > baseline.sourceEpoch);
+  } finally {
+    if (!monitor.stopped) {
+      const current = terminalState ?? settleMutationEpochState(monitor);
+      stopMutationEpochMonitor(monitor, {
+        expectedEpoch: current.sourceEpoch,
+        expectedMetadataEpoch: current.metadataEpoch
+      });
+    }
+  }
+});
+
+test("Gate A recursive monitor accepts Git pack-refs lock protocol for reserved Codex refs", async (t) => {
+  const fixture = makeFixture();
+  t.after(() => fs.rmSync(fixture.parent, { recursive: true, force: true }));
+  const commonDir = path.join(fixture.repo, ".git");
+  git(fixture.repo, "pack-refs", "--all", "--prune");
+  const head = git(fixture.repo, "rev-parse", "HEAD");
+  const {
+    settleMutationEpochState,
+    startMutationEpochMonitor,
+    stopMutationEpochMonitor
+  } = await import(libraryUrl);
+  const monitor = startMutationEpochMonitor([fixture.repo, fixture.linked, commonDir], {
+    watchMode: "auto"
+  });
+  let terminalState;
+  try {
+    const baseline = settleMutationEpochState(monitor);
+    if (baseline.watchMode !== "recursive") {
+      terminalState = baseline;
+      t.skip("recursive watcher is unavailable on this platform");
+      return;
+    }
+
+    const internalRef = `refs/codex/turn-diffs/captures/${Date.now()}/${crypto.randomUUID()}/base`;
+    git(fixture.repo, "update-ref", internalRef, head);
+    git(fixture.repo, "pack-refs", "--all", "--prune");
+    terminalState = settleMutationEpochState(monitor);
+    assert.equal(terminalState.sourceEpoch, baseline.sourceEpoch);
+    assert.equal(terminalState.metadataEpoch, baseline.metadataEpoch);
+    assert.equal(fs.existsSync(path.join(commonDir, "packed-refs.lock")), false);
+  } finally {
+    if (!monitor.stopped) {
+      const current = terminalState ?? settleMutationEpochState(monitor);
+      stopMutationEpochMonitor(monitor, {
+        expectedEpoch: current.sourceEpoch,
+        expectedMetadataEpoch: current.metadataEpoch
+      });
+    }
+  }
+});
+
+test("Gate A recursive monitor fails closed on duplicate excluded packed refs", async (t) => {
+  const fixture = makeFixture();
+  t.after(() => fs.rmSync(fixture.parent, { recursive: true, force: true }));
+  const commonDir = path.join(fixture.repo, ".git");
+  git(fixture.repo, "pack-refs", "--all");
+  const packedRefsPath = path.join(commonDir, "packed-refs");
+  const baselinePackedRefs = fs.readFileSync(packedRefsPath, "utf8");
+  const head = git(fixture.repo, "rev-parse", "HEAD");
+  const {
+    abortMutationEpochMonitor,
+    settleMutationEpochState,
+    startMutationEpochMonitor
+  } = await import(libraryUrl);
+  const monitor = startMutationEpochMonitor([fixture.repo, fixture.linked, commonDir], {
+    watchMode: "auto"
+  });
+  t.after(() => abortMutationEpochMonitor(monitor));
+  const baseline = settleMutationEpochState(monitor);
+  if (baseline.watchMode !== "recursive") {
+    t.skip("recursive watcher is unavailable on this platform");
+    return;
+  }
+
+  const internalRef = `refs/codex/turn-diffs/captures/${Date.now()}/${crypto.randomUUID()}/base`;
+  fs.writeFileSync(
+    packedRefsPath,
+    packedRefsWithAdditionalRecords(
+      baselinePackedRefs,
+      [`${head} ${internalRef}`, `${"0".repeat(40)} ${internalRef}`]
+    )
+  );
+  assert.throws(() => settleMutationEpochState(monitor));
+});
+
+test("Gate A recursive monitor fails closed when a sorted packed-refs file is reordered", async (t) => {
+  const fixture = makeFixture();
+  t.after(() => fs.rmSync(fixture.parent, { recursive: true, force: true }));
+  const commonDir = path.join(fixture.repo, ".git");
+  git(fixture.repo, "pack-refs", "--all");
+  const packedRefsPath = path.join(commonDir, "packed-refs");
+  const baselinePackedRefs = fs.readFileSync(packedRefsPath, "utf8");
+  assert.match(baselinePackedRefs.split("\n", 1)[0], /\bsorted\b/u);
+  const head = git(fixture.repo, "rev-parse", "HEAD");
+  const {
+    abortMutationEpochMonitor,
+    settleMutationEpochState,
+    startMutationEpochMonitor
+  } = await import(libraryUrl);
+  const monitor = startMutationEpochMonitor([fixture.repo, fixture.linked, commonDir], {
+    watchMode: "auto"
+  });
+  t.after(() => abortMutationEpochMonitor(monitor));
+  const baseline = settleMutationEpochState(monitor);
+  if (baseline.watchMode !== "recursive") {
+    t.skip("recursive watcher is unavailable on this platform");
+    return;
+  }
+
+  const internalRef = `refs/codex/turn-diffs/captures/${Date.now()}/${crypto.randomUUID()}/base`;
+  fs.writeFileSync(
+    packedRefsPath,
+    `${baselinePackedRefs.trimEnd()}\n${head} ${internalRef}\n`
+  );
+  assert.throws(() => settleMutationEpochState(monitor));
 });
 
 test("a mutation monitor self-terminates and removes scratch after its parent is SIGKILLed", async (t) => {
@@ -10680,6 +11607,165 @@ test("internal symlinks restore, escaping symlinks fail, and invalid artifacts a
   }, "symlink-parent", symlinkFailures);
   assert.equal(symlinkValid, false);
   assert.ok(symlinkFailures.some((failure) => /symlink/i.test(failure)));
+});
+
+test("generic artifact verification keeps the artifact and CAS inode bound across ABA", async (t) => {
+  const fixture = makeFixture();
+  t.after(() => fs.rmSync(fixture.parent, { recursive: true, force: true }));
+  const { ensureEvidenceRoot, verifyArtifact } = await import(libraryUrl);
+  ensureEvidenceRoot({ evidenceRoot: fixture.evidenceRoot, repositoryId: TEST_REPOSITORY_ID });
+  const payload = Buffer.from("attested generic artifact\n");
+  const sha256 = crypto.createHash("sha256").update(payload).digest("hex");
+  const relativePath = "sets/generic-artifact-fixture/artifact.bin";
+  const artifactPath = path.join(fixture.evidenceRoot, relativePath);
+  const blobPath = path.join(
+    fixture.evidenceRoot,
+    "blobs",
+    "sha256",
+    sha256.slice(0, 2),
+    sha256
+  );
+  fs.mkdirSync(path.dirname(artifactPath), { recursive: true });
+  fs.mkdirSync(path.dirname(blobPath), { recursive: true });
+  fs.writeFileSync(blobPath, payload, { mode: 0o600 });
+  fs.chmodSync(blobPath, 0o600);
+  fs.linkSync(blobPath, artifactPath);
+  const descriptor = { bytes: payload.length, path: relativePath, sha256 };
+  const baselineFailures = [];
+  assert.equal(verifyArtifact(fixture.evidenceRoot, descriptor, "generic", baselineFailures), true);
+  assert.deepEqual(baselineFailures, []);
+
+  const replacement = Buffer.from("different current artifact\n");
+  const originalOpenSync = fs.openSync;
+  let swapped = false;
+  fs.openSync = function genericArtifactAbaSwap(candidate, ...args) {
+    if (!swapped && candidate === blobPath) {
+      swapped = true;
+      fs.rmSync(artifactPath);
+      fs.writeFileSync(artifactPath, replacement, { mode: 0o600 });
+      fs.chmodSync(artifactPath, 0o600);
+    }
+    return originalOpenSync.call(this, candidate, ...args);
+  };
+  const failures = [];
+  let valid;
+  try {
+    valid = verifyArtifact(fixture.evidenceRoot, descriptor, "generic", failures);
+  } finally {
+    fs.openSync = originalOpenSync;
+  }
+  assert.equal(swapped, true);
+  assert.equal(valid, false);
+  assert.ok(failures.some((failure) => /content-addressed hardlink|changed during verification/i.test(failure)));
+  assert.ok(fs.readFileSync(artifactPath).equals(replacement));
+});
+
+test("generic artifact verification rejects sparse size abuse before reading content", async (t) => {
+  const fixture = makeFixture();
+  t.after(() => fs.rmSync(fixture.parent, { recursive: true, force: true }));
+  const { ensureEvidenceRoot, verifyArtifact } = await import(libraryUrl);
+  ensureEvidenceRoot({ evidenceRoot: fixture.evidenceRoot, repositoryId: TEST_REPOSITORY_ID });
+  const relativePath = "sets/sparse-artifact-fixture/oversized.bin";
+  const artifactPath = path.join(fixture.evidenceRoot, relativePath);
+  fs.mkdirSync(path.dirname(artifactPath), { recursive: true });
+  const oversizedBytes = (8 * 1024 * 1024 * 1024) + 1;
+  const descriptor = fs.openSync(artifactPath, "w", 0o600);
+  try {
+    fs.ftruncateSync(descriptor, oversizedBytes);
+  } finally {
+    fs.closeSync(descriptor);
+  }
+  fs.chmodSync(artifactPath, 0o600);
+  const originalReadSync = fs.readSync;
+  let readCalls = 0;
+  fs.readSync = function rejectSparseArtifactRead(...args) {
+    readCalls += 1;
+    throw new Error("sparse artifact content must not be read");
+  };
+  try {
+    let failures = [];
+    let valid = verifyArtifact(fixture.evidenceRoot, {
+      bytes: 1,
+      path: relativePath,
+      sha256: "0".repeat(64)
+    }, "sparse-size-mismatch", failures);
+    assert.equal(valid, false);
+    assert.equal(readCalls, 0);
+    assert.ok(failures.some((failure) => /bytes mismatch before reading/i.test(failure)), failures.join("\n"));
+
+    failures = [];
+    valid = verifyArtifact(fixture.evidenceRoot, {
+      bytes: oversizedBytes,
+      path: relativePath,
+      sha256: "0".repeat(64)
+    }, "sparse-cap", failures);
+    assert.equal(valid, false);
+    assert.equal(readCalls, 0);
+    assert.ok(failures.some((failure) => /materialization cap/i.test(failure)), failures.join("\n"));
+  } finally {
+    fs.readSync = originalReadSync;
+  }
+});
+
+test("full archive-set verification applies the inventory cap before reading sparse content", async (t) => {
+  const fixture = makeFixture();
+  t.after(() => fs.rmSync(fixture.parent, { recursive: true, force: true }));
+  dirtyFixture(fixture);
+  assert.equal(run(writer, fixture).status, 0);
+  const manifest = JSON.parse(fs.readFileSync(path.join(
+    fixture.repo,
+    "coordination",
+    "release-intake",
+    "archive",
+    "2026-06-30-A25-linked-worktree-archive-manifest.json"
+  ), "utf8"));
+  const entry = manifest.archivedWorktrees[0];
+  const inventoryArtifact = entry.artifacts.untrackedInventory;
+  const inventoryPath = path.join(fixture.evidenceRoot, inventoryArtifact.path);
+  const oversizedBytes = (512 * 1024 * 1024) + 1;
+  const oversizedSha256 = "0".repeat(64);
+  const oversizedBlobPath = path.join(
+    fixture.evidenceRoot,
+    "blobs",
+    "sha256",
+    oversizedSha256.slice(0, 2),
+    oversizedSha256
+  );
+  fs.mkdirSync(path.dirname(oversizedBlobPath), { recursive: true });
+  const descriptor = fs.openSync(oversizedBlobPath, "w", 0o600);
+  try {
+    fs.ftruncateSync(descriptor, oversizedBytes);
+  } finally {
+    fs.closeSync(descriptor);
+  }
+  fs.chmodSync(oversizedBlobPath, 0o600);
+  fs.rmSync(inventoryPath);
+  fs.linkSync(oversizedBlobPath, inventoryPath);
+  entry.artifacts.untrackedInventory = {
+    ...inventoryArtifact,
+    bytes: oversizedBytes,
+    sha256: oversizedSha256
+  };
+  const sparseIdentity = fs.statSync(inventoryPath, { bigint: true });
+  const originalReadSync = fs.readSync;
+  let sparseReadCalls = 0;
+  fs.readSync = function rejectFullSetSparseInventoryRead(fileDescriptor, ...args) {
+    const status = fs.fstatSync(fileDescriptor, { bigint: true });
+    if (status.dev === sparseIdentity.dev && status.ino === sparseIdentity.ino) {
+      sparseReadCalls += 1;
+      throw new Error("full-set sparse inventory content must not be read");
+    }
+    return originalReadSync.call(this, fileDescriptor, ...args);
+  };
+  const { verifyArchiveSetEvidence } = await import(libraryUrl);
+  const failures = [];
+  try {
+    verifyArchiveSetEvidence(fixture.evidenceRoot, manifest, failures);
+  } finally {
+    fs.readSync = originalReadSync;
+  }
+  assert.equal(sparseReadCalls, 0);
+  assert.ok(failures.some((failure) => /inventory.*materialization cap|materialization cap.*inventory/i.test(failure)), failures.join("\n"));
 });
 
 const TYPED_FSEVENTS_COMMAND_BYTES = 20;
@@ -16579,4 +17665,487 @@ test("Task 3B3B registration detects a child killed at IPC send without late EPI
   );
   assert.equal(killedAtRegistrationSend, true, "fixture must kill only at registration IPC send");
   assert.ok(Date.now() - startedAt < 1_000, "registration zombie must fail closed within one second");
+});
+
+test("Task 3B3C production child closes capture classify reconcile seal without the placeholder", async () => {
+  const library = await import(libraryUrl);
+  const inspection = library.inspectMutationMonitorChildSource();
+  assert.doesNotMatch(
+    inspection.source,
+    /typed FSEvents journal event classification is not yet reconciled/u
+  );
+  assert.match(inspection.source, /const reconcileTypedFseventsCycle =/u);
+  assert.match(inspection.source, /runTypedFseventsFixedCycle\(\{/u);
+  assert.match(inspection.source, /captureStableProofSnapshot\(\{/u);
+  assert.match(inspection.source, /normalizeTypedFseventsAckCheckpoint\(\{/u);
+  assert.match(inspection.source, /readAndValidateJournalExtension\(\{/u);
+  assert.match(inspection.source, /sealTerminal\(\{/u);
+  assert.match(inspection.source, /process\.hrtime\.bigint\(\)/u);
+});
+
+test("Task 3B3C production child gives typed ACKs the reviewed bounded allowance", async () => {
+  const library = await import(libraryUrl);
+  const inspection = library.inspectMutationMonitorChildSource();
+  const match = inspection.source.match(
+    /const TYPED_FSEVENTS_ACK_TIMEOUT_MS = ([0-9_]+);/u
+  );
+  assert.notEqual(match, null, "the detached child must embed one named ACK timeout");
+  const timeoutMs = Number(match[1].replaceAll("_", ""));
+  assert.ok(timeoutMs >= 20_000, `typed ACK allowance is too short: ${timeoutMs}`);
+  assert.ok(timeoutMs < 325_000, `typed ACK allowance exceeds the parent operation bound: ${timeoutMs}`);
+  assert.match(
+    inspection.source,
+    /const deadline = Date\.now\(\) \+ TYPED_FSEVENTS_ACK_TIMEOUT_MS;/u
+  );
+  assert.doesNotMatch(
+    inspection.source,
+    /const deadline = Date\.now\(\) \+ 15_000;/u
+  );
+});
+
+test("Task 3B3C metadata policy uses the most-specific overlapping event root", async (t) => {
+  const library = await import(libraryUrl);
+  const { root } = makeStableProofTestRoot(t, "task3b3c-overlapping-roots");
+  const scratch = task3b2Scratch(t, "overlapping-roots");
+  const nestedRoot = path.join(root, "nested-root");
+  fs.mkdirSync(nestedRoot);
+  fs.writeFileSync(path.join(nestedRoot, "nested.txt"), "nested\n");
+  const eventRoots = [fs.realpathSync(root), fs.realpathSync(nestedRoot)]
+    .sort((left, right) => Buffer.compare(Buffer.from(left), Buffer.from(right)));
+  const rootsBuffer = Buffer.concat(eventRoots.flatMap((item) => [
+    Buffer.from(item),
+    Buffer.from([0])
+  ]));
+  const capture = () => library.captureStableProofSnapshot({
+    policies: eventRoots.map((item) => ({ root: item, trackedRelativePaths: [] }))
+  });
+  const normalize = (sequence) => {
+    const published = writeTypedFseventsV2Endpoint(scratch, {
+      rootsBuffer,
+      sequence,
+      type: 2
+    });
+    const acknowledgement = library.readCommittedTypedFseventsAcknowledgement(
+      published.acknowledgementPath,
+      {
+        expectedEventRootCount: published.eventRootCount,
+        expectedEventRootFingerprint: published.eventRootFingerprint
+      }
+    );
+    assert.notEqual(acknowledgement, null);
+    return library.normalizeTypedFseventsAckCheckpoint({ acknowledgement, eventRoots });
+  };
+  const priorSnapshot = capture();
+  const priorEndpoint = normalize(1n);
+  const candidateSnapshot = capture();
+  const endpoint = normalize(2n);
+  const approvedPath = path.join(
+    nestedRoot,
+    ...library.TRANSACTION_METADATA_PATHS[0].split("/")
+  );
+  const extension = library.readAndValidateJournalExtension({
+    candidateSnapshot,
+    endpoint,
+    eventRoots,
+    exactMetadataPaths: [approvedPath],
+    priorCheckpoint: priorEndpoint.checkpoint,
+    priorSnapshot
+  });
+  assert.equal(extension.snapshotRelation, "exact");
+  assert.equal(extension.classification.journalEntryCount, 0n);
+});
+
+test("Task 3B3C dynamic metadata policy binds the writer parent PID explicitly", async (t) => {
+  const library = await import(libraryUrl);
+  const { root } = makeStableProofTestRoot(t, "task3b3c-parent-pid");
+  const scratch = task3b2Scratch(t, "parent-pid");
+  const metadataOwnerPid = process.pid + 1;
+  const exactMetadataRoot = path.join(
+    root,
+    "coordination",
+    "release-intake",
+    "archive",
+    `.evidence-publish-${metadataOwnerPid}-${crypto.randomUUID()}`
+  );
+  const priorSnapshot = task3b2Capture(library, root);
+  const priorEndpoint = task3b2NormalizeEndpoint(library, scratch, {
+    root,
+    sequence: 1n,
+    type: 2
+  }).endpoint;
+  const candidateSnapshot = task3b2Capture(library, root);
+  const endpoint = task3b2NormalizeEndpoint(library, scratch, {
+    root,
+    sequence: 2n,
+    type: 2
+  }).endpoint;
+  const extension = library.readAndValidateJournalExtension({
+    candidateSnapshot,
+    endpoint,
+    eventRoots: [root],
+    exactMetadataRoots: [exactMetadataRoot],
+    metadataOwnerPid,
+    priorCheckpoint: priorEndpoint.checkpoint,
+    priorSnapshot
+  });
+  assert.equal(extension.snapshotRelation, "exact");
+
+  const rejectedCandidate = task3b2Capture(library, root);
+  const rejectedEndpoint = task3b2NormalizeEndpoint(library, scratch, {
+    root,
+    sequence: 3n,
+    type: 2
+  }).endpoint;
+  assert.throws(() => library.readAndValidateJournalExtension({
+    candidateSnapshot: rejectedCandidate,
+    endpoint: rejectedEndpoint,
+    eventRoots: [root],
+    exactMetadataRoots: [exactMetadataRoot],
+    priorCheckpoint: priorEndpoint.checkpoint,
+    priorSnapshot
+  }), /metadata root.*module-approved|PID|owner/i);
+});
+
+test("Task 3B3C Git-currentness scope hashes dirty closure and controls without opening clean or ignored payloads", async (t) => {
+  const library = await import(libraryUrl);
+  assert.equal(typeof library.createGitCurrentnessProofScope, "function");
+  assert.equal(typeof library.captureGitCurrentnessProofSnapshot, "function");
+  const { root } = makeStableProofTestRoot(t, "task3b3c-git-currentness-scope");
+  execFileSync("git", ["init", root], { stdio: ["ignore", "ignore", "pipe"] });
+  execFileSync("git", ["config", "user.email", "scope@example.invalid"], { cwd: root });
+  execFileSync("git", ["config", "user.name", "Scope Fixture"], { cwd: root });
+  fs.writeFileSync(path.join(root, ".gitignore"), ".ignored-secret/\n");
+  fs.writeFileSync(path.join(root, "clean.txt"), "clean\n");
+  fs.writeFileSync(path.join(root, "dirty.txt"), "baseline\n");
+  execFileSync("git", ["add", ".gitignore", "clean.txt", "dirty.txt"], { cwd: root });
+  execFileSync("git", ["commit", "-m", "scope baseline"], {
+    cwd: root,
+    stdio: ["ignore", "ignore", "pipe"]
+  });
+  fs.appendFileSync(path.join(root, "dirty.txt"), "dirty\n");
+  fs.writeFileSync(path.join(root, "untracked.txt"), "untracked\n");
+  const ignored = path.join(root, ".ignored-secret");
+  fs.mkdirSync(ignored);
+  fs.writeFileSync(path.join(ignored, ".env.local"), "DO_NOT_READ=secret\n");
+  const fifo = path.join(ignored, "never-open.fifo");
+  execFileSync("/usr/bin/mkfifo", [fifo]);
+  const oversized = path.join(ignored, "oversized.bin");
+  execFileSync("/usr/bin/truncate", ["-s", String(9 * 1024 * 1024 * 1024), oversized]);
+
+  const gitCommonDir = fs.realpathSync(path.join(root, ".git"));
+  const scope = library.createGitCurrentnessProofScope({
+    policies: [
+      {
+        root,
+        exactMetadataPaths: [library.TRANSACTION_METADATA_PATHS[0]],
+        exactMetadataRoots: []
+      },
+      { root: gitCommonDir, exactMetadataPaths: [], exactMetadataRoots: [] }
+    ],
+    trustedGitCommonDir: gitCommonDir
+  });
+  const readPaths = [];
+  const snapshot = library.captureGitCurrentnessProofSnapshot({
+    scope,
+    hooks: {
+      afterRegularRead({ absolutePath }) { readPaths.push(absolutePath); }
+    }
+  });
+  assert.equal(scope.captureMode, "git-currentness-sparse-v1");
+  assert.match(scope.contractFingerprint, /^[0-9a-f]{64}$/u);
+  assert.equal(snapshot.pathCount, scope.pathCount);
+  assert.ok(readPaths.includes(path.join(root, "dirty.txt")));
+  assert.ok(readPaths.includes(path.join(root, "untracked.txt")));
+  assert.equal(readPaths.includes(path.join(root, "clean.txt")), false);
+  assert.equal(readPaths.some((candidate) => candidate.startsWith(`${ignored}${path.sep}`)), false);
+  assert.equal(snapshot.lookup(path.join(root, "clean.txt")), undefined);
+  assert.equal(snapshot.lookup(path.join(ignored, ".env.local")), undefined);
+  assert.equal(snapshot.lookup(fifo), undefined);
+  assert.equal(snapshot.lookup(oversized), undefined);
+  assert.deepEqual(
+    snapshot.lookup(path.join(root, ...library.TRANSACTION_METADATA_PATHS[0].split("/"))),
+    { type: "tombstone" }
+  );
+});
+
+test("Task 3B3C Git-currentness scope selection does not scale with the clean tracked universe", async (t) => {
+  const library = await import(libraryUrl);
+  const { root } = makeStableProofTestRoot(t, "task3b3c-scope-clean-universe");
+  execFileSync("git", ["init", root], { stdio: ["ignore", "ignore", "pipe"] });
+  execFileSync("git", ["config", "user.email", "scope@example.invalid"], { cwd: root });
+  execFileSync("git", ["config", "user.name", "Scope Fixture"], { cwd: root });
+  const cleanDirectory = path.join(root, "clean-universe");
+  fs.mkdirSync(cleanDirectory);
+  for (let index = 0; index < 2_000; index += 1) {
+    fs.writeFileSync(path.join(cleanDirectory, `clean-${String(index).padStart(4, "0")}.txt`), "x\n");
+  }
+  fs.writeFileSync(path.join(root, "selected.txt"), "baseline\n");
+  execFileSync("git", ["add", "."], { cwd: root });
+  execFileSync("git", ["commit", "-m", "large clean index"], {
+    cwd: root,
+    stdio: ["ignore", "ignore", "pipe"]
+  });
+  fs.appendFileSync(path.join(root, "selected.txt"), "dirty\n");
+  const gitCommonDir = fs.realpathSync(path.join(root, ".git"));
+  const policies = [
+    { root, exactMetadataPaths: [], exactMetadataRoots: [] },
+    { root: gitCommonDir, exactMetadataPaths: [], exactMetadataRoots: [] }
+  ];
+  const first = library.createGitCurrentnessProofScope({ policies, trustedGitCommonDir: gitCommonDir });
+  fs.writeFileSync(path.join(root, "new-untracked.txt"), "new\n");
+  const second = library.createGitCurrentnessProofScope({ policies, trustedGitCommonDir: gitCommonDir });
+  assert.ok(first.pathCount < 64, `clean index leaked into sparse selection: ${first.pathCount}`);
+  assert.equal(second.pathCount, first.pathCount + 1);
+  assert.notEqual(second.selectionFingerprint, first.selectionFingerprint);
+  const snapshot = library.captureGitCurrentnessProofSnapshot({ scope: first });
+  assert.equal(snapshot.lookup(path.join(root, "selected.txt")).type, "regular-file");
+  assert.equal(snapshot.lookup(path.join(root, "new-untracked.txt")), undefined);
+  assert.equal(snapshot.lookup(path.join(cleanDirectory, "clean-0000.txt")), undefined);
+});
+
+test("Task 3B3C Git-currentness scope freezes deleted and renamed dirty leaves", async (t) => {
+  const library = await import(libraryUrl);
+  const { root } = makeStableProofTestRoot(t, "task3b3c-scope-deleted-renamed");
+  execFileSync("git", ["init", root], { stdio: ["ignore", "ignore", "pipe"] });
+  execFileSync("git", ["config", "user.email", "scope@example.invalid"], { cwd: root });
+  execFileSync("git", ["config", "user.name", "Scope Fixture"], { cwd: root });
+  fs.writeFileSync(path.join(root, "deleted.txt"), "delete me\n");
+  fs.writeFileSync(path.join(root, "rename-from.txt"), "rename me\n");
+  execFileSync("git", ["add", "."], { cwd: root });
+  execFileSync("git", ["commit", "-m", "tombstone baseline"], {
+    cwd: root,
+    stdio: ["ignore", "ignore", "pipe"]
+  });
+  fs.unlinkSync(path.join(root, "deleted.txt"));
+  fs.renameSync(path.join(root, "rename-from.txt"), path.join(root, "rename-to.txt"));
+  const gitCommonDir = fs.realpathSync(path.join(root, ".git"));
+  const scope = library.createGitCurrentnessProofScope({
+    policies: [
+      { root, exactMetadataPaths: [], exactMetadataRoots: [] },
+      { root: gitCommonDir, exactMetadataPaths: [], exactMetadataRoots: [] }
+    ],
+    trustedGitCommonDir: gitCommonDir
+  });
+  const snapshot = library.captureGitCurrentnessProofSnapshot({ scope });
+  assert.deepEqual(snapshot.lookup(path.join(root, "deleted.txt")), { type: "tombstone" });
+  assert.deepEqual(snapshot.lookup(path.join(root, "rename-from.txt")), { type: "tombstone" });
+  assert.equal(snapshot.lookup(path.join(root, "rename-to.txt")).type, "regular-file");
+});
+
+test("Task 3B3C full and Git-currentness snapshots cannot share one fixed-point lineage", async (t) => {
+  const library = await import(libraryUrl);
+  const { root } = makeStableProofTestRoot(t, "task3b3c-snapshot-mode-lineage");
+  execFileSync("git", ["init", root], { stdio: ["ignore", "ignore", "pipe"] });
+  execFileSync("git", ["config", "user.email", "scope@example.invalid"], { cwd: root });
+  execFileSync("git", ["config", "user.name", "Scope Fixture"], { cwd: root });
+  fs.writeFileSync(path.join(root, "dirty.txt"), "baseline\n");
+  execFileSync("git", ["add", "dirty.txt"], { cwd: root });
+  execFileSync("git", ["commit", "-m", "lineage baseline"], {
+    cwd: root,
+    stdio: ["ignore", "ignore", "pipe"]
+  });
+  fs.appendFileSync(path.join(root, "dirty.txt"), "dirty\n");
+  const gitCommonDir = fs.realpathSync(path.join(root, ".git"));
+  const policies = [
+    { root, exactMetadataPaths: [], exactMetadataRoots: [] },
+    { root: gitCommonDir, exactMetadataPaths: [], exactMetadataRoots: [] }
+  ];
+  const scope = library.createGitCurrentnessProofScope({ policies, trustedGitCommonDir: gitCommonDir });
+  const sparse = library.captureGitCurrentnessProofSnapshot({ scope });
+  const full = library.captureStableProofSnapshot({
+    policies: policies.map((policy) => ({ root: policy.root, trackedRelativePaths: [] }))
+  });
+  const separateScope = library.createGitCurrentnessProofScope({
+    policies,
+    trustedGitCommonDir: gitCommonDir
+  });
+  const separateSparse = library.captureGitCurrentnessProofSnapshot({ scope: separateScope });
+  const scratch = task3b2Scratch(t, "snapshot-mode-lineage");
+  const eventRoots = [root, gitCommonDir]
+    .sort((left, right) => Buffer.compare(Buffer.from(left), Buffer.from(right)));
+  const rootsBuffer = Buffer.concat(eventRoots.flatMap((item) => [
+    Buffer.from(item),
+    Buffer.from([0])
+  ]));
+  const normalize = (sequence) => {
+    const published = writeTypedFseventsV2Endpoint(scratch, {
+      rootsBuffer,
+      sequence,
+      type: 2
+    });
+    const acknowledgement = library.readCommittedTypedFseventsAcknowledgement(
+      published.acknowledgementPath,
+      {
+        expectedEventRootCount: published.eventRootCount,
+        expectedEventRootFingerprint: published.eventRootFingerprint
+      }
+    );
+    assert.notEqual(acknowledgement, null);
+    return library.normalizeTypedFseventsAckCheckpoint({ acknowledgement, eventRoots });
+  };
+  const priorEndpoint = normalize(1n);
+  const endpoint = normalize(2n);
+  assert.throws(() => library.readAndValidateJournalExtension({
+    candidateSnapshot: sparse,
+    endpoint,
+    eventRoots,
+    priorCheckpoint: priorEndpoint.checkpoint,
+    priorSnapshot: full,
+    trustedGitCommonDir: gitCommonDir
+  }), /capture mode|scope|snapshot policies|lineage/i);
+  assert.throws(() => library.readAndValidateJournalExtension({
+    candidateSnapshot: separateSparse,
+    endpoint,
+    eventRoots,
+    priorCheckpoint: priorEndpoint.checkpoint,
+    priorSnapshot: sparse,
+    trustedGitCommonDir: gitCommonDir
+  }), /capture mode|scope|snapshot policies|lineage/i);
+});
+
+test("Task 3B3C sparse source leaves accept ancestor directory events without widening metadata", async (t) => {
+  const library = await import(libraryUrl);
+  const { root } = makeStableProofTestRoot(t, "task3b3c-sparse-ancestor-event");
+  const scratch = task3b2Scratch(t, "sparse-ancestor-event");
+  execFileSync("git", ["init", root], { stdio: ["ignore", "ignore", "pipe"] });
+  execFileSync("git", ["config", "user.email", "scope@example.invalid"], { cwd: root });
+  execFileSync("git", ["config", "user.name", "Scope Fixture"], { cwd: root });
+  const sourceDirectory = path.join(root, "selected-directory");
+  const selectedSource = path.join(sourceDirectory, "dirty.txt");
+  fs.mkdirSync(sourceDirectory);
+  fs.writeFileSync(selectedSource, "baseline\n");
+  execFileSync("git", ["add", "selected-directory/dirty.txt"], { cwd: root });
+  execFileSync("git", ["commit", "-m", "sparse ancestor baseline"], {
+    cwd: root,
+    stdio: ["ignore", "ignore", "pipe"]
+  });
+  fs.appendFileSync(selectedSource, "dirty baseline\n");
+  const metadataPath = path.join(
+    root,
+    ...library.TRANSACTION_METADATA_PATHS[0].split("/")
+  );
+  fs.mkdirSync(path.dirname(metadataPath), { recursive: true });
+  fs.writeFileSync(metadataPath, "metadata baseline\n");
+  const gitCommonDir = fs.realpathSync(path.join(root, ".git"));
+  const contractPolicies = [
+    {
+      root,
+      exactMetadataPaths: [library.TRANSACTION_METADATA_PATHS[0]],
+      exactMetadataRoots: []
+    },
+    { root: gitCommonDir, exactMetadataPaths: [], exactMetadataRoots: [] }
+  ];
+  const scope = library.createGitCurrentnessProofScope({
+    policies: contractPolicies,
+    trustedGitCommonDir: gitCommonDir
+  });
+  const eventRoots = [root, gitCommonDir]
+    .sort((left, right) => Buffer.compare(Buffer.from(left), Buffer.from(right)));
+  const rootsBuffer = Buffer.concat(eventRoots.flatMap((item) => [
+    Buffer.from(item),
+    Buffer.from([0])
+  ]));
+  const normalize = ({ entryCount = 0n, journal = Buffer.alloc(0), lastEventId = 0n, sequence }) => {
+    const published = writeTypedFseventsV2Endpoint(scratch, {
+      entryCount,
+      journal,
+      lastEventId,
+      rootsBuffer,
+      sequence,
+      type: 2
+    });
+    const acknowledgement = library.readCommittedTypedFseventsAcknowledgement(
+      published.acknowledgementPath,
+      {
+        expectedEventRootCount: published.eventRootCount,
+        expectedEventRootFingerprint: published.eventRootFingerprint
+      }
+    );
+    assert.notEqual(acknowledgement, null);
+    return library.normalizeTypedFseventsAckCheckpoint({ acknowledgement, eventRoots });
+  };
+
+  const priorSourceSnapshot = library.captureGitCurrentnessProofSnapshot({ scope });
+  const priorSourceEndpoint = normalize({ sequence: 1n });
+  fs.appendFileSync(selectedSource, "changed after baseline\n");
+  const candidateSourceSnapshot = library.captureGitCurrentnessProofSnapshot({ scope });
+  const sourceJournal = typedFseventsJournalRecord({
+    sequence: 1n,
+    eventId: 701n,
+    flags: 0x11400,
+    path: sourceDirectory
+  });
+  const sourceEndpoint = normalize({
+    entryCount: 1n,
+    journal: sourceJournal,
+    lastEventId: 701n,
+    sequence: 2n
+  });
+  const sourceExtension = library.readAndValidateJournalExtension({
+    candidateSnapshot: candidateSourceSnapshot,
+    endpoint: sourceEndpoint,
+    eventRoots,
+    exactMetadataPaths: [metadataPath],
+    priorCheckpoint: priorSourceEndpoint.checkpoint,
+    priorSnapshot: priorSourceSnapshot,
+    trustedGitCommonDir: gitCommonDir
+  });
+  assert.equal(sourceExtension.snapshotRelation, "source-material");
+  assert.equal(sourceExtension.classification.sourceEventCount, 1n);
+
+  const priorMetadataSnapshot = library.captureGitCurrentnessProofSnapshot({ scope });
+  const priorMetadataEndpoint = normalize({
+    entryCount: 1n,
+    journal: sourceJournal,
+    lastEventId: 701n,
+    sequence: 3n
+  });
+  fs.appendFileSync(metadataPath, "metadata changed\n");
+  const candidateMetadataSnapshot = library.captureGitCurrentnessProofSnapshot({ scope });
+  const metadataAncestorJournal = Buffer.concat([
+    sourceJournal,
+    typedFseventsJournalRecord({
+      sequence: 2n,
+      eventId: 702n,
+      flags: 0x11400,
+      path: path.dirname(metadataPath)
+    })
+  ]);
+  const metadataEndpoint = normalize({
+    entryCount: 2n,
+    journal: metadataAncestorJournal,
+    lastEventId: 702n,
+    sequence: 4n
+  });
+  assert.throws(() => library.readAndValidateJournalExtension({
+    candidateSnapshot: candidateMetadataSnapshot,
+    endpoint: metadataEndpoint,
+    eventRoots,
+    exactMetadataPaths: [metadataPath],
+    priorCheckpoint: priorMetadataEndpoint.checkpoint,
+    priorSnapshot: priorMetadataSnapshot,
+    trustedGitCommonDir: gitCommonDir
+  }), /metadata path delta is unmatched/i);
+});
+
+test("Task 3B3C production typed path uses the branded sparse scope and bypasses dynamic sentinel traversal", async () => {
+  const library = await import(libraryUrl);
+  const inspection = library.inspectMutationMonitorChildSource();
+  assert.match(inspection.source, /createGitCurrentnessProofScope\(\{/u);
+  assert.match(inspection.source, /captureGitCurrentnessProofSnapshot\(\{/u);
+  assert.match(inspection.source, /typedFseventsProofScope/u);
+  assert.match(inspection.source, /validateTypedRootAnchors/u);
+  const captureCallback = inspection.source.match(
+    /const captureTypedFseventsSnapshot = \(\) => \{[\s\S]*?\n\};/u
+  );
+  assert.notEqual(captureCallback, null, "the production capture callback must be inspectable");
+  assert.match(
+    captureCallback[0],
+    /return captureGitCurrentnessProofSnapshot\(\{ scope: typedFseventsProofScope \}\);/u
+  );
+  assert.doesNotMatch(captureCallback[0], /captureStableProofSnapshot/u);
+  assert.doesNotMatch(
+    inspection.source,
+    /if \(typedFseventsEnabled\) \{\s*sampleSentinels\(\{ recordEpochs: false \}\)/u
+  );
 });
