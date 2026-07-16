@@ -17801,7 +17801,7 @@ test("Task 3B3C production child closes capture classify reconcile seal without 
   assert.match(inspection.source, /process\.hrtime\.bigint\(\)/u);
 });
 
-test("Task 3B3C production child gives typed ACKs the reviewed bounded allowance", async () => {
+test("Task 3B3C production child gives full-surface typed FLUSH the reviewed bounded allowance", async () => {
   const library = await import(libraryUrl);
   const inspection = library.inspectMutationMonitorChildSource();
   const match = inspection.source.match(
@@ -17809,8 +17809,8 @@ test("Task 3B3C production child gives typed ACKs the reviewed bounded allowance
   );
   assert.notEqual(match, null, "the detached child must embed one named ACK timeout");
   const timeoutMs = Number(match[1].replaceAll("_", ""));
-  assert.ok(timeoutMs >= 20_000, `typed ACK allowance is too short: ${timeoutMs}`);
-  assert.ok(timeoutMs < 325_000, `typed ACK allowance exceeds the parent operation bound: ${timeoutMs}`);
+  assert.equal(timeoutMs, 300_000, "full-surface typed ACK allowance must match the five-minute walker budget");
+  assert.ok(325_000 - timeoutMs >= 25_000, "typed ACK allowance must preserve parent error-propagation margin");
   assert.match(
     inspection.source,
     /const deadline = Date\.now\(\) \+ TYPED_FSEVENTS_ACK_TIMEOUT_MS;/u
