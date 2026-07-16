@@ -645,6 +645,10 @@ let TYPED_FSEVENTS_PROVENANCE_ORDINAL = 0n;
 const TYPED_FSEVENTS_REGULAR_SEMANTIC_FIELDS = Object.freeze([
   "dev", "ino", "uid", "gid", "mode", "nlink", "size", "mtimeNs", "sha256"
 ]);
+const TYPED_FSEVENTS_GIT_PACK_SEMANTIC_FIELDS = Object.freeze([
+  "dev", "ino", "uid", "gid", "mode", "nlink", "size", "sha256"
+]);
+const TYPED_FSEVENTS_GIT_PACK_NAME_PATTERN = /^pack-(?:[0-9a-f]{40}|[0-9a-f]{64})\.pack$/u;
 
 function typedFseventsNextProvenanceOrdinal() {
   if (TYPED_FSEVENTS_PROVENANCE_ORDINAL === TYPED_FSEVENTS_MAX_UINT64) {
@@ -953,15 +957,58 @@ function typedFseventsSameRegularSemanticProof(leftValue, rightValue) {
     && TYPED_FSEVENTS_REGULAR_SEMANTIC_FIELDS.every((field) => left[field] === right[field]);
 }
 
+function typedFseventsDirectGitPackPath(candidate, trustedGitCommonDir) {
+  return typeof candidate === "string"
+    && typeof trustedGitCommonDir === "string"
+    && path.posix.dirname(candidate) === path.posix.join(trustedGitCommonDir, "objects", "pack")
+    && TYPED_FSEVENTS_GIT_PACK_NAME_PATTERN.test(path.posix.basename(candidate));
+}
+
+function typedFseventsSameGitPackSemanticProof(leftValue, rightValue) {
+  const left = typedFseventsDirectRegularProof(leftValue);
+  const right = typedFseventsDirectRegularProof(rightValue);
+  return left !== null && right !== null
+    && left.nlink === "1"
+    && right.nlink === "1"
+    && (BigInt(left.mode) & 0o222n) === 0n
+    && (BigInt(right.mode) & 0o222n) === 0n
+    && TYPED_FSEVENTS_GIT_PACK_SEMANTIC_FIELDS.every((field) => left[field] === right[field]);
+}
+
+function typedFseventsSamePathSemanticProof(
+  candidate,
+  leftValue,
+  rightValue,
+  trustedGitCommonDir
+) {
+  return typedFseventsSameRegularSemanticProof(leftValue, rightValue)
+    || (typedFseventsDirectGitPackPath(candidate, trustedGitCommonDir)
+      && typedFseventsSameGitPackSemanticProof(leftValue, rightValue));
+}
+
 export function classifyTypedFseventsTransaction({
+  allowGitPackModifiedXattrFlags = false,
   candidateProofLookup,
   eventRoots,
   exactMetadataPaths = [],
   exactMetadataRoots = [],
   priorProofLookup,
-  streamedRecords
+  streamedRecords,
+  trustedGitCommonDir = null
 } = {}) {
   const roots = typedFseventsCanonicalPathSet(eventRoots, "typed FSEvents event roots");
+  if (typeof allowGitPackModifiedXattrFlags !== "boolean") {
+    throw new Error("typed FSEvents Git pack modified-xattr policy must be boolean");
+  }
+  const trustedCommonDir = trustedGitCommonDir === null
+    ? null
+    : typedFseventsCanonicalAbsolutePath(
+      trustedGitCommonDir,
+      "typed FSEvents trusted Git common directory"
+    );
+  if (trustedCommonDir !== null && !roots.includes(trustedCommonDir)) {
+    throw new Error("typed FSEvents trusted Git common directory must be an exact event root");
+  }
   const metadataPaths = typedFseventsCanonicalPathSet(
     exactMetadataPaths,
     "typed FSEvents exact metadata paths",
@@ -996,10 +1043,28 @@ export function classifyTypedFseventsTransaction({
       transactionMetadataEventCount += 1n;
       continue;
     }
-    if (flagClass === "xattr-only" && typedFseventsSameRegularSemanticProof(
-      typedFseventsLookupProof(priorProofLookup, eventPath, "typed FSEvents prior proof lookup"),
-      typedFseventsLookupProof(candidateProofLookup, eventPath, "typed FSEvents candidate proof lookup")
-    )) {
+    const priorProof = typedFseventsLookupProof(
+      priorProofLookup,
+      eventPath,
+      "typed FSEvents prior proof lookup"
+    );
+    const candidateProof = typedFseventsLookupProof(
+      candidateProofLookup,
+      eventPath,
+      "typed FSEvents candidate proof lookup"
+    );
+    const exactXattrOnly = flagClass === "xattr-only"
+      && typedFseventsSamePathSemanticProof(
+        eventPath,
+        priorProof,
+        candidateProof,
+        trustedCommonDir
+      );
+    const stablePackModifiedXattr = allowGitPackModifiedXattrFlags
+      && [0x19000, 0x19100].includes(record.flags)
+      && typedFseventsDirectGitPackPath(eventPath, trustedCommonDir)
+      && typedFseventsSameGitPackSemanticProof(priorProof, candidateProof);
+    if (exactXattrOnly || stablePackModifiedXattr) {
       xattrOnlyEventCount += 1n;
       continue;
     }
@@ -1149,6 +1214,27 @@ def main():
     capture_mode = request.get("captureMode", "full-namespace-v2")
     if capture_mode not in ("full-namespace-v2", "git-currentness-sparse-v1"):
         fail("stable proof capture mode is invalid")
+    trusted_git_common_dir = request.get("trustedGitCommonDir")
+    if ((capture_mode == "git-currentness-sparse-v1")
+            != isinstance(trusted_git_common_dir, str)):
+        fail("stable proof Git-currentness common directory binding is invalid")
+    git_pack_control_dir = (None if trusted_git_common_dir is None
+        else os.path.join(trusted_git_common_dir, "objects", "pack"))
+
+    def direct_git_pack_path(display_path):
+        if git_pack_control_dir is None or os.path.dirname(display_path) != git_pack_control_dir:
+            return False
+        name = os.path.basename(display_path)
+        if not name.startswith("pack-") or not name.endswith(".pack"):
+            return False
+        object_id = name[5:-5]
+        return len(object_id) in (40, 64) and all(character in "0123456789abcdef" for character in object_id)
+
+    def assert_same_semantic(left, right, label):
+        semantic_fields = ("st_dev", "st_ino", "st_uid", "st_gid", "st_mode", "st_nlink", "st_size")
+        if any(getattr(left, field) != getattr(right, field) for field in semantic_fields):
+            fail(label + " changed during descriptor-relative semantic observation")
+
     maximum_paths = request["maxPaths"]
     maximum_depth = request["maxDepth"]
     maximum_directory_name_bytes = request["maxDirectoryNameBytes"]
@@ -1202,29 +1288,62 @@ def main():
         try:
             before = os.fstat(descriptor)
             assert_type(before, "regular-file", "stable proof held file")
-            assert_same(initial, before, "stable proof file open")
+            timestamp_relaxed = (direct_git_pack_path(display_path)
+                and before.st_nlink == 1 and (before.st_mode & 0o222) == 0)
+            if timestamp_relaxed:
+                assert_same_semantic(initial, before, "stable proof Git pack file open")
+            else:
+                assert_same(initial, before, "stable proof file open")
             size = before.st_size
             if size < 0 or size > maximum_file_bytes:
                 fail("stable proof regular file exceeds the per-file byte cap")
             if regular_bytes + size > maximum_total_bytes:
                 fail("stable proof regular files exceed the cumulative byte cap")
-            digest = hashlib.sha256()
-            position = 0
-            while position < size:
-                chunk = os.pread(descriptor, min(READ_CHUNK_BYTES, size - position), position)
-                if not chunk:
-                    fail("stable proof regular file was truncated during read")
-                digest.update(chunk)
-                position += len(chunk)
-            after = os.fstat(descriptor)
-            visible = os.stat(name, dir_fd=parent_descriptor, follow_symlinks=False)
-            assert_same(before, after, "stable proof held file")
-            assert_same(before, visible, "stable proof descriptor-relative file rebind")
+
+            def read_digest():
+                digest = hashlib.sha256()
+                position = 0
+                while position < size:
+                    chunk = os.pread(descriptor, min(READ_CHUNK_BYTES, size - position), position)
+                    if not chunk:
+                        fail("stable proof regular file was truncated during read")
+                    digest.update(chunk)
+                    position += len(chunk)
+                return digest
+
+            if timestamp_relaxed:
+                digest = None
+                final = None
+                for _ in range(3):
+                    pass_before = os.fstat(descriptor)
+                    candidate_digest = read_digest()
+                    pass_after = os.fstat(descriptor)
+                    visible = os.stat(name, dir_fd=parent_descriptor, follow_symlinks=False)
+                    pass_final = os.fstat(descriptor)
+                    assert_same_semantic(before, pass_before, "stable proof Git pack pass start")
+                    assert_same_semantic(pass_before, pass_after, "stable proof Git pack pass")
+                    assert_same_semantic(pass_after, visible, "stable proof descriptor-relative Git pack rebind")
+                    assert_same_semantic(visible, pass_final, "stable proof final Git pack file")
+                    if (observation(pass_before) == observation(pass_after)
+                            == observation(visible) == observation(pass_final)):
+                        digest = candidate_digest
+                        final = pass_final
+                        break
+                if digest is None or final is None:
+                    fail("stable proof Git pack timestamps did not stabilize for a bound content pass")
+            else:
+                digest = read_digest()
+                after = os.fstat(descriptor)
+                visible = os.stat(name, dir_fd=parent_descriptor, follow_symlinks=False)
+                final = os.fstat(descriptor)
+                assert_same(before, after, "stable proof held file")
+                assert_same(before, visible, "stable proof descriptor-relative file rebind")
+                assert_same(visible, final, "stable proof final held file")
             assert_type(visible, "regular-file", "stable proof visible file")
             regular_bytes += size
             add(display_path, {
                 "type": "regular-file",
-                **observation(before),
+                **observation(final),
                 "sha256": digest.hexdigest(),
             })
         finally:
@@ -1634,10 +1753,17 @@ function stableProofFreezeProof(value, label) {
 function stableProofRunDescriptorWalker(
   normalizedPolicies,
   maxPaths,
-  captureMode = FULL_NAMESPACE_CAPTURE_MODE
+  captureMode = FULL_NAMESPACE_CAPTURE_MODE,
+  trustedGitCommonDir = null
 ) {
   if (![FULL_NAMESPACE_CAPTURE_MODE, GIT_CURRENTNESS_CAPTURE_MODE].includes(captureMode)) {
     throw new Error("stable proof capture mode is invalid");
+  }
+  if ((captureMode === GIT_CURRENTNESS_CAPTURE_MODE) !== (typeof trustedGitCommonDir === "string")
+    || (trustedGitCommonDir !== null
+      && (!path.isAbsolute(trustedGitCommonDir)
+        || path.normalize(trustedGitCommonDir) !== trustedGitCommonDir))) {
+    throw new Error("stable proof Git-currentness common directory binding is invalid");
   }
   const policyRootSet = new Set(normalizedPolicies.map((policy) => policy.root));
   const belongsToPolicyRoot = (candidate) => {
@@ -1661,7 +1787,8 @@ function stableProofRunDescriptorWalker(
     maxSymlinkTargetBytes: STABLE_PROOF_MAX_SYMLINK_TARGET_BYTES,
     maxTotalSymlinkBytes: STABLE_PROOF_MAX_TOTAL_SYMLINK_BYTES,
     maxTotalBytes: STABLE_PROOF_MAX_TOTAL_BYTES,
-    policies: normalizedPolicies
+    policies: normalizedPolicies,
+    trustedGitCommonDir
   }));
   const result = spawnSync(
     "/usr/bin/python3",
@@ -2051,6 +2178,48 @@ function gitCurrentnessAddTreeLeaves(
   }
 }
 
+function gitCurrentnessAddTreeControls(
+  controls,
+  candidate,
+  containmentRoot,
+  label,
+  deadlineMs,
+  maxPaths,
+  { recursive = true } = {}
+) {
+  const pending = [candidate];
+  while (pending.length > 0) {
+    if (Date.now() >= deadlineMs) {
+      throw new Error("Git currentness scope exceeded its absolute deadline");
+    }
+    const current = pending.pop();
+    let status;
+    try {
+      status = fs.lstatSync(current);
+    } catch (error) {
+      if (error?.code === "ENOENT") continue;
+      throw error;
+    }
+    if (!gitCurrentnessPathIsWithin(current, containmentRoot)) {
+      throw new Error(`${label} escaped the trusted Git common directory`);
+    }
+    if (status.isSymbolicLink() || status.isFile()) {
+      controls.add(path.normalize(current));
+    } else if (status.isDirectory()) {
+      controls.add(path.normalize(current));
+      if (recursive || current === candidate) {
+        const names = fs.readdirSync(current).sort(stableProofByteOrder).reverse();
+        for (const name of names) pending.push(path.join(current, name));
+      }
+    } else {
+      throw new Error(`${label} contains an unsupported special file`);
+    }
+    if (controls.size > maxPaths || pending.length + controls.size > maxPaths) {
+      throw new Error("Git currentness controls exceed their path budget");
+    }
+  }
+}
+
 function gitCurrentnessControlLeaves(trustedGitCommonDir, deadlineMs, maxPaths) {
   const leaves = new Set();
   for (const relativePath of [
@@ -2078,6 +2247,17 @@ function gitCurrentnessControlLeaves(trustedGitCommonDir, deadlineMs, maxPaths) 
     deadlineMs,
     maxPaths
   );
+  for (const [relativePath, recursive] of [["objects/info", true], ["objects/pack", false]]) {
+    gitCurrentnessAddTreeControls(
+      leaves,
+      path.join(trustedGitCommonDir, ...relativePath.split("/")),
+      trustedGitCommonDir,
+      "Git currentness object control tree",
+      deadlineMs,
+      maxPaths,
+      { recursive }
+    );
+  }
   const worktreesRoot = path.join(trustedGitCommonDir, "worktrees");
   let entries = [];
   try {
@@ -2280,7 +2460,8 @@ export function createGitCurrentnessProofScope({
     maxPaths,
     normalizedPolicies,
     scopeToken: Object.freeze({}),
-    selectionFingerprint
+    selectionFingerprint,
+    trustedGitCommonDir: canonicalCommonDir
   }));
   return scope;
 }
@@ -2302,7 +2483,8 @@ export function captureGitCurrentnessProofSnapshot({
     stableProofRunDescriptorWalker(
       binding.normalizedPolicies,
       binding.maxPaths,
-      GIT_CURRENTNESS_CAPTURE_MODE
+      GIT_CURRENTNESS_CAPTURE_MODE,
+      binding.trustedGitCommonDir
     ),
     {
       captureMode: GIT_CURRENTNESS_CAPTURE_MODE,
@@ -2954,7 +3136,8 @@ function typedFseventsMetadataPolicy(
     }))),
     pathSet: new Set(frozenPaths),
     paths: frozenPaths,
-    roots: frozenRoots
+    roots: frozenRoots,
+    trustedGitCommonDir: trustedCommonDir
   });
 }
 
@@ -3103,6 +3286,7 @@ function typedFseventsSnapshotDifference({
   priorEvidence,
   priorSnapshot,
   candidateSnapshot,
+  trustedGitCommonDir,
 }) {
   let priorIndex = 0;
   let candidateIndex = 0;
@@ -3164,8 +3348,14 @@ function typedFseventsSnapshotDifference({
     }
     if (priorProof !== undefined
       && candidateProof !== undefined
-      && typedFseventsSameRegularSemanticProof(priorProof, candidateProof)
-      && priorProof.ctimeNs !== candidateProof.ctimeNs
+      && typedFseventsSamePathSemanticProof(
+        eventPath,
+        priorProof,
+        candidateProof,
+        trustedGitCommonDir
+      )
+      && (priorProof.ctimeNs !== candidateProof.ctimeNs
+        || priorProof.mtimeNs !== candidateProof.mtimeNs)
       && (currentEvidence.xattrPathSet.has(eventPath)
         || priorEvidence.xattrPathSet.has(eventPath))) {
       xattrCtimeChanged = true;
@@ -3301,14 +3491,23 @@ export function readAndValidateJournalExtension({
         metadataEventPaths.add(record.path);
         return;
       }
-      const xattrSemanticCandidate = record.flagClass === "xattr-only"
-        || record.flags === 0x19000
-        || record.flags === 0x19100;
-      if (xattrSemanticCandidate
-        && typedFseventsSameRegularSemanticProof(
-          prior.lookup(record.path),
-          candidate.lookup(record.path)
-        )) {
+      const priorProof = prior.lookup(record.path);
+      const candidateProof = candidate.lookup(record.path);
+      const exactXattrOnly = record.flagClass === "xattr-only"
+        && typedFseventsSamePathSemanticProof(
+          record.path,
+          priorProof,
+          candidateProof,
+          metadataPolicy.trustedGitCommonDir
+        );
+      const stablePackModifiedXattr = endpointBinding.type === 2
+        && [0x19000, 0x19100].includes(record.flags)
+        && typedFseventsDirectGitPackPath(
+          record.path,
+          metadataPolicy.trustedGitCommonDir
+        )
+        && typedFseventsSameGitPackSemanticProof(priorProof, candidateProof);
+      if (exactXattrOnly || stablePackModifiedXattr) {
         xattrOnlyEventCount += 1n;
         xattrPaths.add(record.path);
         return;
@@ -3373,7 +3572,8 @@ export function readAndValidateJournalExtension({
     metadataRoots,
     priorEvidence,
     priorSnapshot: prior,
-    candidateSnapshot: candidate
+    candidateSnapshot: candidate,
+    trustedGitCommonDir: metadataPolicy.trustedGitCommonDir
   });
   if (endpointBinding.type === 3
     && (sourceEventCount !== 0n || transactionMetadataEventCount !== 0n)) {
@@ -4556,6 +4756,8 @@ const TYPED_FSEVENTS_RECONCILIATION_CHILD_SOURCE = [
   `const TYPED_FSEVENTS_RECONCILIATION_MAX_ROUNDS = ${TYPED_FSEVENTS_RECONCILIATION_MAX_ROUNDS}n;`,
   `const TYPED_FSEVENTS_RECONCILIATION_MAX_DURATION_NS = ${TYPED_FSEVENTS_RECONCILIATION_MAX_DURATION_NS}n;`,
   `const TYPED_FSEVENTS_REGULAR_SEMANTIC_FIELDS = Object.freeze(${JSON.stringify(TYPED_FSEVENTS_REGULAR_SEMANTIC_FIELDS)});`,
+  `const TYPED_FSEVENTS_GIT_PACK_SEMANTIC_FIELDS = Object.freeze(${JSON.stringify(TYPED_FSEVENTS_GIT_PACK_SEMANTIC_FIELDS)});`,
+  `const TYPED_FSEVENTS_GIT_PACK_NAME_PATTERN = ${TYPED_FSEVENTS_GIT_PACK_NAME_PATTERN};`,
   `const STABLE_PROOF_SNAPSHOT_SCHEMA_VERSION = ${STABLE_PROOF_SNAPSHOT_SCHEMA_VERSION};`,
   `const STABLE_PROOF_MAX_PATHS = ${STABLE_PROOF_MAX_PATHS};`,
   `const STABLE_PROOF_MAX_POLICIES = ${STABLE_PROOF_MAX_POLICIES};`,
@@ -4601,6 +4803,9 @@ const TYPED_FSEVENTS_RECONCILIATION_CHILD_SOURCE = [
   parseTypedFseventsJournalPrefix,
   typedFseventsDirectRegularProof,
   typedFseventsSameRegularSemanticProof,
+  typedFseventsDirectGitPackPath,
+  typedFseventsSameGitPackSemanticProof,
+  typedFseventsSamePathSemanticProof,
   stableProofByteOrder,
   stableProofCanonicalRoot,
   stableProofTrackedRelativePath,
@@ -4618,6 +4823,7 @@ const TYPED_FSEVENTS_RECONCILIATION_CHILD_SOURCE = [
   gitCurrentnessStatusPaths,
   gitCurrentnessAddExistingLeaf,
   gitCurrentnessAddTreeLeaves,
+  gitCurrentnessAddTreeControls,
   gitCurrentnessControlLeaves,
   createGitCurrentnessProofScope,
   captureGitCurrentnessProofSnapshot,

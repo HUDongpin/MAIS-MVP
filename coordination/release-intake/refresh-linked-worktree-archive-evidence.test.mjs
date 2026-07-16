@@ -12696,6 +12696,124 @@ test("Task 3A pure classification compares every regular semantic proof dimensio
   }
 });
 
+test("Task 3A Git pack classification ignores only xattr-bearing timestamp drift with identical content", async () => {
+  const { classifyTypedFseventsTransaction } = await import(libraryUrl);
+  const commonDir = "/repo/.git";
+  const packPath = `${commonDir}/objects/pack/pack-${"a".repeat(40)}.pack`;
+  const readonlyProof = task3aRegularProof({ mode: "33060" });
+  const classify = ({
+    candidatePath = packPath,
+    candidateProof,
+    flags = 0x19000,
+    priorProof = readonlyProof
+  }) => (
+    classifyTypedFseventsTransaction({
+      allowGitPackModifiedXattrFlags: true,
+      candidateProofLookup: new Map([[candidatePath, candidateProof]]),
+      eventRoots: [commonDir],
+      exactMetadataPaths: [],
+      exactMetadataRoots: [],
+      priorProofLookup: new Map([[candidatePath, priorProof]]),
+      streamedRecords: [{ eventId: 1n, flags, path: candidatePath, sequence: 1n }],
+      trustedGitCommonDir: commonDir
+    })
+  );
+  for (const flags of [0x19000, 0x19100]) {
+    const timestampOnly = classify({
+      candidateProof: task3aRegularProof({
+        ctimeNs: "987654322",
+        mode: "33060",
+        mtimeNs: "123456790"
+      }),
+      flags
+    });
+    assert.equal(timestampOnly.sourceEventCount, 0n, flags.toString(16));
+    assert.equal(timestampOnly.materialEventCount, 0n, flags.toString(16));
+    assert.equal(timestampOnly.xattrOnlyEventCount, 1n, flags.toString(16));
+  }
+
+  for (const flags of [0x19000, 0x19100]) {
+    for (const [field, value] of [
+      ["dev", "12"],
+      ["ino", "23"],
+      ["uid", "502"],
+      ["gid", "21"],
+      ["mode", "33152"],
+      ["nlink", "2"],
+      ["size", "8"],
+      ["sha256", "b".repeat(64)]
+    ]) {
+      const result = classify({
+        candidateProof: task3aRegularProof({
+          [field]: value,
+          ctimeNs: "987654322",
+          mode: field === "mode" ? value : "33060",
+          mtimeNs: "123456790"
+        }),
+        flags
+      });
+      assert.equal(result.sourceEventCount, 1n, `${flags.toString(16)} ${field}`);
+      assert.equal(result.xattrOnlyEventCount, 0n, `${flags.toString(16)} ${field}`);
+    }
+
+    for (const [label, insecureProof] of [
+      ["writable", task3aRegularProof({ mode: "33188" })],
+      ["hardlinked", task3aRegularProof({ mode: "33060", nlink: "2" })]
+    ]) {
+      const result = classify({
+        candidateProof: task3aRegularProof({
+          ...insecureProof,
+          ctimeNs: "987654322",
+          mtimeNs: "123456790"
+        }),
+        flags,
+        priorProof: insecureProof
+      });
+      assert.equal(result.sourceEventCount, 1n, `${flags.toString(16)} ${label}`);
+      assert.equal(result.materialEventCount, 1n, `${flags.toString(16)} ${label}`);
+      assert.equal(result.xattrOnlyEventCount, 0n, `${flags.toString(16)} ${label}`);
+    }
+  }
+  for (const candidatePath of [
+    `${commonDir}/objects/pack/pack-${"a".repeat(40)}.idx`,
+    `${commonDir}/objects/aa/${"b".repeat(38)}`,
+    `${commonDir}/config`
+  ]) {
+    const result = classify({
+      candidatePath,
+      candidateProof: task3aRegularProof({
+        ctimeNs: "987654322",
+        mode: "33060",
+        mtimeNs: "123456790"
+      })
+    });
+    assert.equal(result.sourceEventCount, 1n, candidatePath);
+  }
+  assert.equal(classify({
+    candidateProof: task3aRegularProof({
+      ctimeNs: "987654322",
+      mode: "33060",
+      mtimeNs: "123456790"
+    }),
+    flags: 0x11400
+  }).sourceEventCount, 1n);
+
+  for (const flags of [0x19000, 0x19100]) {
+    const ordinaryPath = `${commonDir}/config`;
+    const ordinaryProof = task3aRegularProof({ ctimeNs: "987654322" });
+    const result = classifyTypedFseventsTransaction({
+      allowGitPackModifiedXattrFlags: true,
+      candidateProofLookup: new Map([[ordinaryPath, ordinaryProof]]),
+      eventRoots: [commonDir],
+      priorProofLookup: new Map([[ordinaryPath, task3aRegularProof()]]),
+      streamedRecords: [{ eventId: 1n, flags, path: ordinaryPath, sequence: 1n }],
+      trustedGitCommonDir: commonDir
+    });
+    assert.equal(result.sourceEventCount, 1n, `ordinary ${flags.toString(16)}`);
+    assert.equal(result.xattrOnlyEventCount, 0n, `ordinary ${flags.toString(16)}`);
+  }
+});
+
 test("Task 3A pure classification applies metadata precedence and keeps ancestors ignored and nonregular paths material", async () => {
   const { classifyTypedFseventsTransaction } = await import(libraryUrl);
   assert.equal(typeof classifyTypedFseventsTransaction, "function");
@@ -17866,6 +17984,219 @@ test("Task 3B3C Git-currentness scope hashes dirty closure and controls without 
     snapshot.lookup(path.join(root, ...library.TRANSACTION_METADATA_PATHS[0].split("/"))),
     { type: "tombstone" }
   );
+});
+
+test("Task 3B3C Git-currentness fixed point classifies only secure pack timestamp drift as xattr-only", async (t) => {
+  const library = await import(libraryUrl);
+  const payload = Buffer.from("fixed-point pack payload\n");
+  const makeFixture = (subtest, label, { hardlink = false, mode = 0o444 } = {}) => {
+    const { root } = makeStableProofTestRoot(subtest, `task3b3c-pack-${label}`);
+    const scratch = task3b2Scratch(subtest, `pack-${label}`);
+    execFileSync("git", ["init", root], { stdio: ["ignore", "ignore", "pipe"] });
+    const commonDir = fs.realpathSync(path.join(root, ".git"));
+    const packDirectory = path.join(commonDir, "objects", "pack");
+    const packPath = path.join(packDirectory, `pack-${"a".repeat(40)}.pack`);
+    fs.mkdirSync(packDirectory, { recursive: true });
+    fs.writeFileSync(packPath, payload);
+    fs.chmodSync(packPath, mode);
+    if (hardlink) fs.linkSync(packPath, path.join(root, "pack-hardlink"));
+    const scope = library.createGitCurrentnessProofScope({
+      policies: [{ root: commonDir, exactMetadataPaths: [], exactMetadataRoots: [] }],
+      trustedGitCommonDir: commonDir
+    });
+    const quiescence = new Int32Array(new SharedArrayBuffer(4));
+    Atomics.wait(quiescence, 0, 0, 500);
+    let priorSnapshot = library.captureGitCurrentnessProofSnapshot({ scope });
+    let baselineSettled = false;
+    let consecutiveMatches = 0;
+    for (let attempt = 0; attempt < 12; attempt += 1) {
+      Atomics.wait(quiescence, 0, 0, 100);
+      const candidate = library.captureGitCurrentnessProofSnapshot({ scope });
+      if (candidate.sha256 === priorSnapshot.sha256) {
+        consecutiveMatches += 1;
+      } else {
+        consecutiveMatches = 0;
+      }
+      priorSnapshot = candidate;
+      if (consecutiveMatches >= 2) {
+        baselineSettled = true;
+        break;
+      }
+    }
+    assert.equal(baselineSettled, true, "Git-currentness fixture baseline did not settle");
+    const priorEndpoint = task3b2NormalizeEndpoint(library, scratch, {
+      root: commonDir,
+      sequence: 1n
+    }).endpoint;
+    return {
+      commonDir,
+      packDirectory,
+      packPath,
+      priorEndpoint,
+      priorSnapshot,
+      root,
+      scope,
+      scratch
+    };
+  };
+  const bumpTimestamp = (target) => {
+    const before = fs.lstatSync(target);
+    fs.utimesSync(
+      target,
+      new Date(before.atimeMs + 60_000),
+      new Date(before.mtimeMs + 60_000)
+    );
+  };
+  const readExtension = (fixture, {
+    candidateSnapshot,
+    eventPath = fixture.packPath,
+    flags,
+    type = 2
+  }) => {
+    const journal = typedFseventsJournalRecord({
+      sequence: 1n,
+      eventId: 1n,
+      flags,
+      path: eventPath
+    });
+    const endpoint = task3b2NormalizeEndpoint(library, fixture.scratch, {
+      entryCount: 1n,
+      journal,
+      lastEventId: 1n,
+      root: fixture.commonDir,
+      sequence: 2n,
+      type
+    }).endpoint;
+    try {
+      return library.readAndValidateJournalExtension({
+        candidateSnapshot,
+        endpoint,
+        eventRoots: [fixture.commonDir],
+        priorCheckpoint: fixture.priorEndpoint.checkpoint,
+        priorSnapshot: fixture.priorSnapshot,
+        trustedGitCommonDir: fixture.commonDir
+      });
+    } catch (error) {
+      const prior = new Map(fixture.priorSnapshot.entries.map((entry) => [
+        entry.path,
+        entry.proof
+      ]));
+      const candidate = new Map(candidateSnapshot.entries.map((entry) => [
+        entry.path,
+        entry.proof
+      ]));
+      const changedPaths = [...new Set([...prior.keys(), ...candidate.keys()])]
+        .filter((candidatePath) => (
+          JSON.stringify(prior.get(candidatePath)) !== JSON.stringify(candidate.get(candidatePath))
+        ))
+        .map((candidatePath) => path.relative(fixture.commonDir, candidatePath));
+      error.message += `; changed snapshot paths=${JSON.stringify(changedPaths)}`;
+      throw error;
+    }
+  };
+  const assertSourceMaterial = (extension, label) => {
+    assert.equal(extension.classification.sourceEventCount, 1n, label);
+    assert.equal(extension.classification.materialEventCount, 1n, label);
+    assert.equal(extension.classification.xattrOnlyEventCount, 0n, label);
+    assert.equal(extension.snapshotRelation, "source-material", label);
+  };
+
+  for (const flags of [0x19000, 0x19100]) {
+    const flag = flags.toString(16);
+    await t.test(`${flag} direct readonly nlink=1 timestamp drift`, (subtest) => {
+      const fixture = makeFixture(subtest, `${flag}-timestamp`);
+      bumpTimestamp(fixture.packPath);
+      const candidateSnapshot = library.captureGitCurrentnessProofSnapshot({
+        scope: fixture.scope
+      });
+      const extension = readExtension(fixture, { candidateSnapshot, flags });
+      assert.equal(extension.classification.sourceEventCount, 0n);
+      assert.equal(extension.classification.materialEventCount, 0n);
+      assert.equal(extension.classification.xattrOnlyEventCount, 1n);
+      assert.equal(extension.snapshotRelation, "xattr-ctime-only");
+    });
+
+    await t.test(`${flag} same-size content mutation`, (subtest) => {
+      const fixture = makeFixture(subtest, `${flag}-content`);
+      const changed = Buffer.from(payload);
+      changed[0] ^= 0xff;
+      fs.chmodSync(fixture.packPath, 0o644);
+      fs.writeFileSync(fixture.packPath, changed);
+      fs.chmodSync(fixture.packPath, 0o444);
+      assert.equal(fs.statSync(fixture.packPath).size, payload.length);
+      const candidateSnapshot = library.captureGitCurrentnessProofSnapshot({
+        scope: fixture.scope
+      });
+      assertSourceMaterial(readExtension(fixture, { candidateSnapshot, flags }), flag);
+    });
+
+    await t.test(`${flag} same-bytes inode replacement`, (subtest) => {
+      const fixture = makeFixture(subtest, `${flag}-inode`);
+      const priorInode = fs.lstatSync(fixture.packPath).ino;
+      const replacement = path.join(fixture.root, "replacement.pack");
+      fs.writeFileSync(replacement, payload);
+      fs.chmodSync(replacement, 0o444);
+      fs.renameSync(replacement, fixture.packPath);
+      assert.notEqual(fs.lstatSync(fixture.packPath).ino, priorInode);
+      const candidateSnapshot = library.captureGitCurrentnessProofSnapshot({
+        scope: fixture.scope
+      });
+      assertSourceMaterial(readExtension(fixture, { candidateSnapshot, flags }), flag);
+    });
+
+    await t.test(`${flag} pack namespace addition`, (subtest) => {
+      const fixture = makeFixture(subtest, `${flag}-namespace-add`);
+      const added = path.join(
+        fixture.packDirectory,
+        `pack-${"b".repeat(40)}.pack`
+      );
+      fs.writeFileSync(added, payload);
+      fs.chmodSync(added, 0o444);
+      const candidateSnapshot = library.captureGitCurrentnessProofSnapshot({
+        scope: fixture.scope
+      });
+      assertSourceMaterial(readExtension(fixture, {
+        candidateSnapshot,
+        eventPath: added,
+        flags
+      }), flag);
+    });
+
+    await t.test(`${flag} pack namespace deletion`, (subtest) => {
+      const fixture = makeFixture(subtest, `${flag}-namespace-delete`);
+      fs.unlinkSync(fixture.packPath);
+      const candidateSnapshot = library.captureGitCurrentnessProofSnapshot({
+        scope: fixture.scope
+      });
+      assertSourceMaterial(readExtension(fixture, { candidateSnapshot, flags }), flag);
+    });
+
+    for (const [label, fixtureOptions] of [
+      ["writable", { mode: 0o644 }],
+      ["hardlinked", { hardlink: true }]
+    ]) {
+      await t.test(`${flag} ${label} pack`, (subtest) => {
+        const fixture = makeFixture(subtest, `${flag}-${label}`, fixtureOptions);
+        bumpTimestamp(fixture.packPath);
+        const candidateSnapshot = library.captureGitCurrentnessProofSnapshot({
+          scope: fixture.scope
+        });
+        assertSourceMaterial(readExtension(fixture, { candidateSnapshot, flags }), flag);
+      });
+    }
+
+    await t.test(`${flag} STOP after candidate capture`, (subtest) => {
+      const fixture = makeFixture(subtest, `${flag}-stop`);
+      const candidateSnapshot = library.captureGitCurrentnessProofSnapshot({
+        scope: fixture.scope
+      });
+      bumpTimestamp(fixture.packPath);
+      assert.throws(
+        () => readExtension(fixture, { candidateSnapshot, flags, type: 3 }),
+        /terminal extension contains source or metadata events/i
+      );
+    });
+  }
 });
 
 test("Task 3B3C Git-currentness scope selection does not scale with the clean tracked universe", async (t) => {
