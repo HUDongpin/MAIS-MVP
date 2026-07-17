@@ -1,8 +1,11 @@
 # S21 Generation Report - California Math RAG v2 Candidate
 
 Package: `us-ca-math-rag-v2-candidate`
+
 Date: 2026-06-19
+
 Owner: S21 content pipeline
+
 Input skill: `$california-math-common-core`
 
 ## Objective

@@ -1,8 +1,11 @@
 # S11 Candidate Preview Browser Smoke
 
 Date: 2026-06-19
+
 Owner: S11 QA and release quality
+
 Surface: static candidate review page
+
 Status: pass
 
 ## Command

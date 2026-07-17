@@ -1,7 +1,9 @@
 # S23 Promotion Decision - California Math RAG v2 Candidate
 
 Package: `us-ca-math-rag-v2-candidate`
+
 Date: 2026-06-19
+
 Decision owner: S23 integration and promotion
 
 ## Decision

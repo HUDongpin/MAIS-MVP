@@ -11,6 +11,8 @@ const skillRoot =
   process.env.CALIFORNIA_MATH_COMMON_CORE_SKILL_ROOT ??
   path.join(repoRoot, ".local/skills/california-math-common-core");
 const standardsIndexPath = path.join(skillRoot, "references/standards-index.json");
+const skillRootLabel = "<california-math-common-core-skill-root>";
+const standardsIndexPathLabel = `${skillRootLabel}/references/standards-index.json`;
 const generatedAt = "2026-06-19";
 const packageId = "us-ca-math-rag-v2-candidate";
 
@@ -575,8 +577,8 @@ function makePackage(index, cards, practiceBriefs, lessonBriefs, practiceSamples
     owners: ownerFlow,
     sourcePolicy,
     sourceIndex: {
-      skillRoot,
-      standardsIndexPath,
+      skillRoot: skillRootLabel,
+      standardsIndexPath: standardsIndexPathLabel,
       schemaVersion: index.schemaVersion,
       name: index.name,
       sourceSafety: index.sourceSafety
@@ -601,9 +603,13 @@ function makeQaReport(summary) {
   return `# S18 Candidate QA Review - California Math RAG v2
 
 Package: \`${packageId}\`
+
 Date: ${generatedAt}
+
 Primary input: \`$california-math-common-core\` standards index
+
 Review owner: S18 curriculum QA
+
 Upstream owner: S21 content pipeline
 
 ## Verdict
@@ -651,7 +657,9 @@ function makePromotionHandoff(summary) {
   return `# S23 Promotion Handoff - California Math RAG v2 Candidate
 
 Package: \`${packageId}\`
+
 Date: ${generatedAt}
+
 Promotion owner: S23 integration and promotion
 
 ## What S21 Produced
@@ -700,8 +708,11 @@ function makeGenerationReport(summary) {
   return `# S21 Generation Report - California Math RAG v2 Candidate
 
 Package: \`${packageId}\`
+
 Date: ${generatedAt}
+
 Owner: S21 content pipeline
+
 Input skill: \`$california-math-common-core\`
 
 ## Objective
@@ -745,8 +756,11 @@ function makeRegressionReadiness(summary) {
   return `# S11 Regression Readiness - California Math RAG v2 Candidate
 
 Package: \`${packageId}\`
+
 Date: ${generatedAt}
+
 Regression owner: S11 QA and release quality
+
 Current status: not run, blocked until candidate integration exists
 
 ## Why S11 Cannot Run Full Regression Yet

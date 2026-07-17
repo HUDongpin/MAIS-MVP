@@ -1,7 +1,9 @@
 # S23 Promotion Handoff - California Math RAG v2 Candidate
 
 Package: `us-ca-math-rag-v2-candidate`
+
 Date: 2026-06-19
+
 Promotion owner: S23 integration and promotion
 
 ## What S21 Produced

@@ -1,9 +1,13 @@
 # S18 Representative Sample Review - California RAG v2 Downstream Candidates
 
 Date: 2026-06-19
+
 Reviewer role: S18 curriculum QA
+
 Upstream owner: S21 content pipeline
+
 Practice owner: S04 practice lead
+
 Lesson owner: S05 lesson lead
 
 ## Scope

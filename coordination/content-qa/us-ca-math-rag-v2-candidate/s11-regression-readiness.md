@@ -1,8 +1,11 @@
 # S11 Regression Readiness - California Math RAG v2 Candidate
 
 Package: `us-ca-math-rag-v2-candidate`
+
 Date: 2026-06-19
+
 Regression owner: S11 QA and release quality
+
 Current status: not run, blocked until candidate integration exists
 
 ## Why S11 Cannot Run Full Regression Yet

@@ -1,8 +1,11 @@
 # S18 Downstream QA Review - California RAG v2 S04/S05 Candidates
 
 Date: 2026-06-19
+
 Upstream package: `us-ca-math-rag-v2-candidate`
+
 Question pack: `us-ca-math-rag-v2-s04-question-candidates`
+
 Lesson pack: `us-ca-math-rag-v2-s05-lesson-candidates`
 
 ## Verdict

@@ -1,8 +1,11 @@
 # A18/A21 Physical Cleanup Extraction Handoff
 
 Date: 2026-07-17 HKT
+
 Agents: A18 curriculum QA and content quality; A21 content pipeline and RAG operations
+
 Branch: `codex/A18-A21-content-evidence-closure`
+
 Source baseline: `cef544e09bee8118ddcf3bf3005e570bdf4977e3`
 
 ## Objective
@@ -63,6 +66,19 @@ Extract the reviewed A18/A21 QA and candidate evidence from this dirty worktree 
 - A21 generators ran only in an isolated temporary copy: 11 grade buttons, 392 standards, 146 cards, 68 question candidates, 68 lesson candidates, 0 errors, 0 warnings, 0 blocked phrases, and a 2-question/2-lesson static review page.
 - Texas review still states that no source-distance audit was completed; it remains `needs-repair` and `candidate-only`.
 - Independent fingerprint review found zero missing or extra paths in both owner packages.
+
+## Code-quality correction
+
+Independent review found that a later generator run could reintroduce machine-local source labels and local-file URLs even though the committed evidence had been sanitized. It also found that removing Markdown hard-break whitespace could collapse metadata lines under CommonMark rendering.
+
+The separate corrective package therefore:
+
+- persists the descriptive `<california-math-common-core-skill-root>` label while retaining environment-variable and repo-local runtime resolution;
+- keeps the browser navigation URL runtime-only and persists repo-relative review/screenshot labels;
+- sanitizes success, warning, and failure messages before writing smoke evidence;
+- restores metadata separation with explicit blank lines and no trailing whitespace.
+
+The temporary portability suite passed both a successful browser smoke and an expected missing-review-page failure. Generated JSON/Markdown contained no machine-local absolute path or local-file URL. The containing corrective commit identifier is reported in the parent handoff.
 
 ## Remaining HOLD inventory
 

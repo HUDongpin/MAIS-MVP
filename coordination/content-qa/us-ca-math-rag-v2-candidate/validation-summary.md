@@ -1,7 +1,9 @@
 # Validation Summary - California Math RAG v2 Candidate
 
 Package: `us-ca-math-rag-v2-candidate`
+
 Date: 2026-06-19
+
 Responsible sessions: S21 content pipeline, S18 curriculum QA, S11 QA readiness, S23 promotion
 
 ## Checks Run

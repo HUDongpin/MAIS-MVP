@@ -1,9 +1,13 @@
 # S18 Candidate QA Review - California Math RAG v2
 
 Package: `us-ca-math-rag-v2-candidate`
+
 Date: 2026-06-19
+
 Primary input: `$california-math-common-core` standards index
+
 Review owner: S18 curriculum QA
+
 Upstream owner: S21 content pipeline
 
 ## Verdict

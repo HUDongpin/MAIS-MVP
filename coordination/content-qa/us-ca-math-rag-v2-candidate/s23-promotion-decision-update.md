@@ -1,6 +1,7 @@
 # S23 Promotion Decision Update - S04/S05 Candidate Packs
 
 Date: 2026-06-19
+
 Upstream package: `us-ca-math-rag-v2-candidate`
 
 ## Decision

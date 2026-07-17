@@ -1,8 +1,11 @@
 # S18/S24 QA Review - US Texas K-G5 Lesson Illustration Promotion Packet
 
 Date: 2026-06-15
+
 Package: `us-tx-primary-lesson-illustrations-promotion-packet`
+
 Warehouse location: owner-managed external candidate warehouse, package `2026-06-15-us-tx-primary-lesson-illustrations-promotion-packet`
+
 Intended route from packet manifest: `/student/lessons/texas-k-g5-textbook`
 
 ## Verdict

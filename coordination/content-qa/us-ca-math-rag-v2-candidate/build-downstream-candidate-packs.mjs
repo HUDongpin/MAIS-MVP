@@ -891,8 +891,11 @@ function makeQaReport(summary) {
   return `# S18 Downstream QA Review - California RAG v2 S04/S05 Candidates
 
 Date: ${generatedAt}
+
 Upstream package: \`${packageId}\`
+
 Question pack: \`${questionPackId}\`
+
 Lesson pack: \`${lessonPackId}\`
 
 ## Verdict
@@ -962,6 +965,7 @@ function makePromotionUpdate(summary) {
   return `# S23 Promotion Decision Update - S04/S05 Candidate Packs
 
 Date: ${generatedAt}
+
 Upstream package: \`${packageId}\`
 
 ## Decision
