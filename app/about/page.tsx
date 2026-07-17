@@ -1,9 +1,7 @@
 import type { Metadata } from "next";
-import { AboutGamePathShowcase } from "@/components/home/AboutGamePathShowcase";
 import { HomePageClient } from "@/components/home/HomePageClient";
 import { PracticeMissionSetupControls, type PracticeMissionPreviewQuestion, type PracticeMissionSetupTopicOption } from "@/components/practice/PracticeMissionSetupControls";
 import { questions } from "@/data/questions";
-import { visualizationLabCount } from "@/data/visualizationLabs";
 
 export const metadata: Metadata = {
   title: "About | MAIS",
@@ -38,8 +36,7 @@ const practiceMissionPreviewItems: PracticeMissionPreviewQuestion[] = questions.
 export default function AboutPage() {
   return (
     <>
-      <HomePageClient practiceQuestionTotal={practiceQuestionTotal} visualizationLabCount={visualizationLabCount} />
-      <AboutGamePathShowcase />
+      <HomePageClient practiceQuestionTotal={practiceQuestionTotal} />
       <PracticeMissionSetupControls questionPreviewItems={practiceMissionPreviewItems} topicOptions={practiceMissionSetupTopicOptions} />
     </>
   );
