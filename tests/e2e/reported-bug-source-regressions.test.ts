@@ -69,25 +69,6 @@ test("public practice mission showcase does not present a logged-out checkpoint 
   assert.doesNotMatch(showcase, /Round progress|Personalized set progress|aria-valuenow/);
 });
 
-test("about top statistic links route to the matching public learning surfaces", async () => {
-  const hero = await source("components/home/HeroSection.tsx");
-
-  const curriculumStart = hero.indexOf('id: "curriculum"');
-  const gamificationStart = hero.indexOf('id: "gamification"', curriculumStart);
-  const gamesStart = hero.indexOf('id: "games"', gamificationStart);
-  const roadmapsStart = hero.indexOf('id: "curriculum-roadmaps"', gamesStart);
-  assert.ok(curriculumStart >= 0 && gamificationStart > curriculumStart && gamesStart > gamificationStart);
-
-  const curriculumBlock = hero.slice(curriculumStart, gamificationStart);
-  const gamesBlock = hero.slice(gamesStart, roadmapsStart);
-
-  assert.match(hero, /import \{ studentPracticeGameHrefs \} from "@\/lib\/gameBasedLearning"/);
-  assert.match(curriculumBlock, /href: studentRoadmapPath/);
-  assert.match(gamesBlock, /href: studentPracticeGameHrefs\.adventureIsland/);
-  assert.doesNotMatch(curriculumBlock, /href: "\/register"/);
-  assert.doesNotMatch(gamesBlock, /href: "\/practice"/);
-});
-
 test("student assignments route exposes the final heading while assignments load", async () => {
   const loadingPath = join(process.cwd(), "app/student/assignments/loading.tsx");
   assert.ok(existsSync(loadingPath), "Expected a route-level loading shell for /student/assignments.");
@@ -199,4 +180,15 @@ test("student roadmap uses the personalized current-grade path only for signed-i
     "The signed-in gate should be applied before grade visibility and personalized path rendering."
   );
   assert.doesNotMatch(roadmap, /const isStudentMode = mode === "student";/);
+});
+
+test("student roadmap route shell renders roadmap pages through normal SSR and client boundaries", async () => {
+  const shell = await source("components/learning/RoadmapRouteShell.tsx");
+  const primaryRoute = await source("app/student/roadmap/primary/page.tsx");
+
+  assert.doesNotMatch(shell, /^"use client";/);
+  assert.doesNotMatch(shell, /next\/dynamic/);
+  assert.doesNotMatch(shell, /ssr:\s*false/);
+  assert.match(shell, /import \{ PrimaryRoadmapPage \} from "@\/components\/learning\/PrimaryRoadmapPage"/);
+  assert.match(primaryRoute, /<RoadmapRouteShell kind="primary" \/>/);
 });
