@@ -1,4 +1,9 @@
 import type { Vec3 } from "./mathSceneTypes";
+import { buildVMobjectStyle, type VMobjectStyle, type VMobjectStyleInput } from "./mathVMobjectStyle";
+
+export const VMOBJECT_PARTIAL_CURVE_SOURCE_CONTRACT =
+  "VMobject.pointwise_become_partial preserves object identity and style while swapping in a partial path" as const;
+export const VMOBJECT_PARTIAL_CURVE_VISIBILITY_POLICY = "showcreation-uses-partial-path-by-alpha" as const;
 
 export type CurveArcLengthEntry = {
   length: number;
@@ -11,7 +16,21 @@ export type CurveObject = {
   conceptId: string;
   id: string;
   samples: Vec3[];
+  style: VMobjectStyle;
   totalLength: number;
+};
+
+export type CurvePartialFrame = {
+  curve: CurveObject;
+  normalizedRange: [number, number];
+  requestedRange: [number, number];
+  reversed: boolean;
+  sourceContract: typeof VMOBJECT_PARTIAL_CURVE_SOURCE_CONTRACT;
+  sourceId: string;
+  summary: string;
+  visibleLength: number;
+  visibleSampleCount: number;
+  visibilityPolicy: typeof VMOBJECT_PARTIAL_CURVE_VISIBILITY_POLICY;
 };
 
 export type AlignedCurveSamples = {
@@ -57,12 +76,14 @@ export function buildCurveObject({
   colorRole,
   conceptId,
   id,
-  samples
+  samples,
+  style
 }: {
   colorRole: string;
   conceptId: string;
   id: string;
   samples: Vec3[];
+  style?: VMobjectStyleInput;
 }): CurveObject {
   const safe = safeSamples(samples);
   let length = 0;
@@ -77,6 +98,10 @@ export function buildCurveObject({
     conceptId,
     id,
     samples: safe,
+    style: buildVMobjectStyle({
+      strokeRole: colorRole,
+      ...style
+    }),
     totalLength: length
   };
 }
@@ -117,6 +142,78 @@ export function partialCurveByArcRange(curve: CurveObject, startProgress: number
     ...middle,
     pointAtArcLength(curve, endLength)
   ];
+}
+
+function formatRange([start, end]: [number, number]) {
+  return `${start.toFixed(3)}..${end.toFixed(3)}`;
+}
+
+function summarizeCurvePartialFrame(frame: Omit<CurvePartialFrame, "summary">) {
+  return [
+    `partialCurve:${frame.sourceId}`,
+    `range=${formatRange(frame.normalizedRange)}`,
+    `requested=${formatRange(frame.requestedRange)}`,
+    `reversed=${String(frame.reversed)}`,
+    `samples=${frame.visibleSampleCount}`,
+    `length=${frame.visibleLength.toFixed(3)}`
+  ].join(":");
+}
+
+// Manim source contract: VMobject.pointwise_become_partial keeps the
+// displayed object identity/style and swaps in a partial path frame.
+export function pointwiseBecomePartialCurveObject(
+  curve: CurveObject,
+  startProgress: number,
+  endProgress: number
+): CurvePartialFrame {
+  const requestedRange: [number, number] = [
+    clamp(finite(startProgress, 0), 0, 1),
+    clamp(finite(endProgress, 1), 0, 1)
+  ];
+  const normalizedRange: [number, number] = [
+    Math.min(requestedRange[0], requestedRange[1]),
+    Math.max(requestedRange[0], requestedRange[1])
+  ];
+  const reversed = requestedRange[0] > requestedRange[1];
+  const visibleSamples = partialCurveByArcRange(curve, normalizedRange[0], normalizedRange[1]);
+  const partialSamples = reversed ? [...visibleSamples].reverse() : visibleSamples;
+  const partialCurve = buildCurveObject({
+    colorRole: curve.colorRole,
+    conceptId: curve.conceptId,
+    id: curve.id,
+    samples: partialSamples,
+    style: curve.style
+  });
+  const frameWithoutSummary = {
+    curve: partialCurve,
+    normalizedRange,
+    requestedRange,
+    reversed,
+    sourceContract: VMOBJECT_PARTIAL_CURVE_SOURCE_CONTRACT,
+    sourceId: curve.id,
+    visibleLength: partialCurve.totalLength,
+    visibleSampleCount: partialCurve.samples.length,
+    visibilityPolicy: VMOBJECT_PARTIAL_CURVE_VISIBILITY_POLICY
+  };
+
+  return {
+    ...frameWithoutSummary,
+    summary: summarizeCurvePartialFrame(frameWithoutSummary)
+  };
+}
+
+export function curvePartialFrameDataAttributes(frame: CurvePartialFrame): Record<string, string> {
+  return {
+    "data-viz-curve-partial-length": frame.visibleLength.toFixed(3),
+    "data-viz-curve-partial-normalized-range": formatRange(frame.normalizedRange),
+    "data-viz-curve-partial-requested-range": formatRange(frame.requestedRange),
+    "data-viz-curve-partial-reversed": String(frame.reversed),
+    "data-viz-curve-partial-sample-count": String(frame.visibleSampleCount),
+    "data-viz-curve-partial-source-id": frame.sourceId,
+    "data-viz-curve-partial-source-contract": frame.sourceContract,
+    "data-viz-curve-partial-summary": frame.summary,
+    "data-viz-curve-partial-visibility-policy": frame.visibilityPolicy
+  };
 }
 
 function resampleCurvePoints(curve: CurveObject, count: number) {

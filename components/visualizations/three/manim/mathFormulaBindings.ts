@@ -1,5 +1,8 @@
 import type { FormulaBinding, MathObjectSpec, MathSceneSpec } from "./mathSceneTypes";
 
+export const FORMULA_BINDING_SOURCE_CONTRACT =
+  "FormulaBinding: formula tokens and math objects share conceptId for semantic highlight and explanation" as const;
+
 function formulaTokenIds(scene: MathSceneSpec, formulaId: string) {
   return new Set(scene.formulas.find((formula) => formula.id === formulaId)?.tokens.map((token) => token.id) ?? []);
 }
@@ -41,9 +44,15 @@ export function validateFormulaBindings(scene: MathSceneSpec) {
 }
 
 export function summarizeFormulaBindings(scene: MathSceneSpec) {
+  const conceptIds = scene.bindings.map((binding) => binding.conceptId).sort();
+  const tokenIds = scene.formulas.flatMap((formula) => formula.tokens.map((token) => token.id));
+
   return {
     bindingCount: scene.bindings.length,
+    conceptIds: conceptIds.join(",") || "none",
     objectCount: scene.objects.length,
-    tokenCount: scene.formulas.reduce((sum, formula) => sum + formula.tokens.length, 0)
+    sourceContract: FORMULA_BINDING_SOURCE_CONTRACT,
+    tokenCount: tokenIds.length,
+    tokenIds: tokenIds.join(",") || "none"
   };
 }

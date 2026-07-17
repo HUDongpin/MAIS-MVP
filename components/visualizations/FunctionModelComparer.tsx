@@ -3,6 +3,8 @@
 import { useMemo, useState } from "react";
 import { motion } from "@/components/ui/Motion";
 import { useSettings } from "@/components/providers/AppProviders";
+import { VisualizationResetButton } from "@/components/visualizations/VisualizationResetButton";
+import { useVisualizationTheme } from "@/components/visualizations/visualizationTheme";
 import { textForLanguage } from "@/lib/i18n";
 import { clamp, formatNumber } from "@/lib/math";
 import type { LocalizedText } from "@/types";
@@ -32,6 +34,7 @@ const modelColors: Record<ModelKey, string> = {
 const modelKeys: ModelKey[] = ["polynomial", "exponential", "logarithmic"];
 const coordinateLabelHeight = 28;
 const coordinateLabelGap = 18;
+const moduleId = "function-model-comparer";
 
 function mapX(x: number) {
   return padding + ((x - xMin) / (xMax - xMin)) * (width - padding * 2);
@@ -39,6 +42,10 @@ function mapX(x: number) {
 
 function mapY(y: number) {
   return height - padding - ((y - yMin) / (yMax - yMin)) * (height - padding * 2);
+}
+
+function mapVisibleY(y: number) {
+  return mapY(clamp(y, yMin, yMax));
 }
 
 function evaluateModel(model: ModelKey, x: number, strength: number, shift: number) {
@@ -50,8 +57,8 @@ function evaluateModel(model: ModelKey, x: number, strength: number, shift: numb
 function buildPath(model: ModelKey, strength: number, shift: number) {
   return Array.from({ length: 180 }, (_, index) => xMin + (index / 179) * (xMax - xMin))
     .map((x, index) => {
-      const y = clamp(evaluateModel(model, x, strength, shift), yMin - 8, yMax + 8);
-      return `${index === 0 ? "M" : "L"} ${mapX(x).toFixed(2)} ${mapY(y).toFixed(2)}`;
+      const y = evaluateModel(model, x, strength, shift);
+      return `${index === 0 ? "M" : "L"} ${mapX(x).toFixed(2)} ${mapVisibleY(y).toFixed(2)}`;
     })
     .join(" ");
 }
@@ -67,7 +74,7 @@ function curveTouchesLabel(rect: { x: number; y: number; width: number; height: 
     Array.from({ length: 120 }, (_, index) => xMin + (index / 119) * (xMax - xMin)).some((x) => {
       const y = clamp(evaluateModel(model, x, strength, shift), yMin - 8, yMax + 8);
       const screenX = mapX(x);
-      const screenY = mapY(y);
+      const screenY = mapVisibleY(y);
       return screenX >= left && screenX <= right && screenY >= top && screenY <= bottom;
     })
   );
@@ -122,11 +129,14 @@ function getCoordinateLabelRect({
 
 function PercentRatioBarLab({ topicId }: { topicId: string }) {
   const { recordLearningEvent, t } = useSettings();
+  const vizTheme = useVisualizationTheme();
   const [percent, setPercent] = useState(65);
   const [ratioA, setRatioA] = useState(2);
   const [ratioB, setRatioB] = useState(3);
   const filledWidth = (percent / 100) * 460;
   const totalRatio = ratioA + ratioB;
+  const ratioAWidth = (ratioA / totalRatio) * 460;
+  const ratioBWidth = (ratioB / totalRatio) * 460;
 
   function recordBarChange() {
     recordLearningEvent({
@@ -136,24 +146,36 @@ function PercentRatioBarLab({ topicId }: { topicId: string }) {
     });
   }
 
+  function resetModel() {
+    setPercent(65);
+    setRatioA(2);
+    setRatioB(3);
+    recordLearningEvent({
+      type: "visualization-reset",
+      source: "function-model",
+      topicId
+    });
+  }
+
   return (
     <div className="grid gap-5 xl:grid-cols-[1fr_320px]">
-      <div className="rounded-3xl border border-slate-200/70 bg-slate-950 p-5 dark:border-white/10">
+      <div className={vizTheme.paddedSurfaceClassName}>
         <svg data-viz-surface role="img" aria-label={t({ en: "Primary 6 percent and ratio bar model", zh: "小六百分數與比例條模型" })} viewBox="0 0 640 360" className="h-[340px] w-full sm:h-[380px]">
-          <rect x="34" y="34" width="572" height="292" rx="28" fill="rgba(255,255,255,.025)" stroke="rgba(255,255,255,.1)" />
-          <text x="84" y="78" className="fill-cyan-200 text-sm font-black uppercase tracking-[0.18em]">{t({ en: "Percent bar", zh: "百分數條" })}</text>
-          <rect data-viz-mark x="88" y="108" width="460" height="54" rx="18" fill="rgba(255,255,255,.09)" stroke="white" strokeWidth="3" />
-          <motion.rect data-viz-mark x="88" y="108" width={filledWidth} height="54" rx="18" fill="#38bdf8" initial={false} animate={{ width: filledWidth }} />
+          <rect width="640" height="360" fill={vizTheme.svgBackground} />
+          <rect x="34" y="34" width="572" height="292" rx="28" fill={vizTheme.panelFill} stroke={vizTheme.panelStroke} />
+          <text x="84" y="78" fill={vizTheme.labelText} className="text-sm font-black uppercase tracking-[0.18em]">{t({ en: "Percent bar", zh: "百分數條" })}</text>
+          <rect data-viz-mark data-viz-name="percent whole bar" data-viz-percent={percent} data-viz-total-width="460" x="88" y="108" width="460" height="54" rx="18" fill={vizTheme.softFill} stroke={vizTheme.neutralStroke} strokeWidth="3" />
+          <motion.rect data-viz-mark data-viz-name="percent filled bar" data-viz-percent={percent} data-viz-decimal={formatNumber(percent / 100, 6)} data-viz-width={formatNumber(filledWidth, 6)} data-viz-total-width="460" x="88" y="108" width={filledWidth} height="54" rx="18" fill="#38bdf8" initial={false} animate={{ width: filledWidth }} />
           {Array.from({ length: 11 }, (_, index) => (
-            <line key={index} x1={88 + index * 46} x2={88 + index * 46} y1="102" y2="168" stroke="white" opacity="0.45" />
+            <line key={index} x1={88 + index * 46} x2={88 + index * 46} y1="102" y2="168" stroke={vizTheme.neutralStroke} opacity="0.45" />
           ))}
           <text data-viz-overlap-ok x="260" y="148" className="fill-slate-950 text-2xl font-black">{percent}%</text>
-          <text x="84" y="214" className="fill-cyan-200 text-sm font-black uppercase tracking-[0.18em]">{t({ en: "Ratio parts", zh: "比例份數" })}</text>
-          <rect data-viz-mark x="88" y="240" width={(ratioA / totalRatio) * 460} height="48" rx="16" fill="#f472b6" />
-          <rect data-viz-mark x={88 + (ratioA / totalRatio) * 460} y="240" width={(ratioB / totalRatio) * 460} height="48" rx="16" fill="#facc15" />
+          <text x="84" y="214" fill={vizTheme.labelText} className="text-sm font-black uppercase tracking-[0.18em]">{t({ en: "Ratio parts", zh: "比例份數" })}</text>
+          <rect data-viz-mark data-viz-name="ratio part a" data-viz-ratio-a={ratioA} data-viz-ratio-b={ratioB} data-viz-ratio-total={totalRatio} data-viz-width={formatNumber(ratioAWidth, 6)} data-viz-total-width="460" x="88" y="240" width={ratioAWidth} height="48" rx="16" fill="#f472b6" />
+          <rect data-viz-mark data-viz-name="ratio part b" data-viz-ratio-a={ratioA} data-viz-ratio-b={ratioB} data-viz-ratio-total={totalRatio} data-viz-width={formatNumber(ratioBWidth, 6)} data-viz-total-width="460" x={88 + ratioAWidth} y="240" width={ratioBWidth} height="48" rx="16" fill="#facc15" />
           <text data-viz-overlap-ok x="104" y="271" className="fill-slate-950 text-xl font-black">{ratioA}</text>
           <text data-viz-overlap-ok x="516" y="271" className="fill-slate-950 text-xl font-black">{ratioB}</text>
-          <text x="380" y="80" className="fill-white text-2xl font-black">{percent}% = {formatNumber(percent / 100, 2)}</text>
+          <text x="380" y="80" fill={vizTheme.text} className="text-2xl font-black">{percent}% = {formatNumber(percent / 100, 2)}</text>
         </svg>
       </div>
 
@@ -181,6 +203,7 @@ function PercentRatioBarLab({ topicId }: { topicId: string }) {
             />
           </label>
         ))}
+        <VisualizationResetButton moduleId={moduleId} topicId={topicId} onReset={resetModel} />
       </div>
     </div>
   );
@@ -188,9 +211,11 @@ function PercentRatioBarLab({ topicId }: { topicId: string }) {
 
 export function FunctionModelComparer({ topicId = "functions" }: { topicId?: string }) {
   const { language, recordLearningEvent, t } = useSettings();
+  const vizTheme = useVisualizationTheme();
   const [selectedModel, setSelectedModel] = useState<ModelKey>("polynomial");
   const [strength, setStrength] = useState(1);
   const [shift, setShift] = useState(0);
+  const [hoveredPointModel, setHoveredPointModel] = useState<ModelKey | null>(null);
 
   const paths = useMemo(() => ({
     polynomial: buildPath("polynomial", strength, shift),
@@ -199,10 +224,14 @@ export function FunctionModelComparer({ topicId = "functions" }: { topicId?: str
   }), [strength, shift]);
   const sampleX = 6;
   const selectedValue = evaluateModel(selectedModel, sampleX, strength, shift);
+  const selectedVisibleValue = clamp(selectedValue, yMin, yMax);
+  const selectedPointClipped = selectedVisibleValue !== selectedValue;
   const selectedPointX = mapX(sampleX);
-  const selectedPointY = mapY(selectedValue);
+  const selectedPointY = mapY(selectedVisibleValue);
   const coordinateLabel = `(${formatNumber(sampleX)}, ${formatNumber(selectedValue, 1)})`;
   const coordinateLabelWidth = Math.max(76, coordinateLabel.length * 7 + 22);
+  const xScale = (width - padding * 2) / (xMax - xMin);
+  const yScale = (height - padding * 2) / (yMax - yMin);
   const coordinateLabelRect = getCoordinateLabelRect({
     pointX: selectedPointX,
     pointY: selectedPointY,
@@ -211,6 +240,8 @@ export function FunctionModelComparer({ topicId = "functions" }: { topicId?: str
     strength,
     shift
   });
+  const selectedPointHovered = hoveredPointModel === selectedModel;
+  const samplePointLabel = t({ en: "Sample point", zh: "取樣點", zhHans: "取样点" });
 
   if (topicId === "p6-percentages") return <PercentRatioBarLab topicId={topicId} />;
 
@@ -222,9 +253,20 @@ export function FunctionModelComparer({ topicId = "functions" }: { topicId?: str
     });
   }
 
+  function resetModel() {
+    setSelectedModel("polynomial");
+    setStrength(1);
+    setShift(0);
+    recordLearningEvent({
+      type: "visualization-reset",
+      source: "function-model",
+      topicId
+    });
+  }
+
   return (
     <div className="grid gap-5 xl:grid-cols-[1fr_320px]">
-      <div className="rounded-3xl border border-slate-200/70 bg-slate-950 p-3 dark:border-white/10">
+      <div className={vizTheme.compactSurfaceClassName}>
         <svg
           data-viz-surface
           role="img"
@@ -232,22 +274,44 @@ export function FunctionModelComparer({ topicId = "functions" }: { topicId?: str
           viewBox={`0 0 ${width} ${height}`}
           className="h-[360px] w-full sm:h-[420px]"
         >
+          <rect x="0" y="0" width={width} height={height} fill={vizTheme.svgBackground} />
+          <defs>
+            <clipPath id="functionModelPlotClip">
+              <rect x={padding} y={padding} width={width - padding * 2} height={height - padding * 2} />
+            </clipPath>
+          </defs>
           {Array.from({ length: 11 }, (_, index) => index).map((tick) => (
             <g key={`x-${tick}`}>
-              <line x1={mapX(tick)} x2={mapX(tick)} y1={padding} y2={height - padding} className="stroke-white/10" />
-              <text x={mapX(tick)} y={height - 14} textAnchor="middle" className="fill-white/35 text-[10px]">{tick}</text>
+              <line x1={mapX(tick)} x2={mapX(tick)} y1={padding} y2={height - padding} stroke={vizTheme.grid} />
+              <text x={mapX(tick)} y={height - 14} textAnchor="middle" fill={vizTheme.tickText} className="text-[10px]">{tick}</text>
             </g>
           ))}
           {[-4, 0, 4, 8, 12].map((tick) => (
             <g key={`y-${tick}`}>
-              <line x1={padding} x2={width - padding} y1={mapY(tick)} y2={mapY(tick)} className="stroke-white/10" />
-              <text x={18} y={mapY(tick) + 3} className="fill-white/35 text-[10px]">{tick}</text>
+              <line x1={padding} x2={width - padding} y1={mapY(tick)} y2={mapY(tick)} stroke={vizTheme.grid} />
+              <text x={18} y={mapY(tick) + 3} fill={vizTheme.tickText} className="text-[10px]">{tick}</text>
             </g>
           ))}
-          <line x1={padding} x2={width - padding} y1={mapY(0)} y2={mapY(0)} className="stroke-white/35" />
+          <line x1={padding} x2={width - padding} y1={mapY(0)} y2={mapY(0)} stroke={vizTheme.axisStrong} strokeWidth="2.2" />
+          <line x1={mapX(0)} x2={mapX(0)} y1={padding} y2={height - padding} stroke={vizTheme.axisStrong} strokeWidth="2.2" />
+          <g aria-hidden="true" pointerEvents="none">
+            <text x={width - padding + 8} y={mapY(0) + 18} fill={vizTheme.labelText} className="text-sm font-black">x</text>
+            <text x={padding + 12} y={padding - 12} fill={vizTheme.labelText} className="text-sm font-black">y</text>
+          </g>
           {(Object.keys(paths) as ModelKey[]).map((model) => (
             <motion.path
               data-viz-mark
+              data-viz-name="model curve"
+              data-viz-model={model}
+              data-viz-strength={formatNumber(strength, 6)}
+              data-viz-shift={formatNumber(shift, 6)}
+              data-viz-x-min={xMin}
+              data-viz-x-max={xMax}
+              data-viz-y-min={yMin}
+              data-viz-y-max={yMax}
+              data-viz-x-scale={formatNumber(xScale, 6)}
+              data-viz-y-scale={formatNumber(yScale, 6)}
+              data-viz-sample-count="180"
               key={model}
               d={paths[model]}
               fill="none"
@@ -255,19 +319,67 @@ export function FunctionModelComparer({ topicId = "functions" }: { topicId?: str
               strokeWidth={model === selectedModel ? 4.5 : 2.25}
               opacity={model === selectedModel ? 1 : 0.38}
               strokeLinecap="round"
+              clipPath="url(#functionModelPlotClip)"
               initial={false}
               animate={{ pathLength: 1 }}
             />
           ))}
           <circle
             data-viz-mark
+            data-viz-name="selected model point"
+            data-viz-model={selectedModel}
+            data-viz-x={formatNumber(sampleX, 2)}
+            data-viz-y={formatNumber(selectedValue, 2)}
+            data-viz-visible-y={formatNumber(selectedVisibleValue, 2)}
+            data-viz-clipped={String(selectedPointClipped)}
+            data-viz-strength={formatNumber(strength, 6)}
+            data-viz-shift={formatNumber(shift, 6)}
+            data-viz-x-scale={formatNumber(xScale, 6)}
+            data-viz-y-scale={formatNumber(yScale, 6)}
+            data-viz-hover-active={String(selectedPointHovered)}
+            tabIndex={0}
+            role="button"
+            aria-label={`${samplePointLabel}: ${coordinateLabel}`}
             cx={selectedPointX}
             cy={selectedPointY}
-            r="7"
+            r={selectedPointHovered ? "10" : "7"}
             fill={modelColors[selectedModel]}
-            stroke="white"
-            strokeWidth="2"
+            stroke={vizTheme.pointStroke}
+            strokeWidth={selectedPointHovered ? "3" : "2"}
+            clipPath="url(#functionModelPlotClip)"
+            className="cursor-pointer outline-none"
+            onPointerEnter={() => {
+              setHoveredPointModel(selectedModel);
+              recordInteraction("visualization-probe");
+            }}
+            onPointerLeave={() => setHoveredPointModel(null)}
+            onFocus={() => setHoveredPointModel(selectedModel)}
+            onBlur={() => setHoveredPointModel(null)}
           />
+          {selectedPointHovered ? (
+            <g pointerEvents="none">
+              <rect
+                x={clamp(selectedPointX + 14, padding + 8, width - padding - 132)}
+                y={clamp(selectedPointY - 44, padding + 8, height - padding - 34)}
+                width="124"
+                height="30"
+                rx="10"
+                fill={vizTheme.labelFill}
+                stroke={modelColors[selectedModel]}
+                strokeOpacity="0.82"
+                strokeWidth="1.5"
+              />
+              <text
+                x={clamp(selectedPointX + 76, padding + 70, width - padding - 70)}
+                y={clamp(selectedPointY - 24, padding + 28, height - padding - 14)}
+                textAnchor="middle"
+                fill={vizTheme.text}
+                className="text-xs font-black"
+              >
+                {samplePointLabel}
+              </text>
+            </g>
+          ) : null}
           <g pointerEvents="none">
             <rect
               x={coordinateLabelRect.x}
@@ -275,7 +387,7 @@ export function FunctionModelComparer({ topicId = "functions" }: { topicId?: str
               width={coordinateLabelRect.width}
               height={coordinateLabelRect.height}
               rx="10"
-              fill="rgba(2, 6, 23, 0.92)"
+              fill={vizTheme.labelFill}
               stroke={modelColors[selectedModel]}
               strokeOpacity="0.72"
               strokeWidth="1.5"
@@ -284,7 +396,8 @@ export function FunctionModelComparer({ topicId = "functions" }: { topicId?: str
               x={coordinateLabelRect.x + coordinateLabelRect.width / 2}
               y={coordinateLabelRect.y + 18}
               textAnchor="middle"
-              className="fill-white text-xs font-black"
+              fill={vizTheme.text}
+              className="text-xs font-black"
             >
               {coordinateLabel}
             </text>
@@ -351,6 +464,7 @@ export function FunctionModelComparer({ topicId = "functions" }: { topicId?: str
         <p className="rounded-2xl bg-cyan-500/10 p-4 text-sm leading-6 text-cyan-700 dark:text-cyan-200">
           {t({ en: "Compare how each model behaves near x = 0 and as x becomes large. The right model is chosen by shape, not only by one point.", zh: "比較每個模型在 x = 0 附近，以及 x 變大時的表現。合適模型要按形狀選擇，不只是看單一點。" })}
         </p>
+        <VisualizationResetButton moduleId={moduleId} topicId={topicId} onReset={resetModel} />
       </div>
     </div>
   );

@@ -1,4 +1,6 @@
 import { notFound } from "next/navigation";
+import { PremiumThreeDDirectRouteShell } from "@/components/visualizations/PremiumThreeDDirectRouteShell";
+import { getPremiumThreeDDirectLab } from "@/components/visualizations/premiumThreeDDirectLabs";
 import { buildPremiumThreeDTopicStaticParams } from "@/components/visualizations/three/threeDSceneMath";
 
 type PremiumThreeDVisualizationTopicPageProps = {
@@ -6,8 +8,6 @@ type PremiumThreeDVisualizationTopicPageProps = {
     labId: string;
   }>;
 };
-
-export const dynamicParams = false;
 
 function normalizeLabIdParam(value: string) {
   try {
@@ -23,15 +23,12 @@ export function generateStaticParams() {
 
 export default async function PremiumThreeDVisualizationTopicPage({ params }: PremiumThreeDVisualizationTopicPageProps) {
   const { labId } = await params;
-  const [{ getVisualizationLabByLabId }, { VisualizationLabPage }] = await Promise.all([
-    import("@/data/visualizationLabs"),
-    import("@/components/visualizations/VisualizationLabPage")
-  ]);
-  const lab = getVisualizationLabByLabId(normalizeLabIdParam(labId));
+  const normalizedLabId = normalizeLabIdParam(labId);
+  const directLab = getPremiumThreeDDirectLab(normalizedLabId);
 
-  if (!lab?.threeD?.premiumLaunch) {
-    notFound();
+  if (directLab?.threeD?.premiumLaunch) {
+    return <PremiumThreeDDirectRouteShell lab={directLab} />;
   }
 
-  return <VisualizationLabPage initialGrade={lab.grade} initialLabId={lab.labId} />;
+  notFound();
 }

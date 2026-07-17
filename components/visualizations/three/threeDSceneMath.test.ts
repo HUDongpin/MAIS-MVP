@@ -4,6 +4,7 @@ import type { ThreeDRegionalPriority } from "./threeDSceneTypes";
 import {
   buildThreeDStateSummary,
   familyForVisualizationTemplate,
+  familyForVisualizationLab,
   isPremiumThreeDLaunchLab,
   premiumThreeDLaunchLabIds,
   regionalPriorityForThreeDLaunchLab,
@@ -34,9 +35,9 @@ test("maps all existing visualization templates to Three.js families", () => {
   assert.equal(threeDTemplateFamilyMap["vector-conic-3d/strategy-map"], "three-vector-conic-strategy");
 });
 
-test("exposes 26 total Three.js families", () => {
-  assert.equal(threeDFamilyIds.length, 26);
-  assert.equal(new Set(threeDFamilyIds).size, 26);
+test("exposes 27 total Three.js families", () => {
+  assert.equal(threeDFamilyIds.length, 27);
+  assert.equal(new Set(threeDFamilyIds).size, 27);
 });
 
 test("returns finite math summaries for every family", () => {
@@ -99,7 +100,52 @@ test("premium deep Three.js families resolve to bespoke scene variants", () => {
   assert.equal(sceneVariantForThreeDFamily("three-space-vectors-lines-planes"), "space-vector-plane");
   assert.equal(sceneVariantForThreeDFamily("three-conic-sections-deep"), "conic-section-deep");
   assert.equal(sceneVariantForThreeDFamily("three-optimization-modeling"), "optimization-landscape");
+  assert.equal(sceneVariantForThreeDFamily("three-projection-views"), "projection-views");
   assert.equal(sceneVariantForThreeDFamily("three-curriculum-crosswalk-map"), "curriculum-crosswalk");
   assert.equal(sceneVariantForThreeDFamily("three-exam-strategy-capstone"), "exam-strategy-capstone");
   assert.notEqual(sceneVariantForThreeDFamily("three-statistical-inference-lab"), "distribution-machine");
+});
+
+test("Mainland PEP junior spatial-imagination pack maps only targeted labs to deep spatial families", () => {
+  const packLabIds = [
+    "pep-junior-s1-upper-geometric-figures",
+    "pep-junior-s1-lower-lines-coordinates",
+    "pep-junior-s3-lower-inverse-similarity-trigonometry"
+  ] as const;
+
+  assert.equal(
+    familyForVisualizationLab("pep-junior-s1-upper-geometric-figures", "angle-geometry"),
+    "three-solid-nets-folding"
+  );
+  assert.equal(
+    familyForVisualizationLab("pep-junior-s1-lower-lines-coordinates", "coordinate-transform"),
+    "three-coordinate-transform"
+  );
+  assert.equal(
+    familyForVisualizationLab("pep-junior-s3-lower-inverse-similarity-trigonometry", "right-triangle-pythagorean"),
+    "three-projection-views"
+  );
+  assert.equal(sceneVariantForThreeDFamily("three-projection-views" as never), "projection-views");
+
+  assert.equal(isPremiumThreeDLaunchLab("pep-junior-s1-upper-geometric-figures"), false);
+  assert.equal(isPremiumThreeDLaunchLab("pep-junior-s1-lower-lines-coordinates"), false);
+  assert.equal(isPremiumThreeDLaunchLab("pep-junior-s3-lower-inverse-similarity-trigonometry"), true);
+  assert.equal(regionalPriorityForThreeDLaunchLab("pep-junior-s3-lower-inverse-similarity-trigonometry"), "cross-region");
+
+  const nonSpatialPepJuniorLabs = [
+    "pep-junior-s1-upper-rational-numbers",
+    "pep-junior-s1-upper-expressions-linear-equations",
+    "pep-junior-s1-lower-equations-inequalities-data",
+    "pep-junior-s2-upper-polynomials-fractions",
+    "pep-junior-s2-lower-linear-functions-data",
+    "pep-junior-s3-upper-quadratics-circle-probability"
+  ];
+
+  for (const labId of nonSpatialPepJuniorLabs) {
+    assert.equal(
+      packLabIds.includes(labId as (typeof packLabIds)[number]),
+      false,
+      `${labId} should not be part of the dedicated junior spatial-imagination 3D pack`
+    );
+  }
 });

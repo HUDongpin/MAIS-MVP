@@ -4,10 +4,24 @@ import {
   interpolateAlignedCurves,
   type AlignedCurveSamples
 } from "./mathCurveObject";
+import {
+  alignSurfaceSamplesForMorph,
+  buildSurfaceObjectFromGrid,
+  interpolateAlignedSurfaces,
+  type AlignedSurfaceSamples
+} from "./mathSurfaceObject";
+import { applyRateFunction, type MathRateFunctionName } from "./mathRateFunctions";
+import type { TransformPathFunction } from "./mathPathFunctions";
 import type { MathObjectSpec, Vec3 } from "./mathSceneTypes";
+import {
+  interpolateMobjectUniforms,
+  normalizeMobjectUniforms,
+  type RuntimeMobjectUniforms
+} from "./mathMobjectUniforms";
 import type { RuntimeRenderState } from "./mathSceneRuntimeState";
 
-export type TransformPathFunction = (from: Vec3, to: Vec3, alpha: number) => Vec3;
+export const MATH_OBJECT_TRANSFORM_SOURCE_CONTRACT =
+  "Mobject.interpolate(start,target,alpha,path_func): align sampled geometry, move pointlike fields by path_func, and blend uniforms";
 
 export type MathObjectTransformPlan = {
   alignedPointCount: number;
@@ -16,10 +30,14 @@ export type MathObjectTransformPlan = {
   objectId: string;
   objectType: MathObjectSpec["type"];
   pathFunction?: TransformPathFunction;
+  sourceContract: typeof MATH_OBJECT_TRANSFORM_SOURCE_CONTRACT;
+  sourceUniforms?: RuntimeMobjectUniforms;
   targetObjectId: string;
+  targetUniforms?: RuntimeMobjectUniforms;
   transformData:
     | { kind: "curve"; aligned: AlignedCurveSamples }
     | { kind: "empty" }
+    | { kind: "surface"; aligned: AlignedSurfaceSamples }
     | { kind: "vector"; sourceFrom: Vec3; sourceTo: Vec3; targetFrom: Vec3; targetTo: Vec3 };
 };
 
@@ -29,12 +47,16 @@ export type MathObjectTransformFrame = {
   objectId: string;
   progress: number;
   renderState: RuntimeRenderState;
+  sourceContract: typeof MATH_OBJECT_TRANSFORM_SOURCE_CONTRACT;
   targetObjectId: string;
+  uniforms?: RuntimeMobjectUniforms;
 };
 
 export type LaggedObjectTransformPlan = {
   entries: MathObjectTransformPlan[];
   lagRatio: number;
+  rateFunction: MathRateFunctionName;
+  sourceContract: typeof MATH_OBJECT_TRANSFORM_SOURCE_CONTRACT;
 };
 
 function finite(value: number, fallback: number) {
@@ -71,12 +93,27 @@ function colorRoleForObject(object: MathObjectSpec) {
   return "colorRole" in object ? object.colorRole : undefined;
 }
 
+function uniformsForObject(object: MathObjectSpec) {
+  return object.uniforms ? normalizeMobjectUniforms(object.uniforms) : undefined;
+}
+
 function curveForObject(object: Extract<MathObjectSpec, { type: "parametricCurve" }>) {
   return buildCurveObject({
     colorRole: object.colorRole,
     conceptId: object.conceptId,
     id: object.id,
     samples: object.samples
+  });
+}
+
+function surfaceForObject(object: Extract<MathObjectSpec, { type: "parametricSurface" }>) {
+  return buildSurfaceObjectFromGrid({
+    colorRole: object.colorRole,
+    conceptId: object.conceptId,
+    id: object.id,
+    samples: object.samples,
+    uRange: object.uRange,
+    vRange: object.vRange
   });
 }
 
@@ -89,6 +126,13 @@ function buildTransformData(
     return {
       aligned: alignCurveSamplesForMorph(curveForObject(source), curveForObject(target), sampleCount),
       kind: "curve"
+    };
+  }
+
+  if (source.type === "parametricSurface" && target.type === "parametricSurface") {
+    return {
+      aligned: alignSurfaceSamplesForMorph(surfaceForObject(source), surfaceForObject(target), sampleCount),
+      kind: "surface"
     };
   }
 
@@ -107,6 +151,7 @@ function buildTransformData(
 
 function alignedPointCount(transformData: MathObjectTransformPlan["transformData"]) {
   if (transformData.kind === "curve") return transformData.aligned.source.length;
+  if (transformData.kind === "surface") return transformData.aligned.rows * transformData.aligned.columns;
   if (transformData.kind === "vector") return 2;
   return 0;
 }
@@ -125,27 +170,47 @@ export function buildMathObjectTransformPlan(
     objectId: source.id,
     objectType: source.type,
     pathFunction: options.pathFunction,
+    sourceContract: MATH_OBJECT_TRANSFORM_SOURCE_CONTRACT,
+    sourceUniforms: uniformsForObject(source),
     targetObjectId: target.id,
+    targetUniforms: uniformsForObject(target),
     transformData
   };
 }
 
 export function interpolateMathObjectTransform(plan: MathObjectTransformPlan, progress: number): MathObjectTransformFrame {
   const alpha = clamp01(progress);
+  const pathFunction = plan.pathFunction;
+  const transformData = plan.transformData;
   let renderState: RuntimeRenderState = { kind: "empty" };
 
-  if (plan.transformData.kind === "curve") {
-    const points = plan.pathFunction
-      ? plan.transformData.aligned.source.map((point, index) => pointByPath(point, plan.transformData.aligned.target[index], alpha, plan.pathFunction))
-      : interpolateAlignedCurves(plan.transformData.aligned, alpha);
+  if (transformData.kind === "curve") {
+    const aligned = transformData.aligned;
+    const points = pathFunction
+      ? aligned.source.map((point, index) => pointByPath(point, aligned.target[index], alpha, pathFunction))
+      : interpolateAlignedCurves(aligned, alpha);
     renderState = { kind: "polyline", points };
   }
 
-  if (plan.transformData.kind === "vector") {
+  if (transformData.kind === "vector") {
     renderState = {
-      from: pointByPath(plan.transformData.sourceFrom, plan.transformData.targetFrom, alpha, plan.pathFunction),
+      from: pointByPath(transformData.sourceFrom, transformData.targetFrom, alpha, pathFunction),
       kind: "vector",
-      to: pointByPath(plan.transformData.sourceTo, plan.transformData.targetTo, alpha, plan.pathFunction)
+      to: pointByPath(transformData.sourceTo, transformData.targetTo, alpha, pathFunction)
+    };
+  }
+
+  if (transformData.kind === "surface") {
+    const grid = interpolateAlignedSurfaces(transformData.aligned, alpha, pathFunction);
+    renderState = {
+      columns: transformData.aligned.columns,
+      kind: "surface",
+      points: grid.flat(),
+      rows: transformData.aligned.rows,
+      wireframeColumns: Array.from({ length: transformData.aligned.columns }, (_, column) =>
+        Array.from({ length: transformData.aligned.rows }, (_, row) => grid[row][column])
+      ),
+      wireframeRows: grid
     };
   }
 
@@ -155,14 +220,16 @@ export function interpolateMathObjectTransform(plan: MathObjectTransformPlan, pr
     objectId: plan.objectId,
     progress: alpha,
     renderState,
-    targetObjectId: plan.targetObjectId
+    sourceContract: plan.sourceContract,
+    targetObjectId: plan.targetObjectId,
+    uniforms: interpolateMobjectUniforms(plan.sourceUniforms, plan.targetUniforms, alpha)
   };
 }
 
 export function buildLaggedObjectTransformPlan(
   sourceObjects: MathObjectSpec[],
   targetObjects: MathObjectSpec[],
-  options: { lagRatio?: number; pathFunction?: TransformPathFunction; sampleCount?: number } = {}
+  options: { lagRatio?: number; pathFunction?: TransformPathFunction; rateFunction?: MathRateFunctionName; sampleCount?: number } = {}
 ): LaggedObjectTransformPlan {
   const count = Math.min(sourceObjects.length, targetObjects.length);
 
@@ -173,7 +240,9 @@ export function buildLaggedObjectTransformPlan(
         sampleCount: options.sampleCount
       })
     ),
-    lagRatio: clamp01(options.lagRatio ?? 0)
+    lagRatio: clamp01(options.lagRatio ?? 0),
+    rateFunction: options.rateFunction ?? "linear",
+    sourceContract: MATH_OBJECT_TRANSFORM_SOURCE_CONTRACT
   };
 }
 
@@ -190,6 +259,9 @@ function laggedProgress(progress: number, index: number, count: number, lagRatio
 
 export function interpolateLaggedObjectTransformFamily(plan: LaggedObjectTransformPlan, progress: number): MathObjectTransformFrame[] {
   return plan.entries.map((entry, index) =>
-    interpolateMathObjectTransform(entry, laggedProgress(progress, index, plan.entries.length, plan.lagRatio))
+    interpolateMathObjectTransform(
+      entry,
+      applyRateFunction(plan.rateFunction, laggedProgress(progress, index, plan.entries.length, plan.lagRatio))
+    )
   );
 }

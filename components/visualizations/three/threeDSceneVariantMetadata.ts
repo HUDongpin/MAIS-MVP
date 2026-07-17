@@ -66,6 +66,11 @@ export const threeDSceneVariantMetadata = {
     pedagogicalRole: "base-ten composition and regrouping",
     spatialModel: "tens rods and ones cubes"
   },
+  "projection-views": {
+    minPrimitiveCount: 7,
+    pedagogicalRole: "spatial imagination from front, top, and side views",
+    spatialModel: "solid model linked to three orthographic projection outlines"
+  },
   "solid-net-fold": {
     minPrimitiveCount: 6,
     pedagogicalRole: "nets, volume, and folding into solids",

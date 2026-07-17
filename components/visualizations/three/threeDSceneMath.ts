@@ -31,9 +31,41 @@ export const threeDTemplateFamilyMap: Record<VisualizationTemplateId, ThreeDFami
   "vector-conic-3d/strategy-map": "three-vector-conic-strategy"
 };
 
+export const mainlandPepPrimaryThreeDCapsuleLabIds = [
+  "pep-primary-p1-upper-shapes-position-time",
+  "pep-primary-p2-upper-length-angles-observation",
+  "pep-primary-p5-lower-volume-data"
+] as const;
+
+export const mainlandPepJuniorSpatialImagination3DLabIds = [
+  "pep-junior-s1-upper-geometric-figures",
+  "pep-junior-s1-lower-lines-coordinates",
+  "pep-junior-s3-lower-inverse-similarity-trigonometry"
+] as const;
+
+const standardThreeDLabIds = new Set<string>([
+  "p3-multiplication-division",
+  "p4-angles",
+  "p4-large-numbers",
+  "p6-ratio-proportion",
+  "statistics-s1",
+  ...mainlandPepPrimaryThreeDCapsuleLabIds,
+  "pep-junior-s1-upper-geometric-figures",
+  "pep-junior-s1-lower-lines-coordinates"
+]);
+
 export const threeDFamilyOverrideByLabId: Partial<Record<string, ThreeDFamilyId>> = {
+  "pep-primary-p1-upper-shapes-position-time": "three-solid-nets-folding",
+  "pep-primary-p2-upper-length-angles-observation": "three-solid-nets-folding",
+  "pep-primary-p5-lower-volume-data": "three-solid-nets-folding",
+  "pep-junior-s1-upper-geometric-figures": "three-solid-nets-folding",
+  "pep-junior-s1-lower-lines-coordinates": "three-coordinate-transform",
+  "pep-junior-s3-lower-inverse-similarity-trigonometry": "three-projection-views",
   "pep-high-s4-solid-geometry-intro": "three-solid-nets-folding",
   "bnu-primary-p6-lower-cylinders-cones": "three-cross-section-slicer",
+  "hjb-primary-p6-lower-cylinder-cone": "three-cross-section-slicer",
+  "bnu-junior-s1-upper-spatial-figures": "three-solid-nets-folding",
+  "bnu-junior-s3-upper-projection-views": "three-projection-views",
   "pep-high-s5-space-vectors": "three-space-vectors-lines-planes",
   "pep-high-s5-conics": "three-conic-sections-deep",
   "pep-high-s5-derivatives": "three-optimization-modeling",
@@ -66,6 +98,7 @@ export const threeDSceneVariantByFamilyId: Record<ThreeDFamilyId, ThreeDSceneVar
   "three-space-vectors-lines-planes": "space-vector-plane",
   "three-conic-sections-deep": "conic-section-deep",
   "three-optimization-modeling": "optimization-landscape",
+  "three-projection-views": "projection-views",
   "three-statistical-inference-lab": "statistical-inference",
   "three-curriculum-crosswalk-map": "curriculum-crosswalk",
   "three-exam-strategy-capstone": "exam-strategy-capstone"
@@ -332,6 +365,14 @@ export function familyForVisualizationTemplate(templateId: VisualizationTemplate
 
 export function familyForVisualizationLab(labId: string, templateId: VisualizationTemplateId) {
   return threeDFamilyOverrideByLabId[labId] ?? familyForVisualizationTemplate(templateId);
+}
+
+export function isStandardThreeDLab(labId: string) {
+  return standardThreeDLabIds.has(labId);
+}
+
+export function isMainlandPepJuniorSpatialImagination3DLab(labId: string) {
+  return (mainlandPepJuniorSpatialImagination3DLabIds as readonly string[]).includes(labId);
 }
 
 export function isPremiumThreeDLaunchLab(labId: string) {

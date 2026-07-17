@@ -10,6 +10,7 @@ export function formulaForThreeDScene(familyId: ThreeDFamilyId, templateId: Visu
   if (familyId === "three-statistical-inference-lab") return "$\\\\bar{x} \\\\pm z^*SE$";
   if (familyId === "three-curriculum-crosswalk-map") return "$topic \\\\rightarrow representation$";
   if (familyId === "three-exam-strategy-capstone") return "$strategy \\\\rightarrow score$";
+  if (familyId === "three-coordinate-transform") return "$T(x,y)=(x',y')$";
   if (templateId === "vector-conic-3d/strategy-map") return "$z = h(1 - x^2 - y^2)$";
   if (templateId === "trig-unit-wave") return "$y = a\\\\sin(bx+c)$";
   if (templateId === "calculus-rate-area") return "$dy/dx$";
