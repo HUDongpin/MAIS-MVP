@@ -25,7 +25,7 @@ export const hkChineseExceptions = [
     ownerSession: "S09",
     reviewBy: "2026-08-31",
     sourceRefs: ["maisProductDecision"],
-    notes: "Allowed in bilingual labels such as AI Tutor and 生成式 AI."
+    notes: "Allowed in bilingual labels such as Nova Tutor and 生成式 AI."
   },
   {
     phrase: "Peter",
@@ -46,7 +46,7 @@ export const hkChineseExceptions = [
     notes: "Keep as a demo account/persona name unless a later localization pass assigns a Chinese name."
   },
   {
-    phrase: "Mainland Teacher Phoebe",
+    phrase: "Teacher Scott",
     reason: "Mainland demo teacher account name.",
     scope: ["app/**", "components/**", "data/**", "lib/**"],
     ownerSession: "S09",
