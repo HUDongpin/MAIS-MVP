@@ -1,9 +1,12 @@
 import { NextResponse } from "next/server";
 import { requireParentUser } from "@/lib/server/auth";
+import { consumeInMemoryRateLimit } from "@/lib/server/rateLimit";
 import { createParentMessageThread, getParentMessagesData } from "@/lib/server/userStore";
 import type { ParentMessageCategory } from "@/types";
 
 export const runtime = "nodejs";
+
+const createMessageRateLimit = { max: 12, windowMs: 60_000 };
 
 function isRecord(value: unknown): value is Record<string, unknown> {
   return typeof value === "object" && value !== null;
@@ -28,6 +31,14 @@ export async function POST(request: Request) {
   const authenticated = await requireParentUser(request);
   if (!authenticated) return NextResponse.json({ error: "Parent access required." }, { status: 403 });
 
+  const rateLimit = consumeInMemoryRateLimit(`parent-message:create:${authenticated.user.id}`, createMessageRateLimit);
+  if (!rateLimit.allowed) {
+    return NextResponse.json(
+      { error: "Too many parent messages. Please wait before trying again." },
+      { status: 429, headers: { "Retry-After": String(rateLimit.retryAfterSeconds) } }
+    );
+  }
+
   let body: unknown;
   try {
     body = await request.json();
@@ -46,6 +57,6 @@ export async function POST(request: Request) {
   });
 
   if (result.status === "created") return NextResponse.json({ thread: result.thread });
-  const status = result.status === "forbidden" ? 403 : result.status === "not-found" ? 404 : 400;
-  return NextResponse.json({ error: "Could not create parent message." }, { status });
+  const status = result.status === "forbidden" ? 403 : result.status === "not-found" ? 404 : result.status === "too-long" ? 413 : 400;
+  return NextResponse.json({ error: result.status === "too-long" ? "Parent message is too long." : "Could not create parent message." }, { status });
 }

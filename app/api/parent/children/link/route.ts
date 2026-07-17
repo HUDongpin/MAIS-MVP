@@ -1,9 +1,12 @@
 import { NextResponse } from "next/server";
 import { requireParentUser } from "@/lib/server/auth";
+import { consumeInMemoryRateLimit } from "@/lib/server/rateLimit";
 import { linkParentToStudentByInviteCode } from "@/lib/server/userStore";
 import type { GuardianRelationship } from "@/types";
 
 export const runtime = "nodejs";
+
+const linkRateLimit = { max: 10, windowMs: 60_000 };
 
 function isRecord(value: unknown): value is Record<string, unknown> {
   return typeof value === "object" && value !== null;
@@ -12,6 +15,14 @@ function isRecord(value: unknown): value is Record<string, unknown> {
 export async function POST(request: Request) {
   const authenticated = await requireParentUser(request);
   if (!authenticated) return NextResponse.json({ error: "Parent access required." }, { status: 403 });
+
+  const rateLimit = consumeInMemoryRateLimit(`parent-link:${authenticated.user.id}`, linkRateLimit);
+  if (!rateLimit.allowed) {
+    return NextResponse.json(
+      { error: "Too many child-link attempts. Please wait before trying again." },
+      { status: 429, headers: { "Retry-After": String(rateLimit.retryAfterSeconds) } }
+    );
+  }
 
   let body: unknown;
   try {

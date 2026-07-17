@@ -1,0 +1,232 @@
+type UserStoreModule = typeof import("../userStore");
+
+type UserStoreFunctionName = {
+  [Key in keyof UserStoreModule]: UserStoreModule[Key] extends (...args: never[]) => unknown ? Key : never
+}[keyof UserStoreModule] & string;
+
+export const userStoreDomainNames = [
+  "auth",
+  "student-activity",
+  "teacher-ops",
+  "parent",
+  "gamification",
+  "ai-governance"
+] as const;
+
+export type UserStoreDomainName = typeof userStoreDomainNames[number];
+
+export const authUserStoreOperations = [
+  "isGradeAllowedForCurriculumProfile",
+  "shouldRetryDemoLoginAfterFastInvalid",
+  "authenticatedUserForCredentials",
+  "authenticateUser",
+  "authenticateUserForLogin",
+  "authenticateFlexibleExampleAccountForLogin",
+  "createStudentUser",
+  "createTeacherUser",
+  "createParentUser",
+  "completeStudentCurriculumTrackSelection",
+  "validateSchoolProvisioning",
+  "createSchoolProvisioningBatch",
+  "getProvisioningBatchForAdmin",
+  "getProvisioningBatchCredentialCsvForAdmin",
+  "changeAuthenticatedUserPassword",
+  "createPasswordResetRequest",
+  "resetUserPassword",
+  "getAuthenticatedUserById",
+  "buildRedactedAdminStorageSnapshot",
+  "exportDatabaseSnapshotForAdmin",
+  "backfillPostgresHotAuthTablesForAdmin",
+  "cleanupTemporaryBootstrapAdminsForAdmin",
+  "getStorageReadinessSnapshot",
+  "updateUserSettings",
+  "updateUserProfile",
+  "getLearnerProfile",
+  "updateLearnerProfile"
+] as const satisfies readonly UserStoreFunctionName[];
+
+export const studentActivityUserStoreOperations = [
+  "getContentUnavailableForCurriculum",
+  "getAdaptiveContentUnavailableForCurriculum",
+  "getPublicQuestions",
+  "getAdaptiveLearningDecision",
+  "refreshAdaptiveLearningRecommendation",
+  "submitQuestionAttempt",
+  "getMistakes",
+  "markMistakeMastered",
+  "deleteMistake",
+  "clearMistakesForUser",
+  "appendLearningEvents",
+  "clearLearningEventsForUser",
+  "getAnalyticsSummary",
+  "getAnalyticsExport",
+  "getDashboardData",
+  "getProgressData",
+  "getRoadmapData",
+  "getLessonEntryTarget",
+  "getLessonEntryTargetForLogin",
+  "getLessonBySlug",
+  "updateLessonProgress",
+  "markVisualizationSession",
+  "listVisualizationSessionsForUser",
+  "getStudentResourceDetailData",
+  "getStudentResourceDownloadData",
+  "markStudentResourceViewed",
+  "getStudentAssessmentDetailData",
+  "submitStudentAssessment",
+  "submitAssignmentWork",
+  "getStudentAssignments",
+  "getStudentMessagesData",
+  "createStudentMessageThread",
+  "replyToStudentMessageThread",
+  "getClassroomLiveSessionForStudent",
+  "submitClassroomLiveResponse",
+  "submitClassroomLiveAction"
+] as const satisfies readonly UserStoreFunctionName[];
+
+export const teacherOpsUserStoreOperations = [
+  "getTeacherShellData",
+  "getTeacherFoundationData",
+  "getTeacherDashboardData",
+  "getTeacherAnalyticsData",
+  "createTeacherAnalyticsFollowUpAssignment",
+  "getTeacherClasses",
+  "getTeacherClassEnrollments",
+  "getTeacherAssignmentSubmissions",
+  "getTeacherReports",
+  "getTeacherReportPreview",
+  "getTeacherReportsData",
+  "teacherReportPreviewToCsv",
+  "saveTeacherReportPreview",
+  "teacherReportPreviewToPdf",
+  "getTeacherOperationsData",
+  "createTeacherNotice",
+  "sendTeacherNotice",
+  "validateTeacherRosterImport",
+  "commitTeacherRosterImport",
+  "updateClassRosterProfile",
+  "upsertTeacherClassCollaborator",
+  "createPrepTeam",
+  "createPrepTeamShare",
+  "createTermArchive",
+  "getTermArchiveExport",
+  "runTeacherMissingWorkReminders",
+  "getForumWorkspaceData",
+  "createClassForumThread",
+  "addClassForumReply",
+  "addClassForumLivePulse",
+  "updateClassForumThread",
+  "reportClassForumContent",
+  "markForumNotificationsRead",
+  "setTeacherStudentMasteryTarget",
+  "clearTeacherStudentMasteryTarget",
+  "createTeacherClass",
+  "addStudentToTeacherClass",
+  "joinClassByInviteCode",
+  "getTeacherClassDetailData",
+  "getTeacherStudentProfileData",
+  "getTeacherAssignments",
+  "getTeacherResourceLibraryData",
+  "createTeacherResource",
+  "getTeacherResourceDownloadData",
+  "getTeacherLessonKitListData",
+  "getTeacherLessonKitCreateData",
+  "getTeacherLessonKitDetailData",
+  "createTeacherLessonKit",
+  "updateTeacherLessonKit",
+  "generateTeacherLessonKitWithAI",
+  "publishTeacherLessonKit",
+  "getTeacherLiveSessionById",
+  "createClassroomWorkSample",
+  "updateClassroomWorkSampleStatus",
+  "getTeacherAssessmentCreateData",
+  "getTeacherAssessmentBuilderQuestions",
+  "getTeacherAssessmentListData",
+  "createTeacherAssessment",
+  "updateTeacherAssessment",
+  "cloneTeacherAssessment",
+  "getTeacherAssessmentDetailData",
+  "generateTeacherReviewLessonPlan",
+  "getTeacherReviewLessonDetailData",
+  "updateTeacherReviewLessonPlan",
+  "publishTeacherReviewLessonParentDraft",
+  "getTeacherReviewLessonExportData",
+  "createReviewLessonRemediationAssessment",
+  "updateTeacherAssessmentAnalysisSettings",
+  "updateTeacherAssessmentSubmissionMarking",
+  "getTeacherAssessmentCsv",
+  "createTeacherAssignment",
+  "deleteTeacherAssignment",
+  "getTeacherAssignmentDetailData",
+  "createTeacherSubmissionGradingRun",
+  "reviewTeacherSubmission",
+  "updateTeacherSubmissionGrade",
+  "getTeacherInboxData",
+  "replyToTeacherMessageThread",
+  "updateTeacherMessageThread",
+  "getTeacherLiveData",
+  "startTeacherLiveSession",
+  "endTeacherLiveSession",
+  "getClassroomLiveSessionForTeacherPreview",
+  "updateTeacherLiveTool"
+] as const satisfies readonly UserStoreFunctionName[];
+
+export const parentUserStoreOperations = [
+  "parentCanAccessStudent",
+  "getParentNoticeData",
+  "acknowledgeParentNotice",
+  "getParentFoundationData",
+  "getParentChildSummary",
+  "getParentReportData",
+  "getParentMessagesData",
+  "createParentMessageThread",
+  "replyToParentMessageThread",
+  "linkParentToStudentByInviteCode"
+] as const satisfies readonly UserStoreFunctionName[];
+
+export const gamificationUserStoreOperations = [
+  "completeFishingGame",
+  "getAdventureIslandEligibility",
+  "completeAdventureIsland",
+  "getStudentRewardsData",
+  "getStudentGamificationSummary",
+  "requestRewardRedemption",
+  "getTeacherRewardsData",
+  "getTeacherGamificationData",
+  "createRewardCampaign",
+  "updateRewardCampaign",
+  "awardTeacherRewardPoints",
+  "updateTeacherRewardRedemption"
+] as const satisfies readonly UserStoreFunctionName[];
+
+export const aiGovernanceUserStoreOperations = [
+  "recordAITutorMessage",
+  "recordAITutorUsage",
+  "getAITutorTokenUsageSince",
+  "consumeAiCapabilityRateLimit",
+  "recordAiGovernanceEvent",
+  "getAiGovernanceSummaryForAdmin",
+  "getPilotPlatformLoopData",
+  "getNovaLensPolicy",
+  "listNovaLensPolicyEventsForAdmin",
+  "updateNovaLensPolicy",
+  "recordNovaLensRun",
+  "listNovaLensRunsForUser",
+  "buildAITutorDatabaseContext"
+] as const satisfies readonly UserStoreFunctionName[];
+
+export const userStoreDomainFunctionManifest = {
+  auth: authUserStoreOperations,
+  "student-activity": studentActivityUserStoreOperations,
+  "teacher-ops": teacherOpsUserStoreOperations,
+  parent: parentUserStoreOperations,
+  gamification: gamificationUserStoreOperations,
+  "ai-governance": aiGovernanceUserStoreOperations
+} as const satisfies Record<UserStoreDomainName, readonly UserStoreFunctionName[]>;
+
+export type AuthUserStore = Pick<UserStoreModule, typeof authUserStoreOperations[number]>;
+export type StudentActivityUserStore = Pick<UserStoreModule, typeof studentActivityUserStoreOperations[number]>;
+export type TeacherOpsUserStore = Pick<UserStoreModule, typeof teacherOpsUserStoreOperations[number]>;
+export type ParentUserStore = Pick<UserStoreModule, typeof parentUserStoreOperations[number]>;
+export type GamificationUserStore = Pick<UserStoreModule, typeof gamificationUserStoreOperations[number]>;
+export type AiGovernanceUserStore = Pick<UserStoreModule, typeof aiGovernanceUserStoreOperations[number]>;

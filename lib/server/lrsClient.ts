@@ -11,6 +11,8 @@ export type LrsConfig = {
   xapiVersion: string;
   activityBaseIri: string;
   timeoutMs: number;
+  maxDeliveryAttempts: number;
+  retryBaseDelayMs: number;
 };
 
 export type LrsConfigStatus = {
@@ -25,9 +27,20 @@ export type LrsConfigStatus = {
 };
 
 export type LrsDeliveryResult = {
-  status: "disabled" | "sent";
+  status: "disabled" | "queued" | "sent";
   attempted: number;
   accepted: number;
+  outbox: LrsOutboxItem[];
+};
+
+export type LrsOutboxItem = {
+  statementId: string;
+  eventId: string;
+  attempts: number;
+  queuedAt: string;
+  nextRetryAt: string;
+  reason: LrsDeliveryError["code"];
+  httpStatus?: number;
 };
 
 export type LrsConnectionResult =
@@ -43,6 +56,17 @@ export type LrsConnectionResult =
 type LrsActorContext = {
   userId: string;
   curriculumTrack?: CurriculumTrack;
+};
+
+type XapiActivity = {
+  id: string;
+  objectType: "Activity";
+  definition: {
+    name: {
+      "en-US": string;
+    };
+    type: string;
+  };
 };
 
 type XapiStatement = {
@@ -78,16 +102,9 @@ type XapiStatement = {
   context: {
     platform: "MAIS-MVP";
     contextActivities: {
-      category: Array<{
-        id: string;
-        objectType: "Activity";
-        definition: {
-          name: {
-            "en-US": string;
-          };
-          type: string;
-        };
-      }>;
+      parent: XapiActivity[];
+      grouping: XapiActivity[];
+      category: XapiActivity[];
     };
     extensions: Record<string, string | number | boolean>;
   };
@@ -99,10 +116,27 @@ type LrsFetch = typeof fetch;
 const defaultXapiVersion = "1.0.3";
 const defaultActivityBaseIri = "https://mais-mvp.local/xapi";
 const defaultTimeoutMs = 12000;
+const defaultMaxDeliveryAttempts = 3;
+const defaultRetryBaseDelayMs = 0;
 const minTimeoutMs = 1000;
 const maxTimeoutMs = 30000;
+const minDeliveryAttempts = 1;
+const maxDeliveryAttempts = 5;
+const minRetryBaseDelayMs = 0;
+const maxRetryBaseDelayMs = 5000;
 const statementPath = "/statements";
 const lrsSmokeSecretHeader = "x-mais-lrs-smoke-secret";
+
+export const lrsLearningVerbTaxonomy = {
+  answered: { id: "http://adlnet.gov/expapi/verbs/answered", display: "answered" },
+  completed: { id: "http://adlnet.gov/expapi/verbs/completed", display: "completed" },
+  experienced: { id: "http://adlnet.gov/expapi/verbs/experienced", display: "experienced" },
+  interacted: { id: "http://adlnet.gov/expapi/verbs/interacted", display: "interacted" },
+  reviewed: { id: "http://id.tincanapi.com/verb/reviewed", display: "reviewed" },
+  asked: { id: "http://adlnet.gov/expapi/verbs/asked", display: "asked" }
+} as const;
+
+type LrsLearningVerb = keyof typeof lrsLearningVerbTaxonomy;
 
 function cleanEnvValue(value: string | undefined) {
   return typeof value === "string" ? value.trim() : "";
@@ -159,7 +193,19 @@ export function readLrsConfig(env: LrsEnv = process.env): LrsConfig {
     password,
     xapiVersion: cleanEnvValue(env.LRS_XAPI_VERSION) || defaultXapiVersion,
     activityBaseIri: normalizeActivityBaseIri(cleanEnvValue(env.LRS_ACTIVITY_BASE_IRI) || defaultActivityBaseIri),
-    timeoutMs: boundedNumber(env.LRS_REQUEST_TIMEOUT_MS, defaultTimeoutMs, minTimeoutMs, maxTimeoutMs)
+    timeoutMs: boundedNumber(env.LRS_REQUEST_TIMEOUT_MS, defaultTimeoutMs, minTimeoutMs, maxTimeoutMs),
+    maxDeliveryAttempts: boundedNumber(
+      env.LRS_DELIVERY_MAX_ATTEMPTS,
+      defaultMaxDeliveryAttempts,
+      minDeliveryAttempts,
+      maxDeliveryAttempts
+    ),
+    retryBaseDelayMs: boundedNumber(
+      env.LRS_RETRY_BASE_DELAY_MS,
+      defaultRetryBaseDelayMs,
+      minRetryBaseDelayMs,
+      maxRetryBaseDelayMs
+    )
   };
 }
 
@@ -218,6 +264,14 @@ function safeSegment(value: string) {
   return encodeURIComponent(value.trim().toLowerCase().replace(/[^a-z0-9_-]+/gi, "-").replace(/^-+|-+$/g, "") || "unknown");
 }
 
+function safePath(value: string) {
+  return value
+    .split("/")
+    .map((segment) => safeSegment(segment))
+    .filter(Boolean)
+    .join("/");
+}
+
 export function statementIdForLearningEvent(userId: string, eventId: string) {
   const hex = createHash("sha256").update(`mais-mvp:${userId}:${eventId}`).digest("hex").split("");
   hex[12] = "5";
@@ -225,23 +279,33 @@ export function statementIdForLearningEvent(userId: string, eventId: string) {
   return `${hex.slice(0, 8).join("")}-${hex.slice(8, 12).join("")}-${hex.slice(12, 16).join("")}-${hex.slice(16, 20).join("")}-${hex.slice(20, 32).join("")}`;
 }
 
-function verbForEvent(type: LearningAnalyticsEventType) {
+function actorAccountNameForUserId(userId: string) {
+  return statementIdForLearningEvent(userId, "actor");
+}
+
+function verbForEvent(type: LearningAnalyticsEventType): (typeof lrsLearningVerbTaxonomy)[LrsLearningVerb] {
   if (type === "answer-correct" || type === "answer-wrong") {
-    return { id: "http://adlnet.gov/expapi/verbs/answered", display: "answered" };
+    return lrsLearningVerbTaxonomy.answered;
   }
   if (type === "hint-request") {
-    return { id: "http://adlnet.gov/expapi/verbs/asked", display: "asked" };
+    return lrsLearningVerbTaxonomy.asked;
   }
   if (type === "visualization-complete") {
-    return { id: "http://adlnet.gov/expapi/verbs/completed", display: "completed" };
+    return lrsLearningVerbTaxonomy.completed;
   }
   if (type === "mistake-review") {
-    return { id: "http://id.tincanapi.com/verb/reviewed", display: "reviewed" };
+    return lrsLearningVerbTaxonomy.reviewed;
   }
   if (type === "page-view") {
-    return { id: "http://adlnet.gov/expapi/verbs/experienced", display: "experienced" };
+    return lrsLearningVerbTaxonomy.experienced;
   }
-  return { id: "http://adlnet.gov/expapi/verbs/interacted", display: "interacted" };
+  return lrsLearningVerbTaxonomy.interacted;
+}
+
+function evidenceStrengthForEvent(type: LearningAnalyticsEventType) {
+  if (type === "answer-correct" || type === "answer-wrong") return "strong";
+  if (type === "page-view" || type === "mouse-click" || type === "keyboard") return "weak";
+  return "medium";
 }
 
 function activityTypeForEvent(type: LearningAnalyticsEventType) {
@@ -254,6 +318,79 @@ function activityTypeForEvent(type: LearningAnalyticsEventType) {
 function isoDuration(seconds: number | undefined) {
   if (typeof seconds !== "number" || !Number.isFinite(seconds) || seconds <= 0) return undefined;
   return `PT${Math.round(seconds)}S`;
+}
+
+function xapiActivity(base: string, path: string, name: string, type: string): XapiActivity {
+  return {
+    id: `${base}/${path}`,
+    objectType: "Activity",
+    definition: {
+      name: {
+        "en-US": name
+      },
+      type
+    }
+  };
+}
+
+function curriculumContextActivities({
+  base,
+  event,
+  curriculumTrack
+}: {
+  base: string;
+  event: LearningAnalyticsEvent;
+  curriculumTrack?: CurriculumTrack;
+}) {
+  return {
+    parent: [
+      ...(event.classId
+        ? [xapiActivity(base, `classes/${safeSegment(event.classId)}`, `Class ${event.classId}`, "http://adlnet.gov/expapi/activities/grouping")]
+        : []),
+      ...(event.assignmentId
+        ? [
+            xapiActivity(
+              base,
+              `assignments/${safeSegment(event.assignmentId)}`,
+              `Assignment ${event.assignmentId}`,
+              "http://adlnet.gov/expapi/activities/assessment"
+            )
+          ]
+        : [])
+    ],
+    grouping: [
+      ...(curriculumTrack
+        ? [
+            xapiActivity(
+              base,
+              `curricula/${safeSegment(curriculumTrack)}`,
+              `Curriculum ${curriculumTrack}`,
+              "http://adlnet.gov/expapi/activities/course"
+            )
+          ]
+        : []),
+      xapiActivity(base, `grades/${safeSegment(event.grade)}`, `Grade ${event.grade}`, "http://adlnet.gov/expapi/activities/grouping"),
+      xapiActivity(base, `topics/${safeSegment(event.topicId)}`, `Topic ${event.topicId}`, "http://adlnet.gov/expapi/activities/module"),
+      ...(event.competencyId
+        ? [
+            xapiActivity(
+              base,
+              `competencies/${safeSegment(event.competencyId)}`,
+              `Competency ${event.competencyId}`,
+              "http://adlnet.gov/expapi/activities/objective"
+            )
+          ]
+        : [])
+    ],
+    category: [
+      xapiActivity(
+        base,
+        "categories/learning-analytics",
+        "MAIS-MVP learning analytics",
+        "http://adlnet.gov/expapi/activities/category"
+      )
+    ]
+  };
 }
 
 export function buildLearningAnalyticsStatement({
@@ -272,6 +409,7 @@ export function buildLearningAnalyticsStatement({
     : `${base}/activities/${safeSegment(event.source)}/${safeSegment(event.topicId)}`;
   const duration = isoDuration(event.durationSeconds);
   const success = event.type === "answer-correct" ? true : event.type === "answer-wrong" ? false : undefined;
+  const contextActivities = curriculumContextActivities({ base, event, curriculumTrack: actor.curriculumTrack });
 
   return {
     id: statementIdForLearningEvent(actor.userId, event.id),
@@ -279,7 +417,7 @@ export function buildLearningAnalyticsStatement({
       objectType: "Agent",
       account: {
         homePage: base,
-        name: actor.userId
+        name: actorAccountNameForUserId(actor.userId)
       }
     },
     verb: {
@@ -307,25 +445,19 @@ export function buildLearningAnalyticsStatement({
       : undefined,
     context: {
       platform: "MAIS-MVP",
-      contextActivities: {
-        category: [{
-          id: `${base}/categories/learning-analytics`,
-          objectType: "Activity",
-          definition: {
-            name: {
-              "en-US": "MAIS-MVP learning analytics"
-            },
-            type: "http://adlnet.gov/expapi/activities/category"
-          }
-        }]
-      },
+      contextActivities,
       extensions: {
         [`${base}/extensions/event-id`]: event.id,
         [`${base}/extensions/event-type`]: event.type,
         [`${base}/extensions/source`]: event.source,
         [`${base}/extensions/grade`]: event.grade,
         [`${base}/extensions/topic-id`]: event.topicId,
+        [`${base}/extensions/evidence-strength`]: evidenceStrengthForEvent(event.type),
+        [`${base}/extensions/privacy-tier`]: "learner-analytics-minimal",
         ...(event.questionId ? { [`${base}/extensions/question-id`]: event.questionId } : {}),
+        ...(event.classId ? { [`${base}/extensions/class-id`]: event.classId } : {}),
+        ...(event.assignmentId ? { [`${base}/extensions/assignment-id`]: event.assignmentId } : {}),
+        ...(event.competencyId ? { [`${base}/extensions/competency-id`]: event.competencyId } : {}),
         ...(typeof event.durationSeconds === "number" ? { [`${base}/extensions/duration-seconds`]: event.durationSeconds } : {}),
         ...(actor.curriculumTrack ? { [`${base}/extensions/curriculum-track`]: actor.curriculumTrack } : {})
       }
@@ -343,6 +475,152 @@ export class LrsDeliveryError extends Error {
     super(message);
     this.name = "LrsDeliveryError";
   }
+}
+
+export class LrsQueryPolicyError extends Error {
+  constructor(message: string) {
+    super(message);
+    this.name = "LrsQueryPolicyError";
+  }
+}
+
+type LrsQueryRequester = {
+  role: "student" | "teacher" | "admin";
+  userId: string;
+  ownedClassIds?: string[];
+};
+
+type LrsStatementQueryInput = {
+  config: Pick<LrsConfig, "activityBaseIri">;
+  requester: LrsQueryRequester;
+  learnerId?: string;
+  classId?: string;
+  activityId?: string;
+  verb?: LrsLearningVerb | (typeof lrsLearningVerbTaxonomy)[LrsLearningVerb]["id"];
+  since?: string;
+  until?: string;
+  auditReason?: string;
+  limit?: number;
+};
+
+function normalizeTimeBound(value: string | undefined, label: string) {
+  if (!value) throw new LrsQueryPolicyError(`LRS queries require a targeted time window with ${label}.`);
+  const parsed = new Date(value);
+  if (!Number.isFinite(parsed.getTime())) {
+    throw new LrsQueryPolicyError(`LRS query ${label} must be a valid timestamp.`);
+  }
+  return parsed.toISOString();
+}
+
+function verbIdForQuery(verb: LrsStatementQueryInput["verb"]) {
+  if (!verb) return undefined;
+  if (verb in lrsLearningVerbTaxonomy) return lrsLearningVerbTaxonomy[verb as LrsLearningVerb].id;
+  const approvedVerb = Object.values(lrsLearningVerbTaxonomy).find((candidate) => candidate.id === verb);
+  if (!approvedVerb) {
+    throw new LrsQueryPolicyError("LRS query verb must be one of the approved learning verb taxonomy entries.");
+  }
+  return approvedVerb.id;
+}
+
+function activityIri(base: string, activityId: string) {
+  if (/^https?:\/\//i.test(activityId)) return activityId;
+  return `${base}/activities/${safePath(activityId)}`;
+}
+
+function classActivityIri(base: string, classId: string) {
+  return `${base}/classes/${safeSegment(classId)}`;
+}
+
+function boundedLimit(limit: number | undefined) {
+  if (typeof limit !== "number" || !Number.isFinite(limit)) return 100;
+  return Math.min(500, Math.max(1, Math.round(limit)));
+}
+
+export function buildLrsStatementQuery(input: LrsStatementQueryInput) {
+  const { requester, learnerId, classId, activityId } = input;
+  const hasTargetFilter = Boolean(learnerId || classId || activityId || input.verb);
+  if (!hasTargetFilter) {
+    throw new LrsQueryPolicyError("LRS statements queries must be targeted by learner, class, activity, or verb.");
+  }
+
+  const since = normalizeTimeBound(input.since, "since");
+  const until = normalizeTimeBound(input.until, "until");
+  const base = input.config.activityBaseIri.replace(/\/+$/, "");
+  const verb = verbIdForQuery(input.verb);
+  const params: {
+    agent?: XapiStatement["actor"];
+    verb?: string;
+    activity?: string;
+    related_activities?: true;
+    since: string;
+    until: string;
+    limit: number;
+  } = {
+    since,
+    until,
+    limit: boundedLimit(input.limit)
+  };
+  const postFilters: { activity?: string } = {};
+
+  if (requester.role === "student") {
+    const effectiveLearnerId = learnerId ?? requester.userId;
+    if (effectiveLearnerId !== requester.userId) {
+      throw new LrsQueryPolicyError("Learner LRS queries may only target the requesting learner.");
+    }
+    params.agent = {
+      objectType: "Agent",
+      account: {
+        homePage: base,
+        name: actorAccountNameForUserId(effectiveLearnerId)
+      }
+    };
+  } else if (requester.role === "teacher") {
+    if (!classId || !(requester.ownedClassIds ?? []).includes(classId)) {
+      throw new LrsQueryPolicyError("Educator LRS queries require an owned class filter.");
+    }
+    params.activity = classActivityIri(base, classId);
+    params.related_activities = true;
+    if (activityId) {
+      postFilters.activity = activityIri(base, activityId);
+    }
+  } else {
+    if (learnerId) {
+      const reason = input.auditReason?.trim();
+      if (!reason) {
+        throw new LrsQueryPolicyError("Admin learner-detail LRS queries require an audit reason.");
+      }
+      params.agent = {
+        objectType: "Agent",
+        account: {
+          homePage: base,
+          name: actorAccountNameForUserId(learnerId)
+        }
+      };
+    }
+    if (classId) {
+      params.activity = classActivityIri(base, classId);
+      params.related_activities = true;
+    } else if (activityId) {
+      params.activity = activityIri(base, activityId);
+      params.related_activities = true;
+    }
+  }
+
+  if (verb) params.verb = verb;
+
+  return {
+    params,
+    postFilters: Object.keys(postFilters).length ? postFilters : undefined,
+    audit:
+      requester.role === "admin" && learnerId
+        ? {
+            adminId: requester.userId,
+            learnerId,
+            reason: input.auditReason?.trim() ?? "",
+            generatedAt: new Date(0).toISOString()
+          }
+        : undefined
+  };
 }
 
 async function fetchWithTimeout(fetcher: LrsFetch, url: string, init: RequestInit, timeoutMs: number) {
@@ -393,6 +671,82 @@ async function putStatement({
   }
 }
 
+function isRetryableLrsDeliveryError(error: unknown) {
+  if (!(error instanceof LrsDeliveryError)) return false;
+  if (error.code === "timeout" || error.code === "request-failed") return true;
+  if (error.code === "http-error") {
+    return error.httpStatus === 408 || error.httpStatus === 429 || (typeof error.httpStatus === "number" && error.httpStatus >= 500);
+  }
+  return false;
+}
+
+function retryDelayMs(baseDelayMs: number, attempt: number) {
+  return baseDelayMs <= 0 ? 0 : baseDelayMs * Math.max(1, attempt);
+}
+
+async function wait(ms: number) {
+  if (ms <= 0) return;
+  await new Promise((resolve) => setTimeout(resolve, ms));
+}
+
+async function putStatementWithRetry({
+  config,
+  statement,
+  fetcher
+}: {
+  config: LrsConfig;
+  statement: XapiStatement;
+  fetcher: LrsFetch;
+}) {
+  let attempts = 0;
+  let lastError: LrsDeliveryError | null = null;
+
+  while (attempts < config.maxDeliveryAttempts) {
+    attempts += 1;
+    try {
+      await putStatement({ config, statement, fetcher });
+      return { status: "sent" as const, attempts };
+    } catch (error) {
+      if (!(error instanceof LrsDeliveryError)) throw error;
+      lastError = error;
+      if (!isRetryableLrsDeliveryError(error)) throw error;
+      if (attempts >= config.maxDeliveryAttempts) break;
+      await wait(retryDelayMs(config.retryBaseDelayMs, attempts));
+    }
+  }
+
+  return {
+    status: "queued" as const,
+    attempts,
+    error: lastError ?? new LrsDeliveryError("request-failed", "LRS request failed.")
+  };
+}
+
+function outboxItemForStatement({
+  statement,
+  event,
+  attempts,
+  error,
+  now = new Date()
+}: {
+  statement: XapiStatement;
+  event: LearningAnalyticsEvent;
+  attempts: number;
+  error: LrsDeliveryError;
+  now?: Date;
+}): LrsOutboxItem {
+  const retryAt = new Date(now.getTime() + Math.max(60_000, attempts * 60_000));
+  return {
+    statementId: statement.id,
+    eventId: event.id,
+    attempts,
+    queuedAt: now.toISOString(),
+    nextRetryAt: retryAt.toISOString(),
+    reason: error.code,
+    httpStatus: error.httpStatus
+  };
+}
+
 export async function emitLearningEventsToLrs({
   userId,
   curriculumTrack,
@@ -408,7 +762,7 @@ export async function emitLearningEventsToLrs({
 }): Promise<LrsDeliveryResult> {
   const status = getLrsConfigStatus(env);
   if (status.status === "disabled") {
-    return { status: "disabled", attempted: 0, accepted: 0 };
+    return { status: "disabled", attempted: 0, accepted: 0, outbox: [] };
   }
   if (status.status === "missing-config") {
     throw new LrsDeliveryError("missing-config", "LRS is enabled but missing required environment variables.");
@@ -422,15 +776,23 @@ export async function emitLearningEventsToLrs({
       actor: { userId, curriculumTrack }
     })
   );
+  const outbox: LrsOutboxItem[] = [];
+  let accepted = 0;
 
-  for (const statement of statements) {
-    await putStatement({ config, statement, fetcher });
+  for (const [index, statement] of statements.entries()) {
+    const delivery = await putStatementWithRetry({ config, statement, fetcher });
+    if (delivery.status === "sent") {
+      accepted += 1;
+    } else {
+      outbox.push(outboxItemForStatement({ statement, event: events[index], attempts: delivery.attempts, error: delivery.error }));
+    }
   }
 
   return {
-    status: "sent",
+    status: outbox.length ? "queued" : "sent",
     attempted: statements.length,
-    accepted: statements.length
+    accepted,
+    outbox
   };
 }
 

@@ -14,30 +14,44 @@ import {
 import {
   buildLLMProviderRequestBody,
   extractLLMProviderReply,
-  readLLMProviderConfig,
+  readQwenImageProviderConfig,
+  resolveLLMProviderName,
   type LLMProviderConfig,
   type LLMProviderContentPart,
   type LLMProviderMessage,
   type LLMProviderName
 } from "@/lib/server/llmProvider";
+import {
+  assessSimpletexRouting,
+  normalizeOcrDecimalSeparators,
+  selectRoutedHandwritingCandidate
+} from "@/lib/server/handwritingOcrRouting";
 import { buildSimpletexAppAuthHeaders, type SimpletexRequestFields } from "@/lib/server/simpletexAuth";
 import { requireAuthenticatedUser } from "@/lib/server/auth";
+import { consumeAiCapabilityRateLimit, recordAiGovernanceEvent } from "@/lib/server/userStore";
+import {
+  aiCapabilityRateLimitRulesFromEnv,
+  evaluateMediaStoragePolicy,
+  imageDataUrlMediaDescriptor,
+  mediaStoragePolicyFromEnv
+} from "@/lib/server/aiGovernance";
+import { mediaObjectReferenceFromUnknown, readStoredMediaObject } from "@/lib/server/mediaObjectStore";
 
 export const runtime = "nodejs";
 
 const defaultSimpletexApiUrl = "https://server.simpletex.cn/api/simpletex_ocr";
 const defaultMathpixApiUrl = "https://api.mathpix.com/v3/strokes";
 const defaultProviderTimeoutMs = 12000;
-const defaultMaxRequestsPerMinute = 20;
-const defaultMaxRequestsPerHour = 160;
 const defaultAcceptedConfidence = 0.7;
+const defaultLocalAutoAcceptConfidence = 0.82;
+const defaultSimpletexAutoAcceptConfidence = 0.88;
+const defaultMathpixAutoAcceptConfidence = 0.7;
+const defaultSimpletexMaxAttempts = 2;
+const defaultSimpletexRetryDelayMs = 350;
 const maxImageDataUrlLength = 1_500_000;
 const simpletexImagePaddingPx = 32;
 const simpletexTrimThreshold = 24;
-
-type RateLimitState = {
-  timestamps: number[];
-};
+const secretLikePattern = /[A-Za-z0-9+/=_-]{24,}/g;
 
 type ProviderCandidate = {
   text: string;
@@ -70,8 +84,6 @@ type SimpletexConfig = {
     }
 );
 
-const recognitionRateLimits = new Map<string, RateLimitState>();
-
 function isRecord(value: unknown): value is Record<string, unknown> {
   return typeof value === "object" && value !== null;
 }
@@ -96,10 +108,201 @@ function readAcceptedConfidenceThreshold() {
   );
 }
 
+function readLocalAutoAcceptConfidenceThreshold() {
+  return boundedNumber(
+    process.env.HANDWRITING_RECOGNITION_LOCAL_AUTO_ACCEPT_CONFIDENCE_THRESHOLD,
+    defaultLocalAutoAcceptConfidence,
+    0.1,
+    0.99
+  );
+}
+
+function readSimpletexAutoAcceptConfidenceThreshold() {
+  return boundedNumber(
+    process.env.HANDWRITING_RECOGNITION_SIMPLETEX_AUTO_ACCEPT_CONFIDENCE_THRESHOLD,
+    defaultSimpletexAutoAcceptConfidence,
+    0.1,
+    0.99
+  );
+}
+
+function readMathpixAutoAcceptConfidenceThreshold() {
+  return boundedNumber(
+    process.env.HANDWRITING_RECOGNITION_MATHPIX_AUTO_ACCEPT_CONFIDENCE_THRESHOLD,
+    defaultMathpixAutoAcceptConfidence,
+    0.1,
+    0.99
+  );
+}
+
+function readSimpletexMaxAttempts() {
+  return Math.round(boundedNumber(
+    process.env.HANDWRITING_RECOGNITION_SIMPLETEX_MAX_ATTEMPTS,
+    defaultSimpletexMaxAttempts,
+    1,
+    3
+  ));
+}
+
+function readSimpletexRetryDelayMs() {
+  return Math.round(boundedNumber(
+    process.env.HANDWRITING_RECOGNITION_SIMPLETEX_RETRY_DELAY_MS,
+    defaultSimpletexRetryDelayMs,
+    0,
+    2000
+  ));
+}
+
+function sleep(ms: number) {
+  return new Promise((resolve) => setTimeout(resolve, ms));
+}
+
+function providerHost(apiUrl: string) {
+  try {
+    return new URL(apiUrl).hostname;
+  } catch {
+    return "unknown";
+  }
+}
+
+function scrubProviderDiagnosticText(value: unknown) {
+  return String(value ?? "").slice(0, 240).replace(secretLikePattern, "[redacted-token]");
+}
+
+function providerErrorDiagnostics(error: unknown) {
+  const normalizedError = error instanceof Error ? error : null;
+  const cause = normalizedError && isRecord((normalizedError as Error & { cause?: unknown }).cause)
+    ? (normalizedError as Error & { cause?: Record<string, unknown> }).cause
+    : null;
+
+  return {
+    errorName: normalizedError?.name ?? typeof error,
+    errorMessage: scrubProviderDiagnosticText(normalizedError?.message ?? error),
+    causeCode: typeof cause?.code === "string" ? cause.code : null,
+    causeMessage: cause?.message ? scrubProviderDiagnosticText(cause.message) : null
+  };
+}
+
+function isTransientProviderError(error: unknown) {
+  const diagnostics = providerErrorDiagnostics(error);
+  if (diagnostics.errorName === "AbortError" || diagnostics.errorName === "TypeError") return true;
+  return [
+    "ECONNRESET",
+    "EPIPE",
+    "EAI_AGAIN",
+    "ETIMEDOUT",
+    "UND_ERR_CONNECT_TIMEOUT",
+    "UND_ERR_SOCKET",
+    "UND_ERR_HEADERS_TIMEOUT"
+  ].includes(diagnostics.causeCode ?? "");
+}
+
 function readImageDataUrl(value: unknown) {
   if (typeof value !== "string") return undefined;
   if (!value.startsWith("data:image/")) return undefined;
   return value.length <= maxImageDataUrlLength ? value : undefined;
+}
+
+function statusForMediaObjectRead(status: "not-found" | "forbidden" | "expired" | "rejected") {
+  if (status === "forbidden") return 403;
+  if (status === "expired") return 410;
+  if (status === "rejected") return 503;
+  return 404;
+}
+
+async function governedOcrImageDataUrl({
+  imageDataUrl,
+  imageObject,
+  user
+}: {
+  imageDataUrl?: string;
+  imageObject: unknown;
+  user: { id: string; role: string };
+}): Promise<{ imageDataUrl?: string; response?: NextResponse }> {
+  if (imageDataUrl) {
+    const media = imageDataUrlMediaDescriptor(imageDataUrl);
+    if (media) {
+      const decision = evaluateMediaStoragePolicy({
+        policy: mediaStoragePolicyFromEnv(),
+        capability: "ai-tutor-ocr",
+        media
+      });
+      if (!decision.allowed) {
+        await recordAiGovernanceEvent({
+          userId: user.id,
+          capability: "ai-tutor-ocr",
+          action: "media-policy-blocked",
+          reason: decision.code,
+          metadata: { code: decision.code }
+        }).catch((error) => {
+          console.error("Handwriting OCR media governance event recording failed", providerErrorDiagnostics(error));
+        });
+        return {
+          response: NextResponse.json(
+            { code: decision.code, error: decision.message },
+            { status: decision.code === "object-storage-required" ? 409 : 400 }
+          )
+        };
+      }
+    }
+
+    return { imageDataUrl };
+  }
+
+  if (imageObject === undefined || imageObject === null || imageObject === "") return {};
+  const media = mediaObjectReferenceFromUnknown(imageObject);
+  if (!media || !media.objectKey.startsWith("ai-tutor-ocr/")) {
+    return { response: NextResponse.json({ error: "OCR image object reference is invalid." }, { status: 400 }) };
+  }
+
+  const decision = evaluateMediaStoragePolicy({
+    policy: mediaStoragePolicyFromEnv(),
+    capability: "ai-tutor-ocr",
+    media
+  });
+  if (!decision.allowed) {
+    await recordAiGovernanceEvent({
+      userId: user.id,
+      capability: "ai-tutor-ocr",
+      action: "media-policy-blocked",
+      reason: decision.code,
+      metadata: { code: decision.code }
+    }).catch((error) => {
+      console.error("Handwriting OCR object governance event recording failed", providerErrorDiagnostics(error));
+    });
+    return {
+      response: NextResponse.json(
+        { code: decision.code, error: decision.message },
+        { status: 400 }
+      )
+    };
+  }
+
+  const stored = await readStoredMediaObject({
+    objectKey: media.objectKey,
+    requester: user
+  });
+  if (stored.status !== "ok") {
+    await recordAiGovernanceEvent({
+      userId: user.id,
+      capability: "ai-tutor-ocr",
+      action: "media-policy-blocked",
+      reason: stored.code,
+      metadata: { code: stored.code }
+    }).catch((error) => {
+      console.error("Handwriting OCR object read governance event recording failed", providerErrorDiagnostics(error));
+    });
+    return {
+      response: NextResponse.json(
+        { code: stored.code, error: stored.message },
+        { status: statusForMediaObjectRead(stored.status) }
+      )
+    };
+  }
+
+  return {
+    imageDataUrl: `data:${stored.metadata.mimeType};base64,${stored.bytes.toString("base64")}`
+  };
 }
 
 function readSimpletexConfig() {
@@ -125,68 +328,39 @@ function readSimpletexConfig() {
   } satisfies SimpletexConfig;
 }
 
-function checkRecognitionRateLimit(userId: string, now = Date.now()) {
-  const maxPerMinute = Math.round(boundedNumber(
-    process.env.HANDWRITING_RECOGNITION_MAX_REQUESTS_PER_MINUTE,
-    defaultMaxRequestsPerMinute,
-    1,
-    120
-  ));
-  const maxPerHour = Math.round(boundedNumber(
-    process.env.HANDWRITING_RECOGNITION_MAX_REQUESTS_PER_HOUR,
-    defaultMaxRequestsPerHour,
-    1,
-    1000
-  ));
-  const state = recognitionRateLimits.get(userId) ?? { timestamps: [] };
-  const recent = state.timestamps.filter((timestamp) => now - timestamp < 60 * 60 * 1000);
-  const recentMinute = recent.filter((timestamp) => now - timestamp < 60 * 1000);
-
-  if (recentMinute.length >= maxPerMinute || recent.length >= maxPerHour) {
-    const oldestRelevant = recentMinute.length >= maxPerMinute ? recentMinute[0] : recent[0];
-    const windowMs = recentMinute.length >= maxPerMinute ? 60 * 1000 : 60 * 60 * 1000;
-    return {
-      allowed: false,
-      retryAfterSeconds: Math.max(1, Math.ceil((oldestRelevant + windowMs - now) / 1000))
-    };
-  }
-
-  recent.push(now);
-  recognitionRateLimits.set(userId, { timestamps: recent });
-  return { allowed: true, retryAfterSeconds: 0 };
-}
-
 function providerSupportsImageInput(provider: LLMProviderName) {
   return provider !== "deepseek";
 }
 
 function readVisionProviderConfig(): LLMProviderConfig {
-  const fallbackConfig = readLLMProviderConfig();
-  const apiKey = readOptionalEnv(process.env.HANDWRITING_RECOGNITION_LLM_API_KEY)
-    ?? readOptionalEnv(process.env.AI_TUTOR_VISION_API_KEY)
-    ?? readOptionalEnv(process.env.OPENAI_API_KEY);
+  const fallbackConfig = readQwenImageProviderConfig();
   const apiUrl = readOptionalEnv(process.env.HANDWRITING_RECOGNITION_LLM_API_URL)
-    ?? readOptionalEnv(process.env.AI_TUTOR_VISION_API_URL)
-    ?? (fallbackConfig.provider === "openai" || fallbackConfig.provider === "openai-compatible" ? fallbackConfig.apiUrl : "https://api.openai.com/v1/chat/completions");
+    ?? fallbackConfig.apiUrl;
   const model = readOptionalEnv(process.env.HANDWRITING_RECOGNITION_LLM_MODEL)
-    ?? readOptionalEnv(process.env.AI_TUTOR_VISION_MODEL)
-    ?? readOptionalEnv(process.env.OPENAI_MODEL)
-    ?? "gpt-4.1-mini";
-  const provider = apiUrl.includes("deepseek.com")
-    ? "deepseek"
-    : apiUrl.includes("openai.com")
-      ? "openai"
-      : "openai-compatible";
+    ?? fallbackConfig.model;
+  const provider = resolveLLMProviderName(apiUrl);
 
   return {
-    apiKey,
+    apiKey: fallbackConfig.apiKey,
     apiUrl,
     model,
     provider
   };
 }
 
-function buildResult(candidate: ProviderCandidate | null, alternatives: HandwritingRecognitionAlternative[], reason?: string): HandwritingRecognitionResult {
+function hasVisiblePenStroke(strokes: HandwritingStroke[]) {
+  return strokes.some((stroke) => (stroke.tool ?? "pen") === "pen" && stroke.points.length > 0);
+}
+
+function buildResult(
+  candidate: ProviderCandidate | null,
+  alternatives: HandwritingRecognitionAlternative[],
+  reason?: string,
+  options: {
+    confidenceThreshold?: number;
+    forceReview?: boolean;
+  } = {}
+): HandwritingRecognitionResult {
   if (!candidate) {
     return {
       text: "",
@@ -198,7 +372,7 @@ function buildResult(candidate: ProviderCandidate | null, alternatives: Handwrit
     };
   }
 
-  const confidenceThreshold = readAcceptedConfidenceThreshold();
+  const confidenceThreshold = options.confidenceThreshold ?? readAcceptedConfidenceThreshold();
   const normalizedAlternatives = dedupeAlternatives([
     ...(candidate.text ? [{
       text: candidate.text,
@@ -209,7 +383,10 @@ function buildResult(candidate: ProviderCandidate | null, alternatives: Handwrit
     ...(candidate.alternatives ?? []),
     ...alternatives
   ]);
-  const accepted = Boolean(candidate.text) && candidate.confidence !== null && candidate.confidence >= confidenceThreshold;
+  const accepted = !options.forceReview
+    && Boolean(candidate.text)
+    && candidate.confidence !== null
+    && candidate.confidence >= confidenceThreshold;
 
   return {
     text: accepted ? candidate.text : "",
@@ -218,7 +395,7 @@ function buildResult(candidate: ProviderCandidate | null, alternatives: Handwrit
     provider: candidate.provider,
     alternatives: normalizedAlternatives,
     accepted,
-    ...(accepted ? {} : { reason: "Recognition confidence is below the review threshold." })
+    ...(accepted ? {} : { reason: reason ?? "Recognition confidence is below the review threshold." })
   };
 }
 
@@ -257,7 +434,11 @@ function extractCandidateText(value: unknown) {
     value.data
   ];
   const raw = candidates.find((candidate): candidate is string => typeof candidate === "string" && candidate.trim().length > 0) ?? "";
-  return normalizeHandwritingText(raw);
+  return normalizeProviderText(raw);
+}
+
+function normalizeProviderText(value: string) {
+  return normalizeOcrDecimalSeparators(normalizeHandwritingText(value));
 }
 
 function extractLatex(value: unknown) {
@@ -419,7 +600,7 @@ function normalizeSimpletexCandidate(value: unknown): ProviderCandidate | null {
   const latex = raw;
   if (!latex || isEmptyHandwritingRecognitionText(latex)) return null;
 
-  const text = normalizeHandwritingText(latex);
+  const text = normalizeProviderText(latex);
   if (!text || isEmptyHandwritingRecognitionText(text)) return null;
 
   const confidence = extractConfidence(value.res);
@@ -442,47 +623,104 @@ async function trySimpletexRecognition(imageDataUrl: string | undefined) {
   const image = await imageDataUrlToBlob(imageDataUrl);
   if (!config || !image) return null;
 
-  const controller = new AbortController();
-  const timeout = setTimeout(() => controller.abort(), Math.round(boundedNumber(
+  const timeoutMs = Math.round(boundedNumber(
     process.env.HANDWRITING_RECOGNITION_PROVIDER_TIMEOUT_MS,
     defaultProviderTimeoutMs,
     500,
     60000
-  )));
+  ));
+  const deadline = Date.now() + timeoutMs;
+  const maxAttempts = readSimpletexMaxAttempts();
+  const retryDelayMs = readSimpletexRetryDelayMs();
+  const host = providerHost(config.apiUrl);
 
-  try {
+  for (let attempt = 1; attempt <= maxAttempts; attempt += 1) {
+    const remainingMs = Math.max(1, deadline - Date.now());
+    const controller = new AbortController();
+    const timeout = setTimeout(() => controller.abort(), remainingMs);
+    const startedAt = Date.now();
     const formData = new FormData();
     const reqData = simpletexRequestFieldsFor(config.apiUrl);
     Object.entries(reqData).forEach(([key, value]) => formData.append(key, String(value)));
     formData.append("file", image.blob, image.fileName);
 
-    const response = await fetch(config.apiUrl, {
-      method: "POST",
-      headers: simpletexAuthHeaders(config, reqData),
-      body: formData,
-      signal: controller.signal
-    });
-
-    if (!response.ok) {
-      console.error("SimpleTex handwriting recognition failed", response.status, (await response.text()).slice(0, 500));
-      return null;
-    }
-
-    const data: unknown = await response.json();
-    const candidate = normalizeSimpletexCandidate(data);
-    if (!candidate) {
-      console.warn("SimpleTex handwriting recognition returned no normalized candidate", {
-        preprocessing: image.preprocessing,
-        diagnostics: simpletexResponseDiagnostics(data)
+    try {
+      const response = await fetch(config.apiUrl, {
+        method: "POST",
+        headers: simpletexAuthHeaders(config, reqData),
+        body: formData,
+        signal: controller.signal
       });
+
+      const elapsedMs = Date.now() - startedAt;
+      if (!response.ok) {
+        const bodySample = scrubProviderDiagnosticText(await response.text().catch(() => ""));
+        const retryableHttp = response.status === 429 || response.status >= 500;
+        if (retryableHttp && attempt < maxAttempts && Date.now() + retryDelayMs < deadline) {
+          console.warn("SimpleTex handwriting recognition retrying after HTTP failure", {
+            host,
+            status: response.status,
+            attempt,
+            maxAttempts,
+            elapsedMs,
+            bodySample
+          });
+          if (retryDelayMs > 0) await sleep(retryDelayMs);
+          continue;
+        }
+
+        console.error("SimpleTex handwriting recognition failed", {
+          host,
+          status: response.status,
+          attempt,
+          maxAttempts,
+          elapsedMs,
+          bodySample
+        });
+        return null;
+      }
+
+      const data: unknown = await response.json();
+      const candidate = normalizeSimpletexCandidate(data);
+      if (!candidate) {
+        console.warn("SimpleTex handwriting recognition returned no normalized candidate", {
+          host,
+          attempt,
+          maxAttempts,
+          elapsedMs,
+          preprocessing: image.preprocessing,
+          diagnostics: simpletexResponseDiagnostics(data)
+        });
+      }
+      return candidate;
+    } catch (error) {
+      const elapsedMs = Date.now() - startedAt;
+      if (isTransientProviderError(error) && attempt < maxAttempts && Date.now() + retryDelayMs < deadline) {
+        console.warn("SimpleTex handwriting recognition retrying after transient request failure", {
+          host,
+          attempt,
+          maxAttempts,
+          elapsedMs,
+          diagnostics: providerErrorDiagnostics(error)
+        });
+        if (retryDelayMs > 0) await sleep(retryDelayMs);
+        continue;
+      }
+
+      console.error("SimpleTex handwriting recognition request failed", {
+        host,
+        attempt,
+        maxAttempts,
+        elapsedMs,
+        diagnostics: providerErrorDiagnostics(error)
+      });
+      return null;
+    } finally {
+      clearTimeout(timeout);
     }
-    return candidate;
-  } catch (error) {
-    console.error("SimpleTex handwriting recognition request failed", error);
-    return null;
-  } finally {
-    clearTimeout(timeout);
   }
+
+  return null;
 }
 
 function extractMathpixAlternatives(value: unknown): HandwritingRecognitionAlternative[] {
@@ -571,7 +809,7 @@ function parseJsonObject(value: string) {
 
 function normalizeLLMCandidate(value: unknown): ProviderCandidate | null {
   if (!isRecord(value)) return null;
-  const text = typeof value.text === "string" ? normalizeHandwritingText(value.text) : "";
+  const text = typeof value.text === "string" ? normalizeProviderText(value.text) : "";
   const latex = typeof value.latex === "string" ? value.latex.trim() : undefined;
   const confidence = typeof value.confidence === "number" && Number.isFinite(value.confidence)
     ? Math.max(0, Math.min(1, value.confidence > 1 ? value.confidence / 100 : value.confidence))
@@ -582,9 +820,9 @@ function normalizeLLMCandidate(value: unknown): ProviderCandidate | null {
     ? value.alternatives
         .map((alternative) => {
           const alternativeText = isRecord(alternative) && typeof alternative.text === "string"
-            ? normalizeHandwritingText(alternative.text)
+            ? normalizeProviderText(alternative.text)
             : typeof alternative === "string"
-              ? normalizeHandwritingText(alternative)
+              ? normalizeProviderText(alternative)
               : "";
           return {
             text: alternativeText,
@@ -682,19 +920,6 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: "Log in before using handwriting recognition." }, { status: 401 });
   }
 
-  const rateLimit = checkRecognitionRateLimit(authenticated.user.id);
-  if (!rateLimit.allowed) {
-    return NextResponse.json(
-      { error: `Handwriting recognition rate limit reached. Try again in ${rateLimit.retryAfterSeconds} seconds.` },
-      {
-        status: 429,
-        headers: {
-          "Retry-After": String(rateLimit.retryAfterSeconds)
-        }
-      }
-    );
-  }
-
   let body: unknown;
   try {
     body = await request.json();
@@ -707,26 +932,117 @@ export async function POST(request: Request) {
   }
 
   const strokes = sanitizeHandwritingStrokes(body.strokes);
-  const imageDataUrl = readImageDataUrl(body.imageDataUrl);
+  const governedImage = await governedOcrImageDataUrl({
+    imageDataUrl: readImageDataUrl(body.imageDataUrl),
+    imageObject: body.imageObject,
+    user: authenticated.user
+  });
+  if (governedImage.response) return governedImage.response;
+  const imageDataUrl = governedImage.imageDataUrl;
+  const hasPenStroke = hasVisiblePenStroke(strokes);
+  if (strokes.length > 0 && !hasPenStroke) {
+    return NextResponse.json({ error: "Write with the pen before using handwriting recognition." }, { status: 400 });
+  }
   if (!strokes.length && !imageDataUrl) {
-    return NextResponse.json({ error: "Handwriting strokes or a canvas image are required." }, { status: 400 });
+    return NextResponse.json({ error: "Write with the pen before using handwriting recognition." }, { status: 400 });
+  }
+
+  let rateLimit: Awaited<ReturnType<typeof consumeAiCapabilityRateLimit>>;
+  try {
+    rateLimit = await consumeAiCapabilityRateLimit({
+      userId: authenticated.user.id,
+      capability: "ai-tutor-ocr",
+      rules: aiCapabilityRateLimitRulesFromEnv("ai-tutor-ocr")
+    });
+  } catch (error) {
+    console.error("Handwriting recognition governance rate-limit lookup failed", providerErrorDiagnostics(error));
+    return NextResponse.json(
+      { error: "Handwriting recognition governance is temporarily unavailable. Please try again." },
+      { status: 503 }
+    );
+  }
+  if (!rateLimit.allowed) {
+    return NextResponse.json(
+      { error: `Handwriting recognition rate limit reached. Try again in ${rateLimit.retryAfterSeconds} seconds.` },
+      {
+        status: 429,
+        headers: {
+          "Retry-After": String(rateLimit.retryAfterSeconds),
+          "RateLimit-Remaining": "0",
+          "RateLimit-Reset": String(Math.ceil(rateLimit.resetAt.getTime() / 1000))
+        }
+      }
+    );
   }
 
   const providerAlternatives: HandwritingRecognitionAlternative[] = [];
-  const localCandidate = strokes.length ? recognizeLocalNumericDraft(strokes) : null;
-  if (isConfidentHandwritingCandidate(localCandidate, readAcceptedConfidenceThreshold())) {
-    return NextResponse.json(buildResult(localCandidate, providerAlternatives));
+  const localCandidate = hasPenStroke ? recognizeLocalNumericDraft(strokes) : null;
+  if (isConfidentHandwritingCandidate(localCandidate, readLocalAutoAcceptConfidenceThreshold())) {
+    return NextResponse.json(buildResult(localCandidate, providerAlternatives, undefined, {
+      confidenceThreshold: readLocalAutoAcceptConfidenceThreshold()
+    }));
   }
   if (localCandidate) providerAlternatives.push(...localCandidate.alternatives);
 
   const simpletexCandidate = await trySimpletexRecognition(imageDataUrl);
   if (simpletexCandidate) {
-    return NextResponse.json(buildResult(simpletexCandidate, providerAlternatives));
+    const simpletexAutoAcceptConfidence = readSimpletexAutoAcceptConfidenceThreshold();
+    const simpletexAssessment = assessSimpletexRouting(simpletexCandidate, {
+      autoAcceptConfidence: simpletexAutoAcceptConfidence
+    });
+
+    if (simpletexAssessment.canAutoAccept) {
+      return NextResponse.json(buildResult(simpletexCandidate, providerAlternatives, undefined, {
+        confidenceThreshold: simpletexAutoAcceptConfidence
+      }));
+    }
+
+    const mathpixCandidate = simpletexAssessment.shouldUpgradeToMathpix && hasPenStroke
+      ? await tryMathpixRecognition(strokes)
+      : null;
+
+    const selected = selectRoutedHandwritingCandidate({
+      simpletex: simpletexCandidate,
+      mathpix: mathpixCandidate,
+      simpletexAssessment,
+      simpletexAutoAcceptConfidence,
+      mathpixAutoAcceptConfidence: readMathpixAutoAcceptConfidenceThreshold()
+    });
+    const routedAlternatives = [
+      ...providerAlternatives,
+      ...(simpletexCandidate.alternatives ?? [{
+        text: simpletexCandidate.text,
+        latex: simpletexCandidate.latex,
+        confidence: simpletexCandidate.confidence,
+        provider: simpletexCandidate.provider
+      }]),
+      ...(mathpixCandidate?.alternatives ?? []),
+      ...(mathpixCandidate ? [{
+        text: mathpixCandidate.text,
+        latex: mathpixCandidate.latex,
+        confidence: mathpixCandidate.confidence,
+        provider: mathpixCandidate.provider
+      }] : [])
+    ];
+
+    return NextResponse.json(buildResult(
+      selected.candidate,
+      routedAlternatives,
+      selected.reason,
+      {
+        confidenceThreshold: selected.candidate.provider === "mathpix"
+          ? readMathpixAutoAcceptConfidenceThreshold()
+          : simpletexAutoAcceptConfidence,
+        forceReview: selected.forceReview
+      }
+    ));
   }
 
-  const mathpixCandidate = strokes.length ? await tryMathpixRecognition(strokes) : null;
+  const mathpixCandidate = hasPenStroke ? await tryMathpixRecognition(strokes) : null;
   if (mathpixCandidate) {
-    return NextResponse.json(buildResult(mathpixCandidate, providerAlternatives));
+    return NextResponse.json(buildResult(mathpixCandidate, providerAlternatives, undefined, {
+      confidenceThreshold: readMathpixAutoAcceptConfidenceThreshold()
+    }));
   }
 
   const llmCandidate = await tryLLMRecognition(imageDataUrl);

@@ -1,6 +1,11 @@
 import { NextResponse } from "next/server";
 import { requireAuthenticatedUser } from "@/lib/server/auth";
-import { changeAuthenticatedUserPassword } from "@/lib/server/userStore";
+import {
+  authRateLimitRules,
+  consumeAuthRateLimit,
+  withAuthRouteJsonBoundary
+} from "@/lib/server/authRouteGuards";
+import { changeAuthenticatedUserPassword } from "@/lib/server/userStore/auth";
 
 export const runtime = "nodejs";
 
@@ -9,6 +14,10 @@ function isRecord(value: unknown): value is Record<string, unknown> {
 }
 
 export async function POST(request: Request) {
+  return withAuthRouteJsonBoundary("auth-password-change", () => handlePasswordChange(request));
+}
+
+async function handlePasswordChange(request: Request) {
   const authenticated = await requireAuthenticatedUser(request);
   if (!authenticated) return NextResponse.json({ error: "Not authenticated." }, { status: 401 });
 
@@ -19,6 +28,21 @@ export async function POST(request: Request) {
 
   const currentPassword = typeof body.currentPassword === "string" ? body.currentPassword : "";
   const password = typeof body.password === "string" ? body.password : "";
+  const ipRateLimit = consumeAuthRateLimit({
+    request,
+    scope: "password-change-ip",
+    rule: authRateLimitRules.passwordChangeIp
+  });
+  if (ipRateLimit) return ipRateLimit;
+
+  const userRateLimit = consumeAuthRateLimit({
+    request,
+    scope: "password-change-user",
+    subject: authenticated.user.id,
+    rule: authRateLimitRules.passwordChangeUser
+  });
+  if (userRateLimit) return userRateLimit;
+
   const result = await changeAuthenticatedUserPassword({
     userId: authenticated.user.id,
     currentPassword,
@@ -31,4 +55,3 @@ export async function POST(request: Request) {
 
   return NextResponse.json(result.session);
 }
-

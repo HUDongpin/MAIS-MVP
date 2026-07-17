@@ -1,5 +1,5 @@
 import { SESSION_COOKIE_NAME, verifySessionToken } from "@/lib/session";
-import { getAuthenticatedUserById } from "@/lib/server/userStore";
+import { getAuthenticatedUserById } from "@/lib/server/userStore/auth";
 import type { StudentSession } from "@/types";
 
 function readCookie(header: string | null, name: string) {

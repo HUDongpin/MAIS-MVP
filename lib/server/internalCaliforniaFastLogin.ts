@@ -3,10 +3,13 @@ import type {
   CurriculumTrack,
   GradeId,
   Language,
+  LessonEntryTarget,
   StudentAvatarId,
   StudentSession,
+  TeacherClass,
   ThemeMode
 } from "@/types";
+import { publicLessonEntryTargetForGrade } from "@/components/lesson/lessonEntryTarget";
 
 type InternalCaliforniaFastLoginInput = {
   username: string;
@@ -25,7 +28,12 @@ type InternalCaliforniaFastLoginSession = {
     theme: ThemeMode;
     selectedGrade: GradeId;
   };
-  lessonEntryTarget: null;
+  lessonEntryTarget: LessonEntryTarget | null;
+};
+
+type InternalFastNoClassTeacherShell = {
+  teacher: StudentSession;
+  classes: TeacherClass[];
 };
 
 type InternalCaliforniaFastLoginResult =
@@ -143,6 +151,7 @@ const internalCaliforniaSeeds: InternalCaliforniaSeed[] = [
     avatarId: "sigma"
   }
 ];
+const internalFastNoClassTeacherIds = new Set(["teacher-scott-us"]);
 
 function normalizeIdentifier(value: string) {
   return value.trim().toLowerCase();
@@ -219,6 +228,11 @@ function requestedTheme(value: unknown, fallback: ThemeMode) {
   return typeof value === "string" && validThemes.has(value as ThemeMode) ? (value as ThemeMode) : fallback;
 }
 
+function lessonEntryTargetForSeed(seed: InternalCaliforniaSeed, grade: GradeId): LessonEntryTarget | null {
+  if (seed.role !== "student" || seed.curriculumTrack !== californiaTrack) return null;
+  return publicLessonEntryTargetForGrade(grade, seed.curriculumProfile);
+}
+
 function buildSeedSession(seed: InternalCaliforniaSeed, settings: { language: Language; theme: ThemeMode; selectedGrade: GradeId }): InternalCaliforniaFastLoginSession {
   return {
     user: {
@@ -234,8 +248,30 @@ function buildSeedSession(seed: InternalCaliforniaSeed, settings: { language: La
       role: seed.role
     },
     settings,
-    lessonEntryTarget: null
+    lessonEntryTarget: lessonEntryTargetForSeed(seed, settings.selectedGrade)
   };
+}
+
+function seedByUserId(userId: string) {
+  return internalCaliforniaSeeds.find((seed) => seed.id === userId) ?? null;
+}
+
+export function getInternalFastNoClassTeacherSessionByUserId(userId: string): InternalCaliforniaFastLoginSession | null {
+  if (!internalFastNoClassTeacherIds.has(userId)) return null;
+
+  const seed = seedByUserId(userId);
+  if (!seed || seed.role !== "teacher") return null;
+
+  return buildSeedSession(seed, {
+    language: seed.language,
+    theme: "dark",
+    selectedGrade: seed.grade
+  });
+}
+
+export function getInternalFastNoClassTeacherShellByUserId(userId: string): InternalFastNoClassTeacherShell | null {
+  const session = getInternalFastNoClassTeacherSessionByUserId(userId);
+  return session ? { teacher: session.user, classes: [] } : null;
 }
 
 export async function authenticateInternalCaliforniaFastLogin({

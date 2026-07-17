@@ -1,8 +1,11 @@
 import { NextResponse } from "next/server";
 import { requireParentUser } from "@/lib/server/auth";
+import { consumeInMemoryRateLimit } from "@/lib/server/rateLimit";
 import { replyToParentMessageThread } from "@/lib/server/userStore";
 
 export const runtime = "nodejs";
+
+const replyRateLimit = { max: 30, windowMs: 60_000 };
 
 function isRecord(value: unknown): value is Record<string, unknown> {
   return typeof value === "object" && value !== null;
@@ -11,6 +14,14 @@ function isRecord(value: unknown): value is Record<string, unknown> {
 export async function POST(request: Request, { params }: { params: Promise<{ threadId: string }> }) {
   const authenticated = await requireParentUser(request);
   if (!authenticated) return NextResponse.json({ error: "Parent access required." }, { status: 403 });
+
+  const rateLimit = consumeInMemoryRateLimit(`parent-message:reply:${authenticated.user.id}`, replyRateLimit);
+  if (!rateLimit.allowed) {
+    return NextResponse.json(
+      { error: "Too many parent replies. Please wait before trying again." },
+      { status: 429, headers: { "Retry-After": String(rateLimit.retryAfterSeconds) } }
+    );
+  }
 
   let body: unknown;
   try {
@@ -28,6 +39,6 @@ export async function POST(request: Request, { params }: { params: Promise<{ thr
   });
 
   if (result.status === "sent") return NextResponse.json({ thread: result.thread });
-  const status = result.status === "forbidden" ? 403 : result.status === "not-found" ? 404 : 400;
-  return NextResponse.json({ error: "Could not send parent reply." }, { status });
+  const status = result.status === "forbidden" ? 403 : result.status === "not-found" ? 404 : result.status === "too-long" ? 413 : 400;
+  return NextResponse.json({ error: result.status === "too-long" ? "Parent reply is too long." : "Could not send parent reply." }, { status });
 }

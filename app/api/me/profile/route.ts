@@ -1,6 +1,12 @@
 import { NextResponse } from "next/server";
 import { requireAuthenticatedUser } from "@/lib/server/auth";
-import { updateUserProfile } from "@/lib/server/userStore";
+import { recordAiGovernanceEvent, updateUserProfile } from "@/lib/server/userStore";
+import { evaluateMediaStoragePolicy, imageDataUrlMediaDescriptor, mediaStoragePolicyFromEnv } from "@/lib/server/aiGovernance";
+import {
+  mediaObjectReferenceFromUnknown,
+  readStoredMediaObject,
+  type StoredMediaObjectReference
+} from "@/lib/server/mediaObjectStore";
 import type { StudentAvatarId } from "@/types";
 
 export const runtime = "nodejs";
@@ -21,6 +27,13 @@ function isValidAvatarImageDataUrl(value: unknown): value is string {
   );
 }
 
+function statusForMediaObjectRead(status: "not-found" | "forbidden" | "expired" | "rejected") {
+  if (status === "forbidden") return 403;
+  if (status === "expired") return 410;
+  if (status === "rejected") return 503;
+  return 404;
+}
+
 export async function PATCH(request: Request) {
   const authenticated = await requireAuthenticatedUser(request);
   if (!authenticated) {
@@ -38,7 +51,12 @@ export async function PATCH(request: Request) {
     return NextResponse.json({ error: "Request body must be an object." }, { status: 400 });
   }
 
-  const patch: Partial<{ name: string; avatarId: StudentAvatarId; avatarImageDataUrl: string | null }> = {};
+  const patch: Partial<{
+    name: string;
+    avatarId: StudentAvatarId;
+    avatarImageDataUrl: string | null;
+    avatarImageObject: StoredMediaObjectReference | null;
+  }> = {};
 
   if ("name" in body) {
     if (typeof body.name !== "string") {
@@ -58,9 +76,94 @@ export async function PATCH(request: Request) {
     if (body.avatarImageDataUrl === null || body.avatarImageDataUrl === "") {
       patch.avatarImageDataUrl = null;
     } else if (isValidAvatarImageDataUrl(body.avatarImageDataUrl)) {
+      const media = imageDataUrlMediaDescriptor(body.avatarImageDataUrl);
+      const storageDecision = media
+        ? evaluateMediaStoragePolicy({
+            policy: mediaStoragePolicyFromEnv(),
+            capability: "profile-avatar",
+            media
+          })
+        : null;
+      if (!storageDecision?.allowed) {
+        await recordAiGovernanceEvent({
+          userId: authenticated.user.id,
+          capability: "profile-avatar",
+          action: "media-policy-blocked",
+          reason: storageDecision?.code ?? "media-object-reference-invalid",
+          metadata: {
+            code: storageDecision?.code ?? "media-object-reference-invalid"
+          }
+        }).catch((error) => {
+          console.error("Avatar media governance event recording failed", error instanceof Error ? error.name : typeof error);
+        });
+        return NextResponse.json(
+          {
+            code: storageDecision?.code ?? "media-object-reference-invalid",
+            error: storageDecision?.message ?? "Avatar image storage policy could not validate this upload."
+          },
+          { status: storageDecision?.code === "object-storage-required" ? 409 : 400 }
+        );
+      }
       patch.avatarImageDataUrl = body.avatarImageDataUrl;
     } else {
       return NextResponse.json({ error: "Avatar image is invalid or too large." }, { status: 400 });
+    }
+  }
+
+  if ("avatarImageObject" in body) {
+    if (body.avatarImageObject === null || body.avatarImageObject === "") {
+      patch.avatarImageObject = null;
+    } else {
+      const media = mediaObjectReferenceFromUnknown(body.avatarImageObject);
+      if (!media || !media.objectKey.startsWith("profile-avatar/")) {
+        return NextResponse.json({ error: "Avatar image object reference is invalid." }, { status: 400 });
+      }
+
+      const storageDecision = evaluateMediaStoragePolicy({
+        policy: mediaStoragePolicyFromEnv(),
+        capability: "profile-avatar",
+        media
+      });
+      if (!storageDecision.allowed) {
+        await recordAiGovernanceEvent({
+          userId: authenticated.user.id,
+          capability: "profile-avatar",
+          action: "media-policy-blocked",
+          reason: storageDecision.code,
+          metadata: { code: storageDecision.code }
+        }).catch((error) => {
+          console.error("Avatar object governance event recording failed", error instanceof Error ? error.name : typeof error);
+        });
+        return NextResponse.json(
+          { code: storageDecision.code, error: storageDecision.message },
+          { status: 400 }
+        );
+      }
+
+      const stored = await readStoredMediaObject({
+        objectKey: media.objectKey,
+        requester: {
+          id: authenticated.user.id,
+          role: authenticated.user.role
+        }
+      });
+      if (stored.status !== "ok") {
+        await recordAiGovernanceEvent({
+          userId: authenticated.user.id,
+          capability: "profile-avatar",
+          action: "media-policy-blocked",
+          reason: stored.code,
+          metadata: { code: stored.code }
+        }).catch((error) => {
+          console.error("Avatar object read governance event recording failed", error instanceof Error ? error.name : typeof error);
+        });
+        return NextResponse.json(
+          { code: stored.code, error: stored.message },
+          { status: statusForMediaObjectRead(stored.status) }
+        );
+      }
+
+      patch.avatarImageObject = media;
     }
   }
 

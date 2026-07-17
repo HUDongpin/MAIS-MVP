@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import { isValidLearningAnalyticsEvent } from "@/lib/learningAnalytics";
 import { requireAuthenticatedUser } from "@/lib/server/auth";
-import { markVisualizationSession } from "@/lib/server/userStore";
+import { listVisualizationSessionsForUser, markVisualizationSession } from "@/lib/server/userStore";
 import type { LearningAnalyticsEvent } from "@/types";
 
 export const runtime = "nodejs";
@@ -15,6 +15,24 @@ function isVisualizationSource(value: unknown): value is LearningAnalyticsEvent[
     grade: "S3",
     topicId: "validation"
   });
+}
+
+function serializeVisualizationSession(session: {
+  module_id: string;
+  topic_id: string;
+  source: LearningAnalyticsEvent["source"];
+  explored: boolean;
+  completed_at: string | null;
+  updated_at: string | null;
+}) {
+  return {
+    moduleId: session.module_id,
+    topicId: session.topic_id,
+    source: session.source,
+    explored: session.explored,
+    completedAt: session.completed_at,
+    updatedAt: session.updated_at
+  };
 }
 
 export async function POST(request: Request) {
@@ -46,5 +64,15 @@ export async function POST(request: Request) {
     source: record.source
   });
 
-  return NextResponse.json({ session });
+  return NextResponse.json({ session: serializeVisualizationSession(session) });
+}
+
+export async function GET(request: Request) {
+  const authenticated = await requireAuthenticatedUser(request);
+  if (!authenticated) {
+    return NextResponse.json({ error: "Not authenticated." }, { status: 401 });
+  }
+
+  const sessions = await listVisualizationSessionsForUser(authenticated.user.id);
+  return NextResponse.json({ sessions });
 }

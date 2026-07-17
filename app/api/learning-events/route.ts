@@ -1,6 +1,8 @@
 import { NextResponse } from "next/server";
 import { isValidLearningAnalyticsEventLog, maxStoredLearningAnalyticsEvents } from "@/lib/learningAnalytics";
 import { requireAuthenticatedUser } from "@/lib/server/auth";
+import { emitLearningEventsToLrs } from "@/lib/server/lrsClient";
+import { appendLearningEventsFast, clearLearningEventsFast, learningEventFastPathPersistsRows } from "@/lib/server/practiceAttemptStore";
 import { appendLearningEvents, clearLearningEventsForUser } from "@/lib/server/userStore";
 
 export const runtime = "nodejs";
@@ -8,6 +10,10 @@ export const runtime = "nodejs";
 export async function POST(request: Request) {
   const authenticated = await requireAuthenticatedUser(request);
   if (!authenticated) {
+    return NextResponse.json({ accepted: 0, ignored: true }, { status: 202 });
+  }
+
+  if (authenticated.user.role !== "student") {
     return NextResponse.json({ accepted: 0, ignored: true }, { status: 202 });
   }
 
@@ -23,12 +29,23 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: "Expected a valid learning analytics event batch." }, { status: 400 });
   }
 
-  const accepted = await appendLearningEvents(
-    authenticated.user.id,
-    events.slice(-Math.min(maxStoredLearningAnalyticsEvents, 200))
-  );
+  const eventBatch = events.slice(-Math.min(maxStoredLearningAnalyticsEvents, 200));
+  const accepted = learningEventFastPathPersistsRows()
+    ? await appendLearningEventsFast(authenticated.user.id, eventBatch) ?? 0
+    : await appendLearningEvents(authenticated.user.id, eventBatch);
+  scheduleLearningEventsLrsDelivery({
+    userId: authenticated.user.id,
+    curriculumTrack: authenticated.user.curriculumTrack,
+    events: eventBatch
+  });
 
   return NextResponse.json({ accepted });
+}
+
+function scheduleLearningEventsLrsDelivery(input: Parameters<typeof emitLearningEventsToLrs>[0]) {
+  void emitLearningEventsToLrs(input).catch(() => {
+    // Optional LRS delivery must not delay or fail the local learning-event write.
+  });
 }
 
 export async function DELETE(request: Request) {
@@ -36,7 +53,16 @@ export async function DELETE(request: Request) {
   if (!authenticated) {
     return NextResponse.json({ error: "Not authenticated." }, { status: 401 });
   }
+  if (authenticated.user.role !== "student") {
+    return NextResponse.json({
+      error: "Student access required.",
+      reason: "student-only"
+    }, { status: 403 });
+  }
 
+  if (learningEventFastPathPersistsRows()) {
+    await clearLearningEventsFast(authenticated.user.id);
+  }
   await clearLearningEventsForUser(authenticated.user.id);
   return NextResponse.json({ ok: true });
 }
