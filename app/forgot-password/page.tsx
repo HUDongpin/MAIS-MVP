@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { FormEvent, useState } from "react";
-import { dictionary, useSettings } from "@/components/providers/AppProviders";
+import { useSettings } from "@/components/providers/AppProviders";
 
 const forgotPasswordCopy = {
   eyebrow: { en: "Account recovery", zh: "帳戶協助" },
@@ -134,10 +134,7 @@ export default function ForgotPasswordPage() {
         </section>
 
         <aside className="glass-panel p-6">
-          <p className="text-sm font-bold uppercase tracking-[0.22em] text-cyan-500 dark:text-cyan-300">
-            {t(dictionary.common.siteName)}
-          </p>
-          <h2 className="mt-3 text-2xl font-black text-slate-950 dark:text-white">{t(forgotPasswordCopy.nextStepsTitle)}</h2>
+          <h2 className="text-2xl font-black text-slate-950 dark:text-white">{t(forgotPasswordCopy.nextStepsTitle)}</h2>
           <ol className="mt-5 grid gap-3">
             {forgotPasswordCopy.nextSteps.map((step, index) => (
               <li key={step.en} className="flex gap-3 rounded-2xl border border-slate-200/70 bg-white/60 p-3 text-sm font-semibold text-slate-700 dark:border-white/10 dark:bg-white/[0.06] dark:text-slate-200">

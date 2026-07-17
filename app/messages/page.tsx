@@ -34,6 +34,7 @@ export default function StudentMessagesPage() {
     if (!data) return null;
     return data.threads.find((thread) => thread.id === selectedThreadId) ?? data.selectedThread;
   }, [data, selectedThreadId]);
+  const hasReceiverClass = Boolean(data?.classes.length);
 
   async function loadMessages(threadId = selectedThreadId) {
     const query = threadId ? `?thread=${encodeURIComponent(threadId)}` : "";
@@ -43,7 +44,12 @@ export default function StudentMessagesPage() {
     setData(nextData);
     const nextThread = nextData?.selectedThread?.id ?? "";
     setSelectedThreadId(threadId || nextThread);
-    setClassId((current) => current || nextData?.classes[0]?.id || "");
+    setClassId((current) => {
+      const classes = nextData?.classes ?? [];
+      return current && classes.some((item) => item.id === current)
+        ? current
+        : classes[0]?.id ?? "";
+    });
   }
 
   useEffect(() => {
@@ -55,6 +61,10 @@ export default function StudentMessagesPage() {
   async function createThread(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     setMessage("");
+    if (!classId) {
+      setMessage(t({ en: "Join a class before messaging a teacher.", zh: "請先加入班級，才可向老師發送私信。" }));
+      return;
+    }
     const response = await fetch("/api/messages", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -146,16 +156,29 @@ export default function StudentMessagesPage() {
         <aside className="glass-panel p-4">
           <h2 className="text-xl font-black text-slate-950 dark:text-white">{t({ en: "New message", zh: "新訊息" })}</h2>
           <form onSubmit={createThread} className="mt-4 grid gap-3">
-            <select value={classId} onChange={(event) => setClassId(event.target.value)} className="focus-ring rounded-2xl border border-slate-200/80 bg-white/80 px-3 py-2 text-sm font-bold dark:border-white/10 dark:bg-white/[0.06]">
-              {data?.classes.map((item) => <option key={item.id} value={item.id}>{item.name}</option>)}
+            <select
+              aria-label={t({ en: "Message receiver", zh: "訊息收件人" })}
+              value={classId}
+              onChange={(event) => setClassId(event.target.value)}
+              disabled={!data || !hasReceiverClass}
+              className="focus-ring min-h-12 rounded-2xl border border-slate-200/80 bg-white/80 px-3 py-2 text-sm font-bold disabled:cursor-not-allowed disabled:opacity-60 dark:border-white/10 dark:bg-white/[0.06]"
+            >
+              {hasReceiverClass
+                ? data?.classes.map((item) => <option key={item.id} value={item.id}>{item.name}</option>)
+                : <option value="">{data ? t({ en: "No teacher linked", zh: "尚未連結老師" }) : t({ en: "Loading receivers...", zh: "正在載入收件人..." })}</option>}
             </select>
+            {data && !hasReceiverClass ? (
+              <p className="text-xs font-bold leading-5 text-slate-500 dark:text-slate-400">
+                {t({ en: "Join a class before messaging a teacher.", zh: "請先加入班級，才可向老師發送私信。" })}
+              </p>
+            ) : null}
             <select value={assignmentId} onChange={(event) => setAssignmentId(event.target.value)} className="focus-ring rounded-2xl border border-slate-200/80 bg-white/80 px-3 py-2 text-sm font-bold dark:border-white/10 dark:bg-white/[0.06]">
               <option value="">{t({ en: "No assignment", zh: "不指定作業" })}</option>
               {data?.assignments.map((item) => <option key={item.assignment.id} value={item.assignment.id}>{text(item.assignment.title)}</option>)}
             </select>
             <input value={subject} onChange={(event) => setSubject(event.target.value)} required placeholder={t({ en: "Subject", zh: "主題" })} className="focus-ring rounded-2xl border border-slate-200/80 bg-white/80 px-4 py-3 text-sm font-semibold dark:border-white/10 dark:bg-white/[0.06]" />
             <textarea value={body} onChange={(event) => setBody(event.target.value)} required rows={5} placeholder={t({ en: "What would you like help with?", zh: "你想請教甚麼？" })} className="focus-ring rounded-2xl border border-slate-200/80 bg-white/80 px-4 py-3 text-sm dark:border-white/10 dark:bg-white/[0.06]" />
-            <button className="focus-ring rounded-full bg-slate-950 px-5 py-3 text-sm font-black text-white dark:bg-white dark:text-slate-950">
+            <button disabled={!classId} className="focus-ring rounded-full bg-slate-950 px-5 py-3 text-sm font-black text-white disabled:cursor-not-allowed disabled:opacity-60 dark:bg-white dark:text-slate-950">
               {t({ en: "Send message", zh: "發送訊息" })}
             </button>
           </form>

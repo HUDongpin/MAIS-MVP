@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { FormEvent, useEffect, useState } from "react";
 import { dictionary, useSettings } from "@/components/providers/AppProviders";
+import { PasswordInputWithReveal } from "@/components/ui/PasswordInputWithReveal";
 import type { StudentSession } from "@/types";
 
 const resetPasswordCopy = {
@@ -36,7 +37,7 @@ const resetPasswordCopy = {
 } as const;
 
 function workspaceForRole(role?: StudentSession["role"]) {
-  if (role === "teacher" || role === "admin") return "/teacher";
+  if (role === "teacher" || role === "admin") return "/teacher/dashboard";
   if (role === "parent") return "/parent";
   return "/dashboard";
 }
@@ -106,26 +107,28 @@ export default function ResetPasswordPage() {
             <div className="grid gap-4 sm:grid-cols-2">
               <label className="grid gap-2">
                 <span className="text-sm font-bold text-slate-700 dark:text-slate-200">{t(resetPasswordCopy.password)}</span>
-                <input
+                <PasswordInputWithReveal
                   value={password}
                   onChange={(event) => setPassword(event.target.value)}
-                  type="password"
                   autoComplete="new-password"
                   required
                   minLength={5}
+                  showLabel={t({ en: "Show new password", zh: "顯示新密碼", zhHans: "显示新密码" })}
+                  hideLabel={t({ en: "Hide new password", zh: "隱藏新密碼", zhHans: "隐藏新密码" })}
                   className="focus-ring rounded-2xl border border-slate-200/80 bg-white/80 px-4 py-3 font-semibold text-slate-950 shadow-sm outline-none transition placeholder:text-slate-400 dark:border-white/10 dark:bg-white/[0.06] dark:text-white"
                 />
               </label>
 
               <label className="grid gap-2">
                 <span className="text-sm font-bold text-slate-700 dark:text-slate-200">{t(resetPasswordCopy.confirmPassword)}</span>
-                <input
+                <PasswordInputWithReveal
                   value={confirmPassword}
                   onChange={(event) => setConfirmPassword(event.target.value)}
-                  type="password"
                   autoComplete="new-password"
                   required
                   minLength={5}
+                  showLabel={t({ en: "Show confirm new password", zh: "顯示確認新密碼", zhHans: "显示确认新密码" })}
+                  hideLabel={t({ en: "Hide confirm new password", zh: "隱藏確認新密碼", zhHans: "隐藏确认新密码" })}
                   className="focus-ring rounded-2xl border border-slate-200/80 bg-white/80 px-4 py-3 font-semibold text-slate-950 shadow-sm outline-none transition placeholder:text-slate-400 dark:border-white/10 dark:bg-white/[0.06] dark:text-white"
                 />
               </label>

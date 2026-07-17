@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { dictionary, useSettings } from "@/components/providers/AppProviders";
+import { studentRoadmapPath } from "@/lib/roadmapRoutes";
 
 export default function NotFound() {
   const { t } = useSettings();
@@ -22,7 +23,7 @@ export default function NotFound() {
           })}
         </p>
         <Link
-          href="/learning-path"
+          href={studentRoadmapPath}
           className="focus-ring mt-8 inline-flex rounded-full bg-slate-950 px-5 py-3 text-sm font-black text-white transition hover:-translate-y-0.5 dark:bg-white dark:text-slate-950"
         >
           {t(dictionary.nav.learningPath)}
