@@ -1,0 +1,124 @@
+{
+  "version": 1,
+  "source": {
+    "status": "local-vector-rebuild",
+    "figmaFrameName": "Practice Mission Export",
+    "figmaPluginStatus": "Figma MCP tools were not exposed in this Codex session, so these assets are a local layered reconstruction. Replace the PNG files with direct Figma exports when a source file/tool connection is available.",
+    "notes": "The coordinate contract mirrors the screenshot-2 layout and can be used by React for dynamic labels, numbers, and progress."
+  },
+  "card": {
+    "referenceViewport": {
+      "width": 1600,
+      "height": 1019
+    },
+    "width": 1496,
+    "height": 918
+  },
+  "map": {
+    "coordinateSpace": {
+      "width": 1440,
+      "height": 410
+    },
+    "displayFrameInCard": {
+      "x": 40,
+      "y": 329,
+      "width": 1416,
+      "height": 410
+    },
+    "assets": {
+      "mapBaseSvg": "/practice/adaptive-mission/map-base.svg",
+      "mapBase2x": "/practice/adaptive-mission/map-base@2x.png",
+      "mapBase3x": "/practice/adaptive-mission/map-base@3x.png",
+      "startPadSvg": "/practice/adaptive-mission/start-pad.svg",
+      "startPad2x": "/practice/adaptive-mission/start-pad@2x.png",
+      "finishPadSvg": "/practice/adaptive-mission/finish-pad.svg",
+      "finishPad2x": "/practice/adaptive-mission/finish-pad@2x.png",
+      "checkpointActiveShellSvg": "/practice/adaptive-mission/checkpoint-active-shell.svg",
+      "checkpointActiveShell2x": "/practice/adaptive-mission/checkpoint-active-shell@2x.png",
+      "checkpointLockedShellSvg": "/practice/adaptive-mission/checkpoint-locked-shell.svg",
+      "checkpointLockedShell2x": "/practice/adaptive-mission/checkpoint-locked-shell@2x.png"
+    }
+  },
+  "anchors": {
+    "startCenter": {
+      "x": 114,
+      "y": 238
+    },
+    "finishCenter": {
+      "x": 1326,
+      "y": 228
+    },
+    "checkpointCenters": [
+      {
+        "index": 1,
+        "x": 278,
+        "y": 221
+      },
+      {
+        "index": 2,
+        "x": 492,
+        "y": 209
+      },
+      {
+        "index": 3,
+        "x": 700,
+        "y": 203
+      },
+      {
+        "index": 4,
+        "x": 904,
+        "y": 205
+      },
+      {
+        "index": 5,
+        "x": 1099,
+        "y": 201
+      }
+    ],
+    "progressDialInCard": {
+      "centerX": 1312,
+      "centerY": 151,
+      "diameter": 272
+    }
+  },
+  "icons": {
+    "target": "/practice/adaptive-mission/icon-target.svg",
+    "lock": "/practice/adaptive-mission/icon-lock.svg",
+    "difficulty": "/practice/adaptive-mission/icon-difficulty.svg",
+    "questionType": "/practice/adaptive-mission/icon-question-type.svg",
+    "aiSparkle": "/practice/adaptive-mission/icon-ai-sparkle.svg",
+    "progressDialBase": "/practice/adaptive-mission/progress-dial-base.svg"
+  },
+  "exports": {
+    "map-base@2x.png": {
+      "width": 2880,
+      "height": 820,
+      "source": "map-base.svg"
+    },
+    "map-base@3x.png": {
+      "width": 4320,
+      "height": 1230,
+      "source": "map-base.svg"
+    },
+    "start-pad@2x.png": {
+      "width": 480,
+      "height": 480,
+      "source": "start-pad.svg"
+    },
+    "finish-pad@2x.png": {
+      "width": 520,
+      "height": 520,
+      "source": "finish-pad.svg"
+    },
+    "checkpoint-active-shell@2x.png": {
+      "width": 320,
+      "height": 380,
+      "source": "checkpoint-active-shell.svg"
+    },
+    "checkpoint-locked-shell@2x.png": {
+      "width": 320,
+      "height": 380,
+      "source": "checkpoint-locked-shell.svg"
+    }
+  }
+}
