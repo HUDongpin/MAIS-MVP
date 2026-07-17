@@ -15,6 +15,7 @@ import {
 const DEFAULT_CANONICAL_ROOT = "/Users/dongpinhu/Desktop/MAIS-MVP";
 const DEFAULT_SNAPSHOT_REF = "c0ec06760";
 const FILE_HASH_CHUNK_BYTES = 1024 * 1024;
+const PUBLICATION_VERIFIER = Symbol("publicationVerifier");
 
 function compareUtf8(left, right) {
   return Buffer.compare(Buffer.from(left), Buffer.from(right));
@@ -624,7 +625,10 @@ function normalizedTopology(worktrees) {
     branch: entry.branch,
     head: entry.head,
     detached: entry.detached === true,
-    prunable: entry.prunable === true
+    prunable: entry.prunable === true,
+    locked: entry.locked === true,
+    lockReasonPresent: entry.lockReasonPresent === true,
+    lockReasonSha256: entry.lockReasonSha256 ?? null
   })).sort((left, right) => compareUtf8(left.path, right.path));
 }
 
@@ -650,6 +654,89 @@ function assertDistinctWorktreeRealPaths(worktrees) {
     }
     seen.set(realPath, worktree.path);
   }
+}
+
+function parseDirectWorktreeTopology(buffer) {
+  if (!Buffer.isBuffer(buffer) || buffer.length === 0 || buffer.at(-1) !== 0) {
+    throw new Error("direct worktree topology must be a nonempty NUL-delimited buffer");
+  }
+  const fields = [];
+  let start = 0;
+  for (let index = 0; index < buffer.length; index += 1) {
+    if (buffer[index] !== 0) continue;
+    const rawField = buffer.subarray(start, index);
+    if (!isUtf8(rawField)) throw new Error("direct worktree topology contains non-UTF-8 metadata");
+    fields.push(rawField.toString("utf8"));
+    start = index + 1;
+  }
+  const blocks = [];
+  let block = [];
+  for (const field of fields) {
+    if (field === "") {
+      if (block.length > 0) blocks.push(block);
+      block = [];
+    } else {
+      block.push(field);
+    }
+  }
+  if (block.length > 0) blocks.push(block);
+  return blocks.map((blockFields) => {
+    const entry = {
+      path: "",
+      branch: "",
+      head: "",
+      detached: false,
+      prunable: false,
+      locked: false,
+      lockReasonPresent: false,
+      lockReasonSha256: null
+    };
+    for (const field of blockFields) {
+      if (field.startsWith("worktree ")) entry.path = field.slice(9);
+      else if (field.startsWith("HEAD ")) entry.head = field.slice(5);
+      else if (field.startsWith("branch refs/heads/")) entry.branch = field.slice(18);
+      else if (field === "detached") entry.detached = true;
+      else if (field === "prunable" || field.startsWith("prunable ")) entry.prunable = true;
+      else if (field === "locked" || field.startsWith("locked ")) {
+        if (entry.locked) throw new Error("direct worktree topology contains duplicate lock metadata");
+        entry.locked = true;
+        const reason = field === "locked" ? "" : field.slice(7);
+        entry.lockReasonPresent = reason.length > 0;
+        entry.lockReasonSha256 = reason.length > 0 ? sha256Buffer(Buffer.from(reason)) : null;
+      }
+    }
+    if (!entry.branch && entry.detached) entry.branch = "(detached)";
+    if (!entry.path || !entry.head) throw new Error("direct worktree topology entry is incomplete");
+    return entry;
+  });
+}
+
+function listWorktreeTopology(repoRoot) {
+  const libraryInventory = listWorktrees(repoRoot);
+  const directInventory = parseDirectWorktreeTopology(gitBuffer(
+    repoRoot,
+    ["worktree", "list", "--porcelain", "-z"]
+  ));
+  const directByPath = new Map(directInventory.map((entry) => [entry.path, entry]));
+  if (directByPath.size !== directInventory.length || directInventory.length !== libraryInventory.length) {
+    throw new Error("library and direct worktree topology inventories differ");
+  }
+  return libraryInventory.map((entry) => {
+    const direct = directByPath.get(entry.path);
+    if (!direct
+      || direct.branch !== entry.branch
+      || direct.head !== entry.head
+      || direct.detached !== entry.detached
+      || direct.prunable !== entry.prunable) {
+      throw new Error("library and direct worktree topology entry mismatch");
+    }
+    return {
+      ...entry,
+      locked: direct.locked,
+      lockReasonPresent: direct.lockReasonPresent,
+      lockReasonSha256: direct.lockReasonSha256
+    };
+  });
 }
 
 function localBranchRefs(repoRoot) {
@@ -724,7 +811,7 @@ function commitIdsOutsideMain(repoRoot, tipSha, mainSha) {
 }
 
 function parseCommitIdentity(repoRoot, commitSha) {
-  let raw = gitBuffer(repoRoot, ["show", "-s", "--format=%H%x00%P%x00%s%x00", commitSha]);
+  let raw = gitBuffer(repoRoot, ["show", "-s", "--format=%H%x00%P%x00", commitSha]);
   if (raw.at(-1) === 10) raw = raw.subarray(0, -1);
   if (raw.at(-1) !== 0) throw new Error(`commit identity is missing its final delimiter: ${commitSha}`);
   const fields = [];
@@ -734,10 +821,9 @@ function parseCommitIdentity(repoRoot, commitSha) {
     fields.push(raw.subarray(start, index).toString("utf8"));
     start = index + 1;
   }
-  if (fields.length !== 3 || fields[0] !== commitSha) throw new Error(`invalid commit identity: ${commitSha}`);
+  if (fields.length !== 2 || fields[0] !== commitSha) throw new Error(`invalid commit identity: ${commitSha}`);
   return {
-    parents: fields[1] === "" ? [] : fields[1].split(" "),
-    subject: fields[2]
+    parents: fields[1] === "" ? [] : fields[1].split(" ")
   };
 }
 
@@ -788,13 +874,6 @@ function commitDiffMetadata(repoRoot, commitSha, parents) {
       "diff-tree", "--root", "--no-commit-id", "-p", "--binary", "--full-index", "-r", "--no-renames", commitSha
     ]
   };
-}
-
-function redactedCommitSubject(subject) {
-  if (/(?:api[ _-]?key|client[ _-]?secret|password|credential|private[ _-]?key|access[ _-]?token|bearer\s|sk-[a-z0-9])/iu.test(subject)) {
-    return { subject: "[redacted secret-like commit subject]", subjectRedacted: true };
-  }
-  return { subject, subjectRedacted: false };
 }
 
 function stablePatchId(repoRoot, patch) {
@@ -859,11 +938,9 @@ function buildBranchAndCommitInventory(repoRoot, mainSha, worktrees, branchFilte
     const patchId = secretBearingPatch || snapshotRisk
       ? null
       : stablePatchId(repoRoot, gitBuffer(repoRoot, diff.patchArgs));
-    const safeSubject = redactedCommitSubject(identity.subject);
     return {
       sha: commitSha,
       parents: identity.parents,
-      ...safeSubject,
       reachableFromBranches: [...branches].sort(compareUtf8),
       changedFileCount,
       shortstat: diff.shortstat,
@@ -1214,6 +1291,29 @@ function dirtyEntryVerificationBasis(entry) {
   };
 }
 
+function createPublicationVerifier(verificationRows, selfGeneratedPaths, readers) {
+  return (additionalSelfGeneratedPaths = []) => {
+    const activeSelfGeneratedPaths = [...selfGeneratedPaths, ...additionalSelfGeneratedPaths];
+    for (const row of verificationRows) {
+      const currentStatus = filterSelfGeneratedEntries(
+        row.worktree.path,
+        parsePorcelainZ(gitBuffer(row.worktree.path, ["status", "--porcelain=v1", "-z", "-uall"])),
+        activeSelfGeneratedPaths
+      ).entries;
+      if (stableJson(currentStatus) !== stableJson(row.statusBasis)) {
+        throw new Error(`${row.worktree.path}: worktree status drift detected after fingerprint collection`);
+      }
+      const currentDirty = currentStatus.map((entry) => (
+        row.secretBlocked ? metadataOnlyDirtyEntry(row.worktree.path, entry) : inspectDirtyEntry(row.worktree.path, entry)
+      )).map(dirtyEntryVerificationBasis);
+      if (stableJson(currentDirty) !== stableJson(row.dirtyBasis)) {
+        throw new Error(`${row.worktree.path}: dirty content drift detected after fingerprint collection`);
+      }
+    }
+    readers.verifyCanonical();
+  };
+}
+
 function worktreeBranchState(repoRoot, worktree, mainSha) {
   if (!/^[0-9a-f]{40,64}$/u.test(worktree.head)) {
     return { branchMergedIntoMain: false, uniqueCommitCount: null, uniqueCommitShas: [] };
@@ -1257,7 +1357,7 @@ export function generateFingerprintPlan({
   const snapshotSha = resolveCommit(absoluteRepoRoot, snapshotRef);
   const initialRefs = localBranchRefs(absoluteRepoRoot);
   const initialRefsFingerprint = refsFingerprint(initialRefs);
-  const initialWorktrees = listWorktrees(absoluteRepoRoot);
+  const initialWorktrees = listWorktreeTopology(absoluteRepoRoot);
   assertDistinctWorktreeRealPaths(initialWorktrees);
   const initialTopologyFingerprint = topologyFingerprint(initialWorktrees);
   let selectedWorktrees = initialWorktrees;
@@ -1290,6 +1390,9 @@ export function generateFingerprintPlan({
       head: worktree.head,
       detached: worktree.detached === true,
       prunable: worktree.prunable === true,
+      locked: worktree.locked === true,
+      lockReasonPresent: worktree.lockReasonPresent === true,
+      lockReasonSha256: worktree.lockReasonSha256 ?? null,
       access: accessState.access,
       valid: false,
       validationErrors: [...accessState.validationErrors],
@@ -1306,6 +1409,7 @@ export function generateFingerprintPlan({
         uniqueCommitCount: branchState.uniqueCommitCount,
         dirtyPathsPreserved: false
       });
+      if (worktree.locked) addGateBlocker(removalGate, "worktree is locked");
       worktreeRecords.push({ ...baseRecord, dirtyPathsPreserved: false, removalGate });
       continue;
     }
@@ -1388,6 +1492,7 @@ export function generateFingerprintPlan({
       dirtyPathsPreserved
     });
     if (secretBlocked) addGateBlocker(removalGate, "secret-like path blocked the content snapshot");
+    if (worktree.locked) addGateBlocker(removalGate, "worktree is locked");
     if (dirtyEntries.some((entry) => entry.classification.manualReview)) {
       addGateBlocker(removalGate, "one or more dirty paths require A10/A25 manual ownership review");
     }
@@ -1416,24 +1521,9 @@ export function generateFingerprintPlan({
     });
   }
 
-  for (const row of verificationRows) {
-    const currentStatus = filterSelfGeneratedEntries(
-      row.worktree.path,
-      parsePorcelainZ(gitBuffer(row.worktree.path, ["status", "--porcelain=v1", "-z", "-uall"])),
-      selfGeneratedPaths
-    ).entries;
-    if (stableJson(currentStatus) !== stableJson(row.statusBasis)) {
-      throw new Error(`${row.worktree.path}: worktree status drift detected after fingerprint collection`);
-    }
-    const currentDirty = currentStatus.map((entry) => (
-      row.secretBlocked ? metadataOnlyDirtyEntry(row.worktree.path, entry) : inspectDirtyEntry(row.worktree.path, entry)
-    )).map(dirtyEntryVerificationBasis);
-    if (stableJson(currentDirty) !== stableJson(row.dirtyBasis)) {
-      throw new Error(`${row.worktree.path}: dirty content drift detected after fingerprint collection`);
-    }
-  }
-  readers.verifyCanonical();
-  const finalWorktrees = listWorktrees(absoluteRepoRoot);
+  const publicationVerifier = createPublicationVerifier(verificationRows, selfGeneratedPaths, readers);
+  publicationVerifier();
+  const finalWorktrees = listWorktreeTopology(absoluteRepoRoot);
   const finalTopologyFingerprint = topologyFingerprint(finalWorktrees);
   if (finalTopologyFingerprint !== initialTopologyFingerprint) {
     throw new Error("worktree topology drift detected; fingerprint publication failed closed");
@@ -1514,11 +1604,17 @@ export function generateFingerprintPlan({
     }
   };
   plan.documentFingerprint = documentFingerprint(plan);
+  Object.defineProperty(plan, PUBLICATION_VERIFIER, {
+    value: publicationVerifier,
+    enumerable: false,
+    configurable: false,
+    writable: false
+  });
   return plan;
 }
 
-function assertPublicationInputsCurrent(plan) {
-  const currentTopology = topologyFingerprint(listWorktrees(plan.repo.root));
+export function assertPublicationInputsCurrent(plan, { additionalSelfGeneratedPaths = [] } = {}) {
+  const currentTopology = topologyFingerprint(listWorktreeTopology(plan.repo.root));
   if (currentTopology !== plan.topology.fingerprint) {
     throw new Error("worktree topology drift detected immediately before output write");
   }
@@ -1530,6 +1626,11 @@ function assertPublicationInputsCurrent(plan) {
     || resolveCommit(plan.repo.root, plan.repo.snapshotRef) !== plan.repo.snapshotSha) {
     throw new Error("fixed repository reference drift detected immediately before output write");
   }
+  const publicationVerifier = plan?.[PUBLICATION_VERIFIER];
+  if (typeof publicationVerifier !== "function") {
+    throw new Error("publication verifier is missing from the in-memory fingerprint plan");
+  }
+  publicationVerifier(additionalSelfGeneratedPaths);
 }
 
 function assertSafeOutputTarget(target, label) {
@@ -1567,7 +1668,16 @@ function fsyncDirectory(directory) {
   }
 }
 
-function publishAtomicOutputs({ outputJson, outputMarkdown, jsonBuffer, markdownBuffer }) {
+export function publishAtomicOutputs({
+  outputJson,
+  outputMarkdown,
+  jsonBuffer,
+  markdownBuffer,
+  verifyBeforeRename
+}) {
+  if (typeof verifyBeforeRename !== "function") {
+    throw new Error("atomic output publication requires a pre-rename verifier");
+  }
   assertSafeOutputTarget(outputJson, "JSON output");
   assertSafeOutputTarget(outputMarkdown, "Markdown output");
   if (outputJson === outputMarkdown) throw new Error("JSON and Markdown output paths must be distinct");
@@ -1583,6 +1693,7 @@ function publishAtomicOutputs({ outputJson, outputMarkdown, jsonBuffer, markdown
   try {
     markdownTemporary = prepareAtomicOutput(outputMarkdown, markdownBuffer);
     jsonTemporary = prepareAtomicOutput(outputJson, jsonBuffer);
+    verifyBeforeRename([markdownTemporary, jsonTemporary]);
     fs.renameSync(markdownTemporary, outputMarkdown);
     markdownTemporary = null;
     fsyncDirectory(path.dirname(outputMarkdown));
@@ -1642,7 +1753,10 @@ async function main(argv) {
     outputJson: options.outputJson,
     outputMarkdown: options.outputMarkdown,
     jsonBuffer,
-    markdownBuffer
+    markdownBuffer,
+    verifyBeforeRename: (temporaryPaths) => assertPublicationInputsCurrent(plan, {
+      additionalSelfGeneratedPaths: temporaryPaths
+    })
   });
   process.stdout.write(`${summaryLine(plan, "written")}\n`);
 }

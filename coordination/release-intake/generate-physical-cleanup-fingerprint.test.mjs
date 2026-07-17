@@ -86,6 +86,52 @@ function createEnvPlaceholderFixture() {
   };
 }
 
+function createLockedWorktreeFixture() {
+  const parent = fs.realpathSync(fs.mkdtempSync(path.join(os.tmpdir(), "mais-locked-worktree-")));
+  const root = path.join(parent, "repo");
+  const linked = path.join(parent, "linked");
+  fs.mkdirSync(root);
+  git(root, ["init", "-q", "-b", "main"]);
+  git(root, ["config", "user.name", "MAIS Test"]);
+  git(root, ["config", "user.email", "mais-test@example.invalid"]);
+  fs.writeFileSync(path.join(root, "README.md"), "fixture\n");
+  git(root, ["add", "--", "README.md"]);
+  git(root, ["commit", "-qm", "fixture main"]);
+  git(root, ["branch", "locked-feature"]);
+  git(root, ["worktree", "add", "-q", linked, "locked-feature"]);
+  git(root, ["worktree", "lock", "--reason", "LOCK-REASON-SECRET-SENTINEL", linked]);
+  return {
+    parent,
+    root,
+    linked,
+    cleanup() {
+      fs.rmSync(parent, { recursive: true, force: true });
+    }
+  };
+}
+
+function createMutablePublicationFixture() {
+  const parent = fs.realpathSync(fs.mkdtempSync(path.join(os.tmpdir(), "mais-publication-race-")));
+  const root = path.join(parent, "repo");
+  fs.mkdirSync(root);
+  git(root, ["init", "-q", "-b", "main"]);
+  git(root, ["config", "user.name", "MAIS Test"]);
+  git(root, ["config", "user.email", "mais-test@example.invalid"]);
+  fs.writeFileSync(path.join(root, "README.md"), "fixture\n");
+  git(root, ["add", "--", "README.md"]);
+  git(root, ["commit", "-qm", "fixture main"]);
+  const dirtyPath = path.join(root, "mutable.txt");
+  fs.writeFileSync(dirtyPath, "before-state\n");
+  return {
+    parent,
+    root,
+    dirtyPath,
+    cleanup() {
+      fs.rmSync(parent, { recursive: true, force: true });
+    }
+  };
+}
+
 test("loads the physical cleanup fingerprint implementation", () => {
   assert.ok(implementation, "physical cleanup fingerprint implementation must exist");
 });
@@ -99,7 +145,9 @@ test("exports the reviewable fingerprint primitives", () => {
     "buildDuplicateGroups",
     "evaluateRemovalGate",
     "renderFingerprintMarkdown",
-    "parseCliArgs"
+    "parseCliArgs",
+    "assertPublicationInputsCurrent",
+    "publishAtomicOutputs"
   ]) {
     assert.equal(typeof implementation[name], "function", `${name} must be exported`);
   }
@@ -188,6 +236,86 @@ test("root-only plan snapshots tracked env placeholders while ignoring the real 
     assert.equal(JSON.stringify(plan).includes("ACTUAL-IGNORED-SECRET-SENTINEL"), false);
   } finally {
     fixture.cleanup();
+  }
+});
+
+test("locked worktrees are redacted, removal-ineligible, and lock drift blocks publication", () => {
+  const fixture = createLockedWorktreeFixture();
+  try {
+    const plan = implementation.generateFingerprintPlan({
+      repoRoot: fixture.root,
+      canonicalRoot: fixture.root,
+      mainRef: "main",
+      snapshotRef: "main",
+      dryRun: true
+    });
+    const linked = plan.worktrees.find((worktree) => worktree.path === fixture.linked);
+    assert.equal(linked.locked, true);
+    assert.equal(linked.lockReasonPresent, true);
+    assert.match(linked.lockReasonSha256, /^[0-9a-f]{64}$/u);
+    assert.equal(linked.removalGate.eligibleForRemoval, false);
+    assert.equal(linked.removalGate.blockers.some((value) => value.includes("locked")), true);
+    assert.equal(JSON.stringify(plan).includes("LOCK-REASON-SECRET-SENTINEL"), false);
+
+    git(fixture.root, ["worktree", "unlock", fixture.linked]);
+    git(fixture.root, ["worktree", "lock", "--reason", "changed reason", fixture.linked]);
+    assert.throws(
+      () => implementation.assertPublicationInputsCurrent(plan),
+      /topology drift/u
+    );
+  } finally {
+    fixture.cleanup();
+  }
+});
+
+test("publication verifier detects dirty content drift without serializing its closure", () => {
+  const fixture = createMutablePublicationFixture();
+  try {
+    const plan = implementation.generateFingerprintPlan({
+      repoRoot: fixture.root,
+      canonicalRoot: fixture.root,
+      mainRef: "main",
+      snapshotRef: "main",
+      dryRun: true
+    });
+    assert.equal(JSON.stringify(plan).includes("publicationVerifier"), false);
+    fs.writeFileSync(fixture.dirtyPath, "after--state\n");
+    assert.throws(
+      () => implementation.assertPublicationInputsCurrent(plan),
+      /dirty content drift|canonical root drift/u
+    );
+  } finally {
+    fixture.cleanup();
+  }
+});
+
+test("atomic publisher verifies after buffers are prepared and before either rename", () => {
+  const parent = fs.realpathSync(fs.mkdtempSync(path.join(os.tmpdir(), "mais-publish-verifier-")));
+  const outputJson = path.join(parent, "fingerprint.json");
+  const outputMarkdown = path.join(parent, "fingerprint.md");
+  fs.writeFileSync(outputJson, "old-json\n");
+  fs.writeFileSync(outputMarkdown, "old-markdown\n");
+  let verifierCalls = 0;
+  try {
+    assert.throws(
+      () => implementation.publishAtomicOutputs({
+        outputJson,
+        outputMarkdown,
+        jsonBuffer: Buffer.from("new-json\n"),
+        markdownBuffer: Buffer.from("new-markdown\n"),
+        verifyBeforeRename: () => {
+          verifierCalls += 1;
+          throw new Error("publication verifier blocked rename");
+        }
+      }),
+      /publication verifier blocked rename/u
+    );
+    assert.equal(verifierCalls, 1);
+    assert.equal(fs.readFileSync(outputJson, "utf8"), "old-json\n");
+    assert.equal(fs.readFileSync(outputMarkdown, "utf8"), "old-markdown\n");
+    assert.equal(fs.readdirSync(parent).some((name) => name.startsWith(".tmp-")), false);
+  } finally {
+    fs.rmSync(parent, { recursive: true, force: true });
   }
 });
 
@@ -508,6 +636,13 @@ test("CLI fingerprints topology, duplicate patches, dirty content, and self-gene
     assert.equal(plan.uniqueCommits.commits.every((commit) => commit.sha.length === 40), true);
     assert.equal(plan.uniqueCommits.commits.every((commit) => commit.parents.length === 1), true);
     assert.equal(plan.uniqueCommits.commits.every((commit) => commit.changedFileCount === 1), true);
+    assert.equal(
+      plan.uniqueCommits.commits.every((commit) => (
+        !Object.hasOwn(commit, "subject") && !Object.hasOwn(commit, "subjectRedacted")
+      )),
+      true
+    );
+    assert.doesNotMatch(JSON.stringify(plan), /same patch [ab]/u);
     assert.equal(plan.uniqueCommits.duplicatePatchGroups.length, 1);
     assert.equal(plan.uniqueCommits.duplicatePatchGroups[0].commitShas.length, 2);
     assert.equal(plan.duplicateGroups.length, 1);
