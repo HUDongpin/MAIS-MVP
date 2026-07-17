@@ -70,8 +70,36 @@ const authLinkCopy = {
     en: "That page needs a teacher account. Log in with a teacher account to open the teacher console.",
     zh: "該頁面需要教師帳戶。請以教師帳戶登入，才可開啟教師工作台。",
     zhHans: "该页面需要教师账号。请以教师账号登录，才可打开教师工作台。"
+  },
+  googleDivider: { en: "or", zh: "或", zhHans: "或" },
+  googleAction: { en: "Continue with Google", zh: "使用 Google 繼續", zhHans: "使用 Google 继续" },
+  googleRoleLabel: { en: "Google account type", zh: "Google 帳戶類型", zhHans: "Google 账号类型" },
+  googleErrors: {
+    setup: {
+      en: "Google sign-in is not configured for this environment yet.",
+      zh: "此環境尚未設定 Google 登入。",
+      zhHans: "此环境尚未设置 Google 登录。"
+    },
+    teacherInviteRequired: {
+      en: "Teacher Google sign-in requires a school invitation or an existing MAIS teacher account.",
+      zh: "教師 Google 登入需要學校邀請或現有 MAIS 教師帳戶。",
+      zhHans: "教师 Google 登录需要学校邀请或现有 MAIS 教师账号。"
+    },
+    generic: {
+      en: "Google sign-in could not be verified. Try again.",
+      zh: "未能驗證 Google 登入，請再試一次。",
+      zhHans: "未能验证 Google 登录，请再试一次。"
+    }
   }
 } as const;
+
+type GoogleLoginRole = "student" | "parent" | "teacher";
+
+const googleLoginRoles = [
+  { key: "student", label: { en: "Student", zh: "學生", zhHans: "学生" } },
+  { key: "parent", label: { en: "Parent", zh: "家長", zhHans: "家长" } },
+  { key: "teacher", label: { en: "Teacher", zh: "教師", zhHans: "教师" } }
+] as const satisfies readonly { key: GoogleLoginRole; label: { en: string; zh: string; zhHans: string } }[];
 
 const curriculumCopy = {
   title: {
@@ -238,9 +266,10 @@ function safeWorkspaceTarget(value: string | null, role?: "student" | "teacher" 
 
 export default function LoginPage() {
   const router = useRouter();
-  const { currentUser, language, login, logout, setSelectedGrade, settingsReady, t } = useSettings();
+  const { currentUser, language, login, logout, setSelectedGrade, settingsReady, t, theme } = useSettings();
   const [identifier, setIdentifier] = useState("");
   const [password, setPassword] = useState("");
+  const [googleRole, setGoogleRole] = useState<GoogleLoginRole>("student");
   const [selectedCurriculumProfile, setSelectedCurriculumProfile] = useState<CurriculumProfile>(defaultLoginCurriculumProfile);
   const [curriculumSelectorProfile, setCurriculumSelectorProfile] = useState<CurriculumProfile>(defaultLoginCurriculumProfile);
   const [curriculumNoticeProfile, setCurriculumNoticeProfile] = useState<CurriculumProfile | null>(null);
@@ -248,6 +277,7 @@ export default function LoginPage() {
   const [loginSelectedGrade, setLoginSelectedGrade] = useState<GradeId>(defaultLoginGrade);
   const [selectedExampleAccountKey, setSelectedExampleAccountKey] = useState<string | null>(null);
   const [error, setError] = useState("");
+  const [googleError, setGoogleError] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isHydrated, setIsHydrated] = useState(false);
   const [isLoggingOut, setIsLoggingOut] = useState(false);
@@ -280,6 +310,21 @@ export default function LoginPage() {
   const exampleSelectionLocked = Boolean(selectedExampleAccount);
   const exampleAccountButtonsDisabled = !isHydrated || isSubmitting;
   const courseSelectionLocked = Boolean(registeredStudentProfile || selectedExampleAccount);
+  const googleLoginParams = new URLSearchParams({ role: googleRole, language, theme });
+  if (nextTarget) googleLoginParams.set("next", nextTarget);
+  if (googleRole === "student") {
+    googleLoginParams.set("grade", displayedLoginGrade);
+    googleLoginParams.set("curriculumTrack", displayedCurriculumTrack);
+  }
+  const googleLoginHref = `/api/auth/google/start?${googleLoginParams.toString()}`;
+  const googleErrorMessage =
+    googleError === "setup"
+      ? t(authLinkCopy.googleErrors.setup)
+      : googleError === "teacher_invite_required"
+        ? t(authLinkCopy.googleErrors.teacherInviteRequired)
+        : googleError
+          ? t(authLinkCopy.googleErrors.generic)
+          : "";
 
   const formatLoginGradeOption = (grade: Grade) => {
     if (displayedCurriculumProfile.region === "US") return formatGradeLabelForCurriculum(grade.id, language, displayedCurriculumTrack);
@@ -296,6 +341,7 @@ export default function LoginPage() {
     const params = new URLSearchParams(window.location.search);
     setNextTarget(params.get("next") ?? "");
     setLoginReason(params.get("reason") ?? "");
+    setGoogleError(params.get("googleError") ?? "");
     setIsHydrated(true);
   }, []);
 
@@ -600,6 +646,12 @@ export default function LoginPage() {
               </p>
             ) : null}
 
+            {googleErrorMessage ? (
+              <p role="alert" className="rounded-2xl border border-rose-300/60 bg-rose-500/10 px-4 py-3 text-sm font-semibold text-rose-700 dark:text-rose-200">
+                {googleErrorMessage}
+              </p>
+            ) : null}
+
             <button
               type="submit"
               disabled={!isHydrated || isSubmitting}
@@ -613,6 +665,49 @@ export default function LoginPage() {
                     ? t({ en: "Save curriculum and log in", zh: "保存課程並登入", zhHans: "保存课程并登录" })
                     : t(dictionary.login.submit)}
             </button>
+
+            <div className="grid gap-3">
+              <div className="flex items-center gap-3 text-xs font-black uppercase tracking-[0.18em] text-slate-400">
+                <span className="h-px flex-1 bg-slate-200 dark:bg-white/10" />
+                <span>{t(authLinkCopy.googleDivider)}</span>
+                <span className="h-px flex-1 bg-slate-200 dark:bg-white/10" />
+              </div>
+
+              <div className="grid gap-2">
+                <p className="text-sm font-bold text-slate-700 dark:text-slate-200">{t(authLinkCopy.googleRoleLabel)}</p>
+                <div className="grid grid-cols-3 gap-2" role="radiogroup" aria-label={t(authLinkCopy.googleRoleLabel)}>
+                  {googleLoginRoles.map((role) => {
+                    const selected = googleRole === role.key;
+                    return (
+                      <button
+                        key={role.key}
+                        type="button"
+                        role="radio"
+                        aria-checked={selected}
+                        onClick={() => setGoogleRole(role.key)}
+                        className={`focus-ring min-h-11 rounded-full border px-3 py-2 text-sm font-black transition ${
+                          selected
+                            ? "border-slate-950 bg-slate-950 text-white dark:border-white dark:bg-white dark:text-slate-950"
+                            : "border-slate-200/80 bg-white/75 text-slate-600 hover:bg-white dark:border-white/10 dark:bg-white/[0.06] dark:text-slate-200"
+                        }`}
+                      >
+                        {t(role.label)}
+                      </button>
+                    );
+                  })}
+                </div>
+              </div>
+
+              <Link
+                href={googleLoginHref}
+                className="focus-ring inline-flex min-h-12 w-full items-center justify-center gap-3 rounded-full border border-slate-200/80 bg-white px-5 py-3 font-black text-slate-950 shadow-sm shadow-slate-900/5 transition hover:-translate-y-0.5 hover:shadow-md dark:border-white/10 dark:bg-white dark:text-slate-950"
+              >
+                <span aria-hidden="true" className="grid size-6 place-items-center rounded-full border border-slate-200 text-sm font-black text-blue-600">
+                  G
+                </span>
+                {t(authLinkCopy.googleAction)}
+              </Link>
+            </div>
 
             <div className="flex flex-wrap items-center gap-x-1 gap-y-2 rounded-2xl border border-cyan-300/40 bg-cyan-400/10 px-4 py-3 text-sm font-semibold text-slate-700 dark:border-cyan-300/20 dark:text-slate-200">
               <span>{t(authLinkCopy.registerPrompt)}</span>

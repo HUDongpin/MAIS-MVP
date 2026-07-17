@@ -132,6 +132,7 @@ import {
   authSelectedGradeForSettingsUpdate as selectedGradeForSettingsUpdateFromAuthSessionPersistence,
   authPasswordMatches as passwordMatchesFromAuthSessionPersistence,
   authStudentProfileFor as studentProfileForFromAuthSessionPersistence,
+  cleanAuthStudentProfileName as cleanStudentProfileNameFromAuthSessionPersistence,
   authenticatedLoginResultFromAuthDatabase as authenticatedLoginResultFromAuthDatabaseFromAuthSessionPersistence,
   authenticatedUserFromAuthDatabase as authenticatedUserFromAuthDatabaseFromAuthSessionPersistence,
   authenticatedUserFromAuthRecords as authenticatedUserFromAuthRecordsFromAuthSessionPersistence,
@@ -775,6 +776,15 @@ export type UserRecord = {
   password_must_change?: boolean;
   role: UserRole;
   created_at: string;
+};
+
+export type AuthIdentityRecord = {
+  provider: "google";
+  provider_subject: string;
+  user_id: string;
+  email_at_link: string;
+  created_at: string;
+  last_login_at: string;
 };
 
 export type StudentProfileRecord = {
@@ -1681,6 +1691,7 @@ type ForumNotificationRecord = ForumNotification;
 
 type Database = {
   users: UserRecord[];
+  auth_identities: AuthIdentityRecord[];
   student_profiles: StudentProfileRecord[];
   user_settings: UserSettingsRecord[];
   learner_profiles: LearnerProfileRecord[];
@@ -2569,6 +2580,7 @@ function createInitialDatabase(): Database {
 
   return {
     users: demoUser,
+    auth_identities: [],
     student_profiles: demoProfile,
     user_settings: demoSettings,
     learner_profiles: [],
@@ -4042,6 +4054,22 @@ function normalizeDatabase(database: Partial<Database>) {
     !bnuJuniorLessonSlugs.has(block.lesson_slug) || canonicalLessonBlockIds.has(block.id)
   );
   const users: UserRecord[] = (database.users ?? []).map((user) => normalizeUserRecordFromAuthSessionPersistence(user));
+  const authIdentities = (database.auth_identities ?? [])
+    .filter((identity): identity is AuthIdentityRecord =>
+      identity?.provider === "google" &&
+      typeof identity.provider_subject === "string" &&
+      Boolean(identity.provider_subject.trim()) &&
+      typeof identity.user_id === "string" &&
+      Boolean(identity.user_id.trim())
+    )
+    .map((identity): AuthIdentityRecord => ({
+      provider: "google",
+      provider_subject: identity.provider_subject.trim(),
+      user_id: identity.user_id,
+      email_at_link: typeof identity.email_at_link === "string" ? identity.email_at_link.trim().toLowerCase() : "",
+      created_at: identity.created_at ?? now,
+      last_login_at: identity.last_login_at ?? identity.created_at ?? now
+    }));
   const studentProfiles = (database.student_profiles ?? []).map((profile): StudentProfileRecord =>
     normalizeStudentProfileRecordFromAuthSessionPersistence(profile, {
       normalizeParentInviteCode: normalizeParentInviteCodeFromParentAccess
@@ -4164,6 +4192,7 @@ function normalizeDatabase(database: Partial<Database>) {
 
   return {
     users,
+    auth_identities: authIdentities,
     student_profiles: studentProfiles,
     user_settings: userSettings,
     learner_profiles: learnerProfiles,
@@ -4332,6 +4361,7 @@ async function readLegacyDatabase() {
 function databaseNeedsPersistenceSync(parsed: Partial<Database>, database: Database) {
   return (
     !Array.isArray(parsed.questions) ||
+    !Array.isArray(parsed.auth_identities) ||
     !Array.isArray(parsed.learner_profiles) ||
     !Array.isArray(parsed.schools) ||
     !Array.isArray(parsed.school_memberships) ||
@@ -6863,6 +6893,126 @@ async function authenticateUserForLoginJsonbProjection(username: string, passwor
 
 export const authenticateUserForLogin: { (username: string, password: string): Promise<LoginAuthResult> } = authUserStore.authenticateUserForLogin as { (username: string, password: string): Promise<LoginAuthResult> };
 
+export async function authenticateGoogleIdentityForLogin({
+  providerSubject,
+  email,
+  emailVerified,
+  displayName,
+  requestedRole,
+  grade,
+  curriculumProfile,
+  language,
+  theme
+}: {
+  providerSubject: string;
+  email: string;
+  emailVerified: boolean;
+  displayName?: string;
+  requestedRole?: "student" | "parent" | "teacher";
+  grade?: GradeId;
+  curriculumProfile?: CurriculumProfile;
+  language?: Language;
+  theme?: ThemeMode;
+}) {
+  const subject = providerSubject.trim();
+  const normalizedEmail = normalizeEmailFromAuthSessionPersistence(email);
+  const trimmedEmail = email.trim().toLowerCase();
+  const role = requestedRole === "parent" || requestedRole === "teacher" ? requestedRole : "student";
+  const name = cleanStudentProfileNameFromAuthSessionPersistence(displayName || trimmedEmail.split("@")[0] || "Google User");
+
+  if (!subject || !emailVerified || !trimmedEmail || !isLikelyEmailFromAuthSessionPersistence(trimmedEmail) || !name) {
+    return { status: "invalid" as const };
+  }
+
+  return mutateDatabase((database) => {
+    const now = new Date().toISOString();
+    const existingIdentity = database.auth_identities.find((identity) =>
+      identity.provider === "google" && identity.provider_subject === subject
+    );
+    if (existingIdentity) {
+      existingIdentity.last_login_at = now;
+      existingIdentity.email_at_link = trimmedEmail;
+      const user = database.users.find((candidate) => candidate.id === existingIdentity.user_id);
+      const session = user ? toAuthenticatedUser(database, user) : null;
+      return session ? { status: "authenticated" as const, session } : { status: "invalid" as const };
+    }
+
+    const existingEmailUser = database.users.find((candidate) => candidate.normalized_email === normalizedEmail);
+    if (existingEmailUser) {
+      database.auth_identities.push({
+        provider: "google",
+        provider_subject: subject,
+        user_id: existingEmailUser.id,
+        email_at_link: trimmedEmail,
+        created_at: now,
+        last_login_at: now
+      });
+      const session = toAuthenticatedUser(database, existingEmailUser);
+      return session ? { status: "linked" as const, session } : { status: "invalid" as const };
+    }
+
+    if (role === "teacher") {
+      return { status: "teacher-invite-required" as const };
+    }
+
+    const effectiveCurriculumProfile = role === "student" && curriculumProfile
+      ? normalizeStoredCurriculumProfile({ region: curriculumProfile.region, publisher: curriculumProfile.publisher })
+      : curriculumProfileForTrack(defaultCurriculumTrack);
+    const effectiveCurriculumTrack = curriculumTrackForProfile(effectiveCurriculumProfile);
+    const selectedGrade = role === "student" && grade && validGrades.has(grade) ? grade : "S3";
+    if (role === "student" && (!grade || !validGrades.has(grade) || !curriculumProfile)) {
+      return { status: "invalid" as const };
+    }
+
+    const hashedPassword = hashPasswordFromAuthSessionPersistence(`google:${subject}:${randomUUID()}:${randomBytes(16).toString("hex")}`);
+    const userId = `${role}-${randomUUID()}`;
+    const user: UserRecord = {
+      id: userId,
+      username: trimmedEmail,
+      normalized_username: normalizeUsernameFromAuthSessionPersistence(trimmedEmail),
+      email: trimmedEmail,
+      normalized_email: normalizedEmail,
+      password_hash: hashedPassword.hash,
+      password_salt: hashedPassword.salt,
+      password_must_change: false,
+      role,
+      created_at: now
+    };
+
+    database.users.push(user);
+    database.auth_identities.push({
+      provider: "google",
+      provider_subject: subject,
+      user_id: userId,
+      email_at_link: trimmedEmail,
+      created_at: now,
+      last_login_at: now
+    });
+    database.student_profiles.push({
+      user_id: userId,
+      name,
+      grade: selectedGrade,
+      curriculum_track: effectiveCurriculumTrack,
+      curriculum_region: effectiveCurriculumProfile.region,
+      textbook_publisher: effectiveCurriculumProfile.publisher,
+      avatar_id: role === "parent" ? "theta" : defaultStudentAvatarIdFromAuthSessionPersistence
+    });
+    database.user_settings.push({
+      user_id: userId,
+      language: language && validLanguages.has(language) ? language : effectiveCurriculumProfile.region === "MAINLAND" ? "zh-Hans" : "en",
+      theme: theme && validThemes.has(theme) ? theme : "dark",
+      selected_grade: selectedGrade,
+      updated_at: now
+    });
+    if (role === "student") {
+      database.lesson_progress.push(...emptyLessonProgressRecords(userId, now));
+    }
+
+    const session = toAuthenticatedUser(database, user);
+    return session ? { status: "created" as const, session } : { status: "invalid" as const };
+  });
+}
+
 const databaseWithStorageFreeExampleAccount = (database: Database, userId: string): Database | null =>
   storageFreeExampleDatabaseFromAuthSessionPersistence(database, userId, {
     exampleAccountSeeds: seededExampleAccountSeeds,
@@ -7245,6 +7395,7 @@ type TeacherAnalyticsProjectionRow = TeacherDashboardProjectionRow;
 function emptyTeacherDashboardDatabase(overrides: Partial<Database>): Database {
   return {
     users: [],
+    auth_identities: [],
     student_profiles: [],
     user_settings: [],
     learner_profiles: [],

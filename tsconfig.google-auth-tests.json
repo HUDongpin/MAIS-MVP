@@ -1,0 +1,19 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "incremental": false,
+    "noEmit": false,
+    "outDir": ".tmp/google-auth-tests",
+    "target": "ES2022",
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "jsx": "react-jsx"
+  },
+  "include": [
+    "app/login/page.tsx",
+    "app/api/auth/google/start/route.test.ts",
+    "app/api/auth/google/callback/route.test.ts",
+    "lib/server/googleOAuth.test.ts",
+    "lib/server/userStoreGoogleAuth.test.ts"
+  ]
+}
