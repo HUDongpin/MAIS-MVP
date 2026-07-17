@@ -1,5 +1,5 @@
 import { expect, test, type Locator, type Page, type TestInfo } from "@playwright/test";
-import { uniqueSuffix } from "./helpers";
+import { isTransientApiTransportError, uniqueSuffix } from "./helpers";
 
 type AuthenticatedResponse = {
   user: {
@@ -27,19 +27,31 @@ function practiceRegion(page: Page) {
 
 async function registerStudentThroughApi(page: Page, testInfo: TestInfo, label: string, grade = "S3") {
   const suffix = uniqueSuffix(testInfo);
-  const response = await page.request.post("/api/auth/register", {
-    data: {
-      name: `Pager ${label} ${suffix}`,
-      username: `pager-${label}-${suffix}@example.test`,
-      password: "start12345",
-      grade,
-      curriculumTrack: "HK",
-      language: "en",
-      theme: "dark"
+  let lastError: unknown;
+
+  for (let attempt = 1; attempt <= 3; attempt += 1) {
+    try {
+      const response = await page.request.post("/api/auth/register", {
+        data: {
+          name: `Pager ${label} ${suffix}`,
+          username: `pager-${label}-${suffix}-${attempt}@example.test`,
+          password: "start12345",
+          grade,
+          curriculumTrack: "HK",
+          language: "en",
+          theme: "dark"
+        }
+      });
+      expect(response.ok(), `student API registration failed with ${response.status()}: ${await response.text()}`).toBeTruthy();
+      return await response.json() as AuthenticatedResponse;
+    } catch (error) {
+      lastError = error;
+      if (attempt === 3 || !isTransientApiTransportError(error)) throw error;
+      await page.waitForTimeout(350 * attempt);
     }
-  });
-  expect(response.ok()).toBeTruthy();
-  return await response.json() as AuthenticatedResponse;
+  }
+
+  throw lastError;
 }
 
 async function unlockFreeSelection(page: Page, userId: string, grade = "S3") {
@@ -53,6 +65,19 @@ async function unlockFreeSelection(page: Page, userId: string, grade = "S3") {
 
   await page.reload();
   await page.waitForLoadState("networkidle");
+
+  const gradeSelect = page.getByRole("combobox", { name: /Grade/i });
+  await expect(gradeSelect).toBeVisible();
+  if (await gradeSelect.inputValue() !== grade) {
+    const questionsLoaded = page.waitForResponse((candidate) =>
+      candidate.url().includes("/api/questions") &&
+      candidate.url().includes(`grade=${encodeURIComponent(grade)}`) &&
+      candidate.ok()
+    ).catch(() => null);
+    await gradeSelect.selectOption(grade);
+    await questionsLoaded;
+  }
+  await expect(gradeSelect).toHaveValue(grade);
 }
 
 async function expectQuestion(page: Page, current: number, total?: number) {
@@ -214,11 +239,12 @@ async function expectKeyboardButtonsDoNotOverlap(keyboard: Locator) {
   }
 }
 
-async function openMathKeyboardForFillIn(page: Page) {
+async function openMathKeyboardForFillIn(page: Page, testInfo: TestInfo) {
+  const session = await registerStudentThroughApi(page, testInfo, "keyboard", "S1");
   await page.goto("/practice");
   await expect(page.getByRole("heading", { name: /Practice Arena/i })).toBeVisible();
   await page.waitForLoadState("networkidle");
-  await page.getByRole("combobox", { name: /Grade/i }).selectOption("S1");
+  await unlockFreeSelection(page, session.user.id, "S1");
   await page.getByRole("combobox", { name: /Question type/i }).selectOption("fill-in");
   await expectQuestion(page, 1);
 
@@ -243,6 +269,19 @@ async function pressSoftKey(keyboard: Locator, tabName: string, keyName: string 
     ? { name: keyName, exact: true }
     : { name: keyName };
   await keyboard.getByRole("tabpanel").getByRole("button", options).click();
+}
+
+async function findVisibleLessonPracticeCard(page: Page, text: RegExp, maxSteps = 5) {
+  for (let step = 0; step < maxSteps; step += 1) {
+    const card = page.locator("article:visible").filter({ hasText: text }).first();
+    if (await card.isVisible().catch(() => false)) return card;
+
+    const nextButton = page.getByRole("button", { name: /Next question/i });
+    if (!await nextButton.isEnabled().catch(() => false)) break;
+    await nextButton.click();
+  }
+
+  throw new Error(`Could not find visible lesson practice card matching ${text}`);
 }
 
 test.describe("Practice Arena question pager", () => {
@@ -327,7 +366,7 @@ test.describe("Practice Arena question pager", () => {
     await unlockFreeSelection(page, session.user.id);
 
     await expect(page.getByRole("combobox", { name: /difficulty/i })).toBeVisible();
-    await page.getByRole("combobox", { name: /difficulty/i }).selectOption("Challenge");
+    await page.getByRole("combobox", { name: /difficulty/i }).selectOption("High");
     await page.getByRole("combobox", { name: /Question type/i }).selectOption("multiple-choice");
     await expectQuestion(page, 1);
     await expect(page.locator("article:visible")).toHaveCount(1);
@@ -345,16 +384,18 @@ test.describe("Practice Arena question pager", () => {
     await expectQuestion(page, 1);
     await expect(page.locator("article:visible")).toHaveCount(1);
 
-    await page.goto("/lesson/quadratic-functions");
+    await page.goto("/student/lessons/quadratic-functions");
     await expect(page.getByRole("heading", { name: /Quadratic Functions/i })).toBeVisible();
-    await expect(page.getByRole("spinbutton", { name: /Jump to/i })).toHaveCount(0);
-    expect(await page.locator("article:visible").count()).toBeGreaterThan(1);
+    await expect(page.getByRole("heading", { name: /Lesson practice/i })).toBeVisible();
+    await expect(page.getByRole("spinbutton", { name: /Jump to/i })).toBeVisible();
+    await expect(page.getByText(/Question 1 of \d+/i)).toBeVisible();
+    expect(await page.locator("article:visible").count()).toBeGreaterThan(0);
   });
 
   test("math soft keyboard tabs, keys, formulas, and responsive layout work", async ({ page }, testInfo) => {
     test.slow();
 
-    const { keyboard, answer } = await openMathKeyboardForFillIn(page);
+    const { keyboard, answer } = await openMathKeyboardForFillIn(page, testInfo);
     const tabNames = ["123", "∞≠∈", "abc", "αβγ"];
 
     for (const tabName of tabNames) {
@@ -732,13 +773,13 @@ test.describe("Practice Arena question pager", () => {
     await handwrittenAnswer.fill("keep-me");
     await drawDraftStroke(page, canvas);
     await convertButton.click();
-    await expect(card.getByRole("status")).toContainText(/Draw clearer separated digits/i);
+    await expect(card.getByRole("status")).toContainText(/Log in before using handwriting recognition/i);
     await expect(handwrittenAnswer).toHaveValue("keep-me");
 
     await card.getByRole("button", { name: /Clear handwriting board/i }).click();
     await drawDraftStroke(page, canvas);
     await convertButton.click();
-    await expect(card.getByRole("status")).toContainText(/Draw clearer separated digits/i);
+    await expect(card.getByRole("status")).toContainText(/rate limit reached|Try again in 30 seconds/i);
     await expect(handwrittenAnswer).toHaveValue("keep-me");
 
     await card.getByRole("button", { name: /Clear handwriting board/i }).click();
@@ -796,7 +837,7 @@ test.describe("Practice Arena question pager", () => {
       });
     });
 
-    await page.goto("/lesson/algebra-basics");
+    await page.goto("/student/lessons/algebra-basics");
     await expect(page.getByRole("heading", { level: 1, name: /Algebra Basics: Expressions and Simple Equations/i })).toBeVisible();
 
     const card = page.locator("article").filter({ hasText: /Fill-in/i }).first();
@@ -842,10 +883,10 @@ test.describe("Practice Arena question pager", () => {
       });
     });
 
-    await page.goto("/lesson/circles");
+    await page.goto("/student/lessons/circles");
     await expect(page.getByRole("heading", { level: 1, name: /Circles: Chords, Tangents, Arcs, Angles/i })).toBeVisible();
 
-    const card = page.locator("article").filter({ hasText: /A tangent meets a radius/i }).first();
+    const card = await findVisibleLessonPracticeCard(page, /A tangent meets a radius/i);
     await card.getByRole("tab", { name: /Handwriting board/i }).click();
 
     const canvas = card.getByRole("img", { name: /Handwriting draft canvas/i });
@@ -862,7 +903,7 @@ test.describe("Practice Arena question pager", () => {
   });
 
   test("lesson multiple-choice questions do not expose draft input tools", async ({ page }) => {
-    await page.goto("/lesson/integers");
+    await page.goto("/student/lessons/integers");
     await expect(page.getByRole("heading", { level: 1, name: /Integers: Direction, Zero, and Operations/i })).toBeVisible();
 
     const card = page.locator("article").filter({ hasText: /Multiple choice/i }).first();

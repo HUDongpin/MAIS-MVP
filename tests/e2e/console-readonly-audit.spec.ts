@@ -9,19 +9,19 @@ type ConsoleRoute = {
 
 const studentRoutes: ConsoleRoute[] = [
   { path: "/dashboard", heading: /Welcome back,\s*HK Student Peter/i, label: "student dashboard" },
-  { path: "/adaptive-learning", heading: /^Progress$/i, label: "adaptive learning" },
+  { path: "/personalized-learning", heading: /Knowledge galaxy/i, label: "personalized learning" },
   { path: "/progress", heading: /^Progress$/i, label: "progress" },
-  { path: "/learning-path", heading: /Learning Path/i, label: "learning path" },
-  { path: "/primary-roadmap", heading: /Primary Math Subway Map/i, label: "primary roadmap" },
-  { path: "/secondary-roadmap", heading: /Secondary Math Subway Map/i, label: "secondary roadmap" },
-  { path: "/lesson/quadratic-functions", heading: /Quadratic Functions/i, label: "lesson" },
+  { path: "/student/roadmap", heading: /Learning Path/i, label: "learning path" },
+  { path: "/student/roadmap/primary", heading: /Primary Math Subway Map/i, label: "primary roadmap" },
+  { path: "/student/roadmap/secondary", heading: /Secondary Math Subway Map/i, label: "secondary roadmap" },
+  { path: "/student/lessons/quadratic-functions", heading: /How coefficients shape a parabola/i, label: "lesson" },
   { path: "/practice", heading: /Practice Arena/i, label: "practice arena" },
   { path: "/mistake-book", heading: /Mistake Book/i, label: "mistake book" },
-  { path: "/visualization-lab", heading: /Visualization Lab/i, label: "visualization lab" },
+  { path: "/student/tools/visualizations", heading: /Visualization Lab/i, label: "visualization lab" },
   { path: "/messages", heading: /Ask your teacher/i, label: "student messages" },
   { path: "/classroom/join", heading: /Join a teacher class/i, label: "join class" },
   { path: "/classroom?code=S3A82", heading: /Join live classroom/i, label: "live classroom student view" },
-  { path: "/assessment/assessment-s3-algebra-quiz", heading: /S3 algebra readiness quiz/i, label: "assigned assessment" }
+  { path: "/student/assessments/assessment-s3-algebra-quiz", heading: /S3 algebra readiness quiz/i, label: "assigned assessment" }
 ];
 
 const teacherRoutes: ConsoleRoute[] = [
@@ -48,6 +48,7 @@ async function expectUsableRoute(page: Page, route: ConsoleRoute) {
   expect(response?.status(), `${route.label} should not return HTTP error`).toBeLessThan(400);
   await expect(page.getByRole("heading", { name: route.heading }).first(), `${route.label} heading`).toBeVisible();
   await expect(page.getByRole("heading", { name: /This page is not available|Page not found/i })).toHaveCount(0);
+  await expect(page.locator("main"), `${route.label} should expose one main landmark`).toHaveCount(1);
   const mainText = await page.locator("main").innerText();
   expect(mainText.trim().length, `${route.label} should not render a blank main area`).toBeGreaterThan(40);
 }
@@ -62,7 +63,7 @@ test.describe.serial("console readonly audit", () => {
 
     await loginAsDemoStudent(page);
     await expect(page.getByRole("navigation", { name: /Main navigation/i })).toContainText(/Lesson/);
-    await expect(page.getByRole("navigation", { name: /Main navigation/i })).toContainText(/Adaptive Learning/);
+    await expect(page.getByRole("navigation", { name: /Main navigation/i })).toContainText(/Personalized Learning/);
     await expect(page.getByRole("navigation", { name: /Main navigation/i })).toContainText(/Visualization Lab/);
     await expect(page.getByRole("navigation", { name: /Main navigation/i })).toContainText(/Practice Arena/);
 

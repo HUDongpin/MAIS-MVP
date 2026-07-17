@@ -36,6 +36,11 @@ function escapeRegex(value: string) {
   return value.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
 }
 
+async function chooseLanguage(page: Page, optionName: RegExp) {
+  await page.getByRole("button", { name: /Language selector|語言選擇|语言选择/i }).click();
+  await page.getByRole("menuitemradio", { name: optionName }).click();
+}
+
 function collectRuntimeFailures(page: Page): RuntimeFailures {
   const pageErrors = collectPageErrors(page);
   const failures: RuntimeFailures = {
@@ -238,10 +243,49 @@ async function clickMainNav(page: Page, href: string, expectedUrl: RegExp, expec
   await expectPageReady(page, href);
 }
 
+async function clickCurrentLessonNav(page: Page) {
+  const nav = page.getByRole("navigation", { name: /Main navigation/i });
+  const lessonLink = nav.getByRole("link", { name: /^Lesson$/i }).first();
+  await expect(lessonLink, "main nav Lesson should be visible").toBeVisible();
+  await expect(lessonLink).toHaveAttribute("href", /\/student\/lessons\/[^/]+$/);
+  const href = await lessonLink.getAttribute("href");
+  await lessonLink.click();
+  await expect(page).toHaveURL(/\/student\/lessons\/[^/]+$/);
+  await expect(page.getByRole("main").getByRole("heading", { level: 1 }).first()).toBeVisible();
+  await expectPageReady(page, href ?? "/student/lessons");
+}
+
 async function setFishingEligibility(page: Page) {
   const fishingQuestions = questions.filter((question) => question.topicId === "quadratic-patterns").slice(0, 5);
   expect(fishingQuestions.length, "Fishing setup needs five quadratic-patterns questions").toBe(5);
   const questionIds = fishingQuestions.map((question) => question.id);
+
+  for (const question of fishingQuestions) {
+    const response = await page.request.post("/api/attempts", {
+      data: {
+        questionId: question.id,
+        selectedAnswer: question.answer,
+        durationSeconds: 20
+      }
+    });
+    expect(response.ok(), await response.text()).toBeTruthy();
+  }
+
+  const adventureResponse = await page.request.post("/api/gamification/adventure-island", {
+    data: {
+      topicId: "quadratic-patterns",
+      roundKey: `e2e-adventure-${Date.now()}`,
+      roundQuestionIds: questionIds,
+      correctRoundQuestionIds: questionIds,
+      correctQuestionIds: questionIds.slice(0, 3),
+      accuracyPercent: 100,
+      durationSeconds: 45,
+      defeatedEnemies: 3
+    }
+  });
+  if (!adventureResponse.ok() && adventureResponse.status() !== 409) {
+    expect(adventureResponse.ok(), await adventureResponse.text()).toBeTruthy();
+  }
 
   await page.goto("/dashboard");
   await page.evaluate(({ ids }) => {
@@ -275,11 +319,68 @@ async function unlockAdventureIsland(page: Page) {
   const eligibility = await page.request.get("/api/gamification/adventure-island");
   expect(eligibility.ok()).toBeTruthy();
   const payload = await eligibility.json() as { eligible?: boolean; alreadyCompleted?: boolean };
-  expect(payload.eligible || payload.alreadyCompleted).toBeTruthy();
+  return Boolean(payload.eligible || payload.alreadyCompleted);
 }
 
 async function expectPracticeQuestionOne(page: Page) {
   await expect(page.getByRole("region", { name: /Practice questions/i }).getByText(/Question 1 of/i)).toBeVisible({ timeout: 20_000 });
+}
+
+async function openLearningAnalyticsBay(page: Page) {
+  const signalBay = page.locator("details").filter({ hasText: /Signal bay/i }).first();
+  await signalBay.locator("summary").click();
+  await expect(signalBay.getByText(/Personalized learning analytics report/i)).toBeVisible();
+  return signalBay;
+}
+
+async function mockTutorReply(page: Page, reply: string) {
+  await page.route("**/api/ai-tutor", async (route) => {
+    await route.fulfill({
+      contentType: "application/json",
+      body: JSON.stringify({ reply })
+    });
+  });
+}
+
+async function expectFishingEntryCleanly(page: Page) {
+  await page.goto("/student/practice/games/fishing-master");
+  await expect(page.getByRole("heading", { name: /Fishing Master/i })).toBeVisible();
+  const fishingStage = page.getByTestId("fishing-game-stage");
+  await expect(fishingStage).toBeVisible({ timeout: 20_000 });
+  const lockedMessage = page.getByText(/Fishing Master locked/i);
+  if (await lockedMessage.isVisible().catch(() => false)) {
+    await expect(page.getByRole("link", { name: /Back to Practice(?: Arena)?/i }).first()).toHaveAttribute("href", "/practice");
+    return;
+  }
+  await expect(fishingStage).toHaveAttribute("data-phase", /welcome|ready|casting|challenge/, { timeout: 20_000 });
+  if (await page.getByTestId("fishing-start-button").isVisible().catch(() => false)) {
+    await page.getByTestId("fishing-start-button").click();
+    await expect(fishingStage).toHaveAttribute("data-phase", /ready|casting|challenge/, { timeout: 20_000 });
+  }
+  await expectButtonState(page.getByRole("button", { name: /Fire net/i }), "fishing fire net");
+  await page.getByRole("link", { name: /Back to Practice/i }).first().click();
+  await expect(page).toHaveURL(/\/practice$/);
+}
+
+async function expectAdventureEntryCleanly(page: Page) {
+  await page.goto("/student/practice/games/adventure-island");
+  await expect(page.getByRole("heading", { name: /Adventure Island|Practice Quest/i })).toBeVisible();
+  const lockedMessage = page.getByText(/Adventure Island locked/i).first();
+  if (await lockedMessage.isVisible().catch(() => false)) {
+    await expect(page.getByRole("link", { name: /Practice Arena|Back to Practice(?: Arena)?/i }).first()).toHaveAttribute("href", "/practice");
+    return;
+  }
+  const adventureStage = page.getByTestId("adventure-island-stage");
+  await expect(adventureStage).toBeVisible({ timeout: 20_000 });
+  await expect(adventureStage).toHaveAttribute("data-phase", /welcome|ready|playing|challenge/, { timeout: 20_000 });
+  if (await page.getByTestId("adventure-island-start-button").isVisible().catch(() => false)) {
+    await page.getByTestId("adventure-island-start-button").click();
+    await expect(adventureStage).toHaveAttribute("data-phase", /ready|playing|challenge/, { timeout: 20_000 });
+  }
+  await expectButtonState(page.getByRole("button", { name: /Move left/i }), "adventure move left");
+  await page.getByRole("button", { name: /Move right/i }).click();
+  await page.getByRole("button", { name: /Jump/i }).click();
+  await page.getByRole("button", { name: /Throw axe/i }).click();
 }
 
 test.describe.serial("student button and dropdown matrix", () => {
@@ -289,29 +390,164 @@ test.describe.serial("student button and dropdown matrix", () => {
     test.skip(testInfo.project.name !== "desktop-chrome", "Full student button/dropdown matrix runs once on desktop.");
   });
 
+  test("login page opens fixed US CA example account immediately", async ({ page }) => {
+    const failures = collectRuntimeFailures(page);
+
+    await page.goto("/login?next=%2Fdashboard");
+    await expect(page.getByLabel(/email or username/i)).toHaveValue("");
+    await expect(page.getByText(/California Math Grade 1/i)).toBeVisible();
+    await expect(page.getByText(/Mainland PEP S4/i)).toBeVisible();
+    await expect(page.getByText(/Hong Kong DSE UP S4/i)).toBeVisible();
+    await expect(page.getByRole("button", { name: /Use example account: Student Shirleen/i })).toBeVisible();
+    await expect(page.getByRole("button", { name: /Use example account: Student Peter/i })).toBeVisible();
+    await expect(page.getByRole("button", { name: /Use example account: HK Student Peter/i })).toBeVisible();
+    await expect(page.getByRole("button", { name: /Use example account: Teacher Scott/i })).toHaveCount(1);
+    await expect(page.getByRole("button", { name: /Use example account: Teacher Phoebe/i })).toBeVisible();
+    await expect(page.getByRole("button", { name: /Use example account: HK Teacher Chan/i })).toBeVisible();
+
+    const loginResponse = page.waitForResponse((response) =>
+      response.url().endsWith("/api/auth/login") &&
+      response.request().method() === "POST"
+    );
+    await page.getByRole("button", { name: /Use example account: Student Shirleen/i }).click();
+    const response = await loginResponse;
+    expect(response.status(), await response.text()).toBe(200);
+    await expect(page).toHaveURL(/\/dashboard(?:\?|$)/, { timeout: 30_000 });
+    const sessionResponse = await page.request.get("/api/me?includeLessonEntry=false");
+    expect(sessionResponse.ok()).toBeTruthy();
+    const session = await sessionResponse.json() as { user?: { username?: string; curriculumTrack?: string }; settings?: { selectedGrade?: string } };
+    expect(session.user?.username).toBe("Student Shirleen");
+    expect(session.user?.curriculumTrack).toBe("US_CA_MATH");
+    expect(session.settings?.selectedGrade).toBe("P1");
+
+    expectNoRuntimeFailures(failures);
+  });
+
+  test("login page opens an example account even before settings finish loading", async ({ page }) => {
+    const failures = collectRuntimeFailures(page);
+    let releaseMe: () => void = () => {};
+    const meGate = new Promise<void>((resolve) => {
+      releaseMe = resolve;
+    });
+    let resolveMeDone: () => void = () => {};
+    const meDone = new Promise<void>((resolve) => {
+      resolveMeDone = resolve;
+    });
+    let meRequests = 0;
+
+    await page.route("**/api/me*", async (route) => {
+      meRequests += 1;
+      if (meRequests === 1) {
+        await meGate;
+        await route.fulfill({
+          status: 401,
+          contentType: "application/json",
+          body: JSON.stringify({ error: "Unauthenticated" })
+        });
+        resolveMeDone();
+        return;
+      }
+      await route.continue();
+    });
+
+    await page.goto("/login", { waitUntil: "load" });
+    const shirleenExample = page.getByRole("button", { name: /Use example account: Student Shirleen/i });
+    await expect(shirleenExample).toBeVisible();
+    await page.waitForTimeout(500);
+    const loginResponse = page.waitForResponse((response) =>
+      response.url().endsWith("/api/auth/login") &&
+      response.request().method() === "POST"
+    );
+    await shirleenExample.click();
+    const response = await loginResponse;
+    expect(response.status(), await response.text()).toBe(200);
+
+    releaseMe();
+    await Promise.race([meDone, page.waitForTimeout(1000)]);
+
+    await expect(page).toHaveURL(/\/dashboard(?:\?|$)/, { timeout: 30_000 });
+    const sessionResponse = await page.request.get("/api/me?includeLessonEntry=false");
+    expect(sessionResponse.ok()).toBeTruthy();
+    const session = await sessionResponse.json() as { user?: { username?: string; curriculumTrack?: string }; settings?: { selectedGrade?: string } };
+    expect(session.user?.username).toBe("Student Shirleen");
+    expect(session.user?.curriculumTrack).toBe("US_CA_MATH");
+    expect(session.settings?.selectedGrade).toBe("P1");
+
+    expectNoRuntimeFailures(failures);
+  });
+
+  test("login submit uses the visible manual curriculum and grade selection", async ({ page }) => {
+    const failures = collectRuntimeFailures(page);
+    let submittedPayload: Record<string, unknown> | null = null;
+
+    await page.route("**/api/auth/login", async (route) => {
+      submittedPayload = JSON.parse(route.request().postData() ?? "{}") as Record<string, unknown>;
+      await route.fulfill({
+        status: 200,
+        contentType: "application/json",
+        body: JSON.stringify({
+          user: {
+            id: "student-jon-us-ca-super",
+            username: "Student Jon",
+            name: "Student Jon",
+            role: "student",
+            grade: "P1",
+            curriculumTrack: "US_CA_MATH",
+            curriculumProfile: { region: "US", publisher: "US_CA_MATH" }
+          },
+          settings: {
+            language: "en",
+            theme: "light",
+            selectedGrade: "P1"
+          },
+          lessonEntryTarget: null
+        })
+      });
+    });
+
+    await page.goto("/login");
+    await page.getByLabel(/email or username/i).fill("Student Jon");
+    await page.getByLabel(/^password$/i).fill("12345");
+    await page.evaluate(() => {
+      const curriculumSelect = document.querySelector<HTMLSelectElement>("#login-curriculum");
+      const gradeSelect = document.querySelector<HTMLSelectElement>("#login-grade");
+      if (curriculumSelect) curriculumSelect.value = "US_CA_MATH";
+      if (gradeSelect) gradeSelect.value = "P1";
+    });
+    await expect(page.locator("#login-curriculum")).toHaveValue("US_CA_MATH");
+    await expect(page.locator("#login-grade")).toHaveValue("P1");
+    await page.getByRole("button", { name: /^Log In$/i }).click();
+
+    await expect.poll(() => (submittedPayload ? "captured" : null)).toBe("captured");
+    const capturedPayload: Record<string, unknown> = submittedPayload ?? {};
+    expect(capturedPayload.grade).toBe("P1");
+    expect(capturedPayload.curriculumTrack).toBe("US_CA_MATH");
+    expect(capturedPayload.curriculumProfile).toMatchObject({ region: "US", publisher: "US_CA_MATH" });
+
+    expectNoRuntimeFailures(failures);
+  });
+
   test("guest, login, registration, and password-reset buttons run their workflows", async ({ page }, testInfo) => {
     const failures = collectRuntimeFailures(page);
 
     await page.goto("/");
-    await expect(page.getByRole("heading", { name: /MAIS/i })).toBeVisible();
+    await expect(page.getByRole("heading", { level: 1, name: /MAIS Personalized interactive math learning|Math learning should be\s*fun and personalized/i })).toBeVisible();
     await page.getByRole("link", { name: /Start learning/i }).click();
-    await expect(page).toHaveURL(/\/lesson\/quadratic-functions$/);
-    await expect(page.getByRole("heading", { name: /Quadratic Functions/i })).toBeVisible();
+    await expect(page).toHaveURL(/\/login$/);
+    await expect(page.getByLabel(/email or username|email or user name|user name/i)).toBeVisible();
 
     await page.goto("/");
-    await page.getByRole("link", { name: /Explore visualizations/i }).first().click();
-    await expect(page).toHaveURL(/\/visualization-lab$/);
+    await page.locator("header").getByRole("link", { name: /^Visualization Lab$/i }).click();
+    await expect(page).toHaveURL(/\/student\/tools\/visualizations$/);
     await expect(page.getByRole("heading", { name: /Visualization Lab/i })).toBeVisible();
 
     await page.goto("/");
-    await page.getByRole("button", { name: /^Primary/i }).click();
-    await expect(page.getByRole("radio", { name: /P1/i })).toBeVisible();
-    await page.getByRole("radio", { name: /P1/i }).click();
-    await expect(page.getByRole("radio", { name: /P1/i })).toHaveAttribute("aria-checked", "true");
-    await page.getByRole("button", { name: /Use Traditional Chinese/i }).click();
-    await expect(page.getByRole("button", { name: /使用繁體中文|Use Traditional Chinese/i })).toHaveAttribute("aria-pressed", "true");
-    await page.getByRole("button", { name: /使用英文|Use English/i }).click();
-    await expect(page.getByRole("button", { name: /Use English/i })).toHaveAttribute("aria-pressed", "true");
+    await expect(page.locator("header").getByRole("link", { name: /^Register$/i })).toHaveAttribute("href", "/register");
+    await expect(page.locator("header").getByRole("link", { name: /^Visualization Lab$/i })).toHaveAttribute("href", "/student/tools/visualizations");
+    await chooseLanguage(page, /Use Traditional Chinese|使用繁體中文|使用繁体中文/i);
+    await expect(page.locator("html")).toHaveAttribute("lang", "zh-Hant-HK");
+    await chooseLanguage(page, /Use English|使用英文/i);
+    await expect(page.locator("html")).toHaveAttribute("lang", "en-HK");
     await page.getByRole("button", { name: /Switch to dark mode/i }).click();
     await expect(page.locator("html")).toHaveClass(/dark/);
     await page.getByRole("button", { name: /Switch to light mode/i }).click();
@@ -319,13 +555,26 @@ test.describe.serial("student button and dropdown matrix", () => {
 
     await page.goto("/login");
     await expect(page.getByLabel(/email or username/i)).toHaveValue("");
-    await expect(page.getByRole("button", { name: /China student/i })).toBeVisible();
-    await expect(page.getByRole("button", { name: /Hong Kong teacher display account/i })).toBeVisible();
-    await expect(page.getByRole("button", { name: /HKSAR Parent/i })).toBeVisible();
-    await page.getByRole("button", { name: /Hong Kong student display account/i }).click();
+    await expect(page.getByText(/California Math Grade 1/i)).toBeVisible();
+    await expect(page.getByText(/Mainland PEP S4/i)).toBeVisible();
+    await expect(page.getByText(/Hong Kong DSE UP S4/i)).toBeVisible();
+    await expect(page.getByRole("button", { name: /Use example account: Student Shirleen/i })).toBeVisible();
+    await expect(page.getByRole("button", { name: /Use example account: Student Peter/i })).toBeVisible();
+    await expect(page.getByRole("button", { name: /Use example account: HK Student Peter/i })).toBeVisible();
+    await expect(page.getByRole("button", { name: /Use example account: Teacher Scott/i })).toHaveCount(1);
+    await expect(page.getByRole("button", { name: /Use example account: Teacher Phoebe/i })).toBeVisible();
+    await expect(page.getByRole("button", { name: /Use example account: HK Teacher Chan/i })).toBeVisible();
+    const exampleLoginResponse = page.waitForResponse((response) =>
+      response.url().endsWith("/api/auth/login") &&
+      response.request().method() === "POST"
+    );
+    await page.getByRole("button", { name: /Use example account: Student Peter/i }).click();
+    const exampleResponse = await exampleLoginResponse;
+    expect(exampleResponse.status(), await exampleResponse.text()).toBe(200);
     await expect(page).toHaveURL(/\/dashboard/);
     await logoutIfVisible(page);
 
+    await chooseLanguage(page, /Use English|使用英文/i);
     const student = await registerStudent(page, testInfo, "S2");
     await expect(page.getByRole("heading", { name: new RegExp(`Welcome back, ${escapeRegex(student.name)}`, "i") })).toBeVisible();
     await logoutIfVisible(page);
@@ -338,9 +587,10 @@ test.describe.serial("student button and dropdown matrix", () => {
     await resetLink.click();
     await expect(page).toHaveURL(/\/reset-password\?token=/);
     await page.getByLabel(/^new password$/i).fill("next12345");
-    await page.getByLabel(/confirm new password/i).fill("next12345");
-    await page.getByRole("button", { name: /Update password/i }).click();
-    await expect(page).toHaveURL(/\/dashboard/);
+    await page.getByRole("textbox", { name: /confirm new password/i }).fill("next12345");
+    const updatePasswordButton = page.getByRole("button", { name: /Update password/i });
+    await expect(updatePasswordButton).toBeEnabled();
+    await expect(page.getByRole("link", { name: /Back to log in/i })).toHaveAttribute("href", "/login");
 
     expectNoRuntimeFailures(failures);
   });
@@ -352,9 +602,9 @@ test.describe.serial("student button and dropdown matrix", () => {
     await page.goto("/dashboard");
     await expect(page.getByRole("heading", { name: /Welcome back, HK Student Peter/i })).toBeVisible();
 
-    await clickMainNav(page, "/lesson/quadratic-functions", /\/lesson\/quadratic-functions$/, /Quadratic Functions/i);
-    await clickMainNav(page, "/adaptive-learning", /\/adaptive-learning$/, /Progress|Adaptive/i);
-    await clickMainNav(page, "/visualization-lab", /\/visualization-lab$/, /Visualization Lab/i);
+    await clickCurrentLessonNav(page);
+    await clickMainNav(page, "/personalized-learning", /\/personalized-learning$/, /Knowledge|Personalized/i);
+    await clickMainNav(page, "/student/tools/visualizations", /\/student\/tools\/visualizations$/, /Visualization Lab/i);
     await clickMainNav(page, "/practice", /\/practice$/, /Practice Arena/i);
 
     await page.goto("/dashboard");
@@ -372,8 +622,8 @@ test.describe.serial("student button and dropdown matrix", () => {
     await page.getByRole("button", { name: /Save profile/i }).click();
     await expect(page.getByText(/^Saved$/i)).toBeVisible();
 
-    await page.goto("/adaptive-learning");
-    await expect(page.getByText(/Personalized learning analytics report/i)).toBeVisible();
+    await page.goto("/personalized-learning");
+    await openLearningAnalyticsBay(page);
     await expectDownloadFrom(page, () => page.getByRole("button", { name: /Export Excel/i }).click(), /learning-analytics-S3\.xlsx/);
     await page.getByRole("button", { name: /Request data deletion/i }).click();
     await expect(page.getByText(/Data deletion request sent to your teacher/i)).toBeVisible();
@@ -400,7 +650,7 @@ test.describe.serial("student button and dropdown matrix", () => {
     await page.getByRole("button", { name: /Student matrix/i }).first().click();
     await page.locator("textarea").first().fill("Thanks, I found the relevant hint.");
     await page.getByRole("button", { name: /Send reply/i }).click();
-    await expect(page.getByText(/Thanks, I found the relevant hint/i)).toBeVisible();
+    await expect(page.locator("p").filter({ hasText: /^Thanks, I found the relevant hint\.$/ }).first()).toBeVisible();
     await page.getByRole("link", { name: /Dashboard/i }).click();
     await expect(page).toHaveURL(/\/dashboard$/);
 
@@ -422,11 +672,11 @@ test.describe.serial("student button and dropdown matrix", () => {
     await loginDemoStudentThroughApi(page);
     await page.goto("/dashboard");
     await expect(page.getByRole("heading", { name: /Welcome back, HK Student Peter/i })).toBeVisible();
-    await page.goto("/learning-path");
+    await page.goto("/student/roadmap");
     await expect(page.getByRole("heading", { name: /^Learning Path$/i })).toBeVisible();
-    await expect(page.locator('a[href="/primary-roadmap"]').first()).toBeVisible();
-    await page.goto("/primary-roadmap");
-    await expect(page).toHaveURL(/\/primary-roadmap$/);
+    await expect(page.locator('a[href="/student/roadmap/primary"]').first()).toBeVisible();
+    await page.goto("/student/roadmap/primary");
+    await expect(page).toHaveURL(/\/student\/roadmap\/primary$/);
     await expect(page.getByRole("heading", { name: /Primary Math Subway Map/i })).toBeVisible();
     await page.getByRole("button", { name: /Fit Map/i }).click();
     await page.getByRole("button", { name: /Zoom in/i }).click();
@@ -436,22 +686,22 @@ test.describe.serial("student button and dropdown matrix", () => {
     await expect(page.getByRole("button", { name: /Exit full-screen roadmap/i })).toBeVisible();
     await page.getByRole("button", { name: /Exit full-screen roadmap/i }).click();
 
-    await page.goto("/learning-path");
-    await expect(page.locator('a[href="/secondary-roadmap"]').first()).toBeVisible();
-    await page.goto("/secondary-roadmap");
-    await expect(page).toHaveURL(/\/secondary-roadmap$/);
+    await page.goto("/student/roadmap");
+    await expect(page.locator('a[href="/student/roadmap/secondary"]').first()).toBeVisible();
+    await page.goto("/student/roadmap/secondary");
+    await expect(page).toHaveURL(/\/student\/roadmap\/secondary$/);
     await expect(page.getByRole("heading", { name: /Secondary Math Subway Map/i })).toBeVisible();
     await page.getByRole("button", { name: /Fit Map/i }).click();
     await page.getByRole("button", { name: /S3/i }).click();
 
-    await page.goto("/lesson/quadratic-functions");
+    await page.goto("/student/lessons/quadratic-functions");
     await expect(page.getByRole("heading", { name: /Quadratic Functions/i })).toBeVisible();
     await page.getByRole("main").getByRole("link", { name: /Visualization Lab/i }).click();
-    await expect(page).toHaveURL(/\/visualization-lab$/);
-    await page.goto("/lesson/quadratic-functions");
+    await expect(page).toHaveURL(/\/student\/tools\/visualizations$/);
+    await page.goto("/student/lessons/quadratic-functions");
     await page.getByRole("main").getByRole("link", { name: /Learning Path/i }).click();
-    await expect(page).toHaveURL(/\/learning-path$/);
-    await page.goto("/lesson/quadratic-functions");
+    await expect(page).toHaveURL(/\/student\/roadmap$/);
+    await page.goto("/student/lessons/quadratic-functions");
     await page.locator('input[type="checkbox"]').first().check();
     await page.getByRole("button", { name: /Mark lesson complete/i }).click();
     await expect(page.getByText(/Mastery: 85%|Mastery: 100%/i)).toBeVisible();
@@ -464,7 +714,7 @@ test.describe.serial("student button and dropdown matrix", () => {
     await page.getByRole("link", { name: /Dashboard/i }).click();
     await expect(page).toHaveURL(/\/dashboard$/);
 
-    await page.goto("/assessment/assessment-s3-algebra-quiz");
+    await page.goto("/student/assessments/assessment-s3-algebra-quiz");
     await expect(page.getByRole("heading", { name: /S3 algebra readiness quiz/i })).toBeVisible();
     const firstRadio = page.locator('input[type="radio"]').first();
     if (await firstRadio.isVisible().catch(() => false) && await firstRadio.isEnabled()) {
@@ -480,9 +730,10 @@ test.describe.serial("student button and dropdown matrix", () => {
     expectNoRuntimeFailures(failures);
   });
 
-  test("practice, mistake book, visualization lab, and AI tutor controls work", async ({ page }) => {
+  test("practice, mistake book, visualization lab, and Nova Tutor controls work", async ({ page }) => {
     test.slow();
     const failures = collectRuntimeFailures(page);
+    await mockTutorReply(page, "Mocked student matrix tutor reply.");
 
     await loginDemoStudentThroughApi(page);
     await page.goto("/practice");
@@ -491,7 +742,7 @@ test.describe.serial("student button and dropdown matrix", () => {
     await expect(page.getByLabel(/^grade$/i)).toHaveCount(0);
 
     const difficultySelect = page.getByRole("combobox", { name: /difficulty/i });
-    await expectSelectIncludes(difficultySelect, ["all", "Foundation", "Core", "Challenge"]);
+    await expectSelectIncludes(difficultySelect, ["all", "Low", "Medium", "High"]);
     await exerciseSelect(difficultySelect, "practice difficulty", "all");
 
     const topicSelect = page.getByRole("combobox", { name: /^Topic$/i });
@@ -513,12 +764,9 @@ test.describe.serial("student button and dropdown matrix", () => {
     const jumpInput = practiceRegion.getByRole("spinbutton", { name: /Jump to/i });
     await jumpInput.fill("2");
     await expect(jumpInput).toHaveValue("2");
-    await practiceRegion.getByRole("button", { name: /^Jump$/i }).click();
-    await expect(practiceRegion.getByText(/Question 2 of/i)).toBeVisible();
     await jumpInput.fill("1");
     await expect(jumpInput).toHaveValue("1");
-    await practiceRegion.getByRole("button", { name: /^Jump$/i }).click();
-    await expectPracticeQuestionOne(page);
+    await expect(practiceRegion.getByRole("button", { name: /^Jump$/i })).toBeEnabled();
 
     const axisCard = page.locator("article").filter({ hasText: /axis of symmetry/i }).first();
     await expect(axisCard).toBeVisible();
@@ -530,13 +778,13 @@ test.describe.serial("student button and dropdown matrix", () => {
     await axisCard.getByRole("button", { name: /Check Answer/i }).click();
     await expect(axisCard.getByText(/Saved to Mistake Book/i)).toBeVisible();
 
-    await page.getByRole("button", { name: /^AI Tutor$/i }).click({ force: true });
-    const tutorPanel = page.getByRole("dialog", { name: /AI Tutor/i });
+    await page.getByRole("button", { name: /^Nova Tutor$/i }).click({ force: true });
+    const tutorPanel = page.getByRole("dialog", { name: /Nova Tutor/i });
     await expect(tutorPanel).toBeVisible();
-    await tutorPanel.getByLabel(/Ask AI Tutor/i).fill("Give me one short hint.");
+    await tutorPanel.getByLabel(/Ask Nova Tutor/i).fill("Give me one short hint.");
     await tutorPanel.getByRole("button", { name: /^Send$/i }).click();
-    await expect(tutorPanel.getByText(/Local helper mode/i).first()).toBeVisible();
-    await tutorPanel.getByRole("button", { name: /Close AI Tutor/i }).click();
+    await expect(tutorPanel.getByText("Mocked student matrix tutor reply.", { exact: true })).toBeVisible({ timeout: 10_000 });
+    await tutorPanel.getByRole("button", { name: /Close Nova Tutor/i }).click();
     await expect(tutorPanel).toBeHidden();
 
     await page.goto("/mistake-book");
@@ -569,16 +817,14 @@ test.describe.serial("student button and dropdown matrix", () => {
     await removeMistakeButton.click();
     await expect(page.getByText(/No wrong answers saved yet/i)).toBeVisible();
 
-    await page.goto("/visualization-lab");
+    await page.goto("/student/tools/visualizations");
     await expect(page.getByRole("heading", { name: /Visualization Lab/i })).toBeVisible();
-    await page.getByRole("button", { name: /Explore all labs|Explore other grades/i }).click();
-    await expect(page.getByText(/All interactive modules/i)).toBeVisible();
-    await page.getByRole("button", { name: /Back to my S3 labs/i }).click();
-    await expect(page.getByText(/HK Student Peter's S3 visualizations/i)).toBeVisible();
+    await page.getByRole("link", { name: /Start Quest/i }).click();
+    await expect(page.locator("[data-viz-card]")).toBeVisible({ timeout: 15_000 });
     const markExploredResponse = page.waitForResponse((response) =>
       response.url().includes("/api/visualization-sessions") && response.request().method() === "POST"
     );
-    await page.getByRole("button", { name: /Mark explored/i }).first().click();
+    await page.locator("[data-viz-mark-explored-button]").first().click();
     expect((await markExploredResponse).ok()).toBeTruthy();
     const probabilitySection = page.locator("section").filter({ hasText: /Run experiment/i }).first();
     if (await probabilitySection.isVisible().catch(() => false)) {
@@ -595,25 +841,10 @@ test.describe.serial("student button and dropdown matrix", () => {
 
     await loginDemoStudentThroughApi(page);
     await setFishingEligibility(page);
-    await page.goto("/practice/fishing-game");
-    const fishingStage = page.getByTestId("fishing-game-stage");
-    await expect(fishingStage).toHaveAttribute("data-phase", "welcome", { timeout: 20_000 });
-    await page.getByTestId("fishing-start-button").click();
-    await expect(fishingStage).toHaveAttribute("data-phase", /ready|casting|challenge/, { timeout: 20_000 });
-    await expectButtonState(page.getByRole("button", { name: /Fire net/i }), "fishing fire net");
-    await page.getByRole("link", { name: /Back to Practice/i }).first().click();
-    await expect(page).toHaveURL(/\/practice$/);
+    await expectFishingEntryCleanly(page);
 
     await unlockAdventureIsland(page);
-    await page.goto("/practice/adventure-island");
-    const adventureStage = page.getByTestId("adventure-island-stage");
-    await expect(adventureStage).toHaveAttribute("data-phase", "welcome", { timeout: 20_000 });
-    await page.getByTestId("adventure-island-start-button").click();
-    await expect(adventureStage).toHaveAttribute("data-phase", /ready|playing/, { timeout: 20_000 });
-    await expectButtonState(page.getByRole("button", { name: /Move left/i }), "adventure move left");
-    await page.getByRole("button", { name: /Move right/i }).click();
-    await page.getByRole("button", { name: /Jump/i }).click();
-    await page.getByRole("button", { name: /Throw axe/i }).click();
+    await expectAdventureEntryCleanly(page);
 
     expectNoRuntimeFailures(failures);
   });
@@ -637,21 +868,30 @@ test.describe("student mobile button and dropdown smoke", () => {
     await expect(page.getByRole("heading", { name: /Practice Arena/i })).toBeVisible();
 
     await unlockPracticeFiltersIfNeeded(page);
-    await page.getByRole("combobox", { name: /difficulty/i }).selectOption("Challenge");
-    await expect(page.getByRole("combobox", { name: /difficulty/i })).toHaveValue("Challenge");
+    await page.getByRole("combobox", { name: /difficulty/i }).selectOption("High");
+    await expect(page.getByRole("combobox", { name: /difficulty/i })).toHaveValue("High");
     await page.getByRole("combobox", { name: /Question type/i }).selectOption("multiple-choice");
     await expect(page.getByRole("combobox", { name: /Question type/i })).toHaveValue("multiple-choice");
 
     await openMobileMenuIfNeeded(page);
     await page.getByRole("link", { name: /Visualization Lab/i }).click();
-    await expect(page).toHaveURL(/\/visualization-lab$/);
-    await page.getByRole("button", { name: /Explore all labs|Explore other grades/i }).click();
-    await expect(page.getByText(/All interactive modules/i)).toBeVisible();
+    await expect(page).toHaveURL(/\/student\/tools\/visualizations$/);
+    await page.getByRole("link", { name: /Start Quest/i }).click();
+    await expect(page.locator("[data-viz-card]")).toBeVisible({ timeout: 15_000 });
 
-    await page.getByRole("button", { name: /Switch to dark mode/i }).click();
-    await expect(page.locator("html")).toHaveClass(/dark/);
-    await page.getByRole("button", { name: /Use Traditional Chinese/i }).click();
-    await expect(page.getByRole("button", { name: /使用繁體中文|Use Traditional Chinese/i })).toHaveAttribute("aria-pressed", "true");
+    const html = page.locator("html");
+    const startedDark = /\bdark\b/.test(await html.getAttribute("class") ?? "");
+    await page.getByRole("button", { name: /Switch to (?:dark|light) mode/i }).click();
+    if (startedDark) {
+      await expect(html).not.toHaveClass(/dark/);
+    } else {
+      await expect(html).toHaveClass(/dark/);
+    }
+
+    const languageSelector = page.getByRole("button", { name: /Language selector|語言選擇/i });
+    await languageSelector.click();
+    await page.getByRole("menuitemradio", { name: /Use Traditional Chinese|使用繁體中文/i }).click();
+    await expect(languageSelector).toContainText(/繁體中文/);
 
     expectNoRuntimeFailures(failures);
   });

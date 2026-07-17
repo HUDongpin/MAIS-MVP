@@ -14,7 +14,10 @@ if (mockUrl) {
         ? input.toString()
         : input.url;
 
-    if (url === "https://api.deepseek.com/chat/completions") {
+    if (
+      url === "https://api.deepseek.com/chat/completions" ||
+      url === "https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions"
+    ) {
       return originalFetch(mockUrl, init);
     }
 

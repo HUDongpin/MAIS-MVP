@@ -64,6 +64,20 @@ async function gotoAppPage(page: Page, url: string) {
   }
 }
 
+async function skipLearnerStartSetup(app: IsolatedApp, page: Page) {
+  const response = await page.request.patch(app.url("/api/me/learner-profile"), {
+    data: {
+      status: "skipped",
+      answers: {
+        goal: "repair",
+        challenge: "balanced",
+        help: "hint"
+      }
+    }
+  });
+  expect(response.ok(), await response.text()).toBeTruthy();
+}
+
 async function readJson<T>(response: APIResponse, expectedStatus = 200) {
   const responseText = await response.text();
   expect(response.status(), responseText).toBe(expectedStatus);
@@ -123,12 +137,17 @@ test.describe.serial("gamification core workflows", () => {
       expect(app.dbPath).toContain(".tmp/e2e-isolated/gamification/");
 
       await loginThroughApi(app, page, demoStudent.username, demoStudent.password);
+      await skipLearnerStartSetup(app, page);
       await gotoAppPage(page, app.url("/dashboard"));
       await expect(page.getByText(/Motivation hub/i)).toBeVisible();
+      await expect(page.getByText(/Open motivation hub/i)).toBeVisible();
+      await expect(page.getByRole("heading", { name: /Daily quests/i })).toBeHidden();
+      await page.getByText(/Open motivation hub/i).click();
+      await expect(page.getByText(/Hide motivation hub/i)).toBeVisible();
       await expect(page.getByRole("heading", { name: /Level \d+/i })).toBeVisible({ timeout: 15_000 });
       await expect(page.getByRole("heading", { name: /Daily quests/i })).toBeVisible();
       await expect(page.getByRole("heading", { name: /^Badges$/i })).toBeVisible();
-      await expect(page.getByRole("heading", { name: /Class leaderboard/i })).toBeVisible();
+      await expect(page.getByRole("heading", { name: /Class leaderboard/i })).toHaveCount(0);
       await expect(page.getByText(/streak days/i)).toBeVisible();
       await expect(page.getByText(/spendable points/i)).toBeVisible();
       await expect(page.getByRole("heading", { name: /Points balance/i })).toBeVisible();

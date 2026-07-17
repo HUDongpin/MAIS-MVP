@@ -39,6 +39,8 @@ type AppStatePayload = {
   }>;
 };
 
+type TutorUsageEntry = NonNullable<AppStatePayload["ai_tutor_usage"]>[number];
+
 type ProviderRequestRecord = {
   body: Record<string, unknown>;
   authorization: "present" | "missing";
@@ -68,11 +70,13 @@ type Harness = {
   appLogs: string[];
 };
 
-type HarnessProfile = "default" | "vision";
+type HarnessProfile = "default" | "vision" | "missing-qwen";
 
 const projectRoot = process.cwd();
 const proxyPath = path.join(projectRoot, "tests", "e2e", "deepseek-fetch-proxy.cjs");
 const e2eRoot = path.join(projectRoot, ".tmp", "deepseek-e2e");
+const playwrightNextDistDir = process.env.PLAYWRIGHT_NEXT_DIST_DIR?.trim()
+  || (process.env.PLAYWRIGHT_E2E_ROOT?.trim() ? path.join(process.env.PLAYWRIGHT_E2E_ROOT.trim(), "next-dist") : "");
 let harness: Harness | null = null;
 const tinyPngBuffer = Buffer.from(
   "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/x8AAwMCAO+/p9sAAAAASUVORK5CYII=",
@@ -144,6 +148,15 @@ function recentLogs(logs: string[]) {
   return logs.join("").split("\n").slice(-40).join("\n");
 }
 
+function nextDistEnvForHarness() {
+  if (!playwrightNextDistDir) return {};
+  const buildIdPath = path.join(projectRoot, playwrightNextDistDir, "BUILD_ID");
+  if (!existsSync(buildIdPath)) return {};
+  return {
+    NEXT_DIST_DIR: playwrightNextDistDir
+  };
+}
+
 function chatCompletion(
   content: unknown,
   usage = { prompt_tokens: 12, completion_tokens: 8, total_tokens: 20 },
@@ -170,6 +183,38 @@ function finalTextResponse(text: string, usage = { prompt_tokens: 16, completion
   return {
     body: chatCompletion(JSON.stringify({ reply: text, visualization: null }), usage)
   };
+}
+
+function tutorSseFinalResponse(body: unknown, status = 200) {
+  return [
+    "event: status",
+    "data: {\"phase\":\"accepted\",\"elapsedMs\":0}",
+    "",
+    "event: final",
+    `data: ${JSON.stringify({ status, ok: status >= 200 && status < 300, body, elapsedMs: 42 })}`,
+    "",
+    ""
+  ].join("\n");
+}
+
+function tutorSseChunkedResponse(chunks: string[], body: unknown, status = 200) {
+  return [
+    "event: status",
+    "data: {\"phase\":\"accepted\",\"elapsedMs\":0}",
+    "",
+    "event: status",
+    "data: {\"phase\":\"provider-start\",\"provider\":\"qwen\",\"model\":\"qwen3.7-plus\",\"elapsedMs\":24}",
+    "",
+    ...chunks.flatMap((chunk, index) => [
+      "event: chunk",
+      `data: ${JSON.stringify({ delta: chunk, elapsedMs: 80 + index })}`,
+      ""
+    ]),
+    "event: final",
+    `data: ${JSON.stringify({ status, ok: status >= 200 && status < 300, body, elapsedMs: 120 })}`,
+    "",
+    ""
+  ].join("\n");
 }
 
 function tutorStructuredResponse(value: unknown, usage = { prompt_tokens: 18, completion_tokens: 10, total_tokens: 28 }): QueuedProviderResponse {
@@ -271,30 +316,34 @@ async function ensureHarness(profile: HarnessProfile = "default") {
   const appBaseURL = `http://127.0.0.1:${appPort}`;
   const appLogs: string[] = [];
   const nodeOptions = [process.env.NODE_OPTIONS, `--require ${proxyPath}`].filter(Boolean).join(" ");
-  const visionEnv = profile === "vision"
+  const qwenEnv = profile === "missing-qwen"
     ? {
-        AI_TUTOR_VISION_API_KEY: "e2e-vision-key",
-        AI_TUTOR_VISION_MODEL: "gpt-4.1-mini",
-        AI_TUTOR_VISION_API_URL: mock.url
+        QWEN_API_KEY: "",
+        QWEN_API_URL: "",
+        QWEN_TEXT_MODEL: "",
+        QWEN_IMAGE_MODEL: "",
+        QWEN_IMAGE_API_URL: ""
       }
     : {
-        AI_TUTOR_VISION_API_KEY: "",
-        AI_TUTOR_VISION_MODEL: "",
-        AI_TUTOR_VISION_API_URL: ""
+        QWEN_API_KEY: "e2e-qwen-key",
+        QWEN_API_URL: "https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions",
+        QWEN_TEXT_MODEL: "qwen3.7-plus",
+        QWEN_IMAGE_MODEL: profile === "vision" ? "qwen3.7-max" : "qwen3.7-plus",
+        QWEN_IMAGE_API_URL: "https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions"
       };
 
   const appProcess = spawn("npm", ["run", "start", "--", "--hostname", "127.0.0.1", "--port", String(appPort)], {
     cwd: projectRoot,
     env: {
       ...process.env,
+      ...nextDistEnvForHarness(),
       NODE_OPTIONS: nodeOptions,
       E2E_DEEPSEEK_MOCK_URL: mock.url,
-      LLM_API_KEY: "e2e-deepseek-key",
-      OPENAI_API_KEY: "",
-      LLM_MODEL: "deepseek-v4-pro",
-      OPENAI_MODEL: "",
-      LLM_API_URL: "https://api.deepseek.com/chat/completions",
-      ...visionEnv,
+      AI_TUTOR_PROVIDER_PROFILE: profile === "missing-qwen" ? "runtime" : "mocked-live",
+      DEEPSEEK_API_KEY: "e2e-deepseek-key",
+      DEEPSEEK_MODEL: "deepseek-v4-pro",
+      DEEPSEEK_API_URL: "https://api.deepseek.com/chat/completions",
+      ...qwenEnv,
       AUTH_SESSION_SECRET: "deepseek-e2e-session-secret",
       HK_MATH_DB_PATH: dbPath,
       HK_MATH_ENABLE_DEMO_USER: "true",
@@ -302,6 +351,7 @@ async function ensureHarness(profile: HarnessProfile = "default") {
       AI_TUTOR_MAX_REQUESTS_PER_MINUTE: "60",
       AI_TUTOR_MAX_REQUESTS_PER_HOUR: "120",
       AI_TUTOR_MAX_COMPLETION_TOKENS: "900",
+      AI_TUTOR_TOTAL_DEADLINE_MS: "10000",
       AI_TUTOR_PROVIDER_TIMEOUT_MS: "300",
       ADAPTIVE_LLM_MAX_REQUESTS_PER_MINUTE: "30",
       ADAPTIVE_LLM_MAX_REQUESTS_PER_HOUR: "120",
@@ -445,6 +495,10 @@ function tutorUsageFor(userId: string) {
   return (readAppStatePayload().ai_tutor_usage ?? []).filter((usage) => usage.user_id === userId);
 }
 
+function expectTutorUsageEventually(userId: string, predicate: (entry: TutorUsageEntry) => boolean) {
+  return expect.poll(() => tutorUsageFor(userId).some(predicate), { timeout: 5000 }).toBeTruthy();
+}
+
 function tutorImagePayload(name = "math-snapshot.png") {
   return {
     name,
@@ -469,16 +523,38 @@ function expectNoSensitiveTutorContext(value: string) {
 
 function expectNoSensitiveTutorReply(value: string) {
   expect(value).not.toMatch(
-    /system prompt|hidden system|database context|raw database|answer key|session token|candidateSignature|authorization|bearer\s+[a-z0-9._-]+|api key|LLM provider|HTTP\s+\d{3}|stack trace|OPENAI_API_KEY|LLM_API_KEY/i
+    /system prompt|hidden system|database context|raw database|answer key|session token|candidateSignature|authorization|bearer\s+[a-z0-9._-]+|api key|LLM provider|HTTP\s+\d{3}|stack trace|DEEPSEEK_API_KEY|QWEN_API_KEY/i
   );
 }
 
 async function openTutorAt(page: Page, appPath = "/practice") {
   const activeHarness = await ensureHarness();
   await page.goto(`${activeHarness.appBaseURL}${appPath}`);
-  await page.getByRole("button", { name: /^AI Tutor$|^智能導師$|^智能导师$/i }).click({ force: true });
-  const tutorPanel = page.getByRole("dialog", { name: /AI Tutor|智能導師|智能导师/i });
-  await expect(tutorPanel).toBeVisible();
+  const closeSetup = page.getByRole("button", { name: /close 15-second setup|關閉 15 秒設定|关闭 15 秒设置/i }).first();
+  await closeSetup.waitFor({ state: "visible", timeout: 1000 }).catch(() => undefined);
+  if (await closeSetup.isVisible().catch(() => false)) {
+    await page.request.patch(`${activeHarness.appBaseURL}/api/me/learner-profile`, {
+      data: {
+        status: "skipped",
+        answers: {
+          goal: "repair",
+          challenge: "balanced",
+          help: "hint"
+        }
+      }
+    });
+    await page.reload({ waitUntil: "networkidle" });
+    await expect(page.getByRole("dialog", { name: /comfortable way to start|舒服的開始方式|舒服的开始方式/i }))
+      .toBeHidden({ timeout: 5000 });
+  }
+  const tutorButton = page.getByRole("button", { name: /^Nova Tutor$|^Nova 導師$|^Nova 导师$|^AI Tutor$|^AI 導師$|^AI 导师$/i }).last();
+  await expect(tutorButton).toBeVisible({ timeout: 10000 });
+  const tutorPanel = page.getByRole("dialog", { name: /Nova Tutor|Nova 導師|Nova 导师|AI Tutor|AI 導師|AI 导师/i });
+  for (let attempt = 0; attempt < 3; attempt += 1) {
+    await tutorButton.click();
+    if (await tutorPanel.isVisible({ timeout: 1500 }).catch(() => false)) return tutorPanel;
+  }
+  await expect(tutorPanel).toBeVisible({ timeout: 10000 });
   return tutorPanel;
 }
 
@@ -490,7 +566,7 @@ test.afterAll(async () => {
   await disposeHarness();
 });
 
-test("frontend floating AI Tutor sends HK RAG evidenceQuery from the real UI payload", async ({ page }, testInfo) => {
+test("frontend floating Nova Tutor sends HK RAG evidenceQuery from the real UI payload", async ({ page }, testInfo) => {
   test.skip(testInfo.project.name !== "desktop-chrome", "DeepSeek verification runs once.");
   await registerStudentForPage(page, testInfo, "frontend-hk-rag", { grade: "S6", curriculumTrack: "HK" });
   let capturedPayload: Record<string, unknown> | null = null;
@@ -509,8 +585,8 @@ test("frontend floating AI Tutor sends HK RAG evidenceQuery from the real UI pay
   await tutorPanel.getByRole("button", { name: /^Send$/i }).click();
   await expect(tutorPanel.getByText("Mocked HK RAG UI reply.", { exact: true })).toBeVisible({ timeout: 10000 });
 
-  const payload = expectCapturedRecord(capturedPayload, "HK AI Tutor payload");
-  const context = expectRecord(payload.context, "HK AI Tutor context");
+  const payload = expectCapturedRecord(capturedPayload, "HK Nova Tutor payload");
+  const context = expectRecord(payload.context, "HK Nova Tutor context");
   const evidenceQuery = expectRecord(context.evidenceQuery, "HK evidenceQuery");
   expect(evidenceQuery).toMatchObject({
     grade: "S6",
@@ -527,7 +603,7 @@ test("frontend floating AI Tutor sends HK RAG evidenceQuery from the real UI pay
   });
 });
 
-test("frontend floating AI Tutor sends Mainland PEP RAG evidenceQuery from the real UI payload", async ({ page }, testInfo) => {
+test("frontend floating Nova Tutor sends Mainland PEP RAG evidenceQuery from the real UI payload", async ({ page }, testInfo) => {
   test.skip(testInfo.project.name !== "desktop-chrome", "DeepSeek verification runs once.");
   await registerStudentForPage(page, testInfo, "frontend-mainland-rag", {
     grade: "P6",
@@ -550,8 +626,8 @@ test("frontend floating AI Tutor sends Mainland PEP RAG evidenceQuery from the r
   await tutorPanel.getByRole("button", { name: /^Send$|^送出$/i }).click();
   await expect(tutorPanel.getByText("Mocked Mainland RAG UI reply.", { exact: true })).toBeVisible({ timeout: 10000 });
 
-  const payload = expectCapturedRecord(capturedPayload, "Mainland AI Tutor payload");
-  const context = expectRecord(payload.context, "Mainland AI Tutor context");
+  const payload = expectCapturedRecord(capturedPayload, "Mainland Nova Tutor payload");
+  const context = expectRecord(payload.context, "Mainland Nova Tutor context");
   const evidenceQuery = expectRecord(context.evidenceQuery, "Mainland evidenceQuery");
   expect(evidenceQuery).toMatchObject({
     grade: "P6",
@@ -564,7 +640,7 @@ test("frontend floating AI Tutor sends Mainland PEP RAG evidenceQuery from the r
   });
 });
 
-test("frontend explicit AI Tutor button context is preserved and supplemented with RAG evidenceQuery", async ({ page }, testInfo) => {
+test("frontend explicit Nova Tutor button context is preserved and supplemented with RAG evidenceQuery", async ({ page }, testInfo) => {
   test.skip(testInfo.project.name !== "desktop-chrome", "DeepSeek verification runs once.");
   const activeHarness = await ensureHarness();
   await registerStudentForPage(page, testInfo, "frontend-explicit-rag", { grade: "S3", curriculumTrack: "HK" });
@@ -594,17 +670,17 @@ test("frontend explicit AI Tutor button context is preserved and supplemented wi
 
   await page.goto(`${activeHarness.appBaseURL}/mistake-book`);
   await expect(page.getByText(/Loading mistakes/i)).toHaveCount(0, { timeout: 10000 });
-  const explicitTutorButton = page.locator("button", { hasText: "Ask AI Tutor" }).first();
+  const explicitTutorButton = page.locator("button", { hasText: "Ask Nova Tutor" }).first();
   await expect(explicitTutorButton).toBeVisible({ timeout: 10000 });
   await explicitTutorButton.click();
-  const tutorPanel = page.getByRole("dialog", { name: /AI Tutor|智能導師|智能导师/i });
+  const tutorPanel = page.getByRole("dialog", { name: /Nova Tutor|Nova 導師|Nova 导师/i });
   await expect(tutorPanel).toBeVisible();
   await tutorPanel.locator("#ai-tutor-input").fill("Help me diagnose this mistake and connect it to the curriculum.");
   await tutorPanel.getByRole("button", { name: /^Send$/i }).click();
   await expect(tutorPanel.getByText("Mocked explicit context RAG reply.", { exact: true })).toBeVisible({ timeout: 10000 });
 
-  const payload = expectCapturedRecord(capturedPayload, "explicit context AI Tutor payload");
-  const context = expectRecord(payload.context, "explicit AI Tutor context");
+  const payload = expectCapturedRecord(capturedPayload, "explicit context Nova Tutor payload");
+  const context = expectRecord(payload.context, "explicit Nova Tutor context");
   expect(context.mode).toBe("mistake");
   expect(typeof context.title).toBe("string");
   expect(String(context.details ?? "")).toContain("Last answer");
@@ -618,49 +694,64 @@ test("frontend explicit AI Tutor button context is preserved and supplemented wi
   });
 });
 
-test("status and an authenticated tutor call use the DeepSeek V4 Pro request contract", async ({}, testInfo) => {
-  test.skip(testInfo.project.name !== "desktop-chrome", "DeepSeek verification runs once.");
+test("status and an authenticated tutor call use the Ali Qwen text request contract", async ({}, testInfo) => {
+  test.skip(testInfo.project.name !== "desktop-chrome", "AI Tutor provider verification runs once.");
   const contexts: APIRequestContext[] = [];
   const activeHarness = await ensureHarness();
 
   try {
     const context = await newApiContext(contexts);
     const student = await registerStudent(context, testInfo, "contract");
-    queueProviderResponses(finalTextResponse("Mocked DeepSeek final hint.", { prompt_tokens: 21, completion_tokens: 9, total_tokens: 30 }));
+    queueProviderResponses(finalTextResponse("Mocked Qwen final hint.", { prompt_tokens: 21, completion_tokens: 9, total_tokens: 30 }));
 
-    const status = await readJson<{ configured: boolean; mode: string; model: string; provider: string }>(
+    const status = await readJson<{
+      configured: boolean;
+      health: { checked: boolean; state: string };
+      mode: string;
+      model: string;
+      provider: string;
+      readiness: string;
+      text: { configured: boolean; health: { checked: boolean; state: string }; readiness: string };
+    }>(
       await context.get("/api/ai-tutor/status")
     );
-    expect(status).toEqual({
+    expect(status).toMatchObject({
       configured: true,
+      health: { checked: false, state: "not-checked" },
       mode: "live",
-      model: "deepseek-v4-pro",
-      provider: "deepseek"
+      model: "qwen3.7-plus",
+      provider: "qwen",
+      readiness: "configured",
+      text: {
+        configured: true,
+        health: { checked: false, state: "not-checked" },
+        readiness: "configured"
+      }
     });
 
     const reply = await readJson<{ reply: string; visualization?: unknown }>(
       await context.post("/api/ai-tutor", {
         data: {
           input: "Give one short hint about factorising x^2 - 9.",
-          context: { mode: "general", title: "DeepSeek contract test" },
+          context: { mode: "general", title: "Qwen contract test" },
           grade: "S3",
           language: "en",
           page: "/practice"
         }
       })
     );
-    expect(reply.reply).toBe("Mocked DeepSeek final hint.");
+    expect(reply.reply).toBe("Mocked Qwen final hint.");
     expect(reply.visualization).toBeUndefined();
 
     expect(activeHarness.providerRequests).toHaveLength(1);
     const requestBody = activeHarness.providerRequests[0].body;
     expect(activeHarness.providerRequests[0].authorization).toBe("present");
-    expect(requestBody.model).toBe("deepseek-v4-pro");
+    expect(requestBody.model).toBe("qwen3.7-plus");
     expect(requestBody.response_format).toEqual({ type: "json_object" });
     expect(requestBody.stream).toBe(false);
-    expect(requestBody.thinking).toEqual({ type: "disabled" });
+    expect(requestBody).not.toHaveProperty("thinking");
     expect(requestBody).not.toHaveProperty("reasoning_effort");
-    expect(requestBody.max_tokens).toBe(900);
+    expect(requestBody.max_tokens).toBe(600);
     expect(requestBody).not.toHaveProperty("max_completion_tokens");
     expect(Array.isArray(requestBody.messages)).toBe(true);
     const messages = requestBody.messages as Array<{ role?: string; content?: unknown }>;
@@ -669,20 +760,63 @@ test("status and an authenticated tutor call use the DeepSeek V4 Pro request con
     expect(messages[1]?.content).toContain("Selected grade: S3");
     expect(messages[1]?.content).toContain("Interface language: en");
     expect(messages[1]?.content).toContain("Current page: /practice");
-    expect(messages[1]?.content).toContain("Topic or task: DeepSeek contract test");
+    expect(messages[1]?.content).toContain("Topic or task: Qwen contract test");
 
-    const usage = tutorUsageFor(student.userId);
-    expect(usage.some((entry) =>
-      entry.model === "deepseek-v4-pro" &&
+    await expectTutorUsageEventually(student.userId, (entry) =>
+      entry.model === "qwen3.7-plus" &&
       entry.error === null &&
       entry.total_tokens === 30
-    )).toBeTruthy();
+    );
   } finally {
     await Promise.all(contexts.map((context) => context.dispose()));
   }
 });
 
-test("AI Tutor provider prompt includes safe RAG evidence for frontend evidenceQuery payloads", async ({}, testInfo) => {
+test("Nova Lens replies in English for English selected text even when the interface language is Chinese", async ({}, testInfo) => {
+  test.skip(testInfo.project.name !== "desktop-chrome", "DeepSeek verification runs once.");
+  const contexts: APIRequestContext[] = [];
+  const activeHarness = await ensureHarness();
+
+  try {
+    const context = await newApiContext(contexts);
+    await registerStudent(context, testInfo, "nova-lens-english-language", { language: "zh" });
+    queueProviderResponses({
+      body: chatCompletion("English selected-text reply.", { prompt_tokens: 18, completion_tokens: 6, total_tokens: 24 })
+    });
+
+    const reply = await readJson<{ status: string; reply: string }>(
+      await context.post("/api/nova-lens/runs", {
+        data: {
+          selectedText: "range",
+          action: "explain",
+          surface: "lesson",
+          page: "/student/lessons/sets",
+          grade: "S3",
+          language: "zh",
+          context: {
+            title: "Sets and functions",
+            lessonSlug: "sets",
+            topicId: "sets",
+            blockId: "range-definition",
+            surroundingText: "The range is the set of possible output values."
+          }
+        }
+      })
+    );
+
+    expect(reply.status).toBe("completed");
+    expect(reply.reply).toBe("English selected-text reply.");
+    expect(activeHarness.providerRequests).toHaveLength(1);
+    const messages = activeHarness.providerRequests[0].body.messages as Array<{ role?: string; content?: unknown }>;
+    expect(messages[0]?.content).toContain("Reply in English.");
+    expect(messages[0]?.content).not.toContain("Reply in Traditional Chinese.");
+    expect(messages[1]?.content).toContain("Selected text:\nrange");
+  } finally {
+    await Promise.all(contexts.map((context) => context.dispose()));
+  }
+});
+
+test("Nova Tutor provider prompt includes safe RAG evidence for frontend evidenceQuery payloads", async ({}, testInfo) => {
   test.skip(testInfo.project.name !== "desktop-chrome", "DeepSeek verification runs once.");
   const contexts: APIRequestContext[] = [];
   const activeHarness = await ensureHarness();
@@ -750,14 +884,14 @@ test("AI Tutor provider prompt includes safe RAG evidence for frontend evidenceQ
       const messages = activeHarness.providerRequests[0].body.messages as Array<{ content?: unknown }>;
       const sessionContext = String(messages[1]?.content ?? "");
       expect(sessionContext).toMatch(ragCase.expectedEvidence);
-      expect(sessionContext).not.toMatch(/Authorization:\s*Bearer|OPENAI_API_KEY|LLM_API_KEY|Correct answer for tutor reference|session token/i);
+      expect(sessionContext).not.toMatch(/Authorization:\s*Bearer|DEEPSEEK_API_KEY|QWEN_API_KEY|Correct answer for tutor reference|session token/i);
     }
   } finally {
     await Promise.all(contexts.map((context) => context.dispose()));
   }
 });
 
-test("guest AI Tutor API requires registration for multilingual role-matrix inputs", async ({}, testInfo) => {
+test("guest Nova Tutor API requires registration for multilingual role-matrix inputs", async ({}, testInfo) => {
   test.skip(testInfo.project.name !== "desktop-chrome", "DeepSeek verification runs once.");
   const contexts: APIRequestContext[] = [];
   const activeHarness = await ensureHarness();
@@ -797,7 +931,7 @@ test("guest AI Tutor API requires registration for multilingual role-matrix inpu
   }
 });
 
-test("AI Tutor returns a sanitized quadratic visualization from structured DeepSeek output", async ({}, testInfo) => {
+test("Nova Tutor returns a sanitized quadratic visualization from structured DeepSeek output", async ({}, testInfo) => {
   test.skip(testInfo.project.name !== "desktop-chrome", "DeepSeek verification runs once.");
   const contexts: APIRequestContext[] = [];
 
@@ -837,7 +971,7 @@ test("AI Tutor returns a sanitized quadratic visualization from structured DeepS
   }
 });
 
-test("AI Tutor drops invalid visualization payloads but keeps the text reply", async ({}, testInfo) => {
+test("Nova Tutor drops invalid visualization payloads but keeps the text reply", async ({}, testInfo) => {
   test.skip(testInfo.project.name !== "desktop-chrome", "DeepSeek verification runs once.");
   const contexts: APIRequestContext[] = [];
 
@@ -871,7 +1005,7 @@ test("AI Tutor drops invalid visualization payloads but keeps the text reply", a
   }
 });
 
-test("AI Tutor accepts fenced JSON, embedded JSON, malformed reply JSON, and useful plain text provider replies", async ({}, testInfo) => {
+test("Nova Tutor accepts fenced JSON, embedded JSON, malformed reply JSON, and useful plain text provider replies", async ({}, testInfo) => {
   test.skip(testInfo.project.name !== "desktop-chrome", "DeepSeek verification runs once.");
   const contexts: APIRequestContext[] = [];
 
@@ -928,7 +1062,7 @@ test("AI Tutor accepts fenced JSON, embedded JSON, malformed reply JSON, and use
   }
 });
 
-test("AI Tutor identity questions always resolve to Professor Nova across roles and languages", async ({}, testInfo) => {
+test("Nova Tutor identity questions always resolve to Professor Nova across roles and languages", async ({}, testInfo) => {
   test.skip(testInfo.project.name !== "desktop-chrome", "DeepSeek verification runs once.");
   const contexts: APIRequestContext[] = [];
 
@@ -938,7 +1072,7 @@ test("AI Tutor identity questions always resolve to Professor Nova across roles 
       login: null,
       input: "Who are you? Are you Teacher Chan?",
       language: "en",
-      expected: /Professor Nova, the MAIS AI Tutor/i
+      expected: /Professor Nova, the MAIS Nova Tutor/i
     },
     {
       label: "teacher-chinese",
@@ -952,7 +1086,7 @@ test("AI Tutor identity questions always resolve to Professor Nova across roles 
       login: { username: "Peter's Parent", password: "12345" },
       input: "What is your name?",
       language: "en",
-      expected: /Professor Nova, the MAIS AI Tutor/i
+      expected: /Professor Nova, the MAIS Nova Tutor/i
     }
   ];
 
@@ -1002,7 +1136,7 @@ test("AI Tutor identity questions always resolve to Professor Nova across roles 
   }
 });
 
-test("AI Tutor blocks sensitive internal-material requests before provider calls", async ({}, testInfo) => {
+test("Nova Tutor blocks sensitive internal-material requests before provider calls", async ({}, testInfo) => {
   test.skip(testInfo.project.name !== "desktop-chrome", "DeepSeek verification runs once.");
   const contexts: APIRequestContext[] = [];
   const activeHarness = await ensureHarness();
@@ -1033,7 +1167,7 @@ test("AI Tutor blocks sensitive internal-material requests before provider calls
   }
 });
 
-test("AI Tutor sanitizes sensitive echoes in provider replies", async ({}, testInfo) => {
+test("Nova Tutor sanitizes sensitive echoes in provider replies", async ({}, testInfo) => {
   test.skip(testInfo.project.name !== "desktop-chrome", "DeepSeek verification runs once.");
   const contexts: APIRequestContext[] = [];
   const activeHarness = await ensureHarness();
@@ -1173,7 +1307,7 @@ test("Explicit teacher dashboard scope remains authorized but compact", async ({
   }
 });
 
-test("AI Tutor includes authorized student dashboard and adaptive engine snapshots", async ({}, testInfo) => {
+test("Nova Tutor includes authorized student dashboard and adaptive engine snapshots", async ({}, testInfo) => {
   test.skip(testInfo.project.name !== "desktop-chrome", "DeepSeek verification runs once.");
   const contexts: APIRequestContext[] = [];
   const activeHarness = await ensureHarness();
@@ -1209,7 +1343,7 @@ test("AI Tutor includes authorized student dashboard and adaptive engine snapsho
   }
 });
 
-test("Teacher AI Tutor can read a verified student profile and adaptive snapshot", async ({}, testInfo) => {
+test("Teacher Nova Tutor can read a verified student profile and adaptive snapshot", async ({}, testInfo) => {
   test.skip(testInfo.project.name !== "desktop-chrome", "DeepSeek verification runs once.");
   const contexts: APIRequestContext[] = [];
   const activeHarness = await ensureHarness();
@@ -1260,7 +1394,7 @@ test("Teacher AI Tutor can read a verified student profile and adaptive snapshot
   }
 });
 
-test("AI Tutor rejects unauthorized cross-student context hints", async ({}, testInfo) => {
+test("Nova Tutor rejects unauthorized cross-student context hints", async ({}, testInfo) => {
   test.skip(testInfo.project.name !== "desktop-chrome", "DeepSeek verification runs once.");
   const contexts: APIRequestContext[] = [];
   const activeHarness = await ensureHarness();
@@ -1300,7 +1434,7 @@ test("AI Tutor rejects unauthorized cross-student context hints", async ({}, tes
   }
 });
 
-test("Parent AI Tutor denies teacher and student data scopes while keeping chat usable", async ({}, testInfo) => {
+test("Parent Nova Tutor denies teacher and student data scopes while keeping chat usable", async ({}, testInfo) => {
   test.skip(testInfo.project.name !== "desktop-chrome", "DeepSeek verification runs once.");
   const contexts: APIRequestContext[] = [];
   const activeHarness = await ensureHarness();
@@ -1397,8 +1531,8 @@ test("dashboard context checks return deterministic summaries when provider outp
   }
 });
 
-test("reasoning-only DeepSeek output retries once with thinking disabled", async ({}, testInfo) => {
-  test.skip(testInfo.project.name !== "desktop-chrome", "DeepSeek verification runs once.");
+test("reasoning-only provider output retries once without DeepSeek thinking fields", async ({}, testInfo) => {
+  test.skip(testInfo.project.name !== "desktop-chrome", "AI Tutor provider verification runs once.");
   const contexts: APIRequestContext[] = [];
   const activeHarness = await ensureHarness();
 
@@ -1424,26 +1558,65 @@ test("reasoning-only DeepSeek output retries once with thinking disabled", async
 
     expect(reply.reply).toBe("Retry returned final text.");
     expect(activeHarness.providerRequests).toHaveLength(2);
-    expect(activeHarness.providerRequests[0].body.thinking).toEqual({ type: "disabled" });
+    expect(activeHarness.providerRequests[0].body).not.toHaveProperty("thinking");
     expect(activeHarness.providerRequests[0].body).not.toHaveProperty("reasoning_effort");
-    expect(activeHarness.providerRequests[1].body.thinking).toEqual({ type: "disabled" });
+    expect(activeHarness.providerRequests[1].body).not.toHaveProperty("thinking");
     expect(activeHarness.providerRequests[1].body).not.toHaveProperty("reasoning_effort");
 
-    const usage = tutorUsageFor(student.userId);
-    expect(usage.some((entry) =>
+    await expectTutorUsageEventually(student.userId, (entry) =>
       typeof entry.error === "string" &&
       entry.error.includes("empty-final-content") &&
       entry.error.includes("no final tutor reply") &&
       entry.error.includes("Retrying with strict JSON-only prompt")
-    )).toBeTruthy();
-    expect(usage.some((entry) => entry.model === "deepseek-v4-pro" && entry.error === null && entry.total_tokens === 25)).toBeTruthy();
+    );
+    await expectTutorUsageEventually(student.userId, (entry) =>
+      entry.model === "qwen3.7-plus" &&
+      entry.error === null &&
+      entry.total_tokens === 25
+    );
   } finally {
     await Promise.all(contexts.map((context) => context.dispose()));
   }
 });
 
-test("DeepSeek provider failures retry once and return friendly AI Tutor fallbacks", async ({}, testInfo) => {
-  test.skip(testInfo.project.name !== "desktop-chrome", "DeepSeek verification runs once.");
+test("AI Tutor text chat ignores DeepSeek credentials and remains Qwen-only", async ({}, testInfo) => {
+  test.skip(testInfo.project.name !== "desktop-chrome", "AI Tutor provider verification runs once.");
+  const contexts: APIRequestContext[] = [];
+  const activeHarness = await ensureHarness();
+
+  try {
+    const context = await newApiContext(contexts);
+    await registerStudent(context, testInfo, "qwen-only");
+    queueProviderResponses(
+      finalTextResponse("Qwen-only tutor reply.", { prompt_tokens: 19, completion_tokens: 7, total_tokens: 26 })
+    );
+
+    const startedAt = Date.now();
+    const reply = await readJson<{ reply: string; mode?: string }>(
+      await context.post("/api/ai-tutor", {
+        data: {
+          input: "Give one short hint about factorising x^2 - 9.",
+          context: { mode: "general", title: "Qwen-only text chat" },
+          grade: "S3",
+          language: "en",
+          page: "/practice"
+        }
+      })
+    );
+    const durationMs = Date.now() - startedAt;
+
+    expect(reply.reply).toBe("Qwen-only tutor reply.");
+    expect(reply.mode).toBeUndefined();
+    expect(durationMs).toBeLessThan(2500);
+    expect(activeHarness.providerRequests).toHaveLength(1);
+    expect(activeHarness.providerRequests[0].body.model).toBe("qwen3.7-plus");
+  } finally {
+    await Promise.all(contexts.map((context) => context.dispose()));
+  }
+});
+
+test("Qwen provider failures retry once and return friendly Nova Tutor fallbacks", async ({}, testInfo) => {
+  test.skip(testInfo.project.name !== "desktop-chrome", "AI Tutor provider verification runs once.");
   const contexts: APIRequestContext[] = [];
   const activeHarness = await ensureHarness();
 
@@ -1485,7 +1658,7 @@ test("DeepSeek provider failures retry once and return friendly AI Tutor fallbac
       3
     );
     expectFriendlyFallback(emptyFinal.body);
-    expect(activeHarness.providerRequests[1].body.thinking).toEqual({ type: "disabled" });
+    expect(activeHarness.providerRequests[1].body).not.toHaveProperty("thinking");
     expect(String((activeHarness.providerRequests[1].body.messages as Array<{ content?: unknown }>)[2]?.content ?? "")).toContain("valid JSON object");
     expect(activeHarness.providerRequests[2].body).not.toHaveProperty("response_format");
 
@@ -1565,27 +1738,83 @@ test("DeepSeek provider failures retry once and return friendly AI Tutor fallbac
     expect(chineseFallback.body.reply).toContain("即時 AI 暫時未能完成完整回覆");
     expect(chineseFallback.body.reply).not.toMatch(/Nova's live response|LLM provider|HTTP/i);
 
-    const usage = tutorUsageFor(emptyFinal.student.userId);
-    expect(usage.some((entry) =>
+    await expectTutorUsageEventually(emptyFinal.student.userId, (entry) =>
       typeof entry.error === "string" &&
       entry.error.includes("empty-final-content") &&
       entry.error.includes("no final tutor reply")
-    )).toBeTruthy();
-    const persistentUsage = tutorUsageFor(persistentBrokenJson.student.userId);
-    expect(persistentUsage.some((entry) => entry.error?.includes("retry-invalid-json"))).toBeTruthy();
+    );
+    await expectTutorUsageEventually(persistentBrokenJson.student.userId, (entry) =>
+      Boolean(entry.error?.includes("retry-invalid-json"))
+    );
   } finally {
     await Promise.all(contexts.map((context) => context.dispose()));
   }
 });
 
-test("image attachments without a configured vision provider return a normal tutor reply", async ({}, testInfo) => {
-  test.skip(testInfo.project.name !== "desktop-chrome", "DeepSeek verification runs once.");
+test("Nova Tutor sends text replies directly to Qwen without trying DeepSeek first", async ({}, testInfo) => {
+  test.skip(testInfo.project.name !== "desktop-chrome", "AI Tutor provider verification runs once.");
   const contexts: APIRequestContext[] = [];
   const activeHarness = await ensureHarness();
 
   try {
     const context = await newApiContext(contexts);
-    const student = await registerStudent(context, testInfo, "image-no-vision");
+    await registerStudent(context, testInfo, "qwen-direct");
+    queueProviderResponses(
+      finalTextResponse("Qwen direct tutor reply.", { prompt_tokens: 18, completion_tokens: 6, total_tokens: 24 })
+    );
+
+    const reply = await readJson<{ reply: string; mode?: string }>(
+      await context.post("/api/ai-tutor", {
+        data: {
+          input: "Give one short hint about factorising x^2 - 9.",
+          context: { mode: "general", title: "Qwen direct test" },
+          grade: "S3",
+          language: "en",
+          page: "/practice"
+        }
+      })
+    );
+
+    expect(reply.reply).toBe("Qwen direct tutor reply.");
+    expect(reply.mode).toBeUndefined();
+    expect(activeHarness.providerRequests).toHaveLength(1);
+    expect(activeHarness.providerRequests[0].body.model).toBe("qwen3.7-plus");
+    expect(activeHarness.providerRequests[0].body.response_format).toEqual({ type: "json_object" });
+    expect(activeHarness.providerRequests[0].body).not.toHaveProperty("thinking");
+
+    activeHarness.queuedResponses.push(
+      finalTextResponse("Qwen second direct tutor reply.", { prompt_tokens: 15, completion_tokens: 6, total_tokens: 21 })
+    );
+
+    const secondReply = await readJson<{ reply: string; mode?: string }>(
+      await context.post("/api/ai-tutor", {
+        data: {
+          input: "Give one more short hint.",
+          context: { mode: "general", title: "Qwen second direct test" },
+          grade: "S3",
+          language: "en",
+          page: "/practice"
+        }
+      })
+    );
+
+    expect(secondReply.reply).toBe("Qwen second direct tutor reply.");
+    expect(secondReply.mode).toBeUndefined();
+    expect(activeHarness.providerRequests).toHaveLength(2);
+    expect(activeHarness.providerRequests[1].body.model).toBe("qwen3.7-plus");
+  } finally {
+    await Promise.all(contexts.map((context) => context.dispose()));
+  }
+});
+
+test("image attachments without a configured Qwen provider return a vision setup reply", async ({}, testInfo) => {
+  test.skip(testInfo.project.name !== "desktop-chrome", "AI Tutor provider verification runs once.");
+  const contexts: APIRequestContext[] = [];
+  const activeHarness = await ensureHarness("missing-qwen");
+
+  try {
+    const context = await newApiContext(contexts, "missing-qwen");
+    const student = await registerStudent(context, testInfo, "image-no-qwen");
     queueProviderResponses(finalTextResponse("This should not be used."));
 
     const reply = await readJson<{ reply: string; mode?: string }>(
@@ -1606,16 +1835,16 @@ test("image attachments without a configured vision provider return a normal tut
     expect(reply.mode).toBe("vision-provider-required");
     expect(reply.reply).toContain("image reading is not enabled");
     expect(activeHarness.providerRequests).toHaveLength(0);
-    expect(tutorUsageFor(student.userId).some((entry) =>
-      entry.error === "AI tutor vision provider is not configured."
-    )).toBeTruthy();
+    await expectTutorUsageEventually(student.userId, (entry) =>
+      entry.error === "Nova Tutor vision provider is not configured."
+    );
   } finally {
     await Promise.all(contexts.map((context) => context.dispose()));
   }
 });
 
-test("image attachments use the configured vision provider with image_url content", async ({}, testInfo) => {
-  test.skip(testInfo.project.name !== "desktop-chrome", "DeepSeek verification runs once.");
+test("image attachments use the configured Qwen vision provider with image_url content", async ({}, testInfo) => {
+  test.skip(testInfo.project.name !== "desktop-chrome", "AI Tutor provider verification runs once.");
   const contexts: APIRequestContext[] = [];
   const activeHarness = await ensureHarness("vision");
 
@@ -1645,9 +1874,9 @@ test("image attachments use the configured vision provider with image_url conten
     expect(reply.reply).toBe("The attached image is a tiny uploaded PNG.");
     expect(activeHarness.providerRequests).toHaveLength(1);
     const requestBody = activeHarness.providerRequests[0].body;
-    expect(requestBody.model).toBe("gpt-4.1-mini");
-    expect(requestBody.max_completion_tokens).toBe(500);
-    expect(requestBody).not.toHaveProperty("max_tokens");
+    expect(requestBody.model).toBe("qwen3.7-max");
+    expect(requestBody.max_tokens).toBe(600);
+    expect(requestBody).not.toHaveProperty("max_completion_tokens");
     const messages = requestBody.messages as Array<{ content?: unknown }>;
     const finalContent = messages.at(-1)?.content;
     expect(Array.isArray(finalContent)).toBeTruthy();
@@ -1767,13 +1996,13 @@ test("adaptive reranker uses DeepSeek JSON mode and keeps deterministic fallback
   }
 });
 
-test("frontend guest AI Tutor opens and shows the registration gate", async ({ page }, testInfo) => {
+test("frontend guest Nova Tutor opens and shows the registration gate", async ({ page }, testInfo) => {
   test.skip(testInfo.project.name !== "desktop-chrome", "DeepSeek verification runs once.");
   const activeHarness = await ensureHarness();
   queueProviderResponses();
 
   const tutorPanel = await openTutorAt(page, "/practice");
-  await tutorPanel.getByLabel(/Ask AI Tutor/i).fill("我唔識二次函數，點樣開始？");
+  await tutorPanel.locator("#ai-tutor-input").fill("我唔識二次函數，點樣開始？");
   await tutorPanel.getByRole("button", { name: /^Send$/i }).click();
 
   await expect(tutorPanel.getByText(/註冊或登入|建立一個免費學習帳戶|register or sign in/i)).toBeVisible({ timeout: 10000 });
@@ -1781,7 +2010,7 @@ test("frontend guest AI Tutor opens and shows the registration gate", async ({ p
   expect(activeHarness.providerRequests).toHaveLength(0);
 });
 
-test("frontend AI Tutor role smoke opens, sends, receives, and closes for student, teacher, and parent", async ({ browser }, testInfo) => {
+test("frontend Nova Tutor role smoke opens, sends, receives, and closes for student, teacher, and parent", async ({ browser }, testInfo) => {
   test.skip(testInfo.project.name !== "desktop-chrome", "DeepSeek verification runs once.");
   const activeHarness = await ensureHarness();
   const roleCases = [
@@ -1791,15 +2020,15 @@ test("frontend AI Tutor role smoke opens, sends, receives, and closes for studen
       path: "/dashboard",
       input: "Give me a hint for factorising x^2 - 9.",
       reply: "Student role smoke reply.",
-      header: /HK Student Peter/
+      header: /Professor Nova/
     },
     {
       role: "teacher",
       username: "HK Teacher Chan",
-      path: "/teacher",
+      path: "/teacher/dashboard",
       input: "How should I help students who struggle with quadratic functions?",
       reply: "Teacher role smoke reply.",
-      header: /HK Teacher Chan/
+      header: /Professor Nova/
     },
     {
       role: "parent",
@@ -1807,7 +2036,7 @@ test("frontend AI Tutor role smoke opens, sends, receives, and closes for studen
       path: "/parent",
       input: "How can I support Peter's math revision at home?",
       reply: "Parent role smoke reply.",
-      header: /Peter's Parent/
+      header: /Professor Nova/
     }
   ] as const;
 
@@ -1844,8 +2073,8 @@ test("frontend AI Tutor role smoke opens, sends, receives, and closes for studen
       });
 
       const tutorPanel = await openTutorAt(page, roleCase.path);
-      await expect(tutorPanel.getByText(roleCase.header)).toBeVisible();
-      await tutorPanel.getByLabel(/Ask AI Tutor/i).fill(roleCase.input);
+      await expect(tutorPanel.getByRole("heading", { name: roleCase.header })).toBeVisible();
+      await tutorPanel.locator("#ai-tutor-input").fill(roleCase.input);
       await tutorPanel.getByRole("button", { name: /^Send$/i }).click();
 
       await expect(tutorPanel.getByRole("status")).toContainText(/Thinking/i);
@@ -1889,8 +2118,8 @@ test("frontend hides technical API errors and uses Chinese fallback for Chinese 
       body: JSON.stringify({
         configured: true,
         mode: "live",
-        model: "deepseek-v4-pro",
-        provider: "deepseek"
+        model: "qwen3.7-plus",
+        provider: "qwen"
       })
     });
   });
@@ -1903,8 +2132,8 @@ test("frontend hides technical API errors and uses Chinese fallback for Chinese 
   });
 
   const tutorPanel = await openTutor(page);
-  await expect(tutorPanel.getByText(/Live AI ready/)).toBeVisible();
-  await tutorPanel.getByLabel(/Ask AI Tutor/i).fill("你好，我要學一元二次函數");
+  await expect(tutorPanel.getByText(/Live AI configured/)).toBeVisible();
+  await tutorPanel.locator("#ai-tutor-input").fill("你好，我要學一元二次函數");
   await tutorPanel.getByRole("button", { name: /^Send$/i }).click();
 
   await expect(tutorPanel.getByText(/Nova 暫時提示/)).toBeVisible({ timeout: 10000 });
@@ -1938,8 +2167,8 @@ test("frontend does not show fallback copy when the configured tutor API returns
       body: JSON.stringify({
         configured: true,
         mode: "live",
-        model: "deepseek-v4-pro",
-        provider: "deepseek"
+        model: "qwen3.7-plus",
+        provider: "qwen"
       })
     });
   });
@@ -1952,12 +2181,61 @@ test("frontend does not show fallback copy when the configured tutor API returns
   });
 
   const tutorPanel = await openTutor(page);
-  await expect(tutorPanel.getByText(/Live AI ready/)).toBeVisible();
-  await tutorPanel.getByLabel(/Ask AI Tutor/i).fill("I need a valid live reply.");
+  await expect(tutorPanel.getByText(/Live AI configured/)).toBeVisible();
+  await tutorPanel.locator("#ai-tutor-input").fill("I need a valid live reply.");
   await tutorPanel.getByRole("button", { name: /^Send$/i }).click();
 
   await expect(tutorPanel.getByText("Mocked frontend tutor reply.", { exact: true })).toBeVisible({ timeout: 10000 });
   await expect(tutorPanel.getByText(/Live AI fallback|Nova fallback hint|Here is a local fallback hint|Local helper mode/i)).toHaveCount(0);
+});
+
+test("frontend consumes streaming tutor final events without fallback copy", async ({ page }, testInfo) => {
+  test.skip(testInfo.project.name !== "desktop-chrome", "DeepSeek verification runs once.");
+  const activeHarness = await ensureHarness();
+  const student = uniqueStudent(testInfo, "frontend-sse");
+  let acceptHeader = "";
+
+  await page.request.post(`${activeHarness.appBaseURL}/api/auth/register`, {
+    data: {
+      name: student.name,
+      username: student.username,
+      email: student.username,
+      password: student.password,
+      grade: "S3",
+      curriculumTrack: "HK",
+      language: "en",
+      theme: "dark"
+    }
+  });
+  await page.route("**/api/ai-tutor/status", async (route) => {
+    await route.fulfill({
+      status: 200,
+      contentType: "application/json",
+      body: JSON.stringify({
+        configured: true,
+        mode: "live",
+        model: "qwen3.7-plus",
+        provider: "qwen"
+      })
+    });
+  });
+  await page.route("**/api/ai-tutor", async (route) => {
+    acceptHeader = route.request().headers().accept ?? "";
+    await route.fulfill({
+      status: 200,
+      contentType: "text/event-stream; charset=utf-8",
+      body: tutorSseChunkedResponse(["Mocked streaming ", "frontend tutor reply."], {})
+    });
+  });
+
+  const tutorPanel = await openTutor(page);
+  await expect(tutorPanel.getByText(/Live AI configured/)).toBeVisible();
+  await tutorPanel.locator("#ai-tutor-input").fill("I need a streamed tutor reply.");
+  await tutorPanel.getByRole("button", { name: /^Send$/i }).click();
+
+  await expect(tutorPanel.getByText("Mocked streaming frontend tutor reply.", { exact: true })).toBeVisible({ timeout: 10000 });
+  await expect(tutorPanel.getByText(/Live AI fallback|Nova fallback hint|Here is a local fallback hint|Local helper mode/i)).toHaveCount(0);
+  expect(acceptHeader).toContain("text/event-stream");
 });
 
 test("frontend image attachment requests show API replies without live fallback copy", async ({ page }, testInfo) => {
@@ -1984,8 +2262,8 @@ test("frontend image attachment requests show API replies without live fallback 
       body: JSON.stringify({
         configured: true,
         mode: "live",
-        model: "deepseek-v4-pro",
-        provider: "deepseek"
+        model: "qwen3.7-plus",
+        provider: "qwen"
       })
     });
   });
@@ -1998,11 +2276,11 @@ test("frontend image attachment requests show API replies without live fallback 
   });
 
   const tutorPanel = await openTutor(page);
-  await expect(tutorPanel.getByText(/Live AI ready/)).toBeVisible();
+  await expect(tutorPanel.getByText(/Live AI configured/)).toBeVisible();
   await tutorPanel.getByRole("button", { name: /Add photos and files/i }).click({ force: true });
   await page.locator("#ai-tutor-attachments").setInputFiles(tutorImagePayload("math-snapshot.png"));
   await expect(tutorPanel.getByText("math-snapshot.png")).toBeVisible();
-  await tutorPanel.getByLabel(/Ask AI Tutor/i).fill("What is the attached file?");
+  await tutorPanel.locator("#ai-tutor-input").fill("What is the attached file?");
   await tutorPanel.getByRole("button", { name: /^Send$/i }).click();
 
   await expect(tutorPanel.getByText("Mocked image-aware tutor reply.", { exact: true })).toBeVisible({ timeout: 10000 });
@@ -2034,8 +2312,8 @@ test("frontend renders an inline quadratic visualization returned by the tutor A
       body: JSON.stringify({
         configured: true,
         mode: "live",
-        model: "deepseek-v4-pro",
-        provider: "deepseek"
+        model: "qwen3.7-plus",
+        provider: "qwen"
       })
     });
   });
@@ -2054,7 +2332,7 @@ test("frontend renders an inline quadratic visualization returned by the tutor A
   });
 
   const tutorPanel = await openTutor(page);
-  await tutorPanel.getByLabel(/Ask AI Tutor/i).fill("Can you make a visualization of y = x^2 - 4x + 3?");
+  await tutorPanel.locator("#ai-tutor-input").fill("Can you make a visualization of y = x^2 - 4x + 3?");
   await tutorPanel.getByRole("button", { name: /^Send$/i }).click();
 
   await expect(tutorPanel.getByRole("img", { name: /Live graph of quadratic function/i })).toBeVisible({ timeout: 10000 });

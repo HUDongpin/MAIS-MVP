@@ -569,11 +569,10 @@ async function startMockedAdaptiveApp(testInfo: TestInfo, mockUrl: string) {
     env: {
       NODE_OPTIONS: nodeOptions,
       E2E_DEEPSEEK_MOCK_URL: mockUrl,
-      LLM_API_KEY: "e2e-deepseek-key",
-      OPENAI_API_KEY: "",
-      LLM_MODEL: "deepseek-v4-pro",
-      OPENAI_MODEL: "",
-      LLM_API_URL: "https://api.deepseek.com/chat/completions",
+      DEEPSEEK_API_KEY: "e2e-deepseek-key",
+      DEEPSEEK_MODEL: "deepseek-v4-pro",
+      DEEPSEEK_API_URL: "https://api.deepseek.com/chat/completions",
+      HK_MATH_DISABLE_SQLITE_READ_CACHE: "true",
       ADAPTIVE_LLM_MAX_REQUESTS_PER_MINUTE: "30",
       ADAPTIVE_LLM_MAX_REQUESTS_PER_HOUR: "120",
       ADAPTIVE_LLM_PROVIDER_TIMEOUT_MS: "300"
@@ -582,12 +581,15 @@ async function startMockedAdaptiveApp(testInfo: TestInfo, mockUrl: string) {
 }
 
 test.describe.serial("adaptive LLM smoke with mocked DeepSeek", () => {
+  test.setTimeout(120_000);
+
   let app: IsolatedApp | null = null;
   let mockServer: Server | null = null;
   const providerRequests: ProviderRequestRecord[] = [];
   const queuedResponses: QueuedProviderResponse[] = [];
 
   test.beforeAll(async ({}, testInfo) => {
+    test.setTimeout(120_000);
     if (testInfo.project.name !== "desktop-chrome") return;
     const mock = await createDeepSeekMockServer(providerRequests, queuedResponses);
     mockServer = mock.server;
@@ -674,7 +676,7 @@ test.describe.serial("adaptive LLM smoke with mocked DeepSeek", () => {
 
       const refreshed = await readJson<AdaptiveRefreshResponse>(
         await context.post("/api/adaptive-learning/refresh", {
-          data: { grade: "S3", topicId: "polynomials" }
+          data: { grade: "S3", topicId: "quadratic-patterns" }
         })
       );
 
@@ -773,15 +775,14 @@ test.describe.serial("adaptive LLM smoke with mocked DeepSeek", () => {
 test("live DeepSeek adaptive judgement canary @live", async ({}, testInfo) => {
   test.skip(testInfo.project.name !== "desktop-chrome", "Live adaptive LLM smoke runs once.");
   test.skip(process.env.ADAPTIVE_LLM_LIVE_SMOKE !== "1", "Set ADAPTIVE_LLM_LIVE_SMOKE=1 to run the owner-approved live canary.");
-  test.skip(!process.env.LLM_API_KEY, "Live adaptive LLM smoke requires an owner-approved LLM_API_KEY.");
+  test.skip(!process.env.DEEPSEEK_API_KEY, "Live adaptive LLM smoke requires an owner-approved DEEPSEEK_API_KEY.");
 
   const liveApp = await startIsolatedApp("adaptive-llm-live-smoke", testInfo, {
     env: {
-      LLM_API_KEY: process.env.LLM_API_KEY,
-      OPENAI_API_KEY: "",
-      LLM_API_URL: process.env.LLM_API_URL || "https://api.deepseek.com/chat/completions",
-      LLM_MODEL: process.env.LLM_MODEL || "deepseek-v4-pro",
-      OPENAI_MODEL: "",
+      DEEPSEEK_API_KEY: process.env.DEEPSEEK_API_KEY,
+      DEEPSEEK_API_URL: process.env.DEEPSEEK_API_URL || "https://api.deepseek.com/chat/completions",
+      DEEPSEEK_MODEL: process.env.DEEPSEEK_MODEL || "deepseek-v4-pro",
+      HK_MATH_DISABLE_SQLITE_READ_CACHE: "true",
       ADAPTIVE_LLM_MAX_REQUESTS_PER_MINUTE: "3",
       ADAPTIVE_LLM_MAX_REQUESTS_PER_HOUR: "3",
       ADAPTIVE_LLM_PROVIDER_TIMEOUT_MS: "45000"
@@ -841,7 +842,7 @@ test("live DeepSeek adaptive judgement canary @live", async ({}, testInfo) => {
       expect(refreshed.decision?.engine.mode).toBe("llm-assisted");
       expect(refreshed.decision?.engine.llmStatus).toBe("ready");
       expect(refreshed.decision?.engine.provider).toBe("deepseek");
-      expect(refreshed.decision?.engine.model).toBe(process.env.LLM_MODEL || "deepseek-v4-pro");
+      expect(refreshed.decision?.engine.model).toBe(process.env.DEEPSEEK_MODEL || "deepseek-v4-pro");
       expect(refreshed.decision?.action).toBe(liveCase.expectedAction);
       expect(refreshed.decision?.engine.signalsUsed?.join(" ")).toMatch(/mastery|streak|review|question|candidate|guard|difficulty|attempt/i);
       expect(refreshed.decision?.explanation.en.length).toBeGreaterThan(10);

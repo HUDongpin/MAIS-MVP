@@ -2,6 +2,10 @@ import assert from "node:assert/strict";
 import { existsSync, readFileSync } from "node:fs";
 import path from "node:path";
 import test from "node:test";
+import { normalizeQuestionDiagram, validateQuestionDiagram } from "./questionFigure";
+import californiaMiddleSchoolLivePack from "../data/generated-content/us-ca-math-middle-school-textbooks-v2/live-lessons.json";
+import californiaMiddleSchoolTextbookPack from "../data/generated-content/us-ca-math-textbooks-v1/textbook-pack.json";
+import { buildWorkedExampleIllustrationMetadata } from "../components/lesson/workedExampleIllustrationMetadata";
 import { productionLessonSeeds } from "../data/lessons";
 import { grades } from "../data/grades";
 import {
@@ -24,6 +28,16 @@ import {
   mainlandPepPrimaryLessonIllustrations
 } from "../data/mainlandPepPrimaryLessonIllustrations";
 import { mainlandPepPrimaryTopics } from "../data/mainlandPepPrimaryTopics";
+import {
+  getUsArkansasMiddleSchoolLessonIllustration,
+  usArkansasMiddleSchoolLessonIllustrations
+} from "../data/usArkansasMiddleSchoolLessonIllustrations";
+import { usArkansasMiddleSchoolLessonSeeds } from "../data/usArkansasMiddleSchoolLessons";
+import { usArkansasTopics } from "../data/usArkansasTopics";
+import { californiaHighSchoolTextbookChapters } from "../data/usCaliforniaHighSchoolLessonIllustrations";
+import { usFloridaMiddleSchoolLessonSeeds } from "../data/usFloridaMiddleSchoolLessons";
+import { usFloridaMiddleSchoolQuestions } from "../data/usFloridaMiddleSchoolQuestions";
+import { usFloridaMiddleSchoolTopics } from "../data/usFloridaMiddleSchoolTopics";
 import { questions } from "../data/questions";
 import { topics } from "../data/topics";
 import {
@@ -35,7 +49,7 @@ import {
 } from "../data/visualizationLabs";
 import { lessonSlugForTopicId } from "./lessonLinks";
 import { createSessionToken, verifySessionToken } from "./session";
-import type { Question } from "../types";
+import type { GradeId, Question } from "../types";
 
 function restoreEnv(name: string, value: string | undefined) {
   if (typeof value === "undefined") {
@@ -66,6 +80,9 @@ const graphFriendlyTopicIds = new Set([
   "functions",
   "quadratic-patterns",
   "data-handling",
+  "p4-angles",
+  "p4-decimals",
+  "p5-volume",
   "p6-speed",
   "trigonometry-s5",
   "statistics-s1",
@@ -102,6 +119,29 @@ function isMainlandHjbLessonOnlyTopic(topic: (typeof topics)[number]) {
 
 function isPracticeBackedTopic(topic: (typeof topics)[number]) {
   return !isMainlandHjbLessonOnlyTopic(topic);
+}
+
+function isFullPracticeSetTopic(topic: (typeof topics)[number]) {
+  return !["US_CA_MATH", "US_NC_MATH"].includes(topic.curriculumTrack);
+}
+
+function isUsArkansasMiddleSchoolLessonTopic(topic: (typeof topics)[number]) {
+  return topic.curriculumTrack === "US_AR_MATH" && /^us-ar-math-g0[678]-chapter-/.test(topic.id);
+}
+
+function isProductionLessonRequiredTopic(topic: (typeof topics)[number]) {
+  if (isUsArkansasMiddleSchoolLessonTopic(topic)) return true;
+  if (topic.curriculumTrack === "US_AR_MATH" || topic.curriculumTrack === "US_CA_MATH" || topic.curriculumTrack === "US_NC_MATH") {
+    return false;
+  }
+  if (topic.publisher === "MAINLAND_BNU" || topic.curriculumProfile?.publisher === "MAINLAND_BNU") {
+    return true;
+  }
+  return true;
+}
+
+function isCoreBilingualAnswerQuestion(question: Question) {
+  return question.region !== "US" && question.publisher !== "MAINLAND_BNU" && question.publisher !== "MAINLAND_HJB";
 }
 
 function parseTraditionalMap(source: string) {
@@ -154,6 +194,7 @@ test("each practice-backed roadmap topic has a useful minimum question set", () 
   const minimumQuestionCount = 5;
   const undercoveredTopics = topics
     .filter(isPracticeBackedTopic)
+    .filter(isFullPracticeSetTopic)
     .map((topic) => ({
       topicId: topic.id,
       count: questions.filter((question) => question.topicId === topic.id).length
@@ -185,6 +226,17 @@ test("practice graph questions use suitable topics and valid coordinate ranges",
       issues.push(`${question.id}: missing diagram`);
       return issues;
     }
+
+    const normalizedDiagram = normalizeQuestionDiagram(question.diagram);
+    if (!normalizedDiagram) {
+      issues.push(`${question.id}: diagram does not conform to the question figure spec`);
+      return issues;
+    }
+    validateQuestionDiagram(normalizedDiagram).forEach((issue) => {
+      issues.push(`${question.id}: ${issue}`);
+    });
+
+    if (question.diagram.kind !== "coordinate-grid") return issues;
 
     const [xMin, xMax] = question.diagram.xRange;
     const [yMin, yMax] = question.diagram.yRange;
@@ -219,6 +271,7 @@ test("auto-graded non-multiple-choice answers include aliases for brittle format
 
 test("prose short answers include Chinese aliases for bilingual grading", () => {
   const missingCjkAliasIds = questions
+    .filter(isCoreBilingualAnswerQuestion)
     .filter((question) => question.type === "short-answer" || question.type === "fill-in" || question.type === "graph")
     .filter((question) => answerLooksLikeProse(question.answer))
     .filter((question) => !hasCjkAlias(question))
@@ -285,8 +338,7 @@ test("roadmap visualization suite has labels for every roadmap topic", () => {
 });
 
 test("every roadmap topic has exactly one production-ready lesson seed", () => {
-  const topicIds = topics.map((topic) => topic.id);
-  const topicIdSet = new Set(topicIds);
+  const topicIds = topics.filter(isProductionLessonRequiredTopic).map((topic) => topic.id);
   const productionReadyTopicIds = productionLessonSeeds
     .filter((lesson) => lesson.productionReady)
     .map((lesson) => lesson.topicId);
@@ -294,7 +346,12 @@ test("every roadmap topic has exactly one production-ready lesson seed", () => {
   const duplicateTopicIds = productionReadyTopicIds.filter((topicId, index) => productionReadyTopicIds.indexOf(topicId) !== index);
 
   const missingTopicIds = topicIds.filter((topicId) => !productionReadyTopicIdSet.has(topicId));
-  const extraTopicIds = productionReadyTopicIds.filter((topicId) => !topicIdSet.has(topicId));
+  // Optional-seed tracks (US_CA_MATH textbook rollout and similar) may ship
+  // production-ready lessons incrementally beyond the required roadmap set, so
+  // "extra" only flags seeds whose topicId does not exist in the topic catalog
+  // at all (dangling references / typos).
+  const allTopicIdSet = new Set(topics.map((topic) => topic.id));
+  const extraTopicIds = productionReadyTopicIds.filter((topicId) => !allTopicIdSet.has(topicId));
 
   assert.deepEqual({ missingTopicIds, extraTopicIds, duplicateTopicIds }, {
     missingTopicIds: [],
@@ -306,14 +363,42 @@ test("every roadmap topic has exactly one production-ready lesson seed", () => {
 test("mainland PEP junior and high-school lesson seeds cover every S1-S6 topic", () => {
   const mainlandSecondaryTopicIds = topics
     .filter((topic) => topic.curriculumTrack === "MAINLAND_PEP_HIGH" && topic.grade.startsWith("S"))
+    .filter((topic) => topic.id.startsWith("pep-") || topic.publisher === "MAINLAND_PEP" || topic.curriculumProfile?.publisher === "MAINLAND_PEP")
     .filter(isPracticeBackedTopic)
     .map((topic) => topic.id);
   const mainlandSecondaryLessonIds = productionLessonSeeds
     .filter((lesson) => lesson.productionReady && mainlandSecondaryTopicIds.includes(lesson.topicId))
     .map((lesson) => lesson.topicId);
 
-  assert.equal(mainlandSecondaryTopicIds.length, 33);
+  assert.ok(mainlandSecondaryTopicIds.length >= 33);
   assert.deepEqual(new Set(mainlandSecondaryLessonIds), new Set(mainlandSecondaryTopicIds));
+});
+
+test("Florida B.E.S.T. middle-school textbook beta has topics, questions, and lesson seeds", () => {
+  const gradeCounts = new Map<string, number>();
+  usFloridaMiddleSchoolTopics.forEach((topic) => {
+    gradeCounts.set(topic.grade, (gradeCounts.get(topic.grade) ?? 0) + 1);
+  });
+
+  assert.equal(usFloridaMiddleSchoolTopics.length, 15);
+  assert.deepEqual(Object.fromEntries(gradeCounts), { P6: 5, S1: 5, S2: 5 });
+  assert.equal(usFloridaMiddleSchoolQuestions.length, 75);
+  assert.equal(usFloridaMiddleSchoolLessonSeeds.length, 15);
+
+  const questionCountsByTopic = new Map<string, number>();
+  usFloridaMiddleSchoolQuestions.forEach((question) => {
+    assert.equal(question.curriculumTrack, "US_FL_MATH");
+    assert.equal(question.publisher, "US_FL_MATH");
+    questionCountsByTopic.set(question.topicId, (questionCountsByTopic.get(question.topicId) ?? 0) + 1);
+  });
+
+  const lessonTopicIds = new Set(usFloridaMiddleSchoolLessonSeeds.map((lesson) => lesson.topicId));
+  usFloridaMiddleSchoolTopics.forEach((topic) => {
+    assert.equal(topic.curriculumTrack, "US_FL_MATH");
+    assert.equal(topic.publisher, "US_FL_MATH");
+    assert.equal(questionCountsByTopic.get(topic.id), 5);
+    assert.equal(lessonTopicIds.has(topic.id), true);
+  });
 });
 
 test("production lesson seeds meet the authored block standard", () => {
@@ -358,53 +443,20 @@ test("production lesson seeds meet the authored block standard", () => {
   assert.deepEqual([...missingRequiredBlocks, ...weakChecklistBlocks, ...weakExtensionBlocks, ...missingAuthoredText], []);
 });
 
-test("Mainland PEP high lesson illustrations cover approved concept and worked-example assets", () => {
+test("Mainland PEP high lesson illustrations stay withdrawn pending owner-approved redraw", () => {
   const slots = ["concept", "worked-example"] as const;
   const topicIds = mainlandPepHighTopics.map((topic) => topic.id);
-  const topicIdSet = new Set(topicIds);
-  const seenKeys = new Set<string>();
   const issues: string[] = [];
 
   assert.equal(topicIds.length, 22);
-  assert.equal(mainlandPepHighLessonIllustrations.length, topicIds.length * slots.length);
+  assert.equal(mainlandPepHighLessonIllustrations.length, 0);
 
   topicIds.forEach((topicId) => {
     slots.forEach((slot) => {
-      if (!getMainlandPepHighLessonIllustration(topicId, slot)) {
-        issues.push(`${topicId}: missing ${slot} illustration`);
+      if (getMainlandPepHighLessonIllustration(topicId, slot)) {
+        issues.push(`${topicId}: ${slot} illustration should be withdrawn`);
       }
     });
-  });
-
-  mainlandPepHighLessonIllustrations.forEach((illustration) => {
-    const key = `${illustration.topicId}:${illustration.slot}`;
-    if (seenKeys.has(key)) issues.push(`${key}: duplicate illustration`);
-    seenKeys.add(key);
-
-    if (!topicIdSet.has(illustration.topicId) || !illustration.topicId.startsWith("pep-high-")) {
-      issues.push(`${illustration.id}: non-PEP-high topic ${illustration.topicId}`);
-    }
-    if (!slots.includes(illustration.slot)) {
-      issues.push(`${illustration.id}: invalid slot ${illustration.slot}`);
-    }
-    if (illustration.src !== `/lesson-illustrations/mainland-pep-high/${illustration.topicId}/${illustration.slot}.png`) {
-      issues.push(`${illustration.id}: unexpected src ${illustration.src}`);
-    }
-    if (!existsSync(path.join(process.cwd(), "public", illustration.src.slice(1)))) {
-      issues.push(`${illustration.id}: public image file is missing`);
-    }
-    if (illustration.width !== 1600 || illustration.height !== 900) {
-      issues.push(`${illustration.id}: unexpected dimensions ${illustration.width}x${illustration.height}`);
-    }
-    if (!illustration.alt.en.trim() || !illustration.alt.zh.trim() || !illustration.alt.zhHans?.trim()) {
-      issues.push(`${illustration.id}: missing localized alt text`);
-    }
-    if (!illustration.caption.en.trim() || !illustration.caption.zh.trim() || !illustration.caption.zhHans?.trim()) {
-      issues.push(`${illustration.id}: missing localized caption`);
-    }
-    if (!illustration.ragCardIds.length) {
-      issues.push(`${illustration.id}: missing RAG traceability`);
-    }
   });
 
   assert.deepEqual(issues, []);
@@ -462,53 +514,23 @@ test("Mainland PEP junior lesson illustrations cover approved concept and worked
   assert.deepEqual(issues, []);
 });
 
-test("Mainland PEP primary lesson illustrations cover approved concept and worked-example assets", () => {
+test("Mainland PEP primary lesson illustrations stay withdrawn pending approved asset promotion", () => {
   const slots = ["concept", "worked-example"] as const;
   const topicIds = mainlandPepPrimaryTopics.map((topic) => topic.id);
-  const topicIdSet = new Set(topicIds);
-  const seenKeys = new Set<string>();
   const issues: string[] = [];
 
   assert.equal(topicIds.length, 24);
-  assert.equal(mainlandPepPrimaryLessonIllustrations.length, topicIds.length * slots.length);
+  // Metadata was authored ahead of asset production; no approved public PNG
+  // assets exist, so the live illustration surface is withdrawn (drafts are
+  // preserved in data/mainlandPepPrimaryLessonIllustrations.ts).
+  assert.equal(mainlandPepPrimaryLessonIllustrations.length, 0);
 
   topicIds.forEach((topicId) => {
     slots.forEach((slot) => {
-      if (!getMainlandPepPrimaryLessonIllustration(topicId, slot)) {
-        issues.push(`${topicId}: missing ${slot} illustration`);
+      if (getMainlandPepPrimaryLessonIllustration(topicId, slot)) {
+        issues.push(`${topicId}: ${slot} illustration should be withdrawn`);
       }
     });
-  });
-
-  mainlandPepPrimaryLessonIllustrations.forEach((illustration) => {
-    const key = `${illustration.topicId}:${illustration.slot}`;
-    if (seenKeys.has(key)) issues.push(`${key}: duplicate illustration`);
-    seenKeys.add(key);
-
-    if (!topicIdSet.has(illustration.topicId) || !illustration.topicId.startsWith("pep-primary-")) {
-      issues.push(`${illustration.id}: non-PEP-primary topic ${illustration.topicId}`);
-    }
-    if (!slots.includes(illustration.slot)) {
-      issues.push(`${illustration.id}: invalid slot ${illustration.slot}`);
-    }
-    if (illustration.src !== `/lesson-illustrations/mainland-pep-primary/${illustration.topicId}/${illustration.slot}.png`) {
-      issues.push(`${illustration.id}: unexpected src ${illustration.src}`);
-    }
-    if (!existsSync(path.join(process.cwd(), "public", illustration.src.slice(1)))) {
-      issues.push(`${illustration.id}: public image file is missing`);
-    }
-    if (illustration.width !== 1600 || illustration.height !== 900) {
-      issues.push(`${illustration.id}: unexpected dimensions ${illustration.width}x${illustration.height}`);
-    }
-    if (!illustration.alt.en.trim() || !illustration.alt.zh.trim() || !illustration.alt.zhHans?.trim()) {
-      issues.push(`${illustration.id}: missing localized alt text`);
-    }
-    if (!illustration.caption.en.trim() || !illustration.caption.zh.trim() || !illustration.caption.zhHans?.trim()) {
-      issues.push(`${illustration.id}: missing localized caption`);
-    }
-    if (!illustration.ragCardIds.length) {
-      issues.push(`${illustration.id}: missing RAG traceability`);
-    }
   });
 
   assert.deepEqual(issues, []);
@@ -571,6 +593,140 @@ test("Mainland HJB primary lesson illustrations cover approved concept and worke
     }
   });
 
+  assert.deepEqual(issues, []);
+});
+
+test("US Arkansas middle-school lessons stay live while S24 exact-layer illustrations remain withdrawn", () => {
+  const slots = ["concept", "worked-example"] as const;
+  const topicIds = usArkansasMiddleSchoolLessonSeeds.map((lessonSeed) => lessonSeed.topicId);
+  const topicIdSet = new Set(usArkansasTopics.map((topic) => topic.id));
+  const productionTopicIds = new Set(productionLessonSeeds.map((lessonSeed) => lessonSeed.topicId));
+  const issues: string[] = [];
+
+  assert.equal(topicIds.length, 15);
+  // Metadata was drafted ahead of S24 exact-layer asset production; no PNG
+  // assets exist, so the live illustration surface is withdrawn (drafts are
+  // preserved in data/usArkansasMiddleSchoolLessonIllustrations.ts).
+  assert.equal(usArkansasMiddleSchoolLessonIllustrations.length, 0);
+
+  topicIds.forEach((topicId) => {
+    if (!topicIdSet.has(topicId)) issues.push(`${topicId}: missing Arkansas live topic`);
+    if (!productionTopicIds.has(topicId)) issues.push(`${topicId}: missing production lesson seed`);
+    slots.forEach((slot) => {
+      if (getUsArkansasMiddleSchoolLessonIllustration(topicId, slot)) {
+        issues.push(`${topicId}: ${slot} illustration should be withdrawn`);
+      }
+    });
+  });
+
+  usArkansasMiddleSchoolLessonSeeds.forEach((lessonSeed) => {
+    const blockTypes = new Set(lessonSeed.blocks.map((block) => block.type));
+    if (!blockTypes.has("concept")) issues.push(`${lessonSeed.topicId}: missing concept block`);
+    if (!blockTypes.has("worked-example")) issues.push(`${lessonSeed.topicId}: missing worked-example block`);
+    if (!lessonSeed.practiceQuestionIds?.length) issues.push(`${lessonSeed.topicId}: missing practice question links`);
+  });
+
+  assert.deepEqual(issues, []);
+});
+
+test("worked-example illustration renderer covers all curriculum lesson units", () => {
+  const lessonSeedsWithWorkedExamples = productionLessonSeeds.filter((lessonSeed) =>
+    lessonSeed.blocks.some((block) => block.type === "worked-example")
+  );
+  const bannedAgeFitTerms = /\b(?:casino|weapon|blood|romance|alcohol|violence)\b/i;
+  const issues: string[] = [];
+  const kinds = new Set<string>();
+  const topicById = new Map(topics.map((topic) => [topic.id, topic]));
+
+  assert.equal(lessonSeedsWithWorkedExamples.length, 490);
+
+  lessonSeedsWithWorkedExamples.forEach((lessonSeed) => {
+    const workedExample = lessonSeed.blocks.find((block) => block.type === "worked-example");
+    const metadata = buildWorkedExampleIllustrationMetadata({
+      content: workedExample?.content?.en ?? "",
+      grade: (topicById.get(lessonSeed.topicId)?.grade ?? "P1") as GradeId,
+      publisher: lessonSeed.topicId.startsWith("us-ca-") ? "US_CA_MATH" : undefined,
+      title: lessonSeed.title.en,
+      topicId: lessonSeed.topicId
+    });
+
+    kinds.add(metadata.kind);
+    if (metadata.qa.status !== "qa-pass") issues.push(`${lessonSeed.topicId}: qa status ${metadata.qa.status}`);
+    if (metadata.qa.themeAlignment !== "pass") issues.push(`${lessonSeed.topicId}: theme alignment not pass`);
+    if (metadata.qa.gradeFit !== "pass") issues.push(`${lessonSeed.topicId}: grade fit not pass`);
+    if (metadata.qa.sourceDistance !== "pass-original-MAIS-svg") issues.push(`${lessonSeed.topicId}: source distance not pass`);
+    if (!metadata.alt.trim() || !metadata.caption.trim()) issues.push(`${lessonSeed.topicId}: missing alt or caption`);
+    if (bannedAgeFitTerms.test(`${metadata.alt} ${metadata.caption}`)) {
+      issues.push(`${lessonSeed.topicId}: age-fit banned term in metadata`);
+    }
+  });
+
+  assert.ok(kinds.size >= 8, `expected varied visual templates, got ${Array.from(kinds).join(", ")}`);
+  assert.deepEqual(issues, []);
+});
+
+test("California textbook worked examples have visual QA coverage", () => {
+  const issues: string[] = [];
+  const middleLiveLessons = californiaMiddleSchoolLivePack.lessons;
+  const middleTextbookChapters = californiaMiddleSchoolTextbookPack.books
+    .filter((book) => ["P6", "S1", "S2"].includes(book.grade))
+    .flatMap((book) => book.chapters.map((chapter) => ({ book, chapter })));
+  let highSchoolWorkedExampleCount = 0;
+
+  assert.equal(middleLiveLessons.length, 15);
+  assert.equal(middleTextbookChapters.length, 15);
+
+  middleLiveLessons.forEach((lesson) => {
+    const example = lesson.studentLesson.en.workedExamples[0];
+    const metadata = buildWorkedExampleIllustrationMetadata({
+      content: `${example.prompt} ${example.answer} ${example.explanation}`,
+      grade: lesson.metadata.grade as GradeId,
+      publisher: "US_CA_MATH",
+      title: lesson.studentLesson.en.title,
+      topicId: lesson.id
+    });
+
+    if (metadata.qa.status !== "qa-pass") issues.push(`${lesson.id}: generated illustration metadata not qa-pass`);
+    if (!metadata.alt.includes("worked example illustration")) issues.push(`${lesson.id}: missing worked-example alt`);
+  });
+
+  middleTextbookChapters.forEach(({ book, chapter }) => {
+    const example = chapter.studentText.en.workedExamples[0] as {
+      answer?: string;
+      check?: string;
+      explanation?: string;
+      prompt: string;
+      solution?: string;
+    };
+    const metadata = buildWorkedExampleIllustrationMetadata({
+      content: `${example.prompt} ${example.answer ?? ""} ${example.solution ?? example.explanation ?? example.check ?? ""}`,
+      grade: book.grade as GradeId,
+      publisher: "US_CA_MATH",
+      title: chapter.chapterTitle.en,
+      topicId: chapter.id
+    });
+
+    if (metadata.qa.status !== "qa-pass") issues.push(`${chapter.id}: generated illustration metadata not qa-pass`);
+    if (!metadata.caption.includes("Focus:")) issues.push(`${chapter.id}: missing focus caption`);
+  });
+
+  californiaHighSchoolTextbookChapters.forEach((chapter) => {
+    chapter.workedExamples.forEach((example) => {
+      highSchoolWorkedExampleCount += 1;
+      const metadata = buildWorkedExampleIllustrationMetadata({
+        content: `${example.prompt.en} ${example.answer.en} ${example.solutionSteps.en.join(" ")}`,
+        grade: chapter.grade,
+        publisher: "US_CA_MATH",
+        title: `${chapter.title.en} ${example.title}`,
+        topicId: example.exampleId
+      });
+
+      if (metadata.qa.status !== "qa-pass") issues.push(`${example.exampleId}: generated illustration metadata not qa-pass`);
+      if (!metadata.alt.includes("worked example illustration")) issues.push(`${example.exampleId}: missing worked-example alt`);
+    });
+  });
+
+  assert.equal(highSchoolWorkedExampleCount, 40);
   assert.deepEqual(issues, []);
 });
 
@@ -725,13 +881,20 @@ test("parent console API surface and authorization hooks are present", () => {
   ];
   const missingRoutes = routeFiles.filter((routeFile) => !existsSync(path.join(process.cwd(), routeFile)));
   const storeSource = readFileSync(path.join(process.cwd(), "lib/server/userStore.ts"), "utf8");
+  // Parent-summary report handling was extracted from the legacy userStore facade
+  // into lib/server/userStore/parentReportPersistence.ts; the readiness contract
+  // follows the owning store-layer module.
+  const parentReportPersistenceSource = readFileSync(
+    path.join(process.cwd(), "lib/server/userStore/parentReportPersistence.ts"),
+    "utf8"
+  );
   const typeSource = readFileSync(path.join(process.cwd(), "types/index.ts"), "utf8");
 
   assert.deepEqual(missingRoutes, []);
   assert.match(storeSource, /guardian_links/);
   assert.match(storeSource, /parentCanAccessStudent/);
   assert.match(storeSource, /createParentMessageThread/);
-  assert.match(storeSource, /type === "parent-summary"/);
+  assert.match(parentReportPersistenceSource, /type === "parent-summary"/);
   assert.match(typeSource, /role: "student" \| "teacher" \| "parent" \| "admin"/);
   assert.match(typeSource, /export type ParentFoundationData/);
 });

@@ -91,7 +91,7 @@ type ScenarioContext = {
 };
 
 const fishingRoundStorageKey = "hk-math-practice-fishing-round";
-const fishingAppOptions = { warmPaths: ["/practice/fishing-game"] };
+const fishingAppOptions = { warmPaths: ["/student/practice/games/fishing-master"] };
 const defaultTopicId = "quadratic-patterns";
 const fatalFishingRuntimePattern = /Application error|ChunkLoadError|Loading chunk \d+ failed/i;
 const answerByQuestionId = new Map(questions.map((question) => [question.id, question.answer]));
@@ -268,7 +268,7 @@ function attachFishingRuntimeDiagnostics(page: Page) {
 
   page.on("requestfailed", (request) => {
     const url = request.url();
-    if (url.includes("/_next/static/") || url.includes("/practice/fishing-game") || url.includes("/api/questions") || url.includes("/api/gamification/fishing-game")) {
+    if (url.includes("/_next/static/") || url.includes("/student/practice/games/fishing-master") || url.includes("/api/questions") || url.includes("/api/gamification/fishing-game")) {
       record("requestfailed", `${request.method()} ${url} ${request.failure()?.errorText ?? "unknown failure"}`);
     }
   });
@@ -304,7 +304,7 @@ function isFatalRuntimeEvent(event: RuntimeEvent) {
   if (fatalFishingRuntimePattern.test(event.message)) return true;
   return (
     event.kind === "requestfailed" &&
-    event.message.includes("/_next/static/chunks/app/practice/fishing-game") &&
+    event.message.includes("/_next/static/chunks/app/student/practice/games") &&
     !event.message.includes("net::ERR_ABORTED")
   );
 }
@@ -394,7 +394,7 @@ async function prepareFishingRound({
 }
 
 async function setFishingPayload(page: Page, app: IsolatedApp, payload: FishingRoundPayload | string | null) {
-  await page.goto(app.url("/practice/fishing-game"), { waitUntil: "domcontentloaded" });
+  await page.goto(app.url("/student/practice/games/fishing-master"), { waitUntil: "domcontentloaded" });
   await page.evaluate(({ key, value }) => {
     if (value === null) window.sessionStorage.removeItem(key);
     else if (typeof value === "string") window.sessionStorage.setItem(key, value);
@@ -937,7 +937,7 @@ async function runMobileScenario(spec: ScenarioSpec, ctx: ScenarioContext, resul
   const stage = await openReadyFishingGame(ctx, result, setup.payload);
   await expect(ctx.page.getByRole("navigation", { name: /Main navigation/i })).toBeHidden();
   await expect(ctx.page.getByRole("contentinfo")).toBeHidden();
-  await expect(ctx.page.getByRole("button", { name: /AI Tutor/i })).toHaveCount(0);
+  await expect(ctx.page.getByRole("button", { name: /Nova Tutor/i })).toHaveCount(0);
   await expect(ctx.page.getByRole("link", { name: /Back to Practice/i })).toBeVisible();
 
   if (spec.variant === "mobile-catch-correct") await fireFirstCatch(ctx, result, true);
@@ -1068,7 +1068,7 @@ function buildMarkdownReport(payload: { generatedAt: string; reportDate: string;
     `- Report date: ${payload.reportDate}`,
     `- Generated at: ${payload.generatedAt}`,
     "- Session: S11 QA and release quality",
-    "- Scope: /practice/fishing-game, Fishing Master gameplay, reward API, runtime diagnostics",
+    "- Scope: /student/practice/games/fishing-master, Fishing Master gameplay, reward API, runtime diagnostics",
     `- Aggregate runs: ${payload.actualRunsInAggregate}/${payload.expectedRunsForFullDesktopMobileCommand}`,
     `- Result: ${failures.length ? "Failed - review findings below" : "Passed in covered runs"}`,
     "",

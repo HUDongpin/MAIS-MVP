@@ -1,6 +1,7 @@
 import { expect, test, type Locator, type Page, type Request, type TestInfo } from "@playwright/test";
 import fs from "node:fs";
 import path from "node:path";
+import { visualizationLabCatalog } from "../../data/visualizationLabs";
 
 type ControlInfo = {
   index: number;
@@ -15,6 +16,13 @@ type ControlInfo = {
 type LabInfo = {
   id: string;
   title: string;
+};
+
+type SweepFilters = {
+  grades: string[];
+  tracks: string[];
+  labs: string[];
+  mode: "strict";
 };
 
 type RuntimeIssue = {
@@ -48,7 +56,9 @@ type RunReport = {
   homeVisualizationCount: number | null;
   labPageAdvertisedCount: number | null;
   discoveredCount: number;
+  sweptCount: number;
   expectedMinimumCount: number;
+  sweepFilters: SweepFilters;
   statesTested: number;
   controlsTested: number;
   buttonsTested: number;
@@ -68,6 +78,53 @@ const maxDiscreteValuesPerControl = 500;
 const maxFailureScreenshots = 6;
 const reportDate = process.env.PRODUCTION_VISUALIZATION_REPORT_DATE ?? hongKongDate();
 const reportPath = path.join(process.cwd(), "coordination", "reports", `${reportDate}-production-visualization-lab-values.md`);
+const sweepFilters = readSweepFilters();
+const catalogLabMetadataById = new Map(
+  visualizationLabCatalog.map((lab) => [lab.labId, { grade: lab.grade, track: lab.curriculumTrack }])
+);
+
+function readSweepFilters(): SweepFilters {
+  return {
+    grades: envList("VISUALIZATION_SWEEP_GRADES"),
+    tracks: envList("VISUALIZATION_SWEEP_TRACKS"),
+    labs: envList("VISUALIZATION_SWEEP_LABS"),
+    mode: "strict"
+  };
+}
+
+function envList(name: string) {
+  return (process.env[name] ?? "")
+    .split(",")
+    .map((value) => value.trim())
+    .filter(Boolean);
+}
+
+function hasActiveSweepFilters(filters: SweepFilters) {
+  return filters.grades.length > 0 || filters.tracks.length > 0 || filters.labs.length > 0;
+}
+
+function filterLabsForSweep(labs: LabInfo[], filters: SweepFilters) {
+  if (!hasActiveSweepFilters(filters)) return labs;
+
+  return labs.filter((lab) => {
+    const metadata = catalogLabMetadataById.get(lab.id);
+    if (filters.labs.length > 0 && !filters.labs.includes(lab.id)) return false;
+    if (filters.grades.length > 0 && (!metadata || !filters.grades.includes(metadata.grade))) return false;
+    if (filters.tracks.length > 0 && (!metadata || !filters.tracks.includes(metadata.track))) return false;
+    return true;
+  });
+}
+
+function formatSweepFilters(filters: SweepFilters) {
+  const parts = [
+    `mode=${filters.mode}`,
+    filters.grades.length ? `grades=${filters.grades.join(",")}` : "",
+    filters.tracks.length ? `tracks=${filters.tracks.join(",")}` : "",
+    filters.labs.length ? `labs=${filters.labs.join(",")}` : ""
+  ].filter(Boolean);
+
+  return parts.join("; ");
+}
 
 test.describe("Production Visualization Lab value sweep", () => {
   test.skip(!productionTargetEnabled, "Set PLAYWRIGHT_BASE_URL=https://www.mais.hk and PLAYWRIGHT_SKIP_WEBSERVER=1 to run the production value sweep.");
@@ -75,6 +132,17 @@ test.describe("Production Visualization Lab value sweep", () => {
 
   test("every deployed visualization lab handles extreme and per-control values", async ({ page }, testInfo) => {
     initializeReportForProject(testInfo.project.name);
+    // Guest sweep: pre-dismiss the delayed guest login prompt so its modal does
+    // not intercept lab control interactions during the long value sweep.
+    await page.addInitScript(() => {
+      try {
+        for (const key of ["lesson", "practice", "personalized-learning", "visualization"]) {
+          window.sessionStorage.setItem(`mais-guest-login-prompt-dismissed:${key}`, "true");
+        }
+      } catch {
+        // sessionStorage may be unavailable; the prompt is non-blocking anyway.
+      }
+    });
     const startedAt = new Date().toISOString();
     const diagnostics = collectProductionDiagnostics(page);
     const failures: FailureRecord[] = [];
@@ -84,6 +152,8 @@ test.describe("Production Visualization Lab value sweep", () => {
     let homeVisualizationCount: number | null = null;
     let labPageAdvertisedCount: number | null = null;
     let discoveredCount = 0;
+    let sweptCount = 0;
+    let effectiveExpectedMinimumCount = expectedMinimumLabCount;
     let statesTested = 0;
     let buttonsTested = 0;
     let fatalError: Error | null = null;
@@ -91,7 +161,7 @@ test.describe("Production Visualization Lab value sweep", () => {
     try {
       homeVisualizationCount = await readHomeVisualizationCount(page, warnings);
 
-      await page.goto("/visualization-lab", { waitUntil: "domcontentloaded", timeout: 60_000 });
+      await page.goto("/student/tools/visualizations", { waitUntil: "domcontentloaded", timeout: 60_000 });
       await page.waitForLoadState("networkidle", { timeout: 30_000 }).catch(() => undefined);
       await disableMotion(page);
       await expect(page.getByRole("heading", { name: /Visualization Lab/i })).toBeVisible({ timeout: 60_000 });
@@ -99,16 +169,23 @@ test.describe("Production Visualization Lab value sweep", () => {
 
       const bodyText = await page.locator("body").innerText();
       labPageAdvertisedCount = extractLabPageAdvertisedCount(bodyText);
-      const labs = await collectLabInventory(page);
-      discoveredCount = labs.length;
+      const discoveredLabs = await collectLabInventory(page);
+      discoveredCount = discoveredLabs.length;
+      const labs = filterLabsForSweep(discoveredLabs, sweepFilters);
+      sweptCount = labs.length;
+      effectiveExpectedMinimumCount = hasActiveSweepFilters(sweepFilters) ? 1 : expectedMinimumLabCount;
 
-      if (discoveredCount < expectedMinimumLabCount) {
+      if (hasActiveSweepFilters(sweepFilters)) {
+        warnings.push(`Sweep filters selected ${sweptCount} of ${discoveredCount} discovered labs: ${formatSweepFilters(sweepFilters)}.`);
+      }
+
+      if (labs.length < effectiveExpectedMinimumCount) {
         failures.push({
           labId: "inventory",
           title: "Visualization Lab inventory",
           state: "page inventory",
           action: "collect labs",
-          details: [`Expected at least ${expectedMinimumLabCount} production labs, but discovered ${discoveredCount}.`],
+          details: [`Expected at least ${effectiveExpectedMinimumCount} lab(s) for this sweep, but selected ${labs.length} from ${discoveredCount} discovered lab sections.`],
           controls: ""
         });
       }
@@ -217,7 +294,9 @@ test.describe("Production Visualization Lab value sweep", () => {
       homeVisualizationCount,
       labPageAdvertisedCount,
       discoveredCount,
-      expectedMinimumCount: expectedMinimumLabCount,
+      sweptCount,
+      expectedMinimumCount: effectiveExpectedMinimumCount,
+      sweepFilters,
       statesTested,
       controlsTested: labSummaries.reduce((sum, lab) => sum + lab.controls.size, 0),
       buttonsTested,
@@ -257,7 +336,7 @@ async function disableMotion(page: Page) {
 }
 
 async function ensureAllGradesVisible(page: Page) {
-  const exploreAllGrades = page.getByRole("button", { name: /Explore all labs|Explore other grades|探索全部實驗|探索全部实验|探索其他年級/i });
+  const exploreAllGrades = page.getByRole("button", { name: /Explore all labs|Explore my curriculum|Explore other grades|探索全部實驗|探索全部实验|探索我的課程實驗|探索我的课程实验|探索其他年級/i });
   if (await exploreAllGrades.isVisible().catch(() => false)) {
     await exploreAllGrades.click();
     await page.waitForTimeout(350);
@@ -328,7 +407,7 @@ async function collectActionButtons(card: Locator) {
 }
 
 function isMutatingProductionButton(label: string) {
-  return /^(Mark explored|標記已探索|標示已探索|已探索|Saving|Saved|Open lab|Close lab|開啟實驗|开启实验|收起實驗|收起实验)$/i.test(label);
+  return /^(Mark explored|標記已探索|标记已探索|標示已探索|已探索|Saving(\.\.\.)?|Saved|儲存中(\.\.\.)?|保存中(\.\.\.)?|已儲存|已保存|Open lab|Close lab|開啟實驗|开启实验|收起實驗|收起实验)$/i.test(label);
 }
 
 async function openLabIfNeeded(card: Locator) {
@@ -815,9 +894,10 @@ function initializeReportForProject(projectName: string) {
       "# Production Visualization Lab Value Sweep",
       "",
       `- Date: ${reportDate}`,
-      `- Target: ${productionOrigin}/visualization-lab`,
+      `- Target: ${productionOrigin}/student/tools/visualizations`,
       "- Scope: Production-only read-only QA sweep for Visualization Lab controls.",
       "- Definition of every value: every runtime discrete value per visible control, plus pairwise min/max combinations with dependent bounds re-queried.",
+      `- Sweep filters: ${formatSweepFilters(sweepFilters) || "none"}.`,
       "- Mutation guard: skips `Mark explored` so production visualization-session progress is not written.",
       ""
     ].join("\n")
@@ -830,6 +910,7 @@ function writeProjectReport(report: RunReport) {
     ["Home page visualization metric", nullableCount(report.homeVisualizationCount)],
     ["Visualization page advertised count", nullableCount(report.labPageAdvertisedCount)],
     ["Discovered lab sections", String(report.discoveredCount)],
+    ["Swept lab sections", String(report.sweptCount)],
     ["Minimum expected lab sections", String(report.expectedMinimumCount)]
   ];
 
@@ -842,6 +923,7 @@ function writeProjectReport(report: RunReport) {
     `- States checked: ${report.statesTested}`,
     `- Distinct controls found: ${report.controlsTested}`,
     `- Non-mutating buttons exercised: ${report.buttonsTested}`,
+    `- Sweep filters: ${formatSweepFilters(report.sweepFilters) || "none"}`,
     "",
     "### Count Verification",
     "",

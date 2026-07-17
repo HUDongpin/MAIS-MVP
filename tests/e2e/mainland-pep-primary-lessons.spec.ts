@@ -2,7 +2,10 @@ import { expect, test, type APIRequestContext, type Page, type TestInfo } from "
 import { mainlandPepHighTopics } from "../../data/mainlandPepHighTopics";
 import { getMainlandPepJuniorLessonIllustration } from "../../data/mainlandPepJuniorLessonIllustrations";
 import { mainlandPepJuniorTopics } from "../../data/mainlandPepJuniorTopics";
-import { getMainlandPepPrimaryLessonIllustration } from "../../data/mainlandPepPrimaryLessonIllustrations";
+import {
+  getMainlandPepPrimaryLessonIllustration,
+  mainlandPepPrimaryLessonIllustrationWithdrawal
+} from "../../data/mainlandPepPrimaryLessonIllustrations";
 import { mainlandPepPrimaryTopics } from "../../data/mainlandPepPrimaryTopics";
 import { lessonSlugForTopicId } from "../../lib/lessonLinks";
 import type { GradeId } from "../../types";
@@ -10,6 +13,7 @@ import type { GradeId } from "../../types";
 const requiredBlockTypes = new Set(["concept", "worked-example", "checklist", "practice", "extension"]);
 const mainlandPepTopics = [...mainlandPepPrimaryTopics, ...mainlandPepJuniorTopics, ...mainlandPepHighTopics];
 const expectedTopicCountsByGrade: Record<GradeId, number> = {
+  K: 0,
   P1: 4,
   P2: 4,
   P3: 4,
@@ -30,6 +34,7 @@ const representativePageTopicIds = new Set([
   "pep-junior-s1-upper-rational-numbers",
   "pep-junior-s3-upper-quadratics-circle-probability",
   "pep-high-s4-sets-logic",
+  "pep-high-s5-derivatives",
   "pep-high-s6-exam-practice"
 ]);
 const representativeJuniorIllustrationTopicIds = [
@@ -41,6 +46,19 @@ const representativePrimaryIllustrationTopicIds = [
   "pep-primary-p3-upper-operations-fractions",
   "pep-primary-p6-lower-negative-review"
 ] as const;
+const representativePracticeGateGrades: GradeId[] = ["P1", "S1", "S4"];
+
+type PepQuestionPayload = {
+  id?: string;
+  curriculumTrack?: string;
+  publisher?: string;
+  questionAssets?: Array<{
+    kind?: string;
+    src?: string;
+    alt?: { en?: string; zh?: string; zhHans?: string };
+    caption?: unknown;
+  }>;
+};
 
 function topicsByGrade() {
   const groups = new Map<GradeId, typeof mainlandPepTopics>();
@@ -80,6 +98,13 @@ async function registerMainlandPepStudent(request: APIRequestContext, testInfo: 
     }
   });
   expect(response.status(), `register ${grade} Mainland PEP QA student`).toBe(200);
+}
+
+function expectPepImageAssetsGated(questions: PepQuestionPayload[], label: string) {
+  expect(questions.length, `${label} question count`).toBeGreaterThan(0);
+  questions.forEach((question) => {
+    expect(question.questionAssets ?? [], `${label} ${question.id ?? "unknown-question"} unapproved image assets`).toEqual([]);
+  });
 }
 
 async function expectLessonApiPayload(request: APIRequestContext, topic: (typeof mainlandPepTopics)[number]) {
@@ -124,12 +149,13 @@ async function expectPracticeApiPayload(request: APIRequestContext, grade: Grade
   const response = await request.get(`/api/questions?grade=${encodeURIComponent(grade)}&publisher=MAINLAND_PEP`);
   expect(response.status(), `GET /api/questions for Mainland PEP ${grade}`).toBe(200);
   const body = await response.json();
-  const questions = body.questions as Array<{ curriculumTrack?: string; publisher?: string }> | undefined;
+  const questions = body.questions as PepQuestionPayload[] | undefined;
   expect(questions?.length ?? 0, `${grade} Mainland PEP practice questions`).toBeGreaterThan(0);
   expect(
     questions?.every((question) => question.curriculumTrack === "MAINLAND_PEP_HIGH" && question.publisher === "MAINLAND_PEP") ?? false,
     `${grade} Practice Arena API stays Mainland PEP scoped`
   ).toBe(true);
+  expectPepImageAssetsGated(questions ?? [], `${grade} Practice Arena API`);
 
   const adaptiveResponse = await request.get(`/api/adaptive-learning/next?grade=${encodeURIComponent(grade)}`);
   expect(adaptiveResponse.status(), `GET /api/adaptive-learning/next for Mainland PEP ${grade}`).toBe(200);
@@ -142,12 +168,13 @@ async function expectPracticeApiPayload(request: APIRequestContext, grade: Grade
     ),
     `${grade} adaptive questions stay Mainland PEP scoped`
   ).toBe(true);
+  expectPepImageAssetsGated(adaptiveBody.decision.questions as PepQuestionPayload[], `${grade} adaptive practice API`);
 }
 
 async function expectLessonPageRoute(request: APIRequestContext, topic: (typeof mainlandPepTopics)[number]) {
   const slug = lessonSlugForTopicId(topic.id);
-  const response = await request.get(`/lesson/${encodeURIComponent(slug)}`);
-  expect(response.status(), `GET /lesson/${slug}`).toBe(200);
+  const response = await request.get(`/student/lessons/${encodeURIComponent(slug)}`);
+  expect(response.status(), `GET /student/lessons/${slug}`).toBe(200);
   const html = await response.text();
   expect(html).not.toMatch(/Lesson not found|This page is not available/i);
 }
@@ -155,7 +182,7 @@ async function expectLessonPageRoute(request: APIRequestContext, topic: (typeof 
 async function loginMainlandPepTeacher(page: Page, grade: GradeId) {
   const response = await page.request.post("/api/auth/login", {
     data: {
-      username: "Mainland Teacher Phoebe",
+      username: "Teacher Phoebe",
       password: "12345",
       grade,
       curriculumTrack: "MAINLAND_PEP_HIGH",
@@ -175,7 +202,7 @@ async function expectJuniorLessonIllustrationsVisible(page: Page, topicId: (type
   if (!concept) throw new Error(`${topicId} concept illustration metadata exists`);
   if (!workedExample) throw new Error(`${topicId} worked-example illustration metadata exists`);
 
-  await page.goto(`/lesson/${lessonSlugForTopicId(topicId)}`);
+  await page.goto(`/student/lessons/${lessonSlugForTopicId(topicId)}`);
   await expect(page.locator("main")).toContainText(concept.caption.zhHans ?? concept.caption.zh, { timeout: 45_000 });
   await expect(page.locator(`img[src*="mainland-pep-junior"][src*="${topicId}"]`)).toHaveCount(2);
   await expect(page.locator("main")).toContainText(workedExample.caption.zhHans ?? workedExample.caption.zh);
@@ -186,16 +213,60 @@ async function expectPrimaryLessonIllustrationsVisible(page: Page, topicId: (typ
   const concept = getMainlandPepPrimaryLessonIllustration(topicId, "concept");
   const workedExample = getMainlandPepPrimaryLessonIllustration(topicId, "worked-example");
   if (!topic) throw new Error(`${topicId} topic exists`);
-  if (!concept) throw new Error(`${topicId} concept illustration metadata exists`);
-  if (!workedExample) throw new Error(`${topicId} worked-example illustration metadata exists`);
 
-  await page.goto(`/lesson/${lessonSlugForTopicId(topicId)}`);
-  await expect(page.locator("main")).toContainText(concept.caption.zhHans ?? concept.caption.zh, { timeout: 45_000 });
-  await expect(page.locator(`img[src*="mainland-pep-primary"][src*="${topicId}"]`)).toHaveCount(2);
-  await expect(page.locator("main")).toContainText(workedExample.caption.zhHans ?? workedExample.caption.zh);
+  await page.goto(`/student/lessons/${lessonSlugForTopicId(topicId)}`);
+  await expect(page.locator("main")).toContainText(topic.title.zhHans ?? topic.title.zh, { timeout: 45_000 });
+  if (concept && workedExample) {
+    await expect(page.locator("main")).toContainText(concept.caption.zhHans ?? concept.caption.zh);
+    await expect(page.locator(`img[src*="mainland-pep-primary"][src*="${topicId}"]`)).toHaveCount(2);
+    await expect(page.locator("main")).toContainText(workedExample.caption.zhHans ?? workedExample.caption.zh);
+  } else {
+    // PEP primary lesson illustrations are withdrawn until approved assets are
+    // promoted (see mainlandPepPrimaryLessonIllustrationWithdrawal); lessons
+    // must render without broken illustration references.
+    expect(mainlandPepPrimaryLessonIllustrationWithdrawal.decision).toBe("withdrawn-assets-not-promoted");
+    await expect(page.locator(`img[src*="mainland-pep-primary"][src*="${topicId}"]`)).toHaveCount(0);
+  }
+}
+
+async function expectPracticeQuestionImagesGated(page: Page, grade: GradeId) {
+  await page.goto("/practice");
+  await expect(page.locator("article[data-question-id]").first(), `${grade} Practice Arena question card`).toBeVisible({ timeout: 60_000 });
+  await expect(
+    page.locator('article[data-question-id] img[src*="/question-illustrations/mainland-pep-"]'),
+    `${grade} Practice Arena unapproved question images`
+  ).toHaveCount(0);
 }
 
 test.describe("Mainland PEP P1-S6 lesson and Practice Arena QA gate", () => {
+  test("serves Mainland PEP High S4-S6 lesson payloads, representative pages, and practice APIs", async ({ request }, testInfo) => {
+    test.setTimeout(120_000);
+
+    const expectedHighTopicCountsByGrade: Partial<Record<GradeId, number>> = { S4: 10, S5: 5, S6: 7 };
+    const representativeHighPageTopicIds = new Set([
+      "pep-high-s4-sets-logic",
+      "pep-high-s5-derivatives",
+      "pep-high-s6-exam-practice"
+    ]);
+
+    expect(mainlandPepHighTopics).toHaveLength(22);
+
+    for (const grade of ["S4", "S5", "S6"] as GradeId[]) {
+      const topics = mainlandPepHighTopics.filter((topic) => topic.grade === grade);
+      expect(topics, `${grade} Mainland PEP High lesson topics`).toHaveLength(expectedHighTopicCountsByGrade[grade] ?? 0);
+
+      await registerMainlandPepStudent(request, testInfo, grade);
+      await expectPracticeApiPayload(request, grade);
+
+      for (const topic of topics) {
+        await expectLessonApiPayload(request, topic);
+        if (representativeHighPageTopicIds.has(topic.id)) {
+          await expectLessonPageRoute(request, topic);
+        }
+      }
+    }
+  });
+
   test("serves all P1-S6 Mainland PEP lesson payloads, representative pages, and practice APIs", async ({ request }, testInfo) => {
     test.setTimeout(180_000);
 
@@ -250,6 +321,15 @@ test.describe("Mainland PEP P1-S6 lesson and Practice Arena QA gate", () => {
     await loginMainlandPepTeacher(page, "P1");
     for (const topicId of representativePrimaryIllustrationTopicIds) {
       await expectPrimaryLessonIllustrationsVisible(page, topicId);
+    }
+  });
+
+  test("gates unapproved Mainland PEP question illustrations inside Practice Arena", async ({ page }, testInfo) => {
+    test.setTimeout(180_000);
+
+    for (const grade of representativePracticeGateGrades) {
+      await registerMainlandPepStudent(page.request, testInfo, grade);
+      await expectPracticeQuestionImagesGated(page, grade);
     }
   });
 });

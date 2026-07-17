@@ -2,6 +2,12 @@ import { expect, test, type TestInfo } from "@playwright/test";
 import path from "node:path";
 import { questions } from "../../data/questions";
 import { expectedHkQuestionCount, hkIndependentAnswersById } from "../../lib/questionBankSolvability";
+import {
+  numberLinePointValue,
+  planeFigureAngleDegrees,
+  solidFigureCuboidVolume,
+  solidFigureUnitText
+} from "../../lib/questionFigure";
 import type { Question } from "../../types";
 
 type AttemptFeedback = {
@@ -156,6 +162,9 @@ graph-functions-zero	2
 graph-coordinate-geometry-gradient	1/2
 graph-coordinate-geometry-midpoint	(1, 1)
 graph-data-handling-highest-value	8
+graph-p4-angles-straight-line	50°
+graph-p4-decimals-number-line	3.7
+graph-p5-volume-cube	27 cm^3
 supp-p1-counting-number-bonds-first-step	Count on or count back from the known number
 supp-p1-counting-number-bonds-key-fact	5
 supp-p1-counting-number-bonds-guided-example	15
@@ -496,12 +505,16 @@ function formatPoint(x: number, y: number) {
   return `(${formatNumber(x)}, ${formatNumber(y)})`;
 }
 
+function coordinateGridDiagramFor(question: Question) {
+  return question.diagram?.kind === "coordinate-grid" ? question.diagram : null;
+}
+
 function pointByLabel(question: Question, label: string) {
-  return question.diagram?.points?.find((point) => point.label === label) ?? null;
+  return coordinateGridDiagramFor(question)?.points?.find((point) => point.label === label) ?? null;
 }
 
 function firstLine(question: Question) {
-  return question.diagram?.lines?.[0] ?? null;
+  return coordinateGridDiagramFor(question)?.lines?.[0] ?? null;
 }
 
 function quadrantFor(x: number, y: number) {
@@ -589,6 +602,23 @@ function deriveGraphAnswer(question: Question) {
   if (question.id === "graph-data-handling-highest-value") {
     const values = firstLine(question)?.points.map((point) => point.y) ?? [];
     return values.length ? formatNumber(Math.max(...values)) : null;
+  }
+
+  if (question.id === "graph-p4-angles-straight-line" && question.diagram.kind === "plane-figure") {
+    const angle = planeFigureAngleDegrees(question.diagram, "O", "C", "B");
+    return angle === null ? null : `${Math.round(angle)}°`;
+  }
+
+  if (question.id === "graph-p4-decimals-number-line" && question.diagram.kind === "number-line") {
+    const value = numberLinePointValue(question.diagram, "P");
+    return value === null ? null : formatNumber(value);
+  }
+
+  if (question.id === "graph-p5-volume-cube" && question.diagram.kind === "solid-figure") {
+    const volume = solidFigureCuboidVolume(question.diagram);
+    if (volume === null) return null;
+    const unit = solidFigureUnitText(question.diagram);
+    return unit ? `${formatNumber(volume)} ${unit}^3` : formatNumber(volume);
   }
 
   return null;
