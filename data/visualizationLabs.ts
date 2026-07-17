@@ -1548,142 +1548,142 @@ const californiaSourcePolicy: LocalizedText = localizedText(
 const californiaDomainAlignments: Record<string, CaliforniaDomainAlignmentRecord> = {
   "K.CC": {
     domainTitle: localizedText("Counting and Cardinality", "數數與基數", "数数与基数"),
-    standardIds: ["K.CC.1", "K.CC.2", "K.CC.3", "K.CC.4", "K.CC.5", "K.CC.6", "K.CC.7"],
+    standardIds: ["K.CC.A.1", "K.CC.A.2", "K.CC.A.3", "K.CC.B.4", "K.CC.B.5", "K.CC.C.6", "K.CC.C.7"],
     capabilitySummary: localizedText("Connect number words, written numerals, ordered counts, and quantity comparisons with concrete or picture models.")
   },
   "K.OA": {
     domainTitle: localizedText("Operations and Algebraic Thinking", "運算與代數思維", "运算与代数思维"),
-    standardIds: ["K.OA.1", "K.OA.2", "K.OA.3", "K.OA.4", "K.OA.5"],
+    standardIds: ["K.OA.A.1", "K.OA.A.2", "K.OA.A.3", "K.OA.A.4", "K.OA.A.5"],
     capabilitySummary: localizedText("Represent joining, separating, and decomposing within 10 with objects, drawings, equations, and part-whole models.")
   },
   "K.NBT": {
     domainTitle: localizedText("Number and Operations in Base Ten", "十進位數與運算", "十进位数与运算"),
-    standardIds: ["K.NBT.1"],
+    standardIds: ["K.NBT.A.1"],
     capabilitySummary: localizedText("Treat teen numbers as one ten and extra ones through base-ten and ten-frame representations.")
   },
   "K.MD": {
     domainTitle: localizedText("Measurement and Data", "度量與數據", "测量与数据"),
-    standardIds: ["K.MD.1", "K.MD.2", "K.MD.3"],
+    standardIds: ["K.MD.A.1", "K.MD.A.2", "K.MD.B.3"],
     capabilitySummary: localizedText("Describe, compare, classify, and organize measurable attributes with simple visual data models.")
   },
   "K.G": {
     domainTitle: localizedText("Geometry", "幾何", "几何"),
-    standardIds: ["K.G.1", "K.G.2", "K.G.3", "K.G.4", "K.G.5", "K.G.6"],
+    standardIds: ["K.G.A.1", "K.G.A.2", "K.G.A.3", "K.G.B.4", "K.G.B.5", "K.G.B.6"],
     capabilitySummary: localizedText("Name, compare, compose, and position two- and three-dimensional shapes.")
   },
   "1.OA": {
     domainTitle: localizedText("Operations and Algebraic Thinking", "運算與代數思維", "运算与代数思维"),
-    standardIds: ["1.OA.1", "1.OA.2", "1.OA.3", "1.OA.4", "1.OA.5", "1.OA.6", "1.OA.7", "1.OA.8"],
+    standardIds: ["1.OA.A.1", "1.OA.A.2", "1.OA.B.3", "1.OA.B.4", "1.OA.C.5", "1.OA.C.6", "1.OA.D.7", "1.OA.D.8"],
     capabilitySummary: localizedText("Model addition and subtraction situations, properties, unknowns, and fluency within 20.")
   },
   "1.NBT": {
     domainTitle: localizedText("Number and Operations in Base Ten", "十進位數與運算", "十进位数与运算"),
-    standardIds: ["1.NBT.1", "1.NBT.2", "1.NBT.3", "1.NBT.4", "1.NBT.5", "1.NBT.6"],
+    standardIds: ["1.NBT.A.1", "1.NBT.B.2", "1.NBT.B.3", "1.NBT.C.4", "1.NBT.C.5", "1.NBT.C.6"],
     capabilitySummary: localizedText("Count, compare, and operate with two-digit numbers using tens, ones, and place-value structure.")
   },
   "1.MD": {
     domainTitle: localizedText("Measurement and Data", "度量與數據", "测量与数据"),
-    standardIds: ["1.MD.1", "1.MD.2", "1.MD.3", "1.MD.4"],
+    standardIds: ["1.MD.A.1", "1.MD.A.2", "1.MD.B.3", "1.MD.C.4"],
     capabilitySummary: localizedText("Compare lengths, iterate units, tell time, and interpret simple data displays.")
   },
   "1.G": {
     domainTitle: localizedText("Geometry", "幾何", "几何"),
-    standardIds: ["1.G.1", "1.G.2", "1.G.3"],
+    standardIds: ["1.G.A.1", "1.G.A.2", "1.G.A.3"],
     capabilitySummary: localizedText("Compose, partition, and reason about defining attributes of shapes.")
   },
   "2.OA": {
     domainTitle: localizedText("Operations and Algebraic Thinking", "運算與代數思維", "运算与代数思维"),
-    standardIds: ["2.OA.1", "2.OA.2", "2.OA.3", "2.OA.4"],
+    standardIds: ["2.OA.A.1", "2.OA.B.2", "2.OA.C.3", "2.OA.C.4"],
     capabilitySummary: localizedText("Solve addition/subtraction problems, build fluency, and represent equal groups with arrays.")
   },
   "2.NBT": {
     domainTitle: localizedText("Number and Operations in Base Ten", "十進位數與運算", "十进位数与运算"),
-    standardIds: ["2.NBT.1", "2.NBT.2", "2.NBT.3", "2.NBT.4", "2.NBT.5", "2.NBT.6", "2.NBT.7", "2.NBT.8", "2.NBT.9"],
+    standardIds: ["2.NBT.A.1", "2.NBT.A.2", "2.NBT.A.3", "2.NBT.A.4", "2.NBT.B.5", "2.NBT.B.6", "2.NBT.B.7", "2.NBT.B.8", "2.NBT.B.9"],
     capabilitySummary: localizedText("Represent, compare, add, and subtract within 1000 using base-ten reasoning.")
   },
   "2.MD": {
     domainTitle: localizedText("Measurement and Data", "度量與數據", "测量与数据"),
-    standardIds: ["2.MD.1", "2.MD.2", "2.MD.3", "2.MD.4", "2.MD.5", "2.MD.6", "2.MD.7", "2.MD.8", "2.MD.9", "2.MD.10"],
+    standardIds: ["2.MD.A.1", "2.MD.A.2", "2.MD.A.3", "2.MD.A.4", "2.MD.B.5", "2.MD.B.6", "2.MD.C.7", "2.MD.C.8", "2.MD.D.9", "2.MD.D.10"],
     capabilitySummary: localizedText("Measure length, connect measurement to number lines, work with time/money, and display data.")
   },
   "2.G": {
     domainTitle: localizedText("Geometry", "幾何", "几何"),
-    standardIds: ["2.G.1", "2.G.2", "2.G.3"],
+    standardIds: ["2.G.A.1", "2.G.A.2", "2.G.A.3"],
     capabilitySummary: localizedText("Recognize shape attributes and partition rectangles or circles into equal shares.")
   },
   "3.OA": {
     domainTitle: localizedText("Operations and Algebraic Thinking", "運算與代數思維", "运算与代数思维"),
-    standardIds: ["3.OA.1", "3.OA.2", "3.OA.3", "3.OA.4", "3.OA.5", "3.OA.6", "3.OA.7", "3.OA.8", "3.OA.9"],
+    standardIds: ["3.OA.A.1", "3.OA.A.2", "3.OA.A.3", "3.OA.A.4", "3.OA.B.5", "3.OA.B.6", "3.OA.C.7", "3.OA.D.8", "3.OA.D.9"],
     capabilitySummary: localizedText("Interpret multiplication and division, solve situations, use properties, and identify patterns.")
   },
   "3.NBT": {
     domainTitle: localizedText("Number and Operations in Base Ten", "十進位數與運算", "十进位数与运算"),
-    standardIds: ["3.NBT.1", "3.NBT.2", "3.NBT.3"],
+    standardIds: ["3.NBT.A.1", "3.NBT.A.2", "3.NBT.A.3"],
     capabilitySummary: localizedText("Round and compute with multi-digit numbers using place-value strategies.")
   },
   "3.NF": {
     domainTitle: localizedText("Number and Operations - Fractions", "數與運算：分數", "数与运算：分数"),
-    standardIds: ["3.NF.1", "3.NF.2", "3.NF.3"],
+    standardIds: ["3.NF.A.1", "3.NF.A.2", "3.NF.A.3"],
     capabilitySummary: localizedText("Understand fractions as numbers, locate them on number lines, and reason about equivalence or comparison.")
   },
   "3.MD": {
     domainTitle: localizedText("Measurement and Data", "度量與數據", "测量与数据"),
-    standardIds: ["3.MD.1", "3.MD.2", "3.MD.3", "3.MD.4", "3.MD.5", "3.MD.6", "3.MD.7", "3.MD.8"],
+    standardIds: ["3.MD.A.1", "3.MD.A.2", "3.MD.B.3", "3.MD.B.4", "3.MD.C.5", "3.MD.C.6", "3.MD.C.7", "3.MD.D.8"],
     capabilitySummary: localizedText("Reason about elapsed time, measurement, graphing, area, and perimeter models.")
   },
   "3.G": {
     domainTitle: localizedText("Geometry", "幾何", "几何"),
-    standardIds: ["3.G.1", "3.G.2"],
+    standardIds: ["3.G.A.1", "3.G.A.2"],
     capabilitySummary: localizedText("Classify shapes by attributes and partition shapes into fractional areas.")
   },
   "4.OA": {
     domainTitle: localizedText("Operations and Algebraic Thinking", "運算與代數思維", "运算与代数思维"),
-    standardIds: ["4.OA.1", "4.OA.2", "4.OA.3", "4.OA.4", "4.OA.5"],
+    standardIds: ["4.OA.A.1", "4.OA.A.2", "4.OA.A.3", "4.OA.B.4", "4.OA.C.5"],
     capabilitySummary: localizedText("Use multiplicative comparison, factors, multiples, primes, composites, and pattern rules.")
   },
   "4.NBT": {
     domainTitle: localizedText("Number and Operations in Base Ten", "十進位數與運算", "十进位数与运算"),
-    standardIds: ["4.NBT.1", "4.NBT.2", "4.NBT.3", "4.NBT.4", "4.NBT.5", "4.NBT.6"],
+    standardIds: ["4.NBT.A.1", "4.NBT.A.2", "4.NBT.A.3", "4.NBT.B.4", "4.NBT.B.5", "4.NBT.B.6"],
     capabilitySummary: localizedText("Generalize place value and perform multi-digit operations with models and reasonableness checks.")
   },
   "4.NF": {
     domainTitle: localizedText("Number and Operations - Fractions", "數與運算：分數", "数与运算：分数"),
-    standardIds: ["4.NF.1", "4.NF.2", "4.NF.3", "4.NF.4", "4.NF.5", "4.NF.6", "4.NF.7"],
+    standardIds: ["4.NF.A.1", "4.NF.A.2", "4.NF.B.3", "4.NF.B.4", "4.NF.C.5", "4.NF.C.6", "4.NF.C.7"],
     capabilitySummary: localizedText("Use fraction equivalence, comparison, operations, whole-number multiplication, and decimal notation.")
   },
   "4.MD": {
     domainTitle: localizedText("Measurement and Data", "度量與數據", "测量与数据"),
-    standardIds: ["4.MD.1", "4.MD.2", "4.MD.3", "4.MD.4", "4.MD.5", "4.MD.6", "4.MD.7"],
+    standardIds: ["4.MD.A.1", "4.MD.A.2", "4.MD.A.3", "4.MD.B.4", "4.MD.C.5", "4.MD.C.6", "4.MD.C.7"],
     capabilitySummary: localizedText("Use unit conversion, area/perimeter formulas, line plots, and angle measure.")
   },
   "4.G": {
     domainTitle: localizedText("Geometry", "幾何", "几何"),
-    standardIds: ["4.G.1", "4.G.2", "4.G.3"],
+    standardIds: ["4.G.A.1", "4.G.A.2", "4.G.A.3"],
     capabilitySummary: localizedText("Reason about lines, angles, symmetry, and shape classification.")
   },
   "5.OA": {
     domainTitle: localizedText("Operations and Algebraic Thinking", "運算與代數思維", "运算与代数思维"),
-    standardIds: ["5.OA.1", "5.OA.2", "5.OA.3"],
+    standardIds: ["5.OA.A.1", "5.OA.A.2", "5.OA.B.3"],
     capabilitySummary: localizedText("Write and interpret numerical expressions and analyze pattern relationships.")
   },
   "5.NBT": {
     domainTitle: localizedText("Number and Operations in Base Ten", "十進位數與運算", "十进位数与运算"),
-    standardIds: ["5.NBT.1", "5.NBT.2", "5.NBT.3", "5.NBT.4", "5.NBT.5", "5.NBT.6", "5.NBT.7"],
+    standardIds: ["5.NBT.A.1", "5.NBT.A.2", "5.NBT.A.3", "5.NBT.A.4", "5.NBT.B.5", "5.NBT.B.6", "5.NBT.B.7"],
     capabilitySummary: localizedText("Use place-value patterns and decimal operations with powers of ten, rounding, and algorithms.")
   },
   "5.NF": {
     domainTitle: localizedText("Number and Operations - Fractions", "數與運算：分數", "数与运算：分数"),
-    standardIds: ["5.NF.1", "5.NF.2", "5.NF.3", "5.NF.4", "5.NF.5", "5.NF.6", "5.NF.7"],
+    standardIds: ["5.NF.A.1", "5.NF.A.2", "5.NF.B.3", "5.NF.B.4", "5.NF.B.5", "5.NF.B.6", "5.NF.B.7"],
     capabilitySummary: localizedText("Use fraction addition/subtraction and multiplication/division models before algorithms.")
   },
   "5.MD": {
     domainTitle: localizedText("Measurement and Data", "度量與數據", "测量与数据"),
-    standardIds: ["5.MD.1", "5.MD.2", "5.MD.3", "5.MD.4", "5.MD.5"],
+    standardIds: ["5.MD.A.1", "5.MD.B.2", "5.MD.C.3", "5.MD.C.4", "5.MD.C.5"],
     capabilitySummary: localizedText("Convert measures, display data, and reason about volume with layers and unit cubes.")
   },
   "5.G": {
     domainTitle: localizedText("Geometry", "幾何", "几何"),
-    standardIds: ["5.G.1", "5.G.2", "5.G.3", "5.G.4"],
+    standardIds: ["5.G.A.1", "5.G.A.2", "5.G.B.3", "5.G.B.4"],
     capabilitySummary: localizedText("Graph points on coordinate planes and classify shapes by properties.")
   },
   "6.RP": {
@@ -1843,7 +1843,7 @@ const californiaDomainAlignments: Record<string, CaliforniaDomainAlignmentRecord
   },
   "G-GMD": {
     domainTitle: localizedText("Geometry - Geometric Measurement and Dimension", "幾何：幾何度量與維度", "几何：几何测量与维度"),
-    standardIds: ["G-GMD.1", "G-GMD.2", "G-GMD.3", "G-GMD.4", "G-GMD.5", "G-GMD.6"],
+    standardIds: ["G-GMD.1", "G-GMD.2", "G-GMD.3", "G-GMD.4"],
     capabilitySummary: localizedText("Use geometric measurement, volume formulas, cross-sections, and units.")
   },
   "G-MG": {
@@ -1879,35 +1879,35 @@ const californiaDomainAlignments: Record<string, CaliforniaDomainAlignmentRecord
 };
 
 const californiaClusterStandards: Record<string, CaliforniaClusterAlignmentRecord> = {
-  "K.CC.count-sequence": { domainId: "K.CC", standardIds: ["K.CC.1", "K.CC.2", "K.CC.3"] },
-  "K.CC.cardinality-compare": { domainId: "K.CC", standardIds: ["K.CC.4", "K.CC.5", "K.CC.6", "K.CC.7"] },
-  "K.OA.compose-decompose": { domainId: "K.OA", standardIds: ["K.OA.1", "K.OA.2", "K.OA.3", "K.OA.4", "K.OA.5"] },
-  "K.NBT.teen-numbers": { domainId: "K.NBT", standardIds: ["K.NBT.1"] },
-  "K.MD.attributes-data": { domainId: "K.MD", standardIds: ["K.MD.1", "K.MD.2", "K.MD.3"] },
-  "K.G.shapes-position": { domainId: "K.G", standardIds: ["K.G.1", "K.G.2", "K.G.3", "K.G.4", "K.G.5", "K.G.6"] },
-  "1.OA.add-subtract": { domainId: "1.OA", standardIds: ["1.OA.1", "1.OA.2", "1.OA.3", "1.OA.4", "1.OA.5", "1.OA.6", "1.OA.7", "1.OA.8"] },
-  "1.NBT.place-value": { domainId: "1.NBT", standardIds: ["1.NBT.1", "1.NBT.2", "1.NBT.3", "1.NBT.4", "1.NBT.5", "1.NBT.6"] },
-  "1.MD.measure-data": { domainId: "1.MD", standardIds: ["1.MD.1", "1.MD.2", "1.MD.3", "1.MD.4"] },
-  "1.G.shape-reasoning": { domainId: "1.G", standardIds: ["1.G.1", "1.G.2", "1.G.3"] },
-  "2.OA.fluency-arrays": { domainId: "2.OA", standardIds: ["2.OA.1", "2.OA.2", "2.OA.3", "2.OA.4"] },
-  "2.NBT.three-digit-place-value": { domainId: "2.NBT", standardIds: ["2.NBT.1", "2.NBT.2", "2.NBT.3", "2.NBT.4", "2.NBT.5", "2.NBT.6", "2.NBT.7", "2.NBT.8", "2.NBT.9"] },
-  "2.MD.measure-data-money-time": { domainId: "2.MD", standardIds: ["2.MD.1", "2.MD.2", "2.MD.3", "2.MD.4", "2.MD.5", "2.MD.6", "2.MD.7", "2.MD.8", "2.MD.9", "2.MD.10"] },
-  "2.G.partition-shapes": { domainId: "2.G", standardIds: ["2.G.1", "2.G.2", "2.G.3"] },
-  "3.OA.mult-div": { domainId: "3.OA", standardIds: ["3.OA.1", "3.OA.2", "3.OA.3", "3.OA.4", "3.OA.5", "3.OA.6", "3.OA.7", "3.OA.8", "3.OA.9"] },
-  "3.NBT.arithmetic": { domainId: "3.NBT", standardIds: ["3.NBT.1", "3.NBT.2", "3.NBT.3"] },
-  "3.NF.fraction-meaning": { domainId: "3.NF", standardIds: ["3.NF.1", "3.NF.2", "3.NF.3"] },
-  "3.MD.time-data-area-perimeter": { domainId: "3.MD", standardIds: ["3.MD.1", "3.MD.2", "3.MD.3", "3.MD.4", "3.MD.5", "3.MD.6", "3.MD.7", "3.MD.8"] },
-  "3.G.categories": { domainId: "3.G", standardIds: ["3.G.1", "3.G.2"] },
-  "4.OA.factors-patterns": { domainId: "4.OA", standardIds: ["4.OA.1", "4.OA.2", "4.OA.3", "4.OA.4", "4.OA.5"] },
-  "4.NBT.multi-digit": { domainId: "4.NBT", standardIds: ["4.NBT.1", "4.NBT.2", "4.NBT.3", "4.NBT.4", "4.NBT.5", "4.NBT.6"] },
-  "4.NF.fraction-decimal": { domainId: "4.NF", standardIds: ["4.NF.1", "4.NF.2", "4.NF.3", "4.NF.4", "4.NF.5", "4.NF.6", "4.NF.7"] },
-  "4.MD.conversion-angles": { domainId: "4.MD", standardIds: ["4.MD.1", "4.MD.2", "4.MD.3", "4.MD.4", "4.MD.5", "4.MD.6", "4.MD.7"] },
-  "4.G.lines-shapes": { domainId: "4.G", standardIds: ["4.G.1", "4.G.2", "4.G.3"] },
-  "5.OA.expressions-patterns": { domainId: "5.OA", standardIds: ["5.OA.1", "5.OA.2", "5.OA.3"] },
-  "5.NBT.decimals": { domainId: "5.NBT", standardIds: ["5.NBT.1", "5.NBT.2", "5.NBT.3", "5.NBT.4", "5.NBT.5", "5.NBT.6", "5.NBT.7"] },
-  "5.NF.operations": { domainId: "5.NF", standardIds: ["5.NF.1", "5.NF.2", "5.NF.3", "5.NF.4", "5.NF.5", "5.NF.6", "5.NF.7"] },
-  "5.MD.volume-data": { domainId: "5.MD", standardIds: ["5.MD.1", "5.MD.2", "5.MD.3", "5.MD.4", "5.MD.5"] },
-  "5.G.coordinate-shapes": { domainId: "5.G", standardIds: ["5.G.1", "5.G.2", "5.G.3", "5.G.4"] }
+  "K.CC.count-sequence": { domainId: "K.CC", standardIds: ["K.CC.A.1", "K.CC.A.2", "K.CC.A.3"] },
+  "K.CC.cardinality-compare": { domainId: "K.CC", standardIds: ["K.CC.B.4", "K.CC.B.5", "K.CC.C.6", "K.CC.C.7"] },
+  "K.OA.compose-decompose": { domainId: "K.OA", standardIds: ["K.OA.A.1", "K.OA.A.2", "K.OA.A.3", "K.OA.A.4", "K.OA.A.5"] },
+  "K.NBT.teen-numbers": { domainId: "K.NBT", standardIds: ["K.NBT.A.1"] },
+  "K.MD.attributes-data": { domainId: "K.MD", standardIds: ["K.MD.A.1", "K.MD.A.2", "K.MD.B.3"] },
+  "K.G.shapes-position": { domainId: "K.G", standardIds: ["K.G.A.1", "K.G.A.2", "K.G.A.3", "K.G.B.4", "K.G.B.5", "K.G.B.6"] },
+  "1.OA.add-subtract": { domainId: "1.OA", standardIds: ["1.OA.A.1", "1.OA.A.2", "1.OA.B.3", "1.OA.B.4", "1.OA.C.5", "1.OA.C.6", "1.OA.D.7", "1.OA.D.8"] },
+  "1.NBT.place-value": { domainId: "1.NBT", standardIds: ["1.NBT.A.1", "1.NBT.B.2", "1.NBT.B.3", "1.NBT.C.4", "1.NBT.C.5", "1.NBT.C.6"] },
+  "1.MD.measure-data": { domainId: "1.MD", standardIds: ["1.MD.A.1", "1.MD.A.2", "1.MD.B.3", "1.MD.C.4"] },
+  "1.G.shape-reasoning": { domainId: "1.G", standardIds: ["1.G.A.1", "1.G.A.2", "1.G.A.3"] },
+  "2.OA.fluency-arrays": { domainId: "2.OA", standardIds: ["2.OA.A.1", "2.OA.B.2", "2.OA.C.3", "2.OA.C.4"] },
+  "2.NBT.three-digit-place-value": { domainId: "2.NBT", standardIds: ["2.NBT.A.1", "2.NBT.A.2", "2.NBT.A.3", "2.NBT.A.4", "2.NBT.B.5", "2.NBT.B.6", "2.NBT.B.7", "2.NBT.B.8", "2.NBT.B.9"] },
+  "2.MD.measure-data-money-time": { domainId: "2.MD", standardIds: ["2.MD.A.1", "2.MD.A.2", "2.MD.A.3", "2.MD.A.4", "2.MD.B.5", "2.MD.B.6", "2.MD.C.7", "2.MD.C.8", "2.MD.D.9", "2.MD.D.10"] },
+  "2.G.partition-shapes": { domainId: "2.G", standardIds: ["2.G.A.1", "2.G.A.2", "2.G.A.3"] },
+  "3.OA.mult-div": { domainId: "3.OA", standardIds: ["3.OA.A.1", "3.OA.A.2", "3.OA.A.3", "3.OA.A.4", "3.OA.B.5", "3.OA.B.6", "3.OA.C.7", "3.OA.D.8", "3.OA.D.9"] },
+  "3.NBT.arithmetic": { domainId: "3.NBT", standardIds: ["3.NBT.A.1", "3.NBT.A.2", "3.NBT.A.3"] },
+  "3.NF.fraction-meaning": { domainId: "3.NF", standardIds: ["3.NF.A.1", "3.NF.A.2", "3.NF.A.3"] },
+  "3.MD.time-data-area-perimeter": { domainId: "3.MD", standardIds: ["3.MD.A.1", "3.MD.A.2", "3.MD.B.3", "3.MD.B.4", "3.MD.C.5", "3.MD.C.6", "3.MD.C.7", "3.MD.D.8"] },
+  "3.G.categories": { domainId: "3.G", standardIds: ["3.G.A.1", "3.G.A.2"] },
+  "4.OA.factors-patterns": { domainId: "4.OA", standardIds: ["4.OA.A.1", "4.OA.A.2", "4.OA.A.3", "4.OA.B.4", "4.OA.C.5"] },
+  "4.NBT.multi-digit": { domainId: "4.NBT", standardIds: ["4.NBT.A.1", "4.NBT.A.2", "4.NBT.A.3", "4.NBT.B.4", "4.NBT.B.5", "4.NBT.B.6"] },
+  "4.NF.fraction-decimal": { domainId: "4.NF", standardIds: ["4.NF.A.1", "4.NF.A.2", "4.NF.B.3", "4.NF.B.4", "4.NF.C.5", "4.NF.C.6", "4.NF.C.7"] },
+  "4.MD.conversion-angles": { domainId: "4.MD", standardIds: ["4.MD.A.1", "4.MD.A.2", "4.MD.A.3", "4.MD.B.4", "4.MD.C.5", "4.MD.C.6", "4.MD.C.7"] },
+  "4.G.lines-shapes": { domainId: "4.G", standardIds: ["4.G.A.1", "4.G.A.2", "4.G.A.3"] },
+  "5.OA.expressions-patterns": { domainId: "5.OA", standardIds: ["5.OA.A.1", "5.OA.A.2", "5.OA.B.3"] },
+  "5.NBT.decimals": { domainId: "5.NBT", standardIds: ["5.NBT.A.1", "5.NBT.A.2", "5.NBT.A.3", "5.NBT.A.4", "5.NBT.B.5", "5.NBT.B.6", "5.NBT.B.7"] },
+  "5.NF.operations": { domainId: "5.NF", standardIds: ["5.NF.A.1", "5.NF.A.2", "5.NF.B.3", "5.NF.B.4", "5.NF.B.5", "5.NF.B.6", "5.NF.B.7"] },
+  "5.MD.volume-data": { domainId: "5.MD", standardIds: ["5.MD.A.1", "5.MD.B.2", "5.MD.C.3", "5.MD.C.4", "5.MD.C.5"] },
+  "5.G.coordinate-shapes": { domainId: "5.G", standardIds: ["5.G.A.1", "5.G.A.2", "5.G.B.3", "5.G.B.4"] }
 };
 
 const californiaChapterDomainOverrides: Partial<Record<string, string>> = {
@@ -1956,12 +1956,20 @@ function domainCodeFromStandardId(standardId: string) {
   if (standardId === "Modeling") return "Modeling";
   const parts = standardId.split(".");
   if (parts.length < 2) return standardId;
-  return parts.slice(0, -1).join(".");
+  // High-school category codes (e.g. "A-APR.1") keep the whole first segment as the domain.
+  if (parts[0].includes("-")) return parts[0];
+  // K-8 codes are "<grade>.<DOMAIN>[.<cluster>].<number>" (canonical CCSS includes the
+  // cluster letter, e.g. "K.CC.A.1"); the domain is always the first two segments.
+  return `${parts[0]}.${parts[1]}`;
 }
 
 function extractCaliforniaStandardIds(topic: Topic) {
   const text = [topic.description.en, topic.description.zh, topic.description.zhHans ?? ""].join(" ");
-  const matches = text.match(/\b(?:K|\d{1,2})\.[A-Z]{1,3}\.\d+[a-z]?\b|\b[A-Z]-[A-Z]{1,4}\.\d+[a-z]?\b|\bModeling\b/g) ?? [];
+  // Matches canonical CCSS with the optional cluster letter (e.g. 'K.CC.A.1', '3.NF.A.2a')
+  // as well as the legacy cluster-letter-less form ('K.CC.1'), plus HS category codes.
+  const matches =
+    text.match(/\b(?:K|\d{1,2})\.[A-Z]{1,3}(?:\.[A-Z])?\.\d+[a-z]?\b|\b[A-Z]-[A-Z]{1,4}\.\d+[a-z]?\b|\bModeling\b/g) ??
+    [];
   return Array.from(new Set(matches));
 }
 
