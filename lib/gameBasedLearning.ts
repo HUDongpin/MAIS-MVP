@@ -1,6 +1,12 @@
 export const studentPracticeGamesPath = "/student/practice/games" as const;
 export const mathMatchQuestDraftPath = `${studentPracticeGamesPath}/math-match-quest` as const;
 export const legacyMathMatchQuestDraftPath = "/games/math-match-quest" as const;
+export const practiceAdventureRoundStorageKey = "hk-math-practice-adventure-round" as const;
+export const completedPracticeRoundStoragePrefix = "hk-math-practice-completed-round" as const;
+
+export function completedPracticeRoundStorageKey(userId: string | null | undefined) {
+  return `${completedPracticeRoundStoragePrefix}:${userId ?? "guest"}`;
+}
 
 export const studentPracticeGameSlugs = {
   adventureIsland: "adventure-island",

@@ -2,7 +2,10 @@ import assert from "node:assert/strict";
 import test from "node:test";
 import {
   calculateMathMatchQuestReward,
+  completedPracticeRoundStorageKey,
+  completedPracticeRoundStoragePrefix,
   findMathMatchQuestMatches,
+  practiceAdventureRoundStorageKey,
   resolveMathMatchQuestLevelResult,
   type MathMatchQuestTile
 } from "./gameBasedLearning";
@@ -103,4 +106,11 @@ test("resolveMathMatchQuestLevelResult uses target progress, answer accuracy, an
       efficiencyPercent: 11
     }
   );
+});
+
+test("practice game storage keys are stable and scoped per user", () => {
+  assert.equal(practiceAdventureRoundStorageKey, "hk-math-practice-adventure-round");
+  assert.equal(completedPracticeRoundStoragePrefix, "hk-math-practice-completed-round");
+  assert.equal(completedPracticeRoundStorageKey("student-123"), "hk-math-practice-completed-round:student-123");
+  assert.equal(completedPracticeRoundStorageKey(undefined), "hk-math-practice-completed-round:guest");
 });
