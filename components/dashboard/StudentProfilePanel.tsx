@@ -232,7 +232,8 @@ export function StudentProfilePanel() {
   const fileInputRef = useRef<HTMLInputElement | null>(null);
   const [draftName, setDraftName] = useState("");
   const [draftAvatarId, setDraftAvatarId] = useState<StudentAvatarId>("delta");
-  const [draftAvatarImageDataUrl, setDraftAvatarImageDataUrl] = useState<string | undefined>();
+  const [draftAvatarImagePreviewUrl, setDraftAvatarImagePreviewUrl] = useState<string | undefined>();
+  const [freshAvatarImageDataUrl, setFreshAvatarImageDataUrl] = useState<string | undefined>();
   const [isPreparingImage, setIsPreparingImage] = useState(false);
   const [uploadError, setUploadError] = useState("");
   const [isSaving, setIsSaving] = useState(false);
@@ -241,7 +242,8 @@ export function StudentProfilePanel() {
   useEffect(() => {
     setDraftName(currentUser?.name ?? "");
     setDraftAvatarId(currentUser?.avatarId ?? "delta");
-    setDraftAvatarImageDataUrl(currentUser?.avatarImageDataUrl);
+    setDraftAvatarImagePreviewUrl(currentUser?.avatarImageDataUrl);
+    setFreshAvatarImageDataUrl(undefined);
     setUploadError("");
   }, [currentUser?.id, currentUser?.name, currentUser?.avatarId, currentUser?.avatarImageDataUrl]);
 
@@ -252,7 +254,7 @@ export function StudentProfilePanel() {
   const activeAvatar = avatarFor(draftAvatarId);
   const cleanDraftName = draftName.trim().replace(/\s+/g, " ");
   const currentAvatarImageDataUrl = currentUser?.avatarImageDataUrl ?? "";
-  const draftAvatarImageValue = draftAvatarImageDataUrl ?? "";
+  const draftAvatarImageValue = draftAvatarImagePreviewUrl ?? "";
   const uploadErrorCopy = t({ en: "Choose a JPG, PNG, or WebP image under 5 MB.", zh: "請選擇 5 MB 以下的 JPG、PNG 或 WebP 圖像。" });
   const isDirty = Boolean(
     currentUser &&
@@ -273,13 +275,23 @@ export function StudentProfilePanel() {
 
     setIsSaving(true);
     setStatus("idle");
-    const result = await updateProfile({
-      name: cleanDraftName,
-      avatarId: draftAvatarId,
-      avatarImageDataUrl: draftAvatarImageDataUrl ?? null
-    });
-    setStatus(result.ok ? "saved" : "error");
-    setIsSaving(false);
+    try {
+      const avatarImageDataUrl = freshAvatarImageDataUrl
+        ? freshAvatarImageDataUrl
+        : !draftAvatarImagePreviewUrl && currentAvatarImageDataUrl
+          ? null
+          : undefined;
+      const result = await updateProfile({
+        name: cleanDraftName,
+        avatarId: draftAvatarId,
+        avatarImageDataUrl
+      });
+      setStatus(result.ok ? "saved" : "error");
+    } catch {
+      setStatus("error");
+    } finally {
+      setIsSaving(false);
+    }
   };
 
   const handleAvatarUpload = async (event: ChangeEvent<HTMLInputElement>) => {
@@ -292,7 +304,9 @@ export function StudentProfilePanel() {
     setStatus("idle");
 
     try {
-      setDraftAvatarImageDataUrl(await prepareAvatarImage(file));
+      const dataUrl = await prepareAvatarImage(file);
+      setDraftAvatarImagePreviewUrl(dataUrl);
+      setFreshAvatarImageDataUrl(dataUrl);
     } catch {
       setUploadError(uploadErrorCopy);
     } finally {
@@ -306,12 +320,12 @@ export function StudentProfilePanel() {
         <div
           className={cn(
             "grid h-20 w-20 shrink-0 place-items-center overflow-hidden rounded-[1.75rem] text-white shadow-glow ring-1 ring-white/35",
-            draftAvatarImageDataUrl ? "bg-slate-100 dark:bg-slate-900" : `bg-gradient-to-br ${activeAvatar.className}`
+            draftAvatarImagePreviewUrl ? "bg-slate-100 dark:bg-slate-900" : `bg-gradient-to-br ${activeAvatar.className}`
           )}
           aria-hidden="true"
         >
-          {draftAvatarImageDataUrl ? (
-            <img src={draftAvatarImageDataUrl} alt="" className="h-full w-full object-cover" />
+          {draftAvatarImagePreviewUrl ? (
+            <img src={draftAvatarImagePreviewUrl} alt="" className="h-full w-full object-cover" />
           ) : (
             <MascotAvatar mascot={activeAvatar.mascot} />
           )}
@@ -341,7 +355,7 @@ export function StudentProfilePanel() {
         <legend className="text-sm font-bold text-slate-600 dark:text-slate-300">{t({ en: "Avatar", zh: "頭像" })}</legend>
         <div className="mt-3 grid grid-cols-3 gap-2">
           {avatarPresets.map((avatar) => {
-            const selected = !draftAvatarImageDataUrl && avatar.id === draftAvatarId;
+            const selected = !draftAvatarImagePreviewUrl && avatar.id === draftAvatarId;
             return (
               <button
                 key={avatar.id}
@@ -350,7 +364,8 @@ export function StudentProfilePanel() {
                 aria-label={text(avatar.label)}
                 onClick={() => {
                   setDraftAvatarId(avatar.id);
-                  setDraftAvatarImageDataUrl(undefined);
+                  setDraftAvatarImagePreviewUrl(undefined);
+                  setFreshAvatarImageDataUrl(undefined);
                   setUploadError("");
                   setStatus("idle");
                 }}
@@ -368,19 +383,19 @@ export function StudentProfilePanel() {
         <div className="mt-3 grid grid-cols-2 gap-3">
           <button
             type="button"
-            aria-pressed={Boolean(draftAvatarImageDataUrl)}
+            aria-pressed={Boolean(draftAvatarImagePreviewUrl)}
             onClick={() => fileInputRef.current?.click()}
             disabled={isPreparingImage}
             className={cn(
               "focus-ring flex min-h-12 items-center justify-center rounded-2xl border border-dashed px-3 text-center text-sm font-black transition hover:-translate-y-0.5 disabled:cursor-wait disabled:opacity-70",
-              draftAvatarImageDataUrl
+              draftAvatarImagePreviewUrl
                 ? "border-cyan-300 bg-cyan-50 text-cyan-700 ring-2 ring-cyan-300/70 dark:bg-cyan-300/10 dark:text-cyan-100"
                 : "border-slate-300 bg-white/80 text-slate-700 hover:border-cyan-300 dark:border-white/15 dark:bg-white/[0.06] dark:text-slate-200"
             )}
           >
             {isPreparingImage
               ? t({ en: "Preparing photo...", zh: "正在準備相片..." })
-              : draftAvatarImageDataUrl
+              : draftAvatarImagePreviewUrl
                 ? t({ en: "Photo selected", zh: "已選相片" })
                 : t({ en: "Upload photo", zh: "上載相片" })}
           </button>

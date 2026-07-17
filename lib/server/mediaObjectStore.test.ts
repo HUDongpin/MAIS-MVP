@@ -67,6 +67,7 @@ test("media object store writes scanned encrypted bytes with retention metadata"
         AI_MEDIA_OBJECT_STORE_DIR: dir
       },
       objectKey: stored.media.objectKey,
+      now: new Date("2026-06-12T00:00:01.000Z"),
       requester: { id: "student-1", role: "student" }
     });
 

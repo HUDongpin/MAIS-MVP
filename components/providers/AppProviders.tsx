@@ -140,6 +140,16 @@ type ProfileUpdateInput = {
   avatarImageDataUrl?: string | null;
 };
 
+type ProfileAvatarImageObject = {
+  kind: "object-reference";
+  objectKey: string;
+  mimeType: string;
+  byteLength: number;
+  encrypted: boolean;
+  scanStatus: "pending" | "passed" | "failed";
+  retentionExpiresAt: string;
+};
+
 type AuthActionResult = {
   ok: boolean;
   role?: StudentSession["role"];
@@ -181,6 +191,36 @@ function readAvatarImageDataUrl(value: unknown) {
   if (avatarMediaObjectUrlPattern.test(value)) return value;
   if (value.length > maxAvatarImageDataUrlLength) return undefined;
   return avatarImageDataUrlPattern.test(value) ? value : undefined;
+}
+
+function readAvatarImageObjectKey(value: unknown) {
+  return typeof value === "string" && value.startsWith("profile-avatar/") ? value : undefined;
+}
+
+function readAvatarImageUrl(value: unknown) {
+  return typeof value === "string" && avatarMediaObjectUrlPattern.test(value) ? value : undefined;
+}
+
+function readProfileAvatarImageObject(value: unknown): ProfileAvatarImageObject | null {
+  if (typeof value !== "object" || value === null) return null;
+  const record = value as Partial<ProfileAvatarImageObject>;
+  if (record.kind !== "object-reference") return null;
+  if (typeof record.objectKey !== "string" || !record.objectKey.startsWith("profile-avatar/")) return null;
+  if (typeof record.mimeType !== "string" || !/^image\/(?:jpeg|jpg|png|webp)$/.test(record.mimeType)) return null;
+  if (typeof record.byteLength !== "number" || !Number.isFinite(record.byteLength) || record.byteLength <= 0) return null;
+  if (record.encrypted !== true) return null;
+  if (record.scanStatus !== "passed" && record.scanStatus !== "pending" && record.scanStatus !== "failed") return null;
+  if (typeof record.retentionExpiresAt !== "string" || !Number.isFinite(Date.parse(record.retentionExpiresAt))) return null;
+
+  return {
+    kind: "object-reference",
+    objectKey: record.objectKey,
+    mimeType: record.mimeType,
+    byteLength: record.byteLength,
+    encrypted: true,
+    scanStatus: record.scanStatus,
+    retentionExpiresAt: record.retentionExpiresAt
+  };
 }
 
 function readLessonEntryTarget(value: unknown): LessonEntryTarget | null {
@@ -265,7 +305,9 @@ function readAuthSession(value: unknown): AuthSessionResponse | null {
       schoolId: typeof user.schoolId === "string" ? user.schoolId : undefined,
       passwordMustChange: typeof user.passwordMustChange === "boolean" ? user.passwordMustChange : undefined,
       avatarId: readAvatarId(user.avatarId),
-      avatarImageDataUrl: readAvatarImageDataUrl(user.avatarImageDataUrl),
+      avatarImageDataUrl: readAvatarImageUrl(user.avatarImageUrl) ?? readAvatarImageDataUrl(user.avatarImageDataUrl),
+      avatarImageObjectKey: readAvatarImageObjectKey(user.avatarImageObjectKey),
+      avatarImageUrl: readAvatarImageUrl(user.avatarImageUrl),
       grade: user.grade,
       curriculumTrack,
       curriculumProfile,
@@ -965,24 +1007,66 @@ export function AppProviders({ children }: { children: ReactNode }) {
   }, [applyAuthSession]);
 
   const updateProfile = useCallback(async ({ name, avatarId, avatarImageDataUrl }: ProfileUpdateInput): Promise<AuthActionResult> => {
-    const response = await fetch("/api/me/profile", {
-      method: "PATCH",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({ name, avatarId, avatarImageDataUrl })
-    });
+    const patchProfile = async (body: {
+      name?: string;
+      avatarId?: StudentAvatarId;
+      avatarImageDataUrl?: string | null;
+      avatarImageObject?: ProfileAvatarImageObject | null;
+    }) => {
+      const response = await fetch("/api/me/profile", {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(body)
+      });
 
-    if (!response.ok) {
-      if (response.status === 400) return { ok: false, reason: "invalid" };
+      if (!response.ok) {
+        if (response.status === 400) return { ok: false, reason: "invalid" } satisfies AuthActionResult;
+        return { ok: false, reason: "error" } satisfies AuthActionResult;
+      }
+
+      const session = readAuthSession(await response.json());
+      if (!session) return { ok: false, reason: "error" } satisfies AuthActionResult;
+
+      applyAuthSession(session);
+      return { ok: true, role: session.user.role } satisfies AuthActionResult;
+    };
+
+    try {
+      const isFreshAvatarDataUrl =
+        typeof avatarImageDataUrl === "string" &&
+        avatarImageDataUrlPattern.test(avatarImageDataUrl);
+      if (isFreshAvatarDataUrl) {
+        const uploadResponse = await fetch("/api/media-objects", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify({ capability: "profile-avatar", dataUrl: avatarImageDataUrl })
+        });
+
+        if (uploadResponse.status === 201) {
+          const uploadPayload = await uploadResponse.json().catch(() => null) as { media?: unknown } | null;
+          const avatarImageObject = readProfileAvatarImageObject(uploadPayload?.media);
+          if (!avatarImageObject) return { ok: false, reason: "error" };
+          return await patchProfile({ name, avatarId, avatarImageObject });
+        }
+
+        if ((await readAuthErrorCode(uploadResponse)) !== "media-encryption-key-missing") {
+          return { ok: false, reason: "error" };
+        }
+      }
+
+      const patchAvatarImageDataUrl = avatarImageDataUrl === null
+        ? null
+        : isFreshAvatarDataUrl
+          ? avatarImageDataUrl
+          : undefined;
+      return await patchProfile({ name, avatarId, avatarImageDataUrl: patchAvatarImageDataUrl });
+    } catch {
       return { ok: false, reason: "error" };
     }
-
-    const session = readAuthSession(await response.json());
-    if (!session) return { ok: false, reason: "error" };
-
-    applyAuthSession(session);
-    return { ok: true, role: session.user.role };
   }, [applyAuthSession]);
 
   const clearLocalSession = useCallback(() => {

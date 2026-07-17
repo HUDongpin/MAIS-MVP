@@ -51,6 +51,21 @@ export async function PATCH(request: Request) {
     return NextResponse.json({ error: "Request body must be an object." }, { status: 400 });
   }
 
+  const hasAvatarImageDataUrlValue =
+    "avatarImageDataUrl" in body &&
+    body.avatarImageDataUrl !== null &&
+    body.avatarImageDataUrl !== "";
+  const hasAvatarImageObjectValue =
+    "avatarImageObject" in body &&
+    body.avatarImageObject !== null &&
+    body.avatarImageObject !== "";
+  if (hasAvatarImageDataUrlValue && hasAvatarImageObjectValue) {
+    return NextResponse.json(
+      { error: "Choose either an avatar image data URL or an avatar image object, not both." },
+      { status: 400 }
+    );
+  }
+
   const patch: Partial<{
     name: string;
     avatarId: StudentAvatarId;
