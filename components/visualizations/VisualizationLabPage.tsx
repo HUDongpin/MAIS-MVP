@@ -8,6 +8,7 @@ import VisualizationLabLoading from "@/components/visualizations/VisualizationLa
 import labQuestIslandMapEn from "@/components/visualizations/assets/lab-quest-island-map-en.png";
 import labQuestIslandMap from "@/components/visualizations/assets/lab-quest-island-map.png";
 import { dictionary, useSettings } from "@/components/providers/AppProviders";
+import { fallbackLogoGlyphs, kindergartenCaliforniaLogoGlyphs, labLogoArtByGlyph, templateLogoGlyphs } from "@/components/visualizations/labLogoArt";
 import { buildVisualizationLabHref, buildVisualizationPracticeHref, buildVisualizationSessionModuleId, buildVisualizationSnapshotMarkSample } from "@/components/visualizations/visualizationDiagnostics";
 import { gradeIds } from "@/data/grades";
 import { publisherLabels } from "@/lib/curriculumProfile";
@@ -197,35 +198,6 @@ const labTileThemes = [
   }
 ] as const;
 
-const fallbackLogoGlyphs = ["123", "10+", "A=B", "xy", "f(x)", "p", "cm", "3D"] as const;
-const templateLogoGlyphs: Partial<Record<FeaturedLabDefinition["templateId"], string>> = {
-  "number-line": "123",
-  "base-ten": "10+",
-  "array-area": "NxM",
-  "fraction-bar": "1/2",
-  "clock-money-data": "data",
-  "measurement-scale": "cm",
-  "angle-geometry": "shape",
-  "right-triangle-pythagorean": "a2+b2",
-  "coordinate-transform": "xy",
-  "equation-balance": "A=B",
-  "function-graph": "f(x)",
-  "function-family": "f(x)",
-  "complex-plane": "a+bi",
-  "trig-unit-wave": "sin",
-  "probability-simulation": "p",
-  "statistics-distribution": "data",
-  "calculus-rate-area": "dy/dx",
-  "vector-conic-3d/strategy-map": "3D"
-};
-const kindergartenCaliforniaLogoGlyphs: Record<string, string> = {
-  "us-ca-math-k-k-cc-count-sequence": "123",
-  "us-ca-math-k-k-cc-cardinality-compare": "3>2",
-  "us-ca-math-k-k-oa-compose-decompose": "2+3",
-  "us-ca-math-k-k-nbt-teen-numbers": "10+",
-  "us-ca-math-k-k-md-attributes-data": "sort",
-  "us-ca-math-k-k-g-shapes-position": "shape"
-};
 const snapshotControlSampleLimit = 24;
 
 function isVisualizationTrackFilter(value: string | null): value is VisualizationTrackFilter {
@@ -494,9 +466,15 @@ function LiquidGlassLabLogo({
       <span className={cn("absolute inset-0 bg-gradient-to-br", theme.glass)} />
       <span className="absolute inset-[7px] rounded-[1.08rem] border border-white/60 bg-white/25 shadow-[inset_0_1px_0_rgba(255,255,255,0.75),inset_0_-18px_30px_rgba(255,255,255,0.18)] dark:border-white/20 dark:bg-white/10" />
       <span className="absolute left-3 right-5 top-2.5 h-4 rounded-full bg-white/70 blur-sm dark:bg-white/30" />
-      <span className={cn("relative z-10 font-black leading-none tracking-normal drop-shadow-[0_1px_1px_rgba(255,255,255,0.65)]", glyph.length > 4 ? "text-[0.95rem]" : glyph.length > 2 ? "text-[1.15rem]" : "text-[1.55rem]", theme.glyph)}>
+      {labLogoArtByGlyph[glyph] ? (
+        <span className="relative z-10 grid place-items-center drop-shadow-[0_8px_10px_rgba(15,23,42,0.18)] transition duration-200 group-hover:-rotate-3">
+          {labLogoArtByGlyph[glyph]}
+        </span>
+      ) : (
+        <span className={cn("relative z-10 font-black leading-none tracking-normal drop-shadow-[0_1px_1px_rgba(255,255,255,0.65)]", glyph.length > 4 ? "text-[0.95rem]" : glyph.length > 2 ? "text-[1.15rem]" : "text-[1.55rem]", theme.glyph)}>
         {glyph}
       </span>
+      )}
     </span>
   );
 }

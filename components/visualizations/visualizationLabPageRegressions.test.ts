@@ -102,6 +102,13 @@ test("visualization lab tiles choose logo glyphs from the lab theme", () => {
   assert.doesNotMatch(source, /liquidGlassLogoGlyphs\[index % liquidGlassLogoGlyphs\.length\]/);
 });
 
+test("visualization lab tiles render illustrated sticker logos with glyph fallback", () => {
+  assert.match(source, /from "@\/components\/visualizations\/labLogoArt"/);
+  assert.match(source, /labLogoArtByGlyph\[glyph\] \? \(/);
+  assert.match(source, /\{labLogoArtByGlyph\[glyph\]\}/);
+  assert.match(source, /\{glyph\}/);
+});
+
 test("visualization lab tiles do not show index-based fake progress", () => {
   assert.doesNotMatch(source, /function progressForIndex/);
   assert.doesNotMatch(source, /\{progress\.done\}\/\{progress\.total\}/);
