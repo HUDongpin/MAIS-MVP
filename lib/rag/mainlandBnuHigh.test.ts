@@ -187,17 +187,19 @@ test("BNU high-school assessment layer is enabled only for assessment-like inten
   }
 });
 
-test("AI Tutor route checks BNU high evidence before PEP or HJB fallback", () => {
-  const routeSource = readFileSync("app/api/ai-tutor/route.ts", "utf-8");
-  const bnuBranchIndex = routeSource.indexOf('curriculumProfile?.publisher === "MAINLAND_BNU"');
-  const hjbBranchIndex = routeSource.indexOf('curriculumProfile?.publisher === "MAINLAND_HJB"');
-  const pepFallbackIndex = routeSource.lastIndexOf("getMainlandPepEvidencePack");
+test("AI Tutor resolver checks BNU high evidence before PEP or HJB fallback", () => {
+  const edgeRouteSource = readFileSync("app/api/ai-tutor/route.ts", "utf-8");
+  const resolverSource = readFileSync("app/api/ai-tutor/resolve/route.ts", "utf-8");
+  const bnuBranchIndex = resolverSource.indexOf('curriculumProfile?.publisher === "MAINLAND_BNU"');
+  const hjbBranchIndex = resolverSource.indexOf('curriculumProfile?.publisher === "MAINLAND_HJB"');
+  const pepFallbackIndex = resolverSource.lastIndexOf("getMainlandPepEvidencePack");
 
+  assert.match(edgeRouteSource, /new URL\("\/api\/ai-tutor\/resolve", request\.url\)/);
   assert.ok(bnuBranchIndex > 0);
   assert.ok(hjbBranchIndex > bnuBranchIndex);
   assert.ok(pepFallbackIndex > bnuBranchIndex);
-  assert.match(routeSource, /buildMainlandBnuHighEvidencePack/);
-  assert.match(routeSource, /isMainlandBnuHighGrade/);
+  assert.match(resolverSource, /buildMainlandBnuHighEvidencePack/);
+  assert.match(resolverSource, /isMainlandBnuHighGrade/);
 });
 
 test("BNU high-school safe cards and evidence avoid source-material artifacts", () => {
