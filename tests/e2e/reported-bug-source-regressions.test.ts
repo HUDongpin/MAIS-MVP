@@ -192,3 +192,17 @@ test("student roadmap route shell renders roadmap pages through normal SSR and c
   assert.match(shell, /import \{ PrimaryRoadmapPage \} from "@\/components\/learning\/PrimaryRoadmapPage"/);
   assert.match(primaryRoute, /<RoadmapRouteShell kind="primary" \/>/);
 });
+
+test("AI Tutor voice uses the Node WebSocket client with explicit provider headers", async () => {
+  const voiceRoute = await source("app/api/ai-tutor/voice/route.ts");
+
+  assert.match(voiceRoute, /import WebSocket from "ws"/);
+  assert.match(voiceRoute, /import type \{ RawData \} from "ws"/);
+  assert.doesNotMatch(voiceRoute, /WebSocket as unknown/);
+  assert.match(voiceRoute, /headers: \{[\s\S]*Authorization: `Bearer \$\{apiKey\}`/);
+  assert.match(voiceRoute, /socket\.on\("message"/);
+  assert.match(voiceRoute, /socket\.once\("error"/);
+  assert.match(voiceRoute, /socket\.terminate\(\)/);
+  assert.match(voiceRoute, /resolveStudentAiTutorPolicy/);
+  assert.match(voiceRoute, /consumeAiCapabilityRateLimit/);
+});

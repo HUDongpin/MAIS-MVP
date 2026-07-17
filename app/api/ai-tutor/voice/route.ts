@@ -1,4 +1,6 @@
 import { NextResponse } from "next/server";
+import WebSocket from "ws";
+import type { RawData } from "ws";
 import { readQwenRealtimeProviderConfig } from "@/lib/server/llmProvider";
 import { requireAuthenticatedUser } from "@/lib/server/auth";
 import { consumeAiCapabilityRateLimit, resolveStudentAiTutorPolicy } from "@/lib/server/userStore";
@@ -88,16 +90,20 @@ function replyVoiceInstructions(text: string, language: string) {
   ].join("\n");
 }
 
-function parseRealtimeMessage(data: unknown) {
-  if (typeof data === "string") {
-    try {
-      return JSON.parse(data) as unknown;
-    } catch {
-      return null;
-    }
-  }
+function parseRealtimeMessage(data: RawData) {
+  const serialized = typeof data === "string"
+    ? data
+    : Buffer.isBuffer(data)
+      ? data.toString("utf8")
+      : Array.isArray(data)
+        ? Buffer.concat(data).toString("utf8")
+        : Buffer.from(data).toString("utf8");
 
-  return null;
+  try {
+    return JSON.parse(serialized) as unknown;
+  } catch {
+    return null;
+  }
 }
 
 async function synthesizeQwenRealtimeVoice({
@@ -117,32 +123,40 @@ async function synthesizeQwenRealtimeVoice({
 }) {
   const realtimeUrl = buildRealtimeUrl(apiUrl, model);
   const audioChunks: Buffer[] = [];
-  const SocketConstructor = WebSocket as unknown as new (
-    url: string,
-    options?: { headers?: Record<string, string> }
-  ) => WebSocket;
 
   return await new Promise<Buffer>((resolve, reject) => {
     let settled = false;
     let sessionUpdated = false;
-    const socket = new SocketConstructor(realtimeUrl, {
+    const socket = new WebSocket(realtimeUrl, {
       headers: {
         Authorization: `Bearer ${apiKey}`,
         "OpenAI-Beta": "realtime=v1"
-      }
+      },
+      handshakeTimeout: Math.min(timeoutMs, 15000)
     });
+
     const timeout = setTimeout(() => {
       if (settled) return;
       settled = true;
-      socket.close();
+      socket.terminate();
       reject(new Error("qwen-realtime-timeout"));
     }, timeoutMs);
+
+    function closeSocket() {
+      socket.removeAllListeners();
+      if (socket.readyState === WebSocket.OPEN) {
+        socket.close();
+        return;
+      }
+
+      if (socket.readyState === WebSocket.CONNECTING) socket.terminate();
+    }
 
     function settleWithError(error: Error) {
       if (settled) return;
       settled = true;
       clearTimeout(timeout);
-      socket.close();
+      closeSocket();
       reject(error);
     }
 
@@ -150,7 +164,7 @@ async function synthesizeQwenRealtimeVoice({
       if (settled) return;
       settled = true;
       clearTimeout(timeout);
-      socket.close();
+      closeSocket();
       const pcm = Buffer.concat(audioChunks);
       if (!pcm.length) {
         reject(new Error("qwen-realtime-empty-audio"));
@@ -160,10 +174,15 @@ async function synthesizeQwenRealtimeVoice({
     }
 
     function sendJson(value: unknown) {
+      if (socket.readyState !== WebSocket.OPEN) {
+        settleWithError(new Error("qwen-realtime-not-open"));
+        return;
+      }
+
       socket.send(JSON.stringify(value));
     }
 
-    socket.addEventListener("open", () => {
+    socket.on("open", () => {
       sendJson({
         event_id: createEventId("session_update"),
         type: "session.update",
@@ -178,8 +197,8 @@ async function synthesizeQwenRealtimeVoice({
       });
     });
 
-    socket.addEventListener("message", (event) => {
-      const message = parseRealtimeMessage(event.data);
+    socket.on("message", (data) => {
+      const message = parseRealtimeMessage(data);
       if (!isRecord(message)) return;
       const type = typeof message.type === "string" ? message.type : "";
 
@@ -211,11 +230,11 @@ async function synthesizeQwenRealtimeVoice({
       }
     });
 
-    socket.addEventListener("error", () => {
+    socket.once("error", () => {
       settleWithError(new Error("qwen-realtime-websocket-error"));
     });
 
-    socket.addEventListener("close", () => {
+    socket.once("close", () => {
       if (settled) return;
       settleWithError(new Error("qwen-realtime-closed"));
     });
