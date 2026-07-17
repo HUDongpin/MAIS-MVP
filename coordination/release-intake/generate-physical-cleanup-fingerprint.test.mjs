@@ -58,6 +58,34 @@ function createFingerprintFixture() {
   };
 }
 
+function createEnvPlaceholderFixture() {
+  const parent = fs.realpathSync(fs.mkdtempSync(path.join(os.tmpdir(), "mais-env-placeholder-")));
+  const root = path.join(parent, "repo");
+  fs.mkdirSync(root);
+  git(root, ["init", "-q", "-b", "main"]);
+  git(root, ["config", "user.name", "MAIS Test"]);
+  git(root, ["config", "user.email", "mais-test@example.invalid"]);
+  fs.writeFileSync(path.join(root, "README.md"), "fixture\n");
+  fs.writeFileSync(
+    path.join(root, ".gitignore"),
+    ".env\n.env.*\n!.env.example\n!.env.local.example\n"
+  );
+  git(root, ["add", "--", "README.md", ".gitignore"]);
+  git(root, ["commit", "-qm", "fixture main"]);
+  git(root, ["switch", "-qc", "feature-env-placeholder"]);
+  fs.writeFileSync(path.join(root, ".env.local.example"), "DEEPSEEK_API_KEY=placeholder-xxxxxxxx\n");
+  git(root, ["add", "--", ".env.local.example"]);
+  git(root, ["commit", "-qm", "add safe environment placeholder"]);
+  fs.writeFileSync(path.join(root, ".env.local"), "ACTUAL-IGNORED-SECRET-SENTINEL\n");
+  return {
+    parent,
+    root,
+    cleanup() {
+      fs.rmSync(parent, { recursive: true, force: true });
+    }
+  };
+}
+
 test("loads the physical cleanup fingerprint implementation", () => {
   assert.ok(implementation, "physical cleanup fingerprint implementation must exist");
 });
@@ -114,6 +142,11 @@ test("recognizes secret-like paths conservatively", () => {
     ".env",
     ".env.local",
     "config/.env.production",
+    ".env.production.example",
+    ".env.sample",
+    ".env.local.example.backup",
+    ".ENV.EXAMPLE",
+    "config/.env.local.example",
     "All API Keys.docx",
     "private/credentials.json",
     "certs/server-private-key.pem",
@@ -123,11 +156,38 @@ test("recognizes secret-like paths conservatively", () => {
     assert.equal(implementation.isSecretLikePath(filePath), true, filePath);
   }
   for (const filePath of [
+    ".env.example",
+    ".env.local.example",
     "components/SecretBadge.tsx",
     "coordination/reports/credential-readiness.md",
     "public/logo.svg"
   ]) {
     assert.equal(implementation.isSecretLikePath(filePath), false, filePath);
+  }
+});
+
+test("root-only plan snapshots tracked env placeholders while ignoring the real local env", () => {
+  const fixture = createEnvPlaceholderFixture();
+  try {
+    const plan = implementation.generateFingerprintPlan({
+      repoRoot: fixture.root,
+      canonicalRoot: fixture.root,
+      mainRef: "main",
+      snapshotRef: "main",
+      worktreePath: fixture.root,
+      dryRun: true,
+      clock: () => new Date("2026-07-17T12:00:00.000Z")
+    });
+    assert.equal(plan.worktrees.length, 1);
+    assert.equal(plan.worktrees[0].valid, true);
+    assert.equal(plan.worktrees[0].dirtyCount, 0);
+    assert.equal(
+      plan.worktrees[0].validationErrors.some((value) => value.includes("secret-like")),
+      false
+    );
+    assert.equal(JSON.stringify(plan).includes("ACTUAL-IGNORED-SECRET-SENTINEL"), false);
+  } finally {
+    fixture.cleanup();
   }
 });
 

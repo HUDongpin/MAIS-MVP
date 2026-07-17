@@ -93,6 +93,7 @@ export function isSecretLikePath(relativePath) {
   const lower = normalized.toLowerCase();
   const segments = lower.split("/");
   const basename = segments.at(-1) ?? "";
+  if (normalized === ".env.example" || normalized === ".env.local.example") return false;
   if (segments.some((segment) => segment.startsWith(".env"))) return true;
   if (basename === "all api keys.docx") return true;
   if (segments.some((segment) => /^(?:credentials?|secrets?|private-keys?|private_keys?)$/u.test(segment))) {
