@@ -23,7 +23,7 @@ const topics: Topic[] = [
     title: { en: "Fractions", zh: "分數" },
     description: { en: "Operate with fractions.", zh: "分數運算。" },
     status: "in-progress",
-    difficulty: "Core",
+    difficulty: "Medium",
     minutes: 20,
     mastery: 45
   }
@@ -35,7 +35,7 @@ const questions: PublicQuestion[] = [
     grade: "S1",
     topicId: "fractions",
     topic: topics[0].title,
-    difficulty: "Foundation",
+    difficulty: "Low",
     type: "multiple-choice",
     prompt: { en: "Foundation fraction item", zh: "分數基礎題" }
   },
@@ -45,7 +45,7 @@ const questions: PublicQuestion[] = [
     grade: "S1",
     topicId: "fractions",
     topic: topics[0].title,
-    difficulty: "Core",
+    difficulty: "Medium",
     type: "fill-in",
     prompt: { en: "Core fraction item", zh: "分數核心題" }
   },
@@ -55,7 +55,7 @@ const questions: PublicQuestion[] = [
     grade: "S1",
     topicId: "fractions",
     topic: topics[0].title,
-    difficulty: "Challenge",
+    difficulty: "High",
     type: "short-answer",
     prompt: { en: "Challenge fraction item", zh: "分數挑戰題" }
   },
@@ -65,7 +65,7 @@ const questions: PublicQuestion[] = [
     grade: "S1",
     topicId: "fractions",
     topic: topics[0].title,
-    difficulty: "Exam",
+    difficulty: "High",
     type: "graph",
     prompt: { en: "Exam fraction item", zh: "分數考試題" }
   }
@@ -76,6 +76,50 @@ function state(overrides: Partial<AdaptiveSkillState> & { skillId: string }): Ad
   return {
     ...createInitialAdaptiveSkillState(overrides.skillId, now),
     ...overrides
+  };
+}
+
+function zeroEvidenceScenario(status: Topic["status"], grade: Topic["grade"] = "P1") {
+  const scenarioTopics: Topic[] = [
+    {
+      id: `${grade.toLowerCase()}-zero-evidence`,
+      curriculumTrack: "HK",
+      grade,
+      title: { en: `${grade} zero evidence`, zh: `${grade} 零證據` },
+      description: { en: "Synthetic zero-evidence topic.", zh: "合成零證據課題。" },
+      status,
+      difficulty: "Medium",
+      minutes: 20,
+      mastery: 0
+    }
+  ];
+  const scenarioQuestions: PublicQuestion[] = [
+    {
+      id: `${scenarioTopics[0].id}-foundation`,
+      curriculumTrack: "HK",
+      grade,
+      topicId: scenarioTopics[0].id,
+      topic: scenarioTopics[0].title,
+      difficulty: "Low",
+      type: "multiple-choice",
+      prompt: { en: "Foundation diagnostic", zh: "基礎診斷" }
+    },
+    {
+      id: `${scenarioTopics[0].id}-core`,
+      curriculumTrack: "HK",
+      grade,
+      topicId: scenarioTopics[0].id,
+      topic: scenarioTopics[0].title,
+      difficulty: "Medium",
+      type: "short-answer",
+      prompt: { en: "Core diagnostic", zh: "核心診斷" }
+    }
+  ];
+
+  return {
+    scenarioTopics,
+    scenarioQuestions,
+    scenarioComponents: buildKnowledgeComponents({ topics: scenarioTopics, questions: scenarioQuestions })
   };
 }
 
@@ -118,6 +162,32 @@ test("prerequisite gaps choose repair before harder material", () => {
   assert.equal(decision?.skill.id, "fractions:foundation");
 });
 
+test("zero-history HK students do not get repair-required as the first step", () => {
+  const p1LessonScenario = zeroEvidenceScenario("not-started", "P1");
+  const p1LessonDecision = selectNextAdaptiveAction({
+    components: p1LessonScenario.scenarioComponents,
+    states: [],
+    topics: p1LessonScenario.scenarioTopics,
+    questions: p1LessonScenario.scenarioQuestions,
+    now
+  });
+
+  assert.equal(p1LessonDecision?.action, "lesson");
+  assert.ok(!p1LessonDecision?.guardFlags.includes("repair-required"));
+
+  const s3PracticeScenario = zeroEvidenceScenario("in-progress", "S3");
+  const s3PracticeDecision = selectNextAdaptiveAction({
+    components: s3PracticeScenario.scenarioComponents,
+    states: [],
+    topics: s3PracticeScenario.scenarioTopics,
+    questions: s3PracticeScenario.scenarioQuestions,
+    now
+  });
+
+  assert.equal(s3PracticeDecision?.action, "practice");
+  assert.ok(!s3PracticeDecision?.guardFlags.includes("repair-required"));
+});
+
 test("due reviews outrank new content", () => {
   const decision = selectNextAdaptiveAction({
     components,
@@ -152,7 +222,49 @@ test("strong mastery unlocks challenge", () => {
   });
 
   assert.equal(decision?.action, "challenge");
+  assert.equal(decision?.skill.id, "fractions:transfer");
   assert.ok(decision?.questions.every((question) => question.topicId === "fractions"));
+  assert.ok(decision?.questions.length);
+  assert.ok(decision?.questions.every((question) => question.difficulty === "High"));
+});
+
+test("strong mastery does not emit challenge when no challenge or exam items exist", () => {
+  const easyQuestions = questions.filter((question) => question.difficulty === "Low" || question.difficulty === "Medium");
+  const easyComponents = buildKnowledgeComponents({ topics, questions: easyQuestions });
+  const generated = generateAdaptiveCandidates({
+    components: easyComponents,
+    states: easyComponents.map((component) =>
+      state({
+        skillId: component.id,
+        pMastery: 0.92,
+        attemptCount: 6,
+        correctStreak: 3
+      })
+    ),
+    topics,
+    questions: easyQuestions,
+    now
+  });
+  const decision = selectNextAdaptiveAction({
+    components: easyComponents,
+    states: easyComponents.map((component) =>
+      state({
+        skillId: component.id,
+        pMastery: 0.92,
+        attemptCount: 6,
+        correctStreak: 3
+      })
+    ),
+    topics,
+    questions: easyQuestions,
+    now
+  });
+
+  assert.ok(!generated.candidates.some((candidate) => candidate.action === "challenge"));
+  assert.notEqual(decision?.action, "challenge");
+  assert.equal(decision?.action, "practice");
+  assert.ok((decision?.questions.length ?? 0) > 0);
+  assert.ok(decision?.questions.every((question) => question.difficulty === "Low" || question.difficulty === "Medium"));
 });
 
 test("explanations match the selected adaptive action", () => {
@@ -186,6 +298,15 @@ test("candidate generation preserves review and repair guard priority", () => {
   assert.equal(generated.candidates[0]?.action, "review");
   assert.ok(generated.candidates.some((candidate) => candidate.hardGuardFlags.includes("repair-required")));
   assert.equal(generated.deterministicCandidateId, generated.candidates[0]?.candidateId);
+
+  const deterministicReview = generated.candidates[0];
+  assert.ok(deterministicReview);
+  const validated = validateLLMAdaptiveRecommendation({
+    recommendation: recommendationFor(deterministicReview),
+    candidates: generated.candidates
+  });
+
+  assert.equal(validated.valid, true);
 });
 
 test("valid LLM rerank is accepted and may reorder candidate question ids", () => {
@@ -428,11 +549,11 @@ test("adaptive LLM request body uses JSON mode without changing default DeepSeek
     maxTokens: 500,
     provider: "deepseek"
   }) as Record<string, unknown>;
-  const adaptiveOpenAIBody = buildLLMProviderRequestBody({
-    model: "gpt-4.1-mini",
+  const adaptiveQwenBody = buildLLMProviderRequestBody({
+    model: "qwen3.7-max",
     messages,
     maxTokens: 1200,
-    provider: "openai",
+    provider: "qwen",
     responseFormat: "json_object"
   }) as Record<string, unknown>;
 
@@ -442,8 +563,8 @@ test("adaptive LLM request body uses JSON mode without changing default DeepSeek
   assert.equal(adaptiveDeepSeekBody.max_tokens, 1200);
   assert.deepEqual(defaultDeepSeekBody.thinking, { type: "enabled" });
   assert.equal(defaultDeepSeekBody.reasoning_effort, "high");
-  assert.deepEqual(adaptiveOpenAIBody.response_format, { type: "json_object" });
-  assert.equal(adaptiveOpenAIBody.max_completion_tokens, 1200);
+  assert.deepEqual(adaptiveQwenBody.response_format, { type: "json_object" });
+  assert.equal(adaptiveQwenBody.max_tokens, 1200);
 });
 
 test("disabled LLM status keeps the composed decision deterministic", () => {
