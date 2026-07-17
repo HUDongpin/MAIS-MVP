@@ -66,6 +66,15 @@ const REVIEWED_LEGACY_TERMINAL_PATCH_HEAD = "ec22a29b55a4329e81d96e02417f8925cce
 const REVIEWED_LEGACY_TERMINAL_PATCH_BASE = "e909992b098ce7f8b57ca7f7ede6c97e50ccdc45";
 const REVIEWED_EXACT_A18_FINAL_HEAD = "e17471e6bc296828db591f4f060a868e075653e9";
 const REVIEWED_EXACT_ROOT_FINAL_HEAD = "ed25ac518def3f793d2ce592a0eb94904a495f1d";
+const REVIEWED_EXACT_A02_STUDENT_GRADE_HEAD = "a1bab103bb84fa02f1b4b1ce5af2926e22a25ee4";
+const REVIEWED_EXACT_A02_AUTH_SESSION_TEST = Object.freeze({
+  path: "lib/server/userStoreAuthSessionPersistence.test.ts",
+  mode: "100644",
+  type: "blob",
+  objectId: "37ca63faa97cde9d07ccd2127d3d19a1e9e32fc3",
+  bytes: 127_851,
+  sha256: "52dfbaf81fab040ab78b446f2f92de7bb40e62cfd9817fbf851b1f3210097397"
+});
 const REVIEWED_LEGACY_TERMINAL_PATCH_ENTRIES = Object.freeze([
   Object.freeze({
     path: "coordination/release-intake/archive/codex-A06-manim-three-closure.patch",
@@ -810,6 +819,7 @@ function withReviewedLegacyPinnedBlobGitShim(t, entry, mutation, callback) {
     "  if (mutation === 'mode') replacement = Buffer.from(`100755 ${entry.type} ${entry.objectId}\\t${entry.path}\\0`);",
     "  if (mutation === 'type') replacement = Buffer.from(`${entry.mode} tree ${entry.objectId}\\t${entry.path}\\0`);",
     "  if (mutation === 'object') replacement = Buffer.from(`${entry.mode} ${entry.type} ${'0'.repeat(40)}\\t${entry.path}\\0`);",
+    "  if (mutation && typeof mutation === 'object' && typeof mutation.objectId === 'string') replacement = Buffer.from(`${entry.mode} ${entry.type} ${mutation.objectId}\\t${entry.path}\\0`);",
     "  if (mutation === 'path') replacement = Buffer.from(`${entry.mode} ${entry.type} ${entry.objectId}\\t${entry.path}.copy\\0`);",
     "  if (mutation === 'missing') replacement = Buffer.alloc(0);",
     "  const offset = output.indexOf(original);",
@@ -2116,14 +2126,19 @@ test("supplementary repository scan accepts only the three exact pinned terminal
 test("supplementary current-HEAD policies accept only the exact reviewed final HEADs", async (t) => {
   const { scanCurrentBranchHeadTrackedPaths } = await import(libraryUrl);
   const repository = path.resolve(here, "..", "..");
-  const representativePaths = [
-    REVIEWED_LEGACY_TERMINAL_PATCH_ENTRIES[0].path,
+  const allReviewedPaths = [
+    ...REVIEWED_LEGACY_TERMINAL_PATCH_ENTRIES.map((entry) => entry.path),
     REVIEWED_LEGACY_OFFICE_LOCK.path,
     REVIEWED_LEGACY_PARENT_CONSOLE_REPORT.path,
-    REVIEWED_LEGACY_CURRENT_HEAD_TEXT_ENTRIES[0].path,
-    REVIEWED_LEGACY_CURRENT_HEAD_JPEG_UNDER_PNG_ENTRIES[0].path
+    ...REVIEWED_LEGACY_CURRENT_HEAD_TEXT_ENTRIES.map((entry) => entry.path),
+    ...REVIEWED_LEGACY_CURRENT_HEAD_JPEG_UNDER_PNG_ENTRIES.map((entry) => entry.path)
   ];
-  for (const reviewedHead of [REVIEWED_EXACT_A18_FINAL_HEAD, REVIEWED_EXACT_ROOT_FINAL_HEAD]) {
+  assert.equal(allReviewedPaths.length, 24);
+  for (const reviewedHead of [
+    REVIEWED_LEGACY_TERMINAL_PATCH_HEAD,
+    REVIEWED_EXACT_A18_FINAL_HEAD,
+    REVIEWED_EXACT_ROOT_FINAL_HEAD
+  ]) {
     try {
       execFileSync("git", ["cat-file", "-e", `${reviewedHead}^{commit}`], {
         cwd: repository,
@@ -2135,14 +2150,107 @@ test("supplementary current-HEAD policies accept only the exact reviewed final H
       return;
     }
     assert.deepEqual(
-      scanCurrentBranchHeadTrackedPaths(repository, reviewedHead, representativePaths),
-      { scanned: 5, reviewed: 1 }
+      scanCurrentBranchHeadTrackedPaths(repository, reviewedHead, allReviewedPaths),
+      { scanned: 24, reviewed: 6 }
     );
   }
   assert.throws(
-    () => scanCurrentBranchHeadTrackedPaths(repository, "0".repeat(40), representativePaths),
+    () => scanCurrentBranchHeadTrackedPaths(repository, "0".repeat(40), allReviewedPaths),
     /restricted to its pinned current branch HEAD/i
   );
+});
+
+test("supplementary A02 student-grade HEAD uses exact per-path reviewed identities", async (t) => {
+  const {
+    isReviewedLegacyTerminalPatchEntry,
+    scanCurrentBranchHeadTrackedPaths
+  } = await import(libraryUrl);
+  const repository = path.resolve(here, "..", "..");
+  try {
+    execFileSync("git", ["cat-file", "-e", `${REVIEWED_EXACT_A02_STUDENT_GRADE_HEAD}^{commit}`], {
+      cwd: repository,
+      stdio: "ignore",
+      timeout: TEST_CHILD_TIMEOUT_MS
+    });
+  } catch {
+    t.skip("exact reviewed A02 student-grade HEAD is not available in this clone");
+    return;
+  }
+
+  const allReviewedPaths = [
+    ...REVIEWED_LEGACY_TERMINAL_PATCH_ENTRIES.map((entry) => entry.path),
+    REVIEWED_LEGACY_OFFICE_LOCK.path,
+    REVIEWED_LEGACY_PARENT_CONSOLE_REPORT.path,
+    ...REVIEWED_LEGACY_CURRENT_HEAD_TEXT_ENTRIES.map((entry) => entry.path),
+    ...REVIEWED_LEGACY_CURRENT_HEAD_JPEG_UNDER_PNG_ENTRIES.map((entry) => entry.path)
+  ];
+  assert.equal(allReviewedPaths.length, 24);
+  assert.deepEqual(
+    scanCurrentBranchHeadTrackedPaths(
+      repository,
+      REVIEWED_EXACT_A02_STUDENT_GRADE_HEAD,
+      allReviewedPaths
+    ),
+    { scanned: 24, reviewed: 6 }
+  );
+
+  const variant = REVIEWED_EXACT_A02_AUTH_SESSION_TEST;
+  assert.equal(
+    git(repository, "ls-tree", REVIEWED_EXACT_A02_STUDENT_GRADE_HEAD, "--", variant.path),
+    `${variant.mode} ${variant.type} ${variant.objectId}\t${variant.path}`
+  );
+  const variantBuffer = gitBlob(repository, variant.objectId);
+  assert.equal(variantBuffer.length, variant.bytes);
+  assert.equal(crypto.createHash("sha256").update(variantBuffer).digest("hex"), variant.sha256);
+  const legacyVariant = REVIEWED_LEGACY_CURRENT_HEAD_TEXT_ENTRIES.find(
+    (entry) => entry.path === variant.path
+  );
+  assert.ok(legacyVariant);
+  assert.throws(
+    () => withReviewedLegacyPinnedBlobGitShim(
+      t,
+      variant,
+      { objectId: legacyVariant.objectId },
+      () => scanCurrentBranchHeadTrackedPaths(
+        repository,
+        REVIEWED_EXACT_A02_STUDENT_GRADE_HEAD,
+        [variant.path]
+      )
+    ),
+    /reviewed legacy current HEAD text metadata mismatch/i
+  );
+
+  for (const entry of REVIEWED_LEGACY_TERMINAL_PATCH_ENTRIES) {
+    const exact = {
+      headRevision: REVIEWED_EXACT_A02_STUDENT_GRADE_HEAD,
+      relativePath: entry.path,
+      mode: entry.mode,
+      type: "blob",
+      objectId: entry.objectId
+    };
+    assert.equal(isReviewedLegacyTerminalPatchEntry(exact), true);
+    assert.equal(isReviewedLegacyTerminalPatchEntry({
+      ...exact,
+      headRevision: "cef544e09bee8118ddcf3bf3005e570bdf4977e3"
+    }), false);
+    assert.equal(isReviewedLegacyTerminalPatchEntry({
+      ...exact,
+      headRevision: "c7d4bb2f5710eff98317c28a4be8ab7e57a46ef0"
+    }), false);
+  }
+  for (const unlistedHead of [
+    "cef544e09bee8118ddcf3bf3005e570bdf4977e3",
+    "c7d4bb2f5710eff98317c28a4be8ab7e57a46ef0"
+  ]) {
+    assert.throws(
+      () => scanCurrentBranchHeadTrackedPaths(
+        repository,
+        unlistedHead,
+        [REVIEWED_LEGACY_TERMINAL_PATCH_ENTRIES[0].path]
+      ),
+      /reviewed legacy terminal patch is restricted to its pinned current branch HEAD/i
+    );
+  }
 });
 
 test("supplementary exact legacy parent console report is accepted only at its pinned identity", async (t) => {

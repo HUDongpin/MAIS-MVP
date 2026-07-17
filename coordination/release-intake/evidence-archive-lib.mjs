@@ -212,11 +212,7 @@ const REVIEWED_CURRENT_BRANCH_HEAD_TRACKED_DISPLAY_PATH = "reviewed-current-bran
 const REVIEWED_LEGACY_TERMINAL_PATCH_HEAD = "ec22a29b55a4329e81d96e02417f8925ccec54c3";
 const REVIEWED_EXACT_A18_FINAL_HEAD = "e17471e6bc296828db591f4f060a868e075653e9";
 const REVIEWED_EXACT_ROOT_FINAL_HEAD = "ed25ac518def3f793d2ce592a0eb94904a495f1d";
-function isReviewedLegacyCurrentHeadRevision(headRevision, pinnedRevision) {
-  return headRevision === pinnedRevision
-    || headRevision === REVIEWED_EXACT_A18_FINAL_HEAD
-    || headRevision === REVIEWED_EXACT_ROOT_FINAL_HEAD;
-}
+const REVIEWED_EXACT_A02_STUDENT_GRADE_HEAD = "a1bab103bb84fa02f1b4b1ce5af2926e22a25ee4";
 const REVIEWED_LEGACY_TERMINAL_PATCH_ENTRIES = Object.freeze([
   Object.freeze({
     path: "coordination/release-intake/archive/codex-A06-manim-three-closure.patch",
@@ -472,6 +468,89 @@ const REVIEWED_LEGACY_CURRENT_HEAD_JPEG_UNDER_PNG_BY_PATH = new Map(
   REVIEWED_LEGACY_CURRENT_HEAD_JPEG_UNDER_PNG_ENTRIES.map((entry) => [entry.path, entry])
 );
 const REVIEWED_LEGACY_JPEG_UNDER_PNG_DISPLAY_PATH = "reviewed-legacy-jpeg-under-png/content.jpeg";
+const REVIEWED_EXACT_A02_AUTH_SESSION_TEST = Object.freeze({
+  path: "lib/server/userStoreAuthSessionPersistence.test.ts",
+  mode: "100644",
+  type: "blob",
+  objectId: "37ca63faa97cde9d07ccd2127d3d19a1e9e32fc3",
+  bytes: 127_851,
+  sha256: "52dfbaf81fab040ab78b446f2f92de7bb40e62cfd9817fbf851b1f3210097397"
+});
+const REVIEWED_LEGACY_CURRENT_HEAD_BASE_POLICIES = Object.freeze([
+  ...REVIEWED_LEGACY_TERMINAL_PATCH_ENTRIES.map((entry) => Object.freeze({
+    ...entry,
+    type: "blob",
+    payloadKind: "terminal-patch"
+  })),
+  Object.freeze({
+    path: REVIEWED_LEGACY_OFFICE_LOCK.path,
+    mode: REVIEWED_LEGACY_OFFICE_LOCK.branchMode,
+    type: "blob",
+    objectId: REVIEWED_LEGACY_OFFICE_LOCK.objectId,
+    bytes: REVIEWED_LEGACY_OFFICE_LOCK.bytes,
+    sha256: REVIEWED_LEGACY_OFFICE_LOCK.sha256,
+    payloadKind: "office-lock"
+  }),
+  Object.freeze({
+    path: REVIEWED_LEGACY_PARENT_CONSOLE_REPORT.path,
+    mode: REVIEWED_LEGACY_PARENT_CONSOLE_REPORT.mode,
+    type: "blob",
+    objectId: REVIEWED_LEGACY_PARENT_CONSOLE_REPORT.objectId,
+    bytes: REVIEWED_LEGACY_PARENT_CONSOLE_REPORT.bytes,
+    sha256: REVIEWED_LEGACY_PARENT_CONSOLE_REPORT.sha256,
+    payloadKind: "parent-console-report"
+  }),
+  ...REVIEWED_LEGACY_CURRENT_HEAD_TEXT_ENTRIES.map((entry) => Object.freeze({
+    path: entry.path,
+    mode: entry.mode,
+    type: entry.type,
+    objectId: entry.objectId,
+    bytes: entry.bytes,
+    sha256: entry.sha256,
+    payloadKind: "exact-text"
+  })),
+  ...REVIEWED_LEGACY_CURRENT_HEAD_JPEG_UNDER_PNG_ENTRIES.map((entry) => Object.freeze({
+    path: entry.path,
+    mode: entry.mode,
+    type: entry.type,
+    objectId: entry.objectId,
+    bytes: entry.bytes,
+    sha256: entry.sha256,
+    payloadKind: "jpeg-under-png"
+  }))
+]);
+const REVIEWED_LEGACY_CURRENT_HEAD_POLICY_BY_REVISION_AND_PATH = (() => {
+  const policies = new Map();
+  const add = (headRevision, entry) => {
+    const policy = Object.freeze({ headRevision, ...entry });
+    const key = `${headRevision}\0${policy.path}`;
+    if (policies.has(key)) throw new Error("duplicate reviewed legacy current HEAD policy");
+    policies.set(key, policy);
+  };
+  for (const headRevision of [
+    REVIEWED_LEGACY_TERMINAL_PATCH_HEAD,
+    REVIEWED_EXACT_A18_FINAL_HEAD,
+    REVIEWED_EXACT_ROOT_FINAL_HEAD
+  ]) {
+    for (const entry of REVIEWED_LEGACY_CURRENT_HEAD_BASE_POLICIES) add(headRevision, entry);
+  }
+  for (const entry of REVIEWED_LEGACY_CURRENT_HEAD_BASE_POLICIES) {
+    if (entry.path !== REVIEWED_EXACT_A02_AUTH_SESSION_TEST.path) {
+      add(REVIEWED_EXACT_A02_STUDENT_GRADE_HEAD, entry);
+    }
+  }
+  add(REVIEWED_EXACT_A02_STUDENT_GRADE_HEAD, Object.freeze({
+    ...REVIEWED_EXACT_A02_AUTH_SESSION_TEST,
+    payloadKind: "exact-text"
+  }));
+  return policies;
+})();
+
+function reviewedLegacyCurrentHeadPolicy(headRevision, relativePath) {
+  return REVIEWED_LEGACY_CURRENT_HEAD_POLICY_BY_REVISION_AND_PATH.get(
+    `${headRevision}\0${relativePath}`
+  ) ?? null;
+}
 const REVIEWED_PROTECTED_OVERLAY_REF = "refs/mais-preservation/2026-07-12-dirty-root-snapshot";
 const REVIEWED_PROTECTED_OVERLAY_TARGET = "93346c724961435789bd66de9e31d3979a93c45c";
 const REVIEWED_PROTECTED_OVERLAY_BASE = REVIEWED_LEGACY_BRANCH_BASE_TEXT_REVISION;
@@ -13239,12 +13318,11 @@ export function isReviewedLegacyTerminalPatchEntry({
   type,
   objectId
 } = {}) {
-  const entry = REVIEWED_LEGACY_TERMINAL_PATCH_BY_PATH.get(relativePath) ?? null;
-  return entry !== null
-    && isReviewedLegacyCurrentHeadRevision(headRevision, REVIEWED_LEGACY_TERMINAL_PATCH_HEAD)
-    && mode === entry.mode
-    && type === "blob"
-    && objectId === entry.objectId;
+  const policy = reviewedLegacyCurrentHeadPolicy(headRevision, relativePath);
+  return policy?.payloadKind === "terminal-patch"
+    && mode === policy.mode
+    && type === policy.type
+    && objectId === policy.objectId;
 }
 
 export function isReviewedLegacyOfficeLockBranchHeadEntry({
@@ -13254,12 +13332,11 @@ export function isReviewedLegacyOfficeLockBranchHeadEntry({
   type,
   objectId
 } = {}) {
-  const entry = REVIEWED_LEGACY_OFFICE_LOCK;
-  return isReviewedLegacyCurrentHeadRevision(headRevision, entry.headRevision)
-    && relativePath === entry.path
-    && mode === entry.branchMode
-    && type === "blob"
-    && objectId === entry.objectId;
+  const policy = reviewedLegacyCurrentHeadPolicy(headRevision, relativePath);
+  return policy?.payloadKind === "office-lock"
+    && mode === policy.mode
+    && type === policy.type
+    && objectId === policy.objectId;
 }
 
 function isReviewedLegacyParentConsoleReportEntry({
@@ -13269,12 +13346,11 @@ function isReviewedLegacyParentConsoleReportEntry({
   type,
   objectId
 } = {}) {
-  const entry = REVIEWED_LEGACY_PARENT_CONSOLE_REPORT;
-  return isReviewedLegacyCurrentHeadRevision(headRevision, entry.headRevision)
-    && relativePath === entry.path
-    && mode === entry.mode
-    && type === "blob"
-    && objectId === entry.objectId;
+  const policy = reviewedLegacyCurrentHeadPolicy(headRevision, relativePath);
+  return policy?.payloadKind === "parent-console-report"
+    && mode === policy.mode
+    && type === policy.type
+    && objectId === policy.objectId;
 }
 
 export function isReviewedLegacyOfficeLockInventory(item) {
@@ -13301,30 +13377,28 @@ export function scanCurrentBranchHeadTrackedPaths(worktreePath, headRevision, pa
     const terminalPatch = REVIEWED_LEGACY_TERMINAL_PATCH_BY_PATH.get(relativePath) ?? null;
     const officeLockPath = relativePath === officeLock.path;
     const parentConsoleReportPath = relativePath === parentConsoleReport.path;
-    const reviewedLegacyText = REVIEWED_LEGACY_CURRENT_HEAD_TEXT_BY_PATH.get(relativePath) ?? null;
-    const reviewedLegacyJpegUnderPng = REVIEWED_LEGACY_CURRENT_HEAD_JPEG_UNDER_PNG_BY_PATH.get(relativePath) ?? null;
-    if (terminalPatch !== null
-      && !isReviewedLegacyCurrentHeadRevision(headRevision, REVIEWED_LEGACY_TERMINAL_PATCH_HEAD)) {
+    const legacyTextPath = REVIEWED_LEGACY_CURRENT_HEAD_TEXT_BY_PATH.get(relativePath) ?? null;
+    const legacyJpegUnderPngPath = REVIEWED_LEGACY_CURRENT_HEAD_JPEG_UNDER_PNG_BY_PATH.get(relativePath) ?? null;
+    const reviewedPolicy = reviewedLegacyCurrentHeadPolicy(headRevision, relativePath);
+    if (terminalPatch !== null && reviewedPolicy?.payloadKind !== "terminal-patch") {
       throw new Error(`reviewed legacy terminal patch is restricted to its pinned current branch HEAD: ${JSON.stringify(relativePath)}`);
     }
-    if (officeLockPath && !isReviewedLegacyCurrentHeadRevision(headRevision, officeLock.headRevision)) {
+    if (officeLockPath && reviewedPolicy?.payloadKind !== "office-lock") {
       throw new Error(`reviewed legacy Office lock is restricted to its pinned current branch HEAD: ${JSON.stringify(relativePath)}`);
     }
-    if (parentConsoleReportPath
-      && !isReviewedLegacyCurrentHeadRevision(headRevision, parentConsoleReport.headRevision)) {
+    if (parentConsoleReportPath && reviewedPolicy?.payloadKind !== "parent-console-report") {
       throw new Error(`reviewed legacy parent console report is restricted to its pinned current branch HEAD: ${JSON.stringify(relativePath)}`);
     }
-    if (reviewedLegacyText !== null
-      && !isReviewedLegacyCurrentHeadRevision(headRevision, reviewedLegacyText.revision)) {
+    if (legacyTextPath !== null && reviewedPolicy?.payloadKind !== "exact-text") {
       throw new Error("reviewed legacy current HEAD text is restricted to its pinned revision");
     }
-    if (reviewedLegacyJpegUnderPng !== null
-      && !isReviewedLegacyCurrentHeadRevision(
-        headRevision,
-        REVIEWED_LEGACY_CURRENT_HEAD_JPEG_UNDER_PNG_REVISION
-      )) {
+    if (legacyJpegUnderPngPath !== null && reviewedPolicy?.payloadKind !== "jpeg-under-png") {
       throw new Error("reviewed legacy JPEG-under-PNG is restricted to its pinned current branch HEAD");
     }
+    const reviewedLegacyText = reviewedPolicy?.payloadKind === "exact-text" ? reviewedPolicy : null;
+    const reviewedLegacyJpegUnderPng = reviewedPolicy?.payloadKind === "jpeg-under-png"
+      ? reviewedPolicy
+      : null;
     if (!exactPath
       && !officeLockPath
       && !parentConsoleReportPath
@@ -13363,9 +13437,9 @@ export function scanCurrentBranchHeadTrackedPaths(worktreePath, headRevision, pa
       });
       if (exactTerminalPatch) {
         const buffer = gitBuffer(["cat-file", "blob", objectId], worktreePath);
-        if (buffer.length !== terminalPatch.bytes
-          || gitSha1BlobObjectId(buffer) !== terminalPatch.objectId
-          || sha256Buffer(buffer) !== terminalPatch.sha256) {
+        if (buffer.length !== reviewedPolicy.bytes
+          || gitSha1BlobObjectId(buffer) !== reviewedPolicy.objectId
+          || sha256Buffer(buffer) !== reviewedPolicy.sha256) {
           throw new Error("reviewed legacy terminal patch Git blob integrity mismatch");
         }
         scanReviewedLegacyTerminalPatch(buffer, relativePath);
@@ -13382,9 +13456,9 @@ export function scanCurrentBranchHeadTrackedPaths(worktreePath, headRevision, pa
       });
       if (exactOfficeLock) {
         const buffer = gitBuffer(["cat-file", "blob", objectId], worktreePath);
-        if (buffer.length !== officeLock.bytes
-          || gitSha1BlobObjectId(buffer) !== officeLock.objectId
-          || sha256Buffer(buffer) !== officeLock.sha256) {
+        if (buffer.length !== reviewedPolicy.bytes
+          || gitSha1BlobObjectId(buffer) !== reviewedPolicy.objectId
+          || sha256Buffer(buffer) !== reviewedPolicy.sha256) {
           throw new Error("reviewed legacy Office lock Git blob integrity mismatch");
         }
         scanOpaqueRawSignatures(buffer, REVIEWED_LEGACY_OFFICE_LOCK_DISPLAY_PATH);
@@ -13401,9 +13475,9 @@ export function scanCurrentBranchHeadTrackedPaths(worktreePath, headRevision, pa
       });
       if (exactParentConsoleReport) {
         const buffer = gitBuffer(["cat-file", "blob", objectId], worktreePath);
-        if (buffer.length !== parentConsoleReport.bytes
-          || gitSha1BlobObjectId(buffer) !== parentConsoleReport.objectId
-          || sha256Buffer(buffer) !== parentConsoleReport.sha256) {
+        if (buffer.length !== reviewedPolicy.bytes
+          || gitSha1BlobObjectId(buffer) !== reviewedPolicy.objectId
+          || sha256Buffer(buffer) !== reviewedPolicy.sha256) {
           throw new Error("reviewed legacy parent console report Git blob integrity mismatch");
         }
         scanReviewedLegacyParentConsoleReport(buffer);
