@@ -1,0 +1,3362 @@
+[
+  {
+    "id": "s04-practice-pre-k-pk-math-readiness",
+    "packageId": "us-ca-math-rag-v2-candidate",
+    "owner": "S04 practice lead",
+    "upstreamOwner": "S21 content pipeline",
+    "qaOwner": "S18 curriculum QA",
+    "status": "candidate-brief",
+    "curriculumTrack": "US_CA_MATH",
+    "buttonLabel": "Pre-K",
+    "maisGrade": "Pre-K",
+    "domainId": "PK.MATH",
+    "domainTitle": "Preschool mathematics readiness",
+    "clusterId": "PK.MATH.READINESS",
+    "canonicalStandardIds": [
+      "PK.NS",
+      "PK.OA",
+      "PK.MD",
+      "PK.G"
+    ],
+    "maisStandardIds": [
+      "CA.Preschool.Math.PK.NS",
+      "CA.Preschool.Math.PK.OA",
+      "CA.Preschool.Math.PK.MD",
+      "CA.Preschool.Math.PK.G"
+    ],
+    "itemTargets": {
+      "minimumDraftItems": 6,
+      "representations": [
+        "manipulatives",
+        "picture sort",
+        "match and count",
+        "attribute comparison"
+      ],
+      "diagnosticMisconceptions": [
+        "rote count without one-to-one matching",
+        "shape naming by orientation only"
+      ],
+      "answerEvidenceRequired": true,
+      "bilingualSupport": true
+    },
+    "authoringRules": [
+      "Create fresh contexts, numbers, names, diagrams, and distractors.",
+      "Use one primary standard/cluster per item unless the item is explicitly tagged as synthesis.",
+      "Include independent solution evidence and source-distance status.",
+      "Do not use IXL skill text, preview stems, screenshot values, or proprietary layout as item content."
+    ]
+  },
+  {
+    "id": "s04-practice-kindergarten-k-cc-count-sequence",
+    "packageId": "us-ca-math-rag-v2-candidate",
+    "owner": "S04 practice lead",
+    "upstreamOwner": "S21 content pipeline",
+    "qaOwner": "S18 curriculum QA",
+    "status": "candidate-brief",
+    "curriculumTrack": "US_CA_MATH",
+    "buttonLabel": "Kindergarten",
+    "maisGrade": "K",
+    "domainId": "K.CC",
+    "domainTitle": "Counting and Cardinality",
+    "clusterId": "K.CC.count-sequence",
+    "canonicalStandardIds": [
+      "K.CC.1",
+      "K.CC.2",
+      "K.CC.3"
+    ],
+    "maisStandardIds": [
+      "CA.CCSS.Math.K.CC.1",
+      "CA.CCSS.Math.K.CC.2",
+      "CA.CCSS.Math.K.CC.3"
+    ],
+    "itemTargets": {
+      "minimumDraftItems": 6,
+      "representations": [
+        "visual collections",
+        "ten frames",
+        "charts",
+        "number choice"
+      ],
+      "diagnosticMisconceptions": [
+        "skipping number words",
+        "counting objects twice"
+      ],
+      "answerEvidenceRequired": true,
+      "bilingualSupport": false
+    },
+    "authoringRules": [
+      "Create fresh contexts, numbers, names, diagrams, and distractors.",
+      "Use one primary standard/cluster per item unless the item is explicitly tagged as synthesis.",
+      "Include independent solution evidence and source-distance status.",
+      "Do not use IXL skill text, preview stems, screenshot values, or proprietary layout as item content."
+    ]
+  },
+  {
+    "id": "s04-practice-kindergarten-k-cc-cardinality-compare",
+    "packageId": "us-ca-math-rag-v2-candidate",
+    "owner": "S04 practice lead",
+    "upstreamOwner": "S21 content pipeline",
+    "qaOwner": "S18 curriculum QA",
+    "status": "candidate-brief",
+    "curriculumTrack": "US_CA_MATH",
+    "buttonLabel": "Kindergarten",
+    "maisGrade": "K",
+    "domainId": "K.CC",
+    "domainTitle": "Counting and Cardinality",
+    "clusterId": "K.CC.cardinality-compare",
+    "canonicalStandardIds": [
+      "K.CC.4",
+      "K.CC.5",
+      "K.CC.6",
+      "K.CC.7"
+    ],
+    "maisStandardIds": [
+      "CA.CCSS.Math.K.CC.4",
+      "CA.CCSS.Math.K.CC.5",
+      "CA.CCSS.Math.K.CC.6",
+      "CA.CCSS.Math.K.CC.7"
+    ],
+    "itemTargets": {
+      "minimumDraftItems": 6,
+      "representations": [
+        "object matching",
+        "same/more/fewer",
+        "count and compare"
+      ],
+      "diagnosticMisconceptions": [
+        "last count word not linked to total",
+        "comparing by visual spread"
+      ],
+      "answerEvidenceRequired": true,
+      "bilingualSupport": false
+    },
+    "authoringRules": [
+      "Create fresh contexts, numbers, names, diagrams, and distractors.",
+      "Use one primary standard/cluster per item unless the item is explicitly tagged as synthesis.",
+      "Include independent solution evidence and source-distance status.",
+      "Do not use IXL skill text, preview stems, screenshot values, or proprietary layout as item content."
+    ]
+  },
+  {
+    "id": "s04-practice-kindergarten-k-oa-compose-decompose",
+    "packageId": "us-ca-math-rag-v2-candidate",
+    "owner": "S04 practice lead",
+    "upstreamOwner": "S21 content pipeline",
+    "qaOwner": "S18 curriculum QA",
+    "status": "candidate-brief",
+    "curriculumTrack": "US_CA_MATH",
+    "buttonLabel": "Kindergarten",
+    "maisGrade": "K",
+    "domainId": "K.OA",
+    "domainTitle": "Operations and Algebraic Thinking",
+    "clusterId": "K.OA.compose-decompose",
+    "canonicalStandardIds": [
+      "K.OA.1",
+      "K.OA.2",
+      "K.OA.3",
+      "K.OA.4",
+      "K.OA.5"
+    ],
+    "maisStandardIds": [
+      "CA.CCSS.Math.K.OA.1",
+      "CA.CCSS.Math.K.OA.2",
+      "CA.CCSS.Math.K.OA.3",
+      "CA.CCSS.Math.K.OA.4",
+      "CA.CCSS.Math.K.OA.5"
+    ],
+    "itemTargets": {
+      "minimumDraftItems": 6,
+      "representations": [
+        "story mats",
+        "part-part-whole frames",
+        "make 10"
+      ],
+      "diagnosticMisconceptions": [
+        "operation sign as decoration",
+        "missing part-whole relationship"
+      ],
+      "answerEvidenceRequired": true,
+      "bilingualSupport": false
+    },
+    "authoringRules": [
+      "Create fresh contexts, numbers, names, diagrams, and distractors.",
+      "Use one primary standard/cluster per item unless the item is explicitly tagged as synthesis.",
+      "Include independent solution evidence and source-distance status.",
+      "Do not use IXL skill text, preview stems, screenshot values, or proprietary layout as item content."
+    ]
+  },
+  {
+    "id": "s04-practice-kindergarten-k-nbt-teen-numbers",
+    "packageId": "us-ca-math-rag-v2-candidate",
+    "owner": "S04 practice lead",
+    "upstreamOwner": "S21 content pipeline",
+    "qaOwner": "S18 curriculum QA",
+    "status": "candidate-brief",
+    "curriculumTrack": "US_CA_MATH",
+    "buttonLabel": "Kindergarten",
+    "maisGrade": "K",
+    "domainId": "K.NBT",
+    "domainTitle": "Number and Operations in Base Ten",
+    "clusterId": "K.NBT.teen-numbers",
+    "canonicalStandardIds": [
+      "K.NBT.1"
+    ],
+    "maisStandardIds": [
+      "CA.CCSS.Math.K.NBT.1"
+    ],
+    "itemTargets": {
+      "minimumDraftItems": 6,
+      "representations": [
+        "ten-frame plus extras",
+        "base-ten drawings"
+      ],
+      "diagnosticMisconceptions": [
+        "reading teen digits in reverse"
+      ],
+      "answerEvidenceRequired": true,
+      "bilingualSupport": false
+    },
+    "authoringRules": [
+      "Create fresh contexts, numbers, names, diagrams, and distractors.",
+      "Use one primary standard/cluster per item unless the item is explicitly tagged as synthesis.",
+      "Include independent solution evidence and source-distance status.",
+      "Do not use IXL skill text, preview stems, screenshot values, or proprietary layout as item content."
+    ]
+  },
+  {
+    "id": "s04-practice-kindergarten-k-md-attributes-data",
+    "packageId": "us-ca-math-rag-v2-candidate",
+    "owner": "S04 practice lead",
+    "upstreamOwner": "S21 content pipeline",
+    "qaOwner": "S18 curriculum QA",
+    "status": "candidate-brief",
+    "curriculumTrack": "US_CA_MATH",
+    "buttonLabel": "Kindergarten",
+    "maisGrade": "K",
+    "domainId": "K.MD",
+    "domainTitle": "Measurement and Data",
+    "clusterId": "K.MD.attributes-data",
+    "canonicalStandardIds": [
+      "K.MD.1",
+      "K.MD.2",
+      "K.MD.3"
+    ],
+    "maisStandardIds": [
+      "CA.CCSS.Math.K.MD.1",
+      "CA.CCSS.Math.K.MD.2",
+      "CA.CCSS.Math.K.MD.3"
+    ],
+    "itemTargets": {
+      "minimumDraftItems": 6,
+      "representations": [
+        "sort by attribute",
+        "longer/shorter",
+        "classify objects"
+      ],
+      "diagnosticMisconceptions": [
+        "confusing length with count",
+        "single-attribute sorting only"
+      ],
+      "answerEvidenceRequired": true,
+      "bilingualSupport": false
+    },
+    "authoringRules": [
+      "Create fresh contexts, numbers, names, diagrams, and distractors.",
+      "Use one primary standard/cluster per item unless the item is explicitly tagged as synthesis.",
+      "Include independent solution evidence and source-distance status.",
+      "Do not use IXL skill text, preview stems, screenshot values, or proprietary layout as item content."
+    ]
+  },
+  {
+    "id": "s04-practice-kindergarten-k-g-shapes-position",
+    "packageId": "us-ca-math-rag-v2-candidate",
+    "owner": "S04 practice lead",
+    "upstreamOwner": "S21 content pipeline",
+    "qaOwner": "S18 curriculum QA",
+    "status": "candidate-brief",
+    "curriculumTrack": "US_CA_MATH",
+    "buttonLabel": "Kindergarten",
+    "maisGrade": "K",
+    "domainId": "K.G",
+    "domainTitle": "Geometry",
+    "clusterId": "K.G.shapes-position",
+    "canonicalStandardIds": [
+      "K.G.1",
+      "K.G.2",
+      "K.G.3",
+      "K.G.4",
+      "K.G.5",
+      "K.G.6"
+    ],
+    "maisStandardIds": [
+      "CA.CCSS.Math.K.G.1",
+      "CA.CCSS.Math.K.G.2",
+      "CA.CCSS.Math.K.G.3",
+      "CA.CCSS.Math.K.G.4",
+      "CA.CCSS.Math.K.G.5",
+      "CA.CCSS.Math.K.G.6"
+    ],
+    "itemTargets": {
+      "minimumDraftItems": 6,
+      "representations": [
+        "shape sort",
+        "compose shapes",
+        "position words"
+      ],
+      "diagnosticMisconceptions": [
+        "prototype-only shape recognition",
+        "2D/3D confusion"
+      ],
+      "answerEvidenceRequired": true,
+      "bilingualSupport": false
+    },
+    "authoringRules": [
+      "Create fresh contexts, numbers, names, diagrams, and distractors.",
+      "Use one primary standard/cluster per item unless the item is explicitly tagged as synthesis.",
+      "Include independent solution evidence and source-distance status.",
+      "Do not use IXL skill text, preview stems, screenshot values, or proprietary layout as item content."
+    ]
+  },
+  {
+    "id": "s04-practice-grade-1-1-oa-add-subtract",
+    "packageId": "us-ca-math-rag-v2-candidate",
+    "owner": "S04 practice lead",
+    "upstreamOwner": "S21 content pipeline",
+    "qaOwner": "S18 curriculum QA",
+    "status": "candidate-brief",
+    "curriculumTrack": "US_CA_MATH",
+    "buttonLabel": "First",
+    "maisGrade": "P1",
+    "domainId": "1.OA",
+    "domainTitle": "Operations and Algebraic Thinking",
+    "clusterId": "1.OA.add-subtract",
+    "canonicalStandardIds": [
+      "1.OA.1",
+      "1.OA.2",
+      "1.OA.3",
+      "1.OA.4",
+      "1.OA.5",
+      "1.OA.6",
+      "1.OA.7",
+      "1.OA.8"
+    ],
+    "maisStandardIds": [
+      "CA.CCSS.Math.G1.OA.1",
+      "CA.CCSS.Math.G1.OA.2",
+      "CA.CCSS.Math.G1.OA.3",
+      "CA.CCSS.Math.G1.OA.4",
+      "CA.CCSS.Math.G1.OA.5",
+      "CA.CCSS.Math.G1.OA.6",
+      "CA.CCSS.Math.G1.OA.7",
+      "CA.CCSS.Math.G1.OA.8"
+    ],
+    "itemTargets": {
+      "minimumDraftItems": 6,
+      "representations": [
+        "number bonds",
+        "unknown-position equations",
+        "make-ten strategies"
+      ],
+      "diagnosticMisconceptions": [
+        "keyword-only operation choice",
+        "equals sign as answer cue"
+      ],
+      "answerEvidenceRequired": true,
+      "bilingualSupport": false
+    },
+    "authoringRules": [
+      "Create fresh contexts, numbers, names, diagrams, and distractors.",
+      "Use one primary standard/cluster per item unless the item is explicitly tagged as synthesis.",
+      "Include independent solution evidence and source-distance status.",
+      "Do not use IXL skill text, preview stems, screenshot values, or proprietary layout as item content."
+    ]
+  },
+  {
+    "id": "s04-practice-grade-1-1-nbt-place-value",
+    "packageId": "us-ca-math-rag-v2-candidate",
+    "owner": "S04 practice lead",
+    "upstreamOwner": "S21 content pipeline",
+    "qaOwner": "S18 curriculum QA",
+    "status": "candidate-brief",
+    "curriculumTrack": "US_CA_MATH",
+    "buttonLabel": "First",
+    "maisGrade": "P1",
+    "domainId": "1.NBT",
+    "domainTitle": "Number and Operations in Base Ten",
+    "clusterId": "1.NBT.place-value",
+    "canonicalStandardIds": [
+      "1.NBT.1",
+      "1.NBT.2",
+      "1.NBT.3",
+      "1.NBT.4",
+      "1.NBT.5",
+      "1.NBT.6"
+    ],
+    "maisStandardIds": [
+      "CA.CCSS.Math.G1.NBT.1",
+      "CA.CCSS.Math.G1.NBT.2",
+      "CA.CCSS.Math.G1.NBT.3",
+      "CA.CCSS.Math.G1.NBT.4",
+      "CA.CCSS.Math.G1.NBT.5",
+      "CA.CCSS.Math.G1.NBT.6"
+    ],
+    "itemTargets": {
+      "minimumDraftItems": 6,
+      "representations": [
+        "base-ten blocks",
+        "hundred chart",
+        "expanded tens/ones"
+      ],
+      "diagnosticMisconceptions": [
+        "digit value versus digit name",
+        "subtracting larger digit from smaller"
+      ],
+      "answerEvidenceRequired": true,
+      "bilingualSupport": false
+    },
+    "authoringRules": [
+      "Create fresh contexts, numbers, names, diagrams, and distractors.",
+      "Use one primary standard/cluster per item unless the item is explicitly tagged as synthesis.",
+      "Include independent solution evidence and source-distance status.",
+      "Do not use IXL skill text, preview stems, screenshot values, or proprietary layout as item content."
+    ]
+  },
+  {
+    "id": "s04-practice-grade-1-1-md-measure-data",
+    "packageId": "us-ca-math-rag-v2-candidate",
+    "owner": "S04 practice lead",
+    "upstreamOwner": "S21 content pipeline",
+    "qaOwner": "S18 curriculum QA",
+    "status": "candidate-brief",
+    "curriculumTrack": "US_CA_MATH",
+    "buttonLabel": "First",
+    "maisGrade": "P1",
+    "domainId": "1.MD",
+    "domainTitle": "Measurement and Data",
+    "clusterId": "1.MD.measure-data",
+    "canonicalStandardIds": [
+      "1.MD.1",
+      "1.MD.2",
+      "1.MD.3",
+      "1.MD.4"
+    ],
+    "maisStandardIds": [
+      "CA.CCSS.Math.G1.MD.1",
+      "CA.CCSS.Math.G1.MD.2",
+      "CA.CCSS.Math.G1.MD.3",
+      "CA.CCSS.Math.G1.MD.4"
+    ],
+    "itemTargets": {
+      "minimumDraftItems": 6,
+      "representations": [
+        "unit iteration",
+        "clock reading",
+        "picture graph"
+      ],
+      "diagnosticMisconceptions": [
+        "gaps/overlaps in units",
+        "counting tick marks instead of intervals"
+      ],
+      "answerEvidenceRequired": true,
+      "bilingualSupport": false
+    },
+    "authoringRules": [
+      "Create fresh contexts, numbers, names, diagrams, and distractors.",
+      "Use one primary standard/cluster per item unless the item is explicitly tagged as synthesis.",
+      "Include independent solution evidence and source-distance status.",
+      "Do not use IXL skill text, preview stems, screenshot values, or proprietary layout as item content."
+    ]
+  },
+  {
+    "id": "s04-practice-grade-1-1-g-shape-reasoning",
+    "packageId": "us-ca-math-rag-v2-candidate",
+    "owner": "S04 practice lead",
+    "upstreamOwner": "S21 content pipeline",
+    "qaOwner": "S18 curriculum QA",
+    "status": "candidate-brief",
+    "curriculumTrack": "US_CA_MATH",
+    "buttonLabel": "First",
+    "maisGrade": "P1",
+    "domainId": "1.G",
+    "domainTitle": "Geometry",
+    "clusterId": "1.G.shape-reasoning",
+    "canonicalStandardIds": [
+      "1.G.1",
+      "1.G.2",
+      "1.G.3"
+    ],
+    "maisStandardIds": [
+      "CA.CCSS.Math.G1.G.1",
+      "CA.CCSS.Math.G1.G.2",
+      "CA.CCSS.Math.G1.G.3"
+    ],
+    "itemTargets": {
+      "minimumDraftItems": 6,
+      "representations": [
+        "shape composition",
+        "equal shares",
+        "attribute sort"
+      ],
+      "diagnosticMisconceptions": [
+        "non-defining attribute sorting",
+        "unequal partitions named as halves"
+      ],
+      "answerEvidenceRequired": true,
+      "bilingualSupport": false
+    },
+    "authoringRules": [
+      "Create fresh contexts, numbers, names, diagrams, and distractors.",
+      "Use one primary standard/cluster per item unless the item is explicitly tagged as synthesis.",
+      "Include independent solution evidence and source-distance status.",
+      "Do not use IXL skill text, preview stems, screenshot values, or proprietary layout as item content."
+    ]
+  },
+  {
+    "id": "s04-practice-grade-2-2-oa-fluency-arrays",
+    "packageId": "us-ca-math-rag-v2-candidate",
+    "owner": "S04 practice lead",
+    "upstreamOwner": "S21 content pipeline",
+    "qaOwner": "S18 curriculum QA",
+    "status": "candidate-brief",
+    "curriculumTrack": "US_CA_MATH",
+    "buttonLabel": "Second",
+    "maisGrade": "P2",
+    "domainId": "2.OA",
+    "domainTitle": "Operations and Algebraic Thinking",
+    "clusterId": "2.OA.fluency-arrays",
+    "canonicalStandardIds": [
+      "2.OA.1",
+      "2.OA.2",
+      "2.OA.3",
+      "2.OA.4"
+    ],
+    "maisStandardIds": [
+      "CA.CCSS.Math.G2.OA.1",
+      "CA.CCSS.Math.G2.OA.2",
+      "CA.CCSS.Math.G2.OA.3",
+      "CA.CCSS.Math.G2.OA.4"
+    ],
+    "itemTargets": {
+      "minimumDraftItems": 6,
+      "representations": [
+        "bar models",
+        "array drawing",
+        "fluency choices"
+      ],
+      "diagnosticMisconceptions": [
+        "single-step answer to two-step context",
+        "even/odd judged by last spoken number only"
+      ],
+      "answerEvidenceRequired": true,
+      "bilingualSupport": false
+    },
+    "authoringRules": [
+      "Create fresh contexts, numbers, names, diagrams, and distractors.",
+      "Use one primary standard/cluster per item unless the item is explicitly tagged as synthesis.",
+      "Include independent solution evidence and source-distance status.",
+      "Do not use IXL skill text, preview stems, screenshot values, or proprietary layout as item content."
+    ]
+  },
+  {
+    "id": "s04-practice-grade-2-2-nbt-three-digit-place-value",
+    "packageId": "us-ca-math-rag-v2-candidate",
+    "owner": "S04 practice lead",
+    "upstreamOwner": "S21 content pipeline",
+    "qaOwner": "S18 curriculum QA",
+    "status": "candidate-brief",
+    "curriculumTrack": "US_CA_MATH",
+    "buttonLabel": "Second",
+    "maisGrade": "P2",
+    "domainId": "2.NBT",
+    "domainTitle": "Number and Operations in Base Ten",
+    "clusterId": "2.NBT.three-digit-place-value",
+    "canonicalStandardIds": [
+      "2.NBT.1",
+      "2.NBT.2",
+      "2.NBT.3",
+      "2.NBT.4",
+      "2.NBT.5",
+      "2.NBT.6",
+      "2.NBT.7",
+      "2.NBT.8",
+      "2.NBT.9"
+    ],
+    "maisStandardIds": [
+      "CA.CCSS.Math.G2.NBT.1",
+      "CA.CCSS.Math.G2.NBT.2",
+      "CA.CCSS.Math.G2.NBT.3",
+      "CA.CCSS.Math.G2.NBT.4",
+      "CA.CCSS.Math.G2.NBT.5",
+      "CA.CCSS.Math.G2.NBT.6",
+      "CA.CCSS.Math.G2.NBT.7",
+      "CA.CCSS.Math.G2.NBT.8",
+      "CA.CCSS.Math.G2.NBT.9"
+    ],
+    "itemTargets": {
+      "minimumDraftItems": 6,
+      "representations": [
+        "place-value charts",
+        "expanded form",
+        "open number lines"
+      ],
+      "diagnosticMisconceptions": [
+        "regrouping as arbitrary digit movement",
+        "hundreds/tens/ones misalignment"
+      ],
+      "answerEvidenceRequired": true,
+      "bilingualSupport": false
+    },
+    "authoringRules": [
+      "Create fresh contexts, numbers, names, diagrams, and distractors.",
+      "Use one primary standard/cluster per item unless the item is explicitly tagged as synthesis.",
+      "Include independent solution evidence and source-distance status.",
+      "Do not use IXL skill text, preview stems, screenshot values, or proprietary layout as item content."
+    ]
+  },
+  {
+    "id": "s04-practice-grade-2-2-md-measure-data-money-time",
+    "packageId": "us-ca-math-rag-v2-candidate",
+    "owner": "S04 practice lead",
+    "upstreamOwner": "S21 content pipeline",
+    "qaOwner": "S18 curriculum QA",
+    "status": "candidate-brief",
+    "curriculumTrack": "US_CA_MATH",
+    "buttonLabel": "Second",
+    "maisGrade": "P2",
+    "domainId": "2.MD",
+    "domainTitle": "Measurement and Data",
+    "clusterId": "2.MD.measure-data-money-time",
+    "canonicalStandardIds": [
+      "2.MD.1",
+      "2.MD.2",
+      "2.MD.3",
+      "2.MD.4",
+      "2.MD.5",
+      "2.MD.6",
+      "2.MD.7",
+      "2.MD.8",
+      "2.MD.9",
+      "2.MD.10"
+    ],
+    "maisStandardIds": [
+      "CA.CCSS.Math.G2.MD.1",
+      "CA.CCSS.Math.G2.MD.2",
+      "CA.CCSS.Math.G2.MD.3",
+      "CA.CCSS.Math.G2.MD.4",
+      "CA.CCSS.Math.G2.MD.5",
+      "CA.CCSS.Math.G2.MD.6",
+      "CA.CCSS.Math.G2.MD.7",
+      "CA.CCSS.Math.G2.MD.8",
+      "CA.CCSS.Math.G2.MD.9",
+      "CA.CCSS.Math.G2.MD.10"
+    ],
+    "itemTargets": {
+      "minimumDraftItems": 6,
+      "representations": [
+        "ruler tasks",
+        "line plots",
+        "money combinations"
+      ],
+      "diagnosticMisconceptions": [
+        "unit mismatch",
+        "coin value counted as coin count"
+      ],
+      "answerEvidenceRequired": true,
+      "bilingualSupport": false
+    },
+    "authoringRules": [
+      "Create fresh contexts, numbers, names, diagrams, and distractors.",
+      "Use one primary standard/cluster per item unless the item is explicitly tagged as synthesis.",
+      "Include independent solution evidence and source-distance status.",
+      "Do not use IXL skill text, preview stems, screenshot values, or proprietary layout as item content."
+    ]
+  },
+  {
+    "id": "s04-practice-grade-2-2-g-partition-shapes",
+    "packageId": "us-ca-math-rag-v2-candidate",
+    "owner": "S04 practice lead",
+    "upstreamOwner": "S21 content pipeline",
+    "qaOwner": "S18 curriculum QA",
+    "status": "candidate-brief",
+    "curriculumTrack": "US_CA_MATH",
+    "buttonLabel": "Second",
+    "maisGrade": "P2",
+    "domainId": "2.G",
+    "domainTitle": "Geometry",
+    "clusterId": "2.G.partition-shapes",
+    "canonicalStandardIds": [
+      "2.G.1",
+      "2.G.2",
+      "2.G.3"
+    ],
+    "maisStandardIds": [
+      "CA.CCSS.Math.G2.G.1",
+      "CA.CCSS.Math.G2.G.2",
+      "CA.CCSS.Math.G2.G.3"
+    ],
+    "itemTargets": {
+      "minimumDraftItems": 6,
+      "representations": [
+        "array partition",
+        "equal-share shading",
+        "shape attribute selection"
+      ],
+      "diagnosticMisconceptions": [
+        "area partition not equal",
+        "rows and columns swapped"
+      ],
+      "answerEvidenceRequired": true,
+      "bilingualSupport": false
+    },
+    "authoringRules": [
+      "Create fresh contexts, numbers, names, diagrams, and distractors.",
+      "Use one primary standard/cluster per item unless the item is explicitly tagged as synthesis.",
+      "Include independent solution evidence and source-distance status.",
+      "Do not use IXL skill text, preview stems, screenshot values, or proprietary layout as item content."
+    ]
+  },
+  {
+    "id": "s04-practice-grade-3-3-oa-mult-div",
+    "packageId": "us-ca-math-rag-v2-candidate",
+    "owner": "S04 practice lead",
+    "upstreamOwner": "S21 content pipeline",
+    "qaOwner": "S18 curriculum QA",
+    "status": "candidate-brief",
+    "curriculumTrack": "US_CA_MATH",
+    "buttonLabel": "Third",
+    "maisGrade": "P3",
+    "domainId": "3.OA",
+    "domainTitle": "Operations and Algebraic Thinking",
+    "clusterId": "3.OA.mult-div",
+    "canonicalStandardIds": [
+      "3.OA.1",
+      "3.OA.2",
+      "3.OA.3",
+      "3.OA.4",
+      "3.OA.5",
+      "3.OA.6",
+      "3.OA.7",
+      "3.OA.8",
+      "3.OA.9"
+    ],
+    "maisStandardIds": [
+      "CA.CCSS.Math.G3.OA.1",
+      "CA.CCSS.Math.G3.OA.2",
+      "CA.CCSS.Math.G3.OA.3",
+      "CA.CCSS.Math.G3.OA.4",
+      "CA.CCSS.Math.G3.OA.5",
+      "CA.CCSS.Math.G3.OA.6",
+      "CA.CCSS.Math.G3.OA.7",
+      "CA.CCSS.Math.G3.OA.8",
+      "CA.CCSS.Math.G3.OA.9"
+    ],
+    "itemTargets": {
+      "minimumDraftItems": 6,
+      "representations": [
+        "arrays",
+        "equal groups",
+        "fact families",
+        "pattern tables"
+      ],
+      "diagnosticMisconceptions": [
+        "multiplication as only repeated addition",
+        "division context mismatch"
+      ],
+      "answerEvidenceRequired": true,
+      "bilingualSupport": false
+    },
+    "authoringRules": [
+      "Create fresh contexts, numbers, names, diagrams, and distractors.",
+      "Use one primary standard/cluster per item unless the item is explicitly tagged as synthesis.",
+      "Include independent solution evidence and source-distance status.",
+      "Do not use IXL skill text, preview stems, screenshot values, or proprietary layout as item content."
+    ]
+  },
+  {
+    "id": "s04-practice-grade-3-3-nbt-arithmetic",
+    "packageId": "us-ca-math-rag-v2-candidate",
+    "owner": "S04 practice lead",
+    "upstreamOwner": "S21 content pipeline",
+    "qaOwner": "S18 curriculum QA",
+    "status": "candidate-brief",
+    "curriculumTrack": "US_CA_MATH",
+    "buttonLabel": "Third",
+    "maisGrade": "P3",
+    "domainId": "3.NBT",
+    "domainTitle": "Number and Operations in Base Ten",
+    "clusterId": "3.NBT.arithmetic",
+    "canonicalStandardIds": [
+      "3.NBT.1",
+      "3.NBT.2",
+      "3.NBT.3"
+    ],
+    "maisStandardIds": [
+      "CA.CCSS.Math.G3.NBT.1",
+      "CA.CCSS.Math.G3.NBT.2",
+      "CA.CCSS.Math.G3.NBT.3"
+    ],
+    "itemTargets": {
+      "minimumDraftItems": 6,
+      "representations": [
+        "rounding number lines",
+        "area model multiplication"
+      ],
+      "diagnosticMisconceptions": [
+        "rounding to nearest digit not place",
+        "partial products misread"
+      ],
+      "answerEvidenceRequired": true,
+      "bilingualSupport": false
+    },
+    "authoringRules": [
+      "Create fresh contexts, numbers, names, diagrams, and distractors.",
+      "Use one primary standard/cluster per item unless the item is explicitly tagged as synthesis.",
+      "Include independent solution evidence and source-distance status.",
+      "Do not use IXL skill text, preview stems, screenshot values, or proprietary layout as item content."
+    ]
+  },
+  {
+    "id": "s04-practice-grade-3-3-nf-fraction-meaning",
+    "packageId": "us-ca-math-rag-v2-candidate",
+    "owner": "S04 practice lead",
+    "upstreamOwner": "S21 content pipeline",
+    "qaOwner": "S18 curriculum QA",
+    "status": "candidate-brief",
+    "curriculumTrack": "US_CA_MATH",
+    "buttonLabel": "Third",
+    "maisGrade": "P3",
+    "domainId": "3.NF",
+    "domainTitle": "Number and Operations - Fractions",
+    "clusterId": "3.NF.fraction-meaning",
+    "canonicalStandardIds": [
+      "3.NF.1",
+      "3.NF.2",
+      "3.NF.3"
+    ],
+    "maisStandardIds": [
+      "CA.CCSS.Math.G3.NF.1",
+      "CA.CCSS.Math.G3.NF.2",
+      "CA.CCSS.Math.G3.NF.3"
+    ],
+    "itemTargets": {
+      "minimumDraftItems": 6,
+      "representations": [
+        "number line fractions",
+        "area models",
+        "equivalent partitions"
+      ],
+      "diagnosticMisconceptions": [
+        "larger denominator means larger fraction",
+        "whole not fixed"
+      ],
+      "answerEvidenceRequired": true,
+      "bilingualSupport": false
+    },
+    "authoringRules": [
+      "Create fresh contexts, numbers, names, diagrams, and distractors.",
+      "Use one primary standard/cluster per item unless the item is explicitly tagged as synthesis.",
+      "Include independent solution evidence and source-distance status.",
+      "Do not use IXL skill text, preview stems, screenshot values, or proprietary layout as item content."
+    ]
+  },
+  {
+    "id": "s04-practice-grade-3-3-md-time-data-area-perimeter",
+    "packageId": "us-ca-math-rag-v2-candidate",
+    "owner": "S04 practice lead",
+    "upstreamOwner": "S21 content pipeline",
+    "qaOwner": "S18 curriculum QA",
+    "status": "candidate-brief",
+    "curriculumTrack": "US_CA_MATH",
+    "buttonLabel": "Third",
+    "maisGrade": "P3",
+    "domainId": "3.MD",
+    "domainTitle": "Measurement and Data",
+    "clusterId": "3.MD.time-data-area-perimeter",
+    "canonicalStandardIds": [
+      "3.MD.1",
+      "3.MD.2",
+      "3.MD.3",
+      "3.MD.4",
+      "3.MD.5",
+      "3.MD.6",
+      "3.MD.7",
+      "3.MD.8"
+    ],
+    "maisStandardIds": [
+      "CA.CCSS.Math.G3.MD.1",
+      "CA.CCSS.Math.G3.MD.2",
+      "CA.CCSS.Math.G3.MD.3",
+      "CA.CCSS.Math.G3.MD.4",
+      "CA.CCSS.Math.G3.MD.5",
+      "CA.CCSS.Math.G3.MD.6",
+      "CA.CCSS.Math.G3.MD.7",
+      "CA.CCSS.Math.G3.MD.8"
+    ],
+    "itemTargets": {
+      "minimumDraftItems": 6,
+      "representations": [
+        "grid area",
+        "elapsed time lines",
+        "scaled bars"
+      ],
+      "diagnosticMisconceptions": [
+        "area and perimeter conflated",
+        "scaled graph count ignored"
+      ],
+      "answerEvidenceRequired": true,
+      "bilingualSupport": false
+    },
+    "authoringRules": [
+      "Create fresh contexts, numbers, names, diagrams, and distractors.",
+      "Use one primary standard/cluster per item unless the item is explicitly tagged as synthesis.",
+      "Include independent solution evidence and source-distance status.",
+      "Do not use IXL skill text, preview stems, screenshot values, or proprietary layout as item content."
+    ]
+  },
+  {
+    "id": "s04-practice-grade-3-3-g-categories",
+    "packageId": "us-ca-math-rag-v2-candidate",
+    "owner": "S04 practice lead",
+    "upstreamOwner": "S21 content pipeline",
+    "qaOwner": "S18 curriculum QA",
+    "status": "candidate-brief",
+    "curriculumTrack": "US_CA_MATH",
+    "buttonLabel": "Third",
+    "maisGrade": "P3",
+    "domainId": "3.G",
+    "domainTitle": "Geometry",
+    "clusterId": "3.G.categories",
+    "canonicalStandardIds": [
+      "3.G.1",
+      "3.G.2"
+    ],
+    "maisStandardIds": [
+      "CA.CCSS.Math.G3.G.1",
+      "CA.CCSS.Math.G3.G.2"
+    ],
+    "itemTargets": {
+      "minimumDraftItems": 6,
+      "representations": [
+        "Venn sort",
+        "fractional shape partition"
+      ],
+      "diagnosticMisconceptions": [
+        "category overlap missed",
+        "non-equal fraction shares"
+      ],
+      "answerEvidenceRequired": true,
+      "bilingualSupport": false
+    },
+    "authoringRules": [
+      "Create fresh contexts, numbers, names, diagrams, and distractors.",
+      "Use one primary standard/cluster per item unless the item is explicitly tagged as synthesis.",
+      "Include independent solution evidence and source-distance status.",
+      "Do not use IXL skill text, preview stems, screenshot values, or proprietary layout as item content."
+    ]
+  },
+  {
+    "id": "s04-practice-grade-4-4-oa-factors-patterns",
+    "packageId": "us-ca-math-rag-v2-candidate",
+    "owner": "S04 practice lead",
+    "upstreamOwner": "S21 content pipeline",
+    "qaOwner": "S18 curriculum QA",
+    "status": "candidate-brief",
+    "curriculumTrack": "US_CA_MATH",
+    "buttonLabel": "Fourth",
+    "maisGrade": "P4",
+    "domainId": "4.OA",
+    "domainTitle": "Operations and Algebraic Thinking",
+    "clusterId": "4.OA.factors-patterns",
+    "canonicalStandardIds": [
+      "4.OA.1",
+      "4.OA.2",
+      "4.OA.3",
+      "4.OA.4",
+      "4.OA.5"
+    ],
+    "maisStandardIds": [
+      "CA.CCSS.Math.G4.OA.1",
+      "CA.CCSS.Math.G4.OA.2",
+      "CA.CCSS.Math.G4.OA.3",
+      "CA.CCSS.Math.G4.OA.4",
+      "CA.CCSS.Math.G4.OA.5"
+    ],
+    "itemTargets": {
+      "minimumDraftItems": 6,
+      "representations": [
+        "comparison diagrams",
+        "factor lists",
+        "input-output patterns"
+      ],
+      "diagnosticMisconceptions": [
+        "additive comparison used for multiplicative comparison",
+        "factor versus multiple"
+      ],
+      "answerEvidenceRequired": true,
+      "bilingualSupport": false
+    },
+    "authoringRules": [
+      "Create fresh contexts, numbers, names, diagrams, and distractors.",
+      "Use one primary standard/cluster per item unless the item is explicitly tagged as synthesis.",
+      "Include independent solution evidence and source-distance status.",
+      "Do not use IXL skill text, preview stems, screenshot values, or proprietary layout as item content."
+    ]
+  },
+  {
+    "id": "s04-practice-grade-4-4-nbt-multi-digit",
+    "packageId": "us-ca-math-rag-v2-candidate",
+    "owner": "S04 practice lead",
+    "upstreamOwner": "S21 content pipeline",
+    "qaOwner": "S18 curriculum QA",
+    "status": "candidate-brief",
+    "curriculumTrack": "US_CA_MATH",
+    "buttonLabel": "Fourth",
+    "maisGrade": "P4",
+    "domainId": "4.NBT",
+    "domainTitle": "Number and Operations in Base Ten",
+    "clusterId": "4.NBT.multi-digit",
+    "canonicalStandardIds": [
+      "4.NBT.1",
+      "4.NBT.2",
+      "4.NBT.3",
+      "4.NBT.4",
+      "4.NBT.5",
+      "4.NBT.6"
+    ],
+    "maisStandardIds": [
+      "CA.CCSS.Math.G4.NBT.1",
+      "CA.CCSS.Math.G4.NBT.2",
+      "CA.CCSS.Math.G4.NBT.3",
+      "CA.CCSS.Math.G4.NBT.4",
+      "CA.CCSS.Math.G4.NBT.5",
+      "CA.CCSS.Math.G4.NBT.6"
+    ],
+    "itemTargets": {
+      "minimumDraftItems": 6,
+      "representations": [
+        "standard/expanded form",
+        "area model",
+        "partial quotients"
+      ],
+      "diagnosticMisconceptions": [
+        "place-value shift as adding zero",
+        "division remainder interpretation"
+      ],
+      "answerEvidenceRequired": true,
+      "bilingualSupport": false
+    },
+    "authoringRules": [
+      "Create fresh contexts, numbers, names, diagrams, and distractors.",
+      "Use one primary standard/cluster per item unless the item is explicitly tagged as synthesis.",
+      "Include independent solution evidence and source-distance status.",
+      "Do not use IXL skill text, preview stems, screenshot values, or proprietary layout as item content."
+    ]
+  },
+  {
+    "id": "s04-practice-grade-4-4-nf-fraction-decimal",
+    "packageId": "us-ca-math-rag-v2-candidate",
+    "owner": "S04 practice lead",
+    "upstreamOwner": "S21 content pipeline",
+    "qaOwner": "S18 curriculum QA",
+    "status": "candidate-brief",
+    "curriculumTrack": "US_CA_MATH",
+    "buttonLabel": "Fourth",
+    "maisGrade": "P4",
+    "domainId": "4.NF",
+    "domainTitle": "Number and Operations - Fractions",
+    "clusterId": "4.NF.fraction-decimal",
+    "canonicalStandardIds": [
+      "4.NF.1",
+      "4.NF.2",
+      "4.NF.3",
+      "4.NF.4",
+      "4.NF.5",
+      "4.NF.6",
+      "4.NF.7"
+    ],
+    "maisStandardIds": [
+      "CA.CCSS.Math.G4.NF.1",
+      "CA.CCSS.Math.G4.NF.2",
+      "CA.CCSS.Math.G4.NF.3",
+      "CA.CCSS.Math.G4.NF.4",
+      "CA.CCSS.Math.G4.NF.5",
+      "CA.CCSS.Math.G4.NF.6",
+      "CA.CCSS.Math.G4.NF.7"
+    ],
+    "itemTargets": {
+      "minimumDraftItems": 6,
+      "representations": [
+        "fraction strips",
+        "number lines",
+        "decimal grids"
+      ],
+      "diagnosticMisconceptions": [
+        "same numerator comparison overgeneralized",
+        "decimal digits compared as whole numbers"
+      ],
+      "answerEvidenceRequired": true,
+      "bilingualSupport": false
+    },
+    "authoringRules": [
+      "Create fresh contexts, numbers, names, diagrams, and distractors.",
+      "Use one primary standard/cluster per item unless the item is explicitly tagged as synthesis.",
+      "Include independent solution evidence and source-distance status.",
+      "Do not use IXL skill text, preview stems, screenshot values, or proprietary layout as item content."
+    ]
+  },
+  {
+    "id": "s04-practice-grade-4-4-md-conversion-angles",
+    "packageId": "us-ca-math-rag-v2-candidate",
+    "owner": "S04 practice lead",
+    "upstreamOwner": "S21 content pipeline",
+    "qaOwner": "S18 curriculum QA",
+    "status": "candidate-brief",
+    "curriculumTrack": "US_CA_MATH",
+    "buttonLabel": "Fourth",
+    "maisGrade": "P4",
+    "domainId": "4.MD",
+    "domainTitle": "Measurement and Data",
+    "clusterId": "4.MD.conversion-angles",
+    "canonicalStandardIds": [
+      "4.MD.1",
+      "4.MD.2",
+      "4.MD.3",
+      "4.MD.4",
+      "4.MD.5",
+      "4.MD.6",
+      "4.MD.7"
+    ],
+    "maisStandardIds": [
+      "CA.CCSS.Math.G4.MD.1",
+      "CA.CCSS.Math.G4.MD.2",
+      "CA.CCSS.Math.G4.MD.3",
+      "CA.CCSS.Math.G4.MD.4",
+      "CA.CCSS.Math.G4.MD.5",
+      "CA.CCSS.Math.G4.MD.6",
+      "CA.CCSS.Math.G4.MD.7"
+    ],
+    "itemTargets": {
+      "minimumDraftItems": 6,
+      "representations": [
+        "conversion tables",
+        "protractor reads",
+        "angle decomposition"
+      ],
+      "diagnosticMisconceptions": [
+        "unit conversion direction",
+        "angle size tied to ray length"
+      ],
+      "answerEvidenceRequired": true,
+      "bilingualSupport": false
+    },
+    "authoringRules": [
+      "Create fresh contexts, numbers, names, diagrams, and distractors.",
+      "Use one primary standard/cluster per item unless the item is explicitly tagged as synthesis.",
+      "Include independent solution evidence and source-distance status.",
+      "Do not use IXL skill text, preview stems, screenshot values, or proprietary layout as item content."
+    ]
+  },
+  {
+    "id": "s04-practice-grade-4-4-g-lines-shapes",
+    "packageId": "us-ca-math-rag-v2-candidate",
+    "owner": "S04 practice lead",
+    "upstreamOwner": "S21 content pipeline",
+    "qaOwner": "S18 curriculum QA",
+    "status": "candidate-brief",
+    "curriculumTrack": "US_CA_MATH",
+    "buttonLabel": "Fourth",
+    "maisGrade": "P4",
+    "domainId": "4.G",
+    "domainTitle": "Geometry",
+    "clusterId": "4.G.lines-shapes",
+    "canonicalStandardIds": [
+      "4.G.1",
+      "4.G.2",
+      "4.G.3"
+    ],
+    "maisStandardIds": [
+      "CA.CCSS.Math.G4.G.1",
+      "CA.CCSS.Math.G4.G.2",
+      "CA.CCSS.Math.G4.G.3"
+    ],
+    "itemTargets": {
+      "minimumDraftItems": 6,
+      "representations": [
+        "line marking",
+        "shape classification",
+        "symmetry folds"
+      ],
+      "diagnosticMisconceptions": [
+        "parallel/perpendicular visual orientation only",
+        "symmetry guessed by appearance"
+      ],
+      "answerEvidenceRequired": true,
+      "bilingualSupport": false
+    },
+    "authoringRules": [
+      "Create fresh contexts, numbers, names, diagrams, and distractors.",
+      "Use one primary standard/cluster per item unless the item is explicitly tagged as synthesis.",
+      "Include independent solution evidence and source-distance status.",
+      "Do not use IXL skill text, preview stems, screenshot values, or proprietary layout as item content."
+    ]
+  },
+  {
+    "id": "s04-practice-grade-5-5-oa-expressions-patterns",
+    "packageId": "us-ca-math-rag-v2-candidate",
+    "owner": "S04 practice lead",
+    "upstreamOwner": "S21 content pipeline",
+    "qaOwner": "S18 curriculum QA",
+    "status": "candidate-brief",
+    "curriculumTrack": "US_CA_MATH",
+    "buttonLabel": "Fifth",
+    "maisGrade": "P5",
+    "domainId": "5.OA",
+    "domainTitle": "Operations and Algebraic Thinking",
+    "clusterId": "5.OA.expressions-patterns",
+    "canonicalStandardIds": [
+      "5.OA.1",
+      "5.OA.2",
+      "5.OA.3"
+    ],
+    "maisStandardIds": [
+      "CA.CCSS.Math.G5.OA.1",
+      "CA.CCSS.Math.G5.OA.2",
+      "CA.CCSS.Math.G5.OA.3"
+    ],
+    "itemTargets": {
+      "minimumDraftItems": 6,
+      "representations": [
+        "expression matching",
+        "tables",
+        "coordinate pattern graph"
+      ],
+      "diagnosticMisconceptions": [
+        "order of operations as left-to-right only",
+        "pattern rule inferred from one pair"
+      ],
+      "answerEvidenceRequired": true,
+      "bilingualSupport": false
+    },
+    "authoringRules": [
+      "Create fresh contexts, numbers, names, diagrams, and distractors.",
+      "Use one primary standard/cluster per item unless the item is explicitly tagged as synthesis.",
+      "Include independent solution evidence and source-distance status.",
+      "Do not use IXL skill text, preview stems, screenshot values, or proprietary layout as item content."
+    ]
+  },
+  {
+    "id": "s04-practice-grade-5-5-nbt-decimals",
+    "packageId": "us-ca-math-rag-v2-candidate",
+    "owner": "S04 practice lead",
+    "upstreamOwner": "S21 content pipeline",
+    "qaOwner": "S18 curriculum QA",
+    "status": "candidate-brief",
+    "curriculumTrack": "US_CA_MATH",
+    "buttonLabel": "Fifth",
+    "maisGrade": "P5",
+    "domainId": "5.NBT",
+    "domainTitle": "Number and Operations in Base Ten",
+    "clusterId": "5.NBT.decimals",
+    "canonicalStandardIds": [
+      "5.NBT.1",
+      "5.NBT.2",
+      "5.NBT.3",
+      "5.NBT.4",
+      "5.NBT.5",
+      "5.NBT.6",
+      "5.NBT.7"
+    ],
+    "maisStandardIds": [
+      "CA.CCSS.Math.G5.NBT.1",
+      "CA.CCSS.Math.G5.NBT.2",
+      "CA.CCSS.Math.G5.NBT.3",
+      "CA.CCSS.Math.G5.NBT.4",
+      "CA.CCSS.Math.G5.NBT.5",
+      "CA.CCSS.Math.G5.NBT.6",
+      "CA.CCSS.Math.G5.NBT.7"
+    ],
+    "itemTargets": {
+      "minimumDraftItems": 6,
+      "representations": [
+        "decimal grids",
+        "place-value charts",
+        "standard algorithms with explanation"
+      ],
+      "diagnosticMisconceptions": [
+        "decimal place shift direction",
+        "aligning digits instead of place values"
+      ],
+      "answerEvidenceRequired": true,
+      "bilingualSupport": false
+    },
+    "authoringRules": [
+      "Create fresh contexts, numbers, names, diagrams, and distractors.",
+      "Use one primary standard/cluster per item unless the item is explicitly tagged as synthesis.",
+      "Include independent solution evidence and source-distance status.",
+      "Do not use IXL skill text, preview stems, screenshot values, or proprietary layout as item content."
+    ]
+  },
+  {
+    "id": "s04-practice-grade-5-5-nf-operations",
+    "packageId": "us-ca-math-rag-v2-candidate",
+    "owner": "S04 practice lead",
+    "upstreamOwner": "S21 content pipeline",
+    "qaOwner": "S18 curriculum QA",
+    "status": "candidate-brief",
+    "curriculumTrack": "US_CA_MATH",
+    "buttonLabel": "Fifth",
+    "maisGrade": "P5",
+    "domainId": "5.NF",
+    "domainTitle": "Number and Operations - Fractions",
+    "clusterId": "5.NF.operations",
+    "canonicalStandardIds": [
+      "5.NF.1",
+      "5.NF.2",
+      "5.NF.3",
+      "5.NF.4",
+      "5.NF.5",
+      "5.NF.6",
+      "5.NF.7"
+    ],
+    "maisStandardIds": [
+      "CA.CCSS.Math.G5.NF.1",
+      "CA.CCSS.Math.G5.NF.2",
+      "CA.CCSS.Math.G5.NF.3",
+      "CA.CCSS.Math.G5.NF.4",
+      "CA.CCSS.Math.G5.NF.5",
+      "CA.CCSS.Math.G5.NF.6",
+      "CA.CCSS.Math.G5.NF.7"
+    ],
+    "itemTargets": {
+      "minimumDraftItems": 6,
+      "representations": [
+        "area models",
+        "tape diagrams",
+        "division by unit fractions"
+      ],
+      "diagnosticMisconceptions": [
+        "adding denominators",
+        "fraction multiplication always makes larger"
+      ],
+      "answerEvidenceRequired": true,
+      "bilingualSupport": false
+    },
+    "authoringRules": [
+      "Create fresh contexts, numbers, names, diagrams, and distractors.",
+      "Use one primary standard/cluster per item unless the item is explicitly tagged as synthesis.",
+      "Include independent solution evidence and source-distance status.",
+      "Do not use IXL skill text, preview stems, screenshot values, or proprietary layout as item content."
+    ]
+  },
+  {
+    "id": "s04-practice-grade-5-5-md-volume-data",
+    "packageId": "us-ca-math-rag-v2-candidate",
+    "owner": "S04 practice lead",
+    "upstreamOwner": "S21 content pipeline",
+    "qaOwner": "S18 curriculum QA",
+    "status": "candidate-brief",
+    "curriculumTrack": "US_CA_MATH",
+    "buttonLabel": "Fifth",
+    "maisGrade": "P5",
+    "domainId": "5.MD",
+    "domainTitle": "Measurement and Data",
+    "clusterId": "5.MD.volume-data",
+    "canonicalStandardIds": [
+      "5.MD.1",
+      "5.MD.2",
+      "5.MD.3",
+      "5.MD.4",
+      "5.MD.5"
+    ],
+    "maisStandardIds": [
+      "CA.CCSS.Math.G5.MD.1",
+      "CA.CCSS.Math.G5.MD.2",
+      "CA.CCSS.Math.G5.MD.3",
+      "CA.CCSS.Math.G5.MD.4",
+      "CA.CCSS.Math.G5.MD.5"
+    ],
+    "itemTargets": {
+      "minimumDraftItems": 6,
+      "representations": [
+        "unit cube builds",
+        "volume decomposition",
+        "line plots"
+      ],
+      "diagnosticMisconceptions": [
+        "volume as surface area",
+        "unit cube count not linked to formula"
+      ],
+      "answerEvidenceRequired": true,
+      "bilingualSupport": false
+    },
+    "authoringRules": [
+      "Create fresh contexts, numbers, names, diagrams, and distractors.",
+      "Use one primary standard/cluster per item unless the item is explicitly tagged as synthesis.",
+      "Include independent solution evidence and source-distance status.",
+      "Do not use IXL skill text, preview stems, screenshot values, or proprietary layout as item content."
+    ]
+  },
+  {
+    "id": "s04-practice-grade-5-5-g-coordinate-shapes",
+    "packageId": "us-ca-math-rag-v2-candidate",
+    "owner": "S04 practice lead",
+    "upstreamOwner": "S21 content pipeline",
+    "qaOwner": "S18 curriculum QA",
+    "status": "candidate-brief",
+    "curriculumTrack": "US_CA_MATH",
+    "buttonLabel": "Fifth",
+    "maisGrade": "P5",
+    "domainId": "5.G",
+    "domainTitle": "Geometry",
+    "clusterId": "5.G.coordinate-shapes",
+    "canonicalStandardIds": [
+      "5.G.1",
+      "5.G.2",
+      "5.G.3",
+      "5.G.4"
+    ],
+    "maisStandardIds": [
+      "CA.CCSS.Math.G5.G.1",
+      "CA.CCSS.Math.G5.G.2",
+      "CA.CCSS.Math.G5.G.3",
+      "CA.CCSS.Math.G5.G.4"
+    ],
+    "itemTargets": {
+      "minimumDraftItems": 6,
+      "representations": [
+        "coordinate plotting",
+        "shape hierarchy sort"
+      ],
+      "diagnosticMisconceptions": [
+        "x/y coordinate reversal",
+        "hierarchical categories missed"
+      ],
+      "answerEvidenceRequired": true,
+      "bilingualSupport": false
+    },
+    "authoringRules": [
+      "Create fresh contexts, numbers, names, diagrams, and distractors.",
+      "Use one primary standard/cluster per item unless the item is explicitly tagged as synthesis.",
+      "Include independent solution evidence and source-distance status.",
+      "Do not use IXL skill text, preview stems, screenshot values, or proprietary layout as item content."
+    ]
+  },
+  {
+    "id": "s04-practice-grade-6-6-rp-ratios",
+    "packageId": "us-ca-math-rag-v2-candidate",
+    "owner": "S04 practice lead",
+    "upstreamOwner": "S21 content pipeline",
+    "qaOwner": "S18 curriculum QA",
+    "status": "candidate-brief",
+    "curriculumTrack": "US_CA_MATH",
+    "buttonLabel": "Sixth",
+    "maisGrade": "P6",
+    "domainId": "6.RP",
+    "domainTitle": "Ratios and Proportional Relationships",
+    "clusterId": "6.RP.ratios",
+    "canonicalStandardIds": [
+      "6.RP.1",
+      "6.RP.2",
+      "6.RP.3"
+    ],
+    "maisStandardIds": [
+      "CA.CCSS.Math.G6.RP.1",
+      "CA.CCSS.Math.G6.RP.2",
+      "CA.CCSS.Math.G6.RP.3"
+    ],
+    "itemTargets": {
+      "minimumDraftItems": 6,
+      "representations": [
+        "double number lines",
+        "ratio tables",
+        "tape diagrams"
+      ],
+      "diagnosticMisconceptions": [
+        "ratio order reversed",
+        "unit rate not normalized"
+      ],
+      "answerEvidenceRequired": true,
+      "bilingualSupport": false
+    },
+    "authoringRules": [
+      "Create fresh contexts, numbers, names, diagrams, and distractors.",
+      "Use one primary standard/cluster per item unless the item is explicitly tagged as synthesis.",
+      "Include independent solution evidence and source-distance status.",
+      "Do not use IXL skill text, preview stems, screenshot values, or proprietary layout as item content."
+    ]
+  },
+  {
+    "id": "s04-practice-grade-6-6-ns-rational-numbers",
+    "packageId": "us-ca-math-rag-v2-candidate",
+    "owner": "S04 practice lead",
+    "upstreamOwner": "S21 content pipeline",
+    "qaOwner": "S18 curriculum QA",
+    "status": "candidate-brief",
+    "curriculumTrack": "US_CA_MATH",
+    "buttonLabel": "Sixth",
+    "maisGrade": "P6",
+    "domainId": "6.NS",
+    "domainTitle": "The Number System",
+    "clusterId": "6.NS.rational-numbers",
+    "canonicalStandardIds": [
+      "6.NS.1",
+      "6.NS.2",
+      "6.NS.3",
+      "6.NS.4",
+      "6.NS.5",
+      "6.NS.6",
+      "6.NS.7",
+      "6.NS.8"
+    ],
+    "maisStandardIds": [
+      "CA.CCSS.Math.G6.NS.1",
+      "CA.CCSS.Math.G6.NS.2",
+      "CA.CCSS.Math.G6.NS.3",
+      "CA.CCSS.Math.G6.NS.4",
+      "CA.CCSS.Math.G6.NS.5",
+      "CA.CCSS.Math.G6.NS.6",
+      "CA.CCSS.Math.G6.NS.7",
+      "CA.CCSS.Math.G6.NS.8"
+    ],
+    "itemTargets": {
+      "minimumDraftItems": 6,
+      "representations": [
+        "number lines",
+        "coordinate plane",
+        "gcf/lcm contexts"
+      ],
+      "diagnosticMisconceptions": [
+        "absolute value as negative",
+        "integer order on number line"
+      ],
+      "answerEvidenceRequired": true,
+      "bilingualSupport": false
+    },
+    "authoringRules": [
+      "Create fresh contexts, numbers, names, diagrams, and distractors.",
+      "Use one primary standard/cluster per item unless the item is explicitly tagged as synthesis.",
+      "Include independent solution evidence and source-distance status.",
+      "Do not use IXL skill text, preview stems, screenshot values, or proprietary layout as item content."
+    ]
+  },
+  {
+    "id": "s04-practice-grade-6-6-ee-expressions-equations",
+    "packageId": "us-ca-math-rag-v2-candidate",
+    "owner": "S04 practice lead",
+    "upstreamOwner": "S21 content pipeline",
+    "qaOwner": "S18 curriculum QA",
+    "status": "candidate-brief",
+    "curriculumTrack": "US_CA_MATH",
+    "buttonLabel": "Sixth",
+    "maisGrade": "P6",
+    "domainId": "6.EE",
+    "domainTitle": "Expressions and Equations",
+    "clusterId": "6.EE.expressions-equations",
+    "canonicalStandardIds": [
+      "6.EE.1",
+      "6.EE.2",
+      "6.EE.3",
+      "6.EE.4",
+      "6.EE.5",
+      "6.EE.6",
+      "6.EE.7",
+      "6.EE.8",
+      "6.EE.9"
+    ],
+    "maisStandardIds": [
+      "CA.CCSS.Math.G6.EE.1",
+      "CA.CCSS.Math.G6.EE.2",
+      "CA.CCSS.Math.G6.EE.3",
+      "CA.CCSS.Math.G6.EE.4",
+      "CA.CCSS.Math.G6.EE.5",
+      "CA.CCSS.Math.G6.EE.6",
+      "CA.CCSS.Math.G6.EE.7",
+      "CA.CCSS.Math.G6.EE.8",
+      "CA.CCSS.Math.G6.EE.9"
+    ],
+    "itemTargets": {
+      "minimumDraftItems": 6,
+      "representations": [
+        "substitution",
+        "equivalent expressions",
+        "one-step equations"
+      ],
+      "diagnosticMisconceptions": [
+        "variable as label only",
+        "solution check skipped"
+      ],
+      "answerEvidenceRequired": true,
+      "bilingualSupport": false
+    },
+    "authoringRules": [
+      "Create fresh contexts, numbers, names, diagrams, and distractors.",
+      "Use one primary standard/cluster per item unless the item is explicitly tagged as synthesis.",
+      "Include independent solution evidence and source-distance status.",
+      "Do not use IXL skill text, preview stems, screenshot values, or proprietary layout as item content."
+    ]
+  },
+  {
+    "id": "s04-practice-grade-6-6-g-area-volume",
+    "packageId": "us-ca-math-rag-v2-candidate",
+    "owner": "S04 practice lead",
+    "upstreamOwner": "S21 content pipeline",
+    "qaOwner": "S18 curriculum QA",
+    "status": "candidate-brief",
+    "curriculumTrack": "US_CA_MATH",
+    "buttonLabel": "Sixth",
+    "maisGrade": "P6",
+    "domainId": "6.G",
+    "domainTitle": "Geometry",
+    "clusterId": "6.G.area-volume",
+    "canonicalStandardIds": [
+      "6.G.1",
+      "6.G.2",
+      "6.G.3",
+      "6.G.4"
+    ],
+    "maisStandardIds": [
+      "CA.CCSS.Math.G6.G.1",
+      "CA.CCSS.Math.G6.G.2",
+      "CA.CCSS.Math.G6.G.3",
+      "CA.CCSS.Math.G6.G.4"
+    ],
+    "itemTargets": {
+      "minimumDraftItems": 6,
+      "representations": [
+        "nets",
+        "polygon decomposition",
+        "coordinate vertices"
+      ],
+      "diagnosticMisconceptions": [
+        "surface area versus volume",
+        "coordinate sign errors"
+      ],
+      "answerEvidenceRequired": true,
+      "bilingualSupport": false
+    },
+    "authoringRules": [
+      "Create fresh contexts, numbers, names, diagrams, and distractors.",
+      "Use one primary standard/cluster per item unless the item is explicitly tagged as synthesis.",
+      "Include independent solution evidence and source-distance status.",
+      "Do not use IXL skill text, preview stems, screenshot values, or proprietary layout as item content."
+    ]
+  },
+  {
+    "id": "s04-practice-grade-6-6-sp-distributions",
+    "packageId": "us-ca-math-rag-v2-candidate",
+    "owner": "S04 practice lead",
+    "upstreamOwner": "S21 content pipeline",
+    "qaOwner": "S18 curriculum QA",
+    "status": "candidate-brief",
+    "curriculumTrack": "US_CA_MATH",
+    "buttonLabel": "Sixth",
+    "maisGrade": "P6",
+    "domainId": "6.SP",
+    "domainTitle": "Statistics and Probability",
+    "clusterId": "6.SP.distributions",
+    "canonicalStandardIds": [
+      "6.SP.1",
+      "6.SP.2",
+      "6.SP.3",
+      "6.SP.4",
+      "6.SP.5"
+    ],
+    "maisStandardIds": [
+      "CA.CCSS.Math.G6.SP.1",
+      "CA.CCSS.Math.G6.SP.2",
+      "CA.CCSS.Math.G6.SP.3",
+      "CA.CCSS.Math.G6.SP.4",
+      "CA.CCSS.Math.G6.SP.5"
+    ],
+    "itemTargets": {
+      "minimumDraftItems": 6,
+      "representations": [
+        "dot plots",
+        "histograms",
+        "box plots",
+        "summary measures"
+      ],
+      "diagnosticMisconceptions": [
+        "mean as always typical",
+        "range as only variability"
+      ],
+      "answerEvidenceRequired": true,
+      "bilingualSupport": false
+    },
+    "authoringRules": [
+      "Create fresh contexts, numbers, names, diagrams, and distractors.",
+      "Use one primary standard/cluster per item unless the item is explicitly tagged as synthesis.",
+      "Include independent solution evidence and source-distance status.",
+      "Do not use IXL skill text, preview stems, screenshot values, or proprietary layout as item content."
+    ]
+  },
+  {
+    "id": "s04-practice-grade-7-7-rp-proportions",
+    "packageId": "us-ca-math-rag-v2-candidate",
+    "owner": "S04 practice lead",
+    "upstreamOwner": "S21 content pipeline",
+    "qaOwner": "S18 curriculum QA",
+    "status": "candidate-brief",
+    "curriculumTrack": "US_CA_MATH",
+    "buttonLabel": "Seventh",
+    "maisGrade": "S1",
+    "domainId": "7.RP",
+    "domainTitle": "Ratios and Proportional Relationships",
+    "clusterId": "7.RP.proportions",
+    "canonicalStandardIds": [
+      "7.RP.1",
+      "7.RP.2",
+      "7.RP.3"
+    ],
+    "maisStandardIds": [
+      "CA.CCSS.Math.G7.RP.1",
+      "CA.CCSS.Math.G7.RP.2",
+      "CA.CCSS.Math.G7.RP.3"
+    ],
+    "itemTargets": {
+      "minimumDraftItems": 6,
+      "representations": [
+        "graphs through origin",
+        "unit rates",
+        "percent change"
+      ],
+      "diagnosticMisconceptions": [
+        "linear but non-proportional treated as proportional"
+      ],
+      "answerEvidenceRequired": true,
+      "bilingualSupport": false
+    },
+    "authoringRules": [
+      "Create fresh contexts, numbers, names, diagrams, and distractors.",
+      "Use one primary standard/cluster per item unless the item is explicitly tagged as synthesis.",
+      "Include independent solution evidence and source-distance status.",
+      "Do not use IXL skill text, preview stems, screenshot values, or proprietary layout as item content."
+    ]
+  },
+  {
+    "id": "s04-practice-grade-7-7-ns-rational-operations",
+    "packageId": "us-ca-math-rag-v2-candidate",
+    "owner": "S04 practice lead",
+    "upstreamOwner": "S21 content pipeline",
+    "qaOwner": "S18 curriculum QA",
+    "status": "candidate-brief",
+    "curriculumTrack": "US_CA_MATH",
+    "buttonLabel": "Seventh",
+    "maisGrade": "S1",
+    "domainId": "7.NS",
+    "domainTitle": "The Number System",
+    "clusterId": "7.NS.rational-operations",
+    "canonicalStandardIds": [
+      "7.NS.1",
+      "7.NS.2",
+      "7.NS.3"
+    ],
+    "maisStandardIds": [
+      "CA.CCSS.Math.G7.NS.1",
+      "CA.CCSS.Math.G7.NS.2",
+      "CA.CCSS.Math.G7.NS.3"
+    ],
+    "itemTargets": {
+      "minimumDraftItems": 6,
+      "representations": [
+        "number-line operations",
+        "contextual profit/loss",
+        "error analysis"
+      ],
+      "diagnosticMisconceptions": [
+        "subtracting negatives",
+        "multiplication sign rules memorized without model"
+      ],
+      "answerEvidenceRequired": true,
+      "bilingualSupport": false
+    },
+    "authoringRules": [
+      "Create fresh contexts, numbers, names, diagrams, and distractors.",
+      "Use one primary standard/cluster per item unless the item is explicitly tagged as synthesis.",
+      "Include independent solution evidence and source-distance status.",
+      "Do not use IXL skill text, preview stems, screenshot values, or proprietary layout as item content."
+    ]
+  },
+  {
+    "id": "s04-practice-grade-7-7-ee-linear-expressions",
+    "packageId": "us-ca-math-rag-v2-candidate",
+    "owner": "S04 practice lead",
+    "upstreamOwner": "S21 content pipeline",
+    "qaOwner": "S18 curriculum QA",
+    "status": "candidate-brief",
+    "curriculumTrack": "US_CA_MATH",
+    "buttonLabel": "Seventh",
+    "maisGrade": "S1",
+    "domainId": "7.EE",
+    "domainTitle": "Expressions and Equations",
+    "clusterId": "7.EE.linear-expressions",
+    "canonicalStandardIds": [
+      "7.EE.1",
+      "7.EE.2",
+      "7.EE.3",
+      "7.EE.4"
+    ],
+    "maisStandardIds": [
+      "CA.CCSS.Math.G7.EE.1",
+      "CA.CCSS.Math.G7.EE.2",
+      "CA.CCSS.Math.G7.EE.3",
+      "CA.CCSS.Math.G7.EE.4"
+    ],
+    "itemTargets": {
+      "minimumDraftItems": 6,
+      "representations": [
+        "expression comparison",
+        "multi-step equations",
+        "inequality graphs"
+      ],
+      "diagnosticMisconceptions": [
+        "distributive property direction",
+        "inequality boundary inclusion"
+      ],
+      "answerEvidenceRequired": true,
+      "bilingualSupport": false
+    },
+    "authoringRules": [
+      "Create fresh contexts, numbers, names, diagrams, and distractors.",
+      "Use one primary standard/cluster per item unless the item is explicitly tagged as synthesis.",
+      "Include independent solution evidence and source-distance status.",
+      "Do not use IXL skill text, preview stems, screenshot values, or proprietary layout as item content."
+    ]
+  },
+  {
+    "id": "s04-practice-grade-7-7-g-scale-circles-angles",
+    "packageId": "us-ca-math-rag-v2-candidate",
+    "owner": "S04 practice lead",
+    "upstreamOwner": "S21 content pipeline",
+    "qaOwner": "S18 curriculum QA",
+    "status": "candidate-brief",
+    "curriculumTrack": "US_CA_MATH",
+    "buttonLabel": "Seventh",
+    "maisGrade": "S1",
+    "domainId": "7.G",
+    "domainTitle": "Geometry",
+    "clusterId": "7.G.scale-circles-angles",
+    "canonicalStandardIds": [
+      "7.G.1",
+      "7.G.2",
+      "7.G.3",
+      "7.G.4",
+      "7.G.5",
+      "7.G.6"
+    ],
+    "maisStandardIds": [
+      "CA.CCSS.Math.G7.G.1",
+      "CA.CCSS.Math.G7.G.2",
+      "CA.CCSS.Math.G7.G.3",
+      "CA.CCSS.Math.G7.G.4",
+      "CA.CCSS.Math.G7.G.5",
+      "CA.CCSS.Math.G7.G.6"
+    ],
+    "itemTargets": {
+      "minimumDraftItems": 6,
+      "representations": [
+        "scale drawings",
+        "circle formulas",
+        "angle equations"
+      ],
+      "diagnosticMisconceptions": [
+        "scale factor applied additively",
+        "diameter/radius confusion"
+      ],
+      "answerEvidenceRequired": true,
+      "bilingualSupport": false
+    },
+    "authoringRules": [
+      "Create fresh contexts, numbers, names, diagrams, and distractors.",
+      "Use one primary standard/cluster per item unless the item is explicitly tagged as synthesis.",
+      "Include independent solution evidence and source-distance status.",
+      "Do not use IXL skill text, preview stems, screenshot values, or proprietary layout as item content."
+    ]
+  },
+  {
+    "id": "s04-practice-grade-7-7-sp-inference-probability",
+    "packageId": "us-ca-math-rag-v2-candidate",
+    "owner": "S04 practice lead",
+    "upstreamOwner": "S21 content pipeline",
+    "qaOwner": "S18 curriculum QA",
+    "status": "candidate-brief",
+    "curriculumTrack": "US_CA_MATH",
+    "buttonLabel": "Seventh",
+    "maisGrade": "S1",
+    "domainId": "7.SP",
+    "domainTitle": "Statistics and Probability",
+    "clusterId": "7.SP.inference-probability",
+    "canonicalStandardIds": [
+      "7.SP.1",
+      "7.SP.2",
+      "7.SP.3",
+      "7.SP.4",
+      "7.SP.5",
+      "7.SP.6",
+      "7.SP.7",
+      "7.SP.8"
+    ],
+    "maisStandardIds": [
+      "CA.CCSS.Math.G7.SP.1",
+      "CA.CCSS.Math.G7.SP.2",
+      "CA.CCSS.Math.G7.SP.3",
+      "CA.CCSS.Math.G7.SP.4",
+      "CA.CCSS.Math.G7.SP.5",
+      "CA.CCSS.Math.G7.SP.6",
+      "CA.CCSS.Math.G7.SP.7",
+      "CA.CCSS.Math.G7.SP.8"
+    ],
+    "itemTargets": {
+      "minimumDraftItems": 6,
+      "representations": [
+        "simulations",
+        "sample comparisons",
+        "tree diagrams"
+      ],
+      "diagnosticMisconceptions": [
+        "sample bias ignored",
+        "probability as guaranteed outcome"
+      ],
+      "answerEvidenceRequired": true,
+      "bilingualSupport": false
+    },
+    "authoringRules": [
+      "Create fresh contexts, numbers, names, diagrams, and distractors.",
+      "Use one primary standard/cluster per item unless the item is explicitly tagged as synthesis.",
+      "Include independent solution evidence and source-distance status.",
+      "Do not use IXL skill text, preview stems, screenshot values, or proprietary layout as item content."
+    ]
+  },
+  {
+    "id": "s04-practice-grade-8-8-ns-real-numbers",
+    "packageId": "us-ca-math-rag-v2-candidate",
+    "owner": "S04 practice lead",
+    "upstreamOwner": "S21 content pipeline",
+    "qaOwner": "S18 curriculum QA",
+    "status": "candidate-brief",
+    "curriculumTrack": "US_CA_MATH",
+    "buttonLabel": "Eighth",
+    "maisGrade": "S2",
+    "domainId": "8.NS",
+    "domainTitle": "The Number System",
+    "clusterId": "8.NS.real-numbers",
+    "canonicalStandardIds": [
+      "8.NS.1",
+      "8.NS.2"
+    ],
+    "maisStandardIds": [
+      "CA.CCSS.Math.G8.NS.1",
+      "CA.CCSS.Math.G8.NS.2"
+    ],
+    "itemTargets": {
+      "minimumDraftItems": 6,
+      "representations": [
+        "decimal expansions",
+        "number-line estimates"
+      ],
+      "diagnosticMisconceptions": [
+        "non-terminating means irrational",
+        "square-root estimate off by place"
+      ],
+      "answerEvidenceRequired": true,
+      "bilingualSupport": false
+    },
+    "authoringRules": [
+      "Create fresh contexts, numbers, names, diagrams, and distractors.",
+      "Use one primary standard/cluster per item unless the item is explicitly tagged as synthesis.",
+      "Include independent solution evidence and source-distance status.",
+      "Do not use IXL skill text, preview stems, screenshot values, or proprietary layout as item content."
+    ]
+  },
+  {
+    "id": "s04-practice-grade-8-8-ee-exponents-linear-systems",
+    "packageId": "us-ca-math-rag-v2-candidate",
+    "owner": "S04 practice lead",
+    "upstreamOwner": "S21 content pipeline",
+    "qaOwner": "S18 curriculum QA",
+    "status": "candidate-brief",
+    "curriculumTrack": "US_CA_MATH",
+    "buttonLabel": "Eighth",
+    "maisGrade": "S2",
+    "domainId": "8.EE",
+    "domainTitle": "Expressions and Equations",
+    "clusterId": "8.EE.exponents-linear-systems",
+    "canonicalStandardIds": [
+      "8.EE.1",
+      "8.EE.2",
+      "8.EE.3",
+      "8.EE.4",
+      "8.EE.5",
+      "8.EE.6",
+      "8.EE.7",
+      "8.EE.8"
+    ],
+    "maisStandardIds": [
+      "CA.CCSS.Math.G8.EE.1",
+      "CA.CCSS.Math.G8.EE.2",
+      "CA.CCSS.Math.G8.EE.3",
+      "CA.CCSS.Math.G8.EE.4",
+      "CA.CCSS.Math.G8.EE.5",
+      "CA.CCSS.Math.G8.EE.6",
+      "CA.CCSS.Math.G8.EE.7",
+      "CA.CCSS.Math.G8.EE.8"
+    ],
+    "itemTargets": {
+      "minimumDraftItems": 6,
+      "representations": [
+        "scientific notation contexts",
+        "linear graphs",
+        "system intersections"
+      ],
+      "diagnosticMisconceptions": [
+        "negative exponent as negative value",
+        "slope as y-intercept"
+      ],
+      "answerEvidenceRequired": true,
+      "bilingualSupport": false
+    },
+    "authoringRules": [
+      "Create fresh contexts, numbers, names, diagrams, and distractors.",
+      "Use one primary standard/cluster per item unless the item is explicitly tagged as synthesis.",
+      "Include independent solution evidence and source-distance status.",
+      "Do not use IXL skill text, preview stems, screenshot values, or proprietary layout as item content."
+    ]
+  },
+  {
+    "id": "s04-practice-grade-8-8-f-function-relationships",
+    "packageId": "us-ca-math-rag-v2-candidate",
+    "owner": "S04 practice lead",
+    "upstreamOwner": "S21 content pipeline",
+    "qaOwner": "S18 curriculum QA",
+    "status": "candidate-brief",
+    "curriculumTrack": "US_CA_MATH",
+    "buttonLabel": "Eighth",
+    "maisGrade": "S2",
+    "domainId": "8.F",
+    "domainTitle": "Functions",
+    "clusterId": "8.F.function-relationships",
+    "canonicalStandardIds": [
+      "8.F.1",
+      "8.F.2",
+      "8.F.3",
+      "8.F.4",
+      "8.F.5"
+    ],
+    "maisStandardIds": [
+      "CA.CCSS.Math.G8.F.1",
+      "CA.CCSS.Math.G8.F.2",
+      "CA.CCSS.Math.G8.F.3",
+      "CA.CCSS.Math.G8.F.4",
+      "CA.CCSS.Math.G8.F.5"
+    ],
+    "itemTargets": {
+      "minimumDraftItems": 6,
+      "representations": [
+        "tables graphs equations",
+        "function comparison",
+        "verbal interpretation"
+      ],
+      "diagnosticMisconceptions": [
+        "any graph is a function",
+        "rate of change confused with output"
+      ],
+      "answerEvidenceRequired": true,
+      "bilingualSupport": false
+    },
+    "authoringRules": [
+      "Create fresh contexts, numbers, names, diagrams, and distractors.",
+      "Use one primary standard/cluster per item unless the item is explicitly tagged as synthesis.",
+      "Include independent solution evidence and source-distance status.",
+      "Do not use IXL skill text, preview stems, screenshot values, or proprietary layout as item content."
+    ]
+  },
+  {
+    "id": "s04-practice-grade-8-8-g-transformations-pythagorean-volume",
+    "packageId": "us-ca-math-rag-v2-candidate",
+    "owner": "S04 practice lead",
+    "upstreamOwner": "S21 content pipeline",
+    "qaOwner": "S18 curriculum QA",
+    "status": "candidate-brief",
+    "curriculumTrack": "US_CA_MATH",
+    "buttonLabel": "Eighth",
+    "maisGrade": "S2",
+    "domainId": "8.G",
+    "domainTitle": "Geometry",
+    "clusterId": "8.G.transformations-pythagorean-volume",
+    "canonicalStandardIds": [
+      "8.G.1",
+      "8.G.2",
+      "8.G.3",
+      "8.G.4",
+      "8.G.5",
+      "8.G.6",
+      "8.G.7",
+      "8.G.8",
+      "8.G.9"
+    ],
+    "maisStandardIds": [
+      "CA.CCSS.Math.G8.G.1",
+      "CA.CCSS.Math.G8.G.2",
+      "CA.CCSS.Math.G8.G.3",
+      "CA.CCSS.Math.G8.G.4",
+      "CA.CCSS.Math.G8.G.5",
+      "CA.CCSS.Math.G8.G.6",
+      "CA.CCSS.Math.G8.G.7",
+      "CA.CCSS.Math.G8.G.8",
+      "CA.CCSS.Math.G8.G.9"
+    ],
+    "itemTargets": {
+      "minimumDraftItems": 6,
+      "representations": [
+        "coordinate transformations",
+        "proof prompts",
+        "Pythagorean distance"
+      ],
+      "diagnosticMisconceptions": [
+        "rotation direction",
+        "similarity versus congruence"
+      ],
+      "answerEvidenceRequired": true,
+      "bilingualSupport": false
+    },
+    "authoringRules": [
+      "Create fresh contexts, numbers, names, diagrams, and distractors.",
+      "Use one primary standard/cluster per item unless the item is explicitly tagged as synthesis.",
+      "Include independent solution evidence and source-distance status.",
+      "Do not use IXL skill text, preview stems, screenshot values, or proprietary layout as item content."
+    ]
+  },
+  {
+    "id": "s04-practice-grade-8-8-sp-bivariate-data",
+    "packageId": "us-ca-math-rag-v2-candidate",
+    "owner": "S04 practice lead",
+    "upstreamOwner": "S21 content pipeline",
+    "qaOwner": "S18 curriculum QA",
+    "status": "candidate-brief",
+    "curriculumTrack": "US_CA_MATH",
+    "buttonLabel": "Eighth",
+    "maisGrade": "S2",
+    "domainId": "8.SP",
+    "domainTitle": "Statistics and Probability",
+    "clusterId": "8.SP.bivariate-data",
+    "canonicalStandardIds": [
+      "8.SP.1",
+      "8.SP.2",
+      "8.SP.3",
+      "8.SP.4"
+    ],
+    "maisStandardIds": [
+      "CA.CCSS.Math.G8.SP.1",
+      "CA.CCSS.Math.G8.SP.2",
+      "CA.CCSS.Math.G8.SP.3",
+      "CA.CCSS.Math.G8.SP.4"
+    ],
+    "itemTargets": {
+      "minimumDraftItems": 6,
+      "representations": [
+        "scatter plots",
+        "trend lines",
+        "two-way tables"
+      ],
+      "diagnosticMisconceptions": [
+        "correlation as causation",
+        "outlier ignored"
+      ],
+      "answerEvidenceRequired": true,
+      "bilingualSupport": false
+    },
+    "authoringRules": [
+      "Create fresh contexts, numbers, names, diagrams, and distractors.",
+      "Use one primary standard/cluster per item unless the item is explicitly tagged as synthesis.",
+      "Include independent solution evidence and source-distance status.",
+      "Do not use IXL skill text, preview stems, screenshot values, or proprietary layout as item content."
+    ]
+  },
+  {
+    "id": "s04-practice-high-school-n-rn-exponents-rationals",
+    "packageId": "us-ca-math-rag-v2-candidate",
+    "owner": "S04 practice lead",
+    "upstreamOwner": "S21 content pipeline",
+    "qaOwner": "S18 curriculum QA",
+    "status": "candidate-brief",
+    "curriculumTrack": "US_CA_MATH",
+    "buttonLabel": "High school",
+    "maisGrade": "S3-S6",
+    "domainId": "N-RN",
+    "domainTitle": "Number and Quantity - Real Number System",
+    "clusterId": "N-RN.exponents-rationals",
+    "canonicalStandardIds": [
+      "N-RN.1",
+      "N-RN.2",
+      "N-RN.3"
+    ],
+    "maisStandardIds": [
+      "CA.CCSS.Math.HS.N-RN.1",
+      "CA.CCSS.Math.HS.N-RN.2",
+      "CA.CCSS.Math.HS.N-RN.3"
+    ],
+    "itemTargets": {
+      "minimumDraftItems": 8,
+      "representations": [
+        "equivalent forms",
+        "proof-style justification"
+      ],
+      "diagnosticMisconceptions": [
+        "rational exponent notation mismatch"
+      ],
+      "answerEvidenceRequired": true,
+      "bilingualSupport": false
+    },
+    "authoringRules": [
+      "Create fresh contexts, numbers, names, diagrams, and distractors.",
+      "Use one primary standard/cluster per item unless the item is explicitly tagged as synthesis.",
+      "Include independent solution evidence and source-distance status.",
+      "Do not use IXL skill text, preview stems, screenshot values, or proprietary layout as item content."
+    ]
+  },
+  {
+    "id": "s04-practice-high-school-n-q-units",
+    "packageId": "us-ca-math-rag-v2-candidate",
+    "owner": "S04 practice lead",
+    "upstreamOwner": "S21 content pipeline",
+    "qaOwner": "S18 curriculum QA",
+    "status": "candidate-brief",
+    "curriculumTrack": "US_CA_MATH",
+    "buttonLabel": "High school",
+    "maisGrade": "S3-S6",
+    "domainId": "N-Q",
+    "domainTitle": "Number and Quantity - Quantities",
+    "clusterId": "N-Q.units",
+    "canonicalStandardIds": [
+      "N-Q.1",
+      "N-Q.2",
+      "N-Q.3"
+    ],
+    "maisStandardIds": [
+      "CA.CCSS.Math.HS.N-Q.1",
+      "CA.CCSS.Math.HS.N-Q.2",
+      "CA.CCSS.Math.HS.N-Q.3"
+    ],
+    "itemTargets": {
+      "minimumDraftItems": 8,
+      "representations": [
+        "dimensional analysis",
+        "model variable definition"
+      ],
+      "diagnosticMisconceptions": [
+        "unit-free answers",
+        "precision overstated"
+      ],
+      "answerEvidenceRequired": true,
+      "bilingualSupport": false
+    },
+    "authoringRules": [
+      "Create fresh contexts, numbers, names, diagrams, and distractors.",
+      "Use one primary standard/cluster per item unless the item is explicitly tagged as synthesis.",
+      "Include independent solution evidence and source-distance status.",
+      "Do not use IXL skill text, preview stems, screenshot values, or proprietary layout as item content."
+    ]
+  },
+  {
+    "id": "s04-practice-high-school-n-cn-complex",
+    "packageId": "us-ca-math-rag-v2-candidate",
+    "owner": "S04 practice lead",
+    "upstreamOwner": "S21 content pipeline",
+    "qaOwner": "S18 curriculum QA",
+    "status": "candidate-brief",
+    "curriculumTrack": "US_CA_MATH",
+    "buttonLabel": "High school",
+    "maisGrade": "S3-S6",
+    "domainId": "N-CN",
+    "domainTitle": "Number and Quantity - Complex Numbers",
+    "clusterId": "N-CN.complex",
+    "canonicalStandardIds": [
+      "N-CN.1",
+      "N-CN.2",
+      "N-CN.3",
+      "N-CN.4",
+      "N-CN.5",
+      "N-CN.6",
+      "N-CN.7",
+      "N-CN.8",
+      "N-CN.9"
+    ],
+    "maisStandardIds": [
+      "CA.CCSS.Math.HS.N-CN.1",
+      "CA.CCSS.Math.HS.N-CN.2",
+      "CA.CCSS.Math.HS.N-CN.3",
+      "CA.CCSS.Math.HS.N-CN.4",
+      "CA.CCSS.Math.HS.N-CN.5",
+      "CA.CCSS.Math.HS.N-CN.6",
+      "CA.CCSS.Math.HS.N-CN.7",
+      "CA.CCSS.Math.HS.N-CN.8",
+      "CA.CCSS.Math.HS.N-CN.9"
+    ],
+    "itemTargets": {
+      "minimumDraftItems": 8,
+      "representations": [
+        "complex arithmetic",
+        "quadratic roots",
+        "plane representation"
+      ],
+      "diagnosticMisconceptions": [
+        "i treated as variable",
+        "complex solution ignored"
+      ],
+      "answerEvidenceRequired": true,
+      "bilingualSupport": false
+    },
+    "authoringRules": [
+      "Create fresh contexts, numbers, names, diagrams, and distractors.",
+      "Use one primary standard/cluster per item unless the item is explicitly tagged as synthesis.",
+      "Include independent solution evidence and source-distance status.",
+      "Do not use IXL skill text, preview stems, screenshot values, or proprietary layout as item content."
+    ]
+  },
+  {
+    "id": "s04-practice-high-school-n-vm-vectors-matrices",
+    "packageId": "us-ca-math-rag-v2-candidate",
+    "owner": "S04 practice lead",
+    "upstreamOwner": "S21 content pipeline",
+    "qaOwner": "S18 curriculum QA",
+    "status": "candidate-brief",
+    "curriculumTrack": "US_CA_MATH",
+    "buttonLabel": "High school",
+    "maisGrade": "S3-S6",
+    "domainId": "N-VM",
+    "domainTitle": "Number and Quantity - Vector and Matrix Quantities",
+    "clusterId": "N-VM.vectors-matrices",
+    "canonicalStandardIds": [
+      "N-VM.1",
+      "N-VM.2",
+      "N-VM.3",
+      "N-VM.4",
+      "N-VM.5",
+      "N-VM.6",
+      "N-VM.7",
+      "N-VM.8",
+      "N-VM.9",
+      "N-VM.10",
+      "N-VM.11",
+      "N-VM.12"
+    ],
+    "maisStandardIds": [
+      "CA.CCSS.Math.HS.N-VM.1",
+      "CA.CCSS.Math.HS.N-VM.2",
+      "CA.CCSS.Math.HS.N-VM.3",
+      "CA.CCSS.Math.HS.N-VM.4",
+      "CA.CCSS.Math.HS.N-VM.5",
+      "CA.CCSS.Math.HS.N-VM.6",
+      "CA.CCSS.Math.HS.N-VM.7",
+      "CA.CCSS.Math.HS.N-VM.8",
+      "CA.CCSS.Math.HS.N-VM.9",
+      "CA.CCSS.Math.HS.N-VM.10",
+      "CA.CCSS.Math.HS.N-VM.11",
+      "CA.CCSS.Math.HS.N-VM.12"
+    ],
+    "itemTargets": {
+      "minimumDraftItems": 8,
+      "representations": [
+        "vector components",
+        "matrix transformations"
+      ],
+      "diagnosticMisconceptions": [
+        "component direction lost",
+        "matrix multiplication treated commutatively"
+      ],
+      "answerEvidenceRequired": true,
+      "bilingualSupport": false
+    },
+    "authoringRules": [
+      "Create fresh contexts, numbers, names, diagrams, and distractors.",
+      "Use one primary standard/cluster per item unless the item is explicitly tagged as synthesis.",
+      "Include independent solution evidence and source-distance status.",
+      "Do not use IXL skill text, preview stems, screenshot values, or proprietary layout as item content."
+    ]
+  },
+  {
+    "id": "s04-practice-high-school-a-sse-structure",
+    "packageId": "us-ca-math-rag-v2-candidate",
+    "owner": "S04 practice lead",
+    "upstreamOwner": "S21 content pipeline",
+    "qaOwner": "S18 curriculum QA",
+    "status": "candidate-brief",
+    "curriculumTrack": "US_CA_MATH",
+    "buttonLabel": "High school",
+    "maisGrade": "S3-S6",
+    "domainId": "A-SSE",
+    "domainTitle": "Algebra - Seeing Structure in Expressions",
+    "clusterId": "A-SSE.structure",
+    "canonicalStandardIds": [
+      "A-SSE.1",
+      "A-SSE.2",
+      "A-SSE.3",
+      "A-SSE.4"
+    ],
+    "maisStandardIds": [
+      "CA.CCSS.Math.HS.A-SSE.1",
+      "CA.CCSS.Math.HS.A-SSE.2",
+      "CA.CCSS.Math.HS.A-SSE.3",
+      "CA.CCSS.Math.HS.A-SSE.4"
+    ],
+    "itemTargets": {
+      "minimumDraftItems": 8,
+      "representations": [
+        "equivalent expression choice",
+        "structure spotting"
+      ],
+      "diagnosticMisconceptions": [
+        "factoring as cosmetic",
+        "term and factor confused"
+      ],
+      "answerEvidenceRequired": true,
+      "bilingualSupport": false
+    },
+    "authoringRules": [
+      "Create fresh contexts, numbers, names, diagrams, and distractors.",
+      "Use one primary standard/cluster per item unless the item is explicitly tagged as synthesis.",
+      "Include independent solution evidence and source-distance status.",
+      "Do not use IXL skill text, preview stems, screenshot values, or proprietary layout as item content."
+    ]
+  },
+  {
+    "id": "s04-practice-high-school-a-apr-polynomials",
+    "packageId": "us-ca-math-rag-v2-candidate",
+    "owner": "S04 practice lead",
+    "upstreamOwner": "S21 content pipeline",
+    "qaOwner": "S18 curriculum QA",
+    "status": "candidate-brief",
+    "curriculumTrack": "US_CA_MATH",
+    "buttonLabel": "High school",
+    "maisGrade": "S3-S6",
+    "domainId": "A-APR",
+    "domainTitle": "Algebra - Arithmetic with Polynomials and Rational Expressions",
+    "clusterId": "A-APR.polynomials",
+    "canonicalStandardIds": [
+      "A-APR.1",
+      "A-APR.2",
+      "A-APR.3",
+      "A-APR.4",
+      "A-APR.5",
+      "A-APR.6",
+      "A-APR.7"
+    ],
+    "maisStandardIds": [
+      "CA.CCSS.Math.HS.A-APR.1",
+      "CA.CCSS.Math.HS.A-APR.2",
+      "CA.CCSS.Math.HS.A-APR.3",
+      "CA.CCSS.Math.HS.A-APR.4",
+      "CA.CCSS.Math.HS.A-APR.5",
+      "CA.CCSS.Math.HS.A-APR.6",
+      "CA.CCSS.Math.HS.A-APR.7"
+    ],
+    "itemTargets": {
+      "minimumDraftItems": 8,
+      "representations": [
+        "polynomial operations",
+        "zeros graph link",
+        "identity verification"
+      ],
+      "diagnosticMisconceptions": [
+        "degree from coefficient",
+        "extraneous rational-expression solutions"
+      ],
+      "answerEvidenceRequired": true,
+      "bilingualSupport": false
+    },
+    "authoringRules": [
+      "Create fresh contexts, numbers, names, diagrams, and distractors.",
+      "Use one primary standard/cluster per item unless the item is explicitly tagged as synthesis.",
+      "Include independent solution evidence and source-distance status.",
+      "Do not use IXL skill text, preview stems, screenshot values, or proprietary layout as item content."
+    ]
+  },
+  {
+    "id": "s04-practice-high-school-a-ced-model-equations",
+    "packageId": "us-ca-math-rag-v2-candidate",
+    "owner": "S04 practice lead",
+    "upstreamOwner": "S21 content pipeline",
+    "qaOwner": "S18 curriculum QA",
+    "status": "candidate-brief",
+    "curriculumTrack": "US_CA_MATH",
+    "buttonLabel": "High school",
+    "maisGrade": "S3-S6",
+    "domainId": "A-CED",
+    "domainTitle": "Algebra - Creating Equations",
+    "clusterId": "A-CED.model-equations",
+    "canonicalStandardIds": [
+      "A-CED.1",
+      "A-CED.2",
+      "A-CED.3",
+      "A-CED.4"
+    ],
+    "maisStandardIds": [
+      "CA.CCSS.Math.HS.A-CED.1",
+      "CA.CCSS.Math.HS.A-CED.2",
+      "CA.CCSS.Math.HS.A-CED.3",
+      "CA.CCSS.Math.HS.A-CED.4"
+    ],
+    "itemTargets": {
+      "minimumDraftItems": 8,
+      "representations": [
+        "context-to-equation",
+        "formula rearrangement",
+        "constraint modeling"
+      ],
+      "diagnosticMisconceptions": [
+        "variables not defined",
+        "constraint inequality direction"
+      ],
+      "answerEvidenceRequired": true,
+      "bilingualSupport": false
+    },
+    "authoringRules": [
+      "Create fresh contexts, numbers, names, diagrams, and distractors.",
+      "Use one primary standard/cluster per item unless the item is explicitly tagged as synthesis.",
+      "Include independent solution evidence and source-distance status.",
+      "Do not use IXL skill text, preview stems, screenshot values, or proprietary layout as item content."
+    ]
+  },
+  {
+    "id": "s04-practice-high-school-a-rei-solve-reason",
+    "packageId": "us-ca-math-rag-v2-candidate",
+    "owner": "S04 practice lead",
+    "upstreamOwner": "S21 content pipeline",
+    "qaOwner": "S18 curriculum QA",
+    "status": "candidate-brief",
+    "curriculumTrack": "US_CA_MATH",
+    "buttonLabel": "High school",
+    "maisGrade": "S3-S6",
+    "domainId": "A-REI",
+    "domainTitle": "Algebra - Reasoning with Equations and Inequalities",
+    "clusterId": "A-REI.solve-reason",
+    "canonicalStandardIds": [
+      "A-REI.1",
+      "A-REI.2",
+      "A-REI.3",
+      "A-REI.4",
+      "A-REI.5",
+      "A-REI.6",
+      "A-REI.7",
+      "A-REI.8",
+      "A-REI.9",
+      "A-REI.10",
+      "A-REI.11",
+      "A-REI.12"
+    ],
+    "maisStandardIds": [
+      "CA.CCSS.Math.HS.A-REI.1",
+      "CA.CCSS.Math.HS.A-REI.2",
+      "CA.CCSS.Math.HS.A-REI.3",
+      "CA.CCSS.Math.HS.A-REI.4",
+      "CA.CCSS.Math.HS.A-REI.5",
+      "CA.CCSS.Math.HS.A-REI.6",
+      "CA.CCSS.Math.HS.A-REI.7",
+      "CA.CCSS.Math.HS.A-REI.8",
+      "CA.CCSS.Math.HS.A-REI.9",
+      "CA.CCSS.Math.HS.A-REI.10",
+      "CA.CCSS.Math.HS.A-REI.11",
+      "CA.CCSS.Math.HS.A-REI.12"
+    ],
+    "itemTargets": {
+      "minimumDraftItems": 8,
+      "representations": [
+        "algebraic solve",
+        "graphical systems",
+        "solution-set shading"
+      ],
+      "diagnosticMisconceptions": [
+        "solution method without equivalence reasoning",
+        "graph intersection misread"
+      ],
+      "answerEvidenceRequired": true,
+      "bilingualSupport": false
+    },
+    "authoringRules": [
+      "Create fresh contexts, numbers, names, diagrams, and distractors.",
+      "Use one primary standard/cluster per item unless the item is explicitly tagged as synthesis.",
+      "Include independent solution evidence and source-distance status.",
+      "Do not use IXL skill text, preview stems, screenshot values, or proprietary layout as item content."
+    ]
+  },
+  {
+    "id": "s04-practice-high-school-f-if-interpret",
+    "packageId": "us-ca-math-rag-v2-candidate",
+    "owner": "S04 practice lead",
+    "upstreamOwner": "S21 content pipeline",
+    "qaOwner": "S18 curriculum QA",
+    "status": "candidate-brief",
+    "curriculumTrack": "US_CA_MATH",
+    "buttonLabel": "High school",
+    "maisGrade": "S3-S6",
+    "domainId": "F-IF",
+    "domainTitle": "Functions - Interpreting Functions",
+    "clusterId": "F-IF.interpret",
+    "canonicalStandardIds": [
+      "F-IF.1",
+      "F-IF.2",
+      "F-IF.3",
+      "F-IF.4",
+      "F-IF.5",
+      "F-IF.6",
+      "F-IF.7",
+      "F-IF.8",
+      "F-IF.9"
+    ],
+    "maisStandardIds": [
+      "CA.CCSS.Math.HS.F-IF.1",
+      "CA.CCSS.Math.HS.F-IF.2",
+      "CA.CCSS.Math.HS.F-IF.3",
+      "CA.CCSS.Math.HS.F-IF.4",
+      "CA.CCSS.Math.HS.F-IF.5",
+      "CA.CCSS.Math.HS.F-IF.6",
+      "CA.CCSS.Math.HS.F-IF.7",
+      "CA.CCSS.Math.HS.F-IF.8",
+      "CA.CCSS.Math.HS.F-IF.9"
+    ],
+    "itemTargets": {
+      "minimumDraftItems": 8,
+      "representations": [
+        "feature identification",
+        "representation comparison",
+        "domain context"
+      ],
+      "diagnosticMisconceptions": [
+        "domain/range from graph window only",
+        "average rate as point value"
+      ],
+      "answerEvidenceRequired": true,
+      "bilingualSupport": false
+    },
+    "authoringRules": [
+      "Create fresh contexts, numbers, names, diagrams, and distractors.",
+      "Use one primary standard/cluster per item unless the item is explicitly tagged as synthesis.",
+      "Include independent solution evidence and source-distance status.",
+      "Do not use IXL skill text, preview stems, screenshot values, or proprietary layout as item content."
+    ]
+  },
+  {
+    "id": "s04-practice-high-school-f-bf-build",
+    "packageId": "us-ca-math-rag-v2-candidate",
+    "owner": "S04 practice lead",
+    "upstreamOwner": "S21 content pipeline",
+    "qaOwner": "S18 curriculum QA",
+    "status": "candidate-brief",
+    "curriculumTrack": "US_CA_MATH",
+    "buttonLabel": "High school",
+    "maisGrade": "S3-S6",
+    "domainId": "F-BF",
+    "domainTitle": "Functions - Building Functions",
+    "clusterId": "F-BF.build",
+    "canonicalStandardIds": [
+      "F-BF.1",
+      "F-BF.2",
+      "F-BF.3",
+      "F-BF.4",
+      "F-BF.5"
+    ],
+    "maisStandardIds": [
+      "CA.CCSS.Math.HS.F-BF.1",
+      "CA.CCSS.Math.HS.F-BF.2",
+      "CA.CCSS.Math.HS.F-BF.3",
+      "CA.CCSS.Math.HS.F-BF.4",
+      "CA.CCSS.Math.HS.F-BF.5"
+    ],
+    "itemTargets": {
+      "minimumDraftItems": 8,
+      "representations": [
+        "function construction",
+        "transformation sliders",
+        "inverse checks"
+      ],
+      "diagnosticMisconceptions": [
+        "transformation order",
+        "inverse as reciprocal"
+      ],
+      "answerEvidenceRequired": true,
+      "bilingualSupport": false
+    },
+    "authoringRules": [
+      "Create fresh contexts, numbers, names, diagrams, and distractors.",
+      "Use one primary standard/cluster per item unless the item is explicitly tagged as synthesis.",
+      "Include independent solution evidence and source-distance status.",
+      "Do not use IXL skill text, preview stems, screenshot values, or proprietary layout as item content."
+    ]
+  },
+  {
+    "id": "s04-practice-high-school-f-le-models",
+    "packageId": "us-ca-math-rag-v2-candidate",
+    "owner": "S04 practice lead",
+    "upstreamOwner": "S21 content pipeline",
+    "qaOwner": "S18 curriculum QA",
+    "status": "candidate-brief",
+    "curriculumTrack": "US_CA_MATH",
+    "buttonLabel": "High school",
+    "maisGrade": "S3-S6",
+    "domainId": "F-LE",
+    "domainTitle": "Functions - Linear, Quadratic, and Exponential Models",
+    "clusterId": "F-LE.models",
+    "canonicalStandardIds": [
+      "F-LE.1",
+      "F-LE.2",
+      "F-LE.3",
+      "F-LE.4",
+      "F-LE.5"
+    ],
+    "maisStandardIds": [
+      "CA.CCSS.Math.HS.F-LE.1",
+      "CA.CCSS.Math.HS.F-LE.2",
+      "CA.CCSS.Math.HS.F-LE.3",
+      "CA.CCSS.Math.HS.F-LE.4",
+      "CA.CCSS.Math.HS.F-LE.5"
+    ],
+    "itemTargets": {
+      "minimumDraftItems": 8,
+      "representations": [
+        "model selection",
+        "parameter meaning",
+        "growth comparison"
+      ],
+      "diagnosticMisconceptions": [
+        "constant difference versus ratio",
+        "parameter interpretation missing"
+      ],
+      "answerEvidenceRequired": true,
+      "bilingualSupport": false
+    },
+    "authoringRules": [
+      "Create fresh contexts, numbers, names, diagrams, and distractors.",
+      "Use one primary standard/cluster per item unless the item is explicitly tagged as synthesis.",
+      "Include independent solution evidence and source-distance status.",
+      "Do not use IXL skill text, preview stems, screenshot values, or proprietary layout as item content."
+    ]
+  },
+  {
+    "id": "s04-practice-high-school-f-tf-trig",
+    "packageId": "us-ca-math-rag-v2-candidate",
+    "owner": "S04 practice lead",
+    "upstreamOwner": "S21 content pipeline",
+    "qaOwner": "S18 curriculum QA",
+    "status": "candidate-brief",
+    "curriculumTrack": "US_CA_MATH",
+    "buttonLabel": "High school",
+    "maisGrade": "S3-S6",
+    "domainId": "F-TF",
+    "domainTitle": "Functions - Trigonometric Functions",
+    "clusterId": "F-TF.trig",
+    "canonicalStandardIds": [
+      "F-TF.1",
+      "F-TF.2",
+      "F-TF.3",
+      "F-TF.4",
+      "F-TF.5",
+      "F-TF.6",
+      "F-TF.7",
+      "F-TF.8",
+      "F-TF.9"
+    ],
+    "maisStandardIds": [
+      "CA.CCSS.Math.HS.F-TF.1",
+      "CA.CCSS.Math.HS.F-TF.2",
+      "CA.CCSS.Math.HS.F-TF.3",
+      "CA.CCSS.Math.HS.F-TF.4",
+      "CA.CCSS.Math.HS.F-TF.5",
+      "CA.CCSS.Math.HS.F-TF.6",
+      "CA.CCSS.Math.HS.F-TF.7",
+      "CA.CCSS.Math.HS.F-TF.8",
+      "CA.CCSS.Math.HS.F-TF.9"
+    ],
+    "itemTargets": {
+      "minimumDraftItems": 8,
+      "representations": [
+        "unit circle",
+        "wave graphs",
+        "identity verification"
+      ],
+      "diagnosticMisconceptions": [
+        "degree/radian mismatch",
+        "amplitude/period confused"
+      ],
+      "answerEvidenceRequired": true,
+      "bilingualSupport": false
+    },
+    "authoringRules": [
+      "Create fresh contexts, numbers, names, diagrams, and distractors.",
+      "Use one primary standard/cluster per item unless the item is explicitly tagged as synthesis.",
+      "Include independent solution evidence and source-distance status.",
+      "Do not use IXL skill text, preview stems, screenshot values, or proprietary layout as item content."
+    ]
+  },
+  {
+    "id": "s04-practice-high-school-g-co-congruence",
+    "packageId": "us-ca-math-rag-v2-candidate",
+    "owner": "S04 practice lead",
+    "upstreamOwner": "S21 content pipeline",
+    "qaOwner": "S18 curriculum QA",
+    "status": "candidate-brief",
+    "curriculumTrack": "US_CA_MATH",
+    "buttonLabel": "High school",
+    "maisGrade": "S3-S6",
+    "domainId": "G-CO",
+    "domainTitle": "Geometry - Congruence",
+    "clusterId": "G-CO.congruence",
+    "canonicalStandardIds": [
+      "G-CO.1",
+      "G-CO.2",
+      "G-CO.3",
+      "G-CO.4",
+      "G-CO.5",
+      "G-CO.6",
+      "G-CO.7",
+      "G-CO.8",
+      "G-CO.9",
+      "G-CO.10",
+      "G-CO.11",
+      "G-CO.12",
+      "G-CO.13"
+    ],
+    "maisStandardIds": [
+      "CA.CCSS.Math.HS.G-CO.1",
+      "CA.CCSS.Math.HS.G-CO.2",
+      "CA.CCSS.Math.HS.G-CO.3",
+      "CA.CCSS.Math.HS.G-CO.4",
+      "CA.CCSS.Math.HS.G-CO.5",
+      "CA.CCSS.Math.HS.G-CO.6",
+      "CA.CCSS.Math.HS.G-CO.7",
+      "CA.CCSS.Math.HS.G-CO.8",
+      "CA.CCSS.Math.HS.G-CO.9",
+      "CA.CCSS.Math.HS.G-CO.10",
+      "CA.CCSS.Math.HS.G-CO.11",
+      "CA.CCSS.Math.HS.G-CO.12",
+      "CA.CCSS.Math.HS.G-CO.13"
+    ],
+    "itemTargets": {
+      "minimumDraftItems": 8,
+      "representations": [
+        "proof ordering",
+        "construction steps",
+        "transformation evidence"
+      ],
+      "diagnosticMisconceptions": [
+        "drawing-based proof",
+        "transformation direction lost"
+      ],
+      "answerEvidenceRequired": true,
+      "bilingualSupport": false
+    },
+    "authoringRules": [
+      "Create fresh contexts, numbers, names, diagrams, and distractors.",
+      "Use one primary standard/cluster per item unless the item is explicitly tagged as synthesis.",
+      "Include independent solution evidence and source-distance status.",
+      "Do not use IXL skill text, preview stems, screenshot values, or proprietary layout as item content."
+    ]
+  },
+  {
+    "id": "s04-practice-high-school-g-srt-similarity-trig",
+    "packageId": "us-ca-math-rag-v2-candidate",
+    "owner": "S04 practice lead",
+    "upstreamOwner": "S21 content pipeline",
+    "qaOwner": "S18 curriculum QA",
+    "status": "candidate-brief",
+    "curriculumTrack": "US_CA_MATH",
+    "buttonLabel": "High school",
+    "maisGrade": "S3-S6",
+    "domainId": "G-SRT",
+    "domainTitle": "Geometry - Similarity, Right Triangles, and Trigonometry",
+    "clusterId": "G-SRT.similarity-trig",
+    "canonicalStandardIds": [
+      "G-SRT.1",
+      "G-SRT.2",
+      "G-SRT.3",
+      "G-SRT.4",
+      "G-SRT.5",
+      "G-SRT.6",
+      "G-SRT.7",
+      "G-SRT.8",
+      "G-SRT.9",
+      "G-SRT.10",
+      "G-SRT.11"
+    ],
+    "maisStandardIds": [
+      "CA.CCSS.Math.HS.G-SRT.1",
+      "CA.CCSS.Math.HS.G-SRT.2",
+      "CA.CCSS.Math.HS.G-SRT.3",
+      "CA.CCSS.Math.HS.G-SRT.4",
+      "CA.CCSS.Math.HS.G-SRT.5",
+      "CA.CCSS.Math.HS.G-SRT.6",
+      "CA.CCSS.Math.HS.G-SRT.7",
+      "CA.CCSS.Math.HS.G-SRT.8",
+      "CA.CCSS.Math.HS.G-SRT.9",
+      "CA.CCSS.Math.HS.G-SRT.10",
+      "CA.CCSS.Math.HS.G-SRT.11"
+    ],
+    "itemTargets": {
+      "minimumDraftItems": 8,
+      "representations": [
+        "similar triangle proof",
+        "right-triangle solve",
+        "law selection"
+      ],
+      "diagnosticMisconceptions": [
+        "scale factor direction",
+        "opposite/adjacent side selection"
+      ],
+      "answerEvidenceRequired": true,
+      "bilingualSupport": false
+    },
+    "authoringRules": [
+      "Create fresh contexts, numbers, names, diagrams, and distractors.",
+      "Use one primary standard/cluster per item unless the item is explicitly tagged as synthesis.",
+      "Include independent solution evidence and source-distance status.",
+      "Do not use IXL skill text, preview stems, screenshot values, or proprietary layout as item content."
+    ]
+  },
+  {
+    "id": "s04-practice-high-school-g-c-circles",
+    "packageId": "us-ca-math-rag-v2-candidate",
+    "owner": "S04 practice lead",
+    "upstreamOwner": "S21 content pipeline",
+    "qaOwner": "S18 curriculum QA",
+    "status": "candidate-brief",
+    "curriculumTrack": "US_CA_MATH",
+    "buttonLabel": "High school",
+    "maisGrade": "S3-S6",
+    "domainId": "G-C",
+    "domainTitle": "Geometry - Circles",
+    "clusterId": "G-C.circles",
+    "canonicalStandardIds": [
+      "G-C.1",
+      "G-C.2",
+      "G-C.3",
+      "G-C.4",
+      "G-C.5"
+    ],
+    "maisStandardIds": [
+      "CA.CCSS.Math.HS.G-C.1",
+      "CA.CCSS.Math.HS.G-C.2",
+      "CA.CCSS.Math.HS.G-C.3",
+      "CA.CCSS.Math.HS.G-C.4",
+      "CA.CCSS.Math.HS.G-C.5"
+    ],
+    "itemTargets": {
+      "minimumDraftItems": 8,
+      "representations": [
+        "circle diagram labels",
+        "theorem justification",
+        "sector calculations"
+      ],
+      "diagnosticMisconceptions": [
+        "arc length versus angle measure",
+        "radius/diameter tangent facts"
+      ],
+      "answerEvidenceRequired": true,
+      "bilingualSupport": false
+    },
+    "authoringRules": [
+      "Create fresh contexts, numbers, names, diagrams, and distractors.",
+      "Use one primary standard/cluster per item unless the item is explicitly tagged as synthesis.",
+      "Include independent solution evidence and source-distance status.",
+      "Do not use IXL skill text, preview stems, screenshot values, or proprietary layout as item content."
+    ]
+  },
+  {
+    "id": "s04-practice-high-school-g-gpe-coordinate-geometry",
+    "packageId": "us-ca-math-rag-v2-candidate",
+    "owner": "S04 practice lead",
+    "upstreamOwner": "S21 content pipeline",
+    "qaOwner": "S18 curriculum QA",
+    "status": "candidate-brief",
+    "curriculumTrack": "US_CA_MATH",
+    "buttonLabel": "High school",
+    "maisGrade": "S3-S6",
+    "domainId": "G-GPE",
+    "domainTitle": "Geometry - Expressing Geometric Properties with Equations",
+    "clusterId": "G-GPE.coordinate-geometry",
+    "canonicalStandardIds": [
+      "G-GPE.1",
+      "G-GPE.2",
+      "G-GPE.3",
+      "G-GPE.4",
+      "G-GPE.5",
+      "G-GPE.6",
+      "G-GPE.7"
+    ],
+    "maisStandardIds": [
+      "CA.CCSS.Math.HS.G-GPE.1",
+      "CA.CCSS.Math.HS.G-GPE.2",
+      "CA.CCSS.Math.HS.G-GPE.3",
+      "CA.CCSS.Math.HS.G-GPE.4",
+      "CA.CCSS.Math.HS.G-GPE.5",
+      "CA.CCSS.Math.HS.G-GPE.6",
+      "CA.CCSS.Math.HS.G-GPE.7"
+    ],
+    "itemTargets": {
+      "minimumDraftItems": 8,
+      "representations": [
+        "coordinate proof",
+        "conic equation match",
+        "slope-distance tasks"
+      ],
+      "diagnosticMisconceptions": [
+        "distance formula sign errors",
+        "slope criteria reversed"
+      ],
+      "answerEvidenceRequired": true,
+      "bilingualSupport": false
+    },
+    "authoringRules": [
+      "Create fresh contexts, numbers, names, diagrams, and distractors.",
+      "Use one primary standard/cluster per item unless the item is explicitly tagged as synthesis.",
+      "Include independent solution evidence and source-distance status.",
+      "Do not use IXL skill text, preview stems, screenshot values, or proprietary layout as item content."
+    ]
+  },
+  {
+    "id": "s04-practice-high-school-g-gmd-measurement",
+    "packageId": "us-ca-math-rag-v2-candidate",
+    "owner": "S04 practice lead",
+    "upstreamOwner": "S21 content pipeline",
+    "qaOwner": "S18 curriculum QA",
+    "status": "candidate-brief",
+    "curriculumTrack": "US_CA_MATH",
+    "buttonLabel": "High school",
+    "maisGrade": "S3-S6",
+    "domainId": "G-GMD",
+    "domainTitle": "Geometry - Geometric Measurement and Dimension",
+    "clusterId": "G-GMD.measurement",
+    "canonicalStandardIds": [
+      "G-GMD.1",
+      "G-GMD.2",
+      "G-GMD.3",
+      "G-GMD.4",
+      "G-GMD.5",
+      "G-GMD.6"
+    ],
+    "maisStandardIds": [
+      "CA.CCSS.Math.HS.G-GMD.1",
+      "CA.CCSS.Math.HS.G-GMD.2",
+      "CA.CCSS.Math.HS.G-GMD.3",
+      "CA.CCSS.Math.HS.G-GMD.4",
+      "CA.CCSS.Math.HS.G-GMD.5",
+      "CA.CCSS.Math.HS.G-GMD.6"
+    ],
+    "itemTargets": {
+      "minimumDraftItems": 8,
+      "representations": [
+        "3D slices",
+        "volume comparison",
+        "density contexts"
+      ],
+      "diagnosticMisconceptions": [
+        "formula memorization without units",
+        "cross-section shape mismatch"
+      ],
+      "answerEvidenceRequired": true,
+      "bilingualSupport": false
+    },
+    "authoringRules": [
+      "Create fresh contexts, numbers, names, diagrams, and distractors.",
+      "Use one primary standard/cluster per item unless the item is explicitly tagged as synthesis.",
+      "Include independent solution evidence and source-distance status.",
+      "Do not use IXL skill text, preview stems, screenshot values, or proprietary layout as item content."
+    ]
+  },
+  {
+    "id": "s04-practice-high-school-g-mg-modeling",
+    "packageId": "us-ca-math-rag-v2-candidate",
+    "owner": "S04 practice lead",
+    "upstreamOwner": "S21 content pipeline",
+    "qaOwner": "S18 curriculum QA",
+    "status": "candidate-brief",
+    "curriculumTrack": "US_CA_MATH",
+    "buttonLabel": "High school",
+    "maisGrade": "S3-S6",
+    "domainId": "G-MG",
+    "domainTitle": "Geometry - Modeling with Geometry",
+    "clusterId": "G-MG.modeling",
+    "canonicalStandardIds": [
+      "G-MG.1",
+      "G-MG.2",
+      "G-MG.3"
+    ],
+    "maisStandardIds": [
+      "CA.CCSS.Math.HS.G-MG.1",
+      "CA.CCSS.Math.HS.G-MG.2",
+      "CA.CCSS.Math.HS.G-MG.3"
+    ],
+    "itemTargets": {
+      "minimumDraftItems": 8,
+      "representations": [
+        "design constraints",
+        "scale modeling",
+        "optimization"
+      ],
+      "diagnosticMisconceptions": [
+        "model assumptions unstated",
+        "units ignored"
+      ],
+      "answerEvidenceRequired": true,
+      "bilingualSupport": false
+    },
+    "authoringRules": [
+      "Create fresh contexts, numbers, names, diagrams, and distractors.",
+      "Use one primary standard/cluster per item unless the item is explicitly tagged as synthesis.",
+      "Include independent solution evidence and source-distance status.",
+      "Do not use IXL skill text, preview stems, screenshot values, or proprietary layout as item content."
+    ]
+  },
+  {
+    "id": "s04-practice-high-school-s-id-data",
+    "packageId": "us-ca-math-rag-v2-candidate",
+    "owner": "S04 practice lead",
+    "upstreamOwner": "S21 content pipeline",
+    "qaOwner": "S18 curriculum QA",
+    "status": "candidate-brief",
+    "curriculumTrack": "US_CA_MATH",
+    "buttonLabel": "High school",
+    "maisGrade": "S3-S6",
+    "domainId": "S-ID",
+    "domainTitle": "Statistics and Probability - Interpreting Categorical and Quantitative Data",
+    "clusterId": "S-ID.data",
+    "canonicalStandardIds": [
+      "S-ID.1",
+      "S-ID.2",
+      "S-ID.3",
+      "S-ID.4",
+      "S-ID.5",
+      "S-ID.6",
+      "S-ID.7",
+      "S-ID.8",
+      "S-ID.9"
+    ],
+    "maisStandardIds": [
+      "CA.CCSS.Math.HS.S-ID.1",
+      "CA.CCSS.Math.HS.S-ID.2",
+      "CA.CCSS.Math.HS.S-ID.3",
+      "CA.CCSS.Math.HS.S-ID.4",
+      "CA.CCSS.Math.HS.S-ID.5",
+      "CA.CCSS.Math.HS.S-ID.6",
+      "CA.CCSS.Math.HS.S-ID.7",
+      "CA.CCSS.Math.HS.S-ID.8",
+      "CA.CCSS.Math.HS.S-ID.9"
+    ],
+    "itemTargets": {
+      "minimumDraftItems": 8,
+      "representations": [
+        "scatter plots",
+        "residuals",
+        "two-way tables"
+      ],
+      "diagnosticMisconceptions": [
+        "correlation as causation",
+        "residual meaning unclear"
+      ],
+      "answerEvidenceRequired": true,
+      "bilingualSupport": false
+    },
+    "authoringRules": [
+      "Create fresh contexts, numbers, names, diagrams, and distractors.",
+      "Use one primary standard/cluster per item unless the item is explicitly tagged as synthesis.",
+      "Include independent solution evidence and source-distance status.",
+      "Do not use IXL skill text, preview stems, screenshot values, or proprietary layout as item content."
+    ]
+  },
+  {
+    "id": "s04-practice-high-school-s-ic-inference",
+    "packageId": "us-ca-math-rag-v2-candidate",
+    "owner": "S04 practice lead",
+    "upstreamOwner": "S21 content pipeline",
+    "qaOwner": "S18 curriculum QA",
+    "status": "candidate-brief",
+    "curriculumTrack": "US_CA_MATH",
+    "buttonLabel": "High school",
+    "maisGrade": "S3-S6",
+    "domainId": "S-IC",
+    "domainTitle": "Statistics and Probability - Making Inferences and Justifying Conclusions",
+    "clusterId": "S-IC.inference",
+    "canonicalStandardIds": [
+      "S-IC.1",
+      "S-IC.2",
+      "S-IC.3",
+      "S-IC.4",
+      "S-IC.5",
+      "S-IC.6"
+    ],
+    "maisStandardIds": [
+      "CA.CCSS.Math.HS.S-IC.1",
+      "CA.CCSS.Math.HS.S-IC.2",
+      "CA.CCSS.Math.HS.S-IC.3",
+      "CA.CCSS.Math.HS.S-IC.4",
+      "CA.CCSS.Math.HS.S-IC.5",
+      "CA.CCSS.Math.HS.S-IC.6"
+    ],
+    "itemTargets": {
+      "minimumDraftItems": 8,
+      "representations": [
+        "simulation",
+        "confidence comparison",
+        "experiment critique"
+      ],
+      "diagnosticMisconceptions": [
+        "randomness ignored",
+        "sample statistic treated as exact population"
+      ],
+      "answerEvidenceRequired": true,
+      "bilingualSupport": false
+    },
+    "authoringRules": [
+      "Create fresh contexts, numbers, names, diagrams, and distractors.",
+      "Use one primary standard/cluster per item unless the item is explicitly tagged as synthesis.",
+      "Include independent solution evidence and source-distance status.",
+      "Do not use IXL skill text, preview stems, screenshot values, or proprietary layout as item content."
+    ]
+  },
+  {
+    "id": "s04-practice-high-school-s-cp-probability",
+    "packageId": "us-ca-math-rag-v2-candidate",
+    "owner": "S04 practice lead",
+    "upstreamOwner": "S21 content pipeline",
+    "qaOwner": "S18 curriculum QA",
+    "status": "candidate-brief",
+    "curriculumTrack": "US_CA_MATH",
+    "buttonLabel": "High school",
+    "maisGrade": "S3-S6",
+    "domainId": "S-CP",
+    "domainTitle": "Statistics and Probability - Conditional Probability and Rules of Probability",
+    "clusterId": "S-CP.probability",
+    "canonicalStandardIds": [
+      "S-CP.1",
+      "S-CP.2",
+      "S-CP.3",
+      "S-CP.4",
+      "S-CP.5",
+      "S-CP.6",
+      "S-CP.7",
+      "S-CP.8",
+      "S-CP.9"
+    ],
+    "maisStandardIds": [
+      "CA.CCSS.Math.HS.S-CP.1",
+      "CA.CCSS.Math.HS.S-CP.2",
+      "CA.CCSS.Math.HS.S-CP.3",
+      "CA.CCSS.Math.HS.S-CP.4",
+      "CA.CCSS.Math.HS.S-CP.5",
+      "CA.CCSS.Math.HS.S-CP.6",
+      "CA.CCSS.Math.HS.S-CP.7",
+      "CA.CCSS.Math.HS.S-CP.8",
+      "CA.CCSS.Math.HS.S-CP.9"
+    ],
+    "itemTargets": {
+      "minimumDraftItems": 8,
+      "representations": [
+        "two-way tables",
+        "tree diagrams",
+        "event notation"
+      ],
+      "diagnosticMisconceptions": [
+        "independent versus mutually exclusive",
+        "conditional direction reversed"
+      ],
+      "answerEvidenceRequired": true,
+      "bilingualSupport": false
+    },
+    "authoringRules": [
+      "Create fresh contexts, numbers, names, diagrams, and distractors.",
+      "Use one primary standard/cluster per item unless the item is explicitly tagged as synthesis.",
+      "Include independent solution evidence and source-distance status.",
+      "Do not use IXL skill text, preview stems, screenshot values, or proprietary layout as item content."
+    ]
+  },
+  {
+    "id": "s04-practice-high-school-s-md-decisions",
+    "packageId": "us-ca-math-rag-v2-candidate",
+    "owner": "S04 practice lead",
+    "upstreamOwner": "S21 content pipeline",
+    "qaOwner": "S18 curriculum QA",
+    "status": "candidate-brief",
+    "curriculumTrack": "US_CA_MATH",
+    "buttonLabel": "High school",
+    "maisGrade": "S3-S6",
+    "domainId": "S-MD",
+    "domainTitle": "Statistics and Probability - Using Probability to Make Decisions",
+    "clusterId": "S-MD.decisions",
+    "canonicalStandardIds": [
+      "S-MD.1",
+      "S-MD.2",
+      "S-MD.3",
+      "S-MD.4",
+      "S-MD.5",
+      "S-MD.6",
+      "S-MD.7"
+    ],
+    "maisStandardIds": [
+      "CA.CCSS.Math.HS.S-MD.1",
+      "CA.CCSS.Math.HS.S-MD.2",
+      "CA.CCSS.Math.HS.S-MD.3",
+      "CA.CCSS.Math.HS.S-MD.4",
+      "CA.CCSS.Math.HS.S-MD.5",
+      "CA.CCSS.Math.HS.S-MD.6",
+      "CA.CCSS.Math.HS.S-MD.7"
+    ],
+    "itemTargets": {
+      "minimumDraftItems": 8,
+      "representations": [
+        "payoff tables",
+        "decision comparison",
+        "fair-game analysis"
+      ],
+      "diagnosticMisconceptions": [
+        "expected value as guaranteed outcome",
+        "utility not separated from probability"
+      ],
+      "answerEvidenceRequired": true,
+      "bilingualSupport": false
+    },
+    "authoringRules": [
+      "Create fresh contexts, numbers, names, diagrams, and distractors.",
+      "Use one primary standard/cluster per item unless the item is explicitly tagged as synthesis.",
+      "Include independent solution evidence and source-distance status.",
+      "Do not use IXL skill text, preview stems, screenshot values, or proprietary layout as item content."
+    ]
+  },
+  {
+    "id": "s04-practice-high-school-modeling-cycle",
+    "packageId": "us-ca-math-rag-v2-candidate",
+    "owner": "S04 practice lead",
+    "upstreamOwner": "S21 content pipeline",
+    "qaOwner": "S18 curriculum QA",
+    "status": "candidate-brief",
+    "curriculumTrack": "US_CA_MATH",
+    "buttonLabel": "High school",
+    "maisGrade": "S3-S6",
+    "domainId": "Modeling",
+    "domainTitle": "Modeling",
+    "clusterId": "Modeling.cycle",
+    "canonicalStandardIds": [
+      "Modeling"
+    ],
+    "maisStandardIds": [
+      "CA.CCSS.Math.HS.Modeling"
+    ],
+    "itemTargets": {
+      "minimumDraftItems": 8,
+      "representations": [
+        "open constraints",
+        "assumption checks",
+        "interpretation prompts"
+      ],
+      "diagnosticMisconceptions": [
+        "model answer detached from context",
+        "assumptions not stated"
+      ],
+      "answerEvidenceRequired": true,
+      "bilingualSupport": false
+    },
+    "authoringRules": [
+      "Create fresh contexts, numbers, names, diagrams, and distractors.",
+      "Use one primary standard/cluster per item unless the item is explicitly tagged as synthesis.",
+      "Include independent solution evidence and source-distance status.",
+      "Do not use IXL skill text, preview stems, screenshot values, or proprietary layout as item content."
+    ]
+  }
+]

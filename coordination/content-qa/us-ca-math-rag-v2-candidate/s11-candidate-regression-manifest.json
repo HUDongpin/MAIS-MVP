@@ -1,0 +1,57 @@
+{
+  "packageId": "us-ca-math-rag-v2-candidate",
+  "generatedAt": "2026-06-19",
+  "owner": "S11 QA and release quality",
+  "status": "blocked-until-integrated-candidate-surface",
+  "evidenceAvailableNow": {
+    "questionPack": "s04-question-candidate-pack.json",
+    "lessonPack": "s05-lesson-candidate-pack.json",
+    "questionCount": 68,
+    "lessonCount": 68,
+    "validationSummary": "s18-downstream-qa-review.md",
+    "staticPreviewSmoke": "s11-candidate-preview-smoke.json"
+  },
+  "candidatePreviewSmoke": {
+    "status": "pass",
+    "surface": "static candidate review page",
+    "practiceCards": 2,
+    "lessonCards": 2,
+    "consoleErrors": 0,
+    "pageErrors": 0,
+    "screenshotPath": "coordination/content-qa/us-ca-math-rag-v2-candidate/review/s11-candidate-preview-smoke.png",
+    "liveAppRegression": false
+  },
+  "representativeSelection": [
+    {
+      "surface": "practice",
+      "grade": "K",
+      "clusterId": "K.CC.cardinality-compare",
+      "reason": "early counting/cardinality sample"
+    },
+    {
+      "surface": "practice",
+      "grade": "P6",
+      "clusterId": "6.RP.ratios",
+      "reason": "middle-school ratio retrieval sample"
+    },
+    {
+      "surface": "lesson",
+      "grade": "S3-S6",
+      "clusterId": "A-SSE.structure",
+      "reason": "high-school algebra lesson sample"
+    },
+    {
+      "surface": "lesson",
+      "grade": "S3-S6",
+      "clusterId": "S-CP.probability",
+      "reason": "high-school probability lesson sample"
+    }
+  ],
+  "requiredBrowserChecksAfterIntegration": [
+    "Open candidate practice route and verify the selected question renders prompt, answer validation state, standard IDs, and California beta wording.",
+    "Open candidate lesson route and verify concept explanation, worked example, guided practice, remediation, and teacher notes render without console errors.",
+    "Inspect network/console for unexpected 5xx responses or unhandled page errors.",
+    "Verify no UI claims a complete California curriculum or official California course."
+  ],
+  "notRunReason": "No app route, live RAG adapter, practice page, or lesson page was edited in this candidate-only step."
+}

@@ -1,0 +1,319 @@
+{
+  "packageId": "us-ca-math-rag-v2-candidate",
+  "generatedAt": "2026-06-19",
+  "sourceIndexName": "California Common Core Math MAIS Structural Index",
+  "sourceIndexSchemaVersion": "2026-06-19",
+  "sourceSafety": "Structure, identifiers, and MAIS-authored summaries only. Do not treat summaries as official standard text.",
+  "counts": {
+    "gradeButtons": 11,
+    "records": 11,
+    "domains": 67,
+    "clusters": 68,
+    "standards": 392,
+    "cards": 146,
+    "gradeCards": 11,
+    "domainCards": 67,
+    "clusterCards": 68,
+    "practiceBriefs": 68,
+    "lessonBriefs": 68,
+    "practiceSamples": 5,
+    "lessonSamples": 3
+  },
+  "byButton": [
+    {
+      "buttonLabel": "Pre-K",
+      "routeSlug": "pre-k",
+      "maisGrade": "Pre-K",
+      "commonCore": true,
+      "domainCount": 1,
+      "clusterCount": 1,
+      "standardCount": 4,
+      "domainIds": [
+        "PK.MATH"
+      ],
+      "maisDomainIds": [
+        "CA.Preschool.Math.PK.MATH"
+      ]
+    },
+    {
+      "buttonLabel": "Kindergarten",
+      "routeSlug": "kindergarten",
+      "maisGrade": "K",
+      "commonCore": true,
+      "domainCount": 5,
+      "clusterCount": 6,
+      "standardCount": 22,
+      "domainIds": [
+        "K.CC",
+        "K.OA",
+        "K.NBT",
+        "K.MD",
+        "K.G"
+      ],
+      "maisDomainIds": [
+        "CA.CCSS.Math.K.CC",
+        "CA.CCSS.Math.K.OA",
+        "CA.CCSS.Math.K.NBT",
+        "CA.CCSS.Math.K.MD",
+        "CA.CCSS.Math.K.G"
+      ]
+    },
+    {
+      "buttonLabel": "First",
+      "routeSlug": "grade-1",
+      "maisGrade": "P1",
+      "commonCore": true,
+      "domainCount": 4,
+      "clusterCount": 4,
+      "standardCount": 21,
+      "domainIds": [
+        "1.OA",
+        "1.NBT",
+        "1.MD",
+        "1.G"
+      ],
+      "maisDomainIds": [
+        "CA.CCSS.Math.G1.OA",
+        "CA.CCSS.Math.G1.NBT",
+        "CA.CCSS.Math.G1.MD",
+        "CA.CCSS.Math.G1.G"
+      ]
+    },
+    {
+      "buttonLabel": "Second",
+      "routeSlug": "grade-2",
+      "maisGrade": "P2",
+      "commonCore": true,
+      "domainCount": 4,
+      "clusterCount": 4,
+      "standardCount": 26,
+      "domainIds": [
+        "2.OA",
+        "2.NBT",
+        "2.MD",
+        "2.G"
+      ],
+      "maisDomainIds": [
+        "CA.CCSS.Math.G2.OA",
+        "CA.CCSS.Math.G2.NBT",
+        "CA.CCSS.Math.G2.MD",
+        "CA.CCSS.Math.G2.G"
+      ]
+    },
+    {
+      "buttonLabel": "Third",
+      "routeSlug": "grade-3",
+      "maisGrade": "P3",
+      "commonCore": true,
+      "domainCount": 5,
+      "clusterCount": 5,
+      "standardCount": 25,
+      "domainIds": [
+        "3.OA",
+        "3.NBT",
+        "3.NF",
+        "3.MD",
+        "3.G"
+      ],
+      "maisDomainIds": [
+        "CA.CCSS.Math.G3.OA",
+        "CA.CCSS.Math.G3.NBT",
+        "CA.CCSS.Math.G3.NF",
+        "CA.CCSS.Math.G3.MD",
+        "CA.CCSS.Math.G3.G"
+      ]
+    },
+    {
+      "buttonLabel": "Fourth",
+      "routeSlug": "grade-4",
+      "maisGrade": "P4",
+      "commonCore": true,
+      "domainCount": 5,
+      "clusterCount": 5,
+      "standardCount": 28,
+      "domainIds": [
+        "4.OA",
+        "4.NBT",
+        "4.NF",
+        "4.MD",
+        "4.G"
+      ],
+      "maisDomainIds": [
+        "CA.CCSS.Math.G4.OA",
+        "CA.CCSS.Math.G4.NBT",
+        "CA.CCSS.Math.G4.NF",
+        "CA.CCSS.Math.G4.MD",
+        "CA.CCSS.Math.G4.G"
+      ]
+    },
+    {
+      "buttonLabel": "Fifth",
+      "routeSlug": "grade-5",
+      "maisGrade": "P5",
+      "commonCore": true,
+      "domainCount": 5,
+      "clusterCount": 5,
+      "standardCount": 26,
+      "domainIds": [
+        "5.OA",
+        "5.NBT",
+        "5.NF",
+        "5.MD",
+        "5.G"
+      ],
+      "maisDomainIds": [
+        "CA.CCSS.Math.G5.OA",
+        "CA.CCSS.Math.G5.NBT",
+        "CA.CCSS.Math.G5.NF",
+        "CA.CCSS.Math.G5.MD",
+        "CA.CCSS.Math.G5.G"
+      ]
+    },
+    {
+      "buttonLabel": "Sixth",
+      "routeSlug": "grade-6",
+      "maisGrade": "P6",
+      "commonCore": true,
+      "domainCount": 5,
+      "clusterCount": 5,
+      "standardCount": 29,
+      "domainIds": [
+        "6.RP",
+        "6.NS",
+        "6.EE",
+        "6.G",
+        "6.SP"
+      ],
+      "maisDomainIds": [
+        "CA.CCSS.Math.G6.RP",
+        "CA.CCSS.Math.G6.NS",
+        "CA.CCSS.Math.G6.EE",
+        "CA.CCSS.Math.G6.G",
+        "CA.CCSS.Math.G6.SP"
+      ]
+    },
+    {
+      "buttonLabel": "Seventh",
+      "routeSlug": "grade-7",
+      "maisGrade": "S1",
+      "commonCore": true,
+      "domainCount": 5,
+      "clusterCount": 5,
+      "standardCount": 24,
+      "domainIds": [
+        "7.RP",
+        "7.NS",
+        "7.EE",
+        "7.G",
+        "7.SP"
+      ],
+      "maisDomainIds": [
+        "CA.CCSS.Math.G7.RP",
+        "CA.CCSS.Math.G7.NS",
+        "CA.CCSS.Math.G7.EE",
+        "CA.CCSS.Math.G7.G",
+        "CA.CCSS.Math.G7.SP"
+      ]
+    },
+    {
+      "buttonLabel": "Eighth",
+      "routeSlug": "grade-8",
+      "maisGrade": "S2",
+      "commonCore": true,
+      "domainCount": 5,
+      "clusterCount": 5,
+      "standardCount": 28,
+      "domainIds": [
+        "8.NS",
+        "8.EE",
+        "8.F",
+        "8.G",
+        "8.SP"
+      ],
+      "maisDomainIds": [
+        "CA.CCSS.Math.G8.NS",
+        "CA.CCSS.Math.G8.EE",
+        "CA.CCSS.Math.G8.F",
+        "CA.CCSS.Math.G8.G",
+        "CA.CCSS.Math.G8.SP"
+      ]
+    },
+    {
+      "buttonLabel": "High school",
+      "routeSlug": "high-school",
+      "maisGrade": "S3-S6",
+      "commonCore": true,
+      "domainCount": 23,
+      "clusterCount": 23,
+      "standardCount": 159,
+      "domainIds": [
+        "N-RN",
+        "N-Q",
+        "N-CN",
+        "N-VM",
+        "A-SSE",
+        "A-APR",
+        "A-CED",
+        "A-REI",
+        "F-IF",
+        "F-BF",
+        "F-LE",
+        "F-TF",
+        "G-CO",
+        "G-SRT",
+        "G-C",
+        "G-GPE",
+        "G-GMD",
+        "G-MG",
+        "S-ID",
+        "S-IC",
+        "S-CP",
+        "S-MD",
+        "Modeling"
+      ],
+      "maisDomainIds": [
+        "CA.CCSS.Math.HS.N-RN",
+        "CA.CCSS.Math.HS.N-Q",
+        "CA.CCSS.Math.HS.N-CN",
+        "CA.CCSS.Math.HS.N-VM",
+        "CA.CCSS.Math.HS.A-SSE",
+        "CA.CCSS.Math.HS.A-APR",
+        "CA.CCSS.Math.HS.A-CED",
+        "CA.CCSS.Math.HS.A-REI",
+        "CA.CCSS.Math.HS.F-IF",
+        "CA.CCSS.Math.HS.F-BF",
+        "CA.CCSS.Math.HS.F-LE",
+        "CA.CCSS.Math.HS.F-TF",
+        "CA.CCSS.Math.HS.G-CO",
+        "CA.CCSS.Math.HS.G-SRT",
+        "CA.CCSS.Math.HS.G-C",
+        "CA.CCSS.Math.HS.G-GPE",
+        "CA.CCSS.Math.HS.G-GMD",
+        "CA.CCSS.Math.HS.G-MG",
+        "CA.CCSS.Math.HS.S-ID",
+        "CA.CCSS.Math.HS.S-IC",
+        "CA.CCSS.Math.HS.S-CP",
+        "CA.CCSS.Math.HS.S-MD",
+        "CA.CCSS.Math.HS.Modeling"
+      ]
+    }
+  ],
+  "caAdditionClusters": [
+    {
+      "buttonLabel": "Pre-K",
+      "domainId": "PK.MATH",
+      "clusterId": "PK.MATH.READINESS",
+      "standardIds": [
+        "PK.NS",
+        "PK.OA",
+        "PK.MD",
+        "PK.G"
+      ]
+    }
+  ],
+  "liveReplacementReadiness": {
+    "directLiveEditPerformed": false,
+    "reason": "Candidate package is ready for S18/S04/S05/S11/S23 gates before touching live RAG, question, lesson, or test files.",
+    "recommendedNextAdapter": "Map domain-safe-card-v2 and cluster-safe-card-v2 records into data/rag/usMath.ts only after S18 and S23 approval."
+  }
+}

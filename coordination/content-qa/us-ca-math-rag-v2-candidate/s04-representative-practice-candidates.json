@@ -1,0 +1,200 @@
+[
+  {
+    "id": "s04-sample-k-cc-cardinality-compare",
+    "packageId": "us-ca-math-rag-v2-candidate",
+    "owner": "S04 practice lead",
+    "qaOwner": "S18 curriculum QA",
+    "status": "candidate-sample",
+    "curriculumTrack": "US_CA_MATH",
+    "sourceSkill": "$california-math-common-core",
+    "sourceDistance": "MAIS-authored original item based on cluster target only",
+    "sourceSafety": {
+      "copiedIxlText": false,
+      "copiedOfficialStandardProse": false,
+      "copiedSourceLayout": false
+    },
+    "briefId": "s04-practice-kindergarten-k-cc-cardinality-compare",
+    "buttonLabel": "Kindergarten",
+    "maisGrade": "K",
+    "domainId": "K.CC",
+    "clusterId": "K.CC.cardinality-compare",
+    "canonicalStandardIds": [
+      "K.CC.4",
+      "K.CC.5",
+      "K.CC.6",
+      "K.CC.7"
+    ],
+    "maisStandardIds": [
+      "CA.CCSS.Math.K.CC.4",
+      "CA.CCSS.Math.K.CC.5",
+      "CA.CCSS.Math.K.CC.6",
+      "CA.CCSS.Math.K.CC.7"
+    ],
+    "prompt": "A student places 4 blue cubes and 6 red cubes on a table. Which color has more cubes, and how many more?",
+    "answer": "Red has more cubes by 2.",
+    "solutionEvidence": "Compare 6 red cubes with 4 blue cubes. Since 6 is greater than 4 and 6 - 4 = 2, the red group has 2 more cubes.",
+    "itemFormat": "short-answer with optional manipulatives",
+    "misconceptionProbe": "Student may compare by the size of the drawn group instead of matching one cube to one cube.",
+    "releaseStatus": "not-live"
+  },
+  {
+    "id": "s04-sample-1-oa-add-subtract",
+    "packageId": "us-ca-math-rag-v2-candidate",
+    "owner": "S04 practice lead",
+    "qaOwner": "S18 curriculum QA",
+    "status": "candidate-sample",
+    "curriculumTrack": "US_CA_MATH",
+    "sourceSkill": "$california-math-common-core",
+    "sourceDistance": "MAIS-authored original item based on cluster target only",
+    "sourceSafety": {
+      "copiedIxlText": false,
+      "copiedOfficialStandardProse": false,
+      "copiedSourceLayout": false
+    },
+    "briefId": "s04-practice-grade-1-1-oa-add-subtract",
+    "buttonLabel": "First",
+    "maisGrade": "P1",
+    "domainId": "1.OA",
+    "clusterId": "1.OA.add-subtract",
+    "canonicalStandardIds": [
+      "1.OA.1",
+      "1.OA.2",
+      "1.OA.3",
+      "1.OA.4",
+      "1.OA.5",
+      "1.OA.6",
+      "1.OA.7",
+      "1.OA.8"
+    ],
+    "maisStandardIds": [
+      "CA.CCSS.Math.G1.OA.1",
+      "CA.CCSS.Math.G1.OA.2",
+      "CA.CCSS.Math.G1.OA.3",
+      "CA.CCSS.Math.G1.OA.4",
+      "CA.CCSS.Math.G1.OA.5",
+      "CA.CCSS.Math.G1.OA.6",
+      "CA.CCSS.Math.G1.OA.7",
+      "CA.CCSS.Math.G1.OA.8"
+    ],
+    "prompt": "There are 8 pencils in a cup. Leo adds 5 pencils. Then 3 pencils are used. How many pencils are in the cup now?",
+    "answer": "10 pencils.",
+    "solutionEvidence": "Start with 8, add 5 to get 13, then subtract 3 to get 10.",
+    "itemFormat": "multi-step word problem",
+    "misconceptionProbe": "Student may do only the first operation or choose an operation from a keyword.",
+    "releaseStatus": "not-live"
+  },
+  {
+    "id": "s04-sample-6-rp-ratios",
+    "packageId": "us-ca-math-rag-v2-candidate",
+    "owner": "S04 practice lead",
+    "qaOwner": "S18 curriculum QA",
+    "status": "candidate-sample",
+    "curriculumTrack": "US_CA_MATH",
+    "sourceSkill": "$california-math-common-core",
+    "sourceDistance": "MAIS-authored original item based on cluster target only",
+    "sourceSafety": {
+      "copiedIxlText": false,
+      "copiedOfficialStandardProse": false,
+      "copiedSourceLayout": false
+    },
+    "briefId": "s04-practice-grade-6-6-rp-ratios",
+    "buttonLabel": "Sixth",
+    "maisGrade": "P6",
+    "domainId": "6.RP",
+    "clusterId": "6.RP.ratios",
+    "canonicalStandardIds": [
+      "6.RP.1",
+      "6.RP.2",
+      "6.RP.3"
+    ],
+    "maisStandardIds": [
+      "CA.CCSS.Math.G6.RP.1",
+      "CA.CCSS.Math.G6.RP.2",
+      "CA.CCSS.Math.G6.RP.3"
+    ],
+    "prompt": "A smoothie recipe uses 3 cups of yogurt for every 5 cups of fruit. If a batch uses 20 cups of fruit, how many cups of yogurt are needed?",
+    "answer": "12 cups of yogurt.",
+    "solutionEvidence": "The fruit amount is multiplied by 4 because 5 x 4 = 20. Multiply yogurt by the same factor: 3 x 4 = 12.",
+    "itemFormat": "ratio table or equivalent-ratio response",
+    "misconceptionProbe": "Student may add 15 instead of using a multiplicative scale factor.",
+    "releaseStatus": "not-live"
+  },
+  {
+    "id": "s04-sample-8-f-function-relationships",
+    "packageId": "us-ca-math-rag-v2-candidate",
+    "owner": "S04 practice lead",
+    "qaOwner": "S18 curriculum QA",
+    "status": "candidate-sample",
+    "curriculumTrack": "US_CA_MATH",
+    "sourceSkill": "$california-math-common-core",
+    "sourceDistance": "MAIS-authored original item based on cluster target only",
+    "sourceSafety": {
+      "copiedIxlText": false,
+      "copiedOfficialStandardProse": false,
+      "copiedSourceLayout": false
+    },
+    "briefId": "s04-practice-grade-8-8-f-function-relationships",
+    "buttonLabel": "Eighth",
+    "maisGrade": "S2",
+    "domainId": "8.F",
+    "clusterId": "8.F.function-relationships",
+    "canonicalStandardIds": [
+      "8.F.1",
+      "8.F.2",
+      "8.F.3",
+      "8.F.4",
+      "8.F.5"
+    ],
+    "maisStandardIds": [
+      "CA.CCSS.Math.G8.F.1",
+      "CA.CCSS.Math.G8.F.2",
+      "CA.CCSS.Math.G8.F.3",
+      "CA.CCSS.Math.G8.F.4",
+      "CA.CCSS.Math.G8.F.5"
+    ],
+    "prompt": "A table shows x-values 0, 1, 2, 3 and y-values 4, 7, 10, 13. Write a rule for y in terms of x.",
+    "answer": "y = 3x + 4.",
+    "solutionEvidence": "Each time x increases by 1, y increases by 3, so the rate is 3. When x = 0, y = 4, so the starting value is 4.",
+    "itemFormat": "table-to-rule constructed response",
+    "misconceptionProbe": "Student may use the starting value as the rate or ignore the x = 0 row.",
+    "releaseStatus": "not-live"
+  },
+  {
+    "id": "s04-sample-a-sse-structure",
+    "packageId": "us-ca-math-rag-v2-candidate",
+    "owner": "S04 practice lead",
+    "qaOwner": "S18 curriculum QA",
+    "status": "candidate-sample",
+    "curriculumTrack": "US_CA_MATH",
+    "sourceSkill": "$california-math-common-core",
+    "sourceDistance": "MAIS-authored original item based on cluster target only",
+    "sourceSafety": {
+      "copiedIxlText": false,
+      "copiedOfficialStandardProse": false,
+      "copiedSourceLayout": false
+    },
+    "briefId": "s04-practice-high-school-a-sse-structure",
+    "buttonLabel": "High school",
+    "maisGrade": "S3-S6",
+    "domainId": "A-SSE",
+    "clusterId": "A-SSE.structure",
+    "canonicalStandardIds": [
+      "A-SSE.1",
+      "A-SSE.2",
+      "A-SSE.3",
+      "A-SSE.4"
+    ],
+    "maisStandardIds": [
+      "CA.CCSS.Math.HS.A-SSE.1",
+      "CA.CCSS.Math.HS.A-SSE.2",
+      "CA.CCSS.Math.HS.A-SSE.3",
+      "CA.CCSS.Math.HS.A-SSE.4"
+    ],
+    "prompt": "Factor the expression 6x^2 + 15x completely.",
+    "answer": "3x(2x + 5).",
+    "solutionEvidence": "Both terms share a factor of 3x. Dividing gives 6x^2 / 3x = 2x and 15x / 3x = 5, so the expression is 3x(2x + 5).",
+    "itemFormat": "algebraic structure response",
+    "misconceptionProbe": "Student may factor only the numeric 3 or treat x as optional.",
+    "releaseStatus": "not-live"
+  }
+]
