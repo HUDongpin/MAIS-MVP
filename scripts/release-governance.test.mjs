@@ -4,6 +4,7 @@ import { tmpdir } from "node:os";
 import path from "node:path";
 import { fileURLToPath, pathToFileURL } from "node:url";
 import { spawn, spawnSync } from "node:child_process";
+import { createHash } from "node:crypto";
 import { setTimeout as delay } from "node:timers/promises";
 import test from "node:test";
 
@@ -2117,22 +2118,43 @@ test("kill-port uses SIGKILL only after a controlled SIGTERM grace fallback", as
   }
 });
 
-test("Git-index Next config honors only the P0 NEXT_DIST_DIR hook", async () => {
+test("Git-index Next config composes the approved build hooks and six compatibility redirects", async () => {
   const configObject = runGit(["show", ":next.config.ts"], repoRoot);
   assert.equal(configObject.status, 0, combinedOutput(configObject));
-  assert.doesNotMatch(configObject.stdout, /redirects\s*\(|transpilePackages|devIndicators|NEXT_TSCONFIG_PATH/);
   const tempDir = await mkdtemp(path.join(tmpdir(), "mais-next-config-object-"));
   const configPath = path.join(tempDir, "next.config.ts");
   const previousDistDir = process.env.NEXT_DIST_DIR;
+  const previousTsconfigPath = process.env.NEXT_TSCONFIG_PATH;
 
   try {
     await writeFile(configPath, configObject.stdout);
     process.env.NEXT_DIST_DIR = ".tmp/object-proof/next-dist";
+    process.env.NEXT_TSCONFIG_PATH = "tsconfig.release-proof.json";
     const imported = await import(`${pathToFileURL(configPath).href}?proof=${Date.now()}`);
-    assert.equal(imported.default.distDir, ".tmp/object-proof/next-dist");
+    const config = imported.default;
+    assert.equal(config.distDir, ".tmp/object-proof/next-dist");
+    assert.equal(config.devIndicators, false);
+    assert.equal(config.skipMiddlewareUrlNormalize, true);
+    assert.deepEqual(config.transpilePackages, [
+      "three",
+      "@react-three/fiber",
+      "@react-three/drei",
+      "three-stdlib"
+    ]);
+    assert.deepEqual(config.typescript, { tsconfigPath: "tsconfig.release-proof.json" });
+    assert.deepEqual(await config.redirects(), [
+      { source: "/visualization-lab", destination: "/student/tools/visualizations", permanent: true },
+      { source: "/learning-path", destination: "/student/roadmap", permanent: true },
+      { source: "/primary-roadmap", destination: "/student/roadmap/primary", permanent: true },
+      { source: "/secondary-roadmap", destination: "/student/roadmap/secondary", permanent: true },
+      { source: "/lesson", destination: "/student/lessons", permanent: true },
+      { source: "/lesson/:lessonSlug", destination: "/student/lessons/:lessonSlug", permanent: true }
+    ]);
   } finally {
     if (previousDistDir === undefined) delete process.env.NEXT_DIST_DIR;
     else process.env.NEXT_DIST_DIR = previousDistDir;
+    if (previousTsconfigPath === undefined) delete process.env.NEXT_TSCONFIG_PATH;
+    else process.env.NEXT_TSCONFIG_PATH = previousTsconfigPath;
     await rm(tempDir, { recursive: true, force: true });
   }
 });
@@ -2157,7 +2179,48 @@ test("P0 package delta and default release gates are self-contained in Git objec
     "test:release-evidence": "node --test --test-concurrency=1 coordination/release-intake/refresh-linked-worktree-archive-evidence.test.mjs",
     "test:imports": "node --test scripts/check-import-targets.test.mjs"
   };
-  const allowedScriptChanges = new Set(Object.keys(expectedP0Scripts));
+  const allowedScriptChanges = new Set([
+    "build",
+    "check:imports",
+    "clean:generated",
+    "clean:generated:apply",
+    "clean:next-builds",
+    "clean:vercel-staging",
+    "dev",
+    "dev:isolated",
+    "dev:turbo",
+    "kill-port",
+    "rag:hk-up-junior-english-exercises-manifest",
+    "rag:hk-up-junior-english-textbook-manifest",
+    "rag:hk-up-junior-resources-manifest",
+    "rag:hk-up-junior-textbook-manifest",
+    "release:build-gate",
+    "release:dirty-map",
+    "release:env-preflight",
+    "release:package-gate",
+    "release:preflight",
+    "release:publish-preflight",
+    "release:root-deploy-preflight",
+    "release:runtime-preflight",
+    "release:staged-publish-preflight",
+    "smoke:ai-tutor-live-latency",
+    "smoke:dashboard-auth-ready",
+    "smoke:dashboard-latency",
+    "smoke:dashboard-ui-loading",
+    "smoke:resend:local",
+    "test:analytics",
+    "test:e2e",
+    "test:imports",
+    "test:mvp",
+    "test:question-bank",
+    "test:question-figure",
+    "test:rag",
+    "test:release-evidence",
+    "test:release-governance",
+    "vercel:preview",
+    "vercel:production",
+    "vercel:stage"
+  ]);
   const allScriptNames = new Set([
     ...Object.keys(baseline.scripts ?? {}),
     ...Object.keys(current.scripts ?? {})
@@ -2169,7 +2232,15 @@ test("P0 package delta and default release gates are self-contained in Git objec
   assert.deepEqual(
     changedScriptNames,
     [...allowedScriptChanges].sort(),
-    "Only P0/P1-owned commands may differ from the frozen baseline"
+    "Only the reviewed A10/A22 release and runtime commands may differ from the frozen baseline"
+  );
+  const changedScripts = Object.fromEntries(
+    changedScriptNames.map((name) => [name, current.scripts?.[name] ?? null])
+  );
+  assert.equal(
+    createHash("sha256").update(JSON.stringify(changedScripts)).digest("hex"),
+    "32e6c3ea47b9f3948536ab2715b686d702386e6d23d65a2c1e20d75928222b36",
+    "Reviewed command bodies must remain exact"
   );
   for (const [name, command] of Object.entries(expectedP0Scripts)) {
     assert.equal(current.scripts[name], command, `${name} command`);
@@ -2178,13 +2249,28 @@ test("P0 package delta and default release gates are self-contained in Git objec
     assertTrackedInIndex(localTarget);
   }
 
+  for (const command of Object.values(changedScripts)) {
+    if (typeof command !== "string") continue;
+    for (const target of command.match(/scripts\/[^\s]+\.(?:mjs|py)/gu) ?? []) {
+      assertTrackedInIndex(target);
+    }
+  }
+
   assert.deepEqual(current.dependencies, {
     ...baseline.dependencies,
-    next: "15.5.20"
+    "@react-three/drei": "10.7.7",
+    "@react-three/fiber": "9.6.1",
+    next: "15.5.20",
+    pptxgenjs: "^4.0.1",
+    three: "0.184.0",
+    "three-stdlib": "2.36.1",
+    ws: "^8.21.0"
   });
   assert.deepEqual(current.devDependencies, {
     ...baseline.devDependencies,
+    "@types/ws": "^8.18.1",
     postcss: "8.5.16",
+    tsx: "^4.22.4",
     yaml: "2.9.0"
   });
   assert.deepEqual(current.overrides, {
@@ -2195,6 +2281,9 @@ test("P0 package delta and default release gates are self-contained in Git objec
   assert.deepEqual(packageLock.packages[""].devDependencies, current.devDependencies);
   assert.equal(packageLock.packages["node_modules/next"].version, "15.5.20");
   assert.equal(packageLock.packages["node_modules/postcss"].version, "8.5.16");
+  assert.equal(packageLock.packages["node_modules/three"].version, "0.184.0");
+  assert.equal(packageLock.packages["node_modules/three-stdlib"].version, "2.36.1");
+  assert.equal(packageLock.packages["node_modules/ws"].version, "8.21.1");
   assert.equal(packageLock.packages["node_modules/yaml"].version, "2.9.0");
   assert.equal(packageLock.packages["node_modules/yaml"].dev, true);
   assert.match(packageLock.packages["node_modules/yaml"].integrity, /^sha512-/u);
