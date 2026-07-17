@@ -1,0 +1,24 @@
+{
+  "packageId": "us-ca-adaptive-k-g5-beta-seed-v1",
+  "auditedAt": "2026-06-20T00:00:00+08:00",
+  "status": "pass",
+  "counts": {
+    "totalQuestions": 12,
+    "deterministicPass": 12,
+    "manualReviewRows": 0,
+    "rejectedRows": 0,
+    "blockerRows": 0
+  },
+  "checks": [
+    "independent arithmetic recomputation",
+    "multiple-choice unique correct option",
+    "grade/topic/curriculum-track consistency",
+    "student prompt provider-label cleanup"
+  ],
+  "scopeLimits": [
+    "US_CA_MATH K-G5 adaptive beta seed only",
+    "does not approve full US_CA K-G5 bank",
+    "does not approve US_CA P6-S6 adaptive routing",
+    "does not approve US_NC live routing"
+  ]
+}

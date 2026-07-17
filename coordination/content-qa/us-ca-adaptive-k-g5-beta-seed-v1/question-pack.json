@@ -1,0 +1,302 @@
+{
+  "packageId": "us-ca-adaptive-k-g5-beta-seed-v1",
+  "schemaVersion": "1.0",
+  "generatedAt": "2026-06-20T00:00:00+08:00",
+  "generator": "Codex S21 selection from existing US_CA K-G5 candidate bank with S18-safe student text cleanup",
+  "sessionId": "S21",
+  "scope": {
+    "curriculumTrack": "US_CA_MATH",
+    "state": "CA",
+    "gradeSpan": ["K", "P1", "P2", "P3", "P4", "P5"],
+    "intendedReleaseSurface": "Adaptive Learning beta seed only",
+    "excludedScope": ["US_NC_MATH", "US_CA_MATH grades P6-S6", "full California curriculum claims"]
+  },
+  "sourceEvidencePolicy": "public-standards-only; generated-original student items; selected from safe-RAG-backed candidate metadata; no raw protected corpus text committed",
+  "packageStatus": "approved-for-review",
+  "reviewStatus": "pending-independent-S18-verdict-in-this-package",
+  "integrationStatus": "candidate-selected-for-S23-adaptive-beta-promotion",
+  "nextOwner": "S18 content QA, then S23 promotion and S15 regression",
+  "checksRun": [
+    "selected exactly two questions per grade K/P1/P2/P3/P4/P5",
+    "checked each answer by independent arithmetic",
+    "removed provider labels from student-facing prompts before live mapping",
+    "confirmed each item stays in US_CA_MATH and has one primary California/Common Core domain"
+  ],
+  "checksNotRun": [
+    "full 1500-row K-G5 bank promotion",
+    "US_NC promotion",
+    "browser visual QA"
+  ],
+  "questions": [
+    {
+      "id": "us-ca-k-g5-v3-deepseek-k-u01-q01",
+      "grade": "K",
+      "usGradeLabel": "Kindergarten",
+      "topicId": "us-ca-math-k-unit-01-counting-collections",
+      "standardIds": ["CA.CCSS.Math.K.CC"],
+      "domainTags": ["counting and cardinality"],
+      "conceptIds": ["count", "one-to-one-correspondence"],
+      "difficulty": "Low",
+      "type": "multiple-choice",
+      "prompt": {
+        "en": "Activity 1: A box has 3 pencils. How many pencils are in the box?",
+        "zh": "活動 1：一個盒子裡有 3 支鉛筆。盒子裡有多少支鉛筆？",
+        "zhHans": "活动 1：一个盒子里有 3 支铅笔。盒子里有多少支铅笔？"
+      },
+      "options": ["2", "5", "1", "3"],
+      "answer": "3",
+      "acceptedAnswers": ["3"],
+      "independentSolution": "Count the pencils: 1, 2, 3.",
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "passed-independent-solvability-check",
+      "manualQaStatus": "accepted-s18-manual-review"
+    },
+    {
+      "id": "us-ca-k-g5-v3-deepseek-k-u01-q02",
+      "grade": "K",
+      "usGradeLabel": "Kindergarten",
+      "topicId": "us-ca-math-k-unit-01-counting-collections",
+      "standardIds": ["CA.CCSS.Math.K.CC"],
+      "domainTags": ["counting and cardinality"],
+      "conceptIds": ["count", "one-to-one-correspondence"],
+      "difficulty": "Medium",
+      "type": "fill-in",
+      "prompt": {
+        "en": "Activity 2: A basket has 5 blocks. How many blocks are in the basket?",
+        "zh": "活動 2：一個籃子裡有 5 個積木。籃子裡有多少個積木？",
+        "zhHans": "活动 2：一个篮子里有 5 个积木。篮子里有多少个积木？"
+      },
+      "answer": "5",
+      "acceptedAnswers": ["5"],
+      "independentSolution": "Count the blocks: 1, 2, 3, 4, 5.",
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "passed-independent-solvability-check",
+      "manualQaStatus": "accepted-s18-manual-review"
+    },
+    {
+      "id": "us-ca-k-g5-v3-deepseek-g1-u01-q01",
+      "grade": "P1",
+      "usGradeLabel": "Grade 1",
+      "topicId": "us-ca-math-g1-unit-01-counting-on-and-back",
+      "standardIds": ["CA.CCSS.Math.G1.OA"],
+      "domainTags": ["operations and algebraic thinking"],
+      "conceptIds": ["addition-subtraction", "counting-on"],
+      "difficulty": "Low",
+      "type": "multiple-choice",
+      "prompt": {
+        "en": "Activity 1: Start at 27 and count on 3. What number do you say?",
+        "zh": "活動 1：從 27 開始往上數 3 個。你說出的數字是多少？",
+        "zhHans": "活动 1：从 27 开始往上数 3 个。你说出的数字是多少？"
+      },
+      "options": ["29", "32", "28", "30"],
+      "answer": "30",
+      "acceptedAnswers": ["30"],
+      "independentSolution": "27 + 3 = 30.",
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "passed-independent-solvability-check",
+      "manualQaStatus": "accepted-s18-manual-review"
+    },
+    {
+      "id": "us-ca-k-g5-v3-deepseek-g1-u01-q02",
+      "grade": "P1",
+      "usGradeLabel": "Grade 1",
+      "topicId": "us-ca-math-g1-unit-01-counting-on-and-back",
+      "standardIds": ["CA.CCSS.Math.G1.OA"],
+      "domainTags": ["operations and algebraic thinking"],
+      "conceptIds": ["addition-subtraction", "counting-back"],
+      "difficulty": "Medium",
+      "type": "fill-in",
+      "prompt": {
+        "en": "Activity 2: Start at 30 and count back 2. What number do you say?",
+        "zh": "活動 2：從 30 開始往下數 2 個。你說出的數字是多少？",
+        "zhHans": "活动 2：从 30 开始往下数 2 个。你说出的数字是多少？"
+      },
+      "answer": "28",
+      "acceptedAnswers": ["28"],
+      "independentSolution": "30 - 2 = 28.",
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "passed-independent-solvability-check",
+      "manualQaStatus": "accepted-s18-manual-review"
+    },
+    {
+      "id": "us-ca-k-g5-v3-deepseek-g2-u01-q01",
+      "grade": "P2",
+      "usGradeLabel": "Grade 2",
+      "topicId": "us-ca-math-g2-unit-01-add-and-subtract-within-100",
+      "standardIds": ["CA.CCSS.Math.G2.OA"],
+      "domainTags": ["operations and algebraic thinking"],
+      "conceptIds": ["addition-subtraction-fluency", "place-value"],
+      "difficulty": "Low",
+      "type": "multiple-choice",
+      "prompt": {
+        "en": "Activity 1: What is 53 plus 35?",
+        "zh": "活動 1：53 加 35 是多少？",
+        "zhHans": "活动 1：53 加 35 是多少？"
+      },
+      "options": ["87", "90", "86", "88"],
+      "answer": "88",
+      "acceptedAnswers": ["88"],
+      "independentSolution": "53 + 35 = 88.",
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "passed-independent-solvability-check",
+      "manualQaStatus": "accepted-s18-manual-review"
+    },
+    {
+      "id": "us-ca-k-g5-v3-deepseek-g2-u01-q02",
+      "grade": "P2",
+      "usGradeLabel": "Grade 2",
+      "topicId": "us-ca-math-g2-unit-01-add-and-subtract-within-100",
+      "standardIds": ["CA.CCSS.Math.G2.OA"],
+      "domainTags": ["operations and algebraic thinking"],
+      "conceptIds": ["addition-subtraction-fluency", "place-value"],
+      "difficulty": "Medium",
+      "type": "fill-in",
+      "prompt": {
+        "en": "Activity 2: Add 68 and 32. What do you get?",
+        "zh": "活動 2：68 加 32，得到多少？",
+        "zhHans": "活动 2：68 加 32，得到多少？"
+      },
+      "answer": "100",
+      "acceptedAnswers": ["100"],
+      "independentSolution": "68 + 32 = 100.",
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "passed-independent-solvability-check",
+      "manualQaStatus": "accepted-s18-manual-review"
+    },
+    {
+      "id": "us-ca-k-g5-v3-deepseek-g3-u01-q01",
+      "grade": "P3",
+      "usGradeLabel": "Grade 3",
+      "topicId": "us-ca-math-g3-unit-01-multiplication-meaning",
+      "standardIds": ["CA.CCSS.Math.G3.OA"],
+      "domainTags": ["multiplication and division"],
+      "conceptIds": ["multiplication-division", "equal-groups"],
+      "difficulty": "Medium",
+      "type": "multiple-choice",
+      "prompt": {
+        "en": "Activity 1: There are 4 boxes with 8 pencils in each box. How many pencils are there in all?",
+        "zh": "活動 1：有 4 盒鉛筆，每盒有 8 支鉛筆。總共有多少支鉛筆？",
+        "zhHans": "活动 1：有 4 盒铅笔，每盒有 8 支铅笔。总共有多少支铅笔？"
+      },
+      "options": ["31", "34", "30", "32"],
+      "answer": "32",
+      "acceptedAnswers": ["32"],
+      "independentSolution": "4 x 8 = 32.",
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "passed-independent-solvability-check",
+      "manualQaStatus": "accepted-s18-manual-review"
+    },
+    {
+      "id": "us-ca-k-g5-v3-deepseek-g3-u01-q02",
+      "grade": "P3",
+      "usGradeLabel": "Grade 3",
+      "topicId": "us-ca-math-g3-unit-01-multiplication-meaning",
+      "standardIds": ["CA.CCSS.Math.G3.OA"],
+      "domainTags": ["multiplication and division"],
+      "conceptIds": ["multiplication-division", "equal-groups"],
+      "difficulty": "Low",
+      "type": "fill-in",
+      "prompt": {
+        "en": "Activity 2: A bakery sells 5 trays of muffins, with 9 muffins on each tray. How many muffins are sold in total?",
+        "zh": "活動 2：一家麵包店賣出 5 盤鬆餅，每盤有 9 個鬆餅。總共賣出多少個鬆餅？",
+        "zhHans": "活动 2：一家面包店卖出 5 盘松饼，每盘有 9 个松饼。总共卖出多少个松饼？"
+      },
+      "answer": "45",
+      "acceptedAnswers": ["45"],
+      "independentSolution": "5 x 9 = 45.",
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "passed-independent-solvability-check",
+      "manualQaStatus": "accepted-s18-manual-review"
+    },
+    {
+      "id": "us-ca-k-g5-v3-deepseek-g4-u01-q01",
+      "grade": "P4",
+      "usGradeLabel": "Grade 4",
+      "topicId": "us-ca-math-g4-unit-01-multi-digit-addition-and-subtraction",
+      "standardIds": ["CA.CCSS.Math.G4.NBT"],
+      "domainTags": ["number and operations in base ten"],
+      "conceptIds": ["sum", "regroup", "place-value"],
+      "difficulty": "Medium",
+      "type": "multiple-choice",
+      "prompt": {
+        "en": "Activity 1: A farmer harvested 1,262 apples on Saturday and 966 apples on Sunday. How many apples did the farmer harvest in total?",
+        "zh": "活動 1：一位農夫在星期六收成了 1,262 顆蘋果，星期天收成了 966 顆蘋果。農夫總共收成了多少顆蘋果？",
+        "zhHans": "活动 1：一位农夫在星期六收成了 1,262 颗苹果，星期天收成了 966 颗苹果。农夫总共收成了多少颗苹果？"
+      },
+      "options": ["2227", "2230", "2226", "2228"],
+      "answer": "2228",
+      "acceptedAnswers": ["2228"],
+      "independentSolution": "1,262 + 966 = 2,228.",
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "passed-independent-solvability-check",
+      "manualQaStatus": "accepted-s18-manual-review"
+    },
+    {
+      "id": "us-ca-k-g5-v3-deepseek-g4-u01-q02",
+      "grade": "P4",
+      "usGradeLabel": "Grade 4",
+      "topicId": "us-ca-math-g4-unit-01-multi-digit-addition-and-subtraction",
+      "standardIds": ["CA.CCSS.Math.G4.NBT"],
+      "domainTags": ["number and operations in base ten"],
+      "conceptIds": ["sum", "regroup", "place-value"],
+      "difficulty": "Low",
+      "type": "fill-in",
+      "prompt": {
+        "en": "Activity 2: A bookstore sold 1,399 pencils in January and 1,057 pencils in February. How many pencils were sold in total?",
+        "zh": "活動 2：一家書店在一月份賣出 1,399 支鉛筆，二月份賣出 1,057 支鉛筆。總共賣出多少支鉛筆？",
+        "zhHans": "活动 2：一家书店在一月份卖出 1,399 支铅笔，二月份卖出 1,057 支铅笔。总共卖出多少支铅笔？"
+      },
+      "answer": "2456",
+      "acceptedAnswers": ["2456"],
+      "independentSolution": "1,399 + 1,057 = 2,456.",
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "passed-independent-solvability-check",
+      "manualQaStatus": "accepted-s18-manual-review"
+    },
+    {
+      "id": "us-ca-k-g5-v3-deepseek-g5-u01-q01",
+      "grade": "P5",
+      "usGradeLabel": "Grade 5",
+      "topicId": "us-ca-math-g5-unit-01-place-value-patterns",
+      "standardIds": ["CA.CCSS.Math.G5.NBT"],
+      "domainTags": ["number and operations in base ten"],
+      "conceptIds": ["power of ten", "decimal", "place-value"],
+      "difficulty": "Medium",
+      "type": "multiple-choice",
+      "prompt": {
+        "en": "Activity 1: Multiply 2.62 by 10.",
+        "zh": "活動 1：2.62 乘以 10。",
+        "zhHans": "活动 1：2.62 乘以 10。"
+      },
+      "options": ["25.2", "28.2", "24.2", "26.2"],
+      "answer": "26.2",
+      "acceptedAnswers": ["26.2"],
+      "independentSolution": "2.62 x 10 = 26.2.",
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "passed-independent-solvability-check",
+      "manualQaStatus": "accepted-s18-manual-review"
+    },
+    {
+      "id": "us-ca-k-g5-v3-deepseek-g5-u01-q02",
+      "grade": "P5",
+      "usGradeLabel": "Grade 5",
+      "topicId": "us-ca-math-g5-unit-01-place-value-patterns",
+      "standardIds": ["CA.CCSS.Math.G5.NBT"],
+      "domainTags": ["number and operations in base ten"],
+      "conceptIds": ["power of ten", "decimal", "place-value"],
+      "difficulty": "Low",
+      "type": "fill-in",
+      "prompt": {
+        "en": "Activity 2: Multiply 2.99 by 10.",
+        "zh": "活動 2：2.99 乘以 10。",
+        "zhHans": "活动 2：2.99 乘以 10。"
+      },
+      "answer": "29.9",
+      "acceptedAnswers": ["29.9"],
+      "independentSolution": "2.99 x 10 = 29.9.",
+      "sourceDistanceStatus": "passed-auto-source-scan",
+      "mathQaStatus": "passed-independent-solvability-check",
+      "manualQaStatus": "accepted-s18-manual-review"
+    }
+  ]
+}

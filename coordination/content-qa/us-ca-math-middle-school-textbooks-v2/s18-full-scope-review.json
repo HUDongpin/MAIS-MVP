@@ -1,0 +1,146 @@
+{
+  "packageId": "us-ca-math-middle-school-textbooks-v2",
+  "reviewedAt": "2026-06-19T10:50:46.562Z",
+  "reviewer": "S18 automated full-scope reviewer under owner conditional release request",
+  "status": "approved-for-integration-review",
+  "productionRecommendation": "eligible-for-owner-approved-temporary-public-replacement-release",
+  "counts": {
+    "totalLessons": 15,
+    "acceptedRows": 15,
+    "blockerRows": 0,
+    "gradeCounts": {
+      "P6": 5,
+      "S1": 5,
+      "S2": 5
+    },
+    "uniqueStandardIds": 81,
+    "deterministicPassRows": 15
+  },
+  "lessonReviews": [
+    {
+      "lessonId": "us-ca-math-middle-school-textbooks-v2-p6-6-rp-ratios",
+      "grade": "P6",
+      "domainId": "6.RP",
+      "title": "Grade 6 Ratios and Proportional Relationships: Ratios",
+      "status": "accept",
+      "findings": []
+    },
+    {
+      "lessonId": "us-ca-math-middle-school-textbooks-v2-p6-6-ns-rational-numbers",
+      "grade": "P6",
+      "domainId": "6.NS",
+      "title": "Grade 6 The Number System: Rational Numbers",
+      "status": "accept",
+      "findings": []
+    },
+    {
+      "lessonId": "us-ca-math-middle-school-textbooks-v2-p6-6-ee-expressions-equations",
+      "grade": "P6",
+      "domainId": "6.EE",
+      "title": "Grade 6 Expressions and Equations: Expressions Equations",
+      "status": "accept",
+      "findings": []
+    },
+    {
+      "lessonId": "us-ca-math-middle-school-textbooks-v2-p6-6-g-area-volume",
+      "grade": "P6",
+      "domainId": "6.G",
+      "title": "Grade 6 Geometry: Area Volume",
+      "status": "accept",
+      "findings": []
+    },
+    {
+      "lessonId": "us-ca-math-middle-school-textbooks-v2-p6-6-sp-distributions",
+      "grade": "P6",
+      "domainId": "6.SP",
+      "title": "Grade 6 Statistics and Probability: Distributions",
+      "status": "accept",
+      "findings": []
+    },
+    {
+      "lessonId": "us-ca-math-middle-school-textbooks-v2-s1-7-rp-proportions",
+      "grade": "S1",
+      "domainId": "7.RP",
+      "title": "Grade 7 Ratios and Proportional Relationships: Proportions",
+      "status": "accept",
+      "findings": []
+    },
+    {
+      "lessonId": "us-ca-math-middle-school-textbooks-v2-s1-7-ns-rational-operations",
+      "grade": "S1",
+      "domainId": "7.NS",
+      "title": "Grade 7 The Number System: Rational Operations",
+      "status": "accept",
+      "findings": []
+    },
+    {
+      "lessonId": "us-ca-math-middle-school-textbooks-v2-s1-7-ee-linear-expressions",
+      "grade": "S1",
+      "domainId": "7.EE",
+      "title": "Grade 7 Expressions and Equations: Linear Expressions",
+      "status": "accept",
+      "findings": []
+    },
+    {
+      "lessonId": "us-ca-math-middle-school-textbooks-v2-s1-7-g-scale-circles-angles",
+      "grade": "S1",
+      "domainId": "7.G",
+      "title": "Grade 7 Geometry: Scale Circles Angles",
+      "status": "accept",
+      "findings": []
+    },
+    {
+      "lessonId": "us-ca-math-middle-school-textbooks-v2-s1-7-sp-inference-probability",
+      "grade": "S1",
+      "domainId": "7.SP",
+      "title": "Grade 7 Statistics and Probability: Inference Probability",
+      "status": "accept",
+      "findings": []
+    },
+    {
+      "lessonId": "us-ca-math-middle-school-textbooks-v2-s2-8-ns-real-numbers",
+      "grade": "S2",
+      "domainId": "8.NS",
+      "title": "Grade 8 The Number System: Real Numbers",
+      "status": "accept",
+      "findings": []
+    },
+    {
+      "lessonId": "us-ca-math-middle-school-textbooks-v2-s2-8-ee-exponents-linear-systems",
+      "grade": "S2",
+      "domainId": "8.EE",
+      "title": "Grade 8 Expressions and Equations: Exponents Linear Systems",
+      "status": "accept",
+      "findings": []
+    },
+    {
+      "lessonId": "us-ca-math-middle-school-textbooks-v2-s2-8-f-function-relationships",
+      "grade": "S2",
+      "domainId": "8.F",
+      "title": "Grade 8 Functions: Function Relationships",
+      "status": "accept",
+      "findings": []
+    },
+    {
+      "lessonId": "us-ca-math-middle-school-textbooks-v2-s2-8-g-transformations-pythagorean-volume",
+      "grade": "S2",
+      "domainId": "8.G",
+      "title": "Grade 8 Geometry: Transformations Pythagorean Volume",
+      "status": "accept",
+      "findings": []
+    },
+    {
+      "lessonId": "us-ca-math-middle-school-textbooks-v2-s2-8-sp-bivariate-data",
+      "grade": "S2",
+      "domainId": "8.SP",
+      "title": "Grade 8 Statistics and Probability: Bivariate Data",
+      "status": "accept",
+      "findings": []
+    }
+  ],
+  "remainingRisks": [
+    "This release is text-only; future graphs, diagrams, dense labels, and answer-critical visuals require deterministic math-svg/exact-layer QA.",
+    "Public copy must avoid complete/official California curriculum claims.",
+    "This is a replacement textbook surface, not a claim of full California curriculum parity."
+  ]
+}
