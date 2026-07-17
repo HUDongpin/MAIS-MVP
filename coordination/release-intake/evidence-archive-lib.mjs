@@ -211,8 +211,11 @@ const REVIEWED_CURRENT_BRANCH_HEAD_TRACKED_ENTRY = Object.freeze({
 const REVIEWED_CURRENT_BRANCH_HEAD_TRACKED_DISPLAY_PATH = "reviewed-current-branch-head-tracked/content.md";
 const REVIEWED_LEGACY_TERMINAL_PATCH_HEAD = "ec22a29b55a4329e81d96e02417f8925ccec54c3";
 const REVIEWED_EXACT_A18_FINAL_HEAD = "e17471e6bc296828db591f4f060a868e075653e9";
+const REVIEWED_EXACT_ROOT_FINAL_HEAD = "ed25ac518def3f793d2ce592a0eb94904a495f1d";
 function isReviewedLegacyCurrentHeadRevision(headRevision, pinnedRevision) {
-  return headRevision === pinnedRevision || headRevision === REVIEWED_EXACT_A18_FINAL_HEAD;
+  return headRevision === pinnedRevision
+    || headRevision === REVIEWED_EXACT_A18_FINAL_HEAD
+    || headRevision === REVIEWED_EXACT_ROOT_FINAL_HEAD;
 }
 const REVIEWED_LEGACY_TERMINAL_PATCH_ENTRIES = Object.freeze([
   Object.freeze({
