@@ -1,5 +1,6 @@
 import { mainlandHjbJuniorPaperPatternCards } from "../../data/rag/mainlandHjbJuniorPaperPatterns";
 import { mainlandHjbJuniorRagCards } from "../../data/rag/mainlandHjbJunior";
+import { illustrationTextMatchStandardForRag } from "./illustrationTextMatchStandard";
 import { getMainlandJuniorZhongkaoExamPatternCards } from "./mainlandJuniorZhongkaoExamPatterns";
 import type {
   MainlandJuniorZhongkaoExamPatternQuery,
@@ -211,6 +212,7 @@ export function buildMainlandHjbJuniorPaperEvidencePack(query: MainlandHjbJunior
     "Use these aggregated patterns only to create original MAIS assessment support, diagnostics, and future question drafts.",
     "HJB junior paper-pattern cards summarize unit checks, topic review, and term-review design tendencies; they do not authorize copying protected wording, worked-response wording, tables, diagrams, layouts, or item order.",
     "Use only the pattern summaries, tags, misconceptions, and originality guidance below.",
+    ...illustrationTextMatchStandardForRag,
     ...cards.flatMap((card, index) => [
       `HJB junior paper pattern ${index + 1}: ${card.grade} ${card.semester} ${card.unitTitles.join(" / ")} (${card.difficultyBand}).`,
       `Material kinds: ${card.materialKinds.join(", ")}.`,
@@ -246,6 +248,7 @@ export function buildMainlandHjbJuniorPaperGenerationEvidencePack(
     "MAIS-safe combined evidence pack for MAINLAND_HJB junior paper-pattern support.",
     "Layer 1 answers what to teach from HJB junior curriculum safe cards. Layer 2 answers how HJB junior paper tasks are commonly structured from aggregated pattern cards. Layer 3 is the single shared Mainland junior zhongkao layer used across Mainland publishers.",
     "Generate only new MAIS-authored questions, contexts, diagrams, values, distractors, and explanations.",
+    ...illustrationTextMatchStandardForRag,
     "Curriculum layer:",
     ...curriculumCards.map((card, index) => `${index + 1}. ${card.grade} ${card.semester} ${card.unitTitle}: ${card.safeSummary}`),
     "HJB junior paper-pattern layer:",

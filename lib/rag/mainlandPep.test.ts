@@ -172,6 +172,10 @@ test("S1-S3 junior paper-pattern queries retrieve focused upper and lower safe c
     { grade: "S1" as const, semester: "upper" as const, conceptIds: ["有理数"], expected: "pep-junior-s1-upper-paper-rational-number-operations" },
     { grade: "S1" as const, semester: "upper" as const, conceptIds: ["一元一次方程"], expected: "pep-junior-s1-upper-paper-linear-equation-modeling" },
     { grade: "S1" as const, semester: "lower" as const, conceptIds: ["相交线"], expected: "pep-junior-s1-lower-paper-lines-parallel-angles" },
+    { grade: "S1" as const, semester: "lower" as const, conceptIds: ["命题"], expected: "pep-junior-s1-lower-paper-lines-parallel-angles" },
+    { grade: "S1" as const, semester: "lower" as const, conceptIds: ["平移"], expected: "pep-junior-s1-lower-paper-lines-parallel-angles" },
+    { grade: "S1" as const, semester: "lower" as const, conceptIds: ["平方根"], expected: "pep-junior-s1-lower-paper-real-numbers" },
+    { grade: "S1" as const, semester: "lower" as const, conceptIds: ["立方根"], expected: "pep-junior-s1-lower-paper-real-numbers" },
     { grade: "S1" as const, semester: "lower" as const, conceptIds: ["平面直角坐标系"], expected: "pep-junior-s1-lower-paper-coordinate-plane" },
     { grade: "S1" as const, semester: "lower" as const, conceptIds: ["二元一次方程组"], expected: "pep-junior-s1-lower-paper-linear-systems" },
     { grade: "S1" as const, semester: "lower" as const, conceptIds: ["不等式"], expected: "pep-junior-s1-lower-paper-inequalities" },
@@ -179,8 +183,10 @@ test("S1-S3 junior paper-pattern queries retrieve focused upper and lower safe c
     { grade: "S2" as const, semester: "upper" as const, conceptIds: ["全等三角形"], expected: "pep-junior-s2-upper-paper-congruence-proof" },
     { grade: "S2" as const, semester: "upper" as const, conceptIds: ["分式"], expected: "pep-junior-s2-upper-paper-algebraic-fractions" },
     { grade: "S2" as const, semester: "lower" as const, conceptIds: ["二次根式"], expected: "pep-junior-s2-lower-paper-quadratic-radicals" },
+    { grade: "S2" as const, semester: "lower" as const, conceptIds: ["勾股模型"], expected: "pep-junior-s2-lower-paper-pythagorean-theorem" },
     { grade: "S2" as const, semester: "lower" as const, conceptIds: ["一次函数"], expected: "pep-junior-s2-lower-paper-linear-functions" },
     { grade: "S2" as const, semester: "lower" as const, conceptIds: ["数据分析"], expected: "pep-junior-s2-lower-paper-data-analysis" },
+    { grade: "S2" as const, semester: "lower" as const, conceptIds: ["易错", "压轴"], expected: "pep-junior-s2-lower-paper-integrated-review" },
     { grade: "S3" as const, semester: "upper" as const, conceptIds: ["一元二次方程"], expected: "pep-junior-s3-upper-paper-quadratic-equations" },
     { grade: "S3" as const, semester: "upper" as const, conceptIds: ["二次函数"], expected: "pep-junior-s3-upper-paper-quadratic-functions" },
     { grade: "S3" as const, semester: "upper" as const, conceptIds: ["圆"], expected: "pep-junior-s3-upper-paper-circle-geometry" },
@@ -301,6 +307,81 @@ test("unified junior paper-pattern helper matches standalone helper", () => {
   }
 });
 
+test("S3 upper owner-provided assessment packs retrieve unit and term-review safe cards", () => {
+  const unitCards = getMainlandPepJuniorPaperPatternCards({
+    grade: "S3",
+    semester: "upper",
+    unitTitle: "单元测试",
+    conceptIds: ["单元测试"],
+    materialKind: "unit-test",
+    intent: "assessment-design",
+    limit: 3
+  });
+  assert.equal(unitCards[0]?.id, "pep-junior-s3-upper-paper-owner-unit-tests-2026-06");
+  assert.ok(unitCards[0]?.conceptIds.includes("probability-introduction"));
+  assert.ok(unitCards[0]?.patternSummary.includes("metadata-only safe pattern"));
+
+  const termCards = getMainlandPepJuniorPaperPatternCards({
+    grade: "S3",
+    semester: "upper",
+    conceptIds: ["压轴", "易错"],
+    assessmentFamily: "final",
+    intent: "exam-practice",
+    limit: 3
+  });
+  assert.equal(termCards[0]?.id, "pep-junior-s3-upper-paper-owner-midterm-final-tiered-2026-06");
+  assert.ok(termCards[0]?.materialKinds.includes("midterm-final"));
+  assert.ok(termCards[0]?.itemTypeTags.includes("challenge synthesis"));
+
+  const unifiedPack = getMainlandPepEvidencePack({
+    grade: "S3",
+    semester: "upper",
+    conceptIds: ["压轴", "易错"],
+    intent: "exam-practice",
+    limit: 5
+  });
+  assert.ok(unifiedPack.juniorPaperPatternCards.some((card) => card.id === "pep-junior-s3-upper-paper-owner-midterm-final-tiered-2026-06"));
+  assert.doesNotMatch(unifiedPack.evidenceText, /原卷版|解析版|答案如下|sourceArchive|entryPath/);
+});
+
+test("S3 lower owner-provided assessment packs retrieve unit and term-review safe cards", () => {
+  const unitCards = getMainlandPepJuniorPaperPatternCards({
+    grade: "S3",
+    semester: "lower",
+    unitTitle: "单元测试",
+    conceptIds: ["反比例函数", "单元测试"],
+    materialKind: "unit-test",
+    intent: "assessment-design",
+    limit: 3
+  });
+  assert.equal(unitCards[0]?.id, "pep-junior-s3-lower-paper-owner-unit-tests-2026-06");
+  assert.ok(unitCards[0]?.conceptIds.includes("projection-views"));
+  assert.ok(unitCards[0]?.patternSummary.includes("metadata-only safe pattern"));
+
+  const termCards = getMainlandPepJuniorPaperPatternCards({
+    grade: "S3",
+    semester: "lower",
+    conceptIds: ["期末", "模拟", "跨册"],
+    materialKind: "midterm-final",
+    assessmentFamily: "final",
+    intent: "exam-practice",
+    limit: 3
+  });
+  assert.equal(termCards[0]?.id, "pep-junior-s3-lower-paper-owner-term-review-2026-06");
+  assert.ok(termCards[0]?.itemTypeTags.includes("cross-volume synthesis"));
+  assert.ok(termCards[0]?.conceptIds.includes("chapter-21-to-27-review"));
+
+  const unifiedPack = getMainlandPepEvidencePack({
+    grade: "S3",
+    semester: "lower",
+    conceptIds: ["期末", "模拟", "跨册"],
+    intent: "exam-practice",
+    limit: 5
+  });
+  assert.ok(unifiedPack.juniorPaperPatternCards.some((card) => card.id === "pep-junior-s3-lower-paper-owner-term-review-2026-06"));
+  assert.doesNotMatch(unifiedPack.evidenceText, /原卷版|解析版|答案如下|sourceArchive|entryPath/);
+});
+
 test("junior paper-pattern evidence builders combine curriculum and pattern layers safely", () => {
   const paperPack = buildMainlandPepJuniorPaperEvidencePack({
     grade: "S2",
@@ -325,6 +406,17 @@ test("junior paper-pattern evidence builders combine curriculum and pattern laye
   assert.ok(generationPack.paperPatternCards.some((card) => card.id === "pep-junior-s2-upper-paper-algebraic-fractions"));
   assert.match(generationPack.evidenceText, /Curriculum layer:/);
   assert.match(generationPack.evidenceText, /Junior paper-pattern layer:/);
+
+  const s1LowerNewStandardPack = buildMainlandPepJuniorPaperGenerationEvidencePack({
+    grade: "S1",
+    semester: "lower",
+    conceptIds: ["平方根", "平移"],
+    intent: "generate-question",
+    limit: 4
+  });
+  assert.ok(s1LowerNewStandardPack.curriculumCards.some((card) => card.conceptIds.includes("real-numbers")));
+  assert.ok(s1LowerNewStandardPack.paperPatternCards.some((card) => card.id === "pep-junior-s1-lower-paper-real-numbers"));
+  assert.ok(s1LowerNewStandardPack.paperPatternCards.some((card) => card.id === "pep-junior-s1-lower-paper-lines-parallel-angles"));
 });
 
 test("junior paper-pattern evidence avoids source-material artifacts", () => {
@@ -354,10 +446,10 @@ test("junior paper-pattern evidence avoids source-material artifacts", () => {
 
   assert.ok(mainlandPepJuniorPaperPatternCards.every((card) => card.publisher === "MAINLAND_PEP"));
   assert.ok(mainlandPepJuniorPaperPatternCards.every((card) => card.stage === "junior-secondary"));
-  assert.equal(mainlandPepJuniorPaperPatternCards.length, 36);
+  assert.equal(mainlandPepJuniorPaperPatternCards.length, 40);
   assert.equal(mainlandPepJuniorPaperPatternCards.filter((card) => card.grade === "S1").length, 12);
   assert.equal(mainlandPepJuniorPaperPatternCards.filter((card) => card.grade === "S2").length, 12);
-  assert.equal(mainlandPepJuniorPaperPatternCards.filter((card) => card.grade === "S3").length, 12);
+  assert.equal(mainlandPepJuniorPaperPatternCards.filter((card) => card.grade === "S3").length, 16);
   assert.ok(mainlandPepJuniorPaperPatternCards.every((card) => card.sourceKind === "junior-paper-pattern"));
 
   for (const pattern of forbiddenPatterns) {

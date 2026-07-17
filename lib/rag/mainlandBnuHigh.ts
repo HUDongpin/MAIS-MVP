@@ -1,4 +1,5 @@
 import { mainlandBnuHighRagCards } from "../../data/rag/mainlandBnuHigh";
+import { illustrationTextMatchStandardForRag } from "./illustrationTextMatchStandard";
 import {
   buildMainlandBnuHighAssessmentPatternEvidencePack,
   getMainlandBnuHighAssessmentPatternCards
@@ -135,6 +136,7 @@ export function buildMainlandBnuHighEvidencePack(query: MainlandBnuHighRagQuery)
     "Keep Beijing Normal University Press, PEP, and HJB publisher layers separate.",
     "Do not quote or reconstruct protected textbook examples, exercises, assessment prompts, response keys, worked responses, figures, tables, scoring language, item order, visual layouts, private file locations, hidden extraction artifacts, or long protected phrasing.",
     "No raw assessment text, response material, private locator, page marker, or hidden extraction artifact is present.",
+    ...illustrationTextMatchStandardForRag,
     "Curriculum layer:",
     ...curriculumCards.map((card, index) => `${index + 1}. ${card.grades.join("/")} ${card.semesters.join("/")} ${card.chapter}: ${card.safeSummary}`),
     ...(assessmentEvidence ? ["BNU high assessment-pattern layer:", assessmentEvidence.evidenceText] : [])

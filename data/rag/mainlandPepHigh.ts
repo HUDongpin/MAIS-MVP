@@ -566,5 +566,299 @@ export const mainlandPepHighRagCards: MainlandPepHighRagCard[] = [
     ],
     misconceptionTags: ["condition reversed", "base-rate ignored", "binomial and hypergeometric assumptions confused"],
     prohibitedReuseNotes: originalityGuards
+  },
+  {
+    "id": "pep-high-teacher-resources-compulsory-1",
+    "curriculumTrack": "MAINLAND_PEP_HIGH",
+    "sourceKind": "textbook",
+    "module": "compulsory",
+    "volume": "必修 第一册 A版",
+    "chapter": "必修第一册教案与课件资源",
+    "conceptIds": [
+      "basic-inequality",
+      "discrete-distributions",
+      "exponential-functions",
+      "function-definition",
+      "function-zero",
+      "line-equations",
+      "logarithmic-functions",
+      "logic-conditions",
+      "plane-vectors",
+      "quadratic-functions",
+      "quantifiers",
+      "sets",
+      "sine-cosine-theorem",
+      "trigonometric-functions",
+      "trigonometric-identities"
+    ],
+    "competencyTags": [
+      "数学抽象",
+      "逻辑推理",
+      "数学运算",
+      "直观想象",
+      "数学建模"
+    ],
+    "itemTypeTags": [
+      "课堂导入",
+      "概念讲解",
+      "例题讲评",
+      "分层练习",
+      "复习总结",
+      "错因诊断"
+    ],
+    "difficultyBand": "core",
+    "safeSummary": "2 owner-provided teacher-resource archives for 必修 第一册 A版 were absorbed as metadata-only safe RAG. It signals lesson planning, courseware, knowledge summaries, guided practice, and review-resource coverage across 2290 usable files, with strongest chapter signals around 函数的概念与性质、指数函数与对数函数、集合与常用逻辑用语、三角函数、等式性质与不等式、解三角形.",
+    "generationGuidance": [
+      "Use this teacher-resource layer to calibrate lesson sequence, explanation depth, classroom pacing, board-work structure, formative checks, and review transitions.",
+      "Prefer newly authored worked examples and checkpoint questions that match the observed chapter coverage but use fresh values, contexts, diagrams, and solution paths.",
+      "Treat the dominant resource mix (lesson-plan、guided-learning-sheet、courseware、lecture-notes、practice-set) as a planning signal only; do not reuse source lesson wording or slide layout.",
+      "When generating lessons, separate teacher-facing pedagogy from student-facing concise explanations, and run normal S18/S09/S05 review before release."
+    ],
+    "misconceptionTags": [
+      "lesson sequence too close to source package",
+      "example wording copied instead of re-authored",
+      "teacher-only activity exposed as student answer text",
+      "review handout treated as answer key"
+    ],
+    "prohibitedReuseNotes": [
+      "Use this card only as abstract teacher-resource, lesson-sequencing, and item-design guidance.",
+      "Do not copy, translate, paraphrase, reconstruct, or lightly modify any source lesson text, slide text, example, exercise, solution, figure, table, or textbook wording.",
+      "Generate new MAIS-authored numbers, contexts, diagrams, explanations, prompts, and classroom activities."
+    ]
+  },
+  {
+    "id": "pep-high-teacher-resources-compulsory-2",
+    "curriculumTrack": "MAINLAND_PEP_HIGH",
+    "sourceKind": "textbook",
+    "module": "compulsory",
+    "volume": "必修 第二册 A版",
+    "chapter": "必修第二册教案与课件资源",
+    "conceptIds": [
+      "basic-inequality",
+      "complex-numbers",
+      "correlation",
+      "discrete-distributions",
+      "exponential-functions",
+      "function-definition",
+      "independence-test",
+      "line-equations",
+      "logarithmic-functions",
+      "logic-conditions",
+      "permutations-combinations",
+      "plane-vectors",
+      "probability-foundations",
+      "quadratic-functions",
+      "sets",
+      "sine-cosine-theorem",
+      "solid-geometry",
+      "statistics",
+      "trigonometric-functions"
+    ],
+    "competencyTags": [
+      "数学抽象",
+      "逻辑推理",
+      "数学运算",
+      "直观想象",
+      "数学建模",
+      "数据分析"
+    ],
+    "itemTypeTags": [
+      "课堂导入",
+      "概念讲解",
+      "例题讲评",
+      "分层练习",
+      "复习总结",
+      "错因诊断"
+    ],
+    "difficultyBand": "core",
+    "safeSummary": "2 owner-provided teacher-resource archives for 必修 第二册 A版 were absorbed as metadata-only safe RAG. It signals lesson planning, courseware, knowledge summaries, guided practice, and review-resource coverage across 2439 usable files, with strongest chapter signals around 平面向量及其应用、直线和圆的方程、复数、解三角形、立体几何初步、概率.",
+    "generationGuidance": [
+      "Use this teacher-resource layer to calibrate lesson sequence, explanation depth, classroom pacing, board-work structure, formative checks, and review transitions.",
+      "Prefer newly authored worked examples and checkpoint questions that match the observed chapter coverage but use fresh values, contexts, diagrams, and solution paths.",
+      "Treat the dominant resource mix (lecture-notes、courseware、lesson-plan、guided-learning-sheet、practice-set) as a planning signal only; do not reuse source lesson wording or slide layout.",
+      "When generating lessons, separate teacher-facing pedagogy from student-facing concise explanations, and run normal S18/S09/S05 review before release."
+    ],
+    "misconceptionTags": [
+      "lesson sequence too close to source package",
+      "example wording copied instead of re-authored",
+      "teacher-only activity exposed as student answer text",
+      "review handout treated as answer key"
+    ],
+    "prohibitedReuseNotes": [
+      "Use this card only as abstract teacher-resource, lesson-sequencing, and item-design guidance.",
+      "Do not copy, translate, paraphrase, reconstruct, or lightly modify any source lesson text, slide text, example, exercise, solution, figure, table, or textbook wording.",
+      "Generate new MAIS-authored numbers, contexts, diagrams, explanations, prompts, and classroom activities."
+    ]
+  },
+  {
+    "id": "pep-high-teacher-resources-selective-1",
+    "curriculumTrack": "MAINLAND_PEP_HIGH",
+    "sourceKind": "textbook",
+    "module": "selective-compulsory",
+    "volume": "选择性必修 第一册 A版",
+    "chapter": "选择性必修第一册教案与课件资源",
+    "conceptIds": [
+      "basic-inequality",
+      "circle-equations",
+      "conic-geometry",
+      "derivatives",
+      "ellipse",
+      "function-definition",
+      "hyperbola",
+      "line-equations",
+      "mathematical-induction",
+      "parabola-conic",
+      "quadratic-functions",
+      "sequences",
+      "solid-geometry",
+      "space-vectors",
+      "spatial-coordinate-system"
+    ],
+    "competencyTags": [
+      "数学抽象",
+      "逻辑推理",
+      "数学运算",
+      "直观想象",
+      "数学建模"
+    ],
+    "itemTypeTags": [
+      "课堂导入",
+      "概念讲解",
+      "例题讲评",
+      "分层练习",
+      "复习总结",
+      "错因诊断"
+    ],
+    "difficultyBand": "exam",
+    "safeSummary": "2 owner-provided teacher-resource archives for 选择性必修 第一册 A版 were absorbed as metadata-only safe RAG. It signals lesson planning, courseware, knowledge summaries, guided practice, and review-resource coverage across 1602 usable files, with strongest chapter signals around 圆锥曲线的方程、直线和圆的方程、空间向量与立体几何、立体几何初步、数列、函数的概念与性质.",
+    "generationGuidance": [
+      "Use this teacher-resource layer to calibrate lesson sequence, explanation depth, classroom pacing, board-work structure, formative checks, and review transitions.",
+      "Prefer newly authored worked examples and checkpoint questions that match the observed chapter coverage but use fresh values, contexts, diagrams, and solution paths.",
+      "Treat the dominant resource mix (lecture-notes、lesson-plan、courseware、guided-learning-sheet、practice-set) as a planning signal only; do not reuse source lesson wording or slide layout.",
+      "When generating lessons, separate teacher-facing pedagogy from student-facing concise explanations, and run normal S18/S09/S05 review before release."
+    ],
+    "misconceptionTags": [
+      "lesson sequence too close to source package",
+      "example wording copied instead of re-authored",
+      "teacher-only activity exposed as student answer text",
+      "review handout treated as answer key"
+    ],
+    "prohibitedReuseNotes": [
+      "Use this card only as abstract teacher-resource, lesson-sequencing, and item-design guidance.",
+      "Do not copy, translate, paraphrase, reconstruct, or lightly modify any source lesson text, slide text, example, exercise, solution, figure, table, or textbook wording.",
+      "Generate new MAIS-authored numbers, contexts, diagrams, explanations, prompts, and classroom activities."
+    ]
+  },
+  {
+    "id": "pep-high-teacher-resources-selective-2",
+    "curriculumTrack": "MAINLAND_PEP_HIGH",
+    "sourceKind": "textbook",
+    "module": "selective-compulsory",
+    "volume": "选择性必修 第二册 A版",
+    "chapter": "选择性必修第二册教案与课件资源",
+    "conceptIds": [
+      "basic-inequality",
+      "derivatives",
+      "function-definition",
+      "function-zero",
+      "mathematical-induction",
+      "sequences",
+      "monotonicity-extrema",
+      "optimization"
+    ],
+    "competencyTags": [
+      "数学抽象",
+      "逻辑推理",
+      "数学运算",
+      "直观想象",
+      "数学建模"
+    ],
+    "itemTypeTags": [
+      "课堂导入",
+      "概念讲解",
+      "例题讲评",
+      "分层练习",
+      "复习总结",
+      "错因诊断"
+    ],
+    "difficultyBand": "exam",
+    "safeSummary": "2 owner-provided teacher-resource archives for 选择性必修 第二册 A版 were absorbed as metadata-only safe RAG. It signals lesson planning, courseware, knowledge summaries, guided practice, and review-resource coverage across 241 usable files, with strongest chapter signals around 数列、函数的概念与性质、一元函数的导数及其应用、函数模型与零点、等式性质与不等式.",
+    "generationGuidance": [
+      "Use this teacher-resource layer to calibrate lesson sequence, explanation depth, classroom pacing, board-work structure, formative checks, and review transitions.",
+      "Prefer newly authored worked examples and checkpoint questions that match the observed chapter coverage but use fresh values, contexts, diagrams, and solution paths.",
+      "Treat the dominant resource mix (lesson-plan、guided-learning-sheet、courseware、practice-set、lecture-notes) as a planning signal only; do not reuse source lesson wording or slide layout.",
+      "When generating lessons, separate teacher-facing pedagogy from student-facing concise explanations, and run normal S18/S09/S05 review before release."
+    ],
+    "misconceptionTags": [
+      "lesson sequence too close to source package",
+      "example wording copied instead of re-authored",
+      "teacher-only activity exposed as student answer text",
+      "review handout treated as answer key"
+    ],
+    "prohibitedReuseNotes": [
+      "Use this card only as abstract teacher-resource, lesson-sequencing, and item-design guidance.",
+      "Do not copy, translate, paraphrase, reconstruct, or lightly modify any source lesson text, slide text, example, exercise, solution, figure, table, or textbook wording.",
+      "Generate new MAIS-authored numbers, contexts, diagrams, explanations, prompts, and classroom activities."
+    ]
+  },
+  {
+    "id": "pep-high-teacher-resources-selective-3",
+    "curriculumTrack": "MAINLAND_PEP_HIGH",
+    "sourceKind": "textbook",
+    "module": "selective-compulsory",
+    "volume": "选择性必修 第三册 A版",
+    "chapter": "选择性必修第三册教案与课件资源",
+    "conceptIds": [
+      "binomial-distribution",
+      "binomial-theorem",
+      "bivariate-data",
+      "correlation",
+      "counting-principles",
+      "discrete-distributions",
+      "hypergeometric-distribution",
+      "independence-test",
+      "linear-regression",
+      "logarithmic-functions",
+      "normal-distribution",
+      "permutations-combinations",
+      "probability-foundations",
+      "random-variables",
+      "statistics"
+    ],
+    "competencyTags": [
+      "数学抽象",
+      "逻辑推理",
+      "数学运算",
+      "直观想象",
+      "数学建模",
+      "数据分析"
+    ],
+    "itemTypeTags": [
+      "课堂导入",
+      "概念讲解",
+      "例题讲评",
+      "分层练习",
+      "复习总结",
+      "错因诊断"
+    ],
+    "difficultyBand": "exam",
+    "safeSummary": "2 owner-provided teacher-resource archives for 选择性必修 第三册 A版 were absorbed as metadata-only safe RAG. It signals lesson planning, courseware, knowledge summaries, guided practice, and review-resource coverage across 244 usable files, with strongest chapter signals around 计数原理、随机变量及其分布、成对数据的统计分析、概率、指数函数与对数函数、统计.",
+    "generationGuidance": [
+      "Use this teacher-resource layer to calibrate lesson sequence, explanation depth, classroom pacing, board-work structure, formative checks, and review transitions.",
+      "Prefer newly authored worked examples and checkpoint questions that match the observed chapter coverage but use fresh values, contexts, diagrams, and solution paths.",
+      "Treat the dominant resource mix (lesson-plan、support-resource、courseware、practice-set、knowledge-summary) as a planning signal only; do not reuse source lesson wording or slide layout.",
+      "When generating lessons, separate teacher-facing pedagogy from student-facing concise explanations, and run normal S18/S09/S05 review before release."
+    ],
+    "misconceptionTags": [
+      "lesson sequence too close to source package",
+      "example wording copied instead of re-authored",
+      "teacher-only activity exposed as student answer text",
+      "review handout treated as answer key"
+    ],
+    "prohibitedReuseNotes": [
+      "Use this card only as abstract teacher-resource, lesson-sequencing, and item-design guidance.",
+      "Do not copy, translate, paraphrase, reconstruct, or lightly modify any source lesson text, slide text, example, exercise, solution, figure, table, or textbook wording.",
+      "Generate new MAIS-authored numbers, contexts, diagrams, explanations, prompts, and classroom activities."
+    ]
   }
 ];

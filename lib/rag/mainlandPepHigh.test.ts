@@ -90,6 +90,28 @@ test("exam difficulty query prioritizes exam-oriented cards", () => {
   assert.ok(cards.every((card) => card.difficultyBand === "exam"));
 });
 
+test("lesson-resource archive queries retrieve teacher-resource safe cards", () => {
+  const cards = getMainlandPepHighRagCards({
+    chapter: "教案与课件资源",
+    intent: "generate-lesson",
+    limit: 5
+  });
+  const expectedUsableFileCounts = new Map([
+    ["pep-high-teacher-resources-compulsory-1", 2290],
+    ["pep-high-teacher-resources-compulsory-2", 2439],
+    ["pep-high-teacher-resources-selective-1", 1602],
+    ["pep-high-teacher-resources-selective-2", 241],
+    ["pep-high-teacher-resources-selective-3", 244]
+  ]);
+
+  assert.equal(cards.length, 5);
+  assert.ok(cards.every((card) => card.id.startsWith("pep-high-teacher-resources-")));
+  assert.ok(cards.every((card) => card.safeSummary.includes("metadata-only safe RAG")));
+  assert.ok(cards.every((card) => card.safeSummary.includes("2 owner-provided teacher-resource archives")));
+  assert.ok(cards.every((card) => card.safeSummary.includes(`across ${expectedUsableFileCounts.get(card.id)} usable files`)));
+  assert.ok(cards.every((card) => card.generationGuidance.some((note) => note.includes("lesson sequence"))));
+});
+
 test("safe cards and evidence pack avoid source-copying artifacts", () => {
   const joined = (...parts: string[]) => parts.join("");
   const forbiddenPatterns = [
@@ -115,7 +137,7 @@ test("safe cards and evidence pack avoid source-copying artifacts", () => {
   [...mainlandPepHighRagCards, ...mainlandPepHighExamPatternCards].forEach((card) => {
     assert.ok(card.prohibitedReuseNotes.some((note) => /Do not/.test(note)));
   });
-  assert.equal(mainlandPepHighRagCards.length, 28);
+  assert.equal(mainlandPepHighRagCards.length, 33);
 });
 
 test("derivative exam-pattern query returns derivative strategy and excludes unrelated families", () => {

@@ -1,4 +1,5 @@
 import { mainlandHjbPrimaryRagCards } from "../../data/rag/mainlandHjbPrimary";
+import { illustrationTextMatchStandardForRag } from "./illustrationTextMatchStandard";
 import { getMainlandHjbPrimaryAssessmentPatternCards } from "./mainlandHjbPrimaryAssessmentPatterns";
 import type {
   GradeId,
@@ -146,6 +147,7 @@ export function buildMainlandHjbPrimaryEvidencePack(query: MainlandHjbPrimaryRag
     "Layer 2 is Shanghai Education Press primary assessment-pattern guidance expressed as aggregated MAIS safe abstraction cards when the query asks for assessment or question-generation support.",
     "Use this evidence only to create original MAIS explanations, diagnostics, lesson support, assessment plans, and future content drafts.",
     "Do not quote or reconstruct protected textbook examples, exercises, answers, worked responses, figures, tables, activity text, visual layouts, item order, source file locations, machine-extracted text, or long protected phrasing.",
+    ...illustrationTextMatchStandardForRag,
     "Keep Shanghai Education Press, PEP, and BNU textbook layers separate; share only broad Mainland concept IDs, learner-facing competency language, and source-distance safety rules.",
     "This evidence pack is not connected to getMainlandPepEvidencePack; callers must explicitly request publisher MAINLAND_HJB.",
     "Primary textbook layer:",

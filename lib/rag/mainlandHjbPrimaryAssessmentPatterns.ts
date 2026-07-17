@@ -1,4 +1,5 @@
 import { mainlandHjbPrimaryAssessmentPatternCards } from "../../data/rag/mainlandHjbPrimaryAssessmentPatterns";
+import { illustrationTextMatchStandardForRag } from "./illustrationTextMatchStandard";
 import type {
   GradeId,
   MainlandHjbPrimaryAssessmentFamily,
@@ -163,6 +164,7 @@ export function buildMainlandHjbPrimaryAssessmentPatternEvidencePack(
     "MAIS-safe assessment-pattern evidence pack for MAINLAND_HJB primary mathematics.",
     "Use these aggregated patterns only to create original MAIS assessment support, diagnostics, and future question drafts.",
     "Do not quote, paraphrase, reconstruct, or lightly modify any source stem, worked response, figure, table, section order, visual layout, or scoring wording.",
+    ...illustrationTextMatchStandardForRag,
     ...cards.flatMap((card, index) => [
       `HJB primary assessment pattern ${index + 1}: ${card.grade} ${card.unitTitles.join(" / ")} (${card.semester}; ${card.difficultyBand}).`,
       `Material kinds: ${card.materialKinds.join(", ")}.`,

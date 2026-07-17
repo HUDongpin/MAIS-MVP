@@ -1,4 +1,5 @@
 import { mainlandPepPrimaryExamPatternCards } from "../../data/rag/mainlandPepPrimaryExamPatterns";
+import { illustrationTextMatchStandardForRag } from "./illustrationTextMatchStandard";
 import { getMainlandPepRagCards } from "./mainlandPep";
 import type {
   GradeId,
@@ -136,6 +137,7 @@ export function buildMainlandPepPrimaryExamEvidencePack(query: MainlandPepPrimar
     "MAIS-safe assessment-pattern evidence pack for MAINLAND_PEP primary mathematics.",
     "Use these aggregated patterns only to create original MAIS assessment support, diagnostics, and future question drafts.",
     "Do not quote, paraphrase, reconstruct, or lightly modify any source stem, worked solution, figure, table, section order, or scoring wording.",
+    ...illustrationTextMatchStandardForRag,
     ...cards.flatMap((card, index) => [
       `Assessment pattern ${index + 1}: ${card.grade} ${card.unitTitles.join(" / ")} (${card.semester}; ${card.difficultyBand}).`,
       `Material kinds: ${card.materialKinds.join(", ")}.`,
@@ -183,6 +185,7 @@ export function buildMainlandPepPrimaryExamGenerationEvidencePack(
     "MAIS-safe combined evidence pack for MAINLAND_PEP primary mathematics.",
     "Layer 1 answers what to teach from curriculum safe cards. Layer 2 answers how primary assessment tasks are commonly structured from aggregated pattern cards.",
     "Generate only new MAIS-authored questions, contexts, diagrams, values, and explanations.",
+    ...illustrationTextMatchStandardForRag,
     "Curriculum layer:",
     ...curriculumCards.map((card, index) => `${index + 1}. ${card.grade} ${card.unitTitle}: ${card.safeSummary}`),
     "Assessment-pattern layer:",

@@ -222,6 +222,10 @@ function stableFallbackId(prefix, index) {
   return `${prefix}-${String(index + 1).padStart(3, "0")}`;
 }
 
+function lessonMetadata(lesson) {
+  return lesson?.metadata && typeof lesson.metadata === "object" ? lesson.metadata : {};
+}
+
 function flattenContent(value, pathParts = [], depth = 0) {
   if (value === null || value === undefined || depth > 6) return [];
   if (typeof value === "string") {
@@ -257,6 +261,7 @@ function extractLessonArray(payload) {
 }
 
 function normalizeSections(lesson, lessonId) {
+  const metadata = lessonMetadata(lesson);
   const rawSections =
     lesson.sections ??
     lesson.lessonSections ??
@@ -271,7 +276,16 @@ function normalizeSections(lesson, lessonId) {
     const { text, truncated } = compactTextForQa(lesson);
     return [{
       sectionId: "lesson-body",
-      sectionTitle: firstString(lesson.title, lesson.titleZhHans, lesson.unitTitle, lesson.name) || lessonId,
+      sectionTitle:
+        firstString(
+          lesson.title,
+          lesson.titleZhHans,
+          metadata.titleZhHans,
+          metadata.titleEn,
+          lesson.unitTitle,
+          metadata.unitTitle,
+          lesson.name
+        ) || lessonId,
       sectionType: "lesson-body",
       contentText: text,
       truncated
@@ -293,20 +307,33 @@ function normalizeSections(lesson, lessonId) {
 function normalizeLessons(payload) {
   const lessons = extractLessonArray(payload);
   return lessons.map((lesson, lessonIndex) => {
+    const metadata = lessonMetadata(lesson);
     const lessonId = String(lesson.id ?? lesson.lessonId ?? lesson.slug ?? stableFallbackId("lesson", lessonIndex));
-    const unitTitle = firstString(lesson.unitTitle, lesson.unitTitleZhHans, lesson.topicTitle, lesson.title, lesson.name);
-    const title = firstString(lesson.title, lesson.titleZhHans, lesson.name, unitTitle);
-    const volume = firstString(lesson.volume, lesson.book, lesson.textbookVolume);
-    const grade = normalizeGrade(lesson.grade ?? lesson.gradeId ?? lesson.stageGrade);
-    const semester = normalizeSemester(lesson.semester ?? lesson.term ?? lesson.semesterId, volume);
+    const unitTitle = firstString(
+      lesson.unitTitle,
+      lesson.unitTitleZhHans,
+      lesson.topicTitle,
+      metadata.unitTitle,
+      metadata.topicTitle,
+      lesson.title,
+      lesson.name
+    );
+    const title = firstString(lesson.title, lesson.titleZhHans, metadata.titleZhHans, metadata.titleEn, lesson.name, unitTitle);
+    const volume = firstString(lesson.volume, lesson.book, lesson.textbookVolume, metadata.volume);
+    const grade = normalizeGrade(lesson.grade ?? lesson.gradeId ?? lesson.stageGrade ?? metadata.grade);
+    const semester = normalizeSemester(lesson.semester ?? lesson.term ?? lesson.semesterId ?? metadata.semester, volume);
     const conceptIds = [
       ...toStringList(lesson.conceptIds),
+      ...toStringList(metadata.conceptIds),
       ...toStringList(lesson.concepts),
+      ...toStringList(metadata.concepts),
       ...toStringList(lesson.skillTags)
     ];
-    const evidenceCardIds = toStringList(lesson.evidenceCardIds ?? lesson.curriculumCardIds ?? lesson.ragCardIds);
-    const assessmentPatternCardIds = toStringList(lesson.assessmentPatternCardIds);
-    const zhongkaoPatternCardIds = toStringList(lesson.zhongkaoPatternCardIds);
+    const evidenceCardIds = toStringList(
+      lesson.evidenceCardIds ?? metadata.evidenceCardIds ?? lesson.curriculumCardIds ?? metadata.curriculumCardIds ?? lesson.ragCardIds
+    );
+    const assessmentPatternCardIds = toStringList(lesson.assessmentPatternCardIds ?? metadata.assessmentPatternCardIds);
+    const zhongkaoPatternCardIds = toStringList(lesson.zhongkaoPatternCardIds ?? metadata.zhongkaoPatternCardIds);
     const topLevelContext = compactTextForQa({
       title,
       learningObjectives: lesson.learningObjectives ?? lesson.objectives ?? lesson.goals,
@@ -320,7 +347,7 @@ function normalizeLessons(payload) {
       title,
       grade,
       semester,
-      topicId: String(lesson.topicId ?? lesson.unitId ?? lesson.canonicalTopicId ?? ""),
+      topicId: String(lesson.topicId ?? metadata.topicId ?? lesson.unitId ?? metadata.unitId ?? lesson.canonicalTopicId ?? metadata.canonicalTopicId ?? ""),
       unitTitle,
       volume,
       conceptIds: Array.from(new Set(conceptIds)),

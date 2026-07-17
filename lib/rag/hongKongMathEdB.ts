@@ -1,4 +1,5 @@
 import { hongKongMathEdBRagCards } from "../../data/rag/hongKongMathEdB";
+import { illustrationTextMatchStandardForRag } from "./illustrationTextMatchStandard";
 import type {
   GradeId,
   HongKongMathEdBEvidencePack,
@@ -138,6 +139,7 @@ export function buildHongKongMathEdBEvidencePack(query: HongKongMathEdBRagQuery)
     "Use this evidence only for original MAIS explanations, lessons, practice items, variation tasks, diagnostic hints, and teacher planning.",
     "Do not quote, translate, paraphrase, reconstruct, or lightly modify source wording, worked examples, figures, tables, scoring language, or paper stems.",
     "Prefer Hong Kong mathematical terminology for Chinese responses.",
+    ...illustrationTextMatchStandardForRag,
     ...cards.flatMap((card, index) => [
       `Card ${index + 1}: ${stageLabels[card.stage]} (${card.difficultyBand}).`,
       `Document purposes: ${card.documentPurposes.join(", ")}.`,

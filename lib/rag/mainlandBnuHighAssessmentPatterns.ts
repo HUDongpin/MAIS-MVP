@@ -3,6 +3,7 @@ import {
   mainlandBnuHighAssessmentPatternCards,
   mainlandBnuHighS4LowerCoverageGaps
 } from "../../data/rag/mainlandBnuHighAssessmentPatterns";
+import { illustrationTextMatchStandardForRag } from "./illustrationTextMatchStandard";
 import type {
   MainlandBnuHighAssessmentFamily,
   MainlandBnuHighAssessmentMaterialKind,
@@ -183,6 +184,7 @@ export function buildMainlandBnuHighAssessmentPatternEvidencePack(
     "MAIS-safe assessment-pattern evidence pack for MAINLAND_BNU senior-secondary mathematics.",
     "Use these aggregated patterns only to create original MAIS assessments, diagnostics, review plans, and future content drafts.",
     "Do not quote, paraphrase, translate, reconstruct, or lightly modify protected stems, response keys, worked solutions, diagrams, tables, scoring language, private extraction artifacts, or visual layouts.",
+    ...illustrationTextMatchStandardForRag,
     ...(query.grade === "S5" ? ["Treat S5 BNU assessment evidence as full-year rather than upper/lower split evidence; query semesters upper, lower, and full-year retrieve the same eligible layer."] : []),
     ...coverageGaps.map((gap) => `Coverage gap: ${gap}`),
     ...cards.flatMap((card, index) => [

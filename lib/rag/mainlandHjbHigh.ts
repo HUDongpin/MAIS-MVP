@@ -1,4 +1,5 @@
 import { mainlandHjbHighRagCards } from "../../data/rag/mainlandHjbHigh";
+import { illustrationTextMatchStandardForRag } from "./illustrationTextMatchStandard";
 import { getMainlandHjbHighExamPatternCards } from "./mainlandHjbHighExamPatterns";
 import { getMainlandPepHighExamPatternCards } from "./mainlandPepHighExamPatterns";
 import type {
@@ -139,6 +140,7 @@ export function buildMainlandHjbHighEvidencePack(query: MainlandHjbHighRagQuery)
     "Do not quote or reconstruct textbook tasks, source worked responses, protected exam wording, scoring language, figures, tables, activity text, visual layouts, or long source phrasing.",
     "Keep Shanghai Education Press, PEP, and BNU textbook and assessment layers separate; share only the national-standard concept spine and aggregated senior-secondary exam-pattern layer.",
     "Treat cross-volume HJB review cards as bridge evidence only; they do not count as compulsory-three, selective-compulsory-one, or selective-compulsory-two coverage completion.",
+    ...illustrationTextMatchStandardForRag,
     "Textbook layer:",
     ...textbookCards.flatMap((card, index) => [
       `HJB textbook card ${index + 1}: ${card.grades.join("/")} ${card.chapter} (${card.volume}; ${card.difficultyBand}).`,

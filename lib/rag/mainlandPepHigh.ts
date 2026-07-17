@@ -1,4 +1,5 @@
 import { getMainlandPepHighSourceCards } from "./mainlandPep";
+import { illustrationTextMatchStandardForRag } from "./illustrationTextMatchStandard";
 import type {
   MainlandPepHighEvidencePack,
   MainlandPepHighRagCard,
@@ -15,6 +16,7 @@ export function buildMainlandPepHighEvidencePack(query: MainlandPepHighRagQuery)
     "MAIS-safe RAG evidence pack for MAINLAND_PEP_HIGH.",
     "Use this evidence only for original MAIS explanations, lessons, and question generation.",
     "Do not quote or reconstruct textbook examples, exam stems, official solutions, page images, or source passages.",
+    ...illustrationTextMatchStandardForRag,
     ...cards.flatMap((card, index) => [
       `Card ${index + 1}: ${card.chapter} (${card.volume}; ${card.difficultyBand}).`,
       `Concepts: ${card.conceptIds.join(", ")}.`,
