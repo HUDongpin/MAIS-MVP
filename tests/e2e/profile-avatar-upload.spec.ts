@@ -115,7 +115,24 @@ test("student profile photo save recovers from missing media encryption key", as
     await openDashboard(app, page);
     await selectProfilePhoto(page);
 
+    const mediaPost = page.waitForResponse((response) =>
+      response.url() === app.url("/api/media-objects") && response.request().method() === "POST"
+    );
+    const profilePatch = page.waitForResponse((response) =>
+      response.url() === app.url("/api/me/profile") && response.request().method() === "PATCH"
+    );
+
     await page.getByRole("button", { name: /Save profile/i }).click();
+
+    const [mediaResponse, profileResponse] = await Promise.all([mediaPost, profilePatch]);
+    const mediaPayload = await mediaResponse.json() as { code?: string };
+    expect(mediaResponse.status(), JSON.stringify(mediaPayload)).toBe(503);
+    expect(mediaPayload.code).toBe("media-encryption-key-missing");
+
+    const profilePayload = await profileResponse.json() as { code?: string };
+    expect(profileResponse.status(), JSON.stringify(profilePayload)).toBe(409);
+    expect(profilePayload.code).toBe("object-storage-required");
+
     await expect(page.getByText(/^Could not save$/i)).toBeVisible();
     await expect(page.getByRole("button", { name: /Saving/i })).toHaveCount(0);
     await expect(page.getByRole("button", { name: /Save profile/i })).toBeEnabled();
