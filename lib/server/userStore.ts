@@ -106,6 +106,7 @@ import {
   createAiGovernancePilotPlatformLoopDataBuilder as pilotPlatformLoopDataBuilderFromAiGovernancePersistence,
   createAiGovernancePersistenceStore,
   mergeAiTutorScopeContextResult as mergeAiTutorScopeContextResultFromAiGovernancePersistence,
+  normalizeClassAiTutorPolicyRecords as normalizeClassAiTutorPolicyRecordsFromAiGovernancePersistence,
   normalizeAiGovernanceAdaptiveRecommendationCacheRecords as normalizeAdaptiveRecommendationCacheRecordsFromAiGovernancePersistence,
   normalizeAiGovernanceEventRecords as normalizeAiGovernanceEventRecordsFromPersistence,
   normalizeAiGovernanceTutorMessageRecords as normalizeTutorMessageRecordsFromAiGovernancePersistence,
@@ -113,6 +114,7 @@ import {
   type AITutorDatabaseContextOptions,
   type AITutorDatabaseContextResult,
   type AITutorDataScope,
+  type ClassAiTutorPolicyRecord,
   type AiGovernancePersistenceDatabase
 } from "@/lib/server/userStore/aiGovernancePersistence";
 import { createAiGovernanceUserStore } from "@/lib/server/userStore/aiGovernanceStore";
@@ -1705,6 +1707,7 @@ type Database = {
   ai_tutor_messages: AITutorMessageRecord[];
   ai_tutor_usage: AITutorUsageRecord[];
   ai_governance_events: AIGovernanceEventRecord[];
+  class_ai_tutor_policies: ClassAiTutorPolicyRecord[];
   nova_lens_runs: NovaLensRunRecord[];
   nova_lens_policy: NovaLensPolicyRecord;
   nova_lens_policy_events: NovaLensPolicyEventRecord[];
@@ -2592,6 +2595,7 @@ function createInitialDatabase(): Database {
     ai_tutor_messages: [],
     ai_tutor_usage: [],
     ai_governance_events: [],
+    class_ai_tutor_policies: [],
     nova_lens_runs: [],
     nova_lens_policy: defaultNovaLensPolicyRecordFromNovaLensPersistence(now),
     nova_lens_policy_events: [],
@@ -4231,6 +4235,7 @@ function normalizeDatabase(database: Partial<Database>) {
     ai_tutor_messages: normalizeTutorMessageRecordsFromAiGovernancePersistence(database.ai_tutor_messages),
     ai_tutor_usage: normalizeTutorUsageRecordsFromAiGovernancePersistence(database.ai_tutor_usage),
     ai_governance_events: normalizeAiGovernanceEventRecordsFromPersistence(database.ai_governance_events, now),
+    class_ai_tutor_policies: normalizeClassAiTutorPolicyRecordsFromAiGovernancePersistence(database.class_ai_tutor_policies, now),
     nova_lens_runs: (database.nova_lens_runs ?? []).map((record) => normalizeNovaLensRunRecordFromNovaLensPersistence(record as NovaLensRunRecord)),
     nova_lens_policy: normalizeNovaLensPolicyRecordFromNovaLensPersistence(database.nova_lens_policy, now),
     nova_lens_policy_events: normalizeNovaLensPolicyEventRecordsFromNovaLensPersistence(database.nova_lens_policy_events, now),
@@ -4350,6 +4355,7 @@ function databaseNeedsPersistenceSync(parsed: Partial<Database>, database: Datab
     !Array.isArray(parsed.ai_tutor_messages) ||
     !Array.isArray(parsed.ai_tutor_usage) ||
     !Array.isArray(parsed.ai_governance_events) ||
+    (parsed.class_ai_tutor_policies !== undefined && !Array.isArray(parsed.class_ai_tutor_policies)) ||
     !Array.isArray(parsed.nova_lens_runs) ||
     typeof parsed.nova_lens_policy !== "object" ||
     parsed.nova_lens_policy === null ||
@@ -7265,6 +7271,7 @@ function emptyTeacherDashboardDatabase(overrides: Partial<Database>): Database {
     ai_tutor_messages: [],
     ai_tutor_usage: [],
     ai_governance_events: [],
+    class_ai_tutor_policies: [],
     nova_lens_runs: [],
     nova_lens_policy: defaultNovaLensPolicyRecordFromNovaLensPersistence(),
     nova_lens_policy_events: [],
@@ -9797,6 +9804,9 @@ export const listVisualizationSessionsForUser = studentActivityUserStore.listVis
 export const recordAITutorMessage = aiGovernanceUserStore.recordAITutorMessage;
 export const recordAITutorUsage = aiGovernanceUserStore.recordAITutorUsage;
 export const getAITutorTokenUsageSince = aiGovernanceUserStore.getAITutorTokenUsageSince;
+export const getClassAiTutorPolicyForTeacher = aiGovernanceUserStore.getClassAiTutorPolicyForTeacher;
+export const updateClassAiTutorPolicy = aiGovernanceUserStore.updateClassAiTutorPolicy;
+export const resolveStudentAiTutorPolicy = aiGovernanceUserStore.resolveStudentAiTutorPolicy;
 export const consumeAiCapabilityRateLimit = aiGovernanceUserStore.consumeAiCapabilityRateLimit;
 export const recordAiGovernanceEvent = aiGovernanceUserStore.recordAiGovernanceEvent;
 export const getAiGovernanceSummaryForAdmin = aiGovernanceUserStore.getAiGovernanceSummaryForAdmin;

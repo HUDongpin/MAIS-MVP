@@ -1,6 +1,13 @@
 import { validGradeSet } from "@/data/grades";
 import {
+  defaultClassAiTutorPerStudentHourLimit,
+  defaultClassAiTutorPerStudentMinuteLimit,
   evaluateAiCapabilityRateLimit,
+  mergeClassAiTutorPoliciesByStrictest,
+  normalizeClassAiTutorHourLimit,
+  normalizeClassAiTutorLiveMode,
+  normalizeClassAiTutorMinuteLimit,
+  normalizeClassAiTutorMode,
   summarizeAiGovernanceEvents,
   type AiCapability,
   type AiCapabilityRateLimitDecision,
@@ -15,6 +22,8 @@ import type {
   AdaptiveLLMStatus,
   AdaptiveSkillState,
   AdaptiveSkillSummary,
+  ClassAiTutorMode,
+  ClassAiTutorPolicy,
   CurriculumProfile,
   CurriculumTrack,
   DashboardData,
@@ -107,6 +116,7 @@ const aiCapabilitySet = new Set<AiCapability>([
   "classroom-work-sample"
 ]);
 const aiGovernanceActionSet = new Set<AIGovernanceEventRecord["action"]>([
+  "classroom-policy-blocked",
   "request-admitted",
   "rate-limit-blocked",
   "media-policy-blocked"
@@ -175,6 +185,103 @@ export type AiGovernanceAdaptiveRecommendationCacheRecord = {
   updated_at: string;
 };
 
+type AiGovernanceTeacherClassRecord = {
+  id: string;
+  teacher_id: string;
+  updated_at?: string;
+};
+
+type AiGovernanceClassEnrollmentRecord = {
+  class_id: string;
+  student_id: string;
+};
+
+type AiGovernanceClassCollaboratorRecord = {
+  class_id: string;
+  teacher_id: string;
+  role: "owner" | "co-teacher" | "viewer";
+  status: "active" | "revoked";
+};
+
+export type ClassAiTutorPolicyRecord = {
+  class_id: string;
+  mode: ClassAiTutorMode;
+  previous_live_mode: Exclude<ClassAiTutorMode, "fallback-only"> | null;
+  per_student_minute_limit: number;
+  per_student_hour_limit: number;
+  fallback_on_failure: true;
+  updated_by: string;
+  updated_at: string;
+};
+
+export function defaultClassAiTutorPolicyRecord({
+  classId,
+  now,
+  updatedBy
+}: {
+  classId: string;
+  now: string;
+  updatedBy: string;
+}): ClassAiTutorPolicyRecord {
+  return {
+    class_id: classId,
+    mode: "open",
+    previous_live_mode: "open",
+    per_student_minute_limit: defaultClassAiTutorPerStudentMinuteLimit,
+    per_student_hour_limit: defaultClassAiTutorPerStudentHourLimit,
+    fallback_on_failure: true,
+    updated_by: updatedBy,
+    updated_at: now
+  };
+}
+
+export function normalizeClassAiTutorPolicyRecord(
+  value: unknown,
+  now = new Date().toISOString()
+): ClassAiTutorPolicyRecord | null {
+  const record = typeof value === "object" && value !== null ? value as Partial<ClassAiTutorPolicyRecord> : null;
+  if (!record || typeof record.class_id !== "string" || !record.class_id.trim()) return null;
+  const mode = normalizeClassAiTutorMode(record.mode);
+  const previousLiveMode = normalizeClassAiTutorLiveMode(record.previous_live_mode)
+    ?? (mode === "fallback-only" ? "open" : mode);
+
+  return {
+    class_id: record.class_id.trim(),
+    mode,
+    previous_live_mode: previousLiveMode,
+    per_student_minute_limit: normalizeClassAiTutorMinuteLimit(record.per_student_minute_limit),
+    per_student_hour_limit: normalizeClassAiTutorHourLimit(record.per_student_hour_limit),
+    fallback_on_failure: true,
+    updated_by: typeof record.updated_by === "string" && record.updated_by.trim() ? record.updated_by.trim() : "system",
+    updated_at: typeof record.updated_at === "string" && record.updated_at.trim() ? record.updated_at : now
+  };
+}
+
+export function normalizeClassAiTutorPolicyRecords(
+  records: ClassAiTutorPolicyRecord[] | undefined,
+  now = new Date().toISOString()
+) {
+  const byClass = new Map<string, ClassAiTutorPolicyRecord>();
+  for (const record of records ?? []) {
+    const normalized = normalizeClassAiTutorPolicyRecord(record, now);
+    if (normalized) byClass.set(normalized.class_id, normalized);
+  }
+  return Array.from(byClass.values());
+}
+
+export function classAiTutorPolicyRecordToPublic(record: ClassAiTutorPolicyRecord): ClassAiTutorPolicy {
+  return {
+    classId: record.class_id,
+    mode: record.mode,
+    previousLiveMode: record.previous_live_mode,
+    perStudentMinuteLimit: record.per_student_minute_limit,
+    perStudentHourLimit: record.per_student_hour_limit,
+    fallbackOnFailure: true,
+    updatedBy: record.updated_by,
+    updatedAt: record.updated_at
+  };
+}
+
 export function normalizeAiGovernanceAdaptiveRecommendationCacheRecords(
   existingRecords: AiGovernanceAdaptiveRecommendationCacheRecord[] | undefined,
   now: string
@@ -216,6 +323,10 @@ export type AiGovernancePersistenceDatabase = {
   ai_governance_events: AIGovernanceEventRecord[];
   ai_tutor_messages: AITutorMessageRecord[];
   ai_tutor_usage: AITutorUsageRecord[];
+  class_ai_tutor_policies?: ClassAiTutorPolicyRecord[];
+  class_enrollments?: AiGovernanceClassEnrollmentRecord[];
+  teacher_class_collaborators?: AiGovernanceClassCollaboratorRecord[];
+  teacher_classes?: AiGovernanceTeacherClassRecord[];
   users: Array<{ id: string; role: UserRole }>;
 };
 
@@ -740,6 +851,66 @@ export type AiGovernancePersistenceStore = ReturnType<typeof createAiGovernanceP
 function cleanTutorContextValue(value: unknown): Record<string, unknown> | null {
   if (typeof value !== "object" || value === null) return null;
   return JSON.parse(JSON.stringify(value)) as Record<string, unknown>;
+}
+
+function fallbackClassAiTutorPolicy(
+  classId = "default",
+  updatedBy = "system",
+  now = new Date().toISOString()
+): ClassAiTutorPolicy {
+  return classAiTutorPolicyRecordToPublic(defaultClassAiTutorPolicyRecord({ classId, now, updatedBy }));
+}
+
+function classAiTutorPolicyForRecord(
+  database: AiGovernancePersistenceDatabase,
+  teacherClass: AiGovernanceTeacherClassRecord,
+  now: string
+) {
+  const existing = (database.class_ai_tutor_policies ?? [])
+    .map((record) => normalizeClassAiTutorPolicyRecord(record, now))
+    .find((record) => record?.class_id === teacherClass.id);
+  return classAiTutorPolicyRecordToPublic(existing ?? defaultClassAiTutorPolicyRecord({
+    classId: teacherClass.id,
+    now: teacherClass.updated_at ?? now,
+    updatedBy: teacherClass.teacher_id
+  }));
+}
+
+function teacherClassForAiTutorPolicy(database: AiGovernancePersistenceDatabase, classId: string) {
+  return (database.teacher_classes ?? []).find((candidate) => candidate.id === classId) ?? null;
+}
+
+function teacherCanReadClassAiTutorPolicy(
+  database: AiGovernancePersistenceDatabase,
+  user: { id: string; role: UserRole },
+  classId: string
+) {
+  const teacherClass = teacherClassForAiTutorPolicy(database, classId);
+  if (!teacherClass) return null;
+  if (user.role === "admin" || teacherClass.teacher_id === user.id) return teacherClass;
+  const collaborator = (database.teacher_class_collaborators ?? []).find((candidate) => (
+    candidate.class_id === classId &&
+    candidate.teacher_id === user.id &&
+    candidate.status === "active"
+  ));
+  return collaborator ? teacherClass : null;
+}
+
+function teacherCanMutateClassAiTutorPolicy(
+  database: AiGovernancePersistenceDatabase,
+  user: { id: string; role: UserRole },
+  classId: string
+) {
+  const teacherClass = teacherClassForAiTutorPolicy(database, classId);
+  if (!teacherClass) return null;
+  if (user.role === "admin" || teacherClass.teacher_id === user.id) return teacherClass;
+  const collaborator = (database.teacher_class_collaborators ?? []).find((candidate) => (
+    candidate.class_id === classId &&
+    candidate.teacher_id === user.id &&
+    candidate.status === "active" &&
+    candidate.role === "co-teacher"
+  ));
+  return collaborator ? teacherClass : null;
 }
 
 export function normalizeAiGovernanceEventRecord(
@@ -1657,6 +1828,105 @@ export function createAiGovernancePersistenceStore({
       return database.ai_tutor_usage
         .filter((usage) => usage.user_id === userId && usage.created_at >= sinceIso)
         .reduce((total, usage) => total + tutorUsageTotalTokens(usage), 0);
+    },
+
+    async getClassAiTutorPolicyForTeacher(userId: string, classId: string) {
+      const database = await readDatabase();
+      const user = database.users.find((candidate) => candidate.id === userId);
+      if (!user || (user.role !== "teacher" && user.role !== "admin")) return null;
+      const teacherClass = teacherCanReadClassAiTutorPolicy(database, user, classId);
+      if (!teacherClass) return null;
+      const canEdit = Boolean(teacherCanMutateClassAiTutorPolicy(database, user, classId));
+      return {
+        canEdit,
+        policy: classAiTutorPolicyForRecord(database, teacherClass, currentTime().toISOString())
+      };
+    },
+
+    async updateClassAiTutorPolicy({
+      classId,
+      mode,
+      perStudentHourLimit,
+      perStudentMinuteLimit,
+      teacherId
+    }: {
+      classId: string;
+      mode: ClassAiTutorMode;
+      perStudentHourLimit?: number;
+      perStudentMinuteLimit?: number;
+      teacherId: string;
+    }) {
+      return mutateDatabase((database) => {
+        const user = database.users.find((candidate) => candidate.id === teacherId);
+        if (!user || (user.role !== "teacher" && user.role !== "admin")) return { status: "forbidden" as const };
+        const teacherClass = teacherCanMutateClassAiTutorPolicy(database, user, classId);
+        if (!teacherClass) {
+          return teacherClassForAiTutorPolicy(database, classId)
+            ? { status: "forbidden" as const }
+            : { status: "not-found" as const };
+        }
+
+        const now = currentTime().toISOString();
+        const normalizedMode = normalizeClassAiTutorMode(mode);
+        const policies = database.class_ai_tutor_policies ??= [];
+        const existingIndex = policies.findIndex((record) => record.class_id === classId);
+        const existing = normalizeClassAiTutorPolicyRecord(
+          existingIndex >= 0 ? policies[existingIndex] : undefined,
+          now
+        ) ?? defaultClassAiTutorPolicyRecord({
+          classId,
+          now: teacherClass.updated_at ?? now,
+          updatedBy: teacherClass.teacher_id
+        });
+        const nextPreviousLiveMode = normalizedMode === "fallback-only"
+          ? existing.mode === "fallback-only"
+            ? existing.previous_live_mode ?? "open"
+            : existing.mode
+          : normalizedMode;
+        const next: ClassAiTutorPolicyRecord = {
+          class_id: classId,
+          mode: normalizedMode,
+          previous_live_mode: nextPreviousLiveMode,
+          per_student_minute_limit: normalizeClassAiTutorMinuteLimit(perStudentMinuteLimit, existing.per_student_minute_limit),
+          per_student_hour_limit: normalizeClassAiTutorHourLimit(perStudentHourLimit, existing.per_student_hour_limit),
+          fallback_on_failure: true,
+          updated_by: teacherId,
+          updated_at: now
+        };
+
+        if (existingIndex >= 0) {
+          policies[existingIndex] = next;
+        } else {
+          policies.push(next);
+        }
+
+        return {
+          policy: classAiTutorPolicyRecordToPublic(next),
+          status: "saved" as const
+        };
+      });
+    },
+
+    async resolveStudentAiTutorPolicy(userId: string) {
+      const database = await readDatabase();
+      const user = database.users.find((candidate) => candidate.id === userId);
+      const now = currentTime().toISOString();
+      if (!user || user.role !== "student") return fallbackClassAiTutorPolicy("default", "system", now);
+      const classIds = new Set(
+        (database.class_enrollments ?? [])
+          .filter((enrollment) => enrollment.student_id === userId)
+          .map((enrollment) => enrollment.class_id)
+      );
+      if (!classIds.size) return fallbackClassAiTutorPolicy("default", "system", now);
+
+      const policies = (database.teacher_classes ?? [])
+        .filter((teacherClass) => classIds.has(teacherClass.id))
+        .map((teacherClass) => classAiTutorPolicyForRecord(database, teacherClass, now));
+
+      return mergeClassAiTutorPoliciesByStrictest(
+        policies,
+        fallbackClassAiTutorPolicy("default", "system", now)
+      );
     },
 
     async consumeAiCapabilityRateLimit({

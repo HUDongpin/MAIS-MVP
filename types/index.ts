@@ -2799,6 +2799,19 @@ export type TeacherClass = {
   updatedAt: string;
 };
 
+export type ClassAiTutorMode = "open" | "limited" | "fallback-only";
+
+export type ClassAiTutorPolicy = {
+  classId: string;
+  mode: ClassAiTutorMode;
+  previousLiveMode: Exclude<ClassAiTutorMode, "fallback-only"> | null;
+  perStudentMinuteLimit: number;
+  perStudentHourLimit: number;
+  fallbackOnFailure: true;
+  updatedBy: string;
+  updatedAt: string;
+};
+
 export type ClassEnrollment = {
   id: string;
   classId: string;

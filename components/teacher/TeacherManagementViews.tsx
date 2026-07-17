@@ -12,13 +12,15 @@ import {
 } from "@/components/teacher/teacherLabels";
 import { gradeIds } from "@/data/grades";
 import { formatGradeLabel, textForLanguage } from "@/lib/i18n";
-import { formatDateInHongKong } from "@/lib/utils";
+import { cn, formatDateInHongKong } from "@/lib/utils";
 import type {
   Assignment,
   AssignmentContentType,
   AssignmentGradingRun,
   AssignmentTeacherReviewAction,
   Assessment,
+  ClassAiTutorMode,
+  ClassAiTutorPolicy,
   GradeId,
   Language,
   StudentAssignmentItem,
@@ -446,6 +448,162 @@ function StudentRiskTags({ student }: { student: TeacherClassStudentSummary }) {
   );
 }
 
+const classAiTutorModes: ClassAiTutorMode[] = ["open", "limited", "fallback-only"];
+
+function aiTutorPolicyModeLabel(mode: ClassAiTutorMode) {
+  if (mode === "open") return { en: "Open", zh: "開放" };
+  if (mode === "limited") return { en: "Limited", zh: "限流" };
+  return { en: "Fallback", zh: "本機提示" };
+}
+
+function TeacherClassAiTutorPolicyPanel({ classId }: { classId: string }) {
+  const { t } = useSettings();
+  const [policy, setPolicy] = useState<ClassAiTutorPolicy | null>(null);
+  const [canEdit, setCanEdit] = useState(false);
+  const [message, setMessage] = useState("");
+  const [isSaving, setIsSaving] = useState(false);
+
+  useEffect(() => {
+    let cancelled = false;
+    async function loadPolicy() {
+      const response = await fetch(`/api/teacher/classes/${encodeURIComponent(classId)}/ai-tutor-policy`, {
+        cache: "no-store",
+        credentials: "same-origin"
+      });
+      const payload = await response.json().catch(() => null) as {
+        policy?: ClassAiTutorPolicy;
+        canEdit?: boolean;
+      } | null;
+      if (cancelled) return;
+      if (!response.ok || !payload?.policy) {
+        setMessage(t({ en: "AI Tutor policy unavailable.", zh: "暫時未能讀取 AI Tutor 設定。" }));
+        return;
+      }
+      setPolicy(payload.policy);
+      setCanEdit(Boolean(payload.canEdit));
+      setMessage("");
+    }
+    void loadPolicy();
+    return () => {
+      cancelled = true;
+    };
+  }, [classId, t]);
+
+  async function savePolicy(nextMode: ClassAiTutorMode, limits = policy) {
+    if (!policy || !canEdit || isSaving) return;
+    setIsSaving(true);
+    setMessage("");
+    const response = await fetch(`/api/teacher/classes/${encodeURIComponent(classId)}/ai-tutor-policy`, {
+      method: "PATCH",
+      headers: { "Content-Type": "application/json" },
+      cache: "no-store",
+      credentials: "same-origin",
+      body: JSON.stringify({
+        mode: nextMode,
+        perStudentMinuteLimit: limits?.perStudentMinuteLimit ?? 2,
+        perStudentHourLimit: limits?.perStudentHourLimit ?? 20
+      })
+    });
+    const payload = await response.json().catch(() => null) as { policy?: ClassAiTutorPolicy } | null;
+    setIsSaving(false);
+    if (!response.ok || !payload?.policy) {
+      setMessage(t({ en: "Could not update class AI.", zh: "未能更新班級 AI 設定。" }));
+      return;
+    }
+    setPolicy(payload.policy);
+    setMessage(t({ en: "Class AI updated.", zh: "班級 AI 設定已更新。" }));
+  }
+
+  const liveMode = policy?.mode !== "fallback-only";
+  const nextToggleMode: ClassAiTutorMode = liveMode ? "fallback-only" : policy?.previousLiveMode ?? "open";
+
+  return (
+    <section className="glass-panel p-5 sm:p-6">
+      <div className="flex flex-wrap items-start justify-between gap-4">
+        <div>
+          <p className="text-xs font-black uppercase tracking-[0.18em] text-cyan-700 dark:text-cyan-200">AI Tutor</p>
+          <h2 className="mt-2 text-2xl font-black text-slate-950 dark:text-white">{t({ en: "Class AI", zh: "班級 AI" })}</h2>
+          <p className="mt-2 text-sm font-bold text-slate-500 dark:text-slate-400">
+            {policy
+              ? `${t(aiTutorPolicyModeLabel(policy.mode))} · ${policy.perStudentMinuteLimit}/min · ${policy.perStudentHourLimit}/hour`
+              : t({ en: "Loading", zh: "載入中" })}
+          </p>
+        </div>
+        <button
+          type="button"
+          disabled={!policy || !canEdit || isSaving}
+          onClick={() => void savePolicy(nextToggleMode)}
+          className={cn(
+            "focus-ring min-h-11 rounded-full px-5 py-3 text-sm font-black transition disabled:cursor-not-allowed disabled:opacity-50",
+            liveMode
+              ? "bg-rose-600 text-white shadow-sm hover:bg-rose-700"
+              : "bg-emerald-600 text-white shadow-sm hover:bg-emerald-700"
+          )}
+        >
+          {liveMode ? t({ en: "Pause", zh: "暫停" }) : t({ en: "Live", zh: "啟用" })}
+        </button>
+      </div>
+
+      <div className="mt-5 grid gap-4 lg:grid-cols-[1fr_220px_220px]">
+        <div className="grid grid-cols-3 gap-2 rounded-2xl border border-slate-200/80 bg-white/70 p-2 dark:border-white/10 dark:bg-white/[0.05]">
+          {classAiTutorModes.map((mode) => (
+            <button
+              key={mode}
+              type="button"
+              disabled={!policy || !canEdit || isSaving}
+              onClick={() => void savePolicy(mode)}
+              className={cn(
+                "focus-ring min-h-11 rounded-xl px-3 text-sm font-black transition disabled:cursor-not-allowed disabled:opacity-50",
+                policy?.mode === mode
+                  ? "bg-slate-950 text-white dark:bg-white dark:text-slate-950"
+                  : "text-slate-600 hover:bg-slate-100 dark:text-slate-300 dark:hover:bg-white/10"
+              )}
+            >
+              {t(aiTutorPolicyModeLabel(mode))}
+            </button>
+          ))}
+        </div>
+        <label className="grid gap-2 text-xs font-black uppercase tracking-[0.14em] text-slate-500 dark:text-slate-400">
+          {t({ en: "Per minute", zh: "每分鐘" })}
+          <input
+            type="number"
+            min={1}
+            max={6}
+            disabled={!policy || !canEdit || isSaving}
+            value={policy?.perStudentMinuteLimit ?? 2}
+            onChange={(event) => {
+              const value = Number(event.target.value);
+              if (!policy || !Number.isFinite(value)) return;
+              setPolicy({ ...policy, perStudentMinuteLimit: value });
+            }}
+            onBlur={() => policy ? void savePolicy(policy.mode, policy) : undefined}
+            className="focus-ring min-h-11 rounded-2xl border border-slate-200/80 bg-white/80 px-4 text-base font-black text-slate-950 disabled:opacity-50 dark:border-white/10 dark:bg-white/[0.06] dark:text-white"
+          />
+        </label>
+        <label className="grid gap-2 text-xs font-black uppercase tracking-[0.14em] text-slate-500 dark:text-slate-400">
+          {t({ en: "Per hour", zh: "每小時" })}
+          <input
+            type="number"
+            min={5}
+            max={60}
+            disabled={!policy || !canEdit || isSaving}
+            value={policy?.perStudentHourLimit ?? 20}
+            onChange={(event) => {
+              const value = Number(event.target.value);
+              if (!policy || !Number.isFinite(value)) return;
+              setPolicy({ ...policy, perStudentHourLimit: value });
+            }}
+            onBlur={() => policy ? void savePolicy(policy.mode, policy) : undefined}
+            className="focus-ring min-h-11 rounded-2xl border border-slate-200/80 bg-white/80 px-4 text-base font-black text-slate-950 disabled:opacity-50 dark:border-white/10 dark:bg-white/[0.06] dark:text-white"
+          />
+        </label>
+      </div>
+      {message ? <p className="mt-3 text-sm font-bold text-slate-600 dark:text-slate-300" role="status">{message}</p> : null}
+      {!canEdit && policy ? <p className="mt-3 text-sm font-bold text-slate-500 dark:text-slate-400">{t({ en: "Read only", zh: "只讀" })}</p> : null}
+    </section>
+  );
+}
+
 export function TeacherClassesManager({ classes }: { classes: TeacherClass[] }) {
   const router = useRouter();
   const { language, revalidateSession, t, text } = useSettings();
@@ -631,6 +789,8 @@ export function TeacherClassDetailView({ detail }: { detail: TeacherClassDetailD
         </form>
         {message ? <p className="mt-3 text-sm font-bold text-amber-700 dark:text-amber-100">{message}</p> : null}
       </section>
+
+      <TeacherClassAiTutorPolicyPanel classId={currentDetail.class.id} />
 
       <section className="glass-panel overflow-hidden p-5 sm:p-6">
         <h2 className="text-2xl font-black text-slate-950 dark:text-white">{t({ en: "Student roster", zh: "學生名單" })}</h2>

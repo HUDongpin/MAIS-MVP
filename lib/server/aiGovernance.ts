@@ -1,3 +1,5 @@
+import type { ClassAiTutorMode, ClassAiTutorPolicy } from "@/types";
+
 export type AiCapability =
   | "ai-tutor-chat"
   | "ai-tutor-ocr"
@@ -20,7 +22,11 @@ export type AiCapabilityRateLimitEvent = {
   createdAt: string;
 };
 
-export type AiGovernanceAuditAction = "request-admitted" | "rate-limit-blocked" | "media-policy-blocked";
+export type AiGovernanceAuditAction =
+  | "request-admitted"
+  | "rate-limit-blocked"
+  | "media-policy-blocked"
+  | "classroom-policy-blocked";
 
 export type AiGovernanceAuditEvent = {
   action: AiGovernanceAuditAction;
@@ -89,6 +95,14 @@ type EnvLike = Record<string, string | undefined>;
 
 const minuteMs = 60 * 1000;
 const hourMs = 60 * minuteMs;
+const classAiTutorModeSet = new Set<ClassAiTutorMode>(["open", "limited", "fallback-only"]);
+const classAiTutorLiveModeSet = new Set<Exclude<ClassAiTutorMode, "fallback-only">>(["open", "limited"]);
+export const defaultClassAiTutorPerStudentMinuteLimit = 2;
+export const defaultClassAiTutorPerStudentHourLimit = 20;
+export const minClassAiTutorPerStudentMinuteLimit = 1;
+export const maxClassAiTutorPerStudentMinuteLimit = 6;
+export const minClassAiTutorPerStudentHourLimit = 5;
+export const maxClassAiTutorPerStudentHourLimit = 60;
 
 function booleanFromEnv(value: string | undefined) {
   const normalized = value?.trim().toLowerCase();
@@ -99,6 +113,88 @@ export function boundedAiGovernanceNumber(value: string | undefined, fallback: n
   const parsed = Number(value);
   if (!Number.isFinite(parsed)) return fallback;
   return Math.min(max, Math.max(min, Math.round(parsed)));
+}
+
+export function normalizeClassAiTutorMode(value: unknown): ClassAiTutorMode {
+  return classAiTutorModeSet.has(value as ClassAiTutorMode) ? value as ClassAiTutorMode : "open";
+}
+
+export function normalizeClassAiTutorLiveMode(value: unknown): Exclude<ClassAiTutorMode, "fallback-only"> | null {
+  return classAiTutorLiveModeSet.has(value as Exclude<ClassAiTutorMode, "fallback-only">)
+    ? value as Exclude<ClassAiTutorMode, "fallback-only">
+    : null;
+}
+
+export function normalizeClassAiTutorMinuteLimit(value: unknown, fallback = defaultClassAiTutorPerStudentMinuteLimit) {
+  return boundedAiGovernanceNumber(
+    typeof value === "number" || typeof value === "string" ? String(value) : undefined,
+    fallback,
+    minClassAiTutorPerStudentMinuteLimit,
+    maxClassAiTutorPerStudentMinuteLimit
+  );
+}
+
+export function normalizeClassAiTutorHourLimit(value: unknown, fallback = defaultClassAiTutorPerStudentHourLimit) {
+  return boundedAiGovernanceNumber(
+    typeof value === "number" || typeof value === "string" ? String(value) : undefined,
+    fallback,
+    minClassAiTutorPerStudentHourLimit,
+    maxClassAiTutorPerStudentHourLimit
+  );
+}
+
+export function classAiTutorRateLimitRulesFromPolicy(
+  policy: Pick<ClassAiTutorPolicy, "mode" | "perStudentMinuteLimit" | "perStudentHourLimit">,
+  env: EnvLike = process.env
+) {
+  if (policy.mode !== "limited") return aiCapabilityRateLimitRulesFromEnv("ai-tutor-chat", env);
+
+  return [
+    {
+      name: "class-minute",
+      max: normalizeClassAiTutorMinuteLimit(policy.perStudentMinuteLimit),
+      windowMs: minuteMs
+    },
+    {
+      name: "class-hour",
+      max: normalizeClassAiTutorHourLimit(policy.perStudentHourLimit),
+      windowMs: hourMs
+    }
+  ] satisfies AiCapabilityRateLimitRule[];
+}
+
+function classAiTutorModeRank(mode: ClassAiTutorMode) {
+  if (mode === "fallback-only") return 3;
+  if (mode === "limited") return 2;
+  return 1;
+}
+
+export function mergeClassAiTutorPoliciesByStrictest(
+  policies: ClassAiTutorPolicy[],
+  fallback: ClassAiTutorPolicy
+): ClassAiTutorPolicy {
+  if (!policies.length) return fallback;
+
+  const strongestRank = Math.max(...policies.map((policy) => classAiTutorModeRank(policy.mode)));
+  const strongest = policies.filter((policy) => classAiTutorModeRank(policy.mode) === strongestRank);
+  const first = strongest[0] ?? fallback;
+
+  if (first.mode !== "limited") {
+    return first;
+  }
+
+  const perStudentMinuteLimit = Math.min(
+    ...strongest.map((policy) => normalizeClassAiTutorMinuteLimit(policy.perStudentMinuteLimit))
+  );
+  const perStudentHourLimit = Math.min(
+    ...strongest.map((policy) => normalizeClassAiTutorHourLimit(policy.perStudentHourLimit))
+  );
+
+  return {
+    ...first,
+    perStudentMinuteLimit,
+    perStudentHourLimit
+  };
 }
 
 function eventTime(event: AiCapabilityRateLimitEvent) {
@@ -128,6 +224,7 @@ export function summarizeAiGovernanceEvents({
   const activeUsers = new Set(windowEvents.map((event) => event.userId));
   const byCapability: AiGovernanceSummary["byCapability"] = {};
   const byAction: AiGovernanceSummary["byAction"] = {
+    "classroom-policy-blocked": 0,
     "media-policy-blocked": 0,
     "rate-limit-blocked": 0,
     "request-admitted": 0

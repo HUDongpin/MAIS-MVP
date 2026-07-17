@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import { readQwenRealtimeProviderConfig } from "@/lib/server/llmProvider";
 import { requireAuthenticatedUser } from "@/lib/server/auth";
-import { consumeAiCapabilityRateLimit } from "@/lib/server/userStore";
+import { consumeAiCapabilityRateLimit, resolveStudentAiTutorPolicy } from "@/lib/server/userStore";
 import { aiCapabilityRateLimitRulesFromEnv } from "@/lib/server/aiGovernance";
 
 export const runtime = "nodejs";
@@ -232,6 +232,11 @@ export async function POST(request: Request) {
 
   if (!authenticated) {
     return NextResponse.json({ error: "Authentication required." }, { status: 401 });
+  }
+
+  const classroomPolicy = await resolveStudentAiTutorPolicy(authenticated.user.id);
+  if (classroomPolicy.mode === "fallback-only") {
+    return NextResponse.json({ error: "Class AI Tutor voice is paused." }, { status: 409 });
   }
 
   let body: unknown;

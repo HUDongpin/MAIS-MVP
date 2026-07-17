@@ -28,11 +28,12 @@ import {
   buildAITutorDatabaseContext,
   consumeAiCapabilityRateLimit,
   getAITutorTokenUsageSince,
+  resolveStudentAiTutorPolicy,
   recordAiGovernanceEvent,
   recordAITutorMessage,
   recordAITutorUsage
 } from "@/lib/server/userStore";
-import { aiCapabilityRateLimitRulesFromEnv } from "@/lib/server/aiGovernance";
+import { classAiTutorRateLimitRulesFromPolicy } from "@/lib/server/aiGovernance";
 import {
   boundedLLMNumber,
   buildLLMProviderRequestBody,
@@ -835,6 +836,56 @@ function buildLocalProviderFallbackReply({
     "Nova's live response did not finish cleanly, so here is a safe local tutor hint.",
     `For ${contextTitle}, choose what you need first: concept explanation, step-by-step hint, answer check, or revision planning.`,
     "Reply with one of those choices, and I will guide the next step."
+  ].join("\n\n");
+}
+
+function buildClassroomFallbackOnlyReply({
+  input,
+  context,
+  language
+}: {
+  input: string;
+  context?: TutorContext;
+  language: string;
+}) {
+  const localReply = buildLocalProviderFallbackReply({ input, context, language });
+  if (isChineseTutorLanguage(language, input)) {
+    return localizeChineseTutorReply([
+      "你的老師暫停了本班即時 AI，所以 Nova 只會使用本機提示，不會連線到即時模型。",
+      localReply
+    ].join("\n\n"), language);
+  }
+
+  return [
+    "Your teacher has paused live AI for this class, so Nova will use a local tutor hint without calling the live model.",
+    localReply
+  ].join("\n\n");
+}
+
+function buildClassroomRateLimitFallbackReply({
+  input,
+  context,
+  language,
+  retryAfterSeconds
+}: {
+  input: string;
+  context?: TutorContext;
+  language: string;
+  retryAfterSeconds: number;
+}) {
+  const localReply = buildLocalProviderFallbackReply({ input, context, language });
+  if (isChineseTutorLanguage(language, input)) {
+    return localizeChineseTutorReply([
+      `本班 AI Tutor 已達到目前限流，請約 ${retryAfterSeconds} 秒後再試即時回覆。`,
+      "為了不中斷課堂，Nova 先給你本機提示。",
+      localReply
+    ].join("\n\n"), language);
+  }
+
+  return [
+    `This class has reached the current AI Tutor limit. Try the live model again in about ${retryAfterSeconds} seconds.`,
+    "To keep the lesson moving, Nova will give you a local hint now.",
+    localReply
   ].join("\n\n");
 }
 
@@ -1932,12 +1983,45 @@ async function handleAITutorPost(
   }
   const authenticatedUserId = authenticated.user.id;
 
+  let classroomPolicy: Awaited<ReturnType<typeof resolveStudentAiTutorPolicy>>;
+  try {
+    classroomPolicy = await resolveStudentAiTutorPolicy(authenticatedUserId);
+  } catch (error) {
+    console.error("AI Tutor classroom policy lookup failed", redactedErrorKind(error));
+    recordTutorUsageAfterResponse({
+      userId: authenticatedUserId,
+      model: primaryProviderConfig.model,
+      error: "AI Tutor classroom policy unavailable"
+    });
+    return jsonWithDeferredTutorSideEffects({
+      reply: buildClassroomFallbackOnlyReply({ input, context, language }),
+      mode: "classroom-policy-fallback"
+    });
+  }
+
+  if (classroomPolicy.mode === "fallback-only") {
+    recordAiGovernanceEventAfterResponse({
+      userId: authenticatedUserId,
+      capability: "ai-tutor-chat",
+      action: "classroom-policy-blocked",
+      reason: "classroom-fallback-only",
+      metadata: {
+        classId: classroomPolicy.classId,
+        mode: classroomPolicy.mode
+      }
+    });
+    return jsonWithDeferredTutorSideEffects({
+      reply: buildClassroomFallbackOnlyReply({ input, context, language }),
+      mode: "classroom-fallback-only"
+    });
+  }
+
   let rateLimit: Awaited<ReturnType<typeof consumeAiCapabilityRateLimit>>;
   try {
     rateLimit = await consumeAiCapabilityRateLimit({
       userId: authenticatedUserId,
       capability: "ai-tutor-chat",
-      rules: aiCapabilityRateLimitRulesFromEnv("ai-tutor-chat")
+      rules: classAiTutorRateLimitRulesFromPolicy(classroomPolicy)
     });
   } catch (error) {
     console.error("AI Tutor governance rate-limit lookup failed", redactedErrorKind(error));
@@ -1960,9 +2044,16 @@ async function handleAITutorPost(
       error: "AI Tutor rate limit exceeded"
     });
     return jsonWithDeferredTutorSideEffects(
-      { error: `AI Tutor rate limit reached. Try again in ${rateLimit.retryAfterSeconds} seconds.` },
       {
-        status: 429,
+        reply: buildClassroomRateLimitFallbackReply({
+          input,
+          context,
+          language,
+          retryAfterSeconds: rateLimit.retryAfterSeconds
+        }),
+        mode: "rate-limit-fallback"
+      },
+      {
         headers: {
           "Retry-After": String(rateLimit.retryAfterSeconds),
           "RateLimit-Remaining": "0",

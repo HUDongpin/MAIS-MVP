@@ -28,6 +28,7 @@ import { isImmersiveStudentPracticeGamePath } from "@/lib/gameBasedLearning";
 import { isChineseLanguage, simplifyChineseText, textForLanguage, traditionalToSimplifiedMap } from "@/lib/i18n";
 import { cn } from "@/lib/utils";
 import type {
+  ClassAiTutorPolicy,
   CurriculumTrack,
   GradeId,
   HongKongDseMathDifficultyBand,
@@ -1462,6 +1463,26 @@ function readSetupStatus(value: unknown): TutorSetupStatus {
   };
 }
 
+function readClassAiTutorPolicy(value: unknown): ClassAiTutorPolicy | null {
+  if (!isRecord(value) || !isRecord(value.policy)) return null;
+  const policy = value.policy;
+  const mode = policy.mode === "limited" || policy.mode === "fallback-only" ? policy.mode : "open";
+  return {
+    classId: typeof policy.classId === "string" ? policy.classId : "default",
+    mode,
+    previousLiveMode: policy.previousLiveMode === "limited"
+      ? "limited"
+      : policy.previousLiveMode === "open"
+        ? "open"
+        : null,
+    perStudentMinuteLimit: typeof policy.perStudentMinuteLimit === "number" ? policy.perStudentMinuteLimit : 2,
+    perStudentHourLimit: typeof policy.perStudentHourLimit === "number" ? policy.perStudentHourLimit : 20,
+    fallbackOnFailure: true,
+    updatedBy: typeof policy.updatedBy === "string" ? policy.updatedBy : "system",
+    updatedAt: typeof policy.updatedAt === "string" ? policy.updatedAt : new Date().toISOString()
+  };
+}
+
 function hasStudentMessage(messages: TutorMessage[]) {
   return messages.some((message) => message.role === "student");
 }
@@ -1803,6 +1824,8 @@ export function AITutorProvider({ children }: { children: ReactNode }) {
   const [voiceStatus, setVoiceStatus] = useState<TutorVoiceStatus>("idle");
   const [tutorPanelSize, setTutorPanelSize] = useState<TutorPanelSize | null>(null);
   const [isTutorPanelResizing, setIsTutorPanelResizing] = useState(false);
+  const [classroomPolicy, setClassroomPolicy] = useState<ClassAiTutorPolicy | null>(null);
+  const classroomFallbackOnly = classroomPolicy?.mode === "fallback-only";
   const attachmentInputRef = useRef<HTMLInputElement | null>(null);
   const tutorPanelRef = useRef<HTMLElement | null>(null);
   const tutorPanelResizeRef = useRef<TutorPanelResizeSnapshot | null>(null);
@@ -1838,6 +1861,24 @@ export function AITutorProvider({ children }: { children: ReactNode }) {
 
     return "";
   }, [messages]);
+  const loadClassroomPolicy = useCallback(async () => {
+    if (!currentUser) {
+      setClassroomPolicy(null);
+      return null;
+    }
+    try {
+      const response = await fetch("/api/ai-tutor/classroom-policy", {
+        cache: "no-store",
+        credentials: "same-origin"
+      });
+      if (!response.ok) return null;
+      const policy = readClassAiTutorPolicy(await response.json().catch(() => null));
+      if (policy) setClassroomPolicy(policy);
+      return policy;
+    } catch {
+      return null;
+    }
+  }, [currentUser?.id]);
   const scrollMessagesToBottom = useCallback(() => {
     messagesEndRef.current?.scrollIntoView({ block: "end" });
   }, []);
@@ -2173,6 +2214,7 @@ export function AITutorProvider({ children }: { children: ReactNode }) {
   }, [abortNativeSpeechCapture, abortQwenSpeechCapture, currentUser, input, language, stopTutorVoicePlayback, submitVoiceTranscript, teardownNativeSpeechRecognition]);
   const speakTutorText = useCallback(
     async (text: string, options?: { force?: boolean }) => {
+      if (classroomFallbackOnly) return;
       if ((!options?.force && !voicePlaybackEnabled) || !setupStatus.voice?.configured || typeof window === "undefined") return;
 
       if (!currentUser) {
@@ -2248,10 +2290,15 @@ export function AITutorProvider({ children }: { children: ReactNode }) {
         }
       }
     },
-    [abortVoiceInputCapture, currentUser, language, setupStatus.voice?.configured, stopTutorVoicePlayback, voicePlaybackEnabled]
+    [abortVoiceInputCapture, classroomFallbackOnly, currentUser, language, setupStatus.voice?.configured, stopTutorVoicePlayback, voicePlaybackEnabled]
   );
 
   function handleReplyVoiceToggle() {
+    if (classroomFallbackOnly) {
+      setVoicePlaybackEnabled(false);
+      stopTutorVoicePlayback();
+      return;
+    }
     if (!currentUser || !setupStatus.voice?.configured) {
       setVoicePlaybackStatus(currentUser ? "error" : "auth-required");
       return;
@@ -2272,6 +2319,11 @@ export function AITutorProvider({ children }: { children: ReactNode }) {
 
   function handleVoiceInputToggle() {
     if (isSending) return;
+    if (classroomFallbackOnly) {
+      setVoiceInputIssue("not-configured");
+      setVoiceStatus("error");
+      return;
+    }
 
     if (isVoiceListening) {
       setVoiceStatus("processing");
@@ -2338,6 +2390,26 @@ export function AITutorProvider({ children }: { children: ReactNode }) {
       setIsSending(true);
 
       try {
+        const effectiveClassroomPolicy = await loadClassroomPolicy();
+        if ((effectiveClassroomPolicy ?? classroomPolicy)?.mode === "fallback-only") {
+          const classroomReply = isChineseLanguage(fallbackLanguage)
+            ? `${textForLanguage({
+                en: "",
+                zh: "班級即時 AI 已暫停，Nova 先用本機提示陪你完成下一步。",
+                zhHans: "班级即时 AI 已暂停，Nova 先用本机提示陪你完成下一步。"
+              }, fallbackLanguage)} ${fallbackReply}`
+            : `Class live AI is paused. Nova will use a local tutor hint for this step. ${fallbackReply}`;
+          setMessages((current) =>
+            current.map((message) =>
+              message.id === pendingMessageId
+                ? { id: createMessageId("fallback"), role: "tutor", content: classroomReply, status: "typing" }
+                : message
+            )
+          );
+          setAttachments([]);
+          return;
+        }
+
         const reply = await requestTutorReply({
           input: trimmed,
           messages,
@@ -2397,8 +2469,10 @@ export function AITutorProvider({ children }: { children: ReactNode }) {
       context,
       currentUser?.curriculumTrack,
       currentUser?.id,
+      classroomPolicy,
       isSending,
       language,
+      loadClassroomPolicy,
       messages,
       pathname,
       selectedGrade,
@@ -2591,9 +2665,15 @@ export function AITutorProvider({ children }: { children: ReactNode }) {
   const tutorPanelOpen = open && draftReady && loadedDraftStorageKey === draftStorageKey;
   const isImmersiveGameRoute = isImmersiveStudentPracticeGamePath(pathname);
   const showTutorLauncher = !tutorPanelOpen;
-  const replyVoiceAvailable = Boolean(currentUser && setupStatus.voice?.configured);
+  const replyVoiceAvailable = Boolean(currentUser && setupStatus.voice?.configured && !classroomFallbackOnly);
   const replyVoiceNote = textForLanguage(
-    !currentUser
+    classroomFallbackOnly
+      ? {
+          en: "Reply voice is off while class AI is paused.",
+          zh: "班級 AI 暫停時不朗讀回覆。",
+          zhHans: "班级 AI 暂停时不朗读回复。"
+        }
+      : !currentUser
       ? tutorVoiceCopy.replyVoiceSignInNote
       : !setupStatus.voice?.configured
       ? tutorVoiceCopy.replyVoiceDisabledNote
@@ -2627,13 +2707,42 @@ export function AITutorProvider({ children }: { children: ReactNode }) {
   }, [language, setupStatus.speech?.configured, setupStatus.state, speechSupported, voiceInputIssue]);
   const voiceStatusLabel = useMemo(() => {
     if (!currentUser) return textForLanguage(tutorVoiceCopy.voiceInputAuthRequired, language);
+    if (classroomFallbackOnly) {
+      return textForLanguage({
+        en: "Class AI is paused",
+        zh: "班級 AI 已暫停",
+        zhHans: "班级 AI 已暂停"
+      }, language);
+    }
     if (!speechSupported) return `${voiceInputIssueLabel} · ${setupStatusLabel}`;
     if (voiceStatus === "listening") return textForLanguage(tutorVoiceCopy.voiceListening, language);
     if (voiceStatus === "processing") return textForLanguage(tutorVoiceCopy.voiceProcessing, language);
     if (voiceStatus === "error") return `${voiceInputIssueLabel} · ${setupStatusLabel}`;
     return `${textForLanguage(tutorVoiceCopy.voiceReady, language)} · ${setupStatusLabel}`;
-  }, [currentUser, language, setupStatusLabel, speechSupported, voiceInputIssueLabel, voiceStatus]);
+  }, [classroomFallbackOnly, currentUser, language, setupStatusLabel, speechSupported, voiceInputIssueLabel, voiceStatus]);
   const showVoiceStatusPanel = voiceStatus === "listening" || voiceStatus === "processing" || voiceStatus === "error";
+
+  useEffect(() => {
+    if (!currentUser || !tutorPanelOpen) return;
+    let cancelled = false;
+    void loadClassroomPolicy();
+    const interval = window.setInterval(() => {
+      if (!cancelled) void loadClassroomPolicy();
+    }, 30_000);
+    return () => {
+      cancelled = true;
+      window.clearInterval(interval);
+    };
+  }, [currentUser, loadClassroomPolicy, tutorPanelOpen]);
+
+  useEffect(() => {
+    if (!classroomFallbackOnly) return;
+    setAttachmentMenuOpen(false);
+    setAttachments([]);
+    setVoicePlaybackEnabled(false);
+    stopTutorVoicePlayback();
+    abortVoiceInputCapture();
+  }, [abortVoiceInputCapture, classroomFallbackOnly, stopTutorVoicePlayback]);
 
   useEffect(() => {
     if (!tutorPanelOpen || setupStatus.state !== "configured") return;
@@ -2678,6 +2787,11 @@ export function AITutorProvider({ children }: { children: ReactNode }) {
 
   function handleAttachmentChange(event: ChangeEvent<HTMLInputElement>) {
     const files = Array.from(event.currentTarget.files ?? []);
+    if (classroomFallbackOnly) {
+      event.currentTarget.value = "";
+      setAttachmentMenuOpen(false);
+      return;
+    }
     if (!files.length) {
       setAttachmentMenuOpen(false);
       return;
@@ -2702,6 +2816,7 @@ export function AITutorProvider({ children }: { children: ReactNode }) {
   }
 
   function openAttachmentPicker() {
+    if (classroomFallbackOnly) return;
     attachmentInputRef.current?.click();
     setAttachmentMenuOpen(false);
   }
@@ -2872,6 +2987,16 @@ export function AITutorProvider({ children }: { children: ReactNode }) {
             </div>
           </div>
 
+          {classroomFallbackOnly ? (
+            <div className="border-b border-amber-200/70 bg-amber-50 px-4 py-3 text-sm font-bold text-amber-900 dark:border-amber-300/20 dark:bg-amber-400/10 dark:text-amber-100">
+              {textForLanguage({
+                en: "Class AI is paused. Local hints stay available.",
+                zh: "班級 AI 已暫停，仍可使用本機提示。",
+                zhHans: "班级 AI 已暂停，仍可使用本机提示。"
+              }, language)}
+            </div>
+          ) : null}
+
           <div className="min-h-0 flex-1 space-y-3 overflow-y-auto p-4">
             {messages.map((message, index) => {
               const quickChoices = message.role === "tutor" && !message.status
@@ -2993,6 +3118,7 @@ export function AITutorProvider({ children }: { children: ReactNode }) {
                   id="ai-tutor-attachments"
                   type="file"
                   multiple
+                  disabled={classroomFallbackOnly}
                   onChange={handleAttachmentChange}
                   aria-hidden="true"
                   tabIndex={-1}
@@ -3019,15 +3145,16 @@ export function AITutorProvider({ children }: { children: ReactNode }) {
                   aria-haspopup="menu"
                   aria-controls="ai-tutor-attachment-menu"
                   aria-expanded={attachmentMenuOpen}
+                  disabled={classroomFallbackOnly}
                   onClick={() => setAttachmentMenuOpen((current) => !current)}
-                  className="focus-ring grid h-11 w-11 shrink-0 place-items-center rounded-full border border-slate-200/80 bg-slate-100 text-2xl font-light leading-none text-slate-500 transition hover:border-cyan-300/70 hover:bg-cyan-50 hover:text-slate-950 dark:border-white/10 dark:bg-white/[0.08] dark:text-slate-300 dark:hover:border-cyan-200/50 dark:hover:bg-white/[0.12] dark:hover:text-white"
+                  className="focus-ring grid h-11 w-11 shrink-0 place-items-center rounded-full border border-slate-200/80 bg-slate-100 text-2xl font-light leading-none text-slate-500 transition hover:border-cyan-300/70 hover:bg-cyan-50 hover:text-slate-950 disabled:cursor-not-allowed disabled:opacity-50 dark:border-white/10 dark:bg-white/[0.08] dark:text-slate-300 dark:hover:border-cyan-200/50 dark:hover:bg-white/[0.12] dark:hover:text-white"
                 >
                   +
                 </button>
                 <button
                   type="button"
                   onClick={handleVoiceInputToggle}
-                  disabled={isSending || !speechSupported}
+                  disabled={isSending || !speechSupported || classroomFallbackOnly}
                   aria-label={textForLanguage(isVoiceListening ? tutorVoiceCopy.voiceStop : tutorVoiceCopy.voiceStart, language)}
                   aria-pressed={isVoiceListening}
                   className={cn(
