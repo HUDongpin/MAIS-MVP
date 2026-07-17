@@ -12,6 +12,7 @@ import {
   type LLMProviderUsage
 } from "@/lib/server/llmProvider";
 import { isSupportedDifficultyRecord, mapDifficultyToActive } from "@/lib/difficulty";
+import { normalizeQuestionDiagram, validateQuestionDiagram } from "@/lib/questionFigure";
 import type {
   AssessmentEmbeddedQuestion,
   AssessmentPaperSection,
@@ -19,6 +20,7 @@ import type {
   Difficulty,
   GradeId,
   LocalizedText,
+  QuestionDiagram,
   QuestionType
 } from "@/types";
 
@@ -128,6 +130,13 @@ function normalizeAcceptedAnswers(value: unknown, answer: string) {
   return Array.from(new Set([answer, ...acceptedAnswers])).slice(0, 6);
 }
 
+function normalizeGeneratedDiagram(value: unknown): QuestionDiagram | undefined {
+  if (typeof value === "undefined" || value === null) return undefined;
+  const normalized = normalizeQuestionDiagram(value);
+  if (!normalized || validateQuestionDiagram(normalized).length > 0) return undefined;
+  return normalized;
+}
+
 function normalizeGeneratedQuestion(value: unknown, index: number): AssessmentEmbeddedQuestion | null {
   if (!isRecord(value)) return null;
   const prompt = localizedText(value.prompt ?? value.question, "", 4000);
@@ -136,16 +145,23 @@ function normalizeGeneratedQuestion(value: unknown, index: number): AssessmentEm
 
   const type = normalizeQuestionType(value.type);
   const options = normalizeOptions(value.options);
+  const diagram = normalizeGeneratedDiagram(value.diagram);
+  const resolvedType = type === "multiple-choice" && !options
+    ? "short-answer"
+    : type === "graph" && !diagram
+      ? "short-answer"
+      : type;
 
   return {
-    type: type === "multiple-choice" && !options ? "short-answer" : type,
+    type: resolvedType,
     prompt,
     options,
     answer,
     acceptedAnswers: normalizeAcceptedAnswers(value.acceptedAnswers, answer),
     explanation: localizedText(value.explanation, answer, 4000),
     topicId: cleanText(value.topicId, "", 120) || undefined,
-    difficulty: normalizeDifficulty(value.difficulty ?? (index < 2 ? "Low" : "Medium"))
+    difficulty: normalizeDifficulty(value.difficulty ?? (index < 2 ? "Low" : "Medium")),
+    diagram
   };
 }
 
@@ -228,6 +244,13 @@ function buildPrompt(input: TeacherAssignmentGenerationInput, questionCount: num
     "Allowed difficulty values: Low, Medium, High.",
     "Use bilingual English and Simplified Chinese copy. Keep the math correct and grade appropriate.",
     "For graph or image-derived questions, write a clear text prompt that can be answered in the app.",
+    "A question may include an optional \"diagram\" field that renders an exact vector figure in the app. Include it when a figure is pedagogically needed (plane geometry, number lines, coordinate work, solids); omit it otherwise. Every type \"graph\" question MUST include a diagram. Never reference a figure in the prompt without providing the diagram field.",
+    "The diagram must be exactly one of these JSON shapes:",
+    "plane-figure: {\"kind\":\"plane-figure\",\"points\":[{\"id\":\"A\",\"x\":0,\"y\":0,\"label\":\"A\"}],\"segments\":[{\"from\":\"A\",\"to\":\"B\",\"label\":{\"en\":\"5 cm\",\"zh\":\"5 厘米\"}}],\"polygons\":[{\"vertexIds\":[\"A\",\"B\",\"C\"]}],\"circles\":[{\"centerId\":\"O\",\"radius\":2}],\"angleMarks\":[{\"vertexId\":\"B\",\"fromId\":\"A\",\"toId\":\"C\",\"label\":{\"en\":\"50°\",\"zh\":\"50°\"}}]} (segments/polygons/circles/angleMarks are optional; ids must reference points; use rightAngle:true only for true 90° angles).",
+    "number-line: {\"kind\":\"number-line\",\"range\":[0,10],\"tickInterval\":1,\"points\":[{\"value\":3,\"label\":\"P\",\"marker\":\"closed\"}],\"highlights\":[{\"from\":2,\"to\":5}]}.",
+    "coordinate-grid: {\"kind\":\"coordinate-grid\",\"xRange\":[-5,5],\"yRange\":[-5,5],\"points\":[{\"label\":\"A\",\"x\":1,\"y\":2}],\"lines\":[{\"points\":[{\"x\":0,\"y\":0},{\"x\":2,\"y\":4}]}]}.",
+    "solid-figure: {\"kind\":\"solid-figure\",\"shape\":\"cuboid\",\"width\":4,\"depth\":3,\"height\":2,\"labels\":{\"width\":{\"en\":\"4 cm\",\"zh\":\"4 cm\"},\"depth\":{\"en\":\"3 cm\",\"zh\":\"3 cm\"},\"height\":{\"en\":\"2 cm\",\"zh\":\"2 cm\"}}} (shapes: cuboid uses width/depth/height, cube uses size, cylinder and cone use radius/height, sphere uses radius).",
+    "Diagram coordinates must be mathematically consistent with the stated answer: marked angles, lengths, and positions are recomputed and validated deterministically, and malformed or inconsistent diagrams are discarded (a graph question then falls back to short-answer).",
     usedImage ? "A question image is attached. Read the image and generate answerable practice questions from it." : "No image is attached. Use the teacher title, target, and description.",
     `Question count: ${questionCount}`,
     `Class: ${input.className}`,

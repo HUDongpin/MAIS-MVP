@@ -1,11 +1,17 @@
 import { redirect } from "next/navigation";
 import { TeacherAnalyticsView } from "@/components/teacher/TeacherAnalyticsView";
 import { getTeacherAnalyticsData } from "@/lib/server/userStore";
-import { getTeacherFoundationForPage } from "../getTeacherFoundation";
+import { emptyTeacherAnalyticsData } from "../emptyTeacherData";
+import { getTeacherFoundationForPage, getTeacherShellForLayout } from "../getTeacherFoundation";
 
 export default async function TeacherAnalyticsPage({ searchParams }: { searchParams: Promise<{ classId?: string }> }) {
-  const foundation = await getTeacherFoundationForPage();
+  const shell = await getTeacherShellForLayout();
   const params = await searchParams;
+  if (!shell.classes.length) {
+    return <TeacherAnalyticsView analytics={emptyTeacherAnalyticsData(shell, params.classId)} />;
+  }
+
+  const foundation = await getTeacherFoundationForPage();
   const analytics = await getTeacherAnalyticsData(foundation.teacher.id, params.classId);
 
   if (!analytics && params.classId) {
@@ -13,9 +19,8 @@ export default async function TeacherAnalyticsPage({ searchParams }: { searchPar
   }
 
   if (!analytics) {
-    redirect("/teacher");
+    redirect("/teacher/dashboard");
   }
 
   return <TeacherAnalyticsView analytics={analytics} />;
 }
-

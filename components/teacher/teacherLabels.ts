@@ -30,7 +30,10 @@ export const submissionStatusLabels: Record<SubmissionStatus, LocalizedText> = {
   "in-progress": { en: "In progress", zh: "進行中" },
   submitted: { en: "Submitted", zh: "已提交" },
   graded: { en: "Graded", zh: "已批改" },
-  late: { en: "Late", zh: "遲交" }
+  late: { en: "Late", zh: "遲交" },
+  "correction-required": { en: "Correction required", zh: "需訂正" },
+  "correction-submitted": { en: "Correction submitted", zh: "已交訂正" },
+  resolved: { en: "Resolved", zh: "已解決" }
 };
 
 export const teacherMessageStatusLabels: Record<TeacherMessageStatus, LocalizedText> = {
@@ -50,7 +53,8 @@ export const assessmentSourceTypeLabels: Record<AssessmentSourceType, LocalizedT
   "question-bank": { en: "Question bank", zh: "題庫" },
   manual: { en: "Manual entry", zh: "手動輸入" },
   resource: { en: "Uploaded resource", zh: "已上載資源" },
-  "mistake-generated": { en: "Mistake generated", zh: "錯題生成" }
+  "mistake-generated": { en: "Mistake generated", zh: "錯題生成" },
+  mixed: { en: "Free paper", zh: "自由組卷" }
 };
 
 export const assessmentStatusLabels: Record<AssessmentStatus, LocalizedText> = {

@@ -6,6 +6,7 @@ import { useState } from "react";
 import { useSettings } from "@/components/providers/AppProviders";
 import { formatGradeLabel } from "@/lib/i18n";
 import type {
+  Assignment,
   TeacherAnalyticsData,
   TeacherAnalyticsInterventionGroup,
   TeacherAnalyticsStudentRisk,
@@ -145,10 +146,43 @@ function TrendBars({ points }: { points: TeacherAnalyticsTrendPoint[] }) {
   );
 }
 
+function FollowUpReadyPanel({
+  assignment,
+  group
+}: {
+  assignment: Assignment;
+  group: TeacherAnalyticsInterventionGroup;
+}) {
+  const { t, text } = useSettings();
+
+  return (
+    <section aria-live="polite" className="mt-4 rounded-2xl border border-emerald-300/55 bg-emerald-400/12 p-4">
+      <div className="flex min-w-0 flex-wrap items-start justify-between gap-3">
+        <div className="min-w-0">
+          <p className="break-words text-xs font-black uppercase tracking-[0.14em] text-emerald-800 dark:text-emerald-100">{t({ en: "Follow-up ready", zh: "跟進作業已就緒" })}</p>
+          <p className="mt-1 break-words font-black text-slate-950 [overflow-wrap:anywhere] dark:text-white">{text(assignment.title)}</p>
+          <p className="mt-1 break-words text-xs font-bold text-emerald-900 [overflow-wrap:anywhere] dark:text-emerald-100">
+            {group.studentNames.length} {t({ en: "students", zh: "學生" })} · {text(actionLabel(group.action))}
+          </p>
+        </div>
+        <div className="flex min-w-0 flex-wrap gap-2">
+          <Link href={`/teacher/assignments/${encodeURIComponent(assignment.id)}`} className="focus-ring rounded-full bg-slate-950 px-4 py-2 text-xs font-black text-white dark:bg-white dark:text-slate-950">
+            {t({ en: "Open assignment", zh: "打開作業" })}
+          </Link>
+          <Link href={`/teacher/assignments?classId=${encodeURIComponent(assignment.classId)}`} className="focus-ring rounded-full border border-emerald-300/70 bg-white/75 px-4 py-2 text-xs font-black text-emerald-900 dark:border-emerald-200/30 dark:bg-white/[0.08] dark:text-emerald-100">
+            {t({ en: "Assignment queue", zh: "作業隊列" })}
+          </Link>
+        </div>
+      </div>
+    </section>
+  );
+}
+
 function InterventionCard({ group }: { group: TeacherAnalyticsInterventionGroup }) {
   const router = useRouter();
   const { text, t } = useSettings();
   const [status, setStatus] = useState<"idle" | "saving" | "created" | "error">("idle");
+  const [createdAssignment, setCreatedAssignment] = useState<Assignment | null>(null);
 
   const createFollowUp = async () => {
     setStatus("saving");
@@ -163,16 +197,20 @@ function InterventionCard({ group }: { group: TeacherAnalyticsInterventionGroup 
         targetId: group.targetId
       })
     });
+    const payload = await response.json().catch(() => null) as { assignment?: Assignment; error?: string } | null;
     if (!response.ok) {
       setStatus("error");
       return;
+    }
+    if (payload?.assignment) {
+      setCreatedAssignment(payload.assignment);
     }
     setStatus("created");
     router.refresh();
   };
 
   return (
-    <article className="soft-panel p-4">
+    <article id={`intervention-group-${group.id}`} className="soft-panel scroll-mt-24 p-4">
       <div className="flex flex-wrap items-start justify-between gap-3">
         <div className="min-w-0">
           <p className="break-words text-base font-black text-slate-950 [overflow-wrap:anywhere] dark:text-white">{text(group.title)}</p>
@@ -198,6 +236,7 @@ function InterventionCard({ group }: { group: TeacherAnalyticsInterventionGroup 
             : t({ en: "Create follow-up", zh: "加入跟進作業" })}
       </button>
       {status === "error" ? <p className="mt-2 text-xs font-bold text-rose-700 dark:text-rose-200">{t({ en: "Could not create assignment.", zh: "未能建立作業。" })}</p> : null}
+      {createdAssignment ? <FollowUpReadyPanel assignment={createdAssignment} group={group} /> : null}
     </article>
   );
 }
