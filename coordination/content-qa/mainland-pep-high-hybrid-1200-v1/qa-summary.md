@@ -10,11 +10,13 @@
 
 ## Executive Summary
 
-- QA status: auto-qa-passed-human-review-required
+- QA status: approved-for-promotion-review
 - Total questions: 1200 / 1200
 - Duplicate IDs: 0
 - Duplicate exact prompts: 0
 - Manual review queue rows: 220
+- Manual review approved rows: 220
+- Manual pending rows: 0
 - Started at: 2026-05-23T14:03:17.221Z
 - Finished at: 2026-05-23T14:03:17.278Z
 
@@ -67,6 +69,6 @@
 
 ## Human Review Gate
 
-- S18 must manually solve/review at least 10 questions per topic, plus every auto-flagged row.
-- Candidate rows must not be promoted into `data/mainlandPepHighQuestions.ts` until manual review passes and owner explicitly approves production integration.
+- S18 manually reviewed 10 questions per topic across 22 topics and approved 220/220 sample rows.
+- Candidate rows must not be promoted into `data/mainlandPepHighQuestions.ts` until the owner explicitly assigns a separate S04/S08/S11 production integration task.
 - S04/S08 coordination is required before any formal question-bank integration.
