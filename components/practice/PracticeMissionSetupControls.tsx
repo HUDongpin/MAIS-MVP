@@ -1,10 +1,11 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
+import { MathText } from "@/components/math/MathText";
 import { dictionary, useSettings } from "@/components/providers/AppProviders";
 import { grades } from "@/data/grades";
 import { visibleDifficultiesForSelection } from "@/lib/difficulty";
-import { formatDifficultyLabel, formatGradeLabel } from "@/lib/i18n";
+import { formatDifficultyLabel, formatGradeLabelForCurriculum } from "@/lib/i18n";
 import { cn } from "@/lib/utils";
 import type { Difficulty, GradeId, LocalizedText, QuestionType } from "@/types";
 
@@ -12,6 +13,17 @@ export type PracticeMissionSetupTopicOption = {
   topicId: string;
   grade: GradeId;
   topic: LocalizedText;
+};
+
+export type PracticeMissionPreviewQuestion = {
+  id: string;
+  difficulty: Difficulty;
+  grade: GradeId;
+  options?: LocalizedText[];
+  prompt: LocalizedText;
+  topic: LocalizedText;
+  topicId: string;
+  type: QuestionType;
 };
 
 type GradeFilter = GradeId | "all";
@@ -29,31 +41,88 @@ const questionTypeLabels: Record<QuestionType, LocalizedText> = {
 
 type PracticeMissionSetupControlsProps = {
   topicOptions: PracticeMissionSetupTopicOption[];
+  gradeFilter?: GradeFilter;
+  difficultyFilter?: DifficultyFilter;
+  topicFilter?: string;
+  questionTypeFilter?: QuestionTypeFilter;
+  questionPreviewItems?: PracticeMissionPreviewQuestion[];
+  gradeSelectionDisabled?: boolean;
+  onGradeFilterChange?: (value: GradeFilter) => void;
+  onDifficultyFilterChange?: (value: DifficultyFilter) => void;
+  onTopicFilterChange?: (value: string) => void;
+  onQuestionTypeFilterChange?: (value: QuestionTypeFilter) => void;
   className?: string;
 };
 
-export function PracticeMissionSetupControls({ topicOptions, className }: PracticeMissionSetupControlsProps) {
-  const { language, selectedGrade, t, text } = useSettings();
-  const [gradeFilter, setGradeFilter] = useState<GradeFilter>(selectedGrade);
-  const [difficultyFilter, setDifficultyFilter] = useState<DifficultyFilter>("all");
-  const [topicFilter, setTopicFilter] = useState("all");
-  const [questionTypeFilter, setQuestionTypeFilter] = useState<QuestionTypeFilter>("all");
+export function PracticeMissionSetupControls({
+  topicOptions,
+  gradeFilter,
+  difficultyFilter,
+  topicFilter,
+  questionTypeFilter,
+  questionPreviewItems = [],
+  gradeSelectionDisabled = false,
+  onGradeFilterChange,
+  onDifficultyFilterChange,
+  onTopicFilterChange,
+  onQuestionTypeFilterChange,
+  className
+}: PracticeMissionSetupControlsProps) {
+  const { currentUser, language, selectedGrade, t, text } = useSettings();
+  const curriculumTrack = currentUser?.curriculumTrack ?? "HK";
+  const [localGradeFilter, setLocalGradeFilter] = useState<GradeFilter>(selectedGrade);
+  const [localDifficultyFilter, setLocalDifficultyFilter] = useState<DifficultyFilter>("all");
+  const [localTopicFilter, setLocalTopicFilter] = useState("all");
+  const [localQuestionTypeFilter, setLocalQuestionTypeFilter] = useState<QuestionTypeFilter>("all");
+  const activeGradeFilter = gradeFilter ?? localGradeFilter;
+  const activeDifficultyFilter = difficultyFilter ?? localDifficultyFilter;
+  const activeTopicFilter = topicFilter ?? localTopicFilter;
+  const activeQuestionTypeFilter = questionTypeFilter ?? localQuestionTypeFilter;
 
   useEffect(() => {
-    setGradeFilter(selectedGrade);
-  }, [selectedGrade]);
+    if (gradeFilter) return;
+    setLocalGradeFilter(selectedGrade);
+  }, [gradeFilter, selectedGrade]);
+
+  const handleGradeFilterChange = useCallback((value: GradeFilter) => {
+    if (onGradeFilterChange) onGradeFilterChange(value);
+    else setLocalGradeFilter(value);
+  }, [onGradeFilterChange]);
+
+  const handleDifficultyFilterChange = useCallback((value: DifficultyFilter) => {
+    if (onDifficultyFilterChange) onDifficultyFilterChange(value);
+    else setLocalDifficultyFilter(value);
+  }, [onDifficultyFilterChange]);
+
+  const handleTopicFilterChange = useCallback((value: string) => {
+    if (onTopicFilterChange) onTopicFilterChange(value);
+    else setLocalTopicFilter(value);
+  }, [onTopicFilterChange]);
+
+  const handleQuestionTypeFilterChange = useCallback((value: QuestionTypeFilter) => {
+    if (onQuestionTypeFilterChange) onQuestionTypeFilterChange(value);
+    else setLocalQuestionTypeFilter(value);
+  }, [onQuestionTypeFilterChange]);
 
   const filteredTopicOptions = useMemo(() => {
-    if (gradeFilter === "all") return topicOptions;
-    return topicOptions.filter((topicOption) => topicOption.grade === gradeFilter);
-  }, [gradeFilter, topicOptions]);
+    if (activeGradeFilter === "all") return topicOptions;
+    return topicOptions.filter((topicOption) => topicOption.grade === activeGradeFilter);
+  }, [activeGradeFilter, topicOptions]);
+  const previewQuestions = useMemo(() => {
+    return questionPreviewItems
+      .filter((question) => activeGradeFilter === "all" || question.grade === activeGradeFilter)
+      .filter((question) => activeDifficultyFilter === "all" || question.difficulty === activeDifficultyFilter)
+      .filter((question) => activeTopicFilter === "all" || question.topicId === activeTopicFilter)
+      .filter((question) => activeQuestionTypeFilter === "all" || question.type === activeQuestionTypeFilter)
+      .slice(0, 5);
+  }, [activeDifficultyFilter, activeGradeFilter, activeQuestionTypeFilter, activeTopicFilter, questionPreviewItems]);
 
   useEffect(() => {
-    if (topicFilter === "all") return;
-    if (!filteredTopicOptions.some((topicOption) => topicOption.topicId === topicFilter)) {
-      setTopicFilter("all");
+    if (activeTopicFilter === "all") return;
+    if (!filteredTopicOptions.some((topicOption) => topicOption.topicId === activeTopicFilter)) {
+      handleTopicFilterChange("all");
     }
-  }, [filteredTopicOptions, topicFilter]);
+  }, [activeTopicFilter, filteredTopicOptions, handleTopicFilterChange]);
 
   return (
     <section
@@ -73,9 +142,9 @@ export function PracticeMissionSetupControls({ topicOptions, className }: Practi
           </div>
           <p className="max-w-xl text-sm font-semibold leading-6 text-slate-600 dark:text-slate-300">
             {t({
-              en: "These controls are reserved here temporarily for the next Practice Arena question flow.",
-              zh: "這些控制暫時保留在這裡，供下一版練習場題目流程使用。",
-              zhHans: "这些控制暂时保留在这里，供下一版练习场题目流程使用。"
+              en: "Free selection is ready for the next 5-question round.",
+              zh: "自由選題已準備好開始下一個 5 題回合。",
+              zhHans: "自由选题已准备好开始下一个 5 题回合。"
             })}
           </p>
         </div>
@@ -84,14 +153,15 @@ export function PracticeMissionSetupControls({ topicOptions, className }: Practi
           <label className="grid gap-2 text-sm font-black text-blue-950 dark:text-cyan-50">
             {t(dictionary.common.grade)}
             <select
-              value={gradeFilter}
-              onChange={(event) => setGradeFilter(event.target.value as GradeFilter)}
-              className="focus-ring min-h-14 w-full rounded-2xl border border-blue-100 bg-sky-50/70 px-4 py-3 text-sm font-black text-slate-700 shadow-inner dark:border-white/10 dark:bg-white/[0.08] dark:text-white"
+              value={activeGradeFilter}
+              onChange={(event) => handleGradeFilterChange(event.target.value as GradeFilter)}
+              disabled={gradeSelectionDisabled}
+              className="focus-ring min-h-14 w-full rounded-2xl border border-blue-100 bg-sky-50/70 px-4 py-3 text-sm font-black text-slate-700 shadow-inner disabled:cursor-not-allowed disabled:opacity-70 dark:border-white/10 dark:bg-white/[0.08] dark:text-white"
             >
               <option value="all">{t(dictionary.common.all)}</option>
               {grades.map((grade) => (
                 <option key={grade.id} value={grade.id}>
-                  {text(grade.name)}
+                  {formatGradeLabelForCurriculum(grade.id, language, curriculumTrack)}
                 </option>
               ))}
             </select>
@@ -100,8 +170,8 @@ export function PracticeMissionSetupControls({ topicOptions, className }: Practi
           <label className="grid gap-2 text-sm font-black text-blue-950 dark:text-cyan-50">
             {t(dictionary.common.difficulty)}
             <select
-              value={difficultyFilter}
-              onChange={(event) => setDifficultyFilter(event.target.value as DifficultyFilter)}
+              value={activeDifficultyFilter}
+              onChange={(event) => handleDifficultyFilterChange(event.target.value as DifficultyFilter)}
               className="focus-ring min-h-14 w-full rounded-2xl border border-blue-100 bg-sky-50/70 px-4 py-3 text-sm font-black text-slate-700 shadow-inner dark:border-white/10 dark:bg-white/[0.08] dark:text-white"
             >
               <option value="all">{t(dictionary.common.all)}</option>
@@ -116,14 +186,14 @@ export function PracticeMissionSetupControls({ topicOptions, className }: Practi
           <label className="grid gap-2 text-sm font-black text-blue-950 dark:text-cyan-50">
             {t(dictionary.common.topic)}
             <select
-              value={topicFilter}
-              onChange={(event) => setTopicFilter(event.target.value)}
+              value={activeTopicFilter}
+              onChange={(event) => handleTopicFilterChange(event.target.value)}
               className="focus-ring min-h-14 w-full rounded-2xl border border-blue-100 bg-sky-50/70 px-4 py-3 text-sm font-black text-slate-700 shadow-inner dark:border-white/10 dark:bg-white/[0.08] dark:text-white"
             >
               <option value="all">{t(dictionary.common.all)}</option>
               {filteredTopicOptions.map((topicOption) => (
                 <option key={topicOption.topicId} value={topicOption.topicId}>
-                  {`${formatGradeLabel(topicOption.grade, language, true)} · ${text(topicOption.topic)}`}
+                  {`${formatGradeLabelForCurriculum(topicOption.grade, language, curriculumTrack, true)} · ${text(topicOption.topic)}`}
                 </option>
               ))}
             </select>
@@ -132,8 +202,8 @@ export function PracticeMissionSetupControls({ topicOptions, className }: Practi
           <label className="grid gap-2 text-sm font-black text-blue-950 dark:text-cyan-50">
             {t({ en: "Question type", zh: "題型", zhHans: "题型" })}
             <select
-              value={questionTypeFilter}
-              onChange={(event) => setQuestionTypeFilter(event.target.value as QuestionTypeFilter)}
+              value={activeQuestionTypeFilter}
+              onChange={(event) => handleQuestionTypeFilterChange(event.target.value as QuestionTypeFilter)}
               className="focus-ring min-h-14 w-full rounded-2xl border border-blue-100 bg-sky-50/70 px-4 py-3 text-sm font-black text-slate-700 shadow-inner dark:border-white/10 dark:bg-white/[0.08] dark:text-white"
             >
               <option value="all">{t(dictionary.common.all)}</option>
@@ -145,6 +215,50 @@ export function PracticeMissionSetupControls({ topicOptions, className }: Practi
             </select>
           </label>
         </div>
+
+        {questionPreviewItems.length ? (
+          <div className="mt-6 grid gap-3 sm:grid-cols-2 lg:grid-cols-5" data-practice-mission-preview-count={previewQuestions.length}>
+            {previewQuestions.map((question, index) => (
+              <article
+                key={question.id}
+                className="grid min-h-[13rem] min-w-0 content-between rounded-2xl border border-blue-100 bg-sky-50/70 p-4 shadow-inner dark:border-white/10 dark:bg-white/[0.08]"
+                data-practice-mission-preview-card
+              >
+                <div className="min-w-0">
+                  <div className="flex flex-wrap items-center gap-2">
+                    <span className="rounded-full bg-blue-600 px-2.5 py-1 text-[0.65rem] font-black uppercase tracking-[0.12em] text-white">
+                      {index + 1}/5
+                    </span>
+                    <span className="rounded-full bg-white/80 px-2.5 py-1 text-[0.65rem] font-black text-blue-800 dark:bg-white/[0.09] dark:text-cyan-100">
+                      {formatDifficultyLabel(question.difficulty, language)}
+                    </span>
+                  </div>
+                  <p className="mt-3 line-clamp-2 text-xs font-black uppercase tracking-[0.12em] text-cyan-700 dark:text-cyan-200">
+                    {text(question.topic)}
+                  </p>
+                  <MathText
+                    as="p"
+                    text={text(question.prompt)}
+                    className="mt-2 line-clamp-4 min-w-0 text-sm font-bold leading-6 text-slate-700 dark:text-slate-100"
+                  />
+                </div>
+                {question.options?.length ? (
+                  <div className="mt-3 grid gap-1.5">
+                    {question.options.slice(0, 2).map((option, optionIndex) => (
+                      <span key={`${question.id}-${optionIndex}`} className="truncate rounded-xl bg-white/85 px-2.5 py-1 text-xs font-bold text-slate-600 dark:bg-white/[0.08] dark:text-slate-200">
+                        {text(option)}
+                      </span>
+                    ))}
+                  </div>
+                ) : (
+                  <p className="mt-3 rounded-xl bg-white/85 px-2.5 py-1 text-xs font-bold text-slate-600 dark:bg-white/[0.08] dark:text-slate-200">
+                    {t(questionTypeLabels[question.type])}
+                  </p>
+                )}
+              </article>
+            ))}
+          </div>
+        ) : null}
       </div>
     </section>
   );

@@ -4,7 +4,7 @@ import { dictionary, useSettings } from "@/components/providers/AppProviders";
 import { cn } from "@/lib/utils";
 
 const missionSteps = [
-  { label: "1", state: "active", className: "left-[19%] top-[54%]" },
+  { label: "1", state: "ready", className: "left-[19%] top-[54%]" },
   { label: "2", state: "locked", className: "left-[34%] top-[51%]" },
   { label: "3", state: "locked", className: "left-[49%] top-[50%]" },
   { label: "4", state: "locked", className: "left-[63%] top-[51%]" },
@@ -88,11 +88,7 @@ function ProgressDial() {
 
   return (
     <aside
-      role="progressbar"
-      aria-label={t({ en: "Personalized set progress", zh: "適性練習進度", zhHans: "适性练习进度" })}
-      aria-valuemin={0}
-      aria-valuemax={5}
-      aria-valuenow={0}
+      aria-label={t({ en: "Personalized practice preview", zh: "適性練習預覽", zhHans: "适性练习预览" })}
       className="relative mx-auto w-full max-w-[14.5rem] self-center sm:max-w-[18rem] lg:mx-0 lg:translate-y-5 lg:justify-self-end"
     >
       <div className="relative mx-auto aspect-square w-full max-w-[13.5rem] sm:max-w-[17rem]">
@@ -100,11 +96,11 @@ function ProgressDial() {
         <div aria-hidden="true" className="absolute inset-[13%] rounded-full bg-[conic-gradient(from_-28deg,#0ea5e9_65deg,rgba(203,213,225,0.78)_0deg)] p-[10px] shadow-[0_0_30px_rgba(14,165,233,0.18)]">
           <div className="grid size-full place-items-center rounded-full border border-white/90 bg-white/[0.96] text-center text-slate-950 shadow-inner shadow-sky-900/10 dark:border-white/10 dark:bg-slate-950/[0.94] dark:text-white">
             <div>
-              <p className="text-sm font-black text-slate-700 dark:text-slate-200">{t({ en: "Round progress", zh: "本輪進度", zhHans: "本轮进度" })}</p>
+              <p className="text-sm font-black text-slate-700 dark:text-slate-200">{t({ en: "Preview set", zh: "預覽題組", zhHans: "预览题组" })}</p>
               <p className="mt-2 text-6xl font-black leading-none">
-                <span className="text-cyan-500">0</span>/5
+                <span className="text-cyan-500">5</span>
               </p>
-              <p className="mt-2 text-sm font-black text-slate-700 dark:text-slate-200">{t({ en: "required", zh: "必做題", zhHans: "必做题" })}</p>
+              <p className="mt-2 text-sm font-black text-slate-700 dark:text-slate-200">{t({ en: "required questions", zh: "必做題", zhHans: "必做题" })}</p>
             </div>
           </div>
         </div>
@@ -136,14 +132,14 @@ function MissionMap() {
           <StartPad />
           {missionSteps.map((step) => (
             <div key={step.label} className={cn("absolute z-10 w-32 -translate-x-1/2 -translate-y-1/2 text-center", step.className)}>
-              {step.state === "active" ? (
+              {step.state === "ready" ? (
                 <>
                   <span aria-hidden="true" className="absolute left-1/2 top-[5.9rem] z-0 h-8 w-24 -translate-x-1/2 rounded-full bg-slate-900/20 blur-[1px]" />
                   <span className="relative z-20 mx-auto grid h-[7.25rem] w-[5.5rem] place-items-center rounded-[2rem] border border-white bg-gradient-to-br from-cyan-200 via-cyan-400 to-sky-600 text-4xl font-black text-white shadow-[inset_5px_5px_9px_rgba(255,255,255,0.9),inset_-10px_-14px_18px_rgba(15,23,42,0.14),0_18px_24px_rgba(15,23,42,0.24)] ring-4 ring-cyan-100 after:absolute after:-bottom-3 after:left-1/2 after:size-8 after:-translate-x-1/2 after:rotate-45 after:rounded-[0.45rem] after:border-b after:border-r after:border-white after:bg-cyan-400 after:shadow-[7px_7px_14px_rgba(15,23,42,0.14)] after:content-['']">
                     <span className="relative z-10">{step.label}</span>
                   </span>
                   <span className="relative z-30 mt-5 inline-flex rounded-lg border border-cyan-200 bg-cyan-600 px-3 py-1.5 text-xs font-black text-white shadow-[0_8px_14px_rgba(15,23,42,0.14)]">
-                    {t({ en: "In progress", zh: "進行中", zhHans: "进行中" })}
+                    {t({ en: "Ready", zh: "準備好", zhHans: "准备好" })}
                   </span>
                 </>
               ) : (

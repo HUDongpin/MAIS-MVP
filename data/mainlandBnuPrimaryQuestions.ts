@@ -1,10 +1,16 @@
 import v1QuestionPackJson from "./generated-content/mainland-bnu-primary-generated-bank-v1-1500/question-pack.json";
 import v2QuestionPackJson from "./generated-content/mainland-bnu-primary-generated-bank-v2-1500/question-pack.json";
-import { localizedHjbGeneratedAcceptedAnswers, localizeHjbGeneratedText } from "./hjbQuestionLocalization";
+import {
+  localizedHjbGeneratedAcceptedAnswers,
+  stripHjbGeneratorPromptPrefix,
+  toTraditionalHjbText
+} from "./hjbQuestionLocalization";
 import { mainlandBnuPrimaryTopics, type BnuPrimaryBatch } from "./mainlandBnuPrimaryTopics";
+import { mapDifficultyToActive } from "@/lib/difficulty";
 import type {
   CurriculumProfile,
   Difficulty,
+  DifficultyRecord,
   MainlandBnuPrimaryGradeId,
   MainlandPepSemester,
   Question,
@@ -23,7 +29,7 @@ type GeneratedBnuPrimaryQuestion = {
   competencyTags?: string[];
   skillTags?: string[];
   misconceptionTags?: string[];
-  difficulty: Difficulty;
+  difficulty: DifficultyRecord;
   type: Exclude<QuestionType, "graph">;
   evidenceCardIds: string[];
   assessmentPatternCardIds: string[];
@@ -70,7 +76,7 @@ const generatedQuestionRows = generatedQuestionPacks.flatMap((pack) => pack.ques
 const mainlandBnuProfile = { region: "MAINLAND", publisher: "MAINLAND_BNU" } satisfies CurriculumProfile;
 const topicById = new Map(mainlandBnuPrimaryTopics.map((topic) => [topic.id, topic]));
 const gradeOrder: MainlandBnuPrimaryGradeId[] = ["P1", "P2", "P3", "P4", "P5", "P6"];
-const difficultyOrder: Difficulty[] = ["Foundation", "Core", "Challenge", "Exam"];
+const difficultyOrder: Difficulty[] = ["Low", "Medium", "High"];
 const batchOrder: BnuPrimaryBatch[] = ["bnu-primary-v1", "bnu-primary-v2"];
 
 function uniqueNonEmpty(values: string[]) {
@@ -87,6 +93,15 @@ function localizedMainlandBnuPrimaryAcceptedAnswers(question: GeneratedBnuPrimar
   return uniqueNonEmpty(aliases);
 }
 
+function localizeBnuPrimaryGeneratedText(value: string) {
+  const zhHans = stripHjbGeneratorPromptPrefix(value);
+  return {
+    en: zhHans,
+    zh: toTraditionalHjbText(zhHans),
+    zhHans
+  };
+}
+
 function toQuestion(question: GeneratedBnuPrimaryQuestion): Question {
   const topic = topicById.get(question.topicId);
   if (!topic) throw new Error(`Missing Mainland BNU primary topic for ${question.topicId}`);
@@ -101,13 +116,13 @@ function toQuestion(question: GeneratedBnuPrimaryQuestion): Question {
     grade: question.grade,
     topicId: question.topicId,
     topic: topic.title,
-    difficulty: question.difficulty,
+    difficulty: mapDifficultyToActive(question.difficulty),
     type: question.type,
-    prompt: localizeHjbGeneratedText(question.promptZhHans),
-    options: question.type === "multiple-choice" ? question.optionsZhHans.map(localizeHjbGeneratedText) : undefined,
+    prompt: localizeBnuPrimaryGeneratedText(question.promptZhHans),
+    options: question.type === "multiple-choice" ? question.optionsZhHans.map(localizeBnuPrimaryGeneratedText) : undefined,
     answer: question.answer,
     acceptedAnswers: localizedMainlandBnuPrimaryAcceptedAnswers(question),
-    explanation: localizeHjbGeneratedText(question.explanationZhHans)
+    explanation: localizeBnuPrimaryGeneratedText(question.explanationZhHans)
   };
 }
 
@@ -120,7 +135,7 @@ function metadataForQuestion(question: GeneratedBnuPrimaryQuestion): MainlandBnu
     volume: question.volume,
     unitTitle: question.unitTitle,
     type: question.type,
-    difficulty: question.difficulty,
+    difficulty: mapDifficultyToActive(question.difficulty),
     evidenceCardIds: question.evidenceCardIds,
     assessmentPatternCardIds: question.assessmentPatternCardIds,
     paperPatternCardIds: question.paperPatternCardIds,
@@ -136,7 +151,7 @@ function compareGeneratedQuestionGroups(left: GeneratedBnuPrimaryQuestion, right
   return (
     gradeOrder.indexOf(left.grade) - gradeOrder.indexOf(right.grade) ||
     left.topicId.localeCompare(right.topicId, "zh-Hans") ||
-    difficultyOrder.indexOf(left.difficulty) - difficultyOrder.indexOf(right.difficulty) ||
+    difficultyOrder.indexOf(mapDifficultyToActive(left.difficulty)) - difficultyOrder.indexOf(mapDifficultyToActive(right.difficulty)) ||
     left.id.localeCompare(right.id, "zh-Hans")
   );
 }

@@ -1,63 +1,73 @@
 "use client";
 
 import Link from "next/link";
+import dynamic from "next/dynamic";
 import { usePathname } from "next/navigation";
-import type { ChangeEvent } from "react";
+import type { ChangeEvent, RefObject } from "react";
 import { useEffect, useId, useRef, useState } from "react";
 import { motion, AnimatePresence } from "@/components/ui/Motion";
 import { MathText, toPlainMathText } from "@/components/math/MathText";
 import { dictionary, useSettings } from "@/components/providers/AppProviders";
-import { HandwritingAnswerBoard } from "@/components/practice/HandwritingAnswerBoard";
 import { practiceTextForLanguage } from "@/components/practice/hjbPracticeEnglish";
-import { MathSoftKeyboard } from "@/components/practice/MathSoftKeyboard";
-import { formatDifficultyLabel, formatGradeLabel } from "@/lib/i18n";
+import { shouldHideMainlandPepPrimaryPracticeIllustration } from "@/components/practice/mainlandPepPrimaryIllustrationGate";
+import { formatPracticeOptionDisplayText } from "@/components/practice/practiceOptionDisplayText";
+import { cleanPracticeQuestionPromptText } from "@/components/practice/practicePromptText";
+import { isImmersiveStudentPracticeGamePath } from "@/lib/gameBasedLearning";
+import { isStudentLessonPath } from "@/lib/lessonLinks";
 import { cn } from "@/lib/utils";
-import type { AttemptFeedback, PublicQuestion, QuestionDiagram, QuestionType } from "@/types";
+import { QuestionFigure, type QuestionFigureVariant } from "@/components/practice/QuestionFigure";
+import type { AttemptFeedback, Language, LocalizedText, PublicQuestion, QuestionType } from "@/types";
 
-type DiagramLine = NonNullable<QuestionDiagram["lines"]>[number];
-type DiagramPoint = DiagramLine["points"][number];
-type SvgPoint = { x: number; y: number };
-type SvgRect = { left: number; top: number; right: number; bottom: number };
-type LabelPlacement = SvgPoint & { rect: SvgRect };
-type CoordinateGridVariant = "default" | "day";
 type AnswerInputMode = "keyboard" | "handwriting";
+type AnswerControl = HTMLInputElement | HTMLTextAreaElement;
 type PhotoAttachment = {
+  dataUrl: string;
   id: string;
   name: string;
   size: number;
+  type: string;
   url: string;
 };
+type LazyHandwritingAnswerBoardProps = {
+  boardId: string;
+  answerInputId: string;
+  value: string;
+  isShortAnswer: boolean;
+  language: Language;
+  placeholder: string;
+  resetToken: number;
+  showAnswerInput?: boolean;
+  answerLabel?: LocalizedText;
+  onAnswerChange: (value: string) => void;
+  onBeginAttempt: () => void;
+  onDraftInteraction: () => void;
+};
+type LazyMathSoftKeyboardProps = {
+  id: string;
+  value: string;
+  targetRef: RefObject<AnswerControl | null>;
+  language: Language;
+  onChange: (value: string) => void;
+  ariaLabel?: LocalizedText;
+  clearAriaLabel?: LocalizedText;
+};
 
-const labelCandidateOffsets = [
-  { x: 12, y: -16 },
-  { x: -12, y: -16 },
-  { x: 12, y: 16 },
-  { x: -12, y: 16 },
-  { x: 19, y: 0 },
-  { x: -19, y: 0 },
-  { x: 0, y: -14 },
-  { x: 0, y: 19 },
-  { x: 12, y: 14 },
-  { x: -12, y: 14 },
-  { x: 12, y: -30 },
-  { x: -12, y: -30 },
-  { x: 12, y: 30 },
-  { x: -12, y: 30 },
-  { x: 26, y: -20 },
-  { x: -26, y: -20 },
-  { x: 26, y: 20 },
-  { x: -26, y: 20 },
-  { x: 30, y: 0 },
-  { x: -30, y: 0 },
-  { x: 0, y: -24 },
-  { x: 0, y: 26 }
-];
-const pointMarkerRadius = 5;
-const graphStrokePadding = 6;
-const labelCollisionPadding = 1;
-const labelFontHeight = 15;
-const labelMinWidth = 9;
-const labelWidthPerCharacter = 8.8;
+const HandwritingAnswerBoard = dynamic<LazyHandwritingAnswerBoardProps>(
+  () => import("@/components/practice/HandwritingAnswerBoard").then((module) => module.HandwritingAnswerBoard),
+  {
+    ssr: false,
+    loading: () => <div className="mt-3 h-64 animate-pulse rounded-2xl bg-slate-200/70 dark:bg-white/10" aria-hidden="true" />
+  }
+);
+
+const MathSoftKeyboard = dynamic<LazyMathSoftKeyboardProps>(
+  () => import("@/components/practice/MathSoftKeyboard").then((module) => module.MathSoftKeyboard),
+  {
+    ssr: false,
+    loading: () => <div className="mt-3 h-44 animate-pulse rounded-2xl bg-slate-200/70 dark:bg-white/10" aria-hidden="true" />
+  }
+);
+
 const answerPhotoAccept = "image/*";
 const maxAnswerPhotoAttachments = 6;
 
@@ -84,12 +94,28 @@ function isPhotoFile(file: File) {
   return file.type.startsWith("image/") || /\.(heic|heif|jpe?g|png|webp)$/i.test(file.name);
 }
 
-function revokePhotoAttachments(attachments: PhotoAttachment[]) {
-  attachments.forEach((attachment) => URL.revokeObjectURL(attachment.url));
+function readPhotoDataUrl(file: File) {
+  return new Promise<string>((resolve, reject) => {
+    const reader = new FileReader();
+    reader.addEventListener("load", () => resolve(typeof reader.result === "string" ? reader.result : ""));
+    reader.addEventListener("error", () => reject(reader.error ?? new Error("Could not read photo.")));
+    reader.readAsDataURL(file);
+  });
 }
 
-function isXAxisPoint(point: DiagramPoint) {
-  return Math.abs(point.y) < 0.0001;
+function serializeAnswerWorkPhotos(attachments: PhotoAttachment[]) {
+  return attachments
+    .filter((attachment) => attachment.dataUrl.startsWith("data:image/"))
+    .map((attachment) => ({
+      dataUrl: attachment.dataUrl,
+      name: attachment.name,
+      size: attachment.size,
+      type: attachment.type
+    }));
+}
+
+function revokePhotoAttachments(attachments: PhotoAttachment[]) {
+  attachments.forEach((attachment) => URL.revokeObjectURL(attachment.url));
 }
 
 function readAttemptFeedback(value: unknown): AttemptFeedback | null {
@@ -115,13 +141,6 @@ function readAttemptFeedback(value: unknown): AttemptFeedback | null {
   };
 }
 
-const questionTypeLabels: Record<QuestionType, { en: string; zh: string }> = {
-  "multiple-choice": { en: "Multiple choice", zh: "選擇題" },
-  "fill-in": { en: "Fill-in", zh: "填空題" },
-  "short-answer": { en: "Short answer", zh: "簡答題" },
-  graph: { en: "Graph", zh: "圖形題" }
-};
-
 const answerLabels: Record<Exclude<QuestionType, "multiple-choice">, { en: string; zh: string }> = {
   "fill-in": { en: "Fill in the blank", zh: "填空答案" },
   "short-answer": { en: "Short answer", zh: "簡答答案" },
@@ -133,6 +152,32 @@ const answerPlaceholders: Record<Exclude<QuestionType, "multiple-choice">, { en:
   "short-answer": { en: "Type a concise answer", zh: "輸入簡短答案" },
   graph: { en: "Read the diagram, then answer", zh: "閱讀圖形後作答" }
 };
+
+const photoAttachmentCopy = {
+  addPhotos: { en: "Add photos", zh: "加入相片", zhHans: "添加照片" }
+} satisfies { addPhotos: LocalizedText };
+
+const practiceQuestionCardSimplifiedTextReplacements = [
+  ["憑", "凭"],
+  ["細", "细"],
+  ["綜", "综"],
+  ["職", "职"],
+  ["觀", "观"],
+  ["軌", "轨"],
+  ["鄰", "邻"],
+  ["魚", "鱼"],
+  ["遊", "游"],
+  ["靈", "灵"]
+] as const;
+
+function normalizePracticeQuestionCardSimplifiedText(value: string, language: Language) {
+  if (language !== "zh-Hans") return value;
+
+  return practiceQuestionCardSimplifiedTextReplacements.reduce(
+    (current, [source, replacement]) => current.split(source).join(replacement),
+    value
+  );
+}
 
 function shouldRenderOptionAsBareMath(value: string) {
   const trimmed = value.trim();
@@ -161,486 +206,13 @@ function formatUnitExponentsForMathText(value: string) {
   });
 }
 
-function integerTicks(min: number, max: number) {
-  const start = Math.ceil(min);
-  const end = Math.floor(max);
-  return Array.from({ length: Math.max(0, end - start + 1) }, (_, index) => start + index);
-}
-
-function shouldDrawAsQuadratic(line: DiagramLine) {
-  const label = line.label?.toLowerCase() ?? "";
-  return line.points.length >= 3 && (label.includes("parabola") || label === "curve");
-}
-
-function shouldShowLineValueMarkers(line: DiagramLine) {
-  return line.points.length > 2 && !shouldDrawAsQuadratic(line);
-}
-
-function uniquePointsByX(points: DiagramPoint[]) {
-  return [...points]
-    .sort((a, b) => a.x - b.x)
-    .filter((point, index, sortedPoints) => index === 0 || Math.abs(point.x - sortedPoints[index - 1].x) > 0.0001);
-}
-
-function quadraticYAt(x: number, anchors: [DiagramPoint, DiagramPoint, DiagramPoint]) {
-  const [p0, p1, p2] = anchors;
-  const term0 = p0.y * ((x - p1.x) * (x - p2.x)) / ((p0.x - p1.x) * (p0.x - p2.x));
-  const term1 = p1.y * ((x - p0.x) * (x - p2.x)) / ((p1.x - p0.x) * (p1.x - p2.x));
-  const term2 = p2.y * ((x - p0.x) * (x - p1.x)) / ((p2.x - p0.x) * (p2.x - p1.x));
-  return term0 + term1 + term2;
-}
-
-function clampNumber(value: number, min: number, max: number) {
-  return Math.min(max, Math.max(min, value));
-}
-
-function rectsOverlap(first: SvgRect, second: SvgRect) {
-  return first.left < second.right && first.right > second.left && first.top < second.bottom && first.bottom > second.top;
-}
-
-function expandRect(rect: SvgRect, padding: number): SvgRect {
-  return {
-    left: rect.left - padding,
-    top: rect.top - padding,
-    right: rect.right + padding,
-    bottom: rect.bottom + padding
-  };
-}
-
-function rectContains(outer: SvgRect, inner: SvgRect) {
-  return inner.left >= outer.left && inner.top >= outer.top && inner.right <= outer.right && inner.bottom <= outer.bottom;
-}
-
-function pointInRect(point: SvgPoint, rect: SvgRect) {
-  return point.x >= rect.left && point.x <= rect.right && point.y >= rect.top && point.y <= rect.bottom;
-}
-
-function labelRectFor(label: string, center: SvgPoint): SvgRect {
-  const width = Math.max(labelMinWidth, label.length * labelWidthPerCharacter + 2);
-  const halfWidth = width / 2;
-  const halfHeight = labelFontHeight / 2;
-
-  return {
-    left: center.x - halfWidth,
-    top: center.y - halfHeight,
-    right: center.x + halfWidth,
-    bottom: center.y + halfHeight
-  };
-}
-
-function markerRectFor(center: SvgPoint) {
-  return {
-    left: center.x - pointMarkerRadius,
-    top: center.y - pointMarkerRadius,
-    right: center.x + pointMarkerRadius,
-    bottom: center.y + pointMarkerRadius
-  };
-}
-
-function isYVisible(y: number, yMin: number, yMax: number) {
-  const tolerance = 0.0001;
-  return y >= yMin - tolerance && y <= yMax + tolerance;
-}
-
-function visibleQuadraticIntervals(
-  anchors: [DiagramPoint, DiagramPoint, DiagramPoint],
-  xMin: number,
-  xMax: number,
-  yMin: number,
-  yMax: number
-) {
-  if (xMax <= xMin) return [];
-
-  const sampleCount = 240;
-  const isVisibleAt = (x: number) => isYVisible(quadraticYAt(x, anchors), yMin, yMax);
-  const refineBoundary = (visibleX: number, hiddenX: number) => {
-    let visible = visibleX;
-    let hidden = hiddenX;
-
-    for (let step = 0; step < 24; step += 1) {
-      const midpoint = (visible + hidden) / 2;
-      if (isVisibleAt(midpoint)) {
-        visible = midpoint;
-      } else {
-        hidden = midpoint;
-      }
-    }
-
-    return visible;
-  };
-
-  const intervals: Array<{ startX: number; endX: number }> = [];
-  let previousX = xMin;
-  let previousVisible = isVisibleAt(previousX);
-  let currentStart = previousVisible ? xMin : null;
-
-  for (let index = 1; index <= sampleCount; index += 1) {
-    const x = xMin + ((xMax - xMin) * index) / sampleCount;
-    const visible = isVisibleAt(x);
-
-    if (!previousVisible && visible) {
-      currentStart = refineBoundary(x, previousX);
-    }
-
-    if (previousVisible && !visible && currentStart !== null) {
-      intervals.push({ startX: currentStart, endX: refineBoundary(previousX, x) });
-      currentStart = null;
-    }
-
-    previousX = x;
-    previousVisible = visible;
-  }
-
-  if (currentStart !== null) {
-    intervals.push({ startX: currentStart, endX: xMax });
-  }
-
-  return intervals.filter((interval) => interval.endX >= interval.startX);
-}
-
-function quadraticPathForLine(
-  line: DiagramLine,
-  xFor: (value: number) => number,
-  yFor: (value: number) => number,
-  xRange: [number, number],
-  yRange: [number, number]
-) {
-  if (!shouldDrawAsQuadratic(line)) return null;
-
-  const sortedPoints = uniquePointsByX(line.points);
-  if (sortedPoints.length < 3) return null;
-
-  const anchors: [DiagramPoint, DiagramPoint, DiagramPoint] = [
-    sortedPoints[0],
-    sortedPoints[Math.floor(sortedPoints.length / 2)],
-    sortedPoints[sortedPoints.length - 1]
-  ];
-  const hasDuplicateAnchorX = new Set(anchors.map((point) => point.x)).size < 3;
-  if (hasDuplicateAnchorX) return null;
-
-  const [xMin, xMax] = xRange;
-  const [yMin, yMax] = yRange;
-  const visibleIntervals = visibleQuadraticIntervals(anchors, xMin, xMax, yMin, yMax);
-  const intervals = visibleIntervals.length > 0
-    ? visibleIntervals
-    : [{ startX: sortedPoints[0].x, endX: sortedPoints[sortedPoints.length - 1].x }];
-
-  return intervals.map(({ startX, endX }) => {
-    const sampleCount = Math.min(160, Math.max(48, Math.ceil(Math.abs(endX - startX) * 28)));
-
-    return Array.from({ length: sampleCount + 1 }, (_, index) => {
-      const x = startX + ((endX - startX) * index) / sampleCount;
-      const y = clampNumber(quadraticYAt(x, anchors), yMin, yMax);
-      const command = index === 0 ? "M" : "L";
-      return `${command} ${xFor(x)} ${yFor(y)}`;
-    }).join(" ");
-  }).join(" ");
-}
-
-function collisionSamplesForSegment(start: SvgPoint, end: SvgPoint) {
-  const distance = Math.hypot(end.x - start.x, end.y - start.y);
-  const sampleCount = Math.max(2, Math.ceil(distance / 2));
-
-  return Array.from({ length: sampleCount + 1 }, (_, sampleIndex) => {
-    const ratio = sampleIndex / sampleCount;
-    return {
-      x: start.x + (end.x - start.x) * ratio,
-      y: start.y + (end.y - start.y) * ratio
-    };
-  });
-}
-
-function collisionSamplesForLine(
-  line: DiagramLine,
-  xFor: (value: number) => number,
-  yFor: (value: number) => number,
-  xRange: [number, number],
-  yRange: [number, number]
-) {
-  if (shouldDrawAsQuadratic(line)) {
-    const sortedPoints = uniquePointsByX(line.points);
-    if (sortedPoints.length >= 3) {
-      const anchors: [DiagramPoint, DiagramPoint, DiagramPoint] = [
-        sortedPoints[0],
-        sortedPoints[Math.floor(sortedPoints.length / 2)],
-        sortedPoints[sortedPoints.length - 1]
-      ];
-      const hasDuplicateAnchorX = new Set(anchors.map((point) => point.x)).size < 3;
-
-      if (!hasDuplicateAnchorX) {
-        const [xMin, xMax] = xRange;
-        const [yMin, yMax] = yRange;
-        const visibleIntervals = visibleQuadraticIntervals(anchors, xMin, xMax, yMin, yMax);
-        const intervals = visibleIntervals.length > 0
-          ? visibleIntervals
-          : [{ startX: sortedPoints[0].x, endX: sortedPoints[sortedPoints.length - 1].x }];
-
-        return intervals.flatMap(({ startX, endX }) => {
-          const sampleCount = Math.min(180, Math.max(56, Math.ceil(Math.abs(endX - startX) * 36)));
-
-          return Array.from({ length: sampleCount + 1 }, (_, index) => {
-            const x = startX + ((endX - startX) * index) / sampleCount;
-            return {
-              x: xFor(x),
-              y: yFor(clampNumber(quadraticYAt(x, anchors), yMin, yMax))
-            };
-          });
-        });
-      }
-    }
-  }
-
-  return line.points.flatMap((point, index, points) => {
-    if (index === points.length - 1) return [];
-    const start = { x: xFor(point.x), y: yFor(point.y) };
-    const end = { x: xFor(points[index + 1].x), y: yFor(points[index + 1].y) };
-    return collisionSamplesForSegment(start, end);
-  });
-}
-
-function chooseLabelPlacement({
-  label,
-  anchor,
-  plotRect,
-  plottedSamples,
-  placedLabelRects
-}: {
-  label: string;
-  anchor: SvgPoint;
-  plotRect: SvgRect;
-  plottedSamples: SvgPoint[];
-  placedLabelRects: SvgRect[];
-}): LabelPlacement {
-  const markerRect = markerRectFor(anchor);
-  const candidates = labelCandidateOffsets.map((offset, index) => {
-    const center = { x: anchor.x + offset.x, y: anchor.y + offset.y };
-    const rect = labelRectFor(label, center);
-    const outsidePlot = !rectContains(plotRect, rect);
-    const overlapsGraph = plottedSamples.some((sample) => pointInRect(sample, expandRect(rect, graphStrokePadding)));
-    const overlapsMarker = rectsOverlap(rect, expandRect(markerRect, labelCollisionPadding));
-    const overlapsLabel = placedLabelRects.some((placedRect) => rectsOverlap(rect, expandRect(placedRect, labelCollisionPadding)));
-
-    return {
-      ...center,
-      rect,
-      index,
-      outsidePlot,
-      overlapsGraph,
-      overlapsMarker,
-      overlapsLabel
-    };
-  });
-
-  const perfectCandidate = candidates.find((candidate) =>
-    !candidate.outsidePlot &&
-    !candidate.overlapsGraph &&
-    !candidate.overlapsMarker &&
-    !candidate.overlapsLabel
-  );
-
-  if (perfectCandidate) return perfectCandidate;
-
-  const fallbackCandidates = candidates.filter((candidate) => !candidate.outsidePlot);
-  const fallback = (fallbackCandidates.length ? fallbackCandidates : candidates)
-    .slice()
-    .sort((first, second) => {
-      const scoreFor = (candidate: (typeof candidates)[number]) =>
-        (candidate.outsidePlot ? 1000 : 0) +
-        (candidate.overlapsGraph ? 100 : 0) +
-        (candidate.overlapsMarker ? 10 : 0) +
-        (candidate.overlapsLabel ? 5 : 0) +
-        candidate.index / 100;
-
-      return scoreFor(first) - scoreFor(second);
-    })[0];
-
-  return fallback;
-}
-
-function CoordinateGridDiagram({
-  diagram,
-  variant = "default",
-  compact = false
-}: {
-  diagram: QuestionDiagram;
-  variant?: CoordinateGridVariant;
-  compact?: boolean;
-}) {
-  const [xMin, xMax] = diagram.xRange;
-  const [yMin, yMax] = diagram.yRange;
-  const plot = { left: 36, top: 18, width: 214, height: 164 };
-  const xTicks = integerTicks(xMin, xMax);
-  const yTicks = integerTicks(yMin, yMax);
-  const xSpan = xMax - xMin || 1;
-  const ySpan = yMax - yMin || 1;
-  const xFor = (x: number) => plot.left + ((x - xMin) / xSpan) * plot.width;
-  const yFor = (y: number) => plot.top + plot.height - ((y - yMin) / ySpan) * plot.height;
-  const isDayVariant = variant === "day";
-  const axisColor = isDayVariant ? "#475569" : "rgb(71 85 105)";
-  const gridColor = isDayVariant ? "#d8e0ea" : "rgb(203 213 225)";
-  const gridOpacity = isDayVariant ? 1 : 0.65;
-  const gridStrokeWidth = isDayVariant ? 0.8 : 1;
-  const axisStrokeWidth = isDayVariant ? 1.3 : 2;
-  const graphStrokeWidth = isDayVariant ? 3.4 : 4;
-  const graphStroke = isDayVariant ? "#0891b2" : "rgb(8 145 178)";
-  const outerClassName = isDayVariant
-    ? cn(
-        "mx-auto w-full overflow-hidden rounded-[1.35rem] border border-slate-200/90 bg-white shadow-sm dark:border-slate-200/90 dark:bg-white",
-        compact ? "mt-4 max-w-[34rem] p-2 sm:max-w-[36rem] sm:p-3" : "mt-5 max-w-[46rem] p-3"
-      )
-    : "mx-auto mt-5 w-full max-w-[46rem] overflow-hidden rounded-2xl border border-slate-200/70 bg-white/70 p-3 dark:border-white/10 dark:bg-slate-950/55";
-  const plotFillClassName = isDayVariant ? "fill-white" : "fill-white dark:fill-slate-900";
-  const tickLabelClassName = isDayVariant ? "fill-slate-500 text-[9px]" : "fill-slate-500 text-[10px] dark:fill-slate-300";
-  const axisLabelClassName = isDayVariant ? "fill-slate-900 text-[11px] font-black" : "fill-slate-500 text-[11px] font-bold dark:fill-slate-300";
-  const pointLabelClassName = isDayVariant ? "fill-cyan-700 text-[11px] font-black" : "fill-slate-900 text-[13px] font-bold dark:fill-white";
-  const plotRect = {
-    left: plot.left,
-    top: plot.top,
-    right: plot.left + plot.width,
-    bottom: plot.top + plot.height
-  };
-  const renderedLines = (diagram.lines ?? []).map((line, index) => ({
-    line,
-    lineKey: line.label ?? `line-${index}`,
-    quadraticPath: quadraticPathForLine(line, xFor, yFor, [xMin, xMax], [yMin, yMax]),
-    collisionSamples: collisionSamplesForLine(line, xFor, yFor, [xMin, xMax], [yMin, yMax])
-  }));
-  const axisSamples = [
-    ...(xMin <= 0 && xMax >= 0
-      ? collisionSamplesForSegment({ x: xFor(0), y: plot.top }, { x: xFor(0), y: plot.top + plot.height })
-      : []),
-    ...(yMin <= 0 && yMax >= 0
-      ? collisionSamplesForSegment({ x: plot.left, y: yFor(0) }, { x: plot.left + plot.width, y: yFor(0) })
-      : [])
-  ];
-  const plottedSamples = [
-    ...renderedLines.flatMap((line) => line.collisionSamples),
-    ...axisSamples
-  ];
-  const placedLabelRects: SvgRect[] = [];
-  const labeledPoints = (diagram.points ?? []).map((point) => {
-    const anchor = { x: xFor(point.x), y: yFor(point.y) };
-    const placement = chooseLabelPlacement({
-      label: point.label,
-      anchor,
-      plotRect,
-      plottedSamples,
-      placedLabelRects
-    });
-    placedLabelRects.push(placement.rect);
-
-    return {
-      ...point,
-      anchor,
-      placement
-    };
-  });
-
-  return (
-    <div className={outerClassName}>
-      <svg viewBox="0 0 280 210" role="img" aria-label="Coordinate grid diagram" className="h-auto w-full">
-        <rect x={plot.left} y={plot.top} width={plot.width} height={plot.height} rx={isDayVariant ? 0 : 8} className={plotFillClassName} />
-        {xTicks.map((tick) => (
-          <line key={`x-${tick}`} x1={xFor(tick)} x2={xFor(tick)} y1={plot.top} y2={plot.top + plot.height} stroke={gridColor} strokeWidth={gridStrokeWidth} opacity={gridOpacity} />
-        ))}
-        {yTicks.map((tick) => (
-          <line key={`y-${tick}`} x1={plot.left} x2={plot.left + plot.width} y1={yFor(tick)} y2={yFor(tick)} stroke={gridColor} strokeWidth={gridStrokeWidth} opacity={gridOpacity} />
-        ))}
-        {xMin <= 0 && xMax >= 0 ? (
-          <line x1={xFor(0)} x2={xFor(0)} y1={plot.top} y2={plot.top + plot.height} stroke={axisColor} strokeWidth={axisStrokeWidth} />
-        ) : null}
-        {yMin <= 0 && yMax >= 0 ? (
-          <line x1={plot.left} x2={plot.left + plot.width} y1={yFor(0)} y2={yFor(0)} stroke={axisColor} strokeWidth={axisStrokeWidth} />
-        ) : null}
-        {renderedLines.map(({ line, lineKey, quadraticPath }) => {
-          const lineStyle = {
-            fill: "none",
-            stroke: graphStroke,
-            strokeLinecap: "round",
-            strokeLinejoin: "round",
-            strokeWidth: graphStrokeWidth
-          } as const;
-
-          return quadraticPath ? (
-            <path key={lineKey} d={quadraticPath} {...lineStyle} />
-          ) : (
-            <g key={lineKey}>
-              <polyline
-                points={line.points.map((point) => `${xFor(point.x)},${yFor(point.y)}`).join(" ")}
-                {...lineStyle}
-              />
-              {shouldShowLineValueMarkers(line) ? line.points.map((point, pointIndex) => (
-                <circle
-                  key={`${lineKey}-value-${pointIndex}`}
-                  cx={xFor(point.x)}
-                  cy={yFor(point.y)}
-                  r="3.6"
-                  className={isDayVariant ? "fill-pink-500 stroke-white stroke-[1.5]" : "fill-cyan-600 stroke-white stroke-[1.5] dark:fill-cyan-400 dark:stroke-slate-950"}
-                />
-              )) : null}
-            </g>
-          );
-        })}
-        {labeledPoints.map((point) => (
-          <g key={point.label}>
-            <circle
-              cx={point.anchor.x}
-              cy={point.anchor.y}
-              r="5"
-              className={isDayVariant && isXAxisPoint(point) ? "fill-pink-500 stroke-white stroke-[1.5]" : isDayVariant ? "fill-cyan-400 stroke-white stroke-[1.5]" : "fill-violet-600 dark:fill-violet-300"}
-            />
-            <text
-              x={point.placement.x}
-              y={point.placement.y}
-              textAnchor="middle"
-              dominantBaseline="central"
-              className={pointLabelClassName}
-            >
-              {point.label}
-            </text>
-          </g>
-        ))}
-        {xTicks.map((tick) => (
-          <text key={`x-label-${tick}`} x={xFor(tick)} y={plot.top + plot.height + 16} textAnchor="middle" className={tickLabelClassName}>
-            {tick}
-          </text>
-        ))}
-        {yTicks.map((tick) => (
-          <text key={`y-label-${tick}`} x={plot.left - 10} y={yFor(tick) + 4} textAnchor="end" className={tickLabelClassName}>
-            {tick}
-          </text>
-        ))}
-        <text x={plot.left + plot.width + 14} y={yFor(0) + 4} className={axisLabelClassName}>
-          x
-        </text>
-        <text x={isDayVariant ? xFor(0) : xFor(0) - 4} y={plot.top - 7} textAnchor={isDayVariant ? "middle" : "end"} className={axisLabelClassName}>
-          y
-        </text>
-      </svg>
-    </div>
-  );
-}
-
-function QuestionDiagramPanel({
-  diagram,
-  variant = "default",
-  compact = false
-}: {
-  diagram: QuestionDiagram;
-  variant?: CoordinateGridVariant;
-  compact?: boolean;
-}) {
-  if (diagram.kind === "coordinate-grid") return <CoordinateGridDiagram diagram={diagram} variant={variant} compact={compact} />;
-  return null;
-}
-
 type PracticeQuestionCardProps = {
   question: PublicQuestion;
   onAnswered?: (question: PublicQuestion, feedback: AttemptFeedback) => void;
 };
 
 export function PracticeQuestionCard({ question, onAnswered }: PracticeQuestionCardProps) {
-  const { currentUser, language, recordLearningEvent, refreshMistakeRecordsAfterAttempt, text, t } = useSettings();
+  const { currentUser, language, recordLearningEvent, refreshMistakeRecordsAfterAttempt, text: settingsText, t: settingsT } = useSettings();
   const pathname = usePathname();
   const answerControlBaseId = useId();
   const keyboardAnswerControlId = `${answerControlBaseId}-keyboard-answer`;
@@ -660,11 +232,16 @@ export function PracticeQuestionCard({ question, onAnswered }: PracticeQuestionC
   const [softKeyboardOpen, setSoftKeyboardOpen] = useState(false);
   const [handwritingResetToken, setHandwritingResetToken] = useState(0);
   const [startedAt, setStartedAt] = useState<number | null>(null);
-  const localizedPracticeText = (localized: PublicQuestion["topic"]) => practiceTextForLanguage(localized, language, question.publisher);
-  const promptText = localizedPracticeText(question.prompt);
+  const text = (localized: LocalizedText) => normalizePracticeQuestionCardSimplifiedText(settingsText(localized), language);
+  const t = (localized: LocalizedText) => normalizePracticeQuestionCardSimplifiedText(settingsT(localized), language);
+  const localizedPracticeText = (localized: PublicQuestion["topic"]) => normalizePracticeQuestionCardSimplifiedText(
+    practiceTextForLanguage(localized, language, question.publisher),
+    language
+  );
+  const promptText = cleanPracticeQuestionPromptText(localizedPracticeText(question.prompt));
   const promptLabel = toPlainMathText(promptText);
-  const isLessonPage = pathname.startsWith("/lesson/");
-  const isPracticePage = pathname.startsWith("/practice");
+  const isLessonPage = isStudentLessonPath(pathname);
+  const isPracticePage = pathname.startsWith("/practice") || isImmersiveStudentPracticeGamePath(pathname);
   const shouldUseDayModeDiagram = isLessonPage || isPracticePage;
   const shouldShowPhotoUpload =
     (isLessonPage && question.type !== "multiple-choice") || (isPracticePage && question.type === "short-answer");
@@ -674,7 +251,12 @@ export function PracticeQuestionCard({ question, onAnswered }: PracticeQuestionC
     (isLessonPage && question.type === "graph");
   const shouldShowMathSoftKeyboard = shouldShowAnswerTools;
   const shouldShowAnswerInputModes = shouldShowAnswerTools;
-  const diagramVariant: CoordinateGridVariant = shouldUseDayModeDiagram ? "day" : "default";
+  const diagramVariant: QuestionFigureVariant = shouldUseDayModeDiagram ? "day" : "default";
+  const shouldHideUnsafeMainlandPepPrimaryPracticeIllustration =
+    isPracticePage && shouldHideMainlandPepPrimaryPracticeIllustration(question);
+  const questionImageAssets = shouldHideUnsafeMainlandPepPrimaryPracticeIllustration
+    ? []
+    : (question.questionAssets ?? []).filter((asset) => asset.kind === "image");
 
   useEffect(() => {
     photoAttachmentsRef.current = photoAttachments;
@@ -728,7 +310,8 @@ export function PracticeQuestionCard({ question, onAnswered }: PracticeQuestionC
         body: JSON.stringify({
           questionId: question.id,
           selectedAnswer: selected,
-          durationSeconds
+          durationSeconds,
+          answerWorkPhotos: serializeAnswerWorkPhotos(photoAttachments)
         })
       });
       const responseBody = await response.json().catch(() => null);
@@ -804,7 +387,7 @@ export function PracticeQuestionCard({ question, onAnswered }: PracticeQuestionC
     setError("");
   }
 
-  function handlePhotoUpload(event: ChangeEvent<HTMLInputElement>) {
+  async function handlePhotoUpload(event: ChangeEvent<HTMLInputElement>) {
     const files = Array.from(event.target.files ?? []).filter(isPhotoFile);
     event.target.value = "";
     if (!files.length) return;
@@ -820,12 +403,14 @@ export function PracticeQuestionCard({ question, onAnswered }: PracticeQuestionC
     setError("");
 
     const createdAt = Date.now();
-    const newAttachments = files.map((file, index) => ({
+    const newAttachments = await Promise.all(files.map(async (file, index) => ({
+      dataUrl: await readPhotoDataUrl(file).catch(() => ""),
       id: `${question.id}-${createdAt}-${index}-${file.name}`,
       name: file.name,
       size: file.size,
+      type: file.type || "image/*",
       url: URL.createObjectURL(file)
-    }));
+    })));
 
     setPhotoAttachments((current) => {
       const remainingSlots = Math.max(0, maxAnswerPhotoAttachments - current.length);
@@ -845,20 +430,35 @@ export function PracticeQuestionCard({ question, onAnswered }: PracticeQuestionC
 
   return (
     <article className="glass-panel p-5" data-question-id={question.id}>
-      <div className="flex flex-wrap items-center gap-2">
-	        <span className="rounded-full bg-cyan-500/15 px-3 py-1 text-xs font-bold text-cyan-600 dark:text-cyan-300">{formatGradeLabel(question.grade, language, true)}</span>
-	        <span className="rounded-full bg-violet-500/15 px-3 py-1 text-xs font-bold text-violet-600 dark:text-violet-300">{formatDifficultyLabel(question.difficulty, language)}</span>
-        <span className="rounded-full bg-emerald-500/15 px-3 py-1 text-xs font-bold text-emerald-700 dark:text-emerald-200">{t(questionTypeLabels[question.type])}</span>
-        <span className="rounded-full bg-slate-500/15 px-3 py-1 text-xs font-bold text-slate-600 dark:text-slate-300">{localizedPracticeText(question.topic)}</span>
-      </div>
       <MathText
         as="h3"
         text={promptText}
         ariaLabel={promptLabel}
-        className="practice-question-title mt-4 text-xl font-black leading-snug text-slate-950 dark:text-white"
+        className="practice-question-title text-xl font-black leading-snug text-slate-950 dark:text-white"
       />
 
-      {question.diagram ? <QuestionDiagramPanel diagram={question.diagram} variant={diagramVariant} compact={isPracticePage} /> : null}
+      {question.diagram ? (
+        <QuestionFigure diagram={question.diagram} variant={diagramVariant} compact={isPracticePage} language={language} />
+      ) : null}
+
+      {questionImageAssets.length ? (
+        <div className="mt-4 grid gap-3">
+          {questionImageAssets.map((asset) => (
+            <figure key={asset.src} className="mx-auto w-full max-w-3xl overflow-hidden rounded-2xl border border-slate-200/80 bg-white/75 shadow-sm shadow-slate-900/5 dark:border-white/10 dark:bg-white/[0.055]">
+              <img
+                src={asset.src}
+                alt={localizedPracticeText(asset.alt)}
+                className="mx-auto max-h-64 w-auto max-w-full object-contain sm:max-h-80 lg:max-h-96"
+              />
+              {asset.caption ? (
+                <figcaption className="border-t border-slate-200/70 px-4 py-2 text-sm font-semibold text-slate-600 dark:border-white/10 dark:text-slate-300">
+                  {localizedPracticeText(asset.caption)}
+                </figcaption>
+              ) : null}
+            </figure>
+          ))}
+        </div>
+      ) : null}
 
       {question.type === "multiple-choice" ? (
         <>
@@ -866,13 +466,13 @@ export function PracticeQuestionCard({ question, onAnswered }: PracticeQuestionC
             {(question.options ?? []).map((option) => {
               const optionValue = text(option);
               const optionText = localizedPracticeText(option);
-              const optionDisplayText = formatUnitExponentsForMathText(optionText);
+              const optionDisplayText = formatUnitExponentsForMathText(formatPracticeOptionDisplayText(optionText));
               const active = selected === optionValue;
               return (
                 <button
                   key={optionValue}
                   type="button"
-                  aria-label={toPlainMathText(optionText)}
+                  aria-label={toPlainMathText(optionDisplayText)}
                   onClick={() => {
                     beginAttempt();
                     recordLearningEvent({
@@ -1041,7 +641,7 @@ export function PracticeQuestionCard({ question, onAnswered }: PracticeQuestionC
               className="focus-ring inline-flex min-h-14 w-full items-center gap-4 rounded-[1.6rem] border border-slate-200/80 bg-white px-5 py-4 text-left text-lg font-black text-slate-800 shadow-sm transition hover:-translate-y-0.5 hover:border-cyan-300 hover:bg-cyan-50 sm:min-w-72 dark:border-white/10 dark:bg-white/[0.07] dark:text-white dark:hover:bg-white/[0.1]"
             >
               <PaperclipIcon />
-              <span>Add photos</span>
+              <span>{t(photoAttachmentCopy.addPhotos)}</span>
             </button>
             <input
               ref={photoInputRef}
@@ -1050,7 +650,7 @@ export function PracticeQuestionCard({ question, onAnswered }: PracticeQuestionC
               multiple
               onChange={handlePhotoUpload}
               className="hidden"
-              aria-label="Add photos"
+              aria-label={t(photoAttachmentCopy.addPhotos)}
             />
             {photoAttachments.length ? (
               <div className="mt-3 grid gap-2 sm:grid-cols-2">

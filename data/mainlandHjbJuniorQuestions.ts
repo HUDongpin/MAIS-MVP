@@ -1,8 +1,15 @@
 import questionPackJson from "./generated-content/mainland-hjb-junior-generated-bank-v2-1500/question-pack.json";
-import { localizedHjbGeneratedAcceptedAnswers, localizeHjbGeneratedText } from "./hjbQuestionLocalization";
+import {
+  localizedHjbGeneratedAcceptedAnswers,
+  localizeHjbGeneratedText,
+  stripHjbGeneratorPromptPrefix
+} from "./hjbQuestionLocalization";
 import { mainlandHjbJuniorTopics } from "./mainlandHjbJuniorTopics";
+import { mapDifficultyToActive } from "@/lib/difficulty";
 import type {
   Difficulty,
+  DifficultyRecord,
+  LocalizedText,
   MainlandHjbJuniorGradeId,
   MainlandPepSemester,
   Question,
@@ -23,7 +30,7 @@ type GeneratedHjbJuniorQuestion = {
   competencyTags: string[];
   skillTags: string[];
   misconceptionTags: string[];
-  difficulty: Difficulty;
+  difficulty: DifficultyRecord;
   type: Exclude<QuestionType, "graph">;
   evidenceCardIds: string[];
   assessmentPatternCardIds: string[];
@@ -68,6 +75,44 @@ export type MainlandHjbJuniorQuestionGenerationMetadata = {
 const questionPack = questionPackJson as GeneratedHjbJuniorQuestionPack;
 const mainlandHjbProfile = { region: "MAINLAND" as const, publisher: "MAINLAND_HJB" as const };
 const topicById = new Map(mainlandHjbJuniorTopics.map((topic) => [topic.id, topic]));
+const promptDuplicateCounts = new Map<string, number>();
+
+questionPack.questions.forEach((question) => {
+  const promptKey = stripHjbGeneratorPromptPrefix(question.promptZhHans);
+  promptDuplicateCounts.set(promptKey, (promptDuplicateCounts.get(promptKey) ?? 0) + 1);
+});
+
+const promptVariantIndexByQuestionId = new Map<string, number>();
+const promptSeenCounts = new Map<string, number>();
+
+questionPack.questions.forEach((question) => {
+  const promptKey = stripHjbGeneratorPromptPrefix(question.promptZhHans);
+  if ((promptDuplicateCounts.get(promptKey) ?? 0) <= 1) return;
+
+  const variantIndex = (promptSeenCounts.get(promptKey) ?? 0) + 1;
+  promptSeenCounts.set(promptKey, variantIndex);
+  promptVariantIndexByQuestionId.set(question.id, variantIndex);
+});
+
+function appendLocalizedText(value: LocalizedText, suffix: LocalizedText): LocalizedText {
+  return {
+    en: `${value.en}${suffix.en}`,
+    zh: `${value.zh}${suffix.zh}`,
+    zhHans: `${value.zhHans ?? value.zh}${suffix.zhHans ?? suffix.zh}`
+  };
+}
+
+function localizedPromptForQuestion(question: GeneratedHjbJuniorQuestion) {
+  const prompt = localizeHjbGeneratedText(question.promptZhHans);
+  const variantIndex = promptVariantIndexByQuestionId.get(question.id);
+  if (!variantIndex) return prompt;
+
+  return appendLocalizedText(prompt, {
+    en: `\nVariant ${variantIndex}`,
+    zh: `\n變式 ${variantIndex}`,
+    zhHans: `\n变式 ${variantIndex}`
+  });
+}
 
 function toQuestion(question: GeneratedHjbJuniorQuestion): Question {
   const topic = topicById.get(question.topicId);
@@ -83,9 +128,9 @@ function toQuestion(question: GeneratedHjbJuniorQuestion): Question {
     grade: question.grade,
     topicId: question.topicId,
     topic: topic.title,
-    difficulty: question.difficulty,
+    difficulty: mapDifficultyToActive(question.difficulty),
     type: question.type,
-    prompt: localizeHjbGeneratedText(question.promptZhHans),
+    prompt: localizedPromptForQuestion(question),
     options: question.type === "multiple-choice" ? question.optionsZhHans.map(localizeHjbGeneratedText) : undefined,
     answer: question.answer,
     acceptedAnswers: localizedHjbGeneratedAcceptedAnswers(question),
@@ -105,7 +150,7 @@ export const mainlandHjbJuniorQuestionGenerationMetadata: Record<string, Mainlan
         volume: question.volume,
         unitTitle: question.unitTitle,
         type: question.type,
-        difficulty: question.difficulty,
+        difficulty: mapDifficultyToActive(question.difficulty),
         evidenceCardIds: question.evidenceCardIds,
         assessmentPatternCardIds: question.assessmentPatternCardIds,
         paperPatternCardIds: question.paperPatternCardIds,

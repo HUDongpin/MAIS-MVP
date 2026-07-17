@@ -1,17 +1,27 @@
 "use client";
 
 import Link from "next/link";
+import dynamic from "next/dynamic";
 import { useCallback, useEffect, useMemo, useRef, useState, type FormEvent } from "react";
 import { AnimatePresence, motion, useReducedMotion } from "@/components/ui/Motion";
 import { PracticeArenaBackToTopButton } from "@/app/practice/PracticeArenaBackToTopButton";
-import { PracticeQuestionCard } from "@/components/practice/PracticeQuestionCard";
+import { PracticeAdventureArenaShell } from "@/components/practice/PracticeAdventureArenaShell";
+import {
+  resolvePracticeAdventureGradeLock,
+  type PracticeAdventureGradeFilter
+} from "@/components/practice/practiceAdventureGrades";
 import { practiceTextForLanguage } from "@/components/practice/hjbPracticeEnglish";
 import { dictionary, useSettings } from "@/components/providers/AppProviders";
-import { SectionHeader } from "@/components/ui/SectionHeader";
 import { grades } from "@/data/grades";
-import { curriculumProfileForTrack, curriculumTrackForProfile, publisherLabels } from "@/lib/curriculumProfile";
-import { formatDifficultyLabel, formatGradeLabel } from "@/lib/i18n";
+import { curriculumProfileForTrack, curriculumTrackForProfile } from "@/lib/curriculumProfile";
+import { visibleDifficultiesForSelection } from "@/lib/difficulty";
+import { formatDifficultyLabel, formatGradeLabelForCurriculum } from "@/lib/i18n";
 import { lessonHrefForSlug } from "@/lib/lessonLinks";
+import {
+  completedPracticeRoundStorageKey,
+  practiceAdventureRoundStorageKey,
+  studentPracticeGameHrefs
+} from "@/lib/gameBasedLearning";
 import { dedupePracticeQuestions } from "@/lib/practiceQuestionDeduping";
 import { cn } from "@/lib/utils";
 import type {
@@ -19,7 +29,6 @@ import type {
   AdaptiveLearningDecision,
   AttemptFeedback,
   Difficulty,
-  GradeId,
   Language,
   LessonDetail,
   LocalizedText,
@@ -27,10 +36,21 @@ import type {
   QuestionType
 } from "@/types";
 
-type GradeFilter = GradeId | "all";
+type GradeFilter = PracticeAdventureGradeFilter;
 type DifficultyFilter = Difficulty | "all";
 type QuestionTypeFilter = QuestionType | "all";
+const practiceQuestionTypeOptions: QuestionType[] = ["multiple-choice", "fill-in", "short-answer", "graph"];
+const practiceQuestionTypeLabels: Record<QuestionType, LocalizedText> = {
+  "multiple-choice": { en: "Multiple choice", zh: "選擇題", zhHans: "选择题" },
+  "fill-in": { en: "Fill in", zh: "填空題", zhHans: "填空题" },
+  "short-answer": { en: "Short answer", zh: "短答題", zhHans: "短答题" },
+  graph: { en: "Graph", zh: "圖像題", zhHans: "图像题" }
+};
 type TopicOption = Pick<PublicQuestion, "grade" | "topic">;
+type QuestionCatalogTopic = TopicOption & {
+  topicId: string;
+  questionCount: number;
+};
 type RoutePracticeContext = {
   lessonSlug: string | null;
   topicId: string | null;
@@ -71,6 +91,7 @@ type PracticeGameRoundPayload = {
   topicId: string;
   roundQuestionIds: string[];
   correctRoundQuestionIds: string[];
+  roundQuestions?: PublicQuestion[];
   accuracyPercent: number;
   roundKey: string;
 };
@@ -98,16 +119,36 @@ type PracticePagerAnswerResult = {
   durationSeconds: number;
   questionNumber: number;
 };
+type LazyPracticeQuestionCardProps = {
+  question: PublicQuestion;
+  onAnswered?: (question: PublicQuestion, feedback: AttemptFeedback) => void;
+};
 
-const difficulties: Difficulty[] = ["Foundation", "Core", "Challenge", "Exam"];
-const questionTypes: QuestionType[] = ["multiple-choice", "fill-in", "short-answer", "graph"];
+const PracticeQuestionCard = dynamic<LazyPracticeQuestionCardProps>(
+  () => import("@/components/practice/PracticeQuestionCard").then((module) => module.PracticeQuestionCard),
+  {
+    loading: () => (
+      <div className="glass-panel min-h-72 animate-pulse p-5" aria-hidden="true">
+        <div className="h-6 w-44 rounded-full bg-slate-200/80 dark:bg-white/10" />
+        <div className="mt-5 h-8 w-3/4 rounded-full bg-slate-200/80 dark:bg-white/10" />
+        <div className="mt-6 grid gap-3 sm:grid-cols-2">
+          <div className="h-14 rounded-2xl bg-slate-200/70 dark:bg-white/10" />
+          <div className="h-14 rounded-2xl bg-slate-200/70 dark:bg-white/10" />
+          <div className="h-14 rounded-2xl bg-slate-200/70 dark:bg-white/10" />
+          <div className="h-14 rounded-2xl bg-slate-200/70 dark:bg-white/10" />
+        </div>
+      </div>
+    )
+  }
+);
+
 const requiredAdaptiveQuestionCount = 5;
 const freeSelectionRoundQuestionCount = 5;
 const autoAdvanceDelayMs = 1200;
 const adaptiveUnlockStoragePrefix = "hk-math-practice-free-selection-unlocked";
 const adaptiveStrongResultStoragePrefix = "hk-math-practice-strong-result";
 const lastLessonStoragePrefix = "hk-math-practice-last-lesson";
-const adventureRoundStorageKey = "hk-math-practice-adventure-round";
+const adventureRoundStorageKey = practiceAdventureRoundStorageKey;
 const fishingRoundStorageKey = "hk-math-practice-fishing-round";
 const practiceCelebrationColors = ["#06b6d4", "#8b5cf6", "#22c55e", "#f59e0b", "#ec4899", "#38bdf8"];
 const practiceCelebrationPieces = Array.from({ length: 36 }, (_, index) => {
@@ -125,12 +166,15 @@ const practiceCelebrationPieces = Array.from({ length: 36 }, (_, index) => {
     rounded: index % 3 === 0
   };
 });
-const questionTypeLabels: Record<QuestionType, { en: string; zh: string }> = {
-  "multiple-choice": { en: "Multiple choice", zh: "選擇題" },
-  "fill-in": { en: "Fill-in", zh: "填空題" },
-  "short-answer": { en: "Short answer", zh: "簡答題" },
-  graph: { en: "Graph", zh: "圖形題" }
-};
+const practiceSimplifiedTextReplacements = [
+  ["闖", "闯"],
+  ["輪", "轮"],
+  ["綜", "综"],
+  ["魚", "鱼"],
+  ["錘", "锤"],
+  ["隻", "只"],
+  ["盃", "杯"]
+] as const;
 const adaptiveActionLabels: Record<AdaptiveActionType, LocalizedText> = {
   review: { en: "Spaced review", zh: "間隔重溫" },
   repair: { en: "Repair foundation", zh: "修補基礎" },
@@ -145,20 +189,30 @@ function formatPracticeDuration(seconds: number, language: Language) {
   const minutes = Math.floor(seconds / 60);
   const remainingSeconds = seconds % 60;
   if (language === "en") return remainingSeconds ? `${minutes}m ${remainingSeconds}s` : `${minutes}m`;
+  if (language === "zh-Hans") return remainingSeconds ? `${minutes} 分 ${remainingSeconds} 秒` : `${minutes} 分钟`;
   return remainingSeconds ? `${minutes} 分 ${remainingSeconds} 秒` : `${minutes} 分鐘`;
+}
+
+function normalizePracticeSimplifiedText(value: string, language: Language) {
+  if (language !== "zh-Hans") return value;
+
+  return practiceSimplifiedTextReplacements.reduce(
+    (current, [source, replacement]) => current.split(source).join(replacement),
+    value
+  );
 }
 
 function practiceSummaryEncouragement(accuracyPercent: number) {
   if (accuracyPercent >= 80) {
     return {
-      en: "Strong adaptive round. The engine now has cleaner evidence for your next learning step.",
+      en: "Strong personalized round. The engine now has cleaner evidence for your next learning step.",
       zh: "這輪適性練習表現穩健。引擎已取得更清晰的證據，能安排下一步學習。"
     };
   }
 
   if (accuracyPercent >= 50) {
     return {
-      en: "Useful practice data. A short review now will make the next adaptive step more effective.",
+      en: "Useful practice data. A short review now will make the next personalized step more effective.",
       zh: "這些練習數據很有用。現在做一段短重溫，下一個適性步驟會更有效。"
     };
   }
@@ -282,9 +336,65 @@ function gamePayloadFromPracticeSummary(summary: PracticeRoundSummary | null): P
     topicId: summary.topicId,
     roundQuestionIds: summary.roundQuestionIds,
     correctRoundQuestionIds: summary.correctQuestionIds,
+    roundQuestions: summary.results.map((result) => result.question),
     accuracyPercent: summary.accuracyPercent,
     roundKey: summary.roundKey
   };
+}
+
+function sameStringArray(left: string[], right: string[]) {
+  return left.length === right.length && left.every((item, index) => item === right[index]);
+}
+
+function samePracticeGameRoundPayload(left: PracticeGameRoundPayload | null, right: PracticeGameRoundPayload | null) {
+  if (left === right) return true;
+  if (!left || !right) return false;
+
+  return (
+    left.topicId === right.topicId &&
+    left.roundKey === right.roundKey &&
+    left.accuracyPercent === right.accuracyPercent &&
+    sameStringArray(left.roundQuestionIds, right.roundQuestionIds) &&
+    sameStringArray(left.correctRoundQuestionIds, right.correctRoundQuestionIds)
+  );
+}
+
+function readPracticeGameRoundPayload(value: string | null): PracticeGameRoundPayload | null {
+  if (!value) return null;
+
+  try {
+    const payload = JSON.parse(value) as Partial<PracticeGameRoundPayload> | null;
+    if (
+      typeof payload?.topicId !== "string" ||
+      typeof payload.roundKey !== "string" ||
+      typeof payload.accuracyPercent !== "number" ||
+      !Array.isArray(payload.roundQuestionIds) ||
+      !Array.isArray(payload.correctRoundQuestionIds)
+    ) {
+      return null;
+    }
+
+    const roundQuestionIds = payload.roundQuestionIds.filter((item): item is string => typeof item === "string");
+    const correctRoundQuestionIds = payload.correctRoundQuestionIds.filter((item): item is string => typeof item === "string");
+    const roundQuestions = Array.isArray(payload.roundQuestions)
+      ? payload.roundQuestions.filter((item): item is PublicQuestion => {
+          const question = item as Partial<PublicQuestion> | null;
+          return typeof question?.id === "string" && typeof question.topicId === "string";
+        })
+      : [];
+    if (payload.accuracyPercent < 80 || roundQuestionIds.length !== 5 || correctRoundQuestionIds.length < 4) return null;
+
+    return {
+      topicId: payload.topicId,
+      roundQuestionIds,
+      correctRoundQuestionIds,
+      ...(roundQuestions.length ? { roundQuestions } : {}),
+      accuracyPercent: payload.accuracyPercent,
+      roundKey: payload.roundKey
+    };
+  } catch {
+    return null;
+  }
 }
 
 function practiceGameRoundSearchParams(payload: PracticeGameRoundPayload) {
@@ -329,6 +439,40 @@ function readQuestions(value: unknown) {
   const response = value as { questions?: unknown } | null;
   if (!Array.isArray(response?.questions)) return [];
   return response.questions as PublicQuestion[];
+}
+
+function readQuestionCatalog(value: unknown) {
+  const response = value as { topics?: unknown; totalQuestions?: unknown } | null;
+  const topics = Array.isArray(response?.topics)
+    ? response.topics.filter((topic): topic is QuestionCatalogTopic => {
+        const candidate = topic as Partial<QuestionCatalogTopic> | null;
+        const localizedTopic = candidate?.topic as Partial<LocalizedText> | undefined;
+        return (
+          typeof candidate?.topicId === "string" &&
+          typeof candidate.grade === "string" &&
+          typeof localizedTopic?.en === "string" &&
+          typeof localizedTopic.zh === "string" &&
+          typeof candidate.questionCount === "number"
+        );
+      })
+    : [];
+  const totalQuestions = typeof response?.totalQuestions === "number"
+    ? response.totalQuestions
+    : topics.reduce((sum, topic) => sum + topic.questionCount, 0);
+
+  return { topics, totalQuestions };
+}
+
+function practiceCatalogLoadErrorMessage(language: Language) {
+  if (language === "en") return "Could not load the Practice Arena question catalog.";
+  if (language === "zh-Hans") return "暂时无法载入练习场题库。";
+  return "暫時無法載入練習場題庫。";
+}
+
+function practiceQuestionsLoadErrorMessage(language: Language) {
+  if (language === "en") return "Could not load questions.";
+  if (language === "zh-Hans") return "暂时无法载入题目。";
+  return "暫時無法載入題目。";
 }
 
 function readLesson(value: unknown) {
@@ -378,56 +522,20 @@ function adaptiveIntroCopy(decision: AdaptiveLearningDecision, requiredQuestionC
   };
 }
 
-function adaptiveEngineStatusCopy(decision: AdaptiveLearningDecision): { label: LocalizedText; detail: LocalizedText } {
-  if (decision.engine.mode === "llm-assisted") {
-    return {
-      label: { en: "AI-assisted adaptive recommendation", zh: "AI 輔助適性推薦" },
-      detail: decision.engine.confidenceExplanation ?? {
-        en: "Validated against the BKT guardrails.",
-        zh: "已通過 BKT 防護規則驗證。"
-      }
-    };
-  }
-
-  const detail: Record<AdaptiveLearningDecision["engine"]["llmStatus"], LocalizedText> = {
-    disabled: {
-      en: "LLM rerank is disabled, so BKT remains the only active engine.",
-      zh: "LLM 重排未啟用，目前只使用 BKT 引擎。"
-    },
-    pending: {
-      en: "Deterministic recommendation shown while the async rerank warms.",
-      zh: "背景重排準備中，先顯示確定性推薦。"
-    },
-    ready: {
-      en: "A validated LLM rerank is cached, but this response stayed deterministic.",
-      zh: "已有已驗證的 LLM 快取，但此回應仍採用確定性推薦。"
-    },
-    failed: {
-      en: "The LLM rerank failed safely; deterministic BKT handled the next step.",
-      zh: "LLM 重排安全失敗；下一步由確定性 BKT 接手。"
-    },
-    rejected: {
-      en: "The LLM rerank was rejected by guardrail validation.",
-      zh: "LLM 重排未通過防護驗證，已被拒絕。"
-    }
-  };
-
-  return {
-    label: { en: "Deterministic adaptive recommendation", zh: "確定性適性推薦" },
-    detail: detail[decision.engine.llmStatus]
-  };
-}
-
 function routeContextFromWindow(): RoutePracticeContext {
+  if (typeof window === "undefined") return { lessonSlug: null, topicId: null };
+
   const url = new URL(window.location.href);
   const explicitTopicId = url.searchParams.get("topicId");
   const explicitLessonSlug = url.searchParams.get("lesson");
   let referrerLessonSlug: string | null = null;
 
-  if (document.referrer) {
+  if (typeof document !== "undefined" && document.referrer) {
     try {
       const referrer = new URL(document.referrer);
-      const lessonMatch = referrer.origin === url.origin ? referrer.pathname.match(/^\/lesson\/([^/]+)/) : null;
+      const lessonMatch = referrer.origin === url.origin
+        ? referrer.pathname.match(/^\/student\/lessons\/([^/]+)/) ?? referrer.pathname.match(/^\/lesson\/([^/]+)/)
+        : null;
       referrerLessonSlug = lessonMatch ? decodeURIComponent(lessonMatch[1]) : null;
     } catch {
       referrerLessonSlug = null;
@@ -452,6 +560,21 @@ function strongResultStorageKey(userId: string | undefined, topicId: string) {
   return `${adaptiveStrongResultStoragePrefix}:${userId ?? "guest"}:${topicId}`;
 }
 
+function hasStoredPracticeFlag(key: string) {
+  return window.localStorage.getItem(key) === "true";
+}
+
+function hasAnyStoredUserPracticeFlag(prefix: string, userId: string | undefined) {
+  const userKeyPrefix = `${prefix}:${userId ?? "guest"}:`;
+
+  for (let index = 0; index < window.localStorage.length; index += 1) {
+    const key = window.localStorage.key(index);
+    if (key?.startsWith(userKeyPrefix) && window.localStorage.getItem(key) === "true") return true;
+  }
+
+  return false;
+}
+
 function readStoredLessonContext(key: string): LessonPracticeContext | null {
   try {
     const parsed = JSON.parse(window.localStorage.getItem(key) ?? "null") as Partial<LessonPracticeContext> | null;
@@ -467,21 +590,6 @@ function readStoredLessonContext(key: string): LessonPracticeContext | null {
   } catch {
     return null;
   }
-}
-
-function questionTypeCounts(questions: PublicQuestion[]) {
-  return questions.reduce<Record<QuestionType, number>>(
-    (counts, question) => ({
-      ...counts,
-      [question.type]: counts[question.type] + 1
-    }),
-    {
-      "multiple-choice": 0,
-      "fill-in": 0,
-      "short-answer": 0,
-      graph: 0
-    }
-  );
 }
 
 function isEditableElement(target: EventTarget | null) {
@@ -502,7 +610,11 @@ type QuestionPagerProps = {
 };
 
 function QuestionPager({ questions, onAnswered, onQuestionStarted }: QuestionPagerProps) {
-  const { t } = useSettings();
+  const { language, t: settingsT } = useSettings();
+  const t = useCallback(
+    (localized: LocalizedText) => normalizePracticeSimplifiedText(settingsT(localized), language),
+    [language, settingsT]
+  );
   const [currentIndex, setCurrentIndex] = useState(0);
   const [jumpValue, setJumpValue] = useState("1");
   const autoAdvanceTimerRef = useRef<number | null>(null);
@@ -584,15 +696,15 @@ function QuestionPager({ questions, onAnswered, onQuestionStarted }: QuestionPag
   const handleAnswered = useCallback((question: PublicQuestion, feedback: AttemptFeedback) => {
     const startedAt = questionStartedAtRef.current[question.id] ?? Date.now();
     const durationSeconds = Math.max(1, Math.round((Date.now() - startedAt) / 1000));
+    const answeredIndex = questions.findIndex((item) => item.id === question.id);
 
     delete questionStartedAtRef.current[question.id];
     onAnswered?.({
       question,
       feedback,
       durationSeconds,
-      questionNumber: questions.findIndex((item) => item.id === question.id) + 1
+      questionNumber: answeredIndex + 1
     });
-    const answeredIndex = questions.findIndex((item) => item.id === question.id);
     if (answeredIndex < 0 || answeredIndex !== currentIndex || answeredIndex >= questionCount - 1) return;
 
     clearAutoAdvance();
@@ -607,19 +719,25 @@ function QuestionPager({ questions, onAnswered, onQuestionStarted }: QuestionPag
   if (!questionCount) return null;
 
   return (
-    <section className="mt-8 grid gap-5" aria-label={t({ en: "Practice questions", zh: "練習題目" })}>
-      <div className="glass-panel grid gap-4 p-4 sm:grid-cols-[minmax(0,1fr)_auto] sm:items-center sm:p-5">
+    <section className="mt-8 grid gap-5 rounded-[28px] border border-white/80 bg-white/95 p-4 shadow-[0_22px_46px_rgba(15,23,42,0.12)] sm:p-5" aria-label={t({ en: "Practice questions", zh: "練習題目" })}>
+      <div className="grid gap-4 rounded-3xl border border-sky-100 bg-sky-50/80 p-4 shadow-sm sm:grid-cols-[minmax(0,1fr)_auto] sm:items-center sm:p-5">
         <div>
-          <p aria-live="polite" className="text-sm font-black uppercase tracking-[0.18em] text-cyan-500 dark:text-cyan-300">
+          <p aria-live="polite" className="text-sm font-black uppercase tracking-[0.18em] text-blue-600">
             {t({ en: `Question ${currentQuestionNumber} of ${questionCount}`, zh: `第 ${currentQuestionNumber} 題，共 ${questionCount} 題` })}
           </p>
+          <div className="mt-3 h-3 max-w-xl overflow-hidden rounded-full bg-white shadow-inner">
+            <div
+              className="h-full rounded-full bg-gradient-to-r from-emerald-400 via-sky-400 to-blue-500"
+              style={{ width: `${Math.max(6, (currentQuestionNumber / questionCount) * 100)}%` }}
+            />
+          </div>
           <div className="mt-3 flex flex-wrap gap-2">
             <button
               type="button"
               aria-label={t({ en: "Previous question", zh: "上一題" })}
               onClick={goToPrevious}
               disabled={currentIndex === 0}
-              className="focus-ring rounded-full border border-slate-200/70 bg-white/75 px-4 py-2 text-sm font-black text-slate-700 transition enabled:hover:-translate-y-0.5 disabled:cursor-not-allowed disabled:opacity-45 dark:border-white/10 dark:bg-white/[0.07] dark:text-white"
+              className="focus-ring min-h-11 rounded-full border border-blue-200 bg-white px-5 py-2 text-sm font-black text-blue-700 shadow-sm transition enabled:hover:-translate-y-0.5 disabled:cursor-not-allowed disabled:opacity-45"
             >
               {t({ en: "< Previous", zh: "< 上一題" })}
             </button>
@@ -628,7 +746,7 @@ function QuestionPager({ questions, onAnswered, onQuestionStarted }: QuestionPag
               aria-label={t({ en: "Next question", zh: "下一題" })}
               onClick={goToNext}
               disabled={currentIndex >= questionCount - 1}
-              className="focus-ring rounded-full border border-slate-200/70 bg-white/75 px-4 py-2 text-sm font-black text-slate-700 transition enabled:hover:-translate-y-0.5 disabled:cursor-not-allowed disabled:opacity-45 dark:border-white/10 dark:bg-white/[0.07] dark:text-white"
+              className="focus-ring min-h-11 rounded-full bg-blue-600 px-5 py-2 text-sm font-black text-white shadow-[0_6px_0_#1d4ed8] transition enabled:hover:-translate-y-0.5 disabled:cursor-not-allowed disabled:opacity-45"
             >
               {t({ en: "Next >", zh: "下一題 >" })}
             </button>
@@ -636,7 +754,7 @@ function QuestionPager({ questions, onAnswered, onQuestionStarted }: QuestionPag
         </div>
 
         <form onSubmit={handleJump} noValidate className="grid gap-2 sm:w-64">
-          <label htmlFor="practice-question-jump" className="text-xs font-black uppercase tracking-[0.18em] text-slate-500 dark:text-slate-400">
+          <label htmlFor="practice-question-jump" className="text-xs font-black uppercase tracking-[0.18em] text-blue-950">
             {t({ en: "Jump to", zh: "跳到題號" })}
           </label>
           <div className="grid grid-cols-[minmax(0,1fr)_auto] gap-2">
@@ -647,11 +765,11 @@ function QuestionPager({ questions, onAnswered, onQuestionStarted }: QuestionPag
               max={questionCount}
               value={jumpValue}
               onChange={(event) => setJumpValue(event.target.value)}
-              className="focus-ring min-h-14 w-full rounded-full border border-slate-200 bg-white px-5 py-3 text-lg font-black text-slate-950 shadow-sm [appearance:textfield] placeholder:text-slate-400 focus:outline-none [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none dark:border-white/10 dark:bg-slate-950 dark:text-white"
+              className="focus-ring min-h-14 w-full rounded-full border border-blue-100 bg-white px-5 py-3 text-lg font-black text-blue-950 shadow-sm [appearance:textfield] placeholder:text-slate-400 focus:outline-none [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none"
             />
             <button
               type="submit"
-              className="focus-ring rounded-full bg-slate-950 px-5 py-3 text-sm font-black text-white transition hover:-translate-y-0.5 dark:bg-white dark:text-slate-950"
+              className="focus-ring rounded-full bg-blue-950 px-5 py-3 text-sm font-black text-white shadow-[0_6px_0_#1e3a8a] transition hover:-translate-y-0.5"
             >
               {t({ en: "Jump", zh: "跳轉" })}
             </button>
@@ -663,6 +781,7 @@ function QuestionPager({ questions, onAnswered, onQuestionStarted }: QuestionPag
         {questions.map((question, index) => (
           <div
             key={question.id}
+            className="rounded-3xl border border-sky-100 bg-white/95 p-4 shadow-sm sm:p-5"
             hidden={index !== currentIndex}
             aria-hidden={index !== currentIndex}
             onFocusCapture={() => startQuestionTimer(question)}
@@ -677,23 +796,35 @@ function QuestionPager({ questions, onAnswered, onQuestionStarted }: QuestionPag
 }
 
 export default function PracticePage() {
-  const { currentUser, language, selectedGrade, t, text } = useSettings();
+  const { currentUser, language, selectedGrade, t: settingsT, text: settingsText } = useSettings();
   const prefersReducedMotion = useReducedMotion();
+  const t = useCallback(
+    (localized: LocalizedText) => normalizePracticeSimplifiedText(settingsT(localized), language),
+    [language, settingsT]
+  );
+  const text = useCallback(
+    (localized: LocalizedText) => normalizePracticeSimplifiedText(settingsText(localized), language),
+    [language, settingsText]
+  );
   const practiceSummaryCloseButtonRef = useRef<HTMLButtonElement | null>(null);
   const adaptiveRoundStateKeyRef = useRef<string | null>(null);
   const adaptiveProgressQuestionIdsRef = useRef<Set<string>>(new Set());
   const adaptiveAnswerRefreshInFlightRef = useRef(false);
   const adaptiveAnswerRefreshQueuedRef = useRef(false);
-  const [gradeFilter, setGradeFilter] = useState<GradeFilter>("all");
+  const [gradeFilter, setGradeFilter] = useState<GradeFilter>(selectedGrade);
   const [difficultyFilter, setDifficultyFilter] = useState<DifficultyFilter>("all");
   const [questionTypeFilter, setQuestionTypeFilter] = useState<QuestionTypeFilter>("all");
   const [topicFilter, setTopicFilter] = useState("all");
-  const [allQuestions, setAllQuestions] = useState<PublicQuestion[]>([]);
+  const [questionCatalogTopics, setQuestionCatalogTopics] = useState<QuestionCatalogTopic[]>([]);
+  const [questionCatalogCount, setQuestionCatalogCount] = useState(0);
   const [visibleQuestions, setVisibleQuestions] = useState<PublicQuestion[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [loadError, setLoadError] = useState("");
-  const [routeContext, setRouteContext] = useState<RoutePracticeContext>({ lessonSlug: null, topicId: null });
+  const [questionCatalogError, setQuestionCatalogError] = useState("");
+  const [questionCatalogLoaded, setQuestionCatalogLoaded] = useState(false);
+  const [routeContext, setRouteContext] = useState<RoutePracticeContext>(() => routeContextFromWindow());
   const [lessonContext, setLessonContext] = useState<LessonPracticeContext | null>(null);
+  const [lessonContextReady, setLessonContextReady] = useState(false);
   const [adaptivePlan, setAdaptivePlan] = useState<AdaptiveLearningDecision | null>(null);
   const [adaptiveLoadError, setAdaptiveLoadError] = useState("");
   const [completedAdaptiveQuestionIds, setCompletedAdaptiveQuestionIds] = useState<Set<string>>(() => new Set());
@@ -709,23 +840,54 @@ export default function PracticePage() {
   const [practiceSummaryAdaptiveDecision, setPracticeSummaryAdaptiveDecision] = useState<AdaptiveLearningDecision | null>(null);
   const [practiceSummaryRefreshing, setPracticeSummaryRefreshing] = useState(false);
   const [practiceGameUnlockStatus, setPracticeGameUnlockStatus] = useState<PracticeGameUnlockStatus | null>(null);
+  const [rememberedGameRoundPayload, setRememberedGameRoundPayload] = useState<PracticeGameRoundPayload | null>(null);
   const [showPracticeCelebration, setShowPracticeCelebration] = useState(false);
-  const studentLockedGrade = currentUser?.role === "student" ? currentUser.grade : null;
-  const activeGradeFilter: GradeFilter = studentLockedGrade ?? gradeFilter;
+  const isStudentAccount = currentUser?.role === "student";
+  const studentFixedGrade = currentUser?.role === "student" ? currentUser.grade : null;
+  const adventureGradeLock = useMemo(
+    () => resolvePracticeAdventureGradeLock({
+      gradeFilter,
+      selectedGrade,
+      studentGrade: studentFixedGrade
+    }),
+    [gradeFilter, selectedGrade, studentFixedGrade]
+  );
+  const activeGradeFilter: GradeFilter = adventureGradeLock.activeGradeFilter;
   const roadmapGrade = activeGradeFilter === "all" ? selectedGrade : activeGradeFilter;
   const curriculumProfile = currentUser?.curriculumProfile ?? curriculumProfileForTrack("HK");
   const curriculumTrack = currentUser?.curriculumTrack ?? curriculumTrackForProfile(curriculumProfile);
   const textbookPublisher = curriculumProfile.publisher;
+  const isCaliforniaPracticeBeta = textbookPublisher === "US_CA_MATH";
   const practiceText = useCallback(
-    (localized: LocalizedText) => practiceTextForLanguage(localized, language, textbookPublisher),
+    (localized: LocalizedText) => normalizePracticeSimplifiedText(
+      practiceTextForLanguage(localized, language, textbookPublisher),
+      language
+    ),
     [language, textbookPublisher]
   );
 
+  useEffect(() => {
+    setGradeFilter(studentFixedGrade ?? selectedGrade);
+  }, [currentUser?.id, selectedGrade, studentFixedGrade, textbookPublisher]);
+
+  useEffect(() => {
+    if (!currentUser) {
+      setRememberedGameRoundPayload(null);
+      return;
+    }
+
+    setRememberedGameRoundPayload(
+      readPracticeGameRoundPayload(window.localStorage.getItem(completedPracticeRoundStorageKey(currentUser?.id)))
+    );
+  }, [currentUser?.id]);
+
   const topicOptions = useMemo(() => {
-    const map = new Map<string, TopicOption>();
-    allQuestions.forEach((question) => map.set(question.topicId, { grade: question.grade, topic: question.topic }));
-    return Array.from(map.entries());
-  }, [allQuestions]);
+    return questionCatalogTopics.map((topic): [string, TopicOption] => [
+      topic.topicId,
+      { grade: topic.grade, topic: topic.topic }
+    ]);
+  }, [questionCatalogTopics]);
+  const firstQuestionCatalogTopicId = questionCatalogTopics[0]?.topicId ?? null;
 
   const adaptiveRoundQuestions = useMemo(
     () => dedupePracticeQuestions(adaptivePlan?.questions ?? []),
@@ -736,15 +898,16 @@ export default function PracticePage() {
     ? `${currentUser?.id ?? "guest"}:${adaptivePlan.skill.id}:${adaptiveRoundQuestions.map((question) => question.id).join("|")}`
     : `${currentUser?.id ?? "guest"}:no-adaptive-plan`;
   const isFreeSelectionUnlocked = Boolean(adaptiveRoundKey && freeSelectionUnlockedTopicId === adaptiveRoundKey);
-  const canFallbackToFreeSelection = allQuestions.length > 0 && !adaptivePlan;
-  const shouldShowFreeSelection = isFreeSelectionUnlocked || canFallbackToFreeSelection;
+  const canFallbackToFreeSelection = questionCatalogLoaded && !questionCatalogError && !adaptivePlan;
+  const hasManualTopicSelection = topicFilter !== "all";
+  const shouldShowFreeSelection = isFreeSelectionUnlocked || canFallbackToFreeSelection || hasManualTopicSelection;
   const hasSelectedPracticeFilter =
     shouldShowFreeSelection &&
     (
       difficultyFilter !== "all" ||
       topicFilter !== "all" ||
       questionTypeFilter !== "all" ||
-      (!studentLockedGrade && gradeFilter !== "all")
+      activeGradeFilter !== "all"
     );
   const adaptiveCompletedCount = adaptivePlan
     ? adaptiveRoundQuestions.filter((question) => completedAdaptiveQuestionIds.has(question.id)).length
@@ -760,8 +923,6 @@ export default function PracticePage() {
   const hasRememberedStrongAdaptiveResult = Boolean(adaptiveRoundKey && strongAdaptiveResultTopicId === adaptiveRoundKey);
   const recommendedNextLesson = adaptivePlan?.lesson ?? null;
   const shouldShowRecommendedNextLesson = Boolean((hasStrongAdaptiveResult || hasRememberedStrongAdaptiveResult) && recommendedNextLesson);
-  const adaptiveQuestionTypeCounts = useMemo(() => questionTypeCounts(adaptiveRoundQuestions), [adaptiveRoundQuestions]);
-  const adaptiveEngineStatus = adaptivePlan ? adaptiveEngineStatusCopy(adaptivePlan) : null;
   const adaptivePracticeSummary = useMemo(() => {
     if (!adaptivePlan) return null;
 
@@ -878,9 +1039,13 @@ export default function PracticePage() {
     };
   }, [currentUser?.id, freeSelectionQuestionResults, freeSelectionRoundQuestions, freeSelectionRoundTopic, freeSelectionSingleRoundTopic, hasSelectedPracticeFilter]);
   const activePracticeSummary = practiceSummaryMode === "free-selection" ? freeSelectionPracticeSummary : adaptivePracticeSummary;
-  const activeGameRoundPayload = useMemo(
+  const activeSummaryGameRoundPayload = useMemo(
     () => gamePayloadFromPracticeSummary(activePracticeSummary),
     [activePracticeSummary]
+  );
+  const activeGameRoundPayload = useMemo(
+    () => activeSummaryGameRoundPayload ?? (!activePracticeSummary?.isComplete ? rememberedGameRoundPayload : null),
+    [activePracticeSummary?.isComplete, activeSummaryGameRoundPayload, rememberedGameRoundPayload]
   );
   const activePracticeSummaryToneClassName = activePracticeSummary
     ? practiceSummaryToneClassNameFor(activePracticeSummary.accuracyPercent)
@@ -904,7 +1069,7 @@ export default function PracticePage() {
     apply?: boolean;
     signal?: AbortSignal;
   } = {}) => {
-    if (!currentUser) return null;
+    if (!currentUser || !isStudentAccount) return null;
 
     try {
       const response = await fetch("/api/adaptive-learning/refresh", {
@@ -923,7 +1088,7 @@ export default function PracticePage() {
     } catch {
       return null;
     }
-  }, [currentUser, lessonContext?.topicId, roadmapGrade]);
+  }, [currentUser, isStudentAccount, lessonContext?.topicId, roadmapGrade]);
 
   const scheduleAdaptiveAnswerRefresh = useCallback(() => {
     if (adaptiveAnswerRefreshInFlightRef.current) {
@@ -1060,14 +1225,14 @@ export default function PracticePage() {
   ]);
 
   useEffect(() => {
-    if (!activePracticeSummary?.isComplete) {
+    if (!activePracticeSummary?.isComplete && !activeGameRoundPayload) {
       setPracticeGameUnlockStatus(null);
       return;
     }
 
     const localLockedStatus = (reason: string) => {
       setPracticeGameUnlockStatus({
-        roundKey: activePracticeSummary.roundKey,
+        roundKey: activePracticeSummary?.roundKey ?? activeGameRoundPayload?.roundKey ?? "practice-game-round",
         loading: false,
         canStartAdventure: false,
         canStartFishing: false,
@@ -1078,33 +1243,50 @@ export default function PracticePage() {
     };
 
     if (!currentUser) {
-      localLockedStatus(t({ en: "Log in before starting the game unlock chain.", zh: "請先登入，才可開始遊戲解鎖鏈。" }));
+      localLockedStatus(t({ en: "Log in before starting the game unlock chain.", zh: "請先登入，才可開始遊戲解鎖鏈。", zhHans: "请先登录，才可开始游戏解锁链。" }));
       return;
     }
 
-    if (!activePracticeSummary.isSingleTopicRound || !activePracticeSummary.topicId) {
+    if (activePracticeSummary?.isComplete && (!activePracticeSummary.isSingleTopicRound || !activePracticeSummary.topicId)) {
       localLockedStatus(t({
         en: "This round mixes topics. Choose one topic and complete a full 5-question round to unlock games.",
-        zh: "本回合混合了不同課題。請選定同一課題並完成完整 5 題回合，才可解鎖遊戲。"
+        zh: "本回合混合了不同課題。請選定同一課題並完成完整 5 題回合，才可解鎖遊戲。",
+        zhHans: "本回合混合了不同课题。请选择同一课题并完成完整 5 题回合，才可解锁游戏。"
       }));
       return;
     }
 
     if (!activeGameRoundPayload) {
-      localLockedStatus(activePracticeSummary.accuracyPercent < 80
-        ? t({ en: "Game unlock requires at least 4 correct answers in a complete 5-question topic round.", zh: "遊戲解鎖需要同一課題完整 5 題中至少答對 4 題。" })
-        : t({ en: "Game unlock requires exactly one complete 5-question topic round.", zh: "遊戲解鎖需要同一課題的完整 5 題回合。" }));
+      localLockedStatus((activePracticeSummary?.accuracyPercent ?? 0) < 80
+        ? t({ en: "Game unlock requires at least 4 correct answers in a complete 5-question topic round.", zh: "遊戲解鎖需要同一課題完整 5 題中至少答對 4 題。", zhHans: "游戏解锁需要同一课题完整 5 题中至少答对 4 题。" })
+        : t({ en: "Game unlock requires exactly one complete 5-question topic round.", zh: "遊戲解鎖需要同一課題的完整 5 題回合。", zhHans: "游戏解锁需要同一课题的完整 5 题回合。" }));
       return;
     }
 
     const gameRoundPayload = activeGameRoundPayload;
     let cancelled = false;
+    window.sessionStorage.setItem(adventureRoundStorageKey, JSON.stringify(gameRoundPayload));
+    try {
+      window.localStorage.setItem(completedPracticeRoundStorageKey(currentUser?.id), JSON.stringify(gameRoundPayload));
+      setRememberedGameRoundPayload((currentPayload) =>
+        samePracticeGameRoundPayload(currentPayload, gameRoundPayload) ? currentPayload : gameRoundPayload
+      );
+    } catch {
+      setRememberedGameRoundPayload((currentPayload) =>
+        samePracticeGameRoundPayload(currentPayload, gameRoundPayload) ? currentPayload : gameRoundPayload
+      );
+    }
+    window.sessionStorage.removeItem(fishingRoundStorageKey);
     setPracticeGameUnlockStatus({
       roundKey: gameRoundPayload.roundKey,
       loading: true,
-      canStartAdventure: false,
+      canStartAdventure: true,
       canStartFishing: false,
-      reason: t({ en: "Checking game unlock evidence...", zh: "正在檢查遊戲解鎖證據..." })
+      reason: t({
+        en: "This round qualifies for Adventure Island. MAIS is checking the next game step in the background.",
+        zh: "本回合已符合探险岛資格。MAIS 正在背景檢查下一個遊戲步驟。",
+        zhHans: "本回合已符合探险岛资格。MAIS 正在后台检查下一个游戏步骤。"
+      })
     });
 
     async function refreshGameUnlockStatus() {
@@ -1121,16 +1303,16 @@ export default function PracticePage() {
           !eligibility.alreadyCompleted &&
           (eligibility.eligible || ["need-attempts", "need-round-context", "need-accuracy"].includes(eligibility.reason));
         const reason = canStartFishing
-          ? t({ en: "Adventure Island is complete for this topic and this post-adventure round qualifies for Fishing Master.", zh: "本課題已通關探险岛，且本次通關後練習達標，可開始捕魚達人。" })
+          ? t({ en: "Adventure Island is complete for this topic and this post-adventure round qualifies for Fishing Master.", zh: "本課題已通關探险岛，且本次通關後練習達標，可開始捕魚達人。", zhHans: "本课题已通关探险岛，且本次通关后练习达标，可开始捕鱼达人。" })
           : canStartAdventure
-            ? t({ en: "This 5-question topic round qualifies for Adventure Island.", zh: "這個同課題 5 題回合已符合探险岛資格。" })
+            ? t({ en: "This 5-question topic round qualifies for Adventure Island.", zh: "這個同課題 5 題回合已符合探险岛資格。", zhHans: "这个同课题 5 题回合已符合探险岛资格。" })
             : eligibility.alreadyCompleted
-              ? t({ en: "Adventure Island is complete for this topic. Finish another same-topic 5-question round at 80%+ to unlock Fishing Master.", zh: "本課題已通關探险岛。請再完成一次同課題 5 題 80%+ 回合以解鎖捕魚達人。" })
+              ? t({ en: "Adventure Island is complete for this topic. Finish another same-topic 5-question round at 80%+ to unlock Fishing Master.", zh: "本課題已通關探险岛。請再完成一次同課題 5 題 80%+ 回合以解鎖捕魚達人。", zhHans: "本课题已通关探险岛。请再完成一次同课题 5 题 80%+ 回合以解锁捕鱼达人。" })
               : eligibility.reason === "need-accuracy"
-                ? t({ en: "Game unlock requires at least 4 correct answers out of 5.", zh: "遊戲解鎖需要 5 題中至少答對 4 題。" })
+                ? t({ en: "Game unlock requires at least 4 correct answers out of 5.", zh: "遊戲解鎖需要 5 題中至少答對 4 題。", zhHans: "游戏解锁需要 5 题中至少答对 4 题。" })
                 : eligibility.reason === "mixed-topic"
-                  ? t({ en: "All 5 questions must belong to the same Practice Arena topic.", zh: "5 題必須全部屬於同一個練習場課題。" })
-                  : t({ en: "Complete a full 5-question same-topic Practice Arena round first.", zh: "請先完成同一課題的完整 5 題練習場回合。" });
+                  ? t({ en: "All 5 questions must belong to the same Practice Arena topic.", zh: "5 題必須全部屬於同一個練習場課題。", zhHans: "5 题必须全部属于同一个练习场课题。" })
+                  : t({ en: "Complete a full 5-question same-topic Practice Arena round first.", zh: "請先完成同一課題的完整 5 題練習場回合。", zhHans: "请先完成同一课题的完整 5 题练习场回合。" });
 
         setPracticeGameUnlockStatus({
           roundKey: gameRoundPayload.roundKey,
@@ -1159,7 +1341,8 @@ export default function PracticePage() {
           canStartFishing: false,
           reason: t({
             en: "This round qualifies locally. Adventure Island will verify the same topic evidence again before play.",
-            zh: "本回合在本機已符合資格。探险岛開始前會再次驗證同課題證據。"
+            zh: "本回合在本機已符合資格。探险岛開始前會再次驗證同課題證據。",
+            zhHans: "本回合在本机已符合资格。探险岛开始前会再次验证同课题证据。"
           })
         });
         window.sessionStorage.setItem(adventureRoundStorageKey, JSON.stringify(gameRoundPayload));
@@ -1175,23 +1358,37 @@ export default function PracticePage() {
   }, [activeGameRoundPayload, activePracticeSummary, currentUser, t]);
 
   useEffect(() => {
-    setRouteContext(routeContextFromWindow());
+    const nextContext = routeContextFromWindow();
+    setRouteContext((currentContext) => (
+      currentContext.lessonSlug === nextContext.lessonSlug && currentContext.topicId === nextContext.topicId
+        ? currentContext
+        : nextContext
+    ));
   }, []);
 
   useEffect(() => {
     let cancelled = false;
     const storageKey = lessonContextStorageKey(currentUser?.id, roadmapGrade);
+    setAdaptivePlan(null);
+    setAdaptiveLoadError("");
+    setLessonContextReady(false);
+
+    function applyResolvedContext(nextContext: LessonPracticeContext | null) {
+      if (cancelled) return;
+      setLessonContext(nextContext);
+      setLessonContextReady(true);
+    }
 
     async function resolveLessonContext() {
       if (routeContext.topicId) {
         const nextContext = { topicId: routeContext.topicId };
-        setLessonContext(nextContext);
         window.localStorage.setItem(storageKey, JSON.stringify(nextContext));
+        applyResolvedContext(nextContext);
         return;
       }
 
       if (!routeContext.lessonSlug) {
-        setLessonContext(readStoredLessonContext(storageKey));
+        applyResolvedContext(readStoredLessonContext(storageKey));
         return;
       }
 
@@ -1199,12 +1396,11 @@ export default function PracticePage() {
         const response = await fetch(`/api/lessons/${encodeURIComponent(routeContext.lessonSlug)}`, { cache: "no-store" });
         const lesson = readLesson(await response.json());
         if (!response.ok || !lesson) throw new Error("Lesson not found.");
-        if (cancelled) return;
         const nextContext = { topicId: lesson.topicId, lessonTitle: lesson.title };
-        setLessonContext(nextContext);
         window.localStorage.setItem(storageKey, JSON.stringify(nextContext));
+        applyResolvedContext(nextContext);
       } catch {
-        if (!cancelled) setLessonContext(readStoredLessonContext(storageKey));
+        applyResolvedContext(readStoredLessonContext(storageKey));
       }
     }
 
@@ -1224,6 +1420,14 @@ export default function PracticePage() {
         setAdaptiveLoadError("");
         return;
       }
+
+      if (!isStudentAccount) {
+        setAdaptivePlan(null);
+        setAdaptiveLoadError("");
+        return;
+      }
+
+      if (!lessonContextReady) return;
 
       try {
         const params = new URLSearchParams();
@@ -1247,7 +1451,7 @@ export default function PracticePage() {
       } catch {
         if (!controller.signal.aborted) {
           setAdaptivePlan(null);
-          setAdaptiveLoadError(language === "en" ? "Could not load the adaptive practice set." : "暫時無法載入適性練習。");
+          setAdaptiveLoadError(language === "en" ? "Could not load the personalized practice set." : "暫時無法載入適性練習。");
         }
       }
     }
@@ -1255,23 +1459,44 @@ export default function PracticePage() {
     void loadAdaptivePlan();
 
     return () => controller.abort();
-  }, [currentUser?.id, language, lessonContext?.topicId, refreshAdaptiveRecommendation, roadmapGrade]);
+  }, [currentUser?.id, isStudentAccount, language, lessonContext?.topicId, lessonContextReady, refreshAdaptiveRecommendation, roadmapGrade]);
 
   useEffect(() => {
     let cancelled = false;
+    const controller = new AbortController();
+    const loadErrorMessage = practiceCatalogLoadErrorMessage(language);
 
     async function loadTopics() {
+      setQuestionCatalogError("");
+      setQuestionCatalogLoaded(false);
       try {
         const params = new URLSearchParams();
         if (activeGradeFilter !== "all") params.set("grade", activeGradeFilter);
         params.set("curriculumTrack", curriculumTrack);
         params.set("publisher", textbookPublisher);
+        params.set("summary", "topic-catalog");
         const query = params.toString();
-        const response = await fetch(`/api/questions${query ? `?${query}` : ""}`, { cache: "no-store" });
-        const nextQuestions = readQuestions(await response.json());
-        if (!cancelled) setAllQuestions(nextQuestions);
-      } catch {
-        if (!cancelled) setAllQuestions([]);
+        const response = await fetch(`/api/questions${query ? `?${query}` : ""}`, {
+          cache: "no-store",
+          signal: controller.signal
+        });
+        const nextCatalog = readQuestionCatalog(await response.json());
+        if (!response.ok) {
+          throw new Error(loadErrorMessage);
+        }
+        if (!cancelled) {
+          setQuestionCatalogTopics(nextCatalog.topics);
+          setQuestionCatalogCount(nextCatalog.totalQuestions);
+          setQuestionCatalogError("");
+          setQuestionCatalogLoaded(true);
+        }
+      } catch (error) {
+        if (!cancelled) {
+          setQuestionCatalogTopics([]);
+          setQuestionCatalogCount(0);
+          setQuestionCatalogError(error instanceof Error ? error.message : loadErrorMessage);
+          setQuestionCatalogLoaded(true);
+        }
       }
     }
 
@@ -1279,8 +1504,9 @@ export default function PracticePage() {
 
     return () => {
       cancelled = true;
+      controller.abort();
     };
-  }, [activeGradeFilter, curriculumTrack, textbookPublisher]);
+  }, [activeGradeFilter, curriculumTrack, language, textbookPublisher]);
 
   useEffect(() => {
     setTopicFilter("all");
@@ -1313,8 +1539,12 @@ export default function PracticePage() {
     }
 
     const roundKey = adaptivePlan.skill.id;
-    const isUnlocked = window.localStorage.getItem(unlockStorageKey(currentUser?.id, roundKey)) === "true";
-    const hasStrongResult = window.localStorage.getItem(strongResultStorageKey(currentUser?.id, roundKey)) === "true";
+    const isUnlocked =
+      hasStoredPracticeFlag(unlockStorageKey(currentUser?.id, roundKey)) ||
+      hasAnyStoredUserPracticeFlag(adaptiveUnlockStoragePrefix, currentUser?.id);
+    const hasStrongResult =
+      hasStoredPracticeFlag(strongResultStorageKey(currentUser?.id, roundKey)) ||
+      hasAnyStoredUserPracticeFlag(adaptiveStrongResultStoragePrefix, currentUser?.id);
     setFreeSelectionUnlockedTopicId(isUnlocked ? roundKey : null);
     setStrongAdaptiveResultTopicId(hasStrongResult ? roundKey : null);
   }, [adaptivePlan, adaptiveRoundStateKey, currentUser?.id]);
@@ -1338,6 +1568,7 @@ export default function PracticePage() {
 
   useEffect(() => {
     const controller = new AbortController();
+    const loadErrorMessage = practiceQuestionsLoadErrorMessage(language);
 
     async function loadQuestions() {
       const params = new URLSearchParams();
@@ -1357,12 +1588,12 @@ export default function PracticePage() {
           signal: controller.signal
         });
         const nextQuestions = readQuestions(await response.json());
-        if (!response.ok) throw new Error(t({ en: "Could not load questions.", zh: "暫時無法載入題目。" }));
+        if (!response.ok) throw new Error(loadErrorMessage);
         setVisibleQuestions(nextQuestions);
       } catch (error) {
         if (!controller.signal.aborted) {
           setVisibleQuestions([]);
-          setLoadError(error instanceof Error ? error.message : t({ en: "Could not load questions.", zh: "暫時無法載入題目。" }));
+          setLoadError(error instanceof Error ? error.message : loadErrorMessage);
         }
       } finally {
         if (!controller.signal.aborted) setIsLoading(false);
@@ -1379,10 +1610,56 @@ export default function PracticePage() {
     void loadQuestions();
 
     return () => controller.abort();
-  }, [activeGradeFilter, curriculumTrack, difficultyFilter, hasSelectedPracticeFilter, language, t, textbookPublisher, topicFilter]);
+  }, [activeGradeFilter, curriculumTrack, difficultyFilter, hasSelectedPracticeFilter, language, textbookPublisher, topicFilter]);
+
+  const scrollToPracticeSection = useCallback((targetId: string) => {
+    window.requestAnimationFrame(() => {
+      document.getElementById(targetId)?.scrollIntoView({ behavior: "smooth", block: "start" });
+    });
+  }, []);
+
+  const handleAdventureStartMission = useCallback(() => {
+    if (shouldShowFreeSelection) {
+      if (topicFilter === "all" && firstQuestionCatalogTopicId) setTopicFilter(firstQuestionCatalogTopicId);
+      scrollToPracticeSection("free-selection");
+      return;
+    }
+
+    scrollToPracticeSection(adaptivePlan ? "adaptive-practice-round" : "free-selection");
+  }, [adaptivePlan, firstQuestionCatalogTopicId, scrollToPracticeSection, shouldShowFreeSelection, topicFilter]);
+
+  const adventureProgressTotal = 30;
+  const rememberedAdventureProgressValue = rememberedGameRoundPayload?.correctRoundQuestionIds.length ?? 0;
+  const adventureProgressValue = Math.min(
+    adventureProgressTotal,
+    Math.max(
+      activePracticeSummary?.correctCount ?? 0,
+      adaptiveCompletedCount,
+      rememberedAdventureProgressValue,
+      topicFilter === "all" ? 0 : 1
+    )
+  );
+  const shouldRenderFreeSelectionRound = shouldShowFreeSelection && hasSelectedPracticeFilter && displayedQuestions.length > 0;
 
   return (
-    <div className="page-container py-10 sm:py-12">
+    <div data-practice-adventure-arena className="relative isolate min-h-screen overflow-hidden bg-[#55cfff] px-3 py-2 text-slate-900 sm:px-5 lg:px-8">
+      <style>{`
+        body:has([data-practice-adventure-arena]) footer,
+        body:has([data-practice-adventure-arena]) nextjs-portal,
+        body:has([data-practice-adventure-arena]) .bg-radial-glow,
+        body:has([data-practice-adventure-arena]) button[aria-label*="AI Tutor"] {
+          display: none !important;
+        }
+
+        body:has([data-practice-adventure-arena]) main.flex-1 {
+          padding-bottom: 0 !important;
+        }
+      `}</style>
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_12%_8%,rgba(255,255,255,0.34),transparent_15%),radial-gradient(circle_at_86%_12%,rgba(255,255,255,0.28),transparent_18%),linear-gradient(180deg,#44c5f2_0%,#58d0f7_52%,#74ddfb_100%)]"
+      />
+      <div className="relative mx-auto max-w-[1500px]">
       <AnimatePresence>
         {showPracticeCelebration ? (
           <motion.div
@@ -1427,26 +1704,11 @@ export default function PracticePage() {
         ) : null}
       </AnimatePresence>
 
-      <SectionHeader
-        title={t(dictionary.pages.practiceTitle)}
-        description={t(dictionary.pages.practiceDesc)}
-        eyebrow={t(dictionary.pages.practiceEyebrow)}
-        action={
-          <div className="flex flex-wrap gap-2">
-            <Link
-              href="/dashboard#my-assignments"
-              className="focus-ring inline-flex rounded-full border border-cyan-300/45 bg-cyan-400/15 px-5 py-3 text-sm font-black text-cyan-700 shadow-lg transition hover:-translate-y-1 dark:text-cyan-200"
-            >
-              {t({ en: "My assignments", zh: "我的作業" })}
-            </Link>
-            <Link
-              href="/mistake-book"
-              className="focus-ring inline-flex rounded-full border border-amber-300/45 bg-amber-400/15 px-5 py-3 text-sm font-black text-amber-700 shadow-lg transition hover:-translate-y-1 dark:text-amber-200"
-            >
-              {t(dictionary.mistakes.reviewSaved)}
-            </Link>
-          </div>
-        }
+      <PracticeAdventureArenaShell
+        t={t}
+        progressValue={adventureProgressValue}
+        progressTotal={adventureProgressTotal}
+        onStartMission={handleAdventureStartMission}
       />
 
       {adaptiveLoadError ? (
@@ -1455,326 +1717,10 @@ export default function PracticePage() {
         </div>
       ) : null}
 
-      {adaptivePlan && !isFreeSelectionUnlocked ? (
-        <>
-          <section className="glass-panel mt-8 overflow-hidden p-5 sm:p-6">
-            <div className="space-y-5">
-              <div>
-                <p className="text-xs font-black uppercase tracking-[0.24em] text-cyan-500 dark:text-cyan-300">
-                  {t({ en: "Adaptive practice set", zh: "適性練習組" })}
-                </p>
-                <h2 className="mt-3 max-w-3xl text-2xl font-black leading-tight text-slate-950 dark:text-white sm:text-3xl">
-                  {t({
-                    en: `Complete ${adaptiveRequiredQuestionCount} required question${adaptiveRequiredQuestionCount === 1 ? "" : "s"} first`,
-                    zh: `先完成 ${adaptiveRequiredQuestionCount} 題必做練習`
-                  })}
-                </h2>
-                <p className="mt-3 max-w-3xl text-sm font-medium leading-6 text-slate-600 dark:text-slate-300 sm:text-base sm:leading-7">
-                  {text(adaptiveIntroCopy(adaptivePlan, adaptiveRequiredQuestionCount))}
-                </p>
-              </div>
-
-              <div className="rounded-2xl border border-cyan-300/40 bg-cyan-400/10 p-4 dark:border-cyan-200/20 dark:bg-cyan-400/10 sm:p-5">
-                <div className="grid gap-5 lg:grid-cols-[minmax(0,1fr)_18rem] lg:items-start">
-                  <div className="lg:order-2">
-                    <div className="rounded-xl border border-white/70 bg-white/70 p-4 shadow-sm shadow-cyan-900/5 dark:border-white/10 dark:bg-white/[0.07]">
-                      <p className="text-xs font-black uppercase tracking-[0.18em] text-cyan-700 dark:text-cyan-200">
-                        {t({ en: "Progress", zh: "進度" })}
-                      </p>
-                      <div className="mt-3 flex flex-wrap items-baseline gap-x-2 gap-y-1 text-cyan-900 dark:text-cyan-50">
-                        <span className="text-3xl font-black">
-                          {adaptiveCompletedCount}/{adaptiveRequiredQuestionCount}
-                        </span>
-                        <span className="text-sm font-black">{t({ en: "completed", zh: "已完成" })}</span>
-                      </div>
-                      <div
-                        role="progressbar"
-                        aria-label={t({ en: "Adaptive set progress", zh: "適性練習進度" })}
-                        aria-valuemin={0}
-                        aria-valuemax={adaptiveRequiredQuestionCount}
-                        aria-valuenow={adaptiveCompletedCount}
-                        className="mt-4 h-2.5 overflow-hidden rounded-full bg-slate-200 dark:bg-white/10"
-                      >
-                        <div
-                          className="h-full rounded-full bg-cyan-400 transition-all"
-                          style={{ width: `${Math.min(100, (adaptiveCompletedCount / adaptiveRequiredQuestionCount) * 100)}%` }}
-                        />
-                      </div>
-                      <p className="mt-4 text-xs font-semibold leading-5 text-slate-600 dark:text-slate-300">
-                        {t({
-                          en: "Check an answer to count a question toward the required set.",
-                          zh: "提交檢查答案後，該題會計入必做練習。"
-                        })}
-                      </p>
-                    </div>
-                  </div>
-
-                  <div className="border-t border-cyan-300/30 pt-4 dark:border-cyan-200/20 lg:order-1 lg:border-r lg:border-t-0 lg:pr-5 lg:pt-0">
-                    <p className="text-xs font-black uppercase tracking-[0.18em] text-cyan-700 dark:text-cyan-200">
-                      {t({ en: "Why this set", zh: "為何選這組練習" })}
-                    </p>
-                    <p className="mt-2 text-sm font-semibold leading-6 text-cyan-900 dark:text-cyan-50 sm:text-base sm:leading-7">
-                      {practiceText(adaptivePlan.explanation)}
-                    </p>
-                    {adaptivePlan.engine.teacherAuditNote ? (
-                      <p className="mt-4 border-t border-cyan-300/30 pt-3 text-xs font-semibold leading-5 text-emerald-700 dark:border-cyan-200/20 dark:text-emerald-200">
-                        <span className="font-black text-emerald-800 dark:text-emerald-100">
-                          {t({ en: "Selection note", zh: "選題備註" })}:
-                        </span>{" "}
-                        {practiceText(adaptivePlan.engine.teacherAuditNote)}
-                      </p>
-                    ) : null}
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div className="mt-5 rounded-2xl border border-slate-200/70 bg-white/70 p-4 dark:border-white/10 dark:bg-white/[0.055] sm:p-5">
-              <p className="text-xs font-black uppercase tracking-[0.18em] text-slate-500 dark:text-slate-400">
-                {t({ en: "Practice focus", zh: "練習重點" })}
-              </p>
-              <div className="mt-4 grid gap-4 md:grid-cols-3 md:divide-x md:divide-slate-200/70 dark:md:divide-white/10">
-                <div className="min-w-0 md:pr-4">
-                  <p className="text-xs font-black uppercase tracking-[0.16em] text-slate-500 dark:text-slate-400">{t(dictionary.common.topic)}</p>
-                  <p className="mt-2 break-words text-base font-black text-slate-950 dark:text-white">{practiceText(adaptivePlan.topic.title)}</p>
-                  {adaptivePlan.lesson ? (
-                    <p className="mt-1 break-words text-xs font-semibold leading-5 text-slate-500 dark:text-slate-400">{practiceText(adaptivePlan.lesson.title)}</p>
-                  ) : null}
-                </div>
-                <div className="min-w-0 md:px-4">
-                  <p className="text-xs font-black uppercase tracking-[0.16em] text-slate-500 dark:text-slate-400">{t(dictionary.common.difficulty)}</p>
-                  <p className="mt-2 break-words text-base font-black text-violet-700 dark:text-violet-200">{formatDifficultyLabel(adaptivePlan.skill.difficulty, language)}</p>
-                  <p className="mt-1 text-xs font-semibold leading-5 text-slate-500 dark:text-slate-400">
-                    {adaptivePlan.confidence === "thin"
-                      ? t({ en: "Thin evidence: diagnostic mode", zh: "證據較少：診斷模式" })
-                      : t({ en: "Skill evidence is active", zh: "技能證據已啟用" })}
-                  </p>
-                </div>
-                <div className="min-w-0 md:pl-4">
-                  <p className="text-xs font-black uppercase tracking-[0.16em] text-slate-500 dark:text-slate-400">
-                    {t({ en: "Question mix", zh: "題型分佈" })}
-                  </p>
-                  <div className="mt-2 flex flex-wrap gap-2">
-                    {questionTypes.filter((type) => adaptiveQuestionTypeCounts[type] > 0).map((type) => (
-                      <span key={type} className="rounded-full bg-emerald-500/15 px-2.5 py-1 text-xs font-black text-emerald-700 dark:text-emerald-200">
-                        {t(questionTypeLabels[type])} x{adaptiveQuestionTypeCounts[type]}
-                      </span>
-                    ))}
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div
-              role="status"
-              aria-label={t({ en: "Practice game path", zh: "練習遊戲路線" })}
-              className="mt-4 overflow-hidden rounded-2xl border border-emerald-300/45 bg-gradient-to-r from-emerald-400/12 via-sky-400/12 to-amber-300/15 p-4 shadow-sm shadow-emerald-500/10 dark:border-emerald-200/20 sm:p-5"
-            >
-              <div className="flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
-                <div className="min-w-0">
-                  <p className="text-xs font-black uppercase tracking-[0.18em] text-emerald-700 dark:text-emerald-200">
-                    {t({ en: "Game path", zh: "遊戲路線" })}
-                  </p>
-                  <h3 className="mt-2 text-xl font-black leading-tight text-slate-950 dark:text-white sm:text-2xl">
-                    {t({
-                      en: "Win the round, then enter the topic game challenge.",
-                      zh: "完成達標回合，即可進入本課題遊戲挑戰。"
-                    })}
-                  </h3>
-                  <p className="mt-2 max-w-3xl text-sm font-semibold leading-6 text-slate-600 dark:text-slate-300">
-                    {t({
-                      en: "Use one topic for all 5 questions. Reach 80%+ to open Adventure Island; after clearing it, another qualifying round unlocks Fishing Master.",
-                      zh: "5 題需屬於同一課題。達到 80%+ 先開啟探险岛；通關後再完成一次達標回合，即可解鎖捕魚達人。"
-                    })}
-                  </p>
-                </div>
-                <div className="flex shrink-0 items-center gap-2 rounded-full border border-white/70 bg-white/80 px-4 py-2 shadow-sm dark:border-white/10 dark:bg-white/[0.08]">
-                  <span className="text-2xl font-black text-emerald-600 dark:text-emerald-200">80%</span>
-                  <span className="text-xs font-black uppercase tracking-[0.14em] text-slate-500 dark:text-slate-300">
-                    {t({ en: "Same-topic target", zh: "同課題目標" })}
-                  </span>
-                </div>
-              </div>
-
-              <div className="mt-5 grid gap-3 lg:grid-cols-[minmax(0,1fr)_auto_minmax(0,1fr)] lg:items-stretch">
-                <div className="overflow-hidden rounded-2xl border border-white/70 bg-white/80 shadow-sm shadow-slate-950/5 dark:border-white/10 dark:bg-white/[0.07]">
-                  <div className="relative aspect-[16/9] overflow-hidden bg-emerald-100 dark:bg-emerald-950/35">
-                    <svg aria-hidden="true" viewBox="0 0 420 236" className="h-full w-full">
-                      <defs>
-                        <linearGradient id="practice-adventure-sky" x1="0" x2="1" y1="0" y2="1">
-                          <stop offset="0%" stopColor="#bae6fd" />
-                          <stop offset="54%" stopColor="#d9f99d" />
-                          <stop offset="100%" stopColor="#fef3c7" />
-                        </linearGradient>
-                        <linearGradient id="practice-adventure-hill" x1="0" x2="1" y1="0" y2="1">
-                          <stop offset="0%" stopColor="#34d399" />
-                          <stop offset="100%" stopColor="#15803d" />
-                        </linearGradient>
-                      </defs>
-                      <rect width="420" height="236" fill="url(#practice-adventure-sky)" />
-                      <circle cx="336" cy="52" r="28" fill="#fbbf24" opacity="0.92" />
-                      <path d="M0 166c62-46 115-51 167-14 55 40 113 33 174-18 35-29 62-38 79-27v129H0Z" fill="#22c55e" opacity="0.72" />
-                      <path d="M0 190c42-25 86-32 132-21 64 16 122 8 174-24 46-29 84-34 114-17v108H0Z" fill="url(#practice-adventure-hill)" />
-                      <path d="M92 236c31-55 70-88 118-98 32 36 56 69 71 98Z" fill="#fef3c7" opacity="0.88" />
-                      <path d="M167 236c14-33 30-56 47-69 17 18 33 41 48 69Z" fill="#f59e0b" opacity="0.7" />
-                      <path d="M82 104h84v54H82Z" fill="#92400e" opacity="0.95" />
-                      <path d="M68 104h112L124 62Z" fill="#ef4444" />
-                      <path d="M109 158v-33h29v33Z" fill="#fef3c7" />
-                      <path d="M303 100v75" stroke="#334155" strokeWidth="8" strokeLinecap="round" />
-                      <path d="M307 102c28-14 48-12 70 5-21 11-45 13-70-5Z" fill="#38bdf8" />
-                      <path d="M18 200c52 12 103 12 153 0 56-13 111-13 166 1 28 7 56 9 83 5v30H0v-31c6-2 12-4 18-5Z" fill="#0f766e" opacity="0.45" />
-                    </svg>
-                  </div>
-                  <div className="p-4">
-                    <div className="flex flex-wrap items-center justify-between gap-2">
-                      <span className="rounded-full bg-emerald-500/15 px-3 py-1 text-xs font-black uppercase tracking-[0.14em] text-emerald-700 dark:text-emerald-200">
-                        {t({ en: "Step 1", zh: "第 1 站" })}
-                      </span>
-                      <span className="rounded-full bg-amber-400/20 px-3 py-1 text-xs font-black text-amber-700 dark:text-amber-200">
-                        {t({ en: "80%+", zh: "80%+" })}
-                      </span>
-                    </div>
-                    <h4 className="mt-3 text-lg font-black text-slate-950 dark:text-white">
-                      {t({ en: "Adventure Island", zh: "探险岛" })}
-                    </h4>
-                    <p className="mt-2 text-sm font-semibold leading-6 text-slate-600 dark:text-slate-300">
-                      {t({
-                        en: "Complete this same-topic 5-question round to start the island challenge.",
-                        zh: "完成本次同課題 5 題達標回合，即可開始探险岛挑戰。"
-                      })}
-                    </p>
-                    {adaptiveHasAdventureIslandUnlock ? (
-                      <Link
-                        href="/practice/adventure-island"
-                        className="focus-ring mt-4 inline-flex w-full justify-center rounded-full bg-emerald-600 px-5 py-3 text-sm font-black text-white transition hover:-translate-y-0.5 dark:bg-emerald-300 dark:text-emerald-950"
-                      >
-                        {t({ en: "Start Adventure Island", zh: "開始探险岛" })}
-                      </Link>
-                    ) : (
-                      <span className="mt-4 inline-flex w-full justify-center rounded-full border border-emerald-300/45 bg-emerald-400/10 px-5 py-3 text-sm font-black text-emerald-700 dark:text-emerald-200">
-                        {t({ en: "Locked until round clear", zh: "完成回合後解鎖" })}
-                      </span>
-                    )}
-                  </div>
-                </div>
-
-                <div className="hidden items-center justify-center px-1 lg:flex">
-                  <div className="rounded-full border border-slate-200/80 bg-white px-3 py-2 text-xs font-black uppercase tracking-[0.14em] text-slate-500 shadow-sm dark:border-white/10 dark:bg-white/[0.08] dark:text-slate-300">
-                    {t({ en: "Then", zh: "然後" })}
-                  </div>
-                </div>
-
-                <div className="overflow-hidden rounded-2xl border border-white/70 bg-white/80 shadow-sm shadow-slate-950/5 dark:border-white/10 dark:bg-white/[0.07]">
-                  <div className="relative aspect-[16/9] overflow-hidden bg-sky-100 dark:bg-sky-950/35">
-                    <svg aria-hidden="true" viewBox="0 0 420 236" className="h-full w-full">
-                      <defs>
-                        <linearGradient id="practice-fishing-sky" x1="0" x2="1" y1="0" y2="1">
-                          <stop offset="0%" stopColor="#bae6fd" />
-                          <stop offset="62%" stopColor="#67e8f9" />
-                          <stop offset="100%" stopColor="#2dd4bf" />
-                        </linearGradient>
-                        <linearGradient id="practice-fishing-sea" x1="0" x2="1" y1="0" y2="1">
-                          <stop offset="0%" stopColor="#38bdf8" />
-                          <stop offset="100%" stopColor="#0f766e" />
-                        </linearGradient>
-                      </defs>
-                      <rect width="420" height="236" fill="url(#practice-fishing-sky)" />
-                      <circle cx="76" cy="54" r="22" fill="#fde68a" opacity="0.95" />
-                      <path d="M0 128c35-12 71-12 108 0 40 13 80 13 120 0 40-13 80-13 120 0 24 8 48 11 72 8v100H0Z" fill="url(#practice-fishing-sea)" />
-                      <path d="M0 164c42 13 84 13 126 0 34-10 68-10 102 0 46 14 92 14 138 0 18-5 36-7 54-5" fill="none" stroke="#e0f2fe" strokeWidth="8" strokeLinecap="round" opacity="0.72" />
-                      <path d="M118 108h134l-27 42h-80Z" fill="#f97316" />
-                      <path d="M138 91h80l34 17H118Z" fill="#fed7aa" />
-                      <path d="M184 91V50" stroke="#334155" strokeWidth="7" strokeLinecap="round" />
-                      <path d="M190 52c36 10 60 27 72 51" fill="none" stroke="#f8fafc" strokeWidth="5" strokeLinecap="round" />
-                      <path d="M262 104c20 18 24 35 12 51" fill="none" stroke="#334155" strokeWidth="4" strokeLinecap="round" />
-                      <path d="M273 155c20-14 41-16 63-6-20 21-41 22-63 6Z" fill="#facc15" />
-                      <circle cx="325" cy="151" r="4" fill="#0f172a" />
-                      <path d="M62 182c21-14 42-15 64-4-18 19-40 20-64 4Z" fill="#fb7185" />
-                      <circle cx="112" cy="178" r="4" fill="#0f172a" />
-                      <path d="M182 202c16-10 32-11 49-3-15 14-31 15-49 3Z" fill="#a78bfa" />
-                      <circle cx="221" cy="199" r="3.5" fill="#0f172a" />
-                    </svg>
-                  </div>
-                  <div className="p-4">
-                    <div className="flex flex-wrap items-center justify-between gap-2">
-                      <span className="rounded-full bg-sky-500/15 px-3 py-1 text-xs font-black uppercase tracking-[0.14em] text-sky-700 dark:text-sky-200">
-                        {t({ en: "Step 2", zh: "第 2 站" })}
-                      </span>
-                      <span className="rounded-full bg-teal-400/20 px-3 py-1 text-xs font-black text-teal-700 dark:text-teal-200">
-                        {t({ en: "After island", zh: "通關後" })}
-                      </span>
-                    </div>
-                    <h4 className="mt-3 text-lg font-black text-slate-950 dark:text-white">
-                      {t({ en: "Fishing Master", zh: "捕魚達人" })}
-                    </h4>
-                    <p className="mt-2 text-sm font-semibold leading-6 text-slate-600 dark:text-slate-300">
-                      {t({
-                        en: "Clear Adventure Island, then finish another qualifying round to open the fishing challenge.",
-                        zh: "先通關探险岛，再完成另一次達標回合，即可開啟捕魚挑戰。"
-                      })}
-                    </p>
-                    {hasFishingGameUnlock ? (
-                      <Link
-                        href="/practice/fishing-game"
-                        className="focus-ring mt-4 inline-flex w-full justify-center rounded-full bg-sky-600 px-5 py-3 text-sm font-black text-white transition hover:-translate-y-0.5 dark:bg-sky-300 dark:text-sky-950"
-                      >
-                        {t({ en: "Start Fishing Master", zh: "開始捕魚達人" })}
-                      </Link>
-                    ) : (
-                      <span className="mt-4 inline-flex w-full justify-center rounded-full border border-sky-300/45 bg-sky-400/10 px-5 py-3 text-sm font-black text-sky-700 dark:text-sky-200">
-                        {t({ en: "Locked after Adventure Island", zh: "探险岛通關後解鎖" })}
-                      </span>
-                    )}
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div className="mt-4 rounded-2xl border border-slate-200/70 bg-white/60 p-4 shadow-sm shadow-slate-900/5 dark:border-white/10 dark:bg-white/[0.045]">
-              <div className="mb-3 flex flex-wrap items-center justify-between gap-2">
-                <p className="text-xs font-black uppercase tracking-[0.18em] text-slate-500 dark:text-slate-400">
-                  {t({ en: "Recommendation transparency", zh: "推薦透明度" })}
-                </p>
-                <span className="rounded-full bg-slate-950/[0.04] px-3 py-1 text-xs font-black text-slate-500 dark:bg-white/[0.08] dark:text-slate-300">
-                  {t({ en: "Supporting detail", zh: "輔助資料" })}
-                </span>
-              </div>
-              <div className="grid gap-4 lg:grid-cols-[minmax(0,1fr)_minmax(16rem,22rem)] lg:items-start">
-                <div>
-                  <p className="text-xs font-black uppercase tracking-[0.18em] text-slate-500 dark:text-slate-400">
-                    {t({ en: "Engine", zh: "引擎" })}
-                  </p>
-                  <p className="mt-2 max-w-4xl text-lg font-black leading-snug text-amber-700 dark:text-amber-200">
-                    {adaptiveEngineStatus ? text(adaptiveEngineStatus.label) : t({ en: "Adaptive recommendation", zh: "適性推薦" })}
-                  </p>
-                  <p className="mt-2 max-w-4xl text-sm font-semibold leading-6 text-slate-600 dark:text-slate-300">
-                    {adaptiveEngineStatus ? text(adaptiveEngineStatus.detail) : t({ en: "Free selection after 5", zh: "完成 5 題後開放" })}
-                  </p>
-                </div>
-                {adaptivePlan.engine.mode === "llm-assisted" && adaptivePlan.engine.aiConfidence ? (
-                  <div className="border-t border-emerald-500/20 pt-4 lg:border-l lg:border-t-0 lg:pl-4 lg:pt-0">
-                    <p className="text-xs font-black uppercase tracking-[0.16em] text-emerald-700 dark:text-emerald-200">
-                      {t({ en: "AI confidence", zh: "AI 判斷信心" })}
-                    </p>
-                    <div className="mt-2 flex flex-wrap items-baseline gap-x-2 gap-y-1">
-                      <span className="text-3xl font-black text-emerald-800 dark:text-emerald-50">
-                        {Math.round(adaptivePlan.engine.aiConfidence.score * 100)}%
-                      </span>
-                      <span className="text-sm font-black text-emerald-700 dark:text-emerald-200">
-                        {text(adaptivePlan.engine.aiConfidence.label)}
-                      </span>
-                    </div>
-                    <p className="mt-2 text-sm font-medium leading-6 text-emerald-700 dark:text-emerald-200">
-                      {text(adaptivePlan.engine.aiConfidence.criteria)}
-                    </p>
-                  </div>
-                ) : null}
-              </div>
-            </div>
-          </section>
-
+      {adaptivePlan && !isFreeSelectionUnlocked && !hasManualTopicSelection ? (
+        <div id="adaptive-practice-round" className="scroll-mt-28">
           <QuestionPager questions={adaptiveRoundQuestions} onAnswered={handleAdaptiveAnswered} onQuestionStarted={handleAdaptiveQuestionStarted} />
-        </>
+        </div>
       ) : null}
 
       {adaptivePlan && isFreeSelectionUnlocked ? (
@@ -1782,12 +1728,12 @@ export default function PracticePage() {
           <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
             <div>
               <p className="text-lg font-black text-emerald-800 dark:text-emerald-100">
-                {t({ en: "Adaptive set complete. Free selection is now unlocked.", zh: "適性練習已完成，現在可使用自由選題模式。" })}
+                {t({ en: "Personalized set complete. Free selection is now unlocked.", zh: "適性練習已完成，現在可使用自由選題模式。" })}
               </p>
               {adaptivePracticeSummary?.isComplete ? (
                 <p className="mt-2 text-sm font-semibold leading-6 text-slate-600 dark:text-slate-300">
                   {t({
-                    en: `Accuracy ${adaptivePracticeSummary.correctCount}/${adaptivePracticeSummary.totalQuestions}. Open the summary for timing and adaptive next steps.`,
+                    en: `Accuracy ${adaptivePracticeSummary.correctCount}/${adaptivePracticeSummary.totalQuestions}. Open the summary for timing and personalized next steps.`,
                     zh: `準確率 ${adaptivePracticeSummary.correctCount}/${adaptivePracticeSummary.totalQuestions}。可打開摘要查看時間和適性下一步。`
                   })}
                 </p>
@@ -1796,12 +1742,12 @@ export default function PracticePage() {
             {adaptivePracticeSummary?.isComplete ? (
               <div className="flex flex-col gap-2 sm:flex-row">
                 {adaptiveHasAdventureIslandUnlock ? (
-                  <Link
-                    href="/practice/adventure-island"
+                  <a
+                    href={studentPracticeGameHrefs.adventureIsland}
                     className="focus-ring inline-flex justify-center rounded-full bg-emerald-600 px-5 py-3 text-sm font-black text-white transition hover:-translate-y-0.5 dark:bg-emerald-300 dark:text-emerald-950"
                   >
-                    {t({ en: "Start Adventure Island", zh: "開始探险岛" })}
-                  </Link>
+                    {t({ en: "Start Adventure Island", zh: "開始探险岛", zhHans: "开始探险岛" })}
+                  </a>
                 ) : null}
                 <button
                   type="button"
@@ -1819,8 +1765,8 @@ export default function PracticePage() {
         </div>
       ) : null}
 
-      {shouldShowRecommendedNextLesson && recommendedNextLesson ? (
-        <section className="glass-panel mt-6 overflow-hidden border-emerald-300/35 bg-emerald-50/70 p-6 shadow-[0_24px_80px_rgba(16,185,129,0.14)] dark:bg-emerald-950/30 sm:p-8">
+	      {shouldShowRecommendedNextLesson && recommendedNextLesson ? (
+	        <section className="glass-panel mt-6 overflow-hidden border-emerald-300/35 bg-emerald-50/70 p-6 shadow-[0_24px_80px_rgba(16,185,129,0.14)] dark:bg-emerald-950/30 sm:p-8">
           <div className="grid gap-6 md:grid-cols-[minmax(0,1fr)_auto] md:items-center">
             <div>
               <p className="text-sm font-black uppercase tracking-[0.34em] text-emerald-600 dark:text-emerald-300">
@@ -1840,63 +1786,124 @@ export default function PracticePage() {
               {t({ en: "Open lesson", zh: "開啟課節" })}
             </Link>
           </div>
-        </section>
-      ) : null}
+	        </section>
+	      ) : null}
+
+	      {!adaptivePlan && !shouldShowFreeSelection && questionCatalogError ? (
+	        <div role="alert" className="glass-panel mt-8 border-rose-300/45 bg-rose-500/10 p-6 text-center">
+	          <p className="text-xl font-black text-rose-700 dark:text-rose-200">{questionCatalogError}</p>
+	          <p className="mt-2 text-sm font-semibold leading-6 text-slate-600 dark:text-slate-300">
+	            {t({ en: "Try again after the question service is available.", zh: "題庫服務恢復後請再試一次。", zhHans: "题库服务恢复后请再试一次。" })}
+	          </p>
+	        </div>
+	      ) : null}
 
       {shouldShowFreeSelection ? (
-        <section id="free-selection" className={cn("glass-panel mt-8 grid scroll-mt-28 gap-4 p-5", studentLockedGrade ? "md:grid-cols-3" : "md:grid-cols-4")}>
-          {!studentLockedGrade ? (
-            <label className="text-sm font-bold text-slate-600 dark:text-slate-300">
+        <section
+          aria-label={t({ en: "Mission setup filters", zh: "任務設定篩選", zhHans: "任务设置筛选" })}
+          className={cn(
+            "mt-8 grid gap-4 rounded-[28px] border border-cyan-100 bg-cyan-50/90 p-5 shadow-[0_18px_38px_rgba(8,145,178,0.14)]",
+            studentFixedGrade ? "md:grid-cols-3" : "md:grid-cols-4"
+          )}
+        >
+          {!studentFixedGrade ? (
+            <label className="text-sm font-black text-blue-950">
               {t(dictionary.common.grade)}
-              <select value={gradeFilter} onChange={(event) => setGradeFilter(event.target.value as GradeFilter)} className="mt-2 w-full rounded-2xl border border-slate-200 bg-white px-4 py-3 dark:border-white/10 dark:bg-slate-950">
+              <select
+                value={gradeFilter}
+                onChange={(event) => setGradeFilter(event.target.value as GradeFilter)}
+                className="focus-ring mt-2 w-full rounded-2xl border border-cyan-100 bg-white px-4 py-3 text-sm font-bold text-slate-700"
+              >
                 <option value="all">{t(dictionary.common.all)}</option>
-                {grades.map((grade) => <option key={grade.id} value={grade.id}>{text(grade.name)}</option>)}
+                {grades.map((grade) => (
+                  <option key={grade.id} value={grade.id}>
+                    {formatGradeLabelForCurriculum(grade.id, language, curriculumTrack)}
+                  </option>
+                ))}
               </select>
             </label>
           ) : null}
-          <label className="text-sm font-bold text-slate-600 dark:text-slate-300">
+          <label className="text-sm font-black text-blue-950">
             {t(dictionary.common.difficulty)}
-            <select value={difficultyFilter} onChange={(event) => setDifficultyFilter(event.target.value as DifficultyFilter)} className="mt-2 w-full rounded-2xl border border-slate-200 bg-white px-4 py-3 dark:border-white/10 dark:bg-slate-950">
+            <select
+              value={difficultyFilter}
+              onChange={(event) => setDifficultyFilter(event.target.value as DifficultyFilter)}
+              className="focus-ring mt-2 w-full rounded-2xl border border-cyan-100 bg-white px-4 py-3 text-sm font-bold text-slate-700"
+            >
               <option value="all">{t(dictionary.common.all)}</option>
-              {difficulties.map((difficulty) => <option key={difficulty} value={difficulty}>{formatDifficultyLabel(difficulty, language)}</option>)}
-            </select>
-          </label>
-          <label className="text-sm font-bold text-slate-600 dark:text-slate-300">
-            {t(dictionary.common.topic)}
-            <select value={topicFilter} onChange={(event) => setTopicFilter(event.target.value)} className="mt-2 w-full rounded-2xl border border-slate-200 bg-white px-4 py-3 dark:border-white/10 dark:bg-slate-950">
-              <option value="all">{t(dictionary.common.all)}</option>
-              {topicOptions.map(([topicId, topic]) => (
-                <option key={topicId} value={topicId}>
-                  {studentLockedGrade ? practiceText(topic.topic) : `${formatGradeLabel(topic.grade, language, true)} · ${practiceText(topic.topic)}`}
+              {visibleDifficultiesForSelection.map((difficulty) => (
+                <option key={difficulty} value={difficulty}>
+                  {formatDifficultyLabel(difficulty, language)}
                 </option>
               ))}
             </select>
           </label>
-          <label className="text-sm font-bold text-slate-600 dark:text-slate-300">
-            {t({ en: "Question type", zh: "題型" })}
-            <select value={questionTypeFilter} onChange={(event) => setQuestionTypeFilter(event.target.value as QuestionTypeFilter)} className="mt-2 w-full rounded-2xl border border-slate-200 bg-white px-4 py-3 dark:border-white/10 dark:bg-slate-950">
+          <label className="text-sm font-black text-blue-950">
+            {t(dictionary.common.topic)}
+            <select
+              value={topicFilter}
+              onChange={(event) => setTopicFilter(event.target.value)}
+              className="focus-ring mt-2 w-full rounded-2xl border border-cyan-100 bg-white px-4 py-3 text-sm font-bold text-slate-700"
+            >
               <option value="all">{t(dictionary.common.all)}</option>
-              {questionTypes.map((questionType) => <option key={questionType} value={questionType}>{t(questionTypeLabels[questionType])}</option>)}
+              {topicOptions.map(([topicId, topic]) => (
+                <option key={topicId} value={topicId}>
+                  {studentFixedGrade
+                    ? practiceText(topic.topic)
+                    : `${formatGradeLabelForCurriculum(topic.grade, language, curriculumTrack, true)} · ${practiceText(topic.topic)}`}
+                </option>
+              ))}
+            </select>
+          </label>
+          <label className="text-sm font-black text-blue-950">
+            {t({ en: "Question type", zh: "題型", zhHans: "题型" })}
+            <select
+              value={questionTypeFilter}
+              onChange={(event) => setQuestionTypeFilter(event.target.value as QuestionTypeFilter)}
+              className="focus-ring mt-2 w-full rounded-2xl border border-cyan-100 bg-white px-4 py-3 text-sm font-bold text-slate-700"
+            >
+              <option value="all">{t(dictionary.common.all)}</option>
+              {practiceQuestionTypeOptions.map((questionType) => (
+                <option key={questionType} value={questionType}>
+                  {t(practiceQuestionTypeLabels[questionType])}
+                </option>
+              ))}
             </select>
           </label>
         </section>
       ) : null}
 
-      {shouldShowFreeSelection && hasSelectedPracticeFilter && displayedQuestions.length >= freeSelectionRoundQuestionCount ? (
-        <>
-          <div className="glass-panel mt-8 border-cyan-300/35 bg-cyan-400/10 p-5">
-            <p className="text-lg font-black text-cyan-800 dark:text-cyan-100">
-              {t({ en: "Free selection round: 5 system-assigned questions", zh: "自由選題回合：系統分配 5 題" })}
-            </p>
-            <p className="mt-2 text-sm font-semibold leading-6 text-slate-600 dark:text-slate-300">
-              {t({
-                en: "Complete all 5 questions from one topic to open the summary. The next game step depends on Adventure Island status.",
-                zh: "完成同一課題全部 5 題後會顯示摘要；下一個遊戲步驟取決於探险岛通關狀態。"
-              })}
-            </p>
+      {shouldRenderFreeSelectionRound ? (
+        <div id="free-selection" className="scroll-mt-28">
+          <div className="mt-8 rounded-[28px] border border-cyan-100 bg-cyan-50/90 p-5 shadow-[0_18px_38px_rgba(8,145,178,0.14)]">
+            <div className="grid gap-4 sm:grid-cols-[auto_minmax(0,1fr)_auto] sm:items-center">
+              <span className="grid size-14 place-items-center rounded-2xl bg-blue-600 text-xl font-black text-white shadow-[0_8px_0_#1d4ed8]">
+                {freeSelectionRoundQuestions.length}
+              </span>
+              <div>
+                <p className="text-lg font-black text-blue-950">
+                  {freeSelectionRoundQuestions.length >= freeSelectionRoundQuestionCount
+                    ? t({ en: "Mission round: 5 system-assigned questions", zh: "任務回合：系統分配 5 題", zhHans: "任务回合：系统分配 5 题" })
+                    : t({ en: "Mission practice: available matching questions", zh: "任務練習：可用符合題目", zhHans: "任务练习：可用符合题目" })}
+                </p>
+                <p className="mt-2 text-base font-semibold leading-7 text-slate-600 sm:text-lg sm:leading-8">
+                  {t({
+                    en: "Complete all 5 questions from one topic to open the summary. The next game step depends on Adventure Island status.",
+                    zh: "完成同一課題全部 5 題後會顯示摘要；下一個遊戲步驟取決於探险岛通關狀態。",
+                    zhHans: "完成同一课题全部 5 题后会显示摘要；下一个游戏步骤取决于探险岛通关状态。"
+                  })}
+                </p>
+              </div>
+              <span className="rounded-full border border-emerald-200 bg-white px-4 py-2 text-sm font-black text-emerald-700">
+                {t({ en: "Ready", zh: "已就緒", zhHans: "已就绪" })}
+              </span>
+            </div>
           </div>
-          <QuestionPager questions={freeSelectionRoundQuestions} onAnswered={handleFreeSelectionAnswered} />
-        </>
+          <QuestionPager
+            questions={freeSelectionRoundQuestions}
+            onAnswered={handleFreeSelectionAnswered}
+          />
+        </div>
       ) : null}
 
       {hasSelectedPracticeFilter && isLoading ? (
@@ -1913,8 +1920,16 @@ export default function PracticePage() {
 
       {hasSelectedPracticeFilter && !isLoading && !loadError && displayedQuestions.length === 0 ? (
         <div className="glass-panel mt-8 p-8 text-center">
-          <p className="text-xl font-black text-slate-950 dark:text-white">{t(dictionary.practice.noMatchTitle)}</p>
-          <p className="mt-2 text-slate-600 dark:text-slate-300">{t(dictionary.practice.noMatchDesc)}</p>
+          <p className="text-xl font-black text-slate-950 dark:text-white">
+            {isCaliforniaPracticeBeta
+              ? "No California beta questions match these filters yet."
+              : t(dictionary.practice.noMatchTitle)}
+          </p>
+          <p className="mt-2 text-slate-600 dark:text-slate-300">
+            {isCaliforniaPracticeBeta
+              ? "Broaden the grade, topic, difficulty, or question type. This beta is focused on adaptive practice and diagnostics while the California K-5 textbook/lesson beta remains text-only."
+              : t(dictionary.practice.noMatchDesc)}
+          </p>
         </div>
       ) : null}
 
@@ -1926,7 +1941,8 @@ export default function PracticePage() {
           <p className="mt-2 text-slate-600 dark:text-slate-300">
             {t({
               en: `Only ${displayedQuestions.length} matching question${displayedQuestions.length === 1 ? "" : "s"} found. Game unlocks require a full 5-question same-topic summary.`,
-              zh: `目前只有 ${displayedQuestions.length} 道符合條件的題目。遊戲解鎖需要同一課題完整 5 題摘要。`
+              zh: `目前只有 ${displayedQuestions.length} 道符合條件的題目。遊戲解鎖需要同一課題完整 5 題摘要。`,
+              zhHans: `目前只有 ${displayedQuestions.length} 道符合条件的题目。游戏解锁需要同一课题完整 5 题摘要。`
             })}
           </p>
         </div>
@@ -1962,7 +1978,7 @@ export default function PracticePage() {
                   <h2 id="practice-summary-title" className="mt-2 text-3xl font-black text-slate-950 dark:text-white">
                     {practiceSummaryMode === "free-selection"
                       ? t({ en: "Free selection round complete", zh: "自由選題回合完成" })
-                      : t({ en: "Adaptive practice round complete", zh: "適性練習回合完成" })}
+                      : t({ en: "Personalized practice round complete", zh: "適性練習回合完成" })}
                   </h2>
                   <p id="practice-summary-description" className="mt-2 max-w-3xl text-sm font-semibold leading-6 text-slate-600 dark:text-slate-300">
                     {t(practiceSummaryEncouragement(activePracticeSummary.accuracyPercent))}
@@ -1993,7 +2009,7 @@ export default function PracticePage() {
                   <p className="mt-1 text-sm font-bold text-slate-600 dark:text-slate-300">
                     {activePracticeSummary.answeredCount} {practiceSummaryMode === "free-selection"
                       ? t({ en: "free-selection answers checked", zh: "題自由選題已檢查" })
-                      : t({ en: "adaptive answers checked", zh: "題適性練習已檢查" })}
+                      : t({ en: "personalized answers checked", zh: "題適性練習已檢查" })}
                   </p>
                 </div>
                 <div className="rounded-2xl border border-slate-200/80 bg-slate-50 p-4 dark:border-white/10 dark:bg-white/[0.055]">
@@ -2050,7 +2066,7 @@ export default function PracticePage() {
                     <p className="mt-3 text-sm font-semibold leading-6 text-slate-600 dark:text-slate-300">
                       {practiceSummaryMode === "free-selection"
                         ? t({ en: "Everything checked in this free-selection round was correct. Follow the topic game path for the next challenge.", zh: "本輪自由選題全部答對。可按本課題遊戲路線進入下一個挑戰。" })
-                        : t({ en: "Everything checked in this adaptive round was correct. Use the next path for stretch and spaced retrieval.", zh: "本輪適性練習全部答對。可按下一步路徑進行延伸和間隔提取。" })}
+                        : t({ en: "Everything checked in this personalized round was correct. Use the next path for stretch and spaced retrieval.", zh: "本輪適性練習全部答對。可按下一步路徑進行延伸和間隔提取。" })}
                     </p>
                   )}
                 </section>
@@ -2061,12 +2077,12 @@ export default function PracticePage() {
                       <h3 className="text-base font-black text-slate-950 dark:text-white">{t({ en: "Personalized next path", zh: "個人化下一步路徑" })}</h3>
                       <p className="mt-1 text-xs font-black uppercase tracking-[0.16em] text-cyan-700 dark:text-cyan-200">
                         {activeGameRoundPayload
-                          ? t({ en: "Game unlock chain", zh: "遊戲解鎖鏈" })
+                          ? t({ en: "Game unlock chain", zh: "遊戲解鎖鏈", zhHans: "游戏解锁链" })
                           : practiceSummaryMode === "free-selection"
-                            ? t({ en: "Game eligibility", zh: "遊戲資格" })
+                            ? t({ en: "Game eligibility", zh: "遊戲資格", zhHans: "游戏资格" })
                             : summaryNextDecision
                             ? text(adaptiveActionLabels[summaryNextDecision.action])
-                            : t({ en: "Adaptive recommendation", zh: "適性推薦" })}
+                            : t({ en: "Personalized recommendation", zh: "適性推薦" })}
                       </p>
                     </div>
                     {practiceSummaryMode === "adaptive" && practiceSummaryRefreshing ? (
@@ -2080,7 +2096,7 @@ export default function PracticePage() {
                     <p className="mt-3 text-sm font-semibold leading-6 text-slate-600 dark:text-slate-300">
                       {practiceGameUnlockStatus?.roundKey === activePracticeSummary.roundKey
                         ? practiceGameUnlockStatus.reason
-                        : t({ en: "Complete a same-topic 5-question round at 80%+ to unlock the topic game path.", zh: "完成同一課題 5 題 80%+ 回合，即可解鎖本課題遊戲路線。" })}
+                        : t({ en: "Complete a same-topic 5-question round at 80%+ to unlock the topic game path.", zh: "完成同一課題 5 題 80%+ 回合，即可解鎖本課題遊戲路線。", zhHans: "完成同一课题 5 题 80%+ 回合，即可解锁本课题游戏路线。" })}
                     </p>
                   ) : summaryNextDecision ? (
                     <p className="mt-3 text-sm font-semibold leading-6 text-slate-600 dark:text-slate-300">
@@ -2088,7 +2104,7 @@ export default function PracticePage() {
                     </p>
                   ) : (
                     <p className="mt-3 text-sm font-semibold leading-6 text-slate-600 dark:text-slate-300">
-                      {t({ en: "The adaptive engine will use this round to choose your next practice target.", zh: "適性引擎會使用這一輪結果選擇下一個練習目標。" })}
+                      {t({ en: "The personalized engine will use this round to choose your next practice target.", zh: "適性引擎會使用這一輪結果選擇下一個練習目標。" })}
                     </p>
                   )}
 
@@ -2102,7 +2118,7 @@ export default function PracticePage() {
                             : t({ en: "This free-selection round", zh: "本輪自由選題" })
                           : summaryKnowledgeTitle
                           ? `${summaryTopicTitle ? `${practiceText(summaryTopicTitle)} · ` : ""}${practiceText(summaryKnowledgeTitle)}`
-                          : t({ en: "Continue with the current adaptive skill target.", zh: "繼續目前的適性技能目標。" })}
+                          : t({ en: "Continue with the current personalized skill target.", zh: "繼續目前的適性技能目標。" })}
                       </p>
                     </div>
                     <div className="rounded-2xl bg-white/75 p-3 dark:bg-white/[0.06]">
@@ -2140,20 +2156,20 @@ export default function PracticePage() {
 
                   <div className="mt-4 flex flex-col gap-3 sm:flex-row lg:flex-col">
                     {hasFishingGameUnlock ? (
-                      <Link
-                        href="/practice/fishing-game"
+                      <a
+                        href={studentPracticeGameHrefs.fishingMaster}
                         className="focus-ring inline-flex justify-center rounded-full bg-emerald-600 px-5 py-3 text-sm font-black text-white transition hover:-translate-y-0.5 dark:bg-emerald-300 dark:text-emerald-950"
                       >
-                        {t({ en: "Start Fishing Master", zh: "開始捕魚達人" })}
-                      </Link>
+                        {t({ en: "Start Fishing Master", zh: "開始捕魚達人", zhHans: "开始捕鱼达人" })}
+                      </a>
                     ) : null}
                     {hasAdventureIslandUnlock ? (
-                      <Link
-                        href="/practice/adventure-island"
+                      <a
+                        href={studentPracticeGameHrefs.adventureIsland}
                         className="focus-ring inline-flex justify-center rounded-full bg-emerald-600 px-5 py-3 text-sm font-black text-white transition hover:-translate-y-0.5 dark:bg-emerald-300 dark:text-emerald-950"
                       >
-                        {t({ en: "Start Adventure Island", zh: "開始探险岛" })}
-                      </Link>
+                        {t({ en: "Start Adventure Island", zh: "開始探险岛", zhHans: "开始探险岛" })}
+                      </a>
                     ) : null}
                     {practiceSummaryMode === "adaptive" && summaryNextLesson ? (
                       <Link
@@ -2184,6 +2200,7 @@ export default function PracticePage() {
         ) : null}
       </AnimatePresence>
       <PracticeArenaBackToTopButton />
+      </div>
     </div>
   );
 }

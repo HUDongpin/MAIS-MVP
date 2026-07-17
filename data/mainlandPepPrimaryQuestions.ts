@@ -74,12 +74,98 @@ const topicSpecs: TopicSpec[] = mainlandPepPrimaryTopics.map((topic) => {
 
 const topicById = new Map(mainlandPepPrimaryTopics.map((topic) => [topic.id, topic]));
 
+const cjkPattern = /[\u3400-\u9fff]/u;
+const visibleEnglishReplacements: Array<[string, string]> = [
+  ["小林", "Lin"],
+  ["小雅", "Ya"],
+  ["明明", "Ming"],
+  ["乐乐", "Lele"],
+  ["小辰", "Chen"],
+  ["婷婷", "Ting"],
+  ["浩浩", "Hao"],
+  ["安安", "An"],
+  ["小雨", "Yu"],
+  ["晨晨", "Cheng"],
+  ["佳佳", "Jia"],
+  ["文文", "Wen"],
+  ["数学角", "the math corner"],
+  ["阅读区", "the reading area"],
+  ["科学桌", "the science table"],
+  ["美术柜", "the art cabinet"],
+  ["运动场", "the sports field"],
+  ["图书角", "the book corner"],
+  ["种植区", "the planting area"],
+  ["手工桌", "the craft table"],
+  ["贴纸", "stickers"],
+  ["彩笔", "colored pens"],
+  ["卡片", "cards"],
+  ["积木", "blocks"],
+  ["练习本", "notebooks"],
+  ["奖章", "badges"],
+  ["花盆", "flowerpots"],
+  ["书签", "bookmarks"],
+  ["纸条", "paper slips"],
+  ["模型", "models"],
+  ["从各个方向都能滚动", "it can roll in every direction"],
+  ["上下两个面都是圆形", "it has two circular faces"],
+  ["每个面都是正方形", "all faces are squares"],
+  ["相对的面形状相同，多数面是长方形", "opposite faces match, and most faces are rectangles"],
+  ["能向各个方向滚动", "it can roll in every direction"],
+  ["有两个圆形的面", "it has two circular faces"],
+  ["每个面都是正方形", "all faces are squares"],
+  ["相对的面是长方形", "opposite faces are rectangles"],
+  ["长方体", "cuboid"],
+  ["正方体", "cube"],
+  ["圆柱", "cylinder"],
+  ["球", "sphere"],
+  ["摄氏度", "degrees Celsius"]
+];
+
+const visibleChineseReplacements: Array<[RegExp, string]> = [
+  [/\bcuboid\b/g, "长方体"],
+  [/\bcube\b/g, "正方体"],
+  [/\bcylinder\b/g, "圆柱"],
+  [/\bsphere\b/g, "球"]
+];
+
+function applyLiteralReplacements(value: string, replacements: Array<[string, string]>) {
+  return replacements.reduce((current, [from, to]) => current.replaceAll(from, to), value);
+}
+
+function englishVisible(value: string) {
+  return applyLiteralReplacements(value, visibleEnglishReplacements)
+    .replace(/(-?\d+(?:\.\d+)?)立方厘米/g, "$1 cm^3")
+    .replace(/(-?\d+(?:\.\d+)?)平方厘米/g, "$1 cm^2")
+    .replace(/(-?\d+(?:\.\d+)?)厘米/g, "$1 cm")
+    .replace(/(-?\d+(?:\.\d+)?)分钟/g, "$1 min")
+    .replace(/(-?\d+(?:\.\d+)?)升/g, "$1 L")
+    .replace(/(-?\d+(?:\.\d+)?)米/g, "$1 m")
+    .replace(/(-?\d+(?:\.\d+)?)个/g, "$1 items")
+    .replace(/(-?\d+)余(\d+)/g, "$1 R $2");
+}
+
+function chineseVisible(value: string) {
+  if (cjkPattern.test(value)) return value;
+  return visibleChineseReplacements
+    .reduce((current, [pattern, replacement]) => current.replace(pattern, replacement), value)
+    .replace(/(-?\d+(?:\.\d+)?)\s*cm\^3/gi, "$1立方厘米")
+    .replace(/(-?\d+(?:\.\d+)?)\s*cm\^2/gi, "$1平方厘米")
+    .replace(/(-?\d+(?:\.\d+)?)\s*cm\b/gi, "$1厘米")
+    .replace(/(-?\d+(?:\.\d+)?)\s*min\b/gi, "$1分钟")
+    .replace(/(-?\d+(?:\.\d+)?)\s*L\b/g, "$1升")
+    .replace(/(-?\d+(?:\.\d+)?)\s*m\b/gi, "$1米")
+    .replace(/(-?\d+(?:\.\d+)?)\s*items\b/gi, "$1个")
+    .replace(/(-?\d+)\s*R\s*(\d+)/g, "$1余$2");
+}
+
 function localized(value: string): LocalizedText {
-  return { en: value, zh: value, zhHans: value };
+  const en = englishVisible(value);
+  const zh = chineseVisible(value);
+  return { en, zh, zhHans: zh };
 }
 
 function text(en: string, zh: string): LocalizedText {
-  return { en, zh, zhHans: zh };
+  return { en: englishVisible(en), zh, zhHans: zh };
 }
 
 function formatNumber(value: number) {
@@ -114,10 +200,26 @@ function optionsFor(answer: string, distractors: string[], seed: number): Locali
   const numeric = Number(answer);
   const fallback = Number.isFinite(numeric)
     ? [numeric + 1, numeric - 1, numeric + 2, Math.max(0, numeric - 2)].map(formatNumber)
-    : [`${answer}1`, `${answer}2`, "无法确定", "以上都不对"];
+    : [`${answer}1`, `${answer}2`, "Cannot be determined", "None of these"];
   const values = unique([answer, ...distractors, ...fallback]).slice(0, 4);
   const rotated = [...values.slice(seed % values.length), ...values.slice(0, seed % values.length)];
   return rotated.map(localized);
+}
+
+function hiddenAcceptedAliases(originalAnswer: string, canonicalAnswer: string) {
+  const aliases: string[] = [];
+  if (originalAnswer !== canonicalAnswer) aliases.push(originalAnswer);
+
+  const unitMatch = canonicalAnswer.match(/^(-?\d+(?:\.\d+)?)\s*(cm\^2|cm\^3|cm|min|L|m|items)$/i);
+  if (unitMatch) aliases.push(unitMatch[1]);
+
+  const remainderMatch = canonicalAnswer.match(/^(-?\d+)\s*R\s*(\d+)$/);
+  if (remainderMatch) {
+    aliases.push(`${remainderMatch[1]}余${remainderMatch[2]}`);
+    aliases.push(`${remainderMatch[1]} remainder ${remainderMatch[2]}`);
+  }
+
+  return unique(aliases);
 }
 
 function answerWithUnit(value: number, unit: string) {
@@ -153,12 +255,18 @@ function scalarDraft({
   acceptedAnswers?: string[];
 }): Draft {
   const answerText = String(answer);
+  const canonicalAnswer = englishVisible(answerText);
+  const acceptedAnswerAliases = unique([
+    ...acceptedAnswers,
+    ...hiddenAcceptedAliases(answerText, canonicalAnswer)
+  ]).filter((candidate) => candidate !== canonicalAnswer);
+
   return {
     prompt: text(enPrompt, zhPrompt),
-    answer: answerText,
+    answer: canonicalAnswer,
     explanation: text(enExplanation, zhExplanation),
-    distractors: distractors.map(String),
-    ...(acceptedAnswers.length ? { acceptedAnswers } : {})
+    distractors: distractors.map((distractor) => englishVisible(String(distractor))),
+    ...(acceptedAnswerAliases.length ? { acceptedAnswers: acceptedAnswerAliases } : {})
   };
 }
 
@@ -1138,23 +1246,22 @@ function typePlanForGrade(grade: PrimaryGrade): PrimaryQuestionType[] {
 function difficultyPlanForGrade(grade: PrimaryGrade): Difficulty[] {
   if (grade === "P1" || grade === "P2") {
     return expandPlan<Difficulty>([
-      ["Foundation", 120],
-      ["Core", 70],
-      ["Challenge", 10]
+      ["Low", 120],
+      ["Medium", 70],
+      ["High", 10]
     ]);
   }
   if (grade === "P3" || grade === "P4") {
     return expandPlan<Difficulty>([
-      ["Foundation", 80],
-      ["Core", 95],
-      ["Challenge", 25]
+      ["Low", 80],
+      ["Medium", 95],
+      ["High", 25]
     ]);
   }
   return expandPlan<Difficulty>([
-    ["Foundation", 60],
-    ["Core", 100],
-    ["Challenge", 30],
-    ["Exam", 10]
+    ["Low", 60],
+    ["Medium", 100],
+    ["High", 40]
   ]);
 }
 

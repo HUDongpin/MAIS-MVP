@@ -54,7 +54,7 @@ export type MainlandPepHighQuestionGenerationMetadata = {
 };
 
 const specs: MainlandPepHighQuestionSpec[] = [
-  { grade: "S4", topicId: "pep-high-s4-sets-logic", chapter: "集合与常用逻辑用语", family: "sets", difficulty: "Foundation" },
+  { grade: "S4", topicId: "pep-high-s4-sets-logic", chapter: "集合与常用逻辑用语", family: "sets", difficulty: "Low" },
   { grade: "S4", topicId: "pep-high-s4-quadratic-inequalities", chapter: "一元二次函数、方程和不等式", family: "quadratic" },
   { grade: "S4", topicId: "pep-high-s4-function-properties", chapter: "函数的概念与性质", family: "functions" },
   { grade: "S4", topicId: "pep-high-s4-exp-log", chapter: "指数函数与对数函数", family: "exp-log" },
@@ -72,10 +72,10 @@ const specs: MainlandPepHighQuestionSpec[] = [
   { grade: "S6", topicId: "pep-high-s6-counting", chapter: "计数原理", family: "counting" },
   { grade: "S6", topicId: "pep-high-s6-random-variables", chapter: "随机变量及其分布", family: "random-variables" },
   { grade: "S6", topicId: "pep-high-s6-bivariate-data", chapter: "成对数据的统计分析", family: "bivariate-data" },
-  { grade: "S6", topicId: "pep-high-s6-derivative-synthesis", chapter: "一元函数的导数及其应用", family: "derivatives", difficulty: "Challenge" },
-  { grade: "S6", topicId: "pep-high-s6-analytic-geometry-synthesis", chapter: "圆锥曲线的方程", family: "conics", difficulty: "Challenge" },
-  { grade: "S6", topicId: "pep-high-s6-probability-statistics-synthesis", chapter: "概率", family: "probability", difficulty: "Challenge" },
-  { grade: "S6", topicId: "pep-high-s6-exam-practice", chapter: "综合复习与跨章节建模", family: "exam-synthesis", difficulty: "Exam" }
+  { grade: "S6", topicId: "pep-high-s6-derivative-synthesis", chapter: "一元函数的导数及其应用", family: "derivatives", difficulty: "High" },
+  { grade: "S6", topicId: "pep-high-s6-analytic-geometry-synthesis", chapter: "圆锥曲线的方程", family: "conics", difficulty: "High" },
+  { grade: "S6", topicId: "pep-high-s6-probability-statistics-synthesis", chapter: "概率", family: "probability", difficulty: "High" },
+  { grade: "S6", topicId: "pep-high-s6-exam-practice", chapter: "综合复习与跨章节建模", family: "exam-synthesis", difficulty: "High" }
 ];
 
 const topicById = new Map(mainlandPepHighTopics.map((topic) => [topic.id, topic]));
@@ -187,10 +187,10 @@ const ragV4ExplanationClosers = [
 ];
 
 const difficultyByBand: Record<string, Difficulty> = {
-  foundation: "Foundation",
-  core: "Core",
-  exam: "Exam",
-  challenge: "Challenge"
+  foundation: "Low",
+  core: "Medium",
+  exam: "High",
+  challenge: "High"
 };
 
 const typePrefixes: Record<Exclude<QuestionType, "graph">, string> = {
@@ -285,6 +285,10 @@ function appendSentence(value: string, sentence: string) {
   return `${value}${/[.!?。！？]$/.test(value.trim()) ? " " : " "}${sentence}`;
 }
 
+function englishTopicTitle(spec: MainlandPepHighQuestionSpec) {
+  return topicById.get(spec.topicId)?.title.en ?? spec.topicId;
+}
+
 function withRagV2Guidance(draft: QuestionDraft, spec: MainlandPepHighQuestionSpec, contextIndex: number): QuestionDraft {
   const primaryCard = ragCardsForSpec(spec)[0];
   const itemTypeTag = primaryCard?.itemTypeTags[0] ?? "计算求解";
@@ -345,7 +349,7 @@ function withRagV3Guidance(
   return {
     ...draft,
     prompt: {
-      en: `RAG-v3 ${mode.en} ${contextIndex + 1} for ${spec.chapter}: ${mode.en} ${typeLabel.en} focus. ${draft.prompt.en}`,
+      en: `RAG-v3 ${mode.en} ${contextIndex + 1} for ${englishTopicTitle(spec)}: ${mode.en} ${typeLabel.en} focus. ${draft.prompt.en}`,
       zh: `RAG-v3 ${mode.zh} ${contextIndex + 1}（${spec.chapter}）：${mode.zh}${typeLabel.zh}任务：${draft.prompt.zh}`
     },
     explanation: {
@@ -739,6 +743,21 @@ function draftLinesCircles(type: Exclude<QuestionType, "graph">, n: number): Que
   const radius = 2 + (n % 6);
   const radiusSquared = radius ** 2;
   const answer = type === "short-answer" ? radiusSquared : type === "fill-in" ? radius : m;
+  const explanation =
+    type === "short-answer"
+      ? {
+          en: `A circle in standard form ${math("(x-a)^2+(y-b)^2=r^2")} has right side ${math("r^2")}. Here ${math(`r^2=${radiusSquared}`)}.`,
+          zh: `圆的标准方程 ${math("(x-a)^2+(y-b)^2=r^2")} 右端就是 ${math("r^2")}。本题中 ${math(`r^2=${radiusSquared}`)}。`
+        }
+      : type === "fill-in"
+        ? {
+            en: `A circle in standard form ${math("(x-a)^2+(y-b)^2=r^2")} has radius ${math("r")}. Here ${math(`r^2=${radiusSquared}`)}, so ${math(`r=${radius}`)}.`,
+            zh: `圆的标准方程 ${math("(x-a)^2+(y-b)^2=r^2")} 中，半径为 ${math("r")}。本题 ${math(`r^2=${radiusSquared}`)}，所以 ${math(`r=${radius}`)}。`
+          }
+        : {
+            en: `The slope through two points is ${math("\\frac{y_2-y_1}{x_2-x_1}")}. Here ${math(`\\frac{${y2}-${y1}}{${x2}-${x1}}=${m}`)}.`,
+            zh: `两点式斜率为 ${math("\\frac{y_2-y_1}{x_2-x_1}")}。本题 ${math(`\\frac{${y2}-${y1}}{${x2}-${x1}}=${m}`)}。`
+          };
   return {
     prompt: type === "short-answer"
       ? {
@@ -756,10 +775,7 @@ function draftLinesCircles(type: Exclude<QuestionType, "graph">, n: number): Que
           },
     answer: String(answer),
     options: type === "multiple-choice" ? numericOptions(answer) : undefined,
-    explanation: {
-      en: `Use slope from two points or read the circle radius from standard form.`,
-      zh: `斜率由两点坐标计算；圆的半径从标准方程中读取。`
-    }
+    explanation
   };
 }
 
@@ -1008,8 +1024,8 @@ function difficultyFor(spec: MainlandPepHighQuestionSpec, draft: QuestionDraft):
   if (draft.difficulty) return draft.difficulty;
   if (spec.difficulty) return spec.difficulty;
   const ragDifficulty = ragDifficultyByChapter.get(spec.chapter);
-  if (ragDifficulty) return difficultyByBand[ragDifficulty] ?? "Core";
-  return examPatternChapters.has(spec.chapter) ? "Exam" : "Core";
+  if (ragDifficulty) return difficultyByBand[ragDifficulty] ?? "Medium";
+  return examPatternChapters.has(spec.chapter) ? "High" : "Medium";
 }
 
 function questionFor({

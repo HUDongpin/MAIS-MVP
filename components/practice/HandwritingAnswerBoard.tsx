@@ -64,6 +64,7 @@ const copy = {
   convertSuccess: { en: "Converted to", zh: "已轉換為" },
   convertLowConfidence: { en: "Low confidence. Choose a suggestion or edit the answer text.", zh: "信心較低。請選擇建議答案或自行修改答案文字。" },
   convertError: { en: "Draw clearer separated digits, then convert again.", zh: "請把數字分開寫清楚，然後再轉換。" },
+  noVisibleInk: { en: "Write with the pen before converting.", zh: "請先用筆寫下答案，再轉換。" },
   reviewAnswer: { en: "Review before checking the answer.", zh: "提交前請先檢查答案。" },
   useSuggestion: { en: "Use suggestion", zh: "使用建議" },
   undo: { en: "Undo last handwriting stroke", zh: "復原上一筆手寫" },
@@ -90,6 +91,7 @@ export function HandwritingAnswerBoard({
   const activePointerIdRef = useRef<number | null>(null);
   const activeStrokeRef = useRef<HandwritingStroke | null>(null);
   const strokesRef = useRef<HandwritingStroke[]>([]);
+  const canvasSizeRef = useRef({ width: 800, height: 256, pixelRatio: 1 });
   const [tool, setTool] = useState<HandwritingTool>("pen");
   const [strokes, setStrokes] = useState<HandwritingStroke[]>([]);
   const [activeStroke, setActiveStroke] = useState<HandwritingStroke | null>(null);
@@ -97,6 +99,7 @@ export function HandwritingAnswerBoard({
   const [isConverting, setIsConverting] = useState(false);
   const [recognitionStatus, setRecognitionStatus] = useState<RecognitionStatus | null>(null);
   const hasDraft = strokes.length > 0 || Boolean(activeStroke);
+  const hasVisibleInkDraft = strokes.some(strokeHasVisiblePenInk) || strokeHasVisiblePenInk(activeStroke);
 
   const drawStroke = useCallback((context: CanvasRenderingContext2D, stroke: HandwritingStroke) => {
     if (!stroke.points.length) return;
@@ -134,6 +137,7 @@ export function HandwritingAnswerBoard({
     if (!context || rect.width <= 0 || rect.height <= 0) return;
 
     const pixelRatio = window.devicePixelRatio || 1;
+    canvasSizeRef.current = { width: rect.width, height: rect.height, pixelRatio };
     const nextWidth = Math.max(1, Math.round(rect.width * pixelRatio));
     const nextHeight = Math.max(1, Math.round(rect.height * pixelRatio));
     if (canvas.width !== nextWidth || canvas.height !== nextHeight) {
@@ -245,8 +249,25 @@ export function HandwritingAnswerBoard({
     setStrokes([]);
   }
 
-  function buildOcrImageDataUrl() {
-    const canvas = canvasRef.current;
+  function buildCanvasFromStrokes(visibleStrokes: HandwritingStroke[]) {
+    if (!visibleStrokes.some(strokeHasVisiblePenInk)) return null;
+
+    const { width, height, pixelRatio } = canvasSizeRef.current;
+    const canvas = document.createElement("canvas");
+    canvas.width = Math.max(1, Math.round(width * pixelRatio));
+    canvas.height = Math.max(1, Math.round(height * pixelRatio));
+
+    const context = canvas.getContext("2d");
+    if (!context) return null;
+
+    context.setTransform(pixelRatio, 0, 0, pixelRatio, 0, 0);
+    context.clearRect(0, 0, width, height);
+    visibleStrokes.forEach((stroke) => drawStroke(context, stroke));
+    return canvas;
+  }
+
+  function buildOcrImageDataUrl(visibleStrokes: HandwritingStroke[]) {
+    const canvas = canvasRef.current ?? buildCanvasFromStrokes(visibleStrokes);
     if (!canvas) return undefined;
 
     const fallback = () => canvas.toDataURL("image/png");
@@ -295,10 +316,15 @@ export function HandwritingAnswerBoard({
     setRecognitionStatus(null);
 
     try {
-      const imageDataUrl = buildOcrImageDataUrl();
       const visibleStrokes = activeStrokeRef.current?.points.length
         ? [...strokesRef.current, activeStrokeRef.current]
         : strokesRef.current;
+      if (!visibleStrokes.some(strokeHasVisiblePenInk)) {
+        setRecognitionStatus({ type: "error", message: localize(copy.noVisibleInk, language) });
+        return;
+      }
+
+      const imageDataUrl = buildOcrImageDataUrl(visibleStrokes);
       const response = await fetch("/api/handwriting-recognition", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -310,7 +336,7 @@ export function HandwritingAnswerBoard({
       });
 
       if (!response.ok) {
-        setRecognitionStatus({ type: "error" });
+        setRecognitionStatus({ type: "error", message: await readRecognitionErrorMessage(response) });
         return;
       }
 
@@ -364,7 +390,7 @@ export function HandwritingAnswerBoard({
             type="button"
             aria-label={localize(copy.convertAria, language)}
             title={localize(copy.convertAria, language)}
-            disabled={!hasDraft || isConverting}
+            disabled={!hasVisibleInkDraft || isConverting}
             onClick={convertHandwritingToText}
             className="focus-ring inline-flex min-h-11 items-center gap-2 rounded-full border border-cyan-300 bg-cyan-500 px-4 py-2 text-sm font-black text-white shadow-sm transition enabled:hover:-translate-y-0.5 enabled:hover:bg-cyan-600 disabled:cursor-not-allowed disabled:border-slate-200 disabled:bg-slate-100 disabled:text-slate-400 disabled:opacity-70 dark:border-cyan-200/40 dark:bg-cyan-300 dark:text-slate-950 dark:enabled:hover:bg-cyan-200 dark:disabled:border-white/10 dark:disabled:bg-white/[0.06] dark:disabled:text-slate-500"
           >
@@ -526,6 +552,21 @@ function findInkPixelBounds(data: Uint8ClampedArray, width: number, height: numb
   }
 
   return maxX >= minX && maxY >= minY ? { minX, minY, maxX, maxY } : null;
+}
+
+function strokeHasVisiblePenInk(stroke: HandwritingStroke | null | undefined) {
+  return Boolean(stroke && (stroke.tool ?? "pen") === "pen" && stroke.points.length > 0);
+}
+
+async function readRecognitionErrorMessage(response: Response) {
+  try {
+    const body = await response.json() as { error?: unknown };
+    if (typeof body.error === "string" && body.error.trim()) return body.error.trim();
+  } catch {
+    // The route normally returns JSON, but the generic localized copy is safer than showing raw HTML.
+  }
+
+  return undefined;
 }
 
 function RecognitionDebug({ provider, confidence }: { provider?: string; confidence?: number | null }) {

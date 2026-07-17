@@ -1,5 +1,6 @@
 import assert from "node:assert/strict";
-import { readFileSync } from "node:fs";
+import { existsSync, readFileSync } from "node:fs";
+import path from "node:path";
 import test from "node:test";
 import {
   independentMainlandPepJuniorAnswer,
@@ -12,12 +13,14 @@ import { questions } from "../data/questions";
 import { mainlandPepJuniorExamPatternCards } from "../data/rag/mainlandPepJuniorExamPatterns";
 import { mainlandPepJuniorPaperPatternCards } from "../data/rag/mainlandPepJuniorPaperPatterns";
 import { mainlandPepJuniorRagCards } from "../data/rag/mainlandPepJunior";
+import { mainlandPepQuestionAssetFor } from "./mainlandPepQuestionAssets";
 import type { Question } from "@/types";
 
 const expectedJuniorQuestionCount = 1200;
 const expectedLegacyCandidateQuestionCount = 900;
 const legacyJuniorCandidateJsonlPath = "coordination/content-qa/mainland-pep-junior-generated-bank-v1/questions.jsonl";
 const juniorV2QuestionPackPath = "coordination/content-qa/mainland-pep-junior-generated-bank-v2-1200/question-pack.json";
+const cjkPattern = /[\u3400-\u9fff]/u;
 
 type JuniorCandidateRecord = {
   id: string;
@@ -53,6 +56,37 @@ function countBy(values: string[]) {
   return counts;
 }
 
+function publicAssetPath(src: string) {
+  return path.join(process.cwd(), "public", src.replace(/^\//, ""));
+}
+
+function assertQuestionImageAssetIsGated(question: Question) {
+  const approvedAsset = mainlandPepQuestionAssetFor(question);
+  const imageAssets = question.questionAssets?.filter((asset) => asset.kind === "image") ?? [];
+
+  if (!approvedAsset) {
+    assert.equal(imageAssets.length, 0, `${question.id} should remain text-only without an approved exact image asset`);
+    return;
+  }
+
+  assert.deepEqual(
+    imageAssets.map((asset) => asset.src),
+    [approvedAsset.src],
+    `${question.id} should expose only the approved exact image asset`
+  );
+  assert.equal(existsSync(publicAssetPath(approvedAsset.src)), true, `${question.id} approved PNG asset should exist at ${approvedAsset.src}`);
+}
+
+function englishVisibleTextFields(question: Question): Array<[string, string]> {
+  return [
+    ["topic", question.topic.en],
+    ["prompt", question.prompt.en],
+    ["answer", question.answer],
+    ["explanation", question.explanation.en],
+    ...(question.options ?? []).map((option, index) => [`option ${index + 1}`, option.en] as [string, string])
+  ];
+}
+
 test("Mainland PEP junior public bank promotes the reviewed v2 1200-question package", () => {
   const publicJuniorQuestions = questions.filter((question) => Boolean(mainlandPepJuniorQuestionGenerationMetadata[question.id]));
   const publicJuniorIds = new Set(publicJuniorQuestions.map((question) => question.id));
@@ -70,6 +104,7 @@ test("Mainland PEP junior public bank promotes the reviewed v2 1200-question pac
   assert.equal(bankIds.size, expectedJuniorQuestionCount);
   assert.equal(legacyCandidateRecords.length, expectedLegacyCandidateQuestionCount);
   assert.equal(questions.some((question) => legacyCandidateIds.has(question.id)), false);
+  publicJuniorQuestions.forEach(assertQuestionImageAssetIsGated);
 
   v2Ids.forEach((questionId) => {
     assert.ok(bankIds.has(questionId), `${questionId} should be exported by the junior public bank`);
@@ -100,10 +135,9 @@ test("Mainland PEP junior v2 questions keep the approved grade, semester, type, 
     "short-answer": 400
   });
   assert.deepEqual(countBy(mainlandPepJuniorQuestions.map((question) => question.difficulty)), {
-    Foundation: 230,
-    Core: 610,
-    Exam: 280,
-    Challenge: 80
+    Low: 230,
+    Medium: 610,
+    High: 360
   });
   assert.equal(Object.keys(topicTypeCounts).length, mainlandPepJuniorTopics.length * 3);
 
@@ -130,6 +164,14 @@ test("Mainland PEP junior v2 questions are track-compatible and independently an
     assert.ok(question.prompt.en.trim() && question.prompt.zh.trim(), `${question.id} is missing prompt text`);
     assert.ok(question.explanation.en.trim() && question.explanation.zh.trim(), `${question.id} is missing explanation text`);
     assert.equal(independentMainlandPepJuniorAnswer(question), question.answer, `${question.id} answer should match deterministic audit metadata`);
+  });
+});
+
+test("Mainland PEP junior English-visible question text does not leak Chinese characters", () => {
+  mainlandPepJuniorQuestions.forEach((question) => {
+    englishVisibleTextFields(question).forEach(([field, value]) => {
+      assert.doesNotMatch(value, cjkPattern, `${question.id} ${field} should be English-mode safe`);
+    });
   });
 });
 

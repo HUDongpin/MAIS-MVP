@@ -6,6 +6,7 @@ import {
   mainlandBnuJuniorQuestionGenerationMetadata,
   mainlandBnuJuniorQuestions
 } from "../data/mainlandBnuJuniorQuestions";
+import { mainlandBnuJuniorLessonSeeds, mainlandBnuJuniorSourceLessonCount } from "../data/mainlandBnuJuniorLessons";
 import { mainlandBnuJuniorTopicMetadata, mainlandBnuJuniorTopics } from "../data/mainlandBnuJuniorTopics";
 import { questions } from "../data/questions";
 import { topics } from "../data/topics";
@@ -14,7 +15,13 @@ import { mainlandBnuJuniorAssessmentPatternCards } from "../data/rag/mainlandBnu
 import { mainlandJuniorZhongkaoExamPatternCards } from "../data/rag/mainlandJuniorZhongkaoExamPatterns";
 import { GET as getQuestionsRoute } from "../app/api/questions/route";
 import { createSessionToken, SESSION_COOKIE_NAME } from "./session";
-import { createStudentUser, getPublicQuestions, getRoadmapData } from "./server/userStore";
+import {
+  createStudentUser,
+  getLessonBySlug,
+  getLessonEntryTarget,
+  getPublicQuestions,
+  getRoadmapData
+} from "./server/userStore";
 import type { CurriculumProfile, GradeId, QuestionType } from "@/types";
 
 type ApprovedQuestionPack = {
@@ -80,10 +87,9 @@ test("Mainland BNU junior bank keeps approved grade, type, difficulty, and topic
     "fill-in": 450
   });
   assert.deepEqual(countBy(mainlandBnuJuniorQuestions.map((question) => question.difficulty)), {
-    Core: 695,
-    Foundation: 290,
-    Exam: 385,
-    Challenge: 130
+    Medium: 695,
+    Low: 290,
+    High: 515
   });
 
   juniorGrades.forEach((grade) => {
@@ -121,6 +127,7 @@ test("Mainland BNU junior questions are publisher-scoped, approved, and independ
 
     assert.ok(question.prompt.en.trim() && question.prompt.zh.trim() && question.prompt.zhHans?.trim(), `${question.id} is missing localized prompt text`);
     assert.ok(question.explanation.en.trim() && question.explanation.zh.trim() && question.explanation.zhHans?.trim(), `${question.id} is missing localized explanation text`);
+    assert.equal(/term-[0-9a-f]+/i.test(`${question.prompt.en} ${question.explanation.en}`), false, `${question.id} should not expose machine placeholder tokens in English fallback`);
     assert.equal(independentMainlandBnuJuniorAnswer(question), question.answer, `${question.id} answer should match approved QA metadata`);
   });
 });
@@ -162,7 +169,25 @@ test("Mainland BNU junior multiple-choice items have four unique options and one
     });
 });
 
-test("Mainland BNU S1-S3 Roadmap, Practice, and question API expose approved junior content", async () => {
+test("Mainland BNU junior lesson seeds provide formal S1-S3 textbook coverage", () => {
+  const bnuQuestionIds = new Set(mainlandBnuJuniorQuestions.map((question) => question.id));
+  const lessonTopicIds = new Set(mainlandBnuJuniorLessonSeeds.map((lesson) => lesson.topicId));
+
+  assert.equal(mainlandBnuJuniorSourceLessonCount, 105);
+  assert.equal(mainlandBnuJuniorLessonSeeds.length, mainlandBnuJuniorTopics.length);
+  mainlandBnuJuniorTopics.forEach((topic) => {
+    assert.equal(lessonTopicIds.has(topic.id), true, `${topic.id} should have a BNUP junior formal lesson`);
+  });
+  mainlandBnuJuniorLessonSeeds.forEach((lessonSeed) => {
+    assert.ok(lessonSeed.topicId.startsWith("bnu-junior-"), `${lessonSeed.topicId} should use a BNUP junior slug`);
+    assert.equal(lessonSeed.productionReady, true);
+    assert.equal(lessonSeed.practiceQuestionIds?.length, 8, `${lessonSeed.topicId} should have an 8-question checkpoint`);
+    assert.ok(lessonSeed.practiceQuestionIds?.every((questionId) => bnuQuestionIds.has(questionId) && /^bnu-junior-ds-v1-/.test(questionId)));
+    assert.ok(lessonSeed.blocks.some((block) => block.type === "teacher-guide"), `${lessonSeed.topicId} should include teacher guidance`);
+  });
+});
+
+test("Mainland BNU S1-S3 Lesson, Roadmap, Practice, and question API expose approved junior content", async () => {
   const bnuJuniorQuestionIds = new Set(mainlandBnuJuniorQuestions.map((question) => question.id));
 
   for (const grade of juniorGrades) {
@@ -187,6 +212,24 @@ test("Mainland BNU S1-S3 Roadmap, Practice, and question API expose approved jun
     assert.equal(questionsForGrade.length, 500);
     assert.ok(questionsForGrade.every((question) => question.curriculumTrack === "MAINLAND_PEP_HIGH" && question.publisher === "MAINLAND_BNU"));
     assert.ok(questionsForGrade.every((question) => bnuJuniorQuestionIds.has(question.id) && /^bnu-junior-ds-v1-/.test(question.id)));
+
+    const entryTarget = await getLessonEntryTarget(result.session.user.id, grade, result.session.user.curriculumProfile);
+    assert.ok(entryTarget, `${grade} should resolve a BNUP junior lesson entry`);
+    assert.match(entryTarget?.slug ?? "", /^bnu-junior-/);
+    const lesson = entryTarget ? await getLessonBySlug(result.session.user.id, entryTarget.slug, result.session.user.curriculumProfile) : null;
+    assert.ok(lesson, `${grade} should load the scoped BNUP junior lesson`);
+    assert.equal(lesson?.publisher, "MAINLAND_BNU");
+    assert.equal(lesson?.topic.curriculumTrack, "MAINLAND_PEP_HIGH");
+    assert.equal(lesson?.topic.publisher, "MAINLAND_BNU");
+    assert.equal(lesson?.practiceQuestions.length, 8);
+    assert.ok(lesson?.practiceQuestions.every((question) => question.publisher === "MAINLAND_BNU" && bnuJuniorQuestionIds.has(question.id) && /^bnu-junior-ds-v1-/.test(question.id)));
+    assert.ok(lesson?.blocks.some((block) => block.type === "teacher-guide"));
+
+    const teacherView = entryTarget ? await getLessonBySlug(null, entryTarget.slug, mainlandBnuProfile) : null;
+    assert.equal(teacherView?.publisher, "MAINLAND_BNU");
+    assert.equal(teacherView?.practiceQuestions.length, 8);
+    assert.ok(teacherView?.practiceQuestions.every((question) => question.publisher === "MAINLAND_BNU" && /^bnu-junior-ds-v1-/.test(question.id)));
+    assert.ok(teacherView?.blocks.some((block) => block.type === "teacher-guide"));
   }
 
   const pepS1Questions = await getPublicQuestions({ grade: "S1", curriculumProfile: mainlandPepProfile });
