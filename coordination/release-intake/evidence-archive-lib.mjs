@@ -3077,7 +3077,7 @@ function typedFseventsMetadataPolicy(
   metadataOwnerPid
 ) {
   if (!Array.isArray(exactMetadataPaths)
-    || exactMetadataPaths.length > TRANSACTION_METADATA_PATHS.length + 1
+    || exactMetadataPaths.length > MANIFEST_TRANSACTION_MONITOR_METADATA_PATHS.length + 1
     || !Array.isArray(exactMetadataRoots)
     || exactMetadataRoots.length > 1
     || !Number.isSafeInteger(metadataOwnerPid)
@@ -3106,7 +3106,7 @@ function typedFseventsMetadataPolicy(
   for (const candidate of metadataPaths) {
     const relativePath = typedFseventsRelativeToAnyRoot(candidate, roots);
     if (relativePath === null
-      || (!TRANSACTION_METADATA_PATHS.includes(relativePath)
+      || (!MANIFEST_TRANSACTION_MONITOR_METADATA_PATHS.includes(relativePath)
         && !typedFseventsDirectRegularNoFollowLock(candidate, trustedCommonDir))) {
       throw new Error("typed FSEvents exact metadata path is not module-approved");
     }
@@ -4719,6 +4719,7 @@ export function runTypedFseventsFixedCycle({
 // never imports or rereads this mutable workspace module.
 const TYPED_FSEVENTS_RECONCILIATION_CHILD_SOURCE = [
   `const TRANSACTION_METADATA_PATHS = Object.freeze(${JSON.stringify(TRANSACTION_METADATA_PATHS)});`,
+  `const MANIFEST_TRANSACTION_MONITOR_METADATA_PATHS = Object.freeze(${JSON.stringify(MANIFEST_TRANSACTION_MONITOR_METADATA_PATHS)});`,
   `const SHA256_PATTERN = ${SHA256_PATTERN};`,
   `const UUID_PATTERN = ${UUID_PATTERN};`,
   `const UINT64_DECIMAL_PATTERN = ${UINT64_DECIMAL_PATTERN};`,

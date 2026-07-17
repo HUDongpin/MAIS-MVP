@@ -1183,6 +1183,7 @@ function leavePreparedReportInChild({ evidenceRoot, evidenceRootId, filename, pa
 function spawnHeldPreparedReport({ evidenceRoot, evidenceRootId, filename, readyPath }) {
   const source = `
     import fs from "node:fs";
+    import path from "node:path";
     import { prepareEvidenceReport } from ${JSON.stringify(libraryUrl)};
     const prepared = prepareEvidenceReport({
       evidenceRoot: process.env.TEST_EVIDENCE_ROOT,
@@ -1190,13 +1191,33 @@ function spawnHeldPreparedReport({ evidenceRoot, evidenceRootId, filename, ready
       filename: process.env.TEST_REPORT_FILENAME,
       payload: { state: "held-by-live-owner" }
     });
-    fs.writeFileSync(process.env.TEST_READY_PATH, JSON.stringify({
+    const readyPath = process.env.TEST_READY_PATH;
+    const temporaryPath = \`${"${readyPath}"}.tmp-${"${process.pid}"}\`;
+    const readyBytes = Buffer.from(JSON.stringify({
       backupPath: prepared.backupPath,
       lockPath: prepared.ownershipLock.lockPath,
       recoveryPath: prepared.recoveryPath,
       reportPath: prepared.reportPath,
       temporaryPath: prepared.temporaryPath
     }));
+    const descriptor = fs.openSync(
+      temporaryPath,
+      fs.constants.O_WRONLY | fs.constants.O_CREAT | fs.constants.O_EXCL | (fs.constants.O_NOFOLLOW ?? 0),
+      0o600
+    );
+    try {
+      fs.writeFileSync(descriptor, readyBytes);
+      fs.fsyncSync(descriptor);
+    } finally {
+      fs.closeSync(descriptor);
+    }
+    fs.renameSync(temporaryPath, readyPath);
+    const directoryDescriptor = fs.openSync(path.dirname(readyPath), fs.constants.O_RDONLY);
+    try {
+      fs.fsyncSync(directoryDescriptor);
+    } finally {
+      fs.closeSync(directoryDescriptor);
+    }
     setInterval(() => {}, 1000);
   `;
   return spawn(process.execPath, ["--input-type=module", "-e", source], {
@@ -7690,38 +7711,46 @@ test("a single P2 acquisition survives twenty dead-holder release races on the s
     });
     let stderr = "";
     child.stderr.on("data", (chunk) => { stderr += chunk; });
-    const deadline = Date.now() + TEST_CHILD_TIMEOUT_MS;
-    while (!fs.existsSync(readyPath) && child.exitCode === null && Date.now() < deadline) {
-      await new Promise((resolve) => setTimeout(resolve, 20));
-    }
-    assert.equal(fs.existsSync(readyPath), true, stderr || "cross-process owner exited before readiness");
-    const held = JSON.parse(fs.readFileSync(readyPath, "utf8"));
-    const reportsDirectory = path.dirname(held.reportPath);
-    const lockName = `.evidence-report-owner-${crypto.createHash("sha256").update(filename).digest("hex")}.lock`;
-    const lockPath = path.join(reportsDirectory, lockName);
-    const stableLockInode = fs.statSync(lockPath).ino;
-    const closed = new Promise((resolve) => child.once("close", resolve));
-    child.kill("SIGKILL");
-    await closed;
-    let reportPath;
     try {
-      reportPath = writeEvidenceReport({
-        evidenceRoot: fixture.evidenceRoot,
-        evidenceRootId: marker.rootId,
-        filename,
-        payload: { state: `recovered-after-owner-death-${index}` }
+      const deadline = Date.now() + TEST_CHILD_TIMEOUT_MS;
+      while (!fs.existsSync(readyPath) && child.exitCode === null && Date.now() < deadline) {
+        await new Promise((resolve) => setTimeout(resolve, 20));
+      }
+      assert.equal(fs.existsSync(readyPath), true, stderr || "cross-process owner exited before readiness");
+      const held = JSON.parse(fs.readFileSync(readyPath, "utf8"));
+      const reportsDirectory = path.dirname(held.reportPath);
+      const lockName = `.evidence-report-owner-${crypto.createHash("sha256").update(filename).digest("hex")}.lock`;
+      const lockPath = path.join(reportsDirectory, lockName);
+      const stableLockInode = fs.statSync(lockPath).ino;
+      const closed = new Promise((resolve) => child.once("close", resolve));
+      child.kill("SIGKILL");
+      await closed;
+      let reportPath;
+      try {
+        reportPath = writeEvidenceReport({
+          evidenceRoot: fixture.evidenceRoot,
+          evidenceRootId: marker.rootId,
+          filename,
+          payload: { state: `recovered-after-owner-death-${index}` }
+        });
+      } catch (error) {
+        failures.push({ index, message: error.message });
+      }
+      if (!reportPath) continue;
+      assert.deepEqual(JSON.parse(fs.readFileSync(reportPath, "utf8")), {
+        state: `recovered-after-owner-death-${index}`
       });
-    } catch (error) {
-      failures.push({ index, message: error.message });
+      assert.equal(fs.statSync(lockPath).ino, stableLockInode);
+      assert.deepEqual(fs.readdirSync(reportsDirectory).filter((name) => name.startsWith(`${filename}.tmp-`)
+        || name.startsWith(`${filename}.backup-`) || name.startsWith(`${filename}.recovery-`)), []);
+      assert.equal(stderr, "");
+    } finally {
+      if (child.exitCode === null && child.signalCode === null) {
+        const closed = new Promise((resolve) => child.once("close", resolve));
+        child.kill("SIGKILL");
+        await closed;
+      }
     }
-    if (!reportPath) continue;
-    assert.deepEqual(JSON.parse(fs.readFileSync(reportPath, "utf8")), {
-      state: `recovered-after-owner-death-${index}`
-    });
-    assert.equal(fs.statSync(lockPath).ino, stableLockInode);
-    assert.deepEqual(fs.readdirSync(reportsDirectory).filter((name) => name.startsWith(`${filename}.tmp-`)
-      || name.startsWith(`${filename}.backup-`) || name.startsWith(`${filename}.recovery-`)), []);
-    assert.equal(stderr, "");
   }
   assert.deepEqual(failures, []);
 });
@@ -9842,7 +9871,9 @@ test("sample acknowledgement at the explicit deadline fails closed", async (t) =
   };
   const monitor = {
     child: {
+      exitCode: null,
       pid: process.pid,
+      signalCode: null,
       send(message) {
         Atomics.wait(new Int32Array(new SharedArrayBuffer(4)), 0, 0, 35);
         fs.writeFileSync(path.join(scratch, `sample-${message.requestId}.json`), `${JSON.stringify({
@@ -9873,17 +9904,43 @@ test("mutation state and sample provenance distinguish strict auto fallback from
   t.after(() => fs.rmSync(scratch, { recursive: true, force: true }));
   const { readMutationEpochState } = await import(libraryUrl);
   const sessionId = crypto.randomUUID();
+  const nonTypedFsevents = {
+    droppedEventCount: "0",
+    enabled: false,
+    eventRootCount: 0,
+    eventRootFingerprint: null,
+    helperBinarySha256: null,
+    helperSourceSha256: null,
+    journalEntryCount: "0",
+    journalFirstEventId: null,
+    journalFlushSequence: "0",
+    journalHighWater: "0",
+    journalLastEventId: null,
+    journalLastFlushedEventId: null,
+    journalSha256: null,
+    materialEventCount: "0",
+    sourceEventCount: "0",
+    transactionMetadataEventCount: "0",
+    unknownEventCount: "0",
+    unmatchedDeltaCount: "0",
+    xattrOnlyEventCount: "0"
+  };
   const state = {
     coverageFingerprint: "b".repeat(64),
     coveragePathCount: 1,
     directoryTimestampPolicy: "strict",
+    eventBackend: "none",
     fdCount: 1,
+    helperProtocolVersion: null,
     metadataEpoch: 0,
+    regularFileCtimePolicy: "strict",
     requestedWatchMode: "auto",
     rootFdCount: 1,
-    schemaVersion: 2,
+    schemaVersion: 3,
     sessionId,
     sourceEpoch: 0,
+    typedFsevents: nonTypedFsevents,
+    xattrEpoch: 0,
     watchMode: "descriptor-sentinel"
   };
   const epochPath = path.join(scratch, "epoch");
@@ -9896,7 +9953,9 @@ test("mutation state and sample provenance distinguish strict auto fallback from
     }
   ) => ({
     child: {
+      exitCode: null,
       pid: process.pid,
+      signalCode: null,
       send(message) {
         fs.writeFileSync(path.join(scratch, `sample-${message.requestId}.json`), `${JSON.stringify(sampleMutation({
           ...state,
@@ -9908,8 +9967,11 @@ test("mutation state and sample provenance distinguish strict auto fallback from
     },
     coveragePathCount: 1,
     directoryTimestampPolicy: expectedProvenance.directoryTimestampPolicy,
+    eventBackend: "none",
     epochPath,
     errorPath,
+    helperProtocolVersion: null,
+    regularFileCtimePolicy: "strict",
     requestedWatchMode: expectedProvenance.requestedWatchMode,
     scratch,
     sessionId,
@@ -9981,14 +10043,17 @@ test("mutation monitor forces descriptor-sentinel mode through its effective att
   const monitor = startMutationEpochMonitor([fixture.linked], {
     watchMode: "descriptor-sentinel"
   });
+  const expectedWatchMode = process.platform === "darwin"
+    ? "descriptor-sentinel-fsevents"
+    : "descriptor-sentinel";
   t.after(() => abortMutationEpochMonitor(monitor));
   assert.equal(monitor.requestedWatchMode, "descriptor-sentinel");
   const bootstrap = JSON.parse(fs.readFileSync(path.join(monitor.scratch, "bootstrap.json"), "utf8"));
   assert.equal(bootstrap.requestedWatchModeText, "descriptor-sentinel");
   const state = settleMutationEpochState(monitor);
   assert.equal(state.schemaVersion, 3);
-  assert.equal(monitor.watchMode, "descriptor-sentinel");
-  assert.equal(state.watchMode, "descriptor-sentinel");
+  assert.equal(monitor.watchMode, expectedWatchMode);
+  assert.equal(state.watchMode, expectedWatchMode);
   assert.equal(state.requestedWatchMode, "descriptor-sentinel");
   assert.equal(state.directoryTimestampPolicy, "semantic-directory");
   const attestation = stopMutationEpochMonitor(monitor, {
@@ -9996,7 +10061,7 @@ test("mutation monitor forces descriptor-sentinel mode through its effective att
     expectedMetadataEpoch: state.metadataEpoch
   });
   assert.equal(attestation.schemaVersion, 3);
-  assert.equal(attestation.watchMode, "descriptor-sentinel");
+  assert.equal(attestation.watchMode, expectedWatchMode);
   assert.equal(attestation.requestedWatchMode, "descriptor-sentinel");
   assert.equal(attestation.directoryTimestampPolicy, "semantic-directory");
 });
@@ -10152,7 +10217,7 @@ test("Darwin diagnostic native-pid sidecar tampering never targets an unrelated 
   }
 });
 
-test("Darwin typed descriptor separates exact xattr churn from write-restore material drift", {
+test("Darwin typed descriptor separates exact xattr events and fails closed on ambiguous xattr churn", {
   skip: process.platform !== "darwin"
 }, async (t) => {
   const fixture = makeFixture();
@@ -10179,13 +10244,20 @@ test("Darwin typed descriptor separates exact xattr churn from write-restore mat
     timeout: TEST_CHILD_TIMEOUT_MS
   });
   const xattrState = settleMutationEpochState(monitor);
-  assert.equal(xattrState.sourceEpoch, baseline.sourceEpoch);
   assert.equal(xattrState.metadataEpoch, baseline.metadataEpoch);
-  assert.ok(xattrState.xattrEpoch > baseline.xattrEpoch);
-  assert.ok(
-    BigInt(xattrState.typedFsevents.xattrOnlyEventCount)
-      > BigInt(baseline.typedFsevents.xattrOnlyEventCount)
-  );
+  const xattrOnlyObserved = BigInt(xattrState.typedFsevents.xattrOnlyEventCount)
+    > BigInt(baseline.typedFsevents.xattrOnlyEventCount);
+  if (xattrOnlyObserved) {
+    assert.equal(xattrState.sourceEpoch, baseline.sourceEpoch);
+    assert.ok(xattrState.xattrEpoch > baseline.xattrEpoch);
+  } else {
+    assert.ok(xattrState.sourceEpoch > baseline.sourceEpoch);
+    assert.equal(xattrState.xattrEpoch, baseline.xattrEpoch);
+    assert.ok(
+      BigInt(xattrState.typedFsevents.materialEventCount)
+        > BigInt(baseline.typedFsevents.materialEventCount)
+    );
+  }
   assert.equal(
     BigInt(xattrState.typedFsevents.journalFlushSequence)
       - BigInt(baseline.typedFsevents.journalFlushSequence),
@@ -10335,7 +10407,7 @@ test("closure descriptor override handles ignored churn without opening ignored 
   });
 });
 
-test("explicit closure descriptor treats directory timestamp churn as the same semantic fixed point", async (t) => {
+test("explicit closure descriptor conservatively records Darwin directory timestamp churn", async (t) => {
   const fixture = makeFixture();
   t.after(() => fs.rmSync(fixture.parent, { recursive: true, force: true }));
   const watchedDirectory = path.join(fixture.linked, "stable-directory");
@@ -10368,7 +10440,11 @@ test("explicit closure descriptor treats directory timestamp churn as the same s
   );
   assert.deepEqual(fs.readdirSync(watchedDirectory).sort(), ["tracked.txt"]);
   const observed = settleMutationEpochState(monitor);
-  assert.equal(observed.sourceEpoch, baseline.sourceEpoch);
+  if (process.platform === "darwin") {
+    assert.ok(observed.sourceEpoch > baseline.sourceEpoch);
+  } else {
+    assert.equal(observed.sourceEpoch, baseline.sourceEpoch);
+  }
   stopMutationEpochMonitor(monitor, {
     expectedEpoch: observed.sourceEpoch,
     expectedMetadataEpoch: observed.metadataEpoch
@@ -10516,7 +10592,10 @@ test("closure descriptor override still detects a true tracked mutation", async 
   });
   t.after(() => abortMutationEpochMonitor(monitor));
   const baseline = settleMutationEpochState(monitor);
-  assert.equal(baseline.watchMode, "descriptor-sentinel");
+  assert.equal(
+    baseline.watchMode,
+    process.platform === "darwin" ? "descriptor-sentinel-fsevents" : "descriptor-sentinel"
+  );
   fs.appendFileSync(path.join(fixture.linked, "tracked.txt"), "true mutation\n");
   const observed = settleMutationEpochState(monitor);
   assert.ok(observed.sourceEpoch > baseline.sourceEpoch);
@@ -13300,7 +13379,7 @@ test("typed FSEvents production STOP requests terminal ACK handling", () => {
   );
   assert.match(
     source,
-    /if \(typedFseventsEnabled\) \{\s*await stopTypedFsevents\(\);\s*await awaitTypedFseventsExit\(\);/u
+    /const terminalAcknowledgement = await stopTypedFsevents\(\);\s*await awaitTypedFseventsExit\(\);/u
   );
 });
 
@@ -15423,7 +15502,7 @@ test("Task 3B2 correlates changed paths and freezes the bounded metadata policy"
       candidateSnapshot: cappedSnapshot,
       endpoint: cappedEndpoint,
       eventRoots: [root],
-      exactMetadataPaths: Array(8).fill(approvedMetadataPath),
+      exactMetadataPaths: Array(9).fill(approvedMetadataPath),
       priorCheckpoint: firstExtension.checkpoint,
       priorSnapshot: firstSnapshot
     }), /count cap|exceeds|metadata policy/i);
