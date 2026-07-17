@@ -2,9 +2,13 @@ import assert from "node:assert/strict";
 import test from "node:test";
 import {
   buildDailyLearningAnalyticsBuckets,
+  coalesceLearningAnalyticsEvents,
   getRollingLearningAnalyticsEvents,
+  isHighFrequencyLearningAnalyticsEvent,
   summarizeLearningAnalytics
 } from "./learningAnalytics";
+import { readFile } from "node:fs/promises";
+import path from "node:path";
 import type { LearningAnalyticsEvent } from "@/types";
 
 const now = "2026-05-07T12:00:00.000Z";
@@ -75,4 +79,59 @@ test("buildDailyLearningAnalyticsBuckets groups events by day", () => {
   assert.equal(buckets[1].date, "2026-05-07");
   assert.equal(buckets[1].answers, 1);
   assert.equal(buckets[1].durationSeconds, 60);
+});
+
+test("high-frequency learning analytics only coalesces visualization slider drag and probe events", () => {
+  assert.equal(isHighFrequencyLearningAnalyticsEvent({ type: "visualization-slider" }), true);
+  assert.equal(isHighFrequencyLearningAnalyticsEvent({ type: "visualization-drag" }), true);
+  assert.equal(isHighFrequencyLearningAnalyticsEvent({ type: "visualization-probe" }), true);
+  assert.equal(isHighFrequencyLearningAnalyticsEvent({ type: "visualization-reset" }), false);
+  assert.equal(isHighFrequencyLearningAnalyticsEvent({ type: "answer-correct" }), false);
+});
+
+test("coalesceLearningAnalyticsEvents keeps Practice answers while merging repeated visualization chatter", () => {
+  const coalesced = coalesceLearningAnalyticsEvents([
+    event({ id: "slider-first", type: "visualization-slider", source: "coordinate-plane", topicId: "slope" }),
+    event({ id: "practice-answer", type: "answer-correct", source: "practice", topicId: "slope", questionId: "q1", durationSeconds: 18 }),
+    event({ id: "slider-latest", type: "visualization-slider", source: "coordinate-plane", topicId: "slope" }),
+    event({ id: "probe-only", type: "visualization-probe", source: "coordinate-plane", topicId: "slope" })
+  ]);
+
+  assert.deepEqual(coalesced.map((item) => item.id), ["slider-latest", "practice-answer", "probe-only"]);
+});
+
+test("AppProviders buffers visualization chatter and flushes it on page lifecycle boundaries", async () => {
+  const source = await readFile(path.join(process.cwd(), "components/providers/AppProviders.tsx"), "utf8");
+  const callbackStart = source.indexOf("const recordLearningEvent = useCallback");
+  const highFrequencyCheckIndex = source.indexOf("isHighFrequencyLearningAnalyticsEvent", callbackStart);
+  const immediatePendingIndex = source.indexOf("setPendingLearningEvents", callbackStart);
+
+  assert.notEqual(callbackStart, -1, "AppProviders should expose recordLearningEvent.");
+  assert.notEqual(highFrequencyCheckIndex, -1, "AppProviders should detect high-frequency visualization events.");
+  assert.notEqual(immediatePendingIndex, -1, "AppProviders should still enqueue normal events immediately.");
+  assert.ok(
+    callbackStart < highFrequencyCheckIndex && highFrequencyCheckIndex < immediatePendingIndex,
+    "Visualization slider, drag, and probe events should be buffered before normal pending-event enqueueing."
+  );
+  assert.match(source, /document\.addEventListener\("visibilitychange", flushLearningAnalyticsOnPageExit\)/);
+  assert.match(source, /window\.addEventListener\("pagehide", flushLearningAnalyticsOnPageExit\)/);
+  assert.match(source, /window\.addEventListener\("beforeunload", flushLearningAnalyticsOnPageExit\)/);
+  assert.match(source, /index \+= 100/, "Page-exit flushing should keep the 100-events-per-POST batch ceiling.");
+});
+
+test("learning-events API responds after local append without awaiting optional LRS delivery", async () => {
+  const source = await readFile(path.join(process.cwd(), "app/api/learning-events/route.ts"), "utf8");
+  const jsonParseIndex = source.indexOf("await request.json()");
+  const appendCallIndex = source.indexOf("await appendLearningEvents", jsonParseIndex);
+  const responseIndex = source.indexOf("return NextResponse.json({ accepted", appendCallIndex);
+  const lrsCallIndex = source.indexOf("emitLearningEventsToLrs", appendCallIndex);
+
+  assert.notEqual(appendCallIndex, -1, "Student learning events should be appended to local analytics storage.");
+  assert.notEqual(responseIndex, -1, "Student learning events should respond after the local write.");
+  assert.notEqual(lrsCallIndex, -1, "Optional LRS delivery should still be scheduled for student events.");
+  assert.ok(
+    jsonParseIndex < appendCallIndex && appendCallIndex < responseIndex && responseIndex < lrsCallIndex,
+    "The local analytics write should be the only awaited student learning-events write; optional LRS must not delay the response."
+  );
+  assert.equal(source.includes("await emitLearningEventsToLrs"), false);
 });

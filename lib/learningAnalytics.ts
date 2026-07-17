@@ -12,6 +12,7 @@ import type {
 export const analyticsWindowDays = 7;
 export const maxStoredLearningAnalyticsEvents = 500;
 export const learningAnalyticsUpdatedEventName = "hk-math-learning-analytics-updated";
+export const throttledLearningAnalyticsFlushMs = 1000;
 
 const dayMs = 24 * 60 * 60 * 1000;
 const eventTypes = new Set<LearningAnalyticsEventType>([
@@ -48,6 +49,11 @@ const eventSources = new Set<LearningAnalyticsEventSource>([
   "learning-path",
   "navigation"
 ]);
+const highFrequencyLearningAnalyticsEventTypes = new Set<LearningAnalyticsEventType>([
+  "visualization-slider",
+  "visualization-drag",
+  "visualization-probe"
+]);
 
 function toTime(value: Date | string) {
   return value instanceof Date ? value.getTime() : new Date(value).getTime();
@@ -75,11 +81,61 @@ export function createLearningAnalyticsEvent(
     grade,
     topicId: input.topicId,
     questionId: input.questionId,
+    classId: input.classId,
+    assignmentId: input.assignmentId,
+    competencyId: input.competencyId,
     durationSeconds:
       typeof input.durationSeconds === "number" && Number.isFinite(input.durationSeconds) && input.durationSeconds > 0
         ? Math.round(input.durationSeconds)
         : undefined
   };
+}
+
+export function isHighFrequencyLearningAnalyticsEvent(
+  event: Pick<LearningAnalyticsEvent | LearningAnalyticsInput, "type">
+) {
+  return highFrequencyLearningAnalyticsEventTypes.has(event.type);
+}
+
+function coalescedLearningAnalyticsEventKey(event: LearningAnalyticsEvent) {
+  return [
+    event.type,
+    event.source,
+    event.grade,
+    event.topicId,
+    event.questionId ?? "",
+    event.classId ?? "",
+    event.assignmentId ?? "",
+    event.competencyId ?? ""
+  ].join("\u001f");
+}
+
+export function coalesceLearningAnalyticsEvents(events: LearningAnalyticsEvent[]) {
+  const coalesced: LearningAnalyticsEvent[] = [];
+  const highFrequencyIndexes = new Map<string, number>();
+
+  events.forEach((event) => {
+    if (!isHighFrequencyLearningAnalyticsEvent(event)) {
+      coalesced.push(event);
+      return;
+    }
+
+    const key = coalescedLearningAnalyticsEventKey(event);
+    const existingIndex = highFrequencyIndexes.get(key);
+    if (typeof existingIndex === "number") {
+      coalesced[existingIndex] = event;
+      return;
+    }
+
+    highFrequencyIndexes.set(key, coalesced.length);
+    coalesced.push(event);
+  });
+
+  return coalesced;
+}
+
+function isOptionalCompactAnalyticsId(value: unknown) {
+  return typeof value === "undefined" || (typeof value === "string" && value.trim().length > 0 && value.length <= 160);
 }
 
 export function isValidLearningAnalyticsEvent(value: unknown): value is LearningAnalyticsEvent {
@@ -99,6 +155,9 @@ export function isValidLearningAnalyticsEvent(value: unknown): value is Learning
     isValidGradeId(record?.grade) &&
     typeof record?.topicId === "string" &&
     (typeof record?.questionId === "undefined" || typeof record.questionId === "string") &&
+    isOptionalCompactAnalyticsId(record?.classId) &&
+    isOptionalCompactAnalyticsId(record?.assignmentId) &&
+    isOptionalCompactAnalyticsId(record?.competencyId) &&
     durationIsValid
   );
 }
