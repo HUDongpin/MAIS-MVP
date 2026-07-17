@@ -1091,7 +1091,7 @@ const hongKongProductionLessonSeeds: ProductionLessonSeed[] = [
         zh: "使用坐標平面，準備閱讀距離時間圖和移動規律。"
       },
       moduleId: "configured-visualization-lab",
-      source: "function-model"
+      source: "geometry"
     },
     extension: {
       items: [
