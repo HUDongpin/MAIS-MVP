@@ -1,6 +1,13 @@
 import { californiaElementaryMicroLessonSpecs } from "./usCaliforniaMicroLessons";
 import type { GradeId } from "@/types";
 
+export {
+  californiaMathematicalPracticeStandards,
+  californiaMathematicalPracticeByCode,
+  californiaMathematicalPracticeStandardIds
+} from "./usCaliforniaMathematicalPractices";
+export type { CaliforniaMathematicalPracticeStandard } from "./usCaliforniaMathematicalPractices";
+
 export type CaliforniaKnowledgePoint = {
   topicId: string;
   grade: GradeId;

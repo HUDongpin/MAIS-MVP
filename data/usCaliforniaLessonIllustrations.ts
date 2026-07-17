@@ -35,9 +35,9 @@ export const usCaliforniaLessonIllustrations = [
     ragCardIds: [
       "us-ca-k-g5-tx-v1-p1-1-oa-add-subtract",
       "us-ca-math-p1-1-oa-add-subtract",
-      "1.OA.1",
-      "1.OA.5",
-      "1.OA.6"
+      "1.OA.A.1",
+      "1.OA.C.5",
+      "1.OA.C.6"
     ]
   },
   {
@@ -56,9 +56,9 @@ export const usCaliforniaLessonIllustrations = [
     ragCardIds: [
       "us-ca-k-g5-tx-v1-p1-1-oa-add-subtract",
       "us-ca-math-p1-1-oa-add-subtract",
-      "1.OA.1",
-      "1.OA.2",
-      "1.OA.6"
+      "1.OA.A.1",
+      "1.OA.A.2",
+      "1.OA.C.6"
     ]
   }
 ] satisfies UsCaliforniaLessonIllustration[];
