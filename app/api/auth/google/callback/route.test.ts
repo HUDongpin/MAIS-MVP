@@ -7,7 +7,7 @@ import {
   verifyGoogleOAuthState
 } from "@/lib/server/googleOAuth";
 import { setSessionCookie } from "@/lib/server/sessionCookie";
-import { handleGoogleOAuthCallback, type GoogleCallbackDependencies } from "./route";
+import { handleGoogleOAuthCallback, type GoogleCallbackDependencies } from "./handler";
 
 const authSessionSecretFixture = crypto.randomUUID().replaceAll("-", "");
 const googleClientSecretFixture = crypto.randomUUID().replaceAll("-", "");
