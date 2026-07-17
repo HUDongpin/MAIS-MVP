@@ -1,5 +1,4 @@
 export const runtime = "edge";
-export const preferredRegion = "hkg1";
 
 const defaultTotalDeadlineMs = 8_000;
 const defaultEdgeResponseReserveMs = 3_500;

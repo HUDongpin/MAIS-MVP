@@ -2,7 +2,6 @@ import { NextResponse } from "next/server";
 import { readAITutorProviderStatus } from "@/lib/server/llmProvider";
 
 export const runtime = "nodejs";
-export const preferredRegion = "hkg1";
 export const dynamic = "force-dynamic";
 
 export async function GET() {

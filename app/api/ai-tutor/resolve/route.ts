@@ -245,7 +245,6 @@ const simplifiedChineseSignalCharacters = new Set(
 );
 
 export const runtime = "nodejs";
-export const preferredRegion = "hkg1";
 
 const aiTutorProviderCircuitBreaker = createLLMProviderCircuitBreaker({
   failureThreshold: 1,
