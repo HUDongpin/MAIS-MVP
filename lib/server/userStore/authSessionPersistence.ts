@@ -269,6 +269,12 @@ export type AuthCurriculumAccountCreationResult =
   | { status: "duplicate" }
   | { status: "invalid" };
 
+export type AuthStudentSelectedGradePolicy = (input: {
+  userId: string;
+  grade: GradeId;
+  curriculumProfile: CurriculumProfile;
+}) => boolean;
+
 export type AuthSessionPersistenceStoreDependencies = {
   authenticateUserForLoginBeforeSnapshot?: (
     username: string,
@@ -304,6 +310,7 @@ export type AuthSessionPersistenceStoreDependencies = {
     password: string
   ) => Promise<AuthPasswordResetResult | undefined> | AuthPasswordResetResult | undefined;
   shouldRetryLoginAfterFastInvalid?: (username: string, password: string) => boolean;
+  studentSelectedGradePolicy?: AuthStudentSelectedGradePolicy;
   updateSettingsBeforeSnapshot?: (
     userId: string,
     patch: Partial<{ language: Language; theme: ThemeMode; selectedGrade: GradeId }>
@@ -332,6 +339,40 @@ const defaultPasswordResetTokenMaxAgeMs = 1000 * 60 * 30;
 
 export function isValidAuthStudentAvatarId(value: unknown): value is StudentAvatarId {
   return validAuthStudentAvatarIds.has(value as StudentAvatarId);
+}
+
+export function authSelectedGradeForSettingsUpdate({
+  currentSelectedGrade,
+  fixedExampleGrade,
+  profileGrade,
+  requestedGrade,
+  requestedGradeAllowed,
+  studentSelectedGradePolicy = () => false,
+  user
+}: {
+  currentSelectedGrade: GradeId;
+  fixedExampleGrade?: GradeId | null;
+  profileGrade: GradeId;
+  requestedGrade?: GradeId;
+  requestedGradeAllowed: boolean;
+  studentSelectedGradePolicy?: AuthStudentSelectedGradePolicy;
+  user: Pick<AuthSession["user"], "id" | "role" | "curriculumProfile">;
+}) {
+  if (fixedExampleGrade) return fixedExampleGrade;
+  if (user.role !== "student") {
+    return requestedGrade && requestedGradeAllowed ? requestedGrade : currentSelectedGrade;
+  }
+
+  const studentCanPersistGrade = (grade: GradeId) => studentSelectedGradePolicy({
+    userId: user.id,
+    grade,
+    curriculumProfile: user.curriculumProfile
+  });
+  if (requestedGrade && requestedGradeAllowed && studentCanPersistGrade(requestedGrade)) {
+    return requestedGrade;
+  }
+  if (studentCanPersistGrade(currentSelectedGrade)) return currentSelectedGrade;
+  return profileGrade;
 }
 
 function isValidAuthCurriculumTrack(value: unknown): value is CurriculumTrack {
@@ -1402,6 +1443,7 @@ export function createAuthSessionPersistenceStore({
   readDatabase,
   resetUserPasswordBeforeSnapshot,
   shouldRetryLoginAfterFastInvalid,
+  studentSelectedGradePolicy,
   updateSettingsBeforeSnapshot
 }: AuthSessionPersistenceStoreDependencies) {
   const runMutation = async <T>(mutator: (database: AuthSessionPersistenceDatabase) => T | Promise<T>) => {
@@ -1906,14 +1948,19 @@ export function createAuthSessionPersistenceStore({
           ...currentSettings,
           language: patch.language && validLanguages.has(patch.language) ? patch.language : currentSettings.language,
           theme: patch.theme && validThemes.has(patch.theme) ? patch.theme : currentSettings.theme,
-          selected_grade:
-            fixedExampleScope
-              ? fixedExampleScope.grade
-              : user.role === "student"
-                ? profile.grade
-                : patch.selectedGrade && canUpdateSelectedGrade
-                  ? patch.selectedGrade
-                  : currentSettings.selected_grade,
+          selected_grade: authSelectedGradeForSettingsUpdate({
+            currentSelectedGrade: currentSettings.selected_grade,
+            fixedExampleGrade: fixedExampleScope?.grade,
+            profileGrade: profile.grade,
+            requestedGrade: patch.selectedGrade,
+            requestedGradeAllowed: canUpdateSelectedGrade,
+            studentSelectedGradePolicy,
+            user: {
+              id: user.id,
+              role: user.role,
+              curriculumProfile
+            }
+          }),
           updated_at: updatedAt
         };
 

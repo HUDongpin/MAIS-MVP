@@ -121,6 +121,7 @@ type AuthSessionResponse = {
     selectedGrade: GradeId;
   };
   lessonEntryTarget?: LessonEntryTarget | null;
+  settingsPersisted?: boolean;
 };
 
 type RegisterInput = {
@@ -275,7 +276,8 @@ function readAuthSession(value: unknown): AuthSessionResponse | null {
       theme: settings.theme,
       selectedGrade: settings.selectedGrade
     },
-    lessonEntryTarget: readLessonEntryTarget(record?.lessonEntryTarget)
+    lessonEntryTarget: readLessonEntryTarget(record?.lessonEntryTarget),
+    settingsPersisted: record?.settingsPersisted !== false
   };
 }
 
@@ -815,12 +817,14 @@ export function AppProviders({ children }: { children: ReactNode }) {
       : null;
     analyticsFlushGenerationRef.current += 1;
     lessonEntryRequestKeyRef.current = null;
-    persistedSettingsKeyRef.current = persistedSettingsKey(
-      session.user.id,
-      session.settings.language,
-      session.settings.theme,
-      session.settings.selectedGrade
-    );
+    persistedSettingsKeyRef.current = session.settingsPersisted === false
+      ? null
+      : persistedSettingsKey(
+          session.user.id,
+          session.settings.language,
+          session.settings.theme,
+          session.settings.selectedGrade
+        );
     setLearningAnalyticsEvents([]);
     setPendingLearningEvents([]);
     setCurrentUser(session.user);

@@ -1,5 +1,5 @@
 import assert from "node:assert/strict";
-import { createHash, pbkdf2Sync } from "node:crypto";
+import { createHash, pbkdf2Sync, randomUUID } from "node:crypto";
 import { readFile } from "node:fs/promises";
 import path from "node:path";
 import test from "node:test";
@@ -101,6 +101,19 @@ type AuthFixedExampleScope = {
 };
 
 type AuthDemoSeedBoundaryModule = {
+  authSelectedGradeForSettingsUpdate?: (input: {
+    currentSelectedGrade: AuthSession["settings"]["selectedGrade"];
+    fixedExampleGrade?: AuthSession["settings"]["selectedGrade"] | null;
+    profileGrade: AuthSession["user"]["grade"];
+    requestedGrade?: AuthSession["settings"]["selectedGrade"];
+    requestedGradeAllowed: boolean;
+    studentSelectedGradePolicy?: (input: {
+      userId: string;
+      grade: AuthSession["settings"]["selectedGrade"];
+      curriculumProfile: AuthSession["user"]["curriculumProfile"];
+    }) => boolean;
+    user: Pick<AuthSession["user"], "id" | "role" | "curriculumProfile">;
+  }) => AuthSession["settings"]["selectedGrade"];
   authDemoSeedMatchesIdentifier?: (seed: AuthDemoAccountSeed, username: string) => boolean;
   authStorageSeedExampleAccountSeeds?: (input: {
     demoAccountSeeds: readonly AuthDemoAccountSeed[];
@@ -1618,6 +1631,69 @@ test("auth session persistence owns demo seed boundary helpers for legacy userSt
   )?.id, unitedStatesSeed.id);
 });
 
+test("auth settings grade selection lets Student Jon use California Kindergarten through Grade 12", async () => {
+  const module = await import("@/lib/server/userStore/authSessionPersistence") as AuthDemoSeedBoundaryModule;
+  assert.equal(typeof module.authSelectedGradeForSettingsUpdate, "function");
+
+  const californiaProfile = { region: "US", publisher: "US_CA_MATH" } as const;
+  const jon = {
+    id: "student-jon-us-ca-super",
+    role: "student" as const,
+    curriculumProfile: californiaProfile
+  };
+  const standardStudent = {
+    id: "student-shirleen-us",
+    role: "student" as const,
+    curriculumProfile: californiaProfile
+  };
+  const californiaK12Grades: AuthSession["settings"]["selectedGrade"][] = [
+    "K", "P1", "P2", "P3", "P4", "P5", "P6", "S1", "S2", "S3", "S4", "S5", "S6"
+  ];
+  const studentSelectedGradePolicy = ({ userId, grade }: { userId: string; grade: AuthSession["settings"]["selectedGrade"] }) =>
+    userId === jon.id && californiaK12Grades.includes(grade);
+
+  assert.equal(module.authSelectedGradeForSettingsUpdate?.({
+    currentSelectedGrade: "P1",
+    profileGrade: "P1",
+    requestedGrade: "K",
+    requestedGradeAllowed: true,
+    studentSelectedGradePolicy,
+    user: jon
+  }), "K");
+  assert.equal(module.authSelectedGradeForSettingsUpdate?.({
+    currentSelectedGrade: "P5",
+    profileGrade: "P1",
+    requestedGradeAllowed: true,
+    studentSelectedGradePolicy,
+    user: jon
+  }), "P5");
+  assert.equal(module.authSelectedGradeForSettingsUpdate?.({
+    currentSelectedGrade: "P5",
+    profileGrade: "P1",
+    requestedGrade: "S6",
+    requestedGradeAllowed: true,
+    studentSelectedGradePolicy,
+    user: jon
+  }), "S6");
+  assert.equal(module.authSelectedGradeForSettingsUpdate?.({
+    currentSelectedGrade: "P1",
+    profileGrade: "P1",
+    requestedGrade: "P5",
+    requestedGradeAllowed: true,
+    studentSelectedGradePolicy,
+    user: standardStudent
+  }), "P1");
+  assert.equal(module.authSelectedGradeForSettingsUpdate?.({
+    currentSelectedGrade: "S4",
+    fixedExampleGrade: "S4",
+    profileGrade: "S4",
+    requestedGrade: "S6",
+    requestedGradeAllowed: true,
+    studentSelectedGradePolicy,
+    user: standardStudent
+  }), "S4");
+});
+
 test("auth session persistence owns example account seed selectors for legacy userStore", async () => {
   const persistenceSource = await readFile(path.join(process.cwd(), "lib/server/userStore/authSessionPersistence.ts"), "utf8");
   const rootSource = await readFile(path.join(process.cwd(), "lib/server/userStore.ts"), "utf8");
@@ -2779,8 +2855,39 @@ test("auth session persistence falls back and rejects unavailable profiles", asy
 
 test("auth session persistence updates settings through snapshot storage", async () => {
   const database = createDatabase();
+  const jonId = "student-jon-us-ca-super";
+  database.users.push({
+    id: jonId,
+    username: "Student Jon",
+    normalized_username: "student jon",
+    email: "student.jon.internal@example.edu",
+    normalized_email: "student.jon.internal@example.edu",
+    role: "student",
+    password_hash: "hash",
+    password_salt: "salt"
+  });
+  database.student_profiles.push({
+    user_id: jonId,
+    name: "Student Jon",
+    grade: "P1",
+    curriculum_track: "US_CA_MATH",
+    curriculum_region: "US",
+    textbook_publisher: "US_CA_MATH",
+    avatar_id: "pi"
+  });
+  database.user_settings.push({
+    user_id: jonId,
+    language: "en",
+    theme: "dark",
+    selected_grade: "P1",
+    updated_at: "2026-06-19T00:00:00.000Z"
+  });
   const store = createTestStore(database, {
-    isGradeAllowedForCurriculumProfile: (grade) => grade === "S6"
+    isGradeAllowedForCurriculumProfile: (grade) => ["K", "P5", "S6"].includes(grade),
+    studentSelectedGradePolicy: ({ curriculumProfile, grade, userId }) =>
+      userId === jonId &&
+      curriculumProfile.publisher === "US_CA_MATH" &&
+      (["K", "P1", "P2", "P3", "P4", "P5", "P6", "S1", "S2", "S3", "S4", "S5", "S6"] as const).includes(grade)
   });
 
   const teacherSession = await store.updateUserSettings("teacher-1", {
@@ -2810,6 +2917,16 @@ test("auth session persistence updates settings through snapshot storage", async
   assert.equal(studentSession?.settings.theme, "light");
   assert.equal(studentSession?.settings.selectedGrade, "S3");
   assert.equal(database.user_settings.find((settings) => settings.user_id === "student-1")?.selected_grade, "S3");
+
+  assert.equal((await store.updateUserSettings(jonId, { selectedGrade: "K" }))?.settings.selectedGrade, "K");
+  assert.equal((await store.getAuthenticatedUserById(jonId))?.settings.selectedGrade, "K");
+  assert.equal((await store.updateUserSettings(jonId, { selectedGrade: "P5" }))?.settings.selectedGrade, "P5");
+  assert.equal((await store.getAuthenticatedUserById(jonId))?.settings.selectedGrade, "P5");
+  assert.equal((await store.updateUserSettings(jonId, { selectedGrade: "S6" }))?.settings.selectedGrade, "S6");
+  assert.equal((await store.getAuthenticatedUserById(jonId))?.settings.selectedGrade, "S6");
+  assert.equal((await store.updateUserSettings(jonId, { selectedGrade: "P6" }))?.settings.selectedGrade, "S6");
+  assert.equal((await store.updateUserSettings(jonId, { theme: "light" }))?.settings.selectedGrade, "S6");
+  assert.equal(database.user_settings.find((settings) => settings.user_id === jonId)?.selected_grade, "S6");
   assert.equal(await store.updateUserSettings("missing-user", { language: "en" }), null);
 });
 
@@ -2881,18 +2998,19 @@ test("auth session persistence updates profile names and avatar media safely", a
 test("auth session persistence changes authenticated passwords through snapshot storage", async () => {
   const database = createDatabase();
   const store = createTestStore(database);
+  const replacementPassword = `test-${randomUUID()}`;
 
   const result = await store.changeAuthenticatedUserPassword({
     userId: "student-1",
     currentPassword: "current-password",
-    password: "replacement-password"
+    password: replacementPassword
   });
 
   assert.equal(result.status, "updated");
   assert.equal(result.status === "updated" ? result.session.user.id : null, "student-1");
   const user = database.users.find((candidate) => candidate.id === "student-1");
-  assert.equal(user?.password_hash, "hash:replacement-password");
-  assert.equal(user?.password_salt, "salt:replacement-password");
+  assert.equal(user?.password_hash, `hash:${replacementPassword}`);
+  assert.equal(user?.password_salt, `salt:${replacementPassword}`);
   assert.equal(user?.password_must_change, false);
 
   assert.deepEqual(
@@ -3026,7 +3144,14 @@ test("auth session persistence lets password reset hot hooks short-circuit snaps
 
 test("legacy userStore delegates authenticated user lookup to extracted auth session persistence", async () => {
   const source = await readFile(path.join(process.cwd(), "lib/server/userStore.ts"), "utf8");
+  const hotSettingsSource = source.slice(
+    source.indexOf("async function updateUserSettingsInPostgresHotTables"),
+    source.indexOf("export const updateUserSettings = authUserStore.updateUserSettings")
+  );
 
+  assert.match(hotSettingsSource, /selectedGradeForSettingsUpdateFromAuthSessionPersistence/);
+  assert.match(hotSettingsSource, /studentSelectedGradePolicy: canPersistStudentSelectedGrade/);
+  assert.match(source, /authGradeAllowedForCurriculumProfile\(grade, curriculumProfile\)/);
   assert.match(source, /export const shouldRetryDemoLoginAfterFastInvalid = authUserStore\.shouldRetryDemoLoginAfterFastInvalid/);
   assert.match(source, /export const authenticatedUserForCredentials = authUserStore\.authenticatedUserForCredentials/);
   assert.match(source, /export const authenticateUser = authUserStore\.authenticateUser/);

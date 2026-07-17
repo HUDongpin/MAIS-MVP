@@ -62,14 +62,27 @@ export function DashboardGradeSelectorGrid() {
   const curriculumTrack = currentUser?.curriculumTrack ?? "HK";
   const visiblePrimaryGrades = primaryGradesForCurriculumTrack(curriculumTrack);
   const visibleGrades = [...visiblePrimaryGrades, ...secondaryGrades];
-  const fixedStudentGrade = currentUser?.role === "student" ? currentUser.grade : null;
+  const studentJonCanBrowseCaliforniaK12 =
+    currentUser?.role === "student" &&
+    currentUser.id === "student-jon-us-ca-super" &&
+    currentUser.curriculumTrack === "US_CA_MATH";
+  const fixedStudentGrade = currentUser?.role === "student" && !studentJonCanBrowseCaliforniaK12
+    ? currentUser.grade
+    : null;
   const selectedGradeIsVisible = visibleGrades.some((grade) => grade.id === selectedGrade);
   const fixedStudentGradeIsVisible = fixedStudentGrade
     ? visibleGrades.some((grade) => grade.id === fixedStudentGrade)
     : false;
+  const studentJonFallbackGrade = studentJonCanBrowseCaliforniaK12 && visibleGrades.some((grade) => grade.id === currentUser.grade)
+    ? currentUser.grade
+    : "P1";
   const displayedSelectedGrade = fixedStudentGrade && fixedStudentGradeIsVisible
     ? fixedStudentGrade
-    : selectedGradeIsVisible ? selectedGrade : visibleGrades[0]?.id ?? "P1";
+    : selectedGradeIsVisible
+      ? selectedGrade
+      : studentJonCanBrowseCaliforniaK12
+        ? studentJonFallbackGrade
+        : visibleGrades[0]?.id ?? "P1";
   const gradeRowGridClassName = visiblePrimaryGrades.length > 6 ? "grid-cols-4 sm:grid-cols-7" : "grid-cols-3 sm:grid-cols-6";
 
   useEffect(() => {

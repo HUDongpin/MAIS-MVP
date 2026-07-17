@@ -136,6 +136,117 @@ test.describe("app shell, preferences, and auth", () => {
     expectNoPageErrors(pageErrors);
   });
 
+  test("Student Jon K-12 example login persists its requested Kindergarten grade", async ({ page }) => {
+    const pageErrors = collectPageErrors(page);
+
+    await page.goto("/login?next=%2Fdashboard");
+    const jonButton = page.getByRole("button", {
+      name: /Use example account: Student Jon \(California Math K-12\)/i
+    });
+    await expect(jonButton).toBeEnabled({ timeout: 15_000 });
+    await jonButton.click();
+    await expect(page).toHaveURL(/\/dashboard(?:\?|$)/, { timeout: 30_000 });
+    await expect(page.getByRole("heading", { name: /Welcome back, Student Jon/i })).toBeVisible();
+
+    await expect.poll(async () => {
+      const sessionResponse = await page.request.get("/api/me?includeLessonEntry=false");
+      if (!sessionResponse.ok()) return null;
+      const session = await sessionResponse.json() as { settings?: { selectedGrade?: string } };
+      return session.settings?.selectedGrade ?? null;
+    }, { timeout: 20_000 }).toBe("K");
+
+    await expect(page.getByTestId("dashboard-grade-K")).toHaveAttribute("aria-checked", "true");
+    for (const grade of ["K", "P1", "P2", "P3", "P4", "P5", "P6", "S1", "S2", "S3", "S4", "S5", "S6"]) {
+      await expect(page.getByTestId(`dashboard-grade-${grade}`)).toBeEnabled();
+    }
+
+    await page.reload();
+    await expect(page.getByTestId("dashboard-grade-K")).toHaveAttribute("aria-checked", "true");
+    expectNoPageErrors(pageErrors);
+  });
+
+  test("Student Jon can switch California Kindergarten through Grade 12 from the dashboard", async ({ page }) => {
+    test.setTimeout(90_000);
+    const pageErrors = collectPageErrors(page);
+    const loginResponse = await page.request.post("/api/auth/login", {
+      data: {
+        username: "Student Jon",
+        password: "12345",
+        grade: "P1",
+        curriculumTrack: "US_CA_MATH",
+        curriculumProfile: { region: "US", publisher: "US_CA_MATH" },
+        language: "en",
+        theme: "light"
+      }
+    });
+    expect(loginResponse.status(), await loginResponse.text()).toBe(200);
+    const baselineSettingsResponse = await page.request.patch("/api/me/settings", {
+      data: { language: "en", theme: "light", selectedGrade: "P1" }
+    });
+    expect(baselineSettingsResponse.status(), await baselineSettingsResponse.text()).toBe(200);
+
+    await page.goto("/dashboard");
+    await expect(page.getByRole("heading", { name: /Welcome back, Student Jon/i })).toBeVisible();
+
+    const gradeCases = [
+      { grade: "K", label: "K", lessonSlug: "us-ca-math-k-k-cc-count-sequence" },
+      { grade: "P1", label: "G1", lessonSlug: "us-ca-math-p1-1-oa-add-subtract" },
+      { grade: "P2", label: "G2", lessonSlug: "us-ca-math-p2-2-oa-fluency-arrays" },
+      { grade: "P3", label: "G3", lessonSlug: "us-ca-math-p3-3-oa-mult-div" },
+      { grade: "P4", label: "G4", lessonSlug: "us-ca-math-p4-4-oa-factors-patterns" },
+      { grade: "P5", label: "G5", lessonSlug: "us-ca-math-p5-5-oa-expressions-patterns" },
+      { grade: "P6", label: "G6" },
+      { grade: "S1", label: "G7" },
+      { grade: "S2", label: "G8" },
+      { grade: "S3", label: "G9" },
+      { grade: "S4", label: "G10" },
+      { grade: "S5", label: "G11" },
+      { grade: "S6", label: "G12" }
+    ] as const;
+
+    for (const gradeCase of gradeCases) {
+      const { grade, label } = gradeCase;
+      const gradeButton = page.getByTestId(`dashboard-grade-${grade}`);
+      await expect(gradeButton).toBeEnabled();
+
+      const dashboardResponsePromise = page.waitForResponse((response) =>
+        response.url().includes(`/api/dashboard?grade=${grade}`) && response.request().method() === "GET"
+      );
+      const settingsResponsePromise = page.waitForResponse((response) => {
+        if (!response.url().endsWith("/api/me/settings") || response.request().method() !== "PATCH") return false;
+        return (response.request().postDataJSON() as { selectedGrade?: string } | null)?.selectedGrade === grade;
+      });
+
+      await gradeButton.click();
+      const [dashboardResponse, settingsResponse] = await Promise.all([
+        dashboardResponsePromise,
+        settingsResponsePromise
+      ]);
+      expect(dashboardResponse.status(), await dashboardResponse.text()).toBe(200);
+      expect(settingsResponse.status(), await settingsResponse.text()).toBe(200);
+      const settingsBody = await settingsResponse.json() as { settings?: { selectedGrade?: string } };
+      expect(settingsBody.settings?.selectedGrade).toBe(grade);
+      const sessionResponse = await page.request.get("/api/me?includeLessonEntry=false");
+      expect(sessionResponse.status(), await sessionResponse.text()).toBe(200);
+      const sessionBody = await sessionResponse.json() as { settings?: { selectedGrade?: string } };
+      expect(sessionBody.settings?.selectedGrade).toBe(grade);
+
+      await expect(gradeButton).toHaveAttribute("aria-checked", "true");
+      await expect(page.getByText(new RegExp(`California Math Practice Beta · ${label}$`, "i"))).toBeVisible();
+      if ("lessonSlug" in gradeCase) {
+        await expect(page.getByRole("link", { name: /Open lesson/i })).toHaveAttribute(
+          "href",
+          `/student/lessons/${gradeCase.lessonSlug}`
+        );
+      }
+    }
+
+    await page.reload();
+    await expect(page.getByTestId("dashboard-grade-S6")).toHaveAttribute("aria-checked", "true");
+    await expect(page.getByText(/California Math Practice Beta · G12$/i)).toBeVisible();
+    expectNoPageErrors(pageErrors);
+  });
+
   test("US CA student example account logs in immediately without exposing passwords", async ({ page }) => {
     const pageErrors = collectPageErrors(page);
 

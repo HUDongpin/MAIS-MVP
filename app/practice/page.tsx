@@ -843,15 +843,21 @@ export default function PracticePage() {
   const [rememberedGameRoundPayload, setRememberedGameRoundPayload] = useState<PracticeGameRoundPayload | null>(null);
   const [showPracticeCelebration, setShowPracticeCelebration] = useState(false);
   const isStudentAccount = currentUser?.role === "student";
-  const studentFixedGrade = currentUser?.role === "student" ? currentUser.grade : null;
+  const studentProfileGrade = currentUser?.role === "student" ? currentUser.grade : null;
+  const studentJonCanBrowseCaliforniaK12 =
+    currentUser?.role === "student" &&
+    currentUser.id === "student-jon-us-ca-super" &&
+    currentUser.curriculumTrack === "US_CA_MATH";
   const adventureGradeLock = useMemo(
     () => resolvePracticeAdventureGradeLock({
       gradeFilter,
       selectedGrade,
-      studentGrade: studentFixedGrade
+      studentGrade: studentProfileGrade,
+      allowStudentGradeSelection: studentJonCanBrowseCaliforniaK12
     }),
-    [gradeFilter, selectedGrade, studentFixedGrade]
+    [gradeFilter, selectedGrade, studentJonCanBrowseCaliforniaK12, studentProfileGrade]
   );
+  const studentFixedGrade = adventureGradeLock.gradeSelectionDisabled ? studentProfileGrade : null;
   const activeGradeFilter: GradeFilter = adventureGradeLock.activeGradeFilter;
   const roadmapGrade = activeGradeFilter === "all" ? selectedGrade : activeGradeFilter;
   const curriculumProfile = currentUser?.curriculumProfile ?? curriculumProfileForTrack("HK");

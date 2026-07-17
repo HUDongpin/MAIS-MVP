@@ -127,6 +127,7 @@ import {
   authFixedExampleAccountScopeForUserId as fixedExampleAccountScopeForUserIdFromAuthSessionPersistence,
   authFixedExampleAccountLocksSelectedGrade as fixedExampleAccountLocksSelectedGradeFromAuthSessionPersistence,
   authInternalExampleAccountSeedForUserId as internalExampleAccountSeedForUserIdFromAuthSessionPersistence,
+  authSelectedGradeForSettingsUpdate as selectedGradeForSettingsUpdateFromAuthSessionPersistence,
   authPasswordMatches as passwordMatchesFromAuthSessionPersistence,
   authStudentProfileFor as studentProfileForFromAuthSessionPersistence,
   authenticatedLoginResultFromAuthDatabase as authenticatedLoginResultFromAuthDatabaseFromAuthSessionPersistence,
@@ -158,6 +159,7 @@ import {
   authStorageFreeExampleAccountRecords as storageFreeExampleAccountRecordsFromAuthSessionPersistence,
   authStorageFreeExampleDatabase as storageFreeExampleDatabaseFromAuthSessionPersistence,
   authStorageFreeExampleAuthenticatedUser as storageFreeExampleAuthenticatedUserFromAuthSessionPersistence,
+  type AuthStudentSelectedGradePolicy,
   type AuthDemoAccountSeed,
   type AuthHotRows,
   type AuthSessionPersistenceDatabase,
@@ -1859,6 +1861,16 @@ const internalCaliforniaSuperStudentId = "student-jon-us-ca-super";
 const internalCaliforniaSuperTeacherId = "teacher-rhi-us-ca-super";
 const demoParentId = "parent-peter-family";
 const displayedDemoPassword = "12345";
+
+const canPersistStudentSelectedGrade: AuthStudentSelectedGradePolicy = ({
+  curriculumProfile,
+  grade,
+  userId
+}) =>
+  userId === internalCaliforniaSuperStudentId &&
+  curriculumProfile.region === "US" &&
+  curriculumProfile.publisher === "US_CA_MATH" &&
+  authGradeAllowedForCurriculumProfile(grade, curriculumProfile);
 
 type DemoAccountSeed = AuthDemoAccountSeed;
 
@@ -5384,6 +5396,7 @@ const authSessionPersistenceStore = createAuthSessionPersistenceStore({
     });
   },
   isGradeAllowedForCurriculumProfile: authGradeAllowedForCurriculumProfile,
+  studentSelectedGradePolicy: canPersistStudentSelectedGrade,
   fallbackAuthenticatedUser: storageFreeExampleAuthenticatedUser,
   mediaObjectUrlForKey: mediaObjectAccessUrl
 });
@@ -8573,14 +8586,19 @@ async function updateUserSettingsInPostgresHotTables(
         ...currentSettings,
         language: patch.language && validLanguages.has(patch.language) ? patch.language : currentSettings.language,
         theme: patch.theme && validThemes.has(patch.theme) ? patch.theme : currentSettings.theme,
-        selected_grade:
-          fixedExampleScope
-            ? fixedExampleScope.grade
-            : user.role === "student"
-              ? nextProfile.grade
-              : patch.selectedGrade && canUpdateSelectedGrade
-                ? patch.selectedGrade
-                : currentSettings.selected_grade,
+        selected_grade: selectedGradeForSettingsUpdateFromAuthSessionPersistence({
+          currentSelectedGrade: currentSettings.selected_grade,
+          fixedExampleGrade: fixedExampleScope?.grade,
+          profileGrade: nextProfile.grade,
+          requestedGrade: patch.selectedGrade,
+          requestedGradeAllowed: canUpdateSelectedGrade,
+          studentSelectedGradePolicy: canPersistStudentSelectedGrade,
+          user: {
+            id: user.id,
+            role: user.role,
+            curriculumProfile: profileCurriculumProfile
+          }
+        }),
         updated_at: new Date().toISOString()
       };
       const settingRow = hotAuthUserSettingRows([nextSettings])[0];

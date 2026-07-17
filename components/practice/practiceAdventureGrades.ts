@@ -11,6 +11,7 @@ export type PracticeAdventureGradeLockInput = Readonly<{
   gradeFilter: PracticeAdventureGradeFilter;
   selectedGrade: GradeId;
   studentGrade?: GradeId | null;
+  allowStudentGradeSelection?: boolean;
 }>;
 
 export type PracticeAdventureGradeLock = Readonly<{
@@ -38,9 +39,10 @@ export function partitionPracticeAdventureGradeChips<TGradeChip extends Practice
 export function resolvePracticeAdventureGradeLock({
   gradeFilter,
   selectedGrade,
-  studentGrade
+  studentGrade,
+  allowStudentGradeSelection = false
 }: PracticeAdventureGradeLockInput): PracticeAdventureGradeLock {
-  if (studentGrade) {
+  if (studentGrade && !allowStudentGradeSelection) {
     return {
       activeGradeFilter: studentGrade,
       activeGradeId: studentGrade,

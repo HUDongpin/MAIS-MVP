@@ -53,6 +53,19 @@ test("locks adventure grade selection to the logged-in student's profile grade",
   equal(lock.gradeSelectionDisabled, true);
 });
 
+test("keeps Student Jon's selected California grade editable when his K-12 override is enabled", () => {
+  const lock = resolvePracticeAdventureGradeLock({
+    gradeFilter: "S6",
+    selectedGrade: "S6",
+    studentGrade: "P1",
+    allowStudentGradeSelection: true
+  });
+
+  equal(lock.activeGradeFilter, "S6");
+  equal(lock.activeGradeId, "S6");
+  equal(lock.gradeSelectionDisabled, false);
+});
+
 test("keeps guest adventure grade selection editable", () => {
   const lock = resolvePracticeAdventureGradeLock({
     gradeFilter: "all",

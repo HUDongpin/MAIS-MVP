@@ -94,7 +94,10 @@ async function handleLogin(request: Request) {
     return NextResponse.json({ error: "Invalid email/username or password." }, { status: 401 });
   }
   if (internalCaliforniaFastLogin?.status === "authenticated") {
-    const response = NextResponse.json(internalCaliforniaFastLogin.session);
+    const response = NextResponse.json({
+      ...internalCaliforniaFastLogin.session,
+      settingsPersisted: false
+    });
     try {
       await setSessionCookie(response, internalCaliforniaFastLogin.session.user.id, request);
     } catch {
