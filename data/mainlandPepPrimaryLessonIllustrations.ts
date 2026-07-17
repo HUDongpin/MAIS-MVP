@@ -14,7 +14,10 @@ export type MainlandPepPrimaryLessonIllustration = {
   ragCardIds: string[];
 };
 
-export const mainlandPepPrimaryLessonIllustrations = [
+// Draft metadata authored ahead of asset production. The live export below is
+// withdrawn until approved PNG assets exist under
+// public/lesson-illustrations/mainland-pep-primary/.
+export const mainlandPepPrimaryLessonIllustrationDrafts = [
   {
     "id": "pep-primary-p1-upper-number-sense-concept",
     "topicId": "pep-primary-p1-upper-number-sense",
@@ -1029,16 +1032,19 @@ export const mainlandPepPrimaryLessonIllustrations = [
   }
 ] satisfies MainlandPepPrimaryLessonIllustration[];
 
-const mainlandPepPrimaryLessonIllustrationByTopicAndSlot = new Map(
-  mainlandPepPrimaryLessonIllustrations.map((illustration) => [
-    `${illustration.topicId}:${illustration.slot}`,
-    illustration
-  ])
-);
+export const mainlandPepPrimaryLessonIllustrationWithdrawal = {
+  date: "2026-07-09",
+  decision: "withdrawn-assets-not-promoted",
+  scope: "MAINLAND_PEP primary lesson illustrations",
+  reason:
+    "Authored illustration metadata was integrated ahead of asset production; no approved public PNG assets exist in the repository or candidate packages. Withdrawn from live lessons pending A21/A24 asset production and A18 approval."
+} as const;
+
+export const mainlandPepPrimaryLessonIllustrations: MainlandPepPrimaryLessonIllustration[] = [];
 
 export function getMainlandPepPrimaryLessonIllustration(
-  topicId: string,
-  slot: MainlandPepPrimaryLessonIllustrationSlot
-) {
-  return mainlandPepPrimaryLessonIllustrationByTopicAndSlot.get(`${topicId}:${slot}`) ?? null;
+  _topicId: string,
+  _slot: MainlandPepPrimaryLessonIllustrationSlot
+): MainlandPepPrimaryLessonIllustration | null {
+  return null;
 }

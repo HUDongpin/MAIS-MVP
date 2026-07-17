@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
-import { CaliforniaHighSchoolTextbookStudentPage } from "@/components/lesson/CaliforniaHighSchoolTextbookStudentPage";
+import { redirect } from "next/navigation";
 import { requireLessonAuthentication } from "@/components/lesson/lessonAuthGate";
+import { studentRoadmapPath } from "@/lib/roadmapRoutes";
 
 export const runtime = "nodejs";
 
@@ -12,5 +13,5 @@ export const metadata: Metadata = {
 export default async function CaliforniaHighSchoolTextbookStudentLessonRoute() {
   await requireLessonAuthentication("/student/lessons/california-high-school-textbook");
 
-  return <CaliforniaHighSchoolTextbookStudentPage />;
+  redirect(studentRoadmapPath);
 }

@@ -69,10 +69,9 @@ type GeneratedLessonPack = {
 
 const lessonPack = lessonPackJson as GeneratedLessonPack;
 const practiceDifficultyQuotas: Array<[Difficulty, number]> = [
-  ["Foundation", 2],
-  ["Core", 3],
-  ["Challenge", 2],
-  ["Exam", 1]
+  ["Low", 2],
+  ["Medium", 3],
+  ["High", 3]
 ];
 
 function approvedForProduction(lesson: GeneratedLesson) {

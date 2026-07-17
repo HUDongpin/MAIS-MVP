@@ -9,10 +9,9 @@ import type { ProductionLessonBlock, ProductionLessonSeed } from "./lessons";
 import type { Difficulty, LocalizedText, Question, Topic } from "@/types";
 
 const practiceDifficultyQuotas: Array<[Difficulty, number]> = [
-  ["Foundation", 2],
-  ["Core", 3],
-  ["Challenge", 2],
-  ["Exam", 1]
+  ["Low", 2],
+  ["Medium", 3],
+  ["High", 3]
 ];
 
 function text(en: string, zhHans: string): LocalizedText {

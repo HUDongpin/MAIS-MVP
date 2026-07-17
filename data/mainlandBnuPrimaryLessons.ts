@@ -8,17 +8,16 @@ import {
   mainlandBnuPrimaryTopicMetadata,
   mainlandBnuPrimaryTopics
 } from "./mainlandBnuPrimaryTopics";
-import { localizeHjbGeneratedText, toTraditionalHjbText } from "./hjbQuestionLocalization";
+import { toTraditionalHjbText } from "./hjbQuestionLocalization";
 import type { ProductionLessonBlock, ProductionLessonSeed } from "./lessons";
 import type { Difficulty, LocalizedText, Question, Topic } from "@/types";
 
 const checkpointQuestionCountPerBatch = 4;
 const batchOrder: BnuPrimaryBatch[] = ["bnu-primary-v1", "bnu-primary-v2"];
 const checkpointDifficultyQuotas: Array<[Difficulty, number]> = [
-  ["Foundation", 1],
-  ["Core", 1],
-  ["Challenge", 1],
-  ["Exam", 1]
+  ["Low", 1],
+  ["Medium", 1],
+  ["High", 2]
 ];
 
 function text(en: string, zhHans: string): LocalizedText {
@@ -66,12 +65,12 @@ function lessonBlocks(topic: Topic): ProductionLessonBlock[] {
   const volumeEn = formatBnuPrimaryVolumeTitleEn(metadata.volume);
   const sampleQuestion = mainlandBnuPrimaryQuestions.find((question) => question.topicId === topic.id);
   const samplePromptZhHans = sampleQuestion?.prompt.zhHans ?? sampleQuestion?.prompt.zh ?? topic.title.zhHans ?? topic.title.zh;
-  const samplePromptEn = sampleQuestion?.prompt.en ?? localizeHjbGeneratedText(samplePromptZhHans).en;
+  const samplePromptEn = sampleQuestion?.prompt.en ?? samplePromptZhHans;
   const samplePromptZh = sampleQuestion?.prompt.zh ?? toTraditionalHjbText(samplePromptZhHans);
   const sampleAnswer = sampleQuestion?.answer ?? "见课堂检查点";
-  const sampleAnswerLocalized = localizeHjbGeneratedText(sampleAnswer);
+  const sampleAnswerZh = toTraditionalHjbText(sampleAnswer);
   const sampleExplanationZhHans = sampleQuestion?.explanation.zhHans ?? sampleQuestion?.explanation.zh ?? "先读题，再选择方法并检查答案。";
-  const sampleExplanationEn = sampleQuestion?.explanation.en ?? localizeHjbGeneratedText(sampleExplanationZhHans).en;
+  const sampleExplanationEn = sampleQuestion?.explanation.en ?? sampleExplanationZhHans;
   const sampleExplanationZh = sampleQuestion?.explanation.zh ?? toTraditionalHjbText(sampleExplanationZhHans);
 
   return [
@@ -90,8 +89,8 @@ function lessonBlocks(topic: Topic): ProductionLessonBlock[] {
       type: "worked-example",
       title: text("Original worked example", "原创例题精讲"),
       content: {
-        en: `${samplePromptEn} Answer: ${sampleAnswerLocalized.en}. ${sampleExplanationEn}`,
-        zh: `${samplePromptZh} 答案：${sampleAnswerLocalized.zh}。${sampleExplanationZh}`,
+        en: `${samplePromptEn} Answer: ${sampleAnswer}. ${sampleExplanationEn}`,
+        zh: `${samplePromptZh} 答案：${sampleAnswerZh}。${sampleExplanationZh}`,
         zhHans: `${samplePromptZhHans} 答案：${sampleAnswer}。${sampleExplanationZhHans}`
       }
     },

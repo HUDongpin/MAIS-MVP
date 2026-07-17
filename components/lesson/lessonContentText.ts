@@ -1,5 +1,29 @@
 const californiaGradePrefixPattern = /^\s*California\s+(?:(?:Grade\s+(?:K|[0-9]{1,2}))|Kindergarten)\s*[:：]\s*/i;
+const californiaKnowledgePointCodePrefixPattern = /^\s*(?:(?:K|\d{1,2})-)?[A-Z]\.\d+\s*/i;
+const californiaDisplayGradePrefixPattern = /^\s*(?:Grade\s+(?:K|[0-9]{1,2})|Kindergarten)\s*/i;
 const lessonModuleSuffixPattern = /\s*(?:Lesson\s+Module|課節模組|课节模块)\s*$/i;
+const generatedCaliforniaVisualizationPrefacePattern = /Safeguard Review[\s\S]*Read me first/i;
+const californiaVisualizationTitleBreakPattern = /^(.+?\b(?:Grade\s+(?:K|[0-9]{1,2})|Kindergarten)\b)\s+(.+)$/i;
+const californiaVisualizationMenuTitlePattern = /^(.+?\b(?:(?:K|\d{1,2})-[A-Z]\.\d+|[A-Z]\.\d+))\s+(?:Grade\s+(?:K|[0-9]{1,2})|Kindergarten)\b\s+.+$/i;
+const revealableAnswerPattern = /(答案\s*[:：]\s*|Answer\s*:\s*)/;
+const standaloneReasoningLinePattern = /^(?:Reasoning\s*:|推理\s*[:：])/i;
+
+export type LessonContentSegment =
+  | {
+      id: string;
+      kind: "text";
+      text: string;
+    }
+  | {
+      answerText: string;
+      id: string;
+      kind: "answer";
+      promptText: string;
+    };
+
+type LessonContentAnswerRevealOptions = {
+  revealStandaloneAnswerLines?: boolean;
+};
 
 type CaliforniaCourseTitle = {
   en: string;
@@ -87,8 +111,14 @@ function stripCaliforniaGradePrefix(content: string) {
   return content.replace(californiaGradePrefixPattern, "");
 }
 
+function stripCaliforniaDisplayPrefixes(title: string) {
+  return stripCaliforniaGradePrefix(title)
+    .replace(californiaKnowledgePointCodePrefixPattern, "")
+    .replace(californiaDisplayGradePrefixPattern, "");
+}
+
 export function cleanLessonDisplayTitle(title: string) {
-  return stripCaliforniaGradePrefix(title);
+  return stripCaliforniaDisplayPrefixes(title);
 }
 
 export function cleanLessonUnitTitle(title: string) {
@@ -106,4 +136,83 @@ export function californiaCourseTitleForGrade(grade: string) {
 
 export function cleanLessonConceptContent(content: string, description: string) {
   return stripCaliforniaGradePrefix(stripLessonDescriptionPrefix(content, description));
+}
+
+export function splitLessonContentForAnswerReveal(
+  content: string,
+  options: LessonContentAnswerRevealOptions = {}
+): LessonContentSegment[] {
+  const revealStandaloneAnswerLines = options.revealStandaloneAnswerLines ?? true;
+  const lines = content
+    .split(/\n+/)
+    .map((line) => line.trim())
+    .filter(Boolean);
+  const segments: LessonContentSegment[] = [];
+
+  for (let index = 0; index < lines.length; index += 1) {
+    const line = lines[index];
+    const answerMatch = line.match(revealableAnswerPattern);
+    const answerStartIndex = answerMatch?.index ?? -1;
+
+    if (answerStartIndex > 0) {
+      segments.push({
+        answerText: line.slice(answerStartIndex).trim(),
+        id: `line-${index}`,
+        kind: "answer",
+        promptText: line.slice(0, answerStartIndex).trim()
+      });
+      continue;
+    }
+
+    if (revealStandaloneAnswerLines && answerStartIndex === 0) {
+      const previousSegment = segments[segments.length - 1];
+
+      if (previousSegment?.kind === "text") {
+        const answerLines = [line];
+        let nextIndex = index + 1;
+
+        while (nextIndex < lines.length && standaloneReasoningLinePattern.test(lines[nextIndex])) {
+          answerLines.push(lines[nextIndex]);
+          nextIndex += 1;
+        }
+
+        segments[segments.length - 1] = {
+          answerText: answerLines.join("\n\n"),
+          id: previousSegment.id,
+          kind: "answer",
+          promptText: previousSegment.text
+        };
+        index = nextIndex - 1;
+        continue;
+      }
+    }
+
+    segments.push({
+      id: `line-${index}`,
+      kind: "text",
+      text: line
+    });
+  }
+
+  return segments;
+}
+
+export function cleanLessonVisualizationContent(content: string) {
+  if (generatedCaliforniaVisualizationPrefacePattern.test(content)) return "";
+
+  return content;
+}
+
+export function splitLessonVisualizationTitle(title: string) {
+  const match = title.trim().match(californiaVisualizationTitleBreakPattern);
+  if (!match) return [title];
+
+  return [match[1], match[2]];
+}
+
+export function compactLessonVisualizationMenuTitle(title: string) {
+  const match = title.trim().match(californiaVisualizationMenuTitlePattern);
+  if (!match) return title;
+
+  return match[1];
 }

@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import { WorkedExampleIllustration } from "@/components/lesson/WorkedExampleIllustration";
 import { californiaHighSchoolTextbookChapters } from "@/data/usCaliforniaHighSchoolLessonIllustrations";
 
 export function CaliforniaHighSchoolTextbookStudentPage() {
@@ -70,9 +71,14 @@ export function CaliforniaHighSchoolTextbookStudentPage() {
                     </p>
                     <h3 className="mt-2 text-lg font-black">{example.title}</h3>
                     <p className="mt-3 text-sm font-semibold leading-7 text-slate-700 dark:text-slate-200">{example.prompt.en}</p>
-                    <figure className="mt-4 overflow-hidden rounded-md border border-slate-200 bg-white dark:border-white/10 dark:bg-white/[0.04]">
-                      <Image src={example.exactLayerSrc} alt={`${chapter.title.en} ${example.title} diagram`} width={1600} height={900} sizes="(min-width: 1024px) 45vw, 100vw" className="h-auto w-full" unoptimized />
-                    </figure>
+                    <WorkedExampleIllustration
+                      className="max-w-full rounded-lg shadow-none"
+                      content={`${example.prompt.en} ${example.answer.en} ${example.solutionSteps.en.join(" ")}`}
+                      grade={chapter.grade}
+                      publisher="US_CA_MATH"
+                      title={`${chapter.title.en} ${example.title}`}
+                      topicId={example.exampleId}
+                    />
                     <p className="mt-3 text-sm font-black text-emerald-700 dark:text-emerald-200">Answer: {example.answer.en}</p>
                     <ol className="mt-3 space-y-2 text-sm leading-6 text-slate-700 dark:text-slate-200">
                       {example.solutionSteps.en.map((step) => <li key={step}>{step}</li>)}

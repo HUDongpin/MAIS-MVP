@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import { WorkedExampleIllustration } from "@/components/lesson/WorkedExampleIllustration";
 import textbookPackJson from "@/data/generated-content/us-ca-math-textbooks-v1/textbook-pack.json";
 import type { LocalizedText } from "@/types";
 
@@ -114,9 +115,16 @@ function problemReasoning(problem: TextbookProblem) {
 }
 
 function ProblemBlock({
+  illustrationContext,
   label,
   problem
 }: {
+  illustrationContext?: {
+    content: string;
+    grade: TextbookBook["grade"];
+    title: string;
+    topicId: string;
+  };
   label: string;
   problem: TextbookProblem;
 }) {
@@ -141,20 +149,44 @@ function ProblemBlock({
           ) : null}
         </div>
       </div>
+      {illustrationContext ? (
+        <WorkedExampleIllustration
+          className="max-w-full rounded-lg shadow-none"
+          content={illustrationContext.content}
+          grade={illustrationContext.grade}
+          publisher="US_CA_MATH"
+          title={illustrationContext.title}
+          topicId={illustrationContext.topicId}
+        />
+      ) : null}
     </section>
   );
 }
 
 function ChapterProblemSection({
+  book,
   chapter,
   field,
   label
 }: {
+  book: TextbookBook;
   chapter: TextbookChapter;
   field: TextbookProblemListKey;
   label: string;
 }) {
-  return <ProblemBlock label={label} problem={chapter.studentText.en[field][0]} />;
+  const problem = chapter.studentText.en[field][0];
+  const reasoning = problemReasoning(problem) ?? "";
+  const illustrationContext =
+    field === "workedExamples"
+      ? {
+          content: `${problem.prompt} ${problem.answer ?? ""} ${reasoning}`,
+          grade: book.grade,
+          title: chapter.chapterTitle.en,
+          topicId: chapter.id
+        }
+      : undefined;
+
+  return <ProblemBlock illustrationContext={illustrationContext} label={label} problem={problem} />;
 }
 
 function ChapterSection({
@@ -231,10 +263,10 @@ function ChapterSection({
             label="Concept"
             value={chapter.studentText.en.conceptExplanation}
           />
-          <ChapterProblemSection chapter={chapter} field="workedExamples" label="Worked example" />
-          <ChapterProblemSection chapter={chapter} field="guidedPractice" label="Guided practice" />
-          <ChapterProblemSection chapter={chapter} field="independentPractice" label="Independent practice" />
-          <ChapterProblemSection chapter={chapter} field="assessmentStyleTasks" label="Check for understanding" />
+          <ChapterProblemSection book={book} chapter={chapter} field="workedExamples" label="Worked example" />
+          <ChapterProblemSection book={book} chapter={chapter} field="guidedPractice" label="Guided practice" />
+          <ChapterProblemSection book={book} chapter={chapter} field="independentPractice" label="Independent practice" />
+          <ChapterProblemSection book={book} chapter={chapter} field="assessmentStyleTasks" label="Check for understanding" />
         </div>
 
         <aside className="space-y-5 rounded-lg border border-slate-200/80 bg-slate-50/80 p-4 dark:border-white/10 dark:bg-slate-950/35">
