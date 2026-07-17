@@ -57,7 +57,7 @@ const stageLabels: Record<MainlandPepRoadmapNode["stage"], LocalizedText> = {
   "senior-secondary": { en: "Senior-secondary PEP Mathematics", zh: "人教版高中數學", zhHans: "人教版高中数学" }
 };
 
-const gradeLabels: Record<GradeId, LocalizedText> = {
+const gradeLabels: Partial<Record<GradeId, LocalizedText>> = {
   P1: { en: "Primary 1", zh: "小學一年級", zhHans: "小学一年级" },
   P2: { en: "Primary 2", zh: "小學二年級", zhHans: "小学二年级" },
   P3: { en: "Primary 3", zh: "小學三年級", zhHans: "小学三年级" },
@@ -235,7 +235,7 @@ function station(stationLabel: LocalizedText, stops: LocalizedText[]): MainlandP
 }
 
 function buildStations(topic: Topic, evidence: EvidenceCard | null, semester: MainlandPepRoadmapNode["semester"]) {
-  const gradeLabel = gradeLabels[topic.grade];
+  const gradeLabel = gradeLabels[topic.grade] ?? topic.title;
   const stage = stageLabels[stageForGrade(topic.grade)];
   const semesterLabel = semesterLabels[semester];
   const titleZh = textOf(topic.title);
@@ -276,7 +276,7 @@ function buildRoadmapNode(topic: Topic): MainlandPepRoadmapNode {
   const semester = semesterForTopic(topic);
   const stage = stageForGrade(topic.grade);
   const unitTitle = localized(topic.title.en, textOf(topic.title));
-  const gradeLabel = gradeLabels[topic.grade];
+  const gradeLabel = gradeLabels[topic.grade] ?? topic.title;
 
   return {
     topicId: topic.id,

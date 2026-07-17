@@ -1,7 +1,8 @@
 import questionPackJson from "./generated-content/mainland-hjb-primary-generated-bank-v1-1500/question-pack.json";
 import { mainlandHjbPrimaryRagCards } from "./rag/mainlandHjbPrimary";
 import { translateHjbTextToEnglish } from "./hjbQuestionLocalization";
-import type { CurriculumProfile, Difficulty, MainlandHjbPrimaryGradeId, MainlandPepSemester, Topic } from "@/types";
+import { mapDifficultyToActive } from "@/lib/difficulty";
+import type { CurriculumProfile, Difficulty, DifficultyRecord, MainlandHjbPrimaryGradeId, MainlandPepSemester, Topic } from "@/types";
 
 type GeneratedHjbPrimaryQuestion = {
   grade: MainlandHjbPrimaryGradeId;
@@ -10,7 +11,7 @@ type GeneratedHjbPrimaryQuestion = {
   unitTitle: string;
   volume: string;
   conceptIds: string[];
-  difficulty: Difficulty;
+  difficulty: DifficultyRecord;
   evidenceCardIds: string[];
 };
 
@@ -31,8 +32,12 @@ export type MainlandHjbPrimaryTopicMetadata = {
 
 const questionPack = questionPackJson as GeneratedHjbPrimaryQuestionPack;
 const mainlandHjbPrimaryProfile = { region: "MAINLAND", publisher: "MAINLAND_HJB" } satisfies CurriculumProfile;
-const minutesByDifficulty: Record<Difficulty, number> = { Foundation: 22, Core: 28, Challenge: 34, Exam: 36 };
-const difficultyPriority: Difficulty[] = ["Exam", "Challenge", "Core", "Foundation"];
+const minutesByDifficulty: Record<Difficulty, number> = {
+  Low: 22,
+  Medium: 28,
+  High: 36
+};
+const difficultyPriority: Difficulty[] = ["High", "Medium", "Low"];
 const ragCardById = new Map(mainlandHjbPrimaryRagCards.map((card) => [card.id, card]));
 const unitTitleEnByZhHans: Record<string, string> = {
   "我是小学生与数学学习习惯": "Becoming a Primary Student and Math Learning Habits",
@@ -132,8 +137,11 @@ function uniqueValues<T>(values: T[]) {
 
 function dominantDifficulty(questions: GeneratedHjbPrimaryQuestion[]) {
   const counts = new Map<Difficulty, number>();
-  questions.forEach((question) => counts.set(question.difficulty, (counts.get(question.difficulty) ?? 0) + 1));
-  return Array.from(counts.entries()).sort((a, b) => b[1] - a[1] || difficultyPriority.indexOf(a[0]) - difficultyPriority.indexOf(b[0]))[0]?.[0] ?? "Core";
+  questions.forEach((question) => {
+    const difficulty = mapDifficultyToActive(question.difficulty);
+    counts.set(difficulty, (counts.get(difficulty) ?? 0) + 1);
+  });
+  return Array.from(counts.entries()).sort((a, b) => b[1] - a[1] || difficultyPriority.indexOf(a[0]) - difficultyPriority.indexOf(b[0]))[0]?.[0] ?? "Medium";
 }
 
 function topEvidenceCardId(questions: GeneratedHjbPrimaryQuestion[]) {

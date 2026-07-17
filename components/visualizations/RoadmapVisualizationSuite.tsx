@@ -4,7 +4,6 @@ import { useMemo, useRef, useState } from "react";
 import type { MouseEvent, ReactNode, RefObject } from "react";
 import { grades } from "@/data/grades";
 import { topics } from "@/data/topics";
-import { visualizationLabelsByTopicId } from "@/data/visualizationLabs";
 import {
   fallbackTransitDetails,
   getGradeDisplayName,
@@ -23,7 +22,10 @@ type RoadmapVisualizationSuiteProps = {
   getTopicLabHref?: TopicLabHrefResolver;
 };
 
-const visualizationLabels = visualizationLabelsByTopicId;
+const roadmapVisualizationLabelsByTopicId: Record<string, string> = Object.fromEntries(
+  topics.map((topic) => [topic.id, topic.title.en])
+);
+const visualizationLabels = roadmapVisualizationLabelsByTopicId;
 
 const missingVisualizationTopicIds = topics
   .map((topic) => topic.id)

@@ -1,7 +1,8 @@
 import v1QuestionPackJson from "./generated-content/mainland-bnu-primary-generated-bank-v1-1500/question-pack.json";
 import v2QuestionPackJson from "./generated-content/mainland-bnu-primary-generated-bank-v2-1500/question-pack.json";
 import { mainlandBnuPrimaryRagCards } from "./rag/mainlandBnuPrimary";
-import type { CurriculumProfile, Difficulty, MainlandBnuPrimaryGradeId, MainlandPepSemester, Topic } from "@/types";
+import { mapDifficultyToActive } from "@/lib/difficulty";
+import type { CurriculumProfile, Difficulty, DifficultyRecord, MainlandBnuPrimaryGradeId, MainlandPepSemester, Topic } from "@/types";
 
 export type BnuPrimaryBatch = "bnu-primary-v1" | "bnu-primary-v2";
 
@@ -13,7 +14,7 @@ type GeneratedBnuPrimaryQuestion = {
   unitTitle: string;
   volume: string;
   conceptIds: string[];
-  difficulty: Difficulty;
+  difficulty: DifficultyRecord;
   evidenceCardIds: string[];
 };
 
@@ -37,8 +38,12 @@ const v1QuestionPack = v1QuestionPackJson as GeneratedBnuPrimaryQuestionPack;
 const v2QuestionPack = v2QuestionPackJson as GeneratedBnuPrimaryQuestionPack;
 const questionPackQuestions = [...v1QuestionPack.questions, ...v2QuestionPack.questions];
 const mainlandBnuPrimaryProfile = { region: "MAINLAND", publisher: "MAINLAND_BNU" } satisfies CurriculumProfile;
-const minutesByDifficulty: Record<Difficulty, number> = { Foundation: 22, Core: 28, Challenge: 34, Exam: 36 };
-const difficultyPriority: Difficulty[] = ["Exam", "Challenge", "Core", "Foundation"];
+const minutesByDifficulty: Record<Difficulty, number> = {
+  Low: 22,
+  Medium: 28,
+  High: 36
+};
+const difficultyPriority: Difficulty[] = ["High", "Medium", "Low"];
 const ragCardById = new Map(mainlandBnuPrimaryRagCards.map((card) => [card.id, card]));
 
 const unitTitleEnByZhHans: Record<string, string> = {
@@ -147,8 +152,11 @@ function uniqueValues<T>(values: T[]) {
 
 function dominantDifficulty(questions: GeneratedBnuPrimaryQuestion[]) {
   const counts = new Map<Difficulty, number>();
-  questions.forEach((question) => counts.set(question.difficulty, (counts.get(question.difficulty) ?? 0) + 1));
-  return Array.from(counts.entries()).sort((a, b) => b[1] - a[1] || difficultyPriority.indexOf(a[0]) - difficultyPriority.indexOf(b[0]))[0]?.[0] ?? "Core";
+  questions.forEach((question) => {
+    const difficulty = mapDifficultyToActive(question.difficulty);
+    counts.set(difficulty, (counts.get(difficulty) ?? 0) + 1);
+  });
+  return Array.from(counts.entries()).sort((a, b) => b[1] - a[1] || difficultyPriority.indexOf(a[0]) - difficultyPriority.indexOf(b[0]))[0]?.[0] ?? "Medium";
 }
 
 function topEvidenceCardId(questions: GeneratedBnuPrimaryQuestion[]) {

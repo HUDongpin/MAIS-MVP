@@ -1,8 +1,10 @@
 import questionPackJson from "./generated-content/mainland-bnu-junior-generated-bank-v1-1500/approved-question-pack.json";
 import { mainlandBnuJuniorRagCards } from "./rag/mainlandBnuJunior";
+import { mapDifficultyToActive } from "@/lib/difficulty";
 import type {
   CurriculumProfile,
   Difficulty,
+  DifficultyRecord,
   MainlandBnuJuniorDifficultyBand,
   MainlandBnuJuniorGradeId,
   MainlandPepSemester,
@@ -16,7 +18,7 @@ type GeneratedBnuJuniorQuestion = {
   unitTitle: string;
   volume: string;
   conceptIds: string[];
-  difficulty: Difficulty;
+  difficulty: DifficultyRecord;
   evidenceCardIds: string[];
 };
 
@@ -38,8 +40,12 @@ export type MainlandBnuJuniorTopicMetadata = {
 const questionPack = questionPackJson as GeneratedBnuJuniorQuestionPack;
 const mainlandBnuJuniorProfile = { region: "MAINLAND", publisher: "MAINLAND_BNU" } satisfies CurriculumProfile;
 const ragCardById = new Map(mainlandBnuJuniorRagCards.map((card) => [card.id, card]));
-const minutesByDifficulty: Record<Difficulty, number> = { Foundation: 40, Core: 45, Challenge: 52, Exam: 55 };
-const difficultyPriority: Difficulty[] = ["Exam", "Challenge", "Core", "Foundation"];
+const minutesByDifficulty: Record<Difficulty, number> = {
+  Low: 40,
+  Medium: 45,
+  High: 55
+};
+const difficultyPriority: Difficulty[] = ["High", "Medium", "Low"];
 
 const unitTitleEnByZhHans: Record<string, string> = {
   "丰富的图形世界": "Rich World of Figures",
@@ -80,10 +86,9 @@ const unitTitleEnByZhHans: Record<string, string> = {
 };
 
 function difficultyFromBand(band: MainlandBnuJuniorDifficultyBand): Difficulty {
-  if (band === "foundation") return "Foundation";
-  if (band === "challenge") return "Challenge";
-  if (band === "exam") return "Exam";
-  return "Core";
+  if (band === "foundation") return "Low";
+  if (band === "challenge" || band === "exam") return "High";
+  return "Medium";
 }
 
 function uniqueValues<T>(values: T[]) {
@@ -92,10 +97,13 @@ function uniqueValues<T>(values: T[]) {
 
 function dominantDifficulty(questions: GeneratedBnuJuniorQuestion[], fallback?: MainlandBnuJuniorDifficultyBand) {
   const counts = new Map<Difficulty, number>();
-  questions.forEach((question) => counts.set(question.difficulty, (counts.get(question.difficulty) ?? 0) + 1));
+  questions.forEach((question) => {
+    const difficulty = mapDifficultyToActive(question.difficulty);
+    counts.set(difficulty, (counts.get(difficulty) ?? 0) + 1);
+  });
   return Array.from(counts.entries()).sort((left, right) => {
     return right[1] - left[1] || difficultyPriority.indexOf(left[0]) - difficultyPriority.indexOf(right[0]);
-  })[0]?.[0] ?? (fallback ? difficultyFromBand(fallback) : "Core");
+  })[0]?.[0] ?? (fallback ? difficultyFromBand(fallback) : "Medium");
 }
 
 export function formatBnuJuniorUnitTitleEn(titleZhHans: string) {

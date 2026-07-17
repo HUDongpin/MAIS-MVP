@@ -49,10 +49,9 @@ export function formatHjbJuniorUnitTitleEn(titleZhHans: string) {
 }
 
 function difficultyFromBand(band: MainlandHjbJuniorDifficultyBand): Difficulty {
-  if (band === "foundation") return "Foundation";
-  if (band === "challenge") return "Challenge";
-  if (band === "exam") return "Exam";
-  return "Core";
+  if (band === "foundation") return "Low";
+  if (band === "challenge" || band === "exam") return "High";
+  return "Medium";
 }
 
 function minutesFromBand(band: MainlandHjbJuniorDifficultyBand) {

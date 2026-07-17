@@ -12,12 +12,14 @@ import { curriculumProfileForTrack, curriculumTrackForProfile, publisherLabels }
 import { formatDifficultyLabel, formatGradeLabel, isChineseLanguage, simplifyChineseText } from "@/lib/i18n";
 import { lessonHrefForSlug } from "@/lib/lessonLinks";
 import { cn } from "@/lib/utils";
-import type { LessonSummary, LocalizedText, RoadmapData, Topic, TopicStatus } from "@/types";
+import type { Grade, LessonSummary, LocalizedText, RoadmapData, Topic, TopicStatus } from "@/types";
 
 type RoadmapBand = "primary" | "secondary";
+type RoadmapMode = "student" | "network";
 
 type LearningRoadmapProps = {
   forcedBand?: RoadmapBand | null;
+  mode?: RoadmapMode;
 };
 
 export type TransitBranch = {
@@ -48,6 +50,12 @@ const statusStyles: Record<TopicStatus, string> = {
   completed: "border-emerald-300/40 bg-emerald-400/15 text-emerald-200",
   "in-progress": "border-cyan-300/40 bg-cyan-400/15 text-cyan-200",
   "not-started": "border-slate-400/30 bg-slate-400/10 text-slate-300"
+};
+
+const studentStatusStyles: Record<TopicStatus, string> = {
+  completed: "border-emerald-200 bg-emerald-50 text-emerald-700 dark:border-emerald-300/35 dark:bg-emerald-400/10 dark:text-emerald-200",
+  "in-progress": "border-cyan-200 bg-cyan-50 text-cyan-700 dark:border-cyan-300/35 dark:bg-cyan-400/10 dark:text-cyan-200",
+  "not-started": "border-slate-200 bg-slate-50 text-slate-500 dark:border-white/10 dark:bg-white/[0.055] dark:text-slate-300"
 };
 
 const stationStyles: Record<TopicStatus, string> = {
@@ -611,7 +619,274 @@ function TransitRoute({
   );
 }
 
-export function LearningRoadmap({ forcedBand = null }: LearningRoadmapProps = {}) {
+function averageMastery(topics: Topic[]) {
+  if (!topics.length) return 0;
+  return Math.round(topics.reduce((total, topic) => total + topic.mastery, 0) / topics.length);
+}
+
+function countTopicsByStatus(topics: Topic[], status: TopicStatus) {
+  return topics.filter((topic) => topic.status === status).length;
+}
+
+function selectStudentFocusTopics(topics: Topic[], maxTopics = 5) {
+  if (topics.length <= maxTopics) return topics;
+
+  const anchorIndex = topics.findIndex((topic) => topic.status === "in-progress");
+  const fallbackIndex = topics.findIndex((topic) => topic.status === "not-started");
+  const focusIndex = anchorIndex >= 0 ? anchorIndex : fallbackIndex >= 0 ? fallbackIndex : Math.max(topics.length - maxTopics, 0);
+  const startIndex = Math.min(Math.max(focusIndex - 1, 0), Math.max(topics.length - maxTopics, 0));
+
+  return topics.slice(startIndex, startIndex + maxTopics);
+}
+
+function StudentTopicCard({
+  topic,
+  topicPosition,
+  gradeIndex,
+  lesson
+}: {
+  topic: Topic;
+  topicPosition: number;
+  gradeIndex: number;
+  lesson?: LessonSummary;
+}) {
+  const { language, text, t } = useSettings();
+  const details = transitDetailsForTopic(topic);
+  const routeColor = routeColors[(gradeIndex + topicPosition) % routeColors.length];
+  const branchSummaries = details.branches.slice(0, 4).map((branch, branchIndex) =>
+    localizedBranchStation({ branch, topic, branchIndex, language, text })
+  );
+
+  return (
+    <article className="soft-panel min-w-0 overflow-hidden p-5 transition hover:-translate-y-0.5 hover:shadow-glow">
+      <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
+        <div className="min-w-0">
+          <div className="flex flex-wrap items-center gap-2">
+            <span className="inline-flex h-8 min-w-8 items-center justify-center rounded-full bg-slate-950 px-2 text-xs font-black text-white dark:bg-white dark:text-slate-950">
+              {topicPosition + 1}
+            </span>
+            <span className={cn("rounded-full border px-3 py-1 text-xs font-black", studentStatusStyles[topic.status])}>
+              {getStatusLabel(topic.status, t)}
+            </span>
+            <span className="rounded-full border border-slate-200 bg-white px-3 py-1 text-xs font-bold text-slate-500 dark:border-white/10 dark:bg-white/[0.055] dark:text-slate-300">
+              {formatDifficultyLabel(topic.difficulty, language)}
+            </span>
+          </div>
+          <h3 className="mt-4 text-xl font-black leading-tight text-slate-950 dark:text-white">{text(topic.title)}</h3>
+          <p className="mt-2 text-sm font-medium leading-6 text-slate-600 dark:text-slate-300">{text(topic.description)}</p>
+        </div>
+        <div className="shrink-0 rounded-2xl border border-slate-200 bg-white px-4 py-3 text-left dark:border-white/10 dark:bg-white/[0.055] sm:text-right">
+          <p className="text-xs font-black uppercase tracking-[0.16em] text-slate-400">{t(dictionary.common.mastery)}</p>
+          <p className="mt-1 text-2xl font-black text-slate-950 dark:text-white">{topic.mastery}%</p>
+        </div>
+      </div>
+
+      <div className="mt-5 h-2 overflow-hidden rounded-full bg-slate-100 dark:bg-white/10">
+        <div className="h-full rounded-full" style={{ width: `${topic.mastery}%`, backgroundColor: routeColor }} />
+      </div>
+
+      <div className="mt-4 flex flex-wrap gap-2">
+        {branchSummaries.map((branch) => (
+          <span key={branch} className="rounded-full border border-slate-200 bg-white px-3 py-1.5 text-xs font-bold text-slate-600 dark:border-white/10 dark:bg-white/[0.055] dark:text-slate-300">
+            {branch}
+          </span>
+        ))}
+      </div>
+
+      <details className="mt-4 overflow-hidden rounded-2xl border border-slate-200 bg-slate-50/80 dark:border-white/10 dark:bg-white/[0.035]">
+        <summary className="flex cursor-pointer list-none items-center justify-between gap-3 px-4 py-3 text-sm font-black text-slate-700 dark:text-slate-200">
+          <span>{t({ en: "Focus details", zh: "重點細節", zhHans: "重点细节" })}</span>
+          <span className="text-xs font-bold text-slate-400">
+            {details.branches.length} {t({ en: "areas", zh: "個範圍", zhHans: "个范围" })}
+          </span>
+        </summary>
+        <div className="grid gap-3 border-t border-slate-200 p-4 dark:border-white/10 sm:grid-cols-2">
+          {details.branches.map((branch, branchIndex) => {
+            const branchTitle = localizedBranchStation({ branch, topic, branchIndex, language, text });
+            const stops = localizedBranchStops({ branch, language, text });
+
+            return (
+              <div key={`${topic.id}-student-${branchIndex}-${branch.station}`} className="rounded-xl border border-slate-200 bg-white p-3 dark:border-white/10 dark:bg-slate-950/40">
+                <p className="text-sm font-black text-slate-800 dark:text-white">{branchTitle}</p>
+                <ul className="mt-2 space-y-1.5">
+                  {stops.map((stop) => (
+                    <li key={stop} className="flex gap-2 text-xs font-bold leading-5 text-slate-500 dark:text-slate-300">
+                      <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full" style={{ backgroundColor: routeColor }} />
+                      <span>{stop}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            );
+          })}
+        </div>
+      </details>
+
+      {lesson ? (
+        <Link
+          href={lessonHrefForSlug(lesson.slug)}
+          className="focus-ring mt-4 inline-flex w-full justify-center rounded-full bg-slate-950 px-5 py-3 text-sm font-black text-white transition hover:-translate-y-0.5 dark:bg-white dark:text-slate-950 sm:w-fit"
+        >
+          {t(dictionary.common.openLesson)}
+        </Link>
+      ) : null}
+    </article>
+  );
+}
+
+function StudentLearningPath({
+  grade,
+  gradeIndex,
+  topics,
+  displayedRecommendedLesson,
+  lessonByTopicId,
+  contentUnavailable,
+  activeCurriculumProfile
+}: {
+  grade: Grade;
+  gradeIndex: number;
+  topics: Topic[];
+  displayedRecommendedLesson: LessonSummary | null;
+  lessonByTopicId: Map<string, LessonSummary>;
+  contentUnavailable?: LocalizedText | null;
+  activeCurriculumProfile: ReturnType<typeof curriculumProfileForTrack>;
+}) {
+  const { language, text, t } = useSettings();
+  const focusTopics = selectStudentFocusTopics(topics);
+  const nextTopic = topics.find((topic) => topic.status === "in-progress") ?? topics.find((topic) => topic.status === "not-started") ?? topics[0] ?? null;
+  const nextLesson = displayedRecommendedLesson ?? (nextTopic ? lessonByTopicId.get(nextTopic.id) ?? null : null);
+  const completedCount = countTopicsByStatus(topics, "completed");
+  const inProgressCount = countTopicsByStatus(topics, "in-progress");
+  const notStartedCount = countTopicsByStatus(topics, "not-started");
+  const mastery = averageMastery(topics);
+  const gradeLabel = formatGradeLabel(grade.id, language, true);
+  const hasHiddenTopics = focusTopics.length < topics.length;
+
+  return (
+    <div className="relative mt-8 space-y-6">
+      {nextLesson ? (
+        <section className="glass-panel border-cyan-200 bg-cyan-50/75 p-5 dark:border-cyan-300/30 dark:bg-cyan-400/10 sm:p-6">
+          <div className="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
+            <div className="min-w-0">
+              <p className="text-sm font-black uppercase tracking-[0.2em] text-cyan-700 dark:text-cyan-200">
+                {t({ en: "Start here", zh: "由這裡開始", zhHans: "从这里开始" })}
+              </p>
+              <h2 className="mt-2 text-2xl font-black tracking-tight text-slate-950 dark:text-white">{text(nextLesson.title)}</h2>
+              <p className="mt-2 max-w-3xl text-sm font-medium leading-6 text-cyan-900/75 dark:text-cyan-50/85">
+                {text(nextLesson.description)}
+              </p>
+            </div>
+            <Link
+              href={lessonHrefForSlug(nextLesson.slug)}
+              className="focus-ring inline-flex w-full justify-center rounded-full bg-slate-950 px-6 py-3 text-sm font-black text-white transition hover:-translate-y-0.5 dark:bg-white dark:text-slate-950 sm:w-fit"
+            >
+              {t(dictionary.common.openLesson)}
+            </Link>
+          </div>
+        </section>
+      ) : null}
+
+      <section className="glass-panel overflow-hidden p-5 sm:p-6">
+        <div className="flex flex-col gap-6 lg:flex-row lg:items-center lg:justify-between">
+          <div className="flex min-w-0 flex-col gap-4 sm:flex-row sm:items-start">
+            <span className={cn("grid h-16 w-16 shrink-0 place-items-center rounded-2xl font-black shadow-lg", isChineseLanguage(language) ? "text-base" : "text-2xl", "bg-slate-950 text-white dark:bg-white dark:text-slate-950")}>
+              {gradeLabel}
+            </span>
+            <div className="min-w-0">
+              <p className="text-sm font-black uppercase tracking-[0.2em] text-cyan-600 dark:text-cyan-300">
+                {t({ en: "Current grade path", zh: "目前年級路線", zhHans: "当前年级路线" })}
+              </p>
+              <h2 className="mt-2 text-2xl font-black tracking-tight text-slate-950 dark:text-white sm:text-3xl">
+                {gradeLabel} · {getGradeDisplayName(text(grade.name), grade.id)}
+              </h2>
+              <p className="mt-2 max-w-3xl text-sm leading-6 text-slate-600 dark:text-slate-300">
+                {t(dictionary.common.age)} {grade.ageRange} · {text(grade.focus)}
+              </p>
+              <span className="mt-3 inline-flex w-fit rounded-full border border-cyan-200 bg-cyan-50 px-3 py-1 text-xs font-black text-cyan-700 dark:border-cyan-300/30 dark:bg-cyan-300/10 dark:text-cyan-100">
+                {t(publisherLabels[activeCurriculumProfile.publisher])}
+              </span>
+            </div>
+          </div>
+
+          <div className="grid gap-3 sm:grid-cols-3 lg:min-w-[25rem]">
+            <div className="soft-panel px-4 py-3">
+              <p className="text-xs font-black uppercase tracking-[0.14em] text-slate-400">{t(dictionary.common.mastery)}</p>
+              <p className="mt-1 text-2xl font-black text-slate-950 dark:text-white">{mastery}%</p>
+            </div>
+            <div className="soft-panel px-4 py-3">
+              <p className="text-xs font-black uppercase tracking-[0.14em] text-slate-400">{t(dictionary.common.completed)}</p>
+              <p className="mt-1 text-2xl font-black text-emerald-600 dark:text-emerald-200">{completedCount}</p>
+            </div>
+            <div className="soft-panel px-4 py-3">
+              <p className="text-xs font-black uppercase tracking-[0.14em] text-slate-400">{t(dictionary.common.inProgress)}</p>
+              <p className="mt-1 text-2xl font-black text-cyan-600 dark:text-cyan-200">{inProgressCount || notStartedCount}</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {contentUnavailable ? (
+        <section className="rounded-2xl border border-amber-300/45 bg-amber-50 p-5 text-sm font-bold leading-6 text-amber-800 shadow-sm dark:bg-amber-400/10 dark:text-amber-100">
+          {text(contentUnavailable)}
+        </section>
+      ) : null}
+
+      <section className="glass-panel p-5 sm:p-6">
+        <div className="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
+          <div>
+            <p className="text-sm font-black uppercase tracking-[0.2em] text-slate-400">
+              {t({ en: "Topic path", zh: "主題路線", zhHans: "主题路线" })}
+            </p>
+            <h2 className="mt-2 text-2xl font-black tracking-tight text-slate-950 dark:text-white">
+              {t({ en: "This grade's next topics", zh: "本年級下一步主題", zhHans: "本年级下一步主题" })}
+            </h2>
+          </div>
+          <p className="text-sm font-bold text-slate-500 dark:text-slate-400">
+            {hasHiddenTopics
+              ? t({
+                  en: `Showing ${focusTopics.length} of ${topics.length} topics around the current learning point`,
+                  zh: `顯示目前學習點附近 ${focusTopics.length} / ${topics.length} 個主題`,
+                  zhHans: `显示当前学习点附近 ${focusTopics.length} / ${topics.length} 个主题`
+                })
+              : t({
+                  en: `${topics.length} topics in ${gradeLabel}`,
+                  zh: `${gradeLabel} 共 ${topics.length} 個主題`,
+                  zhHans: `${gradeLabel} 共 ${topics.length} 个主题`
+                })}
+          </p>
+        </div>
+
+        <div className="mt-5 grid gap-4 lg:grid-cols-2">
+          {focusTopics.map((topic) => {
+            const topicPosition = Math.max(topics.findIndex((candidate) => candidate.id === topic.id), 0);
+
+            return (
+              <StudentTopicCard
+                key={topic.id}
+                topic={topic}
+                topicPosition={topicPosition}
+                gradeIndex={gradeIndex}
+                lesson={lessonByTopicId.get(topic.id)}
+              />
+            );
+          })}
+        </div>
+
+        {hasHiddenTopics ? (
+          <div className="mt-5 rounded-2xl border border-slate-200 bg-slate-50 p-4 text-sm font-bold leading-6 text-slate-600 dark:border-white/10 dark:bg-white/[0.035] dark:text-slate-300">
+            {t({
+              en: "The full curriculum map is still available from the Primary and Secondary map buttons above.",
+              zh: "完整課程地圖仍可透過上方的小學及中學地圖按鈕查看。",
+              zhHans: "完整课程地图仍可通过上方的小学及中学地图按钮查看。"
+            })}
+          </div>
+        ) : null}
+      </section>
+    </div>
+  );
+}
+
+export function LearningRoadmap({ forcedBand = null, mode = "network" }: LearningRoadmapProps = {}) {
   const { currentUser, language, selectedGrade, text, t } = useSettings();
   const [roadmap, setRoadmap] = useState<RoadmapData | null>(null);
   const activeRoadmapGrade = selectedGrade;
@@ -620,6 +895,7 @@ export function LearningRoadmap({ forcedBand = null }: LearningRoadmapProps = {}
   const isMainlandPepRoadmap = isMainlandPepRoadmapProfile(activeCurriculumProfile);
   const isMainlandHjbRoadmap = isMainlandHjbRoadmapProfile(activeCurriculumProfile);
   const isMainlandPublisherRoadmap = isMainlandPepRoadmap || isMainlandHjbRoadmap;
+  const isStudentMode = mode === "student" && Boolean(currentUser);
   const selectedBand: RoadmapBand = forcedBand ?? (activeRoadmapGrade.startsWith("P") ? "primary" : "secondary");
   const [roadmapBand, setRoadmapBand] = useState<RoadmapBand>(selectedBand);
 
@@ -658,11 +934,12 @@ export function LearningRoadmap({ forcedBand = null }: LearningRoadmapProps = {}
     [roadmap?.lessons]
   );
   const visibleGrades = useMemo(() => {
+    if (isStudentMode) return grades.filter((grade) => grade.id === activeRoadmapGrade);
     if (forcedBand) return forcedBand === "primary" ? primaryGrades : secondaryGrades;
     if (currentUser && isMainlandPublisherRoadmap) return grades;
     if (currentUser) return grades.filter((grade) => grade.id === activeRoadmapGrade);
     return roadmapBand === "primary" ? primaryGrades : secondaryGrades;
-  }, [activeRoadmapGrade, currentUser, forcedBand, isMainlandPublisherRoadmap, roadmapBand]);
+  }, [activeRoadmapGrade, currentUser, forcedBand, isMainlandPublisherRoadmap, isStudentMode, roadmapBand]);
   const visibleTopicCount = visibleGrades.reduce(
     (count, grade) =>
       count +
@@ -684,6 +961,27 @@ export function LearningRoadmap({ forcedBand = null }: LearningRoadmapProps = {}
       null
     );
   }, [roadmap, visibleGradeIds]);
+
+  if (isStudentMode) {
+    const activeGrade = visibleGrades[0] ?? grades.find((grade) => grade.id === activeRoadmapGrade) ?? grades[0];
+    const gradeIndex = Math.max(grades.findIndex((candidate) => candidate.id === activeGrade.id), 0);
+    const sourceTopics = roadmap
+      ? roadmap.topics.filter((topic) => topic.grade === activeGrade.id)
+      : fallbackTopics.filter((topic) => topic.curriculumTrack === activeCurriculumTrack && topic.grade === activeGrade.id);
+    const gradeTopics = sourceTopics.map((topic) => personalizedTopicById.get(topic.id) ?? topic);
+
+    return (
+      <StudentLearningPath
+        grade={activeGrade}
+        gradeIndex={gradeIndex}
+        topics={gradeTopics}
+        displayedRecommendedLesson={displayedRecommendedLesson}
+        lessonByTopicId={lessonByTopicId}
+        contentUnavailable={roadmap?.contentUnavailable}
+        activeCurriculumProfile={activeCurriculumProfile}
+      />
+    );
+  }
 
   return (
     <div className="relative mt-10 space-y-8">

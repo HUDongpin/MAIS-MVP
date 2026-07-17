@@ -17,6 +17,7 @@ import {
 } from "@/components/learning/LearningRoadmap";
 import { useSettings } from "@/components/providers/AppProviders";
 import { formatGradeLabel, isChineseLanguage, simplifyChineseText } from "@/lib/i18n";
+import { studentRoadmapPath } from "@/lib/roadmapRoutes";
 import { cn } from "@/lib/utils";
 import type { Grade, GradeId, Language, LocalizedText, RoadmapData, Topic } from "@/types";
 
@@ -25,7 +26,13 @@ const mapHeight = 1480;
 const primaryMapRightGutter = 520;
 const secondaryMapRightGutter = 620;
 const terminalY = 250;
-const gradeXs = [330, 1010, 1690, 2370, 3050, 3730];
+const gradeXs = [330, 897, 1463, 2030, 2597, 3163, 3730];
+const sixGradeXs = [330, 1010, 1690, 2370, 3050, 3730];
+const routeIndexPanelX = 54;
+const routeIndexPanelWidth = 470;
+const routeIndexEntryStartX = 90;
+const routeIndexColumnSpacing = 120;
+const routeIndexSwatchSize = 44;
 const minZoom = 0.06;
 const maxZoom = 1.12;
 const desktopDetailZoom = 0.74;
@@ -123,8 +130,20 @@ function getRouteColor(gradeIndex: number, topicIndex: number) {
   return routeColors[(gradeIndex * 3 + topicIndex) % routeColors.length];
 }
 
-function getRoutePoints(gradeIndex: number, topicIndex: number, band: SubwayMapBand) {
-  const x = gradeXs[gradeIndex];
+function getMapGradeXs(gradeCount: number) {
+  if (gradeCount === sixGradeXs.length) return sixGradeXs;
+  if (gradeCount <= gradeXs.length) return gradeXs.slice(0, gradeCount);
+  const lastX = gradeXs[gradeXs.length - 1];
+  const extraStep = gradeXs[gradeXs.length - 1] - gradeXs[gradeXs.length - 2];
+  return Array.from({ length: gradeCount }, (_, index) => gradeXs[index] ?? lastX + extraStep * (index - gradeXs.length + 1));
+}
+
+function getLastGradeX(mapGradeXs: readonly number[]) {
+  return mapGradeXs[mapGradeXs.length - 1] ?? gradeXs[0];
+}
+
+function getRoutePoints(gradeX: number, topicIndex: number, band: SubwayMapBand) {
+  const x = gradeX;
   const y = terminalY;
   const primaryOuterBranch: Point[] = [
     { x, y },
@@ -353,6 +372,7 @@ function StationLabel({
 function TopicRoute({
   topic,
   gradeIndex,
+  gradeX,
   topicIndex,
   band,
   layer,
@@ -365,6 +385,7 @@ function TopicRoute({
 }: {
   topic: Topic;
   gradeIndex: number;
+  gradeX: number;
   topicIndex: number;
   band: SubwayMapBand;
   layer: MapLayer;
@@ -377,7 +398,7 @@ function TopicRoute({
 }) {
   const { language, text } = useSettings();
   const details = getMainlandHjbTransitDetails(topic) ?? getMainlandPepTransitDetails(topic) ?? topicTransitDetails[topic.id] ?? fallbackTransitDetails;
-  const points = getRoutePoints(gradeIndex, topicIndex, band);
+  const points = getRoutePoints(gradeX, topicIndex, band);
   const stationPoints = points.slice(1);
   const color = getRouteColor(gradeIndex, topicIndex);
   const labelPoint = stationPoints[1] ?? stationPoints[0];
@@ -688,6 +709,7 @@ function MapMiniNavigator({
   viewport,
   zoom,
   grades,
+  mapGradeXs,
   mapCanvasWidth,
   onPan,
   ariaLabel,
@@ -696,6 +718,7 @@ function MapMiniNavigator({
   viewport: Viewport;
   zoom: number;
   grades: Grade[];
+  mapGradeXs: readonly number[];
   mapCanvasWidth: number;
   onPan: (x: number, y: number) => void;
   ariaLabel: string;
@@ -708,6 +731,8 @@ function MapMiniNavigator({
   const scaleY = miniHeight / mapHeight;
   const visibleWidth = viewport.width / zoom;
   const visibleHeight = viewport.height / zoom;
+  const spineStartX = mapGradeXs[0] ?? gradeXs[0];
+  const spineEndX = getLastGradeX(mapGradeXs);
   const rectX = clamp(viewport.left / zoom, 0, mapCanvasWidth) * scaleX;
   const rectY = clamp(viewport.top / zoom, 0, mapHeight) * scaleY;
   const rectWidth = clamp(visibleWidth, 80, mapCanvasWidth) * scaleX;
@@ -738,20 +763,23 @@ function MapMiniNavigator({
       >
         <rect width={miniWidth} height={miniHeight} rx="12" fill="#f8fafc" />
         <path
-          d={`M ${gradeXs[0] * scaleX} ${terminalY * scaleY} L ${gradeXs[5] * scaleX} ${terminalY * scaleY}`}
+          d={`M ${spineStartX * scaleX} ${terminalY * scaleY} L ${spineEndX * scaleX} ${terminalY * scaleY}`}
           fill="none"
           stroke={spineColor}
           strokeLinecap="round"
           strokeWidth="3"
         />
-        {gradeXs.map((x, index) => (
-          <g key={grades[index].id}>
+        {grades.map((grade, index) => {
+          const x = mapGradeXs[index] ?? spineEndX;
+          return (
+          <g key={grade.id}>
             <circle cx={x * scaleX} cy={terminalY * scaleY} r="4.5" fill="#020617" />
             <text x={x * scaleX} y={terminalY * scaleY - 8} textAnchor="middle" className="fill-slate-700 text-[6px] font-black">
-              {grades[index].id}
+              {grade.id}
             </text>
           </g>
-        ))}
+          );
+        })}
         <rect
           x={rectX}
           y={rectY}
@@ -808,6 +836,9 @@ export function SubwayNetworkMap({
 }: SubwayNetworkMapProps) {
   const { currentUser, language, text, t } = useSettings();
   const mapCanvasWidth = mapWidth + (band === "primary" ? primaryMapRightGutter : secondaryMapRightGutter);
+  const mapGradeXs = useMemo(() => getMapGradeXs(grades.length), [grades.length]);
+  const spineStartX = mapGradeXs[0] ?? gradeXs[0];
+  const spineEndX = getLastGradeX(mapGradeXs);
   const isMainlandPepMap = isMainlandPepRoadmapProfile(currentUser?.curriculumProfile);
   const isMainlandHjbMap = isMainlandHjbRoadmapProfile(currentUser?.curriculumProfile);
   const useDenseGradeFilter = denseGradeFilter ?? isMainlandHjbMap;
@@ -1029,8 +1060,8 @@ export function SubwayNetworkMap({
     if (gradeId && useDenseGradeFilter) setActiveDenseGradeId(gradeId);
     const nextZoom = typeof window !== "undefined" && window.innerWidth < 768 ? mobileDetailZoom : desktopDetailZoom;
     setZoom(nextZoom);
-    window.setTimeout(() => scrollToMapPoint(gradeXs[gradeIndex], terminalY + 430, nextZoom), 20);
-  }, [grades, scrollToMapPoint, useDenseGradeFilter]);
+    window.setTimeout(() => scrollToMapPoint(mapGradeXs[gradeIndex] ?? spineEndX, terminalY + 430, nextZoom), 20);
+  }, [grades, mapGradeXs, scrollToMapPoint, spineEndX, useDenseGradeFilter]);
 
   const handleSelectStation = useCallback((station: SelectedStation) => {
     const shouldSelectStation = selectedStation?.key !== station.key;
@@ -1120,10 +1151,10 @@ export function SubwayNetworkMap({
       .filter((topic) => topic.grade === grade.id)
       .map((topic, topicIndex) => ({ topic, gradeIndex, topicIndex }))
   ), [displayedRoadmapTopics, grades]);
-  const mapCenterX = zoom > 0 ? (viewport.left + viewport.width / 2) / zoom : gradeXs[0];
+  const mapCenterX = zoom > 0 ? (viewport.left + viewport.width / 2) / zoom : spineStartX;
   const focusedGradeIndex = grades.reduce((closestIndex, _grade, gradeIndex) => {
-    const closestDistance = Math.abs(gradeXs[closestIndex] - mapCenterX);
-    const candidateDistance = Math.abs(gradeXs[gradeIndex] - mapCenterX);
+    const closestDistance = Math.abs((mapGradeXs[closestIndex] ?? spineStartX) - mapCenterX);
+    const candidateDistance = Math.abs((mapGradeXs[gradeIndex] ?? spineEndX) - mapCenterX);
     return candidateDistance < closestDistance ? gradeIndex : closestIndex;
   }, 0);
   const detailLabelGradeRadius = zoom >= 0.9 ? 1 : 0;
@@ -1177,7 +1208,7 @@ export function SubwayNetworkMap({
 
         {showBackLink ? (
         <Link
-          href="/learning-path"
+          href={studentRoadmapPath}
           className="focus-ring inline-flex w-fit rounded-full border border-slate-200/80 bg-white/75 px-5 py-3 text-sm font-black text-slate-800 shadow-lg transition hover:-translate-y-1 dark:border-white/10 dark:bg-white/[0.07] dark:text-white"
         >
           {t({ en: "Back to Learning Path", zh: "返回學習路徑", zhHans: "返回学习路径" })}
@@ -1338,14 +1369,14 @@ export function SubwayNetworkMap({
 
             <g filter="url(#route-shadow)">
 	              <path
-	                d={`M ${gradeXs[0]} ${terminalY} L ${gradeXs[5]} ${terminalY}`}
+		                d={`M ${spineStartX} ${terminalY} L ${spineEndX} ${terminalY}`}
 	                fill="none"
 	                stroke={spineColor}
                 strokeLinecap="round"
                 strokeWidth="24"
               />
               <path
-                d={`M ${gradeXs[0]} ${terminalY} L ${gradeXs[5]} ${terminalY}`}
+                d={`M ${spineStartX} ${terminalY} L ${spineEndX} ${terminalY}`}
                 fill="none"
                 stroke="white"
                 strokeLinecap="round"
@@ -1356,8 +1387,9 @@ export function SubwayNetworkMap({
               {routeEntries.map(({ topic, gradeIndex, topicIndex }) => (
                 <TopicRoute
                   key={`${topic.id}-line`}
-                  topic={topic}
-                  gradeIndex={gradeIndex}
+	                  topic={topic}
+	                  gradeIndex={gradeIndex}
+	                  gradeX={mapGradeXs[gradeIndex] ?? spineEndX}
                   topicIndex={topicIndex}
                   band={band}
                   layer="line"
@@ -1372,8 +1404,9 @@ export function SubwayNetworkMap({
               {routeEntries.map(({ topic, gradeIndex, topicIndex }) => (
                 <TopicRoute
                   key={`${topic.id}-stations`}
-                  topic={topic}
-                  gradeIndex={gradeIndex}
+	                  topic={topic}
+	                  gradeIndex={gradeIndex}
+	                  gradeX={mapGradeXs[gradeIndex] ?? spineEndX}
                   topicIndex={topicIndex}
                   band={band}
                   layer="stations"
@@ -1395,6 +1428,7 @@ export function SubwayNetworkMap({
                     key={`${topic.id}-labels`}
                     topic={topic}
                     gradeIndex={gradeIndex}
+                    gradeX={mapGradeXs[gradeIndex] ?? spineEndX}
                     topicIndex={topicIndex}
                     band={band}
                     layer="labels"
@@ -1410,7 +1444,7 @@ export function SubwayNetworkMap({
             </g>
 
             {grades.map((grade, gradeIndex) => {
-              const x = gradeXs[gradeIndex];
+              const x = mapGradeXs[gradeIndex] ?? spineEndX;
               return (
                 <g key={grade.id}>
                   <rect x={x - 48} y={terminalY - 48} width="96" height="96" rx="26" className="fill-slate-950 stroke-white" strokeWidth="8" />
@@ -1425,22 +1459,22 @@ export function SubwayNetworkMap({
             })}
 
             <g>
-              <rect x="54" y="1204" width="470" height="266" rx="24" className="fill-white/95 stroke-slate-300" />
+              <rect x={routeIndexPanelX} y="1204" width={routeIndexPanelWidth} height="266" rx="24" className="fill-white/95 stroke-slate-300" />
 	              <text x="90" y="1254" className="fill-slate-950 text-[28px] font-black">{isChineseLanguage(language) ? simplifyChineseText("路線索引", language) : "Route Index"}</text>
               {grades.slice(0, 3).map((grade, gradeIndex) => (
                 <g key={grade.id}>
-                  <rect x={90 + gradeIndex * 136} y="1286" width="44" height="44" rx="12" className="fill-slate-950" />
-	                  <text x={112 + gradeIndex * 136} y="1317" textAnchor="middle" className="fill-white text-[22px] font-black">{formatRoadmapGradeLabel(grade.id, language, useGradeCodeLabel)}</text>
-                  <text x={90 + gradeIndex * 136} y="1360" className="fill-slate-700 text-[17px] font-bold">
+                  <rect x={routeIndexEntryStartX + gradeIndex * routeIndexColumnSpacing} y="1286" width={routeIndexSwatchSize} height={routeIndexSwatchSize} rx="12" className="fill-slate-950" />
+	                  <text x={routeIndexEntryStartX + routeIndexSwatchSize / 2 + gradeIndex * routeIndexColumnSpacing} y="1317" textAnchor="middle" className="fill-white text-[22px] font-black">{formatRoadmapGradeLabel(grade.id, language, useGradeCodeLabel)}</text>
+                  <text x={routeIndexEntryStartX + gradeIndex * routeIndexColumnSpacing} y="1360" className="fill-slate-700 text-[17px] font-bold">
 	                    {roadmapTopics.filter((topic) => topic.grade === grade.id).length} {isChineseLanguage(language) ? simplifyChineseText("路線", language) : "routes"}
                   </text>
                 </g>
               ))}
               {grades.slice(3).map((grade, offset) => (
                 <g key={grade.id}>
-                  <rect x={90 + offset * 136} y="1374" width="44" height="44" rx="12" className="fill-slate-950" />
-	                  <text x={112 + offset * 136} y="1405" textAnchor="middle" className="fill-white text-[22px] font-black">{formatRoadmapGradeLabel(grade.id, language, useGradeCodeLabel)}</text>
-                  <text x={90 + offset * 136} y="1448" className="fill-slate-700 text-[17px] font-bold">
+                  <rect x={routeIndexEntryStartX + offset * routeIndexColumnSpacing} y="1374" width={routeIndexSwatchSize} height={routeIndexSwatchSize} rx="12" className="fill-slate-950" />
+	                  <text x={routeIndexEntryStartX + routeIndexSwatchSize / 2 + offset * routeIndexColumnSpacing} y="1405" textAnchor="middle" className="fill-white text-[22px] font-black">{formatRoadmapGradeLabel(grade.id, language, useGradeCodeLabel)}</text>
+                  <text x={routeIndexEntryStartX + offset * routeIndexColumnSpacing} y="1448" className="fill-slate-700 text-[17px] font-bold">
 	                    {roadmapTopics.filter((topic) => topic.grade === grade.id).length} {isChineseLanguage(language) ? simplifyChineseText("路線", language) : "routes"}
                   </text>
                 </g>
@@ -1454,7 +1488,8 @@ export function SubwayNetworkMap({
                 <MapMiniNavigator
                   viewport={viewport}
                   zoom={zoom}
-                  grades={grades}
+	                  grades={grades}
+	                  mapGradeXs={mapGradeXs}
                   mapCanvasWidth={mapCanvasWidth}
                   onPan={(x, y) => scrollToMapPoint(x, y)}
                   ariaLabel={miniMapAriaLabel}

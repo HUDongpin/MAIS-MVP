@@ -3,7 +3,8 @@ import v2QuestionPackJson from "./generated-content/mainland-hjb-high-generated-
 import v3RemediatedQuestionPackJson from "./generated-content/mainland-hjb-high-generated-bank-v3-remediated/question-pack.json";
 import v4RemediatedQuestionPackJson from "./generated-content/mainland-hjb-high-generated-bank-v4-remediated/question-pack.json";
 import { mainlandHjbHighRagCards } from "./rag/mainlandHjbHigh";
-import type { CurriculumProfile, Difficulty, GradeId, Topic } from "@/types";
+import { mapDifficultyToActive } from "@/lib/difficulty";
+import type { CurriculumProfile, Difficulty, DifficultyRecord, GradeId, Topic } from "@/types";
 
 type GeneratedHjbQuestion = {
   grade: Extract<GradeId, "S4" | "S5" | "S6">;
@@ -12,7 +13,7 @@ type GeneratedHjbQuestion = {
   volume: string;
   chapter: string;
   conceptIds: string[];
-  difficulty: Difficulty;
+  difficulty: DifficultyRecord;
   evidenceCardIds: string[];
 };
 
@@ -39,8 +40,12 @@ const approvedQuestionPacks = [
 ];
 const approvedQuestions = approvedQuestionPacks.flatMap((pack) => pack.questions);
 const mainlandHjbHighProfile = { region: "MAINLAND", publisher: "MAINLAND_HJB" } satisfies CurriculumProfile;
-const minutesByDifficulty: Record<Difficulty, number> = { Foundation: 38, Core: 44, Challenge: 50, Exam: 55 };
-const difficultyPriority: Difficulty[] = ["Exam", "Challenge", "Core", "Foundation"];
+const minutesByDifficulty: Record<Difficulty, number> = {
+  Low: 38,
+  Medium: 44,
+  High: 55
+};
+const difficultyPriority: Difficulty[] = ["High", "Medium", "Low"];
 const ragCardById = new Map(mainlandHjbHighRagCards.map((card) => [card.id, card]));
 const chapterTitleEnByZhHans: Record<string, string> = {
   "集合与逻辑": "Sets and Logic",
@@ -98,8 +103,11 @@ export function translateHjbHighDisplayTextEn(value: string) {
 
 function dominantDifficulty(questions: GeneratedHjbQuestion[]) {
   const counts = new Map<Difficulty, number>();
-  questions.forEach((question) => counts.set(question.difficulty, (counts.get(question.difficulty) ?? 0) + 1));
-  return Array.from(counts.entries()).sort((a, b) => b[1] - a[1] || difficultyPriority.indexOf(a[0]) - difficultyPriority.indexOf(b[0]))[0]?.[0] ?? "Core";
+  questions.forEach((question) => {
+    const difficulty = mapDifficultyToActive(question.difficulty);
+    counts.set(difficulty, (counts.get(difficulty) ?? 0) + 1);
+  });
+  return Array.from(counts.entries()).sort((a, b) => b[1] - a[1] || difficultyPriority.indexOf(a[0]) - difficultyPriority.indexOf(b[0]))[0]?.[0] ?? "Medium";
 }
 
 function topEvidenceCardId(questions: GeneratedHjbQuestion[]) {
