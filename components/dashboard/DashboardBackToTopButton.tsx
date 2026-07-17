@@ -64,10 +64,12 @@ export function DashboardBackToTopButton() {
         aria-hidden="true"
         className="absolute inset-0 rounded-full opacity-95 shadow-[0_18px_50px_rgba(14,165,233,0.28)] transition group-hover:shadow-[0_24px_68px_rgba(217,70,239,0.25)]"
         style={{
-          background: `conic-gradient(from -90deg, rgba(34,211,238,0.96) ${scrollState.progress * 360}deg, rgba(148,163,184,0.24) 0deg)`
+          background: `conic-gradient(from -90deg, rgba(34,211,238,0.96) ${scrollState.progress * 360}deg, rgba(148,163,184,0.24) 0deg)`,
+          WebkitMask: "radial-gradient(farthest-side, transparent calc(100% - 3px), #000 0)",
+          mask: "radial-gradient(farthest-side, transparent calc(100% - 3px), #000 0)"
         }}
       />
-      <span aria-hidden="true" className="absolute inset-[3px] rounded-full border border-white/65 bg-white/92 backdrop-blur-xl dark:border-white/15 dark:bg-slate-950/90" />
+      <span aria-hidden="true" className="absolute inset-[3px] rounded-full border border-white/[0.65] bg-white/[0.92] backdrop-blur-xl dark:border-white/[0.15] dark:bg-slate-950/90" />
       <span aria-hidden="true" className="absolute inset-[7px] rounded-full bg-gradient-to-br from-cyan-400/16 via-white/0 to-fuchsia-400/18 dark:from-cyan-300/20 dark:to-fuchsia-300/16" />
       <span className="relative flex h-full w-full items-center justify-center text-slate-950 transition group-hover:-translate-y-0.5 dark:text-white">
         <svg viewBox="0 0 24 24" className="h-6 w-6" fill="none" aria-hidden="true">

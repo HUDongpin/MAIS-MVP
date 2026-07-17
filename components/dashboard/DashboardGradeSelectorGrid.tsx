@@ -1,10 +1,17 @@
 "use client";
 
+import { useEffect } from "react";
 import { primaryGrades, secondaryGrades } from "@/data/grades";
 import { useSettings } from "@/components/providers/AppProviders";
 import { formatGradeLabelForCurriculum } from "@/lib/i18n";
 import { cn } from "@/lib/utils";
-import type { Grade, GradeId } from "@/types";
+import type { CurriculumTrack, Grade, GradeId } from "@/types";
+
+const unitedStatesCurriculumTracks = new Set<CurriculumTrack>(["US_CA_MATH", "US_NC_MATH", "US_AR_MATH", "US_FL_MATH"]);
+
+function primaryGradesForCurriculumTrack(curriculumTrack: CurriculumTrack) {
+  return unitedStatesCurriculumTracks.has(curriculumTrack) ? primaryGrades : primaryGrades.filter((grade) => grade.id !== "K");
+}
 
 function DashboardGradeButton({
   active,
@@ -52,16 +59,46 @@ function DashboardGradeButton({
 
 export function DashboardGradeSelectorGrid() {
   const { currentUser, language, selectedGrade, setSelectedGrade, t } = useSettings();
-  const gradeLocked = currentUser?.role === "student";
   const curriculumTrack = currentUser?.curriculumTrack ?? "HK";
+  const visiblePrimaryGrades = primaryGradesForCurriculumTrack(curriculumTrack);
+  const visibleGrades = [...visiblePrimaryGrades, ...secondaryGrades];
+  const fixedStudentGrade = currentUser?.role === "student" ? currentUser.grade : null;
+  const selectedGradeIsVisible = visibleGrades.some((grade) => grade.id === selectedGrade);
+  const fixedStudentGradeIsVisible = fixedStudentGrade
+    ? visibleGrades.some((grade) => grade.id === fixedStudentGrade)
+    : false;
+  const displayedSelectedGrade = fixedStudentGrade && fixedStudentGradeIsVisible
+    ? fixedStudentGrade
+    : selectedGradeIsVisible ? selectedGrade : visibleGrades[0]?.id ?? "P1";
+  const gradeRowGridClassName = visiblePrimaryGrades.length > 6 ? "grid-cols-4 sm:grid-cols-7" : "grid-cols-3 sm:grid-cols-6";
+
+  useEffect(() => {
+    if (fixedStudentGrade && fixedStudentGradeIsVisible) {
+      if (selectedGrade !== fixedStudentGrade) {
+        setSelectedGrade(fixedStudentGrade);
+      }
+      return;
+    }
+
+    if (!selectedGradeIsVisible) {
+      setSelectedGrade(displayedSelectedGrade);
+    }
+  }, [
+    displayedSelectedGrade,
+    fixedStudentGrade,
+    fixedStudentGradeIsVisible,
+    selectedGrade,
+    selectedGradeIsVisible,
+    setSelectedGrade,
+  ]);
 
   const renderGrade = (grade: Grade) => (
     <DashboardGradeButton
       key={grade.id}
-      active={selectedGrade === grade.id}
+      active={displayedSelectedGrade === grade.id}
       grade={grade}
       label={formatGradeLabelForCurriculum(grade.id, language, curriculumTrack, true)}
-      locked={gradeLocked}
+      locked={Boolean(fixedStudentGrade)}
       onSelect={setSelectedGrade}
     />
   );
@@ -70,12 +107,12 @@ export function DashboardGradeSelectorGrid() {
     <div
       className="grid gap-3"
       role="radiogroup"
-      aria-label={t(gradeLocked ? { en: "Fixed grade", zh: "固定年級" } : { en: "Select grade", zh: "選擇年級" })}
+      aria-label={t({ en: "Select grade", zh: "選擇年級", zhHans: "选择年级" })}
     >
-      <div className="grid grid-cols-3 gap-3 sm:grid-cols-6" data-testid="dashboard-primary-grade-row">
-        {primaryGrades.map(renderGrade)}
+      <div className={cn("grid gap-3", gradeRowGridClassName)} data-testid="dashboard-primary-grade-row">
+        {visiblePrimaryGrades.map(renderGrade)}
       </div>
-      <div className="grid grid-cols-3 gap-3 sm:grid-cols-6" data-testid="dashboard-secondary-grade-row">
+      <div className={cn("grid gap-3", gradeRowGridClassName)} data-testid="dashboard-secondary-grade-row">
         {secondaryGrades.map(renderGrade)}
       </div>
     </div>
