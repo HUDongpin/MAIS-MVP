@@ -298,7 +298,7 @@ test("path-summary snapshots accept only the exact reviewed legacy untracked tes
       snapshotRef: "main",
       dryRun: true
     });
-    assert.equal(plan.worktrees[0].snapshot.scanner.reviewedLegacyExactTextPathCount, 1);
+    assert.equal(plan.worktrees[0].snapshot.scanner.reviewedExactUntrackedPolicyPathCount, 1);
   } finally {
     fixture.cleanup();
   }
@@ -341,6 +341,30 @@ test("path-summary snapshots accept only the exact reviewed untracked coordinati
       "git",
       ["cat-file", "blob", "3d7e78774ea1eb3670e3e852d683ba62161df8ce"],
       { cwd: path.resolve(path.dirname(generatorPath), "../.."), encoding: null }
+    );
+    fs.writeFileSync(fixturePath, reviewedFixture, { mode: 0o644 });
+    const plan = implementation.generateFingerprintPlan({
+      repoRoot: fixture.root,
+      canonicalRoot: fixture.root,
+      mainRef: "main",
+      snapshotRef: "main",
+      dryRun: true
+    });
+    assert.equal(plan.worktrees[0].snapshot.scanner.reviewedExactUntrackedPolicyPathCount, 1);
+  } finally {
+    fixture.cleanup();
+  }
+});
+
+test("path-summary snapshots accept only the exact reviewed terminal patch", () => {
+  const fixture = createMutablePublicationFixture();
+  try {
+    const fixturePath = path.join(fixture.root, "coordination", "release-intake", "archive", "codex-A06-manim-three-closure.patch");
+    fs.mkdirSync(path.dirname(fixturePath), { recursive: true });
+    const reviewedFixture = execFileSync(
+      "git",
+      ["cat-file", "blob", "ff9228af2dda784067d0546ea25b602ffa1f32a1"],
+      { cwd: path.resolve(path.dirname(generatorPath), "../.."), encoding: null, maxBuffer: 8 * 1024 * 1024 }
     );
     fs.writeFileSync(fixturePath, reviewedFixture, { mode: 0o644 });
     const plan = implementation.generateFingerprintPlan({

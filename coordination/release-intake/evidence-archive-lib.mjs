@@ -13739,7 +13739,8 @@ export function scanReviewedUntrackedExactPolicyFile(worktreePath, relativePath)
   let scan;
   try {
     scan = scanReviewedUntrackedCoordinationReport(worktreePath, relativePath)
-      ?? scanReviewedUntrackedLegacyOfficeLock(worktreePath, relativePath);
+      ?? scanReviewedUntrackedLegacyOfficeLock(worktreePath, relativePath)
+      ?? scanReviewedProtectedOverlayArchiveFile(worktreePath, relativePath);
   } catch {
     return null;
   }
