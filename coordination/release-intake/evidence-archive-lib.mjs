@@ -12960,11 +12960,16 @@ function scanReviewedLegacyExactTextPayload(buffer) {
 export function scanReviewedLegacyUntrackedExactTextFile(worktreePath, relativePath) {
   const entry = REVIEWED_LEGACY_CURRENT_HEAD_TEXT_BY_PATH.get(relativePath) ?? null;
   if (entry === null) return null;
-  const candidate = exactReviewedProtectedOverlayFileCandidate(worktreePath, {
-    ...entry,
-    fileMode: Number.parseInt(entry.mode, 8) & 0o7777,
-    allowGenericFallbackOnPayloadMismatch: true
-  });
+  let candidate;
+  try {
+    candidate = exactReviewedProtectedOverlayFileCandidate(worktreePath, {
+      ...entry,
+      fileMode: Number.parseInt(entry.mode, 8) & 0o7777,
+      allowGenericFallbackOnPayloadMismatch: true
+    });
+  } catch {
+    return null;
+  }
   if (candidate === null) return null;
   return {
     ...scanReviewedLegacyExactTextPayload(candidate.buffer),

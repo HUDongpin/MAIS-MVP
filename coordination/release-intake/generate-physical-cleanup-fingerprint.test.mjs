@@ -331,6 +331,33 @@ test("path-summary snapshots apply the exact reviewed fixture policy to modified
   }
 });
 
+test("path-summary snapshots fall back to normal scanning when a reviewed fixture's mode drifts", () => {
+  const fixture = createMutablePublicationFixture();
+  try {
+    const fixturePath = path.join(fixture.root, "lib", "server", "userStoreAuthSessionPersistence.test.ts");
+    fs.mkdirSync(path.dirname(fixturePath), { recursive: true });
+    const reviewedFixture = execFileSync(
+      "git",
+      ["cat-file", "blob", "22aa14abb83cfe3d394db56c9380c4afd28160da"],
+      { cwd: path.resolve(path.dirname(generatorPath), "../.."), encoding: null }
+    );
+    fs.writeFileSync(fixturePath, reviewedFixture, { mode: 0o600 });
+    fs.chmodSync(fixturePath, 0o600);
+    assert.throws(
+      () => implementation.generateFingerprintPlan({
+        repoRoot: fixture.root,
+        canonicalRoot: fixture.root,
+        mainRef: "main",
+        snapshotRef: "main",
+        dryRun: true
+      }),
+      /secret scanner rejected/u
+    );
+  } finally {
+    fixture.cleanup();
+  }
+});
+
 test("locked worktrees are redacted, removal-ineligible, and lock drift blocks publication", () => {
   const fixture = createLockedWorktreeFixture();
   try {
