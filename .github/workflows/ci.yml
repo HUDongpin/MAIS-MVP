@@ -50,5 +50,8 @@ jobs:
       - name: Run MVP readiness tests
         run: npm run test:mvp
 
+      - name: Run visualization gate
+        run: npm run test:visualizations
+
       - name: Build
         run: npm run build
