@@ -95,13 +95,13 @@
           "launch": "Mia lines up six shells on a table and whispers one number word for each shell: one, two, three, four, five, six.",
           "conceptExplanation": "Counting is a careful matching game. Each object gets exactly one number word, and no object gets counted twice. The last number you say is the size of the whole group. A written numeral is the short mark for that count, so 6 means Mia stopped at six shells.",
           "workedExample": {
-            "prompt": "There are 4 blue counters and 2 green counters. How many counters are there in all?",
-            "answer": "6",
-            "reasoning": "4 + 2 = 6, so the total is 6 counters."
+            "prompt": "Mia counts a row of shells one at a time: 1, 2, 3, 4, 5, 6, 7. What number tells how many shells there are in all?",
+            "answer": "7",
+            "reasoning": "Each shell gets exactly one number word in order, and the last number said is 7. So there are 7 shells, and the numeral 7 records that count."
           },
           "guidedPractice": [
             {
-              "prompt": "There are 4 blue counters and 2 green counters. How many counters are there in all?",
+              "prompt": "Mia counts a row of shells one at a time: 1, 2, 3, 4, 5, 6, 7. What number tells how many shells there are in all?",
               "expectedMove": "Name the quantities, choose a representation, solve, and check the units or labels."
             }
           ],
@@ -124,12 +124,12 @@
       },
       "answerKey": {
         "workedExample": {
-          "answer": "6",
+          "answer": "7",
           "acceptedAnswers": [
-            "6"
+            "7"
           ],
           "solutionSteps": [
-            "4 + 2 = 6, so the total is 6 counters."
+            "Each shell gets exactly one number word in order, and the last number said is 7. So there are 7 shells, and the numeral 7 records that count."
           ]
         },
         "guidedPractice": {
@@ -1338,7 +1338,7 @@
           "workedExample": {
             "prompt": "4 teams each collect 4 stickers. How many stickers do the teams collect altogether?",
             "answer": "16",
-            "reasoning": "4 equal groups of 4 make 4 x 4 = 16."
+            "reasoning": "Each team is an equal group of 4 stickers. Add the 4 equal groups: 4 + 4 + 4 + 4 = 16 stickers."
           },
           "guidedPractice": [
             {
@@ -1370,7 +1370,7 @@
             "16"
           ],
           "solutionSteps": [
-            "4 equal groups of 4 make 4 x 4 = 16."
+            "Each team is an equal group of 4 stickers. Add the 4 equal groups: 4 + 4 + 4 + 4 = 16 stickers."
           ]
         },
         "guidedPractice": {
@@ -1971,13 +1971,13 @@
           "launch": "A ticket counter has hundreds, tens, and ones windows. The clerk estimates first so the final count has a sensible size.",
           "conceptExplanation": "Rounding uses place value to choose a nearby friendly number. Multi-digit addition, subtraction, and multiplication work because each digit keeps its own place. Hundreds combine with hundreds, tens with tens, and ones with ones. An estimate is like a reasonableness spotlight: it helps catch answers that are far too large or too small.",
           "workedExample": {
-            "prompt": "A number has 2 hundreds, 4 tens, and 6 ones. What is the number?",
-            "answer": "246",
-            "reasoning": "2 hundreds, 4 tens, and 6 ones make 246."
+            "prompt": "Find 246 + 130.",
+            "answer": "376",
+            "reasoning": "Add by place value: 200 + 100 = 300, 40 + 30 = 70, and 6 + 0 = 6. Combine the parts: 300 + 70 + 6 = 376."
           },
           "guidedPractice": [
             {
-              "prompt": "A number has 2 hundreds, 4 tens, and 6 ones. Explain what is the number?",
+              "prompt": "Find 246 + 130.",
               "expectedMove": "Name the quantities, choose a representation, solve, and check the units or labels."
             }
           ],
@@ -2000,12 +2000,12 @@
       },
       "answerKey": {
         "workedExample": {
-          "answer": "246",
+          "answer": "376",
           "acceptedAnswers": [
-            "246"
+            "376"
           ],
           "solutionSteps": [
-            "2 hundreds, 4 tens, and 6 ones make 246."
+            "Add by place value: 200 + 100 = 300, 40 + 30 = 70, and 6 + 0 = 6. Combine the parts: 300 + 70 + 6 = 376."
           ]
         },
         "guidedPractice": {
@@ -2344,13 +2344,13 @@
           "launch": "In a shape museum, one quadrilateral can wear more than one label if it has all the needed properties.",
           "conceptExplanation": "Polygons are classified by sides, angles, and special properties. A quadrilateral has four sides, and some quadrilaterals are also rectangles, rhombuses, or squares. Categories can overlap because one shape may satisfy several rules at once. When a shape is split into equal areas, the fraction name depends on equal parts of the same whole.",
           "workedExample": {
-            "prompt": "Which shape name matches a polygon with 5 sides?",
-            "answer": "pentagon",
-            "reasoning": "A polygon with 5 sides is a pentagon."
+            "prompt": "A rectangle is divided into 4 equal parts. What fraction of the whole area is 1 part?",
+            "answer": "1/4",
+            "reasoning": "The 4 parts have equal area, so 1 part is 1 out of 4 equal parts of the whole. That area is 1/4 of the rectangle."
           },
           "guidedPractice": [
             {
-              "prompt": "Which shape name matches a polygon with 5 sides?",
+              "prompt": "A rectangle is divided into 4 equal parts. What fraction of the whole area is 1 part?",
               "expectedMove": "Name the quantities, choose a representation, solve, and check the units or labels."
             }
           ],
@@ -2373,12 +2373,12 @@
       },
       "answerKey": {
         "workedExample": {
-          "answer": "pentagon",
+          "answer": "1/4",
           "acceptedAnswers": [
-            "pentagon"
+            "1/4"
           ],
           "solutionSteps": [
-            "A polygon with 5 sides is a pentagon."
+            "The 4 parts have equal area, so 1 part is 1 out of 4 equal parts of the whole. That area is 1/4 of the rectangle."
           ]
         },
         "guidedPractice": {
@@ -2595,13 +2595,13 @@
           "launch": "A city counter reads 34,628 visitors. Each digit has a place, and each place is ten times the place to its right.",
           "conceptExplanation": "Place value is the engine for multi-digit numbers. It helps you read, compare, round, add, subtract, multiply, and divide because every digit carries a unit. Moving one place left makes a value ten times as large; moving right makes it one tenth as large. Algorithms make sense when you can explain the trades behind them.",
           "workedExample": {
-            "prompt": "A number has 3 hundreds, 4 tens, and 7 ones. What is the number?",
-            "answer": "347",
-            "reasoning": "3 hundreds, 4 tens, and 7 ones make 347."
+            "prompt": "Multiply 34 x 7.",
+            "answer": "238",
+            "reasoning": "Break 34 into 30 and 4. Multiply each part by 7: 30 x 7 = 210 and 4 x 7 = 28. Add the partial products: 210 + 28 = 238."
           },
           "guidedPractice": [
             {
-              "prompt": "A number has 3 hundreds, 4 tens, and 7 ones. Explain what is the number?",
+              "prompt": "Multiply 34 x 7.",
               "expectedMove": "Name the quantities, choose a representation, solve, and check the units or labels."
             }
           ],
@@ -2624,12 +2624,12 @@
       },
       "answerKey": {
         "workedExample": {
-          "answer": "347",
+          "answer": "238",
           "acceptedAnswers": [
-            "347"
+            "238"
           ],
           "solutionSteps": [
-            "3 hundreds, 4 tens, and 7 ones make 347."
+            "Break 34 into 30 and 4. Multiply each part by 7: 30 x 7 = 210 and 4 x 7 = 28. Add the partial products: 210 + 28 = 238."
           ]
         },
         "guidedPractice": {
@@ -2974,13 +2974,13 @@
           "launch": "On a map, some streets never meet, some cross in square corners, and a folded design has two matching halves.",
           "conceptExplanation": "Parallel lines stay the same distance apart, and perpendicular lines meet at right angles. An angle measures the amount of turn, not the length of the rays. A line of symmetry splits a figure into matching halves. Classifying shapes means trusting these properties even when the drawing is tilted or unusual.",
           "workedExample": {
-            "prompt": "Which shape name matches a polygon with 6 sides?",
-            "answer": "hexagon",
-            "reasoning": "A polygon with 6 sides is a hexagon."
+            "prompt": "How many lines of symmetry does a square have?",
+            "answer": "4",
+            "reasoning": "A line of symmetry folds a figure into two matching halves. A square matches when folded along each diagonal and along each line through the midpoints of opposite sides, giving 4 lines of symmetry."
           },
           "guidedPractice": [
             {
-              "prompt": "Which shape name matches a polygon with 6 sides?",
+              "prompt": "How many lines of symmetry does a square have?",
               "expectedMove": "Name the quantities, choose a representation, solve, and check the units or labels."
             }
           ],
@@ -3003,12 +3003,12 @@
       },
       "answerKey": {
         "workedExample": {
-          "answer": "hexagon",
+          "answer": "4",
           "acceptedAnswers": [
-            "hexagon"
+            "4"
           ],
           "solutionSteps": [
-            "A polygon with 6 sides is a hexagon."
+            "A line of symmetry folds a figure into two matching halves. A square matches when folded along each diagonal and along each line through the midpoints of opposite sides, giving 4 lines of symmetry."
           ]
         },
         "guidedPractice": {
