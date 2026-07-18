@@ -239,6 +239,27 @@ test("root-only plan snapshots tracked env placeholders while ignoring the real 
   }
 });
 
+test("fingerprint collection releases each completed worktree snapshot", () => {
+  const fixture = createFingerprintFixture();
+  let garbageCollectionCalls = 0;
+  try {
+    const plan = implementation.generateFingerprintPlan({
+      repoRoot: fixture.root,
+      canonicalRoot: fixture.root,
+      mainRef: "main",
+      snapshotRef: "main",
+      dryRun: true,
+      collectGarbage: () => {
+        garbageCollectionCalls += 1;
+      }
+    });
+    assert.equal(plan.worktrees.length, 3);
+    assert.equal(garbageCollectionCalls, 3);
+  } finally {
+    fixture.cleanup();
+  }
+});
+
 test("locked worktrees are redacted, removal-ineligible, and lock drift blocks publication", () => {
   const fixture = createLockedWorktreeFixture();
   try {

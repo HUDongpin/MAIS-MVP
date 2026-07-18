@@ -25,6 +25,10 @@ function sha256Buffer(buffer) {
   return crypto.createHash("sha256").update(buffer).digest("hex");
 }
 
+function collectAvailableGarbage() {
+  if (typeof globalThis.gc === "function") globalThis.gc();
+}
+
 function canonicalRelativePath(relativePath) {
   if (typeof relativePath !== "string" || relativePath.length === 0 || relativePath.includes("\0")) {
     throw new Error("dirty relative path must be a non-empty NUL-free string");
@@ -1339,8 +1343,10 @@ export function generateFingerprintPlan({
   outputMarkdown = null,
   worktreePath = null,
   dryRun = false,
-  clock = () => new Date()
+  clock = () => new Date(),
+  collectGarbage = collectAvailableGarbage
 }) {
+  if (typeof collectGarbage !== "function") throw new TypeError("collectGarbage must be a function");
   const absoluteRepoRoot = path.resolve(repoRoot);
   const absoluteCanonicalRoot = path.resolve(canonicalRoot);
   assertDirectDirectory(absoluteRepoRoot, "repository root");
@@ -1458,6 +1464,8 @@ export function generateFingerprintPlan({
         baseRecord.valid = true;
       } finally {
         snapshot?.cleanup();
+        snapshot = null;
+        collectGarbage();
       }
     }
     dirtyEntries = dirtyEntries.map((entry) => {
