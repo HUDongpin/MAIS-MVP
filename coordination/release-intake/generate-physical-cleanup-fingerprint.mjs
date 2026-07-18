@@ -1471,7 +1471,7 @@ export function generateFingerprintPlan({
       valid: false,
       validationErrors: [...accessState.validationErrors],
       snapshot: null,
-      dirtyCount: null,
+      dirtyCount: 0,
       dirtyEntries: [],
       ...branchState
     };

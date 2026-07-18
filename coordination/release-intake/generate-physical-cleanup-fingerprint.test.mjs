@@ -436,6 +436,27 @@ test("locked worktrees are redacted, removal-ineligible, and lock drift blocks p
   }
 });
 
+test("inaccessible prunable worktrees have an explicit zero dirty count", () => {
+  const fixture = createFingerprintFixture();
+  try {
+    fs.rmSync(fixture.firstWorktree, { recursive: true, force: true });
+    const plan = implementation.generateFingerprintPlan({
+      repoRoot: fixture.root,
+      canonicalRoot: fixture.root,
+      mainRef: "main",
+      snapshotRef: "main",
+      dryRun: true
+    });
+    const inaccessible = plan.worktrees.find((worktree) => worktree.path === fixture.firstWorktree);
+    assert.equal(inaccessible.access, false);
+    assert.equal(inaccessible.prunable, true);
+    assert.equal(inaccessible.dirtyCount, 0);
+    assert.deepEqual(inaccessible.dirtyEntries, []);
+  } finally {
+    fixture.cleanup();
+  }
+});
+
 test("publication verifier detects dirty content drift without serializing its closure", () => {
   const fixture = createMutablePublicationFixture();
   try {
