@@ -12957,6 +12957,22 @@ function scanReviewedLegacyExactTextPayload(buffer) {
   return { kind: "text", status: "passed" };
 }
 
+export function scanReviewedLegacyUntrackedExactTextFile(worktreePath, relativePath) {
+  const entry = REVIEWED_LEGACY_CURRENT_HEAD_TEXT_BY_PATH.get(relativePath) ?? null;
+  if (entry === null) return null;
+  const candidate = exactReviewedProtectedOverlayFileCandidate(worktreePath, {
+    ...entry,
+    fileMode: Number.parseInt(entry.mode, 8) & 0o7777,
+    allowGenericFallbackOnPayloadMismatch: true
+  });
+  if (candidate === null) return null;
+  return {
+    ...scanReviewedLegacyExactTextPayload(candidate.buffer),
+    sha256: entry.sha256,
+    reviewedLegacyExactText: true
+  };
+}
+
 function assertStructurallyValidJpegUnderPng(buffer) {
   if (!Buffer.isBuffer(buffer)) {
     throw new Error("reviewed legacy JPEG-under-PNG payload must be a Buffer");

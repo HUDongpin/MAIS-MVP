@@ -9,7 +9,8 @@ import { fileURLToPath } from "node:url";
 
 import {
   listWorktrees,
-  scanFile
+  scanFile,
+  scanReviewedLegacyUntrackedExactTextFile
 } from "./evidence-archive-lib.mjs";
 
 const DEFAULT_CANONICAL_ROOT = "/Users/dongpinhu/Desktop/MAIS-MVP";
@@ -1240,19 +1241,24 @@ function assertCleanupStatusSupported(worktreePath, entries) {
 function scanDirtyEntryContents(worktreePath, dirtyEntries, collectGarbage) {
   let scannedPathCount = 0;
   let reviewedBinaryPathCount = 0;
+  let reviewedLegacyExactTextPathCount = 0;
   for (const [index, entry] of dirtyEntries.entries()) {
     if (entry.kind !== "file") continue;
     assertNoSymlinkAncestors(worktreePath, entry.relativePath);
-    const scan = scanFile(absoluteDirtyPath(worktreePath, entry.relativePath), entry.relativePath);
+    const scan = entry.status === "??"
+      ? scanReviewedLegacyUntrackedExactTextFile(worktreePath, entry.relativePath)
+        ?? scanFile(absoluteDirtyPath(worktreePath, entry.relativePath), entry.relativePath)
+      : scanFile(absoluteDirtyPath(worktreePath, entry.relativePath), entry.relativePath);
     if (scan.sha256 !== entry.sha256) {
       throw new Error(`${worktreePath}: dirty content drifted during secret scanning: ${entry.relativePath}`);
     }
     scannedPathCount += 1;
     if (scan.kind === "reviewed-binary") reviewedBinaryPathCount += 1;
+    if (scan.reviewedLegacyExactText === true) reviewedLegacyExactTextPathCount += 1;
     if ((index + 1) % 4 === 0) collectGarbage();
   }
   collectGarbage();
-  return { scannedPathCount, reviewedBinaryPathCount };
+  return { scannedPathCount, reviewedBinaryPathCount, reviewedLegacyExactTextPathCount };
 }
 
 function pathSummarySnapshot({
