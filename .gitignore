@@ -37,6 +37,15 @@ bug-fix-log.json
 bug-triage-report.md
 coordination/reports/*-render/
 coordination/session-logs/*-failures/
+
+# Self-inflicted release-hygiene churn: regenerated on every run, no review value.
+# Historical dated snapshots (coordination/release-intake/YYYY-MM-DD-*) stay tracked.
+# `latest-A25-*` pointers are rewritten by `npm run release:dirty-map`.
+coordination/release-intake/latest-A25-*.json
+coordination/release-intake/latest-A25-*.md
+# `hk-zh-word-*` are rewritten by `npm run check:hk-zh`.
+coordination/reports/hk-zh-word-audit.md
+coordination/reports/hk-zh-word-inventory.json
 **/lo-profile/
 ~$*.docx
 ~$*.pptx
