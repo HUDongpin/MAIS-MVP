@@ -318,6 +318,7 @@ test("path-summary snapshots apply the exact reviewed fixture policy to modified
       { cwd: path.resolve(path.dirname(generatorPath), "../.."), encoding: null }
     );
     fs.writeFileSync(fixturePath, reviewedFixture, { mode: 0o644 });
+    fs.chmodSync(fixturePath, 0o600);
     const plan = implementation.generateFingerprintPlan({
       repoRoot: fixture.root,
       canonicalRoot: fixture.root,

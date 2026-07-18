@@ -12960,11 +12960,13 @@ function scanReviewedLegacyExactTextPayload(buffer) {
 export function scanReviewedLegacyUntrackedExactTextFile(worktreePath, relativePath) {
   const entry = REVIEWED_LEGACY_CURRENT_HEAD_TEXT_BY_PATH.get(relativePath) ?? null;
   if (entry === null) return null;
+  const exactAiTutorLiveTextFixture = relativePath === "tests/e2e/ai-tutor-live-text.spec.ts";
   let candidate;
   try {
     candidate = exactReviewedProtectedOverlayFileCandidate(worktreePath, {
       ...entry,
       fileMode: Number.parseInt(entry.mode, 8) & 0o7777,
+      ...(exactAiTutorLiveTextFixture ? { allowedFileModes: [0o600, 0o644] } : {}),
       allowGenericFallbackOnPayloadMismatch: true
     });
   } catch {
