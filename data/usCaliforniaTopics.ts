@@ -166,6 +166,9 @@ const g6G12QuestionPack = g6G12QuestionPackJson as GeneratedCaliforniaQuestionPa
 const ccssTextbookPracticePack = ccssTextbookPracticePackJson as GeneratedCaliforniaQuestionPack;
 const kG5TextbookLessonPack = kG5TextbookLessonPackJson as GeneratedCaliforniaK5TextbookLessonPack;
 
+// The DeepSeek K–G5 1,500-question pack (practiceLive:false below) stays retired.
+// Decision + promotion path: coordination/decisions/2026-07-18-deepseek-k-g5-pack-decision.md.
+// Any DeepSeek QA note describes the dormant candidate, NOT served content.
 export const californiaK5LiveContentStatus = {
   live: true,
   downlistedAt: "2026-06-19",
