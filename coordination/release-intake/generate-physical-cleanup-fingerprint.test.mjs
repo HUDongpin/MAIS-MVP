@@ -255,6 +255,26 @@ test("fingerprint collection releases each completed worktree snapshot", () => {
     });
     assert.equal(plan.worktrees.length, 3);
     assert.equal(garbageCollectionCalls, 3);
+    assert.equal(plan.worktrees.every((worktree) => worktree.snapshot?.captureMode === "path-content-summary"), true);
+  } finally {
+    fixture.cleanup();
+  }
+});
+
+test("path-summary snapshots scan dirty file content before marking a worktree safe", () => {
+  const fixture = createMutablePublicationFixture();
+  try {
+    fs.writeFileSync(path.join(fixture.root, "notes.txt"), `DEEPSEEK_API_KEY=${"Q".repeat(48)}\n`);
+    assert.throws(
+      () => implementation.generateFingerprintPlan({
+        repoRoot: fixture.root,
+        canonicalRoot: fixture.root,
+        mainRef: "main",
+        snapshotRef: "main",
+        dryRun: true
+      }),
+      (error) => /secret scanner rejected/u.test(error.message) && !error.message.includes("Q".repeat(48))
+    );
   } finally {
     fixture.cleanup();
   }

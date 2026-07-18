@@ -8,8 +8,8 @@ import path from "node:path";
 import { fileURLToPath } from "node:url";
 
 import {
-  collectWorktreeSnapshot,
-  listWorktrees
+  listWorktrees,
+  scanFile
 } from "./evidence-archive-lib.mjs";
 
 const DEFAULT_CANONICAL_ROOT = "/Users/dongpinhu/Desktop/MAIS-MVP";
@@ -1213,24 +1213,77 @@ function compareDirtyEntry(entry, { mainSha, snapshotSha, readers, blocked }) {
   };
 }
 
-function snapshotMetadata(snapshot, filteredStatusCount, excludedStatusCount) {
-  const selfGeneratedAffected = excludedStatusCount > 0;
+function assertNoSymlinkAncestors(worktreePath, relativePath) {
+  let current = path.resolve(worktreePath);
+  const segments = canonicalRelativePath(relativePath).split("/");
+  for (const segment of segments.slice(0, -1)) {
+    current = path.join(current, segment);
+    let stat;
+    try {
+      stat = fs.lstatSync(current);
+    } catch (error) {
+      if (error?.code === "ENOENT" || error?.code === "ENOTDIR") return;
+      throw error;
+    }
+    if (stat.isSymbolicLink()) throw new Error(`${worktreePath}: dirty path has a symlink ancestor: ${relativePath}`);
+    if (!stat.isDirectory()) throw new Error(`${worktreePath}: dirty path has a non-directory ancestor: ${relativePath}`);
+  }
+}
+
+function assertCleanupStatusSupported(worktreePath, entries) {
+  for (const entry of entries) {
+    if (entry.status === "??" || /^ [MAD]$/u.test(entry.status)) continue;
+    throw new Error(`${worktreePath}: staged, conflicted, or unsupported dirty status: ${JSON.stringify(entry.status)}`);
+  }
+}
+
+function scanDirtyEntryContents(worktreePath, dirtyEntries, collectGarbage) {
+  let scannedPathCount = 0;
+  let reviewedBinaryPathCount = 0;
+  for (const [index, entry] of dirtyEntries.entries()) {
+    if (entry.kind !== "file") continue;
+    assertNoSymlinkAncestors(worktreePath, entry.relativePath);
+    const scan = scanFile(absoluteDirtyPath(worktreePath, entry.relativePath), entry.relativePath);
+    if (scan.sha256 !== entry.sha256) {
+      throw new Error(`${worktreePath}: dirty content drifted during secret scanning: ${entry.relativePath}`);
+    }
+    scannedPathCount += 1;
+    if (scan.kind === "reviewed-binary") reviewedBinaryPathCount += 1;
+    if ((index + 1) % 4 === 0) collectGarbage();
+  }
+  collectGarbage();
+  return { scannedPathCount, reviewedBinaryPathCount };
+}
+
+function pathSummarySnapshot({
+  worktree,
+  mainSha,
+  rawStatusEntries,
+  filteredStatusEntries,
+  dirtyEntries,
+  scanner
+}) {
+  const currentStateBasis = {
+    archiveKind: rawStatusEntries > 0 ? "dirty-worktree" : "clean-diverged-branch",
+    baseHead: mainSha,
+    branch: worktree.branch,
+    dirtyEntries: dirtyEntries.map(dirtyEntryVerificationBasis),
+    divergence: divergence(worktree.path, mainSha, worktree.head),
+    head: worktree.head,
+    scanner,
+    statusInventorySha256: fingerprint(filteredStatusEntries)
+  };
   return {
-    baseHead: snapshot.baseHead,
-    archiveKind: snapshot.archiveKind,
-    divergence: snapshot.divergence,
-    statusEntries: filteredStatusCount,
-    rawStatusEntries: snapshot.statusEntries,
-    selfGeneratedStatusEntries: excludedStatusCount,
-    currentStateFingerprint: selfGeneratedAffected ? null : snapshot.currentStateFingerprint,
-    fingerprintOmittedReason: selfGeneratedAffected
-      ? "raw snapshot includes explicitly self-generated output paths"
-      : null,
-    trackedPatchSha256: selfGeneratedAffected ? null : snapshot.trackedPatchSha256,
-    indexPatchSha256: selfGeneratedAffected ? null : snapshot.indexPatchSha256,
-    worktreePatchSha256: selfGeneratedAffected ? null : snapshot.worktreePatchSha256,
-    branchPatchSha256: selfGeneratedAffected ? null : snapshot.branchPatchSha256,
-    secretScannerStatus: snapshot.secretScanner?.status ?? "unknown"
+    ...currentStateBasis,
+    captureMode: "path-content-summary",
+    currentStateFingerprint: fingerprint(currentStateBasis),
+    indexPatchSha256: null,
+    rawStatusEntries,
+    secretScannerStatus: "passed",
+    selfGeneratedStatusEntries: rawStatusEntries - filteredStatusEntries.length,
+    trackedPatchSha256: null,
+    worktreePatchSha256: null,
+    branchPatchSha256: null
   };
 }
 
@@ -1420,12 +1473,17 @@ export function generateFingerprintPlan({
       continue;
     }
 
+    if (resolveCommit(worktree.path, "HEAD") !== worktree.head || resolveCommit(worktree.path, mainRef) !== mainSha) {
+      throw new Error(`${worktree.path}: worktree HEAD or main reference drifted before fingerprint collection`);
+    }
     const preflightRaw = gitBuffer(worktree.path, ["status", "--porcelain=v1", "-z", "-uall"]);
+    const preflightEntries = parsePorcelainZ(preflightRaw);
     const preflightFiltered = filterSelfGeneratedEntries(
       worktree.path,
-      parsePorcelainZ(preflightRaw),
+      preflightEntries,
       selfGeneratedPaths
     );
+    assertCleanupStatusSupported(worktree.path, preflightFiltered.entries);
     const dirtySecretBlocked = preflightFiltered.entries.some((entry) => (
       isSecretLikePath(entry.relativePath)
       || (entry.historicalPath !== undefined && isSecretLikePath(entry.historicalPath))
@@ -1433,7 +1491,6 @@ export function generateFingerprintPlan({
     const committedSecretPaths = branchTreeSecretPaths(absoluteRepoRoot, mainSha, worktree.head);
     const secretBlocked = dirtySecretBlocked || committedSecretPaths.length > 0;
     let dirtyEntries;
-    let snapshot = null;
     if (secretBlocked) {
       dirtyEntries = preflightFiltered.entries.map((entry) => metadataOnlyDirtyEntry(worktree.path, entry));
       baseRecord.validationErrors.push(
@@ -1445,28 +1502,17 @@ export function generateFingerprintPlan({
         baseRecord.secretRedactedBranchPaths = committedSecretPaths;
       }
     } else {
-      try {
-        snapshot = collectWorktreeSnapshot(worktree, { mainRef: mainSha, includeTar: false });
-        const snapshotFiltered = filterSelfGeneratedEntries(
-          worktree.path,
-          parsePorcelainZ(snapshot.buffers.statusInventory),
-          selfGeneratedPaths
-        );
-        if (stableJson(snapshotFiltered.entries) !== stableJson(preflightFiltered.entries)) {
-          throw new Error(`${worktree.path}: status drift between preflight and evidence snapshot`);
-        }
-        dirtyEntries = snapshotFiltered.entries.map((entry) => inspectDirtyEntry(worktree.path, entry));
-        baseRecord.snapshot = snapshotMetadata(
-          snapshot,
-          snapshotFiltered.entries.length,
-          snapshotFiltered.excludedEntries.length
-        );
-        baseRecord.valid = true;
-      } finally {
-        snapshot?.cleanup();
-        snapshot = null;
-        collectGarbage();
-      }
+      dirtyEntries = preflightFiltered.entries.map((entry) => inspectDirtyEntry(worktree.path, entry));
+      const scanner = scanDirtyEntryContents(worktree.path, dirtyEntries, collectGarbage);
+      baseRecord.snapshot = pathSummarySnapshot({
+        worktree,
+        mainSha,
+        rawStatusEntries: preflightEntries.length,
+        filteredStatusEntries: preflightFiltered.entries,
+        dirtyEntries,
+        scanner
+      });
+      baseRecord.valid = true;
     }
     dirtyEntries = dirtyEntries.map((entry) => {
       const comparisons = compareDirtyEntry(entry, {
