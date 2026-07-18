@@ -68,6 +68,14 @@ const REVIEWED_EXACT_A18_FINAL_HEAD = "e17471e6bc296828db591f4f060a868e075653e9"
 const REVIEWED_EXACT_ROOT_FINAL_HEAD = "ed25ac518def3f793d2ce592a0eb94904a495f1d";
 const REVIEWED_EXACT_ROOT_P1_VIZ_CI_GATE_HEAD = "fe3af9241a11b2f840d25659452d34c1fb207b62";
 const REVIEWED_EXACT_A06_SIGNATURE_LAB_HEAD = "32a2d365d1d869eda1a66db0222a74ec4e675431";
+const REVIEWED_EXACT_A06_JSONC_TSCONFIG = Object.freeze({
+  path: "tsconfig.json",
+  mode: "100644",
+  type: "blob",
+  objectId: "011397dce40d081d2639d87a6f155e5e66778390",
+  bytes: 1_385,
+  sha256: "bf2bf3d6fe0685e48358fc8251b7769251c7249aea82790e6874dbd8e6a95cce"
+});
 const REVIEWED_EXACT_A02_STUDENT_GRADE_HEAD = "a1bab103bb84fa02f1b4b1ce5af2926e22a25ee4";
 const REVIEWED_EXACT_A02_AUTH_SESSION_TEST = Object.freeze({
   path: "lib/server/userStoreAuthSessionPersistence.test.ts",
@@ -2163,6 +2171,50 @@ test("supplementary A06 signature-lab HEAD accepts only its inherited exact term
   assert.deepEqual(
     scanCurrentBranchHeadTrackedPaths(repository, REVIEWED_EXACT_A06_SIGNATURE_LAB_HEAD, [entry.path]),
     { scanned: 1, reviewed: 0 }
+  );
+});
+
+test("supplementary A06 signature-lab HEAD accepts only its exact reviewed JSONC tsconfig", async (t) => {
+  const { scanCurrentBranchHeadTrackedPaths } = await import(libraryUrl);
+  const repository = maybePinnedLegacyTerminalPatchRepository();
+  if (repository === null) {
+    t.skip("pinned closure commit and blobs are not available in this clone");
+    return;
+  }
+  try {
+    execFileSync("git", ["cat-file", "-e", `${REVIEWED_EXACT_A06_SIGNATURE_LAB_HEAD}^{commit}`], {
+      cwd: repository,
+      stdio: "ignore",
+      timeout: TEST_CHILD_TIMEOUT_MS
+    });
+  } catch {
+    t.skip("exact A06 signature-lab HEAD is not available in this clone");
+    return;
+  }
+  const entry = REVIEWED_EXACT_A06_JSONC_TSCONFIG;
+  assert.equal(
+    git(repository, "ls-tree", REVIEWED_EXACT_A06_SIGNATURE_LAB_HEAD, "--", entry.path),
+    `${entry.mode} ${entry.type} ${entry.objectId}\t${entry.path}`
+  );
+  const buffer = gitBlob(repository, entry.objectId);
+  assert.equal(buffer.length, entry.bytes);
+  assert.equal(crypto.createHash("sha256").update(buffer).digest("hex"), entry.sha256);
+  assert.deepEqual(
+    scanCurrentBranchHeadTrackedPaths(repository, REVIEWED_EXACT_A06_SIGNATURE_LAB_HEAD, [entry.path]),
+    { scanned: 1, reviewed: 0 }
+  );
+  const fixture = makeFixture();
+  t.after(() => fs.rmSync(fixture.parent, { recursive: true, force: true }));
+  fs.writeFileSync(path.join(fixture.linked, entry.path), buffer);
+  git(fixture.linked, "add", "--", entry.path);
+  git(fixture.linked, "commit", "-m", "copy reviewed JSONC tsconfig onto an unpinned HEAD");
+  assert.throws(
+    () => scanCurrentBranchHeadTrackedPaths(
+      fixture.linked,
+      git(fixture.linked, "rev-parse", "HEAD"),
+      [entry.path]
+    ),
+    /JSON parse failed closed for token assignment safety/i
   );
 });
 
