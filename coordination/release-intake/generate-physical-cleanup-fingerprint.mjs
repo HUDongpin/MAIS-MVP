@@ -1245,10 +1245,8 @@ function scanDirtyEntryContents(worktreePath, dirtyEntries, collectGarbage) {
   for (const [index, entry] of dirtyEntries.entries()) {
     if (entry.kind !== "file") continue;
     assertNoSymlinkAncestors(worktreePath, entry.relativePath);
-    const scan = entry.status === "??"
-      ? scanReviewedLegacyUntrackedExactTextFile(worktreePath, entry.relativePath)
-        ?? scanFile(absoluteDirtyPath(worktreePath, entry.relativePath), entry.relativePath)
-      : scanFile(absoluteDirtyPath(worktreePath, entry.relativePath), entry.relativePath);
+    const scan = scanReviewedLegacyUntrackedExactTextFile(worktreePath, entry.relativePath)
+      ?? scanFile(absoluteDirtyPath(worktreePath, entry.relativePath), entry.relativePath);
     if (scan.sha256 !== entry.sha256) {
       throw new Error(`${worktreePath}: dirty content drifted during secret scanning: ${entry.relativePath}`);
     }

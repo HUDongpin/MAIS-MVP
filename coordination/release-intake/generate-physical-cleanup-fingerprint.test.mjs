@@ -304,6 +304,33 @@ test("path-summary snapshots accept only the exact reviewed legacy untracked tes
   }
 });
 
+test("path-summary snapshots apply the exact reviewed fixture policy to modified files", () => {
+  const fixture = createMutablePublicationFixture();
+  try {
+    const fixturePath = path.join(fixture.root, "tests", "e2e", "ai-tutor-live-text.spec.ts");
+    fs.mkdirSync(path.dirname(fixturePath), { recursive: true });
+    fs.writeFileSync(fixturePath, "previous fixture content\n");
+    git(fixture.root, ["add", "--", "tests/e2e/ai-tutor-live-text.spec.ts"]);
+    git(fixture.root, ["commit", "-qm", "add prior fixture"]);
+    const reviewedFixture = execFileSync(
+      "git",
+      ["cat-file", "blob", "5c147d03752413a0a3810402c5389d0d1fcb67d4"],
+      { cwd: path.resolve(path.dirname(generatorPath), "../.."), encoding: null }
+    );
+    fs.writeFileSync(fixturePath, reviewedFixture, { mode: 0o644 });
+    const plan = implementation.generateFingerprintPlan({
+      repoRoot: fixture.root,
+      canonicalRoot: fixture.root,
+      mainRef: "main",
+      snapshotRef: "main",
+      dryRun: true
+    });
+    assert.equal(plan.worktrees[0].snapshot.scanner.reviewedLegacyExactTextPathCount, 1);
+  } finally {
+    fixture.cleanup();
+  }
+});
+
 test("locked worktrees are redacted, removal-ineligible, and lock drift blocks publication", () => {
   const fixture = createLockedWorktreeFixture();
   try {
