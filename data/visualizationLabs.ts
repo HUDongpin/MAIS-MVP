@@ -1,4 +1,5 @@
 import { gradeIds, grades } from "./grades";
+import { hasSignatureLab } from "./signatureLabAssignments";
 import { topics } from "./topics";
 import {
   familyForVisualizationLab,
@@ -12,7 +13,7 @@ import { visualizationTemplateIdValues } from "@/components/visualizations/visua
 import { toPrcSimplifiedText } from "@/lib/i18n";
 import type { GradeId, LearningAnalyticsEventSource, LocalizedText, TextbookPublisher, Topic } from "../types";
 
-export type VisualizationLabModuleId = "configured-visualization-lab";
+export type VisualizationLabModuleId = "configured-visualization-lab" | "signature-lab";
 
 export type VisualizationModuleId =
   | "coordinate-plane-demo"
@@ -237,6 +238,7 @@ const templateMetadata: Record<
 };
 
 const configuredModuleId: VisualizationLabModuleId = "configured-visualization-lab";
+const signatureModuleId: VisualizationLabModuleId = "signature-lab";
 
 const hiddenVisualizationLabIds = new Set<string>();
 
@@ -2410,7 +2412,9 @@ function createTopicLab(topic: Topic): FeaturedLabDefinition {
   const template = templateMetadata[templateId];
   const premiumLaunch = isPremiumThreeDLaunchLab(topic.id);
   const standardThreeDLab = isStandardThreeDLab(topic.id);
-  const moduleId = configuredModuleId;
+  // Topics with a curated signature lab render that bench; every other topic
+  // keeps the shared template renderer untouched.
+  const moduleId = hasSignatureLab(topic.id) ? signatureModuleId : configuredModuleId;
   const californiaAlignment = californiaAlignmentForTopic(topic, templateId);
   const safeguard = californiaSafeguardForTopic(topic, templateId, template.qaProfile);
   const threeDFamilyId = familyForVisualizationLab(topic.id, templateId);

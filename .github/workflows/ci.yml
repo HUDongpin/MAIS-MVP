@@ -50,5 +50,8 @@ jobs:
       - name: Run MVP readiness tests
         run: npm run test:mvp
 
+      - name: Run signature lab gates (math audits + assignment contract)
+        run: npm run test:signature-labs
+
       - name: Build
         run: npm run build
