@@ -64,5 +64,8 @@ jobs:
       - name: Run question bank contract tests (per-region live counts + solvability)
         run: npm run test:question-bank
 
+      - name: Run visualization gate
+        run: npm run test:visualizations
+
       - name: Build
         run: npm run build
