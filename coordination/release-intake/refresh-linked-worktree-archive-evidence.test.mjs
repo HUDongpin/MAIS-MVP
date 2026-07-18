@@ -66,6 +66,7 @@ const REVIEWED_LEGACY_TERMINAL_PATCH_HEAD = "ec22a29b55a4329e81d96e02417f8925cce
 const REVIEWED_LEGACY_TERMINAL_PATCH_BASE = "e909992b098ce7f8b57ca7f7ede6c97e50ccdc45";
 const REVIEWED_EXACT_A18_FINAL_HEAD = "e17471e6bc296828db591f4f060a868e075653e9";
 const REVIEWED_EXACT_ROOT_FINAL_HEAD = "ed25ac518def3f793d2ce592a0eb94904a495f1d";
+const REVIEWED_EXACT_A06_SIGNATURE_LAB_HEAD = "32a2d365d1d869eda1a66db0222a74ec4e675431";
 const REVIEWED_EXACT_A02_STUDENT_GRADE_HEAD = "a1bab103bb84fa02f1b4b1ce5af2926e22a25ee4";
 const REVIEWED_EXACT_A02_AUTH_SESSION_TEST = Object.freeze({
   path: "lib/server/userStoreAuthSessionPersistence.test.ts",
@@ -2120,6 +2121,47 @@ test("supplementary repository scan accepts only the three exact pinned terminal
       REVIEWED_LEGACY_TERMINAL_PATCH_ENTRIES.map((entry) => entry.path)
     ),
     { scanned: REVIEWED_LEGACY_TERMINAL_PATCH_ENTRIES.length, reviewed: 0 }
+  );
+});
+
+test("supplementary A06 signature-lab HEAD accepts only its inherited exact terminal patch", async (t) => {
+  const {
+    isReviewedLegacyTerminalPatchEntry,
+    scanCurrentBranchHeadTrackedPaths
+  } = await import(libraryUrl);
+  const repository = maybePinnedLegacyTerminalPatchRepository();
+  if (repository === null) {
+    t.skip("pinned closure commit and blobs are not available in this clone");
+    return;
+  }
+  try {
+    execFileSync("git", ["cat-file", "-e", `${REVIEWED_EXACT_A06_SIGNATURE_LAB_HEAD}^{commit}`], {
+      cwd: repository,
+      stdio: "ignore",
+      timeout: TEST_CHILD_TIMEOUT_MS
+    });
+  } catch {
+    t.skip("exact A06 signature-lab HEAD is not available in this clone");
+    return;
+  }
+  const entry = REVIEWED_LEGACY_TERMINAL_PATCH_ENTRIES[0];
+  assert.equal(
+    git(repository, "ls-tree", REVIEWED_EXACT_A06_SIGNATURE_LAB_HEAD, "--", entry.path),
+    `${entry.mode} blob ${entry.objectId}\t${entry.path}`
+  );
+  assert.equal(
+    isReviewedLegacyTerminalPatchEntry({
+      headRevision: REVIEWED_EXACT_A06_SIGNATURE_LAB_HEAD,
+      relativePath: entry.path,
+      mode: entry.mode,
+      type: "blob",
+      objectId: entry.objectId
+    }),
+    true
+  );
+  assert.deepEqual(
+    scanCurrentBranchHeadTrackedPaths(repository, REVIEWED_EXACT_A06_SIGNATURE_LAB_HEAD, [entry.path]),
+    { scanned: 1, reviewed: 0 }
   );
 });
 
