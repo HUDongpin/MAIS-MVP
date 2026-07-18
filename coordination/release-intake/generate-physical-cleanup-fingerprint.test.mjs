@@ -332,6 +332,30 @@ test("path-summary snapshots apply the exact reviewed fixture policy to modified
   }
 });
 
+test("path-summary snapshots accept only the exact reviewed untracked coordination report", () => {
+  const fixture = createMutablePublicationFixture();
+  try {
+    const fixturePath = path.join(fixture.root, "coordination", "blockers", "2026-06-24-A19-bug-lrs-credentials.md");
+    fs.mkdirSync(path.dirname(fixturePath), { recursive: true });
+    const reviewedFixture = execFileSync(
+      "git",
+      ["cat-file", "blob", "3d7e78774ea1eb3670e3e852d683ba62161df8ce"],
+      { cwd: path.resolve(path.dirname(generatorPath), "../.."), encoding: null }
+    );
+    fs.writeFileSync(fixturePath, reviewedFixture, { mode: 0o644 });
+    const plan = implementation.generateFingerprintPlan({
+      repoRoot: fixture.root,
+      canonicalRoot: fixture.root,
+      mainRef: "main",
+      snapshotRef: "main",
+      dryRun: true
+    });
+    assert.equal(plan.worktrees[0].snapshot.scanner.reviewedExactUntrackedPolicyPathCount, 1);
+  } finally {
+    fixture.cleanup();
+  }
+});
+
 test("path-summary snapshots fall back to normal scanning when a reviewed fixture's mode drifts", () => {
   const fixture = createMutablePublicationFixture();
   try {

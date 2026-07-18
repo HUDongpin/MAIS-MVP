@@ -13735,6 +13735,22 @@ function scanReviewedUntrackedLegacyOfficeLock(worktreePath, relativePath) {
   );
 }
 
+export function scanReviewedUntrackedExactPolicyFile(worktreePath, relativePath) {
+  let scan;
+  try {
+    scan = scanReviewedUntrackedCoordinationReport(worktreePath, relativePath)
+      ?? scanReviewedUntrackedLegacyOfficeLock(worktreePath, relativePath);
+  } catch {
+    return null;
+  }
+  if (scan === null) return null;
+  return {
+    ...scan,
+    sha256: sha256Buffer(scan.buffer),
+    reviewedExactUntrackedPolicy: true
+  };
+}
+
 function scanReviewedProtectedOverlayArchiveFile(worktreePath, relativePath) {
   const policy = REVIEWED_PROTECTED_OVERLAY_UNTRACKED_BY_PATH.get(relativePath) ?? null;
   if (policy === null) return null;

@@ -10,7 +10,8 @@ import { fileURLToPath } from "node:url";
 import {
   listWorktrees,
   scanFile,
-  scanReviewedLegacyUntrackedExactTextFile
+  scanReviewedLegacyUntrackedExactTextFile,
+  scanReviewedUntrackedExactPolicyFile
 } from "./evidence-archive-lib.mjs";
 
 const DEFAULT_CANONICAL_ROOT = "/Users/dongpinhu/Desktop/MAIS-MVP";
@@ -1242,10 +1243,14 @@ function scanDirtyEntryContents(worktreePath, dirtyEntries, collectGarbage) {
   let scannedPathCount = 0;
   let reviewedBinaryPathCount = 0;
   let reviewedLegacyExactTextPathCount = 0;
+  let reviewedExactUntrackedPolicyPathCount = 0;
   for (const [index, entry] of dirtyEntries.entries()) {
     if (entry.kind !== "file") continue;
     assertNoSymlinkAncestors(worktreePath, entry.relativePath);
-    const scan = scanReviewedLegacyUntrackedExactTextFile(worktreePath, entry.relativePath)
+    const scan = (entry.status === "??"
+      ? scanReviewedUntrackedExactPolicyFile(worktreePath, entry.relativePath)
+      : null)
+      ?? scanReviewedLegacyUntrackedExactTextFile(worktreePath, entry.relativePath)
       ?? scanFile(absoluteDirtyPath(worktreePath, entry.relativePath), entry.relativePath);
     if (scan.sha256 !== entry.sha256) {
       throw new Error(`${worktreePath}: dirty content drifted during secret scanning: ${entry.relativePath}`);
@@ -1253,10 +1258,16 @@ function scanDirtyEntryContents(worktreePath, dirtyEntries, collectGarbage) {
     scannedPathCount += 1;
     if (scan.kind === "reviewed-binary") reviewedBinaryPathCount += 1;
     if (scan.reviewedLegacyExactText === true) reviewedLegacyExactTextPathCount += 1;
+    if (scan.reviewedExactUntrackedPolicy === true) reviewedExactUntrackedPolicyPathCount += 1;
     if ((index + 1) % 4 === 0) collectGarbage();
   }
   collectGarbage();
-  return { scannedPathCount, reviewedBinaryPathCount, reviewedLegacyExactTextPathCount };
+  return {
+    scannedPathCount,
+    reviewedBinaryPathCount,
+    reviewedLegacyExactTextPathCount,
+    reviewedExactUntrackedPolicyPathCount
+  };
 }
 
 function pathSummarySnapshot({
