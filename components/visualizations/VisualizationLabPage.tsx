@@ -11,6 +11,7 @@ import { dictionary, useSettings } from "@/components/providers/AppProviders";
 import { fallbackLogoGlyphs, kindergartenCaliforniaLogoGlyphs, labLogoArtByGlyph, templateLogoGlyphs } from "@/components/visualizations/labLogoArt";
 import { buildVisualizationLabHref, buildVisualizationPracticeHref, buildVisualizationSessionModuleId, buildVisualizationSnapshotMarkSample } from "@/components/visualizations/visualizationDiagnostics";
 import { gradeIds } from "@/data/grades";
+import { getSignatureLabAssignment, type SignatureLabId } from "@/data/signatureLabAssignments";
 import { publisherLabels } from "@/lib/curriculumProfile";
 import { formatGradeLabel, formatGradeLabelForCurriculum, formatUnitedStatesGradeLabel, simplifyChineseText } from "@/lib/i18n";
 import { cn } from "@/lib/utils";
@@ -108,13 +109,1577 @@ const ConfiguredVisualizationLab = dynamic<LabComponentProps>(
   { loading: () => <LabRuntimeLoading /> }
 );
 
+/**
+ * Signature labs (canvas benches ported from the Claude Math Visual library).
+ * Each bench is ~50KB and is loaded on its own chunk, so a student downloads
+ * only the lab they open. `createSignatureLab` supplies the host contracts the
+ * benches don't implement themselves — see SignatureLabAdapter.
+ */
+const SignatureLabRoutes = {
+  AbsoluteValueLab: dynamic<LabComponentProps>(
+    () =>
+      Promise.all([
+        import("@/components/visualizations/SignatureLabAdapter"),
+        import("@/components/visualizations/signature/AbsoluteValueLab")
+      ]).then(([adapter, lab]) => createRuntimeReadyLabComponent(adapter.createSignatureLab(lab.default))),
+    { loading: () => <LabRuntimeLoading /> }
+  ),
+  AddLab: dynamic<LabComponentProps>(
+    () =>
+      Promise.all([
+        import("@/components/visualizations/SignatureLabAdapter"),
+        import("@/components/visualizations/signature/AddLab")
+      ]).then(([adapter, lab]) => createRuntimeReadyLabComponent(adapter.createSignatureLab(lab.default))),
+    { loading: () => <LabRuntimeLoading /> }
+  ),
+  AngleLab: dynamic<LabComponentProps>(
+    () =>
+      Promise.all([
+        import("@/components/visualizations/SignatureLabAdapter"),
+        import("@/components/visualizations/signature/AngleLab")
+      ]).then(([adapter, lab]) => createRuntimeReadyLabComponent(adapter.createSignatureLab(lab.default))),
+    { loading: () => <LabRuntimeLoading /> }
+  ),
+  AngleTurnLab: dynamic<LabComponentProps>(
+    () =>
+      Promise.all([
+        import("@/components/visualizations/SignatureLabAdapter"),
+        import("@/components/visualizations/signature/AngleTurnLab")
+      ]).then(([adapter, lab]) => createRuntimeReadyLabComponent(adapter.createSignatureLab(lab.default))),
+    { loading: () => <LabRuntimeLoading /> }
+  ),
+  ArcsinLab: dynamic<LabComponentProps>(
+    () =>
+      Promise.all([
+        import("@/components/visualizations/SignatureLabAdapter"),
+        import("@/components/visualizations/signature/ArcsinLab")
+      ]).then(([adapter, lab]) => createRuntimeReadyLabComponent(adapter.createSignatureLab(lab.default))),
+    { loading: () => <LabRuntimeLoading /> }
+  ),
+  AreaLab: dynamic<LabComponentProps>(
+    () =>
+      Promise.all([
+        import("@/components/visualizations/SignatureLabAdapter"),
+        import("@/components/visualizations/signature/AreaLab")
+      ]).then(([adapter, lab]) => createRuntimeReadyLabComponent(adapter.createSignatureLab(lab.default))),
+    { loading: () => <LabRuntimeLoading /> }
+  ),
+  ArrangementsLab: dynamic<LabComponentProps>(
+    () =>
+      Promise.all([
+        import("@/components/visualizations/SignatureLabAdapter"),
+        import("@/components/visualizations/signature/ArrangementsLab")
+      ]).then(([adapter, lab]) => createRuntimeReadyLabComponent(adapter.createSignatureLab(lab.default))),
+    { loading: () => <LabRuntimeLoading /> }
+  ),
+  AssociativeAdditionLab: dynamic<LabComponentProps>(
+    () =>
+      Promise.all([
+        import("@/components/visualizations/SignatureLabAdapter"),
+        import("@/components/visualizations/signature/AssociativeAdditionLab")
+      ]).then(([adapter, lab]) => createRuntimeReadyLabComponent(adapter.createSignatureLab(lab.default))),
+    { loading: () => <LabRuntimeLoading /> }
+  ),
+  AssociativeMultiplicationLab: dynamic<LabComponentProps>(
+    () =>
+      Promise.all([
+        import("@/components/visualizations/SignatureLabAdapter"),
+        import("@/components/visualizations/signature/AssociativeMultiplicationLab")
+      ]).then(([adapter, lab]) => createRuntimeReadyLabComponent(adapter.createSignatureLab(lab.default))),
+    { loading: () => <LabRuntimeLoading /> }
+  ),
+  BestFitLab: dynamic<LabComponentProps>(
+    () =>
+      Promise.all([
+        import("@/components/visualizations/SignatureLabAdapter"),
+        import("@/components/visualizations/signature/BestFitLab")
+      ]).then(([adapter, lab]) => createRuntimeReadyLabComponent(adapter.createSignatureLab(lab.default))),
+    { loading: () => <LabRuntimeLoading /> }
+  ),
+  BoxPlotLab: dynamic<LabComponentProps>(
+    () =>
+      Promise.all([
+        import("@/components/visualizations/SignatureLabAdapter"),
+        import("@/components/visualizations/signature/BoxPlotLab")
+      ]).then(([adapter, lab]) => createRuntimeReadyLabComponent(adapter.createSignatureLab(lab.default))),
+    { loading: () => <LabRuntimeLoading /> }
+  ),
+  CircleLab: dynamic<LabComponentProps>(
+    () =>
+      Promise.all([
+        import("@/components/visualizations/SignatureLabAdapter"),
+        import("@/components/visualizations/signature/CircleLab")
+      ]).then(([adapter, lab]) => createRuntimeReadyLabComponent(adapter.createSignatureLab(lab.default))),
+    { loading: () => <LabRuntimeLoading /> }
+  ),
+  CircleTheoremsLab: dynamic<LabComponentProps>(
+    () =>
+      Promise.all([
+        import("@/components/visualizations/SignatureLabAdapter"),
+        import("@/components/visualizations/signature/CircleTheoremsLab")
+      ]).then(([adapter, lab]) => createRuntimeReadyLabComponent(adapter.createSignatureLab(lab.default))),
+    { loading: () => <LabRuntimeLoading /> }
+  ),
+  CommutativeLab: dynamic<LabComponentProps>(
+    () =>
+      Promise.all([
+        import("@/components/visualizations/SignatureLabAdapter"),
+        import("@/components/visualizations/signature/CommutativeLab")
+      ]).then(([adapter, lab]) => createRuntimeReadyLabComponent(adapter.createSignatureLab(lab.default))),
+    { loading: () => <LabRuntimeLoading /> }
+  ),
+  CompareFunctionsLab: dynamic<LabComponentProps>(
+    () =>
+      Promise.all([
+        import("@/components/visualizations/SignatureLabAdapter"),
+        import("@/components/visualizations/signature/CompareFunctionsLab")
+      ]).then(([adapter, lab]) => createRuntimeReadyLabComponent(adapter.createSignatureLab(lab.default))),
+    { loading: () => <LabRuntimeLoading /> }
+  ),
+  ComparingLab: dynamic<LabComponentProps>(
+    () =>
+      Promise.all([
+        import("@/components/visualizations/SignatureLabAdapter"),
+        import("@/components/visualizations/signature/ComparingLab")
+      ]).then(([adapter, lab]) => createRuntimeReadyLabComponent(adapter.createSignatureLab(lab.default))),
+    { loading: () => <LabRuntimeLoading /> }
+  ),
+  CompassLab: dynamic<LabComponentProps>(
+    () =>
+      Promise.all([
+        import("@/components/visualizations/SignatureLabAdapter"),
+        import("@/components/visualizations/signature/CompassLab")
+      ]).then(([adapter, lab]) => createRuntimeReadyLabComponent(adapter.createSignatureLab(lab.default))),
+    { loading: () => <LabRuntimeLoading /> }
+  ),
+  ComplexPlaneLab: dynamic<LabComponentProps>(
+    () =>
+      Promise.all([
+        import("@/components/visualizations/SignatureLabAdapter"),
+        import("@/components/visualizations/signature/ComplexPlaneLab")
+      ]).then(([adapter, lab]) => createRuntimeReadyLabComponent(adapter.createSignatureLab(lab.default))),
+    { loading: () => <LabRuntimeLoading /> }
+  ),
+  ComposingShapesLab: dynamic<LabComponentProps>(
+    () =>
+      Promise.all([
+        import("@/components/visualizations/SignatureLabAdapter"),
+        import("@/components/visualizations/signature/ComposingShapesLab")
+      ]).then(([adapter, lab]) => createRuntimeReadyLabComponent(adapter.createSignatureLab(lab.default))),
+    { loading: () => <LabRuntimeLoading /> }
+  ),
+  ConditionalLab: dynamic<LabComponentProps>(
+    () =>
+      Promise.all([
+        import("@/components/visualizations/SignatureLabAdapter"),
+        import("@/components/visualizations/signature/ConditionalLab")
+      ]).then(([adapter, lab]) => createRuntimeReadyLabComponent(adapter.createSignatureLab(lab.default))),
+    { loading: () => <LabRuntimeLoading /> }
+  ),
+  ConeLab: dynamic<LabComponentProps>(
+    () =>
+      Promise.all([
+        import("@/components/visualizations/SignatureLabAdapter"),
+        import("@/components/visualizations/signature/ConeLab")
+      ]).then(([adapter, lab]) => createRuntimeReadyLabComponent(adapter.createSignatureLab(lab.default))),
+    { loading: () => <LabRuntimeLoading /> }
+  ),
+  CongruenceLab: dynamic<LabComponentProps>(
+    () =>
+      Promise.all([
+        import("@/components/visualizations/SignatureLabAdapter"),
+        import("@/components/visualizations/signature/CongruenceLab")
+      ]).then(([adapter, lab]) => createRuntimeReadyLabComponent(adapter.createSignatureLab(lab.default))),
+    { loading: () => <LabRuntimeLoading /> }
+  ),
+  CorrelationLab: dynamic<LabComponentProps>(
+    () =>
+      Promise.all([
+        import("@/components/visualizations/SignatureLabAdapter"),
+        import("@/components/visualizations/signature/CorrelationLab")
+      ]).then(([adapter, lab]) => createRuntimeReadyLabComponent(adapter.createSignatureLab(lab.default))),
+    { loading: () => <LabRuntimeLoading /> }
+  ),
+  CosecantFunctionLab: dynamic<LabComponentProps>(
+    () =>
+      Promise.all([
+        import("@/components/visualizations/SignatureLabAdapter"),
+        import("@/components/visualizations/signature/CosecantFunctionLab")
+      ]).then(([adapter, lab]) => createRuntimeReadyLabComponent(adapter.createSignatureLab(lab.default))),
+    { loading: () => <LabRuntimeLoading /> }
+  ),
+  CosineFunctionLab: dynamic<LabComponentProps>(
+    () =>
+      Promise.all([
+        import("@/components/visualizations/SignatureLabAdapter"),
+        import("@/components/visualizations/signature/CosineFunctionLab")
+      ]).then(([adapter, lab]) => createRuntimeReadyLabComponent(adapter.createSignatureLab(lab.default))),
+    { loading: () => <LabRuntimeLoading /> }
+  ),
+  CotangentFunctionLab: dynamic<LabComponentProps>(
+    () =>
+      Promise.all([
+        import("@/components/visualizations/SignatureLabAdapter"),
+        import("@/components/visualizations/signature/CotangentFunctionLab")
+      ]).then(([adapter, lab]) => createRuntimeReadyLabComponent(adapter.createSignatureLab(lab.default))),
+    { loading: () => <LabRuntimeLoading /> }
+  ),
+  CountingLab: dynamic<LabComponentProps>(
+    () =>
+      Promise.all([
+        import("@/components/visualizations/SignatureLabAdapter"),
+        import("@/components/visualizations/signature/CountingLab")
+      ]).then(([adapter, lab]) => createRuntimeReadyLabComponent(adapter.createSignatureLab(lab.default))),
+    { loading: () => <LabRuntimeLoading /> }
+  ),
+  CovariationLab: dynamic<LabComponentProps>(
+    () =>
+      Promise.all([
+        import("@/components/visualizations/SignatureLabAdapter"),
+        import("@/components/visualizations/signature/CovariationLab")
+      ]).then(([adapter, lab]) => createRuntimeReadyLabComponent(adapter.createSignatureLab(lab.default))),
+    { loading: () => <LabRuntimeLoading /> }
+  ),
+  CrossSectionLab: dynamic<LabComponentProps>(
+    () =>
+      Promise.all([
+        import("@/components/visualizations/SignatureLabAdapter"),
+        import("@/components/visualizations/signature/CrossSectionLab")
+      ]).then(([adapter, lab]) => createRuntimeReadyLabComponent(adapter.createSignatureLab(lab.default))),
+    { loading: () => <LabRuntimeLoading /> }
+  ),
+  CubeLab: dynamic<LabComponentProps>(
+    () =>
+      Promise.all([
+        import("@/components/visualizations/SignatureLabAdapter"),
+        import("@/components/visualizations/signature/CubeLab")
+      ]).then(([adapter, lab]) => createRuntimeReadyLabComponent(adapter.createSignatureLab(lab.default))),
+    { loading: () => <LabRuntimeLoading /> }
+  ),
+  CylinderLab: dynamic<LabComponentProps>(
+    () =>
+      Promise.all([
+        import("@/components/visualizations/SignatureLabAdapter"),
+        import("@/components/visualizations/signature/CylinderLab")
+      ]).then(([adapter, lab]) => createRuntimeReadyLabComponent(adapter.createSignatureLab(lab.default))),
+    { loading: () => <LabRuntimeLoading /> }
+  ),
+  DataLab: dynamic<LabComponentProps>(
+    () =>
+      Promise.all([
+        import("@/components/visualizations/SignatureLabAdapter"),
+        import("@/components/visualizations/signature/DataLab")
+      ]).then(([adapter, lab]) => createRuntimeReadyLabComponent(adapter.createSignatureLab(lab.default))),
+    { loading: () => <LabRuntimeLoading /> }
+  ),
+  DecimalArithmeticLab: dynamic<LabComponentProps>(
+    () =>
+      Promise.all([
+        import("@/components/visualizations/SignatureLabAdapter"),
+        import("@/components/visualizations/signature/DecimalArithmeticLab")
+      ]).then(([adapter, lab]) => createRuntimeReadyLabComponent(adapter.createSignatureLab(lab.default))),
+    { loading: () => <LabRuntimeLoading /> }
+  ),
+  DecimalLab: dynamic<LabComponentProps>(
+    () =>
+      Promise.all([
+        import("@/components/visualizations/SignatureLabAdapter"),
+        import("@/components/visualizations/signature/DecimalLab")
+      ]).then(([adapter, lab]) => createRuntimeReadyLabComponent(adapter.createSignatureLab(lab.default))),
+    { loading: () => <LabRuntimeLoading /> }
+  ),
+  DerivativeLab: dynamic<LabComponentProps>(
+    () =>
+      Promise.all([
+        import("@/components/visualizations/SignatureLabAdapter"),
+        import("@/components/visualizations/signature/DerivativeLab")
+      ]).then(([adapter, lab]) => createRuntimeReadyLabComponent(adapter.createSignatureLab(lab.default))),
+    { loading: () => <LabRuntimeLoading /> }
+  ),
+  DilationsLab: dynamic<LabComponentProps>(
+    () =>
+      Promise.all([
+        import("@/components/visualizations/SignatureLabAdapter"),
+        import("@/components/visualizations/signature/DilationsLab")
+      ]).then(([adapter, lab]) => createRuntimeReadyLabComponent(adapter.createSignatureLab(lab.default))),
+    { loading: () => <LabRuntimeLoading /> }
+  ),
+  DistanceLab: dynamic<LabComponentProps>(
+    () =>
+      Promise.all([
+        import("@/components/visualizations/SignatureLabAdapter"),
+        import("@/components/visualizations/signature/DistanceLab")
+      ]).then(([adapter, lab]) => createRuntimeReadyLabComponent(adapter.createSignatureLab(lab.default))),
+    { loading: () => <LabRuntimeLoading /> }
+  ),
+  DistributiveLab: dynamic<LabComponentProps>(
+    () =>
+      Promise.all([
+        import("@/components/visualizations/SignatureLabAdapter"),
+        import("@/components/visualizations/signature/DistributiveLab")
+      ]).then(([adapter, lab]) => createRuntimeReadyLabComponent(adapter.createSignatureLab(lab.default))),
+    { loading: () => <LabRuntimeLoading /> }
+  ),
+  DivisionLab: dynamic<LabComponentProps>(
+    () =>
+      Promise.all([
+        import("@/components/visualizations/SignatureLabAdapter"),
+        import("@/components/visualizations/signature/DivisionLab")
+      ]).then(([adapter, lab]) => createRuntimeReadyLabComponent(adapter.createSignatureLab(lab.default))),
+    { loading: () => <LabRuntimeLoading /> }
+  ),
+  EllipseLab: dynamic<LabComponentProps>(
+    () =>
+      Promise.all([
+        import("@/components/visualizations/SignatureLabAdapter"),
+        import("@/components/visualizations/signature/EllipseLab")
+      ]).then(([adapter, lab]) => createRuntimeReadyLabComponent(adapter.createSignatureLab(lab.default))),
+    { loading: () => <LabRuntimeLoading /> }
+  ),
+  EqualAreasLab: dynamic<LabComponentProps>(
+    () =>
+      Promise.all([
+        import("@/components/visualizations/SignatureLabAdapter"),
+        import("@/components/visualizations/signature/EqualAreasLab")
+      ]).then(([adapter, lab]) => createRuntimeReadyLabComponent(adapter.createSignatureLab(lab.default))),
+    { loading: () => <LabRuntimeLoading /> }
+  ),
+  EqualSharesLab: dynamic<LabComponentProps>(
+    () =>
+      Promise.all([
+        import("@/components/visualizations/SignatureLabAdapter"),
+        import("@/components/visualizations/signature/EqualSharesLab")
+      ]).then(([adapter, lab]) => createRuntimeReadyLabComponent(adapter.createSignatureLab(lab.default))),
+    { loading: () => <LabRuntimeLoading /> }
+  ),
+  EqualSignLab: dynamic<LabComponentProps>(
+    () =>
+      Promise.all([
+        import("@/components/visualizations/SignatureLabAdapter"),
+        import("@/components/visualizations/signature/EqualSignLab")
+      ]).then(([adapter, lab]) => createRuntimeReadyLabComponent(adapter.createSignatureLab(lab.default))),
+    { loading: () => <LabRuntimeLoading /> }
+  ),
+  EquationLab: dynamic<LabComponentProps>(
+    () =>
+      Promise.all([
+        import("@/components/visualizations/SignatureLabAdapter"),
+        import("@/components/visualizations/signature/EquationLab")
+      ]).then(([adapter, lab]) => createRuntimeReadyLabComponent(adapter.createSignatureLab(lab.default))),
+    { loading: () => <LabRuntimeLoading /> }
+  ),
+  EquivalentFractionsLab: dynamic<LabComponentProps>(
+    () =>
+      Promise.all([
+        import("@/components/visualizations/SignatureLabAdapter"),
+        import("@/components/visualizations/signature/EquivalentFractionsLab")
+      ]).then(([adapter, lab]) => createRuntimeReadyLabComponent(adapter.createSignatureLab(lab.default))),
+    { loading: () => <LabRuntimeLoading /> }
+  ),
+  ExpectedValueLab: dynamic<LabComponentProps>(
+    () =>
+      Promise.all([
+        import("@/components/visualizations/SignatureLabAdapter"),
+        import("@/components/visualizations/signature/ExpectedValueLab")
+      ]).then(([adapter, lab]) => createRuntimeReadyLabComponent(adapter.createSignatureLab(lab.default))),
+    { loading: () => <LabRuntimeLoading /> }
+  ),
+  ExponentRulesLab: dynamic<LabComponentProps>(
+    () =>
+      Promise.all([
+        import("@/components/visualizations/SignatureLabAdapter"),
+        import("@/components/visualizations/signature/ExponentRulesLab")
+      ]).then(([adapter, lab]) => createRuntimeReadyLabComponent(adapter.createSignatureLab(lab.default))),
+    { loading: () => <LabRuntimeLoading /> }
+  ),
+  ExponentialFunctionLab: dynamic<LabComponentProps>(
+    () =>
+      Promise.all([
+        import("@/components/visualizations/SignatureLabAdapter"),
+        import("@/components/visualizations/signature/ExponentialFunctionLab")
+      ]).then(([adapter, lab]) => createRuntimeReadyLabComponent(adapter.createSignatureLab(lab.default))),
+    { loading: () => <LabRuntimeLoading /> }
+  ),
+  ExpressionLab: dynamic<LabComponentProps>(
+    () =>
+      Promise.all([
+        import("@/components/visualizations/SignatureLabAdapter"),
+        import("@/components/visualizations/signature/ExpressionLab")
+      ]).then(([adapter, lab]) => createRuntimeReadyLabComponent(adapter.createSignatureLab(lab.default))),
+    { loading: () => <LabRuntimeLoading /> }
+  ),
+  ExtraneousLab: dynamic<LabComponentProps>(
+    () =>
+      Promise.all([
+        import("@/components/visualizations/SignatureLabAdapter"),
+        import("@/components/visualizations/signature/ExtraneousLab")
+      ]).then(([adapter, lab]) => createRuntimeReadyLabComponent(adapter.createSignatureLab(lab.default))),
+    { loading: () => <LabRuntimeLoading /> }
+  ),
+  FactorLab: dynamic<LabComponentProps>(
+    () =>
+      Promise.all([
+        import("@/components/visualizations/SignatureLabAdapter"),
+        import("@/components/visualizations/signature/FactorLab")
+      ]).then(([adapter, lab]) => createRuntimeReadyLabComponent(adapter.createSignatureLab(lab.default))),
+    { loading: () => <LabRuntimeLoading /> }
+  ),
+  FactoringQuadraticsLab: dynamic<LabComponentProps>(
+    () =>
+      Promise.all([
+        import("@/components/visualizations/SignatureLabAdapter"),
+        import("@/components/visualizations/signature/FactoringQuadraticsLab")
+      ]).then(([adapter, lab]) => createRuntimeReadyLabComponent(adapter.createSignatureLab(lab.default))),
+    { loading: () => <LabRuntimeLoading /> }
+  ),
+  FormulaLab: dynamic<LabComponentProps>(
+    () =>
+      Promise.all([
+        import("@/components/visualizations/SignatureLabAdapter"),
+        import("@/components/visualizations/signature/FormulaLab")
+      ]).then(([adapter, lab]) => createRuntimeReadyLabComponent(adapter.createSignatureLab(lab.default))),
+    { loading: () => <LabRuntimeLoading /> }
+  ),
+  FractionAdditionLab: dynamic<LabComponentProps>(
+    () =>
+      Promise.all([
+        import("@/components/visualizations/SignatureLabAdapter"),
+        import("@/components/visualizations/signature/FractionAdditionLab")
+      ]).then(([adapter, lab]) => createRuntimeReadyLabComponent(adapter.createSignatureLab(lab.default))),
+    { loading: () => <LabRuntimeLoading /> }
+  ),
+  FractionAsDivisionLab: dynamic<LabComponentProps>(
+    () =>
+      Promise.all([
+        import("@/components/visualizations/SignatureLabAdapter"),
+        import("@/components/visualizations/signature/FractionAsDivisionLab")
+      ]).then(([adapter, lab]) => createRuntimeReadyLabComponent(adapter.createSignatureLab(lab.default))),
+    { loading: () => <LabRuntimeLoading /> }
+  ),
+  FractionDivisionLab: dynamic<LabComponentProps>(
+    () =>
+      Promise.all([
+        import("@/components/visualizations/SignatureLabAdapter"),
+        import("@/components/visualizations/signature/FractionDivisionLab")
+      ]).then(([adapter, lab]) => createRuntimeReadyLabComponent(adapter.createSignatureLab(lab.default))),
+    { loading: () => <LabRuntimeLoading /> }
+  ),
+  FractionLab: dynamic<LabComponentProps>(
+    () =>
+      Promise.all([
+        import("@/components/visualizations/SignatureLabAdapter"),
+        import("@/components/visualizations/signature/FractionLab")
+      ]).then(([adapter, lab]) => createRuntimeReadyLabComponent(adapter.createSignatureLab(lab.default))),
+    { loading: () => <LabRuntimeLoading /> }
+  ),
+  FractionLinePlotLab: dynamic<LabComponentProps>(
+    () =>
+      Promise.all([
+        import("@/components/visualizations/SignatureLabAdapter"),
+        import("@/components/visualizations/signature/FractionLinePlotLab")
+      ]).then(([adapter, lab]) => createRuntimeReadyLabComponent(adapter.createSignatureLab(lab.default))),
+    { loading: () => <LabRuntimeLoading /> }
+  ),
+  FractionMultiplicationLab: dynamic<LabComponentProps>(
+    () =>
+      Promise.all([
+        import("@/components/visualizations/SignatureLabAdapter"),
+        import("@/components/visualizations/signature/FractionMultiplicationLab")
+      ]).then(([adapter, lab]) => createRuntimeReadyLabComponent(adapter.createSignatureLab(lab.default))),
+    { loading: () => <LabRuntimeLoading /> }
+  ),
+  FractionTimesWholeLab: dynamic<LabComponentProps>(
+    () =>
+      Promise.all([
+        import("@/components/visualizations/SignatureLabAdapter"),
+        import("@/components/visualizations/signature/FractionTimesWholeLab")
+      ]).then(([adapter, lab]) => createRuntimeReadyLabComponent(adapter.createSignatureLab(lab.default))),
+    { loading: () => <LabRuntimeLoading /> }
+  ),
+  FunctionLab: dynamic<LabComponentProps>(
+    () =>
+      Promise.all([
+        import("@/components/visualizations/SignatureLabAdapter"),
+        import("@/components/visualizations/signature/FunctionLab")
+      ]).then(([adapter, lab]) => createRuntimeReadyLabComponent(adapter.createSignatureLab(lab.default))),
+    { loading: () => <LabRuntimeLoading /> }
+  ),
+  GramsAndLitersLab: dynamic<LabComponentProps>(
+    () =>
+      Promise.all([
+        import("@/components/visualizations/SignatureLabAdapter"),
+        import("@/components/visualizations/signature/GramsAndLitersLab")
+      ]).then(([adapter, lab]) => createRuntimeReadyLabComponent(adapter.createSignatureLab(lab.default))),
+    { loading: () => <LabRuntimeLoading /> }
+  ),
+  GraphStoryLab: dynamic<LabComponentProps>(
+    () =>
+      Promise.all([
+        import("@/components/visualizations/SignatureLabAdapter"),
+        import("@/components/visualizations/signature/GraphStoryLab")
+      ]).then(([adapter, lab]) => createRuntimeReadyLabComponent(adapter.createSignatureLab(lab.default))),
+    { loading: () => <LabRuntimeLoading /> }
+  ),
+  GraphsLab: dynamic<LabComponentProps>(
+    () =>
+      Promise.all([
+        import("@/components/visualizations/SignatureLabAdapter"),
+        import("@/components/visualizations/signature/GraphsLab")
+      ]).then(([adapter, lab]) => createRuntimeReadyLabComponent(adapter.createSignatureLab(lab.default))),
+    { loading: () => <LabRuntimeLoading /> }
+  ),
+  GreatestCommonFactorLab: dynamic<LabComponentProps>(
+    () =>
+      Promise.all([
+        import("@/components/visualizations/SignatureLabAdapter"),
+        import("@/components/visualizations/signature/GreatestCommonFactorLab")
+      ]).then(([adapter, lab]) => createRuntimeReadyLabComponent(adapter.createSignatureLab(lab.default))),
+    { loading: () => <LabRuntimeLoading /> }
+  ),
+  HistogramLab: dynamic<LabComponentProps>(
+    () =>
+      Promise.all([
+        import("@/components/visualizations/SignatureLabAdapter"),
+        import("@/components/visualizations/signature/HistogramLab")
+      ]).then(([adapter, lab]) => createRuntimeReadyLabComponent(adapter.createSignatureLab(lab.default))),
+    { loading: () => <LabRuntimeLoading /> }
+  ),
+  HundredChartLab: dynamic<LabComponentProps>(
+    () =>
+      Promise.all([
+        import("@/components/visualizations/SignatureLabAdapter"),
+        import("@/components/visualizations/signature/HundredChartLab")
+      ]).then(([adapter, lab]) => createRuntimeReadyLabComponent(adapter.createSignatureLab(lab.default))),
+    { loading: () => <LabRuntimeLoading /> }
+  ),
+  HyperbolaLab: dynamic<LabComponentProps>(
+    () =>
+      Promise.all([
+        import("@/components/visualizations/SignatureLabAdapter"),
+        import("@/components/visualizations/signature/HyperbolaLab")
+      ]).then(([adapter, lab]) => createRuntimeReadyLabComponent(adapter.createSignatureLab(lab.default))),
+    { loading: () => <LabRuntimeLoading /> }
+  ),
+  InequalityLab: dynamic<LabComponentProps>(
+    () =>
+      Promise.all([
+        import("@/components/visualizations/SignatureLabAdapter"),
+        import("@/components/visualizations/signature/InequalityLab")
+      ]).then(([adapter, lab]) => createRuntimeReadyLabComponent(adapter.createSignatureLab(lab.default))),
+    { loading: () => <LabRuntimeLoading /> }
+  ),
+  IntegerLab: dynamic<LabComponentProps>(
+    () =>
+      Promise.all([
+        import("@/components/visualizations/SignatureLabAdapter"),
+        import("@/components/visualizations/signature/IntegerLab")
+      ]).then(([adapter, lab]) => createRuntimeReadyLabComponent(adapter.createSignatureLab(lab.default))),
+    { loading: () => <LabRuntimeLoading /> }
+  ),
+  IntegralLab: dynamic<LabComponentProps>(
+    () =>
+      Promise.all([
+        import("@/components/visualizations/SignatureLabAdapter"),
+        import("@/components/visualizations/signature/IntegralLab")
+      ]).then(([adapter, lab]) => createRuntimeReadyLabComponent(adapter.createSignatureLab(lab.default))),
+    { loading: () => <LabRuntimeLoading /> }
+  ),
+  IrrationalLab: dynamic<LabComponentProps>(
+    () =>
+      Promise.all([
+        import("@/components/visualizations/SignatureLabAdapter"),
+        import("@/components/visualizations/signature/IrrationalLab")
+      ]).then(([adapter, lab]) => createRuntimeReadyLabComponent(adapter.createSignatureLab(lab.default))),
+    { loading: () => <LabRuntimeLoading /> }
+  ),
+  LCMLab: dynamic<LabComponentProps>(
+    () =>
+      Promise.all([
+        import("@/components/visualizations/SignatureLabAdapter"),
+        import("@/components/visualizations/signature/LCMLab")
+      ]).then(([adapter, lab]) => createRuntimeReadyLabComponent(adapter.createSignatureLab(lab.default))),
+    { loading: () => <LabRuntimeLoading /> }
+  ),
+  LengthComparisonLab: dynamic<LabComponentProps>(
+    () =>
+      Promise.all([
+        import("@/components/visualizations/SignatureLabAdapter"),
+        import("@/components/visualizations/signature/LengthComparisonLab")
+      ]).then(([adapter, lab]) => createRuntimeReadyLabComponent(adapter.createSignatureLab(lab.default))),
+    { loading: () => <LabRuntimeLoading /> }
+  ),
+  LikeTermsLab: dynamic<LabComponentProps>(
+    () =>
+      Promise.all([
+        import("@/components/visualizations/SignatureLabAdapter"),
+        import("@/components/visualizations/signature/LikeTermsLab")
+      ]).then(([adapter, lab]) => createRuntimeReadyLabComponent(adapter.createSignatureLab(lab.default))),
+    { loading: () => <LabRuntimeLoading /> }
+  ),
+  LimitLab: dynamic<LabComponentProps>(
+    () =>
+      Promise.all([
+        import("@/components/visualizations/SignatureLabAdapter"),
+        import("@/components/visualizations/signature/LimitLab")
+      ]).then(([adapter, lab]) => createRuntimeReadyLabComponent(adapter.createSignatureLab(lab.default))),
+    { loading: () => <LabRuntimeLoading /> }
+  ),
+  LineFunctionLab: dynamic<LabComponentProps>(
+    () =>
+      Promise.all([
+        import("@/components/visualizations/SignatureLabAdapter"),
+        import("@/components/visualizations/signature/LineFunctionLab")
+      ]).then(([adapter, lab]) => createRuntimeReadyLabComponent(adapter.createSignatureLab(lab.default))),
+    { loading: () => <LabRuntimeLoading /> }
+  ),
+  LineParabolaLab: dynamic<LabComponentProps>(
+    () =>
+      Promise.all([
+        import("@/components/visualizations/SignatureLabAdapter"),
+        import("@/components/visualizations/signature/LineParabolaLab")
+      ]).then(([adapter, lab]) => createRuntimeReadyLabComponent(adapter.createSignatureLab(lab.default))),
+    { loading: () => <LabRuntimeLoading /> }
+  ),
+  LinePlotLab: dynamic<LabComponentProps>(
+    () =>
+      Promise.all([
+        import("@/components/visualizations/SignatureLabAdapter"),
+        import("@/components/visualizations/signature/LinePlotLab")
+      ]).then(([adapter, lab]) => createRuntimeReadyLabComponent(adapter.createSignatureLab(lab.default))),
+    { loading: () => <LabRuntimeLoading /> }
+  ),
+  LinesRaysSegmentsLab: dynamic<LabComponentProps>(
+    () =>
+      Promise.all([
+        import("@/components/visualizations/SignatureLabAdapter"),
+        import("@/components/visualizations/signature/LinesRaysSegmentsLab")
+      ]).then(([adapter, lab]) => createRuntimeReadyLabComponent(adapter.createSignatureLab(lab.default))),
+    { loading: () => <LabRuntimeLoading /> }
+  ),
+  LogarithmLab: dynamic<LabComponentProps>(
+    () =>
+      Promise.all([
+        import("@/components/visualizations/SignatureLabAdapter"),
+        import("@/components/visualizations/signature/LogarithmLab")
+      ]).then(([adapter, lab]) => createRuntimeReadyLabComponent(adapter.createSignatureLab(lab.default))),
+    { loading: () => <LabRuntimeLoading /> }
+  ),
+  LongDivisionLab: dynamic<LabComponentProps>(
+    () =>
+      Promise.all([
+        import("@/components/visualizations/SignatureLabAdapter"),
+        import("@/components/visualizations/signature/LongDivisionLab")
+      ]).then(([adapter, lab]) => createRuntimeReadyLabComponent(adapter.createSignatureLab(lab.default))),
+    { loading: () => <LabRuntimeLoading /> }
+  ),
+  LurkingVariableLab: dynamic<LabComponentProps>(
+    () =>
+      Promise.all([
+        import("@/components/visualizations/SignatureLabAdapter"),
+        import("@/components/visualizations/signature/LurkingVariableLab")
+      ]).then(([adapter, lab]) => createRuntimeReadyLabComponent(adapter.createSignatureLab(lab.default))),
+    { loading: () => <LabRuntimeLoading /> }
+  ),
+  MatrixLab: dynamic<LabComponentProps>(
+    () =>
+      Promise.all([
+        import("@/components/visualizations/SignatureLabAdapter"),
+        import("@/components/visualizations/signature/MatrixLab")
+      ]).then(([adapter, lab]) => createRuntimeReadyLabComponent(adapter.createSignatureLab(lab.default))),
+    { loading: () => <LabRuntimeLoading /> }
+  ),
+  MeanLab: dynamic<LabComponentProps>(
+    () =>
+      Promise.all([
+        import("@/components/visualizations/SignatureLabAdapter"),
+        import("@/components/visualizations/signature/MeanLab")
+      ]).then(([adapter, lab]) => createRuntimeReadyLabComponent(adapter.createSignatureLab(lab.default))),
+    { loading: () => <LabRuntimeLoading /> }
+  ),
+  MeasurementLab: dynamic<LabComponentProps>(
+    () =>
+      Promise.all([
+        import("@/components/visualizations/SignatureLabAdapter"),
+        import("@/components/visualizations/signature/MeasurementLab")
+      ]).then(([adapter, lab]) => createRuntimeReadyLabComponent(adapter.createSignatureLab(lab.default))),
+    { loading: () => <LabRuntimeLoading /> }
+  ),
+  MedianLab: dynamic<LabComponentProps>(
+    () =>
+      Promise.all([
+        import("@/components/visualizations/SignatureLabAdapter"),
+        import("@/components/visualizations/signature/MedianLab")
+      ]).then(([adapter, lab]) => createRuntimeReadyLabComponent(adapter.createSignatureLab(lab.default))),
+    { loading: () => <LabRuntimeLoading /> }
+  ),
+  ModeLab: dynamic<LabComponentProps>(
+    () =>
+      Promise.all([
+        import("@/components/visualizations/SignatureLabAdapter"),
+        import("@/components/visualizations/signature/ModeLab")
+      ]).then(([adapter, lab]) => createRuntimeReadyLabComponent(adapter.createSignatureLab(lab.default))),
+    { loading: () => <LabRuntimeLoading /> }
+  ),
+  MoneyLab: dynamic<LabComponentProps>(
+    () =>
+      Promise.all([
+        import("@/components/visualizations/SignatureLabAdapter"),
+        import("@/components/visualizations/signature/MoneyLab")
+      ]).then(([adapter, lab]) => createRuntimeReadyLabComponent(adapter.createSignatureLab(lab.default))),
+    { loading: () => <LabRuntimeLoading /> }
+  ),
+  MultiDigitMultiplicationLab: dynamic<LabComponentProps>(
+    () =>
+      Promise.all([
+        import("@/components/visualizations/SignatureLabAdapter"),
+        import("@/components/visualizations/signature/MultiDigitMultiplicationLab")
+      ]).then(([adapter, lab]) => createRuntimeReadyLabComponent(adapter.createSignatureLab(lab.default))),
+    { loading: () => <LabRuntimeLoading /> }
+  ),
+  MultiplesLab: dynamic<LabComponentProps>(
+    () =>
+      Promise.all([
+        import("@/components/visualizations/SignatureLabAdapter"),
+        import("@/components/visualizations/signature/MultiplesLab")
+      ]).then(([adapter, lab]) => createRuntimeReadyLabComponent(adapter.createSignatureLab(lab.default))),
+    { loading: () => <LabRuntimeLoading /> }
+  ),
+  MultiplicationLab: dynamic<LabComponentProps>(
+    () =>
+      Promise.all([
+        import("@/components/visualizations/SignatureLabAdapter"),
+        import("@/components/visualizations/signature/MultiplicationLab")
+      ]).then(([adapter, lab]) => createRuntimeReadyLabComponent(adapter.createSignatureLab(lab.default))),
+    { loading: () => <LabRuntimeLoading /> }
+  ),
+  MultiplicativeComparisonLab: dynamic<LabComponentProps>(
+    () =>
+      Promise.all([
+        import("@/components/visualizations/SignatureLabAdapter"),
+        import("@/components/visualizations/signature/MultiplicativeComparisonLab")
+      ]).then(([adapter, lab]) => createRuntimeReadyLabComponent(adapter.createSignatureLab(lab.default))),
+    { loading: () => <LabRuntimeLoading /> }
+  ),
+  NormalDistributionLab: dynamic<LabComponentProps>(
+    () =>
+      Promise.all([
+        import("@/components/visualizations/SignatureLabAdapter"),
+        import("@/components/visualizations/signature/NormalDistributionLab")
+      ]).then(([adapter, lab]) => createRuntimeReadyLabComponent(adapter.createSignatureLab(lab.default))),
+    { loading: () => <LabRuntimeLoading /> }
+  ),
+  NumberBondLab: dynamic<LabComponentProps>(
+    () =>
+      Promise.all([
+        import("@/components/visualizations/SignatureLabAdapter"),
+        import("@/components/visualizations/signature/NumberBondLab")
+      ]).then(([adapter, lab]) => createRuntimeReadyLabComponent(adapter.createSignatureLab(lab.default))),
+    { loading: () => <LabRuntimeLoading /> }
+  ),
+  NumberLab: dynamic<LabComponentProps>(
+    () =>
+      Promise.all([
+        import("@/components/visualizations/SignatureLabAdapter"),
+        import("@/components/visualizations/signature/NumberLab")
+      ]).then(([adapter, lab]) => createRuntimeReadyLabComponent(adapter.createSignatureLab(lab.default))),
+    { loading: () => <LabRuntimeLoading /> }
+  ),
+  OddEvenLab: dynamic<LabComponentProps>(
+    () =>
+      Promise.all([
+        import("@/components/visualizations/SignatureLabAdapter"),
+        import("@/components/visualizations/signature/OddEvenLab")
+      ]).then(([adapter, lab]) => createRuntimeReadyLabComponent(adapter.createSignatureLab(lab.default))),
+    { loading: () => <LabRuntimeLoading /> }
+  ),
+  OperationsLab: dynamic<LabComponentProps>(
+    () =>
+      Promise.all([
+        import("@/components/visualizations/SignatureLabAdapter"),
+        import("@/components/visualizations/signature/OperationsLab")
+      ]).then(([adapter, lab]) => createRuntimeReadyLabComponent(adapter.createSignatureLab(lab.default))),
+    { loading: () => <LabRuntimeLoading /> }
+  ),
+  OptimizationLab: dynamic<LabComponentProps>(
+    () =>
+      Promise.all([
+        import("@/components/visualizations/SignatureLabAdapter"),
+        import("@/components/visualizations/signature/OptimizationLab")
+      ]).then(([adapter, lab]) => createRuntimeReadyLabComponent(adapter.createSignatureLab(lab.default))),
+    { loading: () => <LabRuntimeLoading /> }
+  ),
+  ParabolaLab: dynamic<LabComponentProps>(
+    () =>
+      Promise.all([
+        import("@/components/visualizations/SignatureLabAdapter"),
+        import("@/components/visualizations/signature/ParabolaLab")
+      ]).then(([adapter, lab]) => createRuntimeReadyLabComponent(adapter.createSignatureLab(lab.default))),
+    { loading: () => <LabRuntimeLoading /> }
+  ),
+  ParallelogramLab: dynamic<LabComponentProps>(
+    () =>
+      Promise.all([
+        import("@/components/visualizations/SignatureLabAdapter"),
+        import("@/components/visualizations/signature/ParallelogramLab")
+      ]).then(([adapter, lab]) => createRuntimeReadyLabComponent(adapter.createSignatureLab(lab.default))),
+    { loading: () => <LabRuntimeLoading /> }
+  ),
+  PatternsLab: dynamic<LabComponentProps>(
+    () =>
+      Promise.all([
+        import("@/components/visualizations/SignatureLabAdapter"),
+        import("@/components/visualizations/signature/PatternsLab")
+      ]).then(([adapter, lab]) => createRuntimeReadyLabComponent(adapter.createSignatureLab(lab.default))),
+    { loading: () => <LabRuntimeLoading /> }
+  ),
+  PercentChangeLab: dynamic<LabComponentProps>(
+    () =>
+      Promise.all([
+        import("@/components/visualizations/SignatureLabAdapter"),
+        import("@/components/visualizations/signature/PercentChangeLab")
+      ]).then(([adapter, lab]) => createRuntimeReadyLabComponent(adapter.createSignatureLab(lab.default))),
+    { loading: () => <LabRuntimeLoading /> }
+  ),
+  PercentageLab: dynamic<LabComponentProps>(
+    () =>
+      Promise.all([
+        import("@/components/visualizations/SignatureLabAdapter"),
+        import("@/components/visualizations/signature/PercentageLab")
+      ]).then(([adapter, lab]) => createRuntimeReadyLabComponent(adapter.createSignatureLab(lab.default))),
+    { loading: () => <LabRuntimeLoading /> }
+  ),
+  PerpSlopeLab: dynamic<LabComponentProps>(
+    () =>
+      Promise.all([
+        import("@/components/visualizations/SignatureLabAdapter"),
+        import("@/components/visualizations/signature/PerpSlopeLab")
+      ]).then(([adapter, lab]) => createRuntimeReadyLabComponent(adapter.createSignatureLab(lab.default))),
+    { loading: () => <LabRuntimeLoading /> }
+  ),
+  PiLab: dynamic<LabComponentProps>(
+    () =>
+      Promise.all([
+        import("@/components/visualizations/SignatureLabAdapter"),
+        import("@/components/visualizations/signature/PiLab")
+      ]).then(([adapter, lab]) => createRuntimeReadyLabComponent(adapter.createSignatureLab(lab.default))),
+    { loading: () => <LabRuntimeLoading /> }
+  ),
+  PiecewiseLab: dynamic<LabComponentProps>(
+    () =>
+      Promise.all([
+        import("@/components/visualizations/SignatureLabAdapter"),
+        import("@/components/visualizations/signature/PiecewiseLab")
+      ]).then(([adapter, lab]) => createRuntimeReadyLabComponent(adapter.createSignatureLab(lab.default))),
+    { loading: () => <LabRuntimeLoading /> }
+  ),
+  PlaceValueStrategiesLab: dynamic<LabComponentProps>(
+    () =>
+      Promise.all([
+        import("@/components/visualizations/SignatureLabAdapter"),
+        import("@/components/visualizations/signature/PlaceValueStrategiesLab")
+      ]).then(([adapter, lab]) => createRuntimeReadyLabComponent(adapter.createSignatureLab(lab.default))),
+    { loading: () => <LabRuntimeLoading /> }
+  ),
+  PointLab: dynamic<LabComponentProps>(
+    () =>
+      Promise.all([
+        import("@/components/visualizations/SignatureLabAdapter"),
+        import("@/components/visualizations/signature/PointLab")
+      ]).then(([adapter, lab]) => createRuntimeReadyLabComponent(adapter.createSignatureLab(lab.default))),
+    { loading: () => <LabRuntimeLoading /> }
+  ),
+  PolynomialArithmeticLab: dynamic<LabComponentProps>(
+    () =>
+      Promise.all([
+        import("@/components/visualizations/SignatureLabAdapter"),
+        import("@/components/visualizations/signature/PolynomialArithmeticLab")
+      ]).then(([adapter, lab]) => createRuntimeReadyLabComponent(adapter.createSignatureLab(lab.default))),
+    { loading: () => <LabRuntimeLoading /> }
+  ),
+  PolynomialFunctionLab: dynamic<LabComponentProps>(
+    () =>
+      Promise.all([
+        import("@/components/visualizations/SignatureLabAdapter"),
+        import("@/components/visualizations/signature/PolynomialFunctionLab")
+      ]).then(([adapter, lab]) => createRuntimeReadyLabComponent(adapter.createSignatureLab(lab.default))),
+    { loading: () => <LabRuntimeLoading /> }
+  ),
+  PositionLab: dynamic<LabComponentProps>(
+    () =>
+      Promise.all([
+        import("@/components/visualizations/SignatureLabAdapter"),
+        import("@/components/visualizations/signature/PositionLab")
+      ]).then(([adapter, lab]) => createRuntimeReadyLabComponent(adapter.createSignatureLab(lab.default))),
+    { loading: () => <LabRuntimeLoading /> }
+  ),
+  PowersOfTenLab: dynamic<LabComponentProps>(
+    () =>
+      Promise.all([
+        import("@/components/visualizations/SignatureLabAdapter"),
+        import("@/components/visualizations/signature/PowersOfTenLab")
+      ]).then(([adapter, lab]) => createRuntimeReadyLabComponent(adapter.createSignatureLab(lab.default))),
+    { loading: () => <LabRuntimeLoading /> }
+  ),
+  PrimeFactorizationLab: dynamic<LabComponentProps>(
+    () =>
+      Promise.all([
+        import("@/components/visualizations/SignatureLabAdapter"),
+        import("@/components/visualizations/signature/PrimeFactorizationLab")
+      ]).then(([adapter, lab]) => createRuntimeReadyLabComponent(adapter.createSignatureLab(lab.default))),
+    { loading: () => <LabRuntimeLoading /> }
+  ),
+  PrimeNumbersLab: dynamic<LabComponentProps>(
+    () =>
+      Promise.all([
+        import("@/components/visualizations/SignatureLabAdapter"),
+        import("@/components/visualizations/signature/PrimeNumbersLab")
+      ]).then(([adapter, lab]) => createRuntimeReadyLabComponent(adapter.createSignatureLab(lab.default))),
+    { loading: () => <LabRuntimeLoading /> }
+  ),
+  ProbabilityLab: dynamic<LabComponentProps>(
+    () =>
+      Promise.all([
+        import("@/components/visualizations/SignatureLabAdapter"),
+        import("@/components/visualizations/signature/ProbabilityLab")
+      ]).then(([adapter, lab]) => createRuntimeReadyLabComponent(adapter.createSignatureLab(lab.default))),
+    { loading: () => <LabRuntimeLoading /> }
+  ),
+  ProofChainLab: dynamic<LabComponentProps>(
+    () =>
+      Promise.all([
+        import("@/components/visualizations/SignatureLabAdapter"),
+        import("@/components/visualizations/signature/ProofChainLab")
+      ]).then(([adapter, lab]) => createRuntimeReadyLabComponent(adapter.createSignatureLab(lab.default))),
+    { loading: () => <LabRuntimeLoading /> }
+  ),
+  ProportionalLab: dynamic<LabComponentProps>(
+    () =>
+      Promise.all([
+        import("@/components/visualizations/SignatureLabAdapter"),
+        import("@/components/visualizations/signature/ProportionalLab")
+      ]).then(([adapter, lab]) => createRuntimeReadyLabComponent(adapter.createSignatureLab(lab.default))),
+    { loading: () => <LabRuntimeLoading /> }
+  ),
+  PyramidLab: dynamic<LabComponentProps>(
+    () =>
+      Promise.all([
+        import("@/components/visualizations/SignatureLabAdapter"),
+        import("@/components/visualizations/signature/PyramidLab")
+      ]).then(([adapter, lab]) => createRuntimeReadyLabComponent(adapter.createSignatureLab(lab.default))),
+    { loading: () => <LabRuntimeLoading /> }
+  ),
+  PythagorasLab: dynamic<LabComponentProps>(
+    () =>
+      Promise.all([
+        import("@/components/visualizations/SignatureLabAdapter"),
+        import("@/components/visualizations/signature/PythagorasLab")
+      ]).then(([adapter, lab]) => createRuntimeReadyLabComponent(adapter.createSignatureLab(lab.default))),
+    { loading: () => <LabRuntimeLoading /> }
+  ),
+  PythagoreanIdentityLab: dynamic<LabComponentProps>(
+    () =>
+      Promise.all([
+        import("@/components/visualizations/SignatureLabAdapter"),
+        import("@/components/visualizations/signature/PythagoreanIdentityLab")
+      ]).then(([adapter, lab]) => createRuntimeReadyLabComponent(adapter.createSignatureLab(lab.default))),
+    { loading: () => <LabRuntimeLoading /> }
+  ),
+  QuadraticEquationLab: dynamic<LabComponentProps>(
+    () =>
+      Promise.all([
+        import("@/components/visualizations/SignatureLabAdapter"),
+        import("@/components/visualizations/signature/QuadraticEquationLab")
+      ]).then(([adapter, lab]) => createRuntimeReadyLabComponent(adapter.createSignatureLab(lab.default))),
+    { loading: () => <LabRuntimeLoading /> }
+  ),
+  QuadraticFunctionLab: dynamic<LabComponentProps>(
+    () =>
+      Promise.all([
+        import("@/components/visualizations/SignatureLabAdapter"),
+        import("@/components/visualizations/signature/QuadraticFunctionLab")
+      ]).then(([adapter, lab]) => createRuntimeReadyLabComponent(adapter.createSignatureLab(lab.default))),
+    { loading: () => <LabRuntimeLoading /> }
+  ),
+  QuadraticPolynomialLab: dynamic<LabComponentProps>(
+    () =>
+      Promise.all([
+        import("@/components/visualizations/SignatureLabAdapter"),
+        import("@/components/visualizations/signature/QuadraticPolynomialLab")
+      ]).then(([adapter, lab]) => createRuntimeReadyLabComponent(adapter.createSignatureLab(lab.default))),
+    { loading: () => <LabRuntimeLoading /> }
+  ),
+  QuadrilateralLab: dynamic<LabComponentProps>(
+    () =>
+      Promise.all([
+        import("@/components/visualizations/SignatureLabAdapter"),
+        import("@/components/visualizations/signature/QuadrilateralLab")
+      ]).then(([adapter, lab]) => createRuntimeReadyLabComponent(adapter.createSignatureLab(lab.default))),
+    { loading: () => <LabRuntimeLoading /> }
+  ),
+  RatioLab: dynamic<LabComponentProps>(
+    () =>
+      Promise.all([
+        import("@/components/visualizations/SignatureLabAdapter"),
+        import("@/components/visualizations/signature/RatioLab")
+      ]).then(([adapter, lab]) => createRuntimeReadyLabComponent(adapter.createSignatureLab(lab.default))),
+    { loading: () => <LabRuntimeLoading /> }
+  ),
+  RationalExponentLab: dynamic<LabComponentProps>(
+    () =>
+      Promise.all([
+        import("@/components/visualizations/SignatureLabAdapter"),
+        import("@/components/visualizations/signature/RationalExponentLab")
+      ]).then(([adapter, lab]) => createRuntimeReadyLabComponent(adapter.createSignatureLab(lab.default))),
+    { loading: () => <LabRuntimeLoading /> }
+  ),
+  RationalFunctionLab: dynamic<LabComponentProps>(
+    () =>
+      Promise.all([
+        import("@/components/visualizations/SignatureLabAdapter"),
+        import("@/components/visualizations/signature/RationalFunctionLab")
+      ]).then(([adapter, lab]) => createRuntimeReadyLabComponent(adapter.createSignatureLab(lab.default))),
+    { loading: () => <LabRuntimeLoading /> }
+  ),
+  RationalNumbersLab: dynamic<LabComponentProps>(
+    () =>
+      Promise.all([
+        import("@/components/visualizations/SignatureLabAdapter"),
+        import("@/components/visualizations/signature/RationalNumbersLab")
+      ]).then(([adapter, lab]) => createRuntimeReadyLabComponent(adapter.createSignatureLab(lab.default))),
+    { loading: () => <LabRuntimeLoading /> }
+  ),
+  RectangleLab: dynamic<LabComponentProps>(
+    () =>
+      Promise.all([
+        import("@/components/visualizations/SignatureLabAdapter"),
+        import("@/components/visualizations/signature/RectangleLab")
+      ]).then(([adapter, lab]) => createRuntimeReadyLabComponent(adapter.createSignatureLab(lab.default))),
+    { loading: () => <LabRuntimeLoading /> }
+  ),
+  RectangularPrismLab: dynamic<LabComponentProps>(
+    () =>
+      Promise.all([
+        import("@/components/visualizations/SignatureLabAdapter"),
+        import("@/components/visualizations/signature/RectangularPrismLab")
+      ]).then(([adapter, lab]) => createRuntimeReadyLabComponent(adapter.createSignatureLab(lab.default))),
+    { loading: () => <LabRuntimeLoading /> }
+  ),
+  RegroupingSubtractionLab: dynamic<LabComponentProps>(
+    () =>
+      Promise.all([
+        import("@/components/visualizations/SignatureLabAdapter"),
+        import("@/components/visualizations/signature/RegroupingSubtractionLab")
+      ]).then(([adapter, lab]) => createRuntimeReadyLabComponent(adapter.createSignatureLab(lab.default))),
+    { loading: () => <LabRuntimeLoading /> }
+  ),
+  RemainderTheoremLab: dynamic<LabComponentProps>(
+    () =>
+      Promise.all([
+        import("@/components/visualizations/SignatureLabAdapter"),
+        import("@/components/visualizations/signature/RemainderTheoremLab")
+      ]).then(([adapter, lab]) => createRuntimeReadyLabComponent(adapter.createSignatureLab(lab.default))),
+    { loading: () => <LabRuntimeLoading /> }
+  ),
+  RevolutionLab: dynamic<LabComponentProps>(
+    () =>
+      Promise.all([
+        import("@/components/visualizations/SignatureLabAdapter"),
+        import("@/components/visualizations/signature/RevolutionLab")
+      ]).then(([adapter, lab]) => createRuntimeReadyLabComponent(adapter.createSignatureLab(lab.default))),
+    { loading: () => <LabRuntimeLoading /> }
+  ),
+  RootsLab: dynamic<LabComponentProps>(
+    () =>
+      Promise.all([
+        import("@/components/visualizations/SignatureLabAdapter"),
+        import("@/components/visualizations/signature/RootsLab")
+      ]).then(([adapter, lab]) => createRuntimeReadyLabComponent(adapter.createSignatureLab(lab.default))),
+    { loading: () => <LabRuntimeLoading /> }
+  ),
+  RoundingLab: dynamic<LabComponentProps>(
+    () =>
+      Promise.all([
+        import("@/components/visualizations/SignatureLabAdapter"),
+        import("@/components/visualizations/signature/RoundingLab")
+      ]).then(([adapter, lab]) => createRuntimeReadyLabComponent(adapter.createSignatureLab(lab.default))),
+    { loading: () => <LabRuntimeLoading /> }
+  ),
+  SamplingDistributionLab: dynamic<LabComponentProps>(
+    () =>
+      Promise.all([
+        import("@/components/visualizations/SignatureLabAdapter"),
+        import("@/components/visualizations/signature/SamplingDistributionLab")
+      ]).then(([adapter, lab]) => createRuntimeReadyLabComponent(adapter.createSignatureLab(lab.default))),
+    { loading: () => <LabRuntimeLoading /> }
+  ),
+  SamplingLab: dynamic<LabComponentProps>(
+    () =>
+      Promise.all([
+        import("@/components/visualizations/SignatureLabAdapter"),
+        import("@/components/visualizations/signature/SamplingLab")
+      ]).then(([adapter, lab]) => createRuntimeReadyLabComponent(adapter.createSignatureLab(lab.default))),
+    { loading: () => <LabRuntimeLoading /> }
+  ),
+  ScaleDrawingLab: dynamic<LabComponentProps>(
+    () =>
+      Promise.all([
+        import("@/components/visualizations/SignatureLabAdapter"),
+        import("@/components/visualizations/signature/ScaleDrawingLab")
+      ]).then(([adapter, lab]) => createRuntimeReadyLabComponent(adapter.createSignatureLab(lab.default))),
+    { loading: () => <LabRuntimeLoading /> }
+  ),
+  ScalingLab: dynamic<LabComponentProps>(
+    () =>
+      Promise.all([
+        import("@/components/visualizations/SignatureLabAdapter"),
+        import("@/components/visualizations/signature/ScalingLab")
+      ]).then(([adapter, lab]) => createRuntimeReadyLabComponent(adapter.createSignatureLab(lab.default))),
+    { loading: () => <LabRuntimeLoading /> }
+  ),
+  ScatterPlotLab: dynamic<LabComponentProps>(
+    () =>
+      Promise.all([
+        import("@/components/visualizations/SignatureLabAdapter"),
+        import("@/components/visualizations/signature/ScatterPlotLab")
+      ]).then(([adapter, lab]) => createRuntimeReadyLabComponent(adapter.createSignatureLab(lab.default))),
+    { loading: () => <LabRuntimeLoading /> }
+  ),
+  ScientificNotationLab: dynamic<LabComponentProps>(
+    () =>
+      Promise.all([
+        import("@/components/visualizations/SignatureLabAdapter"),
+        import("@/components/visualizations/signature/ScientificNotationLab")
+      ]).then(([adapter, lab]) => createRuntimeReadyLabComponent(adapter.createSignatureLab(lab.default))),
+    { loading: () => <LabRuntimeLoading /> }
+  ),
+  SecantFunctionLab: dynamic<LabComponentProps>(
+    () =>
+      Promise.all([
+        import("@/components/visualizations/SignatureLabAdapter"),
+        import("@/components/visualizations/signature/SecantFunctionLab")
+      ]).then(([adapter, lab]) => createRuntimeReadyLabComponent(adapter.createSignatureLab(lab.default))),
+    { loading: () => <LabRuntimeLoading /> }
+  ),
+  SequencesLab: dynamic<LabComponentProps>(
+    () =>
+      Promise.all([
+        import("@/components/visualizations/SignatureLabAdapter"),
+        import("@/components/visualizations/signature/SequencesLab")
+      ]).then(([adapter, lab]) => createRuntimeReadyLabComponent(adapter.createSignatureLab(lab.default))),
+    { loading: () => <LabRuntimeLoading /> }
+  ),
+  SeriesLab: dynamic<LabComponentProps>(
+    () =>
+      Promise.all([
+        import("@/components/visualizations/SignatureLabAdapter"),
+        import("@/components/visualizations/signature/SeriesLab")
+      ]).then(([adapter, lab]) => createRuntimeReadyLabComponent(adapter.createSignatureLab(lab.default))),
+    { loading: () => <LabRuntimeLoading /> }
+  ),
+  SetTheoryLab: dynamic<LabComponentProps>(
+    () =>
+      Promise.all([
+        import("@/components/visualizations/SignatureLabAdapter"),
+        import("@/components/visualizations/signature/SetTheoryLab")
+      ]).then(([adapter, lab]) => createRuntimeReadyLabComponent(adapter.createSignatureLab(lab.default))),
+    { loading: () => <LabRuntimeLoading /> }
+  ),
+  ShapesLab: dynamic<LabComponentProps>(
+    () =>
+      Promise.all([
+        import("@/components/visualizations/SignatureLabAdapter"),
+        import("@/components/visualizations/signature/ShapesLab")
+      ]).then(([adapter, lab]) => createRuntimeReadyLabComponent(adapter.createSignatureLab(lab.default))),
+    { loading: () => <LabRuntimeLoading /> }
+  ),
+  SignedAdditionLab: dynamic<LabComponentProps>(
+    () =>
+      Promise.all([
+        import("@/components/visualizations/SignatureLabAdapter"),
+        import("@/components/visualizations/signature/SignedAdditionLab")
+      ]).then(([adapter, lab]) => createRuntimeReadyLabComponent(adapter.createSignatureLab(lab.default))),
+    { loading: () => <LabRuntimeLoading /> }
+  ),
+  SignedNumbersLab: dynamic<LabComponentProps>(
+    () =>
+      Promise.all([
+        import("@/components/visualizations/SignatureLabAdapter"),
+        import("@/components/visualizations/signature/SignedNumbersLab")
+      ]).then(([adapter, lab]) => createRuntimeReadyLabComponent(adapter.createSignatureLab(lab.default))),
+    { loading: () => <LabRuntimeLoading /> }
+  ),
+  SineFunctionLab: dynamic<LabComponentProps>(
+    () =>
+      Promise.all([
+        import("@/components/visualizations/SignatureLabAdapter"),
+        import("@/components/visualizations/signature/SineFunctionLab")
+      ]).then(([adapter, lab]) => createRuntimeReadyLabComponent(adapter.createSignatureLab(lab.default))),
+    { loading: () => <LabRuntimeLoading /> }
+  ),
+  SortLab: dynamic<LabComponentProps>(
+    () =>
+      Promise.all([
+        import("@/components/visualizations/SignatureLabAdapter"),
+        import("@/components/visualizations/signature/SortLab")
+      ]).then(([adapter, lab]) => createRuntimeReadyLabComponent(adapter.createSignatureLab(lab.default))),
+    { loading: () => <LabRuntimeLoading /> }
+  ),
+  SphereLab: dynamic<LabComponentProps>(
+    () =>
+      Promise.all([
+        import("@/components/visualizations/SignatureLabAdapter"),
+        import("@/components/visualizations/signature/SphereLab")
+      ]).then(([adapter, lab]) => createRuntimeReadyLabComponent(adapter.createSignatureLab(lab.default))),
+    { loading: () => <LabRuntimeLoading /> }
+  ),
+  StandardDeviationLab: dynamic<LabComponentProps>(
+    () =>
+      Promise.all([
+        import("@/components/visualizations/SignatureLabAdapter"),
+        import("@/components/visualizations/signature/StandardDeviationLab")
+      ]).then(([adapter, lab]) => createRuntimeReadyLabComponent(adapter.createSignatureLab(lab.default))),
+    { loading: () => <LabRuntimeLoading /> }
+  ),
+  StatisticalQuestionLab: dynamic<LabComponentProps>(
+    () =>
+      Promise.all([
+        import("@/components/visualizations/SignatureLabAdapter"),
+        import("@/components/visualizations/signature/StatisticalQuestionLab")
+      ]).then(([adapter, lab]) => createRuntimeReadyLabComponent(adapter.createSignatureLab(lab.default))),
+    { loading: () => <LabRuntimeLoading /> }
+  ),
+  SubstitutionLab: dynamic<LabComponentProps>(
+    () =>
+      Promise.all([
+        import("@/components/visualizations/SignatureLabAdapter"),
+        import("@/components/visualizations/signature/SubstitutionLab")
+      ]).then(([adapter, lab]) => createRuntimeReadyLabComponent(adapter.createSignatureLab(lab.default))),
+    { loading: () => <LabRuntimeLoading /> }
+  ),
+  SubtractionLab: dynamic<LabComponentProps>(
+    () =>
+      Promise.all([
+        import("@/components/visualizations/SignatureLabAdapter"),
+        import("@/components/visualizations/signature/SubtractionLab")
+      ]).then(([adapter, lab]) => createRuntimeReadyLabComponent(adapter.createSignatureLab(lab.default))),
+    { loading: () => <LabRuntimeLoading /> }
+  ),
+  SymmetryLab: dynamic<LabComponentProps>(
+    () =>
+      Promise.all([
+        import("@/components/visualizations/SignatureLabAdapter"),
+        import("@/components/visualizations/signature/SymmetryLab")
+      ]).then(([adapter, lab]) => createRuntimeReadyLabComponent(adapter.createSignatureLab(lab.default))),
+    { loading: () => <LabRuntimeLoading /> }
+  ),
+  SystemsOfEquationsLab: dynamic<LabComponentProps>(
+    () =>
+      Promise.all([
+        import("@/components/visualizations/SignatureLabAdapter"),
+        import("@/components/visualizations/signature/SystemsOfEquationsLab")
+      ]).then(([adapter, lab]) => createRuntimeReadyLabComponent(adapter.createSignatureLab(lab.default))),
+    { loading: () => <LabRuntimeLoading /> }
+  ),
+  TableLab: dynamic<LabComponentProps>(
+    () =>
+      Promise.all([
+        import("@/components/visualizations/SignatureLabAdapter"),
+        import("@/components/visualizations/signature/TableLab")
+      ]).then(([adapter, lab]) => createRuntimeReadyLabComponent(adapter.createSignatureLab(lab.default))),
+    { loading: () => <LabRuntimeLoading /> }
+  ),
+  TangentFunctionLab: dynamic<LabComponentProps>(
+    () =>
+      Promise.all([
+        import("@/components/visualizations/SignatureLabAdapter"),
+        import("@/components/visualizations/signature/TangentFunctionLab")
+      ]).then(([adapter, lab]) => createRuntimeReadyLabComponent(adapter.createSignatureLab(lab.default))),
+    { loading: () => <LabRuntimeLoading /> }
+  ),
+  TeenNumbersLab: dynamic<LabComponentProps>(
+    () =>
+      Promise.all([
+        import("@/components/visualizations/SignatureLabAdapter"),
+        import("@/components/visualizations/signature/TeenNumbersLab")
+      ]).then(([adapter, lab]) => createRuntimeReadyLabComponent(adapter.createSignatureLab(lab.default))),
+    { loading: () => <LabRuntimeLoading /> }
+  ),
+  TimeLab: dynamic<LabComponentProps>(
+    () =>
+      Promise.all([
+        import("@/components/visualizations/SignatureLabAdapter"),
+        import("@/components/visualizations/signature/TimeLab")
+      ]).then(([adapter, lab]) => createRuntimeReadyLabComponent(adapter.createSignatureLab(lab.default))),
+    { loading: () => <LabRuntimeLoading /> }
+  ),
+  TransformationsLab: dynamic<LabComponentProps>(
+    () =>
+      Promise.all([
+        import("@/components/visualizations/SignatureLabAdapter"),
+        import("@/components/visualizations/signature/TransformationsLab")
+      ]).then(([adapter, lab]) => createRuntimeReadyLabComponent(adapter.createSignatureLab(lab.default))),
+    { loading: () => <LabRuntimeLoading /> }
+  ),
+  TranslateLab: dynamic<LabComponentProps>(
+    () =>
+      Promise.all([
+        import("@/components/visualizations/SignatureLabAdapter"),
+        import("@/components/visualizations/signature/TranslateLab")
+      ]).then(([adapter, lab]) => createRuntimeReadyLabComponent(adapter.createSignatureLab(lab.default))),
+    { loading: () => <LabRuntimeLoading /> }
+  ),
+  TransversalLab: dynamic<LabComponentProps>(
+    () =>
+      Promise.all([
+        import("@/components/visualizations/SignatureLabAdapter"),
+        import("@/components/visualizations/signature/TransversalLab")
+      ]).then(([adapter, lab]) => createRuntimeReadyLabComponent(adapter.createSignatureLab(lab.default))),
+    { loading: () => <LabRuntimeLoading /> }
+  ),
+  TrapezoidLab: dynamic<LabComponentProps>(
+    () =>
+      Promise.all([
+        import("@/components/visualizations/SignatureLabAdapter"),
+        import("@/components/visualizations/signature/TrapezoidLab")
+      ]).then(([adapter, lab]) => createRuntimeReadyLabComponent(adapter.createSignatureLab(lab.default))),
+    { loading: () => <LabRuntimeLoading /> }
+  ),
+  TreeDiagramLab: dynamic<LabComponentProps>(
+    () =>
+      Promise.all([
+        import("@/components/visualizations/SignatureLabAdapter"),
+        import("@/components/visualizations/signature/TreeDiagramLab")
+      ]).then(([adapter, lab]) => createRuntimeReadyLabComponent(adapter.createSignatureLab(lab.default))),
+    { loading: () => <LabRuntimeLoading /> }
+  ),
+  TriangleBuildLab: dynamic<LabComponentProps>(
+    () =>
+      Promise.all([
+        import("@/components/visualizations/SignatureLabAdapter"),
+        import("@/components/visualizations/signature/TriangleBuildLab")
+      ]).then(([adapter, lab]) => createRuntimeReadyLabComponent(adapter.createSignatureLab(lab.default))),
+    { loading: () => <LabRuntimeLoading /> }
+  ),
+  TriangleLab: dynamic<LabComponentProps>(
+    () =>
+      Promise.all([
+        import("@/components/visualizations/SignatureLabAdapter"),
+        import("@/components/visualizations/signature/TriangleLab")
+      ]).then(([adapter, lab]) => createRuntimeReadyLabComponent(adapter.createSignatureLab(lab.default))),
+    { loading: () => <LabRuntimeLoading /> }
+  ),
+  TriangleSolveLab: dynamic<LabComponentProps>(
+    () =>
+      Promise.all([
+        import("@/components/visualizations/SignatureLabAdapter"),
+        import("@/components/visualizations/signature/TriangleSolveLab")
+      ]).then(([adapter, lab]) => createRuntimeReadyLabComponent(adapter.createSignatureLab(lab.default))),
+    { loading: () => <LabRuntimeLoading /> }
+  ),
+  TrigRatioLab: dynamic<LabComponentProps>(
+    () =>
+      Promise.all([
+        import("@/components/visualizations/SignatureLabAdapter"),
+        import("@/components/visualizations/signature/TrigRatioLab")
+      ]).then(([adapter, lab]) => createRuntimeReadyLabComponent(adapter.createSignatureLab(lab.default))),
+    { loading: () => <LabRuntimeLoading /> }
+  ),
+  TwoDigitNumberLab: dynamic<LabComponentProps>(
+    () =>
+      Promise.all([
+        import("@/components/visualizations/SignatureLabAdapter"),
+        import("@/components/visualizations/signature/TwoDigitNumberLab")
+      ]).then(([adapter, lab]) => createRuntimeReadyLabComponent(adapter.createSignatureLab(lab.default))),
+    { loading: () => <LabRuntimeLoading /> }
+  ),
+  TwoDistributionsLab: dynamic<LabComponentProps>(
+    () =>
+      Promise.all([
+        import("@/components/visualizations/SignatureLabAdapter"),
+        import("@/components/visualizations/signature/TwoDistributionsLab")
+      ]).then(([adapter, lab]) => createRuntimeReadyLabComponent(adapter.createSignatureLab(lab.default))),
+    { loading: () => <LabRuntimeLoading /> }
+  ),
+  TwoStepLab: dynamic<LabComponentProps>(
+    () =>
+      Promise.all([
+        import("@/components/visualizations/SignatureLabAdapter"),
+        import("@/components/visualizations/signature/TwoStepLab")
+      ]).then(([adapter, lab]) => createRuntimeReadyLabComponent(adapter.createSignatureLab(lab.default))),
+    { loading: () => <LabRuntimeLoading /> }
+  ),
+  TwoVariableInequalityLab: dynamic<LabComponentProps>(
+    () =>
+      Promise.all([
+        import("@/components/visualizations/SignatureLabAdapter"),
+        import("@/components/visualizations/signature/TwoVariableInequalityLab")
+      ]).then(([adapter, lab]) => createRuntimeReadyLabComponent(adapter.createSignatureLab(lab.default))),
+    { loading: () => <LabRuntimeLoading /> }
+  ),
+  UndoLab: dynamic<LabComponentProps>(
+    () =>
+      Promise.all([
+        import("@/components/visualizations/SignatureLabAdapter"),
+        import("@/components/visualizations/signature/UndoLab")
+      ]).then(([adapter, lab]) => createRuntimeReadyLabComponent(adapter.createSignatureLab(lab.default))),
+    { loading: () => <LabRuntimeLoading /> }
+  ),
+  UnitCircleLab: dynamic<LabComponentProps>(
+    () =>
+      Promise.all([
+        import("@/components/visualizations/SignatureLabAdapter"),
+        import("@/components/visualizations/signature/UnitCircleLab")
+      ]).then(([adapter, lab]) => createRuntimeReadyLabComponent(adapter.createSignatureLab(lab.default))),
+    { loading: () => <LabRuntimeLoading /> }
+  ),
+  UnitConversionLab: dynamic<LabComponentProps>(
+    () =>
+      Promise.all([
+        import("@/components/visualizations/SignatureLabAdapter"),
+        import("@/components/visualizations/signature/UnitConversionLab")
+      ]).then(([adapter, lab]) => createRuntimeReadyLabComponent(adapter.createSignatureLab(lab.default))),
+    { loading: () => <LabRuntimeLoading /> }
+  ),
+  UnitFractionDivisionLab: dynamic<LabComponentProps>(
+    () =>
+      Promise.all([
+        import("@/components/visualizations/SignatureLabAdapter"),
+        import("@/components/visualizations/signature/UnitFractionDivisionLab")
+      ]).then(([adapter, lab]) => createRuntimeReadyLabComponent(adapter.createSignatureLab(lab.default))),
+    { loading: () => <LabRuntimeLoading /> }
+  ),
+  UnlikeDenominatorsLab: dynamic<LabComponentProps>(
+    () =>
+      Promise.all([
+        import("@/components/visualizations/SignatureLabAdapter"),
+        import("@/components/visualizations/signature/UnlikeDenominatorsLab")
+      ]).then(([adapter, lab]) => createRuntimeReadyLabComponent(adapter.createSignatureLab(lab.default))),
+    { loading: () => <LabRuntimeLoading /> }
+  ),
+  VariableLab: dynamic<LabComponentProps>(
+    () =>
+      Promise.all([
+        import("@/components/visualizations/SignatureLabAdapter"),
+        import("@/components/visualizations/signature/VariableLab")
+      ]).then(([adapter, lab]) => createRuntimeReadyLabComponent(adapter.createSignatureLab(lab.default))),
+    { loading: () => <LabRuntimeLoading /> }
+  ),
+  VarianceLab: dynamic<LabComponentProps>(
+    () =>
+      Promise.all([
+        import("@/components/visualizations/SignatureLabAdapter"),
+        import("@/components/visualizations/signature/VarianceLab")
+      ]).then(([adapter, lab]) => createRuntimeReadyLabComponent(adapter.createSignatureLab(lab.default))),
+    { loading: () => <LabRuntimeLoading /> }
+  ),
+  VectorLab: dynamic<LabComponentProps>(
+    () =>
+      Promise.all([
+        import("@/components/visualizations/SignatureLabAdapter"),
+        import("@/components/visualizations/signature/VectorLab")
+      ]).then(([adapter, lab]) => createRuntimeReadyLabComponent(adapter.createSignatureLab(lab.default))),
+    { loading: () => <LabRuntimeLoading /> }
+  ),
+  VolumeLab: dynamic<LabComponentProps>(
+    () =>
+      Promise.all([
+        import("@/components/visualizations/SignatureLabAdapter"),
+        import("@/components/visualizations/signature/VolumeLab")
+      ]).then(([adapter, lab]) => createRuntimeReadyLabComponent(adapter.createSignatureLab(lab.default))),
+    { loading: () => <LabRuntimeLoading /> }
+  ),
+} satisfies Record<SignatureLabId, ComponentType<LabComponentProps>>;
+
 const labComponentRegistry: Record<VisualizationLabModuleId, ComponentType<LabComponentProps>> = {
-  "configured-visualization-lab": ConfiguredVisualizationLab
+  "configured-visualization-lab": ConfiguredVisualizationLab,
+  // Resolved per-lab in componentForDirectoryLab; this entry is the safe
+  // fallback if a lab is marked signature-lab without a curated assignment.
+  "signature-lab": ConfiguredVisualizationLab
 };
 
 function componentForDirectoryLab(lab: FeaturedLabDefinition | null) {
   if (!lab) return null;
+  if (lab.moduleId === "signature-lab") {
+    const assignment = getSignatureLabAssignment(lab.topicId);
+    // Unknown/unported bench falls back to the template renderer rather than
+    // rendering nothing.
+    if (assignment) return SignatureLabRoutes[assignment.primary] ?? ConfiguredVisualizationLab;
+  }
   return labComponentRegistry[lab.moduleId] ?? ConfiguredVisualizationLab;
+}
+
+/** "ExponentialFunctionLab" -> "Exponential Function" for a switcher chip. */
+function signatureBenchLabel(id: SignatureLabId): string {
+  return id
+    .replace(/Lab$/, "")
+    .replace(/([a-z0-9])([A-Z])/g, "$1 $2")
+    .replace(/([A-Z]+)([A-Z][a-z])/g, "$1 $2")
+    .trim();
+}
+
+/**
+ * Renders a signature lab and, when its topic's assignment fans out to several
+ * benches, a chip row that switches between them. The `primary` renders by
+ * default; every `related` bench is reachable here — this is what makes the
+ * fan-out mapping user-facing rather than data-only (see
+ * `data/signatureLabAssignments.ts`). Switching is keyed, so the bench remounts
+ * and the runtime-ready probe + analytics re-fire, exactly as on first open.
+ */
+function SignatureBenchSwitcher({
+  assignment,
+  lab,
+  topicId,
+  labId,
+  onRuntimeReady
+}: {
+  assignment: NonNullable<ReturnType<typeof getSignatureLabAssignment>>;
+  lab: FeaturedLabDefinition;
+  topicId: string;
+  labId?: string;
+  onRuntimeReady?: (labId: string) => void;
+}) {
+  const benchIds = useMemo<SignatureLabId[]>(
+    () => [assignment.primary, ...(assignment.related ?? [])],
+    [assignment]
+  );
+  const [activeBenchId, setActiveBenchId] = useState<SignatureLabId>(assignment.primary);
+
+  // Reset to the primary whenever the topic (and thus the assignment) changes.
+  useEffect(() => {
+    setActiveBenchId(assignment.primary);
+  }, [assignment.primary, topicId]);
+
+  const BenchComponent = SignatureLabRoutes[activeBenchId] ?? SignatureLabRoutes[assignment.primary];
+
+  return (
+    <div data-viz-signature-switcher>
+      {benchIds.length > 1 ? (
+        <div className="mb-4 flex flex-wrap gap-2" role="tablist" aria-label="Related labs for this topic">
+          {benchIds.map((benchId) => {
+            const isActive = benchId === activeBenchId;
+            return (
+              <button
+                key={benchId}
+                type="button"
+                role="tab"
+                aria-selected={isActive}
+                onClick={() => setActiveBenchId(benchId)}
+                className={`rounded-full border px-3.5 py-1.5 text-xs font-black transition ${
+                  isActive
+                    ? "border-cyan-500 bg-cyan-500 text-white shadow"
+                    : "border-slate-300 bg-white text-slate-600 hover:border-cyan-300 hover:text-slate-900 dark:border-slate-100/20 dark:bg-transparent dark:text-slate-200"
+                }`}
+              >
+                {signatureBenchLabel(benchId)}
+                {benchId === assignment.primary ? <span className="ml-1.5 opacity-70">· primary</span> : null}
+              </button>
+            );
+          })}
+        </div>
+      ) : null}
+      <BenchComponent key={activeBenchId} lab={lab} topicId={topicId} labId={labId} onRuntimeReady={onRuntimeReady} />
+    </div>
+  );
 }
 
 const trackFilterOptions: VisualizationTrackFilter[] = ["all", "HK", "US", "MAINLAND_PEP_PRIMARY", "MAINLAND_PEP_JUNIOR", "MAINLAND_PEP_HIGH", "MAINLAND_HJB", "MAINLAND_BNU", "CAPSTONE"];
@@ -762,6 +2327,14 @@ function VisualizationLabPageContent({
     ? displayGradeLabel(activeDirectoryGroup.grade)
     : displayGradeLabel(activeGroup.grade);
   const ActiveDirectoryLabComponent = componentForDirectoryLab(activeDirectoryLab);
+  // When the active lab is a signature bench whose topic fans out to related
+  // benches, render the switcher so every related bench is reachable, not just
+  // the primary. Falls back to the plain component otherwise.
+  const activeSignatureAssignment =
+    activeDirectoryLab?.moduleId === "signature-lab"
+      ? getSignatureLabAssignment(activeDirectoryLab.topicId)
+      : null;
+  const activeHasRelatedBenches = (activeSignatureAssignment?.related?.length ?? 0) > 0;
   const activeDirectorySessionModuleId = activeDirectoryLab ? buildVisualizationSessionModuleId(activeDirectoryLab) : null;
   const activeDirectoryLabHref = activeDirectoryLab ? buildVisualizationLabHref(activeDirectoryLab, effectiveTrackFilter) : null;
   const activeLabCanDistribute = labAllowsExternalDistribution(activeDirectoryLab);
@@ -1565,7 +3138,15 @@ function VisualizationLabPageContent({
                   analyticsSource={activeDirectoryLab.analyticsSource}
                   explorationScopeKey={currentUser?.id ?? "guest"}
                   formula={
-                    activeDirectoryLab.moduleId === "configured-visualization-lab" || !activeDirectoryLab.templateConfig.formula
+                    // Both lab modules render their own mathematics, so the
+                    // template's generic formula must not be shown alongside
+                    // them. It is generated per template, not per topic, so on
+                    // a signature bench it can contradict the lab outright —
+                    // e.g. statistics-distribution yields "mean +/- spread"
+                    // above a bench that teaches median and IQR.
+                    activeDirectoryLab.moduleId === "configured-visualization-lab" ||
+                    activeDirectoryLab.moduleId === "signature-lab" ||
+                    !activeDirectoryLab.templateConfig.formula
                       ? undefined
                       : text(activeDirectoryLab.templateConfig.formula)
                   }
@@ -1581,12 +3162,22 @@ function VisualizationLabPageContent({
                   }}
                   topicId={activeDirectoryLab.topicId}
                 >
-                  <ActiveDirectoryLabComponent
-                    lab={activeDirectoryLab}
-                    topicId={activeDirectoryLab.topicId}
-                    labId={activeDirectoryLab.labId}
-                    onRuntimeReady={handleActiveLabRuntimeReady}
-                  />
+                  {activeSignatureAssignment && activeHasRelatedBenches ? (
+                    <SignatureBenchSwitcher
+                      assignment={activeSignatureAssignment}
+                      lab={activeDirectoryLab}
+                      topicId={activeDirectoryLab.topicId}
+                      labId={activeDirectoryLab.labId}
+                      onRuntimeReady={handleActiveLabRuntimeReady}
+                    />
+                  ) : (
+                    <ActiveDirectoryLabComponent
+                      lab={activeDirectoryLab}
+                      topicId={activeDirectoryLab.topicId}
+                      labId={activeDirectoryLab.labId}
+                      onRuntimeReady={handleActiveLabRuntimeReady}
+                    />
+                  )}
                 </VisualizationCard>
               </div>
             </section>

@@ -504,7 +504,12 @@ const lessonVisualizationRegistry: Record<VisualizationModuleId, ComponentType<L
   "function-model-comparer": FunctionModelComparer,
   "trig-wave-explorer": TrigWaveExplorer,
   "calculus-stats-lab": CalculusStatsLab,
-  "configured-visualization-lab": ConfiguredVisualizationLab
+  "configured-visualization-lab": ConfiguredVisualizationLab,
+  // Scope boundary (Phase 0): signature benches render on the Visualization Lab
+  // page only. In-lesson embeds keep the template renderer, so a signature topic
+  // shows its bench in the lab and the template inside the lesson. Deliberate —
+  // wiring the lesson embed is Phase 1 and needs its own regression evidence.
+  "signature-lab": ConfiguredVisualizationLab
 };
 
 function getLessonVisualization(moduleId: string | undefined) {

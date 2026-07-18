@@ -6,7 +6,12 @@
       "dom.iterable",
       "esnext"
     ],
-    "allowJs": false,
+    // Signature labs (components/visualizations/signature/*.jsx) are ported
+    // byte-for-byte from the Claude Math Visual library and are not converted
+    // to TypeScript. checkJs stays false so those files compile without
+    // type-checking; every other file in the repo keeps strict checking.
+    "allowJs": true,
+    "checkJs": false,
     "skipLibCheck": true,
     "strict": true,
     "noEmit": true,
@@ -32,12 +37,15 @@
     "**/*.ts",
     "**/*.tsx",
     ".next/types/**/*.ts",
+    ".tmp/a06-verify/next-dist/types/**/*.ts",
     ".tmp/audit-e2e/next-dev/types/**/*.ts",
     ".tmp/audit-e2e/next-dist/types/**/*.ts",
     ".tmp/content-qa-session/next-dist/types/**/*.ts",
+    ".tmp/figure-qa-session/next-dist/types/**/*.ts",
     ".tmp/games-qa-session/next-dist/types/**/*.ts",
+    "components/visualizations/signature/**/*.jsx",
     "next-env.d.ts",
-    ".tmp/figure-qa-session/next-dist/types/**/*.ts"
+    ".tmp/next-dev-verify/types/**/*.ts"
   ],
   "exclude": [
     "node_modules"
