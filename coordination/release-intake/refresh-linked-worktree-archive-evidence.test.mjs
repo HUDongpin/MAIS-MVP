@@ -1659,6 +1659,18 @@ test("secret scanner rejects paths, private keys, tokens, and unknown binary wit
   assert.throws(() => scanFile(embeddedDocx, "embedded.docx"), /high-confidence token|unreviewed binary/i);
 });
 
+test("scanFile returns the exact digest of a successfully scanned ordinary file", async (t) => {
+  const fixture = makeFixture();
+  t.after(() => fs.rmSync(fixture.parent, { recursive: true, force: true }));
+  const { scanFile } = await import(libraryUrl);
+  const relativePath = "inventory-safe.txt";
+  const absolutePath = path.join(fixture.parent, relativePath);
+  const buffer = Buffer.from("safe archived inventory content\\n", "utf8");
+  fs.writeFileSync(absolutePath, buffer);
+  const result = scanFile(absolutePath, relativePath);
+  assert.equal(result.sha256, crypto.createHash("sha256").update(buffer).digest("hex"));
+});
+
 test("collectWorktreeSnapshot accepts all exact reviewed legacy stage0 entries", async (t) => {
   const { collectWorktreeSnapshot } = await import(libraryUrl);
   for (const [index, entry] of REVIEWED_LEGACY_STAGE0_ENTRIES.entries()) {

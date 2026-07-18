@@ -12746,7 +12746,8 @@ export function scanFile(absolutePath, displayPath) {
   scanArchivePath(displayPath);
   const extension = path.extname(displayPath).toLowerCase();
   if (OOXML_EXTENSIONS.has(extension)) {
-    scanText(fs.readFileSync(absolutePath).toString("latin1"), displayPath);
+    const sourceBuffer = fs.readFileSync(absolutePath);
+    scanText(sourceBuffer.toString("latin1"), displayPath);
     let members;
     try {
       const listScript = [
@@ -12784,9 +12785,10 @@ export function scanFile(absolutePath, displayPath) {
       }
       scanBuffer(content, { displayPath: `${displayPath}#${name}` });
     }
-    return { kind: "ooxml", status: "passed" };
+    return { kind: "ooxml", status: "passed", sha256: sha256Buffer(sourceBuffer) };
   }
-  const result = scanBuffer(fs.readFileSync(absolutePath), { displayPath });
+  const sourceBuffer = fs.readFileSync(absolutePath);
+  const result = scanBuffer(sourceBuffer, { displayPath });
   if (extension === ".pdf") {
     try {
       const extractedText = execFileSync("pdftotext", [absolutePath, "-"], { encoding: "utf8", maxBuffer: 512 * 1024 * 1024, stdio: ["ignore", "pipe", "pipe"], timeout: CHILD_PROCESS_TIMEOUT_MS });
@@ -12796,7 +12798,7 @@ export function scanFile(absolutePath, displayPath) {
       throw new Error(`secret scanner rejected ${JSON.stringify(displayPath)}: unreadable PDF text layer`);
     }
   }
-  return result;
+  return { ...result, sha256: sha256Buffer(sourceBuffer) };
 }
 
 function scanBufferForPath(buffer, relativePath, labelPrefix) {
@@ -13749,7 +13751,9 @@ function buildInventoryInternal(worktreePath, paths, {
   const inventory = [];
   let reviewedBinaryPaths = 0;
   let reviewedProtectedOverlayPaths = 0;
-  for (const relativePath of [...paths].sort((left, right) => Buffer.compare(Buffer.from(left), Buffer.from(right)))) {
+  const sortedPaths = [...paths].sort((left, right) => Buffer.compare(Buffer.from(left), Buffer.from(right)));
+  for (const [index, relativePath] of sortedPaths.entries()) {
+    if (index > 0 && index % 64 === 0 && typeof globalThis.gc === "function") globalThis.gc();
     const reviewedUntrackedFile = scanReviewedUntrackedFile(
       worktreePath,
       relativePath,
@@ -13780,7 +13784,7 @@ function buildInventoryInternal(worktreePath, paths, {
     } else if (stat.isFile()) {
       const scan = scanFile(absolutePath, relativePath);
       if (scan.kind === "reviewed-binary") reviewedBinaryPaths += 1;
-      inventory.push({ path: relativePath, type: "file", mode, size: stat.size, sha256: sha256Buffer(fs.readFileSync(absolutePath)) });
+      inventory.push({ path: relativePath, type: "file", mode, size: stat.size, sha256: scan.sha256 });
     } else {
       throw new Error(`unsupported untracked path type: ${JSON.stringify(relativePath)}`);
     }
