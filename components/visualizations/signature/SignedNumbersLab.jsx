@@ -541,7 +541,6 @@ export default function SignedNumbersLab() {
   return (
     <div className="snlab">
       <header className="head">
-        <p className="eyebrow">MAIS · Interactive Math Lab</p>
         <h1>Signed Numbers: Flip Twice, You’re Home</h1>
         <p className="lede">
           The number line rides on a sheet: positive factors <em>stretch</em> it, ×(−1){' '}

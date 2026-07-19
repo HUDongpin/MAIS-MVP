@@ -698,7 +698,6 @@ export default function PrimeFactorizationLab() {
   return (
     <div className="pflab">
       <header className="head">
-        <p className="eyebrow">MAIS · Interactive Math Lab</p>
         <h1>Prime Factorization</h1>
         <p className="lede">
           Every whole number is built out of <em>primes</em> — the atoms of arithmetic. Take a

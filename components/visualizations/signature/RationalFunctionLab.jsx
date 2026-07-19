@@ -682,7 +682,6 @@ export default function RationalFunctionLab() {
   return (
     <div className="rflab">
       <header className="head">
-        <p className="eyebrow">MAIS · Interactive Math Lab</p>
         <h1>Rational Functions: The Hole and the Wall</h1>
         <p className="lede">
           Two functions, both undefined at the same input — one hides a <em>hole</em> (the

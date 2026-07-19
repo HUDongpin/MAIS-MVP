@@ -688,7 +688,6 @@ export default function EllipseLab() {
   return (
     <div className="elab">
       <header className="head">
-        <p className="eyebrow">MAIS · Interactive Math Lab</p>
         <h1>The Ellipse</h1>
         <p className="lede">
           Explore the ellipse in{' '}

@@ -855,7 +855,6 @@ export default function CommutativeLab() {
   return (
     <div className="cmlab">
       <header className="head">
-        <p className="eyebrow">MAIS · Interactive Math Lab</p>
         <h1>The Commutative Property</h1>
         <p className="lede">
           <em>a + b = b + a</em> looks too obvious to be worth a name — right up until you meet{' '}

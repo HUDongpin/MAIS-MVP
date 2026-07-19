@@ -740,7 +740,6 @@ export default function GreatestCommonFactorLab() {
   return (
     <div className="gcflab">
       <header className="head">
-        <p className="eyebrow">MAIS · Interactive Math Lab</p>
         <h1>Greatest Common Factor</h1>
         <p className="lede">
           The <em>greatest common factor</em> of two whole numbers is the largest number that divides{' '}

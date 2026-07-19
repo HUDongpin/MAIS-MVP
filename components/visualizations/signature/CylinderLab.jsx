@@ -804,7 +804,6 @@ export default function CylinderLab() {
   return (
     <div className="clab">
       <header className="head">
-        <p className="eyebrow">MAIS · Interactive Math Lab</p>
         <h1>The Cylinder</h1>
         <p className="lede">
           A right circular cylinder is built from two numbers — the base radius{' '}

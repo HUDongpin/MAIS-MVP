@@ -953,7 +953,6 @@ export default function IntegerLab() {
   return (
     <div className="ilab">
       <header className="head">
-        <p className="eyebrow">MAIS · Interactive Math Lab</p>
         <h1>Integers: Both Ways from Zero</h1>
         <p className="lede">
           An integer is a whole amount <em>and its opposite</em>: <span className="mono">… −3 −2 −1

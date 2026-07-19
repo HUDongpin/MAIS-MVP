@@ -640,7 +640,6 @@ export default function BestFitLab() {
   return (
     <div className="bflab">
       <header className="head">
-        <p className="eyebrow">MAIS · Interactive Math Lab</p>
         <h1>Best Fit: The Misses Are the Object</h1>
         <p className="lede">
           Lay a line over a cloud and every dot hangs a <em>miss</em>. Square the misses, add

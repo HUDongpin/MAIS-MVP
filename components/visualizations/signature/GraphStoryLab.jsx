@@ -514,7 +514,6 @@ export default function GraphStoryLab() {
   return (
     <div className="gslab">
       <header className="head">
-        <p className="eyebrow">MAIS · Interactive Math Lab</p>
         <h1>Qualitative Graphs: The Story’s Silhouette</h1>
         <p className="lede">
           No symbols, no numbers — just shape as meaning. Rising is growing, flat is

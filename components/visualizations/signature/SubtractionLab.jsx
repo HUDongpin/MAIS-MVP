@@ -671,7 +671,6 @@ export default function SubtractionLab() {
   return (
     <div className="slab">
       <header className="head">
-        <p className="eyebrow">MAIS · Interactive Math Lab</p>
         <h1>Subtraction — Taking Away</h1>
         <p className="lede">
           Explore whole-number subtraction,{' '}

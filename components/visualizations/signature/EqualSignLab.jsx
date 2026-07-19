@@ -496,7 +496,6 @@ export default function EqualSignLab() {
   return (
     <div className="eslab">
       <header className="head">
-        <p className="eyebrow">MAIS · Interactive Math Lab</p>
         <h1>The Equal Sign: True or False</h1>
         <p className="lede">
           “=” is not a command to compute — it is a <em>claim</em>: both sides name the same

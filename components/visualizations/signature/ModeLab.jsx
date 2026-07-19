@@ -963,7 +963,6 @@ export default function ModeLab() {
   return (
     <div className="mlab">
       <header className="head">
-        <p className="eyebrow">MAIS · Interactive Math Lab</p>
         <h1>Mode — the Most Popular Value</h1>
         <p className="lede">
           The <em>mode</em> is the friendliest average: no adding, no dividing — just{' '}

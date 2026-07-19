@@ -450,7 +450,6 @@ export default function OptimizationLab() {
   return (
     <div className="oplab">
       <header className="head">
-        <p className="eyebrow">MAIS · Interactive Math Lab</p>
         <h1>Optimization: The Climb Detector</h1>
         <p className="lede">
           The derivative bench built the instrument; this bench gives it a job.

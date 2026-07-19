@@ -673,7 +673,6 @@ export default function ComparingLab() {
   return (
     <div className="clab">
       <header className="head">
-        <p className="eyebrow">MAIS · Interactive Math Lab</p>
         <h1>Comparing Numbers: Greater, Less, or Equal</h1>
         <p className="lede">
           Two numbers, one question: <em>which is more?</em> Watch the bars show size, learn the

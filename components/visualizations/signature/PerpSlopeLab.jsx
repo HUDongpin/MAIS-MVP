@@ -499,7 +499,6 @@ export default function PerpSlopeLab() {
   return (
     <div className="qtlab">
       <header className="head">
-        <p className="eyebrow">MAIS · Interactive Math Lab</p>
         <h1>Perpendicular Slopes: The Quarter Turn</h1>
         <p className="lede">
           Turn a line’s step (a, b) a quarter turn and it lands on (−b, a): run

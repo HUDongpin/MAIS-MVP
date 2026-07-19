@@ -471,7 +471,6 @@ export default function VectorLab() {
   return (
     <div className="velab">
       <header className="head">
-        <p className="eyebrow">MAIS · Interactive Math Lab</p>
         <h1>Vectors: The Errand Chain</h1>
         <p className="lede">
           A vector is an errand — 3 east, 1 north — owned by no starting point.

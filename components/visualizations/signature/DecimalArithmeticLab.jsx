@@ -648,7 +648,6 @@ export default function DecimalArithmeticLab() {
   return (
     <div className="dalab">
       <header className="head">
-        <p className="eyebrow">MAIS · Interactive Math Lab</p>
         <h1>Adding Decimals: Align the Places</h1>
         <p className="lede">
           The whole-number habit says <em>line up the last digits</em>. Decimals ask for something

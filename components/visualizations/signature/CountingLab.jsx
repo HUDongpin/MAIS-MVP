@@ -1077,7 +1077,6 @@ export default function CountingLab() {
   return (
     <div className="clab">
       <header className="head">
-        <p className="eyebrow">MAIS · Interactive Math Lab</p>
         <h1>Counting &amp; How Many</h1>
         <p className="lede">
           Count each object once. The <em>last number you say</em> is how many.

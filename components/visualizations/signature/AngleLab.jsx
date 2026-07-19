@@ -724,7 +724,6 @@ export default function AngleLab() {
   return (
     <div className="alab">
       <header className="head">
-        <p className="eyebrow">MAIS · Interactive Math Lab</p>
         <h1>Angles</h1>
         <p className="lede">
           An angle is two rays sharing a vertex, and its measure is the{' '}

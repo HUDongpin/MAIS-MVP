@@ -882,7 +882,6 @@ export default function NumberLab() {
   return (
     <div className="nlab">
       <header className="head">
-        <p className="eyebrow">MAIS · Interactive Math Lab</p>
         <h1>What Is a Number? Place Value &amp; Base Ten</h1>
         <p className="lede">
           Every number is built from just ten digits — and where a digit <em>sits</em> decides what

@@ -950,7 +950,6 @@ export default function TeenNumbersLab() {
   return (
     <div className="tnlab">
       <header className="head">
-        <p className="eyebrow">MAIS · Interactive Math Lab</p>
         <h1>Teen Numbers: Ten and Some More</h1>
         <p className="lede">
           A teen number is <em>one ten and some more</em>: 14 is 10 + 4. The hard part is not the maths — it is

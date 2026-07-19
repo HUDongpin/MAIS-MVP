@@ -910,7 +910,6 @@ export default function RectangleLab() {
   return (
     <div className="rlab">
       <header className="head">
-        <p className="eyebrow">MAIS · Interactive Math Lab</p>
         <h1>Rectangle</h1>
         <p className="lede">
           A rectangle is a shape with four square corners. It carries two measures students love to

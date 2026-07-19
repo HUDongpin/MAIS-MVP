@@ -793,7 +793,6 @@ export default function SystemsOfEquationsLab() {
   return (
     <div className="syslab">
       <header className="head">
-        <p className="eyebrow">MAIS · Interactive Math Lab</p>
         <h1>Systems of Linear Equations</h1>
         <p className="lede">
           Two equations, one shared answer. A{' '}

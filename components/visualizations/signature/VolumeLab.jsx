@@ -644,7 +644,6 @@ export default function VolumeLab() {
   return (
     <div className="vlab">
       <header className="head">
-        <p className="eyebrow">MAIS · Interactive Math Lab</p>
         <h1>The Volume of a Box</h1>
         <p className="lede">
           Volume is how many <span className="mono">unit cubes</span> fill a solid. Drag to orbit the

@@ -884,7 +884,6 @@ export default function RatioLab() {
   return (
     <div className="rlab">
       <header className="head">
-        <p className="eyebrow">MAIS · Interactive Math Lab</p>
         <h1>Ratios &amp; Equivalent Ratios</h1>
         <p className="lede">
           A ratio <span className="mono">a : b</span> compares two quantities — <em>for every a

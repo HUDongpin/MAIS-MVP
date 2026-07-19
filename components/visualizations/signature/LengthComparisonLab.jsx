@@ -663,7 +663,6 @@ export default function LengthComparisonLab() {
   return (
     <div className="lclab">
       <header className="head">
-        <p className="eyebrow">MAIS · Interactive Math Lab</p>
         <h1>Longer or Shorter: The Fair Line-Up</h1>
         <p className="lede">
           You can tell which strip is <em>longer</em> without a single number — but only if

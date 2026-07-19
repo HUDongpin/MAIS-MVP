@@ -827,7 +827,6 @@ export default function PolynomialFunctionLab() {
   return (
     <div className="plab">
       <header className="head">
-        <p className="eyebrow">MAIS · Interactive Math Lab</p>
         <h1>Polynomial Functions</h1>
         <p className="lede">
           Explore a polynomial in{' '}

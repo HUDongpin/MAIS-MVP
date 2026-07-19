@@ -468,7 +468,6 @@ export default function TreeDiagramLab() {
   return (
     <div className="trlab">
       <header className="head">
-        <p className="eyebrow">MAIS · Interactive Math Lab</p>
         <h1>The Tree of Every Way: Paths Multiply</h1>
         <p className="lede">
           Each stage sprouts branches from <em>every</em> leaf, so path counts multiply

@@ -556,7 +556,6 @@ export default function OddEvenLab() {
   return (
     <div className="oelab">
       <header className="head">
-        <p className="eyebrow">MAIS · Interactive Math Lab</p>
         <h1>Odd or Even: The Pair-Off</h1>
         <p className="lede">
           Pair everyone up. Either the pair-off is <em>perfect</em> — even — or exactly{' '}

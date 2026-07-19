@@ -1052,7 +1052,6 @@ export default function MedianLab() {
   return (
     <div className="mlab">
       <header className="head">
-        <p className="eyebrow">MAIS · Interactive Math Lab</p>
         <h1>Median — Find the Middle</h1>
         <p className="lede">
           The <em>median</em> is the <em>middle</em> value of a data set. Build a{' '}

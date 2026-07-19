@@ -487,7 +487,6 @@ export default function FractionDivisionLab() {
   return (
     <div className="fdlab">
       <header className="head">
-        <p className="eyebrow">MAIS · Interactive Math Lab</p>
         <h1>Fraction ÷ Fraction: The Common Coin</h1>
         <p className="lede">
           Division counts fits. Exchange both fractions into the <em>same coin</em> and

@@ -569,7 +569,6 @@ export default function FractionMultiplicationLab() {
   return (
     <div className="fmullab">
       <header className="head">
-        <p className="eyebrow">MAIS · Interactive Math Lab</p>
         <h1>A Fraction of a Fraction</h1>
         <p className="lede">
           &quot;Of&quot; means <em>overlap</em>: shade 1/3 across, then 1/2 down — the patch where

@@ -820,7 +820,6 @@ export default function ConeLab() {
   return (
     <div className="clab">
       <header className="head">
-        <p className="eyebrow">MAIS · Interactive Math Lab</p>
         <h1>The Cone</h1>
         <p className="lede">
           A right circular cone in three dimensions — <span className="mono">drag to orbit</span>. Two

@@ -855,7 +855,6 @@ export default function PrimeNumbersLab() {
   return (
     <div className="primelab">
       <header className="head">
-        <p className="eyebrow">MAIS · Interactive Math Lab</p>
         <h1>Prime Numbers</h1>
         <p className="lede">
           You don’t find the primes by <em>testing</em> numbers — you find them by getting rid of

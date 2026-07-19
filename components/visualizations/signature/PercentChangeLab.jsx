@@ -490,7 +490,6 @@ export default function PercentChangeLab() {
   return (
     <div className="pclab">
       <header className="head">
-        <p className="eyebrow">MAIS · Interactive Math Lab</p>
         <h1>Percent Change: The Multiplier Chain</h1>
         <p className="lede">
           Every change of p% is one exact tag, <span className="mono">×(100+p)/100</span>.

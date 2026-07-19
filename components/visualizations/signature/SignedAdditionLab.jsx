@@ -499,7 +499,6 @@ export default function SignedAdditionLab() {
   return (
     <div className="salab">
       <header className="head">
-        <p className="eyebrow">MAIS · Interactive Math Lab</p>
         <h1>Signed Numbers: The Directed March</h1>
         <p className="lede">
           A signed number is an arrow — length plus aim. Addition marches the arrows tip

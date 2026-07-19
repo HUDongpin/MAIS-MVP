@@ -917,7 +917,6 @@ export default function InequalityLab() {
   return (
     <div className="ineqlab">
       <header className="head">
-        <p className="eyebrow">MAIS · Interactive Math Lab</p>
         <h1>Linear Inequalities</h1>
         <p className="lede">
           An equation has one answer; an inequality has a whole{' '}

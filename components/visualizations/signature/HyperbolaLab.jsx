@@ -802,7 +802,6 @@ export default function HyperbolaLab() {
   return (
     <div className="hlab">
       <header className="head">
-        <p className="eyebrow">MAIS · Interactive Math Lab</p>
         <h1>The Hyperbola</h1>
         <p className="lede">
           Explore the conic in{' '}

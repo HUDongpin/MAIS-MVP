@@ -480,7 +480,6 @@ export default function CorrelationLab() {
   return (
     <div className="crlab">
       <header className="head">
-        <p className="eyebrow">MAIS · Interactive Math Lab</p>
         <h1>Correlation: The Sign Tally and the Share</h1>
         <p className="lede">
           Split r into its honest parts: direction from the quadrant tally around

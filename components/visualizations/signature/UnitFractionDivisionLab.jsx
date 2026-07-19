@@ -584,7 +584,6 @@ export default function UnitFractionDivisionLab() {
   return (
     <div className="ufdlab">
       <header className="head">
-        <p className="eyebrow">MAIS · Interactive Math Lab</p>
         <h1>Dividing with Unit Fractions</h1>
         <p className="lede">
           Two questions, one operation: <em>how many quarter-sticks fit in 3?</em> (12 — division

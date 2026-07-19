@@ -693,7 +693,6 @@ export default function AddLab() {
   return (
     <div className="alab">
       <header className="head">
-        <p className="eyebrow">MAIS · Interactive Math Lab</p>
         <h1>Addition on the Number Line</h1>
         <p className="lede">
           Learn what <span className="mono">+</span> really does. Start on zero, count out the first

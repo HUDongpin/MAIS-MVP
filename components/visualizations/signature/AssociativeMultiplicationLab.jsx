@@ -621,7 +621,6 @@ export default function AssociativeMultiplicationLab() {
   return (
     <div className="amlab">
       <header className="head">
-        <p className="eyebrow">MAIS · Interactive Math Lab</p>
         <h1>The Associative Law of Multiplication</h1>
         <p className="lede">
           Multiplication only ever eats <em>two</em> numbers, so <em>a × b × c</em> is not an

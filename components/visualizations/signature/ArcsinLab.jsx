@@ -462,7 +462,6 @@ export default function ArcsinLab() {
   return (
     <div className="aslab">
       <header className="head">
-        <p className="eyebrow">MAIS · Interactive Math Lab</p>
         <h1>Arcsin: One Seat in the Window</h1>
         <p className="lede">
           “The angle whose sine is 1/2” has four claimants in −360°..360° alone —

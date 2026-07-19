@@ -652,7 +652,6 @@ export default function PiLab() {
   return (
     <div className="pilab">
       <header className="head">
-        <p className="eyebrow">MAIS · Interactive Math Lab</p>
         <h1>π: The Wheel, the Track, the Comb</h1>
         <p className="lede">
           Roll any wheel one full turn and the track is always <em>π of its own diameters</em> —

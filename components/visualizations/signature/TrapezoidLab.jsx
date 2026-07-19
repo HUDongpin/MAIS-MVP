@@ -1084,7 +1084,6 @@ export default function TrapezoidLab() {
   return (
     <div className="zlab">
       <header className="head">
-        <p className="eyebrow">MAIS · Interactive Math Lab</p>
         <h1>The Trapezoid</h1>
         <p className="lede">
           Drag the four corners and watch a trapezoid’s bases, legs, height, and midsegment respond —

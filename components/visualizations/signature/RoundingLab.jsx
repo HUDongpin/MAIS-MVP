@@ -1132,7 +1132,6 @@ export default function RoundingLab() {
   return (
     <div className="rlab">
       <header className="head">
-        <p className="eyebrow">MAIS · Interactive Math Lab</p>
         <h1>Rounding Numbers: Find the Nearest Round Number</h1>
         <p className="lede">
           To round a number is to slide it to the <em>nearest</em> ten, hundred, thousand — or, once

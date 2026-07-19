@@ -417,7 +417,6 @@ export default function TwoStepLab() {
   return (
     <div className="tslab">
       <header className="head">
-        <p className="eyebrow">MAIS · Interactive Math Lab</p>
         <h1>The Halfway Trap</h1>
         <p className="lede">
           Some problems ask you two questions and only tell you about one of them. Work out the

@@ -711,7 +711,6 @@ export default function FractionAdditionLab() {
   return (
     <div className="fraddlab">
       <header className="head">
-        <p className="eyebrow">MAIS · Interactive Math Lab</p>
         <h1>Adding Fractions: Counting Pieces</h1>
         <p className="lede">
           A fraction is a <em>count</em> of same-size pieces. When the pieces match, adding is

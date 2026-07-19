@@ -1058,7 +1058,6 @@ export default function GraphsLab() {
   return (
     <div className="glab">
       <header className="head">
-        <p className="eyebrow">MAIS · Interactive Math Lab</p>
         <h1>Graphs — One Count, Three Pictures</h1>
         <p className="lede">
           A graph turns a table of counts into a <em>picture</em> you can read at a glance. Build one data

@@ -1084,7 +1084,6 @@ export default function FormulaLab() {
   return (
     <div className="flab">
       <header className="head">
-        <p className="eyebrow">MAIS · Interactive Math Lab</p>
         <h1>Formulas</h1>
         <p className="lede">
           A <em>formula</em> is a rule that ties quantities together — put in what you know, and it

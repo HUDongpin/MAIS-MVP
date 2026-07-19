@@ -1051,7 +1051,6 @@ export default function AssociativeAdditionLab() {
   return (
     <div className="aalab">
       <header className="head">
-        <p className="eyebrow">MAIS · Interactive Math Lab</p>
         <h1>The Associative Property of Addition</h1>
         <p className="lede">
           Move the clamp: the middle row changes, and the right-hand edge <em>refuses to</em>.

@@ -821,7 +821,6 @@ export default function NormalDistributionLab() {
   return (
     <div className="nlab">
       <header className="head">
-        <p className="eyebrow">MAIS · Interactive Math Lab</p>
         <h1>The Normal Distribution</h1>
         <p className="lede">
           The bell curve has just two knobs: <em>μ</em> slides its center, <em>σ</em> sets its spread.

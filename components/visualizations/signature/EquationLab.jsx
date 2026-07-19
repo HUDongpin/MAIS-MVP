@@ -1035,7 +1035,6 @@ export default function EquationLab() {
   return (
     <div className="eqlab">
       <header className="head">
-        <p className="eyebrow">MAIS · Interactive Math Lab</p>
         <h1>Single-Variable Equations</h1>
         <p className="lede">
           An equation is a{' '}

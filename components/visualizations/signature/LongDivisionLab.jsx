@@ -709,7 +709,6 @@ export default function LongDivisionLab() {
   return (
     <div className="ldlab">
       <header className="head">
-        <p className="eyebrow">MAIS · Interactive Math Lab</p>
         <h1>Multi-Digit Long Division</h1>
         <p className="lede">
           Divide a multi-digit number by a single digit the way it is done on paper — the repeating loop of{' '}

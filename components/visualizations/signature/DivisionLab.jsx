@@ -646,7 +646,6 @@ export default function DivisionLab() {
   return (
     <div className="dlab">
       <header className="head">
-        <p className="eyebrow">MAIS · Interactive Math Lab</p>
         <h1>Division as Equal Groups</h1>
         <p className="lede">
           See <span className="mono">a ÷ b</span> as splitting a squares into equal groups — the{' '}

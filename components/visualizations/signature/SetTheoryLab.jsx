@@ -842,7 +842,6 @@ export default function SetTheoryLab() {
   return (
     <div className="slab">
       <header className="head">
-        <p className="eyebrow">MAIS · Interactive Math Lab</p>
         <h1>Set Theory: Circles that Sort the World</h1>
         <p className="lede">
           A <em>set</em> is a collection of elements. Drop the numbers of the universe{' '}

@@ -563,7 +563,6 @@ export default function EqualAreasLab() {
   return (
     <div className="eqarealab">
       <header className="head">
-        <p className="eyebrow">MAIS · Interactive Math Lab</p>
         <h1>Equal Areas: Earning the Name</h1>
         <p className="lede">
           Four parts are not fourths until the <em>areas</em> say so. The bench measures every

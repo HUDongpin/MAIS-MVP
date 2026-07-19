@@ -681,7 +681,6 @@ export default function MultiplesLab() {
   return (
     <div className="mlab">
       <header className="head">
-        <p className="eyebrow">MAIS · Interactive Math Lab</p>
         <h1>Multiples</h1>
         <p className="lede">
           A <em>multiple</em> is what you land on when you <em>skip-count</em>: 3, 6, 9, 12, … —

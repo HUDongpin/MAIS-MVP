@@ -989,7 +989,6 @@ export default function RectangularPrismLab() {
   return (
     <div className="rplab">
       <header className="head">
-        <p className="eyebrow">MAIS · Interactive Math Lab</p>
         <h1>The Rectangular Prism</h1>
         <p className="lede">
           A box has six faces — but only <span className="mono">three</span> different rectangles,

@@ -1016,7 +1016,6 @@ export default function RationalNumbersLab() {
   return (
     <div className="rlab">
       <header className="head">
-        <p className="eyebrow">MAIS · Interactive Math Lab</p>
         <h1>Rational Numbers: Cut the Unit, Step the Pieces</h1>
         <p className="lede">
           A <em>rational number</em> is any number you can write as a ratio{' '}

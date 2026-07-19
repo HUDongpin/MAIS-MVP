@@ -661,7 +661,6 @@ export default function TranslateLab() {
   return (
     <div className="tlab">
       <header className="head">
-        <p className="eyebrow">MAIS · Interactive Math Lab</p>
         <h1>Words into Expressions</h1>
         <p className="lede">
           Translate English into algebra. Every operative word becomes a piece of the{' '}

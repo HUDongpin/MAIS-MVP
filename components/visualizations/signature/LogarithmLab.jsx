@@ -812,7 +812,6 @@ export default function LogarithmLab() {
   return (
     <div className="llab">
       <header className="head">
-        <p className="eyebrow">MAIS · Interactive Math Lab</p>
         <h1>Logarithmic Functions</h1>
         <p className="lede">
           A logarithm is an <span className="mono">exponent</span>: <span className="mono">log_b(x)</span>{' '}

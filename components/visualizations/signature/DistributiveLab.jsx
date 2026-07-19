@@ -918,7 +918,6 @@ export default function DistributiveLab() {
   return (
     <div className="dlab">
       <header className="head">
-        <p className="eyebrow">MAIS · Interactive Math Lab</p>
         <h1>The Distributive Property</h1>
         <p className="lede">
           One rectangle, cut in two. Because the cut moves no area,{' '}

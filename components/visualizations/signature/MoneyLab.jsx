@@ -976,7 +976,6 @@ export default function MoneyLab() {
   return (
     <div className="mlab">
       <header className="head">
-        <p className="eyebrow">MAIS · Interactive Math Lab</p>
         <h1>Counting Money: Coins, Bills &amp; the Dollar</h1>
         <p className="lede">
           Every amount of money is a count of coins and bills, added up in <em>cents</em> — and

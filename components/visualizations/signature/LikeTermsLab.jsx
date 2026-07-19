@@ -655,7 +655,6 @@ export default function LikeTermsLab() {
   return (
     <div className="ltlab">
       <header className="head">
-        <p className="eyebrow">MAIS · Interactive Math Lab</p>
         <h1>Combining Like Terms</h1>
         <p className="lede">
           <span className="mono">2x&nbsp;+&nbsp;5&nbsp;+&nbsp;3x</span> and{' '}

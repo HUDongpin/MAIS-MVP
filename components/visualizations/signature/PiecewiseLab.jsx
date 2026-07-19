@@ -484,7 +484,6 @@ export default function PiecewiseLab() {
   return (
     <div className="pwlab">
       <header className="head">
-        <p className="eyebrow">MAIS · Interactive Math Lab</p>
         <h1>Piecewise Functions: One Rule Per Territory</h1>
         <p className="lede">
           A piecewise function is a map of jurisdictions: each stretch of the axis

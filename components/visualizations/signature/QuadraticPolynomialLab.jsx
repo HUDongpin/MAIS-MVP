@@ -884,7 +884,6 @@ export default function QuadraticPolynomialLab() {
   return (
     <div className="qlab">
       <header className="head">
-        <p className="eyebrow">MAIS · Interactive Math Lab</p>
         <h1>The Quadratic Polynomial</h1>
         <p className="lede">
           Explore the parabola in{' '}

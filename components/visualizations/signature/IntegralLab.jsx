@@ -712,7 +712,6 @@ export default function IntegralLab() {
   return (
     <div className="itlab">
       <header className="head">
-        <p className="eyebrow">MAIS · Interactive Math Lab</p>
         <h1>The Integral: Cornered Area, and the Odometer</h1>
         <p className="lede">
           Two brigades of slats trap the area under a road — the{' '}

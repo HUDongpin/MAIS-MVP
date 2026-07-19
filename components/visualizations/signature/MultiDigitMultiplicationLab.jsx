@@ -717,7 +717,6 @@ export default function MultiDigitMultiplicationLab() {
   return (
     <div className="mdlab">
       <header className="head">
-        <p className="eyebrow">MAIS · Interactive Math Lab</p>
         <h1>Multi-Digit Multiplication</h1>
         <p className="lede">
           You can’t just <em>know</em> <span className="mono">34 × 26</span>. Break each number into

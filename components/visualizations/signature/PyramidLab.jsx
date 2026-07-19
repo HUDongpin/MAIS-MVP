@@ -840,7 +840,6 @@ export default function PyramidLab() {
   return (
     <div className="plab">
       <header className="head">
-        <p className="eyebrow">MAIS · Interactive Math Lab</p>
         <h1>The Pyramid</h1>
         <p className="lede">
           Every pyramid holds exactly one third of the box on its base:{' '}

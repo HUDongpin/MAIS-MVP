@@ -761,7 +761,6 @@ export default function TimeLab() {
   return (
     <div className="tlab">
       <header className="head">
-        <p className="eyebrow">MAIS · Interactive Math Lab</p>
         <h1>Telling Time</h1>
         <p className="lede">
           A clock is two hands turning around a 12-hour dial. Each dial unlocks with the lesson, so

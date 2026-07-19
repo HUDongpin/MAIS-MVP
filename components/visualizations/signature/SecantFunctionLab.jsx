@@ -650,7 +650,6 @@ export default function SecantFunctionLab() {
   return (
     <div className="slab">
       <header className="head">
-        <p className="eyebrow">MAIS · Interactive Math Lab</p>
         <h1>The Secant Function</h1>
         <p className="lede">
           Explore <span className="mono">y = a·sec(b(x&nbsp;&minus;&nbsp;c))&nbsp;+&nbsp;d</span>, built on the

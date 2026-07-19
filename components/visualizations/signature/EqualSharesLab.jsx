@@ -608,7 +608,6 @@ export default function EqualSharesLab() {
   return (
     <div className="sqlab">
       <header className="head">
-        <p className="eyebrow">MAIS · Interactive Math Lab</p>
         <h1>Equal Shares: Halves, Thirds, Fourths</h1>
         <p className="lede">
           Cutting a cake into shares is a <em>promise of fairness</em> — two pieces are not halves

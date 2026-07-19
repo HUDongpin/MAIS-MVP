@@ -903,7 +903,6 @@ export default function MeanLab() {
   return (
     <div className="mlab">
       <header className="head">
-        <p className="eyebrow">MAIS · Interactive Math Lab</p>
         <h1>The Mean — a Fair Share</h1>
         <p className="lede">
           The <em>mean</em> (the average) is what everyone gets when you pool everything and share it{' '}

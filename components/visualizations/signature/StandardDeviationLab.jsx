@@ -1063,7 +1063,6 @@ export default function StandardDeviationLab() {
   return (
     <div className="sdlab">
       <header className="head">
-        <p className="eyebrow">MAIS · Interactive Math Lab</p>
         <h1>Standard Deviation — How Spread Out?</h1>
         <p className="lede">
           The mean says where data <em>centers</em>; the standard deviation says how far it typically{' '}

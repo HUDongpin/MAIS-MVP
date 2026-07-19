@@ -453,7 +453,6 @@ export default function MatrixLab() {
   return (
     <div className="mxlab">
       <header className="head">
-        <p className="eyebrow">MAIS · Interactive Math Lab</p>
         <h1>Matrices: The Machine That Moves the Grid</h1>
         <p className="lede">
           A 2×2 matrix is two answers — where east lands, where north lands —

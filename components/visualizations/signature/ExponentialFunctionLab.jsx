@@ -821,7 +821,6 @@ export default function ExponentialFunctionLab() {
   return (
     <div className="xlab">
       <header className="head">
-        <p className="eyebrow">MAIS · Interactive Math Lab</p>
         <h1>The Exponential Function</h1>
         <p className="lede">
           A line <em>adds</em> the same amount each step; an exponential{' '}

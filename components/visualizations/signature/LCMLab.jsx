@@ -581,7 +581,6 @@ export default function LCMLab() {
   return (
     <div className="lcmlab">
       <header className="head">
-        <p className="eyebrow">MAIS · Interactive Math Lab</p>
         <h1>Least Common Multiple</h1>
         <p className="lede">
           Two wheels spin at different speeds. Both start pointing <em>home</em>, then drift apart —

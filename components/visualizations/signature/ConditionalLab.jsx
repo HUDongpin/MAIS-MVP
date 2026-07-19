@@ -473,7 +473,6 @@ export default function ConditionalLab() {
   return (
     <div className="cclab">
       <header className="head">
-        <p className="eyebrow">MAIS · Interactive Math Lab</p>
         <h1>Conditional Probability: The Crop</h1>
         <p className="lede">
           “Given B” is a camera move: crop the field to B’s dots and recount

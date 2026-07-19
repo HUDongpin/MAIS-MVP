@@ -988,7 +988,6 @@ export default function FactoringQuadraticsLab() {
   return (
     <div className="fqlab">
       <header className="head">
-        <p className="eyebrow">MAIS · Interactive Math Lab</p>
         <h1>Factoring Quadratics</h1>
         <p className="lede">
           Multiply <em>(x + p)(x + q)</em> out and you get <em>x² + (p + q)x + pq</em> — so factoring{' '}

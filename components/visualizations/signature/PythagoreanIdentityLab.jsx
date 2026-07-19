@@ -514,7 +514,6 @@ export default function PythagoreanIdentityLab() {
   return (
     <div className="pilab">
       <header className="head">
-        <p className="eyebrow">MAIS · Interactive Math Lab</p>
         <h1>The Pythagorean Identity: A Budget of 1</h1>
         <p className="lede">
           On the unit circle the hypotenuse IS the radius, so Pythagoras reads

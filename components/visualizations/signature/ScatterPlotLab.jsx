@@ -705,7 +705,6 @@ export default function ScatterPlotLab() {
   return (
     <div className="splab">
       <header className="head">
-        <p className="eyebrow">MAIS · Interactive Math Lab</p>
         <h1>The Scatter Plot: The Pairing Is the Picture</h1>
         <p className="lede">
           Two measurements per individual, one dot each. The axes alone are <em>blind</em> —

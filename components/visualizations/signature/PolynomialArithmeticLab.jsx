@@ -489,7 +489,6 @@ export default function PolynomialArithmeticLab() {
   return (
     <div className="palab">
       <header className="head">
-        <p className="eyebrow">MAIS · Interactive Math Lab</p>
         <h1>Polynomial Arithmetic: The Degree-Slot Ledger</h1>
         <p className="lede">
           A term a·x^m is a deposit of a into slot m. Adding settles slot by slot;

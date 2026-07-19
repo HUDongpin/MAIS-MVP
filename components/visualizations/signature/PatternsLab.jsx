@@ -588,7 +588,6 @@ export default function PatternsLab() {
   return (
     <div className="palab">
       <header className="head">
-        <p className="eyebrow">MAIS · Interactive Math Lab</p>
         <h1>Two Rules, One Secret</h1>
         <p className="lede">
           A rule tells you how to make the <em>next</em> term. Crank two rules side by side and

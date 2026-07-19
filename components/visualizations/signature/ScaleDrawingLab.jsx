@@ -438,7 +438,6 @@ export default function ScaleDrawingLab() {
   return (
     <div className="sdlab">
       <header className="head">
-        <p className="eyebrow">MAIS · Interactive Math Lab</p>
         <h1>Scale Drawings: The Blueprint’s Two Rulers</h1>
         <p className="lede">
           A scale of <span className="mono">1:k</span> is a promise about <em>every</em>{' '}

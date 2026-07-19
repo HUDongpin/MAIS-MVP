@@ -836,7 +836,6 @@ export default function NumberBondLab() {
   return (
     <div className="nblab">
       <header className="head">
-        <p className="eyebrow">MAIS · Interactive Math Lab</p>
         <h1>Number Bonds — One Whole, Many Parts</h1>
         <p className="lede">
           A number is <em>made of</em> smaller numbers — almost always in more than one way. Set

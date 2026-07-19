@@ -1194,7 +1194,6 @@ export default function SequencesLab() {
   return (
     <div className="slab">
       <header className="head">
-        <p className="eyebrow">MAIS · Interactive Math Lab</p>
         <h1>Sequences</h1>
         <p className="lede">
           A <em>sequence</em> is an ordered list of numbers, and every term has a <em>position</em>. Read the

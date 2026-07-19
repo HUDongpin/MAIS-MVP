@@ -766,7 +766,6 @@ export default function GramsAndLitersLab() {
   return (
     <div className="gllab">
       <header className="head">
-        <p className="eyebrow">MAIS · Interactive Math Lab</p>
         <h1>Grams &amp; Liters: Read the Instrument</h1>
         <p className="lede">
           Mass and liquid volume are invisible — so we read them off instruments: a <em>needle</em>{' '}

@@ -957,7 +957,6 @@ export default function OperationsLab() {
   return (
     <div className="oplab">
       <header className="head">
-        <p className="eyebrow">MAIS · Interactive Math Lab</p>
         <h1>Order of Operations</h1>
         <p className="lede">
           One expression, one answer — because we all agree on an order:{' '}

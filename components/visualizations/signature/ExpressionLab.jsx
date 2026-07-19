@@ -593,7 +593,6 @@ export default function ExpressionLab() {
   return (
     <div className="xlab">
       <header className="head">
-        <p className="eyebrow">MAIS · Interactive Math Lab</p>
         <h1>Two-Variable Expressions</h1>
         <p className="lede">
           Two letters, two numbers. Build{' '}

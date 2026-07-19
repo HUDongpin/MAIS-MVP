@@ -562,7 +562,6 @@ export default function SamplingLab() {
   return (
     <div className="smlab">
       <header className="head">
-        <p className="eyebrow">MAIS · Interactive Math Lab</p>
         <h1>Sampling: The Hidden Pond and the Dipper</h1>
         <p className="lede">
           The pond’s truth is out of reach; a dip of the net is a <em>sample</em>. Dips

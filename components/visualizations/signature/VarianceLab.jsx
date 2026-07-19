@@ -1057,7 +1057,6 @@ export default function VarianceLab() {
   return (
     <div className="vlab">
       <header className="head">
-        <p className="eyebrow">MAIS · Interactive Math Lab</p>
         <h1>Variance — the Average Square</h1>
         <p className="lede">
           <em>Variance</em> measures how <em>spread out</em> data is around its mean. Because the raw{' '}

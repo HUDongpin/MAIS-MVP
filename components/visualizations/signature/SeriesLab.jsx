@@ -1144,7 +1144,6 @@ export default function SeriesLab() {
   return (
     <div className="slab">
       <header className="head">
-        <p className="eyebrow">MAIS · Interactive Math Lab</p>
         <h1>Series</h1>
         <p className="lede">
           A <em>sequence</em> lists numbers; a <em>series</em> <em>adds</em> them. Each carmine bar below is one

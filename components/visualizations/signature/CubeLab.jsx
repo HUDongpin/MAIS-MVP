@@ -623,7 +623,6 @@ export default function CubeLab() {
   return (
     <div className="clab">
       <header className="head">
-        <p className="eyebrow">MAIS · Interactive Math Lab</p>
         <h1>The Cube</h1>
         <p className="lede">
           One number runs the whole solid: the edge length{' '}
