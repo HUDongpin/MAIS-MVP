@@ -132,12 +132,15 @@ test.describe.serial("student website smoke", () => {
 
       await page.goto("/student/tools/visualizations");
       await expect(page.getByRole("heading", { name: /Visualization Lab/i })).toBeVisible();
-      await page.getByRole("link", { name: /Start Quest/i }).click();
-      await expect(page.locator("[data-viz-card]")).toBeVisible({ timeout: 15_000 });
+      // Exploration is earned: after the lab runtime is ready the student must
+      // interact with the lab body and keep it on screen through a short dwell
+      // before the automatic POST fires. Register the listener first.
       const visualizationResponse = page.waitForResponse((response) =>
         response.url().includes("/api/visualization-sessions") && response.request().method() === "POST"
       );
-      await page.locator("[data-viz-mark-explored-button]").first().click();
+      await page.getByRole("link", { name: /Start Quest/i }).click();
+      await expect(page.locator("[data-viz-card]")).toBeVisible({ timeout: 15_000 });
+      await page.locator("[data-viz-card-body]").first().click({ position: { x: 8, y: 8 } });
       expect((await visualizationResponse).ok()).toBeTruthy();
 
       await page.goto("/personalized-learning");

@@ -115,8 +115,8 @@ export function PremiumThreeDDirectRouteShell({ lab }: { lab: FeaturedLabDefinit
 
         <VisualizationCard
           title={text(lab.title)}
-          description={text(lab.description)}
           analyticsSource={lab.analyticsSource}
+          autoExplore
           explorationScopeKey={currentUser?.id ?? "guest"}
           formula={formula}
           moduleId={moduleId}

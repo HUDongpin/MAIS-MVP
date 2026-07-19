@@ -14,7 +14,7 @@ const persistenceLab =
 test.describe("Visualization Lab explored persistence", () => {
   test.describe.configure({ timeout: 90_000 });
 
-  test("Mark explored persists after reload and relogin on desktop and mobile", async ({ page }, testInfo) => {
+  test("earned exploration persists after reload and relogin on desktop and mobile", async ({ page }, testInfo) => {
     test.setTimeout(90_000);
     const pageErrors = collectPageErrors(page);
     const suffix = uniqueSuffix(testInfo);
@@ -36,6 +36,15 @@ test.describe("Visualization Lab explored persistence", () => {
     });
     expect(registerResponse.ok()).toBeTruthy();
 
+    const expectedSessionId = buildVisualizationSessionModuleId(persistenceLab);
+
+    // Exploration is earned, not granted on load: once the lab runtime is
+    // ready, the student must interact with the lab body at least once and keep
+    // it on screen through a short dwell before the automatic POST fires.
+    // Register the listener before navigating so the POST is not missed.
+    const exploredResponse = page.waitForResponse((response) =>
+      response.url().includes("/api/visualization-sessions") && response.request().method() === "POST"
+    );
     await page.goto(buildVisualizationLabHref(persistenceLab));
     await expect(page.locator('[data-viz-panel-mode="lab"]')).toBeVisible();
     await expect(page.locator(`[data-viz-active-lab-id=${JSON.stringify(persistenceLab.labId)}]`)).toBeVisible();
@@ -43,30 +52,27 @@ test.describe("Visualization Lab explored persistence", () => {
     const labCard = page.locator(visualizationLabSectionSelector(persistenceLab));
     await expect(labCard).toBeVisible();
     const labElementId = await labCard.evaluate((element) => element.id);
-    const expectedSessionId = buildVisualizationSessionModuleId(persistenceLab);
+    await page.locator("[data-viz-card-body]").first().click({ position: { x: 8, y: 8 } });
 
-    const exploredResponse = page.waitForResponse((response) =>
-      response.url().includes("/api/visualization-sessions") && response.request().method() === "POST"
-    );
-    await labCard.getByRole("button", { name: /Mark explored/i }).click();
     const exploredResult = await exploredResponse;
     expect(exploredResult.ok()).toBeTruthy();
     const exploredPayload = await exploredResult.json() as { session?: { moduleId?: string; module_id?: string } };
     const targetSessionId = exploredPayload.session?.moduleId ?? exploredPayload.session?.module_id ?? "";
     expect(targetSessionId).toBe(expectedSessionId);
-    await expect(labCard.getByRole("button", { name: /^Saved$/i })).toBeVisible();
     await expectExploredSession(page, targetSessionId);
 
     await page.reload({ waitUntil: "domcontentloaded" });
     await expect(page.locator('[data-viz-panel-mode="lab"]')).toBeVisible();
-    await expect(labCardById(page, labElementId).getByRole("button", { name: /^Saved$/i })).toBeVisible({ timeout: 15_000 });
+    await expect(labCardById(page, labElementId)).toBeVisible({ timeout: 15_000 });
+    await expectExploredSession(page, targetSessionId);
 
     await page.request.post("/api/auth/logout");
     await loginStudentWithSameCurriculum(page, student.username, student.password);
     await expectExploredSession(page, targetSessionId);
     await page.goto(buildVisualizationLabHref(persistenceLab));
     await expect(page.locator('[data-viz-panel-mode="lab"]')).toBeVisible();
-    await expect(labCardById(page, labElementId).getByRole("button", { name: /^Saved$/i })).toBeVisible({ timeout: 15_000 });
+    await expect(labCardById(page, labElementId)).toBeVisible({ timeout: 15_000 });
+    await expectExploredSession(page, targetSessionId);
 
     expectNoPageErrors(pageErrors);
   });

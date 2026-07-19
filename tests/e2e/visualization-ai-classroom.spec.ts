@@ -333,12 +333,14 @@ test.describe("visualization lab, Nova Tutor, and live classroom", () => {
     await page.getByRole("button", { name: /^Normal$/i }).first().click();
     await page.locator("label").filter({ hasText: /^Observed value/ }).locator("input").first().fill("70");
 
-    const exploredResponse = page.waitForResponse((response) =>
-      response.url().includes("/api/visualization-sessions") && response.request().method() === "POST"
-    );
-    await page.getByRole("button", { name: /Mark explored/i }).first().click();
-    expect((await exploredResponse).ok()).toBeTruthy();
-    await expect(page.getByRole("status").filter({ hasText: /Exploration saved/i }).first()).toBeVisible();
+    // Exploration is earned: the interactions above plus a short on-screen
+    // dwell complete the engagement gate. Wait for the card to report the
+    // saved state, then confirm the system persisted an explored session.
+    await expect(page.locator('[data-viz-card][data-viz-save-state="saved"]')).toBeVisible({ timeout: 15_000 });
+    const sessionsResponse = await page.request.get("/api/visualization-sessions");
+    expect(sessionsResponse.ok()).toBeTruthy();
+    const sessionsPayload = await sessionsResponse.json() as { sessions?: Array<{ explored?: boolean }> };
+    expect(sessionsPayload.sessions?.some((session) => session.explored)).toBeTruthy();
 
     await page.getByRole("button", { name: "使用繁體中文" }).click();
     await expect(page.getByRole("heading", { name: /視覺化實驗室/ })).toBeVisible();

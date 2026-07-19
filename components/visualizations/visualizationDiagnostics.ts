@@ -222,7 +222,6 @@ const axisLabelTemplateIds = new Set<VisualizationTemplateId>([
 ]);
 export const visualizationControlSurfaceSelectors = [
   "data-viz-start-quest-link",
-  "data-viz-lab-quest-map-link",
   "data-viz-track-filter-button",
   "data-viz-grade-chip",
   "data-viz-recommended-lab-link",
@@ -232,7 +231,6 @@ export const visualizationControlSurfaceSelectors = [
   "data-viz-copy-lab-link-state",
   "data-viz-copy-lab-snapshot",
   "data-viz-start-practice-link",
-  "data-viz-mark-explored-button",
   "data-viz-mode-button",
   "data-viz-reset-model"
 ] as const;

@@ -170,7 +170,6 @@ test("current Visualization Lab enterprise controls expose stable machine-readab
   assert.equal(report.checkedLabCount, visualizationLabCount);
   assert.equal(report.requiredSelectorCount, visualizationControlSurfaceSelectors.length);
   assert.ok(visualizationControlSurfaceSelectors.includes("data-viz-copy-lab-link-state"));
-  assert.ok(visualizationControlSurfaceSelectors.includes("data-viz-mark-explored-button"));
   assert.ok(visualizationControlSurfaceSelectors.includes("data-viz-mode-button"));
   assert.ok(visualizationControlSurfaceSelectors.includes("data-viz-reset-model"));
   assert.ok(report.nonAsciiModuleIdCount > 0);

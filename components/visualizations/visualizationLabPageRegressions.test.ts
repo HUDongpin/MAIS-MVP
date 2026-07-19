@@ -94,19 +94,23 @@ test("visualization lab notifies the route shell once the dynamic page mounts", 
   assert.match(source, /useLayoutEffect\(\(\) => \{[\s\S]{0,120}onRouteShellReady\?\.\(\);/);
 });
 
-test("visualization lab tiles choose logo glyphs from the lab theme", () => {
-  assert.match(source, /function labTileGlyphForLab\(lab: FeaturedLabDefinition, index: number\)/);
-  assert.match(source, /lab\.templateId/);
-  assert.match(source, /data-viz-lab-logo-glyph/);
-  assert.match(source, /glyph=\{labTileGlyphForLab\(lab, index\)\}/);
-  assert.doesNotMatch(source, /liquidGlassLogoGlyphs\[index % liquidGlassLogoGlyphs\.length\]/);
+test("visualization lab tiles choose emoji from CCSS standards with template fallback", () => {
+  assert.match(source, /function labTileEmojiForLab\(lab: FeaturedLabDefinition\)/);
+  assert.match(source, /lab\.californiaAlignment\?\.standardIds/);
+  assert.match(source, /visualizationTemplateEmoji\[lab\.templateId\]/);
+  assert.match(source, /data-viz-lab-emoji/);
+  assert.match(source, /emoji=\{labTileEmojiForLab\(lab\)\}/);
+  assert.doesNotMatch(source, /labTileGlyphForLab/);
 });
 
-test("visualization lab tiles render illustrated sticker logos with glyph fallback", () => {
-  assert.match(source, /from "@\/components\/visualizations\/labLogoArt"/);
-  assert.match(source, /labLogoArtByGlyph\[glyph\] \? \(/);
-  assert.match(source, /\{labLogoArtByGlyph\[glyph\]\}/);
-  assert.match(source, /\{glyph\}/);
+test("visualization lab tiles render CCSS-style cards instead of sticker logos", () => {
+  assert.doesNotMatch(source, /from "@\/components\/visualizations\/labLogoArt"/);
+  assert.doesNotMatch(source, /labLogoArtByGlyph/);
+  assert.doesNotMatch(source, /LiquidGlassLabLogo/);
+  assert.match(source, /from "@\/data\/visualizationLabEmoji"/);
+  assert.match(source, /function labTileBandForGrade\(grade: GradeId\)/);
+  assert.match(source, /standardIds\.slice\(0, 3\)/);
+  assert.match(source, /\{categoryChipLabel\}/);
 });
 
 test("visualization lab tiles do not show index-based fake progress", () => {
@@ -124,11 +128,63 @@ test("visualization lab tiles localize status labels instead of English-only cop
   assert.match(source, /readyLabel=\{readyLabel\}/);
 });
 
+test("visualization lab next-up recommendation resumes from the first unexplored lab", () => {
+  assert.match(source, /const firstUnexploredLab = useMemo\(/);
+  assert.match(source, /if \(!currentUser\) return null;/);
+  assert.match(source, /visibleLabs\.find\(\(lab\) => !exploredSessionIds\.has\(buildVisualizationSessionModuleId\(lab\)\)\)/);
+  assert.match(source, /const recommendedLab = firstUnexploredLab \?\? visibleLabs\[1\] \?\? activeDirectoryLab \?\? visibleLabs\[0\] \?\? null;/);
+  assert.doesNotMatch(source, /const recommendedLab = visibleLabs\[1\]/);
+});
+
+test("visualization lab hero renders the next-up preview card with mission progress", () => {
+  assert.match(source, /data-viz-next-up-card/);
+  assert.match(source, /data-viz-next-up-progress-based=\{String\(recommendedLabIsProgressBased\)\}/);
+  assert.match(source, /data-viz-mission-progress-explored=\{missionExploredCount\}/);
+  assert.match(source, /data-viz-mission-progress-total=\{missionTotalCount\}/);
+  assert.match(source, /role="progressbar"/);
+  assert.match(source, /aria-valuenow=\{missionExploredCount\}/);
+  assert.match(source, /currentUser && missionTotalCount > 0/);
+});
+
+test("visualization lab pins the signed-in student's grade at the head of the rail", () => {
+  assert.match(source, /const ownGrade = currentUser \? currentUserGrade : null;/);
+  assert.match(source, /data-viz-grade-chip-pinned=\{String\(pinned\)\}/);
+  assert.match(source, /pinnedLabel=\{yourGradeLabel\}/);
+  assert.match(source, /gradeIds\.filter\(\(grade\) => grade !== ownGrade\)\.map\(/);
+  assert.match(source, /data-viz-back-to-my-grade/);
+  assert.match(source, /data-viz-switch-to-my-grade/);
+});
+
+test("visualization lab merges the pickers into one scroll-snap section", () => {
+  assert.match(source, /snap-x snap-mandatory/);
+  assert.match(source, /overflow-x-auto/);
+  assert.match(source, /sm:flex-wrap sm:overflow-visible/);
+  assert.doesNotMatch(source, /Pick your grade/);
+  assert.doesNotMatch(source, /Pick a lab/);
+  assert.match(source, /Choose your lab/);
+  assert.match(source, /ref=\{labGridRef\}/);
+});
+
+test("visualization lab hero drops the intro sentence", () => {
+  assert.doesNotMatch(source, /finish an observation mission/);
+  assert.doesNotMatch(source, /introText/);
+});
+
+test("visualization lab grade badge flips to Browsing off the account grade", () => {
+  assert.match(source, /const browsingOtherGrade = Boolean\(ownGrade && \(activeDirectoryGroup\?\.grade \?\? activeGroup\.grade\) !== ownGrade\);/);
+  assert.match(source, /data-viz-grade-context-mode=\{browsingOtherGrade \? "browsing" : "current"\}/);
+  assert.match(source, /\{ en: "Browsing", zh: "正在瀏覽", zhHans: "正在浏览" \}/);
+});
+
+test("visualization lab mobile rail hints overflow with an edge fade", () => {
+  assert.match(source, /mask-image:linear-gradient\(to_right,black_calc\(100%-2\.5rem\),transparent\)/);
+  assert.match(source, /sm:\[mask-image:none\]/);
+});
+
 test("visualization lab renders catalog copy through Simplified Chinese conversion", () => {
   assert.match(source, /function displayCatalogText\(value: string\)/);
   assert.match(source, /return simplifyChineseText\(value, language\);/);
   assert.match(source, /title=\{displayCatalogText\(compactTitle\(text\(lab\.title\)\)\)\}/);
   assert.match(source, /\{displayCatalogText\(compactTitle\(text\(recommendedLab\.title\)\)\)\}/);
   assert.match(source, /title=\{displayCatalogText\(text\(activeDirectoryLab\.title\)\)\}/);
-  assert.match(source, /description=\{displayCatalogText\(text\(activeDirectoryLab\.description\)\)\}/);
 });
