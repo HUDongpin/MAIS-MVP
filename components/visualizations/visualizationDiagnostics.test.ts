@@ -10,6 +10,7 @@ import {
   type GradeLabGroupDefinition
 } from "../../data/visualizationLabs";
 import { unitedStatesMathGradeOverviewCards } from "../../data/rag/usMath";
+import { hasSignatureLab } from "../../data/signatureLabAssignments";
 import { toPrcSimplifiedText } from "../../lib/i18n";
 import {
   auditVisualizationControlSurfaceContract,
@@ -105,26 +106,26 @@ test("current Visualization Lab catalog satisfies the structural health contract
   assert.ok(summary.gradeGroups.every((group) => group.labCount > 0));
 });
 
-test("trig unit-wave labs route to the configured visualization renderer", () => {
+test("trig unit-wave labs route to the configured renderer unless a signature bench is assigned", () => {
   const trigLabs = visualizationLabCatalog.filter((lab) => lab.templateId === "trig-unit-wave");
 
   assert.ok(trigLabs.length > 0);
   assert.deepEqual(
     trigLabs
-      .filter((lab) => lab.moduleId !== "configured-visualization-lab")
-      .map((lab) => ({ labId: lab.labId, moduleId: lab.moduleId })),
+      .filter((lab) => lab.moduleId !== (hasSignatureLab(lab.topicId) ? "signature-lab" : "configured-visualization-lab"))
+      .map((lab) => ({ labId: lab.labId, moduleId: lab.moduleId, signatureAssigned: hasSignatureLab(lab.topicId) })),
     []
   );
 });
 
-test("calculus rate-area labs route to the configured visualization renderer", () => {
+test("calculus rate-area labs route to the configured renderer unless a signature bench is assigned", () => {
   const calculusLabs = visualizationLabCatalog.filter((lab) => lab.templateId === "calculus-rate-area");
 
   assert.ok(calculusLabs.length > 0);
   assert.deepEqual(
     calculusLabs
-      .filter((lab) => lab.moduleId !== "configured-visualization-lab")
-      .map((lab) => ({ labId: lab.labId, moduleId: lab.moduleId })),
+      .filter((lab) => lab.moduleId !== (hasSignatureLab(lab.topicId) ? "signature-lab" : "configured-visualization-lab"))
+      .map((lab) => ({ labId: lab.labId, moduleId: lab.moduleId, signatureAssigned: hasSignatureLab(lab.topicId) })),
     []
   );
 });
