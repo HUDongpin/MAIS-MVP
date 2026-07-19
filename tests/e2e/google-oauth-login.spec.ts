@@ -10,9 +10,8 @@ test.describe("Google OAuth login entry", () => {
     await page.goto("/login?next=%2Fdashboard");
 
     const action = page.getByRole("link", { name: /Continue with Google/i });
-    const roleGroup = page.getByRole("radiogroup", { name: /Google account type/i });
-    await expect(roleGroup).toBeVisible();
-    await expect(page.getByRole("radio", { name: /^Student$/i })).toHaveAttribute("aria-checked", "true");
+    await expect(action).toBeVisible();
+    await expect(page.getByRole("radiogroup", { name: /Google account type/i })).toHaveCount(0);
 
     const studentUrl = googleStartUrl(await action.getAttribute("href"), page.url());
     expect(studentUrl.pathname).toBe("/api/auth/google/start");
@@ -20,6 +19,11 @@ test.describe("Google OAuth login entry", () => {
     expect(studentUrl.searchParams.get("next")).toBe("/dashboard");
     expect(studentUrl.searchParams.get("grade")).toBeTruthy();
     expect(studentUrl.searchParams.get("curriculumTrack")).toBeTruthy();
+
+    await page.getByRole("button", { name: /Change Google account type/i }).click();
+    const roleGroup = page.getByRole("radiogroup", { name: /Google account type/i });
+    await expect(roleGroup).toBeVisible();
+    await expect(page.getByRole("radio", { name: /^Student$/i })).toHaveAttribute("aria-checked", "true");
 
     await page.getByRole("radio", { name: /^Parent$/i }).click();
     await expect(page.getByRole("radio", { name: /^Parent$/i })).toHaveAttribute("aria-checked", "true");

@@ -82,7 +82,7 @@ type SettingsContextValue = {
   currentUser: StudentSession | null;
   studentLessonHref: string | null;
   refreshLessonEntryTarget: (grade?: GradeId) => Promise<void>;
-  login: (identifier: string, password: string, grade: GradeId, curriculumProfile?: CurriculumProfile) => Promise<AuthActionResult>;
+  login: (identifier: string, password: string, grade?: GradeId, curriculumProfile?: CurriculumProfile) => Promise<AuthActionResult>;
   register: (input: RegisterInput) => Promise<AuthActionResult>;
   completePasswordReset: (token: string, password: string) => Promise<AuthActionResult>;
   changePassword: (currentPassword: string, password: string) => Promise<AuthActionResult>;
@@ -883,7 +883,7 @@ export function AppProviders({ children }: { children: ReactNode }) {
     broadcastSessionChange(session.user.id);
   }, [router]);
 
-  const login = useCallback(async (identifier: string, password: string, grade: GradeId, curriculumProfile?: CurriculumProfile): Promise<AuthActionResult> => {
+  const login = useCallback(async (identifier: string, password: string, grade?: GradeId, curriculumProfile?: CurriculumProfile): Promise<AuthActionResult> => {
     const response = await fetch("/api/auth/login", {
       method: "POST",
       headers: {

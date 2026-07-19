@@ -116,7 +116,7 @@ test.describe("app shell, preferences, and auth", () => {
     const student = await registerStudentThroughApi(page, testInfo, "S5");
 
     await page.goto("/login");
-    await page.locator("#login-grade").selectOption("S1");
+    await expect(page.locator("#login-grade")).toHaveCount(0);
     await page.getByLabel(/email or username/i).fill(student.username);
     await page.getByLabel(/^password$/i).fill(student.password);
     await clickLoginSubmit(page);
