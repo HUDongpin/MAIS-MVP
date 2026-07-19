@@ -68,29 +68,44 @@ function createRuntimeReadyLabComponent(LoadedLabComponent: ComponentType<LabCom
     useEffect(() => {
       if (!onRuntimeReady || !readyLabId || typeof window === "undefined") return;
 
-      let animationFrame = 0;
-      let cancelled = false;
+      // The probe must keep running in hidden tabs (requestAnimationFrame is
+      // frozen there, which left background direct-entry tabs stuck on
+      // "loading"). MutationObserver callbacks are not visibility-throttled;
+      // the interval is a low-cost safety net for anything the observer
+      // filter misses.
+      let done = false;
 
       const probeRuntimeReady = () => {
-        if (cancelled) return;
+        if (done) return;
 
         const runtimeRoot = runtimeRootRef.current;
         const surface = runtimeRoot?.querySelector("[data-viz-surface]");
         const mark = surface?.querySelector("[data-viz-mark]");
 
         if (surface && mark) {
+          done = true;
+          observer.disconnect();
+          window.clearInterval(interval);
           onRuntimeReady(readyLabId);
-          return;
         }
-
-        animationFrame = window.requestAnimationFrame(probeRuntimeReady);
       };
 
-      animationFrame = window.requestAnimationFrame(probeRuntimeReady);
+      const observer = new MutationObserver(probeRuntimeReady);
+      if (runtimeRootRef.current) {
+        observer.observe(runtimeRootRef.current, {
+          attributeFilter: ["data-viz-surface", "data-viz-mark"],
+          attributes: true,
+          childList: true,
+          subtree: true
+        });
+      }
+      const interval = window.setInterval(probeRuntimeReady, 500);
+      probeRuntimeReady();
 
       return () => {
-        cancelled = true;
-        window.cancelAnimationFrame(animationFrame);
+        done = true;
+        observer.disconnect();
+        window.clearInterval(interval);
       };
     }, [onRuntimeReady, readyLabId]);
 
