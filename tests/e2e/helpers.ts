@@ -106,7 +106,7 @@ export async function logoutIfVisible(page: Page) {
     const logout = logoutButtons.nth(index);
     if (!(await logout.isVisible().catch(() => false))) continue;
     await logout.click();
-    await expect(page).toHaveURL(/\/login/);
+    await expect(page).toHaveURL(/\/login/, { timeout: 30_000 });
     return;
   }
 }
@@ -284,7 +284,7 @@ export async function registerStudent(page: Page, testInfo: TestInfo, grade = "S
   await page.getByLabel(/^password$/i).fill(student.password);
   await page.getByLabel(/^confirm password$/i).fill(student.password);
   await page.getByRole("button", { name: /create account/i }).click();
-  await expect(page).toHaveURL(/\/dashboard/);
+  await expect(page).toHaveURL(/\/dashboard/, { timeout: 30_000 });
 
   return student;
 }

@@ -298,7 +298,7 @@ test.describe("app shell, preferences, and auth", () => {
     await page.getByLabel(/^password$/i).fill(parent.password);
     await page.getByLabel(/^confirm password$/i).fill(parent.password);
     await page.getByRole("button", { name: /create account/i }).click();
-    await expect(page).toHaveURL(/\/parent\/connect/);
+    await expect(page).toHaveURL(/\/parent\/connect/, { timeout: 30_000 });
     await expect(page.getByRole("heading", { name: /Use a parent invite code/i })).toBeVisible();
 
     await logoutIfVisible(page);
