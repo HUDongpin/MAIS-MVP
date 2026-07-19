@@ -29,7 +29,7 @@ const teacherNavItems: TeacherNavItem[] = [
   { label: "Reports", path: "/teacher/reports", heading: /Bilingual learning reports/i },
   { label: "Inbox", path: "/teacher/communications/inbox", heading: /^Inbox$/i },
   { label: "Lesson kits", path: "/teacher/lesson-kits", heading: /Lesson Kit Center/i },
-  { label: "Operations", path: "/teacher/operations/notices", heading: /Teacher operations|S1 Foundation Group|S3A Mathematics/i }
+  { label: "School admin", path: "/teacher/operations/notices", heading: /Teacher operations|S1 Foundation Group|S3A Mathematics/i }
 ];
 
 function escapeRegex(value: string) {
