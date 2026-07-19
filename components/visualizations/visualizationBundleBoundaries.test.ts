@@ -111,16 +111,17 @@ test("roadmap visualization artwork does not import the full Visualization Lab c
   assert.match(source, /roadmapVisualizationLabelsByTopicId/);
 });
 
-test("roadmap route shell defers heavy client maps until after shell load", () => {
+test("roadmap route shell keeps roadmap pages on server-rendered imports", () => {
   const shellPath = "components/learning/RoadmapRouteShell.tsx";
   assert.equal(fs.existsSync(shellPath), true, "RoadmapRouteShell should exist");
 
   const shellSource = fs.readFileSync(shellPath, "utf8");
-  assert.match(shellSource, /"use client"/);
-  assert.match(shellSource, /ssr:\s*false/);
-  assert.match(shellSource, /import\("@\/components\/learning\/StudentRoadmapPage"\)/);
-  assert.match(shellSource, /import\("@\/components\/learning\/PrimaryRoadmapPage"\)/);
-  assert.match(shellSource, /import\("@\/components\/learning\/SecondaryRoadmapPage"\)/);
+  assert.doesNotMatch(shellSource, /"use client"/);
+  assert.doesNotMatch(shellSource, /next\/dynamic/);
+  assert.doesNotMatch(shellSource, /ssr:\s*false/);
+  assert.match(shellSource, /import \{ StudentRoadmapPage \} from "@\/components\/learning\/StudentRoadmapPage"/);
+  assert.match(shellSource, /import \{ PrimaryRoadmapPage \} from "@\/components\/learning\/PrimaryRoadmapPage"/);
+  assert.match(shellSource, /import \{ SecondaryRoadmapPage \} from "@\/components\/learning\/SecondaryRoadmapPage"/);
 
   for (const routePath of [
     "app/student/roadmap/page.tsx",
