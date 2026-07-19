@@ -94,10 +94,49 @@ into a growth feature: a single **"Explore a demo classroom"** one-click CTA.
     build so all example-account specs keep passing),
   - runtime escape hatch `/login?demo=1` (for demos on production deployments).
 - Production default: **hidden**.
-- New public **"Explore a demo classroom"** card: one click opens the California Math Grade 1
-  student experience (Student Shirleen seed). Requires demo users server-side
-  (`HK_MATH_ENABLE_DEMO_USER` ≠ "false", which is the default). Remove this card by deleting one
-  section in `app/login/page.tsx` if the team decides against it.
+- **"Explore a demo classroom"** card: one click opens the California Math Grade 1 student
+  experience (Student Shirleen seed). Requires demo users server-side
+  (`HK_MATH_ENABLE_DEMO_USER` ≠ "false", which is the default).
+  **Owner decision (2026-07-19): gated, not public.** The card renders only in dev, with
+  build-time `NEXT_PUBLIC_SHOW_DEMO_CTA=true`, or at runtime via `/login?demo=1` (so marketing
+  pages can deep-link to a demo-enabled login). Default production login shows neither the CTA
+  nor the grid — purely credentials + Google.
+
+## Funnel instrumentation ✅ implemented (2026-07-19)
+
+Privacy-first counters answering the redesign's open questions (method mix, error rate, demo-CTA
+usage, register step drop-off). No per-user rows, no IPs, no timestamps beyond a UTC day:
+
+- Store: `lib/server/authFunnelMetrics.ts` — standalone sqlite file
+  (`auth-funnel-metrics.sqlite` beside the main DB; `AUTH_FUNNEL_DB_PATH` overrides) holding
+  `(day, event, detail, count)` daily counters, 90-day retention pruned on write.
+- API: `POST /api/auth/funnel` (anonymous beacon, closed event vocabulary validated server-side,
+  batch-capped, IP rate-limited via the shared auth guard) and `GET /api/auth/funnel?days=N`
+  (admin-only read).
+- Client: `lib/authFunnelClient.ts` `recordAuthFunnelEvent` — sendBeacon with keepalive-fetch
+  fallback, never throws into the auth flow.
+- Events: `login_submit` `<credentials|example-tile|demo-cta>:<success|invalid|pending_curriculum|error>`,
+  `login_google_start` `<role>`, `register_step` `<account|curriculum|grade|details>`,
+  `register_submit` `<role>:<success|duplicate|invalid|error|password_mismatch>`.
+- Verified: 4/4 unit tests (validation, aggregation, batch cap, retention); live end-to-end in
+  the browser — invalid credentials, register-page entry, and a demo-CTA login each produced the
+  expected counter rows in the sqlite file.
+
+## Nova Tutor launcher on auth pages ✅ fixed (2026-07-19)
+
+The floating Nova Tutor launcher could cover the demo-CTA button at mid-width viewports. Root
+fix in `components/ai/AITutorProvider.tsx`: the launcher now hides on the auth utility routes
+(`/login`, `/register`, `/forgot-password`, `/reset-password`, `/change-password`) — extending
+the register page's existing "no tutor during auth" precedent to all of them at the source
+instead of per-page CSS. Verified: launcher absent on /login, still present on /dashboard;
+tutor E2E specs exercise /practice, /teacher, /parent only, so none are affected.
+
+### Deferred by owner decision (2026-07-19)
+
+- **Post-OAuth role selection** (first-time Google accounts choose Student/Parent/Teacher after
+  OAuth, removing the "Signing in as … · Change" caption): deferred until Google OAuth
+  credentials exist in a staging environment where the flow can actually be exercised. The
+  current caption + toggle stays as the interim UX.
 
 ### Test updates in this changeset
 

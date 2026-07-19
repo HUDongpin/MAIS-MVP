@@ -14,6 +14,7 @@ import {
   useSettings
 } from "@/components/providers/AppProviders";
 import { PasswordInputWithReveal } from "@/components/ui/PasswordInputWithReveal";
+import { recordAuthFunnelEvent } from "@/lib/authFunnelClient";
 import { grades, isValidGradeId } from "@/data/grades";
 import { curriculumProfileForPublisher, curriculumTrackForProfile, isTextbookPublisher, publisherLabels, regionLabels } from "@/lib/curriculumProfile";
 import { formatGradeLabelForCurriculum, formatLearnerName } from "@/lib/i18n";
@@ -176,6 +177,9 @@ const floridaLoginGrades = new Set<GradeId>(["P6", "S1", "S2"]);
 const exampleAccountsEnabledAtBuild =
   process.env.NODE_ENV === "development" || process.env.NEXT_PUBLIC_SHOW_EXAMPLE_ACCOUNTS === "true";
 
+const demoCtaEnabledAtBuild =
+  process.env.NODE_ENV === "development" || process.env.NEXT_PUBLIC_SHOW_DEMO_CTA === "true";
+
 const exampleAccountRows = [
   {
     key: "us-ca-grade-1",
@@ -329,6 +333,7 @@ export default function LoginPage() {
   const exampleAccountButtonsDisabled = !isHydrated || isSubmitting;
   const courseSelectionLocked = Boolean(registeredStudentProfile || selectedExampleAccount);
   const showExampleAccounts = exampleAccountsEnabledAtBuild || demoModeRequested;
+  const showDemoCta = demoCtaEnabledAtBuild || demoModeRequested;
   const activeGoogleRoleLabel = (googleLoginRoles.find((role) => role.key === googleRole) ?? googleLoginRoles[0]).label;
   const demoCtaRow = exampleAccountRows.find((row) => row.key === "us-ca-grade-1") ?? exampleAccountRows[0];
   const demoCtaEntry = demoCtaRow.accounts.find((entry) => entry.roleLabel.en === "Student") ?? demoCtaRow.accounts[0];
@@ -393,12 +398,14 @@ export default function LoginPage() {
     loginIdentifier,
     loginPassword,
     grade,
-    curriculumProfile
+    curriculumProfile,
+    source = "credentials"
   }: {
     loginIdentifier: string;
     loginPassword: string;
     grade?: GradeId;
     curriculumProfile?: CurriculumProfile;
+    source?: "credentials" | "example-tile" | "demo-cta";
   }) => {
     setError("");
     setIsSubmitting(true);
@@ -406,6 +413,14 @@ export default function LoginPage() {
     try {
       const loginUsername = loginIdentifier.trim() === formatLearnerName(demoStudentAccount.username, language) ? demoStudentAccount.username : loginIdentifier;
       const result = await login(loginUsername, loginPassword, grade, curriculumProfile);
+      const funnelOutcome = result.ok
+        ? "success"
+        : result.requiresCurriculumTrack && result.pendingUser
+          ? "pending_curriculum"
+          : result.reason === "invalid"
+            ? "invalid"
+            : "error";
+      recordAuthFunnelEvent("login_submit", `${source}:${funnelOutcome}`);
       if (result.ok) {
         setPendingCurriculumUser(null);
         const nextPath = new URLSearchParams(window.location.search).get("next");
@@ -450,7 +465,8 @@ export default function LoginPage() {
         loginIdentifier,
         loginPassword,
         grade: selectedExampleAccount.row.grade,
-        curriculumProfile: selectedExampleAccount.row.curriculumProfile
+        curriculumProfile: selectedExampleAccount.row.curriculumProfile,
+        source: "example-tile"
       });
       return;
     }
@@ -490,7 +506,8 @@ export default function LoginPage() {
   const fillExampleAccount = (
     account: { username: string; password: string },
     row: (typeof exampleAccountRows)[number],
-    accountKey: string
+    accountKey: string,
+    source: "example-tile" | "demo-cta" = "example-tile"
   ) => {
     if (isSubmitting) return;
     hasLoginInteractionRef.current = true;
@@ -507,7 +524,8 @@ export default function LoginPage() {
       loginIdentifier: account.username,
       loginPassword: account.password,
       grade: row.grade,
-      curriculumProfile: row.curriculumProfile
+      curriculumProfile: row.curriculumProfile,
+      source
     });
   };
 
@@ -705,6 +723,7 @@ export default function LoginPage() {
 
               <Link
                 href={googleLoginHref}
+                onClick={() => recordAuthFunnelEvent("login_google_start", googleRole)}
                 className="focus-ring inline-flex min-h-12 w-full items-center justify-center gap-3 rounded-full border border-slate-200/80 bg-white px-5 py-3 font-semibold text-slate-950 shadow-sm shadow-slate-900/5 transition hover:-translate-y-0.5 hover:shadow-md dark:border-white/10 dark:bg-white dark:text-slate-950"
               >
                 <span aria-hidden="true" className="grid size-6 place-items-center rounded-full border border-slate-200 text-sm font-bold text-blue-600">
@@ -763,6 +782,7 @@ export default function LoginPage() {
 
       </div>
 
+      {showDemoCta ? (
       <section
         aria-labelledby="login-demo-cta-title"
         className="mx-auto mt-6 flex max-w-3xl flex-wrap items-center justify-between gap-4 rounded-3xl border border-cyan-300/70 bg-cyan-50/85 p-5 shadow-sm shadow-cyan-900/10 dark:border-cyan-300/20 dark:bg-cyan-950/20 sm:p-6"
@@ -778,12 +798,13 @@ export default function LoginPage() {
         <button
           type="button"
           disabled={exampleAccountButtonsDisabled}
-          onClick={() => fillExampleAccount(demoCtaEntry.account, demoCtaRow, demoCtaEntry.key)}
+          onClick={() => fillExampleAccount(demoCtaEntry.account, demoCtaRow, demoCtaEntry.key, "demo-cta")}
           className="focus-ring inline-flex min-h-12 items-center justify-center rounded-full bg-slate-950 px-6 py-3 text-sm font-bold text-white shadow-lg shadow-slate-900/10 transition enabled:hover:-translate-y-0.5 disabled:cursor-not-allowed disabled:opacity-55 dark:bg-white dark:text-slate-950"
         >
           {t(demoCtaCopy.action)}
         </button>
       </section>
+      ) : null}
 
       {showExampleAccounts ? (
       <section

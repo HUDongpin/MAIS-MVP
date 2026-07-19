@@ -2664,7 +2664,13 @@ export function AITutorProvider({ children }: { children: ReactNode }) {
   }, [setupStatus.state, t]);
   const tutorPanelOpen = open && draftReady && loadedDraftStorageKey === draftStorageKey;
   const isImmersiveGameRoute = isImmersiveStudentPracticeGamePath(pathname);
-  const showTutorLauncher = !tutorPanelOpen;
+  const isAuthUtilityRoute =
+    pathname === "/login" ||
+    pathname === "/register" ||
+    pathname === "/forgot-password" ||
+    pathname === "/reset-password" ||
+    pathname === "/change-password";
+  const showTutorLauncher = !tutorPanelOpen && !isAuthUtilityRoute;
   const replyVoiceAvailable = Boolean(currentUser && setupStatus.voice?.configured && !classroomFallbackOnly);
   const replyVoiceNote = textForLanguage(
     classroomFallbackOnly
