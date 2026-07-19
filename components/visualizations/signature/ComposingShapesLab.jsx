@@ -1072,7 +1072,6 @@ export default function ComposingShapesLab() {
   return (
     <div className="cslab">
       <header className="head">
-        <p className="eyebrow">MAIS · Interactive Math Lab</p>
         <h1>Composing shapes</h1>
         <p className="lede">
           Put two shapes together with <em>full sides touching</em> and you do not have two shapes any

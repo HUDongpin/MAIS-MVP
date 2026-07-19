@@ -1,9 +1,11 @@
 "use client";
 
+import Link from "next/link";
 import { type CSSProperties, type FormEvent, useEffect, useState } from "react";
 import { useSettings } from "@/components/providers/AppProviders";
 import { GradeSelector } from "@/components/ui/GradeSelector";
 import { PasswordInputWithReveal } from "@/components/ui/PasswordInputWithReveal";
+import { recordAuthFunnelEvent } from "@/lib/authFunnelClient";
 import { curriculumProfileForPublisher, curriculumTrackForProfile, publisherLabels, regionLabels } from "@/lib/curriculumProfile";
 import { formatGradeLabelForCurriculum } from "@/lib/i18n";
 import type { CurriculumProfile, CurriculumRegion, CurriculumTrack, GradeId, Language, LocalizedText, TextbookPublisher } from "@/types";
@@ -164,10 +166,6 @@ const registerCurriculumPublisherOptions: readonly TextbookPublisher[] = [
 type RegistrationRole = "parent" | "student" | "teacher";
 type RegisterStepId = "account" | "grade" | "curriculum" | "details";
 type RegisterIconKind = "book" | "details" | "grade" | "profile";
-
-function isUnitedStatesRegistrationTrack(curriculumTrack: CurriculumTrack) {
-  return curriculumTrack === "US_CA_MATH" || curriculumTrack === "US_NC_MATH" || curriculumTrack === "US_AR_MATH" || curriculumTrack === "US_FL_MATH";
-}
 
 function formatRegistrationGradeLabel(grade: GradeId, language: Language, curriculumTrack: CurriculumTrack) {
   return formatGradeLabelForCurriculum(grade, language, curriculumTrack, true);
@@ -524,7 +522,6 @@ export default function RegisterPage() {
   const isParentRegistration = accountType === "parent";
   const isTeacherRegistration = accountType === "teacher";
   const selectedGradeLabel = formatRegistrationGradeLabel(registrationGrade, language, curriculumTrack);
-  const selectedGradeChipBadge = isUnitedStatesRegistrationTrack(curriculumTrack) ? (registrationGrade === "K" ? "K" : "G") : registrationGrade.startsWith("P") ? "P" : "S";
   const selectedPublisherLabel = t(registerPublisherButtonLabelOverrides[curriculumProfile.publisher] ?? publisherLabels[curriculumProfile.publisher]);
   const displayedPublisherLabel = selectedPublisherLabel;
   const curriculumOptionLabel = (publisher: TextbookPublisher) => {
@@ -584,6 +581,10 @@ export default function RegisterPage() {
       setActiveStep("details");
     }
   }, [activeStep, isParentRegistration]);
+
+  useEffect(() => {
+    recordAuthFunnelEvent("register_step", activeStep);
+  }, [activeStep]);
 
   const goToStep = (step: RegisterStepId) => {
     const target = registerSteps.find((item) => item.id === step);
@@ -690,6 +691,7 @@ export default function RegisterPage() {
 
     try {
       if (password !== confirmPassword) {
+        recordAuthFunnelEvent("register_submit", `${accountType}:password_mismatch`);
         setMessage(t(registerCopy.passwordMismatch));
         return;
       }
@@ -703,6 +705,11 @@ export default function RegisterPage() {
         grade: isParentRegistration ? undefined : registrationGrade,
         curriculumProfile: isParentRegistration ? undefined : curriculumProfile
       });
+
+      recordAuthFunnelEvent(
+        "register_submit",
+        `${accountType}:${result.ok ? "success" : result.reason === "duplicate" ? "duplicate" : result.reason === "invalid" ? "invalid" : "error"}`
+      );
 
       if (result.ok) {
         setMessage(t(successMessage));
@@ -799,7 +806,6 @@ export default function RegisterPage() {
                   {displayedPublisherLabel}
                 </span>
                 <span className="inline-flex h-11 items-center gap-2 rounded-full border border-[#dfe7f0] bg-white px-5 text-sm font-black text-[#102454] shadow-[0_6px_14px_rgba(26,62,105,0.08)]">
-                  <TopChipIcon kind="grade" label={selectedGradeChipBadge} />
                   {selectedGradeLabel}
                 </span>
               </div>
@@ -895,12 +901,13 @@ export default function RegisterPage() {
                     </h2>
 
                     <div className="mt-7">
-                      <label className="grid gap-2">
+                      <label htmlFor="register-curriculum" className="grid gap-2">
                         <span className="text-sm font-black uppercase tracking-[0.16em] text-[#116ee4]">
                           {t(registerCopy.selectedCurriculum)}
                         </span>
                         <span className="relative block">
                           <select
+                            id="register-curriculum"
                             value={curriculumProfile.publisher}
                             onChange={(event) => {
                               const nextPublisher = registerCurriculumPublisherOptions.find((publisher) => publisher === event.currentTarget.value);
@@ -970,9 +977,10 @@ export default function RegisterPage() {
                     </p>
 
                     <div className="mt-6 grid gap-5">
-                      <label className="grid gap-2">
+                      <label htmlFor="register-name" className="grid gap-2">
                         <span className="text-sm font-bold text-[#33426a]">{t(profileNameLabel)}</span>
                         <input
+                          id="register-name"
                           value={studentName}
                           onChange={(event) => setStudentName(event.target.value)}
                           autoComplete="name"
@@ -983,9 +991,10 @@ export default function RegisterPage() {
 
                       <div className={`grid gap-5 ${isParentRegistration ? "" : "sm:grid-cols-2"}`}>
                         {!isParentRegistration ? (
-                          <label className="grid gap-2">
+                          <label htmlFor="register-username" className="grid gap-2">
                             <span className="text-sm font-bold text-[#33426a]">{t(usernameLabel)}</span>
                             <input
+                              id="register-username"
                               value={username}
                               onChange={(event) => setUsername(event.target.value)}
                               autoComplete="username"
@@ -995,9 +1004,10 @@ export default function RegisterPage() {
                           </label>
                         ) : null}
 
-                        <label className="grid gap-2">
+                        <label htmlFor="register-email" className="grid gap-2">
                           <span className="text-sm font-bold text-[#33426a]">{t(registerCopy.email)}</span>
                           <input
+                            id="register-email"
                             value={email}
                             onChange={(event) => setEmail(event.target.value)}
                             type="email"
@@ -1051,6 +1061,13 @@ export default function RegisterPage() {
                   {message}
                 </p>
               ) : null}
+
+              <p className="relative z-20 mt-5 flex flex-wrap items-center justify-center gap-x-1 text-center text-sm font-medium text-[#33426a]">
+                <span>{t(registerCopy.alreadyRegistered)}</span>
+                <Link href="/login" className="focus-ring inline-flex min-h-11 items-center rounded-full px-2 py-2 font-bold text-[#116ee4] underline-offset-4 transition hover:underline">
+                  {t(registerCopy.login)}
+                </Link>
+              </p>
             </div>
           </form>
         </div>

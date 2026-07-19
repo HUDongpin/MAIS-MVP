@@ -535,7 +535,6 @@ export default function PythagorasLab() {
   return (
     <div className="pylab">
       <header className="head">
-        <p className="eyebrow">MAIS · Interactive Math Lab</p>
         <h1>Pythagoras: Four Triangles, Two Squares, One Identity</h1>
         <p className="lede">
           One frame, four copies of a right triangle, two ways to pack them. The leftover

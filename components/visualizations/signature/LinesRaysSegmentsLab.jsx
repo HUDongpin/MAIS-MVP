@@ -602,7 +602,6 @@ export default function LinesRaysSegmentsLab() {
   return (
     <div className="lrslab">
       <header className="head">
-        <p className="eyebrow">MAIS · Interactive Math Lab</p>
         <h1>Lines, Rays &amp; Segments</h1>
         <p className="lede">
           The whole vocabulary is carried by the <em>ends</em>: two dots make a segment, one

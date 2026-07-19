@@ -865,7 +865,6 @@ export default function DecimalLab() {
   return (
     <div className="dlab">
       <header className="head">
-        <p className="eyebrow">MAIS · Interactive Math Lab</p>
         <h1>Decimals &amp; Place Value</h1>
         <p className="lede">
           A decimal keeps the base-ten pattern going <em>past</em> the ones place — each step to

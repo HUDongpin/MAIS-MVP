@@ -484,7 +484,6 @@ export default function SamplingDistributionLab() {
   return (
     <div className="galab">
       <header className="head">
-        <p className="eyebrow">MAIS · Interactive Math Lab</p>
         <h1>Sampling Distributions: The Gallery of Every Draw</h1>
         <p className="lede">
           A statistic varies — so study the statistic itself: all C(6,3) = 20

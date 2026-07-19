@@ -16,7 +16,8 @@ type RateLimitScope =
   | "password-reset-confirm-ip"
   | "password-reset-confirm-token"
   | "password-change-ip"
-  | "password-change-user";
+  | "password-change-user"
+  | "funnel-ip";
 
 export const authRateLimitRules = {
   loginIp: { max: 300, windowMs: 15 * 60 * 1000 },
@@ -27,7 +28,8 @@ export const authRateLimitRules = {
   passwordResetConfirmIp: { max: 40, windowMs: 15 * 60 * 1000 },
   passwordResetConfirmToken: { max: 8, windowMs: 15 * 60 * 1000 },
   passwordChangeIp: { max: 80, windowMs: 15 * 60 * 1000 },
-  passwordChangeUser: { max: 8, windowMs: 15 * 60 * 1000 }
+  passwordChangeUser: { max: 8, windowMs: 15 * 60 * 1000 },
+  funnelIp: { max: 600, windowMs: 15 * 60 * 1000 }
 } satisfies Record<string, RateLimitRule>;
 
 function firstForwardedIp(value: string | null) {

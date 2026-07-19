@@ -584,7 +584,6 @@ export default function RegroupingSubtractionLab() {
   return (
     <div className="rslab">
       <header className="head">
-        <p className="eyebrow">MAIS · Interactive Math Lab</p>
         <h1>Break a Ten: Subtraction with Regrouping</h1>
         <p className="lede">
           Subtract column by column — until the ones column <em>cannot pay</em>. Then trade: one

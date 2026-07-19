@@ -545,7 +545,6 @@ export default function TwoDistributionsLab() {
   return (
     <div className="tdlab">
       <header className="head">
-        <p className="eyebrow">MAIS · Interactive Math Lab</p>
         <h1>Two Piles, One Verdict: The Spread-Ruler</h1>
         <p className="lede">
           Two dot piles on one line. The real question is never just “whose center is

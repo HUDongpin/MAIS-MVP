@@ -474,7 +474,6 @@ export default function ScientificNotationLab() {
   return (
     <div className="snlab">
       <header className="head">
-        <p className="eyebrow">MAIS · Interactive Math Lab</p>
         <h1>Scientific Notation: The Ladder of Rungs</h1>
         <p className="lede">
           From an atom to a galaxy is thirty rungs of ×10. A number in scientific

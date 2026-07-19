@@ -484,7 +484,6 @@ export default function RationalExponentLab() {
   return (
     <div className="relab">
       <header className="head">
-        <p className="eyebrow">MAIS · Interactive Math Lab</p>
         <h1>Rational Exponents: The Forcing Court</h1>
         <p className="lede">
           Nobody gets to <em>define</em> 64^(1/2). Name it y, apply the one law the

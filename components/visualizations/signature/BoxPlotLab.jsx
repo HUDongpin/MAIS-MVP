@@ -1159,7 +1159,6 @@ export default function BoxPlotLab() {
   return (
     <div className="bplab">
       <header className="head">
-        <p className="eyebrow">MAIS · Interactive Math Lab</p>
         <h1>Box Plots — the Five-Number Summary</h1>
         <p className="lede">
           Find the <em>median</em>, then run the same <em>pincer</em> on each half to get the{' '}

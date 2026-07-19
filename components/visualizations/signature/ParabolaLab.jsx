@@ -821,7 +821,6 @@ export default function ParabolaLab() {
   return (
     <div className="plab">
       <header className="head">
-        <p className="eyebrow">MAIS · Interactive Math Lab</p>
         <h1>The Parabola</h1>
         <p className="lede">
           Meet the third conic through its true definition — every point the same distance from a{' '}

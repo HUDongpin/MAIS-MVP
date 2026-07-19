@@ -699,7 +699,6 @@ export default function CircleLab() {
   return (
     <div className="clab">
       <header className="head">
-        <p className="eyebrow">MAIS · Interactive Math Lab</p>
         <h1>The Circle</h1>
         <p className="lede">
           Explore the circle in{' '}

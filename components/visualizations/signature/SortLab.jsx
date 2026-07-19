@@ -941,7 +941,6 @@ export default function SortLab() {
   return (
     <div className="slab">
       <header className="head">
-        <p className="eyebrow">MAIS · Interactive Math Lab</p>
         <h1>Sorting</h1>
         <p className="lede">
           Sort nine objects by <em>color</em>, <em>shape</em>, or <em>size</em> — and watch them regroup.

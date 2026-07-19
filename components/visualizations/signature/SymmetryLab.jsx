@@ -542,7 +542,6 @@ export default function SymmetryLab() {
   return (
     <div className="symlab">
       <header className="head">
-        <p className="eyebrow">MAIS · Interactive Math Lab</p>
         <h1>Lines of Symmetry: The Mirror Census</h1>
         <p className="lede">
           A line of symmetry is a <em>test</em> a line passes — fold the figure along it and the

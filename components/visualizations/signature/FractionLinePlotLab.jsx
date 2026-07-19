@@ -576,7 +576,6 @@ export default function FractionLinePlotLab() {
   return (
     <div className="flplab">
       <header className="head">
-        <p className="eyebrow">MAIS · Interactive Math Lab</p>
         <h1>Line Plots in Eighths: Read the Ladder</h1>
         <p className="lede">
           Between the whole numbers the scale is cut to eighths — and a tick can wear{' '}

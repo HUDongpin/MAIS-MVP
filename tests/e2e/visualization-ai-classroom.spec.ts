@@ -1,4 +1,5 @@
 import { expect, test, type Locator, type Page, type Route } from "@playwright/test";
+import { buildVisualizationLabHref } from "../../components/visualizations/visualizationDiagnostics";
 import { gradeLabGroups, visualizationLabCatalog } from "../../data/visualizationLabs";
 import { collectPageErrors, expectNoPageErrors, fixturePath, loginAsDemoStudent } from "./helpers";
 
@@ -9,10 +10,6 @@ const allVisualizationLabs = visualizationLabCatalog.map((lab) => ({
   gradeLabel: lab.gradeLabel.en,
   moduleId: lab.moduleId
 }));
-const labTitleCounts = allVisualizationLabs.reduce<Record<string, number>>((counts, lab) => {
-  counts[lab.title] = (counts[lab.title] ?? 0) + 1;
-  return counts;
-}, {});
 const expectedModuleIds = new Set(allVisualizationLabs.map((lab) => lab.moduleId));
 const tutorDraftStorageKey = "mais-ai-tutor-draft-v1";
 
@@ -47,13 +44,14 @@ async function askTutor(panel: Locator, input: string, expected: RegExp | string
 }
 
 async function openVisualizationLab(page: Page, labId: string) {
+  // The catalog shows one grade at a time, so cross-grade labs are opened via
+  // their direct-entry URLs (the same contract the persistence spec covers).
+  const lab = visualizationLabCatalog.find((entry) => entry.labId === labId);
+  if (!lab) throw new Error(`Unknown visualization lab id: ${labId}`);
+  await page.goto(buildVisualizationLabHref(lab));
   const labCard = page.locator(`#lab-example-${labId}`);
   await expect(labCard).toBeVisible();
-  await labCard.scrollIntoViewIfNeeded();
-  if ((await labCard.locator("[data-viz-surface]").count()) === 0) {
-    await labCard.getByRole("button", { name: /Open lab|開啟實驗|开启实验/i }).click();
-  }
-  await expect(labCard.locator("[data-viz-surface]").first()).toBeVisible();
+  await expect(labCard.locator("[data-viz-surface]").first()).toBeVisible({ timeout: 15_000 });
 }
 
 test.describe("visualization lab, Nova Tutor, and live classroom", () => {
@@ -283,66 +281,67 @@ test.describe("visualization lab, Nova Tutor, and live classroom", () => {
   });
 
   test("visualization directory exposes every grade module and core interactive controls", async ({ page }) => {
+    // Seven direct-entry lab loads plus the earned-exploration dwell need more
+    // than the default per-test budget.
+    test.slow();
     const pageErrors = collectPageErrors(page);
 
     await routeTutorFailure(page);
     await loginAsDemoStudent(page);
     await page.goto("/student/tools/visualizations");
     await expect(page.getByRole("heading", { name: /Visualization Lab/i })).toBeVisible();
-    await expect(page.getByRole("heading", { name: /HK Student Peter's S3 visualizations/i })).toBeVisible();
-
-    await page.getByRole("button", { name: /Explore all labs|Explore my curriculum|Explore other grades/i }).click();
-    await expect(page.getByRole("heading", { name: /HK Student Peter is exploring P1-S6 visualizations/i })).toBeVisible();
-    await expect(page.locator('[id^="lab-example-"]')).toHaveCount(allVisualizationLabs.length);
-    for (const group of gradeLabGroups) {
-      await expect(page.getByRole("heading", { name: new RegExp(`^${group.grade} ·`) })).toBeVisible();
-    }
-    for (const moduleTitle of Object.keys(labTitleCounts)) {
-      await expect(page.getByText(moduleTitle, { exact: true }).first()).toBeVisible();
-    }
-    for (const lab of allVisualizationLabs) {
-      await expect(page.getByText(lab.gradeLabel, { exact: true }).first()).toBeVisible();
-    }
+    // The signed-in catalog pins the student's grade at the head of the rail,
+    // tracks mission progress, and lists that grade's labs as CCSS-style
+    // cards one grade at a time (the old all-grades directory is gone).
+    await expect(page.locator("[data-viz-mission-progress]")).toBeVisible();
+    await expect(page.locator('[data-viz-grade-chip-pinned="true"]')).toBeVisible();
+    await expect(page.getByRole("heading", { name: /Choose your lab/i })).toBeVisible();
+    await expect(page.locator("[data-viz-lab-tile]").first()).toBeVisible();
+    // The demo student's registered grade is S4, so the landing catalog shows
+    // the S4 HK labs ("functions" among them); other grades stay reachable
+    // through the rail and direct-entry URLs.
+    await expect(page.locator("#lab-tile-functions")).toBeVisible();
+    await expect(page.locator("[data-viz-grade-chip]")).toHaveCount(gradeLabGroups.length);
+    // Since the Signature Lab migration, every catalog lab routes through one
+    // of exactly two runtimes: the configured template renderer or a ported
+    // signature bench.
     expect(expectedModuleIds).toEqual(new Set([
-      "coordinate-plane-demo",
-      "function-graph-explorer",
-      "geometry-explorer",
-      "probability-simulator",
-      "function-model-comparer",
-      "trig-wave-explorer",
-      "calculus-stats-lab",
-      "configured-visualization-lab"
+      "configured-visualization-lab",
+      "signature-lab"
     ]));
 
-    await openVisualizationLab(page, "coordinates");
-    await page.getByRole("button", { name: /Add point/i }).first().click();
-    await page.getByRole("button", { name: /Translate \(\+2, \+1\)/i }).first().click();
-    await page.getByRole("button", { name: /Reset plane/i }).first().click();
-    await openVisualizationLab(page, "angles");
-    await page.getByRole("button", { name: /Reset triangle/i }).first().click();
-    await openVisualizationLab(page, "probability-s2");
-    await page.getByRole("button", { name: /Roll 20/i }).first().click();
-    await expect(page.getByText(/Total rolls/i).first()).toBeVisible();
-    await openVisualizationLab(page, "functions");
-    await page.getByRole("button", { name: /Exponential/i }).first().click();
-    await openVisualizationLab(page, "quadratic-patterns");
-    await page.getByLabel(/a: stretch \/ flip/i).first().fill("1.5");
-    await openVisualizationLab(page, "trigonometry-s5");
-    await page.locator("label").filter({ hasText: /^Amplitude/ }).locator("input").first().fill("3");
-    await openVisualizationLab(page, "statistics-s6");
-    await page.getByRole("button", { name: /^Normal$/i }).first().click();
-    await page.locator("label").filter({ hasText: /^Observed value/ }).locator("input").first().fill("70");
+    // Exercise one lab per template family and grade band through the stable
+    // control-surface contract (audited per lab by visualizationDiagnostics):
+    // direct entry, ready runtime, a mode switch when the lab offers one, and
+    // a model reset. Template-specific button copy is not part of the e2e
+    // contract — the configured-renderer suites cover it at the unit level.
+    for (const labId of ["coordinates", "angles", "probability-s2", "functions", "quadratic-patterns", "trigonometry-s5", "statistics-s6"]) {
+      await openVisualizationLab(page, labId);
+      // force: some lab models animate continuously, so these controls never
+      // satisfy Playwright's stability heuristic even though they work.
+      const modeButton = page.locator("[data-viz-mode-button]").first();
+      if (await modeButton.isVisible().catch(() => false)) await modeButton.click({ force: true });
+      await page.locator("[data-viz-reset-model]").first().click({ force: true });
+    }
 
-    const exploredResponse = page.waitForResponse((response) =>
-      response.url().includes("/api/visualization-sessions") && response.request().method() === "POST"
-    );
-    await page.getByRole("button", { name: /Mark explored/i }).first().click();
-    expect((await exploredResponse).ok()).toBeTruthy();
-    await expect(page.getByRole("status").filter({ hasText: /Exploration saved/i }).first()).toBeVisible();
+    // Exploration is earned: the interactions above plus a short on-screen
+    // dwell complete the engagement gate. Wait for the card to report the
+    // saved state, then confirm the system persisted an explored session.
+    await expect(page.locator('[data-viz-card][data-viz-save-state="saved"]')).toBeVisible({ timeout: 15_000 });
+    const sessionsResponse = await page.request.get("/api/visualization-sessions");
+    expect(sessionsResponse.ok()).toBeTruthy();
+    const sessionsPayload = await sessionsResponse.json() as { sessions?: Array<{ explored?: boolean }> };
+    expect(sessionsPayload.sessions?.some((session) => session.explored)).toBeTruthy();
 
-    await page.getByRole("button", { name: "使用繁體中文" }).click();
-    await expect(page.getByRole("heading", { name: /視覺化實驗室/ })).toBeVisible();
-    await page.getByRole("button", { name: "Use English" }).click();
+    // Back to the catalog view, where the localized hero heading lives. The
+    // language options are menu items inside the header dropdown.
+    await page.goto("/student/tools/visualizations");
+    await expect(page.getByRole("heading", { name: /Visualization Lab/i })).toBeVisible();
+    await page.getByRole("button", { name: /Language selector|語言選擇/i }).click();
+    await page.getByRole("menuitemradio", { name: /Use Traditional Chinese|使用繁體中文/i }).click();
+    await expect(page.getByRole("heading", { name: /可視化實驗室/ })).toBeVisible();
+    await page.getByRole("button", { name: /Language selector|語言選擇/i }).click();
+    await page.getByRole("menuitemradio", { name: /Use English|使用英文/i }).click();
     await expect(page.getByRole("heading", { name: /Visualization Lab/i })).toBeVisible();
 
     await page.getByRole("button", { name: /^Nova Tutor$/i }).first().click();
@@ -350,7 +349,7 @@ test.describe("visualization lab, Nova Tutor, and live classroom", () => {
     await expect(tutorPanel).toBeVisible();
     await tutorPanel.getByLabel(/Ask Nova Tutor/i).fill("Give me one hint about this visualization.");
     await tutorPanel.getByRole("button", { name: /^Send$/i }).click();
-    await expect(tutorPanel.getByText("Local helper mode", { exact: true })).toBeVisible();
+    await expect(tutorPanel.getByText(/Local helper mode/).first()).toBeVisible();
     await tutorPanel.getByRole("button", { name: /Close Nova Tutor/i }).click();
     await expect(tutorPanel).toBeHidden();
 

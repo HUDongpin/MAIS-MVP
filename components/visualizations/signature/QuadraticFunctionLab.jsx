@@ -599,7 +599,6 @@ export default function QuadraticFunctionLab() {
   return (
     <div className="qlab">
       <header className="head">
-        <p className="eyebrow">MAIS · Interactive Math Lab</p>
         <h1>The Quadratic Function</h1>
         <p className="lede">
           Explore the parabola in <span className="mono">vertex form, y = a(x&nbsp;&minus;&nbsp;h)²&nbsp;+&nbsp;k</span>.

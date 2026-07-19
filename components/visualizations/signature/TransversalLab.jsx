@@ -512,7 +512,6 @@ export default function TransversalLab() {
   return (
     <div className="tvlab">
       <header className="head">
-        <p className="eyebrow">MAIS · Interactive Math Lab</p>
         <h1>The Transversal: Eight Angles, Two Numbers</h1>
         <p className="lede">
           Cross two parallel lines with a transversal and eight angles appear — carrying

@@ -695,7 +695,6 @@ export default function FactorLab() {
   return (
     <div className="flab">
       <header className="head">
-        <p className="eyebrow">MAIS · Interactive Math Lab</p>
         <h1>Factors</h1>
         <p className="lede">
           A <em>factor</em> of a whole number divides it evenly — with no remainder. Lay the number out

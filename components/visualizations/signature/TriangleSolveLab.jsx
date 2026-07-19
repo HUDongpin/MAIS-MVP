@@ -460,7 +460,6 @@ export default function TriangleSolveLab() {
   return (
     <div className="tslab">
       <header className="head">
-        <p className="eyebrow">MAIS · Interactive Math Lab</p>
         <h1>The Law of Cosines: A Pythagorean Audit</h1>
         <p className="lede">
           Face a corner and compare accounts: a² + b² against c². The deficit’s

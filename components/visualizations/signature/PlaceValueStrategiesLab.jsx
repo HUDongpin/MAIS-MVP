@@ -915,7 +915,6 @@ export default function PlaceValueStrategiesLab() {
   return (
     <div className="pvlab">
       <header className="head">
-        <p className="eyebrow">MAIS · Interactive Math Lab</p>
         <h1>Place Value Strategies: Adding by Breaking Numbers Apart</h1>
         <p className="lede">
           To add big numbers, break them into <em>places</em> and add like with like — ones to ones, tens

@@ -1060,7 +1060,6 @@ export default function EquivalentFractionsLab() {
   return (
     <div className="eqlab">
       <header className="head">
-        <p className="eyebrow">MAIS · Interactive Math Lab</p>
         <h1>Equivalent Fractions</h1>
         <p className="lede">
           A fraction is not a number — it is a <em>name</em> for one. Put every fraction{' '}

@@ -5,11 +5,9 @@ import type { ComponentType } from "react";
 import { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } from "react";
 import { VisualizationCard } from "@/components/visualizations/VisualizationCard";
 import VisualizationLabLoading from "@/components/visualizations/VisualizationLabLoading";
-import labQuestIslandMapEn from "@/components/visualizations/assets/lab-quest-island-map-en.png";
-import labQuestIslandMap from "@/components/visualizations/assets/lab-quest-island-map.png";
 import { dictionary, useSettings } from "@/components/providers/AppProviders";
-import { fallbackLogoGlyphs, kindergartenCaliforniaLogoGlyphs, labLogoArtByGlyph, templateLogoGlyphs } from "@/components/visualizations/labLogoArt";
 import { buildVisualizationLabHref, buildVisualizationPracticeHref, buildVisualizationSessionModuleId, buildVisualizationSnapshotMarkSample } from "@/components/visualizations/visualizationDiagnostics";
+import { ccssStandardEmoji, defaultLabEmoji, visualizationTemplateEmoji } from "@/data/visualizationLabEmoji";
 import { gradeIds } from "@/data/grades";
 import { getSignatureLabAssignment, type SignatureLabId } from "@/data/signatureLabAssignments";
 import { publisherLabels } from "@/lib/curriculumProfile";
@@ -70,29 +68,44 @@ function createRuntimeReadyLabComponent(LoadedLabComponent: ComponentType<LabCom
     useEffect(() => {
       if (!onRuntimeReady || !readyLabId || typeof window === "undefined") return;
 
-      let animationFrame = 0;
-      let cancelled = false;
+      // The probe must keep running in hidden tabs (requestAnimationFrame is
+      // frozen there, which left background direct-entry tabs stuck on
+      // "loading"). MutationObserver callbacks are not visibility-throttled;
+      // the interval is a low-cost safety net for anything the observer
+      // filter misses.
+      let done = false;
 
       const probeRuntimeReady = () => {
-        if (cancelled) return;
+        if (done) return;
 
         const runtimeRoot = runtimeRootRef.current;
         const surface = runtimeRoot?.querySelector("[data-viz-surface]");
         const mark = surface?.querySelector("[data-viz-mark]");
 
         if (surface && mark) {
+          done = true;
+          observer.disconnect();
+          window.clearInterval(interval);
           onRuntimeReady(readyLabId);
-          return;
         }
-
-        animationFrame = window.requestAnimationFrame(probeRuntimeReady);
       };
 
-      animationFrame = window.requestAnimationFrame(probeRuntimeReady);
+      const observer = new MutationObserver(probeRuntimeReady);
+      if (runtimeRootRef.current) {
+        observer.observe(runtimeRootRef.current, {
+          attributeFilter: ["data-viz-surface", "data-viz-mark"],
+          attributes: true,
+          childList: true,
+          subtree: true
+        });
+      }
+      const interval = window.setInterval(probeRuntimeReady, 500);
+      probeRuntimeReady();
 
       return () => {
-        cancelled = true;
-        window.cancelAnimationFrame(animationFrame);
+        done = true;
+        observer.disconnect();
+        window.clearInterval(interval);
       };
     }, [onRuntimeReady, readyLabId]);
 
@@ -1688,80 +1701,42 @@ const hongKongPublishers = new Set<TextbookPublisher>(["HK_MODERN_EDUCATIONAL_RE
 const unitedStatesPublishers = new Set<TextbookPublisher>(["US_CA_MATH", "US_NC_MATH", "US_AR_MATH", "US_FL_MATH"]);
 const unitedStatesCurriculumTracks = new Set<CurriculumTrack>(["US_CA_MATH", "US_NC_MATH", "US_AR_MATH", "US_FL_MATH"]);
 
-const labTileThemes = [
-  {
-    accent: "from-emerald-500 to-teal-400",
-    bar: "bg-emerald-500",
-    glass: "from-emerald-200/95 via-teal-100/80 to-white/50 dark:from-emerald-300/30 dark:via-teal-200/20 dark:to-white/10",
-    glyph: "text-emerald-950 dark:text-emerald-50",
-    ribbon: "from-emerald-500 to-teal-400",
-    hover: "hover:border-emerald-300 hover:shadow-emerald-500/15",
-    active: "ring-emerald-500/25"
+// CCSS-Math-Textbook grade-band accents: one color drives the card's top border,
+// the grade pill, and the active ring. Light/dark pairs mirror the source tokens.
+const labTileBandStyles = {
+  early: {
+    topBorder: "border-t-[#ef6c3b] dark:border-t-[#ff8a5c]",
+    badge: "bg-[#ef6c3b] dark:bg-[#ff8a5c]",
+    ring: "ring-[#ef6c3b]/45 dark:ring-[#ff8a5c]/45"
   },
-  {
-    accent: "from-orange-500 to-rose-400",
-    bar: "bg-orange-500",
-    glass: "from-orange-200/95 via-rose-100/80 to-white/50 dark:from-orange-300/30 dark:via-rose-200/20 dark:to-white/10",
-    glyph: "text-orange-950 dark:text-orange-50",
-    ribbon: "from-orange-500 to-rose-400",
-    hover: "hover:border-orange-300 hover:shadow-orange-500/15",
-    active: "ring-orange-500/25"
+  upper: {
+    topBorder: "border-t-[#17a06a] dark:border-t-[#35c58c]",
+    badge: "bg-[#17a06a] dark:bg-[#35c58c]",
+    ring: "ring-[#17a06a]/45 dark:ring-[#35c58c]/45"
   },
-  {
-    accent: "from-sky-500 to-cyan-400",
-    bar: "bg-sky-500",
-    glass: "from-sky-200/95 via-cyan-100/80 to-white/50 dark:from-sky-300/30 dark:via-cyan-200/20 dark:to-white/10",
-    glyph: "text-sky-950 dark:text-sky-50",
-    ribbon: "from-sky-500 to-cyan-400",
-    hover: "hover:border-sky-300 hover:shadow-sky-500/15",
-    active: "ring-sky-500/25"
+  middle: {
+    topBorder: "border-t-[#3b6fe0] dark:border-t-[#6f95ff]",
+    badge: "bg-[#3b6fe0] dark:bg-[#6f95ff]",
+    ring: "ring-[#3b6fe0]/45 dark:ring-[#6f95ff]/45"
   },
-  {
-    accent: "from-violet-500 to-fuchsia-400",
-    bar: "bg-violet-500",
-    glass: "from-violet-200/95 via-fuchsia-100/80 to-white/50 dark:from-violet-300/30 dark:via-fuchsia-200/20 dark:to-white/10",
-    glyph: "text-violet-950 dark:text-violet-50",
-    ribbon: "from-violet-500 to-fuchsia-400",
-    hover: "hover:border-violet-300 hover:shadow-violet-500/15",
-    active: "ring-violet-500/25"
-  },
-  {
-    accent: "from-amber-500 to-yellow-400",
-    bar: "bg-amber-500",
-    glass: "from-amber-200/95 via-yellow-100/80 to-white/50 dark:from-amber-300/30 dark:via-yellow-200/20 dark:to-white/10",
-    glyph: "text-amber-950 dark:text-amber-50",
-    ribbon: "from-amber-500 to-yellow-400",
-    hover: "hover:border-amber-300 hover:shadow-amber-500/15",
-    active: "ring-amber-500/25"
-  },
-  {
-    accent: "from-teal-500 to-cyan-400",
-    bar: "bg-teal-500",
-    glass: "from-teal-200/95 via-cyan-100/80 to-white/50 dark:from-teal-300/30 dark:via-cyan-200/20 dark:to-white/10",
-    glyph: "text-teal-950 dark:text-teal-50",
-    ribbon: "from-teal-500 to-cyan-400",
-    hover: "hover:border-teal-300 hover:shadow-teal-500/15",
-    active: "ring-teal-500/25"
-  },
-  {
-    accent: "from-rose-500 to-red-400",
-    bar: "bg-rose-500",
-    glass: "from-rose-200/95 via-red-100/80 to-white/50 dark:from-rose-300/30 dark:via-red-200/20 dark:to-white/10",
-    glyph: "text-rose-950 dark:text-rose-50",
-    ribbon: "from-rose-500 to-red-400",
-    hover: "hover:border-rose-300 hover:shadow-rose-500/15",
-    active: "ring-rose-500/25"
-  },
-  {
-    accent: "from-blue-500 to-indigo-400",
-    bar: "bg-blue-500",
-    glass: "from-blue-200/95 via-indigo-100/80 to-white/50 dark:from-blue-300/30 dark:via-indigo-200/20 dark:to-white/10",
-    glyph: "text-blue-950 dark:text-blue-50",
-    ribbon: "from-blue-500 to-indigo-400",
-    hover: "hover:border-blue-300 hover:shadow-blue-500/15",
-    active: "ring-blue-500/25"
+  high: {
+    topBorder: "border-t-[#7c4de0] dark:border-t-[#a988ff]",
+    badge: "bg-[#7c4de0] dark:bg-[#a988ff]",
+    ring: "ring-[#7c4de0]/45 dark:ring-[#a988ff]/45"
   }
-] as const;
+} as const;
+
+function labTileBandForGrade(grade: GradeId) {
+  if (grade === "K" || grade === "P1" || grade === "P2") return labTileBandStyles.early;
+  if (grade === "P3" || grade === "P4" || grade === "P5" || grade === "P6") return labTileBandStyles.upper;
+  if (grade === "S1" || grade === "S2" || grade === "S3") return labTileBandStyles.middle;
+  return labTileBandStyles.high;
+}
+
+const labStandardChipClass =
+  "inline-flex items-center rounded-full border border-[#e3e5ee] bg-[#f1f2f8] px-[0.6rem] py-[0.15rem] font-mono text-[0.72rem] font-semibold tracking-[0.02em] text-[#4a4f5c] dark:border-[#2a2f42] dark:bg-[#1e2231] dark:text-[#b9bdcc]";
+const labCategoryChipClass =
+  "inline-flex items-center rounded-full border border-[#e3e5ee] bg-[#f1f2f8] px-[0.6rem] py-[0.15rem] text-[0.72rem] font-semibold tracking-[0.02em] text-[#4a4f5c] dark:border-[#2a2f42] dark:bg-[#1e2231] dark:text-[#b9bdcc]";
 
 const snapshotControlSampleLimit = 24;
 
@@ -1985,18 +1960,17 @@ async function writeTextToClipboard(text: string) {
   }
 }
 
-function labTitleSizeClass(title: string) {
-  const length = Array.from(title).length;
-  const hasChinese = /[\u3400-\u9fff]/.test(title);
-
-  if (hasChinese && length > 11) return "text-[1rem] leading-[1.18]";
-  if (!hasChinese && length > 32) return "text-[0.95rem] leading-[1.15]";
-  if (!hasChinese && length > 22) return "text-base leading-[1.18]";
-  return "text-lg leading-tight";
+function labTileStandardIds(lab: FeaturedLabDefinition) {
+  // "Modeling" is a domain-fallback pseudo-id, not a real CCSS code \u2014 never chip it.
+  return (lab.californiaAlignment?.standardIds ?? []).filter((id) => id !== "Modeling");
 }
 
-function labTileGlyphForLab(lab: FeaturedLabDefinition, index: number) {
-  return kindergartenCaliforniaLogoGlyphs[lab.labId] ?? templateLogoGlyphs[lab.templateId] ?? fallbackLogoGlyphs[index % fallbackLogoGlyphs.length];
+function labTileEmojiForLab(lab: FeaturedLabDefinition) {
+  for (const id of labTileStandardIds(lab)) {
+    const emoji = ccssStandardEmoji[id];
+    if (emoji) return emoji;
+  }
+  return visualizationTemplateEmoji[lab.templateId] ?? defaultLabEmoji;
 }
 
 function LabRuntimeLoading() {
@@ -2010,85 +1984,15 @@ function LabRuntimeLoading() {
   );
 }
 
-function LiquidGlassLabLogo({
-  className,
-  glyph,
-  theme
-}: {
-  className?: string;
-  glyph: string;
-  theme: (typeof labTileThemes)[number];
-}) {
-  return (
-    <span
-      aria-hidden="true"
-      data-viz-lab-logo-glyph={glyph}
-      className={cn(
-        "relative grid h-20 w-20 shrink-0 place-items-center overflow-hidden rounded-[1.45rem] border border-white/70 bg-white/45 shadow-[0_18px_35px_-18px_rgba(15,23,42,0.65)] ring-1 ring-white/75 transition duration-200 group-hover:scale-[1.03] dark:border-white/15 dark:bg-white/10 dark:ring-white/10",
-        className
-      )}
-    >
-      <span className={cn("absolute inset-0 bg-gradient-to-br", theme.glass)} />
-      <span className="absolute inset-[7px] rounded-[1.08rem] border border-white/60 bg-white/25 shadow-[inset_0_1px_0_rgba(255,255,255,0.75),inset_0_-18px_30px_rgba(255,255,255,0.18)] dark:border-white/20 dark:bg-white/10" />
-      <span className="absolute left-3 right-5 top-2.5 h-4 rounded-full bg-white/70 blur-sm dark:bg-white/30" />
-      {labLogoArtByGlyph[glyph] ? (
-        <span className="relative z-10 grid place-items-center drop-shadow-[0_8px_10px_rgba(15,23,42,0.18)] transition duration-200 group-hover:-rotate-3">
-          {labLogoArtByGlyph[glyph]}
-        </span>
-      ) : (
-        <span className={cn("relative z-10 font-black leading-none tracking-normal drop-shadow-[0_1px_1px_rgba(255,255,255,0.65)]", glyph.length > 4 ? "text-[0.95rem]" : glyph.length > 2 ? "text-[1.15rem]" : "text-[1.55rem]", theme.glyph)}>
-        {glyph}
-      </span>
-      )}
-    </span>
-  );
-}
-
-function LabQuestMap({
-  href,
-  language,
-  onNodeClick,
-  recommendedLabId
-}: {
-  href: string;
-  language: string;
-  onNodeClick: () => void;
-  recommendedLabId: string;
-}) {
-  const isEnglish = language === "en";
-  const mapImage = isEnglish ? labQuestIslandMapEn : labQuestIslandMap;
-
-  return (
-    <a
-      href={href}
-      onClick={(event) => {
-        if (event.metaKey || event.ctrlKey || event.shiftKey || event.altKey || event.button !== 0) return;
-        event.preventDefault();
-        onNodeClick();
-      }}
-      data-viz-lab-quest-map-link
-      data-viz-recommended-lab-id={recommendedLabId}
-      className="focus-ring group/map absolute inset-0 block overflow-hidden"
-      aria-label={isEnglish ? "Open recommended lab" : "打开推荐实验"}
-    >
-      <img
-        src={mapImage.src}
-        alt={isEnglish ? "Math lab quest island map" : "数学实验岛地图"}
-        className="h-full w-full object-cover object-[70%_38%] transition duration-500 group-hover/map:scale-[1.03]"
-        decoding="async"
-        fetchPriority="high"
-      />
-    </a>
-  );
-}
-
 function GradeChip({
   active,
   grade,
   hasLabs,
   href,
   label,
-  onClick
+  onClick,
+  pinned = false,
+  pinnedLabel
 }: {
   active: boolean;
   grade: GradeId;
@@ -2096,6 +2000,8 @@ function GradeChip({
   href: string;
   label: string;
   onClick: () => void;
+  pinned?: boolean;
+  pinnedLabel?: string;
 }) {
   return (
     <a
@@ -2115,28 +2021,53 @@ function GradeChip({
       data-viz-grade-chip-active={String(active)}
       data-viz-grade-chip-grade={grade}
       data-viz-grade-chip-has-labs={String(hasLabs)}
+      data-viz-grade-chip-pinned={String(pinned)}
       className={cn(
-        "focus-ring inline-flex h-12 min-w-[3.4rem] items-center justify-center rounded-xl border-2 px-4 text-center text-base font-black leading-none transition",
+        "focus-ring inline-flex h-12 min-w-[3.4rem] shrink-0 snap-start items-center justify-center rounded-xl border-2 px-4 text-center text-base font-black leading-none transition",
         active
           ? "border-blue-600 bg-blue-600 text-white shadow-lg shadow-blue-600/30"
-          : "border-slate-200 bg-white text-slate-700 shadow-sm dark:border-white/15 dark:bg-white/5 dark:text-slate-200",
+          : pinned
+            ? "border-emerald-300 bg-emerald-50 text-emerald-800 shadow-sm dark:border-emerald-400/40 dark:bg-emerald-950/30 dark:text-emerald-200"
+            : "border-slate-200 bg-white text-slate-700 shadow-sm dark:border-white/15 dark:bg-white/5 dark:text-slate-200",
         hasLabs
           ? active
             ? "hover:-translate-y-0.5"
-            : "hover:-translate-y-0.5 hover:border-blue-300 hover:bg-blue-50 hover:text-blue-700 dark:hover:bg-blue-950/40 dark:hover:text-blue-200"
+            : pinned
+              ? "hover:-translate-y-0.5 hover:bg-emerald-100 dark:hover:bg-emerald-950/50"
+              : "hover:-translate-y-0.5 hover:border-blue-300 hover:bg-blue-50 hover:text-blue-700 dark:hover:bg-blue-950/40 dark:hover:text-blue-200"
           : "cursor-not-allowed opacity-35"
       )}
     >
+      {pinned ? (
+        <span aria-hidden="true" className={cn("mr-1.5 text-sm", active ? "text-amber-300" : "text-amber-500")}>
+          ★
+        </span>
+      ) : null}
       {label}
+      {pinned && pinnedLabel ? (
+        <span
+          className={cn(
+            "ml-2 rounded-full px-2 py-0.5 text-[0.65rem] font-black leading-none",
+            active
+              ? "bg-white/20 text-white"
+              : "bg-emerald-600/10 text-emerald-700 dark:bg-emerald-400/15 dark:text-emerald-200"
+          )}
+        >
+          {pinnedLabel}
+        </span>
+      ) : null}
     </a>
   );
 }
 
 function LabTile({
   active,
+  categoryChipLabel,
+  description,
+  emoji,
   exploredLabel,
+  gradeBadgeLabel,
   href,
-  index,
   isExplored,
   lab,
   onOpen,
@@ -2146,9 +2077,12 @@ function LabTile({
   title
 }: {
   active: boolean;
+  categoryChipLabel: string;
+  description: string;
+  emoji: string;
   exploredLabel: string;
+  gradeBadgeLabel: string;
   href: string;
-  index: number;
   isExplored: boolean;
   lab: FeaturedLabDefinition;
   onOpen: () => void;
@@ -2157,7 +2091,10 @@ function LabTile({
   recommendedLabel?: string;
   title: string;
 }) {
-  const theme = labTileThemes[index % labTileThemes.length];
+  const band = labTileBandForGrade(lab.grade);
+  const standardIds = labTileStandardIds(lab);
+  const visibleStandardIds = standardIds.slice(0, 3);
+  const extraStandardCount = standardIds.length - visibleStandardIds.length;
 
   return (
     <a
@@ -2173,42 +2110,52 @@ function LabTile({
       data-viz-lab-tile
       {...(recommended ? { "data-viz-recommended-lab-link": true, "data-viz-recommended-lab-id": lab.labId } : {})}
       className={cn(
-        "focus-ring group relative flex min-h-[13.5rem] flex-col overflow-hidden rounded-2xl border-2 border-slate-200 bg-white p-4 pt-6 text-center shadow-sm shadow-slate-900/5 transition duration-200 hover:-translate-y-1 hover:shadow-xl dark:border-white/10 dark:bg-slate-950/80 dark:shadow-black/20",
-        theme.hover,
-        active ? cn("ring-4", theme.active) : "",
-        recommended ? "border-amber-300 dark:border-amber-400/50" : ""
+        "focus-ring group relative flex flex-col rounded-2xl border border-[#e3e5ee] border-t-4 bg-white p-5 text-left shadow-[0_1px_2px_rgba(16,18,31,0.06),0_8px_24px_rgba(16,18,31,0.06)] transition-shadow hover:shadow-lg dark:border-[#2a2f42] dark:bg-[#161925] dark:shadow-[0_1px_2px_rgba(0,0,0,0.3),0_8px_24px_rgba(0,0,0,0.35)]",
+        band.topBorder,
+        active ? cn("ring-2 ring-offset-2 ring-offset-white dark:ring-offset-slate-950", band.ring) : ""
       )}
     >
-      <span aria-hidden="true" className={cn("absolute inset-x-0 top-0 h-1.5 bg-gradient-to-r", theme.accent)} />
       {recommended && recommendedLabel ? (
-        <span className="absolute right-2.5 top-3 inline-flex items-center gap-1 rounded-full bg-amber-400 px-2.5 py-1 text-[0.68rem] font-black leading-none text-amber-950 shadow-md shadow-amber-500/30">
+        <span className="absolute -top-2.5 right-4 z-10 inline-flex items-center gap-1 rounded-full bg-amber-400 px-2.5 py-1 text-[0.68rem] font-black leading-none text-amber-950 shadow-md shadow-amber-500/30">
           <span aria-hidden="true">★</span>
           {recommendedLabel}
         </span>
       ) : null}
-      <LiquidGlassLabLogo glyph={labTileGlyphForLab(lab, index)} theme={theme} className="mx-auto" />
-      <span className="mt-4 grid min-h-[5.2rem] min-w-0 flex-1 items-center">
-        <span
-          lang={/^[\x00-\x7F\s'-]+$/.test(title) ? "en" : undefined}
-          title={title}
-          className={cn(
-            "line-clamp-4 block min-w-0 overflow-hidden break-words font-black text-slate-950 [hyphens:auto] [overflow-wrap:anywhere] dark:text-white",
-            labTitleSizeClass(title)
-          )}
-        >
-          {title}
+      <span className="flex items-center justify-between gap-2">
+        <span aria-hidden="true" data-viz-lab-emoji={emoji} className="text-3xl leading-none">
+          {emoji}
+        </span>
+        <span className={cn("rounded-full px-2.5 py-0.5 text-xs font-bold leading-tight text-white", band.badge)}>
+          {gradeBadgeLabel}
         </span>
       </span>
       <span
-        className={cn(
-          "mx-auto mt-3 inline-flex shrink-0 items-center gap-1.5 rounded-full px-3.5 py-1.5 text-xs font-black leading-none",
-          isExplored
-            ? "bg-emerald-100 text-emerald-800 dark:bg-emerald-500/20 dark:text-emerald-200"
-            : "bg-slate-100 text-slate-600 dark:bg-white/10 dark:text-slate-300"
-        )}
+        lang={/^[\x00-\x7F\s'-]+$/.test(title) ? "en" : undefined}
+        title={title}
+        className="mt-3 line-clamp-2 min-w-0 break-words font-bold leading-snug text-slate-950 [overflow-wrap:anywhere] group-hover:text-[#2f5fe0] dark:text-white dark:group-hover:text-[#6f95ff]"
       >
-        <span aria-hidden="true">{isExplored ? "✓" : "▶"}</span>
-        {isExplored ? exploredLabel : readyLabel}
+        {title}
+      </span>
+      <span className="mt-1.5 line-clamp-3 flex-1 text-sm text-[#4a4f5c] dark:text-[#b9bdcc]">{description}</span>
+      <span className="mt-3 flex flex-wrap items-center gap-1.5">
+        {visibleStandardIds.map((standardId) => (
+          <span key={standardId} data-viz-lab-standard-chip className={labStandardChipClass}>
+            {standardId}
+          </span>
+        ))}
+        {extraStandardCount > 0 ? <span className={labStandardChipClass}>+{extraStandardCount}</span> : null}
+        {visibleStandardIds.length === 0 ? <span className={labCategoryChipClass}>{categoryChipLabel}</span> : null}
+        <span
+          className={cn(
+            "ml-auto inline-flex shrink-0 items-center gap-1 rounded-full px-2.5 py-1 text-[0.7rem] font-black leading-none",
+            isExplored
+              ? "bg-emerald-100 text-emerald-800 dark:bg-emerald-500/20 dark:text-emerald-200"
+              : "bg-slate-100 text-slate-600 dark:bg-white/10 dark:text-slate-300"
+          )}
+        >
+          <span aria-hidden="true">{isExplored ? "✓" : "▶"}</span>
+          {isExplored ? exploredLabel : readyLabel}
+        </span>
       </span>
       <span className="sr-only">{lab.labId}</span>
     </a>
@@ -2274,6 +2221,7 @@ function VisualizationLabPageContent({
 }: VisualizationLabPageProps & { catalog: VisualizationCatalogState }) {
   const { currentUser, language, recordLearningEvent, selectedGrade, t, text } = useSettings();
   const panelRef = useRef<HTMLDivElement>(null);
+  const labGridRef = useRef<HTMLDivElement>(null);
   const { getVisualizationLabByLabId, gradeLabGroups, visualizationTrackLabels } = catalog;
   const currentUserGrade = selectedGrade;
   const baseActiveGroup = gradeLabGroups.find((group) => group.grade === currentUserGrade) ?? gradeLabGroups[0];
@@ -2316,7 +2264,21 @@ function VisualizationLabPageContent({
   const activeDirectoryLab = useMemo(() => {
     return activeDirectoryGroup?.labs.find((lab) => lab.labId === activeLabId) ?? activeDirectoryGroup?.labs[0] ?? null;
   }, [activeDirectoryGroup, activeLabId]);
-  const recommendedLab = visibleLabs[1] ?? activeDirectoryLab ?? visibleLabs[0] ?? null;
+  // Next-up recommendation: signed-in students get the first lab in the active
+  // grade they have not explored yet, so "Start Quest" always resumes their
+  // mission. Guests carry no session history, and a fully explored grade has
+  // nothing left to resume — both fall back to the static pick.
+  const firstUnexploredLab = useMemo(() => {
+    if (!currentUser) return null;
+    return visibleLabs.find((lab) => !exploredSessionIds.has(buildVisualizationSessionModuleId(lab))) ?? null;
+  }, [currentUser, exploredSessionIds, visibleLabs]);
+  const recommendedLab = firstUnexploredLab ?? visibleLabs[1] ?? activeDirectoryLab ?? visibleLabs[0] ?? null;
+  const recommendedLabIsProgressBased = Boolean(firstUnexploredLab);
+  const missionTotalCount = visibleLabs.length;
+  const missionExploredCount = useMemo(() => {
+    return visibleLabs.filter((lab) => exploredSessionIds.has(buildVisualizationSessionModuleId(lab))).length;
+  }, [exploredSessionIds, visibleLabs]);
+  const missionProgressPercent = missionTotalCount > 0 ? Math.round((missionExploredCount / missionTotalCount) * 100) : 0;
   const currentCurriculumLabel = currentUser ? text(publisherLabels[currentUser.curriculumProfile.publisher]) : null;
   const useUnitedStatesGradeLabels = currentUser
     ? currentUser.curriculumProfile.region === "US" ||
@@ -2326,6 +2288,12 @@ function VisualizationLabPageContent({
   const activeGradeLabel = activeDirectoryGroup
     ? displayGradeLabel(activeDirectoryGroup.grade)
     : displayGradeLabel(activeGroup.grade);
+  // Grade-first navigation: a signed-in student's account grade is pinned at
+  // the head of the rail; guests have no account grade and keep the flat rail.
+  const ownGrade = currentUser ? currentUserGrade : null;
+  const ownGradeGroup = ownGrade ? directoryGroups.find((group) => group.grade === ownGrade) ?? null : null;
+  const showBackToMyGrade = Boolean(ownGrade && ownGradeGroup && activeDirectoryGroup?.grade !== ownGrade);
+  const browsingOtherGrade = Boolean(ownGrade && (activeDirectoryGroup?.grade ?? activeGroup.grade) !== ownGrade);
   const ActiveDirectoryLabComponent = componentForDirectoryLab(activeDirectoryLab);
   // When the active lab is a signature bench whose topic fans out to related
   // benches, render the switcher so every related bench is reachable, not just
@@ -2578,6 +2546,14 @@ function VisualizationLabPageContent({
       mode: "control",
       track: effectiveTrackFilter
     });
+    // block: "nearest" keeps the viewport still when the grid is already
+    // visible, so the nudge only fires when the labs sit below the fold.
+    window.setTimeout(() => {
+      labGridRef.current?.scrollIntoView({
+        behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth",
+        block: "nearest"
+      });
+    }, 40);
   }
 
   function selectDirectoryLab(lab: FeaturedLabDefinition) {
@@ -2840,14 +2816,21 @@ function VisualizationLabPageContent({
     return text(visualizationTrackLabels[option]);
   }
 
-  const introText = t({
-    en: "Choose a grade, open one lab, and finish an observation mission.",
-    zh: "選擇年級，打開一個實驗，完成觀察任務。",
-    zhHans: "选择年级，打开一个实验，完成观察任务。"
-  });
-  const pickGradeTitle = t({ en: "Pick your grade", zh: "選擇你的年級", zhHans: "选择你的年级" });
-  const pickLabTitle = t({ en: "Pick a lab", zh: "選擇一個實驗", zhHans: "选择一个实验" });
+  const chooseLabTitle = t({ en: "Choose your lab", zh: "選擇你的實驗", zhHans: "选择你的实验" });
+  const yourGradeLabel = t({ en: "Your grade", zh: "你的年級", zhHans: "你的年级" });
+  const backToMyGradeLabel = t({ en: "Back to my grade", zh: "回到我的年級", zhHans: "回到我的年级" });
   const nextUpLabel = t({ en: "Next up", zh: "下一站", zhHans: "下一站" });
+  const nextUpProgressHint = t({
+    en: "First lab you haven't explored yet.",
+    zh: "你還沒探索過的第一個實驗。",
+    zhHans: "你还没探索过的第一个实验。"
+  });
+  const continueLabel = t({ en: "Continue", zh: "繼續", zhHans: "继续" });
+  const missionProgressLabel = t({
+    en: `${activeGradeLabel} mission · ${missionExploredCount} of ${missionTotalCount} labs explored`,
+    zh: `${activeGradeLabel}任務 · 已探索 ${missionExploredCount} / ${missionTotalCount} 個實驗`,
+    zhHans: `${activeGradeLabel}任务 · 已探索 ${missionExploredCount} / ${missionTotalCount} 个实验`
+  });
   const tryThisLabel = t({ en: "Try this!", zh: "試試這個！", zhHans: "试试这个！" });
   const backToLabsLabel = t({ en: "Back to Labs", zh: "返回實驗列表", zhHans: "返回实验列表" });
   const exploredLabel = t({ en: "Explored", zh: "已探索", zhHans: "已探索" });
@@ -2882,23 +2865,12 @@ function VisualizationLabPageContent({
               aria-labelledby="visualization-lab-title"
               className="overflow-hidden rounded-[1.75rem] bg-white shadow-2xl shadow-cyan-900/15 ring-1 ring-cyan-100 dark:bg-slate-950 dark:ring-white/10"
             >
-              <div className="relative isolate">
-                <LabQuestMap
-                  href={recommendedLabHref}
-                  language={language}
-                  onNodeClick={() => {
-                    if (recommendedLab) selectDirectoryLab(recommendedLab);
-                  }}
-                  recommendedLabId={recommendedLab?.labId ?? ""}
-                />
-                <div className="pointer-events-none relative z-10 flex min-h-[16rem] items-center p-4 sm:min-h-[20rem] sm:p-8">
-                  <div className="pointer-events-auto max-w-xl rounded-3xl bg-white/85 p-5 shadow-2xl shadow-cyan-900/20 ring-1 ring-white/70 backdrop-blur-md dark:bg-slate-950/75 dark:ring-white/15 sm:p-7">
+              <div className="border-b border-slate-100 p-4 dark:border-white/10 sm:p-8">
+                <div className="flex flex-col gap-6 lg:flex-row lg:items-stretch lg:justify-between lg:gap-10">
+                  <div className="min-w-0 max-w-2xl flex-1">
                     <h1 id="visualization-lab-title" className="text-3xl font-black leading-[1.02] tracking-tight text-[#15245a] dark:text-white sm:text-5xl">
                       {t({ en: "Visualization Lab", zh: "可視化實驗室", zhHans: "可视化实验室" })}
                     </h1>
-                    <p className="mt-3 max-w-md text-base font-bold leading-7 text-slate-700 dark:text-slate-200 sm:text-lg sm:leading-8">
-                      {introText}
-                    </p>
                     <div className="mt-5 flex flex-wrap items-center gap-x-4 gap-y-3">
                       <a
                         href={recommendedLabHref}
@@ -2915,14 +2887,77 @@ function VisualizationLabPageContent({
                         {t({ en: "Start Quest", zh: "開始探索", zhHans: "开始探索" })}
                         <span aria-hidden="true">▶</span>
                       </a>
-                      {recommendedLab ? (
-                        <span className="min-w-0 text-sm font-bold leading-6 text-slate-600 dark:text-slate-300">
-                          {nextUpLabel}:{" "}
-                          <span className="text-[#15245a] dark:text-white">{displayCatalogText(compactTitle(text(recommendedLab.title)))}</span>
-                        </span>
-                      ) : null}
                     </div>
+                    {currentUser && missionTotalCount > 0 ? (
+                      <div
+                        className="mt-6 max-w-md"
+                        data-viz-mission-progress
+                        data-viz-mission-progress-explored={missionExploredCount}
+                        data-viz-mission-progress-total={missionTotalCount}
+                      >
+                        <p className="text-xs font-black uppercase tracking-wider text-slate-500 dark:text-slate-400">
+                          {missionProgressLabel}
+                        </p>
+                        <div
+                          role="progressbar"
+                          aria-label={missionProgressLabel}
+                          aria-valuemin={0}
+                          aria-valuemax={missionTotalCount}
+                          aria-valuenow={missionExploredCount}
+                          className="mt-2 h-2 w-full overflow-hidden rounded-full bg-slate-100 dark:bg-white/10"
+                        >
+                          <div
+                            className="h-full rounded-full bg-emerald-500 transition-[width] duration-500"
+                            style={{ width: `${missionProgressPercent}%` }}
+                          />
+                        </div>
+                      </div>
+                    ) : null}
                   </div>
+                  {recommendedLab ? (
+                    <a
+                      href={recommendedLabHref}
+                      onClick={(event) => {
+                        if (event.metaKey || event.ctrlKey || event.shiftKey || event.altKey || event.button !== 0) return;
+                        event.preventDefault();
+                        selectDirectoryLab(recommendedLab);
+                      }}
+                      data-viz-next-up-card
+                      data-viz-next-up-progress-based={String(recommendedLabIsProgressBased)}
+                      data-viz-recommended-lab-id={recommendedLab.labId}
+                      className="focus-ring group relative flex w-full flex-col justify-between gap-4 rounded-2xl border-2 border-blue-200 bg-blue-50/70 p-5 pt-6 transition hover:-translate-y-0.5 hover:border-blue-400 dark:border-blue-400/30 dark:bg-blue-950/40 dark:hover:border-blue-300/60 lg:w-[24rem] lg:shrink-0"
+                    >
+                      <span className="absolute -top-3 left-5 inline-flex items-center rounded-full bg-blue-600 px-3 py-1 text-xs font-black leading-none text-white shadow-md shadow-blue-600/30">
+                        {nextUpLabel}
+                      </span>
+                      <span className="flex items-start gap-3">
+                        <span aria-hidden="true" className="text-3xl leading-none">
+                          {labTileEmojiForLab(recommendedLab)}
+                        </span>
+                        <span className="min-w-0">
+                          <span className="block break-words font-bold leading-snug text-[#15245a] [overflow-wrap:anywhere] group-hover:text-blue-700 dark:text-white dark:group-hover:text-blue-200">
+                            {displayCatalogText(compactTitle(text(recommendedLab.title)))}
+                          </span>
+                          <span className="mt-1 block text-sm font-bold leading-6 text-slate-600 dark:text-slate-300">
+                            {recommendedLabIsProgressBased ? nextUpProgressHint : (
+                              <span className="line-clamp-2">{displayCatalogText(text(recommendedLab.description))}</span>
+                            )}
+                          </span>
+                        </span>
+                      </span>
+                      <span className="flex flex-wrap items-center gap-1.5">
+                        {labTileStandardIds(recommendedLab).slice(0, 3).map((standardId) => (
+                          <span key={standardId} className={labStandardChipClass}>
+                            {standardId}
+                          </span>
+                        ))}
+                        <span className="ml-auto inline-flex shrink-0 items-center gap-1.5 text-sm font-black text-blue-700 transition group-hover:translate-x-0.5 dark:text-blue-300">
+                          {continueLabel}
+                          <span aria-hidden="true">▶</span>
+                        </span>
+                      </span>
+                    </a>
+                  ) : null}
                 </div>
               </div>
 
@@ -2945,21 +2980,33 @@ function VisualizationLabPageContent({
                 ) : null}
 
                 <div className="flex flex-wrap items-center justify-between gap-x-4 gap-y-3">
-                  <h2 className="flex items-center gap-3 text-2xl font-black tracking-tight text-[#15245a] dark:text-white">
-                    <span aria-hidden="true" className="grid h-9 w-9 shrink-0 place-items-center rounded-xl bg-gradient-to-br from-blue-600 to-cyan-500 text-lg text-white shadow-lg shadow-blue-600/25">
-                      1
-                    </span>
-                    {pickGradeTitle}
+                  <h2 className="text-2xl font-black tracking-tight text-[#15245a] dark:text-white">
+                    {chooseLabTitle}
                   </h2>
                   <div className="flex flex-wrap items-center gap-2">
-                    <span className="rounded-full border border-slate-200 bg-white px-3.5 py-1.5 text-xs font-black text-slate-600 shadow-sm dark:border-white/15 dark:bg-white/5 dark:text-slate-300">
-                      {t({ en: "Current grade", zh: "當前年級", zhHans: "当前年级" })} <span className="ml-1 text-emerald-600 dark:text-emerald-400">{activeGradeLabel}</span>
+                    <span
+                      data-viz-grade-context-badge
+                      data-viz-grade-context-mode={browsingOtherGrade ? "browsing" : "current"}
+                      className={cn(
+                        "rounded-full border px-3.5 py-1.5 text-xs font-black shadow-sm",
+                        browsingOtherGrade
+                          ? "border-amber-200 bg-amber-50 text-amber-800 dark:border-amber-400/30 dark:bg-amber-500/15 dark:text-amber-200"
+                          : "border-slate-200 bg-white text-slate-600 dark:border-white/15 dark:bg-white/5 dark:text-slate-300"
+                      )}
+                    >
+                      {browsingOtherGrade
+                        ? t({ en: "Browsing", zh: "正在瀏覽", zhHans: "正在浏览" })
+                        : t({ en: "Current grade", zh: "當前年級", zhHans: "当前年级" })}{" "}
+                      <span className={cn("ml-1", browsingOtherGrade ? "text-amber-900 dark:text-amber-100" : "text-emerald-600 dark:text-emerald-400")}>{activeGradeLabel}</span>
                     </span>
                     {currentCurriculumLabel ? (
                       <span className="rounded-full border border-emerald-200 bg-emerald-50 px-3.5 py-1.5 text-xs font-black text-emerald-700 dark:border-emerald-400/30 dark:bg-emerald-500/15 dark:text-emerald-200">
                         {currentCurriculumLabel}
                       </span>
                     ) : null}
+                    <span className="rounded-full border border-blue-200 bg-blue-50 px-3.5 py-1.5 text-xs font-black text-blue-700 dark:border-blue-400/30 dark:bg-blue-500/15 dark:text-blue-200">
+                      {visibleLabs.length} {t(dictionary.common.labs)}
+                    </span>
                   </div>
                 </div>
 
@@ -2998,8 +3045,31 @@ function VisualizationLabPageContent({
                   </div>
                 ) : null}
 
-                <div className="mt-5 flex flex-wrap gap-2.5" aria-label={t({ en: "Select grade", zh: "選擇年級", zhHans: "选择年级" })}>
-                  {gradeIds.map((grade) => {
+                <div
+                  className="-mx-4 mt-5 flex snap-x snap-mandatory gap-2.5 overflow-x-auto px-4 pb-1 [-webkit-mask-image:linear-gradient(to_right,black_calc(100%-2.5rem),transparent)] [mask-image:linear-gradient(to_right,black_calc(100%-2.5rem),transparent)] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden sm:mx-0 sm:flex-wrap sm:overflow-visible sm:px-0 sm:pb-0 sm:[-webkit-mask-image:none] sm:[mask-image:none]"
+                  aria-label={t({ en: "Select grade", zh: "選擇年級", zhHans: "选择年级" })}
+                >
+                  {ownGrade ? (
+                    <>
+                      <GradeChip
+                        active={activeDirectoryGroup?.grade === ownGrade}
+                        grade={ownGrade}
+                        hasLabs={Boolean(ownGradeGroup)}
+                        href={buildControlPanelHref({
+                          grade: ownGrade,
+                          track: effectiveTrackFilter
+                        })}
+                        label={displayGradeChipLabel(ownGrade)}
+                        pinned
+                        pinnedLabel={yourGradeLabel}
+                        onClick={() => {
+                          if (ownGradeGroup) selectDirectoryGrade(ownGradeGroup);
+                        }}
+                      />
+                      <span aria-hidden="true" className="h-8 w-px shrink-0 self-center bg-slate-200 dark:bg-white/10" />
+                    </>
+                  ) : null}
+                  {gradeIds.filter((grade) => grade !== ownGrade).map((grade) => {
                     const group = directoryGroups.find((item) => item.grade === grade);
                     return (
                       <GradeChip
@@ -3018,44 +3088,74 @@ function VisualizationLabPageContent({
                       />
                     );
                   })}
+                  {showBackToMyGrade && ownGrade && ownGradeGroup ? (
+                    <a
+                      href={buildControlPanelHref({
+                        grade: ownGrade,
+                        track: effectiveTrackFilter
+                      })}
+                      onClick={(event) => {
+                        if (event.metaKey || event.ctrlKey || event.shiftKey || event.altKey || event.button !== 0) return;
+                        event.preventDefault();
+                        selectDirectoryGrade(ownGradeGroup);
+                      }}
+                      data-viz-back-to-my-grade
+                      data-viz-back-to-my-grade-target={ownGrade}
+                      className="focus-ring inline-flex h-12 shrink-0 snap-start items-center gap-1.5 rounded-xl border-2 border-dashed border-emerald-300 bg-emerald-50 px-4 text-sm font-black leading-none text-emerald-700 transition hover:-translate-y-0.5 hover:bg-emerald-100 dark:border-emerald-400/40 dark:bg-emerald-950/30 dark:text-emerald-200 dark:hover:bg-emerald-950/50 sm:ml-auto"
+                    >
+                      <span aria-hidden="true">↩</span>
+                      {backToMyGradeLabel}
+                    </a>
+                  ) : null}
                 </div>
 
-                <div aria-hidden="true" className="my-7 h-px w-full bg-slate-200/90 dark:bg-white/10" />
-
-                <div className="flex flex-wrap items-center justify-between gap-x-4 gap-y-3">
-                  <h2 className="flex items-center gap-3 text-2xl font-black tracking-tight text-[#15245a] dark:text-white">
-                    <span aria-hidden="true" className="grid h-9 w-9 shrink-0 place-items-center rounded-xl bg-gradient-to-br from-emerald-500 to-teal-400 text-lg text-white shadow-lg shadow-emerald-600/25">
-                      2
-                    </span>
-                    {pickLabTitle}
-                  </h2>
-                  <span className="text-sm font-black text-blue-700 dark:text-blue-300">{visibleLabs.length} {t(dictionary.common.labs)}</span>
+                <div ref={labGridRef} className="scroll-mt-24">
+                  {visibleLabs.length > 0 ? (
+                    <div className="mt-6 grid auto-rows-fr gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+                      {visibleLabs.map((lab) => (
+                        <LabTile
+                          key={lab.labId}
+                          active={activeDirectoryLab?.labId === lab.labId}
+                          categoryChipLabel={displayCatalogText(text(lab.category))}
+                          description={displayCatalogText(text(lab.description))}
+                          emoji={labTileEmojiForLab(lab)}
+                          gradeBadgeLabel={displayGradeChipLabel(lab.grade)}
+                          isExplored={exploredSessionIds.has(buildVisualizationSessionModuleId(lab))}
+                          lab={lab}
+                          href={buildVisualizationLabHref(lab, effectiveTrackFilter)}
+                          onOpen={() => selectDirectoryLab(lab)}
+                          recommended={recommendedLab?.labId === lab.labId}
+                          recommendedLabel={tryThisLabel}
+                          exploredLabel={exploredLabel}
+                          readyLabel={readyLabel}
+                          title={displayCatalogText(compactTitle(text(lab.title)))}
+                        />
+                      ))}
+                    </div>
+                  ) : (
+                    <div className="mt-6 rounded-xl border border-slate-200 bg-slate-50 p-6 dark:border-white/10 dark:bg-white/5">
+                      <p className="text-sm font-bold text-slate-600 dark:text-slate-300">{emptyStateText}</p>
+                      {ownGrade && ownGradeGroup && activeDirectoryGroup?.grade !== ownGrade ? (
+                        <a
+                          href={buildControlPanelHref({
+                            grade: ownGrade,
+                            track: effectiveTrackFilter
+                          })}
+                          onClick={(event) => {
+                            if (event.metaKey || event.ctrlKey || event.shiftKey || event.altKey || event.button !== 0) return;
+                            event.preventDefault();
+                            selectDirectoryGrade(ownGradeGroup);
+                          }}
+                          data-viz-switch-to-my-grade
+                          className="focus-ring mt-4 inline-flex items-center gap-1.5 rounded-xl bg-emerald-600 px-5 py-3 text-sm font-black text-white shadow-md shadow-emerald-600/25 transition hover:-translate-y-0.5 hover:bg-emerald-500"
+                        >
+                          <span aria-hidden="true">↩</span>
+                          {backToMyGradeLabel}
+                        </a>
+                      ) : null}
+                    </div>
+                  )}
                 </div>
-
-                {visibleLabs.length > 0 ? (
-                  <div className="mt-5 grid auto-rows-fr gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5">
-                    {visibleLabs.map((lab, index) => (
-                      <LabTile
-                        key={lab.labId}
-                        active={activeDirectoryLab?.labId === lab.labId}
-                        index={index}
-                        isExplored={exploredSessionIds.has(buildVisualizationSessionModuleId(lab))}
-                        lab={lab}
-                        href={buildVisualizationLabHref(lab, effectiveTrackFilter)}
-                        onOpen={() => selectDirectoryLab(lab)}
-                        recommended={recommendedLab?.labId === lab.labId}
-                        recommendedLabel={tryThisLabel}
-                        exploredLabel={exploredLabel}
-                        readyLabel={readyLabel}
-                        title={displayCatalogText(compactTitle(text(lab.title)))}
-                      />
-                    ))}
-                  </div>
-                ) : (
-                  <div className="mt-5 rounded-xl border border-slate-200 bg-slate-50 p-6 text-sm font-bold text-slate-600 dark:border-white/10 dark:bg-white/5 dark:text-slate-300">
-                    {emptyStateText}
-                  </div>
-                )}
               </div>
             </section>
           ) : activeDirectoryLab && ActiveDirectoryLabComponent && activeDirectorySessionModuleId ? (
@@ -3134,8 +3234,8 @@ function VisualizationLabPageContent({
               <div className="min-w-0">
                 <VisualizationCard
                   title={displayCatalogText(text(activeDirectoryLab.title))}
-                  description={displayCatalogText(text(activeDirectoryLab.description))}
                   analyticsSource={activeDirectoryLab.analyticsSource}
+                  autoExplore={activeLabRuntimeReadyId === activeDirectoryLab.labId}
                   explorationScopeKey={currentUser?.id ?? "guest"}
                   formula={
                     // Both lab modules render their own mathematics, so the

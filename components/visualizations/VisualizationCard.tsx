@@ -1,18 +1,23 @@
 "use client";
 
 import type { ReactNode } from "react";
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { MathText } from "@/components/math/MathText";
-import { dictionary, useSettings } from "@/components/providers/AppProviders";
+import { useSettings } from "@/components/providers/AppProviders";
 import type { LearningAnalyticsEventSource } from "@/types";
 
 type SaveState = "idle" | "saving" | "saved" | "error";
 
+// How long the ready lab must stay on screen before auto-exploration can
+// complete. Combined with the interaction requirement below, "Explored" means
+// "worked with the lab", not "opened the page".
+const engagedDwellMs = 4000;
+
 export function VisualizationCard({
   title,
-  description,
   children,
   analyticsSource,
+  autoExplore = false,
   explorationScopeKey,
   formula,
   initialExplored = false,
@@ -21,9 +26,12 @@ export function VisualizationCard({
   topicId
 }: {
   title: string;
-  description: string;
   children: ReactNode;
   analyticsSource: LearningAnalyticsEventSource;
+  // When true, the system records exploration automatically — there is no
+  // manual "Mark explored" button. The host flips this on once the student has
+  // actually reached the working lab (its interactive runtime is ready).
+  autoExplore?: boolean;
   explorationScopeKey?: string;
   formula?: string;
   initialExplored?: boolean;
@@ -31,7 +39,7 @@ export function VisualizationCard({
   onExplored?: (moduleId: string) => void;
   topicId: string;
 }) {
-  const { currentUser, recordLearningEvent, t } = useSettings();
+  const { currentUser, recordLearningEvent } = useSettings();
   const moduleId = explicitModuleId ?? `${analyticsSource}:${topicId}`;
   const stateScopeKey = useMemo(() => `${explorationScopeKey ?? "anonymous"}:${moduleId}`, [explorationScopeKey, moduleId]);
   const previousStateScopeKey = useRef(stateScopeKey);
@@ -57,24 +65,7 @@ export function VisualizationCard({
     }
   }, [currentUser, initialExplored, localExploredStorageKey, moduleId, onExplored]);
 
-  const buttonLabel =
-    saveState === "saving"
-      ? t({ en: "Saving...", zh: "儲存中...", zhHans: "保存中..." })
-      : saveState === "saved"
-        ? t({ en: "Saved", zh: "已儲存", zhHans: "已保存" })
-        : t(dictionary.visualization.markExplored);
-  const feedback =
-    saveState === "saved"
-      ? t({ en: "Exploration saved.", zh: "探索紀錄已儲存。", zhHans: "探索记录已保存。" })
-      : saveState === "error"
-        ? t({ en: "Could not save. Try again.", zh: "未能儲存，請再試一次。", zhHans: "未能保存，请再试一次。" })
-        : saveState === "saving"
-          ? t({ en: "Saving exploration...", zh: "正在儲存探索紀錄...", zhHans: "正在保存探索记录..." })
-          : "";
-
-  async function markExplored() {
-    if (saveState === "saving") return;
-    setSaveState("saving");
+  const recordExplored = useCallback(async () => {
     recordLearningEvent({
       type: "visualization-complete",
       source: analyticsSource,
@@ -103,7 +94,48 @@ export function VisualizationCard({
     } catch {
       setSaveState("error");
     }
-  }
+  }, [analyticsSource, currentUser, localExploredStorageKey, moduleId, onExplored, recordLearningEvent, topicId]);
+
+  // Keep the latest recorder in a ref so unrelated re-renders (e.g. a new inline
+  // onExplored closure from the parent) never retrigger the auto-explore effect.
+  const recordExploredRef = useRef(recordExplored);
+  useEffect(() => {
+    recordExploredRef.current = recordExplored;
+  }, [recordExplored]);
+
+  // Earned exploration: reaching the working lab is not enough on its own.
+  // The student must also (a) keep the ready lab on screen for a short dwell
+  // and (b) interact with the lab body at least once. Both may happen in any
+  // order; exploration records once the last condition is met. Replaces the
+  // old manual "Mark explored" button without rewarding a drive-by page load.
+  const [dwellSatisfied, setDwellSatisfied] = useState(false);
+  const [interacted, setInteracted] = useState(false);
+
+  useEffect(() => {
+    setDwellSatisfied(false);
+    setInteracted(false);
+  }, [moduleId]);
+
+  useEffect(() => {
+    if (!autoExplore || typeof window === "undefined") return;
+    const timer = window.setTimeout(() => setDwellSatisfied(true), engagedDwellMs);
+    return () => window.clearTimeout(timer);
+  }, [autoExplore, moduleId]);
+
+  const handleBodyEngagement = useCallback(() => {
+    setInteracted(true);
+  }, []);
+
+  const autoExploredModuleRef = useRef<string | null>(null);
+  useEffect(() => {
+    if (!autoExplore || !dwellSatisfied || !interacted) return;
+    if (initialExplored) return;
+    if (saveState !== "idle") return;
+    if (autoExploredModuleRef.current === moduleId) return;
+    autoExploredModuleRef.current = moduleId;
+    setSaveState("saving");
+    void recordExploredRef.current();
+  }, [autoExplore, dwellSatisfied, initialExplored, interacted, moduleId, saveState]);
 
   return (
     <section
@@ -111,49 +143,23 @@ export function VisualizationCard({
       data-viz-module-id={moduleId}
       data-viz-topic-id={topicId}
       data-viz-save-state={saveState}
+      data-viz-explore-gate={autoExplore ? (interacted ? (dwellSatisfied ? "engaged" : "dwell") : "awaiting-interaction") : "inactive"}
       className="glass-panel overflow-hidden p-4 sm:p-6"
     >
-      <div className="mb-5 flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
-        <div>
-          <p className="text-xs font-bold uppercase tracking-[0.22em] text-cyan-500 dark:text-cyan-300">{t(dictionary.visualization.interactiveModule)}</p>
-          <h2 className="mt-2 text-2xl font-black text-slate-950 dark:text-white">{title}</h2>
-          <MathText as="p" text={description} className="mt-2 max-w-2xl text-sm leading-6 text-slate-600 dark:text-slate-300" />
-          {formula ? (
-            <div
-              data-viz-card-formula
-              className="mt-3 inline-flex max-w-full items-center rounded-lg border border-cyan-200 bg-cyan-50 px-3 py-2 text-sm font-black text-cyan-800 shadow-sm dark:border-cyan-300/30 dark:bg-cyan-300/10 dark:text-cyan-100"
-            >
-              <MathText as="span" text={formula} normalizeMath={false} className="min-w-0 break-words" />
-            </div>
-          ) : null}
-        </div>
-        <div className="flex w-full justify-center md:w-72 md:shrink-0">
-          <div className="grid justify-items-center gap-2">
-            <button
-              type="button"
-              onClick={markExplored}
-              disabled={saveState === "saving"}
-              data-viz-mark-explored-button
-              data-viz-mark-explored-module-id={moduleId}
-              data-viz-mark-explored-state={saveState}
-              data-viz-mark-explored-topic-id={topicId}
-              className="focus-ring w-fit rounded-full border border-emerald-300/45 bg-emerald-400/15 px-4 py-2 text-sm font-black text-emerald-700 transition hover:-translate-y-0.5 hover:bg-emerald-400/25 disabled:cursor-wait disabled:opacity-70 dark:text-emerald-100"
-            >
-              {buttonLabel}
-            </button>
-            {feedback ? (
-              <p
-                role="status"
-                aria-live="polite"
-                className={`text-center text-xs font-bold ${saveState === "error" ? "text-rose-600 dark:text-rose-300" : "text-emerald-700 dark:text-emerald-200"}`}
-              >
-                {feedback}
-              </p>
-            ) : null}
+      <div className="mb-5 min-w-0">
+        <h2 className="text-2xl font-black text-slate-950 dark:text-white">{title}</h2>
+        {formula ? (
+          <div
+            data-viz-card-formula
+            className="mt-3 inline-flex max-w-full items-center rounded-lg border border-cyan-200 bg-cyan-50 px-3 py-2 text-sm font-black text-cyan-800 shadow-sm dark:border-cyan-300/30 dark:bg-cyan-300/10 dark:text-cyan-100"
+          >
+            <MathText as="span" text={formula} normalizeMath={false} className="min-w-0 break-words" />
           </div>
-        </div>
+        ) : null}
       </div>
-      {children}
+      <div data-viz-card-body onPointerDownCapture={handleBodyEngagement} onKeyDownCapture={handleBodyEngagement}>
+        {children}
+      </div>
     </section>
   );
 }

@@ -523,7 +523,6 @@ export default function CovariationLab() {
   return (
     <div className="cvlab">
       <header className="head">
-        <p className="eyebrow">MAIS · Interactive Math Lab</p>
         <h1>Variables: The Driver and the Passenger</h1>
         <p className="lede">
           The independent variable drives itself; the dependent one follows by the rule.

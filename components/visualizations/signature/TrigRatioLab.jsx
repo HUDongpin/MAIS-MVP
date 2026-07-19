@@ -526,7 +526,6 @@ export default function TrigRatioLab() {
   return (
     <div className="trlab">
       <header className="head">
-        <p className="eyebrow">MAIS · Interactive Math Lab</p>
         <h1>Right-Triangle Trig: One Corner, One Number</h1>
         <p className="lede">
           Grow a right triangle and the quotient <span className="mono">opp/hyp</span>{' '}

@@ -10,6 +10,7 @@ import {
   type GradeLabGroupDefinition
 } from "../../data/visualizationLabs";
 import { unitedStatesMathGradeOverviewCards } from "../../data/rag/usMath";
+import { getSignatureLabAssignment } from "../../data/signatureLabAssignments";
 import { toPrcSimplifiedText } from "../../lib/i18n";
 import {
   auditVisualizationControlSurfaceContract,
@@ -105,28 +106,28 @@ test("current Visualization Lab catalog satisfies the structural health contract
   assert.ok(summary.gradeGroups.every((group) => group.labCount > 0));
 });
 
-test("trig unit-wave labs route to the configured visualization renderer", () => {
-  const trigLabs = visualizationLabCatalog.filter((lab) => lab.templateId === "trig-unit-wave");
+// Template labs must use the configured renderer unless the topic was
+// deliberately curated onto a ported signature bench (fan-out strategy):
+// then moduleId is "signature-lab" and an assignment record must exist.
+function assertTemplateLabsRouteToKnownRenderers(templateId: FeaturedLabDefinition["templateId"]) {
+  const labs = visualizationLabCatalog.filter((lab) => lab.templateId === templateId);
 
-  assert.ok(trigLabs.length > 0);
+  assert.ok(labs.length > 0);
   assert.deepEqual(
-    trigLabs
+    labs
       .filter((lab) => lab.moduleId !== "configured-visualization-lab")
+      .filter((lab) => lab.moduleId !== "signature-lab" || !getSignatureLabAssignment(lab.topicId))
       .map((lab) => ({ labId: lab.labId, moduleId: lab.moduleId })),
     []
   );
+}
+
+test("trig unit-wave labs route to the configured renderer or a curated signature bench", () => {
+  assertTemplateLabsRouteToKnownRenderers("trig-unit-wave");
 });
 
-test("calculus rate-area labs route to the configured visualization renderer", () => {
-  const calculusLabs = visualizationLabCatalog.filter((lab) => lab.templateId === "calculus-rate-area");
-
-  assert.ok(calculusLabs.length > 0);
-  assert.deepEqual(
-    calculusLabs
-      .filter((lab) => lab.moduleId !== "configured-visualization-lab")
-      .map((lab) => ({ labId: lab.labId, moduleId: lab.moduleId })),
-    []
-  );
+test("calculus rate-area labs route to the configured renderer or a curated signature bench", () => {
+  assertTemplateLabsRouteToKnownRenderers("calculus-rate-area");
 });
 
 test("current Visualization Lab direct-entry URLs round-trip every catalog lab and track", () => {
@@ -170,7 +171,6 @@ test("current Visualization Lab enterprise controls expose stable machine-readab
   assert.equal(report.checkedLabCount, visualizationLabCount);
   assert.equal(report.requiredSelectorCount, visualizationControlSurfaceSelectors.length);
   assert.ok(visualizationControlSurfaceSelectors.includes("data-viz-copy-lab-link-state"));
-  assert.ok(visualizationControlSurfaceSelectors.includes("data-viz-mark-explored-button"));
   assert.ok(visualizationControlSurfaceSelectors.includes("data-viz-mode-button"));
   assert.ok(visualizationControlSurfaceSelectors.includes("data-viz-reset-model"));
   assert.ok(report.nonAsciiModuleIdCount > 0);

@@ -828,7 +828,6 @@ export default function DerivativeLab() {
   return (
     <div className="dlab">
       <header className="head">
-        <p className="eyebrow">MAIS · Interactive Math Lab</p>
         <h1>The Derivative</h1>
         <p className="lede">
           Watch a <span className="mono">secant</span> line collapse into a{' '}

@@ -1192,7 +1192,6 @@ export default function QuadrilateralLab() {
   return (
     <div className="qlab">
       <header className="head">
-        <p className="eyebrow">MAIS · Interactive Math Lab</p>
         <h1>The Quadrilateral</h1>
         <p className="lede">
           Drag the corners. One rule never breaks:{' '}

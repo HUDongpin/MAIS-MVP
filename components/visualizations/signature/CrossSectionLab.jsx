@@ -498,7 +498,6 @@ export default function CrossSectionLab() {
   return (
     <div className="cslab">
       <header className="head">
-        <p className="eyebrow">MAIS · Interactive Math Lab</p>
         <h1>Cross-Sections: What the Plane Leaves Behind</h1>
         <p className="lede">
           Slice a cube and read the flat shape: one side per face crossed. Flat decks copy

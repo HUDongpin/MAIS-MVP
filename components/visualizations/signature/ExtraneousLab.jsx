@@ -491,7 +491,6 @@ export default function ExtraneousLab() {
   return (
     <div className="exlab">
       <header className="head">
-        <p className="eyebrow">MAIS · Interactive Math Lab</p>
         <h1>Extraneous Solutions: The One-Way Gate</h1>
         <p className="lede">
           Squaring both sides never loses a solution — and that is exactly the

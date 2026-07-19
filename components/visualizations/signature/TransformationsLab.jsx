@@ -546,7 +546,6 @@ export default function TransformationsLab() {
   return (
     <div className="tflab">
       <header className="head">
-        <p className="eyebrow">MAIS · Interactive Math Lab</p>
         <h1>Rigid Motions: Slide, Flip, Turn</h1>
         <p className="lede">
           Moves are <em>things you do</em>: each press stamps an exact rule —{' '}

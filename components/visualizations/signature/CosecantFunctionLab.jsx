@@ -772,7 +772,6 @@ export default function CosecantFunctionLab() {
   return (
     <div className="clab">
       <header className="head">
-        <p className="eyebrow">MAIS · Interactive Math Lab</p>
         <h1>The Cosecant Function</h1>
         <p className="lede">
           Explore{' '}

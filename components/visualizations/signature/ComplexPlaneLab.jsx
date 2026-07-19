@@ -510,7 +510,6 @@ export default function ComplexPlaneLab() {
   return (
     <div className="cplab">
       <header className="head">
-        <p className="eyebrow">MAIS · Interactive Math Lab</p>
         <h1>The Complex Plane: The Quarter-Turn Number</h1>
         <p className="lede">
           A complex number <span className="mono">a + bi</span> is an address on a plane

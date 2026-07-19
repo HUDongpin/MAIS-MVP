@@ -1203,7 +1203,6 @@ export default function QuadraticEquationLab() {
   return (
     <div className="qelab">
       <header className="head">
-        <p className="eyebrow">MAIS · Interactive Math Lab</p>
         <h1>Solving the Quadratic Equation</h1>
         <p className="lede">
           Not a curve to explore — a question to answer.{' '}

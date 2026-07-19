@@ -631,7 +631,6 @@ export default function TangentFunctionLab() {
   return (
     <div className="tlab">
       <header className="head">
-        <p className="eyebrow">MAIS · Interactive Math Lab</p>
         <h1>The Tangent Function</h1>
         <p className="lede">
           Explore the transformed tangent,{' '}

@@ -1265,7 +1265,6 @@ export default function SphereLab() {
   return (
     <div className="slab">
       <header className="head">
-        <p className="eyebrow">MAIS · Interactive Math Lab</p>
         <h1>The Sphere</h1>
         <p className="lede">
           One number runs the whole solid: the radius <span className="mono">r</span>. Drag to orbit it,

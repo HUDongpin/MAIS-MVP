@@ -578,7 +578,6 @@ export default function DilationsLab() {
   return (
     <div className="dllab">
       <header className="head">
-        <p className="eyebrow">MAIS · Interactive Math Lab</p>
         <h1>Dilations: Rays From the Center</h1>
         <p className="lede">
           Every vertex slides along <em>its own ray</em> from O to k times its distance:

@@ -595,7 +595,6 @@ export default function LimitLab() {
   return (
     <div className="lmlab">
       <header className="head">
-        <p className="eyebrow">MAIS · Interactive Math Lab</p>
         <h1>Limits: Where the Walkers Are Heading</h1>
         <p className="lede">
           Two walkers approach <span className="mono">x = 2</span> on exact footholds; the{' '}

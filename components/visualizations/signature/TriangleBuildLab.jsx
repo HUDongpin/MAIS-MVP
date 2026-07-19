@@ -475,7 +475,6 @@ export default function TriangleBuildLab() {
   return (
     <div className="tblab">
       <header className="head">
-        <p className="eyebrow">MAIS · Interactive Math Lab</p>
         <h1>Triangle Kits: The Constraint Census</h1>
         <p className="lede">
           Hand a builder a kit of parts and count the triangles it allows: SSS closes or

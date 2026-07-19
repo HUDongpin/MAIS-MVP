@@ -876,7 +876,6 @@ export default function FractionLab() {
   return (
     <div className="flab">
       <header className="head">
-        <p className="eyebrow">MAIS · Interactive Math Lab</p>
         <h1>Fractions &amp; Equal Parts</h1>
         <p className="lede">
           A fraction <span className="mono">p/q</span> cuts one whole into <em>q equal parts</em> and

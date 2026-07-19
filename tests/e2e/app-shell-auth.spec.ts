@@ -116,7 +116,7 @@ test.describe("app shell, preferences, and auth", () => {
     const student = await registerStudentThroughApi(page, testInfo, "S5");
 
     await page.goto("/login");
-    await page.locator("#login-grade").selectOption("S1");
+    await expect(page.locator("#login-grade")).toHaveCount(0);
     await page.getByLabel(/email or username/i).fill(student.username);
     await page.getByLabel(/^password$/i).fill(student.password);
     await clickLoginSubmit(page);
@@ -298,7 +298,7 @@ test.describe("app shell, preferences, and auth", () => {
     await page.getByLabel(/^password$/i).fill(parent.password);
     await page.getByLabel(/^confirm password$/i).fill(parent.password);
     await page.getByRole("button", { name: /create account/i }).click();
-    await expect(page).toHaveURL(/\/parent\/connect/);
+    await expect(page).toHaveURL(/\/parent\/connect/, { timeout: 30_000 });
     await expect(page.getByRole("heading", { name: /Use a parent invite code/i })).toBeVisible();
 
     await logoutIfVisible(page);

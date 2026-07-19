@@ -410,7 +410,6 @@ export default function PositionLab() {
   return (
     <div className="poslab">
       <header className="head">
-        <p className="eyebrow">MAIS · Interactive Math Lab</p>
         <h1>Where Is It?</h1>
         <p className="lede">
           Above, below, beside, behind, in front of. A word like <em>above</em> is never about

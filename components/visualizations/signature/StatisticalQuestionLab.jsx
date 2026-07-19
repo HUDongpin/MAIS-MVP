@@ -681,7 +681,6 @@ export default function StatisticalQuestionLab() {
   return (
     <div className="sqlab">
       <header className="head">
-        <p className="eyebrow">MAIS · Interactive Math Lab</p>
         <h1>What Makes a Question Statistical?</h1>
         <p className="lede">
           Statistics does not begin with data — it begins with a <em>question</em>. A question is{' '}

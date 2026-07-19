@@ -545,7 +545,6 @@ export default function CongruenceLab() {
   return (
     <div className="cglab">
       <header className="head">
-        <p className="eyebrow">MAIS · Interactive Math Lab</p>
         <h1>Congruence: Carry It, or Close the Case</h1>
         <p className="lede">
           <span className="mono">A ≅ B</span> means: some chain of slides, flips and turns

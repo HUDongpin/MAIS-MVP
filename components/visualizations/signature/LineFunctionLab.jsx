@@ -758,7 +758,6 @@ export default function LineFunctionLab() {
   return (
     <div className="llab">
       <header className="head">
-        <p className="eyebrow">MAIS · Interactive Math Lab</p>
         <h1>The Linear Function</h1>
         <p className="lede">
           Explore the straight line in{' '}

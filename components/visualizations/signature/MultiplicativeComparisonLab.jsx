@@ -499,7 +499,6 @@ export default function MultiplicativeComparisonLab() {
   return (
     <div className="mclab">
       <header className="head">
-        <p className="eyebrow">MAIS · Interactive Math Lab</p>
         <h1>Times As Many, or Just More?</h1>
         <p className="lede">
           “Ben has 3 <em>times as many</em>” and “Ben has 3 <em>more</em>” share a word and nothing

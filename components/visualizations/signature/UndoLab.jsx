@@ -499,7 +499,6 @@ export default function UndoLab() {
   return (
     <div className="unlab">
       <header className="head">
-        <p className="eyebrow">MAIS · Interactive Math Lab</p>
         <h1>Inverse Functions: The Undo Machine</h1>
         <p className="lede">
           Read f(x) = 2x + 3 as machinery — ×2, then +3 — and the inverse stops

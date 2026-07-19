@@ -773,7 +773,6 @@ export default function FunctionLab() {
   return (
     <div className="fnlab">
       <header className="head">
-        <p className="eyebrow">MAIS · Interactive Math Lab</p>
         <h1>The Function: One Input, One Output</h1>
         <p className="lede">
           A function is a <em>promise</em>: each input gets <em>exactly one</em> output. Sharing

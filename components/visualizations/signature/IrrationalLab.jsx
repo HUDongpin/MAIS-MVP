@@ -817,7 +817,6 @@ export default function IrrationalLab() {
   return (
     <div className="qlab">
       <header className="head">
-        <p className="eyebrow">MAIS · Interactive Math Lab</p>
         <h1>Irrational Numbers: The Endless Decimal</h1>
         <p className="lede">
           Some numbers are a tidy <em>ratio</em> of integers — their decimals <em>terminate</em> or{' '}

@@ -580,7 +580,6 @@ export default function LinePlotLab() {
   return (
     <div className="lplab">
       <header className="head">
-        <p className="eyebrow">MAIS · Interactive Math Lab</p>
         <h1>The Line Plot: Marks That Remember</h1>
         <p className="lede">
           Measure a worm, and an <em>X</em> lands above its number. Measure them all, and the crawl

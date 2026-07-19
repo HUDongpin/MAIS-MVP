@@ -567,7 +567,6 @@ export default function CircleTheoremsLab() {
   return (
     <div className="ctlab">
       <header className="head">
-        <p className="eyebrow">MAIS · Interactive Math Lab</p>
         <h1>Circle Theorems: The Angle the Arc Owns</h1>
         <p className="lede">
           The center reads an arc at full rate; any vertex on the rim reads the{' '}

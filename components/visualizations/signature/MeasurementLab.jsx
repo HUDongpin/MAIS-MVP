@@ -767,7 +767,6 @@ export default function MeasurementLab() {
   return (
     <div className="mlab">
       <header className="head">
-        <p className="eyebrow">MAIS · Interactive Math Lab</p>
         <h1>Measuring Length with a Ruler</h1>
         <p className="lede">
           Line an object up from <span className="mono">0</span> and count equal units. Then change

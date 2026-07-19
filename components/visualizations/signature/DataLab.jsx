@@ -1038,7 +1038,6 @@ export default function DataLab() {
   return (
     <div className="dlab">
       <header className="head">
-        <p className="eyebrow">MAIS · Interactive Math Lab</p>
         <h1>Data — Where&apos;s the Center?</h1>
         <p className="lede">
           A set of numbers has a <em>shape</em> and a <em>center</em> — but &ldquo;center&rdquo; means three

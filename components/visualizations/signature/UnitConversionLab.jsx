@@ -740,7 +740,6 @@ export default function UnitConversionLab() {
   return (
     <div className="uclab">
       <header className="head">
-        <p className="eyebrow">MAIS · Interactive Math Lab</p>
         <h1>Converting Units of Measurement</h1>
         <p className="lede">
           The same length has two names on two rulers. Change the amount and watch inches turn into

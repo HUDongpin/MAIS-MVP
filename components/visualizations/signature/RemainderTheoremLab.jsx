@@ -465,7 +465,6 @@ export default function RemainderTheoremLab() {
   return (
     <div className="rtlab">
       <header className="head">
-        <p className="eyebrow">MAIS · Interactive Math Lab</p>
         <h1>The Remainder Theorem: One Fold, Two Answers</h1>
         <p className="lede">
           Thread one carry through the coefficients — ×a, add, ×a, add. The final

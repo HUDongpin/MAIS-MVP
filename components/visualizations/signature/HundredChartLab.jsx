@@ -586,7 +586,6 @@ export default function HundredChartLab() {
   return (
     <div className="hclab">
       <header className="head">
-        <p className="eyebrow">MAIS · Interactive Math Lab</p>
         <h1>Counting to One Hundred — and Past It</h1>
         <p className="lede">
           Rows of ten fill and roll over — a <em>pattern</em>, all the way to one hundred.

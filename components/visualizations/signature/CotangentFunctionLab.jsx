@@ -693,7 +693,6 @@ export default function CotangentFunctionLab() {
   return (
     <div className="clab">
       <header className="head">
-        <p className="eyebrow">MAIS · Interactive Math Lab</p>
         <h1>The Cotangent Function</h1>
         <p className="lede">
           Explore{' '}

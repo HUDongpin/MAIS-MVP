@@ -1129,7 +1129,6 @@ export default function ShapesLab() {
 
   return (
     <div className="shlab">
-      <p className="eyebrow">MAIS · Interactive Math Lab</p>
       <h1>Shape Names</h1>
       <p className="lede">
         Turn it, paint it — the name stays. What <em>does</em> change it?

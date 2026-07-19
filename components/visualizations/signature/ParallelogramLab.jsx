@@ -1164,7 +1164,6 @@ export default function ParallelogramLab() {
   return (
     <div className="plab">
       <header className="head">
-        <p className="eyebrow">MAIS · Interactive Math Lab</p>
         <h1>The Parallelogram</h1>
         <p className="lede">
           Drag three corners — the fourth is forced, so the shape is always a true parallelogram — and

@@ -1041,7 +1041,6 @@ export default function TableLab() {
   return (
     <div className="tlab">
       <header className="head">
-        <p className="eyebrow">MAIS · Interactive Math Lab</p>
         <h1>Two-Way Tables — Counted Once, Add Every Way</h1>
         <p className="lede">
           A survey classifies people <em>two ways at once</em> — here, age group crossed with favorite

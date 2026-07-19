@@ -640,7 +640,6 @@ export default function MultiplicationLab() {
   return (
     <div className="mlab">
       <header className="head">
-        <p className="eyebrow">MAIS · Interactive Math Lab</p>
         <h1>Multiplication as an Array</h1>
         <p className="lede">
           See <span className="mono">a × b</span> as a rectangle of unit squares — <em>a</em> rows of{' '}

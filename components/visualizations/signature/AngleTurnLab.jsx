@@ -556,7 +556,6 @@ export default function AngleTurnLab() {
   return (
     <div className="atlab">
       <header className="head">
-        <p className="eyebrow">MAIS · Interactive Math Lab</p>
         <h1>Angles: Turns That Add</h1>
         <p className="lede">
           A degree is <em>1/360 of a full turn</em>, and angle measure is a count of those

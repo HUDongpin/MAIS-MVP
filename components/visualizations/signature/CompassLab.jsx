@@ -465,7 +465,6 @@ export default function CompassLab() {
   return (
     <div className="cplab">
       <header className="head">
-        <p className="eyebrow">MAIS · Interactive Math Lab</p>
         <h1>Compass &amp; Straightedge: Two Circles Decide a Point</h1>
         <p className="lede">
           Two powers only — a circle from a known point, a line through two known

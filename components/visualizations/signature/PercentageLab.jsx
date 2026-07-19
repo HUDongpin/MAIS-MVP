@@ -749,7 +749,6 @@ export default function PercentageLab() {
   return (
     <div className="plab">
       <header className="head">
-        <p className="eyebrow">MAIS · Interactive Math Lab</p>
         <h1>Percent — Per Hundred</h1>
         <p className="lede">
           <em>Percent</em> means <em>per hundred</em>. See one percent two ways: as shaded{' '}

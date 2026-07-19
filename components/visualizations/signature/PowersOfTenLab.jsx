@@ -601,7 +601,6 @@ export default function PowersOfTenLab() {
   return (
     <div className="ptlab">
       <header className="head">
-        <p className="eyebrow">MAIS · Interactive Math Lab</p>
         <h1>Powers of Ten: The Digits Slide</h1>
         <p className="lede">
           Press <span className="mono">×10</span> and every digit marches one column left — past a

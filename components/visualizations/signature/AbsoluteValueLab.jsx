@@ -880,7 +880,6 @@ export default function AbsoluteValueLab() {
   return (
     <div className="avlab">
       <header className="head">
-        <p className="eyebrow">MAIS · Interactive Math Lab</p>
         <h1>Absolute Value</h1>
         <p className="lede">
           Absolute value doesn’t “drop the minus sign” — it <em>folds</em>. Put a line inside the bars

@@ -554,7 +554,6 @@ export default function RootsLab() {
   return (
     <div className="rtlab">
       <header className="head">
-        <p className="eyebrow">MAIS · Interactive Math Lab</p>
         <h1>Roots: The Side an Area Forces</h1>
         <p className="lede">
           √p is the side of a square of area p. The equation <span className="mono">x² = p</span>{' '}

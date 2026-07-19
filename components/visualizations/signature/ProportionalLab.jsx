@@ -540,7 +540,6 @@ export default function ProportionalLab() {
   return (
     <div className="prlab">
       <header className="head">
-        <p className="eyebrow">MAIS · Interactive Math Lab</p>
         <h1>Proportional: The Line Bolted to the Origin</h1>
         <p className="lede">
           A relationship is proportional when one number does all the work:{' '}

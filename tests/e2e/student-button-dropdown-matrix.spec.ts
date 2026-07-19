@@ -395,7 +395,7 @@ test.describe.serial("student button and dropdown matrix", () => {
 
     await page.goto("/login?next=%2Fdashboard");
     await expect(page.getByLabel(/email or username/i)).toHaveValue("");
-    await expect(page.getByText(/California Math Grade 1/i)).toBeVisible();
+    await expect(page.getByText("California Math Grade 1", { exact: true })).toBeVisible();
     await expect(page.getByText(/Mainland PEP S4/i)).toBeVisible();
     await expect(page.getByText(/Hong Kong DSE UP S4/i)).toBeVisible();
     await expect(page.getByRole("button", { name: /Use example account: Student Shirleen/i })).toBeVisible();
@@ -476,7 +476,7 @@ test.describe.serial("student button and dropdown matrix", () => {
     expectNoRuntimeFailures(failures);
   });
 
-  test("login submit uses the visible manual curriculum and grade selection", async ({ page }) => {
+  test("login submit sends credentials only and keeps curriculum selectors hidden", async ({ page }) => {
     const failures = collectRuntimeFailures(page);
     let submittedPayload: Record<string, unknown> | null = null;
 
@@ -506,23 +506,18 @@ test.describe.serial("student button and dropdown matrix", () => {
     });
 
     await page.goto("/login");
+    await expect(page.locator("#login-curriculum")).toHaveCount(0);
+    await expect(page.locator("#login-grade")).toHaveCount(0);
     await page.getByLabel(/email or username/i).fill("Student Jon");
     await page.getByLabel(/^password$/i).fill("12345");
-    await page.evaluate(() => {
-      const curriculumSelect = document.querySelector<HTMLSelectElement>("#login-curriculum");
-      const gradeSelect = document.querySelector<HTMLSelectElement>("#login-grade");
-      if (curriculumSelect) curriculumSelect.value = "US_CA_MATH";
-      if (gradeSelect) gradeSelect.value = "P1";
-    });
-    await expect(page.locator("#login-curriculum")).toHaveValue("US_CA_MATH");
-    await expect(page.locator("#login-grade")).toHaveValue("P1");
     await page.getByRole("button", { name: /^Log In$/i }).click();
 
     await expect.poll(() => (submittedPayload ? "captured" : null)).toBe("captured");
     const capturedPayload: Record<string, unknown> = submittedPayload ?? {};
-    expect(capturedPayload.grade).toBe("P1");
-    expect(capturedPayload.curriculumTrack).toBe("US_CA_MATH");
-    expect(capturedPayload.curriculumProfile).toMatchObject({ region: "US", publisher: "US_CA_MATH" });
+    expect(capturedPayload.username).toBe("Student Jon");
+    expect(capturedPayload.grade).toBeUndefined();
+    expect(capturedPayload.curriculumTrack).toBeUndefined();
+    expect(capturedPayload.curriculumProfile).toBeUndefined();
 
     expectNoRuntimeFailures(failures);
   });
@@ -555,7 +550,7 @@ test.describe.serial("student button and dropdown matrix", () => {
 
     await page.goto("/login");
     await expect(page.getByLabel(/email or username/i)).toHaveValue("");
-    await expect(page.getByText(/California Math Grade 1/i)).toBeVisible();
+    await expect(page.getByText("California Math Grade 1", { exact: true })).toBeVisible();
     await expect(page.getByText(/Mainland PEP S4/i)).toBeVisible();
     await expect(page.getByText(/Hong Kong DSE UP S4/i)).toBeVisible();
     await expect(page.getByRole("button", { name: /Use example account: Student Shirleen/i })).toBeVisible();
@@ -819,12 +814,15 @@ test.describe.serial("student button and dropdown matrix", () => {
 
     await page.goto("/student/tools/visualizations");
     await expect(page.getByRole("heading", { name: /Visualization Lab/i })).toBeVisible();
-    await page.getByRole("link", { name: /Start Quest/i }).click();
-    await expect(page.locator("[data-viz-card]")).toBeVisible({ timeout: 15_000 });
+    // Exploration is earned: after the lab runtime is ready the student must
+    // interact with the lab body and stay through a short dwell before the
+    // automatic POST fires. Register the listener before opening the lab.
     const markExploredResponse = page.waitForResponse((response) =>
       response.url().includes("/api/visualization-sessions") && response.request().method() === "POST"
     );
-    await page.locator("[data-viz-mark-explored-button]").first().click();
+    await page.getByRole("link", { name: /Start Quest/i }).click();
+    await expect(page.locator("[data-viz-card]")).toBeVisible({ timeout: 15_000 });
+    await page.locator("[data-viz-card-body]").first().click({ position: { x: 8, y: 8 } });
     expect((await markExploredResponse).ok()).toBeTruthy();
     const probabilitySection = page.locator("section").filter({ hasText: /Run experiment/i }).first();
     if (await probabilitySection.isVisible().catch(() => false)) {

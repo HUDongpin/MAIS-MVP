@@ -1104,7 +1104,6 @@ export default function PointLab() {
   return (
     <div className="ptlab">
       <header className="head">
-        <p className="eyebrow">MAIS · Interactive Math Lab</p>
         <h1>The Point — an Address on the Plane</h1>
         <p className="lede">
           One number names a whole <em>line</em> of places. Two numbers, in order, cross at exactly{' '}

@@ -616,7 +616,6 @@ export default function ScalingLab() {
   return (
     <div className="scalelab">
       <header className="head">
-        <p className="eyebrow">MAIS · Interactive Math Lab</p>
         <h1>Multiplication as Scaling</h1>
         <p className="lede">
           Multiplying <em>resizes</em>. Where the factor sits relative to <em>one</em> decides

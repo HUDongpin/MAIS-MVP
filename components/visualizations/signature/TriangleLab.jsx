@@ -975,7 +975,6 @@ export default function TriangleLab() {
   return (
     <div className="tlab">
       <header className="head">
-        <p className="eyebrow">MAIS · Interactive Math Lab</p>
         <h1>The Triangle</h1>
         <p className="lede">
           Drag the three corners and watch a triangle’s sides, angles, and area respond — then

@@ -689,7 +689,6 @@ export default function CosineFunctionLab() {
   return (
     <div className="clab">
       <header className="head">
-        <p className="eyebrow">MAIS · Interactive Math Lab</p>
         <h1>The Cosine Function</h1>
         <p className="lede">
           Explore the wave in <span className="mono">graphing form, y = A·cos(B(x&nbsp;&minus;&nbsp;h))&nbsp;+&nbsp;k</span>.

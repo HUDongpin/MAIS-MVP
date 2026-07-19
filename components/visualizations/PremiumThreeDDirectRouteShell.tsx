@@ -48,28 +48,41 @@ export function PremiumThreeDDirectRouteShell({ lab }: { lab: FeaturedLabDefinit
   useEffect(() => {
     setDirectRuntimeReady(false);
 
-    let animationFrame = 0;
-    let cancelled = false;
+    // Probe must keep running in hidden tabs (requestAnimationFrame is frozen
+    // there); MutationObserver is not visibility-throttled and the interval
+    // is a low-cost safety net.
+    let done = false;
 
     const probeRuntimeReady = () => {
-      if (cancelled) return;
+      if (done) return;
 
       const surface = workspaceRef.current?.querySelector("[data-viz-surface]");
       const mark = surface?.querySelector("[data-viz-mark]");
 
       if (surface && mark) {
+        done = true;
+        observer.disconnect();
+        window.clearInterval(interval);
         setDirectRuntimeReady(true);
-        return;
       }
-
-      animationFrame = window.requestAnimationFrame(probeRuntimeReady);
     };
 
-    animationFrame = window.requestAnimationFrame(probeRuntimeReady);
+    const observer = new MutationObserver(probeRuntimeReady);
+    if (workspaceRef.current) {
+      observer.observe(workspaceRef.current, {
+        attributeFilter: ["data-viz-surface", "data-viz-mark"],
+        attributes: true,
+        childList: true,
+        subtree: true
+      });
+    }
+    const interval = window.setInterval(probeRuntimeReady, 500);
+    probeRuntimeReady();
 
     return () => {
-      cancelled = true;
-      window.cancelAnimationFrame(animationFrame);
+      done = true;
+      observer.disconnect();
+      window.clearInterval(interval);
     };
   }, [lab.labId]);
 
@@ -115,8 +128,8 @@ export function PremiumThreeDDirectRouteShell({ lab }: { lab: FeaturedLabDefinit
 
         <VisualizationCard
           title={text(lab.title)}
-          description={text(lab.description)}
           analyticsSource={lab.analyticsSource}
+          autoExplore
           explorationScopeKey={currentUser?.id ?? "guest"}
           formula={formula}
           moduleId={moduleId}

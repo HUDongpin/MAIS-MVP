@@ -471,7 +471,6 @@ export default function LineParabolaLab() {
   return (
     <div className="lplab">
       <header className="head">
-        <p className="eyebrow">MAIS · Interactive Math Lab</p>
         <h1>Line Meets Parabola: The Gap Gauge</h1>
         <p className="lede">
           Twice, once, or never — one subtraction decides. The gap d(x) = x² −

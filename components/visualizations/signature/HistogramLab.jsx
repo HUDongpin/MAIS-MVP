@@ -494,7 +494,6 @@ export default function HistogramLab() {
   return (
     <div className="hglab">
       <header className="head">
-        <p className="eyebrow">MAIS · Interactive Math Lab</p>
         <h1>The Histogram: Pull the Bin Lever</h1>
         <p className="lede">
           Gather numeric data into equal-width <em>bins</em> — bars that touch, because the

@@ -591,7 +591,6 @@ export default function VariableLab() {
   return (
     <div className="vlab">
       <header className="head">
-        <p className="eyebrow">MAIS · Interactive Math Lab</p>
         <h1>The Variable</h1>
         <p className="lede">
           A <em>variable</em> is a letter that stands for a number — and that number can{' '}

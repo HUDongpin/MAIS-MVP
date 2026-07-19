@@ -630,7 +630,6 @@ export default function TwoDigitNumberLab() {
   return (
     <div className="tlab">
       <header className="head">
-        <p className="eyebrow">MAIS · Interactive Math Lab</p>
         <h1>Two-Digit Numbers: Tens &amp; Ones</h1>
         <p className="lede">
           A two-digit number is just some <em>tens</em> and some <em>ones</em>. Gather ones and every

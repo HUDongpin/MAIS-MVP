@@ -14,6 +14,7 @@ import {
   useSettings
 } from "@/components/providers/AppProviders";
 import { PasswordInputWithReveal } from "@/components/ui/PasswordInputWithReveal";
+import { recordAuthFunnelEvent } from "@/lib/authFunnelClient";
 import { grades, isValidGradeId } from "@/data/grades";
 import { curriculumProfileForPublisher, curriculumTrackForProfile, isTextbookPublisher, publisherLabels, regionLabels } from "@/lib/curriculumProfile";
 import { formatGradeLabelForCurriculum, formatLearnerName } from "@/lib/i18n";
@@ -74,6 +75,9 @@ const authLinkCopy = {
   googleDivider: { en: "or", zh: "或", zhHans: "或" },
   googleAction: { en: "Continue with Google", zh: "使用 Google 繼續", zhHans: "使用 Google 继续" },
   googleRoleLabel: { en: "Google account type", zh: "Google 帳戶類型", zhHans: "Google 账号类型" },
+  googleRoleSummary: { en: "Signing in as", zh: "登入身份：", zhHans: "登录身份：" },
+  googleRoleChange: { en: "Change", zh: "更改", zhHans: "更改" },
+  googleRoleChangeAria: { en: "Change Google account type", zh: "更改 Google 帳戶類型", zhHans: "更改 Google 账号类型" },
   googleErrors: {
     setup: {
       en: "Google sign-in is not configured for this environment yet.",
@@ -166,9 +170,15 @@ const visibleLoginPublisherGroups = loginPublisherGroups
   }))
   .filter((group) => group.publishers.length > 0);
 
-const defaultLoginGrade: GradeId = "S4";
-const defaultUnitedStatesLoginGrade: GradeId = "K";
+const defaultLoginGrade: GradeId = "K";
+const defaultNonUnitedStatesLoginGrade: GradeId = "S4";
 const floridaLoginGrades = new Set<GradeId>(["P6", "S1", "S2"]);
+
+const exampleAccountsEnabledAtBuild =
+  process.env.NODE_ENV === "development" || process.env.NEXT_PUBLIC_SHOW_EXAMPLE_ACCOUNTS === "true";
+
+const demoCtaEnabledAtBuild =
+  process.env.NODE_ENV === "development" || process.env.NEXT_PUBLIC_SHOW_DEMO_CTA === "true";
 
 const exampleAccountRows = [
   {
@@ -228,13 +238,23 @@ const demoAccountHelpCopy = {
   useAccount: { en: "Use example account", zh: "使用示例帳戶", zhHans: "使用示例账号" }
 } as const;
 
+const demoCtaCopy = {
+  title: { en: "Just exploring?", zh: "想先體驗一下？", zhHans: "想先体验一下？" },
+  body: {
+    en: "Open a sample California Math Grade 1 classroom with one click — no account needed.",
+    zh: "一鍵開啟加州數學一年級示範課室，毋須建立帳戶。",
+    zhHans: "一键打开加州数学一年级示范课堂，无需创建账号。"
+  },
+  action: { en: "Explore a demo classroom", zh: "體驗示範課室", zhHans: "体验示范课堂" }
+} as const;
+
 function defaultLoginCurriculumProfile() {
-  return curriculumProfileForPublisher("MAINLAND_PEP");
+  return curriculumProfileForPublisher("US_CA_MATH");
 }
 
 function loginGradeForCurriculumProfile(profile: CurriculumProfile, grade: GradeId): GradeId {
   if (profile.publisher === "US_FL_MATH" && !floridaLoginGrades.has(grade)) return "P6";
-  if (profile.region === "US" && grade === defaultLoginGrade) return defaultUnitedStatesLoginGrade;
+  if (profile.region !== "US" && grade === "K") return defaultNonUnitedStatesLoginGrade;
   return grade;
 }
 
@@ -270,6 +290,8 @@ export default function LoginPage() {
   const [identifier, setIdentifier] = useState("");
   const [password, setPassword] = useState("");
   const [googleRole, setGoogleRole] = useState<GoogleLoginRole>("student");
+  const [showGoogleRolePicker, setShowGoogleRolePicker] = useState(false);
+  const [demoModeRequested, setDemoModeRequested] = useState(false);
   const [selectedCurriculumProfile, setSelectedCurriculumProfile] = useState<CurriculumProfile>(defaultLoginCurriculumProfile);
   const [curriculumSelectorProfile, setCurriculumSelectorProfile] = useState<CurriculumProfile>(defaultLoginCurriculumProfile);
   const [curriculumNoticeProfile, setCurriculumNoticeProfile] = useState<CurriculumProfile | null>(null);
@@ -310,6 +332,11 @@ export default function LoginPage() {
   const exampleSelectionLocked = Boolean(selectedExampleAccount);
   const exampleAccountButtonsDisabled = !isHydrated || isSubmitting;
   const courseSelectionLocked = Boolean(registeredStudentProfile || selectedExampleAccount);
+  const showExampleAccounts = exampleAccountsEnabledAtBuild || demoModeRequested;
+  const showDemoCta = demoCtaEnabledAtBuild || demoModeRequested;
+  const activeGoogleRoleLabel = (googleLoginRoles.find((role) => role.key === googleRole) ?? googleLoginRoles[0]).label;
+  const demoCtaRow = exampleAccountRows.find((row) => row.key === "us-ca-grade-1") ?? exampleAccountRows[0];
+  const demoCtaEntry = demoCtaRow.accounts.find((entry) => entry.roleLabel.en === "Student") ?? demoCtaRow.accounts[0];
   const googleLoginParams = new URLSearchParams({ role: googleRole, language, theme });
   if (nextTarget) googleLoginParams.set("next", nextTarget);
   if (googleRole === "student") {
@@ -342,6 +369,7 @@ export default function LoginPage() {
     setNextTarget(params.get("next") ?? "");
     setLoginReason(params.get("reason") ?? "");
     setGoogleError(params.get("googleError") ?? "");
+    setDemoModeRequested(params.get("demo") === "1");
     setIsHydrated(true);
   }, []);
 
@@ -370,12 +398,14 @@ export default function LoginPage() {
     loginIdentifier,
     loginPassword,
     grade,
-    curriculumProfile
+    curriculumProfile,
+    source = "credentials"
   }: {
     loginIdentifier: string;
     loginPassword: string;
-    grade: GradeId;
-    curriculumProfile: CurriculumProfile;
+    grade?: GradeId;
+    curriculumProfile?: CurriculumProfile;
+    source?: "credentials" | "example-tile" | "demo-cta";
   }) => {
     setError("");
     setIsSubmitting(true);
@@ -383,6 +413,14 @@ export default function LoginPage() {
     try {
       const loginUsername = loginIdentifier.trim() === formatLearnerName(demoStudentAccount.username, language) ? demoStudentAccount.username : loginIdentifier;
       const result = await login(loginUsername, loginPassword, grade, curriculumProfile);
+      const funnelOutcome = result.ok
+        ? "success"
+        : result.requiresCurriculumTrack && result.pendingUser
+          ? "pending_curriculum"
+          : result.reason === "invalid"
+            ? "invalid"
+            : "error";
+      recordAuthFunnelEvent("login_submit", `${source}:${funnelOutcome}`);
       if (result.ok) {
         setPendingCurriculumUser(null);
         const nextPath = new URLSearchParams(window.location.search).get("next");
@@ -419,21 +457,38 @@ export default function LoginPage() {
     const formData = new FormData(event.currentTarget);
     const submittedIdentifier = formData.get("username");
     const submittedPassword = formData.get("password");
-    const submittedGrade = formData.get("grade");
-    const submittedPublisher = formData.get("curriculumPublisher");
-    const submittedCurriculumProfile =
-      typeof submittedPublisher === "string" && isTextbookPublisher(submittedPublisher)
-        ? curriculumProfileForPublisher(submittedPublisher)
-        : selectedCurriculumProfile;
-    const submittedLoginGrade = isValidGradeId(submittedGrade) ? submittedGrade : loginSelectedGrade;
-    await submitLogin({
-      loginIdentifier: typeof submittedIdentifier === "string" ? submittedIdentifier : identifier,
-      loginPassword: typeof submittedPassword === "string" ? submittedPassword : password,
-      grade: selectedExampleAccount
-        ? selectedExampleAccount.row.grade
-        : loginGradeForCurriculumProfile(submittedCurriculumProfile, submittedLoginGrade),
-      curriculumProfile: selectedExampleAccount?.row.curriculumProfile ?? submittedCurriculumProfile
-    });
+    const loginIdentifier = typeof submittedIdentifier === "string" ? submittedIdentifier : identifier;
+    const loginPassword = typeof submittedPassword === "string" ? submittedPassword : password;
+
+    if (selectedExampleAccount) {
+      await submitLogin({
+        loginIdentifier,
+        loginPassword,
+        grade: selectedExampleAccount.row.grade,
+        curriculumProfile: selectedExampleAccount.row.curriculumProfile,
+        source: "example-tile"
+      });
+      return;
+    }
+
+    if (pendingCurriculumUser) {
+      const submittedGrade = formData.get("grade");
+      const submittedPublisher = formData.get("curriculumPublisher");
+      const submittedCurriculumProfile =
+        typeof submittedPublisher === "string" && isTextbookPublisher(submittedPublisher)
+          ? curriculumProfileForPublisher(submittedPublisher)
+          : selectedCurriculumProfile;
+      const submittedLoginGrade = isValidGradeId(submittedGrade) ? submittedGrade : loginSelectedGrade;
+      await submitLogin({
+        loginIdentifier,
+        loginPassword,
+        grade: loginGradeForCurriculumProfile(submittedCurriculumProfile, submittedLoginGrade),
+        curriculumProfile: submittedCurriculumProfile
+      });
+      return;
+    }
+
+    await submitLogin({ loginIdentifier, loginPassword });
   };
 
   const handleCurriculumSelection = (profile: CurriculumProfile) => {
@@ -451,7 +506,8 @@ export default function LoginPage() {
   const fillExampleAccount = (
     account: { username: string; password: string },
     row: (typeof exampleAccountRows)[number],
-    accountKey: string
+    accountKey: string,
+    source: "example-tile" | "demo-cta" = "example-tile"
   ) => {
     if (isSubmitting) return;
     hasLoginInteractionRef.current = true;
@@ -468,7 +524,8 @@ export default function LoginPage() {
       loginIdentifier: account.username,
       loginPassword: account.password,
       grade: row.grade,
-      curriculumProfile: row.curriculumProfile
+      curriculumProfile: row.curriculumProfile,
+      source
     });
   };
 
@@ -483,14 +540,14 @@ export default function LoginPage() {
           {currentUser ? (
             <div role="status" className="mt-5 flex flex-wrap items-center justify-between gap-3 rounded-2xl border border-emerald-300/50 bg-emerald-400/10 px-4 py-3 text-sm font-semibold text-emerald-800 dark:border-emerald-300/20 dark:text-emerald-100">
               <span>
-                <span className="font-black">{t(authLinkCopy.signedIn)}</span>
+                <span className="font-bold">{t(authLinkCopy.signedIn)}</span>
                 <span className="ml-2">{formatLearnerName(currentUser.name, language)}</span>
               </span>
               <button
                 type="button"
                 onClick={handleSignedInLogout}
                 disabled={isLoggingOut}
-                className="focus-ring rounded-full border border-emerald-400/60 bg-white/75 px-3 py-1.5 text-xs font-black text-emerald-800 transition hover:bg-white disabled:cursor-not-allowed disabled:opacity-55 dark:bg-white/[0.08] dark:text-emerald-100 dark:hover:bg-white/[0.14]"
+                className="focus-ring rounded-full border border-emerald-400/60 bg-white/75 px-3 py-1.5 text-xs font-semibold text-emerald-800 transition hover:bg-white disabled:cursor-not-allowed disabled:opacity-55 dark:bg-white/[0.08] dark:text-emerald-100 dark:hover:bg-white/[0.14]"
               >
                 {isLoggingOut ? t(authLinkCopy.loggingOut) : t(authLinkCopy.switchAccount)}
               </button>
@@ -498,20 +555,20 @@ export default function LoginPage() {
           ) : null}
 
           {loginReason === "teacher-account-required" ? (
-            <p className="mt-5 rounded-2xl border border-amber-300/55 bg-amber-400/10 px-4 py-3 text-sm font-black text-amber-800 dark:border-amber-300/25 dark:text-amber-100">
+            <p className="mt-5 rounded-2xl border border-amber-300/55 bg-amber-400/10 px-4 py-3 text-sm font-semibold text-amber-800 dark:border-amber-300/25 dark:text-amber-100">
               {t(authLinkCopy.teacherAccountRequired)}
             </p>
           ) : null}
 
           {!currentUser && redirectNotice ? (
-            <p className="mt-5 rounded-2xl border border-cyan-300/45 bg-cyan-400/10 px-4 py-3 text-sm font-black text-cyan-700 dark:text-cyan-100">
+            <p className="mt-5 rounded-2xl border border-cyan-300/45 bg-cyan-400/10 px-4 py-3 text-sm font-semibold text-cyan-700 dark:text-cyan-100">
               {redirectNotice}
             </p>
           ) : null}
 
           <form method="post" action="/api/auth/login" onSubmit={handleSubmit} className="mt-8 grid gap-3">
             <label htmlFor="login-identifier" className="grid gap-2">
-              <span className="text-sm font-bold text-slate-700 dark:text-slate-200">{t(dictionary.login.username)}</span>
+              <span className="text-sm font-semibold text-slate-700 dark:text-slate-200">{t(dictionary.login.username)}</span>
               <input
                 id="login-identifier"
                 ref={identifierInputRef}
@@ -521,6 +578,7 @@ export default function LoginPage() {
                 onChange={(event) => {
                   hasLoginInteractionRef.current = true;
                   setSelectedExampleAccountKey(null);
+                  setPendingCurriculumUser(null);
                   setIdentifier(event.target.value);
                 }}
                 autoComplete="username"
@@ -534,10 +592,10 @@ export default function LoginPage() {
 
             <div className="grid gap-2">
               <div className="flex items-center justify-between gap-3">
-                <label htmlFor="login-password" className="text-sm font-bold text-slate-700 dark:text-slate-200">
+                <label htmlFor="login-password" className="text-sm font-semibold text-slate-700 dark:text-slate-200">
                   {t(dictionary.login.password)}
                 </label>
-                <Link href="/forgot-password" className="focus-ring inline-flex min-h-11 items-center rounded-full px-3 py-2 text-xs font-black text-cyan-700 transition hover:bg-cyan-400/10 dark:text-cyan-200">
+                <Link href="/forgot-password" className="focus-ring inline-flex min-h-11 items-center rounded-full px-3 py-2 text-xs font-semibold text-cyan-700 transition hover:bg-cyan-400/10 dark:text-cyan-200">
                   {t(authLinkCopy.forgotPassword)}
                 </Link>
               </div>
@@ -559,83 +617,73 @@ export default function LoginPage() {
               />
             </div>
 
-            <div className="grid gap-3">
-              {registeredStudentProfile ? (
-                <div className="flex justify-end">
-                  <span className="rounded-full border border-slate-200/80 bg-white/70 px-3 py-1 text-[11px] font-black text-slate-500 dark:border-white/10 dark:bg-white/[0.06] dark:text-slate-300">
-                    {t(loginSetupCopy.courseLocked)}
-                  </span>
-                </div>
-              ) : null}
-              <div className="grid gap-4 sm:grid-cols-2">
-                <div className="grid gap-2">
-                  <label htmlFor="login-curriculum" className="text-sm font-bold text-slate-700 dark:text-slate-200">{t(loginSetupCopy.courseLabel)}</label>
-                  <span className="relative block">
-                    <select
-                      id="login-curriculum"
-                      name="curriculumPublisher"
-                      value={displayedCurriculumProfile.publisher}
-                      disabled={courseSelectionLocked}
-                      onChange={(event) => {
-                        const nextPublisher = event.currentTarget.value;
-                        if (!isTextbookPublisher(nextPublisher)) return;
-                        handleCurriculumSelection(curriculumProfileForPublisher(nextPublisher));
-                      }}
-                      className="focus-ring min-h-14 w-full appearance-none rounded-2xl border border-slate-200/80 bg-white/80 px-4 py-3 pr-11 text-sm font-black text-slate-950 shadow-sm outline-none transition disabled:cursor-not-allowed disabled:bg-slate-100 disabled:text-slate-500 dark:border-white/10 dark:bg-white/[0.06] dark:text-white dark:disabled:bg-white/[0.04] dark:disabled:text-slate-400"
-                    >
-                      {visibleLoginPublisherGroups.map((group) => (
-                        <optgroup key={group.region} label={t(regionLabels[group.region])} className={loginSelectOptionClassName}>
-                          {group.publishers.map((publisher) => (
-                            <option key={publisher} value={publisher} className={loginSelectOptionClassName}>
-                              {t(publisherLabels[publisher])}
-                            </option>
-                          ))}
-                        </optgroup>
-                      ))}
-                    </select>
-                    <span aria-hidden="true" className="pointer-events-none absolute inset-y-0 right-4 grid place-items-center text-lg font-black text-slate-400 dark:text-slate-300">
-                      ⌄
-                    </span>
-                  </span>
-                </div>
-
-                <div className="grid gap-2">
-                  <label htmlFor="login-grade" className="text-sm font-bold text-slate-700 dark:text-slate-200">{t(loginSetupCopy.gradeLabel)}</label>
-                  <span className="relative block">
-                    <select
-                      id="login-grade"
-                      name="grade"
-                      value={displayedLoginGradeSelectValue}
-                      disabled={exampleSelectionLocked}
-                      onChange={(event) => {
-                        const nextGrade = event.currentTarget.value;
-                        if (!isValidGradeId(nextGrade)) return;
-                        hasLoginInteractionRef.current = true;
-                        setSelectedExampleAccountKey(null);
-                        setLoginSelectedGrade(nextGrade);
-                        setSelectedGrade(nextGrade);
-                      }}
-                      className="focus-ring min-h-14 w-full appearance-none rounded-2xl border border-slate-200/80 bg-white/80 px-4 py-3 pr-11 text-sm font-black text-slate-950 shadow-sm outline-none transition disabled:cursor-not-allowed disabled:bg-slate-100 disabled:text-slate-500 dark:border-white/10 dark:bg-white/[0.06] dark:text-white dark:disabled:bg-white/[0.04] dark:disabled:text-slate-400"
-                    >
-                      {displayedLoginGradeOptions.map((grade) => (
-                        <option key={grade.id} value={grade.id} className={loginSelectOptionClassName}>
-                          {formatLoginGradeOption(grade)}
-                        </option>
-                      ))}
-                    </select>
-                    <span aria-hidden="true" className="pointer-events-none absolute inset-y-0 right-4 grid place-items-center text-lg font-black text-slate-400 dark:text-slate-300">
-                      ⌄
-                    </span>
-                  </span>
-                </div>
-              </div>
-            </div>
-
             {pendingCurriculumUser ? (
               <div className="grid gap-3 rounded-2xl border border-amber-300/55 bg-amber-400/10 p-4">
                 <div>
-                  <p className="text-sm font-black text-amber-800 dark:text-amber-100">{t(curriculumCopy.prompt)}</p>
-                  <p className="mt-1 text-xs font-semibold leading-5 text-amber-700 dark:text-amber-100/80">{t(curriculumCopy.helper)}</p>
+                  <p className="text-sm font-bold text-amber-800 dark:text-amber-100">{t(curriculumCopy.prompt)}</p>
+                  <p className="mt-1 text-xs font-medium leading-5 text-amber-700 dark:text-amber-100/80">{t(curriculumCopy.helper)}</p>
+                </div>
+                <div className="grid gap-4 sm:grid-cols-2">
+                  <div className="grid gap-2">
+                    <label htmlFor="login-curriculum" className="text-sm font-semibold text-slate-700 dark:text-slate-200">{t(loginSetupCopy.courseLabel)}</label>
+                    <span className="relative block">
+                      <select
+                        id="login-curriculum"
+                        name="curriculumPublisher"
+                        value={displayedCurriculumProfile.publisher}
+                        disabled={courseSelectionLocked}
+                        onChange={(event) => {
+                          const nextPublisher = event.currentTarget.value;
+                          if (!isTextbookPublisher(nextPublisher)) return;
+                          handleCurriculumSelection(curriculumProfileForPublisher(nextPublisher));
+                        }}
+                        className="focus-ring min-h-14 w-full appearance-none rounded-2xl border border-slate-200/80 bg-white/80 px-4 py-3 pr-11 text-sm font-semibold text-slate-950 shadow-sm outline-none transition disabled:cursor-not-allowed disabled:bg-slate-100 disabled:text-slate-500 dark:border-white/10 dark:bg-white/[0.06] dark:text-white dark:disabled:bg-white/[0.04] dark:disabled:text-slate-400"
+                      >
+                        {visibleLoginPublisherGroups.map((group) => (
+                          <optgroup key={group.region} label={t(regionLabels[group.region])} className={loginSelectOptionClassName}>
+                            {group.publishers.map((publisher) => (
+                              <option key={publisher} value={publisher} className={loginSelectOptionClassName}>
+                                {t(publisherLabels[publisher])}
+                              </option>
+                            ))}
+                          </optgroup>
+                        ))}
+                      </select>
+                      <span aria-hidden="true" className="pointer-events-none absolute inset-y-0 right-4 grid place-items-center text-lg font-black text-slate-400 dark:text-slate-300">
+                        ⌄
+                      </span>
+                    </span>
+                  </div>
+
+                  <div className="grid gap-2">
+                    <label htmlFor="login-grade" className="text-sm font-semibold text-slate-700 dark:text-slate-200">{t(loginSetupCopy.gradeLabel)}</label>
+                    <span className="relative block">
+                      <select
+                        id="login-grade"
+                        name="grade"
+                        value={displayedLoginGradeSelectValue}
+                        disabled={exampleSelectionLocked}
+                        onChange={(event) => {
+                          const nextGrade = event.currentTarget.value;
+                          if (!isValidGradeId(nextGrade)) return;
+                          hasLoginInteractionRef.current = true;
+                          setSelectedExampleAccountKey(null);
+                          setLoginSelectedGrade(nextGrade);
+                          setSelectedGrade(nextGrade);
+                        }}
+                        className="focus-ring min-h-14 w-full appearance-none rounded-2xl border border-slate-200/80 bg-white/80 px-4 py-3 pr-11 text-sm font-semibold text-slate-950 shadow-sm outline-none transition disabled:cursor-not-allowed disabled:bg-slate-100 disabled:text-slate-500 dark:border-white/10 dark:bg-white/[0.06] dark:text-white dark:disabled:bg-white/[0.04] dark:disabled:text-slate-400"
+                      >
+                        {displayedLoginGradeOptions.map((grade) => (
+                          <option key={grade.id} value={grade.id} className={loginSelectOptionClassName}>
+                            {formatLoginGradeOption(grade)}
+                          </option>
+                        ))}
+                      </select>
+                      <span aria-hidden="true" className="pointer-events-none absolute inset-y-0 right-4 grid place-items-center text-lg font-black text-slate-400 dark:text-slate-300">
+                        ⌄
+                      </span>
+                    </span>
+                  </div>
                 </div>
               </div>
             ) : null}
@@ -655,7 +703,7 @@ export default function LoginPage() {
             <button
               type="submit"
               disabled={!isHydrated || isSubmitting}
-              className="focus-ring inline-flex w-full justify-center rounded-full bg-slate-950 px-5 py-3 font-black text-white shadow-lg shadow-slate-900/10 transition enabled:hover:-translate-y-1 disabled:cursor-not-allowed disabled:opacity-55 dark:bg-white dark:text-slate-950"
+              className="focus-ring inline-flex w-full justify-center rounded-full bg-slate-950 px-5 py-3 font-bold text-white shadow-lg shadow-slate-900/10 transition enabled:hover:-translate-y-1 disabled:cursor-not-allowed disabled:opacity-55 dark:bg-white dark:text-slate-950"
             >
               {!isHydrated
                 ? t({ en: "Preparing secure login", zh: "準備安全登入", zhHans: "准备安全登录" })
@@ -667,14 +715,38 @@ export default function LoginPage() {
             </button>
 
             <div className="grid gap-3">
-              <div className="flex items-center gap-3 text-xs font-black uppercase tracking-[0.18em] text-slate-400">
+              <div className="flex items-center gap-3 text-xs font-semibold uppercase tracking-[0.18em] text-slate-400">
                 <span className="h-px flex-1 bg-slate-200 dark:bg-white/10" />
                 <span>{t(authLinkCopy.googleDivider)}</span>
                 <span className="h-px flex-1 bg-slate-200 dark:bg-white/10" />
               </div>
 
-              <div className="grid gap-2">
-                <p className="text-sm font-bold text-slate-700 dark:text-slate-200">{t(authLinkCopy.googleRoleLabel)}</p>
+              <Link
+                href={googleLoginHref}
+                onClick={() => recordAuthFunnelEvent("login_google_start", googleRole)}
+                className="focus-ring inline-flex min-h-12 w-full items-center justify-center gap-3 rounded-full border border-slate-200/80 bg-white px-5 py-3 font-semibold text-slate-950 shadow-sm shadow-slate-900/5 transition hover:-translate-y-0.5 hover:shadow-md dark:border-white/10 dark:bg-white dark:text-slate-950"
+              >
+                <span aria-hidden="true" className="grid size-6 place-items-center rounded-full border border-slate-200 text-sm font-bold text-blue-600">
+                  G
+                </span>
+                {t(authLinkCopy.googleAction)}
+              </Link>
+
+              <p className="text-center text-xs font-medium text-slate-500 dark:text-slate-300">
+                {t(authLinkCopy.googleRoleSummary)}{" "}
+                <span className="font-bold text-slate-700 dark:text-slate-100">{t(activeGoogleRoleLabel)}</span>
+                <button
+                  type="button"
+                  aria-expanded={showGoogleRolePicker}
+                  aria-label={t(authLinkCopy.googleRoleChangeAria)}
+                  onClick={() => setShowGoogleRolePicker((open) => !open)}
+                  className="focus-ring ml-2 inline-flex min-h-8 items-center rounded-full px-2 py-1 font-semibold text-cyan-700 underline-offset-4 transition hover:bg-cyan-400/10 hover:underline dark:text-cyan-200"
+                >
+                  {t(authLinkCopy.googleRoleChange)}
+                </button>
+              </p>
+
+              {showGoogleRolePicker ? (
                 <div className="grid grid-cols-3 gap-2" role="radiogroup" aria-label={t(authLinkCopy.googleRoleLabel)}>
                   {googleLoginRoles.map((role) => {
                     const selected = googleRole === role.key;
@@ -685,7 +757,7 @@ export default function LoginPage() {
                         role="radio"
                         aria-checked={selected}
                         onClick={() => setGoogleRole(role.key)}
-                        className={`focus-ring min-h-11 rounded-full border px-3 py-2 text-sm font-black transition ${
+                        className={`focus-ring min-h-11 rounded-full border px-3 py-2 text-sm font-semibold transition ${
                           selected
                             ? "border-slate-950 bg-slate-950 text-white dark:border-white dark:bg-white dark:text-slate-950"
                             : "border-slate-200/80 bg-white/75 text-slate-600 hover:bg-white dark:border-white/10 dark:bg-white/[0.06] dark:text-slate-200"
@@ -696,41 +768,56 @@ export default function LoginPage() {
                     );
                   })}
                 </div>
-              </div>
-
-              <Link
-                href={googleLoginHref}
-                className="focus-ring inline-flex min-h-12 w-full items-center justify-center gap-3 rounded-full border border-slate-200/80 bg-white px-5 py-3 font-black text-slate-950 shadow-sm shadow-slate-900/5 transition hover:-translate-y-0.5 hover:shadow-md dark:border-white/10 dark:bg-white dark:text-slate-950"
-              >
-                <span aria-hidden="true" className="grid size-6 place-items-center rounded-full border border-slate-200 text-sm font-black text-blue-600">
-                  G
-                </span>
-                {t(authLinkCopy.googleAction)}
-              </Link>
+              ) : null}
             </div>
 
-            <div className="flex flex-wrap items-center gap-x-1 gap-y-2 rounded-2xl border border-cyan-300/40 bg-cyan-400/10 px-4 py-3 text-sm font-semibold text-slate-700 dark:border-cyan-300/20 dark:text-slate-200">
+            <p className="flex flex-wrap items-center justify-center gap-x-1 gap-y-2 text-center text-sm font-medium text-slate-600 dark:text-slate-300">
               <span>{t(authLinkCopy.registerPrompt)}</span>
-              <Link href="/register" className="focus-ring inline-flex min-h-11 items-center rounded-full px-3 py-2 font-black text-cyan-700 underline-offset-4 transition hover:bg-cyan-400/10 hover:underline dark:text-cyan-200">
+              <Link href="/register" className="focus-ring inline-flex min-h-11 items-center rounded-full px-2 py-2 font-bold text-cyan-700 underline-offset-4 transition hover:bg-cyan-400/10 hover:underline dark:text-cyan-200">
                 {t(authLinkCopy.registerAction)}
               </Link>
-            </div>
+            </p>
           </form>
         </section>
 
       </div>
 
+      {showDemoCta ? (
+      <section
+        aria-labelledby="login-demo-cta-title"
+        className="mx-auto mt-6 flex max-w-3xl flex-wrap items-center justify-between gap-4 rounded-3xl border border-cyan-300/70 bg-cyan-50/85 p-5 shadow-sm shadow-cyan-900/10 dark:border-cyan-300/20 dark:bg-cyan-950/20 sm:p-6"
+      >
+        <div className="min-w-56 flex-1">
+          <h2 id="login-demo-cta-title" className="text-lg font-bold tracking-tight text-slate-800 dark:text-white">
+            {t(demoCtaCopy.title)}
+          </h2>
+          <p className="mt-1 text-sm font-medium leading-6 text-slate-600 dark:text-slate-300">
+            {t(demoCtaCopy.body)}
+          </p>
+        </div>
+        <button
+          type="button"
+          disabled={exampleAccountButtonsDisabled}
+          onClick={() => fillExampleAccount(demoCtaEntry.account, demoCtaRow, demoCtaEntry.key, "demo-cta")}
+          className="focus-ring inline-flex min-h-12 items-center justify-center rounded-full bg-slate-950 px-6 py-3 text-sm font-bold text-white shadow-lg shadow-slate-900/10 transition enabled:hover:-translate-y-0.5 disabled:cursor-not-allowed disabled:opacity-55 dark:bg-white dark:text-slate-950"
+        >
+          {t(demoCtaCopy.action)}
+        </button>
+      </section>
+      ) : null}
+
+      {showExampleAccounts ? (
       <section
         aria-labelledby="login-example-accounts-title"
         className="mx-auto mt-6 max-w-3xl rounded-3xl border border-cyan-300/70 bg-cyan-50/85 p-5 shadow-sm shadow-cyan-900/10 dark:border-cyan-300/20 dark:bg-cyan-950/20 sm:p-6"
       >
-        <h2 id="login-example-accounts-title" className="text-2xl font-black tracking-tight text-slate-800 dark:text-white">
+        <h2 id="login-example-accounts-title" className="text-xl font-bold tracking-tight text-slate-800 dark:text-white">
           {t(demoAccountHelpCopy.title)}
         </h2>
         <div className="mt-4 grid gap-4">
           {exampleAccountRows.map((row) => (
             <div key={row.key} className="grid gap-3 border-t border-cyan-200/80 pt-4 first:border-t-0 first:pt-0 dark:border-cyan-100/15">
-              <p className="text-xl font-black uppercase text-cyan-700 dark:text-cyan-200">{t(row.label)}</p>
+              <p className="text-sm font-bold uppercase tracking-[0.12em] text-cyan-700 dark:text-cyan-200">{t(row.label)}</p>
               <div className="grid gap-4 md:grid-cols-2">
                 {row.accounts.map(({ account, key, roleLabel }) => {
                   const selected = selectedExampleAccountKey === key;
@@ -747,10 +834,10 @@ export default function LoginPage() {
                           : "border-white/80 bg-white/85 hover:-translate-y-0.5 hover:bg-white hover:shadow-md hover:shadow-cyan-900/10 dark:border-white/10 dark:bg-white/[0.07] dark:hover:bg-white/[0.12]"
                       }`}
                     >
-                      <span className={`block text-base font-black uppercase ${selected ? "text-cyan-200 dark:text-cyan-700" : "text-cyan-700 dark:text-cyan-200"}`}>
+                      <span className={`block text-xs font-bold uppercase tracking-[0.1em] ${selected ? "text-cyan-200 dark:text-cyan-700" : "text-cyan-700 dark:text-cyan-200"}`}>
                         {t(roleLabel)}
                       </span>
-                      <span className="mt-1.5 block break-words text-2xl font-black leading-tight">
+                      <span className="mt-1.5 block break-words text-xl font-bold leading-tight">
                         {account.username}
                       </span>
                     </button>
@@ -761,6 +848,7 @@ export default function LoginPage() {
           ))}
         </div>
       </section>
+      ) : null}
 
       {curriculumNoticeProfile ? (
         <div
@@ -770,22 +858,22 @@ export default function LoginPage() {
           aria-labelledby="curriculum-update-title"
         >
           <div className="w-full max-w-md rounded-3xl border border-cyan-200/70 bg-white p-6 shadow-2xl shadow-slate-950/20 dark:border-white/10 dark:bg-slate-950">
-            <p className="text-xs font-black uppercase tracking-[0.22em] text-cyan-600 dark:text-cyan-300">
+            <p className="text-xs font-bold uppercase tracking-[0.22em] text-cyan-600 dark:text-cyan-300">
               {t(curriculumCopy.temporaryNoticeSelection)}
             </p>
-            <p className="mt-2 text-lg font-black text-slate-950 dark:text-white">
+            <p className="mt-2 text-lg font-bold text-slate-950 dark:text-white">
               {t(publisherLabels[curriculumNoticeProfile.publisher])}
             </p>
-            <h2 id="curriculum-update-title" className="mt-5 text-2xl font-black tracking-tight text-slate-950 dark:text-white">
+            <h2 id="curriculum-update-title" className="mt-5 text-2xl font-bold tracking-tight text-slate-950 dark:text-white">
               {t(curriculumCopy.temporaryNoticeTitle)}
             </h2>
-            <p className="mt-3 text-sm font-semibold leading-6 text-slate-600 dark:text-slate-300">
+            <p className="mt-3 text-sm font-medium leading-6 text-slate-600 dark:text-slate-300">
               {t(curriculumCopy.temporaryNoticeBody)}
             </p>
             <button
               type="button"
               onClick={() => setCurriculumNoticeProfile(null)}
-              className="focus-ring mt-6 inline-flex w-full justify-center rounded-full bg-slate-950 px-5 py-3 text-sm font-black text-white shadow-lg shadow-slate-900/10 transition hover:-translate-y-0.5 dark:bg-white dark:text-slate-950"
+              className="focus-ring mt-6 inline-flex w-full justify-center rounded-full bg-slate-950 px-5 py-3 text-sm font-bold text-white shadow-lg shadow-slate-900/10 transition hover:-translate-y-0.5 dark:bg-white dark:text-slate-950"
             >
               {t(curriculumCopy.temporaryNoticeAction)}
             </button>

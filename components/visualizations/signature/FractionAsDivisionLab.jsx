@@ -619,7 +619,6 @@ export default function FractionAsDivisionLab() {
   return (
     <div className="fdivlab">
       <header className="head">
-        <p className="eyebrow">MAIS · Interactive Math Lab</p>
         <h1>A Fraction Is a Division</h1>
         <p className="lede">
           Deal the wholes, then <em>cut the leftover</em>: 7 ÷ 2 = 3½ = 7/2. The fraction bar and

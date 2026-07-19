@@ -693,7 +693,6 @@ export default function DistanceLab() {
   return (
     <div className="dlab">
       <header className="head">
-        <p className="eyebrow">MAIS · Interactive Math Lab</p>
         <h1>Distance Between Two Points</h1>
         <p className="lede">
           Explore the distance formula{' '}

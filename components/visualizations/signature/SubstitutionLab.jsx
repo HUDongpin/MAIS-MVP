@@ -1008,7 +1008,6 @@ export default function SubstitutionLab() {
   return (
     <div className="slab">
       <header className="head">
-        <p className="eyebrow">MAIS · Interactive Math Lab</p>
         <h1>Substitution</h1>
         <p className="lede">
           Substitution is one permission, used well: a letter may be replaced by anything{' '}

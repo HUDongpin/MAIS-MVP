@@ -519,7 +519,6 @@ export default function LurkingVariableLab() {
   return (
     <div className="lvlab">
       <header className="head">
-        <p className="eyebrow">MAIS · Interactive Math Lab</p>
         <h1>Correlation ≠ Causation: The Third Actor</h1>
         <p className="lede">
           The pattern is real; the arrow is not in the data. Color the cloud by the{' '}

@@ -1065,7 +1065,6 @@ export default function ProbabilityLab() {
   return (
     <div className="plab">
       <header className="head">
-        <p className="eyebrow">MAIS · Interactive Math Lab</p>
         <h1>Probability — How Likely Is It?</h1>
         <p className="lede">
           Chance is a <em>number</em>. Cut a spinner into equal slices, mark the outcomes you care about,

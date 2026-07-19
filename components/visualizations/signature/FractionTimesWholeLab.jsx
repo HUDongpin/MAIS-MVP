@@ -679,7 +679,6 @@ export default function FractionTimesWholeLab() {
   return (
     <div className="ftwlab">
       <header className="head">
-        <p className="eyebrow">MAIS · Interactive Math Lab</p>
         <h1>A Whole Number Times a Fraction</h1>
         <p className="lede">
           Multiplying by a whole number means <em>copies</em>: 3 × 2/5 is three plates of two

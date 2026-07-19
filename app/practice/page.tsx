@@ -13,6 +13,22 @@ import {
 import { practiceTextForLanguage } from "@/components/practice/hjbPracticeEnglish";
 import { dictionary, useSettings } from "@/components/providers/AppProviders";
 import { grades } from "@/data/grades";
+import {
+  classifyPracticeIslandTopic,
+  mastersKeepUnlockStarTotal,
+  practiceIslandRegions,
+  practiceIslandStarTotalMax,
+  type PracticeIslandRegionId
+} from "@/data/practiceIslandRegions";
+import {
+  awardPracticeIslandStars,
+  mergePracticeIslandStarRecords,
+  practiceIslandStarStorageKey,
+  practiceIslandStarTotal,
+  practiceIslandStarsForAccuracy,
+  readPracticeIslandStarRecord,
+  type PracticeIslandStarRecord
+} from "@/lib/practiceIslandProgress";
 import { curriculumProfileForTrack, curriculumTrackForProfile } from "@/lib/curriculumProfile";
 import { visibleDifficultiesForSelection } from "@/lib/difficulty";
 import { formatDifficultyLabel, formatGradeLabelForCurriculum } from "@/lib/i18n";
@@ -23,6 +39,17 @@ import {
   studentPracticeGameHrefs
 } from "@/lib/gameBasedLearning";
 import { dedupePracticeQuestions } from "@/lib/practiceQuestionDeduping";
+import {
+  playPracticeSound,
+  practiceSoundStorageKey,
+  readPracticeSoundEnabled
+} from "@/lib/practiceSound";
+import {
+  isYoungLearnerPracticeRound,
+  youngPracticePraise,
+  youngPracticeStarLine,
+  youngPracticeTip
+} from "@/lib/youngLearnerPractice";
 import { cn } from "@/lib/utils";
 import type {
   AdaptiveActionType,
@@ -603,6 +630,40 @@ function clampQuestionIndex(index: number, questionCount: number) {
   return Math.min(questionCount - 1, Math.max(0, index));
 }
 
+function PagerStarIcon({ className = "size-5" }: { className?: string }) {
+  return (
+    <svg aria-hidden="true" viewBox="0 0 24 24" className={className} fill="none">
+      <path d="m12 3 2.6 5.5 6 .8-4.4 4.2 1.1 6-5.3-2.9-5.3 2.9 1.1-6-4.4-4.2 6-.8L12 3Z" fill="currentColor" stroke="currentColor" strokeLinejoin="round" strokeWidth="1.4" />
+    </svg>
+  );
+}
+
+function PagerRetryIcon({ className = "size-5" }: { className?: string }) {
+  return (
+    <svg aria-hidden="true" viewBox="0 0 24 24" className={className} fill="none">
+      <path d="M20 12a8 8 0 1 1-2.35-5.65M20 4v4h-4" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.4" />
+    </svg>
+  );
+}
+
+function SoundOnIcon({ className = "size-5" }: { className?: string }) {
+  return (
+    <svg aria-hidden="true" viewBox="0 0 24 24" className={className} fill="none">
+      <path d="M4 9v6h4l5 4V5L8 9H4Z" fill="currentColor" />
+      <path d="M16.5 8.5a5 5 0 0 1 0 7M19 6a8.5 8.5 0 0 1 0 12" stroke="currentColor" strokeLinecap="round" strokeWidth="2" />
+    </svg>
+  );
+}
+
+function SoundOffIcon({ className = "size-5" }: { className?: string }) {
+  return (
+    <svg aria-hidden="true" viewBox="0 0 24 24" className={className} fill="none">
+      <path d="M4 9v6h4l5 4V5L8 9H4Z" fill="currentColor" />
+      <path d="m16 9 6 6M22 9l-6 6" stroke="currentColor" strokeLinecap="round" strokeWidth="2" />
+    </svg>
+  );
+}
+
 type QuestionPagerProps = {
   questions: PublicQuestion[];
   onAnswered?: (result: PracticePagerAnswerResult) => void;
@@ -610,13 +671,16 @@ type QuestionPagerProps = {
 };
 
 function QuestionPager({ questions, onAnswered, onQuestionStarted }: QuestionPagerProps) {
-  const { language, t: settingsT } = useSettings();
+  const { currentUser, language, t: settingsT } = useSettings();
+  const prefersReducedMotion = useReducedMotion();
   const t = useCallback(
     (localized: LocalizedText) => normalizePracticeSimplifiedText(settingsT(localized), language),
     [language, settingsT]
   );
   const [currentIndex, setCurrentIndex] = useState(0);
   const [jumpValue, setJumpValue] = useState("1");
+  const [answerResults, setAnswerResults] = useState<Record<string, boolean>>({});
+  const [soundEnabled, setSoundEnabled] = useState(false);
   const autoAdvanceTimerRef = useRef<number | null>(null);
   const questionStartedAtRef = useRef<Record<string, number>>({});
   const questionSignature = useMemo(() => questions.map((question) => question.id).join("|"), [questions]);
@@ -647,8 +711,25 @@ function QuestionPager({ questions, onAnswered, onQuestionStarted }: QuestionPag
     clearAutoAdvance();
     questionStartedAtRef.current = {};
     setCurrentIndex(0);
+    setAnswerResults({});
     setJumpValue(questionCount ? "1" : "");
   }, [clearAutoAdvance, questionCount, questionSignature]);
+
+  useEffect(() => {
+    setSoundEnabled(readPracticeSoundEnabled(window.localStorage.getItem(practiceSoundStorageKey(currentUser?.id))));
+  }, [currentUser?.id]);
+
+  const handleSoundToggle = useCallback(() => {
+    setSoundEnabled((current) => {
+      const next = !current;
+      try {
+        window.localStorage.setItem(practiceSoundStorageKey(currentUser?.id), String(next));
+      } catch {
+        // The preference stays session-only when storage is unavailable.
+      }
+      return next;
+    });
+  }, [currentUser?.id]);
 
   useEffect(() => {
     setJumpValue(questionCount ? String(currentIndex + 1) : "");
@@ -699,6 +780,11 @@ function QuestionPager({ questions, onAnswered, onQuestionStarted }: QuestionPag
     const answeredIndex = questions.findIndex((item) => item.id === question.id);
 
     delete questionStartedAtRef.current[question.id];
+    const isRoundNowComplete = questions.every((item) => item.id === question.id || answerResults[item.id] !== undefined);
+    setAnswerResults((current) => ({ ...current, [question.id]: feedback.correct }));
+    if (soundEnabled) {
+      playPracticeSound(isRoundNowComplete ? "complete" : feedback.correct ? "correct" : "wrong");
+    }
     onAnswered?.({
       question,
       feedback,
@@ -714,7 +800,9 @@ function QuestionPager({ questions, onAnswered, onQuestionStarted }: QuestionPag
         latestIndex === answeredIndex ? clampQuestionIndex(answeredIndex + 1, questionCount) : latestIndex
       ));
     }, autoAdvanceDelayMs);
-  }, [clearAutoAdvance, currentIndex, onAnswered, questionCount, questions]);
+  }, [answerResults, clearAutoAdvance, currentIndex, onAnswered, questionCount, questions, soundEnabled]);
+
+  const isYoungLearnerRound = isYoungLearnerPracticeRound(questions);
 
   if (!questionCount) return null;
 
@@ -725,11 +813,59 @@ function QuestionPager({ questions, onAnswered, onQuestionStarted }: QuestionPag
           <p aria-live="polite" className="text-sm font-black uppercase tracking-[0.18em] text-blue-600">
             {t({ en: `Question ${currentQuestionNumber} of ${questionCount}`, zh: `第 ${currentQuestionNumber} 題，共 ${questionCount} 題` })}
           </p>
-          <div className="mt-3 h-3 max-w-xl overflow-hidden rounded-full bg-white shadow-inner">
-            <div
-              className="h-full rounded-full bg-gradient-to-r from-emerald-400 via-sky-400 to-blue-500"
-              style={{ width: `${Math.max(6, (currentQuestionNumber / questionCount) * 100)}%` }}
-            />
+          <div data-testid="mission-trail" className="mt-3 flex flex-wrap items-center gap-1 sm:gap-1.5">
+            {questions.map((question, index) => {
+              const result = answerResults[question.id];
+              const isCurrentStone = index === currentIndex;
+              const stoneNumber = index + 1;
+              const stoneLabel = result === true
+                ? t({ en: `Question ${stoneNumber}: correct`, zh: `第 ${stoneNumber} 題：正確`, zhHans: `第 ${stoneNumber} 题：正确` })
+                : result === false
+                  ? t({ en: `Question ${stoneNumber}: to review`, zh: `第 ${stoneNumber} 題：需重溫`, zhHans: `第 ${stoneNumber} 题：需重温` })
+                  : t({ en: `Go to question ${stoneNumber}`, zh: `跳到第 ${stoneNumber} 題`, zhHans: `跳到第 ${stoneNumber} 题` });
+
+              return (
+                <div key={question.id} className="flex items-center gap-1 sm:gap-1.5">
+                  {index > 0 ? <span aria-hidden="true" className="w-4 border-t-2 border-dashed border-sky-300 sm:w-6" /> : null}
+                  <button
+                    type="button"
+                    onClick={() => goToIndex(index)}
+                    aria-label={stoneLabel}
+                    aria-current={isCurrentStone ? "step" : undefined}
+                    className={cn(
+                      "focus-ring grid size-11 place-items-center rounded-full border-2 text-base font-black shadow-sm transition hover:-translate-y-0.5 sm:size-12",
+                      result === true
+                        ? "border-emerald-400 bg-emerald-50 text-emerald-700"
+                        : result === false
+                          ? "border-amber-300 bg-amber-50 text-amber-600"
+                          : isCurrentStone
+                            ? "border-blue-500 bg-white text-blue-700 ring-4 ring-blue-200"
+                            : "border-sky-100 bg-white text-slate-400"
+                    )}
+                  >
+                    <motion.span
+                      key={`${question.id}:${String(result)}`}
+                      className="grid place-items-center"
+                      initial={prefersReducedMotion || result === undefined ? false : result ? { scale: 0 } : { x: 0 }}
+                      animate={
+                        prefersReducedMotion || result === undefined
+                          ? undefined
+                          : result
+                            ? { scale: [0, 1.35, 1], rotate: [0, 14, 0] }
+                            : { x: [0, -4, 4, -2, 0] }
+                      }
+                      transition={{ duration: 0.45, ease: "easeOut" }}
+                    >
+                      {result === true
+                        ? <PagerStarIcon className="size-6 text-amber-400" />
+                        : result === false
+                          ? <PagerRetryIcon className="size-5" />
+                          : stoneNumber}
+                    </motion.span>
+                  </button>
+                </div>
+              );
+            })}
           </div>
           <div className="mt-3 flex flex-wrap gap-2">
             <button
@@ -750,9 +886,21 @@ function QuestionPager({ questions, onAnswered, onQuestionStarted }: QuestionPag
             >
               {t({ en: "Next >", zh: "下一題 >" })}
             </button>
+            <button
+              type="button"
+              onClick={handleSoundToggle}
+              aria-pressed={soundEnabled}
+              aria-label={soundEnabled
+                ? t({ en: "Turn sound off", zh: "關閉音效", zhHans: "关闭音效" })
+                : t({ en: "Turn sound on", zh: "開啟音效", zhHans: "开启音效" })}
+              className="focus-ring grid min-h-11 min-w-11 place-items-center rounded-full border border-blue-200 bg-white px-3 text-blue-700 shadow-sm transition hover:-translate-y-0.5"
+            >
+              {soundEnabled ? <SoundOnIcon /> : <SoundOffIcon />}
+            </button>
           </div>
         </div>
 
+        {isYoungLearnerRound ? null : (
         <form onSubmit={handleJump} noValidate className="grid gap-2 sm:w-64">
           <label htmlFor="practice-question-jump" className="text-xs font-black uppercase tracking-[0.18em] text-blue-950">
             {t({ en: "Jump to", zh: "跳到題號" })}
@@ -775,6 +923,7 @@ function QuestionPager({ questions, onAnswered, onQuestionStarted }: QuestionPag
             </button>
           </div>
         </form>
+        )}
       </div>
 
       <div className="grid gap-5">
@@ -842,6 +991,18 @@ export default function PracticePage() {
   const [practiceGameUnlockStatus, setPracticeGameUnlockStatus] = useState<PracticeGameUnlockStatus | null>(null);
   const [rememberedGameRoundPayload, setRememberedGameRoundPayload] = useState<PracticeGameRoundPayload | null>(null);
   const [showPracticeCelebration, setShowPracticeCelebration] = useState(false);
+  const [islandStars, setIslandStars] = useState<PracticeIslandStarRecord>({});
+  const [islandRegionNotice, setIslandRegionNotice] = useState<LocalizedText | null>(null);
+  const awardedIslandRoundKeysRef = useRef<Set<string>>(new Set());
+  const pendingStarFlightRef = useRef<{ regionId: PracticeIslandRegionId; starCount: number } | null>(null);
+  const [islandStarFlight, setIslandStarFlight] = useState<{
+    token: number;
+    regionId: PracticeIslandRegionId;
+    starCount: number;
+    from: { x: number; y: number };
+    to: { x: number; y: number };
+  } | null>(null);
+  const [pulseRegionId, setPulseRegionId] = useState<PracticeIslandRegionId | null>(null);
   const isStudentAccount = currentUser?.role === "student";
   const studentProfileGrade = currentUser?.role === "student" ? currentUser.grade : null;
   const studentJonCanBrowseCaliforniaK12 =
@@ -886,6 +1047,161 @@ export default function PracticePage() {
       readPracticeGameRoundPayload(window.localStorage.getItem(completedPracticeRoundStorageKey(currentUser?.id)))
     );
   }, [currentUser?.id]);
+
+  useEffect(() => {
+    awardedIslandRoundKeysRef.current = new Set();
+    setIslandRegionNotice(null);
+    const localRecord = readPracticeIslandStarRecord(window.localStorage.getItem(practiceIslandStarStorageKey(currentUser?.id)));
+
+    if (currentUser?.role !== "student") {
+      setIslandStars(localRecord);
+      return;
+    }
+
+    const guestRecord = readPracticeIslandStarRecord(window.localStorage.getItem(practiceIslandStarStorageKey(null)));
+    const claimedRecord = mergePracticeIslandStarRecords(localRecord, guestRecord);
+    setIslandStars(claimedRecord);
+    if (claimedRecord !== localRecord) {
+      try {
+        window.localStorage.setItem(practiceIslandStarStorageKey(currentUser.id), JSON.stringify(claimedRecord));
+      } catch {
+        // Claimed guest stars still apply in memory when storage is unavailable.
+      }
+    }
+    if (Object.keys(guestRecord).length) {
+      try {
+        window.localStorage.removeItem(practiceIslandStarStorageKey(null));
+      } catch {
+        // A stale guest record only risks re-claiming the same stars, which the server dedupes.
+      }
+    }
+
+    const abortController = new AbortController();
+    (async () => {
+      try {
+        const response = await fetch("/api/gamification/practice-island", { signal: abortController.signal });
+        if (!response.ok) return;
+        const payload = await response.json() as { stars?: unknown };
+        const serverRecord = readPracticeIslandStarRecord(JSON.stringify(payload?.stars ?? null));
+
+        setIslandStars((current) => {
+          const merged = mergePracticeIslandStarRecords(current, serverRecord);
+          if (merged !== current) {
+            try {
+              window.localStorage.setItem(practiceIslandStarStorageKey(currentUser?.id), JSON.stringify(merged));
+            } catch {
+              // Server stars still merge in memory when storage is unavailable.
+            }
+          }
+          return merged;
+        });
+
+        for (const [regionId, stars] of Object.entries(claimedRecord)) {
+          if (stars > (serverRecord[regionId as PracticeIslandRegionId] ?? 0)) {
+            void fetch("/api/gamification/practice-island", {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({ regionId, stars })
+            }).catch(() => undefined);
+          }
+        }
+      } catch {
+        // Offline or aborted: local stars remain the source of truth for this session.
+      }
+    })();
+
+    return () => abortController.abort();
+  }, [currentUser?.id, currentUser?.role]);
+
+  const awardIslandStars = useCallback((
+    regionId: PracticeIslandRegionId,
+    stars: number,
+    { celebrate = false }: { celebrate?: boolean } = {}
+  ) => {
+    setIslandStars((current) => {
+      const next = awardPracticeIslandStars(current, regionId, stars);
+      if (next !== current) {
+        try {
+          window.localStorage.setItem(practiceIslandStarStorageKey(currentUser?.id), JSON.stringify(next));
+        } catch {
+          // Star totals still update in memory when storage is unavailable.
+        }
+        if (isStudentAccount) {
+          void fetch("/api/gamification/practice-island", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ regionId, stars: next[regionId] ?? stars })
+          }).catch(() => undefined);
+        }
+        if (celebrate) {
+          const gainedStars = (next[regionId] ?? 0) - (current[regionId] ?? 0);
+          if (gainedStars > 0) pendingStarFlightRef.current = { regionId, starCount: Math.min(3, gainedStars) };
+        }
+      }
+      return next;
+    });
+  }, [currentUser?.id, isStudentAccount]);
+
+  const launchIslandStarFlight = useCallback(() => {
+    const pending = pendingStarFlightRef.current;
+    if (!pending) return;
+    pendingStarFlightRef.current = null;
+
+    const summaryRect = practiceSummaryCloseButtonRef.current?.getBoundingClientRect() ?? null;
+    const from = summaryRect
+      ? { x: summaryRect.left + summaryRect.width / 2, y: summaryRect.top + summaryRect.height / 2 }
+      : { x: window.innerWidth / 2, y: window.innerHeight / 3 };
+
+    document.getElementById("practice-adventure-hero")?.scrollIntoView({
+      behavior: prefersReducedMotion ? "auto" : "smooth",
+      block: "start"
+    });
+
+    window.setTimeout(() => {
+      const pinTarget = document.querySelector(`[data-island-region-pin="${pending.regionId}"]`);
+      const chipTarget = document.querySelector(`[data-island-region-chip="${pending.regionId}"]`);
+      const targetElement =
+        pinTarget instanceof HTMLElement && pinTarget.offsetParent !== null
+          ? pinTarget
+          : chipTarget instanceof HTMLElement
+            ? chipTarget
+            : null;
+
+      if (!targetElement || prefersReducedMotion) {
+        setPulseRegionId(pending.regionId);
+        return;
+      }
+
+      const targetRect = targetElement.getBoundingClientRect();
+      setIslandStarFlight({
+        token: Date.now(),
+        regionId: pending.regionId,
+        starCount: pending.starCount,
+        from,
+        to: { x: targetRect.left + targetRect.width / 2, y: targetRect.top + targetRect.height / 2 }
+      });
+    }, prefersReducedMotion ? 60 : 640);
+  }, [prefersReducedMotion]);
+
+  const closePracticeSummary = useCallback(() => {
+    setPracticeSummaryOpen(false);
+    launchIslandStarFlight();
+  }, [launchIslandStarFlight]);
+
+  useEffect(() => {
+    if (!islandStarFlight) return;
+    const flightTimer = window.setTimeout(() => {
+      setIslandStarFlight(null);
+      setPulseRegionId(islandStarFlight.regionId);
+    }, 950 + (islandStarFlight.starCount - 1) * 140);
+    return () => window.clearTimeout(flightTimer);
+  }, [islandStarFlight]);
+
+  useEffect(() => {
+    if (!pulseRegionId) return;
+    const pulseTimer = window.setTimeout(() => setPulseRegionId(null), 1600);
+    return () => window.clearTimeout(pulseTimer);
+  }, [pulseRegionId]);
 
   const topicOptions = useMemo(() => {
     return questionCatalogTopics.map((topic): [string, TopicOption] => [
@@ -1053,6 +1369,9 @@ export default function PracticePage() {
     () => activeSummaryGameRoundPayload ?? (!activePracticeSummary?.isComplete ? rememberedGameRoundPayload : null),
     [activePracticeSummary?.isComplete, activeSummaryGameRoundPayload, rememberedGameRoundPayload]
   );
+  const isYoungLearnerSummary = activePracticeSummary
+    ? isYoungLearnerPracticeRound(activePracticeSummary.results.map((result) => result.question))
+    : false;
   const activePracticeSummaryToneClassName = activePracticeSummary
     ? practiceSummaryToneClassNameFor(activePracticeSummary.accuracyPercent)
     : "text-amber-600 dark:text-amber-200";
@@ -1161,7 +1480,7 @@ export default function PracticePage() {
     const previousOverflow = document.body.style.overflow;
     const focusTimer = window.setTimeout(() => practiceSummaryCloseButtonRef.current?.focus(), 40);
     const handleKeyDown = (event: KeyboardEvent) => {
-      if (event.key === "Escape") setPracticeSummaryOpen(false);
+      if (event.key === "Escape") closePracticeSummary();
     };
 
     document.body.style.overflow = "hidden";
@@ -1229,6 +1548,38 @@ export default function PracticePage() {
     freeSelectionSummaryAutoOpenedRoundKey,
     prefersReducedMotion
   ]);
+
+  useEffect(() => {
+    if (!adaptivePracticeSummary?.isComplete) return;
+    if (awardedIslandRoundKeysRef.current.has(adaptivePracticeSummary.roundKey)) return;
+
+    awardedIslandRoundKeysRef.current.add(adaptivePracticeSummary.roundKey);
+    awardIslandStars("question-cavern", practiceIslandStarsForAccuracy(adaptivePracticeSummary.accuracyPercent), { celebrate: true });
+  }, [adaptivePracticeSummary, awardIslandStars]);
+
+  useEffect(() => {
+    if (!freeSelectionPracticeSummary?.isComplete) return;
+    if (awardedIslandRoundKeysRef.current.has(freeSelectionPracticeSummary.roundKey)) return;
+
+    awardedIslandRoundKeysRef.current.add(freeSelectionPracticeSummary.roundKey);
+    const regionId = freeSelectionPracticeSummary.isSingleTopicRound && freeSelectionPracticeSummary.topicId
+      ? classifyPracticeIslandTopic({
+          topicId: freeSelectionPracticeSummary.topicId,
+          topic: freeSelectionPracticeSummary.topic ?? undefined
+        })
+      : "challenge-shore";
+    awardIslandStars(regionId, practiceIslandStarsForAccuracy(freeSelectionPracticeSummary.accuracyPercent), { celebrate: true });
+  }, [awardIslandStars, freeSelectionPracticeSummary]);
+
+  useEffect(() => {
+    const rememberedCorrectCount = rememberedGameRoundPayload?.correctRoundQuestionIds.length ?? 0;
+    if (!rememberedGameRoundPayload || rememberedCorrectCount < 4) return;
+
+    awardIslandStars(
+      classifyPracticeIslandTopic({ topicId: rememberedGameRoundPayload.topicId }),
+      rememberedCorrectCount >= 5 ? 3 : 2
+    );
+  }, [awardIslandStars, rememberedGameRoundPayload]);
 
   useEffect(() => {
     if (!activePracticeSummary?.isComplete && !activeGameRoundPayload) {
@@ -1532,6 +1883,7 @@ export default function PracticePage() {
     setAdaptiveAnswerResults({});
     setAdaptiveQuestionResults({});
     adaptiveProgressQuestionIdsRef.current = new Set();
+    pendingStarFlightRef.current = null;
     setPracticeSummaryOpen(false);
     setPracticeSummaryAutoOpenedRoundKey(null);
     setPracticeSummaryAdaptiveDecision(null);
@@ -1618,9 +1970,14 @@ export default function PracticePage() {
     return () => controller.abort();
   }, [activeGradeFilter, curriculumTrack, difficultyFilter, hasSelectedPracticeFilter, language, textbookPublisher, topicFilter]);
 
-  const scrollToPracticeSection = useCallback((targetId: string) => {
+  const scrollToPracticeSection = useCallback((...targetIds: string[]) => {
     window.requestAnimationFrame(() => {
-      document.getElementById(targetId)?.scrollIntoView({ behavior: "smooth", block: "start" });
+      for (const targetId of targetIds) {
+        const element = document.getElementById(targetId);
+        if (!element) continue;
+        element.scrollIntoView({ behavior: "smooth", block: "start" });
+        return;
+      }
     });
   }, []);
 
@@ -1634,17 +1991,88 @@ export default function PracticePage() {
     scrollToPracticeSection(adaptivePlan ? "adaptive-practice-round" : "free-selection");
   }, [adaptivePlan, firstQuestionCatalogTopicId, scrollToPracticeSection, shouldShowFreeSelection, topicFilter]);
 
-  const adventureProgressTotal = 30;
-  const rememberedAdventureProgressValue = rememberedGameRoundPayload?.correctRoundQuestionIds.length ?? 0;
-  const adventureProgressValue = Math.min(
-    adventureProgressTotal,
-    Math.max(
-      activePracticeSummary?.correctCount ?? 0,
-      adaptiveCompletedCount,
-      rememberedAdventureProgressValue,
-      topicFilter === "all" ? 0 : 1
-    )
+  const islandStarTotal = practiceIslandStarTotal(islandStars);
+  const mastersKeepLocked = islandStarTotal < mastersKeepUnlockStarTotal;
+
+  const islandRegionTopicBuckets = useMemo(() => {
+    const buckets = new Map<PracticeIslandRegionId, QuestionCatalogTopic[]>();
+    questionCatalogTopics.forEach((topic) => {
+      const regionId = classifyPracticeIslandTopic({ topicId: topic.topicId, topic: topic.topic });
+      const bucket = buckets.get(regionId) ?? [];
+      bucket.push(topic);
+      buckets.set(regionId, bucket);
+    });
+    return buckets;
+  }, [questionCatalogTopics]);
+
+  const islandRegionStatuses = useMemo(
+    () => practiceIslandRegions.map((region) => ({
+      region,
+      stars: islandStars[region.id] ?? 0,
+      locked: region.kind === "review" && mastersKeepLocked
+    })),
+    [islandStars, mastersKeepLocked]
   );
+
+  const handleIslandRegionSelect = useCallback((regionId: PracticeIslandRegionId) => {
+    const region = practiceIslandRegions.find((entry) => entry.id === regionId);
+    if (!region) return;
+
+    if (region.kind === "review" && mastersKeepLocked) {
+      const missingStars = Math.max(1, mastersKeepUnlockStarTotal - islandStarTotal);
+      setIslandRegionNotice({
+        en: `Master's Keep opens at ${mastersKeepUnlockStarTotal} stars. Collect ${missingStars} more around the island first.`,
+        zh: `大師城堡需要 ${mastersKeepUnlockStarTotal} 顆星才會開放，先在島上再收集 ${missingStars} 顆星吧。`,
+        zhHans: `大师城堡需要 ${mastersKeepUnlockStarTotal} 颗星才会开放，先在岛上再收集 ${missingStars} 颗星吧。`
+      });
+      return;
+    }
+
+    if (region.kind === "adaptive" || region.kind === "review") {
+      setIslandRegionNotice(null);
+      scrollToPracticeSection(adaptivePlan ? "adaptive-practice-round" : "free-selection", "mission-setup-filters");
+      return;
+    }
+
+    if (region.kind === "challenge") {
+      setIslandRegionNotice(null);
+      setTopicFilter("all");
+      if (activeGradeFilter === "all" && !adventureGradeLock.gradeSelectionDisabled) {
+        setGradeFilter(selectedGrade);
+      }
+      scrollToPracticeSection("free-selection", "mission-setup-filters");
+      return;
+    }
+
+    const regionTopics = islandRegionTopicBuckets.get(region.id) ?? [];
+    if (!regionTopics.length) {
+      setIslandRegionNotice({
+        en: "No missions in this region for the current grade yet. Try another region.",
+        zh: "這個區域在目前年級還沒有任務，試試其他區域吧。",
+        zhHans: "这个区域在当前年级还没有任务，试试其他区域吧。"
+      });
+      return;
+    }
+
+    const currentTopicIndex = regionTopics.findIndex((topic) => topic.topicId === topicFilter);
+    const nextTopic = regionTopics[currentTopicIndex >= 0 ? (currentTopicIndex + 1) % regionTopics.length : 0];
+    setIslandRegionNotice(null);
+    setTopicFilter(nextTopic.topicId);
+    scrollToPracticeSection("free-selection", "mission-setup-filters");
+  }, [
+    activeGradeFilter,
+    adaptivePlan,
+    adventureGradeLock.gradeSelectionDisabled,
+    islandRegionTopicBuckets,
+    islandStarTotal,
+    mastersKeepLocked,
+    scrollToPracticeSection,
+    selectedGrade,
+    topicFilter
+  ]);
+
+  const adventureProgressTotal = practiceIslandStarTotalMax;
+  const adventureProgressValue = Math.min(adventureProgressTotal, islandStarTotal);
   const shouldRenderFreeSelectionRound = shouldShowFreeSelection && hasSelectedPracticeFilter && displayedQuestions.length > 0;
 
   return (
@@ -1666,6 +2094,40 @@ export default function PracticePage() {
         className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_12%_8%,rgba(255,255,255,0.34),transparent_15%),radial-gradient(circle_at_86%_12%,rgba(255,255,255,0.28),transparent_18%),linear-gradient(180deg,#44c5f2_0%,#58d0f7_52%,#74ddfb_100%)]"
       />
       <div className="relative mx-auto max-w-[1500px]">
+      {islandStarFlight ? (
+        <div aria-hidden="true" data-testid="island-star-flight" className="pointer-events-none fixed inset-0 z-[140]">
+          {Array.from({ length: islandStarFlight.starCount }, (_, starIndex) => (
+            <motion.span
+              key={`${islandStarFlight.token}-${starIndex}`}
+              className="absolute left-0 top-0 text-amber-400 drop-shadow-[0_2px_8px_rgba(245,158,11,0.6)]"
+              initial={{
+                x: islandStarFlight.from.x - 14,
+                y: islandStarFlight.from.y - 14,
+                scale: 0.5,
+                opacity: 0
+              }}
+              animate={{
+                x: [
+                  islandStarFlight.from.x - 14,
+                  (islandStarFlight.from.x + islandStarFlight.to.x) / 2 - 14,
+                  islandStarFlight.to.x - 14
+                ],
+                y: [
+                  islandStarFlight.from.y - 14,
+                  Math.min(islandStarFlight.from.y, islandStarFlight.to.y) - 130,
+                  islandStarFlight.to.y - 14
+                ],
+                scale: [0.5, 1.45, 0.85],
+                opacity: [0, 1, 0.95],
+                rotate: [0, 24, -8]
+              }}
+              transition={{ duration: 0.82, delay: starIndex * 0.14, ease: "easeInOut" }}
+            >
+              <PagerStarIcon className="size-7" />
+            </motion.span>
+          ))}
+        </div>
+      ) : null}
       <AnimatePresence>
         {showPracticeCelebration ? (
           <motion.div
@@ -1714,7 +2176,12 @@ export default function PracticePage() {
         t={t}
         progressValue={adventureProgressValue}
         progressTotal={adventureProgressTotal}
+        regions={islandRegionStatuses}
+        games={{ adventureIslandUnlocked: hasAdventureIslandUnlock, fishingMasterUnlocked: hasFishingGameUnlock }}
+        pulseRegionId={pulseRegionId}
+        regionNotice={islandRegionNotice ? t(islandRegionNotice) : null}
         onStartMission={handleAdventureStartMission}
+        onRegionSelect={handleIslandRegionSelect}
       />
 
       {adaptiveLoadError ? (
@@ -1806,9 +2273,10 @@ export default function PracticePage() {
 
       {shouldShowFreeSelection ? (
         <section
+          id="mission-setup-filters"
           aria-label={t({ en: "Mission setup filters", zh: "任務設定篩選", zhHans: "任务设置筛选" })}
           className={cn(
-            "mt-8 grid gap-4 rounded-[28px] border border-cyan-100 bg-cyan-50/90 p-5 shadow-[0_18px_38px_rgba(8,145,178,0.14)]",
+            "mt-8 grid scroll-mt-28 gap-4 rounded-[28px] border border-cyan-100 bg-cyan-50/90 p-5 shadow-[0_18px_38px_rgba(8,145,178,0.14)]",
             studentFixedGrade ? "md:grid-cols-3" : "md:grid-cols-4"
           )}
         >
@@ -1962,7 +2430,7 @@ export default function PracticePage() {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             onMouseDown={(event) => {
-              if (event.target === event.currentTarget) setPracticeSummaryOpen(false);
+              if (event.target === event.currentTarget) closePracticeSummary();
             }}
           >
             <motion.section
@@ -1987,13 +2455,15 @@ export default function PracticePage() {
                       : t({ en: "Personalized practice round complete", zh: "適性練習回合完成" })}
                   </h2>
                   <p id="practice-summary-description" className="mt-2 max-w-3xl text-sm font-semibold leading-6 text-slate-600 dark:text-slate-300">
-                    {t(practiceSummaryEncouragement(activePracticeSummary.accuracyPercent))}
+                    {t(isYoungLearnerSummary
+                      ? youngPracticePraise(activePracticeSummary.accuracyPercent)
+                      : practiceSummaryEncouragement(activePracticeSummary.accuracyPercent))}
                   </p>
                 </div>
                 <button
                   ref={practiceSummaryCloseButtonRef}
                   type="button"
-                  onClick={() => setPracticeSummaryOpen(false)}
+                  onClick={closePracticeSummary}
                   aria-label={t({ en: "Close Practice Arena summary", zh: "關閉練習場摘要" })}
                   className="focus-ring self-start rounded-full border border-slate-200/80 bg-white px-4 py-2 text-lg font-black text-slate-600 transition hover:-translate-y-0.5 hover:text-slate-950 dark:border-white/10 dark:bg-white/[0.07] dark:text-slate-200 dark:hover:text-white"
                 >
@@ -2127,24 +2597,43 @@ export default function PracticePage() {
                           : t({ en: "Continue with the current personalized skill target.", zh: "繼續目前的適性技能目標。" })}
                       </p>
                     </div>
-                    <div className="rounded-2xl bg-white/75 p-3 dark:bg-white/[0.06]">
-                      <p className="text-xs font-black uppercase tracking-[0.16em] text-cyan-700 dark:text-cyan-200">{t({ en: "Learning method", zh: "學習方法" })}</p>
-                      <p className="mt-2 text-sm font-bold leading-6 text-slate-700 dark:text-slate-200">
-                        {t(learningMethodSuggestion(activePracticeSummary.accuracyPercent, activePracticeSummary.averageSeconds))}
-                      </p>
-                    </div>
-                    <div className="rounded-2xl bg-white/75 p-3 dark:bg-white/[0.06]">
-                      <p className="text-xs font-black uppercase tracking-[0.16em] text-cyan-700 dark:text-cyan-200">{t({ en: "Metacognition", zh: "元認知" })}</p>
-                      <p className="mt-2 text-sm font-bold leading-6 text-slate-700 dark:text-slate-200">
-                        {t(metacognitionSuggestion(activePracticeSummary.accuracyPercent))}
-                      </p>
-                    </div>
-                    <div className="rounded-2xl bg-white/75 p-3 dark:bg-white/[0.06]">
-                      <p className="text-xs font-black uppercase tracking-[0.16em] text-cyan-700 dark:text-cyan-200">{t({ en: "Emotional support", zh: "情感支持" })}</p>
-                      <p className="mt-2 text-sm font-bold leading-6 text-slate-700 dark:text-slate-200">
-                        {t(emotionalSupportSuggestion(activePracticeSummary.accuracyPercent))}
-                      </p>
-                    </div>
+                    {isYoungLearnerSummary ? (
+                      <>
+                        <div className="rounded-2xl bg-white/75 p-3 dark:bg-white/[0.06]" data-testid="young-summary-stars">
+                          <p className="text-xs font-black uppercase tracking-[0.16em] text-cyan-700 dark:text-cyan-200">{t({ en: "Your stars", zh: "你的星星" })}</p>
+                          <p className="mt-2 text-sm font-bold leading-6 text-slate-700 dark:text-slate-200">
+                            {t(youngPracticeStarLine(activePracticeSummary.correctCount, activePracticeSummary.totalQuestions))}
+                          </p>
+                        </div>
+                        <div className="rounded-2xl bg-white/75 p-3 dark:bg-white/[0.06]" data-testid="young-summary-tip">
+                          <p className="text-xs font-black uppercase tracking-[0.16em] text-cyan-700 dark:text-cyan-200">{t({ en: "Try this", zh: "試試看", zhHans: "试试看" })}</p>
+                          <p className="mt-2 text-sm font-bold leading-6 text-slate-700 dark:text-slate-200">
+                            {t(youngPracticeTip(activePracticeSummary.accuracyPercent))}
+                          </p>
+                        </div>
+                      </>
+                    ) : (
+                      <>
+                        <div className="rounded-2xl bg-white/75 p-3 dark:bg-white/[0.06]">
+                          <p className="text-xs font-black uppercase tracking-[0.16em] text-cyan-700 dark:text-cyan-200">{t({ en: "Learning method", zh: "學習方法" })}</p>
+                          <p className="mt-2 text-sm font-bold leading-6 text-slate-700 dark:text-slate-200">
+                            {t(learningMethodSuggestion(activePracticeSummary.accuracyPercent, activePracticeSummary.averageSeconds))}
+                          </p>
+                        </div>
+                        <div className="rounded-2xl bg-white/75 p-3 dark:bg-white/[0.06]">
+                          <p className="text-xs font-black uppercase tracking-[0.16em] text-cyan-700 dark:text-cyan-200">{t({ en: "Metacognition", zh: "元認知" })}</p>
+                          <p className="mt-2 text-sm font-bold leading-6 text-slate-700 dark:text-slate-200">
+                            {t(metacognitionSuggestion(activePracticeSummary.accuracyPercent))}
+                          </p>
+                        </div>
+                        <div className="rounded-2xl bg-white/75 p-3 dark:bg-white/[0.06]">
+                          <p className="text-xs font-black uppercase tracking-[0.16em] text-cyan-700 dark:text-cyan-200">{t({ en: "Emotional support", zh: "情感支持" })}</p>
+                          <p className="mt-2 text-sm font-bold leading-6 text-slate-700 dark:text-slate-200">
+                            {t(emotionalSupportSuggestion(activePracticeSummary.accuracyPercent))}
+                          </p>
+                        </div>
+                      </>
+                    )}
                   </div>
 
                   {practiceSummaryMode === "adaptive" && summaryDueReviews.length ? (
@@ -2193,7 +2682,7 @@ export default function PracticePage() {
                     </Link>
                     <button
                       type="button"
-                      onClick={() => setPracticeSummaryOpen(false)}
+                      onClick={closePracticeSummary}
                       className="focus-ring inline-flex justify-center rounded-full border border-cyan-300/55 bg-cyan-400/15 px-5 py-3 text-sm font-black text-cyan-700 transition hover:-translate-y-0.5 dark:text-cyan-100"
                     >
                       {t({ en: "Back to Practice Arena", zh: "返回練習場" })}

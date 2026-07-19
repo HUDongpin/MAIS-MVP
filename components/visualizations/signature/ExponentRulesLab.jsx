@@ -1281,7 +1281,6 @@ export default function ExponentRulesLab() {
   return (
     <div className="xlab">
       <header className="head">
-        <p className="eyebrow">MAIS · Interactive Math Lab</p>
         <h1>Exponent Rules</h1>
         <p className="lede">
           An exponent is not a mystery symbol — it is a <em>count</em>. Every power <em>b</em>

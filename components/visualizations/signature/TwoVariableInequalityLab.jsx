@@ -1085,7 +1085,6 @@ export default function TwoVariableInequalityLab() {
   return (
     <div className="tvilab">
       <header className="head">
-        <p className="eyebrow">MAIS · Interactive Math Lab</p>
         <h1>Inequalities in Two Variables</h1>
         <p className="lede">
           Give an inequality a second variable and its answer gains a dimension: not a ray on a line, but a{' '}

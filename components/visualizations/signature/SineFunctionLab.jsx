@@ -694,7 +694,6 @@ export default function SineFunctionLab() {
   return (
     <div className="slab">
       <header className="head">
-        <p className="eyebrow">MAIS · Interactive Math Lab</p>
         <h1>The Sine Function</h1>
         <p className="lede">
           Explore the wave in{' '}

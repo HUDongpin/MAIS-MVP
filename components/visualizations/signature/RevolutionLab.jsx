@@ -493,7 +493,6 @@ export default function RevolutionLab() {
   return (
     <div className="rvlab">
       <header className="head">
-        <p className="eyebrow">MAIS · Interactive Math Lab</p>
         <h1>Solids of Revolution: The Lathe</h1>
         <p className="lede">
           One axis, one spin: the rectangle births the cylinder, the right

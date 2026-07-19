@@ -842,7 +842,6 @@ export default function AreaLab() {
   return (
     <div className="alab">
       <header className="head">
-        <p className="eyebrow">MAIS · Interactive Math Lab</p>
         <h1>Area</h1>
         <p className="lede">
           Area is how much flat space a shape covers, counted in unit squares. Build a rectangle

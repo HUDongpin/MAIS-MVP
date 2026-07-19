@@ -464,7 +464,6 @@ export default function CompareFunctionsLab() {
   return (
     <div className="cflab">
       <header className="head">
-        <p className="eyebrow">MAIS · Interactive Math Lab</p>
         <h1>Which One Climbs Faster?</h1>
         <p className="lede">
           One function arrives as a graph, the other as a table. You cannot compare them

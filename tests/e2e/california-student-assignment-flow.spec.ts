@@ -217,7 +217,7 @@ async function makeVisibleQuestionAnswerable(page: Page) {
     await textbox.fill("not the final answer");
   } else {
     await card.locator("button")
-      .filter({ hasNotText: /Check Answer|Reset|Math keyboard|Previous question|Next question|Jump/i })
+      .filter({ hasNotText: /Check Answer|Reset|Math keyboard|Previous question|Next question|Jump|Read aloud|Stop|讀給我聽|读给我听|停止/i })
       .first()
       .click();
   }

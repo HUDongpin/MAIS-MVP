@@ -460,7 +460,6 @@ export default function ProofChainLab() {
   return (
     <div className="pflab">
       <header className="head">
-        <p className="eyebrow">MAIS · Interactive Math Lab</p>
         <h1>Geometric Proof: The Chain of Because</h1>
         <p className="lede">
           Every bench in this library shows invariants surviving sweeps; this

@@ -758,7 +758,6 @@ export default function UnlikeDenominatorsLab() {
   return (
     <div className="udlab">
       <header className="head">
-        <p className="eyebrow">MAIS · Interactive Math Lab</p>
         <h1>Unlike Denominators: Find the Cut</h1>
         <p className="lede">
           Halves and thirds refuse to be counted together. Slice every whole with one{' '}

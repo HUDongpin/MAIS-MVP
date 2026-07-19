@@ -460,7 +460,6 @@ export default function ExpectedValueLab() {
   return (
     <div className="evlab">
       <header className="head">
-        <p className="eyebrow">MAIS · Interactive Math Lab</p>
         <h1>Expected Value: The Split of the Pot</h1>
         <p className="lede">
           Lay out every ticket, add every printed payout into the pot, split it

@@ -14,7 +14,16 @@ import { formatPracticeOptionDisplayText } from "@/components/practice/practiceO
 import { cleanPracticeQuestionPromptText } from "@/components/practice/practicePromptText";
 import { isImmersiveStudentPracticeGamePath } from "@/lib/gameBasedLearning";
 import { isStudentLessonPath } from "@/lib/lessonLinks";
+import { countingDotCardQuantitiesFor } from "@/lib/countingDotCards";
+import {
+  buildPracticeReadAloudText,
+  practiceReadAloudLanguageCode,
+  speakPracticeText,
+  stopPracticeReadAloud
+} from "@/lib/practiceReadAloud";
+import { isYoungLearnerPracticeGrade } from "@/lib/youngLearnerPractice";
 import { cn } from "@/lib/utils";
+import { CountingDotCards } from "@/components/practice/CountingDotCards";
 import { QuestionFigure, type QuestionFigureVariant } from "@/components/practice/QuestionFigure";
 import type { AttemptFeedback, Language, LocalizedText, PublicQuestion, QuestionType } from "@/types";
 
@@ -81,6 +90,15 @@ function PaperclipIcon() {
         strokeLinecap="round"
         strokeLinejoin="round"
       />
+    </svg>
+  );
+}
+
+function SpeakerIcon() {
+  return (
+    <svg aria-hidden="true" viewBox="0 0 24 24" className="size-5 shrink-0" fill="none">
+      <path d="M4 9v6h4l5 4V5L8 9H4Z" fill="currentColor" />
+      <path d="M16.5 8.5a5 5 0 0 1 0 7M19 6a8.5 8.5 0 0 1 0 12" stroke="currentColor" strokeLinecap="round" strokeWidth="2" />
     </svg>
   );
 }
@@ -232,6 +250,7 @@ export function PracticeQuestionCard({ question, onAnswered }: PracticeQuestionC
   const [softKeyboardOpen, setSoftKeyboardOpen] = useState(false);
   const [handwritingResetToken, setHandwritingResetToken] = useState(0);
   const [startedAt, setStartedAt] = useState<number | null>(null);
+  const [isReadingAloud, setIsReadingAloud] = useState(false);
   const text = (localized: LocalizedText) => normalizePracticeQuestionCardSimplifiedText(settingsText(localized), language);
   const t = (localized: LocalizedText) => normalizePracticeQuestionCardSimplifiedText(settingsT(localized), language);
   const localizedPracticeText = (localized: PublicQuestion["topic"]) => normalizePracticeQuestionCardSimplifiedText(
@@ -257,6 +276,8 @@ export function PracticeQuestionCard({ question, onAnswered }: PracticeQuestionC
   const questionImageAssets = shouldHideUnsafeMainlandPepPrimaryPracticeIllustration
     ? []
     : (question.questionAssets ?? []).filter((asset) => asset.kind === "image");
+  const shouldShowReadAloud = isYoungLearnerPracticeGrade(question.grade);
+  const dotCardQuantities = countingDotCardQuantitiesFor(question);
 
   useEffect(() => {
     photoAttachmentsRef.current = photoAttachments;
@@ -265,6 +286,8 @@ export function PracticeQuestionCard({ question, onAnswered }: PracticeQuestionC
   useEffect(() => () => {
     revokePhotoAttachments(photoAttachmentsRef.current);
   }, []);
+
+  useEffect(() => () => stopPracticeReadAloud(), []);
 
   useEffect(() => {
     setSelected("");
@@ -280,8 +303,28 @@ export function PracticeQuestionCard({ question, onAnswered }: PracticeQuestionC
     setSoftKeyboardOpen(false);
     setHandwritingResetToken((current) => current + 1);
     setStartedAt(null);
+    stopPracticeReadAloud();
+    setIsReadingAloud(false);
     if (photoInputRef.current) photoInputRef.current.value = "";
   }, [question.id]);
+
+  function handleReadAloudToggle() {
+    if (isReadingAloud) {
+      stopPracticeReadAloud();
+      setIsReadingAloud(false);
+      return;
+    }
+
+    const optionTexts = (question.options ?? []).map((option) =>
+      toPlainMathText(formatPracticeOptionDisplayText(localizedPracticeText(option)))
+    );
+    const started = speakPracticeText(
+      buildPracticeReadAloudText({ promptText: promptLabel, optionTexts, language }),
+      practiceReadAloudLanguageCode(language),
+      { onEnd: () => setIsReadingAloud(false) }
+    );
+    setIsReadingAloud(started);
+  }
 
   function beginAttempt() {
     setStartedAt((current) => current ?? Date.now());
@@ -430,16 +473,40 @@ export function PracticeQuestionCard({ question, onAnswered }: PracticeQuestionC
 
   return (
     <article className="glass-panel p-5" data-question-id={question.id}>
-      <MathText
-        as="h3"
-        text={promptText}
-        ariaLabel={promptLabel}
-        className="practice-question-title text-xl font-black leading-snug text-slate-950 dark:text-white"
-      />
+      <div className={cn(shouldShowReadAloud && "flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between")}>
+        <MathText
+          as="h3"
+          text={promptText}
+          ariaLabel={promptLabel}
+          className={cn(
+            "practice-question-title text-xl font-black leading-snug text-slate-950 dark:text-white",
+            shouldShowReadAloud && "min-w-0 sm:flex-1"
+          )}
+        />
+        {shouldShowReadAloud ? (
+          <button
+            type="button"
+            onClick={handleReadAloudToggle}
+            aria-pressed={isReadingAloud}
+            data-testid="practice-read-aloud"
+            className={cn(
+              "focus-ring inline-flex min-h-11 shrink-0 items-center gap-2 self-start rounded-full border px-4 py-2.5 text-sm font-black shadow-sm transition hover:-translate-y-0.5",
+              isReadingAloud
+                ? "border-sky-400 bg-sky-500/15 text-sky-800 dark:border-sky-300/40 dark:bg-sky-300/15 dark:text-sky-100"
+                : "border-sky-200/80 bg-sky-50/80 text-sky-700 dark:border-sky-300/25 dark:bg-sky-950/40 dark:text-sky-200"
+            )}
+          >
+            <SpeakerIcon />
+            <span>{isReadingAloud ? t({ en: "Stop", zh: "停止", zhHans: "停止" }) : t({ en: "Read aloud", zh: "讀給我聽", zhHans: "读给我听" })}</span>
+          </button>
+        ) : null}
+      </div>
 
       {question.diagram ? (
         <QuestionFigure diagram={question.diagram} variant={diagramVariant} compact={isPracticePage} language={language} />
       ) : null}
+
+      {dotCardQuantities.length ? <CountingDotCards quantities={dotCardQuantities} t={t} /> : null}
 
       {questionImageAssets.length ? (
         <div className="mt-4 grid gap-3">

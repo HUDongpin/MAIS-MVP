@@ -469,7 +469,6 @@ export default function ArrangementsLab() {
   return (
     <div className="arlab">
       <header className="head">
-        <p className="eyebrow">MAIS · Interactive Math Lab</p>
         <h1>Arrangements: The Price of Not Caring</h1>
         <p className="lede">
           Ordered counts multiply down a shrinking pool — 4, then 3, then 2. Stop

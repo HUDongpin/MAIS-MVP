@@ -741,7 +741,6 @@ export default function UnitCircleLab() {
   return (
     <div className="uclab">
       <header className="head">
-        <p className="eyebrow">MAIS · Interactive Math Lab</p>
         <h1>The Unit Circle: Wrap, Land, Unroll</h1>
         <p className="lede">
           Wrap a string of length <em>t</em> around a circle of radius 1 — the arc it covers{' '}
