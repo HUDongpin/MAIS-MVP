@@ -47,7 +47,9 @@ test.describe.serial("teacher workspace frontend workflows", () => {
 
     for (const [route, visibleText] of routes) {
       await page.goto(route);
-      await expect(page.getByText(visibleText).first()).toBeVisible();
+      // The mobile nav toggle duplicates the active section label inside a
+      // display:none bar at desktop width, so assert on visible matches only.
+      await expect(page.getByText(visibleText).filter({ visible: true }).first()).toBeVisible();
     }
 
     await page.goto("/teacher");

@@ -325,6 +325,14 @@ import {
   type PracticeIslandStarPersistenceRecord
 } from "@/lib/server/userStore/gamificationIslandPersistence";
 import {
+  createGamificationCollectionsPersistenceStore,
+  normalizeAdventureRelicRecords,
+  normalizeFishingDexRecords,
+  type AdventureRelicPersistenceRecord,
+  type FishingDexPersistenceRecord,
+  type GameCollectionsPersistenceDatabase
+} from "@/lib/server/userStore/gamificationCollectionsPersistence";
+import {
   isValidGamificationEventSource,
   isValidGamificationEventStatus,
   isValidRewardCampaignStatus,
@@ -1763,6 +1771,8 @@ type Database = {
   reward_redemptions: RewardRedemptionRecord[];
   gamification_events: GamificationEventRecord[];
   practice_island_stars?: PracticeIslandStarPersistenceRecord[];
+  fishing_dex?: FishingDexPersistenceRecord[];
+  adventure_relics?: AdventureRelicPersistenceRecord[];
   reward_campaigns: RewardCampaignRecord[];
   forum_threads: ForumThreadRecord[];
   forum_reports: ForumReportRecord[];
@@ -4341,6 +4351,8 @@ function normalizeDatabase(database: Partial<Database>) {
       { shouldSeedDemoUser, demoUserId, demoTeacherId }
     ),
     practice_island_stars: normalizePracticeIslandStarRecords(database.practice_island_stars, now),
+    fishing_dex: normalizeFishingDexRecords(database.fishing_dex, now),
+    adventure_relics: normalizeAdventureRelicRecords(database.adventure_relics, now),
     reward_campaigns: normalizeRewardCampaignRecordsFromGamificationSeedRecords(
       database.reward_campaigns,
       now,
@@ -4901,6 +4913,13 @@ const gamificationGamePersistenceStore = createGamificationGamePersistenceStore(
       studentId,
       new Date()
     )
+});
+
+const gamificationCollectionsPersistenceStore = createGamificationCollectionsPersistenceStore({
+  readDatabase: async () => {
+    const database = await readDatabase();
+    return database as unknown as GameCollectionsPersistenceDatabase;
+  }
 });
 
 const gamificationIslandPersistenceStore = createGamificationIslandPersistenceStore({
@@ -6765,6 +6784,8 @@ export const getAdventureIslandEligibility = gamificationUserStore.getAdventureI
 export const completeAdventureIsland = gamificationUserStore.completeAdventureIsland;
 
 export const getStudentPracticeIslandStars = gamificationIslandPersistenceStore.getPracticeIslandStars;
+
+export const getStudentGameCollections = gamificationCollectionsPersistenceStore.getGameCollections;
 
 export const awardStudentPracticeIslandStars = gamificationIslandPersistenceStore.awardPracticeIslandStars;
 
@@ -9806,6 +9827,98 @@ async function refreshAdaptiveLearningRecommendationFromCompatibility({
 
 export const getAdaptiveLearningDecision = studentActivityUserStore.getAdaptiveLearningDecision;
 export const refreshAdaptiveLearningRecommendation = studentActivityUserStore.refreshAdaptiveLearningRecommendation;
+
+export type AdaptiveUniverseSnapshot = {
+  topics: Array<{ id: string; grade: GradeId }>;
+  states: Array<{ skillId: string; pMastery: number; attemptCount: number; nextReviewAt: string | null }>;
+  generatedAt: string;
+};
+
+export async function getAdaptiveUniverseSnapshot({
+  userId,
+  curriculumTrack = defaultCurriculumProfile
+}: {
+  userId: string;
+  curriculumTrack?: CurriculumScope;
+}): Promise<AdaptiveUniverseSnapshot> {
+  const database = await readDatabase();
+  const topics = database.topics
+    .filter((topic) => isCurriculumTopic(topic, curriculumTrack))
+    .map((topic) => ({ id: topic.id, grade: topic.grade as GradeId }));
+  const topicIds = new Set(topics.map((topic) => topic.id));
+  const states = adaptiveStatesForUser(database, userId)
+    .filter((state) => {
+      const separator = state.skillId.lastIndexOf(":");
+      return topicIds.has(separator === -1 ? state.skillId : state.skillId.slice(0, separator));
+    })
+    .map((state) => ({
+      skillId: state.skillId,
+      pMastery: state.pMastery,
+      attemptCount: state.attemptCount,
+      nextReviewAt: state.nextReviewAt
+    }));
+  return { topics, states, generatedAt: new Date().toISOString() };
+}
+
+export type TeacherClassSkyMaterials = {
+  className: string;
+  classGrade: GradeId;
+  curriculumTrack: CurriculumTrack | null;
+  studentCount: number;
+  topics: Array<{ id: string; grade: GradeId }>;
+  /** Anonymous per-student state lists — aggregated before leaving the API layer. */
+  students: Array<{
+    grade: GradeId;
+    states: Array<{ skillId: string; pMastery: number; attemptCount: number; nextReviewAt: string | null }>;
+  }>;
+  generatedAt: string;
+};
+
+export async function getTeacherClassSkyMaterials({
+  teacherId,
+  classId
+}: {
+  teacherId: string;
+  classId: string;
+}): Promise<TeacherClassSkyMaterials | null> {
+  const enrollments = await getTeacherClassEnrollments(teacherId, classId);
+  if (!enrollments) return null;
+  const classes = await getTeacherClasses(teacherId);
+  const teacherClass = classes?.find((candidate) => candidate.id === classId) ?? null;
+  if (!teacherClass) return null;
+
+  const database = await readDatabase();
+  const curriculumScope = (teacherClass.curriculumProfile ?? teacherClass.curriculumTrack ?? defaultCurriculumProfile) as CurriculumScope;
+  const topics = database.topics
+    .filter((topic) => isCurriculumTopic(topic, curriculumScope))
+    .map((topic) => ({ id: topic.id, grade: topic.grade as GradeId }));
+  const topicIds = new Set(topics.map((topic) => topic.id));
+
+  const students = enrollments.map((enrollment) => ({
+    grade: enrollment.studentGrade,
+    states: adaptiveStatesForUser(database, enrollment.studentId)
+      .filter((state) => {
+        const separator = state.skillId.lastIndexOf(":");
+        return topicIds.has(separator === -1 ? state.skillId : state.skillId.slice(0, separator));
+      })
+      .map((state) => ({
+        skillId: state.skillId,
+        pMastery: state.pMastery,
+        attemptCount: state.attemptCount,
+        nextReviewAt: state.nextReviewAt
+      }))
+  }));
+
+  return {
+    className: teacherClass.name,
+    classGrade: teacherClass.grade,
+    curriculumTrack: teacherClass.curriculumTrack ?? null,
+    studentCount: enrollments.length,
+    topics,
+    students,
+    generatedAt: new Date().toISOString()
+  };
+}
 
 export const submitQuestionAttempt = studentActivityUserStore.submitQuestionAttempt;
 

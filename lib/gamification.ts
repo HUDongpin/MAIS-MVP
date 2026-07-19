@@ -163,6 +163,15 @@ export function gamificationRewardForSource(source: GamificationEventSource, rew
       rewardPoints: cleanRewardPoints
     };
   }
+  // Adventure Island pays XP equal to its points so run bonuses (e.g. the
+  // three-star clear) raise both together; without an override this still
+  // resolves to the base 35/35.
+  if (source === "adventure-island-complete") {
+    return {
+      xp: Math.min(gamificationEconomy.dailyXpCap, cleanRewardPoints),
+      rewardPoints: cleanRewardPoints
+    };
+  }
   if (source === "teacher-award") {
     return {
       xp: Math.min(gamificationEconomy.dailyXpCap, cleanRewardPoints * reward.xp),

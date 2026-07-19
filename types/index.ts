@@ -3798,6 +3798,11 @@ export type TeacherDashboardData = {
   actionQueue: TeacherActionQueueItem[];
 };
 
+export type TeacherNavSignals = {
+  pendingGrading: number;
+  unrepliedMessages: number;
+};
+
 export type TeacherTopicOption = {
   id: string;
   grade: GradeId;

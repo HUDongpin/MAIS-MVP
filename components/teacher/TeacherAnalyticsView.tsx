@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { useSettings } from "@/components/providers/AppProviders";
+import { ClassSkyPanel } from "@/components/teacher/ClassSkyPanel";
 import { formatGradeLabel } from "@/lib/i18n";
 import type {
   Assignment,
@@ -287,6 +288,11 @@ export function TeacherAnalyticsView({ analytics }: { analytics: TeacherAnalytic
           </article>
         ))}
       </section>
+
+      <ClassSkyPanel
+        classes={analytics.classes.map((teacherClass) => ({ id: teacherClass.id, name: teacherClass.name, grade: teacherClass.grade }))}
+        initialClassId={analytics.selectedClassId === "all" ? null : analytics.selectedClassId}
+      />
 
       <section className="grid min-w-0 items-start gap-6 xl:grid-cols-[minmax(0,1fr)_minmax(320px,360px)]">
         <div className="min-w-0">

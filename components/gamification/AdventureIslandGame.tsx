@@ -4,9 +4,37 @@ import Link from "next/link";
 import { AnimatePresence, motion } from "@/components/ui/Motion";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { PracticeQuestionCard } from "@/components/practice/PracticeQuestionCard";
+import { GameResultsCeremony } from "@/components/gamification/GameResultsCeremony";
+import {
+  fadeOutKill,
+  flashSprite,
+  playKillTumble,
+  shakeCamera,
+  spawnCoinFly,
+  spawnCombatText,
+  spawnKillBurst
+} from "@/components/gamification/phaserGameJuice";
 import { dictionary, useSettings } from "@/components/providers/AppProviders";
 import { completedPracticeRoundStorageKey, practiceAdventureRoundStorageKey } from "@/lib/gameBasedLearning";
 import { formatGradeLabel } from "@/lib/i18n";
+import {
+  adventureRunStars,
+  bestRunKey,
+  comboTierFor,
+  earnedStarCount,
+  gameBestStorageKey,
+  gameSoundStorageKey,
+  isNewBestRun,
+  killCoinReward,
+  killHitStopMs,
+  killLaunchSpec,
+  prefersReducedMotion,
+  readGameBestRecord,
+  readGameSoundEnabled,
+  withBestRun,
+  type RunStar
+} from "@/lib/practiceGameJuice";
+import { playPracticeSound, type PracticeSoundKind } from "@/lib/practiceSound";
 import { cn } from "@/lib/utils";
 import type { AttemptFeedback, LocalizedText, PublicQuestion } from "@/types";
 
@@ -316,6 +344,29 @@ export function AdventureIslandGame() {
   const [statusMessage, setStatusMessage] = useState("");
   const [showTrophyCelebration, setShowTrophyCelebration] = useState(false);
   const [runBootKey, setRunBootKey] = useState(0);
+  const [ceremony, setCeremony] = useState<{ stars: RunStar[]; newBest: boolean; rewardLine: string | null; bonusLine: string | null } | null>(null);
+  const [relic, setRelic] = useState<{ isNew: boolean; clearCount: number; bestStars: number } | null>(null);
+  const [soundEnabled, setSoundEnabled] = useState(true);
+  const soundEnabledRef = useRef(true);
+
+  const playGameSound = useCallback((kind: PracticeSoundKind) => {
+    if (soundEnabledRef.current) playPracticeSound(kind);
+  }, []);
+
+  useEffect(() => {
+    const enabled = readGameSoundEnabled(window.localStorage.getItem(gameSoundStorageKey(currentUser?.id)));
+    soundEnabledRef.current = enabled;
+    setSoundEnabled(enabled);
+  }, [currentUser?.id]);
+
+  const toggleSound = useCallback(() => {
+    setSoundEnabled((current) => {
+      const next = !current;
+      soundEnabledRef.current = next;
+      window.localStorage.setItem(gameSoundStorageKey(currentUser?.id), String(next));
+      return next;
+    });
+  }, [currentUser?.id]);
 
   const canPlay = Boolean(eligibility?.eligible || eligibility?.alreadyCompleted);
   const currentGradeLabel = currentUser ? formatGradeLabel(selectedGrade, language, true) : "";
@@ -383,6 +434,24 @@ export function AdventureIslandGame() {
     setGamePhase("submitting");
     setStatusMessage("");
 
+    // The run stars are pure client evidence (a trophy clear is a clear even
+    // if the reward submit later fails), so the ceremony starts immediately
+    // while the server records the reward in the background.
+    const runStars = adventureRunStars({
+      livesRemaining: nextStats.lives,
+      maxLives: maxHeroHp,
+      elapsedSeconds: nextStats.elapsedSeconds,
+      targetSeconds: targetGameDurationSeconds
+    });
+    const starCount = earnedStarCount(runStars);
+    const bestStorageKey = gameBestStorageKey(currentUser?.id);
+    const bestRecord = readGameBestRecord(window.localStorage.getItem(bestStorageKey));
+    const runKey = bestRunKey("adventure-island", latestPayload.topicId);
+    const newBest = isNewBestRun(bestRecord, runKey, starCount);
+    window.localStorage.setItem(bestStorageKey, JSON.stringify(withBestRun(bestRecord, runKey, starCount)));
+    setCeremony({ stars: runStars, newBest, rewardLine: null, bonusLine: null });
+    setRelic(null);
+
     try {
       // The reward API accepts runs between 30 seconds and 20 minutes; clamp
       // so a slow, careful run (or an idle tab) is not voided as invalid.
@@ -395,15 +464,44 @@ export function AdventureIslandGame() {
           correctQuestionIds: Array.from(correctQuestionIdsRef.current),
           durationSeconds,
           defeatedEnemies: nextStats.defeatedEnemies,
+          livesRemaining: nextStats.lives,
           coinsCollected: nextStats.coins
         })
       });
-      const payload = await response.json().catch(() => null) as { status?: string; reward?: { xp?: number; rewardPoints?: number } } | null;
+      const payload = await response.json().catch(() => null) as {
+        status?: string;
+        reward?: { xp?: number; rewardPoints?: number };
+        starBonus?: { applied?: boolean; rewardPoints?: number };
+        relic?: { isNew?: boolean; clearCount?: number; bestStars?: number } | null;
+      } | null;
       setStatusMessage(t(completionMessage(payload?.status)));
       // A replay of an already-completed topic returns 409 "duplicate"; the
       // run itself still cleared, so it must land on the cleared screen, not
       // strand the player at the trophy inside a paused physics world.
       if (response.ok || payload?.status === "duplicate") {
+        const reward = payload?.reward;
+        if (response.ok && typeof reward?.xp === "number" && typeof reward.rewardPoints === "number") {
+          const rewardLine = t({
+            en: `+${reward.xp} XP · +${reward.rewardPoints} points`,
+            zh: `+${reward.xp} XP · +${reward.rewardPoints} 積分`
+          });
+          const starBonus = payload?.starBonus;
+          const bonusLine = starBonus?.applied && typeof starBonus.rewardPoints === "number"
+            ? t({
+                en: `★★★ Three-star clear bonus +${starBonus.rewardPoints}`,
+                zh: `★★★ 三星通關獎勵 +${starBonus.rewardPoints}`
+              })
+            : null;
+          setCeremony((current) => (current ? { ...current, rewardLine, bonusLine } : current));
+        }
+        const relicPayload = payload?.relic;
+        if (relicPayload && typeof relicPayload.clearCount === "number" && typeof relicPayload.bestStars === "number") {
+          setRelic({
+            isNew: Boolean(relicPayload.isNew),
+            clearCount: relicPayload.clearCount,
+            bestStars: relicPayload.bestStars
+          });
+        }
         setGamePhase("cleared");
         await refreshEligibility(latestPayload);
         return true;
@@ -421,7 +519,7 @@ export function AdventureIslandGame() {
     } finally {
       submittingRef.current = false;
     }
-  }, [refreshEligibility, setGamePhase, t]);
+  }, [currentUser?.id, refreshEligibility, setGamePhase, t]);
 
   const submitCompletionRef = useRef(submitCompletion);
 
@@ -573,6 +671,8 @@ export function AdventureIslandGame() {
       root.dataset.invulnerable = "false";
       root.dataset.challengeKind = "";
       root.dataset.snail1X = "";
+      root.dataset.combo = "0";
+      root.dataset.killEffect = "";
       root.dataset.phase = phaseRef.current;
       runStartedAtRef.current = Date.now();
       correctQuestionIdsRef.current = new Set();
@@ -597,6 +697,7 @@ export function AdventureIslandGame() {
         private trophyNoticeUntil = 0;
         private trophySubmitCooldownUntil = 0;
         private upperCoinsCollected = 0;
+        private comboCount = 0;
         private localStats: GameStats = { ...defaultStats };
 
         constructor() {
@@ -610,10 +711,13 @@ export function AdventureIslandGame() {
           this.throwCooldownUntil = 0;
           this.activeEnemy = null;
           this.activeChallengeKind = null;
+          this.comboCount = 0;
           root.dataset.upperCoins = "0";
           root.dataset.invulnerable = "false";
           root.dataset.challengeKind = "";
           root.dataset.snail1X = "";
+          root.dataset.combo = "0";
+          root.dataset.killEffect = "";
           this.physics.world.setBounds(0, 0, levelWidth, levelHeight);
           this.cameras.main.setBounds(0, 0, levelWidth, levelHeight);
           this.cameras.main.setBackgroundColor("#e0f7ff");
@@ -922,12 +1026,14 @@ export function AdventureIslandGame() {
             root.dataset.upperCoins = String(this.upperCoinsCollected);
           }
           coin.disableBody(true, true);
+          playGameSound("coin");
           this.publishStats({ ...this.localStats, coins: this.localStats.coins + 1 });
         }
 
         private collectAxe(axe: Phaser.Physics.Arcade.Sprite) {
           if (!axe.active) return;
           axe.disableBody(true, true);
+          playGameSound("pickup");
           this.publishStats({ ...this.localStats, axes: this.localStats.axes + 1 });
         }
 
@@ -942,6 +1048,7 @@ export function AdventureIslandGame() {
 
           const direction = Number(this.player.getData("facing")) || 1;
           this.publishStats({ ...this.localStats, axes: this.localStats.axes - 1 });
+          playGameSound("throw");
           const axe = this.thrownAxes.create(this.player.x + direction * 32, this.player.y - 4, "quadraticThrownAxe") as Phaser.Physics.Arcade.Sprite;
           axe.setData("startX", this.player.x);
           axe.setData("direction", direction);
@@ -995,12 +1102,23 @@ export function AdventureIslandGame() {
         }
 
         private resolveChallenge(correct: boolean) {
-          this.physics.world.resume();
           this.isChallenging = false;
           this.resetInputState();
           const kind = this.activeChallengeKind ?? "attack";
+          const killedEnemy = kind === "attack" && correct ? this.activeEnemy : null;
+          const reducedMotion = prefersReducedMotion();
 
-          if (kind === "attack" && correct && this.activeEnemy) {
+          // Hit-stop: a kill holds the frozen world one extra beat so the hit
+          // lands with weight; every other outcome resumes immediately.
+          if (killedEnemy && !reducedMotion) {
+            this.time.delayedCall(killHitStopMs, () => {
+              if (phaseRef.current !== "game-over") this.physics.world.resume();
+            });
+          } else {
+            this.physics.world.resume();
+          }
+
+          if (killedEnemy) {
             this.contactCooldownUntil = this.time.now + 2600;
             this.invulnerableUntil = Math.max(this.invulnerableUntil, this.time.now + 1200);
             root.dataset.invulnerable = "true";
@@ -1010,16 +1128,24 @@ export function AdventureIslandGame() {
                 root.dataset.invulnerable = String(this.time.now < this.invulnerableUntil);
               }
             });
-            this.activeEnemy.disableBody(true, true);
+            this.comboCount += 1;
+            root.dataset.combo = String(this.comboCount);
+            this.playKillEffect(killedEnemy, reducedMotion);
             this.publishStats({
               ...this.localStats,
               defeatedEnemies: this.localStats.defeatedEnemies + 1,
-              coins: this.localStats.coins + 2
+              coins: this.localStats.coins + killCoinReward
             });
           } else if (kind === "contact") {
+            if (!correct) {
+              this.comboCount = 0;
+              root.dataset.combo = "0";
+            }
             this.resolveContactChallenge(correct);
             if (phaseRef.current === "game-over") return;
           } else if (this.activeEnemy) {
+            this.comboCount = 0;
+            root.dataset.combo = "0";
             this.contactCooldownUntil = this.time.now + 700;
             this.player.setVelocity(this.player.x < this.activeEnemy.x ? -220 : 220, -180);
           }
@@ -1030,6 +1156,42 @@ export function AdventureIslandGame() {
           setGamePhase("ready");
           root.dataset.phase = "ready";
           root.dataset.challengeKind = "";
+        }
+
+        // The kill celebration: flash during the hit-stop, then burst, shake,
+        // tumble, combat text, and coins arcing to the HUD. Stats were already
+        // published, so gameplay and reward verification never wait on it.
+        private playKillEffect(enemy: Phaser.Physics.Arcade.Sprite, reducedMotion: boolean) {
+          const enemyX = enemy.x;
+          const enemyY = enemy.y;
+          const tier = comboTierFor(this.comboCount);
+          root.dataset.killEffect = "active";
+          enemy.disableBody(true, false);
+          enemy.setDepth(30);
+          flashSprite(this, enemy);
+          playGameSound(tier.soundKind);
+
+          const finishKillEffect = () => {
+            if (root.dataset.killEffect === "active") root.dataset.killEffect = "done";
+          };
+
+          if (reducedMotion) {
+            spawnCombatText(this, enemyX, enemyY - 46, `+${killCoinReward}`, { color: "#facc15" });
+            fadeOutKill(this, enemy, finishKillEffect);
+            return;
+          }
+
+          this.time.delayedCall(killHitStopMs, () => {
+            spawnKillBurst(this, enemyX, enemyY);
+            shakeCamera(this);
+            playKillTumble(this, enemy, killLaunchSpec(enemyX, this.player.x, levelHeight), finishKillEffect);
+            spawnCombatText(this, enemyX, enemyY - 46, `+${killCoinReward}`, { color: "#facc15" });
+            spawnCombatText(this, enemyX, enemyY - 92, translateRef.current(tier.label), {
+              color: tier.textColor,
+              scale: tier.textScale
+            });
+            spawnCoinFly(this, enemyX, enemyY, killCoinReward, "quadraticCoin");
+          });
         }
 
         private resolveContactChallenge(correct: boolean) {
@@ -1045,6 +1207,7 @@ export function AdventureIslandGame() {
 
           const pushDirection = !enemy || this.player.x < enemy.x ? -1 : 1;
           this.player.setVelocity(pushDirection * 180, -160);
+          playGameSound("hurt");
 
           const nextLives = Math.max(0, this.localStats.lives - 1);
           this.publishStats({
@@ -1081,6 +1244,7 @@ export function AdventureIslandGame() {
 
         private triggerGameOver() {
           this.resetInputState();
+          playGameSound("gameOver");
           this.player.setAlpha(1);
           this.player.clearTint();
           this.player.setVelocity(0, 0);
@@ -1158,6 +1322,7 @@ export function AdventureIslandGame() {
 
           this.player.setVelocity(0, 0);
           this.launchTrophyFireworks();
+          playGameSound("fanfare");
           setShowTrophyCelebration(true);
           this.physics.world.pause();
           setGamePhase("submitting");
@@ -1215,7 +1380,7 @@ export function AdventureIslandGame() {
       gameControlRef.current = null;
       game?.destroy(true);
     };
-  }, [canPlay, nextChallengeQuestion, questions.length, runBootKey, setGamePhase]);
+  }, [canPlay, nextChallengeQuestion, playGameSound, questions.length, runBootKey, setGamePhase]);
 
   function resetRunState() {
     correctQuestionIdsRef.current = new Set();
@@ -1225,6 +1390,8 @@ export function AdventureIslandGame() {
     setChallenge(null);
     setStatusMessage(trophyObjectiveCopy);
     setShowTrophyCelebration(false);
+    setCeremony(null);
+    setRelic(null);
     setStats(defaultStats);
   }
 
@@ -1246,6 +1413,7 @@ export function AdventureIslandGame() {
 
   function handleChallengeAnswered(question: PublicQuestion, feedback: AttemptFeedback) {
     const challengeKind = challenge?.kind ?? "attack";
+    playGameSound(feedback.correct ? "correct" : "wrong");
     if (feedback.correct && challengeKind === "attack") correctQuestionIdsRef.current.add(question.id);
     const nextMessage = feedback.correct
       ? challengeKind === "attack"
@@ -1348,8 +1516,20 @@ export function AdventureIslandGame() {
 
       {canPlay ? (
         <section className="glass-panel overflow-hidden p-4 sm:p-5">
-          {phase !== "welcome" ? (
-            <div className="mb-4 flex justify-end">
+          <div className="mb-4 flex items-center justify-end gap-2">
+            <button
+              type="button"
+              data-testid="adventure-island-sound-toggle"
+              aria-pressed={soundEnabled}
+              aria-label={soundEnabled
+                ? t({ en: "Turn game sound off", zh: "關閉遊戲音效" })
+                : t({ en: "Turn game sound on", zh: "開啟遊戲音效" })}
+              onClick={toggleSound}
+              className="focus-ring grid h-10 w-10 place-items-center rounded-full border border-slate-200/80 bg-white text-base shadow-sm dark:border-white/10 dark:bg-white/[0.07]"
+            >
+              <span aria-hidden="true">{soundEnabled ? "🔊" : "🔇"}</span>
+            </button>
+            {phase !== "welcome" ? (
               <button
                 type="button"
                 onClick={restartRun}
@@ -1358,8 +1538,8 @@ export function AdventureIslandGame() {
               >
                 {t({ en: "Restart", zh: "重新開始" })}
               </button>
-            </div>
-          ) : null}
+            ) : null}
+          </div>
 
           <div className="relative overflow-hidden rounded-2xl border border-slate-200/80 bg-sky-50 dark:border-white/10 dark:bg-slate-900">
             <div
@@ -1373,6 +1553,7 @@ export function AdventureIslandGame() {
               data-challenge-kind={challenge?.kind ?? ""}
               data-renderer-load={rendererLoadState}
               data-load-error={loadErrorCode}
+              data-sound-enabled={soundEnabled}
               className={cn("min-h-[360px] w-full sm:min-h-[420px]", phase === "challenge" || phase === "submitting" ? "opacity-70" : "opacity-100")}
             />
             {phase === "welcome" ? (
@@ -1430,45 +1611,29 @@ export function AdventureIslandGame() {
                 </div>
               </div>
             ) : null}
-            <AnimatePresence>
-              {showTrophyCelebration ? (
-                <motion.div
-                  aria-live="polite"
-                  className="pointer-events-none absolute inset-0 z-20 flex items-center justify-center bg-slate-950/10 p-4 backdrop-blur-[1px]"
-                  data-testid="adventure-island-clear-celebration"
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  exit={{ opacity: 0 }}
-                >
-                  <motion.div
-                    initial={{ opacity: 0, scale: 0.68, y: 24 }}
-                    animate={{ opacity: 1, scale: 1, y: 0 }}
-                    exit={{ opacity: 0, scale: 0.88, y: -10 }}
-                    transition={{ type: "spring", stiffness: 230, damping: 17 }}
-                    className="relative w-full max-w-sm overflow-hidden rounded-[1.75rem] border border-amber-200/80 bg-white/95 px-6 py-5 text-center shadow-2xl shadow-amber-900/15 ring-1 ring-white/80 dark:border-amber-200/25 dark:bg-slate-950/95 dark:ring-white/10"
-                  >
-                    <div className="absolute inset-x-0 top-0 h-1.5 bg-gradient-to-r from-amber-400 via-cyan-300 to-emerald-400" />
-                    <motion.div
-                      aria-hidden="true"
-                      initial={{ scale: 0.5, rotate: -12 }}
-                      animate={{ scale: [0.5, 1.14, 1], rotate: [-12, 8, 0] }}
-                      transition={{ duration: 0.62, ease: "easeOut" }}
-                      className="mx-auto grid h-16 w-16 place-items-center rounded-full bg-amber-300/20 text-4xl ring-8 ring-amber-300/15"
-                    >
-                      <span className="text-amber-500">★</span>
-                    </motion.div>
-                    <p className="mt-4 text-3xl font-black leading-tight text-slate-950 dark:text-white">
-                      {t({ en: "Congratulations!", zh: "恭喜通關！" })}
-                    </p>
-                    <p className="mx-auto mt-2 max-w-[16rem] text-sm font-bold leading-5 text-slate-600 dark:text-slate-300">
-                      {phase === "submitting"
-                        ? t({ en: "Recording your trophy clear...", zh: "正在記錄獎盃通關..." })
-                        : t({ en: "Trophy clear complete.", zh: "獎盃通關完成。" })}
-                    </p>
-                  </motion.div>
-                </motion.div>
-              ) : null}
-            </AnimatePresence>
+            {showTrophyCelebration && ceremony ? (
+              <GameResultsCeremony
+                show
+                testId="adventure-island-clear-celebration"
+                title={{ en: "Trophy Clear!", zh: "恭喜通關！" }}
+                subtitle={phase === "submitting"
+                  ? t({ en: "Recording your trophy clear...", zh: "正在記錄獎盃通關..." })
+                  : t({ en: "Trophy clear complete.", zh: "獎盃通關完成。" })}
+                stars={ceremony.stars}
+                countUpLabel={{ en: "Coins collected", zh: "收集金幣" }}
+                countUpValue={stats.coins}
+                stats={[
+                  { label: { en: "Defeats", zh: "擊敗" }, value: String(stats.defeatedEnemies) },
+                  { label: { en: "Hearts", zh: "愛心" }, value: `${stats.lives}/${maxHeroHp}` },
+                  { label: { en: "Time", zh: "時間" }, value: formatRunTime(stats.elapsedSeconds) }
+                ]}
+                rewardLine={ceremony.rewardLine}
+                bonusLine={ceremony.bonusLine}
+                newBest={ceremony.newBest}
+                t={t}
+                playSound={playGameSound}
+              />
+            ) : null}
             {phase !== "welcome" ? (
               <>
                 <div className="pointer-events-none absolute right-3 top-3 flex flex-wrap justify-end gap-2" data-testid="adventure-island-hud">
@@ -1543,6 +1708,20 @@ export function AdventureIslandGame() {
           {phase === "cleared" ? (
             <div className="mt-4 rounded-2xl border border-emerald-300/45 bg-emerald-400/10 p-4">
               <p className="text-lg font-black text-emerald-800 dark:text-emerald-100">{t({ en: "Practice Quest trophy clear", zh: "練習任務獎盃通關" })}</p>
+              {relic ? (
+                <p
+                  data-testid="adventure-island-relic"
+                  className="mt-2 inline-flex items-center gap-2 rounded-full border border-amber-300/60 bg-amber-400/10 px-3 py-1.5 text-sm font-black text-amber-700 dark:text-amber-200"
+                >
+                  <span aria-hidden="true">🏆</span>
+                  {relic.isNew
+                    ? t({ en: "New relic earned for this topic!", zh: "獲得本課題的新遺物！" })
+                    : t({
+                        en: `Topic relic: cleared ${relic.clearCount}× · best ${"★".repeat(Math.max(1, relic.bestStars))}`,
+                        zh: `課題遺物：通關 ${relic.clearCount} 次 · 最佳 ${"★".repeat(Math.max(1, relic.bestStars))}`
+                      })}
+                </p>
+              ) : null}
               <p className="mt-1 text-sm font-semibold text-slate-600 dark:text-slate-300">
                 {eligibility?.alreadyCompleted
                   ? t({ en: "This topic's Adventure Island reward has been claimed. Replay any time for practice.", zh: "本課題探险岛獎勵已領取；仍可重玩練習。" })

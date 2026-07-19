@@ -183,6 +183,7 @@ test.describe("Visualization Lab local value sweep", () => {
       "geometry-axes",
       "measurement-rail",
       "optimization-landscape",
+      "projection-views",
       "solid-net-fold",
       "space-vector-plane",
       "statistical-inference",

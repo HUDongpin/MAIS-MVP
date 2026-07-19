@@ -10,7 +10,37 @@ import {
   type PointerEvent as ReactPointerEvent
 } from "react";
 import { PracticeQuestionCard } from "@/components/practice/PracticeQuestionCard";
+import { GameResultsCeremony } from "@/components/gamification/GameResultsCeremony";
+import {
+  playEscapeSwim,
+  playReelIn,
+  playStruggleWiggle,
+  spawnBubbleBurst,
+  spawnCoinFly,
+  spawnCombatText,
+  spawnRippleRings
+} from "@/components/gamification/phaserGameJuice";
 import { useSettings } from "@/components/providers/AppProviders";
+import {
+  bestRunKey,
+  catchReelSpec,
+  creatureDisplayNames,
+  creatureRarities,
+  creatureRarityFor,
+  earnedStarCount,
+  fishingRunStars,
+  fishingSpeciesTotal,
+  gameBestStorageKey,
+  gameSoundStorageKey,
+  isNewBestRun,
+  prefersReducedMotion,
+  readGameBestRecord,
+  readGameSoundEnabled,
+  withBestRun,
+  type CreatureRarity,
+  type RunStar
+} from "@/lib/practiceGameJuice";
+import { playPracticeSound, type PracticeSoundKind } from "@/lib/practiceSound";
 import { cn } from "@/lib/utils";
 import type { AttemptFeedback, GamificationSummary, Language, LocalizedText, PublicQuestion } from "@/types";
 
@@ -34,6 +64,8 @@ type ResourceLoadState = "idle" | "loading" | "ready" | "failed";
 
 type Challenge = {
   creatureName: string;
+  rarity: CreatureRarity;
+  species: string;
   question: PublicQuestion;
 };
 
@@ -53,7 +85,18 @@ type FishingCompletion = {
     rewardPoints: number;
   };
   coins: number;
+  rarityBonus: number;
+  dex: {
+    newSpecies: string[];
+    caughtCount: number;
+    totalSpecies: number;
+  } | null;
   gamification: GamificationSummary | null;
+};
+
+type FishingDexSnapshot = {
+  fishDex: Array<{ species: string; catchCount: number }>;
+  totalSpecies: number;
 };
 type AdventureIslandEligibility = {
   alreadyCompleted: boolean;
@@ -66,6 +109,8 @@ type FishingControl = {
   aimBy: (delta: number) => void;
   aimAt: (stageX: number, stageY: number) => void;
   fireNet: () => void;
+  celebrateCatch: () => void;
+  escapeCatch: () => void;
   resume: () => void;
   stop: () => void;
 };
@@ -180,6 +225,21 @@ function readFishingCompletion(value: unknown): FishingCompletion | null {
     return null;
   }
 
+  const extras = value as {
+    rarityBonus?: unknown;
+    dex?: { newSpecies?: unknown; caughtCount?: unknown; totalSpecies?: unknown } | null;
+  };
+  const dex = extras.dex && typeof extras.dex === "object" &&
+    Array.isArray(extras.dex.newSpecies) &&
+    typeof extras.dex.caughtCount === "number" &&
+    typeof extras.dex.totalSpecies === "number"
+    ? {
+        newSpecies: extras.dex.newSpecies.filter((item): item is string => typeof item === "string"),
+        caughtCount: extras.dex.caughtCount,
+        totalSpecies: extras.dex.totalSpecies
+      }
+    : null;
+
   return {
     status: candidate.status as FishingCompletion["status"],
     reward: {
@@ -187,6 +247,8 @@ function readFishingCompletion(value: unknown): FishingCompletion | null {
       rewardPoints: candidate.reward.rewardPoints
     },
     coins: candidate.coins,
+    rarityBonus: typeof extras.rarityBonus === "number" && Number.isFinite(extras.rarityBonus) ? extras.rarityBonus : 0,
+    dex,
     gamification: (candidate.gamification ?? null) as GamificationSummary | null
   };
 }
@@ -280,6 +342,7 @@ export function FishingGame() {
   const nextQuestionIndexRef = useRef(0);
   const caughtQuestionIdsRef = useRef<Set<string>>(new Set());
   const correctCaughtQuestionIdsRef = useRef<Set<string>>(new Set());
+  const correctCaughtSpeciesRef = useRef<Record<string, string>>({});
   const activeCreatureCountRef = useRef(0);
   const hasSubmittedRef = useRef(false);
   const [payload, setPayload] = useState<FishingRoundPayload | null>(null);
@@ -292,6 +355,8 @@ export function FishingGame() {
   const [questionLoadState, setQuestionLoadState] = useState<ResourceLoadState>("idle");
   const [rendererLoadState, setRendererLoadState] = useState<ResourceLoadState>("idle");
   const [completion, setCompletion] = useState<FishingCompletion | null>(null);
+  const [ceremony, setCeremony] = useState<{ stars: RunStar[]; newBest: boolean; rewardLine: string | null; bonusLine: string | null } | null>(null);
+  const [dexSnapshot, setDexSnapshot] = useState<FishingDexSnapshot | null>(null);
   const [statusMessage, setStatusMessage] = useState("");
   const [cannonAngle, setCannonAngle] = useState(defaultCannonAngle);
   const [impactFeedback, setImpactFeedback] = useState<FishingFeedback | null>(null);
@@ -306,6 +371,60 @@ export function FishingGame() {
   const submitAbortControllerRef = useRef<AbortController | null>(null);
   const submitRunIdRef = useRef(0);
   const tRef = useRef(t);
+  const [soundEnabled, setSoundEnabled] = useState(true);
+  const soundEnabledRef = useRef(true);
+
+  const playGameSound = useCallback((kind: PracticeSoundKind) => {
+    if (soundEnabledRef.current) playPracticeSound(kind);
+  }, []);
+
+  useEffect(() => {
+    const enabled = readGameSoundEnabled(window.localStorage.getItem(gameSoundStorageKey(currentUser?.id)));
+    soundEnabledRef.current = enabled;
+    setSoundEnabled(enabled);
+  }, [currentUser?.id]);
+
+  const toggleSound = useCallback(() => {
+    setSoundEnabled((current) => {
+      const next = !current;
+      soundEnabledRef.current = next;
+      window.localStorage.setItem(gameSoundStorageKey(currentUser?.id), String(next));
+      return next;
+    });
+  }, [currentUser?.id]);
+
+  useEffect(() => {
+    if (!currentUser || currentUser.role !== "student") {
+      setDexSnapshot(null);
+      return;
+    }
+    let cancelled = false;
+
+    async function loadDex() {
+      try {
+        const response = await fetch("/api/gamification/collections", { cache: "no-store" });
+        const payload = await response.json().catch(() => null) as {
+          fishDex?: Array<{ species?: unknown; catchCount?: unknown }>;
+          totalSpecies?: unknown;
+        } | null;
+        if (cancelled || !response.ok || !Array.isArray(payload?.fishDex)) return;
+        setDexSnapshot({
+          fishDex: payload.fishDex
+            .filter((entry): entry is { species: string; catchCount: number } =>
+              typeof entry?.species === "string" && typeof entry.catchCount === "number")
+            .map((entry) => ({ species: entry.species, catchCount: entry.catchCount })),
+          totalSpecies: typeof payload.totalSpecies === "number" ? payload.totalSpecies : fishingSpeciesTotal
+        });
+      } catch {
+        // The dex strip is decorative; a failed fetch just hides it.
+      }
+    }
+
+    void loadDex();
+    return () => {
+      cancelled = true;
+    };
+  }, [currentUser]);
 
   useEffect(() => {
     tRef.current = t;
@@ -405,6 +524,7 @@ export function FishingGame() {
           ...latestPayload,
           caughtQuestionIds: Array.from(caughtQuestionIdsRef.current),
           correctCaughtQuestionIds: Array.from(correctCaughtQuestionIdsRef.current),
+          caughtSpecies: correctCaughtSpeciesRef.current,
           coins: statsRef.current.coins,
           netsUsed: statsRef.current.netsUsed,
           durationSeconds: Math.min(fishingDurationSeconds, statsRef.current.elapsedSeconds)
@@ -418,8 +538,41 @@ export function FishingGame() {
       submitAbortControllerRef.current = null;
       setSettlementDelayed(false);
       setCompletion(result);
+      // Stars follow the server-confirmed coin count, so the ceremony can
+      // never celebrate more than the reward pipeline actually verified.
+      const runStars = fishingRunStars(result.coins);
+      const starCount = earnedStarCount(runStars);
+      const bestStorageKey = gameBestStorageKey(currentUser?.id);
+      const bestRecord = readGameBestRecord(window.localStorage.getItem(bestStorageKey));
+      const runKey = bestRunKey("fishing-master", latestPayload.topicId);
+      const newBest = isNewBestRun(bestRecord, runKey, starCount);
+      window.localStorage.setItem(bestStorageKey, JSON.stringify(withBestRun(bestRecord, runKey, starCount)));
+      const rewardLine = (result.status === "awarded" || result.status === "capped") && result.coins > 0
+        ? tRef.current({
+            en: `+${result.reward.xp} XP · +${result.reward.rewardPoints} points`,
+            zh: `+${result.reward.xp} XP · +${result.reward.rewardPoints} 積分`
+          })
+        : null;
+      const bonusParts: string[] = [];
+      if (result.rarityBonus > 0) {
+        bonusParts.push(tRef.current({ en: `Rarity bonus +${result.rarityBonus}`, zh: `稀有度獎勵 +${result.rarityBonus}` }));
+      }
+      if (result.dex?.newSpecies.length) {
+        const names = result.dex.newSpecies
+          .map((species) => tRef.current(creatureDisplayNames[species] ?? { en: species, zh: species }))
+          .join(", ");
+        bonusParts.push(tRef.current({ en: `New species: ${names}`, zh: `新物種：${names}` }));
+      }
+      if (result.dex) {
+        bonusParts.push(tRef.current({
+          en: `Fish-dex ${result.dex.caughtCount}/${result.dex.totalSpecies}`,
+          zh: `魚類圖鑑 ${result.dex.caughtCount}/${result.dex.totalSpecies}`
+        }));
+      }
+      setCeremony({ stars: runStars, newBest, rewardLine, bonusLine: bonusParts.length ? bonusParts.join(" · ") : null });
       setStatusMessage(tRef.current(completionCopy(result.status)));
       setGamePhase("submitted");
+      if ((result.status === "awarded" || result.status === "capped") && result.coins > 0) playGameSound("fanfare");
     } catch (error) {
       if (submitRunIdRef.current !== runId) return;
       clearSettlementTimers();
@@ -433,7 +586,7 @@ export function FishingGame() {
       setGamePhase("ended");
       hasSubmittedRef.current = false;
     }
-  }, [clearSettlementTimers, setGamePhase]);
+  }, [clearSettlementTimers, currentUser?.id, playGameSound, setGamePhase]);
 
   useEffect(() => {
     return () => {
@@ -542,9 +695,11 @@ export function FishingGame() {
         nextQuestionIndexRef.current = 0;
         caughtQuestionIdsRef.current = new Set();
         correctCaughtQuestionIdsRef.current = new Set();
+        correctCaughtSpeciesRef.current = {};
         activeCreatureCountRef.current = 0;
         hasSubmittedRef.current = false;
         setCompletion(null);
+        setCeremony(null);
         setChallenge(null);
         setStatusMessage("");
         setImpactFeedback(null);
@@ -660,6 +815,7 @@ export function FishingGame() {
         private aimGuide!: Phaser.GameObjects.Graphics;
         private isCasting = false;
         private cannonAngle = defaultCannonAngle;
+        private lastCatch: { species: string; name: string } | null = null;
         private readonly cannonX = 805;
         private readonly cannonY = 505;
         private readonly cannonLength = 105;
@@ -692,10 +848,27 @@ export function FishingGame() {
           creatureSeeds.forEach(([texture, x, y, vx, vy, name, scale]) => {
             const creature = this.creatures.create(Number(x), Number(y), String(texture)) as Phaser.Physics.Arcade.Sprite;
             creature.setData("name", String(name));
+            creature.setData("species", String(texture));
             creature.setVelocity(Number(vx), Number(vy));
             creature.setBounce(1, 1);
             creature.setCollideWorldBounds(true);
             creature.setScale(scale);
+            // Rare and epic creatures glow so aiming at them feels like a
+            // deliberate, higher-stakes shot.
+            const rarity = creatureRarityFor(String(texture));
+            if (rarity.tier >= 2) {
+              const glow = this.add.circle(Number(x), Number(y), 38, rarity.glowColor, 0.22).setDepth(1);
+              creature.setData("glow", glow);
+              this.tweens.add({
+                targets: glow,
+                alpha: 0.42,
+                scale: 1.15,
+                duration: 700,
+                yoyo: true,
+                repeat: -1,
+                ease: "Sine.easeInOut"
+              });
+            }
           });
 
           activeCreatureCountRef.current = this.creatures.getLength();
@@ -704,6 +877,8 @@ export function FishingGame() {
           root.dataset.fishCount = String(activeCreatureCountRef.current);
           root.dataset.creatureNames = creatureSeeds.map(([, , , , , name]) => name).join(",");
           root.dataset.lastCast = "";
+          root.dataset.catchEffect = "";
+          root.dataset.lastRarity = "";
 
           gameControlRef.current = {
             aimLeft: () => this.aimCannon(-cannonKeyboardNudgeDegrees),
@@ -711,6 +886,8 @@ export function FishingGame() {
             aimBy: (delta) => this.aimCannon(delta),
             aimAt: (stageX, stageY) => this.aimAtPoint(stageX, stageY),
             fireNet: () => this.fireNet(),
+            celebrateCatch: () => this.celebrateCatch(),
+            escapeCatch: () => this.escapeCatch(),
             resume: () => {
               this.isCasting = false;
               this.physics.world.resume();
@@ -729,6 +906,8 @@ export function FishingGame() {
             const creature = child as Phaser.Physics.Arcade.Sprite;
             if (!creature.active) return;
             if (creature.body?.blocked.left || creature.body?.blocked.right) creature.toggleFlipX();
+            const glow = creature.getData("glow") as Phaser.GameObjects.Arc | undefined;
+            if (glow) glow.setPosition(creature.x, creature.y);
           });
         }
 
@@ -796,6 +975,14 @@ export function FishingGame() {
           lobster.fillRect(8, 18, 16, 14);
           lobster.generateTexture("lobster", 82, 52);
           lobster.destroy();
+
+          const coin = this.make.graphics({ x: 0, y: 0 }, false);
+          coin.fillStyle(0xfacc15, 1);
+          coin.fillCircle(13, 13, 11);
+          coin.lineStyle(3, 0xf59e0b, 1);
+          coin.strokeCircle(13, 13, 8);
+          coin.generateTexture("fishingCoin", 26, 26);
+          coin.destroy();
         }
 
         private createCannon() {
@@ -937,6 +1124,7 @@ export function FishingGame() {
           this.isCasting = true;
           setStatusMessage("");
           setGamePhase("casting");
+          playGameSound("throw");
           root.dataset.lastCast = "casting";
           this.net.clear();
           this.net.lineStyle(4, 0xf8fafc, 0.9);
@@ -947,6 +1135,8 @@ export function FishingGame() {
             y: start.y + Math.sin(radians) * 920
           };
           let caughtTarget: Phaser.Physics.Arcade.Sprite | null = null;
+          let catchX = 0;
+          let catchY = 0;
 
           this.tweens.addCounter({
             from: 0,
@@ -965,13 +1155,23 @@ export function FishingGame() {
                 const hit = this.hitCreatureAt(x, y);
                 if (hit) {
                   caughtTarget = hit;
+                  catchX = x;
+                  catchY = y;
+                  const rarity = creatureRarityFor(String(hit.getData("species") ?? ""));
+                  const hitName = String(hit.getData("name") ?? "Sea creature");
                   root.dataset.lastCast = "hit";
                   root.dataset.lastFeedback = "hit";
+                  root.dataset.lastRarity = rarity.id;
                   this.showImpactBurst(x, y, "hit");
+                  spawnRippleRings(this, x, y);
+                  playGameSound("splash");
                   showImpactFeedback(
                     "hit",
-                    { en: "Nice catch!", zh: "捕獲成功！" },
-                    { en: "Solve the challenge to bank the coin.", zh: "答對挑戰即可收入金幣。" }
+                    { en: `Nice catch! ${"★".repeat(rarity.stars)}`, zh: `捕獲成功！${"★".repeat(rarity.stars)}` },
+                    {
+                      en: `${hitName} — ${rarity.label.en}. Reel it in, then solve the challenge to bank the coin.`,
+                      zh: `${hitName} — ${rarity.label.zh}。收線後答對挑戰即可收入金幣。`
+                    }
                   );
                   this.physics.world.pause();
                 }
@@ -980,9 +1180,13 @@ export function FishingGame() {
             onComplete: () => {
               this.net.clear();
               if (!caughtTarget) {
+                const rippleX = Phaser.Math.Clamp(end.x, 36, fishingStageWidth - 36);
+                const rippleY = Phaser.Math.Clamp(end.y, 36, fishingStageHeight - 36);
                 root.dataset.lastCast = "miss";
                 root.dataset.lastFeedback = "miss";
                 this.showImpactBurst(end.x, end.y, "miss");
+                spawnRippleRings(this, rippleX, rippleY);
+                playGameSound("splash");
                 this.isCasting = false;
                 showImpactFeedback(
                   "miss",
@@ -998,29 +1202,89 @@ export function FishingGame() {
                 return;
               }
 
-              const question = nextFishingQuestion();
-              if (!question) {
-                this.isCasting = false;
-                if (statsRef.current.netsRemaining <= 0) endGame();
-                else {
-                  this.physics.world.resume();
-                  setGamePhase("ready");
-                }
-                return;
-              }
-
-              caughtTarget.disableBody(true, true);
-              activeCreatureCountRef.current = Math.max(0, activeCreatureCountRef.current - 1);
-              root.dataset.fishCount = String(activeCreatureCountRef.current);
-              caughtQuestionIdsRef.current.add(question.id);
-              this.physics.world.pause();
-              setChallenge({
-                creatureName: String(caughtTarget.getData("name") ?? creatureNames[nextQuestionIndexRef.current % creatureNames.length]),
-                question
-              });
-              setGamePhase("challenge");
+              this.playCatchAndReel(caughtTarget, catchX, catchY);
             }
           });
+        }
+
+        // The M2 catch celebration: the wrapped creature struggles, then the
+        // net reels it along a sagging rope to the cannon, and only then does
+        // the math challenge open. Coins stay tied to distinct correct
+        // answers — nothing here touches the reward evidence.
+        private playCatchAndReel(creature: Phaser.Physics.Arcade.Sprite, catchX: number, catchY: number) {
+          const question = nextFishingQuestion();
+          if (!question) {
+            this.isCasting = false;
+            if (statsRef.current.netsRemaining <= 0) endGame();
+            else {
+              this.physics.world.resume();
+              setGamePhase("ready");
+            }
+            return;
+          }
+
+          const species = String(creature.getData("species") ?? "");
+          const creatureName = String(creature.getData("name") ?? creatureNames[nextQuestionIndexRef.current % creatureNames.length]);
+          const rarity = creatureRarityFor(species);
+          this.lastCatch = { species, name: creatureName };
+          root.dataset.catchEffect = "reeling";
+
+          const glow = creature.getData("glow") as Phaser.GameObjects.Arc | undefined;
+          glow?.destroy();
+          creature.setData("glow", undefined);
+          creature.disableBody(true, false);
+          creature.setDepth(15);
+          activeCreatureCountRef.current = Math.max(0, activeCreatureCountRef.current - 1);
+          root.dataset.fishCount = String(activeCreatureCountRef.current);
+          playGameSound("catch");
+          spawnBubbleBurst(this, catchX, catchY);
+
+          const muzzle = this.cannonMuzzle();
+          const openChallenge = () => {
+            this.net.clear();
+            creature.setVisible(false);
+            root.dataset.catchEffect = "landed";
+            // The 120s clock keeps running while reeling; if the round ended
+            // mid-reel the settlement owns the screen and no question may open.
+            if (phaseRef.current === "ended" || phaseRef.current === "submitting" || phaseRef.current === "submitted") return;
+            caughtQuestionIdsRef.current.add(question.id);
+            this.physics.world.pause();
+            setChallenge({ creatureName, rarity, species, question });
+            setGamePhase("challenge");
+          };
+
+          if (prefersReducedMotion()) {
+            this.time.delayedCall(catchReelSpec.reducedMotionDelayMs, openChallenge);
+            return;
+          }
+
+          playStruggleWiggle(this, creature, () => {
+            playGameSound("reel");
+            playReelIn(this, creature, muzzle, (x, y, progress) => {
+              const netRadius = catchReelSpec.netRadiusStartPx - (catchReelSpec.netRadiusStartPx - catchReelSpec.netRadiusEndPx) * progress;
+              this.net.clear();
+              this.net.lineStyle(3, 0xf8fafc, 0.9);
+              this.net.lineBetween(muzzle.x, muzzle.y, x, y);
+              this.net.strokeCircle(x, y, netRadius);
+            }, openChallenge);
+          });
+        }
+
+        // Correct answer: the catch is banked — a coin arcs from the cannon
+        // to the HUD counter.
+        private celebrateCatch() {
+          const muzzle = this.cannonMuzzle();
+          spawnCoinFly(this, muzzle.x, muzzle.y - 12, 1, "fishingCoin");
+          spawnCombatText(this, muzzle.x, muzzle.y - 46, "+1", { color: "#facc15" });
+          this.lastCatch = null;
+        }
+
+        // Wrong answer: the one that got away swims back off screen.
+        private escapeCatch() {
+          if (!this.lastCatch) return;
+          const muzzle = this.cannonMuzzle();
+          playEscapeSwim(this, muzzle.x, muzzle.y - 8, this.lastCatch.species, -90);
+          this.lastCatch = null;
         }
       }
 
@@ -1056,7 +1320,7 @@ export function FishingGame() {
       gameControlRef.current = null;
       game?.destroy(true);
     };
-  }, [endGame, nextFishingQuestion, payload, publishStats, questions.length, setGamePhase, showImpactFeedback]);
+  }, [endGame, nextFishingQuestion, payload, playGameSound, publishStats, questions.length, setGamePhase, showImpactFeedback]);
 
   function startGame() {
     if (phase !== "welcome") return;
@@ -1221,18 +1485,23 @@ export function FishingGame() {
   function handleChallengeAnswered(question: PublicQuestion, feedback: AttemptFeedback) {
     if (feedback.correct) {
       correctCaughtQuestionIdsRef.current.add(question.id);
+      if (challenge?.species) correctCaughtSpeciesRef.current[question.id] = challenge.species;
       // Coins must equal the number of distinct correct catches: the reward
       // API rejects the whole run when the two counts disagree.
       publishStats({ ...statsRef.current, coins: correctCaughtQuestionIdsRef.current.size });
+      playGameSound("coin");
+      gameControlRef.current?.celebrateCatch();
       showRewardFeedback(
         { en: "+1 coin landed", zh: "+1 金幣入袋" },
         { en: "Correct catch. The reward counter updated.", zh: "答對捕獲，獎勵已加入計數。" }
       );
       setStatusMessage(tRef.current({ en: "Correct catch. +1 coin.", zh: "答對捕獲，+1 金幣。" }));
     } else {
+      playGameSound("escape");
+      gameControlRef.current?.escapeCatch();
       setRewardFeedback(nextFeedback(
         "settlement",
-        { en: "No coin this catch", zh: "這次沒有金幣" },
+        { en: "No coin this catch — the fish got away", zh: "這次沒有金幣，魚兒溜走了" },
         { en: "Keep fishing and answer the next catch.", zh: "繼續捕魚，下一次捕獲再挑戰。" }
       ));
       setStatusMessage(tRef.current({ en: "No coin this catch. Keep going.", zh: "這次沒有金幣，繼續努力。" }));
@@ -1312,6 +1581,18 @@ export function FishingGame() {
               {payload ? t({ en: `Round accuracy ${payload.accuracyPercent}%`, zh: `回合準確率 ${payload.accuracyPercent}%` }) : null}
             </p>
             <div className="flex flex-wrap items-center justify-end gap-2" data-testid="fishing-aim-controls">
+              <button
+                type="button"
+                data-testid="fishing-sound-toggle"
+                aria-pressed={soundEnabled}
+                aria-label={soundEnabled
+                  ? t({ en: "Turn game sound off", zh: "關閉遊戲音效" })
+                  : t({ en: "Turn game sound on", zh: "開啟遊戲音效" })}
+                onClick={toggleSound}
+                className="focus-ring grid h-11 w-11 place-items-center rounded-xl border border-slate-300/70 bg-white/90 text-base shadow-sm dark:border-white/10 dark:bg-slate-950/75"
+              >
+                <span aria-hidden="true">{soundEnabled ? "🔊" : "🔇"}</span>
+              </button>
               {[
                 { direction: -1 as const, label: "↖", aria: t({ en: "Aim cannon left", zh: "炮台向左瞄準" }) },
                 { direction: 1 as const, label: "↗", aria: t({ en: "Aim cannon right", zh: "炮台向右瞄準" }) }
@@ -1377,6 +1658,7 @@ export function FishingGame() {
               data-renderer-load={rendererLoadState}
               data-load-error={loadErrorCode}
               data-cannon-angle={cannonAngle}
+              data-sound-enabled={soundEnabled}
               onPointerDown={handleStagePointerDown}
               onPointerMove={handleStagePointerMove}
               onPointerUp={releaseStagePointer}
@@ -1451,6 +1733,37 @@ export function FishingGame() {
                       zh: "用炮台發射魚網捕捉海洋生物。真正命中後才回答數學題。"
                     })}
                   </p>
+                  {dexSnapshot ? (
+                    <div data-testid="fishing-dex-strip" className="mt-4 w-full max-w-md">
+                      <p className="text-xs font-black uppercase tracking-[0.2em] text-cyan-50/80">
+                        {t({ en: `Fish-dex ${dexSnapshot.fishDex.length}/${dexSnapshot.totalSpecies}`, zh: `魚類圖鑑 ${dexSnapshot.fishDex.length}/${dexSnapshot.totalSpecies}` })}
+                      </p>
+                      <div className="mt-2 flex flex-wrap items-center justify-center gap-1.5">
+                        {Object.keys(creatureRarities).map((species) => {
+                          const caught = dexSnapshot.fishDex.find((entry) => entry.species === species);
+                          const rarity = creatureRarityFor(species);
+                          return (
+                            <span
+                              key={species}
+                              data-species={species}
+                              data-caught={Boolean(caught)}
+                              className={cn(
+                                "rounded-full border px-2.5 py-1 text-[0.65rem] font-black",
+                                caught
+                                  ? "border-white/50 bg-white/15 text-white"
+                                  : "border-white/20 bg-white/5 text-cyan-100/50"
+                              )}
+                              style={caught ? { borderColor: rarity.color } : undefined}
+                            >
+                              {caught
+                                ? `${"★".repeat(rarity.stars)} ${t(creatureDisplayNames[species] ?? { en: species, zh: species })}`
+                                : "?"}
+                            </span>
+                          );
+                        })}
+                      </div>
+                    </div>
+                  ) : null}
                   <button
                     type="button"
                     data-testid="fishing-start-button"
@@ -1461,6 +1774,27 @@ export function FishingGame() {
                   </button>
                 </div>
               </div>
+            ) : null}
+            {phase === "submitted" && completion && ceremony ? (
+              <GameResultsCeremony
+                show
+                testId="fishing-results-ceremony"
+                title={{ en: "Fishing Master!", zh: "捕魚達人！" }}
+                subtitle={t(completionCopy(completion.status))}
+                stars={ceremony.stars}
+                countUpLabel={{ en: "Coins banked", zh: "入袋金幣" }}
+                countUpValue={completion.coins}
+                stats={[
+                  { label: { en: "Coins", zh: "金幣" }, value: String(completion.coins) },
+                  { label: { en: "Nets used", zh: "魚網" }, value: String(stats.netsUsed) },
+                  { label: { en: "Time", zh: "時間" }, value: formatGameTime(stats.elapsedSeconds) }
+                ]}
+                rewardLine={ceremony.rewardLine}
+                bonusLine={ceremony.bonusLine}
+                newBest={ceremony.newBest}
+                t={t}
+                playSound={playGameSound}
+              />
             ) : null}
           </div>
 
@@ -1553,6 +1887,13 @@ export function FishingGame() {
               <h2 className="mt-2 text-2xl font-black text-slate-950 dark:text-white">
                 {challenge.creatureName}
               </h2>
+              <p
+                data-testid="fishing-challenge-rarity"
+                className="mt-1 text-sm font-black tracking-wide"
+                style={{ color: challenge.rarity.color }}
+              >
+                <span aria-hidden="true">{"★".repeat(challenge.rarity.stars)}</span> {t(challenge.rarity.label)}
+              </p>
               <p className="mt-2 text-sm font-semibold text-slate-600 dark:text-slate-300">
                 {t({ en: "Answer correctly to earn 1 coin from this catch.", zh: "答對即可從這次捕獲取得 1 枚金幣。" })}
               </p>

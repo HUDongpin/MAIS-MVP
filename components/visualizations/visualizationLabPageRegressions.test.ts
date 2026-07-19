@@ -181,6 +181,37 @@ test("visualization lab mobile rail hints overflow with an edge fade", () => {
   assert.match(source, /sm:\[mask-image:none\]/);
 });
 
+test("visualization lab records entry-point navigation analytics on the existing schema", () => {
+  assert.match(source, /function recordVisualizationNavigationEvent\(action: string, detail: string\)/);
+  assert.match(source, /type: "mouse-click",\s*source: "navigation",\s*topicId: `viz-nav:\$\{action\}:\$\{detail\}`/);
+  assert.match(source, /selectDirectoryLab\(recommendedLab, "start-quest"\)/);
+  assert.match(source, /selectDirectoryLab\(recommendedLab, "next-up-card"\)/);
+  assert.match(source, /selectDirectoryLab\(lab, "lab-tile"\)/);
+  assert.match(source, /selectDirectoryGrade\(ownGradeGroup, "grade-rail-pinned"\)/);
+  assert.match(source, /selectDirectoryGrade\(ownGradeGroup, "back-to-my-grade"\)/);
+  assert.match(source, /selectDirectoryGrade\(ownGradeGroup, "empty-state"\)/);
+  assert.match(source, /recordVisualizationNavigationEvent\(`open-\$\{entryPoint\}`, lab\.labId\)/);
+  assert.match(source, /recordVisualizationNavigationEvent\(entryPoint, group\.grade\)/);
+});
+
+test("visualization lab keeps lab-scoped probes alongside navigation analytics", () => {
+  assert.match(source, /recordVisualizationWorkflowEvent\(lab\);/);
+  assert.match(source, /type: "visualization-probe",\s*source: lab\?\.analyticsSource \?\? "visualization-lab"/);
+});
+
+test("visualization lab scales controls for young learners without touching lab tiles", () => {
+  assert.match(source, /const youngLearnerGrades = new Set<GradeId>\(\["K", "P1", "P2"\]\);/);
+  assert.match(source, /const youngLearnerMode = Boolean\(ownGrade && youngLearnerGrades\.has\(ownGrade\)\);/);
+  assert.match(source, /data-viz-young-learner-mode=\{String\(youngLearnerMode\)\}/);
+  assert.match(source, /youngLearnerMode \? "min-h-\[3\.75rem\] px-8 text-xl" : "min-h-\[3\.25rem\] px-7 text-lg"/);
+  assert.match(source, /large \? "h-14 min-w-\[3\.9rem\] px-5 text-lg" : "h-12 min-w-\[3\.4rem\] px-4 text-base"/);
+  assert.match(source, /large=\{youngLearnerMode\}/);
+  const labTileStart = source.indexOf("function LabTile");
+  const labTileEnd = source.indexOf("export function VisualizationLabPage");
+  assert.ok(labTileStart !== -1 && labTileEnd > labTileStart);
+  assert.doesNotMatch(source.slice(labTileStart, labTileEnd), /youngLearnerMode/);
+});
+
 test("visualization lab renders catalog copy through Simplified Chinese conversion", () => {
   assert.match(source, /function displayCatalogText\(value: string\)/);
   assert.match(source, /return simplifyChineseText\(value, language\);/);

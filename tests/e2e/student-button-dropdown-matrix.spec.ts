@@ -256,8 +256,8 @@ async function clickCurrentLessonNav(page: Page) {
 }
 
 async function setFishingEligibility(page: Page) {
-  const fishingQuestions = questions.filter((question) => question.topicId === "quadratic-patterns").slice(0, 5);
-  expect(fishingQuestions.length, "Fishing setup needs five quadratic-patterns questions").toBe(5);
+  const fishingQuestions = questions.filter((question) => question.topicId === "functions").slice(0, 5);
+  expect(fishingQuestions.length, "Fishing setup needs five functions questions").toBe(5);
   const questionIds = fishingQuestions.map((question) => question.id);
 
   for (const question of fishingQuestions) {
@@ -273,7 +273,7 @@ async function setFishingEligibility(page: Page) {
 
   const adventureResponse = await page.request.post("/api/gamification/adventure-island", {
     data: {
-      topicId: "quadratic-patterns",
+      topicId: "functions",
       roundKey: `e2e-adventure-${Date.now()}`,
       roundQuestionIds: questionIds,
       correctRoundQuestionIds: questionIds,
@@ -290,7 +290,7 @@ async function setFishingEligibility(page: Page) {
   await page.goto("/dashboard");
   await page.evaluate(({ ids }) => {
     window.sessionStorage.setItem("hk-math-practice-fishing-round", JSON.stringify({
-      topicId: "quadratic-patterns",
+      topicId: "functions",
       roundKey: `e2e-fishing-${Date.now()}`,
       roundQuestionIds: ids,
       correctRoundQuestionIds: ids,
@@ -300,12 +300,12 @@ async function setFishingEligibility(page: Page) {
 }
 
 async function unlockAdventureIsland(page: Page) {
-  const s3Questions = questions
-    .filter((question) => question.grade === "S3" && typeof question.answer === "string")
+  const s4Questions = questions
+    .filter((question) => question.grade === "S4" && typeof question.answer === "string")
     .slice(0, 5);
-  expect(s3Questions.length, "Adventure Island setup needs five S3 questions").toBe(5);
+  expect(s4Questions.length, "Adventure Island setup needs five S4 questions").toBe(5);
 
-  for (const question of s3Questions) {
+  for (const question of s4Questions) {
     const response = await page.request.post("/api/attempts", {
       data: {
         questionId: question.id,
@@ -741,9 +741,15 @@ test.describe.serial("student button and dropdown matrix", () => {
     await exerciseSelect(difficultySelect, "practice difficulty", "all");
 
     const topicSelect = page.getByRole("combobox", { name: /^Topic$/i });
-    await expectSelectIncludes(topicSelect, ["quadratic-patterns"]);
-    await topicSelect.selectOption("quadratic-patterns");
-    await expect(topicSelect).toHaveValue("quadratic-patterns");
+    await expectSelectIncludes(topicSelect, ["functions", "coordinate-geometry", "more-algebra", "data-handling"]);
+    const functionsQuestionsLoaded = page.waitForResponse((response) =>
+      response.url().includes("/api/questions") &&
+      response.url().includes("topicId=functions") &&
+      response.ok()
+    ).catch(() => null);
+    await topicSelect.selectOption("functions");
+    await functionsQuestionsLoaded;
+    await expect(topicSelect).toHaveValue("functions");
 
     const questionTypeSelect = page.getByRole("combobox", { name: /Question type/i });
     await expectSelectIncludes(questionTypeSelect, ["all", "multiple-choice", "fill-in", "short-answer", "graph"]);
@@ -752,6 +758,10 @@ test.describe.serial("student button and dropdown matrix", () => {
     await expectPracticeQuestionOne(page);
 
     const practiceRegion = page.getByRole("region", { name: /Practice questions/i });
+    await expect(
+      practiceRegion.getByRole("spinbutton", { name: /Jump to/i }),
+      "functions free-selection round should cap at five questions"
+    ).toHaveAttribute("max", "5", { timeout: 20_000 });
     await practiceRegion.getByRole("button", { name: /Next question/i }).click();
     await expect(practiceRegion.getByText(/Question 2 of/i)).toBeVisible();
     await practiceRegion.getByRole("button", { name: /Previous question/i }).click();
@@ -763,15 +773,15 @@ test.describe.serial("student button and dropdown matrix", () => {
     await expect(jumpInput).toHaveValue("1");
     await expect(practiceRegion.getByRole("button", { name: /^Jump$/i })).toBeEnabled();
 
-    const axisCard = page.locator("article").filter({ hasText: /axis of symmetry/i }).first();
-    await expect(axisCard).toBeVisible();
-    await axisCard.getByRole("button").filter({ hasText: /x\s*=/ }).first().click();
-    await expect(axisCard.getByRole("button", { name: /Check Answer/i })).toBeEnabled();
-    await axisCard.getByRole("button", { name: /Reset/i }).click();
-    await expect(axisCard.getByRole("button", { name: /Check Answer/i })).toBeDisabled();
-    await axisCard.getByRole("button").filter({ hasText: /x\s*=/ }).first().click();
-    await axisCard.getByRole("button", { name: /Check Answer/i }).click();
-    await expect(axisCard.getByText(/Saved to Mistake Book/i)).toBeVisible();
+    const functionValueCard = page.locator("article").filter({ hasText: /f\(4\)/ }).first();
+    await expect(functionValueCard).toBeVisible();
+    await functionValueCard.getByRole("button", { name: /^6$/ }).click();
+    await expect(functionValueCard.getByRole("button", { name: /Check Answer/i })).toBeEnabled();
+    await functionValueCard.getByRole("button", { name: /Reset/i }).click();
+    await expect(functionValueCard.getByRole("button", { name: /Check Answer/i })).toBeDisabled();
+    await functionValueCard.getByRole("button", { name: /^6$/ }).click();
+    await functionValueCard.getByRole("button", { name: /Check Answer/i }).click();
+    await expect(functionValueCard.getByText(/Saved to Mistake Book/i)).toBeVisible();
 
     await page.getByRole("button", { name: /^Nova Tutor$/i }).click({ force: true });
     const tutorPanel = page.getByRole("dialog", { name: /Nova Tutor/i });
@@ -791,8 +801,8 @@ test.describe.serial("student button and dropdown matrix", () => {
     const removeMistakeButton = mistakeSection.locator("article button").filter({ hasText: /^Remove$/i }).first();
     await expect(markMasteredButton).toBeVisible({ timeout: 15_000 });
     const mistakeSearch = page.getByPlaceholder(/Topic, keyword, answer, S3/i);
-    await mistakeSearch.fill("axis");
-    await expect(mistakeSearch).toHaveValue("axis");
+    await mistakeSearch.fill("function");
+    await expect(mistakeSearch).toHaveValue("function");
     await page.getByRole("button", { name: /Clear search/i }).click();
     const previousMistake = page.getByRole("button", { name: /Previous mistake/i });
     const nextMistake = page.getByRole("button", { name: /Next mistake/i });
