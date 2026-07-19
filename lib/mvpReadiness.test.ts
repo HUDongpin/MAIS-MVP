@@ -6,6 +6,7 @@ import { normalizeQuestionDiagram, validateQuestionDiagram } from "./questionFig
 import californiaMiddleSchoolLivePack from "../data/generated-content/us-ca-math-middle-school-textbooks-v2/live-lessons.json";
 import californiaMiddleSchoolTextbookPack from "../data/generated-content/us-ca-math-textbooks-v1/textbook-pack.json";
 import { buildWorkedExampleIllustrationMetadata } from "../components/lesson/workedExampleIllustrationMetadata";
+import { hasCcssLessonAssignment } from "../data/ccssLessonAssignments";
 import { productionLessonSeeds } from "../data/lessons";
 import { grades } from "../data/grades";
 import {
@@ -402,11 +403,17 @@ test("Florida B.E.S.T. middle-school textbook beta has topics, questions, and le
 });
 
 test("production lesson seeds meet the authored block standard", () => {
-  const requiredBlockTypes = ["concept", "worked-example", "checklist", "extension"];
+  // Topics with a CCSS lesson assignment (2026-07-19 port) replace the
+  // generated concept + worked-example blocks with interactive lesson cores;
+  // the checklist/extension shell blocks remain required for everyone.
+  const requiredBlockTypesFor = (lesson: (typeof productionLessonSeeds)[number]) =>
+    hasCcssLessonAssignment(lesson.topicId)
+      ? ["interactive-lesson", "checklist", "extension"]
+      : ["concept", "worked-example", "checklist", "extension"];
   const productionReadyLessons = productionLessonSeeds.filter((lesson) => lesson.productionReady);
 
   const missingRequiredBlocks = productionReadyLessons.flatMap((lesson) =>
-    requiredBlockTypes
+    requiredBlockTypesFor(lesson)
       .filter((type) => !lesson.blocks.some((block) => block.type === type))
       .map((type) => `${lesson.topicId}: missing ${type}`)
   );
@@ -432,6 +439,9 @@ test("production lesson seeds meet the authored block standard", () => {
       const issues: string[] = [];
       if ((block.type === "concept" || block.type === "worked-example") && (!block.content?.en || !block.content.zh)) {
         issues.push(`${lesson.topicId}: ${block.type} missing bilingual content`);
+      }
+      if (block.type === "interactive-lesson" && !block.content?.en) {
+        issues.push(`${lesson.topicId}: interactive lesson missing read-aloud narration content`);
       }
       if ((block.type === "checklist" || block.type === "extension") && !block.items?.length) {
         issues.push(`${lesson.topicId}: ${block.type} missing items`);
@@ -638,7 +648,11 @@ test("worked-example illustration renderer covers all curriculum lesson units", 
   const kinds = new Set<string>();
   const topicById = new Map(topics.map((topic) => [topic.id, topic]));
 
-  assert.equal(lessonSeedsWithWorkedExamples.length, 490);
+  // 490 before the CCSS textbook port; the 64 assigned California topics
+  // (29 K–G5 + 35 G6–G12 chapters) retired their generated worked-example
+  // blocks in favor of interactive CCSS lesson cores (2026-07-19), which
+  // carry their own worked reasoning and need no generated illustration.
+  assert.equal(lessonSeedsWithWorkedExamples.length, 426);
 
   lessonSeedsWithWorkedExamples.forEach((lessonSeed) => {
     const workedExample = lessonSeed.blocks.find((block) => block.type === "worked-example");

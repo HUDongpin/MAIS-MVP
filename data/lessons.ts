@@ -28,6 +28,12 @@ export type ProductionLessonBlock = {
     source: LearningAnalyticsEventSource;
     topicId: string;
   };
+  /** For "interactive-lesson" blocks: the ported CCSS textbook lesson that renders as the block body. */
+  interactiveLessonConfig?: {
+    ccssLessonSlug: string;
+    topicId: string;
+    standardIds: string[];
+  };
 };
 
 export type ProductionLessonSeed = {

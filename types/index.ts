@@ -1839,6 +1839,7 @@ export type LessonBlockType =
   | "concept"
   | "worked-example"
   | "visualization"
+  | "interactive-lesson"
   | "practice"
   | "checklist"
   | "extension"
@@ -1854,6 +1855,12 @@ export type LessonBlock = {
     moduleId: string;
     source: LearningAnalyticsEventSource;
     topicId: string;
+  };
+  /** For "interactive-lesson" blocks: which ported CCSS textbook lesson renders as the block body. */
+  interactiveLessonConfig?: {
+    ccssLessonSlug: string;
+    topicId: string;
+    standardIds: string[];
   };
   practiceQuestionIds?: string[];
 };

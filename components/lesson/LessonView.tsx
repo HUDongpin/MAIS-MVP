@@ -14,7 +14,9 @@ import {
   lessonCompletionProgressText,
   lessonCompletionTitleForGrade
 } from "@/components/lesson/lessonCompletionChecklist";
-import { LessonGalaxyDirectory, type LessonGalaxyItem } from "@/components/lesson/LessonGalaxyDirectory";
+import { type LessonGalaxyItem } from "@/components/lesson/LessonGalaxyDirectory";
+import { getCcssLessonComponent } from "@/components/lesson/ccss/registry";
+import { WorldMenu } from "@/components/lesson/worlds/WorldMenu";
 import { lessonUsesStaticAudioOnly, staticLessonAudioUrlForBlock } from "@/components/lesson/staticLessonAudio";
 import { WorkedExampleIllustration } from "@/components/lesson/WorkedExampleIllustration";
 import {
@@ -41,6 +43,7 @@ import { getMainlandPepHighLessonIllustration } from "@/data/mainlandPepHighLess
 import { getMainlandPepJuniorLessonIllustration } from "@/data/mainlandPepJuniorLessonIllustrations";
 import { getMainlandPepPrimaryLessonIllustration } from "@/data/mainlandPepPrimaryLessonIllustrations";
 import { getUsArkansasMiddleSchoolLessonIllustration } from "@/data/usArkansasMiddleSchoolLessonIllustrations";
+import { getCcssTextbookLesson } from "@/data/ccssTextbookRegistry";
 import { getUsCaliforniaLessonIllustration } from "@/data/usCaliforniaLessonIllustrations";
 import type { VisualizationModuleId } from "@/data/visualizationLabs";
 import { lessonHrefForSlug } from "@/lib/lessonLinks";
@@ -1932,6 +1935,7 @@ export function LessonView({ gradeLessons = [], slug, initialLesson }: LessonVie
   const canSaveProgress = settingsReady && currentUser?.role === "student";
   const canViewTeacherGuide = currentUser?.role === "teacher" || currentUser?.role === "admin";
   const conceptBlocks = useMemo(() => [
+    ...blocksByType(lesson, "interactive-lesson"),
     ...blocksByType(lesson, "concept"),
     ...blocksByType(lesson, "worked-example")
   ], [lesson]);
@@ -2028,14 +2032,18 @@ export function LessonView({ gradeLessons = [], slug, initialLesson }: LessonVie
         id: `block-${block.id}`,
         kind: block.type === "worked-example" ? "worked-example" : "concept",
         subtitle: t(
-          block.type === "worked-example"
-            ? { en: "Guided example", zh: "引導例題", zhHans: "引导例题" }
-            : { en: "Concept reading", zh: "概念閱讀", zhHans: "概念阅读" }
+          block.type === "interactive-lesson"
+            ? { en: "Interactive lesson", zh: "互動課文", zhHans: "互动课文" }
+            : block.type === "worked-example"
+              ? { en: "Guided example", zh: "引導例題", zhHans: "引导例题" }
+              : { en: "Concept reading", zh: "概念閱讀", zhHans: "概念阅读" }
         ),
         targetId: lessonBlockSectionId(block.id),
-        title: block.type === "worked-example"
-          ? t(singularWorkedExampleTitle)
-          : t({ en: "Concept explanation", zh: "概念說明", zhHans: "概念说明" })
+        title: block.type === "interactive-lesson"
+          ? text(block.title)
+          : block.type === "worked-example"
+            ? t(singularWorkedExampleTitle)
+            : t({ en: "Concept explanation", zh: "概念說明", zhHans: "概念说明" })
       }))
     ];
 
@@ -2849,7 +2857,7 @@ export function LessonView({ gradeLessons = [], slug, initialLesson }: LessonVie
                   <div aria-hidden="true" className="mb-6 h-px w-full bg-slate-200/90 dark:bg-white/10" />
                 ) : null}
                 <MathText as="h2" text={blockTitle} className="text-2xl font-black text-slate-950 dark:text-white" />
-                {displayContent && block.type === "concept" ? (
+                {displayContent && (block.type === "concept" || block.type === "interactive-lesson") ? (
                   <ConceptAudioPlayer
                     content={displayContent}
                     staticAudioOnly={lessonUsesStaticAudioOnly(lesson)}
@@ -2858,7 +2866,29 @@ export function LessonView({ gradeLessons = [], slug, initialLesson }: LessonVie
                   />
                 ) : null}
                 {block.type === "concept" ? illustrationFigures : null}
-                {displayContent ? (
+                {block.type === "interactive-lesson" ? (
+                  // Ported CCSS interactive lesson body. The block's text content is
+                  // the read-aloud narration (audio player above), not display prose.
+                  (() => {
+                    const interactiveConfig = block.interactiveLessonConfig;
+                    const ccssMeta = interactiveConfig ? getCcssTextbookLesson(interactiveConfig.ccssLessonSlug) : null;
+                    const CcssLessonBody = interactiveConfig ? getCcssLessonComponent(interactiveConfig.ccssLessonSlug) : null;
+
+                    return ccssMeta && CcssLessonBody && interactiveConfig ? (
+                      <div className="mt-4">
+                        <CcssLessonBody meta={ccssMeta} topicId={interactiveConfig.topicId} />
+                      </div>
+                    ) : (
+                      <div className="mt-4 rounded-2xl border border-amber-300/40 bg-amber-400/10 p-4 text-sm font-semibold text-amber-800 dark:text-amber-100">
+                        {t({
+                          en: `No interactive lesson is registered for ${interactiveConfig?.ccssLessonSlug ?? "this block"}.`,
+                          zh: "此課節暫未登記互動課文。",
+                          zhHans: "此课时暂未登记互动课文。"
+                        })}
+                      </div>
+                    );
+                  })()
+                ) : displayContent ? (
                   <LessonContentWithAnswerReveal
                     blockId={block.id}
                     content={displayContent}
@@ -3161,7 +3191,7 @@ export function LessonView({ gradeLessons = [], slug, initialLesson }: LessonVie
               }}
               style={{ transformOrigin: "calc(100% - 8rem) -4.25rem" }}
             >
-              <LessonGalaxyDirectory
+              <WorldMenu
                 currentSlug={slug}
                 items={lessonGalaxyItems}
                 lesson={lesson}

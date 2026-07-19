@@ -2,6 +2,7 @@ import {
   type CaliforniaGradeId,
   type CaliforniaQuestionBatch,
   type GeneratedCaliforniaQuestion,
+  californiaCcssTextbookPracticeQuestionCount,
   californiaK5KnowledgePointPracticeQuestionCount,
   californiaK5LiveContentStatus,
   generatedCaliforniaQuestions,
@@ -67,6 +68,7 @@ function optionsFor(question: GeneratedCaliforniaQuestion) {
 function topicLabelFor(question: GeneratedCaliforniaQuestion) {
   if (question.batch === "us-ca-k-g5-v3-deepseek") return `Unit ${question.unitNumber}`;
   if (question.batch === "us-ca-k5-knowledge-point-practice-v1") return "Knowledge Point";
+  if (question.batch === "ccss-textbook-practice-v1") return "Interactive Lesson";
   return `Chapter ${question.chapterNumber}`;
 }
 
@@ -142,7 +144,9 @@ export const expectedUnitedStatesCaliforniaK5QuestionCount = californiaK5LiveCon
       : 0;
 export const expectedUnitedStatesCaliforniaG6G12QuestionCount = 1500;
 export const expectedUnitedStatesCaliforniaQuestionCount =
-  expectedUnitedStatesCaliforniaK5QuestionCount + expectedUnitedStatesCaliforniaG6G12QuestionCount;
+  expectedUnitedStatesCaliforniaK5QuestionCount +
+  expectedUnitedStatesCaliforniaG6G12QuestionCount +
+  californiaCcssTextbookPracticeQuestionCount;
 export const expectedUnitedStatesCaliforniaTopicCount = usCaliforniaTopicById.size;
 export const usCaliforniaQuestions: Question[] = generatedCaliforniaQuestions.map(toQuestion);
 

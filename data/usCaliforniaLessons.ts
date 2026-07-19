@@ -1,4 +1,6 @@
 import kG5TextbookLessonPackJson from "./generated-content/us-ca-math-k-g5-textbooks-v1/lessons.json";
+import { findStandard } from "./ccss";
+import { ccssLessonMetasForTopic, hasCcssLessonAssignment } from "./ccssLessonAssignments";
 import {
   californiaKnowledgePointDisplayTitle,
   californiaKnowledgePointForTopic
@@ -206,6 +208,12 @@ function questionSort(left: GeneratedCaliforniaQuestion, right: GeneratedCalifor
 function selectPracticeQuestionIds(topicId: string) {
   const topicQuestions = questionsForTopic(topicId).sort(questionSort);
   const picked = new Set<string>();
+
+  // Hand-checked CCSS textbook practice leads; generated-bank questions fill
+  // the remainder ("CCSS becomes the core" decision, 2026-07-19).
+  topicQuestions
+    .filter((question) => question.batch === "ccss-textbook-practice-v1")
+    .forEach((question) => picked.add(question.id));
 
   practiceDifficultyQuotas.forEach(([difficulty, quota]) => {
     topicQuestions
@@ -551,16 +559,41 @@ function textbookCoverageRecord(lesson: GeneratedCaliforniaK5TextbookLesson): Ca
   };
 }
 
-function textbookBlocks(lesson: GeneratedCaliforniaK5TextbookLesson): ProductionLessonBlock[] {
-  const content = lesson.studentLesson.en;
-  const standardIds = standardText(lesson.metadata.standardIds);
-  const knowledgePoint = californiaKnowledgePointForTopic(
-    lesson.metadata.topicId,
-    lesson.metadata.grade,
-    lesson.studentLesson.en.title
-  );
+/**
+ * Interactive lesson-core blocks for an assigned topic (primary first, then
+ * related — the "CCSS becomes the core" decision, 2026-07-19). The block
+ * `content` carries the lesson's read-aloud narration so the audio guide and
+ * directory descriptions keep working. Shared by the K–G5 textbook topics and
+ * the G6–G12 chapter topics.
+ */
+function ccssInteractiveLessonBlocks(topicId: string): ProductionLessonBlock[] {
+  return ccssLessonMetasForTopic(topicId).map((meta) => ({
+    idSuffix: `ccss-${meta.slug}`,
+    type: "interactive-lesson",
+    title: textOnly(`${meta.emoji} ${meta.title}`),
+    content: textOnly(meta.narration),
+    interactiveLessonConfig: {
+      ccssLessonSlug: meta.slug,
+      topicId,
+      standardIds: meta.standardIds
+    }
+  }));
+}
 
-  return withCaliforniaVisualizationBlock(lesson.metadata.topicId, [
+/**
+ * The topic's lesson core: interactive CCSS lessons when assigned, the
+ * generated text blocks otherwise.
+ */
+function textbookCoreBlocks(
+  lesson: GeneratedCaliforniaK5TextbookLesson
+): ProductionLessonBlock[] {
+  const topicId = lesson.metadata.topicId;
+  if (hasCcssLessonAssignment(topicId)) {
+    return ccssInteractiveLessonBlocks(topicId);
+  }
+
+  const content = lesson.studentLesson.en;
+  return [
     {
       idSuffix: "concept",
       type: "concept",
@@ -574,7 +607,58 @@ function textbookBlocks(lesson: GeneratedCaliforniaK5TextbookLesson): Production
       content: textOnly(
         `${content.workedExample.prompt}\n\nAnswer: ${content.workedExample.answer}.\n\nReasoning: ${content.workedExample.reasoning}`
       )
-    },
+    }
+  ];
+}
+
+/**
+ * Teacher guide for topics whose core is ported CCSS lessons: full standard
+ * text from the authoritative `data/ccss` registry, each standard attributed
+ * to the interactive lesson(s) that develop it (Phase 2 augmentation).
+ * `seedStandardIds` (the topic's own metadata, when it has real CCSS ids)
+ * leads the ordering; lesson-carried standards follow.
+ */
+function ccssTeacherGuideBlock(topicId: string, seedStandardIds: string[]): ProductionLessonBlock {
+  const metas = ccssLessonMetasForTopic(topicId);
+  const attributionsByStandard = new Map<string, string[]>();
+  metas.forEach((meta) => {
+    meta.standardIds.forEach((id) => {
+      const sources = attributionsByStandard.get(id) ?? [];
+      sources.push(`${meta.emoji} ${meta.title}`);
+      attributionsByStandard.set(id, sources);
+    });
+  });
+  const orderedStandardIds = unique([
+    ...seedStandardIds,
+    ...metas.flatMap((meta) => meta.standardIds)
+  ]).filter((id) => attributionsByStandard.has(id));
+
+  return {
+    idSuffix: "standards-coverage",
+    type: "teacher-guide",
+    title: textOnly("Standards developed in this unit"),
+    content: textOnly(
+      `This unit's lesson core is ${metas.length} interactive CCSS textbook lesson${metas.length === 1 ? "" : "s"} ported from the CCSS-Math-Textbook library — hand-built and mathematically verified (each lesson's Math Check states the fact it demonstrates and why it is true). The full CCSS standard text each lesson develops is listed below. The practice checkpoint leads with the library's hand-checked questions before the generated California bank.`
+    ),
+    items: orderedStandardIds.map((id) => {
+      const description = findStandard(id)?.standard.description ?? "";
+      const sources = attributionsByStandard.get(id) ?? [];
+      return textOnly(`${id} — ${description} (${sources.join("; ")})`);
+    })
+  };
+}
+
+function textbookBlocks(lesson: GeneratedCaliforniaK5TextbookLesson): ProductionLessonBlock[] {
+  const content = lesson.studentLesson.en;
+  const standardIds = standardText(lesson.metadata.standardIds);
+  const knowledgePoint = californiaKnowledgePointForTopic(
+    lesson.metadata.topicId,
+    lesson.metadata.grade,
+    lesson.studentLesson.en.title
+  );
+
+  return withCaliforniaVisualizationBlock(lesson.metadata.topicId, [
+    ...textbookCoreBlocks(lesson),
     {
       idSuffix: "guided-practice",
       type: "checklist",
@@ -594,14 +678,16 @@ function textbookBlocks(lesson: GeneratedCaliforniaK5TextbookLesson): Production
         textOnly(content.exitTicket)
       ]
     },
-    {
-      idSuffix: "standards-coverage",
-      type: "teacher-guide",
-      title: textOnly("Progress and standards coverage"),
-      content: textOnly(
-        `${knowledgePoint.code} ${knowledgePoint.title} is a MAIS-owned California knowledge point aligned to ${standardIds} as metadata only. The student copy is MAIS-authored and text-only for the California K-5 textbook/lesson beta; the practice checkpoint links the separate live California Math Practice Beta bank without using the downlisted K-5 practice package.`
-      )
-    }
+    hasCcssLessonAssignment(lesson.metadata.topicId)
+      ? ccssTeacherGuideBlock(lesson.metadata.topicId, lesson.metadata.standardIds)
+      : {
+          idSuffix: "standards-coverage",
+          type: "teacher-guide",
+          title: textOnly("Progress and standards coverage"),
+          content: textOnly(
+            `${knowledgePoint.code} ${knowledgePoint.title} is a MAIS-owned California knowledge point aligned to ${standardIds} as metadata only. The student copy is MAIS-authored and text-only for the California K-5 textbook/lesson beta; the practice checkpoint links the separate live California Math Practice Beta bank without using the downlisted K-5 practice package.`
+          )
+        }
   ]);
 }
 
@@ -648,9 +734,24 @@ function toLessonSeed(topic: Topic): ProductionLessonSeed {
   const topicQuestions = questionsForTopic(topic.id);
   const title = textFrom(topic.title);
 
+  // G6–G12 chapter topics with a CCSS lesson assignment render the ported
+  // interactive lessons as their core (Phase 5), replacing the templated
+  // concept block and the bank-question worked example. The scaffolded
+  // practice path and mistake-repair blocks stay; the teacher guide carries
+  // the full standard text each lesson develops.
+  const isCcssAssigned = hasCcssLessonAssignment(topic.id);
+  const coreBlocks = isCcssAssigned
+    ? ccssInteractiveLessonBlocks(topic.id)
+    : [conceptBlock(topic, topicQuestions), workedExampleBlock(topic)];
+  const teacherGuide = isCcssAssigned
+    ? ccssTeacherGuideBlock(topic.id, [])
+    : coverageGuideBlock(topic, topicQuestions);
+
   return {
     topicId: topic.id,
-    productionReady: false,
+    // Chapter topics go live exactly when they carry an interactive CCSS
+    // lesson core (Phase 5); unassigned ones stay beta-only as before.
+    productionReady: isCcssAssigned,
     title,
     description: local(
       `${title.en} lesson module for California Math Practice Beta, with concept explanation, worked example, scaffolded practice, mistake repair, and standards coverage metadata.`,
@@ -660,11 +761,10 @@ function toLessonSeed(topic: Topic): ProductionLessonSeed {
     estimatedMinutes: Math.max(28, topic.minutes),
     practiceQuestionIds: selectPracticeQuestionIds(topic.id),
     blocks: withCaliforniaVisualizationBlock(topic.id, [
-      conceptBlock(topic, topicQuestions),
-      workedExampleBlock(topic),
+      ...coreBlocks,
       scaffoldedPracticeBlock(topic, topicQuestions),
       remediationBlock(topic, topicQuestions),
-      coverageGuideBlock(topic, topicQuestions)
+      teacherGuide
     ])
   };
 }

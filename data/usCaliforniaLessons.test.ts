@@ -2,6 +2,7 @@ import assert from "node:assert/strict";
 import { existsSync } from "node:fs";
 import path from "node:path";
 import test from "node:test";
+import { ccssLessonAssignments, ccssLessonSequenceForTopic, hasCcssLessonAssignment } from "./ccssLessonAssignments";
 import { californiaKnowledgePointForTopic } from "./usCaliforniaKnowledgePoints";
 import { getUsCaliforniaLessonIllustration } from "./usCaliforniaLessonIllustrations";
 import {
@@ -12,6 +13,7 @@ import {
 } from "./usCaliforniaLessons";
 import { californiaElementaryMicroLessonSpecs } from "./usCaliforniaMicroLessons";
 import {
+  californiaCcssTextbookPracticeQuestionCount,
   californiaElementaryMicroLessonTopics,
   usCaliforniaTopics,
   usCaliforniaTopicById
@@ -52,6 +54,7 @@ const blockedGenericK5ConceptPatterns = [
 
 const californiaK5Grades = new Set(["K", "P1", "P2", "P3", "P4", "P5"]);
 const liveKnowledgePointPracticeIdPattern = /^us-ca-k5-knowledge-point-practice-v1-/;
+const ccssTextbookPracticeIdPattern = /^ccss-textbook-practice-v1-/;
 
 function escapeRegExp(value: string) {
   return value.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
@@ -93,13 +96,25 @@ test("California K-5 textbook lessons and 492-question knowledge-point practice 
 
   const californiaK5PracticeQuestions = usCaliforniaQuestions.filter((question) => californiaK5Grades.has(question.grade));
   const californiaK5PracticeQuestionById = new Map(californiaK5PracticeQuestions.map((question) => [question.id, question]));
-  assert.equal(californiaK5PracticeQuestions.length, 492);
-  assert.ok(
-    californiaK5PracticeQuestions.every((question) => question.id.startsWith("us-ca-k5-knowledge-point-practice-v1-")),
-    "K-5 live practice should use the S18 QA-passed knowledge-point package"
+  const knowledgePointPracticeQuestions = californiaK5PracticeQuestions.filter((question) =>
+    liveKnowledgePointPracticeIdPattern.test(question.id)
   );
+  const ccssTextbookPracticeQuestions = californiaK5PracticeQuestions.filter((question) =>
+    ccssTextbookPracticeIdPattern.test(question.id)
+  );
+  assert.equal(knowledgePointPracticeQuestions.length, 492);
+  // 810 hand-checked CCSS questions total (270 lessons × 3); 336 land on K–G5
+  // topics, the rest on the G6–G12 chapter topics (Phase 5).
+  assert.equal(californiaCcssTextbookPracticeQuestionCount, 810);
+  assert.equal(ccssTextbookPracticeQuestions.length, 336);
+  assert.equal(
+    californiaK5PracticeQuestions.length,
+    knowledgePointPracticeQuestions.length + ccssTextbookPracticeQuestions.length,
+    "K-5 live practice should use the S18 QA-passed knowledge-point package plus the hand-checked CCSS textbook practice"
+  );
+  assert.ok(ccssTextbookPracticeQuestions.every((question) => californiaK5Grades.has(question.grade)));
   assert.deepEqual(
-    californiaK5PracticeQuestions.reduce<Record<string, number>>((counts, question) => {
+    knowledgePointPracticeQuestions.reduce<Record<string, number>>((counts, question) => {
       counts[question.grade] = (counts[question.grade] ?? 0) + 1;
       return counts;
     }, {}),
@@ -120,10 +135,19 @@ test("California K-5 textbook lessons and 492-question knowledge-point practice 
     assert.ok(
       lesson.practiceQuestionIds?.every((questionId) => {
         const question = californiaK5PracticeQuestionById.get(questionId);
-        return question?.topicId === lesson.topicId && liveKnowledgePointPracticeIdPattern.test(questionId);
+        return question?.topicId === lesson.topicId &&
+          (liveKnowledgePointPracticeIdPattern.test(questionId) || ccssTextbookPracticeIdPattern.test(questionId));
       }),
-      `${lesson.topicId} should link live topic-matched knowledge-point practice`
+      `${lesson.topicId} should link live topic-matched knowledge-point or CCSS textbook practice`
     );
+    const leadingCcssIds = lesson.practiceQuestionIds?.filter((questionId) => ccssTextbookPracticeIdPattern.test(questionId)) ?? [];
+    if (leadingCcssIds.length) {
+      assert.deepEqual(
+        lesson.practiceQuestionIds?.slice(0, leadingCcssIds.length),
+        leadingCcssIds,
+        `${lesson.topicId} should lead with the hand-checked CCSS textbook practice`
+      );
+    }
     assert.doesNotMatch(lesson.title.en, /Textbook Lesson/i);
     return counts;
   }, {});
@@ -160,8 +184,33 @@ test("California lesson titles use MAIS knowledge-point codes instead of module 
 
 test("California K-5 textbook concept explanations are unit-specific student-facing copy", () => {
   const conceptTexts = new Set<string>();
+  let ccssAssignedCount = 0;
 
   californiaK5TextbookLessonSeeds.forEach((lesson) => {
+    if (hasCcssLessonAssignment(lesson.topicId)) {
+      // "CCSS becomes the core" (2026-07-19): assigned topics render ported
+      // interactive lessons instead of generated concept/worked-example copy.
+      ccssAssignedCount += 1;
+      const interactiveBlocks = lesson.blocks.filter((block) => block.type === "interactive-lesson");
+      assert.deepEqual(
+        interactiveBlocks.map((block) => block.interactiveLessonConfig?.ccssLessonSlug),
+        ccssLessonSequenceForTopic(lesson.topicId),
+        `${lesson.topicId} renders its assigned CCSS lessons in order`
+      );
+      interactiveBlocks.forEach((block) => {
+        assert.ok(
+          (block.content?.en ?? "").length >= 40,
+          `${lesson.topicId} interactive lesson carries a read-aloud narration`
+        );
+        assert.equal(block.interactiveLessonConfig?.topicId, lesson.topicId);
+      });
+      assert.ok(
+        !lesson.blocks.some((block) => block.type === "concept" || block.type === "worked-example"),
+        `${lesson.topicId} retires generated concept/worked-example blocks`
+      );
+      return;
+    }
+
     const conceptBlock = lesson.blocks.find((block) => block.type === "concept");
     assert.ok(conceptBlock?.content?.en, `${lesson.topicId} has concept explanation content`);
 
@@ -178,7 +227,11 @@ test("California K-5 textbook concept explanations are unit-specific student-fac
     conceptTexts.add(content);
   });
 
-  assert.equal(conceptTexts.size, 29);
+  // All 29 K–G5 textbook topics are assigned since Phase 1; the assignments
+  // table also carries the 35 G6–G12 chapter topics (Phase 5), which are
+  // seeded through toLessonSeed, not the textbook seeds checked here.
+  assert.equal(ccssAssignedCount, 29);
+  assert.equal(conceptTexts.size, 29 - ccssAssignedCount);
 });
 
 test("California K-5 worked examples use near-transfer values instead of repeating concept examples", () => {
@@ -280,10 +333,34 @@ test("California practice questions hide generated activity wrapper labels", () 
   assert.deepEqual(issues, []);
 });
 
+test("California assigned topics carry a teacher guide with full CCSS standard text", () => {
+  // Phase 2 augmentation: the teacher guide lists every standard the topic's
+  // interactive lessons develop, with the full text from data/ccss and an
+  // attribution to the lesson(s) that develop it.
+  californiaK5TextbookLessonSeeds.forEach((lesson) => {
+    if (!hasCcssLessonAssignment(lesson.topicId)) return;
+    const guide = lesson.blocks.find((block) => block.type === "teacher-guide");
+    assert.ok(guide, `${lesson.topicId} has a teacher guide`);
+    assert.match(guide.title.en, /Standards developed/i);
+    assert.ok((guide.items?.length ?? 0) > 0, `${lesson.topicId} teacher guide lists standards`);
+    guide.items?.forEach((item) => {
+      assert.match(
+        item.en,
+        /^(K|[1-5])\.[A-Z]+\.[A-Z]{1,2}\.\d+ — .{20,}/,
+        `${lesson.topicId}: teacher-guide item should carry the standard id and its full text — got "${item.en.slice(0, 60)}"`
+      );
+      assert.match(item.en, /\(.+\)$/, `${lesson.topicId}: teacher-guide item should attribute the developing lesson(s)`);
+    });
+  });
+});
+
 test("California worked examples put answers and reasoning on separate lines", () => {
   const issues: string[] = [];
 
   usCaliforniaLessonSeeds.forEach((lesson) => {
+    // Assigned topics have no generated worked example — the ported CCSS
+    // lesson body carries the worked reasoning and Math Check instead.
+    if (hasCcssLessonAssignment(lesson.topicId)) return;
     const workedExample = lesson.blocks.find((block) => block.type === "worked-example");
     const englishContent = workedExample?.content?.en ?? "";
     const lines = englishContent.split(/\n+/).map((line) => line.trim()).filter(Boolean);
@@ -299,31 +376,26 @@ test("California worked examples put answers and reasoning on separate lines", (
   assert.deepEqual(issues, []);
 });
 
-test("California Grade 1 Add Subtract worked example has an exact sticker illustration", () => {
+test("California Grade 1 Add Subtract lesson leads with interactive CCSS lessons (sticker illustration preserved)", () => {
   const lesson = californiaK5TextbookLessonSeeds.find(
     (seed) => seed.topicId === "us-ca-math-p1-1-oa-add-subtract"
   );
-  const workedExample = lesson?.blocks.find((block) => block.type === "worked-example");
+  assert.ok(lesson, "1.OA add/subtract lesson exists");
+
+  // Phase 1 (2026-07-19): this topic's core is the ported CCSS lesson
+  // sequence; the generated Lena sticker worked example retired with its
+  // blocks. The bespoke illustration asset stays registered and on disk so a
+  // later phase can re-attach it to an interactive lesson.
+  assert.equal(ccssLessonAssignments["us-ca-math-p1-1-oa-add-subtract"]?.primary, "add-subtract-stories");
+  assert.ok(!lesson.blocks.some((block) => block.type === "worked-example" || block.type === "concept"));
+
   const illustration = getUsCaliforniaLessonIllustration(
     "us-ca-math-p1-1-oa-add-subtract",
     "worked-example"
   );
-
-  const concept = lesson?.blocks.find((block) => block.type === "concept");
-
-  assert.ok(concept?.content?.en.includes("8 + 3 = 11"));
-  assert.ok(workedExample?.content?.en.includes("Lena has 7 stickers and gets 4 more"));
-  assert.ok(workedExample?.content?.en.includes("7 + 4 = 11"));
-  assert.doesNotMatch(workedExample?.content?.en ?? "", /8 \+ 3 = 11/);
   assert.ok(illustration);
   assert.equal(illustration.slot, "worked-example");
-  assert.equal(illustration.width, 1600);
-  assert.equal(illustration.height, 900);
   assert.match(illustration.src, /lena-7-plus-4-stickers-worked-example\.svg$/);
-  assert.match(illustration.alt.en, /7 stickers/i);
-  assert.match(illustration.alt.en, /4 more/i);
-  assert.match(illustration.alt.en, /11 stickers/i);
-  assert.match(illustration.caption.en, /7 \+ 4 = 11/);
   assert.ok(
     existsSync(path.join(process.cwd(), "public", illustration.src.slice(1))),
     "worked-example illustration SVG should exist under public/"
@@ -381,16 +453,21 @@ test("California Grade 1 H/L micro-lessons are individual MAIS knowledge points"
   });
 });
 
-test("California Kindergarten cardinality compare lesson uses comparison rather than joining addition", () => {
+test("California Kindergarten cardinality compare lesson teaches cardinality, not joining addition", () => {
   const lesson = californiaK5TextbookLessonSeeds.find((seed) => seed.topicId === "us-ca-math-k-k-cc-cardinality-compare");
   assert.ok(lesson, "K-B.1 cardinality compare lesson exists");
 
-  const workedExample = lesson.blocks.find((block) => block.type === "worked-example");
-  const workedText = workedExample?.content?.en ?? "";
+  // Since 2026-07-19 this topic's core is the hand-built counting-ten-frame
+  // lesson (K.CC.B.4-5 cardinality). The old guard kept joining-addition
+  // wording out of the generated worked example; it now keeps equations out
+  // of the read-aloud narration and pins the cardinality primary.
+  const assignment = ccssLessonAssignments["us-ca-math-k-k-cc-cardinality-compare"];
+  assert.equal(assignment?.primary, "counting-ten-frame");
 
-  assert.match(workedText, /which group has more/i);
-  assert.match(workedText, /match/i);
-  assert.match(workedText, /more/i);
-  assert.doesNotMatch(workedText, /how many counters are there in all/i);
-  assert.doesNotMatch(workedText, /\b6\s*\+\s*2\s*=\s*8\b/);
+  const interactiveBlock = lesson.blocks.find((block) => block.type === "interactive-lesson");
+  assert.equal(interactiveBlock?.interactiveLessonConfig?.ccssLessonSlug, "counting-ten-frame");
+
+  const narration = interactiveBlock?.content?.en ?? "";
+  assert.match(narration, /last number you say/i);
+  assert.doesNotMatch(narration, /\b\d+\s*\+\s*\d+\s*=\s*\d+\b/);
 });

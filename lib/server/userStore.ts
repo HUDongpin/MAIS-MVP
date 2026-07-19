@@ -4,6 +4,7 @@ import { DatabaseSync } from "node:sqlite";
 import { tmpdir } from "os";
 import path from "path";
 import postgres from "postgres";
+import { hasCcssLessonAssignment } from "@/data/ccssLessonAssignments";
 import { forumSeedThreads } from "@/data/forum";
 import { gradeIds, validGradeSet } from "@/data/grades";
 import { translateHjbHighDisplayTextEn } from "@/data/mainlandHjbHighTopics";
@@ -904,6 +905,7 @@ export type LessonBlockRecord = {
   content_zh?: string;
   items?: LocalizedText[];
   visualization_config?: LessonBlock["visualizationConfig"];
+  interactive_lesson_config?: LessonBlock["interactiveLessonConfig"];
   practice_question_ids?: string[];
   sort_order: number;
 };
@@ -2254,7 +2256,8 @@ function seedProductionLessonBlockRecords(
       content_en: block.content?.en,
       content_zh: block.content?.zh,
       items: block.items,
-      visualization_config: block.visualizationConfig
+      visualization_config: block.visualizationConfig,
+      interactive_lesson_config: block.interactiveLessonConfig
     });
   });
 
@@ -4050,8 +4053,19 @@ function normalizeDatabase(database: Partial<Database>) {
       .filter((lesson) => lesson.textbook_publisher === "MAINLAND_BNU" && ["S1", "S2", "S3"].includes(lesson.grade))
       .map((lesson) => lesson.slug)
   );
+  // Topics whose lesson core switched to ported CCSS interactive lessons: drop
+  // any persisted block the seed no longer produces (the retired generated
+  // concept/worked-example rows), or they would survive the merge as extras
+  // and render alongside the interactive lessons. Same pattern as the BNU
+  // junior filter above.
+  const ccssAssignedLessonSlugs = new Set(
+    canonicalLessons
+      .filter((lesson) => hasCcssLessonAssignment(lesson.topic_id))
+      .map((lesson) => lesson.slug)
+  );
   const existingLessonBlocks = (database.lesson_blocks ?? []).filter((block) =>
-    !bnuJuniorLessonSlugs.has(block.lesson_slug) || canonicalLessonBlockIds.has(block.id)
+    (!bnuJuniorLessonSlugs.has(block.lesson_slug) && !ccssAssignedLessonSlugs.has(block.lesson_slug)) ||
+    canonicalLessonBlockIds.has(block.id)
   );
   const users: UserRecord[] = (database.users ?? []).map((user) => normalizeUserRecordFromAuthSessionPersistence(user));
   const authIdentities = (database.auth_identities ?? [])

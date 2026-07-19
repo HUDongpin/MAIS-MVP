@@ -103,3 +103,102 @@
     transition-duration: 0.001ms !important;
   }
 }
+
+/* ---------- CCSS textbook lesson theme bridge ----------
+   Ported interactive lessons from the CCSS-Math-Textbook app style themselves
+   entirely through these custom properties plus the `card`/`chip`/`prose-lesson`
+   utility layer. The lessons are never edited; this scope supplies their design
+   tokens, remapped onto MAIS's class-based dark mode (`:root.dark`). Values
+   mirror the upstream globals.css so ported bodies stay pixel-faithful. */
+.ccss-lesson {
+  --bg: #f7f7fb;
+  --surface: #ffffff;
+  --surface-2: #f1f2f8;
+  --ink: #16181f;
+  --ink-soft: #4a4f5c;
+  --ink-faint: #767c8a;
+  --line: #e3e5ee;
+  --brand: #2f5fe0;
+  --brand-ink: #ffffff;
+  --focus: #1d4ed8;
+
+  /* Grade-band accents */
+  --band-early: #ef6c3b;   /* K–2  Early Elementary */
+  --band-upper: #17a06a;   /* 3–5  Upper Elementary */
+  --band-middle: #3b6fe0;  /* 6–8  Middle School */
+  --band-high: #7c4de0;    /* 9–12 High School */
+
+  --radius: 16px;
+  --shadow: 0 1px 2px rgba(16, 18, 31, 0.06), 0 8px 24px rgba(16, 18, 31, 0.06);
+
+  color: var(--ink);
+}
+
+:root.dark .ccss-lesson {
+  --bg: #0d0f16;
+  --surface: #161925;
+  --surface-2: #1e2231;
+  --ink: #edeef4;
+  --ink-soft: #b9bdcc;
+  --ink-faint: #868ca0;
+  --line: #2a2f42;
+  --brand: #6f95ff;
+  --brand-ink: #0d0f16;
+  --focus: #8fb0ff;
+
+  --band-early: #ff8a5c;
+  --band-upper: #35c58c;
+  --band-middle: #6f95ff;
+  --band-high: #a988ff;
+  --shadow: 0 1px 2px rgba(0, 0, 0, 0.3), 0 8px 24px rgba(0, 0, 0, 0.35);
+}
+
+.ccss-lesson .card {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+}
+
+.ccss-lesson .chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.15rem 0.6rem;
+  border-radius: 999px;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  border: 1px solid var(--line);
+  background: var(--surface-2);
+  color: var(--ink-soft);
+}
+
+.ccss-lesson .prose-lesson p {
+  line-height: 1.75;
+  color: var(--ink-soft);
+  margin-bottom: 0.9rem;
+}
+.ccss-lesson .prose-lesson h2 {
+  font-size: 1.35rem;
+  font-weight: 700;
+  color: var(--ink);
+  margin: 1.75rem 0 0.75rem;
+}
+.ccss-lesson .prose-lesson strong {
+  color: var(--ink);
+}
+
+/* Reading level tuned per grade band. Younger readers get larger, roomier
+   text; the difference tapers off toward high school. */
+.ccss-lesson.reading-early .prose-lesson p {
+  font-size: 1.13rem;
+  line-height: 1.85;
+}
+.ccss-lesson.reading-early .prose-lesson h2 {
+  font-size: 1.45rem;
+}
+.ccss-lesson.reading-upper .prose-lesson p {
+  font-size: 1.05rem;
+  line-height: 1.8;
+}

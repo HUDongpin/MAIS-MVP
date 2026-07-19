@@ -1,0 +1,194 @@
+"use client";
+
+import { useState } from "react";
+import { MathCheck } from "@/components/lesson/ccss/MathCheck";
+import { Figure } from "@/components/lesson/ccss/Figure";
+
+const ACCENT = "var(--band-middle)";
+const W = 600;
+const H = 190;
+const PAD = 44;
+const TOP_Y = 60;
+const BOT_Y = 130;
+const STEPS = 6;
+const lineW = W - 2 * PAD;
+
+export default function Lesson() {
+  const [a, setA] = useState(2); // cups of flour
+  const [b, setB] = useState(3); // spoons of sugar
+  const [n, setN] = useState(2); // batches highlighted
+
+  const x = (i: number) => PAD + (i / STEPS) * lineW;
+
+  function Line({
+    y,
+    per,
+    color,
+    label,
+  }: {
+    y: number;
+    per: number;
+    color: string;
+    label: string;
+  }) {
+    return (
+      <g>
+        <line x1={PAD} y1={y} x2={W - PAD} y2={y} stroke="var(--ink-soft)" strokeWidth={2} />
+        {Array.from({ length: STEPS + 1 }, (_, i) => (
+          <g key={i}>
+            <line x1={x(i)} y1={y - 7} x2={x(i)} y2={y + 7} stroke="var(--ink-soft)" strokeWidth={1.5} />
+            <text
+              x={x(i)}
+              y={y + 24}
+              textAnchor="middle"
+              fontSize={13}
+              fontWeight={i === n ? 800 : 500}
+              fill={i === n ? color : "var(--ink-faint)"}
+              fontFamily="var(--font-mono)"
+            >
+              {per * i}
+            </text>
+          </g>
+        ))}
+        <text x={4} y={y + 4} fontSize={12} fontWeight={700} fill={color}>
+          {label}
+        </text>
+        {/* highlighted point */}
+        <circle cx={x(n)} cy={y} r={7} fill={color} stroke="white" strokeWidth={2.5} />
+      </g>
+    );
+  }
+
+  return (
+    <div className="prose-lesson max-w-none">
+      <p>
+        A <strong>ratio</strong>{" "}compares two amounts that go together. This
+        recipe uses <strong>{a} cups of flour</strong>{" "}for every{" "}
+        <strong>{b} spoons of sugar</strong>. To make more, we scale{" "}
+        <em>both</em>{" "}amounts by the same number of batches — and a{" "}
+        <strong>double number line</strong>{" "}keeps them lined up.
+      </p>
+
+      <Figure caption="Slide to change the number of batches. The two marked amounts always move together.">
+        <div className="flex flex-col items-center gap-5">
+          <div className="w-full overflow-x-auto">
+            <svg
+              width={W}
+              height={H}
+              viewBox={`0 0 ${W} ${H}`}
+              className="mx-auto max-w-full"
+              role="img"
+              aria-label={`Double number line for the ratio ${a} to ${b}`}
+            >
+              {/* connector between the two highlighted points */}
+              <line
+                x1={x(n)}
+                y1={TOP_Y}
+                x2={x(n)}
+                y2={BOT_Y}
+                stroke={ACCENT}
+                strokeWidth={2}
+                strokeDasharray="4 4"
+                opacity={0.6}
+              />
+              <Line y={TOP_Y} per={a} color="var(--band-early)" label="flour" />
+              <Line y={BOT_Y} per={b} color={ACCENT} label="sugar" />
+            </svg>
+          </div>
+
+          <div className="rounded-xl bg-[var(--surface-2)] px-5 py-3 text-center">
+            <div className="font-mono text-lg font-bold">
+              {a * n} : {b * n}
+              <span className="mx-2 text-[var(--ink-faint)]">is the same ratio as</span>
+              {a} : {b}
+            </div>
+            <div className="mt-1 text-sm text-[var(--ink-soft)]">
+              Unit rate: <strong>{(b / a).toFixed(2)}</strong>{" "}spoons of sugar per
+              cup of flour.
+            </div>
+          </div>
+
+          <div className="flex flex-col items-center gap-1">
+            <span className="text-xs font-semibold uppercase tracking-wide text-[var(--ink-faint)]">
+              Batches: <span className="text-[var(--ink)]">{n}</span>
+            </span>
+            <input
+              type="range"
+              min={0}
+              max={STEPS}
+              value={n}
+              onChange={(e) => setN(Number(e.target.value))}
+              className="w-48 accent-[var(--band-middle)]"
+              aria-label="Number of batches"
+            />
+          </div>
+
+          <div className="flex flex-wrap items-center justify-center gap-6">
+            <Control label="Flour per batch" value={a} onChange={(v) => setA(v)} />
+            <Control label="Sugar per batch" value={b} onChange={(v) => setB(v)} />
+          </div>
+        </div>
+      </Figure>
+
+      <h2>Equivalent ratios</h2>
+      <p>
+        Multiplying both parts of a ratio by the same number gives an{" "}
+        <strong>equivalent ratio</strong>{" "}— a different pair of numbers
+        describing the very same relationship. That is why{" "}
+        <strong>{a}:{b}</strong>, <strong>{a * 2}:{b * 2}</strong>, and{" "}
+        <strong>{a * 3}:{b * 3}</strong>{" "}all taste the same.
+      </p>
+
+      <MathCheck>
+        <p>
+          A ratio <strong>a : b</strong>{" "}generates equivalent ratios{" "}
+          <strong>(a·n) : (b·n)</strong>{" "}for every whole number of batches{" "}
+          <strong>n</strong>{" "}(6.RP.A.3). Each pair has the same{" "}
+          <strong>unit rate</strong>{" "}b ÷ a (6.RP.A.2): here every cup of flour is
+          paired with {(b / a).toFixed(2)} spoons of sugar, no matter the batch
+          size. On the double number line the tick marks stay aligned precisely
+          because both scales are multiplied by the same amount.
+        </p>
+      </MathCheck>
+    </div>
+  );
+}
+
+function Control({
+  label,
+  value,
+  onChange,
+}: {
+  label: string;
+  value: number;
+  onChange: (v: number) => void;
+}) {
+  return (
+    <div className="flex flex-col items-center gap-1">
+      <span className="text-xs font-semibold uppercase tracking-wide text-[var(--ink-faint)]">
+        {label}
+      </span>
+      <div className="flex items-center gap-2">
+        <button
+          type="button"
+          onClick={() => onChange(Math.max(1, value - 1))}
+          disabled={value <= 1}
+          className="h-8 w-8 rounded-lg border border-[var(--line)] bg-[var(--surface)] font-bold disabled:opacity-40"
+          aria-label={`Decrease ${label}`}
+        >
+          −
+        </button>
+        <span className="w-6 text-center text-xl font-black tabular-nums">{value}</span>
+        <button
+          type="button"
+          onClick={() => onChange(Math.min(5, value + 1))}
+          disabled={value >= 5}
+          className="h-8 w-8 rounded-lg border border-[var(--line)] bg-[var(--surface)] font-bold disabled:opacity-40"
+          aria-label={`Increase ${label}`}
+        >
+          +
+        </button>
+      </div>
+    </div>
+  );
+}

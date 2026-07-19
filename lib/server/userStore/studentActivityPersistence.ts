@@ -231,6 +231,7 @@ type StudentActivityLessonBlockRecord = {
   content_zh?: string;
   items?: LocalizedText[];
   visualization_config?: LessonBlock["visualizationConfig"];
+  interactive_lesson_config?: LessonBlock["interactiveLessonConfig"];
   practice_question_ids?: string[];
   sort_order: number;
 };
@@ -2033,6 +2034,7 @@ function lessonBlockForRecord(
       : undefined,
     items: block.items?.map((item) => ({ ...item, en: translateLessonTextEn(item.en) })),
     visualizationConfig: block.visualization_config,
+    interactiveLessonConfig: block.interactive_lesson_config,
     practiceQuestionIds: block.practice_question_ids
   };
 }

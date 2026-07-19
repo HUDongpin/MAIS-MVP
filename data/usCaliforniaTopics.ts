@@ -1,3 +1,4 @@
+import ccssTextbookPracticePackJson from "./generated-content/ccss-textbook-practice-v1/question-pack.json";
 import g6G12QuestionPackJson from "./generated-content/us-ca-math-g6-g12-generated-bank-v2-1500/question-pack.json";
 import kG5KnowledgePointQuestionPackJson from "./generated-content/us-ca-k5-knowledge-point-practice-v1/question-pack.json";
 import kG5QuestionPackJson from "./generated-content/us-ca-math-k-g5-generated-bank-v3-deepseek-1500/question-pack.json";
@@ -13,22 +14,26 @@ export type CaliforniaGradeId = CaliforniaK5GradeId | CaliforniaG6G12GradeId;
 export type CaliforniaQuestionBatch =
   | "us-ca-k-g5-v3-deepseek"
   | "us-ca-k5-knowledge-point-practice-v1"
-  | "us-ca-g6-g12-v2";
+  | "us-ca-g6-g12-v2"
+  | "ccss-textbook-practice-v1";
 
 type GeneratedCaliforniaManualQaStatus =
   | "accepted-s18-manual-review"
   | "accepted-auto-sample"
   | "accepted-auto-s18-standard-sample"
-  | "accepted-two-round-internal-qa";
+  | "accepted-two-round-internal-qa"
+  | "accepted-ccss-textbook-hand-check";
 
 type GeneratedCaliforniaSourceDistanceStatus =
   | "passed-auto-source-scan"
-  | "passed-source-distance-scan";
+  | "passed-source-distance-scan"
+  | "passed-original-authored";
 
 type GeneratedCaliforniaMathQaStatus =
   | "passed-auto-math-qa"
   | "passed-deepseek-solvability-qa"
-  | "passed-deterministic-solvability";
+  | "passed-deterministic-solvability"
+  | "passed-ccss-textbook-hand-check";
 
 type GeneratedCaliforniaQuestionBase = {
   id: string;
@@ -92,10 +97,25 @@ export type GeneratedCaliforniaG6G12Question = GeneratedCaliforniaQuestionBase &
   deepseekQaStatus?: string;
 };
 
+/**
+ * Hand-checked practice ported from the CCSS-Math-Textbook app's
+ * `src/lessons/practice.ts` (converted by the Phase 0 CCSS textbook port).
+ * These lead their topic's practice selection ahead of generated-bank
+ * questions — see `selectPracticeQuestionIds` in usCaliforniaLessons.ts.
+ */
+export type GeneratedCaliforniaCcssTextbookPracticeQuestion = GeneratedCaliforniaQuestionBase & {
+  batch: "ccss-textbook-practice-v1";
+  grade: CaliforniaK5GradeId;
+  sourcePackageId: string;
+  sourceLessonSlug: string;
+  sourceLessonTitle: string;
+};
+
 export type GeneratedCaliforniaQuestion =
   | GeneratedCaliforniaK5Question
   | GeneratedCaliforniaK5KnowledgePointQuestion
-  | GeneratedCaliforniaG6G12Question;
+  | GeneratedCaliforniaG6G12Question
+  | GeneratedCaliforniaCcssTextbookPracticeQuestion;
 
 type GeneratedCaliforniaQuestionPack = {
   questions: GeneratedCaliforniaQuestion[];
@@ -143,6 +163,7 @@ type TopicSeed = {
 const kG5QuestionPack = kG5QuestionPackJson as GeneratedCaliforniaQuestionPack;
 const kG5KnowledgePointQuestionPack = kG5KnowledgePointQuestionPackJson as GeneratedCaliforniaQuestionPack;
 const g6G12QuestionPack = g6G12QuestionPackJson as GeneratedCaliforniaQuestionPack;
+const ccssTextbookPracticePack = ccssTextbookPracticePackJson as GeneratedCaliforniaQuestionPack;
 const kG5TextbookLessonPack = kG5TextbookLessonPackJson as GeneratedCaliforniaK5TextbookLessonPack;
 
 export const californiaK5LiveContentStatus = {
@@ -182,12 +203,15 @@ const californiaK5AdaptiveBetaQuestionPack = {
 
 export const californiaK5KnowledgePointPracticeQuestionCount = kG5KnowledgePointQuestionPack.questions.length;
 export const californiaK5KnowledgePointPracticeQuestionIds = kG5KnowledgePointQuestionPack.questions.map((question) => question.id);
+export const californiaCcssTextbookPracticeQuestionCount = ccssTextbookPracticePack.questions.length;
 
 const questionPacks = [
   ...(californiaK5LiveContentStatus.adaptiveBetaPracticeLive ? [californiaK5AdaptiveBetaQuestionPack] : []),
   ...(californiaK5LiveContentStatus.knowledgePointPracticeLive ? [kG5KnowledgePointQuestionPack] : []),
   ...(californiaK5LiveContentStatus.practiceLive ? [kG5QuestionPack] : []),
-  g6G12QuestionPack
+  g6G12QuestionPack,
+  // Hand-checked practice ported with the CCSS textbook lessons (Phase 0).
+  ccssTextbookPracticePack
 ];
 export const generatedCaliforniaQuestions: GeneratedCaliforniaQuestion[] = questionPacks.flatMap((pack) => pack.questions);
 const californiaProfile = { region: "US", publisher: "US_CA_MATH" } satisfies CurriculumProfile;
@@ -221,12 +245,14 @@ function dominantDifficulty(questions: GeneratedCaliforniaQuestion[]) {
 function topicLabelFor(question: GeneratedCaliforniaQuestion) {
   if (question.batch === "us-ca-k-g5-v3-deepseek") return `Unit ${question.unitNumber}`;
   if (question.batch === "us-ca-k5-knowledge-point-practice-v1") return "Knowledge Point";
+  if (question.batch === "ccss-textbook-practice-v1") return "Interactive Lesson";
   return `Chapter ${question.chapterNumber}`;
 }
 
 function topicTitleFor(question: GeneratedCaliforniaQuestion): LocalizedText {
   if (question.batch === "us-ca-k-g5-v3-deepseek") return localized(question.unitTitle);
   if (question.batch === "us-ca-k5-knowledge-point-practice-v1") return localized(question.knowledgePointTitle);
+  if (question.batch === "ccss-textbook-practice-v1") return localized(question.sourceLessonTitle);
   return question.chapterTitle;
 }
 
@@ -235,7 +261,10 @@ function topicSortKeyFor(question: GeneratedCaliforniaQuestion) {
     return `${String(question.unitNumber).padStart(2, "0")}-${question.topicId}`;
   }
 
-  if (question.batch === "us-ca-k5-knowledge-point-practice-v1") {
+  if (
+    question.batch === "us-ca-k5-knowledge-point-practice-v1" ||
+    question.batch === "ccss-textbook-practice-v1"
+  ) {
     return question.topicId;
   }
 
