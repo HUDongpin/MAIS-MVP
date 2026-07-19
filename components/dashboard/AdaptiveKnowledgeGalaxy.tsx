@@ -1,12 +1,26 @@
 "use client";
 
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import type { CSSProperties, ReactNode } from "react";
 import { MathText } from "@/components/math/MathText";
 import { useSettings } from "@/components/providers/AppProviders";
+import type { PracticeIslandDomainRegionId } from "@/data/practiceIslandRegions";
 import { curriculumProfileForTrack, curriculumProfileLabel, normalizeCurriculumProfile } from "@/lib/curriculumProfile";
 import { formatDifficultyLabel, localeForLanguage, textForLanguage } from "@/lib/i18n";
+import {
+  buildKnowledgeGalaxyMap,
+  galaxyStageLabels,
+  galaxyStarStatusLabels
+} from "@/lib/knowledgeGalaxyMap";
+import type { GalaxyStar, GalaxyStarStatus, KnowledgeGalaxyMap } from "@/lib/knowledgeGalaxyMap";
+import {
+  diffGalaxyMilestones,
+  galaxyMilestoneSnapshotForMap,
+  galaxyMilestoneStorageKey,
+  readGalaxyMilestoneSnapshot,
+  serializeGalaxyMilestoneSnapshot
+} from "@/lib/knowledgeGalaxyMilestones";
 import { lessonHrefForSlug } from "@/lib/lessonLinks";
 import { cn } from "@/lib/utils";
 import type {
@@ -25,34 +39,6 @@ type AdaptiveKnowledgeGalaxyProps = {
   isLoading: boolean;
   loadError: string;
   progressMetrics: ProgressMetric[];
-};
-
-type GalaxyNodeRole = "current" | "review" | "repair" | "mastered" | "route";
-
-type GalaxyNode = {
-  id: string;
-  index: number;
-  originalIndex: number;
-  role: GalaxyNodeRole;
-  size: string;
-  summary: AdaptiveSkillSummary | null;
-  title: LocalizedText;
-  topicTitle: LocalizedText;
-  x: number;
-  y: number;
-};
-
-type GalaxyEdge = {
-  from: string;
-  id: string;
-  kind: "route" | "prerequisite" | "review";
-  to: string;
-};
-
-type GalaxyLayout = {
-  size: string;
-  x: number;
-  y: number;
 };
 
 type MetricPodTone = "cyan" | "violet" | "emerald" | "solar";
@@ -120,45 +106,88 @@ type AdaptiveGalaxyTheme = {
 
 type AdaptiveGalaxyStyle = CSSProperties & Record<`--adaptive-${string}`, string>;
 
-const galaxyLayouts: GalaxyLayout[] = [
-  { x: 50, y: 52, size: "9.6rem" },
-  { x: 31, y: 58, size: "7.4rem" },
-  { x: 69, y: 42, size: "7.5rem" },
-  { x: 24, y: 35, size: "6.3rem" },
-  { x: 76, y: 67, size: "6.4rem" },
-  { x: 42, y: 24, size: "6.1rem" },
-  { x: 59, y: 78, size: "6rem" },
-  { x: 16, y: 72, size: "5.6rem" },
-  { x: 84, y: 27, size: "5.7rem" }
-];
-
-const planetPalettes: Record<GalaxyNodeRole, { glow: string; ring: string; stops: [string, string, string] }> = {
-  current: {
-    glow: "rgba(244, 114, 182, 0.82)",
-    ring: "rgba(255, 255, 255, 0.74)",
-    stops: ["#67e8f9", "#a78bfa", "#f472b6"]
+const constellationPalettes: Record<PracticeIslandDomainRegionId, { glow: string; stops: [string, string, string] }> = {
+  "number-forest": {
+    glow: "rgba(34, 211, 238, 0.72)",
+    stops: ["#cffafe", "#22d3ee", "#0891b2"]
   },
-  mastered: {
-    glow: "rgba(52, 211, 153, 0.66)",
-    ring: "rgba(167, 243, 208, 0.58)",
-    stops: ["#bbf7d0", "#34d399", "#0891b2"]
+  "algebra-peaks": {
+    glow: "rgba(167, 139, 250, 0.72)",
+    stops: ["#ede9fe", "#a78bfa", "#6366f1"]
   },
-  repair: {
-    glow: "rgba(251, 146, 60, 0.7)",
-    ring: "rgba(253, 186, 116, 0.62)",
-    stops: ["#fde68a", "#fb923c", "#f472b6"]
-  },
-  review: {
-    glow: "rgba(250, 204, 21, 0.68)",
-    ring: "rgba(254, 240, 138, 0.62)",
-    stops: ["#fef08a", "#fb7185", "#a78bfa"]
-  },
-  route: {
-    glow: "rgba(34, 211, 238, 0.58)",
-    ring: "rgba(125, 211, 252, 0.5)",
-    stops: ["#cffafe", "#22d3ee", "#6366f1"]
+  "geometry-garden": {
+    glow: "rgba(52, 211, 153, 0.72)",
+    stops: ["#d1fae5", "#34d399", "#0d9488"]
   }
 };
+
+const statusPaletteOverrides: Partial<Record<GalaxyStarStatus, { glow: string; stops: [string, string, string] }>> = {
+  fading: {
+    glow: "rgba(251, 191, 36, 0.78)",
+    stops: ["#fef3c7", "#fbbf24", "#d97706"]
+  },
+  unstable: {
+    glow: "rgba(251, 113, 133, 0.78)",
+    stops: ["#ffe4e6", "#fb7185", "#e11d48"]
+  }
+};
+
+const starSizeRem: Record<GalaxyStarStatus, number> = {
+  current: 3.3,
+  lit: 1.5,
+  fading: 1.5,
+  unstable: 1.3,
+  igniting: 1.25,
+  undiscovered: 0.8
+};
+
+function starPalette(star: GalaxyStar) {
+  return statusPaletteOverrides[star.status] ?? constellationPalettes[star.constellation];
+}
+
+function starSize(star: GalaxyStar, zoomed: boolean) {
+  const base = starSizeRem[star.status];
+  if (!zoomed) return base;
+  return star.status === "current" ? base * 1.2 : base * 1.55;
+}
+
+function starStyle(star: GalaxyStar, zoomed: boolean, visual: AdaptiveGalaxyTheme): CSSProperties {
+  const palette = starPalette(star);
+  const size = starSize(star, zoomed);
+
+  if (star.status === "undiscovered") {
+    return {
+      background: `radial-gradient(circle at 34% 30%, ${visual.planetHighlight}, transparent 0 40%), linear-gradient(135deg, #64748b, #334155)`,
+      boxShadow: "0 0 6px rgba(100, 116, 139, 0.35)",
+      height: `${size}rem`,
+      left: `${star.x}%`,
+      opacity: 0.55,
+      top: `${star.y}%`,
+      width: `${size}rem`
+    };
+  }
+
+  const currentOutline = star.status === "current" ? visual.currentPlanetOutline : "";
+  return {
+    background: `radial-gradient(circle at 32% 26%, ${visual.planetHighlight}, transparent 0 34%), linear-gradient(135deg, ${palette.stops[0]}, ${palette.stops[1]} 52%, ${palette.stops[2]})`,
+    boxShadow: `${currentOutline}0 0 ${star.status === "current" ? 26 : 14}px ${palette.glow}`,
+    height: `${size}rem`,
+    left: `${star.x}%`,
+    top: `${star.y}%`,
+    width: `${size}rem`
+  };
+}
+
+function edgePathFor(from: { x: number; y: number }, to: { x: number; y: number }) {
+  const middleX = (from.x + to.x) / 2;
+  const lift = Math.abs(from.x - to.x) > 30 ? 6 : 3;
+  return `M ${from.x} ${from.y} C ${middleX} ${from.y - lift}, ${middleX} ${to.y + lift}, ${to.x} ${to.y}`;
+}
+
+function constellationOutlinePath(points: Array<{ x: number; y: number }>) {
+  if (points.length < 2) return "";
+  return points.map((point, index) => `${index === 0 ? "M" : "L"} ${point.x} ${point.y}`).join(" ");
+}
 
 const metricPodTones: MetricPodTone[] = ["cyan", "violet", "emerald", "solar"];
 
@@ -430,136 +459,6 @@ function masteryPercent(summary: AdaptiveSkillSummary | null) {
   return Math.round((summary?.state.pMastery ?? 0) * 100);
 }
 
-function isMastered(summary: AdaptiveSkillSummary | null) {
-  return (summary?.state.pMastery ?? 0) >= 0.85;
-}
-
-function uniqueSummaries(summaries: AdaptiveSkillSummary[]) {
-  const seen = new Set<string>();
-  return summaries.filter((summary) => {
-    if (seen.has(summary.skill.id)) return false;
-    seen.add(summary.skill.id);
-    return true;
-  });
-}
-
-function roleForSummary(summary: AdaptiveSkillSummary, decision: AdaptiveLearningDecision, dueReviewIds: Set<string>): GalaxyNodeRole {
-  if (summary.skill.id === decision.skill.id) return "current";
-  if (dueReviewIds.has(summary.skill.id)) return "review";
-  if (summary.state.pMastery < 0.55 || summary.state.wrongStreak >= 2) return "repair";
-  if (summary.state.pMastery >= 0.85) return "mastered";
-  return "route";
-}
-
-function buildGalaxyNodes(decision: AdaptiveLearningDecision) {
-  const dueReviewIds = new Set(decision.dueReviews.map((summary) => summary.skill.id));
-  const currentSummary = decision.skillMap.find((summary) => summary.skill.id === decision.skill.id) ?? null;
-  const prerequisiteSummaries = decision.skill.prerequisites
-    .map((skillId) => decision.skillMap.find((summary) => summary.skill.id === skillId))
-    .filter((summary): summary is AdaptiveSkillSummary => Boolean(summary));
-  const remainingSummaries = decision.skillMap.filter((summary) => summary.skill.id !== decision.skill.id);
-  const orderedSummaries = uniqueSummaries([
-    ...prerequisiteSummaries,
-    ...decision.dueReviews,
-    ...remainingSummaries
-  ]).filter((summary) => summary.skill.id !== decision.skill.id);
-  const visibleSummaries = orderedSummaries.slice(0, galaxyLayouts.length - 1);
-  const nodes: GalaxyNode[] = [];
-  const currentLayout = galaxyLayouts[0];
-
-  nodes.push({
-    id: decision.skill.id,
-    index: 0,
-    originalIndex: Math.max(0, decision.skillMap.findIndex((summary) => summary.skill.id === decision.skill.id)),
-    role: "current",
-    size: currentLayout.size,
-    summary: currentSummary,
-    title: decision.skill.title,
-    topicTitle: decision.topic.title,
-    x: currentLayout.x,
-    y: currentLayout.y
-  });
-
-  visibleSummaries.forEach((summary, index) => {
-    const layout = galaxyLayouts[index + 1] ?? galaxyLayouts[galaxyLayouts.length - 1];
-    nodes.push({
-      id: summary.skill.id,
-      index: index + 1,
-      originalIndex: decision.skillMap.findIndex((candidate) => candidate.skill.id === summary.skill.id),
-      role: roleForSummary(summary, decision, dueReviewIds),
-      size: layout.size,
-      summary,
-      title: summary.skill.title,
-      topicTitle: summary.topic.title,
-      x: layout.x,
-      y: layout.y
-    });
-  });
-
-  return nodes;
-}
-
-function buildGalaxyEdges(decision: AdaptiveLearningDecision, nodes: GalaxyNode[]) {
-  const nodeIds = new Set(nodes.map((node) => node.id));
-  const edges: GalaxyEdge[] = [];
-  const addEdge = (from: string, to: string, kind: GalaxyEdge["kind"]) => {
-    if (from === to || !nodeIds.has(from) || !nodeIds.has(to)) return;
-    const id = `${kind}-${from}-${to}`;
-    if (!edges.some((edge) => edge.id === id)) edges.push({ from, id, kind, to });
-  };
-
-  decision.skill.prerequisites.forEach((skillId) => addEdge(skillId, decision.skill.id, "prerequisite"));
-
-  const routeNodes = decision.skillMap
-    .filter((summary) => nodeIds.has(summary.skill.id))
-    .sort((a, b) => {
-      const aIndex = decision.skillMap.findIndex((summary) => summary.skill.id === a.skill.id);
-      const bIndex = decision.skillMap.findIndex((summary) => summary.skill.id === b.skill.id);
-      return aIndex - bIndex;
-    });
-
-  routeNodes.forEach((summary, index) => {
-    const next = routeNodes[index + 1];
-    if (next) addEdge(summary.skill.id, next.skill.id, "route");
-  });
-
-  decision.dueReviews.forEach((summary) => addEdge(decision.skill.id, summary.skill.id, "review"));
-
-  if (!edges.length) {
-    nodes.slice(1, 4).forEach((node) => addEdge(decision.skill.id, node.id, "route"));
-  }
-
-  return edges.slice(0, 12);
-}
-
-function planetStyle(node: GalaxyNode, visual: AdaptiveGalaxyTheme): CSSProperties {
-  const palette = planetPalettes[node.role];
-  const currentGlow = node.role === "current" ? visual.currentPlanetOutline : "";
-
-  return {
-    background: `radial-gradient(circle at 30% 22%, ${visual.planetHighlight}, transparent 0 12%), radial-gradient(circle at 72% 78%, ${visual.planetShade}, transparent 0 46%), linear-gradient(135deg, ${palette.stops[0]}, ${palette.stops[1]} 52%, ${palette.stops[2]})`,
-    boxShadow: `${currentGlow}0 0 36px ${palette.glow}, ${visual.planetDepthShadow}`,
-    height: node.size,
-    left: `${node.x}%`,
-    top: `${node.y}%`,
-    width: node.size
-  };
-}
-
-function planetRingStyle(node: GalaxyNode): CSSProperties {
-  const palette = planetPalettes[node.role];
-  return {
-    borderColor: palette.ring,
-    boxShadow: `0 0 22px ${palette.glow}`
-  };
-}
-
-function edgePath(from: GalaxyNode, to: GalaxyNode) {
-  const middleX = (from.x + to.x) / 2;
-  const lift = Math.abs(from.x - to.x) > 30 ? 6 : 3;
-  return `M ${from.x} ${from.y} C ${middleX} ${from.y - lift}, ${middleX} ${to.y + lift}, ${to.x} ${to.y}`;
-}
-
 function ShipIcon() {
   return (
     <svg aria-hidden="true" viewBox="0 0 32 32" className="h-6 w-6 fill-none stroke-current stroke-[2.4]">
@@ -670,6 +569,18 @@ function decisionCurriculumLabel(decision: AdaptiveLearningDecision): LocalizedT
   return curriculumProfileLabel(normalizeCurriculumProfile(topicProfile, fallbackProfile));
 }
 
+const sealedChartStars = Array.from({ length: 42 }, (_, index) => ({
+  x: 6 + ((index * 37 + 11) % 89),
+  y: 8 + ((index * 53 + 23) % 81),
+  size: index % 5 === 0 ? 0.55 : 0.32
+}));
+
+const sealedChartOutlines = [
+  "M 18 30 L 27 22 L 38 27 L 33 40 L 21 41 Z",
+  "M 62 24 L 73 18 L 82 28 L 74 36 Z",
+  "M 42 70 L 53 62 L 66 68 L 60 80 L 47 79 Z"
+];
+
 function PlaceholderGalaxy({
   contentUnavailable,
   isLoading,
@@ -682,36 +593,30 @@ function PlaceholderGalaxy({
   visual: AdaptiveGalaxyTheme;
 }) {
   const { t } = useSettings();
-  const placeholderNodes = [
-    { x: 33, y: 58, size: "7rem", role: "route" as GalaxyNodeRole },
-    { x: 50, y: 52, size: "9rem", role: "current" as GalaxyNodeRole },
-    { x: 69, y: 42, size: "7rem", role: "review" as GalaxyNodeRole }
-  ];
 
   return (
-    <div className="relative min-h-[28rem] min-w-[52rem]">
+    <div className="relative min-h-[28rem] min-w-0">
       <svg aria-hidden="true" className="absolute inset-0 h-full w-full" preserveAspectRatio="none" viewBox="0 0 100 100">
-        <path d="M 33 58 C 42 48, 58 62, 69 42" className="adaptive-galaxy-route-stroke" fill="none" strokeLinecap="round" strokeWidth="1.2" />
+        {sealedChartOutlines.map((outline) => (
+          <path key={outline} d={outline} className="adaptive-galaxy-sealed-stroke" fill="none" strokeLinecap="round" strokeLinejoin="round" strokeWidth="0.5" />
+        ))}
       </svg>
-      {placeholderNodes.map((node, index) => (
-        <div
+      {sealedChartStars.map((star, index) => (
+        <span
           key={index}
-          className={cn("absolute -translate-x-1/2 -translate-y-1/2 rounded-full border opacity-80", visual.planetBorderClass)}
-          style={planetStyle({
-            id: String(index),
-            index,
-            originalIndex: index,
-            role: node.role,
-            size: node.size,
-            summary: null,
-            title: { en: "", zh: "" },
-            topicTitle: { en: "", zh: "" },
-            x: node.x,
-            y: node.y
-          }, visual)}
+          aria-hidden="true"
+          className="absolute -translate-x-1/2 -translate-y-1/2 rounded-full opacity-45"
+          style={{
+            background: "linear-gradient(135deg, #94a3b8, #475569)",
+            boxShadow: "0 0 6px rgba(148, 163, 184, 0.4)",
+            height: `${star.size}rem`,
+            left: `${star.x}%`,
+            top: `${star.y}%`,
+            width: `${star.size}rem`
+          }}
         />
       ))}
-      <div className={cn("absolute left-8 top-8 max-w-sm rounded-2xl border p-5 backdrop-blur-xl", visual.placeholderPanelClass)}>
+      <div className={cn("absolute left-4 top-8 max-w-sm rounded-2xl border p-5 backdrop-blur-xl sm:left-8", visual.placeholderPanelClass)}>
         <p className={cn("text-sm font-black uppercase", visual.placeholderEyebrowClass)}>
           {isLoading
             ? t({ en: "Calibrating route", zh: "正在校準航線", zhHans: "正在校准航线" })
@@ -724,7 +629,16 @@ function PlaceholderGalaxy({
             ? t({ en: "Opening your knowledge galaxy", zh: "正在開啟你的知識星圖", zhHans: "正在开启你的知识星图" })
             : contentUnavailable
               ? t({ en: "Personalized route unavailable for this course", zh: "此課程暫未開放個人化航線", zhHans: "此课程暂未开放个性化航线" })
-              : t({ en: "Practice data will unlock the next planet.", zh: "完成練習後會解鎖下一顆星球。", zhHans: "完成练习后会解锁下一颗星球。" })}
+              : t({ en: "Practice data will unlock the next star.", zh: "完成練習後會點亮下一顆星。", zhHans: "完成练习后会点亮下一颗星。" })}
+        </p>
+        <p className={cn("mt-3 text-sm font-bold leading-6", visual.bodyClass)}>
+          {contentUnavailable
+            ? t({
+                en: "The star charts are sealed until this course opens. Every knowledge point will appear here as a star.",
+                zh: "課程開放前星圖已封存。每個知識點屆時都會以星星形式出現。",
+                zhHans: "课程开放前星图已封存。每个知识点届时都会以星星形式出现。"
+              })
+            : null}
         </p>
         {loadError ? <p className={cn("mt-3 text-sm font-bold", visual.errorClass)}>{loadError}</p> : null}
       </div>
@@ -732,54 +646,156 @@ function PlaceholderGalaxy({
   );
 }
 
-function KnowledgePlanet({ node, visual }: { node: GalaxyNode; visual: AdaptiveGalaxyTheme }) {
+function StarHoverCard({
+  star,
+  pinned,
+  visual
+}: {
+  star: GalaxyStar;
+  pinned: boolean;
+  visual: AdaptiveGalaxyTheme;
+}) {
   const { language, text, t } = useSettings();
-  const mastery = masteryPercent(node.summary);
-  const title = text(node.title);
-  const roleLabel: Record<GalaxyNodeRole, LocalizedText> = {
-    current: { en: "Current", zh: "當前", zhHans: "当前" },
-    review: { en: "Review", zh: "複習", zhHans: "复习" },
-    repair: { en: "Repair", zh: "修補", zhHans: "修补" },
-    mastered: { en: "Secure", zh: "穩固", zhHans: "稳固" },
-    route: { en: "Route", zh: "航線", zhHans: "航线" }
-  };
+  const summary = star.summary;
+  const attempted = summary.state.attemptCount > 0;
 
   return (
     <div
-      aria-label={`${title} ${mastery}%`}
       className={cn(
-        "group absolute z-10 flex -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full border text-white transition duration-300 hover:z-30 hover:scale-105",
-        visual.planetBorderClass,
-        node.role === "current" && "z-30"
+        "absolute z-40 w-64 max-w-[70%] rounded-2xl border p-4 backdrop-blur-xl",
+        pinned ? "" : "pointer-events-none",
+        visual.hudClass
       )}
-      role="group"
-      style={planetStyle(node, visual)}
+      style={{
+        left: `${star.x}%`,
+        top: `${star.y}%`,
+        transform: `translate(${star.x > 58 ? "calc(-100% - 1.4rem)" : "1.4rem"}, ${star.y > 55 ? "calc(-100% - 1rem)" : "1rem"})`
+      }}
+      data-galaxy-star-card
     >
-      <span aria-hidden="true" className={cn("absolute -inset-5 rounded-full", visual.planetAuraClass)} />
-      <span aria-hidden="true" className="absolute -inset-[8%] rounded-full border opacity-70" style={planetRingStyle(node)} />
-      {node.role === "current" ? (
+      <p className={cn("flex flex-wrap items-center gap-2 text-[0.65rem] font-black uppercase", visual.hudKickerClass)}>
+        <span>{text(galaxyStarStatusLabels[star.status])}</span>
+        {star.ccssCode ? <span className={cn("rounded-full px-2 py-0.5", visual.evidenceBadgeClass)}>{star.ccssCode}</span> : null}
+      </p>
+      <MathText as="p" text={text(summary.skill.title)} className={cn("mt-2 text-sm font-black leading-tight", visual.hudTitleClass)} />
+      <p className={cn("mt-1 text-xs font-bold", visual.hudBodyClass)}>
+        {text(summary.topic.title)} · {text(galaxyStageLabels[star.stage])} · {formatDifficultyLabel(summary.skill.difficulty, language)}
+      </p>
+      <div className={cn("mt-3 h-1.5 overflow-hidden rounded-full", visual.hudPanelClass)}>
+        <div
+          className="h-full rounded-full"
+          style={{ background: starPalette(star).stops[1], width: `${star.masteryPercent}%` }}
+        />
+      </div>
+      <p className={cn("mt-2 text-xs font-bold", visual.hudBodyClass)}>
+        {attempted
+          ? `${t({ en: "Mastery", zh: "掌握", zhHans: "掌握" })} ${star.masteryPercent}% · ${t({ en: "Review", zh: "複習", zhHans: "复习" })} ${formatReviewDate(summary.state.nextReviewAt, language)}`
+          : t({ en: "Not explored yet — this star ignites with your first mission.", zh: "尚未探索——完成首個任務後這顆星會開始點燃。", zhHans: "尚未探索——完成首个任务后这颗星会开始点燃。" })}
+      </p>
+      {pinned ? (
+        <Link
+          href="/practice"
+          className="focus-ring mt-3 inline-flex min-h-11 w-full items-center justify-center rounded-xl bg-gradient-to-r from-cyan-300 via-violet-400 to-pink-400 px-4 py-2 text-sm font-black text-slate-950 transition hover:-translate-y-0.5"
+        >
+          {star.status === "fading"
+            ? t({ en: "Relight this star", zh: "重新點亮這顆星", zhHans: "重新点亮这颗星" })
+            : star.status === "unstable"
+              ? t({ en: "Repair this star", zh: "修補這顆星", zhHans: "修补这颗星" })
+              : t({ en: "Practice this skill", zh: "練習此技能", zhHans: "练习此技能" })}
+        </Link>
+      ) : null}
+    </div>
+  );
+}
+
+function KnowledgeStar({
+  star,
+  zoomed,
+  dimmed,
+  selected,
+  ignited,
+  visual,
+  onHover,
+  onLeave,
+  onSelect
+}: {
+  star: GalaxyStar;
+  zoomed: boolean;
+  dimmed: boolean;
+  selected: boolean;
+  ignited: boolean;
+  visual: AdaptiveGalaxyTheme;
+  onHover: () => void;
+  onLeave: () => void;
+  onSelect: () => void;
+}) {
+  const { text } = useSettings();
+  const statusLabel = text(galaxyStarStatusLabels[star.status]);
+  const ariaLabel = `${star.ccssCode ? `${star.ccssCode} ` : ""}${text(star.summary.skill.title)} · ${statusLabel} · ${star.masteryPercent}%`;
+
+  return (
+    <button
+      type="button"
+      aria-label={ariaLabel}
+      aria-pressed={selected}
+      data-galaxy-star={star.id}
+      data-galaxy-star-status={star.status}
+      onBlur={onLeave}
+      onClick={(event) => {
+        event.stopPropagation();
+        onSelect();
+      }}
+      onFocus={onHover}
+      onMouseEnter={onHover}
+      onMouseLeave={onLeave}
+      className={cn(
+        "focus-ring absolute -translate-x-1/2 -translate-y-1/2 rounded-full border transition duration-300 hover:z-30 hover:scale-125",
+        visual.planetBorderClass,
+        star.status === "current" && "z-30",
+        star.status === "fading" && "adaptive-galaxy-fading-pulse",
+        star.status === "unstable" && "adaptive-galaxy-unstable-flicker",
+        dimmed && "opacity-25",
+        selected && "z-30 scale-125"
+      )}
+      style={starStyle(star, zoomed, visual)}
+    >
+      {star.status === "current" ? (
         <>
-          <span aria-hidden="true" className="adaptive-galaxy-current-glow pointer-events-none absolute -inset-[18%] rounded-full" />
-          <span aria-hidden="true" className="adaptive-galaxy-current-ring pointer-events-none absolute -inset-[10%] rounded-full" />
+          <span aria-hidden="true" className="adaptive-galaxy-current-glow pointer-events-none absolute -inset-[26%] rounded-full" />
+          <span aria-hidden="true" className="adaptive-galaxy-current-ring pointer-events-none absolute -inset-[14%] rounded-full" />
         </>
       ) : null}
-      <span className={cn("relative z-10 flex w-[76%] min-w-0 flex-col items-center justify-center text-center", visual.planetTextWrapperClass)}>
-        <span className={cn("rounded-full px-2 py-0.5 text-[0.58rem] font-black uppercase backdrop-blur-sm", visual.planetRoleClass)}>
-          {t(roleLabel[node.role])}
+      {ignited ? (
+        <span aria-hidden="true" data-galaxy-ignition className="pointer-events-none absolute inset-0 rounded-full">
+          <span
+            className="adaptive-galaxy-ignite-ring pointer-events-none absolute -inset-[120%] rounded-full border-2"
+            style={{ borderColor: starPalette(star).stops[1] }}
+          />
+          <span
+            className="adaptive-galaxy-ignite-flash pointer-events-none absolute -inset-[60%] rounded-full"
+            style={{ background: `radial-gradient(circle, ${starPalette(star).stops[0]}, transparent 68%)` }}
+          />
         </span>
-        <MathText
-          as="span"
-          text={title}
-          className={cn(
-            "mt-2 line-clamp-3 max-w-full break-words font-black leading-tight",
-            node.role === "current" ? "text-[0.82rem] sm:text-sm" : "text-[0.68rem] sm:text-xs"
-          )}
+      ) : null}
+      {star.status === "igniting" ? (
+        <span
+          aria-hidden="true"
+          className="pointer-events-none absolute -inset-1 rounded-full"
+          style={{
+            background: `conic-gradient(${starPalette(star).stops[1]} ${star.masteryPercent}%, transparent 0)`,
+            mask: "radial-gradient(farthest-side, transparent calc(100% - 3px), #000 calc(100% - 2.5px))",
+            WebkitMask: "radial-gradient(farthest-side, transparent calc(100% - 3px), #000 calc(100% - 2.5px))"
+          }}
         />
-        <span className={cn("mt-2 rounded-full px-2 py-0.5 text-[0.62rem] font-black backdrop-blur-sm", visual.planetMetaClass)}>
-          {mastery}% {formatDifficultyLabel(node.summary?.skill.difficulty ?? "Low", language)}
-        </span>
-      </span>
-    </div>
+      ) : null}
+      {star.status === "lit" ? (
+        <span
+          aria-hidden="true"
+          className="pointer-events-none absolute inset-0 rounded-full"
+          style={{ boxShadow: `inset 0 0 6px rgba(255, 255, 255, 0.65)` }}
+        />
+      ) : null}
+    </button>
   );
 }
 
@@ -803,14 +819,71 @@ export function AdaptiveKnowledgeGalaxy({
   loadError,
   progressMetrics
 }: AdaptiveKnowledgeGalaxyProps) {
-  const { language, t, text, theme, toggleTheme } = useSettings();
+  const { currentUser, language, t, text, theme, toggleTheme } = useSettings();
   const [isMissionHudOpen, setIsMissionHudOpen] = useState(false);
+  const [hoveredStarId, setHoveredStarId] = useState<string | null>(null);
+  const [selectedStarId, setSelectedStarId] = useState<string | null>(null);
+  const [zoomConstellation, setZoomConstellation] = useState<PracticeIslandDomainRegionId | null>(null);
+  const [ignitedStarIds, setIgnitedStarIds] = useState<ReadonlySet<string>>(() => new Set());
+  const [freshBadgeIds, setFreshBadgeIds] = useState<ReadonlySet<PracticeIslandDomainRegionId>>(() => new Set());
   const visual = adaptiveGalaxyThemes[theme];
-  const nodes = decision ? buildGalaxyNodes(decision) : [];
-  const nodeMap = new Map(nodes.map((node) => [node.id, node]));
-  const edges = decision ? buildGalaxyEdges(decision, nodes) : [];
-  const currentNode = nodes[0] ?? null;
-  const currentMastery = currentNode ? masteryPercent(currentNode.summary) : 0;
+  const fullGalaxyMap = useMemo<KnowledgeGalaxyMap | null>(
+    () => (decision ? buildKnowledgeGalaxyMap(decision) : null),
+    [decision]
+  );
+  const galaxyMap = useMemo<KnowledgeGalaxyMap | null>(() => {
+    if (!decision) return null;
+    if (!zoomConstellation) return fullGalaxyMap;
+    return buildKnowledgeGalaxyMap(decision, { focusConstellation: zoomConstellation });
+  }, [decision, fullGalaxyMap, zoomConstellation]);
+
+  useEffect(() => {
+    if (!fullGalaxyMap || typeof window === "undefined") return;
+
+    const storageKey = galaxyMilestoneStorageKey(currentUser?.id);
+    let storedValue: string | null = null;
+    try {
+      storedValue = window.localStorage.getItem(storageKey);
+    } catch {
+      return;
+    }
+
+    const currentSnapshot = galaxyMilestoneSnapshotForMap(fullGalaxyMap);
+    const diff = diffGalaxyMilestones(readGalaxyMilestoneSnapshot(storedValue), currentSnapshot);
+    try {
+      window.localStorage.setItem(storageKey, serializeGalaxyMilestoneSnapshot(currentSnapshot));
+    } catch {
+      // Storage may be unavailable (private mode); milestones simply reset next visit.
+    }
+
+    if (diff.newlyCompletedConstellations.length) {
+      setFreshBadgeIds(new Set(diff.newlyCompletedConstellations));
+    }
+    if (!diff.newlyLitStarIds.length) return;
+
+    setIgnitedStarIds(new Set(diff.newlyLitStarIds));
+    const timer = window.setTimeout(() => setIgnitedStarIds(new Set()), 3600);
+    return () => window.clearTimeout(timer);
+  }, [currentUser?.id, fullGalaxyMap]);
+  const starById = useMemo(() => new Map((galaxyMap?.stars ?? []).map((star) => [star.id, star])), [galaxyMap]);
+  const selectedStar = selectedStarId ? starById.get(selectedStarId) ?? null : null;
+  const hoveredStar = hoveredStarId ? starById.get(hoveredStarId) ?? null : null;
+  const cardStar = selectedStar ?? hoveredStar;
+  const focusIds = useMemo(() => {
+    if (!selectedStar || !galaxyMap) return null;
+    const ids = new Set([selectedStar.id]);
+    for (const edge of galaxyMap.edges) {
+      if (edge.kind !== "prerequisite") continue;
+      if (edge.from === selectedStar.id) ids.add(edge.to);
+      if (edge.to === selectedStar.id) ids.add(edge.from);
+    }
+    if (galaxyMap.currentStarId) ids.add(galaxyMap.currentStarId);
+    return ids;
+  }, [selectedStar, galaxyMap]);
+  const currentSummary = decision
+    ? decision.skillMap.find((summary) => summary.skill.id === decision.skill.id) ?? null
+    : null;
+  const currentMastery = masteryPercent(currentSummary);
   const engineStatus = decision ? engineStatusCopy(decision) : null;
   const aiConfidence = decision?.engine.aiConfidence ?? null;
   const curriculumLabel = decision ? text(decisionCurriculumLabel(decision)) : "";
@@ -924,11 +997,127 @@ export function AdaptiveKnowledgeGalaxy({
           filter: var(--adaptive-review-filter);
         }
 
+        .adaptive-galaxy-sealed-stroke {
+          stroke: var(--adaptive-route-stroke);
+          stroke-dasharray: 2 3;
+          opacity: 0.35;
+        }
+
+        @keyframes adaptive-galaxy-draw {
+          to {
+            stroke-dashoffset: 0;
+          }
+        }
+
+        .adaptive-galaxy-constellation-stroke {
+          stroke-dasharray: 300;
+          stroke-dashoffset: 300;
+          opacity: 0.75;
+          filter: var(--adaptive-route-filter);
+          animation: adaptive-galaxy-draw 2.8s ease forwards;
+        }
+
+        @keyframes adaptive-galaxy-fade-pulse {
+          0%,
+          100% {
+            opacity: 0.55;
+          }
+
+          50% {
+            opacity: 1;
+          }
+        }
+
+        .adaptive-galaxy-fading-pulse {
+          animation: adaptive-galaxy-fade-pulse 1.9s ease-in-out infinite;
+        }
+
+        @keyframes adaptive-galaxy-flicker {
+          0%,
+          100% {
+            opacity: 1;
+          }
+
+          50% {
+            opacity: 0.55;
+          }
+        }
+
+        .adaptive-galaxy-unstable-flicker {
+          animation: adaptive-galaxy-flicker 1.6s steps(2, jump-none) infinite;
+        }
+
+        @keyframes adaptive-galaxy-ignite-ring {
+          0% {
+            transform: scale(0.15);
+            opacity: 0.95;
+          }
+
+          100% {
+            transform: scale(1);
+            opacity: 0;
+          }
+        }
+
+        @keyframes adaptive-galaxy-ignite-flash {
+          0% {
+            transform: scale(0.4);
+            opacity: 0.9;
+          }
+
+          55% {
+            opacity: 0.65;
+          }
+
+          100% {
+            transform: scale(1.15);
+            opacity: 0;
+          }
+        }
+
+        .adaptive-galaxy-ignite-ring {
+          animation: adaptive-galaxy-ignite-ring 1.3s ease-out forwards;
+        }
+
+        .adaptive-galaxy-ignite-flash {
+          animation: adaptive-galaxy-ignite-flash 1.7s ease-out 0.15s forwards;
+          opacity: 0;
+        }
+
+        @keyframes adaptive-galaxy-badge-pop {
+          0%,
+          100% {
+            transform: scale(1);
+          }
+
+          50% {
+            transform: scale(1.08);
+          }
+        }
+
+        .adaptive-galaxy-badge-new {
+          animation: adaptive-galaxy-badge-pop 1.1s ease-in-out 3;
+        }
+
         @media (prefers-reduced-motion: reduce) {
           .adaptive-galaxy-current-ring,
           .adaptive-galaxy-current-glow,
-          .adaptive-galaxy-route-stroke {
+          .adaptive-galaxy-route-stroke,
+          .adaptive-galaxy-fading-pulse,
+          .adaptive-galaxy-unstable-flicker,
+          .adaptive-galaxy-badge-new {
             animation: none;
+          }
+
+          .adaptive-galaxy-constellation-stroke {
+            animation: none;
+            stroke-dashoffset: 0;
+          }
+
+          .adaptive-galaxy-ignite-ring,
+          .adaptive-galaxy-ignite-flash {
+            animation: none;
+            opacity: 0;
           }
         }
       `}</style>
@@ -984,9 +1173,9 @@ export function AdaptiveKnowledgeGalaxy({
                 <p className={cn("mt-4 max-w-2xl text-base font-bold leading-7 sm:text-lg", visual.bodyClass)}>
                   {decision
                     ? t({
-                        en: "Planets are knowledge points. The glowing route shows what to repair, review, or enter next.",
-                        zh: "星球代表具體知識點；發光航線呈現下一步修補、複習或進入的方向。",
-                        zhHans: "星球代表具体知识点；发光航线呈现下一步修补、复习或进入的方向。"
+                        en: "Every knowledge point is a star. Mastering one lights it up, reviews keep it burning, and the glowing route charts your next mission.",
+                        zh: "每個知識點都是一顆星。掌握會點亮它，複習讓它持續發光，發光航線則指向你的下一個任務。",
+                        zhHans: "每个知识点都是一颗星。掌握会点亮它，复习让它持续发光，发光航线则指向你的下一个任务。"
                       })
                     : contentUnavailable
                       ? t({
@@ -1015,20 +1204,87 @@ export function AdaptiveKnowledgeGalaxy({
               </div>
             </div>
 
+            {decision && fullGalaxyMap ? (
+              <div className="mt-5 flex flex-wrap items-center gap-2" data-galaxy-star-chart>
+                <span className={cn("text-xs font-black uppercase", visual.eyebrowClass)}>
+                  {t({ en: "Star chart", zh: "星圖收藏", zhHans: "星图收藏" })}
+                </span>
+                {fullGalaxyMap.constellations.map((constellation) => {
+                  const earned = constellation.complete;
+                  const isNew = freshBadgeIds.has(constellation.id);
+                  const palette = constellationPalettes[constellation.id];
+                  return (
+                    <button
+                      key={constellation.id}
+                      type="button"
+                      data-galaxy-badge={constellation.id}
+                      data-galaxy-badge-earned={earned ? "true" : "false"}
+                      aria-pressed={zoomConstellation === constellation.id}
+                      aria-label={`${text(constellation.name)} · ${constellation.litCount}/${constellation.totalCount}${earned ? ` · ${t({ en: "earned", zh: "已獲得", zhHans: "已获得" })}` : ""}`}
+                      onClick={() => {
+                        setSelectedStarId(null);
+                        setHoveredStarId(null);
+                        setZoomConstellation((previous) => (previous === constellation.id ? null : constellation.id));
+                      }}
+                      className={cn(
+                        "focus-ring inline-flex items-center gap-2 rounded-full px-3 py-1.5 text-xs font-black backdrop-blur-md transition hover:-translate-y-0.5",
+                        visual.legendClass,
+                        !earned && "opacity-75",
+                        isNew && "adaptive-galaxy-badge-new"
+                      )}
+                      style={earned ? { borderColor: palette.stops[1], boxShadow: `0 0 14px ${palette.glow}` } : undefined}
+                    >
+                      <span aria-hidden="true" style={{ color: palette.stops[1] }}>{earned ? "★" : "☆"}</span>
+                      <span>{text(constellation.name)}</span>
+                      <span className="opacity-75">
+                        {constellation.litCount}/{constellation.totalCount}
+                      </span>
+                      {isNew ? (
+                        <span className={cn("rounded-full px-2 py-0.5 text-[0.6rem] uppercase", visual.badgeSuccessClass)}>
+                          {t({ en: "New!", zh: "新獲得!", zhHans: "新获得!" })}
+                        </span>
+                      ) : null}
+                    </button>
+                  );
+                })}
+              </div>
+            ) : null}
+
             <div className="mt-7 min-w-0 overflow-hidden pb-2">
-              {decision ? (
-                <div className="relative h-[28rem] min-w-0 sm:h-[31rem]">
-                  <div aria-hidden="true" className={cn("absolute left-[48%] top-[55%] h-40 w-40 -translate-x-1/2 -translate-y-1/2 rounded-full", visual.centerGlowClass)} />
+              {decision && galaxyMap ? (
+                <div
+                  className="relative h-[28rem] min-w-0 sm:h-[31rem]"
+                  onClick={() => setSelectedStarId(null)}
+                >
                   <svg aria-hidden="true" className="absolute inset-0 h-full w-full" preserveAspectRatio="none" viewBox="0 0 100 100">
-                    {edges.map((edge) => {
-                      const from = nodeMap.get(edge.from);
-                      const to = nodeMap.get(edge.to);
+                    {!zoomConstellation
+                      ? galaxyMap.constellations
+                          .filter((constellation) => constellation.complete && constellation.completionPath.length > 1)
+                          .map((constellation) => (
+                            <path
+                              key={`outline-${constellation.id}`}
+                              d={constellationOutlinePath(constellation.completionPath)}
+                              className="adaptive-galaxy-constellation-stroke"
+                              fill="none"
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              strokeWidth="0.4"
+                              style={{ stroke: constellationPalettes[constellation.id].stops[1] }}
+                            />
+                          ))
+                      : null}
+                    {galaxyMap.edges.map((edge) => {
+                      if (edge.kind === "prerequisite" && (!selectedStarId || (edge.from !== selectedStarId && edge.to !== selectedStarId))) {
+                        return null;
+                      }
+                      const from = starById.get(edge.from);
+                      const to = starById.get(edge.to);
                       if (!from || !to) return null;
 
                       return (
                         <path
                           key={edge.id}
-                          d={edgePath(from, to)}
+                          d={edgePathFor(from, to)}
                           className={
                             edge.kind === "prerequisite"
                               ? "adaptive-galaxy-prerequisite-stroke"
@@ -1038,23 +1294,86 @@ export function AdaptiveKnowledgeGalaxy({
                           }
                           fill="none"
                           strokeLinecap="round"
-                          strokeWidth={edge.kind === "route" ? 1.16 : 0.92}
+                          strokeWidth={edge.kind === "route" ? 0.9 : 0.7}
                         />
                       );
                     })}
                   </svg>
 
-                  {nodes.map((node) => <KnowledgePlanet key={node.id} node={node} visual={visual} />)}
+                  {galaxyMap.stars.map((star) => (
+                    <KnowledgeStar
+                      key={star.id}
+                      star={star}
+                      zoomed={Boolean(zoomConstellation)}
+                      dimmed={Boolean(focusIds && !focusIds.has(star.id))}
+                      selected={selectedStarId === star.id}
+                      ignited={ignitedStarIds.has(star.id)}
+                      visual={visual}
+                      onHover={() => setHoveredStarId(star.id)}
+                      onLeave={() => setHoveredStarId((previous) => (previous === star.id ? null : previous))}
+                      onSelect={() => setSelectedStarId((previous) => (previous === star.id ? null : star.id))}
+                    />
+                  ))}
+
+                  {(zoomConstellation
+                    ? galaxyMap.constellations.filter((constellation) => constellation.id === zoomConstellation)
+                    : galaxyMap.constellations
+                  ).map((constellation) => (
+                    <button
+                      key={constellation.id}
+                      type="button"
+                      data-galaxy-constellation={constellation.id}
+                      aria-pressed={zoomConstellation === constellation.id}
+                      onClick={(event) => {
+                        event.stopPropagation();
+                        setSelectedStarId(null);
+                        setHoveredStarId(null);
+                        setZoomConstellation((previous) => (previous === constellation.id ? null : constellation.id));
+                      }}
+                      className={cn(
+                        "focus-ring absolute z-20 -translate-x-1/2 rounded-full px-3 py-1.5 text-xs font-black backdrop-blur-md transition hover:-translate-y-0.5 hover:scale-105",
+                        visual.legendClass
+                      )}
+                      style={{ left: `${constellation.labelX}%`, top: `${constellation.labelY}%` }}
+                    >
+                      <span style={{ color: constellationPalettes[constellation.id].stops[1] }}>{text(constellation.name)}</span>
+                      <span className="ml-2 opacity-80">
+                        {constellation.litCount}/{constellation.totalCount}
+                        {constellation.complete ? " ★" : ""}
+                      </span>
+                    </button>
+                  ))}
+
+                  {zoomConstellation ? (
+                    <button
+                      type="button"
+                      data-galaxy-zoom-back
+                      onClick={(event) => {
+                        event.stopPropagation();
+                        setSelectedStarId(null);
+                        setHoveredStarId(null);
+                        setZoomConstellation(null);
+                      }}
+                      className={cn(
+                        "focus-ring absolute left-4 top-4 z-20 rounded-full px-3 py-2 text-xs font-black backdrop-blur-md transition hover:-translate-y-0.5",
+                        visual.legendClass
+                      )}
+                    >
+                      ← {t({ en: "Back to galaxy", zh: "返回星系", zhHans: "返回星系" })}
+                    </button>
+                  ) : null}
+
+                  {cardStar ? <StarHoverCard star={cardStar} pinned={Boolean(selectedStar)} visual={visual} /> : null}
 
                   <div className="absolute bottom-5 left-4 z-20 flex flex-wrap items-center gap-2 text-xs font-black">
                     <span className={cn("px-3 py-2 backdrop-blur-md", visual.legendClass)}>
-                      {t({ en: "Planets are knowledge points", zh: "星球即知識點", zhHans: "星球即知识点" })}
+                      {t({ en: "Stars are knowledge points", zh: "星星即知識點", zhHans: "星星即知识点" })}
+                    </span>
+                    <span className={cn("px-3 py-2 backdrop-blur-md", visual.legendClass)} data-galaxy-illumination>
+                      ★ {galaxyMap.illumination.litCount}/{galaxyMap.illumination.totalCount} · {galaxyMap.illumination.percent}% {t({ en: "illuminated", zh: "已點亮", zhHans: "已点亮" })}
                     </span>
                     <span className={cn("px-3 py-2 backdrop-blur-md", visual.legendClass)}>
-                      {t({ en: "Glow marks current route", zh: "光暈標記當前航線", zhHans: "光晕标记当前航线" })}
-                    </span>
-                    <span className={cn("px-3 py-2 backdrop-blur-md", visual.legendClass)}>
-                      {t({ en: "Branches mark review", zh: "分支代表複習", zhHans: "分支代表复习" })}
+                      {t({ en: "Tap a star for details", zh: "點按星星查看詳情", zhHans: "点按星星查看详情" })}
                     </span>
                   </div>
                 </div>
