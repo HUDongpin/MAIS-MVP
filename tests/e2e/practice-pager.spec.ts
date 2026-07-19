@@ -101,7 +101,7 @@ async function makeVisibleQuestionAnswerable(page: Page, typedAnswer = "not the 
   if (await textbox.isVisible().catch(() => false)) {
     await textbox.fill(typedAnswer);
   } else {
-    await card.locator("button").filter({ hasNotText: /Check Answer|Reset/i }).first().click();
+    await card.locator("button").filter({ hasNotText: /Check Answer|Reset|Read aloud|Stop|讀給我聽|读给我听|停止/i }).first().click();
   }
 
   await expect(card.getByRole("button", { name: /check answer/i })).toBeEnabled();

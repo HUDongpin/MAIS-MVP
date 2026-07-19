@@ -24,7 +24,8 @@ export const gamificationEconomy = {
     "campaign-bonus": { xp: 80, rewardPoints: 30 },
     "badge-earned": { xp: 25, rewardPoints: 0 },
     "adventure-island-complete": { xp: 35, rewardPoints: 35 },
-    "fishing-game-complete": { xp: 1, rewardPoints: 0 }
+    "fishing-game-complete": { xp: 1, rewardPoints: 0 },
+    "island-star": { xp: 25, rewardPoints: 10 }
   }
 } as const;
 
@@ -100,6 +101,15 @@ export const badgeDefinitions: BadgeDefinition[] = [
     category: "practice",
     criteria: { kind: "adventure-island-complete", target: 1 },
     sortOrder: 70
+  },
+  {
+    id: "island-cartographer",
+    name: { en: "Island Cartographer", zh: "島嶼製圖師" },
+    description: { en: "Collected nine Practice Island stars.", zh: "收集九顆練習島星星。" },
+    icon: "Map",
+    category: "practice",
+    criteria: { kind: "island-star", target: 9 },
+    sortOrder: 80
   }
 ];
 

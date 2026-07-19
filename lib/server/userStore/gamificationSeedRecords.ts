@@ -110,7 +110,8 @@ const validRewardPointReasons = new Set<RewardPointReason>([
   "teacher-award",
   "redemption-spent",
   "adventure-island-complete",
-  "fishing-game-complete"
+  "fishing-game-complete",
+  "island-star"
 ]);
 const validGamificationEventSources = new Set<GamificationEventSource>([
   "lesson-complete",
@@ -123,7 +124,8 @@ const validGamificationEventSources = new Set<GamificationEventSource>([
   "campaign-bonus",
   "badge-earned",
   "adventure-island-complete",
-  "fishing-game-complete"
+  "fishing-game-complete",
+  "island-star"
 ]);
 const validGamificationEventStatuses = new Set<GamificationEventStatus>(["awarded", "duplicate", "capped", "flagged"]);
 const validRewardCampaignStatuses = new Set<RewardCampaignStatus>(["draft", "active", "paused", "ended"]);

@@ -2505,7 +2505,8 @@ export type GamificationEventSource =
   | "campaign-bonus"
   | "badge-earned"
   | "adventure-island-complete"
-  | "fishing-game-complete";
+  | "fishing-game-complete"
+  | "island-star";
 export type GamificationEventStatus = "awarded" | "duplicate" | "capped" | "flagged";
 export type BadgeCategory = "learning" | "practice" | "consistency" | "exploration" | "resilience" | "growth";
 export type BadgeCriteriaKind =
@@ -2515,7 +2516,8 @@ export type BadgeCriteriaKind =
   | "visualization-complete"
   | "mistake-review"
   | "level"
-  | "adventure-island-complete";
+  | "adventure-island-complete"
+  | "island-star";
 export type QuestTargetType = "answer-correct" | "lesson-complete" | "visualization-complete" | "mistake-review";
 export type QuestCadence = "daily" | "weekly";
 export type RewardCampaignStatus = "draft" | "active" | "paused" | "ended";
@@ -2687,7 +2689,8 @@ export type RewardPointReason =
   | "teacher-award"
   | "redemption-spent"
   | "adventure-island-complete"
-  | "fishing-game-complete";
+  | "fishing-game-complete"
+  | "island-star";
 export type RewardRedemptionStatus = "pending" | "approved" | "rejected" | "fulfilled";
 export type RewardCatalogCategory = "toy" | "stationery" | "learning-tool";
 

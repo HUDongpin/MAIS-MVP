@@ -91,7 +91,8 @@ function eventCountForCriteria(events: GamificationEvent[], kind: BadgeCriteriaK
     "practice-accuracy": "practice-accuracy",
     "visualization-complete": "visualization-complete",
     "mistake-review": "mistake-review",
-    "adventure-island-complete": "adventure-island-complete"
+    "adventure-island-complete": "adventure-island-complete",
+    "island-star": "island-star"
   };
   const source = sourceByKind[kind];
   return source ? events.filter((event) => event.status === "awarded" && event.source === source).length : 0;

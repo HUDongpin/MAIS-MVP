@@ -319,6 +319,12 @@ import {
   type GamificationGamePersistenceDatabase
 } from "@/lib/server/userStore/gamificationGamePersistence";
 import {
+  createGamificationIslandPersistenceStore,
+  normalizePracticeIslandStarRecords,
+  type PracticeIslandPersistenceDatabase,
+  type PracticeIslandStarPersistenceRecord
+} from "@/lib/server/userStore/gamificationIslandPersistence";
+import {
   isValidGamificationEventSource,
   isValidGamificationEventStatus,
   isValidRewardCampaignStatus,
@@ -1756,6 +1762,7 @@ type Database = {
   reward_point_ledger: RewardPointLedgerRecord[];
   reward_redemptions: RewardRedemptionRecord[];
   gamification_events: GamificationEventRecord[];
+  practice_island_stars?: PracticeIslandStarPersistenceRecord[];
   reward_campaigns: RewardCampaignRecord[];
   forum_threads: ForumThreadRecord[];
   forum_reports: ForumReportRecord[];
@@ -4333,6 +4340,7 @@ function normalizeDatabase(database: Partial<Database>) {
       now,
       { shouldSeedDemoUser, demoUserId, demoTeacherId }
     ),
+    practice_island_stars: normalizePracticeIslandStarRecords(database.practice_island_stars, now),
     reward_campaigns: normalizeRewardCampaignRecordsFromGamificationSeedRecords(
       database.reward_campaigns,
       now,
@@ -4893,6 +4901,17 @@ const gamificationGamePersistenceStore = createGamificationGamePersistenceStore(
       studentId,
       new Date()
     )
+});
+
+const gamificationIslandPersistenceStore = createGamificationIslandPersistenceStore({
+  readDatabase: async () => {
+    const database = await readDatabase();
+    return database as unknown as PracticeIslandPersistenceDatabase;
+  },
+  mutateDatabase: async <T>(mutator: (database: PracticeIslandPersistenceDatabase) => T | Promise<T>) => {
+    const result = await mutateDatabase((database) => mutator(database as unknown as PracticeIslandPersistenceDatabase));
+    return result as T;
+  }
 });
 
 const gamificationCampaignPersistenceStore = createGamificationCampaignPersistenceStore({
@@ -6744,6 +6763,10 @@ export type AdventureIslandCompletionResult = {
 export const getAdventureIslandEligibility = gamificationUserStore.getAdventureIslandEligibility;
 
 export const completeAdventureIsland = gamificationUserStore.completeAdventureIsland;
+
+export const getStudentPracticeIslandStars = gamificationIslandPersistenceStore.getPracticeIslandStars;
+
+export const awardStudentPracticeIslandStars = gamificationIslandPersistenceStore.awardPracticeIslandStars;
 
 export const isGradeAllowedForCurriculumProfile = authUserStore.isGradeAllowedForCurriculumProfile;
 
