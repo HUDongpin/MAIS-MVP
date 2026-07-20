@@ -21,6 +21,7 @@ import {
   readGalaxyMilestoneSnapshot,
   serializeGalaxyMilestoneSnapshot
 } from "@/lib/knowledgeGalaxyMilestones";
+import { MathUniverse } from "@/components/dashboard/MathUniverse";
 import { lessonHrefForSlug } from "@/lib/lessonLinks";
 import { cn } from "@/lib/utils";
 import type {
@@ -819,7 +820,9 @@ export function AdaptiveKnowledgeGalaxy({
   loadError,
   progressMetrics
 }: AdaptiveKnowledgeGalaxyProps) {
-  const { currentUser, language, t, text, theme, toggleTheme } = useSettings();
+  const { currentUser, language, selectedGrade, t, text, theme, toggleTheme } = useSettings();
+  const [viewMode, setViewMode] = useState<"constellation" | "universe">("constellation");
+  const isUsCaliforniaTrack = currentUser?.curriculumTrack === "US_CA_MATH";
   const [isMissionHudOpen, setIsMissionHudOpen] = useState(false);
   const [hoveredStarId, setHoveredStarId] = useState<string | null>(null);
   const [selectedStarId, setSelectedStarId] = useState<string | null>(null);
@@ -1166,6 +1169,30 @@ export function AdaptiveKnowledgeGalaxy({
                     </span>
                     <span>{themeToggleText}</span>
                   </button>
+                  {isUsCaliforniaTrack ? (
+                    <div className="inline-flex overflow-hidden rounded-full border" role="group" aria-label={t({ en: "Map view", zh: "星圖視角", zhHans: "星图视角" })} data-galaxy-view-toggle>
+                      {([
+                        ["constellation", { en: "Constellation", zh: "星座", zhHans: "星座" }],
+                        ["universe", { en: "Universe", zh: "宇宙", zhHans: "宇宙" }]
+                      ] as const).map(([mode, label]) => (
+                        <button
+                          key={mode}
+                          type="button"
+                          aria-pressed={viewMode === mode}
+                          data-galaxy-view={mode}
+                          onClick={() => setViewMode(mode)}
+                          className={cn(
+                            "focus-ring px-4 py-2.5 text-xs font-black transition",
+                            visual.themeToggleClass,
+                            "rounded-none border-0",
+                            viewMode === mode && "underline decoration-2 underline-offset-4"
+                          )}
+                        >
+                          {t(label)}
+                        </button>
+                      ))}
+                    </div>
+                  ) : null}
                 </div>
                 <h1 className={cn("mt-4 text-4xl font-black leading-none sm:text-5xl lg:text-6xl", visual.titleClass)}>
                   {t({ en: "Knowledge galaxy", zh: "知識星圖", zhHans: "知识星图" })}
@@ -1251,7 +1278,15 @@ export function AdaptiveKnowledgeGalaxy({
             ) : null}
 
             <div className="mt-7 min-w-0 overflow-hidden pb-2">
-              {decision && galaxyMap ? (
+              {viewMode === "universe" && isUsCaliforniaTrack ? (
+                <MathUniverse
+                  currentSkillId={decision?.skill.id ?? null}
+                  studentGrade={selectedGrade}
+                  studentId={currentUser?.id ?? null}
+                  studentName={currentUser?.name ?? null}
+                  theme={theme}
+                />
+              ) : decision && galaxyMap ? (
                 <div
                   className="relative h-[28rem] min-w-0 sm:h-[31rem]"
                   onClick={() => setSelectedStarId(null)}
