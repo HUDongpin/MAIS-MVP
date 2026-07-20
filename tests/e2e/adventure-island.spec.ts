@@ -731,14 +731,19 @@ test.describe.serial("topic-bound Adventure Island game", () => {
       await moveRightUntilTrophyOrContactChallenge(page, 4000);
       const awarded = await readJson<AdventureIslandCompletion>(await completionResponse, 201);
       expect(awarded.status).toBe("awarded");
-      expect(awarded.reward).toMatchObject({ xp: 35, rewardPoints: 35 });
-      expect(awarded.gamification?.xp).toBe(beforeAdventureIslandSummary.gamification.xp + 35);
-      expect(awarded.gamification?.rewardSummary.available).toBe(beforeAdventureIslandSummary.gamification.rewardSummary.available + 35);
+      // The trophy run happens on a freshly restarted life bar with every
+      // contact answered correctly and finishes well inside two minutes, so
+      // it earns the three-star clear bonus: base 35 + 15.
+      expect(awarded.reward).toMatchObject({ xp: 50, rewardPoints: 50 });
+      expect((awarded as { starBonus?: { applied: boolean; rewardPoints: number } }).starBonus).toMatchObject({ applied: true, rewardPoints: 15 });
+      expect((awarded as { relic?: { isNew: boolean; bestStars: number } }).relic).toMatchObject({ isNew: true, bestStars: 3 });
+      expect(awarded.gamification?.xp).toBe(beforeAdventureIslandSummary.gamification.xp + 50);
+      expect(awarded.gamification?.rewardSummary.available).toBe(beforeAdventureIslandSummary.gamification.rewardSummary.available + 50);
       expect(awarded.gamification?.earnedBadges.some((badge) => badge.id === "adventure-island-clear")).toBeTruthy();
       const afterAdventureIslandRewards = await readJson<StudentRewardsPayload>(
         await page.request.get(app.url("/api/rewards"))
       );
-      expect(afterAdventureIslandRewards.rewards.summary.available).toBe(beforeAdventureIslandRewards.rewards.summary.available + 35);
+      expect(afterAdventureIslandRewards.rewards.summary.available).toBe(beforeAdventureIslandRewards.rewards.summary.available + 50);
       await expect(stage).toHaveAttribute("data-phase", "cleared", { timeout: 10_000 });
 
       const duplicate = await page.request.post(app.url("/api/gamification/bonus-games/quadratic"), {

@@ -88,6 +88,8 @@ const studentRoadmapPath = "/student/roadmap";
 const studentPrimaryRoadmapPath = "/student/roadmap/primary";
 const studentSecondaryRoadmapPath = "/student/roadmap/secondary";
 const studentVisualizationToolsPath = "/student/tools/visualizations";
+const studentAdventureIslandPath = "/student/practice/games/adventure-island";
+const studentFishingMasterPath = "/student/practice/games/fishing-master";
 
 const nextConfig: NextConfig = {
   devIndicators: false,
@@ -125,6 +127,24 @@ const nextConfig: NextConfig = {
       {
         source: "/lesson/:lessonSlug",
         destination: `${studentLessonsPath}/:lessonSlug`,
+        permanent: true
+      },
+      // Config-level redirects so legacy game paths answer with a real
+      // 307/308: app/practice has a loading boundary, so a page-level
+      // redirect() would stream inside a 200 response instead.
+      {
+        source: "/practice/adventure-island",
+        destination: studentAdventureIslandPath,
+        permanent: true
+      },
+      {
+        source: "/practice/super-platformer-like",
+        destination: studentAdventureIslandPath,
+        permanent: true
+      },
+      {
+        source: "/practice/fishing-game",
+        destination: studentFishingMasterPath,
         permanent: true
       }
     ];
