@@ -32,6 +32,8 @@ type VisualizationCatalogState = {
 type LabComponentRuntimeProps = { lab?: FeaturedLabDefinition | null; topicId: string; labId?: string };
 type LabComponentProps = LabComponentRuntimeProps & { onRuntimeReady?: (labId: string) => void };
 type PanelMode = "control" | "lab";
+type VisualizationGradeEntryPoint = "back-to-my-grade" | "empty-state" | "grade-rail" | "grade-rail-pinned";
+type VisualizationLabOpenEntryPoint = "lab-tile" | "next-up-card" | "start-quest";
 type DirectLinkStatus = "idle" | "ok" | "missing" | "unavailable";
 type ShareState = "idle" | "copied" | "error" | "blocked";
 type SnapshotState = "idle" | "copied" | "error" | "blocked";
@@ -1726,6 +1728,10 @@ const labTileBandStyles = {
   }
 } as const;
 
+// K-G2 accounts get larger touch targets and less symbol clutter; the band
+// matches labTileBandStyles.early so the two "young learner" notions agree.
+const youngLearnerGrades = new Set<GradeId>(["K", "P1", "P2"]);
+
 function labTileBandForGrade(grade: GradeId) {
   if (grade === "K" || grade === "P1" || grade === "P2") return labTileBandStyles.early;
   if (grade === "P3" || grade === "P4" || grade === "P5" || grade === "P6") return labTileBandStyles.upper;
@@ -1990,6 +1996,7 @@ function GradeChip({
   hasLabs,
   href,
   label,
+  large = false,
   onClick,
   pinned = false,
   pinnedLabel
@@ -1999,6 +2006,7 @@ function GradeChip({
   hasLabs: boolean;
   href: string;
   label: string;
+  large?: boolean;
   onClick: () => void;
   pinned?: boolean;
   pinnedLabel?: string;
@@ -2023,7 +2031,8 @@ function GradeChip({
       data-viz-grade-chip-has-labs={String(hasLabs)}
       data-viz-grade-chip-pinned={String(pinned)}
       className={cn(
-        "focus-ring inline-flex h-12 min-w-[3.4rem] shrink-0 snap-start items-center justify-center rounded-xl border-2 px-4 text-center text-base font-black leading-none transition",
+        "focus-ring inline-flex shrink-0 snap-start items-center justify-center rounded-xl border-2 text-center font-black leading-none transition",
+        large ? "h-14 min-w-[3.9rem] px-5 text-lg" : "h-12 min-w-[3.4rem] px-4 text-base",
         active
           ? "border-blue-600 bg-blue-600 text-white shadow-lg shadow-blue-600/30"
           : pinned
@@ -2294,6 +2303,7 @@ function VisualizationLabPageContent({
   const ownGradeGroup = ownGrade ? directoryGroups.find((group) => group.grade === ownGrade) ?? null : null;
   const showBackToMyGrade = Boolean(ownGrade && ownGradeGroup && activeDirectoryGroup?.grade !== ownGrade);
   const browsingOtherGrade = Boolean(ownGrade && (activeDirectoryGroup?.grade ?? activeGroup.grade) !== ownGrade);
+  const youngLearnerMode = Boolean(ownGrade && youngLearnerGrades.has(ownGrade));
   const ActiveDirectoryLabComponent = componentForDirectoryLab(activeDirectoryLab);
   // When the active lab is a signature bench whose topic fans out to related
   // benches, render the switcher so every related bench is reachable, not just
@@ -2533,7 +2543,20 @@ function VisualizationLabPageContent({
     });
   }
 
-  function selectDirectoryGrade(group: GradeLabGroupDefinition) {
+  // Navigation telemetry rides the existing mouse-click/navigation channel so
+  // no schema change is needed; the structured topicId (viz-nav:action:detail)
+  // distinguishes which control drove the visit. Lab-open probes above stay
+  // untouched — dashboards aggregate on them.
+  function recordVisualizationNavigationEvent(action: string, detail: string) {
+    recordLearningEvent({
+      type: "mouse-click",
+      source: "navigation",
+      topicId: `viz-nav:${action}:${detail}`
+    });
+  }
+
+  function selectDirectoryGrade(group: GradeLabGroupDefinition, entryPoint: VisualizationGradeEntryPoint = "grade-rail") {
+    recordVisualizationNavigationEvent(entryPoint, group.grade);
     const nextLab = group.labs.find((lab) => lab.labId === activeLabId) ?? group.labs[0] ?? null;
     setPanelMode("control");
     setActiveDirectoryGrade(group.grade);
@@ -2556,7 +2579,8 @@ function VisualizationLabPageContent({
     }, 40);
   }
 
-  function selectDirectoryLab(lab: FeaturedLabDefinition) {
+  function selectDirectoryLab(lab: FeaturedLabDefinition, entryPoint: VisualizationLabOpenEntryPoint = "lab-tile") {
+    recordVisualizationNavigationEvent(`open-${entryPoint}`, lab.labId);
     recordVisualizationWorkflowEvent(lab);
     setPanelMode("lab");
     setActiveDirectoryGrade(lab.grade);
@@ -2853,6 +2877,7 @@ function VisualizationLabPageContent({
           aria-label={t({ en: "Visualization Lab workspace", zh: "可視化實驗室工作區", zhHans: "可视化实验室工作区" })}
           className="scroll-mt-24"
           data-viz-panel-mode={visiblePanelMode}
+          data-viz-young-learner-mode={String(youngLearnerMode)}
           data-viz-active-grade={activeDirectoryGroup?.grade ?? ""}
           data-viz-active-lab-id={activeDirectoryLab?.labId ?? ""}
           data-viz-direct-lab-href={activeDirectoryLabHref ?? ""}
@@ -2878,11 +2903,14 @@ function VisualizationLabPageContent({
                           if (event.metaKey || event.ctrlKey || event.shiftKey || event.altKey || event.button !== 0) return;
                           if (!recommendedLab) return;
                           event.preventDefault();
-                          selectDirectoryLab(recommendedLab);
+                          selectDirectoryLab(recommendedLab, "start-quest");
                         }}
                         data-viz-start-quest-link
                         data-viz-recommended-lab-id={recommendedLab?.labId ?? ""}
-                        className="focus-ring inline-flex min-h-[3.25rem] items-center justify-center gap-2 whitespace-nowrap rounded-2xl bg-red-500 px-7 text-lg font-black text-white shadow-xl shadow-red-500/30 transition hover:-translate-y-0.5 hover:bg-red-400 active:translate-y-0"
+                        className={cn(
+                          "focus-ring inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-2xl bg-red-500 font-black text-white shadow-xl shadow-red-500/30 transition hover:-translate-y-0.5 hover:bg-red-400 active:translate-y-0",
+                          youngLearnerMode ? "min-h-[3.75rem] px-8 text-xl" : "min-h-[3.25rem] px-7 text-lg"
+                        )}
                       >
                         {t({ en: "Start Quest", zh: "開始探索", zhHans: "开始探索" })}
                         <span aria-hidden="true">▶</span>
@@ -2920,7 +2948,7 @@ function VisualizationLabPageContent({
                       onClick={(event) => {
                         if (event.metaKey || event.ctrlKey || event.shiftKey || event.altKey || event.button !== 0) return;
                         event.preventDefault();
-                        selectDirectoryLab(recommendedLab);
+                        selectDirectoryLab(recommendedLab, "next-up-card");
                       }}
                       data-viz-next-up-card
                       data-viz-next-up-progress-based={String(recommendedLabIsProgressBased)}
@@ -2931,14 +2959,19 @@ function VisualizationLabPageContent({
                         {nextUpLabel}
                       </span>
                       <span className="flex items-start gap-3">
-                        <span aria-hidden="true" className="text-3xl leading-none">
+                        <span aria-hidden="true" className={cn("leading-none", youngLearnerMode ? "text-4xl" : "text-3xl")}>
                           {labTileEmojiForLab(recommendedLab)}
                         </span>
                         <span className="min-w-0">
-                          <span className="block break-words font-bold leading-snug text-[#15245a] [overflow-wrap:anywhere] group-hover:text-blue-700 dark:text-white dark:group-hover:text-blue-200">
+                          <span
+                            className={cn(
+                              "block break-words font-bold leading-snug text-[#15245a] [overflow-wrap:anywhere] group-hover:text-blue-700 dark:text-white dark:group-hover:text-blue-200",
+                              youngLearnerMode ? "text-lg" : ""
+                            )}
+                          >
                             {displayCatalogText(compactTitle(text(recommendedLab.title)))}
                           </span>
-                          <span className="mt-1 block text-sm font-bold leading-6 text-slate-600 dark:text-slate-300">
+                          <span className={cn("mt-1 block font-bold text-slate-600 dark:text-slate-300", youngLearnerMode ? "text-base leading-7" : "text-sm leading-6")}>
                             {recommendedLabIsProgressBased ? nextUpProgressHint : (
                               <span className="line-clamp-2">{displayCatalogText(text(recommendedLab.description))}</span>
                             )}
@@ -2946,12 +2979,19 @@ function VisualizationLabPageContent({
                         </span>
                       </span>
                       <span className="flex flex-wrap items-center gap-1.5">
-                        {labTileStandardIds(recommendedLab).slice(0, 3).map((standardId) => (
-                          <span key={standardId} className={labStandardChipClass}>
-                            {standardId}
-                          </span>
-                        ))}
-                        <span className="ml-auto inline-flex shrink-0 items-center gap-1.5 text-sm font-black text-blue-700 transition group-hover:translate-x-0.5 dark:text-blue-300">
+                        {youngLearnerMode
+                          ? null
+                          : labTileStandardIds(recommendedLab).slice(0, 3).map((standardId) => (
+                              <span key={standardId} className={labStandardChipClass}>
+                                {standardId}
+                              </span>
+                            ))}
+                        <span
+                          className={cn(
+                            "ml-auto inline-flex shrink-0 items-center gap-1.5 font-black text-blue-700 transition group-hover:translate-x-0.5 dark:text-blue-300",
+                            youngLearnerMode ? "text-base" : "text-sm"
+                          )}
+                        >
                           {continueLabel}
                           <span aria-hidden="true">▶</span>
                         </span>
@@ -3060,10 +3100,11 @@ function VisualizationLabPageContent({
                           track: effectiveTrackFilter
                         })}
                         label={displayGradeChipLabel(ownGrade)}
+                        large={youngLearnerMode}
                         pinned
                         pinnedLabel={yourGradeLabel}
                         onClick={() => {
-                          if (ownGradeGroup) selectDirectoryGrade(ownGradeGroup);
+                          if (ownGradeGroup) selectDirectoryGrade(ownGradeGroup, "grade-rail-pinned");
                         }}
                       />
                       <span aria-hidden="true" className="h-8 w-px shrink-0 self-center bg-slate-200 dark:bg-white/10" />
@@ -3082,8 +3123,9 @@ function VisualizationLabPageContent({
                           track: effectiveTrackFilter
                         })}
                         label={displayGradeChipLabel(grade)}
+                        large={youngLearnerMode}
                         onClick={() => {
-                          if (group) selectDirectoryGrade(group);
+                          if (group) selectDirectoryGrade(group, "grade-rail");
                         }}
                       />
                     );
@@ -3097,11 +3139,14 @@ function VisualizationLabPageContent({
                       onClick={(event) => {
                         if (event.metaKey || event.ctrlKey || event.shiftKey || event.altKey || event.button !== 0) return;
                         event.preventDefault();
-                        selectDirectoryGrade(ownGradeGroup);
+                        selectDirectoryGrade(ownGradeGroup, "back-to-my-grade");
                       }}
                       data-viz-back-to-my-grade
                       data-viz-back-to-my-grade-target={ownGrade}
-                      className="focus-ring inline-flex h-12 shrink-0 snap-start items-center gap-1.5 rounded-xl border-2 border-dashed border-emerald-300 bg-emerald-50 px-4 text-sm font-black leading-none text-emerald-700 transition hover:-translate-y-0.5 hover:bg-emerald-100 dark:border-emerald-400/40 dark:bg-emerald-950/30 dark:text-emerald-200 dark:hover:bg-emerald-950/50 sm:ml-auto"
+                      className={cn(
+                        "focus-ring inline-flex shrink-0 snap-start items-center gap-1.5 rounded-xl border-2 border-dashed border-emerald-300 bg-emerald-50 font-black leading-none text-emerald-700 transition hover:-translate-y-0.5 hover:bg-emerald-100 dark:border-emerald-400/40 dark:bg-emerald-950/30 dark:text-emerald-200 dark:hover:bg-emerald-950/50 sm:ml-auto",
+                        youngLearnerMode ? "h-14 px-5 text-base" : "h-12 px-4 text-sm"
+                      )}
                     >
                       <span aria-hidden="true">↩</span>
                       {backToMyGradeLabel}
@@ -3123,7 +3168,7 @@ function VisualizationLabPageContent({
                           isExplored={exploredSessionIds.has(buildVisualizationSessionModuleId(lab))}
                           lab={lab}
                           href={buildVisualizationLabHref(lab, effectiveTrackFilter)}
-                          onOpen={() => selectDirectoryLab(lab)}
+                          onOpen={() => selectDirectoryLab(lab, "lab-tile")}
                           recommended={recommendedLab?.labId === lab.labId}
                           recommendedLabel={tryThisLabel}
                           exploredLabel={exploredLabel}
@@ -3144,7 +3189,7 @@ function VisualizationLabPageContent({
                           onClick={(event) => {
                             if (event.metaKey || event.ctrlKey || event.shiftKey || event.altKey || event.button !== 0) return;
                             event.preventDefault();
-                            selectDirectoryGrade(ownGradeGroup);
+                            selectDirectoryGrade(ownGradeGroup, "empty-state");
                           }}
                           data-viz-switch-to-my-grade
                           className="focus-ring mt-4 inline-flex items-center gap-1.5 rounded-xl bg-emerald-600 px-5 py-3 text-sm font-black text-white shadow-md shadow-emerald-600/25 transition hover:-translate-y-0.5 hover:bg-emerald-500"
