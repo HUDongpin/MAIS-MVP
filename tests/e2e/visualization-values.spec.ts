@@ -8,6 +8,9 @@ const sweepGrades = envSet("VISUALIZATION_SWEEP_GRADES");
 const sweepTracks = envSet("VISUALIZATION_SWEEP_TRACKS");
 const sweepLabIds = envSet("VISUALIZATION_SWEEP_LABS");
 const maxDiscreteValuesPerControl = 500;
+// Budget for a premium 3D topic page to mount its WebGL canvas and report ready.
+// A cold scene takes ~5-10s; later variants in a multi-scene sweep run slower.
+const threeDReadyTimeout = 20_000;
 const selectedLabs = visualizationLabCatalog.filter((lab) =>
   (!sweepGrades.size || sweepGrades.has(lab.grade)) &&
   (!sweepTracks.size || sweepTracks.has(lab.curriculumTrack)) &&
@@ -168,7 +171,10 @@ test.describe("Visualization Lab local value sweep", () => {
 
   test("renders one canonical premium Three.js page for every live scene variant", async ({ page }, testInfo) => {
     test.slow();
-    test.setTimeout(240_000);
+    // 15 premium variants, each mounting a full WebGL scene, run sequentially in
+    // one page; give the whole sweep room so a late variant never times out under
+    // the cumulative render load.
+    test.setTimeout(360_000);
     const pageErrors = collectPageErrors(page);
     const targets = selectPremiumThreeDSceneVariantSmokeLabs(visualizationLabCatalog);
 
@@ -183,6 +189,7 @@ test.describe("Visualization Lab local value sweep", () => {
       "geometry-axes",
       "measurement-rail",
       "optimization-landscape",
+      "projection-views",
       "solid-net-fold",
       "space-vector-plane",
       "statistical-inference",
@@ -195,13 +202,19 @@ test.describe("Visualization Lab local value sweep", () => {
       await disableMotion(page);
 
       const section = page.locator(visualizationLabSectionSelector(target.lab));
-      await expect(page.locator('[data-viz-panel-mode="lab"]')).toBeVisible();
-      await expect(page.locator(`[data-viz-active-lab-id=${JSON.stringify(target.lab.labId)}]`)).toBeVisible();
+      // The premium topic page only flips panel-mode to "lab" (and fills
+      // data-viz-active-lab-id) once the progressive 3D surface has actually
+      // mounted its WebGL canvas and drawn a mark — 5-10s per variant, and more
+      // under the cumulative load of the earlier scenes in this sweep. Wait the
+      // same budget the surface checks below use rather than the default 5s, so a
+      // slow-to-mount variant reads as "still mounting" instead of a failure.
+      await expect(page.locator('[data-viz-panel-mode="lab"]')).toBeVisible({ timeout: threeDReadyTimeout });
+      await expect(page.locator(`[data-viz-active-lab-id=${JSON.stringify(target.lab.labId)}]`)).toBeVisible({ timeout: threeDReadyTimeout });
       await expect(section, `${target.sceneVariant} canonical page should render ${target.lab.labId}`).toBeVisible();
 
       const surface = section.locator('[data-viz-surface][data-viz-renderer="three-r3f"]');
-      await expect(surface).toBeVisible({ timeout: 20_000 });
-      await expect(surface).toHaveAttribute("data-viz-canvas-ready", "true");
+      await expect(surface).toBeVisible({ timeout: threeDReadyTimeout });
+      await expect(surface).toHaveAttribute("data-viz-canvas-ready", "true", { timeout: threeDReadyTimeout });
       await expect(surface).toHaveAttribute("data-viz-family-id", target.familyId);
       await expect(surface).toHaveAttribute("data-viz-scene-variant", target.sceneVariant);
       const canvas = surface.locator("canvas").first();
