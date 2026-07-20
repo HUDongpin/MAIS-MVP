@@ -16,11 +16,34 @@
         "dev:isolated",
         "--",
         "--port",
-        "3000",
+        "3100",
         "--dist",
         ".tmp/mais-dev/next-dist"
       ],
-      "port": 3000
+      "port": 3100,
+      "autoPort": false
+    },
+    {
+      "name": "mais-dev-lab-ux",
+      "runtimeExecutable": "env",
+      "runtimeArgs": [
+        "AUTH_SESSION_SECRET=e2e-session-secret",
+        "HK_MATH_ENABLE_DEMO_USER=true",
+        "AI_TUTOR_PROVIDER_PROFILE=offline-fixture",
+        "OPENAI_API_KEY=",
+        "ANTHROPIC_API_KEY=",
+        "HK_MATH_DB_PATH=.tmp/lab-ux-session/hk-math.sqlite",
+        "npm",
+        "run",
+        "dev:isolated",
+        "--",
+        "--port",
+        "3145",
+        "--dist",
+        ".tmp/lab-ux-session/next-dist"
+      ],
+      "port": 3145,
+      "autoPort": false
     },
     {
       "name": "mais-dev-content-qa",
@@ -39,6 +62,66 @@
       ],
       "port": 3311,
       "autoPort": true
+    },
+    {
+      "name": "mais-dev-island-ux",
+      "runtimeExecutable": "env",
+      "runtimeArgs": [
+        "AUTH_SESSION_SECRET=e2e-session-secret",
+        "HK_MATH_ENABLE_DEMO_USER=true",
+        "AI_TUTOR_PROVIDER_PROFILE=offline-fixture",
+        "OPENAI_API_KEY=",
+        "ANTHROPIC_API_KEY=",
+        "HK_MATH_DB_PATH=.tmp/island-ux-session/hk-math.sqlite",
+        "NEXT_DIST_DIR=.tmp/island-ux-session/next-dist",
+        "npx",
+        "next",
+        "dev",
+        "-p",
+        "3220"
+      ],
+      "port": 3220,
+      "autoPort": false
+    },
+    {
+      "name": "mais-dev-login-ux",
+      "runtimeExecutable": "env",
+      "runtimeArgs": [
+        "AUTH_SESSION_SECRET=e2e-session-secret",
+        "HK_MATH_ENABLE_DEMO_USER=true",
+        "AI_TUTOR_PROVIDER_PROFILE=offline-fixture",
+        "OPENAI_API_KEY=",
+        "ANTHROPIC_API_KEY=",
+        "HK_MATH_DB_PATH=.tmp/login-ux-session/hk-math.sqlite",
+        "NEXT_DIST_DIR=.tmp/login-ux-session/next-dist",
+        "npx",
+        "next",
+        "dev",
+        "-p",
+        "3355"
+      ],
+      "port": 3355,
+      "autoPort": true
+    },
+    {
+      "name": "mais-dev-teacher-ux",
+      "runtimeExecutable": "env",
+      "runtimeArgs": [
+        "AUTH_SESSION_SECRET=e2e-session-secret",
+        "HK_MATH_ENABLE_DEMO_USER=true",
+        "AI_TUTOR_PROVIDER_PROFILE=offline-fixture",
+        "OPENAI_API_KEY=",
+        "ANTHROPIC_API_KEY=",
+        "HK_MATH_DB_PATH=.tmp/teacher-ux-session/hk-math.sqlite",
+        "NEXT_DIST_DIR=.tmp/teacher-ux-session/next-dist",
+        "npx",
+        "next",
+        "dev",
+        "-p",
+        "3235"
+      ],
+      "port": 3235,
+      "autoPort": false
     },
     {
       "name": "mais-dev-games-qa",
