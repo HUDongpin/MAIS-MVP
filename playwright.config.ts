@@ -1,5 +1,6 @@
 import { defineConfig, devices } from "@playwright/test";
 import path from "node:path";
+import ts from "typescript";
 
 const port = Number(process.env.PLAYWRIGHT_PORT ?? 3020);
 const baseURL = process.env.PLAYWRIGHT_BASE_URL ?? `http://127.0.0.1:${port}`;
@@ -82,6 +83,46 @@ function shellQuote(value: string) {
   return `'${value.replace(/'/g, "'\\''")}'`;
 }
 
+// Extra build-output globs the e2e temp tsconfig excludes on top of the
+// canonical set. These are non-dot dirs `**/*.ts` would otherwise sweep;
+// `.tmp` is intentionally NOT here because the temp config's own dist-types
+// include lives under it.
+const e2eTempTsconfigHardeningExcludes = [
+  ".next-*",
+  ".s??-*",
+  "tmp",
+  "temp",
+  "output",
+  "outputs",
+  "coverage",
+  "playwright-report",
+  "test-results",
+  "var",
+  "var/**/*",
+  "MAIS-MVP-*",
+  "MAIS-MVP-*/**/*"
+];
+
+// Reuse tsconfig.json's own `exclude` as the single source of truth so the
+// generated e2e temp tsconfig can't drift out of sync with it. That drift once
+// dropped `private/**/*` here and let a stale private/tmp/*-next validator.ts
+// (referencing a since-deleted route) fail the e2e build before any test ran.
+// tsconfig.json is the right base — it's the config the custom-distDir build
+// actually uses, and unlike tsconfig.next.json it does not exclude `.tmp`,
+// where the temp config's dist-types include lives.
+function e2eTempTsconfigExcludeGlobs() {
+  const baseTsconfigPath = path.resolve("tsconfig.json");
+  const { config, error } = ts.readConfigFile(baseTsconfigPath, (file) => ts.sys.readFile(file));
+  const canonical = Array.isArray(config?.exclude) ? (config.exclude as string[]) : null;
+  if (error || !canonical) {
+    throw new Error(
+      `Could not read \`exclude\` from ${baseTsconfigPath} for the e2e temp tsconfig` +
+      `${error ? `: ${ts.flattenDiagnosticMessageText(error.messageText, "\n")}` : "."}`
+    );
+  }
+  return Array.from(new Set([...canonical, ...e2eTempTsconfigHardeningExcludes]));
+}
+
 function writeTempTsconfigCommand(tsconfigPath: string, nextDistDir: string) {
   const content = JSON.stringify({
     extends: "./tsconfig.json",
@@ -92,22 +133,7 @@ function writeTempTsconfigCommand(tsconfigPath: string, nextDistDir: string) {
       ".next/types/**/*.ts",
       `${nextDistDir}/types/**/*.ts`
     ],
-    exclude: [
-      "node_modules",
-      ".next-*",
-      ".s??-*",
-      "tmp",
-      "temp",
-      "output",
-      "outputs",
-      "coverage",
-      "playwright-report",
-      "test-results",
-      "var",
-      "var/**/*",
-      "MAIS-MVP-*",
-      "MAIS-MVP-*/**/*"
-    ]
+    exclude: e2eTempTsconfigExcludeGlobs()
   }, null, 2);
   const script = `require("fs").writeFileSync(${JSON.stringify(tsconfigPath)}, ${JSON.stringify(content)})`;
   return `node -e ${shellQuote(script)}`;

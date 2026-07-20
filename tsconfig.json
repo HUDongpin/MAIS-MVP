@@ -37,17 +37,14 @@
     "**/*.ts",
     "**/*.tsx",
     ".next/types/**/*.ts",
-    ".tmp/a06-verify/next-dist/types/**/*.ts",
-    ".tmp/audit-e2e/next-dev/types/**/*.ts",
-    ".tmp/audit-e2e/next-dist/types/**/*.ts",
-    ".tmp/content-qa-session/next-dist/types/**/*.ts",
-    ".tmp/figure-qa-session/next-dist/types/**/*.ts",
-    ".tmp/games-qa-session/next-dist/types/**/*.ts",
     "components/visualizations/signature/**/*.jsx",
-    "next-env.d.ts",
-    ".tmp/next-dev-verify/types/**/*.ts"
+    "next-env.d.ts"
   ],
   "exclude": [
-    "node_modules"
+    "node_modules",
+    "private",
+    "private/**/*",
+    "Users",
+    "Users/**/*"
   ]
 }
