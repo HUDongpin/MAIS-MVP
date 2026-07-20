@@ -59,7 +59,8 @@ export async function POST(request: Request) {
     correctRoundQuestionIds: stringArray(body.correctRoundQuestionIds),
     correctQuestionIds: stringArray(body.correctQuestionIds),
     durationSeconds: typeof body.durationSeconds === "number" ? body.durationSeconds : 0,
-    defeatedEnemies: typeof body.defeatedEnemies === "number" ? body.defeatedEnemies : 0
+    defeatedEnemies: typeof body.defeatedEnemies === "number" ? body.defeatedEnemies : 0,
+    ...(typeof body.livesRemaining === "number" ? { livesRemaining: body.livesRemaining } : {})
   });
 
   if (!result) return NextResponse.json({ error: "Adventure Island unavailable." }, { status: 404 });

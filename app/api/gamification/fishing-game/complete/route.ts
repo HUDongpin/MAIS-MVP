@@ -16,6 +16,14 @@ function numberValue(value: unknown) {
   return typeof value === "number" && Number.isFinite(value) ? value : NaN;
 }
 
+function speciesRecord(value: unknown): Record<string, string> | undefined {
+  if (typeof value !== "object" || value === null || Array.isArray(value)) return undefined;
+  const entries = Object.entries(value).filter(
+    (entry): entry is [string, string] => typeof entry[0] === "string" && typeof entry[1] === "string"
+  );
+  return entries.length ? Object.fromEntries(entries) : undefined;
+}
+
 export async function POST(request: Request) {
   let body: unknown;
   try {
@@ -37,6 +45,7 @@ export async function POST(request: Request) {
     correctRoundQuestionIds: stringArray(body.correctRoundQuestionIds),
     caughtQuestionIds: stringArray(body.caughtQuestionIds),
     correctCaughtQuestionIds: stringArray(body.correctCaughtQuestionIds),
+    ...(speciesRecord(body.caughtSpecies) ? { caughtSpecies: speciesRecord(body.caughtSpecies) } : {}),
     coins: Math.round(numberValue(body.coins)),
     netsUsed: Math.round(numberValue(body.netsUsed)),
     durationSeconds: Math.round(numberValue(body.durationSeconds)),

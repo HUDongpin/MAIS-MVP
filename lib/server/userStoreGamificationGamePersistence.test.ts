@@ -506,6 +506,203 @@ test("gamification game persistence rejects non-students before Adventure Island
   assert.deepEqual(calls, []);
 });
 
+test("a three-star Adventure Island run earns the star bonus and a relic", async () => {
+  const database = createAdventureIslandReadyDatabase();
+  let nextId = 0;
+  const store = createGamificationGamePersistenceStore({
+    createId: () => `id-${++nextId}`,
+    mutateDatabase: async (mutator) => mutator(database),
+    now: () => new Date("2026-06-20T10:30:00.000Z"),
+    readDatabase: async () => database
+  });
+
+  const result = await store.completeAdventureIsland({
+    studentId: "student-1",
+    topicId: "topic-1",
+    roundKey: "round-1",
+    roundQuestionIds: ["q1", "q2", "q3", "q4", "q5"],
+    correctRoundQuestionIds: ["q1", "q2", "q3", "q4"],
+    correctQuestionIds: ["q1", "q2", "q3", "q4"],
+    durationSeconds: 90,
+    defeatedEnemies: 3,
+    livesRemaining: 2
+  });
+
+  assert.equal(result?.status, "awarded");
+  assert.deepEqual(result?.reward, {
+    xp: 50,
+    rewardPoints: 50,
+    label: {
+      en: "Adventure Island: Linear equations",
+      zh: "探险岛：一次方程"
+    }
+  });
+  assert.deepEqual(result?.starBonus, { applied: true, rewardPoints: 15 });
+  assert.deepEqual(result?.relic, { topicId: "topic-1", isNew: true, clearCount: 1, bestStars: 3 });
+  assert.equal(database.gamification_events?.[0]?.xp, 50);
+  assert.equal(database.gamification_events?.[0]?.reward_points, 50);
+  assert.match(database.reward_point_ledger?.[0]?.note ?? "", /three-star clear bonus \(\+15\)/);
+  assert.deepEqual(database.adventure_relics?.[0], {
+    id: "adventure-relic-id-3",
+    student_id: "student-1",
+    topic_id: "topic-1",
+    first_cleared_at: "2026-06-20T10:30:00.000Z",
+    clear_count: 1,
+    best_stars: 3,
+    updated_at: "2026-06-20T10:30:00.000Z"
+  });
+});
+
+test("a bruised or slow Adventure Island run stays at the base reward", async () => {
+  const database = createAdventureIslandReadyDatabase();
+  const store = createGamificationGamePersistenceStore({
+    mutateDatabase: async (mutator) => mutator(database),
+    now: () => new Date("2026-06-20T10:30:00.000Z"),
+    readDatabase: async () => database
+  });
+
+  const result = await store.completeAdventureIsland({
+    studentId: "student-1",
+    topicId: "topic-1",
+    roundKey: "round-1",
+    roundQuestionIds: ["q1", "q2", "q3", "q4", "q5"],
+    correctRoundQuestionIds: ["q1", "q2", "q3", "q4"],
+    correctQuestionIds: ["q1", "q2", "q3", "q4"],
+    durationSeconds: 90,
+    defeatedEnemies: 3,
+    livesRemaining: 1
+  });
+
+  assert.equal(result?.status, "awarded");
+  assert.equal(result?.reward.xp, 35);
+  assert.equal(result?.reward.rewardPoints, 35);
+  assert.deepEqual(result?.starBonus, { applied: false, rewardPoints: 0 });
+  assert.deepEqual(result?.relic, { topicId: "topic-1", isNew: true, clearCount: 1, bestStars: 2 });
+});
+
+test("an impossible livesRemaining claim voids the Adventure Island run", async () => {
+  const database = createAdventureIslandReadyDatabase();
+  const store = createGamificationGamePersistenceStore({
+    mutateDatabase: async (mutator) => mutator(database),
+    now: () => new Date("2026-06-20T10:30:00.000Z"),
+    readDatabase: async () => database
+  });
+
+  const result = await store.completeAdventureIsland({
+    studentId: "student-1",
+    topicId: "topic-1",
+    roundKey: "round-1",
+    roundQuestionIds: ["q1", "q2", "q3", "q4", "q5"],
+    correctRoundQuestionIds: ["q1", "q2", "q3", "q4"],
+    correctQuestionIds: ["q1", "q2", "q3", "q4"],
+    durationSeconds: 90,
+    defeatedEnemies: 3,
+    livesRemaining: 5
+  });
+
+  assert.equal(result?.status, "invalid-run");
+  assert.equal(database.adventure_relics?.length ?? 0, 0);
+});
+
+test("a validated duplicate Adventure Island replay upgrades the topic relic without repeating the reward", async () => {
+  const database = createAdventureIslandReadyDatabase();
+  let nextId = 0;
+  const store = createGamificationGamePersistenceStore({
+    createId: () => `id-${++nextId}`,
+    mutateDatabase: async (mutator) => mutator(database),
+    now: () => new Date("2026-06-20T10:30:00.000Z"),
+    readDatabase: async () => database
+  });
+  const input = {
+    studentId: "student-1",
+    topicId: "topic-1",
+    roundKey: "round-1",
+    roundQuestionIds: ["q1", "q2", "q3", "q4", "q5"],
+    correctRoundQuestionIds: ["q1", "q2", "q3", "q4"],
+    correctQuestionIds: ["q1", "q2", "q3", "q4"],
+    durationSeconds: 200,
+    defeatedEnemies: 3,
+    livesRemaining: 1
+  };
+
+  const first = await store.completeAdventureIsland(input);
+  assert.equal(first?.status, "awarded");
+  assert.equal(first?.relic?.bestStars, 1, "slow bruised run starts at one star");
+
+  const replay = await store.completeAdventureIsland({ ...input, durationSeconds: 80, livesRemaining: 2 });
+  assert.equal(replay?.status, "duplicate");
+  assert.equal(replay?.reward.xp, 0, "a duplicate never pays again");
+  assert.deepEqual(replay?.relic, { topicId: "topic-1", isNew: false, clearCount: 2, bestStars: 3 });
+});
+
+test("fishing rarity claims pay the bonus and fill the Fish-dex", async () => {
+  const database = createFishingGameReadyDatabase();
+  let nextId = 0;
+  const store = createGamificationGamePersistenceStore({
+    createId: () => `id-${++nextId}`,
+    mutateDatabase: async (mutator) => mutator(database),
+    now: () => new Date("2026-06-20T10:30:00.000Z"),
+    readDatabase: async () => database
+  });
+
+  const result = await store.completeFishingGame({
+    studentId: "student-1",
+    topicId: "topic-1",
+    roundQuestionIds: ["q1", "q2", "q3", "q4", "q5"],
+    correctRoundQuestionIds: ["q1", "q2", "q3", "q4"],
+    caughtQuestionIds: ["q1", "q2", "q3"],
+    correctCaughtQuestionIds: ["q1", "q2"],
+    caughtSpecies: { q1: "shark", q2: "smallFish", q3: "stingray" },
+    coins: 2,
+    netsUsed: 3,
+    durationSeconds: 60,
+    roundKey: "round-2"
+  });
+
+  assert.equal(result?.status, "awarded");
+  // Base 2 coins x 3 plus epic shark (+2); the stingray was caught but not
+  // answered correctly, so it earns nothing and stays out of the dex.
+  assert.equal(result?.reward.xp, 8);
+  assert.equal(result?.reward.rewardPoints, 8);
+  assert.equal(result?.rarityBonus, 2);
+  assert.deepEqual(result?.dex, { newSpecies: ["shark", "smallFish"], caughtCount: 2, totalSpecies: 7 });
+  assert.match(database.reward_point_ledger?.[0]?.note ?? "", /rarity bonus of 2/);
+  assert.equal(database.fishing_dex?.length, 2);
+  assert.deepEqual(database.fishing_dex?.map((row) => row.species).sort(), ["shark", "smallFish"].sort());
+});
+
+test("bogus fishing species claims void the run", async () => {
+  const baseInput = {
+    studentId: "student-1",
+    topicId: "topic-1",
+    roundQuestionIds: ["q1", "q2", "q3", "q4", "q5"],
+    correctRoundQuestionIds: ["q1", "q2", "q3", "q4"],
+    caughtQuestionIds: ["q1", "q2"],
+    correctCaughtQuestionIds: ["q1", "q2"],
+    coins: 2,
+    netsUsed: 3,
+    durationSeconds: 60,
+    roundKey: "round-2"
+  };
+
+  const bogusClaims: Array<Record<string, string>> = [
+    { q1: "shark", q2: "shark" },
+    { q1: "kraken", q2: "smallFish" },
+    { q9: "shark" }
+  ];
+  for (const caughtSpecies of bogusClaims) {
+    const database = createFishingGameReadyDatabase();
+    const store = createGamificationGamePersistenceStore({
+      mutateDatabase: async (mutator) => mutator(database),
+      now: () => new Date("2026-06-20T10:30:00.000Z"),
+      readDatabase: async () => database
+    });
+    const result = await store.completeFishingGame({ ...baseInput, caughtSpecies });
+    assert.equal(result?.status, "invalid-run", `expected ${JSON.stringify(caughtSpecies)} to void the run`);
+    assert.equal(database.fishing_dex?.length ?? 0, 0);
+  }
+});
+
 test("legacy userStore delegates Adventure Island eligibility through gamification domain store", async () => {
   const source = await readFile(path.join(process.cwd(), "lib/server/userStore.ts"), "utf8");
 
