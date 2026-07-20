@@ -1,5 +1,12 @@
 import { createHash, randomUUID } from "crypto";
 import { gamificationRewardForSource, hongKongDayKey } from "@/lib/gamification";
+import { creatureRarityFor, creatureRarities, fishingSpeciesTotal } from "@/lib/practiceGameJuice";
+import {
+  recordAdventureRelicInPersistence,
+  recordFishingDexCatchesInPersistence,
+  type AdventureRelicPersistenceRecord,
+  type FishingDexPersistenceRecord
+} from "@/lib/server/userStore/gamificationCollectionsPersistence";
 import {
   createGamificationRecordId,
   recordGamificationEventOnce,
@@ -88,6 +95,7 @@ export type GamificationGameAdventureIslandCompletionInput = {
   correctQuestionIds: string[];
   durationSeconds: number;
   defeatedEnemies?: number;
+  livesRemaining?: number;
 };
 
 export type GamificationGameAdventureIslandCompletionResult = {
@@ -98,6 +106,16 @@ export type GamificationGameAdventureIslandCompletionResult = {
     rewardPoints: number;
     label: LocalizedText;
   };
+  starBonus?: {
+    applied: boolean;
+    rewardPoints: number;
+  };
+  relic?: {
+    topicId: string;
+    isNew: boolean;
+    clearCount: number;
+    bestStars: number;
+  } | null;
   gamification: GamificationSummary | null;
 };
 
@@ -108,6 +126,7 @@ export type GamificationGameFishingCompletionInput = {
   correctRoundQuestionIds: string[];
   caughtQuestionIds: string[];
   correctCaughtQuestionIds: string[];
+  caughtSpecies?: Record<string, string>;
   coins: number;
   netsUsed: number;
   durationSeconds: number;
@@ -122,12 +141,20 @@ export type GamificationGameFishingCompletionResult = {
     label: LocalizedText;
   };
   coins: number;
+  rarityBonus?: number;
+  dex?: {
+    newSpecies: string[];
+    caughtCount: number;
+    totalSpecies: number;
+  } | null;
   topicId: string;
   gamification: GamificationSummary | null;
 };
 
 export type GamificationGamePersistenceDatabase = {
   attempts?: GamificationGameAttemptRecord[];
+  adventure_relics?: AdventureRelicPersistenceRecord[];
+  fishing_dex?: FishingDexPersistenceRecord[];
   gamification_events?: GamificationGameEventRecord[];
   questions?: GamificationGameQuestionRecord[];
   reward_point_ledger?: GamificationGameRewardPointLedgerRecord[];
@@ -169,9 +196,26 @@ const practiceGameMinCorrectQuestions = Math.ceil((practiceGameRequiredRoundQues
 const adventureIslandMinCorrectQuestions = 3;
 const adventureIslandMinDurationSeconds = 30;
 const adventureIslandMaxDurationSeconds = 20 * 60;
+const adventureIslandMaxLives = 2;
+const adventureIslandThreeStarTargetSeconds = 120;
+const adventureIslandThreeStarBonusPoints = 15;
 const fishingGameMaxNets = 10;
 const fishingGameMaxDurationSeconds = 120;
 const fishingGameRewardPerCoin = 3;
+
+// Run stars mirror the client's ceremony: the clear itself, keeping every
+// heart, and beating the two-minute clock. livesRemaining is optional client
+// evidence (bounded like defeatedEnemies); without it a run counts as a
+// plain one-star clear and earns no bonus.
+function adventureRunEvidence(livesRemaining: number | undefined, durationSeconds: number) {
+  if (livesRemaining === undefined) return { stars: 1, threeStar: false };
+  const keptEveryHeart = livesRemaining >= adventureIslandMaxLives;
+  const beatTheClock = durationSeconds <= adventureIslandThreeStarTargetSeconds;
+  return {
+    stars: 1 + (keptEveryHeart ? 1 : 0) + (beatTheClock ? 1 : 0),
+    threeStar: keptEveryHeart && beatTheClock
+  };
+}
 
 function cleanUniqueIds(questionIds: string[]) {
   return Array.from(new Set(questionIds.map((questionId) => questionId.trim()).filter(Boolean)));
@@ -448,7 +492,8 @@ function completeAdventureIslandInPersistence(
     correctRoundQuestionIds,
     correctQuestionIds,
     durationSeconds,
-    defeatedEnemies = 0
+    defeatedEnemies = 0,
+    livesRemaining
   }: GamificationGameAdventureIslandCompletionInput,
   {
     buildGamificationSummaryForStudent,
@@ -476,31 +521,55 @@ function completeAdventureIslandInPersistence(
   };
   const emptyReward = { xp: 0, rewardPoints: 0, label };
   const summary = () => buildGamificationSummaryForStudent(database, studentId);
+  const validLivesEvidence =
+    livesRemaining === undefined ||
+    (Number.isFinite(livesRemaining) && livesRemaining >= 0 && livesRemaining <= adventureIslandMaxLives);
+  const validRunShape = (candidateTopicId: string | null): candidateTopicId is string =>
+    Number.isFinite(durationSeconds) &&
+    durationSeconds >= adventureIslandMinDurationSeconds &&
+    durationSeconds <= adventureIslandMaxDurationSeconds &&
+    Boolean(candidateTopicId) &&
+    validLivesEvidence &&
+    defeatedEnemies >= adventureIslandMinCorrectQuestions &&
+    verifiedTopicAdventureIslandQuestionCount(database, studentId, correctQuestionIds, candidateTopicId ?? "") >= adventureIslandMinCorrectQuestions;
 
   if (eligibility.reason === "already-completed") {
-    return { status: "duplicate", eligibility, reward: emptyReward, gamification: summary() };
+    // A replay of a completed topic still cleared THIS run; if the replay
+    // passes the same run validation, it upgrades the topic relic even
+    // though no reward is repeated.
+    const relic = validRunShape(eligibility.topicId)
+      ? recordAdventureRelicInPersistence(database, {
+          studentId,
+          topicId: eligibility.topicId,
+          stars: adventureRunEvidence(livesRemaining, durationSeconds).stars
+        }, { createId, now: now.toISOString() })
+      : null;
+    return {
+      status: "duplicate",
+      eligibility,
+      reward: emptyReward,
+      relic: relic ? { topicId: eligibility.topicId ?? "", ...relic } : null,
+      gamification: summary()
+    };
   }
   if (!eligibility.eligible) {
     return { status: "not-eligible", eligibility, reward: emptyReward, gamification: summary() };
   }
-  if (
-    !Number.isFinite(durationSeconds) ||
-    durationSeconds < adventureIslandMinDurationSeconds ||
-    durationSeconds > adventureIslandMaxDurationSeconds ||
-    !eligibility.topicId ||
-    defeatedEnemies < adventureIslandMinCorrectQuestions ||
-    verifiedTopicAdventureIslandQuestionCount(database, studentId, correctQuestionIds, eligibility.topicId) < adventureIslandMinCorrectQuestions
-  ) {
+  if (!validRunShape(eligibility.topicId)) {
     return { status: "invalid-run", eligibility, reward: emptyReward, gamification: summary() };
   }
 
   const createdAt = now.toISOString();
   const sourceKey = adventureIslandSourceKey(studentId, eligibility.topicId, eligibility.roundKey);
+  const runEvidence = adventureRunEvidence(livesRemaining, durationSeconds);
+  const baseRewardPoints = gamificationRewardForSource("adventure-island-complete").rewardPoints;
+  const starBonusPoints = runEvidence.threeStar ? adventureIslandThreeStarBonusPoints : 0;
   const decision = recordGamificationEventOnce(database, createId, {
     studentId,
     source: "adventure-island-complete",
     sourceKey,
     label,
+    rewardPoints: baseRewardPoints + starBonusPoints,
     createdAt
   });
 
@@ -527,11 +596,19 @@ function completeAdventureIslandInPersistence(
       reason: "adventure-island-complete",
       label_en: label.en,
       label_zh: label.zh,
-      note: `Verified ${adventureIslandMinCorrectQuestions} Adventure Island answers for topic ${eligibility.topicId}.`,
+      note: starBonusPoints > 0
+        ? `Verified ${adventureIslandMinCorrectQuestions} Adventure Island answers for topic ${eligibility.topicId}. Includes the three-star clear bonus (+${starBonusPoints}).`
+        : `Verified ${adventureIslandMinCorrectQuestions} Adventure Island answers for topic ${eligibility.topicId}.`,
       source_key: sourceKey,
       created_at: createdAt
     });
   }
+
+  const relic = recordAdventureRelicInPersistence(database, {
+    studentId,
+    topicId: eligibility.topicId,
+    stars: runEvidence.stars
+  }, { createId, now: createdAt });
 
   return {
     status: decision.status === "capped" ? "capped" : "awarded",
@@ -546,6 +623,11 @@ function completeAdventureIslandInPersistence(
       rewardPoints: decision.appliedRewardPoints,
       label
     },
+    starBonus: {
+      applied: starBonusPoints > 0,
+      rewardPoints: starBonusPoints
+    },
+    relic: { topicId: eligibility.topicId, ...relic },
     gamification: summary()
   };
 }
@@ -559,6 +641,7 @@ function completeFishingGameInPersistence(
     correctRoundQuestionIds,
     caughtQuestionIds,
     correctCaughtQuestionIds,
+    caughtSpecies,
     coins,
     netsUsed,
     durationSeconds,
@@ -658,13 +741,33 @@ function completeFishingGameInPersistence(
   if (cleanCorrectCaughtIds.some((questionId) => !verifiedCaughtCorrect.has(questionId))) return invalid(resolvedTopicId);
   if (coins !== cleanCorrectCaughtIds.length) return invalid(resolvedTopicId);
 
+  // Optional species claims power the rarity bonus and the Fish-dex. Claims
+  // must come from the actual tank: known species only, each unique creature
+  // caught at most once, and only for questions this run actually caught.
+  const speciesEntries = Object.entries(caughtSpecies ?? {});
+  const claimedSpecies = speciesEntries.map(([, species]) => species);
+  if (
+    speciesEntries.some(([questionId]) => !caughtIdSet.has(questionId)) ||
+    claimedSpecies.some((species) => !(species in creatureRarities)) ||
+    new Set(claimedSpecies).size !== claimedSpecies.length
+  ) {
+    return invalid(resolvedTopicId);
+  }
+  const correctCaughtIdSet = new Set(cleanCorrectCaughtIds);
+  const correctSpecies = speciesEntries
+    .filter(([questionId]) => correctCaughtIdSet.has(questionId))
+    .map(([, species]) => species);
+  const rarityBonus = correctSpecies.reduce((sum, species) => sum + (creatureRarityFor(species).tier - 1), 0);
+
   const topicTitle = topicTitleForId(database, resolvedTopicId);
-  const rewardPoints = coins * fishingGameRewardPerCoin;
+  const rewardPoints = coins * fishingGameRewardPerCoin + rarityBonus;
   if (rewardPoints <= 0) {
     return {
       status: "awarded",
       reward: emptyReward,
       coins,
+      rarityBonus: 0,
+      dex: null,
       topicId: resolvedTopicId,
       gamification: summary()
     };
@@ -704,11 +807,18 @@ function completeFishingGameInPersistence(
       reason: "fishing-game-complete",
       label_en: eventLabel.en,
       label_zh: eventLabel.zh,
-      note: `Converted ${coins} fishing coin(s) at ${fishingGameRewardPerCoin} points each.`,
+      note: rarityBonus > 0
+        ? `Converted ${coins} fishing coin(s) at ${fishingGameRewardPerCoin} points each plus a rarity bonus of ${rarityBonus}.`
+        : `Converted ${coins} fishing coin(s) at ${fishingGameRewardPerCoin} points each.`,
       source_key: sourceKey,
       created_at: createdAt
     });
   }
+
+  const dexResult = recordFishingDexCatchesInPersistence(database, {
+    studentId,
+    species: correctSpecies
+  }, { createId, now: createdAt });
 
   return {
     status: decision.status === "capped" ? "capped" : "awarded",
@@ -718,6 +828,12 @@ function completeFishingGameInPersistence(
       label
     },
     coins,
+    rarityBonus,
+    dex: {
+      newSpecies: dexResult.newSpecies,
+      caughtCount: dexResult.caughtCount,
+      totalSpecies: fishingSpeciesTotal
+    },
     topicId: resolvedTopicId,
     gamification: summary()
   };
