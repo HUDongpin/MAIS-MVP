@@ -29,7 +29,7 @@ const teacherNavItems: TeacherNavItem[] = [
   { label: "Reports", path: "/teacher/reports", heading: /Bilingual learning reports/i },
   { label: "Inbox", path: "/teacher/communications/inbox", heading: /^Inbox$/i },
   { label: "Lesson kits", path: "/teacher/lesson-kits", heading: /Lesson Kit Center/i },
-  { label: "Operations", path: "/teacher/operations/notices", heading: /Teacher operations|S1 Foundation Group|S3A Mathematics/i }
+  { label: "School admin", path: "/teacher/operations/notices", heading: /Teacher operations|S1 Foundation Group|S3A Mathematics/i }
 ];
 
 function escapeRegex(value: string) {
@@ -102,7 +102,14 @@ test.describe("teacher console button matrix", () => {
 
     await authenticateAsDemoStudent(page);
     await page.goto("/teacher/dashboard");
-    await expect(page).toHaveURL(/\/dashboard$/);
+    // A teacher URL must never serve another account's student workspace (QA
+    // BUG-003/004/005): non-teacher sessions get an explicit teacher-login ask.
+    await expect(page).toHaveURL(
+      /\/login\?next=(?:%2Fteacher%2Fdashboard|\/teacher\/dashboard)&reason=teacher-account-required/
+    );
+    await expect(
+      page.getByText(/needs a teacher account|需要教師帳戶|需要教师账号/).first()
+    ).toBeVisible();
 
     await logoutThroughApi(page);
     await authenticateAsTeacher(page);

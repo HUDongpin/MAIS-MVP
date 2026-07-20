@@ -188,6 +188,34 @@ test("teacher assignment returned queue URL normalizes to the correction-require
   assert.match(emptyWorkspaceSource, /activeFilter=\{activeAssignmentFilter\}/);
 });
 
+test("teacher nav badges stay off the layout hot path and keep exact link names", async () => {
+  const shellSource = await readFile(path.join(process.cwd(), "components/teacher/TeacherShell.tsx"), "utf8");
+  const iconsSource = await readFile(path.join(process.cwd(), "components/teacher/teacherNavIcons.tsx"), "utf8");
+  const layoutSource = await readFile(path.join(process.cwd(), "app/teacher/layout.tsx"), "utf8");
+  const routeSource = await readFile(path.join(process.cwd(), "app/api/teacher/nav-signals/route.ts"), "utf8");
+
+  // Badge counts must be fetched lazily from the client, never folded into the
+  // server-rendered layout aggregation that every teacher page pays for.
+  assert.doesNotMatch(layoutSource, /nav-signals|NavSignals/);
+  assert.match(shellSource, /fetch\("\/api\/teacher\/nav-signals"/);
+  assert.match(
+    shellSource,
+    /if \(isEmptyWorkspace\) return;\s*\n\s*if \(Date\.now\(\) - navSignalsFetchedAtRef\.current < navSignalsRefreshMs\) return;/,
+    "Nav badge fetch should skip empty workspaces and throttle repeat navigations."
+  );
+
+  // The badge fetch reuses the dashboard aggregation behind a per-teacher cache
+  // so it cannot add a fresh heavy aggregation per page view.
+  assert.match(routeSource, /unstable_cache/);
+  assert.match(routeSource, /revalidate:\s*120/);
+  assert.match(routeSource, /teacherWorkspaceCacheTag/);
+
+  // Icons and badge counts are decorative: they must stay out of the links'
+  // accessible names so tests and screen readers keep the exact nav labels.
+  assert.match(iconsSource, /aria-hidden="true"/);
+  assert.match(shellSource, /badgeCount > 0 \? \(\s*<span\s*aria-hidden="true"/);
+});
+
 test("teacher no-class shell navigation switches empty workspace client-side", async () => {
   const shellSource = await readFile(path.join(process.cwd(), "components/teacher/TeacherShell.tsx"), "utf8");
   const emptyWorkspaceSource = await readFile(path.join(process.cwd(), "components/teacher/TeacherEmptyWorkspace.tsx"), "utf8");
