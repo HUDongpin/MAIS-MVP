@@ -29,6 +29,11 @@ jobs:
   validate:
     if: ${{ github.event_name == 'workflow_dispatch' && inputs.full_validation }}
     runs-on: ubuntu-latest
+    # A non-incremental `tsc --noEmit` (and the production build) over this repo
+    # exceeds Node's default ~2 GB old-space and OOMs the runner; runners have
+    # 16 GB, so give the whole job a larger heap.
+    env:
+      NODE_OPTIONS: --max-old-space-size=6144
     steps:
       - name: Check out repository
         uses: actions/checkout@v4
