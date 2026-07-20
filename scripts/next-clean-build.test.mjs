@@ -248,6 +248,109 @@ test("next clean build does not spawn when the process guard fails", async (t) =
   assert.deepEqual(events, ["guard"]);
 });
 
+test("next clean build runs the stray-types guard between the process guard and cleanup", async (t) => {
+  const isolatedRepoRoot = await fs.mkdtemp(path.join(os.tmpdir(), "mais-next-clean-repo-"));
+  t.after(async () => {
+    await fs.rm(isolatedRepoRoot, { recursive: true, force: true });
+  });
+  const events = [];
+
+  const exitCode = await nextCleanBuildModule.runNextCleanBuild({
+    repoRoot: isolatedRepoRoot,
+    lockTimeoutMs: 250,
+    operations: {
+      findActiveNextProcesses: async () => {
+        events.push("guard");
+        return [];
+      },
+      checkStrayGeneratedTypes: () => {
+        events.push("stray");
+        return { broken: [], strayValid: [] };
+      },
+      cleanNextBuildDirectory: async () => {
+        events.push("cleanup");
+        return false;
+      },
+      spawnNextBuild: async () => {
+        events.push("build");
+        return 0;
+      }
+    }
+  });
+
+  assert.equal(exitCode, 0);
+  assert.deepEqual(events, ["guard", "stray", "cleanup", "build"]);
+});
+
+test("next clean build does not clean or spawn when the stray-types guard throws", async (t) => {
+  const isolatedRepoRoot = await fs.mkdtemp(path.join(os.tmpdir(), "mais-next-clean-repo-"));
+  t.after(async () => {
+    await fs.rm(isolatedRepoRoot, { recursive: true, force: true });
+  });
+  const events = [];
+
+  await assert.rejects(
+    nextCleanBuildModule.runNextCleanBuild({
+      repoRoot: isolatedRepoRoot,
+      lockTimeoutMs: 250,
+      operations: {
+        findActiveNextProcesses: async () => {
+          events.push("guard");
+          return [];
+        },
+        checkStrayGeneratedTypes: () => {
+          events.push("stray");
+          throw new Error("stray generated types reference deleted routes");
+        },
+        cleanNextBuildDirectory: async () => {
+          events.push("cleanup");
+        },
+        spawnNextBuild: async () => {
+          events.push("build");
+          return 0;
+        }
+      }
+    }),
+    /stray generated types reference deleted routes/
+  );
+  assert.deepEqual(events, ["guard", "stray"]);
+});
+
+test("MAIS_SKIP_STRAY_TYPES_CHECK bypasses the stray-types guard", async (t) => {
+  const isolatedRepoRoot = await fs.mkdtemp(path.join(os.tmpdir(), "mais-next-clean-repo-"));
+  t.after(async () => {
+    await fs.rm(isolatedRepoRoot, { recursive: true, force: true });
+  });
+  const events = [];
+
+  const exitCode = await nextCleanBuildModule.runNextCleanBuild({
+    env: { MAIS_SKIP_STRAY_TYPES_CHECK: "1" },
+    repoRoot: isolatedRepoRoot,
+    lockTimeoutMs: 250,
+    operations: {
+      findActiveNextProcesses: async () => {
+        events.push("guard");
+        return [];
+      },
+      checkStrayGeneratedTypes: () => {
+        events.push("stray");
+        throw new Error("should have been skipped");
+      },
+      cleanNextBuildDirectory: async () => {
+        events.push("cleanup");
+        return false;
+      },
+      spawnNextBuild: async () => {
+        events.push("build");
+        return 0;
+      }
+    }
+  });
+
+  assert.equal(exitCode, 0);
+  assert.deepEqual(events, ["guard", "cleanup", "build"]);
+});
+
 test("next clean build does not spawn when safe cleanup fails", async (t) => {
   const isolatedRepoRoot = await fs.mkdtemp(path.join(os.tmpdir(), "mais-next-clean-repo-"));
   t.after(async () => {

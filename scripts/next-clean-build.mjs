@@ -13,6 +13,7 @@ import {
   validateGeneratedTargetPath,
   withGeneratedCleanupLock
 } from "./cleanup-generated-artifacts.mjs";
+import { assertNoBrokenStrayGeneratedTypes } from "./check-stray-generated-types.mjs";
 
 const SCRIPT_DIR = path.dirname(fileURLToPath(import.meta.url));
 const REPO_ROOT = path.resolve(SCRIPT_DIR, "..");
@@ -113,6 +114,7 @@ export async function runNextCleanBuild({
   const findProcesses = operations.findActiveNextProcesses ?? findActiveNextProcesses;
   const cleanBuildDir = operations.cleanNextBuildDirectory ?? cleanNextBuildDirectory;
   const spawnBuild = operations.spawnNextBuild ?? spawnNextBuild;
+  const checkStrayGeneratedTypes = operations.checkStrayGeneratedTypes ?? assertNoBrokenStrayGeneratedTypes;
 
   return await withGeneratedCleanupLock(
     {
@@ -124,6 +126,12 @@ export async function runNextCleanBuild({
       await assertSharedNextBuildIsIsolated(config, env, {
         findActiveNextProcesses: findProcesses
       });
+      // Fail fast with a clear message instead of a cryptic "Cannot find module
+      // .../page.js" deep in a stray build's generated types. Set
+      // MAIS_SKIP_STRAY_TYPES_CHECK=1 to bypass if it ever false-positives.
+      if (env.MAIS_SKIP_STRAY_TYPES_CHECK !== "1") {
+        checkStrayGeneratedTypes({ repoRoot: config.repoRoot });
+      }
       await cleanBuildDir(config);
       return await spawnBuild(config, env);
     }
