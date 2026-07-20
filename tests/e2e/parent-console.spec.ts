@@ -371,8 +371,14 @@ test.describe.serial("parent console end-to-end verification", () => {
     expect(parentApi.status()).toBe(200);
 
     await page.goto("/teacher");
-    await expect(page).toHaveURL(/\/dashboard/);
-    await logoutIfVisible(page);
+    // A teacher URL must never serve a parent account's workspace (QA BUG-003/004/005):
+    // non-teacher sessions get an explicit teacher-login ask, not a silent dashboard swap.
+    await expect(page).toHaveURL(
+      /\/login\?next=(?:%2Fteacher%2Fdashboard|\/teacher\/dashboard)&reason=teacher-account-required/
+    );
+    // The parent now lands on /login (no dashboard logout control), so clear the session
+    // through the API before switching accounts.
+    await page.request.post("/api/auth/logout");
 
     await loginAsDemoStudent(page);
     await page.goto("/parent");
