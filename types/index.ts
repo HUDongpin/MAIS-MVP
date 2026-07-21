@@ -3954,6 +3954,46 @@ export type TeacherStudentMasteryTarget = {
   teacherName: string;
 };
 
+// Per-student accommodations (IEP / Section 504). These attach to the student and
+// follow them across every class and into the learning experience — a legal
+// expectation under IDEA/504 and a daily need for mixed-needs classrooms. Any
+// teacher who owns or co-teaches a class the student is enrolled in can view and
+// update the profile; admins can see all. See lib/accommodations.ts for the pure
+// helpers (defaults, normalization, extended-time multiplier, labels).
+export type AccommodationExtendedTime = "none" | "extra-half" | "double" | "unlimited";
+export type AccommodationCalculatorPolicy = "default" | "allowed" | "not-allowed";
+
+export type StudentAccommodations = {
+  // Extended time on timed work. "none" = standard time; "extra-half" = 1.5x;
+  // "double" = 2x; "unlimited" = no time pressure.
+  extendedTime: AccommodationExtendedTime;
+  // Text-to-speech read-aloud support is offered in the learning experience.
+  readAloud: boolean;
+  // Cap on the number of multiple-choice options shown. 0 = show all options;
+  // otherwise the count (>= 2) the student sees, always keeping the correct one.
+  maxAnswerChoices: number;
+  // Whether a calculator is permitted for this student.
+  calculatorPolicy: AccommodationCalculatorPolicy;
+  // Free-text note for the accommodation (e.g. the plan reference or context).
+  notes: string;
+};
+
+export type StudentAccommodationsProfile = StudentAccommodations & {
+  studentId: string;
+  studentName: string;
+  // True once any non-default accommodation is set — i.e. the student has an
+  // active accommodations plan on record.
+  hasPlan: boolean;
+  updatedAt: string | null;
+  updatedBy: string | null;
+  updatedByName: string | null;
+};
+
+export type StudentAccommodationsProfileResult =
+  | { status: "ok"; profile: StudentAccommodationsProfile }
+  | { status: "forbidden" }
+  | { status: "student-not-found" };
+
 export type TeacherStudentProfileData = {
   student: StudentSession;
   classes: TeacherClass[];

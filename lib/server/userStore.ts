@@ -397,6 +397,12 @@ import {
   type TeacherOpsMasteryTargetPersistenceDatabase
 } from "@/lib/server/userStore/teacherOpsMasteryTargetPersistence";
 import {
+  createAccommodationsPersistenceStore,
+  normalizeStudentAccommodationsRecords,
+  type AccommodationsPersistenceDatabase,
+  type StudentAccommodationsRecord
+} from "@/lib/server/userStore/accommodationsPersistence";
+import {
   createTeacherOpsStudentProfilePersistenceStore,
   type TeacherOpsStudentProfilePersistenceDatabase
 } from "@/lib/server/userStore/teacherOpsStudentProfilePersistence";
@@ -1725,6 +1731,7 @@ type Database = {
   mistakes: MistakeRecordRow[];
   lesson_progress: LessonProgressRecord[];
   teacher_mastery_targets: TeacherMasteryTargetRecord[];
+  student_accommodations: StudentAccommodationsRecord[];
   adaptive_skill_state: AdaptiveSkillStateRecord[];
   adaptive_recommendation_cache: AdaptiveRecommendationCacheRecord[];
   visualization_events: VisualizationEventRecord[];
@@ -2618,6 +2625,7 @@ function createInitialDatabase(): Database {
     mistakes: [],
     lesson_progress: seedLessonProgressRecords(demoUserId, now),
     teacher_mastery_targets: [],
+    student_accommodations: [],
     adaptive_skill_state: [],
     adaptive_recommendation_cache: [],
     visualization_events: [],
@@ -4286,6 +4294,7 @@ function normalizeDatabase(database: Partial<Database>) {
       }
     ),
     teacher_mastery_targets: normalizeTeacherMasteryTargetRecordsFromTeacherOpsMasteryTarget(database.teacher_mastery_targets ?? [], now),
+    student_accommodations: normalizeStudentAccommodationsRecords(database.student_accommodations ?? [], now),
     adaptive_skill_state: normalizeAdaptiveSkillStateRecordsFromStudentActivityPersistence(database.adaptive_skill_state ?? [], now),
     adaptive_recommendation_cache: normalizeAdaptiveRecommendationCacheRecordsFromAiGovernancePersistence(database.adaptive_recommendation_cache ?? [], now),
     visualization_events: database.visualization_events ?? [],
@@ -4420,6 +4429,7 @@ function databaseNeedsPersistenceSync(parsed: Partial<Database>, database: Datab
     !Array.isArray(parsed.ai_tutor_usage) ||
     !Array.isArray(parsed.ai_governance_events) ||
     (parsed.class_ai_tutor_policies !== undefined && !Array.isArray(parsed.class_ai_tutor_policies)) ||
+    (parsed.student_accommodations !== undefined && !Array.isArray(parsed.student_accommodations)) ||
     !Array.isArray(parsed.nova_lens_runs) ||
     typeof parsed.nova_lens_policy !== "object" ||
     parsed.nova_lens_policy === null ||
@@ -4767,6 +4777,17 @@ const learnerProfilePersistenceStore = createLearnerProfilePersistenceStore({
   },
   mutateDatabase: async <T>(mutator: (database: LearnerProfilePersistenceDatabase) => T | Promise<T>) => {
     const result = await mutateDatabase((database) => mutator(database));
+    return result as T;
+  }
+});
+
+const accommodationsPersistenceStore = createAccommodationsPersistenceStore({
+  readDatabase: async () => {
+    const database = await readDatabase();
+    return database as AccommodationsPersistenceDatabase;
+  },
+  mutateDatabase: async <T>(mutator: (database: AccommodationsPersistenceDatabase) => T | Promise<T>) => {
+    const result = await mutateDatabase((database) => mutator(database as AccommodationsPersistenceDatabase));
     return result as T;
   }
 });
@@ -7471,6 +7492,7 @@ function emptyTeacherDashboardDatabase(overrides: Partial<Database>): Database {
     mistakes: [],
     lesson_progress: [],
     teacher_mastery_targets: [],
+    student_accommodations: [],
     adaptive_skill_state: [],
     adaptive_recommendation_cache: [],
     visualization_events: [],
@@ -8202,6 +8224,13 @@ export const markForumNotificationsRead = teacherOpsUserStore.markForumNotificat
 export const setTeacherStudentMasteryTarget = teacherOpsUserStore.setTeacherStudentMasteryTarget;
 
 export const clearTeacherStudentMasteryTarget = teacherOpsUserStore.clearTeacherStudentMasteryTarget;
+
+// Per-student accommodations (IEP / 504). `getStudentAccommodations` is the read
+// used by the student's own learning experience; the teacher-scoped reads/writes
+// enforce the shared class-visibility rule. See accommodationsPersistence.ts.
+export const getStudentAccommodations = accommodationsPersistenceStore.getStudentAccommodations;
+export const getStudentAccommodationsProfileForTeacher = accommodationsPersistenceStore.getStudentAccommodationsProfileForTeacher;
+export const setStudentAccommodationsForTeacher = accommodationsPersistenceStore.setStudentAccommodationsForTeacher;
 
 const riskTagsForStudent: (
   database: Database,
