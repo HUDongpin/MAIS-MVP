@@ -72,8 +72,8 @@ jobs:
 
   visualization-browser:
     # Browser half of the visualization QA gate (transfer-doc F4 / Q1 -> Playwright).
-    # Kept on workflow_dispatch until its first green run, then promote to PR if desired.
-    if: ${{ github.event_name == 'workflow_dispatch' && inputs.full_validation }}
+    # Runs on every PR (first green run 2026-07-21) plus manual full_validation.
+    if: ${{ github.event_name == 'pull_request' || (github.event_name == 'workflow_dispatch' && inputs.full_validation) }}
     runs-on: ubuntu-latest
     # Playwright's webServer builds the app; that Next build OOMs Node's default
     # ~2 GB old-space on the runner. Match the `validate` job's larger heap.
@@ -98,10 +98,9 @@ jobs:
         run: npx playwright test tests/e2e/visualization-contract.spec.ts --project=desktop-chrome
 
   teacher-parent-e2e:
-    # Teacher + parent journey E2E in CI (plan P2-3). These specs exist and are
-    # maintained but never ran in CI; wire them into the browser lane.
-    # workflow_dispatch until their first green CI run, then promote to PR if desired.
-    if: ${{ github.event_name == 'workflow_dispatch' && inputs.full_validation }}
+    # Teacher + parent journey E2E in CI (plan P2-3). Runs on every PR (first
+    # green run 2026-07-21) plus manual full_validation dispatch.
+    if: ${{ github.event_name == 'pull_request' || (github.event_name == 'workflow_dispatch' && inputs.full_validation) }}
     runs-on: ubuntu-latest
     # Playwright's webServer builds the app; that Next build OOMs Node's default
     # ~2 GB old-space on the runner. Match the `validate` job's larger heap.
