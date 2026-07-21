@@ -3328,6 +3328,65 @@ export type AssessmentSubmission = {
   updatedAt: string;
 };
 
+/**
+ * Teacher gradebook grid — the consolidated students-×-graded-work "markbook".
+ * Columns are every graded item for a class (assignments and assessments);
+ * cells are one student's result for one item. Built by `lib/teacherGradebook.ts`.
+ */
+export type TeacherGradebookColumnKind = "assignment" | "assessment";
+
+export type TeacherGradebookColumn = {
+  id: string;
+  kind: TeacherGradebookColumnKind;
+  title: LocalizedText;
+  /** Points a full mark is worth. Assignments are a 0–100 percentage scale, so 100. */
+  maxScore: number;
+  /** Assessment grade weight; null for assignments. */
+  weight: number | null;
+  countsTowardsGrade: boolean;
+  /** Due date (assignment) or close date (assessment); null when open-ended. */
+  dueAt: string | null;
+  status: string;
+  /** Average percentage across students who have a graded, grade-counting result. */
+  average: number | null;
+  gradedCount: number;
+  studentCount: number;
+};
+
+export type TeacherGradebookCellState = "graded" | "pending" | "missing";
+
+export type TeacherGradebookCell = {
+  columnId: string;
+  state: TeacherGradebookCellState;
+  /** Raw points earned (0–100 for assignments; raw score for assessments). Null unless graded. */
+  score: number | null;
+  /** Points a full mark is worth for this cell. Null unless graded. */
+  maxScore: number | null;
+  /** Normalized 0–100 percentage. Null unless graded. */
+  percentage: number | null;
+};
+
+export type TeacherGradebookStudentRow = {
+  studentId: string;
+  studentName: string;
+  /** Aligned with `TeacherGradebookData.columns` order. */
+  cells: TeacherGradebookCell[];
+  /** Mean percentage across this student's graded, grade-counting cells. */
+  average: number | null;
+  gradedCount: number;
+  /** Number of grade-counting columns (the denominator teachers reason about). */
+  totalCount: number;
+};
+
+export type TeacherGradebookData = {
+  generatedAt: string;
+  class: { id: string; name: string; grade: GradeId };
+  columns: TeacherGradebookColumn[];
+  students: TeacherGradebookStudentRow[];
+  /** Mean of per-student averages. */
+  classAverage: number | null;
+};
+
 export type TeacherReport = {
   id: string;
   type: TeacherReportType;

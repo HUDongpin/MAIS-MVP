@@ -16,6 +16,7 @@ import {
   mapDifficultyToActive
 } from "@/lib/difficulty";
 import { formatGradeLabel } from "@/lib/i18n";
+import { buildTeacherGradebook, gradebookToCsv } from "@/lib/teacherGradebook";
 import { lessonHrefForSlug } from "@/lib/lessonLinks";
 import { buildHongKongMathEvidencePack } from "@/lib/rag/hongKongMath";
 import { buildMainlandHjbHighEvidencePack } from "@/lib/rag/mainlandHjbHigh";
@@ -692,6 +693,7 @@ import type {
   TeacherDashboardData,
   TeacherFoundationData,
   TeacherGamificationData,
+  TeacherGradebookData,
   TeacherInboxData,
   TeacherInboxThread,
   TeacherInterventionAction,
@@ -9932,6 +9934,90 @@ export async function getTeacherClassSkyMaterials({
     students,
     generatedAt: new Date().toISOString()
   };
+}
+
+/**
+ * Consolidated gradebook grid for one class: every graded item (assignments and
+ * assessments) as columns, every enrolled student as a row. Ownership is enforced
+ * by `getTeacherClassEnrollments`, which returns null when the teacher does not
+ * own the class; the database is then read once to assemble the grid.
+ */
+export async function getTeacherGradebookData({
+  teacherId,
+  classId
+}: {
+  teacherId: string;
+  classId: string;
+}): Promise<TeacherGradebookData | null> {
+  const enrollments = await getTeacherClassEnrollments(teacherId, classId);
+  if (!enrollments) return null;
+  const classes = await getTeacherClasses(teacherId);
+  const teacherClass = classes?.find((candidate) => candidate.id === classId) ?? null;
+  if (!teacherClass) return null;
+
+  const database = await readDatabase();
+
+  const students = [...enrollments]
+    .sort((a, b) => a.studentName.localeCompare(b.studentName))
+    .map((enrollment) => ({ studentId: enrollment.studentId, studentName: enrollment.studentName }));
+
+  const assignments = database.assignments
+    .filter((assignment) => assignment.class_id === classId)
+    .map((assignment) => ({
+      id: assignment.id,
+      title: { en: assignment.title_en, zh: assignment.title_zh },
+      status: assignment.status,
+      dueAt: assignment.due_at,
+      countsTowardsGrade: assignment.count_towards_grade,
+      createdAt: assignment.created_at,
+      submissions: database.submissions
+        .filter((submission) => submission.assignment_id === assignment.id)
+        .map((submission) => ({
+          studentId: submission.student_id,
+          status: submission.status,
+          score: submission.score
+        }))
+    }));
+
+  const assessments = database.assessments
+    .filter((assessment) => assessment.class_id === classId)
+    .map((assessment) => ({
+      id: assessment.id,
+      title: { en: assessment.title_en, zh: assessment.title_zh },
+      type: assessment.type,
+      status: assessment.status,
+      closesAt: assessment.closes_at,
+      weight: assessment.grade_weight,
+      createdAt: assessment.created_at,
+      submissions: database.assessment_submissions
+        .filter((submission) => submission.assessment_id === assessment.id)
+        .map((submission) => ({
+          studentId: submission.student_id,
+          status: submission.status,
+          attemptNumber: submission.attempt_number,
+          score: submission.score,
+          maxScore: submission.max_score
+        }))
+    }));
+
+  return buildTeacherGradebook({
+    class: { id: teacherClass.id, name: teacherClass.name, grade: teacherClass.grade },
+    students,
+    assignments,
+    assessments
+  });
+}
+
+export async function getTeacherGradebookCsv({
+  teacherId,
+  classId
+}: {
+  teacherId: string;
+  classId: string;
+}): Promise<string | null> {
+  const data = await getTeacherGradebookData({ teacherId, classId });
+  if (!data) return null;
+  return gradebookToCsv(data);
 }
 
 export const submitQuestionAttempt = studentActivityUserStore.submitQuestionAttempt;

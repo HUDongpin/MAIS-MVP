@@ -10,6 +10,7 @@ export type TeacherNavIconName =
   | "resources"
   | "classes"
   | "analytics"
+  | "gradebook"
   | "rewards"
   | "reports"
   | "operations";
@@ -75,6 +76,14 @@ const iconPaths: Record<TeacherNavIconName, ReactNode> = {
       <path d="M11 20V8" />
       <path d="M17 20v-9" />
       <path d="M3 20h18" />
+    </>
+  ),
+  gradebook: (
+    <>
+      <rect x="3.5" y="4.5" width="17" height="15" rx="1.5" />
+      <path d="M9 4.5v15" />
+      <path d="M3.5 9.5h17" />
+      <path d="M3.5 14.5h17" />
     </>
   ),
   rewards: (

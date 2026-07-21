@@ -39,7 +39,8 @@ try {
   const passed = run("node", [
     "--test",
     join(outputDir, "lib/learningAnalytics.test.js"),
-    join(outputDir, "lib/adaptiveLearning.test.js")
+    join(outputDir, "lib/adaptiveLearning.test.js"),
+    join(outputDir, "lib/teacherGradebook.test.js")
   ]);
   if (!passed) process.exit(process.exitCode);
 } finally {
