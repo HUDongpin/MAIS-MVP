@@ -30,12 +30,23 @@ const REQUIRED_DIRECTORIES = [
   "lib",
   "types",
   "public/audio",
-  "public/auth",
-  "public/forum-assets",
-  "public/games",
   "public/lesson-illustrations",
   "public/ease_question_assets",
   "public/practice"
+];
+
+// public/games is not bulk-included: most of that tree is unreferenced design
+// snapshots. Only these five files are referenced by live game runtime code
+// (Mighty Tank Battle, Math Virus Blaster, Math Match Quest) and already serve
+// production; each is validated and shipped explicitly. public/auth and
+// public/forum-assets were removed by 7de8503d6d and are no longer referenced,
+// so they are dropped from the required set.
+const REQUIRED_GAME_ASSET_FILES = [
+  "public/games/math-match-quest/board-reference.png",
+  "public/games/math-match-quest/map-reference.png",
+  "public/games/math-virus-blaster/math-master-virus-blaster-design.png",
+  "public/games/mighty-tank-battle/desktop-reference.png",
+  "public/games/mighty-tank-battle/mobile-reference.png"
 ];
 
 const FORBIDDEN_ROOTS = new Set([
@@ -119,7 +130,7 @@ export async function prepareVercelStaging(options = {}) {
 async function collectDeployableFiles() {
   const files = [];
 
-  for (const rootFile of REQUIRED_ROOT_FILES) {
+  for (const rootFile of [...REQUIRED_ROOT_FILES, ...REQUIRED_GAME_ASSET_FILES]) {
     const absolutePath = path.join(REPO_ROOT, rootFile);
     await assertReadablePath(absolutePath, rootFile);
     const stat = await fs.stat(absolutePath);
