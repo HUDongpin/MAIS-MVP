@@ -6,7 +6,7 @@ import { motion } from "@/components/ui/Motion";
 import { grades, primaryGrades, secondaryGrades } from "@/data/grades";
 import { getMainlandHjbTransitDetails, isMainlandHjbRoadmapProfile } from "@/data/mainlandHjbRoadmapPresentation";
 import { getMainlandPepTransitDetails, isMainlandPepRoadmapProfile } from "@/data/mainlandPepRoadmapPresentation";
-import { topics as fallbackTopics } from "@/data/topics";
+import { topicsMetadata as fallbackTopics } from "@/data/topicsMetadata";
 import { dictionary, useSettings } from "@/components/providers/AppProviders";
 import { curriculumProfileForTrack, curriculumTrackForProfile, publisherLabels } from "@/lib/curriculumProfile";
 import { formatDifficultyLabel, formatGradeLabel, isChineseLanguage, simplifyChineseText } from "@/lib/i18n";

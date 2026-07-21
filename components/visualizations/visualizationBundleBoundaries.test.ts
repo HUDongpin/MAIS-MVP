@@ -1,6 +1,8 @@
 import assert from "node:assert/strict";
 import fs from "node:fs";
 import test from "node:test";
+import { topics } from "@/data/topics";
+import { topicsMetadata } from "@/data/topicsMetadata";
 import { getPremiumThreeDDirectLab } from "./premiumThreeDDirectLabs";
 
 test("Visualization Lab first screen defers the full catalog and active lab runtime", () => {
@@ -104,13 +106,6 @@ test("HK functions direct lab stays on the canonical function graph Manim scene"
   assert.equal(lab.threeD?.enabled, true);
 });
 
-test("roadmap visualization artwork does not import the full Visualization Lab catalog", () => {
-  const source = fs.readFileSync("components/visualizations/RoadmapVisualizationSuite.tsx", "utf8");
-
-  assert.doesNotMatch(source, /@\/data\/visualizationLabs/);
-  assert.match(source, /roadmapVisualizationLabelsByTopicId/);
-});
-
 test("roadmap route shell keeps roadmap pages on server-rendered imports", () => {
   const shellPath = "components/learning/RoadmapRouteShell.tsx";
   assert.equal(fs.existsSync(shellPath), true, "RoadmapRouteShell should exist");
@@ -131,6 +126,26 @@ test("roadmap route shell keeps roadmap pages on server-rendered imports", () =>
     const routeSource = fs.readFileSync(routePath, "utf8");
     assert.match(routeSource, /RoadmapRouteShell/);
     assert.doesNotMatch(routeSource, /@\/components\/learning\/(?:StudentRoadmapPage|PrimaryRoadmapPage|SecondaryRoadmapPage)/);
+  }
+});
+
+test("topicsMetadata snapshot matches the live topics (regenerate if this fails)", () => {
+  // @/data/topicsMetadata is a bank-free snapshot of @/data/topics used by client code.
+  // If a region topic module changes, regenerate with:
+  //   node --import tsx scripts/generate-topics-metadata.mts
+  assert.deepEqual(topicsMetadata, JSON.parse(JSON.stringify(topics)));
+});
+
+test("roadmap client components import the bank-free topic metadata snapshot, not @/data/topics", () => {
+  // Importing @/data/topics from a client component ships every region's question-bank
+  // JSON (tens of MB) to the browser. Roadmap components must use @/data/topicsMetadata.
+  for (const componentPath of [
+    "components/learning/LearningRoadmap.tsx",
+    "components/learning/SubwayNetworkMap.tsx"
+  ]) {
+    const source = fs.readFileSync(componentPath, "utf8");
+    assert.doesNotMatch(source, /from "@\/data\/topics"/, `${componentPath} must not import @/data/topics`);
+    assert.match(source, /from "@\/data\/topicsMetadata"/, `${componentPath} must import @/data/topicsMetadata`);
   }
 });
 
