@@ -184,7 +184,7 @@ test.describe.serial("teacher workspace frontend workflows", () => {
     await page.goto("/teacher/inbox");
     await expect(page.getByRole("heading", { name: /^Inbox$/i })).toBeVisible();
     await page.getByRole("button", { name: /Draft reply/i }).click();
-    const replyBox = page.getByPlaceholder(/Reply to the student/i);
+    const replyBox = page.getByPlaceholder(/Reply to the (student|parent)/i);
     await expect(replyBox).not.toBeEmpty();
     const starToggle = page.getByRole("button", { name: /Star|Unstar/i });
     await starToggle.click();

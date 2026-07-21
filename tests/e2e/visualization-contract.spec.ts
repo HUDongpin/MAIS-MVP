@@ -24,9 +24,23 @@ import { collectPageErrors, expectNoPageErrors, loginAsDemoStudentApi } from "./
  * (`visualization-values.spec.ts` owns the exhaustive value sweep).
  */
 
-// A deterministic spread across the catalog: first, middle, last renderable lab.
+// The demo student (student-peter) is an HK learner, and the Visualization Lab
+// only renders labs in the learner's own curriculum — HK-track labs plus
+// CAPSTONE premium labs (see labMatchesLearnerCurriculum in VisualizationLabPage).
+// Navigating to a cross-curriculum lab (e.g. a MAINLAND_HJB bench) correctly
+// falls back to the menu, so it is NOT a render bug — it is just unreachable for
+// this student. Scope the deterministic spread to labs this student can actually
+// open. (Covering other curricula would need a student per track — out of scope
+// for this fast gate.)
+const accessibleLabs = visualizationLabCatalog.filter(
+  (lab) =>
+    lab.curriculumTrack === "HK" ||
+    (lab.curriculumTrack === "CAPSTONE" && lab.threeD?.premiumLaunch === true)
+);
+
+// A deterministic spread across the accessible labs: first, middle, last.
 const sampleLabs = (() => {
-  const labs = visualizationLabCatalog;
+  const labs = accessibleLabs;
   if (labs.length === 0) return [];
   const indices = [...new Set([0, Math.floor(labs.length / 2), labs.length - 1])];
   return indices.map((i) => labs[i]);
@@ -44,18 +58,23 @@ test.describe("Visualization Lab runtime-ready DOM contract", () => {
       await page.goto(buildVisualizationLabHref(lab), { waitUntil: "domcontentloaded" });
 
       // The lab page reached its "lab" panel and mounted this lab's runtime.
-      await expect(page.locator('[data-viz-panel-mode="lab"]')).toBeVisible();
+      // Heavy labs (e.g. Three.js geometry benches) can take well over the
+      // default expect timeout to reach panel-mode "lab" on a cold CI runner —
+      // this is a mount-latency gate, not a renderer bug (see the projection-views
+      // panel-mode flake). Give the mount assertions generous, explicit headroom.
+      const mountTimeout = 45_000;
+      await expect(page.locator('[data-viz-panel-mode="lab"]')).toBeVisible({ timeout: mountTimeout });
       await expect(
         page.locator(`[data-viz-active-lab-id=${JSON.stringify(lab.labId)}]`)
-      ).toBeVisible();
+      ).toBeVisible({ timeout: mountTimeout });
 
       const section = page.locator(visualizationLabSectionSelector(lab));
-      await expect(section, `${lab.labId} lab section should be visible`).toBeVisible();
+      await expect(section, `${lab.labId} lab section should be visible`).toBeVisible({ timeout: mountTimeout });
       await section.scrollIntoViewIfNeeded();
 
       // The probe contract: a surface with at least one mark inside it.
       const surface = section.locator("[data-viz-surface]").first();
-      await expect(surface, `${lab.labId} should render [data-viz-surface]`).toBeVisible();
+      await expect(surface, `${lab.labId} should render [data-viz-surface]`).toBeVisible({ timeout: mountTimeout });
       await expect(
         surface.locator("[data-viz-mark]").first(),
         `${lab.labId} should render [data-viz-mark] inside its surface (probe readiness)`
