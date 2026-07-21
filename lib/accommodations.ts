@@ -97,6 +97,19 @@ export function extendedTimeMultiplier(setting: AccommodationExtendedTime): numb
   }
 }
 
+// The countdown length (in seconds) for a timed assessment after applying the
+// student's extended-time accommodation. Returns 0 when there is no timed limit
+// or when the accommodation is unlimited (no countdown should be shown in either
+// case).
+export function assessmentTimerSeconds(
+  baseTimeLimitMinutes: number | null | undefined,
+  setting: AccommodationExtendedTime
+): number {
+  const multiplier = extendedTimeMultiplier(setting);
+  if (!baseTimeLimitMinutes || baseTimeLimitMinutes <= 0 || multiplier === null) return 0;
+  return Math.round(baseTimeLimitMinutes * 60 * multiplier);
+}
+
 export const accommodationExtendedTimeLabels: Record<AccommodationExtendedTime, LocalizedText> = {
   none: { en: "Standard time", zh: "標準時間", zhHans: "标准时间" },
   "extra-half": { en: "Extended time (1.5×)", zh: "延長時間（1.5 倍）", zhHans: "延长时间（1.5 倍）" },

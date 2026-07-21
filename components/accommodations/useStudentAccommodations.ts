@@ -6,8 +6,9 @@ import { defaultStudentAccommodations, normalizeStudentAccommodations } from "@/
 import type { StudentAccommodations } from "@/types";
 
 // Shared, per-student fetch of the effective accommodations. Cached at module
-// scope so the practice banner and the read-aloud control resolve from a single
-// network request per student, and re-fetched when the signed-in student changes.
+// scope so every consumer (practice banner, read-aloud control, assessment timer)
+// resolves from a single network request per student, and re-fetched when the
+// signed-in student changes.
 let accommodationsCache: { userId: string; promise: Promise<StudentAccommodations> } | null = null;
 
 async function fetchStudentAccommodations(): Promise<StudentAccommodations> {

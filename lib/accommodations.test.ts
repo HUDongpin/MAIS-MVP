@@ -3,6 +3,7 @@ import { test } from "node:test";
 import {
   accommodationSummaryChips,
   accommodationsAreDefault,
+  assessmentTimerSeconds,
   defaultStudentAccommodations,
   extendedTimeMultiplier,
   hasAccommodationsPlan,
@@ -69,6 +70,18 @@ test("extended-time multiplier maps each setting", () => {
   assert.equal(extendedTimeMultiplier("extra-half"), 1.5);
   assert.equal(extendedTimeMultiplier("double"), 2);
   assert.equal(extendedTimeMultiplier("unlimited"), null);
+});
+
+test("assessmentTimerSeconds applies the extended-time accommodation", () => {
+  // 30-minute timed assessment under each setting.
+  assert.equal(assessmentTimerSeconds(30, "none"), 30 * 60);
+  assert.equal(assessmentTimerSeconds(30, "extra-half"), 45 * 60);
+  assert.equal(assessmentTimerSeconds(30, "double"), 60 * 60);
+  // Unlimited accommodation → no countdown.
+  assert.equal(assessmentTimerSeconds(30, "unlimited"), 0);
+  // Untimed assessment → no countdown regardless of accommodation.
+  assert.equal(assessmentTimerSeconds(null, "double"), 0);
+  assert.equal(assessmentTimerSeconds(0, "double"), 0);
 });
 
 test("summary chips list only the active accommodations", () => {

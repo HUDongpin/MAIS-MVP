@@ -7,7 +7,7 @@ import { AnimatePresence, motion, useReducedMotion } from "@/components/ui/Motio
 import { PracticeArenaBackToTopButton } from "@/app/practice/PracticeArenaBackToTopButton";
 import { PracticeAdventureArenaShell } from "@/components/practice/PracticeAdventureArenaShell";
 import { StudentAccommodationsBanner } from "@/components/practice/StudentAccommodationsBanner";
-import { useStudentAccommodations } from "@/components/practice/useStudentAccommodations";
+import { useStudentAccommodations } from "@/components/accommodations/useStudentAccommodations";
 import { useReadAloud } from "@/components/practice/useReadAloud";
 import {
   resolvePracticeAdventureGradeLock,

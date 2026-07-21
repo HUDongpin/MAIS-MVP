@@ -1,7 +1,7 @@
 "use client";
 
 import { useSettings } from "@/components/providers/AppProviders";
-import { useStudentAccommodations } from "@/components/practice/useStudentAccommodations";
+import { useStudentAccommodations } from "@/components/accommodations/useStudentAccommodations";
 import { accommodationSummaryChips } from "@/lib/accommodations";
 
 // A quiet, reassuring surface that shows the learner which accommodations are
