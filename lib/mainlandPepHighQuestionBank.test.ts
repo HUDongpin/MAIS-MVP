@@ -782,14 +782,20 @@ test("US California K-G5 knowledge-point practice is live while North Carolina r
   const floridaProfile: CurriculumProfile = { region: "US", publisher: "US_FL_MATH" };
 
   const californiaBetaGrades: Extract<GradeId, "K" | "P1" | "P2" | "P3" | "P4" | "P5">[] = ["K", "P1", "P2", "P3", "P4", "P5"];
+  // Live US_CA K-G5 practice now draws on two QA-passed live packages: the S18
+  // knowledge-point practice pack (us-ca-k5-knowledge-point-practice-v1) and the
+  // hand-checked CCSS textbook practice pack (ccss-textbook-practice-v1, packageStatus
+  // "live"). The per-grade counts below are the sum of both live packages; update them
+  // (and livePracticeIdPattern) whenever either pack's grade coverage changes.
   const expectedCaliforniaPracticeCounts: Record<(typeof californiaBetaGrades)[number], number> = {
-    K: 72,
-    P1: 192,
-    P2: 48,
-    P3: 60,
-    P4: 60,
-    P5: 60
+    K: 102, // 72 knowledge-point + 30 CCSS textbook
+    P1: 237, // 192 knowledge-point + 45 CCSS textbook
+    P2: 111, // 48 knowledge-point + 63 CCSS textbook
+    P3: 120, // 60 knowledge-point + 60 CCSS textbook
+    P4: 138, // 60 knowledge-point + 78 CCSS textbook
+    P5: 120 // 60 knowledge-point + 60 CCSS textbook
   };
+  const livePracticeIdPattern = /^(?:us-ca-k5-knowledge-point-practice-v1|ccss-textbook-practice-v1)-/;
   for (const grade of californiaBetaGrades) {
     const californiaDashboard = await getDashboardData("student-shirleen-us", grade, californiaProfile);
     assert.equal(californiaDashboard.contentUnavailable, null, `${grade} should be open for US_CA K-G5 knowledge-point practice`);
@@ -797,10 +803,10 @@ test("US California K-G5 knowledge-point practice is live while North Carolina r
     assert.ok(californiaDashboard.gradeTopics.every((topic) => topic.curriculumTrack === "US_CA_MATH"));
 
     const californiaQuestions = await getPublicQuestions({ grade, curriculumProfile: californiaProfile });
-    assert.equal(californiaQuestions.length, expectedCaliforniaPracticeCounts[grade], `${grade} should expose the S18 QA-passed live practice count`);
+    assert.equal(californiaQuestions.length, expectedCaliforniaPracticeCounts[grade], `${grade} should expose the QA-passed live practice count`);
     assert.ok(californiaQuestions.every((question) => question.curriculumTrack === "US_CA_MATH"));
     californiaQuestions.forEach((question) => {
-      assert.match(question.id, /^us-ca-k5-knowledge-point-practice-v1-/, `${question.id} should come from the live knowledge-point package`);
+      assert.match(question.id, livePracticeIdPattern, `${question.id} should come from a live California K-G5 practice package`);
       assert.doesNotMatch(question.prompt.en, /DeepSeek|provider|candidate/i, `${question.id} English prompt should not expose provider or candidate labels`);
       assert.doesNotMatch(question.prompt.zh, /DeepSeek|provider|candidate/i, `${question.id} Traditional Chinese prompt should not expose provider or candidate labels`);
       assert.doesNotMatch(question.prompt.zhHans ?? "", /DeepSeek|provider|candidate/i, `${question.id} Simplified Chinese prompt should not expose provider or candidate labels`);
@@ -818,7 +824,7 @@ test("US California K-G5 knowledge-point practice is live while North Carolina r
       californiaDecision.questions.every((question) =>
         question.curriculumTrack === "US_CA_MATH" &&
         question.grade === grade &&
-        question.id.startsWith("us-ca-k5-knowledge-point-practice-v1-")
+        livePracticeIdPattern.test(question.id)
       )
     );
   }
