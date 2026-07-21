@@ -433,7 +433,7 @@ test.describe.serial("parent console end-to-end verification", () => {
       await expect(page.getByText(/average mastery/i).first()).toBeVisible();
       await expect(page.getByText(/minutes 7d/i).first()).toBeVisible();
       await expect(page.getByText(/points/i).first()).toBeVisible();
-      await expect(page.getByText(/Messages and Nova Tutor|Last AI message|Create assignment|Generate report|Save report|Edit profile/i)).toHaveCount(0);
+      await expect(page.getByText(/Messages and AI Tutor|Last AI message|Create assignment|Generate report|Save report|Edit profile/i)).toHaveCount(0);
 
       expect((await page.request.get(`/api/parent/children/${encodeURIComponent(unlinkedStudent.userId)}/summary`)).status()).toBe(404);
       const linkResponse = await page.request.post("/api/parent/children/link", {

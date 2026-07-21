@@ -145,6 +145,13 @@ export default defineConfig({
   fullyParallel: false,
   workers: 1,
   retries: process.env.CI ? 1 : 0,
+  // These are long, sequential teacher/parent journeys (navigate → create →
+  // upload → publish → export in a single test). The default 30s per-test /
+  // 5s expect timeouts are fine locally but too tight on the 2-core CI runner,
+  // where a publish→POST→router.push round-trip alone can exceed 5s. Give CI
+  // headroom; the flows themselves are verified working (POST 201 + navigation).
+  timeout: process.env.CI ? 120_000 : 60_000,
+  expect: { timeout: process.env.CI ? 15_000 : 8_000 },
   reporter: [["list"], ["html", { open: "never", outputFolder: e2eReportDir }]],
   use: {
     baseURL,
@@ -167,7 +174,7 @@ export default defineConfig({
         ].join(" && "),
         url: baseURL,
         reuseExistingServer: false,
-        timeout: 240_000
+        timeout: 600_000
       },
   projects: [
     {

@@ -243,20 +243,20 @@ test.describe("teacher operations APIs", () => {
   });
 });
 
-test.describe("teacher operations Nova Tutor governance UI", () => {
+test.describe("teacher operations AI Tutor governance UI", () => {
   test("teacher sees read-only redacted governance without admin policy controls", async ({ page }) => {
     await authenticateAsTeacher(page);
 
     await page.goto("/teacher/operations/ai-governance");
-    await expect(page.getByRole("heading", { name: /Nova Tutor governance/i })).toBeVisible({ timeout: 20000 });
-    await expect(page.getByText(/Read-only redacted Nova Tutor agent history/i)).toBeVisible();
+    await expect(page.getByRole("heading", { name: /AI Tutor governance/i })).toBeVisible({ timeout: 20000 });
+    await expect(page.getByText(/Read-only redacted AI Tutor agent history/i)).toBeVisible();
     await expect(page.getByRole("heading", { name: /Redacted run history/i })).toBeVisible();
     await expect(page.getByRole("button", { name: /Save policy/i })).toHaveCount(0);
     await expect(page.locator("input[name='enabled']")).toHaveCount(0);
     await expect(page.locator("textarea[name='blockedPatterns']")).toHaveCount(0);
   });
 
-  test("admin can save and restore Nova Tutor policy from governance UI", async ({ page }, testInfo) => {
+  test("admin can save and restore AI Tutor policy from governance UI", async ({ page }, testInfo) => {
     const registered = await registerStudentApi(page.context().request, testInfo, "admin-governance");
     setUserRole(registered.session.user.id, "admin");
 
@@ -267,13 +267,13 @@ test.describe("teacher operations Nova Tutor governance UI", () => {
 
     try {
       await page.goto("/teacher/operations/ai-governance");
-      await expect(page.getByRole("heading", { name: /Nova Tutor governance/i })).toBeVisible({ timeout: 20000 });
+      await expect(page.getByRole("heading", { name: /AI Tutor governance/i })).toBeVisible({ timeout: 20000 });
       await expect(page.getByText(/Admin policy controls and redacted agent runs/i)).toBeVisible({ timeout: 20000 });
       const maxSelectionInput = page.locator("input[name='maxSelectionLength']");
       await expect(maxSelectionInput).toBeVisible({ timeout: 20000 });
       await maxSelectionInput.fill(String(nextMaxSelectionLength));
       await page.getByRole("button", { name: /Save policy/i }).click();
-      await expect(page.getByText(/Nova Tutor policy saved/i)).toBeVisible({ timeout: 20000 });
+      await expect(page.getByText(/AI Tutor policy saved/i)).toBeVisible({ timeout: 20000 });
 
       const updatedResponse = await page.context().request.get(`${baseURL}/api/admin/nova-lens/policy`);
       expect(updatedResponse.ok()).toBeTruthy();
