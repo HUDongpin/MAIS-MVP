@@ -9,7 +9,7 @@ import { formatGradeLabel } from "@/lib/i18n";
 import { lessonHrefForSlug } from "@/lib/lessonLinks";
 import { formatDateInHongKong } from "@/lib/utils";
 import { studentVisualizationToolsPath } from "@/lib/visualizationRoutes";
-import type { AttendanceStatus, ClassroomLiveSession, Language, TeacherLiveData, TeacherLivePromptType, TeacherLiveSession, TeacherLiveToolType, WhiteboardStroke } from "@/types";
+import type { AttendanceStatus, ClassroomLiveAttentionReason, ClassroomLiveRoster, ClassroomLiveRosterEntry, ClassroomLiveSession, ClassroomLiveStudentState, LearningAnalyticsEventSource, Language, LocalizedText, TeacherClass, TeacherLiveData, TeacherLivePromptType, TeacherLiveSession, TeacherLiveToolType, WhiteboardStroke } from "@/types";
 
 function formatPercent(value: number | null) {
   return value === null ? "-" : `${value}%`;
@@ -821,6 +821,279 @@ function StudentClassroomToolPanel({
   );
 }
 
+const rosterStateStyles: Record<ClassroomLiveStudentState, { badge: string; card: string; dot: string; label: LocalizedText }> = {
+  stuck: {
+    badge: "border-rose-300/60 bg-rose-400/15 text-rose-800 dark:text-rose-100",
+    card: "border-rose-300/70 bg-rose-400/[0.08] ring-2 ring-rose-300/50 dark:ring-rose-400/30",
+    dot: "bg-rose-500",
+    label: { en: "Needs help", zh: "需要協助" }
+  },
+  idle: {
+    badge: "border-amber-300/60 bg-amber-400/15 text-amber-800 dark:text-amber-100",
+    card: "border-amber-300/55 bg-amber-400/[0.06]",
+    dot: "bg-amber-500",
+    label: { en: "Idle", zh: "閒置" }
+  },
+  working: {
+    badge: "border-cyan-300/60 bg-cyan-400/15 text-cyan-800 dark:text-cyan-100",
+    card: "border-slate-200/80 bg-white/70 dark:border-white/10 dark:bg-white/[0.06]",
+    dot: "bg-cyan-500",
+    label: { en: "Working", zh: "作答中" }
+  },
+  done: {
+    badge: "border-emerald-300/60 bg-emerald-400/15 text-emerald-800 dark:text-emerald-100",
+    card: "border-emerald-300/50 bg-emerald-400/[0.06]",
+    dot: "bg-emerald-500",
+    label: { en: "Done", zh: "已完成" }
+  },
+  offline: {
+    badge: "border-slate-200/80 bg-white/70 text-slate-500 dark:border-white/10 dark:bg-white/[0.06] dark:text-slate-400",
+    card: "border-slate-200/70 bg-white/50 opacity-75 dark:border-white/10 dark:bg-white/[0.03]",
+    dot: "bg-slate-400",
+    label: { en: "Offline", zh: "未上線" }
+  }
+};
+
+// Ordered the way a teacher scans the room: who to help first, who's coasting last.
+const rosterStateOrder: ClassroomLiveStudentState[] = ["stuck", "idle", "working", "done", "offline"];
+
+function rosterReasonLabel(reason: ClassroomLiveAttentionReason | null): LocalizedText | null {
+  switch (reason) {
+    case "repeated-wrong":
+      return { en: "2+ wrong in a row", zh: "連續答錯" };
+    case "many-hints":
+      return { en: "Leaning on hints", zh: "頻繁看提示" };
+    case "wrong-answer":
+      return { en: "Stopped on a wrong answer", zh: "停在錯題上" };
+    case "idle":
+      return { en: "Quiet for a while", zh: "一段時間沒有作答" };
+    case "inactive":
+      return { en: "Not in this lesson yet", zh: "尚未進入本課" };
+    case "not-started":
+      return { en: "Hasn't started", zh: "尚未開始" };
+    default:
+      return null;
+  }
+}
+
+const rosterSourceLabels: Record<LearningAnalyticsEventSource, LocalizedText> = {
+  "adaptive-learning": { en: "Adaptive", zh: "自適應" },
+  dashboard: { en: "Home", zh: "主頁" },
+  practice: { en: "Practice", zh: "練習" },
+  progress: { en: "Progress", zh: "進度" },
+  lesson: { en: "Lesson", zh: "課堂" },
+  "ai-tutor": { en: "AI tutor", zh: "AI 導師" },
+  "mistake-book": { en: "Mistakes", zh: "錯題本" },
+  "visualization-lab": { en: "Visual lab", zh: "視覺實驗室" },
+  "function-graph": { en: "Visual lab", zh: "視覺實驗室" },
+  "function-model": { en: "Visual lab", zh: "視覺實驗室" },
+  geometry: { en: "Visual lab", zh: "視覺實驗室" },
+  probability: { en: "Visual lab", zh: "視覺實驗室" },
+  "coordinate-plane": { en: "Visual lab", zh: "視覺實驗室" },
+  "trig-wave": { en: "Visual lab", zh: "視覺實驗室" },
+  "calculus-stats": { en: "Visual lab", zh: "視覺實驗室" },
+  "learning-path": { en: "Learning path", zh: "學習路徑" },
+  navigation: { en: "Browsing", zh: "瀏覽中" }
+};
+
+function formatSinceActive(seconds: number | null, t: ReturnType<typeof useSettings>["t"]) {
+  if (seconds === null) return "";
+  if (seconds < 60) return t({ en: `${seconds}s ago`, zh: `${seconds} 秒前` });
+  const minutes = Math.floor(seconds / 60);
+  if (minutes < 60) return t({ en: `${minutes}m ago`, zh: `${minutes} 分鐘前` });
+  const hours = Math.floor(minutes / 60);
+  return t({ en: `${hours}h ago`, zh: `${hours} 小時前` });
+}
+
+function LiveRosterStudentCard({ entry }: { entry: ClassroomLiveRosterEntry }) {
+  const { t, text } = useSettings();
+  const styles = rosterStateStyles[entry.state];
+  const reason = rosterReasonLabel(entry.reason);
+  const sourceLabel = entry.currentSource ? rosterSourceLabels[entry.currentSource] : null;
+
+  return (
+    <article className={`grid gap-2 rounded-2xl border p-3.5 transition ${styles.card}`}>
+      <div className="flex items-start justify-between gap-2">
+        <p className="min-w-0 break-words text-sm font-black text-slate-950 dark:text-white">{entry.studentName}</p>
+        <span className={`inline-flex shrink-0 items-center gap-1.5 rounded-full border px-2.5 py-1 text-[0.66rem] font-black uppercase tracking-[0.08em] ${styles.badge}`}>
+          <span aria-hidden="true" className={`h-1.5 w-1.5 rounded-full ${styles.dot}`} />
+          {text(styles.label)}
+        </span>
+      </div>
+
+      {reason && entry.state !== "working" && entry.state !== "done" ? (
+        <p className="text-xs font-bold text-slate-600 dark:text-slate-300">{text(reason)}</p>
+      ) : null}
+
+      <div className="flex flex-wrap items-center gap-1.5 text-[0.68rem] font-bold text-slate-500 dark:text-slate-400">
+        {sourceLabel ? (
+          <span className="rounded-full bg-slate-100 px-2 py-0.5 text-slate-600 dark:bg-white/[0.08] dark:text-slate-300">{text(sourceLabel)}</span>
+        ) : null}
+        {entry.lastQuestionId ? (
+          <span className="rounded-full bg-slate-100 px-2 py-0.5 text-slate-600 dark:bg-white/[0.08] dark:text-slate-300">
+            {t({ en: "Q", zh: "題" })} {entry.lastQuestionId}
+          </span>
+        ) : entry.currentTopicId ? (
+          <span className="max-w-[10rem] truncate rounded-full bg-slate-100 px-2 py-0.5 text-slate-600 dark:bg-white/[0.08] dark:text-slate-300">{entry.currentTopicId}</span>
+        ) : null}
+      </div>
+
+      <div className="flex items-center justify-between gap-2 text-[0.7rem] font-black">
+        <div className="flex items-center gap-2.5">
+          <span className="text-emerald-600 dark:text-emerald-300">✓ {entry.correctCount}</span>
+          <span className="text-rose-600 dark:text-rose-300">✗ {entry.wrongCount}</span>
+          {entry.hintCount > 0 ? <span className="text-amber-600 dark:text-amber-300">{t({ en: "Hints", zh: "提示" })} {entry.hintCount}</span> : null}
+        </div>
+        <span className="font-bold text-slate-400 dark:text-slate-500">{formatSinceActive(entry.secondsSinceActive, t)}</span>
+      </div>
+    </article>
+  );
+}
+
+function LiveRosterCountChip({ count, label, tone }: { count: number; label: LocalizedText; tone: string }) {
+  const { text } = useSettings();
+  return (
+    <div className={`flex items-center gap-2 rounded-2xl border px-3 py-2 ${tone}`}>
+      <span className="text-xl font-black tabular-nums">{count}</span>
+      <span className="text-[0.7rem] font-black uppercase tracking-[0.1em]">{text(label)}</span>
+    </div>
+  );
+}
+
+function LiveRosterGrid({
+  classId,
+  classes,
+  onSelectClass,
+  lockedClassName
+}: {
+  classId: string;
+  classes: TeacherClass[];
+  onSelectClass: (classId: string) => void;
+  lockedClassName?: string;
+}) {
+  const { t, text } = useSettings();
+  const [roster, setRoster] = useState<ClassroomLiveRoster | null>(null);
+  const [status, setStatus] = useState<"loading" | "ready" | "error">("loading");
+
+  useEffect(() => {
+    if (!classId) {
+      setRoster(null);
+      return;
+    }
+    let cancelled = false;
+
+    async function load() {
+      try {
+        const response = await fetch(`/api/teacher/classroom-sessions/roster?classId=${encodeURIComponent(classId)}`, { cache: "no-store" });
+        if (!response.ok) throw new Error("roster");
+        const payload = (await response.json()) as { roster?: ClassroomLiveRoster };
+        if (cancelled) return;
+        if (payload.roster) {
+          setRoster(payload.roster);
+          setStatus("ready");
+        } else {
+          setStatus("error");
+        }
+      } catch {
+        if (!cancelled) setStatus("error");
+      }
+    }
+
+    setStatus("loading");
+    setRoster(null);
+    load();
+    const timer = window.setInterval(load, 5000);
+    return () => {
+      cancelled = true;
+      window.clearInterval(timer);
+    };
+  }, [classId]);
+
+  const counts = roster?.counts;
+  const liveCount = counts ? counts.stuck + counts.idle + counts.working + counts.done : 0;
+  const sortedStudents = roster
+    ? [...roster.students].sort(
+        (a, b) => rosterStateOrder.indexOf(a.state) - rosterStateOrder.indexOf(b.state)
+      )
+    : [];
+
+  return (
+    <section className="glass-panel w-full p-5 sm:p-6">
+      <div className="flex flex-col gap-3 border-b border-slate-200/70 pb-4 dark:border-white/10 lg:flex-row lg:items-start lg:justify-between">
+        <div className="min-w-0">
+          <p className="text-xs font-black uppercase tracking-[0.24em] text-cyan-600 dark:text-cyan-300">
+            {t({ en: "Live monitor", zh: "即時監控" })}
+          </p>
+          <h2 className="mt-2 text-2xl font-black tracking-tight text-slate-950 dark:text-white sm:text-3xl">
+            {t({ en: "Who needs me right now", zh: "誰現在需要我" })}
+          </h2>
+          <p className="mt-1 text-sm font-bold text-slate-500 dark:text-slate-400">
+            {roster
+              ? t({ en: `${roster.counts.total} students · refreshes every 5s`, zh: `${roster.counts.total} 位學生 · 每 5 秒更新` })
+              : t({ en: "Live per-student status from the current lesson", zh: "本課即時逐生狀態" })}
+          </p>
+        </div>
+        {lockedClassName ? (
+          <span className="w-fit rounded-full border border-slate-200/80 bg-white/70 px-4 py-2 text-sm font-black text-slate-700 dark:border-white/10 dark:bg-white/[0.06] dark:text-slate-200">
+            {lockedClassName}
+          </span>
+        ) : classes.length ? (
+          <label className="grid gap-1">
+            <span className="text-[0.7rem] font-black uppercase tracking-[0.14em] text-slate-500 dark:text-slate-400">{t({ en: "Class", zh: "班級" })}</span>
+            <select
+              value={classId}
+              onChange={(event) => onSelectClass(event.target.value)}
+              className="focus-ring w-full rounded-2xl border border-slate-200/80 bg-white/80 px-4 py-2.5 text-sm font-bold dark:border-white/10 dark:bg-white/[0.06] lg:w-56"
+            >
+              {classes.map((teacherClass) => (
+                <option key={teacherClass.id} value={teacherClass.id}>{teacherClass.name}</option>
+              ))}
+            </select>
+          </label>
+        ) : null}
+      </div>
+
+      {counts ? (
+        <div className="mt-4 grid grid-cols-2 gap-2 sm:grid-cols-3 xl:grid-cols-5">
+          <LiveRosterCountChip count={counts.stuck} label={{ en: "Needs help", zh: "需要協助" }} tone="border-rose-300/60 bg-rose-400/12 text-rose-800 dark:text-rose-100" />
+          <LiveRosterCountChip count={counts.idle} label={{ en: "Idle", zh: "閒置" }} tone="border-amber-300/60 bg-amber-400/12 text-amber-800 dark:text-amber-100" />
+          <LiveRosterCountChip count={counts.working} label={{ en: "Working", zh: "作答中" }} tone="border-cyan-300/60 bg-cyan-400/12 text-cyan-800 dark:text-cyan-100" />
+          <LiveRosterCountChip count={counts.done} label={{ en: "Done", zh: "已完成" }} tone="border-emerald-300/60 bg-emerald-400/12 text-emerald-800 dark:text-emerald-100" />
+          <LiveRosterCountChip count={counts.offline} label={{ en: "Offline", zh: "未上線" }} tone="border-slate-200/80 bg-white/70 text-slate-500 dark:border-white/10 dark:bg-white/[0.06] dark:text-slate-300" />
+        </div>
+      ) : null}
+
+      {status === "loading" && !roster ? (
+        <p className="mt-5 text-sm font-bold text-slate-500 dark:text-slate-400">{t({ en: "Loading live status…", zh: "正在載入即時狀態…" })}</p>
+      ) : null}
+
+      {status === "error" && !roster ? (
+        <p className="mt-5 text-sm font-bold text-rose-700 dark:text-rose-200">{t({ en: "Could not load live status. Retrying…", zh: "暫時無法載入即時狀態，重試中…" })}</p>
+      ) : null}
+
+      {roster && roster.students.length === 0 ? (
+        <p className="mt-5 text-sm font-bold text-slate-500 dark:text-slate-400">
+          {t({ en: "No students enrolled in this class yet.", zh: "此班級尚未有學生。" })}
+        </p>
+      ) : null}
+
+      {roster && roster.students.length > 0 && liveCount === 0 ? (
+        <p className="mt-4 rounded-2xl border border-slate-200/70 bg-white/60 px-4 py-3 text-sm font-bold text-slate-500 dark:border-white/10 dark:bg-white/[0.04] dark:text-slate-400">
+          {t({ en: "Live status will fill in as students start working in the lesson.", zh: "當學生開始作答，即時狀態便會顯示。" })}
+        </p>
+      ) : null}
+
+      {roster && roster.students.length > 0 ? (
+        <div className="mt-4 grid gap-3 sm:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4">
+          {sortedStudents.map((entry) => (
+            <LiveRosterStudentCard key={entry.studentId} entry={entry} />
+          ))}
+        </div>
+      ) : null}
+    </section>
+  );
+}
+
 export function TeacherLiveView({ live, initialClassId = "" }: { live: TeacherLiveData; initialClassId?: string }) {
   const router = useRouter();
   const { language, t, text } = useSettings();
@@ -925,6 +1198,15 @@ export function TeacherLiveView({ live, initialClassId = "" }: { live: TeacherLi
           </div>
         </div>
       </section>
+
+      {live.classes.length ? (
+        <LiveRosterGrid
+          classId={selectedClassId}
+          classes={live.classes}
+          onSelectClass={setSelectedClassId}
+          lockedClassName={session ? session.className : undefined}
+        />
+      ) : null}
 
       {session ? (
         <>
