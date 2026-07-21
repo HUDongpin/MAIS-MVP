@@ -17,6 +17,9 @@ const REQUIRED_ROOT_FILES = [
   "package.json",
   "postcss.config.mjs",
   "public/robots.txt",
+  // `npm run build` = next-clean-build.mjs, which imports these two at build time.
+  "scripts/check-stray-generated-types.mjs",
+  "scripts/cleanup-generated-artifacts.mjs",
   "scripts/next-clean-build.mjs",
   "tailwind.config.ts",
   "tsconfig.json",
