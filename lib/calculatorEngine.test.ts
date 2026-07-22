@@ -2,6 +2,7 @@ import assert from "node:assert/strict";
 import { test } from "node:test";
 import {
   calculatorReducer,
+  defaultCalculatorMode,
   formatCalculatorNumber,
   initialCalculatorState,
   type CalculatorAction,
@@ -18,16 +19,24 @@ function run(script: string): CalculatorState {
   }, initialCalculatorState);
 }
 
+const unaryTokens = new Set([
+  "sqrt", "square", "reciprocal", "sin", "cos", "tan", "asin", "acos", "atan", "ln", "log", "exp", "factorial"
+]);
+
 function tokenToAction(token: string): CalculatorAction | null {
   if (/^[0-9]$/.test(token)) return { type: "digit", value: token };
   if (token === ".") return { type: "decimal" };
-  if (token === "+" || token === "-" || token === "×" || token === "÷") return { type: "operator", value: token };
+  if (token === "+" || token === "-" || token === "×" || token === "÷" || token === "^") {
+    return { type: "operator", value: token };
+  }
   if (token === "=") return { type: "equals" };
   if (token === "AC") return { type: "clear" };
   if (token === "back") return { type: "backspace" };
   if (token === "%") return { type: "percent" };
   if (token === "neg") return { type: "negate" };
-  if (token === "sqrt") return { type: "sqrt" };
+  if (token === "pi" || token === "e") return { type: "constant", value: token };
+  if (token === "rad") return { type: "toggleAngleMode" };
+  if (unaryTokens.has(token)) return { type: "unary", fn: token as Extract<CalculatorAction, { type: "unary" }>["fn"] };
   return null;
 }
 
@@ -79,4 +88,49 @@ test("a fresh digit after equals starts a new calculation", () => {
 
 test("only one decimal point is allowed per number", () => {
   assert.equal(run("1 . 5 . 2").display, "1.52");
+});
+
+test("power operator, square, and reciprocal", () => {
+  assert.equal(run("2 ^ 1 0 =").display, "1024");
+  assert.equal(run("5 square").display, "25");
+  assert.equal(run("4 reciprocal").display, "0.25");
+  assert.equal(run("0 reciprocal").error, true);
+});
+
+test("trigonometry defaults to degrees and honours the angle-mode toggle", () => {
+  assert.equal(run("3 0 sin").display, "0.5");
+  assert.equal(run("9 0 cos").display, "0"); // ~6e-17 snaps to 0
+  assert.equal(run("4 5 tan").display, "1");
+  // Toggling to radians changes the result.
+  assert.equal(run("rad 3 0 sin").display, formatCalculatorNumber(Math.sin(30)));
+});
+
+test("inverse trig, logarithms, exponential, and their domain errors", () => {
+  assert.equal(run("1 asin").display, "90");     // degrees
+  assert.equal(run("2 asin").error, true);       // out of domain
+  assert.equal(run("1 0 0 log").display, "2");
+  assert.equal(run("e ln").display, "1");
+  assert.equal(run("0 ln").error, true);
+  assert.equal(run("0 exp").display, "1");
+});
+
+test("factorial handles valid, zero, and invalid inputs", () => {
+  assert.equal(run("5 factorial").display, "120");
+  assert.equal(run("0 factorial").display, "1");
+  assert.equal(run("3 . 5 factorial").error, true);
+  assert.equal(run("5 neg factorial").error, true);
+});
+
+test("constants pi and e", () => {
+  assert.equal(run("pi").display, formatCalculatorNumber(Math.PI));
+  assert.equal(run("e").display, formatCalculatorNumber(Math.E));
+});
+
+test("defaultCalculatorMode picks scientific for upper-secondary grades", () => {
+  assert.equal(defaultCalculatorMode("S4"), "scientific");
+  assert.equal(defaultCalculatorMode("S3"), "scientific");
+  assert.equal(defaultCalculatorMode("S1"), "basic");
+  assert.equal(defaultCalculatorMode("P5"), "basic");
+  assert.equal(defaultCalculatorMode("K"), "basic");
+  assert.equal(defaultCalculatorMode(undefined), "basic");
 });
