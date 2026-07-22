@@ -6,10 +6,13 @@ import { useStudentAccommodations } from "@/components/accommodations/useStudent
 import {
   calculatorReducer,
   defaultCalculatorMode,
+  formatCalculatorNumber,
   initialCalculatorState,
   type CalculatorAction,
+  type CalculatorAngleMode,
   type CalculatorMode
 } from "@/lib/calculatorEngine";
+import { evaluateExpression } from "@/lib/expressionCalculator";
 import { cn } from "@/lib/utils";
 
 function CalculatorIcon({ className = "size-5" }: { className?: string }) {
@@ -25,14 +28,27 @@ function CalculatorIcon({ className = "size-5" }: { className?: string }) {
 type KeyKind = "number" | "operator" | "function" | "equals";
 type LocalizedLabel = { en: string; zh: string; zhHans?: string };
 
-type CalculatorKey = {
-  label: string;
-  ariaLabel: LocalizedLabel;
-  action: CalculatorAction;
-  kind: KeyKind;
-};
+function keyClassName(kind: KeyKind) {
+  switch (kind) {
+    case "operator":
+      return "bg-cyan-500 text-white hover:bg-cyan-400";
+    case "equals":
+      return "bg-violet-600 text-white hover:bg-violet-500";
+    case "function":
+      return "bg-slate-200 text-slate-700 hover:bg-slate-300 dark:bg-white/10 dark:text-slate-100 dark:hover:bg-white/20";
+    case "number":
+    default:
+      return "bg-white text-slate-900 hover:bg-slate-100 dark:bg-white/[0.08] dark:text-white dark:hover:bg-white/[0.14]";
+  }
+}
 
-const keypadKeys: CalculatorKey[] = [
+// ---------------------------------------------------------------------------
+// Basic mode — immediate-execution (standard pocket calculator).
+// ---------------------------------------------------------------------------
+
+type BasicKey = { label: string; ariaLabel: LocalizedLabel; action: CalculatorAction; kind: KeyKind };
+
+const basicKeys: BasicKey[] = [
   { label: "AC", ariaLabel: { en: "Clear", zh: "清除", zhHans: "清除" }, action: { type: "clear" }, kind: "function" },
   { label: "±", ariaLabel: { en: "Plus minus", zh: "正負號", zhHans: "正负号" }, action: { type: "negate" }, kind: "function" },
   { label: "%", ariaLabel: { en: "Percent", zh: "百分比", zhHans: "百分比" }, action: { type: "percent" }, kind: "function" },
@@ -55,50 +71,192 @@ const keypadKeys: CalculatorKey[] = [
   { label: "=", ariaLabel: { en: "Equals", zh: "等於", zhHans: "等于" }, action: { type: "equals" }, kind: "equals" }
 ];
 
-const scientificKeys: CalculatorKey[] = [
-  { label: "sin", ariaLabel: { en: "Sine", zh: "正弦", zhHans: "正弦" }, action: { type: "unary", fn: "sin" }, kind: "function" },
-  { label: "cos", ariaLabel: { en: "Cosine", zh: "餘弦", zhHans: "余弦" }, action: { type: "unary", fn: "cos" }, kind: "function" },
-  { label: "tan", ariaLabel: { en: "Tangent", zh: "正切", zhHans: "正切" }, action: { type: "unary", fn: "tan" }, kind: "function" },
-  { label: "sin⁻¹", ariaLabel: { en: "Inverse sine", zh: "反正弦", zhHans: "反正弦" }, action: { type: "unary", fn: "asin" }, kind: "function" },
-  { label: "cos⁻¹", ariaLabel: { en: "Inverse cosine", zh: "反餘弦", zhHans: "反余弦" }, action: { type: "unary", fn: "acos" }, kind: "function" },
-  { label: "tan⁻¹", ariaLabel: { en: "Inverse tangent", zh: "反正切", zhHans: "反正切" }, action: { type: "unary", fn: "atan" }, kind: "function" },
-  { label: "ln", ariaLabel: { en: "Natural log", zh: "自然對數", zhHans: "自然对数" }, action: { type: "unary", fn: "ln" }, kind: "function" },
-  { label: "log", ariaLabel: { en: "Log base 10", zh: "常用對數", zhHans: "常用对数" }, action: { type: "unary", fn: "log" }, kind: "function" },
-  { label: "eˣ", ariaLabel: { en: "e to the power x", zh: "e 的次方", zhHans: "e 的次方" }, action: { type: "unary", fn: "exp" }, kind: "function" },
-  { label: "x²", ariaLabel: { en: "Square", zh: "平方", zhHans: "平方" }, action: { type: "unary", fn: "square" }, kind: "function" },
-  { label: "xʸ", ariaLabel: { en: "Power", zh: "次方", zhHans: "次方" }, action: { type: "operator", value: "^" }, kind: "operator" },
-  { label: "1/x", ariaLabel: { en: "Reciprocal", zh: "倒數", zhHans: "倒数" }, action: { type: "unary", fn: "reciprocal" }, kind: "function" },
-  { label: "n!", ariaLabel: { en: "Factorial", zh: "階乘", zhHans: "阶乘" }, action: { type: "unary", fn: "factorial" }, kind: "function" },
-  { label: "π", ariaLabel: { en: "Pi", zh: "圓周率", zhHans: "圆周率" }, action: { type: "constant", value: "pi" }, kind: "function" },
-  { label: "e", ariaLabel: { en: "Euler's number", zh: "自然常數 e", zhHans: "自然常数 e" }, action: { type: "constant", value: "e" }, kind: "function" }
+function BasicCalculatorBody() {
+  const { t } = useSettings();
+  const [state, dispatch] = useReducer(calculatorReducer, initialCalculatorState);
+
+  return (
+    <>
+      <div
+        aria-live="polite"
+        className="mb-3 overflow-x-auto rounded-2xl bg-slate-950 px-4 py-3 text-right text-3xl font-black tabular-nums text-white"
+      >
+        {state.display}
+      </div>
+      <div className="grid grid-cols-4 gap-2">
+        {basicKeys.map((key) => (
+          <button
+            key={key.label}
+            type="button"
+            onClick={() => dispatch(key.action)}
+            aria-label={t(key.ariaLabel)}
+            className={cn(
+              "focus-ring flex h-11 items-center justify-center rounded-xl text-lg font-black shadow-sm transition active:translate-y-px",
+              keyClassName(key.kind)
+            )}
+          >
+            {key.label}
+          </button>
+        ))}
+      </div>
+    </>
+  );
+}
+
+// ---------------------------------------------------------------------------
+// Scientific mode — Casio/TI-style full expression entry (parentheses,
+// precedence, functions, implicit multiplication). Buttons append to an
+// expression string that is evaluated on "=".
+// ---------------------------------------------------------------------------
+
+type ExpressionKey =
+  | { label: string; ariaLabel: LocalizedLabel; kind: KeyKind; token: string; isValue: boolean }
+  | { label: string; ariaLabel: LocalizedLabel; kind: KeyKind; control: "clear" | "backspace" | "equals" };
+
+const expressionFunctionKeys: ExpressionKey[] = [
+  { label: "sin", ariaLabel: { en: "Sine", zh: "正弦", zhHans: "正弦" }, token: "sin(", isValue: true, kind: "function" },
+  { label: "cos", ariaLabel: { en: "Cosine", zh: "餘弦", zhHans: "余弦" }, token: "cos(", isValue: true, kind: "function" },
+  { label: "tan", ariaLabel: { en: "Tangent", zh: "正切", zhHans: "正切" }, token: "tan(", isValue: true, kind: "function" },
+  { label: "√", ariaLabel: { en: "Square root", zh: "平方根", zhHans: "平方根" }, token: "√(", isValue: true, kind: "function" },
+  { label: "sin⁻¹", ariaLabel: { en: "Inverse sine", zh: "反正弦", zhHans: "反正弦" }, token: "sin⁻¹(", isValue: true, kind: "function" },
+  { label: "cos⁻¹", ariaLabel: { en: "Inverse cosine", zh: "反餘弦", zhHans: "反余弦" }, token: "cos⁻¹(", isValue: true, kind: "function" },
+  { label: "tan⁻¹", ariaLabel: { en: "Inverse tangent", zh: "反正切", zhHans: "反正切" }, token: "tan⁻¹(", isValue: true, kind: "function" },
+  { label: "x²", ariaLabel: { en: "Square", zh: "平方", zhHans: "平方" }, token: "²", isValue: false, kind: "function" },
+  { label: "ln", ariaLabel: { en: "Natural log", zh: "自然對數", zhHans: "自然对数" }, token: "ln(", isValue: true, kind: "function" },
+  { label: "log", ariaLabel: { en: "Log base 10", zh: "常用對數", zhHans: "常用对数" }, token: "log(", isValue: true, kind: "function" },
+  { label: "eˣ", ariaLabel: { en: "e to the power x", zh: "e 的次方", zhHans: "e 的次方" }, token: "e^(", isValue: true, kind: "function" },
+  { label: "xʸ", ariaLabel: { en: "Power", zh: "次方", zhHans: "次方" }, token: "^", isValue: false, kind: "operator" },
+  { label: "n!", ariaLabel: { en: "Factorial", zh: "階乘", zhHans: "阶乘" }, token: "!", isValue: false, kind: "function" },
+  { label: "%", ariaLabel: { en: "Percent", zh: "百分比", zhHans: "百分比" }, token: "%", isValue: false, kind: "function" },
+  { label: "π", ariaLabel: { en: "Pi", zh: "圓周率", zhHans: "圆周率" }, token: "π", isValue: true, kind: "function" },
+  { label: "e", ariaLabel: { en: "Euler's number", zh: "自然常數 e", zhHans: "自然常数 e" }, token: "e", isValue: true, kind: "function" }
 ];
 
-function keyClassName(kind: KeyKind) {
-  switch (kind) {
-    case "operator":
-      return "bg-cyan-500 text-white hover:bg-cyan-400";
-    case "equals":
-      return "bg-violet-600 text-white hover:bg-violet-500";
-    case "function":
-      return "bg-slate-200 text-slate-700 hover:bg-slate-300 dark:bg-white/10 dark:text-slate-100 dark:hover:bg-white/20";
-    case "number":
-    default:
-      return "bg-white text-slate-900 hover:bg-slate-100 dark:bg-white/[0.08] dark:text-white dark:hover:bg-white/[0.14]";
+const expressionKeypadKeys: ExpressionKey[] = [
+  { label: "AC", ariaLabel: { en: "Clear", zh: "清除", zhHans: "清除" }, control: "clear", kind: "function" },
+  { label: "⌫", ariaLabel: { en: "Backspace", zh: "刪除", zhHans: "删除" }, control: "backspace", kind: "function" },
+  { label: "(", ariaLabel: { en: "Open parenthesis", zh: "左括號", zhHans: "左括号" }, token: "(", isValue: true, kind: "function" },
+  { label: ")", ariaLabel: { en: "Close parenthesis", zh: "右括號", zhHans: "右括号" }, token: ")", isValue: false, kind: "function" },
+  { label: "7", ariaLabel: { en: "Seven", zh: "七", zhHans: "七" }, token: "7", isValue: true, kind: "number" },
+  { label: "8", ariaLabel: { en: "Eight", zh: "八", zhHans: "八" }, token: "8", isValue: true, kind: "number" },
+  { label: "9", ariaLabel: { en: "Nine", zh: "九", zhHans: "九" }, token: "9", isValue: true, kind: "number" },
+  { label: "÷", ariaLabel: { en: "Divide", zh: "除", zhHans: "除" }, token: "÷", isValue: false, kind: "operator" },
+  { label: "4", ariaLabel: { en: "Four", zh: "四", zhHans: "四" }, token: "4", isValue: true, kind: "number" },
+  { label: "5", ariaLabel: { en: "Five", zh: "五", zhHans: "五" }, token: "5", isValue: true, kind: "number" },
+  { label: "6", ariaLabel: { en: "Six", zh: "六", zhHans: "六" }, token: "6", isValue: true, kind: "number" },
+  { label: "×", ariaLabel: { en: "Multiply", zh: "乘", zhHans: "乘" }, token: "×", isValue: false, kind: "operator" },
+  { label: "1", ariaLabel: { en: "One", zh: "一", zhHans: "一" }, token: "1", isValue: true, kind: "number" },
+  { label: "2", ariaLabel: { en: "Two", zh: "二", zhHans: "二" }, token: "2", isValue: true, kind: "number" },
+  { label: "3", ariaLabel: { en: "Three", zh: "三", zhHans: "三" }, token: "3", isValue: true, kind: "number" },
+  { label: "−", ariaLabel: { en: "Subtract", zh: "減", zhHans: "减" }, token: "−", isValue: false, kind: "operator" },
+  { label: "0", ariaLabel: { en: "Zero", zh: "零", zhHans: "零" }, token: "0", isValue: true, kind: "number" },
+  { label: ".", ariaLabel: { en: "Decimal point", zh: "小數點", zhHans: "小数点" }, token: ".", isValue: true, kind: "number" },
+  { label: "+", ariaLabel: { en: "Add", zh: "加", zhHans: "加" }, token: "+", isValue: false, kind: "operator" },
+  { label: "=", ariaLabel: { en: "Equals", zh: "等於", zhHans: "等于" }, control: "equals", kind: "equals" }
+];
+
+type ExpressionCalculatorState = { tokens: string[]; justEvaluated: boolean; errored: boolean };
+
+type ExpressionCalculatorAction =
+  | { type: "push"; token: string; isValue: boolean }
+  | { type: "clear" }
+  | { type: "backspace" }
+  | { type: "evaluate"; angleMode: CalculatorAngleMode };
+
+const initialExpressionState: ExpressionCalculatorState = { tokens: [], justEvaluated: false, errored: false };
+
+// A reducer (not closure-based useState) so a burst of key presses always applies
+// to the latest token list — building the expression can never drop a keystroke.
+function expressionReducer(
+  state: ExpressionCalculatorState,
+  action: ExpressionCalculatorAction
+): ExpressionCalculatorState {
+  switch (action.type) {
+    case "clear":
+      return initialExpressionState;
+    case "backspace":
+      return { tokens: state.tokens.slice(0, -1), justEvaluated: false, errored: false };
+    case "push": {
+      const base = state.errored ? [] : state.tokens;
+      // After "=", a value starts a fresh expression while an operator/postfix
+      // continues from the result (Casio-style "Ans").
+      const next = state.justEvaluated && action.isValue ? [action.token] : [...base, action.token];
+      return { tokens: next, justEvaluated: false, errored: false };
+    }
+    case "evaluate": {
+      const value = evaluateExpression(state.tokens.join(""), action.angleMode);
+      if (value === null) return { ...state, errored: true };
+      return { tokens: [formatCalculatorNumber(value)], justEvaluated: true, errored: false };
+    }
   }
 }
 
+function ScientificCalculatorBody({ angleMode }: { angleMode: CalculatorAngleMode }) {
+  const { t } = useSettings();
+  const [state, dispatch] = useReducer(expressionReducer, initialExpressionState);
+
+  const display = state.errored ? "Error" : state.tokens.length ? state.tokens.join("") : "0";
+
+  const handleKey = (key: ExpressionKey) => {
+    if ("control" in key) {
+      if (key.control === "clear") dispatch({ type: "clear" });
+      else if (key.control === "backspace") dispatch({ type: "backspace" });
+      else dispatch({ type: "evaluate", angleMode });
+      return;
+    }
+    dispatch({ type: "push", token: key.token, isValue: key.isValue });
+  };
+
+  const renderKey = (key: ExpressionKey, height: string, text: string) => (
+    <button
+      key={key.label}
+      type="button"
+      onClick={() => handleKey(key)}
+      aria-label={t(key.ariaLabel)}
+      className={cn(
+        "focus-ring flex items-center justify-center rounded-lg font-black shadow-sm transition active:translate-y-px",
+        height,
+        text,
+        keyClassName(key.kind)
+      )}
+    >
+      {key.label}
+    </button>
+  );
+
+  return (
+    <>
+      <div
+        aria-live="polite"
+        className="mb-3 overflow-x-auto whitespace-nowrap rounded-2xl bg-slate-950 px-4 py-3 text-right text-2xl font-black tabular-nums text-white"
+      >
+        {display}
+      </div>
+      <div className="mb-2 grid grid-cols-4 gap-1.5">
+        {expressionFunctionKeys.map((key) => renderKey(key, "h-9", "text-xs"))}
+      </div>
+      <div className="grid grid-cols-4 gap-2">
+        {expressionKeypadKeys.map((key) => renderKey(key, "h-11", "text-lg"))}
+      </div>
+    </>
+  );
+}
+
+// ---------------------------------------------------------------------------
+// Launcher — gating + open state + mode / angle toggles.
+// ---------------------------------------------------------------------------
+
 // A floating calculator, shown only when the student's accommodation policy allows
-// a calculator. Renders nothing for every other student, so it never adds an
-// affordance a "no calculator" or default policy shouldn't have. Upper-secondary
-// students get the scientific layout by default; anyone can switch modes.
+// a calculator. Renders nothing for every other student. Upper-secondary students
+// get the scientific (full expression) layout by default; anyone can switch modes.
 export function CalculatorLauncher() {
   const { t, currentUser } = useSettings();
   const { accommodations, loaded } = useStudentAccommodations();
-  const [state, dispatch] = useReducer(calculatorReducer, initialCalculatorState);
   const [open, setOpen] = useState(false);
   const [mode, setMode] = useState<CalculatorMode>(() =>
     defaultCalculatorMode(currentUser?.role === "student" ? currentUser.grade : undefined)
   );
+  const [angleMode, setAngleMode] = useState<CalculatorAngleMode>("deg");
 
   if (!loaded || accommodations.calculatorPolicy !== "allowed") return null;
 
@@ -123,11 +281,11 @@ export function CalculatorLauncher() {
               {scientific ? (
                 <button
                   type="button"
-                  onClick={() => dispatch({ type: "toggleAngleMode" })}
+                  onClick={() => setAngleMode((current) => (current === "deg" ? "rad" : "deg"))}
                   aria-label={t({ en: "Toggle degrees or radians", zh: "切換角度或弧度", zhHans: "切换角度或弧度" })}
                   className="focus-ring rounded-full bg-slate-200 px-2 py-0.5 text-[10px] font-black uppercase text-slate-700 dark:bg-white/10 dark:text-slate-100"
                 >
-                  {state.angleMode === "deg" ? "DEG" : "RAD"}
+                  {angleMode === "deg" ? "DEG" : "RAD"}
                 </button>
               ) : null}
               <button
@@ -145,46 +303,7 @@ export function CalculatorLauncher() {
               </button>
             </div>
           </div>
-          <div
-            aria-live="polite"
-            className="mb-3 overflow-x-auto rounded-2xl bg-slate-950 px-4 py-3 text-right text-3xl font-black tabular-nums text-white"
-          >
-            {state.display}
-          </div>
-          {scientific ? (
-            <div className="mb-2 grid grid-cols-5 gap-1.5">
-              {scientificKeys.map((key) => (
-                <button
-                  key={key.label}
-                  type="button"
-                  onClick={() => dispatch(key.action)}
-                  aria-label={t(key.ariaLabel)}
-                  className={cn(
-                    "focus-ring flex h-9 items-center justify-center rounded-lg text-xs font-black shadow-sm transition active:translate-y-px",
-                    keyClassName(key.kind)
-                  )}
-                >
-                  {key.label}
-                </button>
-              ))}
-            </div>
-          ) : null}
-          <div className="grid grid-cols-4 gap-2">
-            {keypadKeys.map((key) => (
-              <button
-                key={key.label}
-                type="button"
-                onClick={() => dispatch(key.action)}
-                aria-label={t(key.ariaLabel)}
-                className={cn(
-                  "focus-ring flex h-11 items-center justify-center rounded-xl text-lg font-black shadow-sm transition active:translate-y-px",
-                  keyClassName(key.kind)
-                )}
-              >
-                {key.label}
-              </button>
-            ))}
-          </div>
+          {scientific ? <ScientificCalculatorBody angleMode={angleMode} /> : <BasicCalculatorBody />}
         </div>
       ) : null}
       <button
