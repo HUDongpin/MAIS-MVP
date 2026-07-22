@@ -4071,12 +4071,60 @@ export type TeacherClassTopicOption = {
   title: LocalizedText;
 };
 
+export type LearningPathStepKind = "lesson" | "practice" | "assessment" | "visualization" | "resource";
+
+export type LearningPathStep = {
+  id: string;
+  order: number;
+  kind: LearningPathStepKind;
+  targetId: string;
+  title: string;
+  description: string;
+};
+
+export type TeacherLearningPath = {
+  id: string;
+  classId: string;
+  groupId: string | null;
+  groupName: string | null;
+  title: string;
+  description: string;
+  status: "active" | "archived";
+  steps: LearningPathStep[];
+  assignedStudentIds: string[];
+  assignedCount: number;
+  completedCount: number;
+  averageStepsCompleted: number;
+  createdAt: string;
+  updatedAt: string;
+};
+
+export type StudentLearningPathStepStatus = "locked" | "available" | "completed";
+
+export type StudentLearningPathStep = LearningPathStep & {
+  status: StudentLearningPathStepStatus;
+  href: string | null;
+};
+
+export type StudentLearningPath = {
+  id: string;
+  classId: string;
+  title: string;
+  description: string;
+  steps: StudentLearningPathStep[];
+  completedStepCount: number;
+  totalStepCount: number;
+  currentStepId: string | null;
+  completed: boolean;
+};
+
 export type TeacherClassDetailData = {
   class: TeacherClass;
   students: TeacherClassStudentSummary[];
   assignments: Assignment[];
   groups: TeacherStudentGroup[];
   topicOptions: TeacherClassTopicOption[];
+  learningPaths: TeacherLearningPath[];
 };
 
 export type TeacherStudentMasteryTarget = {

@@ -11,6 +11,7 @@ import type { TeacherOpsLessonKitPersistenceStore } from "./teacherOpsLessonKitP
 import type { TeacherOpsLiveSessionPersistenceStore } from "./teacherOpsLiveSessionPersistence";
 import type { TeacherOpsMasteryTargetPersistenceStore } from "./teacherOpsMasteryTargetPersistence";
 import type { TeacherOpsStudentGroupPersistenceStore } from "./teacherOpsStudentGroupPersistence";
+import type { TeacherOpsLearningPathPersistenceStore } from "./teacherOpsLearningPathPersistence";
 import type { TeacherOpsNoticePersistenceStore } from "./teacherOpsNoticePersistence";
 import type { TeacherOpsOperationsPersistenceStore } from "./teacherOpsOperationsPersistence";
 import type { TeacherOpsPrepTeamPersistenceStore } from "./teacherOpsPrepTeamPersistence";
@@ -36,6 +37,7 @@ export type TeacherOpsUserStoreDependencies = {
   teacherOpsLiveSessionPersistenceStore: TeacherOpsLiveSessionPersistenceStore;
   teacherOpsMasteryTargetPersistenceStore: TeacherOpsMasteryTargetPersistenceStore;
   teacherOpsStudentGroupPersistenceStore: TeacherOpsStudentGroupPersistenceStore;
+  teacherOpsLearningPathPersistenceStore: TeacherOpsLearningPathPersistenceStore;
   teacherOpsNoticePersistenceStore: TeacherOpsNoticePersistenceStore;
   teacherOpsOperationsPersistenceStore: TeacherOpsOperationsPersistenceStore;
   teacherOpsPrepTeamPersistenceStore: TeacherOpsPrepTeamPersistenceStore;
@@ -64,6 +66,7 @@ export function createTeacherOpsUserStore({
   teacherOpsLiveSessionPersistenceStore,
   teacherOpsMasteryTargetPersistenceStore,
   teacherOpsStudentGroupPersistenceStore,
+  teacherOpsLearningPathPersistenceStore,
   teacherOpsNoticePersistenceStore,
   teacherOpsOperationsPersistenceStore,
   teacherOpsPrepTeamPersistenceStore,
@@ -119,6 +122,9 @@ export function createTeacherOpsUserStore({
     deleteTeacherStudentGroup: teacherOpsStudentGroupPersistenceStore.deleteTeacherStudentGroup,
     setTeacherStudentGroupMasteryTarget: teacherOpsStudentGroupPersistenceStore.setTeacherStudentGroupMasteryTarget,
     clearTeacherStudentGroupMasteryTarget: teacherOpsStudentGroupPersistenceStore.clearTeacherStudentGroupMasteryTarget,
+    createTeacherLearningPath: teacherOpsLearningPathPersistenceStore.createTeacherLearningPath,
+    updateTeacherLearningPath: teacherOpsLearningPathPersistenceStore.updateTeacherLearningPath,
+    deleteTeacherLearningPath: teacherOpsLearningPathPersistenceStore.deleteTeacherLearningPath,
     createTeacherClass: teacherOpsClassPersistenceStore.createTeacherClass,
     addStudentToTeacherClass: teacherOpsClassPersistenceStore.addStudentToTeacherClass,
     joinClassByInviteCode: teacherOpsClassPersistenceStore.joinClassByInviteCode,
