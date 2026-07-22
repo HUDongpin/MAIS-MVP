@@ -12,7 +12,7 @@ type FunctionName = "sin" | "cos" | "tan" | "asin" | "acos" | "atan" | "ln" | "l
 type Token =
   | { type: "num"; value: number }
   | { type: "const"; value: "pi" | "e" }
-  | { type: "op"; value: "+" | "-" | "×" | "÷" | "^" }
+  | { type: "op"; value: "+" | "-" | "×" | "÷" | "^" | "nCr" | "nPr" | "⁄" | "⁀" }
   | { type: "func"; name: FunctionName }
   | { type: "lparen" }
   | { type: "rparen" }
@@ -60,6 +60,17 @@ function tokenize(input: string): Token[] {
       continue;
     }
 
+    if (input.startsWith("nCr", i)) {
+      tokens.push({ type: "op", value: "nCr" });
+      i += 3;
+      continue;
+    }
+    if (input.startsWith("nPr", i)) {
+      tokens.push({ type: "op", value: "nPr" });
+      i += 3;
+      continue;
+    }
+
     const matched = functionMatchers.find(([display]) => input.startsWith(display, i));
     if (matched) {
       tokens.push({ type: "func", name: matched[1] });
@@ -91,6 +102,12 @@ function tokenize(input: string): Token[] {
         break;
       case "^":
         tokens.push({ type: "op", value: "^" });
+        break;
+      case "⁄":
+        tokens.push({ type: "op", value: "⁄" });
+        break;
+      case "⁀":
+        tokens.push({ type: "op", value: "⁀" });
         break;
       case "(":
         tokens.push({ type: "lparen" });
@@ -137,6 +154,23 @@ function factorial(x: number): number {
   let result = 1;
   for (let n = 2; n <= x; n += 1) result *= n;
   return result;
+}
+
+// n P r = n! / (n − r)!, computed as a rising product to avoid huge factorials.
+function permutations(n: number, r: number): number {
+  if (!Number.isInteger(n) || !Number.isInteger(r) || n < 0 || r < 0 || r > n) throw new Error("Invalid nPr");
+  let result = 1;
+  for (let i = 0; i < r; i += 1) result *= n - i;
+  return result;
+}
+
+// n C r = n! / (r!(n − r)!), computed via a product (rounding away float noise).
+function combinations(n: number, r: number): number {
+  if (!Number.isInteger(n) || !Number.isInteger(r) || n < 0 || r < 0 || r > n) throw new Error("Invalid nCr");
+  const k = Math.min(r, n - r);
+  let result = 1;
+  for (let i = 0; i < k; i += 1) result = (result * (n - i)) / (i + 1);
+  return Math.round(result);
 }
 
 function applyFunction(name: FunctionName, x: number, angleMode: CalculatorAngleMode): number {
@@ -194,16 +228,31 @@ function parseTokens(tokens: Token[], angleMode: CalculatorAngleMode): number {
     }
   }
 
-  // term := unary (('×' | '÷') unary)*
+  // term := comb (('×' | '÷') comb)*
   function parseTerm(): number {
-    let value = parseUnary();
+    let value = parseCombinatorial();
     for (;;) {
       const token = peek();
       if (token?.type === "op" && (token.value === "×" || token.value === "÷")) {
         consume();
-        const rhs = parseUnary();
+        const rhs = parseCombinatorial();
         if (token.value === "÷" && rhs === 0) throw new Error("Divide by zero");
         value = token.value === "×" ? value * rhs : value / rhs;
+      } else {
+        return value;
+      }
+    }
+  }
+
+  // comb := unary (('nCr' | 'nPr') unary)*
+  function parseCombinatorial(): number {
+    let value = parseUnary();
+    for (;;) {
+      const token = peek();
+      if (token?.type === "op" && (token.value === "nCr" || token.value === "nPr")) {
+        consume();
+        const rhs = parseUnary();
+        value = token.value === "nCr" ? combinations(value, rhs) : permutations(value, rhs);
       } else {
         return value;
       }
@@ -220,15 +269,42 @@ function parseTokens(tokens: Token[], angleMode: CalculatorAngleMode): number {
     return parsePower();
   }
 
-  // power := postfix ('^' unary)?   (right-associative; exponent may be unary)
+  // power := mixed ('^' unary)?   (right-associative; exponent may be unary)
   function parsePower(): number {
-    const base = parsePostfix();
+    const base = parseMixed();
     const token = peek();
     if (token?.type === "op" && token.value === "^") {
       consume();
       return Math.pow(base, parseUnary());
     }
     return base;
+  }
+
+  // mixed := frac ('⁀' frac)?   (whole ⁀ fraction → whole + fraction, e.g. 2⁀1⁄3)
+  function parseMixed(): number {
+    const whole = parseFraction();
+    const token = peek();
+    if (token?.type === "op" && token.value === "⁀") {
+      consume();
+      return whole + parseFraction();
+    }
+    return whole;
+  }
+
+  // frac := postfix ('⁄' postfix)*   (tight-binding division, e.g. 1⁄2)
+  function parseFraction(): number {
+    let value = parsePostfix();
+    for (;;) {
+      const token = peek();
+      if (token?.type === "op" && token.value === "⁄") {
+        consume();
+        const denominator = parsePostfix();
+        if (denominator === 0) throw new Error("Divide by zero");
+        value /= denominator;
+      } else {
+        return value;
+      }
+    }
   }
 
   // postfix := primary ('²' | '!' | '%')*

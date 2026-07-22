@@ -67,6 +67,27 @@ test("unary minus and mixed expressions", () => {
   assert.equal(ev("10÷(2-2+1)"), 10);
 });
 
+test("combinations (nCr) and permutations (nPr)", () => {
+  assert.equal(ev("5nCr2"), 10);
+  assert.equal(ev("5nPr2"), 20);
+  assert.equal(ev("52nCr5"), 2598960); // poker hands
+  assert.equal(ev("2×3nCr2"), 6); // binds tighter than ×: 2×(3C2)
+  assert.equal(ev("5nCr2+5nCr3"), 20);
+  assert.equal(ev("3nCr5"), null); // r > n
+  assert.equal(ev("5.5nCr2"), null); // non-integer
+});
+
+test("fractions and mixed numbers", () => {
+  assert.equal(ev("1⁄2"), 0.5);
+  assert.equal(ev("3⁄4"), 0.75);
+  approx(ev("1⁄2+1⁄3"), 5 / 6); // fraction binds tighter than +
+  assert.equal(ev("1⁄2×4"), 2);
+  approx(ev("2⁀1⁄3"), 7 / 3); // mixed number 2 1/3
+  approx(ev("-2⁀1⁄3"), -7 / 3); // unary minus wraps the whole mixed number
+  assert.equal(ev("1⁀1⁄2×2"), 3); // (1 1/2) × 2
+  assert.equal(ev("1⁄0"), null); // fraction divide-by-zero
+});
+
 test("errors return null (never throw)", () => {
   assert.equal(ev(""), null);
   assert.equal(ev("2+"), null); // trailing operator

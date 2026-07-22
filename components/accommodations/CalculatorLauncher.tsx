@@ -111,7 +111,12 @@ function BasicCalculatorBody() {
 
 type ExpressionKey =
   | { label: string; ariaLabel: LocalizedLabel; kind: KeyKind; token: string; isValue: boolean }
-  | { label: string; ariaLabel: LocalizedLabel; kind: KeyKind; control: "clear" | "backspace" | "equals" };
+  | {
+      label: string;
+      ariaLabel: LocalizedLabel;
+      kind: KeyKind;
+      control: "clear" | "backspace" | "equals" | "memoryClear" | "memoryRecall" | "memoryAdd" | "memorySubtract";
+    };
 
 const expressionFunctionKeys: ExpressionKey[] = [
   { label: "sin", ariaLabel: { en: "Sine", zh: "正弦", zhHans: "正弦" }, token: "sin(", isValue: true, kind: "function" },
@@ -127,9 +132,17 @@ const expressionFunctionKeys: ExpressionKey[] = [
   { label: "eˣ", ariaLabel: { en: "e to the power x", zh: "e 的次方", zhHans: "e 的次方" }, token: "e^(", isValue: true, kind: "function" },
   { label: "xʸ", ariaLabel: { en: "Power", zh: "次方", zhHans: "次方" }, token: "^", isValue: false, kind: "operator" },
   { label: "n!", ariaLabel: { en: "Factorial", zh: "階乘", zhHans: "阶乘" }, token: "!", isValue: false, kind: "function" },
+  { label: "nPr", ariaLabel: { en: "Permutations", zh: "排列", zhHans: "排列" }, token: "nPr", isValue: false, kind: "operator" },
+  { label: "nCr", ariaLabel: { en: "Combinations", zh: "組合", zhHans: "组合" }, token: "nCr", isValue: false, kind: "operator" },
   { label: "%", ariaLabel: { en: "Percent", zh: "百分比", zhHans: "百分比" }, token: "%", isValue: false, kind: "function" },
+  { label: "a/b", ariaLabel: { en: "Fraction", zh: "分數", zhHans: "分数" }, token: "⁄", isValue: false, kind: "function" },
+  { label: "a b/c", ariaLabel: { en: "Mixed number", zh: "帶分數", zhHans: "带分数" }, token: "⁀", isValue: false, kind: "function" },
   { label: "π", ariaLabel: { en: "Pi", zh: "圓周率", zhHans: "圆周率" }, token: "π", isValue: true, kind: "function" },
-  { label: "e", ariaLabel: { en: "Euler's number", zh: "自然常數 e", zhHans: "自然常数 e" }, token: "e", isValue: true, kind: "function" }
+  { label: "e", ariaLabel: { en: "Euler's number", zh: "自然常數 e", zhHans: "自然常数 e" }, token: "e", isValue: true, kind: "function" },
+  { label: "MC", ariaLabel: { en: "Memory clear", zh: "清除記憶", zhHans: "清除记忆" }, control: "memoryClear", kind: "function" },
+  { label: "MR", ariaLabel: { en: "Memory recall", zh: "讀取記憶", zhHans: "读取记忆" }, control: "memoryRecall", kind: "function" },
+  { label: "M−", ariaLabel: { en: "Memory subtract", zh: "記憶減", zhHans: "记忆减" }, control: "memorySubtract", kind: "function" },
+  { label: "M+", ariaLabel: { en: "Memory add", zh: "記憶加", zhHans: "记忆加" }, control: "memoryAdd", kind: "function" }
 ];
 
 const expressionKeypadKeys: ExpressionKey[] = [
@@ -155,38 +168,62 @@ const expressionKeypadKeys: ExpressionKey[] = [
   { label: "=", ariaLabel: { en: "Equals", zh: "等於", zhHans: "等于" }, control: "equals", kind: "equals" }
 ];
 
-type ExpressionCalculatorState = { tokens: string[]; justEvaluated: boolean; errored: boolean };
+type ExpressionCalculatorState = { tokens: string[]; justEvaluated: boolean; errored: boolean; memory: number };
 
 type ExpressionCalculatorAction =
   | { type: "push"; token: string; isValue: boolean }
   | { type: "clear" }
   | { type: "backspace" }
-  | { type: "evaluate"; angleMode: CalculatorAngleMode };
+  | { type: "evaluate"; angleMode: CalculatorAngleMode }
+  | { type: "memoryClear" }
+  | { type: "memoryRecall" }
+  | { type: "memoryStore"; sign: 1 | -1; angleMode: CalculatorAngleMode };
 
-const initialExpressionState: ExpressionCalculatorState = { tokens: [], justEvaluated: false, errored: false };
+const initialExpressionState: ExpressionCalculatorState = { tokens: [], justEvaluated: false, errored: false, memory: 0 };
+
+// Append a value/operator token with the "after =" rules (a value starts fresh,
+// an operator continues from the result — Casio-style "Ans").
+function pushToken(state: ExpressionCalculatorState, token: string, isValue: boolean): ExpressionCalculatorState {
+  const base = state.errored ? [] : state.tokens;
+  const next = state.justEvaluated && isValue ? [token] : [...base, token];
+  return { ...state, tokens: next, justEvaluated: false, errored: false };
+}
 
 // A reducer (not closure-based useState) so a burst of key presses always applies
 // to the latest token list — building the expression can never drop a keystroke.
+// Memory persists across AC (cleared only by MC), like a physical calculator.
 function expressionReducer(
   state: ExpressionCalculatorState,
   action: ExpressionCalculatorAction
 ): ExpressionCalculatorState {
   switch (action.type) {
     case "clear":
-      return initialExpressionState;
+      return { ...initialExpressionState, memory: state.memory };
     case "backspace":
-      return { tokens: state.tokens.slice(0, -1), justEvaluated: false, errored: false };
-    case "push": {
-      const base = state.errored ? [] : state.tokens;
-      // After "=", a value starts a fresh expression while an operator/postfix
-      // continues from the result (Casio-style "Ans").
-      const next = state.justEvaluated && action.isValue ? [action.token] : [...base, action.token];
-      return { tokens: next, justEvaluated: false, errored: false };
-    }
+      return { ...state, tokens: state.tokens.slice(0, -1), justEvaluated: false, errored: false };
+    case "push":
+      return pushToken(state, action.token, action.isValue);
     case "evaluate": {
       const value = evaluateExpression(state.tokens.join(""), action.angleMode);
       if (value === null) return { ...state, errored: true };
-      return { tokens: [formatCalculatorNumber(value)], justEvaluated: true, errored: false };
+      return { ...state, tokens: [formatCalculatorNumber(value)], justEvaluated: true, errored: false };
+    }
+    case "memoryClear":
+      return { ...state, memory: 0 };
+    case "memoryRecall":
+      return pushToken(state, formatCalculatorNumber(state.memory), true);
+    case "memoryStore": {
+      // M+ / M− evaluate the current expression and add/subtract it from memory,
+      // showing the result (leaving the current expression untouched otherwise).
+      const value = evaluateExpression(state.tokens.join(""), action.angleMode);
+      if (value === null) return { ...state, errored: true };
+      return {
+        ...state,
+        tokens: [formatCalculatorNumber(value)],
+        justEvaluated: true,
+        errored: false,
+        memory: state.memory + action.sign * value
+      };
     }
   }
 }
@@ -199,9 +236,29 @@ function ScientificCalculatorBody({ angleMode }: { angleMode: CalculatorAngleMod
 
   const handleKey = (key: ExpressionKey) => {
     if ("control" in key) {
-      if (key.control === "clear") dispatch({ type: "clear" });
-      else if (key.control === "backspace") dispatch({ type: "backspace" });
-      else dispatch({ type: "evaluate", angleMode });
+      switch (key.control) {
+        case "clear":
+          dispatch({ type: "clear" });
+          break;
+        case "backspace":
+          dispatch({ type: "backspace" });
+          break;
+        case "equals":
+          dispatch({ type: "evaluate", angleMode });
+          break;
+        case "memoryClear":
+          dispatch({ type: "memoryClear" });
+          break;
+        case "memoryRecall":
+          dispatch({ type: "memoryRecall" });
+          break;
+        case "memoryAdd":
+          dispatch({ type: "memoryStore", sign: 1, angleMode });
+          break;
+        case "memorySubtract":
+          dispatch({ type: "memoryStore", sign: -1, angleMode });
+          break;
+      }
       return;
     }
     dispatch({ type: "push", token: key.token, isValue: key.isValue });
@@ -226,11 +283,16 @@ function ScientificCalculatorBody({ angleMode }: { angleMode: CalculatorAngleMod
 
   return (
     <>
-      <div
-        aria-live="polite"
-        className="mb-3 overflow-x-auto whitespace-nowrap rounded-2xl bg-slate-950 px-4 py-3 text-right text-2xl font-black tabular-nums text-white"
-      >
-        {display}
+      <div className="relative mb-3">
+        {state.memory !== 0 ? (
+          <span className="absolute left-3 top-2 text-[10px] font-black uppercase tracking-wide text-violet-300">M</span>
+        ) : null}
+        <div
+          aria-live="polite"
+          className="overflow-x-auto whitespace-nowrap rounded-2xl bg-slate-950 px-4 py-3 text-right text-2xl font-black tabular-nums text-white"
+        >
+          {display}
+        </div>
       </div>
       <div className="mb-2 grid grid-cols-4 gap-1.5">
         {expressionFunctionKeys.map((key) => renderKey(key, "h-9", "text-xs"))}
@@ -269,7 +331,7 @@ export function CalculatorLauncher() {
           role="dialog"
           aria-label={t({ en: "Calculator", zh: "計算機", zhHans: "计算器" })}
           className={cn(
-            "mb-3 rounded-3xl border border-slate-200/80 bg-white/95 p-3 shadow-[0_22px_46px_rgba(15,23,42,0.28)] backdrop-blur dark:border-white/10 dark:bg-slate-900/95",
+            "mb-3 max-h-[80vh] overflow-y-auto rounded-3xl border border-slate-200/80 bg-white/95 p-3 shadow-[0_22px_46px_rgba(15,23,42,0.28)] backdrop-blur dark:border-white/10 dark:bg-slate-900/95",
             scientific ? "w-80" : "w-64"
           )}
         >
