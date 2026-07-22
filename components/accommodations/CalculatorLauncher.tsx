@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useReducer, useState } from "react";
+import { useEffect, useMemo, useReducer, useRef, useState, type KeyboardEvent } from "react";
 import { useSettings } from "@/components/providers/AppProviders";
 import { useStudentAccommodations } from "@/components/accommodations/useStudentAccommodations";
 import {
@@ -13,7 +13,7 @@ import {
   type CalculatorMode
 } from "@/lib/calculatorEngine";
 import { decimalToFraction, evaluateExpression, type Fraction } from "@/lib/expressionCalculator";
-import { computeStatistics } from "@/lib/statistics";
+import { computeRegression, computeStatistics, type DataPoint } from "@/lib/statistics";
 import { cn } from "@/lib/utils";
 
 function CalculatorIcon({ className = "size-5" }: { className?: string }) {
@@ -184,9 +184,9 @@ type ExpressionCalculatorState = {
   errored: boolean;
   memory: number;
   // Exact-fraction form of the last result (null when it is an integer or
-  // irrational); showFraction is the S⇔D preference.
+  // irrational); displayForm is the S⇔D preference the toggle cycles through.
   fraction: Fraction | null;
-  showFraction: boolean;
+  displayForm: "fraction" | "mixed" | "decimal";
 };
 
 type ExpressionCalculatorAction =
@@ -205,7 +205,7 @@ const initialExpressionState: ExpressionCalculatorState = {
   errored: false,
   memory: 0,
   fraction: null,
-  showFraction: false
+  displayForm: "decimal"
 };
 
 // Append a value/operator token with the "after =" rules (a value starts fresh,
@@ -214,7 +214,7 @@ const initialExpressionState: ExpressionCalculatorState = {
 function pushToken(state: ExpressionCalculatorState, token: string, isValue: boolean): ExpressionCalculatorState {
   const base = state.errored ? [] : state.tokens;
   const next = state.justEvaluated && isValue ? [token] : [...base, token];
-  return { ...state, tokens: next, justEvaluated: false, errored: false, fraction: null, showFraction: false };
+  return { ...state, tokens: next, justEvaluated: false, errored: false, fraction: null, displayForm: "decimal" };
 }
 
 // Shared shape for a shown result (from "=" or M+/M−): the decimal string plus its
@@ -231,7 +231,7 @@ function resolvedState(
     justEvaluated: true,
     errored: false,
     fraction,
-    showFraction: fraction !== null && fraction.denominator !== 1,
+    displayForm: fraction !== null && fraction.denominator !== 1 ? "fraction" : "decimal",
     ...extra
   };
 }
@@ -247,7 +247,7 @@ function expressionReducer(
     case "clear":
       return { ...initialExpressionState, memory: state.memory };
     case "backspace":
-      return { ...state, tokens: state.tokens.slice(0, -1), justEvaluated: false, errored: false, fraction: null, showFraction: false };
+      return { ...state, tokens: state.tokens.slice(0, -1), justEvaluated: false, errored: false, fraction: null, displayForm: "decimal" };
     case "push":
       return pushToken(state, action.token, action.isValue);
     case "evaluate": {
@@ -266,20 +266,33 @@ function expressionReducer(
       if (value === null) return { ...state, errored: true };
       return resolvedState(state, value, { memory: state.memory + action.sign * value });
     }
-    case "toggleFraction":
-      // S⇔D: only meaningful when the result has a (proper) fraction form.
+    case "toggleFraction": {
+      // S⇔D cycles fraction → (mixed, when improper) → decimal → fraction.
       if (!state.fraction || state.fraction.denominator === 1) return state;
-      return { ...state, showFraction: !state.showFraction };
+      const improper = Math.abs(state.fraction.numerator) > state.fraction.denominator;
+      const order: ExpressionCalculatorState["displayForm"][] = improper
+        ? ["fraction", "mixed", "decimal"]
+        : ["fraction", "decimal"];
+      const nextIndex = (order.indexOf(state.displayForm) + 1) % order.length;
+      return { ...state, displayForm: order[nextIndex] };
+    }
   }
 }
 
-function StackedFraction({ numerator, denominator }: Fraction) {
-  const negative = numerator < 0;
+// Renders a rational result as a stacked fraction — improper (7/3) or, when
+// `mixed`, as a whole number beside a proper stacked fraction (2 1/3).
+function FractionResult({ fraction, mixed }: { fraction: Fraction; mixed: boolean }) {
+  const negative = fraction.numerator < 0;
+  const absNumerator = Math.abs(fraction.numerator);
+  const denominator = fraction.denominator;
+  const whole = mixed ? Math.floor(absNumerator / denominator) : 0;
+  const partNumerator = mixed ? absNumerator % denominator : absNumerator;
   return (
     <span className="inline-flex items-center gap-1 align-middle">
       {negative ? <span>−</span> : null}
+      {mixed && whole !== 0 ? <span className="mr-1">{whole}</span> : null}
       <span className="inline-flex flex-col items-center text-xl leading-none">
-        <span className="px-1">{Math.abs(numerator)}</span>
+        <span className="px-1">{partNumerator}</span>
         <span className="my-1 h-px w-full bg-white" />
         <span className="px-1">{denominator}</span>
       </span>
@@ -290,8 +303,37 @@ function StackedFraction({ numerator, denominator }: Fraction) {
 function ScientificCalculatorBody({ angleMode }: { angleMode: CalculatorAngleMode }) {
   const { t } = useSettings();
   const [state, dispatch] = useReducer(expressionReducer, initialExpressionState);
+  const containerRef = useRef<HTMLDivElement | null>(null);
 
-  const showsFraction = state.justEvaluated && state.showFraction && state.fraction !== null && state.fraction.denominator !== 1;
+  // Focus the panel when it opens so the physical keyboard drives it right away.
+  useEffect(() => {
+    containerRef.current?.focus();
+  }, []);
+
+  // Physical-keyboard input — only fires while focus is inside the panel, so it
+  // never steals keystrokes meant for the assessment's answer fields.
+  const handleKeyboard = (event: KeyboardEvent<HTMLDivElement>) => {
+    if (event.ctrlKey || event.metaKey || event.altKey) return;
+    const key = event.key;
+    if (/^[0-9]$/.test(key)) dispatch({ type: "push", token: key, isValue: true });
+    else if (key === ".") dispatch({ type: "push", token: ".", isValue: true });
+    else if (key === "+") dispatch({ type: "push", token: "+", isValue: false });
+    else if (key === "-") dispatch({ type: "push", token: "−", isValue: false });
+    else if (key === "*") dispatch({ type: "push", token: "×", isValue: false });
+    else if (key === "/") dispatch({ type: "push", token: "÷", isValue: false });
+    else if (key === "^") dispatch({ type: "push", token: "^", isValue: false });
+    else if (key === "(") dispatch({ type: "push", token: "(", isValue: true });
+    else if (key === ")") dispatch({ type: "push", token: ")", isValue: false });
+    else if (key === "%") dispatch({ type: "push", token: "%", isValue: false });
+    else if (key === "!") dispatch({ type: "push", token: "!", isValue: false });
+    else if (key === "Enter" || key === "=") dispatch({ type: "evaluate", angleMode });
+    else if (key === "Backspace") dispatch({ type: "backspace" });
+    else if (key === "Escape") dispatch({ type: "clear" });
+    else return;
+    event.preventDefault();
+  };
+
+  const showsFraction = state.justEvaluated && state.displayForm !== "decimal" && state.fraction !== null && state.fraction.denominator !== 1;
 
   const handleKey = (key: ExpressionKey) => {
     if ("control" in key) {
@@ -344,7 +386,7 @@ function ScientificCalculatorBody({ angleMode }: { angleMode: CalculatorAngleMod
   );
 
   return (
-    <>
+    <div ref={containerRef} tabIndex={-1} onKeyDown={handleKeyboard} className="outline-none">
       <div className="relative mb-3">
         {state.memory !== 0 ? (
           <span className="absolute left-3 top-2 text-[10px] font-black uppercase tracking-wide text-violet-300">M</span>
@@ -356,7 +398,7 @@ function ScientificCalculatorBody({ angleMode }: { angleMode: CalculatorAngleMod
           {state.errored
             ? "Error"
             : showsFraction && state.fraction
-              ? <StackedFraction numerator={state.fraction.numerator} denominator={state.fraction.denominator} />
+              ? <FractionResult fraction={state.fraction} mixed={state.displayForm === "mixed"} />
               : state.tokens.length
                 ? state.tokens.join("")
                 : "0"}
@@ -368,7 +410,7 @@ function ScientificCalculatorBody({ angleMode }: { angleMode: CalculatorAngleMod
       <div className="grid grid-cols-4 gap-2">
         {expressionKeypadKeys.map((key) => renderKey(key, "h-11", "text-lg"))}
       </div>
-    </>
+    </div>
   );
 }
 
@@ -376,7 +418,16 @@ function ScientificCalculatorBody({ angleMode }: { angleMode: CalculatorAngleMod
 // Statistics mode — enter a data list, read n / mean / Σx / SD / min / max.
 // ---------------------------------------------------------------------------
 
-type StatisticsState = { values: number[]; current: string };
+type StatVariant = "single" | "regression";
+
+type StatisticsState = {
+  variant: StatVariant;
+  values: number[];
+  pairs: DataPoint[];
+  current: string;
+  entering: "x" | "y";
+  pendingX: number | null;
+};
 
 type StatisticsAction =
   | { type: "digit"; value: string }
@@ -385,9 +436,17 @@ type StatisticsAction =
   | { type: "backspace" }
   | { type: "data" }
   | { type: "deleteLast" }
-  | { type: "clear" };
+  | { type: "clear" }
+  | { type: "setVariant"; variant: StatVariant };
 
-const initialStatisticsState: StatisticsState = { values: [], current: "" };
+const initialStatisticsState: StatisticsState = {
+  variant: "single",
+  values: [],
+  pairs: [],
+  current: "",
+  entering: "x",
+  pendingX: null
+};
 
 function statisticsReducer(state: StatisticsState, action: StatisticsAction): StatisticsState {
   switch (action.type) {
@@ -404,12 +463,28 @@ function statisticsReducer(state: StatisticsState, action: StatisticsAction): St
     case "data": {
       const value = Number.parseFloat(state.current);
       if (!Number.isFinite(value)) return state;
-      return { values: [...state.values, value], current: "" };
+      if (state.variant === "single") {
+        return { ...state, values: [...state.values, value], current: "" };
+      }
+      // 2-Var: DATA advances x → y → commit the (x, y) pair.
+      if (state.entering === "x") {
+        return { ...state, pendingX: value, entering: "y", current: "" };
+      }
+      return {
+        ...state,
+        pairs: [...state.pairs, { x: state.pendingX ?? 0, y: value }],
+        entering: "x",
+        pendingX: null,
+        current: ""
+      };
     }
     case "deleteLast":
-      return { ...state, values: state.values.slice(0, -1) };
+      if (state.variant === "single") return { ...state, values: state.values.slice(0, -1) };
+      return { ...state, pairs: state.pairs.slice(0, -1), entering: "x", pendingX: null, current: "" };
     case "clear":
-      return initialStatisticsState;
+      return { ...initialStatisticsState, variant: state.variant };
+    case "setVariant":
+      return { ...initialStatisticsState, variant: action.variant };
   }
 }
 
@@ -447,25 +522,71 @@ function StatisticsCalculatorBody() {
   const { t } = useSettings();
   const [state, dispatch] = useReducer(statisticsReducer, initialStatisticsState);
   const stats = useMemo(() => computeStatistics(state.values), [state.values]);
+  const regression = useMemo(() => computeRegression(state.pairs), [state.pairs]);
   const fmt = (value: number) => (Number.isNaN(value) ? "—" : formatCalculatorNumber(value));
+  const isRegression = state.variant === "regression";
+
+  const primaryDisplay = isRegression
+    ? state.entering === "x"
+      ? `x: ${state.current || "0"}`
+      : `x=${formatCalculatorNumber(state.pendingX ?? 0)}  y: ${state.current || "0"}`
+    : state.current || "0";
+
+  const dataListText = isRegression
+    ? state.pairs.length
+      ? state.pairs.map((point) => `(${formatCalculatorNumber(point.x)}, ${formatCalculatorNumber(point.y)})`).join(" ")
+      : t({ en: "x, DATA, y, DATA", zh: "x、DATA、y、DATA", zhHans: "x、DATA、y、DATA" })
+    : state.values.length
+      ? state.values.join(", ")
+      : t({ en: "Type a number, press DATA", zh: "輸入數字後按 DATA", zhHans: "输入数字后按 DATA" });
 
   return (
     <>
-      <div className="mb-2 rounded-2xl bg-slate-950 px-4 py-3 text-white">
-        <div className="overflow-x-auto whitespace-nowrap text-right text-2xl font-black tabular-nums">{state.current || "0"}</div>
-        <div className="mt-1 truncate text-right text-[11px] font-bold text-slate-400">
-          {state.values.length
-            ? state.values.join(", ")
-            : t({ en: "Type a number, press DATA", zh: "輸入數字後按 DATA", zhHans: "输入数字后按 DATA" })}
+      <div className="mb-2 flex justify-center">
+        <div className="flex rounded-full bg-slate-100 p-0.5 dark:bg-white/10">
+          {([
+            ["single", { en: "1-Var", zh: "單變量", zhHans: "单变量" }],
+            ["regression", { en: "2-Var", zh: "雙變量", zhHans: "双变量" }]
+          ] as [StatVariant, LocalizedLabel][]).map(([value, label]) => (
+            <button
+              key={value}
+              type="button"
+              onClick={() => dispatch({ type: "setVariant", variant: value })}
+              aria-pressed={state.variant === value}
+              className={cn(
+                "focus-ring rounded-full px-3 py-0.5 text-[10px] font-black uppercase tracking-wide",
+                state.variant === value ? "bg-violet-600 text-white" : "text-slate-600 dark:text-slate-300"
+              )}
+            >
+              {t(label)}
+            </button>
+          ))}
         </div>
       </div>
+      <div className="mb-2 rounded-2xl bg-slate-950 px-4 py-3 text-white">
+        <div className="overflow-x-auto whitespace-nowrap text-right text-2xl font-black tabular-nums">{primaryDisplay}</div>
+        <div className="mt-1 truncate text-right text-[11px] font-bold text-slate-400">{dataListText}</div>
+      </div>
       <div className="mb-2 grid grid-cols-2 gap-1.5 text-xs font-bold">
-        <StatisticRow label={t({ en: "n", zh: "n", zhHans: "n" })} value={stats ? String(stats.count) : "0"} />
-        <StatisticRow label="Σx" value={stats ? fmt(stats.sum) : "—"} />
-        <StatisticRow label={t({ en: "mean x̄", zh: "平均 x̄", zhHans: "平均 x̄" })} value={stats ? fmt(stats.mean) : "—"} />
-        <StatisticRow label="σₙ" value={stats ? fmt(stats.populationStdDev) : "—"} />
-        <StatisticRow label="σₙ₋₁" value={stats ? fmt(stats.sampleStdDev) : "—"} />
-        <StatisticRow label={t({ en: "min–max", zh: "最小–最大", zhHans: "最小–最大" })} value={stats ? `${fmt(stats.min)}–${fmt(stats.max)}` : "—"} />
+        {isRegression ? (
+          <>
+            <StatisticRow label="n" value={regression ? String(regression.count) : String(state.pairs.length)} />
+            <StatisticRow label="r" value={regression ? fmt(regression.correlation) : "—"} />
+            <StatisticRow label="x̄" value={regression ? fmt(regression.meanX) : "—"} />
+            <StatisticRow label="ȳ" value={regression ? fmt(regression.meanY) : "—"} />
+            <StatisticRow label={t({ en: "a (intercept)", zh: "a（截距）", zhHans: "a（截距）" })} value={regression ? fmt(regression.intercept) : "—"} />
+            <StatisticRow label={t({ en: "b (slope)", zh: "b（斜率）", zhHans: "b（斜率）" })} value={regression ? fmt(regression.slope) : "—"} />
+          </>
+        ) : (
+          <>
+            <StatisticRow label="n" value={stats ? String(stats.count) : "0"} />
+            <StatisticRow label="Σx" value={stats ? fmt(stats.sum) : "—"} />
+            <StatisticRow label={t({ en: "mean x̄", zh: "平均 x̄", zhHans: "平均 x̄" })} value={stats ? fmt(stats.mean) : "—"} />
+            <StatisticRow label="σₙ" value={stats ? fmt(stats.populationStdDev) : "—"} />
+            <StatisticRow label="σₙ₋₁" value={stats ? fmt(stats.sampleStdDev) : "—"} />
+            <StatisticRow label={t({ en: "min–max", zh: "最小–最大", zhHans: "最小–最大" })} value={stats ? `${fmt(stats.min)}–${fmt(stats.max)}` : "—"} />
+          </>
+        )}
       </div>
       <div className="grid grid-cols-4 gap-2">
         {statisticsKeys.map((key) => (

@@ -33,3 +33,47 @@ export function computeStatistics(values: number[]): StatisticsSummary | null {
     max: Math.max(...clean)
   };
 }
+
+export type DataPoint = { x: number; y: number };
+
+// Least-squares linear regression y = intercept + slope·x over (x, y) pairs, plus
+// the Pearson correlation r. Needs ≥ 2 finite points; slope/correlation are NaN
+// when x has no spread (a vertical set), which the UI renders as "—".
+export type RegressionSummary = {
+  count: number;
+  meanX: number;
+  meanY: number;
+  slope: number;
+  intercept: number;
+  correlation: number;
+};
+
+export function computeRegression(points: DataPoint[]): RegressionSummary | null {
+  const clean = points.filter((point) => Number.isFinite(point.x) && Number.isFinite(point.y));
+  const count = clean.length;
+  if (count < 2) return null;
+
+  const meanX = clean.reduce((total, point) => total + point.x, 0) / count;
+  const meanY = clean.reduce((total, point) => total + point.y, 0) / count;
+
+  let sxx = 0;
+  let syy = 0;
+  let sxy = 0;
+  for (const point of clean) {
+    const dx = point.x - meanX;
+    const dy = point.y - meanY;
+    sxx += dx * dx;
+    syy += dy * dy;
+    sxy += dx * dy;
+  }
+
+  const slope = sxx === 0 ? Number.NaN : sxy / sxx;
+  return {
+    count,
+    meanX,
+    meanY,
+    slope,
+    intercept: sxx === 0 ? Number.NaN : meanY - slope * meanX,
+    correlation: sxx === 0 || syy === 0 ? Number.NaN : sxy / Math.sqrt(sxx * syy)
+  };
+}
