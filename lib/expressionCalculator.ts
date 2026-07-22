@@ -356,6 +356,44 @@ function parseTokens(tokens: Token[], angleMode: CalculatorAngleMode): number {
   return result;
 }
 
+export type Fraction = { numerator: number; denominator: number };
+
+// The best exact rational for a decimal, via a continued-fraction expansion with a
+// bounded denominator. Returns null for irrationals (√2, π) and anything that does
+// not reconstruct within epsilon — used to render exact-fraction results.
+export function decimalToFraction(value: number, maxDenominator = 10000, epsilon = 1e-10): Fraction | null {
+  if (!Number.isFinite(value)) return null;
+  const sign = value < 0 ? -1 : 1;
+  const target = Math.abs(value);
+  let a = Math.floor(target);
+  let numerator = a;
+  let denominator = 1;
+  let previousNumerator = 1;
+  let previousDenominator = 0;
+  let remainder = target - a;
+  let iterations = 0;
+
+  while (remainder > epsilon && iterations < 40) {
+    const reciprocal = 1 / remainder;
+    a = Math.floor(reciprocal);
+    const nextNumerator = a * numerator + previousNumerator;
+    const nextDenominator = a * denominator + previousDenominator;
+    if (nextDenominator > maxDenominator) break;
+    previousNumerator = numerator;
+    previousDenominator = denominator;
+    numerator = nextNumerator;
+    denominator = nextDenominator;
+    remainder = reciprocal - a;
+    iterations += 1;
+  }
+
+  if (denominator === 0) return null;
+  if (Math.abs(numerator / denominator - target) < epsilon) {
+    return { numerator: sign * numerator, denominator };
+  }
+  return null;
+}
+
 // Evaluate a full expression string. Returns null for any tokenization, parse, or
 // math (domain / divide-by-zero / overflow) error so callers show a single
 // "Error" state.

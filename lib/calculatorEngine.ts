@@ -235,7 +235,7 @@ export function calculatorReducer(state: CalculatorState, action: CalculatorActi
 // / exponentials are core). Everyone can still toggle modes manually.
 const scientificDefaultGrades = new Set<GradeId>(["S3", "S4", "S5", "S6"]);
 
-export type CalculatorMode = "basic" | "scientific";
+export type CalculatorMode = "basic" | "scientific" | "stats";
 
 export function defaultCalculatorMode(grade: GradeId | undefined): CalculatorMode {
   return grade && scientificDefaultGrades.has(grade) ? "scientific" : "basic";

@@ -1,6 +1,6 @@
 import assert from "node:assert/strict";
 import { test } from "node:test";
-import { evaluateExpression } from "@/lib/expressionCalculator";
+import { decimalToFraction, evaluateExpression } from "@/lib/expressionCalculator";
 import type { CalculatorAngleMode } from "@/lib/calculatorEngine";
 
 function ev(input: string, mode: CalculatorAngleMode = "deg"): number | null {
@@ -86,6 +86,20 @@ test("fractions and mixed numbers", () => {
   approx(ev("-2⁀1⁄3"), -7 / 3); // unary minus wraps the whole mixed number
   assert.equal(ev("1⁀1⁄2×2"), 3); // (1 1/2) × 2
   assert.equal(ev("1⁄0"), null); // fraction divide-by-zero
+});
+
+test("decimalToFraction recovers exact rationals and rejects irrationals", () => {
+  assert.deepEqual(decimalToFraction(0.75), { numerator: 3, denominator: 4 });
+  assert.deepEqual(decimalToFraction(0.5), { numerator: 1, denominator: 2 });
+  assert.deepEqual(decimalToFraction(2.5), { numerator: 5, denominator: 2 });
+  assert.deepEqual(decimalToFraction(-0.25), { numerator: -1, denominator: 4 });
+  assert.deepEqual(decimalToFraction(1 / 3), { numerator: 1, denominator: 3 });
+  assert.deepEqual(decimalToFraction(5), { numerator: 5, denominator: 1 });
+  // Results of expressions round-trip to exact fractions.
+  assert.deepEqual(decimalToFraction(evaluateExpression("1⁄2+1⁄3", "deg") as number), { numerator: 5, denominator: 6 });
+  // Irrationals get no fraction.
+  assert.equal(decimalToFraction(Math.SQRT2), null);
+  assert.equal(decimalToFraction(Math.PI), null);
 });
 
 test("errors return null (never throw)", () => {
