@@ -404,6 +404,15 @@ import {
   type TeacherOpsStudentGroupRecord
 } from "@/lib/server/userStore/teacherOpsStudentGroupPersistence";
 import {
+  createTeacherOpsLearningPathPersistenceStore,
+  listTeacherLearningPathsForClass as listTeacherLearningPathsForClassFromTeacherOpsLearningPath,
+  normalizeLearningPathProgressRecords as normalizeLearningPathProgressRecordsFromTeacherOpsLearningPath,
+  normalizeTeacherLearningPathRecords as normalizeTeacherLearningPathRecordsFromTeacherOpsLearningPath,
+  type TeacherOpsLearningPathPersistenceDatabase,
+  type TeacherOpsLearningPathProgressRecord,
+  type TeacherOpsLearningPathRecord
+} from "@/lib/server/userStore/teacherOpsLearningPathPersistence";
+import {
   createTeacherOpsStudentProfilePersistenceStore,
   type TeacherOpsStudentProfilePersistenceDatabase
 } from "@/lib/server/userStore/teacherOpsStudentProfilePersistence";
@@ -1734,6 +1743,8 @@ type Database = {
   lesson_progress: LessonProgressRecord[];
   teacher_mastery_targets: TeacherMasteryTargetRecord[];
   teacher_student_groups: TeacherOpsStudentGroupRecord[];
+  teacher_learning_paths: TeacherOpsLearningPathRecord[];
+  learning_path_step_progress: TeacherOpsLearningPathProgressRecord[];
   adaptive_skill_state: AdaptiveSkillStateRecord[];
   adaptive_recommendation_cache: AdaptiveRecommendationCacheRecord[];
   visualization_events: VisualizationEventRecord[];
@@ -2628,6 +2639,8 @@ function createInitialDatabase(): Database {
     lesson_progress: seedLessonProgressRecords(demoUserId, now),
     teacher_mastery_targets: [],
     teacher_student_groups: [],
+    teacher_learning_paths: [],
+    learning_path_step_progress: [],
     adaptive_skill_state: [],
     adaptive_recommendation_cache: [],
     visualization_events: [],
@@ -4297,6 +4310,8 @@ function normalizeDatabase(database: Partial<Database>) {
     ),
     teacher_mastery_targets: normalizeTeacherMasteryTargetRecordsFromTeacherOpsMasteryTarget(database.teacher_mastery_targets ?? [], now),
     teacher_student_groups: normalizeTeacherStudentGroupRecordsFromTeacherOpsStudentGroup(database.teacher_student_groups ?? [], now),
+    teacher_learning_paths: normalizeTeacherLearningPathRecordsFromTeacherOpsLearningPath(database.teacher_learning_paths ?? [], now),
+    learning_path_step_progress: normalizeLearningPathProgressRecordsFromTeacherOpsLearningPath(database.learning_path_step_progress ?? [], now),
     adaptive_skill_state: normalizeAdaptiveSkillStateRecordsFromStudentActivityPersistence(database.adaptive_skill_state ?? [], now),
     adaptive_recommendation_cache: normalizeAdaptiveRecommendationCacheRecordsFromAiGovernancePersistence(database.adaptive_recommendation_cache ?? [], now),
     visualization_events: database.visualization_events ?? [],
@@ -4422,6 +4437,8 @@ function databaseNeedsPersistenceSync(parsed: Partial<Database>, database: Datab
     !Array.isArray(parsed.lesson_progress) ||
     !Array.isArray(parsed.teacher_mastery_targets) ||
     (parsed.teacher_student_groups !== undefined && !Array.isArray(parsed.teacher_student_groups)) ||
+    (parsed.teacher_learning_paths !== undefined && !Array.isArray(parsed.teacher_learning_paths)) ||
+    (parsed.learning_path_step_progress !== undefined && !Array.isArray(parsed.learning_path_step_progress)) ||
     !Array.isArray(parsed.adaptive_skill_state) ||
     !Array.isArray(parsed.adaptive_recommendation_cache) ||
     !Array.isArray(parsed.visualization_events) ||
@@ -5699,6 +5716,19 @@ const teacherOpsStudentGroupPersistenceStore = createTeacherOpsStudentGroupPersi
   topicIdsForClass: (database, teacherClass) => topicIdsForClass(database as Database, teacherClass as TeacherClassRecord)
 });
 
+const teacherOpsLearningPathPersistenceStore = createTeacherOpsLearningPathPersistenceStore({
+  createId: () => randomUUID(),
+  now: () => new Date(),
+  readDatabase: async () => {
+    const database = await readDatabase();
+    return database as TeacherOpsLearningPathPersistenceDatabase;
+  },
+  mutateDatabase: async <T>(mutator: (database: TeacherOpsLearningPathPersistenceDatabase) => T | Promise<T>) => {
+    const result = await mutateDatabase((database) => mutator(database as TeacherOpsLearningPathPersistenceDatabase));
+    return result as T;
+  }
+});
+
 const teacherOpsStudentProfilePersistenceStore = createTeacherOpsStudentProfilePersistenceStore({
   now: () => new Date(),
   readDatabase: async () => {
@@ -5900,6 +5930,11 @@ const teacherOpsClassPersistenceStore = createTeacherOpsClassPersistenceStore({
       })
       .filter((option): option is TeacherClassTopicOption => option !== null);
   },
+  learningPathsForClass: (database, classId) =>
+    listTeacherLearningPathsForClassFromTeacherOpsLearningPath({
+      database: database as unknown as TeacherOpsLearningPathPersistenceDatabase,
+      classId
+    }),
   toAssignment: (database, assignment) => toAssignmentFromTeacherOpsAssignment(database as Database, assignment as AssignmentRecord),
   toClassEnrollment: (database, enrollment) => toClassEnrollmentFromTeacherOpsClass(database as Database, enrollment as ClassEnrollmentRecord),
   toTeacherClass: (database, teacherClass) => toTeacherClassFromTeacherOpsClass(database as Database, teacherClass as TeacherClassRecord)
@@ -6035,6 +6070,7 @@ const studentActivityUserStore = createStudentActivityUserStore({
   getAdaptiveContentUnavailableForCurriculum: studentAdaptiveContentUnavailableForCurriculum,
   getContentUnavailableForCurriculum: studentContentUnavailableForCurriculum,
   studentActivityPersistenceStore,
+  teacherOpsLearningPathPersistenceStore,
   teacherOpsLiveSessionPersistenceStore
 });
 
@@ -6179,6 +6215,7 @@ const teacherOpsUserStore = createTeacherOpsUserStore({
   teacherOpsLiveSessionPersistenceStore,
   teacherOpsMasteryTargetPersistenceStore,
   teacherOpsStudentGroupPersistenceStore,
+  teacherOpsLearningPathPersistenceStore,
   teacherOpsNoticePersistenceStore,
   teacherOpsOperationsPersistenceStore,
   teacherOpsPrepTeamPersistenceStore,
@@ -7524,6 +7561,8 @@ function emptyTeacherDashboardDatabase(overrides: Partial<Database>): Database {
     lesson_progress: [],
     teacher_mastery_targets: [],
     teacher_student_groups: [],
+    teacher_learning_paths: [],
+    learning_path_step_progress: [],
     adaptive_skill_state: [],
     adaptive_recommendation_cache: [],
     visualization_events: [],
@@ -8265,6 +8304,16 @@ export const deleteTeacherStudentGroup = teacherOpsUserStore.deleteTeacherStuden
 export const setTeacherStudentGroupMasteryTarget = teacherOpsUserStore.setTeacherStudentGroupMasteryTarget;
 
 export const clearTeacherStudentGroupMasteryTarget = teacherOpsUserStore.clearTeacherStudentGroupMasteryTarget;
+
+export const createTeacherLearningPath = teacherOpsUserStore.createTeacherLearningPath;
+
+export const updateTeacherLearningPath = teacherOpsUserStore.updateTeacherLearningPath;
+
+export const deleteTeacherLearningPath = teacherOpsUserStore.deleteTeacherLearningPath;
+
+export const getStudentLearningPaths = studentActivityUserStore.getStudentLearningPaths;
+
+export const markStudentLearningPathStepComplete = studentActivityUserStore.markStudentLearningPathStepComplete;
 
 const riskTagsForStudent: (
   database: Database,

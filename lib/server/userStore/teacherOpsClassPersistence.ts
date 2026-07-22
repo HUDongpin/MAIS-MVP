@@ -15,6 +15,7 @@ import type {
   TeacherClassDetailData,
   TeacherClassStudentSummary,
   TeacherClassTopicOption,
+  TeacherLearningPath,
   TeacherStudentGroup,
   TeacherStudentRiskTag,
   TextbookPublisher
@@ -189,6 +190,10 @@ export type TeacherOpsClassPersistenceStoreDependencies = {
     database: TeacherOpsClassPersistenceDatabase,
     teacherClass: TeacherOpsClassRecord
   ) => TeacherClassTopicOption[];
+  learningPathsForClass?: (
+    database: TeacherOpsClassPersistenceDatabase,
+    classId: string
+  ) => TeacherLearningPath[];
   toAssignment: (
     database: TeacherOpsClassPersistenceDatabase,
     assignment: TeacherOpsClassAssignmentRecord
@@ -744,6 +749,7 @@ export function createTeacherOpsClassPersistenceStore({
   isSubmissionComplete = defaultSubmissionComplete,
   groupsForClass = () => [],
   topicOptionsForClass = () => [],
+  learningPathsForClass = () => [],
   toAssignment,
   toClassEnrollment,
   toTeacherClass
@@ -926,7 +932,8 @@ export function createTeacherOpsClassPersistenceStore({
         students,
         assignments,
         groups: groupsForClass(database, classId),
-        topicOptions: topicOptionsForClass(database, teacherClass)
+        topicOptions: topicOptionsForClass(database, teacherClass),
+        learningPaths: learningPathsForClass(database, classId)
       };
     }
   };

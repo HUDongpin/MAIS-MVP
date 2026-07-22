@@ -26,12 +26,14 @@ import type {
   StudentAssignmentItem,
   Submission,
   TeacherAssignmentDetailData,
+  LearningPathStepKind,
   TeacherClass,
   TeacherClassDetailData,
   TeacherClassStudentSummary,
   TeacherClassTopicOption,
   TeacherInboxData,
   TeacherInboxThread,
+  TeacherLearningPath,
   TeacherStudentGroup,
   TeacherStudentGroupTier,
   TeacherStudentMasteryTarget,
@@ -797,6 +799,8 @@ export function TeacherClassDetailView({ detail }: { detail: TeacherClassDetailD
 
       <TeacherClassGroupsPanel detail={currentDetail} />
 
+      <TeacherClassLearningPathsPanel detail={currentDetail} />
+
       <section className="glass-panel overflow-hidden p-5 sm:p-6">
         <h2 className="text-2xl font-black text-slate-950 dark:text-white">{t({ en: "Student roster", zh: "學生名單" })}</h2>
         <div className="mt-5 overflow-x-auto">
@@ -1174,6 +1178,198 @@ function TeacherClassGroupsPanel({ detail }: { detail: TeacherClassDetailData })
           ))
         ) : (
           <p className="soft-panel p-4 text-sm font-bold text-slate-500 dark:text-slate-400">{t({ en: "No groups yet. Create a small group to differentiate work.", zh: "尚未有小組。建立分層小組以差異化教學。" })}</p>
+        )}
+      </div>
+    </section>
+  );
+}
+
+const learningPathStepKindOrder: LearningPathStepKind[] = ["lesson", "practice", "assessment", "visualization", "resource"];
+
+const learningPathStepKindLabels: Record<LearningPathStepKind, { en: string; zh: string }> = {
+  lesson: { en: "Lesson", zh: "課堂" },
+  practice: { en: "Practice", zh: "練習" },
+  assessment: { en: "Assessment", zh: "測驗" },
+  visualization: { en: "Visualization", zh: "視覺化" },
+  resource: { en: "Resource", zh: "資源" }
+};
+
+type LearningPathStepDraft = { kind: LearningPathStepKind; targetId: string; title: string };
+
+function newLearningPathStepDraft(): LearningPathStepDraft {
+  return { kind: "lesson", targetId: "", title: "" };
+}
+
+function TeacherLearningPathCard({
+  path,
+  onRemove
+}: {
+  path: TeacherLearningPath;
+  onRemove: (pathId: string) => void;
+}) {
+  const { t } = useSettings();
+  const [busy, setBusy] = useState(false);
+  const [error, setError] = useState("");
+
+  const removePath = async () => {
+    setBusy(true);
+    setError("");
+    const response = await fetch(`/api/teacher/classes/${encodeURIComponent(path.classId)}/learning-paths/${encodeURIComponent(path.id)}`, {
+      method: "DELETE"
+    });
+    setBusy(false);
+    if (!response.ok) {
+      setError(t({ en: "Could not delete this path.", zh: "未能刪除此路徑。" }));
+      return;
+    }
+    onRemove(path.id);
+  };
+
+  return (
+    <article className="soft-panel p-4">
+      <div className="flex flex-wrap items-start justify-between gap-3">
+        <div className="min-w-0">
+          <p className="break-words text-base font-black text-slate-950 [overflow-wrap:anywhere] dark:text-white">{path.title}</p>
+          <p className="mt-1 text-xs font-bold text-slate-500 dark:text-slate-400">
+            {path.steps.length} {t({ en: "steps", zh: "步驟" })} · {path.groupName ? `${t({ en: "Group", zh: "小組" })}: ${path.groupName}` : t({ en: "Whole class", zh: "全班" })} · {path.assignedCount} {t({ en: "students", zh: "學生" })}
+          </p>
+        </div>
+        <button type="button" onClick={removePath} disabled={busy} className="focus-ring rounded-full border border-rose-300/60 bg-rose-400/10 px-4 py-2 text-xs font-black text-rose-700 disabled:opacity-50 dark:text-rose-200">
+          {t({ en: "Delete", zh: "刪除" })}
+        </button>
+      </div>
+      {path.description ? <p className="mt-2 break-words text-sm font-semibold text-slate-600 [overflow-wrap:anywhere] dark:text-slate-300">{path.description}</p> : null}
+      <ol className="mt-3 grid gap-2">
+        {path.steps.map((step, index) => (
+          <li key={step.id} className="flex items-center gap-2 text-sm font-bold text-slate-700 dark:text-slate-200">
+            <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-slate-950/90 text-xs font-black text-white dark:bg-white dark:text-slate-950">{index + 1}</span>
+            <span className="rounded-full border border-slate-200/70 bg-white/70 px-2 py-0.5 text-[11px] font-black uppercase tracking-[0.1em] text-slate-500 dark:border-white/10 dark:bg-white/[0.06] dark:text-slate-300">{t(learningPathStepKindLabels[step.kind])}</span>
+            <span className="min-w-0 break-words [overflow-wrap:anywhere]">{step.title}</span>
+          </li>
+        ))}
+      </ol>
+      <div className="mt-3 flex flex-wrap gap-3 text-xs font-black">
+        <span className="rounded-full border border-emerald-300/50 bg-emerald-400/10 px-3 py-1 text-emerald-700 dark:text-emerald-200">{path.completedCount}/{path.assignedCount} {t({ en: "finished", zh: "已完成" })}</span>
+        <span className="rounded-full border border-slate-200/70 bg-white/70 px-3 py-1 text-slate-600 dark:border-white/10 dark:bg-white/[0.06] dark:text-slate-300">{t({ en: "Avg steps done", zh: "平均完成步驟" })}: {path.averageStepsCompleted}/{path.steps.length}</span>
+      </div>
+      {error ? <p className="mt-2 text-sm font-bold text-rose-700 dark:text-rose-200">{error}</p> : null}
+    </article>
+  );
+}
+
+function TeacherClassLearningPathsPanel({ detail }: { detail: TeacherClassDetailData }) {
+  const { t } = useSettings();
+  const [paths, setPaths] = useState<TeacherLearningPath[]>(detail.learningPaths);
+  const [title, setTitle] = useState("");
+  const [description, setDescription] = useState("");
+  const [groupId, setGroupId] = useState("");
+  const [steps, setSteps] = useState<LearningPathStepDraft[]>([newLearningPathStepDraft()]);
+  const [busy, setBusy] = useState(false);
+  const [error, setError] = useState("");
+
+  useEffect(() => {
+    setPaths(detail.learningPaths);
+  }, [detail.learningPaths]);
+
+  const updateStep = (index: number, patch: Partial<LearningPathStepDraft>) => {
+    setSteps((current) => current.map((step, stepIndex) => (stepIndex === index ? { ...step, ...patch } : step)));
+  };
+  const addStep = () => setSteps((current) => [...current, newLearningPathStepDraft()]);
+  const removeStep = (index: number) => setSteps((current) => (current.length <= 1 ? current : current.filter((_, stepIndex) => stepIndex !== index)));
+
+  const createPath = async (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    const cleanSteps = steps
+      .map((step) => ({ ...step, title: step.title.trim(), targetId: step.targetId.trim() }))
+      .filter((step) => step.title || step.targetId);
+    if (!title.trim()) {
+      setError(t({ en: "Name your path.", zh: "請為路徑命名。" }));
+      return;
+    }
+    if (!cleanSteps.length) {
+      setError(t({ en: "Add at least one step.", zh: "請至少加入一個步驟。" }));
+      return;
+    }
+    setBusy(true);
+    setError("");
+    const response = await fetch(`/api/teacher/classes/${encodeURIComponent(detail.class.id)}/learning-paths`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        title: title.trim(),
+        description: description.trim(),
+        groupId: groupId || undefined,
+        steps: cleanSteps.map((step) => ({ kind: step.kind, targetId: step.targetId, title: step.title || undefined }))
+      })
+    });
+    setBusy(false);
+    const payload = await response.json().catch(() => null) as { path?: TeacherLearningPath } | null;
+    if (!response.ok || !payload?.path) {
+      setError(t({ en: "Could not create this path.", zh: "未能建立此路徑。" }));
+      return;
+    }
+    setPaths((current) => [payload.path as TeacherLearningPath, ...current]);
+    setTitle("");
+    setDescription("");
+    setGroupId("");
+    setSteps([newLearningPathStepDraft()]);
+  };
+
+  const removePathFromList = (pathId: string) => setPaths((current) => current.filter((path) => path.id !== pathId));
+
+  return (
+    <section className="glass-panel p-5 sm:p-6">
+      <div className="flex flex-wrap items-start justify-between gap-3">
+        <div>
+          <h2 className="text-2xl font-black text-slate-950 dark:text-white">{t({ en: "Learning paths", zh: "學習路徑" })}</h2>
+          <p className="mt-1 text-sm font-semibold text-slate-500 dark:text-slate-400">{t({ en: "Build an ordered sequence of steps; students unlock them one at a time.", zh: "建立有序的步驟序列，學生逐步解鎖。" })}</p>
+        </div>
+        <span className="rounded-full border border-slate-200/80 bg-white/70 px-3 py-1 text-xs font-black text-slate-600 dark:border-white/10 dark:bg-white/[0.06] dark:text-slate-300">{paths.length} {t({ en: "paths", zh: "路徑" })}</span>
+      </div>
+
+      <form onSubmit={createPath} className="mt-5 grid gap-3 rounded-2xl border border-slate-200/70 bg-white/50 p-4 dark:border-white/10 dark:bg-white/[0.04]">
+        <div className="grid gap-3 sm:grid-cols-[minmax(0,1fr)_200px]">
+          <label className="grid gap-1 text-sm font-black">
+            <span>{t({ en: "Path name", zh: "路徑名稱" })}</span>
+            <input value={title} onChange={(event) => setTitle(event.target.value)} placeholder={t({ en: "e.g. Fractions mastery track", zh: "例如：分數精熟路徑" })} className="focus-ring rounded-2xl border border-slate-200/80 bg-white/80 px-4 py-3 text-sm font-semibold dark:border-white/10 dark:bg-white/[0.06]" />
+          </label>
+          <label className="grid gap-1 text-sm font-black">
+            <span>{t({ en: "Assign to", zh: "指派給" })}</span>
+            <select value={groupId} onChange={(event) => setGroupId(event.target.value)} className="focus-ring rounded-2xl border border-slate-200/80 bg-white/80 px-4 py-3 text-sm font-bold dark:border-white/10 dark:bg-white/[0.06]">
+              <option value="">{t({ en: "Whole class", zh: "全班" })}</option>
+              {detail.groups.map((group) => <option key={group.id} value={group.id}>{group.name} ({group.studentCount})</option>)}
+            </select>
+          </label>
+        </div>
+        <label className="grid gap-1 text-sm font-black">
+          <span>{t({ en: "Description", zh: "描述" })}</span>
+          <input value={description} onChange={(event) => setDescription(event.target.value)} className="focus-ring rounded-2xl border border-slate-200/80 bg-white/80 px-4 py-3 text-sm font-semibold dark:border-white/10 dark:bg-white/[0.06]" />
+        </label>
+        <div className="grid gap-2">
+          <span className="text-xs font-black uppercase tracking-[0.14em] text-slate-500 dark:text-slate-400">{t({ en: "Steps (in order)", zh: "步驟（按順序）" })}</span>
+          {steps.map((step, index) => (
+            <div key={index} className="grid gap-2 rounded-2xl border border-slate-200/60 bg-white/60 p-3 dark:border-white/10 dark:bg-white/[0.05] sm:grid-cols-[120px_minmax(0,1fr)_minmax(0,1fr)_auto]">
+              <select value={step.kind} onChange={(event) => updateStep(index, { kind: event.target.value as LearningPathStepKind })} className="focus-ring rounded-xl border border-slate-200/80 bg-white/80 px-3 py-2 text-sm font-bold dark:border-white/10 dark:bg-white/[0.06]">
+                {learningPathStepKindOrder.map((kind) => <option key={kind} value={kind}>{t(learningPathStepKindLabels[kind])}</option>)}
+              </select>
+              <input value={step.title} onChange={(event) => updateStep(index, { title: event.target.value })} placeholder={t({ en: "Step title", zh: "步驟標題" })} className="focus-ring min-w-0 rounded-xl border border-slate-200/80 bg-white/80 px-3 py-2 text-sm font-semibold dark:border-white/10 dark:bg-white/[0.06]" />
+              <input value={step.targetId} onChange={(event) => updateStep(index, { targetId: event.target.value })} placeholder={t({ en: "lesson slug / topic / assessment id", zh: "課堂 slug／課題／測驗 ID" })} className="focus-ring min-w-0 rounded-xl border border-slate-200/80 bg-white/80 px-3 py-2 text-sm font-semibold dark:border-white/10 dark:bg-white/[0.06]" />
+              <button type="button" onClick={() => removeStep(index)} disabled={steps.length <= 1} className="focus-ring rounded-xl border border-slate-200/80 bg-white/75 px-3 py-2 text-xs font-black text-slate-600 disabled:opacity-40 dark:border-white/10 dark:bg-white/[0.06] dark:text-slate-300">{t({ en: "Remove", zh: "移除" })}</button>
+            </div>
+          ))}
+          <button type="button" onClick={addStep} className="focus-ring w-fit rounded-full border border-slate-200/80 bg-white/75 px-4 py-2 text-xs font-black text-slate-700 dark:border-white/10 dark:bg-white/[0.07] dark:text-slate-200">{t({ en: "+ Add step", zh: "＋ 新增步驟" })}</button>
+        </div>
+        <div className="flex flex-wrap items-center gap-3">
+          <button type="submit" disabled={busy} className="focus-ring w-fit rounded-full bg-slate-950 px-5 py-3 text-sm font-black text-white disabled:opacity-50 dark:bg-white dark:text-slate-950">{busy ? t({ en: "Creating...", zh: "建立中..." }) : t({ en: "Create path", zh: "建立路徑" })}</button>
+          {error ? <p className="text-sm font-bold text-rose-700 dark:text-rose-200">{error}</p> : null}
+        </div>
+      </form>
+
+      <div className="mt-5 grid gap-3">
+        {paths.length ? (
+          paths.map((path) => <TeacherLearningPathCard key={path.id} path={path} onRemove={removePathFromList} />)
+        ) : (
+          <p className="soft-panel p-4 text-sm font-bold text-slate-500 dark:text-slate-400">{t({ en: "No learning paths yet. Build a step-by-step path to guide students.", zh: "尚未有學習路徑。建立逐步路徑引導學生。" })}</p>
         )}
       </div>
     </section>
