@@ -29,8 +29,11 @@ import type {
   TeacherClass,
   TeacherClassDetailData,
   TeacherClassStudentSummary,
+  TeacherClassTopicOption,
   TeacherInboxData,
   TeacherInboxThread,
+  TeacherStudentGroup,
+  TeacherStudentGroupTier,
   TeacherStudentMasteryTarget,
   TeacherStudentProfileData,
   TeacherStudentRiskTag,
@@ -792,6 +795,8 @@ export function TeacherClassDetailView({ detail }: { detail: TeacherClassDetailD
 
       <TeacherClassAiTutorPolicyPanel classId={currentDetail.class.id} />
 
+      <TeacherClassGroupsPanel detail={currentDetail} />
+
       <section className="glass-panel overflow-hidden p-5 sm:p-6">
         <h2 className="text-2xl font-black text-slate-950 dark:text-white">{t({ en: "Student roster", zh: "學生名單" })}</h2>
         <div className="mt-5 overflow-x-auto">
@@ -823,6 +828,355 @@ export function TeacherClassDetailView({ detail }: { detail: TeacherClassDetailD
         </div>
       </section>
     </div>
+  );
+}
+
+const groupTierOrder: TeacherStudentGroupTier[] = ["support", "core", "stretch", "custom"];
+
+const groupTierLabels: Record<TeacherStudentGroupTier, { en: string; zh: string }> = {
+  support: { en: "Support", zh: "補底" },
+  core: { en: "Core", zh: "核心" },
+  stretch: { en: "Stretch", zh: "拔尖" },
+  custom: { en: "Custom", zh: "自訂" }
+};
+
+const groupColorBadgeClasses: Record<string, string> = {
+  sky: "border-sky-300/50 bg-sky-400/10 text-sky-700 dark:text-sky-200",
+  amber: "border-amber-300/50 bg-amber-400/10 text-amber-700 dark:text-amber-100",
+  emerald: "border-emerald-300/50 bg-emerald-400/10 text-emerald-700 dark:text-emerald-200",
+  violet: "border-violet-300/50 bg-violet-400/10 text-violet-700 dark:text-violet-200",
+  rose: "border-rose-300/50 bg-rose-400/10 text-rose-700 dark:text-rose-200",
+  slate: "border-slate-300/50 bg-slate-400/10 text-slate-700 dark:text-slate-200"
+};
+
+function groupBadgeClass(color: string) {
+  return groupColorBadgeClasses[color] ?? groupColorBadgeClasses.slate;
+}
+
+function TeacherClassGroupCard({
+  classId,
+  group,
+  students,
+  topicOptions,
+  onChange,
+  onRemove
+}: {
+  classId: string;
+  group: TeacherStudentGroup;
+  students: TeacherClassStudentSummary[];
+  topicOptions: TeacherClassTopicOption[];
+  onChange: (group: TeacherStudentGroup) => void;
+  onRemove: (groupId: string) => void;
+}) {
+  const { text, t } = useSettings();
+  const [editingMembers, setEditingMembers] = useState(false);
+  const [editingGoal, setEditingGoal] = useState(false);
+  const [selectedMemberIds, setSelectedMemberIds] = useState<string[]>(group.memberStudentIds);
+  const [goalTopicId, setGoalTopicId] = useState(group.masteryTarget?.topicId ?? topicOptions[0]?.id ?? "");
+  const [goalMastery, setGoalMastery] = useState(group.masteryTarget?.mastery ?? 80);
+  const [busy, setBusy] = useState(false);
+  const [error, setError] = useState("");
+
+  const toggleMember = (studentId: string) => {
+    setSelectedMemberIds((current) =>
+      current.includes(studentId) ? current.filter((id) => id !== studentId) : [...current, studentId]
+    );
+  };
+
+  const saveMembers = async () => {
+    setBusy(true);
+    setError("");
+    const response = await fetch(`/api/teacher/classes/${encodeURIComponent(classId)}/groups/${encodeURIComponent(group.id)}`, {
+      method: "PATCH",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ memberStudentIds: selectedMemberIds })
+    });
+    setBusy(false);
+    const payload = await response.json().catch(() => null) as { group?: TeacherStudentGroup } | null;
+    if (!response.ok || !payload?.group) {
+      setError(t({ en: "Could not update members.", zh: "未能更新成員。" }));
+      return;
+    }
+    onChange(payload.group);
+    setEditingMembers(false);
+  };
+
+  const saveGoal = async () => {
+    if (!goalTopicId) {
+      setError(t({ en: "Pick a topic for the goal.", zh: "請選擇目標課題。" }));
+      return;
+    }
+    setBusy(true);
+    setError("");
+    const response = await fetch(
+      `/api/teacher/classes/${encodeURIComponent(classId)}/groups/${encodeURIComponent(group.id)}/mastery-target`,
+      {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ topicId: goalTopicId, mastery: goalMastery })
+      }
+    );
+    setBusy(false);
+    const payload = await response.json().catch(() => null) as { group?: TeacherStudentGroup } | null;
+    if (!response.ok || !payload?.group) {
+      setError(t({ en: "Could not save the goal.", zh: "未能儲存目標。" }));
+      return;
+    }
+    onChange(payload.group);
+    setEditingGoal(false);
+  };
+
+  const clearGoal = async () => {
+    setBusy(true);
+    setError("");
+    const response = await fetch(
+      `/api/teacher/classes/${encodeURIComponent(classId)}/groups/${encodeURIComponent(group.id)}/mastery-target`,
+      { method: "DELETE" }
+    );
+    setBusy(false);
+    const payload = await response.json().catch(() => null) as { group?: TeacherStudentGroup } | null;
+    if (!response.ok || !payload?.group) {
+      setError(t({ en: "Could not clear the goal.", zh: "未能清除目標。" }));
+      return;
+    }
+    onChange(payload.group);
+    setEditingGoal(false);
+  };
+
+  const removeGroup = async () => {
+    setBusy(true);
+    setError("");
+    const response = await fetch(`/api/teacher/classes/${encodeURIComponent(classId)}/groups/${encodeURIComponent(group.id)}`, {
+      method: "DELETE"
+    });
+    setBusy(false);
+    if (!response.ok) {
+      setError(t({ en: "Could not delete this group.", zh: "未能刪除此小組。" }));
+      return;
+    }
+    onRemove(group.id);
+  };
+
+  const goalTopicTitle = group.masteryTarget
+    ? topicOptions.find((option) => option.id === group.masteryTarget?.topicId)?.title
+    : null;
+  const assignHref = `/teacher/assignments/new?classId=${encodeURIComponent(classId)}&groupId=${encodeURIComponent(group.id)}`;
+
+  return (
+    <article className="soft-panel p-4">
+      <div className="flex flex-wrap items-start justify-between gap-3">
+        <div className="min-w-0">
+          <div className="flex flex-wrap items-center gap-2">
+            <span className={cn("rounded-full border px-3 py-1 text-xs font-black", groupBadgeClass(group.color))}>
+              {t(groupTierLabels[group.tier])}
+            </span>
+            <p className="break-words text-base font-black text-slate-950 [overflow-wrap:anywhere] dark:text-white">{group.name}</p>
+            <span className="text-xs font-bold text-slate-500 dark:text-slate-400">{group.studentCount} {t({ en: "students", zh: "學生" })}</span>
+          </div>
+          {group.memberNames.length ? (
+            <p className="mt-2 break-words text-sm font-semibold text-slate-600 [overflow-wrap:anywhere] dark:text-slate-300">
+              {group.memberNames.slice(0, 8).join(", ")}{group.memberNames.length > 8 ? ` +${group.memberNames.length - 8}` : ""}
+            </p>
+          ) : (
+            <p className="mt-2 text-sm font-semibold text-slate-500 dark:text-slate-400">{t({ en: "No students yet — add members.", zh: "尚未有學生，請加入成員。" })}</p>
+          )}
+        </div>
+        <div className="flex flex-wrap gap-2">
+          <Link href={assignHref} className="focus-ring rounded-full bg-slate-950 px-4 py-2 text-xs font-black text-white dark:bg-white dark:text-slate-950">
+            {t({ en: "Assign work", zh: "指派作業" })}
+          </Link>
+          <button type="button" onClick={() => { setEditingMembers((value) => !value); setEditingGoal(false); setSelectedMemberIds(group.memberStudentIds); }} className="focus-ring rounded-full border border-slate-200/80 bg-white/75 px-4 py-2 text-xs font-black text-slate-700 dark:border-white/10 dark:bg-white/[0.07] dark:text-slate-200">
+            {t({ en: "Members", zh: "成員" })}
+          </button>
+          <button type="button" onClick={() => { setEditingGoal((value) => !value); setEditingMembers(false); }} className="focus-ring rounded-full border border-slate-200/80 bg-white/75 px-4 py-2 text-xs font-black text-slate-700 dark:border-white/10 dark:bg-white/[0.07] dark:text-slate-200">
+            {t({ en: "Goal", zh: "目標" })}
+          </button>
+          <button type="button" onClick={removeGroup} disabled={busy} className="focus-ring rounded-full border border-rose-300/60 bg-rose-400/10 px-4 py-2 text-xs font-black text-rose-700 disabled:opacity-50 dark:text-rose-200">
+            {t({ en: "Delete", zh: "刪除" })}
+          </button>
+        </div>
+      </div>
+
+      {group.masteryTarget && goalTopicTitle ? (
+        <p className="mt-3 rounded-xl border border-cyan-300/40 bg-cyan-400/10 px-3 py-2 text-xs font-black text-cyan-800 dark:text-cyan-200">
+          {t({ en: "Goal", zh: "目標" })}: {text(goalTopicTitle)} → {group.masteryTarget.mastery}%
+        </p>
+      ) : null}
+
+      {editingMembers ? (
+        <div className="mt-4 grid gap-3">
+          <div className="grid gap-2 sm:grid-cols-2 lg:grid-cols-3">
+            {students.map((student) => (
+              <label key={student.studentId} className="soft-panel flex items-center gap-2 p-2 text-xs font-bold">
+                <input type="checkbox" checked={selectedMemberIds.includes(student.studentId)} onChange={() => toggleMember(student.studentId)} />
+                <span className="min-w-0 break-words">{student.studentName}</span>
+              </label>
+            ))}
+          </div>
+          <div className="flex gap-2">
+            <button type="button" onClick={saveMembers} disabled={busy} className="focus-ring rounded-full bg-slate-950 px-4 py-2 text-xs font-black text-white disabled:opacity-50 dark:bg-white dark:text-slate-950">{t({ en: "Save members", zh: "儲存成員" })}</button>
+            <button type="button" onClick={() => setEditingMembers(false)} className="focus-ring rounded-full border border-slate-200/80 bg-white/75 px-4 py-2 text-xs font-black text-slate-700 dark:border-white/10 dark:bg-white/[0.07] dark:text-slate-200">{t({ en: "Cancel", zh: "取消" })}</button>
+          </div>
+        </div>
+      ) : null}
+
+      {editingGoal ? (
+        <div className="mt-4 grid gap-3">
+          {topicOptions.length ? (
+            <div className="grid gap-3 sm:grid-cols-[minmax(0,1fr)_120px]">
+              <label className="grid gap-1 text-xs font-black">
+                <span>{t({ en: "Topic", zh: "課題" })}</span>
+                <select value={goalTopicId} onChange={(event) => setGoalTopicId(event.target.value)} className="focus-ring rounded-2xl border border-slate-200/80 bg-white/80 px-3 py-2 text-sm font-bold dark:border-white/10 dark:bg-white/[0.06]">
+                  {topicOptions.map((option) => <option key={option.id} value={option.id}>{text(option.title)}</option>)}
+                </select>
+              </label>
+              <label className="grid gap-1 text-xs font-black">
+                <span>{t({ en: "Target %", zh: "目標 %" })}</span>
+                <input type="number" min={0} max={100} value={goalMastery} onChange={(event) => setGoalMastery(Number(event.target.value))} className="focus-ring rounded-2xl border border-slate-200/80 bg-white/80 px-3 py-2 text-sm font-bold dark:border-white/10 dark:bg-white/[0.06]" />
+              </label>
+            </div>
+          ) : (
+            <p className="text-xs font-bold text-slate-500 dark:text-slate-400">{t({ en: "No class topics available for a goal yet.", zh: "此班級暫無可設定目標的課題。" })}</p>
+          )}
+          <div className="flex flex-wrap gap-2">
+            <button type="button" onClick={saveGoal} disabled={busy || !topicOptions.length} className="focus-ring rounded-full bg-slate-950 px-4 py-2 text-xs font-black text-white disabled:opacity-50 dark:bg-white dark:text-slate-950">{t({ en: "Save goal", zh: "儲存目標" })}</button>
+            {group.masteryTarget ? (
+              <button type="button" onClick={clearGoal} disabled={busy} className="focus-ring rounded-full border border-slate-200/80 bg-white/75 px-4 py-2 text-xs font-black text-slate-700 disabled:opacity-50 dark:border-white/10 dark:bg-white/[0.07] dark:text-slate-200">{t({ en: "Clear goal", zh: "清除目標" })}</button>
+            ) : null}
+            <button type="button" onClick={() => setEditingGoal(false)} className="focus-ring rounded-full border border-slate-200/80 bg-white/75 px-4 py-2 text-xs font-black text-slate-700 dark:border-white/10 dark:bg-white/[0.07] dark:text-slate-200">{t({ en: "Cancel", zh: "取消" })}</button>
+          </div>
+          <p className="text-xs font-semibold text-slate-500 dark:text-slate-400">{t({ en: "Setting a goal applies this mastery target to every group member.", zh: "設定目標會為每位組員套用此掌握目標。" })}</p>
+        </div>
+      ) : null}
+
+      {error ? <p className="mt-3 text-sm font-bold text-rose-700 dark:text-rose-200">{error}</p> : null}
+    </article>
+  );
+}
+
+function TeacherClassGroupsPanel({ detail }: { detail: TeacherClassDetailData }) {
+  const { t } = useSettings();
+  const [groups, setGroups] = useState<TeacherStudentGroup[]>(detail.groups);
+  const [name, setName] = useState("");
+  const [tier, setTier] = useState<TeacherStudentGroupTier>("support");
+  const [memberIds, setMemberIds] = useState<string[]>([]);
+  const [busy, setBusy] = useState(false);
+  const [error, setError] = useState("");
+
+  useEffect(() => {
+    setGroups(detail.groups);
+  }, [detail.groups]);
+
+  const sortedGroups = useMemo(
+    () =>
+      [...groups].sort((a, b) => {
+        const order = groupTierOrder.indexOf(a.tier) - groupTierOrder.indexOf(b.tier);
+        return order !== 0 ? order : a.name.localeCompare(b.name);
+      }),
+    [groups]
+  );
+
+  const toggleMember = (studentId: string) => {
+    setMemberIds((current) =>
+      current.includes(studentId) ? current.filter((id) => id !== studentId) : [...current, studentId]
+    );
+  };
+
+  const createGroup = async (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    if (!name.trim()) {
+      setError(t({ en: "Name your group.", zh: "請為小組命名。" }));
+      return;
+    }
+    setBusy(true);
+    setError("");
+    const response = await fetch(`/api/teacher/classes/${encodeURIComponent(detail.class.id)}/groups`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ name: name.trim(), tier, memberStudentIds: memberIds })
+    });
+    setBusy(false);
+    const payload = await response.json().catch(() => null) as { group?: TeacherStudentGroup } | null;
+    if (!response.ok || !payload?.group) {
+      setError(t({ en: "Could not create this group.", zh: "未能建立此小組。" }));
+      return;
+    }
+    setGroups((current) => [...current, payload.group as TeacherStudentGroup]);
+    setName("");
+    setTier("support");
+    setMemberIds([]);
+  };
+
+  const updateGroupInList = (updated: TeacherStudentGroup) => {
+    setGroups((current) => current.map((group) => (group.id === updated.id ? updated : group)));
+  };
+
+  const removeGroupFromList = (groupId: string) => {
+    setGroups((current) => current.filter((group) => group.id !== groupId));
+  };
+
+  return (
+    <section className="glass-panel p-5 sm:p-6">
+      <div className="flex flex-wrap items-start justify-between gap-3">
+        <div>
+          <h2 className="text-2xl font-black text-slate-950 dark:text-white">{t({ en: "Small groups", zh: "分層小組" })}</h2>
+          <p className="mt-1 text-sm font-semibold text-slate-500 dark:text-slate-400">{t({ en: "Group students by readiness, then assign differentiated work or a shared goal.", zh: "按程度分組，再指派差異化作業或共同目標。" })}</p>
+        </div>
+        <span className="rounded-full border border-slate-200/80 bg-white/70 px-3 py-1 text-xs font-black text-slate-600 dark:border-white/10 dark:bg-white/[0.06] dark:text-slate-300">{groups.length} {t({ en: "groups", zh: "小組" })}</span>
+      </div>
+
+      <form onSubmit={createGroup} className="mt-5 grid gap-3 rounded-2xl border border-slate-200/70 bg-white/50 p-4 dark:border-white/10 dark:bg-white/[0.04]">
+        <div className="grid gap-3 sm:grid-cols-[minmax(0,1fr)_160px]">
+          <label className="grid gap-1 text-sm font-black">
+            <span>{t({ en: "Group name", zh: "小組名稱" })}</span>
+            <input value={name} onChange={(event) => setName(event.target.value)} placeholder={t({ en: "e.g. Fractions support", zh: "例如：分數補底組" })} className="focus-ring rounded-2xl border border-slate-200/80 bg-white/80 px-4 py-3 text-sm font-semibold dark:border-white/10 dark:bg-white/[0.06]" />
+          </label>
+          <label className="grid gap-1 text-sm font-black">
+            <span>{t({ en: "Tier", zh: "層級" })}</span>
+            <select value={tier} onChange={(event) => setTier(event.target.value as TeacherStudentGroupTier)} className="focus-ring rounded-2xl border border-slate-200/80 bg-white/80 px-4 py-3 text-sm font-bold dark:border-white/10 dark:bg-white/[0.06]">
+              {groupTierOrder.map((tierOption) => <option key={tierOption} value={tierOption}>{t(groupTierLabels[tierOption])}</option>)}
+            </select>
+          </label>
+        </div>
+        {detail.students.length ? (
+          <div className="grid gap-2">
+            <span className="text-xs font-black uppercase tracking-[0.14em] text-slate-500 dark:text-slate-400">{t({ en: "Members", zh: "成員" })} ({memberIds.length})</span>
+            <div className="grid gap-2 sm:grid-cols-2 lg:grid-cols-3">
+              {detail.students.map((student) => (
+                <label key={student.studentId} className="soft-panel flex items-center gap-2 p-2 text-xs font-bold">
+                  <input type="checkbox" checked={memberIds.includes(student.studentId)} onChange={() => toggleMember(student.studentId)} />
+                  <span className="min-w-0 break-words">{student.studentName}</span>
+                </label>
+              ))}
+            </div>
+          </div>
+        ) : (
+          <p className="text-xs font-bold text-slate-500 dark:text-slate-400">{t({ en: "Add students to the class first.", zh: "請先為班級加入學生。" })}</p>
+        )}
+        <div className="flex flex-wrap items-center gap-3">
+          <button type="submit" disabled={busy} className="focus-ring w-fit rounded-full bg-slate-950 px-5 py-3 text-sm font-black text-white disabled:opacity-50 dark:bg-white dark:text-slate-950">{busy ? t({ en: "Creating...", zh: "建立中..." }) : t({ en: "Create group", zh: "建立小組" })}</button>
+          {error ? <p className="text-sm font-bold text-rose-700 dark:text-rose-200">{error}</p> : null}
+        </div>
+      </form>
+
+      <div className="mt-5 grid gap-3">
+        {sortedGroups.length ? (
+          sortedGroups.map((group) => (
+            <TeacherClassGroupCard
+              key={group.id}
+              classId={detail.class.id}
+              group={group}
+              students={detail.students}
+              topicOptions={detail.topicOptions}
+              onChange={updateGroupInList}
+              onRemove={removeGroupFromList}
+            />
+          ))
+        ) : (
+          <p className="soft-panel p-4 text-sm font-bold text-slate-500 dark:text-slate-400">{t({ en: "No groups yet. Create a small group to differentiate work.", zh: "尚未有小組。建立分層小組以差異化教學。" })}</p>
+        )}
+      </div>
+    </section>
   );
 }
 
@@ -1300,7 +1654,8 @@ export function TeacherAssignmentNewView({
   initialClassId = "",
   initialContentType,
   initialTargetId = "",
-  initialTitle = ""
+  initialTitle = "",
+  initialGroupId = ""
 }: {
   classDetails: TeacherClassDetailData[];
   resources?: TeachingResource[];
@@ -1309,6 +1664,7 @@ export function TeacherAssignmentNewView({
   initialContentType?: AssignmentContentType;
   initialTargetId?: string;
   initialTitle?: string;
+  initialGroupId?: string;
 }) {
   const router = useRouter();
   const { language, text, t } = useSettings();
@@ -1324,17 +1680,33 @@ export function TeacherAssignmentNewView({
     : assessments[0]?.id ?? "";
   const [selectedClassId, setSelectedClassId] = useState(initialSelectedClassId);
   const selectedClass = classDetails.find((detail) => detail.class.id === selectedClassId) ?? classDetails[0];
-  const [scope, setScope] = useState<"all" | "selected">("all");
+  const initialGroupIsValid = Boolean(
+    initialGroupId && selectedClass?.groups.some((group) => group.id === initialGroupId)
+  );
+  const [scope, setScope] = useState<"all" | "selected" | "group">(initialGroupIsValid ? "group" : "all");
+  const [groupId, setGroupId] = useState(
+    initialGroupIsValid ? initialGroupId : selectedClass?.groups[0]?.id ?? ""
+  );
   const [contentType, setContentType] = useState<AssignmentContentType>(resolvedInitialContentType);
   const [useAIGeneration, setUseAIGeneration] = useState(resolvedInitialContentType === "practice");
   const [isSaving, setIsSaving] = useState(false);
   const [error, setError] = useState("");
+
+  useEffect(() => {
+    const groups = classDetails.find((detail) => detail.class.id === selectedClassId)?.groups ?? [];
+    setGroupId((current) => (groups.some((group) => group.id === current) ? current : groups[0]?.id ?? ""));
+  }, [selectedClassId, classDetails]);
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     setError("");
     const form = new FormData(event.currentTarget);
     const studentIds = scope === "selected" ? form.getAll("studentIds").map(String) : undefined;
+    const selectedGroupId = scope === "group" && groupId ? groupId : undefined;
+    if (scope === "group" && !selectedGroupId) {
+      setError(t({ en: "Pick a group to assign to.", zh: "請選擇要指派的小組。" }));
+      return;
+    }
     const shouldGenerate = contentType === "practice" && useAIGeneration;
     const imageFile = form.get("questionImage");
     let imageDataUrl: string | undefined;
@@ -1361,6 +1733,7 @@ export function TeacherAssignmentNewView({
       body: JSON.stringify({
         classId: selectedClassId,
         studentIds,
+        groupId: selectedGroupId,
         title: form.get("title"),
         description: form.get("description"),
         contentType,
@@ -1426,8 +1799,22 @@ export function TeacherAssignmentNewView({
             </div>
           ) : null}
           <label className="grid gap-2"><span className="text-sm font-black">{t({ en: "Due date", zh: "截止日期" })}</span><input name="dueAt" type="datetime-local" className="focus-ring rounded-2xl border border-slate-200/80 bg-white/80 px-4 py-3 dark:border-white/10 dark:bg-white/[0.06]" /></label>
-          <div className="grid gap-2"><span className="text-sm font-black">{t({ en: "Recipients", zh: "對象" })}</span><div className="flex flex-wrap gap-2"><button type="button" onClick={() => setScope("all")} className={`focus-ring rounded-full px-4 py-2 text-sm font-black ${scope === "all" ? "bg-slate-950 text-white dark:bg-white dark:text-slate-950" : "soft-panel"}`}>{t({ en: "Whole class", zh: "全班" })}</button><button type="button" onClick={() => setScope("selected")} className={`focus-ring rounded-full px-4 py-2 text-sm font-black ${scope === "selected" ? "bg-slate-950 text-white dark:bg-white dark:text-slate-950" : "soft-panel"}`}>{t({ en: "Selected students", zh: "指定學生" })}</button></div></div>
+          <div className="grid gap-2"><span className="text-sm font-black">{t({ en: "Recipients", zh: "對象" })}</span><div className="flex flex-wrap gap-2"><button type="button" onClick={() => setScope("all")} className={`focus-ring rounded-full px-4 py-2 text-sm font-black ${scope === "all" ? "bg-slate-950 text-white dark:bg-white dark:text-slate-950" : "soft-panel"}`}>{t({ en: "Whole class", zh: "全班" })}</button><button type="button" onClick={() => setScope("group")} className={`focus-ring rounded-full px-4 py-2 text-sm font-black ${scope === "group" ? "bg-slate-950 text-white dark:bg-white dark:text-slate-950" : "soft-panel"}`}>{t({ en: "Group", zh: "小組" })}</button><button type="button" onClick={() => setScope("selected")} className={`focus-ring rounded-full px-4 py-2 text-sm font-black ${scope === "selected" ? "bg-slate-950 text-white dark:bg-white dark:text-slate-950" : "soft-panel"}`}>{t({ en: "Selected students", zh: "指定學生" })}</button></div></div>
         </div>
+        {scope === "group" ? (
+          selectedClass?.groups.length ? (
+            <label className="grid gap-2">
+              <span className="text-sm font-black">{t({ en: "Small group", zh: "分層小組" })}</span>
+              <select value={groupId} onChange={(event) => setGroupId(event.target.value)} className="focus-ring rounded-2xl border border-slate-200/80 bg-white/80 px-4 py-3 text-sm font-bold dark:border-white/10 dark:bg-white/[0.06]">
+                {selectedClass.groups.map((group) => (
+                  <option key={group.id} value={group.id}>{t(groupTierLabels[group.tier])} · {group.name} ({group.studentCount})</option>
+                ))}
+              </select>
+            </label>
+          ) : (
+            <p className="soft-panel p-4 text-sm font-bold text-slate-500 dark:text-slate-400">{t({ en: "This class has no groups yet. Create one from the class page.", zh: "此班級尚未有小組，請於班級頁面建立。" })}</p>
+          )
+        ) : null}
         {scope === "selected" && selectedClass ? (
           <div className="grid gap-2 sm:grid-cols-2 lg:grid-cols-3">
             {selectedClass.students.map((student) => (

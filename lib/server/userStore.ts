@@ -397,6 +397,13 @@ import {
   type TeacherOpsMasteryTargetPersistenceDatabase
 } from "@/lib/server/userStore/teacherOpsMasteryTargetPersistence";
 import {
+  createTeacherOpsStudentGroupPersistenceStore,
+  listTeacherStudentGroupsForClass as listTeacherStudentGroupsForClassFromTeacherOpsStudentGroup,
+  normalizeTeacherStudentGroupRecords as normalizeTeacherStudentGroupRecordsFromTeacherOpsStudentGroup,
+  type TeacherOpsStudentGroupPersistenceDatabase,
+  type TeacherOpsStudentGroupRecord
+} from "@/lib/server/userStore/teacherOpsStudentGroupPersistence";
+import {
   createTeacherOpsStudentProfilePersistenceStore,
   type TeacherOpsStudentProfilePersistenceDatabase
 } from "@/lib/server/userStore/teacherOpsStudentProfilePersistence";
@@ -689,6 +696,7 @@ import type {
   TeacherClass,
   TeacherClassDetailData,
   TeacherClassStudentSummary,
+  TeacherClassTopicOption,
   TeacherDashboardData,
   TeacherFoundationData,
   TeacherGamificationData,
@@ -1725,6 +1733,7 @@ type Database = {
   mistakes: MistakeRecordRow[];
   lesson_progress: LessonProgressRecord[];
   teacher_mastery_targets: TeacherMasteryTargetRecord[];
+  teacher_student_groups: TeacherOpsStudentGroupRecord[];
   adaptive_skill_state: AdaptiveSkillStateRecord[];
   adaptive_recommendation_cache: AdaptiveRecommendationCacheRecord[];
   visualization_events: VisualizationEventRecord[];
@@ -2618,6 +2627,7 @@ function createInitialDatabase(): Database {
     mistakes: [],
     lesson_progress: seedLessonProgressRecords(demoUserId, now),
     teacher_mastery_targets: [],
+    teacher_student_groups: [],
     adaptive_skill_state: [],
     adaptive_recommendation_cache: [],
     visualization_events: [],
@@ -4286,6 +4296,7 @@ function normalizeDatabase(database: Partial<Database>) {
       }
     ),
     teacher_mastery_targets: normalizeTeacherMasteryTargetRecordsFromTeacherOpsMasteryTarget(database.teacher_mastery_targets ?? [], now),
+    teacher_student_groups: normalizeTeacherStudentGroupRecordsFromTeacherOpsStudentGroup(database.teacher_student_groups ?? [], now),
     adaptive_skill_state: normalizeAdaptiveSkillStateRecordsFromStudentActivityPersistence(database.adaptive_skill_state ?? [], now),
     adaptive_recommendation_cache: normalizeAdaptiveRecommendationCacheRecordsFromAiGovernancePersistence(database.adaptive_recommendation_cache ?? [], now),
     visualization_events: database.visualization_events ?? [],
@@ -4410,6 +4421,7 @@ function databaseNeedsPersistenceSync(parsed: Partial<Database>, database: Datab
     !Array.isArray(parsed.mistakes) ||
     !Array.isArray(parsed.lesson_progress) ||
     !Array.isArray(parsed.teacher_mastery_targets) ||
+    (parsed.teacher_student_groups !== undefined && !Array.isArray(parsed.teacher_student_groups)) ||
     !Array.isArray(parsed.adaptive_skill_state) ||
     !Array.isArray(parsed.adaptive_recommendation_cache) ||
     !Array.isArray(parsed.visualization_events) ||
@@ -5665,6 +5677,28 @@ const teacherOpsMasteryTargetPersistenceStore = createTeacherOpsMasteryTargetPer
   topicIdsForClass: (database, teacherClass) => topicIdsForClass(database as Database, teacherClass as TeacherClassRecord)
 });
 
+function studentGroupDisplayName(database: Database, studentId: string) {
+  const profile = studentProfileFor(database, studentId);
+  if (profile?.name) return profile.name;
+  const studentUser = database.users.find((candidate) => candidate.id === studentId);
+  return studentUser?.username ?? studentId;
+}
+
+const teacherOpsStudentGroupPersistenceStore = createTeacherOpsStudentGroupPersistenceStore({
+  createId: () => randomUUID(),
+  now: () => new Date(),
+  readDatabase: async () => {
+    const database = await readDatabase();
+    return database as TeacherOpsStudentGroupPersistenceDatabase;
+  },
+  mutateDatabase: async <T>(mutator: (database: TeacherOpsStudentGroupPersistenceDatabase) => T | Promise<T>) => {
+    const result = await mutateDatabase((database) => mutator(database as TeacherOpsStudentGroupPersistenceDatabase));
+    return result as T;
+  },
+  studentDisplayName: (database, studentId) => studentGroupDisplayName(database as Database, studentId),
+  topicIdsForClass: (database, teacherClass) => topicIdsForClass(database as Database, teacherClass as TeacherClassRecord)
+});
+
 const teacherOpsStudentProfilePersistenceStore = createTeacherOpsStudentProfilePersistenceStore({
   now: () => new Date(),
   readDatabase: async () => {
@@ -5849,6 +5883,23 @@ const teacherOpsClassPersistenceStore = createTeacherOpsClassPersistenceStore({
   studentProfileFor: (database, studentId) => studentProfileFor(database as Database, studentId) ?? null,
   topicIdsForClass: (database, teacherClass) => topicIdsForClass(database as Database, teacherClass as TeacherClassRecord),
   isSubmissionComplete: (submission) => isSubmissionCompleteFromTeacherOpsAssignment(submission as SubmissionRecord),
+  groupsForClass: (database, classId) =>
+    listTeacherStudentGroupsForClassFromTeacherOpsStudentGroup({
+      database: database as unknown as TeacherOpsStudentGroupPersistenceDatabase,
+      classId,
+      studentDisplayName: (groupDatabase, studentId) =>
+        studentGroupDisplayName(groupDatabase as unknown as Database, studentId)
+    }),
+  topicOptionsForClass: (database, teacherClass) => {
+    const source = database as Database;
+    const topicById = new Map(source.topics.map((topic) => [topic.id, topic]));
+    return topicIdsForClass(source, teacherClass as TeacherClassRecord)
+      .map((topicId) => {
+        const topic = topicById.get(topicId);
+        return topic ? { id: topicId, title: localizedTopicTitleForRecord(topic) } : null;
+      })
+      .filter((option): option is TeacherClassTopicOption => option !== null);
+  },
   toAssignment: (database, assignment) => toAssignmentFromTeacherOpsAssignment(database as Database, assignment as AssignmentRecord),
   toClassEnrollment: (database, enrollment) => toClassEnrollmentFromTeacherOpsClass(database as Database, enrollment as ClassEnrollmentRecord),
   toTeacherClass: (database, teacherClass) => toTeacherClassFromTeacherOpsClass(database as Database, teacherClass as TeacherClassRecord)
@@ -6127,6 +6178,7 @@ const teacherOpsUserStore = createTeacherOpsUserStore({
   teacherOpsLessonKitPersistenceStore,
   teacherOpsLiveSessionPersistenceStore,
   teacherOpsMasteryTargetPersistenceStore,
+  teacherOpsStudentGroupPersistenceStore,
   teacherOpsNoticePersistenceStore,
   teacherOpsOperationsPersistenceStore,
   teacherOpsPrepTeamPersistenceStore,
@@ -7471,6 +7523,7 @@ function emptyTeacherDashboardDatabase(overrides: Partial<Database>): Database {
     mistakes: [],
     lesson_progress: [],
     teacher_mastery_targets: [],
+    teacher_student_groups: [],
     adaptive_skill_state: [],
     adaptive_recommendation_cache: [],
     visualization_events: [],
@@ -8202,6 +8255,16 @@ export const markForumNotificationsRead = teacherOpsUserStore.markForumNotificat
 export const setTeacherStudentMasteryTarget = teacherOpsUserStore.setTeacherStudentMasteryTarget;
 
 export const clearTeacherStudentMasteryTarget = teacherOpsUserStore.clearTeacherStudentMasteryTarget;
+
+export const createTeacherStudentGroup = teacherOpsUserStore.createTeacherStudentGroup;
+
+export const updateTeacherStudentGroup = teacherOpsUserStore.updateTeacherStudentGroup;
+
+export const deleteTeacherStudentGroup = teacherOpsUserStore.deleteTeacherStudentGroup;
+
+export const setTeacherStudentGroupMasteryTarget = teacherOpsUserStore.setTeacherStudentGroupMasteryTarget;
+
+export const clearTeacherStudentGroupMasteryTarget = teacherOpsUserStore.clearTeacherStudentGroupMasteryTarget;
 
 const riskTagsForStudent: (
   database: Database,

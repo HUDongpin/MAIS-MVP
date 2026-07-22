@@ -3940,10 +3940,41 @@ export type TeacherClassStudentSummary = {
   href: string;
 };
 
+export type TeacherStudentGroupTier = "support" | "core" | "stretch" | "custom";
+
+export type TeacherStudentGroupMasteryTarget = {
+  topicId: string;
+  mastery: number;
+  note: string;
+  updatedAt: string;
+};
+
+export type TeacherStudentGroup = {
+  id: string;
+  classId: string;
+  name: string;
+  tier: TeacherStudentGroupTier;
+  color: string;
+  note: string;
+  memberStudentIds: string[];
+  memberNames: string[];
+  studentCount: number;
+  masteryTarget: TeacherStudentGroupMasteryTarget | null;
+  createdAt: string;
+  updatedAt: string;
+};
+
+export type TeacherClassTopicOption = {
+  id: string;
+  title: LocalizedText;
+};
+
 export type TeacherClassDetailData = {
   class: TeacherClass;
   students: TeacherClassStudentSummary[];
   assignments: Assignment[];
+  groups: TeacherStudentGroup[];
+  topicOptions: TeacherClassTopicOption[];
 };
 
 export type TeacherStudentMasteryTarget = {
