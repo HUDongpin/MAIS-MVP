@@ -50,6 +50,7 @@ export async function POST(request: Request) {
   const body = await request.json().catch(() => null) as {
     classId?: unknown;
     studentIds?: unknown;
+    groupId?: unknown;
     title?: unknown;
     description?: unknown;
     contentType?: unknown;
@@ -73,15 +74,21 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: "Invalid assignment payload." }, { status: 400 });
   }
 
+  const groupId = typeof body.groupId === "string" && body.groupId.trim() ? body.groupId.trim() : undefined;
+
   if (body.llmGenerate === true) {
     const classDetail = await getTeacherClassDetailData(authenticated.user.id, body.classId);
     if (!classDetail) return NextResponse.json({ error: "not-found" }, { status: 404 });
 
     const enrolledStudentIds = new Set(classDetail.students.map((student) => student.studentId));
-    const requestedStudentIds = Array.isArray(body.studentIds)
-      ? body.studentIds.filter((studentId): studentId is string => typeof studentId === "string" && enrolledStudentIds.has(studentId))
-      : undefined;
-    if (Array.isArray(body.studentIds) && !requestedStudentIds?.length) {
+    const group = groupId ? classDetail.groups.find((candidate) => candidate.id === groupId) : undefined;
+    if (groupId && !group) return NextResponse.json({ error: "group-not-found" }, { status: 404 });
+    const requestedStudentIds = group
+      ? group.memberStudentIds.filter((studentId) => enrolledStudentIds.has(studentId))
+      : Array.isArray(body.studentIds)
+        ? body.studentIds.filter((studentId): studentId is string => typeof studentId === "string" && enrolledStudentIds.has(studentId))
+        : undefined;
+    if ((group || Array.isArray(body.studentIds)) && !requestedStudentIds?.length) {
       return NextResponse.json({ error: "no-students" }, { status: 400 });
     }
     if (!enrolledStudentIds.size) {
@@ -166,10 +173,22 @@ export async function POST(request: Request) {
     }, { status: 201 });
   }
 
+  let studentIds = Array.isArray(body.studentIds)
+    ? body.studentIds.filter((studentId): studentId is string => typeof studentId === "string")
+    : undefined;
+  if (groupId) {
+    const classDetail = await getTeacherClassDetailData(authenticated.user.id, body.classId);
+    if (!classDetail) return NextResponse.json({ error: "not-found" }, { status: 404 });
+    const group = classDetail.groups.find((candidate) => candidate.id === groupId);
+    if (!group) return NextResponse.json({ error: "group-not-found" }, { status: 404 });
+    if (!group.memberStudentIds.length) return NextResponse.json({ error: "no-students" }, { status: 400 });
+    studentIds = group.memberStudentIds;
+  }
+
   const result = await createTeacherAssignment({
     teacherId: authenticated.user.id,
     classId: body.classId,
-    studentIds: Array.isArray(body.studentIds) ? body.studentIds.filter((studentId): studentId is string => typeof studentId === "string") : undefined,
+    studentIds,
     title: body.title,
     description: typeof body.description === "string" ? body.description : "",
     contentType,
