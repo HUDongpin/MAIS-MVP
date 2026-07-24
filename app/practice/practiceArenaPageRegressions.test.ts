@@ -17,13 +17,59 @@ test("Practice Arena omits the California beta status summary panel", () => {
 test("Practice Arena keeps free-selection controls reachable after an empty catalog load", () => {
   assert.match(
     practicePageSource,
-    /const canFallbackToFreeSelection = questionCatalogLoaded && !questionCatalogError && !adaptivePlan;/,
+    /const canFallbackToFreeSelection = questionCatalogLoaded && adaptivePlanSettled && !questionCatalogError && !adaptivePlan;/,
     "Expected free selection to unlock after a successful catalog load, even when the selected grade has no catalog rows."
   );
   assert.doesNotMatch(
     practicePageSource,
     /const canFallbackToFreeSelection = questionCatalogCount > 0 && !adaptivePlan;/,
     "A zero-count catalog must not hide the only controls that let guests broaden Practice Arena filters."
+  );
+});
+
+test("Practice Arena never flashes the mission-setup filters while the adaptive decision is in flight", () => {
+  // A dedicated settled flag distinguishes "adaptive plan still loading" (adaptivePlan === null
+  // because the fetch is in flight) from "no adaptive plan applies" (loaded, none matches).
+  assert.match(
+    practicePageSource,
+    /const \[adaptivePlanSettled, setAdaptivePlanSettled\] = useState\(false\);/,
+    "Expected a settled flag so an in-flight adaptive fetch is not mistaken for 'no plan applies'."
+  );
+
+  // Free-selection filters may only unlock once the adaptive decision has settled.
+  assert.match(
+    practicePageSource,
+    /const canFallbackToFreeSelection = questionCatalogLoaded && adaptivePlanSettled && !questionCatalogError && !adaptivePlan;/,
+    "Free-selection filters must stay gated behind adaptivePlanSettled so they never mount before the adaptive round arrives."
+  );
+
+  // Clearing the plan for a fresh load must clear the settled flag in the same batch,
+  // otherwise the filters mount for one render before the flag catches up.
+  assert.match(
+    practicePageSource,
+    /setAdaptivePlan\(null\);\s*\n\s*setAdaptiveLoadError\(""\);\s*\n\s*setAdaptivePlanSettled\(false\);\s*\n\s*setLessonContextReady\(false\);/,
+    "Resetting for a new load must clear adaptivePlanSettled alongside the plan, not a render later."
+  );
+
+  // Every terminal path of the adaptive load (no user, non-student, success, failure) must
+  // settle the decision; the !lessonContextReady early-return must intentionally leave it unsettled.
+  const settledTrueCount = (practicePageSource.match(/setAdaptivePlanSettled\(true\)/g) ?? []).length;
+  assert.ok(
+    settledTrueCount >= 4,
+    `Expected every terminal adaptive-load path to mark the decision settled, saw ${settledTrueCount}.`
+  );
+
+  // A stable skeleton fills the mission-setup area while the decision is unsettled, instead of
+  // toggling between an empty area, the filters, and the adaptive round.
+  assert.match(
+    practicePageSource,
+    /const showMissionSetupSkeleton =\s*\n\s*!adaptivePlan && !shouldShowFreeSelection && !questionCatalogError && !missionSetupDecisionSettled;/,
+    "A skeleton must cover the in-flight window so the setup area resolves to exactly one mode."
+  );
+  assert.match(
+    practicePageSource,
+    /data-testid="mission-setup-skeleton"/,
+    "The mission-setup skeleton must be present for the in-flight decision state."
   );
 });
 
