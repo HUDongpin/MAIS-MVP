@@ -975,6 +975,7 @@ export default function PracticePage() {
   const [lessonContext, setLessonContext] = useState<LessonPracticeContext | null>(null);
   const [lessonContextReady, setLessonContextReady] = useState(false);
   const [adaptivePlan, setAdaptivePlan] = useState<AdaptiveLearningDecision | null>(null);
+  const [adaptivePlanSettled, setAdaptivePlanSettled] = useState(false);
   const [adaptiveLoadError, setAdaptiveLoadError] = useState("");
   const [completedAdaptiveQuestionIds, setCompletedAdaptiveQuestionIds] = useState<Set<string>>(() => new Set());
   const [adaptiveAnswerResults, setAdaptiveAnswerResults] = useState<Record<string, boolean>>({});
@@ -1220,9 +1221,12 @@ export default function PracticePage() {
     ? `${currentUser?.id ?? "guest"}:${adaptivePlan.skill.id}:${adaptiveRoundQuestions.map((question) => question.id).join("|")}`
     : `${currentUser?.id ?? "guest"}:no-adaptive-plan`;
   const isFreeSelectionUnlocked = Boolean(adaptiveRoundKey && freeSelectionUnlockedTopicId === adaptiveRoundKey);
-  const canFallbackToFreeSelection = questionCatalogLoaded && !questionCatalogError && !adaptivePlan;
+  const canFallbackToFreeSelection = questionCatalogLoaded && adaptivePlanSettled && !questionCatalogError && !adaptivePlan;
   const hasManualTopicSelection = topicFilter !== "all";
   const shouldShowFreeSelection = isFreeSelectionUnlocked || canFallbackToFreeSelection || hasManualTopicSelection;
+  const missionSetupDecisionSettled = questionCatalogLoaded && adaptivePlanSettled;
+  const showMissionSetupSkeleton =
+    !adaptivePlan && !shouldShowFreeSelection && !questionCatalogError && !missionSetupDecisionSettled;
   const hasSelectedPracticeFilter =
     shouldShowFreeSelection &&
     (
@@ -1728,6 +1732,7 @@ export default function PracticePage() {
     const storageKey = lessonContextStorageKey(currentUser?.id, roadmapGrade);
     setAdaptivePlan(null);
     setAdaptiveLoadError("");
+    setAdaptivePlanSettled(false);
     setLessonContextReady(false);
 
     function applyResolvedContext(nextContext: LessonPracticeContext | null) {
@@ -1772,18 +1777,24 @@ export default function PracticePage() {
     const controller = new AbortController();
 
     async function loadAdaptivePlan() {
+      setAdaptivePlanSettled(false);
+
       if (!currentUser) {
         setAdaptivePlan(null);
         setAdaptiveLoadError("");
+        setAdaptivePlanSettled(true);
         return;
       }
 
       if (!isStudentAccount) {
         setAdaptivePlan(null);
         setAdaptiveLoadError("");
+        setAdaptivePlanSettled(true);
         return;
       }
 
+      // Still resolving the lesson/topic context — leave the decision unsettled so
+      // the free-selection filters stay gated behind the skeleton instead of flashing in.
       if (!lessonContextReady) return;
 
       try {
@@ -1798,6 +1809,7 @@ export default function PracticePage() {
         if (!response.ok || !decision) throw new Error("Could not load adaptive plan.");
         setAdaptivePlan(decision);
         setAdaptiveLoadError("");
+        setAdaptivePlanSettled(true);
         if (decision.engine.llmStatus === "pending") {
           void refreshAdaptiveRecommendation({ apply: false, signal: controller.signal }).then((refreshed) => {
             if (!controller.signal.aborted && refreshed && adaptiveProgressQuestionIdsRef.current.size === 0) {
@@ -1809,6 +1821,7 @@ export default function PracticePage() {
         if (!controller.signal.aborted) {
           setAdaptivePlan(null);
           setAdaptiveLoadError(language === "en" ? "Could not load the personalized practice set." : "暫時無法載入適性練習。");
+          setAdaptivePlanSettled(true);
         }
       }
     }
@@ -2270,6 +2283,25 @@ export default function PracticePage() {
 	          </p>
 	        </div>
 	      ) : null}
+
+      {showMissionSetupSkeleton ? (
+        <div
+          id="mission-setup-loading"
+          data-testid="mission-setup-skeleton"
+          aria-hidden="true"
+          className={cn(
+            "mt-8 grid gap-4 rounded-[28px] border border-cyan-100 bg-cyan-50/90 p-5 shadow-[0_18px_38px_rgba(8,145,178,0.14)]",
+            studentFixedGrade ? "md:grid-cols-3" : "md:grid-cols-4"
+          )}
+        >
+          {Array.from({ length: studentFixedGrade ? 3 : 4 }).map((_, index) => (
+            <div key={index} className="animate-pulse">
+              <div className="h-4 w-24 rounded bg-cyan-100" />
+              <div className="mt-2 h-[46px] w-full rounded-2xl border border-cyan-100 bg-white/70" />
+            </div>
+          ))}
+        </div>
+      ) : null}
 
       {shouldShowFreeSelection ? (
         <section
