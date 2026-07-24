@@ -9956,7 +9956,7 @@ export const refreshAdaptiveLearningRecommendation = studentActivityUserStore.re
 
 export type AdaptiveUniverseSnapshot = {
   topics: Array<{ id: string; grade: GradeId }>;
-  states: Array<{ skillId: string; pMastery: number; attemptCount: number; nextReviewAt: string | null }>;
+  states: Array<{ skillId: string; pMastery: number; attemptCount: number; correctStreak: number; nextReviewAt: string | null }>;
   generatedAt: string;
 };
 
@@ -9981,6 +9981,7 @@ export async function getAdaptiveUniverseSnapshot({
       skillId: state.skillId,
       pMastery: state.pMastery,
       attemptCount: state.attemptCount,
+      correctStreak: state.correctStreak,
       nextReviewAt: state.nextReviewAt
     }));
   return { topics, states, generatedAt: new Date().toISOString() };
@@ -9995,7 +9996,7 @@ export type TeacherClassSkyMaterials = {
   /** Anonymous per-student state lists — aggregated before leaving the API layer. */
   students: Array<{
     grade: GradeId;
-    states: Array<{ skillId: string; pMastery: number; attemptCount: number; nextReviewAt: string | null }>;
+    states: Array<{ skillId: string; pMastery: number; attemptCount: number; correctStreak: number; nextReviewAt: string | null }>;
   }>;
   generatedAt: string;
 };
@@ -10031,6 +10032,7 @@ export async function getTeacherClassSkyMaterials({
         skillId: state.skillId,
         pMastery: state.pMastery,
         attemptCount: state.attemptCount,
+        correctStreak: state.correctStreak,
         nextReviewAt: state.nextReviewAt
       }))
   }));

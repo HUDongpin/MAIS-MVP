@@ -18,7 +18,9 @@ const p4Topics: UniverseTopicInput[] = [
 ];
 
 function state(skillId: string, pMastery: number, overrides: Partial<UniverseSkillStateInput> = {}): UniverseSkillStateInput {
-  return { skillId, pMastery, attemptCount: 4, nextReviewAt: null, ...overrides };
+  // Default to a confirmed streak so an over-threshold pMastery reads as mastered (lit);
+  // pass correctStreak < 3 explicitly to exercise the "confirming" band.
+  return { skillId, pMastery, attemptCount: 4, correctStreak: 3, nextReviewAt: null, ...overrides };
 }
 
 test("builds a deterministic universe with every CCSS cluster and star", () => {
@@ -63,14 +65,32 @@ test("cluster progress aggregates skill states through the topic-to-cluster join
   });
 
   deepEqual(progress.get("4.NBT"), {
-    skillTotal: 3, skillLit: 2, skillIgniting: 0, skillFading: 1, skillUnstable: 0, hasCurrent: false
+    skillTotal: 3, skillLit: 2, skillConfirming: 0, skillIgniting: 0, skillFading: 1, skillUnstable: 0, hasCurrent: false
   });
   deepEqual(progress.get("4.OA"), {
-    skillTotal: 3, skillLit: 0, skillIgniting: 1, skillFading: 0, skillUnstable: 1, hasCurrent: true
+    skillTotal: 3, skillLit: 0, skillConfirming: 0, skillIgniting: 1, skillFading: 0, skillUnstable: 1, hasCurrent: true
   });
   deepEqual(progress.get("4.NF"), {
-    skillTotal: 3, skillLit: 0, skillIgniting: 0, skillFading: 0, skillUnstable: 0, hasCurrent: false
+    skillTotal: 3, skillLit: 0, skillConfirming: 0, skillIgniting: 0, skillFading: 0, skillUnstable: 0, hasCurrent: false
   });
+});
+
+test("over the bar but streak < confirmation reads as 'confirming' — not lit, not counted", () => {
+  const confirmingStates = [state("us-ca-math-p4-4-nbt-place-value:foundation", 0.9, { correctStreak: 2 })];
+  const confirmedStates = [state("us-ca-math-p4-4-nbt-place-value:foundation", 0.9, { correctStreak: 3 })];
+
+  const confirming = buildClusterProgress({ topics: p4Topics, states: confirmingStates, now: NOW }).get("4.NBT");
+  equal(confirming?.skillLit, 0);
+  equal(confirming?.skillConfirming, 1);
+
+  const confirmed = buildClusterProgress({ topics: p4Topics, states: confirmedStates, now: NOW }).get("4.NBT");
+  equal(confirmed?.skillLit, 1);
+  equal(confirmed?.skillConfirming, 0);
+
+  // The confirming skill paints a "confirming" star and adds nothing to illumination.
+  const map = buildMathUniverseMap({ topics: p4Topics, states: confirmingStates, studentGrade: "P4", now: NOW });
+  ok(map.stars.some((star) => star.status === "confirming"), "a confirming star is painted");
+  equal(map.illumination.litCount, 0);
 });
 
 test("runtime progress paints registry stars proportionally with status accents", () => {

@@ -59,6 +59,7 @@ const statusLabels: Record<UniverseStar["status"], LocalizedText> = {
   fading: { en: "Fading — review due", zh: "轉暗——待複習", zhHans: "转暗——待复习" },
   unstable: { en: "Unstable — repair", zh: "不穩定——待修補", zhHans: "不稳定——待修补" },
   current: { en: "Current mission", zh: "當前任務", zhHans: "当前任务" },
+  confirming: { en: "Confirming — almost mastered", zh: "鞏固中——即將掌握", zhHans: "巩固中——即将掌握" },
   igniting: { en: "Igniting — in progress", zh: "點燃中", zhHans: "点燃中" },
   charted: { en: "Charted — ahead on your route", zh: "已標記——航線前方", zhHans: "已标记——航线前方" },
   sealed: { en: "Sealed — uncharted space", zh: "封存——未知宇宙", zhHans: "封存——未知宇宙" }
@@ -79,6 +80,8 @@ function starVisual(star: UniverseStar, theme: ThemeMode) {
       return { r: 4.2, fill: "#fb7185", opacity: 0.95, glow: "#fb7185" };
     case "current":
       return { r: 6.2, fill: theme === "dark" ? "#ffffff" : "#0f172a", opacity: 1, glow: armColor };
+    case "confirming":
+      return { r: 4.2, fill: "#38bdf8", opacity: 0.98, glow: "#38bdf8" };
     case "igniting":
       return { r: 3.6, fill: theme === "dark" ? "#8b93b8" : "#64748b", opacity: 0.95, glow: null };
     case "charted":
