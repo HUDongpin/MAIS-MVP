@@ -5,7 +5,7 @@
  * unnecessary here — this runner imports the compiled output produced by
  * `npm run eval:adaptive`. Kept tiny: format the AdaptiveEvalReport for humans.
  */
-import { runAdaptiveEval } from "../.tmp/adaptive-eval/lib/adaptiveLearningEval.js";
+import { runAdaptiveEval, runSustainedMasteryComparison } from "../.tmp/adaptive-eval/lib/adaptiveLearningEval.js";
 
 const report = runAdaptiveEval();
 
@@ -36,6 +36,33 @@ if (report.findings.length > 0) {
   for (const finding of report.findings) console.log(`   • ${finding}`);
 }
 console.log("");
+
+// Mastery-confirmation gate — CI guard on the shipped isMasteryConfirmed rule
+// (pMastery >= threshold AND correctStreak >= confirmationStreak). Shows the
+// false- vs true-mastery tradeoff across confirmation-streak sizes.
+const sustained = runSustainedMasteryComparison();
+console.log(
+  `Mastery-confirmation gate (shipped streak=${sustained.confirmationStreak}) — P(mastered within ${sustained.horizon} attempts)\n`
+);
+const label = (s) => (s === 1 ? "current" : `streak-${s}`);
+console.log(`  true p  | ${sustained.streaks.map((s) => label(s).padStart(9)).join(" | ")}`);
+for (const row of sustained.rows) {
+  const cells = sustained.streaks.map((s) => `${(row.probByStreak[s] * 100).toFixed(1)}%`.padStart(9)).join(" | ");
+  const tag = row.trueP <= 0.5 ? "  non-master" : row.trueP >= 0.85 ? "  true master" : "";
+  console.log(`   ${row.trueP.toFixed(2)}   | ${cells}${tag}`);
+}
+console.log(
+  `\n  diligent (p=0.95) E[step|mastered]: ` +
+    sustained.streaks.map((s) => `${label(s)}=${sustained.diligentExpectedStep[s]?.toFixed(1)}`).join("  ")
+);
+console.log("\n  checks:");
+for (const check of sustained.checks) {
+  allPassed = allPassed && check.passed;
+  console.log(`   ${check.passed ? "✓" : "✗"} ${check.description}`);
+  console.log(`       ${check.detail}`);
+}
+console.log(`\n  recommendation: ${sustained.recommendation}\n`);
+
 if (!allPassed) {
   console.error("Adaptive eval: one or more checks FAILED");
   process.exit(1);

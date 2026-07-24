@@ -71,7 +71,7 @@ export function buildClassSkyMap({
       if (!entry || !entry.skillTotal) continue;
       const fraction = entry.skillLit / entry.skillTotal;
       fractionSum += fraction;
-      if (entry.skillLit > 0 || entry.skillIgniting > 0 || entry.skillUnstable > 0) attemptedCount += 1;
+      if (entry.skillLit > 0 || entry.skillConfirming > 0 || entry.skillIgniting > 0 || entry.skillUnstable > 0) attemptedCount += 1;
       if (entry.skillLit >= entry.skillTotal) masteredCount += 1;
       if (entry.skillUnstable > 0) strugglingCount += 1;
     }
