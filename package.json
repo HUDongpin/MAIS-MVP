@@ -90,7 +90,7 @@
     "test:content-safety": "node scripts/run-content-safety-tests.mjs",
     "test:signature-labs": "node scripts/run-signature-lab-tests.mjs",
     "audit:ccss-depth": "npx tsx --tsconfig tsconfig.json scripts/audit-ccss-depth.ts",
-    "audit:us-ca-math-items": "node scripts/audit-us-ca-math-item-quality.mjs",
+    "audit:us-math-items": "node scripts/audit-us-math-item-quality.mjs",
     "test:ccss-depth": "npx tsx --tsconfig tsconfig.json --test scripts/ccssDepthCoverage.test.ts",
     "check:port-drift": "node scripts/check-port-drift.mjs",
     "report:bench-usage": "node scripts/report-bench-usage.mjs",

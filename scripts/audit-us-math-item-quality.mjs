@@ -1,39 +1,93 @@
 #!/usr/bin/env node
-// Content-quality audit for the live US California math practice banks.
+// Content-quality audit for the live US math practice banks (CA, AR, FL).
 //
-// Coverage:
-//   - us-ca-k5-knowledge-point-practice-v1 (K-G5 knowledge-point practice)
-//   - ccss-textbook-practice-v1            (CCSS interactive-lesson practice, K-G12)
-//   - us-ca-math-g6-g12-generated-bank-v2-1500 (G6-G12 generated bank)
+// Coverage and per-pack mode:
+//   - us-ca-k5-knowledge-point-practice-v1      authored  (K-G5 knowledge-point practice)
+//   - ccss-textbook-practice-v1                 authored  (CCSS interactive-lesson practice, K-G12)
+//   - us-ca-math-g6-g12-generated-bank-v2-1500  templated (every item carries generationTemplate)
+//   - us-ar-math-k-g5-generated-bank-v1-1500    inferred  (free-form; solvers matched by prompt shape)
+//   - us-ar-math-g6-g12-generated-bank-v1-1500  inferred
+//   - us-fl-math-middle-school-textbooks-v1     mathfact  (each problem carries a machine-checkable mathFact)
 //
 // Checks:
 //   PASS A (all packs)  structural key integrity: answer/options/acceptedAnswers
 //                       coherence, duplicate or multi-correct options.
-//   PASS B (G6-G12)     independent re-solve of every generated item FROM THE
+//   PASS B (templated)  independent re-solve of every generated item FROM THE
 //                       STUDENT-VISIBLE PROMPT TEXT (per-template parsers), so
 //                       prompt/parameter drift is caught, not just key drift.
+//        (inferred)     the same solvers matched by prompt shape; an item is only
+//                       judged when every matching solver agrees, and a
+//                       disagreement with the key is P1 (review), not P0.
+//        (mathfact)     mathFact.expression is evaluated and must equal
+//                       mathFact.expected, mathFact.actual, and the answer key.
 //   PASS C (all packs)  arithmetic claims inside explanations ("a op b = c")
 //                       re-verified exactly.
 //
-// Usage: node scripts/audit-us-ca-math-item-quality.mjs [--json out.json]
+// Usage: node scripts/audit-us-math-item-quality.mjs [--json out.json]
 // Exits non-zero when any P0/P1 finding exists so it can run as a gate.
 
 import { createRequire } from "node:module";
 import { writeFileSync } from "node:fs";
 
 const require = createRequire(import.meta.url);
+
+// Flattens the FL textbook pack's books -> chapters -> practiceSets -> problems
+// into question-shaped rows the shared passes understand.
+function floridaQuestions(pack) {
+  const questions = [];
+  for (const book of pack.books) {
+    for (const chapter of book.chapters) {
+      for (const practiceSet of chapter.practiceSets ?? []) {
+        for (const problem of practiceSet.problems ?? []) {
+          questions.push({
+            id: `${chapter.id}:${practiceSet.id}:${problem.id}`,
+            batch: "us-fl-ms-v1",
+            type: "fill-in",
+            prompt: { en: problem.prompt },
+            answer: problem.answer,
+            acceptedAnswers: problem.acceptedAnswers ?? [],
+            explanation: { en: problem.explanation },
+            mathFact: problem.mathFact
+          });
+        }
+      }
+    }
+  }
+  return questions;
+}
+
+const flPack = require("../data/generated-content/us-fl-math-middle-school-textbooks-v1/textbook-pack.json");
 const packs = [
   {
     name: "us-ca-k5-knowledge-point-practice-v1",
+    mode: "authored",
     pack: require("../data/generated-content/us-ca-k5-knowledge-point-practice-v1/question-pack.json")
   },
   {
     name: "ccss-textbook-practice-v1",
+    mode: "authored",
     pack: require("../data/generated-content/ccss-textbook-practice-v1/question-pack.json")
   },
   {
     name: "us-ca-math-g6-g12-generated-bank-v2-1500",
+    mode: "templated",
     pack: require("../data/generated-content/us-ca-math-g6-g12-generated-bank-v2-1500/question-pack.json")
+  },
+  {
+    name: "us-ar-math-k-g5-generated-bank-v1-1500",
+    mode: "inferred",
+    pack: require("../data/generated-content/us-ar-math-k-g5-generated-bank-v1-1500/question-pack.json")
+  },
+  {
+    name: "us-ar-math-g6-g12-generated-bank-v1-1500",
+    mode: "inferred",
+    pack: require("../data/generated-content/us-ar-math-g6-g12-generated-bank-v1-1500/question-pack.json")
+  },
+  {
+    name: "us-fl-math-middle-school-textbooks-v1",
+    mode: "mathfact",
+    pack: flPack,
+    questions: floridaQuestions(flPack)
   }
 ];
 
@@ -50,11 +104,12 @@ function flag(question, pass, severity, issue, detail) {
 
 function normalizePromptText(text) {
   return text
-    .replace(/−/g, "-") // unicode minus
+    .replace(/[−–—]/g, "-") // unicode minus, en dash, em dash
     .replace(/×/g, "*")
     .replace(/÷/g, "/")
     .replace(/²/g, "^2")
     .replace(/³/g, "^3")
+    .replace(/(\d),(?=\d{3}(?:\D|$))/g, "$1") // thousands separators
     .replace(/\s+/g, " ")
     .trim();
 }
@@ -65,7 +120,7 @@ function normalizePromptText(text) {
 function parseNumeric(raw, { stripPrefix = true } = {}) {
   if (raw == null) return null;
   let s = String(raw).trim().toLowerCase();
-  s = s.replace(/−/g, "-");
+  s = s.replace(/[−–—]/g, "-");
   if (stripPrefix) s = s.replace(/^(?:[a-z]|f\(-?\d+\)|p̂|ŷ)\s*=\s*/i, "");
   else if (/=/.test(s)) return null;
   s = s.replace(/^\$/, "").replace(/,/g, "");
@@ -82,6 +137,19 @@ function parseNumeric(raw, { stripPrefix = true } = {}) {
   }
   if (/^-?\d+(?:\.\d+)?(?:e-?\d+)?$/.test(s)) return Number(s);
   return null;
+}
+
+// Looser variant for free-form banks: also accepts "6 cups" / "$25 total" —
+// a single number followed by arbitrary unit words. Returns null for anything
+// structured ("3:5", "x = 2 or 3") so unjudgeable answers are skipped.
+function parseNumericLoose(raw) {
+  const strict = parseNumeric(raw);
+  if (strict != null) return strict;
+  const m = String(raw ?? "")
+    .trim()
+    .replace(/−/g, "-")
+    .match(/^\$?(-?\d+(?:\.\d+)?)(?:\s+[A-Za-z][A-Za-z .\/²³]*)?$/);
+  return m ? Number(m[1]) : null;
 }
 
 function nearlyEqual(a, b, tol = 1e-6) {
@@ -282,8 +350,11 @@ const templateSolvers = {
   t_opposite_abs(p) {
     let m = p.match(rx(F`value of \|(-?\d+)\|`));
     if (m) return Math.abs(num(m, 1));
-    m = p.match(rx(F`opposite of (-?\d+)`));
-    if (m) return -num(m, 1);
+    m = p.match(rx(F`opposite of (-?\d+(?:\.\d+)?(?:\/\d+)?)`));
+    if (m) {
+      const value = parseNumeric(m[1]);
+      return value == null ? null : -value;
+    }
     return null;
   },
   t_percent_of(p) {
@@ -306,7 +377,9 @@ const templateSolvers = {
     return m ? num(m, 1) * num(m, 4) + signed(m[2], num(m, 3)) : null;
   },
   t_prism_volume(p) {
-    const m = p.match(rx(F`(\d+(?:\.\d+)?) cm long, (\d+(?:\.\d+)?) cm wide, and (\d+(?:\.\d+)?) cm tall`));
+    // anchored on "rectangular prism is" so composite-solid problems that list
+    // one prism's dimensions but ask for a combined volume are not matched
+    const m = p.match(rx(F`rectangular prism is (\d+(?:\.\d+)?) cm long, (\d+(?:\.\d+)?) cm wide, and (\d+(?:\.\d+)?) cm tall`));
     return m ? num(m, 1) * num(m, 2) * num(m, 3) : null;
   },
   t_probability_complement(p) {
@@ -378,7 +451,9 @@ const templateSolvers = {
     return m[3] === "larger" ? (num(m, 1) + num(m, 2)) / 2 : (num(m, 1) - num(m, 2)) / 2;
   },
   t_slope_two_points(p) {
-    const m = p.match(rx(F`points \((-?\d+), (-?\d+)\) and \((-?\d+), (-?\d+)\)\. What is the slope`));
+    // "slope of the/this line" only — perpendicular-slope follow-ups ask for
+    // "the slope of a line perpendicular to it" and must not match
+    const m = p.match(rx(F`points \((-?\d+), (-?\d+)\) and \((-?\d+), (-?\d+)\)\. (?:What is|Find) the slope of th(?:e|is) line`));
     return m ? (num(m, 4) - num(m, 2)) / (num(m, 3) - num(m, 1)) : null;
   },
   t_solve_both_sides(p) {
@@ -472,9 +547,63 @@ const templateSolvers = {
   }
 };
 
+// Ask-keyword guards: several solvers key off a numeric setup ("legs of 5 cm
+// and 12 cm") that other questions could share while asking something else.
+// Requiring the ask keyword makes them safe to run in try-all inference mode.
+const solverGuards = {
+  t_arc_length: /arc/,
+  t_circle_circumference: /circumference/,
+  t_distance_points: /distance/,
+  t_hypotenuse: /hypotenuse/,
+  t_marble_probability: /probability/,
+  t_mean_of_list: /mean/,
+  t_median_of_list: /median/,
+  t_prism_volume: /volume/,
+  t_scale_area: /area/,
+  t_sector_area: /sector/,
+  t_sum_of_roots: /sum of the roots/,
+  t_third_angle: /third angle/,
+  t_triangle_area: /area/,
+  t_unit_rate: /unit rate|per hour/
+};
+for (const [name, guard] of Object.entries(solverGuards)) {
+  const base = templateSolvers[name];
+  templateSolvers[name] = (p) => (guard.test(p) ? base(p) : null);
+}
+
+// Try-all inference for free-form banks: run every solver over the prompt and
+// only judge the item when all solvers that parsed agree on one value.
+function inferSolve(prompt) {
+  const matches = [];
+  for (const [name, solver] of Object.entries(templateSolvers)) {
+    let value;
+    try {
+      value = solver(prompt);
+    } catch {
+      value = null;
+    }
+    if (value == null || typeof value === "object") continue;
+    matches.push({ name, value });
+  }
+  if (!matches.length) return null;
+  const first = matches[0].value;
+  if (!matches.every((match) => nearlyEqual(match.value, first, 1e-9))) {
+    return { ambiguous: matches.map((match) => match.name) };
+  }
+  return { value: first, solvers: matches.map((match) => match.name) };
+}
+
 // ---------- PASS A: structural key integrity ----------
 
-function auditStructure(question) {
+// Free-form items like "Write a digit that makes the inequality true" have
+// several legitimately different accepted answers — alias agreement with the
+// canonical answer is expected to fail there.
+const MULTI_ANSWER_PROMPT_RE = /makes the \w+ true|write a (?:digit|whole number|number)|fill in the blank with a digit|name a \w+|give (?:a|any) \w+/i;
+// When the ask constrains the FORM of the answer, a numerically equal option
+// in a different form is a deliberate distractor, not a second key.
+const FORMAT_CUE_RE = /denominator \d+|with denominator|as a decimal|as hundredths|as tenths|in simplest form|expanded form|as a percent|as an improper fraction|as a mixed number/i;
+
+function auditStructure(question, mode) {
   const answer = String(question.answer ?? "").trim();
   if (!answer) {
     flag(question, "A", "P0", "empty-answer", "answer field is empty");
@@ -500,8 +629,12 @@ function auditStructure(question) {
   }
   // accepted aliases must agree numerically with the answer when both parse;
   // for "about"-style items the canonical answer may be the alias rounded to
-  // its own precision (e.g. answer "31" accepting the exact "31.4")
-  if (answerValue != null) {
+  // its own precision (e.g. answer "31" accepting the exact "31.4").
+  // Skipped for free-form ("inferred") banks, where acceptedAnswers is a
+  // grading rubric of alternate solution forms (t = 4 vs the year 2024, a raw
+  // product next to its sig-fig rounding), not aliases of one value.
+  const multiAnswer = MULTI_ANSWER_PROMPT_RE.test(question.prompt?.en ?? "");
+  if (answerValue != null && !multiAnswer && mode !== "inferred") {
     const decimals = (answer.split(".")[1] ?? "").length;
     for (const alias of accepted) {
       const aliasValue = parseNumeric(alias);
@@ -521,6 +654,7 @@ function auditStructure(question) {
       flag(question, "A", "P0", "too-few-options", `only ${options.length} options`);
       return;
     }
+    const stringMatches = options.filter((option) => accepted.includes(option) || option === answer);
     const matches = options.filter((option) => {
       if (accepted.includes(option) || option === answer) return true;
       const optionValue = parseNumeric(option, { stripPrefix: false });
@@ -529,13 +663,37 @@ function auditStructure(question) {
     if (matches.length === 0) {
       flag(question, "A", "P0", "correct-option-missing", `answer "${answer}" not among options [${options.join(" | ")}]`);
     } else if (matches.length > 1) {
-      flag(question, "A", "P0", "multiple-correct-options", `options [${matches.join(" | ")}] all equal the answer`);
+      if (stringMatches.length <= 1 && FORMAT_CUE_RE.test(question.prompt?.en ?? "")) {
+        flag(
+          question,
+          "A",
+          "P2",
+          "format-equal-option",
+          `options [${matches.join(" | ")}] are numerically equal; only the format cue in the ask disambiguates`
+        );
+      } else {
+        flag(question, "A", "P0", "multiple-correct-options", `options [${matches.join(" | ")}] all equal the answer`);
+      }
     }
     const seen = new Map();
     for (const option of options) {
       const key = parseNumeric(option, { stripPrefix: false }) ?? option.toLowerCase();
       if (seen.has(key)) {
-        flag(question, "A", "P1", "duplicate-options", `"${seen.get(key)}" and "${option}" are the same value`);
+        // duplicates involving the key are covered by multiple-correct above;
+        // equal-value distractor pairs are usually deliberate misconception
+        // probes (0.7 vs 0.70), so they are advisory only
+        const involvesAnswer = matches.includes(option) || matches.includes(seen.get(key));
+        if (involvesAnswer && FORMAT_CUE_RE.test(question.prompt?.en ?? "")) {
+          // already reported as format-equal-option
+        } else {
+          flag(
+            question,
+            "A",
+            involvesAnswer ? "P1" : "P2",
+            involvesAnswer ? "duplicate-options" : "duplicate-distractors",
+            `"${seen.get(key)}" and "${option}" are the same value`
+          );
+        }
       }
       seen.set(key, option);
     }
@@ -548,7 +706,7 @@ function auditStructure(question) {
 // segment with proper precedence, flagging only when adjacent segments truly
 // disagree. Mixed numbers ("1 1/4") are supported.
 
-const CHAIN_RE = /(?<![\d.\/√*A-Za-z$¢]|[+\/*-]\s?)(-?[\d.\/ ()+*%-]+)((?:=\s*-?[\d.\/ ()+*%-]+)+)/g;
+const CHAIN_RE = /(?<![\d.\/√*\p{L}$¢:'’′)]|[+\/*-]\s?)(-?[\d.\/ ()+*%-]+)((?:=\s*-?[\d.\/ ()+*%-]+)+)/gu;
 
 // Unit words that legitimately follow a numeric result; any other word after
 // the final segment means the "equation" is prose ("15 = 1 ten and 5 ones").
@@ -563,29 +721,42 @@ function evaluateSegment(segment) {
   const text = segment.trim();
   if (!text || !/\d/.test(text)) return null;
   const prepared = text
+    // absolute-value pipes: "|-7|" -> "abs(-7)"
+    .replace(/\|([^|]+)\|/g, "abs($1)")
     // dangling operators/opens from sentence boundaries: "18. (" -> "18"
     .replace(/[ (+*/.-]+$/, "")
     // mixed number "1 1/4" -> "(1+1/4)"
     .replace(/(\d+)\s+(\d+)\/(\d+)/g, "($1+$2/$3)")
     // written fractions bind tight: "-1 / 2/5" means -1 / (2/5)
     .replace(/(\d+(?:\.\d+)?)\/(\d+(?:\.\d+)?)/g, "($1/$2)");
-  if (!/^[-\d.\/ ()+*%]+$/.test(prepared)) return null;
+  if (!/^[-\d.\/ ()+*%]+$/.test(prepared.replace(/abs/g, ""))) return null;
   // guard against pathological input before evaluating
-  if (/[a-z]/i.test(prepared)) return null;
+  if (/[a-z]/i.test(prepared.replace(/abs/g, ""))) return null;
   try {
-    const value = Function(`"use strict"; return (${prepared});`)();
+    const value = Function("abs", `"use strict"; return (${prepared});`)(Math.abs);
     return typeof value === "number" && Number.isFinite(value) ? value : null;
   } catch {
     return null;
   }
 }
 
+// independentSolution appears as a plain string, a localized object, or an
+// array of steps depending on the pack generation vintage.
+function independentSolutionText(question) {
+  const solution = question.independentSolution;
+  if (solution == null) return null;
+  if (Array.isArray(solution)) return solution.join(" ");
+  if (typeof solution === "object") return Object.values(solution).filter((v) => typeof v === "string").join(" ");
+  return String(solution);
+}
+
 function auditArithmeticClaims(question, { includeIndependentSolution = true } = {}) {
-  const texts = [question.explanation?.en, includeIndependentSolution ? question.independentSolution : null];
+  const texts = [question.explanation?.en, includeIndependentSolution ? independentSolutionText(question) : null];
   for (const text of texts) {
     if (!text || /[≈~]|round|about|approximately|nearest/i.test(text)) continue;
     const normalized = String(text)
-      .replace(/−/g, "-")
+      .replace(/[−–—]/g, "-")
+      .replace(/(\d),(?=\d{3}(?:\D|$))/g, "$1")
       .replace(/×/g, "*")
       .replace(/·/g, "*")
       .replace(/÷/g, "/")
@@ -603,18 +774,41 @@ function auditArithmeticClaims(question, { includeIndependentSolution = true } =
       const before = normalized.slice(0, match.index);
       const after = normalized.slice(match.index + match[0].length);
       // A first segment that starts with a dangling operator ("x + 3 = 16"
-      // matched from the "+ 3") or follows a word is a fragment of a larger
-      // prose operand and cannot be checked.
+      // matched from the "+ 3"), follows a word, follows a ratio colon
+      // ("120 : 120 = 1 : 1"), or is a minus-continuation of an algebraic
+      // expression ("4x² - 240 = 144") is a fragment and cannot be checked.
       const firstUnreliable =
-        FRAGMENT_BEFORE_RE.test(before) || /^[+*/]/.test(match[1].trim()) || /[A-Za-z]\s*$/.test(before);
-      const lastUnreliable = /^\s*[A-Za-z]/.test(after) && !UNIT_AFTER_RE.test(after);
+        FRAGMENT_BEFORE_RE.test(before) ||
+        /^[+*/]/.test(match[1].trim()) ||
+        /\p{L}\s*$/u.test(before) ||
+        /:\s*$/.test(before) ||
+        (/^-/.test(match[1].trim()) && /[\p{L}\d)²³']\s+$/u.test(before));
+      const lastUnreliable = (/^\s*\p{L}/u.test(after) && !UNIT_AFTER_RE.test(after)) || /^\s*:/.test(after);
+      // Authored fraction-scaling notation "2×2/3×2 = 4/6" means (2×2)/(3×2);
+      // accept a segment when either standard precedence or that fraction
+      // reading matches its neighbour.
+      const fractionValues = segments.map((segment) => {
+        const parts = segment.split("/");
+        if (parts.length !== 2 || !/[*]/.test(segment)) return null;
+        const numerator = evaluateSegment(parts[0]);
+        const denominator = evaluateSegment(parts[1]);
+        return numerator != null && denominator != null && denominator !== 0 ? numerator / denominator : null;
+      });
+      const segmentAgrees = (i, j) => {
+        for (const left of [values[i], fractionValues[i]]) {
+          for (const right of [values[j], fractionValues[j]]) {
+            if (left != null && right != null && nearlyEqual(left, right, 1e-4)) return true;
+          }
+        }
+        return false;
+      };
       for (let i = 0; i + 1 < values.length; i += 1) {
         if (i === 0 && firstUnreliable) continue;
         if (i + 2 === values.length && lastUnreliable) continue;
-        const left = values[i];
-        const right = values[i + 1];
+        const left = values[i] ?? fractionValues[i];
+        const right = values[i + 1] ?? fractionValues[i + 1];
         if (left == null || right == null) continue;
-        if (!nearlyEqual(left, right, 1e-4)) {
+        if (!segmentAgrees(i, i + 1)) {
           flag(
             question,
             "C",
@@ -628,71 +822,179 @@ function auditArithmeticClaims(question, { includeIndependentSolution = true } =
   }
 }
 
+// ---------- reasoning-leakage check ----------
+// Generated items occasionally retain the generator's chain-of-thought
+// ("...= 26? Wait recalc: ..."). Student-visible fields must never carry it.
+const LEAK_RE = /\bwait,|\bwait recalc|\brecalc\b|\brecompute\b|\bhmm\b|\boops\b|let me re|let's re-?c/i;
+
+function auditReasoningLeakage(question) {
+  const visible = [question.prompt?.en, question.explanation?.en].filter(Boolean).join(" || ");
+  if (LEAK_RE.test(visible)) {
+    flag(question, "A", "P1", "reasoning-leakage-visible", `chain-of-thought text in student-visible field: "${visible.match(LEAK_RE)[0]}..."`);
+  }
+  const internal = independentSolutionText(question);
+  if (internal && LEAK_RE.test(internal)) {
+    flag(question, "A", "P2", "reasoning-leakage-internal", `chain-of-thought text in independentSolution: "${internal.match(LEAK_RE)[0]}..."`);
+  }
+}
+
 // ---------- run ----------
 
 let templateStats = { solved: 0, unparsed: 0, mismatched: 0 };
+const inferStats = {};
+let mathFactStats = { verified: 0, unparsed: 0, mismatched: 0 };
 
-for (const { name, pack } of packs) {
-  for (const question of pack.questions) {
-    auditStructure(question);
+function auditTemplated(question) {
+  const solver = templateSolvers[question.generationTemplate];
+  if (!solver) {
+    flag(question, "B", "P2", "no-solver", `no solver for template ${question.generationTemplate}`);
+    return;
+  }
+  const prompt = normalizePromptText(question.prompt.en);
+  const solved = solver(prompt);
+  if (solved == null) {
+    templateStats.unparsed += 1;
+    flag(question, "B", "P2", "unparsed-prompt", `solver for ${question.generationTemplate} could not parse prompt: "${question.prompt.en}"`);
+    return;
+  }
+  if (typeof solved === "object" && solved.inconsistent) {
+    templateStats.mismatched += 1;
+    flag(question, "B", "P0", "prompt-self-inconsistent", solved.inconsistent);
+    return;
+  }
+  const expectedText = typeof solved === "object" ? solved.text : null;
+  const answer = String(question.answer).trim();
+  if (expectedText != null) {
+    if (answer.toLowerCase() !== expectedText) {
+      templateStats.mismatched += 1;
+      flag(question, "B", "P0", "wrong-answer", `expected "${expectedText}", stored "${answer}"`);
+    } else {
+      templateStats.solved += 1;
+    }
+    return;
+  }
+  const answerValue = parseNumeric(answer);
+  if (answerValue == null) {
+    flag(question, "B", "P2", "unparseable-answer", `cannot parse stored answer "${answer}"`);
+    return;
+  }
+  const tolerance = question.generationTemplate === "t_arc_length" || question.generationTemplate === "t_sector_area" ? 5e-3 : 1e-6;
+  if (!nearlyEqual(answerValue, solved, tolerance)) {
+    templateStats.mismatched += 1;
+    flag(
+      question,
+      "B",
+      "P0",
+      "wrong-answer",
+      `independent solve gives ${solved}, stored answer "${answer}" (template ${question.generationTemplate})`
+    );
+  } else {
+    templateStats.solved += 1;
+    if (/simplest form|Give a fraction/i.test(question.prompt.en) && !isSimplestFraction(answer)) {
+      flag(question, "B", "P1", "not-simplest-form", `answer "${answer}" is not in simplest form but prompt requires it`);
+    }
+  }
+}
+
+function auditInferred(question, stats) {
+  const keyValues = [question.answer, ...(question.acceptedAnswers ?? [])]
+    .map(parseNumericLoose)
+    .filter((value) => value != null);
+  if (!keyValues.length) {
+    stats.unjudgeable += 1;
+    return;
+  }
+  const inferred = inferSolve(normalizePromptText(question.prompt.en));
+  if (!inferred) {
+    stats.uncovered += 1;
+    return;
+  }
+  if (inferred.ambiguous) {
+    stats.ambiguous += 1;
+    return;
+  }
+  stats.covered += 1;
+  if (!keyValues.some((value) => nearlyEqual(value, inferred.value, 5e-3))) {
+    stats.mismatched += 1;
+    flag(
+      question,
+      "B",
+      "P1",
+      "inferred-answer-mismatch",
+      `solver ${inferred.solvers.join("+")} gives ${inferred.value}, stored answer "${question.answer}"`
+    );
+  }
+}
+
+function auditMathFact(question) {
+  const fact = question.mathFact;
+  if (!fact?.expression) {
+    flag(question, "B", "P2", "missing-mathfact", "problem has no mathFact.expression");
+    return;
+  }
+  const normalized = String(fact.expression)
+    .replace(/[−–—]/g, "-")
+    .replace(/×/g, "*")
+    .replace(/÷/g, "/")
+    .replace(/\^/g, "**")
+    .replace(/(\d),(?=\d{3}(?:\D|$))/g, "$1");
+  // Expressions are often written as chains ("x = 39/3 - 2 = 11"): drop bare
+  // variable segments, evaluate the rest, and require them to agree.
+  const segments = normalized
+    .split("=")
+    .map((segment) => segment.trim())
+    .filter((segment) => segment && !/^-?[a-z][a-z0-9_()']*$/i.test(segment));
+  const segmentValues = segments.map(evaluateSegment);
+  let value = null;
+  for (const segmentValue of segmentValues) {
+    if (segmentValue == null) continue;
+    if (value == null) value = segmentValue;
+    else if (!nearlyEqual(value, segmentValue, 1e-6)) {
+      mathFactStats.mismatched += 1;
+      flag(question, "B", "P0", "mathfact-mismatch", `expression "${fact.expression}" contains unequal steps (${value} vs ${segmentValue})`);
+      return;
+    }
+  }
+  if (value == null) {
+    mathFactStats.unparsed += 1;
+    flag(question, "B", "P2", "unparsed-mathfact", `cannot evaluate mathFact expression "${fact.expression}"`);
+    return;
+  }
+  const answer = String(question.answer).trim();
+  const decimals = (answer.split(".")[1] ?? "").length;
+  const answerValue = parseNumericLoose(answer);
+  const problems = [];
+  if (!nearlyEqual(value, fact.expected, 1e-6)) problems.push(`expression evaluates to ${value}, expected ${fact.expected}`);
+  if (fact.actual != null && !nearlyEqual(fact.actual, fact.expected, 1e-6)) problems.push(`actual ${fact.actual} != expected ${fact.expected}`);
+  if (
+    answerValue != null &&
+    !nearlyEqual(answerValue, fact.expected, 1e-6) &&
+    Number(fact.expected.toFixed?.(decimals) ?? fact.expected) !== answerValue
+  ) {
+    problems.push(`answer "${answer}" disagrees with mathFact expected ${fact.expected}`);
+  }
+  if (problems.length) {
+    mathFactStats.mismatched += 1;
+    flag(question, "B", "P0", "mathfact-mismatch", problems.join("; "));
+  } else {
+    mathFactStats.verified += 1;
+  }
+}
+
+for (const { name, mode, pack, questions } of packs) {
+  const rows = questions ?? pack.questions;
+  if (mode === "inferred") inferStats[name] = { covered: 0, uncovered: 0, ambiguous: 0, unjudgeable: 0, mismatched: 0 };
+  for (const question of rows) {
+    auditStructure(question, mode);
+    auditReasoningLeakage(question);
     // For templated items pass B independently re-solves the whole item, and the
     // shorthand independentSolution strings ("middle of 25, 26 ... = 29") are not
     // parseable arithmetic — only check their prose explanations.
-    auditArithmeticClaims(question, {
-      includeIndependentSolution: name !== "us-ca-math-g6-g12-generated-bank-v2-1500"
-    });
+    auditArithmeticClaims(question, { includeIndependentSolution: mode !== "templated" });
 
-    if (name === "us-ca-math-g6-g12-generated-bank-v2-1500") {
-      const solver = templateSolvers[question.generationTemplate];
-      if (!solver) {
-        flag(question, "B", "P2", "no-solver", `no solver for template ${question.generationTemplate}`);
-        continue;
-      }
-      const prompt = normalizePromptText(question.prompt.en);
-      const solved = solver(prompt);
-      if (solved == null) {
-        templateStats.unparsed += 1;
-        flag(question, "B", "P2", "unparsed-prompt", `solver for ${question.generationTemplate} could not parse prompt: "${question.prompt.en}"`);
-        continue;
-      }
-      if (typeof solved === "object" && solved.inconsistent) {
-        templateStats.mismatched += 1;
-        flag(question, "B", "P0", "prompt-self-inconsistent", solved.inconsistent);
-        continue;
-      }
-      const expectedText = typeof solved === "object" ? solved.text : null;
-      const answer = String(question.answer).trim();
-      if (expectedText != null) {
-        if (answer.toLowerCase() !== expectedText) {
-          templateStats.mismatched += 1;
-          flag(question, "B", "P0", "wrong-answer", `expected "${expectedText}", stored "${answer}"`);
-        } else {
-          templateStats.solved += 1;
-        }
-        continue;
-      }
-      const answerValue = parseNumeric(answer);
-      if (answerValue == null) {
-        flag(question, "B", "P2", "unparseable-answer", `cannot parse stored answer "${answer}"`);
-        continue;
-      }
-      const tolerance = question.generationTemplate === "t_arc_length" || question.generationTemplate === "t_sector_area" ? 5e-3 : 1e-6;
-      if (!nearlyEqual(answerValue, solved, tolerance)) {
-        templateStats.mismatched += 1;
-        flag(
-          question,
-          "B",
-          "P0",
-          "wrong-answer",
-          `independent solve gives ${solved}, stored answer "${answer}" (template ${question.generationTemplate})`
-        );
-      } else {
-        templateStats.solved += 1;
-        if (/simplest form|Give a fraction/i.test(question.prompt.en) && !isSimplestFraction(answer)) {
-          flag(question, "B", "P1", "not-simplest-form", `answer "${answer}" is not in simplest form but prompt requires it`);
-        }
-      }
-    }
+    if (mode === "templated") auditTemplated(question);
+    else if (mode === "inferred") auditInferred(question, inferStats[name]);
+    else if (mode === "mathfact") auditMathFact(question);
   }
 }
 
@@ -701,10 +1003,16 @@ for (const { name, pack } of packs) {
 const bySeverity = { P0: 0, P1: 0, P2: 0 };
 for (const finding of findings) bySeverity[finding.severity] += 1;
 
-const totals = packs.map(({ name, pack }) => `${name}: ${pack.questions.length}`).join("\n  ");
-console.log(`US CA math item quality audit`);
+const totals = packs.map(({ name, mode, pack, questions }) => `${name} [${mode}]: ${(questions ?? pack.questions).length}`).join("\n  ");
+console.log(`US math item quality audit (CA / AR / FL)`);
 console.log(`  ${totals}`);
-console.log(`G6-G12 template pass: ${templateStats.solved} solved+matched, ${templateStats.unparsed} unparsed, ${templateStats.mismatched} mismatched`);
+console.log(`CA G6-G12 template pass: ${templateStats.solved} solved+matched, ${templateStats.unparsed} unparsed, ${templateStats.mismatched} mismatched`);
+for (const [name, stats] of Object.entries(inferStats)) {
+  console.log(
+    `${name} inference: ${stats.covered} solver-verified, ${stats.uncovered} uncovered, ${stats.ambiguous} ambiguous, ${stats.unjudgeable} unjudgeable, ${stats.mismatched} mismatched`
+  );
+}
+console.log(`FL mathFact pass: ${mathFactStats.verified} verified, ${mathFactStats.unparsed} unparsed, ${mathFactStats.mismatched} mismatched`);
 console.log(`Findings: ${findings.length} (P0: ${bySeverity.P0}, P1: ${bySeverity.P1}, P2: ${bySeverity.P2})`);
 for (const finding of findings) {
   console.log(`  [${finding.severity}][pass ${finding.pass}] ${finding.id}: ${finding.issue} — ${finding.detail}`);
@@ -712,7 +1020,7 @@ for (const finding of findings) {
 
 const jsonIndex = process.argv.indexOf("--json");
 if (jsonIndex !== -1 && process.argv[jsonIndex + 1]) {
-  writeFileSync(process.argv[jsonIndex + 1], JSON.stringify({ summary: bySeverity, templateStats, findings }, null, 2));
+  writeFileSync(process.argv[jsonIndex + 1], JSON.stringify({ summary: bySeverity, templateStats, inferStats, mathFactStats, findings }, null, 2));
   console.log(`Wrote ${process.argv[jsonIndex + 1]}`);
 }
 
