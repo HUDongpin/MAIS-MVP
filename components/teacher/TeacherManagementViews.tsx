@@ -14,6 +14,7 @@ import { gradeIds } from "@/data/grades";
 import { formatGradeLabel, textForLanguage } from "@/lib/i18n";
 import { cn, formatDateInHongKong } from "@/lib/utils";
 import type {
+  AITutorTranscriptMessage,
   Assignment,
   AssignmentContentType,
   AssignmentGradingRun,
@@ -826,6 +827,123 @@ export function TeacherClassDetailView({ detail }: { detail: TeacherClassDetailD
   );
 }
 
+function StudentAiTutorTranscriptPanel({
+  studentId,
+  messageThreadCount,
+  messageCount7d,
+  lastMessageAt
+}: {
+  studentId: string;
+  messageThreadCount: number;
+  messageCount7d: number;
+  lastMessageAt: string | null;
+}) {
+  const { language, t } = useSettings();
+  const [status, setStatus] = useState<"idle" | "loading" | "loaded" | "error">("idle");
+  const [messages, setMessages] = useState<AITutorTranscriptMessage[]>([]);
+  const [collapsed, setCollapsed] = useState(true);
+
+  const revealTranscript = async () => {
+    if (status === "loaded") {
+      setCollapsed(false);
+      return;
+    }
+    setStatus("loading");
+    setCollapsed(false);
+    try {
+      const response = await fetch(`/api/teacher/students/${encodeURIComponent(studentId)}/ai-tutor-transcript`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ limit: 50 }),
+        cache: "no-store",
+        credentials: "same-origin"
+      });
+      const payload = await response.json().catch(() => null) as { data?: { messages: AITutorTranscriptMessage[] } } | null;
+      if (!response.ok || !payload?.data) throw new Error("Could not load AI Tutor transcript.");
+      setMessages(payload.data.messages);
+      setStatus("loaded");
+    } catch {
+      setStatus("error");
+    }
+  };
+
+  const showRevealButton = status === "idle" || status === "error" || (status === "loaded" && collapsed);
+
+  return (
+    <div className="glass-panel p-5">
+      <h2 className="text-xl font-black text-slate-950 dark:text-white">{t({ en: "Messages and AI Tutor", zh: "私信與 AI Tutor", zhHans: "私信与 AI Tutor" })}</h2>
+      <p className="mt-3 text-sm text-slate-600 dark:text-slate-300">{messageThreadCount} {t({ en: "teacher message threads", zh: "個教師私信串" })}</p>
+      <p className="mt-2 text-sm text-slate-600 dark:text-slate-300">{t({ en: "Last AI message", zh: "最近 AI 訊息" })}: {formatDate(lastMessageAt, language)}</p>
+      <p className="mt-1 text-sm text-slate-600 dark:text-slate-300">{messageCount7d} {t({ en: "AI Tutor messages in the last 7 days", zh: "過去 7 日 AI Tutor 訊息" })}</p>
+
+      <div className="mt-4 flex flex-wrap items-center gap-3">
+        {showRevealButton ? (
+          <button
+            type="button"
+            onClick={() => void revealTranscript()}
+            className="focus-ring rounded-full bg-slate-950 px-4 py-2 text-xs font-black text-white dark:bg-white dark:text-slate-950"
+          >
+            {status === "error"
+              ? t({ en: "Try again", zh: "重試" })
+              : t({ en: "View AI Tutor conversation", zh: "查看 AI Tutor 對話" })}
+          </button>
+        ) : null}
+        {status === "loaded" && !collapsed ? (
+          <button
+            type="button"
+            onClick={() => setCollapsed(true)}
+            className="focus-ring rounded-full border border-slate-200/80 bg-white/75 px-4 py-2 text-xs font-black text-slate-700 dark:border-white/10 dark:bg-white/[0.06] dark:text-slate-200"
+          >
+            {t({ en: "Hide conversation", zh: "隱藏對話" })}
+          </button>
+        ) : null}
+      </div>
+
+      <p className="mt-3 text-xs font-semibold text-slate-500 dark:text-slate-400">
+        {t({ en: "Opening a student's AI Tutor conversation is recorded in the AI governance log.", zh: "開啟學生的 AI Tutor 對話會記錄在 AI 治理紀錄中。" })}
+      </p>
+
+      {status === "loading" ? (
+        <p className="mt-4 text-sm font-bold text-slate-500 dark:text-slate-400">{t({ en: "Loading conversation…", zh: "正在載入對話…" })}</p>
+      ) : null}
+      {status === "error" ? (
+        <p className="mt-4 text-sm font-bold text-rose-600 dark:text-rose-300">{t({ en: "Could not load this conversation yet.", zh: "暫時未能載入此對話。" })}</p>
+      ) : null}
+      {status === "loaded" && !collapsed ? (
+        messages.length ? (
+          <div className="mt-4 grid gap-3">
+            {messages.map((message) => {
+              const isTutor = message.role === "tutor";
+              return (
+                <div key={message.id} className={cn("flex", isTutor ? "justify-end" : "justify-start")}>
+                  <div
+                    className={cn(
+                      "max-w-[85%] rounded-2xl px-4 py-3",
+                      isTutor
+                        ? "bg-cyan-500/15 text-slate-800 dark:bg-cyan-300/10 dark:text-slate-100"
+                        : "bg-slate-500/10 text-slate-800 dark:bg-white/[0.06] dark:text-slate-100"
+                    )}
+                  >
+                    <div className="flex items-center justify-between gap-3">
+                      <span className={cn("text-[11px] font-black uppercase tracking-[0.12em]", isTutor ? "text-cyan-700 dark:text-cyan-200" : "text-slate-500 dark:text-slate-400")}>
+                        {isTutor ? t({ en: "AI Tutor", zh: "AI Tutor" }) : t({ en: "Student", zh: "學生" })}
+                      </span>
+                      <span className="text-[11px] font-bold text-slate-400 dark:text-slate-500">{formatDate(message.createdAt, language)}</span>
+                    </div>
+                    <p className="mt-1 whitespace-pre-wrap break-words text-sm font-semibold leading-6">{message.content}</p>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        ) : (
+          <p className="mt-4 text-sm font-bold text-slate-500 dark:text-slate-400">{t({ en: "No AI Tutor messages yet.", zh: "尚未有 AI Tutor 訊息。" })}</p>
+        )
+      ) : null}
+    </div>
+  );
+}
+
 export function TeacherStudentProfileView({
   profile,
   backHref = "/teacher/classes",
@@ -1142,11 +1260,12 @@ export function TeacherStudentProfileView({
               ))}
             </div>
           </div>
-          <div className="glass-panel p-5">
-            <h2 className="text-xl font-black text-slate-950 dark:text-white">{t({ en: "Messages and AI Tutor", zh: "私信與 AI Tutor", zhHans: "私信与 AI Tutor" })}</h2>
-            <p className="mt-3 text-sm text-slate-600 dark:text-slate-300">{profile.messages.length} {t({ en: "teacher message threads", zh: "個教師私信串" })}</p>
-            <p className="mt-2 text-sm text-slate-600 dark:text-slate-300">{t({ en: "Last AI message", zh: "最近 AI 訊息" })}: {formatDate(profile.aiTutor.lastMessageAt, language)}</p>
-          </div>
+          <StudentAiTutorTranscriptPanel
+            studentId={profile.student.id}
+            messageThreadCount={profile.messages.length}
+            messageCount7d={profile.aiTutor.messageCount7d}
+            lastMessageAt={profile.aiTutor.lastMessageAt}
+          />
           <div className="glass-panel p-5">
             <h2 className="text-xl font-black text-slate-950 dark:text-white">{t({ en: "Parent access", zh: "家長端存取" })}</h2>
             <p className="mt-3 text-sm font-bold text-slate-500 dark:text-slate-400">{t({ en: "Invite code", zh: "邀請碼" })}</p>

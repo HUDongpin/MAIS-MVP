@@ -216,6 +216,12 @@ import {
   type NovaLensPersistenceDatabase
 } from "@/lib/server/userStore/novaLensPersistence";
 import {
+  createAiTutorTranscriptAccessPersistenceStore,
+  normalizeAiTutorTranscriptAccessRecords as normalizeAiTutorTranscriptAccessRecordsFromPersistence,
+  type AITutorTranscriptAccessRecord,
+  type AITutorTranscriptAccessPersistenceDatabase
+} from "@/lib/server/userStore/aiTutorTranscriptAccessPersistence";
+import {
   canUseParentArea as canUseParentAreaFromParentAccess,
   createParentInviteCode as createParentInviteCodeFromParentAccess,
   createParentAccessPersistenceStore,
@@ -1738,6 +1744,7 @@ type Database = {
   nova_lens_runs: NovaLensRunRecord[];
   nova_lens_policy: NovaLensPolicyRecord;
   nova_lens_policy_events: NovaLensPolicyEventRecord[];
+  ai_tutor_transcript_access_events: AITutorTranscriptAccessRecord[];
   teacher_classes: TeacherClassRecord[];
   class_enrollments: ClassEnrollmentRecord[];
   class_roster_profiles: ClassRosterProfileRecord[];
@@ -2631,6 +2638,7 @@ function createInitialDatabase(): Database {
     nova_lens_runs: [],
     nova_lens_policy: defaultNovaLensPolicyRecordFromNovaLensPersistence(now),
     nova_lens_policy_events: [],
+    ai_tutor_transcript_access_events: [],
     teacher_classes: seedTeacherClasses(now),
     class_enrollments: seedClassEnrollments(now),
     class_roster_profiles: [],
@@ -4299,6 +4307,7 @@ function normalizeDatabase(database: Partial<Database>) {
     nova_lens_runs: (database.nova_lens_runs ?? []).map((record) => normalizeNovaLensRunRecordFromNovaLensPersistence(record as NovaLensRunRecord)),
     nova_lens_policy: normalizeNovaLensPolicyRecordFromNovaLensPersistence(database.nova_lens_policy, now),
     nova_lens_policy_events: normalizeNovaLensPolicyEventRecordsFromNovaLensPersistence(database.nova_lens_policy_events, now),
+    ai_tutor_transcript_access_events: normalizeAiTutorTranscriptAccessRecordsFromPersistence(database.ai_tutor_transcript_access_events, now),
     teacher_classes: normalizedTeacherClassCollections.teacher_classes,
     class_enrollments: normalizedTeacherClassCollections.class_enrollments,
     class_roster_profiles: database.class_roster_profiles ?? [],
@@ -4424,6 +4433,7 @@ function databaseNeedsPersistenceSync(parsed: Partial<Database>, database: Datab
     typeof parsed.nova_lens_policy !== "object" ||
     parsed.nova_lens_policy === null ||
     !Array.isArray(parsed.nova_lens_policy_events) ||
+    (parsed.ai_tutor_transcript_access_events !== undefined && !Array.isArray(parsed.ai_tutor_transcript_access_events)) ||
     !Array.isArray(parsed.teacher_classes) ||
     !Array.isArray(parsed.class_enrollments) ||
     !Array.isArray(parsed.class_roster_profiles) ||
@@ -4778,6 +4788,17 @@ const novaLensPersistenceStore = createNovaLensPersistenceStore({
     return result as T;
   },
   canViewRun: (database, viewer, run) => canViewNovaLensRunFromNovaLensPersistence(database, viewer, run)
+});
+
+const aiTutorTranscriptAccessPersistenceStore = createAiTutorTranscriptAccessPersistenceStore({
+  readDatabase: async () => {
+    const database = await readDatabase();
+    return database as AITutorTranscriptAccessPersistenceDatabase;
+  },
+  mutateDatabase: async <T>(mutator: (database: AITutorTranscriptAccessPersistenceDatabase) => T | Promise<T>) => {
+    const result = await mutateDatabase((database) => mutator(database as AITutorTranscriptAccessPersistenceDatabase));
+    return result as T;
+  }
 });
 
 const aiGovernanceUserStore = createAiGovernanceUserStore({
@@ -7484,6 +7505,7 @@ function emptyTeacherDashboardDatabase(overrides: Partial<Database>): Database {
     nova_lens_runs: [],
     nova_lens_policy: defaultNovaLensPolicyRecordFromNovaLensPersistence(),
     nova_lens_policy_events: [],
+    ai_tutor_transcript_access_events: [],
     teacher_classes: [],
     class_enrollments: [],
     class_roster_profiles: [],
@@ -8245,6 +8267,7 @@ export const joinClassByInviteCode = teacherOpsUserStore.joinClassByInviteCode;
 export const getTeacherClassDetailData = teacherOpsUserStore.getTeacherClassDetailData;
 
 export const getTeacherStudentProfileData = teacherOpsUserStore.getTeacherStudentProfileData;
+export const getStudentAiTutorTranscriptForTeacher = teacherOpsStudentProfilePersistenceStore.getStudentAiTutorTranscriptForTeacher;
 
 export const getStudentRewardsData = gamificationUserStore.getStudentRewardsData;
 
@@ -10118,6 +10141,9 @@ export const listNovaLensPolicyEventsForAdmin = aiGovernanceUserStore.listNovaLe
 export const updateNovaLensPolicy = aiGovernanceUserStore.updateNovaLensPolicy;
 export const recordNovaLensRun = aiGovernanceUserStore.recordNovaLensRun;
 export const listNovaLensRunsForUser = aiGovernanceUserStore.listNovaLensRunsForUser;
+
+export const recordAiTutorTranscriptAccess = aiTutorTranscriptAccessPersistenceStore.recordAiTutorTranscriptAccess;
+export const listAiTutorTranscriptAccessForViewer = aiTutorTranscriptAccessPersistenceStore.listAiTutorTranscriptAccessForViewer;
 
 export type {
   AITutorDataScope,
