@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import dynamic from "next/dynamic";
-import { useCallback, useEffect, useMemo, useRef, useState, type FormEvent } from "react";
+import { Fragment, useCallback, useEffect, useMemo, useRef, useState, type FormEvent } from "react";
 import { AnimatePresence, motion, useReducedMotion } from "@/components/ui/Motion";
 import { PracticeArenaBackToTopButton } from "@/app/practice/PracticeArenaBackToTopButton";
 import { PracticeAdventureArenaShell } from "@/components/practice/PracticeAdventureArenaShell";
@@ -11,6 +11,7 @@ import {
   type PracticeAdventureGradeFilter
 } from "@/components/practice/practiceAdventureGrades";
 import { practiceTextForLanguage } from "@/components/practice/hjbPracticeEnglish";
+import { NovaCompanion } from "@/components/practice/NovaCompanion";
 import { dictionary, useSettings } from "@/components/providers/AppProviders";
 import { grades } from "@/data/grades";
 import {
@@ -664,6 +665,77 @@ function SoundOffIcon({ className = "size-5" }: { className?: string }) {
   );
 }
 
+type PracticeStarRewardProps = {
+  correctCount: number;
+  answeredCount: number;
+  total: number;
+  t: (localized: LocalizedText) => string;
+  prefersReducedMotion: boolean | null;
+};
+
+/**
+ * Fills the previously empty right side of the pager header with the round's
+ * live star haul. Nova reacts as stars land, turning dead space into the same
+ * motivation loop the mission trail already rewards.
+ */
+function PracticeStarReward({ correctCount, answeredCount, total, t, prefersReducedMotion }: PracticeStarRewardProps) {
+  const roundComplete = answeredCount >= total && total > 0;
+  const mood = correctCount > 0 ? "cheer" : "happy";
+  const pips = Array.from({ length: total }, (_, index) => {
+    if (index < correctCount) return "earned" as const;
+    if (index < answeredCount) return "missed" as const;
+    return "open" as const;
+  });
+
+  return (
+    <div
+      aria-live="polite"
+      aria-label={t({
+        en: `${correctCount} of ${total} stars earned so far`,
+        zh: `暫時贏得 ${total} 顆星中的 ${correctCount} 顆`,
+        zhHans: `暂时赢得 ${total} 颗星中的 ${correctCount} 颗`
+      })}
+      className="flex items-center gap-3 self-start rounded-[1.5rem] border border-amber-200/90 bg-gradient-to-br from-amber-50 to-yellow-50 px-4 py-2.5 shadow-sm sm:self-auto"
+    >
+      <motion.span
+        key={`nova-${correctCount}`}
+        className="grid place-items-center"
+        initial={prefersReducedMotion ? false : { scale: 0.8, rotate: -8 }}
+        animate={prefersReducedMotion ? undefined : { scale: [0.8, 1.12, 1], rotate: [-8, 6, 0] }}
+        transition={{ duration: 0.5, ease: "easeOut" }}
+      >
+        <NovaCompanion mood={mood} className="h-11 w-11" />
+      </motion.span>
+      <div aria-hidden="true" className="min-w-0">
+        <p className="text-[11px] font-black uppercase tracking-[0.14em] text-amber-600">
+          {roundComplete
+            ? t({ en: "Stars earned", zh: "贏得星星", zhHans: "赢得星星" })
+            : t({ en: "Stars so far", zh: "目前星星", zhHans: "目前星星" })}
+        </p>
+        <p className="flex items-baseline gap-1 font-black leading-none text-amber-700">
+          <span className="text-2xl">{correctCount}</span>
+          <span className="text-sm text-amber-500/90">/ {total}</span>
+        </p>
+        <div aria-hidden="true" className="mt-1.5 flex flex-wrap gap-1">
+          {pips.map((state, index) => (
+            <PagerStarIcon
+              key={index}
+              className={cn(
+                "size-3.5 transition",
+                state === "earned"
+                  ? "text-amber-400"
+                  : state === "missed"
+                    ? "text-amber-200"
+                    : "text-amber-200/50"
+              )}
+            />
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+}
+
 type QuestionPagerProps = {
   questions: PublicQuestion[];
   onAnswered?: (result: PracticePagerAnswerResult) => void;
@@ -802,18 +874,93 @@ function QuestionPager({ questions, onAnswered, onQuestionStarted }: QuestionPag
     }, autoAdvanceDelayMs);
   }, [answerResults, clearAutoAdvance, currentIndex, onAnswered, questionCount, questions, soundEnabled]);
 
+  const trailRef = useRef<HTMLDivElement | null>(null);
+  const stoneRefs = useRef<(HTMLButtonElement | null)[]>([]);
+  const [trailAvatar, setTrailAvatar] = useState<{ x: number; y: number; ready: boolean }>({ x: 0, y: 0, ready: false });
+
+  // Anchor Nova above the active stone by measuring the DOM so the quest avatar
+  // lands exactly on center regardless of viewport width or question count.
+  useEffect(() => {
+    const measure = () => {
+      const container = trailRef.current;
+      const stone = stoneRefs.current[currentIndex];
+      if (!container || !stone) return;
+      const containerRect = container.getBoundingClientRect();
+      const stoneRect = stone.getBoundingClientRect();
+      setTrailAvatar({
+        x: stoneRect.left - containerRect.left + stoneRect.width / 2,
+        y: stoneRect.top - containerRect.top,
+        ready: true
+      });
+    };
+
+    measure();
+    const frame = requestAnimationFrame(measure);
+    const container = trailRef.current;
+    const observer = typeof ResizeObserver !== "undefined" ? new ResizeObserver(() => measure()) : null;
+    if (observer && container) observer.observe(container);
+    window.addEventListener("resize", measure);
+    return () => {
+      cancelAnimationFrame(frame);
+      observer?.disconnect();
+      window.removeEventListener("resize", measure);
+    };
+  }, [currentIndex, questionSignature, questionCount]);
+
   const isYoungLearnerRound = isYoungLearnerPracticeRound(questions);
+  // Pager header shows the round's live star haul on the right of the eyebrow.
+  const correctCount = questions.reduce((sum, question) => sum + (answerResults[question.id] === true ? 1 : 0), 0);
+  const answeredCount = questions.reduce((sum, question) => sum + (answerResults[question.id] !== undefined ? 1 : 0), 0);
+  // The lit stretch of trail reaches the current stone or the furthest answered one.
+  const reachedTrailIndex = questions.reduce(
+    (furthest, question, index) => (answerResults[question.id] !== undefined ? Math.max(furthest, index) : furthest),
+    currentIndex
+  );
 
   if (!questionCount) return null;
 
   return (
     <section className="mt-8 grid gap-5 rounded-[28px] border border-white/80 bg-white/95 p-4 shadow-[0_22px_46px_rgba(15,23,42,0.12)] sm:p-5" aria-label={t({ en: "Practice questions", zh: "練習題目" })}>
-      <div className="grid gap-4 rounded-3xl border border-sky-100 bg-sky-50/80 p-4 shadow-sm sm:grid-cols-[minmax(0,1fr)_auto] sm:items-center sm:p-5">
-        <div>
+      <div className="flex flex-col gap-4 rounded-3xl border border-sky-100 bg-gradient-to-br from-sky-50 via-white to-cyan-50/70 p-4 shadow-sm sm:p-5">
+        <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
           <p aria-live="polite" className="text-sm font-black uppercase tracking-[0.18em] text-blue-600">
             {t({ en: `Question ${currentQuestionNumber} of ${questionCount}`, zh: `第 ${currentQuestionNumber} 題，共 ${questionCount} 題` })}
           </p>
-          <div data-testid="mission-trail" className="mt-3 flex flex-wrap items-center gap-1 sm:gap-1.5">
+          <PracticeStarReward
+            correctCount={correctCount}
+            answeredCount={answeredCount}
+            total={questionCount}
+            t={t}
+            prefersReducedMotion={prefersReducedMotion}
+          />
+        </div>
+
+        <div
+          ref={trailRef}
+          data-testid="mission-trail"
+          className="relative flex flex-nowrap items-center gap-1 overflow-visible pt-12 sm:gap-1.5"
+        >
+          {trailAvatar.ready ? (
+            <motion.div
+              aria-hidden="true"
+              className="pointer-events-none absolute left-0 top-0 z-20"
+              initial={false}
+              animate={{ x: trailAvatar.x, y: trailAvatar.y }}
+              transition={prefersReducedMotion ? { duration: 0 } : { type: "spring", stiffness: 340, damping: 26, mass: 0.7 }}
+            >
+              <div className="-translate-x-1/2 -translate-y-full pb-1">
+                <motion.div
+                  className="grid place-items-center"
+                  animate={prefersReducedMotion ? undefined : { y: [0, -3, 0] }}
+                  transition={prefersReducedMotion ? undefined : { duration: 1.6, repeat: Infinity, ease: "easeInOut" }}
+                >
+                  <NovaCompanion mood="cheer" className="h-9 w-9 drop-shadow-[0_3px_4px_rgba(2,132,199,0.35)]" />
+                  <span aria-hidden="true" className="mt-px h-0 w-0 border-x-[5px] border-t-[7px] border-x-transparent border-t-amber-400" />
+                </motion.div>
+              </div>
+            </motion.div>
+          ) : null}
+
             {questions.map((question, index) => {
               const result = answerResults[question.id];
               const isCurrentStone = index === currentIndex;
@@ -823,17 +970,31 @@ function QuestionPager({ questions, onAnswered, onQuestionStarted }: QuestionPag
                 : result === false
                   ? t({ en: `Question ${stoneNumber}: to review`, zh: `第 ${stoneNumber} 題：需重溫`, zhHans: `第 ${stoneNumber} 题：需重温` })
                   : t({ en: `Go to question ${stoneNumber}`, zh: `跳到第 ${stoneNumber} 題`, zhHans: `跳到第 ${stoneNumber} 题` });
+              const trailReached = index <= reachedTrailIndex;
 
               return (
-                <div key={question.id} className="flex items-center gap-1 sm:gap-1.5">
-                  {index > 0 ? <span aria-hidden="true" className="w-4 border-t-2 border-dashed border-sky-300 sm:w-6" /> : null}
+                <Fragment key={question.id}>
+                  {index > 0 ? (
+                    <div className="relative h-1.5 flex-1 sm:h-2" aria-hidden="true">
+                      <span className="absolute inset-0 rounded-full bg-sky-100" />
+                      <motion.span
+                        className="absolute inset-0 origin-left rounded-full bg-gradient-to-r from-emerald-300 via-sky-300 to-sky-400"
+                        initial={false}
+                        animate={{ scaleX: trailReached ? 1 : 0 }}
+                        transition={prefersReducedMotion ? { duration: 0 } : { duration: 0.5, ease: "easeOut" }}
+                      />
+                    </div>
+                  ) : null}
                   <button
+                    ref={(element) => {
+                      stoneRefs.current[index] = element;
+                    }}
                     type="button"
                     onClick={() => goToIndex(index)}
                     aria-label={stoneLabel}
                     aria-current={isCurrentStone ? "step" : undefined}
                     className={cn(
-                      "focus-ring grid size-11 place-items-center rounded-full border-2 text-base font-black shadow-sm transition hover:-translate-y-0.5 sm:size-12",
+                      "focus-ring relative grid size-11 shrink-0 place-items-center rounded-full border-2 text-base font-black shadow-sm transition hover:-translate-y-0.5 sm:size-12",
                       result === true
                         ? "border-emerald-400 bg-emerald-50 text-emerald-700"
                         : result === false
@@ -863,67 +1024,68 @@ function QuestionPager({ questions, onAnswered, onQuestionStarted }: QuestionPag
                           : stoneNumber}
                     </motion.span>
                   </button>
-                </div>
+                </Fragment>
               );
             })}
           </div>
-          <div className="mt-3 flex flex-wrap gap-2">
-            <button
-              type="button"
-              aria-label={t({ en: "Previous question", zh: "上一題" })}
-              onClick={goToPrevious}
-              disabled={currentIndex === 0}
-              className="focus-ring min-h-11 rounded-full border border-blue-200 bg-white px-5 py-2 text-sm font-black text-blue-700 shadow-sm transition enabled:hover:-translate-y-0.5 disabled:cursor-not-allowed disabled:opacity-45"
-            >
-              {t({ en: "< Previous", zh: "< 上一題" })}
-            </button>
-            <button
-              type="button"
-              aria-label={t({ en: "Next question", zh: "下一題" })}
-              onClick={goToNext}
-              disabled={currentIndex >= questionCount - 1}
-              className="focus-ring min-h-11 rounded-full bg-blue-600 px-5 py-2 text-sm font-black text-white shadow-[0_6px_0_#1d4ed8] transition enabled:hover:-translate-y-0.5 disabled:cursor-not-allowed disabled:opacity-45"
-            >
-              {t({ en: "Next >", zh: "下一題 >" })}
-            </button>
-            <button
-              type="button"
-              onClick={handleSoundToggle}
-              aria-pressed={soundEnabled}
-              aria-label={soundEnabled
-                ? t({ en: "Turn sound off", zh: "關閉音效", zhHans: "关闭音效" })
-                : t({ en: "Turn sound on", zh: "開啟音效", zhHans: "开启音效" })}
-              className="focus-ring grid min-h-11 min-w-11 place-items-center rounded-full border border-blue-200 bg-white px-3 text-blue-700 shadow-sm transition hover:-translate-y-0.5"
-            >
-              {soundEnabled ? <SoundOnIcon /> : <SoundOffIcon />}
-            </button>
-          </div>
-        </div>
+          <div className="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
+            <div className="flex flex-wrap gap-2">
+              <button
+                type="button"
+                aria-label={t({ en: "Previous question", zh: "上一題" })}
+                onClick={goToPrevious}
+                disabled={currentIndex === 0}
+                className="focus-ring min-h-11 rounded-full border border-blue-200 bg-white px-5 py-2 text-sm font-black text-blue-700 shadow-sm transition enabled:hover:-translate-y-0.5 disabled:cursor-not-allowed disabled:opacity-45"
+              >
+                {t({ en: "< Previous", zh: "< 上一題" })}
+              </button>
+              <button
+                type="button"
+                aria-label={t({ en: "Next question", zh: "下一題" })}
+                onClick={goToNext}
+                disabled={currentIndex >= questionCount - 1}
+                className="focus-ring min-h-11 rounded-full bg-blue-600 px-6 py-2 text-sm font-black text-white shadow-[0_6px_0_#1d4ed8] transition enabled:hover:-translate-y-0.5 enabled:active:translate-y-0.5 enabled:active:shadow-[0_2px_0_#1d4ed8] disabled:cursor-not-allowed disabled:opacity-45"
+              >
+                {t({ en: "Next >", zh: "下一題 >" })}
+              </button>
+              <button
+                type="button"
+                onClick={handleSoundToggle}
+                aria-pressed={soundEnabled}
+                aria-label={soundEnabled
+                  ? t({ en: "Turn sound off", zh: "關閉音效", zhHans: "关闭音效" })
+                  : t({ en: "Turn sound on", zh: "開啟音效", zhHans: "开启音效" })}
+                className="focus-ring grid min-h-11 min-w-11 place-items-center rounded-full border border-blue-200 bg-white px-3 text-blue-700 shadow-sm transition hover:-translate-y-0.5"
+              >
+                {soundEnabled ? <SoundOnIcon /> : <SoundOffIcon />}
+              </button>
+            </div>
 
-        {isYoungLearnerRound ? null : (
-        <form onSubmit={handleJump} noValidate className="grid gap-2 sm:w-64">
-          <label htmlFor="practice-question-jump" className="text-xs font-black uppercase tracking-[0.18em] text-blue-950">
-            {t({ en: "Jump to", zh: "跳到題號" })}
-          </label>
-          <div className="grid grid-cols-[minmax(0,1fr)_auto] gap-2">
-            <input
-              id="practice-question-jump"
-              type="number"
-              min={1}
-              max={questionCount}
-              value={jumpValue}
-              onChange={(event) => setJumpValue(event.target.value)}
-              className="focus-ring min-h-14 w-full rounded-full border border-blue-100 bg-white px-5 py-3 text-lg font-black text-blue-950 shadow-sm [appearance:textfield] placeholder:text-slate-400 focus:outline-none [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none"
-            />
-            <button
-              type="submit"
-              className="focus-ring rounded-full bg-blue-950 px-5 py-3 text-sm font-black text-white shadow-[0_6px_0_#1e3a8a] transition hover:-translate-y-0.5"
-            >
-              {t({ en: "Jump", zh: "跳轉" })}
-            </button>
+            {isYoungLearnerRound ? null : (
+              <form onSubmit={handleJump} noValidate className="grid gap-2 sm:w-64">
+                <label htmlFor="practice-question-jump" className="text-xs font-black uppercase tracking-[0.18em] text-blue-950">
+                  {t({ en: "Jump to", zh: "跳到題號" })}
+                </label>
+                <div className="grid grid-cols-[minmax(0,1fr)_auto] gap-2">
+                  <input
+                    id="practice-question-jump"
+                    type="number"
+                    min={1}
+                    max={questionCount}
+                    value={jumpValue}
+                    onChange={(event) => setJumpValue(event.target.value)}
+                    className="focus-ring min-h-14 w-full rounded-full border border-blue-100 bg-white px-5 py-3 text-lg font-black text-blue-950 shadow-sm [appearance:textfield] placeholder:text-slate-400 focus:outline-none [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none"
+                  />
+                  <button
+                    type="submit"
+                    className="focus-ring rounded-full bg-blue-950 px-5 py-3 text-sm font-black text-white shadow-[0_6px_0_#1e3a8a] transition hover:-translate-y-0.5"
+                  >
+                    {t({ en: "Jump", zh: "跳轉" })}
+                  </button>
+                </div>
+              </form>
+            )}
           </div>
-        </form>
-        )}
       </div>
 
       <div className="grid gap-5">
@@ -964,6 +1126,7 @@ export default function PracticePage() {
   const [difficultyFilter, setDifficultyFilter] = useState<DifficultyFilter>("all");
   const [questionTypeFilter, setQuestionTypeFilter] = useState<QuestionTypeFilter>("all");
   const [topicFilter, setTopicFilter] = useState("all");
+  const [filtersOpen, setFiltersOpen] = useState(false);
   const [questionCatalogTopics, setQuestionCatalogTopics] = useState<QuestionCatalogTopic[]>([]);
   const [questionCatalogCount, setQuestionCatalogCount] = useState(0);
   const [visibleQuestions, setVisibleQuestions] = useState<PublicQuestion[]>([]);
@@ -1235,6 +1398,11 @@ export default function PracticePage() {
       questionTypeFilter !== "all" ||
       activeGradeFilter !== "all"
     );
+  // Count only the narrowing filters (grade is always set) for the collapsed toggle badge.
+  const activeFilterCount =
+    (difficultyFilter !== "all" ? 1 : 0) +
+    (topicFilter !== "all" ? 1 : 0) +
+    (questionTypeFilter !== "all" ? 1 : 0);
   const adaptiveCompletedCount = adaptivePlan
     ? adaptiveRoundQuestions.filter((question) => completedAdaptiveQuestionIds.has(question.id)).length
     : 0;
@@ -2307,11 +2475,39 @@ export default function PracticePage() {
         <section
           id="mission-setup-filters"
           aria-label={t({ en: "Mission setup filters", zh: "任務設定篩選", zhHans: "任务设置筛选" })}
-          className={cn(
-            "mt-8 grid scroll-mt-28 gap-4 rounded-[28px] border border-cyan-100 bg-cyan-50/90 p-5 shadow-[0_18px_38px_rgba(8,145,178,0.14)]",
-            studentFixedGrade ? "md:grid-cols-3" : "md:grid-cols-4"
-          )}
+          className="mt-8 scroll-mt-28 rounded-[28px] border border-cyan-100 bg-cyan-50/90 p-5 shadow-[0_18px_38px_rgba(8,145,178,0.14)]"
         >
+          <button
+            type="button"
+            onClick={() => setFiltersOpen((open) => !open)}
+            aria-expanded={filtersOpen}
+            aria-controls="mission-setup-filter-fields"
+            className="focus-ring flex w-full items-center justify-between gap-3 rounded-2xl border border-cyan-100 bg-white px-4 py-3 text-left text-sm font-black text-blue-950 shadow-sm transition hover:border-cyan-300 sm:w-auto sm:min-w-56"
+          >
+            <span className="flex items-center gap-2">
+              <svg aria-hidden="true" viewBox="0 0 24 24" className="size-4" fill="none">
+                <path d="M4 5h16M7 12h10M10 19h4" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" />
+              </svg>
+              {t({ en: "Filters", zh: "篩選", zhHans: "筛选" })}
+              {activeFilterCount > 0 ? (
+                <span aria-hidden="true" className="grid min-w-[1.25rem] place-items-center rounded-full bg-cyan-500 px-1.5 text-xs font-black text-white">
+                  {activeFilterCount}
+                </span>
+              ) : null}
+            </span>
+            <svg aria-hidden="true" viewBox="0 0 24 24" className={cn("size-4 transition-transform", filtersOpen && "rotate-180")} fill="none">
+              <path d="m6 9 6 6 6-6" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" />
+            </svg>
+          </button>
+
+          {filtersOpen ? (
+            <div
+              id="mission-setup-filter-fields"
+              className={cn(
+                "mt-4 grid gap-4",
+                studentFixedGrade ? "md:grid-cols-3" : "md:grid-cols-4"
+              )}
+            >
           {!studentFixedGrade ? (
             <label className="text-sm font-black text-blue-950">
               {t(dictionary.common.grade)}
@@ -2376,6 +2572,8 @@ export default function PracticePage() {
               ))}
             </select>
           </label>
+            </div>
+          ) : null}
         </section>
       ) : null}
 

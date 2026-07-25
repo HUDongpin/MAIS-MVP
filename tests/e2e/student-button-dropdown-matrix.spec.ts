@@ -9,6 +9,7 @@ import {
   loginAsDemoStudent,
   logoutIfVisible,
   openMobileMenuIfNeeded,
+  openPracticeFiltersPanel,
   registerStudent,
   uniqueSuffix
 } from "./helpers";
@@ -159,6 +160,7 @@ async function currentUserId(page: Page) {
 
 async function unlockPracticeFiltersIfNeeded(page: Page, grade = "S3") {
   await page.waitForLoadState("networkidle");
+  await openPracticeFiltersPanel(page);
   if (await page.getByRole("combobox", { name: /difficulty/i }).isVisible().catch(() => false)) return;
 
   const userId = await currentUserId(page);
@@ -181,6 +183,7 @@ async function unlockPracticeFiltersIfNeeded(page: Page, grade = "S3") {
   }, { nextUserId: userId, nextSkillIds: Array.from(skillIds) });
   await page.reload();
   await page.waitForLoadState("networkidle");
+  await openPracticeFiltersPanel(page);
   await expect(page.getByRole("combobox", { name: /difficulty/i })).toBeVisible();
 }
 

@@ -1,5 +1,5 @@
 import { expect, test, type Page, type TestInfo } from "@playwright/test";
-import { clickLoginSubmit, registerStudent } from "./helpers";
+import { clickLoginSubmit, openPracticeFiltersPanel, registerStudent } from "./helpers";
 
 function buildStudent(testInfo: TestInfo) {
   const projectSlug = testInfo.project.name.replace(/[^a-z0-9]+/gi, "-").toLowerCase();
@@ -27,6 +27,7 @@ async function expectNoClientPageErrors(page: Page, action: () => Promise<void>)
 
 async function unlockPracticeFiltersIfNeeded(page: Page, grade: string) {
   await page.waitForLoadState("networkidle");
+  await openPracticeFiltersPanel(page);
   if (await page.getByRole("combobox", { name: /difficulty/i }).isVisible().catch(() => false)) return;
 
   const meResponse = await page.request.get("/api/me");
@@ -41,6 +42,7 @@ async function unlockPracticeFiltersIfNeeded(page: Page, grade: string) {
   }, { userId: me.user.id, skillId: decision.skill.id });
   await page.reload();
   await page.waitForLoadState("networkidle");
+  await openPracticeFiltersPanel(page);
   await expect(page.getByRole("combobox", { name: /difficulty/i })).toBeVisible();
 }
 
