@@ -85,6 +85,24 @@ carry word-problem benches (StoryProblemLab, TwoStepLab), proof benches
 RegroupingSubtractionLab), just at a lower rate. Full analysis and the per-standard
 table: `~/Desktop/20260725_Depth Audit of US Math Visualization Labs.md`.
 
+### Covered is not the same as met
+
+Of the 192 benches, only **54 render by default** — one `primary` per topic, 76
+topics. The other 138 are reachable only through the `SignatureBenchSwitcher`
+chip row. That is the fan-out design working as intended, not a routing bug, but
+it does mean the 85% above is what a student *can* reach, not what they *do*.
+
+Whether the chip row is actually used was unanswerable until 2026-07-25, because
+the click emitted nothing. It now emits `viz-nav:bench-switch:<BenchId>`. Tracing
+the read path afterwards found the other half: **nothing in the repo consumes the
+navigation channel** — not the new event and not the pre-existing
+`open-lab-tile` events, which had been writing to a table nobody queried.
+
+`npm run report:bench-usage -- --file <export>` is the reader. Its `switchRate`
+is the number that matters: the share of lab opens where a student went on to try
+another bench. Near zero would mean the 138 switcher-only benches are not being
+met, and the coverage figure overstates what learners actually see.
+
 **Before adding a CCSS tag to a bench, read its lesson steps.** Every tag in
 `data/signatureLabCcssOverrides.ts` is a standard the bench's own lesson
 demonstrably teaches; a near-miss tag re-creates exactly the paper coverage that
