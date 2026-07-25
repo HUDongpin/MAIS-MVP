@@ -81,7 +81,9 @@ export const studentActivityUserStoreOperations = [
   "replyToStudentMessageThread",
   "getClassroomLiveSessionForStudent",
   "submitClassroomLiveResponse",
-  "submitClassroomLiveAction"
+  "submitClassroomLiveAction",
+  "getStudentLearningPaths",
+  "markStudentLearningPathStepComplete"
 ] as const satisfies readonly UserStoreFunctionName[];
 
 export const teacherOpsUserStoreOperations = [
@@ -120,6 +122,14 @@ export const teacherOpsUserStoreOperations = [
   "markForumNotificationsRead",
   "setTeacherStudentMasteryTarget",
   "clearTeacherStudentMasteryTarget",
+  "createTeacherStudentGroup",
+  "updateTeacherStudentGroup",
+  "deleteTeacherStudentGroup",
+  "setTeacherStudentGroupMasteryTarget",
+  "clearTeacherStudentGroupMasteryTarget",
+  "createTeacherLearningPath",
+  "updateTeacherLearningPath",
+  "deleteTeacherLearningPath",
   "createTeacherClass",
   "addStudentToTeacherClass",
   "joinClassByInviteCode",

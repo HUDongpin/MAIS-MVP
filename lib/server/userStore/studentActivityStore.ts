@@ -1,12 +1,14 @@
 import type { GradeId, LocalizedText } from "@/types";
 import type { CurriculumScope } from "./curriculumAvailability";
 import type { StudentActivityPersistenceStore } from "./studentActivityPersistence";
+import type { TeacherOpsLearningPathPersistenceStore } from "./teacherOpsLearningPathPersistence";
 import type { TeacherOpsLiveSessionPersistenceStore } from "./teacherOpsLiveSessionPersistence";
 
 export type StudentActivityUserStoreDependencies = {
   getAdaptiveContentUnavailableForCurriculum: (scope: CurriculumScope, grade?: GradeId) => LocalizedText | null;
   getContentUnavailableForCurriculum: (scope: CurriculumScope, grade?: GradeId) => LocalizedText | null;
   studentActivityPersistenceStore: StudentActivityPersistenceStore;
+  teacherOpsLearningPathPersistenceStore: TeacherOpsLearningPathPersistenceStore;
   teacherOpsLiveSessionPersistenceStore: TeacherOpsLiveSessionPersistenceStore;
 };
 
@@ -14,11 +16,14 @@ export function createStudentActivityUserStore({
   getAdaptiveContentUnavailableForCurriculum,
   getContentUnavailableForCurriculum,
   studentActivityPersistenceStore,
+  teacherOpsLearningPathPersistenceStore,
   teacherOpsLiveSessionPersistenceStore
 }: StudentActivityUserStoreDependencies) {
   return {
     getContentUnavailableForCurriculum,
     getAdaptiveContentUnavailableForCurriculum,
+    getStudentLearningPaths: teacherOpsLearningPathPersistenceStore.getStudentLearningPaths,
+    markStudentLearningPathStepComplete: teacherOpsLearningPathPersistenceStore.markStudentLearningPathStepComplete,
     getPublicQuestions: studentActivityPersistenceStore.getPublicQuestions,
     getAdaptiveLearningDecision: studentActivityPersistenceStore.getAdaptiveLearningDecision,
     refreshAdaptiveLearningRecommendation: studentActivityPersistenceStore.refreshAdaptiveLearningRecommendation,
