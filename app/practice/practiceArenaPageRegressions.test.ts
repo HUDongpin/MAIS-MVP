@@ -165,6 +165,18 @@ test("Practice Arena hides the numeric Jump form for K-P3 rounds only", () => {
   );
 });
 
+test("Practice Arena locks the grade to a signed-in student's own profile grade", () => {
+  assert.match(
+    practicePageSource,
+    /const studentFixedGrade = adventureGradeLock\.gradeSelectionDisabled \? studentProfileGrade : null;/
+  );
+  assert.match(
+    practicePageSource,
+    /\{!studentFixedGrade \? \(/,
+    "The Grade select must stay behind the student grade lock: students practise at their own grade."
+  );
+});
+
 test("Practice Arena summary switches to kid-register praise for K-P3 rounds", () => {
   assert.match(practicePageSource, /isYoungLearnerPracticeRound\(activePracticeSummary\.results\.map\(\(result\) => result\.question\)\)/);
   assert.match(practicePageSource, /isYoungLearnerSummary\s*\n?\s*\? youngPracticePraise\(activePracticeSummary\.accuracyPercent\)/);

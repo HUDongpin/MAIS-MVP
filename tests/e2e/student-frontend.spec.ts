@@ -1,5 +1,5 @@
 import { expect, test, type Page } from "@playwright/test";
-import { collectPageErrors, expectDownloadFrom, expectNoPageErrors, loginAs, logoutIfVisible, registerStudent, registerStudentApi, uniqueSuffix } from "./helpers";
+import { collectPageErrors, expectDownloadFrom, expectNoPageErrors, loginAs, logoutIfVisible, openPracticeFiltersPanel, registerStudent, registerStudentApi, uniqueSuffix } from "./helpers";
 
 type PracticeDecisionResponse = {
   decision: {
@@ -11,6 +11,7 @@ type PracticeDecisionResponse = {
 
 async function unlockPracticeFiltersIfNeeded(page: Page) {
   await page.waitForLoadState("networkidle");
+  await openPracticeFiltersPanel(page);
   if (await page.getByRole("combobox", { name: /difficulty/i }).isVisible().catch(() => false)) return;
 
   const meResponse = await page.request.get("/api/me");
@@ -25,6 +26,7 @@ async function unlockPracticeFiltersIfNeeded(page: Page) {
   }, `hk-math-practice-free-selection-unlocked:${userId}:${decision.skill.id}`);
   await page.reload();
   await page.waitForLoadState("networkidle");
+  await openPracticeFiltersPanel(page);
   await expect(page.getByRole("combobox", { name: /difficulty/i })).toBeVisible();
 }
 
