@@ -194,6 +194,37 @@ test("findMissingLocalImportTargets parses literal local CommonJS requires in .c
   }
 });
 
+test("findMissingLocalImportTargets exempts targets inside generated directories", async () => {
+  const rootDir = await mkdtemp(path.join(tmpdir(), "mais-import-targets-generated-"));
+
+  try {
+    await mkdir(path.join(rootDir, "scripts"), { recursive: true });
+    await writeFile(
+      path.join(rootDir, "scripts", "eval-runner.mjs"),
+      [
+        'import { report } from "../.tmp/eval/lib/report.js";',
+        'import { missing } from "./missing-helper.mjs";',
+        "export { report, missing };",
+        ""
+      ].join("\n")
+    );
+
+    const missing = await findMissingLocalImportTargets({
+      rootDir,
+      filePaths: ["scripts/eval-runner.mjs"]
+    });
+
+    assert.deepEqual(missing, [
+      {
+        importer: "scripts/eval-runner.mjs",
+        specifier: "./missing-helper.mjs"
+      }
+    ]);
+  } finally {
+    await rm(rootDir, { force: true, recursive: true });
+  }
+});
+
 test("findMissingLocalImportTargets ignores import-like text inside a template string", async () => {
   const rootDir = await mkdtemp(path.join(tmpdir(), "mais-import-targets-template-string-"));
 
