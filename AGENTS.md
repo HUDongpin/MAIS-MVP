@@ -37,6 +37,7 @@ Every agent/session must:
 
 ## Root And Worktree Policy
 
+- The always-loaded digest of this policy lives in `CLAUDE.md` (auto-injected into every Claude Code session) — when editing this section, keep `CLAUDE.md` in sync. Hard guardrails back it: `.claude/settings.json` denies broad `git add`, and `scripts/claude-root-git-guard.mjs` blocks `git switch`/`checkout`/`stash` in the primary root.
 - Treat `/Users/dongpinhu/Desktop/MAIS-MVP` on `main` as a read-only integration inventory and release-intake area, not as the default feature-development workspace.
 - A01-A25 feature, QA, content, release, or tooling work must happen in an isolated `codex/Axx-short-scope` branch/worktree or an owner-approved clean clone unless the owner explicitly assigns a root-only inventory/reporting task.
 - Before starting an isolated worktree, the agent must confirm the baseline branch/commit, dependency state, and relevant baseline check or documented pre-existing failure.
