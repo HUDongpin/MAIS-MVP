@@ -58,6 +58,9 @@ jobs:
       - name: Run signature lab gates (math audits + assignment contract)
         run: npm run test:signature-labs
 
+      - name: Run CCSS depth-coverage gate (a student can reach a visual per standard)
+        run: npm run test:ccss-depth
+
       - name: Run CCSS textbook gates (class audit + assignment contract)
         run: npm run test:ccss-textbook
 
