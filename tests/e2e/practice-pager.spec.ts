@@ -1,5 +1,21 @@
 import { expect, test, type Locator, type Page, type TestInfo } from "@playwright/test";
-import { isTransientApiTransportError, uniqueSuffix } from "./helpers";
+import {
+  authenticateAsUserId,
+  demoStudentUserId,
+  expectNoDanglingAriaControls,
+  isTransientApiTransportError,
+  uniqueSuffix
+} from "./helpers";
+
+const californiaSuperStudentUserId = "student-jon-us-ca-super";
+const californiaKindergartenLesson = "/student/lessons/us-ca-math-k-k-cc-count-sequence";
+
+/** Assert a control's `aria-controls` points at a panel that is actually on the page. */
+async function expectControlledPanelVisible(page: Page, control: Locator, context: string) {
+  const idref = await control.getAttribute("aria-controls");
+  expect(idref, `${context}: control should expose aria-controls while its panel is open`).toBeTruthy();
+  await expect(page.locator(`[id="${idref}"]`), `${context}: aria-controls target must exist`).toBeVisible();
+}
 
 type AuthenticatedResponse = {
   user: {
@@ -65,9 +81,23 @@ async function unlockFreeSelection(page: Page, userId: string, grade = "S3") {
 
   await page.reload();
   await page.waitForLoadState("networkidle");
+  await expect(page.locator("#mission-setup-filters")).toBeVisible();
 
+  // Practice locks the grade to the student's own profile grade for every student except
+  // the California super-student (resolvePracticeAdventureGradeLock), and the Grade select
+  // is not rendered at all while locked. These specs register the student at `grade`, so
+  // there is nothing to choose — but still assert the lock landed on the requested grade,
+  // which is what the `toHaveValue(grade)` check below covers in the unlocked case.
   const gradeSelect = page.getByRole("combobox", { name: /Grade/i });
-  await expect(gradeSelect).toBeVisible();
+  if (await gradeSelect.count() === 0) {
+    await expect(page.getByRole("combobox", { name: /Topic/i })).toBeVisible();
+    const session = await page.request.get("/api/me?includeLessonEntry=false");
+    expect(session.ok()).toBeTruthy();
+    const { user } = await session.json() as { user?: { grade?: string } };
+    expect(user?.grade, "practice grade is locked, so it must already be the requested grade").toBe(grade);
+    return;
+  }
+
   if (await gradeSelect.inputValue() !== grade) {
     const questionsLoaded = page.waitForResponse((candidate) =>
       candidate.url().includes("/api/questions") &&
@@ -837,10 +867,14 @@ test.describe("Practice Arena question pager", () => {
       });
     });
 
+    await authenticateAsUserId(page, demoStudentUserId);
     await page.goto("/student/lessons/algebra-basics");
     await expect(page.getByRole("heading", { level: 1, name: /Algebra Basics: Expressions and Simple Equations/i })).toBeVisible();
 
-    const card = page.locator("article").filter({ hasText: /Fill-in/i }).first();
+    // The lesson practice section is paged, so only one card is visible at a time.
+    // Match the question prompt rather than a type label: the visible fill-in card
+    // is labelled "Fill in the blank", so the old /Fill-in/i filter matched nothing.
+    const card = await findVisibleLessonPracticeCard(page, /Simplify/i);
     await expect(card.getByRole("tab", { name: /Keyboard input/i })).toHaveAttribute("aria-selected", "true");
     await card.getByRole("tab", { name: /Handwriting board/i }).click();
 
@@ -883,6 +917,7 @@ test.describe("Practice Arena question pager", () => {
       });
     });
 
+    await authenticateAsUserId(page, demoStudentUserId);
     await page.goto("/student/lessons/circles");
     await expect(page.getByRole("heading", { level: 1, name: /Circles: Chords, Tangents, Arcs, Angles/i })).toBeVisible();
 
@@ -903,6 +938,7 @@ test.describe("Practice Arena question pager", () => {
   });
 
   test("lesson multiple-choice questions do not expose draft input tools", async ({ page }) => {
+    await authenticateAsUserId(page, demoStudentUserId);
     await page.goto("/student/lessons/integers");
     await expect(page.getByRole("heading", { level: 1, name: /Integers: Direction, Zero, and Operations/i })).toBeVisible();
 
@@ -911,5 +947,59 @@ test.describe("Practice Arena question pager", () => {
     await expect(card.getByRole("tab", { name: /Open handwriting draft board/i })).toHaveCount(0);
     await expect(card.getByRole("img", { name: /Handwriting draft canvas/i })).toHaveCount(0);
     await expect(card.getByRole("textbox", { name: /Handwritten answer text/i })).toHaveCount(0);
+  });
+
+  test("answer input controls never leave a dangling aria-controls IDREF", async ({ page }) => {
+    test.slow();
+
+    // Both controlled panels are `next/dynamic({ ssr: false })`, so each assertion
+    // below runs with NO settle time after the toggle: that is the window where a
+    // `loading` placeholder is mounted instead of the real panel, and where an id
+    // pinned to the lazy component rather than to a stable wrapper would dangle.
+    await authenticateAsUserId(page, californiaSuperStudentUserId);
+    await page.goto(californiaKindergartenLesson);
+
+    const practiceStep = page.getByRole("button", { name: /Practice check/i }).first();
+    await practiceStep.waitFor({ state: "visible", timeout: 60_000 });
+    await practiceStep.click();
+
+    const card = page.locator("article").filter({ has: page.getByRole("tab", { name: "Keyboard input" }) }).first();
+    const keyboardTab = card.getByRole("tab", { name: "Keyboard input" });
+    const handwritingTab = card.getByRole("tab", { name: "Handwriting board" });
+    await keyboardTab.waitFor({ state: "visible", timeout: 30_000 });
+
+    // 1. Initial state: keyboard mode, math keyboard collapsed.
+    await expectNoDanglingAriaControls(page, "initial lesson practice render");
+    await expect(keyboardTab).toHaveAttribute("aria-selected", "true");
+    await expectControlledPanelVisible(page, keyboardTab, "selected keyboard tab");
+    // The unselected tab's panel is unmounted, so it must not reference one.
+    await expect(handwritingTab).not.toHaveAttribute("aria-controls", /./);
+
+    // 2. Handwriting board selected.
+    await handwritingTab.click();
+    await expectNoDanglingAriaControls(page, "handwriting board just selected");
+    await expect(handwritingTab).toHaveAttribute("aria-selected", "true");
+    await expectControlledPanelVisible(page, handwritingTab, "selected handwriting tab");
+    await expect(keyboardTab).not.toHaveAttribute("aria-controls", /./);
+
+    // 3. Back to keyboard mode, then expand the math soft keyboard.
+    await keyboardTab.click();
+    await expectNoDanglingAriaControls(page, "keyboard mode restored");
+
+    const mathKeyboardToggle = card.getByRole("button", { name: /Show math keyboard/i });
+    await expect(mathKeyboardToggle).toHaveAttribute("aria-expanded", "false");
+    // Collapsed: `aria-expanded` alone carries the state.
+    await expect(mathKeyboardToggle).not.toHaveAttribute("aria-controls", /./);
+
+    await mathKeyboardToggle.click();
+    await expectNoDanglingAriaControls(page, "math keyboard just expanded");
+    const expandedToggle = card.getByRole("button", { name: /Hide math keyboard/i });
+    await expect(expandedToggle).toHaveAttribute("aria-expanded", "true");
+    await expectControlledPanelVisible(page, expandedToggle, "expanded math keyboard toggle");
+
+    // 4. Collapse it again.
+    await expandedToggle.click();
+    await expectNoDanglingAriaControls(page, "math keyboard collapsed again");
+    await expect(card.getByRole("button", { name: /Show math keyboard/i })).toHaveAttribute("aria-expanded", "false");
   });
 });

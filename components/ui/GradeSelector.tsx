@@ -194,7 +194,8 @@ function GradeGroup({
     <section className="space-y-2.5" aria-label={text(heading)}>
       <button
         type="button"
-        aria-controls={contentId}
+        // The panel is unmounted while collapsed; `aria-expanded` carries the state.
+        aria-controls={expanded ? contentId : undefined}
         aria-expanded={expanded}
         onClick={onToggle}
         className="focus-ring group flex w-full items-center gap-3 rounded-xl px-1 py-1.5 text-left transition hover:text-cyan-600 dark:hover:text-cyan-200"

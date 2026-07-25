@@ -49,6 +49,28 @@ export function expectNoPageErrors(errors: string[]) {
   expect(errors).toEqual([]);
 }
 
+/**
+ * Assert every `aria-controls` on the page resolves to an element that exists.
+ * A dangling IDREF is an ARIA violation — screen readers report a broken
+ * reference — and it is easy to reintroduce whenever a controlled panel is
+ * conditionally unmounted or lazy-loaded behind a `loading` placeholder that
+ * does not carry the id. Call it in each state a disclosure/tab can be in,
+ * not just on first paint.
+ */
+export async function expectNoDanglingAriaControls(page: Page, context: string) {
+  const dangling = await page.evaluate(() =>
+    [...document.querySelectorAll("[aria-controls]")]
+      .filter((element) => !document.getElementById(element.getAttribute("aria-controls") ?? ""))
+      .map((element) => ({
+        idref: element.getAttribute("aria-controls"),
+        role: element.getAttribute("role"),
+        label: (element.getAttribute("aria-label") ?? element.textContent ?? "").trim().slice(0, 60)
+      }))
+  );
+
+  expect(dangling, `dangling aria-controls IDREFs (${context}): ${JSON.stringify(dangling)}`).toEqual([]);
+}
+
 const guestLoginPromptRouteKeys = ["lesson", "practice", "personalized-learning", "visualization"] as const;
 
 /**

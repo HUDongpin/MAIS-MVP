@@ -34,7 +34,6 @@ type MathKey = {
 };
 
 type MathSoftKeyboardProps = {
-  id: string;
   value: string;
   targetRef: RefObject<AnswerControl | null>;
   language: Language;
@@ -530,7 +529,6 @@ function keyForShiftState(mathKey: MathKey, shiftActive: boolean): MathKey {
 }
 
 export function MathSoftKeyboard({
-  id,
   value,
   targetRef,
   language,
@@ -736,7 +734,6 @@ export function MathSoftKeyboard({
 
   return (
     <div
-      id={id}
       role="group"
       aria-label={localize(ariaLabel, language)}
       className="mt-3 scroll-mt-28 overflow-hidden rounded-[1.6rem] border border-[#aeb8c5] bg-[#c4ccd7] p-3 shadow-inner shadow-slate-500/20"

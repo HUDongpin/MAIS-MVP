@@ -2898,7 +2898,8 @@ export function AITutorProvider({ children }: { children: ReactNode }) {
                   type="button"
                   onClick={() => setVoiceSettingsOpen((current) => !current)}
                   aria-label={voiceSettingsButtonLabel}
-                  aria-controls="ai-tutor-voice-settings"
+                  // The panel is unmounted while collapsed; `aria-expanded` carries the state.
+                  aria-controls={voiceSettingsOpen ? "ai-tutor-voice-settings" : undefined}
                   aria-expanded={voiceSettingsOpen}
                   className={cn(
                     "focus-ring grid h-11 w-11 place-items-center rounded-full p-0 transition duration-200 hover:brightness-110",
@@ -3149,7 +3150,8 @@ export function AITutorProvider({ children }: { children: ReactNode }) {
                   type="button"
                   aria-label={textForLanguage(tutorVoiceCopy.addAttachments, language)}
                   aria-haspopup="menu"
-                  aria-controls="ai-tutor-attachment-menu"
+                  // The menu is unmounted while collapsed; `aria-expanded` carries the state.
+                  aria-controls={attachmentMenuOpen ? "ai-tutor-attachment-menu" : undefined}
                   aria-expanded={attachmentMenuOpen}
                   disabled={classroomFallbackOnly}
                   onClick={() => setAttachmentMenuOpen((current) => !current)}

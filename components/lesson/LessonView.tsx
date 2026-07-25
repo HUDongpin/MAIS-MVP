@@ -804,7 +804,8 @@ function LessonContentWithAnswerReveal({
               />
               <button
                 type="button"
-                aria-controls={panelId}
+                // The panel is unmounted until revealed; `aria-expanded` carries the state.
+                aria-controls={isRevealed ? panelId : undefined}
                 aria-expanded={isRevealed}
                 onClick={() =>
                   setRevealedAnswers((current) => ({

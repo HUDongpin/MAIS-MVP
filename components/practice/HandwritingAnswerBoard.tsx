@@ -29,7 +29,6 @@ type RecognitionStatus =
     };
 
 type HandwritingAnswerBoardProps = {
-  boardId: string;
   answerInputId: string;
   value: string;
   isShortAnswer: boolean;
@@ -74,7 +73,6 @@ const copy = {
 } satisfies Record<string, LocalizedText>;
 
 export function HandwritingAnswerBoard({
-  boardId,
   answerInputId,
   value,
   isShortAnswer,
@@ -379,7 +377,7 @@ export function HandwritingAnswerBoard({
   }
 
   return (
-    <div id={boardId} role="group" aria-label={localize(copy.boardLabel, language)} className="soft-panel mt-3 overflow-hidden p-3 sm:p-4">
+    <div role="group" aria-label={localize(copy.boardLabel, language)} className="soft-panel mt-3 overflow-hidden p-3 sm:p-4">
       <div className="flex flex-wrap items-center justify-between gap-3">
         <p className="text-sm font-black uppercase tracking-[0.18em] text-cyan-600 dark:text-cyan-200">
           {localize(copy.boardLabel, language)}

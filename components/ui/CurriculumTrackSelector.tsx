@@ -504,7 +504,8 @@ export function CurriculumTrackSelector({
                   role="radio"
                   aria-checked={isSelected}
                   aria-expanded={isSelectedCoursePanelOpen}
-                  aria-controls={selectedCoursePanelId}
+                  // The panel is unmounted while collapsed; `aria-expanded` carries the state.
+                  aria-controls={isSelectedCoursePanelOpen ? selectedCoursePanelId : undefined}
                   aria-disabled={locked}
                   disabled={locked}
                   onClick={() => setIsCoursePanelOpen((isOpen) => !isOpen)}

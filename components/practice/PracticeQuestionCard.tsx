@@ -38,7 +38,6 @@ type PhotoAttachment = {
   url: string;
 };
 type LazyHandwritingAnswerBoardProps = {
-  boardId: string;
   answerInputId: string;
   value: string;
   isShortAnswer: boolean;
@@ -52,7 +51,6 @@ type LazyHandwritingAnswerBoardProps = {
   onDraftInteraction: () => void;
 };
 type LazyMathSoftKeyboardProps = {
-  id: string;
   value: string;
   targetRef: RefObject<AnswerControl | null>;
   language: Language;
@@ -584,7 +582,11 @@ export function PracticeQuestionCard({ question, onAnswered }: PracticeQuestionC
                       type="button"
                       role="tab"
                       aria-selected={active}
-                      aria-controls={mode === "handwriting" ? handwritingBoardId : keyboardAnswerControlId}
+                      // Only the selected mode's panel is mounted, so only the selected
+                      // tab may point at it — a dangling IDREF is worse than none.
+                      aria-controls={
+                        active ? (mode === "handwriting" ? handwritingBoardId : keyboardAnswerControlId) : undefined
+                      }
                       onClick={() => {
                         beginAttempt();
                         setAnswerInputMode(mode);
@@ -639,25 +641,27 @@ export function PracticeQuestionCard({ question, onAnswered }: PracticeQuestionC
           ) : null}
 
           {shouldShowAnswerInputModes && answerInputMode === "handwriting" ? (
-            <HandwritingAnswerBoard
-              boardId={handwritingBoardId}
-              answerInputId={handwritingAnswerControlId}
-              value={selected}
-              isShortAnswer={question.type === "short-answer"}
-              language={language}
-              placeholder={t(answerPlaceholders[question.type])}
-              resetToken={handwritingResetToken}
-              onAnswerChange={handleTypedAnswer}
-              onBeginAttempt={beginAttempt}
-              onDraftInteraction={handleHandwritingDraftInteraction}
-            />
+            <div id={handwritingBoardId}>
+              <HandwritingAnswerBoard
+                answerInputId={handwritingAnswerControlId}
+                value={selected}
+                isShortAnswer={question.type === "short-answer"}
+                language={language}
+                placeholder={t(answerPlaceholders[question.type])}
+                resetToken={handwritingResetToken}
+                onAnswerChange={handleTypedAnswer}
+                onBeginAttempt={beginAttempt}
+                onDraftInteraction={handleHandwritingDraftInteraction}
+              />
+            </div>
           ) : null}
 
           {shouldShowMathSoftKeyboard && answerInputMode === "keyboard" ? (
             <div className="mt-3">
               <button
                 type="button"
-                aria-controls={mathKeyboardId}
+                // The keyboard is unmounted while collapsed; `aria-expanded` carries the state.
+                aria-controls={softKeyboardOpen ? mathKeyboardId : undefined}
                 aria-expanded={softKeyboardOpen}
                 aria-label={t(softKeyboardOpen ? { en: "Hide math keyboard", zh: "收起數學鍵盤" } : { en: "Show math keyboard", zh: "顯示數學鍵盤" })}
                 onClick={() => {
@@ -679,13 +683,15 @@ export function PracticeQuestionCard({ question, onAnswered }: PracticeQuestionC
               <AnimatePresence initial={false}>
                 {softKeyboardOpen ? (
                   <motion.div
+                    // The id lives on this always-mounted wrapper, not on the lazy
+                    // component, so the IDREF resolves while the chunk is still loading.
+                    id={mathKeyboardId}
                     initial={{ opacity: 0, y: -6, scale: 0.99 }}
                     animate={{ opacity: 1, y: 0, scale: 1 }}
                     exit={{ opacity: 0, y: -4, scale: 0.99 }}
                     transition={{ duration: 0.16 }}
                   >
                     <MathSoftKeyboard
-                      id={mathKeyboardId}
                       value={selected}
                       targetRef={answerControlRef}
                       language={language}

@@ -487,7 +487,8 @@ export default function DashboardPage() {
               type="button"
               aria-expanded={settingsOpen}
               aria-haspopup="dialog"
-              aria-controls="student-dashboard-settings-panel"
+              // The panel is unmounted while closed; `aria-expanded` carries the state.
+              aria-controls={settingsOpen ? "student-dashboard-settings-panel" : undefined}
               onClick={() => {
                 setShortcutsOpen(false);
                 setSettingsOpen((current) => !current);
@@ -500,7 +501,8 @@ export default function DashboardPage() {
               type="button"
               aria-expanded={shortcutsOpen}
               aria-haspopup="dialog"
-              aria-controls="student-dashboard-shortcuts-panel"
+              // The panel is unmounted while closed; `aria-expanded` carries the state.
+              aria-controls={shortcutsOpen ? "student-dashboard-shortcuts-panel" : undefined}
               onClick={() => {
                 setSettingsOpen(false);
                 setShortcutsOpen((current) => !current);

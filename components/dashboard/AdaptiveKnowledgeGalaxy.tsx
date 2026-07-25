@@ -1421,7 +1421,8 @@ export function AdaptiveKnowledgeGalaxy({
           <aside className={cn("relative z-40 order-first self-start rounded-[1.5rem] border p-4 backdrop-blur-xl xl:order-none", visual.hudClass)}>
             <button
               type="button"
-              aria-controls={missionHudDetailsId}
+              // The details block is unmounted while collapsed; `aria-expanded` carries the state.
+              aria-controls={isMissionHudOpen ? missionHudDetailsId : undefined}
               aria-expanded={isMissionHudOpen}
               onClick={() => setIsMissionHudOpen((isOpen) => !isOpen)}
               className={cn(
