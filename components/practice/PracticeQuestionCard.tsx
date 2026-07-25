@@ -5,8 +5,9 @@ import dynamic from "next/dynamic";
 import { usePathname } from "next/navigation";
 import type { ChangeEvent, RefObject } from "react";
 import { useEffect, useId, useRef, useState } from "react";
-import { motion, AnimatePresence } from "@/components/ui/Motion";
+import { motion, AnimatePresence, useReducedMotion } from "@/components/ui/Motion";
 import { MathText, toPlainMathText } from "@/components/math/MathText";
+import { NovaCompanion } from "@/components/practice/NovaCompanion";
 import { dictionary, useSettings } from "@/components/providers/AppProviders";
 import { practiceTextForLanguage } from "@/components/practice/hjbPracticeEnglish";
 import { shouldHideMainlandPepPrimaryPracticeIllustration } from "@/components/practice/mainlandPepPrimaryIllustrationGate";
@@ -100,6 +101,41 @@ function SpeakerIcon() {
       <path d="M4 9v6h4l5 4V5L8 9H4Z" fill="currentColor" />
       <path d="M16.5 8.5a5 5 0 0 1 0 7M19 6a8.5 8.5 0 0 1 0 12" stroke="currentColor" strokeLinecap="round" strokeWidth="2" />
     </svg>
+  );
+}
+
+const correctBurstStars = [
+  { x: -34, y: -30, delay: 0, size: "h-4 w-4" },
+  { x: 32, y: -34, delay: 0.05, size: "h-5 w-5" },
+  { x: -46, y: 6, delay: 0.1, size: "h-3 w-3" },
+  { x: 48, y: 10, delay: 0.08, size: "h-4 w-4" },
+  { x: 0, y: -48, delay: 0.12, size: "h-3.5 w-3.5" }
+] as const;
+
+function BurstStarIcon({ className }: { className?: string }) {
+  return (
+    <svg aria-hidden="true" viewBox="0 0 24 24" className={className} fill="none">
+      <path d="m12 3 2.6 5.5 6 .8-4.4 4.2 1.1 6-5.3-2.9-5.3 2.9 1.1-6-4.4-4.2 6-.8L12 3Z" fill="currentColor" />
+    </svg>
+  );
+}
+
+/** Celebratory star burst behind Nova when an answer lands correct. */
+function CorrectStarBurst() {
+  return (
+    <span aria-hidden="true" className="pointer-events-none absolute inset-0 grid place-items-center">
+      {correctBurstStars.map((star, index) => (
+        <motion.span
+          key={index}
+          className="absolute text-amber-400"
+          initial={{ opacity: 0, scale: 0, x: 0, y: 0 }}
+          animate={{ opacity: [0, 1, 0], scale: [0, 1, 0.6], x: star.x, y: star.y }}
+          transition={{ duration: 0.7, delay: star.delay, ease: "easeOut" }}
+        >
+          <BurstStarIcon className={star.size} />
+        </motion.span>
+      ))}
+    </span>
   );
 }
 
@@ -232,6 +268,7 @@ type PracticeQuestionCardProps = {
 export function PracticeQuestionCard({ question, onAnswered }: PracticeQuestionCardProps) {
   const { currentUser, language, recordLearningEvent, refreshMistakeRecordsAfterAttempt, text: settingsText, t: settingsT } = useSettings();
   const pathname = usePathname();
+  const prefersReducedMotion = useReducedMotion();
   const answerControlBaseId = useId();
   const keyboardAnswerControlId = `${answerControlBaseId}-keyboard-answer`;
   const handwritingAnswerControlId = `${answerControlBaseId}-handwriting-answer`;
@@ -277,6 +314,7 @@ export function PracticeQuestionCard({ question, onAnswered }: PracticeQuestionC
     ? []
     : (question.questionAssets ?? []).filter((asset) => asset.kind === "image");
   const shouldShowReadAloud = isYoungLearnerPracticeGrade(question.grade);
+  const isYoungLearner = shouldShowReadAloud;
   const dotCardQuantities = countingDotCardQuantitiesFor(question);
 
   useEffect(() => {
@@ -479,7 +517,8 @@ export function PracticeQuestionCard({ question, onAnswered }: PracticeQuestionC
           text={promptText}
           ariaLabel={promptLabel}
           className={cn(
-            "practice-question-title text-xl font-black leading-snug text-slate-950 dark:text-white",
+            "practice-question-title font-black leading-snug text-slate-950 dark:text-white",
+            isYoungLearner ? "text-2xl sm:text-[1.7rem]" : "text-xl",
             shouldShowReadAloud && "min-w-0 sm:flex-1"
           )}
         />
@@ -743,11 +782,28 @@ export function PracticeQuestionCard({ question, onAnswered }: PracticeQuestionC
           </div>
         ) : null}
 
-        <div className="flex flex-col gap-3 sm:flex-row">
-          <button type="button" onClick={handleSubmit} disabled={!selected.trim() || isChecking || Boolean(feedback)} className="focus-ring rounded-full bg-slate-950 px-5 py-3 font-bold text-white transition enabled:hover:-translate-y-1 disabled:cursor-not-allowed disabled:opacity-50 dark:bg-white dark:text-slate-950">
+        <div className="flex flex-col gap-3 sm:flex-row sm:items-center">
+          <button
+            type="button"
+            onClick={handleSubmit}
+            disabled={!selected.trim() || isChecking || Boolean(feedback)}
+            className={cn(
+              "focus-ring rounded-full font-black text-white transition enabled:hover:-translate-y-0.5 enabled:active:translate-y-0.5 enabled:active:shadow-[0_2px_0_#0e7490] disabled:cursor-not-allowed",
+              "bg-cyan-500 shadow-[0_6px_0_#0e7490] enabled:hover:bg-cyan-400",
+              "disabled:bg-slate-200 disabled:text-slate-400 disabled:shadow-none dark:disabled:bg-slate-700 dark:disabled:text-slate-400",
+              isYoungLearner ? "min-h-14 px-8 py-3 text-lg" : "px-6 py-3 text-base"
+            )}
+          >
             {!currentUser ? t(dictionary.practice.loginAction) : isChecking ? t(dictionary.practice.checking) : t(dictionary.common.checkAnswer)}
           </button>
-          <button type="button" onClick={reset} className="focus-ring rounded-full border border-slate-200/70 bg-white/70 px-5 py-3 font-bold text-slate-700 transition hover:-translate-y-1 dark:border-white/10 dark:bg-white/[0.07] dark:text-white">
+          <button
+            type="button"
+            onClick={reset}
+            className={cn(
+              "focus-ring rounded-full border border-slate-200/70 bg-white/70 font-bold text-slate-700 transition hover:-translate-y-0.5 dark:border-white/10 dark:bg-white/[0.07] dark:text-white",
+              isYoungLearner ? "min-h-14 px-7 py-3 text-lg" : "px-5 py-3"
+            )}
+          >
             {t(dictionary.common.reset)}
           </button>
         </div>
@@ -766,12 +822,31 @@ export function PracticeQuestionCard({ question, onAnswered }: PracticeQuestionC
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: -8 }}
             className={cn(
-              "mt-5 rounded-2xl border p-4 text-sm leading-6",
+              "relative mt-5 flex items-start gap-3 rounded-2xl border p-4 text-sm leading-6",
               feedback.correct
                 ? "border-emerald-400/30 bg-emerald-500/15 text-emerald-700 dark:text-emerald-200"
                 : "border-amber-400/30 bg-amber-500/15 text-amber-700 dark:text-amber-200"
             )}
           >
+            <span className="relative grid shrink-0 place-items-center">
+              {feedback.correct && !prefersReducedMotion ? <CorrectStarBurst /> : null}
+              <motion.span
+                key={feedback.correct ? "nova-correct" : "nova-retry"}
+                className="grid place-items-center"
+                initial={prefersReducedMotion ? false : { scale: 0.6, rotate: feedback.correct ? -10 : 0 }}
+                animate={
+                  prefersReducedMotion
+                    ? undefined
+                    : feedback.correct
+                      ? { scale: [0.6, 1.15, 1], rotate: [-10, 8, 0] }
+                      : { rotate: [0, -6, 6, 0] }
+                }
+                transition={{ duration: 0.55, ease: "easeOut" }}
+              >
+                <NovaCompanion mood={feedback.correct ? "cheer" : "encourage"} className="h-11 w-11" />
+              </motion.span>
+            </span>
+            <div className="min-w-0 flex-1">
 	            <p className="font-black">
 	              {feedback.correct ? t(dictionary.practice.correct) : (
 	                <>
@@ -787,6 +862,7 @@ export function PracticeQuestionCard({ question, onAnswered }: PracticeQuestionC
 	            </p>
 	            <MathText as="p" text={practiceTextForLanguage(feedback.explanation, language, question.publisher)} className="mt-1" />
 	            {!feedback.correct ? <p className="mt-2 font-bold">{t(dictionary.practice.savedMistake)}</p> : null}
+            </div>
           </motion.div>
         ) : null}
       </AnimatePresence>

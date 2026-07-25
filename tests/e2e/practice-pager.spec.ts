@@ -1,5 +1,5 @@
 import { expect, test, type Locator, type Page, type TestInfo } from "@playwright/test";
-import { isTransientApiTransportError, uniqueSuffix } from "./helpers";
+import { isTransientApiTransportError, openPracticeFiltersPanel, uniqueSuffix } from "./helpers";
 
 type AuthenticatedResponse = {
   user: {
@@ -65,6 +65,7 @@ async function unlockFreeSelection(page: Page, userId: string, grade = "S3") {
 
   await page.reload();
   await page.waitForLoadState("networkidle");
+  await openPracticeFiltersPanel(page);
 
   const gradeSelect = page.getByRole("combobox", { name: /Grade/i });
   await expect(gradeSelect).toBeVisible();
