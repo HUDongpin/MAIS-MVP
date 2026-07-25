@@ -11,12 +11,14 @@ export const runtime = "nodejs";
 // heavy aggregation to every page view.
 const cachedNavSignalsByUserId = unstable_cache(
   async (userId: string): Promise<TeacherNavSignals | null> => {
-    const { getTeacherDashboardData } = await import("@/lib/server/userStore");
+    const { getTeacherDashboardData, countOpenContentSafetyAlertsForViewer } = await import("@/lib/server/userStore");
     const dashboard = await getTeacherDashboardData(userId);
     if (!dashboard) return null;
+    const openSafetyAlerts = await countOpenContentSafetyAlertsForViewer(userId).catch(() => 0);
     return {
       pendingGrading: dashboard.kpis.pendingGrading,
-      unrepliedMessages: dashboard.kpis.unrepliedMessages
+      unrepliedMessages: dashboard.kpis.unrepliedMessages,
+      openSafetyAlerts
     };
   },
   ["teacher-nav-signals-by-user-id"],

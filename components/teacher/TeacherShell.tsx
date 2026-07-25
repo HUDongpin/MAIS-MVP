@@ -105,6 +105,13 @@ const teacherNavGroups: TeacherNavGroup[] = [
         icon: "analytics"
       },
       {
+        href: "/teacher/safety",
+        label: { en: "Safety alerts", zh: "安全警示" },
+        activePaths: ["/teacher/safety"],
+        icon: "safety",
+        badge: "openSafetyAlerts"
+      },
+      {
         href: "/teacher/rewards",
         label: { en: "Rewards", zh: "積分獎勵" },
         activePaths: ["/teacher/rewards"],
