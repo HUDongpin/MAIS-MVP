@@ -156,6 +156,7 @@ export function createTeacherOpsUserStore({
     replyToTeacherMessageThread: teacherOpsInboxPersistenceStore.replyToTeacherMessageThread,
     updateTeacherMessageThread: teacherOpsInboxPersistenceStore.updateTeacherMessageThread,
     getTeacherLiveData: teacherOpsLiveSessionPersistenceStore.getTeacherLiveData,
+    getClassroomLiveRoster: teacherOpsLiveSessionPersistenceStore.getClassroomLiveRoster,
     startTeacherLiveSession: teacherOpsLiveSessionPersistenceStore.startTeacherLiveSession,
     endTeacherLiveSession: teacherOpsLiveSessionPersistenceStore.endTeacherLiveSession,
     getClassroomLiveSessionForTeacherPreview: teacherOpsLiveSessionPersistenceStore.getClassroomLiveSessionForTeacherPreview,

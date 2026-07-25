@@ -4510,6 +4510,55 @@ export type TeacherLiveData = {
   recentSessions: TeacherLiveSession[];
 };
 
+// Live per-student monitoring ("who needs me right now"). Derived from the
+// learning-events students already emit while working, so the roster reflects a
+// self-paced lesson rather than a teacher-led broadcast prompt.
+export type ClassroomLiveStudentState = "stuck" | "idle" | "working" | "done" | "offline";
+
+export type ClassroomLiveAttentionReason =
+  | "repeated-wrong"
+  | "many-hints"
+  | "wrong-answer"
+  | "idle"
+  | "inactive"
+  | "not-started";
+
+export type ClassroomLiveRosterEntry = {
+  studentId: string;
+  studentName: string;
+  state: ClassroomLiveStudentState;
+  needsAttention: boolean;
+  reason: ClassroomLiveAttentionReason | null;
+  lastActiveAt: string | null;
+  secondsSinceActive: number | null;
+  currentTopicId: string | null;
+  currentSource: LearningAnalyticsEventSource | null;
+  lastQuestionId: string | null;
+  lastAnswerCorrect: boolean | null;
+  correctCount: number;
+  wrongCount: number;
+  hintCount: number;
+  consecutiveWrong: number;
+};
+
+export type ClassroomLiveRosterCounts = {
+  total: number;
+  stuck: number;
+  idle: number;
+  working: number;
+  done: number;
+  offline: number;
+};
+
+export type ClassroomLiveRoster = {
+  generatedAt: string;
+  classId: string;
+  className: string;
+  windowMinutes: number;
+  counts: ClassroomLiveRosterCounts;
+  students: ClassroomLiveRosterEntry[];
+};
+
 export type ClassroomLiveSession = {
   id: string;
   className: string;

@@ -591,6 +591,7 @@ import {
 } from "@/lib/teacherReviewLesson";
 import { renderTeacherReviewLessonPptx } from "@/lib/teacherReviewLessonPptx";
 import { questionAnswerMatches } from "@/lib/server/answerGrading";
+import { readLearningEventsFastForUsers } from "@/lib/server/practiceAttemptStore";
 import { getWeComNotificationSummary, sendWeComGroupNotification } from "@/lib/server/wecomNotifications";
 import type {
   AdaptiveLearningCandidate,
@@ -5949,6 +5950,9 @@ const teacherOpsLiveSessionPersistenceStore = createTeacherOpsLiveSessionPersist
     const database = await readDatabase();
     return database as TeacherOpsLiveSessionPersistenceDatabase;
   },
+  // No-ops to [] off the Postgres hot path; on it, carries the freshest
+  // learning-event rows so the live roster does not lag the app-state snapshot.
+  readHotLearningEventsForUsers: readLearningEventsFastForUsers,
   normalizeWhiteboardStroke: normalizeWhiteboardStrokeFromTeacherOpsLiveSession,
   resolveLiveSessionContext: (database, teacherClass, topicId) => {
     const curriculumProfile = curriculumProfileForClass(database as Database, teacherClass as TeacherClassRecord);
@@ -8674,6 +8678,8 @@ export const createStudentMessageThread = studentActivityUserStore.createStudent
 export const replyToStudentMessageThread = studentActivityUserStore.replyToStudentMessageThread;
 
 export const getTeacherLiveData = teacherOpsUserStore.getTeacherLiveData;
+
+export const getClassroomLiveRoster = teacherOpsUserStore.getClassroomLiveRoster;
 
 export const startTeacherLiveSession = teacherOpsUserStore.startTeacherLiveSession;
 
