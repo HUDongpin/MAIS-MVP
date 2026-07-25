@@ -710,7 +710,9 @@ function StarHoverCard({
             ? t({ en: "Relight this star", zh: "重新點亮這顆星", zhHans: "重新点亮这颗星" })
             : star.status === "unstable"
               ? t({ en: "Repair this star", zh: "修補這顆星", zhHans: "修补这颗星" })
-              : t({ en: "Practice this skill", zh: "練習此技能", zhHans: "练习此技能" })}
+              : star.status === "confirming"
+                ? t({ en: "Lock in this star", zh: "鞏固這顆星", zhHans: "巩固这颗星" })
+                : t({ en: "Practice this skill", zh: "練習此技能", zhHans: "练习此技能" })}
         </Link>
       ) : null}
     </div>
