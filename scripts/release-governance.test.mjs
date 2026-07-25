@@ -1803,7 +1803,7 @@ test("mais-dev launch uses the isolated dev wrapper and keeps fixture-only env",
     "dev:isolated",
     "--",
     "--port",
-    "3000",
+    "3100",
     "--dist",
     ".tmp/mais-dev/next-dist"
   ]);
@@ -2118,7 +2118,7 @@ test("kill-port uses SIGKILL only after a controlled SIGTERM grace fallback", as
   }
 });
 
-test("Git-index Next config composes the approved build hooks and six compatibility redirects", async () => {
+test("Git-index Next config composes the approved build hooks and nine compatibility redirects", async () => {
   const configObject = runGit(["show", ":next.config.ts"], repoRoot);
   assert.equal(configObject.status, 0, combinedOutput(configObject));
   const tempDir = await mkdtemp(path.join(tmpdir(), "mais-next-config-object-"));
@@ -2148,7 +2148,10 @@ test("Git-index Next config composes the approved build hooks and six compatibil
       { source: "/primary-roadmap", destination: "/student/roadmap/primary", permanent: true },
       { source: "/secondary-roadmap", destination: "/student/roadmap/secondary", permanent: true },
       { source: "/lesson", destination: "/student/lessons", permanent: true },
-      { source: "/lesson/:lessonSlug", destination: "/student/lessons/:lessonSlug", permanent: true }
+      { source: "/lesson/:lessonSlug", destination: "/student/lessons/:lessonSlug", permanent: true },
+      { source: "/practice/adventure-island", destination: "/student/practice/games/adventure-island", permanent: true },
+      { source: "/practice/super-platformer-like", destination: "/student/practice/games/adventure-island", permanent: true },
+      { source: "/practice/fishing-game", destination: "/student/practice/games/fishing-master", permanent: true }
     ]);
   } finally {
     if (previousDistDir === undefined) delete process.env.NEXT_DIST_DIR;
@@ -2180,8 +2183,12 @@ test("P0 package delta and default release gates are self-contained in Git objec
     "test:imports": "node --test scripts/check-import-targets.test.mjs"
   };
   const allowedScriptChanges = new Set([
+    "audit:ccss-depth",
     "build",
+    "check",
     "check:imports",
+    "check:port-drift",
+    "check:stray-types",
     "clean:generated",
     "clean:generated:apply",
     "clean:next-builds",
@@ -2189,6 +2196,8 @@ test("P0 package delta and default release gates are self-contained in Git objec
     "dev",
     "dev:isolated",
     "dev:turbo",
+    "eval:adaptive",
+    "fit:bkt",
     "kill-port",
     "rag:hk-up-junior-english-exercises-manifest",
     "rag:hk-up-junior-english-textbook-manifest",
@@ -2203,12 +2212,17 @@ test("P0 package delta and default release gates are self-contained in Git objec
     "release:root-deploy-preflight",
     "release:runtime-preflight",
     "release:staged-publish-preflight",
+    "report:bench-usage",
     "smoke:ai-tutor-live-latency",
     "smoke:dashboard-auth-ready",
     "smoke:dashboard-latency",
     "smoke:dashboard-ui-loading",
     "smoke:resend:local",
+    "test:accommodations",
     "test:analytics",
+    "test:ccss-depth",
+    "test:ccss-textbook",
+    "test:content-safety",
     "test:e2e",
     "test:imports",
     "test:mvp",
@@ -2217,6 +2231,9 @@ test("P0 package delta and default release gates are self-contained in Git objec
     "test:rag",
     "test:release-evidence",
     "test:release-governance",
+    "test:signature-labs",
+    "test:stray-types",
+    "test:visualizations",
     "vercel:preview",
     "vercel:production",
     "vercel:stage"
@@ -2239,7 +2256,7 @@ test("P0 package delta and default release gates are self-contained in Git objec
   );
   assert.equal(
     createHash("sha256").update(JSON.stringify(changedScripts)).digest("hex"),
-    "32e6c3ea47b9f3948536ab2715b686d702386e6d23d65a2c1e20d75928222b36",
+    "9238e639c329346106964e1801aa9f87bb86a6e659abe5f7763f7f1f1b5325b9",
     "Reviewed command bodies must remain exact"
   );
   for (const [name, command] of Object.entries(expectedP0Scripts)) {
