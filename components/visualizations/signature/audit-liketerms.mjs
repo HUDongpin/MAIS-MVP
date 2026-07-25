@@ -1,224 +1,228 @@
 /* ============================================================================
-   audit-liketerms.mjs — numeric audit for LikeTermsLab.jsx
+   audit-liketerms.mjs — numeric audit for LikeTermsLab.jsx.
    Run:  node audit-liketerms.mjs
-   Proves, exhaustively over the full dial ranges, the identity the lab teaches
-       a·x + c + d·x + e  ===  (a+d)·x + (c+e)      for EVERY x
-   and — the point of 6.EE.A.4 — that agreeing at ONE value of x is not
-   equivalence, and can never fire the stamp. No dependencies.
+
+   CONVERTED 2026-07-18 from a MIRROR to a SLICE. It used to keep a hand-written
+   copy of the lab's model, which meant it could pass while the lab was wrong
+   (see the mirror-audits note in project memory). It now SLICES the model out
+   of LikeTermsLab.jsx (between MODEL:START and MODEL:END) and evaluates it, so
+   the code under test is the code that ships. This conversion was the
+   prerequisite for the 7.EE.A.2 markup extension below.
+
+   What it proves:
+     THE IDENTITY   a·x+c+d·x+e === (a+d)x+(c+e) for EVERY x (exhaustive + far out).
+     COLLECTING     collecting is exactly "add the coefficients / add the constants".
+     THE TRAP       agreeing at ONE x is not equivalence (6.EE.A.4) — and never stamps.
+     CALIBRATION    stamp ⟺ equivalent, no false stamp; many solutions per target.
+     FORMATTING     no "+ 0", coefficient 1 prints as x, always two x-terms.
+     7.EE.A.2       a + (p/100)a = (1 + p/100)a as an EXACT fraction; the decimal
+                    string is built from the integer p (no float artefact),
+                    verified against BigInt.
+   AND IT MUTATION-TESTS ITSELF.
    ========================================================================== */
 
-const MINUS = '−';
-let fail = 0;
-const ok = (cond, msg) => {
-  if (!cond) {
-    fail++;
-    console.error('  ✗ ' + msg);
-  }
-};
+import fs from 'node:fs';
 
-/* ---- mirror of the lab's pure model ------------------------------------- */
-const X_RANGE = { min: -3, max: 5 };
-const A_RANGE = { min: 1, max: 3 };
-const D_RANGE = { min: 1, max: 3 };
-const C_RANGE = { min: -3, max: 5 };
-const E_RANGE = { min: -3, max: 5 };
-const START = { x: 2, a: 2, c: 5, d: 3, e: 0 };
+const SRC = fs.readFileSync(new URL('./LikeTermsLab.jsx', import.meta.url), 'utf8');
+const m0 = SRC.match(/\/\* ==== MODEL:START[^\n]*\n([\s\S]*?)\/\* ==== MODEL:END/);
+if (!m0) throw new Error('MODEL sentinels not found in LikeTermsLab.jsx');
+const MODEL_BODY = m0[1];
 
-const evalScattered = (p, x) => p.a * x + p.c + p.d * x + p.e;
-const collected = (p) => ({ A: p.a + p.d, C: p.c + p.e });
-const evalCollected = (p, x) => {
-  const { A, C } = collected(p);
-  return A * x + C;
-};
-const fmt = (v) => (Object.is(v, -0) ? 0 : v).toString().replace('-', MINUS);
-const coefStr = (k) => (k === 1 ? 'x' : `${k}x`);
-function terms(p) {
-  const out = [{ kind: 'x', sign: null, text: coefStr(p.a) }];
-  if (p.c !== 0) out.push({ kind: 'c', sign: p.c > 0 ? '+' : MINUS, text: String(Math.abs(p.c)) });
-  out.push({ kind: 'x', sign: '+', text: coefStr(p.d) });
-  if (p.e !== 0) out.push({ kind: 'c', sign: p.e > 0 ? '+' : MINUS, text: String(Math.abs(p.e)) });
-  return out;
+const EXPORTS = [
+  'X_RANGE', 'A_RANGE', 'D_RANGE', 'C_RANGE', 'E_RANGE', 'START', 'COLLECT_STEP',
+  'evalScattered', 'collected', 'evalCollected', 'exprString', 'simplifiedString',
+  'coefStr', 'terms', 'A_TARGET', 'C_TARGET', 'calErr', 'matchPercent', 'MATCH_ERR', 'makeTarget',
+  'markupCoef', 'markupDecimal', 'pctCoef', 'MARKUP_MIN', 'MARKUP_MAX', 'MARKUP_STEP', 'STEPS',
+];
+function build(body) {
+  // eslint-disable-next-line no-new-func
+  return new Function(`${body}\nreturn { ${EXPORTS.join(', ')} };`)();
 }
-const exprString = (p) => terms(p).map((t, i) => (i === 0 ? t.text : ` ${t.sign} ${t.text}`)).join('');
-const simplifiedString = (A, C) => `${coefStr(A)}${C === 0 ? '' : ` ${C > 0 ? '+' : MINUS} ${Math.abs(C)}`}`;
 
-const A_TARGET = { min: A_RANGE.min + D_RANGE.min, max: A_RANGE.max + D_RANGE.max };
-const C_TARGET = { min: C_RANGE.min + E_RANGE.min, max: C_RANGE.max + E_RANGE.max };
-const calErr = (p, t) => {
-  const { A, C } = collected(p);
-  return Math.abs(A - t.A) + Math.abs(C - t.C);
-};
-const matchPercent = (err) => Math.max(0, Math.min(100, 100 / (1 + err / 0.8)));
-const MATCH_ERR = 0;
+function runSuite(M) {
+  let checks = 0; const failures = [];
+  const ok = (c, msg) => { checks++; if (!c) failures.push(msg); };
 
-const range = (r) => {
-  const o = [];
-  for (let v = r.min; v <= r.max; v++) o.push(v);
-  return o;
-};
-const XS = range(X_RANGE), AS = range(A_RANGE), DS = range(D_RANGE), CS = range(C_RANGE), ES = range(E_RANGE);
-const ALL = [];
-for (const a of AS) for (const c of CS) for (const d of DS) for (const e of ES) ALL.push({ a, c, d, e });
+  const range = (r) => { const o = []; for (let v = r.min; v <= r.max; v++) o.push(v); return o; };
+  const XS = range(M.X_RANGE), AS = range(M.A_RANGE), DS = range(M.D_RANGE), CS = range(M.C_RANGE), ES = range(M.E_RANGE);
+  const ALL = [];
+  for (const a of AS) for (const c of CS) for (const d of DS) for (const e of ES) ALL.push({ a, c, d, e });
 
-console.log('LikeTermsLab audit\n==================');
-console.log(`   expressions: ${ALL.length}   values of x: ${XS.length}`);
-
-/* ---- 1. THE identity, exhaustively, for every x ------------------------- */
-{
-  let n = 0;
-  for (const p of ALL)
+  /* 1. THE identity, exhaustively + far outside the dial range */
+  for (const p of ALL) {
     for (const x of XS) {
-      const s = evalScattered(p, x);
-      const k = evalCollected(p, x);
-      ok(Number.isInteger(s) && s === k, `a·x+c+d·x+e === (a+d)x+(c+e) at ${exprString(p)}, x=${x}`);
-      n++;
+      const s = M.evalScattered(p, x), k = M.evalCollected(p, x);
+      ok(Number.isInteger(s) && s === k, `identity at ${M.exprString(p)}, x=${x}`);
     }
-  console.log(`1. the identity ............. ${n} (expression × x) pairs agree exactly`);
-  // and beyond the dial range, to show it is an identity and not a coincidence
-  let m = 0;
-  for (const p of ALL) for (let x = -200; x <= 200; x += 37) { ok(evalScattered(p, x) === evalCollected(p, x), `identity holds far out at x=${x}`); m++; }
-  console.log(`   also verified at x well outside the dial range ... ${m} extra checks`);
-}
-
-/* ---- 2. Collecting is exactly "add the coefficients / add the constants" - */
-{
-  for (const p of ALL) {
-    const { A, C } = collected(p);
-    ok(A === p.a + p.d, `x-terms collect by adding coefficients (${p.a}+${p.d})`);
-    ok(C === p.c + p.e, `constants collect by adding constants (${p.c}+${p.e})`);
-    ok(A >= 2 && A <= 6, `A in 2..6 (got ${A})`);
-    ok(C >= -6 && C <= 10, `C in −6..10 (got ${C})`);
+    for (let x = -200; x <= 200; x += 37) ok(M.evalScattered(p, x) === M.evalCollected(p, x), `identity far out x=${x}`);
   }
-  // the canonical example from the brief
-  const canon = { a: 2, c: 5, d: 3, e: 0 };
-  ok(exprString(canon) === '2x + 5 + 3x', `START reads "2x + 5 + 3x" (got "${exprString(canon)}")`);
-  const cc = collected(canon);
-  ok(simplifiedString(cc.A, cc.C) === '5x + 5', `START collects to "5x + 5" (got "${simplifiedString(cc.A, cc.C)}")`);
-  ok(exprString({ a: 2, c: 5, d: 3, e: 1 }) === '2x + 5 + 3x + 1', 'four-term form reads correctly');
-  const c2 = collected({ a: 2, c: 5, d: 3, e: 1 });
-  ok(simplifiedString(c2.A, c2.C) === '5x + 6', 'lesson: 2x + 5 + 3x + 1 → 5x + 6');
-  console.log('2. collecting rule .......... coefficients & constants add; canonical example exact');
-}
 
-/* ---- 3. Equivalence is NOT "agrees at one x" (the 6.EE.A.4 trap) -------- */
-{
-  // the lesson's own claim: 3x + 9 and 5x + 5 agree at x = 2 and part at x = 3
-  const f = (A, C, x) => A * x + C;
-  ok(f(3, 9, 2) === 15 && f(5, 5, 2) === 15, 'lesson: 3x+9 and 5x+5 both give 15 at x=2');
-  ok(f(3, 9, 3) === 18 && f(5, 5, 3) === 20, 'lesson: at x=3 they give 18 and 20');
-  ok(f(3, 9, 3) !== f(5, 5, 3), 'lesson: so they are NOT equivalent');
+  /* 2. collecting = add coefficients / add constants */
+  for (const p of ALL) {
+    const { A, C } = M.collected(p);
+    ok(A === p.a + p.d, `x-terms add (${p.a}+${p.d})`);
+    ok(C === p.c + p.e, `constants add (${p.c}+${p.e})`);
+  }
+  ok(M.exprString({ a: 2, c: 5, d: 3, e: 0 }) === '2x + 5 + 3x', 'START reads "2x + 5 + 3x"');
+  {
+    const cc = M.collected({ a: 2, c: 5, d: 3, e: 0 });
+    ok(M.simplifiedString(cc.A, cc.C) === '5x + 5', 'START collects to "5x + 5"');
+    const c2 = M.collected({ a: 2, c: 5, d: 3, e: 1 });
+    ok(M.simplifiedString(c2.A, c2.C) === '5x + 6', '2x+5+3x+1 → 5x+6');
+  }
 
-  // in general: distinct collected forms MUST differ at some x in range, even
-  // though they may coincide at one. Count how often the trap is available.
-  let distinctPairs = 0;
-  let coincideSomewhere = 0;
-  const forms = [];
-  for (let A = A_TARGET.min; A <= A_TARGET.max; A++)
-    for (let C = C_TARGET.min; C <= C_TARGET.max; C++) forms.push({ A, C });
-  for (const u of forms)
-    for (const v of forms) {
+  /* 3. the "agrees at one x" trap */
+  {
+    const f = (A, C, x) => A * x + C;
+    ok(f(3, 9, 2) === 15 && f(5, 5, 2) === 15, '3x+9 and 5x+5 both 15 at x=2');
+    ok(f(3, 9, 3) !== f(5, 5, 3), 'they part at x=3');
+    const forms = [];
+    for (let A = M.A_TARGET.min; A <= M.A_TARGET.max; A++) for (let C = M.C_TARGET.min; C <= M.C_TARGET.max; C++) forms.push({ A, C });
+    for (const u of forms) for (const v of forms) {
       if (u.A === v.A && u.C === v.C) continue;
-      distinctPairs++;
-      const agreeAt = XS.filter((x) => f(u.A, u.C, x) === f(v.A, v.C, x));
-      const differAt = XS.filter((x) => f(u.A, u.C, x) !== f(v.A, v.C, x));
-      ok(differAt.length > 0, `distinct forms differ somewhere in range (${u.A}x+${u.C} vs ${v.A}x+${v.C})`);
-      ok(agreeAt.length <= 1, `two distinct lines meet at most once (${u.A}x+${u.C} vs ${v.A}x+${v.C})`);
-      if (agreeAt.length === 1) coincideSomewhere++;
+      const agree = XS.filter((x) => f(u.A, u.C, x) === f(v.A, v.C, x));
+      ok(XS.some((x) => f(u.A, u.C, x) !== f(v.A, v.C, x)), `distinct forms differ somewhere`);
+      ok(agree.length <= 1, `two distinct lines meet at most once`);
     }
-  console.log(`3. "agrees at one x" trap ... ${distinctPairs} distinct form-pairs; all differ somewhere`);
-  console.log(`   ${coincideSomewhere} of them DO share a landing at exactly one x (the trap is real, and never stamps)`);
-}
-
-/* ---- 4. Calibration: stamp iff equivalent, no false stamp --------------- */
-{
-  const forms = [];
-  for (let A = A_TARGET.min; A <= A_TARGET.max; A++)
-    for (let C = C_TARGET.min; C <= C_TARGET.max; C++) forms.push({ A, C });
-
-  // every target is reachable by some (a,c,d,e)
-  for (const t of forms) {
-    const sol = ALL.filter((p) => calErr(p, t) === 0);
-    ok(sol.length > 0, `target ${simplifiedString(t.A, t.C)} is reachable`);
   }
-  // MANY solutions per target — that multiplicity is the pedagogical point
-  const counts = forms.map((t) => ALL.filter((p) => calErr(p, t) === 0).length);
-  const minSol = Math.min(...counts);
-  const maxSol = Math.max(...counts);
-  ok(minSol >= 1, 'every target has at least one solution');
 
-  let checked = 0;
-  let falseStamp = 0;
-  for (const t of forms)
-    for (const p of ALL) {
-      const err = calErr(p, t);
-      const equiv = XS.every((x) => evalScattered(p, x) === t.A * x + t.C);
-      // the meter's verdict must agree with true equivalence, exactly
-      ok((err === MATCH_ERR) === equiv, `stamp ⟺ equivalent for ${exprString(p)} vs ${simplifiedString(t.A, t.C)}`);
-      if (err === MATCH_ERR && !equiv) falseStamp++;
-      checked++;
+  /* 4. calibration: stamp ⟺ equivalent, no false stamp */
+  {
+    const forms = [];
+    for (let A = M.A_TARGET.min; A <= M.A_TARGET.max; A++) for (let C = M.C_TARGET.min; C <= M.C_TARGET.max; C++) forms.push({ A, C });
+    for (const t of forms) ok(ALL.some((p) => M.calErr(p, t) === 0), `target ${M.simplifiedString(t.A, t.C)} reachable`);
+    let falseStamp = 0;
+    for (const t of forms) for (const p of ALL) {
+      const err = M.calErr(p, t);
+      const equiv = XS.every((x) => M.evalScattered(p, x) === t.A * x + t.C);
+      ok((err === M.MATCH_ERR) === equiv, `stamp ⟺ equivalent`);
+      if (err === M.MATCH_ERR && !equiv) falseStamp++;
     }
-  ok(falseStamp === 0, `no false CALIBRATED (found ${falseStamp})`);
-  console.log(`4. calibration .............. ${checked} (answer,target) pairs; stamp ⟺ equivalent; 0 false stamps`);
-  console.log(`   solutions per target: ${minSol}..${maxSol} — many expressions are equivalent (the point)`);
-  console.log(`   meter: exact=${matchPercent(0).toFixed(0)}%  off-by-1=${matchPercent(1).toFixed(0)}%  off-by-2=${matchPercent(2).toFixed(0)}%`);
+    ok(falseStamp === 0, `no false CALIBRATED (found ${falseStamp})`);
+    // the foil that shares one landing is refused
+    const t = { A: 5, C: 5 };
+    const fake = ALL.find((p) => { const k = M.collected(p); return k.A === 3 && k.C === 9; });
+    ok(!!fake && M.calErr(fake, t) > M.MATCH_ERR, 'foil sharing x=2 landing is refused');
+  }
 
-  // a wrong answer that shares the landing at the CURRENT x must still not stamp
-  const t = { A: 5, C: 5 };
-  const fake = ALL.find((p) => { const k = collected(p); return k.A === 3 && k.C === 9; });
-  ok(!!fake, 'the 3x + 9 foil is buildable from the dials');
-  ok(evalScattered(fake, 2) === 15 && t.A * 2 + t.C === 15, 'foil shares the landing at x = 2');
-  ok(calErr(fake, t) > MATCH_ERR, 'foil sharing one landing is still NOT stamped');
-  console.log('   a foil that shares the landing at x=2 is correctly refused ... ok');
-}
-
-/* ---- 5. Formatting: no "+ 0", coefficient 1 prints as x ----------------- */
-{
+  /* 5. formatting */
   for (const p of ALL) {
-    const s = exprString(p);
-    ok(!/\+ 0\b/.test(s), `no "+ 0" term: "${s}"`);
-    ok(!/\b1x\b/.test(s), `coefficient 1 prints as x: "${s}"`);
-    ok(!/\s\s/.test(s), `no double spaces: "${s}"`);
-    ok((s.match(/x/g) || []).length === 2, `always exactly two x-terms: "${s}"`);
-    const { A, C } = collected(p);
-    const t = simplifiedString(A, C);
-    ok(!/\b1x\b/.test(t), `simplified coefficient 1 prints as x: "${t}"`);
-    ok(!/[+−]\s*0$/.test(t), `simplified never ends "+ 0": "${t}"`);
+    const s = M.exprString(p);
+    ok(!/\+ 0\b/.test(s), `no "+ 0": "${s}"`);
+    ok(!/\b1x\b/.test(s), `coef 1 prints as x: "${s}"`);
+    ok((s.match(/x/g) || []).length === 2, `two x-terms: "${s}"`);
+    const { A, C } = M.collected(p);
+    ok(!/\b1x\b/.test(M.simplifiedString(A, C)), 'simplified coef 1 → x');
   }
-  console.log(`5. formatting ............... ${ALL.length} expressions well-formed (no "+ 0", no "1x")`);
-  console.log(`   e.g. "${exprString({ a: 1, c: -3, d: 2, e: 0 })}" → "${(() => { const k = collected({ a: 1, c: -3, d: 2, e: 0 }); return simplifiedString(k.A, k.C); })()}"`);
-  console.log(`        "${exprString({ a: 2, c: 5, d: 3, e: 1 })}" → "${(() => { const k = collected({ a: 2, c: 5, d: 3, e: 1 }); return simplifiedString(k.A, k.C); })()}"`);
+
+  /* 6. makeTarget reachable + non-trivial */
+  {
+    const s0 = M.collected(M.START);
+    let prev = null;
+    for (let i = 0; i < 8000; i++) {
+      const t = M.makeTarget(prev);
+      ok(t.A >= M.A_TARGET.min && t.A <= M.A_TARGET.max, `target A reachable (${t.A})`);
+      ok(!(t.A === s0.A && t.C === s0.C), 'target is not the on-screen form');
+      ok(ALL.some((p) => M.calErr(p, t) === 0), `target buildable`);
+      prev = t;
+    }
+  }
+
+  /* === 7. 7.EE.A.2 — REWRITING REVEALS MEANING, held EXACTLY ============== */
+  {
+    // parse a decimal STRING into an integer count of hundredths — NO float.
+    // (Number("1.14")*100 is 113.999…, the very artefact the lab avoids; the
+    // audit must not reintroduce it to check the lab.)
+    const toH = (str) => {
+      const [w, f = ''] = String(str).split('.');
+      return parseInt(w, 10) * 100 + parseInt((f + '00').slice(0, 2), 10);
+    };
+    ok(M.MARKUP_MIN === 1 && M.MARKUP_MAX === 50, 'markup range is 1..50 %');
+    ok(M.STEPS[M.MARKUP_STEP] && M.STEPS[M.MARKUP_STEP].focus === 'markup',
+      'MARKUP_STEP indexes the markup step');
+    ok(M.MARKUP_STEP < M.STEPS.findIndex((s) => s.calib), 'markup comes before the calibration');
+    for (let p = M.MARKUP_MIN; p <= M.MARKUP_MAX; p++) {
+      // the collected multiplier (1 + p/100) as an exact reduced fraction
+      const cf = M.markupCoef(p);
+      // exact: cf.n / cf.d must equal (100+p)/100, checked in BigInt (no float)
+      ok(BigInt(cf.n) * 100n === BigInt(100 + p) * BigInt(cf.d),
+        `markupCoef(${p}) = (100+p)/100 exactly (got ${cf.n}/${cf.d})`);
+      // fully reduced
+      const g = (a, b) => (b ? g(b, a % b) : a);
+      ok(g(cf.n, cf.d) === 1, `markupCoef(${p}) is reduced`);
+      // the decimal string is built from digits and equals the true value
+      const dec = M.markupDecimal(p);
+      ok(toH(dec) === 100 + p, `markupDecimal(${p})="${dec}" is exactly 1+p/100 (in hundredths)`);
+      ok(!/e|\.\d{3,}/.test(dec) && dec.startsWith('1.'), `markupDecimal(${p}) is a clean decimal`);
+      // the percent term coefficient 0.0p
+      ok(toH(M.pctCoef(p)) === p, `pctCoef(${p}) is exactly p/100 (in hundredths)`);
+      // the CORE IDENTITY, in hundredths: 100% + p% = (100+p)% — the like terms combine
+      ok(100 + toH(M.pctCoef(p)) === toH(dec), `a + ${M.pctCoef(p)}a = ${dec}a (the like-terms combine)`);
+    }
+    // the famous case, exactly
+    ok(M.markupDecimal(5) === '1.05' && M.pctCoef(5) === '0.05', '5% → 0.05a, 1.05a');
+    ok(M.markupDecimal(20) === '1.2' && M.markupDecimal(25) === '1.25', 'trailing-zero trim: 1.2, 1.25');
+    // the step's answer key
+    const ms = M.STEPS[M.MARKUP_STEP];
+    ok(ms.choices[ms.answer] === '1.05a', "the markup step's answer is 1.05a");
+    // NO FLOAT ARTEFACT: the naive route (1 + p/100 via float) can round; ours does not
+    ok(M.markupDecimal(5) === '1.05', 'no 1.0500000001 — the string is built from digits');
+  }
+
+  /* === 8. the lesson still has one calib, and the markup step is new ===== */
+  ok(M.STEPS.filter((s) => s.calib).length === 1, 'exactly one calibration step');
+  ok(M.STEPS.length === 9, 'nine steps (eight, plus the 7.EE.A.2 markup step)');
+
+  return { checks, failures };
 }
 
-/* ---- 6. makeTarget: reachable, non-trivial, re-rollable ---------------- */
-{
-  const s0 = collected(START);
-  const makeTarget = (prev) => {
-    let t;
-    let guard = 0;
-    do {
-      t = {
-        A: A_TARGET.min + Math.floor(Math.random() * (A_TARGET.max - A_TARGET.min + 1)),
-        C: C_TARGET.min + Math.floor(Math.random() * (C_TARGET.max - C_TARGET.min + 1)),
-      };
-      guard++;
-    } while (((t.A === s0.A && t.C === s0.C) || (prev && t.A === prev.A && t.C === prev.C)) && guard < 999);
-    return t;
-  };
-  let prev = null;
-  const seen = new Set();
-  for (let i = 0; i < 20000; i++) {
-    const t = makeTarget(prev);
-    ok(t.A >= A_TARGET.min && t.A <= A_TARGET.max, `target A reachable (${t.A})`);
-    ok(t.C >= C_TARGET.min && t.C <= C_TARGET.max, `target C reachable (${t.C})`);
-    ok(!(t.A === s0.A && t.C === s0.C), 'target is never the form already on screen (5x + 5)');
-    if (prev) ok(!(t.A === prev.A && t.C === prev.C), 'target never repeats the previous');
-    ok(ALL.some((p) => calErr(p, t) === 0), `target ${simplifiedString(t.A, t.C)} is buildable`);
-    seen.add(`${t.A}|${t.C}`);
-    prev = t;
+const MUTANTS = [
+  ['the identity breaks (collect drops d)',
+    'const collected = (p) => ({ A: p.a + p.d, C: p.c + p.e });',
+    'const collected = (p) => ({ A: p.a, C: p.c + p.e });'],
+  ['the stamp goes fuzzy',
+    'const matchPercent = (err) => Math.max(0, Math.min(100, 100 / (1 + err / 0.8)));\nconst MATCH_ERR = 0;',
+    'const matchPercent = (err) => Math.max(0, Math.min(100, 100 / (1 + err / 0.8)));\nconst MATCH_ERR = 1;'],
+  ['markupCoef drops the +p (says every markup is ×1)',
+    'const n = 100 + p, d = 100, g = gcdI(n, d) || 1;',
+    'const n = 100, d = 100, g = gcdI(n, d) || 1;'],
+  ['markupDecimal loses the hundredths (5% prints as 1.5)',
+    'return p % 10 === 0 ? `1.${p / 10}` : `1.${String(p).padStart(2, \'0\')}`;',
+    'return `1.${p}`;'],
+  ['pctCoef drops the leading zero on <10% (5% → 0.5)',
+    'return p % 10 === 0 ? `0.${p / 10}` : `0.${String(p).padStart(2, \'0\')}`;',
+    'return `0.${p}`;'],
+  ['coefficient 1 stops printing as x (shows 1x)',
+    'const coefStr = (k) => (k === 1 ? \'x\' : `${k}x`);',
+    'const coefStr = (k) => `${k}x`;'],
+];
+
+function mutationTest() {
+  const survivors = [];
+  for (const [name, find, replace] of MUTANTS) {
+    if (!MODEL_BODY.includes(find)) { survivors.push(`${name} — STALE ANCHOR`); continue; }
+    let caught = false;
+    try { caught = runSuite(build(MODEL_BODY.replace(find, replace))).failures.length > 0; }
+    catch { caught = true; }
+    if (!caught) survivors.push(name);
   }
-  const total = (A_TARGET.max - A_TARGET.min + 1) * (C_TARGET.max - C_TARGET.min + 1) - 1;
-  console.log(`6. makeTarget ............... 20000 draws all reachable & non-trivial, ${seen.size}/${total} distinct reached`);
+  return survivors;
 }
 
-console.log('\n' + (fail === 0 ? '✓ ALL CHECKS PASSED' : `✗ ${fail} CHECK(S) FAILED`));
-process.exit(fail === 0 ? 0 : 1);
+const M = build(MODEL_BODY);
+const { checks, failures } = runSuite(M);
+console.log('audit-liketerms — LikeTermsLab.jsx  (sliced, not mirrored)');
+console.log('─'.repeat(64));
+console.log(`model sliced from the shipped component: ${MODEL_BODY.split('\n').length} lines`);
+console.log(`checks run: ${checks.toLocaleString()}`);
+console.log(`failures:   ${failures.length}`);
+for (const f of failures.slice(0, 20)) console.log('  ✗ ' + f);
+console.log('─'.repeat(64));
+console.log(`mutation test: ${MUTANTS.length} deliberate defects injected…`);
+const survivors = mutationTest();
+if (survivors.length === 0) console.log(`all ${MUTANTS.length} caught — the suite has teeth.`);
+else { console.log(`${survivors.length} SURVIVED:`); for (const s of survivors) console.log('  ⚠ ' + s); }
+console.log('─'.repeat(64));
+const pass = failures.length === 0 && survivors.length === 0;
+console.log(pass ? 'PASS' : 'FAIL');
+process.exit(pass ? 0 : 1);

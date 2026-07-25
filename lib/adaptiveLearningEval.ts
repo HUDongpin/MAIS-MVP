@@ -9,8 +9,10 @@
  * calibration fail CI.
  */
 import {
+  adaptiveMasteryConfirmationStreak,
   adaptiveMasteryThreshold,
   createInitialAdaptiveSkillState,
+  isMasteryConfirmed,
   updateAdaptiveState
 } from "./adaptiveLearning";
 
@@ -158,10 +160,10 @@ export function runAdaptiveEval(): AdaptiveEvalReport {
   const findings: string[] = [];
   if (streakToMastery !== null && streakToMastery <= 2) {
     findings.push(
-      `Aggressive mastery: ${streakToMastery} consecutive correct answers from the prior cross the ` +
-        `${adaptiveMasteryThreshold} threshold. A low-ability learner who gets a short lucky streak can be ` +
-        `marked mastered. Consider a higher mastery threshold, a longer required streak, or a lower learn rate ` +
-        `(current: prior=0.35, learn=0.12, slip=0.1, guess=0.2). Owner review: A15/A16.`
+      `Raw pMastery is aggressive: ${streakToMastery} consecutive correct answers from the prior cross the ` +
+        `${adaptiveMasteryThreshold} threshold (params prior=0.35, learn=0.12, slip=0.1, guess=0.2 — a lucky ` +
+        `streak alone reaches it). This is why mastery DECLARATION is gated on a confirmation streak, not the ` +
+        `bare crossing: see isMasteryConfirmed and the mastery-confirmation table below. Owner review: A15/A16.`
     );
   }
 
@@ -188,5 +190,173 @@ export function runAdaptiveEval(): AdaptiveEvalReport {
     boundsRespected,
     checks,
     findings
+  };
+}
+
+// ---------------------------------------------------------------------------
+// Mastery-confirmation gate: CI guard on the shipped `isMasteryConfirmed` rule.
+//
+// The rubric above shows a bare pMastery >= 0.85 crossing declares mastery
+// aggressively (2 correct from the prior cross it), and re-tuning the BKT params
+// barely helps — the leak is structural to first-passage on a noisy signal. The
+// engine therefore also requires a confirming correct streak
+// (`adaptiveMasteryConfirmationStreak`). This section measures that exact shipped
+// predicate across streak sizes so the calibration tradeoff is guarded, not
+// assumed. Everything is exact (enumeration over 2^N response sequences weighted
+// by Bernoulli(trueP)) and deterministic, so the paired test asserts it.
+// ---------------------------------------------------------------------------
+
+const MASTERY_HORIZON = 12;
+
+/** pMastery reading after each attempt in `sequence`, through the real engine. */
+export function simulateEnginePMastery(sequence: boolean[]): number[] {
+  let state = createInitialAdaptiveSkillState("mastery-probe", "2026-01-01T00:00:00.000Z");
+  const readings: number[] = [];
+  for (const correct of sequence) {
+    state = updateAdaptiveState({ state, correct, now: "2026-01-01T00:00:00.000Z" });
+    readings.push(state.pMastery);
+  }
+  return readings;
+}
+
+/**
+ * First attempt (1-based) at which the engine's `isMasteryConfirmed` rule fires
+ * for `responses` at a given `minStreak`, or null. minStreak=1 reproduces the
+ * bare-threshold (current) rule, since first-passage always occurs on a streak
+ * of at least 2. Runs the real engine so this is exactly the shipped predicate.
+ */
+export function masteryDeclaredAt(responses: boolean[], minStreak: number): number | null {
+  let state = createInitialAdaptiveSkillState("mastery-probe", "2026-01-01T00:00:00.000Z");
+  for (let i = 0; i < responses.length; i += 1) {
+    state = updateAdaptiveState({ state, correct: responses[i], now: "2026-01-01T00:00:00.000Z" });
+    if (isMasteryConfirmed(state, minStreak)) return i + 1;
+  }
+  return null;
+}
+
+export type MasteryPolicyRow = {
+  trueP: number;
+  /** P(declared mastered within the horizon) keyed by confirmation-streak size. */
+  probByStreak: Record<number, number>;
+};
+
+export type SustainedMasteryReport = {
+  threshold: number;
+  confirmationStreak: number;
+  horizon: number;
+  streaks: number[];
+  rows: MasteryPolicyRow[];
+  /** Expected attempt at which a diligent (p=0.95) learner is declared, per streak. */
+  diligentExpectedStep: Record<number, number | null>;
+  checks: Array<{ id: string; description: string; passed: boolean; detail: string }>;
+  recommendation: string;
+};
+
+// streak 1 == the bare-threshold current rule; 2 is a no-op (see the invariant
+// check); 3 is what ships; 4 is shown to justify not going further.
+const MASTERY_STREAKS = [1, 2, 3, 4];
+const MASTERY_ABILITIES = [0.3, 0.4, 0.5, 0.6, 0.7, 0.85, 0.95];
+
+/**
+ * Measure the shipped `isMasteryConfirmed` gate across confirmation-streak sizes.
+ * Precomputes each of the 2^horizon sequences once (declared-at per streak +
+ * correct count), then weights by Bernoulli(trueP) per ability.
+ */
+export function runSustainedMasteryComparison(): SustainedMasteryReport {
+  const horizon = MASTERY_HORIZON;
+  const precomputed: { declaredAt: Record<number, number | null>; correctCount: number }[] = [];
+  for (let mask = 0; mask < 1 << horizon; mask += 1) {
+    const sequence: boolean[] = [];
+    let correctCount = 0;
+    for (let i = 0; i < horizon; i += 1) {
+      const correct = ((mask >> i) & 1) === 1;
+      sequence.push(correct);
+      if (correct) correctCount += 1;
+    }
+    const declaredAt: Record<number, number | null> = {};
+    for (const s of MASTERY_STREAKS) declaredAt[s] = masteryDeclaredAt(sequence, s);
+    precomputed.push({ declaredAt, correctCount });
+  }
+
+  const weightOf = (trueP: number, correctCount: number) =>
+    trueP ** correctCount * (1 - trueP) ** (horizon - correctCount);
+
+  const rows: MasteryPolicyRow[] = MASTERY_ABILITIES.map((trueP) => {
+    const probByStreak: Record<number, number> = {};
+    for (const s of MASTERY_STREAKS) {
+      let prob = 0;
+      for (const seq of precomputed) if (seq.declaredAt[s] !== null) prob += weightOf(trueP, seq.correctCount);
+      probByStreak[s] = prob;
+    }
+    return { trueP, probByStreak };
+  });
+
+  const diligentExpectedStep: Record<number, number | null> = {};
+  for (const s of MASTERY_STREAKS) {
+    let prob = 0;
+    let weightedStep = 0;
+    for (const seq of precomputed) {
+      const at = seq.declaredAt[s];
+      if (at !== null) {
+        const weight = weightOf(0.95, seq.correctCount);
+        prob += weight;
+        weightedStep += weight * at;
+      }
+    }
+    diligentExpectedStep[s] = prob > 0 ? weightedStep / prob : null;
+  }
+
+  const rowFor = (p: number) => rows.find((r) => r.trueP === p)!;
+  const streak = adaptiveMasteryConfirmationStreak; // 3
+  const current05 = rowFor(0.5).probByStreak[1];
+  const gated05 = rowFor(0.5).probByStreak[streak];
+  const gated085 = rowFor(0.85).probByStreak[streak];
+  const gated095 = rowFor(0.95).probByStreak[streak];
+  const noOpMaxDelta = Math.max(...rows.map((r) => Math.abs(r.probByStreak[2] - r.probByStreak[1])));
+
+  const checks = [
+    {
+      id: "streak2-is-a-noop",
+      description: "A streak-2 gate equals the current rule (proves the gate must be >= 3)",
+      passed: noOpMaxDelta < 1e-9,
+      detail: `max |streak2 - current| across abilities = ${noOpMaxDelta.toExponential(1)}`
+    },
+    {
+      id: "confirmation-streak-cuts-false-mastery",
+      description: `Confirmation streak ${streak} sharply lowers false mastery for a coin-flip non-master (p=0.5)`,
+      passed: gated05 <= current05 - 0.2 && gated05 < 0.65,
+      detail: `p=0.5: current=${(current05 * 100).toFixed(1)}% -> streak-${streak}=${(gated05 * 100).toFixed(1)}%`
+    },
+    {
+      id: "confirmation-streak-keeps-true-mastery",
+      description: `Confirmation streak ${streak} still recognizes genuine masters (p>=0.85) within the horizon`,
+      passed: gated085 >= 0.99 && gated095 >= 0.999,
+      detail: `p=0.85=${(gated085 * 100).toFixed(1)}%, p=0.95=${(gated095 * 100).toFixed(1)}%`
+    },
+    {
+      id: "confirmation-streak-modest-time-cost",
+      description: `Confirmation streak ${streak} adds only a modest delay for a diligent learner (p=0.95)`,
+      passed: (diligentExpectedStep[streak] ?? Infinity) <= 6,
+      detail: `E[step|mastered] current=${diligentExpectedStep[1]?.toFixed(1)} -> streak-${streak}=${diligentExpectedStep[streak]?.toFixed(1)}`
+    }
+  ];
+
+  const recommendation =
+    `Shipped gate: isMasteryConfirmed = pMastery >= ${adaptiveMasteryThreshold} AND correctStreak >= ${streak}. ` +
+    `In this i.i.d. rubric it lowers coin-flip false mastery from ${(current05 * 100).toFixed(0)}% to ` +
+    `${(gated05 * 100).toFixed(0)}% within ${horizon} attempts while keeping true masters (p>=0.85) at ` +
+    `>=${(gated085 * 100).toFixed(0)}% and adding only ~${((diligentExpectedStep[streak] ?? 0) - (diligentExpectedStep[1] ?? 0)).toFixed(1)} ` +
+    `attempts of delay for a diligent learner. The generative-BKT validation (~3x fewer premature declarations, ` +
+    `genuine-master detection intact) is in the session notes.`;
+
+  return {
+    threshold: adaptiveMasteryThreshold,
+    confirmationStreak: streak,
+    horizon,
+    streaks: MASTERY_STREAKS,
+    rows,
+    diligentExpectedStep,
+    checks,
+    recommendation
   };
 }

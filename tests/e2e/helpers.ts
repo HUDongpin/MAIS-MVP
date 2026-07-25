@@ -126,6 +126,21 @@ export async function selectGrade(page: Page, grade: string) {
   await gradeButton.click();
 }
 
+// Practice Arena hides the Grade/Difficulty/Topic/Question-type selects behind a
+// collapsed "Filters" toggle. Open it before interacting with those comboboxes.
+export async function openPracticeFiltersPanel(page: Page) {
+  const toggle = page.getByRole("button", { name: /^Filters$/i });
+  try {
+    // The toggle only mounts once free selection resolves, which can lag networkidle.
+    await toggle.waitFor({ state: "visible", timeout: 5000 });
+  } catch {
+    return; // Adaptive mode, or free selection is not unlocked yet: nothing to open.
+  }
+  if ((await toggle.getAttribute("aria-expanded")) === "true") return;
+  await toggle.click();
+  await expect(toggle).toHaveAttribute("aria-expanded", "true");
+}
+
 export function registrationRoleRadio(page: Page, role: "parent" | "student" | "teacher") {
   return page.getByRole("radio", { name: new RegExp(`^\\s*(?:✓\\s*)?${role}`, "i") }).first();
 }

@@ -1,11 +1,14 @@
 import { randomUUID } from "node:crypto";
 
+import { buildClassroomLiveRoster, defaultRosterWindowMinutes } from "@/lib/classroomLiveRoster";
 import type {
   AttendanceStatus,
   BuzzerRound,
+  ClassroomLiveRoster,
   ClassroomLiveSession,
   ClassroomWorkSample,
   GradeId,
+  LearningAnalyticsEvent,
   LocalizedText,
   MathWorkbenchState,
   TeacherClass,
@@ -434,9 +437,21 @@ export type TeacherOpsLiveSessionToolStateRecord = {
   [key: string]: unknown;
 };
 
+export type TeacherOpsLiveSessionLearningEventRecord = {
+  id: string;
+  user_id: string;
+  type: LearningAnalyticsEvent["type"];
+  source: LearningAnalyticsEvent["source"];
+  topic_id: string;
+  question_id?: string;
+  duration_seconds?: number;
+  created_at: string;
+};
+
 export type TeacherOpsLiveSessionPersistenceDatabase = {
   class_enrollments: TeacherOpsLiveSessionEnrollmentRecord[];
   classroom_work_samples: TeacherOpsLiveSessionClassroomWorkSampleRecord[];
+  learning_events?: TeacherOpsLiveSessionLearningEventRecord[];
   lessons: TeacherOpsLiveSessionLessonRecord[];
   school_memberships?: TeacherOpsLiveSessionSchoolMembershipRecord[];
   student_profiles?: TeacherOpsLiveSessionStudentProfileRecord[];
@@ -485,6 +500,14 @@ export type TeacherOpsLiveSessionPersistenceStoreDependencies = {
   ) => Promise<Result>;
   now?: () => Date;
   readDatabase: () => Promise<TeacherOpsLiveSessionPersistenceDatabase>;
+  // On the Postgres hot path the freshest learning events live in the rows
+  // table, not the app-state snapshot readDatabase() returns. The live roster
+  // overlays these so it stays live in production; omitted (or []) is fine on
+  // the cold path where readDatabase() already holds every event.
+  readHotLearningEventsForUsers?: (
+    userIds: string[],
+    sinceIso: string
+  ) => Promise<TeacherOpsLiveSessionLearningEventRecord[]>;
   resolveLiveSessionContext: (
     database: TeacherOpsLiveSessionPersistenceDatabase,
     teacherClass: TeacherOpsLiveSessionClassRecord,
@@ -1366,6 +1389,7 @@ export function createTeacherOpsLiveSessionPersistenceStore({
   normalizeWhiteboardStroke,
   now = () => new Date(),
   readDatabase,
+  readHotLearningEventsForUsers,
   resolveLiveSessionContext,
   studentIdsForClass,
   studentNameForLiveAction,
@@ -1472,6 +1496,58 @@ export function createTeacherOpsLiveSessionPersistenceStore({
         activeSession: sessions.find((session) => session.status === "active") ?? sessions[0] ?? null,
         recentSessions: sessions.slice(0, 6)
       };
+    },
+    async getClassroomLiveRoster(userId: string, classId: string): Promise<ClassroomLiveRoster | null> {
+      const database = await readDatabase();
+      const user = database.users.find((candidate) => candidate.id === userId);
+      if (!canUseTeacherArea(user)) return null;
+
+      const teacherClass = teacherCanAccessClass(database, user, classId);
+      if (!teacherClass) return null;
+
+      const studentIds = studentIdsForClass(database, classId);
+      const studentIdSet = new Set(studentIds);
+      const students = studentIds.map((studentId) => ({
+        studentId,
+        studentName: studentNameForLiveAction(database, studentId)
+      }));
+
+      const nowDate = now();
+      // The builder only cares about the last window; scope the hot-row read to
+      // the same span (with a little slack) so the Postgres query stays small.
+      const sinceIso = new Date(nowDate.getTime() - (defaultRosterWindowMinutes + 5) * 60 * 1000).toISOString();
+      const hotEvents = readHotLearningEventsForUsers
+        ? await readHotLearningEventsForUsers(studentIds, sinceIso)
+        : [];
+
+      // Cold snapshot + hot rows, deduped by id. On the cold path hotEvents is
+      // empty; on the Postgres hot path the snapshot lags, so the hot rows carry
+      // the freshest activity.
+      const mergedById = new Map<string, TeacherOpsLiveSessionLearningEventRecord>();
+      for (const event of database.learning_events ?? []) {
+        if (studentIdSet.has(event.user_id)) mergedById.set(event.id, event);
+      }
+      for (const event of hotEvents) {
+        if (studentIdSet.has(event.user_id)) mergedById.set(event.id, event);
+      }
+
+      const events = [...mergedById.values()].map((event) => ({
+        studentId: event.user_id,
+        type: event.type,
+        source: event.source,
+        topicId: event.topic_id,
+        questionId: event.question_id,
+        durationSeconds: event.duration_seconds,
+        timestamp: event.created_at
+      }));
+
+      return buildClassroomLiveRoster({
+        classId,
+        className: teacherClass.name,
+        students,
+        events,
+        now: nowDate
+      });
     },
     async startTeacherLiveSession({
       teacherId,

@@ -2265,6 +2265,107 @@ export type NovaLensRunResponse = {
   };
 };
 
+// Content-safety flags & alerts: when a minor writes something concerning to the
+// AI Tutor (self-harm, abuse, crisis) or the tutor produces unsafe output, the
+// safety classifier raises a flag that escalates to the student's teacher(s) and
+// to admins. These types are shared across the classifier, persistence layer,
+// API routes, and the Teacher Console alert surfaces.
+export type ContentSafetyCategory =
+  | "self-harm"
+  | "abuse"
+  | "violence"
+  | "sexual"
+  | "harassment";
+
+export type ContentSafetySeverity = "critical" | "high" | "medium";
+
+export type ContentSafetySource = "student-input" | "tutor-output";
+
+export type ContentSafetyFlagStatus = "new" | "acknowledged" | "resolved";
+
+export type ContentSafetyFlag = {
+  id: string;
+  studentId: string;
+  studentName: string;
+  category: ContentSafetyCategory;
+  severity: ContentSafetySeverity;
+  source: ContentSafetySource;
+  status: ContentSafetyFlagStatus;
+  // A short, teacher-facing excerpt of the flagged message so the educator can
+  // judge the situation. Kept intentionally brief; not the full transcript.
+  excerpt: string;
+  matchedTerms: string[];
+  page?: string;
+  topicId?: string;
+  lessonSlug?: string;
+  language: string;
+  // Whether the tutor reply was withheld/redirected to a support message.
+  blockedReply: boolean;
+  createdAt: string;
+  acknowledgedBy?: string;
+  acknowledgedByName?: string;
+  acknowledgedAt?: string;
+  resolvedBy?: string;
+  resolvedByName?: string;
+  resolvedAt?: string;
+  resolutionNote?: string;
+};
+
+export type ContentSafetyAlertCounts = {
+  new: number;
+  acknowledged: number;
+  resolved: number;
+  total: number;
+  // Open = new + acknowledged (anything a teacher has not resolved yet).
+  open: number;
+};
+
+export type ContentSafetyAlertsData = {
+  generatedAt: string;
+  flags: ContentSafetyFlag[];
+  counts: ContentSafetyAlertCounts;
+};
+
+// Per-student accommodations (IEP / Section 504). These attach to the student and
+// follow them across every class and into the learning experience — a legal
+// expectation under IDEA/504 and a daily need for mixed-needs classrooms. Any
+// teacher who owns or co-teaches a class the student is enrolled in can view and
+// update the profile; admins can see all. See lib/accommodations.ts for the pure
+// helpers (defaults, normalization, extended-time multiplier, labels).
+export type AccommodationExtendedTime = "none" | "extra-half" | "double" | "unlimited";
+export type AccommodationCalculatorPolicy = "default" | "allowed" | "not-allowed";
+
+export type StudentAccommodations = {
+  // Extended time on timed work. "none" = standard time; "extra-half" = 1.5x;
+  // "double" = 2x; "unlimited" = no time pressure.
+  extendedTime: AccommodationExtendedTime;
+  // Text-to-speech read-aloud support is offered in the learning experience.
+  readAloud: boolean;
+  // Cap on the number of multiple-choice options shown. 0 = show all options;
+  // otherwise the count (>= 2) the student sees, always keeping the correct one.
+  maxAnswerChoices: number;
+  // Whether a calculator is permitted for this student.
+  calculatorPolicy: AccommodationCalculatorPolicy;
+  // Free-text note for the accommodation (e.g. the plan reference or context).
+  notes: string;
+};
+
+export type StudentAccommodationsProfile = StudentAccommodations & {
+  studentId: string;
+  studentName: string;
+  // True once any non-default accommodation is set — i.e. the student has an
+  // active accommodations plan on record.
+  hasPlan: boolean;
+  updatedAt: string | null;
+  updatedBy: string | null;
+  updatedByName: string | null;
+};
+
+export type StudentAccommodationsProfileResult =
+  | { status: "ok"; profile: StudentAccommodationsProfile }
+  | { status: "forbidden" }
+  | { status: "student-not-found" };
+
 export type LearningAnalyticsSummary = {
   windowDays: number;
   eventCount: number;
@@ -3826,6 +3927,7 @@ export type TeacherDashboardData = {
 export type TeacherNavSignals = {
   pendingGrading: number;
   unrepliedMessages: number;
+  openSafetyAlerts: number;
 };
 
 export type TeacherTopicOption = {
@@ -3958,10 +4060,89 @@ export type TeacherClassStudentSummary = {
   href: string;
 };
 
+export type TeacherStudentGroupTier = "support" | "core" | "stretch" | "custom";
+
+export type TeacherStudentGroupMasteryTarget = {
+  topicId: string;
+  mastery: number;
+  note: string;
+  updatedAt: string;
+};
+
+export type TeacherStudentGroup = {
+  id: string;
+  classId: string;
+  name: string;
+  tier: TeacherStudentGroupTier;
+  color: string;
+  note: string;
+  memberStudentIds: string[];
+  memberNames: string[];
+  studentCount: number;
+  masteryTarget: TeacherStudentGroupMasteryTarget | null;
+  createdAt: string;
+  updatedAt: string;
+};
+
+export type TeacherClassTopicOption = {
+  id: string;
+  title: LocalizedText;
+};
+
+export type LearningPathStepKind = "lesson" | "practice" | "assessment" | "visualization" | "resource";
+
+export type LearningPathStep = {
+  id: string;
+  order: number;
+  kind: LearningPathStepKind;
+  targetId: string;
+  title: string;
+  description: string;
+};
+
+export type TeacherLearningPath = {
+  id: string;
+  classId: string;
+  groupId: string | null;
+  groupName: string | null;
+  title: string;
+  description: string;
+  status: "active" | "archived";
+  steps: LearningPathStep[];
+  assignedStudentIds: string[];
+  assignedCount: number;
+  completedCount: number;
+  averageStepsCompleted: number;
+  createdAt: string;
+  updatedAt: string;
+};
+
+export type StudentLearningPathStepStatus = "locked" | "available" | "completed";
+
+export type StudentLearningPathStep = LearningPathStep & {
+  status: StudentLearningPathStepStatus;
+  href: string | null;
+};
+
+export type StudentLearningPath = {
+  id: string;
+  classId: string;
+  title: string;
+  description: string;
+  steps: StudentLearningPathStep[];
+  completedStepCount: number;
+  totalStepCount: number;
+  currentStepId: string | null;
+  completed: boolean;
+};
+
 export type TeacherClassDetailData = {
   class: TeacherClass;
   students: TeacherClassStudentSummary[];
   assignments: Assignment[];
+  groups: TeacherStudentGroup[];
+  topicOptions: TeacherClassTopicOption[];
+  learningPaths: TeacherLearningPath[];
 };
 
 export type TeacherStudentMasteryTarget = {
@@ -4418,6 +4599,55 @@ export type TeacherLiveData = {
   classes: TeacherClass[];
   activeSession: TeacherLiveSession | null;
   recentSessions: TeacherLiveSession[];
+};
+
+// Live per-student monitoring ("who needs me right now"). Derived from the
+// learning-events students already emit while working, so the roster reflects a
+// self-paced lesson rather than a teacher-led broadcast prompt.
+export type ClassroomLiveStudentState = "stuck" | "idle" | "working" | "done" | "offline";
+
+export type ClassroomLiveAttentionReason =
+  | "repeated-wrong"
+  | "many-hints"
+  | "wrong-answer"
+  | "idle"
+  | "inactive"
+  | "not-started";
+
+export type ClassroomLiveRosterEntry = {
+  studentId: string;
+  studentName: string;
+  state: ClassroomLiveStudentState;
+  needsAttention: boolean;
+  reason: ClassroomLiveAttentionReason | null;
+  lastActiveAt: string | null;
+  secondsSinceActive: number | null;
+  currentTopicId: string | null;
+  currentSource: LearningAnalyticsEventSource | null;
+  lastQuestionId: string | null;
+  lastAnswerCorrect: boolean | null;
+  correctCount: number;
+  wrongCount: number;
+  hintCount: number;
+  consecutiveWrong: number;
+};
+
+export type ClassroomLiveRosterCounts = {
+  total: number;
+  stuck: number;
+  idle: number;
+  working: number;
+  done: number;
+  offline: number;
+};
+
+export type ClassroomLiveRoster = {
+  generatedAt: string;
+  classId: string;
+  className: string;
+  windowMinutes: number;
+  counts: ClassroomLiveRosterCounts;
+  students: ClassroomLiveRosterEntry[];
 };
 
 export type ClassroomLiveSession = {

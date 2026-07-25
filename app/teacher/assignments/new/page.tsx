@@ -13,7 +13,7 @@ function normalizeContentType(value: string | undefined) {
   return assignmentContentTypes.has(value as AssignmentContentType) ? (value as AssignmentContentType) : undefined;
 }
 
-export default async function TeacherAssignmentNewPage({ searchParams }: { searchParams: Promise<{ classId?: string; contentType?: string; targetId?: string; title?: string }> }) {
+export default async function TeacherAssignmentNewPage({ searchParams }: { searchParams: Promise<{ classId?: string; contentType?: string; targetId?: string; title?: string; groupId?: string }> }) {
   const foundation = await getTeacherFoundationForPage();
   const params = await searchParams;
   const [classDetails, resources, assessments] = await Promise.all([
@@ -32,6 +32,7 @@ export default async function TeacherAssignmentNewPage({ searchParams }: { searc
       initialContentType={normalizeContentType(params.contentType)}
       initialTargetId={params.targetId ?? ""}
       initialTitle={params.title?.trim() ?? ""}
+      initialGroupId={params.groupId ?? ""}
     />
   );
 }

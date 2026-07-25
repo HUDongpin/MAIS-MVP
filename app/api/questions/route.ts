@@ -2,7 +2,7 @@ import { NextResponse } from "next/server";
 import { isValidGradeId } from "@/data/grades";
 import { curriculumProfilesEqual, curriculumProfileForTrack, defaultCurriculumProfile, isTextbookPublisher, normalizeCurriculumProfile } from "@/lib/curriculumProfile";
 import { isActiveDifficulty } from "@/lib/difficulty";
-import { getPublicQuestionsFromStore, getQuestionTopicCatalogFromStore } from "@/lib/server/questionStore";
+import { getPublicQuestionsFromStore, getQuestionTopicCatalogFromStore, getReducedChoicePublicQuestionsFromStore } from "@/lib/server/questionStore";
 import { SESSION_COOKIE_NAME } from "@/lib/session";
 import type { CurriculumTrack, Difficulty, GradeId, TextbookPublisher } from "@/types";
 
@@ -44,6 +44,18 @@ async function resolveAuthenticatedUser(request: Request) {
   // authenticated curriculum-scope guard below still sees the real user.
   const { getAuthenticatedUserFromToken } = await import("@/lib/server/auth");
   return getAuthenticatedUserFromToken(token);
+}
+
+// The "reduced answer choices" accommodation cap for a signed-in student (0 for
+// anyone else). Loaded dynamically so anonymous/preview traffic never pulls the
+// userStore into this hot route's static graph.
+async function reducedAnswerChoiceCap(
+  authenticated: Awaited<ReturnType<typeof resolveAuthenticatedUser>>
+): Promise<number> {
+  if (authenticated?.user.role !== "student") return 0;
+  const { getStudentAccommodations } = await import("@/lib/server/userStore");
+  const accommodations = await getStudentAccommodations(authenticated.user.id);
+  return accommodations.maxAnswerChoices;
 }
 
 export async function GET(request: Request) {
@@ -103,7 +115,10 @@ export async function GET(request: Request) {
     return jsonWithApiSurfaceHeaders(await getQuestionTopicCatalogFromStore(questionFilters));
   }
 
-  const questions = await getPublicQuestionsFromStore(questionFilters);
+  const reducedChoiceCap = await reducedAnswerChoiceCap(authenticated);
+  const questions = reducedChoiceCap > 0
+    ? await getReducedChoicePublicQuestionsFromStore(questionFilters, reducedChoiceCap)
+    : await getPublicQuestionsFromStore(questionFilters);
 
   if (!authenticated) {
     const previewQuestions = questions.slice(0, anonymousQuestionPreviewLimit);
