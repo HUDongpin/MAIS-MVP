@@ -110,16 +110,32 @@ out of the shipped component).
 A drift sweep on 2026-07-25 found exactly one bench that had fallen behind:
 `LikeTermsLab` was missing the 137-line `7.EE.A.2` step ("rewriting reveals
 meaning": a + 0.05a = 1.05a) that upstream added on 2026-07-18. Because
-`labs.json` already tagged the bench `7.EE.A.2`, the catalog was claiming a lesson
-the shipped file did not contain. Re-ported. Worth re-running that sweep before
-trusting any upstream CCSS tag:
+`labs.json` already tagged the bench `7.EE.A.2`, the catalog claimed a lesson the
+shipped file did not contain, for a week, until someone happened to look.
+
+That is now automated:
 
 ```sh
-for f in components/visualizations/signature/*.jsx; do
-  u=~/Desktop/"Claude Math Visual"/$(basename "$f")
-  [ -f "$u" ] && [ "$(diff "$f" "$u" | grep -cE '^[<>]')" -gt 1 ] && echo "DRIFT: $f"
-done
+npm run check:port-drift              # report drift
+npm run check:port-drift -- --write   # re-record after a port
 ```
+
+`port-manifest.json` beside the benches records each one's upstream SHA-256 at
+port time, so drift is an exact comparison rather than a diff someone has to
+remember to run. It also catches a ported file edited locally away from its
+recorded hash — which would silently break the contract the audits rely on, since
+they slice their model out of the shipped file.
+
+**It is not a CI gate, and cannot be**: the upstream library lives outside the
+repo, so CI has nothing to compare against — the same constraint that makes the
+CCSS depth gate read a committed snapshot. Run it locally after a port and before
+trusting an upstream CCSS tag. With the library absent it exits 0 with a notice.
+
+Two ports differ from a byte-exact "upstream minus the header": `ShapesLab`
+indents that header by six spaces rather than eight (the check allows any
+indentation), and `QuadraticEquationLab` differs by two blank lines. The check
+reports whitespace-only differences separately from content differences on
+purpose — lumping them together is how a real drift gets lost among shrugs.
 
 ## The "Modeling" chapters
 

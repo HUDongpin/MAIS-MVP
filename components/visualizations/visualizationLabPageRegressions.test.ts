@@ -219,3 +219,15 @@ test("visualization lab renders catalog copy through Simplified Chinese conversi
   assert.match(source, /\{displayCatalogText\(compactTitle\(text\(recommendedLab\.title\)\)\)\}/);
   assert.match(source, /title=\{displayCatalogText\(text\(activeDirectoryLab\.title\)\)\}/);
 });
+
+test("switching to a related bench is reported as navigation telemetry", () => {
+  // 138 of the 192 benches are reachable only through this chip row, so whether
+  // students use it is the difference between "covered" and "met". Before
+  // 2026-07-25 the click emitted nothing and the question was unanswerable.
+  assert.match(source, /onBenchSwitch\?: \(benchId: SignatureLabId\) => void/);
+  assert.match(source, /onBenchSwitch=\{\(benchId\) => recordVisualizationNavigationEvent\("bench-switch", benchId\)\}/);
+  // it rides the existing mouse-click/navigation channel — no schema change
+  assert.match(source, /function recordVisualizationNavigationEvent\(action: string, detail: string\)/);
+  // re-selecting the bench already showing is not a switch and must not report
+  assert.match(source, /if \(benchId === activeBenchId\) return;\s*\n\s*onBenchSwitch\?\.\(benchId\);/);
+});
