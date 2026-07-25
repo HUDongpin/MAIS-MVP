@@ -1,6 +1,6 @@
 # AGENTS.md - MAIS-MVP Parallel Agent Guide
 
-This file is the coordination contract for AI/Codex agent roles and their work sessions in `/Users/dongpinhu/Desktop/MAIS-MVP`.
+This file is the coordination contract for AI agent roles (Codex, Claude, and other tools) and their work sessions in `/Users/dongpinhu/Desktop/MAIS-MVP`.
 
 ## Project Snapshot
 
@@ -17,13 +17,24 @@ This file is the coordination contract for AI/Codex agent roles and their work s
 
 ## Purpose
 
-This project can be managed by up to 25 stable AI agent roles. Each agent may be assigned independent work sessions while the owner is offline or sleeping. The goal is steady project progress without conflicting edits, lost work, or unreviewable changes.
+The goal is steady project progress without conflicting edits, lost work, or unreviewable changes, with many AI sessions able to work in parallel while the owner is offline or sleeping.
+
+## Operating Model — Core Invariant
+
+The unit of coordination is the session slice, not the agent identity:
+
+- **One session = one worktree = one branch = one reviewable slice.** This invariant is the always-enforced contract — `CLAUDE.md` (auto-loaded into every Claude Code session) plus the hard git guardrails — and applies to every session regardless of which role label it carries.
+- The `A01`-`A25` role IDs below are a **routing taxonomy, not a staffing plan**: they provide attribution (session logs, reports), routing vocabulary ("this belongs in A04's lane"), and default scope boundaries for assignments. Most days only a few lanes are active; an unstaffed lane is normal, not a gap.
+- Roles come in two tiers:
+  - **Gate-wired** (operational teeth — referenced by scripts, gates, and standing reports): `A10` coordination/reporting, `A11` QA/regression gates, `A22` release engineering, `A23` candidate-to-live promotion, `A25` git hygiene/release intake.
+  - **Domain lanes** (routing vocabulary): the remaining roles. Sharpen an existing lane before inventing structure; never add `A26+` without owner approval.
+- Ownership is enforced mechanically where it matters: `coordination/release-intake/owner-pathspecs.json` / `owner-package-manifest.json` for release intake, the A25 worktree-lifecycle gate, and the `CLAUDE.md` guardrails. The role table below is advisory routing, not access control.
 
 Every agent/session must:
 
-- Read this file before doing project work.
-- Declare its agent ID, such as `A01`, in its first note or session log.
-- Work only inside its assigned write scope.
+- Read `CLAUDE.md` (auto-loaded) and the relevant sections of this file before doing project work.
+- Declare its agent ID (or the lane it is borrowing), such as `A01`, in its first note or session log.
+- Work only inside its assigned write scope (its session slice).
 - Keep changes small, reviewable, and aligned with the existing project style.
 - Leave a handoff note before stopping.
 - Never revert unrelated user or agent changes.
@@ -39,7 +50,7 @@ Every agent/session must:
 
 - The always-loaded digest of this policy lives in `CLAUDE.md` (auto-injected into every Claude Code session) — when editing this section, keep `CLAUDE.md` in sync. Hard guardrails back it: `.claude/settings.json` denies broad `git add`, and `scripts/claude-root-git-guard.mjs` blocks `git switch`/`checkout`/`stash` in the primary root.
 - Treat `/Users/dongpinhu/Desktop/MAIS-MVP` on `main` as a read-only integration inventory and release-intake area, not as the default feature-development workspace.
-- A01-A25 feature, QA, content, release, or tooling work must happen in an isolated `codex/Axx-short-scope` branch/worktree or an owner-approved clean clone unless the owner explicitly assigns a root-only inventory/reporting task.
+- A01-A25 feature, QA, content, release, or tooling work must happen in an isolated branch/worktree (naming in practice: `feat/*`, `fix/*`, `chore/*`, `docs/*`, session-generated `claude/*`, or legacy `codex/Axx-short-scope`) or an owner-approved clean clone unless the owner explicitly assigns a root-only inventory/reporting task.
 - Before starting an isolated worktree, the agent must confirm the baseline branch/commit, dependency state, and relevant baseline check or documented pre-existing failure.
 - At handoff, the agent must commit only its assigned slice from that worktree. Do not mix unrelated dirty-root inventory files into the slice.
 - Never use `git add .`, `git add -A`, or an equivalent broad wildcard for release packages. Stage only the exact owner-approved pathspecs for the assigned slice.
@@ -80,9 +91,9 @@ These gates are now part of the standing coordination rhythm until the owner exp
 
 ## Agent Role And Session System
 
-Use agent IDs `A01` through `A25` for long-term stable roles. A session is one concrete work run or log entry performed by an agent. A workstream is the agent's responsibility domain.
+Use agent IDs `A01` through `A25` for long-term stable roles. A session is one concrete work run or log entry performed by an agent. A workstream is the agent's responsibility domain. Per the Operating Model above, the table below is the routing registry: it defines default lane boundaries for assignments and attribution; the enforced write boundary of any session is its session slice (worktree/branch plus declared scope).
 
-A session may read any project file needed for context, but it may write only to its assigned agent's allowed files/modules unless the owner explicitly expands its scope. Do not create new permanent `A26+` roles unless the owner explicitly approves a new workstream after A10/A25 confirm that the need cannot be handled by refining an existing agent boundary.
+A session may read any project file needed for context, but it may write only within its declared slice, which defaults to its assigned agent's allowed files/modules unless the owner explicitly expands its scope. Do not create new permanent `A26+` roles unless the owner explicitly approves a new workstream after A10/A25 confirm that the need cannot be handled by refining an existing agent boundary.
 
 Legacy `Sxx` references in older reports, logs, and filenames map one-to-one to the matching `Axx` agent role. Do not rewrite historical artifacts just to rename them; use `Axx` for all new coordination text.
 
@@ -92,7 +103,7 @@ Legacy `Sxx` references in older reports, logs, and filenames map one-to-one to 
 | `A02` | Dashboard lead | Dashboard, progress page, progress cards, analytics display UI | `app/dashboard/page.tsx`, `app/progress/page.tsx`, `components/dashboard/`, `components/cards/`, `data/progress.ts`, `data/learningAnalytics.ts` | `lib/learningAnalytics.ts`, test files, AI route, global config | Available | Log in `coordination/session-logs/YYYY-MM-DD-A02.md` |
 | `A03` | Curriculum roadmap lead | Learning path, secondary roadmap, grade/topic structure | `app/learning-path/`, `app/secondary-roadmap/`, `components/learning/`, `components/visualizations/RoadmapVisualizationSuite.tsx`, `data/grades.ts`, `data/topics.ts` | Practice question bank, AI route, shared provider state, global config | Available | Log in `coordination/session-logs/YYYY-MM-DD-A03.md` |
 | `A04` | Practice lead | Practice Arena, Mistake Book, question data | `app/practice/`, `app/mistake-book/`, `components/practice/`, `data/questions.ts` | Roadmap data, visualization modules, AI route, global config | Available | Log in `coordination/session-logs/YYYY-MM-DD-A04.md` |
-| `A05` | Lesson lead | Lesson pages and future lesson content modules | `app/lesson/`, future `data/lessons.ts`, future `components/lesson/` | Dashboard, practice, visualization lab, AI route, global config | Available | Log in `coordination/session-logs/YYYY-MM-DD-A05.md` |
+| `A05` | Lesson lead | Lesson pages and lesson content modules | `app/lesson/`, `data/lessons.ts`, `components/lesson/` (now a large live tree including `components/lesson/ccss/lessons/` with 270+ CCSS lesson modules) | Dashboard, practice, visualization lab, AI route, global config | Available | Log in `coordination/session-logs/YYYY-MM-DD-A05.md` |
 | `A06` | Visualization lead | Visualization Lab and interactive math modules | `app/visualization-lab/`, `app/student/tools/visualizations/`, visualization lab components in `components/visualizations/` including `VisualizationLabPage.tsx`, `ConfiguredVisualizationLab.tsx`, `CoordinatePlaneDemo.tsx`, `FunctionGraphExplorer.tsx`, `GeometryExplorer.tsx`, `ProbabilitySimulator.tsx`, `VisualizationCard.tsx`, `data/visualizationLabs.ts`, `lib/math.ts` | `RoadmapVisualizationSuite.tsx` unless coordinated with `A03`, AI route, provider state, curriculum/content final signoff without A18 | Available | Log in `coordination/session-logs/YYYY-MM-DD-A06.md` |
 | `A07` | AI tutor lead | Tutor panel, tutor API, LLM provider integration | `components/ai/`, `app/api/ai-tutor/route.ts`, `.env.local.example` | Real `.env*` secret files, visualization logic, analytics test logic, global config unless approved | Available | Log in `coordination/session-logs/YYYY-MM-DD-A07.md` |
 | `A08` | State and analytics lead | Shared provider state, analytics logic, shared types/utilities | `components/providers/AppProviders.tsx`, `lib/learningAnalytics.ts`, `lib/learningAnalytics.test.ts`, `lib/utils.ts`, `types/index.ts` | UI page rewrites outside direct integration needs, AI route, package/config files | Available | Log in `coordination/session-logs/YYYY-MM-DD-A08.md` |
@@ -161,7 +172,8 @@ These files affect many sessions and should be edited by only one assigned sessi
 - `data/questions.ts`
 - `data/topics.ts`
 - `data/grades.ts`
-- future `data/lessons.ts`
+- `data/lessons.ts`
+- `components/lesson/`
 - `data/generated-content/`
 - `data/rag/`
 - `lib/rag/`
@@ -289,7 +301,7 @@ Sessions must stop instead of guessing when they encounter:
 - Mirror the same responsible agent IDs used in the session log in any Codex-visible progress text, especially when the update references a file, smoke test, provider, release gate, or blocker.
 - If two tasks need the same shared file, split the work by time: one session finishes and hands off before the next starts.
 - Dev/preview server isolation (A22-owned, applies to every session): parallel sessions must never run bare `npm run dev`/`next dev`/`next start` against the shared root `.next`. A stray dev server rewrites the shared `.next` into dev format (removes `BUILD_ID`), which breaks other sessions' `next start` with HTTP 400s on hashed chunks and can crash concurrent `tsc` gates with TS6053 while it regenerates `.next/types`. Instead run `npm run dev:isolated` (isolated `NEXT_DIST_DIR` under `.tmp/` + an owned port) or set `NEXT_DIST_DIR=.tmp/<label>` explicitly, and choose a session-owned port. Orphaned `next-server` children survive normal task termination, so clean them by port with `npm run kill-port -- <port>` (or `lsof -ti :<port> | xargs kill -9`), never by a broad process kill.
-- Start non-inventory implementation work in an isolated `codex/Axx-short-scope` branch/worktree. If a task must be done from the dirty root for inventory reasons, state that it is root inventory/reporting work and keep writes inside A10/A25/A22-owned coordination/tooling scope.
+- Start non-inventory implementation work in an isolated branch/worktree (naming per the Root And Worktree Policy). If a task must be done from the dirty root for inventory reasons, state that it is root inventory/reporting work and keep writes inside A10/A25/A22-owned coordination/tooling scope.
 - Prefer additive, local changes over large cross-project rewrites.
 - Do not change public behavior outside the assignment unless needed to fix a bug introduced by the task.
 - Do not touch generated runtime output directories. Candidate generated content under `data/generated-content/`, `coordination/content-qa/`, `public/question-illustrations/`, or local/private `.local/rag/` storage may be handled only inside an owner-assigned A21/content-pipeline scope.
