@@ -216,6 +216,11 @@ import {
   type NovaLensPersistenceDatabase
 } from "@/lib/server/userStore/novaLensPersistence";
 import {
+  createContentSafetyPersistenceStore,
+  normalizeContentSafetyFlagRecords as normalizeContentSafetyFlagRecordsFromPersistence,
+  type ContentSafetyFlagRecord,
+  type ContentSafetyPersistenceDatabase
+} from "@/lib/server/userStore/contentSafetyPersistence";import {
   canUseParentArea as canUseParentAreaFromParentAccess,
   createParentInviteCode as createParentInviteCodeFromParentAccess,
   createParentAccessPersistenceStore,
@@ -592,6 +597,7 @@ import {
 } from "@/lib/teacherReviewLesson";
 import { renderTeacherReviewLessonPptx } from "@/lib/teacherReviewLessonPptx";
 import { questionAnswerMatches } from "@/lib/server/answerGrading";
+import { readLearningEventsFastForUsers } from "@/lib/server/practiceAttemptStore";
 import { getWeComNotificationSummary, sendWeComGroupNotification } from "@/lib/server/wecomNotifications";
 import type {
   AdaptiveLearningCandidate,
@@ -1741,6 +1747,7 @@ type Database = {
   ai_tutor_messages: AITutorMessageRecord[];
   ai_tutor_usage: AITutorUsageRecord[];
   ai_governance_events: AIGovernanceEventRecord[];
+  content_safety_flags: ContentSafetyFlagRecord[];
   class_ai_tutor_policies: ClassAiTutorPolicyRecord[];
   nova_lens_runs: NovaLensRunRecord[];
   nova_lens_policy: NovaLensPolicyRecord;
@@ -2635,6 +2642,7 @@ function createInitialDatabase(): Database {
     ai_tutor_messages: [],
     ai_tutor_usage: [],
     ai_governance_events: [],
+    content_safety_flags: [],
     class_ai_tutor_policies: [],
     nova_lens_runs: [],
     nova_lens_policy: defaultNovaLensPolicyRecordFromNovaLensPersistence(now),
@@ -4304,6 +4312,7 @@ function normalizeDatabase(database: Partial<Database>) {
     ai_tutor_messages: normalizeTutorMessageRecordsFromAiGovernancePersistence(database.ai_tutor_messages),
     ai_tutor_usage: normalizeTutorUsageRecordsFromAiGovernancePersistence(database.ai_tutor_usage),
     ai_governance_events: normalizeAiGovernanceEventRecordsFromPersistence(database.ai_governance_events, now),
+    content_safety_flags: normalizeContentSafetyFlagRecordsFromPersistence(database.content_safety_flags, now),
     class_ai_tutor_policies: normalizeClassAiTutorPolicyRecordsFromAiGovernancePersistence(database.class_ai_tutor_policies, now),
     nova_lens_runs: (database.nova_lens_runs ?? []).map((record) => normalizeNovaLensRunRecordFromNovaLensPersistence(record as NovaLensRunRecord)),
     nova_lens_policy: normalizeNovaLensPolicyRecordFromNovaLensPersistence(database.nova_lens_policy, now),
@@ -4428,6 +4437,7 @@ function databaseNeedsPersistenceSync(parsed: Partial<Database>, database: Datab
     !Array.isArray(parsed.ai_tutor_messages) ||
     !Array.isArray(parsed.ai_tutor_usage) ||
     !Array.isArray(parsed.ai_governance_events) ||
+    (parsed.content_safety_flags !== undefined && !Array.isArray(parsed.content_safety_flags)) ||
     (parsed.class_ai_tutor_policies !== undefined && !Array.isArray(parsed.class_ai_tutor_policies)) ||
     (parsed.student_accommodations !== undefined && !Array.isArray(parsed.student_accommodations)) ||
     !Array.isArray(parsed.nova_lens_runs) ||
@@ -4799,6 +4809,17 @@ const novaLensPersistenceStore = createNovaLensPersistenceStore({
     return result as T;
   },
   canViewRun: (database, viewer, run) => canViewNovaLensRunFromNovaLensPersistence(database, viewer, run)
+});
+
+const contentSafetyPersistenceStore = createContentSafetyPersistenceStore({
+  readDatabase: async () => {
+    const database = await readDatabase();
+    return database as ContentSafetyPersistenceDatabase;
+  },
+  mutateDatabase: async <T>(mutator: (database: ContentSafetyPersistenceDatabase) => T | Promise<T>) => {
+    const result = await mutateDatabase((database) => mutator(database));
+    return result as T;
+  }
 });
 
 const aiGovernanceUserStore = createAiGovernanceUserStore({
@@ -5950,6 +5971,9 @@ const teacherOpsLiveSessionPersistenceStore = createTeacherOpsLiveSessionPersist
     const database = await readDatabase();
     return database as TeacherOpsLiveSessionPersistenceDatabase;
   },
+  // No-ops to [] off the Postgres hot path; on it, carries the freshest
+  // learning-event rows so the live roster does not lag the app-state snapshot.
+  readHotLearningEventsForUsers: readLearningEventsFastForUsers,
   normalizeWhiteboardStroke: normalizeWhiteboardStrokeFromTeacherOpsLiveSession,
   resolveLiveSessionContext: (database, teacherClass, topicId) => {
     const curriculumProfile = curriculumProfileForClass(database as Database, teacherClass as TeacherClassRecord);
@@ -7502,6 +7526,7 @@ function emptyTeacherDashboardDatabase(overrides: Partial<Database>): Database {
     ai_tutor_messages: [],
     ai_tutor_usage: [],
     ai_governance_events: [],
+    content_safety_flags: [],
     class_ai_tutor_policies: [],
     nova_lens_runs: [],
     nova_lens_policy: defaultNovaLensPolicyRecordFromNovaLensPersistence(),
@@ -8682,6 +8707,8 @@ export const createStudentMessageThread = studentActivityUserStore.createStudent
 export const replyToStudentMessageThread = studentActivityUserStore.replyToStudentMessageThread;
 
 export const getTeacherLiveData = teacherOpsUserStore.getTeacherLiveData;
+
+export const getClassroomLiveRoster = teacherOpsUserStore.getClassroomLiveRoster;
 
 export const startTeacherLiveSession = teacherOpsUserStore.startTeacherLiveSession;
 
@@ -9873,7 +9900,7 @@ export const refreshAdaptiveLearningRecommendation = studentActivityUserStore.re
 
 export type AdaptiveUniverseSnapshot = {
   topics: Array<{ id: string; grade: GradeId }>;
-  states: Array<{ skillId: string; pMastery: number; attemptCount: number; nextReviewAt: string | null }>;
+  states: Array<{ skillId: string; pMastery: number; attemptCount: number; correctStreak: number; nextReviewAt: string | null }>;
   generatedAt: string;
 };
 
@@ -9898,6 +9925,7 @@ export async function getAdaptiveUniverseSnapshot({
       skillId: state.skillId,
       pMastery: state.pMastery,
       attemptCount: state.attemptCount,
+      correctStreak: state.correctStreak,
       nextReviewAt: state.nextReviewAt
     }));
   return { topics, states, generatedAt: new Date().toISOString() };
@@ -9912,7 +9940,7 @@ export type TeacherClassSkyMaterials = {
   /** Anonymous per-student state lists — aggregated before leaving the API layer. */
   students: Array<{
     grade: GradeId;
-    states: Array<{ skillId: string; pMastery: number; attemptCount: number; nextReviewAt: string | null }>;
+    states: Array<{ skillId: string; pMastery: number; attemptCount: number; correctStreak: number; nextReviewAt: string | null }>;
   }>;
   generatedAt: string;
 };
@@ -9948,6 +9976,7 @@ export async function getTeacherClassSkyMaterials({
         skillId: state.skillId,
         pMastery: state.pMastery,
         attemptCount: state.attemptCount,
+        correctStreak: state.correctStreak,
         nextReviewAt: state.nextReviewAt
       }))
   }));
@@ -10147,6 +10176,12 @@ export const listNovaLensPolicyEventsForAdmin = aiGovernanceUserStore.listNovaLe
 export const updateNovaLensPolicy = aiGovernanceUserStore.updateNovaLensPolicy;
 export const recordNovaLensRun = aiGovernanceUserStore.recordNovaLensRun;
 export const listNovaLensRunsForUser = aiGovernanceUserStore.listNovaLensRunsForUser;
+
+export const recordContentSafetyFlag = contentSafetyPersistenceStore.recordContentSafetyFlag;
+export const listContentSafetyAlertsForViewer = contentSafetyPersistenceStore.listContentSafetyAlertsForViewer;
+export const countOpenContentSafetyAlertsForViewer = contentSafetyPersistenceStore.countOpenContentSafetyAlertsForViewer;
+export const updateContentSafetyFlagStatus = contentSafetyPersistenceStore.updateContentSafetyFlagStatus;
+
 
 export type {
   AITutorDataScope,

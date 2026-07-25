@@ -63,6 +63,28 @@ test("exposes star-flight anchors and a pulse state on region pins and chips", (
   ok(shellSource.includes("motion-safe:animate-pulse"), "The pulse must respect reduced-motion preferences");
 });
 
+test("renders island regions as quest cards instead of the flat chip pills", () => {
+  ok(shellSource.includes('className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3"'), "Regions must lay out as a responsive quest-card grid");
+  ok(shellSource.includes("data-island-region-quest-tone={tone}"), "Cards must expose their derived quest tone for tests and styling");
+  ok(shellSource.includes("Island quests"), "The quest-card section needs a heading");
+  ok(!shellSource.includes('"focus-ring flex min-h-11 items-center gap-2 rounded-full border border-sky-100 bg-white px-4 py-2 shadow-sm transition hover:-translate-y-0.5"'), "The old region chip pill styling must be gone");
+});
+
+test("derives quest status from island data rather than hardcoded labels", () => {
+  ok(shellSource.includes("function resolveRegionQuestTone"), "Quest tone must be derived in one place");
+  ok(shellSource.includes("if (status.locked) return \"locked\";"), "A locked region must read as locked");
+  ok(shellSource.includes("if (status.stars >= practiceIslandMaxStarsPerRegion) return \"complete\";"), "Three stars must read as complete");
+  ok(shellSource.includes("if (status.region.kind === \"adaptive\") return \"recommended\";"), "The AI-picked region carries the single recommended highlight");
+  ok(shellSource.includes("if (status.stars > 0) return \"progress\";"), "Partial stars must read as in progress");
+});
+
+test("quest cards keep the star economy and stay clickable into practice", () => {
+  ok(shellSource.includes("<RegionStars stars={status.stars} starClassName=\"size-4\" />"), "Cards must show the real earned stars");
+  ok(shellSource.includes("practiceIslandMaxStarsPerRegion) * 100"), "The card progress bar must be driven by earned stars");
+  ok(shellSource.includes("onClick={() => onRegionSelect(status.region.id)}"), "Cards must start the region's practice round");
+  ok(shellSource.includes("regionQuestActionLabel"), "Cards need a status-aware call to action");
+});
+
 test("surfaces both practice games on the map with locked and unlocked states", () => {
   ok(shellSource.includes("studentPracticeGameHrefs.adventureIsland"), "Adventure Island marker must link to the real game route");
   ok(shellSource.includes("studentPracticeGameHrefs.fishingMaster"), "Fishing Master marker must link to the real game route");

@@ -6,7 +6,7 @@ import { useCallback, useEffect, useMemo, useRef, useState, type CSSProperties, 
 import { createPortal } from "react-dom";
 import { getMainlandHjbTransitDetails, isMainlandHjbRoadmapProfile, mainlandHjbMapDistrictLabels } from "@/data/mainlandHjbRoadmapPresentation";
 import { getMainlandPepTransitDetails, isMainlandPepRoadmapProfile, mainlandPepMapDistrictLabels, type MainlandPepMapDistrictLabel } from "@/data/mainlandPepRoadmapPresentation";
-import { topics as fallbackTopics } from "@/data/topics";
+import { topicsMetadata as fallbackTopics } from "@/data/topicsMetadata";
 import {
   busColors,
   fallbackTransitDetails,
