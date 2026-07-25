@@ -112,6 +112,59 @@ function RegionStars({ stars, starClassName = "size-4" }: { stars: number; starC
   );
 }
 
+const regionQuestIconPaths: Record<PracticeIslandRegionId, string> = {
+  "algebra-peaks": "m3 19 5.5-9 3.5 5.5L15.5 9l5.5 10H3Z",
+  "geometry-garden": "M12 4 21 20H3L12 4Z",
+  "number-forest": "M4 4h7v7H4V4Zm9 0h7v7h-7V4ZM4 13h7v7H4v-7Zm9 0h7v7h-7v-7Z",
+  "question-cavern": "m12 3 2.2 5.3L20 10.5l-5.8 2.2L12 18l-2.2-5.3L4 10.5l5.8-2.2L12 3Z",
+  "masters-keep": "m4 9 3 2.5L12 5l5 6.5L20 9v10H4V9Z",
+  "challenge-shore": "M6 3v18M6 4h11l-2.5 4L17 12H6"
+};
+
+function RegionQuestIcon({ regionId, className = "size-5" }: { regionId: PracticeIslandRegionId; className?: string }) {
+  return (
+    <svg aria-hidden="true" viewBox="0 0 24 24" className={className} fill="none">
+      <path
+        d={regionQuestIconPaths[regionId]}
+        stroke="currentColor"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeWidth="2"
+      />
+    </svg>
+  );
+}
+
+// Quest status is derived from data the island already tracks: the review region
+// locks until enough stars are banked, a full three stars means the region is
+// cleared, and the adaptive region is the AI-picked mission, so it carries the
+// single "recommended" highlight rather than an arbitrary card being featured.
+type RegionQuestTone = "locked" | "complete" | "recommended" | "progress" | "ready";
+
+function resolveRegionQuestTone(status: PracticeIslandRegionStatus): RegionQuestTone {
+  if (status.locked) return "locked";
+  if (status.stars >= practiceIslandMaxStarsPerRegion) return "complete";
+  if (status.region.kind === "adaptive") return "recommended";
+  if (status.stars > 0) return "progress";
+  return "ready";
+}
+
+function regionQuestBadgeLabel(t: PracticeAdventureArenaShellProps["t"], tone: RegionQuestTone) {
+  if (tone === "locked") return t({ en: "Locked", zh: "未解鎖", zhHans: "未解锁" });
+  if (tone === "complete") return t({ en: "Complete", zh: "已完成", zhHans: "已完成" });
+  if (tone === "recommended") return t({ en: "Recommended", zh: "推薦", zhHans: "推荐" });
+  if (tone === "progress") return t({ en: "In progress", zh: "進行中", zhHans: "进行中" });
+  return t({ en: "Ready", zh: "待挑戰", zhHans: "待挑战" });
+}
+
+function regionQuestActionLabel(t: PracticeAdventureArenaShellProps["t"], tone: RegionQuestTone) {
+  if (tone === "locked") return t({ en: "How to unlock", zh: "如何解鎖", zhHans: "如何解锁" });
+  if (tone === "complete") return t({ en: "Replay", zh: "再玩一次", zhHans: "再玩一次" });
+  if (tone === "recommended") return t({ en: "Play next", zh: "開始下一關", zhHans: "开始下一关" });
+  if (tone === "progress") return t({ en: "Resume", zh: "繼續", zhHans: "继续" });
+  return t({ en: "Play", zh: "開始", zhHans: "开始" });
+}
+
 function regionButtonLabel(t: PracticeAdventureArenaShellProps["t"], status: PracticeIslandRegionStatus) {
   const starText = t({
     en: `${status.stars} of ${practiceIslandMaxStarsPerRegion} stars`,
@@ -248,26 +301,107 @@ export function PracticeAdventureArenaShell({
       </div>
 
       <div className="mt-4 rounded-[16px] border border-white/70 bg-white/85 p-3 shadow-[0_14px_30px_rgba(15,23,42,0.10)] backdrop-blur sm:p-4">
-        <div role="group" aria-label={t({ en: "Island regions", zh: "島嶼區域", zhHans: "岛屿区域" })} className="flex flex-wrap items-center gap-2">
-          {regions.map((status) => (
-            <button
-              key={status.region.id}
-              type="button"
-              data-island-region-chip={status.region.id}
-              onClick={() => onRegionSelect(status.region.id)}
-              aria-label={regionButtonLabel(t, status)}
-              title={t(status.region.subtitle)}
-              className={cn(
-                "focus-ring flex min-h-11 items-center gap-2 rounded-full border border-sky-100 bg-white px-4 py-2 shadow-sm transition hover:-translate-y-0.5",
-                status.locked ? "opacity-75" : null,
-                pulseRegionId === status.region.id ? regionPulseClassName : null
-              )}
-            >
-              {status.locked ? <LockIcon className="size-4 text-slate-500" /> : null}
-              <span className="text-sm font-black text-blue-950">{t(status.region.label)}</span>
-              <RegionStars stars={status.stars} starClassName="size-3.5" />
-            </button>
-          ))}
+        <div className="mb-3 flex items-baseline justify-between gap-3 px-1">
+          <h2 className="text-base font-black text-blue-950 sm:text-lg">
+            {t({ en: "Island quests", zh: "島嶼任務", zhHans: "岛屿任务" })}
+          </h2>
+          <span className="text-xs font-black uppercase tracking-wider text-slate-500">
+            {t({
+              en: `${progressValue} of ${safeProgressTotal} stars`,
+              zh: `已獲 ${progressValue}/${safeProgressTotal} 星`,
+              zhHans: `已获 ${progressValue}/${safeProgressTotal} 星`
+            })}
+          </span>
+        </div>
+        <div
+          role="group"
+          aria-label={t({ en: "Island regions", zh: "島嶼區域", zhHans: "岛屿区域" })}
+          className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3"
+        >
+          {regions.map((status) => {
+            const tone = resolveRegionQuestTone(status);
+            const starPercent = Math.round((Math.min(status.stars, practiceIslandMaxStarsPerRegion) / practiceIslandMaxStarsPerRegion) * 100);
+            return (
+              <button
+                key={status.region.id}
+                type="button"
+                data-island-region-chip={status.region.id}
+                data-island-region-quest-tone={tone}
+                onClick={() => onRegionSelect(status.region.id)}
+                aria-label={regionButtonLabel(t, status)}
+                title={t(status.region.subtitle)}
+                className={cn(
+                  "focus-ring group flex flex-col gap-3 rounded-2xl border bg-white p-4 text-left shadow-[0_1px_2px_rgba(15,23,42,0.06),0_10px_24px_-18px_rgba(15,23,42,0.55)] transition hover:-translate-y-0.5 hover:shadow-[0_1px_2px_rgba(15,23,42,0.06),0_16px_30px_-18px_rgba(15,23,42,0.6)]",
+                  tone === "recommended" ? "border-amber-300 ring-1 ring-amber-300" : "border-sky-100",
+                  status.locked ? "opacity-75" : null,
+                  pulseRegionId === status.region.id ? regionPulseClassName : null
+                )}
+              >
+                <span className="flex items-center justify-between gap-2">
+                  <span
+                    className={cn(
+                      "grid size-10 shrink-0 place-items-center rounded-xl border",
+                      tone === "recommended"
+                        ? "border-amber-200 bg-amber-50 text-amber-600"
+                        : tone === "complete"
+                          ? "border-emerald-200 bg-emerald-50 text-emerald-600"
+                          : "border-sky-100 bg-sky-50 text-blue-600"
+                    )}
+                  >
+                    {status.locked ? <LockIcon className="size-5 text-slate-500" /> : <RegionQuestIcon regionId={status.region.id} />}
+                  </span>
+                  <span
+                    className={cn(
+                      "inline-flex items-center gap-1 rounded-full px-2.5 py-1 text-[0.68rem] font-black uppercase tracking-wide",
+                      tone === "recommended"
+                        ? "bg-amber-100 text-amber-800"
+                        : tone === "complete"
+                          ? "bg-emerald-100 text-emerald-700"
+                          : tone === "progress"
+                            ? "bg-blue-100 text-blue-700"
+                            : "bg-slate-100 text-slate-600"
+                    )}
+                  >
+                    {tone === "recommended" ? <StarIcon className="size-3" /> : null}
+                    {regionQuestBadgeLabel(t, tone)}
+                  </span>
+                </span>
+                <span className="block">
+                  <span className="block text-[0.95rem] font-black leading-snug text-blue-950">{t(status.region.label)}</span>
+                  <span className="mt-1 block text-xs font-bold leading-5 text-slate-500">{t(status.region.subtitle)}</span>
+                </span>
+                <span className="block h-2 w-full overflow-hidden rounded-full bg-slate-100">
+                  <span
+                    className={cn(
+                      "block h-full rounded-full transition-[width] duration-500",
+                      tone === "complete" ? "bg-emerald-500" : "bg-amber-400"
+                    )}
+                    style={{ width: `${starPercent}%` }}
+                  />
+                </span>
+                <span className="flex items-center justify-between gap-2">
+                  <RegionStars stars={status.stars} starClassName="size-4" />
+                  <span
+                    className={cn(
+                      "inline-flex items-center gap-1.5 rounded-xl px-3 py-2 text-xs font-black transition",
+                      tone === "recommended"
+                        ? "bg-amber-400 text-amber-950 group-hover:bg-amber-300"
+                        : tone === "locked"
+                          ? "bg-slate-100 text-slate-600"
+                          : tone === "complete"
+                            ? "bg-slate-100 text-slate-700 group-hover:bg-slate-200"
+                            : "bg-blue-600 text-white group-hover:bg-blue-500"
+                    )}
+                  >
+                    {regionQuestActionLabel(t, tone)}
+                    {tone === "locked" ? null : <PlayIcon className="size-3.5" />}
+                  </span>
+                </span>
+              </button>
+            );
+          })}
+        </div>
+        <div className="mt-3 flex flex-wrap items-center gap-2">
           {islandGameMarkers.map((marker) => {
             const unlocked = games[marker.unlockedKey];
             return unlocked ? (
