@@ -235,6 +235,14 @@ const SignatureLabRoutes = {
       ]).then(([adapter, lab]) => createRuntimeReadyLabComponent(adapter.createSignatureLab(lab.default))),
     { loading: () => <LabRuntimeLoading /> }
   ),
+  ClosureLab: dynamic<LabComponentProps>(
+    () =>
+      Promise.all([
+        import("@/components/visualizations/SignatureLabAdapter"),
+        import("@/components/visualizations/signature/ClosureLab")
+      ]).then(([adapter, lab]) => createRuntimeReadyLabComponent(adapter.createSignatureLab(lab.default))),
+    { loading: () => <LabRuntimeLoading /> }
+  ),
   CommutativeLab: dynamic<LabComponentProps>(
     () =>
       Promise.all([
@@ -267,6 +275,14 @@ const SignatureLabRoutes = {
       ]).then(([adapter, lab]) => createRuntimeReadyLabComponent(adapter.createSignatureLab(lab.default))),
     { loading: () => <LabRuntimeLoading /> }
   ),
+  ComplexArithmeticLab: dynamic<LabComponentProps>(
+    () =>
+      Promise.all([
+        import("@/components/visualizations/SignatureLabAdapter"),
+        import("@/components/visualizations/signature/ComplexArithmeticLab")
+      ]).then(([adapter, lab]) => createRuntimeReadyLabComponent(adapter.createSignatureLab(lab.default))),
+    { loading: () => <LabRuntimeLoading /> }
+  ),
   ComplexPlaneLab: dynamic<LabComponentProps>(
     () =>
       Promise.all([
@@ -280,6 +296,14 @@ const SignatureLabRoutes = {
       Promise.all([
         import("@/components/visualizations/SignatureLabAdapter"),
         import("@/components/visualizations/signature/ComposingShapesLab")
+      ]).then(([adapter, lab]) => createRuntimeReadyLabComponent(adapter.createSignatureLab(lab.default))),
+    { loading: () => <LabRuntimeLoading /> }
+  ),
+  CompositionLab: dynamic<LabComponentProps>(
+    () =>
+      Promise.all([
+        import("@/components/visualizations/SignatureLabAdapter"),
+        import("@/components/visualizations/signature/CompositionLab")
       ]).then(([adapter, lab]) => createRuntimeReadyLabComponent(adapter.createSignatureLab(lab.default))),
     { loading: () => <LabRuntimeLoading /> }
   ),
@@ -304,6 +328,14 @@ const SignatureLabRoutes = {
       Promise.all([
         import("@/components/visualizations/SignatureLabAdapter"),
         import("@/components/visualizations/signature/CongruenceLab")
+      ]).then(([adapter, lab]) => createRuntimeReadyLabComponent(adapter.createSignatureLab(lab.default))),
+    { loading: () => <LabRuntimeLoading /> }
+  ),
+  CoordinateMethodsLab: dynamic<LabComponentProps>(
+    () =>
+      Promise.all([
+        import("@/components/visualizations/SignatureLabAdapter"),
+        import("@/components/visualizations/signature/CoordinateMethodsLab")
       ]).then(([adapter, lab]) => createRuntimeReadyLabComponent(adapter.createSignatureLab(lab.default))),
     { loading: () => <LabRuntimeLoading /> }
   ),
@@ -475,6 +507,14 @@ const SignatureLabRoutes = {
       ]).then(([adapter, lab]) => createRuntimeReadyLabComponent(adapter.createSignatureLab(lab.default))),
     { loading: () => <LabRuntimeLoading /> }
   ),
+  EliminationLab: dynamic<LabComponentProps>(
+    () =>
+      Promise.all([
+        import("@/components/visualizations/SignatureLabAdapter"),
+        import("@/components/visualizations/signature/EliminationLab")
+      ]).then(([adapter, lab]) => createRuntimeReadyLabComponent(adapter.createSignatureLab(lab.default))),
+    { loading: () => <LabRuntimeLoading /> }
+  ),
   EquationLab: dynamic<LabComponentProps>(
     () =>
       Promise.all([
@@ -616,6 +656,14 @@ const SignatureLabRoutes = {
       Promise.all([
         import("@/components/visualizations/SignatureLabAdapter"),
         import("@/components/visualizations/signature/FunctionLab")
+      ]).then(([adapter, lab]) => createRuntimeReadyLabComponent(adapter.createSignatureLab(lab.default))),
+    { loading: () => <LabRuntimeLoading /> }
+  ),
+  GeometricModelingLab: dynamic<LabComponentProps>(
+    () =>
+      Promise.all([
+        import("@/components/visualizations/SignatureLabAdapter"),
+        import("@/components/visualizations/signature/GeometricModelingLab")
       ]).then(([adapter, lab]) => createRuntimeReadyLabComponent(adapter.createSignatureLab(lab.default))),
     { loading: () => <LabRuntimeLoading /> }
   ),
@@ -984,6 +1032,14 @@ const SignatureLabRoutes = {
       Promise.all([
         import("@/components/visualizations/SignatureLabAdapter"),
         import("@/components/visualizations/signature/PiecewiseLab")
+      ]).then(([adapter, lab]) => createRuntimeReadyLabComponent(adapter.createSignatureLab(lab.default))),
+    { loading: () => <LabRuntimeLoading /> }
+  ),
+  PlaceJumpLab: dynamic<LabComponentProps>(
+    () =>
+      Promise.all([
+        import("@/components/visualizations/SignatureLabAdapter"),
+        import("@/components/visualizations/signature/PlaceJumpLab")
       ]).then(([adapter, lab]) => createRuntimeReadyLabComponent(adapter.createSignatureLab(lab.default))),
     { loading: () => <LabRuntimeLoading /> }
   ),
@@ -1363,6 +1419,14 @@ const SignatureLabRoutes = {
       ]).then(([adapter, lab]) => createRuntimeReadyLabComponent(adapter.createSignatureLab(lab.default))),
     { loading: () => <LabRuntimeLoading /> }
   ),
+  StoryProblemLab: dynamic<LabComponentProps>(
+    () =>
+      Promise.all([
+        import("@/components/visualizations/SignatureLabAdapter"),
+        import("@/components/visualizations/signature/StoryProblemLab")
+      ]).then(([adapter, lab]) => createRuntimeReadyLabComponent(adapter.createSignatureLab(lab.default))),
+    { loading: () => <LabRuntimeLoading /> }
+  ),
   SubstitutionLab: dynamic<LabComponentProps>(
     () =>
       Promise.all([
@@ -1645,13 +1709,32 @@ function SignatureBenchSwitcher({
   lab,
   topicId,
   labId,
-  onRuntimeReady
+  onRuntimeReady,
+  onBenchSwitch
 }: {
   assignment: NonNullable<ReturnType<typeof getSignatureLabAssignment>>;
   lab: FeaturedLabDefinition;
   topicId: string;
   labId?: string;
   onRuntimeReady?: (labId: string) => void;
+  /**
+   * Fired when the student switches to a DIFFERENT bench. Until 2026-07-25 this
+   * chip row emitted nothing, so there was no way to tell whether students ever
+   * used it — which matters because 138 of the 192 benches are reachable only
+   * here, behind a click, rather than as a topic's `primary`. Re-selecting the
+   * bench already showing is not a switch and is not reported.
+   *
+   * READ THIS BEFORE ANALYSING VISUALIZATION-PROBE COUNTS. Switching remounts
+   * the bench (the `key` below), and `SignatureLabAdapter` emits a
+   * `visualization-probe` from a mount effect. That probe carries the TOPIC's
+   * id, not the bench's — so on a fan-out topic every switch adds a probe that
+   * is indistinguishable from opening the lab fresh, and probe counts per topic
+   * over-state opens. The probe is left alone deliberately: dashboards already
+   * aggregate on it and its shape is load-bearing. Use the `bench-switch`
+   * navigation events emitted here to subtract switches from probe counts —
+   * one is emitted immediately before each remount.
+   */
+  onBenchSwitch?: (benchId: SignatureLabId) => void;
 }) {
   const benchIds = useMemo<SignatureLabId[]>(
     () => [assignment.primary, ...(assignment.related ?? [])],
@@ -1678,7 +1761,11 @@ function SignatureBenchSwitcher({
                 type="button"
                 role="tab"
                 aria-selected={isActive}
-                onClick={() => setActiveBenchId(benchId)}
+                onClick={() => {
+                  if (benchId === activeBenchId) return;
+                  onBenchSwitch?.(benchId);
+                  setActiveBenchId(benchId);
+                }}
                 className={`rounded-full border px-3.5 py-1.5 text-xs font-black transition ${
                   isActive
                     ? "border-cyan-500 bg-cyan-500 text-white shadow"
@@ -3483,6 +3570,7 @@ function VisualizationLabPageContent({
                       topicId={activeDirectoryLab.topicId}
                       labId={activeDirectoryLab.labId}
                       onRuntimeReady={handleActiveLabRuntimeReady}
+                      onBenchSwitch={(benchId) => recordVisualizationNavigationEvent("bench-switch", benchId)}
                     />
                   ) : (
                     <ActiveDirectoryLabComponent
