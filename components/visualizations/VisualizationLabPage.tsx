@@ -235,6 +235,14 @@ const SignatureLabRoutes = {
       ]).then(([adapter, lab]) => createRuntimeReadyLabComponent(adapter.createSignatureLab(lab.default))),
     { loading: () => <LabRuntimeLoading /> }
   ),
+  ClosureLab: dynamic<LabComponentProps>(
+    () =>
+      Promise.all([
+        import("@/components/visualizations/SignatureLabAdapter"),
+        import("@/components/visualizations/signature/ClosureLab")
+      ]).then(([adapter, lab]) => createRuntimeReadyLabComponent(adapter.createSignatureLab(lab.default))),
+    { loading: () => <LabRuntimeLoading /> }
+  ),
   CommutativeLab: dynamic<LabComponentProps>(
     () =>
       Promise.all([
@@ -267,6 +275,14 @@ const SignatureLabRoutes = {
       ]).then(([adapter, lab]) => createRuntimeReadyLabComponent(adapter.createSignatureLab(lab.default))),
     { loading: () => <LabRuntimeLoading /> }
   ),
+  ComplexArithmeticLab: dynamic<LabComponentProps>(
+    () =>
+      Promise.all([
+        import("@/components/visualizations/SignatureLabAdapter"),
+        import("@/components/visualizations/signature/ComplexArithmeticLab")
+      ]).then(([adapter, lab]) => createRuntimeReadyLabComponent(adapter.createSignatureLab(lab.default))),
+    { loading: () => <LabRuntimeLoading /> }
+  ),
   ComplexPlaneLab: dynamic<LabComponentProps>(
     () =>
       Promise.all([
@@ -280,6 +296,14 @@ const SignatureLabRoutes = {
       Promise.all([
         import("@/components/visualizations/SignatureLabAdapter"),
         import("@/components/visualizations/signature/ComposingShapesLab")
+      ]).then(([adapter, lab]) => createRuntimeReadyLabComponent(adapter.createSignatureLab(lab.default))),
+    { loading: () => <LabRuntimeLoading /> }
+  ),
+  CompositionLab: dynamic<LabComponentProps>(
+    () =>
+      Promise.all([
+        import("@/components/visualizations/SignatureLabAdapter"),
+        import("@/components/visualizations/signature/CompositionLab")
       ]).then(([adapter, lab]) => createRuntimeReadyLabComponent(adapter.createSignatureLab(lab.default))),
     { loading: () => <LabRuntimeLoading /> }
   ),
@@ -304,6 +328,14 @@ const SignatureLabRoutes = {
       Promise.all([
         import("@/components/visualizations/SignatureLabAdapter"),
         import("@/components/visualizations/signature/CongruenceLab")
+      ]).then(([adapter, lab]) => createRuntimeReadyLabComponent(adapter.createSignatureLab(lab.default))),
+    { loading: () => <LabRuntimeLoading /> }
+  ),
+  CoordinateMethodsLab: dynamic<LabComponentProps>(
+    () =>
+      Promise.all([
+        import("@/components/visualizations/SignatureLabAdapter"),
+        import("@/components/visualizations/signature/CoordinateMethodsLab")
       ]).then(([adapter, lab]) => createRuntimeReadyLabComponent(adapter.createSignatureLab(lab.default))),
     { loading: () => <LabRuntimeLoading /> }
   ),
@@ -475,6 +507,14 @@ const SignatureLabRoutes = {
       ]).then(([adapter, lab]) => createRuntimeReadyLabComponent(adapter.createSignatureLab(lab.default))),
     { loading: () => <LabRuntimeLoading /> }
   ),
+  EliminationLab: dynamic<LabComponentProps>(
+    () =>
+      Promise.all([
+        import("@/components/visualizations/SignatureLabAdapter"),
+        import("@/components/visualizations/signature/EliminationLab")
+      ]).then(([adapter, lab]) => createRuntimeReadyLabComponent(adapter.createSignatureLab(lab.default))),
+    { loading: () => <LabRuntimeLoading /> }
+  ),
   EquationLab: dynamic<LabComponentProps>(
     () =>
       Promise.all([
@@ -616,6 +656,14 @@ const SignatureLabRoutes = {
       Promise.all([
         import("@/components/visualizations/SignatureLabAdapter"),
         import("@/components/visualizations/signature/FunctionLab")
+      ]).then(([adapter, lab]) => createRuntimeReadyLabComponent(adapter.createSignatureLab(lab.default))),
+    { loading: () => <LabRuntimeLoading /> }
+  ),
+  GeometricModelingLab: dynamic<LabComponentProps>(
+    () =>
+      Promise.all([
+        import("@/components/visualizations/SignatureLabAdapter"),
+        import("@/components/visualizations/signature/GeometricModelingLab")
       ]).then(([adapter, lab]) => createRuntimeReadyLabComponent(adapter.createSignatureLab(lab.default))),
     { loading: () => <LabRuntimeLoading /> }
   ),
@@ -984,6 +1032,14 @@ const SignatureLabRoutes = {
       Promise.all([
         import("@/components/visualizations/SignatureLabAdapter"),
         import("@/components/visualizations/signature/PiecewiseLab")
+      ]).then(([adapter, lab]) => createRuntimeReadyLabComponent(adapter.createSignatureLab(lab.default))),
+    { loading: () => <LabRuntimeLoading /> }
+  ),
+  PlaceJumpLab: dynamic<LabComponentProps>(
+    () =>
+      Promise.all([
+        import("@/components/visualizations/SignatureLabAdapter"),
+        import("@/components/visualizations/signature/PlaceJumpLab")
       ]).then(([adapter, lab]) => createRuntimeReadyLabComponent(adapter.createSignatureLab(lab.default))),
     { loading: () => <LabRuntimeLoading /> }
   ),
@@ -1360,6 +1416,14 @@ const SignatureLabRoutes = {
       Promise.all([
         import("@/components/visualizations/SignatureLabAdapter"),
         import("@/components/visualizations/signature/StatisticalQuestionLab")
+      ]).then(([adapter, lab]) => createRuntimeReadyLabComponent(adapter.createSignatureLab(lab.default))),
+    { loading: () => <LabRuntimeLoading /> }
+  ),
+  StoryProblemLab: dynamic<LabComponentProps>(
+    () =>
+      Promise.all([
+        import("@/components/visualizations/SignatureLabAdapter"),
+        import("@/components/visualizations/signature/StoryProblemLab")
       ]).then(([adapter, lab]) => createRuntimeReadyLabComponent(adapter.createSignatureLab(lab.default))),
     { loading: () => <LabRuntimeLoading /> }
   ),

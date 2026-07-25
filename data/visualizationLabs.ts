@@ -1950,6 +1950,74 @@ const californiaChapterDomainOverrides: Partial<Record<string, string>> = {
   "us-ca-math-s6-chapter-05": "Modeling"
 };
 
+/**
+ * Cross-domain standards a California chapter genuinely carries on top of its
+ * primary domain.
+ *
+ * The domain fallback in `californiaAlignmentForTopic` gives every chapter its
+ * own domain and nothing else, so a standard whose CCSS domain has no chapter of
+ * its own is invisible to the catalog even when a ported bench teaches it. The
+ * 2026-07-25 depth audit found 33 such standards: benches existed, sometimes
+ * already rendering, but no lab alignment named the standard.
+ *
+ * The rule for adding a line here is strict, because a standard listed without a
+ * visual behind it is exactly the "coverage on paper" this table exists to undo:
+ * **every standard below is taught by a bench attached to that same chapter in
+ * `data/signatureLabAssignments.ts`.** Standards in these domains that no bench
+ * teaches (G-GPE.4/.6/.7, A-REI.1/.5/.10, G-GMD.2, N-Q.2/.3, N-RN.3, N-VM.4/.5,
+ * the rest of N-CN) are deliberately absent — they are build work, not tagging.
+ */
+const californiaChapterSupplementalStandards: Partial<Record<string, string[]>> = {
+  // 8-A.1 Linear Equations and Systems Readiness — irrationals are the readiness
+  // prerequisite for radicals; 8.NS has no chapter of its own in the CA catalog.
+  "us-ca-math-s2-chapter-01": ["8.NS.A.1", "8.NS.A.2"], // RationalNumbersLab, IrrationalLab
+  // 9-A.1 Equations from Context — creating a constraint and solving it are the
+  // same lesson; A-REI has no chapter of its own.
+  "us-ca-math-s3-chapter-01": ["A-REI.1", "A-REI.3", "A-REI.5", "A-REI.6", "A-REI.10", "A-REI.12"], // EquationLab, InequalityLab, SystemsOfEquationsLab, SubstitutionLab, TwoVariableInequalityLab
+  // G-GPE.6/.7 added 2026-07-25 with the MAIS-authored CoordinateMethodsLab.
+  // The chapter already carried G-GPE.1/.2/.3/.5 from the conic benches; these
+  // two are what coordinates let you COMPUTE, and no ported bench taught them.
+  "us-ca-math-s3-chapter-04": ["G-GPE.6", "G-GPE.7"], // CoordinateMethodsLab
+  // 9-B.1 Function Notation and Interpretation — "where f(x) = g(x)" is read off
+  // the graph, so it belongs with function interpretation.
+  "us-ca-math-s3-chapter-02": ["A-REI.11"], // AbsoluteValueLab
+  // 10-C.1 Circle Geometry — G-GMD.1 is literally the circumference/area/volume
+  // argument, and the solids follow from circle area.
+  // G-MG.1/.2/.3 added 2026-07-25 with the MAIS-authored GeometricModelingLab:
+  // modelling an object as a solid, density, and a least-metal design are the
+  // natural next questions once the solids' own measures are in hand, and G-MG
+  // had no chapter anywhere in the CA catalog.
+  "us-ca-math-s4-chapter-03": ["G-GMD.1", "G-GMD.3", "G-GMD.4", "G-MG.1", "G-MG.2", "G-MG.3"], // PyramidLab, SphereLab, CrossSectionLab, RevolutionLab, GeometricModelingLab
+  // 10-D.1 Quadratic Structure — solving the quadratic and the linear-quadratic
+  // system are this chapter's work, not a separate A-REI chapter's.
+  "us-ca-math-s4-chapter-04": ["A-REI.4", "A-REI.7"], // QuadraticEquationLab, LineParabolaLab
+  // 11-B.1 Exponential and Logarithmic Models — rational exponents underpin the
+  // exponential function; radical equations are where extraneous roots appear.
+  "us-ca-math-s5-chapter-02": ["N-RN.1", "N-RN.2", "N-RN.3", "A-REI.2"], // RationalExponentLab, ExtraneousLab, ClosureLab
+  // 12-A.1 Quantities, Units, and Precision — vector and matrix quantities sit in
+  // the same CCSS category (Number & Quantity) as N-Q, and the matrix form of a
+  // linear system is taught on the same bench.
+  "us-ca-math-s6-chapter-01": [
+    "N-VM.1",
+    "N-VM.2",
+    "N-VM.3",
+    "N-VM.4",
+    "N-VM.5",
+    "N-VM.6",
+    "N-VM.7",
+    "N-VM.8",
+    "N-VM.9",
+    "N-VM.10",
+    "N-VM.11",
+    "N-VM.12",
+    "A-REI.8",
+    "A-REI.9"
+  ], // VectorLab, MatrixLab
+  // 12-B.1 Polynomial Structure and Behavior — complex roots are polynomial
+  // behaviour; the plane is the prerequisite the bench builds first.
+  "us-ca-math-s6-chapter-02": ["N-CN.1", "N-CN.2", "N-CN.3", "N-CN.4", "N-CN.5", "N-CN.6", "N-CN.7", "N-CN.9"] // ComplexPlaneLab, ComplexArithmeticLab
+};
+
 function isCaliforniaTopic(topic: Topic) {
   return topic.curriculumTrack === "US_CA_MATH" || topic.publisher === "US_CA_MATH" || topic.id.startsWith("us-ca-math-");
 }
@@ -2058,7 +2126,27 @@ function californiaAlignmentForTopic(topic: Topic, templateId: VisualizationTemp
     cluster?.domainId ??
     californiaFallbackDomainCode(topic, templateId);
   const domain = californiaDomainAlignments[domainCode] ?? californiaDomainAlignments.Modeling;
-  const standardIds = explicitStandardIds.length > 0 ? explicitStandardIds : (cluster?.standardIds ?? domain.standardIds);
+  // A chapter description that only names its strand ("...Chapter 4 strand for
+  // Modeling...") scrapes to the bare "Modeling" token. That must not outrank the
+  // chapter's declared domain: it is how "9-D.1 Coordinate Geometry Methods"
+  // (G-GPE) and "12-A.1 Quantities, Units, and Precision" (N-Q) came to claim a
+  // single "Modeling" pseudo-standard and none of their own CCSS standards.
+  // A chapter whose declared domain really is Modeling keeps the scraped value.
+  const scrapedOnlyModeling = explicitStandardIds.length === 1 && explicitStandardIds[0] === "Modeling";
+  const chapterOutranksModelingScrape = scrapedOnlyModeling && domainCode !== "Modeling";
+  const resolvedStandardIds =
+    explicitStandardIds.length > 0 && !chapterOutranksModelingScrape
+      ? explicitStandardIds
+      : (cluster?.standardIds ?? domain.standardIds);
+  const standardIds = [
+    ...new Set([
+      ...resolvedStandardIds,
+      // The scraped "Modeling" tag is kept alongside the domain it no longer
+      // replaces, so the modeling benches that join on it stay attached.
+      ...(chapterOutranksModelingScrape ? explicitStandardIds : []),
+      ...(californiaChapterSupplementalStandards[topic.id] ?? [])
+    ])
+  ];
 
   return {
     curriculumTrack: "US_CA_MATH",
