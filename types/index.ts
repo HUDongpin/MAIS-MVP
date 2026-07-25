@@ -2247,6 +2247,107 @@ export type NovaLensRunResponse = {
   };
 };
 
+// Content-safety flags & alerts: when a minor writes something concerning to the
+// AI Tutor (self-harm, abuse, crisis) or the tutor produces unsafe output, the
+// safety classifier raises a flag that escalates to the student's teacher(s) and
+// to admins. These types are shared across the classifier, persistence layer,
+// API routes, and the Teacher Console alert surfaces.
+export type ContentSafetyCategory =
+  | "self-harm"
+  | "abuse"
+  | "violence"
+  | "sexual"
+  | "harassment";
+
+export type ContentSafetySeverity = "critical" | "high" | "medium";
+
+export type ContentSafetySource = "student-input" | "tutor-output";
+
+export type ContentSafetyFlagStatus = "new" | "acknowledged" | "resolved";
+
+export type ContentSafetyFlag = {
+  id: string;
+  studentId: string;
+  studentName: string;
+  category: ContentSafetyCategory;
+  severity: ContentSafetySeverity;
+  source: ContentSafetySource;
+  status: ContentSafetyFlagStatus;
+  // A short, teacher-facing excerpt of the flagged message so the educator can
+  // judge the situation. Kept intentionally brief; not the full transcript.
+  excerpt: string;
+  matchedTerms: string[];
+  page?: string;
+  topicId?: string;
+  lessonSlug?: string;
+  language: string;
+  // Whether the tutor reply was withheld/redirected to a support message.
+  blockedReply: boolean;
+  createdAt: string;
+  acknowledgedBy?: string;
+  acknowledgedByName?: string;
+  acknowledgedAt?: string;
+  resolvedBy?: string;
+  resolvedByName?: string;
+  resolvedAt?: string;
+  resolutionNote?: string;
+};
+
+export type ContentSafetyAlertCounts = {
+  new: number;
+  acknowledged: number;
+  resolved: number;
+  total: number;
+  // Open = new + acknowledged (anything a teacher has not resolved yet).
+  open: number;
+};
+
+export type ContentSafetyAlertsData = {
+  generatedAt: string;
+  flags: ContentSafetyFlag[];
+  counts: ContentSafetyAlertCounts;
+};
+
+// Per-student accommodations (IEP / Section 504). These attach to the student and
+// follow them across every class and into the learning experience — a legal
+// expectation under IDEA/504 and a daily need for mixed-needs classrooms. Any
+// teacher who owns or co-teaches a class the student is enrolled in can view and
+// update the profile; admins can see all. See lib/accommodations.ts for the pure
+// helpers (defaults, normalization, extended-time multiplier, labels).
+export type AccommodationExtendedTime = "none" | "extra-half" | "double" | "unlimited";
+export type AccommodationCalculatorPolicy = "default" | "allowed" | "not-allowed";
+
+export type StudentAccommodations = {
+  // Extended time on timed work. "none" = standard time; "extra-half" = 1.5x;
+  // "double" = 2x; "unlimited" = no time pressure.
+  extendedTime: AccommodationExtendedTime;
+  // Text-to-speech read-aloud support is offered in the learning experience.
+  readAloud: boolean;
+  // Cap on the number of multiple-choice options shown. 0 = show all options;
+  // otherwise the count (>= 2) the student sees, always keeping the correct one.
+  maxAnswerChoices: number;
+  // Whether a calculator is permitted for this student.
+  calculatorPolicy: AccommodationCalculatorPolicy;
+  // Free-text note for the accommodation (e.g. the plan reference or context).
+  notes: string;
+};
+
+export type StudentAccommodationsProfile = StudentAccommodations & {
+  studentId: string;
+  studentName: string;
+  // True once any non-default accommodation is set — i.e. the student has an
+  // active accommodations plan on record.
+  hasPlan: boolean;
+  updatedAt: string | null;
+  updatedBy: string | null;
+  updatedByName: string | null;
+};
+
+export type StudentAccommodationsProfileResult =
+  | { status: "ok"; profile: StudentAccommodationsProfile }
+  | { status: "forbidden" }
+  | { status: "student-not-found" };
+
 export type LearningAnalyticsSummary = {
   windowDays: number;
   eventCount: number;
@@ -3808,6 +3909,7 @@ export type TeacherDashboardData = {
 export type TeacherNavSignals = {
   pendingGrading: number;
   unrepliedMessages: number;
+  openSafetyAlerts: number;
 };
 
 export type TeacherTopicOption = {
