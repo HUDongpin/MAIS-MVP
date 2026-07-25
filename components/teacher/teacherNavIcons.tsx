@@ -12,7 +12,8 @@ export type TeacherNavIconName =
   | "analytics"
   | "rewards"
   | "reports"
-  | "operations";
+  | "operations"
+  | "safety";
 
 const iconPaths: Record<TeacherNavIconName, ReactNode> = {
   overview: (
@@ -100,6 +101,13 @@ const iconPaths: Record<TeacherNavIconName, ReactNode> = {
       <path d="M12 20.5h8V9.5h-8" />
       <path d="M3 20.5h18" />
       <path d="M7.5 9h1M7.5 13h1M15.5 13h1M15.5 16.5h1" />
+    </>
+  ),
+  safety: (
+    <>
+      <path d="M12 3 5 6v5.5c0 4.5 3 7.7 7 9 4-1.3 7-4.5 7-9V6z" />
+      <path d="M12 8.5v4" />
+      <path d="M12 15.5h.01" />
     </>
   )
 };

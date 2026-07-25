@@ -6,6 +6,7 @@ import {
   ccssStandardsByClusterId
 } from "@/data/ccssStandards";
 import type { CcssArmId, CcssCluster, CcssGradeBand, CcssRoad } from "@/data/ccssStandards";
+import { isMasteryConfirmed } from "@/lib/adaptiveLearning";
 import type { GradeId } from "@/types";
 
 /**
@@ -15,12 +16,13 @@ import type { GradeId } from "@/types";
  * same inputs always render the same sky.
  */
 
-export type UniverseStarStatus = "lit" | "fading" | "unstable" | "current" | "igniting" | "charted" | "sealed";
+export type UniverseStarStatus = "lit" | "fading" | "unstable" | "current" | "confirming" | "igniting" | "charted" | "sealed";
 
 export type UniverseSkillStateInput = {
   skillId: string;
   pMastery: number;
   attemptCount: number;
+  correctStreak: number;
   nextReviewAt: string | null;
 };
 
@@ -32,6 +34,7 @@ export type UniverseTopicInput = {
 export type UniverseClusterProgress = {
   skillTotal: number;
   skillLit: number;
+  skillConfirming: number;
   skillIgniting: number;
   skillFading: number;
   skillUnstable: number;
@@ -169,7 +172,7 @@ export function buildClusterProgress({
   const ensure = (clusterId: string) => {
     let progress = progressByClusterId.get(clusterId);
     if (!progress) {
-      progress = { skillTotal: 0, skillLit: 0, skillIgniting: 0, skillFading: 0, skillUnstable: 0, hasCurrent: false };
+      progress = { skillTotal: 0, skillLit: 0, skillConfirming: 0, skillIgniting: 0, skillFading: 0, skillUnstable: 0, hasCurrent: false };
       progressByClusterId.set(clusterId, progress);
     }
     return progress;
@@ -184,10 +187,15 @@ export function buildClusterProgress({
     const clusterId = clusterIdByTopicId.get(skillTopicId(state.skillId));
     if (!clusterId) continue;
     const progress = ensure(clusterId);
-    const lit = state.pMastery >= universeMasteryLitThreshold;
-    if (lit) {
+    // "Lit" (mastered, and counted toward illumination) matches the engine's mastery
+    // gate: pMastery over threshold AND a confirming correct streak. A skill over the
+    // probability bar but not yet streak-confirmed is "confirming" — bright, almost
+    // there, but NOT counted as mastered. See isMasteryConfirmed.
+    if (isMasteryConfirmed(state)) {
       progress.skillLit += 1;
       if (isDue(state.nextReviewAt, nowDate)) progress.skillFading += 1;
+    } else if (state.pMastery >= universeMasteryLitThreshold) {
+      progress.skillConfirming += 1;
     } else if (state.attemptCount > 0 && state.pMastery < universeMasteryUnstableThreshold) {
       progress.skillUnstable += 1;
     } else if (state.attemptCount > 0) {
@@ -232,6 +240,17 @@ function starStatusesForCluster(
       } else {
         statuses[statuses.length - 1] = "current";
       }
+    }
+    // "Confirming" stars sit just past lit/current: over the probability bar but not
+    // yet streak-confirmed, so they read as "almost mastered" rather than counted.
+    const confirmingCount = progress.skillTotal
+      ? Math.min(
+          Math.max(0, statuses.length - cursor),
+          Math.ceil((progress.skillConfirming / progress.skillTotal) * cluster.standardCount)
+        )
+      : 0;
+    for (let i = 0; i < confirmingCount && cursor < statuses.length; i += 1, cursor += 1) {
+      statuses[cursor] = "confirming";
     }
     const ignitingCount = progress.skillTotal
       ? Math.min(

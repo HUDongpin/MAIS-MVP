@@ -1,13 +1,14 @@
 import { classifyPracticeIslandTopic, practiceIslandRegions } from "@/data/practiceIslandRegions";
 import type { PracticeIslandDomainRegionId } from "@/data/practiceIslandRegions";
 import { californiaKnowledgePointForTopic } from "@/data/usCaliforniaKnowledgePoints";
+import { adaptiveMasteryThreshold, isMasteryConfirmed } from "./adaptiveLearning";
 import type {
   AdaptiveLearningDecision,
   AdaptiveSkillSummary,
   LocalizedText
 } from "@/types";
 
-export type GalaxyStarStatus = "current" | "fading" | "unstable" | "lit" | "igniting" | "undiscovered";
+export type GalaxyStarStatus = "current" | "fading" | "unstable" | "lit" | "confirming" | "igniting" | "undiscovered";
 
 export type GalaxyStarStage = "foundation" | "fluency" | "transfer";
 
@@ -69,6 +70,7 @@ export const galaxyStarStatusLabels: Record<GalaxyStarStatus, LocalizedText> = {
   fading: { en: "Fading · review due", zh: "轉暗 · 待複習", zhHans: "转暗 · 待复习" },
   unstable: { en: "Unstable · repair", zh: "不穩定 · 待修補", zhHans: "不稳定 · 待修补" },
   lit: { en: "Lit · mastered", zh: "點亮 · 已掌握", zhHans: "点亮 · 已掌握" },
+  confirming: { en: "Confirming · almost mastered", zh: "鞏固中 · 即將掌握", zhHans: "巩固中 · 即将掌握" },
   igniting: { en: "Igniting · in progress", zh: "點燃中 · 進行中", zhHans: "点燃中 · 进行中" },
   undiscovered: { en: "Undiscovered", zh: "未探索", zhHans: "未探索" }
 };
@@ -127,7 +129,13 @@ export function galaxyStarStatusFor(
   if (currentSkillId && summary.skill.id === currentSkillId) return "current";
   if (dueReviewIds.has(summary.skill.id)) return "fading";
   if (summary.state.attemptCount === 0) return "undiscovered";
-  if (summary.state.pMastery >= 0.85) return "lit";
+  // "Mastered" (lit, and counted toward illumination) matches the engine's mastery
+  // gate: pMastery over threshold AND a confirming correct streak. A skill that has
+  // crossed the probability bar but not yet confirmed is "confirming" — bright and
+  // almost there, but not counted as mastered, so the illumination total never claims
+  // mastery the practice loop is still working on. See isMasteryConfirmed.
+  if (isMasteryConfirmed(summary.state)) return "lit";
+  if (summary.state.pMastery >= adaptiveMasteryThreshold) return "confirming";
   if (summary.state.pMastery < 0.55 || summary.state.wrongStreak >= 2) return "unstable";
   return "igniting";
 }
