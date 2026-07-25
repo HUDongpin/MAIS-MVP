@@ -13,9 +13,10 @@ others' in-progress work.
   feature work here, create/enter a git worktree and do the work there.
   Convention: sibling dirs `../MAIS-<scope>-wt` with `node_modules` symlinked
   from the root.
-- Never run `git switch`, `git checkout`, or `git stash` in the primary root —
-  it moves HEAD/stash state under every other live session. Use `git restore`
-  for files; use a worktree for branches.
+- Never run `git switch`, `git checkout`, `git stash`, `git rebase`, or
+  `git reset --hard` in the primary root — it moves HEAD/stash/file state
+  under every other live session. Use `git restore` for files; use a
+  worktree for branches.
 - Never `git add -A` / `git add .` anywhere. Inspect `git status`, stage only
   files/hunks you authored this session (shared hotspots where foreign edits
   land: `lib/server/userStore.ts`, `types/index.ts`, `data/ccssStandards.ts`).
@@ -29,6 +30,6 @@ others' in-progress work.
 
 Hard guardrails back the two most dangerous rules: `.claude/settings.json`
 denies `git add -A`/`git add .`, and `scripts/claude-root-git-guard.mjs`
-blocks switch/checkout/stash when run from the primary root.
+blocks switch/checkout/stash/rebase/hard-reset when run from the primary root.
 
 Full agent role/ownership system: `AGENTS.md`. Production deploys: `RELEASE.md`.

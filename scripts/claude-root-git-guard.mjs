@@ -76,6 +76,16 @@ process.stdin.on("end", () => {
       re: /(^|[;&|`(])\s*(?:command\s+|env\s+)?git\s+stash\b(?!\s+(?:list|show)\b)/m,
       why: "stashes other sessions' uncommitted work along with yours",
     },
+    {
+      re: /(^|[;&|`(])\s*(?:command\s+|env\s+)?git\s+rebase\b/m,
+      why: "rewrites the branch every concurrent session sharing this checkout sits on",
+    },
+    // Plain `git reset` / `git reset <paths>` (unstaging) stays allowed; only
+    // the working-tree-destroying modes are blocked.
+    {
+      re: /(^|[;&|`(])\s*(?:command\s+|env\s+)?git\s+reset\s+(?:--hard|--merge|--keep)\b/m,
+      why: "overwrites working-tree files that belong to other concurrent sessions",
+    },
   ];
   for (const { re, why } of rules) {
     if (re.test(command)) {
