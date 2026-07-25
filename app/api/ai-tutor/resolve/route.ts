@@ -31,8 +31,15 @@ import {
   resolveStudentAiTutorPolicy,
   recordAiGovernanceEvent,
   recordAITutorMessage,
-  recordAITutorUsage
+  recordAITutorUsage,
+  recordContentSafetyFlag
 } from "@/lib/server/userStore";
+import {
+  buildSafetySupportReply,
+  classifyContentSafety,
+  shouldWithholdTutorReply,
+  type ContentSafetyClassification
+} from "@/lib/server/contentSafety";
 import { classAiTutorRateLimitRulesFromPolicy } from "@/lib/server/aiGovernance";
 import {
   boundedLLMNumber,
@@ -1936,6 +1943,17 @@ async function handleAITutorPost(
     });
   }
 
+  function recordContentSafetyFlagAfterResponse(args: Parameters<typeof recordContentSafetyFlag>[0]) {
+    deferTutorSideEffect(async () => {
+      try {
+        await recordContentSafetyFlag(args);
+      } catch (error) {
+        console.error("AI Tutor content-safety flag recording failed", redactedErrorKind(error));
+      }
+    });
+  }
+
+
   let body: unknown;
   let attachments: TutorAttachmentContext[] = [];
   try {
@@ -2135,6 +2153,77 @@ async function handleAITutorPost(
       role: authenticated.user.role
     }
   });
+  // Content-safety escalation: if a student writes something concerning to the
+  // tutor (self-harm, abuse, crisis, threats), raise a durable flag for their
+  // teacher(s)/admins and — for critical/high severity — withhold the ordinary
+  // math answer in favour of a supportive redirect. Only student authorship is
+  // classified: a teacher/parent discussing risk signals is not the at-risk party.
+  const studentInputSafety: ContentSafetyClassification = authenticated.user.role === "student"
+    ? classifyContentSafety(input, { source: "student-input" })
+    : { flagged: false, matchedTerms: [], excerpt: "" };
+  if (studentInputSafety.flagged && studentInputSafety.category && studentInputSafety.severity) {
+    const withholdReply = shouldWithholdTutorReply(studentInputSafety);
+    recordContentSafetyFlagAfterResponse({
+      studentId: authenticatedUserId,
+      studentName: authenticated.user.name,
+      category: studentInputSafety.category,
+      severity: studentInputSafety.severity,
+      source: "student-input",
+      excerpt: studentInputSafety.excerpt,
+      matchedTerms: studentInputSafety.matchedTerms,
+      page,
+      ...(context?.topicId ? { topicId: context.topicId } : {}),
+      ...(context?.lessonSlug ? { lessonSlug: context.lessonSlug } : {}),
+      language,
+      blockedReply: withholdReply
+    });
+    recordAiGovernanceEventAfterResponse({
+      userId: authenticatedUserId,
+      capability: "ai-tutor-chat",
+      action: "content-safety-flagged",
+      reason: `content-safety:${studentInputSafety.category}:${studentInputSafety.severity}${withholdReply ? ":withheld" : ""}`,
+      metadata: {
+        category: studentInputSafety.category,
+        severity: studentInputSafety.severity,
+        source: "student-input",
+        blockedReply: withholdReply
+      }
+    });
+
+    if (withholdReply) {
+      const reply = buildSafetySupportReply(studentInputSafety.category, language);
+      recordTutorMessageAfterResponse({
+        userId: authenticatedUserId,
+        role: "student",
+        content: input,
+        context: context
+          ? { ...context, grade, language, page, attachments, dataScopes: resolvedContextHints.dataScopes, targetStudentId: resolvedContextHints.targetStudentId || undefined }
+          : { grade, language, page, attachments, dataScopes: resolvedContextHints.dataScopes, targetStudentId: resolvedContextHints.targetStudentId || undefined }
+      });
+      recordTutorMessageAfterResponse({
+        userId: authenticatedUserId,
+        role: "tutor",
+        content: reply,
+        context: {
+          grade,
+          language,
+          page,
+          mode: "content-safety-support",
+          contentSafetyCategory: studentInputSafety.category,
+          contentSafetySeverity: studentInputSafety.severity
+        }
+      });
+      recordTutorUsageAfterResponse({
+        userId: authenticatedUserId,
+        model: primaryProviderConfig.model,
+        error: "AI Tutor content-safety redirect"
+      });
+      return jsonWithDeferredTutorSideEffects({ reply, mode: "content-safety-support" });
+    }
+    // Medium severity: the flag is logged for the teacher, but the tutor still
+    // answers the math question normally (the input message is recorded below).
+  }
+
   if (asksForSensitiveInternalMaterial(input)) {
     const reply = buildSensitiveRequestReply(language, input);
     recordTutorMessageAfterResponse({
@@ -2801,7 +2890,7 @@ async function handleAITutorPost(
       return providerFailureFallbackResponse(rescueFailure.reason, "plain-text-rescue-failed", completion.usage, completionProviderConfig);
     }
 
-    const reply = sanitizeTutorReplyForSensitiveEcho(
+    const modelReply = sanitizeTutorReplyForSensitiveEcho(
       normalizeTutorIdentityForSession({
         input,
         language,
@@ -2815,11 +2904,56 @@ async function handleAITutorPost(
       input
     );
 
+    // Output-side content safety: if the model reply itself reaches unsafe
+    // content for a student, withhold it, swap in a supportive/neutral message,
+    // and flag it for the teacher. This is the "or reaches inappropriate content"
+    // half of the escalation path.
+    let reply = modelReply;
+    let safetyRedirected = false;
+    if (authenticated.user.role === "student") {
+      const outputSafety = classifyContentSafety(modelReply, { source: "tutor-output" });
+      if (outputSafety.flagged && outputSafety.category && outputSafety.severity) {
+        safetyRedirected = true;
+        reply = buildSafetySupportReply(outputSafety.category, language);
+        recordContentSafetyFlagAfterResponse({
+          studentId: authenticatedUserId,
+          studentName: authenticated.user.name,
+          category: outputSafety.category,
+          severity: outputSafety.severity,
+          source: "tutor-output",
+          excerpt: outputSafety.excerpt,
+          matchedTerms: outputSafety.matchedTerms,
+          page,
+          ...(context?.topicId ? { topicId: context.topicId } : {}),
+          ...(context?.lessonSlug ? { lessonSlug: context.lessonSlug } : {}),
+          language,
+          blockedReply: true
+        });
+        recordAiGovernanceEventAfterResponse({
+          userId: authenticatedUserId,
+          capability: "ai-tutor-chat",
+          action: "content-safety-flagged",
+          reason: `content-safety:tutor-output:${outputSafety.category}:${outputSafety.severity}:withheld`,
+          metadata: {
+            category: outputSafety.category,
+            severity: outputSafety.severity,
+            source: "tutor-output",
+            blockedReply: true
+          }
+        });
+      }
+    }
+
+    // A withheld reply must not carry the model's visualization payload.
+    const replyVisualization = safetyRedirected ? undefined : completion.structuredReply.visualization;
+
     recordTutorMessageAfterResponse({
       userId: authenticatedUserId,
       role: "tutor",
       content: reply,
-      context: context ? { ...context, grade, language, page, visualization: completion.structuredReply.visualization } : { grade, language, page, visualization: completion.structuredReply.visualization }
+      context: context
+        ? { ...context, grade, language, page, visualization: replyVisualization, ...(safetyRedirected ? { mode: "content-safety-support" } : {}) }
+        : { grade, language, page, visualization: replyVisualization, ...(safetyRedirected ? { mode: "content-safety-support" } : {}) }
     });
     recordTutorUsageAfterResponse({
       userId: authenticatedUserId,
@@ -2829,7 +2963,8 @@ async function handleAITutorPost(
 
     return jsonWithDeferredTutorSideEffects({
       reply,
-      ...(completion.structuredReply.visualization ? { visualization: completion.structuredReply.visualization } : {})
+      ...(safetyRedirected ? { mode: "content-safety-support" } : {}),
+      ...(replyVisualization ? { visualization: replyVisualization } : {})
     });
   } catch (error) {
     const message = error instanceof Error && error.name === "AbortError"

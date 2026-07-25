@@ -130,6 +130,13 @@ const statusPaletteOverrides: Partial<Record<GalaxyStarStatus, { glow: string; s
   unstable: {
     glow: "rgba(251, 113, 133, 0.78)",
     stops: ["#ffe4e6", "#fb7185", "#e11d48"]
+  },
+  // "Confirming": crossed the probability bar, one more correct locks it in. Bright
+  // cyan-white "charging" look — distinct from lit's constellation glow, so it reads
+  // as "almost there" rather than collapsing back into the generic igniting tier.
+  confirming: {
+    glow: "rgba(56, 189, 248, 0.85)",
+    stops: ["#ecfeff", "#38bdf8", "#0369a1"]
   }
 };
 
@@ -137,6 +144,7 @@ const starSizeRem: Record<GalaxyStarStatus, number> = {
   current: 3.3,
   lit: 1.5,
   fading: 1.5,
+  confirming: 1.4,
   unstable: 1.3,
   igniting: 1.25,
   undiscovered: 0.8
@@ -702,7 +710,9 @@ function StarHoverCard({
             ? t({ en: "Relight this star", zh: "重新點亮這顆星", zhHans: "重新点亮这颗星" })
             : star.status === "unstable"
               ? t({ en: "Repair this star", zh: "修補這顆星", zhHans: "修补这颗星" })
-              : t({ en: "Practice this skill", zh: "練習此技能", zhHans: "练习此技能" })}
+              : star.status === "confirming"
+                ? t({ en: "Lock in this star", zh: "鞏固這顆星", zhHans: "巩固这颗星" })
+                : t({ en: "Practice this skill", zh: "練習此技能", zhHans: "练习此技能" })}
         </Link>
       ) : null}
     </div>
@@ -754,6 +764,7 @@ function KnowledgeStar({
         visual.planetBorderClass,
         star.status === "current" && "z-30",
         star.status === "fading" && "adaptive-galaxy-fading-pulse",
+        star.status === "confirming" && "adaptive-galaxy-confirming-pulse",
         star.status === "unstable" && "adaptive-galaxy-unstable-flicker",
         dimmed && "opacity-25",
         selected && "z-30 scale-125"
@@ -794,6 +805,17 @@ function KnowledgeStar({
           aria-hidden="true"
           className="pointer-events-none absolute inset-0 rounded-full"
           style={{ boxShadow: `inset 0 0 6px rgba(255, 255, 255, 0.65)` }}
+        />
+      ) : null}
+      {star.status === "confirming" ? (
+        <span
+          aria-hidden="true"
+          className="pointer-events-none absolute -inset-1 rounded-full"
+          style={{
+            background: `conic-gradient(${starPalette(star).stops[1]} ${star.masteryPercent}%, transparent 0)`,
+            mask: "radial-gradient(farthest-side, transparent calc(100% - 3px), #000 calc(100% - 2.5px))",
+            WebkitMask: "radial-gradient(farthest-side, transparent calc(100% - 3px), #000 calc(100% - 2.5px))"
+          }}
         />
       ) : null}
     </button>
@@ -1035,6 +1057,21 @@ export function AdaptiveKnowledgeGalaxy({
           animation: adaptive-galaxy-fade-pulse 1.9s ease-in-out infinite;
         }
 
+        @keyframes adaptive-galaxy-confirm-pulse {
+          0%,
+          100% {
+            filter: brightness(1);
+          }
+
+          50% {
+            filter: brightness(1.35);
+          }
+        }
+
+        .adaptive-galaxy-confirming-pulse {
+          animation: adaptive-galaxy-confirm-pulse 1.5s ease-in-out infinite;
+        }
+
         @keyframes adaptive-galaxy-flicker {
           0%,
           100% {
@@ -1107,6 +1144,7 @@ export function AdaptiveKnowledgeGalaxy({
           .adaptive-galaxy-current-glow,
           .adaptive-galaxy-route-stroke,
           .adaptive-galaxy-fading-pulse,
+          .adaptive-galaxy-confirming-pulse,
           .adaptive-galaxy-unstable-flicker,
           .adaptive-galaxy-badge-new {
             animation: none;
