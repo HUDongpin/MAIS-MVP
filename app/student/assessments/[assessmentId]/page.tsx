@@ -6,6 +6,7 @@ import { FormEvent, useEffect, useRef, useState } from "react";
 import { MathText } from "@/components/math/MathText";
 import { dictionary, useSettings } from "@/components/providers/AppProviders";
 import { AssessmentCountdownTimer } from "@/components/assessment/AssessmentCountdownTimer";
+import { CalculatorLauncher } from "@/components/accommodations/CalculatorLauncher";
 import { useStudentAccommodations } from "@/components/accommodations/useStudentAccommodations";
 import { accommodationExtendedTimeLabels, assessmentTimerSeconds, extendedTimeMultiplier } from "@/lib/accommodations";
 import type { StudentAssessmentDetailData } from "@/types";
@@ -110,6 +111,7 @@ export default function StudentAssessmentPage() {
 
   return (
     <div className="page-container py-10 sm:py-12">
+      <CalculatorLauncher />
       {timerActive ? (
         <div className="sticky top-4 z-30 mb-4 flex justify-end">
           <AssessmentCountdownTimer

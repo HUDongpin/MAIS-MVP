@@ -7,6 +7,7 @@ import { AnimatePresence, motion, useReducedMotion } from "@/components/ui/Motio
 import { PracticeArenaBackToTopButton } from "@/app/practice/PracticeArenaBackToTopButton";
 import { PracticeAdventureArenaShell } from "@/components/practice/PracticeAdventureArenaShell";
 import { StudentAccommodationsBanner } from "@/components/practice/StudentAccommodationsBanner";
+import { CalculatorLauncher } from "@/components/accommodations/CalculatorLauncher";
 import { useStudentAccommodations } from "@/components/accommodations/useStudentAccommodations";
 import { useReadAloud } from "@/components/practice/useReadAloud";
 import {
@@ -830,6 +831,7 @@ function QuestionPager({ questions, onAnswered, onQuestionStarted }: QuestionPag
   return (
     <section className="mt-8 grid gap-5 rounded-[28px] border border-white/80 bg-white/95 p-4 shadow-[0_22px_46px_rgba(15,23,42,0.12)] sm:p-5" aria-label={t({ en: "Practice questions", zh: "練習題目" })}>
       <StudentAccommodationsBanner />
+      <CalculatorLauncher />
       <div className="grid gap-4 rounded-3xl border border-sky-100 bg-sky-50/80 p-4 shadow-sm sm:grid-cols-[minmax(0,1fr)_auto] sm:items-center sm:p-5">
         <div>
           <p aria-live="polite" className="text-sm font-black uppercase tracking-[0.18em] text-blue-600">

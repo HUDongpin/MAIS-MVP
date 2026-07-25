@@ -52,6 +52,9 @@ try {
   const passed = run("node", [
     "--test",
     join(outputDir, "lib/accommodations.test.js"),
+    join(outputDir, "lib/calculatorEngine.test.js"),
+    join(outputDir, "lib/expressionCalculator.test.js"),
+    join(outputDir, "lib/statistics.test.js"),
     join(outputDir, "lib/server/userStore/accommodationsPersistence.test.js")
   ]);
   if (!passed) process.exit(process.exitCode);
