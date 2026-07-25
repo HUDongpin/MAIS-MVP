@@ -1709,13 +1709,32 @@ function SignatureBenchSwitcher({
   lab,
   topicId,
   labId,
-  onRuntimeReady
+  onRuntimeReady,
+  onBenchSwitch
 }: {
   assignment: NonNullable<ReturnType<typeof getSignatureLabAssignment>>;
   lab: FeaturedLabDefinition;
   topicId: string;
   labId?: string;
   onRuntimeReady?: (labId: string) => void;
+  /**
+   * Fired when the student switches to a DIFFERENT bench. Until 2026-07-25 this
+   * chip row emitted nothing, so there was no way to tell whether students ever
+   * used it — which matters because 138 of the 192 benches are reachable only
+   * here, behind a click, rather than as a topic's `primary`. Re-selecting the
+   * bench already showing is not a switch and is not reported.
+   *
+   * READ THIS BEFORE ANALYSING VISUALIZATION-PROBE COUNTS. Switching remounts
+   * the bench (the `key` below), and `SignatureLabAdapter` emits a
+   * `visualization-probe` from a mount effect. That probe carries the TOPIC's
+   * id, not the bench's — so on a fan-out topic every switch adds a probe that
+   * is indistinguishable from opening the lab fresh, and probe counts per topic
+   * over-state opens. The probe is left alone deliberately: dashboards already
+   * aggregate on it and its shape is load-bearing. Use the `bench-switch`
+   * navigation events emitted here to subtract switches from probe counts —
+   * one is emitted immediately before each remount.
+   */
+  onBenchSwitch?: (benchId: SignatureLabId) => void;
 }) {
   const benchIds = useMemo<SignatureLabId[]>(
     () => [assignment.primary, ...(assignment.related ?? [])],
@@ -1742,7 +1761,11 @@ function SignatureBenchSwitcher({
                 type="button"
                 role="tab"
                 aria-selected={isActive}
-                onClick={() => setActiveBenchId(benchId)}
+                onClick={() => {
+                  if (benchId === activeBenchId) return;
+                  onBenchSwitch?.(benchId);
+                  setActiveBenchId(benchId);
+                }}
                 className={`rounded-full border px-3.5 py-1.5 text-xs font-black transition ${
                   isActive
                     ? "border-cyan-500 bg-cyan-500 text-white shadow"
@@ -3547,6 +3570,7 @@ function VisualizationLabPageContent({
                       topicId={activeDirectoryLab.topicId}
                       labId={activeDirectoryLab.labId}
                       onRuntimeReady={handleActiveLabRuntimeReady}
+                      onBenchSwitch={(benchId) => recordVisualizationNavigationEvent("bench-switch", benchId)}
                     />
                   ) : (
                     <ActiveDirectoryLabComponent

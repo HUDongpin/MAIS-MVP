@@ -1,0 +1,779 @@
+{
+  "note": "SHA-256 (first 16 hex) of each bench at port time. `upstreamSha: null, authored: true` marks a bench written for MAIS rather than ported — it has no upstream to drift from. Regenerate with: npm run check:port-drift -- --write",
+  "generatedAt": "2026-07-25",
+  "benches": {
+    "AbsoluteValueLab": {
+      "upstreamSha": "73970bd999d816b9",
+      "portedSha": "5e6748202c3af33e"
+    },
+    "AddLab": {
+      "upstreamSha": "c382f9a07d744884",
+      "portedSha": "868a19046c794402"
+    },
+    "AngleLab": {
+      "upstreamSha": "650b95fea8109493",
+      "portedSha": "3985264bc1e195d4"
+    },
+    "AngleTurnLab": {
+      "upstreamSha": "a99f096a549a0d6d",
+      "portedSha": "c73b5807aee2c376"
+    },
+    "ArcsinLab": {
+      "upstreamSha": "43052e860110949d",
+      "portedSha": "298034b778b8b5ad"
+    },
+    "AreaLab": {
+      "upstreamSha": "b0ae46f999c4bddb",
+      "portedSha": "1b339aeb367efd6a"
+    },
+    "ArrangementsLab": {
+      "upstreamSha": "7a1905d5c5235ed5",
+      "portedSha": "8e239bbff4500937"
+    },
+    "AssociativeAdditionLab": {
+      "upstreamSha": "79ecf81619032e42",
+      "portedSha": "fc40d5b3e28b30dd"
+    },
+    "AssociativeMultiplicationLab": {
+      "upstreamSha": "8c78e28e9f5b5232",
+      "portedSha": "c4ee570d4835a8df"
+    },
+    "BestFitLab": {
+      "upstreamSha": "1f169bd05fd73b38",
+      "portedSha": "fdba1b00ced2bed8"
+    },
+    "BoxPlotLab": {
+      "upstreamSha": "95ffda6cdca792c3",
+      "portedSha": "ace0b2a184be47c9"
+    },
+    "CircleLab": {
+      "upstreamSha": "9f1c2f0b465dd681",
+      "portedSha": "4e54334b9e767388"
+    },
+    "CircleTheoremsLab": {
+      "upstreamSha": "ef623c3ba6c67d55",
+      "portedSha": "e35d461a50d78591"
+    },
+    "ClosureLab": {
+      "upstreamSha": null,
+      "portedSha": "8b31a7af143863ff",
+      "authored": true
+    },
+    "CommutativeLab": {
+      "upstreamSha": "db5e89c2e396457b",
+      "portedSha": "27296d2a07cf26bd"
+    },
+    "CompareFunctionsLab": {
+      "upstreamSha": "e79396e6868117c6",
+      "portedSha": "7aef0d95ebc2e1eb"
+    },
+    "ComparingLab": {
+      "upstreamSha": "716a37de4cf322c3",
+      "portedSha": "35f9c56974791ef0"
+    },
+    "CompassLab": {
+      "upstreamSha": "f196abc0a3e37789",
+      "portedSha": "34e29dcdab8d7221"
+    },
+    "ComplexArithmeticLab": {
+      "upstreamSha": null,
+      "portedSha": "86af4cdc3125c554",
+      "authored": true
+    },
+    "ComplexPlaneLab": {
+      "upstreamSha": "2e0e47e18da89b81",
+      "portedSha": "4e38844021b52033"
+    },
+    "ComposingShapesLab": {
+      "upstreamSha": "9609dd56a0f80c5d",
+      "portedSha": "849c109ec3398039"
+    },
+    "CompositionLab": {
+      "upstreamSha": "2d2d1430417aadef",
+      "portedSha": "73ac5f5bc918652d"
+    },
+    "ConditionalLab": {
+      "upstreamSha": "8439fe6f9cb848c4",
+      "portedSha": "c9a345a75842f505"
+    },
+    "ConeLab": {
+      "upstreamSha": "bc40ba279d186be7",
+      "portedSha": "7695f09964573d1c"
+    },
+    "CongruenceLab": {
+      "upstreamSha": "2f406deb1dcde878",
+      "portedSha": "111244e3e9a71052"
+    },
+    "CoordinateMethodsLab": {
+      "upstreamSha": null,
+      "portedSha": "935e40bfb4e7b770",
+      "authored": true
+    },
+    "CorrelationLab": {
+      "upstreamSha": "96fe70753b9493a3",
+      "portedSha": "d25175ad5aaf548f"
+    },
+    "CosecantFunctionLab": {
+      "upstreamSha": "e49d60d153b9adc0",
+      "portedSha": "64cf217d317cb2c7"
+    },
+    "CosineFunctionLab": {
+      "upstreamSha": "edcce442c6fba83a",
+      "portedSha": "1f469b034928a4b2"
+    },
+    "CotangentFunctionLab": {
+      "upstreamSha": "28fd2ca8c06aed80",
+      "portedSha": "74213da0fda1985b"
+    },
+    "CountingLab": {
+      "upstreamSha": "1702491de0f71c22",
+      "portedSha": "41287ccc00e45fb1"
+    },
+    "CovariationLab": {
+      "upstreamSha": "e5db09d4cf9ec8ea",
+      "portedSha": "84e06334f2c35039"
+    },
+    "CrossSectionLab": {
+      "upstreamSha": "a4ea545696fedf95",
+      "portedSha": "060a7c596f440d73"
+    },
+    "CubeLab": {
+      "upstreamSha": "77cde2ce7330aa02",
+      "portedSha": "330987f7865ba264"
+    },
+    "CylinderLab": {
+      "upstreamSha": "e701d3b9bc8aceb3",
+      "portedSha": "6c779add87d844fb"
+    },
+    "DataLab": {
+      "upstreamSha": "d147136a16823c17",
+      "portedSha": "f1128d0ca9aaa00f"
+    },
+    "DecimalArithmeticLab": {
+      "upstreamSha": "73f6b25349e27f19",
+      "portedSha": "83c7e642eb00d4d5"
+    },
+    "DecimalLab": {
+      "upstreamSha": "a6ac90fd13a21b20",
+      "portedSha": "9b677f43e47a3fa6"
+    },
+    "DerivativeLab": {
+      "upstreamSha": "3417c116e3f2d765",
+      "portedSha": "bd250457385a3b75"
+    },
+    "DilationsLab": {
+      "upstreamSha": "eadab7aa6f2cd413",
+      "portedSha": "a2d7e4b29ff0a300"
+    },
+    "DistanceLab": {
+      "upstreamSha": "c1e8355b3de716b6",
+      "portedSha": "cb17c31d068fc3ca"
+    },
+    "DistributiveLab": {
+      "upstreamSha": "534229480478901a",
+      "portedSha": "a25306bda67477b5"
+    },
+    "DivisionLab": {
+      "upstreamSha": "4e5dc90e32c08c8a",
+      "portedSha": "418d952a6a6173a0"
+    },
+    "EliminationLab": {
+      "upstreamSha": null,
+      "portedSha": "e818368fcf5ea3f2",
+      "authored": true
+    },
+    "EllipseLab": {
+      "upstreamSha": "670066721c1b42a5",
+      "portedSha": "6c755d19533b2b56"
+    },
+    "EqualAreasLab": {
+      "upstreamSha": "4f600053779807d0",
+      "portedSha": "61bcf1605a1edea5"
+    },
+    "EqualSharesLab": {
+      "upstreamSha": "aa5e4bc7215aad95",
+      "portedSha": "c21ff6ee681bf76c"
+    },
+    "EqualSignLab": {
+      "upstreamSha": "a311b2e078b6ccce",
+      "portedSha": "2bdc58596ab6c46c"
+    },
+    "EquationLab": {
+      "upstreamSha": "22308bb3fbf55869",
+      "portedSha": "40f3d4f58d1be65c"
+    },
+    "EquivalentFractionsLab": {
+      "upstreamSha": "38e68c90a59a7687",
+      "portedSha": "42845c966ebff72f"
+    },
+    "ExpectedValueLab": {
+      "upstreamSha": "2abb096c79779c93",
+      "portedSha": "45ac1f5198a24523"
+    },
+    "ExponentRulesLab": {
+      "upstreamSha": "deb23fec00118930",
+      "portedSha": "f1f613174ed7ed2d"
+    },
+    "ExponentialFunctionLab": {
+      "upstreamSha": "cd7513bc765ece7e",
+      "portedSha": "86236d44d1e09c29"
+    },
+    "ExpressionLab": {
+      "upstreamSha": "cd3c0c77f33656fd",
+      "portedSha": "91dd7ef11858406a"
+    },
+    "ExtraneousLab": {
+      "upstreamSha": "269b1f5bbe40f92e",
+      "portedSha": "fc69ff44c7698990"
+    },
+    "FactorLab": {
+      "upstreamSha": "8552c956bf316347",
+      "portedSha": "e0d03d43f7208f2a"
+    },
+    "FactoringQuadraticsLab": {
+      "upstreamSha": "6be06935adeb8bc8",
+      "portedSha": "06414e88fbcd5bf1"
+    },
+    "FormulaLab": {
+      "upstreamSha": "20545b02ecb7e1e0",
+      "portedSha": "b3c558817b02d909"
+    },
+    "FractionAdditionLab": {
+      "upstreamSha": "f73bc5a27a78d0d4",
+      "portedSha": "2538ba5bbca3ec4f"
+    },
+    "FractionAsDivisionLab": {
+      "upstreamSha": "d8a93bcf32fb6ca4",
+      "portedSha": "8cab3048b5bfc66d"
+    },
+    "FractionDivisionLab": {
+      "upstreamSha": "6fc2981b0da2c4b4",
+      "portedSha": "fc97730d7ba176ae"
+    },
+    "FractionLab": {
+      "upstreamSha": "599aa57ce6ef1477",
+      "portedSha": "881e65ca70e79e3c"
+    },
+    "FractionLinePlotLab": {
+      "upstreamSha": "f2143ff229327291",
+      "portedSha": "e042efb22daeb8f1"
+    },
+    "FractionMultiplicationLab": {
+      "upstreamSha": "ada545afdc7314b5",
+      "portedSha": "2e7eca945bbf776d"
+    },
+    "FractionTimesWholeLab": {
+      "upstreamSha": "f3ee929d527e458a",
+      "portedSha": "015b9803a0f98c0b"
+    },
+    "FunctionLab": {
+      "upstreamSha": "1ce08f3ad7e621d3",
+      "portedSha": "bd8da2228dbf5c0d"
+    },
+    "GeometricModelingLab": {
+      "upstreamSha": null,
+      "portedSha": "146ec55591a8f60a",
+      "authored": true
+    },
+    "GramsAndLitersLab": {
+      "upstreamSha": "70733898dae09155",
+      "portedSha": "d89e99c024792b4b"
+    },
+    "GraphStoryLab": {
+      "upstreamSha": "6b953bf1a7c59a78",
+      "portedSha": "0087d70494a72bfa"
+    },
+    "GraphsLab": {
+      "upstreamSha": "2893210f44b0fa6c",
+      "portedSha": "7a4fbf5fcda5b2f6"
+    },
+    "GreatestCommonFactorLab": {
+      "upstreamSha": "4dc0dfe218bd4011",
+      "portedSha": "0af6d3c256be48c0"
+    },
+    "HistogramLab": {
+      "upstreamSha": "dbcf46a39b225925",
+      "portedSha": "f6453b53fe76725f"
+    },
+    "HundredChartLab": {
+      "upstreamSha": "b0f064a016c68958",
+      "portedSha": "ef3a25a8faa04e42"
+    },
+    "HyperbolaLab": {
+      "upstreamSha": "bf3158b8576cccb5",
+      "portedSha": "a160699f17d6ff7b"
+    },
+    "InequalityLab": {
+      "upstreamSha": "0a0fc6df5b8f1cec",
+      "portedSha": "44fc603790d2ac9f"
+    },
+    "IntegerLab": {
+      "upstreamSha": "42a86c7725e99383",
+      "portedSha": "f0eefe21c5d26ae9"
+    },
+    "IntegralLab": {
+      "upstreamSha": "928c06121275609b",
+      "portedSha": "2c321182082b2355"
+    },
+    "IrrationalLab": {
+      "upstreamSha": "aa36085b2006a93b",
+      "portedSha": "cf3f5675a0ec0537"
+    },
+    "LCMLab": {
+      "upstreamSha": "ae9f58d85f21d70c",
+      "portedSha": "77907d033f6f2cdf"
+    },
+    "LengthComparisonLab": {
+      "upstreamSha": "0538b21d8a09a079",
+      "portedSha": "9b71aedf1bccc569"
+    },
+    "LikeTermsLab": {
+      "upstreamSha": "c93e517471bc771a",
+      "portedSha": "8fbf73f315236cd6"
+    },
+    "LimitLab": {
+      "upstreamSha": "f3011cf03023b1d6",
+      "portedSha": "f78c01a9b1299420"
+    },
+    "LineFunctionLab": {
+      "upstreamSha": "b48bedcfeecaa2f6",
+      "portedSha": "878e6e8baa689523"
+    },
+    "LineParabolaLab": {
+      "upstreamSha": "d74a3cd2d8f51b43",
+      "portedSha": "60f7b835c4d8a0fc"
+    },
+    "LinePlotLab": {
+      "upstreamSha": "166de277e3fc8685",
+      "portedSha": "5520ac65881be236"
+    },
+    "LinesRaysSegmentsLab": {
+      "upstreamSha": "e935d66fd59c1843",
+      "portedSha": "9e1d360d8818adf5"
+    },
+    "LogarithmLab": {
+      "upstreamSha": "0ffbc1dae9508a66",
+      "portedSha": "f0b90e3bd53aa588"
+    },
+    "LongDivisionLab": {
+      "upstreamSha": "59a5a9e9ce770b4f",
+      "portedSha": "291c42be87f06724"
+    },
+    "LurkingVariableLab": {
+      "upstreamSha": "192aacef21a5d7e3",
+      "portedSha": "096136c8967be61d"
+    },
+    "MatrixLab": {
+      "upstreamSha": "85d0633abce494bf",
+      "portedSha": "35dab861eac99bc3"
+    },
+    "MeanLab": {
+      "upstreamSha": "fed13cd490a353b2",
+      "portedSha": "e4d6b5cb02ec0536"
+    },
+    "MeasurementLab": {
+      "upstreamSha": "41a9978f5fc1d02b",
+      "portedSha": "d4e45b23b5a7a047"
+    },
+    "MedianLab": {
+      "upstreamSha": "653f3b195b2402fc",
+      "portedSha": "f0ec433dfe097dd6"
+    },
+    "ModeLab": {
+      "upstreamSha": "d89b478a7c6777a9",
+      "portedSha": "08d44bb5507b98fc"
+    },
+    "MoneyLab": {
+      "upstreamSha": "f254abf16063e24e",
+      "portedSha": "9afe4b04c74ed12c"
+    },
+    "MultiDigitMultiplicationLab": {
+      "upstreamSha": "1b4471ca03b5a3ba",
+      "portedSha": "e7141a0f6559e8cb"
+    },
+    "MultiplesLab": {
+      "upstreamSha": "d89cfb799cb2186f",
+      "portedSha": "582a28fa3257604f"
+    },
+    "MultiplicationLab": {
+      "upstreamSha": "48d9b6eaa35a6fce",
+      "portedSha": "32909fffebde9fe0"
+    },
+    "MultiplicativeComparisonLab": {
+      "upstreamSha": "17a5e4a760192a2c",
+      "portedSha": "00b572ad43d00dec"
+    },
+    "NormalDistributionLab": {
+      "upstreamSha": "e4f8178371a4ff59",
+      "portedSha": "874182392ee9bc68"
+    },
+    "NumberBondLab": {
+      "upstreamSha": "2333ee80fd6bc4f4",
+      "portedSha": "8d4a83787be3dc76"
+    },
+    "NumberLab": {
+      "upstreamSha": "c4d77be86e535a4c",
+      "portedSha": "a2db518bb852be64"
+    },
+    "OddEvenLab": {
+      "upstreamSha": "d8f199fd17cbebb7",
+      "portedSha": "ca89688fad066635"
+    },
+    "OperationsLab": {
+      "upstreamSha": "e3f5d1c37d4fd8cc",
+      "portedSha": "9b0050728abd5498"
+    },
+    "OptimizationLab": {
+      "upstreamSha": "815cdbb339399870",
+      "portedSha": "2fe1840fa0f7dfdb"
+    },
+    "ParabolaLab": {
+      "upstreamSha": "c479257dfb306788",
+      "portedSha": "14b29ff72968f368"
+    },
+    "ParallelogramLab": {
+      "upstreamSha": "809a08f21655e5fa",
+      "portedSha": "e0856215b2eec694"
+    },
+    "PatternsLab": {
+      "upstreamSha": "660ad43d9e726779",
+      "portedSha": "d2011239c8d625fb"
+    },
+    "PercentChangeLab": {
+      "upstreamSha": "3b98785348b6a3f6",
+      "portedSha": "a0040a895be2c1b3"
+    },
+    "PercentageLab": {
+      "upstreamSha": "c41f57ab52c64668",
+      "portedSha": "d2578881f42809da"
+    },
+    "PerpSlopeLab": {
+      "upstreamSha": "82b5b2a675f34d59",
+      "portedSha": "d86e28ca137d8f35"
+    },
+    "PiLab": {
+      "upstreamSha": "34a3c6ff8e0ebb6d",
+      "portedSha": "89e43db5d487c498"
+    },
+    "PiecewiseLab": {
+      "upstreamSha": "023e61a6d61c9de1",
+      "portedSha": "69ab3739c297f201"
+    },
+    "PlaceJumpLab": {
+      "upstreamSha": "4e5b3a865d7ed91f",
+      "portedSha": "b3c9edb196619f79"
+    },
+    "PlaceValueStrategiesLab": {
+      "upstreamSha": "86720b94821d7f9d",
+      "portedSha": "f63a70d365ff776e"
+    },
+    "PointLab": {
+      "upstreamSha": "b32ca5bcc6994651",
+      "portedSha": "321b0a46a1a35cc9"
+    },
+    "PolynomialArithmeticLab": {
+      "upstreamSha": "21d36a19c66e04a8",
+      "portedSha": "b7f1cdac05ac134b"
+    },
+    "PolynomialFunctionLab": {
+      "upstreamSha": "49f782f6b77aab32",
+      "portedSha": "a8e4666c1bbfc631"
+    },
+    "PositionLab": {
+      "upstreamSha": "892770dd5c6e5b6a",
+      "portedSha": "8098aef6c0713945"
+    },
+    "PowersOfTenLab": {
+      "upstreamSha": "9d64417a760ce475",
+      "portedSha": "93a48789d38b9a88"
+    },
+    "PrimeFactorizationLab": {
+      "upstreamSha": "d0b91e8532382333",
+      "portedSha": "9e5978b9cd180832"
+    },
+    "PrimeNumbersLab": {
+      "upstreamSha": "0bde876ac4513563",
+      "portedSha": "4f3d0f55a4997b40"
+    },
+    "ProbabilityLab": {
+      "upstreamSha": "ef1014567b0a111f",
+      "portedSha": "91f291d36c914e06"
+    },
+    "ProofChainLab": {
+      "upstreamSha": "572325dfac07565e",
+      "portedSha": "9e2bce4025e13a70"
+    },
+    "ProportionalLab": {
+      "upstreamSha": "44495bd6099e4233",
+      "portedSha": "58c5bfd77afbd350"
+    },
+    "PyramidLab": {
+      "upstreamSha": "9fb424f2870e131a",
+      "portedSha": "95ccf3e09c666c71"
+    },
+    "PythagorasLab": {
+      "upstreamSha": "187141a8356f9761",
+      "portedSha": "9de8910c0426d452"
+    },
+    "PythagoreanIdentityLab": {
+      "upstreamSha": "d8eafacc1960bbdf",
+      "portedSha": "0e27e92326c6929e"
+    },
+    "QuadraticEquationLab": {
+      "upstreamSha": "01a533e71fcc04f1",
+      "portedSha": "3e0fa357577264f4"
+    },
+    "QuadraticFunctionLab": {
+      "upstreamSha": "a06ae63c348c0d59",
+      "portedSha": "a02292a4b0449d61"
+    },
+    "QuadraticPolynomialLab": {
+      "upstreamSha": "a35092c8c7b8bc92",
+      "portedSha": "a4faf8e06b45c8a9"
+    },
+    "QuadrilateralLab": {
+      "upstreamSha": "1aba299c66bab1bc",
+      "portedSha": "6a7c69debe2ac32a"
+    },
+    "RatioLab": {
+      "upstreamSha": "9b6b6e2d44000a22",
+      "portedSha": "b9f62af067a5ece9"
+    },
+    "RationalExponentLab": {
+      "upstreamSha": "051d1e00e4829bec",
+      "portedSha": "f38906dfd3308d49"
+    },
+    "RationalFunctionLab": {
+      "upstreamSha": "791ec808d7561a07",
+      "portedSha": "b6a1267ce5282762"
+    },
+    "RationalNumbersLab": {
+      "upstreamSha": "48b4b75667bb1376",
+      "portedSha": "65bad496312844cb"
+    },
+    "RectangleLab": {
+      "upstreamSha": "f5444d3bd48569a4",
+      "portedSha": "e830e1b717ac8c63"
+    },
+    "RectangularPrismLab": {
+      "upstreamSha": "65a912f2de89f010",
+      "portedSha": "51554f194155ea14"
+    },
+    "RegroupingSubtractionLab": {
+      "upstreamSha": "ff3ad7eb7a10a564",
+      "portedSha": "44fee3fbd447e131"
+    },
+    "RemainderTheoremLab": {
+      "upstreamSha": "8001076101f13bb6",
+      "portedSha": "7195cc66ba957ec1"
+    },
+    "RevolutionLab": {
+      "upstreamSha": "343ec9d3a91da7b1",
+      "portedSha": "7aac616e7a84f5e9"
+    },
+    "RootsLab": {
+      "upstreamSha": "2806dd528e600e37",
+      "portedSha": "35ee227e904a77d8"
+    },
+    "RoundingLab": {
+      "upstreamSha": "032c133871f64473",
+      "portedSha": "dd4a967efced6546"
+    },
+    "SamplingDistributionLab": {
+      "upstreamSha": "7351d4db35908e9f",
+      "portedSha": "a8dcdad677acd0a6"
+    },
+    "SamplingLab": {
+      "upstreamSha": "16e211c399d9d987",
+      "portedSha": "f128f40411c27a05"
+    },
+    "ScaleDrawingLab": {
+      "upstreamSha": "ec33f700910660e7",
+      "portedSha": "5b8b985f8533b3cd"
+    },
+    "ScalingLab": {
+      "upstreamSha": "63ab620699281587",
+      "portedSha": "47908a1bca319406"
+    },
+    "ScatterPlotLab": {
+      "upstreamSha": "9af1ca23dc183141",
+      "portedSha": "746d43ce4d2c43c4"
+    },
+    "ScientificNotationLab": {
+      "upstreamSha": "11af2ab8c1132852",
+      "portedSha": "c152168dc9b03207"
+    },
+    "SecantFunctionLab": {
+      "upstreamSha": "181d83c3b592fbd3",
+      "portedSha": "0245b872c8557d0d"
+    },
+    "SequencesLab": {
+      "upstreamSha": "f3ea4b704b2c4d73",
+      "portedSha": "0d4123be86cdf45e"
+    },
+    "SeriesLab": {
+      "upstreamSha": "bd8cbc5d1d712879",
+      "portedSha": "0901e36023d57810"
+    },
+    "SetTheoryLab": {
+      "upstreamSha": "06b4b5da42390c12",
+      "portedSha": "d070f8d3405951fb"
+    },
+    "ShapesLab": {
+      "upstreamSha": "81591768f7469818",
+      "portedSha": "150c7fea9453ca00"
+    },
+    "SignedAdditionLab": {
+      "upstreamSha": "b9218c65bde2c8ca",
+      "portedSha": "f400d5968e0293c3"
+    },
+    "SignedNumbersLab": {
+      "upstreamSha": "8725b3e51200a408",
+      "portedSha": "7f16f8ad13db76b4"
+    },
+    "SineFunctionLab": {
+      "upstreamSha": "6227497f378e3d1e",
+      "portedSha": "18a4ec876782e4e6"
+    },
+    "SortLab": {
+      "upstreamSha": "9f1d3243093e02f3",
+      "portedSha": "b2491bc79986f21b"
+    },
+    "SphereLab": {
+      "upstreamSha": "09cd2054510fac41",
+      "portedSha": "87324f9a08d4c3da"
+    },
+    "StandardDeviationLab": {
+      "upstreamSha": "c28b99ccd5055b90",
+      "portedSha": "a71beff8593a05e9"
+    },
+    "StatisticalQuestionLab": {
+      "upstreamSha": "dd43834405b6d0ee",
+      "portedSha": "489293c01539d66e"
+    },
+    "StoryProblemLab": {
+      "upstreamSha": "f4d04c6462cdde04",
+      "portedSha": "a2aad259bf0f681d"
+    },
+    "SubstitutionLab": {
+      "upstreamSha": "6ad05c768be25459",
+      "portedSha": "5330bbd348eb6737"
+    },
+    "SubtractionLab": {
+      "upstreamSha": "da122c05ef04297b",
+      "portedSha": "a18a8d7469ff0019"
+    },
+    "SymmetryLab": {
+      "upstreamSha": "4180358ff5ff8bea",
+      "portedSha": "f165eb1f1a828cf3"
+    },
+    "SystemsOfEquationsLab": {
+      "upstreamSha": "102f1c7ca24c1af7",
+      "portedSha": "607759a6638ab7b7"
+    },
+    "TableLab": {
+      "upstreamSha": "9b635bb6ffa0102e",
+      "portedSha": "b969a1c93a57093e"
+    },
+    "TangentFunctionLab": {
+      "upstreamSha": "08b44fdc127ee461",
+      "portedSha": "0933ddc7f2bb5595"
+    },
+    "TeenNumbersLab": {
+      "upstreamSha": "8712cbb3132d0122",
+      "portedSha": "f1bba5e7a846f2d3"
+    },
+    "TimeLab": {
+      "upstreamSha": "a61b42e384e62022",
+      "portedSha": "75717de3c0aacbde"
+    },
+    "TransformationsLab": {
+      "upstreamSha": "171d76b210be2dd7",
+      "portedSha": "0c291502501363ec"
+    },
+    "TranslateLab": {
+      "upstreamSha": "0c90d914b53c1c4e",
+      "portedSha": "50a13359ff24708b"
+    },
+    "TransversalLab": {
+      "upstreamSha": "69027904082f0867",
+      "portedSha": "8315b76e798c1b17"
+    },
+    "TrapezoidLab": {
+      "upstreamSha": "e37e1635618323ed",
+      "portedSha": "60421681c6206cda"
+    },
+    "TreeDiagramLab": {
+      "upstreamSha": "30dc848d5618f150",
+      "portedSha": "00340aee48883b80"
+    },
+    "TriangleBuildLab": {
+      "upstreamSha": "a3b1693bae46f7e7",
+      "portedSha": "aa797991882324be"
+    },
+    "TriangleLab": {
+      "upstreamSha": "2e982a5a50428ad0",
+      "portedSha": "d5cd0a8e76b19951"
+    },
+    "TriangleSolveLab": {
+      "upstreamSha": "1712585c1ae2cb6f",
+      "portedSha": "51d2c50ff2b09992"
+    },
+    "TrigRatioLab": {
+      "upstreamSha": "196fd3b1918b2988",
+      "portedSha": "0c865b6d55632272"
+    },
+    "TwoDigitNumberLab": {
+      "upstreamSha": "4935ed960fa57a77",
+      "portedSha": "f51bffbc87b9f1c6"
+    },
+    "TwoDistributionsLab": {
+      "upstreamSha": "52888feac94b115f",
+      "portedSha": "109d57c249da6a86"
+    },
+    "TwoStepLab": {
+      "upstreamSha": "fa0db719edef6b88",
+      "portedSha": "bd267c699f77311b"
+    },
+    "TwoVariableInequalityLab": {
+      "upstreamSha": "f3ab2b2e2eaf30e5",
+      "portedSha": "2cfc4b952cac7b27"
+    },
+    "UndoLab": {
+      "upstreamSha": "cb681cab3713894a",
+      "portedSha": "dbd3a5a94b4ab329"
+    },
+    "UnitCircleLab": {
+      "upstreamSha": "7f1d02f8dcb556eb",
+      "portedSha": "92366f8bd4a3c5ed"
+    },
+    "UnitConversionLab": {
+      "upstreamSha": "6393050f7580ddda",
+      "portedSha": "da23a849f0a32eb1"
+    },
+    "UnitFractionDivisionLab": {
+      "upstreamSha": "53244ade55f1be08",
+      "portedSha": "d94da9874ce7be6a"
+    },
+    "UnlikeDenominatorsLab": {
+      "upstreamSha": "e00990b3f97aad74",
+      "portedSha": "8656fb9a56394a04"
+    },
+    "VariableLab": {
+      "upstreamSha": "4bdbf961497e10db",
+      "portedSha": "5eb1de5a63a676ee"
+    },
+    "VarianceLab": {
+      "upstreamSha": "817fd1efd049f3e9",
+      "portedSha": "9ff7f05ba9942c97"
+    },
+    "VectorLab": {
+      "upstreamSha": "91c77140fc24b0a0",
+      "portedSha": "9dec09f4411deb0e"
+    },
+    "VolumeLab": {
+      "upstreamSha": "a7aed5af2aa9af3c",
+      "portedSha": "5d78a2b9765cb245"
+    }
+  }
+}
