@@ -146,6 +146,30 @@ test("visualization lab hero renders the next-up preview card with mission progr
   assert.match(source, /currentUser && missionTotalCount > 0/);
 });
 
+test("visualization lab hero fills the center gap with an animated visualization teaser", () => {
+  assert.match(source, /function VisualizationHeroTeaser\(\{ eyebrow, tagline \}/);
+  assert.match(source, /data-viz-hero-teaser/);
+  // Only rendered where the gap exists; narrow layouts stack title -> card.
+  assert.match(source, /<div className="hidden min-w-0 flex-1 lg:flex">/);
+  assert.match(source, /<VisualizationHeroTeaser eyebrow=\{heroTeaserEyebrow\} tagline=\{heroTeaserTagline\} \/>/);
+  // GPU-light, reduced-motion-safe house keyframes only — no lab runtime.
+  assert.match(source, /className="animate-pulseGlow"/);
+  assert.match(source, /className="animate-float"/);
+  // The old centered void relied on justify-between; the three-zone row drops it.
+  assert.match(source, /lg:flex-row lg:items-stretch lg:gap-8/);
+  assert.doesNotMatch(source, /lg:flex-row lg:items-stretch lg:justify-between lg:gap-10/);
+});
+
+test("visualization lab surfaces the mission labs as a preview strip beneath the hero", () => {
+  assert.match(source, /data-viz-mission-strip\b/);
+  assert.match(source, /data-viz-mission-strip-total=\{missionTotalCount\}/);
+  assert.match(source, /data-viz-mission-strip-explored=\{missionExploredCount\}/);
+  assert.match(source, /data-viz-mission-strip-lab=\{lab\.labId\}/);
+  assert.match(source, /selectDirectoryLab\(lab, "mission-strip"\)/);
+  // Same student-scoped gate as the hero progress bar.
+  assert.match(source, /currentUser && missionTotalCount > 0/);
+});
+
 test("visualization lab pins the signed-in student's grade at the head of the rail", () => {
   assert.match(source, /const ownGrade = currentUser \? currentUserGrade : null;/);
   assert.match(source, /data-viz-grade-chip-pinned=\{String\(pinned\)\}/);
@@ -187,6 +211,7 @@ test("visualization lab records entry-point navigation analytics on the existing
   assert.match(source, /selectDirectoryLab\(recommendedLab, "start-quest"\)/);
   assert.match(source, /selectDirectoryLab\(recommendedLab, "next-up-card"\)/);
   assert.match(source, /selectDirectoryLab\(lab, "lab-tile"\)/);
+  assert.match(source, /selectDirectoryLab\(lab, "mission-strip"\)/);
   assert.match(source, /selectDirectoryGrade\(ownGradeGroup, "grade-rail-pinned"\)/);
   assert.match(source, /selectDirectoryGrade\(ownGradeGroup, "back-to-my-grade"\)/);
   assert.match(source, /selectDirectoryGrade\(ownGradeGroup, "empty-state"\)/);
