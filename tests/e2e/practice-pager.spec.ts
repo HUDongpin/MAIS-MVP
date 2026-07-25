@@ -67,18 +67,11 @@ async function unlockFreeSelection(page: Page, userId: string, grade = "S3") {
   await page.waitForLoadState("networkidle");
   await openPracticeFiltersPanel(page);
 
-  const gradeSelect = page.getByRole("combobox", { name: /Grade/i });
-  await expect(gradeSelect).toBeVisible();
-  if (await gradeSelect.inputValue() !== grade) {
-    const questionsLoaded = page.waitForResponse((candidate) =>
-      candidate.url().includes("/api/questions") &&
-      candidate.url().includes(`grade=${encodeURIComponent(grade)}`) &&
-      candidate.ok()
-    ).catch(() => null);
-    await gradeSelect.selectOption(grade);
-    await questionsLoaded;
-  }
-  await expect(gradeSelect).toHaveValue(grade);
+  // Students practise at their own grade: Practice Arena locks the grade to the
+  // signed-in student's profile, so the filter panel offers no Grade select. The
+  // round is already scoped to `grade` because the student was registered with it.
+  await expect(page.getByRole("combobox", { name: /Grade/i })).toHaveCount(0);
+  await expect(page.getByRole("combobox", { name: /difficulty/i })).toBeVisible();
 }
 
 async function expectQuestion(page: Page, current: number, total?: number) {
