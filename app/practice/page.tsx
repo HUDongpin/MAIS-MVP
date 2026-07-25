@@ -6,6 +6,9 @@ import { useCallback, useEffect, useMemo, useRef, useState, type FormEvent } fro
 import { AnimatePresence, motion, useReducedMotion } from "@/components/ui/Motion";
 import { PracticeArenaBackToTopButton } from "@/app/practice/PracticeArenaBackToTopButton";
 import { PracticeAdventureArenaShell } from "@/components/practice/PracticeAdventureArenaShell";
+import { StudentAccommodationsBanner } from "@/components/practice/StudentAccommodationsBanner";
+import { useStudentAccommodations } from "@/components/accommodations/useStudentAccommodations";
+import { useReadAloud } from "@/components/practice/useReadAloud";
 import {
   resolvePracticeAdventureGradeLock,
   type PracticeAdventureGradeFilter
@@ -664,6 +667,16 @@ function SoundOffIcon({ className = "size-5" }: { className?: string }) {
   );
 }
 
+function ReadAloudIcon({ className = "size-5" }: { className?: string }) {
+  return (
+    <svg aria-hidden="true" viewBox="0 0 24 24" className={className} fill="none">
+      <path d="M4 9v6h3l4 3.5V5.5L7 9H4Z" fill="currentColor" />
+      <path d="M14.5 8.5a4.5 4.5 0 0 1 0 7" stroke="currentColor" strokeLinecap="round" strokeWidth="2" />
+      <path d="M17.5 6a8 8 0 0 1 0 12" stroke="currentColor" strokeLinecap="round" strokeWidth="2" opacity="0.6" />
+    </svg>
+  );
+}
+
 type QuestionPagerProps = {
   questions: PublicQuestion[];
   onAnswered?: (result: PracticePagerAnswerResult) => void;
@@ -681,6 +694,8 @@ function QuestionPager({ questions, onAnswered, onQuestionStarted }: QuestionPag
   const [jumpValue, setJumpValue] = useState("1");
   const [answerResults, setAnswerResults] = useState<Record<string, boolean>>({});
   const [soundEnabled, setSoundEnabled] = useState(false);
+  const { accommodations } = useStudentAccommodations();
+  const readAloud = useReadAloud(language);
   const autoAdvanceTimerRef = useRef<number | null>(null);
   const questionStartedAtRef = useRef<Record<string, number>>({});
   const questionSignature = useMemo(() => questions.map((question) => question.id).join("|"), [questions]);
@@ -734,6 +749,12 @@ function QuestionPager({ questions, onAnswered, onQuestionStarted }: QuestionPag
   useEffect(() => {
     setJumpValue(questionCount ? String(currentIndex + 1) : "");
   }, [currentIndex, questionCount]);
+
+  // Stop any read-aloud playback when the learner moves to a different question.
+  const stopReadAloud = readAloud.stop;
+  useEffect(() => {
+    stopReadAloud();
+  }, [currentIndex, questionSignature, stopReadAloud]);
 
   useEffect(() => () => clearAutoAdvance(), [clearAutoAdvance]);
 
@@ -808,6 +829,7 @@ function QuestionPager({ questions, onAnswered, onQuestionStarted }: QuestionPag
 
   return (
     <section className="mt-8 grid gap-5 rounded-[28px] border border-white/80 bg-white/95 p-4 shadow-[0_22px_46px_rgba(15,23,42,0.12)] sm:p-5" aria-label={t({ en: "Practice questions", zh: "練習題目" })}>
+      <StudentAccommodationsBanner />
       <div className="grid gap-4 rounded-3xl border border-sky-100 bg-sky-50/80 p-4 shadow-sm sm:grid-cols-[minmax(0,1fr)_auto] sm:items-center sm:p-5">
         <div>
           <p aria-live="polite" className="text-sm font-black uppercase tracking-[0.18em] text-blue-600">
@@ -897,6 +919,36 @@ function QuestionPager({ questions, onAnswered, onQuestionStarted }: QuestionPag
             >
               {soundEnabled ? <SoundOnIcon /> : <SoundOffIcon />}
             </button>
+            {accommodations.readAloud && readAloud.supported ? (
+              <button
+                type="button"
+                onClick={() => {
+                  if (readAloud.speaking) {
+                    readAloud.stop();
+                    return;
+                  }
+                  const question = questions[currentIndex];
+                  if (!question) return;
+                  const parts = [t(question.prompt), ...(question.options ?? []).map((option) => t(option))];
+                  readAloud.speak(parts.join(". "));
+                }}
+                aria-pressed={readAloud.speaking}
+                aria-label={readAloud.speaking
+                  ? t({ en: "Stop reading", zh: "停止朗讀", zhHans: "停止朗读" })
+                  : t({ en: "Read question aloud", zh: "朗讀題目", zhHans: "朗读题目" })}
+                className={cn(
+                  "focus-ring flex min-h-11 items-center gap-2 rounded-full border px-4 text-sm font-black shadow-sm transition hover:-translate-y-0.5",
+                  readAloud.speaking
+                    ? "border-violet-500 bg-violet-600 text-white"
+                    : "border-violet-200 bg-white text-violet-700"
+                )}
+              >
+                <ReadAloudIcon />
+                {readAloud.speaking
+                  ? t({ en: "Stop", zh: "停止", zhHans: "停止" })
+                  : t({ en: "Read aloud", zh: "朗讀", zhHans: "朗读" })}
+              </button>
+            ) : null}
           </div>
         </div>
 

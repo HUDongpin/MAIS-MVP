@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 import { FormEvent, useEffect, useMemo, useState } from "react";
 import { useSettings } from "@/components/providers/AppProviders";
+import { StudentAccommodationsEditor } from "@/components/teacher/StudentAccommodationsEditor";
 import {
   assessmentTypeLabels,
   assignmentContentTypeLabels,
@@ -23,6 +24,7 @@ import type {
   ClassAiTutorPolicy,
   GradeId,
   Language,
+  StudentAccommodationsProfile,
   StudentAssignmentItem,
   Submission,
   TeacherAssignmentDetailData,
@@ -829,11 +831,13 @@ export function TeacherClassDetailView({ detail }: { detail: TeacherClassDetailD
 export function TeacherStudentProfileView({
   profile,
   backHref = "/teacher/classes",
-  activeClassId
+  activeClassId,
+  accommodations
 }: {
   profile: TeacherStudentProfileData;
   backHref?: string;
   activeClassId?: string;
+  accommodations?: StudentAccommodationsProfile;
 }) {
   const router = useRouter();
   const { language, text, t } = useSettings();
@@ -927,6 +931,10 @@ export function TeacherStudentProfileView({
           </div>
         </div>
       </section>
+
+      {accommodations ? (
+        <StudentAccommodationsEditor studentId={profile.student.id} profile={accommodations} />
+      ) : null}
 
       <section className="grid gap-6 xl:grid-cols-[minmax(0,1fr)_380px]">
         <div className="grid gap-6">
