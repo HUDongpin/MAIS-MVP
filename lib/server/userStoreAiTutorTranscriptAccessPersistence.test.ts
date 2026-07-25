@@ -101,7 +101,7 @@ test("transcript access persistence caps stored events and keeps the most recent
   const database = createDatabase();
   const store = createTestStore(database);
 
-  for (let index = 0; index < 5005; index += 1) {
+  for (let index = 0; index < 2005; index += 1) {
     await store.recordAiTutorTranscriptAccess({
       viewerId: "teacher-1",
       viewerName: "Teacher One",
@@ -112,11 +112,66 @@ test("transcript access persistence caps stored events and keeps the most recent
     });
   }
 
-  assert.equal(database.ai_tutor_transcript_access_events.length, 5000);
+  // The snapshot payload is rewritten on every mutation, so the log stays bounded.
+  assert.equal(database.ai_tutor_transcript_access_events.length, 2000);
   // The very first inserts were dropped; the newest survive.
   const surviving = new Set(database.ai_tutor_transcript_access_events.map((event) => event.student_id));
   assert.equal(surviving.has("student-0"), false);
-  assert.equal(surviving.has("student-5004"), true);
+  assert.equal(surviving.has("student-2004"), true);
+});
+
+test("transcript access persistence ages out events past the retention window", async () => {
+  const database = createDatabase();
+  const store = createTestStore(database);
+
+  // Two years old (outside retention), one week old (inside), one unparseable.
+  database.ai_tutor_transcript_access_events.push(
+    {
+      id: "expired",
+      viewer_id: "teacher-1",
+      viewer_name: "Teacher One",
+      viewer_role: "teacher",
+      student_id: "student-expired",
+      student_name: "Expired Student",
+      message_count: 1,
+      created_at: "2024-06-20T10:00:00.000Z"
+    },
+    {
+      id: "recent",
+      viewer_id: "teacher-1",
+      viewer_name: "Teacher One",
+      viewer_role: "teacher",
+      student_id: "student-recent",
+      student_name: "Recent Student",
+      message_count: 1,
+      created_at: "2026-06-13T10:00:00.000Z"
+    },
+    {
+      id: "unparseable",
+      viewer_id: "teacher-1",
+      viewer_name: "Teacher One",
+      viewer_role: "teacher",
+      student_id: "student-unparseable",
+      student_name: "Unparseable Student",
+      message_count: 1,
+      created_at: "not-a-date"
+    }
+  );
+
+  await store.recordAiTutorTranscriptAccess({
+    viewerId: "teacher-1",
+    viewerName: "Teacher One",
+    viewerRole: "teacher",
+    studentId: "student-new",
+    studentName: "New Student",
+    messageCount: 3
+  });
+
+  const ids = database.ai_tutor_transcript_access_events.map((event) => event.id);
+  assert.equal(ids.includes("expired"), false, "records past the retention window are dropped");
+  assert.equal(ids.includes("recent"), true, "records inside the window are kept");
+  // Unreadable timestamps are audit evidence too: keep them rather than silently drop.
+  assert.equal(ids.includes("unparseable"), true, "records with unparseable timestamps are kept");
 });
 
 test("transcript access record normalization hardens malformed input", () => {

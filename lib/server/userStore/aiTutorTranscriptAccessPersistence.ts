@@ -42,9 +42,17 @@ export type AITutorTranscriptAccessPersistenceStore = ReturnType<
 >;
 
 const userRoles: UserRole[] = ["student", "teacher", "parent", "admin"];
-// Access to a minor's AI conversation is a compliance record: retain it, and only
-// bound growth by a high row cap rather than aggressively deleting older evidence.
-const maxStoredAccessEvents = 5000;
+const dayMs = 24 * 60 * 60 * 1000;
+// These records live in the single app_state snapshot that every mutation rewrites
+// under a row lock, so an unbounded audit log taxes the whole write path: measured
+// at ~279 bytes/record against a ~4.2MB production payload, 5000 rows would be ~32%
+// of the snapshot. A projection table would not help -- projections are shadows
+// derived from the snapshot, so the payload keeps the rows either way.
+// Bound both dimensions instead: age out beyond the retention window (the
+// compliance-facing knob, mirroring the Nova Lens retentionDays policy) and keep a
+// row cap as an absolute backstop (~12% worst case) so a burst cannot balloon it.
+const accessEventRetentionDays = 365;
+const maxStoredAccessEvents = 2000;
 
 function isUserRole(value: unknown): value is UserRole {
   return typeof value === "string" && userRoles.includes(value as UserRole);
@@ -148,12 +156,17 @@ export function createAiTutorTranscriptAccessPersistenceStore({
         );
         // record is always non-null because we supply a well-formed object.
         const nonNullRecord = record as AITutorTranscriptAccessRecord;
-        database.ai_tutor_transcript_access_events.push(nonNullRecord);
-        if (database.ai_tutor_transcript_access_events.length > maxStoredAccessEvents) {
-          database.ai_tutor_transcript_access_events = database.ai_tutor_transcript_access_events.slice(
-            -maxStoredAccessEvents
-          );
-        }
+        const retentionCutoffMs = now().getTime() - accessEventRetentionDays * dayMs;
+        // Drop anything past the retention window, keeping records whose timestamp we
+        // cannot parse rather than silently discarding unreadable audit evidence.
+        const retained = database.ai_tutor_transcript_access_events.filter((event) => {
+          const createdMs = Date.parse(event.created_at);
+          return !Number.isFinite(createdMs) || createdMs >= retentionCutoffMs;
+        });
+        retained.push(nonNullRecord);
+        database.ai_tutor_transcript_access_events = retained.length > maxStoredAccessEvents
+          ? retained.slice(-maxStoredAccessEvents)
+          : retained;
         return nonNullRecord;
       });
 
