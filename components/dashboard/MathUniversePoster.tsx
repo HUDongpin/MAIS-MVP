@@ -29,6 +29,7 @@ function posterStarColor(star: UniverseStar) {
     case "fading": return "#fbbf24";
     case "unstable": return "#fb7185";
     case "current": return "#ffffff";
+    case "confirming": return "#38bdf8";
     case "igniting": return "#8b93b8";
     case "charted": return "#39415f";
     default: return "#232a45";
@@ -40,6 +41,7 @@ function posterStarRadius(star: UniverseStar) {
     case "current": return 6.4;
     case "lit": return 4.8;
     case "fading": return 4.4;
+    case "confirming": return 4.4;
     case "unstable": return 4.2;
     case "igniting": return 3.4;
     case "charted": return 2.6;

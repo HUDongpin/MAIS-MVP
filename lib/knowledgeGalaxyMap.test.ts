@@ -73,8 +73,8 @@ const geometryTopic = makeTopic("us-ca-math-p4-p4-g-symmetry", "Lines of symmetr
 
 function makeDecision(): AdaptiveLearningDecision {
   const skillMap: AdaptiveSkillSummary[] = [
-    makeSummary(numberTopic, "foundation", { pMastery: 0.93, attemptCount: 9 }),
-    makeSummary(numberTopic, "fluency", { pMastery: 0.9, attemptCount: 8, nextReviewAt: "2026-07-10T00:00:00.000Z" }),
+    makeSummary(numberTopic, "foundation", { pMastery: 0.93, attemptCount: 9, correctStreak: 3 }),
+    makeSummary(numberTopic, "fluency", { pMastery: 0.9, attemptCount: 8, correctStreak: 3, nextReviewAt: "2026-07-10T00:00:00.000Z" }),
     makeSummary(numberTopic, "transfer", { pMastery: 0.62, attemptCount: 4 }),
     makeSummary(algebraTopic, "foundation", { pMastery: 0.4, attemptCount: 5, wrongStreak: 2 }),
     makeSummary(algebraTopic, "fluency", { pMastery: 0.58, attemptCount: 3 }),
@@ -119,7 +119,7 @@ test("derives stage from skill id suffix", () => {
   equal(galaxyStageForSkillId("topic-a:transfer"), "transfer");
 });
 
-test("status precedence: current > fading > undiscovered > lit > unstable > igniting", () => {
+test("status precedence: current > fading > undiscovered > lit > confirming > unstable > igniting", () => {
   const topic = makeTopic("us-ca-math-p4-p4-nbt-x", "Sample");
   const dueReviews = new Set<string>();
 
@@ -129,7 +129,10 @@ test("status precedence: current > fading > undiscovered > lit > unstable > igni
     "fading"
   );
   equal(galaxyStarStatusFor(makeSummary(topic, "foundation"), null, dueReviews), "undiscovered");
-  equal(galaxyStarStatusFor(makeSummary(topic, "foundation", { pMastery: 0.9, attemptCount: 5 }), null, dueReviews), "lit");
+  // Over the probability bar AND a confirming streak -> lit (counted as mastered).
+  equal(galaxyStarStatusFor(makeSummary(topic, "foundation", { pMastery: 0.9, attemptCount: 5, correctStreak: 3 }), null, dueReviews), "lit");
+  // Over the bar but streak not yet confirmed -> confirming (bright, but not counted).
+  equal(galaxyStarStatusFor(makeSummary(topic, "foundation", { pMastery: 0.9, attemptCount: 5, correctStreak: 2 }), null, dueReviews), "confirming");
   equal(galaxyStarStatusFor(makeSummary(topic, "foundation", { pMastery: 0.4, attemptCount: 5 }), null, dueReviews), "unstable");
   equal(galaxyStarStatusFor(makeSummary(topic, "foundation", { pMastery: 0.7, attemptCount: 5, wrongStreak: 2 }), null, dueReviews), "unstable");
   equal(galaxyStarStatusFor(makeSummary(topic, "foundation", { pMastery: 0.7, attemptCount: 5 }), null, dueReviews), "igniting");

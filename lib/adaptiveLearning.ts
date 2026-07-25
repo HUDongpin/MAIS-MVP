@@ -24,6 +24,18 @@ export const adaptiveMasteryThreshold = 0.85;
 export const adaptiveRepairThreshold = 0.55;
 export const adaptivePrerequisiteThreshold = 0.65;
 export const adaptiveQuestionSetSize = 5;
+/**
+ * Consecutive correct answers required, on top of pMastery >= threshold, before a
+ * skill counts as mastered. A single crossing is leaky: pMastery reaches 0.85 after
+ * only 2 correct from the prior, so a short lucky streak declares mastery on a skill
+ * the learner has not learned (measured in `adaptiveLearningEval`:
+ * `runSustainedMasteryComparison`). Requiring a sustained streak — a wrong answer
+ * resets it and drops pMastery below threshold — cuts premature mastery ~3x in the
+ * generative-BKT validation while leaving genuine masters' detection essentially
+ * unchanged. streak >= 2 is a no-op (pMastery >= threshold already implies it);
+ * streak >= 4 starts under-detecting real masters. 3 is the calibrated sweet spot.
+ */
+export const adaptiveMasteryConfirmationStreak = 3;
 
 const reviewIntervalsDays = [1, 3, 7, 14] as const;
 const difficultyRanks: Record<Difficulty, number> = {
@@ -169,9 +181,29 @@ export function createInitialAdaptiveSkillState(skillIdValue: string, now: Date 
   };
 }
 
+/**
+ * A skill counts as mastered only when pMastery has cleared the threshold AND the
+ * learner is on a confirming correct streak. Single source of truth for "is this
+ * skill done" — used by question selection, prerequisite repair, challenge
+ * unlocking, and review scheduling so they never disagree. See
+ * `adaptiveMasteryConfirmationStreak` for why a streak gate (not just a higher
+ * threshold or re-tuned BKT params) is the fix.
+ */
+export function isMasteryConfirmed(
+  state: Pick<AdaptiveSkillState, "pMastery" | "correctStreak">,
+  minStreak: number = adaptiveMasteryConfirmationStreak
+) {
+  return state.pMastery >= adaptiveMasteryThreshold && state.correctStreak >= minStreak;
+}
+
 export function scheduleReview(state: Pick<AdaptiveSkillState, "pMastery" | "correctStreak">, now: Date | string = new Date()) {
-  if (state.pMastery < adaptiveMasteryThreshold || state.correctStreak <= 0) return null;
-  const intervalIndex = Math.min(reviewIntervalsDays.length - 1, Math.max(0, state.correctStreak - 1));
+  if (!isMasteryConfirmed(state)) return null;
+  // Leitner intervals start once mastery is confirmed: streak == confirmation streak
+  // maps to the shortest (1-day) interval, then lengthens as the streak grows.
+  const intervalIndex = Math.min(
+    reviewIntervalsDays.length - 1,
+    Math.max(0, state.correctStreak - adaptiveMasteryConfirmationStreak)
+  );
   return addDays(new Date(now), reviewIntervalsDays[intervalIndex]);
 }
 
@@ -325,7 +357,7 @@ function hasAdaptiveEvidence(state: AdaptiveSkillState) {
 function dueReviewSummaries(summaries: AdaptiveSkillSummary[], now: Date) {
   return summaries
     .filter((summary) => {
-      if (!summary.state.nextReviewAt || summary.state.pMastery < adaptiveMasteryThreshold) return false;
+      if (!summary.state.nextReviewAt || !isMasteryConfirmed(summary.state)) return false;
       return new Date(summary.state.nextReviewAt).getTime() <= now.getTime();
     })
     .sort((left, right) => {
@@ -339,7 +371,7 @@ function prerequisiteRepairSummary(summaries: AdaptiveSkillSummary[], ordered: A
   const byId = new Map(summaries.map((summary) => [summary.skill.id, summary]));
 
   for (const summary of ordered) {
-    if (summary.state.pMastery >= adaptiveMasteryThreshold) continue;
+    if (isMasteryConfirmed(summary.state)) continue;
     const weakPrerequisite = summary.skill.prerequisites
       .map((id) => byId.get(id))
       .find((candidate): candidate is AdaptiveSkillSummary =>
@@ -365,7 +397,7 @@ function lessonSummary(ordered: AdaptiveSkillSummary[]) {
 }
 
 function practiceSummary(ordered: AdaptiveSkillSummary[]) {
-  return ordered.find((summary) => summary.state.pMastery < adaptiveMasteryThreshold) ?? null;
+  return ordered.find((summary) => !isMasteryConfirmed(summary.state)) ?? null;
 }
 
 function hasChallengeQuestionsForSkill(questions: PublicQuestion[], skill: KnowledgeComponent) {
@@ -379,8 +411,7 @@ function challengeSummary(ordered: AdaptiveSkillSummary[], questions: PublicQues
   const orderedIndex = new Map(ordered.map((summary, index) => [summary.skill.id, index]));
   return ordered
     .filter((summary) =>
-      summary.state.pMastery >= adaptiveMasteryThreshold &&
-      summary.state.correctStreak >= 2 &&
+      isMasteryConfirmed(summary.state) &&
       hasChallengeQuestionsForSkill(questions, summary.skill)
     )
     .sort((left, right) =>
