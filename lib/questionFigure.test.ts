@@ -8,6 +8,7 @@ import {
   buildNumberLineLayout,
   buildPlaneFigureLayout,
   buildSolidFigureLayout,
+  buildTenFrameLayout,
   normalizeQuestionDiagram,
   numberLinePointValue,
   planeFigureAngleDegrees,
@@ -15,6 +16,8 @@ import {
   questionDiagramAltText,
   solidFigureCuboidVolume,
   solidFigureUnitText,
+  tenFrameEmptySpots,
+  tenFrameRenderedCounts,
   validateQuestionDiagram
 } from "./questionFigure";
 import type { FigureTextResolver } from "./questionFigure";
@@ -79,6 +82,15 @@ test("normalizeQuestionDiagram accepts every diagram kind and rebuilds clean obj
     lines: [{ label: "AB", points: [{ x: 1, y: 1 }, { x: 4, y: 4 }] }]
   });
   assert.equal(grid?.kind, "coordinate-grid");
+
+  const tenFrame = normalizeQuestionDiagram({
+    kind: "ten-frame",
+    groups: [
+      { count: 5, tone: "red" },
+      { count: 1, tone: "blue" }
+    ]
+  });
+  assert.equal(tenFrame?.kind, "ten-frame");
 });
 
 test("normalizeQuestionDiagram rejects malformed payloads fail-closed", () => {
@@ -117,6 +129,87 @@ test("normalizeQuestionDiagram rejects malformed payloads fail-closed", () => {
 
   const withTooManyTicks = { kind: "number-line", range: [0, 100], tickInterval: 0.5 };
   assert.equal(normalizeQuestionDiagram(withTooManyTicks), undefined);
+
+  const withUnknownTone = { kind: "ten-frame", groups: [{ count: 3, tone: "chartreuse" }] };
+  assert.equal(normalizeQuestionDiagram(withUnknownTone), undefined);
+
+  const withFractionalCount = { kind: "ten-frame", groups: [{ count: 2.5, tone: "red" }] };
+  assert.equal(normalizeQuestionDiagram(withFractionalCount), undefined);
+
+  const withNoCounters = { kind: "ten-frame", groups: [{ count: 0, tone: "red" }] };
+  assert.equal(normalizeQuestionDiagram(withNoCounters), undefined);
+
+  const withOverflowingFrames = {
+    kind: "ten-frame",
+    layout: "separate-frames",
+    groups: [
+      { count: 10, tone: "orange" },
+      { count: 11, tone: "blue" }
+    ]
+  };
+  assert.equal(normalizeQuestionDiagram(withOverflowingFrames), undefined);
+
+  const withTooManyFrames = { kind: "ten-frame", frames: 3, groups: [{ count: 4, tone: "red" }] };
+  assert.equal(normalizeQuestionDiagram(withTooManyFrames), undefined);
+});
+
+test("ten-frame layout places every counter in a countable spot", () => {
+  const composeWithinTen = normalizeQuestionDiagram({
+    kind: "ten-frame",
+    groups: [
+      { count: 5, tone: "red" },
+      { count: 1, tone: "blue" }
+    ]
+  });
+  assert.equal(composeWithinTen?.kind, "ten-frame");
+  if (composeWithinTen?.kind !== "ten-frame") return;
+
+  const layout = buildTenFrameLayout(composeWithinTen, englishText);
+  assert.deepEqual(layout.issues, []);
+  assert.equal(layout.frames.length, 1);
+  assert.equal(layout.frames[0].cells.length, 10);
+  assert.equal(layout.frames[0].cells.filter((cell) => cell.tone === "red").length, 5);
+  assert.equal(layout.frames[0].cells.filter((cell) => cell.tone === "blue").length, 1);
+  assert.equal(layout.frames[0].cells.filter((cell) => cell.tone === null).length, 4);
+  // Counters fill left-to-right, top row first — the order a child counts in.
+  assert.deepEqual(
+    layout.frames[0].cells.slice(0, 6).map((cell) => cell.tone),
+    ["red", "red", "red", "red", "red", "blue"]
+  );
+  assert.equal(tenFrameEmptySpots(composeWithinTen), 4);
+
+  const teenNumber = normalizeQuestionDiagram({
+    kind: "ten-frame",
+    layout: "separate-frames",
+    groups: [
+      { count: 10, tone: "orange" },
+      { count: 3, tone: "blue" }
+    ]
+  });
+  assert.equal(teenNumber?.kind, "ten-frame");
+  if (teenNumber?.kind !== "ten-frame") return;
+
+  const teenLayout = buildTenFrameLayout(teenNumber, englishText);
+  assert.deepEqual(teenLayout.issues, []);
+  assert.equal(teenLayout.frames.length, 2);
+  assert.equal(teenLayout.frames[0].cells.filter((cell) => cell.tone === "orange").length, 10);
+  assert.equal(teenLayout.frames[1].cells.filter((cell) => cell.tone === "blue").length, 3);
+  // "Ten and three more" only reads that way if the second frame starts fresh.
+  assert.equal(teenLayout.frames[1].cells[0].tone, "blue");
+  assert.deepEqual(tenFrameRenderedCounts(teenNumber).perGroup, [10, 3]);
+
+  const elevenInARow = normalizeQuestionDiagram({
+    kind: "ten-frame",
+    frames: 2,
+    groups: [{ count: 11, tone: "blue" }]
+  });
+  assert.equal(elevenInARow?.kind, "ten-frame");
+  if (elevenInARow?.kind !== "ten-frame") return;
+
+  const elevenLayout = buildTenFrameLayout(elevenInARow, englishText);
+  assert.deepEqual(elevenLayout.issues, []);
+  assert.equal(elevenLayout.frames[0].cells.filter((cell) => cell.tone).length, 10);
+  assert.equal(elevenLayout.frames[1].cells.filter((cell) => cell.tone).length, 1);
 });
 
 test("validateQuestionDiagram flags geometric inconsistencies", () => {

@@ -4,6 +4,7 @@ import {
   buildNumberLineLayout,
   buildPlaneFigureLayout,
   buildSolidFigureLayout,
+  buildTenFrameLayout,
   questionDiagramAltText,
   type FigureLabel,
   type FigureTextResolver
@@ -15,7 +16,9 @@ import type {
   NumberLineQuestionDiagram,
   PlaneFigureQuestionDiagram,
   QuestionDiagram,
-  SolidFigureQuestionDiagram
+  SolidFigureQuestionDiagram,
+  TenFrameCounterTone,
+  TenFrameQuestionDiagram
 } from "@/types";
 
 export type QuestionFigureVariant = "default" | "day";
@@ -336,6 +339,81 @@ function SolidFigureView({
   );
 }
 
+/**
+ * Counter fills. Kept as literal hex rather than Tailwind classes because the
+ * tone a spec names ("red") has to be the colour a learner sees and the colour
+ * the alt text says — one table, no theme-dependent drift.
+ */
+const tenFrameToneFills: Record<TenFrameCounterTone, { day: string; night: string }> = {
+  red: { day: "#e23b3b", night: "#f26d6d" },
+  blue: { day: "#2f6bec", night: "#6d97f5" },
+  orange: { day: "#f2601f", night: "#f5854f" },
+  green: { day: "#0f9d58", night: "#3fbf7f" },
+  purple: { day: "#8b46d6", night: "#ab74e6" },
+  yellow: { day: "#e0a106", night: "#f0c53c" }
+};
+
+function TenFrameView({
+  diagram,
+  theme,
+  textFor
+}: {
+  diagram: TenFrameQuestionDiagram;
+  theme: FigureTheme;
+  textFor: FigureTextResolver;
+}) {
+  const layout = buildTenFrameLayout(diagram, textFor);
+  const isDay = theme.isDay;
+  const frameStroke = isDay ? "#dbe2ec" : "rgb(148 163 184)";
+  const emptyFill = isDay ? "#eef1f7" : "rgba(148, 163, 184, 0.22)";
+  const counterHalo = isDay ? "#ffffff" : "rgba(15, 23, 42, 0.85)";
+  const fillFor = (tone: TenFrameCounterTone) => (isDay ? tenFrameToneFills[tone].day : tenFrameToneFills[tone].night);
+
+  return (
+    <svg
+      viewBox={`0 0 ${layout.viewBox.width} ${layout.viewBox.height}`}
+      // Counters should stay finger-sized, not balloon to fill the figure shell
+      // the way a coordinate grid wants to.
+      style={{ maxWidth: `${layout.viewBox.width * 1.8}px` }}
+      className="mx-auto block h-auto w-full"
+    >
+      {layout.frames.map((frame) => (
+        <g key={frame.key}>
+          <rect
+            x={frame.x}
+            y={frame.y}
+            width={frame.width}
+            height={frame.height}
+            rx={12}
+            className={theme.plotFillClassName}
+            stroke={frameStroke}
+            strokeWidth={2}
+          />
+          {frame.cells.map((cell) => (
+            <circle
+              key={cell.key}
+              cx={cell.cx}
+              cy={cell.cy}
+              r={cell.r}
+              fill={cell.tone ? fillFor(cell.tone) : emptyFill}
+              stroke={cell.tone ? counterHalo : "none"}
+              strokeWidth={cell.tone ? 2.5 : 0}
+            />
+          ))}
+        </g>
+      ))}
+      {layout.legend.map((entry) => (
+        <g key={entry.key}>
+          <circle cx={entry.swatchX + 5} cy={entry.swatchY} r={5} fill={fillFor(entry.tone)} />
+          <text x={entry.textX} y={entry.textY} dominantBaseline="central" className={theme.measureLabelClassName}>
+            {entry.text}
+          </text>
+        </g>
+      ))}
+    </svg>
+  );
+}
+
 type QuestionFigureProps = {
   diagram: QuestionDiagram;
   variant?: QuestionFigureVariant;
@@ -354,6 +432,7 @@ export function QuestionFigure({ diagram, variant = "default", compact = false, 
       {diagram.kind === "plane-figure" ? <PlaneFigureView diagram={diagram} theme={theme} textFor={textFor} /> : null}
       {diagram.kind === "number-line" ? <NumberLineView diagram={diagram} theme={theme} textFor={textFor} /> : null}
       {diagram.kind === "solid-figure" ? <SolidFigureView diagram={diagram} theme={theme} textFor={textFor} /> : null}
+      {diagram.kind === "ten-frame" ? <TenFrameView diagram={diagram} theme={theme} textFor={textFor} /> : null}
     </div>
   );
 }

@@ -1,3 +1,4 @@
+import { usCaliforniaPracticeFigureFor } from "./usCaliforniaPracticeFigures";
 import {
   type CaliforniaGradeId,
   type CaliforniaQuestionBatch,
@@ -91,6 +92,7 @@ function reviewNotesForQuestion(question: GeneratedCaliforniaQuestion) {
 function toQuestion(question: GeneratedCaliforniaQuestion): Question {
   const topic = usCaliforniaTopicById.get(question.topicId);
   if (!topic) throw new Error(`Missing California topic for ${question.topicId}`);
+  const figure = usCaliforniaPracticeFigureFor(question.id);
 
   return {
     id: question.id,
@@ -108,7 +110,8 @@ function toQuestion(question: GeneratedCaliforniaQuestion): Question {
     options: optionsFor(question),
     answer: question.answer,
     acceptedAnswers: acceptedAnswersFor(question),
-    explanation: question.explanation
+    explanation: question.explanation,
+    ...(figure ? { diagram: figure } : {})
   };
 }
 
