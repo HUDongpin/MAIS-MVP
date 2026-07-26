@@ -1,0 +1,22 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "incremental": false,
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "noEmit": false,
+    "outDir": ".tmp/accommodations-tests"
+  },
+  "files": [
+    "lib/accommodations.test.ts",
+    "lib/calculatorEngine.test.ts",
+    "lib/expressionCalculator.test.ts",
+    "lib/statistics.test.ts",
+    "lib/server/userStore/accommodationsPersistence.test.ts"
+  ],
+  "include": [],
+  "exclude": [
+    ".next",
+    "node_modules"
+  ]
+}

@@ -11,6 +11,12 @@
      CCSS 6.EE.A.4 — identify when two expressions are equivalent, i.e. they
                      name the same number REGARDLESS of which value is
                      substituted into them        ← no other lab owns this one
+     CCSS 7.EE.A.2 — rewriting an expression can reveal how its quantities are
+                     related: a + 0.05a = 1.05a shows "increase by 5%" IS
+                     "multiply by 1.05"           ← added 2026-07-18, the bridge
+                     LikeTermsLab (combine) and PercentChangeLab (the ×tag)
+                     leave unbuilt; held as an exact fraction so 0.05 never
+                     becomes a float artefact
 
    THE SIGNATURE CENTERPIECE — TWO PARALLEL NUMBER LINES, ONE LANDING.
    The upper line walks the expression AS WRITTEN: a carmine x-jumps, then c
@@ -56,6 +62,7 @@ const INK = '#1c2b3a';
 const INK_SOFT = '#5b6b7b';
 const PAPER = '#fbfbf8';
 const OK = '#1f8a5b';
+/* ==== MODEL:START — pure math sliced+eval'd by audit-liketerms.mjs. ====== */
 const MINUS = '−';
 
 /* ---------------------------------------------------------------------------
@@ -197,6 +204,34 @@ function makeTarget(prev) {
 }
 
 /* ---------------------------------------------------------------------------
+   EDIT 7 (2026-07-18) — 7.EE.A.2: REWRITING REVEALS MEANING.
+   The invisible-1 term and a percent term are LIKE TERMS, so they combine:
+        a + p% of a  =  1·a + (p/100)·a  =  (1 + p/100)·a  =  ((100+p)/100)·a
+   and the collected coefficient (100+p)/100 is exactly the MULTIPLIER that
+   "increase by p%" secretly is — the bridge that LikeTermsLab (combine) and
+   PercentChangeLab (the ×tag) leave unbuilt. Held as an EXACT fraction and
+   printed from the integer p, so 0.05 never becomes a binary-float artefact
+   (the RoundingLab lesson): 1 + 5/100 is 1.05 exactly, built from digits.
+   ------------------------------------------------------------------------- */
+const gcdI = (m, n) => (n ? gcdI(n, m % n) : Math.abs(m));
+const MARKUP_MIN = 1, MARKUP_MAX = 50; // p%, a whole percent
+/* the collected multiplier (1 + p/100) as an exact REDUCED fraction */
+function markupCoef(p) {
+  const n = 100 + p, d = 100, g = gcdI(n, d) || 1;
+  return { n: n / g, d: d / g };
+}
+/* the same multiplier as an exact decimal string, from the integer p —
+   never n/d printed as a float. 5 -> "1.05", 20 -> "1.2", 25 -> "1.25". */
+function markupDecimal(p) {
+  return p % 10 === 0 ? `1.${p / 10}` : `1.${String(p).padStart(2, '0')}`;
+}
+/* the percent term's own coefficient: 5 -> "0.05", 20 -> "0.2" */
+function pctCoef(p) {
+  return p % 10 === 0 ? `0.${p / 10}` : `0.${String(p).padStart(2, '0')}`;
+}
+const MARKUP_STEP = 7; // the "rewriting reveals meaning" step (before calib)
+
+/* ---------------------------------------------------------------------------
    EDIT 4 — Lesson. One control unlocks per step (c and e together — they are
    like terms). Distractors are the documented errors: 2x + 5 + 3x = 10x
    (sweeping the constant into the x-count), "a term in between blocks it",
@@ -307,6 +342,22 @@ const STEPS = [
       'fake separates.',
   },
   {
+    title: 'Rewriting reveals meaning',
+    focus: 'markup',
+    body:
+      'One last like-terms move — the famous one. A price a goes UP by 5%. The new price is the ' +
+      'whole thing PLUS five percent of it: a + 0.05a. But a is 1a, and 1a and 0.05a are LIKE ' +
+      'terms — so they combine: 1a + 0.05a = 1.05a. “Go up 5%” and “multiply by 1.05” are the ' +
+      'SAME thing, and the rewrite is what shows it. Slide the markup to see it hold for any percent.',
+    q: 'A price a rises 5%. Which single expression is the new price?',
+    choices: ['1.05a', '0.05a', '5a'],
+    answer: 0,
+    feedback:
+      'a + 0.05a = 1.05a. The whole (100%) plus 5% more is 105% of a, which is ×1.05 — that is why ' +
+      'every markup is secretly a multiplier, and combining the like terms 1a and 0.05a reveals it. ' +
+      '0.05a is only the 5% part; 5a would be five whole prices.',
+  },
+  {
     title: 'Simplify challenge',
     body:
       'Final challenge. A simplified target is given. Build ANY expression whose x-terms and ' +
@@ -315,6 +366,7 @@ const STEPS = [
     calib: true,
   },
 ];
+/* ==== MODEL:END ======================================================== */
 
 /* ============================================================================
    COMPONENT
@@ -328,6 +380,7 @@ export default function LikeTermsLab() {
   const [step, setStep] = useState(0);
   const [answers, setAnswers] = useState({});
   const [target, setTarget] = useState(null);
+  const [mkPct, setMkPct] = useState(5); // 7.EE.A.2 markup percent
 
   const stageRef = useRef(null);
   const canvasRef = useRef(null);
@@ -340,7 +393,8 @@ export default function LikeTermsLab() {
   const value = evalScattered(p, x);
   const showCollected = step >= COLLECT_STEP;
 
-  sceneRef.current = { ...sceneRef.current, x, a, c, d, e, calib, target, showCollected };
+  const isMarkup = step === MARKUP_STEP;
+  sceneRef.current = { ...sceneRef.current, x, a, c, d, e, calib, target, showCollected, step, mkPct, isMarkup };
 
   const err = target ? calErr(p, target) : Infinity;
   const pct = target ? matchPercent(err) : 0;
@@ -368,6 +422,46 @@ export default function LikeTermsLab() {
     const col = collected(P);
     const val = evalScattered(P, sx0);
     const MONO = 'ui-monospace, "SF Mono", Menlo, monospace';
+
+    /* 7.EE.A.2 — the markup step draws its own bar diagram (a + p%·a = (1+p/100)a),
+       not the number-line walks. Early return keeps the twin-line render untouched. */
+    if (S.isMarkup) {
+      const p2 = S.mkPct;
+      const CARM = '#c81e4f', CONST = '#2f6f9f', INKC = '#1c2b3a', SOFT = '#5b6b7b', OKC = '#1f8a5b';
+      const left = 40, right = W - 40, fullW = (right - left) * 0.72; // 'a' bar width = 100%
+      const barH = Math.min(46, H * 0.13);
+      const y1 = H * 0.24, y2 = H * 0.52, y3 = H * 0.80;
+      const rr = (rx, ry, rw, rh, col) => {
+        const r = 7; ctx.beginPath();
+        ctx.moveTo(rx + r, ry); ctx.arcTo(rx + rw, ry, rx + rw, ry + rh, r);
+        ctx.arcTo(rx + rw, ry + rh, rx, ry + rh, r); ctx.arcTo(rx, ry + rh, rx, ry, r);
+        ctx.arcTo(rx, ry, rx + rw, ry, r); ctx.closePath(); ctx.fillStyle = col; ctx.fill();
+      };
+      const lab = (t, x0, y, col, align) => {
+        ctx.fillStyle = col; ctx.font = `600 15px ${MONO}`; ctx.textAlign = align || 'left';
+        ctx.textBaseline = 'middle'; ctx.fillText(t, x0, y);
+      };
+      // row 1: the whole, a  (100%)
+      rr(left, y1 - barH / 2, fullW, barH, CARM);
+      lab('a', left + fullW + 12, y1, CARM, 'left');
+      lab('the whole  ·  100%', left, y1 - barH / 2 - 14, SOFT, 'left');
+      // row 2: the markup sliver, p%·a
+      const sliverW = fullW * p2 / 100;
+      rr(left, y2 - barH / 2, sliverW, barH, CONST);
+      lab(`${pctCoef(p2)}a`, left + Math.max(sliverW, 4) + 12, y2, CONST, 'left');
+      lab(`plus ${p2}% of a`, left, y2 - barH / 2 - 14, SOFT, 'left');
+      // row 3: the sum, (1+p/100)a = markupDecimal
+      rr(left, y3 - barH / 2, fullW, barH, CARM);
+      rr(left + fullW, y3 - barH / 2, sliverW, barH, CONST);
+      lab(`${markupDecimal(p2)}a`, left + fullW + sliverW + 12, y3, OKC, 'left');
+      lab(`= ${markupDecimal(p2)} × a  ·  ${100 + p2}%`, left, y3 - barH / 2 - 14, SOFT, 'left');
+      // the equation, centred at the foot
+      ctx.textAlign = 'center';
+      lab(`a + ${pctCoef(p2)}a  =  ${markupDecimal(p2)}a`, W / 2, H * 0.955, INKC);
+      ctx.textAlign = 'left';
+      return;
+    }
+
 
     const { wmin, wmax, step: gstep } = fitWindow(P, sx0);
     const padL = 30;
@@ -605,7 +699,7 @@ export default function LikeTermsLab() {
 
   useEffect(() => {
     draw();
-  }, [x, a, c, d, e, step, target, draw]);
+  }, [x, a, c, d, e, step, target, mkPct, draw]);
 
   useEffect(() => {
     const stage = stageRef.current;
@@ -669,6 +763,19 @@ export default function LikeTermsLab() {
         {/* ---------- STAGE ---------- */}
         <section className="panel stage-panel">
           <div className="stage-head">
+            {isMarkup ? (
+              <>
+                <p className="equation">
+                  <span style={{ color: CURVE }}>a</span>
+                  <span style={{ color: INK_SOFT }}>{' + '}</span>
+                  <span style={{ color: CONST_COL }}>{pctCoef(mkPct)}a</span>
+                  <span style={{ color: INK_SOFT }}>{' = '}</span>
+                  <span style={{ color: INK }}>{markupDecimal(mkPct)}a</span>
+                </p>
+                <p className="equation-sub mono">a rise of {mkPct}% is a multiplier of {markupDecimal(mkPct)}</p>
+              </>
+            ) : (
+            <>
             <p className="equation">
               {terms(p).map((t, i) => (
                 <span key={i}>
@@ -684,6 +791,8 @@ export default function LikeTermsLab() {
               )}
             </p>
             <p className="equation-sub mono">{substString(p, x)}</p>
+            </>
+            )}
           </div>
 
           <div className="stage" ref={stageRef} role="img" aria-label={spoken}>
@@ -713,7 +822,7 @@ export default function LikeTermsLab() {
             )}
           </div>
 
-          <div className="facts">
+          {!isMarkup && <div className="facts">
             <div className="fact">
               <span className="fact-k">x-terms collect to</span>
               <span className="fact-v mono" style={{ color: CURVE }}>
@@ -738,7 +847,7 @@ export default function LikeTermsLab() {
                 {fmt(value)}
               </span>
             </div>
-          </div>
+          </div>}
 
           <div className="toolbar">
             <button type="button" className="btn ghost" onClick={resetDials}>
@@ -767,7 +876,23 @@ export default function LikeTermsLab() {
           <p className="body">{current.body}</p>
 
           <div className="dials">
-            {DIALS.map((dl) => {
+            {isMarkup && (
+              <label className="dial star">
+                <span className="dk">%</span>
+                <span className="drole">the markup — a rises by this percent</span>
+                <input
+                  type="range"
+                  min={MARKUP_MIN}
+                  max={MARKUP_MAX}
+                  step={1}
+                  value={mkPct}
+                  aria-label="markup percent"
+                  onChange={(ev) => setMkPct(parseInt(ev.target.value, 10))}
+                />
+                <output className="dv">{mkPct}%</output>
+              </label>
+            )}
+            {!isMarkup && DIALS.map((dl) => {
               const unlocked = step >= dl.unlock;
               return (
                 <label className={'dial' + (unlocked ? '' : ' locked') + (dl.star ? ' star' : '')} key={dl.key}>

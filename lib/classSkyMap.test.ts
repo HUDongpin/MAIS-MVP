@@ -13,7 +13,9 @@ const topics: UniverseTopicInput[] = [
 ];
 
 function state(skillId: string, pMastery: number, overrides: Partial<UniverseSkillStateInput> = {}): UniverseSkillStateInput {
-  return { skillId, pMastery, attemptCount: 4, nextReviewAt: null, ...overrides };
+  // Confirmed streak by default so an over-threshold pMastery counts as mastered;
+  // pass correctStreak < 3 to exercise the "confirming" (not-yet-mastered) band.
+  return { skillId, pMastery, attemptCount: 4, correctStreak: 3, nextReviewAt: null, ...overrides };
 }
 
 function studentWithMastery(topicId: string, masteries: number[]): ClassSkyStudentInput {
@@ -51,6 +53,18 @@ test("aggregates heat, mastered, attempted, and struggling counts per cluster", 
   const geometry = map.clusters.find((cluster) => cluster.id === "1.G");
   equal(geometry?.attemptedCount, 0);
   equal(geometry?.heat, 0);
+});
+
+test("a 'confirming' skill counts as attempted but not mastered", () => {
+  const students: ClassSkyStudentInput[] = [
+    // Over the mastery bar but streak not yet confirmed -> confirming, not mastered.
+    { grade: "P1", states: [state("us-ca-math-p1-1-nbt-place-value:foundation", 0.9, { correctStreak: 2 })] }
+  ];
+  const map = buildClassSkyMap({ topics, students, now: NOW });
+  const nbt = map.clusters.find((cluster) => cluster.id === "1.NBT");
+  equal(nbt?.attemptedCount, 1, "an actively-progressing student is counted as attempted");
+  equal(nbt?.masteredCount, 0, "confirming does not count as mastered");
+  equal(nbt?.heat, 0, "heat reflects confirmed mastery only");
 });
 
 test("hotspots surface the clusters with the most struggling students", () => {

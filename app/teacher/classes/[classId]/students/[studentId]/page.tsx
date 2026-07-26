@@ -1,6 +1,6 @@
 import { notFound } from "next/navigation";
 import { TeacherStudentProfileView } from "@/components/teacher/TeacherManagementViews";
-import { getTeacherStudentProfileData } from "@/lib/server/userStore";
+import { getStudentAccommodationsProfileForTeacher, getTeacherStudentProfileData } from "@/lib/server/userStore";
 import { getTeacherFoundationForPage } from "../../../../getTeacherFoundation";
 
 export default async function TeacherClassStudentProfilePage({ params }: { params: Promise<{ classId: string; studentId: string }> }) {
@@ -12,5 +12,14 @@ export default async function TeacherClassStudentProfilePage({ params }: { param
     notFound();
   }
 
-  return <TeacherStudentProfileView profile={profile} backHref={`/teacher/classes/${encodeURIComponent(classId)}`} activeClassId={classId} />;
+  const accommodationsResult = await getStudentAccommodationsProfileForTeacher(foundation.teacher.id, studentId);
+
+  return (
+    <TeacherStudentProfileView
+      profile={profile}
+      backHref={`/teacher/classes/${encodeURIComponent(classId)}`}
+      activeClassId={classId}
+      accommodations={accommodationsResult.status === "ok" ? accommodationsResult.profile : undefined}
+    />
+  );
 }

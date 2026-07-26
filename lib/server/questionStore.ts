@@ -6,6 +6,7 @@ import {
   normalizeStoredCurriculumProfile
 } from "@/lib/curriculumProfile";
 import { difficultyMatchesActiveFilter, mapDifficultyToActive } from "@/lib/difficulty";
+import { answerMatches } from "@/lib/server/answerMatching";
 import { hongKongBaseQuestions } from "@/lib/server/hongKongBaseQuestions";
 import type {
   CurriculumProfile,
@@ -288,6 +289,56 @@ export async function getPublicQuestionsFromStore(filters: PublicQuestionFilters
 
   publicQuestionsCache.set(key, publicQuestions);
   return publicQuestions;
+}
+
+// Whether a multiple-choice option is (one of) the correct answer(s). Uses the
+// exact same matching the grader uses (answerMatches over the accepted answers),
+// so a reduced set can never accidentally drop the correct option.
+function isCorrectOption(question: Question, option: LocalizedText) {
+  const acceptedAnswers = [question.answer, ...(question.acceptedAnswers ?? [])];
+  const optionTexts = [option.en, option.zh, option.zhHans ?? ""].filter(Boolean);
+  return acceptedAnswers.some((answer) => optionTexts.some((optionText) => answerMatches(answer, optionText)));
+}
+
+// Reduce a multiple-choice question to at most `maxChoices` options for the
+// "reduced answer choices" accommodation, always keeping every correct option and
+// preserving the original option order. Non-MC questions and questions already at
+// or below the cap are returned unchanged; if the correct option cannot be
+// identified (malformed data) the options are left intact rather than risk hiding
+// the answer.
+function reduceQuestionChoices(question: Question, maxChoices: number): Question {
+  if (question.type !== "multiple-choice" || maxChoices <= 0) return question;
+  const options = question.options ?? [];
+  if (options.length <= maxChoices) return question;
+
+  const correct = options.filter((option) => isCorrectOption(question, option));
+  if (correct.length === 0) return question;
+
+  const keptDistractors = Math.max(0, maxChoices - correct.length);
+  const keep = new Set<LocalizedText>(correct);
+  for (const option of options) {
+    if (keep.size >= Math.max(maxChoices, correct.length)) break;
+    if (!keep.has(option)) keep.add(option);
+    if (keep.size >= correct.length + keptDistractors) break;
+  }
+
+  return { ...question, options: options.filter((option) => keep.has(option)) };
+}
+
+// Per-student variant of getPublicQuestionsFromStore that applies the reduced
+// answer-choices accommodation. Not cached (the reduction is student-specific);
+// falls back to the shared cached path when no reduction is requested.
+export async function getReducedChoicePublicQuestionsFromStore(
+  filters: PublicQuestionFilters,
+  maxChoices: number
+): Promise<PublicQuestion[]> {
+  if (maxChoices <= 0) return getPublicQuestionsFromStore(filters);
+
+  const questions = await sourceQuestionsForFilters(filters);
+  return questions
+    .filter((question) => questionMatchesFilters(question, filters))
+    .map((question) => reduceQuestionChoices(question, maxChoices))
+    .map(toPublicQuestion);
 }
 
 export async function getQuestionTopicCatalogFromStore(filters: PublicQuestionFilters = {}): Promise<QuestionTopicCatalog> {

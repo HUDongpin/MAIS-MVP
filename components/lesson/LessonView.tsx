@@ -45,7 +45,7 @@ import { getMainlandPepPrimaryLessonIllustration } from "@/data/mainlandPepPrima
 import { getUsArkansasMiddleSchoolLessonIllustration } from "@/data/usArkansasMiddleSchoolLessonIllustrations";
 import { getCcssTextbookLesson } from "@/data/ccssTextbookRegistry";
 import { getUsCaliforniaLessonIllustration } from "@/data/usCaliforniaLessonIllustrations";
-import type { VisualizationModuleId } from "@/data/visualizationLabs";
+import type { FeaturedLabDefinition, VisualizationModuleId } from "@/data/visualizationLabs";
 import { lessonHrefForSlug } from "@/lib/lessonLinks";
 import { dedupePracticeQuestions } from "@/lib/practiceQuestionDeduping";
 import { studentRoadmapPath } from "@/lib/roadmapRoutes";
@@ -63,6 +63,9 @@ type LessonViewProps = {
   gradeLessons?: LessonSummary[];
   slug: string;
   initialLesson: LessonDetail | null;
+  // Resolved on the server for the lesson's visualization block so the client never
+  // has to import the visualization-labs/topics/question-bank graph.
+  visualizationLab?: FeaturedLabDefinition | null;
 };
 
 type LessonQuestionResult = {
@@ -88,6 +91,11 @@ type LessonVisualizationProps = {
   controlFooterAction?: ReactNode;
   topicId: string;
   showAxisLabels?: boolean;
+  // Server-resolved lab definition. When provided, ConfiguredVisualizationLab uses it
+  // directly instead of dynamically importing @/data/visualizationLabs on the client —
+  // which would drag the whole topics + multi-region question-bank graph (tens of MB)
+  // into the lesson bundle. Other lesson visualizations ignore this prop.
+  lab?: FeaturedLabDefinition | null;
 };
 
 type LessonSelectionContext = {
@@ -358,6 +366,42 @@ function DeferredLessonPanel() {
       className="min-h-40 animate-pulse rounded-2xl border border-slate-200/70 bg-white/60 shadow-sm shadow-slate-950/5 dark:border-white/10 dark:bg-white/[0.055]"
     />
   );
+}
+
+// Defers mounting an expensive, below-the-fold panel (e.g. the interactive
+// visualization, whose chunk carries the 3D/manim runtime) until the student
+// scrolls it near the viewport. Keeping it off the initial render path stops
+// the heavy chunk from downloading/parsing on every lesson load — the lesson
+// content becomes interactive immediately and the panel loads just before the
+// student reaches it. `rootMargin` gives a head-start so the panel is usually
+// ready by the time it is scrolled into view.
+function useMountWhenNear(rootMargin = "600px") {
+  const ref = useRef<HTMLElement | null>(null);
+  const [shouldMount, setShouldMount] = useState(false);
+
+  useEffect(() => {
+    if (shouldMount) return;
+    const node = ref.current;
+    if (!node) return;
+    if (typeof IntersectionObserver === "undefined") {
+      setShouldMount(true);
+      return;
+    }
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (entries.some((entry) => entry.isIntersecting)) {
+          setShouldMount(true);
+          observer.disconnect();
+        }
+      },
+      { rootMargin }
+    );
+    observer.observe(node);
+    return () => observer.disconnect();
+  }, [shouldMount, rootMargin]);
+
+  return { ref, shouldMount };
 }
 
 function NovaLensButtonIcon({ compact = false }: { compact?: boolean }) {
@@ -1903,7 +1947,7 @@ function LessonHeroHeader({ title, action }: { title?: string; action?: ReactNod
   );
 }
 
-export function LessonView({ gradeLessons = [], slug, initialLesson }: LessonViewProps) {
+export function LessonView({ gradeLessons = [], slug, initialLesson, visualizationLab = null }: LessonViewProps) {
   const { currentUser, language, settingsReady, t, text } = useSettings();
   const { openTutor } = useAITutor();
   const prefersReducedMotion = useReducedMotion();
@@ -1973,6 +2017,7 @@ export function LessonView({ gradeLessons = [], slug, initialLesson }: LessonVie
   }, [text, visualizationBlock]);
   const VisualizationModule = getLessonVisualization(visualizationBlock?.visualizationConfig?.moduleId);
   const showVisualizationAxisLabels = visualizationBlock?.visualizationConfig?.moduleId === "function-graph-explorer";
+  const { ref: visualizationMountRef, shouldMount: shouldMountVisualization } = useMountWhenNear();
   const lessonPracticeSummary = useMemo(() => {
     if (!lessonPracticeQuestions.length) return null;
 
@@ -2921,7 +2966,7 @@ export function LessonView({ gradeLessons = [], slug, initialLesson }: LessonVie
       </section>
 
       {visualizationBlock ? (
-        <section id="visualization" className="mt-8 scroll-mt-28 glass-panel p-5 sm:p-6">
+        <section id="visualization" ref={visualizationMountRef} className="mt-8 scroll-mt-28 glass-panel p-5 sm:p-6">
           <div className="mb-5">
             <p className="text-sm font-bold uppercase tracking-[0.22em] text-cyan-500 dark:text-cyan-300">{t(dictionary.lesson.visualizationPanel)}</p>
             <h2 className="mt-2 text-2xl font-black leading-tight text-slate-950 dark:text-white">
@@ -2939,18 +2984,23 @@ export function LessonView({ gradeLessons = [], slug, initialLesson }: LessonVie
             ) : null}
           </div>
           {VisualizationModule ? (
-            <>
-              <VisualizationModule
-                controlFooterAction={usesConfiguredVisualizationFooterAction ? visualizationNextItemAction : undefined}
-                topicId={visualizationTopicId}
-                showAxisLabels={showVisualizationAxisLabels}
-              />
-              {usesConfiguredVisualizationFooterAction ? null : (
-                <div className="mt-5 flex justify-end">
-                  {visualizationNextItemAction}
-                </div>
-              )}
-            </>
+            shouldMountVisualization ? (
+              <>
+                <VisualizationModule
+                  controlFooterAction={usesConfiguredVisualizationFooterAction ? visualizationNextItemAction : undefined}
+                  topicId={visualizationTopicId}
+                  showAxisLabels={showVisualizationAxisLabels}
+                  lab={visualizationLab}
+                />
+                {usesConfiguredVisualizationFooterAction ? null : (
+                  <div className="mt-5 flex justify-end">
+                    {visualizationNextItemAction}
+                  </div>
+                )}
+              </>
+            ) : (
+              <DeferredLessonPanel />
+            )
           ) : (
             <div className="rounded-2xl border border-amber-300/40 bg-amber-400/10 p-4 text-sm font-semibold text-amber-800 dark:text-amber-100">
               {t({

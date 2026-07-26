@@ -33,7 +33,7 @@ type LabComponentRuntimeProps = { lab?: FeaturedLabDefinition | null; topicId: s
 type LabComponentProps = LabComponentRuntimeProps & { onRuntimeReady?: (labId: string) => void };
 type PanelMode = "control" | "lab";
 type VisualizationGradeEntryPoint = "back-to-my-grade" | "empty-state" | "grade-rail" | "grade-rail-pinned";
-type VisualizationLabOpenEntryPoint = "lab-tile" | "next-up-card" | "start-quest";
+type VisualizationLabOpenEntryPoint = "lab-tile" | "mission-strip" | "next-up-card" | "start-quest";
 type DirectLinkStatus = "idle" | "ok" | "missing" | "unavailable";
 type ShareState = "idle" | "copied" | "error" | "blocked";
 type SnapshotState = "idle" | "copied" | "error" | "blocked";
@@ -235,6 +235,14 @@ const SignatureLabRoutes = {
       ]).then(([adapter, lab]) => createRuntimeReadyLabComponent(adapter.createSignatureLab(lab.default))),
     { loading: () => <LabRuntimeLoading /> }
   ),
+  ClosureLab: dynamic<LabComponentProps>(
+    () =>
+      Promise.all([
+        import("@/components/visualizations/SignatureLabAdapter"),
+        import("@/components/visualizations/signature/ClosureLab")
+      ]).then(([adapter, lab]) => createRuntimeReadyLabComponent(adapter.createSignatureLab(lab.default))),
+    { loading: () => <LabRuntimeLoading /> }
+  ),
   CommutativeLab: dynamic<LabComponentProps>(
     () =>
       Promise.all([
@@ -267,6 +275,14 @@ const SignatureLabRoutes = {
       ]).then(([adapter, lab]) => createRuntimeReadyLabComponent(adapter.createSignatureLab(lab.default))),
     { loading: () => <LabRuntimeLoading /> }
   ),
+  ComplexArithmeticLab: dynamic<LabComponentProps>(
+    () =>
+      Promise.all([
+        import("@/components/visualizations/SignatureLabAdapter"),
+        import("@/components/visualizations/signature/ComplexArithmeticLab")
+      ]).then(([adapter, lab]) => createRuntimeReadyLabComponent(adapter.createSignatureLab(lab.default))),
+    { loading: () => <LabRuntimeLoading /> }
+  ),
   ComplexPlaneLab: dynamic<LabComponentProps>(
     () =>
       Promise.all([
@@ -280,6 +296,14 @@ const SignatureLabRoutes = {
       Promise.all([
         import("@/components/visualizations/SignatureLabAdapter"),
         import("@/components/visualizations/signature/ComposingShapesLab")
+      ]).then(([adapter, lab]) => createRuntimeReadyLabComponent(adapter.createSignatureLab(lab.default))),
+    { loading: () => <LabRuntimeLoading /> }
+  ),
+  CompositionLab: dynamic<LabComponentProps>(
+    () =>
+      Promise.all([
+        import("@/components/visualizations/SignatureLabAdapter"),
+        import("@/components/visualizations/signature/CompositionLab")
       ]).then(([adapter, lab]) => createRuntimeReadyLabComponent(adapter.createSignatureLab(lab.default))),
     { loading: () => <LabRuntimeLoading /> }
   ),
@@ -304,6 +328,14 @@ const SignatureLabRoutes = {
       Promise.all([
         import("@/components/visualizations/SignatureLabAdapter"),
         import("@/components/visualizations/signature/CongruenceLab")
+      ]).then(([adapter, lab]) => createRuntimeReadyLabComponent(adapter.createSignatureLab(lab.default))),
+    { loading: () => <LabRuntimeLoading /> }
+  ),
+  CoordinateMethodsLab: dynamic<LabComponentProps>(
+    () =>
+      Promise.all([
+        import("@/components/visualizations/SignatureLabAdapter"),
+        import("@/components/visualizations/signature/CoordinateMethodsLab")
       ]).then(([adapter, lab]) => createRuntimeReadyLabComponent(adapter.createSignatureLab(lab.default))),
     { loading: () => <LabRuntimeLoading /> }
   ),
@@ -475,6 +507,14 @@ const SignatureLabRoutes = {
       ]).then(([adapter, lab]) => createRuntimeReadyLabComponent(adapter.createSignatureLab(lab.default))),
     { loading: () => <LabRuntimeLoading /> }
   ),
+  EliminationLab: dynamic<LabComponentProps>(
+    () =>
+      Promise.all([
+        import("@/components/visualizations/SignatureLabAdapter"),
+        import("@/components/visualizations/signature/EliminationLab")
+      ]).then(([adapter, lab]) => createRuntimeReadyLabComponent(adapter.createSignatureLab(lab.default))),
+    { loading: () => <LabRuntimeLoading /> }
+  ),
   EquationLab: dynamic<LabComponentProps>(
     () =>
       Promise.all([
@@ -616,6 +656,14 @@ const SignatureLabRoutes = {
       Promise.all([
         import("@/components/visualizations/SignatureLabAdapter"),
         import("@/components/visualizations/signature/FunctionLab")
+      ]).then(([adapter, lab]) => createRuntimeReadyLabComponent(adapter.createSignatureLab(lab.default))),
+    { loading: () => <LabRuntimeLoading /> }
+  ),
+  GeometricModelingLab: dynamic<LabComponentProps>(
+    () =>
+      Promise.all([
+        import("@/components/visualizations/SignatureLabAdapter"),
+        import("@/components/visualizations/signature/GeometricModelingLab")
       ]).then(([adapter, lab]) => createRuntimeReadyLabComponent(adapter.createSignatureLab(lab.default))),
     { loading: () => <LabRuntimeLoading /> }
   ),
@@ -984,6 +1032,14 @@ const SignatureLabRoutes = {
       Promise.all([
         import("@/components/visualizations/SignatureLabAdapter"),
         import("@/components/visualizations/signature/PiecewiseLab")
+      ]).then(([adapter, lab]) => createRuntimeReadyLabComponent(adapter.createSignatureLab(lab.default))),
+    { loading: () => <LabRuntimeLoading /> }
+  ),
+  PlaceJumpLab: dynamic<LabComponentProps>(
+    () =>
+      Promise.all([
+        import("@/components/visualizations/SignatureLabAdapter"),
+        import("@/components/visualizations/signature/PlaceJumpLab")
       ]).then(([adapter, lab]) => createRuntimeReadyLabComponent(adapter.createSignatureLab(lab.default))),
     { loading: () => <LabRuntimeLoading /> }
   ),
@@ -1363,6 +1419,14 @@ const SignatureLabRoutes = {
       ]).then(([adapter, lab]) => createRuntimeReadyLabComponent(adapter.createSignatureLab(lab.default))),
     { loading: () => <LabRuntimeLoading /> }
   ),
+  StoryProblemLab: dynamic<LabComponentProps>(
+    () =>
+      Promise.all([
+        import("@/components/visualizations/SignatureLabAdapter"),
+        import("@/components/visualizations/signature/StoryProblemLab")
+      ]).then(([adapter, lab]) => createRuntimeReadyLabComponent(adapter.createSignatureLab(lab.default))),
+    { loading: () => <LabRuntimeLoading /> }
+  ),
   SubstitutionLab: dynamic<LabComponentProps>(
     () =>
       Promise.all([
@@ -1645,13 +1709,32 @@ function SignatureBenchSwitcher({
   lab,
   topicId,
   labId,
-  onRuntimeReady
+  onRuntimeReady,
+  onBenchSwitch
 }: {
   assignment: NonNullable<ReturnType<typeof getSignatureLabAssignment>>;
   lab: FeaturedLabDefinition;
   topicId: string;
   labId?: string;
   onRuntimeReady?: (labId: string) => void;
+  /**
+   * Fired when the student switches to a DIFFERENT bench. Until 2026-07-25 this
+   * chip row emitted nothing, so there was no way to tell whether students ever
+   * used it — which matters because 138 of the 192 benches are reachable only
+   * here, behind a click, rather than as a topic's `primary`. Re-selecting the
+   * bench already showing is not a switch and is not reported.
+   *
+   * READ THIS BEFORE ANALYSING VISUALIZATION-PROBE COUNTS. Switching remounts
+   * the bench (the `key` below), and `SignatureLabAdapter` emits a
+   * `visualization-probe` from a mount effect. That probe carries the TOPIC's
+   * id, not the bench's — so on a fan-out topic every switch adds a probe that
+   * is indistinguishable from opening the lab fresh, and probe counts per topic
+   * over-state opens. The probe is left alone deliberately: dashboards already
+   * aggregate on it and its shape is load-bearing. Use the `bench-switch`
+   * navigation events emitted here to subtract switches from probe counts —
+   * one is emitted immediately before each remount.
+   */
+  onBenchSwitch?: (benchId: SignatureLabId) => void;
 }) {
   const benchIds = useMemo<SignatureLabId[]>(
     () => [assignment.primary, ...(assignment.related ?? [])],
@@ -1678,7 +1761,11 @@ function SignatureBenchSwitcher({
                 type="button"
                 role="tab"
                 aria-selected={isActive}
-                onClick={() => setActiveBenchId(benchId)}
+                onClick={() => {
+                  if (benchId === activeBenchId) return;
+                  onBenchSwitch?.(benchId);
+                  setActiveBenchId(benchId);
+                }}
                 className={`rounded-full border px-3.5 py-1.5 text-xs font-black transition ${
                   isActive
                     ? "border-cyan-500 bg-cyan-500 text-white shadow"
@@ -2168,6 +2255,102 @@ function LabTile({
       </span>
       <span className="sr-only">{lab.labId}</span>
     </a>
+  );
+}
+
+// Builds a smooth Catmull-Rom -> cubic-bezier path through the given points, so
+// the teaser reads as a flowing curve rather than a jagged polyline.
+function heroTeaserSmoothPath(points: { x: number; y: number }[]) {
+  if (points.length < 2) return "";
+  const segments = [`M ${points[0].x} ${points[0].y}`];
+  for (let index = 0; index < points.length - 1; index += 1) {
+    const previous = points[index - 1] ?? points[index];
+    const current = points[index];
+    const next = points[index + 1];
+    const following = points[index + 2] ?? next;
+    const controlOneX = current.x + (next.x - previous.x) / 6;
+    const controlOneY = current.y + (next.y - previous.y) / 6;
+    const controlTwoX = next.x - (following.x - current.x) / 6;
+    const controlTwoY = next.y - (following.y - current.y) / 6;
+    segments.push(`C ${controlOneX} ${controlOneY} ${controlTwoX} ${controlTwoY} ${next.x} ${next.y}`);
+  }
+  return segments.join(" ");
+}
+
+// The hero's center zone: a self-contained, GPU-light "living graph" teaser that
+// fills what used to be an empty gap between the title block and the Next-up
+// card. It ships no lab runtime and no new dependency — just SVG plus the house
+// `float`/`pulseGlow` keyframes, which the global `prefers-reduced-motion` block
+// already freezes for motion-sensitive learners. A flowing area chart keeps the
+// upper-right lively while a bottom-left scrim guarantees the eyebrow + tagline
+// stay high-contrast no matter what sits behind them. Decorative visuals are
+// aria-hidden; the copy stays readable so screen readers still get the "what
+// this page is" message. Shown only at `lg` and up, where the gap exists; narrow
+// (Chromebook/iPad) layouts stack title -> card and skip it.
+function VisualizationHeroTeaser({ eyebrow, tagline }: { eyebrow: string; tagline: string }) {
+  const points = [
+    { x: 18, y: 182 },
+    { x: 126, y: 122 },
+    { x: 214, y: 152 },
+    { x: 300, y: 80 },
+    { x: 422, y: 116 }
+  ];
+  const baseline = 262;
+  const linePath = heroTeaserSmoothPath(points);
+  const areaPath = `${linePath} L ${points[points.length - 1].x} ${baseline} L ${points[0].x} ${baseline} Z`;
+
+  return (
+    <div
+      data-viz-hero-teaser
+      className="relative flex min-h-[13rem] w-full flex-col overflow-hidden rounded-[1.4rem] bg-gradient-to-tr from-indigo-700 via-blue-600 to-cyan-400 shadow-xl shadow-blue-950/30 ring-1 ring-white/20 dark:from-indigo-950 dark:via-blue-800 dark:to-cyan-600"
+    >
+      <svg
+        viewBox="0 0 440 280"
+        preserveAspectRatio="xMidYMid slice"
+        className="absolute inset-0 h-full w-full"
+        aria-hidden="true"
+        focusable="false"
+      >
+        <defs>
+          <linearGradient id="viz-teaser-area" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stopColor="#ffffff" stopOpacity="0.36" />
+            <stop offset="66%" stopColor="#ffffff" stopOpacity="0.06" />
+            <stop offset="100%" stopColor="#ffffff" stopOpacity="0" />
+          </linearGradient>
+        </defs>
+        {[74, 122, 170, 218].map((y) => (
+          <line key={y} x1="0" y1={y} x2="440" y2={y} stroke="#ffffff" strokeOpacity="0.07" strokeWidth="1" />
+        ))}
+        <path d={areaPath} fill="url(#viz-teaser-area)" />
+        {/* Two stacked strokes fake a soft glow without an SVG filter (cheap on low-end GPUs). */}
+        <path d={linePath} fill="none" stroke="#ffffff" strokeOpacity="0.16" strokeWidth="11" strokeLinecap="round" strokeLinejoin="round" />
+        <path d={linePath} fill="none" stroke="#ffffff" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" />
+        {points.map((point, index) => (
+          <g key={point.x} className="animate-pulseGlow" style={{ animationDelay: `${index * 0.4}s` }}>
+            <circle cx={point.x} cy={point.y} r="9" fill="#ffffff" fillOpacity="0.24" />
+            <circle cx={point.x} cy={point.y} r="4" fill="#ffffff" />
+          </g>
+        ))}
+        <circle cx="398" cy="50" r="14" fill="none" stroke="#ffffff" strokeOpacity="0.4" strokeWidth="2" className="animate-float" />
+        <path d="M346 30 l3.5 9 l9 3.5 l-9 3.5 l-3.5 9 l-3.5 -9 l-9 -3.5 l9 -3.5 z" fill="#ffffff" fillOpacity="0.6" className="animate-float" style={{ animationDelay: "0.8s" }} />
+        <circle cx="70" cy="44" r="3.5" fill="#ffffff" fillOpacity="0.5" className="animate-float" style={{ animationDelay: "1.6s" }} />
+      </svg>
+      {/* Dark scrim pooled in the bottom-left, fading out toward the top-right, so
+          the copy always clears the chart behind it. */}
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-0 bg-[linear-gradient(to_top_right,rgba(4,11,38,0.85),rgba(4,11,38,0.32)_38%,transparent_70%)]"
+      />
+      <div className="relative mt-auto p-5">
+        <span className="inline-flex items-center gap-1.5 rounded-full bg-white/15 px-3 py-1 text-[0.62rem] font-black uppercase tracking-[0.14em] text-white ring-1 ring-inset ring-white/30 backdrop-blur-sm">
+          <span aria-hidden="true">✦</span>
+          {eyebrow}
+        </span>
+        <p className="mt-2.5 max-w-[19rem] text-[0.95rem] font-bold leading-snug text-white [text-shadow:0_1px_14px_rgba(4,11,38,0.6)]">
+          {tagline}
+        </p>
+      </div>
+    </div>
   );
 }
 
@@ -2855,6 +3038,13 @@ function VisualizationLabPageContent({
     zh: `${activeGradeLabel}任務 · 已探索 ${missionExploredCount} / ${missionTotalCount} 個實驗`,
     zhHans: `${activeGradeLabel}任务 · 已探索 ${missionExploredCount} / ${missionTotalCount} 个实验`
   });
+  const heroTeaserEyebrow = t({ en: "Watch it move", zh: "看它動起來", zhHans: "看它动起来" });
+  const heroTeaserTagline = t({
+    en: "Every lab turns math into something you can see, move, and explore.",
+    zh: "每個實驗都把數學變成可以看見、操作與探索的畫面。",
+    zhHans: "每个实验都把数学变成可以看见、操作与探索的画面。"
+  });
+  const missionStripLabel = t({ en: "Your mission", zh: "你的任務", zhHans: "你的任务" });
   const tryThisLabel = t({ en: "Try this!", zh: "試試這個！", zhHans: "试试这个！" });
   const backToLabsLabel = t({ en: "Back to Labs", zh: "返回實驗列表", zhHans: "返回实验列表" });
   const exploredLabel = t({ en: "Explored", zh: "已探索", zhHans: "已探索" });
@@ -2891,7 +3081,7 @@ function VisualizationLabPageContent({
               className="overflow-hidden rounded-[1.75rem] bg-white shadow-2xl shadow-cyan-900/15 ring-1 ring-cyan-100 dark:bg-slate-950 dark:ring-white/10"
             >
               <div className="border-b border-slate-100 p-4 dark:border-white/10 sm:p-8">
-                <div className="flex flex-col gap-6 lg:flex-row lg:items-stretch lg:justify-between lg:gap-10">
+                <div className="flex flex-col gap-6 lg:flex-row lg:items-stretch lg:gap-8">
                   <div className="min-w-0 max-w-2xl flex-1">
                     <h1 id="visualization-lab-title" className="text-3xl font-black leading-[1.02] tracking-tight text-[#15245a] dark:text-white sm:text-5xl">
                       {t({ en: "Visualization Lab", zh: "可視化實驗室", zhHans: "可视化实验室" })}
@@ -2941,6 +3131,9 @@ function VisualizationLabPageContent({
                         </div>
                       </div>
                     ) : null}
+                  </div>
+                  <div className="hidden min-w-0 flex-1 lg:flex">
+                    <VisualizationHeroTeaser eyebrow={heroTeaserEyebrow} tagline={heroTeaserTagline} />
                   </div>
                   {recommendedLab ? (
                     <a
@@ -3016,6 +3209,69 @@ function VisualizationLabPageContent({
                         {requestedLabId}
                       </code>
                     ) : null}
+                  </div>
+                ) : null}
+
+                {currentUser && missionTotalCount > 0 ? (
+                  <div
+                    className="mb-6"
+                    data-viz-mission-strip
+                    data-viz-mission-strip-total={missionTotalCount}
+                    data-viz-mission-strip-explored={missionExploredCount}
+                  >
+                    <div className="mb-2.5 flex items-center gap-3">
+                      <h2 className="text-xs font-black uppercase tracking-wider text-slate-500 dark:text-slate-400">
+                        {missionStripLabel}
+                      </h2>
+                      <span aria-hidden="true" className="h-px flex-1 bg-slate-100 dark:bg-white/10" />
+                      <span className="text-xs font-black text-emerald-600 dark:text-emerald-400">
+                        {missionExploredCount}/{missionTotalCount}
+                      </span>
+                    </div>
+                    <div className="-mx-1 flex gap-2 overflow-x-auto px-1 pb-1.5 [scrollbar-width:thin]">
+                      {visibleLabs.map((lab) => {
+                        const explored = exploredSessionIds.has(buildVisualizationSessionModuleId(lab));
+                        const isRecommended = recommendedLab?.labId === lab.labId;
+                        return (
+                          <a
+                            key={lab.labId}
+                            href={buildVisualizationLabHref(lab, effectiveTrackFilter)}
+                            onClick={(event) => {
+                              if (event.metaKey || event.ctrlKey || event.shiftKey || event.altKey || event.button !== 0) return;
+                              event.preventDefault();
+                              selectDirectoryLab(lab, "mission-strip");
+                            }}
+                            data-viz-mission-strip-lab={lab.labId}
+                            data-viz-mission-strip-lab-explored={String(explored)}
+                            title={displayCatalogText(text(lab.title))}
+                            className={cn(
+                              "focus-ring group inline-flex shrink-0 items-center gap-2 rounded-full border px-3 py-1.5 text-sm font-bold transition hover:-translate-y-0.5",
+                              explored
+                                ? "border-emerald-200 bg-emerald-50 text-emerald-800 dark:border-emerald-400/30 dark:bg-emerald-500/15 dark:text-emerald-100"
+                                : isRecommended
+                                  ? "border-blue-300 bg-blue-50 text-blue-800 ring-1 ring-blue-300 dark:border-blue-400/40 dark:bg-blue-950/50 dark:text-blue-100 dark:ring-blue-400/40"
+                                  : "border-slate-200 bg-white text-slate-700 hover:border-slate-300 dark:border-white/10 dark:bg-white/5 dark:text-slate-200 dark:hover:border-white/20"
+                            )}
+                          >
+                            <span aria-hidden="true" className="text-base leading-none">
+                              {labTileEmojiForLab(lab)}
+                            </span>
+                            <span className="max-w-[9rem] truncate">
+                              {displayCatalogText(compactTitle(text(lab.title)))}
+                            </span>
+                            <span
+                              aria-hidden="true"
+                              className={cn(
+                                "text-xs font-black",
+                                explored ? "text-emerald-600 dark:text-emerald-300" : "text-slate-400 dark:text-slate-500"
+                              )}
+                            >
+                              {explored ? "✓" : "▶"}
+                            </span>
+                          </a>
+                        );
+                      })}
+                    </div>
                   </div>
                 ) : null}
 
@@ -3314,6 +3570,7 @@ function VisualizationLabPageContent({
                       topicId={activeDirectoryLab.topicId}
                       labId={activeDirectoryLab.labId}
                       onRuntimeReady={handleActiveLabRuntimeReady}
+                      onBenchSwitch={(benchId) => recordVisualizationNavigationEvent("bench-switch", benchId)}
                     />
                   ) : (
                     <ActiveDirectoryLabComponent

@@ -64112,9 +64112,9 @@
       },
       "options": [
         {
-          "en": "3/4",
-          "zh": "3/4",
-          "zhHans": "3/4"
+          "en": "3/8",
+          "zh": "3/8",
+          "zhHans": "3/8"
         },
         {
           "en": "6/8",
@@ -84377,12 +84377,12 @@
         "2567 "
       ],
       "explanation": {
-        "en": "Using the standard algorithm: 5 - 8 needs regrouping, so 10 ones + 5 = 15, 15 - 8 = 7; 0 hundreds become 9 after borrowing, 9 - 3 = 6? Let's show correct steps: Ones: 15-8=7; Tens: 0 became 9, 9-3=6; Hundreds: 1 became 1 after borrowing? Actually 7,205 - 4,638: 5 ones - 8 ones (need to regroup), 0 tens becomes 1 tens? Let's recalc: 7,205 - 4,638. 5-8 cant, borrow 1 from tens, tens are 0 so borrow from hundreds, hundreds 2 -> 1, tens 0 -> 10, borrow 1 from tens -> 9 tens, ones 5 -> 15. Then 15-8=7. Tens: 9-3=6. Hundreds: 1-6 cant, borrow from thousands, thousands 7->6, hundreds 1->11, 11-6=5. Thousands: 6-4=2. So 2,567.",
-        "zh": "使用標準算法：個位：5-8不够，向十位借1，十位是0，向百位借，百位2變1，十位變10，再借給個位，十位剩9，個位15。15-8=7。十位：9-3=6。百位：1-6不够，向千位借，千位7變6，百位變11，11-6=5。千位：6-4=2。結果是2,567。",
-        "zhHans": "使用标准算法：个位：5-8不够，向十位借1，十位是0，向百位借，百位2变1，十位变10，再借给个位，十位剩9，个位15。15-8=7。十位：9-3=6。百位：1-6不够，向千位借，千位7变6，百位变11，11-6=5。千位：6-4=2。结果是2,567。"
+        "en": "Use the standard algorithm for 7,205 - 4,638. Ones: borrow so 15 - 8 = 7. Tens: the 0 became 9 after lending, and 9 - 3 = 6. Hundreds: the 2 became 1, so borrow from the thousands to get 11 - 6 = 5. Thousands: 6 - 4 = 2. The difference is 2,567.",
+        "zh": "用直式計算 7,205 - 4,638。個位：借位後 15 - 8 = 7。十位：0 借出後變成 9，9 - 3 = 6。百位：2 變成 1，再向千位借位得 11 - 6 = 5。千位：6 - 4 = 2。差是 2,567。",
+        "zhHans": "用竖式计算 7,205 - 4,638。个位：借位后 15 - 8 = 7。十位：0 借出后变成 9，9 - 3 = 6。百位：2 变成 1，再向千位借位得 11 - 6 = 5。千位：6 - 4 = 2。差是 2,567。"
       },
       "independentAnswer": "2567",
-      "independentSolution": "7205 - 4638. Align digits: 5-8 not possible, regroup: 7205 = 7 thousand + 2 hundred + 0 tens + 5 ones -> borrow: 1 hundred = 10 tens, then 1 ten = 10 ones, so 7 thousand, 1 hundred, 9 tens, 15 ones. Then subtract: thousands: 7-4? Actually after borrowing, thousands become 6 (since 1 hundred borrowed changed to 1? Let's do systematically: 7205: 7 thousands, 2 hundreds, 0 tens, 5 ones. Borrow from 2 hundreds: 1 hundred = 10 tens, so now 1 hundred, 10 tens. Borrow from 10 tens: 1 ten = 10 ones, so 9 tens, 15 ones. Now subtract 4638: 4 thousands, 6 hundreds, 3 tens, 8 ones. Thousands: now 7 thousands? Wait, we borrowed from hundreds, not thousands. So thousands still 7. But we need to subtract 4 thousand, so 7-4=3? That would give 3 thousands, but that's not correct. Let's re-evaluate: Actual subtraction: 7205 - 4638. Standard algorithm: 5-8, need 1 ten. 0 tens, so look to hundreds. Take 1 hundred (leaving 1 hundred), give 10 tens. Then take 1 ten (leaving 9 tens), give 10 ones. Now ones: 15-8=7. Tens: 9-3=6. Hundreds: 1-6 need change, so take 1 thousand (leaving 6 thousands), give 10 hundreds, now hundreds: 11-6=5. Thousands: 6-4=2. Result 2567. So independent solution: 7205 = 7000+200+0+5, regroup as 6000+1100+90+15? Better to show stepwise borrowing. I'll simplify independentSolution to: 'Align by place value. In the ones place, 5 - 8 is not possible, so regroup: 7205 becomes 7 thousands, 1 hundred, 9 tens, 15 ones. Subtract: 15 - 8 = 7; tens: 9 - 3 = 6; hundreds: 1 - 6 not possible, regroup again: 7 thousands becomes 6 thousands, 1 hundred becomes 11 hundreds; subtract hundreds: 11 - 6 = 5; thousands: 6 - 4 = 2. Answer: 2,567.'",
+      "independentSolution": "7,205 - 4,638 = 2,567. Column check: ones 15-8=7, tens 9-3=6, hundreds 11-6=5, thousands 6-4=2.",
       "evidenceCardIds": [
         "us-ar-math-g4-fractions-decimals-multi-digit-geometry-data",
         "us-ar-standards-p4-g4-oa",
@@ -94609,9 +94609,9 @@
         "8:25"
       ],
       "explanation": {
-        "en": "Adding 50 minutes to 7:35 p.m.: 35 + 50 = 85 minutes, which is 1 hour 25 minutes. 7:35 + 1 hour = 8:35, wait, need correct: 7:35 + 25 min = 8:00, then +25 min = 8:25. So finish time is 8:25 p.m.",
-        "zh": "將50分鐘加到晚上7:35：35 + 50 = 85分鐘，即1小時25分鐘。7:35 + 1小時 = 8:35，但需要正確計算：7:35 + 25分 = 8:00，再加25分 = 8:25。所以結束時間是晚上8:25。",
-        "zhHans": "将50分钟加到晚上7:35：35 + 50 = 85分钟，即1小时25分钟。7:35 + 1小时 = 8:35，但需要正确计算：7:35 + 25分 = 8:00，再加25分 = 8:25。所以结束时间是晚上8:25。"
+        "en": "Add 50 minutes to 7:35 p.m. in two jumps: 7:35 + 25 minutes = 8:00, then 25 more minutes gives 8:25. The finish time is 8:25 p.m.",
+        "zh": "把 50 分鐘分兩段加到 7:35 p.m.：7:35 + 25 分鐘 = 8:00，再加 25 分鐘是 8:25。結束時間是 8:25 p.m.。",
+        "zhHans": "把 50 分钟分两段加到 7:35 p.m.：7:35 + 25 分钟 = 8:00，再加 25 分钟是 8:25。结束时间是 8:25 p.m.。"
       },
       "independentAnswer": "8:25 p.m.",
       "independentSolution": "7:35 p.m. + 50 min = 7:35 + 25 min = 8:00 p.m., remaining 25 min → 8:25 p.m.",
@@ -97904,9 +97904,9 @@
         "1,000 times"
       ],
       "explanation": {
-        "en": "The 3 is in the hundreds place, so its value is 300. The 8 is in the tenths place, so its value is 0.8. To compare, divide 300 by 0.8: 300 ÷ 0.8 = 375. Wait, let's check place-value relationships. The hundreds place is 100, and the tenths place is 0.1. The ratio is 100 ÷ 0.1 = 1,000. So the 3 is worth 1,000 times as much as the 8.",
-        "zh": "數字 3 在百位，所以它的值是 300。數字 8 在十分位，所以它的值是 0.8。比較時，將 300 除以 0.8：300 ÷ 0.8 = 375。等等，我們檢查位值關係。百位是 100，十分位是 0.1。比率是 100 ÷ 0.1 = 1,000。所以 3 的值是 8 的值的 1,000 倍。",
-        "zhHans": "数字 3 在百位，所以它的值是 300。数字 8 在十分位，所以它的值是 0.8。比较时，将 300 除以 0.8：300 ÷ 0.8 = 375。等等，我们检查位值关系。百位是 100，十分位是 0.1。比率是 100 ÷ 0.1 = 1,000。所以 3 的值是 8 的值的 1,000 倍。"
+        "en": "The 3 is in the hundreds place and the 8 is in the tenths place. The hundreds place is worth 100 and the tenths place is worth 0.1, and 100 ÷ 0.1 = 1,000. So the 3 is worth 1,000 times as much as the 8.",
+        "zh": "3 在百位，8 在十分位。百位的位值是 100，十分位的位值是 0.1，而 100 ÷ 0.1 = 1,000。所以 3 的值是 8 的 1,000 倍。",
+        "zhHans": "3 在百位，8 在十分位。百位的位值是 100，十分位的位值是 0.1，而 100 ÷ 0.1 = 1,000。所以 3 的值是 8 的 1,000 倍。"
       },
       "independentAnswer": "The 3 is worth 1,000 times as much as the 8.",
       "independentSolution": "The 3 is in the hundreds place, value = 3 × 100 = 300. The 8 is in the tenths place, value = 8 × 0.1 = 0.8. The ratio of place values is 100 ÷ 0.1 = 1,000. Therefore, the 3 is worth 1,000 times as much as the 8.",

@@ -217,6 +217,11 @@ import {
   type NovaLensPersistenceDatabase
 } from "@/lib/server/userStore/novaLensPersistence";
 import {
+  createContentSafetyPersistenceStore,
+  normalizeContentSafetyFlagRecords as normalizeContentSafetyFlagRecordsFromPersistence,
+  type ContentSafetyFlagRecord,
+  type ContentSafetyPersistenceDatabase
+} from "@/lib/server/userStore/contentSafetyPersistence";import {
   canUseParentArea as canUseParentAreaFromParentAccess,
   createParentInviteCode as createParentInviteCodeFromParentAccess,
   createParentAccessPersistenceStore,
@@ -397,6 +402,28 @@ import {
   toTeacherOpsStudentMasteryTarget as toTeacherStudentMasteryTargetFromTeacherOpsMasteryTarget,
   type TeacherOpsMasteryTargetPersistenceDatabase
 } from "@/lib/server/userStore/teacherOpsMasteryTargetPersistence";
+import {
+  createAccommodationsPersistenceStore,
+  normalizeStudentAccommodationsRecords,
+  type AccommodationsPersistenceDatabase,
+  type StudentAccommodationsRecord
+} from "@/lib/server/userStore/accommodationsPersistence";
+import {
+  createTeacherOpsStudentGroupPersistenceStore,
+  listTeacherStudentGroupsForClass as listTeacherStudentGroupsForClassFromTeacherOpsStudentGroup,
+  normalizeTeacherStudentGroupRecords as normalizeTeacherStudentGroupRecordsFromTeacherOpsStudentGroup,
+  type TeacherOpsStudentGroupPersistenceDatabase,
+  type TeacherOpsStudentGroupRecord
+} from "@/lib/server/userStore/teacherOpsStudentGroupPersistence";
+import {
+  createTeacherOpsLearningPathPersistenceStore,
+  listTeacherLearningPathsForClass as listTeacherLearningPathsForClassFromTeacherOpsLearningPath,
+  normalizeLearningPathProgressRecords as normalizeLearningPathProgressRecordsFromTeacherOpsLearningPath,
+  normalizeTeacherLearningPathRecords as normalizeTeacherLearningPathRecordsFromTeacherOpsLearningPath,
+  type TeacherOpsLearningPathPersistenceDatabase,
+  type TeacherOpsLearningPathProgressRecord,
+  type TeacherOpsLearningPathRecord
+} from "@/lib/server/userStore/teacherOpsLearningPathPersistence";
 import {
   createTeacherOpsStudentProfilePersistenceStore,
   type TeacherOpsStudentProfilePersistenceDatabase
@@ -587,6 +614,7 @@ import {
 } from "@/lib/teacherReviewLesson";
 import { renderTeacherReviewLessonPptx } from "@/lib/teacherReviewLessonPptx";
 import { questionAnswerMatches } from "@/lib/server/answerGrading";
+import { readLearningEventsFastForUsers } from "@/lib/server/practiceAttemptStore";
 import { getWeComNotificationSummary, sendWeComGroupNotification } from "@/lib/server/wecomNotifications";
 import type {
   AdaptiveLearningCandidate,
@@ -690,6 +718,7 @@ import type {
   TeacherClass,
   TeacherClassDetailData,
   TeacherClassStudentSummary,
+  TeacherClassTopicOption,
   TeacherDashboardData,
   TeacherFoundationData,
   TeacherGamificationData,
@@ -1727,6 +1756,10 @@ type Database = {
   mistakes: MistakeRecordRow[];
   lesson_progress: LessonProgressRecord[];
   teacher_mastery_targets: TeacherMasteryTargetRecord[];
+  student_accommodations: StudentAccommodationsRecord[];
+  teacher_student_groups: TeacherOpsStudentGroupRecord[];
+  teacher_learning_paths: TeacherOpsLearningPathRecord[];
+  learning_path_step_progress: TeacherOpsLearningPathProgressRecord[];
   adaptive_skill_state: AdaptiveSkillStateRecord[];
   adaptive_recommendation_cache: AdaptiveRecommendationCacheRecord[];
   visualization_events: VisualizationEventRecord[];
@@ -1736,6 +1769,7 @@ type Database = {
   ai_tutor_messages: AITutorMessageRecord[];
   ai_tutor_usage: AITutorUsageRecord[];
   ai_governance_events: AIGovernanceEventRecord[];
+  content_safety_flags: ContentSafetyFlagRecord[];
   class_ai_tutor_policies: ClassAiTutorPolicyRecord[];
   nova_lens_runs: NovaLensRunRecord[];
   nova_lens_policy: NovaLensPolicyRecord;
@@ -2620,6 +2654,10 @@ function createInitialDatabase(): Database {
     mistakes: [],
     lesson_progress: seedLessonProgressRecords(demoUserId, now),
     teacher_mastery_targets: [],
+    student_accommodations: [],
+    teacher_student_groups: [],
+    teacher_learning_paths: [],
+    learning_path_step_progress: [],
     adaptive_skill_state: [],
     adaptive_recommendation_cache: [],
     visualization_events: [],
@@ -2629,6 +2667,7 @@ function createInitialDatabase(): Database {
     ai_tutor_messages: [],
     ai_tutor_usage: [],
     ai_governance_events: [],
+    content_safety_flags: [],
     class_ai_tutor_policies: [],
     nova_lens_runs: [],
     nova_lens_policy: defaultNovaLensPolicyRecordFromNovaLensPersistence(now),
@@ -4288,6 +4327,10 @@ function normalizeDatabase(database: Partial<Database>) {
       }
     ),
     teacher_mastery_targets: normalizeTeacherMasteryTargetRecordsFromTeacherOpsMasteryTarget(database.teacher_mastery_targets ?? [], now),
+    student_accommodations: normalizeStudentAccommodationsRecords(database.student_accommodations ?? [], now),
+    teacher_student_groups: normalizeTeacherStudentGroupRecordsFromTeacherOpsStudentGroup(database.teacher_student_groups ?? [], now),
+    teacher_learning_paths: normalizeTeacherLearningPathRecordsFromTeacherOpsLearningPath(database.teacher_learning_paths ?? [], now),
+    learning_path_step_progress: normalizeLearningPathProgressRecordsFromTeacherOpsLearningPath(database.learning_path_step_progress ?? [], now),
     adaptive_skill_state: normalizeAdaptiveSkillStateRecordsFromStudentActivityPersistence(database.adaptive_skill_state ?? [], now),
     adaptive_recommendation_cache: normalizeAdaptiveRecommendationCacheRecordsFromAiGovernancePersistence(database.adaptive_recommendation_cache ?? [], now),
     visualization_events: database.visualization_events ?? [],
@@ -4297,6 +4340,7 @@ function normalizeDatabase(database: Partial<Database>) {
     ai_tutor_messages: normalizeTutorMessageRecordsFromAiGovernancePersistence(database.ai_tutor_messages),
     ai_tutor_usage: normalizeTutorUsageRecordsFromAiGovernancePersistence(database.ai_tutor_usage),
     ai_governance_events: normalizeAiGovernanceEventRecordsFromPersistence(database.ai_governance_events, now),
+    content_safety_flags: normalizeContentSafetyFlagRecordsFromPersistence(database.content_safety_flags, now),
     class_ai_tutor_policies: normalizeClassAiTutorPolicyRecordsFromAiGovernancePersistence(database.class_ai_tutor_policies, now),
     nova_lens_runs: (database.nova_lens_runs ?? []).map((record) => normalizeNovaLensRunRecordFromNovaLensPersistence(record as NovaLensRunRecord)),
     nova_lens_policy: normalizeNovaLensPolicyRecordFromNovaLensPersistence(database.nova_lens_policy, now),
@@ -4412,6 +4456,9 @@ function databaseNeedsPersistenceSync(parsed: Partial<Database>, database: Datab
     !Array.isArray(parsed.mistakes) ||
     !Array.isArray(parsed.lesson_progress) ||
     !Array.isArray(parsed.teacher_mastery_targets) ||
+    (parsed.teacher_student_groups !== undefined && !Array.isArray(parsed.teacher_student_groups)) ||
+    (parsed.teacher_learning_paths !== undefined && !Array.isArray(parsed.teacher_learning_paths)) ||
+    (parsed.learning_path_step_progress !== undefined && !Array.isArray(parsed.learning_path_step_progress)) ||
     !Array.isArray(parsed.adaptive_skill_state) ||
     !Array.isArray(parsed.adaptive_recommendation_cache) ||
     !Array.isArray(parsed.visualization_events) ||
@@ -4421,7 +4468,9 @@ function databaseNeedsPersistenceSync(parsed: Partial<Database>, database: Datab
     !Array.isArray(parsed.ai_tutor_messages) ||
     !Array.isArray(parsed.ai_tutor_usage) ||
     !Array.isArray(parsed.ai_governance_events) ||
+    (parsed.content_safety_flags !== undefined && !Array.isArray(parsed.content_safety_flags)) ||
     (parsed.class_ai_tutor_policies !== undefined && !Array.isArray(parsed.class_ai_tutor_policies)) ||
+    (parsed.student_accommodations !== undefined && !Array.isArray(parsed.student_accommodations)) ||
     !Array.isArray(parsed.nova_lens_runs) ||
     typeof parsed.nova_lens_policy !== "object" ||
     parsed.nova_lens_policy === null ||
@@ -4773,6 +4822,17 @@ const learnerProfilePersistenceStore = createLearnerProfilePersistenceStore({
   }
 });
 
+const accommodationsPersistenceStore = createAccommodationsPersistenceStore({
+  readDatabase: async () => {
+    const database = await readDatabase();
+    return database as AccommodationsPersistenceDatabase;
+  },
+  mutateDatabase: async <T>(mutator: (database: AccommodationsPersistenceDatabase) => T | Promise<T>) => {
+    const result = await mutateDatabase((database) => mutator(database as AccommodationsPersistenceDatabase));
+    return result as T;
+  }
+});
+
 const novaLensPersistenceStore = createNovaLensPersistenceStore({
   readDatabase,
   mutateDatabase: async <T>(mutator: (database: NovaLensPersistenceDatabase) => T | Promise<T>) => {
@@ -4780,6 +4840,17 @@ const novaLensPersistenceStore = createNovaLensPersistenceStore({
     return result as T;
   },
   canViewRun: (database, viewer, run) => canViewNovaLensRunFromNovaLensPersistence(database, viewer, run)
+});
+
+const contentSafetyPersistenceStore = createContentSafetyPersistenceStore({
+  readDatabase: async () => {
+    const database = await readDatabase();
+    return database as ContentSafetyPersistenceDatabase;
+  },
+  mutateDatabase: async <T>(mutator: (database: ContentSafetyPersistenceDatabase) => T | Promise<T>) => {
+    const result = await mutateDatabase((database) => mutator(database));
+    return result as T;
+  }
 });
 
 const aiGovernanceUserStore = createAiGovernanceUserStore({
@@ -5667,6 +5738,41 @@ const teacherOpsMasteryTargetPersistenceStore = createTeacherOpsMasteryTargetPer
   topicIdsForClass: (database, teacherClass) => topicIdsForClass(database as Database, teacherClass as TeacherClassRecord)
 });
 
+function studentGroupDisplayName(database: Database, studentId: string) {
+  const profile = studentProfileFor(database, studentId);
+  if (profile?.name) return profile.name;
+  const studentUser = database.users.find((candidate) => candidate.id === studentId);
+  return studentUser?.username ?? studentId;
+}
+
+const teacherOpsStudentGroupPersistenceStore = createTeacherOpsStudentGroupPersistenceStore({
+  createId: () => randomUUID(),
+  now: () => new Date(),
+  readDatabase: async () => {
+    const database = await readDatabase();
+    return database as TeacherOpsStudentGroupPersistenceDatabase;
+  },
+  mutateDatabase: async <T>(mutator: (database: TeacherOpsStudentGroupPersistenceDatabase) => T | Promise<T>) => {
+    const result = await mutateDatabase((database) => mutator(database as TeacherOpsStudentGroupPersistenceDatabase));
+    return result as T;
+  },
+  studentDisplayName: (database, studentId) => studentGroupDisplayName(database as Database, studentId),
+  topicIdsForClass: (database, teacherClass) => topicIdsForClass(database as Database, teacherClass as TeacherClassRecord)
+});
+
+const teacherOpsLearningPathPersistenceStore = createTeacherOpsLearningPathPersistenceStore({
+  createId: () => randomUUID(),
+  now: () => new Date(),
+  readDatabase: async () => {
+    const database = await readDatabase();
+    return database as TeacherOpsLearningPathPersistenceDatabase;
+  },
+  mutateDatabase: async <T>(mutator: (database: TeacherOpsLearningPathPersistenceDatabase) => T | Promise<T>) => {
+    const result = await mutateDatabase((database) => mutator(database as TeacherOpsLearningPathPersistenceDatabase));
+    return result as T;
+  }
+});
+
 const teacherOpsStudentProfilePersistenceStore = createTeacherOpsStudentProfilePersistenceStore({
   now: () => new Date(),
   readDatabase: async () => {
@@ -5851,6 +5957,28 @@ const teacherOpsClassPersistenceStore = createTeacherOpsClassPersistenceStore({
   studentProfileFor: (database, studentId) => studentProfileFor(database as Database, studentId) ?? null,
   topicIdsForClass: (database, teacherClass) => topicIdsForClass(database as Database, teacherClass as TeacherClassRecord),
   isSubmissionComplete: (submission) => isSubmissionCompleteFromTeacherOpsAssignment(submission as SubmissionRecord),
+  groupsForClass: (database, classId) =>
+    listTeacherStudentGroupsForClassFromTeacherOpsStudentGroup({
+      database: database as unknown as TeacherOpsStudentGroupPersistenceDatabase,
+      classId,
+      studentDisplayName: (groupDatabase, studentId) =>
+        studentGroupDisplayName(groupDatabase as unknown as Database, studentId)
+    }),
+  topicOptionsForClass: (database, teacherClass) => {
+    const source = database as Database;
+    const topicById = new Map(source.topics.map((topic) => [topic.id, topic]));
+    return topicIdsForClass(source, teacherClass as TeacherClassRecord)
+      .map((topicId) => {
+        const topic = topicById.get(topicId);
+        return topic ? { id: topicId, title: localizedTopicTitleForRecord(topic) } : null;
+      })
+      .filter((option): option is TeacherClassTopicOption => option !== null);
+  },
+  learningPathsForClass: (database, classId) =>
+    listTeacherLearningPathsForClassFromTeacherOpsLearningPath({
+      database: database as unknown as TeacherOpsLearningPathPersistenceDatabase,
+      classId
+    }),
   toAssignment: (database, assignment) => toAssignmentFromTeacherOpsAssignment(database as Database, assignment as AssignmentRecord),
   toClassEnrollment: (database, enrollment) => toClassEnrollmentFromTeacherOpsClass(database as Database, enrollment as ClassEnrollmentRecord),
   toTeacherClass: (database, teacherClass) => toTeacherClassFromTeacherOpsClass(database as Database, teacherClass as TeacherClassRecord)
@@ -5931,6 +6059,9 @@ const teacherOpsLiveSessionPersistenceStore = createTeacherOpsLiveSessionPersist
     const database = await readDatabase();
     return database as TeacherOpsLiveSessionPersistenceDatabase;
   },
+  // No-ops to [] off the Postgres hot path; on it, carries the freshest
+  // learning-event rows so the live roster does not lag the app-state snapshot.
+  readHotLearningEventsForUsers: readLearningEventsFastForUsers,
   normalizeWhiteboardStroke: normalizeWhiteboardStrokeFromTeacherOpsLiveSession,
   resolveLiveSessionContext: (database, teacherClass, topicId) => {
     const curriculumProfile = curriculumProfileForClass(database as Database, teacherClass as TeacherClassRecord);
@@ -5986,6 +6117,7 @@ const studentActivityUserStore = createStudentActivityUserStore({
   getAdaptiveContentUnavailableForCurriculum: studentAdaptiveContentUnavailableForCurriculum,
   getContentUnavailableForCurriculum: studentContentUnavailableForCurriculum,
   studentActivityPersistenceStore,
+  teacherOpsLearningPathPersistenceStore,
   teacherOpsLiveSessionPersistenceStore
 });
 
@@ -6129,6 +6261,8 @@ const teacherOpsUserStore = createTeacherOpsUserStore({
   teacherOpsLessonKitPersistenceStore,
   teacherOpsLiveSessionPersistenceStore,
   teacherOpsMasteryTargetPersistenceStore,
+  teacherOpsStudentGroupPersistenceStore,
+  teacherOpsLearningPathPersistenceStore,
   teacherOpsNoticePersistenceStore,
   teacherOpsOperationsPersistenceStore,
   teacherOpsPrepTeamPersistenceStore,
@@ -7473,6 +7607,10 @@ function emptyTeacherDashboardDatabase(overrides: Partial<Database>): Database {
     mistakes: [],
     lesson_progress: [],
     teacher_mastery_targets: [],
+    student_accommodations: [],
+    teacher_student_groups: [],
+    teacher_learning_paths: [],
+    learning_path_step_progress: [],
     adaptive_skill_state: [],
     adaptive_recommendation_cache: [],
     visualization_events: [],
@@ -7482,6 +7620,7 @@ function emptyTeacherDashboardDatabase(overrides: Partial<Database>): Database {
     ai_tutor_messages: [],
     ai_tutor_usage: [],
     ai_governance_events: [],
+    content_safety_flags: [],
     class_ai_tutor_policies: [],
     nova_lens_runs: [],
     nova_lens_policy: defaultNovaLensPolicyRecordFromNovaLensPersistence(),
@@ -8205,6 +8344,33 @@ export const setTeacherStudentMasteryTarget = teacherOpsUserStore.setTeacherStud
 
 export const clearTeacherStudentMasteryTarget = teacherOpsUserStore.clearTeacherStudentMasteryTarget;
 
+// Per-student accommodations (IEP / 504). `getStudentAccommodations` is the read
+// used by the student's own learning experience; the teacher-scoped reads/writes
+// enforce the shared class-visibility rule. See accommodationsPersistence.ts.
+export const getStudentAccommodations = accommodationsPersistenceStore.getStudentAccommodations;
+export const getStudentAccommodationsProfileForTeacher = accommodationsPersistenceStore.getStudentAccommodationsProfileForTeacher;
+export const setStudentAccommodationsForTeacher = accommodationsPersistenceStore.setStudentAccommodationsForTeacher;
+
+export const createTeacherStudentGroup = teacherOpsUserStore.createTeacherStudentGroup;
+
+export const updateTeacherStudentGroup = teacherOpsUserStore.updateTeacherStudentGroup;
+
+export const deleteTeacherStudentGroup = teacherOpsUserStore.deleteTeacherStudentGroup;
+
+export const setTeacherStudentGroupMasteryTarget = teacherOpsUserStore.setTeacherStudentGroupMasteryTarget;
+
+export const clearTeacherStudentGroupMasteryTarget = teacherOpsUserStore.clearTeacherStudentGroupMasteryTarget;
+
+export const createTeacherLearningPath = teacherOpsUserStore.createTeacherLearningPath;
+
+export const updateTeacherLearningPath = teacherOpsUserStore.updateTeacherLearningPath;
+
+export const deleteTeacherLearningPath = teacherOpsUserStore.deleteTeacherLearningPath;
+
+export const getStudentLearningPaths = studentActivityUserStore.getStudentLearningPaths;
+
+export const markStudentLearningPathStepComplete = studentActivityUserStore.markStudentLearningPathStepComplete;
+
 const riskTagsForStudent: (
   database: Database,
   studentId: string,
@@ -8655,6 +8821,8 @@ export const createStudentMessageThread = studentActivityUserStore.createStudent
 export const replyToStudentMessageThread = studentActivityUserStore.replyToStudentMessageThread;
 
 export const getTeacherLiveData = teacherOpsUserStore.getTeacherLiveData;
+
+export const getClassroomLiveRoster = teacherOpsUserStore.getClassroomLiveRoster;
 
 export const startTeacherLiveSession = teacherOpsUserStore.startTeacherLiveSession;
 
@@ -9846,7 +10014,7 @@ export const refreshAdaptiveLearningRecommendation = studentActivityUserStore.re
 
 export type AdaptiveUniverseSnapshot = {
   topics: Array<{ id: string; grade: GradeId }>;
-  states: Array<{ skillId: string; pMastery: number; attemptCount: number; nextReviewAt: string | null }>;
+  states: Array<{ skillId: string; pMastery: number; attemptCount: number; correctStreak: number; nextReviewAt: string | null }>;
   generatedAt: string;
 };
 
@@ -9871,6 +10039,7 @@ export async function getAdaptiveUniverseSnapshot({
       skillId: state.skillId,
       pMastery: state.pMastery,
       attemptCount: state.attemptCount,
+      correctStreak: state.correctStreak,
       nextReviewAt: state.nextReviewAt
     }));
   return { topics, states, generatedAt: new Date().toISOString() };
@@ -9885,7 +10054,7 @@ export type TeacherClassSkyMaterials = {
   /** Anonymous per-student state lists — aggregated before leaving the API layer. */
   students: Array<{
     grade: GradeId;
-    states: Array<{ skillId: string; pMastery: number; attemptCount: number; nextReviewAt: string | null }>;
+    states: Array<{ skillId: string; pMastery: number; attemptCount: number; correctStreak: number; nextReviewAt: string | null }>;
   }>;
   generatedAt: string;
 };
@@ -9921,6 +10090,7 @@ export async function getTeacherClassSkyMaterials({
         skillId: state.skillId,
         pMastery: state.pMastery,
         attemptCount: state.attemptCount,
+        correctStreak: state.correctStreak,
         nextReviewAt: state.nextReviewAt
       }))
   }));
@@ -10204,6 +10374,12 @@ export const listNovaLensPolicyEventsForAdmin = aiGovernanceUserStore.listNovaLe
 export const updateNovaLensPolicy = aiGovernanceUserStore.updateNovaLensPolicy;
 export const recordNovaLensRun = aiGovernanceUserStore.recordNovaLensRun;
 export const listNovaLensRunsForUser = aiGovernanceUserStore.listNovaLensRunsForUser;
+
+export const recordContentSafetyFlag = contentSafetyPersistenceStore.recordContentSafetyFlag;
+export const listContentSafetyAlertsForViewer = contentSafetyPersistenceStore.listContentSafetyAlertsForViewer;
+export const countOpenContentSafetyAlertsForViewer = contentSafetyPersistenceStore.countOpenContentSafetyAlertsForViewer;
+export const updateContentSafetyFlagStatus = contentSafetyPersistenceStore.updateContentSafetyFlagStatus;
+
 
 export type {
   AITutorDataScope,

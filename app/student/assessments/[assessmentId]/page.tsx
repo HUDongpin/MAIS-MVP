@@ -2,9 +2,13 @@
 
 import Link from "next/link";
 import { useParams } from "next/navigation";
-import { FormEvent, useEffect, useState } from "react";
+import { FormEvent, useEffect, useRef, useState } from "react";
 import { MathText } from "@/components/math/MathText";
 import { dictionary, useSettings } from "@/components/providers/AppProviders";
+import { AssessmentCountdownTimer } from "@/components/assessment/AssessmentCountdownTimer";
+import { CalculatorLauncher } from "@/components/accommodations/CalculatorLauncher";
+import { useStudentAccommodations } from "@/components/accommodations/useStudentAccommodations";
+import { accommodationExtendedTimeLabels, assessmentTimerSeconds, extendedTimeMultiplier } from "@/lib/accommodations";
 import type { StudentAssessmentDetailData } from "@/types";
 
 type AssessmentResponse = {
@@ -19,12 +23,14 @@ function scoreLabel(submission: StudentAssessmentDetailData["submission"]) {
 
 export default function StudentAssessmentPage() {
   const params = useParams<{ assessmentId: string }>();
-  const { t, text } = useSettings();
+  const { t, text, currentUser } = useSettings();
+  const { accommodations, loaded: accommodationsLoaded } = useStudentAccommodations();
   const [data, setData] = useState<StudentAssessmentDetailData | null>(null);
   const [answers, setAnswers] = useState<Record<string, string>>({});
   const [isLoading, setIsLoading] = useState(true);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [message, setMessage] = useState("");
+  const submittingRef = useRef(false);
 
   async function loadAssessment() {
     setIsLoading(true);
@@ -39,9 +45,11 @@ export default function StudentAssessmentPage() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [params.assessmentId]);
 
-  async function submitAssessment(event: FormEvent<HTMLFormElement>) {
-    event.preventDefault();
-    if (!data) return;
+  async function runSubmit() {
+    // Guarded so the form submit and the timer's auto-submit-on-expiry can never
+    // double-post, and so an expired timer is a no-op once the attempt is closed.
+    if (!data || submittingRef.current || !data.canSubmit) return;
+    submittingRef.current = true;
     setMessage("");
     setIsSubmitting(true);
     const response = await fetch(`/api/assessments/${encodeURIComponent(params.assessmentId)}/submit`, {
@@ -55,12 +63,18 @@ export default function StudentAssessmentPage() {
       })
     });
     setIsSubmitting(false);
+    submittingRef.current = false;
     if (!response.ok) {
       setMessage(t({ en: "Could not submit this assessment yet.", zh: "暫時未能提交此測驗。" }));
       return;
     }
     setMessage(t({ en: "Assessment submitted and graded.", zh: "測驗已提交並完成批改。" }));
     await loadAssessment();
+  }
+
+  function submitAssessment(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    void runSubmit();
   }
 
   if (isLoading) {
@@ -84,8 +98,37 @@ export default function StudentAssessmentPage() {
     );
   }
 
+  // Apply the student's extended-time accommodation to the assessment's own limit.
+  // multiplier null = unlimited (no countdown); base limit null = untimed test.
+  const baseTimeLimitMinutes = data.assessment.timeLimitMinutes;
+  const timeMultiplier = extendedTimeMultiplier(accommodations.extendedTime);
+  const effectiveTimerSeconds = assessmentTimerSeconds(baseTimeLimitMinutes, accommodations.extendedTime);
+  // Wait for the accommodation to resolve before starting the clock, so a student
+  // with extended time never briefly sees (or is keyed to) the un-extended limit.
+  const timerActive = data.canSubmit && effectiveTimerSeconds > 0 && accommodationsLoaded;
+  const timerStorageKey = `mais-assessment-timer:${currentUser?.id ?? "guest"}:${params.assessmentId}:${data.submission.id}:${data.submission.attemptNumber}:${effectiveTimerSeconds}`;
+  const showUnlimitedTimeNote = accommodationsLoaded && Boolean(baseTimeLimitMinutes) && data.canSubmit && timeMultiplier === null;
+
   return (
     <div className="page-container py-10 sm:py-12">
+      <CalculatorLauncher />
+      {timerActive ? (
+        <div className="sticky top-4 z-30 mb-4 flex justify-end">
+          <AssessmentCountdownTimer
+            active={timerActive}
+            effectiveSeconds={effectiveTimerSeconds}
+            storageKey={timerStorageKey}
+            extendedTime={accommodations.extendedTime}
+            onExpire={() => { void runSubmit(); }}
+          />
+        </div>
+      ) : showUnlimitedTimeNote ? (
+        <div className="mb-4 flex justify-end">
+          <span className="inline-flex items-center gap-2 rounded-2xl border border-violet-200 bg-violet-50/70 px-4 py-2 text-sm font-black text-violet-700 dark:border-violet-500/20 dark:bg-violet-500/10 dark:text-violet-200">
+            {t(accommodationExtendedTimeLabels.unlimited)} · {t({ en: "accommodation", zh: "調適安排", zhHans: "调适安排" })}
+          </span>
+        </div>
+      ) : null}
       <section className="glass-panel p-6 sm:p-8">
         <p className="text-sm font-black uppercase tracking-[0.24em] text-cyan-600 dark:text-cyan-300">
           {data.className}

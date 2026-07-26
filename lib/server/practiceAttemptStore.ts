@@ -273,6 +273,62 @@ export async function clearLearningEventsFast(userId: string, clearedAt = new Da
   return true;
 }
 
+export type FastLearningEventRow = {
+  id: string;
+  user_id: string;
+  type: LearningAnalyticsEvent["type"];
+  source: LearningAnalyticsEvent["source"];
+  grade: LearningAnalyticsEvent["grade"];
+  topic_id: string;
+  question_id?: string;
+  duration_seconds?: number;
+  created_at: string;
+};
+
+// Live teacher reads (e.g. the "who needs me now" roster) need the freshest
+// learning events, which on the Postgres hot path live in the rows table rather
+// than the app-state snapshot. Returns [] when the fast path is off, so the
+// caller can fall back to the cold snapshot on its own.
+export async function readLearningEventsFastForUsers(
+  userIds: string[],
+  sinceIso: string
+): Promise<FastLearningEventRow[]> {
+  if (!postgresRowsEnabled()) return [];
+  if (!userIds.length) return [];
+
+  await ensurePostgresStudentActivityTables();
+  const sql = getPostgresClient();
+  const rows = await sql<Array<{
+    id: string;
+    user_id: string;
+    type: LearningAnalyticsEvent["type"];
+    source: LearningAnalyticsEvent["source"];
+    grade: LearningAnalyticsEvent["grade"];
+    topic_id: string;
+    question_id: string | null;
+    duration_seconds: number | null;
+    created_at: string;
+  }>>`
+    SELECT id, user_id, type, source, grade, topic_id, question_id, duration_seconds, created_at
+    FROM learning_events
+    WHERE user_id IN ${sql(userIds)}
+      AND created_at >= ${sinceIso}
+    ORDER BY created_at ASC
+  `;
+
+  return rows.map((row) => ({
+    id: row.id,
+    user_id: row.user_id,
+    type: row.type,
+    source: row.source,
+    grade: row.grade,
+    topic_id: row.topic_id,
+    question_id: row.question_id ?? undefined,
+    duration_seconds: row.duration_seconds ?? undefined,
+    created_at: row.created_at
+  }));
+}
+
 async function writeMistakeRow(sql: PostgresExecutor, input: {
   userId: string;
   question: Question;
