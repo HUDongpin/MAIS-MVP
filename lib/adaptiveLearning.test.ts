@@ -567,6 +567,110 @@ test("adaptive LLM request body uses JSON mode without changing default DeepSeek
   assert.equal(adaptiveQwenBody.max_tokens, 1200);
 });
 
+test("CCSS topics gain cross-topic coherence prerequisites on their foundation stage", () => {
+  const caTopics = [
+    { id: "us-ca-math-p3-3-oa-mult-div", grade: "P3" as const, title: { en: "Mult/Div", zh: "乘除" }, description: { en: "", zh: "" }, difficulty: "Medium" as const },
+    { id: "us-ca-math-p3-3-nf-fraction-meaning", grade: "P3" as const, title: { en: "Fractions", zh: "分數" }, description: { en: "", zh: "" }, difficulty: "Medium" as const },
+    { id: "us-ca-math-p4-4-oa-factors-patterns", grade: "P4" as const, title: { en: "Factors", zh: "因數" }, description: { en: "", zh: "" }, difficulty: "Medium" as const },
+    { id: "us-ca-math-p4-4-nbt-multi-digit", grade: "P4" as const, title: { en: "Multi-digit", zh: "多位數" }, description: { en: "", zh: "" }, difficulty: "Medium" as const },
+    { id: "us-ca-math-p4-4-nf-fraction-decimal", grade: "P4" as const, title: { en: "Fraction/decimal", zh: "分數小數" }, description: { en: "", zh: "" }, difficulty: "High" as const }
+  ];
+  const caComponents = buildKnowledgeComponents({ topics: caTopics, questions: [] });
+
+  const nfFoundation = caComponents.find((component) => component.id === "us-ca-math-p4-4-nf-fraction-decimal:foundation");
+  assert.ok(nfFoundation);
+  assert.ok(nfFoundation.prerequisites.includes("us-ca-math-p3-3-nf-fraction-meaning:fluency"), "links to Grade 3 fraction prerequisite");
+  assert.ok(nfFoundation.prerequisites.includes("us-ca-math-p4-4-oa-factors-patterns:fluency"));
+  assert.ok(nfFoundation.prerequisites.includes("us-ca-math-p4-4-nbt-multi-digit:fluency"));
+
+  // Intra-topic staging is preserved for later stages.
+  const nfFluency = caComponents.find((component) => component.id === "us-ca-math-p4-4-nf-fraction-decimal:fluency");
+  assert.deepEqual(nfFluency?.prerequisites, ["us-ca-math-p4-4-nf-fraction-decimal:foundation"]);
+
+  // Non-CCSS (HK) topics keep an empty foundation prerequisite list.
+  const hkFoundation = components.find((component) => component.id === "fractions:foundation");
+  assert.deepEqual(hkFoundation?.prerequisites, []);
+});
+
+function caTopic(id: string, grade: Topic["grade"], titleEn: string): Topic {
+  return {
+    id,
+    curriculumTrack: "US_CA_MATH",
+    grade,
+    title: { en: titleEn, zh: titleEn },
+    description: { en: "", zh: "" },
+    status: "in-progress",
+    difficulty: "Medium",
+    minutes: 20,
+    mastery: 40
+  } as Topic;
+}
+
+function caQuestion(id: string, topic: Topic, difficulty: PublicQuestion["difficulty"]): PublicQuestion {
+  return {
+    id,
+    curriculumTrack: "US_CA_MATH",
+    grade: topic.grade,
+    topicId: topic.id,
+    topic: topic.title,
+    difficulty,
+    type: "multiple-choice",
+    prompt: { en: `${topic.id} ${difficulty}`, zh: `${topic.id} ${difficulty}` }
+  } as PublicQuestion;
+}
+
+test("cross-grade backtracking routes a weak on-grade skill to its earlier-grade prerequisite", () => {
+  const caTopics: Topic[] = [
+    caTopic("us-ca-math-p3-3-nf-fraction-meaning", "P3", "Fractions G3"),
+    caTopic("us-ca-math-p4-4-oa-factors-patterns", "P4", "Factors"),
+    caTopic("us-ca-math-p4-4-nbt-multi-digit", "P4", "Multi-digit"),
+    caTopic("us-ca-math-p4-4-nf-fraction-decimal", "P4", "Fractions G4")
+  ];
+  const caQuestions: PublicQuestion[] = caTopics.flatMap((topic) => [
+    caQuestion(`${topic.id}-low`, topic, "Low"),
+    caQuestion(`${topic.id}-med`, topic, "Medium")
+  ]);
+  const caComponents = buildKnowledgeComponents({ topics: caTopics, questions: caQuestions });
+  // Weak, evidenced Grade 3 fraction fluency (the missing prerequisite) + a weak Grade 4
+  // fraction skill that depends on it through the CCSS coherence DAG.
+  const caStates = [
+    state({ skillId: "us-ca-math-p3-3-nf-fraction-meaning:fluency", pMastery: 0.4, attemptCount: 3, wrongStreak: 1 }),
+    state({ skillId: "us-ca-math-p4-4-nf-fraction-decimal:foundation", pMastery: 0.6, attemptCount: 1 })
+  ];
+
+  const withBacktrack = generateAdaptiveCandidates({
+    components: caComponents,
+    states: caStates,
+    topics: caTopics,
+    questions: caQuestions,
+    grade: "P4",
+    prerequisiteGrades: ["P3"],
+    now
+  });
+  const repair = withBacktrack.candidates.find(
+    (candidate) => candidate.action === "repair" && candidate.skill.id === "us-ca-math-p3-3-nf-fraction-meaning:fluency"
+  );
+  assert.ok(repair, "routes to the specific Grade 3 prerequisite");
+  assert.ok(repair.hardGuardFlags.includes("weak-prerequisite"));
+  assert.equal(withBacktrack.deterministicCandidateId, repair.candidateId, "the earlier-grade repair is the top step");
+  assert.ok(
+    withBacktrack.skillMap.some((summary) => summary.skill.id === "us-ca-math-p3-3-nf-fraction-meaning:fluency"),
+    "the touched backtrack skill appears on the skill map"
+  );
+
+  // Without prerequisite grades the pool stays on-grade: no earlier-grade skill appears.
+  const withoutBacktrack = generateAdaptiveCandidates({
+    components: caComponents,
+    states: caStates,
+    topics: caTopics,
+    questions: caQuestions,
+    grade: "P4",
+    now
+  });
+  assert.ok(!withoutBacktrack.candidates.some((candidate) => candidate.skill.grade === "P3"));
+  assert.ok(!withoutBacktrack.skillMap.some((summary) => summary.skill.grade === "P3"));
+});
+
 test("disabled LLM status keeps the composed decision deterministic", () => {
   const generated = generateAdaptiveCandidates({
     components,
