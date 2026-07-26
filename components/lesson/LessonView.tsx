@@ -16,7 +16,14 @@ import {
 } from "@/components/lesson/lessonCompletionChecklist";
 import { type LessonGalaxyItem } from "@/components/lesson/LessonGalaxyDirectory";
 import { getCcssLessonComponent } from "@/components/lesson/ccss/registry";
+import { LessonMenuRail, LessonMenuRevealPill } from "@/components/lesson/worlds/LessonMenuRail";
+import {
+  lessonMenuColumnDurationMs,
+  lessonMenuPanelId,
+  useLessonMenuVisibility
+} from "@/components/lesson/worlds/lessonMenuVisibility";
 import { WorldMenu } from "@/components/lesson/worlds/WorldMenu";
+import { lessonWorldThemeForCourse } from "@/components/lesson/worlds/worldThemes";
 import { lessonUsesStaticAudioOnly, staticLessonAudioUrlForBlock } from "@/components/lesson/staticLessonAudio";
 import { WorkedExampleIllustration } from "@/components/lesson/WorkedExampleIllustration";
 import {
@@ -1976,6 +1983,12 @@ export function LessonView({ gradeLessons = [], slug, initialLesson, visualizati
   const [lessonSelection, setLessonSelection] = useState<LessonSelectionPopoverState | null>(null);
   // The unit directory is a persistent lesson navigator, even for old links with planet-entry state.
   const shouldRenderGalaxyDirectory = true;
+  const lessonMenu = useLessonMenuVisibility({
+    enabled: shouldRenderGalaxyDirectory,
+    grade: lesson?.grade ?? null,
+    prefersReducedMotion: Boolean(prefersReducedMotion)
+  });
+  const lessonWorldTheme = lessonWorldThemeForCourse(lesson);
   const canSaveProgress = settingsReady && currentUser?.role === "student";
   const canViewTeacherGuide = currentUser?.role === "teacher" || currentUser?.role === "admin";
   const conceptBlocks = useMemo(() => [
@@ -2834,7 +2847,7 @@ export function LessonView({ gradeLessons = [], slug, initialLesson, visualizati
   const usesConfiguredVisualizationFooterAction = visualizationBlock?.visualizationConfig?.moduleId === "configured-visualization-lab";
   const lessonContentSections = (
     <>
-      <section id={lessonOverviewSectionId} className="mt-8 scroll-mt-28 min-w-0">
+      <section id={lessonOverviewSectionId} data-tour="student-lesson-body" className="mt-8 scroll-mt-28 min-w-0">
         <article className="glass-panel relative min-w-0 overflow-x-auto p-6 sm:p-8">
           {conceptBlocks.map((block, index) => {
             const illustrations = getLessonIllustrationsForBlock(lesson, block, primaryConceptBlockId);
@@ -3014,6 +3027,7 @@ export function LessonView({ gradeLessons = [], slug, initialLesson, visualizati
 
       {checklistItems.length ? (
         <aside
+          data-tour="student-lesson-checklist"
           className="mt-8 scroll-mt-28 glass-panel border-emerald-300/40 bg-emerald-50/80 p-5 dark:bg-emerald-950/20 sm:p-6"
           aria-label={t({ en: "Lesson completion checklist", zh: "課節完成清單", zhHans: "课时完成清单" })}
         >
@@ -3106,7 +3120,7 @@ export function LessonView({ gradeLessons = [], slug, initialLesson, visualizati
         </aside>
       ) : null}
 
-      <section ref={lessonPracticeSectionRef} id={lessonPracticeSectionId} className="mt-8 scroll-mt-28">
+      <section ref={lessonPracticeSectionRef} id={lessonPracticeSectionId} data-tour="student-lesson-practice" className="mt-8 scroll-mt-28">
         {lessonPracticeQuestions.length ? (
           <div className="space-y-4">
             <LessonQuestionPager
@@ -3226,39 +3240,75 @@ export function LessonView({ gradeLessons = [], slug, initialLesson, visualizati
       {shouldRenderGalaxyDirectory ? (
         <div
           id={lessonGalaxySectionId}
-          className="mt-8 grid scroll-mt-28 gap-6 px-4 sm:px-6 lg:grid-cols-[minmax(20rem,27rem)_minmax(0,1fr)] lg:items-start lg:gap-8 lg:pl-0 lg:pr-8 xl:pr-10 2xl:pr-12"
+          // The single-column track below `lg` is declared, not implicit. An
+          // implicit `auto` track is sized by its content and refuses to shrink
+          // below it, so on a phone this grid laid out ~562px wide inside a
+          // 393px screen and dragged the whole page into horizontal overflow.
+          // `minmax(0,1fr)` lets the column shrink to the viewport instead.
+          className={`mt-8 grid scroll-mt-28 grid-cols-[minmax(0,1fr)] gap-6 px-4 sm:px-6 lg:items-start lg:gap-8 lg:pl-0 lg:pr-8 xl:pr-10 2xl:pr-12 ${
+            lessonMenu.isHidden
+              ? "lg:grid-cols-[3.5rem_minmax(0,1fr)]"
+              : "lg:grid-cols-[minmax(20rem,27rem)_minmax(0,1fr)]"
+          } ${prefersReducedMotion ? "" : "lg:transition-[grid-template-columns] lg:ease-out"}`}
+          style={prefersReducedMotion ? undefined : { transitionDuration: `${lessonMenuColumnDurationMs}ms` }}
         >
-          <AnimatePresence initial={false}>
-            <motion.div
-              className="origin-top-right lg:sticky lg:top-24 lg:self-start"
-              initial={prefersReducedMotion ? false : { opacity: 0, y: -12 }}
-              animate={isGalaxyDirectoryClosing
-                ? { filter: "blur(8px)", opacity: 0, scale: 0.08, y: -42 }
-                : { filter: "blur(0px)", opacity: 1, y: 0 }}
-              transition={{
-                duration: isGalaxyDirectoryClosing ? lessonGalaxyCollapseDurationMs / 1000 : 0.24,
-                ease: isGalaxyDirectoryClosing ? [0.22, 1, 0.36, 1] : "easeOut"
-              }}
-              style={{ transformOrigin: "calc(100% - 8rem) -4.25rem" }}
-            >
-              <WorldMenu
-                currentSlug={slug}
-                items={lessonGalaxyItems}
-                lesson={lesson}
-                modules={gradeLessons}
-              />
-            </motion.div>
-          </AnimatePresence>
+          {lessonMenu.isHidden ? (
+            <LessonMenuRail
+              onDismissCoachMark={lessonMenu.dismissCoachMark}
+              onShow={lessonMenu.showMenu}
+              showCoachMark={lessonMenu.showCoachMark}
+              theme={lessonWorldTheme}
+            />
+          ) : (
+            <AnimatePresence initial={false}>
+              <motion.div
+                ref={lessonMenu.menuPanelRef}
+                id={lessonMenuPanelId}
+                data-tour="student-lesson-map"
+                className="origin-top-right lg:sticky lg:top-24 lg:self-start"
+                initial={prefersReducedMotion ? false : { opacity: 0, y: -12 }}
+                animate={isGalaxyDirectoryClosing
+                  ? { filter: "blur(8px)", opacity: 0, scale: 0.08, y: -42 }
+                  : lessonMenu.isCollapsing
+                    ? { filter: "blur(2px)", opacity: 0, x: -28 }
+                    : { filter: "blur(0px)", opacity: 1, x: 0, y: 0 }}
+                transition={{
+                  duration: isGalaxyDirectoryClosing
+                    ? lessonGalaxyCollapseDurationMs / 1000
+                    : lessonMenu.isCollapsing
+                      ? lessonMenu.collapseDurationMs / 1000
+                      : 0.24,
+                  ease: isGalaxyDirectoryClosing ? [0.22, 1, 0.36, 1] : "easeOut"
+                }}
+                style={{ transformOrigin: "calc(100% - 8rem) -4.25rem" }}
+                {...lessonMenu.menuHoldHandlers}
+              >
+                <WorldMenu
+                  currentSlug={slug}
+                  items={lessonGalaxyItems}
+                  lesson={lesson}
+                  modules={gradeLessons}
+                  onHide={lessonMenu.hideMenu}
+                />
+              </motion.div>
+            </AnimatePresence>
+          )}
           <div className="min-w-0 lg:w-full">
             {lessonContentPanel}
           </div>
         </div>
-      ) : (
-        lessonContentSections
-      )}
+      ) : null}
+
+      {shouldRenderGalaxyDirectory && lessonMenu.isHidden ? (
+        <LessonMenuRevealPill onShow={lessonMenu.showMenu} theme={lessonWorldTheme} />
+      ) : null}
+
+      {!shouldRenderGalaxyDirectory ? lessonContentSections : null}
 
       {canViewTeacherGuide && teacherGuideBlocks.length ? (
-        <div className={shouldRenderGalaxyDirectory ? "mt-8 grid gap-6 px-4 sm:px-6 lg:grid-cols-[minmax(20rem,27rem)_minmax(0,1fr)] lg:gap-8 lg:pl-0 lg:pr-8 xl:pr-10 2xl:pr-12" : ""}>
+        // Same declared single-column track as the directory grid above, and for
+        // the same reason: an implicit `auto` column would be content-sized.
+        <div className={shouldRenderGalaxyDirectory ? "mt-8 grid grid-cols-[minmax(0,1fr)] gap-6 px-4 sm:px-6 lg:grid-cols-[minmax(20rem,27rem)_minmax(0,1fr)] lg:gap-8 lg:pl-0 lg:pr-8 xl:pr-10 2xl:pr-12" : ""}>
           {shouldRenderGalaxyDirectory ? <div aria-hidden="true" className="hidden lg:block" /> : null}
           <section className={`${shouldRenderGalaxyDirectory ? "min-w-0" : "mt-8"} grid gap-4`} aria-label={t({ en: "Teacher guide", zh: "教師使用建議", zhHans: "教师使用建议" })}>
             {teacherGuideBlocks.map((block) => (
