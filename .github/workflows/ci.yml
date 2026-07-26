@@ -52,6 +52,18 @@ jobs:
       - name: Run analytics tests
         run: npm run test:analytics
 
+      - name: Run AI Tutor transcript visibility gate (access audit log + teacher access boundary)
+        run: npm run test:tutor-transcript
+
+      - name: Run AI Tutor content-moderation gate (input block + output withhold)
+        run: npm run test:tutor-moderation
+
+      - name: Run AI Tutor content-safety gate (crisis classifier + teacher escalation)
+        run: npm run test:content-safety
+
+      - name: Run lesson menu focus gate (keyboard focus survives the SSR duplicate)
+        run: npm run test:lesson-menu
+
       - name: Run MVP readiness tests
         run: npm run test:mvp
 
@@ -67,8 +79,14 @@ jobs:
       - name: Run question bank contract tests (per-region live counts + solvability)
         run: npm run test:question-bank
 
+      - name: Run US math item quality audit (CA/AR/FL independent re-solve + key integrity)
+        run: npm run audit:us-math-items
+
       - name: Run visualization gate
         run: npm run test:visualizations
+
+      - name: Run reported-bug source-regression gate (fix anchors + segment loading.tsx ban)
+        run: npm run test:source-regressions
 
       - name: Build
         run: npm run build
@@ -126,3 +144,21 @@ jobs:
 
       - name: Run teacher + parent journeys
         run: npx playwright test tests/e2e/teacher-operations.spec.ts tests/e2e/teacher-workspace.spec.ts tests/e2e/parent-console.spec.ts --project=desktop-chrome
+
+      # Playwright retains a trace, screenshot, and video for each failed test
+      # under the per-run root `.tmp/e2e-run-<id>/` (see playwright.config.ts:
+      # `outputDir`/`trace: retain-on-failure`). Those only ever existed on the
+      # runner, so a red e2e job could not be diagnosed after the fact — the
+      # log names a trace.zip path that is already gone. Upload them instead.
+      # Deliberately narrow: the same run root also holds `next-dist`, a full
+      # multi-hundred-MB Next build that must not be uploaded.
+      - name: Upload Playwright failure artifacts
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: teacher-parent-e2e-failure-artifacts
+          path: |
+            .tmp/e2e-run-*/test-results
+            .tmp/e2e-run-*/playwright-report
+          retention-days: 7
+          if-no-files-found: warn

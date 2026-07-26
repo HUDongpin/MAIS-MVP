@@ -1,6 +1,6 @@
 import { notFound, redirect } from "next/navigation";
 import { TeacherStudentProfileView } from "@/components/teacher/TeacherManagementViews";
-import { getTeacherStudentProfileData } from "@/lib/server/userStore";
+import { getStudentAccommodationsProfileForTeacher, getTeacherStudentProfileData } from "@/lib/server/userStore";
 import { getTeacherFoundationForPage } from "../../getTeacherFoundation";
 
 export default async function TeacherStudentProfilePage({
@@ -24,5 +24,12 @@ export default async function TeacherStudentProfilePage({
     redirect(`/teacher/classes/${encodeURIComponent(firstClassId)}/students/${encodeURIComponent(studentId)}${nextParams.toString() ? `?${nextParams.toString()}` : ""}`);
   }
 
-  return <TeacherStudentProfileView profile={profile} />;
+  const accommodationsResult = await getStudentAccommodationsProfileForTeacher(foundation.teacher.id, studentId);
+
+  return (
+    <TeacherStudentProfileView
+      profile={profile}
+      accommodations={accommodationsResult.status === "ok" ? accommodationsResult.profile : undefined}
+    />
+  );
 }

@@ -488,7 +488,11 @@ export default function EllipseLab() {
     if (tracerRef.current != null) activeT = tracerRef.current;
     else if (hoverRef.current) {
       const hv = hoverRef.current;
-      activeT = Math.atan2(hv.y - p.k, hv.x - p.h); // geometric direction -> a real point on the curve
+      // The parametric angle t of the curve point lying in the pointer's
+      // geometric direction θ from the center: tan θ = (b sin t)/(a cos t),
+      // so t = atan2(a·sin θ, b·cos θ). Plain atan2 of the offsets would put
+      // the marker up to ~27° off-direction on an eccentric ellipse.
+      activeT = Math.atan2(p.a * (hv.y - p.k), p.b * (hv.x - p.h));
     }
 
     /* foci + string (constant-sum property) */

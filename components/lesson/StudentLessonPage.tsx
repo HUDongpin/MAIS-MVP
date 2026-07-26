@@ -3,10 +3,30 @@ import { LessonView } from "@/components/lesson/LessonView";
 import { requireLessonAuthentication } from "@/components/lesson/lessonAuthGate";
 import { dedupePracticeQuestions } from "@/lib/practiceQuestionDeduping";
 import { decodeLessonRouteSlug, lessonHrefForSlug } from "@/lib/lessonLinks";
+import type { FeaturedLabDefinition } from "@/data/visualizationLabs";
 import type { LessonDetail, LessonSummary } from "@/types";
 
 const lessonPracticeQuestionLimit = 5;
 const handwritingCapableQuestionTypes = new Set(["fill-in", "short-answer", "graph"]);
+
+// Lesson visualization module ids that render through ConfiguredVisualizationLab. Only these
+// consume the resolved `lab`. Resolving it here (server) means the client never imports
+// @/data/visualizationLabs, which statically pulls @/data/topics and every region's
+// question-bank JSON (tens of MB) into the lesson bundle.
+const configuredVisualizationModuleIds = new Set(["configured-visualization-lab", "signature-lab"]);
+
+async function resolveVisualizationLabForLesson(
+  lesson: LessonDetail | null
+): Promise<FeaturedLabDefinition | null> {
+  if (!lesson) return null;
+  const visualizationBlock = lesson.blocks.find((block) => block.type === "visualization");
+  const moduleId = visualizationBlock?.visualizationConfig?.moduleId;
+  if (!moduleId || !configuredVisualizationModuleIds.has(moduleId)) return null;
+
+  const topicId = visualizationBlock?.visualizationConfig?.topicId ?? lesson.topicId;
+  const { getPrimaryVisualizationLabForTopic } = await import("@/data/visualizationLabs");
+  return getPrimaryVisualizationLabForTopic(topicId) ?? null;
+}
 
 function selectLessonPracticeQuestions(questions: LessonDetail["practiceQuestions"]) {
   const dedupedQuestions = dedupePracticeQuestions(questions);
@@ -79,5 +99,14 @@ export async function StudentLessonPage({ lessonSlug }: { lessonSlug: string }) 
     gradeLessons = gradeRoadmap.lessons;
   }
 
-  return <LessonView slug={displaySlug} initialLesson={initialLesson} gradeLessons={gradeLessons} />;
+  const visualizationLab = await resolveVisualizationLabForLesson(initialLesson);
+
+  return (
+    <LessonView
+      slug={displaySlug}
+      initialLesson={initialLesson}
+      gradeLessons={gradeLessons}
+      visualizationLab={visualizationLab}
+    />
+  );
 }

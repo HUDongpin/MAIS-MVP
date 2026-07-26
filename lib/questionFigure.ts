@@ -14,7 +14,10 @@ import type {
   QuestionDiagram,
   SolidFigureDimensionLabels,
   SolidFigureQuestionDiagram,
-  SolidFigureShape
+  SolidFigureShape,
+  TenFrameCounterTone,
+  TenFrameGroup,
+  TenFrameQuestionDiagram
 } from "../types";
 
 export type SvgPoint = { x: number; y: number };
@@ -1271,6 +1274,196 @@ export function buildSolidFigureLayout(diagram: SolidFigureQuestionDiagram, text
   return { viewBox, strokes, paths, circles, centerDots, labels, issues };
 }
 
+// --- Ten frame --------------------------------------------------------------
+
+export const tenFrameCellsPerFrame = 10;
+export const tenFrameColumns = 5;
+export const maxTenFrames = 2;
+export const maxTenFrameGroups = 4;
+
+const tenFrameCellSize = 28;
+const tenFrameCellGap = 6;
+const tenFrameFramePadding = 9;
+const tenFrameFrameGap = 22;
+const tenFrameMargin = 8;
+const tenFrameLegendHeight = 22;
+const tenFrameCounterRadius = 11.5;
+
+export type TenFrameCell = {
+  key: string;
+  cx: number;
+  cy: number;
+  r: number;
+  /** `null` renders an empty spot; a tone renders a filled counter. */
+  tone: TenFrameCounterTone | null;
+  groupIndex: number | null;
+  /** 1-based position in the count sequence, for deterministic ordering/tests. */
+  ordinal: number | null;
+};
+
+export type TenFrameFrameLayout = {
+  key: string;
+  x: number;
+  y: number;
+  width: number;
+  height: number;
+  cells: TenFrameCell[];
+};
+
+export type TenFrameLegendEntry = {
+  key: string;
+  tone: TenFrameCounterTone;
+  text: string;
+  swatchX: number;
+  swatchY: number;
+  textX: number;
+  textY: number;
+};
+
+export type TenFrameLayout = {
+  viewBox: { width: number; height: number };
+  frames: TenFrameFrameLayout[];
+  legend: TenFrameLegendEntry[];
+  issues: string[];
+};
+
+export function tenFrameLayoutMode(diagram: TenFrameQuestionDiagram) {
+  return diagram.layout ?? "continuous";
+}
+
+export function tenFrameTotalCount(diagram: TenFrameQuestionDiagram) {
+  return diagram.groups.reduce((total, group) => total + group.count, 0);
+}
+
+export function tenFrameFrameCount(diagram: TenFrameQuestionDiagram) {
+  if (typeof diagram.frames === "number") return diagram.frames;
+  if (tenFrameLayoutMode(diagram) === "separate-frames") return Math.max(1, diagram.groups.length);
+  return Math.max(1, Math.ceil(tenFrameTotalCount(diagram) / tenFrameCellsPerFrame));
+}
+
+/**
+ * Where every counter lands, as `frameIndex -> tone per slot`. This is the one
+ * place counter placement is decided: the renderer, the alt text and the audit
+ * all read the same assignment, so a figure cannot draw one thing and describe
+ * another.
+ */
+export function tenFrameCounterAssignment(diagram: TenFrameQuestionDiagram) {
+  const frameCount = tenFrameFrameCount(diagram);
+  const slots: { tone: TenFrameCounterTone; groupIndex: number; ordinal: number }[][] = Array.from(
+    { length: frameCount },
+    () => []
+  );
+  const overflow: string[] = [];
+  const mode = tenFrameLayoutMode(diagram);
+  let ordinal = 0;
+
+  if (mode === "separate-frames") {
+    diagram.groups.forEach((group, groupIndex) => {
+      const frame = slots[groupIndex];
+      if (!frame) {
+        overflow.push(`group-${groupIndex}: no frame available for this group`);
+        return;
+      }
+      for (let index = 0; index < group.count; index += 1) {
+        ordinal += 1;
+        if (frame.length >= tenFrameCellsPerFrame) {
+          overflow.push(`group-${groupIndex}: ${group.count} counters exceed one ten frame`);
+          break;
+        }
+        frame.push({ tone: group.tone, groupIndex, ordinal });
+      }
+    });
+    return { frameCount, slots, overflow };
+  }
+
+  let cursor = 0;
+  diagram.groups.forEach((group, groupIndex) => {
+    for (let index = 0; index < group.count; index += 1) {
+      const frameIndex = Math.floor(cursor / tenFrameCellsPerFrame);
+      ordinal += 1;
+      const frame = slots[frameIndex];
+      if (!frame) {
+        overflow.push(`group-${groupIndex}: counter ${ordinal} does not fit in ${frameCount} ten frame(s)`);
+        break;
+      }
+      frame.push({ tone: group.tone, groupIndex, ordinal });
+      cursor += 1;
+    }
+  });
+
+  return { frameCount, slots, overflow };
+}
+
+export function buildTenFrameLayout(diagram: TenFrameQuestionDiagram, textFor: FigureTextResolver): TenFrameLayout {
+  const issues: string[] = [];
+  const { frameCount, slots, overflow } = tenFrameCounterAssignment(diagram);
+  issues.push(...overflow);
+
+  if (!diagram.groups.length) issues.push("ten-frame: no counter groups");
+  if (frameCount < 1 || frameCount > maxTenFrames) issues.push(`ten-frame: ${frameCount} frames is outside 1-${maxTenFrames}`);
+  if (tenFrameTotalCount(diagram) > frameCount * tenFrameCellsPerFrame) {
+    issues.push(`ten-frame: ${tenFrameTotalCount(diagram)} counters exceed ${frameCount * tenFrameCellsPerFrame} spots`);
+  }
+
+  const innerWidth = tenFrameColumns * tenFrameCellSize + (tenFrameColumns - 1) * tenFrameCellGap;
+  const innerHeight = 2 * tenFrameCellSize + tenFrameCellGap;
+  const frameWidth = innerWidth + tenFrameFramePadding * 2;
+  const frameHeight = innerHeight + tenFrameFramePadding * 2;
+
+  const legendEntries = diagram.groups
+    .map((group, groupIndex) => ({ group, groupIndex, text: group.label ? textFor(group.label).trim() : "" }))
+    .filter((entry) => entry.text.length > 0);
+  const legendRowHeight = legendEntries.length ? tenFrameLegendHeight : 0;
+
+  const viewBox = {
+    width: tenFrameMargin * 2 + frameCount * frameWidth + Math.max(0, frameCount - 1) * tenFrameFrameGap,
+    height: tenFrameMargin * 2 + frameHeight + legendRowHeight
+  };
+
+  const frames: TenFrameFrameLayout[] = Array.from({ length: Math.max(0, frameCount) }, (_, frameIndex) => {
+    const frameX = tenFrameMargin + frameIndex * (frameWidth + tenFrameFrameGap);
+    const frameY = tenFrameMargin;
+    const filled = slots[frameIndex] ?? [];
+
+    const cells: TenFrameCell[] = Array.from({ length: tenFrameCellsPerFrame }, (_, cellIndex) => {
+      const column = cellIndex % tenFrameColumns;
+      const row = Math.floor(cellIndex / tenFrameColumns);
+      const counter = filled[cellIndex];
+      return {
+        key: `frame-${frameIndex}-cell-${cellIndex}`,
+        cx: frameX + tenFrameFramePadding + column * (tenFrameCellSize + tenFrameCellGap) + tenFrameCellSize / 2,
+        cy: frameY + tenFrameFramePadding + row * (tenFrameCellSize + tenFrameCellGap) + tenFrameCellSize / 2,
+        r: tenFrameCounterRadius,
+        tone: counter?.tone ?? null,
+        groupIndex: counter?.groupIndex ?? null,
+        ordinal: counter?.ordinal ?? null
+      };
+    });
+
+    return { key: `frame-${frameIndex}`, x: frameX, y: frameY, width: frameWidth, height: frameHeight, cells };
+  });
+
+  let legendCursor = tenFrameMargin;
+  const legend: TenFrameLegendEntry[] = legendEntries.map((entry) => {
+    const swatchX = legendCursor;
+    const textX = swatchX + 14;
+    legendCursor = textX + entry.text.length * 6.2 + 18;
+    return {
+      key: `legend-${entry.groupIndex}`,
+      tone: entry.group.tone,
+      text: entry.text,
+      swatchX,
+      swatchY: tenFrameMargin + frameHeight + legendRowHeight / 2,
+      textX,
+      textY: tenFrameMargin + frameHeight + legendRowHeight / 2
+    };
+  });
+
+  if (legendCursor > viewBox.width) issues.push("ten-frame: legend text overflows the figure");
+
+  return { viewBox, frames, legend, issues };
+}
+
 // --- Alt text ---------------------------------------------------------------
 
 const solidShapeNames: Record<SolidFigureShape, { en: string; zh: string; zhHans: string }> = {
@@ -1281,7 +1474,58 @@ const solidShapeNames: Record<SolidFigureShape, { en: string; zh: string; zhHans
   sphere: { en: "Sphere", zh: "球體", zhHans: "球体" }
 };
 
+export const tenFrameToneNames: Record<TenFrameCounterTone, { en: string; zh: string; zhHans: string }> = {
+  red: { en: "red", zh: "紅色", zhHans: "红色" },
+  blue: { en: "blue", zh: "藍色", zhHans: "蓝色" },
+  orange: { en: "orange", zh: "橙色", zhHans: "橙色" },
+  green: { en: "green", zh: "綠色", zhHans: "绿色" },
+  purple: { en: "purple", zh: "紫色", zhHans: "紫色" },
+  yellow: { en: "yellow", zh: "黃色", zhHans: "黄色" }
+};
+
+const tenFrameOrdinalNames = [
+  { en: "first", zh: "第一", zhHans: "第一" },
+  { en: "second", zh: "第二", zhHans: "第二" }
+];
+
+/**
+ * Describes the counters a ten frame actually draws — never the total, which is
+ * usually the answer. A screen-reader user gets the same givens a sighted
+ * learner gets, and still has to do the counting.
+ */
+function tenFrameAltText(diagram: TenFrameQuestionDiagram): LocalizedText {
+  const separate = tenFrameLayoutMode(diagram) === "separate-frames";
+  const frameCount = tenFrameFrameCount(diagram);
+  const groupText = (group: TenFrameGroup, groupIndex: number) => {
+    const tone = tenFrameToneNames[group.tone];
+    const position = separate ? tenFrameOrdinalNames[groupIndex] : undefined;
+    return {
+      en: `${group.count} ${tone.en} counter${group.count === 1 ? "" : "s"}${position ? ` in the ${position.en} frame` : ""}`,
+      zh: `${position ? `${position.zh}格陣有` : ""}${group.count} 個${tone.zh}圓點`,
+      zhHans: `${position ? `${position.zhHans}格阵有` : ""}${group.count} 个${tone.zhHans}圆点`
+    };
+  };
+
+  const parts = diagram.groups.map(groupText);
+  const joinEn = parts.length > 1
+    ? `${parts.slice(0, -1).map((part) => part.en).join(", ")} and ${parts[parts.length - 1].en}`
+    : parts[0]?.en ?? "no counters";
+  const joinZh = parts.length ? parts.map((part) => part.zh).join("，") : "沒有圓點";
+  const joinZhHans = parts.length ? parts.map((part) => part.zhHans).join("，") : "没有圆点";
+  const frameEn = frameCount > 1 ? "Double ten frame" : "Ten frame";
+  const frameZh = frameCount > 1 ? "雙十格陣" : "十格陣";
+  const frameZhHans = frameCount > 1 ? "双十格阵" : "十格阵";
+
+  return {
+    en: `${frameEn} with ${joinEn}.`,
+    zh: `${frameZh}，${joinZh}。`,
+    zhHans: `${frameZhHans}，${joinZhHans}。`
+  };
+}
+
 export function questionDiagramAltText(diagram: QuestionDiagram): LocalizedText {
+  if (diagram.kind === "ten-frame") return tenFrameAltText(diagram);
+
   if (diagram.kind === "coordinate-grid") {
     const pointLabels = (diagram.points ?? []).map((point) => point.label).filter(Boolean);
     const suffixEn = pointLabels.length ? ` with points ${pointLabels.join(", ")}` : "";
@@ -1690,6 +1934,51 @@ function normalizeSolidFigure(value: Record<string, unknown>): SolidFigureQuesti
   };
 }
 
+function normalizeTenFrame(value: Record<string, unknown>): TenFrameQuestionDiagram | undefined {
+  if (!hasOnlyKeys(value, ["kind", "groups", "layout", "frames"])) return undefined;
+  if (!Array.isArray(value.groups) || value.groups.length < 1 || value.groups.length > maxTenFrameGroups) return undefined;
+
+  const groups: TenFrameGroup[] = [];
+  for (const entry of value.groups) {
+    if (!isRecord(entry) || !hasOnlyKeys(entry, ["count", "tone", "label"])) return undefined;
+    const count = readBoundedNumber(entry.count, 0, maxTenFrames * tenFrameCellsPerFrame);
+    if (count === null || !Number.isInteger(count)) return undefined;
+    if (typeof entry.tone !== "string" || !(entry.tone in tenFrameToneNames)) return undefined;
+    const tone = entry.tone as TenFrameCounterTone;
+    const label = typeof entry.label === "undefined" ? undefined : readLocalizedLabel(entry.label) ?? undefined;
+    if (typeof entry.label !== "undefined" && !label) return undefined;
+    groups.push({ count, tone, ...(label ? { label } : {}) });
+  }
+
+  if (groups.reduce((total, group) => total + group.count, 0) < 1) return undefined;
+
+  let layout: TenFrameQuestionDiagram["layout"];
+  if (typeof value.layout !== "undefined") {
+    if (value.layout !== "continuous" && value.layout !== "separate-frames") return undefined;
+    layout = value.layout;
+  }
+
+  let frames: number | undefined;
+  if (typeof value.frames !== "undefined") {
+    const parsed = readBoundedNumber(value.frames, 1, maxTenFrames);
+    if (parsed === null || !Number.isInteger(parsed)) return undefined;
+    frames = parsed;
+  }
+
+  const normalized: TenFrameQuestionDiagram = {
+    kind: "ten-frame",
+    groups,
+    ...(layout ? { layout } : {}),
+    ...(typeof frames === "number" ? { frames } : {})
+  };
+
+  // A spec that cannot be drawn is not a spec: reject overflow at the door
+  // rather than letting the renderer silently clip counters.
+  if (tenFrameFrameCount(normalized) > maxTenFrames) return undefined;
+  if (tenFrameCounterAssignment(normalized).overflow.length) return undefined;
+  return normalized;
+}
+
 export function normalizeQuestionDiagram(value: unknown): QuestionDiagram | undefined {
   if (!isRecord(value)) return undefined;
 
@@ -1697,6 +1986,7 @@ export function normalizeQuestionDiagram(value: unknown): QuestionDiagram | unde
   if (value.kind === "plane-figure") return normalizePlaneFigure(value);
   if (value.kind === "number-line") return normalizeNumberLine(value);
   if (value.kind === "solid-figure") return normalizeSolidFigure(value);
+  if (value.kind === "ten-frame") return normalizeTenFrame(value);
   return undefined;
 }
 
@@ -1793,6 +2083,14 @@ export function validateQuestionDiagram(diagram: QuestionDiagram): string[] {
     (value) => resolveDiagramText(value, "zh")
   ];
 
+  if (diagram.kind === "ten-frame") {
+    resolvers.forEach((textFor, index) => {
+      const layout = buildTenFrameLayout(diagram, textFor);
+      layout.issues.forEach((issue) => issues.push(index === 0 ? issue : `${issue} (zh)`));
+    });
+    return Array.from(new Set(issues));
+  }
+
   if (diagram.kind === "plane-figure") {
     issues.push(...planeFigureSemanticIssues(diagram));
     if (issues.length) return issues;
@@ -1855,6 +2153,31 @@ export function solidFigureCuboidVolume(diagram: SolidFigureQuestionDiagram) {
     return diagram.size ? diagram.size ** 3 : null;
   }
   return null;
+}
+
+/**
+ * Counts what the figure DRAWS, by walking the rendered cells rather than the
+ * authored `count` fields. If placement ever clipped a counter these numbers
+ * diverge from the spec, and the audit fails instead of shipping a figure that
+ * shows a different quantity from the one it claims.
+ */
+export function tenFrameRenderedCounts(diagram: TenFrameQuestionDiagram) {
+  const { slots } = tenFrameCounterAssignment(diagram);
+  const perGroup = diagram.groups.map(() => 0);
+  const perTone = new Map<TenFrameCounterTone, number>();
+
+  slots.forEach((frame) => {
+    frame.forEach((counter) => {
+      perGroup[counter.groupIndex] = (perGroup[counter.groupIndex] ?? 0) + 1;
+      perTone.set(counter.tone, (perTone.get(counter.tone) ?? 0) + 1);
+    });
+  });
+
+  return { perGroup, perTone, total: perGroup.reduce((sum, count) => sum + count, 0) };
+}
+
+export function tenFrameEmptySpots(diagram: TenFrameQuestionDiagram) {
+  return tenFrameFrameCount(diagram) * tenFrameCellsPerFrame - tenFrameRenderedCounts(diagram).total;
 }
 
 export function solidFigureUnitText(diagram: SolidFigureQuestionDiagram) {

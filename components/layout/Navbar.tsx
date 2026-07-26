@@ -104,10 +104,15 @@ export function Navbar() {
     item.activePaths.some((activePath) => pathname.startsWith(activePath));
 
   useEffect(() => {
-    const hrefs = [lessonHref, "/personalized-learning", studentVisualizationToolsPath, practiceHref, "/about"]
+    // Only warm the workspace routes for signed-in users. Guests (e.g. sitting on the
+    // login page) would otherwise eagerly prefetch heavy authenticated routes they
+    // cannot open yet, competing for bandwidth with the login flow itself. Marketing
+    // routes like /about are intentionally left out — they are not a likely next click.
+    if (!currentUser) return;
+    const hrefs = [lessonHref, "/personalized-learning", studentVisualizationToolsPath, practiceHref]
       .filter((href): href is string => Boolean(href && href !== studentLessonsPath));
     Array.from(new Set(hrefs)).forEach((href) => router.prefetch(href));
-  }, [lessonHref, practiceHref, router]);
+  }, [currentUser, lessonHref, practiceHref, router]);
 
   const handleLogout = async () => {
     if (isLoggingOut) return;
@@ -160,6 +165,7 @@ export function Navbar() {
               <Link
                 key={item.key}
                 href={item.href}
+                prefetch={false}
                 aria-current={active ? "page" : undefined}
                 className={className}
               >
@@ -245,6 +251,7 @@ export function Navbar() {
                 <Link
                   key={item.key}
                   href={item.href}
+                  prefetch={false}
                   onClick={() => setOpen(false)}
                   aria-current={active ? "page" : undefined}
                   className={className}

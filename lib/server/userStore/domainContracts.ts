@@ -175,6 +175,7 @@ export const teacherOpsUserStoreOperations = [
   "replyToTeacherMessageThread",
   "updateTeacherMessageThread",
   "getTeacherLiveData",
+  "getClassroomLiveRoster",
   "startTeacherLiveSession",
   "endTeacherLiveSession",
   "getClassroomLiveSessionForTeacherPreview",

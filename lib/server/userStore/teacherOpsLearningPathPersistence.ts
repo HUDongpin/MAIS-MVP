@@ -106,6 +106,7 @@ const STEP_TARGET_MAX = 200;
 const MAX_STEPS = 30;
 
 export type LearningPathStepInput = {
+  id?: unknown;
   kind?: unknown;
   targetId?: unknown;
   title?: unknown;
@@ -185,20 +186,36 @@ function resolveAssignedStudentIds(
   return group.member_student_ids.filter((studentId) => enrolledSet.has(studentId));
 }
 
-function normalizeStepInputs(steps: LearningPathStepInput[] | undefined, createId: () => string) {
+function normalizeStepInputs(
+  steps: LearningPathStepInput[] | undefined,
+  createId: () => string,
+  preservableStepIds?: ReadonlySet<string>
+) {
+  // Step progress rows key on step ids, so an edit must keep the ids of steps
+  // that survive it — regenerating them would silently reset every student's
+  // progress. Only ids already on this path may be kept (never client-minted).
+  const usedIds = new Set<string>();
   return (steps ?? [])
     .slice(0, MAX_STEPS)
-    .map((step, index) => ({
-      id: `path-step-${createId()}`,
-      order: index,
-      kind: normalizeStepKind(step.kind),
-      target_id: typeof step.targetId === "string" ? step.targetId.trim().slice(0, STEP_TARGET_MAX) : "",
-      title:
-        typeof step.title === "string" && step.title.trim()
-          ? step.title.trim().slice(0, STEP_TITLE_MAX)
-          : `Step ${index + 1}`,
-      description: typeof step.description === "string" ? step.description.trim().slice(0, STEP_DESC_MAX) : ""
-    }));
+    .map((step, index) => {
+      const requestedId = typeof step.id === "string" ? step.id : "";
+      const id =
+        requestedId && preservableStepIds?.has(requestedId) && !usedIds.has(requestedId)
+          ? requestedId
+          : `path-step-${createId()}`;
+      usedIds.add(id);
+      return {
+        id,
+        order: index,
+        kind: normalizeStepKind(step.kind),
+        target_id: typeof step.targetId === "string" ? step.targetId.trim().slice(0, STEP_TARGET_MAX) : "",
+        title:
+          typeof step.title === "string" && step.title.trim()
+            ? step.title.trim().slice(0, STEP_TITLE_MAX)
+            : `Step ${index + 1}`,
+        description: typeof step.description === "string" ? step.description.trim().slice(0, STEP_DESC_MAX) : ""
+      };
+    });
 }
 
 function toLearningPathStep(step: TeacherOpsLearningPathStepRecord): LearningPathStep {
@@ -499,9 +516,14 @@ export function createTeacherOpsLearningPathPersistenceStore({
         if (typeof description === "string") record.description = description.trim().slice(0, PATH_DESC_MAX);
         if (status === "active" || status === "archived") record.status = status;
         if (Array.isArray(steps)) {
-          const normalizedSteps = normalizeStepInputs(steps, createId);
+          const existingStepIds = new Set((record.steps ?? []).map((step) => step.id));
+          const normalizedSteps = normalizeStepInputs(steps, createId, existingStepIds);
           if (!normalizedSteps.length) return { status: "no-steps" as const };
           record.steps = normalizedSteps;
+          const retainedStepIds = new Set(normalizedSteps.map((step) => step.id));
+          database.learning_path_step_progress = (database.learning_path_step_progress ?? []).filter(
+            (progress) => progress.path_id !== record.id || retainedStepIds.has(progress.step_id)
+          );
         }
         if (groupId !== undefined) {
           const resolvedGroupId = groupId ? groupId.trim() : undefined;

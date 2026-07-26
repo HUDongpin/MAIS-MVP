@@ -1746,11 +1746,41 @@ export type SolidFigureQuestionDiagram = {
   labels?: SolidFigureDimensionLabels;
 };
 
+/**
+ * Counter colours a ten-frame group may use. The set is closed on purpose: the
+ * renderer maps each tone to a fixed fill AND to a colour word in the alt text,
+ * so a spec can only name a colour the figure can actually draw and describe.
+ */
+export type TenFrameCounterTone = "red" | "blue" | "orange" | "green" | "purple" | "yellow";
+
+export type TenFrameGroup = {
+  count: number;
+  tone: TenFrameCounterTone;
+  /** Optional legend text (e.g. "Ava's shells"). Never a bare total — see the figure audit. */
+  label?: LocalizedText;
+};
+
+/**
+ * Ten-frame / double ten-frame counting model (K.CC, K.OA, 1.OA, 1.NBT).
+ *
+ * `continuous` fills one running sequence of cells across the frames, which is
+ * the "compose within 10" picture (5 red then 1 blue in the same frame).
+ * `separate-frames` starts each group in its own frame, which is the "double
+ * ten-frame addition" picture (8 orange in frame one, 5 blue in frame two).
+ */
+export type TenFrameQuestionDiagram = {
+  kind: "ten-frame";
+  groups: TenFrameGroup[];
+  layout?: "continuous" | "separate-frames";
+  frames?: number;
+};
+
 export type QuestionDiagram =
   | CoordinateGridQuestionDiagram
   | PlaneFigureQuestionDiagram
   | NumberLineQuestionDiagram
-  | SolidFigureQuestionDiagram;
+  | SolidFigureQuestionDiagram
+  | TenFrameQuestionDiagram;
 
 export type QuestionAsset = {
   kind: "image";
@@ -2203,6 +2233,24 @@ export type NovaLensRunSummary = {
   createdAt: string;
 };
 
+export type AITutorTranscriptMessage = {
+  id: string;
+  role: "student" | "tutor";
+  content: string;
+  createdAt: string;
+};
+
+export type AITutorTranscriptAccessSummary = {
+  id: string;
+  viewerId: string;
+  viewerName: string;
+  viewerRole: StudentSession["role"];
+  studentId: string;
+  studentName: string;
+  messageCount: number;
+  createdAt: string;
+};
+
 export type NovaLensRunRequest = {
   selectedText: string;
   action: NovaLensAction;
@@ -2246,6 +2294,107 @@ export type NovaLensRunResponse = {
     };
   };
 };
+
+// Content-safety flags & alerts: when a minor writes something concerning to the
+// AI Tutor (self-harm, abuse, crisis) or the tutor produces unsafe output, the
+// safety classifier raises a flag that escalates to the student's teacher(s) and
+// to admins. These types are shared across the classifier, persistence layer,
+// API routes, and the Teacher Console alert surfaces.
+export type ContentSafetyCategory =
+  | "self-harm"
+  | "abuse"
+  | "violence"
+  | "sexual"
+  | "harassment";
+
+export type ContentSafetySeverity = "critical" | "high" | "medium";
+
+export type ContentSafetySource = "student-input" | "tutor-output";
+
+export type ContentSafetyFlagStatus = "new" | "acknowledged" | "resolved";
+
+export type ContentSafetyFlag = {
+  id: string;
+  studentId: string;
+  studentName: string;
+  category: ContentSafetyCategory;
+  severity: ContentSafetySeverity;
+  source: ContentSafetySource;
+  status: ContentSafetyFlagStatus;
+  // A short, teacher-facing excerpt of the flagged message so the educator can
+  // judge the situation. Kept intentionally brief; not the full transcript.
+  excerpt: string;
+  matchedTerms: string[];
+  page?: string;
+  topicId?: string;
+  lessonSlug?: string;
+  language: string;
+  // Whether the tutor reply was withheld/redirected to a support message.
+  blockedReply: boolean;
+  createdAt: string;
+  acknowledgedBy?: string;
+  acknowledgedByName?: string;
+  acknowledgedAt?: string;
+  resolvedBy?: string;
+  resolvedByName?: string;
+  resolvedAt?: string;
+  resolutionNote?: string;
+};
+
+export type ContentSafetyAlertCounts = {
+  new: number;
+  acknowledged: number;
+  resolved: number;
+  total: number;
+  // Open = new + acknowledged (anything a teacher has not resolved yet).
+  open: number;
+};
+
+export type ContentSafetyAlertsData = {
+  generatedAt: string;
+  flags: ContentSafetyFlag[];
+  counts: ContentSafetyAlertCounts;
+};
+
+// Per-student accommodations (IEP / Section 504). These attach to the student and
+// follow them across every class and into the learning experience — a legal
+// expectation under IDEA/504 and a daily need for mixed-needs classrooms. Any
+// teacher who owns or co-teaches a class the student is enrolled in can view and
+// update the profile; admins can see all. See lib/accommodations.ts for the pure
+// helpers (defaults, normalization, extended-time multiplier, labels).
+export type AccommodationExtendedTime = "none" | "extra-half" | "double" | "unlimited";
+export type AccommodationCalculatorPolicy = "default" | "allowed" | "not-allowed";
+
+export type StudentAccommodations = {
+  // Extended time on timed work. "none" = standard time; "extra-half" = 1.5x;
+  // "double" = 2x; "unlimited" = no time pressure.
+  extendedTime: AccommodationExtendedTime;
+  // Text-to-speech read-aloud support is offered in the learning experience.
+  readAloud: boolean;
+  // Cap on the number of multiple-choice options shown. 0 = show all options;
+  // otherwise the count (>= 2) the student sees, always keeping the correct one.
+  maxAnswerChoices: number;
+  // Whether a calculator is permitted for this student.
+  calculatorPolicy: AccommodationCalculatorPolicy;
+  // Free-text note for the accommodation (e.g. the plan reference or context).
+  notes: string;
+};
+
+export type StudentAccommodationsProfile = StudentAccommodations & {
+  studentId: string;
+  studentName: string;
+  // True once any non-default accommodation is set — i.e. the student has an
+  // active accommodations plan on record.
+  hasPlan: boolean;
+  updatedAt: string | null;
+  updatedBy: string | null;
+  updatedByName: string | null;
+};
+
+export type StudentAccommodationsProfileResult =
+  | { status: "ok"; profile: StudentAccommodationsProfile }
+  | { status: "forbidden" }
+  | { status: "student-not-found" };
 
 export type LearningAnalyticsSummary = {
   windowDays: number;
@@ -3328,6 +3477,65 @@ export type AssessmentSubmission = {
   updatedAt: string;
 };
 
+/**
+ * Teacher gradebook grid — the consolidated students-×-graded-work "markbook".
+ * Columns are every graded item for a class (assignments and assessments);
+ * cells are one student's result for one item. Built by `lib/teacherGradebook.ts`.
+ */
+export type TeacherGradebookColumnKind = "assignment" | "assessment";
+
+export type TeacherGradebookColumn = {
+  id: string;
+  kind: TeacherGradebookColumnKind;
+  title: LocalizedText;
+  /** Points a full mark is worth. Assignments are a 0–100 percentage scale, so 100. */
+  maxScore: number;
+  /** Assessment grade weight; null for assignments. */
+  weight: number | null;
+  countsTowardsGrade: boolean;
+  /** Due date (assignment) or close date (assessment); null when open-ended. */
+  dueAt: string | null;
+  status: string;
+  /** Average percentage across students who have a graded, grade-counting result. */
+  average: number | null;
+  gradedCount: number;
+  studentCount: number;
+};
+
+export type TeacherGradebookCellState = "graded" | "pending" | "missing";
+
+export type TeacherGradebookCell = {
+  columnId: string;
+  state: TeacherGradebookCellState;
+  /** Raw points earned (0–100 for assignments; raw score for assessments). Null unless graded. */
+  score: number | null;
+  /** Points a full mark is worth for this cell. Null unless graded. */
+  maxScore: number | null;
+  /** Normalized 0–100 percentage. Null unless graded. */
+  percentage: number | null;
+};
+
+export type TeacherGradebookStudentRow = {
+  studentId: string;
+  studentName: string;
+  /** Aligned with `TeacherGradebookData.columns` order. */
+  cells: TeacherGradebookCell[];
+  /** Mean percentage across this student's graded, grade-counting cells. */
+  average: number | null;
+  gradedCount: number;
+  /** Number of grade-counting columns (the denominator teachers reason about). */
+  totalCount: number;
+};
+
+export type TeacherGradebookData = {
+  generatedAt: string;
+  class: { id: string; name: string; grade: GradeId };
+  columns: TeacherGradebookColumn[];
+  students: TeacherGradebookStudentRow[];
+  /** Mean of per-student averages. */
+  classAverage: number | null;
+};
+
 export type TeacherReport = {
   id: string;
   type: TeacherReportType;
@@ -3808,6 +4016,7 @@ export type TeacherDashboardData = {
 export type TeacherNavSignals = {
   pendingGrading: number;
   unrepliedMessages: number;
+  openSafetyAlerts: number;
 };
 
 export type TeacherTopicOption = {
@@ -4067,12 +4276,6 @@ export type TeacherStudentProfileData = {
   aiTutor: {
     messageCount7d: number;
     lastMessageAt: string | null;
-    recentMessages: Array<{
-      id: string;
-      role: "student" | "tutor";
-      content: string;
-      createdAt: string;
-    }>;
   };
 };
 
@@ -4485,6 +4688,55 @@ export type TeacherLiveData = {
   classes: TeacherClass[];
   activeSession: TeacherLiveSession | null;
   recentSessions: TeacherLiveSession[];
+};
+
+// Live per-student monitoring ("who needs me right now"). Derived from the
+// learning-events students already emit while working, so the roster reflects a
+// self-paced lesson rather than a teacher-led broadcast prompt.
+export type ClassroomLiveStudentState = "stuck" | "idle" | "working" | "done" | "offline";
+
+export type ClassroomLiveAttentionReason =
+  | "repeated-wrong"
+  | "many-hints"
+  | "wrong-answer"
+  | "idle"
+  | "inactive"
+  | "not-started";
+
+export type ClassroomLiveRosterEntry = {
+  studentId: string;
+  studentName: string;
+  state: ClassroomLiveStudentState;
+  needsAttention: boolean;
+  reason: ClassroomLiveAttentionReason | null;
+  lastActiveAt: string | null;
+  secondsSinceActive: number | null;
+  currentTopicId: string | null;
+  currentSource: LearningAnalyticsEventSource | null;
+  lastQuestionId: string | null;
+  lastAnswerCorrect: boolean | null;
+  correctCount: number;
+  wrongCount: number;
+  hintCount: number;
+  consecutiveWrong: number;
+};
+
+export type ClassroomLiveRosterCounts = {
+  total: number;
+  stuck: number;
+  idle: number;
+  working: number;
+  done: number;
+  offline: number;
+};
+
+export type ClassroomLiveRoster = {
+  generatedAt: string;
+  classId: string;
+  className: string;
+  windowMinutes: number;
+  counts: ClassroomLiveRosterCounts;
+  students: ClassroomLiveRosterEntry[];
 };
 
 export type ClassroomLiveSession = {

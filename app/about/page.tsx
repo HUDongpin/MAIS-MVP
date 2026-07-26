@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
 import { HomePageClient } from "@/components/home/HomePageClient";
-import { PracticeMissionSetupControls, type PracticeMissionPreviewQuestion, type PracticeMissionSetupTopicOption } from "@/components/practice/PracticeMissionSetupControls";
+import { PracticeMissionSetupControls } from "@/components/practice/PracticeMissionSetupControls";
 import { questions } from "@/data/questions";
+import { buildPracticeMissionPreviewSample } from "@/lib/practiceMissionPreviewSample";
 
 export const metadata: Metadata = {
   title: "About | MAIS",
@@ -9,29 +10,11 @@ export const metadata: Metadata = {
 };
 
 const practiceQuestionTotal = questions.length;
-const practiceMissionSetupTopicOptions = Array.from(
-  questions.reduce<Map<string, PracticeMissionSetupTopicOption>>((topics, question) => {
-    if (!topics.has(question.topicId)) {
-      topics.set(question.topicId, {
-        topicId: question.topicId,
-        grade: question.grade,
-        topic: question.topic
-      });
-    }
-
-    return topics;
-  }, new Map<string, PracticeMissionSetupTopicOption>()).values()
-);
-const practiceMissionPreviewItems: PracticeMissionPreviewQuestion[] = questions.map((question) => ({
-  id: question.id,
-  difficulty: question.difficulty,
-  grade: question.grade,
-  options: question.options,
-  prompt: question.prompt,
-  topic: question.topic,
-  topicId: question.topicId,
-  type: question.type
-}));
+// The parked mission-setup teaser only ever renders 5 preview cards, so ship a small
+// grade-stratified sample instead of serialising the whole ~24.5k-question bank into
+// the RSC payload (previously ~1.7MB gzipped for /about). See buildPracticeMissionPreviewSample.
+const { previewItems: practiceMissionPreviewItems, topicOptions: practiceMissionSetupTopicOptions } =
+  buildPracticeMissionPreviewSample(questions);
 
 export default function AboutPage() {
   return (

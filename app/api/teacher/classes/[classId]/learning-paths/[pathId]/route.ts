@@ -10,7 +10,7 @@ function routeStatus(status: string) {
   return 400;
 }
 
-type StepInput = { kind?: unknown; targetId?: unknown; title?: unknown; description?: unknown };
+type StepInput = { id?: unknown; kind?: unknown; targetId?: unknown; title?: unknown; description?: unknown };
 
 export async function PATCH(
   request: Request,

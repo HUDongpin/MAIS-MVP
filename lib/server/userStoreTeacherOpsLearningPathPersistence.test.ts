@@ -174,6 +174,57 @@ test("updateTeacherLearningPath can reassign to a group", async () => {
   assert.deepEqual(updated.path.assignedStudentIds, ["student-1"]);
 });
 
+test("updateTeacherLearningPath keeps progress for steps that keep their ids", async () => {
+  const database = createDatabase();
+  const store = createTestStore(database);
+  const created = await store.createTeacherLearningPath({ teacherId: "teacher-1", classId: "class-owned", title: "Track", steps: twoSteps });
+  expectStatus(created, "created");
+  const [step0, step1] = created.path.steps;
+  await store.markStudentLearningPathStepComplete({ studentId: "student-1", pathId: created.path.id, stepId: step0!.id });
+
+  const updated = await store.updateTeacherLearningPath({
+    teacherId: "teacher-1",
+    classId: "class-owned",
+    pathId: created.path.id,
+    steps: [
+      { id: step0!.id, kind: "lesson", targetId: "frac-basics", title: "Learn fractions v2" },
+      { id: step1!.id, kind: "practice", targetId: "frac-topic", title: "Practice fractions" },
+      { id: "path-step-forged", kind: "assessment", targetId: "frac-quiz", title: "Quiz" }
+    ]
+  });
+  expectStatus(updated, "saved");
+  assert.equal(updated.path.steps[0]?.id, step0!.id);
+  assert.equal(updated.path.steps[1]?.id, step1!.id);
+  assert.notEqual(updated.path.steps[2]?.id, "path-step-forged"); // unknown ids are never adopted
+
+  const projected = await store.getStudentLearningPaths("student-1");
+  assert.equal(projected?.[0]?.steps[0]?.status, "completed");
+  assert.equal(projected?.[0]?.steps[1]?.status, "available");
+  assert.equal(projected?.[0]?.completedStepCount, 1);
+});
+
+test("updateTeacherLearningPath prunes progress rows for removed steps", async () => {
+  const database = createDatabase();
+  const store = createTestStore(database);
+  const created = await store.createTeacherLearningPath({ teacherId: "teacher-1", classId: "class-owned", title: "Track", steps: twoSteps });
+  expectStatus(created, "created");
+  await store.markStudentLearningPathStepComplete({ studentId: "student-1", pathId: created.path.id, stepId: created.path.steps[0]!.id });
+  assert.equal(database.learning_path_step_progress.length, 1);
+
+  const replaced = await store.updateTeacherLearningPath({
+    teacherId: "teacher-1",
+    classId: "class-owned",
+    pathId: created.path.id,
+    steps: [{ kind: "lesson", targetId: "new-target", title: "Fresh start" }]
+  });
+  expectStatus(replaced, "saved");
+  assert.equal(database.learning_path_step_progress.length, 0);
+
+  const projected = await store.getStudentLearningPaths("student-1");
+  assert.equal(projected?.[0]?.completedStepCount, 0);
+  assert.equal(projected?.[0]?.steps[0]?.status, "available");
+});
+
 test("normalizeTeacherLearningPathRecords repairs durable records", () => {
   const normalized = normalizeTeacherLearningPathRecords(
     [

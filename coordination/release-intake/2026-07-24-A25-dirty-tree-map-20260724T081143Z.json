@@ -1,0 +1,3564 @@
+{
+  "generatedAt": "2026-07-24T08:11:43.760Z",
+  "timezone": "Asia/Hong_Kong",
+  "sessions": [
+    "A25 git hygiene and release intake",
+    "A22 production reliability and release engineering",
+    "A10 tooling, docs, and report"
+  ],
+  "reason": "2026-07-24 A10 president report fresh inventory",
+  "statusSignature": "da53d4dd33a421b47768007aabf4fa54d3bb7d7478fc30e06a9cb496892e2f02",
+  "ownerPathspecs": "coordination/release-intake/owner-pathspecs.json",
+  "outputPaths": {
+    "latestJson": "coordination/release-intake/latest-A25-dirty-tree-map.json",
+    "latestMarkdown": "coordination/release-intake/latest-A25-dirty-tree-map.md",
+    "reportJson": "coordination/release-intake/2026-07-24-A25-dirty-tree-map-20260724T081143Z.json",
+    "reportMarkdown": "coordination/release-intake/2026-07-24-A25-dirty-tree-map-20260724T081143Z.md"
+  },
+  "policy": {
+    "rootReleaseFrozen": true,
+    "dirtyMapMaxAgeMinutes": 60,
+    "forbidGitAddDot": true,
+    "unmappedOwnerRule": "Strict release intake requires zero unmapped owner entries.",
+    "allowedReleaseSources": [
+      "clean-worktree",
+      "clean-clone",
+      "reviewed-clean-slice",
+      "owner-approved-pruned-staging"
+    ]
+  },
+  "statusCounts": {
+    "collapsedStatusEntries": 140,
+    "expandedStatusEntries": 142,
+    "trackedModified": 47,
+    "trackedDeleted": 1,
+    "untrackedStatusEntries": 92,
+    "untrackedFiles": 94,
+    "unmappedEntries": 11,
+    "unblockedUnmappedEntries": 11,
+    "ambiguousOwnerEntries": 0,
+    "topSpecificityTies": 0,
+    "rawMultiMatchEntries": 60,
+    "secretQuarantineEntries": 0
+  },
+  "ownerBuckets": {
+    "A10 Tooling, docs, report, and coordination contract": 62,
+    "A12 Backend/API platform and storage contract": 27,
+    "A13 Teacher console UI and workflows": 11,
+    "Unmapped owner needed": 11,
+    "A05 Lesson pages and lesson content modules": 6,
+    "A01 Home, layout, navigation, auth shell, and theme surface": 5,
+    "A02 Dashboard, progress, assessment, and analytics display UI": 5,
+    "A03 Curriculum roadmap and grade/topic structure": 3,
+    "A06 Visualization Lab and interactive math runtime": 3,
+    "A08 Shared provider state, analytics, and app-wide types": 3,
+    "A07 AI tutor and provider integration": 2,
+    "A21 Content pipeline and RAG candidate operations": 2,
+    "A04 Practice Arena, Mistake Book, and question data": 1,
+    "A22 Production reliability and isolated development": 1
+  },
+  "sliceBuckets": {
+    "runtime app/API/data/public": 62,
+    "docs/coordination evidence": 61,
+    "tests/regression evidence": 13,
+    "unmapped/manual": 3,
+    "release hygiene tooling/config": 2,
+    "generated/content/RAG backlog": 1
+  },
+  "releaseHygieneEntries": [
+    {
+      "status": " M",
+      "path": ".claude/launch.json",
+      "owner": "A22 Production reliability and isolated development",
+      "ownerId": "A22",
+      "packageId": "A22-dev-isolation",
+      "matchedPathspec": ".claude/launch.json",
+      "secretQuarantine": false,
+      "resolvedSlice": "release hygiene tooling/config",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A22"
+        ],
+        "rawMatchCount": 1,
+        "topCandidateCount": 1,
+        "specificity": 1900,
+        "precedence": 0,
+        "matchedPathspec": ".claude/launch.json"
+      },
+      "slice": "release hygiene tooling/config"
+    },
+    {
+      "status": " M",
+      "path": "package.json",
+      "owner": "A10 Tooling, docs, report, and coordination contract",
+      "ownerId": "A10",
+      "packageId": "A10-tooling-docs-config",
+      "matchedPathspec": "package.json",
+      "secretQuarantine": false,
+      "resolvedSlice": "docs/coordination evidence",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A10"
+        ],
+        "rawMatchCount": 1,
+        "topCandidateCount": 1,
+        "specificity": 1200,
+        "precedence": 0,
+        "matchedPathspec": "package.json"
+      },
+      "slice": "release hygiene tooling/config"
+    }
+  ],
+  "unmappedEntries": [
+    {
+      "status": " M",
+      "path": "vercel.json",
+      "owner": "Unmapped owner needed",
+      "ownerId": "UNMAPPED",
+      "packageId": "unmapped",
+      "matchedPathspec": null,
+      "secretQuarantine": false,
+      "ownerResolution": {
+        "status": "unmapped",
+        "finalOwners": [],
+        "rawMatchCount": 0,
+        "topCandidateCount": 0,
+        "matchedPathspec": null
+      },
+      "slice": "unmapped/manual"
+    },
+    {
+      "status": "??",
+      "path": "components/onboarding/GuidedTour.tsx",
+      "owner": "Unmapped owner needed",
+      "ownerId": "UNMAPPED",
+      "packageId": "unmapped",
+      "matchedPathspec": null,
+      "secretQuarantine": false,
+      "ownerResolution": {
+        "status": "unmapped",
+        "finalOwners": [],
+        "rawMatchCount": 0,
+        "topCandidateCount": 0,
+        "matchedPathspec": null
+      },
+      "slice": "runtime app/API/data/public"
+    },
+    {
+      "status": "??",
+      "path": "components/onboarding/StudentGuidedTour.tsx",
+      "owner": "Unmapped owner needed",
+      "ownerId": "UNMAPPED",
+      "packageId": "unmapped",
+      "matchedPathspec": null,
+      "secretQuarantine": false,
+      "ownerResolution": {
+        "status": "unmapped",
+        "finalOwners": [],
+        "rawMatchCount": 0,
+        "topCandidateCount": 0,
+        "matchedPathspec": null
+      },
+      "slice": "runtime app/API/data/public"
+    },
+    {
+      "status": "??",
+      "path": "components/onboarding/studentGuidedTourRegressions.test.ts",
+      "owner": "Unmapped owner needed",
+      "ownerId": "UNMAPPED",
+      "packageId": "unmapped",
+      "matchedPathspec": null,
+      "secretQuarantine": false,
+      "ownerResolution": {
+        "status": "unmapped",
+        "finalOwners": [],
+        "rawMatchCount": 0,
+        "topCandidateCount": 0,
+        "matchedPathspec": null
+      },
+      "slice": "tests/regression evidence"
+    },
+    {
+      "status": "??",
+      "path": "data/topicsMetadata.ts",
+      "owner": "Unmapped owner needed",
+      "ownerId": "UNMAPPED",
+      "packageId": "unmapped",
+      "matchedPathspec": null,
+      "secretQuarantine": false,
+      "ownerResolution": {
+        "status": "unmapped",
+        "finalOwners": [],
+        "rawMatchCount": 0,
+        "topCandidateCount": 0,
+        "matchedPathspec": null
+      },
+      "slice": "runtime app/API/data/public"
+    },
+    {
+      "status": "??",
+      "path": "lib/classroomLiveRoster.test.ts",
+      "owner": "Unmapped owner needed",
+      "ownerId": "UNMAPPED",
+      "packageId": "unmapped",
+      "matchedPathspec": null,
+      "secretQuarantine": false,
+      "ownerResolution": {
+        "status": "unmapped",
+        "finalOwners": [],
+        "rawMatchCount": 0,
+        "topCandidateCount": 0,
+        "matchedPathspec": null
+      },
+      "slice": "tests/regression evidence"
+    },
+    {
+      "status": "??",
+      "path": "lib/classroomLiveRoster.ts",
+      "owner": "Unmapped owner needed",
+      "ownerId": "UNMAPPED",
+      "packageId": "unmapped",
+      "matchedPathspec": null,
+      "secretQuarantine": false,
+      "ownerResolution": {
+        "status": "unmapped",
+        "finalOwners": [],
+        "rawMatchCount": 0,
+        "topCandidateCount": 0,
+        "matchedPathspec": null
+      },
+      "slice": "runtime app/API/data/public"
+    },
+    {
+      "status": "??",
+      "path": "lib/practiceMissionPreviewSample.test.ts",
+      "owner": "Unmapped owner needed",
+      "ownerId": "UNMAPPED",
+      "packageId": "unmapped",
+      "matchedPathspec": null,
+      "secretQuarantine": false,
+      "ownerResolution": {
+        "status": "unmapped",
+        "finalOwners": [],
+        "rawMatchCount": 0,
+        "topCandidateCount": 0,
+        "matchedPathspec": null
+      },
+      "slice": "tests/regression evidence"
+    },
+    {
+      "status": "??",
+      "path": "lib/practiceMissionPreviewSample.ts",
+      "owner": "Unmapped owner needed",
+      "ownerId": "UNMAPPED",
+      "packageId": "unmapped",
+      "matchedPathspec": null,
+      "secretQuarantine": false,
+      "ownerResolution": {
+        "status": "unmapped",
+        "finalOwners": [],
+        "rawMatchCount": 0,
+        "topCandidateCount": 0,
+        "matchedPathspec": null
+      },
+      "slice": "runtime app/API/data/public"
+    },
+    {
+      "status": "??",
+      "path": "tsconfig.content-safety.json",
+      "owner": "Unmapped owner needed",
+      "ownerId": "UNMAPPED",
+      "packageId": "unmapped",
+      "matchedPathspec": null,
+      "secretQuarantine": false,
+      "ownerResolution": {
+        "status": "unmapped",
+        "finalOwners": [],
+        "rawMatchCount": 0,
+        "topCandidateCount": 0,
+        "matchedPathspec": null
+      },
+      "slice": "unmapped/manual"
+    },
+    {
+      "status": "??",
+      "path": "tsconfig.tutor-moderation.json",
+      "owner": "Unmapped owner needed",
+      "ownerId": "UNMAPPED",
+      "packageId": "unmapped",
+      "matchedPathspec": null,
+      "secretQuarantine": false,
+      "ownerResolution": {
+        "status": "unmapped",
+        "finalOwners": [],
+        "rawMatchCount": 0,
+        "topCandidateCount": 0,
+        "matchedPathspec": null
+      },
+      "slice": "unmapped/manual"
+    }
+  ],
+  "unblockedUnmappedEntries": [
+    {
+      "status": " M",
+      "path": "vercel.json",
+      "owner": "Unmapped owner needed",
+      "ownerId": "UNMAPPED",
+      "packageId": "unmapped",
+      "matchedPathspec": null,
+      "secretQuarantine": false,
+      "ownerResolution": {
+        "status": "unmapped",
+        "finalOwners": [],
+        "rawMatchCount": 0,
+        "topCandidateCount": 0,
+        "matchedPathspec": null
+      },
+      "slice": "unmapped/manual"
+    },
+    {
+      "status": "??",
+      "path": "components/onboarding/GuidedTour.tsx",
+      "owner": "Unmapped owner needed",
+      "ownerId": "UNMAPPED",
+      "packageId": "unmapped",
+      "matchedPathspec": null,
+      "secretQuarantine": false,
+      "ownerResolution": {
+        "status": "unmapped",
+        "finalOwners": [],
+        "rawMatchCount": 0,
+        "topCandidateCount": 0,
+        "matchedPathspec": null
+      },
+      "slice": "runtime app/API/data/public"
+    },
+    {
+      "status": "??",
+      "path": "components/onboarding/StudentGuidedTour.tsx",
+      "owner": "Unmapped owner needed",
+      "ownerId": "UNMAPPED",
+      "packageId": "unmapped",
+      "matchedPathspec": null,
+      "secretQuarantine": false,
+      "ownerResolution": {
+        "status": "unmapped",
+        "finalOwners": [],
+        "rawMatchCount": 0,
+        "topCandidateCount": 0,
+        "matchedPathspec": null
+      },
+      "slice": "runtime app/API/data/public"
+    },
+    {
+      "status": "??",
+      "path": "components/onboarding/studentGuidedTourRegressions.test.ts",
+      "owner": "Unmapped owner needed",
+      "ownerId": "UNMAPPED",
+      "packageId": "unmapped",
+      "matchedPathspec": null,
+      "secretQuarantine": false,
+      "ownerResolution": {
+        "status": "unmapped",
+        "finalOwners": [],
+        "rawMatchCount": 0,
+        "topCandidateCount": 0,
+        "matchedPathspec": null
+      },
+      "slice": "tests/regression evidence"
+    },
+    {
+      "status": "??",
+      "path": "data/topicsMetadata.ts",
+      "owner": "Unmapped owner needed",
+      "ownerId": "UNMAPPED",
+      "packageId": "unmapped",
+      "matchedPathspec": null,
+      "secretQuarantine": false,
+      "ownerResolution": {
+        "status": "unmapped",
+        "finalOwners": [],
+        "rawMatchCount": 0,
+        "topCandidateCount": 0,
+        "matchedPathspec": null
+      },
+      "slice": "runtime app/API/data/public"
+    },
+    {
+      "status": "??",
+      "path": "lib/classroomLiveRoster.test.ts",
+      "owner": "Unmapped owner needed",
+      "ownerId": "UNMAPPED",
+      "packageId": "unmapped",
+      "matchedPathspec": null,
+      "secretQuarantine": false,
+      "ownerResolution": {
+        "status": "unmapped",
+        "finalOwners": [],
+        "rawMatchCount": 0,
+        "topCandidateCount": 0,
+        "matchedPathspec": null
+      },
+      "slice": "tests/regression evidence"
+    },
+    {
+      "status": "??",
+      "path": "lib/classroomLiveRoster.ts",
+      "owner": "Unmapped owner needed",
+      "ownerId": "UNMAPPED",
+      "packageId": "unmapped",
+      "matchedPathspec": null,
+      "secretQuarantine": false,
+      "ownerResolution": {
+        "status": "unmapped",
+        "finalOwners": [],
+        "rawMatchCount": 0,
+        "topCandidateCount": 0,
+        "matchedPathspec": null
+      },
+      "slice": "runtime app/API/data/public"
+    },
+    {
+      "status": "??",
+      "path": "lib/practiceMissionPreviewSample.test.ts",
+      "owner": "Unmapped owner needed",
+      "ownerId": "UNMAPPED",
+      "packageId": "unmapped",
+      "matchedPathspec": null,
+      "secretQuarantine": false,
+      "ownerResolution": {
+        "status": "unmapped",
+        "finalOwners": [],
+        "rawMatchCount": 0,
+        "topCandidateCount": 0,
+        "matchedPathspec": null
+      },
+      "slice": "tests/regression evidence"
+    },
+    {
+      "status": "??",
+      "path": "lib/practiceMissionPreviewSample.ts",
+      "owner": "Unmapped owner needed",
+      "ownerId": "UNMAPPED",
+      "packageId": "unmapped",
+      "matchedPathspec": null,
+      "secretQuarantine": false,
+      "ownerResolution": {
+        "status": "unmapped",
+        "finalOwners": [],
+        "rawMatchCount": 0,
+        "topCandidateCount": 0,
+        "matchedPathspec": null
+      },
+      "slice": "runtime app/API/data/public"
+    },
+    {
+      "status": "??",
+      "path": "tsconfig.content-safety.json",
+      "owner": "Unmapped owner needed",
+      "ownerId": "UNMAPPED",
+      "packageId": "unmapped",
+      "matchedPathspec": null,
+      "secretQuarantine": false,
+      "ownerResolution": {
+        "status": "unmapped",
+        "finalOwners": [],
+        "rawMatchCount": 0,
+        "topCandidateCount": 0,
+        "matchedPathspec": null
+      },
+      "slice": "unmapped/manual"
+    },
+    {
+      "status": "??",
+      "path": "tsconfig.tutor-moderation.json",
+      "owner": "Unmapped owner needed",
+      "ownerId": "UNMAPPED",
+      "packageId": "unmapped",
+      "matchedPathspec": null,
+      "secretQuarantine": false,
+      "ownerResolution": {
+        "status": "unmapped",
+        "finalOwners": [],
+        "rawMatchCount": 0,
+        "topCandidateCount": 0,
+        "matchedPathspec": null
+      },
+      "slice": "unmapped/manual"
+    }
+  ],
+  "ambiguousOwnerEntries": [],
+  "entries": [
+    {
+      "status": " M",
+      "path": ".claude/launch.json",
+      "owner": "A22 Production reliability and isolated development",
+      "ownerId": "A22",
+      "packageId": "A22-dev-isolation",
+      "matchedPathspec": ".claude/launch.json",
+      "secretQuarantine": false,
+      "resolvedSlice": "release hygiene tooling/config",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A22"
+        ],
+        "rawMatchCount": 1,
+        "topCandidateCount": 1,
+        "specificity": 1900,
+        "precedence": 0,
+        "matchedPathspec": ".claude/launch.json"
+      },
+      "slice": "release hygiene tooling/config"
+    },
+    {
+      "status": " M",
+      "path": "app/about/page.tsx",
+      "owner": "A01 Home, layout, navigation, auth shell, and theme surface",
+      "ownerId": "A01",
+      "packageId": "A01-app-shell",
+      "matchedPathspec": "app/about/**",
+      "secretQuarantine": false,
+      "resolvedSlice": "runtime app/API/data/public",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A01"
+        ],
+        "rawMatchCount": 1,
+        "topCandidateCount": 1,
+        "specificity": 998,
+        "precedence": 0,
+        "matchedPathspec": "app/about/**"
+      },
+      "slice": "runtime app/API/data/public"
+    },
+    {
+      "status": " M",
+      "path": "app/api/ai-tutor/resolve/route.ts",
+      "owner": "A07 AI tutor and provider integration",
+      "ownerId": "A07",
+      "packageId": "A07-ai-tutor",
+      "matchedPathspec": "app/api/ai-tutor/**",
+      "secretQuarantine": false,
+      "resolvedSlice": "runtime app/API/data/public",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A07"
+        ],
+        "rawMatchCount": 2,
+        "topCandidateCount": 1,
+        "specificity": 1698,
+        "precedence": 0,
+        "matchedPathspec": "app/api/ai-tutor/**"
+      },
+      "slice": "runtime app/API/data/public"
+    },
+    {
+      "status": " M",
+      "path": "app/api/teacher/nav-signals/route.ts",
+      "owner": "A12 Backend/API platform and storage contract",
+      "ownerId": "A12",
+      "packageId": "A12-backend-api-storage",
+      "matchedPathspec": "app/api/**",
+      "secretQuarantine": false,
+      "resolvedSlice": "runtime app/API/data/public",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A12"
+        ],
+        "rawMatchCount": 1,
+        "topCandidateCount": 1,
+        "specificity": 798,
+        "precedence": 0,
+        "matchedPathspec": "app/api/**"
+      },
+      "slice": "runtime app/API/data/public"
+    },
+    {
+      "status": " M",
+      "path": "app/dashboard/page.tsx",
+      "owner": "A02 Dashboard, progress, assessment, and analytics display UI",
+      "ownerId": "A02",
+      "packageId": "A02-dashboard",
+      "matchedPathspec": "app/dashboard/**",
+      "secretQuarantine": false,
+      "resolvedSlice": "runtime app/API/data/public",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A02"
+        ],
+        "rawMatchCount": 1,
+        "topCandidateCount": 1,
+        "specificity": 1398,
+        "precedence": 0,
+        "matchedPathspec": "app/dashboard/**"
+      },
+      "slice": "runtime app/API/data/public"
+    },
+    {
+      "status": " M",
+      "path": "app/layout.tsx",
+      "owner": "A01 Home, layout, navigation, auth shell, and theme surface",
+      "ownerId": "A01",
+      "packageId": "A01-app-shell",
+      "matchedPathspec": "app/layout.tsx",
+      "secretQuarantine": false,
+      "resolvedSlice": "runtime app/API/data/public",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A01"
+        ],
+        "rawMatchCount": 1,
+        "topCandidateCount": 1,
+        "specificity": 1400,
+        "precedence": 0,
+        "matchedPathspec": "app/layout.tsx"
+      },
+      "slice": "runtime app/API/data/public"
+    },
+    {
+      "status": " M",
+      "path": "app/student/assessments/[assessmentId]/page.tsx",
+      "owner": "A02 Dashboard, progress, assessment, and analytics display UI",
+      "ownerId": "A02",
+      "packageId": "A02-dashboard",
+      "matchedPathspec": "app/student/assessments/**",
+      "secretQuarantine": false,
+      "resolvedSlice": "runtime app/API/data/public",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A02"
+        ],
+        "rawMatchCount": 1,
+        "topCandidateCount": 1,
+        "specificity": 2398,
+        "precedence": 0,
+        "matchedPathspec": "app/student/assessments/**"
+      },
+      "slice": "runtime app/API/data/public"
+    },
+    {
+      "status": " M",
+      "path": "components/ai/AITutorProvider.tsx",
+      "owner": "A07 AI tutor and provider integration",
+      "ownerId": "A07",
+      "packageId": "A07-ai-tutor",
+      "matchedPathspec": "components/ai/**",
+      "secretQuarantine": false,
+      "resolvedSlice": "runtime app/API/data/public",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A07"
+        ],
+        "rawMatchCount": 1,
+        "topCandidateCount": 1,
+        "specificity": 1398,
+        "precedence": 0,
+        "matchedPathspec": "components/ai/**"
+      },
+      "slice": "runtime app/API/data/public"
+    },
+    {
+      "status": " M",
+      "path": "components/background/AnimatedMathBackground.tsx",
+      "owner": "A01 Home, layout, navigation, auth shell, and theme surface",
+      "ownerId": "A01",
+      "packageId": "A01-app-shell",
+      "matchedPathspec": "components/background/**",
+      "secretQuarantine": false,
+      "resolvedSlice": "runtime app/API/data/public",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A01"
+        ],
+        "rawMatchCount": 1,
+        "topCandidateCount": 1,
+        "specificity": 2198,
+        "precedence": 0,
+        "matchedPathspec": "components/background/**"
+      },
+      "slice": "runtime app/API/data/public"
+    },
+    {
+      "status": " M",
+      "path": "components/dashboard/StudentAssignmentsView.tsx",
+      "owner": "A02 Dashboard, progress, assessment, and analytics display UI",
+      "ownerId": "A02",
+      "packageId": "A02-dashboard",
+      "matchedPathspec": "components/dashboard/**",
+      "secretQuarantine": false,
+      "resolvedSlice": "runtime app/API/data/public",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A02"
+        ],
+        "rawMatchCount": 1,
+        "topCandidateCount": 1,
+        "specificity": 2098,
+        "precedence": 0,
+        "matchedPathspec": "components/dashboard/**"
+      },
+      "slice": "runtime app/API/data/public"
+    },
+    {
+      "status": " M",
+      "path": "components/layout/LearnerStartSetupGate.tsx",
+      "owner": "A01 Home, layout, navigation, auth shell, and theme surface",
+      "ownerId": "A01",
+      "packageId": "A01-app-shell",
+      "matchedPathspec": "components/layout/**",
+      "secretQuarantine": false,
+      "resolvedSlice": "runtime app/API/data/public",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A01"
+        ],
+        "rawMatchCount": 1,
+        "topCandidateCount": 1,
+        "specificity": 1798,
+        "precedence": 0,
+        "matchedPathspec": "components/layout/**"
+      },
+      "slice": "runtime app/API/data/public"
+    },
+    {
+      "status": " M",
+      "path": "components/layout/Navbar.tsx",
+      "owner": "A01 Home, layout, navigation, auth shell, and theme surface",
+      "ownerId": "A01",
+      "packageId": "A01-app-shell",
+      "matchedPathspec": "components/layout/**",
+      "secretQuarantine": false,
+      "resolvedSlice": "runtime app/API/data/public",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A01"
+        ],
+        "rawMatchCount": 1,
+        "topCandidateCount": 1,
+        "specificity": 1798,
+        "precedence": 0,
+        "matchedPathspec": "components/layout/**"
+      },
+      "slice": "runtime app/API/data/public"
+    },
+    {
+      "status": " M",
+      "path": "components/learning/LearningRoadmap.tsx",
+      "owner": "A03 Curriculum roadmap and grade/topic structure",
+      "ownerId": "A03",
+      "packageId": "A03-roadmap",
+      "matchedPathspec": "components/learning/**",
+      "secretQuarantine": false,
+      "resolvedSlice": "runtime app/API/data/public",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A03"
+        ],
+        "rawMatchCount": 1,
+        "topCandidateCount": 1,
+        "specificity": 1998,
+        "precedence": 0,
+        "matchedPathspec": "components/learning/**"
+      },
+      "slice": "runtime app/API/data/public"
+    },
+    {
+      "status": " M",
+      "path": "components/learning/StudentRoadmapPage.tsx",
+      "owner": "A03 Curriculum roadmap and grade/topic structure",
+      "ownerId": "A03",
+      "packageId": "A03-roadmap",
+      "matchedPathspec": "components/learning/**",
+      "secretQuarantine": false,
+      "resolvedSlice": "runtime app/API/data/public",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A03"
+        ],
+        "rawMatchCount": 1,
+        "topCandidateCount": 1,
+        "specificity": 1998,
+        "precedence": 0,
+        "matchedPathspec": "components/learning/**"
+      },
+      "slice": "runtime app/API/data/public"
+    },
+    {
+      "status": " M",
+      "path": "components/learning/SubwayNetworkMap.tsx",
+      "owner": "A03 Curriculum roadmap and grade/topic structure",
+      "ownerId": "A03",
+      "packageId": "A03-roadmap",
+      "matchedPathspec": "components/learning/**",
+      "secretQuarantine": false,
+      "resolvedSlice": "runtime app/API/data/public",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A03"
+        ],
+        "rawMatchCount": 1,
+        "topCandidateCount": 1,
+        "specificity": 1998,
+        "precedence": 0,
+        "matchedPathspec": "components/learning/**"
+      },
+      "slice": "runtime app/API/data/public"
+    },
+    {
+      "status": " M",
+      "path": "components/lesson/LessonView.tsx",
+      "owner": "A05 Lesson pages and lesson content modules",
+      "ownerId": "A05",
+      "packageId": "A05-lessons",
+      "matchedPathspec": "components/lesson/**",
+      "secretQuarantine": false,
+      "resolvedSlice": "runtime app/API/data/public",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A05"
+        ],
+        "rawMatchCount": 1,
+        "topCandidateCount": 1,
+        "specificity": 1798,
+        "precedence": 0,
+        "matchedPathspec": "components/lesson/**"
+      },
+      "slice": "runtime app/API/data/public"
+    },
+    {
+      "status": " M",
+      "path": "components/lesson/StudentLessonPage.tsx",
+      "owner": "A05 Lesson pages and lesson content modules",
+      "ownerId": "A05",
+      "packageId": "A05-lessons",
+      "matchedPathspec": "components/lesson/**",
+      "secretQuarantine": false,
+      "resolvedSlice": "runtime app/API/data/public",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A05"
+        ],
+        "rawMatchCount": 1,
+        "topCandidateCount": 1,
+        "specificity": 1798,
+        "precedence": 0,
+        "matchedPathspec": "components/lesson/**"
+      },
+      "slice": "runtime app/API/data/public"
+    },
+    {
+      "status": " M",
+      "path": "components/lesson/worlds/WorldMenu.tsx",
+      "owner": "A05 Lesson pages and lesson content modules",
+      "ownerId": "A05",
+      "packageId": "A05-lessons",
+      "matchedPathspec": "components/lesson/**",
+      "secretQuarantine": false,
+      "resolvedSlice": "runtime app/API/data/public",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A05"
+        ],
+        "rawMatchCount": 1,
+        "topCandidateCount": 1,
+        "specificity": 1798,
+        "precedence": 0,
+        "matchedPathspec": "components/lesson/**"
+      },
+      "slice": "runtime app/API/data/public"
+    },
+    {
+      "status": " M",
+      "path": "components/lesson/worlds/worldThemes.ts",
+      "owner": "A05 Lesson pages and lesson content modules",
+      "ownerId": "A05",
+      "packageId": "A05-lessons",
+      "matchedPathspec": "components/lesson/**",
+      "secretQuarantine": false,
+      "resolvedSlice": "runtime app/API/data/public",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A05"
+        ],
+        "rawMatchCount": 1,
+        "topCandidateCount": 1,
+        "specificity": 1798,
+        "precedence": 0,
+        "matchedPathspec": "components/lesson/**"
+      },
+      "slice": "runtime app/API/data/public"
+    },
+    {
+      "status": " M",
+      "path": "components/practice/PracticeAdventureArenaShell.tsx",
+      "owner": "A04 Practice Arena, Mistake Book, and question data",
+      "ownerId": "A04",
+      "packageId": "A04-practice",
+      "matchedPathspec": "components/practice/**",
+      "secretQuarantine": false,
+      "resolvedSlice": "runtime app/API/data/public",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A04"
+        ],
+        "rawMatchCount": 1,
+        "topCandidateCount": 1,
+        "specificity": 1998,
+        "precedence": 0,
+        "matchedPathspec": "components/practice/**"
+      },
+      "slice": "runtime app/API/data/public"
+    },
+    {
+      "status": " M",
+      "path": "components/teacher/TeacherDashboardView.tsx",
+      "owner": "A13 Teacher console UI and workflows",
+      "ownerId": "A13",
+      "packageId": "A13-teacher-console",
+      "matchedPathspec": "components/teacher/**",
+      "secretQuarantine": false,
+      "resolvedSlice": "runtime app/API/data/public",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A13"
+        ],
+        "rawMatchCount": 1,
+        "topCandidateCount": 1,
+        "specificity": 1898,
+        "precedence": 0,
+        "matchedPathspec": "components/teacher/**"
+      },
+      "slice": "runtime app/API/data/public"
+    },
+    {
+      "status": " M",
+      "path": "components/teacher/TeacherGuidedTour.tsx",
+      "owner": "A13 Teacher console UI and workflows",
+      "ownerId": "A13",
+      "packageId": "A13-teacher-console",
+      "matchedPathspec": "components/teacher/**",
+      "secretQuarantine": false,
+      "resolvedSlice": "runtime app/API/data/public",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A13"
+        ],
+        "rawMatchCount": 1,
+        "topCandidateCount": 1,
+        "specificity": 1898,
+        "precedence": 0,
+        "matchedPathspec": "components/teacher/**"
+      },
+      "slice": "runtime app/API/data/public"
+    },
+    {
+      "status": " M",
+      "path": "components/teacher/TeacherLiveView.tsx",
+      "owner": "A13 Teacher console UI and workflows",
+      "ownerId": "A13",
+      "packageId": "A13-teacher-console",
+      "matchedPathspec": "components/teacher/**",
+      "secretQuarantine": false,
+      "resolvedSlice": "runtime app/API/data/public",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A13"
+        ],
+        "rawMatchCount": 1,
+        "topCandidateCount": 1,
+        "specificity": 1898,
+        "precedence": 0,
+        "matchedPathspec": "components/teacher/**"
+      },
+      "slice": "runtime app/API/data/public"
+    },
+    {
+      "status": " M",
+      "path": "components/teacher/TeacherManagementViews.tsx",
+      "owner": "A13 Teacher console UI and workflows",
+      "ownerId": "A13",
+      "packageId": "A13-teacher-console",
+      "matchedPathspec": "components/teacher/**",
+      "secretQuarantine": false,
+      "resolvedSlice": "runtime app/API/data/public",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A13"
+        ],
+        "rawMatchCount": 1,
+        "topCandidateCount": 1,
+        "specificity": 1898,
+        "precedence": 0,
+        "matchedPathspec": "components/teacher/**"
+      },
+      "slice": "runtime app/API/data/public"
+    },
+    {
+      "status": " M",
+      "path": "components/teacher/TeacherOperationsView.tsx",
+      "owner": "A13 Teacher console UI and workflows",
+      "ownerId": "A13",
+      "packageId": "A13-teacher-console",
+      "matchedPathspec": "components/teacher/**",
+      "secretQuarantine": false,
+      "resolvedSlice": "runtime app/API/data/public",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A13"
+        ],
+        "rawMatchCount": 1,
+        "topCandidateCount": 1,
+        "specificity": 1898,
+        "precedence": 0,
+        "matchedPathspec": "components/teacher/**"
+      },
+      "slice": "runtime app/API/data/public"
+    },
+    {
+      "status": " M",
+      "path": "components/teacher/TeacherShell.tsx",
+      "owner": "A13 Teacher console UI and workflows",
+      "ownerId": "A13",
+      "packageId": "A13-teacher-console",
+      "matchedPathspec": "components/teacher/**",
+      "secretQuarantine": false,
+      "resolvedSlice": "runtime app/API/data/public",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A13"
+        ],
+        "rawMatchCount": 1,
+        "topCandidateCount": 1,
+        "specificity": 1898,
+        "precedence": 0,
+        "matchedPathspec": "components/teacher/**"
+      },
+      "slice": "runtime app/API/data/public"
+    },
+    {
+      "status": " M",
+      "path": "components/teacher/teacherGuidedTourRegressions.test.ts",
+      "owner": "A13 Teacher console UI and workflows",
+      "ownerId": "A13",
+      "packageId": "A13-teacher-console",
+      "matchedPathspec": "components/teacher/**",
+      "secretQuarantine": false,
+      "resolvedSlice": "runtime app/API/data/public",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A13"
+        ],
+        "rawMatchCount": 1,
+        "topCandidateCount": 1,
+        "specificity": 1898,
+        "precedence": 0,
+        "matchedPathspec": "components/teacher/**"
+      },
+      "slice": "tests/regression evidence"
+    },
+    {
+      "status": " M",
+      "path": "components/teacher/teacherNavIcons.tsx",
+      "owner": "A13 Teacher console UI and workflows",
+      "ownerId": "A13",
+      "packageId": "A13-teacher-console",
+      "matchedPathspec": "components/teacher/**",
+      "secretQuarantine": false,
+      "resolvedSlice": "runtime app/API/data/public",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A13"
+        ],
+        "rawMatchCount": 1,
+        "topCandidateCount": 1,
+        "specificity": 1898,
+        "precedence": 0,
+        "matchedPathspec": "components/teacher/**"
+      },
+      "slice": "runtime app/API/data/public"
+    },
+    {
+      "status": " D",
+      "path": "components/visualizations/RoadmapVisualizationSuite.tsx",
+      "owner": "A06 Visualization Lab and interactive math runtime",
+      "ownerId": "A06",
+      "packageId": "A06-visualization-runtime",
+      "matchedPathspec": "components/visualizations/**",
+      "secretQuarantine": false,
+      "resolvedSlice": "runtime app/API/data/public",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A06"
+        ],
+        "rawMatchCount": 1,
+        "topCandidateCount": 1,
+        "specificity": 2598,
+        "precedence": 0,
+        "matchedPathspec": "components/visualizations/**"
+      },
+      "slice": "runtime app/API/data/public"
+    },
+    {
+      "status": " M",
+      "path": "components/visualizations/VisualizationLabPage.tsx",
+      "owner": "A06 Visualization Lab and interactive math runtime",
+      "ownerId": "A06",
+      "packageId": "A06-visualization-runtime",
+      "matchedPathspec": "components/visualizations/**",
+      "secretQuarantine": false,
+      "resolvedSlice": "runtime app/API/data/public",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A06"
+        ],
+        "rawMatchCount": 1,
+        "topCandidateCount": 1,
+        "specificity": 2598,
+        "precedence": 0,
+        "matchedPathspec": "components/visualizations/**"
+      },
+      "slice": "runtime app/API/data/public"
+    },
+    {
+      "status": " M",
+      "path": "components/visualizations/visualizationBundleBoundaries.test.ts",
+      "owner": "A06 Visualization Lab and interactive math runtime",
+      "ownerId": "A06",
+      "packageId": "A06-visualization-runtime",
+      "matchedPathspec": "components/visualizations/**",
+      "secretQuarantine": false,
+      "resolvedSlice": "runtime app/API/data/public",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A06"
+        ],
+        "rawMatchCount": 1,
+        "topCandidateCount": 1,
+        "specificity": 2598,
+        "precedence": 0,
+        "matchedPathspec": "components/visualizations/**"
+      },
+      "slice": "tests/regression evidence"
+    },
+    {
+      "status": " M",
+      "path": "lib/rag/usMath.test.ts",
+      "owner": "A21 Content pipeline and RAG candidate operations",
+      "ownerId": "A21",
+      "packageId": "A21-content-rag-candidates",
+      "matchedPathspec": "lib/rag/**",
+      "secretQuarantine": false,
+      "resolvedSlice": "generated/content/RAG backlog",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A21"
+        ],
+        "rawMatchCount": 1,
+        "topCandidateCount": 1,
+        "specificity": 798,
+        "precedence": 0,
+        "matchedPathspec": "lib/rag/**"
+      },
+      "slice": "tests/regression evidence"
+    },
+    {
+      "status": " M",
+      "path": "lib/server/aiGovernance.ts",
+      "owner": "A12 Backend/API platform and storage contract",
+      "ownerId": "A12",
+      "packageId": "A12-backend-api-storage",
+      "matchedPathspec": "lib/server/**",
+      "secretQuarantine": false,
+      "resolvedSlice": "runtime app/API/data/public",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A12"
+        ],
+        "rawMatchCount": 1,
+        "topCandidateCount": 1,
+        "specificity": 1098,
+        "precedence": 0,
+        "matchedPathspec": "lib/server/**"
+      },
+      "slice": "runtime app/API/data/public"
+    },
+    {
+      "status": " M",
+      "path": "lib/server/practiceAttemptStore.ts",
+      "owner": "A12 Backend/API platform and storage contract",
+      "ownerId": "A12",
+      "packageId": "A12-backend-api-storage",
+      "matchedPathspec": "lib/server/**",
+      "secretQuarantine": false,
+      "resolvedSlice": "runtime app/API/data/public",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A12"
+        ],
+        "rawMatchCount": 1,
+        "topCandidateCount": 1,
+        "specificity": 1098,
+        "precedence": 0,
+        "matchedPathspec": "lib/server/**"
+      },
+      "slice": "runtime app/API/data/public"
+    },
+    {
+      "status": " M",
+      "path": "lib/server/userStore.ts",
+      "owner": "A12 Backend/API platform and storage contract",
+      "ownerId": "A12",
+      "packageId": "A12-backend-api-storage",
+      "matchedPathspec": "lib/server/**",
+      "secretQuarantine": false,
+      "resolvedSlice": "runtime app/API/data/public",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A12"
+        ],
+        "rawMatchCount": 1,
+        "topCandidateCount": 1,
+        "specificity": 1098,
+        "precedence": 0,
+        "matchedPathspec": "lib/server/**"
+      },
+      "slice": "runtime app/API/data/public"
+    },
+    {
+      "status": " M",
+      "path": "lib/server/userStore/aiGovernancePersistence.ts",
+      "owner": "A12 Backend/API platform and storage contract",
+      "ownerId": "A12",
+      "packageId": "A12-backend-api-storage",
+      "matchedPathspec": "lib/server/**",
+      "secretQuarantine": false,
+      "resolvedSlice": "runtime app/API/data/public",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A12"
+        ],
+        "rawMatchCount": 1,
+        "topCandidateCount": 1,
+        "specificity": 1098,
+        "precedence": 0,
+        "matchedPathspec": "lib/server/**"
+      },
+      "slice": "runtime app/API/data/public"
+    },
+    {
+      "status": " M",
+      "path": "lib/server/userStore/authSessionPersistence.ts",
+      "owner": "A12 Backend/API platform and storage contract",
+      "ownerId": "A12",
+      "packageId": "A12-backend-api-storage",
+      "matchedPathspec": "lib/server/**",
+      "secretQuarantine": false,
+      "resolvedSlice": "runtime app/API/data/public",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A12"
+        ],
+        "rawMatchCount": 1,
+        "topCandidateCount": 1,
+        "specificity": 1098,
+        "precedence": 0,
+        "matchedPathspec": "lib/server/**"
+      },
+      "slice": "runtime app/API/data/public"
+    },
+    {
+      "status": " M",
+      "path": "lib/server/userStore/domainContracts.ts",
+      "owner": "A12 Backend/API platform and storage contract",
+      "ownerId": "A12",
+      "packageId": "A12-backend-api-storage",
+      "matchedPathspec": "lib/server/**",
+      "secretQuarantine": false,
+      "resolvedSlice": "runtime app/API/data/public",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A12"
+        ],
+        "rawMatchCount": 1,
+        "topCandidateCount": 1,
+        "specificity": 1098,
+        "precedence": 0,
+        "matchedPathspec": "lib/server/**"
+      },
+      "slice": "runtime app/API/data/public"
+    },
+    {
+      "status": " M",
+      "path": "lib/server/userStore/teacherOps.ts",
+      "owner": "A12 Backend/API platform and storage contract",
+      "ownerId": "A12",
+      "packageId": "A12-backend-api-storage",
+      "matchedPathspec": "lib/server/**",
+      "secretQuarantine": false,
+      "resolvedSlice": "runtime app/API/data/public",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A12"
+        ],
+        "rawMatchCount": 1,
+        "topCandidateCount": 1,
+        "specificity": 1098,
+        "precedence": 0,
+        "matchedPathspec": "lib/server/**"
+      },
+      "slice": "runtime app/API/data/public"
+    },
+    {
+      "status": " M",
+      "path": "lib/server/userStore/teacherOpsLiveSessionPersistence.ts",
+      "owner": "A12 Backend/API platform and storage contract",
+      "ownerId": "A12",
+      "packageId": "A12-backend-api-storage",
+      "matchedPathspec": "lib/server/**",
+      "secretQuarantine": false,
+      "resolvedSlice": "runtime app/API/data/public",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A12"
+        ],
+        "rawMatchCount": 1,
+        "topCandidateCount": 1,
+        "specificity": 1098,
+        "precedence": 0,
+        "matchedPathspec": "lib/server/**"
+      },
+      "slice": "runtime app/API/data/public"
+    },
+    {
+      "status": " M",
+      "path": "lib/server/userStore/teacherOpsStore.ts",
+      "owner": "A12 Backend/API platform and storage contract",
+      "ownerId": "A12",
+      "packageId": "A12-backend-api-storage",
+      "matchedPathspec": "lib/server/**",
+      "secretQuarantine": false,
+      "resolvedSlice": "runtime app/API/data/public",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A12"
+        ],
+        "rawMatchCount": 1,
+        "topCandidateCount": 1,
+        "specificity": 1098,
+        "precedence": 0,
+        "matchedPathspec": "lib/server/**"
+      },
+      "slice": "runtime app/API/data/public"
+    },
+    {
+      "status": " M",
+      "path": "lib/server/userStore/teacherOpsStudentProfilePersistence.ts",
+      "owner": "A12 Backend/API platform and storage contract",
+      "ownerId": "A12",
+      "packageId": "A12-backend-api-storage",
+      "matchedPathspec": "lib/server/**",
+      "secretQuarantine": false,
+      "resolvedSlice": "runtime app/API/data/public",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A12"
+        ],
+        "rawMatchCount": 1,
+        "topCandidateCount": 1,
+        "specificity": 1098,
+        "precedence": 0,
+        "matchedPathspec": "lib/server/**"
+      },
+      "slice": "runtime app/API/data/public"
+    },
+    {
+      "status": " M",
+      "path": "lib/server/userStoreTeacherOpsStudentProfilePersistence.test.ts",
+      "owner": "A12 Backend/API platform and storage contract",
+      "ownerId": "A12",
+      "packageId": "A12-backend-api-storage",
+      "matchedPathspec": "lib/server/**",
+      "secretQuarantine": false,
+      "resolvedSlice": "runtime app/API/data/public",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A12"
+        ],
+        "rawMatchCount": 1,
+        "topCandidateCount": 1,
+        "specificity": 1098,
+        "precedence": 0,
+        "matchedPathspec": "lib/server/**"
+      },
+      "slice": "tests/regression evidence"
+    },
+    {
+      "status": " M",
+      "path": "package.json",
+      "owner": "A10 Tooling, docs, report, and coordination contract",
+      "ownerId": "A10",
+      "packageId": "A10-tooling-docs-config",
+      "matchedPathspec": "package.json",
+      "secretQuarantine": false,
+      "resolvedSlice": "docs/coordination evidence",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A10"
+        ],
+        "rawMatchCount": 1,
+        "topCandidateCount": 1,
+        "specificity": 1200,
+        "precedence": 0,
+        "matchedPathspec": "package.json"
+      },
+      "slice": "release hygiene tooling/config"
+    },
+    {
+      "status": " M",
+      "path": "scripts/run-analytics-tests.mjs",
+      "owner": "A08 Shared provider state, analytics, and app-wide types",
+      "ownerId": "A08",
+      "packageId": "A08-shared-state-types",
+      "matchedPathspec": "scripts/run-analytics-tests.mjs",
+      "secretQuarantine": false,
+      "resolvedSlice": "runtime app/API/data/public",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A08"
+        ],
+        "rawMatchCount": 2,
+        "topCandidateCount": 1,
+        "specificity": 3100,
+        "precedence": 0,
+        "matchedPathspec": "scripts/run-analytics-tests.mjs"
+      },
+      "slice": "runtime app/API/data/public"
+    },
+    {
+      "status": " M",
+      "path": "tsconfig.analytics.json",
+      "owner": "A08 Shared provider state, analytics, and app-wide types",
+      "ownerId": "A08",
+      "packageId": "A08-shared-state-types",
+      "matchedPathspec": "tsconfig.analytics.json",
+      "secretQuarantine": false,
+      "resolvedSlice": "runtime app/API/data/public",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A08"
+        ],
+        "rawMatchCount": 1,
+        "topCandidateCount": 1,
+        "specificity": 2300,
+        "precedence": 0,
+        "matchedPathspec": "tsconfig.analytics.json"
+      },
+      "slice": "runtime app/API/data/public"
+    },
+    {
+      "status": " M",
+      "path": "types/index.ts",
+      "owner": "A08 Shared provider state, analytics, and app-wide types",
+      "ownerId": "A08",
+      "packageId": "A08-shared-state-types",
+      "matchedPathspec": "types/**",
+      "secretQuarantine": false,
+      "resolvedSlice": "runtime app/API/data/public",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A08"
+        ],
+        "rawMatchCount": 1,
+        "topCandidateCount": 1,
+        "specificity": 598,
+        "precedence": 0,
+        "matchedPathspec": "types/**"
+      },
+      "slice": "runtime app/API/data/public"
+    },
+    {
+      "status": " M",
+      "path": "vercel.json",
+      "owner": "Unmapped owner needed",
+      "ownerId": "UNMAPPED",
+      "packageId": "unmapped",
+      "matchedPathspec": null,
+      "secretQuarantine": false,
+      "ownerResolution": {
+        "status": "unmapped",
+        "finalOwners": [],
+        "rawMatchCount": 0,
+        "topCandidateCount": 0,
+        "matchedPathspec": null
+      },
+      "slice": "unmapped/manual"
+    },
+    {
+      "status": "??",
+      "path": "app/api/teacher/ai-tutor-transcript-access/route.ts",
+      "owner": "A12 Backend/API platform and storage contract",
+      "ownerId": "A12",
+      "packageId": "A12-backend-api-storage",
+      "matchedPathspec": "app/api/**",
+      "secretQuarantine": false,
+      "resolvedSlice": "runtime app/API/data/public",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A12"
+        ],
+        "rawMatchCount": 1,
+        "topCandidateCount": 1,
+        "specificity": 798,
+        "precedence": 0,
+        "matchedPathspec": "app/api/**"
+      },
+      "slice": "runtime app/API/data/public"
+    },
+    {
+      "status": "??",
+      "path": "app/api/teacher/classroom-sessions/roster/route.ts",
+      "owner": "A12 Backend/API platform and storage contract",
+      "ownerId": "A12",
+      "packageId": "A12-backend-api-storage",
+      "matchedPathspec": "app/api/**",
+      "secretQuarantine": false,
+      "resolvedSlice": "runtime app/API/data/public",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A12"
+        ],
+        "rawMatchCount": 1,
+        "topCandidateCount": 1,
+        "specificity": 798,
+        "precedence": 0,
+        "matchedPathspec": "app/api/**"
+      },
+      "slice": "runtime app/API/data/public"
+    },
+    {
+      "status": "??",
+      "path": "app/api/teacher/safety-alerts/route.ts",
+      "owner": "A12 Backend/API platform and storage contract",
+      "ownerId": "A12",
+      "packageId": "A12-backend-api-storage",
+      "matchedPathspec": "app/api/**",
+      "secretQuarantine": false,
+      "resolvedSlice": "runtime app/API/data/public",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A12"
+        ],
+        "rawMatchCount": 1,
+        "topCandidateCount": 1,
+        "specificity": 798,
+        "precedence": 0,
+        "matchedPathspec": "app/api/**"
+      },
+      "slice": "runtime app/API/data/public"
+    },
+    {
+      "status": "??",
+      "path": "app/api/teacher/students/[studentId]/ai-tutor-transcript/route.ts",
+      "owner": "A12 Backend/API platform and storage contract",
+      "ownerId": "A12",
+      "packageId": "A12-backend-api-storage",
+      "matchedPathspec": "app/api/**",
+      "secretQuarantine": false,
+      "resolvedSlice": "runtime app/API/data/public",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A12"
+        ],
+        "rawMatchCount": 1,
+        "topCandidateCount": 1,
+        "specificity": 798,
+        "precedence": 0,
+        "matchedPathspec": "app/api/**"
+      },
+      "slice": "runtime app/API/data/public"
+    },
+    {
+      "status": "??",
+      "path": "app/api/warm/route.ts",
+      "owner": "A12 Backend/API platform and storage contract",
+      "ownerId": "A12",
+      "packageId": "A12-backend-api-storage",
+      "matchedPathspec": "app/api/**",
+      "secretQuarantine": false,
+      "resolvedSlice": "runtime app/API/data/public",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A12"
+        ],
+        "rawMatchCount": 1,
+        "topCandidateCount": 1,
+        "specificity": 798,
+        "precedence": 0,
+        "matchedPathspec": "app/api/**"
+      },
+      "slice": "runtime app/API/data/public"
+    },
+    {
+      "status": "??",
+      "path": "app/dashboard/dashboardBlockOrder.test.ts",
+      "owner": "A02 Dashboard, progress, assessment, and analytics display UI",
+      "ownerId": "A02",
+      "packageId": "A02-dashboard",
+      "matchedPathspec": "app/dashboard/**",
+      "secretQuarantine": false,
+      "resolvedSlice": "runtime app/API/data/public",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A02"
+        ],
+        "rawMatchCount": 1,
+        "topCandidateCount": 1,
+        "specificity": 1398,
+        "precedence": 0,
+        "matchedPathspec": "app/dashboard/**"
+      },
+      "slice": "tests/regression evidence"
+    },
+    {
+      "status": "??",
+      "path": "app/teacher/safety/page.tsx",
+      "owner": "A13 Teacher console UI and workflows",
+      "ownerId": "A13",
+      "packageId": "A13-teacher-console",
+      "matchedPathspec": "app/teacher/**",
+      "secretQuarantine": false,
+      "resolvedSlice": "runtime app/API/data/public",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A13"
+        ],
+        "rawMatchCount": 1,
+        "topCandidateCount": 1,
+        "specificity": 1198,
+        "precedence": 0,
+        "matchedPathspec": "app/teacher/**"
+      },
+      "slice": "runtime app/API/data/public"
+    },
+    {
+      "status": "??",
+      "path": "components/dashboard/DashboardNextStepPanel.tsx",
+      "owner": "A02 Dashboard, progress, assessment, and analytics display UI",
+      "ownerId": "A02",
+      "packageId": "A02-dashboard",
+      "matchedPathspec": "components/dashboard/**",
+      "secretQuarantine": false,
+      "resolvedSlice": "runtime app/API/data/public",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A02"
+        ],
+        "rawMatchCount": 1,
+        "topCandidateCount": 1,
+        "specificity": 2098,
+        "precedence": 0,
+        "matchedPathspec": "components/dashboard/**"
+      },
+      "slice": "runtime app/API/data/public"
+    },
+    {
+      "status": "??",
+      "path": "components/lesson/worlds/LessonMenuRail.tsx",
+      "owner": "A05 Lesson pages and lesson content modules",
+      "ownerId": "A05",
+      "packageId": "A05-lessons",
+      "matchedPathspec": "components/lesson/**",
+      "secretQuarantine": false,
+      "resolvedSlice": "runtime app/API/data/public",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A05"
+        ],
+        "rawMatchCount": 1,
+        "topCandidateCount": 1,
+        "specificity": 1798,
+        "precedence": 0,
+        "matchedPathspec": "components/lesson/**"
+      },
+      "slice": "runtime app/API/data/public"
+    },
+    {
+      "status": "??",
+      "path": "components/lesson/worlds/lessonMenuVisibility.ts",
+      "owner": "A05 Lesson pages and lesson content modules",
+      "ownerId": "A05",
+      "packageId": "A05-lessons",
+      "matchedPathspec": "components/lesson/**",
+      "secretQuarantine": false,
+      "resolvedSlice": "runtime app/API/data/public",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A05"
+        ],
+        "rawMatchCount": 1,
+        "topCandidateCount": 1,
+        "specificity": 1798,
+        "precedence": 0,
+        "matchedPathspec": "components/lesson/**"
+      },
+      "slice": "runtime app/API/data/public"
+    },
+    {
+      "status": "??",
+      "path": "components/onboarding/GuidedTour.tsx",
+      "owner": "Unmapped owner needed",
+      "ownerId": "UNMAPPED",
+      "packageId": "unmapped",
+      "matchedPathspec": null,
+      "secretQuarantine": false,
+      "ownerResolution": {
+        "status": "unmapped",
+        "finalOwners": [],
+        "rawMatchCount": 0,
+        "topCandidateCount": 0,
+        "matchedPathspec": null
+      },
+      "slice": "runtime app/API/data/public"
+    },
+    {
+      "status": "??",
+      "path": "components/onboarding/StudentGuidedTour.tsx",
+      "owner": "Unmapped owner needed",
+      "ownerId": "UNMAPPED",
+      "packageId": "unmapped",
+      "matchedPathspec": null,
+      "secretQuarantine": false,
+      "ownerResolution": {
+        "status": "unmapped",
+        "finalOwners": [],
+        "rawMatchCount": 0,
+        "topCandidateCount": 0,
+        "matchedPathspec": null
+      },
+      "slice": "runtime app/API/data/public"
+    },
+    {
+      "status": "??",
+      "path": "components/onboarding/studentGuidedTourRegressions.test.ts",
+      "owner": "Unmapped owner needed",
+      "ownerId": "UNMAPPED",
+      "packageId": "unmapped",
+      "matchedPathspec": null,
+      "secretQuarantine": false,
+      "ownerResolution": {
+        "status": "unmapped",
+        "finalOwners": [],
+        "rawMatchCount": 0,
+        "topCandidateCount": 0,
+        "matchedPathspec": null
+      },
+      "slice": "tests/regression evidence"
+    },
+    {
+      "status": "??",
+      "path": "components/teacher/DashboardCharts.tsx",
+      "owner": "A13 Teacher console UI and workflows",
+      "ownerId": "A13",
+      "packageId": "A13-teacher-console",
+      "matchedPathspec": "components/teacher/**",
+      "secretQuarantine": false,
+      "resolvedSlice": "runtime app/API/data/public",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A13"
+        ],
+        "rawMatchCount": 1,
+        "topCandidateCount": 1,
+        "specificity": 1898,
+        "precedence": 0,
+        "matchedPathspec": "components/teacher/**"
+      },
+      "slice": "runtime app/API/data/public"
+    },
+    {
+      "status": "??",
+      "path": "components/teacher/TeacherSafetyAlertsView.tsx",
+      "owner": "A13 Teacher console UI and workflows",
+      "ownerId": "A13",
+      "packageId": "A13-teacher-console",
+      "matchedPathspec": "components/teacher/**",
+      "secretQuarantine": false,
+      "resolvedSlice": "runtime app/API/data/public",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A13"
+        ],
+        "rawMatchCount": 1,
+        "topCandidateCount": 1,
+        "specificity": 1898,
+        "precedence": 0,
+        "matchedPathspec": "components/teacher/**"
+      },
+      "slice": "runtime app/API/data/public"
+    },
+    {
+      "status": "??",
+      "path": "coordination/reports/2026-07-22-president-report.docx",
+      "owner": "A10 Tooling, docs, report, and coordination contract",
+      "ownerId": "A10",
+      "packageId": "A10-tooling-docs-config",
+      "matchedPathspec": "coordination/reports/**",
+      "secretQuarantine": false,
+      "resolvedSlice": "docs/coordination evidence",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A10"
+        ],
+        "rawMatchCount": 2,
+        "topCandidateCount": 1,
+        "specificity": 2098,
+        "precedence": 0,
+        "matchedPathspec": "coordination/reports/**"
+      },
+      "slice": "docs/coordination evidence"
+    },
+    {
+      "status": "??",
+      "path": "coordination/reports/2026-07-23-president-report.docx",
+      "owner": "A10 Tooling, docs, report, and coordination contract",
+      "ownerId": "A10",
+      "packageId": "A10-tooling-docs-config",
+      "matchedPathspec": "coordination/reports/**",
+      "secretQuarantine": false,
+      "resolvedSlice": "docs/coordination evidence",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A10"
+        ],
+        "rawMatchCount": 2,
+        "topCandidateCount": 1,
+        "specificity": 2098,
+        "precedence": 0,
+        "matchedPathspec": "coordination/reports/**"
+      },
+      "slice": "docs/coordination evidence"
+    },
+    {
+      "status": "??",
+      "path": "coordination/session-logs/2026-05-28-S02.md",
+      "owner": "A10 Tooling, docs, report, and coordination contract",
+      "ownerId": "A10",
+      "packageId": "A10-tooling-docs-config",
+      "matchedPathspec": "coordination/session-logs/**",
+      "secretQuarantine": false,
+      "resolvedSlice": "docs/coordination evidence",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A10"
+        ],
+        "rawMatchCount": 2,
+        "topCandidateCount": 1,
+        "specificity": 2598,
+        "precedence": 0,
+        "matchedPathspec": "coordination/session-logs/**"
+      },
+      "slice": "docs/coordination evidence"
+    },
+    {
+      "status": "??",
+      "path": "coordination/session-logs/2026-05-28-S03.md",
+      "owner": "A10 Tooling, docs, report, and coordination contract",
+      "ownerId": "A10",
+      "packageId": "A10-tooling-docs-config",
+      "matchedPathspec": "coordination/session-logs/**",
+      "secretQuarantine": false,
+      "resolvedSlice": "docs/coordination evidence",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A10"
+        ],
+        "rawMatchCount": 2,
+        "topCandidateCount": 1,
+        "specificity": 2598,
+        "precedence": 0,
+        "matchedPathspec": "coordination/session-logs/**"
+      },
+      "slice": "docs/coordination evidence"
+    },
+    {
+      "status": "??",
+      "path": "coordination/session-logs/2026-05-28-S09.md",
+      "owner": "A10 Tooling, docs, report, and coordination contract",
+      "ownerId": "A10",
+      "packageId": "A10-tooling-docs-config",
+      "matchedPathspec": "coordination/session-logs/**",
+      "secretQuarantine": false,
+      "resolvedSlice": "docs/coordination evidence",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A10"
+        ],
+        "rawMatchCount": 2,
+        "topCandidateCount": 1,
+        "specificity": 2598,
+        "precedence": 0,
+        "matchedPathspec": "coordination/session-logs/**"
+      },
+      "slice": "docs/coordination evidence"
+    },
+    {
+      "status": "??",
+      "path": "coordination/session-logs/2026-05-29-S10.md",
+      "owner": "A10 Tooling, docs, report, and coordination contract",
+      "ownerId": "A10",
+      "packageId": "A10-tooling-docs-config",
+      "matchedPathspec": "coordination/session-logs/**",
+      "secretQuarantine": false,
+      "resolvedSlice": "docs/coordination evidence",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A10"
+        ],
+        "rawMatchCount": 2,
+        "topCandidateCount": 1,
+        "specificity": 2598,
+        "precedence": 0,
+        "matchedPathspec": "coordination/session-logs/**"
+      },
+      "slice": "docs/coordination evidence"
+    },
+    {
+      "status": "??",
+      "path": "coordination/session-logs/2026-05-30-S10.md",
+      "owner": "A10 Tooling, docs, report, and coordination contract",
+      "ownerId": "A10",
+      "packageId": "A10-tooling-docs-config",
+      "matchedPathspec": "coordination/session-logs/**",
+      "secretQuarantine": false,
+      "resolvedSlice": "docs/coordination evidence",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A10"
+        ],
+        "rawMatchCount": 2,
+        "topCandidateCount": 1,
+        "specificity": 2598,
+        "precedence": 0,
+        "matchedPathspec": "coordination/session-logs/**"
+      },
+      "slice": "docs/coordination evidence"
+    },
+    {
+      "status": "??",
+      "path": "coordination/session-logs/2026-05-31-S10.md",
+      "owner": "A10 Tooling, docs, report, and coordination contract",
+      "ownerId": "A10",
+      "packageId": "A10-tooling-docs-config",
+      "matchedPathspec": "coordination/session-logs/**",
+      "secretQuarantine": false,
+      "resolvedSlice": "docs/coordination evidence",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A10"
+        ],
+        "rawMatchCount": 2,
+        "topCandidateCount": 1,
+        "specificity": 2598,
+        "precedence": 0,
+        "matchedPathspec": "coordination/session-logs/**"
+      },
+      "slice": "docs/coordination evidence"
+    },
+    {
+      "status": "??",
+      "path": "coordination/session-logs/2026-06-01-S01.md",
+      "owner": "A10 Tooling, docs, report, and coordination contract",
+      "ownerId": "A10",
+      "packageId": "A10-tooling-docs-config",
+      "matchedPathspec": "coordination/session-logs/**",
+      "secretQuarantine": false,
+      "resolvedSlice": "docs/coordination evidence",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A10"
+        ],
+        "rawMatchCount": 2,
+        "topCandidateCount": 1,
+        "specificity": 2598,
+        "precedence": 0,
+        "matchedPathspec": "coordination/session-logs/**"
+      },
+      "slice": "docs/coordination evidence"
+    },
+    {
+      "status": "??",
+      "path": "coordination/session-logs/2026-06-01-S05.md",
+      "owner": "A10 Tooling, docs, report, and coordination contract",
+      "ownerId": "A10",
+      "packageId": "A10-tooling-docs-config",
+      "matchedPathspec": "coordination/session-logs/**",
+      "secretQuarantine": false,
+      "resolvedSlice": "docs/coordination evidence",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A10"
+        ],
+        "rawMatchCount": 2,
+        "topCandidateCount": 1,
+        "specificity": 2598,
+        "precedence": 0,
+        "matchedPathspec": "coordination/session-logs/**"
+      },
+      "slice": "docs/coordination evidence"
+    },
+    {
+      "status": "??",
+      "path": "coordination/session-logs/2026-06-01-S06.md",
+      "owner": "A10 Tooling, docs, report, and coordination contract",
+      "ownerId": "A10",
+      "packageId": "A10-tooling-docs-config",
+      "matchedPathspec": "coordination/session-logs/**",
+      "secretQuarantine": false,
+      "resolvedSlice": "docs/coordination evidence",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A10"
+        ],
+        "rawMatchCount": 2,
+        "topCandidateCount": 1,
+        "specificity": 2598,
+        "precedence": 0,
+        "matchedPathspec": "coordination/session-logs/**"
+      },
+      "slice": "docs/coordination evidence"
+    },
+    {
+      "status": "??",
+      "path": "coordination/session-logs/2026-06-01-S08.md",
+      "owner": "A10 Tooling, docs, report, and coordination contract",
+      "ownerId": "A10",
+      "packageId": "A10-tooling-docs-config",
+      "matchedPathspec": "coordination/session-logs/**",
+      "secretQuarantine": false,
+      "resolvedSlice": "docs/coordination evidence",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A10"
+        ],
+        "rawMatchCount": 2,
+        "topCandidateCount": 1,
+        "specificity": 2598,
+        "precedence": 0,
+        "matchedPathspec": "coordination/session-logs/**"
+      },
+      "slice": "docs/coordination evidence"
+    },
+    {
+      "status": "??",
+      "path": "coordination/session-logs/2026-06-01-S10.md",
+      "owner": "A10 Tooling, docs, report, and coordination contract",
+      "ownerId": "A10",
+      "packageId": "A10-tooling-docs-config",
+      "matchedPathspec": "coordination/session-logs/**",
+      "secretQuarantine": false,
+      "resolvedSlice": "docs/coordination evidence",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A10"
+        ],
+        "rawMatchCount": 2,
+        "topCandidateCount": 1,
+        "specificity": 2598,
+        "precedence": 0,
+        "matchedPathspec": "coordination/session-logs/**"
+      },
+      "slice": "docs/coordination evidence"
+    },
+    {
+      "status": "??",
+      "path": "coordination/session-logs/2026-06-01-S11.md",
+      "owner": "A10 Tooling, docs, report, and coordination contract",
+      "ownerId": "A10",
+      "packageId": "A10-tooling-docs-config",
+      "matchedPathspec": "coordination/session-logs/**",
+      "secretQuarantine": false,
+      "resolvedSlice": "docs/coordination evidence",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A10"
+        ],
+        "rawMatchCount": 2,
+        "topCandidateCount": 1,
+        "specificity": 2598,
+        "precedence": 0,
+        "matchedPathspec": "coordination/session-logs/**"
+      },
+      "slice": "docs/coordination evidence"
+    },
+    {
+      "status": "??",
+      "path": "coordination/session-logs/2026-06-01-S18.md",
+      "owner": "A10 Tooling, docs, report, and coordination contract",
+      "ownerId": "A10",
+      "packageId": "A10-tooling-docs-config",
+      "matchedPathspec": "coordination/session-logs/**",
+      "secretQuarantine": false,
+      "resolvedSlice": "docs/coordination evidence",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A10"
+        ],
+        "rawMatchCount": 2,
+        "topCandidateCount": 1,
+        "specificity": 2598,
+        "precedence": 0,
+        "matchedPathspec": "coordination/session-logs/**"
+      },
+      "slice": "docs/coordination evidence"
+    },
+    {
+      "status": "??",
+      "path": "coordination/session-logs/2026-06-01-S19.md",
+      "owner": "A10 Tooling, docs, report, and coordination contract",
+      "ownerId": "A10",
+      "packageId": "A10-tooling-docs-config",
+      "matchedPathspec": "coordination/session-logs/**",
+      "secretQuarantine": false,
+      "resolvedSlice": "docs/coordination evidence",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A10"
+        ],
+        "rawMatchCount": 2,
+        "topCandidateCount": 1,
+        "specificity": 2598,
+        "precedence": 0,
+        "matchedPathspec": "coordination/session-logs/**"
+      },
+      "slice": "docs/coordination evidence"
+    },
+    {
+      "status": "??",
+      "path": "coordination/session-logs/2026-06-02-S01.md",
+      "owner": "A10 Tooling, docs, report, and coordination contract",
+      "ownerId": "A10",
+      "packageId": "A10-tooling-docs-config",
+      "matchedPathspec": "coordination/session-logs/**",
+      "secretQuarantine": false,
+      "resolvedSlice": "docs/coordination evidence",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A10"
+        ],
+        "rawMatchCount": 2,
+        "topCandidateCount": 1,
+        "specificity": 2598,
+        "precedence": 0,
+        "matchedPathspec": "coordination/session-logs/**"
+      },
+      "slice": "docs/coordination evidence"
+    },
+    {
+      "status": "??",
+      "path": "coordination/session-logs/2026-06-02-S05.md",
+      "owner": "A10 Tooling, docs, report, and coordination contract",
+      "ownerId": "A10",
+      "packageId": "A10-tooling-docs-config",
+      "matchedPathspec": "coordination/session-logs/**",
+      "secretQuarantine": false,
+      "resolvedSlice": "docs/coordination evidence",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A10"
+        ],
+        "rawMatchCount": 2,
+        "topCandidateCount": 1,
+        "specificity": 2598,
+        "precedence": 0,
+        "matchedPathspec": "coordination/session-logs/**"
+      },
+      "slice": "docs/coordination evidence"
+    },
+    {
+      "status": "??",
+      "path": "coordination/session-logs/2026-06-02-S07.md",
+      "owner": "A10 Tooling, docs, report, and coordination contract",
+      "ownerId": "A10",
+      "packageId": "A10-tooling-docs-config",
+      "matchedPathspec": "coordination/session-logs/**",
+      "secretQuarantine": false,
+      "resolvedSlice": "docs/coordination evidence",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A10"
+        ],
+        "rawMatchCount": 2,
+        "topCandidateCount": 1,
+        "specificity": 2598,
+        "precedence": 0,
+        "matchedPathspec": "coordination/session-logs/**"
+      },
+      "slice": "docs/coordination evidence"
+    },
+    {
+      "status": "??",
+      "path": "coordination/session-logs/2026-06-02-S10.md",
+      "owner": "A10 Tooling, docs, report, and coordination contract",
+      "ownerId": "A10",
+      "packageId": "A10-tooling-docs-config",
+      "matchedPathspec": "coordination/session-logs/**",
+      "secretQuarantine": false,
+      "resolvedSlice": "docs/coordination evidence",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A10"
+        ],
+        "rawMatchCount": 2,
+        "topCandidateCount": 1,
+        "specificity": 2598,
+        "precedence": 0,
+        "matchedPathspec": "coordination/session-logs/**"
+      },
+      "slice": "docs/coordination evidence"
+    },
+    {
+      "status": "??",
+      "path": "coordination/session-logs/2026-06-02-S11.md",
+      "owner": "A10 Tooling, docs, report, and coordination contract",
+      "ownerId": "A10",
+      "packageId": "A10-tooling-docs-config",
+      "matchedPathspec": "coordination/session-logs/**",
+      "secretQuarantine": false,
+      "resolvedSlice": "docs/coordination evidence",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A10"
+        ],
+        "rawMatchCount": 2,
+        "topCandidateCount": 1,
+        "specificity": 2598,
+        "precedence": 0,
+        "matchedPathspec": "coordination/session-logs/**"
+      },
+      "slice": "docs/coordination evidence"
+    },
+    {
+      "status": "??",
+      "path": "coordination/session-logs/2026-06-02-S12.md",
+      "owner": "A10 Tooling, docs, report, and coordination contract",
+      "ownerId": "A10",
+      "packageId": "A10-tooling-docs-config",
+      "matchedPathspec": "coordination/session-logs/**",
+      "secretQuarantine": false,
+      "resolvedSlice": "docs/coordination evidence",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A10"
+        ],
+        "rawMatchCount": 2,
+        "topCandidateCount": 1,
+        "specificity": 2598,
+        "precedence": 0,
+        "matchedPathspec": "coordination/session-logs/**"
+      },
+      "slice": "docs/coordination evidence"
+    },
+    {
+      "status": "??",
+      "path": "coordination/session-logs/2026-06-02-S14.md",
+      "owner": "A10 Tooling, docs, report, and coordination contract",
+      "ownerId": "A10",
+      "packageId": "A10-tooling-docs-config",
+      "matchedPathspec": "coordination/session-logs/**",
+      "secretQuarantine": false,
+      "resolvedSlice": "docs/coordination evidence",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A10"
+        ],
+        "rawMatchCount": 2,
+        "topCandidateCount": 1,
+        "specificity": 2598,
+        "precedence": 0,
+        "matchedPathspec": "coordination/session-logs/**"
+      },
+      "slice": "docs/coordination evidence"
+    },
+    {
+      "status": "??",
+      "path": "coordination/session-logs/2026-06-02-S18.md",
+      "owner": "A10 Tooling, docs, report, and coordination contract",
+      "ownerId": "A10",
+      "packageId": "A10-tooling-docs-config",
+      "matchedPathspec": "coordination/session-logs/**",
+      "secretQuarantine": false,
+      "resolvedSlice": "docs/coordination evidence",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A10"
+        ],
+        "rawMatchCount": 2,
+        "topCandidateCount": 1,
+        "specificity": 2598,
+        "precedence": 0,
+        "matchedPathspec": "coordination/session-logs/**"
+      },
+      "slice": "docs/coordination evidence"
+    },
+    {
+      "status": "??",
+      "path": "coordination/session-logs/2026-06-02-S19.md",
+      "owner": "A10 Tooling, docs, report, and coordination contract",
+      "ownerId": "A10",
+      "packageId": "A10-tooling-docs-config",
+      "matchedPathspec": "coordination/session-logs/**",
+      "secretQuarantine": false,
+      "resolvedSlice": "docs/coordination evidence",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A10"
+        ],
+        "rawMatchCount": 2,
+        "topCandidateCount": 1,
+        "specificity": 2598,
+        "precedence": 0,
+        "matchedPathspec": "coordination/session-logs/**"
+      },
+      "slice": "docs/coordination evidence"
+    },
+    {
+      "status": "??",
+      "path": "coordination/session-logs/2026-06-02-S20.md",
+      "owner": "A10 Tooling, docs, report, and coordination contract",
+      "ownerId": "A10",
+      "packageId": "A10-tooling-docs-config",
+      "matchedPathspec": "coordination/session-logs/**",
+      "secretQuarantine": false,
+      "resolvedSlice": "docs/coordination evidence",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A10"
+        ],
+        "rawMatchCount": 2,
+        "topCandidateCount": 1,
+        "specificity": 2598,
+        "precedence": 0,
+        "matchedPathspec": "coordination/session-logs/**"
+      },
+      "slice": "docs/coordination evidence"
+    },
+    {
+      "status": "??",
+      "path": "coordination/session-logs/2026-06-03-S01.md",
+      "owner": "A10 Tooling, docs, report, and coordination contract",
+      "ownerId": "A10",
+      "packageId": "A10-tooling-docs-config",
+      "matchedPathspec": "coordination/session-logs/**",
+      "secretQuarantine": false,
+      "resolvedSlice": "docs/coordination evidence",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A10"
+        ],
+        "rawMatchCount": 2,
+        "topCandidateCount": 1,
+        "specificity": 2598,
+        "precedence": 0,
+        "matchedPathspec": "coordination/session-logs/**"
+      },
+      "slice": "docs/coordination evidence"
+    },
+    {
+      "status": "??",
+      "path": "coordination/session-logs/2026-06-03-S10.md",
+      "owner": "A10 Tooling, docs, report, and coordination contract",
+      "ownerId": "A10",
+      "packageId": "A10-tooling-docs-config",
+      "matchedPathspec": "coordination/session-logs/**",
+      "secretQuarantine": false,
+      "resolvedSlice": "docs/coordination evidence",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A10"
+        ],
+        "rawMatchCount": 2,
+        "topCandidateCount": 1,
+        "specificity": 2598,
+        "precedence": 0,
+        "matchedPathspec": "coordination/session-logs/**"
+      },
+      "slice": "docs/coordination evidence"
+    },
+    {
+      "status": "??",
+      "path": "coordination/session-logs/2026-06-03-S11.md",
+      "owner": "A10 Tooling, docs, report, and coordination contract",
+      "ownerId": "A10",
+      "packageId": "A10-tooling-docs-config",
+      "matchedPathspec": "coordination/session-logs/**",
+      "secretQuarantine": false,
+      "resolvedSlice": "docs/coordination evidence",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A10"
+        ],
+        "rawMatchCount": 2,
+        "topCandidateCount": 1,
+        "specificity": 2598,
+        "precedence": 0,
+        "matchedPathspec": "coordination/session-logs/**"
+      },
+      "slice": "docs/coordination evidence"
+    },
+    {
+      "status": "??",
+      "path": "coordination/session-logs/2026-06-04-S01.md",
+      "owner": "A10 Tooling, docs, report, and coordination contract",
+      "ownerId": "A10",
+      "packageId": "A10-tooling-docs-config",
+      "matchedPathspec": "coordination/session-logs/**",
+      "secretQuarantine": false,
+      "resolvedSlice": "docs/coordination evidence",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A10"
+        ],
+        "rawMatchCount": 2,
+        "topCandidateCount": 1,
+        "specificity": 2598,
+        "precedence": 0,
+        "matchedPathspec": "coordination/session-logs/**"
+      },
+      "slice": "docs/coordination evidence"
+    },
+    {
+      "status": "??",
+      "path": "coordination/session-logs/2026-06-04-S02.md",
+      "owner": "A10 Tooling, docs, report, and coordination contract",
+      "ownerId": "A10",
+      "packageId": "A10-tooling-docs-config",
+      "matchedPathspec": "coordination/session-logs/**",
+      "secretQuarantine": false,
+      "resolvedSlice": "docs/coordination evidence",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A10"
+        ],
+        "rawMatchCount": 2,
+        "topCandidateCount": 1,
+        "specificity": 2598,
+        "precedence": 0,
+        "matchedPathspec": "coordination/session-logs/**"
+      },
+      "slice": "docs/coordination evidence"
+    },
+    {
+      "status": "??",
+      "path": "coordination/session-logs/2026-06-04-S03.md",
+      "owner": "A10 Tooling, docs, report, and coordination contract",
+      "ownerId": "A10",
+      "packageId": "A10-tooling-docs-config",
+      "matchedPathspec": "coordination/session-logs/**",
+      "secretQuarantine": false,
+      "resolvedSlice": "docs/coordination evidence",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A10"
+        ],
+        "rawMatchCount": 2,
+        "topCandidateCount": 1,
+        "specificity": 2598,
+        "precedence": 0,
+        "matchedPathspec": "coordination/session-logs/**"
+      },
+      "slice": "docs/coordination evidence"
+    },
+    {
+      "status": "??",
+      "path": "coordination/session-logs/2026-06-04-S04.md",
+      "owner": "A10 Tooling, docs, report, and coordination contract",
+      "ownerId": "A10",
+      "packageId": "A10-tooling-docs-config",
+      "matchedPathspec": "coordination/session-logs/**",
+      "secretQuarantine": false,
+      "resolvedSlice": "docs/coordination evidence",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A10"
+        ],
+        "rawMatchCount": 2,
+        "topCandidateCount": 1,
+        "specificity": 2598,
+        "precedence": 0,
+        "matchedPathspec": "coordination/session-logs/**"
+      },
+      "slice": "docs/coordination evidence"
+    },
+    {
+      "status": "??",
+      "path": "coordination/session-logs/2026-06-04-S05.md",
+      "owner": "A10 Tooling, docs, report, and coordination contract",
+      "ownerId": "A10",
+      "packageId": "A10-tooling-docs-config",
+      "matchedPathspec": "coordination/session-logs/**",
+      "secretQuarantine": false,
+      "resolvedSlice": "docs/coordination evidence",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A10"
+        ],
+        "rawMatchCount": 2,
+        "topCandidateCount": 1,
+        "specificity": 2598,
+        "precedence": 0,
+        "matchedPathspec": "coordination/session-logs/**"
+      },
+      "slice": "docs/coordination evidence"
+    },
+    {
+      "status": "??",
+      "path": "coordination/session-logs/2026-06-04-S06.md",
+      "owner": "A10 Tooling, docs, report, and coordination contract",
+      "ownerId": "A10",
+      "packageId": "A10-tooling-docs-config",
+      "matchedPathspec": "coordination/session-logs/**",
+      "secretQuarantine": false,
+      "resolvedSlice": "docs/coordination evidence",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A10"
+        ],
+        "rawMatchCount": 2,
+        "topCandidateCount": 1,
+        "specificity": 2598,
+        "precedence": 0,
+        "matchedPathspec": "coordination/session-logs/**"
+      },
+      "slice": "docs/coordination evidence"
+    },
+    {
+      "status": "??",
+      "path": "coordination/session-logs/2026-06-04-S07.md",
+      "owner": "A10 Tooling, docs, report, and coordination contract",
+      "ownerId": "A10",
+      "packageId": "A10-tooling-docs-config",
+      "matchedPathspec": "coordination/session-logs/**",
+      "secretQuarantine": false,
+      "resolvedSlice": "docs/coordination evidence",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A10"
+        ],
+        "rawMatchCount": 2,
+        "topCandidateCount": 1,
+        "specificity": 2598,
+        "precedence": 0,
+        "matchedPathspec": "coordination/session-logs/**"
+      },
+      "slice": "docs/coordination evidence"
+    },
+    {
+      "status": "??",
+      "path": "coordination/session-logs/2026-06-04-S08.md",
+      "owner": "A10 Tooling, docs, report, and coordination contract",
+      "ownerId": "A10",
+      "packageId": "A10-tooling-docs-config",
+      "matchedPathspec": "coordination/session-logs/**",
+      "secretQuarantine": false,
+      "resolvedSlice": "docs/coordination evidence",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A10"
+        ],
+        "rawMatchCount": 2,
+        "topCandidateCount": 1,
+        "specificity": 2598,
+        "precedence": 0,
+        "matchedPathspec": "coordination/session-logs/**"
+      },
+      "slice": "docs/coordination evidence"
+    },
+    {
+      "status": "??",
+      "path": "coordination/session-logs/2026-06-04-S10-p1-repair-execution.md",
+      "owner": "A10 Tooling, docs, report, and coordination contract",
+      "ownerId": "A10",
+      "packageId": "A10-tooling-docs-config",
+      "matchedPathspec": "coordination/session-logs/**",
+      "secretQuarantine": false,
+      "resolvedSlice": "docs/coordination evidence",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A10"
+        ],
+        "rawMatchCount": 2,
+        "topCandidateCount": 1,
+        "specificity": 2598,
+        "precedence": 0,
+        "matchedPathspec": "coordination/session-logs/**"
+      },
+      "slice": "docs/coordination evidence"
+    },
+    {
+      "status": "??",
+      "path": "coordination/session-logs/2026-06-04-S10.md",
+      "owner": "A10 Tooling, docs, report, and coordination contract",
+      "ownerId": "A10",
+      "packageId": "A10-tooling-docs-config",
+      "matchedPathspec": "coordination/session-logs/**",
+      "secretQuarantine": false,
+      "resolvedSlice": "docs/coordination evidence",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A10"
+        ],
+        "rawMatchCount": 2,
+        "topCandidateCount": 1,
+        "specificity": 2598,
+        "precedence": 0,
+        "matchedPathspec": "coordination/session-logs/**"
+      },
+      "slice": "docs/coordination evidence"
+    },
+    {
+      "status": "??",
+      "path": "coordination/session-logs/2026-06-04-S11.md",
+      "owner": "A10 Tooling, docs, report, and coordination contract",
+      "ownerId": "A10",
+      "packageId": "A10-tooling-docs-config",
+      "matchedPathspec": "coordination/session-logs/**",
+      "secretQuarantine": false,
+      "resolvedSlice": "docs/coordination evidence",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A10"
+        ],
+        "rawMatchCount": 2,
+        "topCandidateCount": 1,
+        "specificity": 2598,
+        "precedence": 0,
+        "matchedPathspec": "coordination/session-logs/**"
+      },
+      "slice": "docs/coordination evidence"
+    },
+    {
+      "status": "??",
+      "path": "coordination/session-logs/2026-06-04-S12.md",
+      "owner": "A10 Tooling, docs, report, and coordination contract",
+      "ownerId": "A10",
+      "packageId": "A10-tooling-docs-config",
+      "matchedPathspec": "coordination/session-logs/**",
+      "secretQuarantine": false,
+      "resolvedSlice": "docs/coordination evidence",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A10"
+        ],
+        "rawMatchCount": 2,
+        "topCandidateCount": 1,
+        "specificity": 2598,
+        "precedence": 0,
+        "matchedPathspec": "coordination/session-logs/**"
+      },
+      "slice": "docs/coordination evidence"
+    },
+    {
+      "status": "??",
+      "path": "coordination/session-logs/2026-06-04-S13.md",
+      "owner": "A10 Tooling, docs, report, and coordination contract",
+      "ownerId": "A10",
+      "packageId": "A10-tooling-docs-config",
+      "matchedPathspec": "coordination/session-logs/**",
+      "secretQuarantine": false,
+      "resolvedSlice": "docs/coordination evidence",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A10"
+        ],
+        "rawMatchCount": 2,
+        "topCandidateCount": 1,
+        "specificity": 2598,
+        "precedence": 0,
+        "matchedPathspec": "coordination/session-logs/**"
+      },
+      "slice": "docs/coordination evidence"
+    },
+    {
+      "status": "??",
+      "path": "coordination/session-logs/2026-06-04-S15.md",
+      "owner": "A10 Tooling, docs, report, and coordination contract",
+      "ownerId": "A10",
+      "packageId": "A10-tooling-docs-config",
+      "matchedPathspec": "coordination/session-logs/**",
+      "secretQuarantine": false,
+      "resolvedSlice": "docs/coordination evidence",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A10"
+        ],
+        "rawMatchCount": 2,
+        "topCandidateCount": 1,
+        "specificity": 2598,
+        "precedence": 0,
+        "matchedPathspec": "coordination/session-logs/**"
+      },
+      "slice": "docs/coordination evidence"
+    },
+    {
+      "status": "??",
+      "path": "coordination/session-logs/2026-06-04-S18.md",
+      "owner": "A10 Tooling, docs, report, and coordination contract",
+      "ownerId": "A10",
+      "packageId": "A10-tooling-docs-config",
+      "matchedPathspec": "coordination/session-logs/**",
+      "secretQuarantine": false,
+      "resolvedSlice": "docs/coordination evidence",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A10"
+        ],
+        "rawMatchCount": 2,
+        "topCandidateCount": 1,
+        "specificity": 2598,
+        "precedence": 0,
+        "matchedPathspec": "coordination/session-logs/**"
+      },
+      "slice": "docs/coordination evidence"
+    },
+    {
+      "status": "??",
+      "path": "coordination/session-logs/2026-06-04-S19.md",
+      "owner": "A10 Tooling, docs, report, and coordination contract",
+      "ownerId": "A10",
+      "packageId": "A10-tooling-docs-config",
+      "matchedPathspec": "coordination/session-logs/**",
+      "secretQuarantine": false,
+      "resolvedSlice": "docs/coordination evidence",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A10"
+        ],
+        "rawMatchCount": 2,
+        "topCandidateCount": 1,
+        "specificity": 2598,
+        "precedence": 0,
+        "matchedPathspec": "coordination/session-logs/**"
+      },
+      "slice": "docs/coordination evidence"
+    },
+    {
+      "status": "??",
+      "path": "coordination/session-logs/2026-06-04-S20.md",
+      "owner": "A10 Tooling, docs, report, and coordination contract",
+      "ownerId": "A10",
+      "packageId": "A10-tooling-docs-config",
+      "matchedPathspec": "coordination/session-logs/**",
+      "secretQuarantine": false,
+      "resolvedSlice": "docs/coordination evidence",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A10"
+        ],
+        "rawMatchCount": 2,
+        "topCandidateCount": 1,
+        "specificity": 2598,
+        "precedence": 0,
+        "matchedPathspec": "coordination/session-logs/**"
+      },
+      "slice": "docs/coordination evidence"
+    },
+    {
+      "status": "??",
+      "path": "coordination/session-logs/2026-06-04-S21.md",
+      "owner": "A10 Tooling, docs, report, and coordination contract",
+      "ownerId": "A10",
+      "packageId": "A10-tooling-docs-config",
+      "matchedPathspec": "coordination/session-logs/**",
+      "secretQuarantine": false,
+      "resolvedSlice": "docs/coordination evidence",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A10"
+        ],
+        "rawMatchCount": 2,
+        "topCandidateCount": 1,
+        "specificity": 2598,
+        "precedence": 0,
+        "matchedPathspec": "coordination/session-logs/**"
+      },
+      "slice": "docs/coordination evidence"
+    },
+    {
+      "status": "??",
+      "path": "coordination/session-logs/2026-06-04-S22.md",
+      "owner": "A10 Tooling, docs, report, and coordination contract",
+      "ownerId": "A10",
+      "packageId": "A10-tooling-docs-config",
+      "matchedPathspec": "coordination/session-logs/**",
+      "secretQuarantine": false,
+      "resolvedSlice": "docs/coordination evidence",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A10"
+        ],
+        "rawMatchCount": 2,
+        "topCandidateCount": 1,
+        "specificity": 2598,
+        "precedence": 0,
+        "matchedPathspec": "coordination/session-logs/**"
+      },
+      "slice": "docs/coordination evidence"
+    },
+    {
+      "status": "??",
+      "path": "coordination/session-logs/2026-06-05-S04.md",
+      "owner": "A10 Tooling, docs, report, and coordination contract",
+      "ownerId": "A10",
+      "packageId": "A10-tooling-docs-config",
+      "matchedPathspec": "coordination/session-logs/**",
+      "secretQuarantine": false,
+      "resolvedSlice": "docs/coordination evidence",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A10"
+        ],
+        "rawMatchCount": 2,
+        "topCandidateCount": 1,
+        "specificity": 2598,
+        "precedence": 0,
+        "matchedPathspec": "coordination/session-logs/**"
+      },
+      "slice": "docs/coordination evidence"
+    },
+    {
+      "status": "??",
+      "path": "coordination/session-logs/2026-06-05-S05.md",
+      "owner": "A10 Tooling, docs, report, and coordination contract",
+      "ownerId": "A10",
+      "packageId": "A10-tooling-docs-config",
+      "matchedPathspec": "coordination/session-logs/**",
+      "secretQuarantine": false,
+      "resolvedSlice": "docs/coordination evidence",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A10"
+        ],
+        "rawMatchCount": 2,
+        "topCandidateCount": 1,
+        "specificity": 2598,
+        "precedence": 0,
+        "matchedPathspec": "coordination/session-logs/**"
+      },
+      "slice": "docs/coordination evidence"
+    },
+    {
+      "status": "??",
+      "path": "coordination/session-logs/2026-06-05-S10.md",
+      "owner": "A10 Tooling, docs, report, and coordination contract",
+      "ownerId": "A10",
+      "packageId": "A10-tooling-docs-config",
+      "matchedPathspec": "coordination/session-logs/**",
+      "secretQuarantine": false,
+      "resolvedSlice": "docs/coordination evidence",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A10"
+        ],
+        "rawMatchCount": 2,
+        "topCandidateCount": 1,
+        "specificity": 2598,
+        "precedence": 0,
+        "matchedPathspec": "coordination/session-logs/**"
+      },
+      "slice": "docs/coordination evidence"
+    },
+    {
+      "status": "??",
+      "path": "coordination/session-logs/2026-06-05-S11.md",
+      "owner": "A10 Tooling, docs, report, and coordination contract",
+      "ownerId": "A10",
+      "packageId": "A10-tooling-docs-config",
+      "matchedPathspec": "coordination/session-logs/**",
+      "secretQuarantine": false,
+      "resolvedSlice": "docs/coordination evidence",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A10"
+        ],
+        "rawMatchCount": 2,
+        "topCandidateCount": 1,
+        "specificity": 2598,
+        "precedence": 0,
+        "matchedPathspec": "coordination/session-logs/**"
+      },
+      "slice": "docs/coordination evidence"
+    },
+    {
+      "status": "??",
+      "path": "coordination/session-logs/2026-06-05-S16.md",
+      "owner": "A10 Tooling, docs, report, and coordination contract",
+      "ownerId": "A10",
+      "packageId": "A10-tooling-docs-config",
+      "matchedPathspec": "coordination/session-logs/**",
+      "secretQuarantine": false,
+      "resolvedSlice": "docs/coordination evidence",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A10"
+        ],
+        "rawMatchCount": 2,
+        "topCandidateCount": 1,
+        "specificity": 2598,
+        "precedence": 0,
+        "matchedPathspec": "coordination/session-logs/**"
+      },
+      "slice": "docs/coordination evidence"
+    },
+    {
+      "status": "??",
+      "path": "coordination/session-logs/2026-06-05-S18.md",
+      "owner": "A10 Tooling, docs, report, and coordination contract",
+      "ownerId": "A10",
+      "packageId": "A10-tooling-docs-config",
+      "matchedPathspec": "coordination/session-logs/**",
+      "secretQuarantine": false,
+      "resolvedSlice": "docs/coordination evidence",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A10"
+        ],
+        "rawMatchCount": 2,
+        "topCandidateCount": 1,
+        "specificity": 2598,
+        "precedence": 0,
+        "matchedPathspec": "coordination/session-logs/**"
+      },
+      "slice": "docs/coordination evidence"
+    },
+    {
+      "status": "??",
+      "path": "coordination/session-logs/2026-06-05-S19.md",
+      "owner": "A10 Tooling, docs, report, and coordination contract",
+      "ownerId": "A10",
+      "packageId": "A10-tooling-docs-config",
+      "matchedPathspec": "coordination/session-logs/**",
+      "secretQuarantine": false,
+      "resolvedSlice": "docs/coordination evidence",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A10"
+        ],
+        "rawMatchCount": 2,
+        "topCandidateCount": 1,
+        "specificity": 2598,
+        "precedence": 0,
+        "matchedPathspec": "coordination/session-logs/**"
+      },
+      "slice": "docs/coordination evidence"
+    },
+    {
+      "status": "??",
+      "path": "coordination/session-logs/2026-06-05-S21.md",
+      "owner": "A10 Tooling, docs, report, and coordination contract",
+      "ownerId": "A10",
+      "packageId": "A10-tooling-docs-config",
+      "matchedPathspec": "coordination/session-logs/**",
+      "secretQuarantine": false,
+      "resolvedSlice": "docs/coordination evidence",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A10"
+        ],
+        "rawMatchCount": 2,
+        "topCandidateCount": 1,
+        "specificity": 2598,
+        "precedence": 0,
+        "matchedPathspec": "coordination/session-logs/**"
+      },
+      "slice": "docs/coordination evidence"
+    },
+    {
+      "status": "??",
+      "path": "coordination/session-logs/2026-07-22-A10.md",
+      "owner": "A10 Tooling, docs, report, and coordination contract",
+      "ownerId": "A10",
+      "packageId": "A10-tooling-docs-config",
+      "matchedPathspec": "coordination/session-logs/**",
+      "secretQuarantine": false,
+      "resolvedSlice": "docs/coordination evidence",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A10"
+        ],
+        "rawMatchCount": 2,
+        "topCandidateCount": 1,
+        "specificity": 2598,
+        "precedence": 0,
+        "matchedPathspec": "coordination/session-logs/**"
+      },
+      "slice": "docs/coordination evidence"
+    },
+    {
+      "status": "??",
+      "path": "coordination/session-logs/2026-07-23-A10.md",
+      "owner": "A10 Tooling, docs, report, and coordination contract",
+      "ownerId": "A10",
+      "packageId": "A10-tooling-docs-config",
+      "matchedPathspec": "coordination/session-logs/**",
+      "secretQuarantine": false,
+      "resolvedSlice": "docs/coordination evidence",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A10"
+        ],
+        "rawMatchCount": 2,
+        "topCandidateCount": 1,
+        "specificity": 2598,
+        "precedence": 0,
+        "matchedPathspec": "coordination/session-logs/**"
+      },
+      "slice": "docs/coordination evidence"
+    },
+    {
+      "status": "??",
+      "path": "data/generated-content/topics-metadata/topics-metadata.json",
+      "owner": "A21 Content pipeline and RAG candidate operations",
+      "ownerId": "A21",
+      "packageId": "A21-content-rag-candidates",
+      "matchedPathspec": "data/generated-content/**",
+      "secretQuarantine": false,
+      "resolvedSlice": "generated/content/RAG backlog",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A21"
+        ],
+        "rawMatchCount": 1,
+        "topCandidateCount": 1,
+        "specificity": 2298,
+        "precedence": 0,
+        "matchedPathspec": "data/generated-content/**"
+      },
+      "slice": "generated/content/RAG backlog"
+    },
+    {
+      "status": "??",
+      "path": "data/topicsMetadata.ts",
+      "owner": "Unmapped owner needed",
+      "ownerId": "UNMAPPED",
+      "packageId": "unmapped",
+      "matchedPathspec": null,
+      "secretQuarantine": false,
+      "ownerResolution": {
+        "status": "unmapped",
+        "finalOwners": [],
+        "rawMatchCount": 0,
+        "topCandidateCount": 0,
+        "matchedPathspec": null
+      },
+      "slice": "runtime app/API/data/public"
+    },
+    {
+      "status": "??",
+      "path": "lib/classroomLiveRoster.test.ts",
+      "owner": "Unmapped owner needed",
+      "ownerId": "UNMAPPED",
+      "packageId": "unmapped",
+      "matchedPathspec": null,
+      "secretQuarantine": false,
+      "ownerResolution": {
+        "status": "unmapped",
+        "finalOwners": [],
+        "rawMatchCount": 0,
+        "topCandidateCount": 0,
+        "matchedPathspec": null
+      },
+      "slice": "tests/regression evidence"
+    },
+    {
+      "status": "??",
+      "path": "lib/classroomLiveRoster.ts",
+      "owner": "Unmapped owner needed",
+      "ownerId": "UNMAPPED",
+      "packageId": "unmapped",
+      "matchedPathspec": null,
+      "secretQuarantine": false,
+      "ownerResolution": {
+        "status": "unmapped",
+        "finalOwners": [],
+        "rawMatchCount": 0,
+        "topCandidateCount": 0,
+        "matchedPathspec": null
+      },
+      "slice": "runtime app/API/data/public"
+    },
+    {
+      "status": "??",
+      "path": "lib/practiceMissionPreviewSample.test.ts",
+      "owner": "Unmapped owner needed",
+      "ownerId": "UNMAPPED",
+      "packageId": "unmapped",
+      "matchedPathspec": null,
+      "secretQuarantine": false,
+      "ownerResolution": {
+        "status": "unmapped",
+        "finalOwners": [],
+        "rawMatchCount": 0,
+        "topCandidateCount": 0,
+        "matchedPathspec": null
+      },
+      "slice": "tests/regression evidence"
+    },
+    {
+      "status": "??",
+      "path": "lib/practiceMissionPreviewSample.ts",
+      "owner": "Unmapped owner needed",
+      "ownerId": "UNMAPPED",
+      "packageId": "unmapped",
+      "matchedPathspec": null,
+      "secretQuarantine": false,
+      "ownerResolution": {
+        "status": "unmapped",
+        "finalOwners": [],
+        "rawMatchCount": 0,
+        "topCandidateCount": 0,
+        "matchedPathspec": null
+      },
+      "slice": "runtime app/API/data/public"
+    },
+    {
+      "status": "??",
+      "path": "lib/server/authPasswordAsync.test.ts",
+      "owner": "A12 Backend/API platform and storage contract",
+      "ownerId": "A12",
+      "packageId": "A12-backend-api-storage",
+      "matchedPathspec": "lib/server/**",
+      "secretQuarantine": false,
+      "resolvedSlice": "runtime app/API/data/public",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A12"
+        ],
+        "rawMatchCount": 1,
+        "topCandidateCount": 1,
+        "specificity": 1098,
+        "precedence": 0,
+        "matchedPathspec": "lib/server/**"
+      },
+      "slice": "tests/regression evidence"
+    },
+    {
+      "status": "??",
+      "path": "lib/server/contentSafety.test.ts",
+      "owner": "A12 Backend/API platform and storage contract",
+      "ownerId": "A12",
+      "packageId": "A12-backend-api-storage",
+      "matchedPathspec": "lib/server/**",
+      "secretQuarantine": false,
+      "resolvedSlice": "runtime app/API/data/public",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A12"
+        ],
+        "rawMatchCount": 1,
+        "topCandidateCount": 1,
+        "specificity": 1098,
+        "precedence": 0,
+        "matchedPathspec": "lib/server/**"
+      },
+      "slice": "tests/regression evidence"
+    },
+    {
+      "status": "??",
+      "path": "lib/server/contentSafety.ts",
+      "owner": "A12 Backend/API platform and storage contract",
+      "ownerId": "A12",
+      "packageId": "A12-backend-api-storage",
+      "matchedPathspec": "lib/server/**",
+      "secretQuarantine": false,
+      "resolvedSlice": "runtime app/API/data/public",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A12"
+        ],
+        "rawMatchCount": 1,
+        "topCandidateCount": 1,
+        "specificity": 1098,
+        "precedence": 0,
+        "matchedPathspec": "lib/server/**"
+      },
+      "slice": "runtime app/API/data/public"
+    },
+    {
+      "status": "??",
+      "path": "lib/server/tutorModeration.test.ts",
+      "owner": "A12 Backend/API platform and storage contract",
+      "ownerId": "A12",
+      "packageId": "A12-backend-api-storage",
+      "matchedPathspec": "lib/server/**",
+      "secretQuarantine": false,
+      "resolvedSlice": "runtime app/API/data/public",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A12"
+        ],
+        "rawMatchCount": 1,
+        "topCandidateCount": 1,
+        "specificity": 1098,
+        "precedence": 0,
+        "matchedPathspec": "lib/server/**"
+      },
+      "slice": "tests/regression evidence"
+    },
+    {
+      "status": "??",
+      "path": "lib/server/tutorModeration.ts",
+      "owner": "A12 Backend/API platform and storage contract",
+      "ownerId": "A12",
+      "packageId": "A12-backend-api-storage",
+      "matchedPathspec": "lib/server/**",
+      "secretQuarantine": false,
+      "resolvedSlice": "runtime app/API/data/public",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A12"
+        ],
+        "rawMatchCount": 1,
+        "topCandidateCount": 1,
+        "specificity": 1098,
+        "precedence": 0,
+        "matchedPathspec": "lib/server/**"
+      },
+      "slice": "runtime app/API/data/public"
+    },
+    {
+      "status": "??",
+      "path": "lib/server/usMathTutorStandards.ts",
+      "owner": "A12 Backend/API platform and storage contract",
+      "ownerId": "A12",
+      "packageId": "A12-backend-api-storage",
+      "matchedPathspec": "lib/server/**",
+      "secretQuarantine": false,
+      "resolvedSlice": "runtime app/API/data/public",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A12"
+        ],
+        "rawMatchCount": 1,
+        "topCandidateCount": 1,
+        "specificity": 1098,
+        "precedence": 0,
+        "matchedPathspec": "lib/server/**"
+      },
+      "slice": "runtime app/API/data/public"
+    },
+    {
+      "status": "??",
+      "path": "lib/server/userStore/aiTutorTranscriptAccessPersistence.ts",
+      "owner": "A12 Backend/API platform and storage contract",
+      "ownerId": "A12",
+      "packageId": "A12-backend-api-storage",
+      "matchedPathspec": "lib/server/**",
+      "secretQuarantine": false,
+      "resolvedSlice": "runtime app/API/data/public",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A12"
+        ],
+        "rawMatchCount": 1,
+        "topCandidateCount": 1,
+        "specificity": 1098,
+        "precedence": 0,
+        "matchedPathspec": "lib/server/**"
+      },
+      "slice": "runtime app/API/data/public"
+    },
+    {
+      "status": "??",
+      "path": "lib/server/userStore/contentSafetyPersistence.test.ts",
+      "owner": "A12 Backend/API platform and storage contract",
+      "ownerId": "A12",
+      "packageId": "A12-backend-api-storage",
+      "matchedPathspec": "lib/server/**",
+      "secretQuarantine": false,
+      "resolvedSlice": "runtime app/API/data/public",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A12"
+        ],
+        "rawMatchCount": 1,
+        "topCandidateCount": 1,
+        "specificity": 1098,
+        "precedence": 0,
+        "matchedPathspec": "lib/server/**"
+      },
+      "slice": "tests/regression evidence"
+    },
+    {
+      "status": "??",
+      "path": "lib/server/userStore/contentSafetyPersistence.ts",
+      "owner": "A12 Backend/API platform and storage contract",
+      "ownerId": "A12",
+      "packageId": "A12-backend-api-storage",
+      "matchedPathspec": "lib/server/**",
+      "secretQuarantine": false,
+      "resolvedSlice": "runtime app/API/data/public",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A12"
+        ],
+        "rawMatchCount": 1,
+        "topCandidateCount": 1,
+        "specificity": 1098,
+        "precedence": 0,
+        "matchedPathspec": "lib/server/**"
+      },
+      "slice": "runtime app/API/data/public"
+    },
+    {
+      "status": "??",
+      "path": "lib/server/userStoreAiTutorTranscriptAccessPersistence.test.ts",
+      "owner": "A12 Backend/API platform and storage contract",
+      "ownerId": "A12",
+      "packageId": "A12-backend-api-storage",
+      "matchedPathspec": "lib/server/**",
+      "secretQuarantine": false,
+      "resolvedSlice": "runtime app/API/data/public",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A12"
+        ],
+        "rawMatchCount": 1,
+        "topCandidateCount": 1,
+        "specificity": 1098,
+        "precedence": 0,
+        "matchedPathspec": "lib/server/**"
+      },
+      "slice": "tests/regression evidence"
+    },
+    {
+      "status": "??",
+      "path": "scripts/generate-topics-metadata.mts",
+      "owner": "A10 Tooling, docs, report, and coordination contract",
+      "ownerId": "A10",
+      "packageId": "A10-tooling-docs-config",
+      "matchedPathspec": "scripts/**",
+      "secretQuarantine": false,
+      "resolvedSlice": "docs/coordination evidence",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A10"
+        ],
+        "rawMatchCount": 1,
+        "topCandidateCount": 1,
+        "specificity": 798,
+        "precedence": 0,
+        "matchedPathspec": "scripts/**"
+      },
+      "slice": "docs/coordination evidence"
+    },
+    {
+      "status": "??",
+      "path": "scripts/run-content-safety-tests.mjs",
+      "owner": "A10 Tooling, docs, report, and coordination contract",
+      "ownerId": "A10",
+      "packageId": "A10-tooling-docs-config",
+      "matchedPathspec": "scripts/**",
+      "secretQuarantine": false,
+      "resolvedSlice": "docs/coordination evidence",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A10"
+        ],
+        "rawMatchCount": 1,
+        "topCandidateCount": 1,
+        "specificity": 798,
+        "precedence": 0,
+        "matchedPathspec": "scripts/**"
+      },
+      "slice": "docs/coordination evidence"
+    },
+    {
+      "status": "??",
+      "path": "scripts/run-tutor-moderation-tests.mjs",
+      "owner": "A10 Tooling, docs, report, and coordination contract",
+      "ownerId": "A10",
+      "packageId": "A10-tooling-docs-config",
+      "matchedPathspec": "scripts/**",
+      "secretQuarantine": false,
+      "resolvedSlice": "docs/coordination evidence",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A10"
+        ],
+        "rawMatchCount": 1,
+        "topCandidateCount": 1,
+        "specificity": 798,
+        "precedence": 0,
+        "matchedPathspec": "scripts/**"
+      },
+      "slice": "docs/coordination evidence"
+    },
+    {
+      "status": "??",
+      "path": "tsconfig.content-safety.json",
+      "owner": "Unmapped owner needed",
+      "ownerId": "UNMAPPED",
+      "packageId": "unmapped",
+      "matchedPathspec": null,
+      "secretQuarantine": false,
+      "ownerResolution": {
+        "status": "unmapped",
+        "finalOwners": [],
+        "rawMatchCount": 0,
+        "topCandidateCount": 0,
+        "matchedPathspec": null
+      },
+      "slice": "unmapped/manual"
+    },
+    {
+      "status": "??",
+      "path": "tsconfig.tutor-moderation.json",
+      "owner": "Unmapped owner needed",
+      "ownerId": "UNMAPPED",
+      "packageId": "unmapped",
+      "matchedPathspec": null,
+      "secretQuarantine": false,
+      "ownerResolution": {
+        "status": "unmapped",
+        "finalOwners": [],
+        "rawMatchCount": 0,
+        "topCandidateCount": 0,
+        "matchedPathspec": null
+      },
+      "slice": "unmapped/manual"
+    }
+  ]
+}

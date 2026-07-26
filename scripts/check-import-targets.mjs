@@ -95,6 +95,11 @@ function isProperlyContained(rootPath, candidatePath) {
   );
 }
 
+function isInsideSkippedDirectory(rootPath, candidatePath) {
+  const [firstSegment] = path.relative(rootPath, candidatePath).split(path.sep);
+  return SKIPPED_DIRECTORIES.has(firstSegment);
+}
+
 async function isFile(filePath) {
   try {
     return (await stat(filePath)).isFile();
@@ -122,6 +127,14 @@ async function resolveLocalImportTarget({ rootDir, canonicalRootDir, importerPat
 
   if (!isProperlyContained(rootDir, basePath)) {
     return { reason: "target-outside-root", targetPath: null };
+  }
+
+  // Targets inside generated directories (.tmp, .next) are build artifacts
+  // that only exist mid-run (e.g. scripts/adaptive-eval.mjs imports the
+  // compiled output of eval:adaptive), so they can never resolve in a clean
+  // checkout.
+  if (isInsideSkippedDirectory(rootDir, basePath)) {
+    return { reason: "target-in-generated-directory", targetPath: null };
   }
 
   for (const candidatePath of buildCandidatePaths(basePath)) {
@@ -248,6 +261,10 @@ export async function findMissingLocalImportTargets({ rootDir = process.cwd(), f
         importerPath,
         specifier
       });
+
+      if (resolution.reason === "target-in-generated-directory") {
+        continue;
+      }
 
       if (!resolution.targetPath) {
         const missingTarget = { importer, specifier };
