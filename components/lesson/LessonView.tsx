@@ -61,8 +61,15 @@ import { getMainlandPepPrimaryLessonIllustration } from "@/data/mainlandPepPrima
 import { getUsArkansasMiddleSchoolLessonIllustration } from "@/data/usArkansasMiddleSchoolLessonIllustrations";
 import { getCcssTextbookLesson } from "@/data/ccssTextbookRegistry";
 import { getUsCaliforniaLessonIllustration } from "@/data/usCaliforniaLessonIllustrations";
+import { classifyPracticeIslandTopic } from "@/data/practiceIslandRegions";
 import type { FeaturedLabDefinition, VisualizationModuleId } from "@/data/visualizationLabs";
 import { lessonHrefForSlug } from "@/lib/lessonLinks";
+import {
+  awardPracticeIslandStars,
+  practiceIslandStarStorageKey,
+  practiceIslandStarsForAccuracy,
+  readPracticeIslandStarRecord
+} from "@/lib/practiceIslandProgress";
 import { dedupePracticeQuestions } from "@/lib/practiceQuestionDeduping";
 import {
   playPracticeSound,
@@ -2189,6 +2196,33 @@ export function LessonView({ gradeLessons = [], slug, initialLesson, visualizati
     lessonPracticeSummary.totalQuestions === lessonPracticeQuestionLimit &&
     lessonPracticeSummary.correctCount === lessonPracticeQuestionLimit
   );
+  // Lesson practice pays into the same Practice Island star economy as the
+  // arena: one best-wins award per completed round, credited to the lesson
+  // topic's island region so the pager's star chip "counts" for real.
+  const awardedLessonPracticeStarsSlugRef = useRef<string | null>(null);
+  useEffect(() => {
+    if (!lesson || !lessonPracticeSummary?.isComplete) return;
+    if (awardedLessonPracticeStarsSlugRef.current === lesson.slug) return;
+
+    awardedLessonPracticeStarsSlugRef.current = lesson.slug;
+    const regionId = classifyPracticeIslandTopic({ topicId: lesson.topicId, topic: lesson.topic?.title });
+    const stars = practiceIslandStarsForAccuracy(lessonPracticeSummary.accuracyPercent);
+    try {
+      const storageKey = practiceIslandStarStorageKey(currentUser?.id);
+      const currentRecord = readPracticeIslandStarRecord(window.localStorage.getItem(storageKey));
+      const nextRecord = awardPracticeIslandStars(currentRecord, regionId, stars);
+      if (nextRecord !== currentRecord) window.localStorage.setItem(storageKey, JSON.stringify(nextRecord));
+    } catch {
+      // Storage unavailable: the server-side record below still counts the stars.
+    }
+    if (currentUser?.role === "student") {
+      void fetch("/api/gamification/practice-island", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ regionId, stars })
+      }).catch(() => undefined);
+    }
+  }, [currentUser?.id, currentUser?.role, lesson, lessonPracticeSummary]);
   const lessonDisplayTitle = lesson ? cleanLessonDisplayTitle(text(lesson.title)) : "";
   const lessonGalaxyItems = useMemo<LessonGalaxyItem[]>(() => {
     if (!lesson) return [];
