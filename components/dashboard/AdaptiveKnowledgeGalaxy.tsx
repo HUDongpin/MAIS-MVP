@@ -701,18 +701,29 @@ function StarHoverCard({
           ? `${t({ en: "Mastery", zh: "掌握", zhHans: "掌握" })} ${star.masteryPercent}% · ${t({ en: "Review", zh: "複習", zhHans: "复习" })} ${formatReviewDate(summary.state.nextReviewAt, language)}`
           : t({ en: "Not explored yet — this star ignites with your first mission.", zh: "尚未探索——完成首個任務後這顆星會開始點燃。", zhHans: "尚未探索——完成首个任务后这颗星会开始点燃。" })}
       </p>
+      {star.locked && star.lockedReason ? (
+        <p className={cn("mt-2 flex items-start gap-1.5 text-xs font-bold", visual.hudBodyClass)}>
+          <svg aria-hidden="true" viewBox="0 0 24 24" width="12" height="12" className="mt-0.5 shrink-0" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+            <rect x="4" y="10.5" width="16" height="9.5" rx="2" />
+            <path d="M8 10.5V7a4 4 0 0 1 8 0v3.5" />
+          </svg>
+          <span>{text(star.lockedReason)}</span>
+        </p>
+      ) : null}
       {pinned ? (
         <Link
           href="/practice"
           className="focus-ring mt-3 inline-flex min-h-11 w-full items-center justify-center rounded-xl bg-gradient-to-r from-cyan-300 via-violet-400 to-pink-400 px-4 py-2 text-sm font-black text-slate-950 transition hover:-translate-y-0.5"
         >
-          {star.status === "fading"
-            ? t({ en: "Relight this star", zh: "重新點亮這顆星", zhHans: "重新点亮这颗星" })
-            : star.status === "unstable"
-              ? t({ en: "Repair this star", zh: "修補這顆星", zhHans: "修补这颗星" })
-              : star.status === "confirming"
-                ? t({ en: "Lock in this star", zh: "鞏固這顆星", zhHans: "巩固这颗星" })
-                : t({ en: "Practice this skill", zh: "練習此技能", zhHans: "练习此技能" })}
+          {star.locked
+            ? t({ en: "Master the prerequisite first", zh: "先掌握先備技能", zhHans: "先掌握先备技能" })
+            : star.status === "fading"
+              ? t({ en: "Relight this star", zh: "重新點亮這顆星", zhHans: "重新点亮这颗星" })
+              : star.status === "unstable"
+                ? t({ en: "Repair this star", zh: "修補這顆星", zhHans: "修补这颗星" })
+                : star.status === "confirming"
+                  ? t({ en: "Lock in this star", zh: "鞏固這顆星", zhHans: "巩固这颗星" })
+                  : t({ en: "Practice this skill", zh: "練習此技能", zhHans: "练习此技能" })}
         </Link>
       ) : null}
     </div>
@@ -742,7 +753,9 @@ function KnowledgeStar({
 }) {
   const { text } = useSettings();
   const statusLabel = text(galaxyStarStatusLabels[star.status]);
-  const ariaLabel = `${star.ccssCode ? `${star.ccssCode} ` : ""}${text(star.summary.skill.title)} · ${statusLabel} · ${star.masteryPercent}%`;
+  const showLocked = star.locked && star.status !== "current";
+  const lockedLabel = text({ en: "locked", zh: "已鎖定", zhHans: "已锁定" });
+  const ariaLabel = `${star.ccssCode ? `${star.ccssCode} ` : ""}${text(star.summary.skill.title)} · ${statusLabel} · ${star.masteryPercent}%${showLocked ? ` · ${lockedLabel}` : ""}`;
 
   return (
     <button
@@ -751,6 +764,7 @@ function KnowledgeStar({
       aria-pressed={selected}
       data-galaxy-star={star.id}
       data-galaxy-star-status={star.status}
+      data-galaxy-star-locked={showLocked ? "true" : "false"}
       onBlur={onLeave}
       onClick={(event) => {
         event.stopPropagation();
@@ -766,11 +780,25 @@ function KnowledgeStar({
         star.status === "fading" && "adaptive-galaxy-fading-pulse",
         star.status === "confirming" && "adaptive-galaxy-confirming-pulse",
         star.status === "unstable" && "adaptive-galaxy-unstable-flicker",
+        showLocked && !dimmed && "opacity-60 saturate-[0.55]",
         dimmed && "opacity-25",
         selected && "z-30 scale-125"
       )}
       style={starStyle(star, zoomed, visual)}
     >
+      {showLocked ? (
+        <span
+          aria-hidden="true"
+          data-galaxy-lock-badge
+          className="pointer-events-none absolute -right-1 -top-1 flex h-3 w-3 items-center justify-center rounded-full ring-1 ring-white/40"
+          style={{ background: "rgba(15, 23, 42, 0.88)" }}
+        >
+          <svg viewBox="0 0 24 24" width="8" height="8" fill="none" stroke="rgba(226, 232, 240, 0.95)" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+            <rect x="4" y="10.5" width="16" height="9.5" rx="2" />
+            <path d="M8 10.5V7a4 4 0 0 1 8 0v3.5" />
+          </svg>
+        </span>
+      ) : null}
       {star.status === "current" ? (
         <>
           <span aria-hidden="true" className="adaptive-galaxy-current-glow pointer-events-none absolute -inset-[26%] rounded-full" />
@@ -1518,6 +1546,9 @@ export function AdaptiveKnowledgeGalaxy({
                     <div className={cn("mt-5 rounded-2xl border p-4", visual.hudPanelClass)}>
                       <p className={cn("text-xs font-black uppercase", visual.hudPanelMutedLabelClass)}>{t({ en: "Route reason", zh: "航線理由", zhHans: "航线理由" })}</p>
                       <p className={cn("mt-2 text-sm font-semibold leading-6", visual.hudPanelTextClass)}>{text(decision.explanation)}</p>
+                      {galaxyMap?.routeRationale ? (
+                        <p className={cn("mt-2 text-sm font-semibold leading-6", visual.hudPanelTextClass)}>{text(galaxyMap.routeRationale)}</p>
+                      ) : null}
                       <div className="mt-3 flex flex-wrap gap-2">
                         <span className={cn("rounded-full px-3 py-1 text-xs font-black", visual.badgePrimaryClass)}>
                           {text(confidenceCopy(decision.confidence))}

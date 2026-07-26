@@ -1,10 +1,11 @@
 import { classifyPracticeIslandTopic, practiceIslandRegions } from "@/data/practiceIslandRegions";
 import type { PracticeIslandDomainRegionId } from "@/data/practiceIslandRegions";
 import { californiaKnowledgePointForTopic } from "@/data/usCaliforniaKnowledgePoints";
-import { adaptiveMasteryThreshold, isMasteryConfirmed } from "./adaptiveLearning";
+import { adaptiveMasteryThreshold, adaptivePrerequisiteThreshold, isMasteryConfirmed } from "./adaptiveLearning";
 import type {
   AdaptiveLearningDecision,
   AdaptiveSkillSummary,
+  GradeId,
   LocalizedText
 } from "@/types";
 
@@ -20,6 +21,17 @@ export type GalaxyStar = {
   status: GalaxyStarStatus;
   masteryPercent: number;
   ccssCode: string | null;
+  /**
+   * True when a visible prerequisite of this skill is not yet at prerequisite mastery —
+   * the "locked-until-prerequisite" gate. Entry-point skills (no in-view prerequisites)
+   * are never locked.
+   */
+  locked: boolean;
+  /**
+   * Localized "master &lt;prerequisite&gt; first" reason for a locked star (null when the
+   * star is not locked), naming the weakest unmet prerequisite.
+   */
+  lockedReason: LocalizedText | null;
   summary: AdaptiveSkillSummary;
   x: number;
   y: number;
@@ -53,6 +65,14 @@ export type KnowledgeGalaxyMap = {
   illumination: { litCount: number; totalCount: number; percent: number };
   litStarIds: string[];
   currentStarId: string | null;
+  /**
+   * The prerequisite-aware trajectory the engine charts from the current star: an ordered
+   * list of skill ids (current first) computed by DAG traversal, never routing into a
+   * locked skill. Empty when there is no current star.
+   */
+  routeSkillIds: string[];
+  /** Localized "why this next" rationale for the charted route (null when no route). */
+  routeRationale: LocalizedText | null;
 };
 
 export type GalaxyMapOptions = {
@@ -154,6 +174,166 @@ function constellationSubtitle(id: PracticeIslandDomainRegionId): LocalizedText 
   return region?.subtitle ?? { en: "", zh: "" };
 }
 
+const galaxyGradeOrder: GradeId[] = ["K", "P1", "P2", "P3", "P4", "P5", "P6", "S1", "S2", "S3", "S4", "S5", "S6"];
+const galaxyStageRank: Record<GalaxyStarStage, number> = { foundation: 0, fluency: 1, transfer: 2 };
+
+// "Done, don't route to it" uses the same gate as the engine's mastery definition
+// (pMastery over threshold AND a confirming correct streak). A "confirming" skill —
+// over the probability bar but not yet streak-confirmed — is deliberately still
+// routable, so the trajectory keeps sending the learner to lock it in.
+function isGalaxyMastered(summary: AdaptiveSkillSummary | undefined) {
+  return summary ? isMasteryConfirmed(summary.state) : false;
+}
+
+/**
+ * Whether a skill's *visible* prerequisites are satisfied for routing. A prerequisite is
+ * satisfied when it is already at prerequisite mastery, or when it is an *intra-topic*
+ * earlier stage already on the charted route (so a "finish this topic" trajectory is not
+ * blocked by the very stage the learner is on). Cross-topic prerequisites must be actually
+ * mastered — merely scheduling them earlier on the route does not unlock their dependent.
+ * Prerequisites outside the current view are treated as satisfied (the route cannot hop to
+ * them anyway).
+ */
+function galaxyPrerequisitesSatisfied(
+  summary: AdaptiveSkillSummary,
+  byId: Map<string, AdaptiveSkillSummary>,
+  routeSet: ReadonlySet<string>
+) {
+  return summary.skill.prerequisites.every((prerequisiteId) => {
+    if (!byId.has(prerequisiteId)) return true;
+    if ((byId.get(prerequisiteId)?.state.pMastery ?? 0) >= adaptivePrerequisiteThreshold) return true;
+    const sameTopic = prerequisiteId.startsWith(`${summary.topic.id}:`);
+    return sameTopic && routeSet.has(prerequisiteId);
+  });
+}
+
+function galaxyNextStageOfTopic(
+  fromSkillId: string,
+  byId: Map<string, AdaptiveSkillSummary>,
+  visibleSummaries: AdaptiveSkillSummary[],
+  routeSet: ReadonlySet<string>
+) {
+  const from = byId.get(fromSkillId);
+  if (!from) return null;
+  const fromRank = galaxyStageRank[galaxyStageForSkillId(fromSkillId)];
+  return (
+    visibleSummaries
+      .filter((summary) => summary.topic.id === from.topic.id)
+      .filter((summary) => galaxyStageRank[galaxyStageForSkillId(summary.skill.id)] > fromRank)
+      .filter((summary) => !routeSet.has(summary.skill.id) && !isGalaxyMastered(summary))
+      .sort((left, right) => galaxyStageRank[galaxyStageForSkillId(left.skill.id)] - galaxyStageRank[galaxyStageForSkillId(right.skill.id)])[0]?.skill.id ?? null
+  );
+}
+
+/**
+ * Charts a prerequisite-aware trajectory from the current star instead of "the next N
+ * skills in list order": it walks the DAG, preferring the current topic's next stage, then
+ * the lowest-grade unlocked-and-unmastered skill, and never routes into a locked skill.
+ */
+export function computeGalaxyRoute({
+  visibleSummaries,
+  currentSkillId,
+  topicOrder,
+  limit = 4
+}: {
+  visibleSummaries: AdaptiveSkillSummary[];
+  currentSkillId: string;
+  topicOrder: string[];
+  limit?: number;
+}): { skillIds: string[]; rationale: LocalizedText | null } {
+  const byId = new Map(visibleSummaries.map((summary) => [summary.skill.id, summary]));
+  if (!byId.has(currentSkillId)) return { skillIds: [], rationale: null };
+
+  const gradeRank = (grade: GradeId) => {
+    const index = galaxyGradeOrder.indexOf(grade);
+    return index < 0 ? galaxyGradeOrder.length : index;
+  };
+  const topicRank = new Map(topicOrder.map((topicId, index) => [topicId, index]));
+  const routeSet = new Set<string>([currentSkillId]);
+  const skillIds = [currentSkillId];
+
+  while (skillIds.length < limit + 1) {
+    const last = skillIds[skillIds.length - 1];
+    const sameTopicNext = galaxyNextStageOfTopic(last, byId, visibleSummaries, routeSet);
+    let next: string | null = null;
+
+    if (sameTopicNext && galaxyPrerequisitesSatisfied(byId.get(sameTopicNext) as AdaptiveSkillSummary, byId, routeSet)) {
+      next = sameTopicNext;
+    } else {
+      next = visibleSummaries
+        .filter((summary) => !routeSet.has(summary.skill.id))
+        .filter((summary) => !isGalaxyMastered(summary))
+        .filter((summary) => galaxyPrerequisitesSatisfied(summary, byId, routeSet))
+        .sort(
+          (left, right) =>
+            gradeRank(left.topic.grade) - gradeRank(right.topic.grade) ||
+            (topicRank.get(left.topic.id) ?? 999) - (topicRank.get(right.topic.id) ?? 999) ||
+            galaxyStageRank[galaxyStageForSkillId(left.skill.id)] - galaxyStageRank[galaxyStageForSkillId(right.skill.id)] ||
+            left.skill.id.localeCompare(right.skill.id)
+        )[0]?.skill.id ?? null;
+    }
+
+    if (!next) break;
+    skillIds.push(next);
+    routeSet.add(next);
+  }
+
+  return { skillIds, rationale: galaxyRouteRationale(byId, currentSkillId, skillIds) };
+}
+
+/** Shared "master &lt;prerequisite&gt; first" phrasing, reused by the route rationale and the
+ *  per-star locked reason so the two never drift. */
+function galaxyPrerequisiteFirstMessage(child: LocalizedText, prerequisite: LocalizedText): LocalizedText {
+  return {
+    en: `${child.en} builds on ${prerequisite.en}, so strengthen that prerequisite first.`,
+    zh: `${child.zh}以${prerequisite.zh}為基礎，先鞏固該先備技能。`,
+    zhHans: `${child.zhHans ?? child.zh}以${prerequisite.zhHans ?? prerequisite.zh}为基础，先巩固该先备技能。`
+  };
+}
+
+/** The weakest visible prerequisite still below the prerequisite-mastery bar, if any. */
+function weakestUnmetPrerequisite(
+  summary: AdaptiveSkillSummary,
+  byId: Map<string, AdaptiveSkillSummary>
+): AdaptiveSkillSummary | null {
+  return (
+    summary.skill.prerequisites
+      .map((prerequisiteId) => byId.get(prerequisiteId))
+      .filter(
+        (candidate): candidate is AdaptiveSkillSummary =>
+          Boolean(candidate) && (candidate as AdaptiveSkillSummary).state.pMastery < adaptivePrerequisiteThreshold
+      )
+      .sort((left, right) => left.state.pMastery - right.state.pMastery)[0] ?? null
+  );
+}
+
+function galaxyRouteRationale(
+  byId: Map<string, AdaptiveSkillSummary>,
+  currentSkillId: string,
+  skillIds: string[]
+): LocalizedText | null {
+  const current = byId.get(currentSkillId);
+  if (!current) return null;
+
+  const unmetPrerequisite = weakestUnmetPrerequisite(current, byId);
+  if (unmetPrerequisite) {
+    return galaxyPrerequisiteFirstMessage(current.skill.title, unmetPrerequisite.skill.title);
+  }
+
+  const nextSummary = skillIds.length > 1 ? byId.get(skillIds[1]) : undefined;
+  if (nextSummary) {
+    const child = current.skill.title;
+    const next = nextSummary.skill.title;
+    return {
+      en: `Once ${child.en} is solid, ${next.en} is the clearest next step along the path.`,
+      zh: `${child.zh}穩固後，沿路徑最清晰的下一步是${next.zh}。`,
+      zhHans: `${child.zhHans ?? child.zh}稳固后，沿路径最清晰的下一步是${next.zhHans ?? next.zh}。`
+    };
+  }
+
+  return null;
+}
+
 export function buildKnowledgeGalaxyMap(
   decision: AdaptiveLearningDecision,
   options: GalaxyMapOptions = {}
@@ -209,10 +389,13 @@ export function buildKnowledgeGalaxyMap(
     ? summaries.filter((summary) => constellationByTopicId.get(summary.topic.id) === focusConstellation)
     : summaries;
 
+  const visibleSummaryById = new Map(visibleSummaries.map((summary) => [summary.skill.id, summary]));
+
   const stars: GalaxyStar[] = visibleSummaries.map((summary) => {
     const stage = galaxyStageForSkillId(summary.skill.id);
     const anchor = topicAnchors.get(summary.topic.id) ?? { x: 50, y: 50 };
     const offset = stageOffsets[stage];
+    const unmetPrerequisite = weakestUnmetPrerequisite(summary, visibleSummaryById);
     return {
       id: summary.skill.id,
       topicId: summary.topic.id,
@@ -221,6 +404,10 @@ export function buildKnowledgeGalaxyMap(
       status: galaxyStarStatusFor(summary, decision.skill.id, dueReviewIds),
       masteryPercent: Math.round(summary.state.pMastery * 100),
       ccssCode: ccssCodeForTopic(summary),
+      locked: Boolean(unmetPrerequisite),
+      lockedReason: unmetPrerequisite
+        ? galaxyPrerequisiteFirstMessage(summary.skill.title, unmetPrerequisite.skill.title)
+        : null,
       summary,
       x: clamp(anchor.x + offset.x * stageScale, 4, 96),
       y: clamp(anchor.y + offset.y * stageScale, 6, 94)
@@ -235,12 +422,16 @@ export function buildKnowledgeGalaxyMap(
     if (!edges.some((edge) => edge.id === id)) edges.push({ id, from, to, kind });
   };
 
-  const routeIndex = summaries.findIndex((summary) => summary.skill.id === decision.skill.id);
-  if (routeIndex >= 0) {
-    let previousId = decision.skill.id;
-    for (const summary of summaries.slice(routeIndex + 1, routeIndex + 5)) {
-      addEdge(previousId, summary.skill.id, "route");
-      previousId = summary.skill.id;
+  const route = computeGalaxyRoute({
+    visibleSummaries,
+    currentSkillId: decision.skill.id,
+    topicOrder
+  });
+  {
+    let previousId = route.skillIds[0];
+    for (const skillId of route.skillIds.slice(1)) {
+      addEdge(previousId, skillId, "route");
+      previousId = skillId;
     }
   }
 
@@ -296,6 +487,8 @@ export function buildKnowledgeGalaxyMap(
       percent: totalCount ? Math.round((litCount / totalCount) * 100) : 0
     },
     litStarIds,
-    currentStarId: starIds.has(decision.skill.id) ? decision.skill.id : null
+    currentStarId: starIds.has(decision.skill.id) ? decision.skill.id : null,
+    routeSkillIds: route.skillIds,
+    routeRationale: route.rationale
   };
 }

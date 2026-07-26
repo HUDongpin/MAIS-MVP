@@ -253,3 +253,81 @@ test("localizes every star status label", () => {
     ok((label.zhHans ?? "").length > 0);
   }
 });
+
+function makeCrossPrerequisiteDecision(): AdaptiveLearningDecision {
+  const numberTopicA = makeTopic("us-ca-math-p4-p4-nbt-a", "Base ten A");
+  const algebraTopicC = makeTopic("us-ca-math-p4-p4-oa-c", "Operations C");
+  const geometryTopicB = makeTopic("us-ca-math-p4-p4-g-b", "Geometry B");
+
+  const aFoundation = makeSummary(numberTopicA, "foundation", { pMastery: 0.4, attemptCount: 3 });
+  const aFluency = makeSummary(numberTopicA, "fluency", { pMastery: 0.3, attemptCount: 2 });
+  const cFoundation = makeSummary(algebraTopicC, "foundation", { pMastery: 0.9, attemptCount: 6 });
+  const cFluency = makeSummary(algebraTopicC, "fluency", { pMastery: 0.3, attemptCount: 2 });
+  const bFoundation = makeSummary(geometryTopicB, "foundation", { pMastery: 0.35, attemptCount: 1 });
+  // Cross-topic prerequisite: B's foundation depends on C's (weak) fluency skill.
+  bFoundation.skill.prerequisites = [`${algebraTopicC.id}:fluency`];
+
+  const skillMap: AdaptiveSkillSummary[] = [aFoundation, aFluency, cFoundation, cFluency, bFoundation];
+
+  return {
+    action: "practice",
+    confidence: "developing",
+    deterministic: true,
+    evidenceCount: 5,
+    guardFlags: [],
+    nextReviewAt: null,
+    generatedAt: "2026-07-18T00:00:00.000Z",
+    engine: {
+      version: "hybrid-v3",
+      mode: "deterministic",
+      llmStatus: "ready",
+      selectedCandidateId: "candidate-1",
+      deterministicCandidateId: "candidate-1",
+      candidateSignature: "signature"
+    },
+    skill: aFoundation.skill,
+    topic: aFoundation.topic,
+    lesson: null,
+    questions: [],
+    skillMap,
+    dueReviews: [],
+    explanation: { en: "", zh: "" },
+    evidence: []
+  } as AdaptiveLearningDecision;
+}
+
+test("locks stars whose visible prerequisite is not yet at prerequisite mastery", () => {
+  const map = buildKnowledgeGalaxyMap(makeCrossPrerequisiteDecision());
+  const bFoundation = map.stars.find((star) => star.id === "us-ca-math-p4-p4-g-b:foundation");
+  const cFoundation = map.stars.find((star) => star.id === "us-ca-math-p4-p4-oa-c:foundation");
+
+  ok(bFoundation?.locked, "B foundation is locked by an unmet cross-topic prerequisite");
+  ok(bFoundation?.lockedReason && bFoundation.lockedReason.en.length > 0, "locked stars carry a master-prerequisite-first reason");
+  equal(cFoundation?.locked, false, "entry-point stars are not locked");
+  equal(cFoundation?.lockedReason, null, "unlocked stars carry no locked reason");
+});
+
+test("the charted route never steps into a locked star and explains why", () => {
+  const map = buildKnowledgeGalaxyMap(makeCrossPrerequisiteDecision());
+
+  ok(map.routeSkillIds.length >= 1);
+  equal(map.routeSkillIds[0], "us-ca-math-p4-p4-nbt-a:foundation");
+  ok(!map.routeSkillIds.includes("us-ca-math-p4-p4-g-b:foundation"), "route avoids the locked star");
+  ok(map.routeSkillIds.includes("us-ca-math-p4-p4-nbt-a:fluency"), "route advances the current topic");
+  ok(map.routeRationale && map.routeRationale.en.length > 0);
+});
+
+test("a confirming skill (over the bar, streak not yet confirmed) stays on the route", () => {
+  const topic = makeTopic("us-ca-math-p4-p4-nbt-confirm", "Confirming topic");
+  // foundation is the current mission; fluency is over the probability bar but not yet
+  // streak-confirmed, so the engine still counts it as unmastered and the route must keep it.
+  const foundation = makeSummary(topic, "foundation", { pMastery: 0.5, attemptCount: 3 });
+  const fluency = makeSummary(topic, "fluency", { pMastery: 0.9, attemptCount: 5, correctStreak: 2 });
+  const decision = { ...makeDecision(), skill: foundation.skill, topic: foundation.topic, skillMap: [foundation, fluency], dueReviews: [] } as AdaptiveLearningDecision;
+
+  const map = buildKnowledgeGalaxyMap(decision);
+  const fluencyStar = map.stars.find((star) => star.id === `${topic.id}:fluency`);
+
+  equal(fluencyStar?.status, "confirming");
+  ok(map.routeSkillIds.includes(`${topic.id}:fluency`), "confirming skills remain routable until the streak confirms mastery");
+});
