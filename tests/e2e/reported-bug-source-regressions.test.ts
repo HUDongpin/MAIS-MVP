@@ -49,13 +49,18 @@ test("adaptive knowledge galaxy avoids horizontal overflow on personalized learn
 });
 
 test("about Mission Setup renders a five-question preview from real question data", async () => {
+  // The preview now flows through buildPracticeMissionPreviewSample (a small
+  // grade-stratified sample instead of the full question bank in the RSC
+  // payload); the sample builder is where the answer field must stay omitted.
   const aboutPage = await source("app/about/page.tsx");
   const setup = await source("components/practice/PracticeMissionSetupControls.tsx");
+  const sample = await source("lib/practiceMissionPreviewSample.ts");
 
-  assert.match(aboutPage, /practiceMissionPreviewItems: PracticeMissionPreviewQuestion\[\] = questions\.map/);
+  assert.match(aboutPage, /buildPracticeMissionPreviewSample\(questions\)/);
   assert.match(aboutPage, /questionPreviewItems=\{practiceMissionPreviewItems\}/);
   assert.match(setup, /data-practice-mission-preview-card/);
   assert.match(setup, /\.slice\(0, 5\)/);
+  assert.doesNotMatch(sample, /answer: question\.answer/);
   assert.doesNotMatch(aboutPage, /answer: question\.answer/);
 });
 
@@ -70,9 +75,11 @@ test("public practice mission showcase does not present a logged-out checkpoint 
 });
 
 test("student assignments route exposes the final heading while assignments load", async () => {
-  const loadingPath = join(process.cwd(), "app/student/assignments/loading.tsx");
-  assert.ok(existsSync(loadingPath), "Expected a route-level loading shell for /student/assignments.");
-  const loading = await readFile(loadingPath, "utf8");
+  // The heading-while-loading state now lives ONLY in StudentAssignmentsView's
+  // isLoading branch (initial state, so SSR emits it directly). The former
+  // route-level loading.tsx duplicated the same copy and was removed because a
+  // segment-level loading file carries the hidden-segment streaming race (see
+  // the loading-file test below).
   const assignmentsView = await source("components/dashboard/StudentAssignmentsView.tsx");
 
   const loadingStart = assignmentsView.indexOf("if (isLoading)");
@@ -80,10 +87,41 @@ test("student assignments route exposes the final heading while assignments load
   assert.ok(loadingStart >= 0 && nextBranch > loadingStart);
   const loadingBranch = assignmentsView.slice(loadingStart, nextBranch);
 
-  assert.match(loading, /My assignments/);
-  assert.match(loading, /Loading assignments/);
   assert.match(loadingBranch, /My assignments/);
   assert.match(loadingBranch, /Loading assignments/);
+});
+
+test("routes without slow server data carry no segment-level loading file", () => {
+  // Any segment-level loading.tsx makes Next 15.5 stream the page into a
+  // hidden segment (<div hidden id="S:N"> parked at body level) and the
+  // vendored React defers the visible swap: $RC only marks the boundary "$~"
+  // and queues $RV behind rAF/setTimeout (~300ms nominal, seconds under CPU
+  // load). Hydration plus provider updates client-render the boundary first,
+  // so the document transiently holds TWO full copies of the page — Playwright
+  // strict-mode "resolved to 2 elements" flakes and duplicate-id bugs.
+  // None of these routes awaits server data (they SSR client shells that fetch
+  // after hydration, or are pure redirects), so a route-level skeleton buys
+  // nothing and only carries the race. Verified 2026-07-26 against a prod
+  // build: with these files present every route below served '<template
+  // id="B:' + '<div hidden id="S:' markers; without them, none did. Only
+  // reintroduce a loading.tsx where the route genuinely awaits slow server
+  // data, and document why next to it.
+  const racyLoadingFiles = [
+    "app/adaptive-learning/loading.tsx",
+    "app/lesson/loading.tsx",
+    "app/personalized-learning/loading.tsx",
+    "app/practice/loading.tsx",
+    "app/student/assignments/loading.tsx",
+    "app/student/tools/visualizations/loading.tsx",
+    "app/visualization-lab/loading.tsx"
+  ];
+
+  for (const file of racyLoadingFiles) {
+    assert.ok(
+      !existsSync(join(process.cwd(), file)),
+      `${file} reintroduces the hidden-segment streaming race on a route with no slow server data.`
+    );
+  }
 });
 
 test("personalized learning eagerly prepares the assignments route before the All assignments CTA is used", async () => {
