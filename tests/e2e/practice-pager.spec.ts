@@ -266,9 +266,15 @@ async function pressSoftKey(keyboard: Locator, tabName: string, keyName: string 
 }
 
 async function findVisibleLessonPracticeCard(page: Page, text: RegExp, maxSteps = 5) {
+  // The practice pager loads after the lesson shell; without this gate the
+  // instant isVisible() checks below can page past the target question
+  // before its card has rendered. Scoped to main because lesson pages keep a
+  // hidden SSR copy of the pager outside it.
+  await expect(page.getByRole("main").getByText(/Question \d+ of \d+/i).first()).toBeVisible();
+
   for (let step = 0; step < maxSteps; step += 1) {
     const card = page.locator("article:visible").filter({ hasText: text }).first();
-    if (await card.isVisible().catch(() => false)) return card;
+    if (await card.waitFor({ state: "visible", timeout: 1500 }).then(() => true, () => false)) return card;
 
     const nextButton = page.getByRole("button", { name: /Next question/i });
     if (!await nextButton.isEnabled().catch(() => false)) break;
@@ -808,7 +814,9 @@ test.describe("Practice Arena question pager", () => {
     await expectNoOverlap(canvas, uploadButton);
   });
 
-  test("lesson fill-in questions expose and convert with the handwriting input mode", async ({ page }) => {
+  test("lesson fill-in questions expose and convert with the handwriting input mode", async ({ page }, testInfo) => {
+    await registerStudentThroughApi(page, testInfo, "lesson-fill-in", "S1");
+
     let recognitionRequestCount = 0;
     await page.route("**/api/handwriting-recognition", async (route) => {
       recognitionRequestCount += 1;
@@ -834,7 +842,7 @@ test.describe("Practice Arena question pager", () => {
     await page.goto("/student/lessons/algebra-basics");
     await expect(page.getByRole("heading", { level: 1, name: /Algebra Basics: Expressions and Simple Equations/i })).toBeVisible();
 
-    const card = page.locator("article").filter({ hasText: /Fill-in/i }).first();
+    const card = await findVisibleLessonPracticeCard(page, /Fill in the blank/i);
     await expect(card.getByRole("tab", { name: /Keyboard input/i })).toHaveAttribute("aria-selected", "true");
     await card.getByRole("tab", { name: /Handwriting board/i }).click();
 
@@ -853,7 +861,9 @@ test.describe("Practice Arena question pager", () => {
     expect(recognitionRequestCount).toBe(1);
   });
 
-  test("circles lesson handwriting review does not auto-fill ambiguous local 26", async ({ page }) => {
+  test("circles lesson handwriting review does not auto-fill ambiguous local 26", async ({ page }, testInfo) => {
+    await registerStudentThroughApi(page, testInfo, "lesson-circles", "S1");
+
     let recognitionRequestCount = 0;
     await page.route("**/api/handwriting-recognition", async (route) => {
       recognitionRequestCount += 1;
@@ -896,13 +906,15 @@ test.describe("Practice Arena question pager", () => {
     expect(recognitionRequestCount).toBe(1);
   });
 
-  test("lesson multiple-choice questions do not expose draft input tools", async ({ page }) => {
+  test("lesson multiple-choice questions do not expose draft input tools", async ({ page }, testInfo) => {
+    await registerStudentThroughApi(page, testInfo, "lesson-mcq", "S1");
+
     await page.goto("/student/lessons/integers");
     await expect(page.getByRole("heading", { level: 1, name: /Integers: Direction, Zero, and Operations/i })).toBeVisible();
 
-    const card = page.locator("article").filter({ hasText: /Multiple choice/i }).first();
-    await expect(card.getByRole("tab", { name: /Open math keyboard scratchpad/i })).toHaveCount(0);
-    await expect(card.getByRole("tab", { name: /Open handwriting draft board/i })).toHaveCount(0);
+    const card = await findVisibleLessonPracticeCard(page, /When starting a Integers question/i);
+    await expect(card.getByRole("tablist", { name: /Answer input mode/i })).toHaveCount(0);
+    await expect(card.getByRole("tab")).toHaveCount(0);
     await expect(card.getByRole("img", { name: /Handwriting draft canvas/i })).toHaveCount(0);
     await expect(card.getByRole("textbox", { name: /Handwritten answer text/i })).toHaveCount(0);
   });
