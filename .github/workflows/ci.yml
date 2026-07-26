@@ -85,6 +85,9 @@ jobs:
       - name: Run visualization gate
         run: npm run test:visualizations
 
+      - name: Run reported-bug source-regression gate (fix anchors + segment loading.tsx ban)
+        run: npm run test:source-regressions
+
       - name: Build
         run: npm run build
 
