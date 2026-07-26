@@ -142,6 +142,8 @@ import {
   authenticatedUserFromAuthDatabase as authenticatedUserFromAuthDatabaseFromAuthSessionPersistence,
   authenticatedUserFromAuthRecords as authenticatedUserFromAuthRecordsFromAuthSessionPersistence,
   authenticatedUserForAuthHotRows,
+  authenticatedUserForAuthHotRowsAsync,
+  authPasswordMatchesAsync as authPasswordMatchesAsyncFromAuthSessionPersistence,
   applyAuthFixedExampleAccountScope as applyFixedExampleAccountScopeFromAuthSessionPersistence,
   createAuthSessionHotTableTestHooks as createAuthHotTableTestHooksFromAuthSessionPersistence,
   createAuthSessionPersistenceStore,
@@ -2953,6 +2955,11 @@ function getPostgresClient() {
     throw new Error("POSTGRES_URL is required when HK_MATH_STORAGE_PROVIDER=postgres.");
   }
 
+  // Reused across serverless invocations via the module-level `postgresClient` singleton
+  // so warm instances skip the TCP+TLS handshake. On Neon, POSTGRES_URL should point at the
+  // POOLED endpoint (the `-pooler` host) so connections go through PgBouncer; `prepare: false`
+  // is required in that mode (transaction pooling does not support prepared statements) and a
+  // small `max` keeps each instance within the pooler's per-connection budget.
   postgresClient = postgres(postgresUrl, {
     max: postgresMaxConnections,
     idle_timeout: 20,
@@ -7010,7 +7017,9 @@ async function authenticateUserForLoginFromHotTables(username: string, password:
       .map((candidate) => usersById.get(candidate.id))
       .filter((user): user is UserRecord => Boolean(user));
 
-    return authenticatedUserForAuthHotRows({
+    // Async pbkdf2 verification keeps the login request from blocking the event loop
+    // while it hashes (~20-25ms of CPU per attempt, longer under cold-start throttling).
+    return await authenticatedUserForAuthHotRowsAsync({
       hotRows: {
         users: orderedUsers,
         studentProfiles: hotRows.studentProfiles,
@@ -7019,7 +7028,7 @@ async function authenticateUserForLoginFromHotTables(username: string, password:
       mediaObjectUrlForKey: mediaObjectAccessUrl,
       username,
       password,
-      passwordMatches: (candidatePassword, user) => passwordMatchesFromAuthSessionPersistence(candidatePassword, user as UserRecord)
+      passwordMatches: (candidatePassword, user) => authPasswordMatchesAsyncFromAuthSessionPersistence(candidatePassword, user as UserRecord)
     });
   } catch {
     return null;
