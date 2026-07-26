@@ -984,7 +984,11 @@ export async function POST(request: Request) {
   }
   if (localCandidate) providerAlternatives.push(...localCandidate.alternatives);
 
-  const simpletexCandidate = await trySimpletexRecognition(imageDataUrl);
+  // HANDWRITING_OCR_PRIMARY=mathpix bypasses the China-hosted SimpleTex hop
+  // entirely (US pilot compliance, consultation Q4): strokes go straight to
+  // the existing Mathpix path below, with LLM-vision as the final fallback.
+  const suppressSimpletex = process.env.HANDWRITING_OCR_PRIMARY?.trim() === "mathpix";
+  const simpletexCandidate = suppressSimpletex ? null : await trySimpletexRecognition(imageDataUrl);
   if (simpletexCandidate) {
     const simpletexAutoAcceptConfidence = readSimpletexAutoAcceptConfidenceThreshold();
     const simpletexAssessment = assessSimpletexRouting(simpletexCandidate, {
