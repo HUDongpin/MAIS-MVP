@@ -636,13 +636,15 @@ export function AdaptiveLearningContent() {
 
   return (
     <div className="page-container py-10 sm:py-12">
-      <AdaptiveKnowledgeGalaxy
-        contentUnavailable={adaptiveContentUnavailable ?? dashboard?.contentUnavailable ?? null}
-        decision={adaptiveDecision}
-        isLoading={isLoading}
-        loadError={loadError}
-        progressMetrics={dashboard?.progressMetrics ?? []}
-      />
+      <div data-tour="student-galaxy">
+        <AdaptiveKnowledgeGalaxy
+          contentUnavailable={adaptiveContentUnavailable ?? dashboard?.contentUnavailable ?? null}
+          decision={adaptiveDecision}
+          isLoading={isLoading}
+          loadError={loadError}
+          progressMetrics={dashboard?.progressMetrics ?? []}
+        />
+      </div>
 
       <GalaxyDockPanel
         id="my-assignments"

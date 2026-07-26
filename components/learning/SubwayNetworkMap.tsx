@@ -1216,7 +1216,10 @@ export function SubwayNetworkMap({
         ) : null}
       </div>
 
-      <section className="mt-8 rounded-[2rem] border border-cyan-300/25 bg-slate-950/80 p-4 shadow-xl shadow-cyan-950/20 backdrop-blur-2xl sm:p-5">
+      <section
+        data-tour="student-network-map"
+        className="mt-8 rounded-[2rem] border border-cyan-300/25 bg-slate-950/80 p-4 shadow-xl shadow-cyan-950/20 backdrop-blur-2xl sm:p-5"
+      >
         <div className="flex flex-col gap-4 xl:flex-row xl:items-center xl:justify-between">
           <div>
             <p className="text-sm font-black uppercase tracking-[0.24em] text-cyan-300">{t({ en: "Network legend", zh: "網絡圖例", zhHans: "网络图例" })}</p>
