@@ -5035,7 +5035,7 @@
       "difficulty": "Medium",
       "type": "fill-in",
       "prompt": {
-        "en": "Compose Decompose checkpoint: There are 7 counters. 1 are moved away. How many counters are left?",
+        "en": "Compose Decompose checkpoint: There are 7 counters. 1 is moved away. How many counters are left?",
         "zh": "幼兒園運算思維練習：有 7 個計數片，移走了 1 個。還剩多少個計數片？",
         "zhHans": "幼儿园运算思维练习：有 7 个计数片，移走了 1 个。还剩多少个计数片？"
       },
@@ -6537,10 +6537,10 @@
       "answer": "1",
       "acceptedAnswers": [
         "1",
-        "1 ones"
+        "1 one"
       ],
       "explanation": {
-        "en": "11 = 10 + 1, so there are 1 more ones.",
+        "en": "11 = 10 + 1, so there is 1 more one.",
         "zh": "11 = 10 + 1，所以還有 1 個一。",
         "zhHans": "11 = 10 + 1，所以还有 1 个一。"
       },
@@ -6548,7 +6548,7 @@
         "correctAnswer": "1",
         "acceptedAnswers": [
           "1",
-          "1 ones"
+          "1 one"
         ],
         "solutionSteps": [
           "11 - 10 = 1."
@@ -11048,7 +11048,7 @@
       "difficulty": "Low",
       "type": "fill-in",
       "prompt": {
-        "en": "Add Subtract checkpoint: There are 9 cards. 1 are moved away. How many cards are left?",
+        "en": "Add Subtract checkpoint: There are 9 cards. 1 is moved away. How many cards are left?",
         "zh": "一年級運算思維練習：有 9 個卡片，移走了 1 個。還剩多少個卡片？",
         "zhHans": "一年级运算思维练习：有 9 个卡片，移走了 1 个。还剩多少个卡片？"
       },
@@ -13360,37 +13360,39 @@
       "difficulty": "High",
       "type": "short-answer",
       "prompt": {
-        "en": "Measure Data checkpoint: A rectangle is 4 units long and 3 units wide. What is its area?",
-        "zh": "一年級測量與資料練習：一個長方形長 4 單位、寬 3 單位。它的面積是多少？",
-        "zhHans": "一年级测量与数据练习：一个长方形长 4 单位、宽 3 单位。它的面积是多少？"
+        "en": "Measure Data checkpoint: A ribbon is 8 cm long. Another ribbon is 6 cm long. What is the total length?",
+        "zh": "一年級測量與資料練習：一條彩帶長 8 厘米，另一條長 6 厘米。總長是多少？",
+        "zhHans": "一年级测量与数据练习：一条彩带长 8 厘米，另一条长 6 厘米。总长是多少？"
       },
-      "answer": "12 square units",
+      "answer": "14 cm",
       "acceptedAnswers": [
-        "12 square units",
-        "12"
+        "14 cm",
+        "14",
+        "14 centimeters"
       ],
       "explanation": {
-        "en": "Area is length x width: 4 x 3 = 12 square units.",
-        "zh": "面積 = 長 x 寬：4 x 3 = 12 平方單位。",
-        "zhHans": "面积 = 长 x 宽：4 x 3 = 12 平方单位。"
+        "en": "Add the lengths: 8 + 6 = 14 cm.",
+        "zh": "把長度相加：8 + 6 = 14 厘米。",
+        "zhHans": "把长度相加：8 + 6 = 14 厘米。"
       },
       "answerKey": {
-        "correctAnswer": "12 square units",
+        "correctAnswer": "14 cm",
         "acceptedAnswers": [
-          "12 square units",
-          "12"
+          "14 cm",
+          "14",
+          "14 centimeters"
         ],
         "solutionSteps": [
-          "4 * 3 = 12."
+          "8 cm + 6 cm = 14 cm."
         ],
-        "validationMethod": "computed-area"
+        "validationMethod": "computed-measurement-addition"
       },
-      "independentAnswer": "12 square units",
-      "independentSolution": "4 * 3 = 12.",
+      "independentAnswer": "14 cm",
+      "independentSolution": "8 cm + 6 cm = 14 cm.",
       "validation": {
         "status": "passed",
-        "deterministicCheck": "computed-area",
-        "computedAnswer": "12 square units",
+        "deterministicCheck": "computed-measurement-addition",
+        "computedAnswer": "14 cm",
         "checkedAt": "2026-06-23T00:20:00+08:00",
         "notes": "Generated from deterministic MAIS-authored template using only new knowledge-point metadata and fresh values.",
         "qaRounds": [
@@ -13828,37 +13830,39 @@
       "difficulty": "High",
       "type": "short-answer",
       "prompt": {
-        "en": "Measure Data checkpoint: A rectangle is 8 units long and 2 units wide. What is its area?",
-        "zh": "一年級測量與資料練習：一個長方形長 8 單位、寬 2 單位。它的面積是多少？",
-        "zhHans": "一年级测量与数据练习：一个长方形长 8 单位、宽 2 单位。它的面积是多少？"
+        "en": "Measure Data checkpoint: A ribbon is 9 cm long. Another ribbon is 7 cm long. What is the total length?",
+        "zh": "一年級測量與資料練習：一條彩帶長 9 厘米，另一條長 7 厘米。總長是多少？",
+        "zhHans": "一年级测量与数据练习：一条彩带长 9 厘米，另一条长 7 厘米。总长是多少？"
       },
-      "answer": "16 square units",
+      "answer": "16 cm",
       "acceptedAnswers": [
-        "16 square units",
-        "16"
+        "16 cm",
+        "16",
+        "16 centimeters"
       ],
       "explanation": {
-        "en": "Area is length x width: 8 x 2 = 16 square units.",
-        "zh": "面積 = 長 x 寬：8 x 2 = 16 平方單位。",
-        "zhHans": "面积 = 长 x 宽：8 x 2 = 16 平方单位。"
+        "en": "Add the lengths: 9 + 7 = 16 cm.",
+        "zh": "把長度相加：9 + 7 = 16 厘米。",
+        "zhHans": "把长度相加：9 + 7 = 16 厘米。"
       },
       "answerKey": {
-        "correctAnswer": "16 square units",
+        "correctAnswer": "16 cm",
         "acceptedAnswers": [
-          "16 square units",
-          "16"
+          "16 cm",
+          "16",
+          "16 centimeters"
         ],
         "solutionSteps": [
-          "8 * 2 = 16."
+          "9 cm + 7 cm = 16 cm."
         ],
-        "validationMethod": "computed-area"
+        "validationMethod": "computed-measurement-addition"
       },
-      "independentAnswer": "16 square units",
-      "independentSolution": "8 * 2 = 16.",
+      "independentAnswer": "16 cm",
+      "independentSolution": "9 cm + 7 cm = 16 cm.",
       "validation": {
         "status": "passed",
-        "deterministicCheck": "computed-area",
-        "computedAnswer": "16 square units",
+        "deterministicCheck": "computed-measurement-addition",
+        "computedAnswer": "16 cm",
         "checkedAt": "2026-06-23T00:20:00+08:00",
         "notes": "Generated from deterministic MAIS-authored template using only new knowledge-point metadata and fresh values.",
         "qaRounds": [
@@ -14294,37 +14298,39 @@
       "difficulty": "High",
       "type": "short-answer",
       "prompt": {
-        "en": "Measure Data checkpoint: A rectangle is 6 units long and 6 units wide. What is its area?",
-        "zh": "一年級測量與資料練習：一個長方形長 6 單位、寬 6 單位。它的面積是多少？",
-        "zhHans": "一年级测量与数据练习：一个长方形长 6 单位、宽 6 单位。它的面积是多少？"
+        "en": "Measure Data checkpoint: A ribbon is 13 cm long. Another ribbon is 5 cm long. What is the total length?",
+        "zh": "一年級測量與資料練習：一條彩帶長 13 厘米，另一條長 5 厘米。總長是多少？",
+        "zhHans": "一年级测量与数据练习：一条彩带长 13 厘米，另一条长 5 厘米。总长是多少？"
       },
-      "answer": "36 square units",
+      "answer": "18 cm",
       "acceptedAnswers": [
-        "36 square units",
-        "36"
+        "18 cm",
+        "18",
+        "18 centimeters"
       ],
       "explanation": {
-        "en": "Area is length x width: 6 x 6 = 36 square units.",
-        "zh": "面積 = 長 x 寬：6 x 6 = 36 平方單位。",
-        "zhHans": "面积 = 长 x 宽：6 x 6 = 36 平方单位。"
+        "en": "Add the lengths: 13 + 5 = 18 cm.",
+        "zh": "把長度相加：13 + 5 = 18 厘米。",
+        "zhHans": "把长度相加：13 + 5 = 18 厘米。"
       },
       "answerKey": {
-        "correctAnswer": "36 square units",
+        "correctAnswer": "18 cm",
         "acceptedAnswers": [
-          "36 square units",
-          "36"
+          "18 cm",
+          "18",
+          "18 centimeters"
         ],
         "solutionSteps": [
-          "6 * 6 = 36."
+          "13 cm + 5 cm = 18 cm."
         ],
-        "validationMethod": "computed-area"
+        "validationMethod": "computed-measurement-addition"
       },
-      "independentAnswer": "36 square units",
-      "independentSolution": "6 * 6 = 36.",
+      "independentAnswer": "18 cm",
+      "independentSolution": "13 cm + 5 cm = 18 cm.",
       "validation": {
         "status": "passed",
-        "deterministicCheck": "computed-area",
-        "computedAnswer": "36 square units",
+        "deterministicCheck": "computed-measurement-addition",
+        "computedAnswer": "18 cm",
         "checkedAt": "2026-06-23T00:20:00+08:00",
         "notes": "Generated from deterministic MAIS-authored template using only new knowledge-point metadata and fresh values.",
         "qaRounds": [
@@ -19046,7 +19052,7 @@
       "difficulty": "Medium",
       "type": "fill-in",
       "prompt": {
-        "en": "Measure Data Money Time checkpoint: A clock shows 3:00. What time will it be 1 hours later?",
+        "en": "Measure Data Money Time checkpoint: A clock shows 3:00. What time will it be 1 hour later?",
         "zh": "二年級測量與資料練習：時鐘顯示 3:00。1 小時後是幾點？",
         "zhHans": "二年级测量与数据练习：时钟显示 3:00。1 小时后是几点？"
       },
@@ -19055,7 +19061,7 @@
         "4:00"
       ],
       "explanation": {
-        "en": "Count 1 hours after 3:00 to get 4:00.",
+        "en": "Count 1 hour after 3:00 to get 4:00.",
         "zh": "從 3:00 往後數 1 小時，得到 4:00。",
         "zhHans": "从 3:00 往后数 1 小时，得到 4:00。"
       },
@@ -19065,12 +19071,12 @@
           "4:00"
         ],
         "solutionSteps": [
-          "3:00 + 1 hours = 4:00."
+          "3:00 + 1 hour = 4:00."
         ],
         "validationMethod": "computed-time-addition"
       },
       "independentAnswer": "4:00",
-      "independentSolution": "3:00 + 1 hours = 4:00.",
+      "independentSolution": "3:00 + 1 hour = 4:00.",
       "validation": {
         "status": "passed",
         "deterministicCheck": "computed-time-addition",
@@ -19726,7 +19732,7 @@
         "13"
       ],
       "explanation": {
-        "en": "1 dime are 10 cents, plus 3 pennies makes 13 cents.",
+        "en": "1 dime is 10 cents, plus 3 pennies makes 13 cents.",
         "zh": "1 個一角硬幣是 10 分，再加 3 分，一共 13 分。",
         "zhHans": "1 个一角硬币是 10 分，再加 3 分，一共 13 分。"
       },
@@ -26214,7 +26220,7 @@
       "difficulty": "High",
       "type": "short-answer",
       "prompt": {
-        "en": "Fraction Meaning checkpoint: A rectangle is split into 7 equal parts. 1 part are shaded. What fraction is shaded?",
+        "en": "Fraction Meaning checkpoint: A rectangle is split into 7 equal parts. 1 part is shaded. What fraction is shaded?",
         "zh": "三年級分數練習：一個長方形分成 7 個相等部分，其中 1 個部分塗色。塗色部分是幾分之幾？",
         "zhHans": "三年级分数练习：一个长方形分成 7 个相等部分，其中 1 个部分涂色。涂色部分是几分之几？"
       },
@@ -32559,7 +32565,7 @@
       "difficulty": "Medium",
       "type": "multiple-choice",
       "prompt": {
-        "en": "Fraction Decimal checkpoint: A rectangle is split into 8 equal parts. 1 part are shaded. What fraction is shaded?",
+        "en": "Fraction Decimal checkpoint: A rectangle is split into 8 equal parts. 1 part is shaded. What fraction is shaded?",
         "zh": "四年級分數練習：一個長方形分成 8 個相等部分，其中 1 個部分塗色。塗色部分是幾分之幾？",
         "zhHans": "四年级分数练习：在教室垫上，选出最合适的答案：一个长方形分成 8 个相等部分，其中 1 个部分涂色。涂色部分是几分之几？"
       },
@@ -38312,12 +38318,12 @@
           "5.8"
         ],
         "solutionSteps": [
-          "5 + 8/100 = 5.8."
+          "5 + 8/10 = 5.8."
         ],
         "validationMethod": "computed-decimal-place-value"
       },
       "independentAnswer": "5.8",
-      "independentSolution": "5 + 8/100 = 5.8.",
+      "independentSolution": "5 + 8/10 = 5.8.",
       "validation": {
         "status": "passed",
         "deterministicCheck": "computed-decimal-place-value",
@@ -38580,12 +38586,12 @@
           "7.5"
         ],
         "solutionSteps": [
-          "7 + 5/100 = 7.5."
+          "7 + 5/10 = 7.5."
         ],
         "validationMethod": "computed-decimal-place-value"
       },
       "independentAnswer": "7.5",
-      "independentSolution": "7 + 5/100 = 7.5.",
+      "independentSolution": "7 + 5/10 = 7.5.",
       "validation": {
         "status": "passed",
         "deterministicCheck": "computed-decimal-place-value",
@@ -38703,12 +38709,12 @@
           "8.6"
         ],
         "solutionSteps": [
-          "8 + 6/100 = 8.6."
+          "8 + 6/10 = 8.6."
         ],
         "validationMethod": "computed-decimal-place-value"
       },
       "independentAnswer": "8.6",
-      "independentSolution": "8 + 6/100 = 8.6.",
+      "independentSolution": "8 + 6/10 = 8.6.",
       "validation": {
         "status": "passed",
         "deterministicCheck": "computed-decimal-place-value",
@@ -38848,12 +38854,12 @@
           "2.7"
         ],
         "solutionSteps": [
-          "2 + 7/100 = 2.7."
+          "2 + 7/10 = 2.7."
         ],
         "validationMethod": "computed-decimal-place-value"
       },
       "independentAnswer": "2.7",
-      "independentSolution": "2 + 7/100 = 2.7.",
+      "independentSolution": "2 + 7/10 = 2.7.",
       "validation": {
         "status": "passed",
         "deterministicCheck": "computed-decimal-place-value",
@@ -38971,12 +38977,12 @@
           "3.8"
         ],
         "solutionSteps": [
-          "3 + 8/100 = 3.8."
+          "3 + 8/10 = 3.8."
         ],
         "validationMethod": "computed-decimal-place-value"
       },
       "independentAnswer": "3.8",
-      "independentSolution": "3 + 8/100 = 3.8.",
+      "independentSolution": "3 + 8/10 = 3.8.",
       "validation": {
         "status": "passed",
         "deterministicCheck": "computed-decimal-place-value",
@@ -39116,12 +39122,12 @@
           "4.9"
         ],
         "solutionSteps": [
-          "4 + 9/100 = 4.9."
+          "4 + 9/10 = 4.9."
         ],
         "validationMethod": "computed-decimal-place-value"
       },
       "independentAnswer": "4.9",
-      "independentSolution": "4 + 9/100 = 4.9.",
+      "independentSolution": "4 + 9/10 = 4.9.",
       "validation": {
         "status": "passed",
         "deterministicCheck": "computed-decimal-place-value",
@@ -39239,12 +39245,12 @@
           "5.5"
         ],
         "solutionSteps": [
-          "5 + 5/100 = 5.5."
+          "5 + 5/10 = 5.5."
         ],
         "validationMethod": "computed-decimal-place-value"
       },
       "independentAnswer": "5.5",
-      "independentSolution": "5 + 5/100 = 5.5.",
+      "independentSolution": "5 + 5/10 = 5.5.",
       "validation": {
         "status": "passed",
         "deterministicCheck": "computed-decimal-place-value",
@@ -39384,12 +39390,12 @@
           "6.6"
         ],
         "solutionSteps": [
-          "6 + 6/100 = 6.6."
+          "6 + 6/10 = 6.6."
         ],
         "validationMethod": "computed-decimal-place-value"
       },
       "independentAnswer": "6.6",
-      "independentSolution": "6 + 6/100 = 6.6.",
+      "independentSolution": "6 + 6/10 = 6.6.",
       "validation": {
         "status": "passed",
         "deterministicCheck": "computed-decimal-place-value",
@@ -39507,12 +39513,12 @@
           "7.7"
         ],
         "solutionSteps": [
-          "7 + 7/100 = 7.7."
+          "7 + 7/10 = 7.7."
         ],
         "validationMethod": "computed-decimal-place-value"
       },
       "independentAnswer": "7.7",
-      "independentSolution": "7 + 7/100 = 7.7.",
+      "independentSolution": "7 + 7/10 = 7.7.",
       "validation": {
         "status": "passed",
         "deterministicCheck": "computed-decimal-place-value",
@@ -39652,12 +39658,12 @@
           "8.8"
         ],
         "solutionSteps": [
-          "8 + 8/100 = 8.8."
+          "8 + 8/10 = 8.8."
         ],
         "validationMethod": "computed-decimal-place-value"
       },
       "independentAnswer": "8.8",
-      "independentSolution": "8 + 8/100 = 8.8.",
+      "independentSolution": "8 + 8/10 = 8.8.",
       "validation": {
         "status": "passed",
         "deterministicCheck": "computed-decimal-place-value",
@@ -39775,12 +39781,12 @@
           "2.9"
         ],
         "solutionSteps": [
-          "2 + 9/100 = 2.9."
+          "2 + 9/10 = 2.9."
         ],
         "validationMethod": "computed-decimal-place-value"
       },
       "independentAnswer": "2.9",
-      "independentSolution": "2 + 9/100 = 2.9.",
+      "independentSolution": "2 + 9/10 = 2.9.",
       "validation": {
         "status": "passed",
         "deterministicCheck": "computed-decimal-place-value",
@@ -41052,7 +41058,7 @@
       "difficulty": "Medium",
       "type": "fill-in",
       "prompt": {
-        "en": "Operations checkpoint: A rectangle is split into 5 equal parts. 1 part are shaded. What fraction is shaded?",
+        "en": "Operations checkpoint: A rectangle is split into 5 equal parts. 1 part is shaded. What fraction is shaded?",
         "zh": "五年級分數練習：一個長方形分成 5 個相等部分，其中 1 個部分塗色。塗色部分是幾分之幾？",
         "zhHans": "五年级分数练习：一个长方形分成 5 个相等部分，其中 1 个部分涂色。涂色部分是几分之几？"
       },
@@ -43466,7 +43472,7 @@
       "difficulty": "Medium",
       "type": "fill-in",
       "prompt": {
-        "en": "Coordinate Shapes checkpoint: A point moves 1 units right from the origin and 3 units up. What ordered pair names the point?",
+        "en": "Coordinate Shapes checkpoint: A point moves 1 unit right from the origin and 3 units up. What ordered pair names the point?",
         "zh": "五年級幾何練習：一個點從原點向右移 1 單位，再向上移 3 單位。這個點的有序數對是什麼？",
         "zhHans": "五年级几何练习：一个点从原点向右移 1 单位，再向上移 3 单位。这个点的有序数对是什么？"
       },
@@ -52987,7 +52993,7 @@
       "difficulty": "Low",
       "type": "fill-in",
       "prompt": {
-        "en": "1-L.1 Picture Take-Away Stories to Ten checkpoint: There are 6 blocks. 1 are moved away. How many blocks are left?",
+        "en": "1-L.1 Picture Take-Away Stories to Ten checkpoint: There are 6 blocks. 1 is moved away. How many blocks are left?",
         "zh": "一年級運算思維練習：有 6 個積木，移走了 1 個。還剩多少個積木？",
         "zhHans": "一年级运算思维练习：有 6 个积木，移走了 1 个。还剩多少个积木？"
       },
@@ -53562,7 +53568,7 @@
       "difficulty": "Medium",
       "type": "fill-in",
       "prompt": {
-        "en": "1-L.1 Picture Take-Away Stories to Ten checkpoint: There are 7 counters. 1 are moved away. How many counters are left?",
+        "en": "1-L.1 Picture Take-Away Stories to Ten checkpoint: There are 7 counters. 1 is moved away. How many counters are left?",
         "zh": "一年級運算思維練習：有 7 個計數片，移走了 1 個。還剩多少個計數片？",
         "zhHans": "一年级运算思维练习：有 7 个计数片，移走了 1 个。还剩多少个计数片？"
       },
@@ -54137,7 +54143,7 @@
       "difficulty": "Medium",
       "type": "short-answer",
       "prompt": {
-        "en": "1-L.1 Picture Take-Away Stories to Ten checkpoint: There are 8 cubes. 1 are moved away. How many cubes are left?",
+        "en": "1-L.1 Picture Take-Away Stories to Ten checkpoint: There are 8 cubes. 1 is moved away. How many cubes are left?",
         "zh": "一年級運算思維練習：有 8 個立方塊，移走了 1 個。還剩多少個立方塊？",
         "zhHans": "一年级运算思维练习：有 8 个立方块，移走了 1 个。还剩多少个立方块？"
       },
@@ -55307,7 +55313,7 @@
       "difficulty": "Low",
       "type": "fill-in",
       "prompt": {
-        "en": "1-L.2 Picture Story Subtraction Equations checkpoint: There are 7 buttons. 1 are moved away. How many buttons are left?",
+        "en": "1-L.2 Picture Story Subtraction Equations checkpoint: There are 7 buttons. 1 is moved away. How many buttons are left?",
         "zh": "一年級運算思維練習：有 7 個鈕扣，移走了 1 個。還剩多少個鈕扣？",
         "zhHans": "一年级运算思维练习：有 7 个纽扣，移走了 1 个。还剩多少个纽扣？"
       },
@@ -55888,7 +55894,7 @@
       "difficulty": "Medium",
       "type": "fill-in",
       "prompt": {
-        "en": "1-L.3 Cube-Train Take-Away Models to Ten checkpoint: There are 9 cards. 1 are moved away. How many cards are left?",
+        "en": "1-L.3 Cube-Train Take-Away Models to Ten checkpoint: There are 9 cards. 1 is moved away. How many cards are left?",
         "zh": "一年級運算思維練習：有 9 個卡片，移走了 1 個。還剩多少個卡片？",
         "zhHans": "一年级运算思维练习：有 9 个卡片，移走了 1 个。还剩多少个卡片？"
       },
@@ -56478,7 +56484,7 @@
       "difficulty": "Medium",
       "type": "short-answer",
       "prompt": {
-        "en": "1-L.3 Cube-Train Take-Away Models to Ten checkpoint: There are 6 blocks. 1 are moved away. How many blocks are left?",
+        "en": "1-L.3 Cube-Train Take-Away Models to Ten checkpoint: There are 6 blocks. 1 is moved away. How many blocks are left?",
         "zh": "一年級運算思維練習：有 6 個積木，移走了 1 個。還剩多少個積木？",
         "zhHans": "一年级运算思维练习：有 6 个积木，移走了 1 个。还剩多少个积木？"
       },
@@ -57317,7 +57323,7 @@
       "answer": "1",
       "acceptedAnswers": [
         "1",
-        "1 shells"
+        "1 shell"
       ],
       "explanation": {
         "en": "Subtract the part that moved away: 6 - 5 = 1.",
@@ -57328,7 +57334,7 @@
         "correctAnswer": "1",
         "acceptedAnswers": [
           "1",
-          "1 shells"
+          "1 shell"
         ],
         "solutionSteps": [
           "6 - 5 = 1."
@@ -57663,7 +57669,7 @@
       "difficulty": "Low",
       "type": "fill-in",
       "prompt": {
-        "en": "1-L.4 Take-Away Stories Within Ten checkpoint: There are 9 stickers. 1 are moved away. How many stickers are left?",
+        "en": "1-L.4 Take-Away Stories Within Ten checkpoint: There are 9 stickers. 1 is moved away. How many stickers are left?",
         "zh": "一年級運算思維練習：有 9 個貼紙，移走了 1 個。還剩多少個貼紙？",
         "zhHans": "一年级运算思维练习：有 9 个贴纸，移走了 1 个。还剩多少个贴纸？"
       },
@@ -58238,7 +58244,7 @@
       "difficulty": "Medium",
       "type": "fill-in",
       "prompt": {
-        "en": "1-L.4 Take-Away Stories Within Ten checkpoint: There are 6 shells. 1 are moved away. How many shells are left?",
+        "en": "1-L.4 Take-Away Stories Within Ten checkpoint: There are 6 shells. 1 is moved away. How many shells are left?",
         "zh": "一年級運算思維練習：有 6 個貝殼，移走了 1 個。還剩多少個貝殼？",
         "zhHans": "一年级运算思维练习：有 6 个贝壳，移走了 1 个。还剩多少个贝壳？"
       },
@@ -58822,7 +58828,7 @@
       "difficulty": "Medium",
       "type": "short-answer",
       "prompt": {
-        "en": "1-L.5 Model-and-Equation Take-Away Stories checkpoint: There are 8 tiles. 1 are moved away. How many tiles are left?",
+        "en": "1-L.5 Model-and-Equation Take-Away Stories checkpoint: There are 8 tiles. 1 is moved away. How many tiles are left?",
         "zh": "一年級運算思維練習：有 8 個方塊，移走了 1 個。還剩多少個方塊？",
         "zhHans": "一年级运算思维练习：在教室垫上，选出最合适的答案：有 8 个方块，移走了 1 个。还剩多少个方块？"
       },
@@ -60022,7 +60028,7 @@
       "difficulty": "Low",
       "type": "fill-in",
       "prompt": {
-        "en": "1-L.6 Break-Apart Subtraction Equations checkpoint: There are 7 counters. 1 are moved away. How many counters are left?",
+        "en": "1-L.6 Break-Apart Subtraction Equations checkpoint: There are 7 counters. 1 is moved away. How many counters are left?",
         "zh": "一年級運算思維練習：有 7 個計數片，移走了 1 個。還剩多少個計數片？",
         "zhHans": "一年级运算思维练习：有 7 个计数片，移走了 1 个。还剩多少个计数片？"
       },
@@ -60612,7 +60618,7 @@
       "difficulty": "Medium",
       "type": "fill-in",
       "prompt": {
-        "en": "1-L.6 Break-Apart Subtraction Equations checkpoint: There are 8 cubes. 1 are moved away. How many cubes are left?",
+        "en": "1-L.6 Break-Apart Subtraction Equations checkpoint: There are 8 cubes. 1 is moved away. How many cubes are left?",
         "zh": "一年級運算思維練習：有 8 個立方塊，移走了 1 個。還剩多少個立方塊？",
         "zhHans": "一年级运算思维练习：有 8 个立方块，移走了 1 个。还剩多少个立方块？"
       },
@@ -61202,7 +61208,7 @@
       "difficulty": "Medium",
       "type": "short-answer",
       "prompt": {
-        "en": "1-L.6 Break-Apart Subtraction Equations checkpoint: There are 9 stickers. 1 are moved away. How many stickers are left?",
+        "en": "1-L.6 Break-Apart Subtraction Equations checkpoint: There are 9 stickers. 1 is moved away. How many stickers are left?",
         "zh": "一年級運算思維練習：有 9 個貼紙，移走了 1 個。還剩多少個貼紙？",
         "zhHans": "一年级运算思维练习：有 9 个贴纸，移走了 1 个。还剩多少个贴纸？"
       },
