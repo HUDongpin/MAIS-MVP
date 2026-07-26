@@ -161,7 +161,11 @@ function rmsError(p, t) {
   return Math.sqrt(s / (N + 1));
 }
 const matchPercent = (rms) => Math.max(0, Math.min(100, 100 / (1 + rms / 0.45)));
-const MATCH_RMS = 0.1; // below this the curves are effectively identical -> CALIBRATED
+// Below this the curves are effectively identical -> CALIBRATED. Kept under the
+// smallest one-dial-step miss: a π/12 phase nudge on a half-amplitude target
+// (A = ±0.5, B = 0.5) leaves an RMS of only ~0.046, so 0.1 would stamp a wrong
+// phase as calibrated. Exact grid matches read 0, so 0.03 stays reachable.
+const MATCH_RMS = 0.03;
 
 function makeTarget(prev) {
   const Bs = [0.5, 0.75, 1, 1.25, 1.5, 2];

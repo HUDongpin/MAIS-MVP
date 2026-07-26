@@ -173,23 +173,80 @@ test.describe.serial("teacher workspace frontend workflows", () => {
     await page.goto("/teacher/reports");
     await page.getByRole("combobox", { name: /^Type$/i }).selectOption("student");
     await page.getByRole("combobox", { name: /Language/i }).selectOption("en");
-    await page.getByRole("textbox", { name: /Teacher remarks/i }).fill("Keep practising vertex form and explain each graph move.");
+    // The remarks edit re-runs the debounced preview fetch, and the remarks text
+    // travels in that request's query string — match on this run's suffix so the
+    // wait below settles on the final preview, not an earlier superseded one.
+    const reportRemarks = `Keep practising vertex form and explain each graph move. Run ${suffix}.`;
+    const remarksPreviewResponse = page.waitForResponse((response) =>
+      response.url().includes("/api/teacher/report-previews") && response.url().includes(suffix)
+    );
+    await page.getByRole("textbox", { name: /Teacher remarks/i }).fill(reportRemarks);
     await expect(page.getByText(/Teacher remarks/i).last()).toBeVisible();
     await expectDownloadFrom(page, () => page.getByRole("link", { name: /Export CSV/i }).click({ force: true }), /student-report-.*\.csv/);
     await expectDownloadFrom(page, () => page.getByRole("link", { name: /Export PDF/i }).click({ force: true }), /student-report-.*\.pdf/);
-    await page.getByRole("button", { name: /Save report/i }).click({ force: true });
-    // Save round-trips to the server; allow headroom for the async confirmation.
-    await expect(page.getByText(/Report saved and added to history/i)).toBeVisible({ timeout: 15_000 });
+    // "Save report" stays disabled while that preview refresh is in flight, and a
+    // forced click on a disabled button is silently dropped — so wait for the
+    // preview to land and the button to be enabled, then confirm the save on the
+    // POST rather than racing the toast that only follows a click that landed.
+    await remarksPreviewResponse;
+    const saveReportButton = page.getByRole("button", { name: /^Save report$/i });
+    await expect(saveReportButton).toBeEnabled();
+    const savedReportResponse = page.waitForResponse((response) =>
+      response.url().includes("/api/teacher/saved-reports") && response.request().method() === "POST"
+    );
+    await saveReportButton.click();
+    expect((await savedReportResponse).ok()).toBeTruthy();
+    await expect(page.getByText(/Report saved and added to history/i)).toBeVisible();
 
-    await page.goto("/teacher/inbox");
+    // Pin the thread this run works on. Without `?thread=`, the server selects the
+    // first unresolved thread, so once this test resolves one, a retry (or any
+    // spec sharing the run's database) silently lands on a different thread.
+    const inboxResponse = await page.request.get("/api/teacher/inbox");
+    expect(inboxResponse.ok()).toBeTruthy();
+    const inboxPayload = await inboxResponse.json() as {
+      inbox?: { selectedThread?: { id?: string } | null; threads?: Array<{ id: string }> };
+    };
+    const inboxThreadId = inboxPayload.inbox?.selectedThread?.id ?? inboxPayload.inbox?.threads?.[0]?.id;
+    expect(inboxThreadId, "teacher inbox must expose at least one thread").toBeTruthy();
+
+    await page.goto(`/teacher/inbox?thread=${encodeURIComponent(inboxThreadId!)}`);
     await expect(page.getByRole("heading", { name: /^Inbox$/i })).toBeVisible();
-    await page.getByRole("button", { name: /Draft reply/i }).click();
     const replyBox = page.getByPlaceholder(/Reply to the (student|parent)/i);
+    await expect(replyBox).toBeEmpty();
+    await page.getByRole("button", { name: /Draft reply/i }).click();
     await expect(replyBox).not.toBeEmpty();
+    // Tag the outgoing reply so each attempt appends a distinguishable message
+    // instead of an identical one.
+    await replyBox.fill(`${(await replyBox.inputValue()).trim()} Sent by e2e run ${suffix}.`);
+
+    // Star and resolve both PATCH and then refresh the server-rendered thread;
+    // each toggles from whatever the previous run left behind, so assert the
+    // label actually flipped. Letting the refresh land also keeps the composer
+    // from shifting under the next click.
     const starToggle = page.getByRole("button", { name: /Star|Unstar/i });
+    const starLabel = (await starToggle.innerText()).trim();
+    const starResponse = page.waitForResponse((response) =>
+      response.url().includes("/api/teacher/inbox/") && response.request().method() === "PATCH"
+    );
     await starToggle.click();
-    await page.getByRole("button", { name: /Resolve|Reopen/i }).click();
+    expect((await starResponse).ok()).toBeTruthy();
+    await expect(starToggle).not.toHaveText(starLabel);
+
+    const statusToggle = page.getByRole("button", { name: /Resolve|Reopen/i });
+    const statusLabel = (await statusToggle.innerText()).trim();
+    const statusResponse = page.waitForResponse((response) =>
+      response.url().includes("/api/teacher/inbox/") && response.request().method() === "PATCH"
+    );
+    await statusToggle.click();
+    expect((await statusResponse).ok()).toBeTruthy();
+    await expect(statusToggle).not.toHaveText(statusLabel);
+
+    const sendReplyResponse = page.waitForResponse((response) =>
+      /^\/api\/teacher\/inbox\/.+\/replies$/.test(new URL(response.url()).pathname) &&
+      response.request().method() === "POST"
+    );
     await page.getByRole("button", { name: /Send reply/i }).click();
+    expect((await sendReplyResponse).ok()).toBeTruthy();
     await expect(replyBox).toBeEmpty();
 
   });

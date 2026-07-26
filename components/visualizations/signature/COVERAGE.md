@@ -16,12 +16,24 @@ Regenerate the numbers with
 | Ported from that library into `signature/` | 187 (was 3 in Phase 0, 184 before 2026-07-25) |
 | **MAIS-authored benches** | **5** |
 | **Total benches in `signature/`** | **192** |
-| Audits beside them (math-gate proofs) | 181 |
-| Benches with no audit | 11 |
+| Audits beside them (math-gate proofs) | **192 (all)** |
+| Benches with no audit | 0 (was 11 before 2026-07-26) |
 
 Three ports landed on 2026-07-25 — `StoryProblemLab`, `PlaceJumpLab`,
 `CompositionLab`. They had always joined a California topic on their own CCSS tags
 but had never been ported, so the join found them and nothing could render them.
+
+The last 11 audits landed on 2026-07-26, closing the gap the content-QA pass
+found: the conic and trig-function labs (`AngleLab`, `CircleLab`, `EllipseLab`,
+`HyperbolaLab`, `ParabolaLab`, `QuadraticFunctionLab`, and the five
+sine/cosine/tangent/secant/cosecant benches) were the only benches with no
+machine proof — and the heaviest mathematics in the library. Each new audit
+slices and evals the shipped model, re-derives every quiz key, and proves the
+calibration meter (exact target ⇒ 0, one dial step ⇒ never stamps); all were
+mutation-verified (18 seeded defects, 18 caught). Writing `audit-sine.mjs`
+immediately found and fixed a real leniency: SineFunctionLab's stamp threshold
+(0.1) accepted a π/12 phase error on a half-amplitude target, so the lab's
+`MATCH_RMS` is now 0.03.
 
 ### MAIS-authored benches
 

@@ -70,6 +70,9 @@ jobs:
       - name: Run question bank contract tests (per-region live counts + solvability)
         run: npm run test:question-bank
 
+      - name: Run US math item quality audit (CA/AR/FL independent re-solve + key integrity)
+        run: npm run audit:us-math-items
+
       - name: Run visualization gate
         run: npm run test:visualizations
 
