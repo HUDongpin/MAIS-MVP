@@ -392,6 +392,16 @@ test.describe("Practice Arena question pager", () => {
     // outside it, which intermittently trips strict mode.
     await expect(page.getByRole("main").getByText(/Question 1 of \d+/i).first()).toBeVisible();
     expect(await page.locator("article:visible").count()).toBeGreaterThan(0);
+
+    // The lesson route must render inline in the shell. A loading.tsx boundary
+    // here makes React stream the lesson into a hidden segment (<div hidden
+    // id="S:0">) whose reveal is deferred; hydration client-renders first and
+    // the document briefly holds two full copies of the lesson, which is what
+    // made the strict-mode assertions above flake.
+    expect(await page.locator("#lesson-practice").count()).toBe(1);
+    const lessonHtml = await (await page.request.get("/student/lessons/quadratic-functions")).text();
+    expect(lessonHtml).not.toContain('<template id="B:');
+    expect(lessonHtml).not.toContain('<div hidden id="S:');
   });
 
   test("math soft keyboard tabs, keys, formulas, and responsive layout work", async ({ page }, testInfo) => {
