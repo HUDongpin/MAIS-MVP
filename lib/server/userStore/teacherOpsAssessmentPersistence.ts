@@ -503,6 +503,19 @@ type TeacherOpsSeedAssessmentRecordsOptions = {
   questionExists: (questionId: string) => boolean;
 };
 
+// The California Grade 1 demo classroom, its teacher, and four questions from the
+// Grade 1 add-and-subtract checkpoint pack. Kept as named constants because the
+// only thing that makes this assessment openable is that all three agree with the
+// seeded class, enrollment, and question bank.
+const californiaGradeOneClassId = "class-us-ca-p1-2026";
+const californiaGradeOneTeacherId = "teacher-scott-us";
+const californiaGradeOneCheckQuestionIds = [
+  "us-ca-k5-knowledge-point-practice-v1-us-ca-math-p1-1-oa-add-subtract-q01",
+  "us-ca-k5-knowledge-point-practice-v1-us-ca-math-p1-1-oa-add-subtract-q02",
+  "us-ca-k5-knowledge-point-practice-v1-us-ca-math-p1-1-oa-add-subtract-q03",
+  "us-ca-k5-knowledge-point-practice-v1-us-ca-math-p1-1-oa-add-subtract-q04"
+];
+
 export function teacherOpsSeedAssessmentRecords(
   now: string,
   options: TeacherOpsSeedAssessmentRecordsOptions
@@ -530,6 +543,33 @@ export function teacherOpsSeedAssessmentRecords(
       show_answers_immediately: false,
       grade_weight: 10,
       created_by: options.demoTeacherId,
+      created_at: now,
+      updated_at: now
+    },
+    // The demo classroom needs one assessment a student can actually open: the
+    // quiz above is a draft, so every student who follows an assessment link
+    // lands on "Assessment unavailable". This one is open, has no window and no
+    // timer, and allows repeat attempts so a demo can be run more than once.
+    {
+      id: "assessment-us-ca-p1-add-subtract-check",
+      class_id: californiaGradeOneClassId,
+      title_en: "Grade 1 add and subtract check",
+      title_zh: "小一加減法檢測",
+      type: "quiz",
+      status: "open",
+      source_type: "question-bank",
+      source_resource_id: undefined,
+      question_ids: californiaGradeOneCheckQuestionIds.filter((questionId) => options.questionExists(questionId)),
+      manual_questions: [],
+      paper_sections: [],
+      opens_at: null,
+      closes_at: null,
+      time_limit_minutes: null,
+      max_attempts: 3,
+      randomize_question_order: false,
+      show_answers_immediately: true,
+      grade_weight: 10,
+      created_by: californiaGradeOneTeacherId,
       created_at: now,
       updated_at: now
     }

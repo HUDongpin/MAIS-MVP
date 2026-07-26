@@ -398,8 +398,52 @@ test("teacher ops assignment persistence owns seed assignment records for legacy
       created_by: "teacher-hk",
       created_at: "2026-06-20T10:00:00.000Z",
       updated_at: "2026-06-20T10:00:00.000Z"
+    },
+    {
+      id: "assignment-us-ca-p1-add-subtract-check",
+      class_id: "class-us-ca-p1-2026",
+      title_en: "Add and subtract check",
+      title_zh: "加減法檢測",
+      description_en: "Four questions on adding and taking away. You can try it more than once.",
+      description_zh: "四題加法和減法練習，可以做多過一次。",
+      content_type: "assessment",
+      target_id: "assessment-us-ca-p1-add-subtract-check",
+      status: "active",
+      due_at: "2026-06-27T10:00:00.000Z",
+      allow_retake: true,
+      show_answers: true,
+      count_towards_grade: false,
+      created_by: "teacher-scott-us",
+      created_at: "2026-06-20T10:00:00.000Z",
+      updated_at: "2026-06-20T10:00:00.000Z"
     }
   ]);
+});
+
+test("the demo classroom's assessment is reachable from the student's task list", async () => {
+  // A student's assignment list is built from submission rows, and an assessment is
+  // only linked through an assignment that targets it. Both must be seeded or the
+  // assessment exists but no learner can find it.
+  const module = await import("@/lib/server/userStore/teacherOpsAssignmentPersistence") as TeacherOpsAssignmentSeedBoundaryModule;
+
+  const assignment = module.teacherOpsSeedAssignmentRecords?.("2026-06-20T10:00:00.000Z", {
+    demoTeacherId: "teacher-hk"
+  })?.find((candidate) => candidate.content_type === "assessment");
+  assert.ok(assignment, "one seeded assignment must target an assessment");
+  assert.equal(assignment?.target_id, "assessment-us-ca-p1-add-subtract-check");
+  assert.equal(assignment?.status, "active");
+
+  const assessmentAssignmentId = assignment?.id;
+  for (const shouldSeedDemoUser of [() => true, () => false]) {
+    const submissions = module.teacherOpsSeedSubmissionRecords?.("2026-06-20T10:00:00.000Z", {
+      shouldSeedDemoUser,
+      demoUserId: "student-peter"
+    }) ?? [];
+    const linked = submissions.find((candidate) => candidate.assignment_id === assessmentAssignmentId);
+    assert.ok(linked, "the enrolled demo learner needs a submission row for it to appear in her list");
+    assert.equal(linked?.student_id, "student-shirleen-us");
+    assert.equal(linked?.status, "not-started");
+  }
 });
 
 test("teacher ops assignment persistence owns seed submission records for legacy userStore", async () => {
@@ -412,10 +456,25 @@ test("teacher ops assignment persistence owns seed submission records for legacy
   assert.match(rootSource, /teacherOpsSeedSubmissionRecords as seedSubmissionsFromTeacherOpsAssignment/);
   assert.doesNotMatch(rootSource, /function seedSubmissions\b/);
 
+  // The California Grade 1 row is seeded either way: that learner is a separate
+  // seeded account from the demo user this flag gates.
+  const californiaGradeOneSubmission = {
+    id: "submission-us-ca-p1-add-subtract-check-shirleen",
+    assignment_id: "assignment-us-ca-p1-add-subtract-check",
+    student_id: "student-shirleen-us",
+    status: "not-started",
+    score: null,
+    submitted_at: null,
+    graded_at: null,
+    feedback_en: "",
+    feedback_zh: "",
+    updated_at: "2026-06-20T10:00:00.000Z"
+  };
+
   assert.deepEqual(module.teacherOpsSeedSubmissionRecords?.("2026-06-20T10:00:00.000Z", {
     shouldSeedDemoUser: () => false,
     demoUserId: "student-peter"
-  }), []);
+  }), [californiaGradeOneSubmission]);
 
   assert.deepEqual(module.teacherOpsSeedSubmissionRecords?.("2026-06-20T10:00:00.000Z", {
     shouldSeedDemoUser: () => true,
@@ -432,7 +491,8 @@ test("teacher ops assignment persistence owns seed submission records for legacy
       feedback_en: "",
       feedback_zh: "",
       updated_at: "2026-06-20T10:00:00.000Z"
-    }
+    },
+    californiaGradeOneSubmission
   ]);
 });
 
@@ -579,13 +639,15 @@ test("teacher ops assignment persistence owns assignment collection normalizatio
 
   assert.deepEqual(normalized?.assignments.map((assignment) => assignment.id), [
     "assignment-quadratics-checkpoint",
+    "assignment-us-ca-p1-add-subtract-check",
     "assignment-custom"
   ]);
   assert.equal(normalized?.assignments[0]?.title_en, "Legacy checkpoint");
   assert.equal(normalized?.assignments[0]?.count_towards_grade, true);
-  assert.equal(normalized?.assignments[1]?.count_towards_grade, false);
+  assert.equal(normalized?.assignments[2]?.count_towards_grade, false);
   assert.deepEqual(normalized?.submissions.map((submission) => submission.id), [
     "submission-quadratics-student-peter",
+    "submission-us-ca-p1-add-subtract-check-shirleen",
     "submission-custom"
   ]);
   assert.equal(normalized?.submissions[0]?.student_id, "student-custom");
@@ -617,9 +679,40 @@ test("teacher ops assignment persistence owns assignment collection normalizatio
         created_by: "teacher-hk",
         created_at: "2026-06-20T10:00:00.000Z",
         updated_at: "2026-06-20T10:00:00.000Z"
+      },
+      {
+        id: "assignment-us-ca-p1-add-subtract-check",
+        class_id: "class-us-ca-p1-2026",
+        title_en: "Add and subtract check",
+        title_zh: "加減法檢測",
+        description_en: "Four questions on adding and taking away. You can try it more than once.",
+        description_zh: "四題加法和減法練習，可以做多過一次。",
+        content_type: "assessment",
+        target_id: "assessment-us-ca-p1-add-subtract-check",
+        status: "active",
+        due_at: "2026-06-27T10:00:00.000Z",
+        allow_retake: true,
+        show_answers: true,
+        count_towards_grade: false,
+        created_by: "teacher-scott-us",
+        created_at: "2026-06-20T10:00:00.000Z",
+        updated_at: "2026-06-20T10:00:00.000Z"
       }
     ],
-    submissions: []
+    submissions: [
+      {
+        id: "submission-us-ca-p1-add-subtract-check-shirleen",
+        assignment_id: "assignment-us-ca-p1-add-subtract-check",
+        student_id: "student-shirleen-us",
+        status: "not-started",
+        score: null,
+        submitted_at: null,
+        graded_at: null,
+        feedback_en: "",
+        feedback_zh: "",
+        updated_at: "2026-06-20T10:00:00.000Z"
+      }
+    ]
   });
 });
 
