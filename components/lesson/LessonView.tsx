@@ -5,6 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import type { ComponentType, FormEvent, ReactNode } from "react";
 import { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } from "react";
+import { useStudentAccommodations } from "@/components/accommodations/useStudentAccommodations";
 import { useAITutor, type TutorContext, type TutorSelectionHelpType } from "@/components/ai/AITutorProvider";
 import { AnimatePresence, motion, useReducedMotion } from "@/components/ui/Motion";
 import { LessonBackToTopButton } from "@/components/lesson/LessonBackToTopButton";
@@ -41,6 +42,14 @@ import {
 } from "@/components/lesson/lessonContentText";
 import { MathText } from "@/components/math/MathText";
 import { normalizeMathTextForDisplay } from "@/components/math/mathTextFormatting";
+import {
+  PracticeMissionTrail,
+  PracticeStarReward,
+  ReadAloudIcon,
+  SoundOffIcon,
+  SoundOnIcon
+} from "@/components/practice/PracticeQuestPager";
+import { useReadAloud } from "@/components/practice/useReadAloud";
 import { dictionary, useSettings } from "@/components/providers/AppProviders";
 import { SectionHeader } from "@/components/ui/SectionHeader";
 import { getMainlandHjbHighLessonIllustration } from "@/data/mainlandHjbHighLessonIllustrations";
@@ -52,10 +61,24 @@ import { getMainlandPepPrimaryLessonIllustration } from "@/data/mainlandPepPrima
 import { getUsArkansasMiddleSchoolLessonIllustration } from "@/data/usArkansasMiddleSchoolLessonIllustrations";
 import { getCcssTextbookLesson } from "@/data/ccssTextbookRegistry";
 import { getUsCaliforniaLessonIllustration } from "@/data/usCaliforniaLessonIllustrations";
+import { classifyPracticeIslandTopic } from "@/data/practiceIslandRegions";
 import type { FeaturedLabDefinition, VisualizationModuleId } from "@/data/visualizationLabs";
 import { lessonHrefForSlug } from "@/lib/lessonLinks";
+import {
+  awardPracticeIslandStars,
+  practiceIslandStarStorageKey,
+  practiceIslandStarsForAccuracy,
+  readPracticeIslandStarRecord
+} from "@/lib/practiceIslandProgress";
 import { dedupePracticeQuestions } from "@/lib/practiceQuestionDeduping";
+import {
+  playPracticeSound,
+  practiceSoundStorageKey,
+  readPracticeSoundEnabled
+} from "@/lib/practiceSound";
 import { studentRoadmapPath } from "@/lib/roadmapRoutes";
+import { cn } from "@/lib/utils";
+import { isYoungLearnerPracticeRound } from "@/lib/youngLearnerPractice";
 import type { AttemptFeedback, Language, LessonBlock, LessonDetail, LessonSummary, LocalizedText, PublicQuestion } from "@/types";
 
 type LessonResponse = {
@@ -586,7 +609,7 @@ function clampLessonQuestionIndex(index: number, questionCount: number) {
 
 type LessonQuestionPagerProps = {
   allAnswersChecked: boolean;
-  checkedCount: number;
+  answerResults: Record<string, boolean>;
   lesson: LessonDetail;
   onAnswered: (question: PublicQuestion, feedback: AttemptFeedback) => void;
   onCheckAllAnswers: () => void;
@@ -596,16 +619,20 @@ type LessonQuestionPagerProps = {
 
 function LessonQuestionPager({
   allAnswersChecked,
-  checkedCount,
+  answerResults,
   lesson,
   onAnswered,
   onCheckAllAnswers,
   onQuestionStarted,
   questions
 }: LessonQuestionPagerProps) {
-  const { t, text } = useSettings();
+  const { currentUser, language, t, text } = useSettings();
+  const prefersReducedMotion = useReducedMotion();
   const [currentIndex, setCurrentIndex] = useState(0);
   const [jumpValue, setJumpValue] = useState("1");
+  const [soundEnabled, setSoundEnabled] = useState(false);
+  const { accommodations } = useStudentAccommodations();
+  const readAloud = useReadAloud(language);
   const autoAdvanceTimerRef = useRef<number | null>(null);
   const questionSignature = useMemo(() => questions.map((question) => question.id).join("|"), [questions]);
   const questionCount = questions.length;
@@ -640,6 +667,28 @@ function LessonQuestionPager({
   useEffect(() => {
     setJumpValue(questionCount ? String(currentIndex + 1) : "");
   }, [currentIndex, questionCount]);
+
+  useEffect(() => {
+    setSoundEnabled(readPracticeSoundEnabled(window.localStorage.getItem(practiceSoundStorageKey(currentUser?.id))));
+  }, [currentUser?.id]);
+
+  const handleSoundToggle = useCallback(() => {
+    setSoundEnabled((current) => {
+      const next = !current;
+      try {
+        window.localStorage.setItem(practiceSoundStorageKey(currentUser?.id), String(next));
+      } catch {
+        // The preference stays session-only when storage is unavailable.
+      }
+      return next;
+    });
+  }, [currentUser?.id]);
+
+  // Stop any read-aloud playback when the learner moves to a different question.
+  const stopReadAloud = readAloud.stop;
+  useEffect(() => {
+    stopReadAloud();
+  }, [currentIndex, questionSignature, stopReadAloud]);
 
   useEffect(() => () => clearAutoAdvance(), [clearAutoAdvance]);
 
@@ -677,8 +726,12 @@ function LessonQuestionPager({
 
   const handleAnswered = useCallback((question: PublicQuestion, feedback: AttemptFeedback) => {
     const answeredIndex = questions.findIndex((item) => item.id === question.id);
+    const isRoundNowComplete = questions.every((item) => item.id === question.id || answerResults[item.id] !== undefined);
 
     onAnswered(question, feedback);
+    if (soundEnabled) {
+      playPracticeSound(isRoundNowComplete ? "complete" : feedback.correct ? "correct" : "wrong");
+    }
     if (answeredIndex < 0 || answeredIndex !== currentIndex || answeredIndex >= questionCount - 1) return;
 
     clearAutoAdvance();
@@ -688,34 +741,54 @@ function LessonQuestionPager({
         latestIndex === answeredIndex ? clampLessonQuestionIndex(answeredIndex + 1, questionCount) : latestIndex
       ));
     }, autoAdvanceDelayMs);
-  }, [clearAutoAdvance, currentIndex, onAnswered, questionCount, questions]);
+  }, [answerResults, clearAutoAdvance, currentIndex, onAnswered, questionCount, questions, soundEnabled]);
+
+  const isYoungLearnerRound = isYoungLearnerPracticeRound(questions);
+  // Pager header shows the round's live star haul on the right of the heading.
+  const correctCount = questions.reduce((sum, question) => sum + (answerResults[question.id] === true ? 1 : 0), 0);
+  const answeredCount = questions.reduce((sum, question) => sum + (answerResults[question.id] !== undefined ? 1 : 0), 0);
 
   if (!questionCount) return null;
 
   return (
     <div className="grid gap-5 rounded-[28px] border border-white/80 bg-white/95 p-4 shadow-[0_22px_46px_rgba(15,23,42,0.12)] dark:border-white/10 dark:bg-slate-950/75 sm:p-5">
-      <div className="grid gap-4 rounded-3xl border border-sky-100 bg-sky-50/80 p-4 shadow-sm dark:border-cyan-300/15 dark:bg-cyan-950/25 sm:grid-cols-[minmax(0,1fr)_auto] sm:items-center sm:p-5">
-        <div>
-          <h2 className="text-2xl font-black text-slate-950 dark:text-white">
-            {t({ en: "Lesson practice", zh: "課節練習", zhHans: "课时练习" })}
-          </h2>
-          <p aria-live="polite" className="mt-2 text-sm font-black uppercase tracking-[0.16em] text-blue-600 dark:text-cyan-200">
-            {t({
-              en: `Question ${currentQuestionNumber} of ${questionCount}`,
-              zh: `第 ${currentQuestionNumber} 題，共 ${questionCount} 題`,
-              zhHans: `第 ${currentQuestionNumber} 题，共 ${questionCount} 题`
-            })}
-          </p>
-          <div className="mt-3 h-3 max-w-xl overflow-hidden rounded-full bg-white shadow-inner dark:bg-white/10">
-            <div
-              className="h-full rounded-full bg-gradient-to-r from-emerald-400 via-sky-400 to-blue-500"
-              style={{ width: `${Math.max(6, (currentQuestionNumber / questionCount) * 100)}%` }}
-            />
+      <div className="flex flex-col gap-4 rounded-3xl border border-sky-100 bg-gradient-to-br from-sky-50 via-white to-cyan-50/70 p-4 shadow-sm dark:border-cyan-300/15 dark:from-cyan-950/35 dark:via-slate-950/55 dark:to-slate-950/40 sm:p-5">
+        <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+          <div>
+            <h2 className="text-2xl font-black text-slate-950 dark:text-white">
+              {t({ en: "Lesson practice", zh: "課節練習", zhHans: "课时练习" })}
+            </h2>
+            <p aria-live="polite" className="mt-1 text-sm font-black uppercase tracking-[0.18em] text-blue-600 dark:text-cyan-200">
+              {t({
+                en: `Question ${currentQuestionNumber} of ${questionCount}`,
+                zh: `第 ${currentQuestionNumber} 題，共 ${questionCount} 題`,
+                zhHans: `第 ${currentQuestionNumber} 题，共 ${questionCount} 题`
+              })}
+            </p>
           </div>
-          <p className="mt-4 text-2xl font-black leading-9 text-slate-800 dark:text-slate-100 sm:text-3xl sm:leading-10">
-            {checkedCount}/{questionCount} {t({ en: "answers checked", zh: "題已檢查", zhHans: "题已检查" })}
-          </p>
-          <div className="mt-3 flex flex-wrap gap-2">
+          <PracticeStarReward
+            correctCount={correctCount}
+            answeredCount={answeredCount}
+            total={questionCount}
+            t={t}
+            prefersReducedMotion={prefersReducedMotion}
+            themed
+          />
+        </div>
+
+        <PracticeMissionTrail
+          answerResults={answerResults}
+          currentIndex={currentIndex}
+          onSelect={goToIndex}
+          prefersReducedMotion={prefersReducedMotion}
+          questionIds={questions.map((question) => question.id)}
+          t={t}
+          testId="lesson-mission-trail"
+          themed
+        />
+
+        <div className="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
+          <div className="flex flex-wrap gap-2">
             <button
               type="button"
               aria-label={t({ en: "Previous question", zh: "上一題", zhHans: "上一题" })}
@@ -730,43 +803,89 @@ function LessonQuestionPager({
               aria-label={t({ en: "Next question", zh: "下一題", zhHans: "下一题" })}
               onClick={goToNext}
               disabled={currentIndex >= questionCount - 1}
-              className="focus-ring min-h-11 rounded-full bg-blue-600 px-5 py-2 text-sm font-black text-white shadow-[0_6px_0_#1d4ed8] transition enabled:hover:-translate-y-0.5 disabled:cursor-not-allowed disabled:opacity-45 dark:bg-cyan-300 dark:text-slate-950 dark:shadow-[0_6px_0_rgba(8,145,178,0.55)]"
+              className="focus-ring min-h-11 rounded-full bg-blue-600 px-6 py-2 text-sm font-black text-white shadow-[0_6px_0_#1d4ed8] transition enabled:hover:-translate-y-0.5 enabled:active:translate-y-0.5 enabled:active:shadow-[0_2px_0_#1d4ed8] disabled:cursor-not-allowed disabled:opacity-45 dark:bg-cyan-300 dark:text-slate-950 dark:shadow-[0_6px_0_rgba(8,145,178,0.55)]"
             >
               {t({ en: "Next >", zh: "下一題 >", zhHans: "下一题 >" })}
             </button>
-          </div>
-        </div>
-
-        <div className="grid gap-3 sm:w-64">
-          <form onSubmit={handleJump} noValidate className="grid gap-2">
-            <div className="grid grid-cols-[minmax(0,1fr)_auto] gap-2">
-              <input
-                aria-label={t({ en: "Jump to", zh: "跳到題號", zhHans: "跳到题号" })}
-                type="number"
-                min={1}
-                max={questionCount}
-                value={jumpValue}
-                onChange={(event) => setJumpValue(event.target.value)}
-                className="focus-ring min-h-14 w-full rounded-full border border-blue-100 bg-white px-5 py-3 text-lg font-black text-blue-950 shadow-sm [appearance:textfield] placeholder:text-slate-400 focus:outline-none dark:border-cyan-300/20 dark:bg-slate-950/75 dark:text-white [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none"
-              />
+            <button
+              type="button"
+              onClick={handleSoundToggle}
+              aria-pressed={soundEnabled}
+              aria-label={soundEnabled
+                ? t({ en: "Turn sound off", zh: "關閉音效", zhHans: "关闭音效" })
+                : t({ en: "Turn sound on", zh: "開啟音效", zhHans: "开启音效" })}
+              className="focus-ring grid min-h-11 min-w-11 place-items-center rounded-full border border-blue-200 bg-white px-3 text-blue-700 shadow-sm transition hover:-translate-y-0.5 dark:border-cyan-300/25 dark:bg-white/[0.08] dark:text-cyan-100"
+            >
+              {soundEnabled ? <SoundOnIcon /> : <SoundOffIcon />}
+            </button>
+            {accommodations.readAloud && readAloud.supported ? (
               <button
-                type="submit"
-                className="focus-ring rounded-full bg-blue-950 px-5 py-3 text-sm font-black text-white shadow-none transition hover:-translate-y-0.5 hover:bg-blue-900 dark:bg-white dark:text-slate-950 dark:hover:bg-slate-100"
+                type="button"
+                onClick={() => {
+                  if (readAloud.speaking) {
+                    readAloud.stop();
+                    return;
+                  }
+                  const question = questions[currentIndex];
+                  if (!question) return;
+                  const parts = [t(question.prompt), ...(question.options ?? []).map((option) => t(option))];
+                  readAloud.speak(parts.join(". "));
+                }}
+                aria-pressed={readAloud.speaking}
+                aria-label={readAloud.speaking
+                  ? t({ en: "Stop reading", zh: "停止朗讀", zhHans: "停止朗读" })
+                  : t({ en: "Read question aloud", zh: "朗讀題目", zhHans: "朗读题目" })}
+                className={cn(
+                  "focus-ring flex min-h-11 items-center gap-2 rounded-full border px-4 text-sm font-black shadow-sm transition hover:-translate-y-0.5",
+                  readAloud.speaking
+                    ? "border-violet-500 bg-violet-600 text-white"
+                    : "border-violet-200 bg-white text-violet-700 dark:border-violet-300/30 dark:bg-white/[0.08] dark:text-violet-200"
+                )}
               >
-                {t({ en: "Jump", zh: "跳轉", zhHans: "跳转" })}
+                <ReadAloudIcon />
+                {readAloud.speaking
+                  ? t({ en: "Stop", zh: "停止", zhHans: "停止" })
+                  : t({ en: "Read aloud", zh: "朗讀", zhHans: "朗读" })}
               </button>
-            </div>
-          </form>
-          <button
-            type="button"
-            onClick={onCheckAllAnswers}
-            disabled={allAnswersChecked}
-            className="focus-ring inline-flex min-h-12 justify-center rounded-full bg-slate-950 px-5 py-3 text-sm font-black text-white shadow-lg shadow-slate-950/10 transition enabled:hover:-translate-y-0.5 disabled:cursor-not-allowed disabled:opacity-55 dark:bg-white dark:text-slate-950"
-          >
-            {allAnswersChecked
-              ? t({ en: "All answers checked", zh: "全部答案已檢查", zhHans: "全部答案已检查" })
-              : t({ en: "Check all answers", zh: "檢查全部答案", zhHans: "检查全部答案" })}
-          </button>
+            ) : null}
+          </div>
+
+          <div className="grid gap-3 sm:w-64">
+            {isYoungLearnerRound ? null : (
+              <form onSubmit={handleJump} noValidate className="grid gap-2">
+                <label htmlFor="lesson-question-jump" className="text-xs font-black uppercase tracking-[0.18em] text-blue-950 dark:text-cyan-100">
+                  {t({ en: "Jump to", zh: "跳到題號", zhHans: "跳到题号" })}
+                </label>
+                <div className="grid grid-cols-[minmax(0,1fr)_auto] gap-2">
+                  <input
+                    id="lesson-question-jump"
+                    type="number"
+                    min={1}
+                    max={questionCount}
+                    value={jumpValue}
+                    onChange={(event) => setJumpValue(event.target.value)}
+                    className="focus-ring min-h-14 w-full rounded-full border border-blue-100 bg-white px-5 py-3 text-lg font-black text-blue-950 shadow-sm [appearance:textfield] placeholder:text-slate-400 focus:outline-none dark:border-cyan-300/20 dark:bg-slate-950/75 dark:text-white [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none"
+                  />
+                  <button
+                    type="submit"
+                    className="focus-ring rounded-full bg-blue-950 px-5 py-3 text-sm font-black text-white shadow-[0_6px_0_#1e3a8a] transition hover:-translate-y-0.5 dark:bg-white dark:text-slate-950 dark:shadow-none dark:hover:bg-slate-100"
+                  >
+                    {t({ en: "Jump", zh: "跳轉", zhHans: "跳转" })}
+                  </button>
+                </div>
+              </form>
+            )}
+            <button
+              type="button"
+              onClick={onCheckAllAnswers}
+              disabled={allAnswersChecked}
+              className="focus-ring inline-flex min-h-12 justify-center rounded-full bg-slate-950 px-5 py-3 text-sm font-black text-white shadow-lg shadow-slate-950/10 transition enabled:hover:-translate-y-0.5 disabled:cursor-not-allowed disabled:opacity-55 dark:bg-white dark:text-slate-950"
+            >
+              {allAnswersChecked
+                ? t({ en: "All answers checked", zh: "全部答案已檢查", zhHans: "全部答案已检查" })
+                : t({ en: "Check all answers", zh: "檢查全部答案", zhHans: "检查全部答案" })}
+            </button>
+          </div>
         </div>
       </div>
 
@@ -2063,11 +2182,47 @@ export function LessonView({ gradeLessons = [], slug, initialLesson, visualizati
       wrongResults: results.filter((result) => !result.correct)
     };
   }, [lessonPracticeQuestions, questionResults]);
+  // Flattened per-question correctness for the pager's quest trail and star chip.
+  const lessonAnswerResults = useMemo(() => {
+    const results: Record<string, boolean> = {};
+    lessonPracticeQuestions.forEach((question) => {
+      const result = questionResults[question.id];
+      if (result) results[question.id] = result.correct;
+    });
+    return results;
+  }, [lessonPracticeQuestions, questionResults]);
   const hasPerfectLessonPracticeFinish = Boolean(
     lessonPracticeSummary?.isComplete &&
     lessonPracticeSummary.totalQuestions === lessonPracticeQuestionLimit &&
     lessonPracticeSummary.correctCount === lessonPracticeQuestionLimit
   );
+  // Lesson practice pays into the same Practice Island star economy as the
+  // arena: one best-wins award per completed round, credited to the lesson
+  // topic's island region so the pager's star chip "counts" for real.
+  const awardedLessonPracticeStarsSlugRef = useRef<string | null>(null);
+  useEffect(() => {
+    if (!lesson || !lessonPracticeSummary?.isComplete) return;
+    if (awardedLessonPracticeStarsSlugRef.current === lesson.slug) return;
+
+    awardedLessonPracticeStarsSlugRef.current = lesson.slug;
+    const regionId = classifyPracticeIslandTopic({ topicId: lesson.topicId, topic: lesson.topic?.title });
+    const stars = practiceIslandStarsForAccuracy(lessonPracticeSummary.accuracyPercent);
+    try {
+      const storageKey = practiceIslandStarStorageKey(currentUser?.id);
+      const currentRecord = readPracticeIslandStarRecord(window.localStorage.getItem(storageKey));
+      const nextRecord = awardPracticeIslandStars(currentRecord, regionId, stars);
+      if (nextRecord !== currentRecord) window.localStorage.setItem(storageKey, JSON.stringify(nextRecord));
+    } catch {
+      // Storage unavailable: the server-side record below still counts the stars.
+    }
+    if (currentUser?.role === "student") {
+      void fetch("/api/gamification/practice-island", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ regionId, stars })
+      }).catch(() => undefined);
+    }
+  }, [currentUser?.id, currentUser?.role, lesson, lessonPracticeSummary]);
   const lessonDisplayTitle = lesson ? cleanLessonDisplayTitle(text(lesson.title)) : "";
   const lessonGalaxyItems = useMemo<LessonGalaxyItem[]>(() => {
     if (!lesson) return [];
@@ -2197,13 +2352,20 @@ export function LessonView({ gradeLessons = [], slug, initialLesson, visualizati
   }, [slug]);
 
   useEffect(() => {
+    setLesson(normalizedInitialLesson);
+    setChecklistState(normalizedInitialLesson?.checklistState ?? {});
+    setLessonLoadState(normalizedInitialLesson ? "ready" : "idle");
+  }, [normalizedInitialLesson]);
+
+  // Keyed on the slug, NOT on initialLesson identity: a server re-render
+  // (router.refresh, dev RSC refresh) delivers a fresh initialLesson object for
+  // the SAME lesson, and resetting here wiped the learner's in-round practice
+  // answers, summary, and celebration state mid-session.
+  useEffect(() => {
     if (galaxyDirectoryCloseTimerRef.current !== null) {
       window.clearTimeout(galaxyDirectoryCloseTimerRef.current);
       galaxyDirectoryCloseTimerRef.current = null;
     }
-    setLesson(normalizedInitialLesson);
-    setChecklistState(normalizedInitialLesson?.checklistState ?? {});
-    setLessonLoadState(normalizedInitialLesson ? "ready" : "idle");
     questionStartedAtRef.current = {};
     setQuestionResults({});
     setIsSavingLessonProgress(false);
@@ -2215,7 +2377,7 @@ export function LessonView({ gradeLessons = [], slug, initialLesson, visualizati
     setPerfectCelebrationShown(false);
     setShowCelebration(false);
     setLessonSelection(null);
-  }, [normalizedInitialLesson, slug]);
+  }, [slug]);
 
   useEffect(() => {
     return () => {
@@ -3125,7 +3287,7 @@ export function LessonView({ gradeLessons = [], slug, initialLesson, visualizati
           <div className="space-y-4">
             <LessonQuestionPager
               allAnswersChecked={allLessonPracticeAnswersChecked}
-              checkedCount={checkedLessonPracticeCount}
+              answerResults={lessonAnswerResults}
               lesson={lesson}
               onAnswered={handleLessonQuestionAnswered}
               onCheckAllAnswers={checkAllLessonAnswers}
