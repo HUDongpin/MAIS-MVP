@@ -4,7 +4,7 @@ import dynamic from "next/dynamic";
 import Image from "next/image";
 import Link from "next/link";
 import type { ComponentType, FormEvent, ReactNode } from "react";
-import { Fragment, useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } from "react";
+import { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } from "react";
 import { useStudentAccommodations } from "@/components/accommodations/useStudentAccommodations";
 import { useAITutor, type TutorContext, type TutorSelectionHelpType } from "@/components/ai/AITutorProvider";
 import { AnimatePresence, motion, useReducedMotion } from "@/components/ui/Motion";
@@ -42,7 +42,13 @@ import {
 } from "@/components/lesson/lessonContentText";
 import { MathText } from "@/components/math/MathText";
 import { normalizeMathTextForDisplay } from "@/components/math/mathTextFormatting";
-import { NovaCompanion } from "@/components/practice/NovaCompanion";
+import {
+  PracticeMissionTrail,
+  PracticeStarReward,
+  ReadAloudIcon,
+  SoundOffIcon,
+  SoundOnIcon
+} from "@/components/practice/PracticeQuestPager";
 import { useReadAloud } from "@/components/practice/useReadAloud";
 import { dictionary, useSettings } from "@/components/providers/AppProviders";
 import { SectionHeader } from "@/components/ui/SectionHeader";
@@ -594,120 +600,6 @@ function clampLessonQuestionIndex(index: number, questionCount: number) {
   return Math.min(questionCount - 1, Math.max(0, index));
 }
 
-function LessonPagerStarIcon({ className = "size-5" }: { className?: string }) {
-  return (
-    <svg aria-hidden="true" viewBox="0 0 24 24" className={className} fill="none">
-      <path d="m12 3 2.6 5.5 6 .8-4.4 4.2 1.1 6-5.3-2.9-5.3 2.9 1.1-6-4.4-4.2 6-.8L12 3Z" fill="currentColor" stroke="currentColor" strokeLinejoin="round" strokeWidth="1.4" />
-    </svg>
-  );
-}
-
-function LessonPagerRetryIcon({ className = "size-5" }: { className?: string }) {
-  return (
-    <svg aria-hidden="true" viewBox="0 0 24 24" className={className} fill="none">
-      <path d="M20 12a8 8 0 1 1-2.35-5.65M20 4v4h-4" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.4" />
-    </svg>
-  );
-}
-
-function LessonSoundOnIcon({ className = "size-5" }: { className?: string }) {
-  return (
-    <svg aria-hidden="true" viewBox="0 0 24 24" className={className} fill="none">
-      <path d="M4 9v6h4l5 4V5L8 9H4Z" fill="currentColor" />
-      <path d="M16.5 8.5a5 5 0 0 1 0 7M19 6a8.5 8.5 0 0 1 0 12" stroke="currentColor" strokeLinecap="round" strokeWidth="2" />
-    </svg>
-  );
-}
-
-function LessonSoundOffIcon({ className = "size-5" }: { className?: string }) {
-  return (
-    <svg aria-hidden="true" viewBox="0 0 24 24" className={className} fill="none">
-      <path d="M4 9v6h4l5 4V5L8 9H4Z" fill="currentColor" />
-      <path d="m16 9 6 6M22 9l-6 6" stroke="currentColor" strokeLinecap="round" strokeWidth="2" />
-    </svg>
-  );
-}
-
-function LessonReadAloudIcon({ className = "size-5" }: { className?: string }) {
-  return (
-    <svg aria-hidden="true" viewBox="0 0 24 24" className={className} fill="none">
-      <path d="M4 9v6h3l4 3.5V5.5L7 9H4Z" fill="currentColor" />
-      <path d="M14.5 8.5a4.5 4.5 0 0 1 0 7" stroke="currentColor" strokeLinecap="round" strokeWidth="2" />
-      <path d="M17.5 6a8 8 0 0 1 0 12" stroke="currentColor" strokeLinecap="round" strokeWidth="2" opacity="0.6" />
-    </svg>
-  );
-}
-
-type LessonPracticeStarRewardProps = {
-  correctCount: number;
-  answeredCount: number;
-  total: number;
-  t: (localized: LocalizedText) => string;
-  prefersReducedMotion: boolean | null;
-};
-
-/**
- * Mirrors the Practice Arena's live star haul chip so lesson practice pays out
- * the same motivation loop: Nova reacts as stars land and pips fill per answer.
- */
-function LessonPracticeStarReward({ correctCount, answeredCount, total, t, prefersReducedMotion }: LessonPracticeStarRewardProps) {
-  const roundComplete = answeredCount >= total && total > 0;
-  const mood = correctCount > 0 ? "cheer" : "happy";
-  const pips = Array.from({ length: total }, (_, index) => {
-    if (index < correctCount) return "earned" as const;
-    if (index < answeredCount) return "missed" as const;
-    return "open" as const;
-  });
-
-  return (
-    <div
-      aria-live="polite"
-      aria-label={t({
-        en: `${correctCount} of ${total} stars earned so far`,
-        zh: `暫時贏得 ${total} 顆星中的 ${correctCount} 顆`,
-        zhHans: `暂时赢得 ${total} 颗星中的 ${correctCount} 颗`
-      })}
-      className="flex items-center gap-3 self-start rounded-[1.5rem] border border-amber-200/90 bg-gradient-to-br from-amber-50 to-yellow-50 px-4 py-2.5 shadow-sm dark:border-amber-300/25 dark:from-amber-950/35 dark:to-yellow-950/25 sm:self-auto"
-    >
-      <motion.span
-        key={`nova-${correctCount}`}
-        className="grid place-items-center"
-        initial={prefersReducedMotion ? false : { scale: 0.8, rotate: -8 }}
-        animate={prefersReducedMotion ? undefined : { scale: [0.8, 1.12, 1], rotate: [-8, 6, 0] }}
-        transition={{ duration: 0.5, ease: "easeOut" }}
-      >
-        <NovaCompanion mood={mood} className="h-11 w-11" />
-      </motion.span>
-      <div aria-hidden="true" className="min-w-0">
-        <p className="text-[11px] font-black uppercase tracking-[0.14em] text-amber-600 dark:text-amber-300">
-          {roundComplete
-            ? t({ en: "Stars earned", zh: "贏得星星", zhHans: "赢得星星" })
-            : t({ en: "Stars so far", zh: "目前星星", zhHans: "目前星星" })}
-        </p>
-        <p className="flex items-baseline gap-1 font-black leading-none text-amber-700 dark:text-amber-200">
-          <span className="text-2xl">{correctCount}</span>
-          <span className="text-sm text-amber-500/90 dark:text-amber-300/80">/ {total}</span>
-        </p>
-        <div aria-hidden="true" className="mt-1.5 flex flex-wrap gap-1">
-          {pips.map((state, index) => (
-            <LessonPagerStarIcon
-              key={index}
-              className={cn(
-                "size-3.5 transition",
-                state === "earned"
-                  ? "text-amber-400"
-                  : state === "missed"
-                    ? "text-amber-200 dark:text-amber-200/45"
-                    : "text-amber-200/50 dark:text-amber-200/25"
-              )}
-            />
-          ))}
-        </div>
-      </div>
-    </div>
-  );
-}
-
 type LessonQuestionPagerProps = {
   allAnswersChecked: boolean;
   answerResults: Record<string, boolean>;
@@ -844,48 +736,10 @@ function LessonQuestionPager({
     }, autoAdvanceDelayMs);
   }, [answerResults, clearAutoAdvance, currentIndex, onAnswered, questionCount, questions, soundEnabled]);
 
-  const trailRef = useRef<HTMLDivElement | null>(null);
-  const stoneRefs = useRef<(HTMLButtonElement | null)[]>([]);
-  const [trailAvatar, setTrailAvatar] = useState<{ x: number; y: number; ready: boolean }>({ x: 0, y: 0, ready: false });
-
-  // Anchor Nova above the active stone by measuring the DOM so the quest avatar
-  // lands exactly on center regardless of viewport width or question count.
-  useEffect(() => {
-    const measure = () => {
-      const container = trailRef.current;
-      const stone = stoneRefs.current[currentIndex];
-      if (!container || !stone) return;
-      const containerRect = container.getBoundingClientRect();
-      const stoneRect = stone.getBoundingClientRect();
-      setTrailAvatar({
-        x: stoneRect.left - containerRect.left + stoneRect.width / 2,
-        y: stoneRect.top - containerRect.top,
-        ready: true
-      });
-    };
-
-    measure();
-    const frame = requestAnimationFrame(measure);
-    const container = trailRef.current;
-    const observer = typeof ResizeObserver !== "undefined" ? new ResizeObserver(() => measure()) : null;
-    if (observer && container) observer.observe(container);
-    window.addEventListener("resize", measure);
-    return () => {
-      cancelAnimationFrame(frame);
-      observer?.disconnect();
-      window.removeEventListener("resize", measure);
-    };
-  }, [currentIndex, questionSignature, questionCount]);
-
   const isYoungLearnerRound = isYoungLearnerPracticeRound(questions);
   // Pager header shows the round's live star haul on the right of the heading.
   const correctCount = questions.reduce((sum, question) => sum + (answerResults[question.id] === true ? 1 : 0), 0);
   const answeredCount = questions.reduce((sum, question) => sum + (answerResults[question.id] !== undefined ? 1 : 0), 0);
-  // The lit stretch of trail reaches the current stone or the furthest answered one.
-  const reachedTrailIndex = questions.reduce(
-    (furthest, question, index) => (answerResults[question.id] !== undefined ? Math.max(furthest, index) : furthest),
-    currentIndex
-  );
 
   if (!questionCount) return null;
 
@@ -905,108 +759,26 @@ function LessonQuestionPager({
               })}
             </p>
           </div>
-          <LessonPracticeStarReward
+          <PracticeStarReward
             correctCount={correctCount}
             answeredCount={answeredCount}
             total={questionCount}
             t={t}
             prefersReducedMotion={prefersReducedMotion}
+            themed
           />
         </div>
 
-        <div
-          ref={trailRef}
-          data-testid="lesson-mission-trail"
-          className="relative flex flex-nowrap items-center gap-1 overflow-visible pt-12 sm:gap-1.5"
-        >
-          {trailAvatar.ready ? (
-            <motion.div
-              aria-hidden="true"
-              className="pointer-events-none absolute left-0 top-0 z-20"
-              initial={false}
-              animate={{ x: trailAvatar.x, y: trailAvatar.y }}
-              transition={prefersReducedMotion ? { duration: 0 } : { type: "spring", stiffness: 340, damping: 26, mass: 0.7 }}
-            >
-              <div className="-translate-x-1/2 -translate-y-full pb-1">
-                <motion.div
-                  className="grid place-items-center"
-                  animate={prefersReducedMotion ? undefined : { y: [0, -3, 0] }}
-                  transition={prefersReducedMotion ? undefined : { duration: 1.6, repeat: Infinity, ease: "easeInOut" }}
-                >
-                  <NovaCompanion mood="cheer" className="h-9 w-9 drop-shadow-[0_3px_4px_rgba(2,132,199,0.35)]" />
-                  <span aria-hidden="true" className="mt-px h-0 w-0 border-x-[5px] border-t-[7px] border-x-transparent border-t-amber-400" />
-                </motion.div>
-              </div>
-            </motion.div>
-          ) : null}
-
-          {questions.map((question, index) => {
-            const result = answerResults[question.id];
-            const isCurrentStone = index === currentIndex;
-            const stoneNumber = index + 1;
-            const stoneLabel = result === true
-              ? t({ en: `Question ${stoneNumber}: correct`, zh: `第 ${stoneNumber} 題：正確`, zhHans: `第 ${stoneNumber} 题：正确` })
-              : result === false
-                ? t({ en: `Question ${stoneNumber}: to review`, zh: `第 ${stoneNumber} 題：需重溫`, zhHans: `第 ${stoneNumber} 题：需重温` })
-                : t({ en: `Go to question ${stoneNumber}`, zh: `跳到第 ${stoneNumber} 題`, zhHans: `跳到第 ${stoneNumber} 题` });
-            const trailReached = index <= reachedTrailIndex;
-
-            return (
-              <Fragment key={question.id}>
-                {index > 0 ? (
-                  <div className="relative h-1.5 flex-1 sm:h-2" aria-hidden="true">
-                    <span className="absolute inset-0 rounded-full bg-sky-100 dark:bg-white/10" />
-                    <motion.span
-                      className="absolute inset-0 origin-left rounded-full bg-gradient-to-r from-emerald-300 via-sky-300 to-sky-400"
-                      initial={false}
-                      animate={{ scaleX: trailReached ? 1 : 0 }}
-                      transition={prefersReducedMotion ? { duration: 0 } : { duration: 0.5, ease: "easeOut" }}
-                    />
-                  </div>
-                ) : null}
-                <button
-                  ref={(element) => {
-                    stoneRefs.current[index] = element;
-                  }}
-                  type="button"
-                  onClick={() => goToIndex(index)}
-                  aria-label={stoneLabel}
-                  aria-current={isCurrentStone ? "step" : undefined}
-                  className={cn(
-                    "focus-ring relative grid size-11 shrink-0 place-items-center rounded-full border-2 text-base font-black shadow-sm transition hover:-translate-y-0.5 sm:size-12",
-                    result === true
-                      ? "border-emerald-400 bg-emerald-50 text-emerald-700 dark:border-emerald-300/60 dark:bg-emerald-950/40 dark:text-emerald-200"
-                      : result === false
-                        ? "border-amber-300 bg-amber-50 text-amber-600 dark:border-amber-300/50 dark:bg-amber-950/40 dark:text-amber-200"
-                        : isCurrentStone
-                          ? "border-blue-500 bg-white text-blue-700 ring-4 ring-blue-200 dark:border-cyan-300 dark:bg-slate-950 dark:text-cyan-100 dark:ring-cyan-300/30"
-                          : "border-sky-100 bg-white text-slate-400 dark:border-white/15 dark:bg-white/[0.06]"
-                  )}
-                >
-                  <motion.span
-                    key={`${question.id}:${String(result)}`}
-                    className="grid place-items-center"
-                    initial={prefersReducedMotion || result === undefined ? false : result ? { scale: 0 } : { x: 0 }}
-                    animate={
-                      prefersReducedMotion || result === undefined
-                        ? undefined
-                        : result
-                          ? { scale: [0, 1.35, 1], rotate: [0, 14, 0] }
-                          : { x: [0, -4, 4, -2, 0] }
-                    }
-                    transition={{ duration: 0.45, ease: "easeOut" }}
-                  >
-                    {result === true
-                      ? <LessonPagerStarIcon className="size-6 text-amber-400" />
-                      : result === false
-                        ? <LessonPagerRetryIcon className="size-5" />
-                        : stoneNumber}
-                  </motion.span>
-                </button>
-              </Fragment>
-            );
-          })}
-        </div>
+        <PracticeMissionTrail
+          answerResults={answerResults}
+          currentIndex={currentIndex}
+          onSelect={goToIndex}
+          prefersReducedMotion={prefersReducedMotion}
+          questionIds={questions.map((question) => question.id)}
+          t={t}
+          testId="lesson-mission-trail"
+          themed
+        />
 
         <div className="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
           <div className="flex flex-wrap gap-2">
@@ -1037,7 +809,7 @@ function LessonQuestionPager({
                 : t({ en: "Turn sound on", zh: "開啟音效", zhHans: "开启音效" })}
               className="focus-ring grid min-h-11 min-w-11 place-items-center rounded-full border border-blue-200 bg-white px-3 text-blue-700 shadow-sm transition hover:-translate-y-0.5 dark:border-cyan-300/25 dark:bg-white/[0.08] dark:text-cyan-100"
             >
-              {soundEnabled ? <LessonSoundOnIcon /> : <LessonSoundOffIcon />}
+              {soundEnabled ? <SoundOnIcon /> : <SoundOffIcon />}
             </button>
             {accommodations.readAloud && readAloud.supported ? (
               <button
@@ -1063,7 +835,7 @@ function LessonQuestionPager({
                     : "border-violet-200 bg-white text-violet-700 dark:border-violet-300/30 dark:bg-white/[0.08] dark:text-violet-200"
                 )}
               >
-                <LessonReadAloudIcon />
+                <ReadAloudIcon />
                 {readAloud.speaking
                   ? t({ en: "Stop", zh: "停止", zhHans: "停止" })
                   : t({ en: "Read aloud", zh: "朗讀", zhHans: "朗读" })}
