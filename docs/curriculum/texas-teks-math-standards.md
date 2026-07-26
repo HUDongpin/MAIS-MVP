@@ -1,0 +1,1694 @@
+# Texas Mathematics Curriculum Standards — TEKS (19 TAC Chapter 111), Complete Text
+
+> **What this file is.** The complete, verbatim text of the **Texas Essential Knowledge and
+> Skills (TEKS) for Mathematics**, Texas Administrative Code Title 19, Part 2, Chapter 111 —
+> every section of Subchapters A (Elementary), B (Middle School), C (High School), and
+> D (Other High School Mathematics Courses). This is the standards spine MAIS must target to
+> support a `US_TX_MATH` curriculum build (lesson pages, visualization labs, practice arena,
+> AI-tutor RAG grounding).
+>
+> **Retrieved:** 2026-07-26, from the Cornell Legal Information Institute mirror of the Texas
+> Administrative Code (https://www.law.cornell.edu/regulations/texas/title-19/part-2/chapter-111),
+> cross-checked against TEA's TEKS pages. 34 sections total.
+>
+> **License posture.** TEKS text is part of the Texas Administrative Code — a government edict,
+> in the public domain (unlike CCSS, which is copyrighted by NGA/CCSSO under a public license).
+> Storing the full standards text here therefore does not violate copyright; treat it as an
+> owner-approved exception to the 2026-05-23 safe-RAG decision
+> (`coordination/decisions/2026-05-23-us-top10-math-safe-rag.md`), which otherwise keeps full
+> standards text out of the repo. The boundary that still applies: **no STAAR items, no
+> publisher/textbook content, no TEA-authored guidance documents** — standards text only.
+>
+> **Version status (as of 2026-07-26).** K–8 (§§111.2–111.7, 111.26–111.28) and the classic
+> high-school courses (§§111.39–111.48) are the **2012-adopted TEKS** still in effect.
+> §§111.29–111.31 are the **middle school advanced (accelerated) mathematics TEKS, adopted
+> 2025, effective 7/6/2025**, including Grade 8 Algebra I (§111.31). The SBOE has an active
+> math TEKS review underway — re-verify this chapter against TEA before any production
+> content freeze.
+>
+> **How TEKS codes work.** A student expectation like **K.2A** = Kindergarten, knowledge-and-
+> skills statement 2, expectation (A) — formally §111.2(b)(2)(A). Knowledge-and-skills
+> statement (1) of every grade/course is the **mathematical process standards**, repeated
+> verbatim K–12. TEKS includes a **Personal Financial Literacy** strand in every grade K–8 —
+> content CCSS does not have.
+
+## Contents
+
+- **Subchapter A — Elementary (Kindergarten–Grade 5)**
+  - § 111.1 - Implementation of Texas Essential Knowledge and Skills for Mathematics, Elementary, Adopted 2012
+  - § 111.2 - Kindergarten, Adopted 2012
+  - § 111.3 - Grade 1, Adopted 2012
+  - § 111.4 - Grade 2, Adopted 2012
+  - § 111.5 - Grade 3, Adopted 2012
+  - § 111.6 - Grade 4, Adopted 2012
+  - § 111.7 - Grade 5, Adopted 2012
+- **Subchapter B — Middle School (Grades 6–8, incl. Advanced/Accelerated)**
+  - § 111.25 - Implementation of Texas Essential Knowledge and Skills for Mathematics, Middle School, Adopted 2012
+  - § 111.26 - Grade 6, Adopted 2012
+  - § 111.27 - Grade 7, Adopted 2012
+  - § 111.28 - Grade 8, Adopted 2012
+  - § 111.29 - [Effective 7/6/2025] Grade 6, Middle School Advanced Mathematics, Adopted 2025
+  - § 111.30 - [Effective 7/6/2025] Grade 7, Middle School Advanced Mathematics, Adopted 2025
+  - § 111.31 - [Effective 7/6/2025] Grade 8, Middle School Advanced Mathematics, Algebra I (One Credit), Adopted 2025
+- **Subchapter C — High School**
+  - § 111.38 - Implementation of Texas Essential Knowledge and Skills for Mathematics, High School, Adopted 2012
+  - § 111.39 - Algebra I, Adopted 2012 (One Credit)
+  - § 111.40 - Algebra II, Adopted 2012 (One-Half to One Credit)
+  - § 111.41 - Geometry, Adopted 2012 (One Credit)
+  - § 111.42 - Precalculus, Adopted 2012 (One-Half to One Credit)
+  - § 111.43 - Mathematical Models with Applications, Adopted 2012 (One Credit)
+  - § 111.44 - Advanced Quantitative Reasoning, Adopted 2012 (One-Half to One Credit)
+  - § 111.45 - Independent Study in Mathematics, Adopted 2012 (One-Half to One Credit)
+  - § 111.46 - Discrete Mathematics for Problem Solving, Adopted 2013 (One-Half to One Credit)
+  - § 111.47 - Statistics, Adopted 2015 (One Credit)
+  - § 111.48 - Algebraic Reasoning, Adopted 2015 (One Credit)
+- **Subchapter D — Other High School Mathematics Courses**
+  - § 111.51 - Implementation of Texas Essential Knowledge and Skills for Mathematics, Other High School Mathematics Courses
+  - § 111.53 - Advanced Placement (AP) Statistics (One Credit)
+  - § 111.54 - Advanced Placement (AP) Calculus AB (One Credit)
+  - § 111.55 - Advanced Placement (AP) Calculus BC (One Credit)
+  - § 111.56 - Advanced Placement (AP) Precalculus (One Credit)
+  - § 111.61 - International Baccalaureate (IB) Mathematics: Analysis and Approaches Standard Level (Two Credits)
+  - § 111.62 - International Baccalaureate (IB) Mathematics: Analysis and Approaches Higher Level (Two Credits)
+  - § 111.63 - International Baccalaureate (IB) Mathematics: Applications and Interpretations Standard Level (Two Credits)
+  - § 111.64 - International Baccalaureate (IB) Mathematics: Applications and Interpretations Higher Level (Two Credits)
+
+## Subchapter A — Elementary (Kindergarten–Grade 5)
+
+### § 111.1 - Implementation of Texas Essential Knowledge and Skills for Mathematics, Elementary, Adopted 2012
+
+- (a) The provisions of §§ 111.2-111.7 of this subchapter shall be implemented by school districts.
+- (b) No later than August 31, 2013, the commissioner of education shall determine whether instructional materials funding has been made available to Texas public schools for materials that cover the essential knowledge and skills for mathematics as adopted in §§ 111.2-111.7 of this subchapter.
+- (c) If the commissioner makes the determination that instructional materials funding has been made available under subsection (b) of this section, §§ 111.2-111.7 of this subchapter shall be implemented beginning with the 2014-2015 school year and apply to the 2014-2015 and subsequent school years.
+- (d) If the commissioner does not make the determination that instructional materials funding has been made available under subsection (b) of this section, the commissioner shall determine no later than August 31 of each subsequent school year whether instructional materials funding has been made available. If the commissioner determines that instructional materials funding has been made available, the commissioner shall notify the State Board of Education and school districts that §§ 111.2-111.7 of this subchapter shall be implemented for the following school year.
+
+### § 111.2 - Kindergarten, Adopted 2012
+
+- (a) Introduction.
+  - (1) The desire to achieve educational excellence is the driving force behind the Texas essential knowledge and skills for mathematics, guided by the college and career readiness standards. By embedding statistics, probability, and finance, while focusing on computational thinking, mathematical fluency, and solid understanding, Texas will lead the way in mathematics education and prepare all Texas students for the challenges they will face in the 21st century.
+  - (2) The process standards describe ways in which students are expected to engage in the content. The placement of the process standards at the beginning of the knowledge and skills listed for each grade and course is intentional. The process standards weave the other knowledge and skills together so that students may be successful problem solvers and use mathematics efficiently and effectively in daily life. The process standards are integrated at every grade level and course. When possible, students will apply mathematics to problems arising in everyday life, society, and the workplace. Students will use a problem-solving model that incorporates analyzing given information, formulating a plan or strategy, determining a solution, justifying the solution, and evaluating the problem-solving process and the reasonableness of the solution. Students will select appropriate tools such as real objects, manipulatives, algorithms, paper and pencil, and technology and techniques such as mental math, estimation, number sense, and generalization and abstraction to solve problems. Students will effectively communicate mathematical ideas, reasoning, and their implications using multiple representations such as symbols, diagrams, graphs, computer programs, and language. Students will use mathematical relationships to generate solutions and make connections and predictions. Students will analyze mathematical relationships to connect and communicate mathematical ideas. Students will display, explain, or justify mathematical ideas and arguments using precise mathematical language in written or oral communication.
+  - (3) For students to become fluent in mathematics, students must develop a robust sense of number. The National Research Council's report, "Adding It Up," defines procedural fluency as "skill in carrying out procedures flexibly, accurately, efficiently, and appropriately." As students develop procedural fluency, they must also realize that true problem solving may take time, effort, and perseverance. Students in Kindergarten are expected to perform their work without the use of calculators.
+  - (4) The primary focal areas in Kindergarten are understanding counting and cardinality, understanding addition as joining and subtraction as separating, and comparing objects by measurable attributes.
+    - (A) Students develop number and operations through several fundamental concepts. Students know number names and the counting sequence. Counting and cardinality lay a solid foundation for number. Students apply the principles of counting to make the connection between numbers and quantities.
+    - (B) Students use meanings of numbers to create strategies for solving problems and responding to practical situations involving addition and subtraction.
+    - (C) Students identify characteristics of objects that can be measured and directly compare objects according to these measurable attributes.
+  - (5) Statements that contain the word "including" reference content that must be mastered, while those containing the phrase "such as" are intended as possible illustrative examples.
+- (b) Knowledge and skills.
+  - (1) Mathematical process standards. The student uses mathematical processes to acquire and demonstrate mathematical understanding. The student is expected to:
+    - (A) apply mathematics to problems arising in everyday life, society, and the workplace;
+    - (B) use a problem-solving model that incorporates analyzing given information, formulating a plan or strategy, determining a solution, justifying the solution, and evaluating the problem-solving process and the reasonableness of the solution;
+    - (C) select tools, including real objects, manipulatives, paper and pencil, and technology as appropriate, and techniques, including mental math, estimation, and number sense as appropriate, to solve problems;
+    - (D) communicate mathematical ideas, reasoning, and their implications using multiple representations, including symbols, diagrams, graphs, and language as appropriate;
+    - (E) create and use representations to organize, record, and communicate mathematical ideas;
+    - (F) analyze mathematical relationships to connect and communicate mathematical ideas; and
+    - (G) display, explain, and justify mathematical ideas and arguments using precise mathematical language in written or oral communication.
+  - (2) Number and operations. The student applies mathematical process standards to understand how to represent and compare whole numbers, the relative position and magnitude of whole numbers, and relationships within the numeration system. The student is expected to:
+    - (A) count forward and backward to at least 20 with and without objects;
+    - (B) read, write, and represent whole numbers from 0 to at least 20 with and without objects or pictures;
+    - (C) count a set of objects up to at least 20 and demonstrate that the last number said tells the number of objects in the set regardless of their arrangement or order;
+    - (D) recognize instantly the quantity of a small group of objects in organized and random arrangements;
+    - (E) generate a set using concrete and pictorial models that represents a number that is more than, less than, and equal to a given number up to 20;
+    - (F) generate a number that is one more than or one less than another number up to at least 20;
+    - (G) compare sets of objects up to at least 20 in each set using comparative language;
+    - (H) use comparative language to describe two numbers up to 20 presented as written numerals; and
+    - (I) compose and decompose numbers up to 10 with objects and pictures.
+  - (3) Number and operations. The student applies mathematical process standards to develop an understanding of addition and subtraction situations in order to solve problems. The student is expected to:
+    - (A) model the action of joining to represent addition and the action of separating to represent subtraction;
+    - (B) solve word problems using objects and drawings to find sums up to 10 and differences within 10; and
+    - (C) explain the strategies used to solve problems involving adding and subtracting within 10 using spoken words, concrete and pictorial models, and number sentences.
+  - (4) Number and operations. The student applies mathematical process standards to identify coins in order to recognize the need for monetary transactions. The student is expected to identify U.S. coins by name, including pennies, nickels, dimes, and quarters.
+  - (5) Algebraic reasoning. The student applies mathematical process standards to identify the pattern in the number word list. The student is expected to recite numbers up to at least 100 by ones and tens beginning with any given number.
+  - (6) Geometry and measurement. The student applies mathematical process standards to analyze attributes of two-dimensional shapes and three-dimensional solids to develop generalizations about their properties. The student is expected to:
+    - (A) identify two-dimensional shapes, including circles, triangles, rectangles, and squares as special rectangles;
+    - (B) identify three-dimensional solids, including cylinders, cones, spheres, and cubes, in the real world;
+    - (C) identify two-dimensional components of three-dimensional objects;
+    - (D) identify attributes of two-dimensional shapes using informal and formal geometric language interchangeably;
+    - (E) classify and sort a variety of regular and irregular two- and three-dimensional figures regardless of orientation or size; and
+    - (F) create two-dimensional shapes using a variety of materials and drawings.
+  - (7) Geometry and measurement. The student applies mathematical process standards to directly compare measurable attributes. The student is expected to:
+    - (A) give an example of a measurable attribute of a given object, including length, capacity, and weight; and
+    - (B) compare two objects with a common measurable attribute to see which object has more of/less of the attribute and describe the difference.
+  - (8) Data analysis. The student applies mathematical process standards to collect and organize data to make it useful for interpreting information. The student is expected to:
+    - (A) collect, sort, and organize data into two or three categories;
+    - (B) use data to create real-object and picture graphs; and
+    - (C) draw conclusions from real-object and picture graphs.
+  - (9) Personal financial literacy. The student applies mathematical process standards to manage one's financial resources effectively for lifetime financial security. The student is expected to:
+    - (A) identify ways to earn income;
+    - (B) differentiate between money received as income and money received as gifts;
+    - (C) list simple skills required for jobs; and
+    - (D) distinguish between wants and needs and identify income as a source to meet one's wants and needs.
+
+### § 111.3 - Grade 1, Adopted 2012
+
+- (a) Introduction.
+  - (1) The desire to achieve educational excellence is the driving force behind the Texas essential knowledge and skills for mathematics, guided by the college and career readiness standards. By embedding statistics, probability, and finance, while focusing on computational thinking, mathematical fluency, and solid understanding, Texas will lead the way in mathematics education and prepare all Texas students for the challenges they will face in the 21st century.
+  - (2) The process standards describe ways in which students are expected to engage in the content. The placement of the process standards at the beginning of the knowledge and skills listed for each grade and course is intentional. The process standards weave the other knowledge and skills together so that students may be successful problem solvers and use mathematics efficiently and effectively in daily life. The process standards are integrated at every grade level and course. When possible, students will apply mathematics to problems arising in everyday life, society, and the workplace. Students will use a problem-solving model that incorporates analyzing given information, formulating a plan or strategy, determining a solution, justifying the solution, and evaluating the problem-solving process and the reasonableness of the solution. Students will select appropriate tools such as real objects, manipulatives, algorithms, paper and pencil, and technology and techniques such as mental math, estimation, number sense, and generalization and abstraction to solve problems. Students will effectively communicate mathematical ideas, reasoning, and their implications using multiple representations such as symbols, diagrams, graphs, computer programs, and language. Students will use mathematical relationships to generate solutions and make connections and predictions. Students will analyze mathematical relationships to connect and communicate mathematical ideas. Students will display, explain, or justify mathematical ideas and arguments using precise mathematical language in written or oral communication.
+  - (3) For students to become fluent in mathematics, students must develop a robust sense of number. The National Research Council's report, "Adding It Up," defines procedural fluency as "skill in carrying out procedures flexibly, accurately, efficiently, and appropriately." As students develop procedural fluency, they must also realize that true problem solving may take time, effort, and perseverance. Students in Grade 1 are expected to perform their work without the use of calculators.
+  - (4) The primary focal areas in Grade 1 are understanding and applying place value, solving problems involving addition and subtraction, and composing and decomposing two-dimensional shapes and three-dimensional solids.
+    - (A) Students use relationships within the numeration system to understand the sequential order of the counting numbers and their relative magnitude.
+    - (B) Students extend their use of addition and subtraction beyond the actions of joining and separating to include comparing and combining. Students use properties of operations and the relationship between addition and subtraction to solve problems. By comparing a variety of solution strategies, students use efficient, accurate, and generalizable methods to perform operations.
+    - (C) Students use basic shapes and spatial reasoning to model objects in their environment and construct more complex shapes. Students are able to identify, name, and describe basic two-dimensional shapes and three-dimensional solids.
+  - (5) Statements that contain the word "including" reference content that must be mastered, while those containing the phrase "such as" are intended as possible illustrative examples.
+- (b) Knowledge and skills.
+  - (1) Mathematical process standards. The student uses mathematical processes to acquire and demonstrate mathematical understanding. The student is expected to:
+    - (A) apply mathematics to problems arising in everyday life, society, and the workplace;
+    - (B) use a problem-solving model that incorporates analyzing given information, formulating a plan or strategy, determining a solution, justifying the solution, and evaluating the problem-solving process and the reasonableness of the solution;
+    - (C) select tools, including real objects, manipulatives, paper and pencil, and technology as appropriate, and techniques, including mental math, estimation, and number sense as appropriate, to solve problems;
+    - (D) communicate mathematical ideas, reasoning, and their implications using multiple representations, including symbols, diagrams, graphs, and language as appropriate;
+    - (E) create and use representations to organize, record, and communicate mathematical ideas;
+    - (F) analyze mathematical relationships to connect and communicate mathematical ideas; and
+    - (G) display, explain, and justify mathematical ideas and arguments using precise mathematical language in written or oral communication.
+  - (2) Number and operations. The student applies mathematical process standards to represent and compare whole numbers, the relative position and magnitude of whole numbers, and relationships within the numeration system related to place value. The student is expected to:
+    - (A) recognize instantly the quantity of structured arrangements;
+    - (B) use concrete and pictorial models to compose and decompose numbers up to 120 in more than one way as so many hundreds, so many tens, and so many ones;
+    - (C) use objects, pictures, and expanded and standard forms to represent numbers up to 120;
+    - (D) generate a number that is greater than or less than a given whole number up to 120;
+    - (E) use place value to compare whole numbers up to 120 using comparative language;
+    - (F) order whole numbers up to 120 using place value and open number lines; and
+    - (G) represent the comparison of two numbers to 100 using the symbols >, <, or =.
+  - (3) Number and operations. The student applies mathematical process standards to develop and use strategies for whole number addition and subtraction computations in order to solve problems. The student is expected to:
+    - (A) use concrete and pictorial models to determine the sum of a multiple of 10 and a one-digit number in problems up to 99;
+    - (B) use objects and pictorial models to solve word problems involving joining, separating, and comparing sets within 20 and unknowns as any one of the terms in the problem such as 2 + 4 = [ ]; 3 + [ ] = 7; and 5 = [ ] - 3;
+    - (C) compose 10 with two or more addends with and without concrete objects;
+    - (D) apply basic fact strategies to add and subtract within 20, including making 10 and decomposing a number leading to a 10;
+    - (E) explain strategies used to solve addition and subtraction problems up to 20 using spoken words, objects, pictorial models, and number sentences; and
+    - (F) generate and solve problem situations when given a number sentence involving addition or subtraction of numbers within 20.
+  - (4) Number and operations. The student applies mathematical process standards to identify coins, their values, and the relationships among them in order to recognize the need for monetary transactions. The student is expected to:
+    - (A) identify U.S. coins, including pennies, nickels, dimes, and quarters, by value and describe the relationships among them;
+    - (B) write a number with the cent symbol to describe the value of a coin; and
+    - (C) use relationships to count by twos, fives, and tens to determine the value of a collection of pennies, nickels, and/or dimes.
+  - (5) Algebraic reasoning. The student applies mathematical process standards to identify and apply number patterns within properties of numbers and operations in order to describe relationships. The student is expected to:
+    - (A) recite numbers forward and backward from any given number between 1 and 120;
+    - (B) skip count by twos, fives, and tens to determine the total number of objects up to 120 in a set;
+    - (C) use relationships to determine the number that is 10 more and 10 less than a given number up to 120;
+    - (D) represent word problems involving addition and subtraction of whole numbers up to 20 using concrete and pictorial models and number sentences;
+    - (E) understand that the equal sign represents a relationship where expressions on each side of the equal sign represent the same value(s);
+    - (F) determine the unknown whole number in an addition or subtraction equation when the unknown may be any one of the three or four terms in the equation; and
+    - (G) apply properties of operations to add and subtract two or three numbers.
+  - (6) Geometry and measurement. The student applies mathematical process standards to analyze attributes of two-dimensional shapes and three-dimensional solids to develop generalizations about their properties. The student is expected to:
+    - (A) classify and sort regular and irregular two-dimensional shapes based on attributes using informal geometric language;
+    - (B) distinguish between attributes that define a two-dimensional or three-dimensional figure and attributes that do not define the shape;
+    - (C) create two-dimensional figures, including circles, triangles, rectangles, and squares, as special rectangles, rhombuses, and hexagons;
+    - (D) identify two-dimensional shapes, including circles, triangles, rectangles, and squares, as special rectangles, rhombuses, and hexagons and describe their attributes using formal geometric language;
+    - (E) identify three-dimensional solids, including spheres, cones, cylinders, rectangular prisms (including cubes), and triangular prisms, and describe their attributes using formal geometric language;
+    - (F) compose two-dimensional shapes by joining two, three, or four figures to produce a target shape in more than one way if possible;
+    - (G) partition two-dimensional figures into two and four fair shares or equal parts and describe the parts using words; and
+    - (H) identify examples and non-examples of halves and fourths.
+  - (7) Geometry and measurement. The student applies mathematical process standards to select and use units to describe length and time. The student is expected to:
+    - (A) use measuring tools to measure the length of objects to reinforce the continuous nature of linear measurement;
+    - (B) illustrate that the length of an object is the number of same-size units of length that, when laid end-to-end with no gaps or overlaps, reach from one end of the object to the other;
+    - (C) measure the same object/distance with units of two different lengths and describe how and why the measurements differ;
+    - (D) describe a length to the nearest whole unit using a number and a unit; and
+    - (E) tell time to the hour and half hour using analog and digital clocks.
+  - (8) Data analysis. The student applies mathematical process standards to organize data to make it useful for interpreting information and solving problems. The student is expected to:
+    - (A) collect, sort, and organize data in up to three categories using models/representations such as tally marks or T-charts;
+    - (B) use data to create picture and bar-type graphs; and
+    - (C) draw conclusions and generate and answer questions using information from picture and bar-type graphs.
+  - (9) Personal financial literacy. The student applies mathematical process standards to manage one's financial resources effectively for lifetime financial security. The student is expected to:
+    - (A) define money earned as income;
+    - (B) identify income as a means of obtaining goods and services, oftentimes making choices between wants and needs;
+    - (C) distinguish between spending and saving; and
+    - (D) consider charitable giving.
+
+### § 111.4 - Grade 2, Adopted 2012
+
+- (a) Introduction.
+  - (1) The desire to achieve educational excellence is the driving force behind the Texas essential knowledge and skills for mathematics, guided by the college and career readiness standards. By embedding statistics, probability, and finance, while focusing on computational thinking, mathematical fluency, and solid understanding, Texas will lead the way in mathematics education and prepare all Texas students for the challenges they will face in the 21st century.
+  - (2) The process standards describe ways in which students are expected to engage in the content. The placement of the process standards at the beginning of the knowledge and skills listed for each grade and course is intentional. The process standards weave the other knowledge and skills together so that students may be successful problem solvers and use mathematics efficiently and effectively in daily life. The process standards are integrated at every grade level and course. When possible, students will apply mathematics to problems arising in everyday life, society, and the workplace. Students will use a problem-solving model that incorporates analyzing given information, formulating a plan or strategy, determining a solution, justifying the solution, and evaluating the problem-solving process and the reasonableness of the solution. Students will select appropriate tools such as real objects, manipulatives, algorithms, paper and pencil, and technology and techniques such as mental math, estimation, number sense, and generalization and abstraction to solve problems. Students will effectively communicate mathematical ideas, reasoning, and their implications using multiple representations such as symbols, diagrams, graphs, computer programs, and language. Students will use mathematical relationships to generate solutions and make connections and predictions. Students will analyze mathematical relationships to connect and communicate mathematical ideas. Students will display, explain, or justify mathematical ideas and arguments using precise mathematical language in written or oral communication.
+  - (3) For students to become fluent in mathematics, students must develop a robust sense of number. The National Research Council's report, "Adding It Up," defines procedural fluency as "skill in carrying out procedures flexibly, accurately, efficiently, and appropriately." As students develop procedural fluency, they must also realize that true problem solving may take time, effort, and perseverance. Students in Grade 2 are expected to perform their work without the use of calculators.
+  - (4) The primary focal areas in Grade 2 are making comparisons within the base-10 place value system, solving problems with addition and subtraction within 1,000, and building foundations for multiplication.
+    - (A) Students develop an understanding of the base-10 place value system and place value concepts. The students' understanding of base-10 place value includes ideas of counting in units and multiples of thousands, hundreds, tens, and ones and a grasp of number relationships, which students demonstrate in a variety of ways.
+    - (B) Students identify situations in which addition and subtraction are useful to solve problems. Students develop a variety of strategies to use efficient, accurate, and generalizable methods to add and subtract multi-digit whole numbers.
+    - (C) Students use the relationship between skip counting and equal groups of objects to represent the addition or subtraction of equivalent sets, which builds a strong foundation for multiplication and division.
+  - (5) Statements that contain the word "including" reference content that must be mastered, while those containing the phrase "such as" are intended as possible illustrative examples.
+- (b) Knowledge and skills.
+  - (1) Mathematical process standards. The student uses mathematical processes to acquire and demonstrate mathematical understanding. The student is expected to:
+    - (A) apply mathematics to problems arising in everyday life, society, and the workplace;
+    - (B) use a problem-solving model that incorporates analyzing given information, formulating a plan or strategy, determining a solution, justifying the solution, and evaluating the problem-solving process and the reasonableness of the solution;
+    - (C) select tools, including real objects, manipulatives, paper and pencil, and technology as appropriate, and techniques, including mental math, estimation, and number sense as appropriate, to solve problems;
+    - (D) communicate mathematical ideas, reasoning, and their implications using multiple representations, including symbols, diagrams, graphs, and language as appropriate;
+    - (E) create and use representations to organize, record, and communicate mathematical ideas;
+    - (F) analyze mathematical relationships to connect and communicate mathematical ideas; and
+    - (G) display, explain, and justify mathematical ideas and arguments using precise mathematical language in written or oral communication.
+  - (2) Number and operations. The student applies mathematical process standards to understand how to represent and compare whole numbers, the relative position and magnitude of whole numbers, and relationships within the numeration system related to place value. The student is expected to:
+    - (A) use concrete and pictorial models to compose and decompose numbers up to 1,200 in more than one way as a sum of so many thousands, hundreds, tens, and ones;
+    - (B) use standard, word, and expanded forms to represent numbers up to 1,200;
+    - (C) generate a number that is greater than or less than a given whole number up to 1,200;
+    - (D) use place value to compare and order whole numbers up to 1,200 using comparative language, numbers, and symbols (>, <, or =);
+    - (E) locate the position of a given whole number on an open number line; and
+    - (F) name the whole number that corresponds to a specific point on a number line.
+  - (3) Number and operations. The student applies mathematical process standards to recognize and represent fractional units and communicates how they are used to name parts of a whole. The student is expected to:
+    - (A) partition objects into equal parts and name the parts, including halves, fourths, and eighths, using words;
+    - (B) explain that the more fractional parts used to make a whole, the smaller the part; and the fewer the fractional parts, the larger the part;
+    - (C) use concrete models to count fractional parts beyond one whole using words and recognize how many parts it takes to equal one whole; and
+    - (D) identify examples and non-examples of halves, fourths, and eighths.
+  - (4) Number and operations. The student applies mathematical process standards to develop and use strategies and methods for whole number computations in order to solve addition and subtraction problems with efficiency and accuracy. The student is expected to:
+    - (A) recall basic facts to add and subtract within 20 with automaticity;
+    - (B) add up to four two-digit numbers and subtract two-digit numbers using mental strategies and algorithms based on knowledge of place value and properties of operations;
+    - (C) solve one-step and multi-step word problems involving addition and subtraction within 1,000 using a variety of strategies based on place value, including algorithms; and
+    - (D) generate and solve problem situations for a given mathematical number sentence involving addition and subtraction of whole numbers within 1,000.
+  - (5) Number and operations. The student applies mathematical process standards to determine the value of coins in order to solve monetary transactions. The student is expected to:
+    - (A) determine the value of a collection of coins up to one dollar; and
+    - (B) use the cent symbol, dollar sign, and the decimal point to name the value of a collection of coins.
+  - (6) Number and operations. The student applies mathematical process standards to connect repeated addition and subtraction to multiplication and division situations that involve equal groupings and shares. The student is expected to:
+    - (A) model, create, and describe contextual multiplication situations in which equivalent sets of concrete objects are joined; and
+    - (B) model, create, and describe contextual division situations in which a set of concrete objects is separated into equivalent sets.
+  - (7) Algebraic reasoning. The student applies mathematical process standards to identify and apply number patterns within properties of numbers and operations in order to describe relationships. The student is expected to:
+    - (A) determine whether a number up to 40 is even or odd using pairings of objects to represent the number;
+    - (B) use an understanding of place value to determine the number that is 10 or 100 more or less than a given number up to 1,200; and
+    - (C) represent and solve addition and subtraction word problems where unknowns may be any one of the terms in the problem.
+  - (8) Geometry and measurement. The student applies mathematical process standards to analyze attributes of two-dimensional shapes and three-dimensional solids to develop generalizations about their properties. The student is expected to:
+    - (A) create two-dimensional shapes based on given attributes, including number of sides and vertices;
+    - (B) classify and sort three-dimensional solids, including spheres, cones, cylinders, rectangular prisms (including cubes as special rectangular prisms), and triangular prisms, based on attributes using formal geometric language;
+    - (C) classify and sort polygons with 12 or fewer sides according to attributes, including identifying the number of sides and number of vertices;
+    - (D) compose two-dimensional shapes and three-dimensional solids with given properties or attributes; and
+    - (E) decompose two-dimensional shapes such as cutting out a square from a rectangle, dividing a shape in half, or partitioning a rectangle into identical triangles and identify the resulting geometric parts.
+  - (9) Geometry and measurement. The student applies mathematical process standards to select and use units to describe length, area, and time. The student is expected to:
+    - (A) find the length of objects using concrete models for standard units of length;
+    - (B) describe the inverse relationship between the size of the unit and the number of units needed to equal the length of an object;
+    - (C) represent whole numbers as distances from any given location on a number line;
+    - (D) determine the length of an object to the nearest marked unit using rulers, yardsticks, meter sticks, or measuring tapes;
+    - (E) determine a solution to a problem involving length, including estimating lengths;
+    - (F) use concrete models of square units to find the area of a rectangle by covering it with no gaps or overlaps, counting to find the total number of square units, and describing the measurement using a number and the unit; and
+    - (G) read and write time to the nearest one-minute increment using analog and digital clocks and distinguish between a.m. and p.m.
+  - (10) Data analysis. The student applies mathematical process standards to organize data to make it useful for interpreting information and solving problems. The student is expected to:
+    - (A) explain that the length of a bar in a bar graph or the number of pictures in a pictograph represents the number of data points for a given category;
+    - (B) organize a collection of data with up to four categories using pictographs and bar graphs with intervals of one or more;
+    - (C) write and solve one-step word problems involving addition or subtraction using data represented within pictographs and bar graphs with intervals of one; and
+    - (D) draw conclusions and make predictions from information in a graph.
+  - (11) Personal financial literacy. The student applies mathematical process standards to manage one's financial resources effectively for lifetime financial security. The student is expected to:
+    - (A) calculate how money saved can accumulate into a larger amount over time;
+    - (B) explain that saving is an alternative to spending;
+    - (C) distinguish between a deposit and a withdrawal;
+    - (D) identify examples of borrowing and distinguish between responsible and irresponsible borrowing;
+    - (E) identify examples of lending and use concepts of benefits and costs to evaluate lending decisions; and
+    - (F) differentiate between producers and consumers and calculate the cost to produce a simple item.
+
+### § 111.5 - Grade 3, Adopted 2012
+
+- (a) Introduction.
+  - (1) The desire to achieve educational excellence is the driving force behind the Texas essential knowledge and skills for mathematics, guided by the college and career readiness standards. By embedding statistics, probability, and finance, while focusing on computational thinking, mathematical fluency, and solid understanding, Texas will lead the way in mathematics education and prepare all Texas students for the challenges they will face in the 21st century.
+  - (2) The process standards describe ways in which students are expected to engage in the content. The placement of the process standards at the beginning of the knowledge and skills listed for each grade and course is intentional. The process standards weave the other knowledge and skills together so that students may be successful problem solvers and use mathematics efficiently and effectively in daily life. The process standards are integrated at every grade level and course. When possible, students will apply mathematics to problems arising in everyday life, society, and the workplace. Students will use a problem-solving model that incorporates analyzing given information, formulating a plan or strategy, determining a solution, justifying the solution, and evaluating the problem-solving process and the reasonableness of the solution. Students will select appropriate tools such as real objects, manipulatives, algorithms, paper and pencil, and technology and techniques such as mental math, estimation, number sense, and generalization and abstraction to solve problems. Students will effectively communicate mathematical ideas, reasoning, and their implications using multiple representations such as symbols, diagrams, graphs, computer programs, and language. Students will use mathematical relationships to generate solutions and make connections and predictions. Students will analyze mathematical relationships to connect and communicate mathematical ideas. Students will display, explain, or justify mathematical ideas and arguments using precise mathematical language in written or oral communication.
+  - (3) For students to become fluent in mathematics, students must develop a robust sense of number. The National Research Council's report, "Adding It Up," defines procedural fluency as "skill in carrying out procedures flexibly, accurately, efficiently, and appropriately." As students develop procedural fluency, they must also realize that true problem solving may take time, effort, and perseverance. Students in Grade 3 are expected to perform their work without the use of calculators.
+  - (4) The primary focal areas in Grade 3 are place value, operations of whole numbers, and understanding fractional units. These focal areas are supported throughout the mathematical strands of number and operations, algebraic reasoning, geometry and measurement, and data analysis. In Grades 3-5, the number set is limited to positive rational numbers. In number and operations, students will focus on applying place value, comparing and ordering whole numbers, connecting multiplication and division, and understanding and representing fractions as numbers and equivalent fractions. In algebraic reasoning, students will use multiple representations of problem situations, determine missing values in number sentences, and represent real-world relationships using number pairs in a table and verbal descriptions. In geometry and measurement, students will identify and classify two-dimensional figures according to common attributes, decompose composite figures formed by rectangles to determine area, determine the perimeter of polygons, solve problems involving time, and measure liquid volume (capacity) or weight. In data analysis, students will represent and interpret data.
+  - (5) Statements that contain the word "including" reference content that must be mastered, while those containing the phrase "such as" are intended as possible illustrative examples.
+- (b) Knowledge and skills.
+  - (1) Mathematical process standards. The student uses mathematical processes to acquire and demonstrate mathematical understanding. The student is expected to:
+    - (A) apply mathematics to problems arising in everyday life, society, and the workplace;
+    - (B) use a problem-solving model that incorporates analyzing given information, formulating a plan or strategy, determining a solution, justifying the solution, and evaluating the problem-solving process and the reasonableness of the solution;
+    - (C) select tools, including real objects, manipulatives, paper and pencil, and technology as appropriate, and techniques, including mental math, estimation, and number sense as appropriate, to solve problems;
+    - (D) communicate mathematical ideas, reasoning, and their implications using multiple representations, including symbols, diagrams, graphs, and language as appropriate;
+    - (E) create and use representations to organize, record, and communicate mathematical ideas;
+    - (F) analyze mathematical relationships to connect and communicate mathematical ideas; and
+    - (G) display, explain, and justify mathematical ideas and arguments using precise mathematical language in written or oral communication.
+  - (2) Number and operations. The student applies mathematical process standards to represent and compare whole numbers and understand relationships related to place value. The student is expected to:
+    - (A) compose and decompose numbers up to 100,000 as a sum of so many ten thousands, so many thousands, so many hundreds, so many tens, and so many ones using objects, pictorial models, and numbers, including expanded notation as appropriate;
+    - (B) describe the mathematical relationships found in the base-10 place value system through the hundred thousands place;
+    - (C) represent a number on a number line as being between two consecutive multiples of 10; 100; 1,000; or 10,000 and use words to describe relative size of numbers in order to round whole numbers; and
+    - (D) compare and order whole numbers up to 100,000 and represent comparisons using the symbols >, <, or =.
+  - (3) Number and operations. The student applies mathematical process standards to represent and explain fractional units. The student is expected to:
+    - (A) represent fractions greater than zero and less than or equal to one with denominators of 2, 3, 4, 6, and 8 using concrete objects and pictorial models, including strip diagrams and number lines;
+    - (B) determine the corresponding fraction greater than zero and less than or equal to one with denominators of 2, 3, 4, 6, and 8 given a specified point on a number line;
+    - (C) explain that the unit fraction 1/b represents the quantity formed by one part of a whole that has been partitioned into b equal parts where b is a non-zero whole number;
+    - (D) compose and decompose a fraction a/b with a numerator greater than zero and less than or equal to b as a sum of parts 1/b;
+    - (E) solve problems involving partitioning an object or a set of objects among two or more recipients using pictorial representations of fractions with denominators of 2, 3, 4, 6, and 8;
+    - (F) represent equivalent fractions with denominators of 2, 3, 4, 6, and 8 using a variety of objects and pictorial models, including number lines;
+    - (G) explain that two fractions are equivalent if and only if they are both represented by the same point on the number line or represent the same portion of a same size whole for an area model; and
+    - (H) compare two fractions having the same numerator or denominator in problems by reasoning about their sizes and justifying the conclusion using symbols, words, objects, and pictorial models.
+  - (4) Number and operations. The student applies mathematical process standards to develop and use strategies and methods for whole number computations in order to solve problems with efficiency and accuracy. The student is expected to:
+    - (A) solve with fluency one-step and two-step problems involving addition and subtraction within 1,000 using strategies based on place value, properties of operations, and the relationship between addition and subtraction;
+    - (B) round to the nearest 10 or 100 or use compatible numbers to estimate solutions to addition and subtraction problems;
+    - (C) determine the value of a collection of coins and bills;
+    - (D) determine the total number of objects when equally-sized groups of objects are combined or arranged in arrays up to 10 by 10;
+    - (E) represent multiplication facts by using a variety of approaches such as repeated addition, equal-sized groups, arrays, area models, equal jumps on a number line, and skip counting;
+    - (F) recall facts to multiply up to 10 by 10 with automaticity and recall the corresponding division facts;
+    - (G) use strategies and algorithms, including the standard algorithm, to multiply a two-digit number by a one-digit number. Strategies may include mental math, partial products, and the commutative, associative, and distributive properties;
+    - (H) determine the number of objects in each group when a set of objects is partitioned into equal shares or a set of objects is shared equally;
+    - (I) determine if a number is even or odd using divisibility rules;
+    - (J) determine a quotient using the relationship between multiplication and division; and
+    - (K) solve one-step and two-step problems involving multiplication and division within 100 using strategies based on objects; pictorial models, including arrays, area models, and equal groups; properties of operations; or recall of facts.
+  - (5) Algebraic reasoning. The student applies mathematical process standards to analyze and create patterns and relationships. The student is expected to:
+    - (A) represent one- and two-step problems involving addition and subtraction of whole numbers to 1,000 using pictorial models, number lines, and equations;
+    - (B) represent and solve one- and two-step multiplication and division problems within 100 using arrays, strip diagrams, and equations;
+    - (C) describe a multiplication expression as a comparison such as 3 x 24 represents 3 times as much as 24;
+    - (D) determine the unknown whole number in a multiplication or division equation relating three whole numbers when the unknown is either a missing factor or product; and
+    - (E) represent real-world relationships using number pairs in a table and verbal descriptions.
+  - (6) Geometry and measurement. The student applies mathematical process standards to analyze attributes of two-dimensional geometric figures to develop generalizations about their properties. The student is expected to:
+    - (A) classify and sort two- and three-dimensional figures, including cones, cylinders, spheres, triangular and rectangular prisms, and cubes, based on attributes using formal geometric language;
+    - (B) use attributes to recognize rhombuses, parallelograms, trapezoids, rectangles, and squares as examples of quadrilaterals and draw examples of quadrilaterals that do not belong to any of these subcategories;
+    - (C) determine the area of rectangles with whole number side lengths in problems using multiplication related to the number of rows times the number of unit squares in each row;
+    - (D) decompose composite figures formed by rectangles into non-overlapping rectangles to determine the area of the original figure using the additive property of area; and
+    - (E) decompose two congruent two-dimensional figures into parts with equal areas and express the area of each part as a unit fraction of the whole and recognize that equal shares of identical wholes need not have the same shape.
+  - (7) Geometry and measurement. The student applies mathematical process standards to select appropriate units, strategies, and tools to solve problems involving customary and metric measurement. The student is expected to:
+    - (A) represent fractions of halves, fourths, and eighths as distances from zero on a number line;
+    - (B) determine the perimeter of a polygon or a missing length when given perimeter and remaining side lengths in problems;
+    - (C) determine the solutions to problems involving addition and subtraction of time intervals in minutes using pictorial models or tools such as a 15-minute event plus a 30-minute event equals 45 minutes;
+    - (D) determine when it is appropriate to use measurements of liquid volume (capacity) or weight; and
+    - (E) determine liquid volume (capacity) or weight using appropriate units and tools.
+  - (8) Data analysis. The student applies mathematical process standards to solve problems by collecting, organizing, displaying, and interpreting data. The student is expected to:
+    - (A) summarize a data set with multiple categories using a frequency table, dot plot, pictograph, or bar graph with scaled intervals; and
+    - (B) solve one- and two-step problems using categorical data represented with a frequency table, dot plot, pictograph, or bar graph with scaled intervals.
+  - (9) Personal financial literacy. The student applies mathematical process standards to manage one's financial resources effectively for lifetime financial security. The student is expected to:
+    - (A) explain the connection between human capital/labor and income;
+    - (B) describe the relationship between the availability or scarcity of resources and how that impacts cost;
+    - (C) identify the costs and benefits of planned and unplanned spending decisions;
+    - (D) explain that credit is used when wants or needs exceed the ability to pay and that it is the borrower's responsibility to pay it back to the lender, usually with interest;
+    - (E) list reasons to save and explain the benefit of a savings plan, including for college; and
+    - (F) identify decisions involving income, spending, saving, credit, and charitable giving.
+
+### § 111.6 - Grade 4, Adopted 2012
+
+- (a) Introduction.
+  - (1) The desire to achieve educational excellence is the driving force behind the Texas essential knowledge and skills for mathematics, guided by the college and career readiness standards. By embedding statistics, probability, and finance, while focusing on computational thinking, mathematical fluency, and solid understanding, Texas will lead the way in mathematics education and prepare all Texas students for the challenges they will face in the 21st century.
+  - (2) The process standards describe ways in which students are expected to engage in the content. The placement of the process standards at the beginning of the knowledge and skills listed for each grade and course is intentional. The process standards weave the other knowledge and skills together so that students may be successful problem solvers and use mathematics efficiently and effectively in daily life. The process standards are integrated at every grade level and course. When possible, students will apply mathematics to problems arising in everyday life, society, and the workplace. Students will use a problem-solving model that incorporates analyzing given information, formulating a plan or strategy, determining a solution, justifying the solution, and evaluating the problem-solving process and the reasonableness of the solution. Students will select appropriate tools such as real objects, manipulatives, algorithms, paper and pencil, and technology and techniques such as mental math, estimation, number sense, and generalization and abstraction to solve problems. Students will effectively communicate mathematical ideas, reasoning, and their implications using multiple representations such as symbols, diagrams, graphs, computer programs, and language. Students will use mathematical relationships to generate solutions and make connections and predictions. Students will analyze mathematical relationships to connect and communicate mathematical ideas. Students will display, explain, or justify mathematical ideas and arguments using precise mathematical language in written or oral communication.
+  - (3) For students to become fluent in mathematics, students must develop a robust sense of number. The National Research Council's report, "Adding It Up," defines procedural fluency as "skill in carrying out procedures flexibly, accurately, efficiently, and appropriately." As students develop procedural fluency, they must also realize that true problem solving may take time, effort, and perseverance. Students in Grade 4 are expected to perform their work without the use of calculators.
+  - (4) The primary focal areas in Grade 4 are use of operations, fractions, and decimals and describing and analyzing geometry and measurement. These focal areas are supported throughout the mathematical strands of number and operations, algebraic reasoning, geometry and measurement, and data analysis. In Grades 3-5, the number set is limited to positive rational numbers. In number and operations, students will apply place value and represent points on a number line that correspond to a given fraction or terminating decimal. In algebraic reasoning, students will represent and solve multi-step problems involving the four operations with whole numbers with expressions and equations and generate and analyze patterns. In geometry and measurement, students will classify two-dimensional figures, measure angles, and convert units of measure. In data analysis, students will represent and interpret data.
+  - (5) Statements that contain the word "including" reference content that must be mastered, while those containing the phrase "such as" are intended as possible illustrative examples.
+- (b) Knowledge and skills.
+  - (1) Mathematical process standards. The student uses mathematical processes to acquire and demonstrate mathematical understanding. The student is expected to:
+    - (A) apply mathematics to problems arising in everyday life, society, and the workplace;
+    - (B) use a problem-solving model that incorporates analyzing given information, formulating a plan or strategy, determining a solution, justifying the solution, and evaluating the problem-solving process and the reasonableness of the solution;
+    - (C) select tools, including real objects, manipulatives, paper and pencil, and technology as appropriate, and techniques, including mental math, estimation, and number sense as appropriate, to solve problems;
+    - (D) communicate mathematical ideas, reasoning, and their implications using multiple representations, including symbols, diagrams, graphs, and language as appropriate;
+    - (E) create and use representations to organize, record, and communicate mathematical ideas;
+    - (F) analyze mathematical relationships to connect and communicate mathematical ideas; and
+    - (G) display, explain, and justify mathematical ideas and arguments using precise mathematical language in written or oral communication.
+  - (2) Number and operations. The student applies mathematical process standards to represent, compare, and order whole numbers and decimals and understand relationships related to place value. The student is expected to:
+    - (A) interpret the value of each place-value position as 10 times the position to the right and as one-tenth of the value of the place to its left;
+    - (B) represent the value of the digit in whole numbers through 1,000,000,000 and decimals to the hundredths using expanded notation and numerals;
+    - (C) compare and order whole numbers to 1,000,000,000 and represent comparisons using the symbols >, <, or =;
+    - (D) round whole numbers to a given place value through the hundred thousands place;
+    - (E) represent decimals, including tenths and hundredths, using concrete and visual models and money;
+    - (F) compare and order decimals using concrete and visual models to the hundredths;
+    - (G) relate decimals to fractions that name tenths and hundredths; and
+    - (H) determine the corresponding decimal to the tenths or hundredths place of a specified point on a number line.
+  - (3) Number and operations. The student applies mathematical process standards to represent and generate fractions to solve problems. The student is expected to:
+    - (A) represent a fraction a/b as a sum of fractions 1/b, where a and b are whole numbers and b > 0, including when a > b;
+    - (B) decompose a fraction in more than one way into a sum of fractions with the same denominator using concrete and pictorial models and recording results with symbolic representations;
+    - (C) determine if two given fractions are equivalent using a variety of methods;
+    - (D) compare two fractions with different numerators and different denominators and represent the comparison using the symbols >, =, or <;
+    - (E) represent and solve addition and subtraction of fractions with equal denominators using objects and pictorial models that build to the number line and properties of operations;
+    - (F) evaluate the reasonableness of sums and differences of fractions using benchmark fractions 0, 1/4, 1/2, 3/4, and 1, referring to the same whole; and
+    - (G) represent fractions and decimals to the tenths or hundredths as distances from zero on a number line.
+  - (4) Number and operations. The student applies mathematical process standards to develop and use strategies and methods for whole number computations and decimal sums and differences in order to solve problems with efficiency and accuracy. The student is expected to:
+    - (A) add and subtract whole numbers and decimals to the hundredths place using the standard algorithm;
+    - (B) determine products of a number and 10 or 100 using properties of operations and place value understandings;
+    - (C) represent the product of 2 two-digit numbers using arrays, area models, or equations, including perfect squares through 15 by 15;
+    - (D) use strategies and algorithms, including the standard algorithm, to multiply up to a four-digit number by a one-digit number and to multiply a two-digit number by a two-digit number. Strategies may include mental math, partial products, and the commutative, associative, and distributive properties;
+    - (E) represent the quotient of up to a four-digit whole number divided by a one-digit whole number using arrays, area models, or equations;
+    - (F) use strategies and algorithms, including the standard algorithm, to divide up to a four-digit dividend by a one-digit divisor;
+    - (G) round to the nearest 10, 100, or 1,000 or use compatible numbers to estimate solutions involving whole numbers; and
+    - (H) solve with fluency one- and two-step problems involving multiplication and division, including interpreting remainders.
+  - (5) Algebraic reasoning. The student applies mathematical process standards to develop concepts of expressions and equations. The student is expected to:
+    - (A) represent multi-step problems involving the four operations with whole numbers using strip diagrams and equations with a letter standing for the unknown quantity;
+    - (B) represent problems using an input-output table and numerical expressions to generate a number pattern that follows a given rule representing the relationship of the values in the resulting sequence and their position in the sequence;
+    - (C) use models to determine the formulas for the perimeter of a rectangle (l + w + l + w or 2l + 2w), including the special form for perimeter of a square (4s) and the area of a rectangle (l x w); and
+    - (D) solve problems related to perimeter and area of rectangles where dimensions are whole numbers.
+  - (6) Geometry and measurement. The student applies mathematical process standards to analyze geometric attributes in order to develop generalizations about their properties. The student is expected to:
+    - (A) identify points, lines, line segments, rays, angles, and perpendicular and parallel lines;
+    - (B) identify and draw one or more lines of symmetry, if they exist, for a two-dimensional figure;
+    - (C) apply knowledge of right angles to identify acute, right, and obtuse triangles; and
+    - (D) classify two-dimensional figures based on the presence or absence of parallel or perpendicular lines or the presence or absence of angles of a specified size.
+  - (7) Geometry and measurement. The student applies mathematical process standards to solve problems involving angles less than or equal to 180 degrees. The student is expected to:
+    - (A) illustrate the measure of an angle as the part of a circle whose center is at the vertex of the angle that is "cut out" by the rays of the angle. Angle measures are limited to whole numbers;
+    - (B) illustrate degrees as the units used to measure an angle, where 1/360 of any circle is one degree and an angle that "cuts" n /360 out of any circle whose center is at the angle's vertex has a measure of n degrees. Angle measures are limited to whole numbers;
+    - (C) determine the approximate measures of angles in degrees to the nearest whole number using a protractor;
+    - (D) draw an angle with a given measure; and
+    - (E) determine the measure of an unknown angle formed by two non-overlapping adjacent angles given one or both angle measures.
+  - (8) Geometry and measurement. The student applies mathematical process standards to select appropriate customary and metric units, strategies, and tools to solve problems involving measurement. The student is expected to:
+    - (A) identify relative sizes of measurement units within the customary and metric systems;
+    - (B) convert measurements within the same measurement system, customary or metric, from a smaller unit into a larger unit or a larger unit into a smaller unit when given other equivalent measures represented in a table; and
+    - (C) solve problems that deal with measurements of length, intervals of time, liquid volumes, mass, and money using addition, subtraction, multiplication, or division as appropriate.
+  - (9) Data analysis. The student applies mathematical process standards to solve problems by collecting, organizing, displaying, and interpreting data. The student is expected to:
+    - (A) represent data on a frequency table, dot plot, or stem-and-leaf plot marked with whole numbers and fractions; and
+    - (B) solve one- and two-step problems using data in whole number, decimal, and fraction form in a frequency table, dot plot, or stem-and-leaf plot.
+  - (10) Personal financial literacy. The student applies mathematical process standards to manage one's financial resources effectively for lifetime financial security. The student is expected to:
+    - (A) distinguish between fixed and variable expenses;
+    - (B) calculate profit in a given situation;
+    - (C) compare the advantages and disadvantages of various savings options;
+    - (D) describe how to allocate a weekly allowance among spending; saving, including for college; and sharing; and
+    - (E) describe the basic purpose of financial institutions, including keeping money safe, borrowing money, and lending.
+
+### § 111.7 - Grade 5, Adopted 2012
+
+- (a) Introduction.
+  - (1) The desire to achieve educational excellence is the driving force behind the Texas essential knowledge and skills for mathematics, guided by the college and career readiness standards. By embedding statistics, probability, and finance, while focusing on computational thinking, mathematical fluency, and solid understanding, Texas will lead the way in mathematics education and prepare all Texas students for the challenges they will face in the 21st century.
+  - (2) The process standards describe ways in which students are expected to engage in the content. The placement of the process standards at the beginning of the knowledge and skills listed for each grade and course is intentional. The process standards weave the other knowledge and skills together so that students may be successful problem solvers and use mathematics efficiently and effectively in daily life. The process standards are integrated at every grade level and course. When possible, students will apply mathematics to problems arising in everyday life, society, and the workplace. Students will use a problem-solving model that incorporates analyzing given information, formulating a plan or strategy, determining a solution, justifying the solution, and evaluating the problem-solving process and the reasonableness of the solution. Students will select appropriate tools such as real objects, manipulatives, algorithms, paper and pencil, and technology and techniques such as mental math, estimation, number sense, and generalization and abstraction to solve problems. Students will effectively communicate mathematical ideas, reasoning, and their implications using multiple representations such as symbols, diagrams, graphs, computer programs, and language. Students will use mathematical relationships to generate solutions and make connections and predictions. Students will analyze mathematical relationships to connect and communicate mathematical ideas. Students will display, explain, or justify mathematical ideas and arguments using precise mathematical language in written or oral communication.
+  - (3) For students to become fluent in mathematics, students must develop a robust sense of number. The National Research Council's report, "Adding It Up," defines procedural fluency as "skill in carrying out procedures flexibly, accurately, efficiently, and appropriately." As students develop procedural fluency, they must also realize that true problem solving may take time, effort, and perseverance. Students in Grade 5 are expected to perform their work without the use of calculators.
+  - (4) The primary focal areas in Grade 5 are solving problems involving all four operations with positive rational numbers, determining and generating formulas and solutions to expressions, and extending measurement to area and volume. These focal areas are supported throughout the mathematical strands of number and operations, algebraic reasoning, geometry and measurement, and data analysis. In Grades 3-5, the number set is limited to positive rational numbers. In number and operations, students will apply place value and identify part-to-whole relationships and equivalence. In algebraic reasoning, students will represent and solve problems with expressions and equations, build foundations of functions through patterning, identify prime and composite numbers, and use the order of operations. In geometry and measurement, students will classify two-dimensional figures, connect geometric attributes to the measures of three-dimensional figures, use units of measure, and represent location using a coordinate plane. In data analysis, students will represent and interpret data.
+  - (5) Statements that contain the word "including" reference content that must be mastered, while those containing the phrase "such as" are intended as possible illustrative examples.
+- (b) Knowledge and skills.
+  - (1) Mathematical process standards. The student uses mathematical processes to acquire and demonstrate mathematical understanding. The student is expected to:
+    - (A) apply mathematics to problems arising in everyday life, society, and the workplace;
+    - (B) use a problem-solving model that incorporates analyzing given information, formulating a plan or strategy, determining a solution, justifying the solution, and evaluating the problem-solving process and the reasonableness of the solution;
+    - (C) select tools, including real objects, manipulatives, paper and pencil, and technology as appropriate, and techniques, including mental math, estimation, and number sense as appropriate, to solve problems;
+    - (D) communicate mathematical ideas, reasoning, and their implications using multiple representations, including symbols, diagrams, graphs, and language as appropriate;
+    - (E) create and use representations to organize, record, and communicate mathematical ideas;
+    - (F) analyze mathematical relationships to connect and communicate mathematical ideas; and
+    - (G) display, explain, and justify mathematical ideas and arguments using precise mathematical language in written or oral communication.
+  - (2) Number and operations. The student applies mathematical process standards to represent, compare, and order positive rational numbers and understand relationships as related to place value. The student is expected to:
+    - (A) represent the value of the digit in decimals through the thousandths using expanded notation and numerals;
+    - (B) compare and order two decimals to thousandths and represent comparisons using the symbols >, <, or =; and
+    - (C) round decimals to tenths or hundredths.
+  - (3) Number and operations. The student applies mathematical process standards to develop and use strategies and methods for positive rational number computations in order to solve problems with efficiency and accuracy. The student is expected to:
+    - (A) estimate to determine solutions to mathematical and real-world problems involving addition, subtraction, multiplication, or division;
+    - (B) multiply with fluency a three-digit number by a two-digit number using the standard algorithm;
+    - (C) solve with proficiency for quotients of up to a four-digit dividend by a two-digit divisor using strategies and the standard algorithm;
+    - (D) represent multiplication of decimals with products to the hundredths using objects and pictorial models, including area models;
+    - (E) solve for products of decimals to the hundredths, including situations involving money, using strategies based on place-value understandings, properties of operations, and the relationship to the multiplication of whole numbers;
+    - (F) represent quotients of decimals to the hundredths, up to four-digit dividends and two-digit whole number divisors, using objects and pictorial models, including area models;
+    - (G) solve for quotients of decimals to the hundredths, up to four-digit dividends and two-digit whole number divisors, using strategies and algorithms, including the standard algorithm;
+    - (H) represent and solve addition and subtraction of fractions with unequal denominators referring to the same whole using objects and pictorial models and properties of operations;
+    - (I) represent and solve multiplication of a whole number and a fraction that refers to the same whole using objects and pictorial models, including area models;
+    - (J) represent division of a unit fraction by a whole number and the division of a whole number by a unit fraction such as 1/3 ÷ 7 and 7 ÷ 1/3 using objects and pictorial models, including area models;
+    - (K) add and subtract positive rational numbers fluently; and
+    - (L) divide whole numbers by unit fractions and unit fractions by whole numbers.
+  - (4) Algebraic reasoning. The student applies mathematical process standards to develop concepts of expressions and equations. The student is expected to:
+    - (A) identify prime and composite numbers;
+    - (B) represent and solve multi-step problems involving the four operations with whole numbers using equations with a letter standing for the unknown quantity;
+    - (C) generate a numerical pattern when given a rule in the form y = ax or y = x + a and graph;
+    - (D) recognize the difference between additive and multiplicative numerical patterns given in a table or graph;
+    - (E) describe the meaning of parentheses and brackets in a numeric expression;
+    - (F) simplify numerical expressions that do not involve exponents, including up to two levels of grouping;
+    - (G) use concrete objects and pictorial models to develop the formulas for the volume of a rectangular prism, including the special form for a cube (V = l x w x h,V = s x s x s, and V = Bh); and
+    - (H) represent and solve problems related to perimeter and/or area and related to volume.
+  - (5) Geometry and measurement. The student applies mathematical process standards to classify two-dimensional figures by attributes and properties. The student is expected to classify two-dimensional figures in a hierarchy of sets and subsets using graphic organizers based on their attributes and properties.
+  - (6) Geometry and measurement. The student applies mathematical process standards to understand, recognize, and quantify volume. The student is expected to:
+    - (A) recognize a cube with side length of one unit as a unit cube having one cubic unit of volume and the volume of a three-dimensional figure as the number of unit cubes (n cubic units) needed to fill it with no gaps or overlaps if possible; and
+    - (B) determine the volume of a rectangular prism with whole number side lengths in problems related to the number of layers times the number of unit cubes in the area of the base.
+  - (7) Geometry and measurement. The student applies mathematical process standards to select appropriate units, strategies, and tools to solve problems involving measurement. The student is expected to solve problems by calculating conversions within a measurement system, customary or metric.
+  - (8) Geometry and measurement. The student applies mathematical process standards to identify locations on a coordinate plane. The student is expected to:
+    - (A) describe the key attributes of the coordinate plane, including perpendicular number lines (axes) where the intersection (origin) of the two lines coincides with zero on each number line and the given point (0, 0); the x- coordinate, the first number in an ordered pair, indicates movement parallel to the x- axis starting at the origin; and the y- coordinate, the second number, indicates movement parallel to the y- axis starting at the origin;
+    - (B) describe the process for graphing ordered pairs of numbers in the first quadrant of the coordinate plane; and
+    - (C) graph in the first quadrant of the coordinate plane ordered pairs of numbers arising from mathematical and real-world problems, including those generated by number patterns or found in an input-output table.
+  - (9) Data analysis. The student applies mathematical process standards to solve problems by collecting, organizing, displaying, and interpreting data. The student is expected to:
+    - (A) represent categorical data with bar graphs or frequency tables and numerical data, including data sets of measurements in fractions or decimals, with dot plots or stem-and-leaf plots;
+    - (B) represent discrete paired data on a scatterplot; and
+    - (C) solve one- and two-step problems using data from a frequency table, dot plot, bar graph, stem-and-leaf plot, or scatterplot.
+  - (10) Personal financial literacy. The student applies mathematical process standards to manage one's financial resources effectively for lifetime financial security. The student is expected to:
+    - (A) define income tax, payroll tax, sales tax, and property tax;
+    - (B) explain the difference between gross income and net income;
+    - (C) identify the advantages and disadvantages of different methods of payment, including check, credit card, debit card, and electronic payments;
+    - (D) develop a system for keeping and using financial records;
+    - (E) describe actions that might be taken to balance a budget when expenses exceed income; and
+    - (F) balance a simple budget.
+
+
+## Subchapter B — Middle School (Grades 6–8, incl. Advanced/Accelerated)
+
+### § 111.25 - Implementation of Texas Essential Knowledge and Skills for Mathematics, Middle School, Adopted 2012
+
+- (a) The provisions of §§ 111.26-111.28 of this subchapter shall be implemented by school districts.
+- (b) No later than August 31, 2013, the commissioner of education shall determine whether instructional materials funding has been made available to Texas public schools for materials that cover the essential knowledge and skills for mathematics as adopted in §§ 111.26-111.28 of this subchapter.
+- (c) If the commissioner makes the determination that instructional materials funding has been made available under subsection (b) of this section, §§ 111.26-111.28 of this subchapter shall be implemented beginning with the 2014-2015 school year and apply to the 2014-2015 and subsequent school years.
+- (d) If the commissioner does not make the determination that instructional materials funding has been made available under subsection (b) of this section, the commissioner shall determine no later than August 31 of each subsequent school year whether instructional materials funding has been made available. If the commissioner determines that instructional materials funding has been made available, the commissioner shall notify the State Board of Education and school districts that §§ 111.26-111.28 of this subchapter shall be implemented for the following school year.
+
+### § 111.26 - Grade 6, Adopted 2012
+
+- (a) Introduction.
+  - (1) The desire to achieve educational excellence is the driving force behind the Texas essential knowledge and skills for mathematics, guided by the college and career readiness standards. By embedding statistics, probability, and finance, while focusing on computational thinking, mathematical fluency, and solid understanding, Texas will lead the way in mathematics education and prepare all Texas students for the challenges they will face in the 21st century.
+  - (2) The process standards describe ways in which students are expected to engage in the content. The placement of the process standards at the beginning of the knowledge and skills listed for each grade and course is intentional. The process standards weave the other knowledge and skills together so that students may be successful problem solvers and use mathematics efficiently and effectively in daily life. The process standards are integrated at every grade level and course. When possible, students will apply mathematics to problems arising in everyday life, society, and the workplace. Students will use a problem-solving model that incorporates analyzing given information, formulating a plan or strategy, determining a solution, justifying the solution, and evaluating the problem-solving process and the reasonableness of the solution. Students will select appropriate tools such as real objects, manipulatives, algorithms, paper and pencil, and technology and techniques such as mental math, estimation, number sense, and generalization and abstraction to solve problems. Students will effectively communicate mathematical ideas, reasoning, and their implications using multiple representations such as symbols, diagrams, graphs, computer programs, and language. Students will use mathematical relationships to generate solutions and make connections and predictions. Students will analyze mathematical relationships to connect and communicate mathematical ideas. Students will display, explain, or justify mathematical ideas and arguments using precise mathematical language in written or oral communication.
+  - (3) The primary focal areas in Grade 6 are number and operations; proportionality; expressions, equations, and relationships; and measurement and data. Students use concepts, algorithms, and properties of rational numbers to explore mathematical relationships and to describe increasingly complex situations. Students use concepts of proportionality to explore, develop, and communicate mathematical relationships. Students use algebraic thinking to describe how a change in one quantity in a relationship results in a change in the other. Students connect verbal, numeric, graphic, and symbolic representations of relationships, including equations and inequalities. Students use geometric properties and relationships, as well as spatial reasoning, to model and analyze situations and solve problems. Students communicate information about geometric figures or situations by quantifying attributes, generalize procedures from measurement experiences, and use the procedures to solve problems. Students use appropriate statistics, representations of data, and reasoning to draw conclusions, evaluate arguments, and make recommendations. While the use of all types of technology is important, the emphasis on algebra readiness skills necessitates the implementation of graphing technology.
+  - (4) Statements that contain the word "including" reference content that must be mastered, while those containing the phrase "such as" are intended as possible illustrative examples.
+- (b) Knowledge and skills.
+  - (1) Mathematical process standards. The student uses mathematical processes to acquire and demonstrate mathematical understanding. The student is expected to:
+    - (A) apply mathematics to problems arising in everyday life, society, and the workplace;
+    - (B) use a problem-solving model that incorporates analyzing given information, formulating a plan or strategy, determining a solution, justifying the solution, and evaluating the problem-solving process and the reasonableness of the solution;
+    - (C) select tools, including real objects, manipulatives, paper and pencil, and technology as appropriate, and techniques, including mental math, estimation, and number sense as appropriate, to solve problems;
+    - (D) communicate mathematical ideas, reasoning, and their implications using multiple representations, including symbols, diagrams, graphs, and language as appropriate;
+    - (E) create and use representations to organize, record, and communicate mathematical ideas;
+    - (F) analyze mathematical relationships to connect and communicate mathematical ideas; and
+    - (G) display, explain, and justify mathematical ideas and arguments using precise mathematical language in written or oral communication.
+  - (2) Number and operations. The student applies mathematical process standards to represent and use rational numbers in a variety of forms. The student is expected to:
+    - (A) classify whole numbers, integers, and rational numbers using a visual representation such as a Venn diagram to describe relationships between sets of numbers;
+    - (B) identify a number, its opposite, and its absolute value;
+    - (C) locate, compare, and order integers and rational numbers using a number line;
+    - (D) order a set of rational numbers arising from mathematical and real-world contexts; and
+    - (E) extend representations for division to include fraction notation such as a/b represents the same number as a ÷ b where b is not equal to 0.
+  - (3) Number and operations. The student applies mathematical process standards to represent addition, subtraction, multiplication, and division while solving problems and justifying solutions. The student is expected to:
+    - (A) recognize that dividing by a rational number and multiplying by its reciprocal result in equivalent values;
+    - (B) determine, with and without computation, whether a quantity is increased or decreased when multiplied by a fraction, including values greater than or less than one;
+    - (C) represent integer operations with concrete models and connect the actions with the models to standardized algorithms;
+    - (D) add, subtract, multiply, and divide integers fluently; and
+    - (E) multiply and divide positive rational numbers fluently.
+  - (4) Proportionality. The student applies mathematical process standards to develop an understanding of proportional relationships in problem situations. The student is expected to:
+    - (A) compare two rules verbally, numerically, graphically, and symbolically in the form of y = ax or y = x + a in order to differentiate between additive and multiplicative relationships;
+    - (B) apply qualitative and quantitative reasoning to solve prediction and comparison of real-world problems involving ratios and rates;
+    - (C) give examples of ratios as multiplicative comparisons of two quantities describing the same attribute;
+    - (D) give examples of rates as the comparison by division of two quantities having different attributes, including rates as quotients;
+    - (E) represent ratios and percents with concrete models, fractions, and decimals;
+    - (F) represent benchmark fractions and percents such as 1%, 10%, 25%, 33 1/3%, and multiples of these values using 10 by 10 grids, strip diagrams, number lines, and numbers;
+    - (G) generate equivalent forms of fractions, decimals, and percents using real-world problems, including problems that involve money; and
+    - (H) convert units within a measurement system, including the use of proportions and unit rates.
+  - (5) Proportionality. The student applies mathematical process standards to solve problems involving proportional relationships. The student is expected to:
+    - (A) represent mathematical and real-world problems involving ratios and rates using scale factors, tables, graphs, and proportions;
+    - (B) solve real-world problems to find the whole given a part and the percent, to find the part given the whole and the percent, and to find the percent given the part and the whole, including the use of concrete and pictorial models; and
+    - (C) use equivalent fractions, decimals, and percents to show equal parts of the same whole.
+  - (6) Expressions, equations, and relationships. The student applies mathematical process standards to use multiple representations to describe algebraic relationships. The student is expected to:
+    - (A) identify independent and dependent quantities from tables and graphs;
+    - (B) write an equation that represents the relationship between independent and dependent quantities from a table; and
+    - (C) represent a given situation using verbal descriptions, tables, graphs, and equations in the form y = kx or y = x + b.
+  - (7) Expressions, equations, and relationships. The student applies mathematical process standards to develop concepts of expressions and equations. The student is expected to:
+    - (A) generate equivalent numerical expressions using order of operations, including whole number exponents and prime factorization;
+    - (B) distinguish between expressions and equations verbally, numerically, and algebraically;
+    - (C) determine if two expressions are equivalent using concrete models, pictorial models, and algebraic representations; and
+    - (D) generate equivalent expressions using the properties of operations: inverse, identity, commutative, associative, and distributive properties.
+  - (8) Expressions, equations, and relationships. The student applies mathematical process standards to use geometry to represent relationships and solve problems. The student is expected to:
+    - (A) extend previous knowledge of triangles and their properties to include the sum of angles of a triangle, the relationship between the lengths of sides and measures of angles in a triangle, and determining when three lengths form a triangle;
+    - (B) model area formulas for parallelograms, trapezoids, and triangles by decomposing and rearranging parts of these shapes;
+    - (C) write equations that represent problems related to the area of rectangles, parallelograms, trapezoids, and triangles and volume of right rectangular prisms where dimensions are positive rational numbers; and
+    - (D) determine solutions for problems involving the area of rectangles, parallelograms, trapezoids, and triangles and volume of right rectangular prisms where dimensions are positive rational numbers.
+  - (9) Expressions, equations, and relationships. The student applies mathematical process standards to use equations and inequalities to represent situations. The student is expected to:
+    - (A) write one-variable, one-step equations and inequalities to represent constraints or conditions within problems;
+    - (B) represent solutions for one-variable, one-step equations and inequalities on number lines; and
+    - (C) write corresponding real-world problems given one-variable, one-step equations or inequalities.
+  - (10) Expressions, equations, and relationships. The student applies mathematical process standards to use equations and inequalities to solve problems. The student is expected to:
+    - (A) model and solve one-variable, one-step equations and inequalities that represent problems, including geometric concepts; and
+    - (B) determine if the given value(s) make(s) one-variable, one-step equations or inequalities true.
+  - (11) Measurement and data. The student applies mathematical process standards to use coordinate geometry to identify locations on a plane. The student is expected to graph points in all four quadrants using ordered pairs of rational numbers.
+  - (12) Measurement and data. The student applies mathematical process standards to use numerical or graphical representations to analyze problems. The student is expected to:
+    - (A) represent numeric data graphically, including dot plots, stem-and-leaf plots, histograms, and box plots;
+    - (B) use the graphical representation of numeric data to describe the center, spread, and shape of the data distribution;
+    - (C) summarize numeric data with numerical summaries, including the mean and median (measures of center) and the range and interquartile range (IQR) (measures of spread), and use these summaries to describe the center, spread, and shape of the data distribution; and
+    - (D) summarize categorical data with numerical and graphical summaries, including the mode, the percent of values in each category (relative frequency table), and the percent bar graph, and use these summaries to describe the data distribution.
+  - (13) Measurement and data. The student applies mathematical process standards to use numerical or graphical representations to solve problems. The student is expected to:
+    - (A) interpret numeric data summarized in dot plots, stem-and-leaf plots, histograms, and box plots; and
+    - (B) distinguish between situations that yield data with and without variability.
+  - (14) Personal financial literacy. The student applies mathematical process standards to develop an economic way of thinking and problem solving useful in one's life as a knowledgeable consumer and investor. The student is expected to:
+    - (A) compare the features and costs of a checking account and a debit card offered by different local financial institutions;
+    - (B) distinguish between debit cards and credit cards;
+    - (C) balance a check register that includes deposits, withdrawals, and transfers;
+    - (D) explain why it is important to establish a positive credit history;
+    - (E) describe the information in a credit report and how long it is retained;
+    - (F) describe the value of credit reports to borrowers and to lenders;
+    - (G) explain various methods to pay for college, including through savings, grants, scholarships, student loans, and work-study; and
+    - (H) compare the annual salary of several occupations requiring various levels of post-secondary education or vocational training and calculate the effects of the different annual salaries on lifetime income.
+
+### § 111.27 - Grade 7, Adopted 2012
+
+- (a) Introduction.
+  - (1) The desire to achieve educational excellence is the driving force behind the Texas essential knowledge and skills for mathematics, guided by the college and career readiness standards. By embedding statistics, probability, and finance, while focusing on computational thinking, mathematical fluency, and solid understanding, Texas will lead the way in mathematics education and prepare all Texas students for the challenges they will face in the 21st century.
+  - (2) The process standards describe ways in which students are expected to engage in the content. The placement of the process standards at the beginning of the knowledge and skills listed for each grade and course is intentional. The process standards weave the other knowledge and skills together so that students may be successful problem solvers and use mathematics efficiently and effectively in daily life. The process standards are integrated at every grade level and course. When possible, students will apply mathematics to problems arising in everyday life, society, and the workplace. Students will use a problem-solving model that incorporates analyzing given information, formulating a plan or strategy, determining a solution, justifying the solution, and evaluating the problem-solving process and the reasonableness of the solution. Students will select appropriate tools such as real objects, manipulatives, algorithms, paper and pencil, and technology and techniques such as mental math, estimation, number sense, and generalization and abstraction to solve problems. Students will effectively communicate mathematical ideas, reasoning, and their implications using multiple representations such as symbols, diagrams, graphs, computer programs, and language. Students will use mathematical relationships to generate solutions and make connections and predictions. Students will analyze mathematical relationships to connect and communicate mathematical ideas. Students will display, explain, or justify mathematical ideas and arguments using precise mathematical language in written or oral communication.
+  - (3) The primary focal areas in Grade 7 are number and operations; proportionality; expressions, equations, and relationships; and measurement and data. Students use concepts, algorithms, and properties of rational numbers to explore mathematical relationships and to describe increasingly complex situations. Students use concepts of proportionality to explore, develop, and communicate mathematical relationships, including number, geometry and measurement, and statistics and probability. Students use algebraic thinking to describe how a change in one quantity in a relationship results in a change in the other. Students connect verbal, numeric, graphic, and symbolic representations of relationships, including equations and inequalities. Students use geometric properties and relationships, as well as spatial reasoning, to model and analyze situations and solve problems. Students communicate information about geometric figures or situations by quantifying attributes, generalize procedures from measurement experiences, and use the procedures to solve problems. Students use appropriate statistics, representations of data, and reasoning to draw conclusions, evaluate arguments, and make recommendations. While the use of all types of technology is important, the emphasis on algebra readiness skills necessitates the implementation of graphing technology.
+  - (4) Statements that contain the word "including" reference content that must be mastered, while those containing the phrase "such as" are intended as possible illustrative examples.
+- (b) Knowledge and skills.
+  - (1) Mathematical process standards. The student uses mathematical processes to acquire and demonstrate mathematical understanding. The student is expected to:
+    - (A) apply mathematics to problems arising in everyday life, society, and the workplace;
+    - (B) use a problem-solving model that incorporates analyzing given information, formulating a plan or strategy, determining a solution, justifying the solution, and evaluating the problem-solving process and the reasonableness of the solution;
+    - (C) select tools, including real objects, manipulatives, paper and pencil, and technology as appropriate, and techniques, including mental math, estimation, and number sense as appropriate, to solve problems;
+    - (D) communicate mathematical ideas, reasoning, and their implications using multiple representations, including symbols, diagrams, graphs, and language as appropriate;
+    - (E) create and use representations to organize, record, and communicate mathematical ideas;
+    - (F) analyze mathematical relationships to connect and communicate mathematical ideas; and
+    - (G) display, explain, and justify mathematical ideas and arguments using precise mathematical language in written or oral communication.
+  - (2) Number and operations. The student applies mathematical process standards to represent and use rational numbers in a variety of forms. The student is expected to extend previous knowledge of sets and subsets using a visual representation to describe relationships between sets of rational numbers.
+  - (3) Number and operations. The student applies mathematical process standards to add, subtract, multiply, and divide while solving problems and justifying solutions. The student is expected to:
+    - (A) add, subtract, multiply, and divide rational numbers fluently; and
+    - (B) apply and extend previous understandings of operations to solve problems using addition, subtraction, multiplication, and division of rational numbers.
+  - (4) Proportionality. The student applies mathematical process standards to represent and solve problems involving proportional relationships. The student is expected to:
+    - (A) represent constant rates of change in mathematical and real-world problems given pictorial, tabular, verbal, numeric, graphical, and algebraic representations, including d = rt;
+    - (B) calculate unit rates from rates in mathematical and real-world problems;
+    - (C) determine the constant of proportionality (k = y/x) within mathematical and real-world problems;
+    - (D) solve problems involving ratios, rates, and percents, including multi-step problems involving percent increase and percent decrease, and financial literacy problems; and
+    - (E) convert between measurement systems, including the use of proportions and the use of unit rates.
+  - (5) Proportionality. The student applies mathematical process standards to use geometry to describe or solve problems involving proportional relationships. The student is expected to:
+    - (A) generalize the critical attributes of similarity, including ratios within and between similar shapes;
+    - (B) describe [PI] as the ratio of the circumference of a circle to its diameter; and
+    - (C) solve mathematical and real-world problems involving similar shape and scale drawings.
+  - (6) Proportionality. The student applies mathematical process standards to use probability and statistics to describe or solve problems involving proportional relationships. The student is expected to:
+    - (A) represent sample spaces for simple and compound events using lists and tree diagrams;
+    - (B) select and use different simulations to represent simple and compound events with and without technology;
+    - (C) make predictions and determine solutions using experimental data for simple and compound events;
+    - (D) make predictions and determine solutions using theoretical probability for simple and compound events;
+    - (E) find the probabilities of a simple event and its complement and describe the relationship between the two;
+    - (F) use data from a random sample to make inferences about a population;
+    - (G) solve problems using data represented in bar graphs, dot plots, and circle graphs, including part-to-whole and part-to-part comparisons and equivalents;
+    - (H) solve problems using qualitative and quantitative predictions and comparisons from simple experiments; and
+    - (I) determine experimental and theoretical probabilities related to simple and compound events using data and sample spaces.
+  - (7) Expressions, equations, and relationships. The student applies mathematical process standards to represent linear relationships using multiple representations. The student is expected to represent linear relationships using verbal descriptions, tables, graphs, and equations that simplify to the form y = mx + b.
+  - (8) Expressions, equations, and relationships. The student applies mathematical process standards to develop geometric relationships with volume. The student is expected to:
+    - (A) model the relationship between the volume of a rectangular prism and a rectangular pyramid having both congruent bases and heights and connect that relationship to the formulas;
+    - (B) explain verbally and symbolically the relationship between the volume of a triangular prism and a triangular pyramid having both congruent bases and heights and connect that relationship to the formulas; and
+    - (C) use models to determine the approximate formulas for the circumference and area of a circle and connect the models to the actual formulas.
+  - (9) Expressions, equations, and relationships. The student applies mathematical process standards to solve geometric problems. The student is expected to:
+    - (A) solve problems involving the volume of rectangular prisms, triangular prisms, rectangular pyramids, and triangular pyramids;
+    - (B) determine the circumference and area of circles;
+    - (C) determine the area of composite figures containing combinations of rectangles, squares, parallelograms, trapezoids, triangles, semicircles, and quarter circles; and
+    - (D) solve problems involving the lateral and total surface area of a rectangular prism, rectangular pyramid, triangular prism, and triangular pyramid by determining the area of the shape's net.
+  - (10) Expressions, equations, and relationships. The student applies mathematical process standards to use one-variable equations and inequalities to represent situations. The student is expected to:
+    - (A) write one-variable, two-step equations and inequalities to represent constraints or conditions within problems;
+    - (B) represent solutions for one-variable, two-step equations and inequalities on number lines; and
+    - (C) write a corresponding real-world problem given a one-variable, two-step equation or inequality.
+  - (11) Expressions, equations, and relationships. The student applies mathematical process standards to solve one-variable equations and inequalities. The student is expected to:
+    - (A) model and solve one-variable, two-step equations and inequalities;
+    - (B) determine if the given value(s) make(s) one-variable, two-step equations and inequalities true; and
+    - (C) write and solve equations using geometry concepts, including the sum of the angles in a triangle, and angle relationships.
+  - (12) Measurement and data. The student applies mathematical process standards to use statistical representations to analyze data. The student is expected to:
+    - (A) compare two groups of numeric data using comparative dot plots or box plots by comparing their shapes, centers, and spreads;
+    - (B) use data from a random sample to make inferences about a population; and
+    - (C) compare two populations based on data in random samples from these populations, including informal comparative inferences about differences between the two populations.
+  - (13) Personal financial literacy. The student applies mathematical process standards to develop an economic way of thinking and problem solving useful in one's life as a knowledgeable consumer and investor. The student is expected to:
+    - (A) calculate the sales tax for a given purchase and calculate income tax for earned wages;
+    - (B) identify the components of a personal budget, including income; planned savings for college, retirement, and emergencies; taxes; and fixed and variable expenses, and calculate what percentage each category comprises of the total budget;
+    - (C) create and organize a financial assets and liabilities record and construct a net worth statement;
+    - (D) use a family budget estimator to determine the minimum household budget and average hourly wage needed for a family to meet its basic needs in the student's city or another large city nearby;
+    - (E) calculate and compare simple interest and compound interest earnings; and
+    - (F) analyze and compare monetary incentives, including sales, rebates, and coupons.
+
+### § 111.28 - Grade 8, Adopted 2012
+
+- (a) Introduction.
+  - (1) The desire to achieve educational excellence is the driving force behind the Texas essential knowledge and skills for mathematics, guided by the college and career readiness standards. By embedding statistics, probability, and finance, while focusing on computational thinking, mathematical fluency, and solid understanding, Texas will lead the way in mathematics education and prepare all Texas students for the challenges they will face in the 21st century.
+  - (2) The process standards describe ways in which students are expected to engage in the content. The placement of the process standards at the beginning of the knowledge and skills listed for each grade and course is intentional. The process standards weave the other knowledge and skills together so that students may be successful problem solvers and use mathematics efficiently and effectively in daily life. The process standards are integrated at every grade level and course. When possible, students will apply mathematics to problems arising in everyday life, society, and the workplace. Students will use a problem-solving model that incorporates analyzing given information, formulating a plan or strategy, determining a solution, justifying the solution, and evaluating the problem-solving process and the reasonableness of the solution. Students will select appropriate tools such as real objects, manipulatives, algorithms, paper and pencil, and technology and techniques such as mental math, estimation, number sense, and generalization and abstraction to solve problems. Students will effectively communicate mathematical ideas, reasoning, and their implications using multiple representations such as symbols, diagrams, graphs, computer programs, and language. Students will use mathematical relationships to generate solutions and make connections and predictions. Students will analyze mathematical relationships to connect and communicate mathematical ideas. Students will display, explain, or justify mathematical ideas and arguments using precise mathematical language in written or oral communication.
+  - (3) The primary focal areas in Grade 8 are proportionality; expressions, equations, relationships, and foundations of functions; and measurement and data. Students use concepts, algorithms, and properties of real numbers to explore mathematical relationships and to describe increasingly complex situations. Students use concepts of proportionality to explore, develop, and communicate mathematical relationships. Students use algebraic thinking to describe how a change in one quantity in a relationship results in a change in the other. Students connect verbal, numeric, graphic, and symbolic representations of relationships, including equations and inequalities. Students begin to develop an understanding of functional relationships. Students use geometric properties and relationships, as well as spatial reasoning, to model and analyze situations and solve problems. Students communicate information about geometric figures or situations by quantifying attributes, generalize procedures from measurement experiences, and use the procedures to solve problems. Students use appropriate statistics, representations of data, and reasoning to draw conclusions, evaluate arguments, and make recommendations. While the use of all types of technology is important, the emphasis on algebra readiness skills necessitates the implementation of graphing technology.
+  - (4) Statements that contain the word "including" reference content that must be mastered, while those containing the phrase "such as" are intended as possible illustrative examples.
+- (b) Knowledge and skills.
+  - (1) Mathematical process standards. The student uses mathematical processes to acquire and demonstrate mathematical understanding. The student is expected to:
+    - (A) apply mathematics to problems arising in everyday life, society, and the workplace;
+    - (B) use a problem-solving model that incorporates analyzing given information, formulating a plan or strategy, determining a solution, justifying the solution, and evaluating the problem-solving process and the reasonableness of the solution;
+    - (C) select tools, including real objects, manipulatives, paper and pencil, and technology as appropriate, and techniques, including mental math, estimation, and number sense as appropriate, to solve problems;
+    - (D) communicate mathematical ideas, reasoning, and their implications using multiple representations, including symbols, diagrams, graphs, and language as appropriate;
+    - (E) create and use representations to organize, record, and communicate mathematical ideas;
+    - (F) analyze mathematical relationships to connect and communicate mathematical ideas; and
+    - (G) display, explain, and justify mathematical ideas and arguments using precise mathematical language in written or oral communication.
+  - (2) Number and operations. The student applies mathematical process standards to represent and use real numbers in a variety of forms. The student is expected to:
+    - (A) extend previous knowledge of sets and subsets using a visual representation to describe relationships between sets of real numbers;
+    - (B) approximate the value of an irrational number, including [PI] and square roots of numbers less than 225, and locate that rational number approximation on a number line;
+    - (C) convert between standard decimal notation and scientific notation; and
+    - (D) order a set of real numbers arising from mathematical and real-world contexts.
+  - (3) Proportionality. The student applies mathematical process standards to use proportional relationships to describe dilations. The student is expected to:
+    - (A) generalize that the ratio of corresponding sides of similar shapes are proportional, including a shape and its dilation;
+    - (B) compare and contrast the attributes of a shape and its dilation(s) on a coordinate plane; and
+    - (C) use an algebraic representation to explain the effect of a given positive rational scale factor applied to two-dimensional figures on a coordinate plane with the origin as the center of dilation.
+  - (4) Proportionality. The student applies mathematical process standards to explain proportional and non-proportional relationships involving slope. The student is expected to:
+    - (A) use similar right triangles to develop an understanding that slope, m, given as the rate comparing the change in y- values to the change in x- values, (y2 - y1) / (x2 - x1), is the same for any two points (x1,y1) and (x2,y2) on the same line;
+    - (B) graph proportional relationships, interpreting the unit rate as the slope of the line that models the relationship; and
+    - (C) use data from a table or graph to determine the rate of change or slope and y- intercept in mathematical and real-world problems.
+  - (5) Proportionality. The student applies mathematical process standards to use proportional and non-proportional relationships to develop foundational concepts of functions. The student is expected to:
+    - (A) represent linear proportional situations with tables, graphs, and equations in the form of y = kx;
+    - (B) represent linear non-proportional situations with tables, graphs, and equations in the form of y = mx + b, where b is not equal to 0;
+    - (C) contrast bivariate sets of data that suggest a linear relationship with bivariate sets of data that do not suggest a linear relationship from a graphical representation;
+    - (D) use a trend line that approximates the linear relationship between bivariate sets of data to make predictions;
+    - (E) solve problems involving direct variation;
+    - (F) distinguish between proportional and non-proportional situations using tables, graphs, and equations in the form y = kx or y = mx + b, where b 0;
+    - (G) identify functions using sets of ordered pairs, tables, mappings, and graphs;
+    - (H) identify examples of proportional and non-proportional functions that arise from mathematical and real-world problems; and
+    - (I) write an equation in the form y = mx + b to model a linear relationship between two quantities using verbal, numerical, tabular, and graphical representations.
+  - (6) Expressions, equations, and relationships. The student applies mathematical process standards to develop mathematical relationships and make connections to geometric formulas. The student is expected to:
+    - (A) describe the volume formula V = Bh of a cylinder in terms of its base area and its height;
+    - (B) model the relationship between the volume of a cylinder and a cone having both congruent bases and heights and connect that relationship to the formulas; and
+    - (C) use models and diagrams to explain the Pythagorean theorem.
+  - (7) Expressions, equations, and relationships. The student applies mathematical process standards to use geometry to solve problems. The student is expected to:
+    - (A) solve problems involving the volume of cylinders, cones, and spheres;
+    - (B) use previous knowledge of surface area to make connections to the formulas for lateral and total surface area and determine solutions for problems involving rectangular prisms, triangular prisms, and cylinders;
+    - (C) use the Pythagorean Theorem and its converse to solve problems; and
+    - (D) determine the distance between two points on a coordinate plane using the Pythagorean Theorem.
+  - (8) Expressions, equations, and relationships. The student applies mathematical process standards to use one-variable equations or inequalities in problem situations. The student is expected to:
+    - (A) write one-variable equations or inequalities with variables on both sides that represent problems using rational number coefficients and constants;
+    - (B) write a corresponding real-world problem when given a one-variable equation or inequality with variables on both sides of the equal sign using rational number coefficients and constants;
+    - (C) model and solve one-variable equations with variables on both sides of the equal sign that represent mathematical and real-world problems using rational number coefficients and constants; and
+    - (D) use informal arguments to establish facts about the angle sum and exterior angle of triangles, the angles created when parallel lines are cut by a transversal, and the angle-angle criterion for similarity of triangles.
+  - (9) Expressions, equations, and relationships. The student applies mathematical process standards to use multiple representations to develop foundational concepts of simultaneous linear equations. The student is expected to identify and verify the values of x and y that simultaneously satisfy two linear equations in the form y = mx + b from the intersections of the graphed equations.
+  - (10) Two-dimensional shapes. The student applies mathematical process standards to develop transformational geometry concepts. The student is expected to:
+    - (A) generalize the properties of orientation and congruence of rotations, reflections, translations, and dilations of two-dimensional shapes on a coordinate plane;
+    - (B) differentiate between transformations that preserve congruence and those that do not;
+    - (C) explain the effect of translations, reflections over the x- or y- axis, and rotations limited to 90°, 180°, 270°, and 360° as applied to two-dimensional shapes on a coordinate plane using an algebraic representation; and
+    - (D) model the effect on linear and area measurements of dilated two-dimensional shapes.
+  - (11) Measurement and data. The student applies mathematical process standards to use statistical procedures to describe data. The student is expected to:
+    - (A) construct a scatterplot and describe the observed data to address questions of association such as linear, non-linear, and no association between bivariate data;
+    - (B) determine the mean absolute deviation and use this quantity as a measure of the average distance data are from the mean using a data set of no more than 10 data points; and
+    - (C) simulate generating random samples of the same size from a population with known characteristics to develop the notion of a random sample being representative of the population from which it was selected.
+  - (12) Personal financial literacy. The student applies mathematical process standards to develop an economic way of thinking and problem solving useful in one's life as a knowledgeable consumer and investor. The student is expected to:
+    - (A) solve real-world problems comparing how interest rate and loan length affect the cost of credit;
+    - (B) calculate the total cost of repaying a loan, including credit cards and easy access loans, under various rates of interest and over different periods using an online calculator;
+    - (C) explain how small amounts of money invested regularly, including money saved for college and retirement, grow over time;
+    - (D) calculate and compare simple interest and compound interest earnings;
+    - (E) identify and explain the advantages and disadvantages of different payment methods;
+    - (F) analyze situations to determine if they represent financially responsible decisions and identify the benefits of financial responsibility and the costs of financial irresponsibility; and
+    - (G) estimate the cost of a two-year and four-year college education, including family contribution, and devise a periodic savings plan for accumulating the money needed to contribute to the total cost of attendance for at least the first year of college.
+
+### § 111.29 - [Effective 7/6/2025] Grade 6, Middle School Advanced Mathematics, Adopted 2025
+
+- (a) Implementation. The provisions of this section may be implemented by school districts beginning with the 2025-2026 school year.
+- (b) Introduction.
+  - (1) The desire to achieve educational excellence is the driving force behind the Texas essential knowledge and skills for mathematics, guided by the college and career readiness standards. By embedding statistics, probability, and finance, while focusing on computational thinking, mathematical fluency, and solid understanding, Texas will lead the way in mathematics education and prepare all Texas students for the challenges they will face in the 21st century.
+  - (2) The process standards describe ways in which students are expected to engage in the content. The placement of the process standards at the beginning of the knowledge and skills listed for each grade and course is intentional. The process standards weave the other knowledge and skills together so that students may be successful problem solvers and use mathematics efficiently and effectively in daily life. The process standards are integrated at every grade level and course. When possible, students will apply mathematics to problems arising in everyday life, society, and the workplace. Students will use a problem-solving model that incorporates analyzing given information, formulating a plan or strategy, determining a solution, justifying the solution, and evaluating the problem-solving process and the reasonableness of the solution. Students will select appropriate tools such as real objects, manipulatives, algorithms, paper and pencil, and technology and techniques such as mental math, estimation, number sense, and generalization and abstraction to solve problems. Students will effectively communicate mathematical ideas, reasoning, and their implications using multiple representations such as symbols, diagrams, graphs, computer programs, and language. Students will use mathematical relationships to generate solutions and make connections and predictions. Students will analyze mathematical relationships to connect and communicate mathematical ideas. Students will display, explain, or justify mathematical ideas and arguments using precise mathematical language in written or oral communication.
+  - (3) To increase the number of students who complete advanced mathematics courses in high school, the middle school advanced mathematics courses are designed to enable students to complete Algebra I by the end of Grade 8.
+  - (4) The primary focal areas in Grade 6, Middle School Advanced Mathematics are numeracy; proportionality; expressions, equations, and relationships; and data science. Students use concepts, algorithms, and properties of rational numbers to explore mathematical relationships and to describe increasingly complex situations. Students use concepts of proportionality to explore, develop, and communicate mathematical relationships, including number, geometry and measurement, and statistics. Students use algebraic thinking to describe how a change in one quantity in a relationship results in a change in the other. Students connect verbal, numeric, graphic, and symbolic representations of relationships, including equations and inequalities. Students begin to develop a foundational understanding of functions. Students use geometric properties and relationships, as well as spatial reasoning, to model and analyze situations and solve problems. Students communicate information about geometric figures or situations by quantifying attributes, generalize procedures from measurement experiences, and use the procedures to solve problems. Students use appropriate statistics, representations of data, and reasoning to draw conclusions, evaluate arguments, and make recommendations. The use of technology, including graphing tools, is essential in middle school advanced mathematics courses to master algebra readiness skills by bridging conceptual understanding and procedural fluency.
+  - (5) Statements that contain the word "including" reference content that must be mastered, while those containing the phrase "such as" are intended as possible illustrative examples.
+- (c) Knowledge and skills.
+  - (1) Mathematical process standards. The student uses mathematical processes to acquire and demonstrate mathematical understanding. The student is expected to:
+    - (A) apply mathematics to problems arising in everyday life, society, and the workplace;
+    - (B) use a problem-solving model that incorporates analyzing given information, formulating a plan or strategy, determining a solution, justifying the solution, and evaluating the problem-solving process and the reasonableness of the solution;
+    - (C) select tools, including real objects, manipulatives, paper and pencil, and technology as appropriate, and techniques, including mental math, estimation, and number sense as appropriate, to solve problems;
+    - (D) communicate mathematical ideas, reasoning, and their implications using multiple representations, including symbols, diagrams, graphs, and language as appropriate;
+    - (E) create and use representations to organize, record, and communicate mathematical ideas;
+    - (F) analyze mathematical relationships to connect and communicate mathematical ideas; and
+    - (G) display, explain, and justify mathematical ideas and arguments using precise mathematical language in written or oral communication.
+  - (2) Numeracy--foundations of rational numbers. The student applies mathematical process standards to represent and use rational numbers in a variety of forms. The student is expected to:
+    - (A) classify sets and subsets using a visual representation such as a Venn diagram or a hierarchy to describe relationships between sets of rational numbers;
+    - (B) identify a number, its opposite, and its absolute value;
+    - (C) represent benchmark fractions and percents such as 1%, 10%, 25%, 33 1/3%, and multiples of these values using 10 by 10 grids, strip diagrams, number lines, and numbers as proportional relationships;
+    - (D) generate equivalent forms of fractions, decimals, and percents using real-world problems as proportional relationships, including problems that involve money;
+    - (E) use equivalent fractions, decimals, and percents to show equal parts of the same whole as proportional relationships;
+    - (F) locate, compare, and order integers and rational numbers using a number line;
+    - (G) order a set of rational numbers arising from mathematical and real-world contexts; and
+    - (H) use coordinate geometry to identify locations on a plane, including graphing points in all four quadrants using ordered pairs of rational numbers.
+  - (3) Numeracy--operations with rational numbers. The student applies mathematical process standards to represent addition, subtraction, multiplication, and division while solving problems and justifying solutions. The student is expected to:
+    - (A) recognize that dividing by a rational number and multiplying by its reciprocal result in equivalent values;
+    - (B) determine, with and without computation, whether a quantity is increased or decreased when multiplied by a fraction, including values greater than or less than one;
+    - (C) extend representations for division to include fraction notation such as a/b represents the same number as a ÷ b where b [NOT EQUAL TO] 0;
+    - (D) represent integer operations with concrete models and connect the actions with the models to standardized algorithms;
+    - (E) add, subtract, multiply, and divide integers fluently;
+    - (F) add, subtract, multiply, and divide rational numbers;
+    - (G) generate equivalent numerical expressions using order of operations, including whole number exponents and prime factorization;
+    - (H) balance a check register that includes deposits, withdrawals, and transfers; and
+    - (I) create and organize a financial assets and liabilities record and construct a net worth statement.
+  - (4) Numeracy--applications of percents. The student applies mathematical process standards to solve problems involving percents as proportional relationships. The student is expected to:
+    - (A) solve real-world problems to find the whole given a part and the percent, to find the part given the whole and the percent, and to find the percent given the part and the whole, including the use of concrete and pictorial models; and
+    - (B) calculate the sales tax for a given purchase and calculate income tax for earned wages.
+  - (5) Proportionality--foundations of ratios and rates. The student applies mathematical process standards to develop an understanding of proportional relationships in problem situations. The student is expected to:
+    - (A) give examples of ratios as multiplicative comparisons of two quantities describing the same attribute;
+    - (B) give examples of rates as the comparison by division of two quantities having different attributes, including rates as quotients;
+    - (C) represent ratios and percents with concrete models, fractions, and decimals; and
+    - (D) represent mathematical and real-world problems involving ratios and rates using scale factors, tables, graphs, and proportions.
+  - (6) Proportionality--applications of ratios and rates. The student applies mathematical process standards to solve problems involving proportional relationships. The student is expected to:
+    - (A) apply qualitative and quantitative reasoning to solve prediction and comparison of real-world problems involving ratios and rates;
+    - (B) calculate unit rates from rates in mathematical and real-world problems; and
+    - (C) convert within and between measurement systems, including the use of proportions and the use of unit rates.
+  - (7) One-variable expressions, equations, and relationships--foundations of one-variable relationships. The student applies mathematical process standards to develop concepts of expressions and equations. The student is expected to:
+    - (A) distinguish between expressions and equations verbally, numerically, and algebraically;
+    - (B) determine if two expressions are equivalent using concrete models, pictorial models, and algebraic representations; and
+    - (C) generate equivalent expressions using the properties of operations: inverse, identity, commutative, associative, and distributive properties.
+  - (8) One-variable expressions, equations, and relationships--applications of one-variable relationships. The student applies mathematical process standards to use equations and inequalities to represent situations and solve problems. The student is expected to:
+    - (A) write one-variable, one- and two-step equations and inequalities to represent constraints or conditions within problems;
+    - (B) write corresponding real-world problems given one-variable, one- and two-step equations or inequalities;
+    - (C) represent solutions for one-variable, one- and two-step equations and inequalities on number lines;
+    - (D) model and solve one-variable, one-step equations and inequalities that represent problems, including geometric concepts;
+    - (E) model and solve one-variable, two-step equations and inequalities; and
+    - (F) determine if the given value(s) make(s) one-variable, one- and two-step equations and inequalities true.
+  - (9) Two-variable equations and relationships--foundations of linear relationships. The student applies mathematical process standards to use multiple representations to describe algebraic relationships. The student is expected to:
+    - (A) identify independent and dependent quantities from tables and graphs;
+    - (B) write an equation that represents the relationship between independent and dependent quantities from a table;
+    - (C) represent a given situation using verbal descriptions, tables, graphs, and equations in the form y = kx or y = x + b; and
+    - (D) compare two rules verbally, numerically, graphically, and symbolically in the form of y = ax or y = x + a in order to differentiate between additive and multiplicative relationships.
+  - (10) Two-variable equations and relationships--applications of proportional relationships. The student applies mathematical process standards to represent and solve problems involving proportional relationships. The student is expected to represent constant rates of change in mathematical and real-world problems given pictorial, tabular, verbal, numeric, graphical, and algebraic representations, including d = rt.
+  - (11) Geometric expressions, equations, and relationships--foundations of geometric concepts equations. The student applies mathematical process standards to use geometry to represent relationships. The student is expected to:
+    - (A) model area formulas for parallelograms, trapezoids, and triangles by decomposing and rearranging parts of these shapes; and
+    - (B) write equations that represent problems related to the area of rectangles, parallelograms, trapezoids, and triangles and volume of right rectangular prisms where dimensions are positive rational numbers.
+  - (12) Geometric expressions, equations, and relationships--applications of geometric concepts. The student applies mathematical process standards to use geometry to represent relationships and solve problems. The student is expected to:
+    - (A) extend previous knowledge of triangles and their properties to include the sum of angles of a triangle, the relationship between the lengths of sides and measures of angles in a triangle, and determining when three lengths form a triangle;
+    - (B) determine solutions for problems involving the area of rectangles, parallelograms, trapezoids, and triangles where dimensions are positive rational numbers;
+    - (C) solve problems involving the volume of right rectangular prisms and triangular prisms; and
+    - (D) write and solve equations using geometry concepts, including the sum of the angles in a triangle, and angle relationships.
+  - (13) Data science--foundations of measurement and data. The student applies mathematical process standards to represent and analyze data. The student is expected to:
+    - (A) distinguish between situations that yield data with and without variability; and
+    - (B) represent numeric data graphically, including dot plots, stem-and-leaf plots, histograms, and box plots.
+  - (14) Data science--applications of measurement and data. The student applies mathematical process standards to use numerical or graphical representations to analyze and solve problems. The student is expected to:
+    - (A) use the graphical representation of numeric data to describe the center, spread, and shape of the data distribution;
+    - (B) summarize numeric data with numerical summaries, including the mean and median (measures of center) and the range and interquartile range (IQR) (measures of spread), and use these summaries to describe the center, spread, and shape of the data distribution;
+    - (C) interpret numeric data summarized in dot plots, stem-and-leaf plots, histograms, and box plots;
+    - (D) solve problems using data represented in bar graphs, dot plots, and circle graphs, including part-to-whole and part-to-part comparisons and equivalents;
+    - (E) compare two groups of numeric data using comparative dot plots or box plots by comparing their shapes, centers, and spreads; and
+    - (F) summarize categorical data with numerical and graphical summaries, including the mode, the percent of values in each category (relative frequency table), and the percent bar graph, and use these summaries to describe the data distribution.
+  - (15) Personal financial literacy--money management. The student applies mathematical process standards to develop an economic way of thinking and problem solving useful in one's life as a knowledgeable consumer and investor. The student is expected to:
+    - (A) compare the features and costs of a checking account and a debit card offered by different local financial institutions;
+    - (B) identify and explain the advantages and disadvantages of different payment methods, including distinguishing between debit cards and credit cards;
+    - (C) explain why it is important to establish a positive credit history;
+    - (D) describe the information in a credit report and how long it is retained;
+    - (E) describe the value of credit reports to borrowers and to lenders;
+    - (F) explain various methods to pay for college, including through savings, grants, scholarships, student loans, and work-study; and
+    - (G) compare the annual salary of several occupations requiring various levels of post-secondary education or vocational training and calculate the effects of the different annual salaries on lifetime income.
+
+### § 111.30 - [Effective 7/6/2025] Grade 7, Middle School Advanced Mathematics, Adopted 2025
+
+- (a) Implementation. The provisions of this section may be implemented by school districts beginning with the 2025-2026 school year.
+- (b) Introduction.
+  - (1) The desire to achieve educational excellence is the driving force behind the Texas essential knowledge and skills for mathematics, guided by the college and career readiness standards. By embedding statistics, probability, and finance, while focusing on computational thinking, mathematical fluency, and solid understanding, Texas will lead the way in mathematics education and prepare all Texas students for the challenges they will face in the 21st century.
+  - (2) The process standards describe ways in which students are expected to engage in the content. The placement of the process standards at the beginning of the knowledge and skills listed for each grade and course is intentional. The process standards weave the other knowledge and skills together so that students may be successful problem solvers and use mathematics efficiently and effectively in daily life. The process standards are integrated at every grade level and course. When possible, students will apply mathematics to problems arising in everyday life, society, and the workplace. Students will use a problem-solving model that incorporates analyzing given information, formulating a plan or strategy, determining a solution, justifying the solution, and evaluating the problem-solving process and the reasonableness of the solution. Students will select appropriate tools such as real objects, manipulatives, algorithms, paper and pencil, and technology and techniques such as mental math, estimation, number sense, and generalization and abstraction to solve problems. Students will effectively communicate mathematical ideas, reasoning, and their implications using multiple representations such as symbols, diagrams, graphs, computer programs, and language. Students will use mathematical relationships to generate solutions and make connections and predictions. Students will analyze mathematical relationships to connect and communicate mathematical ideas. Students will display, explain, or justify mathematical ideas and arguments using precise mathematical language in written or oral communication.
+  - (3) To increase the number of students who complete advanced mathematics courses in high school, the middle school advanced mathematics courses are designed to enable students to complete Algebra I by the end of Grade 8.
+  - (4) The primary focal areas in Grade 7, Middle School Advanced Mathematics are numeracy; proportionality; expressions, equations, and relationships; and data science. Students use concepts, algorithms, and properties of real numbers to explore mathematical relationships and to describe increasingly complex situations. Students use concepts of proportionality to explore, develop, and communicate mathematical relationships, including number, geometry and measurement, and statistics and probability. Students use algebraic thinking to describe how a change in one quantity in a relationship results in a change in the other. Students connect verbal, numeric, graphic, and symbolic representations of relationships, including equations and inequalities. Students continue to develop a foundational understanding of functions. Students use geometric properties and relationships, as well as spatial reasoning, to model and analyze situations and solve problems. Students communicate information about geometric figures or situations by quantifying attributes, generalize procedures from measurement experiences, and use the procedures to solve problems. Students use appropriate statistics, representations of data, and reasoning to draw conclusions, evaluate arguments, and make recommendations. The use of technology, including graphing tools, is essential in middle school advanced mathematics courses to master algebra readiness skills by bridging conceptual understanding and procedural fluency.
+  - (5) Statements that contain the word "including" reference content that must be mastered, while those containing the phrase "such as" are intended as possible illustrative examples.
+- (c) Knowledge and skills.
+  - (1) Mathematical process standards. The student uses mathematical processes to acquire and demonstrate mathematical understanding. The student is expected to:
+    - (A) apply mathematics to problems arising in everyday life, society, and the workplace;
+    - (B) use a problem-solving model that incorporates analyzing given information, formulating a plan or strategy, determining a solution, justifying the solution, and evaluating the problem-solving process and the reasonableness of the solution;
+    - (C) select tools, including real objects, manipulatives, paper and pencil, and technology as appropriate, and techniques, including mental math, estimation, and number sense as appropriate, to solve problems;
+    - (D) communicate mathematical ideas, reasoning, and their implications using multiple representations, including symbols, diagrams, graphs, and language as appropriate;
+    - (E) create and use representations to organize, record, and communicate mathematical ideas;
+    - (F) analyze mathematical relationships to connect and communicate mathematical ideas; and
+    - (G) display, explain, and justify mathematical ideas and arguments using precise mathematical language in written or oral communication.
+  - (2) Numeracy--foundations of real numbers. The student applies mathematical process standards to represent and use real numbers in a variety of forms. The student is expected to:
+    - (A) extend previous knowledge of sets and subsets using a visual representation to describe relationships between sets of real numbers;
+    - (B) approximate the value of an irrational number, including &pgr and square roots of numbers less than 225, and locate that rational number approximation on a number line;
+    - (C) convert between standard decimal notation and scientific notation; and
+    - (D) order a set of real numbers arising from mathematical and real-world contexts.
+  - (3) Numeracy--operations with rational numbers. The student applies mathematical process standards to add, subtract, multiply, and divide while solving problems and justifying solutions. The student is expected to:
+    - (A) add, subtract, multiply, and divide rational numbers fluently; and
+    - (B) apply and extend previous understandings of operations to solve problems using addition, subtraction, multiplication, and division of rational numbers.
+  - (4) Numeracy--applications of percents. The student applies mathematical process standards to represent and solve problems involving percents as proportional relationships. The student is expected to:
+    - (A) solve problems involving ratios, rates, and percents, including multi-step problems involving percent increase and percent decrease, and financial literacy problems;
+    - (B) calculate and compare simple interest and compound interest earnings;
+    - (C) analyze and compare monetary incentives, including sales, rebates, and coupons;
+    - (D) solve real-world problems comparing how interest rate and loan length affect the cost of credit;
+    - (E) calculate the total cost of repaying a loan, including credit cards and easy access loans, under various rates of interest and over different periods using an online calculator;
+    - (F) explain how small amounts of money invested regularly, including money saved for college and retirement, grow over time; and
+    - (G) estimate the cost of a two-year and four-year college education, including family contribution, and devise a periodic savings plan for accumulating the money needed to contribute to the total cost of attendance for at least the first year of college.
+  - (5) Proportionality--geometric ratios. The student applies mathematical process standards to use geometry to describe or solve problems involving proportional relationships such as dilations. The student is expected to:
+    - (A) describe &pgr as the ratio of the circumference of a circle to its diameter;
+    - (B) generalize the critical attributes of similarity, including ratios within and between similar shapes;
+    - (C) solve mathematical and real-world problems involving similar shape and scale drawings;
+    - (D) compare and contrast the attributes of a shape and its dilation(s) on a coordinate plane; and
+    - (E) use an algebraic representation to explain the effect of a given positive rational scale factor applied to two-dimensional figures on a coordinate plane with the origin as the center of dilation.
+  - (6) Proportionality--probability. The student applies mathematical process standards to use probability and statistics to describe or solve problems involving proportional relationships. The student is expected to:
+    - (A) represent sample spaces for simple and compound events using lists and tree diagrams;
+    - (B) select and use different simulations to represent simple and compound events with and without technology;
+    - (C) make predictions and determine solutions using experimental data for simple and compound events;
+    - (D) make predictions and determine solutions using theoretical probability for simple and compound events;
+    - (E) find the probabilities of a simple event and its complement and describe the relationship between the two;
+    - (F) solve problems using qualitative and quantitative predictions and comparisons from simple experiments; and
+    - (G) determine experimental and theoretical probabilities related to simple and compound events using data and sample spaces.
+  - (7) One-variable expressions, equations, and relationships--applications of one-variable relationships. The student applies mathematical process standards to use one-variable equations or inequalities in problem situations. The student is expected to:
+    - (A) represent solutions for one-variable, two-step inequalities on number lines;
+    - (B) model and solve one-variable, two-step inequalities;
+    - (C) write one-variable equations or inequalities with variables on both sides that represent problems using rational number coefficients and constants;
+    - (D) write a corresponding real-world problem when given a one-variable equation or inequality with variables on both sides of the equal sign using rational number coefficients and constants; and
+    - (E) model and solve one-variable equations with variables on both sides of the equal sign that represent mathematical and real-world problems using rational number coefficients and constants.
+  - (8) Two-variable equations and relationships--foundations of linear relationships. The student applies mathematical process standards to use proportional and non-proportional relationships to develop foundational concepts of functions. The student is expected to:
+    - (A) determine the constant of proportionality (k = y / x) within mathematical and real-world problems;
+    - (B) distinguish between proportional and non-proportional situations using tables, graphs, and equations in the form y = kx or y = mx + b, where b [NOT EQUAL TO] 0; and
+    - (C) identify examples of proportional and non-proportional relationships that arise from mathematical and real-world problems.
+  - (9) Two-variable equations and relationships--applications of linear relationships. The student applies mathematical process standards to represent linear relationships using multiple representations. The student is expected to represent linear proportional and non-proportional relationships using verbal descriptions, tables, graphs, and equations that simplify to the form y = mx + b.
+  - (10) Geometric expressions, equations, and relationships--foundations of geometric concepts. The student applies mathematical process standards to develop geometric relationships and solve problems. The student is expected to:
+    - (A) use models to determine the approximate formulas for the circumference and area of a circle and connect the models to the actual formulas;
+    - (B) solve problems involving the lateral and total surface area of a rectangular prism, rectangular pyramid, triangular prism, and triangular pyramid by determining the area of the shape's net;
+    - (C) describe the volume formula V = Bh of a cylinder in terms of its base area and its height;
+    - (D) model the relationship between the volume of a rectangular prism and a rectangular pyramid having both congruent bases and heights and connect that relationship to the formulas;
+    - (E) explain verbally and symbolically the relationship between the volume of a triangular prism and a triangular pyramid having both congruent bases and heights and connect that relationship to the formulas;
+    - (F) model the relationship between the volume of a cylinder and a cone having both congruent bases and heights and connect that relationship to the formulas;
+    - (G) use models and diagrams to explain the Pythagorean theorem; and
+    - (H) use informal arguments to establish facts about the angle sum and exterior angle of triangles, the angles created when parallel lines are cut by a transversal, and the angle-angle criterion for similarity of triangles.
+  - (11) Geometric expressions, equations, and relationships--applications of geometric concepts. The student applies mathematical process standards to solve geometric problems. The student is expected to:
+    - (A) determine the circumference and area of circles;
+    - (B) determine the area of composite figures containing combinations of rectangles, squares, parallelograms, trapezoids, triangles, semicircles, and quarter circles;
+    - (C) use previous knowledge of surface area to make connections to the formulas for lateral and total surface area and determine solutions for problems involving rectangular prisms, triangular prisms, and cylinders;
+    - (D) solve problems involving the volume of rectangular pyramids and triangular pyramids;
+    - (E) solve problems involving the volume of cylinders, cones, and spheres;
+    - (F) use the Pythagorean theorem and its converse to solve problems; and
+    - (G) determine the distance between two points on a coordinate plane using the Pythagorean theorem.
+  - (12) Geometric expressions, equations, and relationships--transformations. The student applies mathematical process standards to develop transformational geometry concepts. The student is expected to:
+    - (A) generalize the properties of orientation and congruence of rotations, reflections, translations, and dilations of two-dimensional shapes on a coordinate plane;
+    - (B) differentiate between transformations that preserve congruence and those that do not;
+    - (C) explain the effect of translations, reflections over the x - or y -axis, and rotations limited to 90°, 180°, 270°, and 360° as applied to two-dimensional shapes on a coordinate plane using an algebraic representation; and
+    - (D) model the effect on linear and area measurements of dilated two-dimensional shapes.
+  - (13) Data science--applications of measurement and data. The student applies mathematical process standards to use statistical representations and procedures to analyze and describe data. The student is expected to:
+    - (A) use data from a random sample to make inferences about a population;
+    - (B) compare two populations based on data in random samples from these populations, including informal comparative inferences about differences between the two populations;
+    - (C) simulate generating random samples of the same size from a population with known characteristics to develop the notion of a random sample being representative of the population from which it was selected; and
+    - (D) determine the mean absolute deviation and use this quantity as a measure of the average distance data are from the mean using a data set of no more than 10 data points.
+  - (14) Personal financial literacy--money management. The student applies mathematical process standards to develop an economic way of thinking and problem solving useful in one's life as a knowledgeable consumer and investor. The student is expected to:
+    - (A) identify the components of a personal budget, including income; planned savings for college, retirement, and emergencies; taxes; and fixed and variable expenses, and calculate what percentage each category comprises of the total budget;
+    - (B) use a family budget estimator to determine the minimum household budget and average hourly wage needed for a family to meet its basic needs in the student's city or another large city nearby; and
+    - (C) analyze situations to determine if they represent financially responsible decisions and identify the benefits of financial responsibility and the costs of financial irresponsibility.
+
+### § 111.31 - [Effective 7/6/2025] Grade 8, Middle School Advanced Mathematics, Algebra I (One Credit), Adopted 2025
+
+- (a) Implementation. The provisions of this section may be implemented by school districts beginning with the 2025-2026 school year.
+- (b) General requirements. This course is recommended for students in Grade 8. Prerequisite: Middle School Advanced Mathematics, Grade 7 or Mathematics, Grade 8. Students shall be awarded one credit that satisfies the Algebra I requirement for high school graduation. This course satisfies the requirement for any course which identifies Algebra I as a prerequisite.
+- (c) Introduction.
+  - (1) The desire to achieve educational excellence is the driving force behind the Texas essential knowledge and skills for mathematics, guided by the college and career readiness standards. By embedding statistics, probability, and finance, while focusing on fluency and solid understanding, Texas will lead the way in mathematics education and prepare all Texas students for the challenges they will face in the 21st century.
+  - (2) The process standards describe ways in which students are expected to engage in the content. The placement of the process standards at the beginning of the knowledge and skills listed for each grade and course is intentional. The process standards weave the other knowledge and skills together so that students may be successful problem solvers and use mathematics efficiently and effectively in daily life. The process standards are integrated at every grade level and course. When possible, students will apply mathematics to problems arising in everyday life, society, and the workplace. Students will use a problem-solving model that incorporates analyzing given information, formulating a plan or strategy, determining a solution, justifying the solution, and evaluating the problem-solving process and the reasonableness of the solution. Students will select appropriate tools such as real objects, manipulatives, paper and pencil, and technology and techniques such as mental math, estimation, number sense, and generalization and abstraction to solve problems. Students will effectively communicate mathematical ideas, reasoning, and their implications using multiple representations such as symbols, diagrams, graphs, and language. Students will use mathematical relationships to generate solutions and make connections and predictions. Students will analyze mathematical relationships to connect and communicate mathematical ideas. Students will display, explain, or justify mathematical ideas and arguments using precise mathematical language in written or oral communication.
+  - (3) To increase the number of students who complete advanced mathematics courses in high school, the middle school advanced mathematics courses are designed to enable students to complete Algebra I by the end of Grade 8.
+  - (4) In Grade 8, Middle School Advanced Mathematics, Algebra I, students will build on the knowledge and skills for mathematics in Middle School Advanced Mathematics, Grades 6 and 7, which provide a foundation in linear relationships, number and operations, and proportionality. Students will study linear, quadratic, and exponential functions and their related transformations, equations, and associated solutions. Students will connect functions and their associated solutions in both mathematical and real-world situations. Students will use technology to collect and explore data and analyze statistical relationships. In addition, students will study polynomials of degree one and two, radical expressions, sequences, and laws of exponents. Students will generate and solve linear systems with two equations and two variables and will create new functions through transformations. The use of technology, including graphing tools, is essential in Grade 8, Middle School Advanced Mathematics, Algebra I, to bridge conceptual understanding and procedural fluency.
+  - (5) Statements that contain the word "including" reference content that must be mastered, while those containing the phrase "such as" are intended as possible illustrative examples.
+- (d) Knowledge and skills.
+  - (1) Mathematical process standards. The student uses mathematical processes to acquire and demonstrate mathematical understanding. The student is expected to:
+    - (A) apply mathematics to problems arising in everyday life, society, and the workplace;
+    - (B) use a problem-solving model that incorporates analyzing given information, formulating a plan or strategy, determining a solution, justifying the solution, and evaluating the problem-solving process and the reasonableness of the solution;
+    - (C) select tools, including real objects, manipulatives, paper and pencil, and technology as appropriate, and techniques, including mental math, estimation, and number sense as appropriate, to solve problems;
+    - (D) communicate mathematical ideas, reasoning, and their implications using multiple representations, including symbols, diagrams, graphs, and language as appropriate;
+    - (E) create and use representations to organize, record, and communicate mathematical ideas;
+    - (F) analyze mathematical relationships to connect and communicate mathematical ideas; and
+    - (G) display, explain, and justify mathematical ideas and arguments using precise mathematical language in written or oral communication.
+  - (2) Linear functions, equations, and inequalities. The student applies the mathematical process standards when using properties of linear functions to write and represent in multiple ways, with and without technology, linear equations, inequalities, and systems of equations. The student is expected to:
+    - (A) determine the domain and range of a linear function in mathematical problems; determine reasonable domain and range values for real-world situations, both continuous and discrete; and represent domain and range using inequalities;
+    - (B) write linear equations in two variables in various forms, including y = mx + b, Ax + By = C, and y - y1 = m (x - x1), given one point and the slope and given two points;
+    - (C) write linear equations in two variables given a table of values, a graph, and a verbal description;
+    - (D) write and solve equations involving direct variation;
+    - (E) write the equation of a line that contains a given point and is parallel to a given line;
+    - (F) write the equation of a line that contains a given point and is perpendicular to a given line;
+    - (G) write an equation of a line that is parallel or perpendicular to the x - or y - axis and determine whether the slope of the line is zero or undefined;
+    - (H) write linear inequalities in two variables given a table of values, a graph, and a verbal description; and
+    - (I) write systems of two linear equations given a table of values, a graph, and a verbal description.
+  - (3) Linear functions, equations, and inequalities. The student applies the mathematical process standards when using graphs of linear functions, key features, and related transformations to represent in multiple ways and solve, with and without technology, equations, inequalities, and systems of equations. The student is expected to:
+    - (A) use similar right triangles to develop an understanding that slope, m, given as the rate comparing the change in y-values to the change in x-values, (y2 - y1)/ (x2 - x1), is the same for any two points (x1, y1) and (x2, y2) on the same line;
+    - (B) graph proportional relationships, interpreting the unit rate as the slope of the line that models the relationship;
+    - (C) determine the slope of a line given a table of values, a graph, two points on the line, and an equation written in various forms, including y = mx + b, Ax + By = C, and y - y1 = m (x - x1);
+    - (D) calculate the rate of change of a linear function represented tabularly, graphically, or algebraically in context of mathematical and real-world problems;
+    - (E) use data from a table or graph to determine the rate of change or slope and y-intercept in mathematical and real-world problems;
+    - (F) graph linear functions on the coordinate plane and identify key features, including x-intercept, y-intercept, zeros, and slope, in mathematical and real-world problems;
+    - (G) graph the solution set of linear inequalities in two variables on the coordinate plane;
+    - (H) determine the effects on the graph of the parent function f (x) = x when f (x) is replaced by af (x), f (x) + d, f (x - c), and f (bx) for specific values of a, b, c, and d;
+    - (I) graph systems of two linear equations in two variables on the coordinate plane and determine the solutions if they exist;
+    - (J) estimate graphically the solutions to systems of two linear equations with two variables in real-world problems; and
+    - (K) graph the solution set of systems of two linear inequalities in two variables on the coordinate plane.
+  - (4) Linear functions, equations, and inequalities. The student applies the mathematical process standards to formulate statistical relationships and evaluate their reasonableness based on real-world data. The student is expected to:
+    - (A) construct a scatterplot and describe the observed data to address questions of association such as linear, non-linear, and no association between bivariate data;
+    - (B) contrast bivariate sets of data that suggest a linear relationship with bivariate sets of data that do not suggest a linear relationship from a graphical representation;
+    - (C) use a trend line that approximates the linear relationship between bivariate sets of data to make predictions;
+    - (D) calculate, using technology, the correlation coefficient between two quantitative variables and interpret this quantity as a measure of the strength of the linear association;
+    - (E) compare and contrast association and causation in real-world problems; and
+    - (F) write, with and without technology, linear functions that provide a reasonable fit to data to estimate solutions and make predictions for real-world problems.
+  - (5) Linear functions, equations, and inequalities. The student applies the mathematical process standards to solve, with and without technology, linear equations and evaluate the reasonableness of their solutions. The student is expected to:
+    - (A) solve linear equations in one variable, including those for which the application of the distributive property is necessary and for which variables are included on both sides;
+    - (B) solve linear inequalities in one variable, including those for which the application of the distributive property is necessary and for which variables are included on both sides; and
+    - (C) solve systems of two linear equations with two variables for mathematical and real-world problems.
+  - (6) Quadratic functions and equations. The student applies the mathematical process standards when using properties of quadratic functions to write and represent in multiple ways, with and without technology, quadratic equations. The student is expected to:
+    - (A) determine the domain and range of quadratic functions and represent the domain and range using inequalities;
+    - (B) write equations of quadratic functions given the vertex and another point on the graph, write the equation in vertex form (f (x) = a (x - h) 2 + k ), and rewrite the equation from vertex form to standard form (f (x) = ax 2 + bx + c); and
+    - (C) write quadratic functions when given real solutions and graphs of their related equations.
+  - (7) Quadratic functions and equations. The student applies the mathematical process standards when using graphs of quadratic functions and their related transformations to represent in multiple ways and determine, with and without technology, the solutions to equations. The student is expected to:
+    - (A) graph quadratic functions on the coordinate plane and use the graph to identify key attributes, if possible, including x -intercept, y -intercept, zeros, maximum value, minimum values, vertex, and the equation of the axis of symmetry;
+    - (B) describe the relationship between the linear factors of quadratic expressions and the zeros of their associated quadratic functions; and
+    - (C) determine the effects on the graph of the parent function f (x) = x 2 when f (x) is replaced by af (x), f (x) + d, f (x - c), and f (bx) for specific values of a, b, c, and d.
+  - (8) Quadratic functions and equations. The student applies the mathematical process standards to solve, with and without technology, quadratic equations and evaluate the reasonableness of their solutions. The student formulates statistical relationships and evaluates their reasonableness based on real-world data. The student is expected to:
+    - (A) solve quadratic equations having real solutions by factoring, taking square roots, completing the square, and applying the quadratic formula; and
+    - (B) write, using technology, quadratic functions that provide a reasonable fit to data to estimate solutions and make predictions for real-world problems.
+  - (9) Exponential functions and equations. The student applies the mathematical process standards when using properties of exponential functions and their related transformations to write, graph, and represent in multiple ways exponential equations and evaluate, with and without technology, the reasonableness of their solutions. The student formulates statistical relationships and evaluates their reasonableness based on real-world data. The student is expected to:
+    - (A) determine the domain and range of exponential functions of the form f (x) = ab x and represent the domain and range using inequalities;
+    - (B) interpret the meaning of the values of a and b in exponential functions of the form f (x ) = ab x in real-world problems;
+    - (C) write exponential functions in the form f (x) = ab x (where b is a rational number) to describe problems arising from mathematical and real-world situations, including growth and decay;
+    - (D) graph exponential functions that model growth and decay and identify key features, including y -intercept and asymptote, in mathematical and real-world problems; and
+    - (E) write, using technology, exponential functions that provide a reasonable fit to data and make predictions for real-world problems.
+  - (10) Number and algebraic methods. The student applies the mathematical process standards and algebraic methods to rewrite in equivalent forms and perform operations on polynomial expressions. The student is expected to:
+    - (A) add and subtract polynomials of degree one and degree two;
+    - (B) multiply polynomials of degree one and degree two;
+    - (C) determine the quotient of a polynomial of degree one and polynomial of degree two when divided by a polynomial of degree one and polynomial of degree two when the degree of the divisor does not exceed the degree of the dividend;
+    - (D) rewrite polynomial expressions of degree one and degree two in equivalent forms using the distributive property;
+    - (E) factor, if possible, trinomials with real factors in the form ax 2 + bx + c, including perfect square trinomials of degree two; and
+    - (F) decide if a binomial can be written as the difference of two squares and, if possible, use the structure of a difference of two squares to rewrite the binomial.
+  - (11) Number and algebraic methods. The student applies the mathematical process standards and algebraic methods to rewrite algebraic expressions into equivalent forms. The student is expected to:
+    - (A) simplify numerical radical expressions involving square roots; and
+    - (B) simplify numeric and algebraic expressions using the laws of exponents, including integral and rational exponents.
+  - (12) Number and algebraic methods. The student applies the mathematical process standards and algebraic methods to write, solve, analyze, and evaluate equations, relations, and functions. The student is expected to:
+    - (A) identify functions using sets of ordered pairs and mappings;
+    - (B) decide whether relations represented verbally, tabularly, graphically, and symbolically define a function;
+    - (C) evaluate functions, expressed in function notation, given one or more elements in their domains;
+    - (D) identify terms of arithmetic and geometric sequences when the sequences are given in function form using recursive processes;
+    - (E) write a formula for the n th term of arithmetic and geometric sequences, given the value of several of their terms; and
+    - (F) solve mathematic and scientific formulas, and other literal equations, for a specified variable.
+
+
+## Subchapter C — High School
+
+### § 111.38 - Implementation of Texas Essential Knowledge and Skills for Mathematics, High School, Adopted 2012
+
+- (a) The provisions of §§ 111.39-111.45 of this subchapter shall be implemented by school districts.
+- (b) No later than June 30, 2015, the commissioner of education shall determine whether instructional materials funding has been made available to Texas public schools for materials that cover the essential knowledge and skills for mathematics as adopted in §§ 111.39-111.45 of this subchapter.
+- (c) If the commissioner makes the determination that instructional materials funding has been made available under subsection (b) of this section, §§ 111.39-111.45 of this subchapter shall be implemented beginning with the 2015-2016 school year and apply to the 2015-2016 and subsequent school years.
+- (d) If the commissioner does not make the determination that instructional materials funding has been made available under subsection (b) of this section, the commissioner shall determine no later than June 30 of each subsequent school year whether instructional materials funding has been made available. If the commissioner determines that instructional materials funding has been made available, the commissioner shall notify the State Board of Education and school districts that §§ 111.39-111.45 of this subchapter shall be implemented for the following school year.
+- (e) Sections 111.31-111.37 of this subchapter shall be superseded by the implementation of §§111.38-111.45 under this section.
+
+### § 111.39 - Algebra I, Adopted 2012 (One Credit)
+
+- (a) General requirements. Students shall be awarded one credit for successful completion of this course. This course is recommended for students in Grade 8 or 9. Prerequisite: Mathematics, Grade 8 or its equivalent.
+- (b) Introduction.
+  - (1) The desire to achieve educational excellence is the driving force behind the Texas essential knowledge and skills for mathematics, guided by the college and career readiness standards. By embedding statistics, probability, and finance, while focusing on fluency and solid understanding, Texas will lead the way in mathematics education and prepare all Texas students for the challenges they will face in the 21st century.
+  - (2) The process standards describe ways in which students are expected to engage in the content. The placement of the process standards at the beginning of the knowledge and skills listed for each grade and course is intentional. The process standards weave the other knowledge and skills together so that students may be successful problem solvers and use mathematics efficiently and effectively in daily life. The process standards are integrated at every grade level and course. When possible, students will apply mathematics to problems arising in everyday life, society, and the workplace. Students will use a problem-solving model that incorporates analyzing given information, formulating a plan or strategy, determining a solution, justifying the solution, and evaluating the problem-solving process and the reasonableness of the solution. Students will select appropriate tools such as real objects, manipulatives, paper and pencil, and technology and techniques such as mental math, estimation, and number sense to solve problems. Students will effectively communicate mathematical ideas, reasoning, and their implications using multiple representations such as symbols, diagrams, graphs, and language. Students will use mathematical relationships to generate solutions and make connections and predictions. Students will analyze mathematical relationships to connect and communicate mathematical ideas. Students will display, explain, or justify mathematical ideas and arguments using precise mathematical language in written or oral communication.
+  - (3) In Algebra I, students will build on the knowledge and skills for mathematics in Grades 6-8, which provide a foundation in linear relationships, number and operations, and proportionality. Students will study linear, quadratic, and exponential functions and their related transformations, equations, and associated solutions. Students will connect functions and their associated solutions in both mathematical and real-world situations. Students will use technology to collect and explore data and analyze statistical relationships. In addition, students will study polynomials of degree one and two, radical expressions, sequences, and laws of exponents. Students will generate and solve linear systems with two equations and two variables and will create new functions through transformations.
+  - (4) Statements that contain the word "including" reference content that must be mastered, while those containing the phrase "such as" are intended as possible illustrative examples.
+- (c) Knowledge and skills.
+  - (1) Mathematical process standards. The student uses mathematical processes to acquire and demonstrate mathematical understanding. The student is expected to:
+    - (A) apply mathematics to problems arising in everyday life, society, and the workplace;
+    - (B) use a problem-solving model that incorporates analyzing given information, formulating a plan or strategy, determining a solution, justifying the solution, and evaluating the problem-solving process and the reasonableness of the solution;
+    - (C) select tools, including real objects, manipulatives, paper and pencil, and technology as appropriate, and techniques, including mental math, estimation, and number sense as appropriate, to solve problems;
+    - (D) communicate mathematical ideas, reasoning, and their implications using multiple representations, including symbols, diagrams, graphs, and language as appropriate;
+    - (E) create and use representations to organize, record, and communicate mathematical ideas;
+    - (F) analyze mathematical relationships to connect and communicate mathematical ideas; and
+    - (G) display, explain, and justify mathematical ideas and arguments using precise mathematical language in written or oral communication.
+  - (2) Linear functions, equations, and inequalities. The student applies the mathematical process standards when using properties of linear functions to write and represent in multiple ways, with and without technology, linear equations, inequalities, and systems of equations. The student is expected to:
+    - (A) determine the domain and range of a linear function in mathematical problems; determine reasonable domain and range values for real-world situations, both continuous and discrete; and represent domain and range using inequalities;
+    - (B) write linear equations in two variables in various forms, including y = mx + b, Ax + By = C, and y - y1 = m(x - x1), given one point and the slope and given two points;
+    - (C) write linear equations in two variables given a table of values, a graph, and a verbal description;
+    - (D) write and solve equations involving direct variation;
+    - (E) write the equation of a line that contains a given point and is parallel to a given line;
+    - (F) write the equation of a line that contains a given point and is perpendicular to a given line;
+    - (G) write an equation of a line that is parallel or perpendicular to the X or Y axis and determine whether the slope of the line is zero or undefined;
+    - (H) write linear inequalities in two variables given a table of values, a graph, and a verbal description; and
+    - (I) write systems of two linear equations given a table of values, a graph, and a verbal description.
+  - (3) Linear functions, equations, and inequalities. The student applies the mathematical process standards when using graphs of linear functions, key features, and related transformations to represent in multiple ways and solve, with and without technology, equations, inequalities, and systems of equations. The student is expected to:
+    - (A) determine the slope of a line given a table of values, a graph, two points on the line, and an equation written in various forms, including y = mx + b, Ax + By = C, and y - y1 = m(x - x1);
+    - (B) calculate the rate of change of a linear function represented tabularly, graphically, or algebraically in context of mathematical and real-world problems;
+    - (C) graph linear functions on the coordinate plane and identify key features, including x- intercept, y- intercept, zeros, and slope, in mathematical and real-world problems;
+    - (D) graph the solution set of linear inequalities in two variables on the coordinate plane;
+    - (E) determine the effects on the graph of the parent function f(x) = x when f(x) is replaced by af(x), f(x) + d, f(x - c), f(bx) for specific values of a, b, c, and d;
+    - (F) graph systems of two linear equations in two variables on the coordinate plane and determine the solutions if they exist;
+    - (G) estimate graphically the solutions to systems of two linear equations with two variables in real-world problems; and
+    - (H) graph the solution set of systems of two linear inequalities in two variables on the coordinate plane.
+  - (4) Linear functions, equations, and inequalities. The student applies the mathematical process standards to formulate statistical relationships and evaluate their reasonableness based on real-world data. The student is expected to:
+    - (A) calculate, using technology, the correlation coefficient between two quantitative variables and interpret this quantity as a measure of the strength of the linear association;
+    - (B) compare and contrast association and causation in real-world problems; and
+    - (C) write, with and without technology, linear functions that provide a reasonable fit to data to estimate solutions and make predictions for real-world problems.
+  - (5) Linear functions, equations, and inequalities. The student applies the mathematical process standards to solve, with and without technology, linear equations and evaluate the reasonableness of their solutions. The student is expected to:
+    - (A) solve linear equations in one variable, including those for which the application of the distributive property is necessary and for which variables are included on both sides;
+    - (B) solve linear inequalities in one variable, including those for which the application of the distributive property is necessary and for which variables are included on both sides; and
+    - (C) solve systems of two linear equations with two variables for mathematical and real-world problems.
+  - (6) Quadratic functions and equations. The student applies the mathematical process standards when using properties of quadratic functions to write and represent in multiple ways, with and without technology, quadratic equations. The student is expected to:
+    - (A) determine the domain and range of quadratic functions and represent the domain and range using inequalities;
+    - (B) write equations of quadratic functions given the vertex and another point on the graph, write the equation in vertex form (f(x) = a(x - h)2 + k), and rewrite the equation from vertex form to standard form (f(x) = ax2 + bx + c); and
+    - (C) write quadratic functions when given real solutions and graphs of their related equations.
+  - (7) Quadratic functions and equations. The student applies the mathematical process standards when using graphs of quadratic functions and their related transformations to represent in multiple ways and determine, with and without technology, the solutions to equations. The student is expected to:
+    - (A) graph quadratic functions on the coordinate plane and use the graph to identify key attributes, if possible, including x- intercept, y- intercept, zeros, maximum value, minimum values, vertex, and the equation of the axis of symmetry;
+    - (B) describe the relationship between the linear factors of quadratic expressions and the zeros of their associated quadratic functions; and
+    - (C) determine the effects on the graph of the parent function f(x) = x2 when f(x) is replaced by af(x), f(x) + d, f(x - c), f(bx) for specific values of a, b, c, and d.
+  - (8) Quadratic functions and equations. The student applies the mathematical process standards to solve, with and without technology, quadratic equations and evaluate the reasonableness of their solutions. The student formulates statistical relationships and evaluates their reasonableness based on real-world data. The student is expected to:
+    - (A) solve quadratic equations having real solutions by factoring, taking square roots, completing the square, and applying the quadratic formula; and
+    - (B) write, using technology, quadratic functions that provide a reasonable fit to data to estimate solutions and make predictions for real-world problems.
+  - (9) Exponential functions and equations. The student applies the mathematical process standards when using properties of exponential functions and their related transformations to write, graph, and represent in multiple ways exponential equations and evaluate, with and without technology, the reasonableness of their solutions. The student formulates statistical relationships and evaluates their reasonableness based on real-world data. The student is expected to:
+    - (A) determine the domain and range of exponential functions of the form f(x) = abx and represent the domain and range using inequalities;
+    - (B) interpret the meaning of the values of a and b in exponential functions of the form f(x) = abx in real-world problems;
+    - (C) write exponential functions in the form f(x) = abx (where b is a rational number) to describe problems arising from mathematical and real-world situations, including growth and decay;
+    - (D) graph exponential functions that model growth and decay and identify key features, including y- intercept and asymptote, in mathematical and real-world problems; and
+    - (E) write, using technology, exponential functions that provide a reasonable fit to data and make predictions for real-world problems.
+  - (10) Number and algebraic methods. The student applies the mathematical process standards and algebraic methods to rewrite in equivalent forms and perform operations on polynomial expressions. The student is expected to:
+    - (A) add and subtract polynomials of degree one and degree two;
+    - (B) multiply polynomials of degree one and degree two;
+    - (C) determine the quotient of a polynomial of degree one and polynomial of degree two when divided by a polynomial of degree one and polynomial of degree two when the degree of the divisor does not exceed the degree of the dividend;
+    - (D) rewrite polynomial expressions of degree one and degree two in equivalent forms using the distributive property;
+    - (E) factor, if possible, trinomials with real factors in the form ax2 + bx + c, including perfect square trinomials of degree two; and
+    - (F) decide if a binomial can be written as the difference of two squares and, if possible, use the structure of a difference of two squares to rewrite the binomial.
+  - (11) Number and algebraic methods. The student applies the mathematical process standards and algebraic methods to rewrite algebraic expressions into equivalent forms. The student is expected to:
+    - (A) simplify numerical radical expressions involving square roots; and
+    - (B) simplify numeric and algebraic expressions using the laws of exponents, including integral and rational exponents.
+  - (12) Number and algebraic methods. The student applies the mathematical process standards and algebraic methods to write, solve, analyze, and evaluate equations, relations, and functions. The student is expected to:
+    - (A) decide whether relations represented verbally, tabularly, graphically, and symbolically define a function;
+    - (B) evaluate functions, expressed in function notation, given one or more elements in their domains;
+    - (C) identify terms of arithmetic and geometric sequences when the sequences are given in function form using recursive processes;
+    - (D) write a formula for the nth term of arithmetic and geometric sequences, given the value of several of their terms; and
+    - (E) solve mathematic and scientific formulas, and other literal equations, for a specified variable.
+
+### § 111.40 - Algebra II, Adopted 2012 (One-Half to One Credit)
+
+- (a) General requirements. Students shall be awarded one-half to one credit for successful completion of this course. Prerequisite: Algebra I.
+- (b) Introduction.
+  - (1) The desire to achieve educational excellence is the driving force behind the Texas essential knowledge and skills for mathematics, guided by the college and career readiness standards. By embedding statistics, probability, and finance, while focusing on fluency and solid understanding, Texas will lead the way in mathematics education and prepare all Texas students for the challenges they will face in the 21st century.
+  - (2) The process standards describe ways in which students are expected to engage in the content. The placement of the process standards at the beginning of the knowledge and skills listed for each grade and course is intentional. The process standards weave the other knowledge and skills together so that students may be successful problem solvers and use mathematics efficiently and effectively in daily life. The process standards are integrated at every grade level and course. When possible, students will apply mathematics to problems arising in everyday life, society, and the workplace. Students will use a problem-solving model that incorporates analyzing given information, formulating a plan or strategy, determining a solution, justifying the solution, and evaluating the problem-solving process and the reasonableness of the solution. Students will select appropriate tools such as real objects, manipulatives, paper and pencil, and technology and techniques such as mental math, estimation, and number sense to solve problems. Students will effectively communicate mathematical ideas, reasoning, and their implications using multiple representations such as symbols, diagrams, graphs, and language. Students will use mathematical relationships to generate solutions and make connections and predictions. Students will analyze mathematical relationships to connect and communicate mathematical ideas. Students will display, explain, or justify mathematical ideas and arguments using precise mathematical language in written or oral communication.
+  - (3) In Algebra II, students will build on the knowledge and skills for mathematics in Kindergarten-Grade 8 and Algebra I. Students will broaden their knowledge of quadratic functions, exponential functions, and systems of equations. Students will study logarithmic, square root, cubic, cube root, absolute value, rational functions, and their related equations. Students will connect functions to their inverses and associated equations and solutions in both mathematical and real-world situations. In addition, students will extend their knowledge of data analysis and numeric and algebraic methods.
+  - (4) Statements that contain the word "including" reference content that must be mastered, while those containing the phrase "such as" are intended as possible illustrative examples.
+- (c) Knowledge and skills.
+  - (1) Mathematical process standards. The student uses mathematical processes to acquire and demonstrate mathematical understanding. The student is expected to:
+    - (A) apply mathematics to problems arising in everyday life, society, and the workplace;
+    - (B) use a problem-solving model that incorporates analyzing given information, formulating a plan or strategy, determining a solution, justifying the solution, and evaluating the problem-solving process and the reasonableness of the solution;
+    - (C) select tools, including real objects, manipulatives, paper and pencil, and technology as appropriate, and techniques, including mental math, estimation, and number sense as appropriate, to solve problems;
+    - (D) communicate mathematical ideas, reasoning, and their implications using multiple representations, including symbols, diagrams, graphs, and language as appropriate;
+    - (E) create and use representations to organize, record, and communicate mathematical ideas;
+    - (F) analyze mathematical relationships to connect and communicate mathematical ideas; and
+    - (G) display, explain, or justify mathematical ideas and arguments using precise mathematical language in written or oral communication.
+  - (2) Attributes of functions and their inverses. The student applies mathematical processes to understand that functions have distinct key attributes and understand the relationship between a function and its inverse. The student is expected to:
+    - (A) graph the functions f(x)=[SQRT]x, f(x)=1/x, f(x)=x3, f(x)=3 [SQRT]x, f(x)=bx, f(x)=|x|, and f(x)=logb (x) where b is 2, 10, and e, and, when applicable, analyze the key attributes such as domain, range, intercepts, symmetries, asymptotic behavior, and maximum and minimum given an interval;
+    - (B) graph and write the inverse of a function using notation such as f -1 (x);
+    - (C) describe and analyze the relationship between a function and its inverse (quadratic and square root, logarithmic and exponential), including the restriction(s) on domain, which will restrict its range; and
+    - (D) use the composition of two functions, including the necessary restrictions on the domain, to determine if the functions are inverses of each other.
+  - (3) Systems of equations and inequalities. The student applies mathematical processes to formulate systems of equations and inequalities, use a variety of methods to solve, and analyze reasonableness of solutions. The student is expected to:
+    - (A) formulate systems of equations, including systems consisting of three linear equations in three variables and systems consisting of two equations, the first linear and the second quadratic;
+    - (B) solve systems of three linear equations in three variables by using Gaussian elimination, technology with matrices, and substitution;
+    - (C) solve, algebraically, systems of two equations in two variables consisting of a linear equation and a quadratic equation;
+    - (D) determine the reasonableness of solutions to systems of a linear equation and a quadratic equation in two variables;
+    - (E) formulate systems of at least two linear inequalities in two variables;
+    - (F) solve systems of two or more linear inequalities in two variables; and
+    - (G) determine possible solutions in the solution set of systems of two or more linear inequalities in two variables.
+  - (4) Quadratic and square root functions, equations, and inequalities. The student applies mathematical processes to understand that quadratic and square root functions, equations, and quadratic inequalities can be used to model situations, solve problems, and make predictions. The student is expected to:
+    - (A) write the quadratic function given three specified points in the plane;
+    - (B) write the equation of a parabola using given attributes, including vertex, focus, directrix, axis of symmetry, and direction of opening;
+    - (C) determine the effect on the graph of f(x) = [SQRT]x when f(x) is replaced by af(x), f(x) + d, f(bx), and f(x - c) for specific positive and negative values of a, b, c, and d;
+    - (D) transform a quadratic function f(x) = ax2 + bx + c to the form f(x) = a(x - h)2 + k to identify the different attributes of f(x);
+    - (E) formulate quadratic and square root equations using technology given a table of data;
+    - (F) solve quadratic and square root equations;
+    - (G) identify extraneous solutions of square root equations; and
+    - (H) solve quadratic inequalities.
+  - (5) Exponential and logarithmic functions and equations. The student applies mathematical processes to understand that exponential and logarithmic functions can be used to model situations and solve problems. The student is expected to:
+    - (A) determine the effects on the key attributes on the graphs of f(x) = bx and f(x) = logb (x) where b is 2, 10, and e when f(x) is replaced by af(x), f(x) + d, and f(x - c) for specific positive and negative real values of a, c, and d;
+    - (B) formulate exponential and logarithmic equations that model real-world situations, including exponential relationships written in recursive notation;
+    - (C) rewrite exponential equations as their corresponding logarithmic equations and logarithmic equations as their corresponding exponential equations;
+    - (D) solve exponential equations of the form y = abx where a is a nonzero real number and b is greater than zero and not equal to one and single logarithmic equations having real solutions; and
+    - (E) determine the reasonableness of a solution to a logarithmic equation.
+  - (6) Cubic, cube root, absolute value and rational functions, equations, and inequalities. The student applies mathematical processes to understand that cubic, cube root, absolute value and rational functions, equations, and inequalities can be used to model situations, solve problems, and make predictions. The student is expected to:
+    - (A) analyze the effect on the graphs of f(x) = x3 and f(x) = 3 [SQRT]x when f(x) is replaced by af(x), f(bx), f(x - c), and f(x) + d for specific positive and negative real values of a, b, c, and d;
+    - (B) solve cube root equations that have real roots;
+    - (C) analyze the effect on the graphs of f(x) = |x| when f(x) is replaced by af(x), f(bx), f(x-c), and f(x) + d for specific positive and negative real values of a, b, c, and d;
+    - (D) formulate absolute value linear equations;
+    - (E) solve absolute value linear equations;
+    - (F) solve absolute value linear inequalities;
+    - (G) analyze the effect on the graphs of f(x) = 1/x when f(x) is replaced by af(x), f(bx), f(x-c), and f(x) + d for specific positive and negative real values of a, b, c, and d;
+    - (H) formulate rational equations that model real-world situations;
+    - (I) solve rational equations that have real solutions;
+    - (J) determine the reasonableness of a solution to a rational equation;
+    - (K) determine the asymptotic restrictions on the domain of a rational function and represent domain and range using interval notation, inequalities, and set notation; and
+    - (L) formulate and solve equations involving inverse variation.
+  - (7) Number and algebraic methods. The student applies mathematical processes to simplify and perform operations on expressions and to solve equations. The student is expected to:
+    - (A) add, subtract, and multiply complex numbers;
+    - (B) add, subtract, and multiply polynomials;
+    - (C) determine the quotient of a polynomial of degree three and of degree four when divided by a polynomial of degree one and of degree two;
+    - (D) determine the linear factors of a polynomial function of degree three and of degree four using algebraic methods;
+    - (E) determine linear and quadratic factors of a polynomial expression of degree three and of degree four, including factoring the sum and difference of two cubes and factoring by grouping;
+    - (F) determine the sum, difference, product, and quotient of rational expressions with integral exponents of degree one and of degree two;
+    - (G) rewrite radical expressions that contain variables to equivalent forms;
+    - (H) solve equations involving rational exponents; and
+    - (I) write the domain and range of a function in interval notation, inequalities, and set notation.
+  - (8) Data. The student applies mathematical processes to analyze data, select appropriate models, write corresponding functions, and make predictions. The student is expected to:
+    - (A) analyze data to select the appropriate model from among linear, quadratic, and exponential models;
+    - (B) use regression methods available through technology to write a linear function, a quadratic function, and an exponential function from a given set of data; and
+    - (C) predict and make decisions and critical judgments from a given set of data using linear, quadratic, and exponential models.
+
+### § 111.41 - Geometry, Adopted 2012 (One Credit)
+
+- (a) General requirements. Students shall be awarded one credit for successful completion of this course. Prerequisite: Algebra I.
+- (b) Introduction.
+  - (1) The desire to achieve educational excellence is the driving force behind the Texas essential knowledge and skills for mathematics, guided by the college and career readiness standards. By embedding statistics, probability, and finance, while focusing on fluency and solid understanding, Texas will lead the way in mathematics education and prepare all Texas students for the challenges they will face in the 21st century.
+  - (2) The process standards describe ways in which students are expected to engage in the content. The placement of the process standards at the beginning of the knowledge and skills listed for each grade and course is intentional. The process standards weave the other knowledge and skills together so that students may be successful problem solvers and use mathematics efficiently and effectively in daily life. The process standards are integrated at every grade level and course. When possible, students will apply mathematics to problems arising in everyday life, society, and the workplace. Students will use a problem-solving model that incorporates analyzing given information, formulating a plan or strategy, determining a solution, justifying the solution, and evaluating the problem-solving process and the reasonableness of the solution. Students will select appropriate tools such as real objects, manipulatives, paper and pencil, and technology and techniques such as mental math, estimation, and number sense to solve problems. Students will effectively communicate mathematical ideas, reasoning, and their implications using multiple representations such as symbols, diagrams, graphs, and language. Students will use mathematical relationships to generate solutions and make connections and predictions. Students will analyze mathematical relationships to connect and communicate mathematical ideas. Students will display, explain, or justify mathematical ideas and arguments using precise mathematical language in written or oral communication.
+  - (3) In Geometry, students will build on the knowledge and skills for mathematics in Kindergarten-Grade 8 and Algebra I to strengthen their mathematical reasoning skills in geometric contexts. Within the course, students will begin to focus on more precise terminology, symbolic representations, and the development of proofs. Students will explore concepts covering coordinate and transformational geometry; logical argument and constructions; proof and congruence; similarity, proof, and trigonometry; two- and three-dimensional figures; circles; and probability. Students will connect previous knowledge from Algebra I to Geometry through the coordinate and transformational geometry strand. In the logical arguments and constructions strand, students are expected to create formal constructions using a straight edge and compass. Though this course is primarily Euclidean geometry, students should complete the course with an understanding that non-Euclidean geometries exist. In proof and congruence, students will use deductive reasoning to justify, prove and apply theorems about geometric figures. Throughout the standards, the term "prove" means a formal proof to be shown in a paragraph, a flow chart, or two-column formats. Proportionality is the unifying component of the similarity, proof, and trigonometry strand. Students will use their proportional reasoning skills to prove and apply theorems and solve problems in this strand. The two- and three-dimensional figure strand focuses on the application of formulas in multi-step situations since students have developed background knowledge in two- and three-dimensional figures. Using patterns to identify geometric properties, students will apply theorems about circles to determine relationships between special segments and angles in circles. Due to the emphasis of probability and statistics in the college and career readiness standards, standards dealing with probability have been added to the geometry curriculum to ensure students have proper exposure to these topics before pursuing their post-secondary education.
+  - (4) These standards are meant to provide clarity and specificity in regards to the content covered in the high school geometry course. These standards are not meant to limit the methodologies used to convey this knowledge to students. Though the standards are written in a particular order, they are not necessarily meant to be taught in the given order. In the standards, the phrase "to solve problems" includes both contextual and non-contextual problems unless specifically stated.
+  - (5) Statements that contain the word "including" reference content that must be mastered, while those containing the phrase "such as" are intended as possible illustrative examples.
+- (c) Knowledge and skills.
+  - (1) Mathematical process standards. The student uses mathematical processes to acquire and demonstrate mathematical understanding. The student is expected to:
+    - (A) apply mathematics to problems arising in everyday life, society, and the workplace;
+    - (B) use a problem-solving model that incorporates analyzing given information, formulating a plan or strategy, determining a solution, justifying the solution, and evaluating the problem-solving process and the reasonableness of the solution;
+    - (C) select tools, including real objects, manipulatives, paper and pencil, and technology as appropriate, and techniques, including mental math, estimation, and number sense as appropriate, to solve problems;
+    - (D) communicate mathematical ideas, reasoning, and their implications using multiple representations, including symbols, diagrams, graphs, and language as appropriate;
+    - (E) create and use representations to organize, record, and communicate mathematical ideas;
+    - (F) analyze mathematical relationships to connect and communicate mathematical ideas; and
+    - (G) display, explain, and justify mathematical ideas and arguments using precise mathematical language in written or oral communication.
+  - (2) Coordinate and transformational geometry. The student uses the process skills to understand the connections between algebra and geometry and uses the one- and two-dimensional coordinate systems to verify geometric conjectures. The student is expected to:
+    - (A) determine the coordinates of a point that is a given fractional distance less than one from one end of a line segment to the other in one- and two-dimensional coordinate systems, including finding the midpoint;
+    - (B) derive and use the distance, slope, and midpoint formulas to verify geometric relationships, including congruence of segments and parallelism or perpendicularity of pairs of lines; and
+    - (C) determine an equation of a line parallel or perpendicular to a given line that passes through a given point.
+  - (3) Coordinate and transformational geometry. The student uses the process skills to generate and describe rigid transformations (translation, reflection, and rotation) and non-rigid transformations (dilations that preserve similarity and reductions and enlargements that do not preserve similarity). The student is expected to:
+    - (A) describe and perform transformations of figures in a plane using coordinate notation;
+    - (B) determine the image or pre-image of a given two-dimensional figure under a composition of rigid transformations, a composition of non-rigid transformations, and a composition of both, including dilations where the center can be any point in the plane;
+    - (C) identify the sequence of transformations that will carry a given pre-image onto an image on and off the coordinate plane; and
+    - (D) identify and distinguish between reflectional and rotational symmetry in a plane figure.
+  - (4) Logical argument and constructions. The student uses the process skills with deductive reasoning to understand geometric relationships. The student is expected to:
+    - (A) distinguish between undefined terms, definitions, postulates, conjectures, and theorems;
+    - (B) identify and determine the validity of the converse, inverse, and contrapositive of a conditional statement and recognize the connection between a biconditional statement and a true conditional statement with a true converse;
+    - (C) verify that a conjecture is false using a counterexample; and
+    - (D) compare geometric relationships between Euclidean and spherical geometries, including parallel lines and the sum of the angles in a triangle.
+  - (5) Logical argument and constructions. The student uses constructions to validate conjectures about geometric figures. The student is expected to:
+    - (A) investigate patterns to make conjectures about geometric relationships, including angles formed by parallel lines cut by a transversal, criteria required for triangle congruence, special segments of triangles, diagonals of quadrilaterals, interior and exterior angles of polygons, and special segments and angles of circles choosing from a variety of tools;
+    - (B) construct congruent segments, congruent angles, a segment bisector, an angle bisector, perpendicular lines, the perpendicular bisector of a line segment, and a line parallel to a given line through a point not on a line using a compass and a straightedge;
+    - (C) use the constructions of congruent segments, congruent angles, angle bisectors, and perpendicular bisectors to make conjectures about geometric relationships; and
+    - (D) verify the Triangle Inequality theorem using constructions and apply the theorem to solve problems.
+  - (6) Proof and congruence. The student uses the process skills with deductive reasoning to prove and apply theorems by using a variety of methods such as coordinate, transformational, and axiomatic and formats such as two-column, paragraph, and flow chart. The student is expected to:
+    - (A) verify theorems about angles formed by the intersection of lines and line segments, including vertical angles, and angles formed by parallel lines cut by a transversal and prove equidistance between the endpoints of a segment and points on its perpendicular bisector and apply these relationships to solve problems;
+    - (B) prove two triangles are congruent by applying the Side-Angle-Side, Angle-Side-Angle, Side-Side-Side, Angle-Angle-Side, and Hypotenuse-Leg congruence conditions;
+    - (C) apply the definition of congruence, in terms of rigid transformations, to identify congruent figures and their corresponding sides and angles;
+    - (D) verify theorems about the relationships in triangles, including proof of the Pythagorean Theorem, the sum of interior angles, base angles of isosceles triangles, midsegments, and medians, and apply these relationships to solve problems; and
+    - (E) prove a quadrilateral is a parallelogram, rectangle, square, or rhombus using opposite sides, opposite angles, or diagonals and apply these relationships to solve problems.
+  - (7) Similarity, proof, and trigonometry. The student uses the process skills in applying similarity to solve problems. The student is expected to:
+    - (A) apply the definition of similarity in terms of a dilation to identify similar figures and their proportional sides and the congruent corresponding angles; and
+    - (B) apply the Angle-Angle criterion to verify similar triangles and apply the proportionality of the corresponding sides to solve problems.
+  - (8) Similarity, proof, and trigonometry. The student uses the process skills with deductive reasoning to prove and apply theorems by using a variety of methods such as coordinate, transformational, and axiomatic and formats such as two-column, paragraph, and flow chart. The student is expected to:
+    - (A) prove theorems about similar triangles, including the Triangle Proportionality theorem, and apply these theorems to solve problems; and
+    - (B) identify and apply the relationships that exist when an altitude is drawn to the hypotenuse of a right triangle, including the geometric mean, to solve problems.
+  - (9) Similarity, proof, and trigonometry. The student uses the process skills to understand and apply relationships in right triangles. The student is expected to:
+    - (A) determine the lengths of sides and measures of angles in a right triangle by applying the trigonometric ratios sine, cosine, and tangent to solve problems; and
+    - (B) apply the relationships in special right triangles 30°-60°-90° and 45°-45°-90° and the Pythagorean theorem, including Pythagorean triples, to solve problems.
+  - (10) Two-dimensional and three-dimensional figures. The student uses the process skills to recognize characteristics and dimensional changes of two- and three-dimensional figures. The student is expected to:
+    - (A) identify the shapes of two-dimensional cross-sections of prisms, pyramids, cylinders, cones, and spheres and identify three-dimensional objects generated by rotations of two-dimensional shapes; and
+    - (B) determine and describe how changes in the linear dimensions of a shape affect its perimeter, area, surface area, or volume, including proportional and non-proportional dimensional change.
+  - (11) Two-dimensional and three-dimensional figures. The student uses the process skills in the application of formulas to determine measures of two- and three-dimensional figures. The student is expected to:
+    - (A) apply the formula for the area of regular polygons to solve problems using appropriate units of measure;
+    - (B) determine the area of composite two-dimensional figures comprised of a combination of triangles, parallelograms, trapezoids, kites, regular polygons, or sectors of circles to solve problems using appropriate units of measure;
+    - (C) apply the formulas for the total and lateral surface area of three-dimensional figures, including prisms, pyramids, cones, cylinders, spheres, and composite figures, to solve problems using appropriate units of measure; and
+    - (D) apply the formulas for the volume of three-dimensional figures, including prisms, pyramids, cones, cylinders, spheres, and composite figures, to solve problems using appropriate units of measure.
+  - (12) Circles. The student uses the process skills to understand geometric relationships and apply theorems and equations about circles. The student is expected to:
+    - (A) apply theorems about circles, including relationships among angles, radii, chords, tangents, and secants, to solve non-contextual problems;
+    - (B) apply the proportional relationship between the measure of an arc length of a circle and the circumference of the circle to solve problems;
+    - (C) apply the proportional relationship between the measure of the area of a sector of a circle and the area of the circle to solve problems;
+    - (D) describe radian measure of an angle as the ratio of the length of an arc intercepted by a central angle and the radius of the circle; and
+    - (E) show that the equation of a circle with center at the origin and radius r is x2 + y2 = r2 and determine the equation for the graph of a circle with radius r and center (h, k),(x - h)2 + (y - k)2 = r2.
+  - (13) Probability. The student uses the process skills to understand probability in real-world situations and how to apply independence and dependence of events. The student is expected to:
+    - (A) develop strategies to use permutations and combinations to solve contextual problems;
+    - (B) determine probabilities based on area to solve contextual problems;
+    - (C) identify whether two events are independent and compute the probability of the two events occurring together with or without replacement;
+    - (D) apply conditional probability in contextual problems; and
+    - (E) apply independence in contextual problems.
+
+### § 111.42 - Precalculus, Adopted 2012 (One-Half to One Credit)
+
+> *Note: the Cornell LII mirror mislabels this section's heading as "Geometry"; the rule body is verifiably the Precalculus TEKS (conic sections, parametric equations, polar coordinates, vectors). Title corrected here to match the official TAC.*
+
+- (a) General requirements. Students shall be awarded one-half to one credit for successful completion of this course. Prerequisites: Algebra I, Geometry, and Algebra II.
+- (b) Introduction.
+  - (1) The desire to achieve educational excellence is the driving force behind the Texas essential knowledge and skills for mathematics, guided by the college and career readiness standards. By embedding statistics, probability, and finance, while focusing on fluency and solid understanding, Texas will lead the way in mathematics education and prepare all Texas students for the challenges they will face in the 21st century.
+  - (2) The process standards describe ways in which students are expected to engage in the content. The placement of the process standards at the beginning of the knowledge and skills listed for each grade and course is intentional. The process standards weave the other knowledge and skills together so that students may be successful problem solvers and use mathematics efficiently and effectively in daily life. The process standards are integrated at every grade level and course. When possible, students will apply mathematics to problems arising in everyday life, society, and the workplace. Students will use a problem-solving model that incorporates analyzing given information, formulating a plan or strategy, determining a solution, justifying the solution, and evaluating the problem-solving process and the reasonableness of the solution. Students will select appropriate tools such as real objects, manipulatives, paper and pencil, and technology and techniques such as mental math, estimation, and number sense to solve problems. Students will effectively communicate mathematical ideas, reasoning, and their implications using multiple representations such as symbols, diagrams, graphs, and language. Students will use mathematical relationships to generate solutions and make connections and predictions. Students will analyze mathematical relationships to connect and communicate mathematical ideas. Students will display, explain, or justify mathematical ideas and arguments using precise mathematical language in written or oral communication.
+  - (3) Precalculus is the preparation for calculus. The course approaches topics from a function point of view, where appropriate, and is designed to strengthen and enhance conceptual understanding and mathematical reasoning used when modeling and solving mathematical and real-world problems. Students systematically work with functions and their multiple representations. The study of Precalculus deepens students' mathematical understanding and fluency with algebra and trigonometry and extends their ability to make connections and apply concepts and procedures at higher levels. Students investigate and explore mathematical ideas, develop multiple strategies for analyzing complex situations, and use technology to build understanding, make connections between representations, and provide support in solving problems.
+  - (4) Statements that contain the word "including" reference content that must be mastered, while those containing the phrase "such as" are intended as possible illustrative examples.
+- (c) Knowledge and skills.
+  - (1) Mathematical process standards. The student uses mathematical processes to acquire and demonstrate mathematical understanding. The student is expected to:
+    - (A) apply mathematics to problems arising in everyday life, society, and the workplace;
+    - (B) use a problem-solving model that incorporates analyzing given information, formulating a plan or strategy, determining a solution, justifying the solution, and evaluating the problem-solving process and the reasonableness of the solution;
+    - (C) select tools, including real objects, manipulatives, paper and pencil, and technology as appropriate, and techniques, including mental math, estimation, and number sense as appropriate, to solve problems;
+    - (D) communicate mathematical ideas, reasoning, and their implications using multiple representations, including symbols, diagrams, graphs, and language as appropriate;
+    - (E) create and use representations to organize, record, and communicate mathematical ideas;
+    - (F) analyze mathematical relationships to connect and communicate mathematical ideas; and
+    - (G) display, explain, and justify mathematical ideas and arguments using precise mathematical language in written or oral communication.
+  - (2) Functions. The student uses process standards in mathematics to explore, describe, and analyze the attributes of functions. The student makes connections between multiple representations of functions and algebraically constructs new functions. The student analyzes and uses functions to model real-world problems. The student is expected to:
+    - (A) use the composition of two functions to model and solve real-world problems;
+    - (B) demonstrate that function composition is not always commutative;
+    - (C) represent a given function as a composite function of two or more functions;
+    - (D) describe symmetry of graphs of even and odd functions;
+    - (E) determine an inverse function, when it exists, for a given function over its domain or a subset of its domain and represent the inverse using multiple representations;
+    - (F) graph exponential, logarithmic, rational, polynomial, power, trigonometric, inverse trigonometric, and piecewise defined functions, including step functions;
+    - (G) graph functions, including exponential, logarithmic, sine, cosine, rational, polynomial, and power functions and their transformations, including af(x), f(x) + d, f(x - c), f(bx) for specific values of a, b, c, and d, in mathematical and real-world problems;
+    - (H) graph arcsin x and arccos x and describe the limitations on the domain;
+    - (I) determine and analyze the key features of exponential, logarithmic, rational, polynomial, power, trigonometric, inverse trigonometric, and piecewise defined functions, including step functions such as domain, range, symmetry, relative maximum, relative minimum, zeros, asymptotes, and intervals over which the function is increasing or decreasing;
+    - (J) analyze and describe end behavior of functions, including exponential, logarithmic, rational, polynomial, and power functions, using infinity notation to communicate this characteristic in mathematical and real-world problems;
+    - (K) analyze characteristics of rational functions and the behavior of the function around the asymptotes, including horizontal, vertical, and oblique asymptotes;
+    - (L) determine various types of discontinuities in the interval (-[infinity],[infinity]) as they relate to functions and explore the limitations of the graphing calculator as it relates to the behavior of the function around discontinuities;
+    - (M) describe the left-sided behavior and the right-sided behavior of the graph of a function around discontinuities;
+    - (N) analyze situations modeled by functions, including exponential, logarithmic, rational, polynomial, and power functions, to solve real-world problems;
+    - (O) develop and use a sinusoidal function that models a situation in mathematical and real-world problems; and
+    - (P) determine the values of the trigonometric functions at the special angles and relate them in mathematical and real-world problems.
+  - (3) Relations and geometric reasoning. The student uses the process standards in mathematics to model and make connections between algebraic and geometric relations. The student is expected to:
+    - (A) graph a set of parametric equations;
+    - (B) convert parametric equations into rectangular relations and convert rectangular relations into parametric equations;
+    - (C) use parametric equations to model and solve mathematical and real-world problems;
+    - (D) graph points in the polar coordinate system and convert between rectangular coordinates and polar coordinates;
+    - (E) graph polar equations by plotting points and using technology;
+    - (F) determine the conic section formed when a plane intersects a double-napped cone;
+    - (G) make connections between the locus definition of conic sections and their equations in rectangular coordinates;
+    - (H) use the characteristics of an ellipse to write the equation of an ellipse with center (h, k); and
+    - (I) use the characteristics of a hyperbola to write the equation of a hyperbola with center (h, k).
+  - (4) Number and measure. The student uses process standards in mathematics to apply appropriate techniques, tools, and formulas to calculate measures in mathematical and real-world problems. The student is expected to:
+    - (A) determine the relationship between the unit circle and the definition of a periodic function to evaluate trigonometric functions in mathematical and real-world problems;
+    - (B) describe the relationship between degree and radian measure on the unit circle;
+    - (C) represent angles in radians or degrees based on the concept of rotation and find the measure of reference angles and angles in standard position;
+    - (D) represent angles in radians or degrees based on the concept of rotation in mathematical and real-world problems, including linear and angular velocity;
+    - (E) determine the value of trigonometric ratios of angles and solve problems involving trigonometric ratios in mathematical and real-world problems;
+    - (F) use trigonometry in mathematical and real-world problems, including directional bearing;
+    - (G) use the Law of Sines in mathematical and real-world problems;
+    - (H) use the Law of Cosines in mathematical and real-world problems;
+    - (I) use vectors to model situations involving magnitude and direction;
+    - (J) represent the addition of vectors and the multiplication of a vector by a scalar geometrically and symbolically; and
+    - (K) apply vector addition and multiplication of a vector by a scalar in mathematical and real-world problems.
+  - (5) Algebraic reasoning. The student uses process standards in mathematics to evaluate expressions, describe patterns, formulate models, and solve equations and inequalities using properties, procedures, or algorithms. The student is expected to:
+    - (A) evaluate finite sums and geometric series, when possible, written in sigma notation;
+    - (B) represent arithmetic sequences and geometric sequences using recursive formulas;
+    - (C) calculate the nth term and the nth partial sum of an arithmetic series in mathematical and real-world problems;
+    - (D) represent arithmetic series and geometric series using sigma notation;
+    - (E) calculate the nth term of a geometric series, the nth partial sum of a geometric series, and sum of an infinite geometric series when it exists;
+    - (F) apply the Binomial Theorem for the expansion of (a + b)n in powers of a and b for a positive integer n, where a and b are any numbers;
+    - (G) use the properties of logarithms to evaluate or transform logarithmic expressions;
+    - (H) generate and solve logarithmic equations in mathematical and real-world problems;
+    - (I) generate and solve exponential equations in mathematical and real-world problems;
+    - (J) solve polynomial equations with real coefficients by applying a variety of techniques in mathematical and real-world problems;
+    - (K) solve polynomial inequalities with real coefficients by applying a variety of techniques and write the solution set of the polynomial inequality in interval notation in mathematical and real-world problems;
+    - (L) solve rational inequalities with real coefficients by applying a variety of techniques and write the solution set of the rational inequality in interval notation in mathematical and real-world problems;
+    - (M) use trigonometric identities such as reciprocal, quotient, Pythagorean, cofunctions, even/odd, and sum and difference identities for cosine and sine to simplify trigonometric expressions; and
+    - (N) generate and solve trigonometric equations in mathematical and real-world problems.
+
+### § 111.43 - Mathematical Models with Applications, Adopted 2012 (One Credit)
+
+- (a) General requirements. Students can be awarded one credit for successful completion of this course. Prerequisite: Algebra I.
+- (b) Introduction.
+  - (1) The desire to achieve educational excellence is the driving force behind the Texas essential knowledge and skills for mathematics, guided by the college and career readiness standards. By embedding statistics, probability, and finance, while focusing on fluency and solid understanding, Texas will lead the way in mathematics education and prepare all Texas students for the challenges they will face in the 21st century.
+  - (2) The process standards describe ways in which students are expected to engage in the content. The placement of the process standards at the beginning of the knowledge and skills listed for each grade and course is intentional. The process standards weave the other knowledge and skills together so that students may be successful problem solvers and use mathematics efficiently and effectively in daily life. The process standards are integrated at every grade level and course. When possible, students will apply mathematics to problems arising in everyday life, society, and the workplace. Students will use a problem-solving model that incorporates analyzing given information, formulating a plan or strategy, determining a solution, justifying the solution, and evaluating the problem-solving process and the reasonableness of the solution. Students will select appropriate tools such as real objects, manipulatives, paper and pencil, and technology and techniques such as mental math, estimation, and number sense to solve problems. Students will effectively communicate mathematical ideas, reasoning, and their implications using multiple representations such as symbols, diagrams, graphs, and language. Students will use mathematical relationships to generate solutions and make connections and predictions. Students will analyze mathematical relationships to connect and communicate mathematical ideas. Students will display, explain, or justify mathematical ideas and arguments using precise mathematical language in written or oral communication.
+  - (3) Mathematical Models with Applications is designed to build on the knowledge and skills for mathematics in Kindergarten-Grade 8 and Algebra I. This mathematics course provides a path for students to succeed in Algebra II and prepares them for various post-secondary choices. Students learn to apply mathematics through experiences in personal finance, science, engineering, fine arts, and social sciences. Students use algebraic, graphical, and geometric reasoning to recognize patterns and structure, model information, solve problems, and communicate solutions. Students will select from tools such as physical objects; manipulatives; technology, including graphing calculators, data collection devices, and computers; and paper and pencil and from methods such as algebraic techniques, geometric reasoning, patterns, and mental math to solve problems.
+  - (4) In Mathematical Models with Applications, students will use a mathematical modeling cycle to analyze problems, understand problems better, and improve decisions. A basic mathematical modeling cycle is summarized in this paragraph. The student will:
+    - (A) represent:
+      - (i) identify the variables in the problem and select those that represent essential features; and
+      - (ii) formulate a model by creating and selecting from representations such as geometric, graphical, tabular, algebraic, or statistical that describe the relationships between the variables;
+    - (B) compute: analyze and perform operations on the relationships between the variables to draw conclusions;
+    - (C) interpret: interpret the results of the mathematics in terms of the original problem;
+    - (D) revise: confirm the conclusions by comparing the conclusions with the problem and revising as necessary; and
+    - (E) report: report on the conclusions and the reasoning behind the conclusions.
+  - (5) Statements that contain the word "including" reference content that must be mastered, while those containing the phrase "such as" are intended as possible illustrative examples.
+- (c) Knowledge and skills.
+  - (1) Mathematical process standards. The student uses mathematical processes to acquire and demonstrate mathematical understanding. The student is expected to:
+    - (A) apply mathematics to problems arising in everyday life, society, and the workplace;
+    - (B) use a problem-solving model that incorporates analyzing given information, formulating a plan or strategy, determining a solution, justifying the solution, and evaluating the problem-solving process and the reasonableness of the solution;
+    - (C) select tools, including real objects, manipulatives, paper and pencil, and technology as appropriate, and techniques, including mental math, estimation, and number sense as appropriate, to solve problems;
+    - (D) communicate mathematical ideas, reasoning, and their implications using multiple representations, including symbols, diagrams, graphs, and language as appropriate;
+    - (E) create and use representations to organize, record, and communicate mathematical ideas;
+    - (F) analyze mathematical relationships to connect and communicate mathematical ideas; and
+    - (G) display, explain, and justify mathematical ideas and arguments using precise mathematical language in written or oral communication.
+  - (2) Mathematical modeling in personal finance. The student uses mathematical processes with graphical and numerical techniques to study patterns and analyze data related to personal finance. The student is expected to:
+    - (A) use rates and linear functions to solve problems involving personal finance and budgeting, including compensations and deductions;
+    - (B) solve problems involving personal taxes; and
+    - (C) analyze data to make decisions about banking, including options for online banking, checking accounts, overdraft protection, processing fees, and debit card/ATM fees.
+  - (3) Mathematical modeling in personal finance. The student uses mathematical processes with algebraic formulas, graphs, and amortization modeling to solve problems involving credit. The student is expected to:
+    - (A) use formulas to generate tables to display series of payments for loan amortizations resulting from financed purchases;
+    - (B) analyze personal credit options in retail purchasing and compare relative advantages and disadvantages of each option;
+    - (C) use technology to create amortization models to investigate home financing and compare buying a home to renting a home; and
+    - (D) use technology to create amortization models to investigate automobile financing and compare buying a vehicle to leasing a vehicle.
+  - (4) Mathematical modeling in personal finance. The student uses mathematical processes with algebraic formulas, numerical techniques, and graphs to solve problems related to financial planning. The student is expected to:
+    - (A) analyze and compare coverage options and rates in insurance;
+    - (B) investigate and compare investment options, including stocks, bonds, annuities, certificates of deposit, and retirement plans; and
+    - (C) analyze types of savings options involving simple and compound interest and compare relative advantages of these options.
+  - (5) Mathematical modeling in science and engineering. The student applies mathematical processes with algebraic techniques to study patterns and analyze data as it applies to science. The student is expected to:
+    - (A) use proportionality and inverse variation to describe physical laws such as Hook's Law, Newton's Second Law of Motion, and Boyle's Law;
+    - (B) use exponential models available through technology to model growth and decay in areas, including radioactive decay; and
+    - (C) use quadratic functions to model motion.
+  - (6) Mathematical modeling in science and engineering. The student applies mathematical processes with algebra and geometry to study patterns and analyze data as it applies to architecture and engineering. The student is expected to:
+    - (A) use similarity, geometric transformations, symmetry, and perspective drawings to describe mathematical patterns and structure in architecture;
+    - (B) use scale factors with two-dimensional and three-dimensional objects to demonstrate proportional and non-proportional changes in surface area and volume as applied to fields;
+    - (C) use the Pythagorean Theorem and special right-triangle relationships to calculate distances; and
+    - (D) use trigonometric ratios to calculate distances and angle measures as applied to fields.
+  - (7) Mathematical modeling in fine arts. The student uses mathematical processes with algebra and geometry to study patterns and analyze data as it applies to fine arts. The student is expected to:
+    - (A) use trigonometric ratios and functions available through technology to model periodic behavior in art and music;
+    - (B) use similarity, geometric transformations, symmetry, and perspective drawings to describe mathematical patterns and structure in art and photography;
+    - (C) use geometric transformations, proportions, and periodic motion to describe mathematical patterns and structure in music; and
+    - (D) use scale factors with two-dimensional and three-dimensional objects to demonstrate proportional and non-proportional changes in surface area and volume as applied to fields.
+  - (8) Mathematical modeling in social sciences. The student applies mathematical processes to determine the number of elements in a finite sample space and compute the probability of an event. The student is expected to:
+    - (A) determine the number of ways an event may occur using combinations, permutations, and the Fundamental Counting Principle;
+    - (B) compare theoretical to empirical probability; and
+    - (C) use experiments to determine the reasonableness of a theoretical model such as binomial or geometric.
+  - (9) Mathematical modeling in social sciences. The student applies mathematical processes and mathematical models to analyze data as it applies to social sciences. The student is expected to:
+    - (A) interpret information from various graphs, including line graphs, bar graphs, circle graphs, histograms, scatterplots, dot plots, stem-and-leaf plots, and box and whisker plots, to draw conclusions from the data and determine the strengths and weaknesses of conclusions;
+    - (B) analyze numerical data using measures of central tendency (mean, median, and mode) and variability (range, interquartile range or IQR, and standard deviation) in order to make inferences with normal distributions;
+    - (C) distinguish the purposes and differences among types of research, including surveys, experiments, and observational studies;
+    - (D) use data from a sample to estimate population mean or population proportion;
+    - (E) analyze marketing claims based on graphs and statistics from electronic and print media and justify the validity of stated or implied conclusions; and
+    - (F) use regression methods available through technology to model linear and exponential functions, interpret correlations, and make predictions.
+  - (10) Mathematical modeling in social sciences. The student applies mathematical processes to design a study and use graphical, numerical, and analytical techniques to communicate the results of the study. The student is expected to:
+    - (A) formulate a meaningful question, determine the data needed to answer the question, gather the appropriate data, analyze the data, and draw reasonable conclusions; and
+    - (B) communicate methods used, analyses conducted, and conclusions drawn for a data-analysis project through the use of one or more of the following: a written report, a visual display, an oral report, or a multi-media presentation.
+
+### § 111.44 - Advanced Quantitative Reasoning, Adopted 2012 (One-Half to One Credit)
+
+- (a) General requirements. Students shall be awarded one-half to one credit for successful completion of this course. Prerequisites: Geometry and Algebra II.
+- (b) Introduction.
+  - (1) The desire to achieve educational excellence is the driving force behind the Texas essential knowledge and skills for mathematics, guided by the college and career readiness standards. By embedding statistics, probability, and finance, while focusing on fluency and solid understanding, Texas will lead the way in mathematics education and prepare all Texas students for the challenges they will face in the 21st century.
+  - (2) The process standards describe ways in which students are expected to engage in the content. The placement of the process standards at the beginning of the knowledge and skills listed for each grade and course is intentional. The process standards weave the other knowledge and skills together so that students may be successful problem solvers and use mathematics efficiently and effectively in daily life. The process standards are integrated at every grade level and course. When possible, students will apply mathematics to problems arising in everyday life, society, and the workplace. Students will use a problem-solving model that incorporates analyzing given information, formulating a plan or strategy, determining a solution, justifying the solution, and evaluating the problem-solving process and the reasonableness of the solution. Students will select appropriate tools such as real objects, manipulatives, paper and pencil, and technology and techniques such as mental math, estimation, and number sense to solve problems. Students will effectively communicate mathematical ideas, reasoning, and their implications using multiple representations such as symbols, diagrams, graphs, and language. Students will use mathematical relationships to generate solutions and make connections and predictions. Students will analyze mathematical relationships to connect and communicate mathematical ideas. Students will display, explain, or justify mathematical ideas and arguments using precise mathematical language in written or oral communication.
+  - (3) In Advanced Quantitative Reasoning, students will develop and apply skills necessary for college, careers, and life. Course content consists primarily of applications of high school mathematics concepts to prepare students to become well-educated and highly informed 21st century citizens. Students will develop and apply reasoning, planning, and communication to make decisions and solve problems in applied situations involving numerical reasoning, probability, statistical analysis, finance, mathematical selection, and modeling with algebra, geometry, trigonometry, and discrete mathematics.
+  - (4) Statements that contain the word "including" reference content that must be mastered, while those containing the phrase "such as" are intended as possible illustrative examples.
+- (c) Knowledge and skills.
+  - (1) Mathematical process standards. The student uses mathematical processes to acquire and demonstrate mathematical understanding. The student is expected to:
+    - (A) apply mathematics to problems arising in everyday life, society, and the workplace;
+    - (B) use a problem-solving model that incorporates analyzing given information, formulating a plan or strategy, determining a solution, justifying the solution, and evaluating the problem-solving process and the reasonableness of the solution;
+    - (C) select tools, including real objects, manipulatives, paper and pencil, and technology as appropriate, and techniques, including mental math, estimation, and number sense as appropriate, to solve problems;
+    - (D) communicate mathematical ideas, reasoning, and their implications using multiple representations, including symbols, diagrams, graphs, and language as appropriate;
+    - (E) create and use representations to organize, record, and communicate mathematical ideas;
+    - (F) analyze mathematical relationships to connect and communicate mathematical ideas; and
+    - (G) display, explain, and justify mathematical ideas and arguments using precise mathematical language in written or oral communication.
+  - (2) Numeric reasoning. The student applies the process standards in mathematics to generate new understandings by extending existing knowledge. The student generates new mathematical understandings through problems involving numerical data that arise in everyday life, society, and the workplace. The student extends existing knowledge and skills to analyze real-world situations. The student is expected to:
+    - (A) use precision and accuracy in real-life situations related to measurement and significant figures;
+    - (B) apply and analyze published ratings, weighted averages, and indices to make informed decisions;
+    - (C) solve problems involving quantities that are not easily measured using proportionality;
+    - (D) solve geometric problems involving indirect measurement, including similar triangles, the Pythagorean Theorem, Law of Sines, Law of Cosines, and the use of dynamic geometry software;
+    - (E) solve problems involving large quantities using combinatorics;
+    - (F) use arrays to efficiently manage large collections of data and add, subtract, and multiply matrices to solve applied problems, including geometric transformations;
+    - (G) analyze various voting and selection processes to compare results in given situations; and
+    - (H) select and apply an algorithm of interest to solve real-life problems such as problems using recursion or iteration involving population growth or decline, fractals, and compound interest; the validity in recorded and transmitted data using checksums and hashing; sports rankings, weighted class rankings, and search engine rankings; and problems involving scheduling or routing situations using vertex-edge graphs, critical paths, Euler paths, and minimal spanning trees and communicate to peers the application of the algorithm in precise mathematical and nontechnical language.
+  - (3) Algebraic reasoning (expressions, equations, and generalized relationships). The student applies the process standards in mathematics to create and analyze mathematical models of everyday situations to make informed decisions related to earning, investing, spending, and borrowing money by appropriate, proficient, and efficient use of tools, including technology. The student uses mathematical relationships to make connections and predictions. The student judges the validity of a prediction and uses mathematical models to represent, analyze, and solve dynamic real-world problems. The student is expected to:
+    - (A) collect numerical bivariate data to create a scatterplot, select a function to model the data, justify the model selection, and use the model to interpret results and make predictions;
+    - (B) describe the degree to which uncorrelated variables may or may not be related and analyze situations where correlated variables do or do not indicate a cause-and-effect relationship;
+    - (C) determine or analyze an appropriate growth or decay model for problem situations, including linear, exponential, and logistic functions;
+    - (D) determine or analyze an appropriate cyclical model for problem situations that can be modeled with periodic functions;
+    - (E) determine or analyze an appropriate piecewise model for problem situations;
+    - (F) create, represent, and analyze mathematical models for various types of income calculations to determine the best option for a given situation;
+    - (G) create, represent, and analyze mathematical models for expenditures, including those involving credit, to determine the best option for a given situation; and
+    - (H) create, represent, and analyze mathematical models and appropriate representations, including formulas and amortization tables, for various types of loans and investments to determine the best option for a given situation.
+  - (4) Probabilistic and statistical reasoning. The student uses the process standards in mathematics to generate new understandings of probability and statistics. The student analyzes statistical information and evaluates risk and return to connect mathematical ideas and make informed decisions. The student applies a problem-solving model and statistical methods to design and conduct a study that addresses one or more particular question(s). The student uses multiple representations to communicate effectively the results of student-generated statistical studies and the critical analysis of published statistical studies. The student is expected to:
+    - (A) use a two-way frequency table as a sample space to identify whether two events are independent and to interpret the results;
+    - (B) use the Addition Rule, P(A or B) = P(A) + P(B) - P(A and B), in mathematical and real-world problems;
+    - (C) calculate conditional probabilities and probabilities of compound events using tree diagrams, Venn diagrams, area models, and formulas;
+    - (D) interpret conditional probabilities and probabilities of compound events by analyzing representations to make decisions in problem situations;
+    - (E) use probabilities to make and justify decisions about risks in everyday life;
+    - (F) calculate expected value to analyze mathematical fairness, payoff, and risk;
+    - (G) determine the validity of logical arguments that include compound conditional statements by constructing truth tables;
+    - (H) identify limitations and lack of relevant information in studies reporting statistical information, especially when studies are reported in condensed form;
+    - (I) interpret and compare statistical results using appropriate technology given a margin of error;
+    - (J) identify potential misuses of statistics to justify particular conclusions, including assertions of a cause-and-effect relationship rather than an association, and missteps or fallacies in logical reasoning;
+    - (K) describe strengths and weaknesses of sampling techniques, data and graphical displays, and interpretations of summary statistics and other results appearing in a study, including reports published in the media;
+    - (L) determine the need for and purpose of a statistical investigation and what type of statistical analysis can be used to answer a specific question or set of questions;
+    - (M) identify the population of interest for a statistical investigation, select an appropriate sampling technique, and collect data;
+    - (N) identify the variables to be used in a study;
+    - (O) determine possible sources of statistical bias in a study and how bias may affect the validity of the results;
+    - (P) create data displays for given data sets to investigate, compare, and estimate center, shape, spread, and unusual features of the data;
+    - (Q) analyze possible sources of data variability, including those that can be controlled and those that cannot be controlled;
+    - (R) report results of statistical studies to a particular audience, including selecting an appropriate presentation format, creating graphical data displays, and interpreting results in terms of the question studied;
+    - (S) justify the design and the conclusion(s) of statistical studies, including the methods used; and
+    - (T) communicate statistical results in oral and written formats using appropriate statistical and nontechnical language.
+
+### § 111.45 - Independent Study in Mathematics, Adopted 2012 (One-Half to One Credit)
+
+- (a) General requirements.
+  - (1) Students shall be awarded one-half to one credit for successful completion of this course. Prerequisites: Geometry and Algebra II.
+  - (2) Students may repeat this course with different course content for up to three credits.
+  - (3) The requirements for each course must be approved by the local district before the course begins.
+  - (4) If this course is being used to satisfy requirements for the Distinguished Achievement Program, student research/products must be presented before a panel of professionals or approved by the student's mentor.
+- (b) Introduction.
+  - (1) The desire to achieve educational excellence is the driving force behind the Texas essential knowledge and skills for mathematics, guided by the college and career readiness standards. By embedding statistics, probability, and finance, while focusing on fluency and solid understanding, Texas will lead the way in mathematics education and prepare all Texas students for the challenges they will face in the 21st century.
+  - (2) The process standards describe ways in which students are expected to engage in the content. The placement of the process standards at the beginning of the knowledge and skills listed for each grade and course is intentional. The process standards weave the other knowledge and skills together so that students may be successful problem solvers and use mathematics efficiently and effectively in daily life. The process standards are integrated at every grade level and course. When possible, students will apply mathematics to problems arising in everyday life, society, and the workplace. Students will use a problem-solving model that incorporates analyzing given information, formulating a plan or strategy, determining a solution, justifying the solution, and evaluating the problem-solving process and the reasonableness of the solution. Students will select appropriate tools such as real objects, manipulatives, paper and pencil, and technology and techniques such as mental math, estimation, and number sense to solve problems. Students will effectively communicate mathematical ideas, reasoning, and their implications using multiple representations such as symbols, diagrams, graphs, and language. Students will use mathematical relationships to generate solutions and make connections and predictions. Students will analyze mathematical relationships to connect and communicate mathematical ideas. Students will display, explain, or justify mathematical ideas and arguments using precise mathematical language in written or oral communication.
+  - (3) In Independent Study in Mathematics, students will extend their mathematical understanding beyond the Algebra II level in a specific area or areas of mathematics such as theory of equations, number theory, non-Euclidean geometry, linear algebra, advanced survey of mathematics, or history of mathematics.
+  - (4) Statements that contain the word "including" reference content that must be mastered, while those containing the phrase "such as" are intended as possible illustrative examples.
+- (c) Knowledge and skills: mathematical process standards. The student uses mathematical processes to acquire and demonstrate mathematical understanding. The student is expected to:
+  - (1) apply mathematics to problems arising in everyday life, society, and the workplace;
+  - (2) use a problem-solving model that incorporates analyzing given information, formulating a plan or strategy, determining a solution, justifying the solution, and evaluating the problem-solving process and the reasonableness of the solution;
+  - (3) select tools, including real objects, manipulatives, paper and pencil, and technology as appropriate, and techniques, including mental math, estimation, and number sense as appropriate, to solve problems;
+  - (4) communicate mathematical ideas, reasoning, and their implications using multiple representations, including symbols, diagrams, graphs, and language as appropriate;
+  - (5) create and use representations to organize, record, and communicate mathematical ideas;
+  - (6) analyze mathematical relationships to connect and communicate mathematical ideas; and
+  - (7) display, explain, and justify mathematical ideas and arguments using precise mathematical language in written or oral communication.
+
+### § 111.46 - Discrete Mathematics for Problem Solving, Adopted 2013 (One-Half to One Credit)
+
+- (a) General requirements. Students shall be awarded one-half to one credit for successful completion of this course. Prerequisite: Algebra II.
+- (b) Introduction.
+  - (1) The desire to achieve educational excellence is the driving force behind the Texas essential knowledge and skills for mathematics, guided by the college and career readiness standards. By embedding statistics, probability, and finance, while focusing on fluency and solid understanding, Texas will lead the way in mathematics education and prepare all Texas students for the challenges they will face in the 21st century.
+  - (2) The process standards describe ways in which students are expected to engage in the content. The placement of the process standards at the beginning of the knowledge and skills listed for each grade and course is intentional. The process standards weave the other knowledge and skills together so that students may be successful problem solvers and use mathematics efficiently and effectively in daily life. The process standards are integrated at every grade level and course. When possible, students will apply mathematics to problems arising in everyday life, society, and the workplace. Students will use a problem-solving model that incorporates analyzing given information, formulating a plan or strategy, determining a solution, justifying the solution, and evaluating the problem-solving process and the reasonableness of the solution. Students will select appropriate tools such as real objects, manipulatives, paper and pencil, and technology and techniques such as mental math, estimation, and number sense to solve problems. Students will effectively communicate mathematical ideas, reasoning, and their implications using multiple representations such as symbols, diagrams, graphs, and language. Students will use mathematical relationships to generate solutions and make connections and predictions. Students will analyze mathematical relationships to connect and communicate mathematical ideas. Students will display, explain, or justify mathematical ideas and arguments using precise mathematical language in written or oral communication.
+  - (3) In Discrete Mathematics for Problem Solving, students are introduced to the improved efficiency of mathematical analysis and quantitative techniques over trial-and-error approaches to management problems involving organization, scheduling, project planning, strategy, and decision making. Students will learn how mathematical topics such as graph theory, planning and scheduling, group decision making, fair division, game theory, and theory of moves can be applied to management and decision making. Students will research mathematicians of the past whose work is relevant to these topics today and read articles about current mathematicians who either teach and conduct research at major universities or work in business and industry solving real-world logistical problems. Through the study of the applications of mathematics to society's problems today, students will become better prepared for and gain an appreciation for the value of a career in mathematics.
+  - (4) Statements that contain the word "including" reference content that must be mastered, while those containing the phrase "such as" are intended as possible illustrative examples.
+- (c) Knowledge and skills.
+  - (1) Mathematical process standards. The student uses mathematical processes to acquire and demonstrate mathematical understanding. The student is expected to:
+    - (A) apply mathematics to problems arising in everyday life, society, and the workplace;
+    - (B) use a problem-solving model that incorporates analyzing given information, formulating a plan or strategy, determining a solution, justifying the solution, and evaluating the problem-solving process and the reasonableness of the solution;
+    - (C) select tools, including real objects, manipulatives, paper and pencil, and technology as appropriate, and techniques, including mental math, estimation, and number sense as appropriate, to solve problems;
+    - (D) communicate mathematical ideas, reasoning, and their implications using multiple representations, including symbols, diagrams, graphs, and language as appropriate;
+    - (E) create and use representations to organize, record, and communicate mathematical ideas;
+    - (F) analyze mathematical relationships to connect and communicate mathematical ideas; and
+    - (G) display, explain, and justify mathematical ideas and arguments using precise mathematical language in written or oral communication.
+  - (2) Graph theory. The student applies the concept of graphs to determine possible solutions to real-world problems. The student is expected to:
+    - (A) explain the concept of graphs;
+    - (B) use graph models for simple problems in management science;
+    - (C) determine the valences of the vertices of a graph;
+    - (D) identify Euler circuits in a graph;
+    - (E) solve route inspection problems by Eulerizing a graph;
+    - (F) determine solutions modeled by edge traversal in a graph;
+    - (G) compare the results of solving the traveling salesman problem (TSP) using the nearest neighbor algorithm and using a greedy algorithm;
+    - (H) distinguish between real-world problems modeled by Euler circuits and those modeled by Hamiltonian circuits;
+    - (I) distinguish between algorithms that yield optimal solutions and those that give nearly optimal solutions;
+    - (J) find minimum-cost spanning trees using Kruskal's algorithm;
+    - (K) use the critical path method to determine the earliest possible completion time for a collection of tasks; and
+    - (L) explain the difference between a graph and a directed graph.
+  - (3) Planning and scheduling. The student uses heuristic algorithms to solve real-world problems. The student is expected to:
+    - (A) use the list processing algorithm to schedule tasks on identical processors;
+    - (B) recognize situations appropriate for modeling or scheduling problems;
+    - (C) determine whether a schedule is optimal using the critical path method together with the list processing algorithm;
+    - (D) identify situations appropriate for modeling by bin packing;
+    - (E) use any of six heuristic algorithms to solve bin packing problems;
+    - (F) solve independent task scheduling problems using the list processing algorithm; and
+    - (G) explain the relationship between scheduling problems and bin packing problems.
+  - (4) Group decision making. The student uses mathematical processes to apply decision-making schemes. The student analyzes the effects of multiple types of weighted voting and applies multiple voting concepts to real-world situations. The student is expected to:
+    - (A) describe the concept of a preference schedule and how to use it;
+    - (B) explain how particular decision-making schemes work;
+    - (C) determine the outcome for various voting methods, given the voters' preferences;
+    - (D) explain how different voting schemes or the order of voting can lead to different results;
+    - (E) describe the impact of various strategies on the results of the decision-making process;
+    - (F) explain the impact of Arrow's Impossibility Theorem;
+    - (G) relate the meaning of approval voting;
+    - (H) explain the need for weighted voting and how it works;
+    - (I) identify voting concepts such as Borda count, Condorcet winner, dummy voter, and coalition; and
+    - (J) compute the Banzhaf power index and explain its significance.
+  - (5) Fair division. The student applies the adjusted winner procedure and Knaster inheritance procedure to real-world situations. The student is expected to:
+    - (A) use the adjusted winner procedure to determine a fair allocation of property;
+    - (B) use the adjusted winner procedure to resolve a dispute;
+    - (C) explain how to reach a fair division using the Knaster inheritance procedure;
+    - (D) solve fair division problems with three or more players using the Knaster inheritance procedure;
+    - (E) explain the conditions under which the trimming procedure can be applied to indivisible goods;
+    - (F) identify situations appropriate for the techniques of fair division;
+    - (G) compare the advantages of the divider and the chooser in the divider-chooser method;
+    - (H) discuss the rules and strategies of the divider-chooser method;
+    - (I) resolve cake-division problems for three players using the last-diminisher method;
+    - (J) analyze the relative importance of the three desirable properties of fair division: equitability, envy-freeness, and Pareto optimality; and
+    - (K) identify fair division procedures that exhibit envy-freeness.
+  - (6) Game (or competition) theory. The student uses knowledge of basic game theory concepts to calculate optimal strategies. The student analyzes situations and identifies the use of gaming strategies. The student is expected to:
+    - (A) recognize competitive game situations;
+    - (B) represent a game with a matrix;
+    - (C) identify basic game theory concepts and vocabulary;
+    - (D) determine the optimal pure strategies and value of a game with a saddle point by means of the minimax technique;
+    - (E) explain the concept of and need for a mixed strategy;
+    - (F) compute the optimal mixed strategy and the expected value for a player in a game who has only two pure strategies;
+    - (G) model simple two-by-two, bimatrix games of partial conflict;
+    - (H) identify the nature and implications of the game called "Prisoners' Dilemma";
+    - (I) explain the game known as "chicken";
+    - (J) identify examples that illustrate the prevalence of Prisoners' Dilemma and chicken in our society; and
+    - (K) determine when a pair of strategies for two players is in equilibrium.
+  - (7) Theory of moves. The student analyzes the theory of moves (TOM). The student uses the TOM and game theory to analyze conflicts. The student is expected to:
+    - (A) compare and contrast TOM and game theory;
+    - (B) explain the rules of TOM;
+    - (C) describe what is meant by a cyclic game;
+    - (D) use a game tree to analyze a two-person game;
+    - (E) determine the effect of approaching Prisoners' Dilemma and chicken from the standpoint of TOM and contrast that to the effect of approaching them from the standpoint of game theory;
+    - (F) describe the use of TOM in a larger, more complicated game; and
+    - (G) model a conflict from literature or from a real-life situation as a two-by-two strict ordinal game and compare the results predicted by game theory and by TOM.
+
+### § 111.47 - Statistics, Adopted 2015 (One Credit)
+
+- (a) General requirements. Students shall be awarded one credit for successful completion of this course. Prerequisite: Algebra I.
+- (b) Introduction.
+  - (1) The desire to achieve educational excellence is the driving force behind the Texas essential knowledge and skills for mathematics, guided by the college and career readiness standards. By embedding statistics, probability, and finance, while focusing on fluency and solid understanding, Texas will lead the way in mathematics education and prepare all Texas students for the challenges they will face in the 21st century.
+  - (2) The process standards describe ways in which students are expected to engage in the content. The placement of the process standards at the beginning of the knowledge and skills listed for each grade and course is intentional. The process standards weave the other knowledge and skills together so that students may be successful problem solvers and use mathematics efficiently and effectively in daily life. The process standards are integrated at every grade level and course. When possible, students will apply mathematics to problems arising in everyday life, society, and the workplace. Students will use a problem-solving model that incorporates analyzing given information, formulating a plan or strategy, determining a solution, justifying the solution, and evaluating the problem-solving process and the reasonableness of the solution. Students will select appropriate tools such as real objects, manipulatives, paper and pencil, and technology and techniques such as mental math, estimation, and number sense to solve problems. Students will effectively communicate mathematical ideas, reasoning, and their implications using multiple representations such as symbols, diagrams, graphs, and language. Students will use mathematical relationships to generate solutions and make connections and predictions. Students will analyze mathematical relationships to connect and communicate mathematical ideas. Students will display, explain, or justify mathematical ideas and arguments using precise mathematical language in written or oral communication.
+  - (3) In Statistics, students will build on the knowledge and skills for mathematics in Kindergarten-Grade 8 and Algebra I. Students will broaden their knowledge of variability and statistical processes. Students will study sampling and experimentation, categorical and quantitative data, probability and random variables, inference, and bivariate data. Students will connect data and statistical processes to real-world situations. In addition, students will extend their knowledge of data analysis.
+  - (4) Statements that contain the word "including" reference content that must be mastered, while those containing the phrase "such as" are intended as possible illustrative examples.
+- (c) Knowledge and skills.
+  - (1) Mathematical process standards. The student uses mathematical processes to acquire and demonstrate mathematical understanding. The student is expected to:
+    - (A) apply mathematics to problems arising in everyday life, society, and the workplace;
+    - (B) use a problem-solving model that incorporates analyzing given information, formulating a plan or strategy, determining a solution, justifying the solution, and evaluating the problem-solving process and the reasonableness of the solution;
+    - (C) select tools, including real objects, manipulatives, paper and pencil, and technology as appropriate, and techniques, including mental math, estimation, and number sense as appropriate, to solve problems;
+    - (D) communicate mathematical ideas, reasoning, and their implications using multiple representations, including symbols, diagrams, graphs, and language as appropriate;
+    - (E) create and use representations to organize, record, and communicate mathematical ideas;
+    - (F) analyze mathematical relationships to connect and communicate mathematical ideas; and
+    - (G) display, explain, or justify mathematical ideas and arguments using precise mathematical language in written or oral communication.
+  - (2) Statistical process sampling and experimentation. The student applies mathematical processes to apply understandings about statistical studies, surveys, and experiments to design and conduct a study and use graphical, numerical, and analytical techniques to communicate the results of the study. The student is expected to:
+    - (A) compare and contrast the benefits of different sampling techniques, including random sampling and convenience sampling methods;
+    - (B) distinguish among observational studies, surveys, and experiments;
+    - (C) analyze generalizations made from observational studies, surveys, and experiments;
+    - (D) distinguish between sample statistics and population parameters;
+    - (E) formulate a meaningful question, determine the data needed to answer the question, gather the appropriate data, analyze the data, and draw reasonable conclusions;
+    - (F) communicate methods used, analyses conducted, and conclusions drawn for a data-analysis project through the use of one or more of the following: a written report, a visual display, an oral report, or a multi-media presentation; and
+    - (G) critically analyze published findings for appropriateness of study design implemented, sampling methods used, or the statistics applied.
+  - (3) Variability. The student applies the mathematical process standards when describing and modeling variability. The student is expected to:
+    - (A) distinguish between mathematical models and statistical models;
+    - (B) construct a statistical model to describe variability around the structure of a mathematical model for a given situation;
+    - (C) distinguish among different sources of variability, including measurement, natural, induced, and sampling variability; and
+    - (D) describe and model variability using population and sampling distributions.
+  - (4) Categorical and quantitative data. The student applies the mathematical process standards to represent and analyze both categorical and quantitative data. The student is expected to:
+    - (A) distinguish between categorical and quantitative data;
+    - (B) represent and summarize data and justify the representation;
+    - (C) analyze the distribution characteristics of quantitative data, including determining the possible existence and impact of outliers;
+    - (D) compare and contrast different graphical or visual representations given the same data set;
+    - (E) compare and contrast meaningful information derived from summary statistics given a data set; and
+    - (F) analyze categorical data, including determining marginal and conditional distributions, using two-way tables.
+  - (5) Probability and random variables. The student applies the mathematical process standards to connect probability and statistics. The student is expected to:
+    - (A) determine probabilities, including the use of a two-way table;
+    - (B) describe the relationship between theoretical and empirical probabilities using the Law of Large Numbers;
+    - (C) construct a distribution based on a technology-generated simulation or collected samples for a discrete random variable; and
+    - (D) compare statistical measures such as sample mean and standard deviation from a technology-simulated sampling distribution to the theoretical sampling distribution.
+  - (6) Inference. The student applies the mathematical process standards to make inferences and justify conclusions from statistical studies. The student is expected to:
+    - (A) explain how a sample statistic and a confidence level are used in the construction of a confidence interval;
+    - (B) explain how changes in the sample size, confidence level, and standard deviation affect the margin of error of a confidence interval;
+    - (C) calculate a confidence interval for the mean of a normally distributed population with a known standard deviation;
+    - (D) calculate a confidence interval for a population proportion;
+    - (E) interpret confidence intervals for a population parameter, including confidence intervals from media or statistical reports;
+    - (F) explain how a sample statistic provides evidence against a claim about a population parameter when using a hypothesis test;
+    - (G) construct null and alternative hypothesis statements about a population parameter;
+    - (H) explain the meaning of the p-value in relation to the significance level in providing evidence to reject or fail to reject the null hypothesis in the context of the situation;
+    - (I) interpret the results of a hypothesis test using technology-generated results such as large sample tests for proportion, mean, difference between two proportions, and difference between two independent means; and
+    - (J) describe the potential impact of Type I and Type II Errors.
+  - (7) Bivariate data. The student applies the mathematical process standards to analyze relationships among bivariate quantitative data. The student is expected to:
+    - (A) analyze scatterplots for patterns, linearity, outliers, and influential points;
+    - (B) transform a linear parent function to determine a line of best fit;
+    - (C) compare different linear models for the same set of data to determine best fit, including discussions about error;
+    - (D) compare different methods for determining best fit, including median-median and absolute value;
+    - (E) describe the relationship between influential points and lines of best fit using dynamic graphing technology; and
+    - (F) identify and interpret the reasonableness of attributes of lines of best fit within the context, including slope and y-intercept.
+
+### § 111.48 - Algebraic Reasoning, Adopted 2015 (One Credit)
+
+- (a) General requirements. Students shall be awarded one credit for successful completion of this course. Prerequisite: Algebra I.
+- (b) Introduction.
+  - (1) The desire to achieve educational excellence is the driving force behind the Texas essential knowledge and skills for mathematics, guided by the college and career readiness standards. By embedding statistics, probability, and finance, while focusing on fluency and solid understanding, Texas will lead the way in mathematics education and prepare all Texas students for the challenges they will face in the 21st century.
+  - (2) The process standards describe ways in which students are expected to engage in the content. The placement of the process standards at the beginning of the knowledge and skills listed for each grade and course is intentional. The process standards weave the other knowledge and skills together so that students may be successful problem solvers and use mathematics efficiently and effectively in daily life. The process standards are integrated at every grade level and course. When possible, students will apply mathematics to problems arising in everyday life, society, and the workplace. Students will use a problem-solving model that incorporates analyzing given information, formulating a plan or strategy, determining a solution, justifying the solution, and evaluating the problem-solving process and the reasonableness of the solution. Students will select appropriate tools such as real objects, manipulatives, paper and pencil, and technology and techniques such as mental math, estimation, and number sense to solve problems. Students will effectively communicate mathematical ideas, reasoning, and their implications using multiple representations such as symbols, diagrams, graphs, and language. Students will use mathematical relationships to generate solutions and make connections and predictions. Students will analyze mathematical relationships to connect and communicate mathematical ideas. Students will display, explain, or justify mathematical ideas and arguments using precise mathematical language in written or oral communication.
+  - (3) In Algebraic Reasoning, students will build on the knowledge and skills for mathematics in Kindergarten-Grade 8 and Algebra I, continue with the development of mathematical reasoning related to algebraic understandings and processes, and deepen a foundation for studies in subsequent mathematics courses. Students will broaden their knowledge of functions and relationships, including linear, quadratic, square root, rational, cubic, cube root, exponential, absolute value, and logarithmic functions. Students will study these functions through analysis and application that includes explorations of patterns and structure, number and algebraic methods, and modeling from data using tools that build to workforce and college readiness such as probes, measurement tools, and software tools, including spreadsheets.
+  - (4) Statements that contain the word "including" reference content that must be mastered, while those containing the phrase "such as" are intended as possible illustrative examples.
+- (c) Knowledge and skills.
+  - (1) Mathematical process standards. The student uses mathematical processes to acquire and demonstrate mathematical understanding. The student is expected to:
+    - (A) apply mathematics to problems arising in everyday life, society, and the workplace;
+    - (B) use a problem-solving model that incorporates analyzing given information, formulating a plan or strategy, determining a solution, justifying the solution, and evaluating the problem-solving process and the reasonableness of the solution;
+    - (C) select tools, including real objects, manipulatives, paper and pencil, and technology as appropriate, and techniques, including mental math, estimation, and number sense as appropriate, to solve problems;
+    - (D) communicate mathematical ideas, reasoning, and their implications using multiple representations, including symbols, diagrams, graphs, and language as appropriate;
+    - (E) create and use representations to organize, record, and communicate mathematical ideas;
+    - (F) analyze mathematical relationships to connect and communicate mathematical ideas; and
+    - (G) display, explain, or justify mathematical ideas and arguments using precise mathematical language in written or oral communication.
+  - (2) Patterns and structure. The student applies mathematical processes to connect finite differences or common ratios to attributes of functions. The student is expected to:
+    - (A) determine the patterns that identify the relationship between a function and its common ratio or related finite differences as appropriate, including linear, quadratic, cubic, and exponential functions;
+    - (B) classify a function as linear, quadratic, cubic, and exponential when a function is represented tabularly using finite differences or common ratios as appropriate;
+    - (C) determine the function that models a given table of related values using finite differences and its restricted domain and range; and
+    - (D) determine a function that models real-world data and mathematical contexts using finite differences such as the age of a tree and its circumference, figurative numbers, average velocity, and average acceleration.
+  - (3) Patterns and structure. The student applies mathematical processes to understand the connections among representations of functions and combinations of functions, including the constant function, f(x) = x, f(x) = x2, f(x) = [Square Root]x, f(x) = 1/x, f(x) = x3, f(x) = 3[Square Root]x, f(x) = bx, f(x) = |x|, and f(x) = logb (x) where b is 10 or e; functions and their inverses; and key attributes of these functions. The student is expected to:
+    - (A) compare and contrast the key attributes, including domain, range, maxima, minima, and intercepts, of a set of functions such as a set comprised of a linear, a quadratic, and an exponential function or a set comprised of an absolute value, a quadratic, and a square root function tabularly, graphically, and symbolically;
+    - (B) compare and contrast the key attributes of a function and its inverse when it exists, including domain, range, maxima, minima, and intercepts, tabularly, graphically, and symbolically;
+    - (C) verify that two functions are inverses of each other tabularly and graphically such as situations involving compound interest and interest rate, velocity and braking distance, and Fahrenheit-Celsius conversions;
+    - (D) represent a resulting function tabularly, graphically, and symbolically when functions are combined or separated using arithmetic operations such as combining a 20% discount and a 6% sales tax on a sale to determine h(x), the total sale, f(x) = 0.8x, g(x) = 0.06(0.8x), and h(x) = f(x) + g(x);
+    - (E) model a situation using function notation when the output of one function is the input of a second function such as determining a function h(x), = g(f(x)) = 1.06(0.8x) for the final purchase price, h(x), of an item with price x dollars representing a 20% discount, f(x) = 0.8x followed by a 6% sales tax, g(x) = 1.06x; and
+    - (F) compare and contrast a function and possible functions that can be used to build it tabularly, graphically, and symbolically such as a quadratic function that results from multiplying two linear functions.
+  - (4) Number and algebraic methods. The student applies mathematical processes to simplify and perform operations on functions represented in a variety of ways, including real-world situations. The student is expected to:
+    - (A) connect tabular representations to symbolic representations when adding, subtracting, and multiplying polynomial functions arising from mathematical and real-world situations such as applications involving surface area and volume;
+    - (B) compare and contrast the results when adding two linear functions and multiplying two linear functions that are represented tabularly, graphically, and symbolically;
+    - (C) determine the quotient of a polynomial function of degree three and of degree four when divided by a polynomial function of degree one and of degree two when represented tabularly and symbolically; and
+    - (D) determine the linear factors of a polynomial function of degree two and of degree three when represented symbolically and tabularly and graphically where appropriate.
+  - (5) Number and algebraic methods. The student applies mathematical processes to represent, simplify, and perform operations on matrices and to solve systems of equations using matrices. The student is expected to:
+    - (A) add and subtract matrices;
+    - (B) multiply matrices;
+    - (C) multiply matrices by a scalar;
+    - (D) represent and solve systems of two linear equations arising from mathematical and real-world situations using matrices; and
+    - (E) represent and solve systems of three linear equations arising from mathematical and real-world situations using matrices and technology.
+  - (6) Number and algebraic methods. The student applies mathematical processes to estimate and determine solutions to equations resulting from functions and real-world applications with fluency. The student is expected to:
+    - (A) estimate a reasonable input value that results in a given output value for a given function, including quadratic, rational, and exponential functions;
+    - (B) solve equations arising from questions asked about functions that model real-world applications, including linear and quadratic functions, tabularly, graphically, and symbolically; and
+    - (C) approximate solutions to equations arising from questions asked about exponential, logarithmic, square root, and cubic functions that model real-world applications tabularly and graphically.
+  - (7) Modeling from data. The student applies mathematical processes to analyze and model data based on real-world situations with corresponding functions. The student is expected to:
+    - (A) represent domain and range of a function using interval notation, inequalities, and set (builder) notation;
+    - (B) compare and contrast between the mathematical and reasonable domain and range of functions modeling real-world situations, including linear, quadratic, exponential, and rational functions;
+    - (C) determine the accuracy of a prediction from a function that models a set of data compared to the actual data using comparisons between average rates of change and finite differences such as gathering data from an emptying tank and comparing the average rate of change of the volume or the second differences in the volume to key attributes of the given model;
+    - (D) determine an appropriate function model, including linear, quadratic, and exponential functions, for a set of data arising from real-world situations using finite differences and average rates of change; and
+    - (E) determine if a given linear function is a reasonable model for a set of data arising from a real-world situation.
+
+
+## Subchapter D — Other High School Mathematics Courses
+
+### § 111.51 - Implementation of Texas Essential Knowledge and Skills for Mathematics, Other High School Mathematics Courses
+
+- The provisions of this subchapter shall be implemented by school districts.
+
+### § 111.53 - Advanced Placement (AP) Statistics (One Credit)
+
+- (a) General requirements. Students shall be awarded one credit for successful completion of this course. Recommended prerequisites: Algebra II, Geometry.
+- (b) Content requirements. Content requirements for Advanced Placement (AP) Statistics are prescribed in the College Board Publication Advanced Placement Course Description: Statistics, published by The College Board. This publication may be obtained from the College Board Advanced Placement Program.
+
+### § 111.54 - Advanced Placement (AP) Calculus AB (One Credit)
+
+- (a) General requirements. Students shall be awarded one credit for successful completion of this course. Recommended prerequisite: Precalculus.
+- (b) Content requirements. Content requirements for Advanced Placement (AP) Calculus AB are prescribed in the College Board Publication Advanced Placement Course Description Mathematics: Calculus AB, Calculus BC, published by The College Board. This publication may be obtained from the College Board Advanced Placement Program.
+
+### § 111.55 - Advanced Placement (AP) Calculus BC (One Credit)
+
+- (a) General requirements. Students shall be awarded one credit for successful completion of this course. Recommended prerequisite: Precalculus.
+- (b) Content requirements. Content requirements for Advanced Placement (AP) Calculus BC are prescribed in the College Board Publication Advanced Placement Course Description: Calculus AB, Calculus BC, published by The College Board. This publication may be obtained from the College Board Advanced Placement Program.
+
+### § 111.56 - Advanced Placement (AP) Precalculus (One Credit)
+
+- (a) General requirements. Students shall be awarded one credit for successful completion of this course. Recommended prerequisites: Algebra II and Geometry.
+- (b) Content requirements. Content requirements for Advanced Placement (AP) Precalculus are prescribed in the College Board Publication Advanced Placement Course Description Mathematics: Precalculus, published by The College Board. This publication may be obtained from the College Board Advanced Placement Program.
+
+### § 111.61 - International Baccalaureate (IB) Mathematics: Analysis and Approaches Standard Level (Two Credits)
+
+- (a) General requirements. Students shall be awarded two credits for successful completion of this course. Recommended prerequisites: Algebra II, Geometry. This course is recommended for students in Grade 11 or 12.
+- (b) Content requirements. Content requirements for IB Mathematics: Analysis and Approaches Standard Level are prescribed by the International Baccalaureate Organization. Subject guides may be obtained from International Baccalaureate of North America.
+
+### § 111.62 - International Baccalaureate (IB) Mathematics: Analysis and Approaches Higher Level (Two Credits)
+
+- (a) General requirements. Students shall be awarded two credits for successful completion of this course. Recommended prerequisites: Algebra II, Geometry. This course is recommended for students in Grade 11 or 12.
+- (b) Content requirements. Content requirements for IB Mathematics: Analysis and Approaches Higher Level are prescribed by the International Baccalaureate Organization. Subject guides may be obtained from International Baccalaureate of North America.
+
+### § 111.63 - International Baccalaureate (IB) Mathematics: Applications and Interpretations Standard Level (Two Credits)
+
+- (a) General requirements. Students shall be awarded two credits for successful completion of this course. Recommended prerequisites: Algebra II, Geometry. This course is recommended for students in Grade 11 or 12.
+- (b) Content requirements. Content requirements for IB Mathematics: Applications and Interpretations Standard Level are prescribed by the International Baccalaureate Organization. Subject guides may be obtained from International Baccalaureate of North America.
+
+### § 111.64 - International Baccalaureate (IB) Mathematics: Applications and Interpretations Higher Level (Two Credits)
+
+- (a) General requirements. Students shall be awarded two credits for successful completion of this course. Recommended prerequisites: Algebra II, Geometry. This course is recommended for students in Grade 11 or 12.
+- (b) Content requirements. Content requirements for IB Mathematics: Applications and Interpretations Higher Level are prescribed by the International Baccalaureate Organization. Subject guides may be obtained from International Baccalaureate of North America.
+
