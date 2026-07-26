@@ -511,6 +511,14 @@ function teacherClassRecordsFor(
 
 const dayMs = 24 * 60 * 60 * 1000;
 
+// The California Grade 1 demo classroom. These ids have to agree with the seeded
+// class, its enrolled student, and the open assessment in teacherOpsAssessmentPersistence.
+const californiaGradeOneClassId = "class-us-ca-p1-2026";
+const californiaGradeOneTeacherId = "teacher-scott-us";
+const californiaGradeOneStudentId = "student-shirleen-us";
+const californiaGradeOneAssessmentId = "assessment-us-ca-p1-add-subtract-check";
+const californiaGradeOneAssessmentAssignmentId = "assignment-us-ca-p1-add-subtract-check";
+
 export function teacherOpsSeedAssignmentRecords(
   now: string,
   {
@@ -520,6 +528,7 @@ export function teacherOpsSeedAssignmentRecords(
   }
 ): TeacherOpsSeedAssignmentRecord[] {
   const tomorrow = new Date(Date.parse(now) + dayMs).toISOString();
+  const nextWeek = new Date(Date.parse(now) + 7 * dayMs).toISOString();
 
   return [
     {
@@ -539,6 +548,27 @@ export function teacherOpsSeedAssignmentRecords(
       created_by: demoTeacherId,
       created_at: now,
       updated_at: now
+    },
+    // A student only ever reaches an assessment through an assignment that targets
+    // it, so the demo classroom's open assessment needs this row to be findable
+    // from the dashboard and the assignments page rather than by direct link.
+    {
+      id: californiaGradeOneAssessmentAssignmentId,
+      class_id: californiaGradeOneClassId,
+      title_en: "Add and subtract check",
+      title_zh: "加減法檢測",
+      description_en: "Four questions on adding and taking away. You can try it more than once.",
+      description_zh: "四題加法和減法練習，可以做多過一次。",
+      content_type: "assessment",
+      target_id: californiaGradeOneAssessmentId,
+      status: "active",
+      due_at: nextWeek,
+      allow_retake: true,
+      show_answers: true,
+      count_towards_grade: false,
+      created_by: californiaGradeOneTeacherId,
+      created_at: now,
+      updated_at: now
     }
   ];
 }
@@ -553,6 +583,23 @@ export function teacherOpsSeedSubmissionRecords(
     shouldSeedDemoUser: () => boolean;
   }
 ): TeacherOpsSeedSubmissionRecord[] {
+  // The student assignment list is built from submission rows, so the California
+  // Grade 1 learner needs one for the assessment to appear in her task list. It is
+  // seeded alongside the demo user rather than gated on it, because she is a
+  // separate seeded account.
+  const californiaGradeOneSubmission: TeacherOpsSeedSubmissionRecord = {
+    id: "submission-us-ca-p1-add-subtract-check-shirleen",
+    assignment_id: californiaGradeOneAssessmentAssignmentId,
+    student_id: californiaGradeOneStudentId,
+    status: "not-started",
+    score: null,
+    submitted_at: null,
+    graded_at: null,
+    feedback_en: "",
+    feedback_zh: "",
+    updated_at: now
+  };
+
   return shouldSeedDemoUser()
     ? [
         {
@@ -566,9 +613,10 @@ export function teacherOpsSeedSubmissionRecords(
           feedback_en: "",
           feedback_zh: "",
           updated_at: now
-        }
+        },
+        californiaGradeOneSubmission
       ]
-    : [];
+    : [californiaGradeOneSubmission];
 }
 
 export function teacherOpsDeletedAssignmentIdSet(deletedAssignmentIds?: unknown[]): Set<string> {
