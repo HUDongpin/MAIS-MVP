@@ -262,6 +262,7 @@ const tutorPanelMinHeightPx = 420;
 const tutorContextModes = new Set<TutorContext["mode"]>(["concept", "question", "figure", "mistake", "general"]);
 const tutorDraftRoles = new Set<TutorDraft["role"]>(["student", "teacher", "parent", "admin", "guest"]);
 const tutorCurriculumTracks = new Set<CurriculumTrack>(["HK", "MAINLAND_PEP_HIGH", "US_CA_MATH", "US_NC_MATH", "US_AR_MATH", "US_FL_MATH"]);
+const unitedStatesMathTutorTracks = new Set<CurriculumTrack>(["US_CA_MATH", "US_NC_MATH", "US_AR_MATH", "US_FL_MATH"]);
 const tutorGradeValues = new Set<GradeId>(["K", "P1", "P2", "P3", "P4", "P5", "P6", "S1", "S2", "S3", "S4", "S5", "S6"]);
 const tutorDataScopeValues: TutorDataScope[] = ["student-dashboard", "teacher-dashboard", "teacher-student-profile", "adaptive-engine"];
 const tutorDataScopeSet = new Set<TutorDataScope>(tutorDataScopeValues);
@@ -1232,7 +1233,8 @@ function buildTutorEvidenceQuery({
     };
   }
 
-  if (curriculumTrack !== "HK" && curriculumTrack !== "MAINLAND_PEP_HIGH") return undefined;
+  const isUnitedStatesMathTrack = curriculumTrack ? unitedStatesMathTutorTracks.has(curriculumTrack) : false;
+  if (curriculumTrack !== "HK" && curriculumTrack !== "MAINLAND_PEP_HIGH" && !isUnitedStatesMathTrack) return undefined;
 
   const asksExam = asksForExamOrPaperEvidence(input, context, page);
   const intent = context?.mode === "mistake"
@@ -1241,6 +1243,16 @@ function buildTutorEvidenceQuery({
       ? "exam-practice"
       : "tutor-explain";
   const difficultyBand = asksExam ? "exam" : "core";
+
+  if (isUnitedStatesMathTrack) {
+    return {
+      grade,
+      ...(context?.topicId ? { topicId: context.topicId } : {}),
+      ...(context?.evidenceQuery?.chapter ? { chapter: context.evidenceQuery.chapter } : {}),
+      intent: context?.mode === "mistake" ? "diagnose-mistake" : "tutor-explain",
+      difficultyBand: "core"
+    };
+  }
 
   if (curriculumTrack === "HK") {
     const paperComponent = inferHongKongPaperComponent(input, context, page);
