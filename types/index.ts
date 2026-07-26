@@ -1746,11 +1746,41 @@ export type SolidFigureQuestionDiagram = {
   labels?: SolidFigureDimensionLabels;
 };
 
+/**
+ * Counter colours a ten-frame group may use. The set is closed on purpose: the
+ * renderer maps each tone to a fixed fill AND to a colour word in the alt text,
+ * so a spec can only name a colour the figure can actually draw and describe.
+ */
+export type TenFrameCounterTone = "red" | "blue" | "orange" | "green" | "purple" | "yellow";
+
+export type TenFrameGroup = {
+  count: number;
+  tone: TenFrameCounterTone;
+  /** Optional legend text (e.g. "Ava's shells"). Never a bare total — see the figure audit. */
+  label?: LocalizedText;
+};
+
+/**
+ * Ten-frame / double ten-frame counting model (K.CC, K.OA, 1.OA, 1.NBT).
+ *
+ * `continuous` fills one running sequence of cells across the frames, which is
+ * the "compose within 10" picture (5 red then 1 blue in the same frame).
+ * `separate-frames` starts each group in its own frame, which is the "double
+ * ten-frame addition" picture (8 orange in frame one, 5 blue in frame two).
+ */
+export type TenFrameQuestionDiagram = {
+  kind: "ten-frame";
+  groups: TenFrameGroup[];
+  layout?: "continuous" | "separate-frames";
+  frames?: number;
+};
+
 export type QuestionDiagram =
   | CoordinateGridQuestionDiagram
   | PlaneFigureQuestionDiagram
   | NumberLineQuestionDiagram
-  | SolidFigureQuestionDiagram;
+  | SolidFigureQuestionDiagram
+  | TenFrameQuestionDiagram;
 
 export type QuestionAsset = {
   kind: "image";
