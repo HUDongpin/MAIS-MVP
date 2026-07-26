@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { MathCheck } from "@/components/lesson/ccss/MathCheck";
 import { Figure } from "@/components/lesson/ccss/Figure";
+import { FigureScroll } from "@/components/lesson/ccss/FigureScroll";
 
 const R = 8;
 const PAD = 24;
@@ -39,7 +40,7 @@ export default function Lesson() {
 
           <div className="font-mono text-3xl font-black">x {op} {c}</div>
 
-          <div className="w-full overflow-x-auto">
+          <FigureScroll>
             <svg width={W} height={70} viewBox={`0 0 ${W} 70`} className="mx-auto" role="img" aria-label={`x ${op} ${c}`}>
               <line x1={PAD} y1={40} x2={W - PAD} y2={40} stroke="var(--ink-soft)" strokeWidth={2} />
               {Array.from({ length: 2 * R + 1 }, (_, i) => {
@@ -57,7 +58,7 @@ export default function Lesson() {
               {/* boundary circle */}
               <circle cx={x(c)} cy={40} r={7} fill={closed ? ACCENT : "var(--surface)"} stroke={ACCENT} strokeWidth={2.5} />
             </svg>
-          </div>
+          </FigureScroll>
 
           <p className="m-0 text-center text-[15px] font-semibold text-[var(--ink-soft)]">
             For example, x = {goesRight ? c + 2 : c - 2} works ({goesRight ? c + 2 : c - 2} {op} {c}), but x = {goesRight ? c - 2 : c + 2} does not. {closed ? `x = ${c} is included.` : `x = ${c} is not included.`}

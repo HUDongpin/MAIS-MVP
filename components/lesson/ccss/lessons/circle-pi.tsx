@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { MathCheck } from "@/components/lesson/ccss/MathCheck";
 import { Figure } from "@/components/lesson/ccss/Figure";
+import { FigureScroll } from "@/components/lesson/ccss/FigureScroll";
 
 const ACCENT = "var(--band-middle)";
 const PXU = 24; // px per unit for the circle
@@ -53,7 +54,7 @@ export default function Lesson() {
           </svg>
 
           {/* unrolled circumference */}
-          <div className="w-full overflow-x-auto">
+          <FigureScroll>
             <svg width={barW + 4} height={barH + 30} viewBox={`0 0 ${barW + 4} ${barH + 30}`} className="mx-auto max-w-full" role="img" aria-label="Circumference unrolled into diameter lengths">
               <g transform="translate(2,2)">
                 {[0, 1, 2].map((i) => (
@@ -71,7 +72,7 @@ export default function Lesson() {
                 </text>
               </g>
             </svg>
-          </div>
+          </FigureScroll>
 
           <div className="grid grid-cols-1 gap-3 sm:grid-cols-3">
             <Stat label="C ÷ d" value="π ≈ 3.14159" note="always constant" highlight />

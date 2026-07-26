@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { MathCheck } from "@/components/lesson/ccss/MathCheck";
 import { Figure } from "@/components/lesson/ccss/Figure";
+import { FigureScroll } from "@/components/lesson/ccss/FigureScroll";
 
 const ACCENT = "var(--band-high)";
 const r2 = (n: number) => Math.round(n * 100) / 100;
@@ -28,7 +29,7 @@ export default function Lesson() {
 
       <Figure caption="Add the terms directly, or use S = a(rⁿ − 1)/(r − 1). They always match.">
         <div className="flex flex-col items-center gap-6">
-          <div className="w-full overflow-x-auto">
+          <FigureScroll>
             <div className="mx-auto flex min-w-max items-center justify-center gap-2 font-mono text-lg">
               {terms.map((t, i) => (
                 <span key={i} className="flex items-center gap-2">
@@ -39,7 +40,7 @@ export default function Lesson() {
               <span className="text-2xl">=</span>
               <span className="text-2xl font-black" style={{ color: ACCENT }}>{sumDirect}</span>
             </div>
-          </div>
+          </FigureScroll>
 
           <div className="rounded-2xl border-2 px-8 py-3 text-center font-mono" style={{ borderColor: ACCENT }}>
             <div className="text-sm text-[var(--ink-soft)]">S = a(rⁿ − 1)/(r − 1)</div>

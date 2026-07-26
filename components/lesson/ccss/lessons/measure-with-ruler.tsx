@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { MathCheck } from "@/components/lesson/ccss/MathCheck";
 import { Figure } from "@/components/lesson/ccss/Figure";
+import { FigureScroll } from "@/components/lesson/ccss/FigureScroll";
 
 const BIGU = 44; // px per big unit
 const BAR = "var(--band-middle)";
@@ -26,7 +27,7 @@ export default function Lesson() {
 
       <Figure caption="Switch the ruler's units. The bar stays the same length, but the number changes.">
         <div className="flex flex-col items-center gap-6">
-          <div className="w-full overflow-x-auto">
+          <FigureScroll>
             <div className="mx-auto" style={{ width: barPx + 4 }}>
               {/* the object */}
               <div className="mb-1 rounded" style={{ width: barPx, height: 26, background: BAR }} />
@@ -40,7 +41,7 @@ export default function Lesson() {
                 ))}
               </div>
             </div>
-          </div>
+          </FigureScroll>
 
           <div className="text-center">
             <div className="text-3xl font-black" style={{ color: BAR }}>{count} {unitName}</div>

@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { MathCheck } from "@/components/lesson/ccss/MathCheck";
 import { Figure } from "@/components/lesson/ccss/Figure";
+import { FigureScroll } from "@/components/lesson/ccss/FigureScroll";
 
 const S = 30; // unit cube edge in px
 const DXZ = 15; // depth → screen x
@@ -52,7 +53,7 @@ export default function Lesson() {
 
       <Figure caption="One bottom layer, copied upward. Rotate the idea in your head: length across, width back, height up.">
         <div className="flex flex-col items-center gap-6">
-          <div className="w-full overflow-x-auto">
+          <FigureScroll>
             <svg
               width={vbW}
               height={vbH}
@@ -78,7 +79,7 @@ export default function Lesson() {
                 );
               })}
             </svg>
-          </div>
+          </FigureScroll>
 
           <div className="text-center" aria-live="polite">
             <div className="font-mono text-xl font-bold">

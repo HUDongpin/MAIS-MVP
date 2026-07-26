@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { MathCheck } from "@/components/lesson/ccss/MathCheck";
 import { Figure } from "@/components/lesson/ccss/Figure";
+import { FigureScroll } from "@/components/lesson/ccss/FigureScroll";
 
 const ACCENT = "var(--band-upper)";
 const PAD = 46;
@@ -35,7 +36,7 @@ export default function Lesson() {
             ))}
           </div>
 
-          <div className="w-full overflow-x-auto">
+          <FigureScroll>
             <svg width={LWIDTH + 2 * PAD} height={90} viewBox={`0 0 ${LWIDTH + 2 * PAD} 90`} className="mx-auto" role="img" aria-label={`${n} between ${lower} and ${upper}`}>
               <line x1={PAD} y1={55} x2={PAD + LWIDTH} y2={55} stroke="var(--ink-soft)" strokeWidth={2} />
               {[[lower, PAD], [upper, PAD + LWIDTH]].map(([val, xx], i) => (
@@ -49,7 +50,7 @@ export default function Lesson() {
               <circle cx={px} cy={55} r={7} fill={ACCENT} stroke="white" strokeWidth={2} />
               <text x={px} y={22} textAnchor="middle" fontSize={14} fontWeight={800} fill={ACCENT} fontFamily="var(--font-mono)">{n.toLocaleString()}</text>
             </svg>
-          </div>
+          </FigureScroll>
 
           <div className="text-center">
             <div className="font-mono text-2xl font-black">{n.toLocaleString()} → <span style={{ color: ACCENT }}>{rounded.toLocaleString()}</span></div>

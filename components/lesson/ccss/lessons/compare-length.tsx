@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { MathCheck } from "@/components/lesson/ccss/MathCheck";
 import { Figure } from "@/components/lesson/ccss/Figure";
+import { FigureScroll } from "@/components/lesson/ccss/FigureScroll";
 
 const TOP = "var(--band-early)";
 const BOT = "var(--band-middle)";
@@ -25,7 +26,7 @@ export default function Lesson() {
 
       <Figure caption="Both pencils start at the same line on the left, so the tips show which is longer.">
         <div className="flex flex-col items-center gap-6">
-          <div className="w-full overflow-x-auto">
+          <FigureScroll>
             <div className="mx-auto flex flex-col gap-4" style={{ maxWidth: 10 * UNIT + 40 }}>
               <Bar label="Red pencil" units={top} color={TOP} />
               <Bar label="Blue pencil" units={bot} color={BOT} />
@@ -34,7 +35,7 @@ export default function Lesson() {
                 <div className="absolute -top-[92px] left-[6px] h-[92px] w-0.5 bg-[var(--ink-faint)]" />
               </div>
             </div>
-          </div>
+          </FigureScroll>
 
           <p className="m-0 text-center text-xl font-bold">
             The <span style={{ color: TOP }}>red pencil</span> is{" "}

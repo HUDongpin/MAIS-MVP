@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { MathCheck } from "@/components/lesson/ccss/MathCheck";
 import { Figure } from "@/components/lesson/ccss/Figure";
+import { FigureScroll } from "@/components/lesson/ccss/FigureScroll";
 
 const ACCENT = "var(--band-upper)";
 const PAD = 30;
@@ -27,7 +28,7 @@ export default function Lesson() {
 
       <Figure caption="Trap the irrational between perfect squares, then zoom in to its place on the line.">
         <div className="flex flex-col items-center gap-6">
-          <div className="w-full overflow-x-auto">
+          <FigureScroll>
             <svg width={W + 2 * PAD} height={80} viewBox={`0 0 ${W + 2 * PAD} 80`} className="mx-auto" role="img" aria-label={`square root of ${n} on a number line`}>
               <line x1={PAD} y1={45} x2={PAD + W} y2={45} stroke="var(--ink-soft)" strokeWidth={2} />
               {[lo, lo + 0.5, hi].map((t) => (
@@ -39,7 +40,7 @@ export default function Lesson() {
               <circle cx={x(val)} cy={45} r={7} fill={ACCENT} stroke="white" strokeWidth={2} />
               <text x={x(val)} y={26} textAnchor="middle" fontSize={13} fontWeight={800} fill={ACCENT} fontFamily="var(--font-mono)">√{n} ≈ {val.toFixed(2)}</text>
             </svg>
-          </div>
+          </FigureScroll>
 
           <div className="flex flex-col items-center gap-1 rounded-2xl border-2 border-[var(--line)] px-6 py-3 font-mono text-[15px]">
             <div>{loSq} &lt; {n} &lt; {hiSq}, so {lo} &lt; √{n} &lt; {hi}</div>

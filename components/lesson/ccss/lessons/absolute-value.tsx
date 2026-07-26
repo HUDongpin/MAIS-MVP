@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { MathCheck } from "@/components/lesson/ccss/MathCheck";
 import { Figure } from "@/components/lesson/ccss/Figure";
+import { FigureScroll } from "@/components/lesson/ccss/FigureScroll";
 
 const R = 8;
 const PAD = 24;
@@ -28,7 +29,7 @@ export default function Lesson() {
 
       <Figure caption="Order is left-to-right; absolute value is the distance from 0 (the arrows).">
         <div className="flex flex-col items-center gap-6">
-          <div className="w-full overflow-x-auto">
+          <FigureScroll>
             <svg width={W} height={110} viewBox={`0 0 ${W} 110`} className="mx-auto" role="img" aria-label={`a at ${a}, b at ${b}`}>
               <line x1={PAD} y1={70} x2={W - PAD} y2={70} stroke="var(--ink-soft)" strokeWidth={2} />
               {Array.from({ length: 2 * R + 1 }, (_, i) => {
@@ -51,7 +52,7 @@ export default function Lesson() {
               <text x={x(a)} y={106} textAnchor="middle" fontSize={12} fontWeight={800} fill={A} fontFamily="var(--font-mono)">a={a}</text>
               <text x={x(b)} y={106} textAnchor="middle" fontSize={12} fontWeight={800} fill={B} fontFamily="var(--font-mono)">b={b}</text>
             </svg>
-          </div>
+          </FigureScroll>
 
           <div className="grid grid-cols-2 gap-4 text-center">
             <div className="rounded-xl border-2 border-[var(--line)] px-5 py-2">

@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { MathCheck } from "@/components/lesson/ccss/MathCheck";
 import { Figure } from "@/components/lesson/ccss/Figure";
+import { FigureScroll } from "@/components/lesson/ccss/FigureScroll";
 
 const DATA = [3, 5, 6, 6, 7, 8, 8, 9, 10, 12, 14, 15];
 const MAXX = 16;
@@ -49,7 +50,7 @@ export default function Lesson() {
             ))}
           </div>
 
-          <div className="w-full overflow-x-auto">
+          <FigureScroll>
             <svg width={W} height={140} viewBox={`0 0 ${W} 140`} className="mx-auto" role="img" aria-label={`${mode} of the data`}>
               <line x1={PAD} y1={110} x2={W - PAD} y2={110} stroke="var(--ink-soft)" strokeWidth={2} />
               {Array.from({ length: MAXX + 1 }, (_, i) => (i % 2 === 0 ? <text key={i} x={x(i)} y={128} textAnchor="middle" fontSize={9} fill="var(--ink-faint)" fontFamily="var(--font-mono)">{i}</text> : null))}
@@ -77,7 +78,7 @@ export default function Lesson() {
                 </g>
               )}
             </svg>
-          </div>
+          </FigureScroll>
 
           <p className="m-0 max-w-md text-center text-[15px] text-[var(--ink-soft)]">
             {mode === "dot" && "Every dot is one data value — you see the exact numbers and how they cluster."}

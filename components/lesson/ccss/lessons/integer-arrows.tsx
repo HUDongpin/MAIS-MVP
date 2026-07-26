@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { MathCheck } from "@/components/lesson/ccss/MathCheck";
 import { Figure } from "@/components/lesson/ccss/Figure";
+import { FigureScroll } from "@/components/lesson/ccss/FigureScroll";
 
 const MIN = -10;
 const MAX = 10;
@@ -63,7 +64,7 @@ export default function Lesson() {
 
       <Figure caption="The first arrow starts at 0. The second arrow starts where the first one ends.">
         <div className="flex flex-col items-center gap-5">
-          <div className="w-full overflow-x-auto">
+          <FigureScroll>
             <svg
               width={W}
               height={H}
@@ -108,7 +109,7 @@ export default function Lesson() {
                 {sum}
               </text>
             </svg>
-          </div>
+          </FigureScroll>
 
           <div className="rounded-xl bg-[var(--surface-2)] px-6 py-3 text-center font-mono text-2xl font-black">
             <span style={{ color: C1 }}>{p}</span>{" "}

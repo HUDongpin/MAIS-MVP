@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { MathCheck } from "@/components/lesson/ccss/MathCheck";
 import { Figure } from "@/components/lesson/ccss/Figure";
+import { FigureScroll } from "@/components/lesson/ccss/FigureScroll";
 
 const ACCENT = "var(--band-high)";
 const r2 = (n: number) => Math.round(n * 100) / 100;
@@ -24,7 +25,7 @@ export default function Lesson() {
 
       <Figure caption="Convert a speed by chaining unit factors. Watch miles and hours cancel, leaving feet per second.">
         <div className="flex flex-col items-center gap-6">
-          <div className="w-full overflow-x-auto">
+          <FigureScroll>
             <div className="mx-auto flex min-w-max items-center justify-center gap-1 font-mono text-lg">
               <Frac top={`${mph} mi`} bot="1 hr" hi="mi,hr" />
               <span className="text-2xl">×</span>
@@ -34,7 +35,7 @@ export default function Lesson() {
               <span className="text-2xl">=</span>
               <span className="rounded-lg px-3 py-2 text-2xl font-black" style={{ background: "var(--surface-2)", color: ACCENT }}>{fps} ft/s</span>
             </div>
-          </div>
+          </FigureScroll>
 
           <p className="m-0 max-w-lg text-center text-[15px] text-[var(--ink-soft)]">
             The <span style={{ color: ACCENT }}>mi</span> in the numerator cancels
