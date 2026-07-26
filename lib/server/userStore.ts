@@ -68,6 +68,9 @@ import {
   updateAdaptiveState,
   validateLLMAdaptiveRecommendation
 } from "@/lib/adaptiveLearning";
+import { prerequisiteGradesForGrade } from "@/data/ccssCoherenceMap";
+import { buildPlacementBlueprint, seedStatesFromPlacement } from "@/lib/diagnosticPlacement";
+import type { PlacementProbe, PlacementResponse } from "@/lib/diagnosticPlacement";
 import {
   boundedLLMNumber,
   buildLLMProviderRequestBody,
@@ -9048,12 +9051,26 @@ function buildAdaptiveGenerationContext(
   topicId?: string | null,
   curriculumTrack: CurriculumScope = defaultCurriculumProfile
 ) {
-  const topicRecords = database.topics
+  // Cross-grade diagnostic backtracking: for the CCSS-aligned track we widen the pool to
+  // include the immediately-earlier grade(s), so a weak on-grade skill can route to the
+  // specific earlier-grade prerequisite it depends on (via the CCSS coherence DAG). The
+  // earlier grades are backtrack-only — they never drive new on-grade content selection.
+  const primaryTopicRecords = database.topics
     .filter((topic) => isCurriculumTopic(topic, curriculumTrack) && topic.grade === grade)
     .sort((a, b) => a.sort_order - b.sort_order);
+  const prerequisiteGrades = primaryTopicRecords.some((topic) => topic.id.startsWith("us-ca-math"))
+    ? prerequisiteGradesForGrade(grade)
+    : [];
+  const gradeSet = new Set<GradeId>([grade, ...prerequisiteGrades]);
+
+  const topicRecords = prerequisiteGrades.length
+    ? database.topics
+        .filter((topic) => isCurriculumTopic(topic, curriculumTrack) && gradeSet.has(topic.grade))
+        .sort((a, b) => a.sort_order - b.sort_order)
+    : primaryTopicRecords;
   const topics = topicRecords.map((topic) => toTopicWithProgress(database, userId, topic));
   const questions = database.questions
-    .filter((question) => isCurriculumQuestion(question, curriculumTrack) && question.grade === grade)
+    .filter((question) => isCurriculumQuestion(question, curriculumTrack) && gradeSet.has(question.grade))
     .map((question) => toPublicQuestion(database, question));
   const lessons = topicRecords
     .map((topic) => lessonForTopicFromStudentActivity(database, topic.id))
@@ -9784,6 +9801,62 @@ async function getAdaptiveLearningDecisionFromCompatibility({
       provider: providerConfig.provider,
       model: providerConfig.model
     }
+  });
+}
+
+/**
+ * Diagnostic placement — serves a short probe blueprint and seeds BKT priors so a fresh
+ * learner's knowledge map is accurate on day one instead of a flat 0.35 everywhere.
+ * `needsPlacement` is true only for a learner with no adaptive history yet (so it never
+ * re-prompts once the map is seeded, whether by placement or by real practice).
+ */
+export async function getDiagnosticPlacementBlueprint({
+  userId,
+  grade,
+  curriculumTrack = defaultCurriculumTrack
+}: {
+  userId: string;
+  grade: GradeId;
+  curriculumTrack?: CurriculumScope;
+}): Promise<{ needsPlacement: boolean; probes: PlacementProbe[] }> {
+  if (adaptiveContentUnavailableFor(curriculumTrack, grade)) return { needsPlacement: false, probes: [] };
+
+  const database = await readDatabase();
+  const { components } = buildAdaptiveGenerationContext(database, userId, grade, null, curriculumTrack);
+  const probes = buildPlacementBlueprint({ components, learnerGrade: grade });
+  const hasAdaptiveHistory = database.adaptive_skill_state.some((record) => record.user_id === userId);
+  return { needsPlacement: probes.length > 0 && !hasAdaptiveHistory, probes };
+}
+
+/**
+ * Applies placement responses: seeds every skill's prior (grade-level for unprobed skills,
+ * real BKT evidence for answered probes, with one-hop propagation across the prerequisite
+ * DAG) and persists them. An empty `responses` array still seeds grade-level priors, so a
+ * learner who skips the check still gets an informed — rather than flat — starting map.
+ */
+export async function applyDiagnosticPlacement({
+  userId,
+  grade,
+  responses,
+  curriculumTrack = defaultCurriculumTrack
+}: {
+  userId: string;
+  grade: GradeId;
+  responses: PlacementResponse[];
+  curriculumTrack?: CurriculumScope;
+}): Promise<{ seededCount: number; recommendedStartSkillId: string | null }> {
+  if (adaptiveContentUnavailableFor(curriculumTrack, grade)) {
+    return { seededCount: 0, recommendedStartSkillId: null };
+  }
+
+  return mutateDatabase((database) => {
+    const { components } = buildAdaptiveGenerationContext(database, userId, grade, null, curriculumTrack);
+    if (!components.length) return { seededCount: 0, recommendedStartSkillId: null };
+    const seeded = seedStatesFromPlacement({ components, responses, learnerGrade: grade });
+    for (const state of seeded.states) {
+      upsertAdaptiveSkillState(database, userId, state);
+    }
+    return { seededCount: seeded.states.length, recommendedStartSkillId: seeded.recommendedStartSkillId };
   });
 }
 

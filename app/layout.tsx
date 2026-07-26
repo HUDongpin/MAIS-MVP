@@ -5,6 +5,7 @@ import "katex/dist/katex.min.css";
 import "./globals.css";
 import { AITutorProvider } from "@/components/ai/AITutorProvider";
 import { AnimatedMathBackground } from "@/components/background/AnimatedMathBackground";
+import { DiagnosticPlacementGate } from "@/components/layout/DiagnosticPlacementGate";
 import { Footer } from "@/components/layout/Footer";
 import { GuestLoginPromptGate } from "@/components/layout/GuestLoginPromptGate";
 import { Navbar } from "@/components/layout/Navbar";
@@ -32,6 +33,7 @@ export default function RootLayout({ children }: Readonly<{ children: ReactNode 
             </div>
             <StudentBackToTopButton />
             <GuestLoginPromptGate />
+            <DiagnosticPlacementGate />
           </AITutorProvider>
         </AppProviders>
         {shouldRenderVercelAnalytics ? <Analytics /> : null}
