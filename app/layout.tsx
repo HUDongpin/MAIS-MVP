@@ -6,6 +6,7 @@ import "./globals.css";
 import { AITutorProvider } from "@/components/ai/AITutorProvider";
 import { AnimatedMathBackground } from "@/components/background/AnimatedMathBackground";
 import { Footer } from "@/components/layout/Footer";
+import { DiagnosticPlacementGate } from "@/components/layout/DiagnosticPlacementGate";
 import { GuestLoginPromptGate } from "@/components/layout/GuestLoginPromptGate";
 import { Navbar } from "@/components/layout/Navbar";
 import { StudentBackToTopButton } from "@/components/layout/StudentBackToTopButton";
@@ -32,6 +33,7 @@ export default function RootLayout({ children }: Readonly<{ children: ReactNode 
             </div>
             <StudentBackToTopButton />
             <GuestLoginPromptGate />
+            <DiagnosticPlacementGate />
           </AITutorProvider>
         </AppProviders>
         {shouldRenderVercelAnalytics ? <Analytics /> : null}
