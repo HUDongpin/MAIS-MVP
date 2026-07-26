@@ -2546,13 +2546,20 @@ export function LessonView({ gradeLessons = [], slug, initialLesson, visualizati
   }, [slug]);
 
   useEffect(() => {
+    setLesson(normalizedInitialLesson);
+    setChecklistState(normalizedInitialLesson?.checklistState ?? {});
+    setLessonLoadState(normalizedInitialLesson ? "ready" : "idle");
+  }, [normalizedInitialLesson]);
+
+  // Keyed on the slug, NOT on initialLesson identity: a server re-render
+  // (router.refresh, dev RSC refresh) delivers a fresh initialLesson object for
+  // the SAME lesson, and resetting here wiped the learner's in-round practice
+  // answers, summary, and celebration state mid-session.
+  useEffect(() => {
     if (galaxyDirectoryCloseTimerRef.current !== null) {
       window.clearTimeout(galaxyDirectoryCloseTimerRef.current);
       galaxyDirectoryCloseTimerRef.current = null;
     }
-    setLesson(normalizedInitialLesson);
-    setChecklistState(normalizedInitialLesson?.checklistState ?? {});
-    setLessonLoadState(normalizedInitialLesson ? "ready" : "idle");
     questionStartedAtRef.current = {};
     setQuestionResults({});
     setIsSavingLessonProgress(false);
@@ -2564,7 +2571,7 @@ export function LessonView({ gradeLessons = [], slug, initialLesson, visualizati
     setPerfectCelebrationShown(false);
     setShowCelebration(false);
     setLessonSelection(null);
-  }, [normalizedInitialLesson, slug]);
+  }, [slug]);
 
   useEffect(() => {
     return () => {
