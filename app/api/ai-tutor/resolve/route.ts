@@ -40,6 +40,12 @@ import {
   shouldWithholdTutorReply,
   type ContentSafetyClassification
 } from "@/lib/server/contentSafety";
+import {
+  applyTutorOutputModeration,
+  buildModerationRedirectReply,
+  classifyTutorModeration,
+  shouldBlockTutorInput
+} from "@/lib/server/tutorModeration";
 import { classAiTutorRateLimitRulesFromPolicy } from "@/lib/server/aiGovernance";
 import {
   boundedLLMNumber,
@@ -50,8 +56,8 @@ import {
   extractLLMProviderUsage,
   fetchLLMProviderResponse,
   readAITutorProviderProfile,
+  readAITutorImageProviderConfig,
   readAITutorTextProviderConfigs,
-  readQwenImageProviderConfig,
   resolveAITutorProviderTimeoutMs,
   resolveLLMMaxCompletionTokens,
   selectAvailableLLMProviderConfig,
@@ -364,7 +370,9 @@ function readProviderConfig(): ProviderConfig {
 }
 
 function readVisionProviderConfig(): ProviderConfig {
-  return readQwenImageProviderConfig();
+  // Preference-aware: routes image turns to the US-hosted vision model when
+  // AI_TUTOR_PREFERRED_TEXT_PROVIDER=deepinfra and its key is configured.
+  return readAITutorImageProviderConfig();
 }
 
 function providerSupportsImageInput(_provider: ProviderName) {
@@ -2224,6 +2232,65 @@ async function handleAITutorPost(
     // answers the math question normally (the input message is recorded below).
   }
 
+  // Content-moderation gate (distinct from the crisis-safety escalation above):
+  // keep the tutor conversation appropriate for a minor. Block-severity input
+  // (sexual/hate/dangerous requests) refuses the model call and redirects to
+  // math; flag-severity input (mild profanity, insults) is logged for audit but
+  // still tutored. Scoped to students, mirroring content-safety. This is not a
+  // duty-of-care alert, so it is written to the governance audit log, not the
+  // teacher safety-alert surface.
+  const studentInputModeration = authenticated.user.role === "student"
+    ? classifyTutorModeration(input, { source: "student-input" })
+    : { flagged: false, matchedTerms: [] as string[], excerpt: "" };
+  if (studentInputModeration.flagged && studentInputModeration.category && studentInputModeration.severity) {
+    const blockInput = shouldBlockTutorInput(studentInputModeration);
+    recordAiGovernanceEventAfterResponse({
+      userId: authenticatedUserId,
+      capability: "ai-tutor-chat",
+      action: "content-moderation-blocked",
+      reason: `content-moderation:student-input:${studentInputModeration.category}:${studentInputModeration.severity}${blockInput ? ":blocked" : ""}`,
+      metadata: {
+        category: studentInputModeration.category,
+        severity: studentInputModeration.severity,
+        source: "student-input",
+        blocked: blockInput
+      }
+    });
+
+    if (blockInput) {
+      const reply = buildModerationRedirectReply(language);
+      recordTutorMessageAfterResponse({
+        userId: authenticatedUserId,
+        role: "student",
+        content: input,
+        context: context
+          ? { ...context, grade, language, page, attachments, dataScopes: resolvedContextHints.dataScopes, targetStudentId: resolvedContextHints.targetStudentId || undefined }
+          : { grade, language, page, attachments, dataScopes: resolvedContextHints.dataScopes, targetStudentId: resolvedContextHints.targetStudentId || undefined }
+      });
+      recordTutorMessageAfterResponse({
+        userId: authenticatedUserId,
+        role: "tutor",
+        content: reply,
+        context: {
+          grade,
+          language,
+          page,
+          mode: "moderation-redirect",
+          moderationCategory: studentInputModeration.category,
+          moderationSeverity: studentInputModeration.severity
+        }
+      });
+      recordTutorUsageAfterResponse({
+        userId: authenticatedUserId,
+        model: primaryProviderConfig.model,
+        error: "AI Tutor content-moderation redirect"
+      });
+      return jsonWithDeferredTutorSideEffects({ reply, mode: "moderation-redirect" });
+    }
+    // Flag severity: logged for audit; the tutor still answers the math question
+    // (the input message is recorded in the normal flow below).
+  }
+
   if (asksForSensitiveInternalMaterial(input)) {
     const reply = buildSensitiveRequestReply(language, input);
     recordTutorMessageAfterResponse({
@@ -2944,16 +3011,53 @@ async function handleAITutorPost(
       }
     }
 
+    // Output-side content moderation: even if the reply cleared the crisis
+    // classifier, withhold it if the model itself produced content that does not
+    // belong in a minors' tutor (profanity, insults, sexual/hateful/dangerous
+    // content). The tutor is held to a higher bar than the student, so any flag
+    // — not just block severity — withholds. Logged to the governance audit log.
+    let moderationRedirected = false;
+    if (authenticated.user.role === "student" && !safetyRedirected) {
+      const outputModeration = applyTutorOutputModeration({
+        modelReply,
+        role: authenticated.user.role,
+        language
+      });
+      const { category, severity } = outputModeration.classification;
+      if (outputModeration.redirected && category && severity) {
+        moderationRedirected = true;
+        reply = outputModeration.reply;
+        recordAiGovernanceEventAfterResponse({
+          userId: authenticatedUserId,
+          capability: "ai-tutor-chat",
+          action: "content-moderation-blocked",
+          reason: `content-moderation:tutor-output:${category}:${severity}:withheld`,
+          metadata: {
+            category,
+            severity,
+            source: "tutor-output",
+            blocked: true
+          }
+        });
+      }
+    }
+
+    const replyRedirected = safetyRedirected || moderationRedirected;
+    const replyMode = safetyRedirected
+      ? "content-safety-support"
+      : moderationRedirected
+        ? "moderation-redirect"
+        : undefined;
     // A withheld reply must not carry the model's visualization payload.
-    const replyVisualization = safetyRedirected ? undefined : completion.structuredReply.visualization;
+    const replyVisualization = replyRedirected ? undefined : completion.structuredReply.visualization;
 
     recordTutorMessageAfterResponse({
       userId: authenticatedUserId,
       role: "tutor",
       content: reply,
       context: context
-        ? { ...context, grade, language, page, visualization: replyVisualization, ...(safetyRedirected ? { mode: "content-safety-support" } : {}) }
-        : { grade, language, page, visualization: replyVisualization, ...(safetyRedirected ? { mode: "content-safety-support" } : {}) }
+        ? { ...context, grade, language, page, visualization: replyVisualization, ...(replyMode ? { mode: replyMode } : {}) }
+        : { grade, language, page, visualization: replyVisualization, ...(replyMode ? { mode: replyMode } : {}) }
     });
     recordTutorUsageAfterResponse({
       userId: authenticatedUserId,
@@ -2963,7 +3067,7 @@ async function handleAITutorPost(
 
     return jsonWithDeferredTutorSideEffects({
       reply,
-      ...(safetyRedirected ? { mode: "content-safety-support" } : {}),
+      ...(replyMode ? { mode: replyMode } : {}),
       ...(replyVisualization ? { visualization: replyVisualization } : {})
     });
   } catch (error) {

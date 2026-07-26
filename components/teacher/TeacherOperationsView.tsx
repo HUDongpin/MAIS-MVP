@@ -7,6 +7,7 @@ import { useSettings } from "@/components/providers/AppProviders";
 import { formatGradeLabel, textForLanguage } from "@/lib/i18n";
 import { cn, formatDateInHongKong } from "@/lib/utils";
 import type {
+  AITutorTranscriptAccessSummary,
   ClassRosterProfile,
   Language,
   NovaLensPolicy,
@@ -765,6 +766,97 @@ function NovaLensGovernancePanel() {
   );
 }
 
+function AiTutorTranscriptAccessPanel() {
+  const { language, t } = useSettings();
+  const [events, setEvents] = useState<AITutorTranscriptAccessSummary[] | null>(null);
+  const [status, setStatus] = useState<"loading" | "idle" | "error">("loading");
+
+  async function loadAccessLog() {
+    setStatus("loading");
+    try {
+      const response = await fetch("/api/teacher/ai-tutor-transcript-access?limit=80", {
+        cache: "no-store",
+        credentials: "same-origin"
+      });
+      const payload = await response.json() as { data?: { events: AITutorTranscriptAccessSummary[] } };
+      if (!response.ok || !payload.data) throw new Error("Could not load transcript access log.");
+      setEvents(payload.data.events);
+      setStatus("idle");
+    } catch {
+      setStatus("error");
+    }
+  }
+
+  useEffect(() => {
+    void loadAccessLog();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  return (
+    <section className="glass-panel min-w-0 overflow-hidden p-5">
+      <div className="flex flex-wrap items-start justify-between gap-3">
+        <div className="min-w-0">
+          <h2 className="text-xl font-black text-slate-950 dark:text-white">{t({ en: "Transcript access log", zh: "對話查看紀錄" })}</h2>
+          <p className="mt-1 break-words text-sm font-bold text-slate-500 dark:text-slate-400">
+            {t({ en: "Every time a teacher opens a student's AI Tutor conversation is recorded here.", zh: "每次教師開啟學生 AI Tutor 對話都會記錄於此。" })}
+          </p>
+        </div>
+        <button
+          type="button"
+          onClick={() => void loadAccessLog()}
+          className="focus-ring rounded-full border border-slate-200/80 bg-white/75 px-4 py-2 text-xs font-black text-slate-700 dark:border-white/10 dark:bg-white/[0.06] dark:text-slate-200"
+        >
+          {status === "loading" ? t({ en: "Loading…", zh: "載入中…" }) : t({ en: "Refresh", zh: "重新整理" })}
+        </button>
+      </div>
+
+      <div className="mt-4 min-w-0 max-w-full overflow-x-auto">
+        <table className="w-full min-w-[640px] text-left text-sm">
+          <thead className="text-xs uppercase tracking-[0.14em] text-slate-500 dark:text-slate-400">
+            <tr>
+              <th className="py-3">{t({ en: "Time", zh: "時間" })}</th>
+              <th>{t({ en: "Viewer", zh: "查看者" })}</th>
+              <th>{t({ en: "Student", zh: "學生" })}</th>
+              <th>{t({ en: "Messages", zh: "訊息數" })}</th>
+            </tr>
+          </thead>
+          <tbody className="divide-y divide-slate-200/70 dark:divide-white/10">
+            {events?.map((event) => (
+              <tr key={event.id}>
+                <td className="py-3 text-xs font-bold text-slate-500 dark:text-slate-400">{formatDate(event.createdAt, language)}</td>
+                <td className="font-black text-slate-950 dark:text-white">{event.viewerName}<span className="ml-2 text-xs font-bold text-slate-400">{event.viewerRole}</span></td>
+                <td className="font-semibold text-slate-600 dark:text-slate-300">{event.studentName}</td>
+                <td className="font-black text-slate-950 dark:text-white">{event.messageCount}</td>
+              </tr>
+            ))}
+            {events && !events.length ? (
+              <tr>
+                <td colSpan={4} className="py-8 text-center text-sm font-bold text-slate-500 dark:text-slate-400">
+                  {t({ en: "No transcripts have been opened yet.", zh: "尚未有人開啟過對話。" })}
+                </td>
+              </tr>
+            ) : null}
+            {!events && status === "loading" ? (
+              <tr>
+                <td colSpan={4} className="py-8 text-center text-sm font-bold text-slate-500 dark:text-slate-400">
+                  {t({ en: "Loading access log…", zh: "正在載入查看紀錄…" })}
+                </td>
+              </tr>
+            ) : null}
+            {!events && status === "error" ? (
+              <tr>
+                <td colSpan={4} className="py-8 text-center text-sm font-bold text-slate-500 dark:text-slate-400">
+                  {t({ en: "Transcript access log is unavailable.", zh: "對話查看紀錄暫時未能使用。" })}
+                </td>
+              </tr>
+            ) : null}
+          </tbody>
+        </table>
+      </div>
+    </section>
+  );
+}
+
 function ArchiveReadyPanel({ archive }: { archive: TermArchive }) {
   const { t } = useSettings();
 
@@ -1265,7 +1357,12 @@ export function TeacherOperationsView({
         </section>
       ) : null}
 
-      {activeTab === "ai-governance" ? <NovaLensGovernancePanel /> : null}
+      {activeTab === "ai-governance" ? (
+        <div className="grid min-w-0 gap-4">
+          <NovaLensGovernancePanel />
+          <AiTutorTranscriptAccessPanel />
+        </div>
+      ) : null}
 
       {activeTab === "archive" ? (
         <section className="grid min-w-0 gap-4 xl:grid-cols-[minmax(0,420px)_minmax(0,1fr)]">

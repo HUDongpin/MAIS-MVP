@@ -4,13 +4,14 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import { LessonGalaxyDirectory, type LessonGalaxyItem } from "@/components/lesson/LessonGalaxyDirectory";
 import { californiaCourseTitleForGrade, cleanLessonUnitTitle } from "@/components/lesson/lessonContentText";
-import { lessonWorldThemeForGrade, type LessonWorldTheme } from "@/components/lesson/worlds/worldThemes";
+import { lessonMenuHideButtonId, lessonMenuPanelId } from "@/components/lesson/worlds/lessonMenuVisibility";
+import { lessonWorldThemeForCourse, type LessonWorldTheme } from "@/components/lesson/worlds/worldThemes";
 import { MathText } from "@/components/math/MathText";
 import { useSettings } from "@/components/providers/AppProviders";
 import { ccssLessonMetasForTopic } from "@/data/ccssLessonAssignments";
 import { formatGradeLabel } from "@/lib/i18n";
 import { lessonHrefForSlug } from "@/lib/lessonLinks";
-import type { LessonDetail, LessonSummary } from "@/types";
+import type { LessonDetail, LessonSummary, LocalizedText } from "@/types";
 
 /**
  * MAIS Learning Worlds menu (engine). The unit directory rendered as the
@@ -31,6 +32,8 @@ type WorldMenuProps = {
   items: LessonGalaxyItem[];
   lesson: LessonDetail;
   modules: LessonSummary[];
+  /** Collapses the menu to its rail. Lives in the header, so both views get it. */
+  onHide?: () => void;
 };
 
 const worldViewStorageKey = "mais.lesson-world-view";
@@ -54,7 +57,7 @@ function StopConnector({ done, flip, theme }: { done: boolean; flip: boolean; th
   );
 }
 
-export function WorldMenu({ currentSlug, items, lesson, modules }: WorldMenuProps) {
+export function WorldMenu({ currentSlug, items, lesson, modules, onHide }: WorldMenuProps) {
   const { currentUser, language, t, text } = useSettings();
   const [viewMode, setViewMode] = useState<"world" | "list">("world");
   const [isMobileMapOpen, setIsMobileMapOpen] = useState(false);
@@ -77,20 +80,23 @@ export function WorldMenu({ currentSlug, items, lesson, modules }: WorldMenuProp
     }
   }
 
-  const isCaliforniaCourse =
-    lesson.publisher === "US_CA_MATH" || lesson.curriculumProfile?.publisher === "US_CA_MATH";
-  const theme = isCaliforniaCourse ? lessonWorldThemeForGrade(lesson.grade) : null;
+  const theme = lessonWorldThemeForCourse(lesson);
+
+  const hideButton = onHide ? <HideMenuButton onClick={onHide} t={t} theme={theme} /> : null;
 
   if (!theme || viewMode === "list") {
     return (
       <div>
-        {theme ? (
-          <div className="mb-3 flex justify-end">
-            <WorldViewToggle
-              label={t({ en: "Map view", zh: "地圖檢視", zhHans: "地图视图" })}
-              onClick={() => persistViewMode("world")}
-              theme={theme}
-            />
+        {theme || hideButton ? (
+          <div className="mb-3 flex items-center justify-end gap-2">
+            {theme ? (
+              <WorldViewToggle
+                label={t({ en: "Map view", zh: "地圖檢視", zhHans: "地图视图" })}
+                onClick={() => persistViewMode("world")}
+                theme={theme}
+              />
+            ) : null}
+            {hideButton}
           </div>
         ) : null}
         <LessonGalaxyDirectory currentSlug={currentSlug} items={items} lesson={lesson} modules={modules} />
@@ -234,11 +240,14 @@ export function WorldMenu({ currentSlug, items, lesson, modules }: WorldMenuProp
           <span className={`inline-flex rounded-full border px-3 py-1 text-xs font-black ${theme.chipClassName}`}>
             {`${gradeLabel} · ${t(theme.name)}`}
           </span>
-          <WorldViewToggle
-            label={t({ en: "List view", zh: "列表檢視", zhHans: "列表视图" })}
-            onClick={() => persistViewMode("list")}
-            theme={theme}
-          />
+          <div className="flex shrink-0 items-center gap-2">
+            <WorldViewToggle
+              label={t({ en: "List view", zh: "列表檢視", zhHans: "列表视图" })}
+              onClick={() => persistViewMode("list")}
+              theme={theme}
+            />
+            {hideButton}
+          </div>
         </div>
         {courseTitle ? (
           <MathText
@@ -298,6 +307,13 @@ export function WorldMenu({ currentSlug, items, lesson, modules }: WorldMenuProp
   );
 }
 
+const neutralToggleClassName =
+  "border-slate-300/80 bg-white/80 text-slate-700 hover:bg-slate-50 dark:border-white/20 dark:bg-white/[0.06] dark:text-slate-100 dark:hover:bg-white/10";
+
+/** Both header controls share one shape, and one child-sized tap target. */
+const headerToggleClassName =
+  "focus-ring inline-flex min-h-11 shrink-0 items-center gap-1 rounded-full border px-3 text-xs font-black transition hover:-translate-y-0.5";
+
 function WorldViewToggle({
   label,
   onClick,
@@ -307,16 +323,42 @@ function WorldViewToggle({
   onClick: () => void;
   theme: LessonWorldTheme | null;
 }) {
-  const themedClassName =
-    theme?.chipClassName ??
-    "border-slate-300/80 bg-white/80 text-slate-700 hover:bg-slate-50 dark:border-white/20 dark:bg-white/[0.06] dark:text-slate-100 dark:hover:bg-white/10";
   return (
     <button
       type="button"
       onClick={onClick}
-      className={`focus-ring shrink-0 rounded-full border px-3 py-1.5 text-xs font-black transition hover:-translate-y-0.5 ${themedClassName}`}
+      className={`${headerToggleClassName} ${theme?.chipClassName ?? neutralToggleClassName}`}
     >
       {label}
+    </button>
+  );
+}
+
+/**
+ * "Hide" carries a word as well as a chevron: at G1 reading level an icon alone
+ * is a guess, and this control removes the student's whole navigation.
+ */
+function HideMenuButton({
+  onClick,
+  t,
+  theme
+}: {
+  onClick: () => void;
+  t: (value: LocalizedText) => string;
+  theme: LessonWorldTheme | null;
+}) {
+  return (
+    <button
+      id={lessonMenuHideButtonId}
+      type="button"
+      onClick={onClick}
+      aria-expanded={true}
+      aria-controls={lessonMenuPanelId}
+      aria-label={t({ en: "Hide lesson menu", zh: "收起課程選單", zhHans: "收起课程菜单" })}
+      className={`${headerToggleClassName} ${theme?.chipClassName ?? neutralToggleClassName}`}
+    >
+      <span aria-hidden="true">‹</span>
+      {t({ en: "Hide", zh: "收起", zhHans: "收起" })}
     </button>
   );
 }

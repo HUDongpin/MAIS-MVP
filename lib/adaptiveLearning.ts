@@ -15,6 +15,7 @@ import type {
   PublicQuestion,
   Topic
 } from "@/types";
+import { resolveCrossTopicPrerequisiteSkillIds } from "../data/ccssCoherenceMap";
 
 export const adaptiveMasteryPrior = 0.35;
 export const adaptiveLearnProbability = 0.12;
@@ -149,15 +150,22 @@ export function buildKnowledgeComponents({
   topics: KnowledgeComponentTopic[];
   questions: KnowledgeComponentQuestion[];
 }): KnowledgeComponent[] {
+  // Cross-topic / cross-grade prerequisites from the CCSS coherence DAG. A topic's
+  // foundation stage inherits the fluency-stage skill of each prerequisite-cluster topic
+  // present in this set (empty for curricula without a CCSS cluster mapping, keeping the
+  // intra-topic staging chain intact for everyone else).
+  const crossTopicPrerequisites = resolveCrossTopicPrerequisiteSkillIds(topics);
+
   return topics.flatMap((topic) => {
     const topicQuestions = questions.filter((question) => question.topicId === topic.id);
+    const foundationPrerequisites = crossTopicPrerequisites.get(topic.id) ?? [];
     return skillStages.map((stage, index): KnowledgeComponent => ({
       id: skillId(topic.id, stage),
       topicId: topic.id,
       grade: topic.grade,
       title: stageTitle(topic, stage),
       description: stageDescription(topic, stage),
-      prerequisites: index === 0 ? [] : [skillId(topic.id, skillStages[index - 1])],
+      prerequisites: index === 0 ? foundationPrerequisites : [skillId(topic.id, skillStages[index - 1])],
       difficulty: stageDifficulty(topic, stage),
       misconceptionTags: misconceptionTagsForStage(topic.id, topicQuestions, stage),
       questionIds: questionIdsForStage(topicQuestions, stage)
@@ -542,6 +550,7 @@ export function generateAdaptiveCandidates({
   lessons = [],
   questions = [],
   grade,
+  prerequisiteGrades = [],
   topicId,
   now = new Date()
 }: {
@@ -551,6 +560,14 @@ export function generateAdaptiveCandidates({
   lessons?: LessonSummary[];
   questions?: PublicQuestion[];
   grade?: Topic["grade"];
+  /**
+   * Earlier grades whose skills are eligible *only* for cross-grade diagnostic
+   * backtracking. Their skills enter the prerequisite lookup so a weak on-grade skill can
+   * route to the specific earlier-grade prerequisite it depends on, but they never drive
+   * new lesson/practice/challenge selection (that stays on the primary `grade`). Any
+   * earlier-grade skill the learner has already touched still surfaces on the skill map.
+   */
+  prerequisiteGrades?: Topic["grade"][];
   topicId?: string | null;
   now?: Date | string;
 }): {
@@ -564,11 +581,15 @@ export function generateAdaptiveCandidates({
   const requestedTopicId = topicId?.trim() || null;
   const topicById = new Map(topics.map((topic) => [topic.id, topic]));
   const topicIdsWithQuestions = new Set(questions.map((question) => question.topicId));
+  // Primary grade drives selection; prerequisite grades are eligible only so the
+  // prerequisite-repair path can reach an earlier-grade skill (cross-grade backtracking).
+  const allowedGrades = grade ? new Set<Topic["grade"]>([grade, ...prerequisiteGrades]) : null;
+  const isPrimarySummary = (summary: AdaptiveSkillSummary) => !grade || summary.skill.grade === grade;
   const eligibleComponents = components.filter((component) => {
     const topic = topicById.get(component.topicId);
     if (!topic) return false;
     if (!topicIdsWithQuestions.has(component.topicId)) return false;
-    if (grade && component.grade !== grade) return false;
+    if (allowedGrades && !allowedGrades.has(component.grade)) return false;
     return true;
   });
   const summaries = eligibleComponents
@@ -594,7 +615,9 @@ export function generateAdaptiveCandidates({
   }
 
   const focusTopicId = requestedTopicId && topicById.has(requestedTopicId) ? requestedTopicId : null;
-  const candidateSummaries = focusTopicId ? summaries.filter((summary) => summary.skill.topicId === focusTopicId) : summaries;
+  const candidateSummaries = focusTopicId
+    ? summaries.filter((summary) => summary.skill.topicId === focusTopicId)
+    : summaries.filter(isPrimarySummary);
   if (!candidateSummaries.length) {
     return {
       candidates: [],
@@ -702,10 +725,20 @@ export function generateAdaptiveCandidates({
   });
   const deterministicCandidateId = candidates[0]?.candidateId ?? "";
 
+  // Surface earlier-grade skills the learner has already touched (including any active
+  // cross-grade repair target) on the skill map, so the galaxy can chart the backtrack.
+  // Untouched prerequisite grades stay off the map, keeping a fresh learner grade-scoped.
+  const backtrackSummaries = summaries.filter(
+    (summary) => !isPrimarySummary(summary) && hasAdaptiveEvidence(summary.state)
+  );
+  const skillMap = backtrackSummaries.length
+    ? sortSkillSummaries([...candidateSummaries, ...backtrackSummaries], topics, focusTopicId)
+    : ordered;
+
   return {
     candidates,
     deterministicCandidateId,
-    skillMap: ordered,
+    skillMap,
     dueReviews,
     candidateSignature: candidateSignatureFor({ candidates, grade, topicId: focusTopicId })
   };

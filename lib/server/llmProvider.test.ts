@@ -6,9 +6,12 @@ import {
   createLLMProviderCircuitBreaker,
   extractLLMProviderReply,
   extractLLMProviderUsage,
+  readAITutorImageProviderConfig,
+  readAITutorTextProviderConfigs,
   readLLMProviderConfig,
   readQwenTextProviderConfig,
   resolveAITutorProviderTimeoutMs,
+  resolveLLMProviderName,
   resolveLLMMaxCompletionTokens,
   resolveLLMProviderTimeoutMs,
   resolveProviderApiPinnedIp,
@@ -31,7 +34,13 @@ async function withProviderEnv(env: Record<string, string | undefined>, run: () 
     "QWEN_API_KEY",
     "QWEN_API_URL",
     "QWEN_IMAGE_MODEL",
-    "QWEN_TEXT_MODEL"
+    "QWEN_TEXT_MODEL",
+    "DEEPINFRA_API_KEY",
+    "DEEPINFRA_API_URL",
+    "DEEPINFRA_MODEL",
+    "DEEPINFRA_TEXT_MODEL",
+    "DEEPINFRA_VISION_MODEL",
+    "AI_TUTOR_PREFERRED_TEXT_PROVIDER"
   ];
   const original = Object.fromEntries(keys.map((key) => [key, process.env[key]]));
 
@@ -292,4 +301,67 @@ test("provider usage extraction tolerates missing fields without inventing value
       totalTokens: 20
     }
   );
+});
+
+test("deepinfra api url resolves to the deepinfra provider", () => {
+  assert.equal(resolveLLMProviderName("https://api.deepinfra.com/v1/openai/chat/completions"), "deepinfra");
+});
+
+test("text candidates stay qwen-first until deepinfra is preferred", async () => {
+  await withProviderEnv({ QWEN_API_KEY: "qwen-key", DEEPINFRA_API_KEY: "di-key" }, () => {
+    const configs = readAITutorTextProviderConfigs();
+    assert.equal(configs.preferredProvider, "qwen");
+    assert.equal(configs.primary.provider, "qwen");
+    assert.deepEqual(configs.candidates.map((candidate) => candidate.provider), ["qwen", "deepinfra"]);
+  });
+});
+
+test("deepinfra preference makes it primary when its key is configured", async () => {
+  await withProviderEnv({
+    QWEN_API_KEY: "qwen-key",
+    DEEPINFRA_API_KEY: "di-key",
+    AI_TUTOR_PREFERRED_TEXT_PROVIDER: "deepinfra"
+  }, () => {
+    const configs = readAITutorTextProviderConfigs();
+    assert.equal(configs.preferredProvider, "deepinfra");
+    assert.equal(configs.primary.provider, "deepinfra");
+    assert.equal(configs.primary.model, "Qwen/Qwen3-VL-30B-A3B-Instruct");
+    assert.deepEqual(configs.candidates.map((candidate) => candidate.provider), ["deepinfra", "qwen"]);
+  });
+});
+
+test("keyless deepinfra preference falls back to the configured qwen primary", async () => {
+  await withProviderEnv({
+    QWEN_API_KEY: "qwen-key",
+    AI_TUTOR_PREFERRED_TEXT_PROVIDER: "deepinfra"
+  }, () => {
+    const configs = readAITutorTextProviderConfigs();
+    assert.equal(configs.preferredProvider, "deepinfra");
+    assert.equal(configs.primary.provider, "qwen");
+  });
+});
+
+test("image provider config prefers deepinfra vision when configured and preferred", async () => {
+  await withProviderEnv({
+    QWEN_API_KEY: "qwen-key",
+    DEEPINFRA_API_KEY: "di-key",
+    DEEPINFRA_VISION_MODEL: "Qwen/Qwen3-VL-235B-A22B-Instruct",
+    AI_TUTOR_PREFERRED_TEXT_PROVIDER: "deepinfra"
+  }, () => {
+    const config = readAITutorImageProviderConfig();
+    assert.equal(config.provider, "deepinfra");
+    assert.equal(config.model, "Qwen/Qwen3-VL-235B-A22B-Instruct");
+  });
+});
+
+test("deepinfra request body uses openai-compatible max_tokens without thinking fields", () => {
+  const body = buildLLMProviderRequestBody({
+    model: "Qwen/Qwen3-VL-30B-A3B-Instruct",
+    messages,
+    maxTokens: 450,
+    provider: "deepinfra"
+  }) as Record<string, unknown>;
+  assert.equal(body.max_tokens, 450);
+  assert.equal(body.stream, false);
+  assert.equal("thinking" in body, false);
 });

@@ -11,7 +11,8 @@ export type LLMProviderMessage = {
   content: string | LLMProviderContentPart[];
 };
 
-export type LLMProviderName = "deepseek" | "qwen" | "openai-compatible";
+export type LLMProviderName = "deepseek" | "qwen" | "deepinfra" | "openai-compatible";
+export type AITutorPreferredTextProvider = "qwen" | "deepinfra";
 export type LLMProviderResponseFormat = "json_object";
 export type LLMProviderThinkingMode = "enabled" | "disabled";
 
@@ -38,7 +39,7 @@ export type AITutorProviderStatus = AITutorCapabilityStatus & {
   mode: "live" | "local-helper";
   text: AITutorCapabilityStatus & {
     candidates: AITutorCapabilityStatus[];
-    preferredProvider: "qwen";
+    preferredProvider: AITutorPreferredTextProvider;
   };
   image: AITutorCapabilityStatus;
   voice: AITutorCapabilityStatus;
@@ -74,6 +75,12 @@ const defaultQwenImageModel = "qwen3.7-plus";
 const defaultQwenRealtimeApiUrl = "wss://dashscope.aliyuncs.com/api-ws/v1/realtime";
 const defaultQwenRealtimeModel = "qwen3.5-omni-flash-realtime";
 const defaultQwenAsrRealtimeModel = "qwen3-asr-flash-realtime";
+// US-hosted open-weight path (consultation Q3): DeepInfra serves the same Qwen
+// vision family the tutor is tuned for, US-hosted with a no-train default —
+// the compliance-clean default once DEEPINFRA_API_KEY is provisioned.
+const defaultDeepInfraApiUrl = "https://api.deepinfra.com/v1/openai/chat/completions";
+const defaultDeepInfraTextModel = "Qwen/Qwen3-VL-30B-A3B-Instruct";
+const defaultDeepInfraVisionModel = "Qwen/Qwen3-VL-30B-A3B-Instruct";
 const aiTutorProviderProfiles = new Set<AITutorProviderProfile>([
   "offline-fixture",
   "mocked-live",
@@ -132,9 +139,18 @@ function isQwenApiUrl(apiUrl: string) {
   }
 }
 
+function isDeepInfraApiUrl(apiUrl: string) {
+  try {
+    return new URL(apiUrl).hostname === "api.deepinfra.com";
+  } catch {
+    return apiUrl.includes("api.deepinfra.com");
+  }
+}
+
 export function resolveLLMProviderName(apiUrl: string): LLMProviderName {
   if (isDeepSeekApiUrl(apiUrl)) return "deepseek";
   if (isQwenApiUrl(apiUrl)) return "qwen";
+  if (isDeepInfraApiUrl(apiUrl)) return "deepinfra";
   return "openai-compatible";
 }
 
@@ -201,15 +217,60 @@ export function readQwenTextProviderConfig(): LLMProviderConfig {
   };
 }
 
-export function readAITutorTextProviderConfigs() {
-  const qwen = readQwenTextProviderConfig();
+export function readDeepInfraTextProviderConfig(): LLMProviderConfig {
+  const apiUrl = readOptionalEnv(process.env.DEEPINFRA_API_URL) ?? defaultDeepInfraApiUrl;
 
   return {
-    preferredProvider: "qwen" as const,
-    primary: qwen,
-    candidates: [qwen],
-    allCandidates: [qwen]
+    apiKey: readOptionalEnv(process.env.DEEPINFRA_API_KEY),
+    apiUrl,
+    model: readOptionalEnv(process.env.DEEPINFRA_TEXT_MODEL)
+      ?? readOptionalEnv(process.env.DEEPINFRA_MODEL)
+      ?? defaultDeepInfraTextModel,
+    provider: resolveLLMProviderName(apiUrl)
   };
+}
+
+export function readDeepInfraVisionProviderConfig(): LLMProviderConfig {
+  const apiUrl = readOptionalEnv(process.env.DEEPINFRA_API_URL) ?? defaultDeepInfraApiUrl;
+
+  return {
+    apiKey: readOptionalEnv(process.env.DEEPINFRA_API_KEY),
+    apiUrl,
+    model: readOptionalEnv(process.env.DEEPINFRA_VISION_MODEL)
+      ?? readOptionalEnv(process.env.DEEPINFRA_MODEL)
+      ?? defaultDeepInfraVisionModel,
+    provider: resolveLLMProviderName(apiUrl)
+  };
+}
+
+export function readAITutorPreferredTextProvider(
+  value = process.env.AI_TUTOR_PREFERRED_TEXT_PROVIDER
+): AITutorPreferredTextProvider {
+  return value?.trim() === "deepinfra" ? "deepinfra" : "qwen";
+}
+
+export function readAITutorTextProviderConfigs() {
+  const qwen = readQwenTextProviderConfig();
+  const deepinfra = readDeepInfraTextProviderConfig();
+  const preferredProvider = readAITutorPreferredTextProvider();
+  const ordered = preferredProvider === "deepinfra" ? [deepinfra, qwen] : [qwen, deepinfra];
+  // The preferred provider leads, but a keyless preference never orphans the
+  // tutor: the first *configured* candidate becomes primary.
+  const primary = ordered.find((candidate) => Boolean(candidate.apiKey)) ?? ordered[0];
+
+  return {
+    preferredProvider,
+    primary,
+    candidates: ordered,
+    allCandidates: ordered
+  };
+}
+
+export function readAITutorImageProviderConfig(): LLMProviderConfig {
+  const qwen = readQwenImageProviderConfig();
+  const deepinfra = readDeepInfraVisionProviderConfig();
+  const ordered = readAITutorPreferredTextProvider() === "deepinfra" ? [deepinfra, qwen] : [qwen, deepinfra];
+  return ordered.find((candidate) => Boolean(candidate.apiKey)) ?? ordered[0];
 }
 
 export function readQwenImageProviderConfig(): LLMProviderConfig {
@@ -512,7 +573,7 @@ export function buildLLMProviderRequestBody({
     };
   }
 
-  if (provider === "qwen") {
+  if (provider === "qwen" || provider === "deepinfra") {
     return {
       model,
       messages,

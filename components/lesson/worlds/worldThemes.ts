@@ -1,4 +1,4 @@
-import type { GradeId, LocalizedText } from "@/types";
+import type { GradeId, LocalizedText, TextbookPublisher } from "@/types";
 
 /**
  * MAIS Learning Worlds — one navigation engine, one themed world per grade
@@ -228,4 +228,23 @@ export const lessonWorldThemesByBand: Partial<Record<LessonWorldBand, LessonWorl
 
 export function lessonWorldThemeForGrade(grade: GradeId): LessonWorldTheme | null {
   return lessonWorldThemesByBand[lessonWorldBandForGrade(grade)] ?? null;
+}
+
+/**
+ * The world a lesson belongs to. Worlds ship with the California course, so
+ * everything else keeps the neutral list. Callers outside the menu (the
+ * collapsed rail, for one) resolve the theme through here so the rail and the
+ * map it replaces are always tinted by the same world.
+ */
+export function lessonWorldThemeForCourse(
+  course: {
+    grade: GradeId;
+    publisher?: TextbookPublisher | null;
+    curriculumProfile?: { publisher?: TextbookPublisher | null } | null;
+  } | null
+): LessonWorldTheme | null {
+  if (!course) return null;
+  const isCaliforniaCourse =
+    course.publisher === "US_CA_MATH" || course.curriculumProfile?.publisher === "US_CA_MATH";
+  return isCaliforniaCourse ? lessonWorldThemeForGrade(course.grade) : null;
 }

@@ -339,11 +339,77 @@ test("teacher ops student profile persistence builds a profile without legacy us
   assert.deepEqual(result?.mistakes.map((mistake) => mistake.questionId), ["question-1"]);
   assert.equal(result?.aiTutor.messageCount7d, 2);
   assert.equal(result?.aiTutor.lastMessageAt, "2026-06-20T11:00:00.000Z");
-  assert.deepEqual(result?.aiTutor.recentMessages.map((message) => message.id), [
-    "ai-newer",
+});
+
+test("teacher ops student profile exposes an ordered AI tutor transcript to authorised teachers", async () => {
+  const database = createDatabase();
+  const store = createTestStore(database);
+
+  const result = await store.getStudentAiTutorTranscriptForTeacher({
+    userId: "teacher-1",
+    studentId: "student-1"
+  });
+  assert.equal(result.status, "ok");
+  if (result.status !== "ok") return;
+  assert.equal(result.studentName, "Ada Student");
+  // Newest-first then re-sorted oldest -> newest so the panel reads as a conversation.
+  assert.deepEqual(result.messages.map((message) => message.id), [
+    "ai-outside-window",
     "ai-older",
-    "ai-outside-window"
+    "ai-newer"
   ]);
+  assert.deepEqual(result.messages.map((message) => message.role), ["student", "student", "tutor"]);
+
+  const limited = await store.getStudentAiTutorTranscriptForTeacher({
+    userId: "teacher-1",
+    studentId: "student-1",
+    limit: 2
+  });
+  assert.equal(limited.status, "ok");
+  if (limited.status !== "ok") return;
+  // The two most recent messages, presented chronologically.
+  assert.deepEqual(limited.messages.map((message) => message.id), ["ai-older", "ai-newer"]);
+});
+
+test("teacher ops student profile transcript enforces the same access boundary as the profile", async () => {
+  const database = createDatabase();
+  const store = createTestStore(database);
+
+  const memberResult = await store.getStudentAiTutorTranscriptForTeacher({
+    userId: "teacher-member",
+    studentId: "student-1"
+  });
+  assert.equal(memberResult.status, "ok");
+
+  const adminResult = await store.getStudentAiTutorTranscriptForTeacher({
+    userId: "admin-1",
+    studentId: "student-1"
+  });
+  assert.equal(adminResult.status, "ok");
+
+  // A teacher who does not own the student's class cannot read the transcript.
+  const otherTeacher = await store.getStudentAiTutorTranscriptForTeacher({
+    userId: "teacher-other",
+    studentId: "student-1"
+  });
+  assert.equal(otherTeacher.status, "forbidden");
+
+  // A student cannot use the teacher path at all.
+  const studentViewer = await store.getStudentAiTutorTranscriptForTeacher({
+    userId: "student-1",
+    studentId: "student-1"
+  });
+  assert.equal(studentViewer.status, "forbidden");
+
+  // An enrolled id that has no student user record is reported as not found.
+  const orphanDatabase = createDatabase();
+  orphanDatabase.class_enrollments.push({ class_id: "class-1", student_id: "student-ghost" });
+  const orphanStore = createTestStore(orphanDatabase);
+  const missingStudent = await orphanStore.getStudentAiTutorTranscriptForTeacher({
+    userId: "admin-1",
+    studentId: "student-ghost"
+  });
+  assert.equal(missingStudent.status, "student-not-found");
 });
 
 test("teacher ops student profile persistence preserves teacher, admin, and membership access semantics", async () => {

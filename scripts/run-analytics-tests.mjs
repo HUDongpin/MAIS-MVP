@@ -40,7 +40,10 @@ try {
     "--test",
     join(outputDir, "lib/learningAnalytics.test.js"),
     join(outputDir, "lib/adaptiveLearning.test.js"),
-    join(outputDir, "lib/classroomLiveRoster.test.js")
+    join(outputDir, "lib/teacherGradebook.test.js"),
+    join(outputDir, "lib/classroomLiveRoster.test.js"),
+    join(outputDir, "lib/diagnosticPlacement.test.js"),
+    join(outputDir, "data/ccssCoherenceMap.test.js")
   ]);
   if (!passed) process.exit(process.exitCode);
 } finally {
