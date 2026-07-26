@@ -61,6 +61,9 @@ jobs:
       - name: Run AI Tutor content-safety gate (crisis classifier + teacher escalation)
         run: npm run test:content-safety
 
+      - name: Run lesson menu focus gate (keyboard focus survives the SSR duplicate)
+        run: npm run test:lesson-menu
+
       - name: Run MVP readiness tests
         run: npm run test:mvp
 
