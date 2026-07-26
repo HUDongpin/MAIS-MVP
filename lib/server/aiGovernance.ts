@@ -27,7 +27,8 @@ export type AiGovernanceAuditAction =
   | "rate-limit-blocked"
   | "media-policy-blocked"
   | "classroom-policy-blocked"
-  | "content-safety-flagged";
+  | "content-safety-flagged"
+  | "content-moderation-blocked";
 
 export type AiGovernanceAuditEvent = {
   action: AiGovernanceAuditAction;
@@ -227,6 +228,7 @@ export function summarizeAiGovernanceEvents({
   const byAction: AiGovernanceSummary["byAction"] = {
     "classroom-policy-blocked": 0,
     "content-safety-flagged": 0,
+    "content-moderation-blocked": 0,
     "media-policy-blocked": 0,
     "rate-limit-blocked": 0,
     "request-admitted": 0
