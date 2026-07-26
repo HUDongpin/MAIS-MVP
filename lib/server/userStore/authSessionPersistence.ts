@@ -1,4 +1,4 @@
-import { createHash, pbkdf2Sync, randomBytes, randomUUID, timingSafeEqual } from "crypto";
+import { createHash, pbkdf2, pbkdf2Sync, randomBytes, randomUUID, timingSafeEqual } from "crypto";
 import { gradeIds } from "@/data/grades";
 import {
   curriculumProfileForTrack,
@@ -1139,6 +1139,32 @@ export function hashAuthPassword(password: string, salt = randomBytes(16).toStri
   };
 }
 
+/**
+ * Non-blocking variant of {@link hashAuthPassword}. `pbkdf2Sync` (120k iterations) pins
+ * the event loop for ~20-25ms per call (longer under cold-start CPU throttling); the async
+ * variant runs the KDF on libuv's threadpool so the login request stops blocking the
+ * event loop while it hashes. Used on the login verification hot path — the sync version
+ * is retained for registration, password resets, demo seeding, and the sync public API.
+ */
+export function hashAuthPasswordAsync(
+  password: string,
+  salt = randomBytes(16).toString("hex")
+): Promise<{ hash: string; salt: string }> {
+  return new Promise((resolve, reject) => {
+    pbkdf2(password, salt, 120000, 64, "sha512", (error, derivedKey) => {
+      if (error) reject(error);
+      else resolve({ hash: derivedKey.toString("hex"), salt });
+    });
+  });
+}
+
+export async function authPasswordMatchesAsync(password: string, user: AuthPasswordRecord) {
+  if (typeof user.password_hash !== "string" || typeof user.password_salt !== "string") return false;
+  const candidate = Buffer.from((await hashAuthPasswordAsync(password, user.password_salt)).hash, "hex");
+  const stored = Buffer.from(user.password_hash, "hex");
+  return candidate.length === stored.length && timingSafeEqual(candidate, stored);
+}
+
 export function hashAuthPasswordResetToken(token: string) {
   return createHash("sha256").update(token).digest("hex");
 }
@@ -1150,17 +1176,12 @@ export function authPasswordMatches(password: string, user: AuthPasswordRecord) 
   return candidate.length === stored.length && timingSafeEqual(candidate, stored);
 }
 
-function authenticatedAuthUserForCredentials<TDatabase extends { users: AuthSessionUserRecord[] }>({
-  database,
-  password,
-  passwordMatches,
-  username
-}: {
-  database: TDatabase;
-  password: string;
-  passwordMatches: (password: string, user: AuthSessionUserRecord) => boolean;
-  username: string;
-}): TDatabase["users"][number] | null {
+// Deduplicated candidate users for an identifier, ordered email-exact → username → email.
+// Shared by the sync and async credential matchers so both walk candidates identically.
+function orderedCandidateAuthUsers<TDatabase extends { users: AuthSessionUserRecord[] }>(
+  database: TDatabase,
+  username: string
+): TDatabase["users"][number][] {
   const normalizedIdentifier = normalizeAuthIdentifier(username);
   const normalizedEmailIdentifier = isLikelyEmailIdentifier(username) ? normalizeAuthIdentifier(username) : "";
   const matchingUsers = database.users.filter(
@@ -1175,13 +1196,48 @@ function authenticatedAuthUserForCredentials<TDatabase extends { users: AuthSess
     ...matchingUsers.filter((candidate) => candidate.normalized_email === normalizedIdentifier)
   ];
   const seen = new Set<string>();
-
+  const deduped: TDatabase["users"][number][] = [];
   for (const user of orderedUsers) {
     if (seen.has(user.id)) continue;
     seen.add(user.id);
+    deduped.push(user);
+  }
+  return deduped;
+}
+
+function authenticatedAuthUserForCredentials<TDatabase extends { users: AuthSessionUserRecord[] }>({
+  database,
+  password,
+  passwordMatches,
+  username
+}: {
+  database: TDatabase;
+  password: string;
+  passwordMatches: (password: string, user: AuthSessionUserRecord) => boolean;
+  username: string;
+}): TDatabase["users"][number] | null {
+  for (const user of orderedCandidateAuthUsers(database, username)) {
     if (passwordMatches(password, user)) return user;
   }
+  return null;
+}
 
+// Async twin of {@link authenticatedAuthUserForCredentials} that awaits an async password
+// matcher so the login hot path does not block the event loop during pbkdf2.
+async function authenticateAuthUserForCredentialsAsync<TDatabase extends { users: AuthSessionUserRecord[] }>({
+  database,
+  password,
+  passwordMatches,
+  username
+}: {
+  database: TDatabase;
+  password: string;
+  passwordMatches: (password: string, user: AuthSessionUserRecord) => boolean | Promise<boolean>;
+  username: string;
+}): Promise<TDatabase["users"][number] | null> {
+  for (const user of orderedCandidateAuthUsers(database, username)) {
+    if (await passwordMatches(password, user)) return user;
+  }
   return null;
 }
 
@@ -1341,27 +1397,19 @@ export function overlayAuthSessionDatabaseWithHotAuthRows<TDatabase extends Part
   };
 }
 
-export function authenticatedUserForAuthHotRows({
+// Builds the login result once a credential-matched user (or null) is known. Shared by the
+// sync and async hot-rows entry points so both produce identical results.
+function authHotRowsLoginResult({
   hotRows,
-  mediaObjectUrlForKey = mediaObjectAccessUrl,
-  now = new Date(),
-  password,
-  passwordMatches = authPasswordMatches,
-  username
+  mediaObjectUrlForKey,
+  now,
+  user
 }: {
   hotRows: Pick<AuthHotRows, "users" | "studentProfiles" | "userSettings">;
-  mediaObjectUrlForKey?: (objectKey: string) => string | null | undefined;
-  now?: Date;
-  password: string;
-  passwordMatches?: (password: string, user: AuthSessionUserRecord) => boolean;
-  username: string;
+  mediaObjectUrlForKey: (objectKey: string) => string | null | undefined;
+  now: Date;
+  user: AuthSessionUserRecord | null;
 }): AuthLoginResult<never> {
-  const user = authenticatedAuthUserForCredentials({
-    database: { users: hotRows.users },
-    password,
-    passwordMatches,
-    username
-  });
   if (!user) return { status: "invalid" };
 
   const profile = hotRows.studentProfiles.find((candidate) => candidate.user_id === user.id);
@@ -1389,6 +1437,56 @@ export function authenticatedUserForAuthHotRows({
   });
 
   return session ? { status: "authenticated", session } : { status: "invalid" };
+}
+
+export function authenticatedUserForAuthHotRows({
+  hotRows,
+  mediaObjectUrlForKey = mediaObjectAccessUrl,
+  now = new Date(),
+  password,
+  passwordMatches = authPasswordMatches,
+  username
+}: {
+  hotRows: Pick<AuthHotRows, "users" | "studentProfiles" | "userSettings">;
+  mediaObjectUrlForKey?: (objectKey: string) => string | null | undefined;
+  now?: Date;
+  password: string;
+  passwordMatches?: (password: string, user: AuthSessionUserRecord) => boolean;
+  username: string;
+}): AuthLoginResult<never> {
+  const user = authenticatedAuthUserForCredentials({
+    database: { users: hotRows.users },
+    password,
+    passwordMatches,
+    username
+  });
+  return authHotRowsLoginResult({ hotRows, mediaObjectUrlForKey, now, user });
+}
+
+// Async twin of {@link authenticatedUserForAuthHotRows}. Used by the production Postgres
+// login hot path so the pbkdf2 verification runs off the event loop.
+export async function authenticatedUserForAuthHotRowsAsync({
+  hotRows,
+  mediaObjectUrlForKey = mediaObjectAccessUrl,
+  now = new Date(),
+  password,
+  passwordMatches = authPasswordMatchesAsync,
+  username
+}: {
+  hotRows: Pick<AuthHotRows, "users" | "studentProfiles" | "userSettings">;
+  mediaObjectUrlForKey?: (objectKey: string) => string | null | undefined;
+  now?: Date;
+  password: string;
+  passwordMatches?: (password: string, user: AuthSessionUserRecord) => boolean | Promise<boolean>;
+  username: string;
+}): Promise<AuthLoginResult<never>> {
+  const user = await authenticateAuthUserForCredentialsAsync({
+    database: { users: hotRows.users },
+    password,
+    passwordMatches,
+    username
+  });
+  return authHotRowsLoginResult({ hotRows, mediaObjectUrlForKey, now, user });
 }
 
 export function createAuthSessionHotTableTestHooks({
