@@ -33,6 +33,56 @@ test("California grade 6 ratio queries retrieve California standards-safe cards"
   assert.ok(cards.every((card) => card.state === "CA"));
 });
 
+test("grade-only tutor query grounds U.S. students without topic/concept context", () => {
+  // Mirrors the AI-tutor evidence query for a signed-in U.S. student who opens the
+  // tutor with no lesson selection: only { curriculumTrack, grade, intent: "tutor-explain" }.
+  // This path must still return real state-standard evidence, otherwise U.S. students
+  // fall back to ungrounded base-LLM answers.
+  const pack = buildUnitedStatesMathEvidencePack({
+    curriculumTrack: "US_CA_MATH",
+    grade: "P6",
+    intent: "tutor-explain"
+  });
+
+  assert.ok(pack.cards.length > 0);
+  assert.ok(pack.cards.some((card) => card.grade === "P6"));
+  assert.ok(pack.cards.every((card) => card.curriculumTrack === "US_CA_MATH"));
+  assert.ok(pack.cards.every((card) => card.state === "CA"));
+  assert.match(pack.evidenceText, /California Common Core State Standards for Mathematics/);
+  assert.match(pack.evidenceText, /MAIS-authored original content/);
+});
+
+test("supplying a topic's exact standard sharpens retrieval beyond a grade-only dump", () => {
+  // The AI-tutor resolver maps a California grade-6 ratios lesson topic to these exact
+  // standards/domains; passing them must focus retrieval on that cluster's standards,
+  // textbook-compatibility, and exam-pattern cards rather than a generic grade overview.
+  const gradeOnly = getUnitedStatesMathSafeCards({
+    curriculumTrack: "US_CA_MATH",
+    grade: "P6",
+    intent: "tutor-explain",
+    limit: 5
+  }).map((card) => card.id);
+
+  const standardPrecise = getUnitedStatesMathSafeCards({
+    curriculumTrack: "US_CA_MATH",
+    grade: "P6",
+    standardIds: ["CA.CCSS.Math.G6.RP", "6.RP.A.1", "6.RP.A.3", "6.RP.A.2"],
+    domainTags: ["ratios and proportional reasoning"],
+    conceptIds: ["ratios", "unit-rate"],
+    intent: "tutor-explain",
+    limit: 5
+  }).map((card) => card.id);
+
+  assert.ok(standardPrecise.includes("us-ca-standards-p6-g6-rp"));
+  assert.ok(
+    standardPrecise.some((id) => /textbook-compat-p6-g6-ratios/.test(id)) ||
+      standardPrecise.some((id) => /exam-pattern-p6-g6-ratios/.test(id))
+  );
+  // The ratios-focused textbook/exam cards are pulled up only once the standard is supplied.
+  assert.ok(!gradeOnly.some((id) => /textbook-compat-p6-g6-ratios|exam-pattern-p6-g6-ratios/.test(id)));
+  assert.notDeepEqual(standardPrecise, gradeOnly);
+});
+
 test("California Kindergarten queries retrieve California CCSS-M safe cards", () => {
   const cards = getUnitedStatesMathSafeCards({
     curriculumTrack: "US_CA_MATH",
