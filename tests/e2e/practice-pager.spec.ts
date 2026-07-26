@@ -388,7 +388,9 @@ test.describe("Practice Arena question pager", () => {
     await expect(page.getByRole("heading", { name: /Quadratic Functions/i })).toBeVisible();
     await expect(page.getByRole("heading", { name: /Lesson practice/i })).toBeVisible();
     await expect(page.getByRole("spinbutton", { name: /Jump to/i })).toBeVisible();
-    await expect(page.getByText(/Question 1 of \d+/i)).toBeVisible();
+    // Scoped to main: the pager status paragraph has a hidden SSR duplicate
+    // outside it, which intermittently trips strict mode.
+    await expect(page.getByRole("main").getByText(/Question 1 of \d+/i).first()).toBeVisible();
     expect(await page.locator("article:visible").count()).toBeGreaterThan(0);
   });
 
