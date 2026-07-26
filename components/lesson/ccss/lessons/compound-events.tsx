@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { MathCheck } from "@/components/lesson/ccss/MathCheck";
 import { Figure } from "@/components/lesson/ccss/Figure";
+import { FigureScroll } from "@/components/lesson/ccss/FigureScroll";
 
 const HL = "var(--band-upper)";
 
@@ -31,7 +32,7 @@ export default function Lesson() {
         <div className="flex flex-col items-center gap-6">
           <p className="m-0 text-center text-lg font-semibold">P(the two dice sum to {target})</p>
 
-          <div className="w-full overflow-x-auto">
+          <FigureScroll>
             <table className="mx-auto border-collapse font-mono text-xs sm:text-sm">
               <tbody>
                 <tr>
@@ -54,7 +55,7 @@ export default function Lesson() {
                 ))}
               </tbody>
             </table>
-          </div>
+          </FigureScroll>
 
           <div className="rounded-2xl border-2 px-8 py-3 text-center" style={{ borderColor: HL }}>
             <div className="font-mono text-2xl font-black" style={{ color: HL }}>{favorable}/36 = {fracStr} ≈ {(favorable / 36).toFixed(2)}</div>

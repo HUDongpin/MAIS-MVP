@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { MathCheck } from "@/components/lesson/ccss/MathCheck";
 import { Figure } from "@/components/lesson/ccss/Figure";
+import { FigureScroll } from "@/components/lesson/ccss/FigureScroll";
 
 const MAXN = 30;
 const PAD = 26;
@@ -38,7 +39,7 @@ export default function Lesson() {
               : <>A ribbon is {start} cm long. You cut off {realAmt} cm. How long is left?</>}
           </p>
 
-          <div className="w-full overflow-x-auto">
+          <FigureScroll>
             <svg width={W} height={92} viewBox={`0 0 ${W} 92`} className="mx-auto" role="img" aria-label={`number line ${start} ${op === "add" ? "plus" : "minus"} ${realAmt}`}>
               <line x1={PAD} y1={64} x2={W - PAD} y2={64} stroke="var(--ink-soft)" strokeWidth={2} />
               {Array.from({ length: MAXN + 1 }, (_, n) => (
@@ -58,7 +59,7 @@ export default function Lesson() {
               <circle cx={x(start)} cy={64} r={5} fill="var(--ink)" />
               <circle cx={x(end)} cy={64} r={6} fill={color} stroke="white" strokeWidth={2} />
             </svg>
-          </div>
+          </FigureScroll>
 
           <div className="font-mono text-3xl font-black">{start} {op === "add" ? "+" : "−"} {realAmt} = <span style={{ color }}>{end}</span> cm</div>
 

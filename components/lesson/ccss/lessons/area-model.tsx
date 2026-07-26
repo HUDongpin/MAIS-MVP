@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { MathCheck } from "@/components/lesson/ccss/MathCheck";
 import { Figure } from "@/components/lesson/ccss/Figure";
+import { FigureScroll } from "@/components/lesson/ccss/FigureScroll";
 
 const CELL = 30;
 const LEFT = "var(--band-upper)";
@@ -32,7 +33,7 @@ export default function Lesson() {
 
       <Figure caption="Drag the split to break the rectangle into two easier multiplications.">
         <div className="flex flex-col items-center gap-6">
-          <div className="w-full overflow-x-auto">
+          <FigureScroll>
             <svg
               width={W + 2}
               height={H + 2}
@@ -62,7 +63,7 @@ export default function Lesson() {
                 )}
               </g>
             </svg>
-          </div>
+          </FigureScroll>
 
           <div className="text-center">
             <div className="font-mono text-xl font-bold">

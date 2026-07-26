@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { MathCheck } from "@/components/lesson/ccss/MathCheck";
 import { Figure } from "@/components/lesson/ccss/Figure";
+import { FigureScroll } from "@/components/lesson/ccss/FigureScroll";
 
 const MAXX = 20;
 const PAD = 24;
@@ -44,7 +45,7 @@ export default function Lesson() {
 
       <Figure caption="Two groups on one axis. Slide group B and watch the overlap — and the gap between means.">
         <div className="flex flex-col items-center gap-6">
-          <div className="w-full overflow-x-auto">
+          <FigureScroll>
             <svg width={W} height={150} viewBox={`0 0 ${W} 150`} className="mx-auto" role="img" aria-label="two dot plots">
               <line x1={PAD} y1={120} x2={W - PAD} y2={120} stroke="var(--ink-soft)" strokeWidth={2} />
               {Array.from({ length: MAXX + 1 }, (_, i) => (i % 2 === 0 ? <text key={i} x={x(i)} y={138} textAnchor="middle" fontSize={9} fill="var(--ink-faint)" fontFamily="var(--font-mono)">{i}</text> : null))}
@@ -55,7 +56,7 @@ export default function Lesson() {
               <polygon points={`${x(meanB)},64 ${x(meanB) - 5},54 ${x(meanB) + 5},54`} fill={B} />
               <text x={x(meanA)} y={138} textAnchor="middle" fontSize={9} fill={A} fontFamily="var(--font-mono)"></text>
             </svg>
-          </div>
+          </FigureScroll>
 
           <div className="grid grid-cols-3 gap-3 text-center">
             <Fact label="Mean A" value={meanA.toFixed(1)} color={A} />

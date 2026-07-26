@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { MathCheck } from "@/components/lesson/ccss/MathCheck";
 import { Figure } from "@/components/lesson/ccss/Figure";
+import { FigureScroll } from "@/components/lesson/ccss/FigureScroll";
 
 const ACCENT = "var(--band-high)";
 const XR = 4; // x from -XR..XR
@@ -42,7 +43,7 @@ export default function Lesson() {
 
       <Figure caption="The curve crosses the axis at each root. Evaluating p(a) gives the remainder on dividing by (x − a).">
         <div className="flex flex-col items-center gap-6">
-          <div className="w-full overflow-x-auto">
+          <FigureScroll>
             <svg width={W} height={H} viewBox={`0 0 ${W} ${H}`} className="mx-auto max-w-full" style={{ maxHeight: 320 }} role="img" aria-label="cubic polynomial graph">
               <line x1={sx(-XR)} y1={sy(0)} x2={sx(XR)} y2={sy(0)} stroke="var(--ink-soft)" strokeWidth={2} />
               <line x1={sx(0)} y1={PAD} x2={sx(0)} y2={H - PAD} stroke="var(--ink-soft)" strokeWidth={2} />
@@ -57,7 +58,7 @@ export default function Lesson() {
               <circle cx={sx(a)} cy={sy(Math.max(-YR, Math.min(YR, pa)))} r={5} fill="var(--band-upper)" stroke="white" strokeWidth={1.5} />
               <line x1={sx(a)} y1={sy(0)} x2={sx(a)} y2={sy(Math.max(-YR, Math.min(YR, pa)))} stroke="var(--band-upper)" strokeWidth={1} strokeDasharray="3 2" />
             </svg>
-          </div>
+          </FigureScroll>
 
           <div className="flex flex-wrap items-center justify-center gap-4 font-mono">
             <span>p(x) = (x − {roots[0]})(x − {roots[1]})(x − {roots[2]})</span>

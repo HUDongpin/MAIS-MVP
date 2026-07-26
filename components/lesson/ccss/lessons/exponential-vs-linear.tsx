@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { MathCheck } from "@/components/lesson/ccss/MathCheck";
 import { Figure } from "@/components/lesson/ccss/Figure";
+import { FigureScroll } from "@/components/lesson/ccss/FigureScroll";
 
 const XMAX = 6;
 const YMAX = 40;
@@ -58,7 +59,7 @@ export default function Lesson() {
 
       <Figure caption="Linear adds a fixed amount; exponential multiplies. Small at first — then the exponential runs away.">
         <div className="flex flex-col items-center gap-6">
-          <div className="w-full overflow-x-auto">
+          <FigureScroll>
             <svg width={W} height={H} viewBox={`0 0 ${W} ${H}`} className="mx-auto max-w-full" role="img" aria-label="Linear versus exponential growth">
               {/* horizontal gridlines every 5 */}
               {Array.from({ length: YMAX / 5 + 1 }, (_, i) => {
@@ -90,7 +91,7 @@ export default function Lesson() {
                 ) : null,
               )}
             </svg>
-          </div>
+          </FigureScroll>
 
           <div className="flex flex-wrap items-center justify-center gap-4 text-sm font-semibold">
             <span className="inline-flex items-center gap-2"><span className="h-1 w-5 rounded" style={{ background: LIN }} /> linear&nbsp; y = {m}x</span>
@@ -98,7 +99,7 @@ export default function Lesson() {
           </div>
 
           {/* value table */}
-          <div className="w-full overflow-x-auto">
+          <FigureScroll>
             <table className="mx-auto text-center font-mono text-sm">
               <thead>
                 <tr className="text-[var(--ink-faint)]">
@@ -117,7 +118,7 @@ export default function Lesson() {
                 </tr>
               </tbody>
             </table>
-          </div>
+          </FigureScroll>
 
           <p className="m-0 text-center text-sm text-[var(--ink-soft)]">
             {crossover !== null ? (

@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { MathCheck } from "@/components/lesson/ccss/MathCheck";
 import { Figure } from "@/components/lesson/ccss/Figure";
+import { FigureScroll } from "@/components/lesson/ccss/FigureScroll";
 
 const ACCENT = "var(--band-middle)";
 const W = 600;
@@ -71,7 +72,7 @@ export default function Lesson() {
 
       <Figure caption="Slide to change the number of batches. The two marked amounts always move together.">
         <div className="flex flex-col items-center gap-5">
-          <div className="w-full overflow-x-auto">
+          <FigureScroll>
             <svg
               width={W}
               height={H}
@@ -94,7 +95,7 @@ export default function Lesson() {
               <Line y={TOP_Y} per={a} color="var(--band-early)" label="flour" />
               <Line y={BOT_Y} per={b} color={ACCENT} label="sugar" />
             </svg>
-          </div>
+          </FigureScroll>
 
           <div className="rounded-xl bg-[var(--surface-2)] px-5 py-3 text-center">
             <div className="font-mono text-lg font-bold">

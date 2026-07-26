@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { MathCheck } from "@/components/lesson/ccss/MathCheck";
 import { Figure } from "@/components/lesson/ccss/Figure";
+import { FigureScroll } from "@/components/lesson/ccss/FigureScroll";
 
 const SEL = "var(--band-early)";
 const NEXT = "var(--band-middle)";
@@ -26,7 +27,7 @@ export default function Lesson() {
             <div className="text-sm font-semibold text-[var(--ink-faint)]">then {nexts.join(", ")}…</div>
           </div>
 
-          <div className="w-full overflow-x-auto">
+          <FigureScroll>
             <div className="mx-auto grid gap-0.5" style={{ gridTemplateColumns: "repeat(10, minmax(0,1fr))", maxWidth: 500 }}>
               {Array.from({ length: 120 }, (_, i) => {
                 const n = i + 1;
@@ -48,7 +49,7 @@ export default function Lesson() {
                 );
               })}
             </div>
-          </div>
+          </FigureScroll>
 
           <div className="flex items-center gap-2">
             <button type="button" onClick={() => setSel((n) => Math.max(1, n - 1))} disabled={sel <= 1} className="h-9 w-9 rounded-lg border border-[var(--line)] bg-[var(--surface)] text-lg font-bold disabled:opacity-40" aria-label="Previous number">−</button>

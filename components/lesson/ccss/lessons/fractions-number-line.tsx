@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { MathCheck } from "@/components/lesson/ccss/MathCheck";
 import { Figure } from "@/components/lesson/ccss/Figure";
+import { FigureScroll } from "@/components/lesson/ccss/FigureScroll";
 
 const ACCENT = "var(--band-upper)";
 const W = 560;
@@ -40,7 +41,7 @@ export default function Lesson() {
 
       <Figure caption="Choose how many equal parts (the denominator), then count parts (the numerator).">
         <div className="flex flex-col items-center gap-5">
-          <div className="w-full overflow-x-auto">
+          <FigureScroll>
             <svg
               width={W}
               height={H}
@@ -126,7 +127,7 @@ export default function Lesson() {
                 </text>
               </g>
             </svg>
-          </div>
+          </FigureScroll>
 
           <div className="text-center text-[15px] font-semibold text-[var(--ink-soft)]">
             {a}/{b} means <strong>{a}</strong>{" "}{a === 1 ? "copy" : "copies"} of{" "}

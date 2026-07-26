@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { MathCheck } from "@/components/lesson/ccss/MathCheck";
 import { Figure } from "@/components/lesson/ccss/Figure";
+import { FigureScroll } from "@/components/lesson/ccss/FigureScroll";
 
 const MAXV = 10;
 const PAD = 24;
@@ -42,7 +43,7 @@ export default function Lesson() {
 
       <Figure caption="The orange triangle is the mean (balance point); the green line is the median (middle).">
         <div className="flex flex-col items-center gap-6">
-          <div className="w-full overflow-x-auto">
+          <FigureScroll>
             <svg width={W} height={130} viewBox={`0 0 ${W} 130`} className="mx-auto" role="img" aria-label="dot plot with mean and median">
               <line x1={PAD} y1={100} x2={W - PAD} y2={100} stroke="var(--ink-soft)" strokeWidth={2} />
               {Array.from({ length: MAXV }, (_, i) => (
@@ -56,7 +57,7 @@ export default function Lesson() {
               {/* mean marker */}
               <polygon points={`${x(mean)},104 ${x(mean) - 6},116 ${x(mean) + 6},116`} fill={MEAN} />
             </svg>
-          </div>
+          </FigureScroll>
 
           <div className="grid grid-cols-2 gap-3 text-center sm:grid-cols-4">
             <Fact label="Mean" value={mean.toFixed(1)} color={MEAN} />

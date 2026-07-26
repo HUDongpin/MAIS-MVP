@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { MathCheck } from "@/components/lesson/ccss/MathCheck";
 import { Figure } from "@/components/lesson/ccss/Figure";
+import { FigureScroll } from "@/components/lesson/ccss/FigureScroll";
 
 const N = 10;
 const SEL = "var(--band-upper)";
@@ -23,7 +24,7 @@ export default function Lesson() {
 
       <Figure caption="Tap any square. Its row and column light up, and the fact family appears.">
         <div className="flex flex-col items-center gap-6">
-          <div className="w-full overflow-x-auto">
+          <FigureScroll>
             <table className="mx-auto border-collapse font-mono text-xs sm:text-sm">
               <tbody>
                 <tr>
@@ -50,7 +51,7 @@ export default function Lesson() {
                 ))}
               </tbody>
             </table>
-          </div>
+          </FigureScroll>
 
           <div className="text-center">
             <div className="font-mono text-2xl font-black" style={{ color: SEL }}>{sel.r} × {sel.c} = {product}</div>

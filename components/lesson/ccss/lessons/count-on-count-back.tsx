@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { MathCheck } from "@/components/lesson/ccss/MathCheck";
 import { Figure } from "@/components/lesson/ccss/Figure";
+import { FigureScroll } from "@/components/lesson/ccss/FigureScroll";
 
 const MAXN = 20;
 const PAD = 24;
@@ -35,7 +36,7 @@ export default function Lesson() {
 
       <Figure caption="Each hop is one step. Count the hops to see how far you moved.">
         <div className="flex flex-col items-center gap-6">
-          <div className="w-full overflow-x-auto">
+          <FigureScroll>
             <svg width={W} height={110} viewBox={`0 0 ${W} 110`} className="mx-auto" role="img" aria-label={`number line from ${start} ${op === "add" ? "adding" : "subtracting"} ${realJump}`}>
               {/* line */}
               <line x1={PAD} y1={78} x2={W - PAD} y2={78} stroke="var(--ink-soft)" strokeWidth={2} />
@@ -63,7 +64,7 @@ export default function Lesson() {
               <circle cx={x(end)} cy={78} r={7} fill={color} stroke="white" strokeWidth={2} />
               <text x={x(end)} y={26} textAnchor="middle" fontSize={13} fontWeight={800} fill={color}>{end}</text>
             </svg>
-          </div>
+          </FigureScroll>
 
           <div className="font-mono text-3xl font-black">
             {start} {op === "add" ? "+" : "−"} {realJump} = <span style={{ color }}>{end}</span>
