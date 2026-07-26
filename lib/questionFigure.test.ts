@@ -198,6 +198,22 @@ test("ten-frame layout places every counter in a countable spot", () => {
   assert.equal(teenLayout.frames[1].cells[0].tone, "blue");
   assert.deepEqual(tenFrameRenderedCounts(teenNumber).perGroup, [10, 3]);
 
+  // Each frame is its own box in its own coordinate space, so the renderer can
+  // wrap the second frame under the first on a phone instead of shrinking both.
+  assert.deepEqual(teenLayout.frames[0].viewBox, teenLayout.frames[1].viewBox);
+  assert.deepEqual(teenLayout.frames[0].frame, teenLayout.frames[1].frame);
+  assert.equal(teenLayout.frames[0].cells[0].cx, teenLayout.frames[1].cells[0].cx);
+  assert.equal(teenLayout.frames[0].cells[0].cy, teenLayout.frames[1].cells[0].cy);
+  const teenFrameBox = teenLayout.frames[0].frame;
+  teenLayout.frames.forEach((frame) => {
+    frame.cells.forEach((cell) => {
+      assert.ok(cell.cx - cell.r >= teenFrameBox.x, `${cell.key} spills past the frame's left edge`);
+      assert.ok(cell.cx + cell.r <= teenFrameBox.x + teenFrameBox.width, `${cell.key} spills past the right edge`);
+      assert.ok(cell.cy - cell.r >= teenFrameBox.y, `${cell.key} spills past the frame's top edge`);
+      assert.ok(cell.cy + cell.r <= teenFrameBox.y + teenFrameBox.height, `${cell.key} spills past the bottom edge`);
+    });
+  });
+
   const elevenInARow = normalizeQuestionDiagram({
     kind: "ten-frame",
     frames: 2,

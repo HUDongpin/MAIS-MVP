@@ -370,47 +370,62 @@ function TenFrameView({
   const fillFor = (tone: TenFrameCounterTone) => (isDay ? tenFrameToneFills[tone].day : tenFrameToneFills[tone].night);
 
   return (
-    <svg
-      viewBox={`0 0 ${layout.viewBox.width} ${layout.viewBox.height}`}
-      // Counters should stay finger-sized, not balloon to fill the figure shell
-      // the way a coordinate grid wants to.
-      style={{ maxWidth: `${layout.viewBox.width * 1.8}px` }}
-      className="mx-auto block h-auto w-full"
-    >
-      {layout.frames.map((frame) => (
-        <g key={frame.key}>
-          <rect
-            x={frame.x}
-            y={frame.y}
-            width={frame.width}
-            height={frame.height}
-            rx={12}
-            className={theme.plotFillClassName}
-            stroke={frameStroke}
-            strokeWidth={2}
-          />
-          {frame.cells.map((cell) => (
-            <circle
-              key={cell.key}
-              cx={cell.cx}
-              cy={cell.cy}
-              r={cell.r}
-              fill={cell.tone ? fillFor(cell.tone) : emptyFill}
-              stroke={cell.tone ? counterHalo : "none"}
-              strokeWidth={cell.tone ? 2.5 : 0}
+    <div className="grid gap-3">
+      {/*
+        Frames wrap rather than sharing one viewBox. Side by side when there is
+        room; stacked on a phone, where squeezing two frames into one row left
+        counters too small for a five-year-old to pick out. `min-w-[13rem]`
+        is what forces the wrap instead of the shrink.
+      */}
+      <div className="flex flex-wrap items-start justify-center gap-3 sm:gap-4">
+        {layout.frames.map((frame) => (
+          <svg
+            key={frame.key}
+            viewBox={`0 0 ${frame.viewBox.width} ${frame.viewBox.height}`}
+            // Counters stay finger-sized instead of ballooning to fill the
+            // figure shell the way a coordinate grid wants to.
+            style={{ maxWidth: `${frame.viewBox.width * 1.8}px` }}
+            className="h-auto w-full min-w-[13rem] flex-1"
+          >
+            <rect
+              x={frame.frame.x}
+              y={frame.frame.y}
+              width={frame.frame.width}
+              height={frame.frame.height}
+              rx={12}
+              className={theme.plotFillClassName}
+              stroke={frameStroke}
+              strokeWidth={2}
             />
+            {frame.cells.map((cell) => (
+              <circle
+                key={cell.key}
+                cx={cell.cx}
+                cy={cell.cy}
+                r={cell.r}
+                fill={cell.tone ? fillFor(cell.tone) : emptyFill}
+                stroke={cell.tone ? counterHalo : "none"}
+                strokeWidth={cell.tone ? 2.5 : 0}
+              />
+            ))}
+          </svg>
+        ))}
+      </div>
+      {layout.legend.length ? (
+        <ul className="flex flex-wrap items-center justify-center gap-x-4 gap-y-1.5">
+          {layout.legend.map((entry) => (
+            <li key={entry.key} className="flex items-center gap-1.5 text-xs font-bold text-slate-700 dark:text-slate-200">
+              <span
+                aria-hidden
+                className="h-2.5 w-2.5 shrink-0 rounded-full"
+                style={{ backgroundColor: fillFor(entry.tone) }}
+              />
+              {entry.text}
+            </li>
           ))}
-        </g>
-      ))}
-      {layout.legend.map((entry) => (
-        <g key={entry.key}>
-          <circle cx={entry.swatchX + 5} cy={entry.swatchY} r={5} fill={fillFor(entry.tone)} />
-          <text x={entry.textX} y={entry.textY} dominantBaseline="central" className={theme.measureLabelClassName}>
-            {entry.text}
-          </text>
-        </g>
-      ))}
-    </svg>
+        </ul>
+      ) : null}
+    </div>
   );
 }
 
