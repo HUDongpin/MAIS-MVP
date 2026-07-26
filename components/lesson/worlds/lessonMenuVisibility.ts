@@ -94,18 +94,37 @@ function writeSessionFlag(key: string, value: boolean) {
 }
 
 /**
- * Focus the first of these controls that is actually on screen at this width.
+ * Pick the first of these controls that is actually on screen at this width.
+ *
+ * Every id is resolved through *all* matching elements rather than the single
+ * one `getElementById` returns: React's streaming SSR can leave a second,
+ * `hidden` copy of a control in the document — the same duplication the menu
+ * panel sidesteps with a ref — and `getElementById` yields whichever copy sorts
+ * first. When that is the hidden one its zero client rects would end the search
+ * and focus would stay on the control that just disappeared, which is the exact
+ * stranding this helper exists to prevent.
+ *
  * `getClientRects()` rather than `offsetParent`, which is always null for the
  * `position: fixed` reveal pill.
+ *
+ * Exported for tests: the DOM lookup is injected so the choice can be exercised
+ * without a browser.
  */
-function focusFirstVisible(ids: string[]) {
+export function firstVisibleFocusTarget(
+  ids: string[],
+  candidatesFor: (id: string) => HTMLElement[]
+): HTMLElement | null {
   for (const id of ids) {
-    const element = document.getElementById(id);
-    if (element instanceof HTMLElement && element.getClientRects().length > 0) {
-      element.focus();
-      return;
-    }
+    const visible = candidatesFor(id).find((element) => element.getClientRects().length > 0);
+    if (visible) return visible;
   }
+  return null;
+}
+
+function focusFirstVisible(ids: string[]) {
+  firstVisibleFocusTarget(ids, (id) =>
+    Array.from(document.querySelectorAll<HTMLElement>(`#${id}`))
+  )?.focus();
 }
 
 export type LessonMenuVisibility = {
