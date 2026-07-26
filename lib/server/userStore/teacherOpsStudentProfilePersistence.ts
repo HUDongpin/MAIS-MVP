@@ -1,4 +1,5 @@
 import type {
+  AITutorTranscriptMessage,
   Assignment,
   GradeId,
   GuardianLink,
@@ -12,6 +13,11 @@ import type {
   TeacherStudentProfileData,
   TopicStatus
 } from "@/types";
+
+export type TeacherStudentAiTutorTranscriptResult =
+  | { status: "ok"; studentName: string; messages: AITutorTranscriptMessage[] }
+  | { status: "forbidden" }
+  | { status: "student-not-found" };
 
 type TeacherOpsStudentProfileUserRole = "student" | "teacher" | "parent" | "admin";
 
@@ -415,15 +421,47 @@ export function createTeacherOpsStudentProfilePersistenceStore({
         messages,
         aiTutor: {
           messageCount7d: aiTutorMessageCountInWindow(database, studentId, nowMs, 7),
-          lastMessageAt: recentTutorMessages[0]?.created_at ?? null,
-          recentMessages: recentTutorMessages.map((message) => ({
-            id: message.id,
-            role: message.role,
-            content: message.content,
-            createdAt: message.created_at
-          }))
+          lastMessageAt: recentTutorMessages[0]?.created_at ?? null
         }
       };
+    },
+
+    async getStudentAiTutorTranscriptForTeacher({
+      userId,
+      studentId,
+      limit = 50
+    }: {
+      userId: string;
+      studentId: string;
+      limit?: number;
+    }): Promise<TeacherStudentAiTutorTranscriptResult> {
+      const database = await readDatabase();
+      const user = database.users.find((candidate) => candidate.id === userId);
+      if (!canUseTeacherArea(user)) return { status: "forbidden" };
+
+      const teacherClass = teacherClassForStudent(database, user, studentId);
+      if (!teacherClass) return { status: "forbidden" };
+
+      const studentUser = database.users.find((candidate) => candidate.id === studentId && candidate.role === "student");
+      if (!studentUser) return { status: "student-not-found" };
+
+      const student = studentSessionProjection(database, studentUser);
+      if (!student) return { status: "student-not-found" };
+
+      const boundedLimit = Math.min(200, Math.max(1, Math.round(limit)));
+      const messages = database.ai_tutor_messages
+        .filter((message) => message.user_id === studentId)
+        .sort((a, b) => b.created_at.localeCompare(a.created_at))
+        .slice(0, boundedLimit)
+        .sort((a, b) => a.created_at.localeCompare(b.created_at))
+        .map((message) => ({
+          id: message.id,
+          role: message.role,
+          content: message.content,
+          createdAt: message.created_at
+        }));
+
+      return { status: "ok", studentName: student.name, messages };
     }
   };
 }

@@ -2203,6 +2203,24 @@ export type NovaLensRunSummary = {
   createdAt: string;
 };
 
+export type AITutorTranscriptMessage = {
+  id: string;
+  role: "student" | "tutor";
+  content: string;
+  createdAt: string;
+};
+
+export type AITutorTranscriptAccessSummary = {
+  id: string;
+  viewerId: string;
+  viewerName: string;
+  viewerRole: StudentSession["role"];
+  studentId: string;
+  studentName: string;
+  messageCount: number;
+  createdAt: string;
+};
+
 export type NovaLensRunRequest = {
   selectedText: string;
   action: NovaLensAction;
@@ -4169,12 +4187,6 @@ export type TeacherStudentProfileData = {
   aiTutor: {
     messageCount7d: number;
     lastMessageAt: string | null;
-    recentMessages: Array<{
-      id: string;
-      role: "student" | "tutor";
-      content: string;
-      createdAt: string;
-    }>;
   };
 };
 
