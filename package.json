@@ -61,6 +61,8 @@
     "smoke:dashboard-auth-ready": "node scripts/dashboard-smoke-auth-precheck.mjs",
     "smoke:dashboard-latency": "node scripts/dashboard-latency-smoke.mjs",
     "smoke:dashboard-ui-loading": "node scripts/dashboard-ui-loading-smoke.mjs",
+    "certify:production": "node scripts/prod-certification.mjs",
+    "test:prod-certification": "node --test scripts/prod-certification.test.mjs",
     "clean:generated": "node scripts/cleanup-generated-artifacts.mjs --dry-run",
     "clean:vercel-staging": "node scripts/cleanup-generated-artifacts.mjs --scope vercel-staging --dry-run",
     "clean:next-builds": "node scripts/cleanup-generated-artifacts.mjs --scope next-builds --dry-run",
