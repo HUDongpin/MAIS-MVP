@@ -6,7 +6,10 @@ const lessonViewSource = readFileSync("components/lesson/LessonView.tsx", "utf8"
 const usCaliforniaLessonIllustrationsSource = readFileSync("data/usCaliforniaLessonIllustrations.ts", "utf8");
 
 test("concept illustrations render after audio and before the concept text", () => {
-  const audioIndex = lessonViewSource.indexOf("displayContent && block.type === \"concept\"");
+  // Matched by pattern, not by exact string: the guard has since grown to cover
+  // `interactive-lesson` too, and what this test is actually pinning is the
+  // render ORDER, not the precise shape of the condition.
+  const audioIndex = lessonViewSource.search(/displayContent && \(?block\.type === "concept"/);
   const conceptIllustrationIndex = lessonViewSource.indexOf("{block.type === \"concept\" ? illustrationFigures : null}");
   const contentIndex = lessonViewSource.indexOf("<LessonContentWithAnswerReveal");
   const nonConceptIllustrationIndex = lessonViewSource.indexOf("{block.type === \"concept\" ? null : illustrationFigures}");

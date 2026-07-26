@@ -116,9 +116,13 @@ test("lesson menu item cards omit section labels and generated metadata titles",
     /title: t\(\{ en: "Concept explanation", zh: "概念說明", zhHans: "概念说明" \}\)/,
     "Other-unit preview menus should use a generic concept title instead of generated textbook metadata."
   );
+  // Not anchored on `title:` any more — an `interactive-lesson` branch now sits
+  // ahead of these two. The contract being pinned is the pairing itself: a
+  // worked example gets the singular worked-example title, anything else falls
+  // through to the generic concept title rather than generated textbook metadata.
   assert.match(
     lessonViewSource,
-    /title: block\.type === "worked-example"[\s\S]*\? t\(singularWorkedExampleTitle\)[\s\S]*: t\(\{ en: "Concept explanation", zh: "概念說明", zhHans: "概念说明" \}\)/,
+    /block\.type === "worked-example"[\s\S]*?\? t\(singularWorkedExampleTitle\)[\s\S]*?: t\(\{ en: "Concept explanation", zh: "概念說明", zhHans: "概念说明" \}\)/,
     "Current lesson concept menu items should use the generic concept title."
   );
   assert.match(

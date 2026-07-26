@@ -92,6 +92,7 @@
     "test:accommodations": "node scripts/run-accommodations-tests.mjs",
     "test:content-safety": "node scripts/run-content-safety-tests.mjs",
     "test:tutor-moderation": "node scripts/run-tutor-moderation-tests.mjs",
+    "test:components": "node scripts/run-component-tests.mjs",
     "test:lesson-menu": "node scripts/run-lesson-menu-tests.mjs",
     "test:signature-labs": "node scripts/run-signature-lab-tests.mjs",
     "audit:ccss-depth": "npx tsx --tsconfig tsconfig.json scripts/audit-ccss-depth.ts",
@@ -106,7 +107,7 @@
     "test:question-figure": "rm -rf .tmp/question-figure-tests && tsc -p tsconfig.json --outDir .tmp/question-figure-tests --noEmit false --incremental false --module commonjs --moduleResolution node && mkdir -p .tmp/question-figure-tests/node_modules/@ && ln -s ../../data .tmp/question-figure-tests/node_modules/@/data && ln -s ../../lib .tmp/question-figure-tests/node_modules/@/lib && ln -s ../../components .tmp/question-figure-tests/node_modules/@/components && node --test .tmp/question-figure-tests/lib/questionFigure.test.js .tmp/question-figure-tests/lib/practiceFigureAudit.test.js && rm -rf .tmp/question-figure-tests",
     "fit:bkt": "node --import tsx scripts/fit-bkt-params.mts",
     "eval:adaptive": "rm -rf .tmp/adaptive-eval && tsc -p tsconfig.json --outDir .tmp/adaptive-eval --noEmit false --incremental false --module commonjs --moduleResolution node && mkdir -p .tmp/adaptive-eval/node_modules/@ && ln -s ../../data .tmp/adaptive-eval/node_modules/@/data && ln -s ../../lib .tmp/adaptive-eval/node_modules/@/lib && ln -s ../../components .tmp/adaptive-eval/node_modules/@/components && node --test .tmp/adaptive-eval/lib/adaptiveLearningEval.test.js .tmp/adaptive-eval/lib/adaptiveLearningFit.test.js && node scripts/adaptive-eval.mjs && rm -rf .tmp/adaptive-eval",
-    "check": "npm run type-check && npm run audit:zh-hans:strict && npm run test:analytics && npm run test:accommodations && npm run test:content-safety && npm run test:rag && npm run test:question-bank && npm run test:mvp && npm run build"
+    "check": "npm run type-check && npm run audit:zh-hans:strict && npm run test:analytics && npm run test:accommodations && npm run test:content-safety && npm run test:rag && npm run test:question-bank && npm run test:mvp && npm run test:components && npm run build"
   },
   "dependencies": {
     "@react-three/drei": "10.7.7",

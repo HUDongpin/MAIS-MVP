@@ -78,6 +78,11 @@ test("current US California lesson concept audio is fully pre-generated as stati
     }
   }
 
-  assert.equal(expectedAssets.length, 76);
+  // 12, not the original 76: the CCSS textbook port moved most California
+  // lessons' teaching text out of `usCaliforniaLessonSeeds` and into the CCSS
+  // registry, so only the Grade 1 micro-lessons still carry an inline English
+  // concept block here. The count stays pinned rather than derived so that
+  // losing pre-generated audio is a deliberate review moment, not a silent pass.
+  assert.equal(expectedAssets.length, 12);
   assert.deepEqual(missingOrEmpty, []);
 });

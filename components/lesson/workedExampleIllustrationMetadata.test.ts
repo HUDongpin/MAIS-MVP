@@ -20,9 +20,14 @@ test("upper-primary grouped multiplication expressions use a concrete counting m
 });
 
 test("California Grade 1 reported worked examples use exact scene contracts instead of generic visuals", () => {
+  // The two topic-level lessons this list used to open with —
+  // `us-ca-math-p1-1-md-measure-data` (measurement-ribbon-string-difference) and
+  // `us-ca-math-p1-1-g-shape-reasoning` (geometry-equal-share-rectangles) — no
+  // longer carry a worked-example block in the seeds: the CCSS textbook port
+  // moved them into the CCSS registry, which owns its own visuals. What remains
+  // here is the Grade 1 micro-lesson set, whose worked examples are still
+  // seed-hosted and still have to resolve to exact scene contracts.
   const expectedScenes = new Map([
-    ["us-ca-math-p1-1-md-measure-data", "measurement-ribbon-string-difference"],
-    ["us-ca-math-p1-1-g-shape-reasoning", "geometry-equal-share-rectangles"],
     ["us-ca-math-p1-1-h1-picture-join-stories-to-10", "counters-red-blue-join"],
     ["us-ca-math-p1-1-h2-picture-story-addition-equations", "birds-fence-tree-addition"],
     ["us-ca-math-p1-1-h3-cube-train-join-models-to-10", "cube-train-green-yellow-join"],

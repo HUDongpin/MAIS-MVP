@@ -88,6 +88,9 @@ jobs:
       - name: Run reported-bug source-regression gate (fix anchors + segment loading.tsx ban)
         run: npm run test:source-regressions
 
+      - name: Run component gate (discovers every components/**/*.test.ts)
+        run: npm run test:components
+
       - name: Build
         run: npm run build
 
