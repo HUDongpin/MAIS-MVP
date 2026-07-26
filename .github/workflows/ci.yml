@@ -58,6 +58,9 @@ jobs:
       - name: Run AI Tutor content-moderation gate (input block + output withhold)
         run: npm run test:tutor-moderation
 
+      - name: Run AI Tutor content-safety gate (crisis classifier + teacher escalation)
+        run: npm run test:content-safety
+
       - name: Run MVP readiness tests
         run: npm run test:mvp
 
