@@ -4,6 +4,7 @@ import { usePathname, useRouter } from "next/navigation";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { motion, useReducedMotion } from "@/components/ui/Motion";
 import { useSettings } from "@/components/providers/AppProviders";
+import { ccssGradeBandForGradeId } from "@/data/ccssStandards";
 import type {
   LearnerProfileChallengeStart,
   LearnerProfileGoal,
@@ -131,10 +132,17 @@ export function LearnerStartSetupGate() {
   });
 
   const shouldAllowLearnerSetupPath = learnerSetupPathnames.has(pathname);
+  // Scope: the 15-second setup is only for high-school students (CCSS grade
+  // band "HS" = S3–S6) on the California math curriculum.
+  const isCaliforniaHighSchoolStudent = Boolean(
+    currentUser?.role === "student" &&
+    currentUser.curriculumTrack === "US_CA_MATH" &&
+    ccssGradeBandForGradeId[currentUser.grade] === "HS"
+  );
   const shouldShowForUser = Boolean(
     settingsReady &&
-    currentUser?.role === "student" &&
-    !currentUser.passwordMustChange &&
+    isCaliforniaHighSchoolStudent &&
+    !currentUser?.passwordMustChange &&
     shouldAllowLearnerSetupPath
   );
 
@@ -253,18 +261,6 @@ export function LearnerStartSetupGate() {
         <div className="absolute left-[16%] top-[79%] h-20 w-[68%] rounded-[50%] border border-violet-400/30 shadow-[0_0_44px_rgba(139,92,246,0.26)]" />
         <div className="absolute left-1/2 top-8 h-36 w-36 -translate-x-1/2 rounded-full bg-amber-300/15 blur-3xl" />
         <div className="absolute right-[10%] top-12 h-44 w-44 rounded-full bg-fuchsia-500/12 blur-3xl" />
-        <div className="absolute left-[6%] top-20 text-7xl font-black text-white/5">Σ</div>
-        <div className="absolute right-[8%] top-[34%] text-8xl font-black text-cyan-200/10">√</div>
-        <div className="absolute left-[12%] bottom-[28%] rotate-[-18deg] rounded-3xl border border-cyan-300/15 px-8 py-5 text-5xl font-black text-cyan-200/10">π</div>
-        {[0, 1, 2].map((ring) => (
-          <motion.span
-            key={ring}
-            className="absolute left-1/2 top-[8.5rem] h-20 w-20 -translate-x-1/2 rounded-full border-4 border-cyan-300/50 shadow-[0_0_42px_rgba(34,211,238,0.32)]"
-            initial={reduceMotion ? false : { opacity: 0.72, scale: 0.12 }}
-            animate={reduceMotion ? undefined : { opacity: [0.72, 0.28, 0], scale: [0.12, 1.6 + ring * 0.35, 2.3 + ring * 0.42] }}
-            transition={{ duration: 1.45, delay: ring * 0.16, ease: "easeOut", repeat: Infinity, repeatDelay: 2.8 }}
-          />
-        ))}
         {celebrationPieces.map((piece, index) => (
           <motion.span
             key={`${piece.x}-${piece.y}`}
