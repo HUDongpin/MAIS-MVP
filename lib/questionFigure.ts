@@ -1284,9 +1284,7 @@ export const maxTenFrameGroups = 4;
 const tenFrameCellSize = 28;
 const tenFrameCellGap = 6;
 const tenFrameFramePadding = 9;
-const tenFrameFrameGap = 22;
-const tenFrameMargin = 8;
-const tenFrameLegendHeight = 22;
+const tenFrameMargin = 4;
 const tenFrameCounterRadius = 11.5;
 
 export type TenFrameCell = {
@@ -1301,12 +1299,18 @@ export type TenFrameCell = {
   ordinal: number | null;
 };
 
+/**
+ * Each frame carries its own viewBox so the renderer can lay frames out as
+ * independent, wrappable boxes. A double ten frame packed into one wide viewBox
+ * forces both frames through the narrowest screen at once: on a 390px phone
+ * that shrank counters to ~14px, too small for the five-year-olds who need
+ * ten frames most. Wrapping the second frame under the first instead lets each
+ * one keep the full column width.
+ */
 export type TenFrameFrameLayout = {
   key: string;
-  x: number;
-  y: number;
-  width: number;
-  height: number;
+  viewBox: { width: number; height: number };
+  frame: { x: number; y: number; width: number; height: number };
   cells: TenFrameCell[];
 };
 
@@ -1314,14 +1318,9 @@ export type TenFrameLegendEntry = {
   key: string;
   tone: TenFrameCounterTone;
   text: string;
-  swatchX: number;
-  swatchY: number;
-  textX: number;
-  textY: number;
 };
 
 export type TenFrameLayout = {
-  viewBox: { width: number; height: number };
   frames: TenFrameFrameLayout[];
   legend: TenFrameLegendEntry[];
   issues: string[];
@@ -1409,20 +1408,9 @@ export function buildTenFrameLayout(diagram: TenFrameQuestionDiagram, textFor: F
   const innerHeight = 2 * tenFrameCellSize + tenFrameCellGap;
   const frameWidth = innerWidth + tenFrameFramePadding * 2;
   const frameHeight = innerHeight + tenFrameFramePadding * 2;
-
-  const legendEntries = diagram.groups
-    .map((group, groupIndex) => ({ group, groupIndex, text: group.label ? textFor(group.label).trim() : "" }))
-    .filter((entry) => entry.text.length > 0);
-  const legendRowHeight = legendEntries.length ? tenFrameLegendHeight : 0;
-
-  const viewBox = {
-    width: tenFrameMargin * 2 + frameCount * frameWidth + Math.max(0, frameCount - 1) * tenFrameFrameGap,
-    height: tenFrameMargin * 2 + frameHeight + legendRowHeight
-  };
+  const viewBox = { width: frameWidth + tenFrameMargin * 2, height: frameHeight + tenFrameMargin * 2 };
 
   const frames: TenFrameFrameLayout[] = Array.from({ length: Math.max(0, frameCount) }, (_, frameIndex) => {
-    const frameX = tenFrameMargin + frameIndex * (frameWidth + tenFrameFrameGap);
-    const frameY = tenFrameMargin;
     const filled = slots[frameIndex] ?? [];
 
     const cells: TenFrameCell[] = Array.from({ length: tenFrameCellsPerFrame }, (_, cellIndex) => {
@@ -1431,8 +1419,8 @@ export function buildTenFrameLayout(diagram: TenFrameQuestionDiagram, textFor: F
       const counter = filled[cellIndex];
       return {
         key: `frame-${frameIndex}-cell-${cellIndex}`,
-        cx: frameX + tenFrameFramePadding + column * (tenFrameCellSize + tenFrameCellGap) + tenFrameCellSize / 2,
-        cy: frameY + tenFrameFramePadding + row * (tenFrameCellSize + tenFrameCellGap) + tenFrameCellSize / 2,
+        cx: tenFrameMargin + tenFrameFramePadding + column * (tenFrameCellSize + tenFrameCellGap) + tenFrameCellSize / 2,
+        cy: tenFrameMargin + tenFrameFramePadding + row * (tenFrameCellSize + tenFrameCellGap) + tenFrameCellSize / 2,
         r: tenFrameCounterRadius,
         tone: counter?.tone ?? null,
         groupIndex: counter?.groupIndex ?? null,
@@ -1440,28 +1428,23 @@ export function buildTenFrameLayout(diagram: TenFrameQuestionDiagram, textFor: F
       };
     });
 
-    return { key: `frame-${frameIndex}`, x: frameX, y: frameY, width: frameWidth, height: frameHeight, cells };
-  });
-
-  let legendCursor = tenFrameMargin;
-  const legend: TenFrameLegendEntry[] = legendEntries.map((entry) => {
-    const swatchX = legendCursor;
-    const textX = swatchX + 14;
-    legendCursor = textX + entry.text.length * 6.2 + 18;
     return {
-      key: `legend-${entry.groupIndex}`,
-      tone: entry.group.tone,
-      text: entry.text,
-      swatchX,
-      swatchY: tenFrameMargin + frameHeight + legendRowHeight / 2,
-      textX,
-      textY: tenFrameMargin + frameHeight + legendRowHeight / 2
+      key: `frame-${frameIndex}`,
+      viewBox,
+      frame: { x: tenFrameMargin, y: tenFrameMargin, width: frameWidth, height: frameHeight },
+      cells
     };
   });
 
-  if (legendCursor > viewBox.width) issues.push("ten-frame: legend text overflows the figure");
+  const legend: TenFrameLegendEntry[] = diagram.groups
+    .map((group, groupIndex) => ({
+      key: `legend-${groupIndex}`,
+      tone: group.tone,
+      text: group.label ? textFor(group.label).trim() : ""
+    }))
+    .filter((entry) => entry.text.length > 0);
 
-  return { viewBox, frames, legend, issues };
+  return { frames, legend, issues };
 }
 
 // --- Alt text ---------------------------------------------------------------
