@@ -120,7 +120,8 @@ const aiGovernanceActionSet = new Set<AIGovernanceEventRecord["action"]>([
   "request-admitted",
   "rate-limit-blocked",
   "media-policy-blocked",
-  "content-safety-flagged"
+  "content-safety-flagged",
+  "content-moderation-blocked"
 ]);
 const adaptiveLLMStatusSet = new Set<AdaptiveLLMStatus>(["disabled", "pending", "ready", "failed", "rejected"]);
 const adaptiveEngineErrorKindSet = new Set<AdaptiveEngineErrorKind>(["configuration", "format", "guardrail", "provider", "rate-limit"]);

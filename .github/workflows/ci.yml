@@ -55,6 +55,9 @@ jobs:
       - name: Run AI Tutor transcript visibility gate (access audit log + teacher access boundary)
         run: npm run test:tutor-transcript
 
+      - name: Run AI Tutor content-moderation gate (input block + output withhold)
+        run: npm run test:tutor-moderation
+
       - name: Run MVP readiness tests
         run: npm run test:mvp
 
