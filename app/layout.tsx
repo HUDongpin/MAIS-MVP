@@ -7,7 +7,6 @@ import { AITutorProvider } from "@/components/ai/AITutorProvider";
 import { AnimatedMathBackground } from "@/components/background/AnimatedMathBackground";
 import { DiagnosticPlacementGate } from "@/components/layout/DiagnosticPlacementGate";
 import { Footer } from "@/components/layout/Footer";
-import { DiagnosticPlacementGate } from "@/components/layout/DiagnosticPlacementGate";
 import { GuestLoginPromptGate } from "@/components/layout/GuestLoginPromptGate";
 import { Navbar } from "@/components/layout/Navbar";
 import { StudentBackToTopButton } from "@/components/layout/StudentBackToTopButton";
