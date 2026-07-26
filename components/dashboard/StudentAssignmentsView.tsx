@@ -338,7 +338,7 @@ export function StudentAssignmentsView({ assignmentId }: StudentAssignmentsViewP
         </div>
       </section>
 
-      <section className="mt-6 grid gap-4">
+      <section data-tour="student-assignment-list" className="mt-6 grid gap-4">
         {assignments.length ? assignments.map((item) => <AssignmentCard key={item.assignment.id} item={item} />) : (
           <div className="soft-panel p-6 text-sm font-bold text-slate-500 dark:text-slate-400">
             {t({ en: "No assignments yet.", zh: "暫時沒有作業。", zhHans: "暂时没有作业。" })}

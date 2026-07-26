@@ -3078,6 +3078,7 @@ function VisualizationLabPageContent({
           {panelMode === "control" ? (
             <section
               aria-labelledby="visualization-lab-title"
+              data-tour="student-tools-catalog"
               className="overflow-hidden rounded-[1.75rem] bg-white shadow-2xl shadow-cyan-900/15 ring-1 ring-cyan-100 dark:bg-slate-950 dark:ring-white/10"
             >
               <div className="border-b border-slate-100 p-4 dark:border-white/10 sm:p-8">

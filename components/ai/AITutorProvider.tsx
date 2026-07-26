@@ -2845,6 +2845,7 @@ export function AITutorProvider({ children }: { children: ReactNode }) {
           );
         }}
         aria-labelledby="ai-tutor-launcher-label"
+        data-tour="student-tutor"
         className={cn(
           "focus-ring group fixed bottom-[calc(1rem+env(safe-area-inset-bottom))] right-3 z-[70] isolate h-14 w-14 max-w-[calc(100vw-1.5rem)] items-center justify-center gap-2 overflow-hidden rounded-full border border-cyan-200/65 bg-slate-950 p-0 text-xs font-black text-cyan-50 shadow-[0_20px_55px_rgba(8,145,178,0.35)] transition duration-300 hover:-translate-y-1 hover:scale-[1.03] hover:border-fuchsia-200/80 hover:shadow-[0_24px_70px_rgba(217,70,239,0.28)] sm:bottom-5 sm:right-5 sm:h-auto sm:w-auto sm:min-w-[9.25rem] sm:px-4 sm:py-3 sm:text-sm dark:border-cyan-100/35 dark:bg-slate-950/90",
           showTutorLauncher ? (isImmersiveGameRoute ? "hidden sm:inline-flex" : "inline-flex") : "hidden"

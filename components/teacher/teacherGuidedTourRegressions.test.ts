@@ -4,6 +4,9 @@ import { doesNotMatch, match, ok } from "node:assert/strict";
 import { test } from "node:test";
 
 const tourSource = readFileSync(join(process.cwd(), "components/teacher/TeacherGuidedTour.tsx"), "utf8");
+// The spotlight/keyboard/a11y behaviour lives in the shared engine the student
+// tour also uses; only the steps and the storage key stay teacher-specific.
+const engineSource = readFileSync(join(process.cwd(), "components/onboarding/GuidedTour.tsx"), "utf8");
 const shellSource = readFileSync(join(process.cwd(), "components/teacher/TeacherShell.tsx"), "utf8");
 const dashboardSource = readFileSync(join(process.cwd(), "components/teacher/TeacherDashboardView.tsx"), "utf8");
 
@@ -22,17 +25,21 @@ test("the tour auto-launches only for first-time real workspaces, never under au
 
 test("tour completion is persisted per user and both exits are recorded", () => {
   ok(tourSource.includes("mais-teacher-tour:v1:"), "the storage key must be versioned and user-scoped");
-  match(tourSource, /finish\("completed"\)/, "finishing the last step must be recorded");
-  match(tourSource, /finish\("skipped"\)/, "skipping must be recorded so the tour does not nag");
+  ok(
+    tourSource.includes("storageKey={teacherTourStorageKey(userId)}"),
+    "the teacher tour must hand its own key to the shared engine"
+  );
+  match(engineSource, /finish\("completed"\)/, "finishing the last step must be recorded");
+  match(engineSource, /finish\("skipped"\)/, "skipping must be recorded so the tour does not nag");
 });
 
 test("the tour dialog is keyboard and screen-reader accessible", () => {
-  ok(tourSource.includes('role="dialog"'), "the tour card must be a dialog");
-  ok(tourSource.includes('aria-modal="true"'), "the tour card must be modal");
-  ok(tourSource.includes('aria-live="polite"'), "step changes must be announced");
-  match(tourSource, /"Escape"/, "Esc must dismiss the tour");
-  match(tourSource, /"ArrowRight"[\s\S]*"ArrowLeft"/, "arrow keys must step the tour");
-  match(tourSource, /"Tab"/, "focus must stay trapped in the card");
+  ok(engineSource.includes('role="dialog"'), "the tour card must be a dialog");
+  ok(engineSource.includes('aria-modal="true"'), "the tour card must be modal");
+  ok(engineSource.includes('aria-live="polite"'), "step changes must be announced");
+  match(engineSource, /"Escape"/, "Esc must dismiss the tour");
+  match(engineSource, /"ArrowRight"[\s\S]*"ArrowLeft"/, "arrow keys must step the tour");
+  match(engineSource, /"Tab"/, "focus must stay trapped in the card");
 });
 
 test("every tour step has a live anchor in the shell or dashboard", () => {

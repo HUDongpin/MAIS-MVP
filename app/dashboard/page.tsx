@@ -3,15 +3,17 @@
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { DashboardGradeSelectorGrid } from "@/components/dashboard/DashboardGradeSelectorGrid";
+import { DashboardNextStepPanel } from "@/components/dashboard/DashboardNextStepPanel";
 import { StudentProfilePanel } from "@/components/dashboard/StudentProfilePanel";
 import { StudentRewardsPanel } from "@/components/dashboard/StudentRewardsPanel";
 import { StudentMotivationHub } from "@/components/gamification/StudentMotivationHub";
+import { requestStudentGuidedTour } from "@/components/onboarding/StudentGuidedTour";
 import { dictionary, useSettings } from "@/components/providers/AppProviders";
 import { curriculumProfileLabel } from "@/lib/curriculumProfile";
 import { formatGradeLabelForCurriculum, formatLearnerName, formatUnitedStatesGradeLabel, isChineseLanguage, simplifyChineseText } from "@/lib/i18n";
 import { studentLessonsPath } from "@/lib/lessonLinks";
 import { studentAssignmentHref, studentAssignmentsPath } from "@/lib/studentAssignmentRoutes";
-import type { DashboardData, StudentAssignmentItem } from "@/types";
+import type { DashboardData, LocalizedText, StudentAssignmentItem, SubmissionStatus } from "@/types";
 
 function readDashboard(value: unknown) {
   const response = value as { dashboard?: unknown } | null;
@@ -32,6 +34,88 @@ function formatDate(value: string, language: string) {
     month: "short",
     day: "numeric"
   }).format(new Date(value));
+}
+
+const dayInMilliseconds = 86_400_000;
+
+const submissionStatusLabels: Record<SubmissionStatus, LocalizedText> = {
+  "not-started": { en: "Not started", zh: "未開始", zhHans: "未开始" },
+  "in-progress": { en: "In progress", zh: "進行中", zhHans: "进行中" },
+  submitted: { en: "Submitted", zh: "已提交", zhHans: "已提交" },
+  graded: { en: "Graded", zh: "已批改", zhHans: "已批改" },
+  late: { en: "Late", zh: "逾期", zhHans: "逾期" },
+  "correction-required": { en: "Correction needed", zh: "需要訂正", zhHans: "需要订正" },
+  "correction-submitted": { en: "Correction sent", zh: "訂正已提交", zhHans: "订正已提交" },
+  resolved: { en: "Done", zh: "已完成", zhHans: "已完成" }
+};
+
+function startOfDayTime(value: Date) {
+  return new Date(value.getFullYear(), value.getMonth(), value.getDate()).getTime();
+}
+
+/** Whole days from today to the due date: negative when overdue, null when there is no usable due date. */
+function assignmentDueDayOffset(dueAt: string | null) {
+  if (!dueAt) return null;
+  const due = new Date(dueAt);
+  if (Number.isNaN(due.getTime())) return null;
+  return Math.round((startOfDayTime(due) - startOfDayTime(new Date())) / dayInMilliseconds);
+}
+
+function isOpenAssignment(item: StudentAssignmentItem) {
+  return item.submission.status !== "graded" && item.submission.status !== "resolved";
+}
+
+/** Overdue first, then soonest due date, with undated work last. */
+function compareAssignmentUrgency(first: StudentAssignmentItem, second: StudentAssignmentItem) {
+  if (isOpenAssignment(first) !== isOpenAssignment(second)) return isOpenAssignment(first) ? -1 : 1;
+  const firstDue = first.assignment.dueAt ? new Date(first.assignment.dueAt).getTime() : Number.NaN;
+  const secondDue = second.assignment.dueAt ? new Date(second.assignment.dueAt).getTime() : Number.NaN;
+  if (Number.isNaN(firstDue) && Number.isNaN(secondDue)) return 0;
+  if (Number.isNaN(firstDue)) return 1;
+  if (Number.isNaN(secondDue)) return -1;
+  return firstDue - secondDue;
+}
+
+function AssignmentDueBadge({
+  dueAt,
+  language,
+  t
+}: {
+  dueAt: string | null;
+  language: string;
+  t: ReturnType<typeof useSettings>["t"];
+}) {
+  const offset = assignmentDueDayOffset(dueAt);
+  const dueDate = dueAt && offset !== null ? formatDate(dueAt, language) : "";
+  const overdueDays = offset !== null && offset < 0 ? Math.abs(offset) : 0;
+  const tone = offset === null
+    ? "border-slate-200/80 bg-white/70 text-slate-600 dark:border-white/10 dark:bg-white/[0.06] dark:text-slate-300"
+    : offset < 0
+      ? "border-rose-300/80 bg-rose-100/70 text-rose-800 dark:border-rose-200/30 dark:bg-rose-300/[0.14] dark:text-rose-100"
+      : offset <= 2
+        ? "border-amber-300/80 bg-amber-100/70 text-amber-800 dark:border-amber-200/30 dark:bg-amber-300/[0.14] dark:text-amber-100"
+        : "border-slate-200/80 bg-white/70 text-slate-600 dark:border-white/10 dark:bg-white/[0.06] dark:text-slate-300";
+  const label = offset === null
+    ? t({ en: "No due date", zh: "無截止日期", zhHans: "无截止日期" })
+    : offset < 0
+      ? t({
+        en: `Overdue by ${overdueDays} day${overdueDays === 1 ? "" : "s"} · ${dueDate}`,
+        zh: `逾期 ${overdueDays} 天 · ${dueDate}`,
+        zhHans: `逾期 ${overdueDays} 天 · ${dueDate}`
+      })
+      : offset === 0
+        ? t({ en: `Due today · ${dueDate}`, zh: `今天截止 · ${dueDate}`, zhHans: `今天截止 · ${dueDate}` })
+        : offset === 1
+          ? t({ en: `Due tomorrow · ${dueDate}`, zh: `明天截止 · ${dueDate}`, zhHans: `明天截止 · ${dueDate}` })
+          : t({
+            en: `Due in ${offset} days · ${dueDate}`,
+            zh: `${offset} 天後截止 · ${dueDate}`,
+            zhHans: `${offset} 天后截止 · ${dueDate}`
+          });
+
+  return (
+    <span className={`rounded-full border px-3 py-1 text-xs font-black ${tone}`}>{label}</span>
+  );
 }
 
 function DashboardLessonShortcutLink({
@@ -75,7 +159,7 @@ function DashboardLessonShortcutLink({
 
 function DashboardHeaderShortcuts({ lessonHref, lessonShortcutReady, t }: { lessonHref: string; lessonShortcutReady: boolean; t: (localized: { en: string; zh: string; zhHans?: string }) => string }) {
   return (
-    <span className="inline-flex flex-wrap items-center align-middle">
+    <span data-tour="student-lesson" className="inline-flex flex-wrap items-center align-middle">
       <DashboardLessonShortcutLink
         href={lessonHref}
         disabled={!lessonShortcutReady}
@@ -215,7 +299,18 @@ export default function DashboardPage() {
     ? `${currentUser.id}:${currentUser.role}:${currentUser.curriculumTrack}:${currentUser.curriculumProfile.region}:${currentUser.curriculumProfile.publisher ?? ""}`
     : "";
   const isChinese = isChineseLanguage(language);
-  const visibleAssignments = assignments.filter((item) => item.classGrade === selectedGrade);
+  const visibleAssignments = assignments
+    .filter((item) => item.classGrade === selectedGrade)
+    .sort(compareAssignmentUrgency);
+  const openAssignments = visibleAssignments.filter(isOpenAssignment);
+  const overdueAssignmentCount = openAssignments.filter((item) => {
+    const offset = assignmentDueDayOffset(item.assignment.dueAt);
+    return offset !== null && offset < 0;
+  }).length;
+  const dueSoonAssignmentCount = openAssignments.filter((item) => {
+    const offset = assignmentDueDayOffset(item.assignment.dueAt);
+    return offset !== null && offset >= 0 && offset <= 2;
+  }).length;
   const isUnitedStatesCourse = currentUser?.curriculumProfile.region === "US";
   const selectedGradeLabel = isUnitedStatesCourse
     ? formatUnitedStatesGradeLabel(selectedGrade, language, true)
@@ -425,7 +520,7 @@ export default function DashboardPage() {
   return (
     <div className="page-container py-10 sm:py-12">
       <div className="grid gap-6 lg:grid-cols-[1fr_360px]">
-        <section className="glass-panel flex h-full flex-col justify-between gap-8 overflow-hidden p-6 sm:p-8">
+        <section data-tour="student-home" className="glass-panel flex h-full flex-col justify-between gap-8 overflow-hidden p-6 sm:p-8">
           <div className="grid gap-8 lg:grid-cols-[minmax(0,1fr)_auto] lg:items-start">
             <div>
               {currentUser ? (
@@ -485,6 +580,18 @@ export default function DashboardPage() {
             </Link>
             <button
               type="button"
+              data-tour="student-tour-button"
+              onClick={() => {
+                setSettingsOpen(false);
+                setShortcutsOpen(false);
+                requestStudentGuidedTour();
+              }}
+              className={dashboardMenuButtonClassName}
+            >
+              {t({ en: "Show me around", zh: "帶我看看", zhHans: "带我看看" })}
+            </button>
+            <button
+              type="button"
               aria-expanded={settingsOpen}
               aria-haspopup="dialog"
               aria-controls="student-dashboard-settings-panel"
@@ -528,21 +635,54 @@ export default function DashboardPage() {
         </aside>
       </div>
 
-      {visibleAssignments.length ? (
-        <section className="glass-panel mt-6 p-5 sm:p-6" aria-labelledby="dashboard-assignments-heading">
-          <div className="flex flex-wrap items-start justify-between gap-3">
-            <div>
-              <p className="text-sm font-black uppercase tracking-[0.2em] text-cyan-600 dark:text-cyan-300">
-                {t({ en: "Task bay", zh: "任務艙", zhHans: "任务舱" })}
-              </p>
-              <h2 id="dashboard-assignments-heading" className="mt-2 text-2xl font-black text-slate-950 dark:text-white">
-                {t({ en: "Teacher-assigned work", zh: "老師分派內容", zhHans: "老师分派内容" })}
-              </h2>
+      <section data-tour="student-assignments" className="glass-panel mt-6 p-5 sm:p-6" aria-labelledby="dashboard-assignments-heading">
+        <div className="flex flex-wrap items-start justify-between gap-3">
+          <div>
+            <p className="text-sm font-black uppercase tracking-[0.2em] text-cyan-600 dark:text-cyan-300">
+              {t({ en: "Task bay", zh: "任務艙", zhHans: "任务舱" })}
+            </p>
+            <h2 id="dashboard-assignments-heading" className="mt-2 text-2xl font-black text-slate-950 dark:text-white">
+              {t({ en: "Teacher-assigned work", zh: "老師分派內容", zhHans: "老师分派内容" })}
+            </h2>
+            <div className="mt-3 flex flex-wrap items-center gap-2">
+              <span className="rounded-full border border-cyan-200/80 bg-cyan-100/75 px-3 py-1 text-xs font-black text-cyan-800 dark:border-cyan-200/30 dark:bg-cyan-300/[0.12] dark:text-cyan-100">
+                {t({
+                  en: `${openAssignments.length} to do`,
+                  zh: `${openAssignments.length} 項待完成`,
+                  zhHans: `${openAssignments.length} 项待完成`
+                })}
+              </span>
+              {overdueAssignmentCount ? (
+                <span className="rounded-full border border-rose-300/80 bg-rose-100/70 px-3 py-1 text-xs font-black text-rose-800 dark:border-rose-200/30 dark:bg-rose-300/[0.14] dark:text-rose-100">
+                  {t({
+                    en: `${overdueAssignmentCount} overdue`,
+                    zh: `${overdueAssignmentCount} 項逾期`,
+                    zhHans: `${overdueAssignmentCount} 项逾期`
+                  })}
+                </span>
+              ) : null}
+              {dueSoonAssignmentCount ? (
+                <span className="rounded-full border border-amber-300/80 bg-amber-100/70 px-3 py-1 text-xs font-black text-amber-800 dark:border-amber-200/30 dark:bg-amber-300/[0.14] dark:text-amber-100">
+                  {t({
+                    en: `${dueSoonAssignmentCount} due within 2 days`,
+                    zh: `${dueSoonAssignmentCount} 項兩天內截止`,
+                    zhHans: `${dueSoonAssignmentCount} 项两天内截止`
+                  })}
+                </span>
+              ) : null}
             </div>
-            <Link href={studentAssignmentsPath} className="focus-ring rounded-full border border-cyan-200/80 bg-cyan-50 px-4 py-2 text-sm font-black text-cyan-800 transition hover:-translate-y-0.5 dark:border-cyan-200/25 dark:bg-cyan-300/[0.12] dark:text-cyan-100">
-              {t({ en: "Open assignments", zh: "開啟作業", zhHans: "打开作业" })}
-            </Link>
           </div>
+          <Link href={studentAssignmentsPath} className="focus-ring rounded-full border border-cyan-200/80 bg-cyan-50 px-4 py-2 text-sm font-black text-cyan-800 transition hover:-translate-y-0.5 dark:border-cyan-200/25 dark:bg-cyan-300/[0.12] dark:text-cyan-100">
+            {visibleAssignments.length > 4
+              ? t({
+                en: `View all ${visibleAssignments.length} assignments`,
+                zh: `查看全部 ${visibleAssignments.length} 項作業`,
+                zhHans: `查看全部 ${visibleAssignments.length} 项作业`
+              })
+              : t({ en: "Open assignments", zh: "開啟作業", zhHans: "打开作业" })}
+          </Link>
+        </div>
+        {visibleAssignments.length ? (
           <div className="mt-5 grid gap-3 md:grid-cols-2 xl:grid-cols-4">
             {visibleAssignments.slice(0, 4).map((item) => (
               <article key={item.assignment.id} className="soft-panel grid min-h-64 gap-3 p-4">
@@ -552,9 +692,9 @@ export default function DashboardPage() {
                     {text(item.assignment.title)}
                   </Link>
                 </div>
-                <div className="flex flex-wrap items-center justify-between gap-2 text-xs font-black text-slate-600 dark:text-slate-200">
-                  <span className="rounded-full border border-cyan-200/80 bg-cyan-100/75 px-3 py-1 text-cyan-800 dark:border-cyan-200/30 dark:bg-cyan-300/[0.12] dark:text-cyan-100">{item.submission.status}</span>
-                  <span>{item.assignment.dueAt ? formatDate(item.assignment.dueAt, language) : t({ en: "No due date", zh: "無截止日期", zhHans: "无截止日期" })}</span>
+                <div className="flex flex-wrap items-center gap-2 text-xs font-black text-slate-600 dark:text-slate-200">
+                  <span className="rounded-full border border-cyan-200/80 bg-cyan-100/75 px-3 py-1 text-cyan-800 dark:border-cyan-200/30 dark:bg-cyan-300/[0.12] dark:text-cyan-100">{t(submissionStatusLabels[item.submission.status])}</span>
+                  <AssignmentDueBadge dueAt={item.assignment.dueAt} language={language} t={t} />
                 </div>
                 {item.submission.feedback ? (
                   <p className="max-h-20 overflow-auto break-words text-xs font-bold leading-5 text-slate-600 dark:text-slate-200">{text(item.submission.feedback)}</p>
@@ -575,28 +715,103 @@ export default function DashboardPage() {
                     className="focus-ring rounded-2xl border border-cyan-100/80 bg-white/80 px-3 py-2 text-sm text-slate-950 dark:border-white/10 dark:bg-white/[0.08] dark:text-white"
                   />
                 </label>
-                <button
-                  disabled={assignmentSavingId === item.assignment.id || !(assignmentDrafts[item.assignment.id]?.trim())}
-                  onClick={() => submitAssignmentDraft(item)}
-                  type="button"
-                  className="focus-ring rounded-full bg-slate-950 px-4 py-2 text-xs font-black text-white disabled:opacity-50 dark:bg-white dark:text-slate-950"
-                >
-                  {assignmentSavingId === item.assignment.id
-                    ? t({ en: "Submitting", zh: "提交中", zhHans: "提交中" })
-                    : item.submission.status === "correction-required"
-                      ? t({ en: "Submit correction", zh: "提交訂正", zhHans: "提交订正" })
-                      : t({ en: "Submit work", zh: "提交作業", zhHans: "提交作业" })}
-                </button>
+                <div className="flex flex-wrap gap-2">
+                  <button
+                    disabled={assignmentSavingId === item.assignment.id || !(assignmentDrafts[item.assignment.id]?.trim())}
+                    onClick={() => submitAssignmentDraft(item)}
+                    type="button"
+                    className="focus-ring rounded-full bg-slate-950 px-4 py-2 text-xs font-black text-white disabled:opacity-50 dark:bg-white dark:text-slate-950"
+                  >
+                    {assignmentSavingId === item.assignment.id
+                      ? t({ en: "Submitting", zh: "提交中", zhHans: "提交中" })
+                      : item.submission.status === "correction-required"
+                        ? t({ en: "Submit correction", zh: "提交訂正", zhHans: "提交订正" })
+                        : t({ en: "Submit work", zh: "提交作業", zhHans: "提交作业" })}
+                  </button>
+                  <Link
+                    href={assignmentHref(item)}
+                    className="focus-ring rounded-full border border-cyan-200/80 bg-white/80 px-4 py-2 text-xs font-black text-cyan-800 transition hover:-translate-y-0.5 dark:border-cyan-200/25 dark:bg-white/[0.08] dark:text-cyan-100"
+                  >
+                    {t({ en: "Open task", zh: "開啟任務", zhHans: "打开任务" })}
+                  </Link>
+                </div>
               </article>
             ))}
           </div>
-        </section>
-      ) : null}
+        ) : (
+          <div className="mt-5 grid gap-3 rounded-3xl border border-dashed border-cyan-300/70 bg-cyan-50/60 px-5 py-6 dark:border-cyan-200/25 dark:bg-cyan-300/[0.08]">
+            <p className="text-base font-black text-slate-950 dark:text-white">
+              {t({ en: "Nothing assigned right now", zh: "現在沒有分派的任務", zhHans: "现在没有分派的任务" })}
+            </p>
+            <p className="max-w-2xl text-sm leading-6 text-slate-600 dark:text-slate-300">
+              {t({
+                en: "New work from your teacher shows up here with its due date. Until then, keep going with your lesson or practice.",
+                zh: "老師分派的新任務會連同截止日期顯示在這裡。在此之前，可以繼續你的課時或練習。",
+                zhHans: "老师分派的新任务会连同截止日期显示在这里。在此之前，可以继续你的课时或练习。"
+              })}
+            </p>
+            <div className="flex flex-wrap gap-2">
+              <DashboardLessonShortcutLink
+                href={lessonShortcutHref}
+                disabled={!lessonShortcutReady}
+                label={t({ en: "Lesson", zh: "課時", zhHans: "课时" })}
+                ariaLabel={lessonShortcutReady
+                  ? t({ en: "Open lesson", zh: "開啟課時", zhHans: "打开课时" })
+                  : t({ en: "Preparing lesson", zh: "正在準備課時", zhHans: "正在准备课时" })}
+              />
+              <Link href="/practice" data-tour="student-practice" className="focus-ring inline-flex h-11 items-center justify-center rounded-full border border-cyan-200/80 bg-white/80 px-5 text-sm font-black text-cyan-800 transition hover:-translate-y-0.5 dark:border-cyan-200/25 dark:bg-white/[0.08] dark:text-cyan-100">
+                {t({ en: "Practice arena", zh: "練習場", zhHans: "练习场" })}
+              </Link>
+            </div>
+          </div>
+        )}
+      </section>
 
       {loadSecondaryPanels ? (
         <>
           <StudentMotivationHub />
+          <DashboardNextStepPanel />
           <StudentRewardsPanel />
+          <section className="glass-panel mt-6 p-5 sm:p-6" aria-labelledby="dashboard-explore-heading">
+            <p className="text-sm font-black uppercase tracking-[0.2em] text-cyan-600 dark:text-cyan-300">
+              {t({ en: "Keep exploring", zh: "繼續探索", zhHans: "继续探索" })}
+            </p>
+            <h2 id="dashboard-explore-heading" className="mt-2 text-2xl font-black text-slate-950 dark:text-white">
+              {t({ en: "Analytics and knowledge galaxy", zh: "學習分析與知識星圖", zhHans: "学习分析与知识星图" })}
+            </h2>
+            <div className="mt-5 grid gap-3 md:grid-cols-2">
+              {[
+                {
+                  detail: t({
+                    en: "Weekly activity, mastery map, and the topics that need another pass.",
+                    zh: "每週活動、掌握度地圖，以及需要再練一次的課題。",
+                    zhHans: "每周活动、掌握度地图，以及需要再练一次的课题。"
+                  }),
+                  href: "/progress",
+                  label: t({ en: "Open analytics", zh: "開啟學習分析", zhHans: "打开学习分析" }),
+                  title: t({ en: "Learning analytics", zh: "學習分析", zhHans: "学习分析" })
+                },
+                {
+                  detail: t({
+                    en: "See your skills as a star map, with the route your recommendations follow.",
+                    zh: "以星圖檢視你的技能，並看到建議所依循的航線。",
+                    zhHans: "以星图查看你的技能，并看到建议所依循的航线。"
+                  }),
+                  href: "/personalized-learning",
+                  label: t({ en: "Open galaxy", zh: "開啟知識星圖", zhHans: "打开知识星图" }),
+                  title: t({ en: "Knowledge galaxy", zh: "知識星圖", zhHans: "知识星图" })
+                }
+              ].map((card) => (
+                <article key={card.href} className="soft-panel grid gap-3 p-4">
+                  <p className="text-lg font-black text-slate-950 dark:text-white">{card.title}</p>
+                  <p className="text-sm leading-6 text-slate-600 dark:text-slate-300">{card.detail}</p>
+                  <Link href={card.href} className="focus-ring inline-flex w-fit items-center justify-center rounded-full border border-cyan-200/80 bg-cyan-50 px-4 py-2 text-sm font-black text-cyan-800 transition hover:-translate-y-0.5 dark:border-cyan-200/25 dark:bg-cyan-300/[0.12] dark:text-cyan-100">
+                    {card.label}
+                  </Link>
+                </article>
+              ))}
+            </div>
+          </section>
         </>
       ) : null}
     </div>

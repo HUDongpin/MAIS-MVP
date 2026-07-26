@@ -125,7 +125,7 @@ export function StudentLearningPathsView() {
   if (paths === null || paths.length === 0) return null;
 
   return (
-    <section className="mx-auto grid w-full max-w-5xl gap-4 px-4 pt-8 sm:px-6">
+    <section data-tour="student-learning-paths" className="mx-auto grid w-full max-w-5xl gap-4 px-4 pt-8 sm:px-6">
       <div>
         <h2 className="text-2xl font-black text-slate-950 dark:text-white">{t({ en: "Your learning paths", zh: "你的學習路徑" })}</h2>
         <p className="mt-1 text-sm font-semibold text-slate-500 dark:text-slate-400">{t({ en: "Follow each step in order — finish one to unlock the next.", zh: "按順序完成每個步驟，完成一步即可解鎖下一步。" })}</p>

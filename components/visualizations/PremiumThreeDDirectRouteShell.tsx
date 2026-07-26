@@ -96,6 +96,7 @@ export function PremiumThreeDDirectRouteShell({ lab }: { lab: FeaturedLabDefinit
         ref={workspaceRef}
         id={workspaceIdentityHydrated ? `lab-example-${lab.labId}` : undefined}
         aria-label="Visualization Lab workspace"
+        data-tour="student-tool-workspace"
         data-viz-direct-optimized-route
         data-viz-direct-workspace-id-ready={String(workspaceIdentityHydrated)}
         data-viz-panel-mode={directRuntimeReady ? "lab" : "loading"}

@@ -84,7 +84,9 @@ export function StudentRoadmapPage() {
           </div>
         )}
       />
-      <LearningRoadmap mode="student" />
+      <div data-tour="student-roadmap-path">
+        <LearningRoadmap mode="student" />
+      </div>
       <LearningPathBackToTopButton />
     </div>
   );

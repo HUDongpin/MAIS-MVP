@@ -5,6 +5,7 @@ import { usePathname, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { dictionary, useSettings } from "@/components/providers/AppProviders";
 import { MapLikeLogoMark } from "@/components/layout/MapLikeLogoMark";
+import { requestStudentGuidedTour } from "@/components/onboarding/StudentGuidedTour";
 import { LanguageToggle } from "@/components/ui/LanguageToggle";
 import { ThemeToggle } from "@/components/ui/ThemeToggle";
 import { isImmersiveStudentPracticeGamePath } from "@/lib/gameBasedLearning";
@@ -12,6 +13,7 @@ import { formatLearnerName } from "@/lib/i18n";
 import { studentLessonsPath } from "@/lib/lessonLinks";
 import { cn } from "@/lib/utils";
 import { studentVisualizationToolsPath } from "@/lib/visualizationRoutes";
+import type { LocalizedText } from "@/types";
 
 function practiceHrefForPathname(pathname: string) {
   const lessonMatch = pathname.match(/^\/student\/lessons\/([^/]+)/) ?? pathname.match(/^\/lesson\/([^/]+)/);
@@ -64,8 +66,16 @@ export function Navbar() {
       ? studentLessonsPath
       : `/login?next=${encodeURIComponent(studentLessonsPath)}`;
   const practiceHref = practiceHrefForPathname(pathname);
-  const primaryNavItems = [
-    { key: "lesson", href: lessonHref, label: dictionary.lesson.label, activePaths: [studentLessonsPath] },
+  // tourAnchor marks the links the student guided tour points at. The desktop row
+  // and the mobile menu both carry it; the tour spotlights whichever copy is laid out.
+  const primaryNavItems: Array<{
+    key: string;
+    href: string;
+    label: LocalizedText;
+    activePaths: string[];
+    tourAnchor?: string;
+  }> = [
+    { key: "lesson", href: lessonHref, label: dictionary.lesson.label, activePaths: [studentLessonsPath], tourAnchor: "student-lesson" },
     {
       key: "personalized-learning",
       href: "/personalized-learning",
@@ -73,7 +83,7 @@ export function Navbar() {
       activePaths: ["/personalized-learning", "/adaptive-learning"]
     },
     { key: "visualization-lab", href: studentVisualizationToolsPath, label: dictionary.nav.visualizationLab, activePaths: [studentVisualizationToolsPath, "/visualization-lab"] },
-    { key: "practice", href: practiceHref, label: dictionary.nav.practice, activePaths: ["/practice", "/mistake-book"] },
+    { key: "practice", href: practiceHref, label: dictionary.nav.practice, activePaths: ["/practice", "/mistake-book"], tourAnchor: "student-practice" },
     { key: "about", href: "/about", label: { en: "About", zh: "關於", zhHans: "关于" }, activePaths: ["/about"] }
   ];
   const guestAuthLinks = [
@@ -90,6 +100,8 @@ export function Navbar() {
       active: pathname.startsWith("/register")
     }
   ] as const;
+  const isStudent = currentUser?.role === "student";
+  const showMeAroundLabel: LocalizedText = { en: "Show me around", zh: "帶我看看", zhHans: "带我看看" };
   const hasTeacherWorkspace = currentUser?.role === "teacher" || currentUser?.role === "admin";
   const hasParentWorkspace = currentUser?.role === "parent";
   const accountHref = hasTeacherWorkspace ? "/teacher/dashboard" : hasParentWorkspace ? "/parent" : "/dashboard";
@@ -167,6 +179,7 @@ export function Navbar() {
                 href={item.href}
                 prefetch={false}
                 aria-current={active ? "page" : undefined}
+                data-tour={item.tourAnchor}
                 className={className}
               >
                 {t(item.label)}
@@ -208,6 +221,18 @@ export function Navbar() {
         </div>
 
         <div className="flex shrink-0 items-center gap-1 sm:gap-1.5 xl:gap-2">
+          {isStudent ? (
+            <button
+              type="button"
+              data-tour="student-tour-button"
+              aria-label={t(showMeAroundLabel)}
+              title={t(showMeAroundLabel)}
+              onClick={() => requestStudentGuidedTour()}
+              className="focus-ring inline-flex h-11 w-11 items-center justify-center rounded-full border border-cyan-300/45 bg-white text-lg font-black text-cyan-700 shadow-sm transition hover:-translate-y-0.5 hover:bg-cyan-50 dark:border-cyan-300/25 dark:bg-white/[0.08] dark:text-cyan-100"
+            >
+              <span aria-hidden="true">🧭</span>
+            </button>
+          ) : null}
           <LanguageToggle />
           <ThemeToggle />
           {currentUser ? (
@@ -254,6 +279,7 @@ export function Navbar() {
                   prefetch={false}
                   onClick={() => setOpen(false)}
                   aria-current={active ? "page" : undefined}
+                  data-tour={item.tourAnchor}
                   className={className}
                 >
                   {t(item.label)}

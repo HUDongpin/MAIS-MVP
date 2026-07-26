@@ -223,6 +223,7 @@ export function PracticeAdventureArenaShell({
             <button
               type="button"
               onClick={onStartMission}
+              data-tour="student-practice-start"
               className="focus-ring inline-flex min-h-16 items-center justify-center gap-3 rounded-2xl bg-[#ff5a4f] px-8 text-xl font-black text-white shadow-[0_10px_0_#dc3f37,0_18px_32px_rgba(220,63,55,0.25)] transition hover:-translate-y-0.5 active:translate-y-0"
             >
               <PracticeIcon />{t({ en: "Start Mission", zh: "開始任務", zhHans: "开始任务" })}
@@ -230,7 +231,7 @@ export function PracticeAdventureArenaShell({
           </div>
         </div>
 
-        <div className="relative min-h-[390px] overflow-hidden rounded-[18px] shadow-[0_18px_42px_rgba(8,47,73,0.18)]">
+        <div data-tour="student-practice-map" className="relative min-h-[390px] overflow-hidden rounded-[18px] shadow-[0_18px_42px_rgba(8,47,73,0.18)]">
           <Image src={islandMap} alt={t({ en: "Adventure island map with math mission landmarks", zh: "包含數學任務地標的探險島地圖", zhHans: "包含数学任务地标的探险岛地图" })} fill sizes="(min-width: 1024px) 58vw, 100vw" className="object-cover object-[58%_50%] lg:object-center" priority />
           {regions.map((status) => (
             <button

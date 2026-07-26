@@ -151,7 +151,7 @@ export default function StudentAssessmentPage() {
         ) : null}
       </section>
 
-      <form onSubmit={submitAssessment} className="mt-7 grid gap-6">
+      <form onSubmit={submitAssessment} data-tour="student-assessment-questions" className="mt-7 grid gap-6">
         {data.questionSections.map((section, sectionIndex) => (
           <section key={section.id} className="grid gap-5">
             <div className="glass-panel p-5 sm:p-6">
@@ -218,7 +218,7 @@ export default function StudentAssessmentPage() {
           </section>
         ))}
 
-        <section className="glass-panel flex flex-wrap items-center justify-between gap-4 p-5 sm:p-6">
+        <section data-tour="student-assessment-submit" className="glass-panel flex flex-wrap items-center justify-between gap-4 p-5 sm:p-6">
           <div>
             <p className="text-sm font-black text-slate-500 dark:text-slate-400">{t({ en: "Current score", zh: "目前分數" })}</p>
             <p className="mt-1 text-3xl font-black gradient-text">{scoreLabel(data.submission)}</p>
