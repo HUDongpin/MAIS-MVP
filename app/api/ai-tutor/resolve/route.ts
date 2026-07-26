@@ -50,8 +50,8 @@ import {
   extractLLMProviderUsage,
   fetchLLMProviderResponse,
   readAITutorProviderProfile,
+  readAITutorImageProviderConfig,
   readAITutorTextProviderConfigs,
-  readQwenImageProviderConfig,
   resolveAITutorProviderTimeoutMs,
   resolveLLMMaxCompletionTokens,
   selectAvailableLLMProviderConfig,
@@ -364,7 +364,9 @@ function readProviderConfig(): ProviderConfig {
 }
 
 function readVisionProviderConfig(): ProviderConfig {
-  return readQwenImageProviderConfig();
+  // Preference-aware: routes image turns to the US-hosted vision model when
+  // AI_TUTOR_PREFERRED_TEXT_PROVIDER=deepinfra and its key is configured.
+  return readAITutorImageProviderConfig();
 }
 
 function providerSupportsImageInput(_provider: ProviderName) {
