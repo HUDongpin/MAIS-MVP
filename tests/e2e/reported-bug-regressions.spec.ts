@@ -158,7 +158,7 @@ test.describe("reported bug regressions", () => {
     const pageErrors = collectPageErrors(page);
 
     await authenticateAsDemoStudent(page);
-    await page.route("**/api/me**", async (route) => {
+    await page.route("**/api/auth/session-state**", async (route) => {
       await new Promise((resolve) => setTimeout(resolve, 1200));
       await route.continue();
     }, { times: 1 });

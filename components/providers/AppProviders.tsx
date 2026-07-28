@@ -530,7 +530,7 @@ export function AppProviders({ children }: { children: ReactNode }) {
       window.localStorage.removeItem("hk-math-mistakes");
 
       try {
-        const response = await fetch("/api/me?includeLessonEntry=false", { cache: "no-store" });
+        const response = await fetch("/api/auth/session-state?includeLessonEntry=false", { cache: "no-store" });
         if (response.ok) {
           const session = readAuthSession(await response.json());
           if (session && !cancelled) {
@@ -1104,10 +1104,15 @@ export function AppProviders({ children }: { children: ReactNode }) {
     if (sessionRevalidationInFlightRef.current) return;
     sessionRevalidationInFlightRef.current = true;
     try {
-      const response = await fetch("/api/me?includeLessonEntry=false", { cache: "no-store" });
+      const response = await fetch("/api/auth/session-state?includeLessonEntry=false", { cache: "no-store" });
       const previousUser = currentUserRef.current;
 
-      if (response.status === 401) {
+      if (!response.ok && response.status !== 401) return;
+      const payload: unknown = response.status === 401 ? { user: null } : await response.json();
+
+      // Signed out: the guest-tolerant endpoint answers 200 `{ user: null }`
+      // (a 401 is kept equivalent in case an auth boundary intercepts first).
+      if ((payload as { user?: unknown } | null)?.user === null) {
         if (previousUser) {
           clearLocalSession();
           const pathname = window.location.pathname;
@@ -1117,9 +1122,8 @@ export function AppProviders({ children }: { children: ReactNode }) {
         }
         return;
       }
-      if (!response.ok) return;
 
-      const session = readAuthSession(await response.json());
+      const session = readAuthSession(payload);
       if (!session) return;
 
       if (session.user.id !== previousUser?.id) {
