@@ -105,13 +105,16 @@ test("routes without slow server data carry no segment-level loading file", () =
   // build: with these files present every route below served '<template
   // id="B:' + '<div hidden id="S:' markers; without them, none did. Only
   // reintroduce a loading.tsx where the route genuinely awaits slow server
-  // data, and document why next to it.
+  // data, and document why next to it. app/student/lessons was the originally
+  // root-caused route (PR #69); its served-HTML marker guard lives at the end
+  // of the free-selection test in practice-pager.spec.ts.
   const racyLoadingFiles = [
     "app/adaptive-learning/loading.tsx",
     "app/lesson/loading.tsx",
     "app/personalized-learning/loading.tsx",
     "app/practice/loading.tsx",
     "app/student/assignments/loading.tsx",
+    "app/student/lessons/loading.tsx",
     "app/student/tools/visualizations/loading.tsx",
     "app/visualization-lab/loading.tsx"
   ];
