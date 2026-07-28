@@ -438,14 +438,15 @@ test.describe.serial("student button and dropdown matrix", () => {
     });
     let meRequests = 0;
 
-    await page.route("**/api/me*", async (route) => {
+    await page.route("**/api/auth/session-state*", async (route) => {
       meRequests += 1;
       if (meRequests === 1) {
         await meGate;
+        // Signed-out contract of the guest-tolerant endpoint: 200 { user: null }.
         await route.fulfill({
-          status: 401,
+          status: 200,
           contentType: "application/json",
-          body: JSON.stringify({ error: "Unauthenticated" })
+          body: JSON.stringify({ user: null })
         });
         resolveMeDone();
         return;
