@@ -23,7 +23,10 @@ const REQUIRED_ROOT_FILES = [
   "scripts/next-clean-build.mjs",
   "tailwind.config.ts",
   "tsconfig.json",
-  "tsconfig.next.json"
+  "tsconfig.next.json",
+  // Vercel reads regions, crons, and headers from the UPLOADED tree — omitting
+  // this file silently deploys with no keep-warm cron and no security headers.
+  "vercel.json"
 ];
 
 const REQUIRED_DIRECTORIES = [
