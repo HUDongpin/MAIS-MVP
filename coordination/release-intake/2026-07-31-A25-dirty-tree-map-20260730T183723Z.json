@@ -1,0 +1,78 @@
+{
+  "generatedAt": "2026-07-30T18:37:23.699Z",
+  "timezone": "Asia/Hong_Kong",
+  "sessions": [
+    "A25 git hygiene and release intake",
+    "A22 production reliability and release engineering",
+    "A10 tooling, docs, and report"
+  ],
+  "reason": "release hygiene dirty-tree refresh",
+  "statusSignature": "67b3585ed299a56efe6752b450d46e610127371422213f62e288079e9617c336",
+  "ownerPathspecs": "coordination/release-intake/owner-pathspecs.json",
+  "outputPaths": {
+    "latestJson": "coordination/release-intake/latest-A25-dirty-tree-map.json",
+    "latestMarkdown": "coordination/release-intake/latest-A25-dirty-tree-map.md",
+    "reportJson": "coordination/release-intake/2026-07-31-A25-dirty-tree-map-20260730T183723Z.json",
+    "reportMarkdown": "coordination/release-intake/2026-07-31-A25-dirty-tree-map-20260730T183723Z.md"
+  },
+  "policy": {
+    "rootReleaseFrozen": true,
+    "dirtyMapMaxAgeMinutes": 60,
+    "forbidGitAddDot": true,
+    "unmappedOwnerRule": "Strict release intake requires zero unmapped owner entries.",
+    "allowedReleaseSources": [
+      "clean-worktree",
+      "clean-clone",
+      "reviewed-clean-slice",
+      "owner-approved-pruned-staging"
+    ]
+  },
+  "statusCounts": {
+    "collapsedStatusEntries": 1,
+    "expandedStatusEntries": 1,
+    "trackedModified": 0,
+    "trackedDeleted": 0,
+    "untrackedStatusEntries": 1,
+    "untrackedFiles": 1,
+    "unmappedEntries": 0,
+    "unblockedUnmappedEntries": 0,
+    "ambiguousOwnerEntries": 0,
+    "topSpecificityTies": 0,
+    "rawMultiMatchEntries": 0,
+    "secretQuarantineEntries": 0
+  },
+  "ownerBuckets": {
+    "A10 Tooling, docs, report, and coordination contract": 1
+  },
+  "sliceBuckets": {
+    "docs/coordination evidence": 1
+  },
+  "releaseHygieneEntries": [],
+  "unmappedEntries": [],
+  "unblockedUnmappedEntries": [],
+  "ambiguousOwnerEntries": [],
+  "entries": [
+    {
+      "status": "??",
+      "path": "scripts/.a25-probe.mjs",
+      "owner": "A10 Tooling, docs, report, and coordination contract",
+      "ownerId": "A10",
+      "packageId": "A10-tooling-docs-config",
+      "matchedPathspec": "scripts/**",
+      "secretQuarantine": false,
+      "resolvedSlice": "docs/coordination evidence",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A10"
+        ],
+        "rawMatchCount": 1,
+        "topCandidateCount": 1,
+        "specificity": 798,
+        "precedence": 0,
+        "matchedPathspec": "scripts/**"
+      },
+      "slice": "docs/coordination evidence"
+    }
+  ]
+}
