@@ -82,6 +82,9 @@ jobs:
       - name: Run US math item quality audit (CA/AR/FL independent re-solve + key integrity)
         run: npm run audit:us-math-items
 
+      - name: Run lesson-illustration asset integrity gate (live manifests must not reference missing assets)
+        run: npm run audit:lesson-illustrations
+
       - name: Run visualization gate
         run: npm run test:visualizations
 
