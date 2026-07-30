@@ -1,5 +1,5 @@
 import { createCipheriv, createDecipheriv, createHash, randomBytes, randomUUID } from "node:crypto";
-import { mkdir, readFile, writeFile } from "node:fs/promises";
+import { mkdir, readdir, readFile, rm, writeFile } from "node:fs/promises";
 import path from "node:path";
 import {
   imageDataUrlMediaDescriptor,
@@ -422,6 +422,104 @@ export async function storeMediaObjectFromDataUrl({
     media: metadataToReference(metadata),
     metadata
   };
+}
+
+export type DeleteMediaObjectsResult = {
+  /** Object keys whose ciphertext and metadata sidecar were both removed. */
+  deletedObjectKeys: string[];
+  /** Object keys that could not be removed; the caller must not report success. */
+  failedObjectKeys: string[];
+};
+
+/**
+ * Deletes media objects for account erasure, by two independent routes.
+ *
+ * `ownerId` sweeps the store for objects whose metadata sidecar records the
+ * subject as owner. The sweep matters because an object whose referencing
+ * database row was already gone would otherwise survive erasure indefinitely.
+ * `ownerHash` in the sidecar is the authoritative owner link — the path prefix
+ * carries only its first 16 hex characters, which is not a safe equality test.
+ *
+ * `objectKeys` covers what the sweep cannot: media is owned by whoever
+ * UPLOADED it, so a classroom work sample photographed by a teacher is owned by
+ * the teacher even though it depicts an erased learner's work. The caller
+ * collects those keys from the learner's rows before they are deleted.
+ */
+export async function deleteMediaObjectsForOwner({
+  env = process.env,
+  objectKeys = [],
+  ownerId
+}: {
+  env?: EnvLike;
+  objectKeys?: readonly string[];
+  ownerId: string;
+}): Promise<DeleteMediaObjectsResult> {
+  const root = mediaObjectStoreDir(env);
+  const target = ownerHash(ownerId);
+  const deletedObjectKeys: string[] = [];
+  const failedObjectKeys: string[] = [];
+  const handled = new Set<string>();
+
+  for (const objectKey of objectKeys) {
+    if (!isSafeMediaObjectKey(objectKey) || handled.has(objectKey)) continue;
+    handled.add(objectKey);
+    const objectPath = mediaObjectPath(root, objectKey, objectExtension);
+    const metadataPath = mediaObjectPath(root, objectKey, metadataExtension);
+    if (!objectPath || !metadataPath) {
+      failedObjectKeys.push(objectKey);
+      continue;
+    }
+    try {
+      await rm(objectPath, { force: true });
+      await rm(metadataPath, { force: true });
+      deletedObjectKeys.push(objectKey);
+    } catch {
+      failedObjectKeys.push(objectKey);
+    }
+  }
+
+  const walk = async (directory: string): Promise<void> => {
+    let entries;
+    try {
+      entries = await readdir(directory, { withFileTypes: true });
+    } catch {
+      return; // Store directory absent (nothing was ever uploaded).
+    }
+
+    for (const entry of entries) {
+      const entryPath = path.join(directory, entry.name);
+      if (entry.isDirectory()) {
+        await walk(entryPath);
+        continue;
+      }
+      if (!entry.name.endsWith(metadataExtension)) continue;
+
+      const metadata = await readMetadataFile(entryPath);
+      if (!metadata || metadata.ownerHash !== target) continue;
+      if (handled.has(metadata.objectKey)) continue;
+      handled.add(metadata.objectKey);
+
+      const objectPath = entryPath.slice(0, -metadataExtension.length) + objectExtension;
+      try {
+        await rm(objectPath, { force: true });
+        await rm(entryPath, { force: true });
+        deletedObjectKeys.push(metadata.objectKey);
+      } catch {
+        failedObjectKeys.push(metadata.objectKey);
+      }
+    }
+  };
+
+  await walk(root);
+  return { deletedObjectKeys, failedObjectKeys };
+}
+
+async function readMetadataFile(metadataPath: string) {
+  try {
+    return metadataFromUnknown(JSON.parse(await readFile(metadataPath, "utf8")));
+  } catch {
+    return null;
+  }
 }
 
 export async function readStoredMediaObject({

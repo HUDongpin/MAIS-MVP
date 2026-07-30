@@ -608,10 +608,17 @@ import {
   type TeacherOpsAssessmentPersistenceDatabase
 } from "@/lib/server/userStore/teacherOpsAssessmentPersistence";
 import {
+  deleteMediaObjectsForOwner,
   mediaObjectAccessUrl,
   mediaObjectReferenceFromUnknown,
   type StoredMediaObjectReference
 } from "@/lib/server/mediaObjectStore";
+import {
+  collectErasableMediaObjectKeys,
+  eraseUserFromDatabase,
+  resolveErasureAuthorization,
+  type ErasureReceipt
+} from "@/lib/server/userStore/accountErasurePersistence";
 import { maybeEnrichTeacherReviewLessonPlanWithLLM } from "@/lib/server/teacherReviewLessonLLM";
 import {
   buildDeterministicTeacherLessonKitSections,
@@ -626,7 +633,7 @@ import {
 } from "@/lib/teacherReviewLesson";
 import { renderTeacherReviewLessonPptx } from "@/lib/teacherReviewLessonPptx";
 import { questionAnswerMatches } from "@/lib/server/answerGrading";
-import { readLearningEventsFastForUsers } from "@/lib/server/practiceAttemptStore";
+import { eraseUserRowsFast, readLearningEventsFastForUsers } from "@/lib/server/practiceAttemptStore";
 import { getWeComNotificationSummary, sendWeComGroupNotification } from "@/lib/server/wecomNotifications";
 import type {
   AdaptiveLearningCandidate,
@@ -8953,6 +8960,86 @@ export const backfillPostgresHotAuthTablesForAdmin = authUserStore.backfillPostg
 export const cleanupTemporaryBootstrapAdminsForAdmin = authUserStore.cleanupTemporaryBootstrapAdminsForAdmin;
 
 export const getStorageReadinessSnapshot = authUserStore.getStorageReadinessSnapshot;
+
+/**
+ * Accounts that `syncDemoAccountsFromAuthSessionPersistence` and
+ * `syncBootstrapAdminFromAuthSessionPersistence` recreate on every snapshot
+ * read. Erasing one would look like it worked and then silently reappear, so
+ * erasure refuses them rather than issuing a receipt it cannot honour.
+ */
+function seededAccountIdsForErasure(database: Database) {
+  const ids = storageSeedExampleAccountSeeds().map((seed) => seed.id);
+  const bootstrapAdmin = bootstrapAdminInputFromAuthSessionPersistence();
+  if (bootstrapAdmin) {
+    const normalizedUsername = normalizeUsernameFromAuthSessionPersistence(bootstrapAdmin.username);
+    database.users.forEach((user) => {
+      if (user.normalized_username === normalizedUsername) ids.push(user.id);
+    });
+  }
+  return ids;
+}
+
+export type EraseUserAccountResult =
+  | { status: "erased"; receipt: ErasureReceipt & { mediaObjectsDeleted: number; fastPathRows: Record<string, number> | null } }
+  | { status: "denied"; code: string; message: string };
+
+/**
+ * Fulfils an account deletion / data-erasure request (COPPA 312.6, CA SOPIPA,
+ * CPRA, GDPR Art.17, PIPL Art.47, and the destruction clause in district DPAs).
+ *
+ * Order matters. Media objects are deleted first, because the snapshot rows
+ * naming their object keys are about to be removed and a crash between the two
+ * steps must not strand undeletable ciphertext. The snapshot mutation runs
+ * inside `mutateDatabase`, which on Postgres also reconciles every `auth_*` and
+ * `projection_*` shadow table. Fast-path rows are deleted last, in their own
+ * connection, because they live outside the snapshot transaction.
+ */
+export async function eraseUserAccount({
+  requesterId,
+  subjectId
+}: {
+  requesterId: string;
+  subjectId: string;
+}): Promise<EraseUserAccountResult> {
+  const database = await readDatabase();
+  const authorization = resolveErasureAuthorization({
+    database,
+    requesterId,
+    subjectId,
+    seededAccountIds: seededAccountIdsForErasure(database)
+  });
+  if (authorization.status === "denied") {
+    return { status: "denied", code: authorization.code, message: authorization.message };
+  }
+
+  const media = await deleteMediaObjectsForOwner({
+    ownerId: subjectId,
+    objectKeys: collectErasableMediaObjectKeys(database, subjectId)
+  });
+  if (media.failedObjectKeys.length) {
+    return {
+      status: "denied",
+      code: "media-erasure-failed",
+      message: "Stored media could not be deleted, so the account was left intact. Please retry."
+    };
+  }
+
+  const snapshotReceipt = await mutateDatabase((current) =>
+    eraseUserFromDatabase({ database: current, subjectId })
+  );
+
+  const fastPathRows = await eraseUserRowsFast(subjectId);
+
+  return {
+    status: "erased",
+    receipt: {
+      ...snapshotReceipt,
+      basis: authorization.basis,
+      mediaObjectsDeleted: media.deletedObjectKeys.length,
+      fastPathRows
+    }
+  };
+}
 
 async function updateUserSettingsInPostgresHotTables(
   userId: string,

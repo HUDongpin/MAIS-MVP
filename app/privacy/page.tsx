@@ -252,10 +252,30 @@ const sections: readonly LegalDocumentSection[] = [
           to them.
         </p>
         <p>
-          <strong>How requests are fulfilled today.</strong> There is no self-service delete button
-          in the product yet. Requests are carried out manually by an operator against the
-          production database. We aim to complete them within 30 days. A self-service deletion and
-          export capability is the top item on our compliance engineering backlog.
+          <strong>Deletion is self-service and immediate.</strong> An account holder can delete their
+          own account, a parent or guardian can delete the account of a child they are linked to, and
+          a school administrator can delete the account of a learner at their school. Deletion runs
+          straight away rather than being queued for an operator, and it cannot be undone — there is
+          no recovery window and no way for us to restore the account afterwards.
+        </p>
+        <p>
+          Deleting an account permanently destroys the login and password, the learner profile,
+          every practice attempt, lesson progress and mastery estimate, all AI tutor conversations,
+          uploaded photographs of work, reward and game progress, and messages about the learner.
+          Records that belong to other people are kept but stripped of any link to the deleted
+          account: a class keeps its lessons and the other learners&rsquo; work, and a safeguarding
+          or AI-safety record is kept as evidence that we met our obligations, with the learner&rsquo;s
+          name, identifier, and any quoted words removed.
+        </p>
+        <p>
+          Two limits are worth stating plainly. Encrypted database backups continue to hold the data
+          until they age out of their retention window, so deletion is not instantaneous in backups.
+          And where a school has connected its own external learning-record system, we cannot delete
+          data from that system on the school&rsquo;s behalf — the school must action that separately.
+        </p>
+        <p>
+          Requests other than deletion — access, correction, export, or restriction — are still
+          carried out manually by an operator, and we aim to complete them within 30 days.
         </p>
       </>
     )

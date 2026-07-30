@@ -4,6 +4,7 @@ import { tmpdir } from "node:os";
 import path from "node:path";
 import test from "node:test";
 import {
+  deleteMediaObjectsForOwner,
   mediaObjectAccessUrl,
   mediaObjectReferenceFromUnknown,
   readStoredMediaObject,
@@ -90,4 +91,118 @@ test("media object references reject path traversal keys at the API boundary", (
   });
 
   assert.equal(reference, null);
+});
+
+test("account erasure deletes every media object the subject owns", async () => {
+  await withTempStore(async (dir) => {
+    const env = {
+      AI_MEDIA_OBJECT_STORE_DIR: dir,
+      AI_MEDIA_ENCRYPTION_KEY: mediaEncryptionKey
+    };
+
+    const subjectAvatar = await storeMediaObjectFromDataUrl({
+      capability: "profile-avatar",
+      dataUrl: pngDataUrl,
+      env,
+      ownerId: "student-erased"
+    });
+    const subjectWork = await storeMediaObjectFromDataUrl({
+      capability: "assignment-image",
+      dataUrl: pngDataUrl,
+      env,
+      ownerId: "student-erased"
+    });
+    const bystander = await storeMediaObjectFromDataUrl({
+      capability: "profile-avatar",
+      dataUrl: pngDataUrl,
+      env,
+      ownerId: "student-kept"
+    });
+    assert.equal(subjectAvatar.status, "stored");
+    assert.equal(subjectWork.status, "stored");
+    assert.equal(bystander.status, "stored");
+    if (subjectAvatar.status !== "stored" || subjectWork.status !== "stored" || bystander.status !== "stored") return;
+
+    const result = await deleteMediaObjectsForOwner({ env, ownerId: "student-erased" });
+
+    assert.equal(result.failedObjectKeys.length, 0);
+    assert.deepEqual(
+      result.deletedObjectKeys.sort(),
+      [subjectAvatar.metadata.objectKey, subjectWork.metadata.objectKey].sort()
+    );
+
+    for (const objectKey of result.deletedObjectKeys) {
+      const gone = await readStoredMediaObject({
+        env,
+        objectKey,
+        requester: { id: "student-erased", role: "student" }
+      });
+      assert.notEqual(gone.status, "ok", "erased media must not be readable");
+    }
+
+    const survivor = await readStoredMediaObject({
+      env,
+      objectKey: bystander.metadata.objectKey,
+      requester: { id: "student-kept", role: "student" }
+    });
+    assert.equal(survivor.status, "ok", "another learner's media is untouched");
+  });
+});
+
+test("account erasure deletes media uploaded by someone else that depicts the subject", async () => {
+  await withTempStore(async (dir) => {
+    const env = {
+      AI_MEDIA_OBJECT_STORE_DIR: dir,
+      AI_MEDIA_ENCRYPTION_KEY: mediaEncryptionKey
+    };
+
+    // A teacher photographs a learner's work: the object is owned by the
+    // TEACHER, so an owner sweep for the learner would never find it.
+    const workSample = await storeMediaObjectFromDataUrl({
+      capability: "classroom-work-sample",
+      dataUrl: pngDataUrl,
+      env,
+      ownerId: "teacher-1"
+    });
+    assert.equal(workSample.status, "stored");
+    if (workSample.status !== "stored") return;
+
+    const sweptOnly = await deleteMediaObjectsForOwner({ env, ownerId: "student-erased" });
+    assert.deepEqual(sweptOnly.deletedObjectKeys, [], "the sweep alone cannot reach it");
+
+    const byKey = await deleteMediaObjectsForOwner({
+      env,
+      ownerId: "student-erased",
+      objectKeys: [workSample.metadata.objectKey]
+    });
+    assert.deepEqual(byKey.deletedObjectKeys, [workSample.metadata.objectKey]);
+
+    const gone = await readStoredMediaObject({
+      env,
+      objectKey: workSample.metadata.objectKey,
+      requester: { id: "teacher-1", role: "teacher" }
+    });
+    assert.notEqual(gone.status, "ok");
+  });
+});
+
+test("erasing a user with no stored media is a no-op, not an error", async () => {
+  await withTempStore(async (dir) => {
+    const result = await deleteMediaObjectsForOwner({
+      env: { AI_MEDIA_OBJECT_STORE_DIR: path.join(dir, "never-created") },
+      ownerId: "student-erased"
+    });
+    assert.deepEqual(result, { deletedObjectKeys: [], failedObjectKeys: [] });
+  });
+});
+
+test("account erasure refuses to follow a traversal key out of the media store", async () => {
+  await withTempStore(async (dir) => {
+    const result = await deleteMediaObjectsForOwner({
+      env: { AI_MEDIA_OBJECT_STORE_DIR: dir },
+      objectKeys: ["../../etc/passwd"],
+      ownerId: "student-erased"
+    });
+    assert.deepEqual(result.deletedObjectKeys, []);
+  });
 });

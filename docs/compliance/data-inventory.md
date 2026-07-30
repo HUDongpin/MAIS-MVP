@@ -167,7 +167,7 @@ route collects no date of birth and presents no consent control (`app/register/p
 
 ---
 
-## 5. Retention and deletion — **the hard gap**
+## 5. Retention and deletion — **deletion resolved, retention still open**
 
 | Data | Retention | Source |
 |---|---|---|
@@ -176,20 +176,25 @@ route collects no date of birth and presents no consent control (`app/register/p
 | Learning events / practice attempts / mistake book | **None found — indefinite** | — |
 | Auth records + student profiles | **None found — indefinite** | — |
 
-**No account-deletion or data-erasure endpoint exists.** A search across
-`app/api/auth`, `app/api/me` and `app/api/student` returns no `DELETE` handler, and
-there is no route directory matching `*delete*` or `*account*`.
+**Deletion — G1 — is now implemented.** `DELETE /api/account`
+(`app/api/account/route.ts`) erases an account across all four stores: the
+app-state snapshot, the reconciled Postgres `auth_*` and `projection_*` tables,
+the fast-path rows in `practiceAttemptStore.ts`, and the encrypted media object
+store. The account holder, a linked guardian, and a school administrator may all
+invoke it — under COPPA §312.6 the right belongs to the parent, not only to the
+child holding the login.
 
-This is a hard blocker, not a paperwork gap. Essentially every applicable regime
-requires it:
+The per-collection hard-delete / anonymise / retain decisions, the authorisation
+matrix, and the residual limits (database backups, and any district-connected
+external LRS) are documented in **[`data-erasure.md`](./data-erasure.md)** and
+gated in CI by `npm run test:account-erasure`.
 
-- COPPA §312.6 — parent's right to direct deletion of a child's data
-- CA SOPIPA — deletion at the district's request
-- CPRA — consumer right to deletion
-- GDPR Art. 17 / PIPL Art. 47 — erasure
-- Standard district DPAs — data return **and** destruction at contract termination
+This satisfies the erasure obligation common to COPPA §312.6, CA SOPIPA, CPRA,
+GDPR Art. 17, PIPL Art. 47, and the destruction clause in standard district DPAs.
 
-A district will not sign a DPA that the product cannot technically honour.
+**Retention is still open (G5).** Erasure is request-driven; nothing yet expires
+tutor transcripts, learning events, or auth records on a timer. Only media
+objects carry a retention bound today.
 
 ---
 
@@ -197,7 +202,7 @@ A district will not sign a DPA that the product cannot technically honour.
 
 | # | Gap | Severity | Bound by |
 |---|---|---|---|
-| G1 | No account-deletion / erasure capability (§5) | **Blocker** | Engineering |
+| ~~G1~~ | ~~No account-deletion / erasure capability (§5)~~ — **RESOLVED**: `DELETE /api/account`, see [`data-erasure.md`](./data-erasure.md) | — | Done |
 | G2 | No region-gated provider routing; PRC providers serve US learners (§3.1) | **Blocker** for US districts | Engineering |
 | G3 | No privacy policy, terms, or accessibility statement; no routes, no footer links | **Blocker** | Legal + small eng |
 | G4 | No age gate or consent capture at registration (§4) | **Blocker** for COPPA | Engineering |
@@ -205,12 +210,12 @@ A district will not sign a DPA that the product cannot technically honour.
 | G6 | No signed DPA template or subprocessor disclosure page | High | Legal (1–3 mo/district) |
 | G7 | No VPAT / WCAG 2.1 AA statement; zero a11y tooling or tests in the repo | High | Engineering + audit |
 | G8 | `<html lang="en">` hardcoded (`app/layout.tsx:26`) despite a working `LanguageToggle` — a live WCAG 3.1.1 failure | Medium (but ~30 min) | Engineering |
-| G9 | Legacy inline `avatar_image_data_url` may bypass the encrypted media store (§2.4) | Medium | Engineering |
+| G9 | Legacy inline `avatar_image_data_url` may bypass the encrypted media store (§2.4) — *erasure now destroys it with its row, but it is still written unencrypted* | Medium | Engineering |
 | G10 | No machine-readable schema (no Prisma/SQL file) to hand an auditor | Low | Engineering |
 
 **Sequencing note.** G1, G2 and G4 are engineering work that gates the paperwork —
-a DPA cycle started before they land will stall on them. Start those in parallel with
-G3/G6 rather than after.
+a DPA cycle started before they land will stall on them. G1 has landed; G2 and G4
+remain, and should run in parallel with G3/G6 rather than after.
 
 ---
 

@@ -273,6 +273,43 @@ export async function clearLearningEventsFast(userId: string, clearedAt = new Da
   return true;
 }
 
+/**
+ * Erases every fast-path row belonging to a user.
+ *
+ * These six tables are written directly by the hot path and are NOT reconciled
+ * from the app-state snapshot, so removing the user from the snapshot does not
+ * touch them — account deletion has to delete them explicitly. Returns null
+ * when the fast path is off (SQLite dev), where these tables do not exist and
+ * the equivalent data lives in the snapshot instead.
+ */
+export async function eraseUserRowsFast(userId: string): Promise<Record<string, number> | null> {
+  if (!postgresRowsEnabled()) return null;
+
+  await ensurePostgresStudentActivityTables();
+  return getPostgresClient().begin(async (sql) => {
+    const deleted: Record<string, number> = {};
+    const record = (table: string, count: number) => {
+      if (count > 0) deleted[table] = count;
+    };
+
+    record("practice_attempts", (await sql`DELETE FROM practice_attempts WHERE user_id = ${userId}`).count);
+    record("mistake_book_items", (await sql`DELETE FROM mistake_book_items WHERE user_id = ${userId}`).count);
+    record("adaptive_skill_states", (await sql`DELETE FROM adaptive_skill_states WHERE user_id = ${userId}`).count);
+    record("learning_events", (await sql`DELETE FROM learning_events WHERE user_id = ${userId}`).count);
+    record("learning_event_clears", (await sql`DELETE FROM learning_event_clears WHERE user_id = ${userId}`).count);
+    record("reward_point_ledger", (await sql`DELETE FROM reward_point_ledger WHERE student_id = ${userId}`).count);
+
+    // `awarded_by` names a teacher on another learner's ledger row, which must
+    // survive; drop the teacher's identity from it instead of the row.
+    const anonymised = await sql`
+      UPDATE reward_point_ledger SET awarded_by = NULL WHERE awarded_by = ${userId}
+    `;
+    if (anonymised.count > 0) deleted["reward_point_ledger.awarded_by"] = anonymised.count;
+
+    return deleted;
+  });
+}
+
 export type FastLearningEventRow = {
   id: string;
   user_id: string;

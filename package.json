@@ -92,6 +92,7 @@
     "test:tutor-transcript": "node scripts/run-tutor-transcript-tests.mjs",
     "test:accommodations": "node scripts/run-accommodations-tests.mjs",
     "test:content-safety": "node scripts/run-content-safety-tests.mjs",
+    "test:account-erasure": "node scripts/run-account-erasure-tests.mjs",
     "test:tutor-moderation": "node scripts/run-tutor-moderation-tests.mjs",
     "test:components": "node scripts/run-component-tests.mjs",
     "test:lesson-menu": "node scripts/run-lesson-menu-tests.mjs",

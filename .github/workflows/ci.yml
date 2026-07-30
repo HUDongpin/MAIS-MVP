@@ -61,6 +61,9 @@ jobs:
       - name: Run AI Tutor content-safety gate (crisis classifier + teacher escalation)
         run: npm run test:content-safety
 
+      - name: Run account-erasure gate (deletion authorization + per-collection policy completeness)
+        run: npm run test:account-erasure
+
       - name: Run lesson menu focus gate (keyboard focus survives the SSR duplicate)
         run: npm run test:lesson-menu
 

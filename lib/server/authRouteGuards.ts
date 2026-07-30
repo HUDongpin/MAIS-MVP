@@ -17,6 +17,7 @@ type RateLimitScope =
   | "password-reset-confirm-token"
   | "password-change-ip"
   | "password-change-user"
+  | "account-delete-user"
   | "funnel-ip";
 
 export const authRateLimitRules = {
@@ -29,6 +30,9 @@ export const authRateLimitRules = {
   passwordResetConfirmToken: { max: 8, windowMs: 15 * 60 * 1000 },
   passwordChangeIp: { max: 80, windowMs: 15 * 60 * 1000 },
   passwordChangeUser: { max: 8, windowMs: 15 * 60 * 1000 },
+  // Erasure is irreversible and a school admin legitimately runs it in batches
+  // at contract termination, so this bounds abuse without blocking offboarding.
+  accountDeleteUser: { max: 20, windowMs: 15 * 60 * 1000 },
   funnelIp: { max: 600, windowMs: 15 * 60 * 1000 }
 } satisfies Record<string, RateLimitRule>;
 

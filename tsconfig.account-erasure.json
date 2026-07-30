@@ -1,0 +1,23 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "incremental": false,
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "noEmit": false,
+    "outDir": ".tmp/account-erasure-tests",
+    // Every file in this compile lives in lib/server/userStore/, so TypeScript
+    // would infer that as the root and emit flat. Pin the repo root so the
+    // emitted tree keeps lib/server/userStore/... and the "@/" alias resolves.
+    "rootDir": "."
+  },
+  "files": [
+    "lib/server/userStore/accountErasurePersistence.test.ts",
+    "lib/server/mediaObjectStore.test.ts"
+  ],
+  "include": [],
+  "exclude": [
+    ".next",
+    "node_modules"
+  ]
+}
