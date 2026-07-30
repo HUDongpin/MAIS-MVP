@@ -11,6 +11,14 @@ on:
         default: false
         type: boolean
 
+# A PR branch fires `push` and `pull_request` as two independent runs, and each
+# new push adds another pair. Now that `validate` gates pull requests that is
+# ~19 runner-minutes per superseded commit, so retire the stale ones. `main`
+# never cancels: its post-merge runs are the record that the merge was green.
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event_name }}-${{ github.ref }}
+  cancel-in-progress: ${{ github.ref != 'refs/heads/main' }}
+
 jobs:
   snapshot:
     runs-on: ubuntu-latest
@@ -27,7 +35,13 @@ jobs:
         run: npm install
 
   validate:
-    if: ${{ github.event_name == 'workflow_dispatch' && inputs.full_validation }}
+    # Gates every pull request. Until now this was workflow_dispatch-only, so a
+    # normal PR merged without ever running the type check, any gate suite, or
+    # the production build — only `snapshot` (an npm install) and the two
+    # Playwright jobs were required, which is how a broken change reached main.
+    # Steps are ordered cheapest-first so a bad PR fails in ~90s instead of
+    # ~15min: everything before "MVP readiness" finishes in seconds.
+    if: ${{ github.event_name == 'pull_request' || (github.event_name == 'workflow_dispatch' && inputs.full_validation) }}
     runs-on: ubuntu-latest
     # A non-incremental `tsc --noEmit` (and the production build) over this repo
     # exceeds Node's default ~2 GB old-space and OOMs the runner; runners have
@@ -49,6 +63,12 @@ jobs:
       - name: Type check
         run: npm run type-check
 
+      - name: Run import-target guard and its unit test
+        run: npm run check:imports && npm run test:imports
+
+      - name: Run stray generated-types guard and its unit test
+        run: npm run check:stray-types && npm run test:stray-types
+
       - name: Run analytics tests
         run: npm run test:analytics
 
@@ -64,32 +84,37 @@ jobs:
       - name: Run lesson menu focus gate (keyboard focus survives the SSR duplicate)
         run: npm run test:lesson-menu
 
+      - name: Run accommodations gate (IEP/504 resolver + student-experience wiring)
+        run: npm run test:accommodations
+
+      - name: Run US math item quality audit (CA/AR/FL independent re-solve + key integrity)
+        run: npm run audit:us-math-items
+
+      - name: Run reported-bug source-regression gate (fix anchors + segment loading.tsx ban)
+        run: npm run test:source-regressions
+
+      - name: Run CCSS depth-coverage gate (a student can reach a visual per standard)
+        run: npm run test:ccss-depth
+
       - name: Run MVP readiness tests
         run: npm run test:mvp
 
       - name: Run signature lab gates (math audits + assignment contract)
         run: npm run test:signature-labs
 
-      - name: Run CCSS depth-coverage gate (a student can reach a visual per standard)
-        run: npm run test:ccss-depth
-
       - name: Run CCSS textbook gates (class audit + assignment contract)
         run: npm run test:ccss-textbook
-
-      - name: Run question bank contract tests (per-region live counts + solvability)
-        run: npm run test:question-bank
-
-      - name: Run US math item quality audit (CA/AR/FL independent re-solve + key integrity)
-        run: npm run audit:us-math-items
 
       - name: Run visualization gate
         run: npm run test:visualizations
 
-      - name: Run reported-bug source-regression gate (fix anchors + segment loading.tsx ban)
-        run: npm run test:source-regressions
-
       - name: Run component gate (discovers every components/**/*.test.ts)
         run: npm run test:components
+
+      # Slowest gate in the job (~5min): keep it last so every cheaper gate has
+      # already had its chance to fail.
+      - name: Run question bank contract tests (per-region live counts + solvability)
+        run: npm run test:question-bank
 
       - name: Build
         run: npm run build
