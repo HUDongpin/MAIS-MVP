@@ -843,7 +843,12 @@ export const dictionary = {
 				    developerCredit: { en: "Developed by Dr. Peter HU Dongpin, an Educational Researcher and Application Developer.", zh: "由教育研究員及應用程式開發者胡冬品博士開發。" },
 			    email: { en: "hudongpin@126.com", zh: "hudongpin@126.com" },
 			    personalWebsite: { en: "hudongpin.com", zh: "hudongpin.com" },
-			    pedaNova: { en: "PedaNova", zh: "培達新知", zhHans: "培达新知" }
+			    pedaNova: { en: "PedaNova", zh: "培達新知", zhHans: "培达新知" },
+			    legalHeading: { en: "Legal and accessibility", zh: "法律與無障礙", zhHans: "法律与无障碍" },
+			    privacy: { en: "Privacy Policy", zh: "私隱政策", zhHans: "隐私政策" },
+			    terms: { en: "Terms of Service", zh: "服務條款", zhHans: "服务条款" },
+			    subprocessors: { en: "Subprocessors", zh: "資料處理商", zhHans: "数据处理方" },
+			    accessibility: { en: "Accessibility", zh: "無障礙聲明", zhHans: "无障碍声明" }
 		  },
 	  dashboard: {
 	    welcome: { en: "Welcome back, Explorer", zh: "歡迎回來，數學探索者" },

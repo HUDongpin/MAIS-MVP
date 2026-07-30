@@ -13,6 +13,7 @@ import { Navbar } from "@/components/layout/Navbar";
 import { StudentBackToTopButton } from "@/components/layout/StudentBackToTopButton";
 import { StudentGuidedTour } from "@/components/onboarding/StudentGuidedTour";
 import { AppProviders } from "@/components/providers/AppProviders";
+import { DEFAULT_LANGUAGE_TAG, languageBootstrapScript } from "@/lib/languageBootstrap";
 
 export const metadata: Metadata = {
   title: "MAIS",
@@ -23,7 +24,12 @@ const shouldRenderVercelAnalytics = Boolean(process.env.VERCEL || process.env.VE
 
 export default function RootLayout({ children }: Readonly<{ children: ReactNode }>) {
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang={DEFAULT_LANGUAGE_TAG} suppressHydrationWarning>
+      <head>
+        {/* Applies the visitor's language to <html lang> before first paint — WCAG 2.1
+            SC 3.1.1. See lib/languageBootstrap.ts for why this cannot wait for React. */}
+        <script dangerouslySetInnerHTML={{ __html: languageBootstrapScript }} />
+      </head>
       <body className="overflow-x-hidden">
         <AppProviders>
           <AITutorProvider>
