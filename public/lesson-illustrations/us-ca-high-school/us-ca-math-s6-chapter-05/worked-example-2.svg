@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Capstone Modeling - Worked example 2</title>
+  <desc id="desc">Revenue is R(p) = p(120 - 4p). Find the price p that maximizes revenue and the maximum revenue. Answer: p = 15; maximum revenue = 900.</desc>
+  <rect width="1600" height="900" fill="#eef4fb"/>
+  <rect x="24" y="24" width="1552" height="852" rx="28" fill="#f8fbff" stroke="#b8c8de" stroke-width="2"/>
+  <text x="54" y="76" font-size="36" font-weight="900" fill="#162033">S6 Capstone Modeling</text>
+  <text x="54" y="112" font-size="20" font-weight="700" fill="#5a6c85">quadratic-graph / svg / review-ready exact layer</text>
+  <text class="" x="54" y="160" font-size="23" font-weight="650" fill="#18212f"><tspan x="54" dy="0">EN: Revenue is R(p) = p(120 - 4p). Find the price p that maximizes revenue and the maximum revenue.</tspan></text>
+  <text class="" x="54" y="222" font-size="22" font-weight="600" fill="#334155"><tspan x="54" dy="0">ZH: 收益為 R(p) = p(120 - 4p)。求使收益最大的價格 p 和最大收益。</tspan></text>
+  <rect x="54" y="292" width="820" height="540" rx="22" fill="#ffffff" stroke="#c8d4e8" stroke-width="2"/>
+  <text x="82" y="338" font-size="24" font-weight="800" fill="#20314d">Deterministic Visual Layer</text>
+  <line x1="78" y1="360" x2="850" y2="360" stroke="#d9e4f5" stroke-width="2"/>
+  <rect x="86" y="344" width="700" height="320" fill="#f8fbff" stroke="#9fb1cc" stroke-width="2"/>
+<line x1="86" y1="344" x2="86" y2="664" stroke="#e6edf7" stroke-width="1"/>
+<line x1="86" y1="344" x2="786" y2="344" stroke="#e6edf7" stroke-width="1"/>
+<line x1="156" y1="344" x2="156" y2="664" stroke="#e6edf7" stroke-width="1"/>
+<line x1="86" y1="376" x2="786" y2="376" stroke="#e6edf7" stroke-width="1"/>
+<line x1="226" y1="344" x2="226" y2="664" stroke="#e6edf7" stroke-width="1"/>
+<line x1="86" y1="408" x2="786" y2="408" stroke="#e6edf7" stroke-width="1"/>
+<line x1="296" y1="344" x2="296" y2="664" stroke="#e6edf7" stroke-width="1"/>
+<line x1="86" y1="440" x2="786" y2="440" stroke="#e6edf7" stroke-width="1"/>
+<line x1="366" y1="344" x2="366" y2="664" stroke="#e6edf7" stroke-width="1"/>
+<line x1="86" y1="472" x2="786" y2="472" stroke="#e6edf7" stroke-width="1"/>
+<line x1="436" y1="344" x2="436" y2="664" stroke="#e6edf7" stroke-width="1"/>
+<line x1="86" y1="504" x2="786" y2="504" stroke="#e6edf7" stroke-width="1"/>
+<line x1="506" y1="344" x2="506" y2="664" stroke="#e6edf7" stroke-width="1"/>
+<line x1="86" y1="536" x2="786" y2="536" stroke="#e6edf7" stroke-width="1"/>
+<line x1="576" y1="344" x2="576" y2="664" stroke="#e6edf7" stroke-width="1"/>
+<line x1="86" y1="568" x2="786" y2="568" stroke="#e6edf7" stroke-width="1"/>
+<line x1="646" y1="344" x2="646" y2="664" stroke="#e6edf7" stroke-width="1"/>
+<line x1="86" y1="600" x2="786" y2="600" stroke="#e6edf7" stroke-width="1"/>
+<line x1="716" y1="344" x2="716" y2="664" stroke="#e6edf7" stroke-width="1"/>
+<line x1="86" y1="632" x2="786" y2="632" stroke="#e6edf7" stroke-width="1"/>
+<line x1="786" y1="344" x2="786" y2="664" stroke="#e6edf7" stroke-width="1"/>
+<line x1="86" y1="664" x2="786" y2="664" stroke="#e6edf7" stroke-width="1"/>
+<line x1="86" y1="648" x2="786" y2="648" stroke="#20314d" stroke-width="3"/>
+<line x1="86" y1="344" x2="86" y2="664" stroke="#20314d" stroke-width="3"/>
+<text x="94" y="654" font-size="18" fill="#5a6c85">0</text>
+<text x="750" y="654" font-size="18" fill="#5a6c85">16</text>
+<text x="94" y="366" font-size="18" fill="#5a6c85">950</text>
+<path d="M 86.00 648.00 L 96.94 629.12 L 107.88 610.88 L 118.81 593.28 L 129.75 576.32 L 140.69 560.00 L 151.63 544.32 L 162.56 529.28 L 173.50 514.88 L 184.44 501.12 L 195.38 488.00 L 206.31 475.52 L 217.25 463.68 L 228.19 452.48 L 239.13 441.92 L 250.06 432.00 L 261.00 422.72 L 271.94 414.08 L 282.88 406.08 L 293.81 398.72 L 304.75 392.00 L 315.69 385.92 L 326.63 380.48 L 337.56 375.68 L 348.50 371.52 L 359.44 368.00 L 370.38 365.12 L 381.31 362.88 L 392.25 361.28 L 403.19 360.32 L 414.13 360.00 L 425.06 360.32 L 436.00 361.28 L 446.94 362.88 L 457.88 365.12 L 468.81 368.00 L 479.75 371.52 L 490.69 375.68 L 501.63 380.48 L 512.56 385.92 L 523.50 392.00 L 534.44 398.72 L 545.38 406.08 L 556.31 414.08 L 567.25 422.72 L 578.19 432.00 L 589.13 441.92 L 600.06 452.48 L 611.00 463.68 L 621.94 475.52 L 632.88 488.00 L 643.81 501.12 L 654.75 514.88 L 665.69 529.28 L 676.63 544.32 L 687.56 560.00 L 698.50 576.32 L 709.44 593.28 L 720.38 610.88 L 731.31 629.12 L 742.25 648.00" fill="none" stroke="#7c3aed" stroke-width="5"/>
+<circle cx="414.125" cy="360" r="8" fill="#7c3aed" stroke="#ffffff" stroke-width="3"/>
+  <text x="428.125" y="350" font-size="20" font-weight="800" fill="#7c3aed">max 900 at p=15</text>
+  <rect x="920" y="292" width="620" height="540" rx="22" fill="#ffffff" stroke="#c8d4e8" stroke-width="2"/>
+  <text x="948" y="338" font-size="24" font-weight="800" fill="#20314d">Exact Checks And Answer</text>
+  <line x1="944" y1="360" x2="1516" y2="360" stroke="#d9e4f5" stroke-width="2"/>
+  <text class="" x="950" y="380" font-size="24" font-weight="700" fill="#20314d"><tspan x="950" dy="0">15 * (120 - 4 * 15) = 900</tspan></text>
+  <rect x="950" y="588" width="540" height="152" rx="18" fill="#e9fbf3" stroke="#80cfa3" stroke-width="2"/>
+  <text x="978" y="632" font-size="26" font-weight="900" fill="#0f766e">Answer</text>
+  <text class="" x="978" y="674" font-size="27" font-weight="900" fill="#0f766e"><tspan x="978" dy="0">p = 15; maximum revenue = 900.</tspan></text>
+  <text class="" x="950" y="786" font-size="21" font-weight="650" fill="#334155"><tspan x="950" dy="0">zhHans: p = 15；最大收益 = 900。</tspan></text>
+</svg>
