@@ -183,7 +183,10 @@ const sections: readonly LegalDocumentSection[] = [
             <tbody>
               <tr>
                 <td>Uploaded and captured media (handwriting photographs, audio)</td>
-                <td>90 days by default, then automatically deleted</td>
+                <td>
+                  Access is permanently blocked after 90 days by default. The encrypted copy is
+                  not yet erased — see the note below.
+                </td>
               </tr>
               <tr>
                 <td>AI tutor conversations</td>
@@ -201,10 +204,16 @@ const sections: readonly LegalDocumentSection[] = [
           </table>
         </LegalScrollableTable>
         <p>
-          <strong>Known limitation, stated plainly:</strong> apart from media objects, MAIS does not
-          yet enforce automatic retention limits. Scheduled deletion for tutor transcripts and
-          learning activity is planned. We would rather say this than imply a limit we do not
-          currently enforce.
+          <strong>Known limitation, stated plainly:</strong> MAIS does not yet erase any category of
+          personal data on a schedule. For media, the 90-day policy revokes access — the platform
+          refuses to serve an expired object — but the encrypted file itself stays in the object
+          store until it is removed by hand. For every other category there is no automatic limit at
+          all.
+        </p>
+        <p>
+          Scheduled erasure, for media and for tutor transcripts and learning activity, is planned
+          and not yet built. We would rather describe this precisely than use the word
+          &ldquo;deleted&rdquo; for something that is currently access revocation.
         </p>
       </>
     )
