@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { dictionary, useSettings } from "@/components/providers/AppProviders";
 import { isImmersiveStudentPracticeGamePath } from "@/lib/gameBasedLearning";
@@ -71,6 +72,13 @@ function PedaNovaLogo() {
   );
 }
 
+const legalLinks = [
+  { href: "/privacy", label: dictionary.footer.privacy },
+  { href: "/terms", label: dictionary.footer.terms },
+  { href: "/subprocessors", label: dictionary.footer.subprocessors },
+  { href: "/accessibility", label: dictionary.footer.accessibility }
+] as const;
+
 export function Footer() {
   const pathname = usePathname();
   const { language, t } = useSettings();
@@ -117,6 +125,22 @@ export function Footer() {
             <span>{t(dictionary.footer.pedaNova)}</span>
           </span>
         </div>
+      </div>
+      <div className="page-container mt-5 border-t border-slate-200/70 pt-4 dark:border-white/10">
+        <nav aria-label={t(dictionary.footer.legalHeading)}>
+          <ul className="flex flex-wrap items-center gap-x-5 gap-y-2 text-sm text-slate-500 dark:text-slate-400">
+            {legalLinks.map((link) => (
+              <li key={link.href}>
+                <Link
+                  className="focus-ring rounded-md underline-offset-4 transition-colors hover:text-cyan-600 hover:underline dark:hover:text-cyan-300"
+                  href={link.href}
+                >
+                  {t(link.label)}
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </nav>
       </div>
     </footer>
   );
