@@ -1,6 +1,12 @@
 import * as http from "node:http";
 import * as https from "node:https";
 import { isIP } from "node:net";
+import {
+  describeResidencyBlock,
+  partitionByResidency,
+  type ProviderJurisdiction
+} from "@/lib/server/providerResidency";
+import type { CurriculumRegion } from "@/types";
 
 export type LLMProviderContentPart =
   | { type: "text"; text: string }
@@ -264,6 +270,65 @@ export function readAITutorTextProviderConfigs() {
     candidates: ordered,
     allCandidates: ordered
   };
+}
+
+export type RegionScopedProviderSelection = {
+  /** Providers this learner's region permits, in preference order. */
+  candidates: readonly LLMProviderConfig[];
+  /** First permitted candidate, or null when the region permits none. */
+  primary: LLMProviderConfig | null;
+  /** Operator-facing explanation when `primary` is null. */
+  blockedReason: string | null;
+  /** Providers withheld, for audit logging. */
+  blocked: readonly { config: LLMProviderConfig; jurisdiction: ProviderJurisdiction }[];
+};
+
+/**
+ * Apply the data-residency gate to a provider candidate list.
+ *
+ * A null `region` means the learner's region could not be determined, which by
+ * construction excludes the US tracks — see `resolveLearnerResidencyRegion`. The
+ * list passes through unfiltered in that case, so an incomplete profile cannot
+ * break the Hong Kong and Mainland cohorts.
+ *
+ * When a region *is* known and permits nothing, this returns a null primary
+ * rather than the next-best provider. Callers must surface that as an error:
+ * falling through to a disallowed provider is precisely the behaviour a district
+ * data-protection agreement forbids.
+ */
+export function applyResidencyGate(
+  candidates: readonly LLMProviderConfig[],
+  region: CurriculumRegion | null
+): RegionScopedProviderSelection {
+  if (!region) {
+    return { candidates, primary: candidates[0] ?? null, blockedReason: null, blocked: [] };
+  }
+
+  const decision = partitionByResidency(candidates, region, (candidate) => candidate.apiUrl);
+  const primary = decision.allowed.find((candidate) => Boolean(candidate.apiKey))
+    ?? decision.allowed[0]
+    ?? null;
+
+  return {
+    candidates: decision.allowed,
+    primary,
+    blockedReason: primary ? null : describeResidencyBlock(decision),
+    blocked: decision.blocked.map((entry) => ({
+      config: entry.candidate,
+      jurisdiction: entry.jurisdiction
+    }))
+  };
+}
+
+/**
+ * Region-scoped counterpart to `readAITutorTextProviderConfigs`. Kept separate so
+ * the existing callers that genuinely have no learner context (release smoke
+ * checks, capability probes) keep working unchanged.
+ */
+export function readRegionScopedAITutorTextProviders(
+  region: CurriculumRegion | null
+): RegionScopedProviderSelection {
+  return applyResidencyGate(readAITutorTextProviderConfigs().allCandidates, region);
 }
 
 export function readAITutorImageProviderConfig(): LLMProviderConfig {

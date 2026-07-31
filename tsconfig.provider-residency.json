@@ -1,0 +1,18 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "incremental": false,
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "noEmit": false,
+    "outDir": ".tmp/provider-residency-tests"
+  },
+  "files": [
+    "lib/server/providerResidency.test.ts"
+  ],
+  "include": [],
+  "exclude": [
+    ".next",
+    "node_modules"
+  ]
+}
