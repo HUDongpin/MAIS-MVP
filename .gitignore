@@ -114,3 +114,19 @@ __pycache__/
 .worktrees/
 MAIS-MVP-*/
 Users/
+
+# A25 2026-07-31: generated content no shipped code path renders. Relocated to
+# ~/Desktop/MAIS-archive/2026-07-31-bucketB/ and ignored here so regeneration does
+# not re-dirty the tree. Disposition: coordination/release-intake/2026-07-31-A25-backlog-slice.md
+# The Texas sets are pre-built for the unshipped TEKS port, not junk.
+public/lesson-illustrations/us-tx-primary/
+public/lesson-illustrations/us-tx-middle-school/
+public/lesson-illustrations/us-tx-high-school/
+public/lesson-illustrations/mainland-pep-primary-v2-refresh/
+public/forum-assets/
+public/question-illustrations/mainland-hjb-primary/
+# PEP junior question illustrations are inert: mainlandPepQuestionAssetFor() in
+# lib/mainlandPepQuestionAssets.ts returns null unless an approval matches, and the
+# approvals list is empty. Keep the tracked .gitkeep that preserves the directory.
+public/question-illustrations/mainland-pep-junior/questions/*
+!public/question-illustrations/mainland-pep-junior/questions/.gitkeep
