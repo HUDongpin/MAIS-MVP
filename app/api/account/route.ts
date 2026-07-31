@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import { ACCOUNT_ERASURE_CONFIRMATION_PHRASE } from "@/lib/accountErasure";
 import { requireAuthenticatedUser } from "@/lib/server/auth";
 import {
   authRateLimitRules,
@@ -15,8 +16,10 @@ export const runtime = "nodejs";
  * Phrase the caller must echo back. Guards against a mis-fired client and, since
  * it has to arrive in a JSON body, against a cross-site form post — a simple
  * cross-origin request cannot set `content-type: application/json`.
+ *
+ * Shared with the deletion page so the form and the check cannot drift.
  */
-const CONFIRMATION_PHRASE = "DELETE MY DATA";
+const CONFIRMATION_PHRASE = ACCOUNT_ERASURE_CONFIRMATION_PHRASE;
 
 const deniedStatus: Record<string, number> = {
   "subject-not-found": 404,

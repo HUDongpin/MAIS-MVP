@@ -495,7 +495,46 @@ export function ParentChildDetail({ child }: { child: ParentChildSummary }) {
           ) : null}
         </div>
       </section>
+
+      <ChildDataRightsCard child={child} />
     </div>
+  );
+}
+
+/**
+ * Under COPPA §312.6 the deletion right belongs to the parent, so a guardian
+ * needs their own route to it rather than having to ask an operator.
+ */
+function ChildDataRightsCard({ child }: { child: ParentChildSummary }) {
+  const { t } = useSettings();
+
+  return (
+    <section className="glass-panel p-5">
+      <h2 className="text-2xl font-black text-slate-950 dark:text-white">
+        {t({ en: "Your child's data", zh: "你子女的資料", zhHans: "你子女的数据" })}
+      </h2>
+      <p className="mt-3 max-w-3xl text-sm font-semibold leading-6 text-slate-600 dark:text-slate-300">
+        {t({
+          en: "As this learner's guardian you can permanently delete their account and all of their data. Deletion happens straight away and cannot be undone.",
+          zh: "作為此學生的家長／監護人，你可永久刪除其帳戶及所有資料。刪除即時生效，且無法復原。",
+          zhHans: "作为此学生的家长／监护人，你可永久删除其账户及所有数据。删除立即生效，且无法恢复。"
+        })}
+      </p>
+      <div className="mt-4 flex flex-wrap gap-3">
+        <Link
+          href={`/account/delete?studentId=${encodeURIComponent(child.student.id)}`}
+          className="focus-ring inline-flex items-center rounded-full border border-rose-300/70 bg-rose-50/80 px-4 py-2 text-sm font-black text-rose-700 transition hover:-translate-y-0.5 hover:bg-rose-100/80 dark:border-rose-300/25 dark:bg-rose-400/[0.1] dark:text-rose-100"
+        >
+          {t({ en: "Delete this account and data", zh: "刪除此帳戶及資料", zhHans: "删除此账户及数据" })}
+        </Link>
+        <Link
+          href="/privacy#your-rights"
+          className="focus-ring inline-flex items-center rounded-full border border-slate-200/80 bg-white/75 px-4 py-2 text-sm font-black text-slate-700 transition hover:-translate-y-0.5 dark:border-white/10 dark:bg-white/[0.07] dark:text-slate-200"
+        >
+          {t({ en: "Read the privacy policy", zh: "閱讀私隱政策", zhHans: "阅读隐私政策" })}
+        </Link>
+      </div>
+    </section>
   );
 }
 

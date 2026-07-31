@@ -81,7 +81,13 @@ const legalLinks = [
 
 export function Footer() {
   const pathname = usePathname();
-  const { language, t } = useSettings();
+  const { currentUser, language, t } = useSettings();
+  // The privacy policy tells people deletion is self-service, so the route to
+  // it belongs beside the policy itself. This is the only role-agnostic
+  // surface: teachers and admins have no settings menu to hang it from.
+  const accountLinks = currentUser
+    ? [...legalLinks, { href: "/account/delete", label: dictionary.footer.deleteAccount }]
+    : legalLinks;
   const isImmersiveGameRoute = isImmersiveStudentPracticeGamePath(pathname);
   return (
     <footer className={cn(
@@ -129,7 +135,7 @@ export function Footer() {
       <div className="page-container mt-5 border-t border-slate-200/70 pt-4 dark:border-white/10">
         <nav aria-label={t(dictionary.footer.legalHeading)}>
           <ul className="flex flex-wrap items-center gap-x-5 gap-y-2 text-sm text-slate-500 dark:text-slate-400">
-            {legalLinks.map((link) => (
+            {accountLinks.map((link) => (
               <li key={link.href}>
                 <Link
                   className="focus-ring rounded-md underline-offset-4 transition-colors hover:text-cyan-600 hover:underline dark:hover:text-cyan-300"

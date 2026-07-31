@@ -848,7 +848,8 @@ export const dictionary = {
 			    privacy: { en: "Privacy Policy", zh: "私隱政策", zhHans: "隐私政策" },
 			    terms: { en: "Terms of Service", zh: "服務條款", zhHans: "服务条款" },
 			    subprocessors: { en: "Subprocessors", zh: "資料處理商", zhHans: "数据处理方" },
-			    accessibility: { en: "Accessibility", zh: "無障礙聲明", zhHans: "无障碍声明" }
+			    accessibility: { en: "Accessibility", zh: "無障礙聲明", zhHans: "无障碍声明" },
+			    deleteAccount: { en: "Delete my account", zh: "刪除我的帳戶", zhHans: "删除我的账户" }
 		  },
 	  dashboard: {
 	    welcome: { en: "Welcome back, Explorer", zh: "歡迎回來，數學探索者" },

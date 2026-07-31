@@ -204,7 +204,30 @@ seeded-account-protected` instead of issuing a receipt it cannot honour.
 
 ---
 
-## 6. The endpoint
+## 6. The endpoint and the page
+
+Requesters reach erasure at **`/account/delete`**
+([`app/account/delete/page.tsx`](../../app/account/delete/page.tsx)), which
+states what is destroyed, what is kept and unlinked, and the two residual
+limits, then requires the confirmation phrase to be typed before the button
+enables. Entry points:
+
+| Who | Where |
+|---|---|
+| Any signed-in account holder | Footer, beside the privacy policy — the only role-agnostic surface, and where someone who just read the policy will look |
+| A learner | Dashboard → settings menu → "Delete my account" |
+| A guardian, for their child | Parent → child detail → "Your child's data" |
+| A school admin, for a learner | `/account/delete?studentId=<id>` |
+
+Teachers and admins have no settings menu in the product, so the footer link is
+their only entry point; that is why the link is global rather than per-role.
+
+The page also clears the erased user's cached browser data
+(`clearLocalDataForErasedUser` in [`lib/accountErasure.ts`](../../lib/accountErasure.ts)).
+Server-side erasure cannot reach `localStorage`/`sessionStorage`, and on a
+shared classroom device that cache would otherwise outlive the account. Keys are
+matched on the user id, which every user-scoped key in the app embeds, so the
+sweep does not depend on a hand-kept list of producers that would silently rot.
 
 ```
 DELETE /api/account
@@ -212,6 +235,13 @@ Content-Type: application/json
 
 { "confirmation": "DELETE MY DATA", "subjectId": "<optional; defaults to the caller>" }
 ```
+
+The confirmation phrase is a fixed, untranslated literal shared by the page and
+the route ([`ACCOUNT_ERASURE_CONFIRMATION_PHRASE`](../../lib/accountErasure.ts)),
+so the form and the check cannot drift. It is not localized deliberately: several
+accepted strings would widen the surface of the one control standing between a
+mis-click and an irreversible deletion. The page presents it as copyable literal
+text, which works the same in any language.
 
 Erasure is **immediate and irreversible** — there is no soft-delete window,
 because a DPA destruction clause has to be technically honourable on request.
@@ -253,6 +283,10 @@ npm run test:account-erasure
 
 ### Not covered here
 
+- **Rendering verification.** The deletion page is covered by type-checking, the
+  unit tests above, and the WCAG audit route list, but has not been rendered in
+  a browser — the repo has no React rendering harness, and a worktree-rooted dev
+  server would not bind during development. Worth a manual pass before release.
 - **Backups and Postgres PITR.** Erasure operates on live stores. Point-in-time
   recovery windows and any database backup snapshots retain the data until they
   age out; a DPA must state that window. Not addressed by this change.

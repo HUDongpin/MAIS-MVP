@@ -35,7 +35,11 @@ const PUBLIC_ROUTES: readonly AuditedRoute[] = [
   { name: "privacy", path: "/privacy", readySelector: "main h1" },
   { name: "terms", path: "/terms", readySelector: "main h1" },
   { name: "subprocessors", path: "/subprocessors", readySelector: "main h1" },
-  { name: "accessibility", path: "/accessibility", readySelector: "main h1" }
+  { name: "accessibility", path: "/accessibility", readySelector: "main h1" },
+  // Signed out, the deletion page renders its sign-in prompt. That state still
+  // has to be reachable and readable: it is where the privacy policy sends
+  // someone exercising a deletion right.
+  { name: "account-delete", path: "/account/delete", readySelector: "main h1" }
 ];
 
 const reportDir = path.join(process.env.PLAYWRIGHT_E2E_ROOT?.trim() || ".tmp/e2e-run-default", "a11y");

@@ -51,7 +51,8 @@ try {
   const passed = run("node", [
     "--test",
     join(outputDir, "lib/server/userStore/accountErasurePersistence.test.js"),
-    join(outputDir, "lib/server/mediaObjectStore.test.js")
+    join(outputDir, "lib/server/mediaObjectStore.test.js"),
+    join(outputDir, "lib/accountErasure.test.js")
   ]);
   if (!passed) process.exit(process.exitCode);
 } finally {

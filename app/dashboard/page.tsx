@@ -176,6 +176,10 @@ const novaLensDisabledStorageKey = "mais:nova-lens-disabled";
 const novaLensPreferenceChangedEventName = "mais:nova-lens-preference-change";
 const settingsLinkClassName = "focus-ring flex min-h-11 items-center justify-between gap-3 rounded-2xl border border-slate-200/80 bg-white/80 px-3 py-2 text-left text-sm font-black text-slate-700 transition hover:-translate-y-0.5 hover:border-cyan-200 hover:bg-cyan-50 dark:border-white/10 dark:bg-white/[0.06] dark:text-slate-100 dark:hover:border-cyan-200/25 dark:hover:bg-cyan-300/[0.08]";
 const dashboardMenuButtonClassName = "focus-ring rounded-full border border-slate-200/80 bg-white/75 px-4 py-2 text-center text-sm font-black text-slate-700 transition hover:-translate-y-0.5 dark:border-white/10 dark:bg-white/[0.06] dark:text-slate-200";
+// Account deletion is irreversible, so it reads as destructive rather than as
+// one more neutral settings row. The typed confirmation phrase on the page
+// itself is what actually guards it.
+const destructiveSettingsLinkClassName = "focus-ring flex min-h-11 items-center justify-between gap-3 rounded-2xl border border-rose-200/80 bg-rose-50/70 px-3 py-2 text-left text-sm font-black text-rose-700 transition hover:-translate-y-0.5 hover:border-rose-300 hover:bg-rose-100/70 dark:border-rose-300/20 dark:bg-rose-400/[0.08] dark:text-rose-100 dark:hover:border-rose-300/35 dark:hover:bg-rose-400/[0.14]";
 
 function readNovaLensDisabledPreference() {
   if (typeof window === "undefined") return false;
@@ -240,6 +244,11 @@ function DashboardSettingsMenu({
 
       <Link href="/change-password?next=%2Fdashboard" onClick={onClose} className={settingsLinkClassName}>
         <span>{t({ en: "Change password", zh: "更改密碼", zhHans: "更改密码" })}</span>
+        <span aria-hidden="true">›</span>
+      </Link>
+
+      <Link href="/account/delete" onClick={onClose} className={destructiveSettingsLinkClassName}>
+        <span>{t({ en: "Delete my account", zh: "刪除我的帳戶", zhHans: "删除我的账户" })}</span>
         <span aria-hidden="true">›</span>
       </Link>
     </div>
