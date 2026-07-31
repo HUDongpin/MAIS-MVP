@@ -8,7 +8,8 @@ export type AiCapability =
   | "lesson-audio"
   | "profile-avatar"
   | "assignment-image"
-  | "classroom-work-sample";
+  | "classroom-work-sample"
+  | "practice-work-photo";
 
 export type AiCapabilityRateLimitRule = {
   name: "minute" | "hour" | "day" | string;

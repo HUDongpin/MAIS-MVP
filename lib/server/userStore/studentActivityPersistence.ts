@@ -165,6 +165,9 @@ type StudentActivityAttemptRecord = {
   is_correct: boolean;
   duration_seconds: number | null;
   created_at: string;
+  // Governed media-object references only, mirroring the postgres
+  // practice_attempts.answer_work_photos column. Never image bytes.
+  answer_work_photos?: { objectKey: string }[] | null;
 };
 
 type QuestionRecord = {
@@ -3475,13 +3478,15 @@ export function createStudentActivityPersistenceStore({
       questionId,
       selectedAnswer,
       durationSeconds,
-      curriculumTrack = defaultCurriculumTrack
+      curriculumTrack = defaultCurriculumTrack,
+      answerWorkPhotos
     }: {
       userId: string;
       questionId: string;
       selectedAnswer: string;
       durationSeconds?: number;
       curriculumTrack?: StudentActivityCurriculumScope;
+      answerWorkPhotos?: { objectKey: string }[];
     }): Promise<AttemptFeedback | null> {
       return runMutation(async (database) => {
         const question = questionForId(database, questionId);
@@ -3500,7 +3505,8 @@ export function createStudentActivityPersistenceStore({
             typeof durationSeconds === "number" && Number.isFinite(durationSeconds) && durationSeconds > 0
               ? Math.round(durationSeconds)
               : null,
-          created_at: submittedAt
+          created_at: submittedAt,
+          answer_work_photos: answerWorkPhotos?.length ? answerWorkPhotos : null
         };
 
         attemptRowsFor(database).push(attempt);
