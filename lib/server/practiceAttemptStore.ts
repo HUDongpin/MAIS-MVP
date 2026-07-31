@@ -2,6 +2,7 @@ import { randomUUID } from "crypto";
 import postgres from "postgres";
 import { questionAnswerMatches } from "@/lib/server/answerMatching";
 import { getQuestionForAttemptFromStore } from "@/lib/server/questionStore";
+import type { StoredMediaObjectReference } from "@/lib/server/mediaObjectStore";
 import type { AttemptFeedback, CurriculumProfile, CurriculumTrack, LearningAnalyticsEvent, Question } from "@/types";
 
 type CurriculumScope = CurriculumTrack | CurriculumProfile | undefined | null;
@@ -13,6 +14,7 @@ type SubmitQuestionAttemptFastInput = {
   selectedAnswer: string;
   durationSeconds?: number;
   curriculumTrack?: CurriculumScope;
+  answerWorkPhotos?: StoredMediaObjectReference[];
 };
 
 const configuredStorageProvider = process.env.HK_MATH_STORAGE_PROVIDER?.trim().toLowerCase();
@@ -40,6 +42,11 @@ const postgresStudentActivitySchemaStatements = [
     textbook_publisher TEXT,
     created_at TIMESTAMPTZ NOT NULL
   )`,
+  // Existing deployments already have practice_attempts; the column has to be
+  // added separately or their tables never gain it (CREATE TABLE IF NOT EXISTS
+  // is a no-op there). Stores governed media-object REFERENCES only — never
+  // image bytes, which stay in the encrypted media object store.
+  `ALTER TABLE practice_attempts ADD COLUMN IF NOT EXISTS answer_work_photos JSONB`,
   `CREATE INDEX IF NOT EXISTS practice_attempts_user_created_at_idx
     ON practice_attempts(user_id, created_at DESC)`,
   `CREATE INDEX IF NOT EXISTS practice_attempts_user_topic_created_at_idx
@@ -482,6 +489,7 @@ async function persistQuestionAttempt(input: {
   correct: boolean;
   durationSeconds: number | null;
   now: string;
+  answerWorkPhotos?: StoredMediaObjectReference[];
 }) {
   await ensurePostgresStudentActivityTables();
   const profile = profileFields(input.question);
@@ -500,7 +508,8 @@ async function persistQuestionAttempt(input: {
         curriculum_track,
         curriculum_region,
         textbook_publisher,
-        created_at
+        created_at,
+        answer_work_photos
       )
       VALUES (
         ${randomUUID()},
@@ -514,7 +523,8 @@ async function persistQuestionAttempt(input: {
         ${profile.curriculumTrack},
         ${profile.curriculumRegion},
         ${profile.textbookPublisher},
-        ${input.now}
+        ${input.now},
+        ${input.answerWorkPhotos?.length ? sql.json(input.answerWorkPhotos) : null}
       )
     `;
 
@@ -561,7 +571,8 @@ export async function submitQuestionAttemptFast({
   questionId,
   selectedAnswer,
   durationSeconds,
-  curriculumTrack
+  curriculumTrack,
+  answerWorkPhotos
 }: SubmitQuestionAttemptFastInput): Promise<AttemptFeedback | null> {
   const question = await getQuestionForAttemptFromStore(
     questionId,
@@ -580,7 +591,8 @@ export async function submitQuestionAttemptFast({
         selectedAnswer,
         correct: feedback.correct,
         durationSeconds: normalizedDurationSeconds(durationSeconds),
-        now: new Date().toISOString()
+        now: new Date().toISOString(),
+        answerWorkPhotos
       });
     } catch {
       console.warn("Practice attempt row persistence failed; returning answer feedback without a saved attempt row.");

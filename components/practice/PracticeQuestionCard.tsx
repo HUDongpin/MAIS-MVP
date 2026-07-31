@@ -37,6 +37,24 @@ type PhotoAttachment = {
   size: number;
   type: string;
   url: string;
+  // Set once the photo has been stored in the governed media-object store.
+  // Null while uploading, or if the upload failed.
+  //
+  // Every field here is required by the server's `mediaObjectReferenceFromUnknown`
+  // parser — drop one (it re-checks `kind`, `encrypted`, `scanStatus` and
+  // `retentionExpiresAt`) and the reference is rejected with a 400. Forward the
+  // server's response object verbatim rather than rebuilding it.
+  mediaObject: AnswerWorkPhotoReference | null;
+};
+
+type AnswerWorkPhotoReference = {
+  kind: "object-reference";
+  objectKey: string;
+  mimeType: string;
+  byteLength: number;
+  encrypted: true;
+  scanStatus: "passed" | "pending" | "failed";
+  retentionExpiresAt: string;
 };
 type LazyHandwritingAnswerBoardProps = {
   boardId: string;
@@ -157,15 +175,34 @@ function readPhotoDataUrl(file: File) {
   });
 }
 
+/**
+ * Submits the governed media-object REFERENCES, never the image bytes. Bytes go
+ * to `/api/media-objects` at attach time; an attachment whose upload failed has
+ * no reference and is skipped rather than failing the whole answer submission.
+ */
 function serializeAnswerWorkPhotos(attachments: PhotoAttachment[]) {
   return attachments
-    .filter((attachment) => attachment.dataUrl.startsWith("data:image/"))
-    .map((attachment) => ({
-      dataUrl: attachment.dataUrl,
-      name: attachment.name,
-      size: attachment.size,
-      type: attachment.type
-    }));
+    .map((attachment) => attachment.mediaObject)
+    .filter((media): media is NonNullable<PhotoAttachment["mediaObject"]> => Boolean(media));
+}
+
+async function uploadAnswerWorkPhoto(dataUrl: string) {
+  if (!dataUrl.startsWith("data:image/")) return null;
+
+  try {
+    const response = await fetch("/api/media-objects", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ capability: "practice-work-photo", dataUrl })
+    });
+    if (!response.ok) return null;
+
+    const payload = await response.json().catch(() => null) as { media?: unknown } | null;
+    const media = payload?.media as AnswerWorkPhotoReference | undefined;
+    return media?.kind === "object-reference" && media.objectKey ? media : null;
+  } catch {
+    return null;
+  }
 }
 
 function revokePhotoAttachments(attachments: PhotoAttachment[]) {
@@ -280,6 +317,10 @@ export function PracticeQuestionCard({ question, onAnswered }: PracticeQuestionC
   const [selected, setSelected] = useState("");
   const [answerInputMode, setAnswerInputMode] = useState<AnswerInputMode>("keyboard");
   const [photoAttachments, setPhotoAttachments] = useState<PhotoAttachment[]>([]);
+  // Null until probed. The attachment control stays hidden unless the governed
+  // media store is actually usable — a control that is guaranteed to error is
+  // worse than no control.
+  const [photoUploadsAvailable, setPhotoUploadsAvailable] = useState<boolean | null>(null);
   const [feedback, setFeedback] = useState<AttemptFeedback | null>(null);
   const [error, setError] = useState("");
   const [needsLogin, setNeedsLogin] = useState(false);
@@ -300,7 +341,8 @@ export function PracticeQuestionCard({ question, onAnswered }: PracticeQuestionC
   const isPracticePage = pathname.startsWith("/practice") || isImmersiveStudentPracticeGamePath(pathname);
   const shouldUseDayModeDiagram = isLessonPage || isPracticePage;
   const shouldShowPhotoUpload =
-    (isLessonPage && question.type !== "multiple-choice") || (isPracticePage && question.type === "short-answer");
+    photoUploadsAvailable === true &&
+    ((isLessonPage && question.type !== "multiple-choice") || (isPracticePage && question.type === "short-answer"));
   const shouldShowAnswerTools =
     question.type === "fill-in" ||
     question.type === "short-answer" ||
@@ -324,6 +366,27 @@ export function PracticeQuestionCard({ question, onAnswered }: PracticeQuestionC
   useEffect(() => () => {
     revokePhotoAttachments(photoAttachmentsRef.current);
   }, []);
+
+  useEffect(() => {
+    if (!currentUser) {
+      setPhotoUploadsAvailable(false);
+      return;
+    }
+
+    let cancelled = false;
+    fetch("/api/media-objects")
+      .then((response) => (response.ok ? response.json() : null))
+      .then((payload: { uploadsAvailable?: unknown } | null) => {
+        if (!cancelled) setPhotoUploadsAvailable(payload?.uploadsAvailable === true);
+      })
+      .catch(() => {
+        if (!cancelled) setPhotoUploadsAvailable(false);
+      });
+
+    return () => {
+      cancelled = true;
+    };
+  }, [currentUser]);
 
   useEffect(() => () => stopPracticeReadAloud(), []);
 
@@ -484,14 +547,21 @@ export function PracticeQuestionCard({ question, onAnswered }: PracticeQuestionC
     setError("");
 
     const createdAt = Date.now();
-    const newAttachments = await Promise.all(files.map(async (file, index) => ({
-      dataUrl: await readPhotoDataUrl(file).catch(() => ""),
-      id: `${question.id}-${createdAt}-${index}-${file.name}`,
-      name: file.name,
-      size: file.size,
-      type: file.type || "image/*",
-      url: URL.createObjectURL(file)
-    })));
+    const newAttachments = await Promise.all(files.map(async (file, index) => {
+      const dataUrl = await readPhotoDataUrl(file).catch(() => "");
+
+      return {
+        dataUrl,
+        id: `${question.id}-${createdAt}-${index}-${file.name}`,
+        name: file.name,
+        size: file.size,
+        type: file.type || "image/*",
+        url: URL.createObjectURL(file),
+        // Uploaded at attach time, while the student is still working, so the
+        // answer submission carries references instead of megabytes of base64.
+        mediaObject: await uploadAnswerWorkPhoto(dataUrl)
+      };
+    }));
 
     setPhotoAttachments((current) => {
       const remainingSlots = Math.max(0, maxAnswerPhotoAttachments - current.length);
