@@ -35,6 +35,7 @@
  * (and with it the audits, which slice their model out of the shipped file).
  */
 
+import { spawnSync } from "node:child_process";
 import { createHash } from "node:crypto";
 import { existsSync, readFileSync, readdirSync, writeFileSync } from "node:fs";
 import { join } from "node:path";
@@ -56,12 +57,62 @@ const write = args.includes("--write");
 
 const sha = (text) => createHash("sha256").update(text, "utf8").digest("hex").slice(0, 16);
 
+/**
+ * Which of `paths` macOS has evicted to iCloud "dataless" placeholders.
+ *
+ * The library sits on an iCloud-synced Desktop. An evicted file still passes
+ * `existsSync` and still reports a full `size` — but `readFileSync` BLOCKS in
+ * the kernel until the file provider materialises it. When that never completes
+ * (offline, or the provider is wedged) the read never returns AND never throws,
+ * so this script used to hang forever on the upstream loop below with no output.
+ *
+ * macOS records the state as the `UF_DATALESS` file flag. Node's `fs.Stats`
+ * carries no BSD flags, so ask `stat(1)` — one spawn for the whole list, and it
+ * never touches content. Darwin-only: there is no such state on Linux CI.
+ */
+function datalessPaths(paths) {
+  if (process.platform !== "darwin" || paths.length === 0) return [];
+  try {
+    const { stdout } = spawnSync("/usr/bin/stat", ["-f", "%Sf %N", "--", ...paths], {
+      encoding: "utf8",
+      timeout: 30_000,
+      maxBuffer: 8 * 1024 * 1024,
+    });
+    return (stdout ?? "")
+      .split("\n")
+      .map((line) => line.match(/^(\S+) (.+)$/))
+      .filter((m) => m && /\bdataless\b/.test(m[1]))
+      .map((m) => m[2]);
+  } catch {
+    return [];
+  }
+}
+
 const portedFiles = readdirSync(SIGNATURE_DIR).filter((f) => f.endsWith(".jsx")).sort();
 
 if (!existsSync(join(library, "labs.json"))) {
   console.log("check-port-drift: the Claude Math Visual library is not on this machine.");
   console.log(`  looked in: ${library}`);
   console.log("  Nothing to compare against — skipping. (Expected in CI; this is not a failure.)");
+  process.exit(0);
+}
+
+/* Probe EVERY upstream file this run would read, before reading any of them: a
+   materialised labs.json is no guarantee about the individual `<Name>Lab.jsx`
+   files, which iCloud evicts independently. Any hit means the library is
+   present-but-unreadable, which is the same situation as absent — take the same
+   skip, rather than hanging or silently reporting evicted benches as
+   MAIS-authored. */
+const evicted = datalessPaths(
+  [join(library, "labs.json"), ...portedFiles.map((f) => join(library, f))].filter((p) => existsSync(p))
+);
+if (evicted.length > 0) {
+  console.log("check-port-drift: the Claude Math Visual library is on this machine but not readable.");
+  console.log(`  looked in: ${library}`);
+  console.log(`  ${evicted.length} file(s) are iCloud placeholders (dataless) — the bytes are in the`);
+  console.log("  cloud, and reading one blocks indefinitely rather than failing. Open the folder in");
+  console.log("  Finder (or `brctl download`) to materialise it, then re-run.");
+  console.log("  Nothing to compare against — skipping. (This is not a failure.)");
   process.exit(0);
 }
 

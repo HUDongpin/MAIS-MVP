@@ -39,6 +39,7 @@
  * "Real visual" = A + B + E.  "Paper only" = D + F.
  */
 
+import { spawnSync } from "node:child_process";
 import { readFileSync, writeFileSync } from "node:fs";
 import { join } from "node:path";
 import { grades } from "@/data/ccss";
@@ -113,9 +114,44 @@ export const SNAPSHOT_PATH = join(
   "data/generated-content/ccss-depth/bench-standards.json"
 );
 
+/**
+ * Has macOS evicted `path` to an iCloud "dataless" placeholder?
+ *
+ * The library sits on an iCloud-synced Desktop, and an evicted file still
+ * passes `existsSync` and still reports a full `size` — but `readFileSync`
+ * BLOCKS in the kernel until the file provider materialises it. When that never
+ * completes (offline, or the provider is wedged) the read never returns and
+ * never throws, so the try/catch "library is not on this machine" fallback
+ * below is unreachable and the whole gate hangs with zero output.
+ *
+ * macOS records the state as the `UF_DATALESS` file flag. Node's `fs.Stats`
+ * carries no BSD flags, so ask `stat(1)` — cheap, and it never touches content.
+ * Darwin-only: there is no such state on the Linux CI runners.
+ */
+function isDataless(path: string): boolean {
+  if (process.platform !== "darwin") return false;
+  try {
+    const { stdout } = spawnSync("/usr/bin/stat", ["-f", "%Sf", "--", path], {
+      encoding: "utf8",
+      timeout: 10_000,
+    });
+    return /\bdataless\b/.test(stdout ?? "");
+  } catch {
+    return false;
+  }
+}
+
 /** Read the upstream bench metadata and merge the MAIS-side supplemental tags. */
 export function loadBenchStandards(library = DEFAULT_LIBRARY): Map<string, Set<string>> {
-  const labs = JSON.parse(readFileSync(join(library, "labs.json"), "utf8")) as Record<string, BenchMeta>;
+  const labsPath = join(library, "labs.json");
+  // Never hand a dataless placeholder to readFileSync — it would hang, not throw.
+  if (isDataless(labsPath)) {
+    throw new Error(
+      `${labsPath} is an iCloud placeholder (dataless) — its contents are not on this ` +
+        `machine. Use the committed snapshot, or materialise the library first.`
+    );
+  }
+  const labs = JSON.parse(readFileSync(labsPath, "utf8")) as Record<string, BenchMeta>;
   const out = new Map<string, Set<string>>();
   for (const [name, meta] of Object.entries(labs)) {
     out.set(name, new Set((meta.ccss ?? []).map(normalizeCcss)));
@@ -130,8 +166,12 @@ export function loadBenchStandards(library = DEFAULT_LIBRARY): Map<string, Set<s
 
 /** Is the upstream library readable on this machine? */
 export function libraryAvailable(library = DEFAULT_LIBRARY): boolean {
+  const labsPath = join(library, "labs.json");
+  // An evicted placeholder is present but not readable — probe before reading,
+  // or readFileSync blocks forever instead of throwing (see `isDataless`).
+  if (isDataless(labsPath)) return false;
   try {
-    readFileSync(join(library, "labs.json"), "utf8");
+    readFileSync(labsPath, "utf8");
     return true;
   } catch {
     return false;
