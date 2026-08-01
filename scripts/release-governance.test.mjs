@@ -1,5 +1,5 @@
 import assert from "node:assert/strict";
-import { chmod, copyFile, link, mkdir, mkdtemp, readFile, readdir, realpath, rm, stat, symlink, truncate, writeFile } from "node:fs/promises";
+import { chmod, copyFile, link, mkdir, mkdtemp, open, readFile, readdir, realpath, rm, stat, symlink, truncate, writeFile } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import path from "node:path";
 import { fileURLToPath, pathToFileURL } from "node:url";
@@ -650,11 +650,22 @@ test("dirty map no-report refresh safely creates missing nested repository paren
 
 test("dirty map atomic refresh preserves restrictive existing output permissions", async () => {
   const fixture = await createDirtyMapFixtureRepo();
+  const originalBytes = "existing restrictive output\n";
+  let originalHandle;
 
   try {
-    await writeFile(fixture.latestJson, "existing restrictive output\n");
+    await writeFile(fixture.latestJson, originalBytes);
     await chmod(fixture.latestJson, 0o600);
-    const before = await stat(fixture.latestJson);
+    // Hold the pre-existing inode open across the refresh. A staged rename
+    // detaches that inode from the path, so this descriptor keeps observing the
+    // original bytes; an in-place rewrite would expose the refreshed bytes
+    // through this very descriptor. Inode *numbers* cannot carry that proof:
+    // writeDirtyTreeMap stages and commits twice per run, so the first rename
+    // frees the original number and ext4 hands it straight back to the second
+    // staged file, legitimately landing the target back on its original number.
+    // APFS never reuses inode numbers, which is why raw number inequality only
+    // ever failed on the Linux runner.
+    originalHandle = await open(fixture.latestJson, "r");
     const refresh = runDirtyMapFixture(fixture, [
       "--latest-json",
       fixture.latestJson,
@@ -667,8 +678,23 @@ test("dirty map atomic refresh preserves restrictive existing output permissions
 
     const after = await stat(fixture.latestJson);
     assert.equal(after.mode & 0o777, 0o600);
-    assert.notEqual(after.ino, before.ino, "atomic replacement must install the staged inode");
+    assert.equal(
+      (await originalHandle.stat()).nlink,
+      0,
+      "atomic replacement must unlink the original output inode, not mutate it"
+    );
+    assert.equal(
+      await originalHandle.readFile("utf8"),
+      originalBytes,
+      "atomic replacement must install the staged file instead of rewriting the target in place"
+    );
+    assert.notEqual(
+      await readFile(fixture.latestJson, "utf8"),
+      originalBytes,
+      "the refreshed map must be published at the output path"
+    );
   } finally {
+    if (originalHandle) await originalHandle.close().catch(() => undefined);
     await rm(fixture.root, { recursive: true, force: true });
   }
 });
