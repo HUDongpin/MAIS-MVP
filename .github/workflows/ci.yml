@@ -69,6 +69,17 @@ jobs:
       - name: Run stray generated-types guard and its unit test
         run: npm run check:stray-types && npm run test:stray-types
 
+      # The governance gate diffs the merged package.json against a frozen
+      # baseline commit, which a depth-1 checkout does not contain. Fetch only
+      # that commit — a full-history checkout would pull gigabytes of assets.
+      - name: Fetch the frozen release-governance baseline commit
+        run: |
+          git fetch --no-tags --depth=1 --filter=blob:none origin ce2ae5258013ca5bd79dd0cc56e7b1681d5cd411
+          git cat-file -e ce2ae5258013ca5bd79dd0cc56e7b1681d5cd411:package.json
+
+      - name: Run release governance gate (frozen package-script baseline + release command contracts)
+        run: npm run test:release-governance
+
       - name: Run analytics tests
         run: npm run test:analytics
 
