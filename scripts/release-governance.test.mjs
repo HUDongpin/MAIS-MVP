@@ -2184,7 +2184,10 @@ test("P0 package delta and default release gates are self-contained in Git objec
   };
   const allowedScriptChanges = new Set([
     "audit:ccss-depth",
+    "audit:lesson-illustrations",
+    "audit:us-math-items",
     "build",
+    "certify:production",
     "check",
     "check:imports",
     "check:port-drift",
@@ -2222,17 +2225,23 @@ test("P0 package delta and default release gates are self-contained in Git objec
     "test:analytics",
     "test:ccss-depth",
     "test:ccss-textbook",
+    "test:components",
     "test:content-safety",
     "test:e2e",
     "test:imports",
+    "test:lesson-menu",
     "test:mvp",
+    "test:prod-certification",
     "test:question-bank",
     "test:question-figure",
     "test:rag",
     "test:release-evidence",
     "test:release-governance",
     "test:signature-labs",
+    "test:source-regressions",
     "test:stray-types",
+    "test:tutor-moderation",
+    "test:tutor-transcript",
     "test:visualizations",
     "vercel:preview",
     "vercel:production",
@@ -2256,7 +2265,7 @@ test("P0 package delta and default release gates are self-contained in Git objec
   );
   assert.equal(
     createHash("sha256").update(JSON.stringify(changedScripts)).digest("hex"),
-    "9238e639c329346106964e1801aa9f87bb86a6e659abe5f7763f7f1f1b5325b9",
+    "ca0774f11bc02f78a66de66a936cc69a5ec064e2d14e66a1c0d91be098ebfbea",
     "Reviewed command bodies must remain exact"
   );
   for (const [name, command] of Object.entries(expectedP0Scripts)) {
