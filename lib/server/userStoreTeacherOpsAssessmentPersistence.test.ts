@@ -16,6 +16,7 @@ import {
   teacherOpsReviewLessonSnapshotIsStale,
   teacherOpsReviewLessonToRecord,
   teacherOpsAssessmentSubmittedCount,
+  teacherOpsSeedAssessmentRecords,
   toTeacherOpsReviewLesson,
   toTeacherOpsAssessmentSubmission,
   type TeacherOpsAssessmentPersistenceDatabase
@@ -1072,6 +1073,7 @@ test("teacher ops assessment persistence owns assessment collection normalizatio
 
   assert.deepEqual(normalized?.assessments.map((assessment) => assessment.id), [
     "assessment-s3-algebra-quiz",
+    "assessment-us-ca-p1-add-subtract-check",
     "assessment-custom"
   ]);
   assert.equal(normalized?.assessments[0]?.title_en, "Legacy quiz");
@@ -1106,6 +1108,12 @@ test("teacher ops assessment persistence owns assessment collection normalizatio
     {
       id: "assessment-s3-algebra-quiz",
       question_ids: ["q5"]
+    },
+    {
+      // The demo classroom's open assessment, with its own questions filtered out
+      // by this caller's questionExists stub.
+      id: "assessment-us-ca-p1-add-subtract-check",
+      question_ids: []
     }
   ]);
 });
@@ -2953,6 +2961,34 @@ test("teacher ops assessment persistence owns seed assessment records for legacy
       created_by: "teacher-ms-chan",
       created_at: "2026-06-20T10:00:00.000Z",
       updated_at: "2026-06-20T10:00:00.000Z"
+    },
+    {
+      id: "assessment-us-ca-p1-add-subtract-check",
+      class_id: "class-us-ca-p1-2026",
+      title_en: "Grade 1 add and subtract check",
+      title_zh: "小一加減法檢測",
+      type: "quiz",
+      status: "open",
+      source_type: "question-bank",
+      source_resource_id: undefined,
+      question_ids: [
+        "us-ca-k5-knowledge-point-practice-v1-us-ca-math-p1-1-oa-add-subtract-q01",
+        "us-ca-k5-knowledge-point-practice-v1-us-ca-math-p1-1-oa-add-subtract-q02",
+        "us-ca-k5-knowledge-point-practice-v1-us-ca-math-p1-1-oa-add-subtract-q03",
+        "us-ca-k5-knowledge-point-practice-v1-us-ca-math-p1-1-oa-add-subtract-q04"
+      ],
+      manual_questions: [],
+      paper_sections: [],
+      opens_at: null,
+      closes_at: null,
+      time_limit_minutes: null,
+      max_attempts: 3,
+      randomize_question_order: false,
+      show_answers_immediately: true,
+      grade_weight: 10,
+      created_by: "teacher-scott-us",
+      created_at: "2026-06-20T10:00:00.000Z",
+      updated_at: "2026-06-20T10:00:00.000Z"
     }
   ]);
 
@@ -2960,7 +2996,23 @@ test("teacher ops assessment persistence owns seed assessment records for legacy
     demoTeacherId: "teacher-ms-chan",
     questionExists: (questionId) => questionId === "q5"
   });
-  assert.deepEqual(filteredQuestions.map((assessment) => assessment.question_ids), [["q5"]]);
+  assert.deepEqual(filteredQuestions.map((assessment) => assessment.question_ids), [["q5"], []]);
+});
+
+test("the demo classroom seeds one assessment a student can actually open", () => {
+  // A draft assessment renders "Assessment unavailable" for every student, so the
+  // seed must also carry an open one on a class the demo student is enrolled in.
+  const openable = teacherOpsSeedAssessmentRecords("2026-06-20T10:00:00.000Z", {
+    demoTeacherId: "teacher-ms-chan",
+    questionExists: () => true
+  }).filter((assessment) => assessment.status === "open");
+
+  assert.ok(openable.length >= 1, "at least one seeded assessment must be open to students");
+  for (const assessment of openable) {
+    assert.ok(assessment.question_ids.length > 0, `${assessment.id} must have questions`);
+    assert.equal(assessment.opens_at, null, `${assessment.id} must not wait for a start date`);
+    assert.equal(assessment.closes_at, null, `${assessment.id} must not go stale as the demo data ages`);
+  }
 });
 
 test("teacher ops assessment persistence owns seed assessment submission records for legacy userStore", async () => {

@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { useSettings } from "@/components/providers/AppProviders";
+import { ClassPerformanceBars, CompletionGauge, RosterStatusDonut, type ClassBarDatum } from "@/components/teacher/DashboardCharts";
 import { TeacherNavIcon, type TeacherNavIconName } from "@/components/teacher/teacherNavIcons";
 import {
   countStatus,
@@ -254,6 +255,21 @@ export function TeacherDashboardView({ dashboard }: { dashboard: TeacherDashboar
       status: countStatus(dashboard.kpis.atRiskStudents, true)
     }
   ];
+  const completionStatus: TeacherStatus = weeklyCompletionRate === 0 ? "neutral" : rateStatus(weeklyCompletionRate);
+  const totalStudents = dashboard.classSummaries.reduce((sum, summary) => sum + summary.studentCount, 0);
+  const attentionStudents = Math.min(totalStudents, atRiskStudents);
+  const onTrackStudents = Math.max(0, totalStudents - attentionStudents);
+  const classBars: ClassBarDatum[] = dashboard.classSummaries
+    .filter((summary) => summary.studentCount > 0)
+    .sort((a, b) => b.averageMastery - a.averageMastery)
+    .map((summary) => ({
+      key: summary.classId,
+      className: compactClassName(summary.className),
+      subLabel: `${formatGradeLabel(summary.grade, language, true)} · ${summary.studentCount}`,
+      mastery: summary.averageMastery,
+      completion: summary.assignmentCompletionRate,
+      href: summary.href
+    }));
   const enterpriseWorkflows: {
     eyebrow: string;
     title: string;
@@ -394,6 +410,61 @@ export function TeacherDashboardView({ dashboard }: { dashboard: TeacherDashboar
             )}
           </div>
         </aside>
+      </section>
+
+      <section data-tour="insights">
+        <div className="mb-4">
+          <p className={cn("text-sm font-black uppercase tracking-[0.22em]", zoneEyebrowClass.students)}>
+            {t({ en: "Learning insights", zh: "學習洞察" })}
+          </p>
+          <h2 className="mt-2 text-2xl font-bold text-slate-950 dark:text-white">
+            {t({ en: "Performance at a glance", zh: "學習表現一覽" })}
+          </h2>
+        </div>
+        <div className="grid gap-4 xl:grid-cols-[minmax(0,1fr)_360px]">
+          <div className="glass-panel p-5 sm:p-6">
+            <p className="text-sm font-black text-slate-950 dark:text-white">
+              {t({ en: "Mastery & completion by class", zh: "各班掌握度與完成率" })}
+            </p>
+            <p className="mt-1 text-xs font-bold text-slate-500 dark:text-slate-400">
+              {t({
+                en: "Ranked by average mastery. Select a class for the full breakdown.",
+                zh: "按平均掌握度排序，點選班級查看完整分析。"
+              })}
+            </p>
+            <div className="mt-5">
+              <ClassPerformanceBars
+                rows={classBars}
+                masteryLabel={t({ en: "Mastery", zh: "掌握度" })}
+                completionLabel={t({ en: "Completion", zh: "完成率" })}
+                emptyLabel={t({
+                  en: "No enrolled students yet — bars appear once a class has learners.",
+                  zh: "尚未有學生加入，班級有學生後即顯示圖表。"
+                })}
+              />
+            </div>
+          </div>
+          <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-1">
+            <div className="glass-panel flex items-center justify-center p-5">
+              <CompletionGauge
+                value={weeklyCompletionRate}
+                status={completionStatus}
+                title={t({ en: "Weekly completion", zh: "本週完成率" })}
+                caption={t({ en: "Across recent submissions", zh: "近期作業提交比例" })}
+              />
+            </div>
+            <div className="glass-panel flex items-center justify-center p-5">
+              <RosterStatusDonut
+                onTrack={onTrackStudents}
+                attention={attentionStudents}
+                centerLabel={t({ en: "Students", zh: "學生" })}
+                onTrackLabel={t({ en: "On track", zh: "進度正常" })}
+                attentionLabel={t({ en: "Needs attention", zh: "需要關注" })}
+                emptyLabel={t({ en: "No enrolled students yet.", zh: "尚未有學生。" })}
+              />
+            </div>
+          </div>
+        </div>
       </section>
 
       <section data-tour="workflow">

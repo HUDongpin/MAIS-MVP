@@ -85,7 +85,7 @@ export const californiaHighSchoolTextbookDraft = {
         "CA.CCSS.Math.HS.N-RN"
       ],
       "concept": {
-        "src": "/lesson-illustrations/us-ca-high-school/us-ca-math-s3-chapter-01/concept.png",
+        "src": "/lesson-illustrations/us-ca-high-school/us-ca-math-s3-chapter-01/concept.webp",
         "alt": {
           "en": "Equations from Context concept background for internal review",
           "zh": "情境中的方程概念背景，僅供內部審查",
@@ -209,7 +209,7 @@ export const californiaHighSchoolTextbookDraft = {
         "CA.CCSS.Math.HS.A-CED"
       ],
       "concept": {
-        "src": "/lesson-illustrations/us-ca-high-school/us-ca-math-s3-chapter-02/concept.png",
+        "src": "/lesson-illustrations/us-ca-high-school/us-ca-math-s3-chapter-02/concept.webp",
         "alt": {
           "en": "Function Notation and Interpretation concept background for internal review",
           "zh": "函數記號與解讀概念背景，僅供內部審查",
@@ -333,7 +333,7 @@ export const californiaHighSchoolTextbookDraft = {
         "CA.CCSS.Math.HS.A-REI"
       ],
       "concept": {
-        "src": "/lesson-illustrations/us-ca-high-school/us-ca-math-s3-chapter-03/concept.png",
+        "src": "/lesson-illustrations/us-ca-high-school/us-ca-math-s3-chapter-03/concept.webp",
         "alt": {
           "en": "Linear and Quadratic Models concept background for internal review",
           "zh": "一次與二次模型概念背景，僅供內部審查",
@@ -457,7 +457,7 @@ export const californiaHighSchoolTextbookDraft = {
         "CA.CCSS.Math.HS.F-IF"
       ],
       "concept": {
-        "src": "/lesson-illustrations/us-ca-high-school/us-ca-math-s3-chapter-04/concept.png",
+        "src": "/lesson-illustrations/us-ca-high-school/us-ca-math-s3-chapter-04/concept.webp",
         "alt": {
           "en": "Coordinate Geometry Methods concept background for internal review",
           "zh": "坐標幾何方法概念背景，僅供內部審查",
@@ -609,7 +609,7 @@ export const californiaHighSchoolTextbookDraft = {
         "CA.CCSS.Math.HS.G-GPE"
       ],
       "concept": {
-        "src": "/lesson-illustrations/us-ca-high-school/us-ca-math-s3-chapter-05/concept.png",
+        "src": "/lesson-illustrations/us-ca-high-school/us-ca-math-s3-chapter-05/concept.webp",
         "alt": {
           "en": "Modeling with Evidence concept background for internal review",
           "zh": "用證據建模概念背景，僅供內部審查",
@@ -733,7 +733,7 @@ export const californiaHighSchoolTextbookDraft = {
         "CA.CCSS.Math.HS.G-CO"
       ],
       "concept": {
-        "src": "/lesson-illustrations/us-ca-high-school/us-ca-math-s4-chapter-01/concept.png",
+        "src": "/lesson-illustrations/us-ca-high-school/us-ca-math-s4-chapter-01/concept.webp",
         "alt": {
           "en": "Congruence and Proof concept background for internal review",
           "zh": "全等與證明概念背景，僅供內部審查",
@@ -841,7 +841,7 @@ export const californiaHighSchoolTextbookDraft = {
         "CA.CCSS.Math.HS.G-SRT"
       ],
       "concept": {
-        "src": "/lesson-illustrations/us-ca-high-school/us-ca-math-s4-chapter-02/concept.png",
+        "src": "/lesson-illustrations/us-ca-high-school/us-ca-math-s4-chapter-02/concept.webp",
         "alt": {
           "en": "Similarity and Right-Triangle Reasoning concept background for internal review",
           "zh": "相似與直角三角形推理概念背景，僅供內部審查",
@@ -979,7 +979,7 @@ export const californiaHighSchoolTextbookDraft = {
         "CA.CCSS.Math.HS.G-C"
       ],
       "concept": {
-        "src": "/lesson-illustrations/us-ca-high-school/us-ca-math-s4-chapter-03/concept.png",
+        "src": "/lesson-illustrations/us-ca-high-school/us-ca-math-s4-chapter-03/concept.webp",
         "alt": {
           "en": "Circle Geometry concept background for internal review",
           "zh": "圓的幾何概念背景，僅供內部審查",
@@ -1103,7 +1103,7 @@ export const californiaHighSchoolTextbookDraft = {
         "CA.CCSS.Math.HS.A-SSE"
       ],
       "concept": {
-        "src": "/lesson-illustrations/us-ca-high-school/us-ca-math-s4-chapter-04/concept.png",
+        "src": "/lesson-illustrations/us-ca-high-school/us-ca-math-s4-chapter-04/concept.webp",
         "alt": {
           "en": "Quadratic Structure concept background for internal review",
           "zh": "二次式結構概念背景，僅供內部審查",
@@ -1234,7 +1234,7 @@ export const californiaHighSchoolTextbookDraft = {
         "CA.CCSS.Math.HS.S-CP"
       ],
       "concept": {
-        "src": "/lesson-illustrations/us-ca-high-school/us-ca-math-s4-chapter-05/concept.png",
+        "src": "/lesson-illustrations/us-ca-high-school/us-ca-math-s4-chapter-05/concept.webp",
         "alt": {
           "en": "Conditional Probability concept background for internal review",
           "zh": "條件概率概念背景，僅供內部審查",
@@ -1358,7 +1358,7 @@ export const californiaHighSchoolTextbookDraft = {
         "CA.CCSS.Math.HS.F-BF"
       ],
       "concept": {
-        "src": "/lesson-illustrations/us-ca-high-school/us-ca-math-s5-chapter-01/concept.png",
+        "src": "/lesson-illustrations/us-ca-high-school/us-ca-math-s5-chapter-01/concept.webp",
         "alt": {
           "en": "Function Transformations and Inverses concept background for internal review",
           "zh": "函數變換與反函數概念背景，僅供內部審查",
@@ -1481,7 +1481,7 @@ export const californiaHighSchoolTextbookDraft = {
         "CA.CCSS.Math.HS.F-LE"
       ],
       "concept": {
-        "src": "/lesson-illustrations/us-ca-high-school/us-ca-math-s5-chapter-02/concept.png",
+        "src": "/lesson-illustrations/us-ca-high-school/us-ca-math-s5-chapter-02/concept.webp",
         "alt": {
           "en": "Exponential and Logarithmic Models concept background for internal review",
           "zh": "指數與對數模型概念背景，僅供內部審查",
@@ -1605,7 +1605,7 @@ export const californiaHighSchoolTextbookDraft = {
         "CA.CCSS.Math.HS.F-TF"
       ],
       "concept": {
-        "src": "/lesson-illustrations/us-ca-high-school/us-ca-math-s5-chapter-03/concept.png",
+        "src": "/lesson-illustrations/us-ca-high-school/us-ca-math-s5-chapter-03/concept.webp",
         "alt": {
           "en": "Trigonometric Functions and Graphs concept background for internal review",
           "zh": "三角函數與圖像概念背景，僅供內部審查",
@@ -1721,7 +1721,7 @@ export const californiaHighSchoolTextbookDraft = {
         "CA.CCSS.Math.HS.S-ID"
       ],
       "concept": {
-        "src": "/lesson-illustrations/us-ca-high-school/us-ca-math-s5-chapter-04/concept.png",
+        "src": "/lesson-illustrations/us-ca-high-school/us-ca-math-s5-chapter-04/concept.webp",
         "alt": {
           "en": "Data Modeling and Residuals concept background for internal review",
           "zh": "數據建模與殘差概念背景，僅供內部審查",
@@ -1852,7 +1852,7 @@ export const californiaHighSchoolTextbookDraft = {
         "CA.CCSS.Math.HS.S-IC"
       ],
       "concept": {
-        "src": "/lesson-illustrations/us-ca-high-school/us-ca-math-s5-chapter-05/concept.png",
+        "src": "/lesson-illustrations/us-ca-high-school/us-ca-math-s5-chapter-05/concept.webp",
         "alt": {
           "en": "Statistical Inference and Claims concept background for internal review",
           "zh": "統計推斷與論證概念背景，僅供內部審查",
@@ -1990,7 +1990,7 @@ export const californiaHighSchoolTextbookDraft = {
         "CA.CCSS.Math.HS.N-Q"
       ],
       "concept": {
-        "src": "/lesson-illustrations/us-ca-high-school/us-ca-math-s6-chapter-01/concept.png",
+        "src": "/lesson-illustrations/us-ca-high-school/us-ca-math-s6-chapter-01/concept.webp",
         "alt": {
           "en": "Quantities, Units, and Precision concept background for internal review",
           "zh": "數量、單位與精確度概念背景，僅供內部審查",
@@ -2121,7 +2121,7 @@ export const californiaHighSchoolTextbookDraft = {
         "CA.CCSS.Math.HS.A-APR"
       ],
       "concept": {
-        "src": "/lesson-illustrations/us-ca-high-school/us-ca-math-s6-chapter-02/concept.png",
+        "src": "/lesson-illustrations/us-ca-high-school/us-ca-math-s6-chapter-02/concept.webp",
         "alt": {
           "en": "Polynomial Structure and Behavior concept background for internal review",
           "zh": "多項式結構與行為概念背景，僅供內部審查",
@@ -2259,7 +2259,7 @@ export const californiaHighSchoolTextbookDraft = {
         "CA.CCSS.Math.HS.F-IF"
       ],
       "concept": {
-        "src": "/lesson-illustrations/us-ca-high-school/us-ca-math-s6-chapter-03/concept.png",
+        "src": "/lesson-illustrations/us-ca-high-school/us-ca-math-s6-chapter-03/concept.webp",
         "alt": {
           "en": "Decision Statistics concept background for internal review",
           "zh": "決策統計概念背景，僅供內部審查",
@@ -2390,7 +2390,7 @@ export const californiaHighSchoolTextbookDraft = {
         "CA.CCSS.Math.HS.S-MD"
       ],
       "concept": {
-        "src": "/lesson-illustrations/us-ca-high-school/us-ca-math-s6-chapter-04/concept.png",
+        "src": "/lesson-illustrations/us-ca-high-school/us-ca-math-s6-chapter-04/concept.webp",
         "alt": {
           "en": "Function Analysis and Rates concept background for internal review",
           "zh": "函數分析與變化率概念背景，僅供內部審查",
@@ -2514,7 +2514,7 @@ export const californiaHighSchoolTextbookDraft = {
         "CA.CCSS.Math.HS.Modeling"
       ],
       "concept": {
-        "src": "/lesson-illustrations/us-ca-high-school/us-ca-math-s6-chapter-05/concept.png",
+        "src": "/lesson-illustrations/us-ca-high-school/us-ca-math-s6-chapter-05/concept.webp",
         "alt": {
           "en": "Capstone Modeling concept background for internal review",
           "zh": "總結性建模概念背景，僅供內部審查",

@@ -14,7 +14,11 @@ export type MainlandHjbHighLessonIllustration = {
   ragCardIds: string[];
 };
 
-export const mainlandHjbHighLessonIllustrations = [
+// Draft metadata retained after asset removal. The live export below is
+// withdrawn because `852fe6dd39` deleted the low-quality PNGs from
+// public/lesson-illustrations/mainland-hjb-high/ without withdrawing the
+// metadata, leaving the lesson surface pointing at files that no longer exist.
+export const mainlandHjbHighLessonIllustrationDrafts = [
   {
     "id": "hjb-high-s4-等式与不等式-concept",
     "topicId": "hjb-high-s4-等式与不等式",
@@ -1293,16 +1297,19 @@ export const mainlandHjbHighLessonIllustrations = [
   }
 ] satisfies MainlandHjbHighLessonIllustration[];
 
-const mainlandHjbHighLessonIllustrationByTopicAndSlot = new Map(
-  mainlandHjbHighLessonIllustrations.map((illustration) => [
-    `${illustration.topicId}:${illustration.slot}`,
-    illustration
-  ])
-);
+export const mainlandHjbHighLessonIllustrationWithdrawal = {
+  date: "2026-07-31",
+  decision: "withdrawn-assets-removed",
+  scope: "MAINLAND_HJB high-school lesson illustrations",
+  reason:
+    "Commit 852fe6dd39 (2026-06-20) removed the low-quality PNG assets under public/lesson-illustrations/mainland-hjb-high/ but left this metadata live, so every rendered lesson illustration resolved to a 404. Withdrawn from live lessons pending replacement asset production and approval."
+} as const;
+
+export const mainlandHjbHighLessonIllustrations: MainlandHjbHighLessonIllustration[] = [];
 
 export function getMainlandHjbHighLessonIllustration(
-  topicId: string,
-  slot: MainlandHjbHighLessonIllustrationSlot
-) {
-  return mainlandHjbHighLessonIllustrationByTopicAndSlot.get(`${topicId}:${slot}`) ?? null;
+  _topicId: string,
+  _slot: MainlandHjbHighLessonIllustrationSlot
+): MainlandHjbHighLessonIllustration | null {
+  return null;
 }

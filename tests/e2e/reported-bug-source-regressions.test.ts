@@ -105,13 +105,16 @@ test("routes without slow server data carry no segment-level loading file", () =
   // build: with these files present every route below served '<template
   // id="B:' + '<div hidden id="S:' markers; without them, none did. Only
   // reintroduce a loading.tsx where the route genuinely awaits slow server
-  // data, and document why next to it.
+  // data, and document why next to it. app/student/lessons was the originally
+  // root-caused route (PR #69); its served-HTML marker guard lives at the end
+  // of the free-selection test in practice-pager.spec.ts.
   const racyLoadingFiles = [
     "app/adaptive-learning/loading.tsx",
     "app/lesson/loading.tsx",
     "app/personalized-learning/loading.tsx",
     "app/practice/loading.tsx",
     "app/student/assignments/loading.tsx",
+    "app/student/lessons/loading.tsx",
     "app/student/tools/visualizations/loading.tsx",
     "app/visualization-lab/loading.tsx"
   ];
@@ -163,12 +166,25 @@ test("lesson place-value illustration derives tens and ones from the focus numbe
   assert.match(illustration, /Array\.from\(\{ length: ones \}/);
 });
 
-test("practice answer submissions include attached work photos in the attempts contract", async () => {
+test("practice answer submissions persist attached work photos, not just accept them", async () => {
   const card = await source("components/practice/PracticeQuestionCard.tsx");
   const route = await source("app/api/attempts/route.ts");
+  const store = await source("lib/server/practiceAttemptStore.ts");
 
-  assert.match(card, /answerWorkPhotos: serializeAnswerWorkPhotos\(photoAttachments\)/);
-  assert.match(route, /const answerWorkPhotos = readAnswerWorkPhotos\(body\.answerWorkPhotos\)/);
+  // The original version of this gate asserted only that the client SENT
+  // `answerWorkPhotos` and that the route READ them. Both were true while the
+  // route dropped the parsed value on the floor and nothing in lib/ ever stored
+  // it — the gate was green for months against a feature that did nothing.
+  // Assert the effect instead: the value has to reach the store and the column.
+  assert.match(card, /answerWorkPhotos:/);
+  assert.match(route, /submitQuestionAttemptFast\(\{[\s\S]{0,400}answerWorkPhotos/);
+  assert.match(store, /answer_work_photos/);
+  assert.match(store, /persistQuestionAttempt\(\{[\s\S]{0,400}answerWorkPhotos/);
+
+  // Photo bytes belong in the governed media-object store (scanned, encrypted,
+  // retention-bounded); practice_attempts holds references only.
+  assert.match(route, /practice-work-photo\//);
+  assert.doesNotMatch(store, /dataUrl/);
 });
 
 test("practice photo attachment control is localized in Chinese modes", async () => {

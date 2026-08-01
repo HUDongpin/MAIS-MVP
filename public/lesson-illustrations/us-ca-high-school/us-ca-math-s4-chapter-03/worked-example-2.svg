@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Circle Geometry - Worked example 2</title>
+  <desc id="desc">A tangent point is 13 units from the circle center, and the radius is 5. Find the tangent segment length. Answer: tangent length = 12.</desc>
+  <rect width="1600" height="900" fill="#eef4fb"/>
+  <rect x="24" y="24" width="1552" height="852" rx="28" fill="#f8fbff" stroke="#b8c8de" stroke-width="2"/>
+  <text x="54" y="76" font-size="36" font-weight="900" fill="#162033">S4 Circle Geometry</text>
+  <text x="54" y="112" font-size="20" font-weight="700" fill="#5a6c85">circle-diagram / svg / review-ready exact layer</text>
+  <text class="" x="54" y="160" font-size="23" font-weight="650" fill="#18212f"><tspan x="54" dy="0">EN: A tangent point is 13 units from the circle center, and the radius is 5. Find the tangent segment</tspan><tspan x="54" dy="28">length.</tspan></text>
+  <text class="" x="54" y="222" font-size="22" font-weight="600" fill="#334155"><tspan x="54" dy="0">ZH: 切點到圓心的距離為 13，半徑為 5。求切線段長度。</tspan></text>
+  <rect x="54" y="292" width="820" height="540" rx="22" fill="#ffffff" stroke="#c8d4e8" stroke-width="2"/>
+  <text x="82" y="338" font-size="24" font-weight="800" fill="#20314d">Deterministic Visual Layer</text>
+  <line x1="78" y1="360" x2="850" y2="360" stroke="#d9e4f5" stroke-width="2"/>
+  <circle cx="300" cy="500" r="132" fill="#f8fbff" stroke="#2563eb" stroke-width="5"/>
+    <line x1="300" y1="500" x2="432" y2="500" stroke="#2563eb" stroke-width="5"/>
+    <line x1="300" y1="500" x2="366" y2="386" stroke="#2563eb" stroke-width="5"/>
+    <path d="M342 500 A42 42 0 0 0 321 464" fill="none" stroke="#d9480f" stroke-width="5"/>
+    <text x="452" y="504" font-size="24" font-weight="800" fill="#20314d">r = 6 or 5</text>
+    <text x="372" y="416" font-size="24" font-weight="800" fill="#d9480f">60 deg / tangent</text>
+    <text x="120" y="690" font-size="28" font-weight="900" fill="#0f766e">tangent length = 12.</text>
+  <rect x="920" y="292" width="620" height="540" rx="22" fill="#ffffff" stroke="#c8d4e8" stroke-width="2"/>
+  <text x="948" y="338" font-size="24" font-weight="800" fill="#20314d">Exact Checks And Answer</text>
+  <line x1="944" y1="360" x2="1516" y2="360" stroke="#d9e4f5" stroke-width="2"/>
+  <text class="" x="950" y="380" font-size="24" font-weight="700" fill="#20314d"><tspan x="950" dy="0">Math.sqrt(13 ** 2 - 5 ** 2) = 12</tspan></text>
+  <rect x="950" y="588" width="540" height="152" rx="18" fill="#e9fbf3" stroke="#80cfa3" stroke-width="2"/>
+  <text x="978" y="632" font-size="26" font-weight="900" fill="#0f766e">Answer</text>
+  <text class="" x="978" y="674" font-size="27" font-weight="900" fill="#0f766e"><tspan x="978" dy="0">tangent length = 12.</tspan></text>
+  <text class="" x="950" y="786" font-size="21" font-weight="650" fill="#334155"><tspan x="950" dy="0">zhHans: 切线段长度 = 12。</tspan></text>
+</svg>
