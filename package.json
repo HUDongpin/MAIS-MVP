@@ -98,6 +98,7 @@
     "test:signature-labs": "node scripts/run-signature-lab-tests.mjs",
     "audit:ccss-depth": "npx tsx --tsconfig tsconfig.json scripts/audit-ccss-depth.ts",
     "audit:us-math-items": "node scripts/audit-us-math-item-quality.mjs",
+    "audit:lesson-illustrations": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON scripts/audit-lesson-illustration-assets.mjs",
     "test:ccss-depth": "npx tsx --tsconfig tsconfig.json --test scripts/ccssDepthCoverage.test.ts",
     "test:source-regressions": "npx tsx --tsconfig tsconfig.json --test tests/e2e/reported-bug-source-regressions.test.ts",
     "check:port-drift": "node scripts/check-port-drift.mjs",

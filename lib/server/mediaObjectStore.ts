@@ -310,8 +310,26 @@ function canReadMediaObject(metadata: StoredMediaObjectMetadata, requester: Medi
   if (metadata.ownerHash === ownerHash(requester.id)) return true;
   if (requester.role === "admin") return true;
   return requester.role === "teacher" && (
-    metadata.capability === "assignment-image" || metadata.capability === "classroom-work-sample"
+    metadata.capability === "assignment-image"
+    || metadata.capability === "classroom-work-sample"
+    // Practice work photos are student-owned, but the whole point of attaching
+    // them is that a teacher can look at the working behind a wrong answer.
+    // Without this the reference persists and the teacher's read 403s.
+    || metadata.capability === "practice-work-photo"
   );
+}
+
+/**
+ * Whether governed media uploads can succeed at all in this environment.
+ *
+ * `requireEncryption` defaults to true, so with no `AI_MEDIA_ENCRYPTION_KEY`
+ * every upload fails with `media-encryption-key-missing` (503). Clients probe
+ * this so they can hide an attachment control instead of offering one that is
+ * guaranteed to error. Note this is NOT `objectStorageRequired`, which defaults
+ * to false and only forbids the legacy data-URL path.
+ */
+export function mediaObjectUploadsAvailable(env: EnvLike = process.env) {
+  return resolveMediaEncryptionKey(env) !== null;
 }
 
 export async function storeMediaObjectFromDataUrl({

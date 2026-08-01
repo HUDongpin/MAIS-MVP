@@ -3,6 +3,7 @@ import { requireAuthenticatedUser } from "@/lib/server/auth";
 import { aiCapabilityRateLimitRulesFromEnv, type AiCapability } from "@/lib/server/aiGovernance";
 import {
   mediaObjectReferenceFromUnknown,
+  mediaObjectUploadsAvailable,
   storeMediaObjectFromDataUrl
 } from "@/lib/server/mediaObjectStore";
 import { consumeAiCapabilityRateLimit, recordAiGovernanceEvent } from "@/lib/server/userStore";
@@ -13,7 +14,8 @@ const uploadCapabilities = new Set<AiCapability>([
   "ai-tutor-ocr",
   "profile-avatar",
   "assignment-image",
-  "classroom-work-sample"
+  "classroom-work-sample",
+  "practice-work-photo"
 ]);
 
 function readUploadCapability(value: unknown): AiCapability | null {
@@ -28,6 +30,19 @@ function statusForStorageRejection(code: string) {
   if (code === "media-encryption-key-missing") return 503;
   if (code === "media-write-failed") return 500;
   return 400;
+}
+
+/**
+ * Capability probe. Authenticated because it reports deployment configuration
+ * state; returns only a boolean, never the key or storage path.
+ */
+export async function GET(request: Request) {
+  const authenticated = await requireAuthenticatedUser(request);
+  if (!authenticated) {
+    return NextResponse.json({ error: "Not authenticated." }, { status: 401 });
+  }
+
+  return NextResponse.json({ uploadsAvailable: mediaObjectUploadsAvailable() });
 }
 
 export async function POST(request: Request) {
