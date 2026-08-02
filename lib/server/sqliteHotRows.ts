@@ -326,6 +326,14 @@ type OverlayLearningEventClearRecord = {
   cleared_at: string;
 };
 
+type OverlayVisualizationEventRecord = {
+  id: string;
+  user_id: string;
+  topic_id: string;
+  source: string;
+  created_at: string;
+};
+
 type OverlayRewardPointLedgerRecord = {
   id: string;
   student_id: string;
@@ -346,7 +354,16 @@ export type SqliteHotOverlayDatabase = {
   adaptive_skill_state: OverlayAdaptiveSkillStateRecord[];
   learning_events: OverlayLearningEventRecord[];
   learning_event_clears: OverlayLearningEventClearRecord[];
+  visualization_events: OverlayVisualizationEventRecord[];
   reward_point_ledger: OverlayRewardPointLedgerRecord[];
+  questions?: Array<{
+    id: string;
+    grade: string;
+    topic_id: string;
+    curriculum_track: string;
+    curriculum_region?: string | null;
+    textbook_publisher?: string | null;
+  }>;
 };
 
 type HotRowSnapshot = {
@@ -519,16 +536,31 @@ function buildOverlay<T extends SqliteHotOverlayDatabase>(database: T, hot: HotR
     (clear) => clear.cleared_at
   );
   const cutoffs = clearCutoffsFor(learningEventClears);
+  const afterClearCutoff = (userId: string, createdAt: string) => {
+    const cutoff = cutoffs.get(userId);
+    if (cutoff === undefined) return true;
+    const createdAtMs = Date.parse(createdAt);
+    return !Number.isFinite(createdAtMs) || createdAtMs > cutoff;
+  };
   const mergedLearningEvents = mergeById(
     database.learning_events ?? [],
     hot.learningEvents,
     (event) => event.id
-  ).filter((event) => {
-    const cutoff = cutoffs.get(event.user_id);
-    if (cutoff === undefined) return true;
-    const createdAtMs = Date.parse(event.created_at);
-    return !Number.isFinite(createdAtMs) || createdAtMs > cutoff;
-  });
+  ).filter((event) => afterClearCutoff(event.user_id, event.created_at));
+
+  // The snapshot writer mirrored every `visualization-*` learning event into
+  // `visualization_events`; the hot path only inserts the learning event, so the
+  // mirror is derived here instead. Same derivation (and same record shape) as
+  // the `hot_visualization_event_records` CTE production Postgres uses.
+  const hotVisualizationEvents: OverlayVisualizationEventRecord[] = hot.learningEvents
+    .filter((event) => event.type.startsWith("visualization-"))
+    .map((event) => ({
+      id: event.id,
+      user_id: event.user_id,
+      topic_id: event.topic_id,
+      source: event.source,
+      created_at: event.created_at
+    }));
 
   return {
     ...database,
@@ -547,6 +579,11 @@ function buildOverlay<T extends SqliteHotOverlayDatabase>(database: T, hot: HotR
     ),
     learning_events: mergedLearningEvents,
     learning_event_clears: learningEventClears,
+    visualization_events: mergeById(
+      database.visualization_events ?? [],
+      hotVisualizationEvents,
+      (event) => event.id
+    ).filter((event) => afterClearCutoff(event.user_id, event.created_at)),
     reward_point_ledger: dedupeRewardLedger(
       mergeById(database.reward_point_ledger ?? [], hot.rewardLedger, (entry) => entry.id)
     )
@@ -596,6 +633,187 @@ export function overlaySqliteHotRows<T extends SqliteHotOverlayDatabase>(databas
   const result = buildOverlay(database, hot);
   overlayCache.set(database, { version, result });
   return result;
+}
+
+// ---------------------------------------------------------------------------
+// One-time snapshot -> hot backfill
+// ---------------------------------------------------------------------------
+
+const snapshotBackfillMarkerId = "snapshot-backfill";
+// Bump when the backfill has new work to do on databases that already ran it.
+// 1: seed mistakes / adaptive states / today's attempts and reward ledger.
+// 2: drop bare-topic adaptive rows written before the skill-id key-space fix.
+const snapshotBackfillRevision = 2;
+let snapshotBackfillChecked = false;
+
+function startOfUtcDayIso(now = new Date()) {
+  const start = new Date(now);
+  start.setUTCHours(0, 0, 0, 0);
+  return start.toISOString();
+}
+
+/**
+ * Mistake and adaptive rows are keyed by (user, question) / (user, skill) rather
+ * than by a generated id, so the hot-path upserts only ever see the counters
+ * that already live in the hot table. A row that exists only in the snapshot —
+ * i.e. everything recorded before the hot path shipped — would therefore be
+ * treated as brand new: a correct answer could not master it (the UPDATE matches
+ * nothing) and a wrong answer would restart `wrong_attempts` at 1 and win the
+ * overlay on the newer `last_attempt_at`, erasing the accumulated history.
+ *
+ * Copying those two sections across once, before the first overlay, puts every
+ * counter-keyed row in the hot table so the ordinary upserts behave correctly.
+ * `INSERT OR IGNORE` throughout: a hot row that already exists is newer than the
+ * snapshot copy by construction and must never be overwritten.
+ *
+ * Today's practice attempts and source-keyed reward ledger rows come along too,
+ * so the practice-accuracy day-window count and its `source_key` uniqueness stay
+ * correct across the transition day.
+ */
+export function backfillSqliteHotRowsFromSnapshot(database: SqliteHotOverlayDatabase) {
+  if (snapshotBackfillChecked || !sqliteHotRowsMode()) return false;
+
+  try {
+    const handle = ensureSqliteHotRowTables();
+    const marker = handle
+      .prepare("SELECT version FROM student_activity_hot_row_state WHERE id = ?")
+      .get(snapshotBackfillMarkerId) as { version?: unknown } | undefined;
+    if (Number(marker?.version ?? 0) >= snapshotBackfillRevision) {
+      snapshotBackfillChecked = true;
+      return false;
+    }
+  } catch {
+    return false;
+  }
+
+  const dayStart = startOfUtcDayIso();
+  const todaysAttempts = (database.attempts ?? []).filter((attempt) => attempt.created_at >= dayStart);
+  const attemptQuestionIds = new Set(todaysAttempts.map((attempt) => attempt.question_id));
+  const questionById = new Map(
+    (database.questions ?? [])
+      .filter((question) => attemptQuestionIds.has(question.id))
+      .map((question) => [question.id, question])
+  );
+
+  try {
+    runSqliteHotRowTransaction((handle) => {
+      const insertMistake = handle.prepare(`
+        INSERT OR IGNORE INTO mistake_book_items (
+          user_id, question_id, last_selected_answer, correct_answer,
+          wrong_attempts, first_wrong_at, last_attempt_at, mastered
+        )
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+      `);
+      (database.mistakes ?? []).forEach((mistake) => {
+        insertMistake.run(
+          mistake.user_id,
+          mistake.question_id,
+          mistake.last_selected_answer,
+          mistake.correct_answer,
+          Math.max(0, Math.round(mistake.wrong_attempts ?? 0)),
+          mistake.first_wrong_at,
+          mistake.last_attempt_at,
+          sqliteBoolean(Boolean(mistake.mastered))
+        );
+      });
+
+      // Bare-topic skill ids from the first cut of the hot path. The snapshot
+      // keys adaptive rows `${topicId}:${stage}`, so those rows were a second,
+      // phantom key space in the merged view.
+      handle.prepare("DELETE FROM adaptive_skill_states WHERE skill_id NOT LIKE '%:%'").run();
+
+      const insertAdaptive = handle.prepare(`
+        INSERT OR IGNORE INTO adaptive_skill_states (
+          user_id, skill_id, p_mastery, attempt_count, correct_streak, wrong_streak,
+          last_practiced_at, next_review_at, hint_count, misconception_tags, updated_at
+        )
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+      `);
+      (database.adaptive_skill_state ?? []).forEach((state) => {
+        insertAdaptive.run(
+          state.user_id,
+          state.skill_id,
+          state.p_mastery,
+          Math.max(0, Math.round(state.attempt_count ?? 0)),
+          Math.max(0, Math.round(state.correct_streak ?? 0)),
+          Math.max(0, Math.round(state.wrong_streak ?? 0)),
+          state.last_practiced_at,
+          state.next_review_at,
+          Math.max(0, Math.round(state.hint_count ?? 0)),
+          JSON.stringify(state.misconception_tags ?? []),
+          state.updated_at
+        );
+      });
+
+      const insertAttempt = handle.prepare(`
+        INSERT OR IGNORE INTO practice_attempts (
+          id, user_id, question_id, selected_answer, is_correct, duration_seconds,
+          grade, topic_id, curriculum_track, curriculum_region, textbook_publisher,
+          created_at, answer_work_photos
+        )
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, NULL)
+      `);
+      todaysAttempts.forEach((attempt) => {
+        // grade / topic / track are NOT NULL on the hot table and are not on the
+        // snapshot attempt row, so an attempt whose question is gone is skipped.
+        const question = questionById.get(attempt.question_id);
+        if (!question) return;
+        insertAttempt.run(
+          attempt.id,
+          attempt.user_id,
+          attempt.question_id,
+          attempt.selected_answer,
+          sqliteBoolean(Boolean(attempt.is_correct)),
+          attempt.duration_seconds ?? null,
+          question.grade,
+          question.topic_id,
+          question.curriculum_track,
+          question.curriculum_region ?? null,
+          question.textbook_publisher ?? null,
+          attempt.created_at
+        );
+      });
+
+      const insertLedger = handle.prepare(`
+        INSERT OR IGNORE INTO reward_point_ledger (
+          id, student_id, amount, reason, label_en, label_zh, note, awarded_by,
+          redemption_id, source_key, created_at
+        )
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+      `);
+      (database.reward_point_ledger ?? [])
+        .filter((entry) => entry.source_key && entry.created_at >= dayStart)
+        .forEach((entry) => {
+          insertLedger.run(
+            entry.id,
+            entry.student_id,
+            Math.round(entry.amount ?? 0),
+            entry.reason,
+            entry.label_en,
+            entry.label_zh,
+            entry.note ?? null,
+            entry.awarded_by ?? null,
+            entry.redemption_id ?? null,
+            entry.source_key ?? null,
+            entry.created_at
+          );
+        });
+
+      handle
+        .prepare(`
+          INSERT INTO student_activity_hot_row_state (id, version)
+          VALUES (?, ?)
+          ON CONFLICT(id) DO UPDATE SET version = excluded.version
+        `)
+        .run(snapshotBackfillMarkerId, snapshotBackfillRevision);
+    });
+  } catch (error) {
+    console.warn("SQLite hot-row snapshot backfill failed; retrying on the next snapshot read.", error);
+    return false;
+  }
+
+  snapshotBackfillChecked = true;
+  return true;
 }
 
 // ---------------------------------------------------------------------------
@@ -650,11 +868,13 @@ export const __sqliteHotRowsTestHooks = {
   schemaSql() {
     return [...hotRowSchemaStatements];
   },
+  snapshotBackfillRevision,
   resetForTests() {
     connection?.close();
     connection = null;
     resolvedDirectory = null;
     resolvedFilePath = null;
     hotTablesReady = false;
+    snapshotBackfillChecked = false;
   }
 };

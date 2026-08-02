@@ -3404,14 +3404,16 @@ export function createStudentActivityPersistenceStore({
           progressRows[progressIndex] === existing &&
           lessonProgressRowsMatchIgnoringUpdatedAt(existing, progress);
 
-        if (!unchanged) {
-          if (progressIndex >= 0) {
-            progressRows[progressIndex] = progress;
-          } else {
-            progressRows.push(progress);
-          }
-          clearDatabaseCache(database);
+        // The row is always replaced, including on an unchanged revisit: callers
+        // read `updated_at` as a recency signal. Only the snapshot WRITE is
+        // skipped for a no-op, and only where `shouldPersist` is honoured
+        // (SQLite) — on Postgres the mutation still persists exactly as before.
+        if (progressIndex >= 0) {
+          progressRows[progressIndex] = progress;
+        } else {
+          progressRows.push(progress);
         }
+        clearDatabaseCache(database);
 
         let completionHookRan = false;
         if (status === "completed") {

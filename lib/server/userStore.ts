@@ -627,6 +627,7 @@ import { renderTeacherReviewLessonPptx } from "@/lib/teacherReviewLessonPptx";
 import { questionAnswerMatches } from "@/lib/server/answerGrading";
 import { readLearningEventsFastForUsers } from "@/lib/server/practiceAttemptStore";
 import {
+  backfillSqliteHotRowsFromSnapshot,
   clearSqliteHotLearningEventsForUser,
   clearSqliteHotMistakesForUser,
   deleteSqliteHotMistake,
@@ -4611,7 +4612,12 @@ async function loadSqliteDatabase() {
  * quiet database costs one indexed row read).
  */
 function withSqliteHotRows(database: Database) {
-  return overlaySqliteHotRows(database as unknown as SqliteHotOverlayDatabase) as unknown as Database;
+  const overlayInput = database as unknown as SqliteHotOverlayDatabase;
+  // Runs at most once per database (marker row) and once per process. Seeds the
+  // counter-keyed hot tables from the snapshot so mistake/adaptive upserts see
+  // the history that predates the hot path instead of restarting it.
+  backfillSqliteHotRowsFromSnapshot(overlayInput);
+  return overlaySqliteHotRows(overlayInput) as unknown as Database;
 }
 
 async function readSqliteDatabase() {

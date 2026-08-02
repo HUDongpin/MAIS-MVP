@@ -36,6 +36,10 @@ const practiceQuestionId = "us-ca-k5-knowledge-point-practice-v1-us-ca-math-p5-5
 const practiceQuestionAnswer = "no";
 const practiceQuestionTopicId = "us-ca-math-p5-5-oa-expressions-patterns";
 
+// `difficulty: "Low"` on the fixture question, so the snapshot knowledge
+// component the hot adaptive row has to line up with is the foundation stage.
+const practiceQuestionSkillId = `${practiceQuestionTopicId}:foundation`;
+
 function emptyOverlayDatabase(): SqliteHotOverlayDatabase {
   return {
     attempts: [],
@@ -43,6 +47,7 @@ function emptyOverlayDatabase(): SqliteHotOverlayDatabase {
     adaptive_skill_state: [],
     learning_events: [],
     learning_event_clears: [],
+    visualization_events: [],
     reward_point_ledger: []
   };
 }
@@ -233,6 +238,138 @@ test("SQLite fast path writes attempt, mistake, adaptive, learning event and rew
   } finally {
     rmSync(scratchDirectory, { recursive: true, force: true });
   }
+});
+
+test("a snapshot-only mistake is backfilled so the hot path can master and count it", () => {
+  const scratchDirectory = mkdtempSync(join(tmpdir(), "mais-hot-rows-backfill-"));
+  const script = `
+    const { submitQuestionAttemptFast } = await import("./lib/server/practiceAttemptStore.ts");
+    const { backfillSqliteHotRowsFromSnapshot, overlaySqliteHotRows } = await import("./lib/server/sqliteHotRows.ts");
+
+    const questionId = ${JSON.stringify(practiceQuestionId)};
+    const correctAnswer = ${JSON.stringify(practiceQuestionAnswer)};
+    const skillId = ${JSON.stringify(practiceQuestionSkillId)};
+
+    const mistake = (userId, wrongAttempts, firstWrongAt) => ({
+      user_id: userId,
+      question_id: questionId,
+      last_selected_answer: "stale",
+      correct_answer: correctAnswer,
+      wrong_attempts: wrongAttempts,
+      first_wrong_at: firstWrongAt,
+      last_attempt_at: firstWrongAt,
+      mastered: false
+    });
+
+    // Everything recorded before the hot path existed: rows that live only in
+    // the snapshot blob.
+    const snapshot = {
+      attempts: [],
+      mistakes: [mistake("legacy-master", 3, "2026-01-01T00:00:00.000Z"), mistake("legacy-wrong", 9, "2025-05-05T00:00:00.000Z")],
+      adaptive_skill_state: [{
+        user_id: "legacy-wrong",
+        skill_id: skillId,
+        p_mastery: 0.44,
+        attempt_count: 7,
+        correct_streak: 0,
+        wrong_streak: 2,
+        last_practiced_at: "2025-05-05T00:00:00.000Z",
+        next_review_at: "2025-05-06T00:00:00.000Z",
+        hint_count: 0,
+        misconception_tags: [],
+        updated_at: "2025-05-05T00:00:00.000Z"
+      }],
+      learning_events: [],
+      learning_event_clears: [],
+      visualization_events: [],
+      reward_point_ledger: [],
+      questions: []
+    };
+
+    backfillSqliteHotRowsFromSnapshot(snapshot);
+
+    await submitQuestionAttemptFast({ userId: "legacy-master", questionId, selectedAnswer: correctAnswer, durationSeconds: 2 });
+    await submitQuestionAttemptFast({ userId: "legacy-wrong", questionId, selectedAnswer: "definitely-wrong", durationSeconds: 2 });
+
+    const merged = overlaySqliteHotRows(snapshot);
+    const mastered = merged.mistakes.find((row) => row.user_id === "legacy-master");
+    const wrong = merged.mistakes.find((row) => row.user_id === "legacy-wrong");
+
+    process.stdout.write(JSON.stringify({
+      masteredFlag: mastered?.mastered,
+      wrongAttempts: wrong?.wrong_attempts,
+      firstWrongAt: wrong?.first_wrong_at,
+      wrongMastered: wrong?.mastered,
+      adaptiveSkillIds: merged.adaptive_skill_state.filter((row) => row.user_id === "legacy-wrong").map((row) => row.skill_id),
+      adaptiveAttemptCount: merged.adaptive_skill_state.find((row) => row.user_id === "legacy-wrong")?.attempt_count
+    }));
+  `;
+  const result = spawnSync(process.execPath, ["--import", "tsx", "--input-type=module", "-e", script], {
+    cwd: process.cwd(),
+    encoding: "utf8",
+    env: { ...process.env, HK_MATH_DB_DIR: scratchDirectory },
+    timeout: 120_000
+  });
+
+  try {
+    assert.equal(result.status, 0, `${result.stdout}\n${result.stderr}`);
+    const parsed = JSON.parse(result.stdout) as Record<string, unknown>;
+
+    assert.equal(parsed.masteredFlag, true, "a correct answer must master a mistake that only existed in the snapshot");
+    assert.equal(parsed.wrongAttempts, 10, "a wrong answer must continue the snapshot counter, not restart it");
+    assert.equal(parsed.firstWrongAt, "2025-05-05T00:00:00.000Z", "first_wrong_at must survive the backfill");
+    assert.equal(parsed.wrongMastered, false);
+
+    // Defect: hot rows keyed by bare topic id created a second key space next to
+    // the snapshot's `${topicId}:${stage}` rows — phantom skills in the maps.
+    assert.deepEqual(
+      parsed.adaptiveSkillIds,
+      [practiceQuestionSkillId],
+      "the hot adaptive row must share the snapshot knowledge-component key space"
+    );
+    assert.equal(parsed.adaptiveAttemptCount, 8, "the snapshot attempt count must carry forward");
+  } finally {
+    rmSync(scratchDirectory, { recursive: true, force: true });
+  }
+});
+
+test("the SQLite read overlay derives visualization_events from hot learning events", async () => {
+  const { appendLearningEventsFast } = await import("./practiceAttemptStore");
+  const hotRows = await import("./sqliteHotRows");
+
+  await appendLearningEventsFast("viz-user", [
+    {
+      id: "viz-event-1",
+      type: "visualization-explored",
+      source: "lesson",
+      grade: "P5",
+      topicId: practiceQuestionTopicId,
+      durationSeconds: 12,
+      timestamp: "2026-04-01T00:00:00.000Z"
+    },
+    {
+      id: "answer-event-1",
+      type: "answer-correct",
+      source: "practice",
+      grade: "P5",
+      topicId: practiceQuestionTopicId,
+      durationSeconds: 3,
+      timestamp: "2026-04-01T00:00:00.000Z"
+    }
+  ] as never);
+
+  const merged = hotRows.overlaySqliteHotRows(emptyOverlayDatabase());
+  const derived = merged.visualization_events.filter((event) => event.user_id === "viz-user");
+
+  assert.deepEqual(derived, [
+    {
+      id: "viz-event-1",
+      user_id: "viz-user",
+      topic_id: practiceQuestionTopicId,
+      source: "lesson",
+      created_at: "2026-04-01T00:00:00.000Z"
+    }
+  ], "only visualization-* events are mirrored, in the record shape legacy readers expect");
 });
 
 test("the SQLite read overlay merges hot rows into a new object", async () => {

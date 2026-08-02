@@ -98,6 +98,9 @@ jobs:
       - name: Run accommodations gate (IEP/504 resolver + student-experience wiring)
         run: npm run test:accommodations
 
+      - name: Run practice-store gate (SQLite hot-row fast path + snapshot read overlay)
+        run: npm run test:practice-store
+
       - name: Run US math item quality audit (CA/AR/FL independent re-solve + key integrity)
         run: npm run audit:us-math-items
 

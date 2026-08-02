@@ -738,11 +738,26 @@ function writeSqliteMistakeRow(database: ReturnType<typeof ensureSqliteHotRowTab
     );
 }
 
+/**
+ * The SQLite snapshot keys adaptive rows by knowledge component — `${topicId}:${stage}`,
+ * with the stage derived from question difficulty — and the read overlay merges
+ * hot rows into that same array. Keying the hot rows by bare topic id (what the
+ * Postgres path does, where there is no snapshot to merge with) would create a
+ * second key space: phantom skills in the Math Universe / Class Sky maps and
+ * frozen per-stage rows. Deliberately different from `persistQuestionAttempt`;
+ * production Postgres keeps its bare-topic keys unchanged.
+ */
+function sqliteAdaptiveSkillId(question: Question) {
+  const stage =
+    question.difficulty === "Low" ? "foundation" : question.difficulty === "Medium" ? "fluency" : "transfer";
+  return `${question.topicId}:${stage}`;
+}
+
 function writeSqliteAdaptiveSkillState(
   database: ReturnType<typeof ensureSqliteHotRowTables>,
   input: PersistQuestionAttemptInput
 ) {
-  const skillId = input.question.canonicalTopicId ?? input.question.topicId;
+  const skillId = sqliteAdaptiveSkillId(input.question);
   const initialMastery = input.correct ? 0.62 : 0.38;
   const masteryDelta = input.correct ? 0.08 : -0.12;
   const correctStreak = input.correct ? 1 : 0;

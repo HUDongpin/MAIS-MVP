@@ -1429,7 +1429,10 @@ test("student activity persistence records question attempts and updates mistake
     selected_answer: "A",
     is_correct: false,
     duration_seconds: 13,
-    created_at: "2026-06-20T10:00:00.000Z"
+    created_at: "2026-06-20T10:00:00.000Z",
+    // submitQuestionAttempt always writes the key, null when no work photos
+    // were attached. The expectation predated that column.
+    answer_work_photos: null
   });
   assert.deepEqual(database.mistakes?.[0], {
     user_id: "student-1",
@@ -4027,10 +4030,10 @@ test("a repeated identical lesson-progress update does not ask the store to pers
     "only the first lesson start changed the row; the repeats must skip the snapshot write"
   );
   assert.equal(snapshotDatabase.lesson_progress.length, 1);
-  assert.equal(
+  assert.notEqual(
     snapshotDatabase.lesson_progress[0].updated_at,
     firstUpdatedAt,
-    "a skipped write must leave the in-memory row untouched too"
+    "the row still advances `updated_at` — recency consumers read it; only the snapshot write is skipped"
   );
 
   await store.updateLessonProgress({ ...start, checklistState: { intro: true } });
@@ -4039,6 +4042,77 @@ test("a repeated identical lesson-progress update does not ask the store to pers
 
   await store.updateLessonProgress({ ...start, slug: "lesson-missing" });
   assert.equal(persistDecisions[4], false, "an unknown lesson never touches the snapshot");
+});
+
+test("a storage backend that ignores shouldPersist still advances lesson-progress updated_at", async () => {
+  // Models the Postgres branch of mutateDatabase, which deliberately does not
+  // honour `shouldPersist`: the write-back also drives the hot-auth and
+  // projection syncs. An identical-content revisit must therefore behave exactly
+  // as it did before the no-op-write optimisation — row replaced, snapshot
+  // written — or `lesson_progress.updated_at` stops moving in production.
+  const snapshotDatabase = {
+    visualization_sessions: [],
+    topics: [
+      {
+        id: "topic-linear",
+        curriculum_track: "HK",
+        curriculum_region: "HK",
+        textbook_publisher: "HK_MODERN_EDUCATIONAL_RESEARCH_SOCIETY",
+        grade: "S3",
+        title_en: "Linear equations",
+        title_zh: "一次方程",
+        description_en: "Linear equations",
+        description_zh: "一次方程",
+        difficulty: "Medium",
+        minutes: 20,
+        sort_order: 1
+      }
+    ],
+    lessons: [
+      {
+        slug: "lesson-linear",
+        topic_id: "topic-linear",
+        curriculum_region: "HK",
+        textbook_publisher: "HK_MODERN_EDUCATIONAL_RESEARCH_SOCIETY",
+        grade: "S3",
+        title_en: "Linear equations",
+        title_zh: "一次方程",
+        description_en: "Linear equations",
+        description_zh: "一次方程",
+        difficulty: "Medium",
+        estimated_minutes: 18
+      }
+    ],
+    lesson_progress: []
+  } as unknown as StudentActivityPersistenceDatabase & {
+    lesson_progress: Array<{ updated_at: string }>;
+  };
+
+  let clockMs = Date.parse("2026-06-20T10:00:00.000Z");
+  let writes = 0;
+  const store = createStudentActivityPersistenceStore({
+    now: () => new Date((clockMs += 1000)),
+    readDatabase: async () => snapshotDatabase,
+    mutateDatabase: async (mutator: (database: StudentActivityPersistenceDatabase) => unknown) => {
+      const result = await mutator(snapshotDatabase);
+      writes += 1;
+      return result;
+    }
+  } as unknown as Parameters<typeof createStudentActivityPersistenceStore>[0]);
+
+  const start = { userId: "student-1", slug: "lesson-linear", action: "start" as const, curriculumTrack: "HK" as const };
+  await store.updateLessonProgress(start);
+  const firstUpdatedAt = snapshotDatabase.lesson_progress[0].updated_at;
+  await store.updateLessonProgress(start);
+  await store.updateLessonProgress(start);
+
+  assert.equal(writes, 3, "every revisit must still write the snapshot on a backend that ignores shouldPersist");
+  assert.equal(snapshotDatabase.lesson_progress.length, 1);
+  assert.notEqual(
+    snapshotDatabase.lesson_progress[0].updated_at,
+    firstUpdatedAt,
+    "an identical-content revisit must still advance updated_at"
+  );
 });
 
 test("student activity persistence resolves lesson details through native read model", async () => {
