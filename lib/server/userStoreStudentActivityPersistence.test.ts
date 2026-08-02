@@ -3959,6 +3959,88 @@ test("student activity persistence updates lesson progress through native mutati
   ]);
 });
 
+test("a repeated identical lesson-progress update does not ask the store to persist", async () => {
+  const snapshotDatabase = {
+    visualization_sessions: [],
+    topics: [
+      {
+        id: "topic-linear",
+        curriculum_track: "HK",
+        curriculum_region: "HK",
+        textbook_publisher: "HK_MODERN_EDUCATIONAL_RESEARCH_SOCIETY",
+        grade: "S3",
+        title_en: "Linear equations",
+        title_zh: "一次方程",
+        description_en: "Linear equations",
+        description_zh: "一次方程",
+        difficulty: "Medium",
+        minutes: 20,
+        sort_order: 1
+      }
+    ],
+    lessons: [
+      {
+        slug: "lesson-linear",
+        topic_id: "topic-linear",
+        curriculum_region: "HK",
+        textbook_publisher: "HK_MODERN_EDUCATIONAL_RESEARCH_SOCIETY",
+        grade: "S3",
+        title_en: "Linear equations",
+        title_zh: "一次方程",
+        description_en: "Linear equations",
+        description_zh: "一次方程",
+        difficulty: "Medium",
+        estimated_minutes: 18
+      }
+    ],
+    lesson_progress: []
+  } as unknown as StudentActivityPersistenceDatabase & {
+    lesson_progress: Array<{ updated_at: string; checklist_state?: Record<string, boolean> }>;
+  };
+
+  // Advancing clock: every call rebuilds the row with a fresh `updated_at`, so
+  // only an `updated_at`-insensitive comparison can spot the repeat.
+  let clockMs = Date.parse("2026-06-20T10:00:00.000Z");
+  const persistDecisions: boolean[] = [];
+  const store = createStudentActivityPersistenceStore({
+    now: () => new Date((clockMs += 1000)),
+    readDatabase: async () => snapshotDatabase,
+    mutateDatabase: async (
+      mutator: (database: StudentActivityPersistenceDatabase) => unknown,
+      options?: { shouldPersist?: (result: unknown) => boolean }
+    ) => {
+      const result = await mutator(snapshotDatabase);
+      persistDecisions.push(options?.shouldPersist ? options.shouldPersist(result) : true);
+      return result;
+    }
+  } as unknown as Parameters<typeof createStudentActivityPersistenceStore>[0]);
+
+  const start = { userId: "student-1", slug: "lesson-linear", action: "start" as const, curriculumTrack: "HK" as const };
+  await store.updateLessonProgress(start);
+  const firstUpdatedAt = snapshotDatabase.lesson_progress[0].updated_at;
+  await store.updateLessonProgress(start);
+  await store.updateLessonProgress(start);
+
+  assert.deepEqual(
+    persistDecisions,
+    [true, false, false],
+    "only the first lesson start changed the row; the repeats must skip the snapshot write"
+  );
+  assert.equal(snapshotDatabase.lesson_progress.length, 1);
+  assert.equal(
+    snapshotDatabase.lesson_progress[0].updated_at,
+    firstUpdatedAt,
+    "a skipped write must leave the in-memory row untouched too"
+  );
+
+  await store.updateLessonProgress({ ...start, checklistState: { intro: true } });
+  assert.equal(persistDecisions[3], true, "a real checklist change must still persist");
+  assert.deepEqual(snapshotDatabase.lesson_progress[0].checklist_state, { intro: true });
+
+  await store.updateLessonProgress({ ...start, slug: "lesson-missing" });
+  assert.equal(persistDecisions[4], false, "an unknown lesson never touches the snapshot");
+});
+
 test("student activity persistence resolves lesson details through native read model", async () => {
   const snapshotDatabase = {
     visualization_sessions: [],

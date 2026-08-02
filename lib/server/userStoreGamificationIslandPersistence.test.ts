@@ -152,3 +152,30 @@ test("the store only serves student accounts", async () => {
   assert.equal(awarded?.status, "awarded");
   assert.equal(await store.awardPracticeIslandStars({ studentId: "teacher-1", regionId: "challenge-shore", stars: 1 }), null);
 });
+
+test("only a real award asks the store to persist the snapshot", async () => {
+  const database = createDatabase();
+  const persisted: Array<string | null> = [];
+  const store = createGamificationIslandPersistenceStore({
+    createId,
+    now: () => new Date(now),
+    readDatabase: async () => database,
+    mutateDatabase: async (mutator, options) => {
+      const result = await mutator(database);
+      const shouldPersist = options?.shouldPersist ? options.shouldPersist(result) : true;
+      if (shouldPersist) persisted.push((result as { status?: string } | null)?.status ?? null);
+      return result;
+    }
+  });
+
+  // The Practice Arena re-posts the same award after every answered question.
+  await store.awardPracticeIslandStars({ studentId: "student-1", regionId: "number-forest", stars: 2 });
+  await store.awardPracticeIslandStars({ studentId: "student-1", regionId: "number-forest", stars: 2 });
+  await store.awardPracticeIslandStars({ studentId: "student-1", regionId: "number-forest", stars: 1 });
+  await store.awardPracticeIslandStars({ studentId: "student-1", regionId: "not-a-region", stars: 3 });
+  await store.awardPracticeIslandStars({ studentId: "student-1", regionId: "number-forest", stars: 0 });
+  await store.awardPracticeIslandStars({ studentId: "teacher-1", regionId: "number-forest", stars: 3 });
+
+  assert.deepEqual(persisted, ["awarded"], "only the first, genuinely new award may rewrite the snapshot");
+  assert.deepEqual(practiceIslandStarRecordForStudent(database, "student-1"), { "number-forest": 2 });
+});

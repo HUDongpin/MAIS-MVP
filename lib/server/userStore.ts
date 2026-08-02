@@ -4763,7 +4763,25 @@ async function writeDatabase(database: Database) {
 
 let mutationQueue: Promise<void> = Promise.resolve();
 
-async function mutateDatabase<T>(mutator: (database: Database) => T | Promise<T>) {
+type MutateDatabaseOptions<T> = {
+  /**
+   * SQLite only. Called with the mutator result once the mutator has run; when
+   * it returns false the snapshot write (and the cache refresh that follows it)
+   * is skipped, so a mutation that decided to change nothing does not rewrite
+   * the multi-megabyte blob. Mutators that opt in must not leave partial state
+   * on the shared snapshot when they report "nothing changed".
+   *
+   * Deliberately not honoured on Postgres: the write-back there also drives
+   * `syncPostgresHotAuthTablesWith` / `syncPostgresProjectionTablesWith` inside
+   * the same transaction, and skipping it would change more than write volume.
+   */
+  shouldPersist?: (result: T) => boolean;
+};
+
+async function mutateDatabase<T>(
+  mutator: (database: Database) => T | Promise<T>,
+  options: MutateDatabaseOptions<T> = {}
+) {
   if (storageProvider === "postgres") {
     await ensurePostgresStateTable();
     return getPostgresClient().begin(async (sql) => {
@@ -4776,16 +4794,28 @@ async function mutateDatabase<T>(mutator: (database: Database) => T | Promise<T>
   }
 
   const run = mutationQueue.then(async () => {
-    clearSqliteReadCache();
-    // The read is hot-row overlaid, so the snapshot written below absorbs every
-    // hot row the mutator could see. The overlay is key-deduped, so the rows
-    // that now exist on both sides still merge to one copy on the next read.
+    // No forced cold re-read here. `readDatabase()` reuses the cached snapshot
+    // whenever `app_state.updated_at` still matches the row on disk, so a burst
+    // of mutations costs one `normalizeDatabase()` re-seed instead of one per
+    // write; an out-of-process write still fails that check and forces a fresh
+    // parse. The read is hot-row overlaid, so the snapshot written below absorbs
+    // every hot row the mutator could see. The overlay is key-deduped, so the
+    // rows that now exist on both sides still merge to one copy on the next read.
     const database = await readDatabase();
-    const result = await mutator(database);
-    databaseIndexCache.delete(database);
-    const cacheUpdatedAt = await writeSqliteDatabase(database, { invalidateReadCache: false });
-    cacheSqliteDatabase(database, cacheUpdatedAt);
-    return result;
+    try {
+      const result = await mutator(database);
+      databaseIndexCache.delete(database);
+      if (options.shouldPersist && !options.shouldPersist(result)) return result;
+      const cacheUpdatedAt = await writeSqliteDatabase(database, { invalidateReadCache: false });
+      cacheSqliteDatabase(database, cacheUpdatedAt);
+      return result;
+    } catch (error) {
+      // The snapshot is shared with readers now, so a mutator that threw
+      // half-way may have left unpersisted edits on it. Drop the cache so the
+      // next read re-parses from disk instead of serving that partial state.
+      clearSqliteReadCache();
+      throw error;
+    }
   });
 
   mutationQueue = run.then(
@@ -5066,8 +5096,14 @@ const gamificationIslandPersistenceStore = createGamificationIslandPersistenceSt
     const database = await readDatabase();
     return database as unknown as PracticeIslandPersistenceDatabase;
   },
-  mutateDatabase: async <T>(mutator: (database: PracticeIslandPersistenceDatabase) => T | Promise<T>) => {
-    const result = await mutateDatabase((database) => mutator(database as unknown as PracticeIslandPersistenceDatabase));
+  mutateDatabase: async <T>(
+    mutator: (database: PracticeIslandPersistenceDatabase) => T | Promise<T>,
+    options?: MutateDatabaseOptions<T>
+  ) => {
+    const result = await mutateDatabase(
+      (database) => mutator(database as unknown as PracticeIslandPersistenceDatabase),
+      options
+    );
     return result as T;
   }
 });
@@ -5435,8 +5471,11 @@ const studentActivityPersistenceStore = createStudentActivityPersistenceStore({
     return database as StudentActivityPersistenceDatabase;
   },
   readPublicDatabase: () => readPublicContentDatabase() as StudentActivityPersistenceDatabase,
-  mutateDatabase: async <T>(mutator: (database: StudentActivityPersistenceDatabase) => T | Promise<T>) => {
-    const result = await mutateDatabase((database) => mutator(database));
+  mutateDatabase: async <T>(
+    mutator: (database: StudentActivityPersistenceDatabase) => T | Promise<T>,
+    options?: MutateDatabaseOptions<T>
+  ) => {
+    const result = await mutateDatabase((database) => mutator(database), options);
     return result as T;
   },
   afterAppend: (database, { userId, latestRecord }) => {
@@ -6936,6 +6975,18 @@ type HotAuthRows = {
   studentProfiles: StudentProfileRecord[];
   userSettings: UserSettingsRecord[];
   passwordResetTokens: PasswordResetTokenRecord[];
+};
+
+/**
+ * Test-only handle on the snapshot read/mutate pair. Both stay module private
+ * on purpose — every domain reaches storage through its own persistence store —
+ * but the SQLite snapshot-cache contract (reuse the parsed snapshot across
+ * consecutive mutations, drop it when a mutator throws, skip the write for a
+ * no-op mutation) can only be exercised through them directly.
+ */
+export const __userStoreSnapshotCacheTestHooks = {
+  mutateDatabase,
+  readDatabase
 };
 
 export const __userStoreAuthHotTableTestHooks = {
@@ -9970,19 +10021,24 @@ async function refreshAdaptiveLearningRecommendationFromCompatibility({
   }
 
   if (!providerConfig.apiKey) {
-    await mutateDatabase((mutable) => {
-      upsertAdaptiveRecommendationCache(mutable, {
-        userId,
-        grade,
-        topicId,
-        candidateSignature: cacheSignature,
-        status: "disabled",
-        provider: providerConfig.provider,
-        model: providerConfig.model,
-        error: "Missing DEEPSEEK_API_KEY.",
-        errorKind: "configuration"
+    // The cache row for this signature already says "disabled"; rewriting it
+    // would only move `updated_at`, at the price of a full snapshot write on
+    // every answered question in the default (no provider key) dev config.
+    if (existing?.status !== "disabled") {
+      await mutateDatabase((mutable) => {
+        upsertAdaptiveRecommendationCache(mutable, {
+          userId,
+          grade,
+          topicId,
+          candidateSignature: cacheSignature,
+          status: "disabled",
+          provider: providerConfig.provider,
+          model: providerConfig.model,
+          error: "Missing DEEPSEEK_API_KEY.",
+          errorKind: "configuration"
+        });
       });
-    });
+    }
     return {
       status: "disabled",
       decision: await getAdaptiveLearningDecisionFromCompatibility({ userId, grade, topicId, curriculumTrack }),
@@ -9991,19 +10047,23 @@ async function refreshAdaptiveLearningRecommendationFromCompatibility({
   }
 
   if (!checkAdaptiveRefreshRateLimit(userId)) {
-    await mutateDatabase((mutable) => {
-      upsertAdaptiveRecommendationCache(mutable, {
-        userId,
-        grade,
-        topicId,
-        candidateSignature: cacheSignature,
-        status: "failed",
-        provider: providerConfig.provider,
-        model: providerConfig.model,
-        error: "Adaptive LLM refresh rate limit exceeded.",
-        errorKind: "rate-limit"
+    // Same idea for a sustained rate-limit: the row already records the
+    // rate-limit failure for this signature, so re-persisting it adds nothing.
+    if (!(existing?.status === "failed" && existing.error_kind === "rate-limit")) {
+      await mutateDatabase((mutable) => {
+        upsertAdaptiveRecommendationCache(mutable, {
+          userId,
+          grade,
+          topicId,
+          candidateSignature: cacheSignature,
+          status: "failed",
+          provider: providerConfig.provider,
+          model: providerConfig.model,
+          error: "Adaptive LLM refresh rate limit exceeded.",
+          errorKind: "rate-limit"
+        });
       });
-    });
+    }
     return {
       status: "failed",
       decision: await getAdaptiveLearningDecisionFromCompatibility({ userId, grade, topicId, curriculumTrack }),

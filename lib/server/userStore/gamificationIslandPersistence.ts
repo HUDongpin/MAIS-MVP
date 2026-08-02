@@ -140,7 +140,10 @@ export type PracticeIslandPersistenceStoreDependencies = {
   createId?: () => string;
   now?: () => Date;
   readDatabase: () => Promise<PracticeIslandPersistenceDatabase>;
-  mutateDatabase: <T>(mutator: (database: PracticeIslandPersistenceDatabase) => T | Promise<T>) => Promise<T>;
+  mutateDatabase: <T>(
+    mutator: (database: PracticeIslandPersistenceDatabase) => T | Promise<T>,
+    options?: { shouldPersist?: (result: T) => boolean }
+  ) => Promise<T>;
 };
 
 export function createGamificationIslandPersistenceStore({
@@ -159,12 +162,19 @@ export function createGamificationIslandPersistenceStore({
     },
 
     async awardPracticeIslandStars(input: PracticeIslandStarAwardInput): Promise<PracticeIslandStarAwardResult | null> {
-      return mutateDatabase((database) => {
-        const user = database.users.find((candidate) => candidate.id === input.studentId && candidate.role === "student");
-        if (!user) return null;
+      return mutateDatabase(
+        (database) => {
+          const user = database.users.find((candidate) => candidate.id === input.studentId && candidate.role === "student");
+          if (!user) return null;
 
-        return awardPracticeIslandStarsInPersistence(database, input, { createId, now: now().toISOString() });
-      });
+          return awardPracticeIslandStarsInPersistence(database, input, { createId, now: now().toISOString() });
+        },
+        // The Practice Arena re-posts the island award after every answered
+        // question, and almost all of those land on "unchanged" (the student
+        // already holds that many stars). Only an actual award changed rows, so
+        // everything else must not rewrite the snapshot.
+        { shouldPersist: (result) => result?.status === "awarded" }
+      );
     }
   };
 }

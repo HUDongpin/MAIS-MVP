@@ -184,6 +184,10 @@ const PracticeQuestionCard = dynamic<LazyPracticeQuestionCardProps>(
 const requiredAdaptiveQuestionCount = 5;
 const freeSelectionRoundQuestionCount = 5;
 const autoAdvanceDelayMs = 1200;
+// Trailing debounce for the post-answer adaptive refresh. Long enough that a
+// burst of quick answers coalesces into one server call, short enough that the
+// recommendation cache is warm before the learner asks for the next plan.
+const adaptiveAnswerRefreshDebounceMs = 3000;
 const adaptiveUnlockStoragePrefix = "hk-math-practice-free-selection-unlocked";
 const adaptiveStrongResultStoragePrefix = "hk-math-practice-strong-result";
 const lastLessonStoragePrefix = "hk-math-practice-last-lesson";
@@ -946,6 +950,7 @@ export default function PracticePage() {
   const adaptiveProgressQuestionIdsRef = useRef<Set<string>>(new Set());
   const adaptiveAnswerRefreshInFlightRef = useRef(false);
   const adaptiveAnswerRefreshQueuedRef = useRef(false);
+  const adaptiveAnswerRefreshTimerRef = useRef<number | null>(null);
   const [gradeFilter, setGradeFilter] = useState<GradeFilter>(selectedGrade);
   const [difficultyFilter, setDifficultyFilter] = useState<DifficultyFilter>("all");
   const [questionTypeFilter, setQuestionTypeFilter] = useState<QuestionTypeFilter>("all");
@@ -1412,12 +1417,12 @@ export default function PracticePage() {
   }, [currentUser, isStudentAccount, lessonContext?.topicId, roadmapGrade]);
 
   const scheduleAdaptiveAnswerRefresh = useCallback(() => {
-    if (adaptiveAnswerRefreshInFlightRef.current) {
-      adaptiveAnswerRefreshQueuedRef.current = true;
-      return;
-    }
-
     function runRefresh() {
+      if (adaptiveAnswerRefreshInFlightRef.current) {
+        adaptiveAnswerRefreshQueuedRef.current = true;
+        return;
+      }
+
       adaptiveAnswerRefreshInFlightRef.current = true;
       void refreshAdaptiveRecommendation({ apply: false }).finally(() => {
         adaptiveAnswerRefreshInFlightRef.current = false;
@@ -1427,8 +1432,24 @@ export default function PracticePage() {
       });
     }
 
-    runRefresh();
+    // Trailing debounce: a run of quickly answered questions becomes one server
+    // refresh instead of one per answer. Nothing on screen waits for it — this
+    // call is `apply: false`, so its only job is warming the adaptive
+    // recommendation cache for the next plan request.
+    if (adaptiveAnswerRefreshTimerRef.current !== null) {
+      window.clearTimeout(adaptiveAnswerRefreshTimerRef.current);
+    }
+    adaptiveAnswerRefreshTimerRef.current = window.setTimeout(() => {
+      adaptiveAnswerRefreshTimerRef.current = null;
+      runRefresh();
+    }, adaptiveAnswerRefreshDebounceMs);
   }, [refreshAdaptiveRecommendation]);
+
+  useEffect(() => () => {
+    if (adaptiveAnswerRefreshTimerRef.current === null) return;
+    window.clearTimeout(adaptiveAnswerRefreshTimerRef.current);
+    adaptiveAnswerRefreshTimerRef.current = null;
+  }, []);
 
   const handleAdaptiveAnswered = useCallback(({ question, feedback, durationSeconds }: PracticePagerAnswerResult) => {
     adaptiveProgressQuestionIdsRef.current.add(question.id);

@@ -752,7 +752,10 @@ export type StudentActivityPersistenceStoreDependencies = {
   logLessonEntryTargetPerf?: (label: string, startedAt: number) => void;
   nowMs?: () => number;
   mutateDatabase?: <T>(
-    mutator: (database: StudentActivityPersistenceDatabase) => T | Promise<T>
+    mutator: (database: StudentActivityPersistenceDatabase) => T | Promise<T>,
+    // Optional so a mutator that decided to change nothing can tell the store to
+    // skip the snapshot write. Backends that always persist may ignore it.
+    options?: { shouldPersist?: (result: T) => boolean }
   ) => Promise<T>;
   afterAppend?: (
     database: StudentActivityPersistenceDatabase,
@@ -1970,6 +1973,39 @@ function lessonProgressFor(
 }
 
 export const studentActivityLessonProgressFor = lessonProgressFor;
+
+function checklistStatesMatch(
+  left: Record<string, boolean> | undefined,
+  right: Record<string, boolean> | undefined
+) {
+  const leftKeys = Object.keys(left ?? {});
+  const rightKeys = Object.keys(right ?? {});
+  if (leftKeys.length !== rightKeys.length) return false;
+  return leftKeys.every((key) => (left ?? {})[key] === (right ?? {})[key]);
+}
+
+/**
+ * Lesson pages re-post "start" (and sometimes "complete") on every visit and on
+ * every answered question, which rebuilds a byte-identical progress row apart
+ * from `updated_at`. Detecting that lets the caller skip a whole snapshot write.
+ */
+export function lessonProgressRowsMatchIgnoringUpdatedAt(
+  existing: StudentActivityLessonProgressRecord | null | undefined,
+  next: StudentActivityLessonProgressRecord
+) {
+  if (!existing) return false;
+  return (
+    existing.user_id === next.user_id &&
+    existing.topic_id === next.topic_id &&
+    (existing.lesson_slug ?? null) === (next.lesson_slug ?? null) &&
+    existing.status === next.status &&
+    existing.mastery === next.mastery &&
+    (existing.started_at ?? null) === (next.started_at ?? null) &&
+    (existing.completed_at ?? null) === (next.completed_at ?? null) &&
+    (existing.duration_seconds ?? null) === (next.duration_seconds ?? null) &&
+    checklistStatesMatch(existing.checklist_state, next.checklist_state)
+  );
+}
 
 function lessonSummaryForDatabase(
   database: StudentActivityPersistenceDatabase,
@@ -3190,11 +3226,14 @@ export function createStudentActivityPersistenceStore({
   questionMatchesCurriculum = questionMatchesCurriculumScope,
   afterSubmitQuestionAttempt
 }: StudentActivityPersistenceStoreDependencies) {
-  const runMutation = async <T>(mutator: (database: StudentActivityPersistenceDatabase) => T | Promise<T>) => {
+  const runMutation = async <T>(
+    mutator: (database: StudentActivityPersistenceDatabase) => T | Promise<T>,
+    options?: { shouldPersist?: (result: T) => boolean }
+  ) => {
     if (!mutateDatabase) {
       throw new Error("Student activity persistence mutation dependency is not configured.");
     }
-    return mutateDatabase(mutator);
+    return mutateDatabase(mutator, options);
   };
 
   const resolveLessonEntryTargetFromDatabase = (
@@ -3309,6 +3348,12 @@ export function createStudentActivityPersistenceStore({
     },
 
     async updateLessonProgress(input: StudentActivityUpdateLessonProgressInput): Promise<LessonSummary | null> {
+      // Set from inside the mutator; `shouldPersist` reads it once the mutator
+      // (including the completion hook, which may touch assignments and
+      // rewards) has finished deciding whether anything actually changed. The
+      // "unknown lesson / wrong curriculum" early returns leave it false, which
+      // is correct: they never touch the snapshot.
+      let persistRequired = false;
       return runMutation(async (database) => {
         const curriculumTrack = input.curriculumTrack ?? defaultCurriculumTrack;
         const lesson = (database.lessons ?? []).find((candidate) => candidate.slug === input.slug);
@@ -3351,14 +3396,26 @@ export function createStudentActivityPersistenceStore({
             (candidate.lesson_slug === lesson.slug || candidate.topic_id === lesson.topic_id)
         );
 
-        if (progressIndex >= 0) {
-          progressRows[progressIndex] = progress;
-        } else {
-          progressRows.push(progress);
-        }
-        clearDatabaseCache(database);
+        // Identity check as well as field equality: `lessonProgressFor` prefers a
+        // slug match while the index above takes the first slug-or-topic match,
+        // so only treat the row as unchanged when both resolved to the same row.
+        const unchanged =
+          progressIndex >= 0 &&
+          progressRows[progressIndex] === existing &&
+          lessonProgressRowsMatchIgnoringUpdatedAt(existing, progress);
 
+        if (!unchanged) {
+          if (progressIndex >= 0) {
+            progressRows[progressIndex] = progress;
+          } else {
+            progressRows.push(progress);
+          }
+          clearDatabaseCache(database);
+        }
+
+        let completionHookRan = false;
         if (status === "completed") {
+          completionHookRan = Boolean(afterUpdateLessonProgress);
           await afterUpdateLessonProgress?.(database, {
             userId: input.userId,
             lesson,
@@ -3369,8 +3426,13 @@ export function createStudentActivityPersistenceStore({
           });
         }
 
+        // The completion hook writes assignments, adaptive state and rewards, so
+        // anything that ran it still has to be persisted even when the progress
+        // row itself did not move.
+        persistRequired = !unchanged || completionHookRan;
+
         return lessonSummaryForDatabase(database, input.userId, lesson, translateLessonTextEn);
-      });
+      }, { shouldPersist: () => persistRequired });
     },
 
     async getRoadmapData(

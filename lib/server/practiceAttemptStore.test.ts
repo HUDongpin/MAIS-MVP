@@ -5,6 +5,9 @@ import { readFile } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
 import test from "node:test";
+// Type-only, so it is erased before runtime and does not load the module ahead
+// of the scratch-directory environment set up below.
+import type { SqliteHotOverlayDatabase } from "./sqliteHotRows";
 
 // The store resolves its SQLite location lazily on first use, so pointing the
 // whole file at a scratch directory here keeps these tests off the developer's
@@ -33,7 +36,7 @@ const practiceQuestionId = "us-ca-k5-knowledge-point-practice-v1-us-ca-math-p5-5
 const practiceQuestionAnswer = "no";
 const practiceQuestionTopicId = "us-ca-math-p5-5-oa-expressions-patterns";
 
-function emptyOverlayDatabase() {
+function emptyOverlayDatabase(): SqliteHotOverlayDatabase {
   return {
     attempts: [],
     mistakes: [],
