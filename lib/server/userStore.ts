@@ -6626,6 +6626,7 @@ function updateLessonProgressFromAdaptiveState(database: Database, userId: strin
   const existing = database.lesson_progress.find(
     (progress) => progress.user_id === userId && progress.topic_id === topicId
   );
+  const firstCompletion = status === "completed" && existing?.status !== "completed";
 
   if (existing) {
     existing.lesson_slug = existing.lesson_slug ?? lessonSlugForTopic(topicId);
@@ -6636,20 +6637,47 @@ function updateLessonProgressFromAdaptiveState(database: Database, userId: strin
     existing.duration_seconds = existing.duration_seconds ?? null;
     existing.checklist_state = existing.checklist_state ?? {};
     existing.updated_at = now;
-    return;
+  } else {
+    database.lesson_progress.push({
+      user_id: userId,
+      topic_id: topicId,
+      lesson_slug: lessonSlugForTopic(topicId),
+      status,
+      mastery,
+      started_at: now,
+      completed_at: status === "completed" ? now : null,
+      duration_seconds: null,
+      checklist_state: {},
+      updated_at: now
+    });
   }
 
-  database.lesson_progress.push({
-    user_id: userId,
-    topic_id: topicId,
-    lesson_slug: lessonSlugForTopic(topicId),
-    status,
-    mastery,
-    started_at: now,
-    completed_at: status === "completed" ? now : null,
-    duration_seconds: null,
-    checklist_state: {},
-    updated_at: now
+  if (firstCompletion) {
+    awardPracticeDrivenLessonCompletion(database, userId, topicId, now);
+  }
+}
+
+// Practice-driven mastery is the only route to a "completed" lesson now that the
+// lesson page has no manual mark-complete action, so the completion reward must
+// fire from these progress updates. The award's ledger source key keeps it
+// idempotent per student and lesson even if a legacy mark-complete call races it.
+function awardPracticeDrivenLessonCompletion(database: Database, userId: string, topicId: string, completedAt: string) {
+  const progress = database.lesson_progress.find(
+    (candidate) => candidate.user_id === userId && candidate.topic_id === topicId
+  );
+  if (progress?.status !== "completed") return;
+
+  const slug = progress.lesson_slug ?? lessonSlugForTopic(topicId);
+  const lesson = database.lessons.find((candidate) => candidate.slug === slug);
+  const topic = topicRecordForId(database, topicId);
+  awardLessonCompletionReward(database, {
+    userId,
+    lesson: lesson ?? {
+      slug,
+      title_en: topic?.title_en ?? slug,
+      title_zh: topic?.title_zh ?? slug
+    },
+    completedAt
   });
 }
 
@@ -6858,6 +6886,9 @@ const updateLessonProgressFromAttempts = (
   question: QuestionRecord,
   now: string
 ) => {
+  const previousStatus = database.lesson_progress.find(
+    (progress) => progress.user_id === userId && progress.topic_id === question.topic_id
+  )?.status;
   updateLessonProgressFromAttemptsFromStudentActivity({
     database,
     userId,
@@ -6866,6 +6897,9 @@ const updateLessonProgressFromAttempts = (
     lessonSlugForTopic,
     questionForId: (questionId) => questionForId(database, questionId)
   });
+  if (previousStatus !== "completed") {
+    awardPracticeDrivenLessonCompletion(database, userId, question.topic_id, now);
+  }
 };
 
 function updatePracticeAssignmentSubmissionsFromAttempt(
@@ -6907,6 +6941,12 @@ export const __userStoreAuthHotTableTestHooks = {
     mediaObjectUrlForKey: mediaObjectAccessUrl,
     passwordMatches: (candidatePassword, user) => passwordMatchesFromAuthSessionPersistence(candidatePassword, user as UserRecord)
   })
+};
+
+export const __userStoreLessonCompletionRewardTestHooks = {
+  awardPracticeDrivenLessonCompletion,
+  updateLessonProgressFromAdaptiveState,
+  updateLessonProgressFromAttempts
 };
 
 const canUseTeacherArea: (user?: UserRecord | null) => user is UserRecord =

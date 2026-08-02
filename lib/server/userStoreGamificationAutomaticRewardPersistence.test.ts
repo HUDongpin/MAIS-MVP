@@ -12,6 +12,7 @@ import {
   maybeAwardPracticeAccuracyReward,
   type GamificationRewardRedemptionPersistenceDatabase
 } from "@/lib/server/userStore/gamificationRewardRedemptionPersistence";
+import { __userStoreLessonCompletionRewardTestHooks } from "@/lib/server/userStore";
 
 const awardedAt = "2026-06-20T12:00:00.000Z";
 
@@ -265,6 +266,142 @@ test("lesson completion reward helper awards one lesson completion reward", () =
   assert.equal(database.reward_point_ledger[0].source_key, "lesson-complete:student-1:linear-equations");
   assert.equal(database.gamification_events?.[0]?.source, "lesson-complete");
   assert.equal(database.gamification_events?.[0]?.label_en, "Completed Linear equations");
+});
+
+type AdaptiveLessonDatabase = Parameters<
+  typeof __userStoreLessonCompletionRewardTestHooks.updateLessonProgressFromAdaptiveState
+>[0];
+
+function createPracticeCompletionDatabase({
+  withLessonRecord = true,
+  questions = [] as { id: string; topic_id: string }[],
+  attempts = [] as { id: string; user_id: string; question_id: string; is_correct: boolean; created_at: string }[]
+} = {}): AdaptiveLessonDatabase {
+  const database = {
+    ...createDatabase(),
+    topics: [
+      {
+        id: "topic-linear",
+        curriculum_track: "HK",
+        grade: "S3",
+        title_en: "Linear equations",
+        title_zh: "一次方程",
+        description_en: "Linear equations topic",
+        description_zh: "一次方程主題",
+        difficulty: "Medium",
+        minutes: 30,
+        sort_order: 1
+      }
+    ],
+    lessons: withLessonRecord
+      ? [
+          {
+            slug: "topic-linear",
+            topic_id: "topic-linear",
+            grade: "S3",
+            title_en: "Linear equations lesson",
+            title_zh: "一次方程課節",
+            description_en: "",
+            description_zh: "",
+            difficulty: "Medium",
+            estimated_minutes: 30
+          }
+        ]
+      : [],
+    lesson_progress: [],
+    adaptive_skill_state: [],
+    questions,
+    attempts
+  };
+  return database as unknown as AdaptiveLessonDatabase;
+}
+
+function setAdaptiveMastery(database: AdaptiveLessonDatabase, pMastery: number) {
+  database.adaptive_skill_state = ["foundation", "fluency", "transfer"].map((stage) => ({
+    user_id: "student-1",
+    skill_id: `topic-linear:${stage}`,
+    p_mastery: pMastery,
+    attempt_count: 6,
+    correct_streak: 3,
+    wrong_streak: 0,
+    last_practiced_at: awardedAt,
+    next_review_at: null,
+    hint_count: 0,
+    misconception_tags: [],
+    updated_at: awardedAt
+  })) as AdaptiveLessonDatabase["adaptive_skill_state"];
+}
+
+test("adaptive mastery completion awards the lesson completion reward once", () => {
+  const { updateLessonProgressFromAdaptiveState } = __userStoreLessonCompletionRewardTestHooks;
+  const database = createPracticeCompletionDatabase();
+
+  setAdaptiveMastery(database, 0.7);
+  updateLessonProgressFromAdaptiveState(database, "student-1", "topic-linear", awardedAt);
+  assert.equal(database.lesson_progress[0]?.status, "in-progress");
+  assert.equal(database.reward_point_ledger.length, 0);
+
+  setAdaptiveMastery(database, 0.9);
+  updateLessonProgressFromAdaptiveState(database, "student-1", "topic-linear", awardedAt);
+  assert.equal(database.lesson_progress[0]?.status, "completed");
+  assert.equal(database.reward_point_ledger.length, 1);
+  assert.equal(database.reward_point_ledger[0].amount, 40);
+  assert.equal(database.reward_point_ledger[0].reason, "lesson-complete");
+  assert.equal(database.reward_point_ledger[0].source_key, "lesson-complete:student-1:topic-linear");
+  assert.equal(database.gamification_events?.length, 1);
+  assert.equal(database.gamification_events?.[0]?.source, "lesson-complete");
+  assert.equal(database.gamification_events?.[0]?.label_en, "Completed Linear equations lesson");
+
+  updateLessonProgressFromAdaptiveState(database, "student-1", "topic-linear", awardedAt);
+  assert.equal(database.reward_point_ledger.length, 1);
+
+  setAdaptiveMastery(database, 0.5);
+  updateLessonProgressFromAdaptiveState(database, "student-1", "topic-linear", awardedAt);
+  assert.equal(database.lesson_progress[0]?.status, "in-progress");
+  setAdaptiveMastery(database, 0.95);
+  updateLessonProgressFromAdaptiveState(database, "student-1", "topic-linear", awardedAt);
+  assert.equal(database.lesson_progress[0]?.status, "completed");
+  assert.equal(database.reward_point_ledger.length, 1);
+});
+
+test("attempt-accuracy completion awards the reward with topic-title fallback", () => {
+  const { updateLessonProgressFromAttempts } = __userStoreLessonCompletionRewardTestHooks;
+  const database = createPracticeCompletionDatabase({
+    withLessonRecord: false,
+    questions: [{ id: "question-1", topic_id: "topic-linear" }],
+    attempts: Array.from({ length: 5 }, (_, index) => ({
+      id: `attempt-${index}`,
+      user_id: "student-1",
+      question_id: "question-1",
+      is_correct: true,
+      created_at: awardedAt
+    }))
+  });
+
+  updateLessonProgressFromAttempts(
+    database,
+    "student-1",
+    { id: "question-1", topic_id: "topic-linear" } as Parameters<
+      typeof __userStoreLessonCompletionRewardTestHooks.updateLessonProgressFromAttempts
+    >[2],
+    awardedAt
+  );
+
+  assert.equal(database.lesson_progress[0]?.status, "completed");
+  assert.equal(database.reward_point_ledger.length, 1);
+  assert.equal(database.reward_point_ledger[0].reason, "lesson-complete");
+  assert.equal(database.reward_point_ledger[0].source_key, "lesson-complete:student-1:topic-linear");
+  assert.equal(database.gamification_events?.[0]?.label_en, "Completed Linear equations");
+
+  updateLessonProgressFromAttempts(
+    database,
+    "student-1",
+    { id: "question-1", topic_id: "topic-linear" } as Parameters<
+      typeof __userStoreLessonCompletionRewardTestHooks.updateLessonProgressFromAttempts
+    >[2],
+    awardedAt
+  );
+  assert.equal(database.reward_point_ledger.length, 1);
 });
 
 test("legacy userStore consumes extracted automatic reward helper", async () => {

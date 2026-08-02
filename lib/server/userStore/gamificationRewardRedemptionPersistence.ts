@@ -201,7 +201,11 @@ const rewardEarnRules: RewardEarnRule[] = [
   {
     id: "lesson-complete",
     label: { en: "Complete a lesson", zh: "完成課節" },
-    detail: { en: "Finish a lesson checklist and mark the lesson complete.", zh: "完成課節清單並標記課節完成。" },
+    detail: {
+      en: "Build up mastery in lesson practice — the lesson completes automatically.",
+      zh: "在課節練習中提升掌握度，課節會自動完成。",
+      zhHans: "在课节练习中提升掌握度，课节会自动完成。"
+    },
     points: 40
   },
   {
