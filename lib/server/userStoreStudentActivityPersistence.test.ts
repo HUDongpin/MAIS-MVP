@@ -1429,7 +1429,8 @@ test("student activity persistence records question attempts and updates mistake
     selected_answer: "A",
     is_correct: false,
     duration_seconds: 13,
-    created_at: "2026-06-20T10:00:00.000Z"
+    created_at: "2026-06-20T10:00:00.000Z",
+    answer_work_photos: null
   });
   assert.deepEqual(database.mistakes?.[0], {
     user_id: "student-1",
