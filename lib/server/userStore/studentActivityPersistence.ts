@@ -772,6 +772,22 @@ export type StudentActivityPersistenceStoreDependencies = {
       masteredAt: string;
     }
   ) => void | Promise<void>;
+  // Removal hooks exist so storage backends that keep these domains in
+  // dedicated "hot" row tables alongside the snapshot can drop the row in the
+  // same operation. Without them a hot-row read overlay would merge the stale
+  // row straight back in and resurrect what the caller just deleted.
+  afterDeleteMistake?: (
+    database: StudentActivityPersistenceDatabase,
+    context: { userId: string; questionId: string; deleted: boolean }
+  ) => void | Promise<void>;
+  afterClearMistakesForUser?: (
+    database: StudentActivityPersistenceDatabase,
+    context: { userId: string }
+  ) => void | Promise<void>;
+  afterClearLearningEventsForUser?: (
+    database: StudentActivityPersistenceDatabase,
+    context: { userId: string; clearedAt: string }
+  ) => void | Promise<void>;
   afterMarkVisualizationSession?: (
     database: StudentActivityPersistenceDatabase,
     context: {
@@ -3164,6 +3180,9 @@ export function createStudentActivityPersistenceStore({
   mutateDatabase,
   afterAppend,
   afterMarkMistakeMastered,
+  afterDeleteMistake,
+  afterClearMistakesForUser,
+  afterClearLearningEventsForUser,
   afterMarkVisualizationSession,
   afterMarkResourceViewed,
   afterSubmitAssessment,
@@ -3577,18 +3596,22 @@ export function createStudentActivityPersistenceStore({
       });
     },
     async deleteMistake(userId: string, questionId: string) {
-      return runMutation((database) => {
+      return runMutation(async (database) => {
         const previousLength = mistakeRowsFor(database).length;
         database.mistakes = mistakeRowsFor(database).filter(
           (mistake) => !(mistake.user_id === userId && mistake.question_id === questionId)
         );
+        const deleted = database.mistakes.length !== previousLength;
 
-        return database.mistakes.length !== previousLength;
+        await afterDeleteMistake?.(database, { userId, questionId, deleted });
+
+        return deleted;
       });
     },
     async clearMistakesForUser(userId: string) {
-      await runMutation((database) => {
+      await runMutation(async (database) => {
         database.mistakes = mistakeRowsFor(database).filter((mistake) => mistake.user_id !== userId);
+        await afterClearMistakesForUser?.(database, { userId });
       });
     },
     async appendLearningEvents(userId: string, events: LearningAnalyticsEvent[]) {
@@ -3630,13 +3653,14 @@ export function createStudentActivityPersistenceStore({
       });
     },
     async clearLearningEventsForUser(userId: string, clearedAt = now().toISOString()) {
-      await runMutation((database) => {
+      await runMutation(async (database) => {
         database.learning_events = learningEventsFor(database).filter((event) => event.user_id !== userId);
         database.visualization_events = visualizationEventsFor(database).filter((event) => event.user_id !== userId);
         database.learning_event_clears = [
           ...learningEventClearsFor(database).filter((clear) => clear.user_id !== userId),
           { user_id: userId, cleared_at: clearedAt }
         ];
+        await afterClearLearningEventsForUser?.(database, { userId, clearedAt });
       });
     },
     async getAnalyticsSummary(

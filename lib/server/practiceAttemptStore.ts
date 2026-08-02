@@ -2,6 +2,12 @@ import { randomUUID } from "crypto";
 import postgres from "postgres";
 import { questionAnswerMatches } from "@/lib/server/answerMatching";
 import { getQuestionForAttemptFromStore } from "@/lib/server/questionStore";
+import {
+  runSqliteHotRowTransaction,
+  sqliteBoolean,
+  sqliteHotRowWritesEnabled,
+  ensureSqliteHotRowTables
+} from "@/lib/server/sqliteHotRows";
 import type { StoredMediaObjectReference } from "@/lib/server/mediaObjectStore";
 import type { AttemptFeedback, CurriculumProfile, CurriculumTrack, LearningAnalyticsEvent, Question } from "@/types";
 
@@ -128,8 +134,26 @@ function postgresRowsEnabled() {
   return configuredStorageProvider === "postgres" && Boolean(postgresUrl);
 }
 
+// Local/dev SQLite gets the same hot-row treatment as production Postgres so a
+// Check Answer click never rewrites the multi-megabyte snapshot blob.
+function sqliteRowsEnabled() {
+  return !postgresRowsEnabled() && sqliteHotRowWritesEnabled();
+}
+
 export function practiceAttemptFastPathPersistsRows() {
-  return postgresRowsEnabled();
+  return postgresRowsEnabled() || sqliteRowsEnabled();
+}
+
+/**
+ * The SQLite snapshot still holds questions that no code-based question source
+ * exports (generated banks wired into topics only, retired live-question ids —
+ * 1,596 of 25,352 snapshot questions today, 540 of them reachable from lesson
+ * practice blocks). On Postgres those questions do not exist, so a lookup miss
+ * is a genuine 404; on SQLite the caller must retry through the snapshot store
+ * before giving up.
+ */
+export function practiceAttemptFastPathNeedsLegacyQuestionFallback() {
+  return !postgresRowsEnabled();
 }
 
 export const learningEventFastPathPersistsRows = practiceAttemptFastPathPersistsRows;
@@ -219,10 +243,65 @@ function eventIsAfterClear(event: LearningAnalyticsEvent, clearedAt: string | nu
   return new Date(event.timestamp).getTime() > new Date(clearedAt).getTime();
 }
 
+function learningEventRowValues(userId: string, event: LearningAnalyticsEvent) {
+  return {
+    id: event.id,
+    user_id: userId,
+    type: event.type,
+    source: event.source,
+    grade: event.grade,
+    topic_id: event.topicId,
+    question_id: event.questionId ?? null,
+    duration_seconds: analyticsEventDurationSeconds(event),
+    created_at: event.timestamp
+  };
+}
+
+function appendLearningEventsToSqlite(userId: string, events: LearningAnalyticsEvent[]) {
+  return runSqliteHotRowTransaction((database) => {
+    const clearRow = database
+      .prepare("SELECT cleared_at FROM learning_event_clears WHERE user_id = ? LIMIT 1")
+      .get(userId) as { cleared_at?: unknown } | undefined;
+    const clearedAt = typeof clearRow?.cleared_at === "string" ? clearRow.cleared_at : null;
+    const insert = database.prepare(`
+      INSERT INTO learning_events (
+        id, user_id, type, source, grade, topic_id, question_id, duration_seconds, created_at
+      )
+      VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+      ON CONFLICT(id) DO NOTHING
+    `);
+
+    let inserted = 0;
+    events
+      .filter((event) => eventIsAfterClear(event, clearedAt))
+      .forEach((event) => {
+        const row = learningEventRowValues(userId, event);
+        const result = insert.run(
+          row.id,
+          row.user_id,
+          row.type,
+          row.source,
+          row.grade,
+          row.topic_id,
+          row.question_id,
+          row.duration_seconds,
+          row.created_at
+        );
+        inserted += Number(result.changes ?? 0);
+      });
+
+    return inserted;
+  });
+}
+
 export async function appendLearningEventsFast(
   userId: string,
   events: LearningAnalyticsEvent[]
 ): Promise<number | null> {
+  if (sqliteRowsEnabled()) {
+    if (!events.length) return 0;
+    return appendLearningEventsToSqlite(userId, events);
+  }
   if (!postgresRowsEnabled()) return null;
   if (!events.length) return 0;
 
@@ -261,6 +340,19 @@ export async function appendLearningEventsFast(
 }
 
 export async function clearLearningEventsFast(userId: string, clearedAt = new Date().toISOString()) {
+  if (sqliteRowsEnabled()) {
+    runSqliteHotRowTransaction((database) => {
+      database.prepare("DELETE FROM learning_events WHERE user_id = ?").run(userId);
+      database
+        .prepare(`
+          INSERT INTO learning_event_clears (user_id, cleared_at)
+          VALUES (?, ?)
+          ON CONFLICT(user_id) DO UPDATE SET cleared_at = excluded.cleared_at
+        `)
+        .run(userId, clearedAt);
+    });
+    return true;
+  }
   if (!postgresRowsEnabled()) return false;
 
   await ensurePostgresStudentActivityTables();
@@ -300,6 +392,32 @@ export async function readLearningEventsFastForUsers(
   userIds: string[],
   sinceIso: string
 ): Promise<FastLearningEventRow[]> {
+  if (sqliteRowsEnabled()) {
+    if (!userIds.length) return [];
+    const database = ensureSqliteHotRowTables();
+    const placeholders = userIds.map(() => "?").join(", ");
+    const rows = database
+      .prepare(`
+        SELECT id, user_id, type, source, grade, topic_id, question_id, duration_seconds, created_at
+        FROM learning_events
+        WHERE user_id IN (${placeholders})
+          AND created_at >= ?
+        ORDER BY created_at ASC
+      `)
+      .all(...userIds, sinceIso) as Array<Record<string, unknown>>;
+
+    return rows.map((row) => ({
+      id: String(row.id),
+      user_id: String(row.user_id),
+      type: row.type as LearningAnalyticsEvent["type"],
+      source: row.source as LearningAnalyticsEvent["source"],
+      grade: row.grade as LearningAnalyticsEvent["grade"],
+      topic_id: String(row.topic_id),
+      question_id: typeof row.question_id === "string" ? row.question_id : undefined,
+      duration_seconds: typeof row.duration_seconds === "number" ? row.duration_seconds : undefined,
+      created_at: String(row.created_at)
+    }));
+  }
   if (!postgresRowsEnabled()) return [];
   if (!userIds.length) return [];
 
@@ -566,6 +684,237 @@ async function persistQuestionAttempt(input: {
   });
 }
 
+type PersistQuestionAttemptInput = {
+  userId: string;
+  question: Question;
+  selectedAnswer: string;
+  correct: boolean;
+  durationSeconds: number | null;
+  now: string;
+  answerWorkPhotos?: StoredMediaObjectReference[];
+};
+
+function writeSqliteMistakeRow(database: ReturnType<typeof ensureSqliteHotRowTables>, input: PersistQuestionAttemptInput) {
+  if (input.correct) {
+    database
+      .prepare(`
+        UPDATE mistake_book_items
+        SET mastered = 1,
+            last_attempt_at = ?
+        WHERE user_id = ?
+          AND question_id = ?
+      `)
+      .run(input.now, input.userId, input.question.id);
+    return;
+  }
+
+  database
+    .prepare(`
+      INSERT INTO mistake_book_items (
+        user_id,
+        question_id,
+        last_selected_answer,
+        correct_answer,
+        wrong_attempts,
+        first_wrong_at,
+        last_attempt_at,
+        mastered
+      )
+      VALUES (?, ?, ?, ?, 1, ?, ?, 0)
+      ON CONFLICT(user_id, question_id) DO UPDATE SET
+        last_selected_answer = excluded.last_selected_answer,
+        correct_answer = excluded.correct_answer,
+        wrong_attempts = mistake_book_items.wrong_attempts + 1,
+        last_attempt_at = excluded.last_attempt_at,
+        mastered = 0
+    `)
+    .run(
+      input.userId,
+      input.question.id,
+      input.selectedAnswer,
+      input.question.answer,
+      input.now,
+      input.now
+    );
+}
+
+function writeSqliteAdaptiveSkillState(
+  database: ReturnType<typeof ensureSqliteHotRowTables>,
+  input: PersistQuestionAttemptInput
+) {
+  const skillId = input.question.canonicalTopicId ?? input.question.topicId;
+  const initialMastery = input.correct ? 0.62 : 0.38;
+  const masteryDelta = input.correct ? 0.08 : -0.12;
+  const correctStreak = input.correct ? 1 : 0;
+  const wrongStreak = input.correct ? 0 : 1;
+  const misconceptionTags = input.correct ? [] : ["needs-review"];
+
+  database
+    .prepare(`
+      INSERT INTO adaptive_skill_states (
+        user_id,
+        skill_id,
+        p_mastery,
+        attempt_count,
+        correct_streak,
+        wrong_streak,
+        last_practiced_at,
+        next_review_at,
+        hint_count,
+        misconception_tags,
+        updated_at
+      )
+      VALUES (?, ?, ?, 1, ?, ?, ?, ?, 0, ?, ?)
+      ON CONFLICT(user_id, skill_id) DO UPDATE SET
+        p_mastery = MIN(0.99, MAX(0.01, adaptive_skill_states.p_mastery + ${masteryDelta})),
+        attempt_count = adaptive_skill_states.attempt_count + 1,
+        correct_streak = ${input.correct ? "adaptive_skill_states.correct_streak + 1" : "0"},
+        wrong_streak = ${input.correct ? "0" : "adaptive_skill_states.wrong_streak + 1"},
+        last_practiced_at = excluded.last_practiced_at,
+        next_review_at = excluded.next_review_at,
+        misconception_tags = excluded.misconception_tags,
+        updated_at = excluded.updated_at
+    `)
+    .run(
+      input.userId,
+      skillId,
+      initialMastery,
+      correctStreak,
+      wrongStreak,
+      input.now,
+      nextReviewIso(input.now, input.correct),
+      JSON.stringify(misconceptionTags),
+      input.now
+    );
+}
+
+function maybeWriteSqlitePracticeAccuracyReward(
+  database: ReturnType<typeof ensureSqliteHotRowTables>,
+  input: { userId: string; question: Question; now: string }
+) {
+  const window = dayWindow(input.now);
+  const row = database
+    .prepare(`
+      SELECT
+        COUNT(*) AS attempt_count,
+        SUM(CASE WHEN is_correct THEN 1 ELSE 0 END) AS correct_count
+      FROM practice_attempts
+      WHERE user_id = ?
+        AND topic_id = ?
+        AND created_at >= ?
+        AND created_at < ?
+    `)
+    .get(input.userId, input.question.topicId, window.start, window.end) as
+      | { attempt_count?: unknown; correct_count?: unknown }
+      | undefined;
+  const attemptCount = Number(row?.attempt_count ?? 0);
+  const correctCount = Number(row?.correct_count ?? 0);
+  if (attemptCount < 5 || correctCount / attemptCount < 0.8) return;
+
+  const sourceKey = `practice-accuracy:${input.userId}:${input.question.topicId}:${window.dayKey}`;
+  database
+    .prepare(`
+      INSERT INTO reward_point_ledger (
+        id,
+        student_id,
+        amount,
+        reason,
+        label_en,
+        label_zh,
+        source_key,
+        created_at
+      )
+      VALUES (?, ?, 30, 'practice-accuracy', ?, ?, ?, ?)
+      ON CONFLICT(source_key) DO NOTHING
+    `)
+    .run(
+      `reward-ledger-${randomUUID()}`,
+      input.userId,
+      `Strong ${input.question.topic.en} practice accuracy`,
+      `${input.question.topic.zh}練習準確率表現良好`,
+      sourceKey,
+      input.now
+    );
+}
+
+function persistSqliteQuestionAttempt(input: PersistQuestionAttemptInput) {
+  const profile = profileFields(input.question);
+
+  runSqliteHotRowTransaction((database) => {
+    database
+      .prepare(`
+        INSERT INTO practice_attempts (
+          id,
+          user_id,
+          question_id,
+          selected_answer,
+          is_correct,
+          duration_seconds,
+          grade,
+          topic_id,
+          curriculum_track,
+          curriculum_region,
+          textbook_publisher,
+          created_at,
+          answer_work_photos
+        )
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+      `)
+      .run(
+        randomUUID(),
+        input.userId,
+        input.question.id,
+        input.selectedAnswer,
+        sqliteBoolean(input.correct),
+        input.durationSeconds,
+        input.question.grade,
+        input.question.topicId,
+        profile.curriculumTrack,
+        profile.curriculumRegion,
+        profile.textbookPublisher,
+        input.now,
+        input.answerWorkPhotos?.length ? JSON.stringify(input.answerWorkPhotos) : null
+      );
+
+    writeSqliteMistakeRow(database, input);
+    writeSqliteAdaptiveSkillState(database, input);
+
+    database
+      .prepare(`
+        INSERT INTO learning_events (
+          id,
+          user_id,
+          type,
+          source,
+          grade,
+          topic_id,
+          question_id,
+          duration_seconds,
+          created_at
+        )
+        VALUES (?, ?, ?, 'practice', ?, ?, ?, ?, ?)
+      `)
+      .run(
+        randomUUID(),
+        input.userId,
+        input.correct ? "answer-correct" : "answer-wrong",
+        input.question.grade,
+        input.question.topicId,
+        input.question.id,
+        input.durationSeconds,
+        input.now
+      );
+
+    if (input.correct) {
+      maybeWriteSqlitePracticeAccuracyReward(database, {
+        userId: input.userId,
+        question: input.question,
+        now: input.now
+      });
+    }
+  });
+}
+
 export async function submitQuestionAttemptFast({
   userId,
   questionId,
@@ -583,17 +932,25 @@ export async function submitQuestionAttemptFast({
 
   const feedback = attemptFeedback(question, selectedAnswer);
 
+  const attemptInput: PersistQuestionAttemptInput = {
+    userId,
+    question,
+    selectedAnswer,
+    correct: feedback.correct,
+    durationSeconds: normalizedDurationSeconds(durationSeconds),
+    now: new Date().toISOString(),
+    answerWorkPhotos
+  };
+
   if (postgresRowsEnabled()) {
     try {
-      await persistQuestionAttempt({
-        userId,
-        question,
-        selectedAnswer,
-        correct: feedback.correct,
-        durationSeconds: normalizedDurationSeconds(durationSeconds),
-        now: new Date().toISOString(),
-        answerWorkPhotos
-      });
+      await persistQuestionAttempt(attemptInput);
+    } catch {
+      console.warn("Practice attempt row persistence failed; returning answer feedback without a saved attempt row.");
+    }
+  } else if (sqliteRowsEnabled()) {
+    try {
+      persistSqliteQuestionAttempt(attemptInput);
     } catch {
       console.warn("Practice attempt row persistence failed; returning answer feedback without a saved attempt row.");
     }

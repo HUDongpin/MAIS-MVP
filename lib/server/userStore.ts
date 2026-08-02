@@ -1,7 +1,6 @@
 import { createHash, randomBytes, randomUUID } from "crypto";
 import { mkdir, readFile, writeFile } from "fs/promises";
 import { DatabaseSync } from "node:sqlite";
-import { tmpdir } from "os";
 import path from "path";
 import postgres from "postgres";
 import { hasCcssLessonAssignment } from "@/data/ccssLessonAssignments";
@@ -627,6 +626,17 @@ import {
 import { renderTeacherReviewLessonPptx } from "@/lib/teacherReviewLessonPptx";
 import { questionAnswerMatches } from "@/lib/server/answerGrading";
 import { readLearningEventsFastForUsers } from "@/lib/server/practiceAttemptStore";
+import {
+  clearSqliteHotLearningEventsForUser,
+  clearSqliteHotMistakesForUser,
+  deleteSqliteHotMistake,
+  masterSqliteHotMistake,
+  openSharedSqliteConnection,
+  overlaySqliteHotRows,
+  sqliteHotRowDatabaseDirectory,
+  sqliteHotRowDatabasePath,
+  type SqliteHotOverlayDatabase
+} from "@/lib/server/sqliteHotRows";
 import { getWeComNotificationSummary, sendWeComGroupNotification } from "@/lib/server/wecomNotifications";
 import type {
   AdaptiveLearningCandidate,
@@ -1873,14 +1883,6 @@ type LoginAuthResult =
       };
     };
 
-function defaultDbDirectory() {
-  if (process.env.VERCEL || process.env.VERCEL_ENV) {
-    return path.join(tmpdir(), "hk-math-lab");
-  }
-
-  return path.join(process.cwd(), ".local");
-}
-
 const configuredDbPath = process.env.HK_MATH_DB_PATH ? path.resolve(process.env.HK_MATH_DB_PATH) : null;
 const configuredStorageProvider = process.env.HK_MATH_STORAGE_PROVIDER?.trim().toLowerCase();
 const storageProvider = configuredStorageProvider === "postgres" ? "postgres" : "sqlite";
@@ -1889,10 +1891,10 @@ const configuredPostgresMaxConnections = Number.parseInt(process.env.POSTGRES_MA
 const postgresMaxConnections = Number.isFinite(configuredPostgresMaxConnections)
   ? Math.min(10, Math.max(1, configuredPostgresMaxConnections))
   : 2;
-const dbDirectory = configuredDbPath
-  ? path.dirname(configuredDbPath)
-  : path.resolve(process.env.HK_MATH_DB_DIR ?? defaultDbDirectory());
-const dbPath = configuredDbPath ?? path.join(dbDirectory, "hk-math-db.sqlite");
+// Resolved by the shared SQLite module so the snapshot blob and the hot-row
+// tables always land in the same file (and on the same connection).
+const dbDirectory = sqliteHotRowDatabaseDirectory();
+const dbPath = sqliteHotRowDatabasePath();
 const legacyJsonDbPath = path.join(dbDirectory, "hk-math-db.json");
 const stateRecordId = "primary";
 const stateTenantId = "platform";
@@ -2909,12 +2911,10 @@ function ensureSqliteAppStateMetadataColumns(storage: DatabaseSync) {
 function getSqliteDatabase() {
   if (sqlite) return sqlite;
 
-  sqlite = new DatabaseSync(dbPath);
+  // Shared with the student-activity hot-row tables: one handle, one WAL
+  // writer, no cross-handle lock contention on the same file.
+  sqlite = openSharedSqliteConnection();
   sqlite.exec(`
-    PRAGMA journal_mode = WAL;
-    PRAGMA foreign_keys = ON;
-    PRAGMA busy_timeout = 5000;
-
     CREATE TABLE IF NOT EXISTS schema_migrations (
       version INTEGER PRIMARY KEY,
       applied_at TEXT NOT NULL
@@ -4599,16 +4599,33 @@ async function loadSqliteDatabase() {
   return database;
 }
 
+/**
+ * Single merge point for the SQLite student-activity hot rows.
+ *
+ * Practice attempts, mistakes, adaptive skill states, learning events and the
+ * reward ledger are written as small dedicated rows so a Check Answer click
+ * never rewrites the multi-megabyte snapshot payload. Every legacy reader still
+ * goes through the parsed snapshot, so the hot rows are merged in here — once —
+ * rather than in each caller. The overlay never mutates the cached parse: it
+ * returns a new object (memoised against the hot-row version counter so a
+ * quiet database costs one indexed row read).
+ */
+function withSqliteHotRows(database: Database) {
+  return overlaySqliteHotRows(database as unknown as SqliteHotOverlayDatabase) as unknown as Database;
+}
+
 async function readSqliteDatabase() {
   const cached = readCachedSqliteDatabase();
-  if (cached) return cached;
+  if (cached) return withSqliteHotRows(cached);
   if (sqliteReadPromise) return sqliteReadPromise;
 
-  const readPromise = loadSqliteDatabase().finally(() => {
-    if (sqliteReadPromise === readPromise) {
-      sqliteReadPromise = null;
-    }
-  });
+  const readPromise = loadSqliteDatabase()
+    .then((database) => withSqliteHotRows(database))
+    .finally(() => {
+      if (sqliteReadPromise === readPromise) {
+        sqliteReadPromise = null;
+      }
+    });
   sqliteReadPromise = readPromise;
   return readPromise;
 }
@@ -4760,6 +4777,9 @@ async function mutateDatabase<T>(mutator: (database: Database) => T | Promise<T>
 
   const run = mutationQueue.then(async () => {
     clearSqliteReadCache();
+    // The read is hot-row overlaid, so the snapshot written below absorbs every
+    // hot row the mutator could see. The overlay is key-deduped, so the rows
+    // that now exist on both sides still merge to one copy on the next read.
     const database = await readDatabase();
     const result = await mutator(database);
     databaseIndexCache.delete(database);
@@ -5430,6 +5450,22 @@ const studentActivityPersistenceStore = createStudentActivityPersistenceStore({
       topic: topic as TopicRecord | null,
       masteredAt
     });
+    masterSqliteHotMistake(userId, questionId, masteredAt);
+    clearStudentDashboardCacheForUser(userId);
+  },
+  // Mirrors for the SQLite hot-row tables. The snapshot read is hot-row
+  // overlaid, so a snapshot-only delete would be undone by the very next read
+  // unless the hot copy goes with it. No-ops on Postgres.
+  afterDeleteMistake: (_database, { userId, questionId }) => {
+    deleteSqliteHotMistake(userId, questionId);
+    clearStudentDashboardCacheForUser(userId);
+  },
+  afterClearMistakesForUser: (_database, { userId }) => {
+    clearSqliteHotMistakesForUser(userId);
+    clearStudentDashboardCacheForUser(userId);
+  },
+  afterClearLearningEventsForUser: (_database, { userId, clearedAt }) => {
+    clearSqliteHotLearningEventsForUser(userId, clearedAt);
     clearStudentDashboardCacheForUser(userId);
   },
   afterMarkVisualizationSession: (database, {

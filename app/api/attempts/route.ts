@@ -5,7 +5,11 @@ import {
   readStoredMediaObject,
   type StoredMediaObjectReference
 } from "@/lib/server/mediaObjectStore";
-import { practiceAttemptFastPathPersistsRows, submitQuestionAttemptFast } from "@/lib/server/practiceAttemptStore";
+import {
+  practiceAttemptFastPathNeedsLegacyQuestionFallback,
+  practiceAttemptFastPathPersistsRows,
+  submitQuestionAttemptFast
+} from "@/lib/server/practiceAttemptStore";
 import { SESSION_COOKIE_NAME, verifySessionToken } from "@/lib/session";
 
 export const runtime = "nodejs";
@@ -157,7 +161,11 @@ export async function POST(request: Request) {
   });
 
   if (!feedback) {
-    if (!practiceAttemptFastPathPersistsRows()) {
+    // A fast-path miss means the question is not in any code-based question
+    // source. On SQLite the snapshot still holds questions that only exist
+    // there (generated banks, retired live ids), so retry through the snapshot
+    // store before returning 404. On Postgres the miss is authoritative.
+    if (!practiceAttemptFastPathPersistsRows() || practiceAttemptFastPathNeedsLegacyQuestionFallback()) {
       const persistedFeedback = await persistLocalAttempt({
         userId: session.sub,
         questionId,
