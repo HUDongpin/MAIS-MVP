@@ -355,7 +355,7 @@ export const californiaGrade1AdditionSubtractionMicroLessonSpecs: CaliforniaElem
     launch: "Picture stories for subtraction usually show a starting group and a change. Before solving, name what was there first and what left.",
     conceptExplanation: "A take-away picture has a before and an after. The whole group is there first, then some objects leave, get used, or are crossed out. The answer is the part still left in the picture, not the part that went away.",
     workedExample: {
-      prompt: "A picture shows 9 balloons. Four balloons float away. How many balloons are left?",
+      prompt: "A picture shows 9 balloons. 4 balloons float away. How many balloons are left?",
       answer: "5",
       reasoning: "Start with 9 balloons and remove 4. Counting back or crossing out 4 leaves 5 balloons."
     },
@@ -401,9 +401,9 @@ export const californiaGrade1AdditionSubtractionMicroLessonSpecs: CaliforniaElem
     launch: "Say the picture story with subtraction language: start with, take away, left.",
     conceptExplanation: "A subtraction equation is a short record of a take-away story. The first number names the starting whole, the second number names the part removed, and the answer names what remains. If you read the equation aloud, it should sound like start, take away, left.",
     workedExample: {
-      prompt: "A picture shows 8 crackers. Three crackers are eaten. Write a subtraction equation for how many crackers are left.",
+      prompt: "A picture shows 8 crackers. 3 crackers are eaten. Write a subtraction equation for how many crackers are left.",
       answer: "8 - 3 = 5",
-      reasoning: "The story starts with 8 and removes 3. Five remain, so the equation is 8 - 3 = 5."
+      reasoning: "The story starts with 8 and removes 3. 5 crackers remain, so the equation is 8 - 3 = 5."
     },
     guidedPractice: [
       "Write the starting number first.",
@@ -447,7 +447,7 @@ export const californiaGrade1AdditionSubtractionMicroLessonSpecs: CaliforniaElem
     launch: "Build the whole train first. Then slide away or cover the part that leaves so the remaining part is easy to see.",
     conceptExplanation: "For subtraction, build the whole cube train before anything leaves. When you slide away or cover some cubes, the hidden or moved part shows the take-away action. The cubes still showing are the answer because they are the part left behind.",
     workedExample: {
-      prompt: "A cube train has 10 cubes. Six cubes are covered. How many cubes can you still see?",
+      prompt: "A cube train has 10 cubes. 6 cubes are covered. How many cubes can you still see?",
       answer: "4",
       reasoning: "Start with 10 cubes and cover 6. The visible part is 4 cubes, so 10 - 6 = 4."
     },
@@ -503,8 +503,8 @@ export const californiaGrade1AdditionSubtractionMicroLessonSpecs: CaliforniaElem
       "Use the story label in the final answer."
     ],
     independentPractice: [
-      "A box has 8 crayons. Three are used. Find how many are left.",
-      "A shelf has 10 books. Four are checked out. Find how many are left.",
+      "A box has 8 crayons. 3 crayons are used. Find how many are left.",
+      "A shelf has 10 books. 4 books are checked out. Find how many are left.",
       "Write your own take-away story with an answer of 6."
     ],
     commonPitfalls: [
@@ -541,7 +541,7 @@ export const californiaGrade1AdditionSubtractionMicroLessonSpecs: CaliforniaElem
     workedExample: {
       prompt: "Draw 9 counters. Cross out 5 counters. Write an equation for how many counters are left.",
       answer: "9 - 5 = 4",
-      reasoning: "The model starts with 9 counters and removes 5. Four counters are not crossed out, so the equation is 9 - 5 = 4."
+      reasoning: "The model starts with 9 counters and removes 5. 4 counters are not crossed out, so the equation is 9 - 5 = 4."
     },
     guidedPractice: [
       "Draw or build the starting whole.",
@@ -585,7 +585,7 @@ export const californiaGrade1AdditionSubtractionMicroLessonSpecs: CaliforniaElem
     launch: "Not every subtraction story has objects leaving. Sometimes the whole is split into two parts and one part is unknown.",
     conceptExplanation: "Sometimes subtraction is a hidden-part story instead of a leaving story. The whole is known, one part is known, and the other part is missing. Subtracting the known part from the whole uncovers the missing part, like lifting a flap on the picture.",
     workedExample: {
-      prompt: "There are 10 shells. Four shells are in a box, and the rest are on the table. How many shells are on the table?",
+      prompt: "There are 10 shells. 4 shells are in a box, and the rest are on the table. How many shells are on the table?",
       answer: "6",
       reasoning: "The whole is 10 shells. One part is 4 shells in the box. The missing part is 10 - 4 = 6, so 6 shells are on the table."
     },
@@ -595,8 +595,8 @@ export const californiaGrade1AdditionSubtractionMicroLessonSpecs: CaliforniaElem
       "Use addition to check that the two parts make the whole."
     ],
     independentPractice: [
-      "There are 8 buttons. Three are red and the rest are blue. Find the blue buttons.",
-      "There are 9 cubes. Five are tall-stack cubes and the rest are flat. Find the flat cubes.",
+      "There are 8 buttons. 3 buttons are red and the rest are blue. Find the blue buttons.",
+      "There are 9 cubes. 5 cubes are tall-stack cubes and the rest are flat. Find the flat cubes.",
       "Write a break-apart story for 7 - 2."
     ],
     commonPitfalls: [

@@ -578,10 +578,12 @@ function microLessonBlocks(lesson: CaliforniaElementaryMicroLessonSpec): Product
       title: textOnly("Guided practice"),
       items: lesson.guidedPractice.map(textOnly)
     },
+    // Same list shape as textbookBlocks: practice, then pitfall/repair, then
+    // the exit ticket. The title names all three.
     {
       idSuffix: "mistake-repair",
       type: "extension",
-      title: textOnly("Mistake repair"),
+      title: textOnly("Practice, mistake repair, and exit ticket"),
       items: [
         ...lesson.independentPractice.map(textOnly),
         ...lesson.commonPitfalls.map((item) => textOnly(pitfallItemText(item.pitfall, item.repairMove))),
