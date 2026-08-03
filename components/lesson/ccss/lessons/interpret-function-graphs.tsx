@@ -73,7 +73,10 @@ export default function Lesson() {
       <p>
         This rocket climbs until t = 4 (increasing), peaks at height 8, then falls
         (decreasing), landing at t = {"≈"}6.83. The sensible <strong>domain</strong>{" "}
-        is 0 ≤ t ≤ landing — negative time or height is meaningless. The dashed
+        {/* h(0) = −8, so the model is negative for t < 1.17 and the sensible
+            domain starts where the rocket leaves the ground, not at t = 0. */}
+        runs from lift-off (t ≈ 1.17, where the height reaches 0) to landing —
+        outside that the model gives a negative height, which is meaningless. The dashed
         secant&apos;s slope, {avgRate}, is the <strong>average rate of change</strong>{" "}
         over the interval.
       </p>

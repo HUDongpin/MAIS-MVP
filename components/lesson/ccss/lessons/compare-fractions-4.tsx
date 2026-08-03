@@ -80,8 +80,11 @@ export default function Lesson() {
       <h2>Make the pieces match</h2>
       <p>
         You can only compare numerators when the denominators agree. A quick
-        shortcut is the <strong>benchmark 1/2</strong>: 2/3 is more than half and
-        3/5 is more than half too, so you rewrite to be sure — {na}/{lcm} vs {nc}/{lcm}.
+        {/* The two fractions were hard-coded while the clause after them was
+            live, so the sentence attributed the displayed numbers to 2/3 and
+            3/5 whatever the controls were set to. */}
+        shortcut is the <strong>benchmark 1/2</strong>: {n1}/{d1} is {n1 / d1 > 0.5 ? "more" : n1 / d1 < 0.5 ? "less" : "exactly"} than half and{" "}
+        {n2}/{d2} is {n2 / d2 > 0.5 ? "more" : n2 / d2 < 0.5 ? "less" : "exactly"} than half, so you rewrite to be sure — {na}/{lcm} vs {nc}/{lcm}.
       </p>
 
       <MathCheck>

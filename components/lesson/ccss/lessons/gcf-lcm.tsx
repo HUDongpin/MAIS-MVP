@@ -25,8 +25,13 @@ export default function Lesson() {
   const fa = factors(a), fb = factors(b);
   const g = gcd(a, b);
   const lcm = (a * b) / g;
-  const multA = Array.from({ length: 6 }, (_, i) => a * (i + 1));
-  const multB = Array.from({ length: 6 }, (_, i) => b * (i + 1));
+  // List enough multiples to actually reach the LCM. Six was not always
+  // enough, so whenever lcm > 6a or lcm > 6b nothing was highlighted while
+  // the caption promised a highlighted shared multiple.
+  const rowsA = Math.max(6, lcm / a);
+  const rowsB = Math.max(6, lcm / b);
+  const multA = Array.from({ length: rowsA }, (_, i) => a * (i + 1));
+  const multB = Array.from({ length: rowsB }, (_, i) => b * (i + 1));
 
   return (
     <div className="prose-lesson max-w-none">

@@ -75,7 +75,9 @@ export default function Lesson() {
           </svg>
 
           <div className="rounded-xl px-5 py-2 text-center text-lg font-black" style={{ color: parallel ? "var(--band-early)" : "var(--band-upper)" }}>
-            {parallel ? (b1 === b2 ? "Same line — infinitely many solutions" : "Parallel lines — no solution") : `Solution: (${ix}, ${iy})`}
+            {/* The grid only covers 0..10; outside it the dot is suppressed but
+                the panel still announced a solution with nothing to point at. */}
+            {parallel ? (b1 === b2 ? "Same line — infinitely many solutions" : "Parallel lines — no solution") : `Solution: (${ix}, ${iy})${inRange ? "" : " — off this grid"}`}
           </div>
 
           <div className="flex flex-wrap items-center justify-center gap-3">

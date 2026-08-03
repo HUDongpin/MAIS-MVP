@@ -24,7 +24,8 @@ export default function Lesson() {
         <div className="flex flex-col items-center gap-6">
           <div className="text-center">
             <div className="text-5xl font-black" style={{ color: SEL }}>{sel}</div>
-            <div className="text-sm font-semibold text-[var(--ink-faint)]">then {nexts.join(", ")}…</div>
+            {/* At 120 nothing follows, and the line rendered as a bare "then …". */}
+            <div className="text-sm font-semibold text-[var(--ink-faint)]">{nexts.length ? `then ${nexts.join(", ")}…` : "120 is the last number on this chart."}</div>
           </div>
 
           <FigureScroll>

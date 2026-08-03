@@ -84,7 +84,10 @@ export default function Lesson() {
 
       <h2>Every minute counts</h2>
       <p>
-        Between each number are 5 small ticks — one per minute. Reading to the
+        {/* A long tick sits at every multiple of 5, so between two numerals
+            there are 4 short ticks marking 5 one-minute intervals. */}
+        Between each number are 4 small ticks, splitting it into 5 one-minute
+        steps. Reading to the
         minute, and adding or subtracting minutes, lets you answer &ldquo;what
         time will it be?&rdquo; and &ldquo;how long until?&rdquo;
       </p>

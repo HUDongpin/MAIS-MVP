@@ -57,7 +57,9 @@ export default function Lesson() {
 
       <h2>Multiply the top, keep the bottom</h2>
       <p>
-        The pieces are still {num > 1 ? `${num}` : "one"}-{b > 1 ? `${b}th` : ""}s — their size never changes. You
+        {/* The pieces are unit fractions of size 1/b, not num/b — the same
+            sentence ends "each 1/{b}". */}
+        The pieces are still {b === 2 ? "halves" : b === 3 ? "thirds" : `${b}ths`} — their size never changes. You
         just end up with {n} times as many of them: {n} × {num} = {total} pieces,
         each 1/{b}. That is {total}/{b}.
       </p>

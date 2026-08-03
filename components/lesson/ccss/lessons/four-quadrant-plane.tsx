@@ -167,8 +167,10 @@ export default function Lesson() {
   );
 }
 
+// A point on an axis is in no quadrant; the caller substitutes this string
+// into sentences that already supply their own wording for that case.
 function quadrantOf(p: { x: number; y: number }): string {
-  if (p.x === 0 || p.y === 0) return "— (on an axis)";
+  if (p.x === 0 || p.y === 0) return "none";
   if (p.x > 0 && p.y > 0) return "I";
   if (p.x < 0 && p.y > 0) return "II";
   if (p.x < 0 && p.y < 0) return "III";

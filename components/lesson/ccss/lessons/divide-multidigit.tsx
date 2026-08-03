@@ -39,7 +39,10 @@ export default function Lesson() {
         chunks and you have the quotient. This is <strong>partial quotients</strong>.
       </p>
 
-      <Figure caption="Subtract easy multiples of the divisor, largest first, until nothing is left.">
+      {/* "until nothing is left" is false whenever there is a remainder, which
+          one press of the dividend stepper reaches, and the figure directly
+          below shows the remainder. */}
+      <Figure caption="Subtract easy multiples of the divisor, largest first, until what is left is smaller than the divisor.">
         <div className="flex flex-col items-center gap-6">
           <div className="font-mono text-3xl font-black">{D.toLocaleString()} ÷ {d} = <span style={{ color: ACCENT }}>{quotient}</span>{remainder > 0 && <span> R {remainder}</span>}</div>
 
