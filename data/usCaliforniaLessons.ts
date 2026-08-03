@@ -317,40 +317,67 @@ function workedExampleBlock(topic: Topic): ProductionLessonBlock {
 function scaffoldedPracticeBlock(topic: Topic, topicQuestions: GeneratedCaliforniaQuestion[]): ProductionLessonBlock {
   const practiceQuestionIds = selectPracticeQuestionIds(topic.id);
   const standards = standardText(topicQuestions.flatMap((question) => question.standardIds));
+  const questionCount = practiceQuestionIds.length;
 
+  // Learner-facing copy names the three stages in words. The machine-readable
+  // stage ids (`<topicId>:foundation` and friends) stay in the coverage record
+  // and the teacher guide — a student never reads an internal identifier.
   return {
     idSuffix: "scaffolded-practice",
     type: "checklist",
     title: local("Scaffolded practice path", "分層練習路徑", "分层练习路径"),
     items: [
       local(
-        `Foundation skill ${topic.id}:foundation: restate what the question asks and identify the quantities, labels, or shapes.`,
-        `基礎技能 ${topic.id}:foundation：重述題目要求，找出數量、標籤或圖形。`,
-        `基础技能 ${topic.id}:foundation：重述题目要求，找出数量、标签或图形。`
+        "Foundation: restate what the question asks and identify the quantities, labels, or shapes.",
+        "基礎：重述題目要求，找出數量、標籤或圖形。",
+        "基础：重述题目要求，找出数量、标签或图形。"
       ),
       local(
-        `Fluency skill ${topic.id}:fluency: solve two checkpoint items without changing the operation, unit, graph feature, or representation.`,
-        `熟練技能 ${topic.id}:fluency：完成兩道檢查題，過程中保持運算、單位、圖像特徵或表示方式一致。`,
-        `熟练技能 ${topic.id}:fluency：完成两道检查题，过程中保持运算、单位、图像特征或表示方式一致。`
+        "Fluency: solve two checkpoint items without changing the operation, unit, graph feature, or representation.",
+        "熟練：完成兩道檢查題，過程中保持運算、單位、圖像特徵或表示方式一致。",
+        "熟练：完成两道检查题，过程中保持运算、单位、图像特征或表示方式一致。"
       ),
       local(
-        `Transfer skill ${topic.id}:transfer: explain why the method still works when the numbers, context, or representation change.`,
-        `遷移技能 ${topic.id}:transfer：說明數字、情境或表示方式改變後，為何方法仍然成立。`,
-        `迁移技能 ${topic.id}:transfer：说明数字、情境或表示方式改变后，为何方法仍然成立。`
+        "Transfer: explain why the method still works when the numbers, context, or representation change.",
+        "遷移：說明數字、情境或表示方式改變後，為何方法仍然成立。",
+        "迁移：说明数字、情境或表示方式改变后，为何方法仍然成立。"
       ),
       local(
-        `Coverage check: the lesson checkpoint links ${practiceQuestionIds.length} approved questions to ${standards}.`,
-        `覆蓋檢查：本課檢查點把 ${practiceQuestionIds.length} 道已批准題目連到 ${standards}。`,
-        `覆盖检查：本课检查点把 ${practiceQuestionIds.length} 道已批准题目连到 ${standards}。`
+        `Coverage check: the lesson checkpoint links ${questionCount} approved question${questionCount === 1 ? "" : "s"} to ${standards}.`,
+        `覆蓋檢查：本課檢查點把 ${questionCount} 道已批准題目連到 ${standards}。`,
+        `覆盖检查：本课检查点把 ${questionCount} 道已批准题目连到 ${standards}。`
       )
     ]
   };
 }
 
+/**
+ * Names the ideas a student should re-check, in this lesson's own words.
+ *
+ * The generated question bank's `conceptIds`/`domainTags` are shared across a
+ * whole grade band and are rotated against the chapter topics (see the
+ * title-over-tag curation notes in `scripts/build-ccss-lesson-assignments.mjs`),
+ * so reading them back to the student named other chapters' topics — a
+ * statistics lesson told students to re-check "Ratios, Unit Rate". When the
+ * topic has an interactive CCSS core, its lesson titles are the authoritative,
+ * per-lesson answer; only unassigned topics fall back to the bank tags.
+ */
+function remediationFocusText(topic: Topic, topicQuestions: GeneratedCaliforniaQuestion[]) {
+  const metas = ccssLessonMetasForTopic(topic.id);
+  if (metas.length) {
+    const titles = metas.slice(0, 3).map((meta) => meta.title);
+    return { en: titles.join(", "), zh: titles.join("、"), zhHans: titles.join("、") };
+  }
+
+  const concepts = compactConcepts(topicQuestions.flatMap((question) => question.conceptIds), 3).map(titleCase);
+  return { en: concepts.join(", "), zh: concepts.join("、"), zhHans: concepts.join("、") };
+}
+
 function remediationBlock(topic: Topic, topicQuestions: GeneratedCaliforniaQuestion[]): ProductionLessonBlock {
-  const concepts = compactConcepts(topicQuestions.flatMap((question) => question.conceptIds), 3);
-  const domain = domainText(unique(topicQuestions.flatMap((question) => question.domainTags)));
-  const conceptPhrase = concepts.map(titleCase).join(", ");
+  const focus = remediationFocusText(topic, topicQuestions);
+  // Topics with an interactive CCSS core have no worked-example block to
+  // compare against; each interactive lesson carries a Math Check instead.
+  const hasWorkedExample = !hasCcssLessonAssignment(topic.id);
 
   return {
     idSuffix: "remediation",
@@ -358,20 +385,26 @@ function remediationBlock(topic: Topic, topicQuestions: GeneratedCaliforniaQuest
     title: local("Mistake repair", "錯因補救", "错因补救"),
     items: [
       local(
-        `If an answer is wrong, first decide whether the error is in reading the question, choosing the representation, or carrying out the ${domain.en.toLowerCase()} calculation.`,
-        `答案錯時，先判斷錯在讀題、選表示方式，還是執行${domain.zh}計算。`,
-        `答案错时，先判断错在读题、选表示方式，还是执行${domain.zhHans}计算。`
+        "If an answer is wrong, first decide where it broke: reading the question, choosing the representation, or carrying out the calculation.",
+        "答案錯時，先判斷錯在哪一步：讀題、選表示方式，還是執行計算。",
+        "答案错时，先判断错在哪一步：读题、选表示方式，还是执行计算。"
       ),
       local(
-        `Misconception watch: check ${conceptPhrase} before retrying; write the corrected rule in one sentence.`,
-        `易錯提醒：重做前先檢查 ${conceptPhrase}，再用一句話寫出修正後的規則。`,
-        `易错提醒：重做前先检查 ${conceptPhrase}，再用一句话写出修正后的规则。`
+        `Misconception watch: re-check ${focus.en} before retrying; write the corrected rule in one sentence.`,
+        `易錯提醒：重做前先重新檢查${focus.zh}，再用一句話寫出修正後的規則。`,
+        `易错提醒：重做前先重新检查${focus.zhHans}，再用一句话写出修正后的规则。`
       ),
-      local(
-        "Redo one missed checkpoint with a new representation, then compare it with the worked example.",
-        "用新的表示方式重做一道錯題，再與例題比較。",
-        "用新的表示方式重做一道错题，再与例题比较。"
-      ),
+      hasWorkedExample
+        ? local(
+            "Redo one missed checkpoint with a new representation, then compare it with the worked example.",
+            "用新的表示方式重做一道錯題，再與例題比較。",
+            "用新的表示方式重做一道错题，再与例题比较。"
+          )
+        : local(
+            "Redo one missed checkpoint with a new representation, then check it against the Math Check in the lesson above.",
+            "用新的表示方式重做一道錯題，再對照上方課節的 Math Check 檢查。",
+            "用新的表示方式重做一道错题，再对照上方课节的 Math Check 检查。"
+          ),
       local(
         "Use the Mistake Book note as the exit ticket: cause, correction, and one future warning sign.",
         "用錯題本記錄作為出口條：錯因、修正方法、下一次要留意的警號。",
@@ -419,6 +452,18 @@ function textOnly(value: string): LocalizedText {
   return local(value, value, value);
 }
 
+/**
+ * "<pitfall>: <repair move>" for the mistake-repair list.
+ *
+ * Pitfall labels arrive in two shapes: short fragments in the K-5 textbook pack
+ * ("skipping number words") and full sentences in the Grade 1 micro lessons
+ * ("Counting one object twice when the groups are close together."). Trimming
+ * the sentence-final period keeps the joined line from reading ".: ".
+ */
+function pitfallItemText(pitfall: string, repairMove: string) {
+  return `${pitfall.trim().replace(/\.$/, "")}: ${repairMove.trim()}`;
+}
+
 function californiaVisualizationBlock(topicId: string): ProductionLessonBlock | null {
   const lab = getPrimaryVisualizationLabForTopic(topicId);
   if (!lab || lab.publisher !== "US_CA_MATH") return null;
@@ -432,7 +477,10 @@ function californiaVisualizationBlock(topicId: string): ProductionLessonBlock | 
   const category = textFrom(lab.category);
   const domainId = lab.californiaAlignment?.domainId ?? "California Math Practice Beta";
   const standardIds = lab.californiaAlignment?.standardIds.slice(0, 4).join(", ") ?? "";
-  const standardSuffix = standardIds ? ` (${standardIds}${(lab.californiaAlignment?.standardIds.length ?? 0) > 4 ? "..." : ""})` : "";
+  // "…and more" rather than a bare "..." — a trailing ellipsis inside the
+  // parenthesis reads as a truncation bug in learner-facing copy.
+  const hasMoreStandards = (lab.californiaAlignment?.standardIds.length ?? 0) > 4;
+  const standardSuffix = standardIds ? ` (${standardIds}${hasMoreStandards ? ", and more" : ""})` : "";
 
   return {
     idSuffix: "visualization",
@@ -514,7 +562,7 @@ function microLessonBlocks(lesson: CaliforniaElementaryMicroLessonSpec): Product
       title: textOnly("Mistake repair"),
       items: [
         ...lesson.independentPractice.map(textOnly),
-        ...lesson.commonPitfalls.map((item) => textOnly(`${item.pitfall}: ${item.repairMove}`)),
+        ...lesson.commonPitfalls.map((item) => textOnly(pitfallItemText(item.pitfall, item.repairMove))),
         textOnly(lesson.exitTicket)
       ]
     },
@@ -674,7 +722,7 @@ function textbookBlocks(lesson: GeneratedCaliforniaK5TextbookLesson): Production
       title: textOnly("Mistake repair"),
       items: [
         ...content.independentPractice.map(textOnly),
-        ...content.commonPitfalls.map((item) => textOnly(`${item.pitfall}: ${item.repairMove}`)),
+        ...content.commonPitfalls.map((item) => textOnly(pitfallItemText(item.pitfall, item.repairMove))),
         textOnly(content.exitTicket)
       ]
     },
@@ -698,12 +746,19 @@ function toTextbookLessonSeed(lesson: GeneratedCaliforniaK5TextbookLesson): Prod
     lesson.studentLesson.en.title
   );
 
+  // Mirrors `toLessonSeed`: name the blocks the page actually renders, since a
+  // CCSS-assigned topic replaces the generated launch/worked-example text with
+  // interactive lessons.
+  const core = hasCcssLessonAssignment(lesson.metadata.topicId)
+    ? "interactive CCSS textbook lessons"
+    : "concept launch and worked example";
+
   return {
     topicId: lesson.metadata.topicId,
     productionReady: true,
     title: textOnly(title),
     description: textOnly(
-      `${title} lesson from the S18-sampled text-only California K-5 textbook beta package, with concept launch, worked example, guided practice, practice checkpoint, mistake repair, and coverage metadata.`
+      `${title} lesson from the S18-sampled California K-5 textbook beta package, with ${core}, guided practice, practice checkpoint, mistake repair, and coverage metadata.`
     ),
     estimatedMinutes: lesson.metadata.estimatedMinutes,
     practiceQuestionIds: selectPracticeQuestionIds(lesson.metadata.topicId),
@@ -747,6 +802,22 @@ function toLessonSeed(topic: Topic): ProductionLessonSeed {
     ? ccssTeacherGuideBlock(topic.id, [])
     : coverageGuideBlock(topic, topicQuestions);
 
+  // The description is read on lesson cards and by the audio guide, so it has
+  // to list the blocks the page actually renders: a CCSS-assigned topic shows
+  // interactive lessons where the generated concept/worked-example text used
+  // to be.
+  const coreDescription = isCcssAssigned
+    ? {
+        en: "interactive CCSS textbook lessons",
+        zh: "互動 CCSS 教科書課節",
+        zhHans: "互动 CCSS 教科书课节"
+      }
+    : {
+        en: "concept explanation and worked example",
+        zh: "概念講解與例題",
+        zhHans: "概念讲解与例题"
+      };
+
   return {
     topicId: topic.id,
     // Chapter topics go live exactly when they carry an interactive CCSS
@@ -754,9 +825,9 @@ function toLessonSeed(topic: Topic): ProductionLessonSeed {
     productionReady: isCcssAssigned,
     title,
     description: local(
-      `${title.en} lesson module for California Math Practice Beta, with concept explanation, worked example, scaffolded practice, mistake repair, and standards coverage metadata.`,
-      `${title.zh} 的 California Math Practice Beta 課節模組，包含概念講解、例題、分層練習、錯因補救與標準覆蓋資料。`,
-      `${title.zhHans} 的 California Math Practice Beta 课节模块，包含概念讲解、例题、分层练习、错因补救与标准覆盖资料。`
+      `${title.en} lesson module for California Math Practice Beta, with ${coreDescription.en}, scaffolded practice, mistake repair, and standards coverage metadata.`,
+      `${title.zh} 的 California Math Practice Beta 課節模組，包含${coreDescription.zh}、分層練習、錯因補救與標準覆蓋資料。`,
+      `${title.zhHans} 的 California Math Practice Beta 课节模块，包含${coreDescription.zhHans}、分层练习、错因补救与标准覆盖资料。`
     ),
     estimatedMinutes: Math.max(28, topic.minutes),
     practiceQuestionIds: selectPracticeQuestionIds(topic.id),
