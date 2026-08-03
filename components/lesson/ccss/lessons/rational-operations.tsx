@@ -68,7 +68,7 @@ export default function Lesson() {
       <h2>Positive and negative together</h2>
       <p>
         Starting with {money(start)}, a change of {t1 >= 0 ? "+" : ""}{t1} leaves {money(after1)},
-        and then {t2 >= 0 ? "+" : ""}{t2} leaves {money(final)}. {final < 0 ? "A negative balance means the account is overdrawn." : "The balance stays positive."} The same
+        and then {t2 >= 0 ? "+" : ""}{t2} leaves {money(final)}. {final < 0 ? "A negative balance means the account is overdrawn." : final === 0 ? "A balance of exactly zero means the deposits and withdrawals cancel out." : "The balance stays positive."} The same
         adding of signed numbers models temperature, elevation, and more.
       </p>
 

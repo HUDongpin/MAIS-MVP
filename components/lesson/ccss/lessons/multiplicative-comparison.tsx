@@ -8,6 +8,9 @@ const SMALL = "var(--band-middle)";
 const BIG = "var(--band-upper)";
 const PXU = 16;
 
+// "{n}th" by concatenation gives "2th"/"3th"; 2 is the control minimum.
+const ordinal = (n: number) => (n === 2 ? "half" : n === 3 ? "third" : `${n}th`);
+
 export default function Lesson() {
   const [base, setBase] = useState(7);
   const [times, setTimes] = useState(5);
@@ -56,7 +59,7 @@ export default function Lesson() {
       <p>
         This is different from &ldquo;{times} more than {base}.&rdquo; <em>Times as
         many</em>{" "}means copying, not adding. So {product} is {times} times {base},
-        while {base} is {times} times <em>smaller</em>{" "}— its {times}th part.
+        while {base} is {times} times <em>smaller</em>{" "}— its {ordinal(times)} part.
       </p>
 
       <MathCheck>

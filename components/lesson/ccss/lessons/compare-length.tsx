@@ -28,7 +28,8 @@ export default function Lesson() {
         <div className="flex flex-col items-center gap-6">
           <FigureScroll>
             <div className="mx-auto flex flex-col gap-4" style={{ maxWidth: 10 * UNIT + 40 }}>
-              <Bar label="Red pencil" units={top} color={TOP} />
+              {/* TOP is --band-early, the ORANGE token. */}
+              <Bar label="Orange pencil" units={top} color={TOP} />
               <Bar label="Blue pencil" units={bot} color={BOT} />
               {/* start line */}
               <div className="relative h-0">
@@ -38,14 +39,14 @@ export default function Lesson() {
           </FigureScroll>
 
           <p className="m-0 text-center text-xl font-bold">
-            The <span style={{ color: TOP }}>red pencil</span> is{" "}
+            The <span style={{ color: TOP }}>orange pencil</span> is{" "}
             <strong>{topWord}</strong>{" "}
             {top === bot ? "" : "than"} the{" "}
             <span style={{ color: BOT }}>blue pencil</span>.
           </p>
 
           <div className="flex flex-wrap items-center justify-center gap-8">
-            <Slider label="Red length" value={top} color={TOP} onChange={setTop} />
+            <Slider label="Orange length" value={top} color={TOP} onChange={setTop} />
             <Slider label="Blue length" value={bot} color={BOT} onChange={setBot} />
           </div>
         </div>
@@ -63,7 +64,7 @@ export default function Lesson() {
           Objects have <strong>measurable attributes</strong>{" "}like length,
           height, and weight (K.MD.A.1). To compare two objects directly, align
           them at a common starting point and see which has <em>more</em>{" "}of that
-          attribute — here, {top === bot ? "the two pencils are the same length" : `the ${top > bot ? "red" : "blue"} pencil is longer`}
+          attribute — here, {top === bot ? "the two pencils are the same length" : `the ${top > bot ? "orange" : "blue"} pencil is longer`}
           {" "}(K.MD.A.2). Lining up the ends fairly is what makes the comparison
           honest.
         </p>

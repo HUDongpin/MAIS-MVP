@@ -51,7 +51,13 @@ export default function Lesson() {
           </div>
 
           <p className="m-0 text-center text-[15px] font-semibold text-[var(--ink-soft)]">
-            The exact answer {exact.toLocaleString()} is close to the estimate {estimate.toLocaleString()} — so it is reasonable. ✓
+            {/* Rounding to the nearest hundred can destroy a subtraction
+                estimate (3,648 − 3,552 estimates as 100 against a true 96,
+                but 3,600 − 3,600 estimates as 0), so the verdict must depend
+                on how close the two actually are. */}
+            {Math.abs(exact - estimate) <= Math.max(100, Math.abs(exact) * 0.1)
+              ? <>The exact answer {exact.toLocaleString()} is close to the estimate {estimate.toLocaleString()} — so it is reasonable. ✓</>
+              : <>The estimate {estimate.toLocaleString()} is well off the exact answer {exact.toLocaleString()} — rounding both numbers the same way can cancel most of a small difference, so estimate with care when the numbers are close together.</>}
           </p>
 
           <div className="flex flex-wrap items-center justify-center gap-8">

@@ -45,8 +45,10 @@ export default function Lesson() {
           <div className="text-center">
             {reveal ? (
               <div className="text-2xl font-black">
-                The {longer === "top" ? "top" : "bottom"} bar is{" "}
-                <span style={{ color: DIFF }}>{diff} unit{diff === 1 ? "" : "s"}</span> longer.
+                {/* At equal lengths `longer` arbitrarily picked "top" and the
+                    widget announced "The top bar is 0 units longer." */}
+                {diff === 0 ? <>The two bars are the <span style={{ color: DIFF }}>same length</span>.</> : <>The {longer === "top" ? "top" : "bottom"} bar is{" "}
+                <span style={{ color: DIFF }}>{diff} unit{diff === 1 ? "" : "s"}</span> longer.</>}
                 <div className="mt-1 font-mono text-lg text-[var(--ink-soft)]">{Math.max(la, lb)} − {Math.min(la, lb)} = {diff}</div>
               </div>
             ) : (

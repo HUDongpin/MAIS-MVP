@@ -70,8 +70,11 @@ export default function Lesson() {
       <h2>Ten more, ten less</h2>
       <p>
         Adding ten adds one more rod; the ones do not move. That is why{" "}
-        <strong>10 more than {n}</strong>{" "}is {Math.min(99, n + 10)} and{" "}
-        <strong>10 less</strong>{" "}is {Math.max(0, n - 10)} — quick mental math.
+        {/* Clamping made both claims false near the ends: at n = 95 it said
+            "10 more than 95 is 99". State them only where they hold. */}
+        {n + 10 <= 99 && <><strong>10 more than {n}</strong>{" "}is {n + 10}{n - 10 >= 0 ? " and " : " — quick mental math."}</>}
+        {n - 10 >= 0 && <><strong>10 less</strong>{" "}is {n - 10} — quick mental math.</>}
+        {n + 10 > 99 && n - 10 < 0 && <>Move the number away from the ends of the chart to see 10 more and 10 less.</>}
       </p>
 
       <MathCheck>

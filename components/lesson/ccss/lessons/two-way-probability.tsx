@@ -16,11 +16,14 @@ export default function Lesson() {
   const bikeTot = g[0][0] + g[0][1];
   const ridesTot = g[0][0] + g[1][0];
 
+  // `exact` says whether the quotient really lands on two decimals; without it
+  // the chained equals asserted "40/45 = 0.89" when 40/45 = 0.888…
+  const exact2 = (n: number, d: number) => Math.abs((n / d) * 100 - Math.round((n / d) * 100)) < 1e-9;
   const QUESTIONS = [
-    { text: "P(owns bike AND rides)", val: r2(g[0][0] / total), work: `${g[0][0]}/${total}` },
-    { text: "P(owns bike)", val: r2(bikeTot / total), work: `${bikeTot}/${total}` },
-    { text: "P(rides | owns bike)", val: r2(g[0][0] / bikeTot), work: `${g[0][0]}/${bikeTot}` },
-    { text: "P(owns bike | rides)", val: r2(g[0][0] / ridesTot), work: `${g[0][0]}/${ridesTot}` },
+    { text: "P(owns bike AND rides)", val: r2(g[0][0] / total), work: `${g[0][0]}/${total}`, exact: exact2(g[0][0], total) },
+    { text: "P(owns bike)", val: r2(bikeTot / total), work: `${bikeTot}/${total}`, exact: exact2(bikeTot, total) },
+    { text: "P(rides | owns bike)", val: r2(g[0][0] / bikeTot), work: `${g[0][0]}/${bikeTot}`, exact: exact2(g[0][0], bikeTot) },
+    { text: "P(owns bike | rides)", val: r2(g[0][0] / ridesTot), work: `${g[0][0]}/${ridesTot}`, exact: exact2(g[0][0], ridesTot) },
   ];
 
   return (
@@ -50,7 +53,7 @@ export default function Lesson() {
           </div>
 
           <div className="rounded-2xl border-2 px-6 py-2 text-center font-mono" style={{ borderColor: ACCENT }}>
-            {QUESTIONS[q].text} = {QUESTIONS[q].work} = <strong style={{ color: ACCENT }}>{QUESTIONS[q].val}</strong>
+            {QUESTIONS[q].text} = {QUESTIONS[q].work} {QUESTIONS[q].exact === false ? "≈" : "="} <strong style={{ color: ACCENT }}>{QUESTIONS[q].val}</strong>
           </div>
         </div>
       </Figure>
