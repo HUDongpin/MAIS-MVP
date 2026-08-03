@@ -585,14 +585,14 @@
           "launch": "At the art table, a pencil is longer than an eraser, but the eraser feels heavier in your hand.",
           "conceptExplanation": "Measurement starts by choosing one attribute to notice. Length, height, weight, and color answer different questions, so you compare only one kind of thing at a time. Measuring works best when the same unit or rule is used for every object. Then your data tells a fair story about what is longer, heavier, taller, or shorter.",
           "workedExample": {
-            "prompt": "A pencil is 11 cubes long. An eraser is 8 cubes long. Which object is longer?",
+            "prompt": "Line a pencil and a crayon up at the same edge of the table. The pencil reaches past the end of the crayon. Which object is longer?",
             "answer": "pencil",
-            "reasoning": "11 is greater than 8, so the pencil is longer."
+            "reasoning": "Both start at the same edge, so the one that reaches further is longer. The pencil reaches past the crayon, so the pencil is longer."
           },
           "guidedPractice": [
             {
-              "prompt": "A pencil is 11 cubes long. An eraser is 8 cubes long. Which object is longer?",
-              "expectedMove": "Line both objects up at the same starting point, compare the cube lengths 11 and 8, and name the longer one."
+              "prompt": "Line a pencil and a crayon up at the same edge of the table. The pencil reaches past the end of the crayon. Which object is longer?",
+              "expectedMove": "Line both objects up at the same starting point, look at which one reaches further, and name it as the longer one."
             }
           ],
           "independentPractice": [
@@ -602,7 +602,7 @@
           "commonPitfalls": [
             {
               "pitfall": "confusing length with count",
-              "repairMove": "Say the unit out loud: 11 cubes long describes a length, not 11 separate objects."
+              "repairMove": "Ask which object reaches further from the shared starting line, not how many objects are on the table."
             },
             {
               "pitfall": "single-attribute sorting only",
@@ -635,10 +635,10 @@
           {
             "check": "worked-example-answer",
             "status": "pass",
-            "kind": "longer-object",
+            "kind": "longer-object-direct-comparison",
             "values": {
-              "pencil": 11,
-              "eraser": 8
+              "lined-up-at-same-start": true,
+              "reaches-further": "pencil"
             },
             "answer": "pencil"
           }

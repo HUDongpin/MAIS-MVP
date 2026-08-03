@@ -254,7 +254,10 @@ function conceptText(conceptIds: string[]) {
 }
 
 function standardText(standardIds: string[]) {
-  const ids = unique(standardIds);
+  // Print the codes in order. Read back in assignment order they rendered
+  // "6.SP.A.3, 6.SP.B.5, 6.SP.B.4" and "F-IF.8, F-BF.3, F-IF.9" on 17 of the
+  // 76 pages — a standards list a teacher scans for a code they have in mind.
+  const ids = sortIds(unique(standardIds));
   return ids.length ? ids.join(", ") : "CA.CCSS.Math";
 }
 
@@ -355,10 +358,15 @@ function scaffoldedPracticeBlock(topic: Topic, topicQuestions: GeneratedCaliforn
         "遷移：說明數字、情境或表示方式改變後，為何方法仍然成立。",
         "迁移：说明数字、情境或表示方式改变后，为何方法仍然成立。"
       ),
+      // Two facts, stated separately. `standards` comes from the page's own
+      // interactive lessons (see the note above), NOT from the checkpoint
+      // questions — so "links N questions to <standards>" was false on 39 of
+      // the 64 pages that have both: p2-2-nbt-three-digit-place-value named 9
+      // standards its 8 checkpoint questions carry 4 of.
       local(
-        `Coverage check: the lesson checkpoint links ${questionCount} approved question${questionCount === 1 ? "" : "s"} to ${standards}.`,
-        `覆蓋檢查：本課檢查點把 ${questionCount} 道已批准題目連到 ${standards}。`,
-        `覆盖检查：本课检查点把 ${questionCount} 道已批准题目连到 ${standards}。`
+        `Coverage check: this page develops ${standards}. Its checkpoint has ${questionCount} approved question${questionCount === 1 ? "" : "s"}.`,
+        `覆蓋檢查：本頁涵蓋 ${standards}。檢查點共有 ${questionCount} 道已批准題目。`,
+        `覆盖检查：本页涵盖 ${standards}。检查点共有 ${questionCount} 道已批准题目。`
       )
     ]
   };
@@ -721,10 +729,14 @@ function textbookBlocks(lesson: GeneratedCaliforniaK5TextbookLesson): Production
 
   return withCaliforniaVisualizationBlock(lesson.metadata.topicId, [
     ...textbookCoreBlocks(lesson),
+    // Titles name everything in the list. "Guided practice" opened with three
+    // learning goals, and "Mistake repair" opened with two practice tasks and
+    // closed with an exit ticket - neither a mistake nor a repair - so the
+    // label described only the middle of the block.
     {
       idSuffix: "guided-practice",
       type: "checklist",
-      title: textOnly("Guided practice"),
+      title: textOnly("Learning goals and guided practice"),
       items: [
         ...content.learningGoals.map(textOnly),
         ...content.guidedPractice.map((item) => textOnly(`${item.prompt} Expected move: ${item.expectedMove}`))
@@ -733,7 +745,7 @@ function textbookBlocks(lesson: GeneratedCaliforniaK5TextbookLesson): Production
     {
       idSuffix: "mistake-repair",
       type: "extension",
-      title: textOnly("Mistake repair"),
+      title: textOnly("Practice, mistake repair, and exit ticket"),
       items: [
         ...content.independentPractice.map(textOnly),
         ...content.commonPitfalls.map((item) => textOnly(pitfallItemText(item.pitfall, item.repairMove))),
