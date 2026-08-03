@@ -18,8 +18,6 @@ export default function Lesson() {
   const yAt = (x: number) => m * x + b;
 
   // shaded polygon: region above or below the line, within box
-  const yL = Math.max(-XR, Math.min(XR, yAt(-XR)));
-  const yR = Math.max(-XR, Math.min(XR, yAt(XR)));
   const topEdge = above ? XR : -XR;
   const shade = `${sx(-XR)},${sy(yAt(-XR))} ${sx(XR)},${sy(yAt(XR))} ${sx(XR)},${sy(topEdge)} ${sx(-XR)},${sy(topEdge)}`;
 
@@ -49,7 +47,11 @@ export default function Lesson() {
             <polygon points={shade} fill={ACCENT} fillOpacity={0.25} />
             <line x1={sx(-XR)} y1={sy(0)} x2={sx(XR)} y2={sy(0)} stroke="var(--ink-soft)" strokeWidth={2} />
             <line x1={sx(0)} y1={sy(-XR)} x2={sx(0)} y2={sy(XR)} stroke="var(--ink-soft)" strokeWidth={2} />
-            <line x1={sx(-XR)} y1={sy(yL)} x2={sx(XR)} y2={sy(yR)} stroke={ACCENT} strokeWidth={3} />
+            {/* Draw the boundary from the same unclamped endpoints as the shading
+                polygon; clamping only the line made it miss the edge of its own
+                half-plane by up to 30px, so the boundary did not bound the region.
+                The outer svg clips the overhang, exactly as it does the polygon. */}
+            <line x1={sx(-XR)} y1={sy(yAt(-XR))} x2={sx(XR)} y2={sy(yAt(XR))} stroke={ACCENT} strokeWidth={3} />
           </svg>
 
           <p className="m-0 max-w-md text-center text-sm text-[var(--ink-soft)]">

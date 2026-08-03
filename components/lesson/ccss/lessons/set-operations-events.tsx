@@ -35,16 +35,29 @@ export default function Lesson() {
           </div>
 
           <svg width={260} height={170} viewBox="0 0 260 170" role="img" aria-label={o.name}>
-            <rect x={5} y={5} width={250} height={160} fill={o.outside ? ACCENT : "none"} fillOpacity={o.outside ? 0.2 : 0} stroke="var(--line)" strokeWidth={1.5} />
             <defs>
               <clipPath id="aClip"><circle cx={100} cy={85} r={60} /></clipPath>
-              <clipPath id="bClip"><circle cx={160} cy={85} r={60} /></clipPath>
+              {/* Cut-outs so a region can be shaded WITHOUT the lens. "A only"
+                  used to shade all of A including A∩B, and "not A" filled the
+                  whole universe including A — each diagram showed a region the
+                  definition printed beneath it excludes. */}
+              <mask id="notB">
+                <rect x={0} y={0} width={260} height={170} fill="white" />
+                <circle cx={160} cy={85} r={60} fill="black" />
+              </mask>
+              <mask id="notA">
+                <rect x={0} y={0} width={260} height={170} fill="white" />
+                <circle cx={100} cy={85} r={60} fill="black" />
+              </mask>
             </defs>
-            {/* A only */}
-            {o.a && <circle cx={100} cy={85} r={60} fill={ACCENT} fillOpacity={0.3} clipPath="url(#aClip)" />}
-            {/* B only */}
-            {o.b && !o.outside && <circle cx={160} cy={85} r={60} fill={ACCENT} fillOpacity={0.3} clipPath="url(#bClip)" />}
-            {/* both */}
+            {/* universe: fill first (masked when the event excludes A), then stroke unmasked */}
+            {o.outside && <rect x={5} y={5} width={250} height={160} fill={ACCENT} fillOpacity={0.2} mask="url(#notA)" />}
+            <rect x={5} y={5} width={250} height={160} fill="none" stroke="var(--line)" strokeWidth={1.5} />
+            {/* A — masked to exclude the lens unless the event includes it */}
+            {o.a && <circle cx={100} cy={85} r={60} fill={ACCENT} fillOpacity={0.3} mask={o.both ? undefined : "url(#notB)"} />}
+            {/* B — masked to exclude the lens unless the event includes it */}
+            {o.b && !o.outside && <circle cx={160} cy={85} r={60} fill={ACCENT} fillOpacity={0.3} mask={o.both ? undefined : "url(#notA)"} />}
+            {/* the lens itself */}
             {o.both && <g clipPath="url(#aClip)"><circle cx={160} cy={85} r={60} fill={ACCENT} fillOpacity={0.55} /></g>}
             <circle cx={100} cy={85} r={60} fill="none" stroke={ACCENT} strokeWidth={2} />
             <circle cx={160} cy={85} r={60} fill="none" stroke={ACCENT} strokeWidth={2} />

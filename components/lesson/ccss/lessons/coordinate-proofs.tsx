@@ -12,9 +12,12 @@ const r2 = (n: number) => Math.round(n * 100) / 100;
 export default function Lesson() {
   const [m, setM] = useState(2); // slope of first line
 
-  // perpendicular slope is -1/m; parallel is same m
-  const perpSlope = r2(-1 / m);
-  const product = r2(m * perpSlope);
+  // perpendicular slope is -1/m; parallel is same m.
+  // Show it as an exact fraction, not a rounded decimal: at m = 3 the rounded
+  // −0.33 made the page print "3 × -0.33 = -0.99" under the caption "= −1 ⟹
+  // perpendicular", falsifying the one fact the lesson demonstrates.
+  const perpSlope = -1 / m;
+  const perpLabel = m === 1 ? "−1" : `−1/${m}`;
 
   const sx = (x: number) => PAD + (x + R) * CELL;
   const sy = (y: number) => SIZE - PAD - (y + R) * CELL;
@@ -47,7 +50,7 @@ export default function Lesson() {
           </svg>
 
           <div className="rounded-xl border-2 px-6 py-2 text-center font-mono" style={{ borderColor: ACCENT }}>
-            slopes {m} and {perpSlope}: product = {m} × {perpSlope} = <strong style={{ color: ACCENT }}>{product}</strong>
+            slopes {m} and {perpLabel}: product = {m} × {perpLabel} = <strong style={{ color: ACCENT }}>−1</strong>
             <span className="ml-2 text-xs text-[var(--ink-faint)]">= −1 ⟹ perpendicular</span>
           </div>
 
@@ -57,8 +60,8 @@ export default function Lesson() {
 
       <h2>Algebra proves geometry</h2>
       <p>
-        A line of slope {m} and one of slope {perpSlope} meet at a right angle
-        because {m} × {perpSlope} = −1. Using this, you can prove a quadrilateral is a
+        A line of slope {m} and one of slope {perpLabel} meet at a right angle
+        because {m} × {perpLabel} = −1. Using this, you can prove a quadrilateral is a
         rectangle (opposite sides parallel, adjacent sides perpendicular), or find a
         triangle&apos;s type — all by computing slopes and distances between labeled
         coordinate points.

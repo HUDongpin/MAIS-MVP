@@ -9,19 +9,35 @@ const RAT = "var(--band-middle)";
 const IRR = "var(--band-upper)";
 
 type Kind = "rational" | "irrational";
-const A = [
-  { label: "1/2", kind: "rational" as Kind },
-  { label: "3", kind: "rational" as Kind },
-  { label: "√2", kind: "irrational" as Kind },
-  { label: "π", kind: "irrational" as Kind },
+// "either" is a verdict, not an operand type: for two irrationals the closure
+// rules genuinely do not decide the answer, and the badge used to assert
+// "rational" for every such pair — labelling √2 + √2, π + π and √2 · π rational.
+type Verdict = Kind | "either";
+type Operand = { id: string; label: string; kind: Kind };
+
+const A: Operand[] = [
+  { id: "half", label: "1/2", kind: "rational" },
+  { id: "three", label: "3", kind: "rational" },
+  { id: "sqrt2", label: "√2", kind: "irrational" },
+  { id: "pi", label: "π", kind: "irrational" },
 ];
 const OPS = ["+", "×"] as const;
 
-function classify(a: Kind, b: Kind, op: "+" | "×"): { kind: Kind; why: string } {
-  if (a === "rational" && b === "rational")
+function classify(a: Operand, b: Operand, op: "+" | "×"): { kind: Verdict; why: string } {
+  if (a.kind === "rational" && b.kind === "rational")
     return { kind: "rational", why: "Rationals are closed under + and ×: the result is again a ratio of integers." };
-  if (a === "irrational" && b === "irrational")
-    return { kind: "rational", why: "Two irrationals can combine either way — e.g. √2 · √2 = 2. So the result is not guaranteed; here it can be rational." };
+
+  if (a.kind === "irrational" && b.kind === "irrational") {
+    // Same irrational twice: the value is known exactly.
+    if (a.id === b.id) {
+      if (op === "×" && a.id === "sqrt2")
+        return { kind: "rational", why: "√2 · √2 = 2 — a case where two irrationals multiply to a rational. Nothing forces this; it just happens here." };
+      const value = op === "+" ? `2${a.label}` : `${a.label}²`;
+      return { kind: "irrational", why: `${a.label} ${op} ${b.label} = ${value}, which is irrational — but that is a fact about these particular numbers, not a closure rule.` };
+    }
+    return { kind: "either", why: "No closure rule covers two different irrationals: the sum or product may be rational (√2 · √2 = 2) or irrational (√2 + √2 = 2√2). This particular combination is not settled by the rules in this lesson." };
+  }
+
   // exactly one irrational
   if (op === "×")
     return { kind: "irrational", why: "A nonzero rational times an irrational is always irrational — if it were rational, dividing back out would make the irrational rational." };
@@ -34,8 +50,9 @@ export default function Lesson() {
   const [oi, setOi] = useState(0);
 
   const a = A[ai], b = A[bi], op = OPS[oi];
-  const res = classify(a.kind, b.kind, op);
-  const col = (k: Kind) => (k === "rational" ? RAT : IRR);
+  const res = classify(a, b, op);
+  const col = (k: Verdict) => (k === "rational" ? RAT : k === "irrational" ? IRR : "var(--ink-soft)");
+  const verdictLabel = res.kind === "either" ? "could be either" : res.kind;
 
   return (
     <div className="prose-lesson max-w-none">
@@ -52,7 +69,7 @@ export default function Lesson() {
             <span>{op}</span>
             <span style={{ color: col(b.kind) }}>{b.label}</span>
             <span>→</span>
-            <span className="rounded-lg px-3 py-1" style={{ background: "var(--surface-2)", color: col(res.kind) }}>{res.kind}</span>
+            <span className="rounded-lg px-3 py-1" style={{ background: "var(--surface-2)", color: col(res.kind) }}>{verdictLabel}</span>
           </div>
 
           <p className="m-0 max-w-lg text-center text-[15px] text-[var(--ink-soft)]">{res.why}</p>

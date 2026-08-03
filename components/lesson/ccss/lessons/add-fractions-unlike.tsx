@@ -32,7 +32,11 @@ export default function Lesson() {
   const lcm = (d1 * d2) / gcd(d1, d2);
   const na = n1 * (lcm / d1);
   const nc = n2 * (lcm / d2);
-  const resNum = op === "add" ? na + nc : Math.abs(na - nc);
+  // Math.abs() here printed a positive answer for a negative difference:
+  // 1/2 − 2/3 showed "3/6 − 4/6 = 1/6" beside correct renaming rows. Grade 5
+  // (5.NF.A.1) does not cover negative fractions, so the subtraction is kept
+  // non-negative by the controls below rather than by hiding the sign.
+  const resNum = op === "add" ? na + nc : na - nc;
   const whole = Math.floor(resNum / lcm);
   const rem = resNum % lcm;
 
@@ -48,7 +52,9 @@ export default function Lesson() {
         <div className="flex flex-col items-center gap-6">
           <div className="flex items-center gap-2">
             {(["add", "sub"] as const).map((o) => (
-              <button key={o} type="button" onClick={() => setOp(o)} className="rounded-lg border px-3 py-1.5 text-sm font-bold" style={op === o ? { background: A, color: "white", borderColor: A } : { borderColor: "var(--line)", color: "var(--ink-soft)" }}>{o === "add" ? "Add" : "Subtract"}</button>
+              // Switching to Subtract also has to bring the second fraction
+              // down, or the pair chosen while adding could go negative.
+              <button key={o} type="button" onClick={() => { setOp(o); if (o === "sub") setN2((p) => Math.max(1, Math.min(p, Math.floor((n1 / d1) * d2)))); }} className="rounded-lg border px-3 py-1.5 text-sm font-bold" style={op === o ? { background: A, color: "white", borderColor: A } : { borderColor: "var(--line)", color: "var(--ink-soft)" }}>{o === "add" ? "Add" : "Subtract"}</button>
             ))}
           </div>
 
@@ -72,8 +78,10 @@ export default function Lesson() {
           </div>
 
           <div className="flex flex-wrap items-center justify-center gap-8">
-            <FracControl label="First" color={A} num={n1} den={d1} onNum={setN1} onDen={(v) => { setD1(v); setN1((p) => Math.min(p, v)); }} />
-            <FracControl label="Second" color={B} num={n2} den={d2} onNum={setN2} onDen={(v) => { setD2(v); setN2((p) => Math.min(p, v)); }} />
+            {/* In subtract mode the second fraction is held at or below the
+                first, so the difference never goes negative. */}
+            <FracControl label="First" color={A} num={n1} den={d1} onNum={(v) => { setN1(v); if (op === "sub") setN2((p) => Math.min(p, Math.floor((v / d1) * d2))); }} onDen={(v) => { setD1(v); setN1((p) => Math.min(p, v)); }} />
+            <FracControl label="Second" color={B} num={n2} den={d2} onNum={(v) => setN2(op === "sub" ? Math.min(v, Math.floor((n1 / d1) * d2)) : v)} onDen={(v) => { setD2(v); setN2((p) => Math.min(p, v, op === "sub" ? Math.floor((n1 / d1) * v) : v)); }} />
           </div>
         </div>
       </Figure>
