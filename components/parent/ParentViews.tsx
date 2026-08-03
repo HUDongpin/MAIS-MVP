@@ -914,7 +914,7 @@ export function ParentMessagesView({ initialData }: { initialData: ParentMessage
             {isSending ? t({ en: "Sending...", zh: "發送中..." }) : t({ en: "Send message", zh: "發送訊息" })}
           </button>
         </form>
-        {message ? <p className="mt-4 text-sm font-bold text-rose-700 dark:text-rose-200">{message}</p> : null}
+        {message ? <p role="alert" className="mt-4 text-sm font-bold text-rose-700 dark:text-rose-200">{message}</p> : null}
       </aside>
     </div>
   );
@@ -965,7 +965,7 @@ export function ParentConnectView() {
           {t({ en: "Connect", zh: "綁定" })}
         </button>
       </form>
-      {message ? <p className="mt-4 text-sm font-bold text-rose-700 dark:text-rose-200">{message}</p> : null}
+      {message ? <p role="alert" className="mt-4 text-sm font-bold text-rose-700 dark:text-rose-200">{message}</p> : null}
     </section>
   );
 }
