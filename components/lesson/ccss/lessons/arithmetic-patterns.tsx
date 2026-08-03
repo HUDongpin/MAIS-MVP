@@ -9,7 +9,9 @@ const HL = "var(--band-upper)";
 const PATTERNS: Record<number, string> = {
   2: "Multiples of 2 are the even numbers — they fill every other column and always end in 0, 2, 4, 6, or 8.",
   5: "Multiples of 5 line up in two straight columns and always end in 0 or 5.",
-  9: "Multiples of 9 fall on a diagonal, and their digits always add up to 9 (18 → 1+8, 27 → 2+7).",
+  // "always add up to 9" is false for 99 (9+9 = 18), which is on the chart.
+  // The Math Check was corrected earlier; this table entry was missed.
+  9: "Multiples of 9 fall on a diagonal, and their digits always add up to a multiple of 9 (18 → 1+8 = 9, 99 → 9+9 = 18).",
   10: "Multiples of 10 fill the last column and always end in 0.",
 };
 

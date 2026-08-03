@@ -55,7 +55,9 @@ export default function Lesson() {
         In <strong>radians</strong>, the central angle θ is defined as arc length
         over radius, so <strong>arc length = rθ</strong>{" "}and{" "}
         <strong>sector area = ½r²θ</strong>{" "}— no fractions of 360 needed. Here the{" "}
-        {deg}° slice ({r2(frac)} of the circle) has arc {arcLen} and area {sectorArea}.
+        {/* frac is rounded, so "0.08 of the circle" for 30/360 = 0.0833… was
+            stated as exact at 7 of the 10 slider stops. */}
+        {deg}° slice ({deg}/360{Math.abs(frac - r2(frac)) < 1e-9 ? ` = ${r2(frac)}` : ` ≈ ${r2(frac)}`} of the circle) has arc {arcLen} and area {sectorArea}.
         The proportionality of arc to radius is what <em>defines</em>{" "}radian measure.
       </p>
 

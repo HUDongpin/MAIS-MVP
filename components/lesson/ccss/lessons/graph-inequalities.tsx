@@ -15,6 +15,9 @@ export default function Lesson() {
 
   const sx = (x: number) => PAD + (x + XR) * PXX;
   const sy = (y: number) => SIZE - PAD - (y + XR) * PXX;
+  // Fold the sign into the operator instead of interpolating a raw negative:
+  // the stepper reaches negatives, which rendered "+ -4" / "− -3".
+  const addend = (n: number) => `${n < 0 ? "−" : "+"} ${Math.abs(n)}`;
   const yAt = (x: number) => m * x + b;
 
   // shaded polygon: region above or below the line, within box
@@ -33,7 +36,7 @@ export default function Lesson() {
       <Figure caption="Shade the half-plane of solutions. Overlapping shaded regions solve a system of inequalities.">
         <div className="flex flex-col items-center gap-6">
           <div className="flex items-center gap-4 font-mono text-lg font-black">
-            <span>y {above ? "≥" : "≤"} {m}x + {b}</span>
+            <span>y {above ? "≥" : "≤"} {m}x {addend(b)}</span>
             <button type="button" onClick={() => setAbove((v) => !v)} className="rounded-lg border border-[var(--line)] px-3 py-1 text-sm">flip ≥ / ≤</button>
           </div>
 

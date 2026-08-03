@@ -19,9 +19,15 @@ export default function Lesson() {
   const f = (x: number) => m * x + b;
 
   // solve m x + b = -x + 5
+  // Fold the sign into the operator instead of interpolating a raw negative:
+  // the stepper reaches negatives, which rendered "+ -4" / "− -3".
+  const addend = (n: number) => `${n < 0 ? "−" : "+"} ${Math.abs(n)}`;
   const denom = m + 1;
-  const xstar = denom !== 0 ? r2((5 - b) / denom) : NaN;
-  const ystar = denom !== 0 ? r2(f(xstar)) : NaN;
+  // Round each coordinate from the EXACT intersection. Feeding the rounded
+  // xstar back through f made the printed y disagree with both lines.
+  const xExact = denom !== 0 ? (5 - b) / denom : NaN;
+  const xstar = denom !== 0 ? r2(xExact) : NaN;
+  const ystar = denom !== 0 ? r2(f(xExact)) : NaN;
 
   const sx = (x: number) => PAD + (x + XR) * PXX;
   // A pure affine map. Clamping y inside the mapper bent each line to a wrong
@@ -43,7 +49,7 @@ export default function Lesson() {
       <Figure caption="Each line is all the (x, y) satisfying it. The crossing point solves f(x) = g(x).">
         <div className="flex flex-col items-center gap-6">
           <div className="flex flex-wrap justify-center gap-6 font-mono text-lg font-black">
-            <span style={{ color: ACCENT }}>f(x) = {m}x + {b}</span>
+            <span style={{ color: ACCENT }}>f(x) = {m}x {addend(b)}</span>
             <span style={{ color: G }}>g(x) = −x + 5</span>
           </div>
 
@@ -62,8 +68,11 @@ export default function Lesson() {
               <line x1={sx(-XR)} y1={sy(f(-XR))} x2={sx(XR)} y2={sy(f(XR))} stroke={ACCENT} strokeWidth={2.5} />
               <line x1={sx(-XR)} y1={sy(g(-XR))} x2={sx(XR)} y2={sy(g(XR))} stroke={G} strokeWidth={2.5} />
             </g>
-            {denom !== 0 && xstar >= -XR && xstar <= XR && (
-              <g>
+            {/* Bounds-check y as well as x, and clip like the lines: the marker
+                used to be drawn outside the plot rectangle whenever the crossing
+                fell above or below the window. */}
+            {denom !== 0 && xstar >= -XR && xstar <= XR && ystar >= -YR && ystar <= YR && (
+              <g clipPath="url(#gs-plot)">
                 <circle cx={sx(xstar)} cy={sy(ystar)} r={6} fill="var(--ink)" stroke="white" strokeWidth={2} />
                 <text x={sx(xstar)} y={sy(ystar) - 10} textAnchor="middle" fontSize={12} fontWeight={800} fill="var(--ink)" fontFamily="var(--font-mono)">({xstar}, {ystar})</text>
               </g>
@@ -76,7 +85,7 @@ export default function Lesson() {
                 none. Calling that "parallel — no solution" inverted the lesson's
                 own thesis in the one state where the graphs fully agree. */}
             {denom !== 0
-              ? <>solve {m}x + {b} = −x + 5 → x = <strong style={{ color: ACCENT }}>{xstar}</strong></>
+              ? <>solve {m}x {addend(b)} = −x + 5 → x = <strong style={{ color: ACCENT }}>{xstar}</strong></>
               : b === 5
                 ? "same line — every x is a solution"
                 : "parallel — no solution"}
@@ -91,7 +100,7 @@ export default function Lesson() {
 
       <h2>The graph is the solution set</h2>
       <p>
-        Pick any point on the f-line: its coordinates satisfy y = {m}x + {b}. Points
+        Pick any point on the f-line: its coordinates satisfy y = {m}x {addend(b)}. Points
         off the line don&apos;t. So a curve is a complete record of an equation&apos;s
         solutions. Two curves share a point exactly when some x makes{" "}
         <strong>f(x) = g(x)</strong>{" "}— found algebraically, graphically, or by a

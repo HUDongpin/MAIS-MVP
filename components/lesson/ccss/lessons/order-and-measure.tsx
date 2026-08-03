@@ -50,7 +50,9 @@ export default function Lesson() {
             {/* Two short sentences instead of one 26-word chain, and honest when
                 two strips tie — the old wording claimed "longer than" for equal
                 lengths, and Grade 1 readers lose the middle term of a chain. */}
-            {sorted[2].len === sorted[1].len ? (
+            {sorted[2].len === sorted[0].len ? (
+              <>All three strips are the same length.</>
+            ) : sorted[2].len === sorted[1].len ? (
               <>The {sorted[2].name} strip and the {sorted[1].name} strip are the same length. Both are longer than the {sorted[0].name} strip.</>
             ) : sorted[1].len === sorted[0].len ? (
               <>The {sorted[2].name} strip is the longest. The {sorted[1].name} strip and the {sorted[0].name} strip are the same length.</>

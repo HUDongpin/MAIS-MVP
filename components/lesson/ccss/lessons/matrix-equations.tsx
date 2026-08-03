@@ -16,6 +16,7 @@ export default function Lesson() {
   const [e, setE] = useState(5);
   const [f, setF] = useState(10);
 
+  const addend = (n: number) => `${n < 0 ? "−" : "+"} ${Math.abs(n)}`;
   const det = a * d - b * c;
   const x = det !== 0 ? r2((e * d - b * f) / det) : NaN;
   const y = det !== 0 ? r2((a * f - e * c) / det) : NaN;
@@ -32,8 +33,10 @@ export default function Lesson() {
       <Figure caption="Write the system as A·[x, y] = [e, f], then multiply by A⁻¹ to solve.">
         <div className="flex flex-col items-center gap-6">
           <div className="flex flex-col items-center gap-1 font-mono text-lg">
-            <span>{a}x + {b}y = {e}</span>
-            <span>{c}x + {d}y = {f}</span>
+            {/* Coefficients clamp at −9 with no sign formatting, so b = −1
+                rendered "2x + -1y = 5". */}
+            <span>{a}x {addend(b)}y = {e}</span>
+            <span>{c}x {addend(d)}y = {f}</span>
           </div>
 
           <div className="flex items-center gap-3 font-mono">

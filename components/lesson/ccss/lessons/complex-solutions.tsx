@@ -14,6 +14,10 @@ export default function Lesson() {
 
   const disc = b * b - 4 * c;
   const real = -b / 2;
+  // Fold the sign into the operator instead of interpolating a raw negative:
+  // the stepper reaches negatives, which rendered "+ -4" / "− -3".
+  const addend = (n: number) => `${n < 0 ? "−" : "+"} ${Math.abs(n)}`;
+  const paren = (n: number) => (n < 0 ? `(−${Math.abs(n)})` : `${n}`);
   const imag = r2(Math.sqrt(Math.abs(disc)) / 2);
 
   let roots: string;
@@ -45,7 +49,7 @@ export default function Lesson() {
           <div className="grid w-full max-w-md grid-cols-1 gap-2 font-mono text-sm">
             <div className="flex justify-between rounded-lg bg-[var(--surface-2)] px-4 py-2">
               <span className="text-[var(--ink-faint)]">discriminant b² − 4c</span>
-              <span className="font-black" style={{ color: disc < 0 ? ACCENT : "var(--ink)" }}>{b}² − 4·{c} = {disc}</span>
+              <span className="font-black" style={{ color: disc < 0 ? ACCENT : "var(--ink)" }}>{paren(b)}² − 4·{paren(c)} = {disc}</span>
             </div>
             <div className="flex justify-between rounded-lg bg-[var(--surface-2)] px-4 py-2">
               <span className="text-[var(--ink-faint)]">nature of roots</span>

@@ -13,7 +13,9 @@ export default function Lesson() {
   const probs = [1, 2, 3, 2]; // weights out of 8
   const totalW = probs.reduce((a, b) => a + b, 0);
 
-  const ev = r2(values.reduce((s, v, i) => s + v * (probs[i] / totalW), 0));
+  // Sum the SAME rounded products the table shows, so the column and the total
+  // agree: the weights are eighths, so products land on values that round.
+  const ev = r2(values.reduce((s, v, i) => s + r2((v * probs[i]) / totalW), 0));
 
   const setVal = (i: number, d: number) => setValues((vs) => vs.map((v, vi) => (vi === i ? v + d : v)));
 

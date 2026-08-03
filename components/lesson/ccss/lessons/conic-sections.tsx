@@ -53,9 +53,13 @@ export default function Lesson() {
             {c.draw === "ellipse" && (
               <>
                 <ellipse cx={120} cy={95} rx={80} ry={45} fill="none" stroke={ACCENT} strokeWidth={2.5} />
-                <circle cx={85} cy={95} r={4} fill="var(--band-upper)" />
-                <circle cx={155} cy={95} r={4} fill="var(--band-upper)" />
-                <text x={70} y={86} fontSize={10} fill="var(--band-upper)">foci</text>
+                {/* For rx = 80, ry = 45 the focal distance is sqrt(80² − 45²) = 66.1,
+                    so the foci belong at x = 53.9 and 186.1. They were drawn at
+                    85 and 155 (c = 35) — the earlier parabola fix left the
+                    ellipse untouched. */}
+                <circle cx={53.9} cy={95} r={4} fill="var(--band-upper)" />
+                <circle cx={186.1} cy={95} r={4} fill="var(--band-upper)" />
+                <text x={40} y={86} fontSize={10} fill="var(--band-upper)">foci</text>
               </>
             )}
             {c.draw === "hyperbola" && (

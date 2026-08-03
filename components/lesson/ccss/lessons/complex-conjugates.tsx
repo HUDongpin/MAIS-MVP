@@ -39,7 +39,9 @@ export default function Lesson() {
           </div>
 
           <div className="grid w-full max-w-md grid-cols-1 gap-3 font-mono">
-            <Row label="modulus |z| = √(a² + b²)" value={`√${prod} = ${modulus}`} />
+            {/* modulus is rounded to 3dp, so "√2 = 1.414" asserted equality
+                with a terminating decimal whenever a² + b² is not a square. */}
+            <Row label="modulus |z| = √(a² + b²)" value={`√${prod} ${Number.isInteger(Math.sqrt(prod)) ? "=" : "≈"} ${modulus}`} />
             <Row label="z · z̄ = a² + b²" value={`${a}² + ${b}² = ${prod}`} />
             <Row label="1/z = z̄ / |z|²" value={`(${fmt(a, -b)}) / ${prod}`} />
           </div>

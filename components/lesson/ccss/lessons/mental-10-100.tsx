@@ -38,7 +38,10 @@ export default function Lesson() {
         rest stays put.
       </p>
 
-      <Figure caption="Press a button and watch just one digit change.">
+      {/* "just one digit" is false on a roll-over (396 + 10 moves both the
+          tens and the hundreds); the status line was corrected earlier but
+          this caption still promised it. */}
+      <Figure caption="Press a button and watch which digits change.">
         <div className="flex flex-col items-center gap-6">
           <div className="flex gap-1.5">
             {d.map((digit, i) => (
