@@ -39,7 +39,9 @@ export default function Lesson() {
             </div>
             <div className="rounded-xl border-2 px-5 py-3" style={{ borderColor: S2 }}>
               <span className="text-xs font-bold uppercase" style={{ color: S2 }}>Step 2 · bring down the ones</span>
-              <div className="font-mono text-[15px]">{r1} ten + {dividend % 10} ones = {nextNum}, and {nextNum} ÷ {divisor} = <strong>{q2}</strong>{" "}remainder {r2}</div>
+              {/* r1 runs 0..divisor-1 and the ones digit reaches 1, so neither plural
+                  can be hard-coded. */}
+              <div className="font-mono text-[15px]">{r1} ten{r1 === 1 ? "" : "s"} + {dividend % 10} one{dividend % 10 === 1 ? "" : "s"} = {nextNum}, and {nextNum} ÷ {divisor} = <strong>{q2}</strong>{" "}remainder {r2}</div>
             </div>
           </div>
 

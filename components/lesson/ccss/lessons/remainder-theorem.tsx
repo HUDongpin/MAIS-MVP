@@ -34,6 +34,11 @@ export default function Lesson() {
   }
 
   const setRoot = (i: number, v: number) => setRoots((rs) => rs.map((r, ri) => (ri === i ? v : r)));
+  // Nothing stops two steppers from holding the same value, and at a repeated
+  // root the curve touches the axis and turns back instead of crossing — which
+  // the caption and the paragraph below both used to deny.
+  const distinct = Array.from(new Set(roots)).sort((x, y) => x - y);
+  const repeated = distinct.length < roots.length;
 
   return (
     <div className="prose-lesson max-w-none">
@@ -44,7 +49,7 @@ export default function Lesson() {
         where the graph crosses the x-axis.
       </p>
 
-      <Figure caption="The curve crosses the axis at each root. Evaluating p(a) gives the remainder on dividing by (x − a).">
+      <Figure caption="The curve meets the x-axis at each root. Evaluating p(a) gives the remainder on dividing by (x − a).">
         <div className="flex flex-col items-center gap-6">
           <FigureScroll>
             <svg width={W} height={H} viewBox={`0 0 ${W} ${H}`} className="mx-auto max-w-full" style={{ maxHeight: 320 }} role="img" aria-label="cubic polynomial graph">
@@ -81,9 +86,11 @@ export default function Lesson() {
       <h2>Zeros build the graph</h2>
       <p>
         Because p(a) is the remainder, checking a value tells you instantly whether
-        (x − a) divides evenly. The roots {roots.join(", ")} are where p crosses
-        zero, and between them the sign of p can&apos;t change without a crossing —
-        so the roots alone sketch the curve&apos;s shape.
+        (x − a) divides evenly. The zeros {distinct.join(", ")} are where p meets
+        zero.{" "}
+        {repeated
+          ? "A zero that appears twice is a point where the curve touches the axis and turns back instead of crossing, so the sign of p is the same on both sides of it."
+          : "Between them the sign of p can’t change without a crossing — so the roots alone sketch the curve’s shape."}
       </p>
 
       <MathCheck>

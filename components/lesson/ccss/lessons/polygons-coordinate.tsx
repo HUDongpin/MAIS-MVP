@@ -101,20 +101,23 @@ function Stepper({ label, value, forbid, onChange }: { label: string; value: num
   // the rectangle to a point: a zero-by-zero rect, four "(5,5)" labels stacked
   // on one dot, and prose reading "its length is |5 − 5| = 0 … the area (0) and
   // perimeter (0) follow" in a lesson about polygons in the coordinate plane.
-  const set = (v: number) => {
-    const dir = v > value ? 1 : -1;
-    let next = Math.max(0, Math.min(N, v));
-    if (next === forbid) next = Math.max(0, Math.min(N, next + dir));
-    if (next === forbid) next = Math.max(0, Math.min(N, next - 2 * dir));
-    onChange(next);
+  // Clamping the step-over made it turn round at the grid edge: with x₂ = 0 and
+  // x₁ = 1, "Decrease x₁" landed on 2. A step that has nowhere to go is simply
+  // unavailable, so the button is disabled instead of reversing.
+  const resolve = (dir: number) => {
+    let next = value + dir;
+    if (next === forbid) next += dir;
+    return next >= 0 && next <= N ? next : null;
   };
+  const dec = resolve(-1);
+  const inc = resolve(1);
   return (
     <div className="flex flex-col items-center gap-1">
       <span className="text-xs font-semibold uppercase tracking-wide text-[var(--ink-faint)]">{label}</span>
       <div className="flex items-center gap-1.5">
-        <button type="button" onClick={() => set(value - 1)} disabled={value <= 0} className="h-8 w-8 rounded-lg border border-[var(--line)] bg-[var(--surface)] font-bold disabled:opacity-40" aria-label={`Decrease ${label}`}>−</button>
+        <button type="button" onClick={() => dec !== null && onChange(dec)} disabled={dec === null} className="h-8 w-8 rounded-lg border border-[var(--line)] bg-[var(--surface)] font-bold disabled:opacity-40" aria-label={`Decrease ${label}`}>−</button>
         <span className="w-6 text-center text-xl font-black tabular-nums">{value}</span>
-        <button type="button" onClick={() => set(value + 1)} disabled={value >= N} className="h-8 w-8 rounded-lg border border-[var(--line)] bg-[var(--surface)] font-bold disabled:opacity-40" aria-label={`Increase ${label}`}>+</button>
+        <button type="button" onClick={() => inc !== null && onChange(inc)} disabled={inc === null} className="h-8 w-8 rounded-lg border border-[var(--line)] bg-[var(--surface)] font-bold disabled:opacity-40" aria-label={`Increase ${label}`}>+</button>
       </div>
     </div>
   );

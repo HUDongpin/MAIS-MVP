@@ -56,7 +56,7 @@ export default function Lesson() {
           </div>
 
           {op === "scale" && <Stepper label="scalar k" value={k} onChange={setK} />}
-          <p className="m-0 max-w-lg text-center text-xs text-[var(--ink-faint)]">Tap a number in A or B to change it (± on click).</p>
+          <p className="m-0 max-w-lg text-center text-xs text-[var(--ink-faint)]">Use − and + to change any entry of A or B.</p>
         </div>
       </Figure>
 
@@ -85,10 +85,17 @@ function Matrix({ m, editable, which, onCell, label, accent }: { m: M; editable?
     <div className="flex flex-col items-center gap-1">
       <div className="flex items-stretch">
         <span className="w-1.5 rounded-l border-2 border-r-0" style={{ borderColor: accent ? ACCENT : "var(--ink-soft)" }} />
-        <div className="grid grid-cols-2 gap-x-4 gap-y-1 px-2 py-1.5 font-mono text-lg font-bold">
+        <div className="grid grid-cols-2 gap-x-2 gap-y-1 px-2 py-1.5 font-mono text-lg font-bold">
           {m.map((row, i) => row.map((v, j) => (
+            // Decrementing used to need shift-click or right-click, neither of
+            // which exists on a touch screen: on a tablet an entry could only
+            // ever go up. Both directions are buttons now.
             editable && which && onCell ? (
-              <button key={`${i}-${j}`} type="button" onClick={(e) => onCell(which, i, j, e.shiftKey ? -1 : 1)} onContextMenu={(e) => { e.preventDefault(); onCell(which, i, j, -1); }} className="w-8 rounded text-center hover:bg-[var(--surface-2)]" title="click +1, right-click −1">{v}</button>
+              <div key={`${i}-${j}`} className="flex items-center gap-0.5">
+                <button type="button" onClick={() => onCell(which, i, j, -1)} className="h-5 w-5 rounded border border-[var(--line)] bg-[var(--surface)] text-xs font-bold leading-none" aria-label={`Decrease ${label ?? which} row ${i + 1} column ${j + 1}`}>−</button>
+                <span className="w-6 text-center tabular-nums">{v}</span>
+                <button type="button" onClick={() => onCell(which, i, j, 1)} className="h-5 w-5 rounded border border-[var(--line)] bg-[var(--surface)] text-xs font-bold leading-none" aria-label={`Increase ${label ?? which} row ${i + 1} column ${j + 1}`}>+</button>
+              </div>
             ) : (
               <span key={`${i}-${j}`} className="w-8 text-center" style={{ color: accent ? ACCENT : "var(--ink)" }}>{v}</span>
             )

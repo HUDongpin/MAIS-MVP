@@ -4,18 +4,29 @@ import { useState } from "react";
 import { MathCheck } from "@/components/lesson/ccss/MathCheck";
 import { Figure } from "@/components/lesson/ccss/Figure";
 
-const N = 12;
+// Both steps reach 4, so the fifth term reaches 16. A 12-wide grid silently
+// dropped pairs the table still listed.
+const N = 16;
 const CELL = 22;
 const PAD = 28;
 const SIZE = N * CELL + 2 * PAD;
 const P1 = "var(--band-middle)";
 const P2 = "var(--band-upper)";
 
+function gcd(a: number, b: number): number {
+  return b === 0 ? a : gcd(b, a % b);
+}
+
 export default function Lesson() {
   const [s1, setS1] = useState(1);
   const [s2, setS2] = useState(2);
 
   const terms = Array.from({ length: 5 }, (_, i) => ({ x: i * s1, y: i * s2 }));
+  // y = (s2/s1)·x, written as an exact fraction. Printing 0.33 for 1/3 and
+  // then calling it "the rule" failed against the table beside it.
+  const g = gcd(s2, s1);
+  const rNum = s2 / g, rDen = s1 / g;
+  const ratio = rDen === 1 ? `${rNum}` : `${rNum}/${rDen}`;
   const sx = (x: number) => PAD + x * CELL;
   const sy = (y: number) => SIZE - PAD - y * CELL;
   const inRange = terms.filter((t) => t.x <= N && t.y <= N);
@@ -68,7 +79,7 @@ export default function Lesson() {
           </div>
 
           <p className="m-0 text-center text-[15px] font-semibold text-[var(--ink-soft)]">
-            {s1 > 0 && `Each y is ${(s2 / s1) % 1 === 0 ? s2 / s1 : (s2 / s1).toFixed(2)} times its x — the points climb in a straight line.`}
+            {`Each y is ${ratio} times its x — the points climb in a straight line.`}
           </p>
 
           <div className="flex flex-wrap items-center justify-center gap-6">
@@ -81,7 +92,7 @@ export default function Lesson() {
       <h2>Two patterns, one line</h2>
       <p>
         Pattern 1 grows by {s1}; pattern 2 by {s2}. Because both start at 0, every
-        ordered pair follows the rule y = {(s2 / s1) % 1 === 0 ? s2 / s1 : (s2 / s1).toFixed(2)} × x, so the plotted points fall on a straight line through the origin.
+        ordered pair follows the rule y = {ratio} × x, so the plotted points fall on a straight line through the origin.
       </p>
 
       <MathCheck>
@@ -89,7 +100,7 @@ export default function Lesson() {
           Generating two numerical patterns from two rules, forming{" "}
           <strong>ordered pairs</strong>{" "}from corresponding terms, and graphing
           them (5.OA.B.3) makes the relationship visible. Here the pairs satisfy y
-          = {(s2 / s1) % 1 === 0 ? s2 / s1 : (s2 / s1).toFixed(2)}x, which is why
+          = {ratio}x, which is why
           they line up — a first look at proportional relationships and functions.
         </p>
       </MathCheck>

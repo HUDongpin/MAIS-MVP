@@ -4,7 +4,10 @@ import { useState } from "react";
 import { MathCheck } from "@/components/lesson/ccss/MathCheck";
 import { Figure } from "@/components/lesson/ccss/Figure";
 
-const CELL = 46;
+// The whole is the unit square, so its side is fixed and the cuts divide it.
+// Fixed 46-px cells made the figure b·46 by d·46 — a 3:4 rectangle at the
+// default, while the caption and the prose both call it a square.
+const SQUARE = 230;
 const WIDTHC = "var(--band-upper)"; // first fraction (across)
 const HEIGHTC = "var(--band-middle)"; // second fraction (down)
 const OVERLAP = "var(--band-high)"; // the product
@@ -25,8 +28,8 @@ export default function Lesson() {
     setN(Math.min(num, den));
   };
 
-  const W = b * CELL;
-  const H = d * CELL;
+  const CW = SQUARE / b;
+  const CH = SQUARE / d;
   const prodN = a * c;
   const prodD = b * d;
   const g = gcd(prodN, prodD);
@@ -44,7 +47,7 @@ export default function Lesson() {
       <Figure caption="Green shades the first fraction across; blue shades the second one down. The overlap is the product.">
         <div className="flex flex-col items-center gap-6">
           <div className="flex flex-col items-center gap-2">
-            <svg width={W + 2} height={H + 2} viewBox={`0 0 ${W + 2} ${H + 2}`} className="max-w-full" role="img" aria-label={`${a}/${b} times ${c}/${d}`}>
+            <svg width={SQUARE + 2} height={SQUARE + 2} viewBox={`0 0 ${SQUARE + 2} ${SQUARE + 2}`} className="max-w-full" role="img" aria-label={`${a}/${b} times ${c}/${d}`}>
               <g transform="translate(1,1)">
                 {Array.from({ length: d }, (_, row) =>
                   Array.from({ length: b }, (_, col) => {
@@ -65,10 +68,10 @@ export default function Lesson() {
                     return (
                       <rect
                         key={`${row}-${col}`}
-                        x={col * CELL}
-                        y={row * CELL}
-                        width={CELL}
-                        height={CELL}
+                        x={col * CW}
+                        y={row * CH}
+                        width={CW}
+                        height={CH}
                         fill={fill}
                         opacity={opacity}
                         stroke="var(--surface)"

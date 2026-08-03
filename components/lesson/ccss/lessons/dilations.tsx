@@ -31,7 +31,8 @@ export default function Lesson() {
         line (unless it passes through C).
       </p>
 
-      <Figure caption="Dilating from the origin by k stretches the triangle; each side scales by k, angles stay equal.">
+      {/* k reaches 0.5 and 1, where "stretches" is false. */}
+      <Figure caption={`Dilating from the origin by k ${scale > 1 ? "enlarges the triangle" : scale < 1 ? "shrinks the triangle" : "leaves the triangle unchanged"}; each side scales by k, angles stay equal.`}>
         <div className="flex flex-col items-center gap-6">
           <svg width={SIZE} height={SIZE} viewBox={`0 0 ${SIZE} ${SIZE}`} className="max-w-full" style={{ maxHeight: 320 }} role="img" aria-label="dilation from the origin">
             {Array.from({ length: 2 * R + 1 }, (_, i) => i - R).map((v) => (

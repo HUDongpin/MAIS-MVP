@@ -35,7 +35,9 @@ export default function Lesson() {
               {base}<sup>{m}/{n}</sup> = <span style={{ color: ACCENT }}>{value}</span>
             </div>
             <div className="mt-3 text-sm text-[var(--ink-soft)]">
-              = ({n}√{base})<sup>{m}</sup> = ({root})<sup>{m}</sup> = {asRootThenPow}
+              {/* The index belongs above the radical. Rendered inline, "3√8"
+                  is the standard way of writing 3·√8 ≈ 8.49. */}
+              = (<sup>{n}</sup>√{base})<sup>{m}</sup> = ({root})<sup>{m}</sup> = {asRootThenPow}
             </div>
           </div>
 

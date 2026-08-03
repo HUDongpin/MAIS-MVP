@@ -5,15 +5,19 @@ import { MathCheck } from "@/components/lesson/ccss/MathCheck";
 import { Figure } from "@/components/lesson/ccss/Figure";
 
 const ACCENT = "var(--band-high)";
-const r2 = (n: number) => Math.round(n * 100) / 100;
+const fmt = (n: number) => Number(n.toFixed(4)).toString();
 
 export default function Lesson() {
   const [pa, setPa] = useState(50); // P(A) percent
   const [pb, setPb] = useState(40); // P(B) percent
   const [pab, setPab] = useState(20); // P(A and B) percent
 
-  const product = r2((pa / 100) * (pb / 100) * 100);
-  const independent = Math.abs(product - pab) < 0.5;
+  // All three controls are whole percentages, so the test can be exact.
+  // A 0.5-percentage-point tolerance called P(A)=P(B)=45%, P(A∩B)=20%
+  // independent (0.2 vs 0.2025), and rounding both readouts to 2 decimals
+  // printed the same 0.2 twice, hiding the gap it was asked to judge.
+  const product = (pa * pb) / 100;
+  const independent = pa * pb === pab * 100;
 
   return (
     <div className="prose-lesson max-w-none">
@@ -27,8 +31,8 @@ export default function Lesson() {
       <Figure caption="Compare P(A and B) to P(A)·P(B). Equal ⟹ independent; different ⟹ associated.">
         <div className="flex flex-col items-center gap-6">
           <div className="grid grid-cols-2 gap-4 text-center font-mono">
-            <div className="rounded-lg bg-[var(--surface-2)] px-4 py-2"><div className="text-xs text-[var(--ink-faint)]">P(A and B) observed</div><div className="text-xl font-black" style={{ color: ACCENT }}>{r2(pab / 100)}</div></div>
-            <div className="rounded-lg bg-[var(--surface-2)] px-4 py-2"><div className="text-xs text-[var(--ink-faint)]">P(A)·P(B)</div><div className="text-xl font-black">{r2(product / 100)}</div></div>
+            <div className="rounded-lg bg-[var(--surface-2)] px-4 py-2"><div className="text-xs text-[var(--ink-faint)]">P(A and B) observed</div><div className="text-xl font-black" style={{ color: ACCENT }}>{fmt(pab / 100)}</div></div>
+            <div className="rounded-lg bg-[var(--surface-2)] px-4 py-2"><div className="text-xs text-[var(--ink-faint)]">P(A)·P(B)</div><div className="text-xl font-black">{fmt(product / 100)}</div></div>
           </div>
 
           <div className="rounded-2xl border-2 px-6 py-3 text-center" style={{ borderColor: independent ? ACCENT : "var(--band-upper)" }}>
