@@ -1,8 +1,10 @@
 "use client";
 
+import { useSearchParams } from "next/navigation";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { useSettings } from "@/components/providers/AppProviders";
 import { TeacherReportsBackToTopButton } from "@/components/teacher/TeacherReportsBackToTopButton";
+import { initialReportClassId } from "@/components/teacher/teacherReportsClassFocus";
 import { textForLanguage } from "@/lib/i18n";
 import { formatDateInHongKong } from "@/lib/utils";
 import type { LocalizedText, TeacherReport, TeacherReportLanguage, TeacherReportPreview, TeacherReportType, TeacherReportsData } from "@/types";
@@ -120,7 +122,8 @@ export function TeacherReportsView({ reports }: { reports: TeacherReportsData })
     : { en: "Bilingual learning reports", zh: "學習報告" };
   const [type, setType] = useState<TeacherReportType>(reports.defaultPreview?.type ?? "class");
   const [language, setLanguage] = useState<TeacherReportLanguage>(appReportLanguage);
-  const [classId, setClassId] = useState(reports.classes.find((teacherClass) => teacherClass.studentCount > 0)?.id ?? reports.classes[0]?.id ?? "");
+  const requestedClassId = useSearchParams().get("classId");
+  const [classId, setClassId] = useState(() => initialReportClassId(reports.classes, requestedClassId));
   const [studentId, setStudentId] = useState(reports.students[0]?.studentId ?? "");
   const [assignmentId, setAssignmentId] = useState(reports.assignments[0]?.assignmentId ?? "");
   const [assessmentId, setAssessmentId] = useState(reports.assessments[0]?.assessmentId ?? "");
@@ -132,6 +135,12 @@ export function TeacherReportsView({ reports }: { reports: TeacherReportsData })
   const [reportHistory, setReportHistory] = useState(reports.reportHistory);
   const [latestSavedReportId, setLatestSavedReportId] = useState<string | null>(null);
   const previousAppReportLanguageRef = useRef(appReportLanguage);
+  // The shell's "Class focus" navigates client-side without remounting this view,
+  // so the initial state above is not enough — follow later changes to the param.
+  useEffect(() => {
+    const nextClassId = initialReportClassId(reports.classes, requestedClassId);
+    setClassId((currentClassId) => (nextClassId && nextClassId !== currentClassId ? nextClassId : currentClassId));
+  }, [reports.classes, requestedClassId]);
   const reportLanguageOptions = useMemo(() => reportLanguageOptionsForApp(appReportLanguage), [appReportLanguage]);
   const visiblePreview = preview?.language === language ? preview : null;
 
