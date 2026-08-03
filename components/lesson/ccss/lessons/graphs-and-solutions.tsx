@@ -24,7 +24,12 @@ export default function Lesson() {
   const ystar = denom !== 0 ? r2(f(xstar)) : NaN;
 
   const sx = (x: number) => PAD + (x + XR) * PXX;
-  const sy = (y: number) => PAD + (YR - Math.max(-YR, Math.min(YR, y))) * PXY;
+  // A pure affine map. Clamping y inside the mapper bent each line to a wrong
+  // slope and intercept whenever it left the window instead of clipping it: at
+  // m = 3, b = 5 the "f(x) = 3x + 5" line was drawn through (0, 0.5), and the
+  // marked intersection lay on neither drawn line. The lines are clipped to the
+  // plot rectangle instead.
+  const sy = (y: number) => PAD + (YR - y) * PXY;
 
   return (
     <div className="prose-lesson max-w-none">
@@ -48,8 +53,15 @@ export default function Lesson() {
             ))}
             <line x1={sx(-XR)} y1={sy(0)} x2={sx(XR)} y2={sy(0)} stroke="var(--ink-soft)" strokeWidth={2} />
             <line x1={sx(0)} y1={PAD} x2={sx(0)} y2={H - PAD} stroke="var(--ink-soft)" strokeWidth={2} />
-            <line x1={sx(-XR)} y1={sy(f(-XR))} x2={sx(XR)} y2={sy(f(XR))} stroke={ACCENT} strokeWidth={2.5} />
-            <line x1={sx(-XR)} y1={sy(g(-XR))} x2={sx(XR)} y2={sy(g(XR))} stroke={G} strokeWidth={2.5} />
+            <defs>
+              <clipPath id="gs-plot">
+                <rect x={PAD} y={PAD} width={2 * XR * PXX} height={2 * YR * PXY} />
+              </clipPath>
+            </defs>
+            <g clipPath="url(#gs-plot)">
+              <line x1={sx(-XR)} y1={sy(f(-XR))} x2={sx(XR)} y2={sy(f(XR))} stroke={ACCENT} strokeWidth={2.5} />
+              <line x1={sx(-XR)} y1={sy(g(-XR))} x2={sx(XR)} y2={sy(g(XR))} stroke={G} strokeWidth={2.5} />
+            </g>
             {denom !== 0 && xstar >= -XR && xstar <= XR && (
               <g>
                 <circle cx={sx(xstar)} cy={sy(ystar)} r={6} fill="var(--ink)" stroke="white" strokeWidth={2} />

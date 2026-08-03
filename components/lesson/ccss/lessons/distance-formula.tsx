@@ -60,7 +60,10 @@ export default function Lesson() {
 
           <div className="rounded-2xl border-2 px-8 py-3 text-center" style={{ borderColor: DIST }}>
             <div className="font-mono text-[15px]">d = √({dx}² + {dy}²) = √{dx * dx + dy * dy}</div>
-            <div className="mt-1 font-mono text-2xl font-black" style={{ color: DIST }}>= {perfect ? dist : dist.toFixed(2) + "…"}</div>
+            {/* "≈" for the irrational case, not "= 7.21…": the ellipsis promised
+                the printed digits continue, but toFixed rounds, so for 41 of the
+                121 reachable point pairs they were not a prefix of the expansion. */}
+            <div className="mt-1 font-mono text-2xl font-black" style={{ color: DIST }}>{perfect ? `= ${dist}` : `≈ ${dist.toFixed(2)}`}</div>
           </div>
 
           <div className="flex flex-wrap items-center justify-center gap-4">
@@ -75,7 +78,7 @@ export default function Lesson() {
       <h2>Pythagoras on a grid</h2>
       <p>
         The horizontal gap is {dx} and the vertical gap is {dy}, so the distance is
-        √({dx}² + {dy}²) = √{dx * dx + dy * dy} = {perfect ? dist : dist.toFixed(2)}.
+        √({dx}² + {dy}²) = √{dx * dx + dy * dy} {perfect ? `= ${dist}` : `≈ ${dist.toFixed(2)}`}.
         It works for any two points — just subtract the coordinates.
       </p>
 
@@ -84,7 +87,7 @@ export default function Lesson() {
           The distance between two points is found with the{" "}
           <strong>Pythagorean theorem</strong>{" "}(8.G.B.8): the horizontal and
           vertical differences (|x₂ − x₁| and |y₂ − y₁|) are the legs, so the
-          distance is <strong>√((x₂ − x₁)² + (y₂ − y₁)²)</strong>{" "}— here √({dx}² + {dy}²) = {perfect ? dist : dist.toFixed(2)}.
+          distance is <strong>√((x₂ − x₁)² + (y₂ − y₁)²)</strong>{" "}— here √({dx}² + {dy}²) {perfect ? `= ${dist}` : `≈ ${dist.toFixed(2)}`}.
         </p>
       </MathCheck>
     </div>

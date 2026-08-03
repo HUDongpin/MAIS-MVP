@@ -15,11 +15,17 @@ export default function Lesson() {
   const after1 = start + t1;
   const final = after1 + t2;
 
+  // Balances put the sign before the symbol. Interpolating a raw negative after
+  // "$" rendered "$-10" beside a change column that correctly showed "−$60",
+  // two conventions in one row — and negative balances are the point of this
+  // 7.NS.A.3 lesson, not an edge case.
+  const money = (n: number) => `${n < 0 ? "−$" : "$"}${Math.abs(n)}`;
+
   const line = (label: string, value: number, running: number) => (
     <div className="flex items-center justify-between gap-4 rounded-lg border border-[var(--line)] px-4 py-1.5 font-mono text-sm">
       <span className="text-[var(--ink-soft)]">{label}</span>
       <span style={{ color: value >= 0 ? POS : NEG }}>{value >= 0 ? "+" : "−"}${Math.abs(value)}</span>
-      <span className="font-black">→ ${running}</span>
+      <span className="font-black">→ {money(running)}</span>
     </div>
   );
 
@@ -47,7 +53,7 @@ export default function Lesson() {
 
           <div className="rounded-2xl border-2 px-8 py-3 text-center" style={{ borderColor: final >= 0 ? POS : NEG }}>
             <div className="text-xs font-bold uppercase text-[var(--ink-faint)]">final balance</div>
-            <div className="font-mono text-3xl font-black" style={{ color: final >= 0 ? POS : NEG }}>${final}</div>
+            <div className="font-mono text-3xl font-black" style={{ color: final >= 0 ? POS : NEG }}>{money(final)}</div>
             <div className="mt-1 font-mono text-sm text-[var(--ink-soft)]">{start} + ({t1}) + ({t2}) = {final}</div>
           </div>
 
@@ -61,8 +67,8 @@ export default function Lesson() {
 
       <h2>Positive and negative together</h2>
       <p>
-        Starting with ${start}, a change of {t1 >= 0 ? "+" : ""}{t1} leaves ${after1},
-        and then {t2 >= 0 ? "+" : ""}{t2} leaves ${final}. {final < 0 ? "A negative balance means the account is overdrawn." : "The balance stays positive."} The same
+        Starting with {money(start)}, a change of {t1 >= 0 ? "+" : ""}{t1} leaves {money(after1)},
+        and then {t2 >= 0 ? "+" : ""}{t2} leaves {money(final)}. {final < 0 ? "A negative balance means the account is overdrawn." : "The balance stays positive."} The same
         adding of signed numbers models temperature, elevation, and more.
       </p>
 

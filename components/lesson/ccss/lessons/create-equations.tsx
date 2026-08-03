@@ -52,9 +52,13 @@ export default function Lesson() {
           </svg>
 
           <div className="flex flex-wrap items-center justify-center gap-6">
-            <Stepper label="flat fee" value={base} min={0} max={15} onChange={setBase} />
+            {/* The total paid can never fall below the flat fee, or the model
+                solves to a negative distance — "m = (5 − 15) / 1 = -10 miles"
+                was presented as the answer to a modelling problem (A-CED.1).
+                Equality is still allowed: that is the honest m = 0 case. */}
+            <Stepper label="flat fee" value={base} min={0} max={15} onChange={(v) => { setBase(v); setTotal((p) => Math.max(p, v)); }} />
             <Stepper label="per mile" value={rate} min={1} max={8} onChange={setRate} />
-            <Stepper label="total paid" value={total} min={5} max={60} onChange={setTotal} />
+            <Stepper label="total paid" value={total} min={Math.max(5, base)} max={60} onChange={(v) => setTotal(Math.max(v, base))} />
           </div>
         </div>
       </Figure>

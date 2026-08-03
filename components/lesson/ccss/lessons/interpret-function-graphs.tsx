@@ -59,8 +59,12 @@ export default function Lesson() {
           </div>
 
           <div className="flex flex-wrap items-center justify-center gap-6">
-            <Stepper label="a" value={a} min={0} max={b - 1} onChange={setA} />
-            <Stepper label="b" value={b} min={a + 1} max={XMAX} onChange={setB} />
+            {/* Keep both endpoints inside the modelled domain, where h(t) ≥ 0 and
+                the curve is actually drawn. Outside it the secant endpoints were
+                clamped onto the axis, so the figure showed a flat secant while
+                the readout reported an average rate of 7. */}
+            <Stepper label="a" value={a} min={2} max={b - 1} onChange={setA} />
+            <Stepper label="b" value={b} min={a + 1} max={6} onChange={setB} />
           </div>
         </div>
       </Figure>

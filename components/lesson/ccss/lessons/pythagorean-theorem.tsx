@@ -50,7 +50,10 @@ export default function Lesson() {
 
           <div className="rounded-2xl border-2 px-8 py-3 text-center" style={{ borderColor: HYP }}>
             <div className="font-mono text-xl font-black">{a}² + {b}² = {a * a} + {b * b} = {a * a + b * b}</div>
-            <div className="mt-1 font-mono text-2xl font-black" style={{ color: HYP }}>c = √{a * a + b * b} = {perfect ? c : c.toFixed(2) + "…"}</div>
+            {/* "≈" for the irrational case: "= 2.83…" both rounded (2.8284…) and
+                asserted equality with a terminating decimal, right beside prose
+                calling the same length irrational. */}
+            <div className="mt-1 font-mono text-2xl font-black" style={{ color: HYP }}>c = √{a * a + b * b} {perfect ? `= ${c}` : `≈ ${c.toFixed(2)}`}</div>
           </div>
 
           <div className="flex flex-wrap items-center justify-center gap-6">
@@ -62,7 +65,7 @@ export default function Lesson() {
 
       <h2>Finding the missing side</h2>
       <p>
-        With legs {a} and {b}, the hypotenuse is √({a}² + {b}²) = √{a * a + b * b} = {perfect ? c : c.toFixed(2)}. {perfect ? `${a}, ${b}, ${c} is a Pythagorean triple.` : "This length is irrational."}{" "}
+        With legs {a} and {b}, the hypotenuse is √({a}² + {b}²) = √{a * a + b * b} {perfect ? `= ${c}` : `≈ ${c.toFixed(2)}`}. {perfect ? `${a}, ${b}, ${c} is a Pythagorean triple.` : "This length is irrational, so the decimal never ends."}{" "}
         Rearranging also finds a leg when the hypotenuse is known.
       </p>
 

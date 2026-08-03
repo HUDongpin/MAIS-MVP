@@ -12,7 +12,12 @@ export default function Lesson() {
 
   const root = mode === "sq" ? Math.sqrt(p) : Math.cbrt(p);
   const perfect = Number.isInteger(Math.round(root) ** (mode === "sq" ? 2 : 3)) && Math.abs(root - Math.round(root)) < 1e-9;
-  const rootStr = perfect ? `${Math.round(root)}` : root.toFixed(3) + "…";
+  // Truncate, do not round, before appending "…": the ellipsis promises the
+  // digits continue, so a rounded value is not a prefix of the real expansion.
+  // √7 printed "2.646…" when the expansion is 2.6457…, on a card that
+  // simultaneously says the root never terminates. Matches the true-prefix
+  // convention in rational-irrational.tsx ("1.41421356…").
+  const rootStr = perfect ? `${Math.round(root)}` : `${(Math.floor(root * 1000) / 1000).toFixed(3)}…`;
 
   return (
     <div className="prose-lesson max-w-none">

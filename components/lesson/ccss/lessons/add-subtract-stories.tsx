@@ -15,8 +15,11 @@ export default function Lesson() {
   const [b, setB] = useState(5);
   const [c, setC] = useState(3);
 
-  const answer = mode === "join" ? a + b : mode === "separate" ? a - b : a + b + c;
+  // Clamp first, then compute from the clamped value. The story and the number
+  // sentence already rendered bSafe while the answer used the raw b, so lowering
+  // First below Second printed "1 − 1 = -11" in a Grade 1 lesson (1.OA.A.1).
   const bSafe = mode === "separate" ? Math.min(b, a) : b;
+  const answer = mode === "join" ? a + bSafe : mode === "separate" ? a - bSafe : a + bSafe + c;
 
   return (
     <div className="prose-lesson max-w-none">
@@ -66,7 +69,7 @@ export default function Lesson() {
           </div>
 
           <div className="flex flex-wrap items-center justify-center gap-6">
-            <Stepper label="First" value={a} min={1} max={12} color={A} onChange={setA} />
+            <Stepper label="First" value={a} min={1} max={12} color={A} onChange={(v) => { setA(v); if (mode === "separate") setB((p) => Math.min(p, v)); }} />
             <Stepper label="Second" value={b} min={mode === "separate" ? 0 : 1} max={mode === "separate" ? a : 10} color={B} onChange={setB} />
             {mode === "three" && <Stepper label="Third" value={c} min={1} max={8} color={CC} onChange={setC} />}
           </div>
