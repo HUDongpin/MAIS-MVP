@@ -20,11 +20,14 @@ export default function Lesson() {
     solid === "sphere" ? r2((4 / 3) * Math.PI * r * r * r) :
     r2((2 * r) * (2 * r) * h / 3); // square pyramid, base side 2r
 
+  // The pyramid's base side is 2r, which nothing on screen used to state — the
+  // displayed value was the one solid a student could not reproduce from the
+  // numbers in front of them (⅓·π·3²·5 ≈ 47.1 and ⅓·3²·5 = 15, but it read 60).
   const formula =
     solid === "cylinder" ? "V = πr²h" :
     solid === "cone" ? "V = ⅓πr²h" :
     solid === "sphere" ? "V = 4⁄3·πr³" :
-    "V = ⅓·(base area)·h";
+    `V = ⅓·s²·h, base side s = 2r = ${2 * r}`;
 
   return (
     <div className="prose-lesson max-w-none">
@@ -67,7 +70,8 @@ export default function Lesson() {
           </div>
 
           <div className="flex flex-wrap items-center justify-center gap-6">
-            <Stepper label="radius r" value={r} min={1} max={6} onChange={setR} />
+            {/* A square pyramid has no radius — r acts as its half-base here. */}
+            <Stepper label={solid === "pyramid" ? "half-base r" : "radius r"} value={r} min={1} max={6} onChange={setR} />
             {solid !== "sphere" && <Stepper label="height h" value={h} min={1} max={9} onChange={setH} />}
           </div>
         </div>

@@ -55,8 +55,11 @@ export default function Lesson() {
           </div>
 
           <div className="flex flex-wrap items-center justify-center gap-4">
-            <Stepper label="Whole" value={w} min={0} max={3} onChange={setW} />
-            <Stepper label="Numerator" value={num} min={0} max={d - 1} onChange={setN} />
+            {/* Both parts floor at 1: this lesson is specifically about mixed
+                numbers, and a zero part rendered "A recipe needs 0 3/4 cups" —
+                or, with both at zero, a recipe that needs nothing. */}
+            <Stepper label="Whole" value={w} min={1} max={3} onChange={setW} />
+            <Stepper label="Numerator" value={num} min={1} max={d - 1} onChange={setN} />
             <Stepper label="Denominator" value={d} min={2} max={5} onChange={(v) => { setD(v); setN((p) => Math.min(p, v - 1)); }} />
             <Stepper label="Batches" value={k} min={2} max={5} onChange={setK} />
           </div>

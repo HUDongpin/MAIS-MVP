@@ -20,6 +20,9 @@ export default function Lesson() {
 
   const p = (x: number) => roots.reduce((prod, r) => prod * (x - r), 1);
   const pa = p(a);
+  // A negative root must fold into the sign: "(x − -2)" is not how a factor is
+  // written, and the default roots include -2, so it showed on first load.
+  const factor = (r: number) => (r < 0 ? `(x + ${-r})` : `(x − ${r})`);
 
   const sx = (x: number) => PAD + (x + XR) * PXX;
   const sy = (y: number) => PAD + (YR - Math.max(-YR, Math.min(YR, y))) * PXY;
@@ -61,11 +64,11 @@ export default function Lesson() {
           </FigureScroll>
 
           <div className="flex flex-wrap items-center justify-center gap-4 font-mono">
-            <span>p(x) = (x − {roots[0]})(x − {roots[1]})(x − {roots[2]})</span>
+            <span>p(x) = {roots.map(factor).join("")}</span>
           </div>
           <div className="rounded-xl border-2 px-6 py-2 text-center font-mono" style={{ borderColor: "var(--band-upper)" }}>
             p({a}) = <strong style={{ color: "var(--band-upper)" }}>{pa}</strong>
-            <span className="ml-2 text-xs text-[var(--ink-faint)]">= remainder when dividing by (x − {a}){pa === 0 ? " → (x − " + a + ") is a factor!" : ""}</span>
+            <span className="ml-2 text-xs text-[var(--ink-faint)]">= remainder when dividing by {factor(a)}{pa === 0 ? ` → ${factor(a)} is a factor!` : ""}</span>
           </div>
 
           <div className="flex flex-wrap items-center justify-center gap-4">

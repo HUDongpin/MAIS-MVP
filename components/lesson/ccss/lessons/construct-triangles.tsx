@@ -23,7 +23,13 @@ export default function Lesson() {
   const vy = valid && vyRaw > 0 ? r2(Math.sqrt(vyRaw)) : 0;
 
   const pad = 20;
-  const w = a * S + 2 * pad;
+  // Derive the horizontal extent from the apex rather than assuming 0 ≤ vx ≤ a:
+  // an obtuse triangle puts the apex outside the base span (a = 5, b = 4, c = 8
+  // gives vx = −2.3) and used to be drawn off the left edge of the viewBox.
+  const minX = Math.min(0, vx);
+  const maxX = Math.max(a, vx);
+  const ox = pad - minX * S;
+  const w = (maxX - minX) * S + 2 * pad;
   const h = (vy || 3) * S + 2 * pad;
 
   return (
@@ -38,11 +44,11 @@ export default function Lesson() {
       <Figure caption="Set three side lengths. If they satisfy the triangle inequality, a unique triangle appears.">
         <div className="flex flex-col items-center gap-6">
           {valid ? (
-            <svg width={w} height={h} viewBox={`0 0 ${w} ${h}`} role="img" aria-label={`triangle ${a}, ${b}, ${c}`}>
-              <polygon points={`${pad},${h - pad} ${pad + a * S},${h - pad} ${pad + vx * S},${h - pad - vy * S}`} fill={FILL} fillOpacity={0.65} stroke="var(--ink)" strokeWidth={2} />
-              <text x={pad + (a * S) / 2} y={h - pad + 15} textAnchor="middle" fontSize={12} fontWeight={800} fill="var(--ink)" fontFamily="var(--font-mono)">{a}</text>
-              <text x={(pad + pad + vx * S) / 2 - 8} y={h - pad - (vy * S) / 2} fontSize={12} fontWeight={800} fill="var(--ink)" fontFamily="var(--font-mono)">{b}</text>
-              <text x={(pad + a * S + pad + vx * S) / 2 + 4} y={h - pad - (vy * S) / 2} fontSize={12} fontWeight={800} fill="var(--ink)" fontFamily="var(--font-mono)">{c}</text>
+            <svg width={w} height={h} viewBox={`0 0 ${w} ${h}`} className="max-w-full" role="img" aria-label={`Triangle with sides ${a}, ${b} and ${c}`}>
+              <polygon points={`${ox},${h - pad} ${ox + a * S},${h - pad} ${ox + vx * S},${h - pad - vy * S}`} fill={FILL} fillOpacity={0.65} stroke="var(--ink)" strokeWidth={2} />
+              <text x={ox + (a * S) / 2} y={h - pad + 15} textAnchor="middle" fontSize={12} fontWeight={800} fill="var(--ink)" fontFamily="var(--font-mono)">{a}</text>
+              <text x={(ox + ox + vx * S) / 2 - 8} y={h - pad - (vy * S) / 2} fontSize={12} fontWeight={800} fill="var(--ink)" fontFamily="var(--font-mono)">{b}</text>
+              <text x={(ox + a * S + ox + vx * S) / 2 + 4} y={h - pad - (vy * S) / 2} fontSize={12} fontWeight={800} fill="var(--ink)" fontFamily="var(--font-mono)">{c}</text>
             </svg>
           ) : (
             <div className="grid h-32 w-full max-w-xs place-items-center rounded-xl border-2 border-dashed border-[var(--band-early)] text-center">

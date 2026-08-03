@@ -114,8 +114,11 @@ export default function Lesson() {
 
       <MathCheck>
         <p>
-          Making a ten works because you can add in any order and any grouping
-          (the <strong>associative property</strong>). We split{" "}
+          Making a ten works because you can <strong>regroup</strong>{" "}the addends
+          without changing the total (the <strong>associative property</strong>).
+          Nothing is reordered here — reordering would be the commutative
+          property, which the guided practice on this page names separately. We
+          split{" "}
           <strong>{b}</strong>{" "}into <strong>{need} + {rest >= 0 ? rest : b}</strong>,
           add the <strong>{need}</strong>{" "}to <strong>{a}</strong>{" "}to get a full{" "}
           <strong>10</strong>, and then <strong>10 + {rest >= 0 ? rest : 0}</strong>{" "}

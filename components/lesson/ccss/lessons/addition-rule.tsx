@@ -40,8 +40,11 @@ export default function Lesson() {
           </div>
 
           <div className="flex flex-wrap items-center justify-center gap-6">
-            <Stepper label="P(A) %" value={pa} min={10} max={90} onChange={setPa} />
-            <Stepper label="P(B) %" value={pb} min={10} max={90} onChange={setPb} />
+            {/* Re-clamp the intersection when P(A) or P(B) drops: capping it only
+                in its own stepper let P(A∩B) exceed P(A), an impossible
+                assignment that rendered "0.1 + 0.4 − 0.2 = 0.3". */}
+            <Stepper label="P(A) %" value={pa} min={10} max={90} onChange={(v) => { setPa(v); setPab((x) => Math.min(x, v, pb)); }} />
+            <Stepper label="P(B) %" value={pb} min={10} max={90} onChange={(v) => { setPb(v); setPab((x) => Math.min(x, pa, v)); }} />
             <Stepper label="P(A∩B) %" value={pab} min={0} max={Math.min(pa, pb)} onChange={setPab} />
           </div>
         </div>

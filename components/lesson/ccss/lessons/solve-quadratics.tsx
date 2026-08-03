@@ -13,6 +13,12 @@ export default function Lesson() {
   const [c, setC] = useState(6);
 
   const disc = b * b - 4 * a * c;
+  // Substituted values need their sign folded in, not a literal "−" prefixed:
+  // the default b = −5 rendered "(−-5 ± √1) / 2", and "−5² − 4·1·6" is false as
+  // written because −5² is −25 under the order of operations.
+  const paren = (n: number) => (n < 0 ? `(−${Math.abs(n)})` : `${n}`);
+  const signed = (n: number) => (n < 0 ? `−${Math.abs(n)}` : `${n}`);
+  const radicand = disc < 0 ? `−${Math.abs(disc)}` : `${disc}`;
   let roots: string;
   if (disc > 0) {
     const s = Math.sqrt(disc);
@@ -40,9 +46,9 @@ export default function Lesson() {
           </div>
 
           <div className="grid w-full max-w-md grid-cols-1 gap-2 font-mono text-sm">
-            <Row label="discriminant" value={`${b}² − 4·${a}·${c} = ${disc}`} />
+            <Row label="discriminant" value={`${paren(b)}² − 4·${paren(a)}·${paren(c)} = ${disc}`} />
             <Row label="nature" value={disc > 0 ? "two real roots" : disc === 0 ? "one real (repeated)" : "two complex roots"} />
-            <Row label="quadratic formula" value={`(−${b} ± √${disc}) / ${2 * a}`} />
+            <Row label="quadratic formula" value={`(${signed(-b)} ± √${radicand}) / ${2 * a}`} />
           </div>
 
           <div className="rounded-2xl border-2 px-8 py-3 text-center font-mono text-xl font-black" style={{ borderColor: ACCENT, color: ACCENT }}>

@@ -69,7 +69,7 @@ export default function Lesson() {
 
       <h2>Multiply to go smaller</h2>
       <p>
-        Because 1 {conv.big.slice(0, -1)} = {conv.factor} {conv.small}, having{" "}
+        Because 1 {conv.bigOne} = {conv.factor} {conv.small}, having{" "}
         {value} of them means {value} × {conv.factor} = {result.toLocaleString()}{" "}
         {conv.small}. Going the other way (small → big) you would divide.
       </p>

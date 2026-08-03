@@ -20,6 +20,9 @@ export default function Lesson() {
   const sx = (x: number) => PAD + (x / 10) * GW;
   const sy = (y: number) => PAD + GH - (y / 100) * GH;
   const predict = (x: number) => m * x + b;
+  // Only draw the stretch of the model that lies inside the 0–100 score frame.
+  const lineFrom = Math.max(0, Math.min(10, (0 - b) / m));
+  const lineTo = Math.max(0, Math.min(10, (100 - b) / m));
 
   return (
     <div className="prose-lesson max-w-none">
@@ -44,7 +47,10 @@ export default function Lesson() {
             <line x1={PAD} y1={sy(0)} x2={PAD + GW} y2={sy(0)} stroke="var(--ink-soft)" strokeWidth={2} />
             <line x1={PAD} y1={sy(0)} x2={PAD} y2={sy(100)} stroke="var(--ink-soft)" strokeWidth={2} />
             {/* best-fit line */}
-            <line x1={sx(0)} y1={sy(Math.max(0, Math.min(100, predict(0))))} x2={sx(10)} y2={sy(Math.max(0, Math.min(100, predict(10))))} stroke={LINE} strokeWidth={3} />
+            {/* Clip the segment to where the model is inside the 0–100 frame,
+                instead of clamping its endpoints' y — clamping bent the drawn
+                line away from y = mx + b whenever it left the frame. */}
+            <line x1={sx(lineFrom)} y1={sy(predict(lineFrom))} x2={sx(lineTo)} y2={sy(predict(lineTo))} stroke={LINE} strokeWidth={3} />
             {DATA.map(([x, y], i) => <circle key={i} cx={sx(x)} cy={sy(y)} r={5} fill={DOT} />)}
             <text x={PAD + GW / 2} y={H - 6} textAnchor="middle" fontSize={10} fill="var(--ink-faint)">hours studied</text>
           </svg>
@@ -55,8 +61,12 @@ export default function Lesson() {
           </div>
 
           <div className="flex flex-wrap items-center justify-center gap-6">
+            {/* Scores run 0–100, so the controls must not let the model predict
+                an impossible one: m = 9 with b = 60 read "predicts a score of
+                105". At the new bounds the highest prediction at 5 hours is
+                exactly 100. */}
             <Stepper label="Slope m" value={m} min={2} max={9} onChange={setM} />
-            <Stepper label="Intercept b" value={b} min={40} max={60} step={2} onChange={setB} />
+            <Stepper label="Intercept b" value={b} min={40} max={54} step={2} onChange={setB} />
           </div>
         </div>
       </Figure>

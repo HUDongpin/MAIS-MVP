@@ -23,7 +23,13 @@ export default function Lesson() {
   const fracStr = deg === 0 ? "0" : `${deg / g}/${360 / g}`;
   const end = pt(deg, R);
   const large = deg > 180 ? 1 : 0;
-  const arcPath = `M ${CX} ${CY} L ${CX} ${CY - R} A ${R} ${R} 0 ${large} 1 ${end.x} ${end.y} Z`;
+  // A full turn has identical arc endpoints, and SVG omits such a segment
+  // entirely — the wedge vanished at 360°, rendering pixel-identical to 0°
+  // while the readout said "360°". Draw it as two half-turns instead.
+  const arcPath =
+    deg >= 360
+      ? `M ${CX} ${CY - R} A ${R} ${R} 0 1 1 ${CX} ${CY + R} A ${R} ${R} 0 1 1 ${CX} ${CY - R} Z`
+      : `M ${CX} ${CY} L ${CX} ${CY - R} A ${R} ${R} 0 ${large} 1 ${end.x} ${end.y} Z`;
 
   return (
     <div className="prose-lesson max-w-none">

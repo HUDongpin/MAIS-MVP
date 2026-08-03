@@ -32,6 +32,10 @@ export default function Lesson() {
   const rad = (deg * Math.PI) / 180;
   const cos = Math.cos(rad);
   const sin = Math.sin(rad);
+  // Collapse floating-point residue below display precision to an unsigned
+  // zero: sin(2π) is −2.4e−16, which printed "−0.000" at the slider maximum and
+  // implied the full turn lands slightly below the positive x-axis.
+  const coord = (n: number) => (Math.abs(n) < 5e-4 ? "0.000" : n.toFixed(3));
   const px = r3(C + R * cos);
   const py = r3(C - R * sin);
 
@@ -72,8 +76,8 @@ export default function Lesson() {
           <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
             <Stat label="angle" value={`${deg}°`} />
             <Stat label="radians" value={radiansLabel(deg)} />
-            <Stat label="cos θ (x)" value={cos.toFixed(3)} color={COS} />
-            <Stat label="sin θ (y)" value={sin.toFixed(3)} color={SIN} />
+            <Stat label="cos θ (x)" value={coord(cos)} color={COS} />
+            <Stat label="sin θ (y)" value={coord(sin)} color={SIN} />
           </div>
 
           <div className="flex flex-col items-center gap-1">
