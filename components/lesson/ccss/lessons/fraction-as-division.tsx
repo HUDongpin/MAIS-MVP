@@ -25,7 +25,7 @@ export default function Lesson() {
       <Figure caption="Cut each whole into equal parts; one person's share (highlighted) from every whole makes a/b.">
         <div className="flex flex-col items-center gap-6">
           <p className="m-0 text-center text-lg font-semibold">
-            {a} cookies shared equally by {b} friends — how much each?
+            {a} cookie{a === 1 ? "" : "s"} shared equally by {b} friends — how much each?
           </p>
 
           <div className="flex flex-col gap-2">
@@ -41,7 +41,7 @@ export default function Lesson() {
           <div className="text-center">
             <div className="font-mono text-2xl font-black">{a} ÷ {b} = <span style={{ color: SHARE }}>{a}/{b}</span> = {decimal}</div>
             <p className="mt-1 text-[15px] text-[var(--ink-soft)]">
-              Each friend gets one piece from each of the {a} cookies — that is {a} pieces of size 1/{b}, or {a}/{b} of a cookie.
+              Each friend gets one piece from each of the {a} cookie{a === 1 ? "" : "s"} — that is {a} piece{a === 1 ? "" : "s"} of size 1/{b}, or {a}/{b} of a cookie.
             </p>
           </div>
 

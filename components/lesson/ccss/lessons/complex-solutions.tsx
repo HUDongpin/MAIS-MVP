@@ -79,7 +79,9 @@ export default function Lesson() {
           negative discriminant yields conjugate roots a ± bi. Identities like{" "}
           x² + y² = (x + yi)(x − yi) extend factoring to ℂ (N-CN.8), and the{" "}
           <strong>Fundamental Theorem of Algebra</strong>{" "}guarantees a degree-n
-          polynomial has exactly n complex roots (N-CN.9).
+          polynomial has exactly n complex roots when each is counted with its{" "}
+          <strong>multiplicity</strong>{" "}(N-CN.9) — (x − 1)² has degree 2 and the
+          single root 1, counted twice.
         </p>
       </MathCheck>
     </div>

@@ -51,7 +51,7 @@ export default function Lesson() {
 
       <h2>Why the zero appears</h2>
       <p>
-        {a} groups of {multiple} is {a} groups of {tens} tens, which is {base}{" "}
+        {a} group{a === 1 ? "" : "s"} of {multiple} is {a} group{a === 1 ? "" : "s"} of {tens} ten{tens === 1 ? "" : "s"}, which is {base}{" "}
         tens. And {base} tens is written <strong>{product}</strong>{" "}— the same{" "}
         {base} with a 0 in the ones place.
       </p>

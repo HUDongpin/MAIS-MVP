@@ -14,7 +14,7 @@ export default function Lesson() {
   const total = groups * per;
 
   const problem =
-    unknown === "product" ? { text: `${groups} baskets have ${per} apples each. How many apples in all?`, eq: `${groups} × ${per} = ?`, ans: total }
+    unknown === "product" ? { text: `${groups} baskets have ${per} apple${per === 1 ? "" : "s"} each. How many apples in all?`, eq: `${groups} × ${per} = ?`, ans: total }
     : unknown === "count" ? { text: `${total} apples are split into ${groups} equal baskets. How many in each basket?`, eq: `${total} ÷ ${groups} = ?`, ans: per }
     : { text: `${total} apples are put ${per} to a basket. How many baskets?`, eq: `${total} ÷ ${per} = ?`, ans: groups };
 

@@ -26,8 +26,9 @@ export default function Lesson() {
       <Figure caption="Do the multiplication first, then the subtraction. Order matters!">
         <div className="flex flex-col items-center gap-6">
           <p className="m-0 max-w-md text-center text-lg font-semibold">
-            You buy <strong>{packs}</strong>{" "}packs of pens with <strong>{per}</strong>{" "}
-            pens in each. You give <strong>{give}</strong>{" "}pens to friends. How many
+            You buy <strong>{packs}</strong>{" "}pack{packs === 1 ? "" : "s"} of pens with{" "}
+            <strong>{per}</strong>{" "}pen{per === 1 ? "" : "s"} in each. You give{" "}
+            <strong>{give}</strong>{" "}pen{give === 1 ? "" : "s"} to friends. How many
             pens do you keep?
           </p>
 

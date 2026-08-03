@@ -24,7 +24,7 @@ export default function Lesson() {
 
       <Figure caption="Same-size squares fill the rectangle in equal rows and columns.">
         <div className="flex flex-col items-center gap-6">
-          <svg width={W + 2} height={H + 2} viewBox={`0 0 ${W + 2} ${H + 2}`} className="max-w-full" role="img" aria-label={`${rows} rows and ${cols} columns of squares`}>
+          <svg width={W + 2} height={H + 2} viewBox={`0 0 ${W + 2} ${H + 2}`} className="max-w-full" role="img" aria-label={`${rows} row${rows === 1 ? "" : "s"} and ${cols} column${cols === 1 ? "" : "s"} of squares`}>
             <g transform="translate(1,1)">
               {Array.from({ length: rows }, (_, r) =>
                 Array.from({ length: cols }, (_, c) => (
@@ -35,7 +35,7 @@ export default function Lesson() {
           </svg>
 
           <div className="text-center">
-            <div className="font-mono text-xl font-black">{rows} rows × {cols} columns = <span style={{ color: FILL }}>{total}</span> squares</div>
+            <div className="font-mono text-xl font-black">{rows} row{rows === 1 ? "" : "s"} × {cols} column{cols === 1 ? "" : "s"} = <span style={{ color: FILL }}>{total}</span> square{total === 1 ? "" : "s"}</div>
             <div className="mt-1 text-sm text-[var(--ink-soft)]">
               {Array.from({ length: rows }, () => cols).join(" + ")} = {total}
             </div>

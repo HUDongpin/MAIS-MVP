@@ -134,8 +134,9 @@ export default function Lesson() {
           shows exactly why — splitting the unit square into b columns and d rows
           creates <strong>b×d</strong>{" "}equal parts, and the region that is inside
           both shadings is <strong>a×c</strong>{" "}of them. Because you take a part
-          of a part, the product of two proper fractions is always{" "}
-          <em>smaller</em>{" "}than either factor (5.NF.B.5).
+          of a part, multiplying by a fraction <em>less than 1</em>{" "}gives a
+          product <em>smaller</em>{" "}than the other factor; multiplying by a
+          fraction equal to 1 (like 3/3) leaves it unchanged (5.NF.B.5).
         </p>
       </MathCheck>
     </div>

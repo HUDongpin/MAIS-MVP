@@ -32,7 +32,7 @@ export default function Lesson() {
               {Array.from({ length: rows }, () => cols).join(" + ")} = <span style={{ color: DOT }}>{total}</span>
             </div>
             <div className="mt-1 text-sm text-[var(--ink-soft)]">
-              {rows} rows of {cols} — that is {cols} added {rows} times, which is {rows} × {cols} = {total}.
+              {rows} row{rows === 1 ? "" : "s"} of {cols} — that is {cols} added {rows} time{rows === 1 ? "" : "s"}, which is {rows} × {cols} = {total}.
             </div>
           </div>
 
@@ -54,7 +54,7 @@ export default function Lesson() {
         <p>
           Finding the total number of objects in a rectangular array (up to 5 by
           5) by adding equal rows — <strong>repeated addition</strong>{" "}— is
-          2.OA.C.4. Here, {rows} rows of {cols} give {" "}
+          2.OA.C.4. Here, {rows} row{rows === 1 ? "" : "s"} of {cols} give {" "}
           {Array.from({ length: rows }, () => cols).join(" + ")} = {total}. Writing
           it as {rows} × {cols} is the multiplication you will meet in Grade 3.
         </p>

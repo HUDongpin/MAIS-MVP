@@ -27,7 +27,7 @@ export default function Lesson() {
             {Array.from({ length: items }, (_, i) => <span key={i}>🍎</span>)}
           </div>
 
-          <div className="font-mono text-2xl font-black">${cost} for {items} apples</div>
+          <div className="font-mono text-2xl font-black">${cost} for {items} apple{items === 1 ? "" : "s"}</div>
           <span className="text-[var(--ink-faint)]">↓ divide both by {items}</span>
           <div className="rounded-2xl border-2 px-8 py-3 text-center" style={{ borderColor: ACCENT }}>
             <div className="font-mono text-3xl font-black" style={{ color: ACCENT }}>${rate.toFixed(2)} per apple</div>
@@ -35,7 +35,7 @@ export default function Lesson() {
           </div>
 
           <p className="m-0 text-center text-[15px] text-[var(--ink-soft)]">
-            So {items} apples cost ${cost}, and each apple is ${rate.toFixed(2)}. At that rate, {items * 2} apples would be ${(rate * items * 2).toFixed(2)}.
+            So {items} apple{items === 1 ? "" : "s"} cost ${cost}, and each apple is ${rate.toFixed(2)}. At that rate, {items * 2} apples would be ${(rate * items * 2).toFixed(2)}.
           </p>
 
           <div className="flex flex-wrap items-center justify-center gap-6">
@@ -56,7 +56,7 @@ export default function Lesson() {
         <p>
           A <strong>unit rate</strong>{" "}is the value a/b associated with a ratio
           a : b, giving the amount of the first quantity per <em>one</em>{" "}of the
-          second (6.RP.A.2). Here ${cost} for {items} apples is a unit rate of{" "}
+          second (6.RP.A.2). Here ${cost} for {items} apple{items === 1 ? "" : "s"} is a unit rate of{" "}
           {cost} ÷ {items} = ${rate.toFixed(2)} per apple. Unit rates make it easy
           to compare and scale ratios.
         </p>

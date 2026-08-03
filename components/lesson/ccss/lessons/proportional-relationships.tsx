@@ -68,7 +68,7 @@ export default function Lesson() {
           </div>
 
           <p className="m-0 text-center text-[15px] font-semibold text-[var(--ink-soft)]">
-            The constant of proportionality is k = {k}: every y is {k} times its x, and the line passes through the origin.
+            The constant of proportionality is k = {k}: every y is {k} time{k === 1 ? "" : "s"} its x, and the line passes through the origin.
           </p>
 
           <div className="flex flex-col items-center gap-1">

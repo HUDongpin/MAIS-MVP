@@ -79,9 +79,9 @@ export default function Lesson() {
       <h2>Line up tens with tens</h2>
       <p>
         {mode === "subtens"
-          ? `Taking away ${amt} tens removes ${amt} rods: ${base} − ${amt * 10} = ${result}.`
+          ? `Taking away ${amt} ten${amt === 1 ? "" : "s"} removes ${amt} rod${amt === 1 ? "" : "s"}: ${base} − ${amt * 10} = ${result}.`
           : mode === "tens"
-            ? `Adding ${amt} tens adds ${amt} rods, and the ones stay put: ${result}.`
+            ? `Adding ${amt} ten${amt === 1 ? "" : "s"} adds ${amt} rod${amt === 1 ? "" : "s"}, and the ones stay put: ${result}.`
             : `Add the ones together${carry ? ", and if you reach ten, make a new ten" : ""}: ${result}.`}
       </p>
 

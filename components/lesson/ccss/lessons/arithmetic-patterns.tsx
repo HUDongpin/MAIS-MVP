@@ -59,7 +59,7 @@ export default function Lesson() {
           Identifying arithmetic patterns — in the addition table, the
           multiplication table, or a hundred chart — and explaining them using
           properties of operations is 3.OA.D.9. For example, multiples of {k}{" "}
-          {k === 9 ? "have digits that sum to 9" : `end in ${k === 2 ? "an even digit" : k === 5 ? "0 or 5" : "0"}`},
+          {k === 9 ? "have digits that sum to a multiple of 9 (9, 18, 27, …)" : `end in ${k === 2 ? "an even digit" : k === 5 ? "0 or 5" : "0"}`},
           and that pattern follows directly from how place value and repeated
           addition work.
         </p>
