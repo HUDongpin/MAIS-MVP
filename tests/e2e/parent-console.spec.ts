@@ -497,7 +497,10 @@ test.describe.serial("parent console end-to-end verification", () => {
 
       await page.getByLabel(/Invite code/i).fill("MAIS-NOPE");
       await page.getByRole("button", { name: /^Connect$/i }).click();
-      await expect(page.getByText(/Invite code could not be linked/i)).toBeVisible();
+      // getByText alone passes whether or not the failure is announced. A parent who
+      // cannot see the red text gets no signal that the link failed, so assert the
+      // alert role — the login form's convention for exactly this.
+      await expect(page.getByRole("alert")).toHaveText(/Invite code could not be linked/i);
 
       await page.getByLabel(/Invite code/i).fill(inviteCode);
       await page.getByLabel(/Relationship/i).selectOption("guardian");
