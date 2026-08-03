@@ -60,7 +60,11 @@ export default function Lesson() {
               ))}
               <line x1={sx(0)} y1={sy(0)} x2={sx(N)} y2={sy(0)} stroke="var(--ink-soft)" strokeWidth={2} />
               <line x1={sx(0)} y1={sy(0)} x2={sx(0)} y2={sy(N)} stroke="var(--ink-soft)" strokeWidth={2} />
-              <line x1={sx(0)} y1={sy(0)} x2={sx(Math.min(N, N))} y2={sy(Math.min(N, k * N))} stroke={ACCENT} strokeWidth={2.5} />
+              {/* Clamp x, not y. Clamping the y-endpoint made both ends
+                  (N, min(N, kN)) = (12, 12) for every k, so the drawn line was
+                  always y = x and passed through none of the plotted points
+                  except the origin — under a caption saying every y ÷ x is k. */}
+              <line x1={sx(0)} y1={sy(0)} x2={sx(Math.min(N, N / k))} y2={sy(k * Math.min(N, N / k))} stroke={ACCENT} strokeWidth={2.5} />
               {rows.filter((r) => r.y <= N).map((r) => (
                 <circle key={r.x} cx={sx(r.x)} cy={sy(r.y)} r={5} fill={ACCENT} stroke="white" strokeWidth={1.5} />
               ))}

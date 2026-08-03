@@ -57,7 +57,10 @@ export default function Lesson() {
           <div className="flex flex-wrap items-center justify-center gap-4">
             <Stepper label="a" value={a} onChange={setA} />
             <Stepper label="b" value={b} onChange={setB} />
-            <Stepper label="c" value={c} onChange={setC} />
+            {/* c = 1 makes the two expressions algebraically identical
+                (their difference is a·(c−1)), so the page read "Same digits,
+                different answers" above two identical results. */}
+            <Stepper label="c" value={c} min={2} onChange={setC} />
             <Stepper label="d" value={d} onChange={setD} />
           </div>
         </div>
@@ -83,13 +86,13 @@ export default function Lesson() {
   );
 }
 
-function Stepper({ label, value, onChange }: { label: string; value: number; onChange: (n: number) => void }) {
-  const set = (v: number) => onChange(Math.max(1, Math.min(9, v)));
+function Stepper({ label, value, min = 1, onChange }: { label: string; value: number; min?: number; onChange: (n: number) => void }) {
+  const set = (v: number) => onChange(Math.max(min, Math.min(9, v)));
   return (
     <div className="flex flex-col items-center gap-1">
       <span className="text-xs font-semibold uppercase tracking-wide text-[var(--ink-faint)]">{label}</span>
       <div className="flex items-center gap-1.5">
-        <button type="button" onClick={() => set(value - 1)} disabled={value <= 1} className="h-8 w-8 rounded-lg border border-[var(--line)] bg-[var(--surface)] font-bold disabled:opacity-40" aria-label={`Decrease ${label}`}>−</button>
+        <button type="button" onClick={() => set(value - 1)} disabled={value <= min} className="h-8 w-8 rounded-lg border border-[var(--line)] bg-[var(--surface)] font-bold disabled:opacity-40" aria-label={`Decrease ${label}`}>−</button>
         <span className="w-6 text-center text-xl font-black tabular-nums">{value}</span>
         <button type="button" onClick={() => set(value + 1)} disabled={value >= 9} className="h-8 w-8 rounded-lg border border-[var(--line)] bg-[var(--surface)] font-bold disabled:opacity-40" aria-label={`Increase ${label}`}>+</button>
       </div>

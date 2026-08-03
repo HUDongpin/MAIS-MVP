@@ -23,7 +23,12 @@ export default function Lesson() {
       <Figure caption="Change the color, size, and direction all you like — it is still a triangle.">
         <div className="flex flex-col items-center gap-6">
           <svg width="180" height="180" viewBox="0 0 180 180" role="img" aria-label="a triangle">
-            <g transform={`rotate(${rot} 90 90) scale(${scale})`} style={{ transformOrigin: "90px 90px", transition: "transform 0.3s ease" }}>
+            {/* One centring mechanism, not two. The SVG transform attribute
+                already rotates about (90,90), and the CSS transform-origin was
+                applied on top of it, so the shape actually rotated about
+                (180,180) — the bottom-right corner of the viewBox — and swung
+                out of frame. */}
+            <g transform={`rotate(${rot} 90 90) translate(90 90) scale(${scale}) translate(-90 -90)`} style={{ transition: "transform 0.3s ease" }}>
               <polygon points="90,35 145,135 35,135" fill={COLORS[ci]} />
             </g>
           </svg>

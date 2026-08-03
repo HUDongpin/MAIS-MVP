@@ -29,6 +29,24 @@ export default function Lesson() {
   const [d2, setD2] = useState(3);
   const [op, setOp] = useState<"add" | "sub">("add");
 
+  // Subtract mode must never go negative (5.NF.A.1 has no negative fractions).
+  // Lower the second fraction where possible; when it is already at its floor
+  // of 1/d2, raise the first instead so the invariant is always satisfiable.
+  const applyState = (nn1: number, dd1: number, nn2: number, dd2: number) => {
+    let a1 = Math.max(1, Math.min(nn1, dd1));
+    let a2 = Math.max(1, Math.min(nn2, dd2));
+    if (op === "sub") {
+      const maxSecond = Math.floor((a1 / dd1) * dd2);
+      if (maxSecond >= 1) {
+        a2 = Math.min(a2, maxSecond);
+      } else {
+        a2 = 1;
+        a1 = Math.max(a1, Math.min(dd1, Math.ceil(dd1 / dd2)));
+      }
+    }
+    setN1(a1); setD1(dd1); setN2(a2); setD2(dd2);
+  };
+
   const lcm = (d1 * d2) / gcd(d1, d2);
   const na = n1 * (lcm / d1);
   const nc = n2 * (lcm / d2);
@@ -54,7 +72,7 @@ export default function Lesson() {
             {(["add", "sub"] as const).map((o) => (
               // Switching to Subtract also has to bring the second fraction
               // down, or the pair chosen while adding could go negative.
-              <button key={o} type="button" onClick={() => { setOp(o); if (o === "sub") setN2((p) => Math.max(1, Math.min(p, Math.floor((n1 / d1) * d2)))); }} className="rounded-lg border px-3 py-1.5 text-sm font-bold" style={op === o ? { background: A, color: "white", borderColor: A } : { borderColor: "var(--line)", color: "var(--ink-soft)" }}>{o === "add" ? "Add" : "Subtract"}</button>
+              <button key={o} type="button" onClick={() => { setOp(o); if (o === "sub") { const m = Math.floor((n1 / d1) * d2); if (m >= 1) setN2((p) => Math.max(1, Math.min(p, m))); else { setN2(1); setN1((p) => Math.max(p, Math.min(d1, Math.ceil(d1 / d2)))); } } }} className="rounded-lg border px-3 py-1.5 text-sm font-bold" style={op === o ? { background: A, color: "white", borderColor: A } : { borderColor: "var(--line)", color: "var(--ink-soft)" }}>{o === "add" ? "Add" : "Subtract"}</button>
             ))}
           </div>
 
@@ -78,10 +96,16 @@ export default function Lesson() {
           </div>
 
           <div className="flex flex-wrap items-center justify-center gap-8">
-            {/* In subtract mode the second fraction is held at or below the
-                first, so the difference never goes negative. */}
-            <FracControl label="First" color={A} num={n1} den={d1} onNum={(v) => { setN1(v); if (op === "sub") setN2((p) => Math.min(p, Math.floor((v / d1) * d2))); }} onDen={(v) => { setD1(v); setN1((p) => Math.min(p, v)); }} />
-            <FracControl label="Second" color={B} num={n2} den={d2} onNum={(v) => setN2(op === "sub" ? Math.min(v, Math.floor((n1 / d1) * d2)) : v)} onDen={(v) => { setD2(v); setN2((p) => Math.min(p, v, op === "sub" ? Math.floor((n1 / d1) * v) : v)); }} />
+            {/* Every transition goes through one normaliser. Four divergent
+                inline clamps left a gap: the FIRST denominator's handler never
+                re-clamped n2, so raising it twice in subtract mode produced
+                "= −1/12" and prose reading "so you can subtract them: −1/12". */}
+            <FracControl label="First" color={A} num={n1} den={d1}
+              onNum={(v) => applyState(v, d1, n2, d2)}
+              onDen={(v) => applyState(Math.min(n1, v), v, n2, d2)} />
+            <FracControl label="Second" color={B} num={n2} den={d2}
+              onNum={(v) => applyState(n1, d1, v, d2)}
+              onDen={(v) => applyState(n1, d1, Math.min(n2, v), v)} />
           </div>
         </div>
       </Figure>

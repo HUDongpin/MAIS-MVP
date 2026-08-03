@@ -44,7 +44,11 @@ export default function Lesson() {
             ))}
             <line x1={sx(0)} y1={sy(0)} x2={sx(XMAX)} y2={sy(0)} stroke="var(--ink-soft)" strokeWidth={2} />
             <line x1={sx(0)} y1={sy(0)} x2={sx(0)} y2={sy(YMAX)} stroke="var(--ink-soft)" strokeWidth={2} />
-            <line x1={sx(0)} y1={sy(cost(0))} x2={sx(XMAX)} y2={sy(Math.min(cost(XMAX), YMAX))} stroke={ACCENT} strokeWidth={3} />
+            {/* Clip the segment at the x where it leaves the frame, rather than
+                squashing its y-endpoint onto the ceiling: squashing changed the
+                drawn slope away from the printed rate, leaving the solution dot
+                floating ~50px off the line. */}
+            <line x1={sx(0)} y1={sy(cost(0))} x2={sx(Math.min(XMAX, (YMAX - base) / rate))} y2={sy(cost(Math.min(XMAX, (YMAX - base) / rate)))} stroke={ACCENT} strokeWidth={3} />
             {Number.isInteger(miles) && miles >= 0 && miles <= XMAX && (
               <circle cx={sx(miles)} cy={sy(total)} r={5} fill="var(--band-upper)" stroke="white" strokeWidth={2} />
             )}

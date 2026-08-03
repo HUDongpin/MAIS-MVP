@@ -43,7 +43,12 @@ export default function Lesson() {
           {/* tape diagram */}
           <div className="flex w-full max-w-lg flex-col items-center gap-2">
             <div className="flex h-8 overflow-hidden rounded-lg">
-              <div className="grid place-items-center text-xs font-bold text-white" style={{ width: a * PXU, background: A }}>{a}</div>
+              {/* In two-step mode the bar has to start from what is LEFT after
+                  the birds fly away. It drew the full starting bar plus the
+                  landed bar, so the picture showed 45 + 12 = 57 beside an
+                  equation reading 45 − 18 + 12 = 39, and nothing represented
+                  the subtraction the caption promises. */}
+              <div className="grid place-items-center text-xs font-bold text-white" style={{ width: (twoStep ? step1 : a) * PXU, background: A }}>{twoStep ? step1 : a}</div>
               {!twoStep && <div className="grid place-items-center border-l-2 border-white text-xs font-bold text-white" style={{ width: b * PXU, background: B }}>{b}</div>}
               {twoStep && <div className="grid place-items-center border-l-2 border-white text-xs font-bold text-white" style={{ width: c * PXU, background: CC }}>+{c}</div>}
             </div>

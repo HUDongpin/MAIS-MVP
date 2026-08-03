@@ -13,6 +13,33 @@ export default function Lesson() {
   const a3 = 180 - a1 - a2;
   const valid = a3 > 0;
 
+  // Build BOTH triangles from the angles the steppers actually set, so the two
+  // shapes joined by "~" really are similar and the corner labelled a1 really
+  // measures a1. They were hard-coded and were not similar at all: the small
+  // one measured ~69/45/66 and the large ~46/69/64, and a1 was printed at the
+  // bottom-left of both even though those corners differ.
+  const rad = (deg: number) => (deg * Math.PI) / 180;
+  const tri = (w: number, h: number) => {
+    const pad = 16;
+    const base = 100;
+    const legLeft = valid ? (base * Math.sin(rad(a2))) / Math.sin(rad(a3)) : base;
+    const apexX = legLeft * Math.cos(rad(a1));
+    const apexY = legLeft * Math.sin(rad(a1));
+    const minX = Math.min(0, apexX);
+    const maxX = Math.max(base, apexX);
+    const scale = Math.min((w - 2 * pad) / (maxX - minX), (h - 2 * pad) / Math.max(apexY, 1));
+    const ox = pad - minX * scale;
+    const oy = h - pad;
+    return {
+      points: `${ox},${oy} ${ox + base * scale},${oy} ${ox + apexX * scale},${oy - apexY * scale}`,
+      leftX: ox + 6,
+      rightX: ox + base * scale - 26,
+      labelY: oy - 6,
+    };
+  };
+  const small = tri(150, 120);
+  const large = tri(190, 150);
+
   return (
     <div className="prose-lesson max-w-none">
       <p>
@@ -26,15 +53,15 @@ export default function Lesson() {
         <div className="flex flex-col items-center gap-6">
           <div className="flex items-center gap-8">
             <svg width={150} height={120} viewBox="0 0 150 120" role="img" aria-label="small triangle">
-              <polygon points="20,100 110,100 45,35" fill={ACCENT} fillOpacity={0.15} stroke={ACCENT} strokeWidth={2.5} />
-              <text x={26} y={94} fontSize={11} fill="var(--band-upper)">{a1}°</text>
-              <text x={92} y={94} fontSize={11} fill="var(--band-middle)">{valid ? a2 : "?"}°</text>
+              <polygon points={small.points} fill={ACCENT} fillOpacity={0.15} stroke={ACCENT} strokeWidth={2.5} />
+              <text x={small.leftX} y={small.labelY} fontSize={11} fill="var(--band-upper)">{a1}°</text>
+              <text x={small.rightX} y={small.labelY} fontSize={11} fill="var(--band-middle)">{valid ? a2 : "?"}°</text>
             </svg>
             <span className="text-2xl font-black" style={{ color: ACCENT }}>~</span>
             <svg width={190} height={150} viewBox="0 0 190 150" role="img" aria-label="large triangle">
-              <polygon points="20,130 160,130 120,25" fill={ACCENT} fillOpacity={0.3} stroke={ACCENT} strokeWidth={2.5} />
-              <text x={26} y={124} fontSize={12} fill="var(--band-upper)">{a1}°</text>
-              <text x={135} y={124} fontSize={12} fill="var(--band-middle)">{valid ? a2 : "?"}°</text>
+              <polygon points={large.points} fill={ACCENT} fillOpacity={0.3} stroke={ACCENT} strokeWidth={2.5} />
+              <text x={large.leftX} y={large.labelY} fontSize={12} fill="var(--band-upper)">{a1}°</text>
+              <text x={large.rightX} y={large.labelY} fontSize={12} fill="var(--band-middle)">{valid ? a2 : "?"}°</text>
             </svg>
           </div>
 

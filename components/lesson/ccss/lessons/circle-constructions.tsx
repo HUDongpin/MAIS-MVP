@@ -10,12 +10,19 @@ const MODES = [
   {
     name: "Inscribed circle",
     desc: "The incircle touches all three sides. Its center is the incenter — where the three angle bisectors meet.",
-    center: [120, 105] as [number, number], r: 34, kind: "in",
+    // True incenter and inradius of the triangle drawn below
+    // ((40,160),(200,160),(120,30)). The old circle (120,105) r 34 cleared
+    // the base by 21px and each slanted side by 5.3px, so it touched no side
+    // at all while the description promised it touches all three.
+    center: [120, 115.3] as [number, number], r: 44.7, kind: "in",
   },
   {
     name: "Circumscribed circle",
     desc: "The circumcircle passes through all three vertices. Its center is the circumcenter — where the perpendicular bisectors of the sides meet.",
-    center: [120, 95] as [number, number], r: 78, kind: "circum",
+    // True circumcentre and circumradius. The old circle (120,95) r 78 left
+    // both base vertices outside it and the apex inside it, so it passed
+    // through none of the three.
+    center: [120, 119.6] as [number, number], r: 89.6, kind: "circum",
   },
   {
     name: "Tangent line",

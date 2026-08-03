@@ -34,9 +34,14 @@ export default function Lesson() {
           </div>
 
           <svg width={240} height={170} viewBox="0 0 240 170" role="img" aria-label={t.name}>
-            <polygon points="40,140 200,140 90,40" fill={ACCENT} fillOpacity={0.15} stroke={ACCENT} strokeWidth={2.5} />
+            {/* The isosceles tab needs an isosceles triangle. The shared scalene
+                one (base angles 63.4 and 42.3) sat under the assertion "if two
+                sides are equal, the base angles are equal", so the figure
+                disproved the theorem it was illustrating. The other two tabs are
+                correct as drawn, so only the isosceles case gets its own shape. */}
+            <polygon points={idx === 1 ? "40,140 200,140 120,40" : "40,140 200,140 90,40"} fill={ACCENT} fillOpacity={0.15} stroke={ACCENT} strokeWidth={2.5} />
             {idx === 0 && <line x1={50} y1={40} x2={130} y2={40} stroke="var(--band-upper)" strokeWidth={2} strokeDasharray="4 3" />}
-            {idx === 1 && <line x1={90} y1={40} x2={120} y2={140} stroke="var(--band-upper)" strokeWidth={1.5} strokeDasharray="4 3" />}
+            {idx === 1 && <line x1={120} y1={40} x2={120} y2={140} stroke="var(--band-upper)" strokeWidth={1.5} strokeDasharray="4 3" />}
             {idx === 2 && (
               <>
                 <line x1={65} y1={90} x2={145} y2={90} stroke="var(--band-upper)" strokeWidth={3} />
