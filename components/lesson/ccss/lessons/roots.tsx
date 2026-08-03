@@ -23,8 +23,13 @@ export default function Lesson() {
     <div className="prose-lesson max-w-none">
       <p>
         A <strong>square root</strong>{" "}undoes squaring; a <strong>cube root</strong>{" "}
-        undoes cubing. So <strong>x² = {mode === "sq" ? p : 0}</strong>{" "}is solved by
-        a square root, and <strong>x³ = p</strong>{" "}by a cube root. Some come out
+        {/* The old text interpolated a bare 0 in cube-root mode ("x² = 0"),
+            a placeholder tied to nothing on screen, and mixed a concrete number
+            with a bare letter in square-root mode. Show the live value on the
+            equation the mode is actually demonstrating. */}
+        undoes cubing. So <strong>x² = p</strong>{" "}is solved by
+        a square root, and <strong>x³ = p</strong>{" "}by a cube root — here{" "}
+        <strong>x{mode === "sq" ? "²" : "³"} = {p}</strong>. Some come out
         whole; most are irrational.
       </p>
 

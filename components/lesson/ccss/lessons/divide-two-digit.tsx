@@ -56,7 +56,9 @@ export default function Lesson() {
       <p>
         Rounding {divisor} to {dRound} gives a quick estimate of about {est}. The
         exact quotient is {q}, which is close — so you know your answer is
-        reasonable. Multiplying back ({divisor} × {q} = {divisor * q}) confirms it.
+        {/* The check has to include the remainder, or it does not check
+            anything: 432 ÷ 17 = 25 R 7 was "confirmed" by 17 × 25 = 425. */}
+        reasonable. Multiplying back confirms it: {divisor} × {q}{r > 0 ? ` + ${r}` : ""} = {divisor * q + r}.
       </p>
 
       <MathCheck>

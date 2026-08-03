@@ -51,9 +51,14 @@ export default function Lesson() {
 
       <h2>Around versus inside</h2>
       <p>
-        This rectangle has perimeter {perimeter} but area {area} — two different
-        numbers measuring two different things. Two shapes can even share a
-        perimeter yet have different areas.
+        {/* The default 6 × 3 gives perimeter 18 and area 18, so the original
+            wording ("two different numbers") contradicted itself on first
+            render — as did 4 × 4 and 3 × 6. */}
+        This rectangle has perimeter {perimeter} and area {area}
+        {perimeter === area
+          ? " — the same number here, but they measure different things: one is a distance in units, the other a coverage in square units."
+          : " — two different numbers measuring two different things."}{" "}
+        Two shapes can even share a perimeter yet have different areas.
       </p>
 
       <MathCheck>

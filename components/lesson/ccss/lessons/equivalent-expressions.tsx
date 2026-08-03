@@ -41,11 +41,13 @@ export default function Lesson() {
 
           <div className="grid grid-cols-2 gap-6">
             <div className="rounded-xl border-2 px-6 py-3 text-center" style={{ borderColor: L }}>
-              <div className="font-mono text-sm text-[var(--ink-soft)]">{leftExpr.replace("x", `(${x})`)}</div>
+              {/* replaceAll, not replace: "3x + 2x" has two x's, so substituting only
+                  the first rendered "3(4) + 2x" above a value computed from both. */}
+              <div className="font-mono text-sm text-[var(--ink-soft)]">{leftExpr.replaceAll("x", `(${x})`)}</div>
               <div className="font-mono text-2xl font-black" style={{ color: L }}>= {left}</div>
             </div>
             <div className="rounded-xl border-2 px-6 py-3 text-center" style={{ borderColor: Rr }}>
-              <div className="font-mono text-sm text-[var(--ink-soft)]">{rightExpr.replace("x", `(${x})`)}</div>
+              <div className="font-mono text-sm text-[var(--ink-soft)]">{rightExpr.replaceAll("x", `(${x})`)}</div>
               <div className="font-mono text-2xl font-black" style={{ color: Rr }}>= {right}</div>
             </div>
           </div>

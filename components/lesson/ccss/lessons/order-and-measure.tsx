@@ -9,9 +9,12 @@ type Bar = { name: string; color: string; len: number };
 
 export default function Lesson() {
   const [bars, setBars] = useState<Bar[]>([
-    { name: "red", color: "var(--band-early)", len: 5 },
+    // Names must match the tokens a Grade 1 student sees: --band-early is
+    // ORANGE and --band-high is PURPLE, so the strips called "red" and "green"
+    // rendered orange and purple while the prose named the wrong colours.
+    { name: "orange", color: "var(--band-early)", len: 5 },
     { name: "blue", color: "var(--band-middle)", len: 8 },
-    { name: "green", color: "var(--band-high)", len: 3 },
+    { name: "purple", color: "var(--band-high)", len: 3 },
   ]);
 
   const sorted = [...bars].sort((a, b) => a.len - b.len);

@@ -45,7 +45,10 @@ export default function Lesson() {
         <div className="flex flex-col items-center gap-6">
           <div className="flex flex-wrap justify-center gap-6 font-mono text-lg font-black">
             <span style={{ color: ACCENT }}>y = x²</span>
-            <span style={{ color: LINE }}>y = {m}x + {k}</span>
+            {/* The legend was missed when the sign folding was applied to the
+                equation panel and the prose — and it is the first equation the
+                student reads, rendering "y = 1x + -4" at negative k. */}
+            <span style={{ color: LINE }}>y = {m}x {addend(k)}</span>
           </div>
 
           <svg width={W} height={H} viewBox={`0 0 ${W} ${H}`} className="max-w-full" style={{ maxHeight: 300 }} role="img" aria-label="line and parabola">

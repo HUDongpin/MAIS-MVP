@@ -13,7 +13,10 @@ export default function Lesson() {
   const seq = Array.from({ length: 6 }, (_, i) => start + i * step);
   const feature = step % 2 === 0
     ? `Because you add ${step} (an even number) each time, every term keeps the same parity — they are all ${start % 2 === 0 ? "even" : "odd"}.`
-    : `Because you add ${step} (an odd number) each time, the terms alternate: odd, even, odd, even…`;
+    // The order has to follow the start value: the default 2, 5, 8, 11 begins
+    // even, so a hard-coded "odd, even" told the student the opposite of the
+    // dot rows directly above.
+    : `Because you add ${step} (an odd number) each time, the terms alternate: ${start % 2 === 0 ? "even, odd, even, odd" : "odd, even, odd, even"}…`;
 
   return (
     <div className="prose-lesson max-w-none">

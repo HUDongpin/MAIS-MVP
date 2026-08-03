@@ -20,7 +20,17 @@ export default function Lesson() {
     { line: `${a}x + ${b} = ${c}x + ${d}`, why: "original equation" },
     { line: `${a - c}x + ${b} = ${d}`, why: `subtract ${c}x from both sides` },
     { line: `${a - c}x = ${d - b}`, why: `subtract ${b} from both sides` },
-    { line: `x = ${solvable ? (Number.isInteger(x) ? x : x.toFixed(2)) : "?"}`, why: `divide both sides by ${a - c}` },
+    // a === c collapses the x-terms, so there is nothing to divide by. Printing
+    // "divide both sides by 0" as the justification is the one thing an
+    // A-REI.1 lesson about legitimate steps must never do.
+    {
+      line: solvable
+        ? `x = ${Number.isInteger(x) ? x : x.toFixed(2)}`
+        : (d - b === 0 ? "0 = 0 — true for every x" : `0 = ${d - b} — impossible`),
+      why: solvable
+        ? `divide both sides by ${a - c}`
+        : (d - b === 0 ? "the x-terms cancel and the equation is always true" : "the x-terms cancel and the equation is never true"),
+    },
   ];
 
   return (

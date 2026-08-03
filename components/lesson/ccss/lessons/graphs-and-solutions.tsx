@@ -71,7 +71,15 @@ export default function Lesson() {
           </svg>
 
           <div className="rounded-xl border-2 px-6 py-2 text-center font-mono text-sm" style={{ borderColor: ACCENT }}>
-            {denom !== 0 ? <>solve {m}x + {b} = −x + 5 → x = <strong style={{ color: ACCENT }}>{xstar}</strong></> : "parallel — no solution"}
+            {/* m = −1 is reachable, and there b = 5 makes the two functions
+                IDENTICAL — coincident lines have infinitely many solutions, not
+                none. Calling that "parallel — no solution" inverted the lesson's
+                own thesis in the one state where the graphs fully agree. */}
+            {denom !== 0
+              ? <>solve {m}x + {b} = −x + 5 → x = <strong style={{ color: ACCENT }}>{xstar}</strong></>
+              : b === 5
+                ? "same line — every x is a solution"
+                : "parallel — no solution"}
           </div>
 
           <div className="flex flex-wrap items-center justify-center gap-6">

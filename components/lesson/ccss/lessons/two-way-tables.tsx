@@ -60,7 +60,11 @@ export default function Lesson() {
 
           <div className="rounded-xl px-5 py-2 text-center text-[15px] font-bold" style={{ color: association ? ACCENT : "var(--ink-soft)" }}>
             {association
-              ? `Association! Pet owners like animal movies (${pctPetYes}%) much more than non-owners (${pctPetNo}%).`
+              // Direction follows the data. It was hard-coded as "much more"
+              // while the trigger is the absolute gap, so lowering the pet-owner
+              // cell announced "Pet owners like animal movies (25%) much more
+              // than non-owners (44%)" — the reverse of what the table showed.
+              ? `Association! Pet owners like animal movies (${pctPetYes}%) much ${pctPetYes > pctPetNo ? "more" : "less"} than non-owners (${pctPetNo}%).`
               : `Little association — the two groups like movies at similar rates (${pctPetYes}% vs ${pctPetNo}%).`}
           </div>
         </div>

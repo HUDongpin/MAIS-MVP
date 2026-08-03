@@ -81,7 +81,7 @@ export default function Lesson() {
       <p>
         {a} {unitName(a, d)} {op === "add" ? "plus" : "minus"} {b} {unitName(b, d)} is {result}{" "}
         {unitName(result, d)}. When you have {d} or more {unitName(2, d)}, that is one or more{" "}
-        <strong>wholes</strong>{" "}— {result}/{d} = {whole}{rem > 0 ? ` ${rem}/${d}` : ""}.
+        <strong>wholes</strong>{result >= d ? <> — {result}/{d} = {whole}{rem > 0 ? ` ${rem}/${d}` : ""}</> : <>. Here {result}/{d} is still less than one whole</>}.
       </p>
 
       <MathCheck>
@@ -90,7 +90,7 @@ export default function Lesson() {
           <strong>joining or separating parts</strong>{" "}of the same whole: add the
           numerators, keep the denominator. A fraction like {result}/{d} can be{" "}
           <strong>decomposed</strong>{" "}into wholes and a part — a{" "}
-          <strong>mixed number</strong>{" "}{whole}{rem > 0 ? ` ${rem}/${d}` : ""} — because {d}/{d} = 1.
+          {result >= d ? <><strong>mixed number</strong>{" "}{whole}{rem > 0 ? ` ${rem}/${d}` : ""} — because {d}/{d} = 1.</> : <>whole once it reaches {d}/{d} = 1; {result}/{d} has not got there yet, so it stays a single fraction.</>}
         </p>
       </MathCheck>
     </div>

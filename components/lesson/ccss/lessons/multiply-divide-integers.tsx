@@ -29,7 +29,7 @@ export default function Lesson() {
         <div className="flex flex-col items-center gap-6">
           <div className="flex items-center gap-2">
             {(["mul", "div"] as const).map((o) => (
-              <button key={o} type="button" onClick={() => setOp(o)} className="grid h-10 w-10 place-items-center rounded-lg border text-xl font-black" style={op === o ? { background: "var(--band-middle)", color: "white", borderColor: "var(--band-middle)" } : { borderColor: "var(--line)", color: "var(--ink-soft)" }}>{o === "mul" ? "×" : "÷"}</button>
+              <button key={o} type="button" onClick={() => { setOp(o); if (o === "div") setB((p) => (p === 0 ? 1 : p)); }} className="grid h-10 w-10 place-items-center rounded-lg border text-xl font-black" style={op === o ? { background: "var(--band-middle)", color: "white", borderColor: "var(--band-middle)" } : { borderColor: "var(--line)", color: "var(--ink-soft)" }}>{o === "mul" ? "×" : "÷"}</button>
             ))}
           </div>
 
@@ -57,6 +57,10 @@ export default function Lesson() {
           </table>
 
           <div className="flex flex-wrap items-center justify-center gap-6">
+            {/* Switching to ÷ must also move b off zero: allowZero only gated
+                the stepper, so a 0 chosen in × mode survived the switch and the
+                page printed "−3 ÷ 0 = 0" beside a Math Check saying division by
+                0 is undefined. */}
             <Stepper label="First" value={a} onChange={setA} />
             <Stepper label="Second" value={b} onChange={setB} allowZero={op === "mul"} />
           </div>
