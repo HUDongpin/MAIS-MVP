@@ -3,6 +3,7 @@
 import { useEffect } from "react";
 import { primaryGrades, secondaryGrades } from "@/data/grades";
 import { useSettings } from "@/components/providers/AppProviders";
+import { dashboardGradeSelectorGroupLabel } from "@/components/dashboard/dashboardGradeSelectorLabel";
 import { formatGradeLabelForCurriculum } from "@/lib/i18n";
 import { cn } from "@/lib/utils";
 import type { CurriculumTrack, Grade, GradeId } from "@/types";
@@ -120,7 +121,7 @@ export function DashboardGradeSelectorGrid() {
     <div
       className="grid gap-3"
       role="radiogroup"
-      aria-label={t({ en: "Select grade", zh: "選擇年級", zhHans: "选择年级" })}
+      aria-label={t(dashboardGradeSelectorGroupLabel(Boolean(fixedStudentGrade)))}
     >
       <div className={cn("grid gap-3", gradeRowGridClassName)} data-testid="dashboard-primary-grade-row">
         {visiblePrimaryGrades.map(renderGrade)}
