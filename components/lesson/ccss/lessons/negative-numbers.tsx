@@ -10,12 +10,20 @@ const R = 10;
 const STEP = 15;
 const H = 2 * R * STEP + 40;
 
-type Ctx = { key: string; label: string; unit: string; up: string; down: string };
+type Ctx = { key: string; label: string; unit: string; prefix?: boolean; up: string; down: string };
 const CTXS: Ctx[] = [
   { key: "temp", label: "Temperature", unit: "°C", up: "above freezing", down: "below freezing" },
   { key: "elev", label: "Elevation", unit: " m", up: "above sea level", down: "below sea level" },
-  { key: "money", label: "Bank balance", unit: "$", up: "savings", down: "debt" },
+  { key: "money", label: "Bank balance", unit: "$", prefix: true, up: "savings", down: "debt" },
 ];
+
+// The unit used to be appended to every context, which is right for "°C" and
+// " m" but printed the Bank balance as "-6$" and "6$ debt".
+const amount = (n: number, ctx: Ctx, sign: boolean) => {
+  const s = sign ? (n > 0 ? "+" : n < 0 ? "−" : "") : "";
+  const mag = `${Math.abs(n)}`;
+  return ctx.prefix ? `${s}${ctx.unit}${mag}` : `${s}${mag}${ctx.unit}`;
+};
 
 export default function Lesson() {
   const [v, setV] = useState(6);
@@ -57,9 +65,9 @@ export default function Lesson() {
             </svg>
 
             <div className="text-center">
-              <div className="text-4xl font-black" style={{ color: v >= 0 ? POS : NEG }}>{v > 0 ? "+" : ""}{v}{ctx.unit}</div>
+              <div className="text-4xl font-black" style={{ color: v >= 0 ? POS : NEG }}>{amount(v, ctx, true)}</div>
               <p className="mt-1 max-w-[10rem] text-[15px] text-[var(--ink-soft)]">
-                {v === 0 ? "right at zero" : v > 0 ? `${v}${ctx.unit} ${ctx.up}` : `${Math.abs(v)}${ctx.unit} ${ctx.down}`}
+                {v === 0 ? "right at zero" : v > 0 ? `${amount(v, ctx, false)} ${ctx.up}` : `${amount(v, ctx, false)} ${ctx.down}`}
               </p>
               <div className="mt-3 text-sm text-[var(--ink-faint)]">opposite: <span className="font-mono font-bold">{-v > 0 ? "+" : ""}{-v}</span></div>
             </div>

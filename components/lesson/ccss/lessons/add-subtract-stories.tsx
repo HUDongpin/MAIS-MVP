@@ -36,7 +36,12 @@ export default function Lesson() {
               <button
                 key={m}
                 type="button"
-                onClick={() => setMode(m)}
+                // b was only re-clamped when First changed while already in
+                // separate mode. Coming from "Put together" with First 1 and
+                // Second 10, the Second control read 10 against a maximum of 1
+                // while the story and the sentence both showed 1, and nine
+                // presses of "−" changed nothing on screen.
+                onClick={() => { setMode(m); setB((p) => (m === "separate" ? Math.min(p, a) : Math.max(p, 1))); }}
                 className="rounded-lg border px-3 py-1.5 text-sm font-bold"
                 style={mode === m ? { background: A, color: "white", borderColor: A } : { borderColor: "var(--line)", color: "var(--ink-soft)" }}
               >

@@ -47,7 +47,9 @@ export default function Lesson() {
         Who was studied, and how were they selected? Was it a randomized experiment or
         an observational study? What&apos;s the sample size and margin of error? Is
         there a control group? Could a lurking variable explain the result? A number
-        without this context — like "{c.headline}" — deserves doubt, not headlines.
+        {/* Every headline in CLAIMS is stored with its own quotation marks, so
+            wrapping it again rendered doubled quotes. */}
+        without this context — like {c.headline} — deserves doubt, not headlines.
       </p>
 
       <MathCheck>

@@ -6,15 +6,19 @@ import { Figure } from "@/components/lesson/ccss/Figure";
 
 const SMALL = "var(--band-middle)";
 const BIG = "var(--band-upper)";
-const PXU = 16;
+// The long bar is `times` copies of the short one, so at the control maxima a
+// fixed 16-px unit made it 12·16·6 = 1152 px wide — far past the figure, with
+// no scroller. The unit shrinks so the comparison always fits on screen.
+const BAR_MAX = 340;
 
-// "{n}th" by concatenation gives "2th"/"3th"; 2 is the control minimum.
-const ordinal = (n: number) => (n === 2 ? "half" : n === 3 ? "third" : `${n}th`);
+// "{n}th" by concatenation gives "2th"/"3th"/"4th"; 2 is the control minimum.
+const ORDINALS = ["", "", "half", "third", "quarter", "fifth", "sixth"];
 
 export default function Lesson() {
   const [base, setBase] = useState(7);
   const [times, setTimes] = useState(5);
   const product = base * times;
+  const pxu = Math.min(16, BAR_MAX / product);
 
   return (
     <div className="prose-lesson max-w-none">
@@ -29,13 +33,13 @@ export default function Lesson() {
         <div className="flex flex-col items-center gap-6">
           <div className="flex flex-col items-start gap-3">
             <div className="flex items-center gap-3">
-              <div className="rounded" style={{ width: base * PXU, height: 26, background: SMALL }} />
+              <div className="rounded" style={{ width: base * pxu, height: 26, background: SMALL }} />
               <span className="text-sm font-bold" style={{ color: SMALL }}>{base}</span>
             </div>
             <div className="flex items-center gap-3">
               <div className="flex overflow-hidden rounded">
                 {Array.from({ length: times }, (_, i) => (
-                  <div key={i} className="border-r-2 border-white" style={{ width: base * PXU, height: 26, background: BIG }} />
+                  <div key={i} className="border-r-2 border-white" style={{ width: base * pxu, height: 26, background: BIG }} />
                 ))}
               </div>
               <span className="text-sm font-bold" style={{ color: BIG }}>{product}</span>
@@ -59,7 +63,7 @@ export default function Lesson() {
       <p>
         This is different from &ldquo;{times} more than {base}.&rdquo; <em>Times as
         many</em>{" "}means copying, not adding. So {product} is {times} times {base},
-        while {base} is {times} times <em>smaller</em>{" "}— its {ordinal(times)} part.
+        and turning the comparison round, {base} is one {ORDINALS[times]} of {product}.
       </p>
 
       <MathCheck>

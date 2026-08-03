@@ -7,6 +7,17 @@ import { Figure } from "@/components/lesson/ccss/Figure";
 const LINE = "var(--band-upper)";
 const W = 280, H = 180, PAD = 24;
 
+// A thrown ball follows a parabola. Four straight segments with abrupt corners
+// are exactly the "rate changes in jumps" shape this lesson teaches students to
+// read as piecewise linear, under a label saying "nonlinear (curved)".
+const BALL_PEAK_Y = 35;
+const ballPath = Array.from({ length: 41 }, (_, i) => {
+  const u = i / 40;
+  const x = PAD + u * (W - 2 * PAD);
+  const y = H - PAD - 4 * u * (1 - u) * (H - PAD - BALL_PEAK_Y);
+  return `${x.toFixed(1)},${y.toFixed(1)}`;
+}).join(" ");
+
 type Story = { title: string; desc: string; path: string; nonlinear: boolean };
 const STORIES: Story[] = [
   {
@@ -17,7 +28,7 @@ const STORIES: Story[] = [
   {
     title: "A ball thrown up",
     desc: "Height rises, slows, peaks, then falls faster and faster — a curved, nonlinear path.",
-    path: `${PAD},${H - PAD} 90,50 150,35 210,50 ${W - PAD},${H - PAD}`, nonlinear: true,
+    path: ballPath, nonlinear: true,
   },
   {
     title: "Coasting to a stop",

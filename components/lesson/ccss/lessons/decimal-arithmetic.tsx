@@ -24,9 +24,16 @@ export default function Lesson() {
     : op === "mul" ? (aInt * bInt) / 10000
     : bInt === 0 ? 0 : aInt / bInt;
 
+  // fmt() shows four decimals, but 1.00 ÷ 0.30 is 3.333… — two clicks from the
+  // default — so a chained "=" asserted 1 ÷ 0.3 = 3.3333.
+  const exact4 = (n: number) => Math.abs(n * 10000 - Math.round(n * 10000)) < 1e-9;
+  const eq = exact4(result) ? "=" : "≈";
+  const quotient = aInt / bInt;
+  const eqQuot = exact4(quotient) ? "=" : "≈";
+
   const tip =
     op === "div"
-      ? `Make the divisor a whole number: multiply both by 100 → ${aInt} ÷ ${bInt} = ${fmt(result)}.`
+      ? `Make the divisor a whole number: multiply both by 100 → ${aInt} ÷ ${bInt} ${eq} ${fmt(result)}.`
       : op === "mul"
         ? `Multiply as whole numbers (${aInt} × ${bInt} = ${aInt * bInt}), then place the point 4 digits in.`
         : "Line up the decimal points, then add or subtract in columns.";
@@ -49,7 +56,7 @@ export default function Lesson() {
           </div>
 
           <div className="font-mono text-3xl font-black">
-            {op === "sub" ? fmt(hi / 100) : fmt(a)} {op === "add" ? "+" : op === "sub" ? "−" : op === "mul" ? "×" : "÷"} {op === "sub" ? fmt(lo / 100) : fmt(b)} = <span style={{ color: ACCENT }}>{fmt(result)}</span>
+            {op === "sub" ? fmt(hi / 100) : fmt(a)} {op === "add" ? "+" : op === "sub" ? "−" : op === "mul" ? "×" : "÷"} {op === "sub" ? fmt(lo / 100) : fmt(b)} {eq} <span style={{ color: ACCENT }}>{fmt(result)}</span>
           </div>
 
           <p className="m-0 max-w-md rounded-xl bg-[var(--surface-2)] px-5 py-3 text-center text-[15px] font-semibold text-[var(--ink-soft)]">{tip}</p>
@@ -64,7 +71,7 @@ export default function Lesson() {
       <h2>Division: shift, then divide</h2>
       <p>
         {op === "div"
-          ? `Dividing ${fmt(a)} ÷ ${fmt(b)} is tricky with a decimal divisor. Multiply both by 100 so the divisor is a whole number: ${aInt} ÷ ${bInt} = ${fmt(result)} — the answer is the same because you scaled both sides equally.`
+          ? `Dividing ${fmt(a)} ÷ ${fmt(b)} is tricky with a decimal divisor. Multiply both by 100 so the divisor is a whole number: ${aInt} ÷ ${bInt} ${eq} ${fmt(result)} — the answer is the same because you scaled both sides equally.`
           : `Once the decimal point is placed correctly, ${op === "add" ? "adding" : op === "sub" ? "subtracting" : "multiplying"} decimals is just like whole-number arithmetic: the answer is ${fmt(result)}.`}
       </p>
 
@@ -74,7 +81,7 @@ export default function Lesson() {
           decimals (6.NS.B.3) extends the whole-number algorithms. The one new
           idea is division: multiply the dividend and divisor by the same power of
           10 to make the <strong>divisor a whole number</strong>, which does not
-          change the quotient. Here {fmt(a)} ÷ {fmt(b)} = {fmt(op === "div" ? result : aInt / bInt)}.
+          change the quotient. Here {fmt(a)} ÷ {fmt(b)} {eqQuot} {fmt(quotient)}.
         </p>
       </MathCheck>
     </div>

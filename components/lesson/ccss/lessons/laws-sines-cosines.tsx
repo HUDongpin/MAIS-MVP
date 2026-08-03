@@ -6,6 +6,7 @@ import { Figure } from "@/components/lesson/ccss/Figure";
 
 const ACCENT = "var(--band-high)";
 const r2 = (n: number) => Math.round(n * 100) / 100;
+const VW = 240, VH = 170, MARGIN = 30;
 
 export default function Lesson() {
   // Law of cosines demo: sides a, b and included angle C → find c
@@ -13,8 +14,39 @@ export default function Lesson() {
   const [b, setB] = useState(9);
   const [C, setC] = useState(60);
 
-  const cSq = a * a + b * b - 2 * a * b * Math.cos((C * Math.PI) / 180);
+  const rad = (C * Math.PI) / 180;
+  const cSq = a * a + b * b - 2 * a * b * Math.cos(rad);
   const c = r2(Math.sqrt(cSq));
+
+  // The triangle used to be a fixed polygon with live numbers stamped on it: its
+  // C-vertex measured 56.3° whatever the slider said, and side a stayed the
+  // longest even when b was stepped past it. Build it from a, b and C instead.
+  // Vertex C at the origin, side a along the axis to B, side b at angle C to A —
+  // so the drawn angle at C is C and the third side is the computed c.
+  const tri = [
+    { x: 0, y: 0 },
+    { x: a, y: 0 },
+    { x: b * Math.cos(rad), y: b * Math.sin(rad) },
+  ];
+  const xs = tri.map((p) => p.x), ys = tri.map((p) => p.y);
+  const spanX = Math.max(...xs) - Math.min(...xs);
+  const spanY = Math.max(...ys) - Math.min(...ys);
+  const k = Math.min((VW - 2 * MARGIN) / spanX, (VH - 2 * MARGIN) / spanY);
+  const ox = (VW - spanX * k) / 2 - Math.min(...xs) * k;
+  const oy = (VH + spanY * k) / 2 + Math.min(...ys) * k;
+  const sc = tri.map((p) => ({ x: ox + p.x * k, y: oy - p.y * k }));
+  const gx = (sc[0].x + sc[1].x + sc[2].x) / 3, gy = (sc[0].y + sc[1].y + sc[2].y) / 3;
+  // Push each label off the figure, away from the centroid.
+  const outward = (x: number, y: number, d: number) => {
+    const dx = x - gx, dy = y - gy;
+    const len = Math.hypot(dx, dy) || 1;
+    return { x: x + (dx / len) * d, y: y + (dy / len) * d };
+  };
+  const sideLabel = (i: number, j: number) => outward((sc[i].x + sc[j].x) / 2, (sc[i].y + sc[j].y) / 2, 13);
+  const labA = sideLabel(0, 1); // C→B is side a
+  const labB = sideLabel(0, 2); // C→A is side b
+  const labC = sideLabel(1, 2); // B→A is side c
+  const labAngle = outward(sc[0].x, sc[0].y, -24);
 
   return (
     <div className="prose-lesson max-w-none">
@@ -27,12 +59,12 @@ export default function Lesson() {
 
       <Figure caption="Two sides and the included angle → the Law of Cosines finds the third side.">
         <div className="flex flex-col items-center gap-6">
-          <svg width={240} height={160} viewBox="0 0 240 160" role="img" aria-label="general triangle">
-            <polygon points="40,130 200,130 100,40" fill={ACCENT} fillOpacity={0.12} stroke={ACCENT} strokeWidth={2.5} />
-            <text x={64} y={124} fontSize={12} fill="var(--band-middle)">C = {C}°</text>
-            <text x={115} y={148} fontSize={11} fill="var(--ink-faint)">a = {a}</text>
-            <text x={58} y={88} fontSize={11} fill="var(--ink-faint)">b = {b}</text>
-            <text x={158} y={82} fontSize={12} fontWeight={800} fill={ACCENT}>c = {c}</text>
+          <svg width={VW} height={VH} viewBox={`0 0 ${VW} ${VH}`} role="img" aria-label={`triangle with sides ${a} and ${b} and included angle ${C} degrees`}>
+            <polygon points={sc.map((p) => `${p.x.toFixed(1)},${p.y.toFixed(1)}`).join(" ")} fill={ACCENT} fillOpacity={0.12} stroke={ACCENT} strokeWidth={2.5} />
+            <text x={labAngle.x} y={labAngle.y} textAnchor="middle" fontSize={12} fill="var(--band-middle)">C = {C}°</text>
+            <text x={labA.x} y={labA.y} textAnchor="middle" fontSize={11} fill="var(--ink-faint)">a = {a}</text>
+            <text x={labB.x} y={labB.y} textAnchor="middle" fontSize={11} fill="var(--ink-faint)">b = {b}</text>
+            <text x={labC.x} y={labC.y} textAnchor="middle" fontSize={12} fontWeight={800} fill={ACCENT}>c = {c}</text>
           </svg>
 
           <div className="rounded-2xl border-2 px-8 py-3 text-center font-mono" style={{ borderColor: ACCENT }}>
