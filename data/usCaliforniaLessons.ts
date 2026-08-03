@@ -316,8 +316,21 @@ function workedExampleBlock(topic: Topic): ProductionLessonBlock {
 
 function scaffoldedPracticeBlock(topic: Topic, topicQuestions: GeneratedCaliforniaQuestion[]): ProductionLessonBlock {
   const practiceQuestionIds = selectPracticeQuestionIds(topic.id);
-  const standards = standardText(topicQuestions.flatMap((question) => question.standardIds));
   const questionCount = practiceQuestionIds.length;
+
+  // Name the standards the page actually develops. The generated bank's
+  // `standardIds` are rotated against the chapter topics (the same off-by-one
+  // documented in scripts/build-ccss-lesson-assignments.mjs), so the checkpoint
+  // used to cite a different domain from every lesson block above it — 12-D.1
+  // "Function Analysis and Rates" renders four F-IF lessons and its coverage
+  // line quoted S-MD. When the topic has an interactive core, its lessons are
+  // the authority; unassigned topics keep the bank tags.
+  const assignedMetas = ccssLessonMetasForTopic(topic.id);
+  const standards = standardText(
+    assignedMetas.length
+      ? assignedMetas.flatMap((meta) => meta.standardIds)
+      : topicQuestions.flatMap((question) => question.standardIds)
+  );
 
   // Learner-facing copy names the three stages in words. The machine-readable
   // stage ids (`<topicId>:foundation` and friends) stay in the coverage record

@@ -11,6 +11,8 @@ export default function Lesson() {
   const [items, setItems] = useState(3);
 
   const rate = cost / items;
+  // Whether the unit price lands exactly on two decimal places.
+  const exactRate = Math.abs(rate * 100 - Math.round(rate * 100)) < 1e-9;
 
   return (
     <div className="prose-lesson max-w-none">
@@ -31,11 +33,14 @@ export default function Lesson() {
           <span className="text-[var(--ink-faint)]">↓ divide both by {items}</span>
           <div className="rounded-2xl border-2 px-8 py-3 text-center" style={{ borderColor: ACCENT }}>
             <div className="font-mono text-3xl font-black" style={{ color: ACCENT }}>${rate.toFixed(2)} per apple</div>
-            <div className="mt-1 font-mono text-sm text-[var(--ink-soft)]">{cost} ÷ {items} = {rate.toFixed(2)}</div>
+            {/* "≈" when the division does not terminate at two places: the page
+                asserted "1 ÷ 3 = 0.33" and then quoted a doubled total computed
+                from the unrounded rate, so the two money figures disagreed. */}
+            <div className="mt-1 font-mono text-sm text-[var(--ink-soft)]">{cost} ÷ {items} {exactRate ? "=" : "≈"} {rate.toFixed(2)}</div>
           </div>
 
           <p className="m-0 text-center text-[15px] text-[var(--ink-soft)]">
-            So {items} apple{items === 1 ? "" : "s"} cost{items === 1 ? "s" : ""} ${cost}, and each apple is ${rate.toFixed(2)}. At that rate, {items * 2} apples would be ${(rate * items * 2).toFixed(2)}.
+            So {items} apple{items === 1 ? "" : "s"} cost{items === 1 ? "s" : ""} ${cost}, and each apple is {exactRate ? "" : "about "}${rate.toFixed(2)}. At that rate, {items * 2} apples would be ${(cost * 2).toFixed(2)}.
           </p>
 
           <div className="flex flex-wrap items-center justify-center gap-6">
@@ -47,7 +52,7 @@ export default function Lesson() {
 
       <h2>Per one</h2>
       <p>
-        The ratio {cost}:{items} and the unit rate {rate.toFixed(2)}:1 describe the
+        The ratio {cost}:{items} and the unit rate {exactRate ? "" : "≈"}{rate.toFixed(2)}:1 describe the
         same relationship. The unit rate is the most useful form for comparing
         prices, speeds, and any &ldquo;per&rdquo; quantity.
       </p>

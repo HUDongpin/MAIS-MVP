@@ -57,10 +57,10 @@ export default function Lesson() {
           </div>
 
           <div className="flex flex-wrap items-center justify-center gap-4">
-            <Stepper label="x₁" value={x1} onChange={setX1} />
-            <Stepper label="y₁" value={y1} onChange={setY1} />
-            <Stepper label="x₂" value={x2} onChange={setX2} />
-            <Stepper label="y₂" value={y2} onChange={setY2} />
+            <Stepper label="x₁" value={x1} forbid={x2} onChange={setX1} />
+            <Stepper label="y₁" value={y1} forbid={y2} onChange={setY1} />
+            <Stepper label="x₂" value={x2} forbid={x1} onChange={setX2} />
+            <Stepper label="y₂" value={y2} forbid={y1} onChange={setY2} />
           </div>
         </div>
       </Figure>
@@ -96,8 +96,18 @@ function Fact({ label, value, note }: { label: string; value: string; note: stri
   );
 }
 
-function Stepper({ label, value, onChange }: { label: string; value: number; onChange: (n: number) => void }) {
-  const set = (v: number) => onChange(Math.max(0, Math.min(N, v)));
+function Stepper({ label, value, forbid, onChange }: { label: string; value: number; forbid?: number; onChange: (n: number) => void }) {
+  // Step over the opposite corner's coordinate. Letting them coincide collapsed
+  // the rectangle to a point: a zero-by-zero rect, four "(5,5)" labels stacked
+  // on one dot, and prose reading "its length is |5 − 5| = 0 … the area (0) and
+  // perimeter (0) follow" in a lesson about polygons in the coordinate plane.
+  const set = (v: number) => {
+    const dir = v > value ? 1 : -1;
+    let next = Math.max(0, Math.min(N, v));
+    if (next === forbid) next = Math.max(0, Math.min(N, next + dir));
+    if (next === forbid) next = Math.max(0, Math.min(N, next - 2 * dir));
+    onChange(next);
+  };
   return (
     <div className="flex flex-col items-center gap-1">
       <span className="text-xs font-semibold uppercase tracking-wide text-[var(--ink-faint)]">{label}</span>

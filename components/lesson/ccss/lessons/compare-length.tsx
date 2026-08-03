@@ -63,8 +63,8 @@ export default function Lesson() {
           Objects have <strong>measurable attributes</strong>{" "}like length,
           height, and weight (K.MD.A.1). To compare two objects directly, align
           them at a common starting point and see which has <em>more</em>{" "}of that
-          attribute — here, the {top >= bot ? "red" : "blue"} pencil is longer
-          (K.MD.A.2). Lining up the ends fairly is what makes the comparison
+          attribute — here, {top === bot ? "the two pencils are the same length" : `the ${top > bot ? "red" : "blue"} pencil is longer`}
+          {" "}(K.MD.A.2). Lining up the ends fairly is what makes the comparison
           honest.
         </p>
       </MathCheck>

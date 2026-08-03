@@ -22,8 +22,12 @@ export default function Lesson() {
   const sx = (x: number) => PAD + x * CELL;
   const sy = (y: number) => SIZE - PAD - y * CELL;
   const parallel = m1 === m2;
-  const ix = parallel ? 0 : r2((b2 - b1) / (m1 - m2));
-  const iy = r2(m1 * ix + b1);
+  // Round each coordinate from the exact intersection. Feeding the already
+  // rounded ix back through the line gave (0.33, 0.66) for the true (1/3, 2/3),
+  // so "plug it into either equation and it checks out" failed for the second.
+  const ixExact = parallel ? 0 : (b2 - b1) / (m1 - m2);
+  const ix = r2(ixExact);
+  const iy = r2(m1 * ixExact + b1);
   const inRange = !parallel && ix >= 0 && ix <= N && iy >= 0 && iy <= N;
 
   const linePts = (m: number, b: number) => {

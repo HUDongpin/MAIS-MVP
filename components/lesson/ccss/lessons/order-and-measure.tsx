@@ -44,9 +44,16 @@ export default function Lesson() {
           </div>
 
           <p className="m-0 max-w-md text-center text-[15px] font-semibold text-[var(--ink-soft)]">
-            The {sorted[2].name} strip is longer than the {sorted[1].name}, and the{" "}
-            {sorted[1].name} is longer than the {sorted[0].name} — so the{" "}
-            {sorted[2].name} strip is the longest of all.
+            {/* Two short sentences instead of one 26-word chain, and honest when
+                two strips tie — the old wording claimed "longer than" for equal
+                lengths, and Grade 1 readers lose the middle term of a chain. */}
+            {sorted[2].len === sorted[1].len ? (
+              <>The {sorted[2].name} strip and the {sorted[1].name} strip are the same length. Both are longer than the {sorted[0].name} strip.</>
+            ) : sorted[1].len === sorted[0].len ? (
+              <>The {sorted[2].name} strip is the longest. The {sorted[1].name} strip and the {sorted[0].name} strip are the same length.</>
+            ) : (
+              <>The {sorted[2].name} strip is longer than the {sorted[1].name} strip. The {sorted[1].name} strip is longer than the {sorted[0].name} strip. So the {sorted[2].name} strip is the longest.</>
+            )}
           </p>
 
           <div className="flex flex-wrap items-center justify-center gap-6">

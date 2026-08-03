@@ -106,10 +106,25 @@ export default function Lesson() {
 
       <h2>Break it to make it easy</h2>
       <p>
-        To make ten from <strong>{a}</strong>, you need <strong>{need}</strong>{" "}
-        more. So split the second number: take <strong>{need}</strong>{" "}from{" "}
-        <strong>{b}</strong>{" "}to finish the ten, and <strong>{rest >= 0 ? rest : 0}</strong>{" "}
-        is left over. Now it is just <strong>10 + {rest >= 0 ? rest : 0}</strong>.
+        {/* When the second number is too small to finish the ten, the split
+            story is simply not available — it used to be told anyway, printing
+            "take 5 from 2" beside a figure showing 5 + 2 = 7. */}
+        {rest >= 0 ? (
+          <>
+            To make ten from <strong>{a}</strong>, you need <strong>{need}</strong>{" "}
+            more. So split the second number: take <strong>{need}</strong>{" "}from{" "}
+            <strong>{b}</strong>{" "}to finish the ten, and <strong>{rest}</strong>{" "}
+            is left over. Now it is just <strong>10 + {rest}</strong>.
+          </>
+        ) : (
+          <>
+            To make ten from <strong>{a}</strong>, you would need <strong>{need}</strong>{" "}
+            more — but the second number is only <strong>{b}</strong>, so there is
+            not enough to finish the ten. Add them straight away instead:{" "}
+            <strong>{a} + {b} = {a + b}</strong>. Try a bigger second number to see
+            the make-a-ten trick.
+          </>
+        )}
       </p>
 
       <MathCheck>

@@ -11,6 +11,12 @@ const SIZE = 2 * R * CELL + 2 * PAD;
 export default function Lesson() {
   const [h, setH] = useState(1);
   const [k, setK] = useState(-1);
+
+  // Parenthesise a negative centre coordinate so "(y − k)" never renders as
+  // "y − -1". The figure previously parenthesised k but not h, and the prose
+  // parenthesised neither — the same equation shown two ways on one screen,
+  // with k defaulting to −1 so it was wrong on page load.
+  const neg = (n: number) => (n < 0 ? `(${n})` : `${n}`);
   const [rad, setRad] = useState(3);
 
   const sx = (x: number) => PAD + (x + R) * CELL;
@@ -28,7 +34,7 @@ export default function Lesson() {
       <Figure caption="The equation just says 'distance from (h, k) equals r' — the Pythagorean distance formula.">
         <div className="flex flex-col items-center gap-6">
           <div className="rounded-lg bg-[var(--surface-2)] px-6 py-2 font-mono text-2xl font-black" style={{ color: ACCENT }}>
-            (x − {h})² + (y − {k < 0 ? `(${k})` : k})² = {rad}²
+            (x − {neg(h)})² + (y − {neg(k)})² = {rad}²
           </div>
 
           <svg width={SIZE} height={SIZE} viewBox={`0 0 ${SIZE} ${SIZE}`} className="max-w-full" style={{ maxHeight: 320 }} role="img" aria-label="circle on a grid">
@@ -57,7 +63,7 @@ export default function Lesson() {
       <p>
         A point (x, y) is on the circle exactly when its distance to ({h}, {k}) is{" "}
         {rad}. Squaring the distance formula √((x−h)² + (y−k)²) = r removes the root:
-        {" "}(x − {h})² + (y − {k})² = {rad * rad}. If a circle&apos;s equation is
+        {" "}(x − {neg(h)})² + (y − {neg(k)})² = {rad * rad}. If a circle&apos;s equation is
         given expanded, <strong>completing the square</strong>{" "}recovers the center
         and radius.
       </p>

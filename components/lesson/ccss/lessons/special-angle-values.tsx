@@ -16,6 +16,12 @@ export default function Lesson() {
   const [idx, setIdx] = useState(1);
   const a = ANGLES[idx];
 
+  // Leg lengths in px that actually realise each special triangle: equal legs
+  // for 45-45-90, and √3 : 1 (horizontal : vertical) for 30-60-90, matching the
+  // side labels printed on them.
+  const legX = a.tri === "45-45-90" ? 130 : 160;
+  const legY = a.tri === "45-45-90" ? 130 : Math.round(160 / Math.sqrt(3));
+
   return (
     <div className="prose-lesson max-w-none">
       <p>
@@ -35,24 +41,29 @@ export default function Lesson() {
           </div>
 
           <svg width={240} height={180} viewBox="0 0 240 180" role="img" aria-label={`${a.tri} triangle`}>
-            {/* right triangle: right angle at bottom-left */}
-            <polygon points="40,150 200,150 40,40" fill={ACCENT} fillOpacity={0.15} stroke={ACCENT} strokeWidth={2.5} />
+            {/* The polygon has to match the triangle being labelled. One fixed
+                shape with 160 × 110 legs was reused for both, so the default
+                45-45-90 view showed a plainly scalene triangle with both legs
+                labelled "1" — in the lesson whose point is that those legs are
+                equal. Legs are now 130 × 130 for 45-45-90 and 160 × 160/√3 for
+                30-60-90, matching the printed side labels. */}
+            <polygon points={`40,150 ${40 + legX},150 40,${150 - legY}`} fill={ACCENT} fillOpacity={0.15} stroke={ACCENT} strokeWidth={2.5} />
             <rect x="40" y="138" width="12" height="12" fill="none" stroke="var(--ink-soft)" strokeWidth={1.5} />
             {/* labels depend on triangle */}
             {a.tri === "45-45-90" ? (
               <>
-                <text x="120" y="168" textAnchor="middle" fontSize={13} fontWeight={700} fill="var(--ink)">1</text>
-                <text x="24" y="98" textAnchor="middle" fontSize={13} fontWeight={700} fill="var(--ink)">1</text>
-                <text x="128" y="90" fontSize={13} fontWeight={700} fill={ACCENT}>√2</text>
-                <text x="180" y="145" fontSize={12} fill="var(--ink-soft)">45°</text>
+                <text x={40 + legX / 2} y="168" textAnchor="middle" fontSize={13} fontWeight={700} fill="var(--ink)">1</text>
+                <text x="24" y={150 - legY / 2} textAnchor="middle" fontSize={13} fontWeight={700} fill="var(--ink)">1</text>
+                <text x={48 + legX / 2} y={150 - legY / 2 - 6} fontSize={13} fontWeight={700} fill={ACCENT}>√2</text>
+                <text x={20 + legX} y="145" fontSize={12} fill="var(--ink-soft)">45°</text>
               </>
             ) : (
               <>
-                <text x="120" y="168" textAnchor="middle" fontSize={13} fontWeight={700} fill="var(--ink)">√3</text>
-                <text x="24" y="98" textAnchor="middle" fontSize={13} fontWeight={700} fill="var(--ink)">1</text>
-                <text x="128" y="90" fontSize={13} fontWeight={700} fill={ACCENT}>2</text>
-                <text x="176" y="145" fontSize={12} fill="var(--ink-soft)">30°</text>
-                <text x="46" y="58" fontSize={12} fill="var(--ink-soft)">60°</text>
+                <text x={40 + legX / 2} y="168" textAnchor="middle" fontSize={13} fontWeight={700} fill="var(--ink)">√3</text>
+                <text x="24" y={150 - legY / 2} textAnchor="middle" fontSize={13} fontWeight={700} fill="var(--ink)">1</text>
+                <text x={48 + legX / 2} y={150 - legY / 2 - 6} fontSize={13} fontWeight={700} fill={ACCENT}>2</text>
+                <text x={16 + legX} y="145" fontSize={12} fill="var(--ink-soft)">30°</text>
+                <text x="46" y={168 - legY} fontSize={12} fill="var(--ink-soft)">60°</text>
               </>
             )}
           </svg>

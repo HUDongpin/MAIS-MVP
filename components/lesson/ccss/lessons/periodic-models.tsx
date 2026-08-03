@@ -56,9 +56,13 @@ export default function Lesson() {
           </div>
 
           <div className="flex flex-wrap items-center justify-center gap-6">
-            <Stepper label="amplitude A" value={A} min={1} max={3} onChange={setA} />
+            {/* A and D were independent, so A = 3 with D = 2 put the crests at
+                y = 5 — 40px above the top of the canvas — slicing every crest
+                flat and drawing the "max guide" entirely off-figure. The drawable
+                range at 30px/unit is ±3.6, so |D| + A is held to 3. */}
+            <Stepper label="amplitude A" value={A} min={1} max={3 - Math.abs(D)} onChange={setA} />
             <Stepper label="period P" value={period} min={2} max={8} onChange={setPeriod} />
-            <Stepper label="midline D" value={D} min={-1} max={2} onChange={setD} />
+            <Stepper label="midline D" value={D} min={-1} max={2} onChange={(v) => { setD(v); setA((p) => Math.max(1, Math.min(p, 3 - Math.abs(v)))); }} />
           </div>
         </div>
       </Figure>

@@ -38,11 +38,16 @@ export default function Lesson() {
             <line x1={120} y1={20} x2={120} y2={170} stroke="var(--line)" strokeWidth={1} />
             {c.draw === "parabola" && (
               <>
+                {/* The drawn curve has vertex (120, 115) and 4p = 48, so p = 12:
+                    the focus belongs 12px above the vertex and the directrix 12px
+                    below. They were at 35 above and 15 below, leaving the vertex
+                    visibly not equidistant from the two — which is the definition
+                    this figure exists to show. */}
                 <path d="M 60 40 Q 120 190 180 40" fill="none" stroke={ACCENT} strokeWidth={2.5} />
-                <line x1={40} y1={130} x2={200} y2={130} stroke="var(--band-upper)" strokeWidth={2} strokeDasharray="4 3" />
-                <circle cx={120} cy={80} r={4} fill="var(--band-upper)" />
-                <text x={128} y={78} fontSize={10} fill="var(--band-upper)">focus</text>
-                <text x={150} y={144} fontSize={10} fill="var(--band-upper)">directrix</text>
+                <line x1={40} y1={127} x2={200} y2={127} stroke="var(--band-upper)" strokeWidth={2} strokeDasharray="4 3" />
+                <circle cx={120} cy={103} r={4} fill="var(--band-upper)" />
+                <text x={128} y={101} fontSize={10} fill="var(--band-upper)">focus</text>
+                <text x={150} y={141} fontSize={10} fill="var(--band-upper)">directrix</text>
               </>
             )}
             {c.draw === "ellipse" && (

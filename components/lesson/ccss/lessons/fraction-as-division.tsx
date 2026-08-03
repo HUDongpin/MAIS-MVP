@@ -12,6 +12,10 @@ export default function Lesson() {
   const [b, setB] = useState(4); // people
 
   const decimal = +(a / b).toFixed(3);
+  // b = 3 and b = 6 give repeating decimals, and the page asserted
+  // "1/3 = 0.333" with a bare equals sign — a terminating decimal presented as
+  // exactly equal to a repeating one, in the lesson that introduces the idea.
+  const exactDecimal = Math.abs(a / b - decimal) < 1e-9;
 
   return (
     <div className="prose-lesson max-w-none">
@@ -39,7 +43,7 @@ export default function Lesson() {
           </div>
 
           <div className="text-center">
-            <div className="font-mono text-2xl font-black">{a} ÷ {b} = <span style={{ color: SHARE }}>{a}/{b}</span> = {decimal}</div>
+            <div className="font-mono text-2xl font-black">{a} ÷ {b} = <span style={{ color: SHARE }}>{a}/{b}</span> {exactDecimal ? "=" : "≈"} {decimal}</div>
             <p className="mt-1 text-[15px] text-[var(--ink-soft)]">
               Each friend gets one piece from each of the {a} cookie{a === 1 ? "" : "s"} — that is {a} piece{a === 1 ? "" : "s"} of size 1/{b}, or {a}/{b} of a cookie.
             </p>
@@ -56,7 +60,7 @@ export default function Lesson() {
       <p>
         This is why <strong>a/b = a ÷ b</strong>. Whether you think &ldquo;{a}{" "}
         cut into {b} equal shares&rdquo; or &ldquo;{a} divided by {b},&rdquo; the
-        answer is the same fraction, {a}/{b} — which equals the decimal {decimal}.
+        answer is the same fraction, {a}/{b} — which {exactDecimal ? "equals the decimal" : "is about"} {decimal}{exactDecimal ? "" : " (the decimal repeats forever)"}.
       </p>
 
       <MathCheck>

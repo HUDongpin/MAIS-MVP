@@ -13,6 +13,13 @@ const r2 = (n: number) => Math.round(n * 100) / 100;
 export default function Lesson() {
   const [m, setM] = useState(2);
   const [b, setB] = useState(1);
+
+  // b's stepper runs from −4, so interpolating it raw rendered the lesson's two
+  // headline formulas as "f(x) = 2x + -3" and "f⁻¹(x) = (x − -3)/2".
+  const addB = `${b < 0 ? "−" : "+"} ${Math.abs(b)}`;
+  const subB = `${b < 0 ? "+" : "−"} ${Math.abs(b)}`;
+  const bWord = b < 0 ? `subtracts ${Math.abs(b)}` : `adds ${b}`;
+  const bInverseWord = b < 0 ? `adds ${Math.abs(b)}` : `subtracts ${b}`;
   const [x, setX] = useState(2);
 
   const f = (t: number) => m * t + b;
@@ -32,8 +39,8 @@ export default function Lesson() {
       <Figure caption="f and f⁻¹ are reflections across y = x. Applying one then the other returns your input.">
         <div className="flex flex-col items-center gap-6">
           <div className="flex flex-wrap justify-center gap-6 font-mono text-lg font-black">
-            <span style={{ color: ACCENT }}>f(x) = {m}x + {b}</span>
-            <span style={{ color: INV }}>f⁻¹(x) = (x − {b})/{m}</span>
+            <span style={{ color: ACCENT }}>f(x) = {m}x {addB}</span>
+            <span style={{ color: INV }}>f⁻¹(x) = (x {subB})/{m}</span>
           </div>
 
           <svg width={SIZE} height={SIZE} viewBox={`0 0 ${SIZE} ${SIZE}`} className="max-w-full" style={{ maxHeight: 320 }} role="img" aria-label="function and its inverse">
@@ -65,7 +72,7 @@ export default function Lesson() {
 
       <h2>Undoing, and logarithms</h2>
       <p>
-        Because f multiplies by {m} then adds {b}, its inverse subtracts {b} then
+        Because f multiplies by {m} then {bWord}, its inverse {bInverseWord} then
         divides by {m} — the operations reversed, in reverse order. The most
         important inverse pair in all of math is <strong>exponential and
         logarithm</strong>: since 10³ = 1000, log₁₀ 1000 = 3. A log <em>is</em>{" "}an

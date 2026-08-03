@@ -52,7 +52,10 @@ export default function Lesson() {
 
       <h2>Correlation ≠ causation</h2>
       <p>
-        A high |r| ({s.r}) says the linear pattern is {Math.abs(s.r) > 0.8 ? "strong" : Math.abs(s.r) > 0.3 ? "moderate" : "weak"} — but it does
+        {/* "A high |r|" was hard-coded while r follows the selected data set, so
+            picking "none" read "A high |r| (0.02) says the linear pattern is
+            weak" — and disagreed with the button's own label. */}
+        Here |r| = {Math.abs(s.r)}, so the linear pattern is {Math.abs(s.r) > 0.8 ? "strong" : Math.abs(s.r) > 0.3 ? "moderate" : "weak"}. Even a strong one does
         <em>not</em>{" "}mean one variable causes the other. Ice-cream sales and
         drowning both rise in summer (a <strong>lurking variable</strong>: heat), yet
         neither causes the other. Only a <strong>randomized experiment</strong>{" "}can

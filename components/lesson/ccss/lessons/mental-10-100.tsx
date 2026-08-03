@@ -13,13 +13,19 @@ const NAMES = ["hundreds", "tens", "ones"];
 export default function Lesson() {
   const [n, setN] = useState(346);
   const [changed, setChanged] = useState<number | null>(null);
+  const [rolled, setRolled] = useState(false);
 
   const d = [Math.floor(n / 100), Math.floor((n / 10) % 10), n % 10];
 
   const apply = (delta: number) => {
     const next = n + delta;
     if (next < 100 || next > 999) return;
-    setChanged(Math.abs(delta) === 100 ? 0 : 1);
+    // Report what actually changed, not which button was pressed. Adding 10 to
+    // 396 rolls the tens over, so the hundreds digit moves too — the caption
+    // used to insist "the tens digit changed by 1" while 3 → 4 and 9 → 0.
+    const rolled = Math.floor(next / 100) !== Math.floor(n / 100);
+    setChanged(Math.abs(delta) === 100 || rolled ? 0 : 1);
+    setRolled(rolled && Math.abs(delta) === 10);
     setN(next);
   };
 
@@ -52,7 +58,13 @@ export default function Lesson() {
             <button type="button" onClick={() => apply(100)} disabled={n + 100 > 999} className="rounded-lg px-4 py-2 text-sm font-bold text-white disabled:opacity-40" style={{ background: HC }}>+ 100</button>
           </div>
           <p className="m-0 text-sm text-[var(--ink-faint)]">
-            {changed === null ? "Only one digit moves each time." : changed === 0 ? "The hundreds digit changed by 1." : "The tens digit changed by 1."}
+            {changed === null
+              ? "Usually only one digit moves each time."
+              : rolled
+                ? "The tens rolled over, so the hundreds digit changed too."
+                : changed === 0
+                  ? "The hundreds digit changed by 1."
+                  : "The tens digit changed by 1."}
           </p>
         </div>
       </Figure>
