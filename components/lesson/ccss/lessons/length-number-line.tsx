@@ -69,12 +69,12 @@ export default function Lesson() {
                 <button key={o} type="button" onClick={() => { setOp(o); setAmt((p) => Math.max(1, Math.min(p, o === "add" ? MAXN - start : start))); }}className="rounded-lg border px-3 py-1.5 text-sm font-bold" style={op === o ? { background: o === "add" ? ADD : SUB, color: "white", borderColor: o === "add" ? ADD : SUB } : { borderColor: "var(--line)", color: "var(--ink-soft)" }}>{o === "add" ? "Tape on" : "Cut off"}</button>
               ))}
             </div>
-            {/* Bound the amount by what the number line can actually show, in
-                the direction of travel. The clamp used to be silent: Ribbon 30
-                with Amount 20 in "Tape on" mode read "You tape on 0 cm more"
-                and "30 + 0 = 30" while the stepper still displayed 20. */}
-            <Stepper label="Ribbon (cm)" value={start} min={0} max={30} onChange={(v) => { setStart(v); setAmt((p) => Math.max(1, Math.min(p, op === "add" ? MAXN - v : v))); }} />
-            <Stepper label="Amount (cm)" value={amt} min={1} max={Math.max(1, op === "add" ? MAXN - start : start)} onChange={setAmt} />
+            {/* Bound the RIBBON so at least 1 cm of travel always fits. The
+                Math.max(1, …) floor previously re-created the silent clamp: at
+                Ribbon 30 in "Tape on" mode there is no room at all, yet the
+                stepper still offered an Amount of 1. */}
+            <Stepper label="Ribbon (cm)" value={start} min={op === "add" ? 0 : 1} max={op === "add" ? MAXN - 1 : MAXN} onChange={(v) => { setStart(v); setAmt((p) => Math.max(1, Math.min(p, op === "add" ? MAXN - v : v))); }} />
+            <Stepper label="Amount (cm)" value={amt} min={1} max={op === "add" ? MAXN - start : start} onChange={setAmt} />
           </div>
         </div>
       </Figure>

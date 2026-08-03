@@ -17,7 +17,11 @@ export default function Lesson() {
   const [jump, setJump] = useState(5);
   const [op, setOp] = useState<"add" | "sub">("add");
 
-  const end = op === "add" ? Math.min(MAXN, start + jump) : Math.max(0, start - jump);
+  // Bound the jump by what the line can actually show, rather than clamping
+  // the endpoint and reporting the shortened jump as if it were the one the
+  // student chose.
+  const jumpMax = op === "add" ? MAXN - start : start;
+  const end = op === "add" ? start + Math.min(jump, jumpMax) : start - Math.min(jump, jumpMax);
   const realJump = Math.abs(end - start);
   const color = op === "add" ? ADD : SUB;
   const x = (n: number) => PAD + n * STEP;
@@ -73,13 +77,13 @@ export default function Lesson() {
           <div className="flex flex-wrap items-center justify-center gap-6">
             <div className="flex items-center gap-2">
               {(["add", "sub"] as const).map((o) => (
-                <button key={o} type="button" onClick={() => setOp(o)} className="rounded-lg border px-3 py-1.5 text-sm font-bold" style={op === o ? { background: o === "add" ? ADD : SUB, color: "white", borderColor: o === "add" ? ADD : SUB } : { borderColor: "var(--line)", color: "var(--ink-soft)" }}>
+                <button key={o} type="button" onClick={() => { setOp(o); setJump((p) => Math.max(1, Math.min(p, o === "add" ? MAXN - start : start))); }} className="rounded-lg border px-3 py-1.5 text-sm font-bold" style={op === o ? { background: o === "add" ? ADD : SUB, color: "white", borderColor: o === "add" ? ADD : SUB } : { borderColor: "var(--line)", color: "var(--ink-soft)" }}>
                   {o === "add" ? "Count on (+)" : "Count back (−)"}
                 </button>
               ))}
             </div>
-            <Stepper label="Start" value={start} min={0} max={20} onChange={setStart} />
-            <Stepper label="Jumps" value={jump} min={1} max={10} onChange={setJump} />
+            <Stepper label="Start" value={start} min={op === "add" ? 0 : 1} max={op === "add" ? MAXN - 1 : 20} onChange={(v) => { setStart(v); setJump((p) => Math.max(1, Math.min(p, op === "add" ? MAXN - v : v))); }} />
+            <Stepper label="Jumps" value={jump} min={1} max={Math.min(10, jumpMax)} onChange={setJump} />
           </div>
         </div>
       </Figure>

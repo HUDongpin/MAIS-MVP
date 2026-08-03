@@ -62,7 +62,7 @@ export default function Lesson() {
           A <strong>unit rate</strong>{" "}is the value a/b associated with a ratio
           a : b, giving the amount of the first quantity per <em>one</em>{" "}of the
           second (6.RP.A.2). Here ${cost} for {items} apple{items === 1 ? "" : "s"} is a unit rate of{" "}
-          {cost} ÷ {items} = ${rate.toFixed(2)} per apple. Unit rates make it easy
+          {cost} ÷ {items} {exactRate ? "=" : "≈"} ${rate.toFixed(2)} per apple. Unit rates make it easy
           to compare and scale ratios.
         </p>
       </MathCheck>

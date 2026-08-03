@@ -25,7 +25,8 @@ export default function Lesson() {
         tenths as hundredths, then add.
       </p>
 
-      <Figure caption="The big square is one whole = 100 hundredths. Each column is one tenth.">
+      {/* Row-major fill: cells 0–9 are the top row, not a column. */}
+      <Figure caption="The big square is one whole = 100 hundredths. Each row is one tenth.">
         <div className="flex flex-col items-center gap-6">
           <div className="grid gap-px rounded border-2 border-[var(--ink-soft)] p-px" style={{ gridTemplateColumns: "repeat(10, 1.35rem)" }}>
             {Array.from({ length: 100 }, (_, i) => (

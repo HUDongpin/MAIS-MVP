@@ -65,8 +65,10 @@ export default function Lesson() {
 
       <h2>Biggest place first</h2>
       <p>
+        {/* The last two digits were concatenated as characters, so a 0 in the
+            tens place rendered "05" instead of "five". */}
         Reading {a.toLocaleString()} as &ldquo;{da[0]} thousand, {da[1]} hundred{" "}
-        {da[2]}{da[3]}&rdquo; and writing it as {da[0] * 1000} + {da[1] * 100} +{" "}
+        {da[2] * 10 + da[3]}&rdquo; and writing it as {da[0] * 1000} + {da[1] * 100} +{" "}
         {da[2] * 10} + {da[3]} shows exactly what each digit is worth — which is
         also how you compare two numbers.
       </p>

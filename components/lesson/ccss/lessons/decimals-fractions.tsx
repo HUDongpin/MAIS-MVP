@@ -25,7 +25,9 @@ export default function Lesson() {
         <strong>{v}/100 = {decimal}</strong>.
       </p>
 
-      <Figure caption="The whole square is 1. Full columns are tenths (0.1); single squares are hundredths (0.01).">
+      {/* The grid is filled in DOM order across a 10-column layout, so cells
+          0–9 are the top ROW. The caption said columns. */}
+      <Figure caption="The whole square is 1. Full rows are tenths (0.1); single squares are hundredths (0.01).">
         <div className="flex flex-col items-center gap-6">
           <div className="grid gap-px rounded border-2 border-[var(--ink-soft)] p-px" style={{ gridTemplateColumns: "repeat(10, 1.35rem)" }}>
             {Array.from({ length: 100 }, (_, i) => (

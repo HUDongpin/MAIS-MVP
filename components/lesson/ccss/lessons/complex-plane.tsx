@@ -7,7 +7,6 @@ import { Figure } from "@/components/lesson/ccss/Figure";
 const R = 5; // grid radius in units
 const CELL = 26;
 const PAD = 24;
-const SIZE = 2 * R * CELL + 2 * PAD;
 const Z = "var(--band-high)";
 const W = "var(--band-upper)";
 const SUM = "var(--band-middle)";
@@ -25,14 +24,19 @@ export default function Lesson() {
   const [c, setC] = useState(-2);
   const [d, setD] = useState(3);
 
-  const sx = (x: number) => PAD + (x + R) * CELL;
-  const sy = (y: number) => SIZE - PAD - (y + R) * CELL;
-
   const modZ = r2(Math.sqrt(a * a + b * b));
   const argZ = r2((Math.atan2(b, a) * 180) / Math.PI);
   const dist = r2(Math.sqrt((c - a) ** 2 + (d - b) ** 2));
   const midRe = r2((a + c) / 2), midIm = r2((b + d) / 2);
   const sumRe = a + c, sumIm = b + d;
+
+  // Grow the grid to hold the sum: each component steps over ±5, so the sum
+  // reaches ±10 and its marker fell outside a fixed R = 5 grid.
+  const extent = Math.max(R, Math.abs(sumRe), Math.abs(sumIm));
+  const cell = (2 * R * CELL) / (2 * extent);
+  const size = 2 * extent * cell + 2 * PAD;
+  const sx = (x: number) => PAD + (x + extent) * cell;
+  const sy = (y: number) => size - PAD - (y + extent) * cell;
 
   return (
     <div className="prose-lesson max-w-none">
@@ -45,20 +49,20 @@ export default function Lesson() {
 
       <Figure caption="z and w as points. Their sum is the parallelogram diagonal; distance and midpoint work just like coordinates.">
         <div className="flex flex-col items-center gap-6">
-          <svg width={SIZE} height={SIZE} viewBox={`0 0 ${SIZE} ${SIZE}`} className="max-w-full" style={{ maxHeight: 340 }} role="img" aria-label="complex plane">
-            {Array.from({ length: 2 * R + 1 }, (_, i) => {
+          <svg width={size} height={size} viewBox={`0 0 ${size} ${size}`} className="max-w-full" style={{ maxHeight: 340 }} role="img" aria-label="complex plane">
+            {Array.from({ length: 2 * extent + 1 }, (_, i) => {
               const v = i - R;
               return (
                 <g key={v} stroke="var(--line)" strokeWidth={1}>
-                  <line x1={sx(v)} y1={sy(-R)} x2={sx(v)} y2={sy(R)} />
-                  <line x1={sx(-R)} y1={sy(v)} x2={sx(R)} y2={sy(v)} />
+                  <line x1={sx(v)} y1={sy(-extent)} x2={sx(v)} y2={sy(extent)} />
+                  <line x1={sx(-extent)} y1={sy(v)} x2={sx(extent)} y2={sy(v)} />
                 </g>
               );
             })}
-            <line x1={sx(-R)} y1={sy(0)} x2={sx(R)} y2={sy(0)} stroke="var(--ink-soft)" strokeWidth={2} />
-            <line x1={sx(0)} y1={sy(-R)} x2={sx(0)} y2={sy(R)} stroke="var(--ink-soft)" strokeWidth={2} />
-            <text x={sx(R) - 6} y={sy(0) - 6} fontSize={10} fill="var(--ink-faint)">Re</text>
-            <text x={sx(0) + 6} y={sy(R) + 12} fontSize={10} fill="var(--ink-faint)">Im</text>
+            <line x1={sx(-extent)} y1={sy(0)} x2={sx(extent)} y2={sy(0)} stroke="var(--ink-soft)" strokeWidth={2} />
+            <line x1={sx(0)} y1={sy(-extent)} x2={sx(0)} y2={sy(extent)} stroke="var(--ink-soft)" strokeWidth={2} />
+            <text x={sx(extent) - 6} y={sy(0) - 6} fontSize={10} fill="var(--ink-faint)">Re</text>
+            <text x={sx(0) + 6} y={sy(extent) + 12} fontSize={10} fill="var(--ink-faint)">Im</text>
             {/* parallelogram for sum */}
             <line x1={sx(0)} y1={sy(0)} x2={sx(sumRe)} y2={sy(sumIm)} stroke={SUM} strokeWidth={2} strokeDasharray="4 3" />
             <line x1={sx(a)} y1={sy(b)} x2={sx(sumRe)} y2={sy(sumIm)} stroke={W} strokeWidth={1.5} strokeDasharray="2 3" />
