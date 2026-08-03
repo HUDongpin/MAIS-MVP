@@ -5,12 +5,15 @@ import { MathCheck } from "@/components/lesson/ccss/MathCheck";
 import { Figure } from "@/components/lesson/ccss/Figure";
 
 const ACCENT = "var(--band-upper)";
-type Conv = { key: string; big: string; small: string; factor: number };
+// `bigOne` carries the singular because the larger unit is what the student
+// sets, and it can be 1 ("1 hour", "1 foot" — not "1 hours", "1 feet"). The
+// smaller unit is always a multiple of at least 12, so it stays plural.
+type Conv = { key: string; big: string; bigOne: string; small: string; factor: number };
 const CONVS: Conv[] = [
-  { key: "hr", big: "hours", small: "minutes", factor: 60 },
-  { key: "ft", big: "feet", small: "inches", factor: 12 },
-  { key: "km", big: "kilometers", small: "meters", factor: 1000 },
-  { key: "kg", big: "kilograms", small: "grams", factor: 1000 },
+  { key: "hr", big: "hours", bigOne: "hour", small: "minutes", factor: 60 },
+  { key: "ft", big: "feet", bigOne: "foot", small: "inches", factor: 12 },
+  { key: "km", big: "kilometers", bigOne: "kilometer", small: "meters", factor: 1000 },
+  { key: "kg", big: "kilograms", bigOne: "kilogram", small: "grams", factor: 1000 },
 ];
 
 export default function Lesson() {
@@ -18,6 +21,7 @@ export default function Lesson() {
   const [value, setValue] = useState(3);
   const conv = CONVS[ci];
   const result = value * conv.factor;
+  const bigUnit = value === 1 ? conv.bigOne : conv.big;
 
   return (
     <div className="prose-lesson max-w-none">
@@ -37,7 +41,7 @@ export default function Lesson() {
 
           <div className="rounded-2xl border-2 border-[var(--line)] px-8 py-4 text-center">
             <div className="font-mono text-3xl font-black">
-              {value} {conv.big} = <span style={{ color: ACCENT }}>{result.toLocaleString()}</span> {conv.small}
+              {value} {bigUnit} = <span style={{ color: ACCENT }}>{result.toLocaleString()}</span> {conv.small}
             </div>
             <div className="mt-1 font-mono text-sm text-[var(--ink-soft)]">{value} × {conv.factor} = {result.toLocaleString()}</div>
           </div>
@@ -73,7 +77,7 @@ export default function Lesson() {
       <MathCheck>
         <p>
           Knowing the relative sizes of measurement units and converting within a
-          system (4.MD.A.1) is multiplication by the unit ratio: {value} {conv.big} × {conv.factor} = {result.toLocaleString()} {conv.small}. These
+          system (4.MD.A.1) is multiplication by the unit ratio: {value} {bigUnit} × {conv.factor} = {result.toLocaleString()} {conv.small}. These
           conversions let you solve measurement word problems — including ones with
           fractions and decimals — in a single, consistent unit (4.MD.A.2).
         </p>

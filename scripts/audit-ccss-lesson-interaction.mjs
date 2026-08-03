@@ -14,6 +14,16 @@
  *   2. standard citation — a CCSS code named in a lesson's Math Check must be
  *      one the lesson is registered under in ccssTextbookRegistry
  *
+ * SCOPE: rule 1 is a cheap pre-check, not the authority. It can only link a
+ * readout to its control when the minimum is declared inline
+ * (`<Stepper … min={1}>`, `<input min={1}>`). Lessons that wrap their controls
+ * in a bespoke component — `ratio-double-number-line`'s `Control`, which floors
+ * at 1 via `Math.max(1, value - 1)` — are invisible to it, and so are readouts
+ * whose noun is separated from its value by markup. Those were found only by
+ * rendering the page. `scripts/audit-us-ca-lesson-page-runtime.mjs` drives every
+ * control to its floor in a browser and is the authoritative check; run it
+ * before claiming this class is clean.
+ *
  * Usage: node scripts/audit-ccss-lesson-interaction.mjs
  */
 import { readFileSync, readdirSync } from "node:fs";

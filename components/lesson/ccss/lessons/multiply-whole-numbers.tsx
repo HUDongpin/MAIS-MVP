@@ -62,7 +62,7 @@ export default function Lesson() {
 
       <h2>Two rows, then add</h2>
       <p>
-        Multiplying {a} by {b} means {a} × {bOnes} ones plus {a} × {bTens} tens.
+        Multiplying {a} by {b} means {a} × {bOnes} one{bOnes === 1 ? "" : "s"} plus {a} × {bTens} ten{bTens === 1 ? "" : "s"}.
         The second partial product ({pp2}) already includes the extra zero because
         the {bTens} is really {bTens * 10}. Adding them gives {total}.
       </p>

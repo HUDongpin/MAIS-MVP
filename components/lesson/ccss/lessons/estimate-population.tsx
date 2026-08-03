@@ -15,7 +15,14 @@ export default function Lesson() {
   // margin of error ≈ 1.96·sqrt(p(1-p)/n)
   const moe = r2(196 * Math.sqrt((p * (1 - p)) / n)); // ×100 for percent
   const lo = r2(phat - moe), hi = r2(phat + moe);
-  const bx = (v: number) => r2(20 + ((v - 40) / 20) * 280);
+  // The axis has to span every reachable state, not just 40–60: the sample-%
+  // stepper runs 30–70 and the widest interval (p = 50%, n = 100) reaches
+  // ±9.8, so the marker used to be drawn off-canvas for 10 of the 21 settings.
+  const AXIS_MIN = 20;
+  const AXIS_MAX = 80;
+  const TICKS = [20, 30, 40, 50, 60, 70, 80];
+  const bx = (v: number) =>
+    r2(20 + ((Math.max(AXIS_MIN, Math.min(AXIS_MAX, v)) - AXIS_MIN) / (AXIS_MAX - AXIS_MIN)) * 280);
 
   return (
     <div className="prose-lesson max-w-none">
@@ -36,7 +43,7 @@ export default function Lesson() {
           {/* interval bar */}
           <svg width={320} height={60} viewBox="0 0 320 60" role="img" aria-label="confidence interval">
             <line x1={20} y1={30} x2={300} y2={30} stroke="var(--line)" strokeWidth={2} />
-            {[40, 45, 50, 55, 60].map((v) => <text key={v} x={bx(v)} y={50} textAnchor="middle" fontSize={9} fill="var(--ink-faint)" fontFamily="var(--font-mono)">{v}</text>)}
+            {TICKS.map((v) => <text key={v} x={bx(v)} y={50} textAnchor="middle" fontSize={9} fill="var(--ink-faint)" fontFamily="var(--font-mono)">{v}</text>)}
             <rect x={bx(lo)} y={22} width={r2(bx(hi) - bx(lo))} height={16} fill={ACCENT} fillOpacity={0.3} stroke={ACCENT} strokeWidth={2} rx={3} />
             <line x1={bx(phat)} y1={18} x2={bx(phat)} y2={42} stroke={ACCENT} strokeWidth={3} />
           </svg>

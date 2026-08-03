@@ -120,11 +120,11 @@ export default function Lesson() {
 
       <h2>Why you multiply across</h2>
       <p>
-        Cutting the square into <strong>{b}</strong>{" "}columns and{" "}
-        <strong>{d}</strong>{" "}rows makes <strong>{b} × {d} = {prodD}</strong>{" "}
-        equal little pieces. The overlap is <strong>{a}</strong>{" "}columns by{" "}
-        <strong>{c}</strong>{" "}rows, which is <strong>{a} × {c} = {prodN}</strong>{" "}
-        pieces. So the answer is <strong>{prodN} out of {prodD}</strong>.
+        Cutting the square into <strong>{b}</strong>{" "}column{b === 1 ? "" : "s"} and{" "}
+        <strong>{d}</strong>{" "}row{d === 1 ? "" : "s"} makes <strong>{b} × {d} = {prodD}</strong>{" "}
+        equal little piece{prodD === 1 ? "" : "s"}. The overlap is <strong>{a}</strong>{" "}column{a === 1 ? "" : "s"} by{" "}
+        <strong>{c}</strong>{" "}row{c === 1 ? "" : "s"}, which is <strong>{a} × {c} = {prodN}</strong>{" "}
+        piece{prodN === 1 ? "" : "s"}. So the answer is <strong>{prodN} out of {prodD}</strong>.
       </p>
 
       <MathCheck>

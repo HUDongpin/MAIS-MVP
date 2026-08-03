@@ -364,13 +364,14 @@ function scaffoldedPracticeBlock(topic: Topic, topicQuestions: GeneratedCaliforn
  */
 function remediationFocusText(topic: Topic, topicQuestions: GeneratedCaliforniaQuestion[]) {
   const metas = ccssLessonMetasForTopic(topic.id);
-  if (metas.length) {
-    const titles = metas.slice(0, 3).map((meta) => meta.title);
-    return { en: titles.join(", "), zh: titles.join("、"), zhHans: titles.join("、") };
-  }
+  // Both branches produce Latin-script names, so they take the Latin comma in
+  // every language — matching how `standardText` renders CCSS ids inside the
+  // Chinese copy. The caller pads them with a space on the CJK side.
+  const names = metas.length
+    ? metas.slice(0, 3).map((meta) => meta.title)
+    : compactConcepts(topicQuestions.flatMap((question) => question.conceptIds), 3).map(titleCase);
 
-  const concepts = compactConcepts(topicQuestions.flatMap((question) => question.conceptIds), 3).map(titleCase);
-  return { en: concepts.join(", "), zh: concepts.join("、"), zhHans: concepts.join("、") };
+  return names.join(", ");
 }
 
 function remediationBlock(topic: Topic, topicQuestions: GeneratedCaliforniaQuestion[]): ProductionLessonBlock {
@@ -390,9 +391,9 @@ function remediationBlock(topic: Topic, topicQuestions: GeneratedCaliforniaQuest
         "答案错时，先判断错在哪一步：读题、选表示方式，还是执行计算。"
       ),
       local(
-        `Misconception watch: re-check ${focus.en} before retrying; write the corrected rule in one sentence.`,
-        `易錯提醒：重做前先重新檢查${focus.zh}，再用一句話寫出修正後的規則。`,
-        `易错提醒：重做前先重新检查${focus.zhHans}，再用一句话写出修正后的规则。`
+        `Misconception watch: re-check ${focus} before retrying; write the corrected rule in one sentence.`,
+        `易錯提醒：重做前先重新檢查 ${focus}，再用一句話寫出修正後的規則。`,
+        `易错提醒：重做前先重新检查 ${focus}，再用一句话写出修正后的规则。`
       ),
       hasWorkedExample
         ? local(

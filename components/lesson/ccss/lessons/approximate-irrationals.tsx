@@ -72,15 +72,25 @@ export default function Lesson() {
   );
 }
 
+const isPerfectSquare = (v: number) => Number.isInteger(Math.sqrt(v));
+
 function Stepper({ label, value, onChange }: { label: string; value: number; onChange: (n: number) => void }) {
-  const set = (v: number) => onChange(Math.max(2, Math.min(30, v)));
+  // Step over the perfect squares in 2..30 (4, 9, 16, 25). On those, √n is an
+  // integer, so every claim this lesson makes about it is false: n = 4 rendered
+  // "4 < 4 < 9, so 2 < √4 < 3" beneath "You can't write √4 exactly". Neither
+  // endpoint is a square, so the skip can never strand the value.
+  const set = (v: number, direction: 1 | -1) => {
+    let next = v;
+    while (next > 2 && next < 30 && isPerfectSquare(next)) next += direction;
+    onChange(Math.max(2, Math.min(30, next)));
+  };
   return (
     <div className="flex flex-col items-center gap-1">
       <span className="text-xs font-semibold uppercase tracking-wide text-[var(--ink-faint)]">{label}</span>
       <div className="flex items-center gap-2">
-        <button type="button" onClick={() => set(value - 1)} disabled={value <= 2} className="h-9 w-9 rounded-lg border border-[var(--line)] bg-[var(--surface)] text-lg font-bold disabled:opacity-40" aria-label="Decrease n">−</button>
+        <button type="button" onClick={() => set(value - 1, -1)} disabled={value <= 2} className="h-9 w-9 rounded-lg border border-[var(--line)] bg-[var(--surface)] text-lg font-bold disabled:opacity-40" aria-label="Decrease n">−</button>
         <span className="w-9 text-center text-2xl font-black tabular-nums">{value}</span>
-        <button type="button" onClick={() => set(value + 1)} disabled={value >= 30} className="h-9 w-9 rounded-lg border border-[var(--line)] bg-[var(--surface)] text-lg font-bold disabled:opacity-40" aria-label="Increase n">+</button>
+        <button type="button" onClick={() => set(value + 1, 1)} disabled={value >= 30} className="h-9 w-9 rounded-lg border border-[var(--line)] bg-[var(--surface)] text-lg font-bold disabled:opacity-40" aria-label="Increase n">+</button>
       </div>
     </div>
   );

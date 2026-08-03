@@ -17,7 +17,7 @@ export default function Lesson() {
       <p>
         A <strong>unit rate</strong>{" "}tells you &ldquo;how much for{" "}
         <strong>one</strong>.&rdquo; Take a ratio like <strong>${cost} for {items}{" "}
-        apples</strong>{" "}and divide to find the cost of a single apple — the rate{" "}
+        apple{items === 1 ? "" : "s"}</strong>{" "}and divide to find the cost of a single apple — the rate{" "}
         <em>per 1</em>.
       </p>
 
@@ -35,7 +35,7 @@ export default function Lesson() {
           </div>
 
           <p className="m-0 text-center text-[15px] text-[var(--ink-soft)]">
-            So {items} apple{items === 1 ? "" : "s"} cost ${cost}, and each apple is ${rate.toFixed(2)}. At that rate, {items * 2} apples would be ${(rate * items * 2).toFixed(2)}.
+            So {items} apple{items === 1 ? "" : "s"} cost{items === 1 ? "s" : ""} ${cost}, and each apple is ${rate.toFixed(2)}. At that rate, {items * 2} apples would be ${(rate * items * 2).toFixed(2)}.
           </p>
 
           <div className="flex flex-wrap items-center justify-center gap-6">

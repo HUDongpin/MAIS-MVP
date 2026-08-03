@@ -29,6 +29,13 @@ function en(value: LocalizedText | string | undefined): string {
   return typeof value === "string" ? value : value.en ?? "";
 }
 
+/** Every locale of a field, so the Chinese copy is audited alongside the English. */
+function locales(value: LocalizedText | string | undefined): string[] {
+  if (value === undefined) return [];
+  if (typeof value === "string") return [value];
+  return [value.en ?? "", value.zh ?? "", value.zhHans ?? ""];
+}
+
 const rendered = usCaliforniaLessonSeeds.map((seed) => ({
   topicId: seed.topicId,
   title: en(seed.title),
@@ -39,7 +46,20 @@ const rendered = usCaliforniaLessonSeeds.map((seed) => ({
     title: en(block.title),
     content: en(block.content),
     items: (block.items ?? []).map(en)
-  }))
+  })),
+  // Flat [where, text] pairs across all three locales, for the rules that are
+  // not English-specific (typography, CJK/Latin spacing).
+  allLocales: [
+    ...locales(seed.title).map((t, i) => [`title[${["en", "zh", "zhHans"][i]}]`, t] as [string, string]),
+    ...locales(seed.description).map((t, i) => [`description[${["en", "zh", "zhHans"][i]}]`, t] as [string, string]),
+    ...seed.blocks.flatMap((block) => [
+      ...locales(block.title).map((t, i) => [`${block.idSuffix}/title[${["en", "zh", "zhHans"][i]}]`, t] as [string, string]),
+      ...locales(block.content).map((t, i) => [`${block.idSuffix}/content[${["en", "zh", "zhHans"][i]}]`, t] as [string, string]),
+      ...(block.items ?? []).flatMap((item, index) =>
+        locales(item).map((t, i) => [`${block.idSuffix}/item[${index}][${["en", "zh", "zhHans"][i]}]`, t] as [string, string])
+      )
+    ])
+  ]
 }));
 
 const dumpFlag = process.argv.indexOf("--dump");
@@ -110,6 +130,9 @@ const IMPERATIVE_QUESTION = /\b(?:Explain|Describe|Show|Write|Draw|Model|List|Na
 const PERIOD_COLON = /\.\s*:/g;
 const DOUBLE_SPACE = /\S {2,}\S/;
 const ELLIPSIS_BEFORE_PAREN = /\.\.\.\)/g;
+// Latin text embedded in Chinese copy needs a space on the CJK side; the repo's
+// own `audit:zh-hans` gate flags the same class across the codebase.
+const CJK_LATIN_RUNON = /[一-鿿](?=[A-Za-z0-9])|(?<=[A-Za-z0-9])[一-鿿]/g;
 
 for (const lesson of rendered) {
   const blockIds = new Set(lesson.blocks.map((block) => block.idSuffix));
@@ -160,6 +183,18 @@ for (const lesson of rendered) {
   }
   if (/concept (?:explanation|launch)/.test(description) && !blockIds.has("concept")) {
     add("description-promises-missing-block", lesson.topicId, "description", "concept");
+  }
+
+  // Locale-independent typography, run over the Chinese copy as well.
+  for (const [where, text] of lesson.allLocales) {
+    if (!text) continue;
+    for (const match of text.matchAll(CJK_LATIN_RUNON)) {
+      const start = Math.max(0, match.index - 12);
+      add("cjk-latin-spacing", lesson.topicId, where, `…${text.slice(start, match.index + 14)}…`);
+    }
+    for (const match of text.matchAll(PERIOD_COLON)) {
+      add("stray-punctuation", lesson.topicId, where, JSON.stringify(match[0]));
+    }
   }
 }
 

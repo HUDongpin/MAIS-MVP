@@ -134,11 +134,12 @@ export default function Lesson() {
 
       <h2>Why multiplying top and bottom works</h2>
       <p>
-        When you cut every part into <strong>{n}</strong>{" "}smaller pieces, there
-        are <strong>{n}</strong>{" "}times as many pieces in the whole (the
-        denominator is multiplied by {n}) <em>and</em>{" "}<strong>{n}</strong>{" "}times
-        as many shaded pieces (the numerator is multiplied by {n}). The amount of
-        strip covered never changed.
+        When you cut every part into <strong>{n}</strong>{" "}smaller piece
+        {n === 1 ? "" : "s"}, there {n === 1 ? "is" : "are"} <strong>{n}</strong>{" "}
+        time{n === 1 ? "" : "s"} as many pieces in the whole (the denominator is
+        multiplied by {n}) <em>and</em>{" "}<strong>{n}</strong>{" "}time
+        {n === 1 ? "" : "s"} as many shaded pieces (the numerator is multiplied by{" "}
+        {n}). The amount of strip covered never changed.
       </p>
 
       <MathCheck>

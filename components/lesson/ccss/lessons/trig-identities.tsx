@@ -13,7 +13,10 @@ export default function Lesson() {
   const rad = (deg * Math.PI) / 180;
   const cos = r2(Math.cos(rad));
   const sin = r2(Math.sin(rad));
-  const sumSquares = r2(cos * cos + sin * sin);
+  // Square the exact values, not the two-decimal display values: rounding first
+  // and squaring after prints 0.99 or 1.01 directly under "= 1 for every angle θ",
+  // which is the misconception this lesson exists to prevent.
+  const sumSquares = r2(Math.cos(rad) ** 2 + Math.sin(rad) ** 2);
   const px = r2(CX + RAD * Math.cos(rad));
   const py = r2(CY - RAD * Math.sin(rad));
 

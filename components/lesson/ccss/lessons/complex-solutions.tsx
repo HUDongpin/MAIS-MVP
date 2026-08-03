@@ -67,9 +67,17 @@ export default function Lesson() {
       <h2>The quadratic formula always works</h2>
       <p>
         x = (−b ± √(b² − 4c)) / 2. When b² − 4c &lt; 0, that square root is
-        imaginary, giving x = {r2(real)} ± {imag}i. The two roots are mirror
-        images across the real axis — a <strong>conjugate pair</strong>{" "}— and
-        multiplying (x − root)(x − root̄) rebuilds the original real polynomial.
+        imaginary and the roots form a <strong>conjugate pair</strong>{" "}— mirror
+        images across the real axis — so multiplying (x − root)(x − root̄)
+        rebuilds the original real polynomial.{" "}
+        {/* Only describe the current discriminant: this paragraph used to assert
+            complex roots unconditionally, so at b = 6, c = 5 it claimed
+            "x = −3 ± 2i" directly under a box correctly reading "x = −5 or x = −1". */}
+        {disc < 0
+          ? `Here b² − 4c = ${disc}, so x = ${r2(real)} ± ${imag}i.`
+          : disc === 0
+            ? `Here b² − 4c = 0, so the pair collapses to the single real double root x = ${r2(real)}.`
+            : `Here b² − 4c = ${disc} is positive, so this one stays on the real axis: ${roots}.`}
       </p>
 
       <MathCheck>

@@ -19,6 +19,20 @@ export default function Lesson() {
   const pUmbGivenRain = r2(g[0][1] / rainTotal);
   const pRainGivenUmb = r2(g[0][1] / umbTotal);
 
+  // The conditioning subset is the rain COLUMN for "given rain" and the umbrella
+  // ROW for "given umbrella". The row case used to shade only the no-rain cell
+  // (15) and leave the numerator (25) plain, so the picture pointed at the wrong
+  // subset in the lesson whose whole point is P(A|B) vs P(B|A).
+  const NUMERATOR = "umbrella-rain";
+  const subset = condOn === "rain"
+    ? new Set([NUMERATOR, "no-umbrella-rain"])
+    : new Set([NUMERATOR, "umbrella-no-rain"]);
+  const cellShade = (cell: string) => {
+    if (!subset.has(cell)) return "transparent";
+    const strength = cell === NUMERATOR ? 25 : 12;
+    return `color-mix(in srgb, var(--band-high) ${strength}%, transparent)`;
+  };
+
   return (
     <div className="prose-lesson max-w-none">
       <p>
@@ -34,10 +48,10 @@ export default function Lesson() {
             <thead><tr className="text-[var(--ink-faint)]"><th className="p-2" /><th className="p-2">rain</th><th className="p-2">no rain</th></tr></thead>
             <tbody>
               <tr><th className="p-2 text-right">umbrella</th>
-                <td className="p-2 text-lg font-black" style={{ background: condOn === "rain" ? "color-mix(in srgb, var(--band-high) 25%, transparent)" : "transparent" }}>{g[0][1]}</td>
-                <td className="p-2 text-lg font-black" style={{ background: condOn === "umbrella" ? "color-mix(in srgb, var(--band-high) 25%, transparent)" : "transparent" }}>{g[0][0]}</td></tr>
+                <td className="p-2 text-lg font-black" style={{ background: cellShade(NUMERATOR) }}>{g[0][1]}</td>
+                <td className="p-2 text-lg" style={{ background: cellShade("umbrella-no-rain") }}>{g[0][0]}</td></tr>
               <tr><th className="p-2 text-right">no umbrella</th>
-                <td className="p-2 text-lg" style={{ background: condOn === "rain" ? "color-mix(in srgb, var(--band-high) 12%, transparent)" : "transparent" }}>{g[1][1]}</td>
+                <td className="p-2 text-lg" style={{ background: cellShade("no-umbrella-rain") }}>{g[1][1]}</td>
                 <td className="p-2 text-lg">{g[1][0]}</td></tr>
             </tbody>
           </table>

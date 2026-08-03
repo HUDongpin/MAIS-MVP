@@ -14,7 +14,10 @@ export default function Lesson() {
 
   const root = r3(Math.pow(base, 1 / n));
   const value = r3(Math.pow(base, m / n));
-  const asRootThenPow = r3(Math.pow(root, m));
+  // Raise the EXACT root, not its three-decimal display value. Powering the
+  // rounded root printed "27^(4/4) = 27" beside "= (2.28)^4 = 27.023" — the two
+  // routes this lesson exists to show are equal, disagreeing on screen.
+  const asRootThenPow = r3(Math.pow(Math.pow(base, 1 / n), m));
 
   return (
     <div className="prose-lesson max-w-none">

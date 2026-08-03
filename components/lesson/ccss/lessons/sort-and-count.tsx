@@ -19,7 +19,12 @@ export default function Lesson() {
   const [counts, setCounts] = useState([5, 3, 4]); // apples, bananas, grapes
 
   const total = counts.reduce((s, n) => s + n, 0);
-  const maxIdx = counts.indexOf(Math.max(...counts));
+  // Every category at the top count, not just the first one. `indexOf(max)`
+  // named a single winner on a tie — with [4, 3, 4] it said "Most of all:
+  // apples (4)" while the grapes basket beside it also held 4, and reading the
+  // most from the picture is the whole point of K.MD.B.3.
+  const maxCount = Math.max(...counts);
+  const leaders = counts.map((n, i) => (n === maxCount ? i : -1)).filter((i) => i >= 0);
 
   // build the jumble to display before sorting, honoring current counts
   const jumbleItems = useMemo(() => {
@@ -75,7 +80,14 @@ export default function Lesson() {
 
           {sorted && (
             <p className="m-0 text-center text-lg font-bold">
-              Most of all: <span style={{ color: CATS[maxIdx].color }}>{CATS[maxIdx].emoji} {CATS[maxIdx].name}</span> ({counts[maxIdx]}). Total fruit: {total}.
+              {leaders.length === 1 ? "Most of all: " : "Tied for most: "}
+              {leaders.map((li, order) => (
+                <span key={CATS[li].name}>
+                  {order > 0 ? (order === leaders.length - 1 ? " and " : ", ") : ""}
+                  <span style={{ color: CATS[li].color }}>{CATS[li].emoji} {CATS[li].name}</span>
+                </span>
+              ))}
+              {" "}({maxCount}). Total fruit: {total}.
             </p>
           )}
 

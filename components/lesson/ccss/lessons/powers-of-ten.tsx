@@ -19,7 +19,11 @@ export default function Lesson() {
   const result = base * power;
   const dir = e > 0 ? "right" : "left";
   const zeros = Math.abs(e);
-  const powerStr = e > 0 ? `1${"0".repeat(e)}` : `0.${"0".repeat(-e - 1)}1`;
+  // The magnitude of the power that is being multiplied or divided BY, always
+  // written with the same unsigned exponent the copy prints. Pairing the
+  // unsigned exponent with a signed value rendered "10² = 0.01" on the ÷10²
+  // button; and a negative exponent is 8.EE.A.1, not this Grade 5 standard.
+  const magnitudeStr = `1${"0".repeat(zeros)}`;
 
   return (
     <div className="prose-lesson max-w-none">
@@ -45,7 +49,7 @@ export default function Lesson() {
               {fmt(base)} {e > 0 ? "×" : "÷"} 10<sup>{Math.abs(e)}</sup> = <span style={{ color: ACCENT }}>{fmt(result)}</span>
             </div>
             <div className="mt-2 font-mono text-[15px] text-[var(--ink-soft)]">
-              10<sup>{Math.abs(e)}</sup> = {powerStr} · the decimal moves <strong>{zeros}</strong>{" "}place{zeros === 1 ? "" : "s"} to the <strong>{dir}</strong>
+              10<sup>{zeros}</sup> = {magnitudeStr} · the decimal moves <strong>{zeros}</strong>{" "}place{zeros === 1 ? "" : "s"} to the <strong>{dir}</strong>
             </div>
           </div>
 
@@ -59,15 +63,15 @@ export default function Lesson() {
 
       <h2>Exponents count the zeros</h2>
       <p>
-        10<sup>{Math.abs(e)}</sup> means {Math.abs(e)} factor{Math.abs(e) === 1 ? "" : "s"} of 10, which is {powerStr}. That is why {e > 0 ? "multiplying" : "dividing"} by
-        it moves the decimal point exactly {zeros} place{zeros === 1 ? "" : "s"}.
+        10<sup>{zeros}</sup> means {zeros} factor{zeros === 1 ? "" : "s"} of 10, which is {magnitudeStr}. That is why {e > 0 ? "multiplying" : "dividing"} by
+        it moves the decimal point exactly {zeros} place{zeros === 1 ? "" : "s"} to the {dir}.
       </p>
 
       <MathCheck>
         <p>
           Multiplying or dividing by a power of 10 shifts every digit to a new
           place value (5.NBT.A.2). The <strong>exponent</strong>{" "}tells you how many
-          places the decimal point moves: {fmt(base)} {e > 0 ? "×" : "÷"} 10<sup>{Math.abs(e)}</sup> = {fmt(result)}, because 10<sup>{Math.abs(e)}</sup> = {powerStr}.
+          places the decimal point moves: {fmt(base)} {e > 0 ? "×" : "÷"} 10<sup>{zeros}</sup> = {fmt(result)}, because 10<sup>{zeros}</sup> = {magnitudeStr}.
         </p>
       </MathCheck>
     </div>

@@ -50,7 +50,7 @@ export default function Lesson() {
           </div>
 
           <div className="rounded-2xl border-2 px-8 py-3 text-center" style={{ borderColor: ACCENT }}>
-            <div className="font-mono text-2xl font-black" style={{ color: ACCENT }}>{rateDec % 1 === 0 ? rateDec : rateDec.toFixed(2)} miles per hour</div>
+            <div className="font-mono text-2xl font-black" style={{ color: ACCENT }}>{rateDec % 1 === 0 ? rateDec : rateDec.toFixed(2)} mile{rateDec === 1 ? "" : "s"} per hour</div>
           </div>
 
           <div className="flex flex-wrap items-center justify-center gap-8">

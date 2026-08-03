@@ -29,8 +29,9 @@ export default function Lesson() {
       <Figure caption="Multiply, then take the discount, then divide. Each step feeds the next.">
         <div className="flex flex-col items-center gap-6">
           <p className="m-0 max-w-md text-center text-lg font-semibold">
-            {qty} pizzas cost ${price} each. A {discount}% off coupon applies. You
-            split the bill among {people} friends. How much does each pay?
+            {qty} pizza{qty === 1 ? "" : "s"} cost{qty === 1 ? "s" : ""} ${price} each. A {discount}% off
+            coupon applies. You split the bill among {people} friend
+            {people === 1 ? "" : "s"}. How much does each pay?
           </p>
 
           <div className="flex w-full max-w-sm flex-col gap-2">

@@ -16,7 +16,10 @@ export default function Lesson() {
 
   const r = rate / 100;
   const growth = r2(Math.pow(1 + r, t));
-  const value = r2(P * growth);
+  // Compute the balance from the exact growth factor, not its rounded display
+  // value — chaining off `growth` puts the headline dollar amount up to $25 out,
+  // which a student can disprove with a calculator.
+  const value = r2(P * Math.pow(1 + r, t));
 
   return (
     <div className="prose-lesson max-w-none">

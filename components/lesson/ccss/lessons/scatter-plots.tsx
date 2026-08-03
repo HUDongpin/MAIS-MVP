@@ -41,7 +41,7 @@ export default function Lesson() {
             ))}
           </div>
 
-          <svg width={SIZE} height={SIZE} viewBox={`0 0 ${SIZE} ${SIZE}`} className="max-w-full" style={{ maxHeight: 320 }} role="img" aria-label={`${a.name} association`}>
+          <svg width={SIZE} height={SIZE} viewBox={`0 0 ${SIZE} ${SIZE}`} className="max-w-full" style={{ maxHeight: 320 }} role="img" aria-label={`Scatter plot showing ${a.name.toLowerCase()}`}>
             {Array.from({ length: N + 1 }, (_, i) => (
               <g key={i} stroke="var(--line)" strokeWidth={1}>
                 <line x1={sx(i)} y1={sy(0)} x2={sx(i)} y2={sy(N)} />

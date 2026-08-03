@@ -62,7 +62,11 @@ export default function Lesson() {
 
       <h2>What to do with the remainder</h2>
       <p>
-        Here the leftover means you need one <em>more</em>{" "}van, so you round up.
+        {leftover > 0 ? (
+          <>Here the leftover means you need one <em>more</em>{" "}van, so you round up.</>
+        ) : (
+          <>Here the division comes out even, so there is no leftover to round up — {vans} vans hold everyone exactly.</>
+        )}{" "}
         In other problems the remainder might be the answer, or you might drop it.
         Estimating first ({students} ÷ {perVan} is about {Math.round(students / perVan)}) helps you check.
       </p>
@@ -72,8 +76,12 @@ export default function Lesson() {
           Multistep word problems use the four operations, and answers must be
           reasonable — checked with <strong>estimation</strong>{" "}and mental math
           (4.OA.A.3). When you divide, the <strong>remainder</strong>{" "}must be
-          interpreted: here {students} ÷ {perVan} = {vans} R {leftover}, but since
-          every student needs a seat you round up to {vansNeeded}.
+          interpreted: here {students} ÷ {perVan} = {vans}
+          {leftover > 0 ? (
+            <> R {leftover}, and since every student needs a seat you round up to {vansNeeded}.</>
+          ) : (
+            <> exactly, so no rounding is needed — {vansNeeded} vans seat everyone.</>
+          )}
         </p>
       </MathCheck>
     </div>

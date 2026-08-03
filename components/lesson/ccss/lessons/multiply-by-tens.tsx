@@ -39,7 +39,7 @@ export default function Lesson() {
           </div>
 
           <p className="m-0 text-center text-[15px] text-[var(--ink-soft)]">
-            The <strong>{base}</strong>{" "}is now <strong>{base} tens</strong>, so a zero appears in the ones place: {product}.
+            The <strong>{base}</strong>{" "}is now <strong>{base} ten{base === 1 ? "" : "s"}</strong>, so a zero appears in the ones place: {product}.
           </p>
 
           <div className="flex flex-wrap items-center justify-center gap-6">
@@ -52,7 +52,7 @@ export default function Lesson() {
       <h2>Why the zero appears</h2>
       <p>
         {a} group{a === 1 ? "" : "s"} of {multiple} is {a} group{a === 1 ? "" : "s"} of {tens} ten{tens === 1 ? "" : "s"}, which is {base}{" "}
-        tens. And {base} tens is written <strong>{product}</strong>{" "}— the same{" "}
+        ten{base === 1 ? "" : "s"}. And {base} ten{base === 1 ? "" : "s"} is written <strong>{product}</strong>{" "}— the same{" "}
         {base} with a 0 in the ones place.
       </p>
 

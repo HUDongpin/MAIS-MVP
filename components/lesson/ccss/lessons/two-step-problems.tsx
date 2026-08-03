@@ -35,12 +35,12 @@ export default function Lesson() {
           <div className="flex flex-col items-center gap-3">
             <div className="rounded-xl border-2 px-5 py-2" style={{ borderColor: STEP1 }}>
               <span className="text-xs font-bold uppercase" style={{ color: STEP1 }}>Step 1 · multiply</span>
-              <div className="font-mono text-lg font-black">{packs} × {per} = {made} pens</div>
+              <div className="font-mono text-lg font-black">{packs} × {per} = {made} pen{made === 1 ? "" : "s"}</div>
             </div>
             <span className="text-[var(--ink-faint)]">↓</span>
             <div className="rounded-xl border-2 px-5 py-2" style={{ borderColor: STEP2 }}>
               <span className="text-xs font-bold uppercase" style={{ color: STEP2 }}>Step 2 · subtract</span>
-              <div className="font-mono text-lg font-black">{made} − {give} = {left} pens</div>
+              <div className="font-mono text-lg font-black">{made} − {give} = {left} pen{left === 1 ? "" : "s"}</div>
             </div>
           </div>
 
@@ -52,8 +52,11 @@ export default function Lesson() {
           </div>
 
           <div className="flex flex-wrap items-center justify-center gap-6">
-            <Stepper label="Packs" value={packs} min={1} max={8} onChange={setPacks} />
-            <Stepper label="Pens each" value={per} min={1} max={9} onChange={setPer} />
+            {/* Re-clamp `give` when the total shrinks. Without it the story could
+                describe giving away more pens than you bought and keeping a
+                negative number — "1 × 1 = 1 pens", then "1 − 5 = −4 pens". */}
+            <Stepper label="Packs" value={packs} min={1} max={8} onChange={(v) => { setPacks(v); setGive((g) => Math.min(g, v * per)); }} />
+            <Stepper label="Pens each" value={per} min={1} max={9} onChange={(v) => { setPer(v); setGive((g) => Math.min(g, packs * v)); }} />
             <Stepper label="Give away" value={give} min={0} max={made} onChange={setGive} />
           </div>
         </div>

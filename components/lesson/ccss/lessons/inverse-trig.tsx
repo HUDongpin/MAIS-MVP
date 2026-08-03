@@ -11,8 +11,10 @@ export default function Lesson() {
   const [deg, setDeg] = useState(30);
   const rad = (deg * Math.PI) / 180;
   const s = r2(Math.sin(rad));
-  // arcsin returns principal value in [-90, 90]
-  const principal = r2((Math.asin(s) * 180) / Math.PI);
+  // arcsin returns principal value in [-90, 90]. Invert the EXACT sine, not the
+  // two-decimal display value — arcsin(r2(sin 40°)) is 39.79°, which would have
+  // the panel deny the very claim the lesson makes, that arcsin recovers the angle.
+  const principal = r2((Math.asin(Math.sin(rad)) * 180) / Math.PI);
   const secondSolution = 180 - deg; // same sine in [0,360)
 
   return (

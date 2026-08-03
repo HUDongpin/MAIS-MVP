@@ -38,7 +38,7 @@ export default function Lesson() {
                     <div key={i} className="rounded-sm border border-white/50" style={{ width: UNIT, height: 24, background: bar.color }} />
                   ))}
                 </div>
-                <span className="text-sm font-bold" style={{ color: bar.color }}>{bar.len} units</span>
+                <span className="text-sm font-bold" style={{ color: bar.color }}>{bar.len} unit{bar.len === 1 ? "" : "s"}</span>
               </div>
             ))}
           </div>

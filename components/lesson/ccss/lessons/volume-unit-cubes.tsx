@@ -88,8 +88,8 @@ export default function Lesson() {
               units
             </div>
             <div className="mt-1 text-sm text-[var(--ink-soft)]">
-              One layer holds <strong>{L * W}</strong>{" "}cubes, and there are{" "}
-              <strong>{H}</strong>{" "}{H === 1 ? "layer" : "layers"}:{" "}
+              One layer holds <strong>{L * W}</strong>{" "}cube{L * W === 1 ? "" : "s"}, and there{" "}
+              {H === 1 ? "is" : "are"} <strong>{H}</strong>{" "}{H === 1 ? "layer" : "layers"}:{" "}
               {L * W} × {H} = {volume}.
             </div>
           </div>
