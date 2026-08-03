@@ -170,6 +170,20 @@ test.describe.serial("teacher workspace frontend workflows", () => {
     await expect(page.getByRole("button", { name: /^A ·/i }).first()).toBeDisabled();
     await expect(page.getByRole("button", { name: /Preview only/i })).toBeDisabled();
 
+    // The shell's "Class focus" publishes ?classId= on every teacher route, and
+    // /teacher/analytics and /teacher/gradebook both scope on it. The reports form
+    // used to ignore it, so "Class focus: S1 Foundation" could sit above a form
+    // still set to S3A and the saved report was for the class not chosen.
+    await page.goto("/teacher/reports?classId=class-s1-foundation-2026");
+    await expect(
+      page.getByRole("combobox", { name: /^Class focus$/i }),
+      "shell Class focus should reflect the requested class"
+    ).toHaveValue("class-s1-foundation-2026");
+    await expect(
+      page.getByRole("combobox", { name: /^Class$/i }),
+      "the report form must target the focused class, not its own default"
+    ).toHaveValue("class-s1-foundation-2026");
+
     await page.goto("/teacher/reports");
     await page.getByRole("combobox", { name: /^Type$/i }).selectOption("student");
     await page.getByRole("combobox", { name: /Language/i }).selectOption("en");
