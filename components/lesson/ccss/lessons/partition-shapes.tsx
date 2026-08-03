@@ -27,7 +27,7 @@ export default function Lesson() {
 
       <Figure caption="Same shape, cut into equal shares. Each piece is one share of the whole.">
         <div className="flex flex-col items-center gap-6">
-          <svg width="170" height="170" viewBox="0 0 170 170" role="img" aria-label={`${shape} in ${parts} equal parts`}>
+          <svg width="170" height="170" viewBox="0 0 170 170" role="img" aria-label={`${shape === "rect" ? "Rectangle" : "Circle"} in ${parts} equal parts`}>
             {shape === "circle" ? (
               <CirclePartition parts={parts} />
             ) : (

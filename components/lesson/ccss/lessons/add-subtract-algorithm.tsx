@@ -40,7 +40,8 @@ export default function Lesson() {
         (carry) or comes up short (borrow).
       </p>
 
-      <Figure caption="Ones, then tens, then hundreds. The red marks show each regroup.">
+      {/* MARK is --band-early, the ORANGE token; nothing red is in the figure. */}
+      <Figure caption="Ones, then tens, then hundreds. The orange marks show each regroup.">
         <div className="flex flex-col items-center gap-6">
           <div className="flex items-center gap-2">
             {(["add", "sub"] as const).map((o) => (

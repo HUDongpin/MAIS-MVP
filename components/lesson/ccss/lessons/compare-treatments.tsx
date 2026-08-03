@@ -33,7 +33,9 @@ export default function Lesson() {
             <div className="font-mono">observed difference = <strong style={{ color: ACCENT }}>{diff}</strong></div>
             <div className="mt-1 text-sm font-bold" style={{ color: significant ? ACCENT : "var(--ink-soft)" }}>
               {significant
-                ? `Larger than the ${threshold} that chance re-randomization usually produces → significant.`
+                // The test is diff >= threshold, so at equality "larger than" was
+                // false: 5 is not larger than 5.
+                ? `At least as large as the ${threshold} that chance re-randomization usually produces → significant.`
                 : `Within the range chance alone can produce (≤ ${threshold}) → not significant.`}
             </div>
           </div>

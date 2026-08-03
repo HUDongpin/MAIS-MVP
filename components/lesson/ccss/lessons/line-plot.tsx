@@ -38,7 +38,11 @@ export default function Lesson() {
           <div className="-mt-4 text-xs font-semibold uppercase tracking-wide text-[var(--ink-faint)]">length in centimeters</div>
 
           <p className="m-0 text-center text-[15px] font-semibold text-[var(--ink-soft)]">
-            {total} pencils measured. Most were <strong>{LENGTHS[maxIdx]} cm</strong>{" "}({counts[maxIdx]} of them).
+            {/* All counts can reach 0, and the sentence then claimed a most-common
+                length for an empty plot. */}
+            {total === 0
+              ? <>No pencils measured yet — add some to see the shape of the data.</>
+              : <>{total} pencils measured. Most were <strong>{LENGTHS[maxIdx]} cm</strong>{" "}({counts[maxIdx]} of them).</>}
           </p>
 
           <div className="flex flex-wrap items-center justify-center gap-4">

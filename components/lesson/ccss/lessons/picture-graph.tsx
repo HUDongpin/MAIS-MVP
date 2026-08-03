@@ -14,8 +14,11 @@ const ROWS: Row[] = [
 export default function Lesson() {
   const [counts, setCounts] = useState([6, 4, 8]);
   const total = counts.reduce((s, n) => s + n, 0);
+  // maxIdx === minIdx when every count is equal, which rendered
+  // "0 more dogs than dogs". Report the tie instead.
   const maxIdx = counts.indexOf(Math.max(...counts));
   const minIdx = counts.indexOf(Math.min(...counts));
+  const allEqual = Math.max(...counts) === Math.min(...counts);
   const diff = counts[maxIdx] - counts[minIdx];
 
   return (
@@ -57,8 +60,10 @@ export default function Lesson() {
 
       <h2>Reading the graph</h2>
       <p>
-        There are <strong>{total}</strong>{" "}pets in all. There are{" "}
-        <strong>{diff} more {ROWS[maxIdx].name}</strong>{" "}than {ROWS[minIdx].name}.
+        There are <strong>{total}</strong>{" "}pets in all.{" "}
+        {allEqual
+          ? <>Every row has the same number, so no pet is more common than another.</>
+          : <>There are <strong>{diff} more {ROWS[maxIdx].name}</strong>{" "}than {ROWS[minIdx].name}.</>}{" "}
         The graph makes the comparison easy to see.
       </p>
 

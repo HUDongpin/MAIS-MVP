@@ -64,10 +64,17 @@ export default function Lesson() {
 
       <h2>Order keeps it correct</h2>
       <p>
-        If you subtracted first, you would get the wrong answer. Multiplication
-        groups the pens together, so it has to happen before the subtraction.
-        That is why <strong>{packs} × {per} − {give} = {left}</strong>, not{" "}
-        {packs} × ({per} − {give}).
+        {/* At give = 0 the two groupings agree, so the contrast is false. */}
+        {give === 0 ? (
+          <>With nothing given away the two groupings happen to agree. Raise{" "}
+          <em>Give away</em>{" "}above 0 and they part company — that is when the
+          order starts to matter.</>
+        ) : (
+          <>If you subtracted first, you would get the wrong answer. Multiplication
+          groups the pens together, so it has to happen before the subtraction.
+          That is why <strong>{packs} × {per} − {give} = {left}</strong>, not{" "}
+          {packs} × ({per} − {give}) = {packs * (per - give)}.</>
+        )}
       </p>
 
       <MathCheck>

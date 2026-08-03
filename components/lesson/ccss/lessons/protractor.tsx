@@ -13,7 +13,10 @@ function pt(deg: number, rad: number) {
   return { x: r3(CX + rad * Math.cos(a)), y: r3(CY - rad * Math.sin(a)) };
 }
 
+// 0° is reachable (slider min 0, step 5) and is not acute — an acute angle
+// measures strictly between 0° and 90°.
 function angleType(d: number) {
+  if (d === 0) return "a zero angle — the rays lie on top of each other";
   if (d === 90) return "a right angle";
   if (d < 90) return "an acute angle";
   if (d < 180) return "an obtuse angle";

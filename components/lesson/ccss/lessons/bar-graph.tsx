@@ -17,8 +17,11 @@ const BARH = 160;
 export default function Lesson() {
   const [vals, setVals] = useState([6, 9, 3, 5]);
   const total = vals.reduce((s, n) => s + n, 0);
+  // indexOf returns the leftmost match, so a tie named a single winner:
+  // [6,9,3,9] claimed "Most popular: banana (9)" while orange also had 9.
   const maxIdx = vals.indexOf(Math.max(...vals));
   const minIdx = vals.indexOf(Math.min(...vals));
+  const topNames = CATS.filter((_, i) => vals[i] === Math.max(...vals)).map((c) => c.name);
 
   return (
     <div className="prose-lesson max-w-none">
@@ -61,7 +64,7 @@ export default function Lesson() {
 
           <div className="grid grid-cols-1 gap-2 text-center sm:grid-cols-3">
             <Fact label="Total" value={`${total} votes`} />
-            <Fact label="Most popular" value={`${CATS[maxIdx].name} (${vals[maxIdx]})`} />
+            <Fact label={topNames.length === 1 ? "Most popular" : "Tied for most"} value={`${topNames.join(", ")} (${vals[maxIdx]})`} />
             <Fact label={`${CATS[maxIdx].name} − ${CATS[minIdx].name}`} value={`${vals[maxIdx] - vals[minIdx]} more`} />
           </div>
 

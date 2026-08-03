@@ -48,9 +48,16 @@ export default function Lesson() {
       <h2>Base and exponent</h2>
       <p>
         The <strong>base</strong>{" "}({base}) is what gets multiplied; the{" "}
-        <strong>exponent</strong>{" "}({exp}) is how many times. A common mistake is
-        to compute {base} × {exp} = {base * exp} — but {base}<sup>{exp}</sup> is
-        actually {value.toLocaleString()}.
+        {/* At exp = 1 (and exp = 0 with base 0) the "mistake" and the true value
+            coincide, so the contrast asserted a difference that is not there. */}
+        <strong>exponent</strong>{" "}({exp}) is how many times.{" "}
+        {base * exp === value ? (
+          <>Here {base} × {exp} happens to equal {base}<sup>{exp}</sup>{" "}= {value.toLocaleString()} — try a
+          bigger exponent to see the two come apart.</>
+        ) : (
+          <>A common mistake is to compute {base} × {exp} = {base * exp} — but {base}<sup>{exp}</sup>{" "}is
+          actually {value.toLocaleString()}.</>
+        )}
       </p>
 
       <MathCheck>

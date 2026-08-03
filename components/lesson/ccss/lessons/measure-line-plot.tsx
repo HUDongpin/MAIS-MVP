@@ -16,6 +16,8 @@ const POINTS = [
 export default function Lesson() {
   const [counts, setCounts] = useState([2, 1, 3, 1, 2]);
   const total = counts.reduce((s, n) => s + n, 0);
+  const peak = Math.max(...counts);
+  const modes = counts.map((c, i) => (c === peak ? i : -1)).filter((i) => i >= 0);
 
   return (
     <div className="prose-lesson max-w-none">
@@ -42,8 +44,9 @@ export default function Lesson() {
           <div className="-mt-4 text-xs font-semibold uppercase tracking-wide text-[var(--ink-faint)]">length in inches</div>
 
           <p className="m-0 text-center text-[15px] font-semibold text-[var(--ink-soft)]">
-            {total} crayons measured. The most common length is{" "}
-            <strong>{POINTS[counts.indexOf(Math.max(...counts))].label} in</strong>.
+            {/* indexOf(max) names one mode even when several tie. */}
+            {total} crayons measured. {modes.length === 1 ? "The most common length is" : "The most common lengths are"}{" "}
+            <strong>{modes.map((i) => `${POINTS[i].label} in`).join(", ")}</strong>.
           </p>
 
           <div className="flex flex-wrap items-center justify-center gap-3">

@@ -51,7 +51,7 @@ export default function Lesson() {
           </div>
 
           <FigureScroll>
-            <svg width={W} height={140} viewBox={`0 0 ${W} 140`} className="mx-auto" role="img" aria-label={`${mode} of the data`}>
+            <svg width={W} height={140} viewBox={`0 0 ${W} 140`} className="mx-auto" role="img" aria-label={`${mode === "dot" ? "Dot plot" : mode === "hist" ? "Histogram" : "Box plot"} of the data`}>
               <line x1={PAD} y1={110} x2={W - PAD} y2={110} stroke="var(--ink-soft)" strokeWidth={2} />
               {Array.from({ length: MAXX + 1 }, (_, i) => (i % 2 === 0 ? <text key={i} x={x(i)} y={128} textAnchor="middle" fontSize={9} fill="var(--ink-faint)" fontFamily="var(--font-mono)">{i}</text> : null))}
 

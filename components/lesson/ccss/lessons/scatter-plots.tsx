@@ -56,7 +56,9 @@ export default function Lesson() {
           </svg>
 
           <div className="text-center">
-            <div className="text-lg font-black" style={{ color: DOT }}>{a.name} association</div>
+            {/* ASSOCS[2].name is already "No association", so appending the noun
+                rendered "No association association". */}
+            <div className="text-lg font-black" style={{ color: DOT }}>{a.name.toLowerCase().includes("association") ? a.name : `${a.name} association`}</div>
             <p className="mt-1 max-w-md text-[15px] text-[var(--ink-soft)]">{a.desc}</p>
           </div>
         </div>

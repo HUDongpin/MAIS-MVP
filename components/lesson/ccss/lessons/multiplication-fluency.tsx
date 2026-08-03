@@ -55,7 +55,8 @@ export default function Lesson() {
 
           <div className="text-center">
             <div className="font-mono text-2xl font-black" style={{ color: SEL }}>{sel.r} × {sel.c} = {product}</div>
-            <div className="mt-1 font-mono text-sm text-[var(--ink-soft)]">so {product} ÷ {sel.r} = {sel.c} and {product} ÷ {sel.c} = {sel.r}</div>
+            {/* On the diagonal the two "different" division facts are identical. */}
+            <div className="mt-1 font-mono text-sm text-[var(--ink-soft)]">{sel.r === sel.c ? `so ${product} ÷ ${sel.r} = ${sel.c} — a square fact, so it gives just one division` : `so ${product} ÷ ${sel.r} = ${sel.c} and ${product} ÷ ${sel.c} = ${sel.r}`}</div>
           </div>
         </div>
       </Figure>
