@@ -31,17 +31,26 @@ export default function Lesson() {
 
       <Figure caption="Favorite fruits in our class. Compare the bars against the scale on the left.">
         <div className="flex flex-col items-center gap-6">
+          {/* Bars and scale share one linear mapping anchored at the axis line.
+              The ticks used to be spaced by `justify-between` (15px per unit)
+              while the bars ran at 14px per unit over BARH-20, so every bar read
+              low against the printed scale — a 9-vote bar looked like 8, in the
+              2.MD.D.10 lesson about reading a value off the scale. */}
           <div className="flex items-end gap-3">
-            {/* y-axis */}
-            <div className="flex flex-col-reverse justify-between pr-1 text-right font-mono text-[10px] text-[var(--ink-faint)]" style={{ height: BARH }}>
-              {Array.from({ length: MAXV + 1 }, (_, i) => (i % 2 === 0 ? <span key={i} style={{ lineHeight: 1 }}>{i}</span> : <span key={i} />))}
+            {/* y-axis: ticks positioned at their true value, +2px to clear the axis rule */}
+            <div className="relative pr-1 text-right font-mono text-[10px] text-[var(--ink-faint)]" style={{ height: BARH, marginBottom: 2, width: 16 }}>
+              {Array.from({ length: MAXV + 1 }, (_, i) =>
+                i % 2 === 0 ? (
+                  <span key={i} className="absolute right-1" style={{ bottom: (i / MAXV) * BARH, transform: "translateY(50%)", lineHeight: 1 }}>{i}</span>
+                ) : null
+              )}
             </div>
             {/* bars */}
             <div className="flex items-end gap-4 border-l-2 border-b-2 border-[var(--ink-soft)] pl-3" style={{ height: BARH }}>
               {CATS.map((cat, i) => (
-                <div key={cat.name} className="flex flex-col items-center justify-end">
-                  <span className="mb-1 text-sm font-black" style={{ color: cat.color }}>{vals[i]}</span>
-                  <div className="w-9 rounded-t" style={{ height: (vals[i] / MAXV) * (BARH - 20), background: cat.color, transition: "height 0.3s ease" }} />
+                <div key={cat.name} className="relative w-9" style={{ height: (vals[i] / MAXV) * BARH }}>
+                  <span className="absolute inset-x-0 -top-5 text-center text-sm font-black" style={{ color: cat.color }}>{vals[i]}</span>
+                  <div className="h-full w-full rounded-t" style={{ background: cat.color, transition: "height 0.3s ease" }} />
                 </div>
               ))}
             </div>

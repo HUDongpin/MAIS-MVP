@@ -20,7 +20,7 @@ export default function Lesson() {
         from there. The chart never runs out.
       </p>
 
-      <Figure caption="Tap a number. The green squares show the next numbers you would say.">
+      <Figure caption="Tap a number. The blue squares show the next numbers you would say.">
         <div className="flex flex-col items-center gap-6">
           <div className="text-center">
             <div className="text-5xl font-black" style={{ color: SEL }}>{sel}</div>

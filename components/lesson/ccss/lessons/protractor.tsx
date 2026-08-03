@@ -32,7 +32,7 @@ export default function Lesson() {
         crosses the scale. That number is the angle in <strong>degrees</strong>.
       </p>
 
-      <Figure caption="Read the scale where the orange ray crosses it. Slide to change the angle.">
+      <Figure caption="Read the scale where the green ray crosses it. Slide to change the angle.">
         <div className="flex flex-col items-center gap-6">
           <svg width="320" height="180" viewBox="0 0 320 180" role="img" aria-label={`angle of ${deg} degrees`}>
             {/* protractor body */}

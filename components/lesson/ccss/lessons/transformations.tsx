@@ -39,7 +39,7 @@ export default function Lesson() {
         simple, predictable rule.
       </p>
 
-      <Figure caption="The blue triangle is the image after the transformation. Read how the coordinates change.">
+      <Figure caption="The blue triangle is the original; the green triangle is the image after the transformation. Read how the coordinates change.">
         <div className="flex flex-col items-center gap-6">
           <div className="flex flex-wrap justify-center gap-2">
             {TFS.map((t, i) => (

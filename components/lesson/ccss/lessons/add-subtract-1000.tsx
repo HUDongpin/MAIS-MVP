@@ -26,7 +26,12 @@ export default function Lesson() {
   const [op, setOp] = useState<"add" | "sub">("add");
 
   const hi = Math.max(a, b), lo = Math.min(a, b);
-  const result = op === "add" ? Math.min(999, a + b) : hi - lo;
+  // No clamp on the sum: clamping it printed "899 + 899 = 999" beside base-ten
+  // blocks depicting 1798. The addends are bounded instead, so the equation is
+  // always true and the lesson stays within 1000 (2.NBT.B.7).
+  const result = op === "add" ? a + b : hi - lo;
+  const CEILING = 999;
+  const addendMax = (other: number) => (op === "add" ? CEILING - other : 899);
 
   const carryOnes = op === "add" && (a % 10) + (b % 10) >= 10;
   const carryTens = op === "add" && (Math.floor(a / 10) % 10) + (Math.floor(b / 10) % 10) + (carryOnes ? 1 : 0) >= 10;
@@ -43,7 +48,9 @@ export default function Lesson() {
         <div className="flex flex-col items-center gap-6">
           <div className="flex items-center gap-2">
             {(["add", "sub"] as const).map((o) => (
-              <button key={o} type="button" onClick={() => setOp(o)} className="rounded-lg border px-3 py-1.5 text-sm font-bold" style={op === o ? { background: ACCENT, color: "white", borderColor: ACCENT } : { borderColor: "var(--line)", color: "var(--ink-soft)" }}>{o === "add" ? "Add" : "Subtract"}</button>
+              // Switching back to Add has to bring the addends under 999 too,
+              // otherwise a pair chosen while subtracting could overflow.
+              <button key={o} type="button" onClick={() => { setOp(o); if (o === "add") setB((prev) => Math.min(prev, CEILING - a)); }} className="rounded-lg border px-3 py-1.5 text-sm font-bold" style={op === o ? { background: ACCENT, color: "white", borderColor: ACCENT } : { borderColor: "var(--line)", color: "var(--ink-soft)" }}>{o === "add" ? "Add" : "Subtract"}</button>
             ))}
           </div>
 
@@ -64,8 +71,8 @@ export default function Lesson() {
           </p>
 
           <div className="flex flex-wrap items-center justify-center gap-8">
-            <Stepper label="First number" value={a} onChange={setA} />
-            <Stepper label="Second number" value={b} onChange={setB} />
+            <Stepper label="First number" value={a} max={addendMax(b)} onChange={setA} />
+            <Stepper label="Second number" value={b} max={addendMax(a)} onChange={setB} />
           </div>
         </div>
       </Figure>
@@ -90,15 +97,15 @@ export default function Lesson() {
   );
 }
 
-function Stepper({ label, value, onChange }: { label: string; value: number; onChange: (n: number) => void }) {
-  const set = (v: number) => onChange(Math.max(100, Math.min(899, v)));
+function Stepper({ label, value, max, onChange }: { label: string; value: number; max: number; onChange: (n: number) => void }) {
+  const set = (v: number) => onChange(Math.max(100, Math.min(max, v)));
   return (
     <div className="flex flex-col items-center gap-1">
       <span className="text-xs font-semibold uppercase tracking-wide text-[var(--ink-faint)]">{label}</span>
       <div className="flex items-center gap-2">
         <button type="button" onClick={() => set(value - 1)} disabled={value <= 100} className="h-9 w-9 rounded-lg border border-[var(--line)] bg-[var(--surface)] text-lg font-bold disabled:opacity-40" aria-label={`Decrease ${label}`}>−</button>
         <span className="w-12 text-center text-2xl font-black tabular-nums">{value}</span>
-        <button type="button" onClick={() => set(value + 1)} disabled={value >= 899} className="h-9 w-9 rounded-lg border border-[var(--line)] bg-[var(--surface)] text-lg font-bold disabled:opacity-40" aria-label={`Increase ${label}`}>+</button>
+        <button type="button" onClick={() => set(value + 1)} disabled={value >= max} className="h-9 w-9 rounded-lg border border-[var(--line)] bg-[var(--surface)] text-lg font-bold disabled:opacity-40" aria-label={`Increase ${label}`}>+</button>
       </div>
     </div>
   );

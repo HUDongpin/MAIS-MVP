@@ -35,7 +35,7 @@ export default function Lesson() {
         the same start and see how much longer one is.
       </p>
 
-      <Figure caption="Guess first, then reveal the lengths. The orange piece shows how much longer.">
+      <Figure caption="Guess first, then reveal the lengths. The purple piece at the end of the longer bar shows how much longer.">
         <div className="flex flex-col items-center gap-6">
           <div className="flex flex-col gap-3">
             <Bar len={la} color={A} extra={longer === "top" ? diff : 0} />

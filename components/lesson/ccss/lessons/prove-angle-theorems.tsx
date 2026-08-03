@@ -12,6 +12,20 @@ export default function Lesson() {
   const a = angle;
   const supp = 180 - a;
 
+  // The transversal used to be a hard-coded segment at a fixed 51.3°, so the
+  // slider changed only the printed numbers and never the picture. Drive it from
+  // `angle` about the centre of the strip.
+  const TOP_Y = 70;
+  const BOT_Y = 140;
+  const CX = 130;
+  const CY = (TOP_Y + BOT_Y) / 2;
+  const t = Math.tan((a * Math.PI) / 180);
+  const halfDx = Math.min(75 / t, 118);
+  const halfDy = halfDx * t;
+  // Where the transversal actually crosses each parallel.
+  const xTop = CX - (CY - TOP_Y) / t;
+  const xBot = CX + (BOT_Y - CY) / t;
+
   return (
     <div className="prose-lesson max-w-none">
       <p>
@@ -26,16 +40,17 @@ export default function Lesson() {
         <div className="flex flex-col items-center gap-6">
           <svg width={260} height={200} viewBox="0 0 260 200" role="img" aria-label="parallel lines cut by a transversal">
             {/* two parallel lines */}
-            <line x1={20} y1={70} x2={240} y2={70} stroke="var(--ink-soft)" strokeWidth={2.5} />
-            <line x1={20} y1={140} x2={240} y2={140} stroke="var(--ink-soft)" strokeWidth={2.5} />
-            {/* transversal */}
-            <line x1={70} y1={30} x2={190} y2={180} stroke={ACCENT} strokeWidth={2.5} />
-            {/* angle labels at top intersection (~103,70) */}
-            <text x={112} y={62} fontSize={13} fontWeight={800} fill={ACCENT}>{a}°</text>
-            <text x={86} y={62} fontSize={12} fill="var(--band-upper)">{supp}°</text>
-            {/* bottom intersection (~157,140) — corresponding angle equal */}
-            <text x={166} y={132} fontSize={13} fontWeight={800} fill={ACCENT}>{a}°</text>
-            <text x={140} y={158} fontSize={12} fill="var(--band-upper)">{supp}°</text>
+            <line x1={20} y1={TOP_Y} x2={240} y2={TOP_Y} stroke="var(--ink-soft)" strokeWidth={2.5} />
+            <line x1={20} y1={BOT_Y} x2={240} y2={BOT_Y} stroke="var(--ink-soft)" strokeWidth={2.5} />
+            {/* transversal, rotated by the slider */}
+            <line x1={CX - halfDx} y1={CY - halfDy} x2={CX + halfDx} y2={CY + halfDy} stroke={ACCENT} strokeWidth={2.5} />
+            {/* At each crossing the acute angle a sits in the upper-LEFT wedge and
+                the supplement in the upper-RIGHT one. The labels used to be
+                swapped, printing the acute value inside the obtuse corner. */}
+            <text x={xTop - 24} y={TOP_Y - 8} fontSize={13} fontWeight={800} fill={ACCENT}>{a}°</text>
+            <text x={xTop + 8} y={TOP_Y - 8} fontSize={12} fill="var(--band-upper)">{supp}°</text>
+            <text x={xBot - 24} y={BOT_Y - 8} fontSize={13} fontWeight={800} fill={ACCENT}>{a}°</text>
+            <text x={xBot + 8} y={BOT_Y - 8} fontSize={12} fill="var(--band-upper)">{supp}°</text>
           </svg>
 
           <div className="grid grid-cols-2 gap-4 text-center text-sm">

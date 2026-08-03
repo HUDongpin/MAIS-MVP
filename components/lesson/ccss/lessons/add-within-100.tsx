@@ -9,11 +9,16 @@ const TENC = "var(--band-upper)";
 const ONEC = "var(--band-early)";
 const ADDC = "var(--band-middle)";
 
-function Blocks({ tens, ones, extraTens = 0, extraOnes = 0 }: { tens: number; ones: number; extraTens?: number; extraOnes?: number }) {
+function Blocks({ tens, ones, extraTens = 0, extraOnes = 0, removeTens = 0 }: { tens: number; ones: number; extraTens?: number; extraOnes?: number; removeTens?: number }) {
+  // In "− tens" mode nothing used to be marked, so the caption's "or take away"
+  // had no referent: the figure just showed the untouched number. The rods on
+  // their way out are now marked in the same colour, faded and dashed.
+  const keptTens = Math.max(0, tens - removeTens);
   return (
     <div className="flex items-end justify-center gap-2" style={{ minHeight: 74 }}>
       <div className="flex items-end gap-1">
-        {Array.from({ length: tens }, (_, i) => <div key={`t${i}`} className="rounded-sm" style={{ width: 9, height: 68, background: TENC }} />)}
+        {Array.from({ length: keptTens }, (_, i) => <div key={`t${i}`} className="rounded-sm" style={{ width: 9, height: 68, background: TENC }} />)}
+        {Array.from({ length: Math.min(removeTens, tens) }, (_, i) => <div key={`rt${i}`} className="rounded-sm border-2 border-dashed" style={{ width: 9, height: 68, background: ADDC, opacity: 0.45, borderColor: ADDC }} />)}
         {Array.from({ length: extraTens }, (_, i) => <div key={`et${i}`} className="rounded-sm" style={{ width: 9, height: 68, background: ADDC }} />)}
       </div>
       <div className="grid content-end gap-0.5" style={{ gridTemplateColumns: "repeat(2,1fr)" }}>
@@ -43,7 +48,7 @@ export default function Lesson() {
         <strong>ten</strong>.
       </p>
 
-      <Figure caption="Purple blocks are what you add or take away. Watch the tens and ones.">
+      <Figure caption="Blue blocks are what you add; faded dashed blocks are what you take away. Watch the tens and ones.">
         <div className="flex flex-col items-center gap-6">
           <div className="flex flex-wrap justify-center gap-2">
             {([["ones", "+ ones"], ["tens", "+ tens"], ["subtens", "− tens"]] as [Mode, string][]).map(([m, lbl]) => (
@@ -56,6 +61,7 @@ export default function Lesson() {
             ones={baseOnes}
             extraTens={mode === "tens" ? amt : 0}
             extraOnes={mode === "ones" ? amt : 0}
+            removeTens={mode === "subtens" ? amt : 0}
           />
 
           <div className="font-mono text-3xl font-black">

@@ -22,7 +22,7 @@ export default function Lesson() {
         <strong>tens</strong>{" "}down the last column.
       </p>
 
-      <Figure caption="Orange squares are the tens. Green squares show counting forward from your number.">
+      <Figure caption="Orange squares are the tens. Blue squares show counting forward from your number.">
         <div className="flex flex-col items-center gap-6">
           <div
             className="grid gap-1"

@@ -8,6 +8,21 @@ const A = "var(--band-upper)";
 const B = "var(--band-middle)";
 const UNIT = 30;
 
+// The denominator is a student control (2–8), so the unit's name has to follow
+// it. It used to be hard-coded as "fifths" in the caption, a stepper label and
+// two sentences of prose, which read "3 fifths plus 4 fifths is 7 fifths" over a
+// picture of eighths.
+const UNIT_NAMES: Record<number, [string, string]> = {
+  2: ["half", "halves"],
+  3: ["third", "thirds"],
+  4: ["fourth", "fourths"],
+  5: ["fifth", "fifths"],
+  6: ["sixth", "sixths"],
+  7: ["seventh", "sevenths"],
+  8: ["eighth", "eighths"]
+};
+const unitName = (count: number, den: number) => UNIT_NAMES[den]?.[count === 1 ? 0 : 1] ?? `${den}ths`;
+
 export default function Lesson() {
   const [n1, setN1] = useState(3);
   const [n2, setN2] = useState(4);
@@ -28,7 +43,7 @@ export default function Lesson() {
         or subtract the <strong>numerators</strong>{" "}and keep the denominator.
       </p>
 
-      <Figure caption="Same-size pieces (fifths here). Join them to add; take some away to subtract.">
+      <Figure caption={`Same-size pieces (${unitName(2, d)} here). Join them to add; take some away to subtract.`}>
         <div className="flex flex-col items-center gap-6">
           <div className="flex items-center gap-2">
             {(["add", "sub"] as const).map((o) => (
@@ -55,7 +70,7 @@ export default function Lesson() {
           </div>
 
           <div className="flex flex-wrap items-center justify-center gap-6">
-            <Stepper label={op === "add" ? "First (fifths)" : "Start"} value={n1} min={1} max={d * 2} onChange={setN1} />
+            <Stepper label={op === "add" ? `First (${unitName(2, d)})` : "Start"} value={n1} min={1} max={d * 2} onChange={setN1} />
             <Stepper label={op === "add" ? "Second" : "Take away"} value={n2} min={1} max={op === "sub" ? a : d * 2} onChange={setN2} />
             <Stepper label="Denominator" value={d} min={2} max={8} onChange={(v) => setD(v)} />
           </div>
@@ -64,8 +79,8 @@ export default function Lesson() {
 
       <h2>Count the pieces</h2>
       <p>
-        {a} fifths {op === "add" ? "plus" : "minus"} {b} fifths is {result}{" "}
-        fifths. When you have {d} or more fifths, that is one or more{" "}
+        {a} {unitName(a, d)} {op === "add" ? "plus" : "minus"} {b} {unitName(b, d)} is {result}{" "}
+        {unitName(result, d)}. When you have {d} or more {unitName(2, d)}, that is one or more{" "}
         <strong>wholes</strong>{" "}— {result}/{d} = {whole}{rem > 0 ? ` ${rem}/${d}` : ""}.
       </p>
 
