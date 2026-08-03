@@ -417,7 +417,11 @@ function remediationFocusText(topic: Topic, topicQuestions: GeneratedCaliforniaQ
     ? metas.slice(0, 3).map((meta) => meta.title)
     : compactConcepts(topicQuestions.flatMap((question) => question.conceptIds), 3).map(titleCase);
 
-  return names.join(", ");
+  // Semicolons, because lesson titles contain commas of their own: joined with
+  // ", " the p5 list read "Order of Operations, Writing Expressions, Two
+  // Patterns, One Graph" - four items where the page has three lessons - and
+  // 12 pages had a title a reader could not see the end of.
+  return names.join(names.some((name) => name.includes(",")) ? "; " : ", ");
 }
 
 function remediationBlock(topic: Topic, topicQuestions: GeneratedCaliforniaQuestion[]): ProductionLessonBlock {
