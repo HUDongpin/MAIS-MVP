@@ -48,7 +48,10 @@ export default function Lesson() {
           </div>
 
           <div className="text-center">
-            <div className="font-mono text-2xl font-black">{problem.eq.replace("?", "")}= <span style={{ color: A }}>{problem.ans}</span></div>
+            {/* `eq` already ends in "= ?", so stripping only the "?" left a
+                trailing "= " and the literal below added a second one: every
+                state rendered "4 × 5 = = 20" from first paint. */}
+            <div className="font-mono text-2xl font-black">{problem.eq.replace("?", "")}<span style={{ color: A }}>{problem.ans}</span></div>
           </div>
 
           <div className="flex flex-wrap items-center justify-center gap-6">

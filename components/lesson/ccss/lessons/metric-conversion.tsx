@@ -14,7 +14,13 @@ const UNITS = [
 ];
 
 function fmt(n: number) {
-  return Number(n.toFixed(4)).toString();
+  // toFixed(4) underflowed every small-to-large conversion: 3 mm → km is 3e-6,
+  // which printed "3 mm = 0 km" in a lesson whose whole claim is that
+  // converting units does not change the amount. Keep enough significant
+  // figures for the value to survive, and drop trailing zeros.
+  if (n === 0) return "0";
+  const decimals = Math.max(0, Math.min(12, 4 - Math.floor(Math.log10(Math.abs(n)))));
+  return Number(n.toFixed(decimals)).toString();
 }
 
 export default function Lesson() {

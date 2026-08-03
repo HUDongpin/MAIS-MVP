@@ -21,8 +21,13 @@ export default function Lesson() {
   const [p, setP] = useState(5);
   const [q, setQ] = useState(-8);
 
-  const x = (v: number) => PAD + ((v - MIN) / (MAX - MIN)) * lineW;
   const sum = p + q;
+  // Widen the number line to hold the sum. Both sliders run ±8, so `sum`
+  // reaches ±16 while the line only spanned ±10 — the second arrow ran off the
+  // viewBox and the sum marker and its label were clipped away entirely.
+  const lo = Math.min(MIN, p, q, sum);
+  const hi = Math.max(MAX, p, q, sum);
+  const x = (v: number) => PAD + ((v - lo) / (hi - lo)) * lineW;
 
   function Arrow({
     from,
@@ -75,8 +80,8 @@ export default function Lesson() {
             >
               {/* axis */}
               <line x1={PAD} y1={AXIS_Y} x2={W - PAD} y2={AXIS_Y} stroke="var(--ink-soft)" strokeWidth={2} />
-              {Array.from({ length: MAX - MIN + 1 }, (_, i) => {
-                const v = MIN + i;
+              {Array.from({ length: hi - lo + 1 }, (_, i) => {
+                const v = lo + i;
                 return (
                   <g key={v}>
                     <line

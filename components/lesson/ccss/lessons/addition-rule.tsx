@@ -40,12 +40,14 @@ export default function Lesson() {
           </div>
 
           <div className="flex flex-wrap items-center justify-center gap-6">
-            {/* Re-clamp the intersection when P(A) or P(B) drops: capping it only
-                in its own stepper let P(A∩B) exceed P(A), an impossible
-                assignment that rendered "0.1 + 0.4 − 0.2 = 0.3". */}
-            <Stepper label="P(A) %" value={pa} min={10} max={90} onChange={(v) => { setPa(v); setPab((x) => Math.min(x, v, pb)); }} />
-            <Stepper label="P(B) %" value={pb} min={10} max={90} onChange={(v) => { setPb(v); setPab((x) => Math.min(x, pa, v)); }} />
-            <Stepper label="P(A∩B) %" value={pab} min={0} max={Math.min(pa, pb)} onChange={setPab} />
+            {/* The intersection is bounded on BOTH sides:
+                  max(0, P(A) + P(B) − 1) ≤ P(A∩B) ≤ min(P(A), P(B)).
+                An earlier pass enforced only the upper bound, so raising both
+                marginals to 90 while the intersection stayed at 20 produced
+                P(A∪B) = 1.6 — a probability above 1. */}
+            <Stepper label="P(A) %" value={pa} min={10} max={90} onChange={(v) => { setPa(v); setPab((x) => Math.max(Math.max(0, v + pb - 100), Math.min(x, v, pb))); }} />
+            <Stepper label="P(B) %" value={pb} min={10} max={90} onChange={(v) => { setPb(v); setPab((x) => Math.max(Math.max(0, pa + v - 100), Math.min(x, pa, v))); }} />
+            <Stepper label="P(A∩B) %" value={pab} min={Math.max(0, pa + pb - 100)} max={Math.min(pa, pb)} onChange={setPab} />
           </div>
         </div>
       </Figure>

@@ -40,7 +40,10 @@ export default function Lesson() {
         <div className="flex flex-col items-center gap-6">
           <div className="flex items-center gap-2">
             {(Object.keys(REL) as Rel[]).map((rk) => (
-              <button key={rk} type="button" onClick={() => setRel(rk)} className="rounded-lg border px-3 py-1.5 text-sm font-bold" style={rel === rk ? { background: B, color: "white", borderColor: B } : { borderColor: "var(--line)", color: "var(--ink-soft)" }}>{REL[rk].name}</button>
+              // Clamp the known angle into the new relationship's range. It was
+              // not re-clamped, so Supplementary at 160° then Complementary gave
+              // "160° + -70° = 90°" in the readout, the prose and the Math Check.
+              <button key={rk} type="button" onClick={() => { setRel(rk); setA((p) => Math.min(p, rk === "supp" ? 160 : 80)); }} className="rounded-lg border px-3 py-1.5 text-sm font-bold" style={rel === rk ? { background: B, color: "white", borderColor: B } : { borderColor: "var(--line)", color: "var(--ink-soft)" }}>{REL[rk].name}</button>
             ))}
           </div>
 
@@ -64,10 +67,16 @@ export default function Lesson() {
             )}
             {rel === "vert" && (
               <g>
+                {/* The second line is horizontal, so the opening between the two
+                    lines really is a°. It used to be drawn at −30°/150°, making
+                    the true opening a + 30 — an 80° wedge labelled "50°" — and
+                    the partner label sat in the wrong sector entirely. The
+                    vertical pair is now a/2 and a/2 + 180, which are genuinely
+                    opposite. */}
                 <line x1={pt(a).x} y1={pt(a).y} x2={pt(a + 180).x} y2={pt(a + 180).y} stroke="var(--ink)" strokeWidth={2.5} />
-                <line x1={pt(-30).x} y1={pt(-30).y} x2={pt(150).x} y2={pt(150).y} stroke="var(--ink)" strokeWidth={2.5} />
-                <text x={pt((a - 30) / 2 + 15, 45).x} y={pt((a - 30) / 2 + 15, 45).y} fontSize={12} fontWeight={800} fill={A}>{a}°</text>
-                <text x={pt(a + 180 + 30, 45).x} y={pt(a + 180 + 30, 45).y} fontSize={12} fontWeight={800} fill={B}>{a}°</text>
+                <line x1={pt(0).x} y1={pt(0).y} x2={pt(180).x} y2={pt(180).y} stroke="var(--ink)" strokeWidth={2.5} />
+                <text x={pt(a / 2, 45).x} y={pt(a / 2, 45).y} fontSize={12} fontWeight={800} fill={A}>{a}°</text>
+                <text x={pt(a / 2 + 180, 45).x} y={pt(a / 2 + 180, 45).y} fontSize={12} fontWeight={800} fill={B}>{a}°</text>
               </g>
             )}
           </svg>

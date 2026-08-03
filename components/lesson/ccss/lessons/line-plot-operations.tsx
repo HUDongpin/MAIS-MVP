@@ -65,7 +65,9 @@ export default function Lesson() {
               <div key={p.label} className="flex flex-col items-center gap-1">
                 <span className="font-mono text-xs font-bold text-[var(--ink-faint)]">{p.label}</span>
                 <div className="flex items-center gap-1.5">
-                  <button type="button" onClick={() => setCounts((c) => c.map((v, j) => (j === i ? Math.max(0, v - 1) : v)))} disabled={counts[i] <= 0} className="h-7 w-7 rounded-md border border-[var(--line)] bg-[var(--surface)] font-bold disabled:opacity-40" aria-label={`fewer at ${p.label}`}>−</button>
+                  {/* Keep at least one beaker: the all-zero state rendered
+                      "0 ÷ 0 = 0 cup each" and "in 0 beakers". */}
+                  <button type="button" onClick={() => setCounts((c) => c.map((v, j) => (j === i ? Math.max(0, v - 1) : v)))} disabled={counts[i] <= 0 || n <= 1} className="h-7 w-7 rounded-md border border-[var(--line)] bg-[var(--surface)] font-bold disabled:opacity-40" aria-label={`fewer at ${p.label}`}>−</button>
                   <span className="w-5 text-center font-black tabular-nums">{counts[i]}</span>
                   <button type="button" onClick={() => setCounts((c) => c.map((v, j) => (j === i ? Math.min(4, v + 1) : v)))} disabled={counts[i] >= 4} className="h-7 w-7 rounded-md border border-[var(--line)] bg-[var(--surface)] font-bold disabled:opacity-40" aria-label={`more at ${p.label}`}>+</button>
                 </div>

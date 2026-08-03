@@ -7,7 +7,6 @@ import { Figure } from "@/components/lesson/ccss/Figure";
 const R = 6;
 const CELL = 24;
 const PAD = 24;
-const SIZE = 2 * R * CELL + 2 * PAD;
 const U = "var(--band-high)";
 const V = "var(--band-upper)";
 const RES = "var(--band-middle)";
@@ -25,8 +24,15 @@ export default function Lesson() {
     op === "sub" ? { x: u.x - v.x, y: u.y - v.y } :
     { x: k * u.x, y: k * u.y };
 
-  const sx = (x: number) => PAD + (x + R) * CELL;
-  const sy = (y: number) => SIZE - PAD - (y + R) * CELL;
+  // Grow the grid to whatever the result needs. Components run ±6 and k runs
+  // ±3, so `res` reaches ⟨18, 18⟩ — well outside a fixed R = 6 grid — and the
+  // result arrow was silently clipped away while the readout still quoted it.
+  const extent = Math.max(R, Math.abs(res.x), Math.abs(res.y), Math.abs(u.x), Math.abs(u.y), Math.abs(v.x), Math.abs(v.y));
+  const cell = (2 * R * CELL) / (2 * extent);
+  const size = 2 * extent * cell + 2 * PAD;
+
+  const sx = (x: number) => PAD + (x + extent) * cell;
+  const sy = (y: number) => size - PAD - (y + extent) * cell;
 
   return (
     <div className="prose-lesson max-w-none">
@@ -47,18 +53,18 @@ export default function Lesson() {
             ))}
           </div>
 
-          <svg width={SIZE} height={SIZE} viewBox={`0 0 ${SIZE} ${SIZE}`} className="max-w-full" style={{ maxHeight: 330 }} role="img" aria-label="vector operations">
-            {Array.from({ length: 2 * R + 1 }, (_, i) => {
-              const c = i - R;
+          <svg width={size} height={size} viewBox={`0 0 ${size} ${size}`} className="max-w-full" style={{ maxHeight: 330 }} role="img" aria-label="vector operations">
+            {Array.from({ length: 2 * extent + 1 }, (_, i) => {
+              const c = i - extent;
               return (
                 <g key={c} stroke="var(--line)" strokeWidth={1}>
-                  <line x1={sx(c)} y1={sy(-R)} x2={sx(c)} y2={sy(R)} />
-                  <line x1={sx(-R)} y1={sy(c)} x2={sx(R)} y2={sy(c)} />
+                  <line x1={sx(c)} y1={sy(-extent)} x2={sx(c)} y2={sy(extent)} />
+                  <line x1={sx(-extent)} y1={sy(c)} x2={sx(extent)} y2={sy(c)} />
                 </g>
               );
             })}
-            <line x1={sx(-R)} y1={sy(0)} x2={sx(R)} y2={sy(0)} stroke="var(--ink-soft)" strokeWidth={2} />
-            <line x1={sx(0)} y1={sy(-R)} x2={sx(0)} y2={sy(R)} stroke="var(--ink-soft)" strokeWidth={2} />
+            <line x1={sx(-extent)} y1={sy(0)} x2={sx(extent)} y2={sy(0)} stroke="var(--ink-soft)" strokeWidth={2} />
+            <line x1={sx(0)} y1={sy(-extent)} x2={sx(0)} y2={sy(extent)} stroke="var(--ink-soft)" strokeWidth={2} />
             <defs>
               {[U, V, RES].map((c, i) => (
                 <marker key={i} id={`arr${i}`} markerWidth="8" markerHeight="8" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill={c} /></marker>

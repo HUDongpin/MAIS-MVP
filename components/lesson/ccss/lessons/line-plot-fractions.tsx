@@ -25,8 +25,13 @@ function frac(eighths: number): string {
 export default function Lesson() {
   const [counts, setCounts] = useState([2, 1, 3, 2, 1]);
   const withData = POINTS.filter((_, i) => counts[i] > 0);
-  const maxE = Math.max(...withData.map((p) => p.e));
-  const minE = Math.min(...withData.map((p) => p.e));
+  // Guard the empty plot: with every count at 0, Math.max(...[]) is -Infinity
+  // and the fraction helper then recursed on NaN until the stack overflowed.
+  // The last remaining measurement cannot be removed (see the − button below),
+  // so withData is never empty, but the fallbacks keep that a local guarantee.
+  const total = counts.reduce((s, v) => s + v, 0);
+  const maxE = withData.length ? Math.max(...withData.map((p) => p.e)) : 0;
+  const minE = withData.length ? Math.min(...withData.map((p) => p.e)) : 0;
   const diff = maxE - minE;
 
   return (
@@ -64,7 +69,7 @@ export default function Lesson() {
               <div key={p.label} className="flex flex-col items-center gap-1">
                 <span className="font-mono text-xs font-bold text-[var(--ink-faint)]">{p.label}″</span>
                 <div className="flex items-center gap-1.5">
-                  <button type="button" onClick={() => setCounts((c) => c.map((v, j) => (j === i ? Math.max(0, v - 1) : v)))} disabled={counts[i] <= 0} className="h-7 w-7 rounded-md border border-[var(--line)] bg-[var(--surface)] font-bold disabled:opacity-40" aria-label={`fewer at ${p.label}`}>−</button>
+                  <button type="button" onClick={() => setCounts((c) => c.map((v, j) => (j === i ? Math.max(0, v - 1) : v)))} disabled={counts[i] <= 0 || total <= 1} className="h-7 w-7 rounded-md border border-[var(--line)] bg-[var(--surface)] font-bold disabled:opacity-40" aria-label={`fewer at ${p.label}`}>−</button>
                   <span className="w-5 text-center font-black tabular-nums">{counts[i]}</span>
                   <button type="button" onClick={() => setCounts((c) => c.map((v, j) => (j === i ? Math.min(5, v + 1) : v)))} disabled={counts[i] >= 5} className="h-7 w-7 rounded-md border border-[var(--line)] bg-[var(--surface)] font-bold disabled:opacity-40" aria-label={`more at ${p.label}`}>+</button>
                 </div>

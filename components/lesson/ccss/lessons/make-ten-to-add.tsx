@@ -132,12 +132,25 @@ export default function Lesson() {
           Making a ten works because you can <strong>regroup</strong>{" "}the addends
           without changing the total (the <strong>associative property</strong>).
           Nothing is reordered here — reordering would be the commutative
-          property, which the guided practice on this page names separately. We
-          split{" "}
-          <strong>{b}</strong>{" "}into <strong>{need} + {rest >= 0 ? rest : b}</strong>,
-          add the <strong>{need}</strong>{" "}to <strong>{a}</strong>{" "}to get a full{" "}
-          <strong>10</strong>, and then <strong>10 + {rest >= 0 ? rest : 0}</strong>{" "}
-          is easy to see. The total never changes — we only regrouped the same
+          property, which the guided practice on this page names separately.{" "}
+          {/* The h2 paragraph above was branched for the too-small case in an
+              earlier pass, but this block was not — it kept telling the split
+              story, so First = 5 with Second = 2 read "We split 2 into 5 + 2". */}
+          {rest >= 0 ? (
+            <>
+              We split <strong>{b}</strong>{" "}into <strong>{need} + {rest}</strong>,
+              add the <strong>{need}</strong>{" "}to <strong>{a}</strong>{" "}to get a full{" "}
+              <strong>10</strong>, and then <strong>10 + {rest}</strong>{" "}
+              is easy to see.
+            </>
+          ) : (
+            <>
+              Here <strong>{b}</strong>{" "}is smaller than the <strong>{need}</strong>{" "}
+              needed to finish the ten, so there is nothing to split — add
+              directly: <strong>{a} + {b} = {a + b}</strong>.
+            </>
+          )}{" "}
+          The total never changes — we only regrouped the same
           counters (1.OA.C.6).
         </p>
       </MathCheck>

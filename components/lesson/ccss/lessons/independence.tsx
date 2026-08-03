@@ -41,9 +41,11 @@ export default function Lesson() {
             {/* Re-clamp the intersection when P(A) or P(B) drops — an
                 intersection larger than either event is impossible, and here it
                 also flipped the independence verdict on impossible inputs. */}
-            <Stepper label="P(A) %" value={pa} min={10} max={90} onChange={(v) => { setPa(v); setPab((x) => Math.min(x, v, pb)); }} />
-            <Stepper label="P(B) %" value={pb} min={10} max={90} onChange={(v) => { setPb(v); setPab((x) => Math.min(x, pa, v)); }} />
-            <Stepper label="P(A∩B) %" value={pab} min={0} max={Math.min(pa, pb)} onChange={setPab} />
+            {/* Both Fréchet bounds, not just the upper one:
+                max(0, P(A) + P(B) − 1) ≤ P(A∩B) ≤ min(P(A), P(B)). */}
+            <Stepper label="P(A) %" value={pa} min={10} max={90} onChange={(v) => { setPa(v); setPab((x) => Math.max(Math.max(0, v + pb - 100), Math.min(x, v, pb))); }} />
+            <Stepper label="P(B) %" value={pb} min={10} max={90} onChange={(v) => { setPb(v); setPab((x) => Math.max(Math.max(0, pa + v - 100), Math.min(x, pa, v))); }} />
+            <Stepper label="P(A∩B) %" value={pab} min={Math.max(0, pa + pb - 100)} max={Math.min(pa, pb)} onChange={setPab} />
           </div>
         </div>
       </Figure>

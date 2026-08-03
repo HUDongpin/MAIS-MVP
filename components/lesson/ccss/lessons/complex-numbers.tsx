@@ -14,6 +14,9 @@ function fmt(re: number, im: number) {
   return `${re} ${sign} ${mag}i`;
 }
 
+/** Parenthesise a negative operand so it never sits bare after +, − or ·. */
+const p = (n: number) => (n < 0 ? `(−${Math.abs(n)})` : `${n}`);
+
 export default function Lesson() {
   const [a, setA] = useState(3);
   const [b, setB] = useState(2);
@@ -42,9 +45,13 @@ export default function Lesson() {
           </div>
 
           <div className="grid w-full max-w-md grid-cols-1 gap-3">
-            <Row op="z + w" result={fmt(sumRe, sumIm)} detail={`(${a}+${c}) + (${b}+${d})i`} />
-            <Row op="z − w" result={fmt(a - c, b - d)} detail={`(${a}−${c}) + (${b}−${d})i`} />
-            <Row op="z · w" result={fmt(prodRe, prodIm)} detail={`(${a}·${c} − ${b}·${d}) + (${a}·${d} + ${b}·${c})i`} />
+            {/* Parenthesise negative operands. d defaults to −4, so on first
+                load these read "(2+-4)i" and "(2−-4)i" — the second being
+                exactly the add-or-subtract ambiguity the detail line exists to
+                remove. */}
+            <Row op="z + w" result={fmt(sumRe, sumIm)} detail={`(${a}+${p(c)}) + (${b}+${p(d)})i`} />
+            <Row op="z − w" result={fmt(a - c, b - d)} detail={`(${a}−${p(c)}) + (${b}−${p(d)})i`} />
+            <Row op="z · w" result={fmt(prodRe, prodIm)} detail={`(${a}·${p(c)} − ${b}·${p(d)}) + (${a}·${p(d)} + ${b}·${p(c)})i`} />
           </div>
 
           <div className="grid grid-cols-2 gap-x-8 gap-y-3 sm:grid-cols-4">

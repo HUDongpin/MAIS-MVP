@@ -35,7 +35,15 @@ export default function Lesson() {
   const [mode, setMode] = useState<Mode>("ones");
 
   const delta = mode === "ones" ? amt : mode === "tens" ? amt * 10 : -amt * 10;
-  const result = Math.max(0, Math.min(99, base + delta));
+  // No clamp on the answer. Clamping it printed "89 + 50 = 99" and
+  // "10 − 50 = 0" — in the equation, in the prose, and inside the Math Check —
+  // while the blocks above drew the true quantity. The amount is bounded
+  // instead, so every reachable state stays inside 0..99 and stays true.
+  const result = base + delta;
+  const amtMax =
+    mode === "ones" ? Math.min(9, 99 - base)
+    : mode === "tens" ? Math.max(1, Math.min(5, Math.floor((99 - base) / 10)))
+    : Math.max(1, Math.min(5, Math.floor(base / 10)));
   const carry = mode === "ones" && (base % 10) + amt >= 10;
 
   const baseTens = Math.floor(base / 10), baseOnes = base % 10;
@@ -52,7 +60,9 @@ export default function Lesson() {
         <div className="flex flex-col items-center gap-6">
           <div className="flex flex-wrap justify-center gap-2">
             {([["ones", "+ ones"], ["tens", "+ tens"], ["subtens", "− tens"]] as [Mode, string][]).map(([m, lbl]) => (
-              <button key={m} type="button" onClick={() => setMode(m)} className="rounded-lg border px-3 py-1.5 text-sm font-bold" style={mode === m ? { background: ADDC, color: "white", borderColor: ADDC } : { borderColor: "var(--line)", color: "var(--ink-soft)" }}>{lbl}</button>
+              // Clamp the amount into the new mode's range: a 9 left over from
+              // "+ ones" survived into "+ tens" and gave "34 + 90 = 99".
+              <button key={m} type="button" onClick={() => { setMode(m); setAmt((p) => Math.max(1, Math.min(p, m === "ones" ? Math.min(9, 99 - base) : m === "tens" ? Math.floor((99 - base) / 10) : Math.floor(base / 10)))); }} className="rounded-lg border px-3 py-1.5 text-sm font-bold" style={mode === m ? { background: ADDC, color: "white", borderColor: ADDC } : { borderColor: "var(--line)", color: "var(--ink-soft)" }}>{lbl}</button>
             ))}
           </div>
 
@@ -76,8 +86,10 @@ export default function Lesson() {
           )}
 
           <div className="flex flex-wrap items-center justify-center gap-6">
-            <Stepper label="Start number" value={base} min={10} max={89} onChange={setBase} />
-            <Stepper label={mode === "ones" ? "ones to add" : "tens"} value={amt} min={1} max={mode === "ones" ? 9 : 5} onChange={setAmt} />
+            {/* Re-clamp the amount whenever the base moves, or raising the base
+                with the amount already high re-creates the overflow. */}
+            <Stepper label="Start number" value={base} min={10} max={89} onChange={(v) => { setBase(v); setAmt((p) => Math.max(1, Math.min(p, mode === "ones" ? Math.min(9, 99 - v) : mode === "tens" ? Math.floor((99 - v) / 10) : Math.floor(v / 10)))); }} />
+            <Stepper label={mode === "ones" ? "ones to add" : "tens"} value={amt} min={1} max={amtMax} onChange={setAmt} />
           </div>
         </div>
       </Figure>
