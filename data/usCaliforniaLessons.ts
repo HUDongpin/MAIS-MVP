@@ -253,11 +253,36 @@ function conceptText(conceptIds: string[]) {
   };
 }
 
+/** "6.EE.A.1" -> "6.EE"; "G-CO.12" -> "G-CO"; "A-REI.10" -> "A-REI". */
+function standardDomain(id: string) {
+  const parts = id.split(".");
+  return parts.length >= 3 ? `${parts[0]}.${parts[1]}` : parts[0];
+}
+
+/**
+ * Domains stay in the order the page introduces them — a unit's own domain
+ * leads, and lessons borrowed from another domain follow — but the codes
+ * within a domain are ordered.
+ *
+ * Read back in raw assignment order the lists rendered "6.SP.A.3, 6.SP.B.5,
+ * 6.SP.B.4", "6.EE.A.2, 6.EE.B.6, 6.EE.A.3" and "F-IF.8, F-BF.3, F-IF.9" —
+ * 17 of the 76 coverage lines and 19 of the 64 teacher guides — with no
+ * pattern a teacher scanning for a code could follow. A plain sort is not the
+ * answer either: it would put a borrowed 3.MD.C.7 ahead of the unit's own
+ * 3.OA standards.
+ */
+function sortStandardIds(standardIds: string[]) {
+  const ids = unique(standardIds);
+  const domains: string[] = [];
+  ids.forEach((id) => {
+    const domain = standardDomain(id);
+    if (!domains.includes(domain)) domains.push(domain);
+  });
+  return domains.flatMap((domain) => sortIds(ids.filter((id) => standardDomain(id) === domain)));
+}
+
 function standardText(standardIds: string[]) {
-  // Print the codes in order. Read back in assignment order they rendered
-  // "6.SP.A.3, 6.SP.B.5, 6.SP.B.4" and "F-IF.8, F-BF.3, F-IF.9" on 17 of the
-  // 76 pages — a standards list a teacher scans for a code they have in mind.
-  const ids = sortIds(unique(standardIds));
+  const ids = sortStandardIds(standardIds);
   return ids.length ? ids.join(", ") : "CA.CCSS.Math";
 }
 
@@ -700,17 +725,27 @@ function ccssTeacherGuideBlock(topicId: string, seedStandardIds: string[]): Prod
       attributionsByStandard.set(id, sources);
     });
   });
-  const orderedStandardIds = unique([
+  const orderedStandardIds = sortStandardIds([
     ...seedStandardIds,
     ...metas.flatMap((meta) => meta.standardIds)
   ]).filter((id) => attributionsByStandard.has(id));
+
+  // "Leads with the library's hand-checked questions" is only true where the
+  // checkpoint actually contains some. s5-chapter-04 and s6-chapter-04 have no
+  // ccss-textbook-practice-v1 question in the bank at all, so all 8 of their
+  // checkpoint items come from the generated one.
+  const hasHandCheckedPractice = selectPracticeQuestionIds(topicId).some((id) =>
+    generatedCaliforniaQuestions.some(
+      (question) => question.id === id && question.batch === "ccss-textbook-practice-v1"
+    )
+  );
 
   return {
     idSuffix: "standards-coverage",
     type: "teacher-guide",
     title: textOnly("Standards developed in this unit"),
     content: textOnly(
-      `This unit's lesson core is ${metas.length} interactive CCSS textbook lesson${metas.length === 1 ? "" : "s"} ported from the CCSS-Math-Textbook library — hand-built and mathematically verified (each lesson's Math Check states the fact it demonstrates and why it is true). The full CCSS standard text each lesson develops is listed below. The practice checkpoint leads with the library's hand-checked questions before the generated California bank.`
+      `This unit's lesson core is ${metas.length} interactive CCSS textbook lesson${metas.length === 1 ? "" : "s"} ported from the CCSS-Math-Textbook library — hand-built and mathematically verified (each lesson's Math Check states the fact it demonstrates and why it is true). The full CCSS standard text each lesson develops is listed below. ${hasHandCheckedPractice ? "The practice checkpoint leads with the library's hand-checked questions before the generated California bank." : "The practice checkpoint draws on the generated California bank; this unit has no hand-checked library questions yet."}`
     ),
     items: orderedStandardIds.map((id) => {
       const description = findStandard(id)?.standard.description ?? "";
