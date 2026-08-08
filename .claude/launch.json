@@ -124,6 +124,26 @@
       "autoPort": false
     },
     {
+      "name": "mais-dev-ff-loop",
+      "runtimeExecutable": "env",
+      "runtimeArgs": [
+        "AUTH_SESSION_SECRET=e2e-session-secret",
+        "HK_MATH_ENABLE_DEMO_USER=true",
+        "AI_TUTOR_PROVIDER_PROFILE=offline-fixture",
+        "OPENAI_API_KEY=",
+        "ANTHROPIC_API_KEY=",
+        "HK_MATH_DB_PATH=.tmp/ff-loop-session/hk-math.sqlite",
+        "NEXT_DIST_DIR=.tmp/ff-loop-session/next-dist",
+        "npx",
+        "next",
+        "dev",
+        "-p",
+        "3410"
+      ],
+      "port": 3410,
+      "autoPort": false
+    },
+    {
       "name": "mais-dev-games-qa",
       "runtimeExecutable": "env",
       "runtimeArgs": [
