@@ -257,12 +257,48 @@ Worth recording, because the same class keeps appearing in the content:
 
 ### Final state
 
-**81+ defects fixed this round.** What is NOT done, stated plainly:
+**123 defects fixed** across 25 content commits.
 
-- ~53 low-severity candidates remain open at the time of writing, under
-  verification.
-- 13 verification agents were lost to a usage limit in the original workflow;
-  their findings are unresolved, not clean.
-- Every one of the eight rounds so far has been followed by a round that found
-  more. This one included: it withdrew two of its own headline claims after
-  measuring the render path instead of the seed data.
+| Stage | Fixed |
+|---|---:|
+| Verified high-severity findings | 23 |
+| Student-visible medium backlog | 58 |
+| Low backlog, workflow-verified | 41 |
+| Found by the new label-motion gate | 1 |
+
+A new gate ships with this round: **`audit:us-ca-lesson-label-motion`**. It
+loads each lesson page, snapshots every figure's accessible name *and* its text,
+advances the controls, and re-reads — flagging any figure whose content moved
+while its name did not. It is the first gate here that measures the render path
+for this defect class rather than reading source, and it found one defect
+(`surface-area-nets`) that no source partition had opened.
+
+It also demonstrates the rule it was built to enforce. Its first version reported
+"✓ clean" on five pages known to be broken, because a swallowed navigation error
+left it inspecting zero figures against a dead server. It now aborts on
+navigation failure, prints what it actually inspected, and exits non-zero if that
+is nothing.
+
+### What the adversarial pass refused
+
+Of 53 low-severity findings, **9 were refuted** — three on false premises
+(`flat-shapes` "no solid shape is ever shown" — it renders an explicit
+flat-vs-solid panel; `measurement-conversion` "excludes the divide direction" —
+its prose covers it; `roots` — the quoted text is not in that file at all).
+
+The skeptics also declined proposed *fixes*: `volume-3d` and `volume-formulas`
+were to announce r and h, but both SVGs are fixed schematics whose geometry
+ignores those values — r=1,h=2 and r=6,h=8 render identical pixels. Naming
+dimensions would have described a picture that does not change.
+
+### Not done
+
+- 3 low findings were not returned by their slice and remain unexamined.
+- 13 verification agents were lost to a usage limit in the original round-8
+  workflow; those findings are unresolved, not clean.
+- Two product decisions remain with the owner: 76 `extension` blocks have no
+  renderer, and 41 elementary pages discard their authored guided practice.
+
+Eight rounds, each followed by one that found more — including this round, which
+withdrew two of its own headline claims after measuring the render path instead
+of the seed data. Nothing here supports calling the page finished.
