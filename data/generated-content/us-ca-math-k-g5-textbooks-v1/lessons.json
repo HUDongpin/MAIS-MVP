@@ -1851,22 +1851,22 @@
           "workedExample": {
             "prompt": "5 teams each collect 4 stickers. How many stickers do the teams collect altogether?",
             "answer": "20",
-            "reasoning": "5 equal groups of 4 make 5 x 4 = 20."
+            "reasoning": "5 equal groups of 4 make 5 × 4 = 20."
           },
           "guidedPractice": [
             {
               "prompt": "5 teams each collect 4 stickers. How many stickers do the teams collect altogether?",
-              "expectedMove": "Read it as 5 groups of 4, write 5 x 4 = 20, and label the answer with stickers."
+              "expectedMove": "Read it as 5 groups of 4, write 5 × 4 = 20, and label the answer with stickers."
             }
           ],
           "independentPractice": [
-            "Write a division story that matches 24 / 6 and solve it.",
-            "Use 5 x 7 = 35 to find 6 x 7, and explain the step."
+            "Write a division story that matches 24 ÷ 6 and solve it.",
+            "Use 5 × 7 = 35 to find 6 × 7, and explain the step."
           ],
           "commonPitfalls": [
             {
               "pitfall": "multiplication as only repeated addition",
-              "repairMove": "Also show the fact as an array or an area model, so 5 x 4 and 4 x 5 both make sense."
+              "repairMove": "Also show the fact as an array or an area model, so 5 × 4 and 4 × 5 both make sense."
             },
             {
               "pitfall": "division context mismatch",
@@ -1883,7 +1883,7 @@
             "20"
           ],
           "solutionSteps": [
-            "5 equal groups of 4 make 5 x 4 = 20."
+            "5 equal groups of 4 make 5 × 4 = 20."
           ]
         },
         "guidedPractice": {
@@ -1983,7 +1983,7 @@
           ],
           "independentPractice": [
             "Round 372 to the nearest ten and to the nearest hundred, and explain the difference.",
-            "Find 8 x 60 and explain the place-value step."
+            "Find 8 × 60 and explain the place-value step."
           ],
           "commonPitfalls": [
             {
@@ -2225,12 +2225,12 @@
           "workedExample": {
             "prompt": "A rectangle is 12 units long and 3 units wide. What is its area?",
             "answer": "36 square units",
-            "reasoning": "Area is length x width, so 12 x 3 = 36 square units."
+            "reasoning": "Area is length × width, so 12 × 3 = 36 square units."
           },
           "guidedPractice": [
             {
               "prompt": "A rectangle is 12 units long and 3 units wide. What is its area?",
-              "expectedMove": "Multiply length by width: 12 x 3 = 36, and label the answer in square units."
+              "expectedMove": "Multiply length by width: 12 × 3 = 36, and label the answer in square units."
             }
           ],
           "independentPractice": [
@@ -2257,7 +2257,7 @@
             "36 square units"
           ],
           "solutionSteps": [
-            "Area is length x width, so 12 x 3 = 36 square units."
+            "Area is length × width, so 12 × 3 = 36 square units."
           ]
         },
         "guidedPractice": {
@@ -2471,12 +2471,12 @@
           "workedExample": {
             "prompt": "Which number is a factor of 24: 5, 6, or 7?",
             "answer": "6",
-            "reasoning": "6 is a factor of 24 because 6 x 4 = 24."
+            "reasoning": "6 is a factor of 24 because 6 × 4 = 24."
           },
           "guidedPractice": [
             {
               "prompt": "Which number is a factor of 24: 5, 6, or 7?",
-              "expectedMove": "Test each one by dividing: 24 / 6 = 4 with no remainder, so 6 is a factor."
+              "expectedMove": "Test each one by dividing: 24 ÷ 6 = 4 with no remainder, so 6 is a factor."
             }
           ],
           "independentPractice": [
@@ -2503,7 +2503,7 @@
             "6"
           ],
           "solutionSteps": [
-            "6 is a factor of 24 because 6 x 4 = 24."
+            "6 is a factor of 24 because 6 × 4 = 24."
           ]
         },
         "guidedPractice": {
@@ -2595,18 +2595,18 @@
           "launch": "A city counter reads 34,628 visitors. Each digit has a place, and each place is ten times the place to its right.",
           "conceptExplanation": "Place value is the engine for multi-digit numbers. It helps you read, compare, round, add, subtract, multiply, and divide because every digit carries a unit. Moving one place left makes a value ten times as large; moving right makes it one tenth as large. Algorithms make sense when you can explain the trades behind them.",
           "workedExample": {
-            "prompt": "Multiply 34 x 7.",
+            "prompt": "Multiply 34 × 7.",
             "answer": "238",
-            "reasoning": "Break 34 into 30 and 4. Multiply each part by 7: 30 x 7 = 210 and 4 x 7 = 28. Add the partial products: 210 + 28 = 238."
+            "reasoning": "Break 34 into 30 and 4. Multiply each part by 7: 30 × 7 = 210 and 4 × 7 = 28. Add the partial products: 210 + 28 = 238."
           },
           "guidedPractice": [
             {
-              "prompt": "Multiply 34 x 7.",
+              "prompt": "Multiply 34 × 7.",
               "expectedMove": "Break 34 into 30 + 4, multiply each part (210 and 28), then add: 238."
             }
           ],
           "independentPractice": [
-            "Find 253 x 6 with an area model and with the standard algorithm, then compare the two.",
+            "Find 34 × 26 with an area model and with the standard algorithm, then compare the two.",
             "Divide 87 by 5 and explain what the remainder means in a sharing story."
           ],
           "commonPitfalls": [
@@ -2629,7 +2629,7 @@
             "238"
           ],
           "solutionSteps": [
-            "Break 34 into 30 and 4. Multiply each part by 7: 30 x 7 = 210 and 4 x 7 = 28. Add the partial products: 210 + 28 = 238."
+            "Break 34 into 30 and 4. Multiply each part by 7: 30 × 7 = 210 and 4 × 7 = 28. Add the partial products: 210 + 28 = 238."
           ]
         },
         "guidedPractice": {
@@ -3091,20 +3091,20 @@
           "title": "Grade 5 Operations and Algebraic Thinking: Expressions Patterns",
           "learningGoals": [
             "Write and evaluate numerical expressions that use parentheses and brackets.",
-            "Interpret an expression without calculating it, such as 3 x (18 + 5).",
+            "Interpret an expression without calculating it, such as 3 × (18 + 5).",
             "Generate two numerical patterns and describe how their terms are related."
           ],
           "launch": "A game machine gives points by following a rule. Parentheses on the score card tell which part of the rule happens first.",
           "conceptExplanation": "A numerical expression is a plan for calculations, not just an answer waiting at the end. The order of operations tells how to read that plan: grouping symbols first, then multiplication or division, then addition or subtraction. Patterns can be tracked in tables because each input-output pair follows the same rule. The expression should explain the rule you see.",
           "workedExample": {
-            "prompt": "Evaluate (7 + 2) x 4.",
+            "prompt": "Evaluate (7 + 2) × 4.",
             "answer": "36",
-            "reasoning": "First add inside the parentheses: 7 + 2 = 9. Then multiply: 9 x 4 = 36."
+            "reasoning": "First add inside the parentheses: 7 + 2 = 9. Then multiply: 9 × 4 = 36."
           },
           "guidedPractice": [
             {
-              "prompt": "Evaluate (7 + 2) x 4.",
-              "expectedMove": "Do the work inside the parentheses first: 7 + 2 = 9, then 9 x 4 = 36."
+              "prompt": "Evaluate (7 + 2) × 4.",
+              "expectedMove": "Do the work inside the parentheses first: 7 + 2 = 9, then 9 × 4 = 36."
             }
           ],
           "independentPractice": [
@@ -3131,7 +3131,7 @@
             "36"
           ],
           "solutionSteps": [
-            "First add inside the parentheses: 7 + 2 = 9. Then multiply: 9 x 4 = 36."
+            "First add inside the parentheses: 7 + 2 = 9. Then multiply: 9 × 4 = 36."
           ]
         },
         "guidedPractice": {
@@ -3237,7 +3237,7 @@
           ],
           "independentPractice": [
             "Compare 0.305 and 0.35 and explain which is greater.",
-            "Find 2.5 x 10 and 2.5 / 10, and describe how the digits shift."
+            "Find 2.5 × 10 and 2.5 ÷ 10, and describe how the digits shift."
           ],
           "commonPitfalls": [
             {
@@ -3364,7 +3364,7 @@
             }
           ],
           "independentPractice": [
-            "Find 2/3 x 3/5 and draw an area model that shows the product.",
+            "Find 2/3 × 3/5 and draw an area model that shows the product.",
             "Write a story for 4 divided by 1/2 and explain why the answer is greater than 4."
           ],
           "commonPitfalls": [
@@ -3477,19 +3477,19 @@
           "learningGoals": [
             "Convert among units within one measurement system and use the conversion to solve problems.",
             "Make a line plot of fractional measurements and use it to answer questions.",
-            "Find volume by counting unit cubes and by using length x width x height."
+            "Find volume by counting unit cubes and by using length × width × height."
           ],
           "launch": "A display box is filled with unit cubes, layer by layer, until the inside space is packed without gaps.",
           "conceptExplanation": "Volume counts cubic units inside a solid figure, not square units on its surface. For a rectangular prism, multiplying length, width, and height works because one layer has length times width cubes and the height counts the layers. Unit conversions and data displays still need labels. The final answer should name the kind of quantity measured.",
           "workedExample": {
             "prompt": "A rectangular prism is 8 units long, 4 units wide, and 2 units high. What is its volume?",
             "answer": "64 cubic units",
-            "reasoning": "Volume is length x width x height, so 8 x 4 x 2 = 64 cubic units."
+            "reasoning": "Volume is length × width × height, so 8 × 4 × 2 = 64 cubic units."
           },
           "guidedPractice": [
             {
               "prompt": "A rectangular prism is 8 units long, 4 units wide, and 2 units high. What is its volume?",
-              "expectedMove": "Multiply the three dimensions: 8 x 4 x 2 = 64, and label the answer in cubic units."
+              "expectedMove": "Multiply the three dimensions: 8 × 4 × 2 = 64, and label the answer in cubic units."
             }
           ],
           "independentPractice": [
@@ -3503,7 +3503,7 @@
             },
             {
               "pitfall": "unit cube count not linked to formula",
-              "repairMove": "Count the cubes in one layer, then check that length x width gives the same layer count."
+              "repairMove": "Count the cubes in one layer, then check that length × width gives the same layer count."
             }
           ],
           "exitTicket": "In one sentence, explain what your answer measured and the unit it used."
@@ -3516,7 +3516,7 @@
             "64 cubic units"
           ],
           "solutionSteps": [
-            "Volume is length x width x height, so 8 x 4 x 2 = 64 cubic units."
+            "Volume is length × width × height, so 8 × 4 × 2 = 64 cubic units."
           ]
         },
         "guidedPractice": {
