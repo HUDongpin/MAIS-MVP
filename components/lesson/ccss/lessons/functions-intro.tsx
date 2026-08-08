@@ -38,7 +38,7 @@ export default function Lesson() {
 
           <div className="flex flex-col items-center gap-1">
             <span className="text-xs font-semibold uppercase tracking-wide text-[var(--ink-faint)]">input x = {x}</span>
-            <input type="range" min={0} max={8} value={x} onChange={(e) => setX(Number(e.target.value))} className="w-56 accent-[var(--band-upper)]" aria-label="input" />
+            <input type="range" min={0} max={8} value={x} onChange={(e) => setX(Number(e.target.value))} className="w-56 accent-[var(--band-upper)]" aria-label="input x" />
           </div>
 
           {/* comparison */}

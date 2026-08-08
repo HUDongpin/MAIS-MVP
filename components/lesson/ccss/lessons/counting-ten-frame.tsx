@@ -35,10 +35,9 @@ function TenFrame({
             key={index}
             type="button"
             onClick={() => onSet(index + 1)}
-            aria-label={
-              filled ? `Counter ${index + 1}` : `Empty spot ${index + 1}`
-            }
-            aria-pressed={filled}
+            // The button fills the frame UP TO this spot; it never empties this
+            // one, so aria-pressed stayed true after activating it.
+            aria-label={`Fill up to ${index + 1}${filled ? ", currently filled" : ", currently empty"}`}
             className="h-10 w-10 rounded-full border-2 transition-transform active:scale-90"
             style={{
               borderColor: "var(--line)",

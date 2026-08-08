@@ -37,7 +37,7 @@ export default function Lesson() {
             (x − {neg(h)})² + (y − {neg(k)})² = {rad}²
           </div>
 
-          <svg width={SIZE} height={SIZE} viewBox={`0 0 ${SIZE} ${SIZE}`} className="max-w-full" style={{ maxHeight: 320 }} role="img" aria-label="circle on a grid">
+          <svg width={SIZE} height={SIZE} viewBox={`0 0 ${SIZE} ${SIZE}`} className="max-w-full" style={{ maxHeight: 320 }} role="img" aria-label={`Circle centred at (${h}, ${k}) with radius ${rad} on a coordinate grid`}>
             {Array.from({ length: 2 * R + 1 }, (_, i) => i - R).map((v) => (
               <g key={v} stroke="var(--line)" strokeWidth={1}>
                 <line x1={sx(v)} y1={sy(-R)} x2={sx(v)} y2={sy(R)} />

@@ -50,7 +50,7 @@ export default function Lesson() {
               </tbody>
             </table>
 
-            <svg width={SIZE} height={SIZE} viewBox={`0 0 ${SIZE} ${SIZE}`} style={{ maxWidth: 250 }} role="img" aria-label="graph of y = mx">
+            <svg width={SIZE} height={SIZE} viewBox={`0 0 ${SIZE} ${SIZE}`} style={{ maxWidth: 250 }} role="img" aria-label={`Graph of y = ${m}x`}>
               {Array.from({ length: N + 1 }, (_, i) => (
                 <g key={i} stroke="var(--line)" strokeWidth={1}>
                   <line x1={sx(i)} y1={sy(0)} x2={sx(i)} y2={sy(N)} />
@@ -67,7 +67,7 @@ export default function Lesson() {
 
           <div className="flex flex-col items-center gap-1">
             <span className="text-xs font-semibold uppercase tracking-wide text-[var(--ink-faint)]">price per item = {m}</span>
-            <input type="range" min={1} max={3} value={m} onChange={(e) => setM(Number(e.target.value))} className="w-44 accent-[var(--band-upper)]" aria-label="rate" />
+            <input type="range" min={1} max={3} value={m} onChange={(e) => setM(Number(e.target.value))} className="w-44 accent-[var(--band-upper)]" aria-label="price per item" />
           </div>
         </div>
       </Figure>

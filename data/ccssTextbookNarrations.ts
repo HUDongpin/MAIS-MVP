@@ -25,7 +25,7 @@ export const ccssTextbookNarrationOverrides: Record<string, string> = {
   "flat-shapes":
     "Shapes have names, and a shape keeps its name no matter how you turn it. Pick a shape, then count its straight sides and its corners. A triangle always has three sides and three corners, even when it is upside down!",
   "compose-shapes":
-    "Small shapes can team up to build bigger ones. Two triangles can make a square. Six triangles can make a hexagon! Join the shapes together and see what new shape you can build.",
+    "Small shapes can team up to build bigger ones. Two triangles can make a square. Two squares can make a rectangle! Join the shapes together and see what new shape you can build.",
   "position-words":
     "Where is the ball? Position words tell us! The ball can be above the box, below the box, or beside the box. Move the ball around and say its position out loud.",
 

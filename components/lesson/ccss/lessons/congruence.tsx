@@ -40,7 +40,7 @@ export default function Lesson() {
 
       <Figure caption="Walk through the moves that carry triangle A onto target B — proving they're congruent.">
         <div className="flex flex-col items-center gap-6">
-          <svg width={SIZE} height={SIZE} viewBox={`0 0 ${SIZE} ${SIZE}`} className="max-w-full" style={{ maxHeight: 340 }} role="img" aria-label="congruence by transformation">
+          <svg width={SIZE} height={SIZE} viewBox={`0 0 ${SIZE} ${SIZE}`} className="max-w-full" style={{ maxHeight: 340 }} role="img" aria-label={`${labels[step]}. Moving triangle at ${current.map((p) => `(${p[0]}, ${p[1]})`).join(", ")}; dashed target B at ${STEP2.map((p) => `(${p[0]}, ${p[1]})`).join(", ")}`}>
             {Array.from({ length: 2 * R + 1 }, (_, i) => {
               const v = i - R;
               return (

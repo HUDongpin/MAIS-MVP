@@ -47,7 +47,7 @@ export default function Lesson() {
 
           <div className="flex flex-wrap items-center justify-center gap-8">
             <div className="text-center">
-              <svg width="200" height="160" viewBox="0 0 200 160" role="img" aria-label="cube with a cut">
+              <svg width="200" height="160" viewBox="0 0 200 160" role="img" aria-label={`Cube with a ${slice.name.toLowerCase()} cut through it`}>
                 {/* isometric cube */}
                 <polygon points="40,50 120,50 160,30 80,30" fill="var(--surface-2)" stroke="var(--ink-soft)" strokeWidth={1.5} />
                 <polygon points="40,50 120,50 120,130 40,130" fill="var(--surface-2)" stroke="var(--ink-soft)" strokeWidth={1.5} />
@@ -59,7 +59,7 @@ export default function Lesson() {
             </div>
 
             <div className="text-center">
-              <svg width="160" height="140" viewBox="0 0 160 140" role="img" aria-label={slice.shape}>
+              <svg width="160" height="140" viewBox="0 0 160 140" role="img" aria-label={`The cross-section this cut exposes: a ${slice.shape.toLowerCase()}`}>
                 {slice.section}
               </svg>
               <div className="text-lg font-black" style={{ color: CUT }}>{slice.shape}</div>

@@ -59,7 +59,7 @@ export default function Lesson() {
               className="rounded-xl px-4 py-2.5 text-sm font-bold text-white"
               style={{ background: showTens ? TENS : "var(--ink-faint)" }}
             >
-              {showTens ? "Hiding tens? tap" : "Show tens (10, 20, 30…)"}
+              {showTens ? "Hide tens (10, 20, 30…)" : "Show tens (10, 20, 30…)"}
             </button>
             <div className="flex flex-col items-center gap-1">
               <span className="text-xs font-semibold uppercase tracking-wide text-[var(--ink-faint)]">
