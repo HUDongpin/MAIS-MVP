@@ -344,7 +344,14 @@ function workedExampleBlock(topic: Topic): ProductionLessonBlock {
 
 function scaffoldedPracticeBlock(topic: Topic, topicQuestions: GeneratedCaliforniaQuestion[]): ProductionLessonBlock {
   const practiceQuestionIds = selectPracticeQuestionIds(topic.id);
+  // The page renders only the first `lessonPracticeQuestionLimit` (5) of these
+  // after deduping — StudentLessonPage.tsx:9 and :33. Saying "8 approved
+  // questions" to a student who will answer 5 is a promise the page does not
+  // keep, and this sentence is student-visible on the chapter pages. State the
+  // pool and what the checkpoint actually asks, separately.
+  const RENDERED_CHECKPOINT_QUESTIONS = 5;
   const questionCount = practiceQuestionIds.length;
+  const askedCount = Math.min(questionCount, RENDERED_CHECKPOINT_QUESTIONS);
 
   // Name the standards the page actually develops. The generated bank's
   // `standardIds` are rotated against the chapter topics (the same off-by-one
@@ -389,9 +396,9 @@ function scaffoldedPracticeBlock(topic: Topic, topicQuestions: GeneratedCaliforn
       // the 64 pages that have both: p2-2-nbt-three-digit-place-value named 9
       // standards its 8 checkpoint questions carry 4 of.
       local(
-        `Coverage check: this page develops ${standards}. Its checkpoint has ${questionCount} approved question${questionCount === 1 ? "" : "s"}.`,
-        `覆蓋檢查：本頁涵蓋 ${standards}。檢查點共有 ${questionCount} 道已批准題目。`,
-        `覆盖检查：本页涵盖 ${standards}。检查点共有 ${questionCount} 道已批准题目。`
+        `Coverage check: this page develops ${standards}. Its checkpoint asks ${askedCount} question${askedCount === 1 ? "" : "s"}, drawn from ${questionCount} approved for this page.`,
+        `覆蓋檢查：本頁涵蓋 ${standards}。檢查點會出 ${askedCount} 道題，取自本頁已批准的 ${questionCount} 道。`,
+        `覆盖检查：本页涵盖 ${standards}。检查点会出 ${askedCount} 道题，取自本页已批准的 ${questionCount} 道。`
       )
     ]
   };
