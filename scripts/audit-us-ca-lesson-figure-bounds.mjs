@@ -39,12 +39,24 @@ const measure = (slack) =>
     if (vb.length !== 4 || vb.some((n) => !Number.isFinite(n))) return [];
     const [vx, vy, vw, vh] = vb;
     const out = [];
+    let clippedSkipped = 0;
     // getBBox() is in the element's OWN coordinate system and ignores ancestor
     // transforms, so a <g transform="translate(...)"> marker reads as wildly
     // out of bounds when it is not. Map the box through the element's matrix
     // relative to the svg before comparing.
     const root = svg.getScreenCTM();
     for (const el of svg.querySelectorAll("circle, rect, polygon, polyline, line, path, ellipse")) {
+      // An element under a clipPath cannot paint outside it, so a geometric
+      // overflow there is not something a reader can see. Content silently
+      // REMOVED by a clip is a real defect — a solution dot clipped away while
+      // the label still counts it — but that is a claim-vs-drawn question, not
+      // a bounds one, and flagging clipped elements here only buries the ones
+      // that do spill.
+      let clipped = false;
+      for (let n = el; n && n !== svg; n = n.parentElement) {
+        if (n.getAttribute && (n.getAttribute("clip-path") || n.getAttribute("clipPath"))) { clipped = true; break; }
+      }
+      if (clipped) { clippedSkipped += 1; continue; }
       let b;
       try { b = el.getBBox(); } catch { continue; }
       if (!b || (b.width === 0 && b.height === 0)) continue;
@@ -67,6 +79,7 @@ const measure = (slack) =>
         });
       }
     }
+    if (clippedSkipped) out.clippedSkipped = clippedSkipped;
     return out;
   });
 
