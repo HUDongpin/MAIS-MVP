@@ -170,7 +170,7 @@ export default defineConfig({
           writeTempTsconfigCommand(e2eNextTsconfigPath, e2eNextDistDir),
           `env NEXT_DIST_DIR=${shellQuote(e2eNextDistDir)} NEXT_TSCONFIG_PATH=${shellQuote(e2eNextTsconfigPath)} ${disabledProviderEnv} NEXT_PUBLIC_SHOW_EXAMPLE_ACCOUNTS=true npm run build`,
           `rm -f ${shellQuote(e2eNextTsconfigPath)}`,
-          `env NEXT_DIST_DIR=${shellQuote(e2eNextDistDir)} ${disabledProviderEnv} AUTH_SESSION_SECRET=e2e-session-secret HK_MATH_DB_PATH=${shellQuote(e2eDbPath)} HK_MATH_EXPOSE_LOCAL_RESET_LINKS=true HK_MATH_ENABLE_DEMO_USER=true AI_TUTOR_MAX_REQUESTS_PER_MINUTE=2 npm run start -- --hostname 127.0.0.1 --port ${port}`
+          `env NEXT_DIST_DIR=${shellQuote(e2eNextDistDir)} ${disabledProviderEnv} AUTH_SESSION_SECRET=e2e-session-secret HK_MATH_DB_PATH=${shellQuote(e2eDbPath)} HK_MATH_EXPOSE_LOCAL_RESET_LINKS=true HK_MATH_ENABLE_DEMO_USER=true AI_TUTOR_MAX_REQUESTS_PER_MINUTE=2 HK_MATH_E2E_LOGIN_IDENTIFIER_MAX=400 npm run start -- --hostname 127.0.0.1 --port ${port}`
         ].join(" && "),
         url: baseURL,
         reuseExistingServer: false,
